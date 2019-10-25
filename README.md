@@ -8,7 +8,7 @@ A WebGL-based UI library.
 npm i @wcardinal/wcardinal-ui
 ```
 
-Please note that this package have no default exports.
+Please note that this package has no default exports.
 
 ```javascript
 import { loadAll, DApplication, DButtonCheck } from '@wcardinal/wcardinal-ui';
@@ -31,8 +31,8 @@ new DButtonCheck({
 
 ### Tree shaking
 
-The NPM packages are large in their sizes.
-This is because all the UI classes and their themes are included.
+The NPM package `@wcardinal/wcardinal-ui` is large in its sizes
+because all the UI classes and their themes are included.
 This is why the tree shaking is important for this library.
 
 The `loadAll` loads all the optional modules (e.g., `DMenuItemCheck`) and the default theme (e.g., `DThemeWhite`).
@@ -67,8 +67,7 @@ loadThemeWhiteAll();
 	* Secondary button
 	* Time button
 	* Undo button
-* Canvas container
-* Canvas
+* Canvas container and Canvas
 * chart
 	* Line chart (In progress)
 * Diagram (With tile server support)
