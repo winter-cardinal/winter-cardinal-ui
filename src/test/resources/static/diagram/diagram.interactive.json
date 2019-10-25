@@ -1,0 +1,16 @@
+{
+	"version": 1,
+	"name": "Diagram Interactive",
+	"width": 500,
+	"height": 500,
+	"background": {
+		"color": 2201331
+	},
+	"resources": ["wait"],
+	"layers": [
+		["Default"]
+	],
+	"items": [
+		[ 0, -1, 250, 250, 100, 100, 0, 0, -1, -1, 0, -1, -1, 0, 0, -1, 0, [], -1, -1, [], 0, 0, 1, -1, -1 ]
+	]
+}

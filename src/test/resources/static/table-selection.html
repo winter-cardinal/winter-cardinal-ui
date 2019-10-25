@@ -1,0 +1,89 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #1e1e1e;
+	}
+	</style>
+</head>
+<body>
+	<script src="/webjars/pixi/pixi.js"></script>
+	<script src="/webjars/wcardinal-ui/wcardinal-ui.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+
+		// Data
+		var data = [];
+		for( var i = 0; i < 150; ++i ) {
+			data.push([
+				undefined,
+				`B${i}`,
+				i,
+				0x3388ff,
+				i % 3 === 0
+			]);
+		}
+
+		// Table
+		new wcardinal.ui.DTable({
+			parent: application.stage,
+			x: 50, y: 50,
+			width: 600, height: 600,
+			columns: [{
+				label: "A",
+				type: "DATETIME",
+				editable: true
+			},{
+				label: "B",
+				type: "TEXT",
+				editable: true
+			},{
+				label: "C",
+				type: "INTEGER",
+				editable: true,
+				editing: {
+					validator: ( value ) => {
+						return ( value % 2 === 0 ? "No even numbers" : null );
+					}
+				}
+			},{
+				label: "D",
+				type: "COLOR",
+				editable: true
+			},{
+				label: "E",
+				type: "CHECK",
+				editable: true
+			}],
+			data: data,
+			body: {
+				selection: {
+					type: "MULTIPLE"
+				},
+				on: {
+					change: ( value, rowIndex, columnIndex, values, body ) => {
+						console.log( value, rowIndex, columnIndex, values, body );
+					}
+				}
+			}
+		});
+	}());
+	</script>
+</body>
+</html>

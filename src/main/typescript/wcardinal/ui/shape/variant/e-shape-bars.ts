@@ -1,0 +1,22 @@
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { DDiagramSerializedItem } from "../../d-diagram-serialized";
+import { EShapePointsStyle } from "../e-shape-points";
+import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
+import { EShapes } from "../e-shapes";
+import { EShapeBar } from "./e-shape-bar";
+import { EShapeBarPosition } from "./e-shape-bar-position";
+
+export class EShapeBars {
+	static deserialize(
+		item: DDiagramSerializedItem, manager: EShapeResourceManagerDeserialization
+	): Promise<EShapeBar> | EShapeBar {
+		const shape = new EShapeBar( EShapeBarPosition.RIGHT, 10, 3, EShapePointsStyle.NONE );
+		const result = EShapes.deserialize( item, manager, shape );
+		shape.points.deserialize( item[ 15 ], manager );
+		return result;
+	}
+}
