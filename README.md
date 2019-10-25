@@ -31,7 +31,7 @@ new DButtonCheck({
 
 ### Tree shaking
 
-The NPM package `@wcardinal/wcardinal-ui` is large in its sizes
+The NPM package `@wcardinal/wcardinal-ui` is large in its size
 because all the UI classes and their themes are included.
 This is why the tree shaking is important for this library.
 
@@ -51,8 +51,7 @@ loadThemeWhiteAll();
 * Board
 * Button
 	* Ambient button
-	* Check button
-	* Right-side check button
+	* Check button (Left / right)
 	* Gradient color button
 	* Color button
 	* Danger button
@@ -61,8 +60,7 @@ loadThemeWhiteAll();
 	* File button
 	* Group button
 	* Primary button
-	* Radio button
-	* Right-side radio button
+	* Radio button (Left / right)
 	* Redo button
 	* Secondary button
 	* Time button
@@ -70,12 +68,13 @@ loadThemeWhiteAll();
 * Canvas container and Canvas
 * chart
 	* Line chart (In progress)
-* Diagram (With tile server support)
+* Diagram with tile server support
 * Dialog
 	* Gradient color dialog
 	* Color dialog
-	* Delete confirm dialog
-	* Discard confirm dialog
+	* Confirm dialog
+		* For deleting
+		* For discarding
 	* Date dialog
 	* Datetime dialog
 	* Text input dialog
@@ -113,9 +112,9 @@ loadThemeWhiteAll();
 
 * WebGL 1.0 support
 * Promise support
-* Base64-encoded SVG for textures
-	* IE11 does not support this
-	* May not be required if your theme doesn't use it
+* Base64-encoded SVG support for textures
+	* IE11 does not support this.
+	* Not required if your theme doesn't use it
 * Stencil support
 
 ### License
@@ -123,6 +122,6 @@ loadThemeWhiteAll();
 Apache License Version 2.0.
 
 The default theme uses Material Design icons by Google
-licensed under Apache license version 2.0.
+licensed under Apache license version 2.0.\
 https://github.com/google/material-design-icons
 
