@@ -13,6 +13,8 @@ import { DThemeWhiteButtonAmbient } from "./d-theme-white-button-ambient";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteFont } from "./d-theme-white-font";
 
+// Material Design icons by Google.
+// Apache license version 2.0.
 DThemeWhiteAtlas.add( "button_radio_mark_on", 21, 21,
 	`<g transform="scale(0.875,0.875)">` +
 		`<path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48` +

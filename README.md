@@ -120,4 +120,9 @@ loadThemeWhiteAll();
 
 ### License
 
-Apache License Version 2.0
+Apache License Version 2.0.
+
+The default theme uses Material Design icons by Google
+licensed under Apache license version 2.0.
+https://github.com/google/material-design-icons
+

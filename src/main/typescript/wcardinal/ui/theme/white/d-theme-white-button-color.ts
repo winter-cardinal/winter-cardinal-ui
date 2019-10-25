@@ -11,6 +11,8 @@ import { UtilRgb } from "../../util/util-rgb";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteButton } from "./d-theme-white-button";
 
+// Material Design icons by Google.
+// Apache license version 2.0.
 DThemeWhiteAtlas.add( "button_color_sample", 21, 21,
 	`<g transform="scale(0.875,0.875)">` +
 		`<path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" fill="#fff"/>` +

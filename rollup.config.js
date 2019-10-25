@@ -27,6 +27,9 @@ const BANNER =
 `/*
  Winter Cardinal UI v${version}
  ${LICENSE_HEADER}
+
+ Material Design icons by Google
+ Apache license version 2.0.
 */`
 
 // Terser options

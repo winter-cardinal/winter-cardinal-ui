@@ -13,6 +13,8 @@ import { DThemeWhiteButtonAmbient } from "./d-theme-white-button-ambient";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteFont } from "./d-theme-white-font";
 
+// Material Design icons by Google.
+// Apache license version 2.0.
 DThemeWhiteAtlas.add( "button_check_mark_on", 21, 21,
 	`<g transform="scale(0.875,0.875)">` +
 		`<path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89` +
