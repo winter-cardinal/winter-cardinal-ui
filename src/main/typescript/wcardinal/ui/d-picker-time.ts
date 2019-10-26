@@ -12,7 +12,6 @@ import { DLayoutHorizontal } from "./d-layout-horizontal";
 import { DLayoutVertical } from "./d-layout-vertical";
 import { DPickerDatetimeMask } from "./d-picker-datetime-mask";
 import { DPickerTimeBoundDate, DPickerTimeBoundOptions } from "./d-picker-time-bound";
-import { HOURS_MAX, MINUTES_MAX, SECONDS_MAX } from "./d-picker-time-bound-constant";
 import { DPickerTimeBounds, DPickerTimeBoundsOptions } from "./d-picker-time-bounds";
 import { DText } from "./d-text";
 
@@ -308,7 +307,8 @@ export class DPickerTime<
 
 	protected newInputHours( theme: THEME, options?: OPTIONS ): DInputInteger | null {
 		const inputOptions = ( options && options.hours ) || theme.getHoursOptions();
-		const input = new DInputInteger( this.adjustInputOptions( theme, inputOptions, HOURS_MAX ) );
+		const max = this._dateBounds.constant.hour.max;
+		const input = new DInputInteger( this.adjustInputOptions( theme, inputOptions, max ) );
 		input.on( "change", ( value: number ): void => {
 			this.onHoursChanged( value );
 		});
@@ -323,7 +323,8 @@ export class DPickerTime<
 
 	protected newInputMinutes( theme: THEME, options?: OPTIONS ): DInputInteger | null {
 		const inputOptions = ( options && options.minutes ) || theme.getMinutesOptions();
-		const input = new DInputInteger( this.adjustInputOptions( theme, inputOptions, MINUTES_MAX ) );
+		const max = this._dateBounds.constant.minute.max;
+		const input = new DInputInteger( this.adjustInputOptions( theme, inputOptions, max ) );
 		input.on( "change", ( value: number ): void => {
 			this.onMinutesChanged( value );
 		});
@@ -338,7 +339,8 @@ export class DPickerTime<
 
 	protected newInputSeconds( theme: THEME, options?: OPTIONS ): DInputInteger | null {
 		const inputOptions = ( options && options.seconds ) || theme.getSecondsOptions();
-		const input = new DInputInteger( this.adjustInputOptions( theme, inputOptions, SECONDS_MAX ) );
+		const max = this._dateBounds.constant.second.max;
+		const input = new DInputInteger( this.adjustInputOptions( theme, inputOptions, max ) );
 		input.on( "change", ( value: number ): void => {
 			this.onSecondsChanged( value );
 		});

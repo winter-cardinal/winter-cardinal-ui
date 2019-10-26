@@ -5,6 +5,7 @@
 
 import { DPickerDatetimeMask } from "./d-picker-datetime-mask";
 import { DPickerTimeBound, DPickerTimeBoundOptions } from "./d-picker-time-bound";
+import { DPickerTimeBoundConstant } from "./d-picker-time-bound-constant";
 import { DPickerTimeBoundHours } from "./d-picker-time-bound-hours";
 import { DPickerTimeBoundMinutes } from "./d-picker-time-bound-minutes";
 import { DPickerTimeBoundSeconds } from "./d-picker-time-bound-seconds";
@@ -21,14 +22,35 @@ export class DPickerTimeBounds {
 	hours: DPickerTimeBoundHours;
 	minutes: DPickerTimeBoundMinutes;
 	seconds: DPickerTimeBoundSeconds;
+	constant: DPickerTimeBoundConstant;
 
 	constructor( options: DPickerTimeBoundsOptions | undefined, onChange: () => void ) {
+		this.constant = this.newConstant();
 		this.lower = new DPickerTimeBound( options && options.lower, onChange );
 		this.upper = new DPickerTimeBound( options && options.upper, onChange );
 		this.mask = DPickerDatetimeMask.ALL;
 		this.hours = new DPickerTimeBoundHours( this );
 		this.minutes = new DPickerTimeBoundMinutes( this );
 		this.seconds = new DPickerTimeBoundSeconds( this );
+	}
+
+	newConstant(): DPickerTimeBoundConstant {
+		return {
+			second: {
+				min: 0,
+				max: 59
+			},
+
+			minute: {
+				min: 0,
+				max: 59
+			},
+
+			hour: {
+				min: 0,
+				max: 23
+			}
+		};
 	}
 
 	adjust( date: Date ): boolean {

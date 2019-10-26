@@ -5,15 +5,13 @@
 
 import { DPickerDatetimeMask } from "./d-picker-datetime-mask";
 import { DPickerTimeBound } from "./d-picker-time-bound";
-import {
-	HOURS_MAX, HOURS_MIN, MINUTES_MAX,
-	MINUTES_MIN, SECONDS_MAX, SECONDS_MIN
-} from "./d-picker-time-bound-constant";
+import { DPickerTimeBoundConstant } from "./d-picker-time-bound-constant";
 
 export interface DPickerTimeBoundHoursParent {
 	lower: DPickerTimeBound;
 	upper: DPickerTimeBound;
 	mask: DPickerDatetimeMask;
+	constant: DPickerTimeBoundConstant;
 }
 
 export class DPickerTimeBoundHours {
@@ -27,17 +25,18 @@ export class DPickerTimeBoundHours {
 		const parent = this._parent;
 		const lower = parent.lower;
 		const lowerDate = lower.date;
+		const constant = parent.constant;
 		if( lowerDate != null ) {
 			const mask = parent.mask;
 			if( mask & DPickerDatetimeMask.DATE ) {
 				if( lowerDate.getFullYear() < date.getFullYear() ) {
-					return HOURS_MIN;
+					return constant.hour.min;
 				}
 				if( lowerDate.getMonth() < date.getMonth() ) {
-					return HOURS_MIN;
+					return constant.hour.min;
 				}
 				if( lowerDate.getDate() < date.getDate() ) {
-					return HOURS_MIN;
+					return constant.hour.min;
 				}
 			}
 			const lowerDateHours = lowerDate.getHours();
@@ -45,36 +44,37 @@ export class DPickerTimeBoundHours {
 				return lowerDateHours;
 			} else {
 				if( mask & DPickerDatetimeMask.SECONDS ) {
-					if( lowerDate.getSeconds() < SECONDS_MAX ) {
+					if( lowerDate.getSeconds() < constant.second.max ) {
 						return lowerDateHours;
 					}
 				}
 				if( mask & DPickerDatetimeMask.MINUTES ) {
-					if( lowerDate.getMinutes() < MINUTES_MAX ) {
+					if( lowerDate.getMinutes() < constant.minute.max ) {
 						return lowerDateHours;
 					}
 				}
 				return lowerDateHours + 1;
 			}
 		}
-		return HOURS_MIN;
+		return constant.hour.min;
 	}
 
 	max( date: Date ): number {
 		const parent = this._parent;
 		const upper = parent.upper;
 		const upperDate = upper.date;
+		const constant = parent.constant;
 		if( upperDate != null ) {
 			const mask = parent.mask;
 			if( mask & DPickerDatetimeMask.DATE ) {
 				if( date.getFullYear() < upperDate.getFullYear() ) {
-					return HOURS_MAX;
+					return constant.hour.max;
 				}
 				if( date.getMonth() < upperDate.getMonth() ) {
-					return HOURS_MAX;
+					return constant.hour.max;
 				}
 				if( date.getDate() < upperDate.getDate() ) {
-					return HOURS_MAX;
+					return constant.hour.max;
 				}
 			}
 			const upperDateHours = upperDate.getHours();
@@ -82,18 +82,18 @@ export class DPickerTimeBoundHours {
 				return upperDateHours;
 			} else {
 				if( mask & DPickerDatetimeMask.SECONDS ) {
-					if( SECONDS_MIN < upperDate.getSeconds() ) {
+					if( constant.second.min < upperDate.getSeconds() ) {
 						return upperDateHours;
 					}
 				}
 				if( mask & DPickerDatetimeMask.MINUTES ) {
-					if( MINUTES_MIN < upperDate.getMinutes() ) {
+					if( constant.minute.min < upperDate.getMinutes() ) {
 						return upperDateHours;
 					}
 				}
 				return upperDateHours - 1;
 			}
 		}
-		return HOURS_MAX;
+		return constant.hour.max;
 	}
 }
