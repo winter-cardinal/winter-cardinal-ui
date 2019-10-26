@@ -5,14 +5,29 @@
 
 import { DBaseState } from "./d-base-state";
 import {
-	DControllerFocus, Focusable, FocusableContainer,
-	isFocusable, isFocusableContainer, isSelectable, MightBeFocusable
+	DControllerFocus, DFocusable, DFocusableContainer, DFocusableMightBe
 } from "./d-controller-focus";
 
-export class DControllerDefaultFocus implements DControllerFocus {
-	private _focused: Focusable | null = null;
+const isFocusable = ( target: any ): target is DFocusable => {
+	return ( target != null && ("setState" in target) );
+};
 
-	setFocused( focusable: Focusable | null, isFocused: boolean, select: boolean ): Focusable | null {
+const isFocusableContainer = ( target: any ): target is DFocusableContainer => {
+	return ( target != null && "children" in target );
+};
+
+interface Selectable {
+	select(): void;
+}
+
+const isSelectable = ( target: any ): target is Selectable => {
+	return ( target != null && "select" in target );
+};
+
+export class DControllerDefaultFocus implements DControllerFocus {
+	private _focused: DFocusable | null = null;
+
+	setFocused( focusable: DFocusable | null, isFocused: boolean, select: boolean ): DFocusable | null {
 		if( isFocused ) {
 			const previous = this._focused;
 			if( previous !== focusable ) {
@@ -44,12 +59,12 @@ export class DControllerDefaultFocus implements DControllerFocus {
 		}
 	}
 
-	getFocused(): Focusable | null {
+	getFocused(): DFocusable | null {
 		return this._focused;
 	}
 
-	findFocusableParent( mightBeFocusable: MightBeFocusable | null ): Focusable | null {
-		let current: MightBeFocusable | FocusableContainer | null = mightBeFocusable;
+	findFocusableParent( mightBeFocusable: DFocusableMightBe | null ): DFocusable | null {
+		let current: DFocusableMightBe | DFocusableContainer | null = mightBeFocusable;
 		while( current != null ) {
 			if( this.isFocusable( current ) ) {
 				return current;
@@ -60,7 +75,7 @@ export class DControllerDefaultFocus implements DControllerFocus {
 		return null;
 	}
 
-	protected isFocusable( target: unknown ): target is Focusable {
+	protected isFocusable( target: unknown ): target is DFocusable {
 		return (
 			isFocusable( target ) &&
 			! target.hasState( DBaseState.DISABLED | DBaseState.UNFOCUSABLE ) &&
@@ -68,7 +83,7 @@ export class DControllerDefaultFocus implements DControllerFocus {
 		);
 	}
 
-	protected isFocusRoot( target: unknown ): target is Focusable {
+	protected isFocusRoot( target: unknown ): target is DFocusable {
 		return (
 			isFocusable( target ) &&
 			target.hasState( DBaseState.FOCUS_ROOT ) &&
@@ -77,8 +92,8 @@ export class DControllerDefaultFocus implements DControllerFocus {
 	}
 
 	findFocusable(
-		target: MightBeFocusable, includesTarget: boolean, includesTargetChildren: boolean, direction: boolean
-	): Focusable | null {
+		target: DFocusableMightBe, includesTarget: boolean, includesTargetChildren: boolean, direction: boolean
+	): DFocusable | null {
 		if( direction ) {
 			const result = this.findFocusableNext( target, includesTarget, includesTargetChildren );
 			if( result != null ) {
@@ -147,8 +162,8 @@ export class DControllerDefaultFocus implements DControllerFocus {
 	}
 
 	protected findFocusableNext(
-		target: MightBeFocusable, includesTarget: boolean, includesTargetChildren: boolean
-	): Focusable | null {
+		target: DFocusableMightBe, includesTarget: boolean, includesTargetChildren: boolean
+	): DFocusable | null {
 		// Target itself
 		if( includesTarget ) {
 			if( this.isFocusable( target ) ) {
@@ -177,8 +192,8 @@ export class DControllerDefaultFocus implements DControllerFocus {
 	}
 
 	protected findFocusablePrevious(
-		target: MightBeFocusable, includesTarget: boolean, includesTargetChildren: boolean
-	): Focusable | null {
+		target: DFocusableMightBe, includesTarget: boolean, includesTargetChildren: boolean
+	): DFocusable | null {
 		// Target children
 		if( includesTargetChildren && isFocusableContainer( target ) && target.visible ) {
 			const children = target.children;

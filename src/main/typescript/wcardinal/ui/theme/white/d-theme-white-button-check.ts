@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DisplayObject, Texture } from "pixi.js";
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { DThemeButtonCheck } from "../../d-button-check";
-import { IMAGE_SOURCE } from "../../d-image-base";
 import { UtilRgb } from "../../util/util-rgb";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteButtonAmbient } from "./d-theme-white-button-ambient";
@@ -65,7 +65,7 @@ export class DThemeWhiteButtonCheck extends DThemeWhiteButtonAmbient implements 
 		return true;
 	}
 
-	getImageSource( state: DBaseState ): IMAGE_SOURCE | null {
+	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
 		if( DBaseStates.isActive( state ) ) {
 			return DThemeWhiteAtlas.mappings.button_check_mark_on;
 		} else {

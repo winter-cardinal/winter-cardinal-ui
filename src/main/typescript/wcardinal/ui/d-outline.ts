@@ -6,15 +6,15 @@
 import { DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DBorderMask } from "./d-border";
-import { DStateAware } from "./d-state-aware";
+import { DStateAwareOrValueMightBe } from "./d-state-aware";
 
 export interface DOutlineLike {
-	color?: DStateAware<number | null | undefined> | number | null;
-	alpha?: DStateAware<number | undefined> | number;
-	width?: DStateAware<number | undefined> | number;
-	offset?: DStateAware<number | undefined> | number;
-	align?: DStateAware<number | undefined> | number;
-	mask?: DStateAware<DBorderMask | undefined> | DBorderMask;
+	color?: DStateAwareOrValueMightBe<number | null>;
+	alpha?: DStateAwareOrValueMightBe<number>;
+	width?: DStateAwareOrValueMightBe<number>;
+	offset?: DStateAwareOrValueMightBe<number>;
+	align?: DStateAwareOrValueMightBe<number>;
+	mask?: DStateAwareOrValueMightBe<DBorderMask>;
 }
 
 export interface DOutline extends DOutlineLike {

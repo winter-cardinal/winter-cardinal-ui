@@ -8,7 +8,7 @@ import { DBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DBaseStates } from "./d-base-states";
 import { DImage, DImageOptions, DThemeImage } from "./d-image";
-import { DStateAware } from "./d-state-aware";
+import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 
 export interface DListItemOptions<
@@ -20,7 +20,7 @@ export interface DListItemOptions<
 
 export interface DThemeListItem extends DThemeImage {
 	getTextValue( state: DBaseState ): string;
-	newTextValue(): DStateAware<string | undefined> | string | undefined;
+	newTextValue(): DStateAwareOrValueMightBe<string>;
 }
 
 // Option parser

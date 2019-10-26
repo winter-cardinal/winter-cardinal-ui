@@ -5,7 +5,7 @@
 
 import { DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
-import { DStateAware } from "./d-state-aware";
+import { DStateAwareOrValueMightBe } from "./d-state-aware";
 
 export enum DBorderMask {
 	NONE = 0,
@@ -33,11 +33,11 @@ export enum DBorderMask {
 }
 
 export interface DBorder {
-	color?: DStateAware<number | null | undefined> | number | null;
-	alpha?: DStateAware<number | undefined> | number;
-	width?: DStateAware<number | undefined> | number;
-	align?: DStateAware<number | undefined> | number;
-	mask?: DStateAware<DBorderMask | undefined> | DBorderMask;
+	color?: DStateAwareOrValueMightBe<number | null>;
+	alpha?: DStateAwareOrValueMightBe<number>;
+	width?: DStateAwareOrValueMightBe<number>;
+	align?: DStateAwareOrValueMightBe<number>;
+	mask?: DStateAwareOrValueMightBe<DBorderMask>;
 }
 
 export interface DBorderStateAware extends DBorder {

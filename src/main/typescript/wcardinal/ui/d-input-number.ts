@@ -6,7 +6,7 @@
 import { Rectangle } from "pixi.js";
 import { DBaseState } from "./d-base-state";
 import { DInput, DInputOptions, DThemeInput } from "./d-input";
-import { DStateAware } from "./d-state-aware";
+import { DStateAwareOrValueMightBe } from "./d-state-aware";
 
 export interface DInputNumberOptions<
 	THEME extends DThemeInputNumber = DThemeInputNumber
@@ -21,7 +21,7 @@ export interface DThemeInputNumber extends DThemeInput {
 	getEditingUnformatter(): ( text: string, caller: DInputNumber ) => number;
 	getEditingValidator(): ( value: number, caller: DInputNumber ) => unknown;
 	getTextValue( state: DBaseState ): number;
-	newTextValue(): DStateAware<number | undefined> | number | undefined;
+	newTextValue(): DStateAwareOrValueMightBe<number>;
 	getStep(): number | null;
 	getMin(): number | null;
 	getMax(): number | null;

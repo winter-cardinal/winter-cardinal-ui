@@ -6,15 +6,15 @@
 import { DBackgroundStateAware } from "./d-background";
 import { DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
-import { DStateAware } from "./d-state-aware";
+import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { utilIsFunction } from "./util/util-is-function";
 
 type Callback = () => void;
 
 export class DBaseBackground implements DBackgroundStateAware {
 	protected _theme: DThemeBase;
-	protected _color?: DStateAware<number | null | undefined> | number | null;
-	protected _alpha?: DStateAware<number | undefined> | number;
+	protected _color?: DStateAwareOrValueMightBe<number | null>;
+	protected _alpha?: DStateAwareOrValueMightBe<number>;
 	protected _callback: Callback | undefined;
 
 	constructor( theme: DThemeBase, options?: DBaseOptions<any>, callback?: Callback ) {
@@ -50,11 +50,11 @@ export class DBaseBackground implements DBackgroundStateAware {
 		return this._theme.getBackgroundColor( state );
 	}
 
-	get color(): DStateAware<number | null | undefined> | number | null | undefined {
+	get color(): DStateAwareOrValueMightBe<number | null> {
 		return this._color;
 	}
 
-	set color( color: DStateAware<number | null | undefined> | number | null | undefined ) {
+	set color( color: DStateAwareOrValueMightBe<number | null> ) {
 		if( this._color !== color ) {
 			this._color = color;
 			this.onChange();
@@ -76,11 +76,11 @@ export class DBaseBackground implements DBackgroundStateAware {
 		return this._theme.getBackgroundAlpha( state );
 	}
 
-	get alpha(): DStateAware<number | undefined> | number | undefined {
+	get alpha(): DStateAwareOrValueMightBe<number> {
 		return this._alpha;
 	}
 
-	set alpha( alpha: DStateAware<number | undefined> | number | undefined ) {
+	set alpha( alpha: DStateAwareOrValueMightBe<number> ) {
 		if( this._alpha !== alpha ) {
 			this._alpha = alpha;
 			this.onChange();

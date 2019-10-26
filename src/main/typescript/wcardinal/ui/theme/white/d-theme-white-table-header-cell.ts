@@ -7,7 +7,7 @@ import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DBaseState } from "../../d-base-state";
 import { DCoordinate } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
-import { DStateAware } from "../../d-state-aware";
+import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeTableHeaderCell } from "../../d-table-header-cell";
 import { DThemeWhiteTextBase } from "./d-theme-white-text-base";
 
@@ -36,7 +36,7 @@ export class DThemeWhiteTableHeaderCell extends DThemeWhiteTextBase implements D
 		return null;
 	}
 
-	newTextValue(): DStateAware<string | null | undefined> | string | null | undefined {
+	newTextValue(): DStateAwareOrValueMightBe<string | null> {
 		return null;
 	}
 }

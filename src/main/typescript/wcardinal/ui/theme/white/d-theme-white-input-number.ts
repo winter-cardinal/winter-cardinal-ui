@@ -6,7 +6,7 @@
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DBaseState } from "../../d-base-state";
 import { DThemeInputNumber } from "../../d-input-number";
-import { DStateAware } from "../../d-state-aware";
+import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeWhiteInput } from "./d-theme-white-input";
 
 export class DThemeWhiteInputNumber extends DThemeWhiteInput implements DThemeInputNumber {
@@ -26,7 +26,7 @@ export class DThemeWhiteInputNumber extends DThemeWhiteInput implements DThemeIn
 		return null;
 	}
 
-	newTextValue(): DStateAware<number | undefined> | number | undefined {
+	newTextValue(): DStateAwareOrValueMightBe<number> {
 		return 0;
 	}
 

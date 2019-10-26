@@ -8,20 +8,17 @@ import { DAlignHorizontal } from "./d-align-horizontal";
 import { DAlignVertical } from "./d-align-vertical";
 import { DAlignWith } from "./d-align-with";
 import { DApplications } from "./d-applications";
-import { Refitable } from "./d-base";
+import { DRefitable } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DDynamicText } from "./d-dynamic-text";
-import { DStateAware } from "./d-state-aware";
+import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { DTextBase, DTextBaseOptions, DThemeTextBase } from "./d-text-base";
 import { utilIsFunction } from "./util/util-is-function";
 import { utilIsString } from "./util/util-is-string";
 
-export type IMAGE_SOURCE = Texture | DisplayObject;
-export type IMAGE = DisplayObject;
-
 interface DImageBaseTintOptions {
-	color?: DStateAware<number | null | undefined> | number | null;
-	alpha?: DStateAware<number | undefined> | number;
+	color?: DStateAwareOrValueMightBe<number | null>;
+	alpha?: DStateAwareOrValueMightBe<number>;
 }
 
 export interface DImageBaseOptions<
@@ -29,7 +26,7 @@ export interface DImageBaseOptions<
 	THEME extends DThemeImageBase = DThemeImageBase
 > extends DTextBaseOptions<VALUE, THEME> {
 	image?: {
-		source?: DStateAware<IMAGE_SOURCE | null | undefined> | IMAGE_SOURCE | null;
+		source?: DStateAwareOrValueMightBe<Texture | DisplayObject | null>;
 		tint?: DImageBaseTintOptions,
 		align?: {
 			with?: (keyof typeof DAlignWith) | DAlignWith,
@@ -51,13 +48,8 @@ export interface DThemeImageBase extends DThemeTextBase {
 	getImageMarginVertial(): number;
 	getImageTintColor( state: DBaseState ): number | null;
 	getImageTintAlpha( state: DBaseState ): number;
-	getImageSource( state: DBaseState ): IMAGE_SOURCE | null;
+	getImageSource( state: DBaseState ): Texture | DisplayObject | null;
 }
-
-// Helper
-export const isTintAware = ( target: IMAGE | null ): target is IMAGE & { tint: number } => {
-	return ( target != null && "tint" in target );
-};
 
 // Option parser
 const toImageAlign = <VALUE, THEME extends DThemeImageBase>(
@@ -122,9 +114,9 @@ export class DImageBase<
 	THEME extends DThemeImageBase = DThemeImageBase,
 	OPTIONS extends DImageBaseOptions<VALUE, THEME> = DImageBaseOptions<VALUE, THEME>
 > extends DTextBase<VALUE, THEME, OPTIONS> {
-	protected _image!: IMAGE | null;
-	protected _imageSourceComputed!: IMAGE_SOURCE | null;
-	protected _imageSource!: DStateAware<IMAGE_SOURCE | null | undefined> | IMAGE_SOURCE | null | undefined;
+	protected _image!: DisplayObject | null;
+	protected _imageSourceComputed!: Texture | DisplayObject | null;
+	protected _imageSource!: DStateAwareOrValueMightBe<Texture | DisplayObject | null>;
 	protected _imageAlign!: {
 		with: DAlignWith,
 		vertical: DAlignVertical,
@@ -155,11 +147,11 @@ export class DImageBase<
 		};
 	}
 
-	get image(): DStateAware<IMAGE_SOURCE | null | undefined> | IMAGE_SOURCE | null | undefined {
+	get image(): DStateAwareOrValueMightBe<Texture | DisplayObject | null> {
 		return this._imageSource;
 	}
 
-	set image( imageSource: DStateAware<IMAGE_SOURCE | null | undefined> | IMAGE_SOURCE | null | undefined ) {
+	set image( imageSource: DStateAwareOrValueMightBe<Texture | DisplayObject | null> ) {
 		if( this._imageSource !== imageSource ) {
 			this._imageSource = imageSource;
 			this.toDirty();
@@ -167,7 +159,7 @@ export class DImageBase<
 		}
 	}
 
-	protected computeImageSource(): IMAGE_SOURCE | null {
+	protected computeImageSource(): Texture | DisplayObject | null {
 		const imageSource = this._imageSource;
 		if( imageSource !== undefined ) {
 			if( utilIsFunction( imageSource ) ) {
@@ -196,7 +188,7 @@ export class DImageBase<
 		}
 	}
 
-	protected getImageRect( image: IMAGE ): Rectangle {
+	protected getImageRect( image: DisplayObject ): Rectangle {
 		image.updateTransform();
 		const bounds = image.getLocalBounds( this._imageBound );
 		const point = this._imageBoundPoint;
@@ -223,7 +215,7 @@ export class DImageBase<
 		return bounds;
 	}
 
-	protected updateTextAndImagePosition( text: DDynamicText | Text, image: IMAGE ): void {
+	protected updateTextAndImagePosition( text: DDynamicText | Text, image: DisplayObject ): void {
 		const bounds = this.getImageRect( image );
 		const imageWidth = bounds.width;
 		const imageHeight = bounds.height;
@@ -349,13 +341,13 @@ export class DImageBase<
 		}
 	}
 
-	protected updateImagePositionText( image: IMAGE ): void {
+	protected updateImagePositionText( image: DisplayObject ): void {
 		const bounds = this.getImageRect( image );
 		image.x = this.toRounded( ( this.width - bounds.width ) * 0.5 );
 		image.y = this.toRounded( ( this.height - bounds.height ) * 0.5 );
 	}
 
-	protected updateImagePositionPadding( image: IMAGE ): void {
+	protected updateImagePositionPadding( image: DisplayObject ): void {
 		const margin = this._imageMargin;
 		const align = this._imageAlign;
 		const padding = this._padding;
@@ -390,7 +382,7 @@ export class DImageBase<
 		}
 	}
 
-	protected updateImagePositionBorder( image: IMAGE ): void {
+	protected updateImagePositionBorder( image: DisplayObject ): void {
 		const margin = this._imageMargin;
 		const align = this._imageAlign;
 		const bounds = this.getImageRect( image );
@@ -461,7 +453,7 @@ export class DImageBase<
 	}
 
 	protected updateImageTint( image: DisplayObject ): void {
-		if( isTintAware( image ) ) {
+		if( this.isTintAware( image ) ) {
 			const theme = this.theme;
 			const state = this.state;
 			const color = this.getImageTintColor( theme, state );
@@ -475,6 +467,10 @@ export class DImageBase<
 				}
 			}
 		}
+	}
+
+	protected isTintAware( target: DisplayObject | null ): target is DisplayObject & { tint: number } {
+		return ( target != null && "tint" in target );
 	}
 
 	protected updateImageSource(): void {
@@ -580,7 +576,7 @@ export class DImageBase<
 		}
 	}
 
-	protected isRefitable( target: any ): target is Refitable {
+	protected isRefitable( target: any ): target is DRefitable {
 		return super.isRefitable( target ) ||
 			(target != null && target === this._image);
 	}

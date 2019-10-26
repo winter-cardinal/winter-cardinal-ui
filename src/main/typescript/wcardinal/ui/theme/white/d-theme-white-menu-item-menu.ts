@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignWith } from "../../d-align-with";
 import { DBaseState } from "../../d-base-state";
-import { IMAGE_SOURCE } from "../../d-image-base";
 import { DThemeMenuItemMenu } from "../../d-menu-item-menu";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteMenuItem } from "./d-theme-white-menu-item";
@@ -18,7 +18,7 @@ DThemeWhiteAtlas.add( "menu_item_mark_next", 14, 20,
 );
 
 export class DThemeWhiteMenuItemMenu extends DThemeWhiteMenuItem implements DThemeMenuItemMenu {
-	getImageSource( state: DBaseState ): IMAGE_SOURCE | null {
+	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
 		return DThemeWhiteAtlas.mappings.menu_item_mark_next;
 	}
 

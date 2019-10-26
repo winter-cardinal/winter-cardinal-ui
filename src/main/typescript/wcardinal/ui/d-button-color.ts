@@ -7,7 +7,6 @@ import { DBaseState } from "./d-base-state";
 import { DButton, DButtonOptions, DThemeButton } from "./d-button";
 import { DColorAndAlpha } from "./d-color";
 import { DDialogColor, DDialogColorOptions } from "./d-dialog-color";
-import { isTintAware } from "./d-image-base";
 import { DPickerColorAndAlpha } from "./d-picker-color-and-alpha";
 
 export interface DButtonColorOptions<
@@ -68,7 +67,7 @@ export class DButtonColor<
 
 	protected onColorChange(): void {
 		const image = this._image;
-		if( isTintAware( image ) ) {
+		if( this.isTintAware( image ) ) {
 			image.tint = this._textValueComputed.color;
 		}
 		this.updateTextForcibly();

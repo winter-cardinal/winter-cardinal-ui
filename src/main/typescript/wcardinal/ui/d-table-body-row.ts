@@ -38,7 +38,7 @@ const isBodyCell = ( target: any ): target is DTableBodyCell => {
 	return (target != null && "set" in target);
 };
 
-export type OnCellChange = (
+type OnCellChange = (
 	newCellValue: unknown, oldCellValue: unknown,
 	columnIndex: number, column: DTableColumn<unknown>
 ) => void;

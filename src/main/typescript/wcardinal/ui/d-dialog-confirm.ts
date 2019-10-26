@@ -7,18 +7,18 @@ import { DBase } from "./d-base";
 import { DDialogCommand, DDialogCommandOptions, DThemeDialogCommand } from "./d-dialog-command";
 import { DDialogConfirmMessage, DDialogConfirmMessageOptions } from "./d-dialog-confirm-message";
 import { DLayoutVertical } from "./d-layout-vertical";
-import { DStateAware } from "./d-state-aware";
+import { DStateAwareOrValue } from "./d-state-aware";
 import { utilIsFunction } from "./util/util-is-function";
 import { utilIsString } from "./util/util-is-string";
 
 export interface DDialogConfirmOptions<
 	THEME extends DThemeDialogConfirm = DThemeDialogConfirm
 > extends DDialogCommandOptions<THEME> {
-	message?: DStateAware<string> | string | DDialogConfirmMessageOptions | DDialogConfirmMessage;
+	message?: DStateAwareOrValue<string> | DDialogConfirmMessageOptions | DDialogConfirmMessage;
 }
 
 export interface DThemeDialogConfirm extends DThemeDialogCommand {
-	getMessage(): DStateAware<string> | string;
+	getMessage(): DStateAwareOrValue<string>;
 }
 
 export class DDialogConfirm<
@@ -56,7 +56,7 @@ export class DDialogConfirm<
 
 	protected toMessageOptionsMerged(
 		options: DDialogConfirmMessageOptions,
-		message: DStateAware<string> | string
+		message: DStateAwareOrValue<string>
 	): DDialogConfirmMessageOptions {
 		if( options.text == null ) {
 			options.text =　{};
@@ -67,7 +67,7 @@ export class DDialogConfirm<
 		return options;
 	}
 
-	protected toMessageOptions( message: DStateAware<string> | string ): DDialogConfirmMessageOptions {
+	protected toMessageOptions( message: DStateAwareOrValue<string> ): DDialogConfirmMessageOptions {
 		return {
 			text: {
 				value: message

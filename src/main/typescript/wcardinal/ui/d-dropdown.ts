@@ -6,7 +6,7 @@
 import { DBaseState } from "./d-base-state";
 import { DButtonBase, DButtonBaseOptions, DThemeButtonBase } from "./d-button-base";
 import { DMenu, DMenuOptions, DThemeMenu } from "./d-menu";
-import { DStateAware } from "./d-state-aware";
+import { DStateAwareOrValueMightBe } from "./d-state-aware";
 
 export interface DDropdownOptions<
 	VALUE = unknown,
@@ -18,7 +18,7 @@ export interface DDropdownOptions<
 export interface DThemeDropdown extends DThemeButtonBase {
 	getTextFormatter(): ( value: string, caller: DDropdown ) => string;
 	getTextValue( state: DBaseState ): string;
-	newTextValue(): DStateAware<string | undefined> | string | undefined;
+	newTextValue(): DStateAwareOrValueMightBe<string>;
 }
 
 export class DDropdown<

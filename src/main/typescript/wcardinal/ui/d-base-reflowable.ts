@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBase, Reflowable } from "./d-base";
+import { DBase, DReflowable } from "./d-base";
 import { DBaseBackgroundMesh } from "./d-base-background-mesh";
 import { DBaseBorderMesh } from "./d-base-border-mesh";
 import { DBaseOutlineMesh } from "./d-base-outline-mesh";
 import { UtilTexturePlane } from "./util/util-texture-plane";
 
-export class DBaseReflowable implements Reflowable {
+export class DBaseReflowable implements DReflowable {
 	protected _lastBackgroundCornerRadius: number;
 	protected _lastBorderCornerRadius: number;
 	protected _lastBorderWidth: number;

@@ -9,7 +9,7 @@ import { DAnimationFadeIn } from "./d-animation-fade-in";
 import { DApplications } from "./d-applications";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
-import { Focusable } from "./d-controller-focus";
+import { DFocusable } from "./d-controller-focus";
 import { DControllers } from "./d-controllers";
 import { UtilClickOutside } from "./util/util-click-outside";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
@@ -35,7 +35,7 @@ export class DDialog<
 > extends DBase<THEME, OPTIONS> {
 	protected _animation!: DAnimation;
 	protected _closeOn!: DDialogCloseOn;
-	protected _focusable!: Focusable | null;
+	protected _focusable!: DFocusable | null;
 	protected _isOpened!: boolean;
 
 	protected init( options?: OPTIONS ) {

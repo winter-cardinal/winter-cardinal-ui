@@ -7,12 +7,12 @@ import { Graphics, Text } from "pixi.js";
 import { DAlignHorizontal } from "./d-align-horizontal";
 import { DAlignVertical } from "./d-align-vertical";
 import { DApplications } from "./d-applications";
-import { DBase, DBaseOptions, DThemeBase, Refitable } from "./d-base";
+import { DBase, DBaseOptions, DRefitable, DThemeBase } from "./d-base";
 import { DBaseOverflowMaskSimple } from "./d-base-overflow-mask-simple";
 import { DBaseState } from "./d-base-state";
 import { DDynamicText } from "./d-dynamic-text";
 import { DDynamicTextStyleOptions } from "./d-dynamic-text-style";
-import { DStateAware } from "./d-state-aware";
+import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { utilIsFunction } from "./util/util-is-function";
 import { utilIsString } from "./util/util-is-string";
 
@@ -21,9 +21,9 @@ export interface DTextBaseOptions<
 	THEME extends DThemeTextBase = DThemeTextBase
 > extends DBaseOptions<THEME> {
 	text?: {
-		value?: DStateAware<VALUE | undefined> | VALUE,
-		color?: DStateAware<number | undefined> | number,
-		alpha?: DStateAware<number | undefined> | number,
+		value?: DStateAwareOrValueMightBe<VALUE>,
+		color?: DStateAwareOrValueMightBe<number>,
+		alpha?: DStateAwareOrValueMightBe<number>,
 		style?: DDynamicTextStyleOptions,
 		align?: {
 			vertical?: (keyof typeof DAlignVertical) | DAlignVertical,
@@ -59,7 +59,7 @@ const isOverflowMaskEnabled = <VALUE, THEME extends DThemeTextBase>(
 const toTextValue = <VALUE, THEME extends DThemeTextBase>(
 	theme: DThemeTextBase,
 	options: DTextBaseOptions<VALUE, THEME> | undefined
-): DStateAware<VALUE | undefined> | VALUE | undefined => {
+): DStateAwareOrValueMightBe<VALUE> => {
 	if( options && options.text && options.text.value !== undefined ) {
 		return options.text.value;
 	}
@@ -149,10 +149,10 @@ export class DTextBase<
 	OPTIONS extends DTextBaseOptions<VALUE, THEME> = DTextBaseOptions<VALUE, THEME>
 > extends DBase<THEME, OPTIONS> {
 	protected _text!: DDynamicText | Text | null;
-	protected _textValue!: DStateAware<VALUE | undefined> | VALUE | undefined;
+	protected _textValue!: DStateAwareOrValueMightBe<VALUE>;
 	protected _textValueComputed!: VALUE;
-	protected _textColor!: DStateAware<number | undefined> | number | undefined;
-	protected _textAlpha!: DStateAware<number | undefined> | number | undefined;
+	protected _textColor!: DStateAwareOrValueMightBe<number>;
+	protected _textAlpha!: DStateAwareOrValueMightBe<number>;
 	protected _textStyle!: DDynamicTextStyleOptions;
 	protected _textAlign!: {
 		vertical: DAlignVertical,
@@ -182,14 +182,14 @@ export class DTextBase<
 		this.createOrUpdateText();
 	}
 
-	set text( text: DStateAware<VALUE | undefined> | VALUE | undefined ) {
+	set text( text: DStateAwareOrValueMightBe<VALUE> ) {
 		if( this._textValue !== text ) {
 			this._textValue = text;
 			this.updateTextValue();
 		}
 	}
 
-	get text(): DStateAware<VALUE | undefined> | VALUE | undefined {
+	get text(): DStateAwareOrValueMightBe<VALUE> {
 		return this._textValue;
 	}
 
@@ -342,7 +342,7 @@ export class DTextBase<
 		this.updateText();
 	}
 
-	protected isRefitable( target: any ): target is Refitable {
+	protected isRefitable( target: any ): target is DRefitable {
 		return super.isRefitable( target ) ||
 			(target != null && target === this._text);
 	}

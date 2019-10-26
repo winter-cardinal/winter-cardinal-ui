@@ -5,7 +5,7 @@
 
 import { DBaseState } from "./d-base-state";
 import { DInput, DInputOptions, DThemeInput } from "./d-input";
-import { DStateAware } from "./d-state-aware";
+import { DStateAwareOrValueMightBe } from "./d-state-aware";
 
 export interface DInputTextOptions<
 	THEME extends DThemeInputText = DThemeInputText
@@ -19,7 +19,7 @@ export interface DThemeInputText extends DThemeInput {
 	getEditingValidator(): ( value: string, caller: DInputText ) => unknown;
 	getTextFormatter(): ( value: string, caller: DInputText ) => string;
 	getTextValue( state: DBaseState ): string;
-	newTextValue(): DStateAware<string | undefined> | string | undefined;
+	newTextValue(): DStateAwareOrValueMightBe<string>;
 }
 
 export class DInputText<

@@ -5,11 +5,11 @@
 
 import { DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
-import { DStateAware } from "./d-state-aware";
+import { DStateAwareOrValueMightBe } from "./d-state-aware";
 
 export interface DBackground {
-	color?: DStateAware<number | null | undefined> | number | null;
-	alpha?: DStateAware<number | undefined> | number;
+	color?: DStateAwareOrValueMightBe<number | null>;
+	alpha?: DStateAwareOrValueMightBe<number>;
 }
 
 export interface DBackgroundStateAware extends DBackground {

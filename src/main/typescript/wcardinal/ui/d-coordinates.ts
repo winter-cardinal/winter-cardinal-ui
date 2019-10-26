@@ -6,7 +6,8 @@
 import { DApplications } from "./d-applications";
 import { DBase } from "./d-base";
 import { DCoordinate } from "./d-coordinate";
-import { DScalarSet, toDScalarFunction } from "./d-scalars";
+import { DScalarFunctions } from "./d-scalar-functions";
+import { DScalarSet } from "./d-scalars";
 import { utilIsNumber } from "./util/util-is-number";
 
 const enum AutoFlag {
@@ -41,7 +42,7 @@ export class DCoordinateSet {
 			base.x = x;
 		} else {
 			const scalarSet = this._scalarSet;
-			const scalar = toDScalarFunction( x, true );
+			const scalar = DScalarFunctions.position( x );
 			if( scalarSet.x !== scalar ) {
 				scalarSet.x = scalar;
 				base.layout();
@@ -64,7 +65,7 @@ export class DCoordinateSet {
 			base.y = y;
 		} else {
 			const scalarSet = this._scalarSet;
-			const scalar = toDScalarFunction( y, true );
+			const scalar = DScalarFunctions.position( y );
 			if( scalarSet.y !== scalar ) {
 				scalarSet.y = scalar;
 				base.layout();
@@ -103,7 +104,7 @@ export class DCoordinateSet {
 			}
 		} else {
 			const scalarSet = this._scalarSet;
-			const scalar = toDScalarFunction( width, false );
+			const scalar = DScalarFunctions.size( width );
 			if( scalarSet.width !== scalar ) {
 				scalarSet.width = scalar;
 				this._base.layout();
@@ -142,7 +143,7 @@ export class DCoordinateSet {
 			}
 		} else {
 			const scalarSet = this._scalarSet;
-			const scalar = toDScalarFunction( height, false );
+			const scalar = DScalarFunctions.size( height );
 			if( scalarSet.height !== scalar ) {
 				scalarSet.height = scalar;
 				this._base.layout();

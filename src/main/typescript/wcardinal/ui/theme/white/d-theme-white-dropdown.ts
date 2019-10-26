@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignWith } from "../../d-align-with";
 import { DBaseState } from "../../d-base-state";
 import { DThemeDropdown } from "../../d-dropdown";
-import { IMAGE_SOURCE } from "../../d-image-base";
-import { DStateAware } from "../../d-state-aware";
+import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteButtonBase } from "./d-theme-white-button-base";
 
@@ -31,11 +31,11 @@ export class DThemeWhiteDropdown extends DThemeWhiteButtonBase implements DTheme
 		return - this.getPaddingRight() * 0.5;
 	}
 
-	getImageSource( state: DBaseState ): IMAGE_SOURCE | null {
+	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
 		return DThemeWhiteAtlas.mappings.dropdown_mark;
 	}
 
-	newTextValue(): DStateAware<string | undefined> | string | undefined {
+	newTextValue(): DStateAwareOrValueMightBe<string> {
 		return "";
 	}
 

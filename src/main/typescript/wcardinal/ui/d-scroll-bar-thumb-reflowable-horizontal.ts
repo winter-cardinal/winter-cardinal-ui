@@ -4,10 +4,10 @@
  */
 
 import { Graphics } from "pixi.js";
-import { DBase, Reflowable } from "./d-base";
+import { DBase, DReflowable } from "./d-base";
 import { DScrollBarThumb } from "./d-scroll-bar-thumb";
 
-export class DScrollBarThumbReflowableHorizontal extends Graphics implements Reflowable {
+export class DScrollBarThumbReflowableHorizontal extends Graphics implements DReflowable {
 	constructor( base: DScrollBarThumb ) {
 		super();
 		base.appendRenderable( this, true );

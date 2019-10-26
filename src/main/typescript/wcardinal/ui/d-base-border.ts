@@ -6,7 +6,7 @@
 import { DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DBorderMask, DBorderStateAware } from "./d-border";
-import { DStateAware } from "./d-state-aware";
+import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { utilIsFunction } from "./util/util-is-function";
 import { utilIsString } from "./util/util-is-string";
 
@@ -14,11 +14,11 @@ type Callback = () => void;
 
 export class DBaseBorder implements DBorderStateAware {
 	protected _theme: DThemeBase;
-	protected _color?: DStateAware<number | null | undefined> | number | null;
-	protected _alpha?: DStateAware<number | undefined> | number;
-	protected _width?: DStateAware<number | undefined> | number;
-	protected _align?: DStateAware<number | undefined> | number;
-	protected _mask?: DStateAware<DBorderMask | undefined> | DBorderMask;
+	protected _color?: DStateAwareOrValueMightBe<number | null>;
+	protected _alpha?: DStateAwareOrValueMightBe<number>;
+	protected _width?: DStateAwareOrValueMightBe<number>;
+	protected _align?: DStateAwareOrValueMightBe<number>;
+	protected _mask?: DStateAwareOrValueMightBe<DBorderMask>;
 	protected _callback: Callback | undefined;
 
 	constructor( theme: DThemeBase, options?: DBaseOptions<any>, callback?: Callback ) {
@@ -57,11 +57,11 @@ export class DBaseBorder implements DBorderStateAware {
 		return this._theme.getBorderColor( state );
 	}
 
-	get color(): DStateAware<number | null | undefined> | number | null | undefined {
+	get color(): DStateAwareOrValueMightBe<number | null> {
 		return this._color;
 	}
 
-	set color( color: DStateAware<number | null | undefined> | number | null | undefined ) {
+	set color( color: DStateAwareOrValueMightBe<number | null> ) {
 		if( this._color !== color ) {
 			this._color = color;
 			this.onChange();
@@ -83,11 +83,11 @@ export class DBaseBorder implements DBorderStateAware {
 		return this._theme.getBorderAlpha( state );
 	}
 
-	get alpha(): DStateAware<number | undefined> | number | undefined {
+	get alpha(): DStateAwareOrValueMightBe<number> {
 		return this._alpha;
 	}
 
-	set alpha( alpha: DStateAware<number | undefined> | number | undefined ) {
+	set alpha( alpha: DStateAwareOrValueMightBe<number> ) {
 		if( this._alpha !== alpha ) {
 			this._alpha = alpha;
 			this.onChange();
@@ -109,11 +109,11 @@ export class DBaseBorder implements DBorderStateAware {
 		return this._theme.getBorderWidth( state );
 	}
 
-	get width(): DStateAware<number | undefined> | number | undefined {
+	get width(): DStateAwareOrValueMightBe<number> {
 		return this._width;
 	}
 
-	set width( width: DStateAware<number | undefined> | number | undefined ) {
+	set width( width: DStateAwareOrValueMightBe<number> ) {
 		if( this._width !== width ) {
 			this._width = width;
 			this.onChange();
@@ -135,11 +135,11 @@ export class DBaseBorder implements DBorderStateAware {
 		return this._theme.getBorderAlign( state );
 	}
 
-	get align(): DStateAware<number | undefined> | number | undefined {
+	get align(): DStateAwareOrValueMightBe<number> {
 		return this._align;
 	}
 
-	set align( align: DStateAware<number | undefined> | number | undefined ) {
+	set align( align: DStateAwareOrValueMightBe<number> ) {
 		if( this._align !== align ) {
 			this._align = align;
 			this.onChange();
@@ -161,11 +161,11 @@ export class DBaseBorder implements DBorderStateAware {
 		return this._theme.getBorderMask( state );
 	}
 
-	get mask(): DStateAware<DBorderMask | undefined> | DBorderMask | undefined {
+	get mask(): DStateAwareOrValueMightBe<DBorderMask> {
 		return this._mask;
 	}
 
-	set mask( mask: DStateAware<DBorderMask | undefined> | DBorderMask | undefined ) {
+	set mask( mask: DStateAwareOrValueMightBe<DBorderMask> ) {
 		if( this._mask !== mask ) {
 			this._mask = mask;
 			this.onChange();

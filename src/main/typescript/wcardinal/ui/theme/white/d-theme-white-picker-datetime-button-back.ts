@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignWith } from "../../d-align-with";
 import { DBaseState } from "../../d-base-state";
 import { DCoordinate } from "../../d-coordinate";
-import { IMAGE_SOURCE } from "../../d-image-base";
 import { DThemePickerDatetimeButtonBack } from "../../d-picker-datetime-button-back";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteButtonAmbient } from "./d-theme-white-button-ambient";
@@ -36,7 +36,7 @@ export class DThemeWhitePickerDatetimeButtonBack
 		return DAlignHorizontal.LEFT;
 	}
 
-	getImageSource( state: DBaseState ): IMAGE_SOURCE | null {
+	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
 		return DThemeWhiteAtlas.mappings.picker_date_back;
 	}
 

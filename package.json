@@ -20,6 +20,7 @@
 		"build": "rm dist -rf && tsc && rollup -c",
 		"build:ts": "tsc",
 		"build:rollup": "rollup -c",
+		"build:typedoc": "typedoc --options typedoc.json --out src/test/resources/static/doc --disableOutputCheck --excludeNotExported --excludePrivate",
 		"watch:ts": "tsc -w",
 		"watch:rollup": "rollup -c -w",
 		"prepublishOnly": "npm run build"
@@ -28,6 +29,7 @@
 		"pixi.js": "^5.1.5"
 	},
 	"devDependencies": {
+		"@wcardinal/typedoc-plugin-named-event": "^1.0.0",
 		"rollup": "^1.16.7",
 		"rollup-plugin-commonjs": "^10.0.1",
 		"rollup-plugin-copy": "^3.0.0",
@@ -39,6 +41,8 @@
 		"rollup-plugin-uglify": "^6.0.2",
 		"tslib": "^1.10.0",
 		"tslint": "5.16.0",
-		"typescript": "^3.4.1"
+		"typescript": "^3.4.1",
+		"typedoc": "^0.15.0",
+		"typedoc-plugin-external-module-map": "^1.0.0"
 	}
 }

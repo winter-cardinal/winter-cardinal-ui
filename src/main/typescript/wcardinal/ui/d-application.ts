@@ -7,7 +7,7 @@ import { Application, interaction, Point, Renderer, settings } from "pixi.js";
 import { DApplicationOptions } from "./d-application-options";
 import { DApplications } from "./d-applications";
 import { DBase } from "./d-base";
-import { Focusable, FocusableContainer } from "./d-controller-focus";
+import { DFocusable, DFocusableContainer } from "./d-controller-focus";
 import { DControllers } from "./d-controllers";
 import { DPadding } from "./d-padding";
 import { UtilPointerEvent } from "./util/util-pointer-event";
@@ -136,7 +136,7 @@ export class DApplication extends Application {
 		UtilPointerEvent.onDblClick( this.view, ( e: MouseEvent | TouchEvent ) => {
 			const focused = focusController.getFocused();
 			if( focused != null ) {
-				let current: Focusable | FocusableContainer | null = focused;
+				let current: DFocusable | DFocusableContainer | null = focused;
 				while( current != null ) {
 					if( isDblClickable( current ) ) {
 						if( current.onDblClick( e ) ) {

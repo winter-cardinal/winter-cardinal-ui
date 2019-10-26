@@ -3,11 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignVertical } from "../../d-align-vertical";
 import { DAlignWith } from "../../d-align-with";
 import { DBaseState } from "../../d-base-state";
-import { DThemeImageBase, IMAGE_SOURCE } from "../../d-image-base";
+import { DThemeImageBase } from "../../d-image-base";
 import { DThemeWhiteTextBase } from "./d-theme-white-text-base";
 
 export class DThemeWhiteImageBase extends DThemeWhiteTextBase implements DThemeImageBase {
@@ -39,7 +40,7 @@ export class DThemeWhiteImageBase extends DThemeWhiteTextBase implements DThemeI
 		return this.getAlpha( state );
 	}
 
-	getImageSource( state: DBaseState ): IMAGE_SOURCE | null {
+	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
 		return null;
 	}
 }

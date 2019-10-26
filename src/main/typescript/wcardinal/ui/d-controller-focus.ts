@@ -5,42 +5,26 @@
 
 import { DBaseState } from "./d-base-state";
 
-export interface MightBeFocusable {
-	parent: FocusableContainer | null;
+export interface DFocusableMightBe {
+	parent: DFocusableContainer | null;
 	visible: boolean;
 }
 
-export interface FocusableContainer extends MightBeFocusable {
-	children: MightBeFocusable[];
+export interface DFocusableContainer extends DFocusableMightBe {
+	children: DFocusableMightBe[];
 }
 
-export interface Focusable extends MightBeFocusable {
+export interface DFocusable extends DFocusableMightBe {
 	setState( state: DBaseState, isOn: boolean ): void;
 	hasState( state: DBaseState ): boolean;
 }
 
-export const isFocusable = ( target: any ): target is Focusable => {
-	return ( target != null && ("setState" in target) );
-};
-
-export const isFocusableContainer = ( target: any ): target is FocusableContainer => {
-	return ( target != null && "children" in target );
-};
-
-export interface Selectable {
-	select(): void;
-}
-
-export const isSelectable = ( target: any ): target is Selectable => {
-	return ( target != null && "select" in target );
-};
-
 export interface DControllerFocus {
-	setFocused( focusable: Focusable | null, isFocussed: boolean, select: boolean ): Focusable | null;
-	getFocused(): Focusable | null;
+	setFocused( focusable: DFocusable | null, isFocussed: boolean, select: boolean ): DFocusable | null;
+	getFocused(): DFocusable | null;
 	findFocusable(
-		target: MightBeFocusable, includesTarget: boolean, includesTargetChildren: boolean, direction: boolean
-	): Focusable | null;
+		target: DFocusableMightBe, includesTarget: boolean, includesTargetChildren: boolean, direction: boolean
+	): DFocusable | null;
 
 	/**
 	 * Returns the first focusable element on the hierarchy path from the specified target to the stage.
@@ -48,5 +32,5 @@ export interface DControllerFocus {
 	 *
 	 * @param mightBeFocusable
 	 */
-	findFocusableParent( mightBeFocusable: MightBeFocusable | null ): Focusable | null;
+	findFocusableParent( mightBeFocusable: DFocusableMightBe | null ): DFocusable | null;
 }

@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DisplayObject, Texture } from "pixi.js";
 import { DBaseState } from "../../d-base-state";
 import { DBorderMask } from "../../d-border";
 import { DCoordinate } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
-import { IMAGE_SOURCE } from "../../d-image-base";
 import { DThemeTableBodyCellSelectMenu } from "../../d-table-body-cell-select-menu";
 import { DThemeWhiteSelect } from "./d-theme-white-select";
 import { DThemeWhiteTableBodyCells } from "./d-theme-white-table-body-cells";
@@ -51,7 +51,7 @@ export class DThemeWhiteTableBodyCellSelectMenu extends DThemeWhiteSelect
 		return DThemeWhiteTableBodyCells.getCornerMask();
 	}
 
-	getImageSource( state: DBaseState ): IMAGE_SOURCE | null {
+	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
 		return null;
 	}
 }

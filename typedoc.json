@@ -1,0 +1,13 @@
+{
+	"name": "Winter Cardinal UI",
+	"mode": "modules",
+	"module": "umd",
+	"theme": "default",
+	"target": "ES5",
+	"ignoreCompilerErrors": "false",
+	"preserveConstEnums": "true",
+	"external-modulemap": ".*\/wcardinal\/([\\w\\-_\/]+)\/",
+	"stripInternal": "false",
+	"exclude": "**/+(wcardinal|bundle)*",
+	"externalPattern": "**/internal/**/*"
+}

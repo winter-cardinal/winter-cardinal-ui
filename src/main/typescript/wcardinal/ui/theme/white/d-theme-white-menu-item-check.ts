@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DisplayObject, Texture } from "pixi.js";
 import { DAlignWith } from "../../d-align-with";
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
-import { IMAGE_SOURCE } from "../../d-image-base";
 import { DThemeMenuItemCheck } from "../../d-menu-item-check";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteMenuItemText } from "./d-theme-white-menu-item-text";
@@ -30,7 +30,7 @@ export class DThemeWhiteMenuItemCheck extends DThemeWhiteMenuItemText implements
 		return super.getColor( state & ~DBaseState.ACTIVE );
 	}
 
-	getImageSource( state: DBaseState ): IMAGE_SOURCE | null {
+	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
 		if( DBaseStates.isActive( state ) ) {
 			return DThemeWhiteAtlas.mappings.menu_item_mark_check_active;
 		} else {

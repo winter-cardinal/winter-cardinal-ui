@@ -6,7 +6,7 @@
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { DThemeDialogProcessing } from "../../d-dialog-processing";
-import { DStateAware } from "../../d-state-aware";
+import { DStateAwareOrValue } from "../../d-state-aware";
 import { DThemeWhiteDialogConfirm } from "./d-theme-white-dialog-confirm";
 
 const message = ( state: DBaseState ): string => {
@@ -28,7 +28,7 @@ export class DThemeWhiteDialogProcessing extends DThemeWhiteDialogConfirm implem
 		return null;
 	}
 
-	getMessage(): DStateAware<string> | string {
+	getMessage(): DStateAwareOrValue<string> {
 		return message;
 	}
 

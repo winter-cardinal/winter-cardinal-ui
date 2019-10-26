@@ -4,7 +4,7 @@
  */
 
 import { DBaseState } from "./d-base-state";
-import { DStateAware } from "./d-state-aware";
+import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { DThemeText } from "./d-text";
 import { DTextBase, DTextBaseOptions, DThemeTextBase } from "./d-text-base";
 
@@ -15,7 +15,7 @@ export interface DTableHeaderCellOptions<THEME extends DThemeText = DThemeText>
 export interface DThemeTableHeaderCell extends DThemeTextBase {
 	getTextFormatter(): ( value: string | null, caller: DTableHeaderCell ) => string;
 	getTextValue( state: DBaseState ): string | null;
-	newTextValue(): DStateAware<string | null | undefined> | string | null | undefined;
+	newTextValue(): DStateAwareOrValueMightBe<string | null>;
 }
 
 export class DTableHeaderCell<

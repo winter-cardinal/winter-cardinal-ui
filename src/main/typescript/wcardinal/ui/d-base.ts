@@ -26,9 +26,10 @@ import { DThemeFont } from "./d-font";
 import { DLayoutClearType } from "./d-layout-clear-type";
 import { DOutline } from "./d-outline";
 import { DPadding } from "./d-padding";
-import { DScalarSet, toDScalarFunction } from "./d-scalars";
+import { DScalarFunctions } from "./d-scalar-functions";
+import { DScalarSet } from "./d-scalars";
 import { DShadow } from "./d-shadow";
-import { DStateAware } from "./d-state-aware";
+import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { DThemes } from "./theme/d-themes";
 import { utilIsFunction } from "./util/util-is-function";
 import { utilIsNumber } from "./util/util-is-number";
@@ -68,23 +69,23 @@ export interface DBaseOptions<THEME extends DThemeBase = DThemeBase> {
 	shortcut?: string | UtilKeyboardEventShortcut;
 	shortcuts?: Array<string | UtilKeyboardEventShortcut>;
 	background?: {
-		color?: DStateAware<number | null | undefined> | number | null;
-		alpha?: DStateAware<number | undefined> | number;
+		color?: DStateAwareOrValueMightBe<number | null>;
+		alpha?: DStateAwareOrValueMightBe<number>;
 	};
 	border?: {
-		color?: DStateAware<number | null | undefined> | number | null;
-		alpha?: DStateAware<number | undefined> | number;
-		width?: DStateAware<number | undefined> | number;
-		align?: DStateAware<number | undefined> | number;
-		mask?: DStateAware<DBorderMask | undefined> | (keyof typeof DBorderMask) | DBorderMask;
+		color?: DStateAwareOrValueMightBe<number | null>;
+		alpha?: DStateAwareOrValueMightBe<number>;
+		width?: DStateAwareOrValueMightBe<number>;
+		align?: DStateAwareOrValueMightBe<number>;
+		mask?: DStateAwareOrValueMightBe<DBorderMask> | (keyof typeof DBorderMask);
 	};
 	outline?: {
-		color?: DStateAware<number | null | undefined> | number | null;
-		alpha?: DStateAware<number | undefined> | number;
-		width?: DStateAware<number | undefined> | number;
-		offset?: DStateAware<number | undefined> | number;
-		align?: DStateAware<number | undefined> | number;
-		mask?: DStateAware<DBorderMask | undefined> | (keyof typeof DBorderMask) | DBorderMask;
+		color?: DStateAwareOrValueMightBe<number | null>;
+		alpha?: DStateAwareOrValueMightBe<number>;
+		width?: DStateAwareOrValueMightBe<number>;
+		offset?: DStateAwareOrValueMightBe<number>;
+		align?: DStateAwareOrValueMightBe<number>;
+		mask?: DStateAwareOrValueMightBe<DBorderMask> | (keyof typeof DBorderMask);
 	};
 	shadow?: DShadow;
 	clear?: (keyof typeof DLayoutClearType) | DLayoutClearType;
@@ -142,7 +143,7 @@ const toTheme = <THEME extends DThemeBase>( options?: DBaseOptions<THEME> ): THE
 	return null;
 };
 
-export interface Refitable {
+export interface DRefitable {
 	readonly width: number;
 	readonly height: number;
 }
@@ -167,18 +168,14 @@ const toShortcuts = <THEME extends DThemeBase>(
 	return undefined;
 };
 
-export interface Renderable {
+export interface DRenderable {
 	render( renderer: Renderer ): void;
 	updateTransform(): void;
 }
 
-export interface Reflowable {
+export interface DReflowable {
 	onReflow( base: DBase, width: number, height: number ): void;
 }
-
-export const isReflowable = ( target: any ): target is Reflowable => {
-	return target != null && utilIsFunction( target.onReflow );
-};
 
 export class DBase<
 	THEME extends DThemeBase = DThemeBase,
@@ -213,9 +210,9 @@ export class DBase<
 	protected _outline: DOutline;
 	protected _clearType: DLayoutClearType;
 	protected _shortcuts?: UtilKeyboardEventShortcut[];
-	protected _befores: Renderable[];
-	protected _afters: Renderable[];
-	protected _reflowables: Reflowable[];
+	protected _befores: DRenderable[];
+	protected _afters: DRenderable[];
+	protected _reflowables: DReflowable[];
 
 	constructor( options?: OPTIONS ) {
 		super();
@@ -271,7 +268,7 @@ export class DBase<
 			position.x = x;
 		} else {
 			position.x = 0;
-			scalarSet.x = toDScalarFunction( x, true );
+			scalarSet.x = DScalarFunctions.position( x );
 		}
 
 		// Y
@@ -280,7 +277,7 @@ export class DBase<
 			position.y = y;
 		} else {
 			position.y = 0;
-			scalarSet.y = toDScalarFunction( y, true );
+			scalarSet.y = DScalarFunctions.position( y );
 		}
 
 		// Width
@@ -292,7 +289,7 @@ export class DBase<
 			this._coordinateSet.toAutoWidth();
 		} else {
 			this._width = 100;
-			scalarSet.width = toDScalarFunction( width, false );
+			scalarSet.width = DScalarFunctions.size( width );
 		}
 
 		// Height
@@ -304,7 +301,7 @@ export class DBase<
 			this._coordinateSet.toAutoHeight();
 		} else {
 			this._height = 100;
-			scalarSet.height = toDScalarFunction( height, false );
+			scalarSet.height = DScalarFunctions.size( height );
 		}
 
 		// Visibility
@@ -435,19 +432,19 @@ export class DBase<
 		this.emit( "init", this );
 	}
 
-	prependRenderable( renderable: Renderable, phase: boolean ): void {
+	prependRenderable( renderable: DRenderable, phase: boolean ): void {
 		(renderable as any).parent = this;
 		const list = ( phase ? this._befores : this._afters );
 		list.unshift( renderable );
 	}
 
-	appendRenderable( renderable: Renderable, phase: boolean ): void {
+	appendRenderable( renderable: DRenderable, phase: boolean ): void {
 		(renderable as any).parent = this;
 		const list = ( phase ? this._befores : this._afters );
 		list.push( renderable );
 	}
 
-	removeRenderable( renderable: Renderable, phase: boolean ): void {
+	removeRenderable( renderable: DRenderable, phase: boolean ): void {
 		(renderable as any).parent = null;
 		const list = ( phase ? this._befores : this._afters );
 		const index = list.indexOf( renderable );
@@ -456,11 +453,11 @@ export class DBase<
 		}
 	}
 
-	addReflowable( reflowable: Reflowable ): void {
+	addReflowable( reflowable: DReflowable ): void {
 		this._reflowables.push( reflowable );
 	}
 
-	removeReflowable( reflowable: Reflowable ): void {
+	removeReflowable( reflowable: DReflowable ): void {
 		const reflowables = this._reflowables;
 		const index = reflowables.indexOf( reflowable );
 		if( 0 <= index ) {
@@ -1074,11 +1071,11 @@ export class DBase<
 		}
 	}
 
-	protected isRefitable( target: any ): target is Refitable {
+	protected isRefitable( target: any ): target is DRefitable {
 		return target instanceof DBase;
 	}
 
-	protected hasRefitableHeight( target: any ): target is Refitable {
+	protected hasRefitableHeight( target: any ): target is DRefitable {
 		return this.isRefitable( target ) &&
 			! ( target instanceof DBase && utilIsFunction( target.coordinate.height ) );
 	}

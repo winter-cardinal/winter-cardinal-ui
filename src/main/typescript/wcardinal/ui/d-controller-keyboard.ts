@@ -5,16 +5,8 @@
 
 import { Container, utils } from "pixi.js";
 import { DBaseState } from "./d-base-state";
-import { DControllerFocus, Focusable, FocusableContainer } from "./d-controller-focus";
+import { DControllerFocus, DFocusable, DFocusableContainer } from "./d-controller-focus";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
-
-const hasOnKeyDown = ( target: any ): target is { onKeyDown( e: KeyboardEvent ): boolean; } => {
-	return "onKeyDown" in target;
-};
-
-const hasOnKeyUp = ( target: any ): target is { onKeyUp( e: KeyboardEvent ): boolean; } => {
-	return "onKeyUp" in target;
-};
 
 export class DControllerKeyboard extends utils.EventEmitter {
 	init( element: HTMLElement, stage: Container, focusController: DControllerFocus ) {
@@ -23,9 +15,9 @@ export class DControllerKeyboard extends utils.EventEmitter {
 
 			const focused = focusController.getFocused();
 			if( focused != null ) {
-				let current: Focusable | FocusableContainer | null = focused;
+				let current: DFocusable | DFocusableContainer | null = focused;
 				while( current != null ) {
-					if( hasOnKeyDown( current ) ) {
+					if( this.hasOnKeyDown( current ) ) {
 						if( current.onKeyDown( e ) ) {
 							return;
 						}
@@ -55,9 +47,9 @@ export class DControllerKeyboard extends utils.EventEmitter {
 
 			const focused = focusController.getFocused();
 			if( focused != null ) {
-				let current: Focusable | FocusableContainer | null = focused;
+				let current: DFocusable | DFocusableContainer | null = focused;
 				while( current != null ) {
-					if( hasOnKeyUp( current ) ) {
+					if( this.hasOnKeyUp( current ) ) {
 						if( current.onKeyUp( e ) ) {
 							return;
 						}
@@ -66,5 +58,13 @@ export class DControllerKeyboard extends utils.EventEmitter {
 				}
 			}
 		});
+	}
+
+	protected hasOnKeyDown( target: any ): target is { onKeyDown( e: KeyboardEvent ): boolean; } {
+		return "onKeyDown" in target;
+	}
+
+	protected hasOnKeyUp( target: any ): target is { onKeyUp( e: KeyboardEvent ): boolean; } {
+		return "onKeyUp" in target;
 	}
 }

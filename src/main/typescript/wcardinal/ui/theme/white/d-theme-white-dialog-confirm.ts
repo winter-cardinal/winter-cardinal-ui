@@ -4,7 +4,7 @@
  */
 
 import { DThemeDialogConfirm } from "../../d-dialog-confirm";
-import { DStateAware } from "../../d-state-aware";
+import { DStateAwareOrValue } from "../../d-state-aware";
 import { DThemeWhiteDialogCommand } from "./d-theme-white-dialog-command";
 
 export class DThemeWhiteDialogConfirm extends DThemeWhiteDialogCommand implements DThemeDialogConfirm {
@@ -16,7 +16,7 @@ export class DThemeWhiteDialogConfirm extends DThemeWhiteDialogCommand implement
 		return "No";
 	}
 
-	getMessage(): DStateAware<string> | string {
+	getMessage(): DStateAwareOrValue<string> {
 		return "";
 	}
 }
