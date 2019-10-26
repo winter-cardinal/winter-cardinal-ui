@@ -5,7 +5,8 @@
 
 import { DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
-import { DOutline, DOutlineMask } from "./d-outline";
+import { DBorderMask } from "./d-border";
+import { DOutline } from "./d-outline";
 import { DStateAware } from "./d-state-aware";
 import { utilIsFunction } from "./util/util-is-function";
 import { utilIsString } from "./util/util-is-string";
@@ -19,7 +20,7 @@ export class DBaseOutline implements DOutline {
 	protected _width?: DStateAware<number | undefined> | number;
 	protected _offset?: DStateAware<number | undefined> | number;
 	protected _align?: DStateAware<number | undefined> | number;
-	protected _mask?: DStateAware<DOutlineMask | undefined> | DOutlineMask;
+	protected _mask?: DStateAware<DBorderMask | undefined> | DBorderMask;
 	protected _callback: Callback | undefined;
 
 	constructor( theme: DThemeBase, options?: DBaseOptions<any>, callback?: Callback ) {
@@ -32,7 +33,7 @@ export class DBaseOutline implements DOutline {
 			this._width = outline.width;
 			this._offset = outline.offset;
 			this._align = outline.align;
-			this._mask = ( utilIsString( outline.mask ) ? DOutlineMask[ outline.mask ] : outline.mask );
+			this._mask = ( utilIsString( outline.mask ) ? DBorderMask[ outline.mask ] : outline.mask );
 		}
 	}
 
@@ -204,11 +205,11 @@ export class DBaseOutline implements DOutline {
 		return this._theme.getOutlineMask( state );
 	}
 
-	get mask(): DStateAware<DOutlineMask | undefined> | DOutlineMask | undefined {
+	get mask(): DStateAware<DBorderMask | undefined> | DBorderMask | undefined {
 		return this._mask;
 	}
 
-	set mask( mask: DStateAware<DOutlineMask | undefined> | DOutlineMask | undefined ) {
+	set mask( mask: DStateAware<DBorderMask | undefined> | DBorderMask | undefined ) {
 		if( this._mask !== mask ) {
 			this._mask = mask;
 			const callback = this._callback;

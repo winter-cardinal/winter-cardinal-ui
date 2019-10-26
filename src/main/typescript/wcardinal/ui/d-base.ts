@@ -24,7 +24,7 @@ import { DCoordinateSet } from "./d-coordinates";
 import { DCorner, DCornerMask } from "./d-corner";
 import { DThemeFont } from "./d-font";
 import { DLayoutClearType } from "./d-layout-clear-type";
-import { DOutline, DOutlineMask } from "./d-outline";
+import { DOutline } from "./d-outline";
 import { DPadding } from "./d-padding";
 import { DScalarSet, toDScalarFunction } from "./d-scalars";
 import { DShadow } from "./d-shadow";
@@ -84,7 +84,7 @@ export interface DBaseOptions<THEME extends DThemeBase = DThemeBase> {
 		width?: DStateAware<number | undefined> | number;
 		offset?: DStateAware<number | undefined> | number;
 		align?: DStateAware<number | undefined> | number;
-		mask?: DStateAware<DOutlineMask | undefined> | (keyof typeof DOutlineMask) | DOutlineMask;
+		mask?: DStateAware<DBorderMask | undefined> | (keyof typeof DBorderMask) | DBorderMask;
 	};
 	shadow?: DShadow;
 	clear?: (keyof typeof DLayoutClearType) | DLayoutClearType;
@@ -118,7 +118,7 @@ export interface DThemeBase extends DThemeFont {
 	getOutlineWidth( state: DBaseState ): number;
 	getOutlineOffset( state: DBaseState ): number;
 	getOutlineAlign( state: DBaseState ): number;
-	getOutlineMask( state: DBaseState ): DOutlineMask;
+	getOutlineMask( state: DBaseState ): DBorderMask;
 
 	getClearType(): DLayoutClearType;
 	getShadow(): DShadow | null;

@@ -11,7 +11,6 @@ import { DBorderMask } from "../../d-border";
 import { DCoordinate } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DLayoutClearType } from "../../d-layout-clear-type";
-import { DOutlineMask } from "../../d-outline";
 import { DShadow } from "../../d-shadow";
 import { DShadowImpl } from "../../d-shadow-impl";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
@@ -132,8 +131,8 @@ export class DThemeWhiteBase extends DThemeWhiteFont implements DThemeBase {
 		return 1;
 	}
 
-	getOutlineMask( state: DBaseState ): DOutlineMask {
-		return DOutlineMask.NONE;
+	getOutlineMask( state: DBaseState ): DBorderMask {
+		return DBorderMask.NONE;
 	}
 
 	getClearType(): DLayoutClearType {
