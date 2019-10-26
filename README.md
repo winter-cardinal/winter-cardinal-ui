@@ -34,49 +34,31 @@ new DButtonCheck({
 #### CDN
 
 ```html
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<style>
-	html, body {
-		width: 100%;
-		height: 100%;
-		margin: 0;
-		padding: 0;
-		background-color: #1e1e1e;
-	}
-	</style>
-</head>
-<body>
-	<script src="https://cdn.jsdelivr.net/npm/pixi.js/dist/pixi.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/@wcardinal/wcardinal-ui/dist/wcardinal-ui.min.js"></script>
-	<script>
-	<script>
-	(function(){
-		'use strict';
+<script src="https://cdn.jsdelivr.net/npm/pixi.js/dist/pixi.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@wcardinal/wcardinal-ui/dist/wcardinal-ui.min.js"></script>
+<script>
+(function(){
+	'use strict';
 
-		// Make a new application
-		var application = new wcardinal.ui.DApplication();
+	// Make a new application
+	var application = new wcardinal.ui.DApplication();
 
-		// Make a new check button
-		new wcardinal.ui.DButtonCheck({
-			parent: application.stage,
-			text: {
-				value: 'Check'
-			}
-		});
-	}());
-	</script>
-</body>
-</html>
+	// Make a new check button
+	new wcardinal.ui.DButtonCheck({
+		parent: application.stage,
+		text: {
+			value: 'Check'
+		}
+	});
+}());
+</script>
 ```
 
 All the classes are in the `wcardin.ui`.
 Please note that the `loadAll` is not required in this case.
 Prebuild files `wcardinal-ui.js` and `wcardinal-ui.min.js` call the `loadAll` for you.
+
+See [src/test/resources/static/cdn.html](src/test/resources/static/cdn.html) for complete example.
 
 ### Tree shaking
 
