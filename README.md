@@ -4,6 +4,8 @@ A WebGL-based UI library.
 
 ### Installing
 
+#### NPM
+
 ```
 npm i @wcardinal/wcardinal-ui
 ```
@@ -11,10 +13,10 @@ npm i @wcardinal/wcardinal-ui
 Please note that this package has no default exports.
 
 ```javascript
-import { loadAll, DApplication, DButtonCheck } from '@wcardinal/wcardinal-ui';
+import { loadAll, DApplication, DButtonCheck } from "@wcardinal/wcardinal-ui";
 
 // Loads all the optional modules and the default theme.
-// This is required for the tree shaking.
+// This is required for the tree shaking as explained later.
 loadAll();
 
 // Make a new application
@@ -29,6 +31,53 @@ new DButtonCheck({
 });
 ```
 
+#### CDN
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #1e1e1e;
+	}
+	</style>
+</head>
+<body>
+	<script src="https://cdn.jsdelivr.net/npm/pixi.js/dist/pixi.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@wcardinal/wcardinal-ui/dist/wcardinal-ui.min.js"></script>
+	<script>
+	<script>
+	(function(){
+		'use strict';
+
+		// Make a new application
+		var application = new wcardinal.ui.DApplication();
+
+		// Make a new check button
+		new wcardinal.ui.DButtonCheck({
+			parent: application.stage,
+			text: {
+				value: 'Check'
+			}
+		});
+	}());
+	</script>
+</body>
+</html>
+```
+
+All the classes are in the `wcardin.ui`.
+Please note that the `loadAll` is not required in this case.
+Prebuild files `wcardinal-ui.js` and `wcardinal-ui.min.js` call the `loadAll` for you.
+
 ### Tree shaking
 
 The NPM package `@wcardinal/wcardinal-ui` is large in its size
@@ -36,7 +85,7 @@ because all the UI classes and their themes are included.
 This is why the tree shaking is important for this library.
 
 The `loadAll` loads all the optional modules (e.g., `DMenuItemCheck`) and the default theme (e.g., `DThemeWhite`).
-To remove the unnecessary modules, pick `load*` functions you need.
+To remove unnecessary modules from your build, pick `load*` functions you need.
 
 ```javascript
 import { loadThemeWhiteAll } from '@wcardinal/wcardinal-ui';
