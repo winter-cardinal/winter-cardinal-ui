@@ -148,6 +148,35 @@ loadThemeWhiteAll();
 	* Not required if your theme doesn't use it
 * Stencil support
 
+### How to build
+
+The following commands are for building `@wcardinal/wcardinal-ui` itself.
+For most users, you do not need to do this.
+
+#### JS for release
+
+```shell
+npm run build
+```
+
+#### JS for development
+
+```shell
+npm run watch:ts
+```
+
+and then in an another terminal
+
+```shell
+npm run watch:rollup
+```
+
+#### API document
+
+```shell
+npm run build:typedoc
+```
+
 ### License
 
 Apache License Version 2.0.
