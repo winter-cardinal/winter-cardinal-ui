@@ -7,7 +7,7 @@ import { EShape } from "./e-shape";
 import { EShapeContainer } from "./e-shape-container";
 import { EShapeSearch } from "./e-shape-search";
 
-export class EShapes {
+export class EShapeDeleter {
 	static delete(
 		parent: EShape | EShapeContainer, shapes?: EShape[], generateListOfDetachedShapes?: boolean
 	): EShape[] | null {

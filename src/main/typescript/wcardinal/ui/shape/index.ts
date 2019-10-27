@@ -13,7 +13,7 @@ export * from "./e-shape-capabilities";
 export * from "./e-shape-capability";
 export * from "./e-shape-container";
 export * from "./e-shape-corner";
-export * from "./e-shape-delete";
+export * from "./e-shape-deleter";
 export * from "./e-shape-defaults";
 export * from "./e-shape-deserializer";
 export * from "./e-shape-deserializers";
