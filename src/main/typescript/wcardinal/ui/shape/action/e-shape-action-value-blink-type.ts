@@ -11,21 +11,3 @@ export enum EShapeActionValueBlinkType {
 	COLOR_FILL,
 	COLOR_STROKE
 }
-
-export const toShapeActionValueBlinkLabel = (type: EShapeActionValueBlinkType): string => {
-	switch (type) {
-		case EShapeActionValueBlinkType.VISIBILITY:
-			return "Visibility";
-		case EShapeActionValueBlinkType.BRIGHTEN:
-			return "Brighten";
-		case EShapeActionValueBlinkType.DARKEN:
-			return "Darken";
-		case EShapeActionValueBlinkType.OPACITY:
-			return "Opacity";
-		case EShapeActionValueBlinkType.COLOR_FILL:
-			return "Fill";
-		case EShapeActionValueBlinkType.COLOR_STROKE:
-			return "Stroke";
-	}
-	return "Unknown";
-};

@@ -5,7 +5,7 @@
 
 import { EShape } from "../e-shape";
 import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
-import { toBaseFill, toBaseStroke } from "./e-shape-action-color";
+import { EShapeActionBases } from "./e-shape-action-bases";
 import { EShapeActionRuntimeChangeColor } from "./e-shape-action-runtime-change-color";
 import { EShapeActionValueChangeColor } from "./e-shape-action-value-change-color";
 
@@ -20,8 +20,8 @@ export class EShapeActionRuntimeChangeColorFillAndStroke extends EShapeActionRun
 				shape, runtime, time,
 				shape.fill,
 				shape.stroke,
-				toBaseFill( shape, runtime ),
-				toBaseStroke( shape, runtime )
+				EShapeActionBases.toBaseFill( shape, runtime ),
+				EShapeActionBases.toBaseStroke( shape, runtime )
 			);
 		}
 	}

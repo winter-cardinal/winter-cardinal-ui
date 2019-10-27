@@ -6,10 +6,3 @@
 export enum EShapeActionValueMiscType {
 	INPUT
 }
-
-export const toShapeActionValueMiscLabel = ( type: EShapeActionValueMiscType ): string => {
-	switch( type ) {
-		case EShapeActionValueMiscType.INPUT:
-			return "Input";
-	}
-};

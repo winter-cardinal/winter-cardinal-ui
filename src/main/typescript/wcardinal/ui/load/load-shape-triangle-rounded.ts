@@ -5,7 +5,7 @@
 
 import { EShapeCapabilities } from "../shape/e-shape-capabilities";
 import { EShapeCapability } from "../shape/e-shape-capability";
-import { EShapeDeserializers } from "../shape/e-shape-to-shape-or-promise";
+import { EShapeDeserializers } from "../shape/e-shape-deserializers";
 import { EShapeType } from "../shape/e-shape-type";
 import { EShapeUploadeds } from "../shape/e-shape-uploadeds";
 import { EShapeTriangleRoundedUploadeds } from "../shape/variant/e-shape-triangle-rounded-uploadeds";

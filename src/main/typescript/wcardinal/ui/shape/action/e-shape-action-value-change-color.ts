@@ -14,9 +14,10 @@ import { EShapeActionRuntimeChangeColorText } from "./e-shape-action-runtime-cha
 import { EShapeActionRuntimeChangeColorTextOutline } from "./e-shape-action-runtime-change-color-text-outline";
 import { EShapeActionValue } from "./e-shape-action-value";
 import {
-	EShapeActionValueChangeColorTarget, EShapeActionValueChangeColorType, toShapeActionValueChangeColorLabel
+	EShapeActionValueChangeColorTarget, EShapeActionValueChangeColorType
 } from "./e-shape-action-value-change-color-type";
-import { EShapeActionValueType, toShapeActionValueLabel } from "./e-shape-action-value-type";
+import { EShapeActionValueSubtyped } from "./e-shape-action-value-subtyped";
+import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 type Target = EShapeActionValueChangeColorTarget.COLOR_AND_ALPHA | EShapeActionValueChangeColorTarget.COLOR |
@@ -26,10 +27,7 @@ export type EShapeActionValueChangeColorSerialized = [
 	Target, number, number, number
 ];
 
-export class EShapeActionValueChangeColor implements EShapeActionValue {
-	readonly type: EShapeActionValueType.CHANGE_COLOR;
-	readonly subtype: EShapeActionValueChangeColorType;
-	readonly condition: string;
+export class EShapeActionValueChangeColor extends EShapeActionValueSubtyped<EShapeActionValueChangeColorType> {
 	readonly target: Target;
 	readonly color: number;
 	readonly alpha: number;
@@ -39,9 +37,7 @@ export class EShapeActionValueChangeColor implements EShapeActionValue {
 		subtype: EShapeActionValueChangeColorType, condition: string,
 		target: Target, color: number, alpha: number, blend: string
 	) {
-		this.type = EShapeActionValueType.CHANGE_COLOR;
-		this.subtype = subtype;
-		this.condition = condition;
+		super( EShapeActionValueType.CHANGE_COLOR, condition, subtype );
 		this.target = target;
 		this.color = color;
 		this.alpha = alpha;
@@ -50,9 +46,8 @@ export class EShapeActionValueChangeColor implements EShapeActionValue {
 
 	isEquals( value: EShapeActionValue ): boolean {
 		return (
+			super.isEquals( value ) &&
 			(value instanceof EShapeActionValueChangeColor) &&
-			this.subtype === value.subtype &&
-			this.condition === value.condition &&
 			this.target === value.target &&
 			this.color === value.color &&
 			this.alpha === value.alpha &&
@@ -75,10 +70,6 @@ export class EShapeActionValueChangeColor implements EShapeActionValue {
 		case EShapeActionValueChangeColorType.ALL:
 			return new EShapeActionRuntimeChangeColorAll( this );
 		}
-	}
-
-	toLabel(): string {
-		return `${toShapeActionValueLabel( this.type )}: ${toShapeActionValueChangeColorLabel( this.subtype )}`;
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {

@@ -5,7 +5,7 @@
 
 import { EShape } from "../e-shape";
 import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
-import { toBaseFill, toBaseStroke, toBaseText, toBaseTextOutline } from "./e-shape-action-color";
+import { EShapeActionBases } from "./e-shape-action-bases";
 import { EShapeActionRuntimeChangeColor } from "./e-shape-action-runtime-change-color";
 import { EShapeActionValueChangeColor } from "./e-shape-action-value-change-color";
 
@@ -22,10 +22,10 @@ export class EShapeActionRuntimeChangeColorAll extends EShapeActionRuntimeChange
 				shape.stroke,
 				shape.text,
 				shape.text.outline,
-				toBaseFill( shape, runtime ),
-				toBaseStroke( shape, runtime ),
-				toBaseText( shape, runtime ),
-				toBaseTextOutline( shape, runtime )
+				EShapeActionBases.toBaseFill( shape, runtime ),
+				EShapeActionBases.toBaseStroke( shape, runtime ),
+				EShapeActionBases.toBaseText( shape, runtime ),
+				EShapeActionBases.toBaseTextOutline( shape, runtime )
 			);
 		}
 	}

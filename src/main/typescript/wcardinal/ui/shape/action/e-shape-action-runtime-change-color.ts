@@ -11,7 +11,7 @@ import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
 import { EShapeStroke, EShapeStrokeLike } from "../e-shape-stroke";
 import { EShapeText, EShapeTextLike } from "../e-shape-text";
 import { EShapeTextOutline, EShapeTextOutlineLike } from "../e-shape-text-outline";
-import { ACTION_EXPRESSION } from "./e-shape-action-runtime";
+import { EShapeActionExpression } from "./e-shape-action-runtime";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
 import { EShapeActionValueChangeColor } from "./e-shape-action-value-change-color";
 import { EShapeActionValueChangeColorTarget } from "./e-shape-action-value-change-color-type";
@@ -21,7 +21,7 @@ const blendDefault = (): number | null => null;
 export class EShapeActionRuntimeChangeColor extends EShapeActionRuntimeConditional {
 	protected readonly color: number | undefined;
 	protected readonly alpha: number | undefined;
-	protected readonly blend: ACTION_EXPRESSION<number | null>;
+	protected readonly blend: EShapeActionExpression<number | null>;
 
 	constructor( value: EShapeActionValueChangeColor, reset: EShapeRuntimeReset ) {
 		super( value, reset );
@@ -41,7 +41,7 @@ export class EShapeActionRuntimeChangeColor extends EShapeActionRuntimeCondition
 			break;
 		}
 
-		this.blend = this.parseExpression( value.blend, blendDefault, "null" );
+		this.blend = this.toExpression( value.blend, blendDefault, "null" );
 	}
 
 	protected set(

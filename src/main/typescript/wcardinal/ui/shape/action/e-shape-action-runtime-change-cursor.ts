@@ -5,18 +5,18 @@
 
 import { EShape } from "../e-shape";
 import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
-import { ACTION_EXPRESSION } from "./e-shape-action-runtime";
+import { EShapeActionExpression } from "./e-shape-action-runtime";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
 import { EShapeActionValueChangeCursor } from "./e-shape-action-value-change-cursor";
 
 const nameDefault = (): string | null => null;
 
 export class EShapeActionRuntimeChangeCursor extends EShapeActionRuntimeConditional {
-	protected name: ACTION_EXPRESSION<string | null>;
+	protected name: EShapeActionExpression<string | null>;
 
 	constructor( value: EShapeActionValueChangeCursor ) {
 		super( value, EShapeRuntimeReset.CURSOR );
-		this.name = this.parseExpression( value.name, nameDefault, "null" );
+		this.name = this.toExpression( value.name, nameDefault, "null" );
 	}
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {

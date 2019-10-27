@@ -7,38 +7,32 @@ import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manage
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeActionRuntimeEmitEvent } from "./e-shape-action-runtime-emit-event";
 import { EShapeActionValue } from "./e-shape-action-value";
-import { EShapeActionValueType, toShapeActionValueLabel } from "./e-shape-action-value-type";
+import { EShapeActionValueBase } from "./e-shape-action-value-base";
+import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 export type EShapeActionValueEmitEventSerialized = [
 	EShapeActionValueType.EMIT_EVENT, number, number
 ];
 
-export class EShapeActionValueEmitEvent implements EShapeActionValue {
-	readonly type: EShapeActionValueType.EMIT_EVENT;
-	readonly condition: string;
+export class EShapeActionValueEmitEvent extends EShapeActionValueBase {
 	readonly name: string;
 
 	constructor( condition: string, name: string ) {
-		this.type = EShapeActionValueType.EMIT_EVENT;
-		this.condition = condition;
+		super( EShapeActionValueType.EMIT_EVENT, condition );
 		this.name = name;
 	}
 
 	isEquals( value: EShapeActionValue ): boolean {
 		return (
+			super.isEquals( value ) &&
 			(value instanceof EShapeActionValueEmitEvent) &&
-			this.condition === value.condition &&
 			this.name === value.name
 		);
 	}
 
 	toRuntime(): EShapeActionRuntimeEmitEvent {
 		return new EShapeActionRuntimeEmitEvent( this );
-	}
-
-	toLabel(): string {
-		return `${toShapeActionValueLabel( this.type )}: ${EShapeActionValues.toConditionLabel( this.condition )}`;
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {

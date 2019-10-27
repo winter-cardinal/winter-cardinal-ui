@@ -10,31 +10,26 @@ import { EShapeActionRuntimeChangeTextNumber } from "./e-shape-action-runtime-ch
 import { EShapeActionRuntimeChangeTextText } from "./e-shape-action-runtime-change-text-text";
 import { EShapeActionValue } from "./e-shape-action-value";
 import { EShapeActionValueChangeTextType } from "./e-shape-action-value-change-text-type";
-import { EShapeActionValueType, toShapeActionValueLabel } from "./e-shape-action-value-type";
+import { EShapeActionValueSubtyped } from "./e-shape-action-value-subtyped";
+import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 export type EShapeActionValueChangeTextSerialized = [
 	EShapeActionValueType.CHANGE_TEXT, number, EShapeActionValueChangeTextType, number
 ];
 
-export class EShapeActionValueChangeText implements EShapeActionValue {
-	readonly type: EShapeActionValueType.CHANGE_TEXT;
-	readonly subtype: EShapeActionValueChangeTextType;
-	readonly condition: string;
+export class EShapeActionValueChangeText extends EShapeActionValueSubtyped<EShapeActionValueChangeTextType> {
 	readonly value: string;
 
 	constructor( subtype: EShapeActionValueChangeTextType, condition: string, value: string ) {
-		this.type = EShapeActionValueType.CHANGE_TEXT;
-		this.subtype = subtype;
-		this.condition = condition;
+		super( EShapeActionValueType.CHANGE_TEXT, condition, subtype );
 		this.value = value;
 	}
 
 	isEquals( value: EShapeActionValue ): boolean {
 		return (
+			super.isEquals( value ) &&
 			(value instanceof EShapeActionValueChangeText) &&
-			this.subtype === value.subtype &&
-			this.condition === value.condition &&
 			this.value === value.value
 		);
 	}
@@ -46,10 +41,6 @@ export class EShapeActionValueChangeText implements EShapeActionValue {
 		case EShapeActionValueChangeTextType.NUMBER:
 			return new EShapeActionRuntimeChangeTextNumber( this, shape.text.value );
 		}
-	}
-
-	toLabel(): string {
-		return `${toShapeActionValueLabel( this.type )}: ${EShapeActionValues.toConditionLabel( this.condition )}`;
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {

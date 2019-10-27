@@ -4,14 +4,14 @@
  */
 
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
+import { EShapeDeserializer } from "../e-shape-deserializer";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
-import { EShapes } from "../e-shapes";
 import { EShapeNull } from "./e-shape-null";
 
 export class EShapeNulls {
 	static deserialize(
 		item: DDiagramSerializedItem, manager: EShapeResourceManagerDeserialization
 	): Promise<EShapeNull> | EShapeNull {
-		return EShapes.deserialize( item, manager, new EShapeNull() );
+		return EShapeDeserializer.deserialize( item, manager, new EShapeNull() );
 	}
 }

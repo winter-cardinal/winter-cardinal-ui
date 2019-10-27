@@ -5,7 +5,7 @@
 
 import { EShape } from "../e-shape";
 import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
-import { toBaseFill, toBaseStroke } from "./e-shape-action-color";
+import { EShapeActionBases } from "./e-shape-action-bases";
 import { EShapeActionRuntimeBlink } from "./e-shape-action-runtime-blink";
 import { EShapeActionValueBlink } from "./e-shape-action-value-blink";
 
@@ -15,14 +15,14 @@ export class EShapeActionRuntimeBlinkOpacity extends EShapeActionRuntimeBlink {
 	}
 
 	protected toOn( shape: EShape, runtime: EShapeRuntime ): void {
-		const fill = toBaseFill( shape, runtime );
+		const fill = EShapeActionBases.toBaseFill( shape, runtime );
 		shape.fill.set(
 			undefined,
 			fill.color,
 			fill.alpha * 0.5
 		);
 
-		const stroke = toBaseStroke( shape, runtime );
+		const stroke = EShapeActionBases.toBaseStroke( shape, runtime );
 		shape.stroke.set(
 			undefined,
 			stroke.color,

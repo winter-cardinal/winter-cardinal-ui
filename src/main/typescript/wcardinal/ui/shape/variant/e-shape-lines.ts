@@ -5,9 +5,9 @@
 
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { EShapeDefaults } from "../e-shape-defaults";
+import { EShapeDeserializer } from "../e-shape-deserializer";
 import { EShapePointsStyle } from "../e-shape-points";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
-import { EShapes } from "../e-shapes";
 import { EShapeLine } from "./e-shape-line";
 
 export class EShapeLines {
@@ -39,7 +39,7 @@ export class EShapeLines {
 				EShapeDefaults.STROKE_WIDTH,
 				parsed[ 2 ]
 			);
-			return EShapes.deserialize( item, manager, shape );
+			return EShapeDeserializer.deserialize( item, manager, shape );
 		}
 		return null;
 	}

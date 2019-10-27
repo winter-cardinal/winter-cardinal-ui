@@ -4,15 +4,15 @@
  */
 
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
+import { EShapeDeserializer } from "../e-shape-deserializer";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
-import { EShapes } from "../e-shapes";
 import { EShapeTriangle } from "./e-shape-triangle";
 
 export class EShapeTriangles {
 	static deserialize(
 		item: DDiagramSerializedItem, manager: EShapeResourceManagerDeserialization
 	): Promise<EShapeTriangle> | EShapeTriangle {
-		return EShapes.deserialize( item, manager, EShapeTriangles.create() );
+		return EShapeDeserializer.deserialize( item, manager, EShapeTriangles.create() );
 	}
 
 	static create(): EShapeTriangle {

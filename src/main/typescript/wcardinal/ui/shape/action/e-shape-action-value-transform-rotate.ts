@@ -9,12 +9,9 @@ import { EShapeActionRuntimeTransformRotate } from "./e-shape-action-runtime-tra
 import { EShapeActionRuntimeTransformRotateAbsolute } from "./e-shape-action-runtime-transform-rotate-absolute";
 import { EShapeActionRuntimeTransformRotateRelative } from "./e-shape-action-runtime-transform-rotate-relative";
 import { EShapeActionValue } from "./e-shape-action-value";
-import {
-	EShapeActionValueTransformRotateType, toShapeActionValueTransformRotateLabel
-} from "./e-shape-action-value-transform-rotate-type";
-import {
-	EShapeActionValueTransformType, toShapeActionValueTransformLabel
-} from "./e-shape-action-value-transform-type";
+import { EShapeActionValueOpetyped } from "./e-shape-action-value-opetyped";
+import { EShapeActionValueTransformRotateType } from "./e-shape-action-value-transform-rotate-type";
+import { EShapeActionValueTransformType } from "./e-shape-action-value-transform-type";
 import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
@@ -24,23 +21,17 @@ export type EShapeActionValueTransformRotateSerialized = [
 	number, number, number
 ];
 
-export class EShapeActionValueTransformRotate implements EShapeActionValue {
-	readonly type: EShapeActionValueType.TRANSFORM;
-	readonly subtype: EShapeActionValueTransformType.ROTATE;
-	readonly opetype: EShapeActionValueTransformRotateType;
-	readonly condition: string;
+export class EShapeActionValueTransformRotate
+	extends EShapeActionValueOpetyped<EShapeActionValueTransformType, EShapeActionValueTransformRotateType> {
 	readonly originX: number;
 	readonly originY: number;
 	readonly amount: string;
 
 	constructor(
-		type: EShapeActionValueTransformRotateType, condition: string,
+		opetype: EShapeActionValueTransformRotateType, condition: string,
 		originX: number, originY: number, amount: string
 	) {
-		this.type = EShapeActionValueType.TRANSFORM;
-		this.subtype = EShapeActionValueTransformType.ROTATE;
-		this.opetype = type;
-		this.condition = condition;
+		super( EShapeActionValueType.TRANSFORM, condition, EShapeActionValueTransformType.ROTATE, opetype );
 		this.originX = originX;
 		this.originY = originY;
 		this.amount = amount;
@@ -48,9 +39,8 @@ export class EShapeActionValueTransformRotate implements EShapeActionValue {
 
 	isEquals( value: EShapeActionValue ): boolean {
 		return (
+			super.isEquals( value ) &&
 			(value instanceof EShapeActionValueTransformRotate) &&
-			this.opetype === value.opetype &&
-			this.condition === value.condition &&
 			this.originX === value.originX &&
 			this.originY === value.originY &&
 			this.amount === value.amount
@@ -64,12 +54,6 @@ export class EShapeActionValueTransformRotate implements EShapeActionValue {
 		case EShapeActionValueTransformRotateType.RELATIVE:
 			return new EShapeActionRuntimeTransformRotateRelative( this );
 		}
-	}
-
-	toLabel(): string {
-		const transformLabel = toShapeActionValueTransformLabel( this.subtype );
-		const rotateLabel = toShapeActionValueTransformRotateLabel( this.opetype );
-		return `${transformLabel}: ${rotateLabel}`;
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {

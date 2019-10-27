@@ -7,20 +7,20 @@ import { NumberFormatter } from "../../util/number-formatter";
 import { NumberFormatters } from "../../util/number-formatters";
 import { EShape } from "../e-shape";
 import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
-import { ACTION_EXPRESSION } from "./e-shape-action-runtime";
+import { EShapeActionExpression } from "./e-shape-action-runtime";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
 import { EShapeActionValueChangeText } from "./e-shape-action-value-change-text";
 
 const numberDefault = (): number => 0;
 
 export class EShapeActionRuntimeChangeTextNumber extends EShapeActionRuntimeConditional {
-	protected number: ACTION_EXPRESSION<number>;
+	protected number: EShapeActionExpression<number>;
 	protected formatter: NumberFormatter | null;
 
 	constructor( value: EShapeActionValueChangeText, format: string ) {
 		super( value, EShapeRuntimeReset.TEXT );
 
-		this.number = this.parseExpression( value.value, numberDefault, `0` );
+		this.number = this.toExpression( value.value, numberDefault, `0` );
 
 		format = format.trim();
 		this.formatter = ( 0 < format.length ? NumberFormatters.create( format ) : null );

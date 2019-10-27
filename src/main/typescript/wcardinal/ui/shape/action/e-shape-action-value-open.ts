@@ -11,31 +11,26 @@ import { EShapeActionRuntimeOpenPage } from "./e-shape-action-runtime-open-page"
 import { EShapeActionRuntimeOpenPageInplace } from "./e-shape-action-runtime-open-page-inplace";
 import { EShapeActionValue } from "./e-shape-action-value";
 import { EShapeActionValueOpenType } from "./e-shape-action-value-open-type";
-import { EShapeActionValueType, toShapeActionValueLabel } from "./e-shape-action-value-type";
+import { EShapeActionValueSubtyped } from "./e-shape-action-value-subtyped";
+import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 export type EShapeActionValueOpenSerialized = [
 	EShapeActionValueType.OPEN, number, EShapeActionValueOpenType, number
 ];
 
-export class EShapeActionValueOpen implements EShapeActionValue {
-	readonly type: EShapeActionValueType.OPEN;
-	readonly subtype: EShapeActionValueOpenType;
-	readonly condition: string;
+export class EShapeActionValueOpen extends EShapeActionValueSubtyped<EShapeActionValueOpenType> {
 	readonly target: string;
 
-	constructor( type: EShapeActionValueOpenType, condition: string, target: string ) {
-		this.type = EShapeActionValueType.OPEN;
-		this.subtype = type;
-		this.condition = condition;
+	constructor( subtype: EShapeActionValueOpenType, condition: string, target: string ) {
+		super( EShapeActionValueType.OPEN, condition, subtype );
 		this.target = target;
 	}
 
 	isEquals( value: EShapeActionValue ): boolean {
 		return (
+			super.isEquals( value ) &&
 			(value instanceof EShapeActionValueOpen) &&
-			this.subtype === value.subtype &&
-			this.condition === value.condition &&
 			this.target === value.target
 		);
 	}
@@ -49,10 +44,6 @@ export class EShapeActionValueOpen implements EShapeActionValue {
 		case EShapeActionValueOpenType.PAGE_INPLACE:
 			return new EShapeActionRuntimeOpenPageInplace( this );
 		}
-	}
-
-	toLabel(): string {
-		return `${toShapeActionValueLabel( this.type )}: ${EShapeActionValues.toConditionLabel( this.condition )}`;
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {

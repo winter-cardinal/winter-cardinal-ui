@@ -6,9 +6,8 @@
 import { Graphics } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DDiagramCanvasBase, DDiagramCanvasBaseOptions, DThemeDiagramCanvasBase } from "./d-diagram-canvas-base";
-import { DDiagramSerialized, DDiagramSerializedItem } from "./d-diagram-serialized";
+import { DDiagramSerialized, DDiagramSerializedItem, DDiagramSerializedVersion } from "./d-diagram-serialized";
 import { EShapeResourceManagerSerialization } from "./shape/e-shape-resource-manager-serialization";
-import { ESHAPE_SERIALIZATION_VERSION } from "./shape/e-shape-serializer";
 import { ESnapper } from "./snapper/e-snapper";
 import { ESnapperTargetValueType } from "./snapper/e-snapper-target-value";
 
@@ -52,7 +51,7 @@ export class DDiagramCanvasEditor<
 		const items: DDiagramSerializedItem[] = [];
 		const background = this.background;
 		return {
-			version: ESHAPE_SERIALIZATION_VERSION,
+			version: DDiagramSerializedVersion,
 			id,
 			name: this.name,
 			width: this.width,

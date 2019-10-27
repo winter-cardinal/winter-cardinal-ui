@@ -5,7 +5,7 @@
 
 import { EShape } from "../e-shape";
 import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
-import { toSizeNormalized } from "../e-shape-to-fixed";
+import { EShapeSizes } from "../e-shape-sizes";
 import { EShapeActionRuntimeTransformResize } from "./e-shape-action-runtime-transform-resize";
 import { EShapeActionValueTransformResize } from "./e-shape-action-value-transform-resize";
 
@@ -24,7 +24,7 @@ export class EShapeActionRuntimeTransformResizeWidthAbsolute extends EShapeActio
 			const size = shape.size;
 			const writtenWidth = ( (runtime.written & EShapeRuntimeReset.WIDTH) !== 0 );
 			const oldSizeX = (writtenWidth ? size.x : runtime.size.x);
-			size.x = toSizeNormalized( sizeAbsolute );
+			size.x = EShapeSizes.toNormalized( sizeAbsolute );
 			runtime.written |= EShapeRuntimeReset.WIDTH;
 			this.adjustPosition(
 				shape, runtime,

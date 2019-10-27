@@ -5,6 +5,8 @@
 
 import { DDiagramCanvasTileMapping } from "./d-diagram-canvas-mapping";
 
+export const DDiagramSerializedVersion = 1;
+
 export interface DDiagramSerializedTagRange {
 	[ 0 ]: number; // type
 	[ 1 ]: number; // from

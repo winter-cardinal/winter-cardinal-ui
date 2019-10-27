@@ -7,38 +7,32 @@ import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manage
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeActionRuntimeChangeCursor } from "./e-shape-action-runtime-change-cursor";
 import { EShapeActionValue } from "./e-shape-action-value";
-import { EShapeActionValueType, toShapeActionValueLabel } from "./e-shape-action-value-type";
+import { EShapeActionValueBase } from "./e-shape-action-value-base";
+import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 export type EShapeActionValueChangeCursorSerialized = [
 	EShapeActionValueType.CHANGE_CURSOR, number, number
 ];
 
-export class EShapeActionValueChangeCursor implements EShapeActionValue {
-	readonly type: EShapeActionValueType.CHANGE_CURSOR;
-	readonly condition: string;
+export class EShapeActionValueChangeCursor extends EShapeActionValueBase {
 	readonly name: string;
 
 	constructor( condition: string, name: string ) {
-		this.type = EShapeActionValueType.CHANGE_CURSOR;
-		this.condition = condition;
+		super( EShapeActionValueType.CHANGE_CURSOR, condition );
 		this.name = name;
 	}
 
 	isEquals( value: EShapeActionValue ): boolean {
 		return (
+			super.isEquals( value ) &&
 			(value instanceof EShapeActionValueChangeCursor) &&
-			this.condition === value.condition &&
 			this.name === value.name
 		);
 	}
 
 	toRuntime(): EShapeActionRuntimeChangeCursor {
 		return new EShapeActionRuntimeChangeCursor( this );
-	}
-
-	toLabel(): string {
-		return `${toShapeActionValueLabel( this.type )}: ${EShapeActionValues.toConditionLabel( this.condition )}`;
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {

@@ -11,7 +11,7 @@ import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
 import { EShapeStroke, EShapeStrokeLike } from "../e-shape-stroke";
 import { EShapeText, EShapeTextLike } from "../e-shape-text";
 import { EShapeTextOutline, EShapeTextOutlineLike } from "../e-shape-text-outline";
-import { ACTION_EXPRESSION } from "./e-shape-action-runtime";
+import { EShapeActionExpression } from "./e-shape-action-runtime";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
 import { EShapeActionValueChangeColorCode } from "./e-shape-action-value-change-color-code";
 
@@ -20,15 +20,15 @@ const alphaDefault = (): number | null => null;
 const blendDefault = (): number | null => null;
 
 export class EShapeActionRuntimeChangeColorCode extends EShapeActionRuntimeConditional {
-	protected readonly color: ACTION_EXPRESSION<number | null>;
-	protected readonly alpha: ACTION_EXPRESSION<number | null>;
-	protected readonly blend: ACTION_EXPRESSION<number | null>;
+	protected readonly color: EShapeActionExpression<number | null>;
+	protected readonly alpha: EShapeActionExpression<number | null>;
+	protected readonly blend: EShapeActionExpression<number | null>;
 
 	constructor( value: EShapeActionValueChangeColorCode, reset: EShapeRuntimeReset ) {
 		super( value, reset );
-		this.color = this.parseExpression( value.color, colorDefault, "null" );
-		this.alpha = this.parseExpression( value.alpha, alphaDefault, "null" );
-		this.blend = this.parseExpression( value.blend, blendDefault, "null" );
+		this.color = this.toExpression( value.color, colorDefault, "null" );
+		this.alpha = this.toExpression( value.alpha, alphaDefault, "null" );
+		this.blend = this.toExpression( value.blend, blendDefault, "null" );
 	}
 
 	protected set(

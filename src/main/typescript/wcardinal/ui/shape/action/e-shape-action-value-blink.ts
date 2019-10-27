@@ -13,8 +13,9 @@ import { EShapeActionRuntimeBlinkDarken } from "./e-shape-action-runtime-blink-d
 import { EShapeActionRuntimeBlinkOpacity } from "./e-shape-action-runtime-blink-opacity";
 import { EShapeActionRuntimeBlinkVisibility } from "./e-shape-action-runtime-blink-visibility";
 import { EShapeActionValue } from "./e-shape-action-value";
-import { EShapeActionValueBlinkType, toShapeActionValueBlinkLabel } from "./e-shape-action-value-blink-type";
-import { EShapeActionValueType, toShapeActionValueLabel } from "./e-shape-action-value-type";
+import { EShapeActionValueBlinkType } from "./e-shape-action-value-blink-type";
+import { EShapeActionValueSubtyped } from "./e-shape-action-value-subtyped";
+import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 export type EShapeActionValueBlinkSerialized = [
@@ -23,18 +24,13 @@ export type EShapeActionValueBlinkSerialized = [
 	number, number, number
 ];
 
-export class EShapeActionValueBlink implements EShapeActionValue {
-	readonly type: EShapeActionValueType.BLINK;
-	readonly subtype: EShapeActionValueBlinkType;
-	readonly condition: string;
+export class EShapeActionValueBlink extends EShapeActionValueSubtyped<EShapeActionValueBlinkType> {
 	readonly interval: number;
 	readonly color: number;
 	readonly alpha: number;
 
 	constructor( subtype: EShapeActionValueBlinkType, condition: string, interval: number, color: number, alpha: number ) {
-		this.type = EShapeActionValueType.BLINK;
-		this.subtype = subtype;
-		this.condition = condition;
+		super( EShapeActionValueType.BLINK, condition, subtype );
 		this.interval = interval;
 		this.color = color;
 		this.alpha = alpha;
@@ -42,9 +38,8 @@ export class EShapeActionValueBlink implements EShapeActionValue {
 
 	isEquals( value: EShapeActionValue ): boolean {
 		return (
+			super.isEquals( value ) &&
 			(value instanceof EShapeActionValueBlink) &&
-			this.subtype === value.subtype &&
-			this.condition === value.condition &&
 			this.interval === value.interval &&
 			this.color === value.color &&
 			this.alpha === value.alpha
@@ -66,10 +61,6 @@ export class EShapeActionValueBlink implements EShapeActionValue {
 		case EShapeActionValueBlinkType.VISIBILITY:
 			return new EShapeActionRuntimeBlinkVisibility( this );
 		}
-	}
-
-	toLabel(): string {
-		return `${toShapeActionValueLabel( this.type )}: ${toShapeActionValueBlinkLabel( this.subtype )}`;
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {

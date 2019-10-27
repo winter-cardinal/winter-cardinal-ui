@@ -8,32 +8,18 @@ import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manage
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeActionRuntime } from "./e-shape-action-runtime";
 import { EShapeActionRuntimeMiscInput } from "./e-shape-action-runtime-misc-input";
-import { EShapeActionValue } from "./e-shape-action-value";
-import { EShapeActionValueMiscType, toShapeActionValueMiscLabel } from "./e-shape-action-value-misc-type";
-import { EShapeActionValueType, toShapeActionValueLabel } from "./e-shape-action-value-type";
+import { EShapeActionValueMiscType } from "./e-shape-action-value-misc-type";
+import { EShapeActionValueSubtyped } from "./e-shape-action-value-subtyped";
+import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 export type EShapeActionValueMiscSerialized = [
 	EShapeActionValueType.MISC, number, EShapeActionValueMiscType
 ];
 
-export class EShapeActionValueMisc implements EShapeActionValue {
-	type: EShapeActionValueType;
-	condition: string;
-	subtype: EShapeActionValueMiscType;
-
+export class EShapeActionValueMisc extends EShapeActionValueSubtyped<EShapeActionValueMiscType> {
 	constructor( subtype: EShapeActionValueMiscType, condition: string ) {
-		this.type = EShapeActionValueType.MISC;
-		this.condition = condition;
-		this.subtype = subtype;
-	}
-
-	isEquals( value: EShapeActionValue ): boolean {
-		return (
-			(value instanceof EShapeActionValueMisc) &&
-			this.subtype === value.subtype &&
-			this.condition === value.condition
-		);
+		super( EShapeActionValueType.MISC, condition, subtype );
 	}
 
 	toRuntime( shape: EShape ): EShapeActionRuntime {
@@ -41,10 +27,6 @@ export class EShapeActionValueMisc implements EShapeActionValue {
 		case EShapeActionValueMiscType.INPUT:
 			return new EShapeActionRuntimeMiscInput();
 		}
-	}
-
-	toLabel(): string {
-		return `${toShapeActionValueLabel( this.type )}: ${toShapeActionValueMiscLabel( this.subtype )}`;
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {

@@ -15,13 +15,4 @@ export class EShapeActionValues {
 		}
 		return "";
 	}
-
-	static toConditionLabel( condition: string ): string {
-		const l = 20;
-		if( l < condition.length ) {
-			return condition.substring( 0, l ) + "...";
-		} else {
-			return condition;
-		}
-	}
 }

@@ -17,22 +17,10 @@ export enum EShapeTextWeight {
 	BOLD
 }
 
-export const toFontWeight = ( weight: EShapeTextWeight ) => {
-	return ( weight === 0 ? "normal" : "bold" );
-};
-
 export enum EShapeTextStyle {
 	NORMAL,
 	ITALIC
 }
-
-export const toFontStyle = ( style: EShapeTextStyle ) => {
-	return ( style === 0 ? "normal" : "italic" );
-};
-
-export const toFontFamily = ( family: string, faimilyAuto: string ) => {
-	return ( family === "auto" ? faimilyAuto : family );
-};
 
 export interface EShapeTextLike {
 	value: string;

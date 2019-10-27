@@ -20,9 +20,10 @@ import {
 } from "./e-shape-action-runtime-change-color-brightness-text-outline";
 import { EShapeActionValue } from "./e-shape-action-value";
 import {
-	EShapeActionValueChangeColorTarget, EShapeActionValueChangeColorType, toShapeActionValueChangeColorLabel
+	EShapeActionValueChangeColorTarget, EShapeActionValueChangeColorType
 } from "./e-shape-action-value-change-color-type";
-import { EShapeActionValueType, toShapeActionValueLabel } from "./e-shape-action-value-type";
+import { EShapeActionValueSubtyped } from "./e-shape-action-value-subtyped";
+import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 export type EShapeActionValueChangeColorBrightnessSerialized = [
@@ -30,26 +31,21 @@ export type EShapeActionValueChangeColorBrightnessSerialized = [
 	EShapeActionValueChangeColorTarget.BRIGHTNESS, number
 ];
 
-export class EShapeActionValueChangeColorBrightness implements EShapeActionValue {
-	readonly type: EShapeActionValueType.CHANGE_COLOR;
-	readonly subtype: EShapeActionValueChangeColorType;
-	readonly condition: string;
+export class EShapeActionValueChangeColorBrightness
+	extends EShapeActionValueSubtyped<EShapeActionValueChangeColorType> {
 	readonly brightness: string;
 
 	constructor(
 		subtype: EShapeActionValueChangeColorType, condition: string, brightness: string
 	) {
-		this.type = EShapeActionValueType.CHANGE_COLOR;
-		this.subtype = subtype;
-		this.condition = condition;
+		super( EShapeActionValueType.CHANGE_COLOR, condition, subtype );
 		this.brightness = brightness;
 	}
 
 	isEquals( value: EShapeActionValue ): boolean {
 		return (
+			super.isEquals( value ) &&
 			(value instanceof EShapeActionValueChangeColorBrightness) &&
-			this.subtype === value.subtype &&
-			this.condition === value.condition &&
 			this.brightness === value.brightness
 		);
 	}
@@ -69,10 +65,6 @@ export class EShapeActionValueChangeColorBrightness implements EShapeActionValue
 		case EShapeActionValueChangeColorType.ALL:
 			return new EShapeActionRuntimeChangeColorBrightnessAll( this );
 		}
-	}
-
-	toLabel(): string {
-		return `${toShapeActionValueLabel( this.type )}: ${toShapeActionValueChangeColorLabel( this.subtype )}`;
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {

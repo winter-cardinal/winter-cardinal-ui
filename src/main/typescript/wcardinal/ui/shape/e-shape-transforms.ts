@@ -6,7 +6,7 @@
 import { Matrix } from "pixi.js";
 import { EShape } from "./e-shape";
 import { EShapeEditor } from "./e-shape-editor";
-import { toSizeNormalized } from "./e-shape-to-fixed";
+import { EShapeSizes } from "./e-shape-sizes";
 import { EShapeBase } from "./variant/e-shape-base";
 
 export class EShapeTransforms {
@@ -93,8 +93,8 @@ export class EShapeTransforms {
 			const sx = Math.sqrt( a * a + b * b );
 			const sy = Math.sqrt( c * c + d * d );
 			shape.size.set(
-				toSizeNormalized( bx * sx ),
-				toSizeNormalized( by * sy )
+				EShapeSizes.toNormalized( bx * sx ),
+				EShapeSizes.toNormalized( by * sy )
 			);
 		}
 

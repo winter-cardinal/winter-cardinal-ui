@@ -5,7 +5,7 @@
 
 import { EShape } from "../e-shape";
 import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
-import { toBaseFill } from "./e-shape-action-color";
+import { EShapeActionBases } from "./e-shape-action-bases";
 import { EShapeActionRuntimeChangeColorBrightness } from "./e-shape-action-runtime-change-color-brightness";
 import { EShapeActionValueChangeColorBrightness } from "./e-shape-action-value-change-color-brightness";
 
@@ -16,7 +16,7 @@ export class EShapeActionRuntimeChangeColorBrightnessFill extends EShapeActionRu
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
 		if( !! this.condition( shape, time ) ) {
-			this.set( shape, runtime, time, shape.fill, toBaseFill( shape, runtime ) );
+			this.set( shape, runtime, time, shape.fill, EShapeActionBases.toBaseFill( shape, runtime ) );
 		}
 	}
 }

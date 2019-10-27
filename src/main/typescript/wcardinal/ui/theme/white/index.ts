@@ -146,3 +146,4 @@ export * from "./d-theme-white-table";
 export * from "./d-theme-white-text-base";
 export * from "./d-theme-white-text";
 export * from "./d-theme-white";
+export * from "./e-theme-white-shape-action-value";

@@ -6,7 +6,7 @@
 import { UtilRgb } from "../../util/util-rgb";
 import { EShape } from "../e-shape";
 import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
-import { toBaseFill, toBaseStroke, toBaseText, toBaseTextOutline } from "./e-shape-action-color";
+import { EShapeActionBases } from "./e-shape-action-bases";
 import { EShapeActionRuntimeBlink } from "./e-shape-action-runtime-blink";
 import { EShapeActionValueBlink } from "./e-shape-action-value-blink";
 
@@ -16,28 +16,28 @@ export class EShapeActionRuntimeBlinkDarken extends EShapeActionRuntimeBlink {
 	}
 
 	protected toOn( shape: EShape, runtime: EShapeRuntime ): void {
-		const fill = toBaseFill( shape, runtime );
+		const fill = EShapeActionBases.toBaseFill( shape, runtime );
 		shape.fill.set(
 			undefined,
 			UtilRgb.darken( fill.color, 0.5 ),
 			fill.alpha
 		);
 
-		const stroke = toBaseStroke( shape, runtime );
+		const stroke = EShapeActionBases.toBaseStroke( shape, runtime );
 		shape.stroke.set(
 			undefined,
 			UtilRgb.darken( stroke.color, 0.5 ),
 			stroke.alpha
 		);
 
-		const text = toBaseText( shape, runtime );
+		const text = EShapeActionBases.toBaseText( shape, runtime );
 		shape.text.set(
 			undefined,
 			UtilRgb.darken( text.color, 0.5 ),
 			text.alpha
 		);
 
-		const outline = toBaseTextOutline( shape, runtime );
+		const outline = EShapeActionBases.toBaseTextOutline( shape, runtime );
 		shape.text.outline.set(
 			undefined,
 			UtilRgb.darken( outline.color, 0.5 ),

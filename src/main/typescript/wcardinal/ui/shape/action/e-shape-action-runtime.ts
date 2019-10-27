@@ -7,7 +7,7 @@ import { DApplications } from "../../d-applications";
 import { EShape } from "../e-shape";
 import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
 
-export type ACTION_EXPRESSION<T> = ( shape: EShape, time: number ) => T;
+export type EShapeActionExpression<T> = ( shape: EShape, time: number ) => T;
 
 export class EShapeActionRuntime {
 	reset: EShapeRuntimeReset;
@@ -16,7 +16,9 @@ export class EShapeActionRuntime {
 		this.reset = reset || EShapeRuntimeReset.NONE;
 	}
 
-	parseExpression<T>( expression: string, def: ACTION_EXPRESSION<T>, defLiteral: string ): ACTION_EXPRESSION<T> {
+	toExpression<T>(
+		expression: string, def: EShapeActionExpression<T>, defLiteral: string
+	): EShapeActionExpression<T> {
 		if( expression.trim().length <= 0 ) {
 			return def;
 		}
@@ -25,7 +27,7 @@ export class EShapeActionRuntime {
 			return Function(
 				"shape", "time",
 				`try{ with( shape ) { return (${expression}); } } catch( e ) { return ${defLiteral}; }`
-			) as ACTION_EXPRESSION<T>;
+			) as EShapeActionExpression<T>;
 		} catch( e ) {
 			return def;
 		}

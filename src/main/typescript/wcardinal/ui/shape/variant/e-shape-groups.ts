@@ -4,8 +4,8 @@
  */
 
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
+import { EShapeDeserializer } from "../e-shape-deserializer";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
-import { EShapes } from "../e-shapes";
 import { EShapeGroup } from "./e-shape-group";
 
 export class EShapeGroups {
@@ -13,7 +13,7 @@ export class EShapeGroups {
 		item: DDiagramSerializedItem, manager: EShapeResourceManagerDeserialization
 	): Promise<EShapeGroup> | EShapeGroup {
 		const shape = EShapeGroups.create();
-		const result = EShapes.deserialize( item, manager, shape );
+		const result = EShapeDeserializer.deserialize( item, manager, shape );
 		shape.size.init();
 		return result;
 	}

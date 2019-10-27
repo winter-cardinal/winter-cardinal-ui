@@ -6,40 +6,22 @@
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeActionRuntimeShowHide } from "./e-shape-action-runtime-show-hide";
-import { EShapeActionValue } from "./e-shape-action-value";
 import { EShapeActionValueShowHideType } from "./e-shape-action-value-show-hide-type";
-import { EShapeActionValueType, toShapeActionValueLabel } from "./e-shape-action-value-type";
+import { EShapeActionValueSubtyped } from "./e-shape-action-value-subtyped";
+import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 export type EShapeActionValueShowHideSerialized = [
 	EShapeActionValueType.SHOW_HIDE, number, EShapeActionValueShowHideType
 ];
 
-export class EShapeActionValueShowHide implements EShapeActionValue {
-	readonly type: EShapeActionValueType.SHOW_HIDE;
-	readonly subtype: EShapeActionValueShowHideType;
-	readonly condition: string;
-
-	constructor( type: EShapeActionValueShowHideType, condition: string ) {
-		this.type = EShapeActionValueType.SHOW_HIDE;
-		this.subtype = type;
-		this.condition = condition;
-	}
-
-	isEquals( value: EShapeActionValue ): boolean {
-		return (
-			(value instanceof EShapeActionValueShowHide) &&
-			this.subtype === value.subtype &&
-			this.condition === value.condition
-		);
+export class EShapeActionValueShowHide extends EShapeActionValueSubtyped<EShapeActionValueShowHideType> {
+	constructor( subtype: EShapeActionValueShowHideType, condition: string ) {
+		super( EShapeActionValueType.SHOW_HIDE, condition, subtype );
 	}
 
 	toRuntime(): EShapeActionRuntimeShowHide {
 		return new EShapeActionRuntimeShowHide( this );
-	}
-
-	toLabel(): string {
-		return `${toShapeActionValueLabel( this.type )}: ${EShapeActionValues.toConditionLabel( this.condition )}`;
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {

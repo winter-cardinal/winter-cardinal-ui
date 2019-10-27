@@ -9,7 +9,7 @@ import { DDiagramLayerContainer } from "./d-diagram-layer-container";
 import { DDiagramSerialized, DDiagramSerializedSimple } from "./d-diagram-serialized";
 import { EShape } from "./shape/e-shape";
 import { EShapeDefaults } from "./shape/e-shape-defaults";
-import { EShapes } from "./shape/e-shapes";
+import { EShapeDeserializer } from "./shape/e-shape-deserializer";
 
 export class DDiagrams {
 	static toSerialized( simple: DDiagramSerializedSimple ): DDiagramSerialized {
@@ -36,7 +36,7 @@ export class DDiagrams {
 		// Items
 		const pfresources = serialized.resources;
 		const pfitems = serialized.items;
-		const shapePromises = EShapes.deserializeAll( pfitems, pfresources );
+		const shapePromises = EShapeDeserializer.deserializeAll( pfitems, pfresources );
 		if( shapePromises != null ) {
 			return shapePromises.then(( shapes: EShape[] ): EShape[] => {
 				const layers = container.children;

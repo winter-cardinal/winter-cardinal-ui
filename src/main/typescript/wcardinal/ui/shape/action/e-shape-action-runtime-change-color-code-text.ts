@@ -5,7 +5,7 @@
 
 import { EShape } from "../e-shape";
 import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
-import { toBaseText } from "./e-shape-action-color";
+import { EShapeActionBases } from "./e-shape-action-bases";
 import { EShapeActionRuntimeChangeColorCode } from "./e-shape-action-runtime-change-color-code";
 import { EShapeActionValueChangeColorCode } from "./e-shape-action-value-change-color-code";
 
@@ -16,7 +16,7 @@ export class EShapeActionRuntimeChangeColorCodeText extends EShapeActionRuntimeC
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
 		if( !! this.condition( shape, time ) ) {
-			this.set( shape, runtime, time, shape.text, toBaseText( shape, runtime ) );
+			this.set( shape, runtime, time, shape.text, EShapeActionBases.toBaseText( shape, runtime ) );
 		}
 	}
 }

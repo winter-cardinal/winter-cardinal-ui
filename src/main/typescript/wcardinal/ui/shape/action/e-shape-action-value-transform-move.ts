@@ -15,12 +15,9 @@ import { EShapeActionRuntimeTransformMoveLeftOrRight } from "./e-shape-action-ru
 import { EShapeActionRuntimeTransformMoveRelativeX } from "./e-shape-action-runtime-transform-move-relative-x";
 import { EShapeActionRuntimeTransformMoveRelativeY } from "./e-shape-action-runtime-transform-move-relative-y";
 import { EShapeActionValue } from "./e-shape-action-value";
-import {
-	EShapeActionValueTransformMoveType, toShapeActionValueTransformMoveLabel
-} from "./e-shape-action-value-transform-move-type";
-import {
-	EShapeActionValueTransformType, toShapeActionValueTransformLabel
-} from "./e-shape-action-value-transform-type";
+import { EShapeActionValueOpetyped } from "./e-shape-action-value-opetyped";
+import { EShapeActionValueTransformMoveType } from "./e-shape-action-value-transform-move-type";
+import { EShapeActionValueTransformType } from "./e-shape-action-value-transform-type";
 import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
@@ -29,26 +26,19 @@ export type EShapeActionValueTransformMoveSerialized = [
 	EShapeActionValueTransformMoveType, number
 ];
 
-export class EShapeActionValueTransformMove implements EShapeActionValue {
-	readonly type: EShapeActionValueType.TRANSFORM;
-	readonly subtype: EShapeActionValueTransformType.MOVE;
-	readonly opetype: EShapeActionValueTransformMoveType;
-	readonly condition: string;
+export class EShapeActionValueTransformMove
+	extends EShapeActionValueOpetyped<EShapeActionValueTransformType, EShapeActionValueTransformMoveType> {
 	readonly amount: string;
 
-	constructor( type: EShapeActionValueTransformMoveType, condition: string, amount: string ) {
-		this.type = EShapeActionValueType.TRANSFORM;
-		this.subtype = EShapeActionValueTransformType.MOVE;
-		this.opetype = type;
-		this.condition = condition;
+	constructor( opetype: EShapeActionValueTransformMoveType, condition: string, amount: string ) {
+		super( EShapeActionValueType.TRANSFORM, condition, EShapeActionValueTransformType.MOVE, opetype );
 		this.amount = amount;
 	}
 
 	isEquals( value: EShapeActionValue ): boolean {
 		return (
+			super.isEquals( value ) &&
 			(value instanceof EShapeActionValueTransformMove) &&
-			this.opetype === value.opetype &&
-			this.condition === value.condition &&
 			this.amount === value.amount
 		);
 	}
@@ -68,12 +58,6 @@ export class EShapeActionValueTransformMove implements EShapeActionValue {
 		case EShapeActionValueTransformMoveType.RELATIVE_Y:
 			return new EShapeActionRuntimeTransformMoveRelativeY( this );
 		}
-	}
-
-	toLabel(): string {
-		const transformLabel = toShapeActionValueTransformLabel( this.subtype );
-		const moveLabel = toShapeActionValueTransformMoveLabel( this.opetype );
-		return `${transformLabel}: ${moveLabel}`;
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {

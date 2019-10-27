@@ -7,9 +7,8 @@ import { DControllerDocument } from "./d-controller-document";
 import { DControllers } from "./d-controllers";
 import { DDiagramBase, DDiagramBaseOptions, DThemeDiagramBase } from "./d-diagram-base";
 import { DDiagramCanvasEditor } from "./d-diagram-canvas-editor";
-import { DDiagramSerialized, DDiagramSerializedSimple } from "./d-diagram-serialized";
+import { DDiagramSerialized, DDiagramSerializedSimple, DDiagramSerializedVersion } from "./d-diagram-serialized";
 import { DDiagrams } from "./d-diagrams";
-import { ESHAPE_SERIALIZATION_VERSION } from "./shape/e-shape-serializer";
 import { ESnapper } from "./snapper/e-snapper";
 
 export interface DDiagramEditorController {
@@ -146,7 +145,7 @@ export class DDiagramEditor<
 
 	create( name: string, width: number, height: number ): Promise<unknown> | boolean {
 		this.set({
-			version: ESHAPE_SERIALIZATION_VERSION,
+			version: DDiagramSerializedVersion,
 			id: undefined,
 			name,
 			width,

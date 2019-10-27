@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+export * from "./e-shape-action-bases";
 export * from "./e-shape-action-runtime-blink-brighten";
 export * from "./e-shape-action-runtime-blink-color-fill";
 export * from "./e-shape-action-runtime-blink-color-stroke";
@@ -61,6 +62,7 @@ export * from "./e-shape-action-runtime-transform-rotate-absolute";
 export * from "./e-shape-action-runtime-transform-rotate-relative";
 export * from "./e-shape-action-runtime-transform-rotate";
 export * from "./e-shape-action-runtime";
+export * from "./e-shape-action-value-base";
 export * from "./e-shape-action-value-blink-type";
 export * from "./e-shape-action-value-blink";
 export * from "./e-shape-action-value-change-color-brightness";
@@ -76,8 +78,10 @@ export * from "./e-shape-action-value-misc-type";
 export * from "./e-shape-action-value-misc";
 export * from "./e-shape-action-value-open-type";
 export * from "./e-shape-action-value-open";
+export * from "./e-shape-action-value-opetyped";
 export * from "./e-shape-action-value-show-hide-type";
 export * from "./e-shape-action-value-show-hide";
+export * from "./e-shape-action-value-subtyped";
 export * from "./e-shape-action-value-transform-move-type";
 export * from "./e-shape-action-value-transform-move";
 export * from "./e-shape-action-value-transform-resize-type";

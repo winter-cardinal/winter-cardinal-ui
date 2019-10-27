@@ -8,15 +8,3 @@ export enum EShapeActionValueTransformType {
 	MOVE,
 	ROTATE
 }
-
-export const toShapeActionValueTransformLabel = (type: EShapeActionValueTransformType): string => {
-	switch (type) {
-		case EShapeActionValueTransformType.RESIZE:
-			return "Resize";
-		case EShapeActionValueTransformType.MOVE:
-			return "Move";
-		case EShapeActionValueTransformType.ROTATE:
-			return "Rotate";
-	}
-	return "Unknown";
-};

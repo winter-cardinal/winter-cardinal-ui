@@ -10,18 +10,18 @@ import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
 import { EShapeStroke, EShapeStrokeLike } from "../e-shape-stroke";
 import { EShapeText, EShapeTextLike } from "../e-shape-text";
 import { EShapeTextOutline, EShapeTextOutlineLike } from "../e-shape-text-outline";
-import { ACTION_EXPRESSION } from "./e-shape-action-runtime";
+import { EShapeActionExpression } from "./e-shape-action-runtime";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
 import { EShapeActionValueChangeColorBrightness } from "./e-shape-action-value-change-color-brightness";
 
 const brightnessDefault = (): number | null => null;
 
 export class EShapeActionRuntimeChangeColorBrightness extends EShapeActionRuntimeConditional {
-	protected readonly brightness: ACTION_EXPRESSION<number | null>;
+	protected readonly brightness: EShapeActionExpression<number | null>;
 
 	constructor( value: EShapeActionValueChangeColorBrightness, reset: EShapeRuntimeReset ) {
 		super( value, reset );
-		this.brightness = this.parseExpression( value.brightness, brightnessDefault, "null" );
+		this.brightness = this.toExpression( value.brightness, brightnessDefault, "null" );
 	}
 
 	protected set(

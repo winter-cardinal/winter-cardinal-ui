@@ -83,6 +83,7 @@ export * from "./load-theme-white-picker-datetime";
 export * from "./load-theme-white-picker-time";
 export * from "./load-theme-white-scroll-bar";
 export * from "./load-theme-white-select";
+export * from "./load-theme-white-shape-action-value";
 export * from "./load-theme-white-table";
 export * from "./load-theme-white-text";
 export * from "./load-theme-white";

@@ -8,15 +8,3 @@ export enum EShapeActionValueOpenType {
 	PAGE,
 	PAGE_INPLACE
 }
-
-export const toShapeActionValueOpenLabel = (type: EShapeActionValueOpenType): string => {
-	switch (type) {
-		case EShapeActionValueOpenType.FLOW:
-			return "Flow";
-		case EShapeActionValueOpenType.PAGE:
-			return "Page (New window)";
-		case EShapeActionValueOpenType.PAGE_INPLACE:
-			return "Page (In-place)";
-	}
-	return "Unknown";
-};

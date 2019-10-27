@@ -25,12 +25,9 @@ import {
 	EShapeActionRuntimeTransformResizeWidthRelative
 } from "./e-shape-action-runtime-transform-resize-width-relative";
 import { EShapeActionValue } from "./e-shape-action-value";
-import {
-	EShapeActionValueTransformResizeType, toShapeActionValueTransformResizeLabel
-} from "./e-shape-action-value-transform-resize-type";
-import {
-	EShapeActionValueTransformType, toShapeActionValueTransformLabel
-} from "./e-shape-action-value-transform-type";
+import { EShapeActionValueOpetyped } from "./e-shape-action-value-opetyped";
+import { EShapeActionValueTransformResizeType } from "./e-shape-action-value-transform-resize-type";
+import { EShapeActionValueTransformType } from "./e-shape-action-value-transform-type";
 import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
@@ -40,23 +37,19 @@ export type EShapeActionValueTransformResizeSerialized = [
 	number, number, number
 ];
 
-export class EShapeActionValueTransformResize implements EShapeActionValue {
-	readonly type: EShapeActionValueType.TRANSFORM;
-	readonly subtype: EShapeActionValueTransformType.RESIZE;
-	readonly opetype: EShapeActionValueTransformResizeType;
-	readonly condition: string;
+export class EShapeActionValueTransformResize
+	extends EShapeActionValueOpetyped<EShapeActionValueTransformType, EShapeActionValueTransformResizeType> {
 	readonly originX: number;
 	readonly originY: number;
 	readonly amount: string;
 
 	constructor(
-		type: EShapeActionValueTransformResizeType, condition: string,
-		originX: number, originY: number, amount: string
+		opetype: EShapeActionValueTransformResizeType,
+		condition: string,
+		originX: number, originY: number,
+		amount: string
 	) {
-		this.type = EShapeActionValueType.TRANSFORM;
-		this.subtype = EShapeActionValueTransformType.RESIZE;
-		this.opetype = type;
-		this.condition = condition;
+		super( EShapeActionValueType.TRANSFORM, condition, EShapeActionValueTransformType.RESIZE, opetype );
 		this.originX = originX;
 		this.originY = originY;
 		this.amount = amount;
@@ -64,9 +57,8 @@ export class EShapeActionValueTransformResize implements EShapeActionValue {
 
 	isEquals( value: EShapeActionValue ): boolean {
 		return (
+			super.isEquals( value ) &&
 			(value instanceof EShapeActionValueTransformResize) &&
-			this.opetype === value.opetype &&
-			this.condition === value.condition &&
 			this.originX === value.originX &&
 			this.originY === value.originY &&
 			this.amount === value.amount
@@ -88,12 +80,6 @@ export class EShapeActionValueTransformResize implements EShapeActionValue {
 		case EShapeActionValueTransformResizeType.RELATIVE_SIZE:
 			return new EShapeActionRuntimeTransformResizeSizeRelative( this );
 		}
-	}
-
-	toLabel(): string {
-		const transformLabel = toShapeActionValueTransformLabel( this.subtype );
-		const resizeLabel = toShapeActionValueTransformResizeLabel( this.opetype );
-		return `${transformLabel}: ${resizeLabel}`;
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
