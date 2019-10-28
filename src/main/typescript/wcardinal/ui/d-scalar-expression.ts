@@ -98,14 +98,29 @@ const TOKEN_MAPPING_LITERAL: { [ token: string ]: NodeTypeLiteral | undefined } 
 };
 
 /**
- * Parser and evaluator of the scalar expressions like "100%".
+ * Parser and evaluator of the scalar expressions like `100% - 50s`.
  *
- * * x%: 0.01 * x * parent size where the `w` is a parent width/height
- * * xs: 0.01 * x * sself size where the `sw` is a self width/height.
+ * Literals
+ *
+ * * x%: 0.01 * x * parent value
+ * * xs: 0.01 * x * self value
  * * xp: 0.01 * x * padding
  * * xc: 0.01 * x * current
  *
- * For instance, 90% is 0.9 * parent size.
+ * Operators
+ *
+ * * `+`
+ * * `-`
+ * * `*`
+ * * `/`
+ * * `(` and `)`
+ *
+ * Examples
+ *
+ * * `90%`: 0.9 * parent value
+ * * `50s`: 0.5 * self value
+ * * `90% - 50s`: 0.9 * parent value - 0.5 * self value
+ * * `90% - (50s + 100) * 2`: 0.9 * parent value - ( 0.5 * self value + 100 ) * 2
  */
 export class DScalarExpression implements DScalar {
 	protected _node: Node;
