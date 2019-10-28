@@ -4,6 +4,7 @@
 	"module": "umd",
 	"theme": "default",
 	"target": "ES5",
+	"readme": "none",
 	"ignoreCompilerErrors": "false",
 	"preserveConstEnums": "true",
 	"external-modulemap": ".*\/wcardinal\/([\\w\\-_\/]+)\/",

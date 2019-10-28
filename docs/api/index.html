@@ -51,7 +51,7 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="globals.html">Globals</a>
+					<a href="index.html">Globals</a>
 				</li>
 			</ul>
 			<h1> Winter Cardinal UI</h1>
@@ -61,197 +61,35 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<div class="tsd-panel tsd-typography">
-				<a href="#about" id="about" style="color: inherit; text-decoration: none;">
-					<h3>About</h3>
-				</a>
-				<p>A WebGL-based UI library.</p>
-				<a href="#installing" id="installing" style="color: inherit; text-decoration: none;">
-					<h3>Installing</h3>
-				</a>
-				<a href="#npm" id="npm" style="color: inherit; text-decoration: none;">
-					<h4>NPM</h4>
-				</a>
-				<pre><code><span class="hljs-selector-tag">npm</span> <span class="hljs-selector-tag">i</span> @<span class="hljs-keyword">wcardinal</span>/<span class="hljs-keyword">wcardinal</span>-<span class="hljs-keyword">ui</span></code></pre><p>Please note that this package has no default exports.</p>
-				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { loadAll, DApplication, DButtonCheck } <span class="hljs-keyword">from</span> <span class="hljs-string">"@wcardinal/wcardinal-ui"</span>;
-
-<span class="hljs-comment">// Loads all the optional modules and the default theme.</span>
-<span class="hljs-comment">// This is required for the tree shaking as explained later.</span>
-loadAll();
-
-<span class="hljs-comment">// Make a new application</span>
-<span class="hljs-keyword">const</span> application = <span class="hljs-keyword">new</span> DApplication();
-
-<span class="hljs-comment">// Make a new check button</span>
-<span class="hljs-keyword">new</span> DButtonCheck({
-    <span class="hljs-attr">parent</span>: application.stage,
-    <span class="hljs-attr">text</span>: {
-        <span class="hljs-attr">value</span>: <span class="hljs-string">"Check"</span>
-    }
-});</code></pre>
-				<a href="#cdn" id="cdn" style="color: inherit; text-decoration: none;">
-					<h4>CDN</h4>
-				</a>
-				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/pixi.js/dist/pixi.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/@wcardinal/wcardinal-ui/dist/wcardinal-ui.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
-(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
-<span class="hljs-meta">    'use strict'</span>;
-
-    <span class="hljs-comment">// Make a new application</span>
-    <span class="hljs-keyword">var</span> application = <span class="hljs-keyword">new</span> wcardinal.ui.DApplication();
-
-    <span class="hljs-comment">// Make a new check button</span>
-    <span class="hljs-keyword">new</span> wcardinal.ui.DButtonCheck({
-        <span class="hljs-attr">parent</span>: application.stage,
-        <span class="hljs-attr">text</span>: {
-            <span class="hljs-attr">value</span>: <span class="hljs-string">'Check'</span>
-        }
-    });
-}());
-</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
-				<p>All the classes are in the <code>wcardin.ui</code>.
-					Please note that the <code>loadAll</code> is not required in this case.
-				Prebuild files <code>wcardinal-ui.js</code> and <code>wcardinal-ui.min.js</code> call the <code>loadAll</code> for you.</p>
-				<p>See <a href="src/test/resources/static/cdn.html">src/test/resources/static/cdn.html</a> for complete example.</p>
-				<a href="#tree-shaking" id="tree-shaking" style="color: inherit; text-decoration: none;">
-					<h3>Tree shaking</h3>
-				</a>
-				<p>The NPM package <code>@wcardinal/wcardinal-ui</code> is large in its size
-					because all the UI classes and their themes are included.
-				This is why the tree shaking is important for this library.</p>
-				<p>The <code>loadAll</code> loads all the optional modules (e.g., <code>DMenuItemCheck</code>) and the default theme (e.g., <code>DThemeWhite</code>).
-				To remove unnecessary modules from your build, pick <code>load*</code> functions you need.</p>
-				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { loadThemeWhiteAll } <span class="hljs-keyword">from</span> <span class="hljs-string">'@wcardinal/wcardinal-ui'</span>;
-
-<span class="hljs-comment">// Loads the white theme only.</span>
-<span class="hljs-comment">// `DMenuItemCheck` will not be in your compiled package.</span>
-loadThemeWhiteAll();</code></pre>
-				<a href="#ui-elements" id="ui-elements" style="color: inherit; text-decoration: none;">
-					<h3>UI Elements</h3>
-				</a>
-				<ul>
-					<li>Board</li>
-					<li>Button<ul>
-							<li>Ambient button</li>
-							<li>Check button (Left / right)</li>
-							<li>Gradient color button</li>
-							<li>Color button</li>
-							<li>Danger button</li>
-							<li>Date button</li>
-							<li>Datetime button</li>
-							<li>File button</li>
-							<li>Group button</li>
-							<li>Primary button</li>
-							<li>Radio button (Left / right)</li>
-							<li>Redo button</li>
-							<li>Secondary button</li>
-							<li>Time button</li>
-							<li>Undo button</li>
-						</ul>
-					</li>
-					<li>Canvas container and Canvas</li>
-					<li>chart<ul>
-							<li>Line chart (In progress)</li>
-						</ul>
-					</li>
-					<li>Diagram with tile server support</li>
-					<li>Dialog<ul>
-							<li>Gradient color dialog</li>
-							<li>Color dialog</li>
-							<li>Confirm dialog<ul>
-									<li>For deleting</li>
-									<li>For discarding</li>
-								</ul>
-							</li>
-							<li>Date dialog</li>
-							<li>Datetime dialog</li>
-							<li>Text input dialog</li>
-							<li>Message dialog</li>
-							<li>Processing dialog</li>
-							<li>Save-as dialog</li>
-							<li>Select dialog</li>
-							<li>Time dialog</li>
-						</ul>
-					</li>
-					<li>Input<ul>
-							<li>Integer input</li>
-							<li>Real number input</li>
-							<li>Text input</li>
-						</ul>
-					</li>
-					<li>Layout<ul>
-							<li>Horizontal layout</li>
-							<li>Vertical layout</li>
-						</ul>
-					</li>
-					<li>List</li>
-					<li>Menu</li>
-					<li>Side menu</li>
-					<li>Menu bar</li>
-					<li>Pane</li>
-					<li>Picker<ul>
-							<li>Gradient color picker</li>
-							<li>Color picker</li>
-							<li>Date picker</li>
-							<li>Datetime picker</li>
-							<li>Time picker</li>
-						</ul>
-					</li>
-					<li>Scroll bar<ul>
-							<li>Horizontal scroll bar</li>
-							<li>Vertical scroll bar</li>
-						</ul>
-					</li>
-					<li>Slider (In progress)</li>
-					<li>Table</li>
-					<li>Tree (In progress)</li>
-				</ul>
-				<a href="#requirements" id="requirements" style="color: inherit; text-decoration: none;">
-					<h3>Requirements</h3>
-				</a>
-				<ul>
-					<li>WebGL 1.0 support</li>
-					<li>Promise support</li>
-					<li>Base64-encoded SVG support for textures<ul>
-							<li>IE11 does not support this.</li>
-							<li>Not required if your theme doesn&#39;t use it</li>
-						</ul>
-					</li>
-					<li>Stencil support</li>
-				</ul>
-				<a href="#how-to-build" id="how-to-build" style="color: inherit; text-decoration: none;">
-					<h3>How to build</h3>
-				</a>
-				<p>The following commands are for building <code>@wcardinal/wcardinal-ui</code> itself.
-				For most users, you do not need to do this.</p>
-				<a href="#js-for-release" id="js-for-release" style="color: inherit; text-decoration: none;">
-					<h4>JS for release</h4>
-				</a>
-				<pre><code class="language-shell">npm run build</code></pre>
-				<a href="#js-for-development" id="js-for-development" style="color: inherit; text-decoration: none;">
-					<h4>JS for development</h4>
-				</a>
-				<pre><code class="language-shell">npm run watch:ts</code></pre>
-				<p>and then in an another terminal</p>
-				<pre><code class="language-shell">npm run watch:rollup</code></pre>
-				<a href="#api-document" id="api-document" style="color: inherit; text-decoration: none;">
-					<h4>API document</h4>
-				</a>
-				<pre><code class="language-shell">npm run build:typedoc</code></pre>
-				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
-					<h3>License</h3>
-				</a>
-				<p>Apache License Version 2.0.</p>
-				<p>The default theme uses Material Design icons by Google
-				licensed under Apache license version 2.0.<br><a href="https://github.com/google/material-design-icons">https://github.com/google/material-design-icons</a></p>
-			</div>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>External modules</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-external-module"><a href="modules/ui.html" class="tsd-kind-icon">ui</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/ui_load.html" class="tsd-kind-icon">ui/load</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/ui_resource.html" class="tsd-kind-icon">ui/resource</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/ui_shape.html" class="tsd-kind-icon">ui/shape</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/ui_shape_action.html" class="tsd-kind-icon">ui/shape/action</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/ui_shape_variant.html" class="tsd-kind-icon">ui/shape/variant</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/ui_snapper.html" class="tsd-kind-icon">ui/snapper</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/ui_theme.html" class="tsd-kind-icon">ui/theme</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/ui_theme_white.html" class="tsd-kind-icon">ui/theme/white</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/ui_util.html" class="tsd-kind-icon">ui/util</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/ui_util_format_node.html" class="tsd-kind-icon">ui/util/format-<wbr>node</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
 				<ul>
-					<li class="globals  ">
-						<a href="globals.html"><em>Globals</em></a>
+					<li class="globals current ">
+						<a href="index.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/ui.html">ui</a>

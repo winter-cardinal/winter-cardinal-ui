@@ -79,7 +79,7 @@ loadThemeWhiteAll();
 
 ### Documentation
 
-* [API document](https://winter-cardinal.github.io/winter-cardinal-ui/api/)
+* [API document (In progress)](https://winter-cardinal.github.io/winter-cardinal-ui/api/)
 
 ### UI Elements
 

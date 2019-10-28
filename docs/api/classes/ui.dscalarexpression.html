@@ -51,7 +51,7 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="../globals.html">Globals</a>
+					<a href="../index.html">Globals</a>
 				</li>
 				<li>
 					<a href="../modules/ui.html">ui</a>
@@ -70,15 +70,30 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Parser and evaluator of the scalar expressions like &quot;100%&quot;.</p>
+						<p>Parser and evaluator of the scalar expressions like <code>100% - 50s</code>.</p>
 					</div>
+					<p>Literals</p>
 					<ul>
-						<li>x%: 0.01 * x * parent size where the <code>w</code> is a parent width/height</li>
-						<li>xs: 0.01 * x * sself size where the <code>sw</code> is a self width/height.</li>
+						<li>x%: 0.01 * x * parent value</li>
+						<li>xs: 0.01 * x * self value</li>
 						<li>xp: 0.01 * x * padding</li>
 						<li>xc: 0.01 * x * current</li>
 					</ul>
-					<p>For instance, 90% is 0.9 * parent size.</p>
+					<p>Operators</p>
+					<ul>
+						<li><code>+</code></li>
+						<li><code>-</code></li>
+						<li><code>*</code></li>
+						<li><code>/</code></li>
+						<li><code>(</code> and <code>)</code></li>
+					</ul>
+					<p>Examples</p>
+					<ul>
+						<li><code>90%</code>: 0.9 * parent value</li>
+						<li><code>50s</code>: 0.5 * self value</li>
+						<li><code>90% - 50s</code>: 0.9 * parent value - 0.5 * self value</li>
+						<li><code>90% - (50s + 100) * 2</code>: 0.9 * parent value - ( 0.5 * self value + 100 ) * 2</li>
+					</ul>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
@@ -139,7 +154,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/808df0d/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L111">d-scalar-expression.ts:111</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L126">d-scalar-expression.ts:126</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -161,7 +176,7 @@
 					<div class="tsd-signature tsd-kind-icon">_node<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Node</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/808df0d/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L111">d-scalar-expression.ts:111</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L126">d-scalar-expression.ts:126</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -179,7 +194,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/ui.dscalar.html">DScalar</a>.<a href="../interfaces/ui.dscalar.html#calculate">calculate</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/808df0d/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L295">d-scalar-expression.ts:295</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L310">d-scalar-expression.ts:310</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -211,7 +226,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/808df0d/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L253">d-scalar-expression.ts:253</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L268">d-scalar-expression.ts:268</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -246,7 +261,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/808df0d/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L198">d-scalar-expression.ts:198</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L213">d-scalar-expression.ts:213</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -275,7 +290,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/808df0d/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L184">d-scalar-expression.ts:184</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L199">d-scalar-expression.ts:199</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -304,7 +319,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/808df0d/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L129">d-scalar-expression.ts:129</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L144">d-scalar-expression.ts:144</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -330,7 +345,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/808df0d/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L223">d-scalar-expression.ts:223</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L238">d-scalar-expression.ts:238</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -353,7 +368,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/808df0d/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L159">d-scalar-expression.ts:159</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L174">d-scalar-expression.ts:174</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -376,7 +391,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/808df0d/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L153">d-scalar-expression.ts:153</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L168">d-scalar-expression.ts:168</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -395,7 +410,7 @@
 			<nav class="tsd-navigation primary">
 				<ul>
 					<li class="globals  ">
-						<a href="../globals.html"><em>Globals</em></a>
+						<a href="../index.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
 						<a href="../modules/ui.html">ui</a>
