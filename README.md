@@ -178,7 +178,7 @@ npm run watch:rollup
 #### API document
 
 ```shell
-npm run build:typedoc
+npm run build:api
 ```
 
 ### License
