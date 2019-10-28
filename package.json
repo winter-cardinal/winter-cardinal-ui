@@ -20,7 +20,7 @@
 		"build": "rm dist -rf && tsc && rollup -c",
 		"build:ts": "tsc",
 		"build:rollup": "rollup -c",
-		"build:typedoc": "typedoc --options typedoc.json --out build/typedoc --disableOutputCheck --excludeNotExported --excludePrivate",
+		"build:api": "typedoc --options typedoc.json --out docs/api --disableOutputCheck --excludeNotExported --excludePrivate",
 		"watch:ts": "tsc -w",
 		"watch:rollup": "rollup -c -w",
 		"prepublishOnly": "npm run build"
