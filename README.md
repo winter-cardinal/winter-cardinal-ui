@@ -58,7 +58,7 @@ All the classes are in the `wcardin.ui`.
 Please note that the `loadAll` is not required in this case.
 Prebuild files `wcardinal-ui.js` and `wcardinal-ui.min.js` call the `loadAll` for you.
 
-See [src/test/resources/static/cdn.html](src/test/resources/static/cdn.html) for complete example.
+See [sample/cdn.html](https://winter-cardinal.github.io/winter-cardinal-ui/sample/cdn.html) for complete example.
 
 ### Tree shaking
 
@@ -76,6 +76,10 @@ import { loadThemeWhiteAll } from '@wcardinal/wcardinal-ui';
 // `DMenuItemCheck` will not be in your compiled package.
 loadThemeWhiteAll();
 ```
+
+### Documentation
+
+* [API document](https://winter-cardinal.github.io/winter-cardinal-ui/api/)
 
 ### UI Elements
 
