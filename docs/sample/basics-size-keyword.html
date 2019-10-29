@@ -15,22 +15,20 @@
 	</style>
 </head>
 <body>
-	<script src="https://cdn.jsdelivr.net/npm/pixi.js/dist/pixi.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/@wcardinal/wcardinal-ui/dist/wcardinal-ui.min.js"></script>
+	<script src="js/pixi.min.js"></script>
+	<script src="js/wcardinal-ui.min.js"></script>
 	<script>
 	(function(){
 		'use strict';
 
-		// Make a new application
 		var application = new wcardinal.ui.DApplication();
 
-		// Make a new check button
-		new wcardinal.ui.DButtonCheck({
-			x: "center", y: "center",
-			width: 200,
+		new wcardinal.ui.DBase({
 			parent: application.stage,
-			text: {
-				value: 'Hello, CDN'
+			x: "padding", y: "center",
+			width: "padding", height: "padding",
+			background: {
+				color: 0x3388ff
 			}
 		});
 	}());
