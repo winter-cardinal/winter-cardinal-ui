@@ -2,7 +2,7 @@
 
 A WebGL-based UI library.
 
-### Installing
+### Installation
 
 #### NPM
 
@@ -80,6 +80,7 @@ loadThemeWhiteAll();
 ### Documentation
 
 * [API document (In progress)](https://winter-cardinal.github.io/winter-cardinal-ui/api/)
+* [Cheatsheet](https://winter-cardinal.github.io/winter-cardinal-ui/cheatsheet/all-in-one.html)
 
 ### UI Elements
 
@@ -179,6 +180,12 @@ npm run watch:rollup
 
 ```shell
 npm run build:api
+```
+
+#### Cheatsheet
+
+```shell
+./gradlew compileCheatsheet
 ```
 
 ### License

@@ -38,3 +38,27 @@ license {
 	exclude '**/pixi.min.js'
 	exclude '**/pixi.min.js.map'
 }
+
+task compileCheatsheet() {
+	def source = 'docs/cheatsheet/_src';
+	def destination = 'docs/cheatsheet/all-in-one.md';
+	inputs.dir( source )
+	outputs.file( destination )
+
+	doLast {
+		String header = '# Cheatsheet\n\n';
+		String contents = file( source ).listFiles().sort{ it.name }.collect{ it.text }.join( "\n" );
+		String toc = '## Table of contents\n\n' + contents.split( '\n' )
+		.findAll{
+			it.trim().startsWith( '##' )
+		}
+		.collect{
+			boolean isSubSection = it.startsWith( '###' );
+			String trimmed = it.substring( isSubSection ? 3 : 2 ).trim();
+			String anchor = trimmed.toLowerCase().replaceAll( '[^a-zA-Z0-9- ]', '' ).replaceAll( ' +', '-' );
+			return (isSubSection ? '\t' : '') + '* [' + trimmed + '](#' + anchor + ')';
+		}
+		.join( '\n' ) + '\n\n';
+		(new File( destination )).text = header + toc + contents;
+	}
+}

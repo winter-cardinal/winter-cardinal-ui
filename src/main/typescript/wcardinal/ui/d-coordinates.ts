@@ -7,7 +7,7 @@ import { DApplications } from "./d-applications";
 import { DBase } from "./d-base";
 import { DCoordinate } from "./d-coordinate";
 import { DScalarFunctions } from "./d-scalar-functions";
-import { DScalarSet } from "./d-scalars";
+import { DScalarSet } from "./d-scalar-set";
 import { utilIsNumber } from "./util/util-is-number";
 
 const enum AutoFlag {

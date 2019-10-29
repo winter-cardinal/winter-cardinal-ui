@@ -27,7 +27,7 @@ import { DLayoutClearType } from "./d-layout-clear-type";
 import { DOutline } from "./d-outline";
 import { DPadding } from "./d-padding";
 import { DScalarFunctions } from "./d-scalar-functions";
-import { DScalarSet } from "./d-scalars";
+import { DScalarSet } from "./d-scalar-set";
 import { DShadow } from "./d-shadow";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { DThemes } from "./theme/d-themes";
