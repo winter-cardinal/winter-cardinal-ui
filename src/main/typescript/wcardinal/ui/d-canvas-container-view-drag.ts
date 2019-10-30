@@ -51,6 +51,7 @@ export class DCanvasContainerViewDrag<
 				target: parent,
 				touch: mode === DDragMode.TOUCH,
 				modifier,
+				checker: drag && drag.checker,
 				easing: {
 					duration
 				},

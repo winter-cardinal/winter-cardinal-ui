@@ -16,6 +16,7 @@ import { UtilPointerEvent } from "./util-pointer-event";
 export type UtilDragOnMove = ( dx: number, dy: number, x: number, y: number, ds: number ) => void;
 export type UtilDragOnStart = () => void;
 export type UtilDragOnEnd = () => void;
+export type UtilDragChecker = ( e: InteractionEvent, modifier: DMouseModifier, target: DBase ) => boolean;
 
 interface UtilDragOptionsEasingDuration {
 	duration?: number | {
@@ -28,6 +29,10 @@ export interface UtilDragOptions {
 	target: DBase;
 	touch?: boolean;
 	modifier?: DMouseModifier;
+	checker?: {
+		start?: UtilDragChecker;
+		move?: UtilDragChecker;
+	};
 	easing?: boolean | UtilDragOptionsEasingDuration;
 	on?: {
 		start?: UtilDragOnStart;
@@ -69,6 +74,24 @@ const toEasingOptions = (
 	}
 };
 
+const defaultChecker = ( e: InteractionEvent, modifier: DMouseModifier ): boolean => {
+	return DMouseModifiers.match( e, modifier );
+};
+
+const toChecker = ( options?: UtilDragOptions ): { start: UtilDragChecker, move: UtilDragChecker } => {
+	const checker = options && options.checker;
+	if( checker ) {
+		return {
+			start: checker.start || defaultChecker,
+			move: checker.move || defaultChecker
+		};
+	}
+	return {
+		start: defaultChecker,
+		move: defaultChecker
+	};
+};
+
 export class UtilDrag {
 	protected static EPSILON = 0.00001;
 	protected _target: DBase<any, any>;
@@ -83,6 +106,7 @@ export class UtilDrag {
 	protected _up: string;
 	protected _easing?: UtilDragEasing;
 	protected _modifier: DMouseModifier;
+	protected _checker: { start: UtilDragChecker, move: UtilDragChecker };
 	protected _interactionManager: interaction.InteractionManager;
 	protected _center: Point;
 	protected _scale: number;
@@ -97,7 +121,8 @@ export class UtilDrag {
 			this._onMove = on.move;
 			this._onEnd = on.end;
 		}
-		this._modifier = options && options.modifier || DMouseModifier.NONE;
+		this._modifier = (options && options.modifier) || DMouseModifier.NONE;
+		this._checker = toChecker( options );
 		this._interactionManager = DApplications.getInstance().renderer.plugins.interaction;
 		this._center = new Point();
 		this._scale = 1;
@@ -177,7 +202,8 @@ export class UtilDrag {
 	}
 
 	protected onDown( e: InteractionEvent ): void {
-		if( DMouseModifiers.match( e, this._modifier ) ) {
+		const target = this._target;
+		if( this._checker.start( e, this._modifier, target ) ) {
 			e.stopPropagation();
 
 			// Update the center
@@ -185,7 +211,6 @@ export class UtilDrag {
 			this._scale = this.calcCenterAndScale( e, center );
 
 			//
-			const target = this._target;
 			if( ! target.isDragging() ) {
 				target.setDragging( true );
 
@@ -213,8 +238,8 @@ export class UtilDrag {
 	}
 
 	protected onMove( e: InteractionEvent ): void {
-		if( DMouseModifiers.match( e, this._modifier ) ) {
-			const target = this._target;
+		const target = this._target;
+		if( this._checker.move( e, this._modifier, target ) ) {
 			if( target.isDragging() ) {
 				// Update the center
 				const center = this._center;

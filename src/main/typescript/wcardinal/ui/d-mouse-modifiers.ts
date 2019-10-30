@@ -18,9 +18,9 @@ export class DMouseModifiers {
 
 	static match( e: DMouseModifierEvent, modifier: DMouseModifier ): boolean {
 		if( modifier & DMouseModifier.OR ) {
-			return !! (this.from( e ) & modifier);
+			return !! (DMouseModifiers.from( e ) & modifier);
 		} else {
-			return this.from( e ) === modifier;
+			return DMouseModifiers.from( e ) === modifier;
 		}
 	}
 }

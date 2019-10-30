@@ -11,6 +11,7 @@ import { DCanvas } from "./d-canvas";
 import { DCanvasContainerView } from "./d-canvas-container-view";
 import { DDragMode } from "./d-drag-mode";
 import { DMouseModifier } from "./d-mouse-modifier";
+import { UtilDragChecker } from "./util/util-drag";
 import { UtilWheelEventDeltas } from "./util/util-wheel-event";
 
 export interface DCanvasContainerOptions<
@@ -22,6 +23,10 @@ export interface DCanvasContainerOptions<
 	drag?: {
 		mode?: (keyof typeof DDragMode) | DDragMode;
 		modifier?: (keyof typeof DMouseModifier) | DMouseModifier;
+		checker?: {
+			start?: UtilDragChecker,
+			move?: UtilDragChecker
+		},
 		duration?: number | {
 			position?: number,
 			scale?: number
