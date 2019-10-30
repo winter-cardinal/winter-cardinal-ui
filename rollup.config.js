@@ -13,7 +13,6 @@ const SOURCE_DIR = 'dist/';
 const OUTPUT_FILE = `dist/${name}`
 const META_INF_DIR = `src/test/resources/META-INF/resources/webjars/${name}/latest/`;
 const PIXI_DIR = 'src/test/resources/META-INF/resources/webjars/pixi/latest/';
-const DOCS_DIR = 'docs/sample/js';
 
 // License header
 const LICENSE_HEADER_LINES = fs.readFileSync( './LICENSE_HEADER', 'UTF-8' ).split( '\n' );
@@ -120,10 +119,10 @@ export default ( !process.env.ROLLUP_WATCH ?
 			terser( TERSER_OPTIONS ),
 			copy({
 				targets: [
-					{ src: `dist/${name}.js`, dest: [ META_INF_DIR, DOCS_DIR ] },
-					{ src: `dist/${name}.min.js`, dest: [ META_INF_DIR, DOCS_DIR ] },
-					{ src: `dist/${name}.min.js.map`, dest: [ META_INF_DIR, DOCS_DIR ] },
-					{ src: 'node_modules/pixi.js/dist/*', dest: [ PIXI_DIR, DOCS_DIR ] }
+					{ src: `dist/${name}.js`, dest: META_INF_DIR },
+					{ src: `dist/${name}.min.js`, dest: META_INF_DIR },
+					{ src: `dist/${name}.min.js.map`, dest: META_INF_DIR },
+					{ src: 'node_modules/pixi.js/dist/*', dest: PIXI_DIR }
 				],
 				hook: 'writeBundle'
 			})
@@ -148,9 +147,9 @@ export default ( !process.env.ROLLUP_WATCH ?
 			commonjs(),
 			copy({
 				targets: [
-					{ src: `dist/${name}.js`, dest: [ META_INF_DIR, DOCS_DIR ] },
-					{ src: `dist/${name}.js`, dest: [ META_INF_DIR, DOCS_DIR ], rename: `${name}.min.js` },
-					{ src: 'node_modules/pixi.js/dist/*', dest: [ PIXI_DIR, DOCS_DIR ] }
+					{ src: `dist/${name}.js`, dest: META_INF_DIR },
+					{ src: `dist/${name}.js`, dest: META_INF_DIR, rename: `${name}.min.js` },
+					{ src: 'node_modules/pixi.js/dist/*', dest: PIXI_DIR }
 				],
 				hook: 'writeBundle'
 			})

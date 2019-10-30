@@ -7,7 +7,6 @@ import { DBase, DReflowable } from "./d-base";
 import { DBaseBackgroundMesh } from "./d-base-background-mesh";
 import { DBaseBorderMesh } from "./d-base-border-mesh";
 import { DBaseOutlineMesh } from "./d-base-outline-mesh";
-import { UtilTexturePlane } from "./util/util-texture-plane";
 
 export class DBaseReflowable implements DReflowable {
 	protected _lastBackgroundCornerRadius: number;
@@ -20,12 +19,13 @@ export class DBaseReflowable implements DReflowable {
 	protected _outlinePlane: DBaseOutlineMesh;
 
 	constructor( base: DBase ) {
+		const theme = base.theme;
 		const corner = base.corner;
 		const cornerRadius = corner.getRadius();
 		const cornerHeight = cornerRadius + 1;
 		const cornerMask = corner.getMask();
 		const backgroundPlane = this._backgroundPlane = new DBaseBackgroundMesh(
-			UtilTexturePlane.newBackground( cornerRadius ),
+			theme.getBackgroundTexture( cornerRadius ),
 			cornerHeight, cornerMask
 		);
 		base.appendRenderable( backgroundPlane, true );
@@ -36,7 +36,7 @@ export class DBaseReflowable implements DReflowable {
 		const borderWidth = border.getWidth( state );
 		const borderMask = border.getMask( state );
 		const borderPlane = this._borderPlane = new DBaseBorderMesh(
-			UtilTexturePlane.newBorder( cornerRadius, borderWidth ),
+			theme.getBorderTexture( cornerRadius, borderWidth ),
 			cornerHeight,
 			borderMask,
 			cornerMask
@@ -47,7 +47,7 @@ export class DBaseReflowable implements DReflowable {
 		const outlineWidth = outline.getWidth( state );
 		const outlineMask = outline.getMask( state );
 		const outlinePlane = this._outlinePlane = new DBaseOutlineMesh(
-			UtilTexturePlane.newBorder( cornerRadius, outlineWidth ),
+			theme.getBorderTexture( cornerRadius, outlineWidth ),
 			cornerHeight,
 			outlineMask,
 			cornerMask
@@ -64,6 +64,7 @@ export class DBaseReflowable implements DReflowable {
 	}
 
 	onReflow( base: DBase, width: number, height: number ): void {
+		const theme = base.theme;
 		const state = base.state;
 		const corner = base.corner;
 		const cornerRadius = corner.getRadius();
@@ -79,7 +80,7 @@ export class DBaseReflowable implements DReflowable {
 			if( 0 < backgroundAlpha ) {
 				if( this._lastBackgroundCornerRadius !== cornerRadius ) {
 					this._lastBackgroundCornerRadius = cornerRadius;
-					backgroundPlane.texture = UtilTexturePlane.newBackground( cornerRadius);
+					backgroundPlane.texture = theme.getBackgroundTexture( cornerRadius);
 					backgroundPlane.borderSize = cornerHeight;
 				}
 				backgroundPlane.tint = backgroundColor;
@@ -106,7 +107,7 @@ export class DBaseReflowable implements DReflowable {
 				if( this._lastBorderCornerRadius !== cornerRadius || this._lastBorderWidth !== borderWidth ) {
 					this._lastBorderCornerRadius = cornerRadius;
 					this._lastBorderWidth = borderWidth;
-					borderPlane.texture = UtilTexturePlane.newBorder( cornerRadius, borderWidth );
+					borderPlane.texture = theme.getBorderTexture( cornerRadius, borderWidth );
 					borderPlane.borderSize = cornerHeight;
 				}
 				const borderAlign = border.getAlign( state );
@@ -139,7 +140,7 @@ export class DBaseReflowable implements DReflowable {
 				if( this._lastOutlineCornerRadius !== cornerRadius || this._lastOutlineWidth !== outlineWidth ) {
 					this._lastOutlineCornerRadius = cornerRadius;
 					this._lastOutlineWidth = outlineWidth;
-					outlinePlane.texture = UtilTexturePlane.newBorder( cornerRadius, outlineWidth );
+					outlinePlane.texture = theme.getBorderTexture( cornerRadius, outlineWidth );
 					outlinePlane.borderSize = cornerHeight;
 				}
 				const outlineMask = outline.getMask( state );

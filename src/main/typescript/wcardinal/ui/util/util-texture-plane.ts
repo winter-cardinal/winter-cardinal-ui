@@ -56,19 +56,30 @@ export class UtilTexturePlane {
 	}
 
 	static newBackground( radius: number ): Texture {
+		const result = this.make( radius, 0, this.BACKGROUND_ATTRIBUTE );
+		result.on( "update", this.onUpdate );
+		return result;
+	}
+
+	static newBorder( radius: number, width: number ): Texture {
+		const result = this.make( radius, 0.5 * width, this.BORDER_ATTRIBUTE( width ) );
+		result.on( "update", this.onUpdate );
+		return result;
+	}
+
+	static getBackground( radius: number ): Texture {
 		const cache = this.BACKGROUND_CACHE;
 
 		let texture = cache.get( radius );
 		if( texture == null ) {
-			texture = this.make( radius, 0, this.BACKGROUND_ATTRIBUTE );
-			texture.on( "update", this.onUpdate );
+			texture = this.newBackground( radius );
 			cache.set( radius, texture );
 		}
 
 		return texture;
 	}
 
-	static newBorder( radius: number, width: number ): Texture {
+	static getBorder( radius: number, width: number ): Texture {
 		const cache = this.BORDER_CACHE;
 
 		let maskToTexture = cache.get( radius );
@@ -79,8 +90,7 @@ export class UtilTexturePlane {
 
 		let texture = maskToTexture.get( width );
 		if( texture == null ) {
-			texture = this.make( radius, 0.5 * width, this.BORDER_ATTRIBUTE( width ) );
-			texture.on( "update", this.onUpdate );
+			texture = this.newBorder( radius, width );
 			maskToTexture.set( width, texture );
 		}
 

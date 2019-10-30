@@ -3,4 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+/**
+ * A function returns a scalar value.
+ *
+ * @param parent a parent value
+ * @param self a self value
+ * @param padding a padding value
+ * @param current a current value
+ */
 export type DScalarFunction = ( parent: number, self: number, padding: number, current: number ) => number;

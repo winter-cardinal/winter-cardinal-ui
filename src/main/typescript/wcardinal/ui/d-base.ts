@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Container, DisplayObject, interaction, Point, Renderer, Transform } from "pixi.js";
+import { Container, DisplayObject, interaction, Point, Renderer, Texture, Transform } from "pixi.js";
 import InteractionEvent = interaction.InteractionEvent;
 import { DApplications } from "./d-applications";
 import { DBackgroundStateAware } from "./d-background";
@@ -91,43 +91,206 @@ export interface DBaseOptions<THEME extends DThemeBase = DThemeBase> {
 	clear?: (keyof typeof DLayoutClearType) | DLayoutClearType;
 }
 
+/**
+ * DBase theme
+ */
 export interface DThemeBase extends DThemeFont {
+	/**
+	 * Returns a X coordinate.
+	 */
 	getX(): DCoordinate;
+
+	/**
+	 * Returns a Y coordinate.
+	 */
 	getY(): DCoordinate;
+
+	/**
+	 * Returns a height.
+	 */
 	getHeight(): DCoordinate;
+
+	/**
+	 * Returns a width.
+	 */
 	getWidth(): DCoordinate;
 
+	/**
+	 * Returns a background color.
+	 * If the color is null, backgrounds are not be rendered.
+	 *
+	 * @param state a state
+	 */
 	getBackgroundColor( state: DBaseState ): number | null;
+
+	/**
+	 * Returns a background alpha.
+	 *
+	 * @param state a state
+	 */
 	getBackgroundAlpha( state: DBaseState ): number;
 
+	/**
+	 * Returns a background texture of the given radius.
+	 *
+	 * @param radius a corner radius
+	 */
+	getBackgroundTexture( radius: number ): Texture;
+
+	/**
+	 * Returns a border color.
+	 * If the color is null, borders are not be rendered.
+	 *
+	 * @param state a state
+	 */
 	getBorderColor( state: DBaseState ): number | null;
+
+	/**
+	 * Returns a border alpha.
+	 *
+	 * @param state a state
+	 */
 	getBorderAlpha( state: DBaseState ): number;
+
+	/**
+	 * Returns a border width.
+	 *
+	 * @param state a state
+	 */
 	getBorderWidth( state: DBaseState ): number;
+
+	/**
+	 * Returns a border align.
+	 *
+	 * @param state a state
+	 */
 	getBorderAlign( state: DBaseState ): number;
+
+	/**
+	 * Returns a border mask.
+	 *
+	 * @param state a mask
+	 */
 	getBorderMask( state: DBaseState ): DBorderMask;
 
+	/**
+	 * Returns a border texture of the given radius and width.
+	 *
+	 * @param radius a corner radius
+	 * @param width a border width
+	 */
+	getBorderTexture( radius: number, width: number ): Texture;
+
+	/**
+	 * Returns a left padding.
+	 */
 	getPaddingLeft(): number;
+
+	/**
+	 * Returns a right padding.
+	 */
 	getPaddingRight(): number;
+
+	/**
+	 * Returns a top padding.
+	 */
 	getPaddingTop(): number;
+
+	/**
+	 * Returns a bottom padding.
+	 */
 	getPaddingBottom(): number;
 
+	/**
+	 * Returns a corner radius.
+	 */
 	getCornerRadius(): number;
+
+	/**
+	 * Returns a corner mask.
+	 */
 	getCornerMask(): DCornerMask;
 
+	/**
+	 * Returns an outline color.
+	 * If the color is null, outlines are not be rendered.
+	 *
+	 * @param state a state
+	 */
 	getOutlineColor( state: DBaseState ): number | null;
+
+	/**
+	 * Returns an outline alpha.
+	 *
+	 * @param state a state
+	 */
 	getOutlineAlpha( state: DBaseState ): number;
+
+	/**
+	 * Returns an outline width.
+	 *
+	 * @param state a state
+	 */
 	getOutlineWidth( state: DBaseState ): number;
+
+	/**
+	 * Returns an outline offset.
+	 *
+	 * @param state a state
+	 */
 	getOutlineOffset( state: DBaseState ): number;
+
+	/**
+	 * Returns an outline align.
+	 *
+	 * @param state a state
+	 */
 	getOutlineAlign( state: DBaseState ): number;
+
+	/**
+	 * Returns an outline mask.
+	 *
+	 * @param state a state
+	 */
 	getOutlineMask( state: DBaseState ): DBorderMask;
 
-	getClearType(): DLayoutClearType;
+	/**
+	 * Returns a shadow.
+	 * If a shadow is null, no shadow is rendered.
+	 */
 	getShadow(): DShadow | null;
+
+	/**
+	 * Returns an interactivity.
+	 */
 	getInteractive(): DBaseInteractive;
+
+	/**
+	 * Returns a tooltip text.
+	 */
 	getTitle(): string;
+
+	/**
+	 * Returns a clear type.
+	 * A clear type is for layout classes including {@link ui.DLayoutVertical}.
+	 */
+	getClearType(): DLayoutClearType;
+
+	/**
+	 * Returns a weight.
+	 * Weights are for layout classes including {@link ui.DLayoutVertical}.
+	 * If a weight is less than or equals to zero, layout classes are supposed not to change a width / height.
+	 */
 	getWeight(): number;
 
+	/**
+	 * Creates a new shadow.
+	 */
 	newShadow(): DShadow | null;
+
+	/**
+	 * Creates a new weak shadow.
+	 */
 	newShadowWeak(): DShadow | null;
 }
 
@@ -519,8 +682,8 @@ export class DBase<
 			const scalarSet = this._scalarSet;
 			if( scalarSet.x != null ) {
 				const position = this._transform.position;
-				const parentSize = this.getParentSize();
-				this.x = scalarSet.x( parentSize.width, width, parentSize.padding.getLeft(), position.x );
+				const parent = this.getParentOfSize();
+				this.x = scalarSet.x( parent.width, width, parent.padding.getLeft(), position.x );
 			}
 		}
 
@@ -528,8 +691,8 @@ export class DBase<
 			const scalarSet = this._scalarSet;
 			if( scalarSet.y != null ) {
 				const position = this._transform.position;
-				const parentSize = this.getParentSize();
-				this.y = scalarSet.y( parentSize.height, height, parentSize.padding.getTop(), position.y );
+				const parent = this.getParentOfSize();
+				this.y = scalarSet.y( parent.height, height, parent.padding.getTop(), position.y );
 			}
 		}
 
@@ -601,8 +764,8 @@ export class DBase<
 			const scalarSet = this._scalarSet;
 			if( scalarSet.x != null ) {
 				const position = this._transform.position;
-				const parentSize = this.getParentSize();
-				this.x = scalarSet.x( parentSize.width, width, parentSize.padding.getLeft(), position.x );
+				const parent = this.getParentOfSize();
+				this.x = scalarSet.x( parent.width, width, parent.padding.getLeft(), position.x );
 			}
 		}
 	}
@@ -622,8 +785,8 @@ export class DBase<
 			const scalarSet = this._scalarSet;
 			if( scalarSet.y != null ) {
 				const position = this._transform.position;
-				const parentSize = this.getParentSize();
-				this.y = scalarSet.y( parentSize.height, height, parentSize.padding.getTop(), position.y );
+				const parent = this.getParentOfSize();
+				this.y = scalarSet.y( parent.height, height, parent.padding.getTop(), position.y );
 			}
 		}
 	}
@@ -1137,11 +1300,11 @@ export class DBase<
 	}
 
 	layout(): void {
-		const size = this.getParentSize();
-		this.onParentResize( size.width, size.height, size.padding );
+		const parent = this.getParentOfSize();
+		this.onParentResize( parent.width, parent.height, parent.padding );
 	}
 
-	protected getParentSize(): { width: number, height: number, padding: DPadding } {
+	protected getParentOfSize(): { width: number, height: number, padding: DPadding } {
 		const parent = this.parent;
 		if( parent instanceof DBase ) {
 			return parent;

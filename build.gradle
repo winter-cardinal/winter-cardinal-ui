@@ -62,3 +62,16 @@ task compileCheatsheet() {
 		(new File( destination )).text = header + toc + contents;
 	}
 }
+
+task copyPixiJSToSampleDir( type: Copy ) {
+	from 'node_modules/pixi.js/dist/'
+	into 'docs/sample/js'
+}
+
+task copyJSToSampleDir( type: Copy, dependsOn: copyPixiJSToSampleDir ) {
+	from 'dist'
+	into 'docs/sample/js'
+	include 'wcardinal-ui.js'
+	include 'wcardinal-ui.min.js'
+	include 'wcardinal-ui.min.js.map'
+}

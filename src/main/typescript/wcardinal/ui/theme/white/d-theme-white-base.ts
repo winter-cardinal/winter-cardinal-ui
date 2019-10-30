@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { Texture } from "pixi.js";
 import { DThemeBase } from "../../d-base";
 import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseState } from "../../d-base-state";
@@ -13,6 +14,7 @@ import { DCornerMask } from "../../d-corner";
 import { DLayoutClearType } from "../../d-layout-clear-type";
 import { DShadow } from "../../d-shadow";
 import { DShadowImpl } from "../../d-shadow-impl";
+import { UtilTexturePlane } from "../../util/util-texture-plane";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteFont } from "./d-theme-white-font";
@@ -63,6 +65,10 @@ export class DThemeWhiteBase extends DThemeWhiteFont implements DThemeBase {
 		return 1;
 	}
 
+	getBackgroundTexture( radius: number ): Texture {
+		return UtilTexturePlane.getBackground( radius );
+	}
+
 	getBorderColor( state: DBaseState ): number | null {
 		if( DBaseStates.isFocused( state ) ) {
 			return DThemeWhiteConstants.HIGHLIGHT_COLOR;
@@ -85,6 +91,10 @@ export class DThemeWhiteBase extends DThemeWhiteFont implements DThemeBase {
 
 	getBorderMask( state: DBaseState ): number {
 		return DBorderMask.NONE;
+	}
+
+	getBorderTexture( radius: number, width: number ): Texture {
+		return UtilTexturePlane.getBorder( radius, width );
 	}
 
 	getPaddingLeft(): number {

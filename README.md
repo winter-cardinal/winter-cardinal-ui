@@ -188,6 +188,13 @@ npm run build:api
 ./gradlew compileCheatsheet
 ```
 
+#### Update JS for samples
+
+```shell
+npm run build
+./gradlew copyJSToSampleDir
+```
+
 ### License
 
 Apache License Version 2.0.

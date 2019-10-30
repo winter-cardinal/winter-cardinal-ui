@@ -7,6 +7,10 @@ import { DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 
+/**
+ * A border mask.
+ * Borders on masked parts are not rendered.
+ */
 export enum DBorderMask {
 	NONE = 0,
 
