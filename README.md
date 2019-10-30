@@ -80,7 +80,7 @@ loadThemeWhiteAll();
 ### Documentation
 
 * [API document (In progress)](https://winter-cardinal.github.io/winter-cardinal-ui/api/)
-* [Cheatsheet](https://winter-cardinal.github.io/winter-cardinal-ui/cheatsheet/all-in-one.html)
+* [Cheatsheet (In progress)](https://winter-cardinal.github.io/winter-cardinal-ui/cheatsheet/all-in-one.html)
 
 ### UI Elements
 
