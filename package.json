@@ -17,7 +17,7 @@
 		"dist/*"
 	],
 	"scripts": {
-		"build": "rimraf dist && rimraf docs/sample/js && rimraf src/test/resources/META-INF && tsc && rollup -c",
+		"build": "rimraf dist && rimraf src/test/resources/META-INF && tsc && rollup -c",
 		"build:ts": "tsc",
 		"build:rollup": "rollup -c",
 		"build:api": "typedoc --options typedoc.json --out docs/api --disableOutputCheck --excludeNotExported --excludePrivate",
