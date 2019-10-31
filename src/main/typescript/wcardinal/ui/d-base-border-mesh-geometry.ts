@@ -183,13 +183,13 @@ export class DBaseBorderMeshGeometry extends MeshGeometry {
 			const borderSize = this._borderSize;
 
 			const x0 = 0;
-			const x1 = borderSize;
-			const x2 = width - borderSize;
+			const x1 = Math.min( width * 0.5, borderSize );
+			const x2 = Math.max( width * 0.5, width - borderSize );
 			const x3 = width;
 
 			const y0 = 0;
-			const y1 = borderSize;
-			const y2 = height - borderSize;
+			const y1 = Math.min( height * 0.5, borderSize );
+			const y2 = Math.max( height * 0.5, height - borderSize );
 			const y3 = height;
 
 			const textureUvs: TextureUvs = texture._uvs;
