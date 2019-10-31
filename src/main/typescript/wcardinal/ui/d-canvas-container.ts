@@ -8,7 +8,7 @@ import { DApplications } from "./d-applications";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseOverflowMask } from "./d-base-overflow-mask";
 import { DCanvas } from "./d-canvas";
-import { DCanvasContainerView } from "./d-canvas-container-view";
+import { DCanvasContainerView, DCanvasContainerViewChecker } from "./d-canvas-container-view";
 import { DDragMode } from "./d-drag-mode";
 import { DMouseModifier } from "./d-mouse-modifier";
 import { UtilDragChecker } from "./util/util-drag";
@@ -39,11 +39,13 @@ export interface DCanvasContainerOptions<
 			enable?: boolean;
 			speed?: number;
 			modifier?: (keyof typeof DMouseModifier) | DMouseModifier;
+			checker?: DCanvasContainerViewChecker;
 		},
 		dblclick?: {
 			enable?: boolean;
 			amount?: number;
 			modifier?: (keyof typeof DMouseModifier) | DMouseModifier;
+			checker?: DCanvasContainerViewChecker;
 			duration?: number;
 		}
 	};
@@ -52,6 +54,7 @@ export interface DCanvasContainerOptions<
 			enable?: boolean;
 			speed?: number;
 			modifier?: (keyof typeof DMouseModifier) | DMouseModifier;
+			checker?: DCanvasContainerViewChecker;
 		}
 	};
 }

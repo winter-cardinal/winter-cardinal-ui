@@ -19,6 +19,9 @@ export interface DCanvasContainerViewParent<CANVAS extends DBase = DCanvas> exte
 	canvas: CANVAS | null;
 }
 
+export type DCanvasContainerViewChecker =
+	( e: WheelEvent | MouseEvent | TouchEvent, modifier: DMouseModifier, target: DBase ) => boolean;
+
 export class DCanvasContainerView<
 	CANVAS extends DBase = DCanvas,
 	THEME extends DThemeCanvasContainer = DThemeCanvasContainer,
@@ -33,15 +36,18 @@ export class DCanvasContainerView<
 	protected _isWheelZoomEnabled: boolean;
 	protected _wheelZoomSpeed: number;
 	protected _wheelZoomModifier: DMouseModifier;
+	protected _wheelZoomChecker: DCanvasContainerViewChecker;
 
 	protected _isDblClickZoomEnabled: boolean;
 	protected _dblClickZoomSpeed: number;
 	protected _dblClickZoomModifier: DMouseModifier;
+	protected _dblClickZoomChecker: DCanvasContainerViewChecker;
 	protected _dblclickZoomDuration: number;
 
 	protected _isWheelTranslationEnabled: boolean;
 	protected _wheelTranslationSpeed: number;
 	protected _wheelTranslationModifier: DMouseModifier;
+	protected _wheelTranslationChecker: DCanvasContainerViewChecker;
 
 	protected _transform: DCanvasContainerViewTransform<CANVAS>;
 	protected _drag: DCanvasContainerViewDrag<CANVAS, THEME, OPTIONS>;
@@ -69,6 +75,7 @@ export class DCanvasContainerView<
 			) :
 			theme.getWheelZoomModifier()
 		);
+		this._wheelZoomChecker = (wheelZoom && wheelZoom.checker) || DMouseModifiers.match;
 
 		// Zoom: Dbl click
 		const dblClickZoom = zoom && zoom.dblclick;
@@ -84,6 +91,7 @@ export class DCanvasContainerView<
 			) :
 			theme.getDblClickZoomModifier()
 		);
+		this._dblClickZoomChecker = ( dblClickZoom && dblClickZoom.checker ) || DMouseModifiers.match;
 		this._dblclickZoomDuration = ( dblClickZoom && dblClickZoom.duration != null ?
 			dblClickZoom.duration : theme.getDblClickZoomDuration()
 		);
@@ -102,6 +110,7 @@ export class DCanvasContainerView<
 			) :
 			theme.getWheelTranslationModifier()
 		);
+		this._wheelTranslationChecker = ( wheelTranslation && wheelTranslation.checker ) || DMouseModifiers.match;
 
 		// Drag
 		this._drag = new DCanvasContainerViewDrag<CANVAS, THEME, OPTIONS>( parent, this, theme, options );
@@ -257,7 +266,8 @@ export class DCanvasContainerView<
 	}
 
 	onWheel( e: WheelEvent, deltas: UtilWheelEventDeltas, global: Point ): boolean {
-		if( this._isWheelZoomEnabled && DMouseModifiers.match( e, this._wheelZoomModifier ) ) {
+		if( this._isWheelZoomEnabled &&
+			this._wheelZoomChecker( e, this._wheelZoomModifier, this._parent ) ) {
 			if( deltas.deltaY !== 0 ) {
 				const speed = deltas.lowest * this._wheelZoomSpeed;
 				const scale = this.scale * ( 1 + deltas.deltaY * speed );
@@ -266,7 +276,8 @@ export class DCanvasContainerView<
 			}
 		}
 
-		if( this._isWheelTranslationEnabled && DMouseModifiers.match( e, this._wheelTranslationModifier ) ) {
+		if( this._isWheelTranslationEnabled &&
+			this._wheelTranslationChecker( e, this._wheelTranslationModifier, this._parent ) ) {
 			const parent = this._parent;
 			const canvas = parent.canvas;
 			if( canvas != null ) {
@@ -284,7 +295,8 @@ export class DCanvasContainerView<
 	}
 
 	onDblClick( e: MouseEvent | TouchEvent ): boolean {
-		if( this._isDblClickZoomEnabled && DMouseModifiers.match( e, this._dblClickZoomModifier ) ) {
+		if( this._isDblClickZoomEnabled &&
+			this._dblClickZoomChecker( e, this._dblClickZoomModifier, this._parent ) ) {
 			const global = this._zoomPoint;
 			UtilPointerEvent.toGlobal( e, global );
 			const scale = this.scale * this._dblClickZoomSpeed;

@@ -74,12 +74,9 @@ const toEasingOptions = (
 	}
 };
 
-const defaultChecker = ( e: InteractionEvent, modifier: DMouseModifier ): boolean => {
-	return DMouseModifiers.match( e, modifier );
-};
-
 const toChecker = ( options?: UtilDragOptions ): { start: UtilDragChecker, move: UtilDragChecker } => {
 	const checker = options && options.checker;
+	const defaultChecker = DMouseModifiers.match;
 	if( checker ) {
 		return {
 			start: checker.start || defaultChecker,
