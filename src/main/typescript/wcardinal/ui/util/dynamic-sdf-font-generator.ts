@@ -113,7 +113,7 @@ export class DynamicSDFFontGenerator {
 		window.addEventListener( "unload", this._onUnloadBound, false );
 	}
 
-	init() {
+	init(): this {
 		const canvas = this._canvas;
 		if( canvas != null && (this._gl == null || this._gl.isContextLost()) ) {
 			const config: WebGLContextAttributes = {
@@ -138,15 +138,15 @@ export class DynamicSDFFontGenerator {
 		return this;
 	}
 
-	restore() {
+	restore(): void {
 		this.init();
 	}
 
-	getCanvas() {
+	getCanvas(): HTMLCanvasElement | null {
 		return this._canvas;
 	}
 
-	getShader( gl: WebGLRenderingContext, code: string, type: boolean ) {
+	getShader( gl: WebGLRenderingContext, code: string, type: boolean ): WebGLShader | null {
 		const shader = ( type ?
 			gl.createShader( gl.FRAGMENT_SHADER ) :
 			gl.createShader( gl.VERTEX_SHADER )
@@ -163,7 +163,7 @@ export class DynamicSDFFontGenerator {
 		return shader;
 	}
 
-	makeShaders() {
+	makeShaders(): WebGLShader | null {
 		const gl = this._gl;
 		if( gl != null && gl.isContextLost() !== true ) {
 			const vertexShader = this.getShader( gl, VERTEX_SHADER, false );
@@ -205,7 +205,7 @@ export class DynamicSDFFontGenerator {
 		return null;
 	}
 
-	destroyShaders() {
+	destroyShaders(): void {
 		const gl = this._gl;
 		if( gl != null && gl.isContextLost() !== true ) {
 			const shaderProgram = this._shaderProgram;
@@ -217,7 +217,7 @@ export class DynamicSDFFontGenerator {
 		}
 	}
 
-	updateTexture( textureCanvas: HTMLCanvasElement ) {
+	updateTexture( textureCanvas: HTMLCanvasElement ): WebGLTexture | null {
 		const gl = this._gl;
 		const canvas = this._canvas;
 		if( gl != null && gl.isContextLost() !== true && canvas != null ) {
@@ -249,7 +249,7 @@ export class DynamicSDFFontGenerator {
 		return null;
 	}
 
-	destroyTexture() {
+	destroyTexture(): void {
 		const gl = this._gl;
 		const texture = this._texture;
 		if( gl != null && gl.isContextLost() !== true && texture != null ) {
@@ -259,7 +259,7 @@ export class DynamicSDFFontGenerator {
 		}
 	}
 
-	makeVertexBuffer() {
+	makeVertexBuffer(): WebGLBuffer | null {
 		const gl = this._gl;
 		if( gl != null && gl.isContextLost() !== true ) {
 			const vb = this._vb = gl.createBuffer();
@@ -278,7 +278,7 @@ export class DynamicSDFFontGenerator {
 		return null;
 	}
 
-	destroyVertexBuffer() {
+	destroyVertexBuffer(): void {
 		const gl = this._gl;
 		const vb = this._vb;
 		if( gl != null && gl.isContextLost() !== true && vb != null ) {
@@ -288,7 +288,7 @@ export class DynamicSDFFontGenerator {
 		}
 	}
 
-	makeUvBuffer() {
+	makeUvBuffer(): WebGLBuffer | null {
 		const gl = this._gl;
 		if( gl != null && gl.isContextLost() !== true ) {
 			const uvb = this._uvb = gl.createBuffer();
@@ -307,7 +307,7 @@ export class DynamicSDFFontGenerator {
 		return null;
 	}
 
-	destroyUvBuffer() {
+	destroyUvBuffer(): void {
 		const gl = this._gl;
 		const uvb = this._uvb;
 		if( gl != null && gl.isContextLost() !== true && uvb != null ) {
@@ -317,7 +317,7 @@ export class DynamicSDFFontGenerator {
 		}
 	}
 
-	render() {
+	render(): void {
 		const gl = this._gl;
 		const canvas = this._canvas;
 		const shaderProgram = this._shaderProgram;
@@ -353,7 +353,7 @@ export class DynamicSDFFontGenerator {
 		}
 	}
 
-	read( copyCanvas: HTMLCanvasElement ) {
+	read( copyCanvas: HTMLCanvasElement ): void {
 		const gl = this._gl;
 		const canvas = this._canvas;
 		if( gl != null && gl.isContextLost() !== true && canvas != null ) {
@@ -368,7 +368,7 @@ export class DynamicSDFFontGenerator {
 		}
 	}
 
-	destroy() {
+	destroy(): void {
 		this.destroyVertexBuffer();
 		this.destroyUvBuffer();
 		this.destroyShaders();
