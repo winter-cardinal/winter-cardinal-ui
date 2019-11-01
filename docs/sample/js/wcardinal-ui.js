@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.1.1
+ Winter Cardinal UI v0.2.4
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -159,6 +159,10 @@
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
+     */
+    /**
+     * A border mask.
+     * Borders on masked parts are not rendered.
      */
     var DBorderMask;
     (function (DBorderMask) {
@@ -476,11 +480,30 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    /**
+     * DBase interactivity.
+     * Mouse / touch events are triggered only on interactive objects.
+     */
     var DBaseInteractive;
     (function (DBaseInteractive) {
+        /**
+         * Not interactive.
+         */
         DBaseInteractive[DBaseInteractive["NONE"] = 0] = "NONE";
+        /**
+         * Interactive.
+         * However children are not interactive.
+         */
         DBaseInteractive[DBaseInteractive["SELF"] = 1] = "SELF";
+        /**
+         * Not interactive.
+         * However children are interactive.
+         */
         DBaseInteractive[DBaseInteractive["CHILDREN"] = 2] = "CHILDREN";
+        /**
+         * Interactive.
+         * Children are also interactive.
+         */
         DBaseInteractive[DBaseInteractive["BOTH"] = 3] = "BOTH";
     })(DBaseInteractive || (DBaseInteractive = {}));
 
@@ -1041,12 +1064,12 @@
                 var height = this._height;
                 var borderSize = this._borderSize;
                 var x0 = 0;
-                var x1 = borderSize;
-                var x2 = width - borderSize;
+                var x1 = Math.min(width * 0.5, borderSize);
+                var x2 = Math.max(width * 0.5, width - borderSize);
                 var x3 = width;
                 var y0 = 0;
-                var y1 = borderSize;
-                var y2 = height - borderSize;
+                var y1 = Math.min(height * 0.5, borderSize);
+                var y2 = Math.max(height * 0.5, height - borderSize);
                 var y3 = height;
                 var textureUvs = texture._uvs;
                 var l = textureUvs.x0;
@@ -1362,12 +1385,12 @@
                 var height = this._height;
                 var borderSize = this._borderSize;
                 var x0 = 0;
-                var x1 = borderSize;
-                var x2 = width - borderSize;
+                var x1 = Math.min(width * 0.5, borderSize);
+                var x2 = Math.max(width * 0.5, width - borderSize);
                 var x3 = width;
                 var y0 = 0;
-                var y1 = borderSize;
-                var y2 = height - borderSize;
+                var y1 = Math.min(height * 0.5, borderSize);
+                var y2 = Math.max(height * 0.5, height - borderSize);
                 var y3 = height;
                 var textureUvs = texture._uvs;
                 var l = textureUvs.x0;
@@ -1557,106 +1580,25 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var utilToSvgUrl = function (svg) {
-        return "data:image/svg+xml;base64," + btoa(svg);
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var toCornerTl = function (offset, size, tl) {
-        return (0 < tl ? "A" + tl + " " + tl + " 0 0 1 " + (offset + tl) + " " + offset : "");
-    };
-    var toCornerBr = function (offset, size, br) {
-        return (0 < br ? "A" + br + " " + br + " 0 0 1 " + (offset + size - br) + " " + (offset + size) : "");
-    };
-    var UtilTexturePlane = /** @class */ (function () {
-        function UtilTexturePlane() {
-        }
-        UtilTexturePlane.make = function (radius, offset, attr) {
-            var realRadius = Math.max(0, radius - offset);
-            var size = realRadius * 2 + 4;
-            var realSize = size + offset * 2;
-            var d = "M" + (offset + realRadius) + " " + offset +
-                ("L" + (offset + size) + " " + offset) +
-                ("L" + (offset + size) + " " + (offset + size - realRadius)) +
-                toCornerBr(offset, size, realRadius) +
-                ("L" + offset + " " + (offset + size)) +
-                ("L" + offset + " " + (offset + realRadius)) +
-                toCornerTl(offset, size, realRadius) +
-                "Z";
-            return this.toSvg(realSize, attr, d);
-        };
-        UtilTexturePlane.toSvg = function (realSize, attr, d) {
-            var resolution = pixi_js.settings.RESOLUTION;
-            var widthAttr = "width=\"" + realSize * resolution + "\"";
-            var heightAttr = "height=\"" + realSize * resolution + "\"";
-            var viewBoxAttr = "viewBox=\"0 0 " + realSize + " " + realSize + "\"";
-            var svg = "<svg " + widthAttr + " " + heightAttr + " " + viewBoxAttr + " xmlns=\"http://www.w3.org/2000/svg\">" +
-                ("<path " + attr + " d=\"" + d + "\"></path>") +
-                "</svg>";
-            return pixi_js.Texture.from(utilToSvgUrl(svg), {
-                resolution: resolution
-            });
-        };
-        UtilTexturePlane.onUpdate = function () {
-            DApplications.update();
-        };
-        UtilTexturePlane.newBackground = function (radius) {
-            var cache = this.BACKGROUND_CACHE;
-            var texture = cache.get(radius);
-            if (texture == null) {
-                texture = this.make(radius, 0, this.BACKGROUND_ATTRIBUTE);
-                texture.on("update", this.onUpdate);
-                cache.set(radius, texture);
-            }
-            return texture;
-        };
-        UtilTexturePlane.newBorder = function (radius, width) {
-            var cache = this.BORDER_CACHE;
-            var maskToTexture = cache.get(radius);
-            if (maskToTexture == null) {
-                maskToTexture = new Map();
-                cache.set(radius, maskToTexture);
-            }
-            var texture = maskToTexture.get(width);
-            if (texture == null) {
-                texture = this.make(radius, 0.5 * width, this.BORDER_ATTRIBUTE(width));
-                texture.on("update", this.onUpdate);
-                maskToTexture.set(width, texture);
-            }
-            return texture;
-        };
-        UtilTexturePlane.BACKGROUND_CACHE = new Map();
-        UtilTexturePlane.BACKGROUND_ATTRIBUTE = "fill=\"#fff\" stroke=\"none\"";
-        UtilTexturePlane.BORDER_CACHE = new Map();
-        UtilTexturePlane.BORDER_ATTRIBUTE = function (width) { return "fill=\"none\" stroke=\"#fff\" stroke-width=\"" + width + "\""; };
-        return UtilTexturePlane;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var DBaseReflowable = /** @class */ (function () {
         function DBaseReflowable(base) {
+            var theme = base.theme;
             var corner = base.corner;
             var cornerRadius = corner.getRadius();
             var cornerHeight = cornerRadius + 1;
             var cornerMask = corner.getMask();
-            var backgroundPlane = this._backgroundPlane = new DBaseBackgroundMesh(UtilTexturePlane.newBackground(cornerRadius), cornerHeight, cornerMask);
+            var backgroundPlane = this._backgroundPlane = new DBaseBackgroundMesh(theme.getBackgroundTexture(cornerRadius), cornerHeight, cornerMask);
             base.appendRenderable(backgroundPlane, true);
             var state = base.state;
             var border = base.border;
             var borderWidth = border.getWidth(state);
             var borderMask = border.getMask(state);
-            var borderPlane = this._borderPlane = new DBaseBorderMesh(UtilTexturePlane.newBorder(cornerRadius, borderWidth), cornerHeight, borderMask, cornerMask);
+            var borderPlane = this._borderPlane = new DBaseBorderMesh(theme.getBorderTexture(cornerRadius, borderWidth), cornerHeight, borderMask, cornerMask);
             base.appendRenderable(borderPlane, false);
             var outline = base.outline;
             var outlineWidth = outline.getWidth(state);
             var outlineMask = outline.getMask(state);
-            var outlinePlane = this._outlinePlane = new DBaseOutlineMesh(UtilTexturePlane.newBorder(cornerRadius, outlineWidth), cornerHeight, outlineMask, cornerMask);
+            var outlinePlane = this._outlinePlane = new DBaseOutlineMesh(theme.getBorderTexture(cornerRadius, outlineWidth), cornerHeight, outlineMask, cornerMask);
             base.appendRenderable(outlinePlane, false);
             this._lastBackgroundCornerRadius = cornerRadius;
             this._lastBorderCornerRadius = cornerRadius;
@@ -1666,6 +1608,7 @@
             base.addReflowable(this);
         }
         DBaseReflowable.prototype.onReflow = function (base, width, height) {
+            var theme = base.theme;
             var state = base.state;
             var corner = base.corner;
             var cornerRadius = corner.getRadius();
@@ -1680,7 +1623,7 @@
                 if (0 < backgroundAlpha) {
                     if (this._lastBackgroundCornerRadius !== cornerRadius) {
                         this._lastBackgroundCornerRadius = cornerRadius;
-                        backgroundPlane.texture = UtilTexturePlane.newBackground(cornerRadius);
+                        backgroundPlane.texture = theme.getBackgroundTexture(cornerRadius);
                         backgroundPlane.borderSize = cornerHeight;
                     }
                     backgroundPlane.tint = backgroundColor;
@@ -1708,7 +1651,7 @@
                     if (this._lastBorderCornerRadius !== cornerRadius || this._lastBorderWidth !== borderWidth) {
                         this._lastBorderCornerRadius = cornerRadius;
                         this._lastBorderWidth = borderWidth;
-                        borderPlane.texture = UtilTexturePlane.newBorder(cornerRadius, borderWidth);
+                        borderPlane.texture = theme.getBorderTexture(cornerRadius, borderWidth);
                         borderPlane.borderSize = cornerHeight;
                     }
                     var borderAlign = border.getAlign(state);
@@ -1742,7 +1685,7 @@
                     if (this._lastOutlineCornerRadius !== cornerRadius || this._lastOutlineWidth !== outlineWidth) {
                         this._lastOutlineCornerRadius = cornerRadius;
                         this._lastOutlineWidth = outlineWidth;
-                        outlinePlane.texture = UtilTexturePlane.newBorder(cornerRadius, outlineWidth);
+                        outlinePlane.texture = theme.getBorderTexture(cornerRadius, outlineWidth);
                         outlinePlane.borderSize = cornerHeight;
                     }
                     var outlineMask = outline.getMask(state);
@@ -3840,16 +3783,16 @@
                 var scalarSet = this._scalarSet;
                 if (scalarSet.x != null) {
                     var position = this._transform.position;
-                    var parentSize = this.getParentSize();
-                    this.x = scalarSet.x(parentSize.width, width, parentSize.padding.getLeft(), position.x);
+                    var parent_1 = this.getParentOfSize();
+                    this.x = scalarSet.x(parent_1.width, width, parent_1.padding.getLeft(), position.x);
                 }
             }
             if (heightResized) {
                 var scalarSet = this._scalarSet;
                 if (scalarSet.y != null) {
                     var position = this._transform.position;
-                    var parentSize = this.getParentSize();
-                    this.y = scalarSet.y(parentSize.height, height, parentSize.padding.getTop(), position.y);
+                    var parent_2 = this.getParentOfSize();
+                    this.y = scalarSet.y(parent_2.height, height, parent_2.padding.getTop(), position.y);
                 }
             }
             return resized;
@@ -3923,8 +3866,8 @@
                     var scalarSet = this._scalarSet;
                     if (scalarSet.x != null) {
                         var position = this._transform.position;
-                        var parentSize = this.getParentSize();
-                        this.x = scalarSet.x(parentSize.width, width, parentSize.padding.getLeft(), position.x);
+                        var parent_3 = this.getParentOfSize();
+                        this.x = scalarSet.x(parent_3.width, width, parent_3.padding.getLeft(), position.x);
                     }
                 }
             },
@@ -3945,8 +3888,8 @@
                     var scalarSet = this._scalarSet;
                     if (scalarSet.y != null) {
                         var position = this._transform.position;
-                        var parentSize = this.getParentSize();
-                        this.y = scalarSet.y(parentSize.height, height, parentSize.padding.getTop(), position.y);
+                        var parent_4 = this.getParentOfSize();
+                        this.y = scalarSet.y(parent_4.height, height, parent_4.padding.getTop(), position.y);
                     }
                 }
             },
@@ -4436,10 +4379,10 @@
             configurable: true
         });
         DBase.prototype.layout = function () {
-            var size = this.getParentSize();
-            this.onParentResize(size.width, size.height, size.padding);
+            var parent = this.getParentOfSize();
+            this.onParentResize(parent.width, parent.height, parent.padding);
         };
-        DBase.prototype.getParentSize = function () {
+        DBase.prototype.getParentOfSize = function () {
             var parent = this.parent;
             if (parent instanceof DBase) {
                 return parent;
@@ -4527,11 +4470,11 @@
                 this.onDownThis(e);
             }
             else if (!(target instanceof DBase)) {
-                var parent_1 = target.parent;
-                while (parent_1 != null && !(parent_1 instanceof DBase)) {
-                    parent_1 = parent_1.parent;
+                var parent_5 = target.parent;
+                while (parent_5 != null && !(parent_5 instanceof DBase)) {
+                    parent_5 = parent_5.parent;
                 }
-                if (parent_1 === this) {
+                if (parent_5 === this) {
                     this.onDownThis(e);
                 }
             }
@@ -8491,6 +8434,14 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var utilToSvgUrl = function (svg) {
+        return "data:image/svg+xml;base64," + btoa(svg);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     // PixiJS's SVGResource has a issue on Microsoft Edge.
     // Edge may invoke the HTMLImageElement#onload on an unexpected timing.
     // Thus, PixiJS may lost the `load` event in some situations.
@@ -8728,6 +8679,74 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var getSelection = function (element) {
+        var selection = document.getSelection();
+        if (selection) {
+            var range = document.createRange();
+            range.selectNodeContents(element);
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+        return selection;
+    };
+    var toClipboardData = function (e) {
+        return e.clipboardData || window.clipboardData;
+    };
+    var copyUsingDiv = function (text) {
+        var div = document.createElement("div");
+        div.setAttribute("style", "-webkit-user-select: text !important");
+        div.textContent = "Dummy";
+        document.body.appendChild(div);
+        var selection = getSelection(div);
+        var result = false;
+        if (selection) {
+            var handler = function (e) {
+                if (e.target === div) {
+                    var clipboardData = toClipboardData(e);
+                    clipboardData.setData("text/plain", text);
+                    result = (clipboardData.getData("text/plain") === text);
+                    e.preventDefault();
+                }
+            };
+            document.addEventListener("copy", handler);
+            try {
+                document.execCommand("copy");
+            }
+            finally {
+                document.removeEventListener("copy", handler);
+            }
+            selection.removeAllRanges();
+        }
+        document.body.removeChild(div);
+        return result;
+    };
+    var copyUsingSpan = function (text) {
+        var div = document.createElement("div");
+        div.setAttribute("style", "-webkit-user-select: text !important");
+        var span = document.createElement("span");
+        span.innerText = text;
+        var root = (div.attachShadow ? div.attachShadow({ mode: "open" }) : div);
+        root.appendChild(span);
+        document.body.appendChild(div);
+        var result = false;
+        var selection = getSelection(div);
+        if (selection) {
+            result = document.execCommand("copy");
+            selection.removeAllRanges();
+        }
+        document.body.removeChild(div);
+        return result;
+    };
+    var copyUsingWindow = function (window, text) {
+        if (typeof ClipboardEvent === "undefined") {
+            var clipboardData = window.clipboardData;
+            if (typeof clipboardData !== "undefined" && typeof clipboardData.setData !== "undefined") {
+                clipboardData.setData("Text", text);
+                return true;
+            }
+        }
+        return false;
+    };
     var UtilClipboard = /** @class */ (function (_super) {
         __extends(UtilClipboard, _super);
         function UtilClipboard() {
@@ -8737,45 +8756,38 @@
                 if (e.target === element) {
                     e.preventDefault();
                     e.stopPropagation();
-                    _this.emit("copy", _this.toClipboardData(e));
+                    _this.emit("copy", toClipboardData(e));
                 }
             });
             element.addEventListener("cut", function (e) {
                 if (e.target === element) {
                     e.preventDefault();
                     e.stopPropagation();
-                    _this.emit("cut", _this.toClipboardData(e));
+                    _this.emit("cut", toClipboardData(e));
                 }
             });
             element.addEventListener("paste", function (e) {
                 if (e.target === element) {
                     e.preventDefault();
                     e.stopPropagation();
-                    _this.emit("paste", _this.toClipboardData(e));
+                    _this.emit("paste", toClipboardData(e));
                 }
             });
             return _this;
         }
-        UtilClipboard.prototype.toClipboardData = function (e) {
-            return e.clipboardData || window.clipboardData;
-        };
         UtilClipboard.copy = function (text) {
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(text);
+            var clipboard = navigator.clipboard;
+            if (clipboard && clipboard.writeText) {
+                clipboard.writeText(text);
             }
             else {
-                var textArea = document.createElement("textarea");
-                textArea.value = text;
-                document.body.appendChild(textArea);
-                textArea.focus();
-                textArea.select();
-                try {
-                    document.execCommand("copy");
+                if (!copyUsingWindow(window, text)) {
+                    if (!copyUsingDiv(text)) {
+                        if (navigator.userAgent.indexOf("Edge") < 0) {
+                            copyUsingSpan(text);
+                        }
+                    }
                 }
-                catch (e) {
-                    // DO NOTHING
-                }
-                document.body.removeChild(textArea);
             }
         };
         return UtilClipboard;
@@ -9135,10 +9147,10 @@
         };
         DMouseModifiers.match = function (e, modifier) {
             if (modifier & DMouseModifier.OR) {
-                return !!(this.from(e) & modifier);
+                return !!(DMouseModifiers.from(e) & modifier);
             }
             else {
-                return this.from(e) === modifier;
+                return DMouseModifiers.from(e) === modifier;
             }
         };
         return DMouseModifiers;
@@ -9179,6 +9191,20 @@
             }
         }
     };
+    var toChecker = function (options) {
+        var checker = options && options.checker;
+        var defaultChecker = DMouseModifiers.match;
+        if (checker) {
+            return {
+                start: checker.start || defaultChecker,
+                move: checker.move || defaultChecker
+            };
+        }
+        return {
+            start: defaultChecker,
+            move: defaultChecker
+        };
+    };
     var UtilDrag = /** @class */ (function () {
         function UtilDrag(options) {
             var _this = this;
@@ -9189,7 +9215,8 @@
                 this._onMove = on.move;
                 this._onEnd = on.end;
             }
-            this._modifier = options && options.modifier || DMouseModifier.NONE;
+            this._modifier = (options && options.modifier) || DMouseModifier.NONE;
+            this._checker = toChecker(options);
             this._interactionManager = DApplications.getInstance().renderer.plugins.interaction;
             this._center = new pixi_js.Point();
             this._scale = 1;
@@ -9262,13 +9289,13 @@
             return 0;
         };
         UtilDrag.prototype.onDown = function (e) {
-            if (DMouseModifiers.match(e, this._modifier)) {
+            var target = this._target;
+            if (this._checker.start(e, this._modifier, target)) {
                 e.stopPropagation();
                 // Update the center
                 var center = this._center;
                 this._scale = this.calcCenterAndScale(e, center);
                 //
-                var target = this._target;
                 if (!target.isDragging()) {
                     target.setDragging(true);
                     //
@@ -9291,8 +9318,8 @@
             }
         };
         UtilDrag.prototype.onMove = function (e) {
-            if (DMouseModifiers.match(e, this._modifier)) {
-                var target = this._target;
+            var target = this._target;
+            if (this._checker.move(e, this._modifier, target)) {
                 if (target.isDragging()) {
                     // Update the center
                     var center = this._center;
@@ -9446,14 +9473,21 @@
         }
         UtilFileDownloader.downloadUrl = function (filename, url) {
             var a = document.createElement("a");
-            a.href = url;
-            a.download = filename;
-            a.style.display = "none";
-            document.body.appendChild(a);
-            a.click();
-            setTimeout(function () {
-                document.body.removeChild(a);
-            }, 100);
+            if ("download" in a) {
+                a.href = url;
+                a.setAttribute("download", filename);
+                a.style.display = "none";
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(function () {
+                    document.body.removeChild(a);
+                }, 66);
+            }
+            else {
+                if (!window.open(url)) {
+                    location.href = url;
+                }
+            }
         };
         UtilFileDownloader.download = function (filename, contents) {
             var blob = new Blob([contents], { type: "text/plain" });
@@ -9804,6 +9838,88 @@
             return "rgba(" + r + "," + g + "," + b + "," + alpha + ")";
         };
         return UtilRgba;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toCornerTl = function (offset, size, tl) {
+        return (0 < tl ? "A" + tl + " " + tl + " 0 0 1 " + (offset + tl) + " " + offset : "");
+    };
+    var toCornerBr = function (offset, size, br) {
+        return (0 < br ? "A" + br + " " + br + " 0 0 1 " + (offset + size - br) + " " + (offset + size) : "");
+    };
+    var UtilTexturePlane = /** @class */ (function () {
+        function UtilTexturePlane() {
+        }
+        UtilTexturePlane.make = function (radius, offset, attr) {
+            var realRadius = Math.max(0, radius - offset);
+            var size = realRadius * 2 + 4;
+            var realSize = size + offset * 2;
+            var d = "M" + (offset + realRadius) + " " + offset +
+                ("L" + (offset + size) + " " + offset) +
+                ("L" + (offset + size) + " " + (offset + size - realRadius)) +
+                toCornerBr(offset, size, realRadius) +
+                ("L" + offset + " " + (offset + size)) +
+                ("L" + offset + " " + (offset + realRadius)) +
+                toCornerTl(offset, size, realRadius) +
+                "Z";
+            return this.toSvg(realSize, attr, d);
+        };
+        UtilTexturePlane.toSvg = function (realSize, attr, d) {
+            var resolution = pixi_js.settings.RESOLUTION;
+            var widthAttr = "width=\"" + realSize * resolution + "\"";
+            var heightAttr = "height=\"" + realSize * resolution + "\"";
+            var viewBoxAttr = "viewBox=\"0 0 " + realSize + " " + realSize + "\"";
+            var svg = "<svg " + widthAttr + " " + heightAttr + " " + viewBoxAttr + " xmlns=\"http://www.w3.org/2000/svg\">" +
+                ("<path " + attr + " d=\"" + d + "\"></path>") +
+                "</svg>";
+            return pixi_js.Texture.from(utilToSvgUrl(svg), {
+                resolution: resolution
+            });
+        };
+        UtilTexturePlane.onUpdate = function () {
+            DApplications.update();
+        };
+        UtilTexturePlane.newBackground = function (radius) {
+            var result = this.make(radius, 0, this.BACKGROUND_ATTRIBUTE);
+            result.on("update", this.onUpdate);
+            return result;
+        };
+        UtilTexturePlane.newBorder = function (radius, width) {
+            var result = this.make(radius, 0.5 * width, this.BORDER_ATTRIBUTE(width));
+            result.on("update", this.onUpdate);
+            return result;
+        };
+        UtilTexturePlane.getBackground = function (radius) {
+            var cache = this.BACKGROUND_CACHE;
+            var texture = cache.get(radius);
+            if (texture == null) {
+                texture = this.newBackground(radius);
+                cache.set(radius, texture);
+            }
+            return texture;
+        };
+        UtilTexturePlane.getBorder = function (radius, width) {
+            var cache = this.BORDER_CACHE;
+            var maskToTexture = cache.get(radius);
+            if (maskToTexture == null) {
+                maskToTexture = new Map();
+                cache.set(radius, maskToTexture);
+            }
+            var texture = maskToTexture.get(width);
+            if (texture == null) {
+                texture = this.newBorder(radius, width);
+                maskToTexture.set(width, texture);
+            }
+            return texture;
+        };
+        UtilTexturePlane.BACKGROUND_CACHE = new Map();
+        UtilTexturePlane.BACKGROUND_ATTRIBUTE = "fill=\"#fff\" stroke=\"none\"";
+        UtilTexturePlane.BORDER_CACHE = new Map();
+        UtilTexturePlane.BORDER_ATTRIBUTE = function (width) { return "fill=\"none\" stroke=\"#fff\" stroke-width=\"" + width + "\""; };
+        return UtilTexturePlane;
     }());
 
     /*
@@ -12264,7 +12380,7 @@
         EShapeDefaults.RADIUS = 0.25;
         EShapeDefaults.SIZE_X = 100;
         EShapeDefaults.SIZE_Y = 100;
-        EShapeDefaults.ANTIALIAS_WEIGHT = 0.75 * (window.devicePixelRatio || 1);
+        EShapeDefaults.ANTIALIAS_WEIGHT = 1.25 / (window.devicePixelRatio || 1);
         EShapeDefaults.HIGHLIGHT_COLOR = 0x1e87f0;
         return EShapeDefaults;
     }());
@@ -26367,6 +26483,9 @@
         DThemeWhiteBase.prototype.getBackgroundAlpha = function (state) {
             return 1;
         };
+        DThemeWhiteBase.prototype.getBackgroundTexture = function (radius) {
+            return UtilTexturePlane.getBackground(radius);
+        };
         DThemeWhiteBase.prototype.getBorderColor = function (state) {
             if (DBaseStates.isFocused(state)) {
                 return DThemeWhiteConstants.HIGHLIGHT_COLOR;
@@ -26386,6 +26505,9 @@
         };
         DThemeWhiteBase.prototype.getBorderMask = function (state) {
             return DBorderMask.NONE;
+        };
+        DThemeWhiteBase.prototype.getBorderTexture = function (radius, width) {
+            return UtilTexturePlane.getBorder(radius, width);
         };
         DThemeWhiteBase.prototype.getPaddingLeft = function () {
             return 0;
@@ -29963,7 +30085,11 @@
             if (worldID !== this._pixelScaleId) {
                 this._pixelScaleId = worldID;
                 var worldTransform = transform.worldTransform;
-                this._pixelScale = 1 / Math.sqrt(worldTransform.a * worldTransform.a + worldTransform.b * worldTransform.b);
+                var a = worldTransform.a;
+                var b = worldTransform.b;
+                var scale = Math.sqrt(a * a + b * b);
+                var dpr = window.devicePixelRatio || 1;
+                this._pixelScale = 1 / (dpr * scale);
             }
             return this._pixelScale;
         };
@@ -30578,9 +30704,6 @@
         function DThemeWhiteDiagramEditor() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeWhiteDiagramEditor.prototype.isDblClickZoomEnabled = function () {
-            return false;
-        };
         DThemeWhiteDiagramEditor.prototype.getDragModifier = function () {
             return DMouseModifier.ALT;
         };
@@ -39414,6 +39537,7 @@
                     target: parent,
                     touch: mode === DDragMode.TOUCH,
                     modifier: modifier,
+                    checker: drag && drag.checker,
                     easing: {
                         duration: duration
                     },
@@ -39539,6 +39663,7 @@
                 (utilIsString(wheelZoom.modifier) ?
                     DMouseModifier[wheelZoom.modifier] : wheelZoom.modifier) :
                 theme.getWheelZoomModifier());
+            this._wheelZoomChecker = (wheelZoom && wheelZoom.checker) || DMouseModifiers.match;
             // Zoom: Dbl click
             var dblClickZoom = zoom && zoom.dblclick;
             this._isDblClickZoomEnabled = (dblClickZoom && dblClickZoom.enable != null ?
@@ -39549,6 +39674,7 @@
                 (utilIsString(dblClickZoom.modifier) ?
                     DMouseModifier[dblClickZoom.modifier] : dblClickZoom.modifier) :
                 theme.getDblClickZoomModifier());
+            this._dblClickZoomChecker = (dblClickZoom && dblClickZoom.checker) || DMouseModifiers.match;
             this._dblclickZoomDuration = (dblClickZoom && dblClickZoom.duration != null ?
                 dblClickZoom.duration : theme.getDblClickZoomDuration());
             // Translation: Wheel
@@ -39561,6 +39687,7 @@
                 (utilIsString(wheelTranslation.modifier) ?
                     DMouseModifier[wheelTranslation.modifier] : wheelTranslation.modifier) :
                 theme.getWheelTranslationModifier());
+            this._wheelTranslationChecker = (wheelTranslation && wheelTranslation.checker) || DMouseModifiers.match;
             // Drag
             this._drag = new DCanvasContainerViewDrag(parent, this, theme, options);
             // Transform
@@ -39706,7 +39833,8 @@
             return Math.min(this._zoomMax, Math.max(this._zoomMin, scale));
         };
         DCanvasContainerView.prototype.onWheel = function (e, deltas, global) {
-            if (this._isWheelZoomEnabled && DMouseModifiers.match(e, this._wheelZoomModifier)) {
+            if (this._isWheelZoomEnabled &&
+                this._wheelZoomChecker(e, this._wheelZoomModifier, this._parent)) {
                 if (deltas.deltaY !== 0) {
                     var speed = deltas.lowest * this._wheelZoomSpeed;
                     var scale = this.scale * (1 + deltas.deltaY * speed);
@@ -39714,7 +39842,8 @@
                     return true;
                 }
             }
-            if (this._isWheelTranslationEnabled && DMouseModifiers.match(e, this._wheelTranslationModifier)) {
+            if (this._isWheelTranslationEnabled &&
+                this._wheelTranslationChecker(e, this._wheelTranslationModifier, this._parent)) {
                 var parent_1 = this._parent;
                 var canvas = parent_1.canvas;
                 if (canvas != null) {
@@ -39727,7 +39856,8 @@
             return false;
         };
         DCanvasContainerView.prototype.onDblClick = function (e) {
-            if (this._isDblClickZoomEnabled && DMouseModifiers.match(e, this._dblClickZoomModifier)) {
+            if (this._isDblClickZoomEnabled &&
+                this._dblClickZoomChecker(e, this._dblClickZoomModifier, this._parent)) {
                 var global_1 = this._zoomPoint;
                 UtilPointerEvent.toGlobal(e, global_1);
                 var scale = this.scale * this._dblClickZoomSpeed;
