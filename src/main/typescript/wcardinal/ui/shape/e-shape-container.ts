@@ -94,7 +94,11 @@ export class EShapeContainer extends DisplayObject {
 		if( worldID !== this._pixelScaleId ) {
 			this._pixelScaleId = worldID;
 			const worldTransform = transform.worldTransform;
-			this._pixelScale = 1 / Math.sqrt( worldTransform.a * worldTransform.a + worldTransform.b * worldTransform.b );
+			const a = worldTransform.a;
+			const b = worldTransform.b;
+			const scale = Math.sqrt( a * a + b * b );
+			const dpr = window.devicePixelRatio || 1;
+			this._pixelScale = 1 / ( dpr * scale );
 		}
 		return this._pixelScale;
 	}

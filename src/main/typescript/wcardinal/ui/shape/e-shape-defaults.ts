@@ -24,6 +24,6 @@ export class EShapeDefaults {
 	static RADIUS: number = 0.25;
 	static SIZE_X: number = 100;
 	static SIZE_Y: number = 100;
-	static ANTIALIAS_WEIGHT: number = 0.75 * (window.devicePixelRatio || 1);
+	static ANTIALIAS_WEIGHT: number = 1.25 / (window.devicePixelRatio || 1);
 	static HIGHLIGHT_COLOR: number = 0x1e87f0;
 }
