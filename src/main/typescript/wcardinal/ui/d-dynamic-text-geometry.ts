@@ -4,11 +4,11 @@
  */
 
 import { MeshGeometry } from "pixi.js";
+import { DDynamicTextMeasure } from "./d-dynamic-text-measure";
 import { DynamicFontAtlas } from "./util/dynamic-font-atlas";
 import { DynamicFontAtlasCharacter } from "./util/dynamic-font-atlas-character";
 
 export class DDynamicTextGeometry extends MeshGeometry {
-	protected static WORK: Uint32Array | null = null;
 	width: number;
 	height: number;
 
@@ -23,8 +23,8 @@ export class DDynamicTextGeometry extends MeshGeometry {
 		const uvBuffer = this.getBuffer( "aTextureCoord" );
 		const indexBuffer = this.getIndex();
 
-		const result = this.measureText( text, atlas, clippingWidth );
-		const requiredTextSize = Math.ceil( result[ 1 ] / 8 ) << 3;
+		const result = DDynamicTextMeasure.measure( text, atlas, clippingWidth );
+		const requiredTextSize = Math.ceil( result.count / 8 ) << 3;
 		const requiredVertexSize = requiredTextSize << 3;
 		if( (vertexBuffer.data as Float32Array).length < requiredVertexSize ) {
 			vertexBuffer.data = new Float32Array( requiredVertexSize );
@@ -40,46 +40,21 @@ export class DDynamicTextGeometry extends MeshGeometry {
 		const indices = indexBuffer.data as Uint16Array;
 
 		if( atlas != null ) {
-			let x = 0;
-			let y = 0;
-			let ichar = 0;
-			for( let i = 0, imax = result[ 0 ]; i < imax; ++i ) {
-				const k = (1 + i) * 3;
-				for( let j = result[ k + 0 ], jmax = result[ k + 1 ]; j < jmax; j += 1, ichar += 1 ) {
-					const a = atlas.get( text[ j ] );
-					if( a != null ) {
-						this.writeCharacter(
-							vertices, uvs, indices,
-							ichar, x, y,
-							a, atlas.width, atlas.height
-						);
-						x += a.advance;
-					} else {
-						this.writeCharacterEmpty( vertices, uvs, indices, ichar );
-					}
-				}
-				if( result[ k + 2 ] ) {
-					const a = atlas.get( "..." );
-					if( a != null ) {
-						this.writeCharacter(
-							vertices, uvs, indices,
-							ichar, x, y,
-							a, atlas.width, atlas.height
-						);
-						x += a.advance;
-					} else {
-						this.writeCharacterEmpty( vertices, uvs, indices, ichar );
-					}
-					ichar += 1;
-				}
-				x = 0;
-				y += atlas.font.height;
+			const count = result.count;
+			const characters = result.characters;
+			for( let i = 0; i < count; ++i ) {
+				const character = characters[ i ];
+				this.writeCharacter(
+					vertices, uvs, indices,
+					i, character.x, character.y,
+					character.character, atlas.width, atlas.height
+				);
 			}
-			for( let i = ichar, imax = vertices.length >> 3; i < imax; ++i ) {
+			for( let i = count, imax = vertices.length >> 3; i < imax; ++i ) {
 				this.writeCharacterEmpty( vertices, uvs, indices, i );
 			}
-			this.width = result[ 2 ];
-			this.height = y;
+			this.width = result.width;
+			this.height = result.height;
 		} else {
 			for( let i = 0, imax = vertices.length >> 3; i < imax; ++i ) {
 				this.writeCharacterEmpty( vertices, uvs, indices, i );
@@ -166,72 +141,5 @@ export class DDynamicTextGeometry extends MeshGeometry {
 		indices[ ii + 3 ] = vo + 1;
 		indices[ ii + 4 ] = vo + 2;
 		indices[ ii + 5 ] = vo + 3;
-	}
-
-	protected measureText(
-		text: string, atlas: DynamicFontAtlas | null, clippingWidth: number | undefined
-	): Uint32Array {
-		let result = DDynamicTextGeometry.WORK = DDynamicTextGeometry.WORK || new Uint32Array( 3 * 16 );
-		result[ 0 ] = 0;
-		result[ 1 ] = 0;
-		result[ 2 ] = 0;
-		result[ 3 ] = 0;
-		if( atlas != null ) {
-			let x = 0;
-			const l = text.length;
-			for( let i = 0; i < l; ++i ) {
-				const char = text[ i ];
-				if( char === "\n" ) {
-					result = this.setResult( result, i, false, x, i + 1 );
-					x = 0;
-				} else {
-					const a = atlas.get( char );
-					if( a != null ) {
-						if( clippingWidth != null && clippingWidth < x + a.advance ) {
-							const dots = atlas.get( "..." );
-							const iend = ( (dots != null && clippingWidth < x + dots.advance) ? i - 1 : i );
-							let inext = i + 1;
-							for( ; inext < l; ++inext ) {
-								if( text[ inext ] === "\n" ) {
-									inext += 1;
-									break;
-								}
-							}
-							result = this.setResult( result, iend, true, x, inext );
-							i = inext - 1;
-							x = 0;
-						} else {
-							x += a.advance;
-						}
-					}
-				}
-			}
-			result = this.setResult( result, l, false, x, l );
-		}
-		return result;
-	}
-
-	protected setResult( result: Uint32Array, iend: number, hasDots: boolean, x: number, inext: number ): Uint32Array {
-		const iresult = ( 1 + result[ 0 ] ) * 3;
-		let istart = result[ iresult + 0 ];
-		if( istart < iend || hasDots ) {
-			istart = Math.min( istart, iend );
-			result[ iresult + 0 ] = istart;
-			result[ iresult + 1 ] = iend;
-			result[ iresult + 2 ] = ( hasDots ? 1 : 0 );
-			if( result.length <= iresult + 3 ) {
-				const newResult = new Uint32Array( result.length + 3 * 16 );
-				newResult.set( result );
-				result = newResult;
-				DDynamicTextGeometry.WORK = newResult;
-			}
-			result[ 0 ] += 1;
-			result[ 1 ] += iend - istart;
-			result[ 2 ] = Math.max( result[ 2 ], Math.ceil( x ) );
-			result[ iresult + 3 ] = inext;
-		} else {
-			result[ iresult + 0 ] = inext;
-		}
-		return result;
 	}
 }

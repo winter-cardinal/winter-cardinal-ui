@@ -8,6 +8,7 @@ import { ASCII_CHARACTERS } from "./ascii";
 import { DynamicFontAtlasCharacter } from "./dynamic-font-atlas-character";
 import { DynamicFontAtlasCharacters } from "./dynamic-font-atlas-characters";
 import { DynamicFontAtlasFont } from "./dynamic-font-atlas-font";
+import { UtilCharacterIterator } from "./util-character-iterator";
 
 const PADDING = 3;
 
@@ -126,15 +127,17 @@ export class DynamicFontAtlas {
 
 	add( targets: string, reserved?: boolean ): void {
 		const characters = this._characters;
-		for( let i = 0, imax = targets.length; i < imax; ++i ) {
-			this.add_( targets[ i ], characters, reserved );
+		const iterator = UtilCharacterIterator.from( targets );
+		while( iterator.hasNext() ) {
+			this.add_( iterator.next(), characters, reserved );
 		}
 	}
 
 	remove( targets: string ): void {
 		const characters = this._characters;
-		for( let i = 0, imax = targets.length; i < imax; ++i ) {
-			this.remove_( targets[ i ], characters );
+		const iterator = UtilCharacterIterator.from( targets );
+		while( iterator.hasNext() ) {
+			this.remove_( iterator.next(), characters );
 		}
 	}
 
