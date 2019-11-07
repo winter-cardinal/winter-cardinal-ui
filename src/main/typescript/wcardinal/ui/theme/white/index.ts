@@ -55,6 +55,7 @@ export * from "./d-theme-white-dropdown";
 export * from "./d-theme-white-expandable-header";
 export * from "./d-theme-white-expandable";
 export * from "./d-theme-white-font";
+export * from "./d-theme-white-html-element";
 export * from "./d-theme-white-image-base";
 export * from "./d-theme-white-image";
 export * from "./d-theme-white-input-and-label";

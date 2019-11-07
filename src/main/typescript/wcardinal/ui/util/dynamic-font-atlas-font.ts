@@ -18,9 +18,10 @@ export class DynamicFontAtlasFont {
 		this.id = fontId;
 		this.size = size;
 		this.color = utils.hex2string( color );
-		this.height = this.size + padding * 2;
 		const metrics = TextMetrics.measureFont( fontId );
-		this.ascent = metrics.ascent;
-		this.descent = metrics.descent;
+		const shift = metrics.fontSize / 8;
+		this.ascent = metrics.ascent - shift;
+		this.descent = metrics.descent + shift;
+		this.height = metrics.fontSize + padding * 2;
 	}
 }

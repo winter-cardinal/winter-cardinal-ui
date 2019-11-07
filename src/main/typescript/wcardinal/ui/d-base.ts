@@ -89,6 +89,7 @@ export interface DBaseOptions<THEME extends DThemeBase = DThemeBase> {
 	};
 	shadow?: DShadow;
 	clear?: (keyof typeof DLayoutClearType) | DLayoutClearType;
+	cursor?: string;
 }
 
 /**
@@ -292,6 +293,11 @@ export interface DThemeBase extends DThemeFont {
 	 * Creates a new weak shadow.
 	 */
 	newShadowWeak(): DShadow | null;
+
+	/**
+	 * Returns a cursor.
+	 */
+	getCursor(): string | null;
 }
 
 const toTheme = <THEME extends DThemeBase>( options?: DBaseOptions<THEME> ): THEME | null => {
@@ -556,6 +562,15 @@ export class DBase<
 			for( let i = 0, imax = shortcuts.length; i < imax; ++i ) {
 				UtilKeyboardEvent.on( this, shortcuts[ i ], onShortcutBound );
 			}
+		}
+
+		// Cursor
+		let cursor: string | null | undefined = options && options.cursor;
+		if( cursor == null ) {
+			cursor = theme.getCursor();
+		}
+		if( cursor != null ) {
+			this.cursor = cursor;
 		}
 
 		// Other initialization

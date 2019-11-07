@@ -14,10 +14,10 @@ export interface DInputTextOptions<
 }
 
 export interface DThemeInputText extends DThemeInput {
-	getEditingFormatter(): ( value: string, caller: DInputText ) => string;
-	getEditingUnformatter(): ( text: string, caller: DInputText ) => string;
-	getEditingValidator(): ( value: string, caller: DInputText ) => unknown;
-	getTextFormatter(): ( value: string, caller: DInputText ) => string;
+	getEditingFormatter(): ( value: string, caller: any ) => string;
+	getEditingUnformatter(): ( text: string, caller: any ) => string;
+	getEditingValidator(): ( value: string, caller: any ) => unknown;
+	getTextFormatter(): ( value: string, caller: any ) => string;
 	getTextValue( state: DBaseState ): string;
 	newTextValue(): DStateAwareOrValueMightBe<string>;
 }

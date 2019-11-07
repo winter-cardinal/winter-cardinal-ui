@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Rectangle } from "pixi.js";
 import { DBaseState } from "./d-base-state";
 import { DInput, DInputOptions, DThemeInput } from "./d-input";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
@@ -17,9 +16,9 @@ export interface DInputNumberOptions<
 }
 
 export interface DThemeInputNumber extends DThemeInput {
-	getEditingFormatter(): ( value: number, caller: DInputNumber ) => string;
-	getEditingUnformatter(): ( text: string, caller: DInputNumber ) => number;
-	getEditingValidator(): ( value: number, caller: DInputNumber ) => unknown;
+	getEditingFormatter(): ( value: number, caller: any ) => string;
+	getEditingUnformatter(): ( text: string, caller: any ) => number;
+	getEditingValidator(): ( value: number, caller: any ) => unknown;
 	getTextValue( state: DBaseState ): number;
 	newTextValue(): DStateAwareOrValueMightBe<number>;
 	getStep(): number | null;
@@ -119,28 +118,28 @@ export abstract class DInputNumber<
 	}
 
 	protected updateInputStep(): void {
-		if( this._isInputShown ) {
-			const input = DInput._input;
-			if( input != null ) {
-				this.initInputStep( input );
+		if( this._isElementShown ) {
+			const element = this._element;
+			if( element ) {
+				this.initInputStep( element );
 			}
 		}
 	}
 
 	protected updateInputMin(): void {
-		if( this._isInputShown ) {
-			const input = DInput._input;
-			if( input != null ) {
-				this.initInputMin( input );
+		if( this._isElementShown ) {
+			const element = this._element;
+			if( element ) {
+				this.initInputMin( element );
 			}
 		}
 	}
 
 	protected updateInputMax(): void {
-		if( this._isInputShown ) {
-			const input = DInput._input;
-			if( input != null ) {
-				this.initInputMax( input );
+		if( this._isElementShown ) {
+			const element = this._element;
+			if( element ) {
+				this.initInputMax( element );
 			}
 		}
 	}
@@ -169,20 +168,13 @@ export abstract class DInputNumber<
 		}
 	}
 
-	protected initInput(
-		input: HTMLInputElement, clipper: HTMLDivElement,
-		inputRect: Rectangle, clipperRect: Rectangle
+	protected onElementAttached(
+		element: HTMLInputElement, before: HTMLDivElement | null, after: HTMLDivElement | null
 	): void {
-		super.initInput( input, clipper, inputRect, clipperRect );
-		this.initInputStep( input );
-		this.initInputMin( input );
-		this.initInputMax( input );
-	}
-
-	protected resetSelection( input: HTMLInputElement ) {
-		input.type = "text";
-		super.resetSelection( input );
-		input.type = "number";
+		super.onElementAttached( element, before, after );
+		this.initInputStep( element );
+		this.initInputMin( element );
+		this.initInputMax( element );
 	}
 
 	protected getInputType(): string {
