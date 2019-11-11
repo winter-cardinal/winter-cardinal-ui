@@ -48,11 +48,11 @@ export class DApplications {
 	}
 
 	protected static toStage( target: DApplicationTarget ): DApplicationLayerStageLike | null {
-		let stage = target;
+		let stage: any = target;
 		while( stage.parent ) {
 			stage = stage.parent;
 		}
-		if( "layer" in stage ) {
+		if( ("application" in stage) && ("layer" in stage) ) {
 			return stage as DApplicationLayerStageLike;
 		}
 		return null;

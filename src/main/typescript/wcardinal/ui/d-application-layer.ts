@@ -50,7 +50,9 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 		super( options.getPixiApplicationOptions() );
 
 		this.application = application;
-		(this.stage as any).layer = this;
+		const stageAny = this.stage as any;
+		stageAny.layer = this;
+		stageAny.application = application;
 
 		this._options = options;
 		this._isUpdateAllowed = true;
@@ -83,7 +85,6 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 				rootElement.appendChild( elementContainer );
 			}
 
-			const stageAny = this.stage as any;
 			const oldOnChildrenChange = stageAny.onChildrenChange;
 			stageAny.onChildrenChange = () => {
 				this.updateVisibility();
