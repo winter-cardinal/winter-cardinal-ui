@@ -9,8 +9,12 @@ import { EShapeNullUploaded } from "./e-shape-null-uploaded";
 
 export class EShapeNullUploadeds {
 	static create(
-		buffer: EShapeBuffer, shape: EShape, voffset: number, ioffset: number
+		buffer: EShapeBuffer, shape: EShape,
+		voffset: number, ioffset: number
 	): EShapeNullUploaded | null {
-		return new EShapeNullUploaded( buffer, voffset, ioffset ).init( shape );
+		return new EShapeNullUploaded(
+			buffer,
+			voffset, ioffset
+		).init( shape );
 	}
 }

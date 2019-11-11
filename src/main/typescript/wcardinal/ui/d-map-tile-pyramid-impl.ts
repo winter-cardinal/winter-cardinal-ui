@@ -128,7 +128,7 @@ export class DMapTilePyramidImpl extends utils.EventEmitter implements DMapTileP
 					plane.mapping = newMapping;
 				}
 			}
-			DApplications.update();
+			DApplications.update( this._canvas );
 
 			this._fitThrottledBound();
 		}
@@ -292,7 +292,7 @@ export class DMapTilePyramidImpl extends utils.EventEmitter implements DMapTileP
 
 	protected onLoaded(): void {
 		this.cleanup();
-		DApplications.update();
+		DApplications.update( this._canvas );
 	}
 
 	destroy(): this {

@@ -100,7 +100,7 @@ export class DCoordinateSet {
 				this.toAutoWidth();
 				const base = this._base;
 				base.toChildrenDirty();
-				DApplications.update();
+				DApplications.update( this._base );
 			}
 		} else {
 			const scalarSet = this._scalarSet;
@@ -139,7 +139,7 @@ export class DCoordinateSet {
 				this.toAutoHeight();
 				const base = this._base;
 				base.toChildrenDirty();
-				DApplications.update();
+				DApplications.update( this._base );
 			}
 		} else {
 			const scalarSet = this._scalarSet;

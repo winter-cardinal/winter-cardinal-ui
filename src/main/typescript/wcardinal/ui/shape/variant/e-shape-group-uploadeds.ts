@@ -9,8 +9,12 @@ import { EShapeGroupUploaded } from "./e-shape-group-uploaded";
 
 export class EShapeGroupUploadeds {
 	static create(
-		buffer: EShapeBuffer, shape: EShape, voffset: number, ioffset: number
+		buffer: EShapeBuffer, shape: EShape,
+		voffset: number, ioffset: number
 	): EShapeGroupUploaded | null {
-		return new EShapeGroupUploaded( buffer, voffset, ioffset ).init( shape );
+		return new EShapeGroupUploaded(
+			buffer,
+			voffset, ioffset
+		).init( shape );
 	}
 }

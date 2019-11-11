@@ -78,7 +78,7 @@ export class DPickerColorGradientDataView extends Mesh {
 
 		shader.uniforms.uSampler.on( "update", (): void => {
 			this.update();
-			DApplications.update();
+			DApplications.update( this );
 		});
 		this.update();
 	}

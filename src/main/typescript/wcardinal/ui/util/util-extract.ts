@@ -3,6 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { Renderer } from "pixi.js";
+import { DApplicationLayerLike } from "../d-application-layer-like";
+import { DApplicationLike } from "../d-application-like";
+import { DApplications } from "../d-applications";
 import { DBase } from "../d-base";
 import { UtilExtractor } from "./util-extractor";
 import { UtilExtractorPixels } from "./util-extractor-pixels";
@@ -21,7 +25,9 @@ export interface UtilExtractTextureOptions {
 }
 
 export interface UtilExtractPixelsOptions extends UtilExtractTextureOptions {
-
+	renderer?: Renderer;
+	application?: DApplicationLike;
+	layer?: DApplicationLayerLike;
 }
 
 export interface UtilExtractCanvasOptions extends UtilExtractPixelsOptions {
@@ -50,12 +56,15 @@ const toSkipUpdateTransform = ( options: UtilExtractTextureOptions ): boolean | 
 
 const toResolution = ( options: UtilExtractTextureOptions ): number => {
 	const target = options.target;
-	return ( options.resolution != null ?
-		( utilIsNumber( options.resolution ) ?
-			options.resolution :
-			Math.min( 1, options.resolution.size / Math.max( target.width, target.height ) )
-		) : PIXI.settings.RESOLUTION
-	);
+	if( options.resolution != null ) {
+		if( utilIsNumber( options.resolution ) ) {
+			return options.resolution;
+		} else {
+			return Math.min( 1, options.resolution.size / Math.max( target.width, target.height ) );
+		}
+	} else {
+		return window.devicePixelRatio || 1;
+	}
 };
 
 const toIgnorePremultipliedAlpha = ( options: UtilExtractCanvasOptions ): boolean | undefined => {
@@ -73,6 +82,23 @@ const toScale = ( pixels: UtilExtractorPixels, options: UtilExtractCanvasOptions
 	}
 };
 
+const toRenderer = ( options: UtilExtractPixelsOptions ): Renderer => {
+	if( options.renderer ) {
+		return options.renderer;
+	} else if( options.application ) {
+		return options.application.getLayerBase().renderer;
+	} else if( options.layer ) {
+		return options.layer.renderer;
+	} else {
+		const layer = DApplications.getLayer( options.target );
+		if( layer ) {
+			return layer.renderer;
+		} else {
+			throw new Error( "No renderer / application / layer found." );
+		}
+	}
+};
+
 export class UtilExtract {
 	static texture( options: UtilExtractTextureOptions ): PIXI.RenderTexture {
 		const target = options.target;
@@ -82,7 +108,8 @@ export class UtilExtract {
 	}
 
 	static pixels( options: UtilExtractPixelsOptions ): UtilExtractorPixels {
-		return UtilExtractor.toPixels( this.texture( options ) );
+		const renderer = toRenderer( options );
+		return UtilExtractor.toPixels( this.texture( options ), renderer );
 	}
 
 	static canvas( options: UtilExtractCanvasOptions ): HTMLCanvasElement {

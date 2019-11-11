@@ -8,7 +8,6 @@ import { EShape } from "./e-shape";
 import { EShapeBuffer } from "./e-shape-buffer";
 import { EShapeBufferUnitBuilder } from "./e-shape-buffer-unit-builder";
 import { EShapeCorner } from "./e-shape-corner";
-import { EShapeDefaults } from "./e-shape-defaults";
 
 const FMIN: number = 0.00001;
 
@@ -54,7 +53,14 @@ export abstract class EShapeUploadedBase implements EShapeUploaded {
 	protected texture: Texture | null;
 	protected textureTransformId: number;
 
-	constructor( buffer: EShapeBuffer, voffset: number, ioffset: number, vcount: number, icount: number ) {
+	protected antialiasWeight: number;
+
+	constructor(
+		buffer: EShapeBuffer,
+		voffset: number, ioffset: number,
+		vcount: number, icount: number,
+		antialiasWeight: number
+	) {
 		this.buffer = buffer;
 
 		this.transformLocalId = -1;
@@ -84,6 +90,8 @@ export abstract class EShapeUploadedBase implements EShapeUploaded {
 
 		this.texture = null;
 		this.textureTransformId = NaN;
+
+		this.antialiasWeight = antialiasWeight;
 	}
 
 	init( shape: EShape ): this {
@@ -197,7 +205,7 @@ export abstract class EShapeUploadedBase implements EShapeUploaded {
 	}
 
 	protected calcStep( size: number, strokeWidth: number, result: Float32Array ): Float32Array {
-		const antialiasWeight = EShapeDefaults.ANTIALIAS_WEIGHT;
+		const antialiasWeight = this.antialiasWeight;
 		if( FMIN < strokeWidth ) {
 			const dpc0 = size - strokeWidth;
 			if( FMIN < dpc0 ) {

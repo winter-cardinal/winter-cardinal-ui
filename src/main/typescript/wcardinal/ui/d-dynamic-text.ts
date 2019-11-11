@@ -4,11 +4,11 @@
  */
 
 import { Mesh, MeshMaterial, Renderer, Texture } from "pixi.js";
+import { DApplications } from "./d-applications";
 import { DBase } from "./d-base";
 import { DDynamicTextGeometry } from "./d-dynamic-text-geometry";
 import { DDynamicTextStyle, DDynamicTextStyleOptions } from "./d-dynamic-text-style";
 import { DynamicFontAtlas } from "./util/dynamic-font-atlas";
-import { DynamicFontAtlases } from "./util/dynamic-font-atlases";
 
 export class DDynamicText extends Mesh {
 	protected _style: DDynamicTextStyle;
@@ -47,24 +47,27 @@ export class DDynamicText extends Mesh {
 	}
 
 	protected update_(): void {
-		const style = this._style;
-		if( this._isDirty ) {
-			this._isDirty = false;
+		const layer = DApplications.getLayer( this );
+		if( layer ) {
+			const style = this._style;
+			if( this._isDirty ) {
+				this._isDirty = false;
 
-			const text = this._text;
-			const textApproved = this._textApproved;
-			this._textApproved = text;
-			const fontId = style.fontId;
-			const fontIdApproved = style.fontIdApproved;
-			const fontSize = style.fontSize;
-			const fill = style.fill;
-			const fillApproved = style.fillApproved;
-			style.approve();
+				const text = this._text;
+				const textApproved = this._textApproved;
+				this._textApproved = text;
+				const fontId = style.fontId;
+				const fontIdApproved = style.fontIdApproved;
+				const fontSize = style.fontSize;
+				const fill = style.fill;
+				const fillApproved = style.fillApproved;
+				style.approve();
 
-			const atlases = DynamicFontAtlases.getInstance();
-			if( text !== textApproved || fontId !== fontIdApproved || fill !== fillApproved ) {
-				atlases.add( fontId, fontSize, fill, text );
-				atlases.remove( fontIdApproved, fillApproved, textApproved );
+				const atlases = layer.getDynamicFontAtlases();
+				if( text !== textApproved || fontId !== fontIdApproved || fill !== fillApproved ) {
+					atlases.add( fontId, fontSize, fill, text );
+					atlases.remove( fontIdApproved, fillApproved, textApproved );
+				}
 			}
 		}
 	}
@@ -119,13 +122,16 @@ export class DDynamicText extends Mesh {
 
 		let atlas = this._atlas;
 		if( atlas == null ) {
-			const style = this._style;
-			atlas = DynamicFontAtlases.getInstance().get( style.fontId, style.fill );
-			if( atlas != null ) {
-				this._atlasRevisionUpdated = atlas.getRevisionUpdate();
-				this._atlas = atlas;
-				this.texture = atlas.texture;
-				this._isGeometryDirty = true;
+			const layer = DApplications.getLayer( this );
+			if( layer ) {
+				const style = this._style;
+				atlas = layer.getDynamicFontAtlases().get( style.fontId, style.fill );
+				if( atlas != null ) {
+					this._atlasRevisionUpdated = atlas.getRevisionUpdate();
+					this._atlas = atlas;
+					this.texture = atlas.texture;
+					this._isGeometryDirty = true;
+				}
 			}
 		} else {
 			const revisionUpdate = atlas.getRevisionUpdate();

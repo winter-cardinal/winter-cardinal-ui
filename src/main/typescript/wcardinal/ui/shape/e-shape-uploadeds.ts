@@ -8,7 +8,9 @@ import { EShapeBuffer } from "./e-shape-buffer";
 import { EShapeUploaded } from "./e-shape-uploaded";
 
 export type EShapeUploadedCreator = (
-	buffer: EShapeBuffer, shape: EShape, voffset: number, ioffset: number
+	buffer: EShapeBuffer, shape: EShape,
+	voffset: number, ioffset: number,
+	antialiasWeight: number
 ) => EShapeUploaded | null;
 
 export const EShapeUploadeds: {

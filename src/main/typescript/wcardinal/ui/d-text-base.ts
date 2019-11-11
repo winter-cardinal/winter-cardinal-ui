@@ -224,12 +224,12 @@ export class DTextBase<
 					text.mask = this.getOrCreateOverflowMask();
 				}
 				this.toDirty();
-				DApplications.update();
+				DApplications.update( this );
 			}
 		} else {
 			this._text.text = formatted;
 			this.toDirty();
-			DApplications.update();
+			DApplications.update( this );
 		}
 	}
 

@@ -4,13 +4,13 @@
  */
 
 import { BaseTexture, BLEND_MODES, ObjectRenderer, Renderer, Shader, Texture, utils } from "pixi.js";
+import { DApplications } from "../d-applications";
 import { DynamicAtlas } from "../util/dynamic-atlas";
 import { DynamicAtlasItemImage } from "../util/dynamic-atlas-item-image";
 import { DynamicSDFFontAtlases } from "../util/dynamic-sdf-font-atlases";
 import { EShape } from "./e-shape";
 import { EShapeBuffer } from "./e-shape-buffer";
 import { EShapeContainer } from "./e-shape-container";
-import { EShapeDefaults } from "./e-shape-defaults";
 import { EShapeRendererIterator } from "./e-shape-renderer-iterator";
 
 const VERTEX_SHADER = `
@@ -362,18 +362,20 @@ export class EShapeRenderer extends ObjectRenderer {
 		}
 	}
 
-	render_(
-		container: EShapeContainer, shapes: EShape[], atlas: DynamicAtlas,
-		fontAtlases: DynamicSDFFontAtlases, isDirty: boolean,
-		buffers: EShapeBuffer[]
-	): void {
+	render_( container: EShapeContainer, shapes: EShape[], isDirty: boolean ): void {
 		const renderer = this.renderer;
 		const shader = this._shader;
 
 		if( shader != null && 0 < shapes.length ) {
+			const resolution = renderer.resolution;
+			const buffers = container.getBuffers();
+			const antialiasWeight = container.getAntialiasWeight( resolution );
+
 			// Update textures
 			if( isDirty ) {
 				// Atlases
+				const atlas = container.getAtlas( resolution );
+				const fontAtlases = container.getFontAtlases();
 				atlas.begin();
 				fontAtlases.begin();
 				const defaultTexture = atlas.getDefaultTexture();
@@ -386,12 +388,12 @@ export class EShapeRenderer extends ObjectRenderer {
 				atlas.repack();
 
 				// Update buffers
-				this.updateBuffers( shapes, buffers, renderer, shader );
+				this.updateBuffers( shapes, buffers, renderer, shader, antialiasWeight );
 			}
 
 			// Render buffers
-			shader.uniforms.pixelScale = container.getPixelScale();
-			shader.uniforms.antialiasWeight = EShapeDefaults.ANTIALIAS_WEIGHT;
+			shader.uniforms.pixelScale = container.getPixelScale( resolution );
+			shader.uniforms.antialiasWeight = antialiasWeight;
 			shader.uniforms.translationMatrix = container.worldTransform.toArray( true );
 			renderer.shader.bind( shader, false );
 			renderer.state!.setBlendMode(utils.correctBlendMode(BLEND_MODES.NORMAL, true));
@@ -416,14 +418,16 @@ export class EShapeRenderer extends ObjectRenderer {
 	}
 
 	updateBuffers(
-		shapes: EShape[], buffers: EShapeBuffer[], renderer: Renderer, shader: Shader
+		shapes: EShape[], buffers: EShapeBuffer[],
+		renderer: Renderer, shader: Shader,
+		antialiasWeight: number
 	): void {
 		const iterator = this._iterator;
 		iterator.reset( shapes );
 		let ib = 0;
 		const ibmax = buffers.length;
 		for( ; iterator.get() != null && ib < ibmax; ++ib ) {
-			if( ! buffers[ ib ].update( iterator ) ) {
+			if( ! buffers[ ib ].update( iterator, antialiasWeight ) ) {
 				// Failed to update the shapes.
 				// This is most likely caused by small buffers.
 				// So increase the buffer size.
@@ -441,7 +445,7 @@ export class EShapeRenderer extends ObjectRenderer {
 
 		while( iterator.get() != null ) {
 			const buffer = new EShapeBuffer( this.getBufferSize(), renderer, shader );
-			if( buffer.update( iterator ) ) {
+			if( buffer.update( iterator, antialiasWeight ) ) {
 				buffers.push( buffer );
 			} else {
 				buffer.destroy();

@@ -229,7 +229,7 @@ export class DPickerColorGradient<
 			view.setData( 1 + i, recent.get( i ) );
 		}
 		view.update();
-		DApplications.update();
+		DApplications.update( this );
 	}
 
 	protected toAnchorPosition( e: InteractionEvent ) {
@@ -283,9 +283,12 @@ export class DPickerColorGradient<
 	}
 
 	protected onAnchorDragStart() {
-		const stage = DApplications.getInstance().stage;
-		stage.on( UtilPointerEvent.move, this._onAnchorMoveBound );
-		stage.on( UtilPointerEvent.up, this._onAnchorUpBound );
+		const layer = DApplications.getLayer( this );
+		if( layer ) {
+			const stage = layer.stage;
+			stage.on( UtilPointerEvent.move, this._onAnchorMoveBound );
+			stage.on( UtilPointerEvent.up, this._onAnchorUpBound );
+		}
 	}
 
 	protected onAnchorMove( e: InteractionEvent ): void {
@@ -299,9 +302,12 @@ export class DPickerColorGradient<
 	}
 
 	protected onAnchorUp( e: InteractionEvent ): void {
-		const stage = DApplications.getInstance().stage;
-		stage.off( UtilPointerEvent.move, this._onAnchorMoveBound );
-		stage.off( UtilPointerEvent.up, this._onAnchorUpBound );
+		const layer = DApplications.getLayer( this );
+		if( layer ) {
+			const stage = layer.stage;
+			stage.off( UtilPointerEvent.move, this._onAnchorMoveBound );
+			stage.off( UtilPointerEvent.up, this._onAnchorUpBound );
+		}
 	}
 
 	protected updateAnchors() {
@@ -346,7 +352,7 @@ export class DPickerColorGradient<
 			anchor.texture = (point.selected ? anchorOutlinedTexture : anchorTexture);
 		}
 
-		DApplications.update();
+		DApplications.update( this );
 	}
 
 	onKeyDown( e: KeyboardEvent ): boolean {

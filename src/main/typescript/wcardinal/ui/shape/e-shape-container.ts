@@ -4,6 +4,7 @@
  */
 
 import { DisplayObject, IPoint, Point, Renderer } from "pixi.js";
+import { DApplications } from "../d-applications";
 import { DynamicAtlas } from "../util/dynamic-atlas";
 import { DynamicSDFFontAtlases } from "../util/dynamic-sdf-font-atlases";
 import { EShape } from "./e-shape";
@@ -18,7 +19,7 @@ export class EShapeContainer extends DisplayObject {
 	protected _childrenId: number;
 	protected _childrenIdRendered: number;
 
-	protected _atlas: DynamicAtlas;
+	protected _atlas: DynamicAtlas | null;
 	protected _fontAtlases: DynamicSDFFontAtlases;
 
 	protected _pixelScale: number;
@@ -36,7 +37,7 @@ export class EShapeContainer extends DisplayObject {
 		this._childrenId = 0;
 		this._childrenIdRendered = -1;
 
-		this._atlas = new DynamicAtlas();
+		this._atlas = null;
 		this._fontAtlases = new DynamicSDFFontAtlases();
 
 		this._pixelScale = 1;
@@ -77,17 +78,31 @@ export class EShapeContainer extends DisplayObject {
 			shapeRenderer = EShapeContainer.SHAPE_RENDERER = new EShapeRenderer( renderer );
 		}
 		renderer.batch.setObjectRenderer( shapeRenderer );
-		shapeRenderer.render_(
-			this, this.children, this._atlas, this._fontAtlases,
-			childrenIdRendered < childrenId, this._buffers
-		);
+		shapeRenderer.render_( this, this.children, childrenIdRendered < childrenId );
 	}
 
 	containsPoint( point: Point ): boolean {
 		return false;
 	}
 
-	getPixelScale(): number {
+	getFontAtlases(): DynamicSDFFontAtlases {
+		return this._fontAtlases;
+	}
+
+	getAtlas( resolution: number ): DynamicAtlas {
+		let atlas = this._atlas;
+		if( atlas == null ) {
+			atlas = new DynamicAtlas( resolution );
+			this._atlas = atlas;
+		}
+		return atlas;
+	}
+
+	getBuffers(): EShapeBuffer[] {
+		return this._buffers;
+	}
+
+	getPixelScale( resolution: number ): number {
 		this.updateTransform();
 		const transform = this.transform;
 		const worldID = (transform as any)._worldID;
@@ -97,10 +112,13 @@ export class EShapeContainer extends DisplayObject {
 			const a = worldTransform.a;
 			const b = worldTransform.b;
 			const scale = Math.sqrt( a * a + b * b );
-			const dpr = window.devicePixelRatio || 1;
-			this._pixelScale = 1 / ( dpr * scale );
+			this._pixelScale = 1 / ( resolution * scale );
 		}
 		return this._pixelScale;
+	}
+
+	getAntialiasWeight( resolution: number ): number {
+		return 1.25 / resolution;
 	}
 
 	hitTest( global: IPoint, handler?: ( shape: EShape ) => boolean ): EShape | null {

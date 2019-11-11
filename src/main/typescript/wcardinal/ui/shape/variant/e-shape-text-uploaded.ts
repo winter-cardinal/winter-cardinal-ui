@@ -46,9 +46,10 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 		buffer: EShapeBuffer,
 		voffset: number, ioffset: number,
 		tvcount: number, ticount: number,
-		vcount: number, icount: number
+		vcount: number, icount: number,
+		antialiasWeight: number
 	) {
-		super( buffer, voffset, ioffset, vcount, icount );
+		super( buffer, voffset, ioffset, vcount, icount, antialiasWeight );
 
 		this.textSize = NaN;
 		this.textFamily = "auto";

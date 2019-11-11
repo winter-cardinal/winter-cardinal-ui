@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DApplications } from "../d-applications";
+import { DApplicationLayerLike } from "../d-application-layer-like";
 import { DynamicFontAtlas } from "./dynamic-font-atlas";
 
 const update = ( atlas: DynamicFontAtlas ): void => {
@@ -23,13 +23,14 @@ const destroyAll = ( colorToAltas: Map<number, DynamicFontAtlas> ): void => {
 };
 
 export class DynamicFontAtlases {
-	protected static INSTANCE: DynamicFontAtlases | null = null;
 	protected _atlases: Map<string, Map<number, DynamicFontAtlas>>;
+	protected _resolution: number;
 
-	constructor() {
+	constructor( layer: DApplicationLayerLike ) {
 		this._atlases = new Map<string, Map<number, DynamicFontAtlas>>();
+		this._resolution = layer.renderer.resolution;
 
-		DApplications.getInstance().renderer.on( "prerender", (): void => {
+		layer.renderer.on( "prerender", (): void => {
 			this.update();
 		});
 	}
@@ -43,7 +44,7 @@ export class DynamicFontAtlases {
 		}
 		let atlas = colorToAtlas.get( fontColor );
 		if( atlas == null ) {
-			atlas = new DynamicFontAtlas( fontId, fontSize, fontColor );
+			atlas = new DynamicFontAtlas( fontId, fontSize, fontColor, this._resolution );
 			colorToAtlas.set( fontColor, atlas );
 		}
 		atlas.add( targets );
@@ -80,12 +81,5 @@ export class DynamicFontAtlases {
 		const atlases = this._atlases;
 		atlases.forEach( destroyAll );
 		atlases.clear();
-	}
-
-	static getInstance(): DynamicFontAtlases {
-		if( DynamicFontAtlases.INSTANCE == null ) {
-			DynamicFontAtlases.INSTANCE = new DynamicFontAtlases();
-		}
-		return DynamicFontAtlases.INSTANCE;
 	}
 }

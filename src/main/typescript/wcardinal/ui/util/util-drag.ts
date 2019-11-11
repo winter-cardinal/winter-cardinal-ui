@@ -4,7 +4,6 @@
  */
 
 import { interaction, Point } from "pixi.js";
-import InteractionEvent = interaction.InteractionEvent;
 import { DApplications } from "../d-applications";
 import { DBase } from "../d-base";
 import { DMouseModifier } from "../d-mouse-modifier";
@@ -16,7 +15,7 @@ import { UtilPointerEvent } from "./util-pointer-event";
 export type UtilDragOnMove = ( dx: number, dy: number, x: number, y: number, ds: number ) => void;
 export type UtilDragOnStart = () => void;
 export type UtilDragOnEnd = () => void;
-export type UtilDragChecker = ( e: InteractionEvent, modifier: DMouseModifier, target: DBase ) => boolean;
+export type UtilDragChecker = ( e: interaction.InteractionEvent, modifier: DMouseModifier, target: DBase ) => boolean;
 
 interface UtilDragOptionsEasingDuration {
 	duration?: number | {
@@ -92,9 +91,9 @@ const toChecker = ( options?: UtilDragOptions ): { start: UtilDragChecker, move:
 export class UtilDrag {
 	protected static EPSILON = 0.00001;
 	protected _target: DBase<any, any>;
-	protected _onDownBound: ( e: InteractionEvent ) => void;
-	protected _onMoveBound: ( e: InteractionEvent ) => void;
-	protected _onEndBound: ( e: InteractionEvent ) => void;
+	protected _onDownBound: ( e: interaction.InteractionEvent ) => void;
+	protected _onMoveBound: ( e: interaction.InteractionEvent ) => void;
+	protected _onEndBound: ( e: interaction.InteractionEvent ) => void;
 	protected _onStart?: UtilDragOnStart;
 	protected _onMove?: UtilDragOnMove;
 	protected _onEnd?: UtilDragOnEnd;
@@ -104,7 +103,7 @@ export class UtilDrag {
 	protected _easing?: UtilDragEasing;
 	protected _modifier: DMouseModifier;
 	protected _checker: { start: UtilDragChecker, move: UtilDragChecker };
-	protected _interactionManager: interaction.InteractionManager;
+	protected _interactionManager: interaction.InteractionManager | null;
 	protected _center: Point;
 	protected _scale: number;
 	protected _scalingCenter: Point;
@@ -120,7 +119,7 @@ export class UtilDrag {
 		}
 		this._modifier = (options && options.modifier) || DMouseModifier.NONE;
 		this._checker = toChecker( options );
-		this._interactionManager = DApplications.getInstance().renderer.plugins.interaction;
+		this._interactionManager = null;
 		this._center = new Point();
 		this._scale = 1;
 		this._scalingCenter = new Point();
@@ -134,15 +133,15 @@ export class UtilDrag {
 			this._easing = new UtilDragEasing( toEasingOptions( easing, onEasingMoveBound ) );
 		}
 
-		this._onDownBound = ( e: InteractionEvent ): void => {
+		this._onDownBound = ( e: interaction.InteractionEvent ): void => {
 			this.onDown( e );
 		};
 
-		this._onMoveBound = ( e: InteractionEvent ): void => {
+		this._onMoveBound = ( e: interaction.InteractionEvent ): void => {
 			this.onMove( e );
 		};
 
-		this._onEndBound = ( e: InteractionEvent ): void => {
+		this._onEndBound = ( e: interaction.InteractionEvent ): void => {
 			this.onEnd( e );
 		};
 
@@ -159,7 +158,10 @@ export class UtilDrag {
 		target.on( this._down, this._onDownBound );
 	}
 
-	protected calcCenterAndScale( e: InteractionEvent, center: Point ): number {
+	protected calcCenterAndScale(
+		e: interaction.InteractionEvent, center: Point,
+		interactionManager: interaction.InteractionManager
+	): number {
 		const oe = e.data.originalEvent;
 		const global = e.data.global;
 		if( "touches" in oe ) {
@@ -177,7 +179,7 @@ export class UtilDrag {
 				}
 				centerX /= touchesLength;
 				centerY /= touchesLength;
-				this._interactionManager.mapPositionToPoint( center, centerX, centerY );
+				interactionManager.mapPositionToPoint( center, centerX, centerY );
 
 				if( 1 < touchesLength ) {
 					// Calculate the maximum distance from the center
@@ -198,51 +200,63 @@ export class UtilDrag {
 		return 0;
 	}
 
-	protected onDown( e: InteractionEvent ): void {
+	protected onDown( e: interaction.InteractionEvent ): void {
 		const target = this._target;
 		if( this._checker.start( e, this._modifier, target ) ) {
-			e.stopPropagation();
+			const layer = DApplications.getLayer( target );
+			if( layer ) {
+				e.stopPropagation();
 
-			// Update the center
-			const center = this._center;
-			this._scale = this.calcCenterAndScale( e, center );
+				if( target.isDragging() ) {
+					const interactionManager = this._interactionManager;
+					if( interactionManager ) {
+						const center = this._center;
+						this._scale = this.calcCenterAndScale( e, center, interactionManager );
+					}
+				} else {
+					target.setDragging( true );
 
-			//
-			if( ! target.isDragging() ) {
-				target.setDragging( true );
+					// Interaction manager
+					const interactionManager = layer.renderer.plugins.interaction;
+					this._interactionManager = interactionManager;
 
-				//
-				this._time = e.data.originalEvent.timeStamp;
+					// Update the center
+					const center = this._center;
+					this._scale = this.calcCenterAndScale( e, center, interactionManager );
 
-				// Easing util
-				const easing = this._easing;
-				if( easing ) {
-					easing.onStart();
+					//
+					this._time = e.data.originalEvent.timeStamp;
+
+					// Easing util
+					const easing = this._easing;
+					if( easing ) {
+						easing.onStart();
+					}
+
+					// User-defined handler
+					const onStart = this._onStart;
+					if( onStart != null ) {
+						onStart();
+					}
+
+					// Event handler
+					interactionManager.on( this._move, this._onMoveBound );
+					interactionManager.on( this._up, this._onEndBound );
 				}
-
-				// User-defined handler
-				const onStart = this._onStart;
-				if( onStart != null ) {
-					onStart();
-				}
-
-				// Event handler
-				const interactionManager = this._interactionManager;
-				interactionManager.on( this._move, this._onMoveBound );
-				interactionManager.on( this._up, this._onEndBound );
 			}
 		}
 	}
 
-	protected onMove( e: InteractionEvent ): void {
+	protected onMove( e: interaction.InteractionEvent ): void {
 		const target = this._target;
-		if( this._checker.move( e, this._modifier, target ) ) {
-			if( target.isDragging() ) {
+		if( target.isDragging() && this._checker.move( e, this._modifier, target ) ) {
+			const interactionManager = this._interactionManager;
+			if( interactionManager ) {
 				// Update the center
 				const center = this._center;
 				const centerX = center.x;
 				const centerY = center.y;
-				const newScale = this.calcCenterAndScale( e, center );
+				const newScale = this.calcCenterAndScale( e, center, interactionManager );
 				const oldScale = this._scale;
 				this._scale = newScale;
 				const oldTime = this._time;
@@ -272,34 +286,37 @@ export class UtilDrag {
 		}
 	}
 
-	protected onEnd( e: InteractionEvent ): void {
+	protected onEnd( e: interaction.InteractionEvent ): void {
 		const target = this._target;
 		if( target.isDragging() ) {
-			// Update the center
-			const center = this._center;
-			this._scalingCenter.copyFrom( center );
-			this._scale = this.calcCenterAndScale( e, center );
+			const interactionManager = this._interactionManager;
+			if( interactionManager ) {
+				// Update the center
+				const center = this._center;
+				this._scalingCenter.copyFrom( center );
+				this._scale = this.calcCenterAndScale( e, center, interactionManager );
 
-			// Finalize
-			const oe = e.data.originalEvent;
-			if( "touches" in oe ? oe.touches.length <= 0 : true ) {
-				target.setDragging( false );
+				// Finalize
+				const oe = e.data.originalEvent;
+				if( "touches" in oe ? oe.touches.length <= 0 : true ) {
+					target.setDragging( false );
 
-				// Event handler
-				const interactionManager = this._interactionManager;
-				interactionManager.off( this._move, this._onMoveBound );
-				interactionManager.off( this._up, this._onEndBound );
+					// Event handler
+					this._interactionManager = null;
+					interactionManager.off( this._move, this._onMoveBound );
+					interactionManager.off( this._up, this._onEndBound );
 
-				// User-defined handler
-				const onEnd = this._onEnd;
-				if( onEnd != null ) {
-					onEnd();
-				}
+					// User-defined handler
+					const onEnd = this._onEnd;
+					if( onEnd != null ) {
+						onEnd();
+					}
 
-				// Easing util
-				const easing = this._easing;
-				if( easing ) {
-					easing.onEnd( e.data.originalEvent.timeStamp - this._time );
+					// Easing util
+					const easing = this._easing;
+					if( easing ) {
+						easing.onEnd( e.data.originalEvent.timeStamp - this._time );
+					}
 				}
 			}
 		}

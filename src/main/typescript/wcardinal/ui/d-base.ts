@@ -18,7 +18,6 @@ import { DBaseReflowable } from "./d-base-reflowable";
 import { DBaseState } from "./d-base-state";
 import { DBaseStates } from "./d-base-states";
 import { DBorderMask, DBorderStateAware } from "./d-border";
-import { DControllers } from "./d-controllers";
 import { DCoordinate } from "./d-coordinate";
 import { DCoordinateSet } from "./d-coordinates";
 import { DCorner, DCornerMask } from "./d-corner";
@@ -35,11 +34,19 @@ import { utilIsFunction } from "./util/util-is-function";
 import { utilIsNumber } from "./util/util-is-number";
 import { utilIsString } from "./util/util-is-string";
 import { UtilKeyboardEvent, UtilKeyboardEventShortcut } from "./util/util-keyboard-event";
-import { UtilName } from "./util/util-name";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 import { UtilWheelEventDeltas } from "./util/util-wheel-event";
 
 export interface DBaseOptions<THEME extends DThemeBase = DThemeBase> {
+	/**
+	 * A parent.
+	 *
+	 * In the case of UI classes which pop up (e.g., DDialog and DMenu),
+	 * if multiple application instances are there, better to set
+	 * this to an `application.stage` so that they pick a right application.
+	 * By default, they assume the last created application is
+	 * the one they belong to at the time when they are created.
+	 */
 	parent?: Container;
 	children?: Array<DisplayObject | null>;
 	name?: string;
@@ -406,7 +413,7 @@ export class DBase<
 		this._hasDirty = false;
 		this._isChildrenDirty = false;
 		this._shadow = null;
-		this._name = ( options && options.name != null ? options.name : UtilName.create( this.getType() ) );
+		this._name = ( options && options.name ) || "";
 		const theme = this._theme = toTheme( options ) || this.getThemeDefault();
 		this._befores = [];
 		this._afters = [];
@@ -418,11 +425,11 @@ export class DBase<
 		this._padding = new DBasePadding( theme, options, (): void => {
 			this.layout();
 			this.toChildrenDirty();
-			DApplications.update();
+			DApplications.update( this );
 		});
 		const toDirtyAndUpdate = (): void => {
 			this.toDirty();
-			DApplications.update();
+			DApplications.update( this );
 		};
 		this._background = new DBaseBackground( theme, options, toDirtyAndUpdate );
 		this._border = new DBaseBorder( theme, options, toDirtyAndUpdate );
@@ -508,7 +515,7 @@ export class DBase<
 
 		// Shadow
 		this._onShadowUpdateBound = (): void => {
-			DApplications.update();
+			DApplications.update( this );
 		};
 		const shadow = (options && options.shadow) || theme.getShadow();
 		if( shadow ) {
@@ -544,13 +551,13 @@ export class DBase<
 				this.toParentChildrenDirty();
 			}
 			this.updateState();
-			DApplications.update();
+			DApplications.update( this );
 		});
 
 		this.on( "removed", (): void => {
 			this.blur( true );
 			this.updateState();
-			DApplications.update();
+			DApplications.update( this );
 		});
 
 		// Shortcut
@@ -670,7 +677,7 @@ export class DBase<
 
 	onMove(): void {
 		this.moveChildren();
-		DApplications.update();
+		DApplications.update( this );
 		this.emit( "move", this );
 	}
 
@@ -698,7 +705,9 @@ export class DBase<
 			if( scalarSet.x != null ) {
 				const position = this._transform.position;
 				const parent = this.getParentOfSize();
-				this.x = scalarSet.x( parent.width, width, parent.padding.getLeft(), position.x );
+				if( parent ) {
+					this.x = scalarSet.x( parent.width, width, parent.padding.getLeft(), position.x );
+				}
 			}
 		}
 
@@ -707,7 +716,9 @@ export class DBase<
 			if( scalarSet.y != null ) {
 				const position = this._transform.position;
 				const parent = this.getParentOfSize();
-				this.y = scalarSet.y( parent.height, height, parent.padding.getTop(), position.y );
+				if( parent ) {
+					this.y = scalarSet.y( parent.height, height, parent.padding.getTop(), position.y );
+				}
 			}
 		}
 
@@ -722,17 +733,17 @@ export class DBase<
 		this.toDirty();
 		this.toChildrenDirty();
 		this.resizeChildren();
-		DApplications.update();
+		DApplications.update( this );
 		this.emit( "resize", newWidth, newHeight, oldWidth, oldHeight, this );
 	}
 
 	onScale(): void {
-		DApplications.update();
+		DApplications.update( this );
 		this.emit( "scale", this );
 	}
 
 	onSkew(): void {
-		DApplications.update();
+		DApplications.update( this );
 		this.emit( "skew", this );
 	}
 
@@ -780,7 +791,9 @@ export class DBase<
 			if( scalarSet.x != null ) {
 				const position = this._transform.position;
 				const parent = this.getParentOfSize();
-				this.x = scalarSet.x( parent.width, width, parent.padding.getLeft(), position.x );
+				if( parent ) {
+					this.x = scalarSet.x( parent.width, width, parent.padding.getLeft(), position.x );
+				}
 			}
 		}
 	}
@@ -801,7 +814,9 @@ export class DBase<
 			if( scalarSet.y != null ) {
 				const position = this._transform.position;
 				const parent = this.getParentOfSize();
-				this.y = scalarSet.y( parent.height, height, parent.padding.getTop(), position.y );
+				if( parent ) {
+					this.y = scalarSet.y( parent.height, height, parent.padding.getTop(), position.y );
+				}
 			}
 		}
 	}
@@ -856,14 +871,17 @@ export class DBase<
 	}
 
 	protected applyTitle(): void {
-		DApplications.getInstance().view.title = this._title;
+		const layer = DApplications.getLayer( this );
+		if( layer ) {
+			layer.view.title = this._title;
+		}
 	}
 
 	show(): this {
 		if( ! this.visible ) {
 			this.visible = true;
 			this.toParentChildrenDirty();
-			DApplications.update();
+			DApplications.update( this );
 		}
 		return this;
 	}
@@ -876,7 +894,7 @@ export class DBase<
 		if( this.visible ) {
 			this.visible = false;
 			this.toParentChildrenDirty();
-			DApplications.update();
+			DApplications.update( this );
 		}
 		return this;
 	}
@@ -981,7 +999,10 @@ export class DBase<
 
 	setFocused( isFocused: boolean ) {
 		if( this.isFocused() !== isFocused ) {
-			DControllers.getFocusController().setFocused( this, isFocused, false );
+			const layer = DApplications.getLayer( this );
+			if( layer ) {
+				layer.getFocusController().setFocused( this, isFocused, false );
+			}
 		}
 		return this;
 	}
@@ -992,16 +1013,19 @@ export class DBase<
 
 	blur( recursively?: boolean ): this {
 		if( recursively ) {
-			const focusController = DControllers.getFocusController();
-			const focused = focusController.getFocused();
-			if( focused instanceof DBase ) {
-				let current: Container = focused;
-				while( current ) {
-					if( current === this ) {
-						focused.setFocused( false );
-						break;
+			const layer = DApplications.getLayer( this );
+			if( layer ) {
+				const focusController = layer.getFocusController();
+				const focused = focusController.getFocused();
+				if( focused instanceof DBase ) {
+					let current: Container = focused;
+					while( current ) {
+						if( current === this ) {
+							focused.setFocused( false );
+							break;
+						}
+						current = current.parent;
 					}
-					current = current.parent;
 				}
 			}
 		} else {
@@ -1108,7 +1132,7 @@ export class DBase<
 
 	protected onStateChange( newState: number, oldState: number ) {
 		this.toDirty();
-		DApplications.update();
+		DApplications.update( this );
 		this.emit( "statechange", newState, oldState, this );
 
 		const children = this.children;
@@ -1183,7 +1207,7 @@ export class DBase<
 			this._outline.setTheme( theme );
 			this._corner.setTheme( theme );
 			this.toDirty();
-			DApplications.update();
+			DApplications.update( this );
 		}
 	}
 
@@ -1310,21 +1334,23 @@ export class DBase<
 				this.prependRenderable( shadow, true );
 			}
 
-			DApplications.update();
+			DApplications.update( this );
 		}
 	}
 
 	layout(): void {
 		const parent = this.getParentOfSize();
-		this.onParentResize( parent.width, parent.height, parent.padding );
+		if( parent ) {
+			this.onParentResize( parent.width, parent.height, parent.padding );
+		}
 	}
 
-	protected getParentOfSize(): { width: number, height: number, padding: DPadding } {
+	protected getParentOfSize(): { width: number, height: number, padding: DPadding } | null {
 		const parent = this.parent;
 		if( parent instanceof DBase ) {
 			return parent;
 		} else {
-			return DApplications.getInstance();
+			return DApplications.getLayer( this );
 		}
 	}
 
@@ -1427,13 +1453,16 @@ export class DBase<
 	}
 
 	protected onDownThis( e: InteractionEvent ): void {
-		const focusController = DControllers.getFocusController();
-		focusController.setFocused( focusController.findFocusableParent( this ), true, true );
+		const layer = DApplications.getLayer( this );
+		if( layer ) {
+			const focusController = layer.getFocusController();
+			focusController.setFocused( focusController.findFocusableParent( this ), true, true );
+		}
 	}
 
 	// Double click
-	onDblClick( e: MouseEvent | TouchEvent ): boolean {
-		this.emit( "dblclick", e, this );
+	onDblClick( e: MouseEvent | TouchEvent, interactionManager: interaction.InteractionManager ): boolean {
+		this.emit( "dblclick", e, interactionManager, this );
 		return false;
 	}
 

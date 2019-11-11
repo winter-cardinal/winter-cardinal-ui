@@ -11,7 +11,9 @@ import { EShapeTextUploadeds } from "./e-shape-text-uploadeds";
 
 export class EShapeLineUploadeds {
 	static create(
-		buffer: EShapeBuffer, shape: EShape, voffset: number, ioffset: number
+		buffer: EShapeBuffer, shape: EShape,
+		voffset: number, ioffset: number,
+		antialiasWeight: number
 	): EShapeLineUploaded | null {
 		const points = shape.points;
 		const pointsClosed = ( points ? (points.style & EShapePointsStyle.CLOSED) !== 0 : false );
@@ -32,7 +34,12 @@ export class EShapeLineUploadeds {
 		}
 		if( voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity ) {
 			return new EShapeLineUploaded(
-				buffer, voffset, ioffset, tvcount, ticount, vcount, icount, pointCount, pointsClosed
+				buffer,
+				voffset, ioffset,
+				tvcount, ticount,
+				vcount, icount,
+				antialiasWeight,
+				pointCount, pointsClosed
 			).init( shape );
 		}
 		return null;

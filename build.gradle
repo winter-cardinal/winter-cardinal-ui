@@ -10,6 +10,7 @@ repositories {
 dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-websocket:2.0.5.RELEASE'
 	testImplementation 'org.webjars:webjars-locator:0.34'
+	testCompile 'org.springframework.boot:spring-boot-starter-thymeleaf:2.0.5.RELEASE'
 }
 
 license {

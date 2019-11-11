@@ -20,40 +20,44 @@ const editingUnformatter = ( text: string ): string => {
 	return text;
 };
 
-let element: HTMLInputElement | null = null;
+const CREATOR_CLASSNAME = "d-theme-white-input";
+const CREATOR_CLASSNAME_ELEMENT = `${CREATOR_CLASSNAME}-element`;
 const elementCreator = ( parent: HTMLElement ): HTMLInputElement => {
-	if( element == null ) {
-		element = document.createElement( "input" );
-		parent.appendChild( element );
+	const found = parent.getElementsByClassName( CREATOR_CLASSNAME_ELEMENT );
+	if( 0 < found.length ) {
+		return found[ 0 ] as HTMLInputElement;
 	}
+	const element = document.createElement( "input" );
+	element.setAttribute( "spellcheck", "false" );
+	element.setAttribute( "class", CREATOR_CLASSNAME_ELEMENT );
+	parent.appendChild( element );
 	return element;
 };
 
-let clipper: HTMLDivElement | null = null;
+const divCreator = ( parent: HTMLElement, classname: string ): HTMLDivElement => {
+	const found = parent.getElementsByClassName( classname );
+	if( 0 < found.length ) {
+		return found[ 0 ] as HTMLDivElement;
+	}
+	const result = document.createElement( "div" );
+	result.setAttribute( "class", classname );
+	parent.appendChild( result );
+	return result;
+};
+
+const CREATOR_CLASSNAME_CLIPPER = `${CREATOR_CLASSNAME}-clipper`;
 const clipperCreator = ( parent: HTMLElement ): HTMLDivElement => {
-	if( clipper == null ) {
-		clipper = document.createElement( "div" );
-		parent.appendChild( clipper );
-	}
-	return clipper;
+	return divCreator( parent, CREATOR_CLASSNAME_CLIPPER );
 };
 
-let before: HTMLDivElement | null = null;
+const CREATOR_CLASSNAME_BEFORE = `${CREATOR_CLASSNAME}-before`;
 const beforeCreator = ( parent: HTMLElement ): HTMLDivElement => {
-	if( before == null ) {
-		before = document.createElement( "div" );
-		parent.appendChild( before );
-	}
-	return before;
+	return divCreator( parent, CREATOR_CLASSNAME_BEFORE );
 };
 
-let after: HTMLDivElement | null = null;
+const CREATOR_CLASSNAME_AFTER = `${CREATOR_CLASSNAME}-after`;
 const afterCreator = ( parent: HTMLElement ): HTMLDivElement => {
-	if( after == null ) {
-		after = document.createElement( "div" );
-		parent.appendChild( after );
-	}
-	return after;
+	return divCreator( parent, CREATOR_CLASSNAME_AFTER );
 };
 
 export class DThemeWhiteInput extends DThemeWhiteHTMLElement<HTMLInputElement> implements DThemeInput {
@@ -135,5 +139,9 @@ export class DThemeWhiteInput extends DThemeWhiteHTMLElement<HTMLInputElement> i
 
 	getSelect(): boolean {
 		return true;
+	}
+
+	protected getElementStyleMargin( state: DBaseState ): string {
+		return "margin: 0.1em 0 0 0;";
 	}
 }

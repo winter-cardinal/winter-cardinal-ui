@@ -11,7 +11,8 @@ import { EShapeTextUploadeds } from "./e-shape-text-uploadeds";
 export class EShapeRectangleRoundedUploadeds {
 	static create(
 		buffer: EShapeBuffer, shape: EShape,
-		voffset: number, ioffset: number
+		voffset: number, ioffset: number,
+		antialiasWeight: number
 	): EShapeRectangleRoundedUploaded | null {
 		const tcount = EShapeTextUploadeds.getTextCount( shape, buffer.workCount );
 		const tvcount = tcount.vertexCount;
@@ -20,7 +21,11 @@ export class EShapeRectangleRoundedUploadeds {
 		const icount = 24 + ticount;
 		if( voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity ) {
 			return new EShapeRectangleRoundedUploaded(
-				buffer, voffset, ioffset, tvcount, ticount, vcount, icount
+				buffer,
+				voffset, ioffset,
+				tvcount, ticount,
+				vcount, icount,
+				antialiasWeight
 			).init( shape );
 		}
 		return null;

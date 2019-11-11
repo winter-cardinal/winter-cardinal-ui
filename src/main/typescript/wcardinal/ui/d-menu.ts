@@ -4,10 +4,10 @@
  */
 
 import { DisplayObject, Point } from "pixi.js";
+import { DApplicationLayerLike } from "./d-application-layer-like";
 import { DApplications } from "./d-applications";
 import { DBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
-import { DControllers } from "./d-controllers";
 import { DLayoutVertical, DLayoutVerticalOptions, DThemeLayoutVertical } from "./d-layout-vertical";
 import { DMenuAlign } from "./d-menu-align";
 import { Closeable, DMenuContext } from "./d-menu-context";
@@ -18,6 +18,7 @@ import { UtilAttach } from "./util/util-attach";
 import { UtilClickOutside } from "./util/util-click-outside";
 import { utilIsString } from "./util/util-is-string";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
+import { UtilOverlay } from "./util/util-overlay";
 
 export interface DMenuOptions<
 	VALUE = unknown,
@@ -45,14 +46,11 @@ export class DMenu<
 	protected _sub!: boolean;
 	protected _owner!: DBase<any, any> | null;
 	protected _context!: DMenuContext | null;
+	protected _overlay!: UtilOverlay;
 	protected _onPrerenderBound!: () => void;
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
-
-		this._onPrerenderBound = (): void => {
-			this.onPrerender();
-		};
 
 		if( options != null ) {
 			this._align = ( options.align != null ?
@@ -82,9 +80,12 @@ export class DMenu<
 		});
 
 		// Items
-		if( options != null && options.items != null ) {
+		if( options && options.items ) {
 			DMenus.newItems( this, options.items, this._sticky );
 		}
+
+		// Overlay
+		this._overlay = new UtilOverlay( options );
 	}
 
 	findItem( value: VALUE ): DMenuItem<VALUE> | null {
@@ -112,6 +113,7 @@ export class DMenu<
 
 	open( owner: DBase<any, any>, closeable?: Closeable | null, context?: DMenuContext | null ): this {
 		if( this.isHidden() ) {
+			const layer = this._overlay.pick( this );
 			this._owner = owner;
 
 			// States
@@ -124,8 +126,7 @@ export class DMenu<
 			}
 
 			// Position & size
-			const application = DApplications.getInstance();
-			const renderer = application.renderer;
+			const renderer = layer.renderer;
 			const onPrerenderBound = this._onPrerenderBound;
 			if( this._sticky ) {
 				renderer.on( "prerender", onPrerenderBound );
@@ -149,7 +150,7 @@ export class DMenu<
 			this._context = context;
 
 			// Stage
-			application.stage.addChild( this );
+			layer.stage.addChild( this );
 
 			// Focus
 			this.focus();
@@ -165,21 +166,23 @@ export class DMenu<
 
 	protected onPrerender(): void {
 		const owner = this._owner;
-		if( owner != null ) {
+		if( owner ) {
 			const bounds = owner.getBounds();
-			if( bounds != null ) {
+			if( bounds ) {
 				if( this._fit ) {
 					this.width = bounds.width;
 				}
-				const theme = this.theme;
-				const application = DApplications.getInstance();
-				UtilAttach.attach(
-					this,
-					bounds,
-					theme.getOffsetX(), theme.getOffsetY(),
-					application.width, application.height,
-					this._align
-				);
+				const layer = this._overlay.picked;
+				if( layer ) {
+					const theme = this.theme;
+					UtilAttach.attach(
+						this,
+						bounds,
+						theme.getOffsetX(), theme.getOffsetY(),
+						layer.width, layer.height,
+						this._align
+					);
+				}
 			}
 		}
 	}
@@ -187,16 +190,19 @@ export class DMenu<
 	close(): this {
 		if( this.isShown() ) {
 			const context = this._context;
-			if( context != null ) {
+			if( context ) {
 				context.remove( this );
 			}
 
 			const parent = this.parent;
-			if( parent != null ) {
+			if( parent ) {
 				parent.removeChild( this );
 			}
 
-			DApplications.getInstance().renderer.off( "prerender", this._onPrerenderBound );
+			const layer = this._overlay.picked;
+			if( layer ) {
+				layer.renderer.off( "prerender", this._onPrerenderBound );
+			}
 
 			this._owner = null;
 
@@ -209,15 +215,18 @@ export class DMenu<
 
 	onKeyDown( e: KeyboardEvent ): boolean {
 		if( UtilKeyboardEvent.isArrowUpKey( e ) || UtilKeyboardEvent.isArrowDownKey( e ) ) {
-			const focusController = DControllers.getFocusController();
-			const focused = focusController.getFocused();
-			if( focused != null ) {
-				const direction = UtilKeyboardEvent.isArrowDownKey( e );
-				const next = focusController.findFocusable(
-					focused, false, focused.hasState( DBaseState.FOCUS_ROOT ) || direction, direction
-				);
-				if( next != null ) {
-					focusController.setFocused( next, true, true );
+			const layer = this._overlay.picked;
+			if( layer ) {
+				const focusController = layer.getFocusController();
+				const focused = focusController.getFocused();
+				if( focused != null ) {
+					const direction = UtilKeyboardEvent.isArrowDownKey( e );
+					const next = focusController.findFocusable(
+						focused, false, focused.hasState( DBaseState.FOCUS_ROOT ) || direction, direction
+					);
+					if( next != null ) {
+						focusController.setFocused( next, true, true );
+					}
 				}
 			}
 		}

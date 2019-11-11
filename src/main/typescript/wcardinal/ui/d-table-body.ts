@@ -357,10 +357,10 @@ export class DTableBody<
 		return result;
 	}
 
-	onDblClick( e: MouseEvent | TouchEvent ): boolean {
+	onDblClick( e: MouseEvent | TouchEvent, interactionManager: interaction.InteractionManager ): boolean {
 		let result = false;
 		if( this.isActionable() && this._selection.type !== DTableSelectionType.NONE ) {
-			const local = UtilPointerEvent.toGlobal( e, DTableBody.WORK_ON_CLICK );
+			const local = UtilPointerEvent.toGlobal( e, interactionManager, DTableBody.WORK_ON_CLICK );
 			const content = this.content;
 			content.toLocal( local, undefined, local, false );
 			const x = local.x;
@@ -395,7 +395,7 @@ export class DTableBody<
 				}
 			}
 		}
-		result = super.onDblClick( e ) || result;
+		result = super.onDblClick( e, interactionManager ) || result;
 		return result;
 	}
 

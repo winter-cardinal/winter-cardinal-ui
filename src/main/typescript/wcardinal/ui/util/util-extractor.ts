@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { Renderer } from "pixi.js";
 import { DApplications } from "../d-applications";
 import { DBase } from "../d-base";
 import { UtilExtractorPixels } from "./util-extractor-pixels";
@@ -22,18 +23,20 @@ export class UtilExtractor {
 			undefined, undefined, undefined, undefined,
 			-target.position.x, -target.position.y
 		);
-		DApplications.getInstance().renderer.render( target, result, clear, matrix, skipUpdateTransform );
+		const layer = DApplications.getLayer( target );
+		if( layer ) {
+			layer.renderer.render( target, result, clear, matrix, skipUpdateTransform );
+		}
 		return result;
 	}
 
-	static toPixels( renderTexture: PIXI.RenderTexture ): UtilExtractorPixels {
+	static toPixels( renderTexture: PIXI.RenderTexture, renderer: Renderer ): UtilExtractorPixels {
 		const resolution = renderTexture.resolution;
 		const frame = renderTexture.frame;
 		const width = Math.floor( frame.width * resolution );
 		const height = Math.floor( frame.height * resolution );
 		const pixels = new Uint8Array( 4 * width * height );
 
-		const renderer = DApplications.getInstance().renderer;
 		renderer.renderTexture.bind( renderTexture );
 		const gl = (renderer as any).gl;
 		gl.readPixels(

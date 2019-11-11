@@ -22,9 +22,10 @@ export class EShapeBarUploaded extends EShapeTextUploaded {
 		buffer: EShapeBuffer,
 		voffset: number, ioffset: number,
 		tvcount: number, ticount: number,
-		vcount: number, icount: number
+		vcount: number, icount: number,
+		antialiasWeight: number
 	) {
-		super( buffer, voffset, ioffset, tvcount, ticount, vcount, icount );
+		super( buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight );
 		this.pointsId = NaN;
 		this.pointsStyle = EShapePointsStyle.NONE;
 	}

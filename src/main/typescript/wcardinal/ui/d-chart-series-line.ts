@@ -189,7 +189,7 @@ export class DChartSeriesLine implements DChartSeries {
 			segments.length = isegments;
 		}
 		line.points.set( values, segments );
-		DApplications.update();
+		DApplications.update( line );
 	}
 
 	get domain(): DChartRegionImmutable {

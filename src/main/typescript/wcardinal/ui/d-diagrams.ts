@@ -61,7 +61,6 @@ export class DDiagrams {
 		canvasContainer: DBase
 	): void {
 		const background = serialized.background;
-		const renderer = DApplications.getInstance().renderer;
 		const backgroundColor = ( background && background.color != null ? background.color : 0xffffff );
 		const backgroundAlpha = ( background && background.alpha != null ? background.alpha : 1.0 );
 		if( EShapeDefaults.IS_EDIT_MODE ) {
@@ -69,7 +68,10 @@ export class DDiagrams {
 			canvas.background.alpha = backgroundAlpha;
 		} else {
 			canvasContainer.background.color = backgroundColor;
-			renderer.backgroundColor = backgroundColor;
+			const layer = DApplications.getLayer( canvasContainer );
+			if( layer ) {
+				layer.renderer.backgroundColor = backgroundColor;
+			}
 			canvasContainer.background.alpha = backgroundAlpha;
 		}
 	}

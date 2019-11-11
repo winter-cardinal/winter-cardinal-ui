@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DApplications } from "./d-applications";
 import { DBaseState } from "./d-base-state";
 import { DButton, DButtonOptions, DThemeButton } from "./d-button";
 import { DColorAndAlpha } from "./d-color";
@@ -69,6 +70,7 @@ export class DButtonColor<
 		const image = this._image;
 		if( this.isTintAware( image ) ) {
 			image.tint = this._textValueComputed.color;
+			DApplications.update( this );
 		}
 		this.updateTextForcibly();
 	}

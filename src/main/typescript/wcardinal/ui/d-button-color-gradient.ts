@@ -4,6 +4,7 @@
  */
 
 import { Texture } from "pixi.js";
+import { DApplications } from "./d-applications";
 import { DBaseState } from "./d-base-state";
 import { DButton, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogColorGradient, DDialogColorGradientOptions } from "./d-dialog-color-gradient";
@@ -60,6 +61,7 @@ export class DButtonColorGradient<
 				}
 				this.onTextChange();
 				this.createOrUpdateText();
+				DApplications.update( this );
 				this.emit( "change", this );
 			});
 		});

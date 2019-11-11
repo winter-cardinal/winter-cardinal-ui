@@ -5,7 +5,6 @@
 
 import { interaction, Point } from "pixi.js";
 import { DApplications } from "./d-applications";
-import { DControllers } from "./d-controllers";
 import { DDiagramCanvasBase, DDiagramCanvasBaseOptions, DThemeDiagramCanvasBase } from "./d-diagram-canvas-base";
 import { EShape } from "./shape/e-shape";
 import { EShapeTagValue } from "./shape/e-shape-tag-value";
@@ -67,10 +66,13 @@ export class DDiagramCanvas<
 	}
 
 	protected initializeFocus(): void {
-		const focusController = DControllers.getFocusController();
-		const focusable = focusController.findFocusable( this, false, true, true );
-		if( focusable != null ) {
-			focusController.setFocused( focusable, true, true );
+		const layer = DApplications.getLayer( this );
+		if( layer ) {
+			const focusController = layer.getFocusController();
+			const focusable = focusController.findFocusable( this, false, true, true );
+			if( focusable != null ) {
+				focusController.setFocused( focusable, true, true );
+			}
 		}
 	}
 
@@ -158,11 +160,11 @@ export class DDiagramCanvas<
 			}
 		}
 
-		const application = DApplications.getInstance();
-		if( found != null ) {
+		const layer = DApplications.getLayer( this );
+		if( found ) {
 			if( 0 < found.cursor.length ) {
-				if( application.view.style.cursor !== found.cursor ) {
-					application.view.style.cursor = found.cursor;
+				if( layer && layer.view.style.cursor !== found.cursor ) {
+					layer.view.style.cursor = found.cursor;
 				}
 			}
 
@@ -198,7 +200,9 @@ export class DDiagramCanvas<
 				if( runtime != null ) {
 					runtime.onPointerOver( found, e );
 				}
-				DApplications.getInstance().view.title = ( found.title || "" );
+				if( layer ) {
+					layer.view.title = ( found.title || "" );
+				}
 
 				// Parents
 				let parent = found.parent;
@@ -213,8 +217,8 @@ export class DDiagramCanvas<
 
 			return true;
 		} else {
-			if( application.view.style.cursor !== "auto" ) {
-				application.view.style.cursor = "auto";
+			if( layer && layer.view.style.cursor !== "auto" ) {
+				layer.view.style.cursor = "auto";
 			}
 
 			// Previous
@@ -238,7 +242,9 @@ export class DDiagramCanvas<
 			}
 
 			//
-			DApplications.getInstance().view.title = "";
+			if( layer ) {
+				layer.view.title = "";
+			}
 
 			return false;
 		}

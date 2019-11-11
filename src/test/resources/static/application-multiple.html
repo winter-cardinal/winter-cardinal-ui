@@ -1,0 +1,103 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #eeeeee;
+	}
+
+	#a {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 50%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+	}
+
+	#b {
+		position: absolute;
+		top: 0;
+		left: 50%;
+		width: 50%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+	}
+	</style>
+</head>
+<body>
+	<div id="a"></div>
+	<div id="b"></div>
+	<script src="/webjars/pixi/pixi.js"></script>
+	<script src="/webjars/wcardinal-ui/wcardinal-ui.js"></script>
+	<script>
+	(function() {
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication({
+			root: "#a",
+			resolution: 0.5
+		});
+
+		const dialog = new wcardinal.ui.DDialogMessage({
+			message: "Message A"
+		});
+
+		new wcardinal.ui.DButton({
+			parent: application.stage,
+			x: "center", y: "center",
+			width: 300,
+			text: {
+				value: "Button A"
+			},
+			on: {
+				active: () => {
+					dialog.open();
+				}
+			}
+		})
+	}());
+	</script>
+	<script>
+	(function() {
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication({
+			root: "#b"
+		});
+
+		const dialog = new wcardinal.ui.DDialogMessage({
+			message: "Message B"
+		});
+
+		new wcardinal.ui.DButton({
+			parent: application.stage,
+			x: "center", y: "center",
+			width: 300,
+			text: {
+				value: "Button B"
+			},
+			on: {
+				active: () => {
+					dialog.open();
+				}
+			}
+		})
+	}());
+	</script>
+</body>
+</html>

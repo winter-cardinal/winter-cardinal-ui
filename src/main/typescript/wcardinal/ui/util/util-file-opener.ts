@@ -3,8 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DApplications } from "../d-applications";
-
 export enum UtilFileAs {
 	TEXT,
 	DATA_URL,
@@ -47,7 +45,7 @@ export class UtilFileOpener {
 				e.stopImmediatePropagation();
 				e.preventDefault();
 			});
-			DApplications.getInstance().view.appendChild( input );
+			document.body.appendChild( input );
 		}
 		return this._input;
 	}

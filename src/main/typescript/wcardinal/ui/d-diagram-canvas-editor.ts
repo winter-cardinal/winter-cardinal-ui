@@ -41,7 +41,7 @@ export class DDiagramCanvasEditor<
 		const snapper = options.snapper;
 		snapper.target.on( "change", (): void => {
 			this.toDirty();
-			DApplications.update();
+			DApplications.update( this );
 		});
 		this._snapper = snapper;
 	}

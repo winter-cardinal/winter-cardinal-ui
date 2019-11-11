@@ -155,7 +155,7 @@ export class DImageBase<
 		if( this._imageSource !== imageSource ) {
 			this._imageSource = imageSource;
 			this.toDirty();
-			DApplications.update();
+			DApplications.update( this );
 		}
 	}
 
@@ -176,7 +176,7 @@ export class DImageBase<
 
 	protected onImageChange(): void {
 		this.toDirty();
-		DApplications.update();
+		DApplications.update( this );
 	}
 
 	protected onStateChange( newState: DBaseState, oldState: DBaseState ): void {

@@ -10,7 +10,7 @@ import { EShapeUploadedBase } from "../e-shape-uploaded";
 
 export class EShapeGroupUploaded extends EShapeUploadedBase {
 	constructor( buffer: EShapeBuffer, voffset: number, ioffset: number ) {
-		super( buffer, voffset, ioffset, 0, 0 );
+		super( buffer, voffset, ioffset, 0, 0, 1 );
 	}
 
 	init( shape: EShape ): this {

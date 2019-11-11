@@ -4,8 +4,8 @@
  */
 
 import { Matrix, Point, Rectangle, Renderer } from "pixi.js";
+import { DApplicationLayerLike } from "../../d-application-layer-like";
 import { DApplications } from "../../d-applications";
-import { DControllers } from "../../d-controllers";
 import { DynamicSDFFontAtlas } from "../../util/dynamic-sdf-font-atlas";
 import { UtilKeyboardEvent } from "../../util/util-keyboard-event";
 import { EShape } from "../e-shape";
@@ -62,9 +62,9 @@ export class EShapeActionRuntimeMiscInputData {
 		this._updateInputBoundRenderer = null;
 	}
 
-	protected getInput(): HTMLInputElement | null {
+	protected getInput( layer: DApplicationLayerLike ): HTMLInputElement | null {
 		if( this.input == null ) {
-			DApplications.getInstance().getRootElement().appendChild(
+			layer.application.getRootElement().appendChild(
 				this.input = this.createInput()
 			);
 		}
@@ -179,13 +179,16 @@ export class EShapeActionRuntimeMiscInputData {
 				this.onInputChange();
 				this.hide();
 
-				const focusController = DControllers.getFocusController();
-				const direction = UtilKeyboardEvent.getFocusDirection( e );
-				const focusable = focusController.findFocusable( shape, false, false, direction );
-				if( focusable != null ) {
-					DApplications.getInstance().view.focus();
-					e.preventDefault();
-					focusController.setFocused( focusable, true, true );
+				const layer = DApplications.getLayer( shape );
+				if( layer ) {
+					const focusController = layer.getFocusController();
+					const direction = UtilKeyboardEvent.getFocusDirection( e );
+					const focusable = focusController.findFocusable( shape, false, false, direction );
+					if( focusable != null ) {
+						layer.view.focus();
+						e.preventDefault();
+						focusController.setFocused( focusable, true, true );
+					}
 				}
 			}
 		} else if( UtilKeyboardEvent.isOkKey( e ) ) {
@@ -246,25 +249,27 @@ export class EShapeActionRuntimeMiscInputData {
 				text.enable = false;
 			}
 
-			const app = DApplications.getInstance();
-			const input = this.getInput();
-			if( input != null ) {
-				this.initInput( newShape, input, value );
+			const layer = DApplications.getLayer( newShape );
+			if( layer ) {
+				const input = this.getInput( layer );
+				if( input ) {
+					this.initInput( newShape, input, value );
 
-				const updateInputBound = this._updateInputBound;
-				const renderer = this._updateInputBoundRenderer;
-				if( renderer != null ) {
-					renderer.off( "postrender", updateInputBound );
+					const updateInputBound = this._updateInputBound;
+					const renderer = this._updateInputBoundRenderer;
+					if( renderer != null ) {
+						renderer.off( "postrender", updateInputBound );
+					}
+					this._updateInputBoundRenderer = layer.renderer;
+					layer.renderer.on( "postrender", updateInputBound );
+
+					input.style.display = "";
+					input.focus();
+					input.select();
 				}
-				this._updateInputBoundRenderer = app.renderer;
-				app.renderer.on( "postrender", updateInputBound );
 
-				input.style.display = "";
-				input.focus();
-				input.select();
+				layer.update();
 			}
-
-			DApplications.update();
 		}
 	}
 
@@ -294,7 +299,7 @@ export class EShapeActionRuntimeMiscInputData {
 				renderer.off( "postrender", this._updateInputBound );
 			}
 
-			DApplications.update();
+			DApplications.update( shape );
 		}
 	}
 

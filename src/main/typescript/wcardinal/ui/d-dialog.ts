@@ -10,9 +10,9 @@ import { DApplications } from "./d-applications";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DFocusable } from "./d-controller-focus";
-import { DControllers } from "./d-controllers";
 import { UtilClickOutside } from "./util/util-click-outside";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
+import { UtilOverlay } from "./util/util-overlay";
 
 export enum DDialogCloseOn {
 	NONE = 0,
@@ -29,6 +29,16 @@ export interface DThemeDialog extends DThemeBase {
 	closeOn(): DDialogCloseOn;
 }
 
+/**
+ * A base class for dialogs.
+ *
+ * If multiple application instances are there, better to set
+ * the constructor option `parent` to an `application.stage`
+ * so that the dialog picks a right application.
+ *
+ * By default, the dialog assumes the last created application is
+ * the one it belongs to at the time when it is created.
+ */
 export class DDialog<
 	THEME extends DThemeDialog = DThemeDialog,
 	OPTIONS extends DDialogOptions<THEME> = DDialogOptions<THEME>
@@ -37,6 +47,7 @@ export class DDialog<
 	protected _closeOn!: DDialogCloseOn;
 	protected _focusable!: DFocusable | null;
 	protected _isOpened!: boolean;
+	protected _overlay!: UtilOverlay;
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
@@ -64,33 +75,36 @@ export class DDialog<
 			});
 		}
 
-		// Parent
-		if( options == null || options.parent == null ) {
-			DApplications.getInstance().stage.addChild( this );
-		}
+		this._overlay = new UtilOverlay();
 	}
 
 	protected onAnimationEnd( isReverse: boolean ) {
-		if( ! isReverse ) {
-			const focusController = DControllers.getFocusController();
-			this._focusable = focusController.getFocused();
-			const firstFocusable = focusController.findFocusable( this, false, true, true );
-			focusController.setFocused( firstFocusable || this, true, true );
+		if( isReverse ) {
+			const parent = this.parent;
+			if( parent ) {
+				parent.removeChild( this );
+			}
+		} else {
+			const layer = DApplications.getLayer( this );
+			if( layer ) {
+				const focusController = layer.getFocusController();
+				this._focusable = focusController.getFocused();
+				const firstFocusable = focusController.findFocusable( this, false, true, true );
+				focusController.setFocused( firstFocusable || this, true, true );
+			}
 		}
 	}
 
-	open() {
+	open(): void {
 		if( ! this._isOpened ) {
+			const layer = this._overlay.pick( this );
 			this._isOpened = true;
-			const parent = this.parent;
-			if( parent != null ) {
-				parent.addChild( this );
-			}
+			layer.stage.addChild( this );
 			this.onOpen();
 		}
 	}
 
-	protected onOpen() {
+	protected onOpen(): void {
 		this.emit( "open", this );
 
 		// Animation
@@ -108,12 +122,15 @@ export class DDialog<
 		}
 	}
 
-	protected onClose() {
+	protected onClose(): void {
 		// Focus
 		const focusable = this._focusable;
 		if( focusable != null ) {
 			this._focusable = null;
-			DControllers.getFocusController().setFocused( focusable, true, false );
+			const layer = DApplications.getLayer( this );
+			if( layer ) {
+				layer.getFocusController().setFocused( focusable, true, false );
+			}
 		}
 
 		// Animation

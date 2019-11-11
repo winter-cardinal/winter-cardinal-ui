@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { BaseTexture, Rectangle, resources, SCALE_MODES, settings, Texture } from "pixi.js";
+import { BaseTexture, Rectangle, resources, SCALE_MODES, Texture } from "pixi.js";
 import { SVGResource } from "../resource/svg-resource";
 import { utilToSvgUrl } from "./util-to-svg-url";
 
@@ -15,6 +15,7 @@ resources.INSTALLED.push( SVGResource );
 export interface UtilSvgAtlasBuilderBuildOptions {
 	force?: boolean;
 	scaling?: SCALE_MODES;
+	resolution?: number;
 }
 
 export class UtilSvgAtlasBuilder {
@@ -89,7 +90,9 @@ export class UtilSvgAtlasBuilder {
 	build( options?: UtilSvgAtlasBuilderBuildOptions ): { [ name: string ]: Texture } {
 		let built = this._built;
 		if( built == null || (options && options.force) ) {
-			const resolution = settings.RESOLUTION;
+			const resolution = ( options && options.resolution != null ?
+				options.resolution : (window.devicePixelRatio || 1)
+			);
 			const width = this._width;
 			const height = Math.pow( 2, Math.ceil( Math.log( this._nextY + this._height ) / Math.LN2 ) );
 			const realWidth = width * resolution;

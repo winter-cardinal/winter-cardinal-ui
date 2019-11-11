@@ -5,16 +5,17 @@
 
 import { DisplayObject, interaction, IPoint } from "pixi.js";
 import InteractionEvent = interaction.InteractionEvent;
+import { DApplicationTarget } from "../d-application-like";
 import { DApplications } from "../d-applications";
 
 export type UtilPointerEventClickHandler = ( e: InteractionEvent ) => void;
 
-export interface UtilPointerEventClickTarget {
+export interface UtilPointerEventClickTarget extends DApplicationTarget {
 	on( name: string, handler: UtilPointerEventClickHandler ): void;
 }
 
 export class UtilPointerEvent {
-	static CLICK_DISTANCE_THRESHOLD: number = 5;
+	static CLICK_DISTANCE_THRESHOLD: number = 10;
 	static DBLCLICK_INTERVAL_THRESHOLD: number = 333;
 	static LONG_CLICK_THRESHOLD: number = 750;
 
@@ -58,8 +59,11 @@ export class UtilPointerEvent {
 		return "pointercancel";
 	}
 
-	static toGlobal( e: MouseEvent | TouchEvent, result: IPoint ): IPoint {
-		const interactionManager = DApplications.getInstance().renderer.plugins.interaction;
+	static toGlobal(
+		e: MouseEvent | TouchEvent,
+		interactionManager: interaction.InteractionManager,
+		result: IPoint
+	): IPoint {
 		if( "touches" in e ) {
 			const touches = e.changedTouches;
 			const touch = touches[ touches.length - 1 ];
@@ -81,16 +85,20 @@ export class UtilPointerEvent {
 			let isDowned = false;
 			let downX = 0;
 			let downY = 0;
+			let interactionManagerBound: interaction.InteractionManager | null = null;
 			const cleanup = (): void => {
 				isDowned = false;
-				interactionManager.off( up, onUp );
+				if( interactionManagerBound ) {
+					interactionManagerBound.off( up, onUp );
+					interactionManagerBound = null;
+				}
 			};
 			const isValidDistance = ( e: InteractionEvent ): boolean => {
 				const global = e.data.global;
 				const dx = Math.abs( downX - global.x );
 				const dy = Math.abs( downY - global.y );
 				const threshold = this.CLICK_DISTANCE_THRESHOLD;
-				return ( dx < threshold && dy < threshold );
+				return ( dx <= threshold && dy <= threshold );
 			};
 			target.on( "click", ( e: InteractionEvent ): void => {
 				if( isDowned ) {
@@ -109,15 +117,25 @@ export class UtilPointerEvent {
 					}
 				}
 			};
-			const interactionManager = DApplications.getInstance().renderer.plugins.interaction;
 			target.on( this.down, ( e: InteractionEvent ): void => {
-				if( ! isDowned ) {
+				if( isDowned ) {
+					const global = e.data.global;
+					downX = global.x;
+					downY = global.y;
+				} else {
 					isDowned = true;
 					const global = e.data.global;
 					downX = global.x;
 					downY = global.y;
-					interactionManager.off( up, onUp );
-					interactionManager.once( up, onUp );
+					if( interactionManagerBound ) {
+						interactionManagerBound.off( up, onUp );
+						interactionManagerBound = null;
+					}
+					const layer = DApplications.getLayer( target );
+					if( layer ) {
+						interactionManagerBound = layer.renderer.plugins.interaction;
+						interactionManagerBound.once( up, onUp );
+					}
 				}
 			});
 		}
@@ -135,6 +153,7 @@ export class UtilPointerEvent {
 			let downX = 0;
 			let downY = 0;
 			let timeoutId: number | null = null;
+			let interactionManagerBound: interaction.InteractionManager | null = null;
 			const cleanupTimeout = (): void => {
 				if( timeoutId != null ) {
 					clearTimeout( timeoutId );
@@ -143,8 +162,11 @@ export class UtilPointerEvent {
 			};
 			const cleanup = (): void => {
 				isDowned = false;
-				interactionManager.off( up, onUp );
-				interactionManager.off( move, onMove );
+				if( interactionManagerBound ) {
+					interactionManagerBound.off( up, onUp );
+					interactionManagerBound.off( move, onMove );
+					interactionManagerBound = null;
+				}
 				cleanupTimeout();
 			};
 			const isValidDistance = ( e: InteractionEvent ): boolean => {
@@ -181,7 +203,6 @@ export class UtilPointerEvent {
 					}
 				}
 			};
-			const interactionManager = DApplications.getInstance().renderer.plugins.interaction;
 			target.on( this.down, ( e: InteractionEvent ): void => {
 				if( ! isDowned ) {
 					isDowned = true;
@@ -198,10 +219,17 @@ export class UtilPointerEvent {
 							}
 						}, this.LONG_CLICK_THRESHOLD );
 					}
-					interactionManager.off( up, onUp );
-					interactionManager.off( move, onMove );
-					interactionManager.once( up, onUp );
-					interactionManager.on( move, onMove );
+					if( interactionManagerBound ) {
+						interactionManagerBound.off( up, onUp );
+						interactionManagerBound.off( move, onMove );
+						interactionManagerBound = null;
+					}
+					const layer = DApplications.getLayer( target );
+					if( layer ) {
+						interactionManagerBound = layer.renderer.plugins.interaction;
+						interactionManagerBound.once( up, onUp );
+						interactionManagerBound.on( move, onMove );
+					}
 				}
 			});
 		}

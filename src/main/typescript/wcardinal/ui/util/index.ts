@@ -45,6 +45,7 @@ export * from "./util-is-number";
 export * from "./util-is-string";
 export * from "./util-keyboard-event";
 export * from "./util-name";
+export * from "./util-overlay";
 export * from "./util-pad";
 export * from "./util-pointer-event";
 export * from "./util-promise";

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Point } from "pixi.js";
+import { interaction, Point } from "pixi.js";
 import { DBase } from "./d-base";
 import { DCanvas } from "./d-canvas";
 import { DCanvasContainerOptions, DThemeCanvasContainer } from "./d-canvas-container";
@@ -294,11 +294,11 @@ export class DCanvasContainerView<
 		return false;
 	}
 
-	onDblClick( e: MouseEvent | TouchEvent ): boolean {
+	onDblClick( e: MouseEvent | TouchEvent, interactionManager: interaction.InteractionManager ): boolean {
 		if( this._isDblClickZoomEnabled &&
 			this._dblClickZoomChecker( e, this._dblClickZoomModifier, this._parent ) ) {
 			const global = this._zoomPoint;
-			UtilPointerEvent.toGlobal( e, global );
+			UtilPointerEvent.toGlobal( e, interactionManager, global );
 			const scale = this.scale * this._dblClickZoomSpeed;
 			this.zoomAtGlobal( global.x, global.y, scale, this._dblclickZoomDuration );
 			return true;

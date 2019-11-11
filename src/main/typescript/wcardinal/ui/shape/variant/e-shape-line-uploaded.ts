@@ -25,9 +25,10 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 		voffset: number, ioffset: number,
 		tvcount: number, ticount: number,
 		vcount: number, icount: number,
+		antialiasWeight: number,
 		pointCount: number, pointsClosed: boolean
 	) {
-		super( buffer, voffset, ioffset, tvcount, ticount, vcount, icount );
+		super( buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight );
 		this.pointId = NaN;
 		this.pointCount = pointCount;
 		this.pointsClosed = pointsClosed;

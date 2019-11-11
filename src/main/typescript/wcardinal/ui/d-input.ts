@@ -90,7 +90,10 @@ export abstract class DInput<
 	protected applyTitle(): void {
 		const editingValidationResult = this._editingValidationResult;
 		if( utilIsString( editingValidationResult ) ) {
-			DApplications.getInstance().view.title = editingValidationResult;
+			const layer = DApplications.getLayer( this );
+			if( layer ) {
+				layer.view.title = editingValidationResult;
+			}
 		} else {
 			super.applyTitle();
 		}

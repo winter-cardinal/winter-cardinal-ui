@@ -5,6 +5,7 @@
 
 import { DAnimationOptions } from "./d-animation";
 import { DAnimationBase } from "./d-animation-base";
+import { DApplicationLayerLike } from "./d-application-layer-like";
 import { DApplications } from "./d-applications";
 import { DBase } from "./d-base";
 
@@ -24,6 +25,8 @@ export class DAnimationFadeIn extends DAnimationBase {
 	protected _storedAlpha: number = 0;
 	protected _storedTime: number = 0;
 	protected _storedTarget: DBase<any, any> | null = null;
+
+	protected _layer: DApplicationLayerLike | null = null;
 
 	protected _onPrerenderBound: () => void;
 	protected _onPostrenderBound: () => void;
@@ -52,26 +55,39 @@ export class DAnimationFadeIn extends DAnimationBase {
 
 	stop(): void {
 		this._storedTime = 0;
-		DApplications.getInstance().renderer
-		.off( "prerender", this._onPrerenderBound )
-		.off( "postrender", this._onPostrenderBound );
-
+		this.removeEventListeners();
 		super.stop();
+	}
+
+	protected addEventListeners( target: DBase<any, any> ): void {
+		const layer = DApplications.getLayer( target );
+		if( layer ) {
+			this._layer = layer;
+			const renderer = layer.renderer;
+			renderer.on( "prerender", this._onPrerenderBound );
+			renderer.on( "postrender", this._onPostrenderBound );
+		}
+	}
+
+	protected removeEventListeners(): void {
+		const layer = this._layer;
+		if( layer ) {
+			this._layer = null;
+			const renderer = layer.renderer;
+			renderer.off( "prerender", this._onPrerenderBound );
+			renderer.off( "postrender", this._onPostrenderBound );
+		}
 	}
 
 	protected onStart( isReverse: boolean ): void {
 		const target = this._storedTarget = this._target;
 		if( target != null ) {
 			this._storedTime = 0;
-
-			DApplications.getInstance().renderer
-			.on( "prerender", this._onPrerenderBound )
-			.on( "postrender", this._onPostrenderBound );
-
+			this.removeEventListeners();
+			this.addEventListeners( target );
 			if( ! isReverse ) {
 				target.visible = true;
 			}
-
 			super.onStart( isReverse );
 		}
 	}
@@ -79,26 +95,27 @@ export class DAnimationFadeIn extends DAnimationBase {
 	protected onTime( time: number, isReverse: boolean, elapsedTime: number ): void {
 		const target = this._storedTarget;
 		if( target != null ) {
-			const application = DApplications.getInstance();
-			application.disallowUpdate();
-			this._storedTime = time;
-			super.onTime( time, isReverse, elapsedTime );
-			application.allowUpdate();
-			application.render();
+			const layer = this._layer;
+			if( layer ) {
+				layer.disallowUpdate();
+				this._storedTime = time;
+				super.onTime( time, isReverse, elapsedTime );
+				layer.allowUpdate();
+				layer.render();
+			} else {
+				this._storedTime = time;
+				super.onTime( time, isReverse, elapsedTime );
+			}
 		}
 	}
 
 	protected onEnd( isReverse: boolean ): void {
 		const target = this._storedTarget;
 		if( target != null ) {
-			DApplications.getInstance().renderer
-			.off( "prerender", this._onPrerenderBound )
-			.off( "postrender", this._onPostrenderBound );
-
+			this.removeEventListeners();
 			if( isReverse ) {
 				target.visible = false;
 			}
-
 			super.onEnd( isReverse );
 		}
 	}

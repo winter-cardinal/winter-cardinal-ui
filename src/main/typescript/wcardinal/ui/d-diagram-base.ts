@@ -57,7 +57,7 @@ export abstract class DDiagramBase<
 		DDiagrams.newLayer( serialized, canvas.layer ).then(( shapes: EShape[] ): void => {
 			this.initialize( shapes );
 			canvas.initialize( shapes );
-			DApplications.update();
+			DApplications.update( this );
 		});
 		DDiagrams.applyBackground( serialized, canvas, this );
 		this.canvas = canvas;

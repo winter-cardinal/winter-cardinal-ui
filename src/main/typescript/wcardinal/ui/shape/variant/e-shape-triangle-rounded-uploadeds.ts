@@ -10,7 +10,9 @@ import { EShapeTriangleRoundedUploaded } from "./e-shape-triangle-rounded-upload
 
 export class EShapeTriangleRoundedUploadeds {
 	static create(
-		buffer: EShapeBuffer, shape: EShape, voffset: number, ioffset: number
+		buffer: EShapeBuffer, shape: EShape,
+		voffset: number, ioffset: number,
+		antialiasWeight: number
 	): EShapeTriangleRoundedUploaded | null {
 		const tcount = EShapeTextUploadeds.getTextCount( shape, buffer.workCount );
 		const tvcount = tcount.vertexCount;
@@ -19,7 +21,11 @@ export class EShapeTriangleRoundedUploadeds {
 		const icount = 15 + ticount;
 		if( voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity ) {
 			return new EShapeTriangleRoundedUploaded(
-				buffer, voffset, ioffset, tvcount, ticount, vcount, icount
+				buffer,
+				voffset, ioffset,
+				tvcount, ticount,
+				vcount, icount,
+				antialiasWeight
 			).init( shape );
 		}
 		return null;

@@ -5,6 +5,7 @@
 
 import { DApplicationPadding } from "./d-application-padding";
 import { DPadding } from "./d-padding";
+import { utilIsNumber } from "./util/util-is-number";
 
 /**
  * PixiJS options
@@ -14,27 +15,116 @@ interface PixiApplicationOptions {
 	height: number;
 	autoStart: boolean;
 	backgroundColor: number;
+	transparent: boolean;
+	resolution: number;
 	antialias: boolean;
 }
 
+interface DApplicationLayerOptionsOptions {
+	root: HTMLElement;
+	padding?: number | {
+		top?: number;
+		right?: number;
+		bottom?: number;
+		left?: number;
+	};
+	width?: number;
+	height?: number;
+	background?: {
+		color?: number | null;
+	};
+	resolution: number;
+	antialias?: boolean;
+
+	/**
+	 * Sets to true if a layer is a overlay layer.
+	 */
+	overlay: boolean;
+}
+
 /**
- * DApplication options
+ * DApplicationLayer options
  */
-export class DApplicationOptions {
+export class DApplicationLayerOptions {
 	private _root: HTMLElement;
 	private _pixi: PixiApplicationOptions;
 	private _padding: DPadding;
+	private _overlay: boolean;
 
-	constructor() {
-		const body = this._root = document.body;
-		const bbox = body.getBoundingClientRect();
-		this._padding = new DApplicationPadding( 6, 6, 6, 6 );
+	constructor( options: DApplicationLayerOptionsOptions ) {
+		// Root
+		const root = this._root = options.root;
+
+		// Overlay mode or not
+		this._overlay = options.overlay;
+
+		// Padding
+		const padding = options && options.padding;
+		if( utilIsNumber( padding ) ) {
+			this._padding = new DApplicationPadding( padding, padding, padding, padding );
+		} else if( padding != null ) {
+			this._padding = new DApplicationPadding(
+				padding.top || 0,
+				padding.right || 0,
+				padding.bottom || 0,
+				padding.left || 0
+			);
+		} else {
+			this._padding = new DApplicationPadding( 6, 6, 6, 6 );
+		}
+
+		// Width & height
+		let width = 100;
+		let height = 100;
+		if( options ) {
+			if( options.width != null ) {
+				width = options.width;
+				if( options.height != null ) {
+					height = options.height;
+				} else {
+					height = root.getBoundingClientRect().height;
+				}
+			} else if( options.height != null ) {
+				width = root.getBoundingClientRect().width;
+				height = options.height;
+			} else {
+				const bbox = root.getBoundingClientRect();
+				width = bbox.width;
+				height = bbox.height;
+			}
+		} else {
+			const bbox = root.getBoundingClientRect();
+			width = bbox.width;
+			height = bbox.height;
+		}
+
+		// Background color
+		const background = options && options.background;
+		let backgroundColor = 0;
+		let transparent = true;
+		if( background != null ) {
+			const color = background.color;
+			if( color != null ) {
+				backgroundColor = color;
+				transparent = false;
+			}
+		}
+
+		// Resolution
+		const resolution = options.resolution;
+
+		// Antialias
+		const antialias = ( options && options.antialias != null ? options.antialias : false );
+
+		// Pixi
 		this._pixi = {
-			width: bbox.width,
-			height: bbox.height,
+			width,
+			height,
 			autoStart: false,
-			backgroundColor: 0xeeeeee,
-			antialias: false
+			backgroundColor,
+			transparent,
+			resolution,
+			antialias
 		};
 	}
 
@@ -70,7 +160,7 @@ export class DApplicationOptions {
 	/**
 	 * Returns a canvas width.
 	 */
-	getWidth() {
+	getWidth(): number {
 		return this._pixi.width;
 	}
 
@@ -87,7 +177,7 @@ export class DApplicationOptions {
 	/**
 	 * Returns a canvas height.
 	 */
-	getHeight() {
+	getHeight(): number {
 		return this._pixi.height;
 	}
 
@@ -160,6 +250,13 @@ export class DApplicationOptions {
 	setAntialias( antialias: boolean ): this {
 		this._pixi.antialias = antialias;
 		return this;
+	}
+
+	/**
+	 * Returns true if a layer is supposed to be an overlay layer.
+	 */
+	isOverlay(): boolean {
+		return this._overlay;
 	}
 
 	getPixiApplicationOptions(): PixiApplicationOptions {

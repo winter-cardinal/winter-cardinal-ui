@@ -10,7 +10,9 @@ import { EShapeTextUploadeds } from "./e-shape-text-uploadeds";
 
 export class EShapeLabelUploadeds {
 	static create(
-		buffer: EShapeBuffer, shape: EShape, voffset: number, ioffset: number
+		buffer: EShapeBuffer, shape: EShape,
+		voffset: number, ioffset: number,
+		antialiasWeight: number
 	): EShapeLabelUploaded | null {
 		const tcount = EShapeTextUploadeds.getTextCount( shape, buffer.workCount );
 		const tvcount = tcount.vertexCount;
@@ -19,7 +21,11 @@ export class EShapeLabelUploadeds {
 		const icount = ticount;
 		if( voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity ) {
 			return new EShapeLabelUploaded(
-				buffer, voffset, ioffset, tvcount, ticount, vcount, icount
+				buffer,
+				voffset, ioffset,
+				tvcount, ticount,
+				vcount, icount,
+				antialiasWeight
 			).init( shape );
 		}
 		return null;

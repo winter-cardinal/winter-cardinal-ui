@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { BaseTexture, MIPMAP_MODES, settings, Texture } from "pixi.js";
+import { BaseTexture, MIPMAP_MODES, Texture } from "pixi.js";
 import { DynamicAtlasItem } from "./dynamic-atlas-item";
 import { DynamicAtlasItemEmpty } from "./dynamic-atlas-item-empty";
 import { DynamicAtlasItemWhite } from "./dynamic-atlas-item-white";
@@ -20,13 +20,13 @@ export class DynamicAtlas {
 	protected _isDirty: boolean;
 	protected _predefined: { [ id: string ]: DynamicAtlasItem };
 
-	constructor() {
+	constructor( resolution: number ) {
 		const canvas = this._canvas = document.createElement( "canvas" );
 		canvas.width = canvas.height = 256;
 
 		const baseTexture = this._baseTexture = BaseTexture.from( canvas, {
 			mipmap: MIPMAP_MODES.OFF,
-			resolution: settings.RESOLUTION
+			resolution
 		});
 
 		this._idToDatum = {};

@@ -18,9 +18,12 @@ export class EShapeActionRuntimeOpenFlow extends EShapeActionRuntimeOpen {
 		if( !! this.condition( shape, time ) ) {
 			const target = this.target( shape, time );
 			if( target != null ) {
-				const application = DApplications.getInstance() as any;
-				if( "opener" in application ) {
-					application.opener( target );
+				const layer = DApplications.getLayer( shape );
+				if( layer ) {
+					const application = layer.application as any;
+					if( "opener" in application ) {
+						application.opener( target );
+					}
 				}
 			}
 		}

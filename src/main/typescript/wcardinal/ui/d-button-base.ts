@@ -80,8 +80,11 @@ export class DButtonBase<
 		if( ! this.isToggle() ) {
 			this.on( UtilPointerEvent.down, (): void => {
 				this.setPressed( true );
-				const target = this._onActiveUpBoundTarget = DApplications.getInstance().stage;
-				target.on( UtilPointerEvent.up, this._onActiveUpBound );
+				const layer = DApplications.getLayer( this );
+				if( layer ) {
+					const target = this._onActiveUpBoundTarget = layer.stage;
+					target.on( UtilPointerEvent.up, this._onActiveUpBound );
+				}
 			});
 		}
 	}

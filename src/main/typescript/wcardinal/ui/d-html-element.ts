@@ -7,7 +7,6 @@ import { Point, Rectangle, Renderer, Text } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
-import { DControllers } from "./d-controllers";
 import { DDynamicText } from "./d-dynamic-text";
 import { DImageBase, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
 import { utilIsString } from "./util/util-is-string";
@@ -106,10 +105,6 @@ export class DHTMLElement<
 	protected _afterStyle!: DHTMLElementStyleAfter<THEME> | undefined;
 	protected _onAfterFocusedBound!: ( e: FocusEvent ) => void;
 
-	protected _renderer!: Renderer | null;
-	protected _updateElementBound!: () => void;
-	protected _onPreRenderBound!: () => void;
-
 	protected _isStarted!: boolean;
 	protected _select!: boolean;
 	protected _doSelectBound!: () => void;
@@ -153,14 +148,6 @@ export class DHTMLElement<
 			this.onAfterFocused( e );
 		};
 
-		this._renderer = null;
-		this._updateElementBound = (): void => {
-			this.updateElement();
-		};
-		this._onPreRenderBound = (): void => {
-			this.onPreRender();
-		};
-
 		this._isStarted = false;
 		this._select = ( options && options.select != null ?
 			options.select : theme.getSelect()
@@ -202,37 +189,44 @@ export class DHTMLElement<
 		}
 	}
 
-	protected onPreRender(): void {
-		if( this._isStarted ) {
-			this._isStarted = false;
-			this.start_( false );
+	protected isStartable(): boolean {
+		if( this._when === DHTMLElementWhen.FOCUSED ) {
+			return ! this.isDisabled();
 		}
+		return true;
 	}
 
 	start(): void {
-		if( ! this.isDisabled() && this._isStarted !== true ) {
+		if( ! this._isStarted && this.isStartable() ) {
 			this._isStarted = true;
-			DApplications.getInstance().renderer.once(
-				"prerender", this._onPreRenderBound
-			);
-			DApplications.update();
+			DApplications.update( this );
 		}
 	}
 
-	protected start_( update?: boolean ): void {
+	render( renderer: Renderer ): void {
+		if( this._isStarted ) {
+			this._isStarted = false;
+			this.doStart( renderer );
+		}
+		super.render( renderer );
+		if( this._isElementShown ) {
+			this.updateElement( renderer );
+		}
+	}
+
+	protected doStart( renderer: Renderer ): void {
 		if( ! this._isElementShown ) {
 			this._isElementShown = true;
 
 			this.onStart();
 
-			const app = DApplications.getInstance();
 			const clipper = this.getClipper();
 			if( clipper ) {
 				const before = this.getBefore( clipper );
 				const element = this.getElement( clipper );
 				const after = this.getAfter( clipper );
 				if( element ) {
-					const resolution = app.renderer.resolution;
+					const resolution = renderer.resolution;
 					const elementRect = this.getElementRect( resolution );
 					const clipperRect = this.getClipperRect( elementRect, resolution );
 					const theme = this.theme;
@@ -246,14 +240,6 @@ export class DHTMLElement<
 						this.setAfterStyle( after, theme );
 					}
 					this.onElementAttached( element, before, after );
-
-					const updateElementBound = this._updateElementBound;
-					const renderer = this._renderer;
-					if( renderer != null ) {
-						renderer.off( "postrender", updateElementBound );
-					}
-					this._renderer = app.renderer;
-					app.renderer.on( "postrender", updateElementBound );
 
 					// Show HTML elements
 					clipper.style.display = "";
@@ -269,9 +255,6 @@ export class DHTMLElement<
 						setTimeout( this._doSelectBound, 0 );
 					}
 				}
-			}
-			if( update !== false ) {
-				DApplications.update();
 			}
 		}
 	}
@@ -376,28 +359,23 @@ export class DHTMLElement<
 			if( element != null ) {
 				this.onElementDetached( element, this._before, this._after );
 			}
-
-			const renderer = this._renderer;
-			if( renderer != null ) {
-				this._renderer = null;
-				renderer.off( "postrender", this._updateElementBound );
-			}
-
 			this._isElementSelected = false;
 
-			const application = DApplications.getInstance();
-			const view = application.view;
-			if( this._when === DHTMLElementWhen.FOCUSED ) {
-				view.focus();
-			}
+			const layer = DApplications.getLayer( this );
+			if( layer ) {
+				const view = layer.view;
+				if( this._when === DHTMLElementWhen.FOCUSED ) {
+					view.focus();
+				}
 
-			const interactionManager = application.renderer.plugins.interaction;
-			if( this.containsPoint( interactionManager.mouse.global ) && ! this.isHovered() ) {
-				this.setHovered( true );
-				view.style.cursor = this.cursor;
-			}
+				const interactionManager = layer.renderer.plugins.interaction;
+				if( this.containsPoint( interactionManager.mouse.global ) && ! this.isHovered() ) {
+					this.setHovered( true );
+					view.style.cursor = this.cursor;
+				}
 
-			DApplications.update();
+				layer.update();
+			}
 		}
 	}
 
@@ -449,8 +427,9 @@ export class DHTMLElement<
 		let result = this._clipper;
 		if( result == null ) {
 			const creator = this._clipperCreator;
-			if( creator ) {
-				result = creator( DApplications.getInstance().getRootElement() );
+			const layer = DApplications.getLayer( this );
+			if( creator && layer ) {
+				result = creator( layer.getElementContainer() );
 				this._clipper = result;
 			}
 		}
@@ -526,21 +505,27 @@ export class DHTMLElement<
 	}
 
 	protected onBeforeFocused( e: FocusEvent ): void {
-		const focusController = DControllers.getFocusController();
-		const focusable = focusController.findFocusable( this, false, false, false );
-		DApplications.getInstance().view.focus();
-		focusController.setFocused( focusable, true, true );
-		e.preventDefault();
-		e.stopImmediatePropagation();
+		const layer = DApplications.getLayer( this );
+		if( layer ) {
+			const focusController = layer.getFocusController();
+			const focusable = focusController.findFocusable( this, false, false, false );
+			layer.view.focus();
+			focusController.setFocused( focusable, true, true );
+			e.preventDefault();
+			e.stopImmediatePropagation();
+		}
 	}
 
 	protected onAfterFocused( e: FocusEvent ): void {
-		const focusController = DControllers.getFocusController();
-		const focusable = focusController.findFocusable( this, false, false, true );
-		DApplications.getInstance().view.focus();
-		focusController.setFocused( focusable, true, true );
-		e.preventDefault();
-		e.stopImmediatePropagation();
+		const layer = DApplications.getLayer( this );
+		if( layer ) {
+			const focusController = layer.getFocusController();
+			const focusable = focusController.findFocusable( this, false, false, true );
+			layer.view.focus();
+			focusController.setFocused( focusable, true, true );
+			e.preventDefault();
+			e.stopImmediatePropagation();
+		}
 	}
 
 	protected onElementFocused( e: FocusEvent ): void {
@@ -574,13 +559,13 @@ export class DHTMLElement<
 		return this;
 	}
 
-	protected updateElement() {
+	protected updateElement( renderer: Renderer ) {
 		if( this._isElementShown ) {
 			if( this.worldVisible ) {
 				const element = this._element;
 				const clipper = this._clipper;
-				if( element != null && clipper != null ) {
-					const resolution = DApplications.getInstance().renderer.resolution;
+				if( element && clipper ) {
+					const resolution = renderer.resolution;
 					const elementRect = this.getElementRect( resolution );
 					const clipperRect = this.getClipperRect( elementRect, resolution );
 					const theme = this.theme;

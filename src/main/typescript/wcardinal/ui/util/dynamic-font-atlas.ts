@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { MIPMAP_MODES, SCALE_MODES, settings, Texture } from "pixi.js";
+import { MIPMAP_MODES, SCALE_MODES, Texture } from "pixi.js";
 import { ASCII_CHARACTERS } from "./ascii";
 import { DynamicFontAtlasCharacter } from "./dynamic-font-atlas-character";
 import { DynamicFontAtlasCharacters } from "./dynamic-font-atlas-characters";
@@ -26,7 +26,7 @@ export class DynamicFontAtlas {
 	protected _revisionUpdated: number;
 	protected _texture: Texture;
 
-	constructor( fontId: string, fontSize: number, fontColor: number ) {
+	constructor( fontId: string, fontSize: number, fontColor: number, resolution: number ) {
 		this._id = fontId;
 		this._canvas = document.createElement( "canvas" );
 		this._context = null;
@@ -40,7 +40,7 @@ export class DynamicFontAtlas {
 		this._revisionUpdated = 0;
 		this._texture = Texture.from( this._canvas, {
 			mipmap: MIPMAP_MODES.OFF,
-			resolution: settings.RESOLUTION,
+			resolution,
 			scaleMode: SCALE_MODES.NEAREST
 		});
 

@@ -150,7 +150,7 @@ export class EShapeBuffer {
 		);
 	}
 
-	update( iterator: EShapeRendererIterator ): boolean {
+	update( iterator: EShapeRendererIterator, antialiasWeight: number ): boolean {
 		const builder = this.builder;
 		builder.begin();
 
@@ -176,7 +176,7 @@ export class EShapeBuffer {
 				break;
 			}
 
-			const uploaded = creater( this, shape, vindex, iindex );
+			const uploaded = creater( this, shape, vindex, iindex, antialiasWeight );
 			if( uploaded == null ) {
 				break;
 			}

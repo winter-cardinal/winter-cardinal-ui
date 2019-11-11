@@ -87,7 +87,7 @@ export class EShapeRuntime {
 		if( ! shape.disabled ) {
 			if( ! (this.state & EShapeRuntimeState.CLICKED) ) {
 				this.state |= EShapeRuntimeState.CHANGED | EShapeRuntimeState.CLICKED;
-				DApplications.update();
+				DApplications.update( shape );
 			}
 		}
 	}
@@ -105,19 +105,24 @@ export class EShapeRuntime {
 	}
 
 	onPointerDown( shape: EShape, e?: interaction.InteractionEvent ): void {
+		const layer = DApplications.getLayer( shape );
 		if( ! (this.state & EShapeRuntimeState.DOWN) ) {
 			this.state |= EShapeRuntimeState.CHANGED | EShapeRuntimeState.DOWN | EShapeRuntimeState.PRESSED;
-			DApplications.update();
+			if( layer ) {
+				layer.update();
+			}
 		}
-		const focusController = DControllers.getFocusController();
-		focusController.setFocused( focusController.findFocusableParent( shape ), true, true );
+		if( layer ) {
+			const focusController = layer.getFocusController();
+			focusController.setFocused( focusController.findFocusableParent( shape ), true, true );
+		}
 	}
 
 	onPointerUp( shape: EShape, e?: interaction.InteractionEvent ): void {
 		if( ! (this.state & EShapeRuntimeState.UP) ) {
 			this.state |= EShapeRuntimeState.CHANGED | EShapeRuntimeState.UP;
 			this.state &= ~EShapeRuntimeState.PRESSED;
-			DApplications.update();
+			DApplications.update( shape );
 		}
 	}
 
@@ -142,7 +147,7 @@ export class EShapeRuntime {
 
 	onStateChange( shape: EShape, newState: DBaseState, oldState: DBaseState ): void {
 		this.state |= EShapeRuntimeState.CHANGED;
-		DApplications.update();
+		DApplications.update( shape );
 	}
 
 	update( shape: EShape, time: number ): void {

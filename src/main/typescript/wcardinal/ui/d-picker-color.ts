@@ -423,9 +423,12 @@ export class DPickerColor<
 	protected onMainDown( e: InteractionEvent ): void {
 		this.onMainPick( e.data.global );
 
-		const stage = DApplications.getInstance().stage;
-		stage.on( UtilPointerEvent.move, this._onMainMoveBound );
-		stage.on( UtilPointerEvent.up, this._onMainUpBound );
+		const layer = DApplications.getLayer( this );
+		if( layer ) {
+			const stage = layer.stage;
+			stage.on( UtilPointerEvent.move, this._onMainMoveBound );
+			stage.on( UtilPointerEvent.up, this._onMainUpBound );
+		}
 	}
 
 	protected onMainMove( e: InteractionEvent ): void {
@@ -433,9 +436,12 @@ export class DPickerColor<
 	}
 
 	protected onMainUp( e: InteractionEvent ): void {
-		const stage = DApplications.getInstance().stage;
-		stage.off( UtilPointerEvent.move, this._onMainMoveBound );
-		stage.off( UtilPointerEvent.up, this._onMainUpBound );
+		const layer = DApplications.getLayer( this );
+		if( layer ) {
+			const stage = layer.stage;
+			stage.off( UtilPointerEvent.move, this._onMainMoveBound );
+			stage.off( UtilPointerEvent.up, this._onMainUpBound );
+		}
 	}
 
 	protected toMainHex( b: number, w0: number, w1: number, shift: number ) {
@@ -508,21 +514,28 @@ export class DPickerColor<
 	}
 
 	protected onColorNew( color: number ) {
-		const application = DApplications.getInstance();
-		application.disallowUpdate();
+		const layer = DApplications.getLayer( this );
+		if( layer ) {
+			layer.disallowUpdate();
+		}
 		this._sampleNewSprite.tint = this._new.color = color;
 		this._inputAndLabelColor.input.value = UtilRgb.toCode( color );
 		this.emit( "newcolorchange", color, this );
-		application.allowUpdate();
-		application.update();
+		if( layer ) {
+			layer.allowUpdate();
+			layer.update();
+		}
 	}
 
 	protected onBaseDown( e: InteractionEvent ): void {
 		this.onBasePick( e.data.global );
 
-		const stage = DApplications.getInstance().stage;
-		stage.on( UtilPointerEvent.move, this._onBaseMoveBound );
-		stage.on( UtilPointerEvent.up, this._onBaseUpBound );
+		const layer = DApplications.getLayer( this );
+		if( layer ) {
+			const stage = layer.stage;
+			stage.on( UtilPointerEvent.move, this._onBaseMoveBound );
+			stage.on( UtilPointerEvent.up, this._onBaseUpBound );
+		}
 	}
 
 	protected onBaseMove( e: InteractionEvent ): void {
@@ -530,9 +543,12 @@ export class DPickerColor<
 	}
 
 	protected onBaseUp( e: InteractionEvent ): void {
-		const stage = DApplications.getInstance().stage;
-		stage.off( UtilPointerEvent.move, this._onBaseMoveBound );
-		stage.off( UtilPointerEvent.up, this._onBaseUpBound );
+		const layer = DApplications.getLayer( this );
+		if( layer ) {
+			const stage = layer.stage;
+			stage.off( UtilPointerEvent.move, this._onBaseMoveBound );
+			stage.off( UtilPointerEvent.up, this._onBaseUpBound );
+		}
 	}
 
 	protected toBaseHex( t: number, shift: number ) {
@@ -600,9 +616,12 @@ export class DPickerColor<
 	protected onAlphaDown( e: InteractionEvent ): void {
 		this.onAlphaPick( e.data.global );
 
-		const stage = DApplications.getInstance().stage;
-		stage.on( UtilPointerEvent.move, this._onAlphaMoveBound );
-		stage.on( UtilPointerEvent.up, this._onAlphaUpBound );
+		const layer = DApplications.getLayer( this );
+		if( layer ) {
+			const stage = layer.stage;
+			stage.on( UtilPointerEvent.move, this._onAlphaMoveBound );
+			stage.on( UtilPointerEvent.up, this._onAlphaUpBound );
+		}
 	}
 
 	protected onAlphaMove( e: InteractionEvent ): void {
@@ -610,9 +629,12 @@ export class DPickerColor<
 	}
 
 	protected onAlphaUp( e: InteractionEvent ): void {
-		const stage = DApplications.getInstance().stage;
-		stage.off( UtilPointerEvent.move, this._onAlphaMoveBound );
-		stage.off( UtilPointerEvent.up, this._onAlphaUpBound );
+		const layer = DApplications.getLayer( this );
+		if( layer ) {
+			const stage = layer.stage;
+			stage.off( UtilPointerEvent.move, this._onAlphaMoveBound );
+			stage.off( UtilPointerEvent.up, this._onAlphaUpBound );
+		}
 	}
 
 	protected onAlphaPick( global: Point ) {
@@ -634,13 +656,17 @@ export class DPickerColor<
 	}
 
 	protected onAlphaNew( alpha: number ): void {
-		const application = DApplications.getInstance();
-		application.disallowUpdate();
+		const layer = DApplications.getLayer( this );
+		if( layer ) {
+			layer.disallowUpdate();
+		}
 		this._sampleNewSprite.alpha = this._new.alpha = alpha;
 		this._inputAndLabelAlpha.input.value = Number( alpha.toFixed( 2 ) );
 		this.emit( "newalphachange", alpha, this );
-		application.allowUpdate();
-		application.update();
+		if( layer ) {
+			layer.allowUpdate();
+			layer.update();
+		}
 	}
 
 	protected onRecentChange(): void {

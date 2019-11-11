@@ -27,10 +27,11 @@
 	(function(){
 		"use strict";
 
-		const application = new wcardinal.ui.DApplication(
-			new wcardinal.ui.DApplicationOptions()
-				.setBackgroundColor( 0x2196F3 )
-		);
+		const application = new wcardinal.ui.DApplication({
+			background: {
+				color: 0x2196F3
+			}
+		});
 
 		const diagram = new wcardinal.ui.DDiagram({
 			parent: application.stage,

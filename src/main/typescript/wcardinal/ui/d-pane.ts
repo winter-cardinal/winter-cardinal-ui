@@ -296,7 +296,7 @@ export class DPane<
 			}
 
 			// Rerender
-			DApplications.update();
+			DApplications.update( this );
 		}
 	}
 

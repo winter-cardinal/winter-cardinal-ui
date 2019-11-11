@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Point } from "pixi.js";
+import { interaction, Point } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseOverflowMask } from "./d-base-overflow-mask";
@@ -139,10 +139,10 @@ export class DCanvasContainer<
 		this._canvas = canvas;
 		if( canvas != null ) {
 			this.addChild( canvas );
-			this.emit( "set", canvas, this );
 			this._view.reset( 0 );
+			this.emit( "set", canvas, this );
 		} else {
-			DApplications.update();
+			DApplications.update( this );
 		}
 	}
 
@@ -174,9 +174,9 @@ export class DCanvasContainer<
 		return vresult || sresult;
 	}
 
-	onDblClick( e: MouseEvent | TouchEvent ): boolean {
-		const vresult = this._view.onDblClick( e );
-		const sresult = super.onDblClick( e );
+	onDblClick( e: MouseEvent | TouchEvent, interactionManager: interaction.InteractionManager ): boolean {
+		const vresult = this._view.onDblClick( e, interactionManager );
+		const sresult = super.onDblClick( e, interactionManager );
 		return vresult || sresult;
 	}
 

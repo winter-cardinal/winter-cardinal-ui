@@ -42,14 +42,17 @@ export class EShapeActionRuntime {
 			shape.emit( name, shape, parameter1, parameter2 );
 		}
 
-		const application = DApplications.getInstance() as any;
-		if( "shape" in application ) {
-			if( parameter1 === undefined ) {
-				application.shape.emit( name, shape );
-			} else if( parameter2 === undefined ) {
-				application.shape.emit( name, shape, parameter1 );
-			} else {
-				application.shape.emit( name, shape, parameter1, parameter2 );
+		const layer = DApplications.getLayer( shape );
+		if( layer ) {
+			const application = layer.application as any;
+			if( "shape" in application ) {
+				if( parameter1 === undefined ) {
+					application.shape.emit( name, shape );
+				} else if( parameter2 === undefined ) {
+					application.shape.emit( name, shape, parameter1 );
+				} else {
+					application.shape.emit( name, shape, parameter1, parameter2 );
+				}
 			}
 		}
 	}

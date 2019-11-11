@@ -10,7 +10,9 @@ import { EShapeTriangleUploaded } from "./e-shape-triangle-uploaded";
 
 export class EShapeTriangleUploadeds {
 	static create(
-		buffer: EShapeBuffer, shape: EShape, voffset: number, ioffset: number
+		buffer: EShapeBuffer, shape: EShape,
+		voffset: number, ioffset: number,
+		antialiasWeight: number
 	): EShapeTriangleUploaded | null {
 		const tcount = EShapeTextUploadeds.getTextCount( shape, buffer.workCount );
 		const tvcount = tcount.vertexCount;
@@ -19,7 +21,11 @@ export class EShapeTriangleUploadeds {
 		const icount = 3 + ticount;
 		if( voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity ) {
 			return new EShapeTriangleUploaded(
-				buffer, voffset, ioffset, tvcount, ticount, vcount, icount
+				buffer,
+				voffset, ioffset,
+				tvcount, ticount,
+				vcount, icount,
+				antialiasWeight
 			).init( shape );
 		}
 		return null;

@@ -49,7 +49,7 @@ export class DDiagramLayerContainer extends Container {
 			this._active = layer;
 		}
 		this.emit( "change", this );
-		DApplications.update();
+		DApplications.update( this );
 	}
 
 	attachAt( layer: DDiagramLayer, index: number, activate?: boolean ): void {
@@ -58,7 +58,7 @@ export class DDiagramLayerContainer extends Container {
 			this._active = layer;
 		}
 		this.emit( "change", this );
-		DApplications.update();
+		DApplications.update( this );
 	}
 
 	/**
@@ -77,7 +77,7 @@ export class DDiagramLayerContainer extends Container {
 			(layer as any).parent = undefined;
 
 			this.emit( "change", this );
-			DApplications.update();
+			DApplications.update( this );
 		}
 	}
 
@@ -110,7 +110,7 @@ export class DDiagramLayerContainer extends Container {
 			}
 
 			this.emit( "change", this );
-			DApplications.update();
+			DApplications.update( this );
 		}
 		return index;
 	}
@@ -134,7 +134,7 @@ export class DDiagramLayerContainer extends Container {
 			children.length = 0;
 
 			this.emit( "change", this );
-			DApplications.update();
+			DApplications.update( this );
 		}
 	}
 

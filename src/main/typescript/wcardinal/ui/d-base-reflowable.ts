@@ -80,7 +80,7 @@ export class DBaseReflowable implements DReflowable {
 			if( 0 < backgroundAlpha ) {
 				if( this._lastBackgroundCornerRadius !== cornerRadius ) {
 					this._lastBackgroundCornerRadius = cornerRadius;
-					backgroundPlane.texture = theme.getBackgroundTexture( cornerRadius);
+					backgroundPlane.texture = theme.getBackgroundTexture( cornerRadius );
 					backgroundPlane.borderSize = cornerHeight;
 				}
 				backgroundPlane.tint = backgroundColor;

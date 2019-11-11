@@ -66,7 +66,7 @@ export class DThemeWhiteBase extends DThemeWhiteFont implements DThemeBase {
 	}
 
 	getBackgroundTexture( radius: number ): Texture {
-		return UtilTexturePlane.getBackground( radius );
+		return UtilTexturePlane.getInstance().getBackground( radius );
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
@@ -94,7 +94,7 @@ export class DThemeWhiteBase extends DThemeWhiteFont implements DThemeBase {
 	}
 
 	getBorderTexture( radius: number, width: number ): Texture {
-		return UtilTexturePlane.getBorder( radius, width );
+		return UtilTexturePlane.getInstance().getBorder( radius, width );
 	}
 
 	getPaddingLeft(): number {
