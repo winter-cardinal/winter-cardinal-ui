@@ -52,6 +52,10 @@ export class DMenu<
 	protected init( options?: OPTIONS ) {
 		super.init( options );
 
+		this._onPrerenderBound = (): void => {
+			this.onPrerender();
+		};
+
 		if( options != null ) {
 			this._align = ( options.align != null ?
 				( utilIsString( options.align ) ? DMenuAlign[ options.align ] : options.align ) :
