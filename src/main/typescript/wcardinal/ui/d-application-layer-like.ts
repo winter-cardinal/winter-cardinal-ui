@@ -10,8 +10,9 @@ export interface DApplicationLayerLike extends Application {
 	readonly height: number;
 	readonly padding: DPadding;
 
-	disallowUpdate(): void;
 	allowUpdate(): void;
+	disallowUpdate(): void;
+
 	update(): void;
 	render(): void;
 	refit(): void;

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Renderer } from "pixi.js";
+import { Renderer, RenderTexture } from "pixi.js";
 import { DApplicationLayerLike } from "../d-application-layer-like";
 import { DApplicationLike } from "../d-application-like";
 import { DApplications } from "../d-applications";
@@ -100,7 +100,7 @@ const toRenderer = ( options: UtilExtractPixelsOptions ): Renderer => {
 };
 
 export class UtilExtract {
-	static texture( options: UtilExtractTextureOptions ): PIXI.RenderTexture {
+	static texture( options: UtilExtractTextureOptions ): RenderTexture {
 		const target = options.target;
 		const resolution = toResolution( options );
 		const skipUpdateTransform = toSkipUpdateTransform( options );

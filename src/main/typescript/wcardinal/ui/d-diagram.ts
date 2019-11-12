@@ -3,10 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
+import { interaction, Renderer } from "pixi.js";
 import { DDiagramBase, DDiagramBaseOptions, DThemeDiagramBase } from "./d-diagram-base";
 import { DDiagramCanvas } from "./d-diagram-canvas";
 import { DDiagramSerialized } from "./d-diagram-serialized";
+import { DDiagramShape } from "./d-diagram-shape";
+import { DDiagramTag } from "./d-diagram-tag";
 import { EShapeActionRuntime } from "./shape/action/e-shape-action-runtime";
 import { EShapeActionRuntimeOpen } from "./shape/action/e-shape-action-runtime-open";
 import { EShapeActionValue } from "./shape/action/e-shape-action-value";
@@ -29,6 +31,9 @@ export class DDiagram<
 	THEME extends DThemeDiagram = DThemeDiagram,
 	OPTIONS extends DDiagramOptions<THEME> = DDiagramOptions<THEME>
 > extends DDiagramBase<DDiagramCanvas, THEME, OPTIONS> {
+	tag: DDiagramTag;
+	shape: DDiagramShape;
+
 	constructor( options: OPTIONS ) {
 		super( options );
 
@@ -36,7 +41,7 @@ export class DDiagram<
 		this.on( UtilPointerEvent.move, ( e: interaction.InteractionEvent ): void => {
 			if( UtilPointerEvent.contains( this, e.target ) ) {
 				const canvas = this.canvas;
-				if( canvas != null ) {
+				if( canvas ) {
 					canvas.onShapeMove( e );
 				}
 			}
@@ -46,7 +51,7 @@ export class DDiagram<
 		this.on( UtilPointerEvent.up, ( e: interaction.InteractionEvent ): void => {
 			if( UtilPointerEvent.contains( this, e.target ) ) {
 				const canvas = this.canvas;
-				if( canvas != null ) {
+				if( canvas ) {
 					canvas.onShapeUp( e );
 				}
 			}
@@ -56,11 +61,15 @@ export class DDiagram<
 		this.on( "click", ( e: interaction.InteractionEvent ): void => {
 			if( UtilPointerEvent.contains( this, e.target ) ) {
 				const canvas = this.canvas;
-				if( canvas != null ) {
+				if( canvas ) {
 					canvas.onShapeClick( e );
 				}
 			}
 		});
+
+		//
+		this.tag = new DDiagramTag( this );
+		this.shape = new DDiagramShape( this );
 	}
 
 	protected initialize( shapes: EShape[] ): void {
@@ -77,7 +86,7 @@ export class DDiagram<
 			const tag = shape.tag;
 			for( let j = 0, jmax = tag.size(); j < jmax; ++j ) {
 				const value = tag.get( j );
-				if( value != null ) {
+				if( value ) {
 					// Format
 					const tagFormat = value.format;
 					const tagInitial = value.initial;
@@ -176,12 +185,23 @@ export class DDiagram<
 
 	protected onDown( e: interaction.InteractionEvent ): void {
 		const canvas = this.canvas;
-		if( canvas != null ) {
-			if( canvas.onShapeDown( e ) ) {
-				return;
-			}
+		if( canvas && canvas.onShapeDown( e ) ) {
+			return;
 		}
 		super.onDown( e );
+	}
+
+	onDblClick( e: MouseEvent | TouchEvent, interactionManager: interaction.InteractionManager ): boolean {
+		const canvas = this.canvas;
+		if( canvas && canvas.onShapeDblClick( e, interactionManager ) ) {
+			return true;
+		}
+		return super.onDblClick( e, interactionManager );
+	}
+
+	render( renderer: Renderer ): void {
+		this.shape.update();
+		super.render( renderer );
 	}
 
 	protected getType(): string {

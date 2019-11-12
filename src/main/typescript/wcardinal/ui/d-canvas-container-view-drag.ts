@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { interaction } from "pixi.js";
 import { DBase } from "./d-base";
 import { DCanvas } from "./d-canvas";
 import { DCanvasContainerOptions, DThemeCanvasContainer } from "./d-canvas-container";
@@ -21,6 +22,7 @@ export class DCanvasContainerViewDrag<
 	protected _parent: DCanvasContainerViewParent<CANVAS>;
 	protected _stopper: DCanvasContainerViewStopper;
 	protected _dragUtil?: UtilDrag;
+	protected _bind: boolean;
 
 	constructor(
 		parent: DCanvasContainerViewParent<CANVAS>,
@@ -46,15 +48,18 @@ export class DCanvasContainerViewDrag<
 				scale: theme.getDragDurationScale()
 			}
 		);
+		const bind = (mode === DDragMode.TOUCH);
+		this._bind = bind;
 		if( mode === DDragMode.ON || mode === DDragMode.TOUCH ) {
 			this._dragUtil = new UtilDrag({
 				target: parent,
-				touch: mode === DDragMode.TOUCH,
+				touch: bind,
 				modifier,
 				checker: drag && drag.checker,
 				easing: {
 					duration
 				},
+				bind,
 				on: {
 					start: (): void => {
 						this._stopper.stop();
@@ -88,6 +93,15 @@ export class DCanvasContainerViewDrag<
 		const dragUtil = this._dragUtil;
 		if( dragUtil != null ) {
 			dragUtil.stop();
+		}
+	}
+
+	onDown( e: interaction.InteractionEvent ): void {
+		if( ! this._bind ) {
+			const dragUtil = this._dragUtil;
+			if( dragUtil ) {
+				dragUtil.onDown( e );
+			}
 		}
 	}
 }

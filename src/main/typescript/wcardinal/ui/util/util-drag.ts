@@ -11,11 +11,13 @@ import { DMouseModifiers } from "../d-mouse-modifiers";
 import { UtilDragEasing, UtilDragEasingOptions } from "./util-drag-easing";
 import { utilIsNumber } from "./util-is-number";
 import { UtilPointerEvent } from "./util-pointer-event";
+import InteractionEvent = interaction.InteractionEvent;
+import InteractionManager = interaction.InteractionManager;
 
 export type UtilDragOnMove = ( dx: number, dy: number, x: number, y: number, ds: number ) => void;
 export type UtilDragOnStart = () => void;
 export type UtilDragOnEnd = () => void;
-export type UtilDragChecker = ( e: interaction.InteractionEvent, modifier: DMouseModifier, target: DBase ) => boolean;
+export type UtilDragChecker = ( e: InteractionEvent, modifier: DMouseModifier, target: DBase ) => boolean;
 
 interface UtilDragOptionsEasingDuration {
 	duration?: number | {
@@ -33,6 +35,7 @@ export interface UtilDragOptions {
 		move?: UtilDragChecker;
 	};
 	easing?: boolean | UtilDragOptionsEasingDuration;
+	bind?: boolean;
 	on?: {
 		start?: UtilDragOnStart;
 		move?: UtilDragOnMove;
@@ -91,9 +94,9 @@ const toChecker = ( options?: UtilDragOptions ): { start: UtilDragChecker, move:
 export class UtilDrag {
 	protected static EPSILON = 0.00001;
 	protected _target: DBase<any, any>;
-	protected _onDownBound: ( e: interaction.InteractionEvent ) => void;
-	protected _onMoveBound: ( e: interaction.InteractionEvent ) => void;
-	protected _onEndBound: ( e: interaction.InteractionEvent ) => void;
+	protected _onDownBound: ( e: InteractionEvent ) => void;
+	protected _onMoveBound: ( e: InteractionEvent ) => void;
+	protected _onEndBound: ( e: InteractionEvent ) => void;
 	protected _onStart?: UtilDragOnStart;
 	protected _onMove?: UtilDragOnMove;
 	protected _onEnd?: UtilDragOnEnd;
@@ -103,7 +106,7 @@ export class UtilDrag {
 	protected _easing?: UtilDragEasing;
 	protected _modifier: DMouseModifier;
 	protected _checker: { start: UtilDragChecker, move: UtilDragChecker };
-	protected _interactionManager: interaction.InteractionManager | null;
+	protected _interactionManager: InteractionManager | null;
 	protected _center: Point;
 	protected _scale: number;
 	protected _scalingCenter: Point;
@@ -133,15 +136,15 @@ export class UtilDrag {
 			this._easing = new UtilDragEasing( toEasingOptions( easing, onEasingMoveBound ) );
 		}
 
-		this._onDownBound = ( e: interaction.InteractionEvent ): void => {
+		this._onDownBound = ( e: InteractionEvent ): void => {
 			this.onDown( e );
 		};
 
-		this._onMoveBound = ( e: interaction.InteractionEvent ): void => {
+		this._onMoveBound = ( e: InteractionEvent ): void => {
 			this.onMove( e );
 		};
 
-		this._onEndBound = ( e: interaction.InteractionEvent ): void => {
+		this._onEndBound = ( e: InteractionEvent ): void => {
 			this.onEnd( e );
 		};
 
@@ -155,12 +158,14 @@ export class UtilDrag {
 			this._up = UtilPointerEvent.up;
 		}
 
-		target.on( this._down, this._onDownBound );
+		if( options.bind !== false ) {
+			target.on( this._down, this._onDownBound );
+		}
 	}
 
 	protected calcCenterAndScale(
-		e: interaction.InteractionEvent, center: Point,
-		interactionManager: interaction.InteractionManager
+		e: InteractionEvent, center: Point,
+		interactionManager: InteractionManager
 	): number {
 		const oe = e.data.originalEvent;
 		const global = e.data.global;
@@ -200,7 +205,7 @@ export class UtilDrag {
 		return 0;
 	}
 
-	protected onDown( e: interaction.InteractionEvent ): void {
+	onDown( e: InteractionEvent ): void {
 		const target = this._target;
 		if( this._checker.start( e, this._modifier, target ) ) {
 			const layer = DApplications.getLayer( target );
@@ -247,7 +252,7 @@ export class UtilDrag {
 		}
 	}
 
-	protected onMove( e: interaction.InteractionEvent ): void {
+	protected onMove( e: InteractionEvent ): void {
 		const target = this._target;
 		if( target.isDragging() && this._checker.move( e, this._modifier, target ) ) {
 			const interactionManager = this._interactionManager;
@@ -286,7 +291,7 @@ export class UtilDrag {
 		}
 	}
 
-	protected onEnd( e: interaction.InteractionEvent ): void {
+	protected onEnd( e: InteractionEvent ): void {
 		const target = this._target;
 		if( target.isDragging() ) {
 			const interactionManager = this._interactionManager;

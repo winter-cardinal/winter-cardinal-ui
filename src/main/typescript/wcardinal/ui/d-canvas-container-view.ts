@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction, Point } from "pixi.js";
+import { interaction, IPoint, Point } from "pixi.js";
 import { DBase } from "./d-base";
 import { DCanvas } from "./d-canvas";
 import { DCanvasContainerOptions, DThemeCanvasContainer } from "./d-canvas-container";
@@ -229,16 +229,16 @@ export class DCanvasContainerView<
 		}
 	}
 
-	get position(): PIXI.IPoint {
+	get position(): IPoint {
 		const parent = this._parent;
 		const canvas = parent.canvas;
 		if( canvas != null ) {
 			return canvas.position;
 		}
-		return new PIXI.Point( 0, 0 );
+		return new Point( 0, 0 );
 	}
 
-	set position( position: PIXI.IPoint ) {
+	set position( position: IPoint ) {
 		const parent = this._parent;
 		const canvas = parent.canvas;
 		if( canvas != null ) {
@@ -253,11 +253,11 @@ export class DCanvasContainerView<
 		}
 	}
 
-	toLocal( global: PIXI.IPoint, local: PIXI.IPoint, skipUpdate?: boolean ): PIXI.IPoint {
+	toLocal( global: IPoint, local: IPoint, skipUpdate?: boolean ): IPoint {
 		return this._parent.toLocal( global, undefined, local, skipUpdate );
 	}
 
-	toGlobal( local: PIXI.IPoint, global: PIXI.IPoint, skipUpdate?: boolean ): PIXI.IPoint {
+	toGlobal( local: IPoint, global: IPoint, skipUpdate?: boolean ): IPoint {
 		return this._parent.toGlobal( local, global, skipUpdate );
 	}
 
@@ -292,6 +292,10 @@ export class DCanvasContainerView<
 		}
 
 		return false;
+	}
+
+	onDown( e: interaction.InteractionEvent ): void {
+		this._drag.onDown( e );
 	}
 
 	onDblClick( e: MouseEvent | TouchEvent, interactionManager: interaction.InteractionManager ): boolean {

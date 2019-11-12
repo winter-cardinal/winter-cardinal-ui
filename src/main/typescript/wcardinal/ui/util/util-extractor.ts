@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Renderer } from "pixi.js";
+import { extract, Matrix, Renderer, RenderTexture, SCALE_MODES, utils } from "pixi.js";
 import { DApplications } from "../d-applications";
 import { DBase } from "../d-base";
 import { UtilExtractorPixels } from "./util-extractor-pixels";
@@ -12,14 +12,14 @@ export class UtilExtractor {
 	static toTexture(
 		target: DBase, resolution?: number,
 		clear?: boolean, skipUpdateTransform?: boolean
-	): PIXI.RenderTexture {
-		const result = PIXI.RenderTexture.create({
+	): RenderTexture {
+		const result = RenderTexture.create({
 			width: target.width,
 			height: target.height,
-			scaleMode: PIXI.SCALE_MODES.LINEAR,
+			scaleMode: SCALE_MODES.LINEAR,
 			resolution
 		});
-		const matrix = new PIXI.Matrix(
+		const matrix = new Matrix(
 			undefined, undefined, undefined, undefined,
 			-target.position.x, -target.position.y
 		);
@@ -30,7 +30,7 @@ export class UtilExtractor {
 		return result;
 	}
 
-	static toPixels( renderTexture: PIXI.RenderTexture, renderer: Renderer ): UtilExtractorPixels {
+	static toPixels( renderTexture: RenderTexture, renderer: Renderer ): UtilExtractorPixels {
 		const resolution = renderTexture.resolution;
 		const frame = renderTexture.frame;
 		const width = Math.floor( frame.width * resolution );
@@ -60,13 +60,13 @@ export class UtilExtractor {
 		const width = pixels.width;
 		const height = pixels.height;
 		const array = pixels.array;
-		const canvasRenderTarget = new PIXI.utils.CanvasRenderTarget( width, height, 1 );
+		const canvasRenderTarget = new utils.CanvasRenderTarget( width, height, 1 );
 
 		const imageData = canvasRenderTarget.context.getImageData( 0, 0, width, height );
 		if( ignorePremutipliedAlpha ) {
 			imageData.data.set( array );
 		} else {
-			(PIXI.extract.Extract as any).arrayPostDivide( array, imageData.data );
+			(extract.Extract as any).arrayPostDivide( array, imageData.data );
 		}
 		canvasRenderTarget.context.putImageData( imageData, 0, 0 );
 

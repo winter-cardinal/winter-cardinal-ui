@@ -6,13 +6,12 @@
 import { interaction, Point } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DDiagramCanvasBase, DDiagramCanvasBaseOptions, DThemeDiagramCanvasBase } from "./d-diagram-canvas-base";
+import { DDiagramCanvasIdMap } from "./d-diagram-canvas-id-map";
+import { DDiagramCanvasTagMap } from "./d-diagram-canvas-tag-map";
 import { EShape } from "./shape/e-shape";
-import { EShapeTagValue } from "./shape/e-shape-tag-value";
 import { EShapeBase } from "./shape/variant/e-shape-base";
+import { UtilPointerEvent } from "./util";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
-
-interface Tags { [ id: string ]: EShapeTagValue[]; }
-interface Ids { [ id: string ]: EShape[] | undefined; }
 
 export interface DDiagramCanvasOptions<
 	THEME extends DThemeDiagramCanvas = DThemeDiagramCanvas
@@ -28,12 +27,13 @@ export class DDiagramCanvas<
 	THEME extends DThemeDiagramCanvas = DThemeDiagramCanvas,
 	OPTIONS extends DDiagramCanvasOptions<THEME> = DDiagramCanvasOptions<THEME>
 > extends DDiagramCanvasBase<THEME, OPTIONS> {
-	tags: Tags;
+	tags: DDiagramCanvasTagMap;
 	interactives: EShape[];
 	actionables: EShape[];
-	ids: Ids;
+	ids: DDiagramCanvasIdMap;
 
-	protected _work: Point;
+	protected _workLocal: Point;
+	protected _workGlobal: Point;
 	protected _lastOverShape: EShape | null;
 
 	constructor( options: OPTIONS ) {
@@ -42,7 +42,8 @@ export class DDiagramCanvas<
 		this.interactives = [];
 		this.actionables = [];
 		this.ids = {};
-		this._work = new Point();
+		this._workLocal = new Point();
+		this._workGlobal = new Point();
 		this._lastOverShape = null;
 	}
 
@@ -70,14 +71,16 @@ export class DDiagramCanvas<
 		if( layer ) {
 			const focusController = layer.getFocusController();
 			const focusable = focusController.findFocusable( this, false, true, true );
-			if( focusable != null ) {
+			if( focusable ) {
 				focusController.setFocused( focusable, true, true );
 			}
 		}
 	}
 
 	protected initializeShapes(
-		shapes: EShape[], tags: Tags, interactives: EShape[], actionables: EShape[], ids: Ids
+		shapes: EShape[], tags: DDiagramCanvasTagMap,
+		interactives: EShape[], actionables: EShape[],
+		ids: DDiagramCanvasIdMap
 	): void {
 		for( let i = 0, imax = shapes.length; i < imax; ++i ) {
 			const shape = shapes[ i ];
@@ -86,7 +89,7 @@ export class DDiagramCanvas<
 			const tag = shape.tag;
 			for( let j = 0, jmax = tag.size(); j < jmax; ++j ) {
 				const value = tag.get( j );
-				if( value != null ) {
+				if( value ) {
 					const valueId = value.id;
 					if( 0 < valueId.length ) {
 						let values = tags[ valueId ];
@@ -111,13 +114,13 @@ export class DDiagramCanvas<
 			}
 
 			// Interactives
-			if( shape.interactive || (0 < shape.cursor.length) || (shape.runtime != null && shape.runtime.interactive) ) {
+			const runtime = shape.runtime;
+			if( shape.interactive || (0 < shape.cursor.length) || (runtime && runtime.interactive) ) {
 				interactives.push( shape );
 			}
 
 			// Actionables
-			const runtime = shape.runtime;
-			if( runtime != null && 0 < runtime.actions.length ) {
+			if( runtime && 0 < runtime.actions.length ) {
 				actionables.push( shape );
 			}
 
@@ -145,15 +148,14 @@ export class DDiagramCanvas<
 
 	onShapeMove( e: interaction.InteractionEvent ): boolean {
 		const global = e.data.global;
-		const work = this._work;
-
+		const local = this._workLocal;
 		const interactives = this.interactives;
 		let found: EShape | null = null;
 		for( let i = interactives.length - 1; 0 <= i; --i ) {
 			const interactive = interactives[ i ];
 			if( interactive.visible ) {
-				const interactiveLocal = interactive.toLocal( global, undefined, work );
-				if( interactive.contains( interactiveLocal ) != null ) {
+				interactive.toLocal( global, undefined, local );
+				if( interactive.contains( local ) ) {
 					found = interactive;
 					break;
 				}
@@ -171,16 +173,16 @@ export class DDiagramCanvas<
 			const lastOverShape = this._lastOverShape;
 			if( found === lastOverShape ) {
 				const runtime = lastOverShape.runtime;
-				if( runtime != null ) {
+				if( runtime ) {
 					runtime.onPointerMove( lastOverShape, e );
 				}
 			} else {
 				this._lastOverShape = found;
 
 				// Previous
-				if( lastOverShape != null ) {
+				if( lastOverShape ) {
 					const previousRuntime = lastOverShape.runtime;
-					if( previousRuntime != null ) {
+					if( previousRuntime ) {
 						previousRuntime.onPointerOut( lastOverShape, e );
 					}
 
@@ -188,7 +190,7 @@ export class DDiagramCanvas<
 					let lastOverParent = lastOverShape.parent;
 					while( (lastOverParent instanceof EShapeBase) && lastOverParent !== found ) {
 						const parentRuntime = lastOverShape.runtime;
-						if( parentRuntime != null ) {
+						if( parentRuntime ) {
 							parentRuntime.onPointerOut( lastOverParent, e );
 						}
 						lastOverParent = lastOverParent.parent;
@@ -197,7 +199,7 @@ export class DDiagramCanvas<
 
 				// Next
 				const runtime = found.runtime;
-				if( runtime != null ) {
+				if( runtime ) {
 					runtime.onPointerOver( found, e );
 				}
 				if( layer ) {
@@ -208,7 +210,7 @@ export class DDiagramCanvas<
 				let parent = found.parent;
 				while( parent instanceof EShapeBase ) {
 					const parentRuntime = parent.runtime;
-					if( parentRuntime != null ) {
+					if( parentRuntime ) {
 						parentRuntime.onPointerOver( parent, e );
 					}
 					parent = parent.parent;
@@ -224,9 +226,9 @@ export class DDiagramCanvas<
 			// Previous
 			const lastOverShape = this._lastOverShape;
 			this._lastOverShape = null;
-			if( lastOverShape != null ) {
+			if( lastOverShape ) {
 				const runtime = lastOverShape.runtime;
-				if( runtime != null ) {
+				if( runtime ) {
 					runtime.onPointerOut( lastOverShape, e );
 				}
 
@@ -234,7 +236,7 @@ export class DDiagramCanvas<
 				let lastOverParent = lastOverShape.parent;
 				while( lastOverParent instanceof EShapeBase ) {
 					const parentRuntime = lastOverParent.runtime;
-					if( parentRuntime != null ) {
+					if( parentRuntime ) {
 						parentRuntime.onPointerOut( lastOverParent, e );
 					}
 					lastOverParent = lastOverParent.parent;
@@ -253,14 +255,14 @@ export class DDiagramCanvas<
 	onShapeDown( e: interaction.InteractionEvent ): boolean {
 		const interactives = this.interactives;
 		const global = e.data.global;
-		const work = this._work;
+		const local = this._workLocal;
 		for( let i = interactives.length - 1; 0 <= i; --i ) {
 			const interactive = interactives[ i ];
 			if( interactive.visible ) {
-				const local = interactive.toLocal( global, undefined, work );
-				if( interactive.contains( local ) != null ) {
+				interactive.toLocal( global, undefined, local );
+				if( interactive.contains( local ) ) {
 					const runtime = interactive.runtime;
-					if( runtime != null ) {
+					if( runtime ) {
 						runtime.onPointerDown( interactive, e );
 					}
 					return true;
@@ -273,14 +275,14 @@ export class DDiagramCanvas<
 	onShapeUp( e: interaction.InteractionEvent ): boolean {
 		const interactives = this.interactives;
 		const global = e.data.global;
-		const work = this._work;
+		const local = this._workLocal;
 		for( let i = interactives.length - 1; 0 <= i; --i ) {
 			const interactive = interactives[ i ];
 			if( interactive.visible ) {
-				const local = interactive.toLocal( global, undefined, work );
-				if( interactive.contains( local ) != null ) {
+				interactive.toLocal( global, undefined, local );
+				if( interactive.contains( local ) ) {
 					const runtime = interactive.runtime;
-					if( runtime != null ) {
+					if( runtime ) {
 						runtime.onPointerUp( interactive, e );
 					}
 					return true;
@@ -293,17 +295,46 @@ export class DDiagramCanvas<
 	onShapeClick( e: interaction.InteractionEvent ): boolean {
 		const interactives = this.interactives;
 		const global = e.data.global;
-		const work = this._work;
+		const local = this._workLocal;
 		for( let i = interactives.length - 1; 0 <= i; --i ) {
-			const clickable = interactives[ i ];
-			if( clickable.visible ) {
-				const clickableLocal = clickable.toLocal( global, undefined, work );
-				if( clickable.contains( clickableLocal ) != null ) {
-					let target: EShape = clickable;
+			const interactive = interactives[ i ];
+			if( interactive.visible ) {
+				interactive.toLocal( global, undefined, local );
+				if( interactive.contains( local ) ) {
+					let target: EShape = interactive;
 					while( true ) {
 						const runtime = target.runtime;
-						if( runtime != null ) {
+						if( runtime ) {
 							runtime.onPointerClick( target, e );
+						}
+						const parent = target.parent;
+						if( parent instanceof EShapeBase ) {
+							target = parent;
+						} else {
+							break;
+						}
+					}
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	onShapeDblClick( e: MouseEvent | TouchEvent, interactionManager: interaction.InteractionManager ): boolean {
+		const interactives = this.interactives;
+		const global = UtilPointerEvent.toGlobal( e, interactionManager, this._workGlobal );
+		const local = this._workLocal;
+		for( let i = interactives.length - 1; 0 <= i; --i ) {
+			const interactive = interactives[ i ];
+			if( interactive.visible ) {
+				interactive.toLocal( global, undefined, local );
+				if( interactive.contains( local ) ) {
+					let target: EShape = interactive;
+					while( true ) {
+						const runtime = target.runtime;
+						if( runtime ) {
+							runtime.onPointerDblClick( target, e );
 						}
 						const parent = target.parent;
 						if( parent instanceof EShapeBase ) {

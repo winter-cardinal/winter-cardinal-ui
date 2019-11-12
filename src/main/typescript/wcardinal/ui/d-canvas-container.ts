@@ -180,6 +180,11 @@ export class DCanvasContainer<
 		return vresult || sresult;
 	}
 
+	protected onDown( e: interaction.InteractionEvent ): void {
+		this._view.onDown( e );
+		super.onDown( e );
+	}
+
 	destroy(): void {
 		// Overflow mask
 		const overflowMask = this._overflowMask;

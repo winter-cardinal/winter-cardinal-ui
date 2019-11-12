@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Mesh, MeshMaterial, Texture } from "pixi.js";
+import { Mesh, MeshMaterial, Renderer, Texture } from "pixi.js";
 import { DBaseBorderMeshGeometry } from "./d-base-border-mesh-geometry";
 import { DBorderMask } from "./d-border";
 import { DCornerMask } from "./d-corner";
@@ -70,7 +70,7 @@ export class DBaseBorderMesh extends Mesh {
 		this.geometry.cornerMask = cornerMask;
 	}
 
-	protected _render( renderer: PIXI.Renderer ): void {
+	protected _render( renderer: Renderer ): void {
 		this.geometry.update();
 		super._render( renderer );
 	}

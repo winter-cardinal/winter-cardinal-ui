@@ -227,19 +227,22 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 	}
 
 	render(): void {
-		const oldRenderId = this._renderId;
-		this._renderId = null;
-		this.onRendering();
-		const newRenderId = this._renderId;
-		this._renderId = oldRenderId;
 		this.refit();
 		this.reflow();
-		super.render();
-		this._renderId = newRenderId;
-	}
 
-	protected onRendering(): void {
-		// DO NOTHING
+		// Please note why the following line is here.
+		//
+		// Before this line, the update method does not enque a rendering task
+		// because `this._renderId` is not null. As a result, this prevents
+		// an unintentional rendering loop caused by the refit or the reflow.
+		//
+		// After this line, the update method enques a rendering task.
+		// Namely, in the DisplayObject#render(Renderer) method, allowed to enque
+		// a rendering task. For instance, please refer to the DDiagramShape#update().
+		this._renderId = null;
+
+		// Render
+		super.render();
 	}
 
 	get width(): number {

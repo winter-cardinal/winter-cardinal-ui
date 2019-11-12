@@ -92,7 +92,7 @@ export class EShapeRuntime {
 		}
 	}
 
-	onPointerDblClick( shape: EShape, e?: MouseEvent ): boolean {
+	onPointerDblClick( shape: EShape, e?: MouseEvent | TouchEvent ): boolean {
 		return false;
 	}
 
