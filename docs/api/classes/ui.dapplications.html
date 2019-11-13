@@ -82,14 +82,24 @@
 						<section class="tsd-index-section tsd-is-private-protected">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-static"><a href="ui.dapplications.html#instance" class="tsd-kind-icon">INSTANCE</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-static"><a href="ui.dapplications.html#instances" class="tsd-kind-icon">INSTANCES</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ui.dapplications.html#getinstance" class="tsd-kind-icon">get<wbr>Instance</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ui.dapplications.html#setinstace" class="tsd-kind-icon">set<wbr>Instace</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ui.dapplications.html#add" class="tsd-kind-icon">add</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ui.dapplications.html#find" class="tsd-kind-icon">find</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ui.dapplications.html#first" class="tsd-kind-icon">first</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ui.dapplications.html#get" class="tsd-kind-icon">get</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ui.dapplications.html#getlayer" class="tsd-kind-icon">get<wbr>Layer</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ui.dapplications.html#getlayerbase" class="tsd-kind-icon">get<wbr>Layer<wbr>Base</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ui.dapplications.html#getlayeroverlay" class="tsd-kind-icon">get<wbr>Layer<wbr>Overlay</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ui.dapplications.html#indexof" class="tsd-kind-icon">index<wbr>Of</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ui.dapplications.html#last" class="tsd-kind-icon">last</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ui.dapplications.html#render" class="tsd-kind-icon">render</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ui.dapplications.html#size" class="tsd-kind-icon">size</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-static"><a href="ui.dapplications.html#tostage" class="tsd-kind-icon">to<wbr>Stage</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ui.dapplications.html#update" class="tsd-kind-icon">update</a></li>
 							</ul>
 						</section>
@@ -99,12 +109,12 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-private-protected">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-static">
-					<a name="instance" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagProtected">Protected</span> INSTANCE</h3>
-					<div class="tsd-signature tsd-kind-icon">INSTANCE<span class="tsd-signature-symbol">:</span> <a href="ui.dapplication.html" class="tsd-signature-type">DApplication</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> =&nbsp;null</span></div>
+					<a name="instances" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagProtected">Protected</span> INSTANCES</h3>
+					<div class="tsd-signature tsd-kind-icon">INSTANCES<span class="tsd-signature-symbol">:</span> <a href="../interfaces/ui.dapplicationlike.html" class="tsd-signature-type">DApplicationLike</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-applications.ts#L9">d-applications.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-applications.ts#L11">d-applications.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -112,42 +122,275 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="getinstance" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> get<wbr>Instance</h3>
+					<a name="add" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> add</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Instance<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ui.dapplication.html" class="tsd-signature-type">DApplication</a></li>
+						<li class="tsd-signature tsd-kind-icon">add<span class="tsd-signature-symbol">(</span>instance<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.dapplicationlike.html" class="tsd-signature-type">DApplicationLike</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-applications.ts#L17">d-applications.ts:17</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="ui.dapplication.html" class="tsd-signature-type">DApplication</a></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="setinstace" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> set<wbr>Instace</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">set<wbr>Instace<span class="tsd-signature-symbol">(</span>instance<span class="tsd-signature-symbol">: </span><a href="ui.dapplication.html" class="tsd-signature-type">DApplication</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ui.dapplication.html" class="tsd-signature-type">DApplication</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-applications.ts#L11">d-applications.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-applications.ts#L13">d-applications.ts:13</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>instance: <a href="ui.dapplication.html" class="tsd-signature-type">DApplication</a></h5>
+									<h5>instance: <a href="../interfaces/ui.dapplicationlike.html" class="tsd-signature-type">DApplicationLike</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="ui.dapplication.html" class="tsd-signature-type">DApplication</a>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="find" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> find</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">find<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.dapplicationtarget.html" class="tsd-signature-type">DApplicationTarget</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.dapplicationlike.html" class="tsd-signature-type">DApplicationLike</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-applications.ts#L61">d-applications.ts:61</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>target: <a href="../interfaces/ui.dapplicationtarget.html" class="tsd-signature-type">DApplicationTarget</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/ui.dapplicationlike.html" class="tsd-signature-type">DApplicationLike</a>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">null</span>
+							</h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="first" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> first</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">first<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.dapplicationlike.html" class="tsd-signature-type">DApplicationLike</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-applications.ts#L18">d-applications.ts:18</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/ui.dapplicationlike.html" class="tsd-signature-type">DApplicationLike</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="get" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> get</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.dapplicationlike.html" class="tsd-signature-type">DApplicationLike</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-applications.ts#L34">d-applications.ts:34</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>index: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/ui.dapplicationlike.html" class="tsd-signature-type">DApplicationLike</a>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">null</span>
+							</h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="getlayer" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> get<wbr>Layer</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Layer<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.dapplicationtarget.html" class="tsd-signature-type">DApplicationTarget</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.dapplicationlayerlike.html" class="tsd-signature-type">DApplicationLayerLike</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-applications.ts#L85">d-applications.ts:85</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>target: <a href="../interfaces/ui.dapplicationtarget.html" class="tsd-signature-type">DApplicationTarget</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/ui.dapplicationlayerlike.html" class="tsd-signature-type">DApplicationLayerLike</a>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">null</span>
+							</h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="getlayerbase" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> get<wbr>Layer<wbr>Base</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Layer<wbr>Base<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.dapplicationtarget.html" class="tsd-signature-type">DApplicationTarget</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.dapplicationlayerlike.html" class="tsd-signature-type">DApplicationLayerLike</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-applications.ts#L69">d-applications.ts:69</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>target: <a href="../interfaces/ui.dapplicationtarget.html" class="tsd-signature-type">DApplicationTarget</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/ui.dapplicationlayerlike.html" class="tsd-signature-type">DApplicationLayerLike</a>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">null</span>
+							</h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="getlayeroverlay" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> get<wbr>Layer<wbr>Overlay</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Layer<wbr>Overlay<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.dapplicationtarget.html" class="tsd-signature-type">DApplicationTarget</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.dapplicationlayerlike.html" class="tsd-signature-type">DApplicationLayerLike</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-applications.ts#L77">d-applications.ts:77</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>target: <a href="../interfaces/ui.dapplicationtarget.html" class="tsd-signature-type">DApplicationTarget</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/ui.dapplicationlayerlike.html" class="tsd-signature-type">DApplicationLayerLike</a>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">null</span>
+							</h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="indexof" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> index<wbr>Of</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">index<wbr>Of<span class="tsd-signature-symbol">(</span>instance<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.dapplicationlike.html" class="tsd-signature-type">DApplicationLike</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-applications.ts#L42">d-applications.ts:42</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>instance: <a href="../interfaces/ui.dapplicationlike.html" class="tsd-signature-type">DApplicationLike</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="last" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> last</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">last<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.dapplicationlike.html" class="tsd-signature-type">DApplicationLike</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-applications.ts#L26">d-applications.ts:26</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/ui.dapplicationlike.html" class="tsd-signature-type">DApplicationLike</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="render" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> render</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">render<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">?: </span><a href="../interfaces/ui.dapplicationtarget.html" class="tsd-signature-type">DApplicationTarget</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-applications.ts#L107">d-applications.ts:107</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> target: <a href="../interfaces/ui.dapplicationtarget.html" class="tsd-signature-type">DApplicationTarget</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="size" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> size</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">size<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-applications.ts#L46">d-applications.ts:46</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-static">
+					<a name="tostage" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagProtected">Protected</span> to<wbr>Stage</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>Stage<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.dapplicationtarget.html" class="tsd-signature-type">DApplicationTarget</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.dapplicationlayerstagelike.html" class="tsd-signature-type">DApplicationLayerStageLike</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-applications.ts#L50">d-applications.ts:50</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>target: <a href="../interfaces/ui.dapplicationtarget.html" class="tsd-signature-type">DApplicationTarget</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/ui.dapplicationlayerstagelike.html" class="tsd-signature-type">DApplicationLayerStageLike</a>
 								<span class="tsd-signature-symbol"> | </span>
 								<span class="tsd-signature-type">null</span>
 							</h4>
@@ -158,15 +401,21 @@
 					<a name="update" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> update</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">update<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">update<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">?: </span><a href="../interfaces/ui.dapplicationtarget.html" class="tsd-signature-type">DApplicationTarget</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-applications.ts#L24">d-applications.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-applications.ts#L93">d-applications.ts:93</a></li>
 								</ul>
 							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> target: <a href="../interfaces/ui.dapplicationtarget.html" class="tsd-signature-type">DApplicationTarget</a></h5>
+								</li>
+							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -222,13 +471,43 @@
 						<a href="ui.dapplications.html" class="tsd-kind-icon">DApplications</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-static">
-								<a href="ui.dapplications.html#instance" class="tsd-kind-icon">INSTANCE</a>
+								<a href="ui.dapplications.html#instances" class="tsd-kind-icon">INSTANCES</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="ui.dapplications.html#getinstance" class="tsd-kind-icon">get<wbr>Instance</a>
+								<a href="ui.dapplications.html#add" class="tsd-kind-icon">add</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="ui.dapplications.html#setinstace" class="tsd-kind-icon">set<wbr>Instace</a>
+								<a href="ui.dapplications.html#find" class="tsd-kind-icon">find</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="ui.dapplications.html#first" class="tsd-kind-icon">first</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="ui.dapplications.html#get" class="tsd-kind-icon">get</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="ui.dapplications.html#getlayer" class="tsd-kind-icon">get<wbr>Layer</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="ui.dapplications.html#getlayerbase" class="tsd-kind-icon">get<wbr>Layer<wbr>Base</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="ui.dapplications.html#getlayeroverlay" class="tsd-kind-icon">get<wbr>Layer<wbr>Overlay</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="ui.dapplications.html#indexof" class="tsd-kind-icon">index<wbr>Of</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="ui.dapplications.html#last" class="tsd-kind-icon">last</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="ui.dapplications.html#render" class="tsd-kind-icon">render</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="ui.dapplications.html#size" class="tsd-kind-icon">size</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-static">
+								<a href="ui.dapplications.html#tostage" class="tsd-kind-icon">to<wbr>Stage</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="ui.dapplications.html#update" class="tsd-kind-icon">update</a>

@@ -20,7 +20,7 @@
 		"build": "rimraf dist && rimraf src/test/resources/META-INF && tsc && rollup -c",
 		"build:ts": "tsc",
 		"build:rollup": "rollup -c",
-		"build:api": "typedoc --options typedoc.json --out docs/api --disableOutputCheck --excludeNotExported --excludePrivate",
+		"build:api": "rimraf docs/api && typedoc --options typedoc.json --out docs/api --disableOutputCheck --excludeNotExported --excludePrivate",
 		"watch:ts": "tsc -w",
 		"watch:rollup": "rollup -c -w",
 		"prepublishOnly": "npm run build"

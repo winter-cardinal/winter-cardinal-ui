@@ -102,6 +102,7 @@
 						<section class="tsd-index-section tsd-is-private-protected">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ui.dcanvascontainerview.html#_dblclickzoomchecker" class="tsd-kind-icon">_dbl<wbr>Click<wbr>Zoom<wbr>Checker</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ui.dcanvascontainerview.html#_dblclickzoommodifier" class="tsd-kind-icon">_dbl<wbr>Click<wbr>Zoom<wbr>Modifier</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ui.dcanvascontainerview.html#_dblclickzoomspeed" class="tsd-kind-icon">_dbl<wbr>Click<wbr>Zoom<wbr>Speed</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ui.dcanvascontainerview.html#_dblclickzoomduration" class="tsd-kind-icon">_dblclick<wbr>Zoom<wbr>Duration</a></li>
@@ -111,8 +112,10 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ui.dcanvascontainerview.html#_iswheelzoomenabled" class="tsd-kind-icon">_is<wbr>Wheel<wbr>Zoom<wbr>Enabled</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ui.dcanvascontainerview.html#_parent" class="tsd-kind-icon">_parent</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ui.dcanvascontainerview.html#_transform" class="tsd-kind-icon">_transform</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ui.dcanvascontainerview.html#_wheeltranslationchecker" class="tsd-kind-icon">_wheel<wbr>Translation<wbr>Checker</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ui.dcanvascontainerview.html#_wheeltranslationmodifier" class="tsd-kind-icon">_wheel<wbr>Translation<wbr>Modifier</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ui.dcanvascontainerview.html#_wheeltranslationspeed" class="tsd-kind-icon">_wheel<wbr>Translation<wbr>Speed</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ui.dcanvascontainerview.html#_wheelzoomchecker" class="tsd-kind-icon">_wheel<wbr>Zoom<wbr>Checker</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ui.dcanvascontainerview.html#_wheelzoommodifier" class="tsd-kind-icon">_wheel<wbr>Zoom<wbr>Modifier</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ui.dcanvascontainerview.html#_wheelzoomspeed" class="tsd-kind-icon">_wheel<wbr>Zoom<wbr>Speed</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ui.dcanvascontainerview.html#_zoommax" class="tsd-kind-icon">_zoom<wbr>Max</a></li>
@@ -134,6 +137,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ui.dcanvascontainerview.html#fit" class="tsd-kind-icon">fit</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ui.dcanvascontainerview.html#moveto" class="tsd-kind-icon">move<wbr>To</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ui.dcanvascontainerview.html#ondblclick" class="tsd-kind-icon">on<wbr>Dbl<wbr>Click</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ui.dcanvascontainerview.html#ondown" class="tsd-kind-icon">on<wbr>Down</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ui.dcanvascontainerview.html#onwheel" class="tsd-kind-icon">on<wbr>Wheel</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ui.dcanvascontainerview.html#reset" class="tsd-kind-icon">reset</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ui.dcanvascontainerview.html#stop" class="tsd-kind-icon">stop</a></li>
@@ -163,7 +167,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L47">d-canvas-container-view.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L53">d-canvas-container-view.ts:53</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -186,12 +190,22 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-private-protected">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a name="_dblclickzoomchecker" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> _dbl<wbr>Click<wbr>Zoom<wbr>Checker</h3>
+					<div class="tsd-signature tsd-kind-icon">_dbl<wbr>Click<wbr>Zoom<wbr>Checker<span class="tsd-signature-symbol">:</span> <a href="../modules/ui.html#dcanvascontainerviewchecker" class="tsd-signature-type">DCanvasContainerViewChecker</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L44">d-canvas-container-view.ts:44</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 					<a name="_dblclickzoommodifier" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> _dbl<wbr>Click<wbr>Zoom<wbr>Modifier</h3>
 					<div class="tsd-signature tsd-kind-icon">_dbl<wbr>Click<wbr>Zoom<wbr>Modifier<span class="tsd-signature-symbol">:</span> <a href="../enums/ui.dmousemodifier.html" class="tsd-signature-type">DMouseModifier</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L39">d-canvas-container-view.ts:39</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L43">d-canvas-container-view.ts:43</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -201,7 +215,7 @@
 					<div class="tsd-signature tsd-kind-icon">_dbl<wbr>Click<wbr>Zoom<wbr>Speed<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L38">d-canvas-container-view.ts:38</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L42">d-canvas-container-view.ts:42</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -211,7 +225,7 @@
 					<div class="tsd-signature tsd-kind-icon">_dblclick<wbr>Zoom<wbr>Duration<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L40">d-canvas-container-view.ts:40</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L45">d-canvas-container-view.ts:45</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -221,7 +235,7 @@
 					<div class="tsd-signature tsd-kind-icon">_drag<span class="tsd-signature-symbol">:</span> <a href="ui.dcanvascontainerviewdrag.html" class="tsd-signature-type">DCanvasContainerViewDrag</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">CANVAS</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">THEME</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">OPTIONS</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L47">d-canvas-container-view.ts:47</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L53">d-canvas-container-view.ts:53</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -231,7 +245,7 @@
 					<div class="tsd-signature tsd-kind-icon">_is<wbr>Dbl<wbr>Click<wbr>Zoom<wbr>Enabled<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L37">d-canvas-container-view.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L41">d-canvas-container-view.ts:41</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -241,7 +255,7 @@
 					<div class="tsd-signature tsd-kind-icon">_is<wbr>Wheel<wbr>Translation<wbr>Enabled<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L42">d-canvas-container-view.ts:42</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L47">d-canvas-container-view.ts:47</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -251,7 +265,7 @@
 					<div class="tsd-signature tsd-kind-icon">_is<wbr>Wheel<wbr>Zoom<wbr>Enabled<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L33">d-canvas-container-view.ts:33</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L36">d-canvas-container-view.ts:36</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -261,7 +275,7 @@
 					<div class="tsd-signature tsd-kind-icon">_parent<span class="tsd-signature-symbol">:</span> <a href="../interfaces/ui.dcanvascontainerviewparent.html" class="tsd-signature-type">DCanvasContainerViewParent</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">CANVAS</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L27">d-canvas-container-view.ts:27</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L30">d-canvas-container-view.ts:30</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -271,7 +285,17 @@
 					<div class="tsd-signature tsd-kind-icon">_transform<span class="tsd-signature-symbol">:</span> <a href="ui.dcanvascontainerviewtransform.html" class="tsd-signature-type">DCanvasContainerViewTransform</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">CANVAS</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L46">d-canvas-container-view.ts:46</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L52">d-canvas-container-view.ts:52</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a name="_wheeltranslationchecker" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> _wheel<wbr>Translation<wbr>Checker</h3>
+					<div class="tsd-signature tsd-kind-icon">_wheel<wbr>Translation<wbr>Checker<span class="tsd-signature-symbol">:</span> <a href="../modules/ui.html#dcanvascontainerviewchecker" class="tsd-signature-type">DCanvasContainerViewChecker</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L50">d-canvas-container-view.ts:50</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -281,7 +305,7 @@
 					<div class="tsd-signature tsd-kind-icon">_wheel<wbr>Translation<wbr>Modifier<span class="tsd-signature-symbol">:</span> <a href="../enums/ui.dmousemodifier.html" class="tsd-signature-type">DMouseModifier</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L44">d-canvas-container-view.ts:44</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L49">d-canvas-container-view.ts:49</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -291,7 +315,17 @@
 					<div class="tsd-signature tsd-kind-icon">_wheel<wbr>Translation<wbr>Speed<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L43">d-canvas-container-view.ts:43</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L48">d-canvas-container-view.ts:48</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a name="_wheelzoomchecker" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> _wheel<wbr>Zoom<wbr>Checker</h3>
+					<div class="tsd-signature tsd-kind-icon">_wheel<wbr>Zoom<wbr>Checker<span class="tsd-signature-symbol">:</span> <a href="../modules/ui.html#dcanvascontainerviewchecker" class="tsd-signature-type">DCanvasContainerViewChecker</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L39">d-canvas-container-view.ts:39</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -301,7 +335,7 @@
 					<div class="tsd-signature tsd-kind-icon">_wheel<wbr>Zoom<wbr>Modifier<span class="tsd-signature-symbol">:</span> <a href="../enums/ui.dmousemodifier.html" class="tsd-signature-type">DMouseModifier</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L35">d-canvas-container-view.ts:35</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L38">d-canvas-container-view.ts:38</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -311,7 +345,7 @@
 					<div class="tsd-signature tsd-kind-icon">_wheel<wbr>Zoom<wbr>Speed<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L34">d-canvas-container-view.ts:34</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L37">d-canvas-container-view.ts:37</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -321,7 +355,7 @@
 					<div class="tsd-signature tsd-kind-icon">_zoom<wbr>Max<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L31">d-canvas-container-view.ts:31</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L34">d-canvas-container-view.ts:34</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -331,7 +365,7 @@
 					<div class="tsd-signature tsd-kind-icon">_zoom<wbr>Min<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L30">d-canvas-container-view.ts:30</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L33">d-canvas-container-view.ts:33</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -341,7 +375,7 @@
 					<div class="tsd-signature tsd-kind-icon">_zoom<wbr>Point<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Point</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L29">d-canvas-container-view.ts:29</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L32">d-canvas-container-view.ts:32</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -358,7 +392,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L113">d-canvas-container-view.ts:113</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L122">d-canvas-container-view.ts:122</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="ui.dcanvascontainerviewdrag.html" class="tsd-signature-type">DCanvasContainerViewDrag</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">CANVAS</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">THEME</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">OPTIONS</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -369,28 +403,28 @@
 					<a name="position" class="tsd-anchor"></a>
 					<h3>position</h3>
 					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> position<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PIXI.IPoint</span></li>
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> position<span class="tsd-signature-symbol">(</span>position<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PIXI.IPoint</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> position<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IPoint</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> position<span class="tsd-signature-symbol">(</span>position<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IPoint</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L223">d-canvas-container-view.ts:223</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L232">d-canvas-container-view.ts:232</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">PIXI.IPoint</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">IPoint</span></h4>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L232">d-canvas-container-view.ts:232</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L241">d-canvas-container-view.ts:241</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>position: <span class="tsd-signature-type">PIXI.IPoint</span></h5>
+									<h5>position: <span class="tsd-signature-type">IPoint</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -408,7 +442,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L196">d-canvas-container-view.ts:196</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L205">d-canvas-container-view.ts:205</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -416,7 +450,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L206">d-canvas-container-view.ts:206</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L215">d-canvas-container-view.ts:215</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -442,7 +476,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L132">d-canvas-container-view.ts:132</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L141">d-canvas-container-view.ts:141</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -468,7 +502,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L215">d-canvas-container-view.ts:215</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L224">d-canvas-container-view.ts:224</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -494,13 +528,13 @@
 					<a name="ondblclick" class="tsd-anchor"></a>
 					<h3>on<wbr>Dbl<wbr>Click</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">on<wbr>Dbl<wbr>Click<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">MouseEvent</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">TouchEvent</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Dbl<wbr>Click<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">MouseEvent</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">TouchEvent</span>, interactionManager<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">InteractionManager</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L286">d-canvas-container-view.ts:286</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L301">d-canvas-container-view.ts:301</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -508,8 +542,34 @@
 								<li>
 									<h5>e: <span class="tsd-signature-type">MouseEvent</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">TouchEvent</span></h5>
 								</li>
+								<li>
+									<h5>interactionManager: <span class="tsd-signature-type">InteractionManager</span></h5>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="ondown" class="tsd-anchor"></a>
+					<h3>on<wbr>Down</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Down<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">InteractionEvent</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L297">d-canvas-container-view.ts:297</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>e: <span class="tsd-signature-type">InteractionEvent</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -523,7 +583,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L259">d-canvas-container-view.ts:259</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L268">d-canvas-container-view.ts:268</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -552,7 +612,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L122">d-canvas-container-view.ts:122</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L131">d-canvas-container-view.ts:131</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -578,7 +638,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L117">d-canvas-container-view.ts:117</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L126">d-canvas-container-view.ts:126</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -589,28 +649,28 @@
 					<a name="toglobal" class="tsd-anchor"></a>
 					<h3>to<wbr>Global</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">to<wbr>Global<span class="tsd-signature-symbol">(</span>local<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PIXI.IPoint</span>, global<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PIXI.IPoint</span>, skipUpdate<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PIXI.IPoint</span></li>
+						<li class="tsd-signature tsd-kind-icon">to<wbr>Global<span class="tsd-signature-symbol">(</span>local<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IPoint</span>, global<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IPoint</span>, skipUpdate<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IPoint</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L251">d-canvas-container-view.ts:251</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L260">d-canvas-container-view.ts:260</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>local: <span class="tsd-signature-type">PIXI.IPoint</span></h5>
+									<h5>local: <span class="tsd-signature-type">IPoint</span></h5>
 								</li>
 								<li>
-									<h5>global: <span class="tsd-signature-type">PIXI.IPoint</span></h5>
+									<h5>global: <span class="tsd-signature-type">IPoint</span></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> skipUpdate: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">PIXI.IPoint</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">IPoint</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -618,28 +678,28 @@
 					<a name="tolocal" class="tsd-anchor"></a>
 					<h3>to<wbr>Local</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">to<wbr>Local<span class="tsd-signature-symbol">(</span>global<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PIXI.IPoint</span>, local<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PIXI.IPoint</span>, skipUpdate<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PIXI.IPoint</span></li>
+						<li class="tsd-signature tsd-kind-icon">to<wbr>Local<span class="tsd-signature-symbol">(</span>global<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IPoint</span>, local<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IPoint</span>, skipUpdate<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IPoint</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L247">d-canvas-container-view.ts:247</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L256">d-canvas-container-view.ts:256</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>global: <span class="tsd-signature-type">PIXI.IPoint</span></h5>
+									<h5>global: <span class="tsd-signature-type">IPoint</span></h5>
 								</li>
 								<li>
-									<h5>local: <span class="tsd-signature-type">PIXI.IPoint</span></h5>
+									<h5>local: <span class="tsd-signature-type">IPoint</span></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> skipUpdate: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">PIXI.IPoint</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">IPoint</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -653,7 +713,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L255">d-canvas-container-view.ts:255</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L264">d-canvas-container-view.ts:264</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -676,7 +736,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L240">d-canvas-container-view.ts:240</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L249">d-canvas-container-view.ts:249</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -711,7 +771,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L191">d-canvas-container-view.ts:191</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L200">d-canvas-container-view.ts:200</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -740,7 +800,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L166">d-canvas-container-view.ts:166</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L175">d-canvas-container-view.ts:175</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -786,7 +846,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L184">d-canvas-container-view.ts:184</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L193">d-canvas-container-view.ts:193</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -821,7 +881,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L152">d-canvas-container-view.ts:152</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L161">d-canvas-container-view.ts:161</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -847,7 +907,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/684cb2c/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L156">d-canvas-container-view.ts:156</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/f149947/src/main/typescript/wcardinal/ui/d-canvas-container-view.ts#L165">d-canvas-container-view.ts:165</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -917,6 +977,9 @@
 								<a href="ui.dcanvascontainerview.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+								<a href="ui.dcanvascontainerview.html#_dblclickzoomchecker" class="tsd-kind-icon">_dbl<wbr>Click<wbr>Zoom<wbr>Checker</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 								<a href="ui.dcanvascontainerview.html#_dblclickzoommodifier" class="tsd-kind-icon">_dbl<wbr>Click<wbr>Zoom<wbr>Modifier</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
@@ -944,10 +1007,16 @@
 								<a href="ui.dcanvascontainerview.html#_transform" class="tsd-kind-icon">_transform</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+								<a href="ui.dcanvascontainerview.html#_wheeltranslationchecker" class="tsd-kind-icon">_wheel<wbr>Translation<wbr>Checker</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 								<a href="ui.dcanvascontainerview.html#_wheeltranslationmodifier" class="tsd-kind-icon">_wheel<wbr>Translation<wbr>Modifier</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 								<a href="ui.dcanvascontainerview.html#_wheeltranslationspeed" class="tsd-kind-icon">_wheel<wbr>Translation<wbr>Speed</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+								<a href="ui.dcanvascontainerview.html#_wheelzoomchecker" class="tsd-kind-icon">_wheel<wbr>Zoom<wbr>Checker</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 								<a href="ui.dcanvascontainerview.html#_wheelzoommodifier" class="tsd-kind-icon">_wheel<wbr>Zoom<wbr>Modifier</a>
@@ -981,6 +1050,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="ui.dcanvascontainerview.html#ondblclick" class="tsd-kind-icon">on<wbr>Dbl<wbr>Click</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="ui.dcanvascontainerview.html#ondown" class="tsd-kind-icon">on<wbr>Down</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="ui.dcanvascontainerview.html#onwheel" class="tsd-kind-icon">on<wbr>Wheel</a>
