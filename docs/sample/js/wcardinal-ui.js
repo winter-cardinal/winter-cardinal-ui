@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.2.4
+ Winter Cardinal UI v0.3.1
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -45,21 +45,104 @@
     var DApplications = /** @class */ (function () {
         function DApplications() {
         }
-        DApplications.setInstace = function (instance) {
-            var result = DApplications.INSTANCE;
-            DApplications.INSTANCE = instance;
-            return result;
+        DApplications.add = function (instance) {
+            var instances = DApplications.INSTANCES;
+            instances.push(instance);
         };
-        DApplications.getInstance = function () {
-            if (DApplications.INSTANCE == null) {
-                throw new Error("Must create a DApplication instance at first");
+        DApplications.first = function () {
+            var instances = DApplications.INSTANCES;
+            if (0 < instances.length) {
+                return instances[0];
             }
-            return DApplications.INSTANCE;
+            throw new Error("No application found.");
         };
-        DApplications.update = function () {
-            this.getInstance().update();
+        DApplications.last = function () {
+            var instances = DApplications.INSTANCES;
+            if (0 < instances.length) {
+                return instances[instances.length - 1];
+            }
+            throw new Error("No application found.");
         };
-        DApplications.INSTANCE = null;
+        DApplications.get = function (index) {
+            var instances = DApplications.INSTANCES;
+            if (0 <= index && index < instances.length) {
+                return instances[index];
+            }
+            return null;
+        };
+        DApplications.indexOf = function (instance) {
+            return DApplications.INSTANCES.indexOf(instance);
+        };
+        DApplications.size = function () {
+            return DApplications.INSTANCES.length;
+        };
+        DApplications.toStage = function (target) {
+            var stage = target;
+            while (stage.parent) {
+                stage = stage.parent;
+            }
+            if (("application" in stage) && ("layer" in stage)) {
+                return stage;
+            }
+            return null;
+        };
+        DApplications.find = function (target) {
+            var stage = this.toStage(target);
+            if (stage) {
+                return stage.layer.application;
+            }
+            return null;
+        };
+        DApplications.getLayerBase = function (target) {
+            var stage = this.toStage(target);
+            if (stage) {
+                return stage.layer.application.getLayerBase();
+            }
+            return null;
+        };
+        DApplications.getLayerOverlay = function (target) {
+            var stage = this.toStage(target);
+            if (stage) {
+                return stage.layer.application.getLayerOverlay();
+            }
+            return null;
+        };
+        DApplications.getLayer = function (target) {
+            var stage = this.toStage(target);
+            if (stage) {
+                return stage.layer;
+            }
+            return null;
+        };
+        DApplications.update = function (target) {
+            if (target) {
+                var stage = this.toStage(target);
+                if (stage) {
+                    stage.layer.update();
+                }
+            }
+            else {
+                var instances = DApplications.INSTANCES;
+                for (var i = 0, imax = instances.length; i < imax; ++i) {
+                    instances[i].update();
+                }
+            }
+        };
+        DApplications.render = function (target) {
+            if (target) {
+                var stage = this.toStage(target);
+                if (stage) {
+                    stage.layer.render();
+                }
+            }
+            else {
+                var instances = DApplications.INSTANCES;
+                for (var i = 0, imax = instances.length; i < imax; ++i) {
+                    instances[i].render();
+                }
+            }
+        };
+        DApplications.INSTANCES = [];
         return DApplications;
     }());
 
@@ -1810,836 +1893,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DCommandFlag;
-    (function (DCommandFlag) {
-        DCommandFlag[DCommandFlag["NONE"] = 0] = "NONE";
-        /**
-         * Commands with a `UNSTORABLE` flag will not be queued to the `done` queue.
-         */
-        DCommandFlag[DCommandFlag["UNSTORABLE"] = 1] = "UNSTORABLE";
-        /**
-         * Commands with a `CLEAR` flag clears the command queue.
-         */
-        DCommandFlag[DCommandFlag["CLEAR"] = 2] = "CLEAR";
-    })(DCommandFlag || (DCommandFlag = {}));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DCommandClear = /** @class */ (function () {
-        function DCommandClear() {
-        }
-        DCommandClear.prototype.execute = function () {
-            return true;
-        };
-        DCommandClear.prototype.redo = function () {
-            throw new Error("Method not implemented.");
-        };
-        DCommandClear.prototype.undo = function () {
-            throw new Error("Method not implemented.");
-        };
-        DCommandClear.prototype.destroy = function () {
-            // DO NOTHING
-        };
-        DCommandClear.prototype.getFlag = function () {
-            return DCommandFlag.UNSTORABLE | DCommandFlag.CLEAR;
-        };
-        return DCommandClear;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DCommandRedo = /** @class */ (function () {
-        function DCommandRedo() {
-        }
-        DCommandRedo.prototype.execute = function () {
-            throw new Error("Not supported");
-        };
-        DCommandRedo.prototype.redo = function () {
-            throw new Error("Not supported");
-        };
-        DCommandRedo.prototype.undo = function () {
-            throw new Error("Not supported");
-        };
-        DCommandRedo.prototype.destroy = function () {
-            // DO NOTHING
-        };
-        DCommandRedo.prototype.getFlag = function () {
-            return DCommandFlag.UNSTORABLE;
-        };
-        return DCommandRedo;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DCommandUndo = /** @class */ (function () {
-        function DCommandUndo() {
-        }
-        DCommandUndo.prototype.execute = function () {
-            throw new Error("Not supported");
-        };
-        DCommandUndo.prototype.redo = function () {
-            throw new Error("Not supported");
-        };
-        DCommandUndo.prototype.undo = function () {
-            throw new Error("Not supported");
-        };
-        DCommandUndo.prototype.destroy = function () {
-            // DO NOTHING
-        };
-        DCommandUndo.prototype.getFlag = function () {
-            return DCommandFlag.UNSTORABLE;
-        };
-        return DCommandUndo;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var isCommandStorable = function (command) {
-        return (command.getFlag() & DCommandFlag.UNSTORABLE) === 0;
-    };
-    var isCommandClear = function (command) {
-        return (command.getFlag() & DCommandFlag.CLEAR) !== 0;
-    };
-    var DControllerDefaultCommand = /** @class */ (function (_super) {
-        __extends(DControllerDefaultCommand, _super);
-        function DControllerDefaultCommand() {
-            var _this = _super.call(this) || this;
-            _this._position = 0;
-            _this._done = [];
-            _this._waiting = [];
-            _this._executing = null;
-            return _this;
-        }
-        DControllerDefaultCommand.prototype.last = function () {
-            var done = this._done;
-            var waiting = this._waiting;
-            if (waiting.length <= 0) {
-                if (0 < done.length) {
-                    return done[done.length - 1];
-                }
-                else {
-                    return null;
-                }
-            }
-            else {
-                return waiting[waiting.length - 1];
-            }
-        };
-        DControllerDefaultCommand.prototype.push = function (command) {
-            var waiting = this._waiting;
-            waiting.push(command);
-            this.next();
-        };
-        DControllerDefaultCommand.prototype.next = function () {
-            var _this = this;
-            if (this._executing == null) {
-                var waiting = this._waiting;
-                if (0 < waiting.length) {
-                    var command_1 = waiting.shift();
-                    if (command_1 != null) {
-                        if (command_1 instanceof DCommandUndo) {
-                            var done = this._done;
-                            if (this._position < done.length) {
-                                var current = done[done.length - 1 - this._position];
-                                this._position += 1;
-                                this.emit("change", this);
-                                var result = current.undo();
-                                if (result === true) {
-                                    this.onSuccess(command_1);
-                                }
-                                else if (result === false) {
-                                    this.onFail(command_1);
-                                }
-                                else {
-                                    this._executing = result.then(function () {
-                                        _this.onSuccess(command_1);
-                                    }, function () {
-                                        _this.onFail(command_1);
-                                    });
-                                }
-                            }
-                        }
-                        else if (command_1 instanceof DCommandRedo) {
-                            var done = this._done;
-                            if (0 < this._position) {
-                                var current = done[done.length - this._position];
-                                this._position -= 1;
-                                this.emit("change", this);
-                                var result = current.redo();
-                                if (result === true) {
-                                    this.onSuccess(command_1);
-                                }
-                                else if (result === false) {
-                                    this.onFail(command_1);
-                                }
-                                else {
-                                    this._executing = result.then(function () {
-                                        _this.onSuccess(command_1);
-                                    }, function () {
-                                        _this.onFail(command_1);
-                                    });
-                                }
-                            }
-                        }
-                        else {
-                            var isClear = isCommandClear(command_1);
-                            var isStorable = isCommandStorable(command_1);
-                            if (isClear || isStorable) {
-                                var size = (isClear ? this._done.length : this._position);
-                                if (0 < size) {
-                                    this.remove(size);
-                                    this._position = 0;
-                                    this.emit("change", this);
-                                }
-                                this.cleanup();
-                            }
-                            var result = command_1.execute();
-                            if (result === true) {
-                                this.onSuccess(command_1);
-                            }
-                            else if (result === false) {
-                                this.onFail(command_1);
-                            }
-                            else {
-                                this._executing = result.then(function () {
-                                    _this.onSuccess(command_1);
-                                }, function () {
-                                    _this.onFail(command_1);
-                                });
-                            }
-                        }
-                    }
-                }
-            }
-        };
-        DControllerDefaultCommand.prototype.cleanup = function () {
-            var done = this._done;
-            var size = done.length - 100;
-            if (0 < size) {
-                for (var i = 0; i < size; ++i) {
-                    done[i].destroy();
-                    done.shift();
-                }
-            }
-        };
-        DControllerDefaultCommand.prototype.remove = function (size) {
-            var done = this._done;
-            if (0 < size) {
-                var ifrom = Math.max(0, done.length - size);
-                size = done.length - ifrom;
-                if (0 < size) {
-                    for (var i = ifrom, imax = done.length; i < imax; ++i) {
-                        done[i].destroy();
-                    }
-                    done.splice(ifrom, done.length - ifrom);
-                    return true;
-                }
-            }
-            return false;
-        };
-        DControllerDefaultCommand.prototype.onSuccess = function (command) {
-            this._executing = null;
-            if (isCommandStorable(command)) {
-                this._done.push(command);
-                this.emit("dirty", this);
-            }
-            else if (command instanceof DCommandUndo || command instanceof DCommandRedo) {
-                this.emit("dirty", this);
-            }
-            this.emit("change", this);
-            this.next();
-        };
-        DControllerDefaultCommand.prototype.onFail = function (command) {
-            this._executing = null;
-            var waiting = this._waiting;
-            command.destroy();
-            for (var i = 0, imax = waiting.length; i < imax; ++i) {
-                waiting[i].destroy();
-            }
-            waiting.length = 0;
-            this.emit("change", this);
-        };
-        DControllerDefaultCommand.prototype.size = function () {
-            return this._done.length;
-        };
-        DControllerDefaultCommand.prototype.clear = function () {
-            this.push(new DCommandClear());
-        };
-        DControllerDefaultCommand.prototype.redo = function () {
-            if (this.isRedoable()) {
-                this._waiting.push(new DCommandRedo());
-                this.next();
-            }
-        };
-        DControllerDefaultCommand.prototype.undo = function () {
-            if (this.isUndoable()) {
-                this._waiting.push(new DCommandUndo());
-                this.next();
-            }
-        };
-        DControllerDefaultCommand.prototype.isRedoable = function () {
-            return (0 < this._position && this._executing == null);
-        };
-        DControllerDefaultCommand.prototype.isUndoable = function () {
-            return (this._position < this._done.length && this._executing == null);
-        };
-        return DControllerDefaultCommand;
-    }(pixi_js.utils.EventEmitter));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var isFocusable = function (target) {
-        return (target != null && ("setState" in target));
-    };
-    var isFocusableContainer = function (target) {
-        return (target != null && "children" in target);
-    };
-    var isSelectable = function (target) {
-        return (target != null && "select" in target);
-    };
-    var DControllerDefaultFocus = /** @class */ (function () {
-        function DControllerDefaultFocus() {
-            this._focused = null;
-        }
-        DControllerDefaultFocus.prototype.setFocused = function (focusable, isFocused, select) {
-            if (isFocused) {
-                var previous = this._focused;
-                if (previous !== focusable) {
-                    if (previous != null) {
-                        previous.setState(DBaseState.FOCUSED, false);
-                    }
-                    this._focused = focusable;
-                    if (focusable != null && this.isFocusable(focusable)) {
-                        focusable.setState(DBaseState.FOCUSED, true);
-                        if (select && isSelectable(focusable)) {
-                            focusable.select();
-                        }
-                    }
-                    return previous;
-                }
-                else {
-                    return null;
-                }
-            }
-            else {
-                if (focusable != null && this._focused === focusable) {
-                    focusable.setState(DBaseState.FOCUSED, false);
-                    if (select && isSelectable(focusable)) {
-                        focusable.select();
-                    }
-                    return focusable;
-                }
-                else {
-                    return null;
-                }
-            }
-        };
-        DControllerDefaultFocus.prototype.getFocused = function () {
-            return this._focused;
-        };
-        DControllerDefaultFocus.prototype.findFocusableParent = function (mightBeFocusable) {
-            var current = mightBeFocusable;
-            while (current != null) {
-                if (this.isFocusable(current)) {
-                    return current;
-                }
-                else {
-                    current = current.parent;
-                }
-            }
-            return null;
-        };
-        DControllerDefaultFocus.prototype.isFocusable = function (target) {
-            return (isFocusable(target) &&
-                !target.hasState(DBaseState.DISABLED | DBaseState.UNFOCUSABLE) &&
-                target.visible);
-        };
-        DControllerDefaultFocus.prototype.isFocusRoot = function (target) {
-            return (isFocusable(target) &&
-                target.hasState(DBaseState.FOCUS_ROOT) &&
-                target.visible);
-        };
-        DControllerDefaultFocus.prototype.findFocusable = function (target, includesTarget, includesTargetChildren, direction) {
-            if (direction) {
-                var result = this.findFocusableNext(target, includesTarget, includesTargetChildren);
-                if (result != null) {
-                    return result;
-                }
-                var parent_1 = target.parent;
-                if (parent_1 != null) {
-                    var children = parent_1.children;
-                    var index = children.indexOf(target);
-                    if (0 <= index) {
-                        // Siblings
-                        for (var i = index + 1, imax = children.length; i < imax; ++i) {
-                            var found = this.findFocusableNext(children[i], true, true);
-                            if (found != null) {
-                                return found;
-                            }
-                        }
-                        if (this.isFocusRoot(parent_1)) {
-                            for (var i = 0, imax = index + 1; i < imax; ++i) {
-                                var found = this.findFocusableNext(children[i], true, true);
-                                if (found != null) {
-                                    return found;
-                                }
-                            }
-                        }
-                        // Parent
-                        return this.findFocusable(parent_1, false, false, true);
-                    }
-                }
-            }
-            else {
-                var result = this.findFocusablePrevious(target, includesTarget, includesTargetChildren);
-                if (result != null) {
-                    return result;
-                }
-                var parent_2 = target.parent;
-                if (parent_2 != null) {
-                    var children = parent_2.children;
-                    var index = children.indexOf(target);
-                    if (0 <= index) {
-                        // Siblings
-                        for (var i = index - 1; 0 <= i; --i) {
-                            var found = this.findFocusablePrevious(children[i], true, true);
-                            if (found != null) {
-                                return found;
-                            }
-                        }
-                        if (this.isFocusRoot(parent_2)) {
-                            for (var i = children.length - 1; index <= i; --i) {
-                                var found = this.findFocusablePrevious(children[i], true, true);
-                                if (found != null) {
-                                    return found;
-                                }
-                            }
-                            return parent_2;
-                        }
-                        // Parent
-                        return this.findFocusable(parent_2, true, false, false);
-                    }
-                }
-            }
-            return null;
-        };
-        DControllerDefaultFocus.prototype.findFocusableNext = function (target, includesTarget, includesTargetChildren) {
-            // Target itself
-            if (includesTarget) {
-                if (this.isFocusable(target)) {
-                    return target;
-                }
-            }
-            // Target children
-            if (includesTargetChildren && isFocusableContainer(target) && target.visible) {
-                var children = target.children;
-                for (var i = 0, imax = children.length; i < imax; ++i) {
-                    var found = this.findFocusableNext(children[i], true, true);
-                    if (found != null) {
-                        return found;
-                    }
-                }
-            }
-            // Siblings
-            if (this.isFocusRoot(target)) {
-                return target;
-            }
-            // Found nothing
-            return null;
-        };
-        DControllerDefaultFocus.prototype.findFocusablePrevious = function (target, includesTarget, includesTargetChildren) {
-            // Target children
-            if (includesTargetChildren && isFocusableContainer(target) && target.visible) {
-                var children = target.children;
-                for (var i = children.length - 1; 0 <= i; --i) {
-                    var found = this.findFocusablePrevious(children[i], true, true);
-                    if (found != null) {
-                        return found;
-                    }
-                }
-            }
-            // Target itself
-            if (includesTarget) {
-                if (this.isFocusable(target)) {
-                    return target;
-                }
-            }
-            // Siblings
-            if (this.isFocusRoot(target)) {
-                return target;
-            }
-            // Found nothing
-            return null;
-        };
-        return DControllerDefaultFocus;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var setShortcutKeyAndWhich = function (shortcut) {
-        var key = shortcut.key;
-        if (key.length <= 1) {
-            if (shortcut.shift) {
-                shortcut.key = key.toUpperCase();
-            }
-            var code = key.charCodeAt(0);
-            if (97 <= code && code <= 122) {
-                // a ... z
-                shortcut.which = code - 32;
-            }
-            else {
-                shortcut.which = code;
-            }
-        }
-        else {
-            switch (key) {
-                case "Enter":
-                    shortcut.which = 13;
-                    break;
-                case "Space":
-                    shortcut.key = " ";
-                    shortcut.which = 32;
-                    break;
-                case "Escape":
-                    shortcut.which = 27;
-                    break;
-                case "F1":
-                    shortcut.which = 112;
-                    break;
-                case "F2":
-                    shortcut.which = 113;
-                    break;
-                case "F3":
-                    shortcut.which = 114;
-                    break;
-                case "F4":
-                    shortcut.which = 115;
-                    break;
-                case "F5":
-                    shortcut.which = 116;
-                    break;
-                case "F6":
-                    shortcut.which = 117;
-                    break;
-                case "F7":
-                    shortcut.which = 118;
-                    break;
-                case "F8":
-                    shortcut.which = 119;
-                    break;
-                case "F9":
-                    shortcut.which = 120;
-                    break;
-                case "F10":
-                    shortcut.which = 121;
-                    break;
-                case "F11":
-                    shortcut.which = 122;
-                    break;
-                case "F12":
-                    shortcut.which = 123;
-                    break;
-                case "CapsLock":
-                    if (shortcut.shift) {
-                        shortcut.which = 20;
-                    }
-                    else {
-                        shortcut.which = 240;
-                    }
-                    break;
-                case "ArrowUp":
-                    shortcut.which = 38;
-                    break;
-                case "ArrowDown":
-                    shortcut.which = 40;
-                    break;
-                case "ArrowLeft":
-                    shortcut.which = 37;
-                    break;
-                case "ArrowRight":
-                    shortcut.which = 39;
-                    break;
-                case "Insert":
-                    shortcut.which = 45;
-                    break;
-                case "Delete":
-                    shortcut.which = 46;
-                    break;
-                case "PageUp":
-                    shortcut.which = 33;
-                    break;
-                case "PageDown":
-                    shortcut.which = 34;
-                    break;
-                case "Backspace":
-                    shortcut.which = 8;
-                    break;
-                case ";":
-                    shortcut.which = 187;
-                    break;
-                case "Pause":
-                    shortcut.which = 19;
-                    break;
-                case "ScrollLock":
-                    shortcut.which = 145;
-                    break;
-                case "Tab":
-                    shortcut.which = 9;
-                    break;
-            }
-        }
-        return shortcut;
-    };
-    var UtilKeyboardEvent = /** @class */ (function () {
-        function UtilKeyboardEvent() {
-        }
-        UtilKeyboardEvent.isActivateKey = function (e) {
-            return (e.key === "Space" || e.key === "Enter" || e.which === 32 || e.which === 13);
-        };
-        UtilKeyboardEvent.isArrowUpKey = function (e) {
-            return (e.key === "ArrowUp" || e.which === 38);
-        };
-        UtilKeyboardEvent.isArrowDownKey = function (e) {
-            return (e.key === "ArrowDown" || e.which === 40);
-        };
-        UtilKeyboardEvent.isArrowLeftKey = function (e) {
-            return (e.key === "ArrowLeft" || e.which === 37);
-        };
-        UtilKeyboardEvent.isArrowRightKey = function (e) {
-            return (e.key === "ArrowRight" || e.which === 39);
-        };
-        UtilKeyboardEvent.isCancelKey = function (e) {
-            return (e.key === "Esc" || e.which === 27);
-        };
-        UtilKeyboardEvent.isFocusKey = function (e) {
-            return (e.key === "Tab" || e.which === 9);
-        };
-        UtilKeyboardEvent.isUndoKey = function (e) {
-            return (e.ctrlKey && (e.key === "z" || e.which === 90));
-        };
-        UtilKeyboardEvent.isRedoKey = function (e) {
-            return (e.ctrlKey && (e.key === "y" || e.which === 89));
-        };
-        UtilKeyboardEvent.isSaveKey = function (e) {
-            return (e.ctrlKey && !e.shiftKey && (e.key === "s" || e.which === 83));
-        };
-        UtilKeyboardEvent.isSaveAsKey = function (e) {
-            return (e.ctrlKey && e.shiftKey && (e.key === "S" || e.which === 83));
-        };
-        UtilKeyboardEvent.isDeleteKey = function (e) {
-            return (e.key === "Delete" || e.which === 46);
-        };
-        UtilKeyboardEvent.isSelectAllKey = function (e) {
-            return (e.ctrlKey && !e.shiftKey && (e.key === "a" || e.which === 65));
-        };
-        UtilKeyboardEvent.isOkKey = function (e) {
-            return (e.key === "Enter" || e.which === 13);
-        };
-        UtilKeyboardEvent.getFocusDirection = function (e) {
-            return (e.shiftKey !== true);
-        };
-        UtilKeyboardEvent.toShortcut = function (expressionOrShortcut) {
-            if (!utilIsString(expressionOrShortcut)) {
-                return expressionOrShortcut;
-            }
-            else {
-                var expression = expressionOrShortcut;
-                var arrowIndex = expression.indexOf("->");
-                var keyExpression = void 0;
-                var event_1;
-                if (0 <= arrowIndex) {
-                    keyExpression = expression.substring(0, arrowIndex).trim();
-                    event_1 = expression.substring(arrowIndex + 2).trim();
-                }
-                else {
-                    keyExpression = expression.trim();
-                }
-                var keys = keyExpression.toLowerCase().split("+");
-                var alt = 0 <= keys.indexOf("alt");
-                var ctrl = 0 <= keys.indexOf("ctrl");
-                var shift = 0 <= keys.indexOf("shift");
-                var key = keys[keys.length - 1];
-                return setShortcutKeyAndWhich({
-                    alt: alt,
-                    ctrl: ctrl,
-                    shift: shift,
-                    key: key,
-                    which: 0,
-                    event: event_1
-                });
-            }
-        };
-        UtilKeyboardEvent.toString = function (shortcut) {
-            var parts = [];
-            if (shortcut.ctrl) {
-                parts.push("Ctrl");
-            }
-            if (shortcut.shift) {
-                parts.push("Shift");
-            }
-            if (shortcut.alt) {
-                parts.push("Alt");
-            }
-            parts.push(shortcut.key.toUpperCase());
-            return parts.join("+");
-        };
-        UtilKeyboardEvent.on = function (target, expressionOrShortcut, handler) {
-            var shortcut = this.toShortcut(expressionOrShortcut);
-            document.body.addEventListener("keydown", function (e) {
-                if (e.altKey === shortcut.alt && e.ctrlKey === shortcut.ctrl &&
-                    e.shiftKey === shortcut.shift &&
-                    (e.key === shortcut.key || e.which === shortcut.which)) {
-                    if (target.isActionable()) {
-                        if (shortcut.event != null) {
-                            target.emit(shortcut.event);
-                        }
-                        else if (handler != null) {
-                            handler(e);
-                        }
-                    }
-                    e.preventDefault();
-                }
-            });
-        };
-        return UtilKeyboardEvent;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DControllerKeyboard = /** @class */ (function (_super) {
-        __extends(DControllerKeyboard, _super);
-        function DControllerKeyboard() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        DControllerKeyboard.prototype.init = function (element, stage, focusController) {
-            var _this = this;
-            element.addEventListener("keydown", function (e) {
-                _this.emit("keydown", e);
-                var focused = focusController.getFocused();
-                if (focused != null) {
-                    var current = focused;
-                    while (current != null) {
-                        if (_this.hasOnKeyDown(current)) {
-                            if (current.onKeyDown(e)) {
-                                return;
-                            }
-                        }
-                        current = current.parent;
-                    }
-                }
-                if (UtilKeyboardEvent.isFocusKey(e)) {
-                    var direction = UtilKeyboardEvent.getFocusDirection(e);
-                    var next = (focused != null ?
-                        focusController.findFocusable(focused, false, focused.hasState(DBaseState.FOCUS_ROOT) || direction, direction) :
-                        focusController.findFocusable(stage, false, true, direction));
-                    if (next != null) {
-                        focusController.setFocused(next, true, true);
-                        e.preventDefault();
-                        e.stopImmediatePropagation();
-                    }
-                }
-            });
-            element.addEventListener("keyup", function (e) {
-                _this.emit("keyup", e);
-                var focused = focusController.getFocused();
-                if (focused != null) {
-                    var current = focused;
-                    while (current != null) {
-                        if (_this.hasOnKeyUp(current)) {
-                            if (current.onKeyUp(e)) {
-                                return;
-                            }
-                        }
-                        current = current.parent;
-                    }
-                }
-            });
-        };
-        DControllerKeyboard.prototype.hasOnKeyDown = function (target) {
-            return "onKeyDown" in target;
-        };
-        DControllerKeyboard.prototype.hasOnKeyUp = function (target) {
-            return "onKeyUp" in target;
-        };
-        return DControllerKeyboard;
-    }(pixi_js.utils.EventEmitter));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DControllers = /** @class */ (function () {
-        function DControllers() {
-        }
-        // Focus
-        DControllers.getFocusController = function () {
-            if (this.FOCUS == null) {
-                this.FOCUS = new DControllerDefaultFocus();
-            }
-            return this.FOCUS;
-        };
-        DControllers.setFocusController = function (instance) {
-            var result = this.FOCUS;
-            this.FOCUS = instance;
-            return result;
-        };
-        // Keyboard
-        DControllers.getKeyboardController = function () {
-            if (this.KEYBOARD == null) {
-                this.KEYBOARD = new DControllerKeyboard();
-            }
-            return this.KEYBOARD;
-        };
-        DControllers.setKeyboardController = function (instance) {
-            var result = this.KEYBOARD;
-            this.KEYBOARD = instance;
-            return result;
-        };
-        // Command
-        DControllers.getCommandController = function () {
-            if (this.COMMAND == null) {
-                this.COMMAND = new DControllerDefaultCommand();
-            }
-            return this.COMMAND;
-        };
-        DControllers.setCommandController = function (instance) {
-            var result = this.COMMAND;
-            this.COMMAND = instance;
-            return result;
-        };
-        // Document
-        DControllers.getDocumentController = function () {
-            if (this.DOCUMENT == null) {
-                throw new Error("Not supported");
-            }
-            return this.DOCUMENT;
-        };
-        DControllers.setDocumentController = function (instance) {
-            var result = this.DOCUMENT;
-            this.DOCUMENT = instance;
-            return result;
-        };
-        return DControllers;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var NodeType;
     (function (NodeType) {
         // Parensesis
@@ -3043,7 +2296,7 @@
                         this.toAutoWidth();
                         var base = this._base;
                         base.toChildrenDirty();
-                        DApplications.update();
+                        DApplications.update(this._base);
                     }
                 }
                 else {
@@ -3086,7 +2339,7 @@
                         this.toAutoHeight();
                         var base = this._base;
                         base.toChildrenDirty();
-                        DApplications.update();
+                        DApplications.update(this._base);
                     }
                 }
                 else {
@@ -3153,21 +2406,232 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var UtilName = /** @class */ (function () {
-        function UtilName() {
-        }
-        UtilName.create = function (type) {
-            var mapping = this._mapping;
-            if (type in mapping) {
-                return type + " " + ++mapping[type];
+    var setShortcutKeyAndWhich = function (shortcut) {
+        var key = shortcut.key;
+        if (key.length <= 1) {
+            if (shortcut.shift) {
+                shortcut.key = key.toUpperCase();
+            }
+            var code = key.charCodeAt(0);
+            if (97 <= code && code <= 122) {
+                // a ... z
+                shortcut.which = code - 32;
             }
             else {
-                mapping[type] = 1;
-                return type + " 1";
+                shortcut.which = code;
+            }
+        }
+        else {
+            switch (key) {
+                case "Enter":
+                    shortcut.which = 13;
+                    break;
+                case "Space":
+                    shortcut.key = " ";
+                    shortcut.which = 32;
+                    break;
+                case "Escape":
+                    shortcut.which = 27;
+                    break;
+                case "F1":
+                    shortcut.which = 112;
+                    break;
+                case "F2":
+                    shortcut.which = 113;
+                    break;
+                case "F3":
+                    shortcut.which = 114;
+                    break;
+                case "F4":
+                    shortcut.which = 115;
+                    break;
+                case "F5":
+                    shortcut.which = 116;
+                    break;
+                case "F6":
+                    shortcut.which = 117;
+                    break;
+                case "F7":
+                    shortcut.which = 118;
+                    break;
+                case "F8":
+                    shortcut.which = 119;
+                    break;
+                case "F9":
+                    shortcut.which = 120;
+                    break;
+                case "F10":
+                    shortcut.which = 121;
+                    break;
+                case "F11":
+                    shortcut.which = 122;
+                    break;
+                case "F12":
+                    shortcut.which = 123;
+                    break;
+                case "CapsLock":
+                    if (shortcut.shift) {
+                        shortcut.which = 20;
+                    }
+                    else {
+                        shortcut.which = 240;
+                    }
+                    break;
+                case "ArrowUp":
+                    shortcut.which = 38;
+                    break;
+                case "ArrowDown":
+                    shortcut.which = 40;
+                    break;
+                case "ArrowLeft":
+                    shortcut.which = 37;
+                    break;
+                case "ArrowRight":
+                    shortcut.which = 39;
+                    break;
+                case "Insert":
+                    shortcut.which = 45;
+                    break;
+                case "Delete":
+                    shortcut.which = 46;
+                    break;
+                case "PageUp":
+                    shortcut.which = 33;
+                    break;
+                case "PageDown":
+                    shortcut.which = 34;
+                    break;
+                case "Backspace":
+                    shortcut.which = 8;
+                    break;
+                case ";":
+                    shortcut.which = 187;
+                    break;
+                case "Pause":
+                    shortcut.which = 19;
+                    break;
+                case "ScrollLock":
+                    shortcut.which = 145;
+                    break;
+                case "Tab":
+                    shortcut.which = 9;
+                    break;
+            }
+        }
+        return shortcut;
+    };
+    var UtilKeyboardEvent = /** @class */ (function () {
+        function UtilKeyboardEvent() {
+        }
+        UtilKeyboardEvent.isActivateKey = function (e) {
+            return (e.key === "Space" || e.key === "Enter" || e.which === 32 || e.which === 13);
+        };
+        UtilKeyboardEvent.isArrowUpKey = function (e) {
+            return (e.key === "ArrowUp" || e.which === 38);
+        };
+        UtilKeyboardEvent.isArrowDownKey = function (e) {
+            return (e.key === "ArrowDown" || e.which === 40);
+        };
+        UtilKeyboardEvent.isArrowLeftKey = function (e) {
+            return (e.key === "ArrowLeft" || e.which === 37);
+        };
+        UtilKeyboardEvent.isArrowRightKey = function (e) {
+            return (e.key === "ArrowRight" || e.which === 39);
+        };
+        UtilKeyboardEvent.isCancelKey = function (e) {
+            return (e.key === "Esc" || e.which === 27);
+        };
+        UtilKeyboardEvent.isFocusKey = function (e) {
+            return (e.key === "Tab" || e.which === 9);
+        };
+        UtilKeyboardEvent.isUndoKey = function (e) {
+            return (e.ctrlKey && (e.key === "z" || e.which === 90));
+        };
+        UtilKeyboardEvent.isRedoKey = function (e) {
+            return (e.ctrlKey && (e.key === "y" || e.which === 89));
+        };
+        UtilKeyboardEvent.isSaveKey = function (e) {
+            return (e.ctrlKey && !e.shiftKey && (e.key === "s" || e.which === 83));
+        };
+        UtilKeyboardEvent.isSaveAsKey = function (e) {
+            return (e.ctrlKey && e.shiftKey && (e.key === "S" || e.which === 83));
+        };
+        UtilKeyboardEvent.isDeleteKey = function (e) {
+            return (e.key === "Delete" || e.which === 46);
+        };
+        UtilKeyboardEvent.isSelectAllKey = function (e) {
+            return (e.ctrlKey && !e.shiftKey && (e.key === "a" || e.which === 65));
+        };
+        UtilKeyboardEvent.isOkKey = function (e) {
+            return (e.key === "Enter" || e.which === 13);
+        };
+        UtilKeyboardEvent.getFocusDirection = function (e) {
+            return (e.shiftKey !== true);
+        };
+        UtilKeyboardEvent.toShortcut = function (expressionOrShortcut) {
+            if (!utilIsString(expressionOrShortcut)) {
+                return expressionOrShortcut;
+            }
+            else {
+                var expression = expressionOrShortcut;
+                var arrowIndex = expression.indexOf("->");
+                var keyExpression = void 0;
+                var event_1;
+                if (0 <= arrowIndex) {
+                    keyExpression = expression.substring(0, arrowIndex).trim();
+                    event_1 = expression.substring(arrowIndex + 2).trim();
+                }
+                else {
+                    keyExpression = expression.trim();
+                }
+                var keys = keyExpression.toLowerCase().split("+");
+                var alt = 0 <= keys.indexOf("alt");
+                var ctrl = 0 <= keys.indexOf("ctrl");
+                var shift = 0 <= keys.indexOf("shift");
+                var key = keys[keys.length - 1];
+                return setShortcutKeyAndWhich({
+                    alt: alt,
+                    ctrl: ctrl,
+                    shift: shift,
+                    key: key,
+                    which: 0,
+                    event: event_1
+                });
             }
         };
-        UtilName._mapping = {};
-        return UtilName;
+        UtilKeyboardEvent.toString = function (shortcut) {
+            var parts = [];
+            if (shortcut.ctrl) {
+                parts.push("Ctrl");
+            }
+            if (shortcut.shift) {
+                parts.push("Shift");
+            }
+            if (shortcut.alt) {
+                parts.push("Alt");
+            }
+            parts.push(shortcut.key.toUpperCase());
+            return parts.join("+");
+        };
+        UtilKeyboardEvent.on = function (target, expressionOrShortcut, handler) {
+            var shortcut = this.toShortcut(expressionOrShortcut);
+            document.body.addEventListener("keydown", function (e) {
+                if (e.altKey === shortcut.alt && e.ctrlKey === shortcut.ctrl &&
+                    e.shiftKey === shortcut.shift &&
+                    (e.key === shortcut.key || e.which === shortcut.which)) {
+                    if (target.isActionable()) {
+                        if (shortcut.event != null) {
+                            target.emit(shortcut.event);
+                        }
+                        else if (handler != null) {
+                            handler(e);
+                        }
+                    }
+                    e.preventDefault();
+                }
+            });
+        };
+        return UtilKeyboardEvent;
     }());
 
     /*
@@ -3247,8 +2711,7 @@
             enumerable: true,
             configurable: true
         });
-        UtilPointerEvent.toGlobal = function (e, result) {
-            var interactionManager = DApplications.getInstance().renderer.plugins.interaction;
+        UtilPointerEvent.toGlobal = function (e, interactionManager, result) {
             if ("touches" in e) {
                 var touches = e.changedTouches;
                 var touch = touches[touches.length - 1];
@@ -3273,16 +2736,20 @@
                 var isDowned_1 = false;
                 var downX_1 = 0;
                 var downY_1 = 0;
+                var interactionManagerBound_1 = null;
                 var cleanup_1 = function () {
                     isDowned_1 = false;
-                    interactionManager_1.off(up_1, onUp_1);
+                    if (interactionManagerBound_1) {
+                        interactionManagerBound_1.off(up_1, onUp_1);
+                        interactionManagerBound_1 = null;
+                    }
                 };
                 var isValidDistance_1 = function (e) {
                     var global = e.data.global;
                     var dx = Math.abs(downX_1 - global.x);
                     var dy = Math.abs(downY_1 - global.y);
                     var threshold = _this.CLICK_DISTANCE_THRESHOLD;
-                    return (dx < threshold && dy < threshold);
+                    return (dx <= threshold && dy <= threshold);
                 };
                 target.on("click", function (e) {
                     if (isDowned_1) {
@@ -3301,15 +2768,26 @@
                         }
                     }
                 };
-                var interactionManager_1 = DApplications.getInstance().renderer.plugins.interaction;
                 target.on(this.down, function (e) {
-                    if (!isDowned_1) {
-                        isDowned_1 = true;
+                    if (isDowned_1) {
                         var global_1 = e.data.global;
                         downX_1 = global_1.x;
                         downY_1 = global_1.y;
-                        interactionManager_1.off(up_1, onUp_1);
-                        interactionManager_1.once(up_1, onUp_1);
+                    }
+                    else {
+                        isDowned_1 = true;
+                        var global_2 = e.data.global;
+                        downX_1 = global_2.x;
+                        downY_1 = global_2.y;
+                        if (interactionManagerBound_1) {
+                            interactionManagerBound_1.off(up_1, onUp_1);
+                            interactionManagerBound_1 = null;
+                        }
+                        var layer = DApplications.getLayer(target);
+                        if (layer) {
+                            interactionManagerBound_1 = layer.renderer.plugins.interaction;
+                            interactionManagerBound_1.once(up_1, onUp_1);
+                        }
                     }
                 });
             }
@@ -3324,6 +2802,7 @@
                 var downX_2 = 0;
                 var downY_2 = 0;
                 var timeoutId_1 = null;
+                var interactionManagerBound_2 = null;
                 var cleanupTimeout_1 = function () {
                     if (timeoutId_1 != null) {
                         clearTimeout(timeoutId_1);
@@ -3332,8 +2811,11 @@
                 };
                 var cleanup_2 = function () {
                     isDowned_2 = false;
-                    interactionManager_2.off(up_2, onUp_2);
-                    interactionManager_2.off(move_1, onMove_1);
+                    if (interactionManagerBound_2) {
+                        interactionManagerBound_2.off(up_2, onUp_2);
+                        interactionManagerBound_2.off(move_1, onMove_1);
+                        interactionManagerBound_2 = null;
+                    }
                     cleanupTimeout_1();
                 };
                 var isValidDistance_2 = function (e) {
@@ -3370,13 +2852,12 @@
                         }
                     }
                 };
-                var interactionManager_2 = DApplications.getInstance().renderer.plugins.interaction;
                 target.on(this.down, function (e) {
                     if (!isDowned_2) {
                         isDowned_2 = true;
-                        var global_2 = e.data.global;
-                        downX_2 = global_2.x;
-                        downY_2 = global_2.y;
+                        var global_3 = e.data.global;
+                        downX_2 = global_3.x;
+                        downY_2 = global_3.y;
                         cleanupTimeout_1();
                         var oe = e.data.originalEvent;
                         if ("touches" in oe) {
@@ -3387,10 +2868,17 @@
                                 }
                             }, _this.LONG_CLICK_THRESHOLD);
                         }
-                        interactionManager_2.off(up_2, onUp_2);
-                        interactionManager_2.off(move_1, onMove_1);
-                        interactionManager_2.once(up_2, onUp_2);
-                        interactionManager_2.on(move_1, onMove_1);
+                        if (interactionManagerBound_2) {
+                            interactionManagerBound_2.off(up_2, onUp_2);
+                            interactionManagerBound_2.off(move_1, onMove_1);
+                            interactionManagerBound_2 = null;
+                        }
+                        var layer = DApplications.getLayer(target);
+                        if (layer) {
+                            interactionManagerBound_2 = layer.renderer.plugins.interaction;
+                            interactionManagerBound_2.once(up_2, onUp_2);
+                            interactionManagerBound_2.on(move_1, onMove_1);
+                        }
                     }
                 });
             }
@@ -3465,7 +2953,7 @@
             }
             return current === target;
         };
-        UtilPointerEvent.CLICK_DISTANCE_THRESHOLD = 5;
+        UtilPointerEvent.CLICK_DISTANCE_THRESHOLD = 10;
         UtilPointerEvent.DBLCLICK_INTERVAL_THRESHOLD = 333;
         UtilPointerEvent.LONG_CLICK_THRESHOLD = 750;
         return UtilPointerEvent;
@@ -3526,7 +3014,7 @@
             _this._hasDirty = false;
             _this._isChildrenDirty = false;
             _this._shadow = null;
-            _this._name = (options && options.name != null ? options.name : UtilName.create(_this.getType()));
+            _this._name = (options && options.name) || "";
             var theme = _this._theme = toTheme(options) || _this.getThemeDefault();
             _this._befores = [];
             _this._afters = [];
@@ -3537,11 +3025,11 @@
             _this._padding = new DBasePadding(theme, options, function () {
                 _this.layout();
                 _this.toChildrenDirty();
-                DApplications.update();
+                DApplications.update(_this);
             });
             var toDirtyAndUpdate = function () {
                 _this.toDirty();
-                DApplications.update();
+                DApplications.update(_this);
             };
             _this._background = new DBaseBackground(theme, options, toDirtyAndUpdate);
             _this._border = new DBaseBorder(theme, options, toDirtyAndUpdate);
@@ -3621,7 +3109,7 @@
             _this._weight = (options && options.weight != null ? options.weight : theme.getWeight());
             // Shadow
             _this._onShadowUpdateBound = function () {
-                DApplications.update();
+                DApplications.update(_this);
             };
             var shadow = (options && options.shadow) || theme.getShadow();
             if (shadow) {
@@ -3652,12 +3140,12 @@
                     _this.toParentChildrenDirty();
                 }
                 _this.updateState();
-                DApplications.update();
+                DApplications.update(_this);
             });
             _this.on("removed", function () {
                 _this.blur(true);
                 _this.updateState();
-                DApplications.update();
+                DApplications.update(_this);
             });
             // Shortcut
             var shortcuts = _this._shortcuts = toShortcuts(options);
@@ -3668,6 +3156,14 @@
                 for (var i = 0, imax = shortcuts.length; i < imax; ++i) {
                     UtilKeyboardEvent.on(_this, shortcuts[i], onShortcutBound);
                 }
+            }
+            // Cursor
+            var cursor = options && options.cursor;
+            if (cursor == null) {
+                cursor = theme.getCursor();
+            }
+            if (cursor != null) {
+                _this.cursor = cursor;
             }
             // Other initialization
             _this.init(options);
@@ -3761,7 +3257,7 @@
         });
         DBase.prototype.onMove = function () {
             this.moveChildren();
-            DApplications.update();
+            DApplications.update(this);
             this.emit("move", this);
         };
         DBase.prototype.resize = function (width, height) {
@@ -3784,7 +3280,9 @@
                 if (scalarSet.x != null) {
                     var position = this._transform.position;
                     var parent_1 = this.getParentOfSize();
-                    this.x = scalarSet.x(parent_1.width, width, parent_1.padding.getLeft(), position.x);
+                    if (parent_1) {
+                        this.x = scalarSet.x(parent_1.width, width, parent_1.padding.getLeft(), position.x);
+                    }
                 }
             }
             if (heightResized) {
@@ -3792,7 +3290,9 @@
                 if (scalarSet.y != null) {
                     var position = this._transform.position;
                     var parent_2 = this.getParentOfSize();
-                    this.y = scalarSet.y(parent_2.height, height, parent_2.padding.getTop(), position.y);
+                    if (parent_2) {
+                        this.y = scalarSet.y(parent_2.height, height, parent_2.padding.getTop(), position.y);
+                    }
                 }
             }
             return resized;
@@ -3804,15 +3304,15 @@
             this.toDirty();
             this.toChildrenDirty();
             this.resizeChildren();
-            DApplications.update();
+            DApplications.update(this);
             this.emit("resize", newWidth, newHeight, oldWidth, oldHeight, this);
         };
         DBase.prototype.onScale = function () {
-            DApplications.update();
+            DApplications.update(this);
             this.emit("scale", this);
         };
         DBase.prototype.onSkew = function () {
-            DApplications.update();
+            DApplications.update(this);
             this.emit("skew", this);
         };
         Object.defineProperty(DBase.prototype, "type", {
@@ -3867,7 +3367,9 @@
                     if (scalarSet.x != null) {
                         var position = this._transform.position;
                         var parent_3 = this.getParentOfSize();
-                        this.x = scalarSet.x(parent_3.width, width, parent_3.padding.getLeft(), position.x);
+                        if (parent_3) {
+                            this.x = scalarSet.x(parent_3.width, width, parent_3.padding.getLeft(), position.x);
+                        }
                     }
                 }
             },
@@ -3889,7 +3391,9 @@
                     if (scalarSet.y != null) {
                         var position = this._transform.position;
                         var parent_4 = this.getParentOfSize();
-                        this.y = scalarSet.y(parent_4.height, height, parent_4.padding.getTop(), position.y);
+                        if (parent_4) {
+                            this.y = scalarSet.y(parent_4.height, height, parent_4.padding.getTop(), position.y);
+                        }
                     }
                 }
             },
@@ -3975,13 +3479,16 @@
             configurable: true
         });
         DBase.prototype.applyTitle = function () {
-            DApplications.getInstance().view.title = this._title;
+            var layer = DApplications.getLayer(this);
+            if (layer) {
+                layer.view.title = this._title;
+            }
         };
         DBase.prototype.show = function () {
             if (!this.visible) {
                 this.visible = true;
                 this.toParentChildrenDirty();
-                DApplications.update();
+                DApplications.update(this);
             }
             return this;
         };
@@ -3992,7 +3499,7 @@
             if (this.visible) {
                 this.visible = false;
                 this.toParentChildrenDirty();
-                DApplications.update();
+                DApplications.update(this);
             }
             return this;
         };
@@ -4077,7 +3584,10 @@
         };
         DBase.prototype.setFocused = function (isFocused) {
             if (this.isFocused() !== isFocused) {
-                DControllers.getFocusController().setFocused(this, isFocused, false);
+                var layer = DApplications.getLayer(this);
+                if (layer) {
+                    layer.getFocusController().setFocused(this, isFocused, false);
+                }
             }
             return this;
         };
@@ -4086,16 +3596,19 @@
         };
         DBase.prototype.blur = function (recursively) {
             if (recursively) {
-                var focusController = DControllers.getFocusController();
-                var focused = focusController.getFocused();
-                if (focused instanceof DBase) {
-                    var current = focused;
-                    while (current) {
-                        if (current === this) {
-                            focused.setFocused(false);
-                            break;
+                var layer = DApplications.getLayer(this);
+                if (layer) {
+                    var focusController = layer.getFocusController();
+                    var focused = focusController.getFocused();
+                    if (focused instanceof DBase) {
+                        var current = focused;
+                        while (current) {
+                            if (current === this) {
+                                focused.setFocused(false);
+                                break;
+                            }
+                            current = current.parent;
                         }
-                        current = current.parent;
                     }
                 }
             }
@@ -4183,7 +3696,7 @@
         };
         DBase.prototype.onStateChange = function (newState, oldState) {
             this.toDirty();
-            DApplications.update();
+            DApplications.update(this);
             this.emit("statechange", newState, oldState, this);
             var children = this.children;
             for (var i = 0, imax = children.length; i < imax; ++i) {
@@ -4253,7 +3766,7 @@
                     this._outline.setTheme(theme);
                     this._corner.setTheme(theme);
                     this.toDirty();
-                    DApplications.update();
+                    DApplications.update(this);
                 }
             },
             enumerable: true,
@@ -4372,7 +3885,7 @@
                         this.addReflowable(shadow);
                         this.prependRenderable(shadow, true);
                     }
-                    DApplications.update();
+                    DApplications.update(this);
                 }
             },
             enumerable: true,
@@ -4380,7 +3893,9 @@
         });
         DBase.prototype.layout = function () {
             var parent = this.getParentOfSize();
-            this.onParentResize(parent.width, parent.height, parent.padding);
+            if (parent) {
+                this.onParentResize(parent.width, parent.height, parent.padding);
+            }
         };
         DBase.prototype.getParentOfSize = function () {
             var parent = this.parent;
@@ -4388,7 +3903,7 @@
                 return parent;
             }
             else {
-                return DApplications.getInstance();
+                return DApplications.getLayer(this);
             }
         };
         /**
@@ -4480,12 +3995,15 @@
             }
         };
         DBase.prototype.onDownThis = function (e) {
-            var focusController = DControllers.getFocusController();
-            focusController.setFocused(focusController.findFocusableParent(this), true, true);
+            var layer = DApplications.getLayer(this);
+            if (layer) {
+                var focusController = layer.getFocusController();
+                focusController.setFocused(focusController.findFocusableParent(this), true, true);
+            }
         };
         // Double click
-        DBase.prototype.onDblClick = function (e) {
-            this.emit("dblclick", e, this);
+        DBase.prototype.onDblClick = function (e, interactionManager) {
+            this.emit("dblclick", e, interactionManager, this);
             return false;
         };
         //
@@ -4568,6 +4086,178 @@
         return DBase;
     }(pixi_js.Container));
 
+    var DDynamicTextMeasureResultCharacter = /** @class */ (function () {
+        function DDynamicTextMeasureResultCharacter(x, y, character) {
+            this.x = x;
+            this.y = y;
+            this.character = character;
+        }
+        DDynamicTextMeasureResultCharacter.prototype.set = function (x, y, character) {
+            this.x = x;
+            this.y = y;
+            this.character = character;
+        };
+        return DDynamicTextMeasureResultCharacter;
+    }());
+
+    var DDynamicTextMeasureResult = /** @class */ (function () {
+        function DDynamicTextMeasureResult() {
+            this.count = 0;
+            this.width = 0;
+            this.height = 0;
+            this.characters = [];
+            this.x = 0;
+            this.y = 0;
+        }
+        DDynamicTextMeasureResult.prototype.start = function () {
+            this.count = 0;
+            this.width = 0;
+            this.height = 0;
+            this.x = 0;
+            this.y = 0;
+        };
+        DDynamicTextMeasureResult.prototype.push = function (character) {
+            var x = this.x;
+            this.x += character.advance;
+            var y = this.y;
+            var count = this.count;
+            var characters = this.characters;
+            if (count < characters.length) {
+                characters[count].set(x, y, character);
+            }
+            else {
+                characters.push(new DDynamicTextMeasureResultCharacter(x, y, character));
+            }
+            this.count += 1;
+        };
+        DDynamicTextMeasureResult.prototype.newLine = function (lineHeight) {
+            this.width = Math.max(this.width, this.x);
+            this.x = 0;
+            this.y += lineHeight;
+        };
+        DDynamicTextMeasureResult.prototype.pop = function () {
+            if (0 < this.x) {
+                var count = this.count;
+                var characters = this.characters;
+                if (0 < count) {
+                    var character = characters[count - 1];
+                    this.x -= character.character.advance;
+                    this.count -= 1;
+                    return true;
+                }
+            }
+            return false;
+        };
+        DDynamicTextMeasureResult.prototype.end = function (lineHeight) {
+            this.newLine(lineHeight);
+            this.height = this.y;
+        };
+        return DDynamicTextMeasureResult;
+    }());
+
+    var UtilCharacterIterator = /** @class */ (function () {
+        function UtilCharacterIterator() {
+            this._target = "";
+            this._position = 0;
+        }
+        UtilCharacterIterator.prototype.init = function (target) {
+            this._target = target;
+            this._position = 0;
+        };
+        UtilCharacterIterator.prototype.hasNext = function () {
+            return this._position < this._target.length;
+        };
+        UtilCharacterIterator.prototype.findNextBreak = function (target, istart) {
+            var iend = target.length;
+            for (var i = istart; i < iend; ++i) {
+                var code = target.charCodeAt(i);
+                if (!this.isLowSurrogate(code) && !this.isVariationSelector(code)) {
+                    return i;
+                }
+            }
+            return iend;
+        };
+        UtilCharacterIterator.prototype.isHighSurrogate = function (code) {
+            return (0xd800 <= code && code <= 0xdbff);
+        };
+        UtilCharacterIterator.prototype.isLowSurrogate = function (code) {
+            return (0xdc00 <= code && code <= 0xdfff);
+        };
+        UtilCharacterIterator.prototype.isVariationSelector = function (code) {
+            return (0xfe00 <= code && code <= 0xfe0f);
+        };
+        UtilCharacterIterator.prototype.next = function () {
+            var target = this._target;
+            var position = this._position;
+            var nextBreak = this.findNextBreak(target, position + 1);
+            var result = target.substring(position, nextBreak);
+            this._position = nextBreak;
+            return result;
+        };
+        UtilCharacterIterator.from = function (target) {
+            if (UtilCharacterIterator._instance == null) {
+                UtilCharacterIterator._instance = new UtilCharacterIterator();
+            }
+            var instance = UtilCharacterIterator._instance;
+            instance.init(target);
+            return instance;
+        };
+        UtilCharacterIterator._instance = null;
+        return UtilCharacterIterator;
+    }());
+
+    var DDynamicTextMeasure = /** @class */ (function () {
+        function DDynamicTextMeasure() {
+        }
+        DDynamicTextMeasure.measure = function (text, atlas, clippingWidth) {
+            var result = DDynamicTextMeasure.RESULT = DDynamicTextMeasure.RESULT || new DDynamicTextMeasureResult();
+            result.start();
+            if (atlas != null) {
+                var iterator = UtilCharacterIterator.from(text);
+                var lineHeight = atlas.font.height;
+                var newLine = "\n";
+                while (iterator.hasNext()) {
+                    var character = iterator.next();
+                    if (character === newLine) {
+                        result.newLine(lineHeight);
+                    }
+                    else {
+                        var a = atlas.get(character);
+                        if (a != null) {
+                            var x = result.x;
+                            if (clippingWidth != null && clippingWidth < x + a.advance) {
+                                var dots = atlas.get("...");
+                                if (dots != null) {
+                                    if (clippingWidth < x + dots.advance) {
+                                        if (result.pop()) {
+                                            result.push(dots);
+                                        }
+                                    }
+                                    else {
+                                        result.push(dots);
+                                    }
+                                }
+                                while (iterator.hasNext()) {
+                                    if (iterator.next() === newLine) {
+                                        result.newLine(lineHeight);
+                                        break;
+                                    }
+                                }
+                            }
+                            else {
+                                result.push(a);
+                            }
+                        }
+                    }
+                }
+                result.end(lineHeight);
+            }
+            return result;
+        };
+        DDynamicTextMeasure.RESULT = null;
+        return DDynamicTextMeasure;
+    }());
+
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
@@ -4584,8 +4274,8 @@
             var vertexBuffer = this.getBuffer("aVertexPosition");
             var uvBuffer = this.getBuffer("aTextureCoord");
             var indexBuffer = this.getIndex();
-            var result = this.measureText(text, atlas, clippingWidth);
-            var requiredTextSize = Math.ceil(result[1] / 8) << 3;
+            var result = DDynamicTextMeasure.measure(text, atlas, clippingWidth);
+            var requiredTextSize = Math.ceil(result.count / 8) << 3;
             var requiredVertexSize = requiredTextSize << 3;
             if (vertexBuffer.data.length < requiredVertexSize) {
                 vertexBuffer.data = new Float32Array(requiredVertexSize);
@@ -4599,40 +4289,17 @@
             var uvs = uvBuffer.data;
             var indices = indexBuffer.data;
             if (atlas != null) {
-                var x = 0;
-                var y = 0;
-                var ichar = 0;
-                for (var i = 0, imax = result[0]; i < imax; ++i) {
-                    var k = (1 + i) * 3;
-                    for (var j = result[k + 0], jmax = result[k + 1]; j < jmax; j += 1, ichar += 1) {
-                        var a = atlas.get(text[j]);
-                        if (a != null) {
-                            this.writeCharacter(vertices, uvs, indices, ichar, x, y, a, atlas.width, atlas.height);
-                            x += a.advance;
-                        }
-                        else {
-                            this.writeCharacterEmpty(vertices, uvs, indices, ichar);
-                        }
-                    }
-                    if (result[k + 2]) {
-                        var a = atlas.get("...");
-                        if (a != null) {
-                            this.writeCharacter(vertices, uvs, indices, ichar, x, y, a, atlas.width, atlas.height);
-                            x += a.advance;
-                        }
-                        else {
-                            this.writeCharacterEmpty(vertices, uvs, indices, ichar);
-                        }
-                        ichar += 1;
-                    }
-                    x = 0;
-                    y += atlas.font.height;
+                var count = result.count;
+                var characters = result.characters;
+                for (var i = 0; i < count; ++i) {
+                    var character = characters[i];
+                    this.writeCharacter(vertices, uvs, indices, i, character.x, character.y, character.character, atlas.width, atlas.height);
                 }
-                for (var i = ichar, imax = vertices.length >> 3; i < imax; ++i) {
+                for (var i = count, imax = vertices.length >> 3; i < imax; ++i) {
                     this.writeCharacterEmpty(vertices, uvs, indices, i);
                 }
-                this.width = result[2];
-                this.height = y;
+                this.width = result.width;
+                this.height = result.height;
             }
             else {
                 for (var i = 0, imax = vertices.length >> 3; i < imax; ++i) {
@@ -4705,73 +4372,6 @@
             indices[ii + 4] = vo + 2;
             indices[ii + 5] = vo + 3;
         };
-        DDynamicTextGeometry.prototype.measureText = function (text, atlas, clippingWidth) {
-            var result = DDynamicTextGeometry.WORK = DDynamicTextGeometry.WORK || new Uint32Array(3 * 16);
-            result[0] = 0;
-            result[1] = 0;
-            result[2] = 0;
-            result[3] = 0;
-            if (atlas != null) {
-                var x = 0;
-                var l = text.length;
-                for (var i = 0; i < l; ++i) {
-                    var char = text[i];
-                    if (char === "\n") {
-                        result = this.setResult(result, i, false, x, i + 1);
-                        x = 0;
-                    }
-                    else {
-                        var a = atlas.get(char);
-                        if (a != null) {
-                            if (clippingWidth != null && clippingWidth < x + a.advance) {
-                                var dots = atlas.get("...");
-                                var iend = ((dots != null && clippingWidth < x + dots.advance) ? i - 1 : i);
-                                var inext = i + 1;
-                                for (; inext < l; ++inext) {
-                                    if (text[inext] === "\n") {
-                                        inext += 1;
-                                        break;
-                                    }
-                                }
-                                result = this.setResult(result, iend, true, x, inext);
-                                i = inext - 1;
-                                x = 0;
-                            }
-                            else {
-                                x += a.advance;
-                            }
-                        }
-                    }
-                }
-                result = this.setResult(result, l, false, x, l);
-            }
-            return result;
-        };
-        DDynamicTextGeometry.prototype.setResult = function (result, iend, hasDots, x, inext) {
-            var iresult = (1 + result[0]) * 3;
-            var istart = result[iresult + 0];
-            if (istart < iend || hasDots) {
-                istart = Math.min(istart, iend);
-                result[iresult + 0] = istart;
-                result[iresult + 1] = iend;
-                result[iresult + 2] = (hasDots ? 1 : 0);
-                if (result.length <= iresult + 3) {
-                    var newResult = new Uint32Array(result.length + 3 * 16);
-                    newResult.set(result);
-                    result = newResult;
-                    DDynamicTextGeometry.WORK = newResult;
-                }
-                result[0] += 1;
-                result[1] += iend - istart;
-                result[2] = Math.max(result[2], Math.ceil(x));
-                result[iresult + 3] = inext;
-            }
-            else {
-                result[iresult + 0] = inext;
-            }
-            return result;
-        };
-        DDynamicTextGeometry.WORK = null;
         return DDynamicTextGeometry;
     }(pixi_js.MeshGeometry));
 
@@ -4952,396 +4552,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var ASCII_CHARACTERS = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DynamicFontAtlasCharacterOrigin = /** @class */ (function () {
-        function DynamicFontAtlasCharacterOrigin(x, y) {
-            this.x = x;
-            this.y = y;
-        }
-        return DynamicFontAtlasCharacterOrigin;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DynamicFontAtlasCharacter = /** @class */ (function () {
-        function DynamicFontAtlasCharacter(advance, width, height, reserved) {
-            this.ref = 1;
-            this.life = 10;
-            this.x = 0;
-            this.y = 0;
-            this.width = width;
-            this.height = height;
-            this.advance = advance;
-            this.origin = new DynamicFontAtlasCharacterOrigin(0, 0);
-            this.reserved = reserved;
-        }
-        return DynamicFontAtlasCharacter;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DynamicFontAtlasFont = /** @class */ (function () {
-        function DynamicFontAtlasFont(fontId, size, color, padding) {
-            this.id = fontId;
-            this.size = size;
-            this.color = pixi_js.utils.hex2string(color);
-            this.height = this.size + padding * 2;
-            var metrics = pixi_js.TextMetrics.measureFont(fontId);
-            this.ascent = metrics.ascent;
-            this.descent = metrics.descent;
-        }
-        return DynamicFontAtlasFont;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var PADDING = 3;
-    var DynamicFontAtlas = /** @class */ (function () {
-        function DynamicFontAtlas(fontId, fontSize, fontColor) {
-            this._id = fontId;
-            this._canvas = document.createElement("canvas");
-            this._context = null;
-            this._font = new DynamicFontAtlasFont(fontId, fontSize, fontColor, PADDING);
-            this._characters = {};
-            this._length = 0;
-            this._unrefCount = 0;
-            this._width = 1;
-            this._height = 1;
-            this._revision = 0;
-            this._revisionUpdated = 0;
-            this._texture = pixi_js.Texture.from(this._canvas, {
-                mipmap: pixi_js.MIPMAP_MODES.OFF,
-                resolution: pixi_js.settings.RESOLUTION,
-                scaleMode: pixi_js.SCALE_MODES.NEAREST
-            });
-            this.add(ASCII_CHARACTERS, true);
-            this.add_("...", this._characters, true);
-        }
-        Object.defineProperty(DynamicFontAtlas.prototype, "id", {
-            get: function () {
-                return this._id;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(DynamicFontAtlas.prototype, "font", {
-            get: function () {
-                return this._font;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(DynamicFontAtlas.prototype, "width", {
-            get: function () {
-                return this._width;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(DynamicFontAtlas.prototype, "height", {
-            get: function () {
-                return this._height;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(DynamicFontAtlas.prototype, "canvas", {
-            get: function () {
-                return this._canvas;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(DynamicFontAtlas.prototype, "characters", {
-            get: function () {
-                return this._characters;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(DynamicFontAtlas.prototype, "texture", {
-            get: function () {
-                return this._texture;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        DynamicFontAtlas.prototype.add_ = function (character, characters, reserved) {
-            if (character !== "\n") {
-                var data = characters[character];
-                if (data != null) {
-                    if (!data.reserved) {
-                        if (data.ref === 0) {
-                            this._unrefCount -= 1;
-                        }
-                        data.ref += 1;
-                    }
-                }
-                else {
-                    var advance = this.getAdvance(character);
-                    var width = Math.ceil(PADDING + advance + PADDING);
-                    var height = this.font.height;
-                    characters[character] = new DynamicFontAtlasCharacter(advance, width, height, !!reserved);
-                    this._length += 1;
-                    this._revision += 1;
-                }
-            }
-        };
-        DynamicFontAtlas.prototype.remove_ = function (character, characters) {
-            if (character !== "\n") {
-                var data = characters[character];
-                if (data != null) {
-                    if (!data.reserved && 0 < data.ref) {
-                        data.ref -= 1;
-                        if (data.ref === 0) {
-                            this._unrefCount += 1;
-                        }
-                    }
-                }
-            }
-        };
-        DynamicFontAtlas.prototype.cleanup_ = function () {
-            if ((this._length >> 1) <= this._unrefCount) {
-                var characters = this._characters;
-                for (var character in characters) {
-                    if (characters[character].ref <= 0) {
-                        delete characters[character];
-                    }
-                }
-                this._length -= this._unrefCount;
-                this._revision += 1;
-                this._unrefCount = 0;
-            }
-        };
-        DynamicFontAtlas.prototype.add = function (targets, reserved) {
-            var characters = this._characters;
-            for (var i = 0, imax = targets.length; i < imax; ++i) {
-                this.add_(targets[i], characters, reserved);
-            }
-        };
-        DynamicFontAtlas.prototype.remove = function (targets) {
-            var characters = this._characters;
-            for (var i = 0, imax = targets.length; i < imax; ++i) {
-                this.remove_(targets[i], characters);
-            }
-        };
-        DynamicFontAtlas.prototype.get = function (character) {
-            return this._characters[character];
-        };
-        DynamicFontAtlas.prototype.getAdvance = function (target) {
-            var context = this.getContext();
-            if (context != null) {
-                return context.measureText(target).width;
-            }
-            return 0;
-        };
-        DynamicFontAtlas.prototype.getContext = function () {
-            var context = this._context;
-            if (context == null) {
-                var canvas = this._canvas;
-                if (canvas != null) {
-                    context = this._context = canvas.getContext("2d", { alpha: true });
-                    if (context == null) {
-                        return null;
-                    }
-                }
-                else {
-                    return null;
-                }
-            }
-            var font = this._font;
-            if (context.font !== font.id) {
-                context.font = font.id;
-                font.id = context.font;
-                context.textAlign = "left";
-                context.textBaseline = "alphabetic";
-                context.lineWidth = 0;
-                context.lineCap = "round";
-                context.lineJoin = "miter";
-                context.miterLimit = 0;
-                context.fillStyle = font.color;
-                context.strokeStyle = "#0000ff";
-            }
-            return context;
-        };
-        DynamicFontAtlas.prototype.update = function () {
-            this.cleanup_();
-            if (this._revisionUpdated < this._revision) {
-                this._revisionUpdated = this._revision;
-                var canvas = this._canvas;
-                if (canvas != null) {
-                    var font = this._font;
-                    var fontHeight = font.height;
-                    var characters = this._characters;
-                    var width = this._width = this.toPowerOf2(Math.ceil(Math.sqrt(this._length)) * fontHeight);
-                    var offsetX = PADDING;
-                    var offsetY = Math.round((fontHeight - (font.ascent + font.descent)) * 0.5 + font.ascent);
-                    var x = 0;
-                    var y = 0;
-                    for (var key in characters) {
-                        var character = characters[key];
-                        if (width <= x + character.width) {
-                            x = 0;
-                            y += fontHeight;
-                        }
-                        character.x = x;
-                        character.y = y;
-                        character.origin.x = x + offsetX;
-                        character.origin.y = y + offsetY;
-                        x += character.width;
-                    }
-                    var height = this._height = y + fontHeight;
-                    // Make a input canvas
-                    // Here, we need to reset the context because
-                    // context settings will be lost when we set the width/height.
-                    var baseTexture = this._texture.baseTexture;
-                    var resolution = baseTexture.resolution;
-                    var realWidth = Math.ceil(width * resolution);
-                    var realHeight = Math.ceil(height * resolution);
-                    canvas.width = realWidth;
-                    canvas.height = realHeight;
-                    var context = this.getContext();
-                    if (context != null) {
-                        context.save();
-                        context.scale(resolution, resolution);
-                        context.clearRect(0, 0, width, height);
-                        for (var key in characters) {
-                            var character = characters[key];
-                            context.fillText(key, character.origin.x, character.origin.y);
-                        }
-                        context.restore();
-                    }
-                    baseTexture.setRealSize(realWidth, realHeight);
-                    return true;
-                }
-            }
-            return false;
-        };
-        DynamicFontAtlas.prototype.getRevision = function () {
-            return this._revision;
-        };
-        DynamicFontAtlas.prototype.getRevisionUpdate = function () {
-            return this._revisionUpdated;
-        };
-        Object.defineProperty(DynamicFontAtlas.prototype, "length", {
-            get: function () {
-                return this._length;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        DynamicFontAtlas.prototype.destroy = function () {
-            var canvas = this._canvas;
-            if (canvas != null) {
-                this._canvas = null;
-            }
-            var characters = this._characters;
-            for (var character in characters) {
-                delete characters[character];
-            }
-        };
-        DynamicFontAtlas.prototype.toPowerOf2 = function (size) {
-            var result = 32;
-            while (result < size) {
-                result <<= 1;
-            }
-            return result;
-        };
-        return DynamicFontAtlas;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var update = function (atlas) {
-        atlas.update();
-    };
-    var updateAll = function (colorToAltas) {
-        colorToAltas.forEach(update);
-    };
-    var destroy = function (atlas) {
-        atlas.update();
-    };
-    var destroyAll = function (colorToAltas) {
-        colorToAltas.forEach(destroy);
-    };
-    var DynamicFontAtlases = /** @class */ (function () {
-        function DynamicFontAtlases() {
-            var _this = this;
-            this._atlases = new Map();
-            DApplications.getInstance().renderer.on("prerender", function () {
-                _this.update();
-            });
-        }
-        DynamicFontAtlases.prototype.add = function (fontId, fontSize, fontColor, targets) {
-            var atlases = this._atlases;
-            var colorToAtlas = atlases.get(fontId);
-            if (colorToAtlas == null) {
-                colorToAtlas = new Map();
-                atlases.set(fontId, colorToAtlas);
-            }
-            var atlas = colorToAtlas.get(fontColor);
-            if (atlas == null) {
-                atlas = new DynamicFontAtlas(fontId, fontSize, fontColor);
-                colorToAtlas.set(fontColor, atlas);
-            }
-            atlas.add(targets);
-        };
-        DynamicFontAtlases.prototype.remove = function (fontId, fontColor, targets) {
-            var colorToAtlas = this._atlases.get(fontId);
-            if (colorToAtlas != null) {
-                var atlas = colorToAtlas.get(fontColor);
-                if (atlas != null) {
-                    atlas.remove(targets);
-                }
-            }
-        };
-        DynamicFontAtlases.prototype.get = function (fontId, fontColor) {
-            var atlases = this._atlases;
-            var colorToAtlas = atlases.get(fontId);
-            if (colorToAtlas == null) {
-                return null;
-            }
-            var atlas = colorToAtlas.get(fontColor);
-            if (atlas == null) {
-                return null;
-            }
-            return atlas;
-        };
-        DynamicFontAtlases.prototype.update = function () {
-            this._atlases.forEach(updateAll);
-        };
-        DynamicFontAtlases.prototype.destroy = function () {
-            var atlases = this._atlases;
-            atlases.forEach(destroyAll);
-            atlases.clear();
-        };
-        DynamicFontAtlases.getInstance = function () {
-            if (DynamicFontAtlases.INSTANCE == null) {
-                DynamicFontAtlases.INSTANCE = new DynamicFontAtlases();
-            }
-            return DynamicFontAtlases.INSTANCE;
-        };
-        DynamicFontAtlases.INSTANCE = null;
-        return DynamicFontAtlases;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var DDynamicText = /** @class */ (function (_super) {
         __extends(DDynamicText, _super);
         function DDynamicText(text, options) {
@@ -5365,22 +4575,25 @@
             return _this;
         }
         DDynamicText.prototype.update_ = function () {
-            var style = this._style;
-            if (this._isDirty) {
-                this._isDirty = false;
-                var text = this._text;
-                var textApproved = this._textApproved;
-                this._textApproved = text;
-                var fontId = style.fontId;
-                var fontIdApproved = style.fontIdApproved;
-                var fontSize = style.fontSize;
-                var fill = style.fill;
-                var fillApproved = style.fillApproved;
-                style.approve();
-                var atlases = DynamicFontAtlases.getInstance();
-                if (text !== textApproved || fontId !== fontIdApproved || fill !== fillApproved) {
-                    atlases.add(fontId, fontSize, fill, text);
-                    atlases.remove(fontIdApproved, fillApproved, textApproved);
+            var layer = DApplications.getLayer(this);
+            if (layer) {
+                var style = this._style;
+                if (this._isDirty) {
+                    this._isDirty = false;
+                    var text = this._text;
+                    var textApproved = this._textApproved;
+                    this._textApproved = text;
+                    var fontId = style.fontId;
+                    var fontIdApproved = style.fontIdApproved;
+                    var fontSize = style.fontSize;
+                    var fill = style.fill;
+                    var fillApproved = style.fillApproved;
+                    style.approve();
+                    var atlases = layer.getDynamicFontAtlases();
+                    if (text !== textApproved || fontId !== fontIdApproved || fill !== fillApproved) {
+                        atlases.add(fontId, fontSize, fill, text);
+                        atlases.remove(fontIdApproved, fillApproved, textApproved);
+                    }
                 }
             }
         };
@@ -5442,13 +4655,16 @@
             this.update_();
             var atlas = this._atlas;
             if (atlas == null) {
-                var style = this._style;
-                atlas = DynamicFontAtlases.getInstance().get(style.fontId, style.fill);
-                if (atlas != null) {
-                    this._atlasRevisionUpdated = atlas.getRevisionUpdate();
-                    this._atlas = atlas;
-                    this.texture = atlas.texture;
-                    this._isGeometryDirty = true;
+                var layer = DApplications.getLayer(this);
+                if (layer) {
+                    var style = this._style;
+                    atlas = layer.getDynamicFontAtlases().get(style.fontId, style.fill);
+                    if (atlas != null) {
+                        this._atlasRevisionUpdated = atlas.getRevisionUpdate();
+                        this._atlas = atlas;
+                        this.texture = atlas.texture;
+                        this._isGeometryDirty = true;
+                    }
                 }
             }
             else {
@@ -5692,13 +4908,13 @@
                         text.mask = this.getOrCreateOverflowMask();
                     }
                     this.toDirty();
-                    DApplications.update();
+                    DApplications.update(this);
                 }
             }
             else {
                 this._text.text = formatted;
                 this.toDirty();
-                DApplications.update();
+                DApplications.update(this);
             }
         };
         DTextBase.prototype.createText = function (formatted) {
@@ -5903,7 +5119,7 @@
                 if (this._imageSource !== imageSource) {
                     this._imageSource = imageSource;
                     this.toDirty();
-                    DApplications.update();
+                    DApplications.update(this);
                 }
             },
             enumerable: true,
@@ -5926,7 +5142,7 @@
         };
         DImageBase.prototype.onImageChange = function () {
             this.toDirty();
-            DApplications.update();
+            DApplications.update(this);
         };
         DImageBase.prototype.onStateChange = function (newState, oldState) {
             _super.prototype.onStateChange.call(this, newState, oldState);
@@ -6761,12 +5977,12 @@
      */
     var MAXIMUM_TEXTURE_SIZE = 4096;
     var DynamicAtlas = /** @class */ (function () {
-        function DynamicAtlas() {
+        function DynamicAtlas(resolution) {
             var canvas = this._canvas = document.createElement("canvas");
             canvas.width = canvas.height = 256;
             var baseTexture = this._baseTexture = pixi_js.BaseTexture.from(canvas, {
                 mipmap: pixi_js.MIPMAP_MODES.OFF,
-                resolution: pixi_js.settings.RESOLUTION
+                resolution: resolution
             });
             this._idToDatum = {};
             this._sortedData = [];
@@ -6946,6 +6162,392 @@
             }
         };
         return DynamicAtlas;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DynamicFontAtlasCharacterOrigin = /** @class */ (function () {
+        function DynamicFontAtlasCharacterOrigin(x, y) {
+            this.x = x;
+            this.y = y;
+        }
+        return DynamicFontAtlasCharacterOrigin;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DynamicFontAtlasCharacter = /** @class */ (function () {
+        function DynamicFontAtlasCharacter(advance, width, height, reserved) {
+            this.ref = 1;
+            this.life = 10;
+            this.x = 0;
+            this.y = 0;
+            this.width = width;
+            this.height = height;
+            this.advance = advance;
+            this.origin = new DynamicFontAtlasCharacterOrigin(0, 0);
+            this.reserved = reserved;
+        }
+        return DynamicFontAtlasCharacter;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DynamicFontAtlasFont = /** @class */ (function () {
+        function DynamicFontAtlasFont(fontId, size, color, padding) {
+            this.id = fontId;
+            this.size = size;
+            this.color = pixi_js.utils.hex2string(color);
+            this.height = size + padding * 2;
+            var metrics = pixi_js.TextMetrics.measureFont(fontId);
+            this.ascent = metrics.ascent;
+            this.descent = metrics.descent;
+        }
+        return DynamicFontAtlasFont;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var ASCII_CHARACTERS = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var PADDING = 3;
+    var DynamicFontAtlas = /** @class */ (function () {
+        function DynamicFontAtlas(fontId, fontSize, fontColor, resolution) {
+            this._id = fontId;
+            this._canvas = document.createElement("canvas");
+            this._context = null;
+            this._font = new DynamicFontAtlasFont(fontId, fontSize, fontColor, PADDING);
+            this._characters = {};
+            this._length = 0;
+            this._unrefCount = 0;
+            this._width = 1;
+            this._height = 1;
+            this._revision = 0;
+            this._revisionUpdated = 0;
+            this._texture = pixi_js.Texture.from(this._canvas, {
+                mipmap: pixi_js.MIPMAP_MODES.OFF,
+                resolution: resolution,
+                scaleMode: pixi_js.SCALE_MODES.NEAREST
+            });
+            this.add(ASCII_CHARACTERS, true);
+            this.add_("...", this._characters, true);
+        }
+        Object.defineProperty(DynamicFontAtlas.prototype, "id", {
+            get: function () {
+                return this._id;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(DynamicFontAtlas.prototype, "font", {
+            get: function () {
+                return this._font;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(DynamicFontAtlas.prototype, "width", {
+            get: function () {
+                return this._width;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(DynamicFontAtlas.prototype, "height", {
+            get: function () {
+                return this._height;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(DynamicFontAtlas.prototype, "canvas", {
+            get: function () {
+                return this._canvas;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(DynamicFontAtlas.prototype, "characters", {
+            get: function () {
+                return this._characters;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(DynamicFontAtlas.prototype, "texture", {
+            get: function () {
+                return this._texture;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        DynamicFontAtlas.prototype.add_ = function (character, characters, reserved) {
+            if (character !== "\n") {
+                var data = characters[character];
+                if (data != null) {
+                    if (!data.reserved) {
+                        if (data.ref === 0) {
+                            this._unrefCount -= 1;
+                        }
+                        data.ref += 1;
+                    }
+                }
+                else {
+                    var advance = this.getAdvance(character);
+                    var width = Math.ceil(PADDING + advance + PADDING);
+                    var height = this.font.height;
+                    characters[character] = new DynamicFontAtlasCharacter(advance, width, height, !!reserved);
+                    this._length += 1;
+                    this._revision += 1;
+                }
+            }
+        };
+        DynamicFontAtlas.prototype.remove_ = function (character, characters) {
+            if (character !== "\n") {
+                var data = characters[character];
+                if (data != null) {
+                    if (!data.reserved && 0 < data.ref) {
+                        data.ref -= 1;
+                        if (data.ref === 0) {
+                            this._unrefCount += 1;
+                        }
+                    }
+                }
+            }
+        };
+        DynamicFontAtlas.prototype.cleanup_ = function () {
+            if ((this._length >> 1) <= this._unrefCount) {
+                var characters = this._characters;
+                for (var character in characters) {
+                    if (characters[character].ref <= 0) {
+                        delete characters[character];
+                    }
+                }
+                this._length -= this._unrefCount;
+                this._revision += 1;
+                this._unrefCount = 0;
+            }
+        };
+        DynamicFontAtlas.prototype.add = function (targets, reserved) {
+            var characters = this._characters;
+            var iterator = UtilCharacterIterator.from(targets);
+            while (iterator.hasNext()) {
+                this.add_(iterator.next(), characters, reserved);
+            }
+        };
+        DynamicFontAtlas.prototype.remove = function (targets) {
+            var characters = this._characters;
+            var iterator = UtilCharacterIterator.from(targets);
+            while (iterator.hasNext()) {
+                this.remove_(iterator.next(), characters);
+            }
+        };
+        DynamicFontAtlas.prototype.get = function (character) {
+            return this._characters[character];
+        };
+        DynamicFontAtlas.prototype.getAdvance = function (target) {
+            var context = this.getContext();
+            if (context != null) {
+                return context.measureText(target).width;
+            }
+            return 0;
+        };
+        DynamicFontAtlas.prototype.getContext = function () {
+            var context = this._context;
+            if (context == null) {
+                var canvas = this._canvas;
+                if (canvas != null) {
+                    context = this._context = canvas.getContext("2d", { alpha: true });
+                    if (context == null) {
+                        return null;
+                    }
+                }
+                else {
+                    return null;
+                }
+            }
+            var font = this._font;
+            if (context.font !== font.id) {
+                context.font = font.id;
+                font.id = context.font;
+                context.textAlign = "left";
+                context.textBaseline = "alphabetic";
+                context.lineWidth = 0;
+                context.lineCap = "round";
+                context.lineJoin = "miter";
+                context.miterLimit = 0;
+                context.fillStyle = font.color;
+                context.strokeStyle = "#0000ff";
+            }
+            return context;
+        };
+        DynamicFontAtlas.prototype.update = function () {
+            this.cleanup_();
+            if (this._revisionUpdated < this._revision) {
+                this._revisionUpdated = this._revision;
+                var canvas = this._canvas;
+                if (canvas != null) {
+                    var font = this._font;
+                    var fontHeight = font.height;
+                    var characters = this._characters;
+                    var width = this._width = this.toPowerOf2(Math.ceil(Math.sqrt(this._length)) * fontHeight);
+                    var offsetX = PADDING;
+                    var offsetY = Math.round((fontHeight - (font.ascent + font.descent)) * 0.5 + font.ascent);
+                    var x = 0;
+                    var y = 0;
+                    for (var key in characters) {
+                        var character = characters[key];
+                        if (width <= x + character.width) {
+                            x = 0;
+                            y += fontHeight;
+                        }
+                        character.x = x;
+                        character.y = y;
+                        character.origin.x = x + offsetX;
+                        character.origin.y = y + offsetY;
+                        x += character.width;
+                    }
+                    var height = this._height = y + fontHeight;
+                    // Make a input canvas
+                    // Here, we need to reset the context because
+                    // context settings will be lost when we set the width/height.
+                    var baseTexture = this._texture.baseTexture;
+                    var resolution = baseTexture.resolution;
+                    var realWidth = Math.ceil(width * resolution);
+                    var realHeight = Math.ceil(height * resolution);
+                    canvas.width = realWidth;
+                    canvas.height = realHeight;
+                    var context = this.getContext();
+                    if (context != null) {
+                        context.save();
+                        context.scale(resolution, resolution);
+                        context.clearRect(0, 0, width, height);
+                        for (var key in characters) {
+                            var character = characters[key];
+                            context.fillText(key, character.origin.x, character.origin.y);
+                        }
+                        context.restore();
+                    }
+                    baseTexture.setRealSize(realWidth, realHeight);
+                    return true;
+                }
+            }
+            return false;
+        };
+        DynamicFontAtlas.prototype.getRevision = function () {
+            return this._revision;
+        };
+        DynamicFontAtlas.prototype.getRevisionUpdate = function () {
+            return this._revisionUpdated;
+        };
+        Object.defineProperty(DynamicFontAtlas.prototype, "length", {
+            get: function () {
+                return this._length;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        DynamicFontAtlas.prototype.destroy = function () {
+            var canvas = this._canvas;
+            if (canvas != null) {
+                this._canvas = null;
+            }
+            var characters = this._characters;
+            for (var character in characters) {
+                delete characters[character];
+            }
+        };
+        DynamicFontAtlas.prototype.toPowerOf2 = function (size) {
+            var result = 32;
+            while (result < size) {
+                result <<= 1;
+            }
+            return result;
+        };
+        return DynamicFontAtlas;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var update = function (atlas) {
+        atlas.update();
+    };
+    var updateAll = function (colorToAltas) {
+        colorToAltas.forEach(update);
+    };
+    var destroy = function (atlas) {
+        atlas.update();
+    };
+    var destroyAll = function (colorToAltas) {
+        colorToAltas.forEach(destroy);
+    };
+    var DynamicFontAtlases = /** @class */ (function () {
+        function DynamicFontAtlases(layer) {
+            var _this = this;
+            this._atlases = new Map();
+            this._resolution = layer.renderer.resolution;
+            layer.renderer.on("prerender", function () {
+                _this.update();
+            });
+        }
+        DynamicFontAtlases.prototype.add = function (fontId, fontSize, fontColor, targets) {
+            var atlases = this._atlases;
+            var colorToAtlas = atlases.get(fontId);
+            if (colorToAtlas == null) {
+                colorToAtlas = new Map();
+                atlases.set(fontId, colorToAtlas);
+            }
+            var atlas = colorToAtlas.get(fontColor);
+            if (atlas == null) {
+                atlas = new DynamicFontAtlas(fontId, fontSize, fontColor, this._resolution);
+                colorToAtlas.set(fontColor, atlas);
+            }
+            atlas.add(targets);
+        };
+        DynamicFontAtlases.prototype.remove = function (fontId, fontColor, targets) {
+            var colorToAtlas = this._atlases.get(fontId);
+            if (colorToAtlas != null) {
+                var atlas = colorToAtlas.get(fontColor);
+                if (atlas != null) {
+                    atlas.remove(targets);
+                }
+            }
+        };
+        DynamicFontAtlases.prototype.get = function (fontId, fontColor) {
+            var atlases = this._atlases;
+            var colorToAtlas = atlases.get(fontId);
+            if (colorToAtlas == null) {
+                return null;
+            }
+            var atlas = colorToAtlas.get(fontColor);
+            if (atlas == null) {
+                return null;
+            }
+            return atlas;
+        };
+        DynamicFontAtlases.prototype.update = function () {
+            this._atlases.forEach(updateAll);
+        };
+        DynamicFontAtlases.prototype.destroy = function () {
+            var atlases = this._atlases;
+            atlases.forEach(destroyAll);
+            atlases.clear();
+        };
+        return DynamicFontAtlases;
     }());
 
     /*
@@ -8514,7 +8116,8 @@
         UtilSvgAtlasBuilder.prototype.build = function (options) {
             var built = this._built;
             if (built == null || (options && options.force)) {
-                var resolution = pixi_js.settings.RESOLUTION;
+                var resolution = (options && options.resolution != null ?
+                    options.resolution : (window.devicePixelRatio || 1));
                 var width = this._width;
                 var height = Math.pow(2, Math.ceil(Math.log(this._nextY + this._height) / Math.LN2));
                 var realWidth = width * resolution;
@@ -9217,7 +8820,7 @@
             }
             this._modifier = (options && options.modifier) || DMouseModifier.NONE;
             this._checker = toChecker(options);
-            this._interactionManager = DApplications.getInstance().renderer.plugins.interaction;
+            this._interactionManager = null;
             this._center = new pixi_js.Point();
             this._scale = 1;
             this._scalingCenter = new pixi_js.Point();
@@ -9248,9 +8851,11 @@
                 this._move = UtilPointerEvent.move;
                 this._up = UtilPointerEvent.up;
             }
-            target.on(this._down, this._onDownBound);
+            if (options.bind !== false) {
+                target.on(this._down, this._onDownBound);
+            }
         }
-        UtilDrag.prototype.calcCenterAndScale = function (e, center) {
+        UtilDrag.prototype.calcCenterAndScale = function (e, center, interactionManager) {
             var oe = e.data.originalEvent;
             var global = e.data.global;
             if ("touches" in oe) {
@@ -9268,7 +8873,7 @@
                     }
                     centerX /= touchesLength;
                     centerY /= touchesLength;
-                    this._interactionManager.mapPositionToPoint(center, centerX, centerY);
+                    interactionManager.mapPositionToPoint(center, centerX, centerY);
                     if (1 < touchesLength) {
                         // Calculate the maximum distance from the center
                         var squareDistance = 0;
@@ -9291,41 +8896,53 @@
         UtilDrag.prototype.onDown = function (e) {
             var target = this._target;
             if (this._checker.start(e, this._modifier, target)) {
-                e.stopPropagation();
-                // Update the center
-                var center = this._center;
-                this._scale = this.calcCenterAndScale(e, center);
-                //
-                if (!target.isDragging()) {
-                    target.setDragging(true);
-                    //
-                    this._time = e.data.originalEvent.timeStamp;
-                    // Easing util
-                    var easing = this._easing;
-                    if (easing) {
-                        easing.onStart();
+                var layer = DApplications.getLayer(target);
+                if (layer) {
+                    e.stopPropagation();
+                    if (target.isDragging()) {
+                        var interactionManager = this._interactionManager;
+                        if (interactionManager) {
+                            var center = this._center;
+                            this._scale = this.calcCenterAndScale(e, center, interactionManager);
+                        }
                     }
-                    // User-defined handler
-                    var onStart = this._onStart;
-                    if (onStart != null) {
-                        onStart();
+                    else {
+                        target.setDragging(true);
+                        // Interaction manager
+                        var interactionManager = layer.renderer.plugins.interaction;
+                        this._interactionManager = interactionManager;
+                        // Update the center
+                        var center = this._center;
+                        this._scale = this.calcCenterAndScale(e, center, interactionManager);
+                        //
+                        this._time = e.data.originalEvent.timeStamp;
+                        // Easing util
+                        var easing = this._easing;
+                        if (easing) {
+                            easing.onStart();
+                        }
+                        // User-defined handler
+                        var onStart = this._onStart;
+                        if (onStart != null) {
+                            onStart();
+                        }
+                        // Event handler
+                        interactionManager.on(this._move, this._onMoveBound);
+                        interactionManager.on(this._up, this._onEndBound);
                     }
-                    // Event handler
-                    var interactionManager = this._interactionManager;
-                    interactionManager.on(this._move, this._onMoveBound);
-                    interactionManager.on(this._up, this._onEndBound);
                 }
             }
         };
         UtilDrag.prototype.onMove = function (e) {
             var target = this._target;
-            if (this._checker.move(e, this._modifier, target)) {
-                if (target.isDragging()) {
+            if (target.isDragging() && this._checker.move(e, this._modifier, target)) {
+                var interactionManager = this._interactionManager;
+                if (interactionManager) {
                     // Update the center
                     var center = this._center;
                     var centerX = center.x;
                     var centerY = center.y;
-                    var newScale = this.calcCenterAndScale(e, center);
+                    var newScale = this.calcCenterAndScale(e, center, interactionManager);
                     var oldScale = this._scale;
                     this._scale = newScale;
                     var oldTime = this._time;
@@ -9354,27 +8971,30 @@
         UtilDrag.prototype.onEnd = function (e) {
             var target = this._target;
             if (target.isDragging()) {
-                // Update the center
-                var center = this._center;
-                this._scalingCenter.copyFrom(center);
-                this._scale = this.calcCenterAndScale(e, center);
-                // Finalize
-                var oe = e.data.originalEvent;
-                if ("touches" in oe ? oe.touches.length <= 0 : true) {
-                    target.setDragging(false);
-                    // Event handler
-                    var interactionManager = this._interactionManager;
-                    interactionManager.off(this._move, this._onMoveBound);
-                    interactionManager.off(this._up, this._onEndBound);
-                    // User-defined handler
-                    var onEnd = this._onEnd;
-                    if (onEnd != null) {
-                        onEnd();
-                    }
-                    // Easing util
-                    var easing = this._easing;
-                    if (easing) {
-                        easing.onEnd(e.data.originalEvent.timeStamp - this._time);
+                var interactionManager = this._interactionManager;
+                if (interactionManager) {
+                    // Update the center
+                    var center = this._center;
+                    this._scalingCenter.copyFrom(center);
+                    this._scale = this.calcCenterAndScale(e, center, interactionManager);
+                    // Finalize
+                    var oe = e.data.originalEvent;
+                    if ("touches" in oe ? oe.touches.length <= 0 : true) {
+                        target.setDragging(false);
+                        // Event handler
+                        this._interactionManager = null;
+                        interactionManager.off(this._move, this._onMoveBound);
+                        interactionManager.off(this._up, this._onEndBound);
+                        // User-defined handler
+                        var onEnd = this._onEnd;
+                        if (onEnd != null) {
+                            onEnd();
+                        }
+                        // Easing util
+                        var easing = this._easing;
+                        if (easing) {
+                            easing.onEnd(e.data.originalEvent.timeStamp - this._time);
+                        }
                     }
                 }
             }
@@ -9407,23 +9027,25 @@
         function UtilExtractor() {
         }
         UtilExtractor.toTexture = function (target, resolution, clear, skipUpdateTransform) {
-            var result = PIXI.RenderTexture.create({
+            var result = pixi_js.RenderTexture.create({
                 width: target.width,
                 height: target.height,
-                scaleMode: PIXI.SCALE_MODES.LINEAR,
+                scaleMode: pixi_js.SCALE_MODES.LINEAR,
                 resolution: resolution
             });
-            var matrix = new PIXI.Matrix(undefined, undefined, undefined, undefined, -target.position.x, -target.position.y);
-            DApplications.getInstance().renderer.render(target, result, clear, matrix, skipUpdateTransform);
+            var matrix = new pixi_js.Matrix(undefined, undefined, undefined, undefined, -target.position.x, -target.position.y);
+            var layer = DApplications.getLayer(target);
+            if (layer) {
+                layer.renderer.render(target, result, clear, matrix, skipUpdateTransform);
+            }
             return result;
         };
-        UtilExtractor.toPixels = function (renderTexture) {
+        UtilExtractor.toPixels = function (renderTexture, renderer) {
             var resolution = renderTexture.resolution;
             var frame = renderTexture.frame;
             var width = Math.floor(frame.width * resolution);
             var height = Math.floor(frame.height * resolution);
             var pixels = new Uint8Array(4 * width * height);
-            var renderer = DApplications.getInstance().renderer;
             renderer.renderTexture.bind(renderTexture);
             var gl = renderer.gl;
             gl.readPixels(frame.x * resolution, frame.y * resolution, width, height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
@@ -9437,13 +9059,13 @@
             var width = pixels.width;
             var height = pixels.height;
             var array = pixels.array;
-            var canvasRenderTarget = new PIXI.utils.CanvasRenderTarget(width, height, 1);
+            var canvasRenderTarget = new pixi_js.utils.CanvasRenderTarget(width, height, 1);
             var imageData = canvasRenderTarget.context.getImageData(0, 0, width, height);
             if (ignorePremutipliedAlpha) {
                 imageData.data.set(array);
             }
             else {
-                PIXI.extract.Extract.arrayPostDivide(array, imageData.data);
+                pixi_js.extract.Extract.arrayPostDivide(array, imageData.data);
             }
             canvasRenderTarget.context.putImageData(imageData, 0, 0);
             // Scale down
@@ -9510,10 +9132,17 @@
     };
     var toResolution = function (options) {
         var target = options.target;
-        return (options.resolution != null ?
-            (utilIsNumber(options.resolution) ?
-                options.resolution :
-                Math.min(1, options.resolution.size / Math.max(target.width, target.height))) : PIXI.settings.RESOLUTION);
+        if (options.resolution != null) {
+            if (utilIsNumber(options.resolution)) {
+                return options.resolution;
+            }
+            else {
+                return Math.min(1, options.resolution.size / Math.max(target.width, target.height));
+            }
+        }
+        else {
+            return window.devicePixelRatio || 1;
+        }
     };
     var toIgnorePremultipliedAlpha = function (options) {
         return (options.alpha && options.alpha.premultiplied && options.alpha.premultiplied.ignore);
@@ -9529,6 +9158,26 @@
             }
         }
     };
+    var toRenderer = function (options) {
+        if (options.renderer) {
+            return options.renderer;
+        }
+        else if (options.application) {
+            return options.application.getLayerBase().renderer;
+        }
+        else if (options.layer) {
+            return options.layer.renderer;
+        }
+        else {
+            var layer = DApplications.getLayer(options.target);
+            if (layer) {
+                return layer.renderer;
+            }
+            else {
+                throw new Error("No renderer / application / layer found.");
+            }
+        }
+    };
     var UtilExtract = /** @class */ (function () {
         function UtilExtract() {
         }
@@ -9539,7 +9188,8 @@
             return UtilExtractor.toTexture(target, resolution, options.clear, skipUpdateTransform);
         };
         UtilExtract.pixels = function (options) {
-            return UtilExtractor.toPixels(this.texture(options));
+            var renderer = toRenderer(options);
+            return UtilExtractor.toPixels(this.texture(options), renderer);
         };
         UtilExtract.canvas = function (options) {
             var pixels = this.pixels(options);
@@ -9594,7 +9244,7 @@
                     e.stopImmediatePropagation();
                     e.preventDefault();
                 });
-                DApplications.getInstance().view.appendChild(input_1);
+                document.body.appendChild(input_1);
             }
             return this._input;
         };
@@ -9771,6 +9421,60 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var UtilName = /** @class */ (function () {
+        function UtilName() {
+        }
+        UtilName.create = function (type) {
+            var mapping = this._mapping;
+            if (type in mapping) {
+                return type + " " + ++mapping[type];
+            }
+            else {
+                mapping[type] = 1;
+                return type + " 1";
+            }
+        };
+        UtilName._mapping = {};
+        return UtilName;
+    }());
+
+    var UtilOverlay = /** @class */ (function () {
+        function UtilOverlay(options) {
+            this._layer = null;
+            this._application = (options == null || options.parent == null ?
+                DApplications.last() : null);
+        }
+        Object.defineProperty(UtilOverlay.prototype, "picked", {
+            get: function () {
+                return this._layer;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        UtilOverlay.prototype.pick = function (target) {
+            var layer = this._layer;
+            if (layer == null) {
+                layer = DApplications.getLayerOverlay(target);
+                if (!layer) {
+                    var application = this._application;
+                    if (application) {
+                        layer = application.getLayerOverlay();
+                    }
+                    else {
+                        layer = DApplications.last().getLayerOverlay();
+                    }
+                }
+                this._layer = layer;
+            }
+            return layer;
+        };
+        return UtilOverlay;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var UtilPromise = /** @class */ (function () {
         function UtilPromise() {
         }
@@ -9844,31 +9548,40 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var toCornerTl = function (offset, size, tl) {
-        return (0 < tl ? "A" + tl + " " + tl + " 0 0 1 " + (offset + tl) + " " + offset : "");
-    };
-    var toCornerBr = function (offset, size, br) {
-        return (0 < br ? "A" + br + " " + br + " 0 0 1 " + (offset + size - br) + " " + (offset + size) : "");
-    };
     var UtilTexturePlane = /** @class */ (function () {
         function UtilTexturePlane() {
+            this._backgroundCache = new Map();
+            this._backgroundAttribute = "fill=\"#fff\" stroke=\"none\"";
+            this._borderCache = new Map();
+            this._borderAttribute = function (width) {
+                return "fill=\"none\" stroke=\"#fff\" stroke-width=\"" + width + "\"";
+            };
+            this._onUpdate = function () {
+                DApplications.update();
+            };
         }
-        UtilTexturePlane.make = function (radius, offset, attr) {
+        UtilTexturePlane.prototype.toCornerTl = function (offset, size, tl) {
+            return (0 < tl ? "A" + tl + " " + tl + " 0 0 1 " + (offset + tl) + " " + offset : "");
+        };
+        UtilTexturePlane.prototype.toCornerBr = function (offset, size, br) {
+            return (0 < br ? "A" + br + " " + br + " 0 0 1 " + (offset + size - br) + " " + (offset + size) : "");
+        };
+        UtilTexturePlane.prototype.make = function (radius, offset, attr) {
             var realRadius = Math.max(0, radius - offset);
             var size = realRadius * 2 + 4;
             var realSize = size + offset * 2;
             var d = "M" + (offset + realRadius) + " " + offset +
                 ("L" + (offset + size) + " " + offset) +
                 ("L" + (offset + size) + " " + (offset + size - realRadius)) +
-                toCornerBr(offset, size, realRadius) +
+                this.toCornerBr(offset, size, realRadius) +
                 ("L" + offset + " " + (offset + size)) +
                 ("L" + offset + " " + (offset + realRadius)) +
-                toCornerTl(offset, size, realRadius) +
+                this.toCornerTl(offset, size, realRadius) +
                 "Z";
             return this.toSvg(realSize, attr, d);
         };
-        UtilTexturePlane.toSvg = function (realSize, attr, d) {
-            var resolution = pixi_js.settings.RESOLUTION;
+        UtilTexturePlane.prototype.toSvg = function (realSize, attr, d) {
+            var resolution = (window.devicePixelRatio || 1);
             var widthAttr = "width=\"" + realSize * resolution + "\"";
             var heightAttr = "height=\"" + realSize * resolution + "\"";
             var viewBoxAttr = "viewBox=\"0 0 " + realSize + " " + realSize + "\"";
@@ -9879,21 +9592,18 @@
                 resolution: resolution
             });
         };
-        UtilTexturePlane.onUpdate = function () {
-            DApplications.update();
-        };
-        UtilTexturePlane.newBackground = function (radius) {
-            var result = this.make(radius, 0, this.BACKGROUND_ATTRIBUTE);
-            result.on("update", this.onUpdate);
+        UtilTexturePlane.prototype.newBackground = function (radius) {
+            var result = this.make(radius, 0, this._backgroundAttribute);
+            result.on("update", this._onUpdate);
             return result;
         };
-        UtilTexturePlane.newBorder = function (radius, width) {
-            var result = this.make(radius, 0.5 * width, this.BORDER_ATTRIBUTE(width));
-            result.on("update", this.onUpdate);
+        UtilTexturePlane.prototype.newBorder = function (radius, width) {
+            var result = this.make(radius, 0.5 * width, this._borderAttribute(width));
+            result.on("update", this._onUpdate);
             return result;
         };
-        UtilTexturePlane.getBackground = function (radius) {
-            var cache = this.BACKGROUND_CACHE;
+        UtilTexturePlane.prototype.getBackground = function (radius) {
+            var cache = this._backgroundCache;
             var texture = cache.get(radius);
             if (texture == null) {
                 texture = this.newBackground(radius);
@@ -9901,8 +9611,8 @@
             }
             return texture;
         };
-        UtilTexturePlane.getBorder = function (radius, width) {
-            var cache = this.BORDER_CACHE;
+        UtilTexturePlane.prototype.getBorder = function (radius, width) {
+            var cache = this._borderCache;
             var maskToTexture = cache.get(radius);
             if (maskToTexture == null) {
                 maskToTexture = new Map();
@@ -9915,10 +9625,13 @@
             }
             return texture;
         };
-        UtilTexturePlane.BACKGROUND_CACHE = new Map();
-        UtilTexturePlane.BACKGROUND_ATTRIBUTE = "fill=\"#fff\" stroke=\"none\"";
-        UtilTexturePlane.BORDER_CACHE = new Map();
-        UtilTexturePlane.BORDER_ATTRIBUTE = function (width) { return "fill=\"none\" stroke=\"#fff\" stroke-width=\"" + width + "\""; };
+        UtilTexturePlane.getInstance = function () {
+            if (UtilTexturePlane.INSTANCE == null) {
+                UtilTexturePlane.INSTANCE = new UtilTexturePlane();
+            }
+            return UtilTexturePlane.INSTANCE;
+        };
+        UtilTexturePlane.INSTANCE = null;
         return UtilTexturePlane;
     }());
 
@@ -12380,7 +12093,6 @@
         EShapeDefaults.RADIUS = 0.25;
         EShapeDefaults.SIZE_X = 100;
         EShapeDefaults.SIZE_Y = 100;
-        EShapeDefaults.ANTIALIAS_WEIGHT = 1.25 / (window.devicePixelRatio || 1);
         EShapeDefaults.HIGHLIGHT_COLOR = 0x1e87f0;
         return EShapeDefaults;
     }());
@@ -12536,7 +12248,7 @@
             if (!shape.disabled) {
                 if (!(this.state & EShapeRuntimeState.CLICKED)) {
                     this.state |= EShapeRuntimeState.CHANGED | EShapeRuntimeState.CLICKED;
-                    DApplications.update();
+                    DApplications.update(shape);
                 }
             }
         };
@@ -12550,18 +12262,23 @@
             shape.hovered = false;
         };
         EShapeRuntime.prototype.onPointerDown = function (shape, e) {
+            var layer = DApplications.getLayer(shape);
             if (!(this.state & EShapeRuntimeState.DOWN)) {
                 this.state |= EShapeRuntimeState.CHANGED | EShapeRuntimeState.DOWN | EShapeRuntimeState.PRESSED;
-                DApplications.update();
+                if (layer) {
+                    layer.update();
+                }
             }
-            var focusController = DControllers.getFocusController();
-            focusController.setFocused(focusController.findFocusableParent(shape), true, true);
+            if (layer) {
+                var focusController = layer.getFocusController();
+                focusController.setFocused(focusController.findFocusableParent(shape), true, true);
+            }
         };
         EShapeRuntime.prototype.onPointerUp = function (shape, e) {
             if (!(this.state & EShapeRuntimeState.UP)) {
                 this.state |= EShapeRuntimeState.CHANGED | EShapeRuntimeState.UP;
                 this.state &= ~EShapeRuntimeState.PRESSED;
-                DApplications.update();
+                DApplications.update(shape);
             }
         };
         EShapeRuntime.prototype.onPointerMove = function (shape, e) {
@@ -12582,7 +12299,7 @@
         };
         EShapeRuntime.prototype.onStateChange = function (shape, newState, oldState) {
             this.state |= EShapeRuntimeState.CHANGED;
-            DApplications.update();
+            DApplications.update(shape);
         };
         EShapeRuntime.prototype.update = function (shape, time) {
             var tag = shape.tag;
@@ -13405,7 +13122,10 @@
             },
             set: function (focused) {
                 if (this.focused !== focused) {
-                    DControllers.getFocusController().setFocused(this, focused, false);
+                    var layer = DApplications.getLayer(this);
+                    if (layer) {
+                        layer.getFocusController().setFocused(this, focused, false);
+                    }
                 }
             },
             enumerable: true,
@@ -15770,7 +15490,7 @@
      */
     var FMIN = 0.00001;
     var EShapeUploadedBase = /** @class */ (function () {
-        function EShapeUploadedBase(buffer, voffset, ioffset, vcount, icount) {
+        function EShapeUploadedBase(buffer, voffset, ioffset, vcount, icount, antialiasWeight) {
             this.buffer = buffer;
             this.transformLocalId = -1;
             this.vertexOffset = voffset;
@@ -15795,6 +15515,7 @@
             this.corner = NaN;
             this.texture = null;
             this.textureTransformId = NaN;
+            this.antialiasWeight = antialiasWeight;
         }
         EShapeUploadedBase.prototype.init = function (shape) {
             shape.uploaded = this;
@@ -15877,7 +15598,7 @@
             this.updateColorStroke(buffer, shape, vertexCount);
         };
         EShapeUploadedBase.prototype.calcStep = function (size, strokeWidth, result) {
-            var antialiasWeight = EShapeDefaults.ANTIALIAS_WEIGHT;
+            var antialiasWeight = this.antialiasWeight;
             if (FMIN < strokeWidth) {
                 var dpc0 = size - strokeWidth;
                 if (FMIN < dpc0) {
@@ -15996,8 +15717,8 @@
     var FMIN$1 = 0.00001;
     var EShapeTextUploaded = /** @class */ (function (_super) {
         __extends(EShapeTextUploaded, _super);
-        function EShapeTextUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount) {
-            var _this = _super.call(this, buffer, voffset, ioffset, vcount, icount) || this;
+        function EShapeTextUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight) {
+            var _this = _super.call(this, buffer, voffset, ioffset, vcount, icount, antialiasWeight) || this;
             _this.textSize = NaN;
             _this.textFamily = "auto";
             _this.textValue = "";
@@ -16923,8 +16644,8 @@
     var FMIN$2 = 0.00001;
     var EShapeBarUploaded = /** @class */ (function (_super) {
         __extends(EShapeBarUploaded, _super);
-        function EShapeBarUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount) {
-            var _this = _super.call(this, buffer, voffset, ioffset, tvcount, ticount, vcount, icount) || this;
+        function EShapeBarUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight) {
+            var _this = _super.call(this, buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight) || this;
             _this.pointsId = NaN;
             _this.pointsStyle = EShapePointsStyle.NONE;
             return _this;
@@ -17135,14 +16856,14 @@
     var EShapeBarUploadeds = /** @class */ (function () {
         function EShapeBarUploadeds() {
         }
-        EShapeBarUploadeds.create = function (buffer, shape, voffset, ioffset) {
+        EShapeBarUploadeds.create = function (buffer, shape, voffset, ioffset, antialiasWeight) {
             var tcount = EShapeTextUploadeds.getTextCount(shape, buffer.workCount);
             var tvcount = tcount.vertexCount;
             var ticount = tcount.indexCount;
             var vcount = 4 + tvcount;
             var icount = 2 + ticount;
             if (voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity) {
-                return new EShapeBarUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount).init(shape);
+                return new EShapeBarUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight).init(shape);
             }
             return null;
         };
@@ -17200,16 +16921,19 @@
             else {
                 shape.emit(name, shape, parameter1, parameter2);
             }
-            var application = DApplications.getInstance();
-            if ("shape" in application) {
-                if (parameter1 === undefined) {
-                    application.shape.emit(name, shape);
-                }
-                else if (parameter2 === undefined) {
-                    application.shape.emit(name, shape, parameter1);
-                }
-                else {
-                    application.shape.emit(name, shape, parameter1, parameter2);
+            var layer = DApplications.getLayer(shape);
+            if (layer) {
+                var application = layer.application;
+                if ("shape" in application) {
+                    if (parameter1 === undefined) {
+                        application.shape.emit(name, shape);
+                    }
+                    else if (parameter2 === undefined) {
+                        application.shape.emit(name, shape, parameter1);
+                    }
+                    else {
+                        application.shape.emit(name, shape, parameter1, parameter2);
+                    }
                 }
             }
         };
@@ -18584,9 +18308,9 @@
             };
             this._updateInputBoundRenderer = null;
         }
-        EShapeActionRuntimeMiscInputData.prototype.getInput = function () {
+        EShapeActionRuntimeMiscInputData.prototype.getInput = function (layer) {
             if (this.input == null) {
-                DApplications.getInstance().getRootElement().appendChild(this.input = this.createInput());
+                layer.application.getRootElement().appendChild(this.input = this.createInput());
             }
             return this.input;
         };
@@ -18683,13 +18407,16 @@
                 if (shape != null) {
                     this.onInputChange();
                     this.hide();
-                    var focusController = DControllers.getFocusController();
-                    var direction = UtilKeyboardEvent.getFocusDirection(e);
-                    var focusable = focusController.findFocusable(shape, false, false, direction);
-                    if (focusable != null) {
-                        DApplications.getInstance().view.focus();
-                        e.preventDefault();
-                        focusController.setFocused(focusable, true, true);
+                    var layer = DApplications.getLayer(shape);
+                    if (layer) {
+                        var focusController = layer.getFocusController();
+                        var direction = UtilKeyboardEvent.getFocusDirection(e);
+                        var focusable = focusController.findFocusable(shape, false, false, direction);
+                        if (focusable != null) {
+                            layer.view.focus();
+                            e.preventDefault();
+                            focusController.setFocused(focusable, true, true);
+                        }
                     }
                 }
             }
@@ -18742,22 +18469,24 @@
                 if (text != null) {
                     text.enable = false;
                 }
-                var app = DApplications.getInstance();
-                var input = this.getInput();
-                if (input != null) {
-                    this.initInput(newShape, input, value);
-                    var updateInputBound = this._updateInputBound;
-                    var renderer = this._updateInputBoundRenderer;
-                    if (renderer != null) {
-                        renderer.off("postrender", updateInputBound);
+                var layer = DApplications.getLayer(newShape);
+                if (layer) {
+                    var input = this.getInput(layer);
+                    if (input) {
+                        this.initInput(newShape, input, value);
+                        var updateInputBound = this._updateInputBound;
+                        var renderer = this._updateInputBoundRenderer;
+                        if (renderer != null) {
+                            renderer.off("postrender", updateInputBound);
+                        }
+                        this._updateInputBoundRenderer = layer.renderer;
+                        layer.renderer.on("postrender", updateInputBound);
+                        input.style.display = "";
+                        input.focus();
+                        input.select();
                     }
-                    this._updateInputBoundRenderer = app.renderer;
-                    app.renderer.on("postrender", updateInputBound);
-                    input.style.display = "";
-                    input.focus();
-                    input.select();
+                    layer.update();
                 }
-                DApplications.update();
             }
         };
         EShapeActionRuntimeMiscInputData.prototype.hide = function () {
@@ -18782,7 +18511,7 @@
                     this._updateInputBoundRenderer = null;
                     renderer.off("postrender", this._updateInputBound);
                 }
-                DApplications.update();
+                DApplications.update(shape);
             }
         };
         EShapeActionRuntimeMiscInputData.prototype.onInputChange = function () {
@@ -18903,9 +18632,12 @@
             if (!!this.condition(shape, time)) {
                 var target = this.target(shape, time);
                 if (target != null) {
-                    var application = DApplications.getInstance();
-                    if ("opener" in application) {
-                        application.opener(target);
+                    var layer = DApplications.getLayer(shape);
+                    if (layer) {
+                        var application = layer.application;
+                        if ("opener" in application) {
+                            application.opener(target);
+                        }
                     }
                 }
             }
@@ -20289,14 +20021,14 @@
     var EShapeCircleUploadeds = /** @class */ (function () {
         function EShapeCircleUploadeds() {
         }
-        EShapeCircleUploadeds.create = function (buffer, shape, voffset, ioffset) {
+        EShapeCircleUploadeds.create = function (buffer, shape, voffset, ioffset, antialiasWeight) {
             var tcount = EShapeTextUploadeds.getTextCount(shape, buffer.workCount);
             var tvcount = tcount.vertexCount;
             var ticount = tcount.indexCount;
             var vcount = 9 + tvcount;
             var icount = 8 + ticount;
             if (voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity) {
-                return new EShapeCircleUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount).init(shape);
+                return new EShapeCircleUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight).init(shape);
             }
             return null;
         };
@@ -20385,7 +20117,7 @@
     var EShapeGroupUploaded = /** @class */ (function (_super) {
         __extends(EShapeGroupUploaded, _super);
         function EShapeGroupUploaded(buffer, voffset, ioffset) {
-            return _super.call(this, buffer, voffset, ioffset, 0, 0) || this;
+            return _super.call(this, buffer, voffset, ioffset, 0, 0, 1) || this;
         }
         EShapeGroupUploaded.prototype.init = function (shape) {
             _super.prototype.init.call(this, shape);
@@ -22695,14 +22427,14 @@
     var EShapeRectangleUploadeds = /** @class */ (function () {
         function EShapeRectangleUploadeds() {
         }
-        EShapeRectangleUploadeds.create = function (buffer, shape, voffset, ioffset) {
+        EShapeRectangleUploadeds.create = function (buffer, shape, voffset, ioffset, antialiasWeight) {
             var tcount = EShapeTextUploadeds.getTextCount(shape, buffer.workCount);
             var tvcount = tcount.vertexCount;
             var ticount = tcount.indexCount;
             var vcount = 12 + tvcount;
             var icount = 8 + ticount;
             if (voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity) {
-                return new EShapeRectangleUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount).init(shape);
+                return new EShapeRectangleUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight).init(shape);
             }
             return null;
         };
@@ -22767,14 +22499,14 @@
     var EShapeLabelUploadeds = /** @class */ (function () {
         function EShapeLabelUploadeds() {
         }
-        EShapeLabelUploadeds.create = function (buffer, shape, voffset, ioffset) {
+        EShapeLabelUploadeds.create = function (buffer, shape, voffset, ioffset, antialiasWeight) {
             var tcount = EShapeTextUploadeds.getTextCount(shape, buffer.workCount);
             var tvcount = tcount.vertexCount;
             var ticount = tcount.indexCount;
             var vcount = tvcount;
             var icount = ticount;
             if (voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity) {
-                return new EShapeLabelUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount).init(shape);
+                return new EShapeLabelUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight).init(shape);
             }
             return null;
         };
@@ -22826,8 +22558,8 @@
     var FMIN$3 = 0.00001;
     var EShapeLineUploaded = /** @class */ (function (_super) {
         __extends(EShapeLineUploaded, _super);
-        function EShapeLineUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, pointCount, pointsClosed) {
-            var _this = _super.call(this, buffer, voffset, ioffset, tvcount, ticount, vcount, icount) || this;
+        function EShapeLineUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight, pointCount, pointsClosed) {
+            var _this = _super.call(this, buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight) || this;
             _this.pointId = NaN;
             _this.pointCount = pointCount;
             _this.pointsClosed = pointsClosed;
@@ -23332,7 +23064,7 @@
     var EShapeLineUploadeds = /** @class */ (function () {
         function EShapeLineUploadeds() {
         }
-        EShapeLineUploadeds.create = function (buffer, shape, voffset, ioffset) {
+        EShapeLineUploadeds.create = function (buffer, shape, voffset, ioffset, antialiasWeight) {
             var points = shape.points;
             var pointsClosed = (points ? (points.style & EShapePointsStyle.CLOSED) !== 0 : false);
             var pointCount = (points ? points.length : 0);
@@ -23352,7 +23084,7 @@
                 }
             }
             if (voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity) {
-                return new EShapeLineUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, pointCount, pointsClosed).init(shape);
+                return new EShapeLineUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight, pointCount, pointsClosed).init(shape);
             }
             return null;
         };
@@ -23672,7 +23404,7 @@
     var EShapeNullUploaded = /** @class */ (function (_super) {
         __extends(EShapeNullUploaded, _super);
         function EShapeNullUploaded(buffer, voffset, ioffset) {
-            return _super.call(this, buffer, voffset, ioffset, 0, 0) || this;
+            return _super.call(this, buffer, voffset, ioffset, 0, 0, 1) || this;
         }
         EShapeNullUploaded.prototype.init = function (shape) {
             _super.prototype.init.call(this, shape);
@@ -25085,14 +24817,14 @@
     var EShapeRectangleRoundedUploadeds = /** @class */ (function () {
         function EShapeRectangleRoundedUploadeds() {
         }
-        EShapeRectangleRoundedUploadeds.create = function (buffer, shape, voffset, ioffset) {
+        EShapeRectangleRoundedUploadeds.create = function (buffer, shape, voffset, ioffset, antialiasWeight) {
             var tcount = EShapeTextUploadeds.getTextCount(shape, buffer.workCount);
             var tvcount = tcount.vertexCount;
             var ticount = tcount.indexCount;
             var vcount = 36 + tvcount;
             var icount = 24 + ticount;
             if (voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity) {
-                return new EShapeRectangleRoundedUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount).init(shape);
+                return new EShapeRectangleRoundedUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight).init(shape);
             }
             return null;
         };
@@ -25518,14 +25250,14 @@
     var EShapeTriangleUploadeds = /** @class */ (function () {
         function EShapeTriangleUploadeds() {
         }
-        EShapeTriangleUploadeds.create = function (buffer, shape, voffset, ioffset) {
+        EShapeTriangleUploadeds.create = function (buffer, shape, voffset, ioffset, antialiasWeight) {
             var tcount = EShapeTextUploadeds.getTextCount(shape, buffer.workCount);
             var tvcount = tcount.vertexCount;
             var ticount = tcount.indexCount;
             var vcount = 7 + tvcount;
             var icount = 3 + ticount;
             if (voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity) {
-                return new EShapeTriangleUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount).init(shape);
+                return new EShapeTriangleUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight).init(shape);
             }
             return null;
         };
@@ -26103,14 +25835,14 @@
     var EShapeTriangleRoundedUploadeds = /** @class */ (function () {
         function EShapeTriangleRoundedUploadeds() {
         }
-        EShapeTriangleRoundedUploadeds.create = function (buffer, shape, voffset, ioffset) {
+        EShapeTriangleRoundedUploadeds.create = function (buffer, shape, voffset, ioffset, antialiasWeight) {
             var tcount = EShapeTextUploadeds.getTextCount(shape, buffer.workCount);
             var tvcount = tcount.vertexCount;
             var ticount = tcount.indexCount;
             var vcount = 22 + tvcount;
             var icount = 15 + ticount;
             if (voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity) {
-                return new EShapeTriangleRoundedUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount).init(shape);
+                return new EShapeTriangleRoundedUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight).init(shape);
             }
             return null;
         };
@@ -26401,7 +26133,7 @@
         function DThemeWhiteFont() {
         }
         DThemeWhiteFont.prototype.getFontFamilly = function () {
-            return "ProximaNova,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,sans-serif";
+            return "ProximaNova,-apple-system,Meiryo,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,sans-serif";
         };
         DThemeWhiteFont.prototype.getFontSize = function () {
             return 14;
@@ -26484,7 +26216,7 @@
             return 1;
         };
         DThemeWhiteBase.prototype.getBackgroundTexture = function (radius) {
-            return UtilTexturePlane.getBackground(radius);
+            return UtilTexturePlane.getInstance().getBackground(radius);
         };
         DThemeWhiteBase.prototype.getBorderColor = function (state) {
             if (DBaseStates.isFocused(state)) {
@@ -26507,7 +26239,7 @@
             return DBorderMask.NONE;
         };
         DThemeWhiteBase.prototype.getBorderTexture = function (radius, width) {
-            return UtilTexturePlane.getBorder(radius, width);
+            return UtilTexturePlane.getInstance().getBorder(radius, width);
         };
         DThemeWhiteBase.prototype.getPaddingLeft = function () {
             return 0;
@@ -26565,6 +26297,9 @@
         };
         DThemeWhiteBase.prototype.newShadowWeak = function () {
             return new DShadowImpl(DThemeWhiteAtlas.mappings.shadow_weak, 8, 8, 0, 4);
+        };
+        DThemeWhiteBase.prototype.getCursor = function () {
+            return null;
         };
         return DThemeWhiteBase;
     }(DThemeWhiteFont));
@@ -26977,6 +26712,7 @@
             _this._storedAlpha = 0;
             _this._storedTime = 0;
             _this._storedTarget = null;
+            _this._layer = null;
             // Shifts
             if (options != null && options.shift != null) {
                 var shift = options.shift;
@@ -26997,18 +26733,33 @@
         }
         DAnimationFadeIn.prototype.stop = function () {
             this._storedTime = 0;
-            DApplications.getInstance().renderer
-                .off("prerender", this._onPrerenderBound)
-                .off("postrender", this._onPostrenderBound);
+            this.removeEventListeners();
             _super.prototype.stop.call(this);
+        };
+        DAnimationFadeIn.prototype.addEventListeners = function (target) {
+            var layer = DApplications.getLayer(target);
+            if (layer) {
+                this._layer = layer;
+                var renderer = layer.renderer;
+                renderer.on("prerender", this._onPrerenderBound);
+                renderer.on("postrender", this._onPostrenderBound);
+            }
+        };
+        DAnimationFadeIn.prototype.removeEventListeners = function () {
+            var layer = this._layer;
+            if (layer) {
+                this._layer = null;
+                var renderer = layer.renderer;
+                renderer.off("prerender", this._onPrerenderBound);
+                renderer.off("postrender", this._onPostrenderBound);
+            }
         };
         DAnimationFadeIn.prototype.onStart = function (isReverse) {
             var target = this._storedTarget = this._target;
             if (target != null) {
                 this._storedTime = 0;
-                DApplications.getInstance().renderer
-                    .on("prerender", this._onPrerenderBound)
-                    .on("postrender", this._onPostrenderBound);
+                this.removeEventListeners();
+                this.addEventListeners(target);
                 if (!isReverse) {
                     target.visible = true;
                 }
@@ -27018,20 +26769,24 @@
         DAnimationFadeIn.prototype.onTime = function (time, isReverse, elapsedTime) {
             var target = this._storedTarget;
             if (target != null) {
-                var application = DApplications.getInstance();
-                application.disallowUpdate();
-                this._storedTime = time;
-                _super.prototype.onTime.call(this, time, isReverse, elapsedTime);
-                application.allowUpdate();
-                application.render();
+                var layer = this._layer;
+                if (layer) {
+                    layer.disallowUpdate();
+                    this._storedTime = time;
+                    _super.prototype.onTime.call(this, time, isReverse, elapsedTime);
+                    layer.allowUpdate();
+                    layer.render();
+                }
+                else {
+                    this._storedTime = time;
+                    _super.prototype.onTime.call(this, time, isReverse, elapsedTime);
+                }
             }
         };
         DAnimationFadeIn.prototype.onEnd = function (isReverse) {
             var target = this._storedTarget;
             if (target != null) {
-                DApplications.getInstance().renderer
-                    .off("prerender", this._onPrerenderBound)
-                    .off("postrender", this._onPostrenderBound);
+                this.removeEventListeners();
                 if (isReverse) {
                     target.visible = false;
                 }
@@ -27075,6 +26830,16 @@
         DDialogCloseOn[DDialogCloseOn["ESC"] = 1] = "ESC";
         DDialogCloseOn[DDialogCloseOn["CLICK_OUTSIDE"] = 2] = "CLICK_OUTSIDE";
     })(DDialogCloseOn || (DDialogCloseOn = {}));
+    /**
+     * A base class for dialogs.
+     *
+     * If multiple application instances are there, better to set
+     * the constructor option `parent` to an `application.stage`
+     * so that the dialog picks a right application.
+     *
+     * By default, the dialog assumes the last created application is
+     * the one it belongs to at the time when it is created.
+     */
     var DDialog = /** @class */ (function (_super) {
         __extends(DDialog, _super);
         function DDialog() {
@@ -27102,26 +26867,30 @@
                     _this.onCloseOn();
                 });
             }
-            // Parent
-            if (options == null || options.parent == null) {
-                DApplications.getInstance().stage.addChild(this);
-            }
+            this._overlay = new UtilOverlay();
         };
         DDialog.prototype.onAnimationEnd = function (isReverse) {
-            if (!isReverse) {
-                var focusController = DControllers.getFocusController();
-                this._focusable = focusController.getFocused();
-                var firstFocusable = focusController.findFocusable(this, false, true, true);
-                focusController.setFocused(firstFocusable || this, true, true);
+            if (isReverse) {
+                var parent_1 = this.parent;
+                if (parent_1) {
+                    parent_1.removeChild(this);
+                }
+            }
+            else {
+                var layer = DApplications.getLayer(this);
+                if (layer) {
+                    var focusController = layer.getFocusController();
+                    this._focusable = focusController.getFocused();
+                    var firstFocusable = focusController.findFocusable(this, false, true, true);
+                    focusController.setFocused(firstFocusable || this, true, true);
+                }
             }
         };
         DDialog.prototype.open = function () {
             if (!this._isOpened) {
+                var layer = this._overlay.pick(this);
                 this._isOpened = true;
-                var parent_1 = this.parent;
-                if (parent_1 != null) {
-                    parent_1.addChild(this);
-                }
+                layer.stage.addChild(this);
                 this.onOpen();
             }
         };
@@ -27144,7 +26913,10 @@
             var focusable = this._focusable;
             if (focusable != null) {
                 this._focusable = null;
-                DControllers.getFocusController().setFocused(focusable, true, false);
+                var layer = DApplications.getLayer(this);
+                if (layer) {
+                    layer.getFocusController().setFocused(focusable, true, false);
+                }
             }
             // Animation
             this._animation.start(true);
@@ -29729,7 +29501,7 @@
                 uploaded.getIndexOffset() === iindex &&
                 uploaded.isCompatible(shape));
         };
-        EShapeBuffer.prototype.update = function (iterator) {
+        EShapeBuffer.prototype.update = function (iterator, antialiasWeight) {
             var builder = this.builder;
             builder.begin();
             var vindex = 0;
@@ -29750,7 +29522,7 @@
                 if (creater == null) {
                     break;
                 }
-                var uploaded = creater(this, shape, vindex, iindex);
+                var uploaded = creater(this, shape, vindex, iindex, antialiasWeight);
                 if (uploaded == null) {
                     break;
                 }
@@ -29949,13 +29721,18 @@
                 }
             }
         };
-        EShapeRenderer.prototype.render_ = function (container, shapes, atlas, fontAtlases, isDirty, buffers) {
+        EShapeRenderer.prototype.render_ = function (container, shapes, isDirty) {
             var renderer = this.renderer;
             var shader = this._shader;
             if (shader != null && 0 < shapes.length) {
+                var resolution = renderer.resolution;
+                var buffers = container.getBuffers();
+                var antialiasWeight = container.getAntialiasWeight(resolution);
                 // Update textures
                 if (isDirty) {
                     // Atlases
+                    var atlas = container.getAtlas(resolution);
+                    var fontAtlases = container.getFontAtlases();
                     atlas.begin();
                     fontAtlases.begin();
                     var defaultTexture = atlas.getDefaultTexture();
@@ -29967,11 +29744,11 @@
                     atlas.end();
                     atlas.repack();
                     // Update buffers
-                    this.updateBuffers(shapes, buffers, renderer, shader);
+                    this.updateBuffers(shapes, buffers, renderer, shader, antialiasWeight);
                 }
                 // Render buffers
-                shader.uniforms.pixelScale = container.getPixelScale();
-                shader.uniforms.antialiasWeight = EShapeDefaults.ANTIALIAS_WEIGHT;
+                shader.uniforms.pixelScale = container.getPixelScale(resolution);
+                shader.uniforms.antialiasWeight = antialiasWeight;
                 shader.uniforms.translationMatrix = container.worldTransform.toArray(true);
                 renderer.shader.bind(shader, false);
                 renderer.state.setBlendMode(pixi_js.utils.correctBlendMode(pixi_js.BLEND_MODES.NORMAL, true));
@@ -29992,13 +29769,13 @@
         EShapeRenderer.prototype.getBufferSize = function () {
             return this._bufferSize;
         };
-        EShapeRenderer.prototype.updateBuffers = function (shapes, buffers, renderer, shader) {
+        EShapeRenderer.prototype.updateBuffers = function (shapes, buffers, renderer, shader, antialiasWeight) {
             var iterator = this._iterator;
             iterator.reset(shapes);
             var ib = 0;
             var ibmax = buffers.length;
             for (; iterator.get() != null && ib < ibmax; ++ib) {
-                if (!buffers[ib].update(iterator)) {
+                if (!buffers[ib].update(iterator, antialiasWeight)) {
                     // Failed to update the shapes.
                     // This is most likely caused by small buffers.
                     // So increase the buffer size.
@@ -30014,7 +29791,7 @@
             }
             while (iterator.get() != null) {
                 var buffer = new EShapeBuffer(this.getBufferSize(), renderer, shader);
-                if (buffer.update(iterator)) {
+                if (buffer.update(iterator, antialiasWeight)) {
                     buffers.push(buffer);
                 }
                 else {
@@ -30041,7 +29818,7 @@
             _this.children = [];
             _this._childrenId = 0;
             _this._childrenIdRendered = -1;
-            _this._atlas = new DynamicAtlas();
+            _this._atlas = null;
             _this._fontAtlases = new DynamicSDFFontAtlases();
             _this._pixelScale = 1;
             _this._pixelScaleId = NaN;
@@ -30073,12 +29850,26 @@
                 shapeRenderer = EShapeContainer.SHAPE_RENDERER = new EShapeRenderer(renderer);
             }
             renderer.batch.setObjectRenderer(shapeRenderer);
-            shapeRenderer.render_(this, this.children, this._atlas, this._fontAtlases, childrenIdRendered < childrenId, this._buffers);
+            shapeRenderer.render_(this, this.children, childrenIdRendered < childrenId);
         };
         EShapeContainer.prototype.containsPoint = function (point) {
             return false;
         };
-        EShapeContainer.prototype.getPixelScale = function () {
+        EShapeContainer.prototype.getFontAtlases = function () {
+            return this._fontAtlases;
+        };
+        EShapeContainer.prototype.getAtlas = function (resolution) {
+            var atlas = this._atlas;
+            if (atlas == null) {
+                atlas = new DynamicAtlas(resolution);
+                this._atlas = atlas;
+            }
+            return atlas;
+        };
+        EShapeContainer.prototype.getBuffers = function () {
+            return this._buffers;
+        };
+        EShapeContainer.prototype.getPixelScale = function (resolution) {
             this.updateTransform();
             var transform = this.transform;
             var worldID = transform._worldID;
@@ -30088,10 +29879,12 @@
                 var a = worldTransform.a;
                 var b = worldTransform.b;
                 var scale = Math.sqrt(a * a + b * b);
-                var dpr = window.devicePixelRatio || 1;
-                this._pixelScale = 1 / (dpr * scale);
+                this._pixelScale = 1 / (resolution * scale);
             }
             return this._pixelScale;
+        };
+        EShapeContainer.prototype.getAntialiasWeight = function (resolution) {
+            return 1.25 / resolution;
         };
         EShapeContainer.prototype.hitTest = function (global, handler) {
             var work = this._work;
@@ -32085,6 +31878,554 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var DHTMLElementWhen;
+    (function (DHTMLElementWhen) {
+        DHTMLElementWhen[DHTMLElementWhen["FOCUSED"] = 0] = "FOCUSED";
+        DHTMLElementWhen[DHTMLElementWhen["ALWAYS"] = 1] = "ALWAYS";
+    })(DHTMLElementWhen || (DHTMLElementWhen = {}));
+    var DHTMLElement = /** @class */ (function (_super) {
+        __extends(DHTMLElement, _super);
+        function DHTMLElement() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DHTMLElement.prototype.init = function (options) {
+            var _this = this;
+            _super.prototype.init.call(this, options);
+            var theme = this.theme;
+            var clipper = options && options.clipper;
+            var clipperCreator = (clipper && clipper.creator) || theme.getClipperCreator();
+            this._clipper = null;
+            this._clipperCreator = clipperCreator;
+            this._clipperRect = null;
+            var element = options && options.element;
+            var elementCreator = (element && element.creator) || theme.getElementCreator();
+            this._element = null;
+            this._elementCreator = elementCreator;
+            this._elementStyle = element && element.style;
+            this._elementRect = null;
+            this._isElementShown = false;
+            this._isElementSelected = false;
+            this._onElementFocusedBound = function (e) {
+                _this.onElementFocused(e);
+            };
+            var before = options && options.before;
+            this._before = null;
+            this._beforeCreator = (before && before.creator) || theme.getBeforeCreator();
+            this._beforeStyle = before && before.style;
+            this._onBeforeFocusedBound = function (e) {
+                _this.onBeforeFocused(e);
+            };
+            var after = options && options.after;
+            this._after = null;
+            this._afterCreator = (after && after.creator) || theme.getAfterCreator();
+            this._afterStyle = after && after.style;
+            this._onAfterFocusedBound = function (e) {
+                _this.onAfterFocused(e);
+            };
+            this._isStarted = false;
+            this._select = (options && options.select != null ?
+                options.select : theme.getSelect());
+            this._doSelectBound = function () {
+                _this.doSelect();
+            };
+            var when = (options && options.when != null ?
+                (utilIsString(options.when) ? DHTMLElementWhen[options.when] : options.when) :
+                theme.getWhen());
+            this._when = when;
+            if (when === DHTMLElementWhen.ALWAYS) {
+                this.start();
+            }
+        };
+        Object.defineProperty(DHTMLElement.prototype, "element", {
+            get: function () {
+                return this._element;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        DHTMLElement.prototype.onFocused = function () {
+            _super.prototype.onFocused.call(this);
+            if (this._when === DHTMLElementWhen.FOCUSED) {
+                this.start();
+            }
+            else {
+                var element = this._element;
+                if (element) {
+                    element.focus();
+                }
+            }
+        };
+        DHTMLElement.prototype.onBlured = function () {
+            _super.prototype.onBlured.call(this);
+            if (this._when === DHTMLElementWhen.FOCUSED) {
+                this.onEndByBlured();
+                this.cancel();
+            }
+        };
+        DHTMLElement.prototype.isStartable = function () {
+            if (this._when === DHTMLElementWhen.FOCUSED) {
+                return !this.isDisabled();
+            }
+            return true;
+        };
+        DHTMLElement.prototype.start = function () {
+            if (!this._isStarted && this.isStartable()) {
+                this._isStarted = true;
+                DApplications.update(this);
+            }
+        };
+        DHTMLElement.prototype.render = function (renderer) {
+            if (this._isStarted) {
+                this._isStarted = false;
+                this.doStart(renderer);
+            }
+            _super.prototype.render.call(this, renderer);
+            if (this._isElementShown) {
+                this.updateElement(renderer);
+            }
+        };
+        DHTMLElement.prototype.doStart = function (renderer) {
+            if (!this._isElementShown) {
+                this._isElementShown = true;
+                this.onStart();
+                var clipper = this.getClipper();
+                if (clipper) {
+                    var before = this.getBefore(clipper);
+                    var element = this.getElement(clipper);
+                    var after = this.getAfter(clipper);
+                    if (element) {
+                        var resolution = renderer.resolution;
+                        var elementRect = this.getElementRect(resolution);
+                        var clipperRect = this.getClipperRect(elementRect, resolution);
+                        var theme = this.theme;
+                        var state = this.state;
+                        this.setClipperStyle(clipper, state, theme, elementRect, clipperRect);
+                        this.setElementStyle(element, state, theme, elementRect, clipperRect);
+                        if (before) {
+                            this.setBeforeStyle(before, theme);
+                        }
+                        if (after) {
+                            this.setAfterStyle(after, theme);
+                        }
+                        this.onElementAttached(element, before, after);
+                        // Show HTML elements
+                        clipper.style.display = "";
+                        if (this.isFocused()) {
+                            element.focus();
+                        }
+                        clipper.scrollTop = 0;
+                        clipper.scrollLeft = 0;
+                        // Select the element if required.
+                        // Note that a selecting without the setTimeout causes a keystroke drop on Microsoft Edge.
+                        if (this._isElementSelected && this._select && ("select" in element)) {
+                            setTimeout(this._doSelectBound, 0);
+                        }
+                    }
+                }
+            }
+        };
+        DHTMLElement.prototype.doSelect = function () {
+            if (this._isElementShown) {
+                var element = this._element;
+                if (element && this._isElementSelected && this._select && ("select" in element)) {
+                    this._isElementSelected = false;
+                    element.select();
+                }
+            }
+        };
+        DHTMLElement.prototype.createText = function (formatted) {
+            var result = _super.prototype.createText.call(this, formatted);
+            if (this._isElementShown) {
+                this.onStart();
+            }
+            return result;
+        };
+        /**
+         * Please note that this method does not update transforms.
+         *
+         * @param elementRect
+         * @param resolution
+         */
+        DHTMLElement.prototype.getClipperRect = function (elementRect, resolution) {
+            var rect = this._clipperRect = (this._clipperRect != null ? this._clipperRect : new pixi_js.Rectangle());
+            rect.copyFrom(elementRect);
+            var p = new pixi_js.Point(0, 0);
+            var current = this.parent;
+            while (current instanceof DBase) {
+                p.set(0, 0);
+                current.toGlobal(p, p, false);
+                var x = p.x;
+                var y = p.y;
+                p.set(current.width, current.height);
+                current.toGlobal(p, p, true);
+                var w = p.x - x;
+                var h = p.y - y;
+                x = ((x * resolution) | 0) / resolution;
+                y = ((y * resolution) | 0) / resolution;
+                var x0 = rect.x;
+                var y0 = rect.y;
+                var x1 = rect.x + rect.width;
+                var y1 = rect.y + rect.height;
+                rect.x = Math.min(Math.max(x0, x), x + w);
+                rect.y = Math.min(Math.max(y0, y), y + h);
+                rect.width = Math.min(Math.max(x1, x), x + w) - rect.x;
+                rect.height = Math.min(Math.max(y1, y), y + h) - rect.y;
+                current = current.parent;
+            }
+            return rect;
+        };
+        /**
+         * Please note that this method does not update transforms.
+         *
+         * @param resolution
+         */
+        DHTMLElement.prototype.getElementRect = function (resolution) {
+            var rect = this._elementRect = (this._elementRect != null ? this._elementRect : new pixi_js.Rectangle());
+            var p = new pixi_js.Point(0, 0);
+            this.toGlobal(p, p, false);
+            rect.x = p.x;
+            rect.y = p.y;
+            p.set(this.width, this.height);
+            this.toGlobal(p, p, true);
+            rect.width = p.x - rect.x;
+            rect.height = p.y - rect.y;
+            // Rounds pixels as Pixi.js does
+            rect.x = ((rect.x * resolution) | 0) / resolution;
+            rect.y = ((rect.y * resolution) | 0) / resolution;
+            return rect;
+        };
+        DHTMLElement.prototype.cancel = function () {
+            if (this._isElementShown) {
+                this._isElementShown = false;
+                this.onCancel();
+                var clipper = this._clipper;
+                if (clipper != null) {
+                    clipper.style.display = "none";
+                }
+                var element = this._element;
+                if (element != null) {
+                    this.onElementDetached(element, this._before, this._after);
+                }
+                this._isElementSelected = false;
+                var layer = DApplications.getLayer(this);
+                if (layer) {
+                    var view = layer.view;
+                    if (this._when === DHTMLElementWhen.FOCUSED) {
+                        view.focus();
+                    }
+                    var interactionManager = layer.renderer.plugins.interaction;
+                    if (this.containsPoint(interactionManager.mouse.global) && !this.isHovered()) {
+                        this.setHovered(true);
+                        view.style.cursor = this.cursor;
+                    }
+                    layer.update();
+                }
+            }
+        };
+        DHTMLElement.prototype.onStart = function () {
+            // DO NOTHING
+        };
+        DHTMLElement.prototype.onCancel = function () {
+            // DO NOTHING
+        };
+        DHTMLElement.prototype.onElementAttached = function (element, before, after) {
+            if (before) {
+                before.addEventListener("focus", this._onBeforeFocusedBound);
+            }
+            if (after) {
+                after.addEventListener("focus", this._onAfterFocusedBound);
+            }
+            element.addEventListener("focus", this._onElementFocusedBound, true);
+        };
+        DHTMLElement.prototype.onElementDetached = function (element, before, after) {
+            if (before) {
+                before.removeEventListener("focus", this._onBeforeFocusedBound);
+            }
+            if (after) {
+                after.removeEventListener("focus", this._onAfterFocusedBound);
+            }
+            element.removeEventListener("focus", this._onElementFocusedBound, true);
+        };
+        DHTMLElement.prototype.getElement = function (clipper) {
+            var result = this._element;
+            if (result == null) {
+                var creator = this._elementCreator;
+                if (creator) {
+                    result = creator(clipper);
+                    this._element = result;
+                }
+            }
+            return result;
+        };
+        DHTMLElement.prototype.getClipper = function () {
+            var result = this._clipper;
+            if (result == null) {
+                var creator = this._clipperCreator;
+                var layer = DApplications.getLayer(this);
+                if (creator && layer) {
+                    result = creator(layer.getElementContainer());
+                    this._clipper = result;
+                }
+            }
+            return result;
+        };
+        DHTMLElement.prototype.getBefore = function (clipper) {
+            var result = this._before;
+            if (result == null) {
+                var creator = this._beforeCreator;
+                if (creator) {
+                    result = creator(clipper);
+                    this._before = result;
+                }
+            }
+            return result;
+        };
+        DHTMLElement.prototype.getAfter = function (clipper) {
+            var result = this._after;
+            if (result == null) {
+                var creator = this._afterCreator;
+                if (creator) {
+                    result = creator(clipper);
+                    this._after = result;
+                }
+            }
+            return result;
+        };
+        DHTMLElement.prototype.setElementStyle = function (target, state, theme, elementRect, clipperRect) {
+            var style = this._elementStyle;
+            if (style) {
+                return style(target, state, theme, elementRect, clipperRect);
+            }
+            else {
+                return this.theme.setElementStyle(target, state, elementRect, clipperRect);
+            }
+        };
+        DHTMLElement.prototype.setClipperStyle = function (target, state, theme, elementRect, clipperRect) {
+            var style = this._clipperStyle;
+            if (style) {
+                return style(target, state, theme, elementRect, clipperRect);
+            }
+            else {
+                return this.theme.setClipperStyle(target, state, elementRect, clipperRect);
+            }
+        };
+        DHTMLElement.prototype.setBeforeStyle = function (target, theme) {
+            var style = this._beforeStyle;
+            if (style) {
+                return style(target, theme);
+            }
+            else {
+                return this.theme.setBeforeStyle(target);
+            }
+        };
+        DHTMLElement.prototype.setAfterStyle = function (target, theme) {
+            var style = this._afterStyle;
+            if (style) {
+                return style(target, theme);
+            }
+            else {
+                return this.theme.setAfterStyle(target);
+            }
+        };
+        DHTMLElement.prototype.onBeforeFocused = function (e) {
+            var layer = DApplications.getLayer(this);
+            if (layer) {
+                var focusController = layer.getFocusController();
+                var focusable = focusController.findFocusable(this, false, false, false);
+                layer.view.focus();
+                focusController.setFocused(focusable, true, true);
+                e.preventDefault();
+                e.stopImmediatePropagation();
+            }
+        };
+        DHTMLElement.prototype.onAfterFocused = function (e) {
+            var layer = DApplications.getLayer(this);
+            if (layer) {
+                var focusController = layer.getFocusController();
+                var focusable = focusController.findFocusable(this, false, false, true);
+                layer.view.focus();
+                focusController.setFocused(focusable, true, true);
+                e.preventDefault();
+                e.stopImmediatePropagation();
+            }
+        };
+        DHTMLElement.prototype.onElementFocused = function (e) {
+            if (this._when === DHTMLElementWhen.ALWAYS) {
+                if (!this.isFocused()) {
+                    this.focus();
+                }
+            }
+        };
+        DHTMLElement.prototype.onEndByBlured = function () {
+            this.onEnd();
+        };
+        DHTMLElement.prototype.onEnd = function () {
+            // DO NOTHING
+        };
+        DHTMLElement.prototype.end = function () {
+            this.onEnd();
+            this.cancel();
+        };
+        DHTMLElement.prototype.select = function () {
+            var element = this._element;
+            if (element != null && this._isElementShown && this._select && "select" in element) {
+                element.select();
+            }
+            else {
+                this._isElementSelected = true;
+            }
+            return this;
+        };
+        DHTMLElement.prototype.updateElement = function (renderer) {
+            if (this._isElementShown) {
+                if (this.worldVisible) {
+                    var element = this._element;
+                    var clipper = this._clipper;
+                    if (element && clipper) {
+                        var resolution = renderer.resolution;
+                        var elementRect = this.getElementRect(resolution);
+                        var clipperRect = this.getClipperRect(elementRect, resolution);
+                        var theme = this.theme;
+                        var state = this.state;
+                        this.setClipperStyle(clipper, state, theme, elementRect, clipperRect);
+                        this.setElementStyle(element, state, theme, elementRect, clipperRect);
+                    }
+                }
+                else {
+                    this.cancel();
+                }
+            }
+        };
+        DHTMLElement.prototype.getType = function () {
+            return "DHTMLElement";
+        };
+        return DHTMLElement;
+    }(DImageBase));
+
+    var divCreator = function (parent) {
+        var result = document.createElement("div");
+        parent.appendChild(result);
+        return result;
+    };
+    var DThemeWhiteHTMLElement = /** @class */ (function (_super) {
+        __extends(DThemeWhiteHTMLElement, _super);
+        function DThemeWhiteHTMLElement() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeWhiteHTMLElement.prototype.getElementCreator = function () {
+            return null;
+        };
+        DThemeWhiteHTMLElement.prototype.setElementStyle = function (target, state, elementRect, clipperRect) {
+            // Style
+            var style = this.getElementStylePosition(state, elementRect, clipperRect) +
+                this.getElementStyleMargin(state) +
+                this.getElementStyleText(state) +
+                this.getElementStyleBackground(state) +
+                this.getElementStyleBorder(state) +
+                this.getElementStylePadding(state, elementRect) +
+                this.getElementStyleOutline(state);
+            target.setAttribute("style", style);
+            // ReadOnly
+            if (DBaseStates.isReadOnly(state)) {
+                target.setAttribute("readonly", "readonly");
+            }
+            else {
+                target.removeAttribute("readonly");
+            }
+            // Disabled
+            if (DBaseStates.isDisabled(state)) {
+                target.setAttribute("disabled", "disabled");
+            }
+            else {
+                target.removeAttribute("disabled");
+            }
+        };
+        DThemeWhiteHTMLElement.prototype.getElementStyleBackground = function (state) {
+            return "background-color: transparent;";
+        };
+        DThemeWhiteHTMLElement.prototype.getElementStyleBorder = function (state) {
+            return "border: none; box-sizing: border-box;";
+        };
+        DThemeWhiteHTMLElement.prototype.getElementStylePadding = function (state, elementRect) {
+            var paddingTop = this.getPaddingTop();
+            var paddingRight = this.getPaddingRight();
+            var paddingBottom = this.getPaddingBottom();
+            var paddingLeft = this.getPaddingLeft();
+            return "padding: " + paddingTop + "px " + paddingRight + "px " + paddingBottom + "px " + paddingLeft + "px;";
+        };
+        DThemeWhiteHTMLElement.prototype.getElementStyleOutline = function (state) {
+            return "outline: none;";
+        };
+        DThemeWhiteHTMLElement.prototype.getElementStylePosition = function (state, elementRect, clipperRect) {
+            return "position: absolute;" +
+                ("left: " + (elementRect.x - clipperRect.x) + "px;") +
+                ("top: " + (elementRect.y - clipperRect.y) + "px;") +
+                ("width: " + elementRect.width + "px;") +
+                ("height: " + elementRect.height + "px;") +
+                ("line-height: " + elementRect.height + "px;");
+        };
+        DThemeWhiteHTMLElement.prototype.getElementStyleText = function (state) {
+            return "font-family: " + this.getFontFamilly() + ";" +
+                ("font-size: " + this.getFontSize() + "px;") +
+                ("color: #" + this.getColor(state).toString(16) + ";");
+        };
+        DThemeWhiteHTMLElement.prototype.getElementStyleMargin = function (state) {
+            return "margin: 0;";
+        };
+        DThemeWhiteHTMLElement.prototype.getClipperCreator = function () {
+            return divCreator;
+        };
+        DThemeWhiteHTMLElement.prototype.setClipperStyle = function (target, state, elementRect, clipperRect) {
+            var style = "overflow: hidden; outline: none;" +
+                "padding: 0; margin: 0; border: none; background-color: transparent;" +
+                this.getClipperStylePosition(state, elementRect, clipperRect);
+            target.setAttribute("style", style);
+        };
+        DThemeWhiteHTMLElement.prototype.getClipperStylePosition = function (state, elementRect, clipperRect) {
+            return "position: absolute;" +
+                ("left: " + clipperRect.x + "px;") +
+                ("top: " + clipperRect.y + "px;") +
+                ("width: " + clipperRect.width + "px;") +
+                ("height: " + clipperRect.height + "px;") +
+                ("line-height: " + elementRect.height + "px;");
+        };
+        DThemeWhiteHTMLElement.prototype.getBeforeCreator = function () {
+            return divCreator;
+        };
+        DThemeWhiteHTMLElement.prototype.setBeforeStyle = function (target) {
+            var style = "overflow: hidden; outline: none;" +
+                "padding: 0; margin: 0; border: none; background-color: transparent;" +
+                "position: absolute; left: 0; top: 0; width: 0; height: 0; line-height: 0;";
+            target.setAttribute("style", style);
+            target.setAttribute("tabindex", "0");
+        };
+        DThemeWhiteHTMLElement.prototype.getAfterCreator = function () {
+            return divCreator;
+        };
+        DThemeWhiteHTMLElement.prototype.setAfterStyle = function (target) {
+            this.setBeforeStyle(target);
+        };
+        DThemeWhiteHTMLElement.prototype.getWhen = function () {
+            return DHTMLElementWhen.FOCUSED;
+        };
+        DThemeWhiteHTMLElement.prototype.getSelect = function () {
+            return false;
+        };
+        return DThemeWhiteHTMLElement;
+    }(DThemeWhiteImageBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadThemeWhiteHTMLElement = function () {
+        DThemeWhite.set("DHTMLElement", DThemeWhiteHTMLElement);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var loadThemeWhiteImage = function () {
         DThemeWhite.set("DImage", DThemeWhiteImage);
     };
@@ -32140,6 +32481,41 @@
     var editingUnformatter = function (text) {
         return text;
     };
+    var CREATOR_CLASSNAME = "d-theme-white-input";
+    var CREATOR_CLASSNAME_ELEMENT = CREATOR_CLASSNAME + "-element";
+    var elementCreator = function (parent) {
+        var found = parent.getElementsByClassName(CREATOR_CLASSNAME_ELEMENT);
+        if (0 < found.length) {
+            return found[0];
+        }
+        var element = document.createElement("input");
+        element.setAttribute("spellcheck", "false");
+        element.setAttribute("class", CREATOR_CLASSNAME_ELEMENT);
+        parent.appendChild(element);
+        return element;
+    };
+    var divCreator$1 = function (parent, classname) {
+        var found = parent.getElementsByClassName(classname);
+        if (0 < found.length) {
+            return found[0];
+        }
+        var result = document.createElement("div");
+        result.setAttribute("class", classname);
+        parent.appendChild(result);
+        return result;
+    };
+    var CREATOR_CLASSNAME_CLIPPER = CREATOR_CLASSNAME + "-clipper";
+    var clipperCreator = function (parent) {
+        return divCreator$1(parent, CREATOR_CLASSNAME_CLIPPER);
+    };
+    var CREATOR_CLASSNAME_BEFORE = CREATOR_CLASSNAME + "-before";
+    var beforeCreator = function (parent) {
+        return divCreator$1(parent, CREATOR_CLASSNAME_BEFORE);
+    };
+    var CREATOR_CLASSNAME_AFTER = CREATOR_CLASSNAME + "-after";
+    var afterCreator = function (parent) {
+        return divCreator$1(parent, CREATOR_CLASSNAME_AFTER);
+    };
     var DThemeWhiteInput = /** @class */ (function (_super) {
         __extends(DThemeWhiteInput, _super);
         function DThemeWhiteInput() {
@@ -32183,6 +32559,9 @@
         DThemeWhiteInput.prototype.getPaddingRight = function () {
             return 10;
         };
+        DThemeWhiteInput.prototype.getCursor = function () {
+            return "text";
+        };
         DThemeWhiteInput.prototype.getEditingFormatter = function () {
             return this.getTextFormatter();
         };
@@ -32192,8 +32571,26 @@
         DThemeWhiteInput.prototype.getEditingValidator = function () {
             return editingValidator;
         };
+        DThemeWhiteInput.prototype.getElementCreator = function () {
+            return elementCreator;
+        };
+        DThemeWhiteInput.prototype.getClipperCreator = function () {
+            return clipperCreator;
+        };
+        DThemeWhiteInput.prototype.getBeforeCreator = function () {
+            return beforeCreator;
+        };
+        DThemeWhiteInput.prototype.getAfterCreator = function () {
+            return afterCreator;
+        };
+        DThemeWhiteInput.prototype.getSelect = function () {
+            return true;
+        };
+        DThemeWhiteInput.prototype.getElementStyleMargin = function (state) {
+            return "margin: 0.1em 0 0 0;";
+        };
         return DThemeWhiteInput;
-    }(DThemeWhiteImageBase));
+    }(DThemeWhiteHTMLElement));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -33803,6 +34200,7 @@
         loadThemeWhiteDialogAll();
         loadThemeWhiteDropdown();
         loadThemeWhiteExpandable();
+        loadThemeWhiteHTMLElement();
         loadThemeWhiteImage();
         loadThemeWhiteInputAll();
         loadThemeWhiteLayout();
@@ -34723,19 +35121,77 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     /**
-     * DApplication options
+     * DApplicationLayer options
      */
-    var DApplicationOptions = /** @class */ (function () {
-        function DApplicationOptions() {
-            var body = this._root = document.body;
-            var bbox = body.getBoundingClientRect();
-            this._padding = new DApplicationPadding(6, 6, 6, 6);
+    var DApplicationLayerOptions = /** @class */ (function () {
+        function DApplicationLayerOptions(options) {
+            // Root
+            var root = this._root = options.root;
+            // Overlay mode or not
+            this._overlay = options.overlay;
+            // Padding
+            var padding = options && options.padding;
+            if (utilIsNumber(padding)) {
+                this._padding = new DApplicationPadding(padding, padding, padding, padding);
+            }
+            else if (padding != null) {
+                this._padding = new DApplicationPadding(padding.top || 0, padding.right || 0, padding.bottom || 0, padding.left || 0);
+            }
+            else {
+                this._padding = new DApplicationPadding(6, 6, 6, 6);
+            }
+            // Width & height
+            var width = 100;
+            var height = 100;
+            if (options) {
+                if (options.width != null) {
+                    width = options.width;
+                    if (options.height != null) {
+                        height = options.height;
+                    }
+                    else {
+                        height = root.getBoundingClientRect().height;
+                    }
+                }
+                else if (options.height != null) {
+                    width = root.getBoundingClientRect().width;
+                    height = options.height;
+                }
+                else {
+                    var bbox = root.getBoundingClientRect();
+                    width = bbox.width;
+                    height = bbox.height;
+                }
+            }
+            else {
+                var bbox = root.getBoundingClientRect();
+                width = bbox.width;
+                height = bbox.height;
+            }
+            // Background color
+            var background = options && options.background;
+            var backgroundColor = 0;
+            var transparent = true;
+            if (background != null) {
+                var color = background.color;
+                if (color != null) {
+                    backgroundColor = color;
+                    transparent = false;
+                }
+            }
+            // Resolution
+            var resolution = options.resolution;
+            // Antialias
+            var antialias = (options && options.antialias != null ? options.antialias : false);
+            // Pixi
             this._pixi = {
-                width: bbox.width,
-                height: bbox.height,
+                width: width,
+                height: height,
                 autoStart: false,
-                backgroundColor: 0xeeeeee,
-                antialias: false
+                backgroundColor: backgroundColor,
+                transparent: transparent,
+                resolution: resolution,
+                antialias: antialias
             };
         }
         /**
@@ -34743,7 +35199,7 @@
          * `HTMLCanvasElement` and other DOM elements are created in this element.
          * The default root element is `document.body`.
          */
-        DApplicationOptions.prototype.getRootElement = function () {
+        DApplicationLayerOptions.prototype.getRootElement = function () {
             return this._root;
         };
         /**
@@ -34753,7 +35209,7 @@
          * @param root new root element
          * @param updateWidthAndHeight false to preserve the canvas width / height
          */
-        DApplicationOptions.prototype.setRootElement = function (root, updateWidthAndHeight) {
+        DApplicationLayerOptions.prototype.setRootElement = function (root, updateWidthAndHeight) {
             if (this._root !== root) {
                 this._root = root;
                 if (updateWidthAndHeight !== false) {
@@ -34768,7 +35224,7 @@
         /**
          * Returns a canvas width.
          */
-        DApplicationOptions.prototype.getWidth = function () {
+        DApplicationLayerOptions.prototype.getWidth = function () {
             return this._pixi.width;
         };
         /**
@@ -34776,14 +35232,14 @@
          *
          * @param width new canvas width
          */
-        DApplicationOptions.prototype.setWidth = function (width) {
+        DApplicationLayerOptions.prototype.setWidth = function (width) {
             this._pixi.width = width;
             return this;
         };
         /**
          * Returns a canvas height.
          */
-        DApplicationOptions.prototype.getHeight = function () {
+        DApplicationLayerOptions.prototype.getHeight = function () {
             return this._pixi.height;
         };
         /**
@@ -34791,7 +35247,7 @@
          *
          * @param height new canvas height
          */
-        DApplicationOptions.prototype.setHeight = function (height) {
+        DApplicationLayerOptions.prototype.setHeight = function (height) {
             this._pixi.height = height;
             return this;
         };
@@ -34799,7 +35255,7 @@
          * Returns padding sizes.
          * The default padding size is 6.
          */
-        DApplicationOptions.prototype.getPadding = function () {
+        DApplicationLayerOptions.prototype.getPadding = function () {
             return this._padding;
         };
         /**
@@ -34811,7 +35267,7 @@
          * @param bottom new bottom padding
          * @asse getPadding
          */
-        DApplicationOptions.prototype.setPadding = function (left, top, right, bottom) {
+        DApplicationLayerOptions.prototype.setPadding = function (left, top, right, bottom) {
             var padding = this._padding;
             padding.left = left;
             padding.top = top;
@@ -34822,7 +35278,7 @@
         /**
          * Returns a background color.
          */
-        DApplicationOptions.prototype.getBackgroundColor = function () {
+        DApplicationLayerOptions.prototype.getBackgroundColor = function () {
             return this._pixi.backgroundColor;
         };
         /**
@@ -34830,7 +35286,7 @@
          *
          * @param color new background color
          */
-        DApplicationOptions.prototype.setBackgroundColor = function (color) {
+        DApplicationLayerOptions.prototype.setBackgroundColor = function (color) {
             this._pixi.backgroundColor = color;
             return this;
         };
@@ -34838,7 +35294,7 @@
          * Returns an antialias setting.
          * The default antialias setting is false.
          */
-        DApplicationOptions.prototype.getAntialias = function () {
+        DApplicationLayerOptions.prototype.getAntialias = function () {
             return this._pixi.antialias;
         };
         /**
@@ -34846,42 +35302,633 @@
          *
          * @param antialias new antialias setting
          */
-        DApplicationOptions.prototype.setAntialias = function (antialias) {
+        DApplicationLayerOptions.prototype.setAntialias = function (antialias) {
             this._pixi.antialias = antialias;
             return this;
         };
-        DApplicationOptions.prototype.getPixiApplicationOptions = function () {
+        /**
+         * Returns true if a layer is supposed to be an overlay layer.
+         */
+        DApplicationLayerOptions.prototype.isOverlay = function () {
+            return this._overlay;
+        };
+        DApplicationLayerOptions.prototype.getPixiApplicationOptions = function () {
             return this._pixi;
         };
-        return DApplicationOptions;
+        return DApplicationLayerOptions;
     }());
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    // Global Settings
-    pixi_js.settings.RESOLUTION = window.devicePixelRatio || 1;
-    pixi_js.settings.ROUND_PIXELS = false;
-    delete pixi_js.Renderer.__plugins.accessibility;
+    var isFocusable = function (target) {
+        return (target != null && ("setState" in target));
+    };
+    var isFocusableContainer = function (target) {
+        return (target != null && "children" in target);
+    };
+    var isSelectable = function (target) {
+        return (target != null && "select" in target);
+    };
+    var DControllerDefaultFocus = /** @class */ (function () {
+        function DControllerDefaultFocus() {
+            this._focused = null;
+        }
+        DControllerDefaultFocus.prototype.setFocused = function (focusable, isFocused, select) {
+            if (isFocused) {
+                var previous = this._focused;
+                if (previous !== focusable) {
+                    if (previous != null) {
+                        previous.setState(DBaseState.FOCUSED, false);
+                    }
+                    this._focused = focusable;
+                    if (focusable != null && this.isFocusable(focusable)) {
+                        focusable.setState(DBaseState.FOCUSED, true);
+                        if (select && isSelectable(focusable)) {
+                            focusable.select();
+                        }
+                    }
+                    return previous;
+                }
+                else {
+                    return null;
+                }
+            }
+            else {
+                if (focusable != null && this._focused === focusable) {
+                    focusable.setState(DBaseState.FOCUSED, false);
+                    if (select && isSelectable(focusable)) {
+                        focusable.select();
+                    }
+                    return focusable;
+                }
+                else {
+                    return null;
+                }
+            }
+        };
+        DControllerDefaultFocus.prototype.getFocused = function () {
+            return this._focused;
+        };
+        DControllerDefaultFocus.prototype.findFocusableParent = function (mightBeFocusable) {
+            var current = mightBeFocusable;
+            while (current != null) {
+                if (this.isFocusable(current)) {
+                    return current;
+                }
+                else {
+                    current = current.parent;
+                }
+            }
+            return null;
+        };
+        DControllerDefaultFocus.prototype.isFocusable = function (target) {
+            return (isFocusable(target) &&
+                !target.hasState(DBaseState.DISABLED | DBaseState.UNFOCUSABLE) &&
+                target.visible);
+        };
+        DControllerDefaultFocus.prototype.isFocusRoot = function (target) {
+            return (isFocusable(target) &&
+                target.hasState(DBaseState.FOCUS_ROOT) &&
+                target.visible);
+        };
+        DControllerDefaultFocus.prototype.findFocusable = function (target, includesTarget, includesTargetChildren, direction) {
+            if (direction) {
+                var result = this.findFocusableNext(target, includesTarget, includesTargetChildren);
+                if (result != null) {
+                    return result;
+                }
+                var parent_1 = target.parent;
+                if (parent_1 != null) {
+                    var children = parent_1.children;
+                    var index = children.indexOf(target);
+                    if (0 <= index) {
+                        // Siblings
+                        for (var i = index + 1, imax = children.length; i < imax; ++i) {
+                            var found = this.findFocusableNext(children[i], true, true);
+                            if (found != null) {
+                                return found;
+                            }
+                        }
+                        if (this.isFocusRoot(parent_1)) {
+                            for (var i = 0, imax = index + 1; i < imax; ++i) {
+                                var found = this.findFocusableNext(children[i], true, true);
+                                if (found != null) {
+                                    return found;
+                                }
+                            }
+                        }
+                        // Parent
+                        return this.findFocusable(parent_1, false, false, true);
+                    }
+                }
+            }
+            else {
+                var result = this.findFocusablePrevious(target, includesTarget, includesTargetChildren);
+                if (result != null) {
+                    return result;
+                }
+                var parent_2 = target.parent;
+                if (parent_2 != null) {
+                    var children = parent_2.children;
+                    var index = children.indexOf(target);
+                    if (0 <= index) {
+                        // Siblings
+                        for (var i = index - 1; 0 <= i; --i) {
+                            var found = this.findFocusablePrevious(children[i], true, true);
+                            if (found != null) {
+                                return found;
+                            }
+                        }
+                        if (this.isFocusRoot(parent_2)) {
+                            for (var i = children.length - 1; index <= i; --i) {
+                                var found = this.findFocusablePrevious(children[i], true, true);
+                                if (found != null) {
+                                    return found;
+                                }
+                            }
+                            return parent_2;
+                        }
+                        // Parent
+                        return this.findFocusable(parent_2, true, false, false);
+                    }
+                }
+            }
+            return null;
+        };
+        DControllerDefaultFocus.prototype.findFocusableNext = function (target, includesTarget, includesTargetChildren) {
+            // Target itself
+            if (includesTarget) {
+                if (this.isFocusable(target)) {
+                    return target;
+                }
+            }
+            // Target children
+            if (includesTargetChildren && isFocusableContainer(target) && target.visible) {
+                var children = target.children;
+                for (var i = 0, imax = children.length; i < imax; ++i) {
+                    var found = this.findFocusableNext(children[i], true, true);
+                    if (found != null) {
+                        return found;
+                    }
+                }
+            }
+            // Siblings
+            if (this.isFocusRoot(target)) {
+                return target;
+            }
+            // Found nothing
+            return null;
+        };
+        DControllerDefaultFocus.prototype.findFocusablePrevious = function (target, includesTarget, includesTargetChildren) {
+            // Target children
+            if (includesTargetChildren && isFocusableContainer(target) && target.visible) {
+                var children = target.children;
+                for (var i = children.length - 1; 0 <= i; --i) {
+                    var found = this.findFocusablePrevious(children[i], true, true);
+                    if (found != null) {
+                        return found;
+                    }
+                }
+            }
+            // Target itself
+            if (includesTarget) {
+                if (this.isFocusable(target)) {
+                    return target;
+                }
+            }
+            // Siblings
+            if (this.isFocusRoot(target)) {
+                return target;
+            }
+            // Found nothing
+            return null;
+        };
+        return DControllerDefaultFocus;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DCommandFlag;
+    (function (DCommandFlag) {
+        DCommandFlag[DCommandFlag["NONE"] = 0] = "NONE";
+        /**
+         * Commands with a `UNSTORABLE` flag will not be queued to the `done` queue.
+         */
+        DCommandFlag[DCommandFlag["UNSTORABLE"] = 1] = "UNSTORABLE";
+        /**
+         * Commands with a `CLEAR` flag clears the command queue.
+         */
+        DCommandFlag[DCommandFlag["CLEAR"] = 2] = "CLEAR";
+    })(DCommandFlag || (DCommandFlag = {}));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DCommandClear = /** @class */ (function () {
+        function DCommandClear() {
+        }
+        DCommandClear.prototype.execute = function () {
+            return true;
+        };
+        DCommandClear.prototype.redo = function () {
+            throw new Error("Method not implemented.");
+        };
+        DCommandClear.prototype.undo = function () {
+            throw new Error("Method not implemented.");
+        };
+        DCommandClear.prototype.destroy = function () {
+            // DO NOTHING
+        };
+        DCommandClear.prototype.getFlag = function () {
+            return DCommandFlag.UNSTORABLE | DCommandFlag.CLEAR;
+        };
+        return DCommandClear;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DCommandRedo = /** @class */ (function () {
+        function DCommandRedo() {
+        }
+        DCommandRedo.prototype.execute = function () {
+            throw new Error("Not supported");
+        };
+        DCommandRedo.prototype.redo = function () {
+            throw new Error("Not supported");
+        };
+        DCommandRedo.prototype.undo = function () {
+            throw new Error("Not supported");
+        };
+        DCommandRedo.prototype.destroy = function () {
+            // DO NOTHING
+        };
+        DCommandRedo.prototype.getFlag = function () {
+            return DCommandFlag.UNSTORABLE;
+        };
+        return DCommandRedo;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DCommandUndo = /** @class */ (function () {
+        function DCommandUndo() {
+        }
+        DCommandUndo.prototype.execute = function () {
+            throw new Error("Not supported");
+        };
+        DCommandUndo.prototype.redo = function () {
+            throw new Error("Not supported");
+        };
+        DCommandUndo.prototype.undo = function () {
+            throw new Error("Not supported");
+        };
+        DCommandUndo.prototype.destroy = function () {
+            // DO NOTHING
+        };
+        DCommandUndo.prototype.getFlag = function () {
+            return DCommandFlag.UNSTORABLE;
+        };
+        return DCommandUndo;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var isCommandStorable = function (command) {
+        return (command.getFlag() & DCommandFlag.UNSTORABLE) === 0;
+    };
+    var isCommandClear = function (command) {
+        return (command.getFlag() & DCommandFlag.CLEAR) !== 0;
+    };
+    var DControllerDefaultCommand = /** @class */ (function (_super) {
+        __extends(DControllerDefaultCommand, _super);
+        function DControllerDefaultCommand() {
+            var _this = _super.call(this) || this;
+            _this._position = 0;
+            _this._done = [];
+            _this._waiting = [];
+            _this._executing = null;
+            return _this;
+        }
+        DControllerDefaultCommand.prototype.last = function () {
+            var done = this._done;
+            var waiting = this._waiting;
+            if (waiting.length <= 0) {
+                if (0 < done.length) {
+                    return done[done.length - 1];
+                }
+                else {
+                    return null;
+                }
+            }
+            else {
+                return waiting[waiting.length - 1];
+            }
+        };
+        DControllerDefaultCommand.prototype.push = function (command) {
+            var waiting = this._waiting;
+            waiting.push(command);
+            this.next();
+        };
+        DControllerDefaultCommand.prototype.next = function () {
+            var _this = this;
+            if (this._executing == null) {
+                var waiting = this._waiting;
+                if (0 < waiting.length) {
+                    var command_1 = waiting.shift();
+                    if (command_1 != null) {
+                        if (command_1 instanceof DCommandUndo) {
+                            var done = this._done;
+                            if (this._position < done.length) {
+                                var current = done[done.length - 1 - this._position];
+                                this._position += 1;
+                                this.emit("change", this);
+                                var result = current.undo();
+                                if (result === true) {
+                                    this.onSuccess(command_1);
+                                }
+                                else if (result === false) {
+                                    this.onFail(command_1);
+                                }
+                                else {
+                                    this._executing = result.then(function () {
+                                        _this.onSuccess(command_1);
+                                    }, function () {
+                                        _this.onFail(command_1);
+                                    });
+                                }
+                            }
+                        }
+                        else if (command_1 instanceof DCommandRedo) {
+                            var done = this._done;
+                            if (0 < this._position) {
+                                var current = done[done.length - this._position];
+                                this._position -= 1;
+                                this.emit("change", this);
+                                var result = current.redo();
+                                if (result === true) {
+                                    this.onSuccess(command_1);
+                                }
+                                else if (result === false) {
+                                    this.onFail(command_1);
+                                }
+                                else {
+                                    this._executing = result.then(function () {
+                                        _this.onSuccess(command_1);
+                                    }, function () {
+                                        _this.onFail(command_1);
+                                    });
+                                }
+                            }
+                        }
+                        else {
+                            var isClear = isCommandClear(command_1);
+                            var isStorable = isCommandStorable(command_1);
+                            if (isClear || isStorable) {
+                                var size = (isClear ? this._done.length : this._position);
+                                if (0 < size) {
+                                    this.remove(size);
+                                    this._position = 0;
+                                    this.emit("change", this);
+                                }
+                                this.cleanup();
+                            }
+                            var result = command_1.execute();
+                            if (result === true) {
+                                this.onSuccess(command_1);
+                            }
+                            else if (result === false) {
+                                this.onFail(command_1);
+                            }
+                            else {
+                                this._executing = result.then(function () {
+                                    _this.onSuccess(command_1);
+                                }, function () {
+                                    _this.onFail(command_1);
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+        };
+        DControllerDefaultCommand.prototype.cleanup = function () {
+            var done = this._done;
+            var size = done.length - 100;
+            if (0 < size) {
+                for (var i = 0; i < size; ++i) {
+                    done[i].destroy();
+                    done.shift();
+                }
+            }
+        };
+        DControllerDefaultCommand.prototype.remove = function (size) {
+            var done = this._done;
+            if (0 < size) {
+                var ifrom = Math.max(0, done.length - size);
+                size = done.length - ifrom;
+                if (0 < size) {
+                    for (var i = ifrom, imax = done.length; i < imax; ++i) {
+                        done[i].destroy();
+                    }
+                    done.splice(ifrom, done.length - ifrom);
+                    return true;
+                }
+            }
+            return false;
+        };
+        DControllerDefaultCommand.prototype.onSuccess = function (command) {
+            this._executing = null;
+            if (isCommandStorable(command)) {
+                this._done.push(command);
+                this.emit("dirty", this);
+            }
+            else if (command instanceof DCommandUndo || command instanceof DCommandRedo) {
+                this.emit("dirty", this);
+            }
+            this.emit("change", this);
+            this.next();
+        };
+        DControllerDefaultCommand.prototype.onFail = function (command) {
+            this._executing = null;
+            var waiting = this._waiting;
+            command.destroy();
+            for (var i = 0, imax = waiting.length; i < imax; ++i) {
+                waiting[i].destroy();
+            }
+            waiting.length = 0;
+            this.emit("change", this);
+        };
+        DControllerDefaultCommand.prototype.size = function () {
+            return this._done.length;
+        };
+        DControllerDefaultCommand.prototype.clear = function () {
+            this.push(new DCommandClear());
+        };
+        DControllerDefaultCommand.prototype.redo = function () {
+            if (this.isRedoable()) {
+                this._waiting.push(new DCommandRedo());
+                this.next();
+            }
+        };
+        DControllerDefaultCommand.prototype.undo = function () {
+            if (this.isUndoable()) {
+                this._waiting.push(new DCommandUndo());
+                this.next();
+            }
+        };
+        DControllerDefaultCommand.prototype.isRedoable = function () {
+            return (0 < this._position && this._executing == null);
+        };
+        DControllerDefaultCommand.prototype.isUndoable = function () {
+            return (this._position < this._done.length && this._executing == null);
+        };
+        return DControllerDefaultCommand;
+    }(pixi_js.utils.EventEmitter));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DControllerKeyboard = /** @class */ (function (_super) {
+        __extends(DControllerKeyboard, _super);
+        function DControllerKeyboard() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DControllerKeyboard.prototype.init = function (element, stage, focusController) {
+            var _this = this;
+            element.addEventListener("keydown", function (e) {
+                _this.emit("keydown", e);
+                var focused = focusController.getFocused();
+                if (focused != null) {
+                    var current = focused;
+                    while (current != null) {
+                        if (_this.hasOnKeyDown(current)) {
+                            if (current.onKeyDown(e)) {
+                                return;
+                            }
+                        }
+                        current = current.parent;
+                    }
+                }
+                if (UtilKeyboardEvent.isFocusKey(e)) {
+                    var direction = UtilKeyboardEvent.getFocusDirection(e);
+                    var next = (focused != null ?
+                        focusController.findFocusable(focused, false, focused.hasState(DBaseState.FOCUS_ROOT) || direction, direction) :
+                        focusController.findFocusable(stage, false, true, direction));
+                    if (next != null) {
+                        focusController.setFocused(next, true, true);
+                        e.preventDefault();
+                        e.stopImmediatePropagation();
+                    }
+                }
+            });
+            element.addEventListener("keyup", function (e) {
+                _this.emit("keyup", e);
+                var focused = focusController.getFocused();
+                if (focused != null) {
+                    var current = focused;
+                    while (current != null) {
+                        if (_this.hasOnKeyUp(current)) {
+                            if (current.onKeyUp(e)) {
+                                return;
+                            }
+                        }
+                        current = current.parent;
+                    }
+                }
+            });
+        };
+        DControllerKeyboard.prototype.hasOnKeyDown = function (target) {
+            return "onKeyDown" in target;
+        };
+        DControllerKeyboard.prototype.hasOnKeyUp = function (target) {
+            return "onKeyUp" in target;
+        };
+        return DControllerKeyboard;
+    }(pixi_js.utils.EventEmitter));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DControllers = /** @class */ (function () {
+        function DControllers() {
+        }
+        // Keyboard
+        DControllers.getKeyboardController = function () {
+            if (this.KEYBOARD == null) {
+                this.KEYBOARD = new DControllerKeyboard();
+            }
+            return this.KEYBOARD;
+        };
+        DControllers.setKeyboardController = function (instance) {
+            var result = this.KEYBOARD;
+            this.KEYBOARD = instance;
+            return result;
+        };
+        // Command
+        DControllers.getCommandController = function () {
+            if (this.COMMAND == null) {
+                this.COMMAND = new DControllerDefaultCommand();
+            }
+            return this.COMMAND;
+        };
+        DControllers.setCommandController = function (instance) {
+            var result = this.COMMAND;
+            this.COMMAND = instance;
+            return result;
+        };
+        // Document
+        DControllers.getDocumentController = function () {
+            if (this.DOCUMENT == null) {
+                throw new Error("Not supported");
+            }
+            return this.DOCUMENT;
+        };
+        DControllers.setDocumentController = function (instance) {
+            var result = this.DOCUMENT;
+            this.DOCUMENT = instance;
+            return result;
+        };
+        return DControllers;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var isDblClickable = function (target) {
         return target != null && target.onDblClick != null;
     };
     var isWheelable = function (target) {
         return target != null && target.onWheel != null;
     };
-    //
-    var DApplication = /** @class */ (function (_super) {
-        __extends(DApplication, _super);
-        function DApplication(options) {
-            if (options === void 0) { options = new DApplicationOptions(); }
+    var DApplicationLayer = /** @class */ (function (_super) {
+        __extends(DApplicationLayer, _super);
+        function DApplicationLayer(application, options) {
             var _this = _super.call(this, options.getPixiApplicationOptions()) || this;
             _this._renderId = null;
-            DApplications.setInstace(_this);
+            _this._dynamicFontAtlases = null;
+            _this.application = application;
+            var stageAny = _this.stage;
+            stageAny.layer = _this;
+            stageAny.application = application;
             _this._options = options;
             _this._isUpdateAllowed = true;
             _this._refitLimit = 5;
             _this._reflowLimit = 5;
+            _this._isVisible = true;
             _this._renderBound = function () {
                 if (_this._renderId != null) {
                     _this.render();
@@ -34889,22 +35936,59 @@
             };
             // Canvas initialization
             var rootElement = options.getRootElement();
+            var elementContainer = document.createElement("div");
+            elementContainer.setAttribute("style", "position: absolute; top: 0; left: 0; width: 0; height: 0;" +
+                "margin: 0; padding: 0; outline: none;");
+            _this._elementContainer = elementContainer;
             var children = rootElement.children;
-            if (0 < children.length) {
-                rootElement.insertBefore(_this.view, children[0]);
+            if (options.isOverlay()) {
+                if (3 <= children.length) {
+                    var thirdChild = children[2];
+                    rootElement.insertBefore(_this.view, thirdChild);
+                    rootElement.insertBefore(elementContainer, thirdChild);
+                }
+                else {
+                    rootElement.appendChild(_this.view);
+                    rootElement.appendChild(elementContainer);
+                }
+                var oldOnChildrenChange_1 = stageAny.onChildrenChange;
+                stageAny.onChildrenChange = function () {
+                    _this.updateVisibility();
+                    oldOnChildrenChange_1.call(stageAny);
+                };
             }
             else {
-                rootElement.appendChild(_this.view);
+                if (0 < children.length) {
+                    var firstChild = children[0];
+                    rootElement.insertBefore(_this.view, firstChild);
+                    rootElement.insertBefore(elementContainer, firstChild);
+                }
+                else {
+                    rootElement.appendChild(_this.view);
+                    rootElement.appendChild(elementContainer);
+                }
             }
-            rootElement.style.margin = "0px";
-            rootElement.style.padding = "0px";
-            rootElement.style.overflow = "hidden";
-            _this.view.style.width = "100%";
-            _this.view.style.height = "100%";
-            _this.view.style.display = "block";
+            var rootElementStyle = rootElement.style;
+            if (rootElement !== document.body) {
+                var rootElementStylePosition = window.getComputedStyle(rootElement).position;
+                if (rootElementStylePosition === "static") {
+                    rootElementStyle.position = "relative";
+                }
+            }
+            rootElementStyle.margin = "0";
+            rootElementStyle.padding = "0";
+            rootElementStyle.overflow = "hidden";
+            var viewStyle = _this.view.style;
+            viewStyle.position = "absolute";
+            viewStyle.top = "0";
+            viewStyle.left = "0";
+            viewStyle.width = "100%";
+            viewStyle.height = "100%";
+            viewStyle.display = "block";
+            viewStyle.outline = "none";
             // Focus handling
             var hasFocus = false;
-            var focusController = DControllers.getFocusController();
+            var focusController = _this.getFocusController();
             var onBlurBound = function () {
                 if (!hasFocus) {
                     focusController.setFocused(null, true, false);
@@ -34939,7 +36023,7 @@
             var wheelEventUtil = UtilWheelEvent.getInstance();
             wheelEventUtil.on(_this.view, function (e) {
                 var wheelEvent = e;
-                UtilPointerEvent.toGlobal(wheelEvent, wheelGlobal);
+                UtilPointerEvent.toGlobal(wheelEvent, interactionManager, wheelGlobal);
                 var current = interactionManager.hitTest(wheelGlobal);
                 var deltas = wheelEventUtil.normalize(e);
                 if (deltas != null) {
@@ -34961,7 +36045,7 @@
                     var current = focused;
                     while (current != null) {
                         if (isDblClickable(current)) {
-                            if (current.onDblClick(e)) {
+                            if (current.onDblClick(e, interactionManager)) {
                                 break;
                             }
                         }
@@ -34973,53 +36057,71 @@
             _this.stage.interactive = true;
             return _this;
         }
-        DApplication.prototype.disallowUpdate = function () {
+        DApplicationLayer.prototype.disallowUpdate = function () {
             this._isUpdateAllowed = false;
         };
-        DApplication.prototype.allowUpdate = function () {
+        DApplicationLayer.prototype.allowUpdate = function () {
             this._isUpdateAllowed = true;
         };
-        DApplication.prototype.update = function () {
+        DApplicationLayer.prototype.update = function () {
             if (this._isUpdateAllowed && this._renderId == null) {
                 this._renderId = requestAnimationFrame(this._renderBound);
             }
         };
-        DApplication.prototype.render = function () {
-            var oldRenderId = this._renderId;
-            this._renderId = null;
-            this.onRendering();
-            var newRenderId = this._renderId;
-            this._renderId = oldRenderId;
+        DApplicationLayer.prototype.updateVisibility = function () {
+            if (this._options.isOverlay()) {
+                if (0 < this.stage.children.length) {
+                    if (!this._isVisible) {
+                        this._isVisible = true;
+                        this.view.style.display = "block";
+                    }
+                }
+                else {
+                    if (this._isVisible) {
+                        this._isVisible = false;
+                        this.view.style.display = "none";
+                    }
+                }
+            }
+        };
+        DApplicationLayer.prototype.render = function () {
             this.refit();
             this.reflow();
+            // Please note why the following line is here.
+            //
+            // Before this line, the update method does not enque a rendering task
+            // because `this._renderId` is not null. As a result, this prevents
+            // an unintentional rendering loop caused by the refit or the reflow.
+            //
+            // After this line, the update method enques a rendering task.
+            // Namely, in the DisplayObject#render(Renderer) method, allowed to enque
+            // a rendering task. For instance, please refer to the DDiagramShape#update().
+            this._renderId = null;
+            // Render
             _super.prototype.render.call(this);
-            this._renderId = newRenderId;
         };
-        DApplication.prototype.onRendering = function () {
-            // DO NOTHING
-        };
-        Object.defineProperty(DApplication.prototype, "width", {
+        Object.defineProperty(DApplicationLayer.prototype, "width", {
             get: function () {
                 return this.screen.width;
             },
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(DApplication.prototype, "height", {
+        Object.defineProperty(DApplicationLayer.prototype, "height", {
             get: function () {
                 return this.screen.height;
             },
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(DApplication.prototype, "padding", {
+        Object.defineProperty(DApplicationLayer.prototype, "padding", {
             get: function () {
                 return this._options.getPadding();
             },
             enumerable: true,
             configurable: true
         });
-        DApplication.prototype.resizeChildren = function (width, height, padding) {
+        DApplicationLayer.prototype.resizeChildren = function (width, height, padding) {
             var children = this.stage.children;
             for (var i = 0, imax = children.length; i < imax; ++i) {
                 var child = children[i];
@@ -35028,7 +36130,7 @@
                 }
             }
         };
-        DApplication.prototype.refit = function () {
+        DApplicationLayer.prototype.refit = function () {
             var children = this.stage.children;
             for (var ilimit = 0, limit = this._refitLimit; ilimit < limit; ++ilimit) {
                 var isChildrenDirty = false;
@@ -35045,7 +36147,7 @@
                 }
             }
         };
-        DApplication.prototype.reflow = function () {
+        DApplicationLayer.prototype.reflow = function () {
             var children = this.stage.children;
             for (var ilimit = 0, limit = this._refitLimit; ilimit < limit; ++ilimit) {
                 var isDirty = false;
@@ -35062,14 +36164,165 @@
                 }
             }
         };
-        DApplication.prototype.getRootElement = function () {
-            return this._options.getRootElement();
+        DApplicationLayer.prototype.getFocusController = function () {
+            if (this._focus == null) {
+                this._focus = new DControllerDefaultFocus();
+            }
+            return this._focus;
         };
-        DApplication.prototype.getOptions = function () {
-            return this._options;
+        DApplicationLayer.prototype.getElementContainer = function () {
+            return this._elementContainer;
+        };
+        DApplicationLayer.prototype.getDynamicFontAtlases = function () {
+            if (this._dynamicFontAtlases == null) {
+                this._dynamicFontAtlases = new DynamicFontAtlases(this);
+            }
+            return this._dynamicFontAtlases;
+        };
+        return DApplicationLayer;
+    }(pixi_js.Application));
+
+    var DApplication = /** @class */ (function () {
+        function DApplication(options) {
+            DApplications.add(this);
+            // Root
+            this._root = this.toRootElement(options);
+            // Resolution
+            var resolution = (options && options.resolution != null ?
+                options.resolution : (window.devicePixelRatio || 1));
+            this._resolution = resolution;
+            // Remove the accessibility plugin
+            delete pixi_js.Renderer.__plugins.accessibility;
+            // Options
+            this._options = options;
+            // Base layer
+            var base = this._base = this.newLayerBase(options);
+            // Overlay layer
+            this._isOverlayEnabled = !!(options && options.overlay);
+            if (!this._isOverlayEnabled) {
+                this._overlay = base;
+            }
+        }
+        Object.defineProperty(DApplication.prototype, "stage", {
+            get: function () {
+                return this._base.stage;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        DApplication.prototype.getRootElement = function () {
+            return this._root;
+        };
+        DApplication.prototype.getResolution = function () {
+            return this._resolution;
+        };
+        DApplication.prototype.toRootElement = function (options) {
+            var root = options && options.root;
+            if (root != null) {
+                if (utilIsString(root)) {
+                    var found = document.querySelector(root);
+                    if (found) {
+                        return found;
+                    }
+                }
+                else {
+                    return root;
+                }
+            }
+            return document.body;
+        };
+        DApplication.prototype.toLayerBaseOptions = function (options) {
+            var root = this._root;
+            var resolution = this._resolution;
+            if (options) {
+                return new DApplicationLayerOptions({
+                    root: root,
+                    padding: options.padding,
+                    width: options.width,
+                    height: options.height,
+                    background: options.background,
+                    resolution: resolution,
+                    antialias: options.antialias,
+                    overlay: false
+                });
+            }
+            return new DApplicationLayerOptions({
+                root: root,
+                resolution: resolution,
+                overlay: false
+            });
+        };
+        DApplication.prototype.newLayerBase = function (options) {
+            return new DApplicationLayer(this, this.toLayerBaseOptions(options));
+        };
+        DApplication.prototype.getLayerBase = function () {
+            return this._base;
+        };
+        DApplication.prototype.toLayerOverlayOptions = function (options) {
+            var root = this._root;
+            var resolution = this._resolution;
+            if (options) {
+                return new DApplicationLayerOptions({
+                    root: root,
+                    padding: options.padding,
+                    width: options.width,
+                    height: options.height,
+                    background: {
+                        color: null
+                    },
+                    resolution: resolution,
+                    antialias: options.antialias,
+                    overlay: true
+                });
+            }
+            return new DApplicationLayerOptions({
+                root: root,
+                resolution: resolution,
+                overlay: true
+            });
+        };
+        DApplication.prototype.newLayerOverlay = function (options) {
+            return new DApplicationLayer(this, this.toLayerOverlayOptions(options));
+        };
+        DApplication.prototype.getLayerOverlay = function () {
+            if (this._isOverlayEnabled) {
+                if (this._overlay == null) {
+                    this._overlay = this.newLayerOverlay(this._options);
+                }
+                return this._overlay;
+            }
+            else {
+                return this._base;
+            }
+        };
+        DApplication.prototype.update = function () {
+            if (this._isOverlayEnabled) {
+                var base = this._base;
+                base.update();
+                var overlay = this._overlay;
+                if (overlay) {
+                    overlay.update();
+                }
+            }
+            else {
+                return this._base.update();
+            }
+        };
+        DApplication.prototype.render = function () {
+            if (this._isOverlayEnabled) {
+                var base = this._base;
+                base.render();
+                var overlay = this._overlay;
+                if (overlay) {
+                    overlay.render();
+                }
+            }
+            else {
+                return this._base.render();
+            }
         };
         return DApplication;
-    }(pixi_js.Application));
+    }());
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -35139,8 +36392,11 @@
             if (!this.isToggle()) {
                 this.on(UtilPointerEvent.down, function () {
                     _this.setPressed(true);
-                    var target = _this._onActiveUpBoundTarget = DApplications.getInstance().stage;
-                    target.on(UtilPointerEvent.up, _this._onActiveUpBound);
+                    var layer = DApplications.getLayer(_this);
+                    if (layer) {
+                        var target = _this._onActiveUpBoundTarget = layer.stage;
+                        target.on(UtilPointerEvent.up, _this._onActiveUpBound);
+                    }
                 });
             }
         };
@@ -35456,10 +36712,6 @@
         return DDialogCommand;
     }(DDialog));
 
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var DInput = /** @class */ (function (_super) {
         __extends(DInput, _super);
         function DInput() {
@@ -35471,12 +36723,6 @@
             this._editingValidator = (options && options.editing && options.editing.validator) ||
                 this.theme.getEditingValidator();
             _super.prototype.init.call(this, options);
-            this._isInputShown = false;
-            this._inputRect = null;
-            this._isInputSelected = false;
-            this._isStarted = false;
-            this._clipperRect = null;
-            this.cursor = "text";
             this._description = (options && options.description) || "";
             this._editingFormatter = (options && options.editing && options.editing.formatter) ||
                 this.theme.getEditingFormatter();
@@ -35485,22 +36731,12 @@
             this._onInputKeyDownBound = function (e) {
                 _this.onInputKeyDown(e);
             };
-            this._onInputBlurBound = function (e) {
-                _this.onInputBlur(e);
-            };
-            this._updateInputBound = function () {
-                _this.updateInput();
-            };
             this._onInputChangeBound = function () {
                 _this.onInputChange();
             };
             this._onInputInputBound = function (e) {
                 _this.onInputInput(e);
             };
-            this._onPreRenderBound = function () {
-                _this.onPreRender();
-            };
-            this._updateInputBoundRenderer = null;
         };
         Object.defineProperty(DInput.prototype, "value", {
             get: function () {
@@ -35530,291 +36766,49 @@
         DInput.prototype.applyTitle = function () {
             var editingValidationResult = this._editingValidationResult;
             if (utilIsString(editingValidationResult)) {
-                DApplications.getInstance().view.title = editingValidationResult;
+                var layer = DApplications.getLayer(this);
+                if (layer) {
+                    layer.view.title = editingValidationResult;
+                }
             }
             else {
                 _super.prototype.applyTitle.call(this);
             }
         };
-        DInput.prototype.onFocused = function () {
-            _super.prototype.onFocused.call(this);
-            this.start();
-        };
-        DInput.prototype.onBlured = function () {
-            _super.prototype.onBlured.call(this);
-            if (this._isInputShown) {
-                this.onInputChange();
-            }
-            this.cancel();
-        };
-        DInput.prototype.onPreRender = function () {
-            if (this._isStarted) {
-                this._isStarted = false;
-                this.start_(false);
+        DInput.prototype.onStart = function () {
+            _super.prototype.onStart.call(this);
+            var text = this._text;
+            if (text != null) {
+                text.visible = false;
             }
         };
-        DInput.prototype.start = function () {
-            if (!this.isDisabled() && this._isStarted !== true) {
-                // This method might be invoked in the `pointerown` event handler.
-                // Because of this, focusing on an input element in this method invokes
-                // the `onInputBlur` immediately. Thus, must not call the `start` here.
-                this._isStarted = true;
-                DApplications.getInstance().renderer.once("prerender", this._onPreRenderBound);
-                DApplications.update();
+        DInput.prototype.onCancel = function () {
+            _super.prototype.onCancel.call(this);
+            var text = this._text;
+            if (text != null) {
+                text.visible = true;
             }
         };
-        DInput.prototype.start_ = function (update) {
-            if (!this._isInputShown) {
-                this._isInputShown = true;
-                var text = this._text;
-                if (text != null) {
-                    text.visible = false;
-                }
-                var app = DApplications.getInstance();
-                var clipper = this.getClipper();
-                if (clipper != null) {
-                    var input = this.getInput(clipper);
-                    if (input != null) {
-                        var resolution = app.renderer.resolution;
-                        var inputRect = this.getInputRect(resolution);
-                        var clipperRect = this.getClipperRect(inputRect, resolution);
-                        this.initInput(input, clipper, inputRect, clipperRect);
-                        var updateInputBound = this._updateInputBound;
-                        var renderer = this._updateInputBoundRenderer;
-                        if (renderer != null) {
-                            renderer.off("postrender", updateInputBound);
-                        }
-                        this._updateInputBoundRenderer = app.renderer;
-                        app.renderer.on("postrender", updateInputBound);
-                        clipper.style.display = "";
-                        input.focus();
-                        clipper.scrollTop = 0;
-                        clipper.scrollLeft = 0;
-                        if (this._isInputSelected) {
-                            this._isInputSelected = false;
-                            input.select();
-                        }
-                    }
-                }
-                if (update !== false) {
-                    DApplications.update();
-                }
-            }
+        DInput.prototype.onEnd = function () {
+            _super.prototype.onEnd.call(this);
+            this.onInputChange();
         };
-        DInput.prototype.createText = function (formatted) {
-            var result = _super.prototype.createText.call(this, formatted);
-            if (this._isInputShown) {
-                result.visible = false;
-            }
-            return result;
+        DInput.prototype.onElementAttached = function (element, before, after) {
+            _super.prototype.onElementAttached.call(this, element, before, after);
+            element.type = this.getInputType();
+            element.value = this._editingFormatter(this._textValueComputed, this);
+            element.addEventListener("keydown", this._onInputKeyDownBound);
+            element.addEventListener("change", this._onInputChangeBound);
+            element.addEventListener("input", this._onInputInputBound);
         };
-        /**
-         * Please note that this method does not update transforms.
-         *
-         * @param inputRect
-         */
-        DInput.prototype.getClipperRect = function (inputRect, resolution) {
-            var rect = this._clipperRect = (this._clipperRect != null ? this._clipperRect : new pixi_js.Rectangle());
-            rect.copyFrom(inputRect);
-            var p = new pixi_js.Point(0, 0);
-            var current = this.parent;
-            while (current instanceof DBase) {
-                p.set(0, 0);
-                current.toGlobal(p, p, false);
-                var x = p.x;
-                var y = p.y;
-                p.set(current.width, current.height);
-                current.toGlobal(p, p, true);
-                var w = p.x - x;
-                var h = p.y - y;
-                x = ((x * resolution) | 0) / resolution;
-                y = ((y * resolution) | 0) / resolution;
-                var x0 = rect.x;
-                var y0 = rect.y;
-                var x1 = rect.x + rect.width;
-                var y1 = rect.y + rect.height;
-                rect.x = Math.min(Math.max(x0, x), x + w);
-                rect.y = Math.min(Math.max(y0, y), y + h);
-                rect.width = Math.min(Math.max(x1, x), x + w) - rect.x;
-                rect.height = Math.min(Math.max(y1, y), y + h) - rect.y;
-                current = current.parent;
-            }
-            return rect;
-        };
-        /**
-         * Please note that this method does not update transforms.
-         */
-        DInput.prototype.getInputRect = function (resolution) {
-            var rect = this._inputRect = (this._inputRect != null ? this._inputRect : new pixi_js.Rectangle());
-            var p = new pixi_js.Point(0, 0);
-            this.toGlobal(p, p, false);
-            rect.x = p.x;
-            rect.y = p.y;
-            p.set(this.width, this.height);
-            this.toGlobal(p, p, true);
-            rect.width = p.x - rect.x;
-            rect.height = p.y - rect.y;
-            // Rounds pixels as Pixi.js does
-            rect.x = ((rect.x * resolution) | 0) / resolution;
-            rect.y = ((rect.y * resolution) | 0) / resolution;
-            return rect;
-        };
-        DInput.prototype.initInput = function (input, clipper, inputRect, clipperRect) {
-            input.type = this.getInputType();
-            input.value = this._editingFormatter(this._textValueComputed, this);
-            input.addEventListener("keydown", this._onInputKeyDownBound);
-            input.addEventListener("blur", this._onInputBlurBound);
-            input.addEventListener("change", this._onInputChangeBound);
-            input.addEventListener("input", this._onInputInputBound);
-            // Style
-            var theme = this.theme;
-            var state = this.state;
-            clipper.setAttribute("style", this.getClipperStyle(state, theme, inputRect, clipperRect));
-            input.setAttribute("style", this.getInputStyle(state, theme, inputRect, clipperRect));
-            // ReadOnly
-            if (this.isReadOnly()) {
-                input.setAttribute("readonly", "readonly");
-            }
-            else {
-                input.removeAttribute("readonly");
-            }
-            // Disabled
-            if (this.isDisabled()) {
-                input.setAttribute("disabled", "disabled");
-            }
-            else {
-                input.removeAttribute("disabled");
-            }
-        };
-        DInput.prototype.cancel = function () {
-            if (this._isInputShown) {
-                this._isInputShown = false;
-                var text = this._text;
-                if (text != null) {
-                    text.visible = true;
-                }
-                var input = DInput._input;
-                if (input != null) {
-                    input.removeEventListener("keydown", this._onInputKeyDownBound);
-                    input.removeEventListener("blur", this._onInputBlurBound);
-                    input.removeEventListener("change", this._onInputChangeBound);
-                    input.removeEventListener("input", this._onInputInputBound);
-                    input.type = "text";
-                    this.resetSelection(input);
-                }
-                var clipper = DInput._clipper;
-                if (clipper != null) {
-                    clipper.style.display = "none";
-                }
-                var renderer = this._updateInputBoundRenderer;
-                if (renderer != null) {
-                    this._updateInputBoundRenderer = null;
-                    renderer.off("postrender", this._updateInputBound);
-                }
-                this._isInputSelected = false;
-                var application = DApplications.getInstance();
-                var view = application.view;
-                view.focus();
-                var interactionManager = application.renderer.plugins.interaction;
-                if (this.containsPoint(interactionManager.mouse.global) && !this.isHovered()) {
-                    this.setHovered(true);
-                    view.style.cursor = this.cursor;
-                }
-                DApplications.update();
-            }
-        };
-        DInput.prototype.resetSelection = function (input) {
-            input.setSelectionRange(input.value.length, input.value.length, "backward");
-        };
-        DInput.prototype.getInput = function (clipper) {
-            if (DInput._input == null) {
-                clipper.appendChild(DInput._input = this.createInput());
-            }
-            return DInput._input;
-        };
-        DInput.prototype.createInput = function () {
-            var result = document.createElement("input");
-            result.setAttribute("spellcheck", "false");
-            return result;
-        };
-        DInput.prototype.getClipper = function () {
-            if (DInput._clipper == null) {
-                var clipper = DInput._clipper = this.createClipper();
-                DApplications.getInstance().getRootElement().appendChild(clipper);
-            }
-            return DInput._clipper;
-        };
-        DInput.prototype.createClipper = function () {
-            return document.createElement("div");
-        };
-        DInput.prototype.getInputStyleBackground = function (state, theme) {
-            return "background-color: transparent;";
-        };
-        DInput.prototype.getInputStyleBorder = function (state, theme) {
-            return "border: none; box-sizing: border-box;";
-        };
-        DInput.prototype.getInputStylePadding = function (state, theme, inputRect) {
-            var paddingTop = theme.getPaddingTop();
-            var paddingRight = theme.getPaddingRight();
-            var paddingBottom = theme.getPaddingBottom();
-            var paddingLeft = theme.getPaddingLeft();
-            return "padding: " + paddingTop + "px " + paddingRight + "px " + paddingBottom + "px " + paddingLeft + "px;";
-        };
-        DInput.prototype.getInputStyleOutline = function (state, theme) {
-            return "outline: none;";
-        };
-        DInput.prototype.getInputStylePosition = function (state, theme, inputRect, clipperRect) {
-            return "position: absolute;" +
-                ("left: " + (inputRect.x - clipperRect.x) + "px;") +
-                ("top: " + (inputRect.y - clipperRect.y) + "px;") +
-                ("width: " + inputRect.width + "px;") +
-                ("height: " + inputRect.height + "px;") +
-                ("line-height: " + inputRect.height + "px;");
-        };
-        DInput.prototype.getInputStyleText = function (state, theme) {
-            return "font-family: " + theme.getFontFamilly() + ";" +
-                ("font-size: " + theme.getFontSize() + "px;") +
-                ("color: #" + theme.getColor(state).toString(16) + ";");
-        };
-        DInput.prototype.getInputStyleMargin = function (state, theme) {
-            return "margin: 0;";
-        };
-        DInput.prototype.getInputStyle = function (state, theme, inputRect, clipperRect) {
-            return this.getInputStylePosition(state, theme, inputRect, clipperRect) +
-                this.getInputStyleMargin(state, theme) +
-                this.getInputStyleText(state, theme) +
-                this.getInputStyleBackground(state, theme) +
-                this.getInputStyleBorder(state, theme) +
-                this.getInputStylePadding(state, theme, inputRect) +
-                this.getInputStyleOutline(state, theme);
-        };
-        DInput.prototype.getClipperStylePosition = function (state, theme, inputRect, clipperRect) {
-            return "position: absolute;" +
-                ("left: " + clipperRect.x + "px;") +
-                ("top: " + clipperRect.y + "px;") +
-                ("width: " + clipperRect.width + "px;") +
-                ("height: " + clipperRect.height + "px;") +
-                ("line-height: " + inputRect.height + "px;");
-        };
-        DInput.prototype.getClipperStyle = function (state, theme, inputRect, clipperRect) {
-            return "overflow: hidden; outline: none;" +
-                "padding: 0; margin: 0; border: none; background-color: transparent;" +
-                this.getClipperStylePosition(state, theme, inputRect, clipperRect);
+        DInput.prototype.onElementDetached = function (element, before, after) {
+            _super.prototype.onElementDetached.call(this, element, before, after);
+            element.removeEventListener("keydown", this._onInputKeyDownBound);
+            element.removeEventListener("change", this._onInputChangeBound);
+            element.removeEventListener("input", this._onInputInputBound);
         };
         DInput.prototype.onInputKeyDown = function (e) {
-            if (UtilKeyboardEvent.isFocusKey(e)) {
-                this.end();
-                var focusController = DControllers.getFocusController();
-                var direction = UtilKeyboardEvent.getFocusDirection(e);
-                var focusable = focusController.findFocusable(this, false, false, direction);
-                if (focusable != null) {
-                    DApplications.getInstance().view.focus();
-                    focusController.setFocused(focusable, true, true);
-                    e.preventDefault();
-                    e.stopImmediatePropagation();
-                }
-            }
-            else if (UtilKeyboardEvent.isOkKey(e)) {
+            if (UtilKeyboardEvent.isOkKey(e)) {
                 this.end();
                 this.emit("enter", this);
             }
@@ -35822,75 +36816,29 @@
                 this.cancel();
             }
         };
-        DInput.prototype.onInputBlur = function (e) {
-            this.end();
-        };
-        DInput.prototype.end = function () {
-            this.onInputChange();
-            this.cancel();
+        DInput.prototype.onInputChange = function () {
+            if (this._isElementShown) {
+                var element = this._element;
+                if (element != null) {
+                    var newValue = this.toValue(element.value);
+                    var oldValue = this._textValueComputed;
+                    if (oldValue !== newValue) {
+                        this.text = newValue;
+                        this.emit("change", newValue, oldValue, this);
+                    }
+                }
+            }
         };
         DInput.prototype.onInputInput = function (e) {
             if (e.target instanceof HTMLInputElement) {
                 this.emit("input", this.toValue(e.target.value), this);
             }
         };
-        DInput.prototype.onInputChange = function () {
-            if (this._isInputShown) {
-                var input = DInput._input;
-                if (input != null) {
-                    var newValue = this.toValue(input.value);
-                    var oldValue = this._textValueComputed;
-                    if (oldValue !== newValue) {
-                        this.text = newValue;
-                        this.onTextValueChange(newValue, oldValue);
-                    }
-                }
-            }
+        DInput.prototype.getType = function () {
+            return "DInput";
         };
-        DInput.prototype.onTextValueChange = function (newValue, oldValue) {
-            this.validate();
-            this.emit("change", newValue, oldValue, this);
-        };
-        DInput.prototype.select = function () {
-            var input = DInput._input;
-            if (input != null && this._isInputShown) {
-                input.select();
-            }
-            else {
-                this._isInputSelected = true;
-            }
-            return this;
-        };
-        DInput.prototype.updateInput = function () {
-            if (this._isInputShown) {
-                if (this.worldVisible) {
-                    var input = DInput._input;
-                    var clipper = DInput._clipper;
-                    if (input != null && clipper != null) {
-                        var resolution = DApplications.getInstance().renderer.resolution;
-                        var inputRect = this.getInputRect(resolution);
-                        var clipperRect = this.getClipperRect(inputRect, resolution);
-                        var theme = this.theme;
-                        var state = this.state;
-                        input.setAttribute("style", this.getInputStyle(state, theme, inputRect, clipperRect));
-                        clipper.setAttribute("style", this.getClipperStyle(state, theme, inputRect, clipperRect));
-                    }
-                }
-                else {
-                    this.cancel();
-                }
-            }
-        };
-        DInput.prototype.onDownThis = function (e) {
-            if (this.isFocused()) {
-                this.start();
-            }
-            _super.prototype.onDownThis.call(this, e);
-        };
-        DInput._input = null;
-        DInput._clipper = null;
         return DInput;
-    }(DImageBase));
+    }(DHTMLElement));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -35980,26 +36928,26 @@
             return this.value;
         };
         DInputNumber.prototype.updateInputStep = function () {
-            if (this._isInputShown) {
-                var input = DInput._input;
-                if (input != null) {
-                    this.initInputStep(input);
+            if (this._isElementShown) {
+                var element = this._element;
+                if (element) {
+                    this.initInputStep(element);
                 }
             }
         };
         DInputNumber.prototype.updateInputMin = function () {
-            if (this._isInputShown) {
-                var input = DInput._input;
-                if (input != null) {
-                    this.initInputMin(input);
+            if (this._isElementShown) {
+                var element = this._element;
+                if (element) {
+                    this.initInputMin(element);
                 }
             }
         };
         DInputNumber.prototype.updateInputMax = function () {
-            if (this._isInputShown) {
-                var input = DInput._input;
-                if (input != null) {
-                    this.initInputMax(input);
+            if (this._isElementShown) {
+                var element = this._element;
+                if (element) {
+                    this.initInputMax(element);
                 }
             }
         };
@@ -36027,16 +36975,11 @@
                 input.removeAttribute("max");
             }
         };
-        DInputNumber.prototype.initInput = function (input, clipper, inputRect, clipperRect) {
-            _super.prototype.initInput.call(this, input, clipper, inputRect, clipperRect);
-            this.initInputStep(input);
-            this.initInputMin(input);
-            this.initInputMax(input);
-        };
-        DInputNumber.prototype.resetSelection = function (input) {
-            input.type = "text";
-            _super.prototype.resetSelection.call(this, input);
-            input.type = "number";
+        DInputNumber.prototype.onElementAttached = function (element, before, after) {
+            _super.prototype.onElementAttached.call(this, element, before, after);
+            this.initInputStep(element);
+            this.initInputMin(element);
+            this.initInputMax(element);
         };
         DInputNumber.prototype.getInputType = function () {
             return "number";
@@ -36602,17 +37545,23 @@
         };
         DPickerColor.prototype.onMainDown = function (e) {
             this.onMainPick(e.data.global);
-            var stage = DApplications.getInstance().stage;
-            stage.on(UtilPointerEvent.move, this._onMainMoveBound);
-            stage.on(UtilPointerEvent.up, this._onMainUpBound);
+            var layer = DApplications.getLayer(this);
+            if (layer) {
+                var stage = layer.stage;
+                stage.on(UtilPointerEvent.move, this._onMainMoveBound);
+                stage.on(UtilPointerEvent.up, this._onMainUpBound);
+            }
         };
         DPickerColor.prototype.onMainMove = function (e) {
             this.onMainPick(e.data.global);
         };
         DPickerColor.prototype.onMainUp = function (e) {
-            var stage = DApplications.getInstance().stage;
-            stage.off(UtilPointerEvent.move, this._onMainMoveBound);
-            stage.off(UtilPointerEvent.up, this._onMainUpBound);
+            var layer = DApplications.getLayer(this);
+            if (layer) {
+                var stage = layer.stage;
+                stage.off(UtilPointerEvent.move, this._onMainMoveBound);
+                stage.off(UtilPointerEvent.up, this._onMainUpBound);
+            }
         };
         DPickerColor.prototype.toMainHex = function (b, w0, w1, shift) {
             return Math.max(0, Math.min(255, w0 * 255 + w1 * ((b >> shift) & 0xff))) << shift;
@@ -36670,27 +37619,37 @@
             this.onColorNew(color);
         };
         DPickerColor.prototype.onColorNew = function (color) {
-            var application = DApplications.getInstance();
-            application.disallowUpdate();
+            var layer = DApplications.getLayer(this);
+            if (layer) {
+                layer.disallowUpdate();
+            }
             this._sampleNewSprite.tint = this._new.color = color;
             this._inputAndLabelColor.input.value = UtilRgb.toCode(color);
             this.emit("newcolorchange", color, this);
-            application.allowUpdate();
-            application.update();
+            if (layer) {
+                layer.allowUpdate();
+                layer.update();
+            }
         };
         DPickerColor.prototype.onBaseDown = function (e) {
             this.onBasePick(e.data.global);
-            var stage = DApplications.getInstance().stage;
-            stage.on(UtilPointerEvent.move, this._onBaseMoveBound);
-            stage.on(UtilPointerEvent.up, this._onBaseUpBound);
+            var layer = DApplications.getLayer(this);
+            if (layer) {
+                var stage = layer.stage;
+                stage.on(UtilPointerEvent.move, this._onBaseMoveBound);
+                stage.on(UtilPointerEvent.up, this._onBaseUpBound);
+            }
         };
         DPickerColor.prototype.onBaseMove = function (e) {
             this.onBasePick(e.data.global);
         };
         DPickerColor.prototype.onBaseUp = function (e) {
-            var stage = DApplications.getInstance().stage;
-            stage.off(UtilPointerEvent.move, this._onBaseMoveBound);
-            stage.off(UtilPointerEvent.up, this._onBaseUpBound);
+            var layer = DApplications.getLayer(this);
+            if (layer) {
+                var stage = layer.stage;
+                stage.off(UtilPointerEvent.move, this._onBaseMoveBound);
+                stage.off(UtilPointerEvent.up, this._onBaseUpBound);
+            }
         };
         DPickerColor.prototype.toBaseHex = function (t, shift) {
             return Math.max(0, Math.min(255, t * 6 * 255)) << shift;
@@ -36749,17 +37708,23 @@
         };
         DPickerColor.prototype.onAlphaDown = function (e) {
             this.onAlphaPick(e.data.global);
-            var stage = DApplications.getInstance().stage;
-            stage.on(UtilPointerEvent.move, this._onAlphaMoveBound);
-            stage.on(UtilPointerEvent.up, this._onAlphaUpBound);
+            var layer = DApplications.getLayer(this);
+            if (layer) {
+                var stage = layer.stage;
+                stage.on(UtilPointerEvent.move, this._onAlphaMoveBound);
+                stage.on(UtilPointerEvent.up, this._onAlphaUpBound);
+            }
         };
         DPickerColor.prototype.onAlphaMove = function (e) {
             this.onAlphaPick(e.data.global);
         };
         DPickerColor.prototype.onAlphaUp = function (e) {
-            var stage = DApplications.getInstance().stage;
-            stage.off(UtilPointerEvent.move, this._onAlphaMoveBound);
-            stage.off(UtilPointerEvent.up, this._onAlphaUpBound);
+            var layer = DApplications.getLayer(this);
+            if (layer) {
+                var stage = layer.stage;
+                stage.off(UtilPointerEvent.move, this._onAlphaMoveBound);
+                stage.off(UtilPointerEvent.up, this._onAlphaUpBound);
+            }
         };
         DPickerColor.prototype.onAlphaPick = function (global) {
             var point = this._pointerPoint;
@@ -36778,13 +37743,17 @@
             this.onAlphaNew(alpha);
         };
         DPickerColor.prototype.onAlphaNew = function (alpha) {
-            var application = DApplications.getInstance();
-            application.disallowUpdate();
+            var layer = DApplications.getLayer(this);
+            if (layer) {
+                layer.disallowUpdate();
+            }
             this._sampleNewSprite.alpha = this._new.alpha = alpha;
             this._inputAndLabelAlpha.input.value = Number(alpha.toFixed(2));
             this.emit("newalphachange", alpha, this);
-            application.allowUpdate();
-            application.update();
+            if (layer) {
+                layer.allowUpdate();
+                layer.update();
+            }
         };
         DPickerColor.prototype.onRecentChange = function () {
             var sprites = this._recentColorSprites;
@@ -36833,7 +37802,7 @@
             _this._parts = parts;
             shader.uniforms.uSampler.on("update", function () {
                 _this.update();
-                DApplications.update();
+                DApplications.update(_this);
             });
             _this.update();
             return _this;
@@ -37293,7 +38262,7 @@
                 view.setData(1 + i, recent.get(i));
             }
             view.update();
-            DApplications.update();
+            DApplications.update(this);
         };
         DPickerColorGradient.prototype.toAnchorPosition = function (e) {
             var local = this.toLocal(e.data.global, undefined, this._work);
@@ -37340,9 +38309,12 @@
             }
         };
         DPickerColorGradient.prototype.onAnchorDragStart = function () {
-            var stage = DApplications.getInstance().stage;
-            stage.on(UtilPointerEvent.move, this._onAnchorMoveBound);
-            stage.on(UtilPointerEvent.up, this._onAnchorUpBound);
+            var layer = DApplications.getLayer(this);
+            if (layer) {
+                var stage = layer.stage;
+                stage.on(UtilPointerEvent.move, this._onAnchorMoveBound);
+                stage.on(UtilPointerEvent.up, this._onAnchorUpBound);
+            }
         };
         DPickerColorGradient.prototype.onAnchorMove = function (e) {
             var points = this._data;
@@ -37354,9 +38326,12 @@
             }
         };
         DPickerColorGradient.prototype.onAnchorUp = function (e) {
-            var stage = DApplications.getInstance().stage;
-            stage.off(UtilPointerEvent.move, this._onAnchorMoveBound);
-            stage.off(UtilPointerEvent.up, this._onAnchorUpBound);
+            var layer = DApplications.getLayer(this);
+            if (layer) {
+                var stage = layer.stage;
+                stage.off(UtilPointerEvent.move, this._onAnchorMoveBound);
+                stage.off(UtilPointerEvent.up, this._onAnchorUpBound);
+            }
         };
         DPickerColorGradient.prototype.updateAnchors = function () {
             var theme = this.theme;
@@ -37392,7 +38367,7 @@
                 anchor.position.set(right, y + height * point.position);
                 anchor.texture = (point.selected ? anchorOutlinedTexture : anchorTexture);
             }
-            DApplications.update();
+            DApplications.update(this);
         };
         DPickerColorGradient.prototype.onKeyDown = function (e) {
             if (UtilKeyboardEvent.isDeleteKey(e)) {
@@ -37503,6 +38478,7 @@
                     }
                     _this.onTextChange();
                     _this.createOrUpdateText();
+                    DApplications.update(_this);
                     _this.emit("change", _this);
                 });
             });
@@ -37641,6 +38617,7 @@
             var image = this._image;
             if (this.isTintAware(image)) {
                 image.tint = this._textValueComputed.color;
+                DApplications.update(this);
             }
             this.updateTextForcibly();
         };
@@ -39532,15 +40509,18 @@
                 position: theme.getDragDurationPosition(),
                 scale: theme.getDragDurationScale()
             });
+            var bind = (mode === DDragMode.TOUCH);
+            this._bind = bind;
             if (mode === DDragMode.ON || mode === DDragMode.TOUCH) {
                 this._dragUtil = new UtilDrag({
                     target: parent,
-                    touch: mode === DDragMode.TOUCH,
+                    touch: bind,
                     modifier: modifier,
                     checker: drag && drag.checker,
                     easing: {
                         duration: duration
                     },
+                    bind: bind,
                     on: {
                         start: function () {
                             _this._stopper.stop();
@@ -39571,6 +40551,14 @@
             var dragUtil = this._dragUtil;
             if (dragUtil != null) {
                 dragUtil.stop();
+            }
+        };
+        DCanvasContainerViewDrag.prototype.onDown = function (e) {
+            if (!this._bind) {
+                var dragUtil = this._dragUtil;
+                if (dragUtil) {
+                    dragUtil.onDown(e);
+                }
             }
         };
         return DCanvasContainerViewDrag;
@@ -39805,7 +40793,7 @@
                 if (canvas != null) {
                     return canvas.position;
                 }
-                return new PIXI.Point(0, 0);
+                return new pixi_js.Point(0, 0);
             },
             set: function (position) {
                 var parent = this._parent;
@@ -39855,11 +40843,14 @@
             }
             return false;
         };
-        DCanvasContainerView.prototype.onDblClick = function (e) {
+        DCanvasContainerView.prototype.onDown = function (e) {
+            this._drag.onDown(e);
+        };
+        DCanvasContainerView.prototype.onDblClick = function (e, interactionManager) {
             if (this._isDblClickZoomEnabled &&
                 this._dblClickZoomChecker(e, this._dblClickZoomModifier, this._parent)) {
                 var global_1 = this._zoomPoint;
-                UtilPointerEvent.toGlobal(e, global_1);
+                UtilPointerEvent.toGlobal(e, interactionManager, global_1);
                 var scale = this.scale * this._dblClickZoomSpeed;
                 this.zoomAtGlobal(global_1.x, global_1.y, scale, this._dblclickZoomDuration);
                 return true;
@@ -39918,11 +40909,11 @@
                 this._canvas = canvas;
                 if (canvas != null) {
                     this.addChild(canvas);
-                    this.emit("set", canvas, this);
                     this._view.reset(0);
+                    this.emit("set", canvas, this);
                 }
                 else {
-                    DApplications.update();
+                    DApplications.update(this);
                 }
             },
             enumerable: true,
@@ -39956,10 +40947,14 @@
             var sresult = _super.prototype.onWheel.call(this, e, deltas, global);
             return vresult || sresult;
         };
-        DCanvasContainer.prototype.onDblClick = function (e) {
-            var vresult = this._view.onDblClick(e);
-            var sresult = _super.prototype.onDblClick.call(this, e);
+        DCanvasContainer.prototype.onDblClick = function (e, interactionManager) {
+            var vresult = this._view.onDblClick(e, interactionManager);
+            var sresult = _super.prototype.onDblClick.call(this, e, interactionManager);
             return vresult || sresult;
+        };
+        DCanvasContainer.prototype.onDown = function (e) {
+            this._view.onDown(e);
+            _super.prototype.onDown.call(this, e);
         };
         DCanvasContainer.prototype.destroy = function () {
             // Overflow mask
@@ -41629,7 +42624,7 @@
                 segments.length = isegments;
             }
             line.points.set(values, segments);
-            DApplications.update();
+            DApplications.update(line);
         };
         Object.defineProperty(DChartSeriesLine.prototype, "domain", {
             get: function () {
@@ -42095,7 +43090,7 @@
                 this._active = layer;
             }
             this.emit("change", this);
-            DApplications.update();
+            DApplications.update(this);
         };
         DDiagramLayerContainer.prototype.attachAt = function (layer, index, activate) {
             this.addChildAt(layer, index);
@@ -42103,7 +43098,7 @@
                 this._active = layer;
             }
             this.emit("change", this);
-            DApplications.update();
+            DApplications.update(this);
         };
         /**
          * Removes the specified layer from this container and activates the specified layer.
@@ -42119,7 +43114,7 @@
                 children.splice(index, 1);
                 layer.parent = undefined;
                 this.emit("change", this);
-                DApplications.update();
+                DApplications.update(this);
             }
         };
         /**
@@ -42152,7 +43147,7 @@
                     }
                 }
                 this.emit("change", this);
-                DApplications.update();
+                DApplications.update(this);
             }
             return index;
         };
@@ -42173,7 +43168,7 @@
                 }
                 children.length = 0;
                 this.emit("change", this);
-                DApplications.update();
+                DApplications.update(this);
             }
         };
         DDiagramLayerContainer.prototype.destroy = function () {
@@ -42275,7 +43270,7 @@
             var snapper = options.snapper;
             snapper.target.on("change", function () {
                 _this.toDirty();
-                DApplications.update();
+                DApplications.update(_this);
             });
             _this._snapper = snapper;
             return _this;
@@ -42349,7 +43344,8 @@
             _this.interactives = [];
             _this.actionables = [];
             _this.ids = {};
-            _this._work = new pixi_js.Point();
+            _this._workLocal = new pixi_js.Point();
+            _this._workGlobal = new pixi_js.Point();
             _this._lastOverShape = null;
             return _this;
         }
@@ -42369,10 +43365,13 @@
             this.initializeFocus();
         };
         DDiagramCanvas.prototype.initializeFocus = function () {
-            var focusController = DControllers.getFocusController();
-            var focusable = focusController.findFocusable(this, false, true, true);
-            if (focusable != null) {
-                focusController.setFocused(focusable, true, true);
+            var layer = DApplications.getLayer(this);
+            if (layer) {
+                var focusController = layer.getFocusController();
+                var focusable = focusController.findFocusable(this, false, true, true);
+                if (focusable) {
+                    focusController.setFocused(focusable, true, true);
+                }
             }
         };
         DDiagramCanvas.prototype.initializeShapes = function (shapes, tags, interactives, actionables, ids) {
@@ -42382,7 +43381,7 @@
                 var tag = shape.tag;
                 for (var j = 0, jmax = tag.size(); j < jmax; ++j) {
                     var value = tag.get(j);
-                    if (value != null) {
+                    if (value) {
                         var valueId = value.id;
                         if (0 < valueId.length) {
                             var values = tags[valueId];
@@ -42406,12 +43405,12 @@
                     }
                 }
                 // Interactives
-                if (shape.interactive || (0 < shape.cursor.length) || (shape.runtime != null && shape.runtime.interactive)) {
+                var runtime = shape.runtime;
+                if (shape.interactive || (0 < shape.cursor.length) || (runtime && runtime.interactive)) {
                     interactives.push(shape);
                 }
                 // Actionables
-                var runtime = shape.runtime;
-                if (runtime != null && 0 < runtime.actions.length) {
+                if (runtime && 0 < runtime.actions.length) {
                     actionables.push(shape);
                 }
                 // Shortcuts
@@ -42439,46 +43438,46 @@
         };
         DDiagramCanvas.prototype.onShapeMove = function (e) {
             var global = e.data.global;
-            var work = this._work;
+            var local = this._workLocal;
             var interactives = this.interactives;
             var found = null;
             for (var i = interactives.length - 1; 0 <= i; --i) {
                 var interactive = interactives[i];
                 if (interactive.visible) {
-                    var interactiveLocal = interactive.toLocal(global, undefined, work);
-                    if (interactive.contains(interactiveLocal) != null) {
+                    interactive.toLocal(global, undefined, local);
+                    if (interactive.contains(local)) {
                         found = interactive;
                         break;
                     }
                 }
             }
-            var application = DApplications.getInstance();
-            if (found != null) {
+            var layer = DApplications.getLayer(this);
+            if (found) {
                 if (0 < found.cursor.length) {
-                    if (application.view.style.cursor !== found.cursor) {
-                        application.view.style.cursor = found.cursor;
+                    if (layer && layer.view.style.cursor !== found.cursor) {
+                        layer.view.style.cursor = found.cursor;
                     }
                 }
                 var lastOverShape = this._lastOverShape;
                 if (found === lastOverShape) {
                     var runtime = lastOverShape.runtime;
-                    if (runtime != null) {
+                    if (runtime) {
                         runtime.onPointerMove(lastOverShape, e);
                     }
                 }
                 else {
                     this._lastOverShape = found;
                     // Previous
-                    if (lastOverShape != null) {
+                    if (lastOverShape) {
                         var previousRuntime = lastOverShape.runtime;
-                        if (previousRuntime != null) {
+                        if (previousRuntime) {
                             previousRuntime.onPointerOut(lastOverShape, e);
                         }
                         // Parents
                         var lastOverParent = lastOverShape.parent;
                         while ((lastOverParent instanceof EShapeBase) && lastOverParent !== found) {
                             var parentRuntime = lastOverShape.runtime;
-                            if (parentRuntime != null) {
+                            if (parentRuntime) {
                                 parentRuntime.onPointerOut(lastOverParent, e);
                             }
                             lastOverParent = lastOverParent.parent;
@@ -42486,15 +43485,17 @@
                     }
                     // Next
                     var runtime = found.runtime;
-                    if (runtime != null) {
+                    if (runtime) {
                         runtime.onPointerOver(found, e);
                     }
-                    DApplications.getInstance().view.title = (found.title || "");
+                    if (layer) {
+                        layer.view.title = (found.title || "");
+                    }
                     // Parents
                     var parent_1 = found.parent;
                     while (parent_1 instanceof EShapeBase) {
                         var parentRuntime = parent_1.runtime;
-                        if (parentRuntime != null) {
+                        if (parentRuntime) {
                             parentRuntime.onPointerOver(parent_1, e);
                         }
                         parent_1 = parent_1.parent;
@@ -42503,43 +43504,45 @@
                 return true;
             }
             else {
-                if (application.view.style.cursor !== "auto") {
-                    application.view.style.cursor = "auto";
+                if (layer && layer.view.style.cursor !== "auto") {
+                    layer.view.style.cursor = "auto";
                 }
                 // Previous
                 var lastOverShape = this._lastOverShape;
                 this._lastOverShape = null;
-                if (lastOverShape != null) {
+                if (lastOverShape) {
                     var runtime = lastOverShape.runtime;
-                    if (runtime != null) {
+                    if (runtime) {
                         runtime.onPointerOut(lastOverShape, e);
                     }
                     // Parents
                     var lastOverParent = lastOverShape.parent;
                     while (lastOverParent instanceof EShapeBase) {
                         var parentRuntime = lastOverParent.runtime;
-                        if (parentRuntime != null) {
+                        if (parentRuntime) {
                             parentRuntime.onPointerOut(lastOverParent, e);
                         }
                         lastOverParent = lastOverParent.parent;
                     }
                 }
                 //
-                DApplications.getInstance().view.title = "";
+                if (layer) {
+                    layer.view.title = "";
+                }
                 return false;
             }
         };
         DDiagramCanvas.prototype.onShapeDown = function (e) {
             var interactives = this.interactives;
             var global = e.data.global;
-            var work = this._work;
+            var local = this._workLocal;
             for (var i = interactives.length - 1; 0 <= i; --i) {
                 var interactive = interactives[i];
                 if (interactive.visible) {
-                    var local = interactive.toLocal(global, undefined, work);
-                    if (interactive.contains(local) != null) {
+                    interactive.toLocal(global, undefined, local);
+                    if (interactive.contains(local)) {
                         var runtime = interactive.runtime;
-                        if (runtime != null) {
+                        if (runtime) {
                             runtime.onPointerDown(interactive, e);
                         }
                         return true;
@@ -42551,14 +43554,14 @@
         DDiagramCanvas.prototype.onShapeUp = function (e) {
             var interactives = this.interactives;
             var global = e.data.global;
-            var work = this._work;
+            var local = this._workLocal;
             for (var i = interactives.length - 1; 0 <= i; --i) {
                 var interactive = interactives[i];
                 if (interactive.visible) {
-                    var local = interactive.toLocal(global, undefined, work);
-                    if (interactive.contains(local) != null) {
+                    interactive.toLocal(global, undefined, local);
+                    if (interactive.contains(local)) {
                         var runtime = interactive.runtime;
-                        if (runtime != null) {
+                        if (runtime) {
                             runtime.onPointerUp(interactive, e);
                         }
                         return true;
@@ -42570,21 +43573,50 @@
         DDiagramCanvas.prototype.onShapeClick = function (e) {
             var interactives = this.interactives;
             var global = e.data.global;
-            var work = this._work;
+            var local = this._workLocal;
             for (var i = interactives.length - 1; 0 <= i; --i) {
-                var clickable = interactives[i];
-                if (clickable.visible) {
-                    var clickableLocal = clickable.toLocal(global, undefined, work);
-                    if (clickable.contains(clickableLocal) != null) {
-                        var target = clickable;
+                var interactive = interactives[i];
+                if (interactive.visible) {
+                    interactive.toLocal(global, undefined, local);
+                    if (interactive.contains(local)) {
+                        var target = interactive;
                         while (true) {
                             var runtime = target.runtime;
-                            if (runtime != null) {
+                            if (runtime) {
                                 runtime.onPointerClick(target, e);
                             }
                             var parent_2 = target.parent;
                             if (parent_2 instanceof EShapeBase) {
                                 target = parent_2;
+                            }
+                            else {
+                                break;
+                            }
+                        }
+                        return true;
+                    }
+                }
+            }
+            return false;
+        };
+        DDiagramCanvas.prototype.onShapeDblClick = function (e, interactionManager) {
+            var interactives = this.interactives;
+            var global = UtilPointerEvent.toGlobal(e, interactionManager, this._workGlobal);
+            var local = this._workLocal;
+            for (var i = interactives.length - 1; 0 <= i; --i) {
+                var interactive = interactives[i];
+                if (interactive.visible) {
+                    interactive.toLocal(global, undefined, local);
+                    if (interactive.contains(local)) {
+                        var target = interactive;
+                        while (true) {
+                            var runtime = target.runtime;
+                            if (runtime) {
+                                runtime.onPointerDblClick(target, e);
+                            }
+                            var parent_3 = target.parent;
+                            if (parent_3 instanceof EShapeBase) {
+                                target = parent_3;
                             }
                             else {
                                 break;
@@ -42648,7 +43680,6 @@
         };
         DDiagrams.applyBackground = function (serialized, canvas, canvasContainer) {
             var background = serialized.background;
-            var renderer = DApplications.getInstance().renderer;
             var backgroundColor = (background && background.color != null ? background.color : 0xffffff);
             var backgroundAlpha = (background && background.alpha != null ? background.alpha : 1.0);
             if (EShapeDefaults.IS_EDIT_MODE) {
@@ -42657,7 +43688,10 @@
             }
             else {
                 canvasContainer.background.color = backgroundColor;
-                renderer.backgroundColor = backgroundColor;
+                var layer = DApplications.getLayer(canvasContainer);
+                if (layer) {
+                    layer.renderer.backgroundColor = backgroundColor;
+                }
                 canvasContainer.background.alpha = backgroundAlpha;
             }
         };
@@ -42695,7 +43729,7 @@
             DDiagrams.newLayer(serialized, canvas.layer).then(function (shapes) {
                 _this.initialize(shapes);
                 canvas.initialize(shapes);
-                DApplications.update();
+                DApplications.update(_this);
             });
             DDiagrams.applyBackground(serialized, canvas, this);
             this.canvas = canvas;
@@ -42915,6 +43949,246 @@
         return DDiagramEditor;
     }(DDiagramBase));
 
+    var DDiagramShape = /** @class */ (function (_super) {
+        __extends(DDiagramShape, _super);
+        function DDiagramShape(diagram) {
+            var _this = _super.call(this) || this;
+            _this._diagram = diagram;
+            _this._updateBound = function () {
+                DApplications.update(diagram);
+            };
+            return _this;
+        }
+        DDiagramShape.prototype.update = function () {
+            var diagram = this._diagram;
+            var canvas = diagram.canvas;
+            if (canvas) {
+                var actionables = canvas.actionables;
+                if (0 < actionables.length) {
+                    var effect = -1;
+                    var time = Date.now();
+                    for (var i = 0, imax = actionables.length; i < imax; ++i) {
+                        var actionable = actionables[i];
+                        actionable.update(time);
+                        var runtime = actionable.runtime;
+                        if (runtime && time < runtime.effect) {
+                            var runtimeEffect = runtime.effect;
+                            if (time < runtimeEffect) {
+                                effect = (effect < 0 ? runtimeEffect : Math.min(effect, runtimeEffect));
+                            }
+                        }
+                    }
+                    if (0 <= effect) {
+                        setTimeout(this._updateBound, effect - Date.now());
+                    }
+                }
+            }
+        };
+        DDiagramShape.prototype.get = function (id) {
+            var canvas = this._diagram.canvas;
+            var shapes = (canvas && canvas.ids[id]);
+            return (shapes && 0 < shapes.length ? shapes[0] : null);
+        };
+        DDiagramShape.prototype.getAll = function (id) {
+            var canvas = this._diagram.canvas;
+            return (canvas && canvas.ids[id]) || [];
+        };
+        DDiagramShape.prototype.each = function (callback, reverse) {
+            if (reverse === void 0) { reverse = false; }
+            var canvas = this._diagram.canvas;
+            if (canvas != null) {
+                var layers = canvas.layer.children;
+                if (!reverse) {
+                    for (var i = 0, imax = layers.length; i < imax; ++i) {
+                        var layer = layers[i];
+                        var children = layer.children;
+                        for (var j = 0, jmax = children.length; j < jmax; ++j) {
+                            var child = children[j];
+                            if (callback(child) === false) {
+                                return child;
+                            }
+                        }
+                    }
+                }
+                else {
+                    for (var i = layers.length - 1; 0 <= i; --i) {
+                        var layer = layers[i];
+                        var children = layer.children;
+                        for (var j = children.length - 1; 0 <= j; --j) {
+                            var child = children[j];
+                            if (callback(child) === false) {
+                                return child;
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
+        };
+        return DDiagramShape;
+    }(pixi_js.utils.EventEmitter));
+
+    var DDiagramTag = /** @class */ (function () {
+        function DDiagramTag(diagram) {
+            this._diagram = diagram;
+        }
+        DDiagramTag.prototype.update = function () {
+            // DO NOTHING
+        };
+        DDiagramTag.prototype.getIds = function () {
+            var canvas = this._diagram.canvas;
+            if (canvas != null) {
+                return Object.keys(canvas.tags);
+            }
+            return [];
+        };
+        DDiagramTag.prototype.each = function (callback) {
+            var canvas = this._diagram.canvas;
+            if (canvas != null) {
+                var tags = canvas.tags;
+                for (var id in tags) {
+                    if (callback(id) === false) {
+                        return id;
+                    }
+                }
+            }
+            return null;
+        };
+        DDiagramTag.prototype.set = function (id, value, time, from, to) {
+            var canvas = this._diagram.canvas;
+            if (canvas != null) {
+                var tagValues = canvas.tags[id];
+                if (tagValues != null) {
+                    for (var i = 0, imax = tagValues.length; i < imax; ++i) {
+                        var tagValue = tagValues[i];
+                        var range = tagValue.range;
+                        // Range
+                        range.set(from, to);
+                        // Time
+                        if (time !== undefined) {
+                            tagValue.time = time;
+                        }
+                        // Value
+                        tagValue.value = value;
+                    }
+                }
+            }
+        };
+        DDiagramTag.prototype.clear = function (id) {
+            var canvas = this._diagram.canvas;
+            if (canvas != null) {
+                var tagValues = canvas.tags[id];
+                if (tagValues != null) {
+                    for (var i = 0, imax = tagValues.length; i < imax; ++i) {
+                        tagValues[i].clear();
+                    }
+                }
+            }
+        };
+        DDiagramTag.prototype.setAll = function (id, values, times, from, to) {
+            var canvas = this._diagram.canvas;
+            if (canvas != null) {
+                var tagValues = canvas.tags[id];
+                if (tagValues != null) {
+                    for (var i = 0, imax = tagValues.length; i < imax; ++i) {
+                        var tagValue = tagValues[i];
+                        var range = tagValue.range;
+                        // Range
+                        range.set(from, to);
+                        // Time
+                        if (times !== undefined) {
+                            tagValue.times = times;
+                        }
+                        // Value
+                        tagValue.values = values;
+                    }
+                }
+            }
+        };
+        DDiagramTag.prototype.setValue = function (id, value, time) {
+            var canvas = this._diagram.canvas;
+            if (canvas != null) {
+                var tagValues = canvas.tags[id];
+                if (tagValues != null) {
+                    for (var i = 0, imax = tagValues.length; i < imax; ++i) {
+                        var tagValue = tagValues[i];
+                        if (time !== undefined) {
+                            tagValue.time = time;
+                        }
+                        tagValue.value = value;
+                    }
+                }
+            }
+        };
+        DDiagramTag.prototype.setValues = function (id, values, times) {
+            var canvas = this._diagram.canvas;
+            if (canvas != null) {
+                var tagValues = canvas.tags[id];
+                if (tagValues != null) {
+                    for (var i = 0, imax = tagValues.length; i < imax; ++i) {
+                        var tagValue = tagValues[i];
+                        if (times !== undefined) {
+                            tagValue.times = times;
+                        }
+                        tagValue.values = values;
+                    }
+                }
+            }
+        };
+        DDiagramTag.prototype.setTime = function (id, time) {
+            var canvas = this._diagram.canvas;
+            if (canvas != null) {
+                var tagValues = canvas.tags[id];
+                if (tagValues != null) {
+                    for (var i = 0, imax = tagValues.length; i < imax; ++i) {
+                        tagValues[i].time = time;
+                    }
+                }
+            }
+        };
+        DDiagramTag.prototype.setTimes = function (id, times) {
+            var canvas = this._diagram.canvas;
+            if (canvas != null) {
+                var tagValues = canvas.tags[id];
+                if (tagValues != null) {
+                    for (var i = 0, imax = tagValues.length; i < imax; ++i) {
+                        tagValues[i].times = times;
+                    }
+                }
+            }
+        };
+        DDiagramTag.prototype.setRange = function (id, from, to) {
+            var canvas = this._diagram.canvas;
+            if (canvas != null) {
+                var tagValues = canvas.tags[id];
+                if (tagValues != null) {
+                    for (var i = 0, imax = tagValues.length; i < imax; ++i) {
+                        var range = tagValues[i].range;
+                        if (from !== undefined) {
+                            if (from !== null) {
+                                range.type |= EShapeTagValueRangeType.FROM;
+                                range.from = from;
+                            }
+                            else {
+                                range.type &= ~EShapeTagValueRangeType.FROM;
+                            }
+                        }
+                        if (to !== undefined) {
+                            if (to !== null) {
+                                range.type |= EShapeTagValueRangeType.TO;
+                                range.to = to;
+                            }
+                            else {
+                                range.type &= ~EShapeTagValueRangeType.TO;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+        return DDiagramTag;
+    }());
+
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
@@ -42927,7 +44201,7 @@
             _this.on(UtilPointerEvent.move, function (e) {
                 if (UtilPointerEvent.contains(_this, e.target)) {
                     var canvas = _this.canvas;
-                    if (canvas != null) {
+                    if (canvas) {
                         canvas.onShapeMove(e);
                     }
                 }
@@ -42936,7 +44210,7 @@
             _this.on(UtilPointerEvent.up, function (e) {
                 if (UtilPointerEvent.contains(_this, e.target)) {
                     var canvas = _this.canvas;
-                    if (canvas != null) {
+                    if (canvas) {
                         canvas.onShapeUp(e);
                     }
                 }
@@ -42945,11 +44219,14 @@
             _this.on("click", function (e) {
                 if (UtilPointerEvent.contains(_this, e.target)) {
                     var canvas = _this.canvas;
-                    if (canvas != null) {
+                    if (canvas) {
                         canvas.onShapeClick(e);
                     }
                 }
             });
+            //
+            _this.tag = new DDiagramTag(_this);
+            _this.shape = new DDiagramShape(_this);
             return _this;
         }
         DDiagram.prototype.initialize = function (shapes) {
@@ -42964,7 +44241,7 @@
                 var tag = shape.tag;
                 for (var j = 0, jmax = tag.size(); j < jmax; ++j) {
                     var value = tag.get(j);
-                    if (value != null) {
+                    if (value) {
                         // Format
                         var tagFormat = value.format;
                         var tagInitial = value.initial;
@@ -43057,12 +44334,21 @@
         };
         DDiagram.prototype.onDown = function (e) {
             var canvas = this.canvas;
-            if (canvas != null) {
-                if (canvas.onShapeDown(e)) {
-                    return;
-                }
+            if (canvas && canvas.onShapeDown(e)) {
+                return;
             }
             _super.prototype.onDown.call(this, e);
+        };
+        DDiagram.prototype.onDblClick = function (e, interactionManager) {
+            var canvas = this.canvas;
+            if (canvas && canvas.onShapeDblClick(e, interactionManager)) {
+                return true;
+            }
+            return _super.prototype.onDblClick.call(this, e, interactionManager);
+        };
+        DDiagram.prototype.render = function (renderer) {
+            this.shape.update();
+            _super.prototype.render.call(this, renderer);
         };
         DDiagram.prototype.getType = function () {
             return "DDiagram";
@@ -44153,7 +45439,7 @@
                     }
                 }
                 // Rerender
-                DApplications.update();
+                DApplications.update(this);
             }
         };
         DPane.prototype.updateScrollBarVisibility = function (bar) {
@@ -44632,9 +45918,11 @@
                 _this.close();
             });
             // Items
-            if (options != null && options.items != null) {
+            if (options && options.items) {
                 DMenus.newItems(this, options.items, this._sticky);
             }
+            // Overlay
+            this._overlay = new UtilOverlay(options);
         };
         DMenu.prototype.findItem = function (value) {
             var children = this.children;
@@ -44657,6 +45945,7 @@
         };
         DMenu.prototype.open = function (owner, closeable, context) {
             if (this.isHidden()) {
+                var layer = this._overlay.pick(this);
                 this._owner = owner;
                 // States
                 var children = this.children;
@@ -44667,8 +45956,7 @@
                     }
                 }
                 // Position & size
-                var application = DApplications.getInstance();
-                var renderer = application.renderer;
+                var renderer = layer.renderer;
                 var onPrerenderBound = this._onPrerenderBound;
                 if (this._sticky) {
                     renderer.on("prerender", onPrerenderBound);
@@ -44691,7 +45979,7 @@
                 context.add(this);
                 this._context = context;
                 // Stage
-                application.stage.addChild(this);
+                layer.stage.addChild(this);
                 // Focus
                 this.focus();
                 // Show
@@ -44703,29 +45991,34 @@
         };
         DMenu.prototype.onPrerender = function () {
             var owner = this._owner;
-            if (owner != null) {
+            if (owner) {
                 var bounds = owner.getBounds();
-                if (bounds != null) {
+                if (bounds) {
                     if (this._fit) {
                         this.width = bounds.width;
                     }
-                    var theme = this.theme;
-                    var application = DApplications.getInstance();
-                    UtilAttach.attach(this, bounds, theme.getOffsetX(), theme.getOffsetY(), application.width, application.height, this._align);
+                    var layer = this._overlay.picked;
+                    if (layer) {
+                        var theme = this.theme;
+                        UtilAttach.attach(this, bounds, theme.getOffsetX(), theme.getOffsetY(), layer.width, layer.height, this._align);
+                    }
                 }
             }
         };
         DMenu.prototype.close = function () {
             if (this.isShown()) {
                 var context = this._context;
-                if (context != null) {
+                if (context) {
                     context.remove(this);
                 }
                 var parent_1 = this.parent;
-                if (parent_1 != null) {
+                if (parent_1) {
                     parent_1.removeChild(this);
                 }
-                DApplications.getInstance().renderer.off("prerender", this._onPrerenderBound);
+                var layer = this._overlay.picked;
+                if (layer) {
+                    layer.renderer.off("prerender", this._onPrerenderBound);
+                }
                 this._owner = null;
                 _super.prototype.hide.call(this);
                 this.emit("close", this);
@@ -44734,13 +46027,16 @@
         };
         DMenu.prototype.onKeyDown = function (e) {
             if (UtilKeyboardEvent.isArrowUpKey(e) || UtilKeyboardEvent.isArrowDownKey(e)) {
-                var focusController = DControllers.getFocusController();
-                var focused = focusController.getFocused();
-                if (focused != null) {
-                    var direction = UtilKeyboardEvent.isArrowDownKey(e);
-                    var next = focusController.findFocusable(focused, false, focused.hasState(DBaseState.FOCUS_ROOT) || direction, direction);
-                    if (next != null) {
-                        focusController.setFocused(next, true, true);
+                var layer = this._overlay.picked;
+                if (layer) {
+                    var focusController = layer.getFocusController();
+                    var focused = focusController.getFocused();
+                    if (focused != null) {
+                        var direction = UtilKeyboardEvent.isArrowDownKey(e);
+                        var next = focusController.findFocusable(focused, false, focused.hasState(DBaseState.FOCUS_ROOT) || direction, direction);
+                        if (next != null) {
+                            focusController.setFocused(next, true, true);
+                        }
                     }
                 }
             }
@@ -45531,7 +46827,7 @@
                             plane.mapping = newMapping;
                         }
                     }
-                    DApplications.update();
+                    DApplications.update(this._canvas);
                     this._fitThrottledBound();
                 }
             },
@@ -45667,7 +46963,7 @@
         };
         DMapTilePyramidImpl.prototype.onLoaded = function () {
             this.cleanup();
-            DApplications.update();
+            DApplications.update(this._canvas);
         };
         DMapTilePyramidImpl.prototype.destroy = function () {
             var planes = this._planes;
@@ -45855,32 +47151,15 @@
                 UtilClickOutside.apply(this, function () {
                     _this.close();
                 });
-                var onStateChange = function (newState, oldState, item) {
-                    var context = _this._context;
-                    if (context == null) {
-                        if (!DBaseStates.isDisabled(newState)) {
-                            if (DBaseStates.isPressed(newState) && !DBaseStates.isPressed(oldState)) {
-                                _this.open(item);
-                            }
-                        }
-                    }
-                    else {
-                        if (!DBaseStates.isDisabled(newState)) {
-                            if (DBaseStates.isHovered(newState) && !DBaseStates.isHovered(oldState)) {
-                                var menu = item.menu;
-                                if (menu.isHidden()) {
-                                    menu.open(item, _this, context);
-                                }
-                            }
-                        }
-                    }
+                var onItemStateChangeBound = function (newState, oldState, item) {
+                    _this.onItemStateChange(newState, oldState, item);
                 };
                 for (var i = 0, imax = items.length; i < imax; ++i) {
                     var itemOrItemOptions = items[i];
                     var item = (itemOrItemOptions instanceof pixi_js.DisplayObject ?
                         itemOrItemOptions : new DMenuBarItem(itemOrItemOptions));
                     if (item instanceof DMenuBarItem) {
-                        item.on("statechange", onStateChange);
+                        item.on("statechange", onItemStateChangeBound);
                     }
                     this.addChild(item);
                 }
@@ -45890,6 +47169,30 @@
             });
             this._context = null;
             this._blocker = new DMenuBarBlocker(this);
+            this._overlay = new UtilOverlay(options);
+        };
+        DMenuBar.prototype.onItemStateChange = function (newState, oldState, item) {
+            var context = this._context;
+            if (context == null) {
+                if (!DBaseStates.isDisabled(newState)) {
+                    if (DBaseStates.isPressed(newState)) {
+                        if (item.menu.isHidden()) {
+                            item.setPressed(false);
+                            this.open(item);
+                        }
+                    }
+                }
+            }
+            else {
+                if (!DBaseStates.isDisabled(newState)) {
+                    if (DBaseStates.isHovered(newState) && !DBaseStates.isHovered(oldState)) {
+                        var menu = item.menu;
+                        if (menu.isHidden()) {
+                            menu.open(item, this, context);
+                        }
+                    }
+                }
+            }
         };
         DMenuBar.prototype.getContext = function () {
             return this._context;
@@ -45900,7 +47203,8 @@
         DMenuBar.prototype.open = function (item) {
             var context = this._context;
             if (context == null) {
-                DApplications.getInstance().stage.addChild(this._blocker);
+                var layer = this._overlay.pick(this);
+                layer.stage.addChild(this._blocker);
                 context = this._context = new DMenuContext(this);
                 context.trim(item);
                 context.add(this);
@@ -45912,7 +47216,11 @@
             if (context != null) {
                 this._context = null;
                 context.remove(this);
-                DApplications.getInstance().stage.removeChild(this._blocker);
+                var blocker = this._blocker;
+                var parent_1 = blocker.parent;
+                if (parent_1) {
+                    parent_1.removeChild(blocker);
+                }
             }
         };
         DMenuBar.prototype.getType = function () {
@@ -47882,10 +49190,10 @@
             });
             return result;
         };
-        DTableBody.prototype.onDblClick = function (e) {
+        DTableBody.prototype.onDblClick = function (e, interactionManager) {
             var result = false;
             if (this.isActionable() && this._selection.type !== DTableSelectionType.NONE) {
-                var local = UtilPointerEvent.toGlobal(e, DTableBody.WORK_ON_CLICK);
+                var local = UtilPointerEvent.toGlobal(e, interactionManager, DTableBody.WORK_ON_CLICK);
                 var content = this.content;
                 content.toLocal(local, undefined, local, false);
                 var x = local.x;
@@ -47920,7 +49228,7 @@
                     }
                 }
             }
-            result = _super.prototype.onDblClick.call(this, e) || result;
+            result = _super.prototype.onDblClick.call(this, e, interactionManager) || result;
             return result;
         };
         DTableBody.prototype.getType = function () {
@@ -48340,7 +49648,7 @@
 
     var ui = /*#__PURE__*/Object.freeze({
         __proto__: null,
-        DInputReal: DInputReal,
+        DInputInteger: DInputInteger,
         loadThemeWhiteDialogColorGradient: loadThemeWhiteDialogColorGradient,
         loadAll: loadAll,
         loadMenuItemExpandable: loadMenuItemExpandable,
@@ -48433,7 +49741,7 @@
         ESnapperTarget: ESnapperTarget,
         get ESnapperModifierAnchor () { return ESnapperModifierAnchor; },
         ESnapper: ESnapper,
-        DThemeWhiteMenuItemExpandableHeader: DThemeWhiteMenuItemExpandableHeader,
+        DThemeWhiteMenuItemExpandableBody: DThemeWhiteMenuItemExpandableBody,
         DThemeWhiteAtlas: DThemeWhiteAtlas,
         DThemeWhiteBoard: DThemeWhiteBoard,
         DThemeWhiteButtonAmbient: DThemeWhiteButtonAmbient,
@@ -48485,6 +49793,7 @@
         DThemeWhiteExpandableHeader: DThemeWhiteExpandableHeader,
         DThemeWhiteExpandable: DThemeWhiteExpandable,
         DThemeWhiteFont: DThemeWhiteFont,
+        DThemeWhiteHTMLElement: DThemeWhiteHTMLElement,
         DThemeWhiteImageBase: DThemeWhiteImageBase,
         DThemeWhiteImage: DThemeWhiteImage,
         DThemeWhiteInputAndLabel: DThemeWhiteInputAndLabel,
@@ -48504,8 +49813,8 @@
         DThemeWhiteMenuBarItem: DThemeWhiteMenuBarItem,
         DThemeWhiteMenuBar: DThemeWhiteMenuBar,
         DThemeWhiteMenuItemCheck: DThemeWhiteMenuItemCheck,
-        DThemeWhiteMenuItemExpandableBody: DThemeWhiteMenuItemExpandableBody,
         DThemeWhiteBase: DThemeWhiteBase,
+        DThemeWhiteMenuItemExpandableHeader: DThemeWhiteMenuItemExpandableHeader,
         DThemeWhiteMenuItemExpandableItemCheck: DThemeWhiteMenuItemExpandableItemCheck,
         DThemeWhiteMenuItemExpandableItemLink: DThemeWhiteMenuItemExpandableItemLink,
         DThemeWhiteMenuItemExpandableItemMenu: DThemeWhiteMenuItemExpandableItemMenu,
@@ -48620,6 +49929,7 @@
         utilIsString: utilIsString,
         UtilKeyboardEvent: UtilKeyboardEvent,
         UtilName: UtilName,
+        UtilOverlay: UtilOverlay,
         utilPad: utilPad,
         UtilPointerEvent: UtilPointerEvent,
         UtilPromise: UtilPromise,
@@ -48639,7 +49949,8 @@
         DAnimationEmpty: DAnimationEmpty,
         DAnimationFadeIn: DAnimationFadeIn,
         DAnimationTimings: DAnimationTimings,
-        DApplicationOptions: DApplicationOptions,
+        DApplicationLayerOptions: DApplicationLayerOptions,
+        DApplicationLayer: DApplicationLayer,
         DApplicationPadding: DApplicationPadding,
         DApplication: DApplication,
         DApplications: DApplications,
@@ -48716,11 +50027,14 @@
         DDiagramCanvasEditor: DDiagramCanvasEditor,
         DDiagramCanvasTileMappingImpl: DDiagramCanvasTileMappingImpl,
         DDiagramCanvasTileMappingPointImpl: DDiagramCanvasTileMappingPointImpl,
+        DDiagramCanvasTile: DDiagramCanvasTile,
         DDiagramCanvas: DDiagramCanvas,
         DDiagramEditor: DDiagramEditor,
         DDiagramLayerContainer: DDiagramLayerContainer,
         DDiagramLayer: DDiagramLayer,
         DDiagramSerializedVersion: DDiagramSerializedVersion,
+        DDiagramShape: DDiagramShape,
+        DDiagramTag: DDiagramTag,
         DDiagram: DDiagram,
         DDiagrams: DDiagrams,
         DDialogColorGradient: DDialogColorGradient,
@@ -48750,17 +50064,18 @@
         DDropdown: DDropdown,
         DDynamicTextGeometry: DDynamicTextGeometry,
         DDynamicTextStyle: DDynamicTextStyle,
+        DDynamicTextMeasureResultCharacter: DDynamicTextMeasureResultCharacter,
+        DDynamicTextMeasureResult: DDynamicTextMeasureResult,
+        DDynamicTextMeasure: DDynamicTextMeasure,
         DDynamicText: DDynamicText,
         DExpandableHeader: DExpandableHeader,
         DExpandable: DExpandable,
+        get DHTMLElementWhen () { return DHTMLElementWhen; },
+        DHTMLElement: DHTMLElement,
         DImageBase: DImageBase,
         DImage: DImage,
         DInputAndLabel: DInputAndLabel,
         DInputIntegerAndLabel: DInputIntegerAndLabel,
-        DInputInteger: DInputInteger,
-        DInputLabel: DInputLabel,
-        DInputNumber: DInputNumber,
-        DInputRealAndLabel: DInputRealAndLabel,
         EShapeRenderer: EShapeRenderer,
         EShapeActionRuntimeTransformMoveLeftOrRight: EShapeActionRuntimeTransformMoveLeftOrRight,
         EShapeActionBases: EShapeActionBases,
@@ -48975,6 +50290,10 @@
         EShapeUploadedBase: EShapeUploadedBase,
         EShapeUploadeds: EShapeUploadeds,
         get EShapeCopyPart () { return EShapeCopyPart; },
+        DInputLabel: DInputLabel,
+        DInputNumber: DInputNumber,
+        DInputRealAndLabel: DInputRealAndLabel,
+        DInputReal: DInputReal,
         DInputTextAndLabel: DInputTextAndLabel,
         DInputText: DInputText,
         DInput: DInput,
