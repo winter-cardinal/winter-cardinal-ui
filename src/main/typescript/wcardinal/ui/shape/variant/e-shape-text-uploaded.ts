@@ -4,6 +4,7 @@
  */
 
 import { Point, Texture } from "pixi.js";
+import { UtilCharacterIterator } from "../../util/util-character-iterator";
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
 import { EShapeBufferUnitBuilder } from "../e-shape-buffer-unit-builder";
@@ -511,15 +512,24 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 			const lineHeight = Math.max( 0, textSize + textSpacingVertical );
 			let lineWidth = 0;
 			const textAtlasCharacters = textAtlas.characters;
-			for( let i = 0, imax = textValue.length; i < imax; ++i ) {
-				const character = textValue[ i ];
+			const iterator = UtilCharacterIterator.from( textValue );
+			let advancePrevious = 0;
+			while( iterator.hasNext() ) {
+				const character = iterator.next();
 				if( character !== "\n" ) {
+					if( 0 < advancePrevious ) {
+						lineWidth += Math.max( 0, advancePrevious + textSpacingHorizontal );
+					}
 					const data = textAtlasCharacters[ character ];
-					if( data != null ) {
-						lineWidth += this.toAdvance( i, imax, textValue, data.advance, textSpacingHorizontal );
+					if( data ) {
+						advancePrevious = data.advance;
 						heightChar = data.height;
+					} else {
+						advancePrevious = 0;
 					}
 				} else {
+					lineWidth += advancePrevious;
+					advancePrevious = 0;
 					width = Math.max( width, lineWidth );
 					lineWidth = 0;
 					height += lineHeight;
@@ -527,7 +537,9 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 			}
 
 			const scale = textSize / textAtlas.font.size;
+			lineWidth += advancePrevious;
 			width = Math.max( width, lineWidth ) * scale;
+			lineWidth = 0;
 			heightChar *= scale;
 			height += textSize;
 
@@ -725,19 +737,23 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 			let cy3 = by3;
 
 			lineWidth = 0;
+			advancePrevious = 0;
+			iterator.position = 0;
 			let lineCount = 0;
-			const textValueLength = textValue.length;
-			for( let i = 0, iv = voffset * 2; i < textValueLength; i += 1, iv += 8 ) {
-				const character = textValue[ i ];
+			let iv = voffset * 2;
+			for( ; iterator.hasNext(); iv += 8 ) {
+				const character = iterator.next();
 				if( character !== "\n" ) {
+					if( 0 < advancePrevious ) {
+						lineWidth += Math.max( 0, advancePrevious + textSpacingHorizontal );
+					}
 					const data = textAtlasCharacters[ character ];
 					lineCount += 1;
-					if( data != null ) {
-						const advance = this.toAdvance( i, textValueLength, textValue, data.advance, textSpacingHorizontal );
-						lineWidth += advance * scale;
+					if( data ) {
+						const advance = data.advance;
 						if( lineWidthMaximum < lineWidth ) {
 							const dots = textAtlasCharacters[ "..." ];
-							if( dots != null ) {
+							if( dots ) {
 								this.writeCharacter(
 									vertices, uvs, iv, dots, textAtlas,
 									snx, sny,
@@ -746,17 +762,17 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 									uvx0, uvy0
 								);
 
-								const dotsAdvance = this.toAdvance( i, textValueLength, textValue, dots.advance, textSpacingHorizontal );
-								const ax = dotsAdvance * snx;
-								const ay = dotsAdvance * sny;
-								lineWidth += (dotsAdvance - advance) * scale;
+								const advanceDots = dots.advance;
+								const ax = advanceDots * snx;
+								const ay = advanceDots * sny;
 								cx0 = cx0 + ax;
 								cy0 = cy0 + ay;
 								cx3 = cx3 + ax;
 								cy3 = cy3 + ay;
+								advancePrevious = advanceDots;
 
-								for( i += 1, iv += 8; i < textValueLength; i += 1, iv += 8 ) {
-									if( textValue[ i ] !== "\n" ) {
+								for( iv += 8; iterator.hasNext(); iv += 8 ) {
+									if( iterator.advance( "\n" ) ) {
 										this.writeCharacterEmpty(
 											vertices, uvs, iv,
 											cx0, cy0, cx3, cy3,
@@ -764,12 +780,13 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 										);
 										lineCount += 1;
 									} else {
-										i -= 1;
 										iv -= 8;
 										break;
 									}
 								}
 							} else {
+								advancePrevious = advance;
+
 								this.writeCharacterEmpty(
 									vertices, uvs, iv,
 									cx0, cy0, cx3, cy3,
@@ -777,6 +794,8 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 								);
 							}
 						} else {
+							advancePrevious = advance;
+
 							this.writeCharacter(
 								vertices, uvs, iv, data, textAtlas,
 								snx, sny,
@@ -793,6 +812,8 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 							cy3 = cy3 + ay;
 						}
 					} else {
+						advancePrevious = 0;
+
 						this.writeCharacterEmpty(
 							vertices, uvs, iv,
 							cx0, cy0, cx3, cy3,
@@ -800,6 +821,9 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 						);
 					}
 				} else {
+					lineWidth += advancePrevious;
+					advancePrevious = 0;
+
 					this.writeCharacterEmpty(
 						vertices, uvs, iv,
 						cx0, cy0, cx3, cy3,
@@ -820,7 +844,7 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 						hnx, hny,
 						lineCount,
 						iv,
-						width - lineWidth,
+						width - lineWidth * scale,
 						textDirection,
 						textAlignHorizontal,
 						textAlignVertical
@@ -830,31 +854,25 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 				}
 			}
 
+			lineWidth += advancePrevious;
 			this.adjustTextAlignment(
 				vertices,
 				hnx, hny,
 				lineCount,
-				voffset * 2 + textValueLength * 8,
-				width - lineWidth,
+				iv,
+				width - lineWidth * scale,
 				textDirection,
 				textAlignHorizontal,
 				textAlignVertical
 			);
 
-			for( let i = voffset * 2 + textValue.length * 8, imax = (voffset + vcount) * 2; i < imax; i += 2 ) {
-				vertices[ i + 0 ] = tx0;
-				vertices[ i + 1 ] = ty0;
-				uvs[ i + 0 ] = uvx0;
-				uvs[ i + 1 ] = uvy0;
+			for( const ivmax = (voffset + vcount) * 2; iv < ivmax; iv += 2 ) {
+				vertices[ iv + 0 ] = tx0;
+				vertices[ iv + 1 ] = ty0;
+				uvs[ iv + 0 ] = uvx0;
+				uvs[ iv + 1 ] = uvy0;
 			}
 		}
-	}
-
-	protected toAdvance( index: number, size: number, text: string, advance: number, spacing: number ): number {
-		return (
-			index + 1 < size && text[ index + 1 ] !== "\n" ?
-			Math.max( 0, advance + spacing ) : advance
-		);
 	}
 
 	protected writeCharacterEmpty(

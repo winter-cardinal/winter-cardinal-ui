@@ -8,6 +8,7 @@ import { ASCII_CHARACTERS } from "./ascii";
 import { DynamicFontAtlasCharacter } from "./dynamic-font-atlas-character";
 import { DynamicFontAtlasCharacters } from "./dynamic-font-atlas-characters";
 import { DynamicSDFFontGenerator } from "./dynamic-sdf-font-generator";
+import { UtilCharacterIterator } from "./util-character-iterator";
 
 export interface DynamicSDFFontAtlasFont {
 	family: string;
@@ -131,8 +132,9 @@ export class DynamicSDFFontAtlas {
 	}
 
 	add( characters: string ): void {
-		for( let i = 0, imax = characters.length; i < imax; ++i ) {
-			this.addChar( characters[ i ] );
+		const iterator = UtilCharacterIterator.from( characters );
+		while( iterator.hasNext() ) {
+			this.addChar( iterator.next() );
 		}
 	}
 
