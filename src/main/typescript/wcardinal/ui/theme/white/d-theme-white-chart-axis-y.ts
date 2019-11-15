@@ -12,10 +12,6 @@ export class DThemeWhiteChartAxisY extends DThemeWhiteChartAxisBase {
 		return DChartAxisPosition.LEFT;
 	}
 
-	getMajorTickTextFormat(): string {
-		return "%ssi";
-	}
-
 	getLabelDirection(): EShapeTextDirection {
 		return EShapeTextDirection.BOTTOM_TO_TOP;
 	}

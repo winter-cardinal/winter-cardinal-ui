@@ -3,8 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export type NumberFormatterFunction = ( target: number, step: number ) => string;
-
 /**
  * Formats numbers with the specified format.
  *
@@ -84,6 +82,11 @@ export type NumberFormatterFunction = ( target: number, step: number ) => string
  * * .N Number of digits after the fractional point.
  */
 export interface NumberFormatter {
+	/**
+	 * Formats the given number `target`.
+	 *
+	 * @param target A format target
+	 * @param step A step of numbers
+	 */
 	format( target: number, step: number ): string;
-	toFunction(): NumberFormatterFunction;
 }

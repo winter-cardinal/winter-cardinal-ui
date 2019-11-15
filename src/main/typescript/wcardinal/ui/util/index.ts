@@ -20,6 +20,7 @@ export * from "./dynamic-sdf-font-atlas";
 export * from "./dynamic-sdf-font-atlases";
 export * from "./dynamic-sdf-font-generator";
 export * from "./lazy";
+export * from "./number-formatter-function";
 export * from "./number-formatter-impl";
 export * from "./number-formatter";
 export * from "./number-formatters";

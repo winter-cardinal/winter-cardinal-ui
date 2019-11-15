@@ -9,10 +9,9 @@ import { DChartRegionImmutable } from "./d-chart-region";
 import { DChartRegionImpl } from "./d-chart-region-impl";
 import { DChartSeries } from "./d-chart-series";
 import { DChartSeriesContainer } from "./d-chart-series-container";
-import { DChartSeriesStrokeComputed, DChartSeriesStrokeComputedOptions } from "./d-chart-series-stroke";
-import { EShapePointsStyle } from "./shape";
+import { DChartSeriesStrokeComputedOptions } from "./d-chart-series-stroke-computed";
+import { DChartSeriesStrokeComputedImpl } from "./d-chart-series-stroke-computed-impl";
 import { EShapeLine } from "./shape/variant/e-shape-line";
-import { utilIsString } from "./util/util-is-string";
 
 export interface DChartSeriesLineOptions {
 	points?: Array<number | null>;
@@ -62,33 +61,11 @@ export class DChartSeriesLine implements DChartSeries {
 		this._options = options;
 	}
 
-	protected toStroke( container: DChartSeriesContainer, index: number ): DChartSeriesStrokeComputed {
-		const options = this._options;
-		const stroke = options && options.stroke;
-		const containerStroke = container.stroke;
-		if( stroke ) {
-			const style = ( stroke.style != null ? stroke.style : containerStroke.style( index ) );
-			return {
-				width: ( stroke.width != null ? stroke.width : containerStroke.width( index ) ),
-				color: ( stroke.color != null ? stroke.color : containerStroke.color( index ) ),
-				alpha: ( stroke.alpha != null ? stroke.alpha : containerStroke.alpha( index ) ),
-				style: ( utilIsString( style ) ? EShapePointsStyle[ style ] : style )
-			};
-		} else {
-			const style = containerStroke.style( index );
-			return {
-				width: containerStroke.width( index ),
-				color: containerStroke.color( index ),
-				alpha: containerStroke.alpha( index ),
-				style: ( utilIsString( style ) ? EShapePointsStyle[ style ] : style )
-			};
-		}
-	}
-
 	bind( container: DChartSeriesContainer, index: number ): void {
 		let line = this._line;
 		if( ! line ) {
-			const stroke = this.toStroke( container, index );
+			const options = this._options;
+			const stroke = DChartSeriesStrokeComputedImpl.from( container, index, options && options.stroke );
 			line = this._line = new EShapeLine([], [], stroke.width, stroke.style);
 			line.stroke.color = stroke.color;
 			line.stroke.alpha = stroke.alpha;

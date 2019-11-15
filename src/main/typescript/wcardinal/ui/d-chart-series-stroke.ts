@@ -16,20 +16,6 @@ export interface DChartSeriesStrokeOptions {
 		DChartSeriesScalar<DChartSeriesStrokeStyleOption>;
 }
 
-export interface DChartSeriesStrokeComputedOptions {
-	width?: number;
-	color?: number;
-	alpha?: number;
-	style?: DChartSeriesStrokeStyleOption;
-}
-
-export interface DChartSeriesStrokeComputed {
-	width: number;
-	color: number;
-	alpha: number;
-	style: EShapePointsStyle;
-}
-
 export interface DChartSeriesStroke {
 	width: DChartSeriesScalar<number>;
 	color: DChartSeriesScalar<number>;

@@ -108,7 +108,7 @@ export class DThemeWhiteChartAxisBase implements DThemeChartAxisBase {
 	}
 
 	getMajorTickTextFormat(): string {
-		return "%YMD\n%Hms.%mi";
+		return "%ssi";
 	}
 
 	getMajorTickTextPaddingHorizontal(): number {

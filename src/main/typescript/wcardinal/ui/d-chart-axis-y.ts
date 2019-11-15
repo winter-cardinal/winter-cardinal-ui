@@ -5,6 +5,9 @@
 
 import { DChartAxisBase } from "./d-chart-axis-base";
 
+/**
+ * An Y axis.
+ */
 export class DChartAxisY extends DChartAxisBase {
 	protected getType(): string {
 		return "DChartAxisY";

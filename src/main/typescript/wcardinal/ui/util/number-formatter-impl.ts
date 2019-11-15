@@ -33,11 +33,14 @@ import { FormatNodey } from "./format-node/format-node-y-small";
 import { FormatNodez } from "./format-node/format-node-z";
 import { FormatNoderd } from "./format-node/format-noder-d";
 import { FormatNodes } from "./format-node/format-nodes";
-import { NumberFormatter, NumberFormatterFunction } from "./number-formatter";
+import { NumberFormatter } from "./number-formatter";
 
 // tslint:disable-next-line: max-line-length
 const REGEXP = /%(0|_|-|\+|\()?(\.\d+)?(Y(?:MD?)?|y(?:MD?)?|MD?|D|H(?:ms?)?|h(?:ms?)?|m(?:i|s)?|a|A|s(?:s?i|dt)?|z|%|f(?:si)?|e|g|d|r(?:d|p)|p|P|RP)/g;
 
+/**
+ * A NumberFormatter implementation class.
+ */
 export class NumberFormatterImpl implements NumberFormatter {
 	protected isDateRequired: boolean;
 	protected nodes: FormatNode[];
@@ -309,11 +312,5 @@ export class NumberFormatterImpl implements NumberFormatter {
 			result += nodes[ i ].format( target, step, date );
 		}
 		return result;
-	}
-
-	toFunction(): NumberFormatterFunction {
-		return ( target: number, step: number ): string => {
-			return this.format( target, step );
-		};
 	}
 }

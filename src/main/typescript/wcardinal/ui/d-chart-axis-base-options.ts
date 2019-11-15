@@ -6,7 +6,7 @@
 import { DChartAxisOptions, DChartAxisPosition, DChartAxisTickPosition } from "./d-chart-axis";
 import { EShapePointsStyle } from "./shape/e-shape-points";
 import { EShapeStrokeLike } from "./shape/e-shape-stroke";
-import { EShapeTextLike } from "./shape/e-shape-text";
+import { EShapeTextLike, EShapeTextStyle, EShapeTextWeight } from "./shape/e-shape-text";
 import { EShapeTextAlignLike } from "./shape/e-shape-text-align";
 import { EShapeTextAlignHorizontal } from "./shape/e-shape-text-align-horizontal";
 import { EShapeTextAlignVertical } from "./shape/e-shape-text-align-vertical";
@@ -17,6 +17,7 @@ import { EShapeBar } from "./shape/variant/e-shape-bar";
 import { EShapeBarPosition } from "./shape/variant/e-shape-bar-position";
 import { DeepPartial } from "./util/deep-partial";
 import { NumberFormatter } from "./util/number-formatter";
+import { NumberFormatterFunction } from "./util/number-formatter-function";
 import { NumberFormatters } from "./util/number-formatters";
 import { utilIsString } from "./util/util-is-string";
 
@@ -49,13 +50,35 @@ export interface DThemeChartAxisBase {
 	getMinorTickStyle(): EShapePointsStyle;
 }
 
+export interface DChartAxisBaseTickMajorTextOptions {
+	/** A format. Please refer to {@link ui/util.NumberFormatter} for format details. */
+	format?: string;
+
+	/** A formatter function. */
+	formatter?: NumberFormatterFunction;
+
+	color?: number;
+	alpha?: number;
+	family?: string;
+	size?: number;
+	weight?: EShapeTextWeight;
+	align?: Partial<EShapeTextAlignLike>;
+	offset?: Partial<EShapeTextOffsetLike>;
+	style?: EShapeTextStyle;
+	outline?: Partial<EShapeTextOutlineLike>;
+	spacing?: Partial<EShapeTextOffsetLike>;
+	direction?: EShapeTextDirection;
+	padding?: Partial<EShapeTextOffsetLike>;
+	clipping?: boolean;
+}
+
 export interface DChartAxisBaseTickMajorOptions {
 	count?: number;
 	size?: number;
 	position?: DChartAxisTickPosition | keyof typeof DChartAxisTickPosition;
 	style?: EShapePointsStyle | keyof typeof EShapePointsStyle;
 	stroke?: Partial<EShapeStrokeLike>;
-	text?: DeepPartial<EShapeTextLike>;
+	text?: DChartAxisBaseTickMajorTextOptions;
 }
 
 export interface DChartAxisBaseTickMinorOptions {
@@ -89,7 +112,7 @@ export interface DChartAxisBaseTickMajor {
 	position: EShapeBarPosition;
 	style: EShapePointsStyle;
 	stroke?: Partial<EShapeStrokeLike>;
-	text?: DeepPartial<EShapeTextLike>;
+	text?: DChartAxisBaseTickMajorTextOptions;
 	formatter: NumberFormatter;
 	shapes?: EShapeBar[];
 }
@@ -287,19 +310,32 @@ export class DChartAxisBaseOptionParser {
 		theme: DThemeChartAxisBase,
 		options?: DChartAxisBaseTickMajorOptions
 	): NumberFormatter {
-		const format = ( options && options.text && options.text.value );
-		return NumberFormatters.create( format != null ?
-			format : theme.getMajorTickTextFormat()
+		const text = options && options.text;
+		if( text ) {
+			const format = text.format;
+			if( format != null ) {
+				return NumberFormatters.create( format );
+			} else {
+				const formatter = text.formatter;
+				if( formatter ) {
+					return {
+						format: formatter
+					};
+				}
+			}
+		}
+		return NumberFormatters.create(
+			theme.getMajorTickTextFormat()
 		);
 	}
 
 	protected toMajorTickText(
 		theme: DThemeChartAxisBase,
-		options?: DeepPartial<EShapeTextLike>
-	): DeepPartial<EShapeTextLike> | undefined {
+		options?: DChartAxisBaseTickMajorTextOptions
+	): DChartAxisBaseTickMajorTextOptions | undefined {
 		options = options || {};
 		return {
-			value: options.value,
+			format: options.format,
 			color: options.color,
 			alpha: options.alpha,
 			family: options.family,
