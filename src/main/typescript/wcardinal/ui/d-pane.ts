@@ -16,19 +16,23 @@ import { UtilDrag } from "./util/util-drag";
 import { utilIsString } from "./util/util-is-string";
 import { UtilWheelEventDeltas } from "./util/util-wheel-event";
 
+export interface DPaneDragOptions {
+	mode?: (keyof typeof DDragMode) | DDragMode;
+}
+
+export interface DPaneBarOptions {
+	vertical?: DScrollBarOptions;
+	horizontal?: DScrollBarOptions;
+}
+
 export interface DPaneOptions<
 	THEME extends DThemePane = DThemePane,
 	CONTENT_OPTIONS extends DBaseOptions = DContentOptions
 > extends DBaseOptions<THEME> {
 	mask?: boolean;
 	content?: CONTENT_OPTIONS | DBase;
-	bar?: {
-		vertical?: DScrollBarOptions,
-		horizontal?: DScrollBarOptions
-	};
-	drag?: {
-		mode?: (keyof typeof DDragMode) | DDragMode;
-	};
+	bar?: DPaneBarOptions;
+	drag?: DPaneDragOptions;
 }
 
 export interface DThemePane extends DThemeBase {

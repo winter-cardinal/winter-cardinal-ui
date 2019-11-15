@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DThemeDialogSelecList } from "../../d-dialog-select-list";
 import { DThemeWhiteList } from "./d-theme-white-list";
@@ -17,7 +17,7 @@ export class DThemeWhiteDialogSelectList extends DThemeWhiteList implements DThe
 		return null;
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return 250;
 	}
 

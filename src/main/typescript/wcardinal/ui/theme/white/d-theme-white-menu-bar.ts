@@ -5,7 +5,7 @@
 
 import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseState } from "../../d-base-state";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeMenuBar } from "../../d-menu-bar";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteLayoutHorizontal } from "./d-theme-white-layout-horizontal";
@@ -19,7 +19,7 @@ export class DThemeWhiteMenuBar extends DThemeWhiteLayoutHorizontal implements D
 		return null;
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return 30;
 	}
 

@@ -18,7 +18,7 @@ import { DBaseReflowable } from "./d-base-reflowable";
 import { DBaseState } from "./d-base-state";
 import { DBaseStates } from "./d-base-states";
 import { DBorderMask, DBorderStateAware } from "./d-border";
-import { DCoordinate } from "./d-coordinate";
+import { DCoordinatePosition, DCoordinateSize } from "./d-coordinate";
 import { DCoordinateSet } from "./d-coordinates";
 import { DCorner, DCornerMask } from "./d-corner";
 import { DThemeFont } from "./d-font";
@@ -37,65 +37,255 @@ import { UtilKeyboardEvent, UtilKeyboardEventShortcut } from "./util/util-keyboa
 import { UtilPointerEvent } from "./util/util-pointer-event";
 import { UtilWheelEventDeltas } from "./util/util-wheel-event";
 
+/**
+ * {@link DBase} padding options.
+ */
+export interface DBasePaddingOptions {
+	/** A top padding */
+	top?: number;
+
+	/** A right padding */
+	right?: number;
+
+	/** A bottom padding */
+	bottom?: number;
+
+	/** A left padding */
+	left?: number;
+}
+
+/**
+ * {@link DBase} corner options.
+ */
+export interface DBaseCornerOptions {
+	/** A radius */
+	radius?: number;
+
+	/** Masked corners get unrounded. */
+	mask?: (keyof typeof DCornerMask) | DCornerMask;
+}
+
+/**
+ * Mappings of event names and event handlers.
+ */
+export interface DBaseOnOptions {
+	[name: string]: Function;
+}
+
+/**
+ * {@link DBase} background options.
+ */
+export interface DBaseBackgroundOptions {
+	/**
+	 * A color code or a function returning a color code.
+	 * If a computed value is undefined, falls back to the theme color.
+	 * If a computed value is null, a background is not rendered.
+	 */
+	color?: DStateAwareOrValueMightBe<number | null>;
+
+	/**
+	 * An alpha or a function returning an alpha.
+	 * If a computed value is undefined, falls back to an background alpha of a theme.
+	 */
+	alpha?: DStateAwareOrValueMightBe<number>;
+}
+
+/**
+ * {@link DBase} border options.
+ */
+export interface DBaseBorderOptions {
+	/**
+	 * A color code or a function returning a color code.
+	 * If a computed value is undefined, falls back to the theme color.
+	 * If a computed value is null, a background is not rendered.
+	 */
+	color?: DStateAwareOrValueMightBe<number | null>;
+
+	/**
+	 * An alpha or a function returning an alpha.
+	 * If a computed value is undefined, falls back to a border alpha of a theme.
+	 */
+	alpha?: DStateAwareOrValueMightBe<number>;
+
+	/**
+	 * A width or a function returning a width.
+	 * If a computed value is undefined, falls back to a border width of a theme.
+	 */
+	width?: DStateAwareOrValueMightBe<number>;
+
+	/**
+	 * An align or a function returning an align.
+	 * If a computed value is undefined, falls back to a border align of a theme.
+	 * If an align is 0, a border is rendered completely inside of a {@link DBase}.
+	 * If an align is 1, a border is rendered completely outside of a {@link DBase}.
+	 */
+	align?: DStateAwareOrValueMightBe<number>;
+
+	/** Masked borders get removed. */
+	mask?: DStateAwareOrValueMightBe<DBorderMask> | (keyof typeof DBorderMask);
+}
+
+/**
+ * {@link DBase} outline optons.
+ */
+export interface DBaseOutlineOptions {
+	/**
+	 * A color code or a function returning a color code.
+	 * If a computed value is undefined, falls back to the theme color.
+	 * If a computed value is null, a background is not rendered.
+	 */
+	color?: DStateAwareOrValueMightBe<number | null>;
+
+	/**
+	 * An alpha or a function returning an alpha.
+	 * If a computed value is undefined, falls back to an outline alpha of a theme.
+	 */
+	alpha?: DStateAwareOrValueMightBe<number>;
+
+	/**
+	 * A width or a function returning a width.
+	 * If a computed value is undefined, falls back to an outline width of a theme.
+	 */
+	width?: DStateAwareOrValueMightBe<number>;
+
+	/**
+	 * An offset or a function returning an offset.
+	 * If a computed value is undefined, falls back to an outline align of a theme.
+	 * A outline moves to outside when an offset gets larger.
+	 */
+	offset?: DStateAwareOrValueMightBe<number>;
+
+	/**
+	 * An align or a function returning an align.
+	 * If a computed value is undefined, falls back to an outline align of a theme.
+	 * If an align is 0, an outline is rendered completely inside.
+	 * If an align is 1, an outline is rendered completely outside.
+	 */
+	align?: DStateAwareOrValueMightBe<number>;
+
+	/** Masked outlines get removed. */
+	mask?: DStateAwareOrValueMightBe<DBorderMask> | (keyof typeof DBorderMask);
+}
+
+/**
+ * {@link DBase} options.
+ */
 export interface DBaseOptions<THEME extends DThemeBase = DThemeBase> {
 	/**
 	 * A parent.
 	 *
-	 * In the case of UI classes which pop up (e.g., DDialog and DMenu),
+	 * In the case of UI classes which pop up (e.g., {@link DDialog} and {@link DMenu}),
 	 * if multiple application instances are there, better to set
 	 * this to an `application.stage` so that they pick a right application.
 	 * By default, they assume the last created application is
 	 * the one they belong to at the time when they are created.
 	 */
 	parent?: Container;
+
+	/** Children. */
 	children?: Array<DisplayObject | null>;
+
+	/** A name. */
 	name?: string;
-	x?: DCoordinate;
-	y?: DCoordinate;
-	width?: DCoordinate;
-	height?: DCoordinate;
+
+	/**
+	 * One of the followings:
+	 * * A X position
+	 * * A position keyword
+	 * * A position expression (Parsed by {@link DScalarExpression})
+	 * * A function returning a X position ({@link DScalarFunction})
+	 * * An object returning a X position ({@link DScalar})
+	 */
+	x?: DCoordinatePosition;
+
+	/**
+	 * One of the followings:
+	 * * A Y position
+	 * * A position keyword
+	 * * A position expresion (Parsed by {@link DScalarExpression})
+	 * * A function returning a Y position ({@link DScalarFunction})
+	 * * An object returning a Y position ({@link DScalar})
+	 */
+	y?: DCoordinatePosition;
+
+	/**
+	 * One of the followings:
+	 * * A width
+	 * * A size keyword
+	 * * A size expression (Parsed by {@link DScalarExpression})
+	 * * A function returning a width ({@link DScalarFunction})
+	 * * An object returning a width ({@link DScalar})
+	 */
+	width?: DCoordinateSize;
+
+	/**
+	 * One of the followings:
+	 * * A height
+	 * * A size keyword
+	 * * A size expression (Parsed by {@link DScalarExpression})
+	 * * A function returning a hight ({@link DScalarFunction})
+	 * * An object returning a hight ({@link DScalar})
+	 */
+	height?: DCoordinateSize;
+
+	/**
+	 * A visibility.
+	 * Set to true to make {@link DBase} visible.
+	 * Set to false to make {@link DBase} invisible.
+	 * The default values is true.
+	 */
 	visible?: boolean;
+
+	/** A default state. */
 	state?: (keyof typeof DBaseState) | Array<keyof typeof DBaseState> | DBaseState;
+
+	/** An interactivity option. */
 	interactive?: (keyof typeof DBaseInteractive) | DBaseInteractive;
-	padding?: number | {
-		top?: number,
-		right?: number,
-		bottom?: number,
-		left?: number
-	};
-	corner?: number | {
-		radius?: number,
-		mask?: (keyof typeof DCornerMask) | DCornerMask
-	};
+
+	/** A padding options. */
+	padding?: number | DBasePaddingOptions;
+
+	/** A corner options. */
+	corner?: number | DBaseCornerOptions;
+
+	/** A theme or a theme name. */
 	theme?: THEME | string;
-	on?: {
-		[name: string]: Function;
-	};
+
+	/**
+	 * Mappings of event names and event handlers.
+	 */
+	on?: DBaseOnOptions;
+
+	/**
+	 * A weight used by {@link DLayoutVertical} and {@link DLayoutHorizontal}.
+	 */
 	weight?: number;
+
+	/** A tooltip text. */
 	title?: string;
+
+	/** A shortcut option. */
 	shortcut?: string | UtilKeyboardEventShortcut;
+
+	/** A shortcut options. */
 	shortcuts?: Array<string | UtilKeyboardEventShortcut>;
-	background?: {
-		color?: DStateAwareOrValueMightBe<number | null>;
-		alpha?: DStateAwareOrValueMightBe<number>;
-	};
-	border?: {
-		color?: DStateAwareOrValueMightBe<number | null>;
-		alpha?: DStateAwareOrValueMightBe<number>;
-		width?: DStateAwareOrValueMightBe<number>;
-		align?: DStateAwareOrValueMightBe<number>;
-		mask?: DStateAwareOrValueMightBe<DBorderMask> | (keyof typeof DBorderMask);
-	};
-	outline?: {
-		color?: DStateAwareOrValueMightBe<number | null>;
-		alpha?: DStateAwareOrValueMightBe<number>;
-		width?: DStateAwareOrValueMightBe<number>;
-		offset?: DStateAwareOrValueMightBe<number>;
-		align?: DStateAwareOrValueMightBe<number>;
-		mask?: DStateAwareOrValueMightBe<DBorderMask> | (keyof typeof DBorderMask);
-	};
+
+	/** A background options. */
+	background?: DBaseBackgroundOptions;
+
+	/** A border options. */
+	border?: DBaseBorderOptions;
+
+	/** An outline options. */
+	outline?: DBaseOutlineOptions;
+
+	/** A shadow. */
 	shadow?: DShadow;
+
+	/** A clear type used by {@link DLayoutVertical} and {@link DLayoutHorizontal}. */
 	clear?: (keyof typeof DLayoutClearType) | DLayoutClearType;
+
+	/** A cursor shape. */
 	cursor?: string;
 }
 
@@ -106,22 +296,22 @@ export interface DThemeBase extends DThemeFont {
 	/**
 	 * Returns a X coordinate.
 	 */
-	getX(): DCoordinate;
+	getX(): DCoordinatePosition;
 
 	/**
 	 * Returns a Y coordinate.
 	 */
-	getY(): DCoordinate;
+	getY(): DCoordinatePosition;
 
 	/**
 	 * Returns a height.
 	 */
-	getHeight(): DCoordinate;
+	getHeight(): DCoordinateSize;
 
 	/**
 	 * Returns a width.
 	 */
-	getWidth(): DCoordinate;
+	getWidth(): DCoordinateSize;
 
 	/**
 	 * Returns a background color.
@@ -280,13 +470,13 @@ export interface DThemeBase extends DThemeFont {
 
 	/**
 	 * Returns a clear type.
-	 * A clear type is for layout classes including {@link ui.DLayoutVertical}.
+	 * A clear type is for layout classes including {@link DLayoutVertical}.
 	 */
 	getClearType(): DLayoutClearType;
 
 	/**
 	 * Returns a weight.
-	 * Weights are for layout classes including {@link ui.DLayoutVertical}.
+	 * Weights are for layout classes including {@link DLayoutVertical}.
 	 * If a weight is less than or equals to zero, layout classes are supposed not to change a width / height.
 	 */
 	getWeight(): number;
@@ -460,7 +650,7 @@ export class DBase<
 		const width = ( options && options.width != null ? options.width : theme.getWidth() );
 		if( utilIsNumber( width ) ) {
 			this._width = width;
-		} else if( width === "auto" ) {
+		} else if( width === "auto" || width === "AUTO" ) {
 			this._width = 100;
 			this._coordinateSet.toAutoWidth();
 		} else {
@@ -472,7 +662,7 @@ export class DBase<
 		const height = ( options && options.height != null ? options.height : theme.getHeight() );
 		if( utilIsNumber( height ) ) {
 			this._height = height;
-		} else if( height === "auto" ) {
+		} else if( height === "auto" || height === "AUTO" ) {
 			this._height = 100;
 			this._coordinateSet.toAutoHeight();
 		} else {

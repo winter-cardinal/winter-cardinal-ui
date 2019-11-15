@@ -9,16 +9,18 @@ import { DMapCoordinate } from "./d-map-coordinate";
 import { DMapTileMapping } from "./d-map-tile-mapping";
 import { DMapTileUrlBuilder } from "./d-map-tile-url-builder";
 
+export interface DMapTilePyramidPlaneOptions {
+	min: number;
+	max: number;
+	throttle: number;
+}
+
 export interface DMapTilePyramidOptions {
 	canvas: DBase;
 	mapping: DMapTileMapping;
 	builder: DMapTileUrlBuilder;
 	coordinate: DMapCoordinate;
-	plane: {
-		min: number;
-		max: number;
-		throttle: number;
-	};
+	plane: DMapTilePyramidPlaneOptions;
 }
 
 export interface DMapTilePyramid extends utils.EventEmitter {

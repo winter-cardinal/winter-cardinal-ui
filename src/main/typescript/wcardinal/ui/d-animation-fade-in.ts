@@ -9,11 +9,13 @@ import { DApplicationLayerLike } from "./d-application-layer-like";
 import { DApplications } from "./d-applications";
 import { DBase } from "./d-base";
 
+export interface DAnimationFadeInShiftOptions {
+	x?: number | null;
+	y?: number | null;
+}
+
 export interface DAnimationFadeInOptions extends DAnimationOptions {
-	shift?: {
-		x?: number | null,
-		y?: number | null
-	};
+	shift?: DAnimationFadeInShiftOptions;
 }
 
 export class DAnimationFadeIn extends DAnimationBase {

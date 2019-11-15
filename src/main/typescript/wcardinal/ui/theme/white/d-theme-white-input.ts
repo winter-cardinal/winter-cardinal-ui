@@ -5,7 +5,7 @@
 
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DHTMLElementElementCreator } from "../../d-html-element";
 import { DThemeInput } from "../../d-input";
 import { UtilRgb } from "../../util/util-rgb";
@@ -85,11 +85,11 @@ export class DThemeWhiteInput extends DThemeWhiteHTMLElement<HTMLInputElement> i
 		return super.getOutlineColor( state );
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return this.getLineHeight();
 	}
 
-	getWidth(): DCoordinate {
+	getWidth(): DCoordinateSize {
 		return 100;
 	}
 

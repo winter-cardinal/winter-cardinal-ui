@@ -12,7 +12,7 @@ import { NumberFormatterImpl } from "./number-formatter-impl";
 export class NumberFormatters {
 	/**
 	 * Creates a number formatter of the given format.
-	 * Please refer to {@link ui/util.NumberFormatter} for format details.
+	 * Please refer to {@link NumberFormatter} for format details.
 	 *
 	 * @return A created number formatter
 	 */

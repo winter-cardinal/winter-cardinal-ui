@@ -5,16 +5,16 @@
 
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DBaseInteractive } from "../../d-base-interactive";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeNote } from "../../d-note";
 import { DThemeWhiteText } from "./d-theme-white-text";
 
 export class DThemeWhiteNote extends DThemeWhiteText implements DThemeNote {
-	getWidth(): DCoordinate {
+	getWidth(): DCoordinateSize {
 		return "100%";
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return "100%";
 	}
 

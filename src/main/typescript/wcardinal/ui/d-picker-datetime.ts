@@ -4,38 +4,39 @@
  */
 
 import { DisplayObject } from "pixi.js";
-import { DCoordinate } from "./d-coordinate";
+import { DCoordinateSize } from "./d-coordinate";
 import { DInputIntegerOptions } from "./d-input-integer";
 import { DLayoutHorizontal } from "./d-layout-horizontal";
 import { DLayoutVertical } from "./d-layout-vertical";
 import { DPickerDatetimeButtonBack, DPickerDatetimeButtonBackOptions } from "./d-picker-datetime-button-back";
 import { DPickerDatetimeButtonDate } from "./d-picker-datetime-button-date";
 import { DPickerDatetimeButtonNext, DPickerDatetimeButtonNextOptions } from "./d-picker-datetime-button-next";
-import { DPickerDatetimeLabel } from "./d-picker-datetime-label";
+import { DPickerDatetimeLabel, DPickerDatetimeLabelOptions } from "./d-picker-datetime-label";
 import { DPickerDatetimeLabelDate } from "./d-picker-datetime-label-date";
 import { DPickerDatetimeSpace } from "./d-picker-datetime-space";
 import { DPickerTime, DPickerTimeOptions, DThemePickerTime } from "./d-picker-time";
-import { DText } from "./d-text";
 
 export type DPickerDatetimeLabelFormatter = ( date: Date ) => string;
 export type DPickerDatetimeDateDecorator = ( date: Date, button: DPickerDatetimeButtonDate ) => void;
 export type DPickerDatetimeDayLabels = [ string, string, string, string, string, string, string ];
+
+export interface DPickerDatetimeDayOptions {
+	start?: number;
+	labels?: DPickerDatetimeDayLabels;
+}
+
+export interface DPickerDatetimeDateOptions {
+	decorator?: DPickerDatetimeDateDecorator;
+}
 
 export interface DPickerDatetimeOptions<
 	THEME extends DThemePickerDatetime = DThemePickerDatetime
 > extends DPickerTimeOptions<THEME> {
 	back?: DPickerDatetimeButtonBackOptions | null;
 	next?: DPickerDatetimeButtonNextOptions | null;
-	day?: {
-		start?: number;
-		labels?: DPickerDatetimeDayLabels;
-	};
-	label?: {
-		formatter?: DPickerDatetimeLabelFormatter;
-	};
-	date?: {
-		decorator?: DPickerDatetimeDateDecorator;
-	};
+	day?: DPickerDatetimeDayOptions;
+	label?: DPickerDatetimeLabelOptions;
+	date?: DPickerDatetimeDateOptions;
 }
 
 export interface DThemePickerDatetime extends DThemePickerTime {
@@ -54,8 +55,7 @@ export class DPickerDatetime<
 	protected _datePage!: Date;
 	protected _dateButtons!: Array<DPickerDatetimeSpace | DPickerDatetimeButtonDate>;
 	protected _dateDecorator!: DPickerDatetimeDateDecorator;
-	protected _label!: DText;
-	protected _labelFormatter!: DPickerDatetimeLabelFormatter;
+	protected _label!: DPickerDatetimeLabel;
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
@@ -66,9 +66,7 @@ export class DPickerDatetime<
 		this._dateButtons = this.newDateButtons( theme, options );
 		this._dateDecorator = ( options && options.date && options.date.decorator ) ||
 			theme.getDateDecorator();
-		this._label = this.newLabel();
-		this._labelFormatter = ( options && options.label && options.label.formatter ) ||
-			theme.getLabelFormatter();
+		this._label = this.newLabel( theme, options );
 		const result = super.newChildren( theme, options, margin );
 		result.unshift(
 			new DLayoutHorizontal({
@@ -173,7 +171,8 @@ export class DPickerDatetime<
 		}
 
 		// Label
-		this._label.text = this._labelFormatter( datePage );
+		tmp.setTime( datePage.getTime() );
+		this._label.text = tmp;
 	}
 
 	protected adjustInputOptions( theme: THEME, options: DInputIntegerOptions, max: number ): DInputIntegerOptions {
@@ -183,21 +182,34 @@ export class DPickerDatetime<
 		return super.adjustInputOptions( theme, options, max );
 	}
 
-	protected getTimeLayoutWidth(): DCoordinate {
+	protected getTimeLayoutWidth(): DCoordinateSize {
 		return "100%";
 	}
 
-	protected newLabel(): DPickerDatetimeLabel {
-		return new DPickerDatetimeLabel({
-			weight: 1,
-			padding: 0,
-			text: {
-				align: {
-					horizontal: "CENTER"
-				},
-				value: ""
-			}
-		});
+	protected toLabelOptions( theme: THEME, options?: DPickerDatetimeOptions ): DPickerDatetimeLabelOptions {
+		const result = (options && options.label) || {};
+		if( result.weight === undefined ) {
+			result.weight = 1;
+		}
+
+		if( result.padding === undefined ) {
+			result.padding = 0;
+		}
+
+		const labelText = result.text = result.text || {};
+		const labelTextAlign = labelText.align = labelText.align || {};
+		if( labelTextAlign.horizontal === undefined ) {
+			labelTextAlign.horizontal = "CENTER";
+		}
+
+		if( labelText.formatter === undefined ) {
+			labelText.formatter = theme.getLabelFormatter();
+		}
+		return result;
+	}
+
+	protected newLabel( theme: THEME, options?: DPickerDatetimeOptions ): DPickerDatetimeLabel {
+		return new DPickerDatetimeLabel( this.toLabelOptions( theme, options ) );
 	}
 
 	protected newBackButton( theme: THEME, options?: OPTIONS ): DPickerDatetimeButtonBack | null {

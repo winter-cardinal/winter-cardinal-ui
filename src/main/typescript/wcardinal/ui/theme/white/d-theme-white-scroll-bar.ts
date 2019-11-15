@@ -5,7 +5,7 @@
 
 import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseState } from "../../d-base-state";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeScrollBar } from "../../d-scroll-bar";
 import { DThemeWhiteBase } from "./d-theme-white-base";
 
@@ -18,11 +18,11 @@ export class DThemeWhiteScrollBar extends DThemeWhiteBase implements DThemeScrol
 		return 0;
 	}
 
-	getWidth(): DCoordinate {
+	getWidth(): DCoordinateSize {
 		return 13;
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return 13;
 	}
 

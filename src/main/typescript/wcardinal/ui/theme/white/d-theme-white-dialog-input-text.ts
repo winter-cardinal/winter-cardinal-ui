@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeDialogInputText } from "../../d-dialog-input-text";
 import { DThemeWhiteDialog } from "./d-theme-white-dialog";
 
@@ -24,7 +24,7 @@ export class DThemeWhiteDialogInputText extends DThemeWhiteDialog implements DTh
 		return 60;
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return "auto";
 	}
 }

@@ -9,7 +9,7 @@ import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { DBorderMask } from "../../d-border";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DLayoutClearType } from "../../d-layout-clear-type";
 import { DShadow } from "../../d-shadow";
@@ -41,19 +41,19 @@ newShadow( "shadow_weak", 8, 1 );
 newShadow( "shadow", 12, 1 );
 
 export class DThemeWhiteBase extends DThemeWhiteFont implements DThemeBase {
-	getX(): DCoordinate {
+	getX(): DCoordinatePosition {
 		return 0;
 	}
 
-	getY(): DCoordinate {
+	getY(): DCoordinatePosition {
 		return 0;
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return 100;
 	}
 
-	getWidth(): DCoordinate {
+	getWidth(): DCoordinateSize {
 		return 100;
 	}
 

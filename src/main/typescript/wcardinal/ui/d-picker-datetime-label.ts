@@ -6,9 +6,8 @@
 import { DText, DTextOptions, DThemeText } from "./d-text";
 
 export interface DPickerDatetimeLabelOptions<
-	VALUE = unknown,
 	THEME extends DThemePickerDatetimeLabel = DThemePickerDatetimeLabel
-> extends DTextOptions<VALUE, THEME> {
+> extends DTextOptions<Date, THEME> {
 
 }
 
@@ -17,10 +16,9 @@ export interface DThemePickerDatetimeLabel extends DThemeText {
 }
 
 export class DPickerDatetimeLabel<
-	VALUE = unknown,
 	THEME extends DThemePickerDatetimeLabel = DThemePickerDatetimeLabel,
-	OPTIONS extends DPickerDatetimeLabelOptions<VALUE, THEME> = DPickerDatetimeLabelOptions<VALUE, THEME>
-> extends DText<VALUE, THEME, OPTIONS> {
+	OPTIONS extends DPickerDatetimeLabelOptions<THEME> = DPickerDatetimeLabelOptions<THEME>
+> extends DText<Date, THEME, OPTIONS> {
 	protected getType(): string {
 		return "DPickerDatetimeLabel";
 	}

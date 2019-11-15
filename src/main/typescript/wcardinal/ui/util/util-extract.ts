@@ -13,14 +13,18 @@ import { UtilExtractorPixels } from "./util-extractor-pixels";
 import { UtilFileDownloader } from "./util-file-downloader";
 import { utilIsNumber } from "./util-is-number";
 
+export interface UtilExtractTextureResolutionOptions {
+	size: number;
+}
+
+export interface UtilExtractTextureTransformOptions {
+	update?: boolean;
+}
+
 export interface UtilExtractTextureOptions {
 	target: DBase;
-	resolution?: number | {
-		size: number;
-	};
-	transform?: {
-		update?: boolean;
-	};
+	resolution?: number | UtilExtractTextureResolutionOptions;
+	transform?: UtilExtractTextureTransformOptions;
 	clear?: boolean;
 }
 

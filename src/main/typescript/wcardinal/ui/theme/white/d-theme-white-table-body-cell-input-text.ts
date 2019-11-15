@@ -6,7 +6,7 @@
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { DBorderMask } from "../../d-border";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DThemeTableBodyCellInputText } from "../../d-table-body-cell-input-text";
 import { DThemeWhiteInputText } from "./d-theme-white-input-text";
@@ -43,7 +43,7 @@ export class DThemeWhiteTableBodyCellInputText extends DThemeWhiteInputText
 		return DThemeWhiteTableBodyCells.getAlpha( state );
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return DThemeWhiteTableBodyCells.getHeight();
 	}
 

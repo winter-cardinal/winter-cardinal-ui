@@ -9,7 +9,6 @@ import { DBase } from "../d-base";
 import { DMouseModifier } from "../d-mouse-modifier";
 import { DMouseModifiers } from "../d-mouse-modifiers";
 import { UtilDragEasing, UtilDragEasingOptions } from "./util-drag-easing";
-import { utilIsNumber } from "./util-is-number";
 import { UtilPointerEvent } from "./util-pointer-event";
 import InteractionEvent = interaction.InteractionEvent;
 import InteractionManager = interaction.InteractionManager;
@@ -19,61 +18,31 @@ export type UtilDragOnStart = () => void;
 export type UtilDragOnEnd = () => void;
 export type UtilDragChecker = ( e: InteractionEvent, modifier: DMouseModifier, target: DBase ) => boolean;
 
-interface UtilDragOptionsEasingDuration {
-	duration?: number | {
-		position?: number,
-		scale?: number
-	};
+export interface UtilDragCheckerOptions {
+	start?: UtilDragChecker;
+	move?: UtilDragChecker;
+}
+
+export interface UtilDragOnOptions {
+	start?: UtilDragOnStart;
+	move?: UtilDragOnMove;
+	end?: UtilDragOnEnd;
 }
 
 export interface UtilDragOptions {
 	target: DBase;
 	touch?: boolean;
 	modifier?: DMouseModifier;
-	checker?: {
-		start?: UtilDragChecker;
-		move?: UtilDragChecker;
-	};
-	easing?: boolean | UtilDragOptionsEasingDuration;
+	checker?: UtilDragCheckerOptions;
+	easing?: boolean | UtilDragEasingOptions;
 	bind?: boolean;
-	on?: {
-		start?: UtilDragOnStart;
-		move?: UtilDragOnMove;
-		end?: UtilDragOnEnd;
-	};
+	on?: UtilDragOnOptions;
 }
 
-const toEasingOptions = (
-	options: true | UtilDragOptionsEasingDuration | undefined,
-	onMove: ( dx: number, dy: number, ds: number, time: number ) => void
-): UtilDragEasingOptions => {
-	if( options == null || options === true ) {
-		return {
-			on: {
-				move: onMove
-			}
-		};
-	} else {
-		const duration = options.duration;
-		if( utilIsNumber( duration ) ) {
-			return {
-				duration: {
-					position: duration,
-					scale: duration
-				},
-				on: {
-					move: onMove
-				}
-			};
-		} else {
-			return {
-				duration,
-				on: {
-					move: onMove
-				}
-			};
-		}
-	}
+const toEasingOptions = ( options: true | UtilDragEasingOptions | undefined ): UtilDragEasingOptions | undefined => {
+	return ( options == null || options === true ?
+		undefined : options
+	);
 };
 
 const toChecker = ( options?: UtilDragOptions ): { start: UtilDragChecker, move: UtilDragChecker } => {
@@ -133,7 +102,7 @@ export class UtilDrag {
 			const onEasingMoveBound = ( dx: number, dy: number, ds: number, time: number ): void => {
 				this.onEasingMove( dx, dy, ds, time );
 			};
-			this._easing = new UtilDragEasing( toEasingOptions( easing, onEasingMoveBound ) );
+			this._easing = new UtilDragEasing( onEasingMoveBound, toEasingOptions( easing ) );
 		}
 
 		this._onDownBound = ( e: InteractionEvent ): void => {

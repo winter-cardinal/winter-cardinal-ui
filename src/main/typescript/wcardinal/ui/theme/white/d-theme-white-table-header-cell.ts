@@ -5,7 +5,7 @@
 
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DBaseState } from "../../d-base-state";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeTableHeaderCell } from "../../d-table-header-cell";
@@ -20,7 +20,7 @@ export class DThemeWhiteTableHeaderCell extends DThemeWhiteTextBase implements D
 		return DCornerMask.ALL;
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return "padding";
 	}
 

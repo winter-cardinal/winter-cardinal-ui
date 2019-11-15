@@ -6,7 +6,7 @@
 import { DDiagramCanvasBase } from "./d-diagram-canvas-base";
 import { DMapCoordinate } from "./d-map-coordinate";
 import { DMapCoordinates } from "./d-map-coordinates";
-import { DMapTilePyramid } from "./d-map-tile-pyramid";
+import { DMapTilePyramid, DMapTilePyramidPlaneOptions } from "./d-map-tile-pyramid";
 import { DMapTilePyramidImpl } from "./d-map-tile-pyramid-impl";
 import { DMapTileUrlBuilder } from "./d-map-tile-url-builder";
 
@@ -32,19 +32,15 @@ export interface DMapTilePyramidsFromOptions {
 	canvas: DDiagramCanvasBase<any, any>;
 	builder?: DMapTileUrlBuilder;
 	coordinate?: DMapCoordinate;
-	plane?: {
-		min?: number;
-		max?: number;
-		throttle?: number;
-	};
+	plane?: Partial<DMapTilePyramidPlaneOptions>;
 }
 
 export class DMapTilePyramids {
-	static MIN: number = 0;
-	static MAX: number = 18;
-	static THROTTLE: number = 333;
+	protected static MIN: number = 0;
+	protected static MAX: number = 18;
+	protected static THROTTLE: number = 333;
 
-	static toPlaneOptions( options: DMapTilePyramidsFromOptions ) {
+	protected static toPlaneOptions( options: DMapTilePyramidsFromOptions ) {
 		const plane = options.plane;
 		if( plane ) {
 			return {

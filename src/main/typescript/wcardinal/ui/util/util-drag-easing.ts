@@ -7,15 +7,17 @@ import { DAnimation } from "../d-animation";
 import { DAnimationBase } from "../d-animation-base";
 import { DAnimationTimings } from "../d-animation-timings";
 import { UtilDragEasingHistory } from "./util-drag-easing-history";
+import { utilIsNumber } from "./util-is-number";
+
+export type UtilDragEasingOnMove = ( dx: number, dy: number, ds: number, time: number ) => void;
+
+export interface UtilDragEasingDurationOptions {
+	position?: number;
+	scale?: number;
+}
 
 export interface UtilDragEasingOptions {
-	duration?: {
-		position?: number;
-		scale?: number;
-	};
-	on: {
-		move: ( dx: number, dy: number, ds: number, time: number ) => void;
-	};
+	duration?: number | UtilDragEasingDurationOptions;
 }
 
 export class UtilDragEasing {
@@ -31,9 +33,9 @@ export class UtilDragEasing {
 	protected _ds: number;
 	protected _durationPosition: number;
 	protected _durationScale: number;
-	protected _onMove: ( dx: number, dy: number, ds: number, time: number ) => void;
+	protected _onMove: UtilDragEasingOnMove;
 
-	constructor( options: UtilDragEasingOptions ) {
+	constructor( onMove: UtilDragEasingOnMove, options?: UtilDragEasingOptions ) {
 		this._histories = [];
 		this._historiesSorted = [];
 		this._historyBegin = 0;
@@ -51,13 +53,18 @@ export class UtilDragEasing {
 		});
 		const duration = options && options.duration;
 		if( duration ) {
-			this._durationPosition = ( duration.position != null ? duration.position : 1 );
-			this._durationScale = ( duration.scale != null ? duration.scale : 1 );
+			if( utilIsNumber( duration ) ) {
+				this._durationPosition = duration;
+				this._durationScale = duration;
+			} else {
+				this._durationPosition = ( duration.position != null ? duration.position : 1 );
+				this._durationScale = ( duration.scale != null ? duration.scale : 1 );
+			}
 		} else {
 			this._durationPosition = 1;
 			this._durationScale = 1;
 		}
-		this._onMove = options.on.move;
+		this._onMove = onMove;
 	}
 
 	onStart(): void {

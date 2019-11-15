@@ -5,7 +5,7 @@
 
 import { DBaseState } from "../../d-base-state";
 import { DBorderMask } from "../../d-border";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DThemeTableBodyCellText } from "../../d-table-body-cell-text";
 import { DThemeWhiteImageBase } from "./d-theme-white-image-base";
@@ -40,7 +40,7 @@ export class DThemeWhiteTableBodyCellText extends DThemeWhiteImageBase implement
 		return DThemeWhiteTableBodyCells.getAlpha( state );
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return DThemeWhiteTableBodyCells.getHeight();
 	}
 

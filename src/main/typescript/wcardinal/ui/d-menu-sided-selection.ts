@@ -17,9 +17,13 @@ export enum DMenuSidedSelectionMode {
 	DEFAULT = SINGLE_ONCE
 }
 
+export interface DMenuSidedSelectionOnOptions {
+	[ name: string ]: Function;
+}
+
 export interface DMenuSidedSelectionOptions {
 	mode?: (keyof typeof DMenuSidedSelectionMode) | DMenuSidedSelectionMode;
-	on?: { [ name: string ]: Function };
+	on?: DMenuSidedSelectionOnOptions;
 	filter?: ( item: DBase | null ) => boolean;
 }
 

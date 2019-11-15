@@ -5,7 +5,7 @@
 
 import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseState } from "../../d-base-state";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DLayoutClearType } from "../../d-layout-clear-type";
 import { DThemeLayoutSpace } from "../../d-layout-space";
 import { DThemeWhiteBase } from "./d-theme-white-base";
@@ -19,11 +19,11 @@ export class DThemeWhiteLayoutSpace extends DThemeWhiteBase implements DThemeLay
 		return null;
 	}
 
-	getWidth(): DCoordinate {
+	getWidth(): DCoordinateSize {
 		return 0;
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return 0;
 	}
 

@@ -3,24 +3,24 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeDialogColorGradient } from "../../d-dialog-color-gradient";
 import { DThemeWhiteDialogCommand } from "./d-theme-white-dialog-command";
 
 export class DThemeWhiteDialogColorGradient extends DThemeWhiteDialogCommand implements DThemeDialogColorGradient {
-	getWidth(): DCoordinate {
+	getWidth(): DCoordinateSize {
 		return "auto";
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return "auto";
 	}
 
-	getLayoutWidth(): DCoordinate {
+	getLayoutWidth(): DCoordinateSize {
 		return "auto";
 	}
 
-	getLayoutHeight(): DCoordinate {
+	getLayoutHeight(): DCoordinateSize {
 		return "auto";
 	}
 }

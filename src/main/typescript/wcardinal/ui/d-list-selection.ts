@@ -12,9 +12,13 @@ export enum DListSelectionMode {
 	MULTIPLE
 }
 
+export interface DListSelectionOnOptions {
+	[ name: string ]: Function;
+}
+
 export interface DListSelectionOptions {
 	mode?: DListSelectionMode;
-	on?: { [ name: string ]: Function };
+	on?: DListSelectionOnOptions;
 }
 
 export class DListSelection extends utils.EventEmitter {

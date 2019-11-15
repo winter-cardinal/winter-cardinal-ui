@@ -3,7 +3,12 @@ import { DApplicationLayer } from "./d-application-layer";
 import { DApplicationLayerOptions } from "./d-application-layer-options";
 import { DApplicationLike } from "./d-application-like";
 import { DApplications } from "./d-applications";
-import { utilIsString } from "./util";
+import { DPaddingLike } from "./d-padding";
+import { utilIsString } from "./util/util-is-string";
+
+export interface DApplicationBackgroundOptions {
+	color?: number;
+}
 
 export interface DApplicationOptions {
 	/**
@@ -16,12 +21,7 @@ export interface DApplicationOptions {
 	/**
 	 * Padding settings.
 	 */
-	padding?: number | {
-		top?: number;
-		right?: number;
-		bottom?: number;
-		left?: number;
-	};
+	padding?: number | DPaddingLike;
 
 	/**
 	 * A canvas width.
@@ -36,9 +36,7 @@ export interface DApplicationOptions {
 	/**
 	 * A background setting.
 	 */
-	background?: {
-		color?: number;
-	};
+	background?: DApplicationBackgroundOptions;
 
 	/**
 	 * An antialias setting.

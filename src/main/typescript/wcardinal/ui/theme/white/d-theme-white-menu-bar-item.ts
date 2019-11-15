@@ -6,7 +6,7 @@
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DThemeMenuBarItem } from "../../d-menu-bar-item";
 import { UtilRgb } from "../../util/util-rgb";
@@ -36,11 +36,11 @@ export class DThemeWhiteMenuBarItem extends DThemeWhiteButton implements DThemeM
 		return null;
 	}
 
-	getWidth(): DCoordinate {
+	getWidth(): DCoordinateSize {
 		return "auto";
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return "100%";
 	}
 

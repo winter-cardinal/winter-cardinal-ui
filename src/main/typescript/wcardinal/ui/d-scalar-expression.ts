@@ -104,8 +104,8 @@ const TOKEN_MAPPING_LITERAL: { [ token: string ]: NodeTypeLiteral | undefined } 
  *
  * * x%: 0.01 * x * parent value
  * * xs: 0.01 * x * self value
- * * xp: 0.01 * x * padding
- * * xc: 0.01 * x * current
+ * * xp: 0.01 * x * padding value
+ * * xc: 0.01 * x * current value
  *
  * Operators
  *

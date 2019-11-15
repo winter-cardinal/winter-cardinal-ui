@@ -7,7 +7,7 @@ import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { DThemeButtonBase } from "../../d-button-base";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { UtilRgb } from "../../util/util-rgb";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteImageBase } from "./d-theme-white-image-base";
@@ -47,11 +47,11 @@ export class DThemeWhiteButtonBase extends DThemeWhiteImageBase implements DThem
 		}
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return 30;
 	}
 
-	getWidth(): DCoordinate {
+	getWidth(): DCoordinateSize {
 		return 100;
 	}
 

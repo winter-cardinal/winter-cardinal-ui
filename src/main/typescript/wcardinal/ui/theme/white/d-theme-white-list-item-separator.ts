@@ -4,7 +4,7 @@
  */
 
 import { DBaseState } from "../../d-base-state";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeListItemSeparator } from "../../d-list-item-separator";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteImage } from "./d-theme-white-image";
@@ -18,11 +18,11 @@ export class DThemeWhiteListItemSeparator extends DThemeWhiteImage implements DT
 		return DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return 15;
 	}
 
-	getWidth(): DCoordinate {
+	getWidth(): DCoordinateSize {
 		return "padding";
 	}
 

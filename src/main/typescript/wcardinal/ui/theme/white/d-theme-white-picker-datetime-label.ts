@@ -4,17 +4,18 @@
  */
 
 import { DAlignHorizontal } from "../../d-align-horizontal";
-import { DCoordinate } from "../../d-coordinate";
+import { DBaseState } from "../../d-base-state";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DFontWeight } from "../../d-font";
 import { DThemePickerDatetimeLabel } from "../../d-picker-datetime-label";
 import { DThemeWhiteText } from "./d-theme-white-text";
 
 export class DThemeWhitePickerDatetimeLabel extends DThemeWhiteText implements DThemePickerDatetimeLabel {
-	getWidth(): DCoordinate {
+	getWidth(): DCoordinateSize {
 		return 30;
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return 30;
 	}
 
@@ -36,5 +37,13 @@ export class DThemeWhitePickerDatetimeLabel extends DThemeWhiteText implements D
 
 	getFontSize(): number {
 		return Math.round( super.getFontSize() * 1.25 );
+	}
+
+	newTextValue(): any {
+		return new Date();
+	}
+
+	getTextValue( state: DBaseState ): any {
+		return new Date();
 	}
 }

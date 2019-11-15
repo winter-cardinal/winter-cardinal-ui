@@ -7,7 +7,7 @@ import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { DBorderMask } from "../../d-border";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DThemeTableBodyCellInputReal } from "../../d-table-body-cell-input-real";
 import { DThemeWhiteInputReal } from "./d-theme-white-input-real";
@@ -48,7 +48,7 @@ export class DThemeWhiteTableBodyCellInputReal extends DThemeWhiteInputReal
 		return DThemeWhiteTableBodyCells.getAlpha( state );
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return DThemeWhiteTableBodyCells.getHeight();
 	}
 

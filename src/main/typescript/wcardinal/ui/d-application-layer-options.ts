@@ -4,7 +4,7 @@
  */
 
 import { DApplicationPadding } from "./d-application-padding";
-import { DPadding } from "./d-padding";
+import { DPadding, DPaddingLike } from "./d-padding";
 import { utilIsNumber } from "./util/util-is-number";
 
 /**
@@ -20,19 +20,16 @@ interface PixiApplicationOptions {
 	antialias: boolean;
 }
 
+interface DApplicationLayerBackgroundOptions {
+	color?: number | null;
+}
+
 interface DApplicationLayerOptionsOptions {
 	root: HTMLElement;
-	padding?: number | {
-		top?: number;
-		right?: number;
-		bottom?: number;
-		left?: number;
-	};
+	padding?: number | DPaddingLike;
 	width?: number;
 	height?: number;
-	background?: {
-		color?: number | null;
-	};
+	background?: DApplicationLayerBackgroundOptions;
 	resolution: number;
 	antialias?: boolean;
 

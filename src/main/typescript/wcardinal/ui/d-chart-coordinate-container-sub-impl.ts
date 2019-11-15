@@ -6,7 +6,7 @@
 import { DChartCoordinate, DChartCoordinateDirection } from "./d-chart-coordinate";
 import { DChartCoordinateContainer } from "./d-chart-coordinate-container";
 import { DChartCoordinateContainerSub } from "./d-chart-coordinate-container-sub";
-import { utilIsNumber } from "./util";
+import { utilIsNumber } from "./util/util-is-number";
 
 export class DChartCoordinateContainerSubImpl implements DChartCoordinateContainerSub {
 	protected _list: DChartCoordinate[];

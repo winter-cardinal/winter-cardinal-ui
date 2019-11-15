@@ -5,7 +5,7 @@
 
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DThemeMenuItemExpandable } from "../../d-menu-item-expandable";
 import { DThemeWhiteLayoutVertical } from "./d-theme-white-layout-vertical";
@@ -29,7 +29,7 @@ export class DThemeWhiteMenuItemExpandable extends DThemeWhiteLayoutVertical imp
 		return 0;
 	}
 
-	getWidth(): DCoordinate {
+	getWidth(): DCoordinateSize {
 		return "padding";
 	}
 

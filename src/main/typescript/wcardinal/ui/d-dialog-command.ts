@@ -5,7 +5,7 @@
 
 import { DButton } from "./d-button";
 import { DButtonPrimary } from "./d-button-primary";
-import { DCoordinate } from "./d-coordinate";
+import { DCoordinatePosition, DCoordinateSize } from "./d-coordinate";
 import { DDialog, DDialogOptions, DThemeDialog } from "./d-dialog";
 import { DLayoutHorizontal } from "./d-layout-horizontal";
 import { DLayoutSpace } from "./d-layout-space";
@@ -21,10 +21,10 @@ export interface DDialogCommandOptions<
 export interface DThemeDialogCommand extends DThemeDialog {
 	getOk(): string | null;
 	getCancel(): string | null;
-	getLayoutX(): DCoordinate;
-	getLayoutY(): DCoordinate;
-	getLayoutWidth(): DCoordinate;
-	getLayoutHeight(): DCoordinate;
+	getLayoutX(): DCoordinatePosition;
+	getLayoutY(): DCoordinatePosition;
+	getLayoutWidth(): DCoordinateSize;
+	getLayoutHeight(): DCoordinateSize;
 }
 
 export class DDialogCommand<

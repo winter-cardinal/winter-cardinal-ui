@@ -3,16 +3,18 @@ import { DHTMLElement, DHTMLElementOptions, DThemeHTMLElement } from "./d-html-e
 import { utilIsString } from "./util/util-is-string";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 
+export interface DInputEditingOptions<VALUE = unknown> {
+	formatter?: ( value: VALUE ) => string;
+	unformatter?: ( text: string ) => VALUE;
+	validator?: ( value: VALUE ) => string | null;
+}
+
 export interface DInputOptions<
 	VALUE = unknown,
 	THEME extends DThemeInput = DThemeInput
 > extends DHTMLElementOptions<VALUE, HTMLInputElement, THEME> {
 	description?: string;
-	editing?: {
-		formatter?: ( value: VALUE ) => string;
-		unformatter?: ( text: string ) => VALUE;
-		validator?: ( value: VALUE ) => string | null;
-	};
+	editing?: DInputEditingOptions<VALUE>;
 }
 
 export interface DThemeInput extends DThemeHTMLElement<HTMLInputElement> {

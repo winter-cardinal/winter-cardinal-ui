@@ -5,7 +5,7 @@
 
 import { DBaseState } from "../../d-base-state";
 import { DBorderMask } from "../../d-border";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DPickerDates } from "../../d-picker-dates";
 import { DTableBodyCellDate, DThemeTableBodyCellDate } from "../../d-table-body-cell-date";
@@ -45,7 +45,7 @@ export class DThemeWhiteTableBodyCellDate extends DThemeWhiteButton implements D
 		return DThemeWhiteTableBodyCells.getAlpha( state );
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return DThemeWhiteTableBodyCells.getHeight();
 	}
 

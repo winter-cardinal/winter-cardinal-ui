@@ -11,7 +11,7 @@ import { DMenuItem } from "./d-menu-item";
 import { DMenuItemOptionsUnion } from "./d-menu-item-options-union";
 import { DMenuItemText, DMenuItemTextOptions, DThemeMenuItemText } from "./d-menu-item-text";
 import { DMenus } from "./d-menus";
-import { UtilClipboard } from "./util";
+import { UtilClipboard } from "./util/util-clipboard";
 import { utilIsString } from "./util/util-is-string";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 

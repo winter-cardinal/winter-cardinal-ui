@@ -4,12 +4,12 @@
  */
 
 import { DAlignHorizontal } from "../../d-align-horizontal";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeDialogConfirmMessage } from "../../d-dialog-confirm-message";
 import { DThemeWhiteImage } from "./d-theme-white-image";
 
 export class DThemeWhiteDialogConfirmMessage extends DThemeWhiteImage implements DThemeDialogConfirmMessage {
-	getWidth(): DCoordinate {
+	getWidth(): DCoordinateSize {
 		return "padding";
 	}
 

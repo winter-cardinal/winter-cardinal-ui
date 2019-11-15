@@ -4,7 +4,7 @@
  */
 
 import { DAlignHorizontal } from "../../d-align-horizontal";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DThemePickerDatetimeButtonDate } from "../../d-picker-datetime-button-date";
 import { DThemeWhiteButtonAmbient } from "./d-theme-white-button-ambient";
 
@@ -19,11 +19,11 @@ export class DThemeWhitePickerDatetimeButtonDate extends DThemeWhiteButtonAmbien
 		return false;
 	}
 
-	getWidth(): DCoordinate {
+	getWidth(): DCoordinateSize {
 		return 30;
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return 30;
 	}
 

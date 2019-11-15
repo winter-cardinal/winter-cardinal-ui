@@ -3,24 +3,24 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeDialogTime } from "../../d-dialog-time";
 import { DThemeWhiteDialogCommand } from "./d-theme-white-dialog-command";
 
 export class DThemeWhiteDialogTime extends DThemeWhiteDialogCommand implements DThemeDialogTime {
-	getWidth(): DCoordinate {
+	getWidth(): DCoordinateSize {
 		return "auto";
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return "auto";
 	}
 
-	getLayoutWidth(): DCoordinate {
+	getLayoutWidth(): DCoordinateSize {
 		return "auto";
 	}
 
-	getLayoutHeight(): DCoordinate {
+	getLayoutHeight(): DCoordinateSize {
 		return "auto";
 	}
 }

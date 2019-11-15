@@ -5,7 +5,7 @@
 
 import { DApplications } from "./d-applications";
 import { DBase } from "./d-base";
-import { DCoordinate } from "./d-coordinate";
+import { DCoordinatePosition, DCoordinateSize } from "./d-coordinate";
 import { DScalarFunctions } from "./d-scalar-functions";
 import { DScalarSet } from "./d-scalar-set";
 import { utilIsNumber } from "./util/util-is-number";
@@ -27,7 +27,7 @@ export class DCoordinateSet {
 		this._autoFlags = AutoFlag.NONE;
 	}
 
-	get x(): DCoordinate {
+	get x(): DCoordinatePosition {
 		const scalarSet = this._scalarSet;
 		if( scalarSet.x != null ) {
 			return scalarSet.x;
@@ -36,7 +36,7 @@ export class DCoordinateSet {
 		}
 	}
 
-	set x( x: DCoordinate ) {
+	set x( x: DCoordinatePosition ) {
 		const base = this._base;
 		if( utilIsNumber( x ) ) {
 			base.x = x;
@@ -50,7 +50,7 @@ export class DCoordinateSet {
 		}
 	}
 
-	get y(): DCoordinate {
+	get y(): DCoordinatePosition {
 		const scalarSet = this._scalarSet;
 		if( scalarSet.y != null ) {
 			return scalarSet.y;
@@ -59,7 +59,7 @@ export class DCoordinateSet {
 		}
 	}
 
-	set y( y: DCoordinate ) {
+	set y( y: DCoordinatePosition ) {
 		const base = this._base;
 		if( utilIsNumber( y ) ) {
 			base.y = y;
@@ -81,7 +81,7 @@ export class DCoordinateSet {
 		return ( this._autoFlags & AutoFlag.WIDTH ) !== 0;
 	}
 
-	get width(): DCoordinate {
+	get width(): DCoordinateSize {
 		const scalarSet = this._scalarSet;
 		if( this.isWidthAuto() ) {
 			return "auto";
@@ -92,10 +92,10 @@ export class DCoordinateSet {
 		}
 	}
 
-	set width( width: DCoordinate ) {
+	set width( width: DCoordinateSize ) {
 		if( utilIsNumber( width ) ) {
 			this._base.width = width;
-		} else if( width === "auto" ) {
+		} else if( width === "auto" || width === "AUTO" ) {
 			if( ! this.isWidthAuto() ) {
 				this.toAutoWidth();
 				const base = this._base;
@@ -120,7 +120,7 @@ export class DCoordinateSet {
 		return ( this._autoFlags & AutoFlag.HEIGHT ) !== 0;
 	}
 
-	get height(): DCoordinate {
+	get height(): DCoordinateSize {
 		const scalarSet = this._scalarSet;
 		if( this.isHeightAuto() ) {
 			return "auto";
@@ -131,10 +131,10 @@ export class DCoordinateSet {
 		}
 	}
 
-	set height( height: DCoordinate ) {
+	set height( height: DCoordinateSize ) {
 		if( utilIsNumber( height ) ) {
 			this._base.height = height;
-		} else if( height === "auto" ) {
+		} else if( height === "auto" || height === "AUTO" ) {
 			if( ! this.isHeightAuto() ) {
 				this.toAutoHeight();
 				const base = this._base;

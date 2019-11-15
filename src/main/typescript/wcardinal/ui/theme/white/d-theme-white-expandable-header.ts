@@ -5,7 +5,7 @@
 
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DThemeExpandableHeader } from "../../d-expandable-header";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
@@ -40,11 +40,11 @@ export class DThemeWhiteExpandableHeader extends DThemeWhiteImage implements DTh
 		return null;
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return 30;
 	}
 
-	getWidth(): DCoordinate {
+	getWidth(): DCoordinateSize {
 		return "padding";
 	}
 

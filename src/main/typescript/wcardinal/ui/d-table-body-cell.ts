@@ -5,11 +5,13 @@
 
 import { DTableColumn } from "./d-table-column";
 
+export interface DTableBodyCellColumnOptions<ROW> {
+	index: number;
+	data: DTableColumn<ROW>;
+}
+
 export interface DTableBodyCellOptions<ROW> {
-	column: {
-		index: number,
-		data: DTableColumn<ROW>
-	};
+	column: DTableBodyCellColumnOptions<ROW>;
 }
 
 export interface DTableBodyCell {

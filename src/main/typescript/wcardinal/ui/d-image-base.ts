@@ -16,28 +16,34 @@ import { DTextBase, DTextBaseOptions, DThemeTextBase } from "./d-text-base";
 import { utilIsFunction } from "./util/util-is-function";
 import { utilIsString } from "./util/util-is-string";
 
-interface DImageBaseTintOptions {
+export interface DImageBaseTintOptions {
 	color?: DStateAwareOrValueMightBe<number | null>;
 	alpha?: DStateAwareOrValueMightBe<number>;
+}
+
+export interface DImageBaseAlignOptions {
+	with?: (keyof typeof DAlignWith) | DAlignWith;
+	vertical?: (keyof typeof DAlignVertical) | DAlignVertical;
+	horizontal?: (keyof typeof DAlignHorizontal) | DAlignHorizontal;
+}
+
+export interface DImageBaseMarginOptions {
+	vertical?: number;
+	horizontal?: number;
+}
+
+export interface DImageBaseImageOptions {
+	source?: DStateAwareOrValueMightBe<Texture | DisplayObject | null>;
+	tint?: DImageBaseTintOptions;
+	align?: DImageBaseAlignOptions;
+	margin?: DImageBaseMarginOptions;
 }
 
 export interface DImageBaseOptions<
 	VALUE,
 	THEME extends DThemeImageBase = DThemeImageBase
 > extends DTextBaseOptions<VALUE, THEME> {
-	image?: {
-		source?: DStateAwareOrValueMightBe<Texture | DisplayObject | null>;
-		tint?: DImageBaseTintOptions,
-		align?: {
-			with?: (keyof typeof DAlignWith) | DAlignWith,
-			vertical?: (keyof typeof DAlignVertical) | DAlignVertical,
-			horizontal?: (keyof typeof DAlignHorizontal) | DAlignHorizontal
-		};
-		margin?: {
-			vertical?: number,
-			horizontal?: number
-		};
-	};
+	image?: DImageBaseImageOptions;
 }
 
 export interface DThemeImageBase extends DThemeTextBase {

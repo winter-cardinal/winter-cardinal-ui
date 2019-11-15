@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
- /**
-  * DBase interactivity.
-  * Mouse / touch events are triggered only on interactive objects.
-  */
+/**
+ * DBase interactivity.
+ * Mouse / touch events are triggered only on interactive objects.
+ */
 export enum DBaseInteractive {
 	/**
 	 * Not interactive.

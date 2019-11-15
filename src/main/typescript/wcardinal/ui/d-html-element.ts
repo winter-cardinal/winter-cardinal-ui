@@ -30,27 +30,35 @@ export enum DHTMLElementWhen {
 	ALWAYS
 }
 
+export interface DHTMLElementElementOptions<ELEMENT, THEME extends DThemeHTMLElement> {
+	creator?: DHTMLElementElementCreator<ELEMENT>;
+	style?: DHTMLElementStyle<THEME>;
+}
+
+export interface DHTMLElementClipperOptions<THEME extends DThemeHTMLElement> {
+	creator?: DHTMLElementElementCreator<HTMLDivElement>;
+	style?: DHTMLElementStyle<THEME>;
+}
+
+export interface DHTMLElementBeforeOptions<THEME extends DThemeHTMLElement> {
+	creator?: DHTMLElementElementCreator<HTMLDivElement>;
+	style?: DHTMLElementStyleBefore<THEME>;
+}
+
+export interface DHTMLElementAfterOptions<THEME extends DThemeHTMLElement> {
+	creator?: DHTMLElementElementCreator<HTMLDivElement>;
+	style?: DHTMLElementStyleAfter<THEME>;
+}
+
 export interface DHTMLElementOptions<
 	VALUE = unknown,
 	ELEMENT extends HTMLElement = HTMLElement,
 	THEME extends DThemeHTMLElement<ELEMENT> = DThemeHTMLElement<ELEMENT>
 > extends DImageBaseOptions<VALUE, THEME> {
-	element?: {
-		creator?: DHTMLElementElementCreator<ELEMENT>;
-		style?: DHTMLElementStyle<THEME>;
-	};
-	clipper?: {
-		creator?: DHTMLElementElementCreator<HTMLDivElement>;
-		style?: DHTMLElementStyle<THEME>;
-	};
-	before?: {
-		creator?: DHTMLElementElementCreator<HTMLDivElement>;
-		style?: DHTMLElementStyleBefore<THEME>;
-	};
-	after?: {
-		creator?: DHTMLElementElementCreator<HTMLDivElement>;
-		style?: DHTMLElementStyleAfter<THEME>;
-	};
+	element?: DHTMLElementElementOptions<ELEMENT, THEME>;
+	clipper?: DHTMLElementClipperOptions<THEME>;
+	before?: DHTMLElementBeforeOptions<THEME>;
+	after?: DHTMLElementAfterOptions<THEME>;
 	when?: DHTMLElementWhen | (keyof typeof DHTMLElementWhen);
 	select?: boolean;
 }

@@ -5,7 +5,7 @@
 
 import { DChartAxisPosition, DChartAxisTickPosition } from "../../d-chart-axis";
 import { DThemeChartAxisBase } from "../../d-chart-axis-base-options";
-import { EShapePointsStyle } from "../../shape";
+import { EShapePointsStyle } from "../../shape/e-shape-points";
 import { EShapeTextAlignHorizontal } from "../../shape/e-shape-text-align-horizontal";
 import { EShapeTextAlignVertical } from "../../shape/e-shape-text-align-vertical";
 import { EShapeTextDirection } from "../../shape/e-shape-text-direction";

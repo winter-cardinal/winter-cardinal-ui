@@ -10,8 +10,8 @@ import { DDiagramCanvasIdMap } from "./d-diagram-canvas-id-map";
 import { DDiagramCanvasTagMap } from "./d-diagram-canvas-tag-map";
 import { EShape } from "./shape/e-shape";
 import { EShapeBase } from "./shape/variant/e-shape-base";
-import { UtilPointerEvent } from "./util";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
+import { UtilPointerEvent } from "./util/util-pointer-event";
 
 export interface DDiagramCanvasOptions<
 	THEME extends DThemeDiagramCanvas = DThemeDiagramCanvas

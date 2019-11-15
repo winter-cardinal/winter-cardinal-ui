@@ -5,7 +5,7 @@
 
 import { DBaseState } from "../../d-base-state";
 import { DBorderMask } from "../../d-border";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DThemeTableBodyCellSelectFetcher } from "../../d-table-body-cell-select-fetcher";
 import { DThemeWhiteButton } from "./d-theme-white-button";
@@ -42,7 +42,7 @@ export class DThemeWhiteTableBodyCellSelectFetcher extends DThemeWhiteButton
 		return DThemeWhiteTableBodyCells.getAlpha( state );
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return DThemeWhiteTableBodyCells.getHeight();
 	}
 

@@ -20,6 +20,10 @@ import { DTableSelection, DTableSelectionType } from "./d-table-selection";
 import { utilIsString } from "./util/util-is-string";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
+export interface DTableBodySelectionOptions {
+	type?: (keyof typeof DTableSelectionType) | DTableSelectionType;
+}
+
 export interface DTableBodyOptions<
 	ROW,
 	THEME extends DThemeTableBody = DThemeTableBody,
@@ -27,9 +31,7 @@ export interface DTableBodyOptions<
 > extends DPaneOptions<THEME, CONTENT_OPTIONS> {
 	columns?: Array<DTableColumn<ROW>>;
 	data?: ROW[];
-	selection?: {
-		type?: (keyof typeof DTableSelectionType) | DTableSelectionType;
-	};
+	selection?: DTableBodySelectionOptions;
 	row?: DTableBodyRowOptions<ROW>;
 	filter?: DTableBodyFilterFunction<ROW> | DTableBodyFilterObject<ROW>;
 }

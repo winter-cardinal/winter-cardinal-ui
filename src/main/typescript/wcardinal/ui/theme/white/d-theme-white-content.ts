@@ -5,11 +5,11 @@
 
 import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseState } from "../../d-base-state";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeWhiteBase } from "./d-theme-white-base";
 
 export class DThemeWhiteContent extends DThemeWhiteBase {
-	getWidth(): DCoordinate {
+	getWidth(): DCoordinateSize {
 		return "100%";
 	}
 

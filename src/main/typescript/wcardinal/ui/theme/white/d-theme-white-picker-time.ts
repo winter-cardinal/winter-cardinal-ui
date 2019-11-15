@@ -4,7 +4,7 @@
  */
 
 import { DBaseInteractive } from "../../d-base-interactive";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DInputIntegerOptions } from "../../d-input-integer";
 import { DPickerDatetimeMask } from "../../d-picker-datetime-mask";
 import { DThemePickerTime } from "../../d-picker-time";
@@ -45,11 +45,11 @@ export class DThemeWhitePickerTime extends DThemeWhiteBase implements DThemePick
 		return DPickerDatetimeMask.HOURS | DPickerDatetimeMask.MINUTES;
 	}
 
-	getWidth(): DCoordinate {
+	getWidth(): DCoordinateSize {
 		return "auto";
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return "auto";
 	}
 

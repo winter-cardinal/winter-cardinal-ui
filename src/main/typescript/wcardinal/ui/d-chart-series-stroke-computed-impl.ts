@@ -1,6 +1,6 @@
 import { DChartSeriesContainer } from "./d-chart-series-container";
 import { DChartSeriesStrokeComputed, DChartSeriesStrokeComputedOptions } from "./d-chart-series-stroke-computed";
-import { EShapePointsStyle } from "./shape";
+import { EShapePointsStyle } from "./shape/e-shape-points";
 import { utilIsString } from "./util/util-is-string";
 
 export class DChartSeriesStrokeComputedImpl implements DChartSeriesStrokeComputed {

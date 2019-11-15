@@ -3,16 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeMenuSidedContent } from "../../d-menu-sided-content";
 import { DThemeWhiteLayoutVertical } from "./d-theme-white-layout-vertical";
 
 export class DThemeWhiteMenuSidedContent extends DThemeWhiteLayoutVertical implements DThemeMenuSidedContent {
-	getWidth(): DCoordinate {
+	getWidth(): DCoordinateSize {
 		return "100%";
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return "auto";
 	}
 

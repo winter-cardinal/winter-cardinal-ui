@@ -11,8 +11,48 @@ import { DCanvas } from "./d-canvas";
 import { DCanvasContainerView, DCanvasContainerViewChecker } from "./d-canvas-container-view";
 import { DDragMode } from "./d-drag-mode";
 import { DMouseModifier } from "./d-mouse-modifier";
-import { UtilDragChecker } from "./util/util-drag";
+import { UtilDragCheckerOptions } from "./util/util-drag";
+import { UtilDragEasingOptions } from "./util/util-drag-easing";
 import { UtilWheelEventDeltas } from "./util/util-wheel-event";
+
+export interface DCanvasContainerDragOptions extends UtilDragEasingOptions {
+	mode?: (keyof typeof DDragMode) | DDragMode;
+	modifier?: (keyof typeof DMouseModifier) | DMouseModifier;
+	checker?: UtilDragCheckerOptions;
+}
+
+export interface DCanvasContainerZoomWheelOptions {
+	enable?: boolean;
+	speed?: number;
+	modifier?: (keyof typeof DMouseModifier) | DMouseModifier;
+	checker?: DCanvasContainerViewChecker;
+}
+
+export interface DCanvasContainerZoomDblClickOptions {
+	enable?: boolean;
+	amount?: number;
+	modifier?: (keyof typeof DMouseModifier) | DMouseModifier;
+	checker?: DCanvasContainerViewChecker;
+	duration?: number;
+}
+
+export interface DCanvasContainerZoomOptions {
+	min?: number;
+	max?: number;
+	wheel?: DCanvasContainerZoomWheelOptions;
+	dblclick?: DCanvasContainerZoomDblClickOptions;
+}
+
+export interface DCanvasContainerTranslationWheelOptions {
+	enable?: boolean;
+	speed?: number;
+	modifier?: (keyof typeof DMouseModifier) | DMouseModifier;
+	checker?: DCanvasContainerViewChecker;
+}
+
+export interface DCanvasContainerTranslationOptions {
+	wheel?: DCanvasContainerTranslationWheelOptions;
+}
 
 export interface DCanvasContainerOptions<
 	CANVAS extends DBase = DCanvas,
@@ -20,43 +60,9 @@ export interface DCanvasContainerOptions<
 > extends DBaseOptions<THEME> {
 	mask?: boolean;
 	canvas?: CANVAS;
-	drag?: {
-		mode?: (keyof typeof DDragMode) | DDragMode;
-		modifier?: (keyof typeof DMouseModifier) | DMouseModifier;
-		checker?: {
-			start?: UtilDragChecker,
-			move?: UtilDragChecker
-		},
-		duration?: number | {
-			position?: number,
-			scale?: number
-		};
-	};
-	zoom?: {
-		min?: number;
-		max?: number;
-		wheel?: {
-			enable?: boolean;
-			speed?: number;
-			modifier?: (keyof typeof DMouseModifier) | DMouseModifier;
-			checker?: DCanvasContainerViewChecker;
-		},
-		dblclick?: {
-			enable?: boolean;
-			amount?: number;
-			modifier?: (keyof typeof DMouseModifier) | DMouseModifier;
-			checker?: DCanvasContainerViewChecker;
-			duration?: number;
-		}
-	};
-	translation?: {
-		wheel?: {
-			enable?: boolean;
-			speed?: number;
-			modifier?: (keyof typeof DMouseModifier) | DMouseModifier;
-			checker?: DCanvasContainerViewChecker;
-		}
-	};
+	drag?: DCanvasContainerDragOptions;
+	zoom?: DCanvasContainerZoomOptions;
+	translation?: DCanvasContainerTranslationOptions;
 }
 
 export interface DThemeCanvasContainer extends DThemeBase {

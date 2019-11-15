@@ -7,7 +7,7 @@ import { DChartCoordinate, DChartCoordinateDirection } from "./d-chart-coordinat
 import { DChartCoordinateContainerSub } from "./d-chart-coordinate-container-sub";
 import { DChartRegion } from "./d-chart-region";
 import { DChartRegionImplObservable } from "./d-chart-region-impl-observable";
-import { DThemes } from "./theme";
+import { DThemes } from "./theme/d-themes";
 import { utilIsNaN } from "./util/util-is-nan";
 
 export interface DThemeChartCoordinateLinear {

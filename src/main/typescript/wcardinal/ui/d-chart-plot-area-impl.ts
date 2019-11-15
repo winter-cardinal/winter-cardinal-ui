@@ -11,7 +11,7 @@ import { DChartCoordinateContainerImpl } from "./d-chart-coordinate-container-im
 import { DChartPlotArea, DChartPlotAreaOptions } from "./d-chart-plot-area";
 import { DChartSeriesContainer } from "./d-chart-series-container";
 import { DChartSeriesContainerImpl } from "./d-chart-series-container-impl";
-import { EShapeContainer } from "./shape";
+import { EShapeContainer } from "./shape/e-shape-container";
 
 export class DChartPlotAreaImpl implements DChartPlotArea {
 	protected _container: EShapeContainer;

@@ -4,7 +4,7 @@
  */
 
 import { DAlignHorizontal } from "../../d-align-horizontal";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeInputLabel } from "../../d-input-label";
 import { DThemeWhiteText } from "./d-theme-white-text";
 
@@ -13,11 +13,11 @@ export class DThemeWhiteInputLabel extends DThemeWhiteText implements DThemeInpu
 		return DAlignHorizontal.RIGHT;
 	}
 
-	getWidth(): DCoordinate {
+	getWidth(): DCoordinateSize {
 		return 60;
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return this.getLineHeight();
 	}
 }

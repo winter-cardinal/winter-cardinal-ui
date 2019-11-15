@@ -6,7 +6,7 @@
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { DBorderMask } from "../../d-border";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { UtilRgb } from "../../util/util-rgb";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
@@ -73,7 +73,7 @@ export class DThemeWhiteTableBodyCells {
 		return -2;
 	}
 
-	static getHeight(): DCoordinate {
+	static getHeight(): DCoordinateSize {
 		return "padding";
 	}
 

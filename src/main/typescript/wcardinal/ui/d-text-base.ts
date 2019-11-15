@@ -16,22 +16,26 @@ import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { utilIsFunction } from "./util/util-is-function";
 import { utilIsString } from "./util/util-is-string";
 
+export interface DTextBaseTextAlignOptions {
+	vertical?: (keyof typeof DAlignVertical) | DAlignVertical;
+	horizontal?: (keyof typeof DAlignHorizontal) | DAlignHorizontal;
+}
+
+export interface DTextBaseTextOptions<VALUE = unknown> {
+	value?: DStateAwareOrValueMightBe<VALUE>;
+	color?: DStateAwareOrValueMightBe<number>;
+	alpha?: DStateAwareOrValueMightBe<number>;
+	style?: DDynamicTextStyleOptions;
+	align?: DTextBaseTextAlignOptions;
+	formatter?: ( value: VALUE, caller: any ) => string;
+	dynamic?: boolean;
+}
+
 export interface DTextBaseOptions<
 	VALUE = unknown,
 	THEME extends DThemeTextBase = DThemeTextBase
 > extends DBaseOptions<THEME> {
-	text?: {
-		value?: DStateAwareOrValueMightBe<VALUE>,
-		color?: DStateAwareOrValueMightBe<number>,
-		alpha?: DStateAwareOrValueMightBe<number>,
-		style?: DDynamicTextStyleOptions,
-		align?: {
-			vertical?: (keyof typeof DAlignVertical) | DAlignVertical,
-			horizontal?: (keyof typeof DAlignHorizontal) | DAlignHorizontal
-		},
-		formatter?: ( value: VALUE, caller: any ) => string;
-		dynamic?: boolean;
-	};
+	text?: DTextBaseTextOptions<VALUE>;
 	mask?: boolean;
 }
 

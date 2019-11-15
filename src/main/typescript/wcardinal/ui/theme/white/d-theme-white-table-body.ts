@@ -4,13 +4,13 @@
  */
 
 import { DBaseState } from "../../d-base-state";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DThemeTableBody } from "../../d-table-body";
 import { DThemeWhitePane } from "./d-theme-white-pane";
 
 export class DThemeWhiteTableBody extends DThemeWhitePane implements DThemeTableBody {
-	getWidth(): DCoordinate {
+	getWidth(): DCoordinateSize {
 		return "100%";
 	}
 

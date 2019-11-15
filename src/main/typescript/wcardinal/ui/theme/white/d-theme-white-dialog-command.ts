@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
 import { DThemeDialogCommand } from "../../d-dialog-command";
 import { DThemeWhiteDialog } from "./d-theme-white-dialog";
 
@@ -16,19 +16,19 @@ export class DThemeWhiteDialogCommand extends DThemeWhiteDialog implements DThem
 		return "Cacnel";
 	}
 
-	getLayoutX(): DCoordinate {
+	getLayoutX(): DCoordinatePosition {
 		return "padding";
 	}
 
-	getLayoutY(): DCoordinate {
+	getLayoutY(): DCoordinatePosition {
 		return "padding";
 	}
 
-	getLayoutWidth(): DCoordinate {
+	getLayoutWidth(): DCoordinateSize {
 		return "padding";
 	}
 
-	getLayoutHeight(): DCoordinate {
+	getLayoutHeight(): DCoordinateSize {
 		return "auto";
 	}
 }

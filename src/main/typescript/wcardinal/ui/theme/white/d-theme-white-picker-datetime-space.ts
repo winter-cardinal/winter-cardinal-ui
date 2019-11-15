@@ -4,7 +4,7 @@
  */
 
 import { DBaseState } from "../../d-base-state";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DThemePickerDatetimeSpace } from "../../d-picker-datetime-space";
 import { DThemeWhiteBase } from "./d-theme-white-base";
 
@@ -17,11 +17,11 @@ export class DThemeWhitePickerDatetimeSpace extends DThemeWhiteBase implements D
 		return null;
 	}
 
-	getWidth(): DCoordinate {
+	getWidth(): DCoordinateSize {
 		return 30;
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return 30;
 	}
 }

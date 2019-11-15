@@ -6,7 +6,7 @@
 import { DisplayObject } from "pixi.js";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
-import { DCoordinate } from "./d-coordinate";
+import { DCoordinateSize } from "./d-coordinate";
 import { DInputInteger, DInputIntegerOptions } from "./d-input-integer";
 import { DLayoutHorizontal } from "./d-layout-horizontal";
 import { DLayoutVertical } from "./d-layout-vertical";
@@ -234,11 +234,11 @@ export class DPickerTime<
 		return null;
 	}
 
-	protected getTimeLayoutWidth(): DCoordinate {
+	protected getTimeLayoutWidth(): DCoordinateSize {
 		return "auto";
 	}
 
-	protected getTimeLayoutHeight(): DCoordinate {
+	protected getTimeLayoutHeight(): DCoordinateSize {
 		return "auto";
 	}
 

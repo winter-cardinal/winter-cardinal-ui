@@ -7,7 +7,7 @@ import { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignWith } from "../../d-align-with";
 import { DBaseState } from "../../d-base-state";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DThemePickerDatetimeButtonNext } from "../../d-picker-datetime-button-next";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteButtonAmbient } from "./d-theme-white-button-ambient";
@@ -20,7 +20,7 @@ DThemeWhiteAtlas.add( "picker_date_next", 24, 24,
 
 export class DThemeWhitePickerDatetimeButtonNext
 	extends DThemeWhiteButtonAmbient implements DThemePickerDatetimeButtonNext {
-	getWidth(): DCoordinate {
+	getWidth(): DCoordinateSize {
 		return "auto";
 	}
 

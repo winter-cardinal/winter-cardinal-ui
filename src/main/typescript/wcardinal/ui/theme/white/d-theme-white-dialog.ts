@@ -5,7 +5,7 @@
 
 import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseState } from "../../d-base-state";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
 import { DDialogCloseOn, DThemeDialog } from "../../d-dialog";
 import { DShadow } from "../../d-shadow";
 import { DThemeWhiteBase } from "./d-theme-white-base";
@@ -40,19 +40,19 @@ export class DThemeWhiteDialog extends DThemeWhiteBase implements DThemeDialog {
 		return 16;
 	}
 
-	getX(): DCoordinate {
+	getX(): DCoordinatePosition {
 		return "center";
 	}
 
-	getY(): DCoordinate {
+	getY(): DCoordinatePosition {
 		return "center";
 	}
 
-	getWidth(): DCoordinate {
+	getWidth(): DCoordinateSize {
 		return 400;
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return "auto";
 	}
 

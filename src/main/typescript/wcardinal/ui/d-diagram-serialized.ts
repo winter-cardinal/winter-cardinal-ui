@@ -5,7 +5,7 @@
 
 import { DDiagramCanvasTileMapping } from "./d-diagram-canvas-mapping";
 
-export const DDiagramSerializedVersion = 1;
+export const DDiagramSerializedVersion: number = 1;
 
 export interface DDiagramSerializedTagRange {
 	[ 0 ]: number; // type
@@ -116,19 +116,23 @@ export interface DDiagramSerializedSnap {
 	[ 2 ]: DDiagramSerializedSnapGrid;
 }
 
+export interface DDiagramSerializedBackground {
+	color?: number | null;
+	alpha?: number;
+}
+
+export interface DDiagramSerializedTile {
+	mapping?: DDiagramCanvasTileMapping;
+}
+
 export interface DDiagramSerialized {
 	version: number;
 	id?: number;
 	name: string;
 	width: number;
 	height: number;
-	background?: {
-		color?: number | null,
-		alpha?: number
-	};
-	tile?: {
-		mapping?: DDiagramCanvasTileMapping;
-	};
+	background?: DDiagramSerializedBackground;
+	tile?: DDiagramSerializedTile;
 	resources: string[];
 	layers: DDiagramSerializedLayer[];
 	items: DDiagramSerializedItem[];

@@ -9,6 +9,7 @@ import { DChartRegionImmutable } from "./d-chart-region";
 import { DChartRegionImpl } from "./d-chart-region-impl";
 import { DChartSeries } from "./d-chart-series";
 import { DChartSeriesContainer } from "./d-chart-series-container";
+import { DChartSeriesCoordinateOptions } from "./d-chart-series-coordinate";
 import {
 	DChartSeriesLinearParameters,
 	DChartSeriesLinearParametersOptions
@@ -18,12 +19,12 @@ import { DChartSeriesStrokeComputedOptions } from "./d-chart-series-stroke-compu
 import { DChartSeriesStrokeComputedImpl } from "./d-chart-series-stroke-computed-impl";
 import { EShapeLine } from "./shape/variant/e-shape-line";
 
+/**
+ * {@link DChartSeriesLinear} options.
+ */
 export interface DChartSeriesLinearOptions extends DChartSeriesLinearParametersOptions {
 	stroke?: DChartSeriesStrokeComputedOptions;
-	coordinate?: {
-		x?: number;
-		y?: number;
-	};
+	coordinate?: DChartSeriesCoordinateOptions;
 }
 
 /**

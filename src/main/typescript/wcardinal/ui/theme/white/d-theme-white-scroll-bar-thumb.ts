@@ -5,7 +5,7 @@
 
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeScrollBarThumb } from "../../d-scroll-bar-thumb";
 import { UtilRgb } from "../../util/util-rgb";
 import { DThemeWhiteBase } from "./d-theme-white-base";
@@ -42,11 +42,11 @@ export class DThemeWhiteScrollBarThumb extends DThemeWhiteBase implements DTheme
 		return 1;
 	}
 
-	getWidth(): DCoordinate {
+	getWidth(): DCoordinateSize {
 		return 13;
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return 13;
 	}
 

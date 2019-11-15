@@ -6,7 +6,7 @@
 import { DisplayObject, Texture } from "pixi.js";
 import { DBaseState } from "../../d-base-state";
 import { DBorderMask } from "../../d-border";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DThemeTableBodyCellSelectMenu } from "../../d-table-body-cell-select-menu";
 import { DThemeWhiteSelect } from "./d-theme-white-select";
@@ -43,7 +43,7 @@ export class DThemeWhiteTableBodyCellSelectMenu extends DThemeWhiteSelect
 		return DThemeWhiteTableBodyCells.getAlpha( state );
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return DThemeWhiteTableBodyCells.getHeight();
 	}
 

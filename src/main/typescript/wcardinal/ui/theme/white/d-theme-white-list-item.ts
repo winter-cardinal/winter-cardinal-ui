@@ -6,7 +6,7 @@
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
-import { DCoordinate } from "../../d-coordinate";
+import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DThemeListItem } from "../../d-list-item";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
@@ -33,11 +33,11 @@ export class DThemeWhiteListItem extends DThemeWhiteImage implements DThemeListI
 		return null;
 	}
 
-	getHeight(): DCoordinate {
+	getHeight(): DCoordinateSize {
 		return 30;
 	}
 
-	getWidth(): DCoordinate {
+	getWidth(): DCoordinateSize {
 		return "padding";
 	}
 
