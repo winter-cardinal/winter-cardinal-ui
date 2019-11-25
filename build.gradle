@@ -1,6 +1,8 @@
 plugins {
 	id 'java'
 	id 'net.minecrell.licenser' version '0.4.1'
+	id "org.springframework.boot" version "2.2.1.RELEASE"
+	id "io.spring.dependency-management" version "1.0.8.RELEASE"
 }
 
 repositories {
@@ -8,9 +10,9 @@ repositories {
 }
 
 dependencies {
-	testImplementation 'org.springframework.boot:spring-boot-starter-websocket:2.0.5.RELEASE'
-	testImplementation 'org.webjars:webjars-locator:0.34'
-	testCompile 'org.springframework.boot:spring-boot-starter-thymeleaf:2.0.5.RELEASE'
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	implementation 'org.webjars:webjars-locator:0.34'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 }
 
 license {
