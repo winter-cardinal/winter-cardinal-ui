@@ -24,6 +24,11 @@ const enum NodeType {
 	MUL,
 	DIV,
 
+	// Functions
+	MIN,
+	MAX,
+	COMMA,
+
 	// Literals
 	PARENT,
 	SELF,
@@ -34,7 +39,8 @@ const enum NodeType {
 
 type NodeTypeOperator = NodeType.SUB_OR_MINUS | NodeType.ADD_OR_PLUS |
 	NodeType.SUB | NodeType.ADD | NodeType.MUL | NodeType.DIV |
-	NodeType.OPEN | NodeType.CLOSE;
+	NodeType.OPEN | NodeType.CLOSE |
+	NodeType.MIN | NodeType.MAX | NodeType.COMMA;
 type NodeTypeLiteral = NodeType.NUMBER | NodeType.PARENT | NodeType.SELF | NodeType.PADDING | NodeType.CURRENT;
 type Token = NodeTypeOperator | [ NodeTypeLiteral, number ];
 
@@ -56,12 +62,17 @@ interface NodeOrTokenArithmetic {
 	[ 2 ]: NodeOrToken;
 }
 
+interface NodeOrTokenFunction {
+	[ 0 ]: NodeType.MIN | NodeType.MAX;
+	[ 1 ]: NodeOrToken[];
+}
+
+type NodeOrToken = Token | NodeOrTokenParensesis | NodeOrTokenUnary | NodeOrTokenArithmetic | NodeOrTokenFunction;
+
 interface NodeLiteral {
 	[ 0 ]: NodeTypeLiteral;
 	[ 1 ]: number;
 }
-
-type NodeOrToken = Token | NodeOrTokenParensesis | NodeOrTokenUnary | NodeOrTokenArithmetic;
 
 interface NodeParensesis {
 	[ 0 ]: NodeType.PARENSESIS;
@@ -79,7 +90,12 @@ interface NodeArithmetic {
 	[ 2 ]: Node;
 }
 
-type Node = NodeParensesis | NodeUnary | NodeArithmetic | NodeLiteral;
+interface NodeFunction {
+	[ 0 ]: NodeType.MIN | NodeType.MAX;
+	[ 1 ]: Node[];
+}
+
+type Node = NodeParensesis | NodeUnary | NodeArithmetic | NodeFunction | NodeLiteral;
 
 const TOKEN_MAPPING_OPERATOR: { [ token: string ]: NodeTypeOperator | undefined } = {
 	"+": NodeType.ADD_OR_PLUS,
@@ -87,7 +103,10 @@ const TOKEN_MAPPING_OPERATOR: { [ token: string ]: NodeTypeOperator | undefined 
 	"*": NodeType.MUL,
 	"/": NodeType.DIV,
 	"(": NodeType.OPEN,
-	")": NodeType.CLOSE
+	")": NodeType.CLOSE,
+	",": NodeType.COMMA,
+	"min": NodeType.MIN,
+	"max": NodeType.MAX
 };
 
 const TOKEN_MAPPING_LITERAL: { [ token: string ]: NodeTypeLiteral | undefined } = {
@@ -115,6 +134,11 @@ const TOKEN_MAPPING_LITERAL: { [ token: string ]: NodeTypeLiteral | undefined } 
  * * `/`
  * * `(` and `)`
  *
+ * Functions
+ *
+ * * min( a, b, ... )
+ * * max( a, b, ... )
+ *
  * Examples
  *
  * * `90%`: 0.9 * parent value
@@ -123,11 +147,15 @@ const TOKEN_MAPPING_LITERAL: { [ token: string ]: NodeTypeLiteral | undefined } 
  * * `90% - (50s + 100) * 2`: 0.9 * parent value - ( 0.5 * self value + 100 ) * 2
  */
 export class DScalarExpression implements DScalar {
+	protected static TOKEN_REGEX = /(?:\+|-|\*|\/|\(|\)|min|max|,|(?:\d+(?:\.\d*)?[%psc]?))/g;
 	protected _node: Node;
 
 	constructor( expression: string ) {
 		const nodes: NodeOrToken[] = this.toToken( expression );
-		this.toParensesis( nodes, 0 );
+		let i = 0;
+		do {
+			i = this.toParensesis( nodes, i );
+		} while( i < nodes.length );
 		this.toUnary( nodes );
 		this.toArithmetic( nodes, NodeType.MUL, NodeType.DIV );
 		this.toArithmetic( nodes, NodeType.ADD, NodeType.SUB );
@@ -141,33 +169,84 @@ export class DScalarExpression implements DScalar {
 		throw new Error( `Failed to parse '${expression}'` );
 	}
 
-	toParensesis( nodes: NodeOrToken[], from: number ): void {
-		for( let i = from, imax = nodes.length; i < imax; ++i ) {
+	toParensesis( nodes: NodeOrToken[], ifrom: number ): number {
+		let ito = nodes.length;
+		for( let i = ifrom; i < ito; ++i ) {
 			const inode = nodes[ i ];
 			if( inode === NodeType.OPEN ) {
-				for( let j = i + 1, jmax = nodes.length; j < jmax; ++j ) {
-					const jnode = nodes[ j ];
-					switch( jnode ) {
-					case NodeType.CLOSE:
-						const operand = nodes.splice( i + 1, j - i );
-						operand.length -= 1;
-						nodes[ i ] = [ NodeType.PARENSESIS, operand ];
-						return;
-					case NodeType.OPEN:
-						this.toParensesis( nodes, j );
-						jmax = nodes.length;
-						break;
+				let istart = i;
+				let nodeType = NodeType.PARENSESIS;
+				if( 0 < i ) {
+					const nodeTypePrev = nodes[ i - 1 ];
+					if( nodeTypePrev === NodeType.MIN || nodeTypePrev === NodeType.MAX ) {
+						istart -= 1;
+						nodeType = nodeTypePrev;
 					}
 				}
-
+				for( let j = i + 1; j < ito; ++j ) {
+					const jnode = nodes[ j ];
+					if( jnode === NodeType.CLOSE ) {
+						nodes[ istart ] = [ nodeType, this.toComma( nodes, i + 1, j ) ];
+						nodes.splice( istart + 1, j - istart );
+						return istart + 1;
+					} else if( jnode === NodeType.OPEN ) {
+						j = this.toParensesis( nodes, j ) - 1;
+						ito = nodes.length;
+					}
+				}
 				throw new Error( `Malformed parensesis` );
 			}
 		}
+		return ito;
+	}
+
+	toCommaOf( nodes: NodeOrToken[], ifrom: number, ito: number ): NodeOrToken {
+		const l = ito - ifrom;
+		if( l <= 0 ) {
+			return [ NodeType.NUMBER, 0 ];
+		} else if( l <= 1 ) {
+			return nodes[ ifrom ];
+		} else {
+			const operand: NodeOrToken[] = [];
+			for( let j = ifrom; j < ito; ++j ) {
+				operand.push( nodes[ j ] );
+			}
+			return [ NodeType.PARENSESIS, operand ];
+		}
+	}
+
+	toComma( nodes: NodeOrToken[], ifrom: number, ito: number ): NodeOrToken[] {
+		let result: NodeOrToken[] | null = null;
+		let iprev = ifrom;
+		for( let i = ifrom; i < ito; ++i ) {
+			const node = nodes[ i ];
+			if( node === NodeType.COMMA ) {
+				result = result || [];
+				result.push( this.toCommaOf( nodes, iprev, i ) );
+				iprev = i + 1;
+			}
+		}
+		if( iprev < ito ) {
+			if( result == null ) {
+				const operand: NodeOrToken[] = [];
+				for( let i = iprev; i < ito; ++i ) {
+					operand.push( nodes[ i ] );
+				}
+				return operand;
+			} else {
+				result.push( this.toCommaOf( nodes, iprev, ito ) );
+			}
+		}
+		return result || [];
 	}
 
 	toUnaryNode( node: NodeOrToken ): void {
-		if( ! utilIsNumber( node ) && node[ 0 ] === NodeType.PARENSESIS ) {
-			this.toUnary( node[ 1 ] );
+		if( ! utilIsNumber( node ) ) {
+			if( node[ 0 ] === NodeType.PARENSESIS ||
+				node[ 0 ] === NodeType.MIN ||
+				node[ 0 ] === NodeType.MAX ) {
+				this.toUnary( node[ 1 ] );
+			}
 		}
 	}
 
@@ -198,7 +277,7 @@ export class DScalarExpression implements DScalar {
 
 	toArithmeticNode( node: NodeOrToken, operatorA: NodeArithmeticOperator, operatorB: NodeArithmeticOperator ): void {
 		if( ! utilIsNumber( node ) ) {
-			if( node[ 0 ] === NodeType.PARENSESIS ) {
+			if( node[ 0 ] === NodeType.PARENSESIS || node[ 0 ] === NodeType.MIN || node[ 0 ] === NodeType.MAX ) {
 				this.toArithmetic( node[ 1 ], operatorA, operatorB );
 			} else if( node[ 0 ] === NodeType.PLUS || node[ 0 ] === NodeType.MINUS ) {
 				this.toArithmeticNode( node[ 1 ], operatorA, operatorB );
@@ -236,10 +315,9 @@ export class DScalarExpression implements DScalar {
 	}
 
 	toToken( expression: string ): Token[] {
-		const tokenRegEx = /(?:\+|-|\*|\/|\(|\)|(?:\d+(?:\.\d*)?[%psc]?))/g;
 		const tokens: Token[] = [];
 		while( true ) {
-			const matched = tokenRegEx.exec( expression );
+			const matched = DScalarExpression.TOKEN_REGEX.exec( expression );
 			if( matched != null ) {
 				const token = matched[ 0 ];
 				const tokenTypeOperator = TOKEN_MAPPING_OPERATOR[ token ];
@@ -268,7 +346,8 @@ export class DScalarExpression implements DScalar {
 	protected evaluate( node: Node, parent: number, self: number, padding: number, current: number ): number {
 		switch( node[ 0 ] ) {
 		case NodeType.PARENSESIS:
-			return this.evaluate( node[ 1 ][ 0 ], parent, self, padding, current );
+			const nodes = node[ 1 ];
+			return this.evaluate( nodes[ nodes.length - 1 ], parent, self, padding, current );
 
 		// Unary operators
 		case NodeType.PLUS:
@@ -290,6 +369,28 @@ export class DScalarExpression implements DScalar {
 		case NodeType.DIV:
 			return this.evaluate( node[ 1 ], parent, self, padding, current ) /
 				this.evaluate( node[ 2 ], parent, self, padding, current );
+
+		// Functions
+		case NodeType.MIN:
+			if( 0 < node[ 1 ].length ) {
+				const args = node[ 1 ];
+				let result = this.evaluate( args[ 0 ], parent, self, padding, current );
+				for( let i = 1, imax = args.length; i < imax; ++i ) {
+					result = Math.min( result, this.evaluate( args[ i ], parent, self, padding, current ) );
+				}
+				return result;
+			}
+			return 0;
+		case NodeType.MAX:
+			if( 0 < node[ 1 ].length ) {
+				const args = node[ 1 ];
+				let result = this.evaluate( args[ 0 ], parent, self, padding, current );
+				for( let i = 1, imax = args.length; i < imax; ++i ) {
+					result = Math.max( result, this.evaluate( args[ i ], parent, self, padding, current ) );
+				}
+				return result;
+			}
+			return 0;
 
 		// Literals
 		case NodeType.PARENT:
