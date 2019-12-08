@@ -4,38 +4,44 @@
  */
 
 import { utils } from "pixi.js";
-
-export enum DTableSelectionType {
-	NONE,
-	SINGLE,
-	MULTIPLE
-}
+import { DTableData } from "./d-table-data";
+import { DTableDataSelection, DTableDataSelectionOptions, DTableDataSelectionType } from "./d-table-data-selection";
+import { utilIsString } from "./util/util-is-string";
 
 const COMPARATOR = ( a: [number, unknown], b: [number, unknown] ): number => {
 	return a[ 0 ] - b[ 0 ];
 };
 
-export class DTableSelection<ROW> extends utils.EventEmitter {
-	protected _type: DTableSelectionType;
-	protected _indices: Set<number>;
-	protected _data: ROW[];
-	protected _onChange: () => void;
+export interface DTableDataSelectionImplParent<ROW> extends DTableData<ROW> {
+	update(): void;
+}
 
-	constructor( type: DTableSelectionType, data: ROW[], onChange: () => void ) {
+export class DTableDataSelectionImpl<ROW> extends utils.EventEmitter implements DTableDataSelection<ROW> {
+	protected _parent: DTableDataSelectionImplParent<ROW>;
+	protected _type: DTableDataSelectionType;
+	protected _indices: Set<number>;
+
+	constructor( parent: DTableDataSelectionImplParent<ROW>, options?: DTableDataSelectionOptions ) {
 		super();
 
-		this._type = type;
+		this._parent = parent;
+		this._type = this.toType( options );
 		this._indices = new Set<number>();
-		this._data = data;
-		this._onChange = onChange;
 	}
 
-	get type(): DTableSelectionType {
+	protected toType( options?: DTableDataSelectionOptions ): DTableDataSelectionType {
+		return ( options && options.type != null ?
+			( utilIsString( options.type ) ? DTableDataSelectionType[ options.type ] : options.type ) :
+			DTableDataSelectionType.NONE
+		);
+	}
+
+	get type(): DTableDataSelectionType {
 		return this._type;
 	}
 
 	protected onChange(): void {
-		this._onChange();
+		this._parent.update();
 		this.emit( "change", this );
 	}
 
@@ -204,11 +210,11 @@ export class DTableSelection<ROW> extends utils.EventEmitter {
 	 * Returns a copy of an array of selected row value.
 	 * The order is an insertion order.
 	 */
-	get rows(): unknown[] {
-		const result: unknown[] = [];
-		const data = this._data;
+	get rows(): ROW[] {
+		const result: ROW[] = [];
+		const parent = this._parent;
 		this._indices.forEach(( index: number ): void => {
-			result.push( data[ index ] );
+			result.push( parent.get( index )! );
 		});
 		return result;
 	}
@@ -217,11 +223,11 @@ export class DTableSelection<ROW> extends utils.EventEmitter {
 	 * Returns an array of the (index, row value) pairs of selected rows.
 	 * The order of pairs is an insertion order.
 	 */
-	toArray(): Array<[ number, unknown ]> {
-		const result: Array<[ number, unknown ]> = [];
-		const data = this._data;
+	toArray(): Array<[ number, ROW ]> {
+		const result: Array<[ number, ROW ]> = [];
+		const parent = this._parent;
 		this._indices.forEach(( index: number ): void => {
-			result.push([ index, data[ index ]]);
+			result.push([ index, parent.get( index )! ]);
 		});
 		return result;
 	}
@@ -229,24 +235,24 @@ export class DTableSelection<ROW> extends utils.EventEmitter {
 	/**
 	 * Returns an sorted array of the (index, row value) pairs of selected rows.
 	 */
-	toSortedArray(): Array<[ number, unknown ]> {
+	toSortedArray(): Array<[ number, ROW ]> {
 		return this.toArray().sort( COMPARATOR );
 	}
 
-	toObject(): {[index: number]: unknown} {
-		const result: {[index: number]: unknown} = {};
-		const data = this._data;
+	toObject(): {[index: number]: ROW} {
+		const result: {[index: number]: ROW} = {};
+		const parent = this._parent;
 		this._indices.forEach(( index: number ): void => {
-			result[ index ] = data[ index ];
+			result[ index ] = parent.get( index )!;
 		});
 		return result;
 	}
 
-	toMap(): Map<number, unknown> {
-		const result: Map<number, unknown> = new Map<number, unknown>();
-		const data = this._data;
+	toMap(): Map<number, ROW> {
+		const result: Map<number, ROW> = new Map<number, ROW>();
+		const parent = this._parent;
 		this._indices.forEach(( index: number ): void => {
-			result.set( index, data[ index ] );
+			result.set( index, parent.get( index )! );
 		});
 		return result;
 	}

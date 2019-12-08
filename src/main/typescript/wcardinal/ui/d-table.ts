@@ -14,7 +14,9 @@ import {
 	DTableColumnSelecting, DTableColumnSelectingOptions, DTableColumnType, DTableEditingUnformatter,
 	DTableGetter, DTableSelectingGetter, DTableSetter
 } from "./d-table-column";
+import { DTableData, DTableDataOptions } from "./d-table-data";
 import { DTableHeader, DTableHeaderOptions, DThemeTableHeader } from "./d-table-header";
+import { utilIsArray } from "./util";
 import { utilIsString } from "./util/util-is-string";
 import { utilToString } from "./util/util-to-string";
 
@@ -22,7 +24,7 @@ export interface DTableOptions<ROW, THEME extends DThemeTable = DThemeTable> ext
 	columns: Array<DTableColumnOptions<ROW>>;
 	header?: DTableHeaderOptions<ROW>;
 	body?: DTableBodyOptions<ROW>;
-	data?: ROW[];
+	data?: ROW[] | DTableDataOptions<ROW> | DTableData<ROW>;
 }
 
 export interface DThemeTable extends DThemeLayoutVertical {
@@ -176,11 +178,17 @@ const toHeaderOptions = <ROW, THEME extends DThemeTableHeader>(
 const toBodyOptions = <ROW, THEME extends DThemeTableBody>(
 	options: DTableBodyOptions<ROW, THEME> | undefined,
 	columns: Array<DTableColumn<ROW>>,
-	data: ROW[] | undefined
+	data: ROW[] | DTableDataOptions<ROW> | DTableData<ROW> | undefined
 ): DTableBodyOptions<ROW, THEME> => {
 	if( options != null ) {
 		if( options.data === undefined && data !== undefined ) {
-			options.data = data;
+			if( utilIsArray( data ) ) {
+				options.data = {
+					rows: data
+				};
+			} else {
+				options.data = data;
+			}
 		}
 		if( options.columns === undefined ) {
 			options.columns = columns;
@@ -190,11 +198,21 @@ const toBodyOptions = <ROW, THEME extends DThemeTableBody>(
 		}
 		return options as DTableBodyOptions<ROW, THEME>;
 	}
-	return {
-		columns,
-		data,
-		weight: 1
-	};
+	if( utilIsArray( data ) ) {
+		return {
+			columns,
+			data: {
+				rows: data
+			},
+			weight: 1
+		};
+	} else {
+		return {
+			columns,
+			data,
+			weight: 1
+		};
+	}
 };
 
 export class DTable<
@@ -241,5 +259,9 @@ export class DTable<
 
 	get body(): DTableBody<ROW> {
 		return this._body;
+	}
+
+	get data(): DTableData<ROW> {
+		return this._body.data;
 	}
 }

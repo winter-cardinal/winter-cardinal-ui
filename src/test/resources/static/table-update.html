@@ -29,8 +29,8 @@
 		const application = new wcardinal.ui.DApplication();
 
 		// Data
-		var data = [];
-		for( var i = 0; i < 20000; ++i ) {
+		const data = [];
+		for( let i = 0; i < 20000; ++i ) {
 			data.push([
 				i % 3 === 0
 			]);
@@ -61,7 +61,7 @@
 				on: {
 					init: ( self ) => {
 						button.on( "active", () => {
-							const rows = self.rows;
+							const rows = self.data.rows;
 							if( 0 < rows.length ) {
 								const checked = ! rows[ 0 ][ 0 ];
 								for( let i = 0, imax = rows.length; i < imax; ++i ) {

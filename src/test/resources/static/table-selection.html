@@ -28,10 +28,10 @@
 
 		const application = new wcardinal.ui.DApplication();
 
-		// Data
-		var data = [];
-		for( var i = 0; i < 150; ++i ) {
-			data.push([
+		// Rows
+		const rows = [];
+		for( let i = 0; i < 150; ++i ) {
+			rows.push([
 				undefined,
 				`B${i}`,
 				i,
@@ -71,8 +71,8 @@
 				type: "CHECK",
 				editable: true
 			}],
-			data: data,
-			body: {
+			data: {
+				rows: rows,
 				selection: {
 					type: "MULTIPLE"
 				},

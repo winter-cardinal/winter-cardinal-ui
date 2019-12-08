@@ -28,10 +28,10 @@
 
 		const application = new wcardinal.ui.DApplication();
 
-		// Data
-		var data = [];
-		for( var i = 0; i < 15000; ++i ) {
-			data.push([
+		// Rows
+		const rows = [];
+		for( let i = 0; i < 15000; ++i ) {
+			rows.push([
 				"A" + i,
 				i % 2 === 1,
 				"C" + (i % 2),
@@ -112,14 +112,14 @@
 				editable: true,
 				formatter: () => ""
 			}],
-			data: data,
-			body: {
+			data: {
+				rows: rows,
 				selection: {
 					type: "NONE"
 				},
 				on: {
-					change: ( value, rowIndex, columnIndex, values, body ) => {
-						console.log( value, rowIndex, columnIndex, values, body );
+					change: ( value, rowIndex, columnIndex, values, data ) => {
+						console.log( value, rowIndex, columnIndex, values, data );
 					}
 				}
 			}

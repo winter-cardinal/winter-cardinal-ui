@@ -45,25 +45,23 @@
 				type: "DATE",
 				editable: true
 			}],
-			body: {
+			data: {
 				selection: {
 					type: "NONE"
 				},
 				on: {
-					change: ( value, rowIndex, columnIndex, values, body ) => {
-						console.log( value, rowIndex, columnIndex, values, body );
+					init: ( self ) => {
+						setInterval(() => {
+							const c = Date.now();
+							const d = (c / 1000) | 0;
+							const a = String.fromCharCode( d, d + 1, d + 2, d + 3 );
+							const b = ( d % 10 ) < 5;
+							self.add([ a, b, c ]);
+						}, 500);
+					},
+					change: ( value, rowIndex, columnIndex, values, data ) => {
+						console.log( value, rowIndex, columnIndex, values, data );
 					}
-				}
-			},
-			on: {
-				init: ( self ) => {
-					setInterval(() => {
-						const c = Date.now();
-						const d = (c / 1000) | 0;
-						const a = String.fromCharCode( d, d + 1, d + 2, d + 3 );
-						const b = ( d % 10 ) < 5;
-						self.body.add([ a, b, c ]);
-					}, 500);
 				}
 			}
 		});
