@@ -4,6 +4,7 @@
  */
 
 import { IPoint } from "pixi.js";
+import { DChart } from "./d-chart";
 import { DChartAxisContainer, DChartAxisContainerOptions } from "./d-chart-axis-container";
 import { DChartCoordinateContainer, DChartCoordinateContainerOptions } from "./d-chart-coordinate-container";
 import { DChartSeriesContainer, DChartSeriesContainerOptions } from "./d-chart-series-container";
@@ -25,6 +26,7 @@ export interface DChartPlotAreaOptions {
 }
 
 export interface DChartPlotArea {
+	readonly chart: DChart;
 	readonly series: DChartSeriesContainer;
 	readonly coordinate: DChartCoordinateContainer;
 	readonly container: EShapeContainer;

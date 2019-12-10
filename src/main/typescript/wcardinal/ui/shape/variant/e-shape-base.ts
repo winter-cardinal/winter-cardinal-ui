@@ -28,6 +28,7 @@ import { EShapeUploaded } from "../e-shape-uploaded";
 import { EShapeGradients } from "./e-shape-gradients";
 
 export abstract class EShapeBase extends utils.EventEmitter implements EShape {
+	protected static WORK_RECT = new Rectangle();
 	id: string;
 	readonly type: EShapeType;
 	abstract readonly size: IPoint;
@@ -351,7 +352,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	}
 
 	// Hit test
-	contains( point: Point ): EShape | null {
+	toLocalRect( point: IPoint, result: Rectangle ): Rectangle {
 		const x = point.x;
 		const y = point.y;
 		const size = this.size;
@@ -364,31 +365,43 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		const s = stroke.width * stroke.align;
 		if( 0 <= sx ) {
 			if( 0 <= sy ) {
-				if( this.containsAbs(+dx, +dy, +sx + s, +sy + s) ) {
-					return this;
-				}
+				result.x = +dx;
+				result.y = +dy;
+				result.width = +sx + s;
+				result.height = +sy + s;
 			} else {
-				if( this.containsAbs(+dx, -dy, +sx + s, -sy + s) ) {
-					return this;
-				}
+				result.x = +dx;
+				result.y = -dy;
+				result.width = +sx + s;
+				result.height = -sy + s;
 			}
 		} else {
 			if( 0 <= sy ) {
-				if( this.containsAbs(-dx, +dy, -sx + s, +sy + s) ) {
-					return this;
-				}
+				result.x = -dx;
+				result.y = +dy;
+				result.width = -sx + s;
+				result.height = +sy + s;
 			} else {
-				if( this.containsAbs(-dx, -dy, -sx + s, -sy + s) ) {
-					return this;
-				}
+				result.x = -dx;
+				result.y = -dy;
+				result.width = -sx + s;
+				result.height = -sy + s;
 			}
 		}
-
-		return this.containsText( x, y, point ) ||
-			this.containsChildren( x, y, point );
+		return result;
 	}
 
-	protected containsText( x: number, y: number, work: Point ): EShape | null {
+	contains( point: IPoint ): EShape | null {
+		const rect = this.toLocalRect( point, EShapeBase.WORK_RECT );
+		if( this.containsAbs( rect.x, rect.y, rect.width, rect.height ) ) {
+			return this;
+		}
+		const x = point.x;
+		const y = point.y;
+		return this.containsText( x, y, point ) || this.containsChildren( x, y, point );
+	}
+
+	protected containsText( x: number, y: number, work: IPoint ): EShape | null {
 		const text = this.text;
 		const textAtlas = text.atlas;
 		if( textAtlas != null ) {
@@ -408,7 +421,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		return null;
 	}
 
-	protected containsChildren( x: number, y: number, work: Point ): EShape | null {
+	protected containsChildren( x: number, y: number, work: IPoint ): EShape | null {
 		const children = this.children;
 		for( let i = children.length - 1; 0 <= i; --i ) {
 			const child = children[ i ];
@@ -427,30 +440,9 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		return null;
 	}
 
-	containsBBox( point: Point ): boolean {
-		const x = point.x;
-		const y = point.y;
-		const size = this.size;
-		const sx = 0.5 * size.x;
-		const sy = 0.5 * size.y;
-		const pivot = this.transform.pivot;
-		const dx = x - pivot.x;
-		const dy = y - pivot.y;
-		const stroke = this.stroke;
-		const s = stroke.width * stroke.align;
-		if( 0 <= sx ) {
-			if( 0 <= sy ) {
-				return this.containsAbsBBox(+dx, +dy, +sx + s, +sy + s);
-			} else {
-				return this.containsAbsBBox(+dx, -dy, +sx + s, -sy + s);
-			}
-		} else {
-			if( 0 <= sy ) {
-				return this.containsAbsBBox(-dx, +dy, -sx + s, +sy + s);
-			} else {
-				return this.containsAbsBBox(-dx, -dy, -sx + s, -sy + s);
-			}
-		}
+	containsBBox( point: IPoint ): boolean {
+		const rect = this.toLocalRect( point, EShapeBase.WORK_RECT );
+		return this.containsAbsBBox( rect.x, rect.y, rect.width, rect.height );
 	}
 
 	containsAbs( x: number, y: number, ax: number, ay: number ): boolean {

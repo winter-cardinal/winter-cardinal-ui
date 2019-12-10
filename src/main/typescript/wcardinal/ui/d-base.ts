@@ -586,13 +586,13 @@ export class DBase<
 		// Transform
 		const transform: Transform = this._transform = this.transform;
 		this._position = new DBasePoint( transform.position, (): void => {
-			this.onMove();
+			this.onPositionChanged();
 		});
 		this._scale = new DBasePoint( transform.scale, (): void => {
-			this.onScale();
+			this.onScaleChanged();
 		});
 		this._skew = new DBasePoint( transform.skew, (): void => {
-			this.onSkew();
+			this.onSkewChanged();
 		});
 
 		//
@@ -688,9 +688,9 @@ export class DBase<
 		this.interactiveChildren = ( ( interactive & DBaseInteractive.CHILDREN ) !== 0 );
 
 		// Events
-		if( options != null ) {
+		if( options ) {
 			const on = options.on;
-			if( on != null ) {
+			if( on ) {
 				for( const name in on ) {
 					this.on( name, on[ name ] );
 				}
@@ -714,17 +714,11 @@ export class DBase<
 
 		// Event handlers
 		this.on( UtilPointerEvent.over, ( e: InteractionEvent ): void => {
-			// Hover
-			this.setHovered( true );
-
-			// Title
-			if( e.target === this ) {
-				this.applyTitle();
-			}
+			this.onOver( e );
 		});
 
-		this.on( UtilPointerEvent.out, (): void => {
-			this.setHovered( false );
+		this.on( UtilPointerEvent.out, ( e: InteractionEvent ): void => {
+			this.onOut( e );
 		});
 
 		this.on( UtilPointerEvent.down, ( e: InteractionEvent ): void => {
@@ -865,7 +859,7 @@ export class DBase<
 		return this._weight;
 	}
 
-	onMove(): void {
+	protected onPositionChanged(): void {
 		this.moveChildren();
 		DApplications.update( this );
 		this.emit( "move", this );
@@ -927,12 +921,12 @@ export class DBase<
 		this.emit( "resize", newWidth, newHeight, oldWidth, oldHeight, this );
 	}
 
-	onScale(): void {
+	protected onScaleChanged(): void {
 		DApplications.update( this );
 		this.emit( "scale", this );
 	}
 
-	onSkew(): void {
+	protected onSkewChanged(): void {
 		DApplications.update( this );
 		this.emit( "skew", this );
 	}
@@ -1496,8 +1490,8 @@ export class DBase<
 	}
 
 	protected onReflow(): void {
-		const width = this.width;
-		const height = this.height;
+		const width = this._width;
+		const height = this._height;
 		const reflowables = this._reflowables;
 		for( let i = 0, imax = reflowables.length; i < imax; ++i ) {
 			reflowables[ i ].onReflow( this, width, height );
@@ -1568,14 +1562,14 @@ export class DBase<
 		this.resize( newWidth, newHeight );
 
 		// X & Y
-		const newX = ( scalarSet.x != null ? scalarSet.x( parentWidth, this.width, parentPadding.getLeft(), x ) : x );
-		const newY = ( scalarSet.y != null ? scalarSet.y( parentHeight, this.height, parentPadding.getTop(), y ) : y );
+		const newX = ( scalarSet.x != null ? scalarSet.x( parentWidth, this._width, parentPadding.getLeft(), x ) : x );
+		const newY = ( scalarSet.y != null ? scalarSet.y( parentHeight, this._height, parentPadding.getTop(), y ) : y );
 		this.position.set( newX, newY );
 	}
 
 	resizeChildren(): void {
-		const width = this.width;
-		const height = this.height;
+		const width = this._width;
+		const height = this._height;
 		const padding = this._padding;
 
 		const children = this.children;
@@ -1650,6 +1644,22 @@ export class DBase<
 		}
 	}
 
+	// Over
+	protected onOver( e: InteractionEvent ): void {
+		// Hover
+		this.setHovered( true );
+
+		// Title
+		if( e.target === this ) {
+			this.applyTitle();
+		}
+	}
+
+	// Out
+	protected onOut( e: InteractionEvent ): void {
+		this.setHovered( false );
+	}
+
 	// Double click
 	onDblClick( e: MouseEvent | TouchEvent, interactionManager: interaction.InteractionManager ): boolean {
 		this.emit( "dblclick", e, interactionManager, this );
@@ -1721,8 +1731,8 @@ export class DBase<
 
 	protected containsLocalPoint( point: Point ): boolean {
 		return (
-			0 <= point.x && point.x <= this.width &&
-			0 <= point.y && point.y <= this.height
+			0 <= point.x && point.x <= this._width &&
+			0 <= point.y && point.y <= this._height
 		);
 	}
 

@@ -16,16 +16,20 @@ export interface DThemeChartCoordinateLinear {
 	toStepScale( scale: number ): number;
 }
 
+export interface DChartCoordinateLinearDomainOptions {
+	from?: number;
+	to?: number;
+}
+
+export interface DChartCoordinateLinearRangeOptions {
+	from?: number;
+	to?: number;
+}
+
 export interface DChartCoordinateLinearOptions {
 	padding?: number;
-	domain?: {
-		from?: number;
-		to?: number;
-	};
-	range?: {
-		from?: number;
-		to?: number;
-	};
+	domain?: DChartCoordinateLinearDomainOptions;
+	range?: DChartCoordinateLinearRangeOptions;
 	theme?: DThemeChartCoordinateLinear;
 }
 
@@ -46,21 +50,35 @@ export class DChartCoordinateLinear implements DChartCoordinate {
 	protected _theme: DThemeChartCoordinateLinear;
 
 	constructor( options?: DChartCoordinateLinearOptions ) {
+		this._id = 0;
+
+		// Direction
+		this._direction = DChartCoordinateDirection.X;
+
+		// Theme
 		const theme = ( options && options.theme ) || this.getThemeDefault();
 		this._theme = theme;
-		this._id = 0;
-		this._padding = ( options && options.padding != null ? options.padding : theme.getPadding() );
-		this._direction = DChartCoordinateDirection.X;
-		const domainFrom = ( options && options.domain && options.domain.from != null ? options.domain.from : 0 );
-		const domainTo = ( options && options.domain && options.domain.to != null ? options.domain.to : 1 );
+
+		// Padding
+		const padding = options && options.padding;
+		this._padding = ( padding != null ? padding : theme.getPadding() );
+
+		// Domain
+		const domain = options && options.domain;
+		const domainFrom = ( domain && domain.from != null ? domain.from : 0 );
+		const domainTo = ( domain && domain.to != null ? domain.to : 1 );
 		this._domain = new DChartRegionImplObservable( domainFrom, domainTo, (): void => {
 			this.onRegionChange();
 		});
-		const rangeFrom = ( options && options.range && options.range.from != null ? options.range.from : 0 );
-		const rangeTo = ( options && options.range && options.range.to != null ? options.range.to : 1 );
+
+		// Range
+		const range = options && options.range;
+		const rangeFrom = ( range && range.from != null ? range.from : 0 );
+		const rangeTo = ( range && range.to != null ? range.to : 1 );
 		this._range = new DChartRegionImplObservable( rangeFrom, rangeTo, (): void => {
 			this.onRegionChange();
 		});
+
 		this.onRegionChange();
 	}
 

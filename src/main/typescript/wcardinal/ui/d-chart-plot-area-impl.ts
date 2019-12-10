@@ -4,6 +4,7 @@
  */
 
 import { IPoint, Point } from "pixi.js";
+import { DChart } from "./d-chart";
 import { DChartAxisContainer } from "./d-chart-axis-container";
 import { DChartAxisContainerImpl } from "./d-chart-axis-container-impl";
 import { DChartCoordinateContainer } from "./d-chart-coordinate-container";
@@ -14,13 +15,15 @@ import { DChartSeriesContainerImpl } from "./d-chart-series-container-impl";
 import { EShapeContainer } from "./shape/e-shape-container";
 
 export class DChartPlotAreaImpl implements DChartPlotArea {
+	protected _chart: DChart;
 	protected _container: EShapeContainer;
 	protected _series: DChartSeriesContainerImpl;
 	protected _coordinate: DChartCoordinateContainer;
 	protected _size: Point;
 	protected _axis: DChartAxisContainerImpl;
 
-	constructor( options?: DChartPlotAreaOptions ) {
+	constructor( chart: DChart, options?: DChartPlotAreaOptions ) {
+		this._chart = chart;
 		this._size = new Point(
 			options && options.width != null ? options.width : 100,
 			options && options.height != null ? options.height : 100
@@ -33,6 +36,10 @@ export class DChartPlotAreaImpl implements DChartPlotArea {
 
 	get coordinate(): DChartCoordinateContainer {
 		return this._coordinate;
+	}
+
+	get chart(): DChart {
+		return this._chart;
 	}
 
 	get series(): DChartSeriesContainer {

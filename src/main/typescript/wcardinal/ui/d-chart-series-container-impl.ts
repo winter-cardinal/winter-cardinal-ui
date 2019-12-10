@@ -3,27 +3,41 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { IPoint } from "pixi.js";
 import { DChartPlotArea } from "./d-chart-plot-area";
 import { DChartRegion } from "./d-chart-region";
 import { DChartRegionImpl } from "./d-chart-region-impl";
 import { DChartSeries } from "./d-chart-series";
 import { DChartSeriesContainer, DChartSeriesContainerOptions } from "./d-chart-series-container";
+import { DChartSeriesSelection } from "./d-chart-series-selection";
+import { DChartSeriesSelectionShape } from "./d-chart-series-selection-shape";
 import { DChartSeriesStroke } from "./d-chart-series-stroke";
 import { DChartSeriesStrokeImpl } from "./d-chart-series-stroke-impl";
+import { EShapeLineHitResult } from "./shape/variant/e-shape-line-hit-result";
 import { utilIsNumber } from "./util/util-is-number";
 
 export class DChartSeriesContainerImpl implements DChartSeriesContainer {
+	protected static WORK_SELECT: EShapeLineHitResult = new EShapeLineHitResult();
+
 	protected _plotArea: DChartPlotArea;
 	protected _list: DChartSeries[];
 	protected _domain: DChartRegionImpl;
 	protected _range: DChartRegionImpl;
 	protected _stroke: DChartSeriesStrokeImpl;
+	protected _selection: DChartSeriesSelection | null;
 
 	constructor( plotArea: DChartPlotArea, options?: DChartSeriesContainerOptions ) {
 		this._plotArea = plotArea;
 		this._domain = new DChartRegionImpl( NaN, NaN );
 		this._range = new DChartRegionImpl( NaN, NaN );
 		this._stroke = new DChartSeriesStrokeImpl( options && options.stroke );
+		const selection = (options && options.selection !== undefined ?
+			options.selection : new DChartSeriesSelectionShape()
+		);
+		this._selection = selection;
+		if( selection ) {
+			selection.bind( this );
+		}
 
 		this._list = [];
 		const list = options && options.list;
@@ -46,10 +60,18 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 		return this._stroke;
 	}
 
+	get selection(): DChartSeriesSelection | null {
+		return this._selection;
+	}
+
 	update(): void {
 		const list = this._list;
 		for( let i = 0, imax = list.length; i < imax; ++i ) {
 			list[ i ].update();
+		}
+		const selection = this._selection;
+		if( selection ) {
+			selection.update();
 		}
 	}
 
@@ -111,6 +133,10 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 
 	destroy(): void {
 		this.clear();
+		const selection = this._selection;
+		if( selection ) {
+			selection.unbind();
+		}
 	}
 
 	get domain(): DChartRegion {
@@ -137,5 +163,44 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 		}
 
 		return result;
+	}
+
+	hitTest( global: IPoint ): DChartSeries | null {
+		const list = this._list;
+		for( let i = list.length - 1; 0 <= i; --i ) {
+			const series = list[ i ];
+			if( series.hitTest( global ) ) {
+				return series;
+			}
+		}
+		return null;
+	}
+
+	calcHitX(
+		global: IPoint,
+		thresholdScale: number, thresholdMinimum: number,
+		result: EShapeLineHitResult
+	): DChartSeries | null {
+		const list = this._list;
+		for( let i = list.length - 1; 0 <= i; --i ) {
+			const series = list[ i ];
+			if( series.calcHitX( global, thresholdScale, thresholdMinimum, result ) ) {
+				return series;
+			}
+		}
+		return null;
+	}
+
+	select( global: IPoint ): void {
+		const selection = this._selection;
+		if( selection ) {
+			const result = DChartSeriesContainerImpl.WORK_SELECT;
+			const series = this.calcHitX( global, 2, 6, result );
+			if( series ) {
+				selection.set( series, result );
+			} else {
+				selection.unset();
+			}
+		}
 	}
 }

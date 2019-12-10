@@ -4,7 +4,6 @@
  */
 
 import { DisplayObject, IPoint, Point, Renderer } from "pixi.js";
-import { DApplications } from "../d-applications";
 import { DynamicAtlas } from "../util/dynamic-atlas";
 import { DynamicSDFFontAtlases } from "../util/dynamic-sdf-font-atlases";
 import { EShape } from "./e-shape";

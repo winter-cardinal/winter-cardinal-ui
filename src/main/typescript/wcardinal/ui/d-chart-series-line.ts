@@ -3,82 +3,57 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { IPoint, Point } from "pixi.js";
 import { DApplications } from "./d-applications";
+import { DBaseStates } from "./d-base-states";
 import { DChartCoordinate } from "./d-chart-coordinate";
-import { DChartRegionImmutable } from "./d-chart-region";
-import { DChartRegionImpl } from "./d-chart-region-impl";
-import { DChartSeries } from "./d-chart-series";
+import { DChartSeriesBase, DChartSeriesBaseOptions } from "./d-chart-series-base";
 import { DChartSeriesContainer } from "./d-chart-series-container";
-import { DChartSeriesCoordinateOptions } from "./d-chart-series-coordinate";
-import { DChartSeriesStrokeComputedOptions } from "./d-chart-series-stroke-computed";
+import { DChartSeriesStrokeComputed, DChartSeriesStrokeComputedOptions } from "./d-chart-series-stroke-computed";
 import { DChartSeriesStrokeComputedImpl } from "./d-chart-series-stroke-computed-impl";
 import { EShapeLine } from "./shape/variant/e-shape-line";
+import { EShapeLineHitResult } from "./shape/variant/e-shape-line-hit-result";
 
 /**
  * {@link DChartSeriesLine} options.
  */
-export interface DChartSeriesLineOptions {
+export interface DChartSeriesLineOptions extends DChartSeriesBaseOptions {
 	points?: Array<number | null>;
 	stroke?: DChartSeriesStrokeComputedOptions;
-	coordinate?: DChartSeriesCoordinateOptions;
 }
 
 /**
  * A series represents a polyline.
  */
-export class DChartSeriesLine implements DChartSeries {
-	protected _line?: EShapeLine;
-	protected _coordinateIndexX: number;
-	protected _coordinateIndexY: number;
-
+export class DChartSeriesLine extends DChartSeriesBase {
+	protected static WORK: Point = new Point();
+	protected _line: EShapeLine | null;
+	protected _lineStrokeOptions?: DChartSeriesStrokeComputedOptions;
 	protected _points: Array<number | null>;
 	protected _pointId: number;
 	protected _pointIdUpdated: number;
-
-	protected _coordinateIdUpdatedX: number;
-	protected _coordinateIdUpdatedY: number;
-
-	protected _container?: DChartSeriesContainer;
-
-	protected _domain: DChartRegionImpl;
-	protected _range: DChartRegionImpl;
-	protected _regionPointId: number;
-
-	protected _options?: DChartSeriesLineOptions;
+	protected _stroke?: DChartSeriesStrokeComputed;
 
 	constructor( options?: DChartSeriesLineOptions ) {
-		const coordinate = options && options.coordinate;
-		this._coordinateIndexX = ( coordinate && coordinate.x != null ? coordinate.x : 0 );
-		this._coordinateIndexY = ( coordinate && coordinate.y != null ? coordinate.y : 0 );
-
+		super( options );
+		this._line = null;
+		this._lineStrokeOptions = options && options.stroke;
 		this._points = (options && options.points) || [];
 		this._pointId = 0;
 		this._pointIdUpdated = NaN;
-
-		this._coordinateIdUpdatedX = NaN;
-		this._coordinateIdUpdatedY = NaN;
-
-		this._domain = new DChartRegionImpl( NaN, NaN );
-		this._range = new DChartRegionImpl( NaN, NaN );
-		this._regionPointId = NaN;
-
-		this._options = options;
 	}
 
 	bind( container: DChartSeriesContainer, index: number ): void {
 		let line = this._line;
 		if( ! line ) {
-			const options = this._options;
-			const stroke = DChartSeriesStrokeComputedImpl.from( container, index, options && options.stroke );
+			const stroke = this._stroke = DChartSeriesStrokeComputedImpl.from( container, index, this._lineStrokeOptions );
 			line = this._line = new EShapeLine([], [], stroke.width, stroke.style);
 			line.stroke.color = stroke.color;
 			line.stroke.alpha = stroke.alpha;
 		}
-		this._container = container;
 		line.attach( container.plotArea.container, index );
 		this._pointIdUpdated = NaN;
-		this._coordinateIdUpdatedX = NaN;
-		this._coordinateIdUpdatedY = NaN;
+		super.bind( container, index );
 	}
 
 	unbind(): void {
@@ -86,7 +61,11 @@ export class DChartSeriesLine implements DChartSeries {
 		if( line ) {
 			line.detach();
 		}
-		this._container = undefined;
+		super.unbind();
+	}
+
+	get shape(): EShapeLine | null {
+		return this._line;
 	}
 
 	get points(): Array<number | null> {
@@ -104,24 +83,20 @@ export class DChartSeriesLine implements DChartSeries {
 
 	update(): void {
 		const line = this._line;
-		const container = this._container;
-		if( line && container ) {
-			const plotArea = container.plotArea;
-			const coordinate = plotArea.coordinate;
-			const coordinateX = coordinate.x.get( this._coordinateIndexX );
-			const coordinateY = coordinate.y.get( this._coordinateIndexY );
+		if( line ) {
+			const coordinate = this._coordinate;
+			const coordinateX = coordinate.x;
+			const coordinateY = coordinate.y;
 			if( coordinateX && coordinateY ) {
-				const coordinateIdX = coordinateX.id;
-				const coordinateIdY = coordinateY.id;
-
 				const pointId = this._pointId;
 				const isPointChanged = ( pointId !== this._pointIdUpdated );
-				const isCoordinateXChanged = ( coordinateIdX !== this._coordinateIdUpdatedX );
-				const isCoordinateYChanged = ( coordinateIdY !== this._coordinateIdUpdatedY );
-				if( isPointChanged || isCoordinateXChanged || isCoordinateYChanged ) {
+
+				const coordinateIdX = coordinateX.id;
+				const coordinateIdY = coordinateY.id;
+				const isCoordinateChanged = coordinate.isDirty( coordinateIdX, coordinateIdY );
+				if( isPointChanged || isCoordinateChanged ) {
 					this._pointIdUpdated = pointId;
-					this._coordinateIdUpdatedX = coordinateIdX;
-					this._coordinateIdUpdatedY = coordinateIdY;
+					coordinate.toClean( coordinateIdX, coordinateIdY );
 					this.updateLine( line, coordinateX, coordinateY );
 				}
 			}
@@ -140,6 +115,10 @@ export class DChartSeriesLine implements DChartSeries {
 		let ivalues = 0;
 		let isegments = 0;
 		const points = this._points;
+		let xmin = NaN;
+		let xmax = NaN;
+		let ymin = NaN;
+		let ymax = NaN;
 		for( let i = 0, imax = points.length; i < imax; i += 2 ) {
 			const xraw = points[ i ];
 			const yraw = points[ i + 1 ];
@@ -153,6 +132,17 @@ export class DChartSeriesLine implements DChartSeries {
 					values.push( x, y );
 				}
 				ivalues += 2;
+				if( xmin !== xmin ) {
+					xmin = x;
+					xmax = x;
+					ymin = y;
+					ymax = y;
+				} else {
+					xmin = Math.min( xmin, x );
+					xmax = Math.max( xmax, x );
+					ymin = Math.min( ymin, y );
+					ymax = Math.max( ymax, y );
+				}
 			} else {
 				const segment = (i >> 1) - isegments;
 				if( isegments < segmentsLength ) {
@@ -169,18 +159,24 @@ export class DChartSeriesLine implements DChartSeries {
 		if( segments.length !== isegments ) {
 			segments.length = isegments;
 		}
+		if( xmin !== xmin ) {
+			xmin = 0;
+			xmax = 0;
+			ymin = 0;
+			ymax = 0;
+		}
+		const sx = xmax - xmin;
+		const sy = ymax - ymin;
+		const cx = ( xmin + xmax ) * 0.5;
+		const cy = ( ymin + ymax ) * 0.5;
+		for( let i = 0, imax = values.length; i < imax; i += 2 ) {
+			values[ i + 0 ] -= cx;
+			values[ i + 1 ] -= cy;
+		}
 		line.points.set( values, segments );
+		line.size.set( sx, sy );
+		line.transform.position.set( cx, cy );
 		DApplications.update( line );
-	}
-
-	get domain(): DChartRegionImmutable {
-		this.updateRegion();
-		return this._domain;
-	}
-
-	get range(): DChartRegionImmutable {
-		this.updateRegion();
-		return this._range;
 	}
 
 	protected updateRegion(): void {
@@ -211,16 +207,49 @@ export class DChartSeriesLine implements DChartSeries {
 	destroy(): void {
 		const line = this._line;
 		if( line ) {
-			this._line = undefined;
+			this._line = null;
 			line.detach();
 			line.destroy();
 		}
 
-		this._container = undefined;
 		this._points.length = 0;
 		this._pointId = 0;
 		this._pointIdUpdated = NaN;
-		this._coordinateIdUpdatedX = NaN;
-		this._coordinateIdUpdatedY = NaN;
+		super.destroy();
+	}
+
+	hitTest( global: IPoint ): boolean {
+		const line = this._line;
+		if( line ) {
+			const work = DChartSeriesLine.WORK;
+			const local = line.toLocal( global, undefined, work );
+			return line.contains( local ) != null;
+		}
+		return false;
+	}
+
+	calcHitX( global: IPoint, thresholdScale: number, thresholdMinimum: number, result: EShapeLineHitResult ): boolean {
+		const line = this._line;
+		if( line ) {
+			const work = DChartSeriesLine.WORK;
+			const local = line.toLocal( global, undefined, work );
+			if( line.calcHitX( local, thresholdScale, thresholdMinimum, result ) ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	protected onStateChange( newState: number, oldState: number ) {
+		const isActive = DBaseStates.isActive( newState );
+		const wasActive = DBaseStates.isActive( oldState );
+		if( isActive !== wasActive ) {
+			const line = this._line;
+			const stroke = this._stroke;
+			if( line && stroke ) {
+				line.stroke.width = stroke.width * ( isActive ? 2 : 1 );
+			}
+		}
+		super.onStateChange( newState, oldState );
 	}
 }

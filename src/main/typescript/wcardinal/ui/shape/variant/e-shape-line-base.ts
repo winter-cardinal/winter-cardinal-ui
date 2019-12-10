@@ -3,10 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { IPoint } from "pixi.js";
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { utilIndexOf } from "../../util/util-index-of";
 import { EShapePoints, EShapePointsStyle } from "../e-shape-points";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
+import { EShapeBase } from "./e-shape-base";
+import { EShapeLineHitResult } from "./e-shape-line-hit-result";
 import { EShapePrimitive } from "./e-shape-primitive";
 
 export abstract class EShapeLineBase extends EShapePrimitive {
@@ -50,8 +53,26 @@ export abstract class EShapeLineBase extends EShapePrimitive {
 	}
 
 	containsAbs( x: number, y: number, ax: number, ay: number ): boolean {
+		return ( 0 <= this.calcHitPointAbs( x, y, ax, ay, 1, 0 ) );
+	}
+
+	/**
+	 * Returns a hit position or -1.
+	 *
+	 * @param point
+	 */
+	calcHitPoint( point: IPoint, thresholdScale: number, thresholdMinimum: number ): number {
+		const rect = this.toLocalRect( point, EShapeBase.WORK_RECT );
+		return this.calcHitPointAbs( rect.x, rect.y, rect.width, rect.height, thresholdScale, thresholdMinimum );
+	}
+
+	calcHitPointAbs(
+		x: number, y: number,
+		ax: number, ay: number,
+		thresholdScale: number, thresholdMinimum: number
+	): number {
 		const points = this.points;
-		const swh = this.getStrokeWidthScaled( points ) * 0.5;
+		const swh = Math.max( thresholdMinimum, this.getStrokeWidthScaled( points ) * 0.5 * thresholdScale );
 		if( this.containsAbsBBox( x, y, ax + swh, ay + swh ) ) {
 			const threshold = swh * swh;
 			const pointCount = points.length;
@@ -64,7 +85,70 @@ export abstract class EShapeLineBase extends EShapePrimitive {
 						const p0y = pointValues[ iv + 1 ];
 						const p1x = pointValues[ iv + 2 ];
 						const p1y = pointValues[ iv + 3 ];
-						if( 0 <= EShapeLineBase.calcHitPosition( x, y, p0x, p0y, p1x, p1y, threshold ) ) {
+						const t = this.calcHitPointT( x, y, p0x, p0y, p1x, p1y, threshold );
+						if( 0 <= t ) {
+							return i + t;
+						}
+					}
+				}
+				if( 2 < pointCount && (points.style & EShapePointsStyle.CLOSED) ) {
+					if( utilIndexOf( pointSegments, 0 ) < 0 ) {
+						const iv = (pointCount - 1) << 1;
+						const p0x = pointValues[ iv + 0 ];
+						const p0y = pointValues[ iv + 1 ];
+						const p1x = pointValues[ 0 ];
+						const p1y = pointValues[ 1 ];
+						const t = this.calcHitPointT( x, y, p0x, p0y, p1x, p1y, threshold );
+						if( 0 <= t ) {
+							const p = pointCount - 1 + t;
+							if( pointCount <= p ) {
+								return 0;
+							}
+							return p;
+						}
+					}
+				}
+			}
+		}
+		return -1;
+	}
+
+	calcHitX( point: IPoint, thresholdScale: number, thresholdMinimum: number, result: EShapeLineHitResult ): boolean {
+		const rect = this.toLocalRect( point, EShapeBase.WORK_RECT );
+		return this.calcHitXAbs( rect.x, rect.y, rect.width, rect.height, thresholdScale, thresholdMinimum, result );
+	}
+
+	calcHitXAbs(
+		x: number, y: number,
+		ax: number, ay: number,
+		thresholdScale: number, thresholdMinimum: number,
+		result: EShapeLineHitResult
+	): boolean {
+		const points = this.points;
+		const swh = Math.max( thresholdMinimum, this.getStrokeWidthScaled( points ) * 0.5 * thresholdScale );
+		if( this.containsAbsBBox( x, y, ax + swh, ay + swh ) ) {
+			const threshold = swh;
+			const pointCount = points.length;
+			if( 2 <= pointCount ) {
+				const pointValues = points.values;
+				const pointSegments = points.segments;
+				for( let i = 0, imax = pointCount - 1, iv = 0; i < imax; i += 1, iv += 2 ) {
+					if( utilIndexOf( pointSegments, i + 1 ) < 0 ) {
+						const p0x = pointValues[ iv + 0 ];
+						const p0y = pointValues[ iv + 1 ];
+						const p1x = pointValues[ iv + 2 ];
+						const p1y = pointValues[ iv + 3 ];
+						if( this.calcHitXAbsT( x, y, p0x, p0y, p1x, p1y, threshold, result ) ) {
+							const position = this.transform.position;
+							const px = position.x;
+							const py = position.y;
+							result.x += px;
+							result.y += py;
+							result.p0x = p0x + px;
+							result.p0y = p0y + py;
+							result.p1x = p1x + px;
+							result.p1y = p1y + py;
+							result.index = i;
 							return true;
 						}
 					}
@@ -76,7 +160,17 @@ export abstract class EShapeLineBase extends EShapePrimitive {
 						const p0y = pointValues[ iv + 1 ];
 						const p1x = pointValues[ 0 ];
 						const p1y = pointValues[ 1 ];
-						if( 0 <= EShapeLineBase.calcHitPosition( x, y, p0x, p0y, p1x, p1y, threshold ) ) {
+						if( this.calcHitXAbsT( x, y, p0x, p0y, p1x, p1y, threshold, result ) ) {
+							const position = this.transform.position;
+							const px = position.x;
+							const py = position.y;
+							result.x += px;
+							result.y += py;
+							result.p0x = p0x + px;
+							result.p0y = p0y + py;
+							result.p1x = p1x + px;
+							result.p1y = p1y + py;
+							result.index = pointCount - 1;
 							return true;
 						}
 					}
@@ -86,7 +180,30 @@ export abstract class EShapeLineBase extends EShapePrimitive {
 		return false;
 	}
 
-	static calcHitPosition(
+	protected calcHitXAbsT(
+		x: number, y: number,
+		p0x: number, p0y: number,
+		p1x: number, p1y: number,
+		distance: number,
+		result: EShapeLineHitResult
+	): boolean {
+		if( p0x <= x && x < p1x ) {
+			const l = p1x - p0x;
+			if( 0.0001 < Math.abs( l ) ) {
+				const t = (x - p0x) / l;
+				const py = p0y + t * (p1y - p0y);
+				if( Math.abs(py - y) < distance ) {
+					result.x = x;
+					result.y = py;
+					result.t = t;
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	protected calcHitPointT(
 		x: number, y: number,
 		p0x: number, p0y: number,
 		p1x: number, p1y: number,

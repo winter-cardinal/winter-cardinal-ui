@@ -54,6 +54,7 @@ export * from "./e-shape-label-uploadeds";
 export * from "./e-shape-label";
 export * from "./e-shape-labels";
 export * from "./e-shape-line-base";
+export * from "./e-shape-line-hit-result";
 export * from "./e-shape-line-points";
 export * from "./e-shape-line-uploaded";
 export * from "./e-shape-line-uploadeds";

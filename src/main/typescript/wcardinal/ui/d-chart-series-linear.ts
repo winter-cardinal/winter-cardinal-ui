@@ -3,86 +3,63 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { IPoint, Point } from "pixi.js";
 import { DApplications } from "./d-applications";
+import { DBaseStates } from "./d-base-states";
 import { DChartCoordinate } from "./d-chart-coordinate";
-import { DChartRegionImmutable } from "./d-chart-region";
-import { DChartRegionImpl } from "./d-chart-region-impl";
-import { DChartSeries } from "./d-chart-series";
+import { DChartSeriesBase, DChartSeriesBaseOptions } from "./d-chart-series-base";
 import { DChartSeriesContainer } from "./d-chart-series-container";
-import { DChartSeriesCoordinateOptions } from "./d-chart-series-coordinate";
 import {
 	DChartSeriesLinearParameters,
 	DChartSeriesLinearParametersOptions
 } from "./d-chart-series-linear-parameters";
 import { DChartSeriesExpressionParametersImpl } from "./d-chart-series-linear-parameters-impl";
-import { DChartSeriesStrokeComputedOptions } from "./d-chart-series-stroke-computed";
+import { DChartSeriesStrokeComputed, DChartSeriesStrokeComputedOptions } from "./d-chart-series-stroke-computed";
 import { DChartSeriesStrokeComputedImpl } from "./d-chart-series-stroke-computed-impl";
 import { EShapeLine } from "./shape/variant/e-shape-line";
+import { EShapeLineHitResult } from "./shape/variant/e-shape-line-hit-result";
 
 /**
  * {@link DChartSeriesLinear} options.
  */
-export interface DChartSeriesLinearOptions extends DChartSeriesLinearParametersOptions {
+export interface DChartSeriesLinearOptions extends DChartSeriesLinearParametersOptions, DChartSeriesBaseOptions {
 	stroke?: DChartSeriesStrokeComputedOptions;
-	coordinate?: DChartSeriesCoordinateOptions;
 }
 
 /**
  * A series represents a linear equation `a (x - x0) === b (y - y0)`.
  */
-export class DChartSeriesLinear implements DChartSeries {
-	protected _line?: EShapeLine;
-	protected _coordinateIndexX: number;
-	protected _coordinateIndexY: number;
-	protected _coordinateIdUpdatedX: number;
-	protected _coordinateIdUpdatedY: number;
+export class DChartSeriesLinear extends DChartSeriesBase {
+	protected static WORK: Point = new Point();
+	protected _line: EShapeLine | null;
+	protected _lineStrokeOptions?: DChartSeriesStrokeComputedOptions;
 	protected _plotAreaSizeXUpdated: number;
 	protected _plotAreaSizeYUpdated: number;
-
 	protected _parameters: DChartSeriesExpressionParametersImpl;
-
-	protected _container?: DChartSeriesContainer;
-
-	protected _domain: DChartRegionImpl;
-	protected _range: DChartRegionImpl;
-	protected _regionPointId: number;
-
-	protected _options?: DChartSeriesLinearOptions;
+	protected _stroke?: DChartSeriesStrokeComputed;
 
 	constructor( options?: DChartSeriesLinearOptions ) {
-		const coordinate = options && options.coordinate;
-		this._coordinateIndexX = ( coordinate && coordinate.x != null ? coordinate.x : 0 );
-		this._coordinateIndexY = ( coordinate && coordinate.y != null ? coordinate.y : 0 );
-		this._coordinateIdUpdatedX = NaN;
-		this._coordinateIdUpdatedY = NaN;
+		super( options );
+		this._line = null;
+		this._lineStrokeOptions = options && options.stroke;
 		this._plotAreaSizeXUpdated = NaN;
 		this._plotAreaSizeYUpdated = NaN;
-
 		this._parameters = DChartSeriesExpressionParametersImpl.from( options );
-
-		this._domain = new DChartRegionImpl( NaN, NaN );
-		this._range = new DChartRegionImpl( NaN, NaN );
-		this._regionPointId = NaN;
-
-		this._options = options;
 	}
 
 	bind( container: DChartSeriesContainer, index: number ): void {
 		let line = this._line;
 		if( ! line ) {
-			const options = this._options;
-			const stroke = DChartSeriesStrokeComputedImpl.from( container, index, options && options.stroke );
+			const stroke = this._stroke = DChartSeriesStrokeComputedImpl.from( container, index, this._lineStrokeOptions );
 			line = this._line = new EShapeLine([], [], stroke.width, stroke.style);
 			line.stroke.color = stroke.color;
 			line.stroke.alpha = stroke.alpha;
 		}
-		this._container = container;
 		line.attach( container.plotArea.container, index );
 		this._parameters.toDirty();
-		this._coordinateIdUpdatedX = NaN;
-		this._coordinateIdUpdatedY = NaN;
 		this._plotAreaSizeXUpdated = NaN;
 		this._plotAreaSizeYUpdated = NaN;
+		super.bind( container, index );
 	}
 
 	unbind(): void {
@@ -90,7 +67,11 @@ export class DChartSeriesLinear implements DChartSeries {
 		if( line ) {
 			line.detach();
 		}
-		this._container = undefined;
+		super.unbind();
+	}
+
+	get shape(): EShapeLine | null {
+		return this._line;
 	}
 
 	get parameters(): DChartSeriesLinearParameters {
@@ -106,9 +87,9 @@ export class DChartSeriesLinear implements DChartSeries {
 		const container = this._container;
 		if( line && container ) {
 			const plotArea = container.plotArea;
-			const coordinate = plotArea.coordinate;
-			const coordinateX = coordinate.x.get( this._coordinateIndexX );
-			const coordinateY = coordinate.y.get( this._coordinateIndexY );
+			const coordinate = this._coordinate;
+			const coordinateX = coordinate.x;
+			const coordinateY = coordinate.y;
 			if( coordinateX && coordinateY ) {
 				const coordinateIdX = coordinateX.id;
 				const coordinateIdY = coordinateY.id;
@@ -118,14 +99,12 @@ export class DChartSeriesLinear implements DChartSeries {
 
 				const parameters = this._parameters;
 				const isParametersChanged = parameters.isDirty();
-				const isCoordinateXChanged = ( coordinateIdX !== this._coordinateIdUpdatedX );
-				const isCoordinateYChanged = ( coordinateIdY !== this._coordinateIdUpdatedY );
+				const isCoordinateChanged = coordinate.isDirty( coordinateIdX, coordinateIdY );
 				const isPlotAreaSizeChagned = ( plotAreaSizeX !== this._plotAreaSizeXUpdated ||
 					plotAreaSizeY !== this._plotAreaSizeYUpdated );
-				if( isParametersChanged || isCoordinateXChanged || isCoordinateYChanged || isPlotAreaSizeChagned ) {
+				if( isParametersChanged || isCoordinateChanged || isPlotAreaSizeChagned ) {
 					parameters.toClean();
-					this._coordinateIdUpdatedX = coordinateIdX;
-					this._coordinateIdUpdatedY = coordinateIdY;
+					coordinate.toClean( coordinateIdX, coordinateIdY );
 					this._plotAreaSizeXUpdated = plotAreaSizeX;
 					this._plotAreaSizeYUpdated = plotAreaSizeY;
 					this.updateLine( line, coordinateX, coordinateY, plotAreaSizeX, plotAreaSizeY );
@@ -215,6 +194,16 @@ export class DChartSeriesLinear implements DChartSeries {
 		p1x = xcoordinate.map( p1x );
 		p1y = ycoordinate.map( p1y );
 
+		const cx = ( p0x + p1x ) * 0.5;
+		const cy = ( p0y + p1y ) * 0.5;
+		const sx = Math.abs( p1x - p0x );
+		const sy = Math.abs( p1y - p0y );
+
+		p0x -= cx;
+		p0y -= cy;
+		p1x -= cx;
+		p1y -= cy;
+
 		if( values.length !== 4 ) {
 			values.length = 0;
 			values.push( p0x, p0y, p1x, p1y );
@@ -228,27 +217,55 @@ export class DChartSeriesLinear implements DChartSeries {
 			segments.length = 0;
 		}
 		line.points.set( values, segments );
+		line.size.set( sx, sy );
+		line.transform.position.set( cx, cy );
 		DApplications.update( line );
 	}
 
-	get domain(): DChartRegionImmutable {
-		return this._domain;
-	}
-
-	get range(): DChartRegionImmutable {
-		return this._range;
+	protected updateRegion(): void {
+		// DO NOTHING
 	}
 
 	destroy(): void {
 		const line = this._line;
 		if( line ) {
-			this._line = undefined;
+			this._line = null;
 			line.detach();
 			line.destroy();
 		}
+		super.destroy();
+	}
 
-		this._container = undefined;
-		this._coordinateIdUpdatedX = NaN;
-		this._coordinateIdUpdatedY = NaN;
+	hitTest( global: IPoint ): boolean {
+		const line = this._line;
+		if( line ) {
+			const work = DChartSeriesLinear.WORK;
+			const local = line.toLocal( global, undefined, work );
+			return line.contains( local ) != null;
+		}
+		return false;
+	}
+
+	calcHitX( global: IPoint, thresholdScale: number, thresholdMinimum: number, result: EShapeLineHitResult ): boolean {
+		const line = this._line;
+		if( line ) {
+			const work = DChartSeriesLinear.WORK;
+			const local = line.toLocal( global, undefined, work );
+			return line.calcHitX( local, thresholdScale, thresholdMinimum, result );
+		}
+		return false;
+	}
+
+	protected onStateChange( newState: number, oldState: number ) {
+		const isActive = DBaseStates.isActive( newState );
+		const wasActive = DBaseStates.isActive( oldState );
+		if( isActive !== wasActive ) {
+			const line = this._line;
+			const stroke = this._stroke;
+			if( line && stroke ) {
+				line.stroke.width = stroke.width * ( isActive ? 2 : 1 );
+			}
+		}
+		super.onStateChange( newState, oldState );
 	}
 }
