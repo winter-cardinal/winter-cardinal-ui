@@ -9,6 +9,7 @@ import { DChartRegion } from "./d-chart-region";
 import { DChartSeries, DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesSelection } from "./d-chart-series-selection";
 import { DChartSeriesStroke, DChartSeriesStrokeOptions } from "./d-chart-series-stroke";
+import { EShapeLineHitThreshold } from "./shape/variant/e-shape-line-base";
 
 export interface DChartSeriesContainerOptions {
 	list: DChartSeries[];
@@ -37,7 +38,7 @@ export interface DChartSeriesContainer {
 	hitTest( global: IPoint ): DChartSeries | null;
 	calcHitPoint(
 		global: IPoint,
-		thresholdScale: number, thresholdMinimum: number,
+		threshold: EShapeLineHitThreshold,
 		result: DChartSeriesHitResult
 	): DChartSeries | null;
 	select( global: IPoint ): void;

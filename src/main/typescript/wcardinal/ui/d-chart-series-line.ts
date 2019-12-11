@@ -14,6 +14,8 @@ import { DChartSeriesStrokeComputed, DChartSeriesStrokeComputedOptions } from ".
 import { DChartSeriesStrokeComputedImpl } from "./d-chart-series-stroke-computed-impl";
 import { EShape } from "./shape/e-shape";
 import { EShapeLine } from "./shape/variant/e-shape-line";
+import { EShapeLineHitThreshold } from "./shape/variant/e-shape-line-base";
+import { utilCeilingIndex } from "./util";
 
 /**
  * {@link DChartSeriesLine} options.
@@ -25,6 +27,7 @@ export interface DChartSeriesLineOptions extends DChartSeriesBaseOptions {
 
 /**
  * A series represents a polyline.
+ * Data points must be sorted in ascending order on the X axis.
  */
 export class DChartSeriesLine extends DChartSeriesBase {
 	protected static WORK: Point = new Point();
@@ -229,23 +232,33 @@ export class DChartSeriesLine extends DChartSeriesBase {
 		return false;
 	}
 
-	calcHitPoint(
-		global: IPoint,
-		thresholdScale: number, thresholdMinimum: number,
-		result: DChartSeriesHitResult
-	): boolean {
+	calcHitPoint( global: IPoint, threshold: EShapeLineHitThreshold, result: DChartSeriesHitResult ): boolean {
 		const line = this._line;
 		if( line ) {
 			const work = DChartSeriesLine.WORK;
 			const local = line.toLocal( global, undefined, work );
-			if( line.calcHitPoint( local, thresholdScale, thresholdMinimum, this.calcHitPointAbsT, result ) ) {
+			if( line.calcHitPoint( local, threshold, this.calcHitPointTestRange, this.calcHitPointHitTester, result ) ) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	calcHitPointAbsT(
+	calcHitPointTestRange(
+		this: unknown,
+		shape: unknown,
+		x: number, y: number,
+		threshold: number,
+		values: number[],
+		result: [ number, number ]
+	): [ number, number ] {
+		const index = utilCeilingIndex( values, x, 2, 0 );
+		result[ 0 ] = Math.max( 0, index - 1 );
+		result[ 1 ] = index;
+		return result;
+	}
+
+	calcHitPointHitTester(
 		this: unknown,
 		shape: EShape,
 		x: number, y: number,

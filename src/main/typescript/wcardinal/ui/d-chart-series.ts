@@ -8,7 +8,7 @@ import { DBaseState } from "./d-base-state";
 import { DChartRegionImmutable } from "./d-chart-region";
 import { DChartSeriesContainer } from "./d-chart-series-container";
 import { DChartSeriesCoordinateContainer } from "./d-chart-series-coordinate";
-import { EShape } from "./shape";
+import { EShape, EShapeLineHitThreshold } from "./shape";
 
 export class DChartSeriesHitResult {
 	x: number;
@@ -49,11 +49,7 @@ export interface DChartSeries {
 	destroy(): void;
 
 	hitTest( global: IPoint ): boolean;
-	calcHitPoint(
-		global: IPoint,
-		thresholdScale: number, thresholdMinimum: number,
-		result: DChartSeriesHitResult
-	): boolean;
+	calcHitPoint( global: IPoint, threshold: EShapeLineHitThreshold, result: DChartSeriesHitResult ): boolean;
 
 	setState( state: DBaseState, isOn: boolean ): void;
 }

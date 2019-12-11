@@ -13,6 +13,7 @@ import { DChartSeriesSelection } from "./d-chart-series-selection";
 import { DChartSeriesSelectionShape } from "./d-chart-series-selection-shape";
 import { DChartSeriesStroke } from "./d-chart-series-stroke";
 import { DChartSeriesStrokeImpl } from "./d-chart-series-stroke-impl";
+import { EShapeLineHitThreshold } from "./shape/variant/e-shape-line-base";
 import { utilIsNumber } from "./util/util-is-number";
 
 export class DChartSeriesContainerImpl implements DChartSeriesContainer {
@@ -177,13 +178,13 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 
 	calcHitPoint(
 		global: IPoint,
-		thresholdScale: number, thresholdMinimum: number,
+		threshold: EShapeLineHitThreshold,
 		result: DChartSeriesHitResult
 	): DChartSeries | null {
 		const list = this._list;
 		for( let i = list.length - 1; 0 <= i; --i ) {
 			const series = list[ i ];
-			if( series.calcHitPoint( global, thresholdScale, thresholdMinimum, result ) ) {
+			if( series.calcHitPoint( global, threshold, result ) ) {
 				return series;
 			}
 		}
@@ -194,12 +195,16 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 		const selection = this._selection;
 		if( selection ) {
 			const result = DChartSeriesContainerImpl.WORK_SELECT;
-			const series = this.calcHitPoint( global, 2, 6, result );
+			const series = this.calcHitPoint( global, this.toThreshold, result );
 			if( series ) {
 				selection.set( series, result );
 			} else {
 				selection.unset();
 			}
 		}
+	}
+
+	protected toThreshold( this: unknown, shape: unknown, threshold: number ): number {
+		return Math.max( threshold * 2, 6 );
 	}
 }

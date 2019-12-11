@@ -13,7 +13,7 @@ import { DChartSeries, DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesBaseCoordinateContainer } from "./d-chart-series-base-coordinate-container";
 import { DChartSeriesContainer } from "./d-chart-series-container";
 import { DChartSeriesCoordinateContainer, DChartSeriesCoordinateOptions } from "./d-chart-series-coordinate";
-import { EShape } from "./shape";
+import { EShape, EShapeLineHitThreshold } from "./shape";
 
 /**
  * {@link DChartSeriesBase} options.
@@ -110,11 +110,7 @@ export abstract class DChartSeriesBase extends utils.EventEmitter implements DCh
 		return false;
 	}
 
-	calcHitPoint(
-		global: IPoint,
-		thresholdScale: number, thresholdMinimum: number,
-		result: DChartSeriesHitResult
-	): boolean {
+	calcHitPoint( global: IPoint, threshold: EShapeLineHitThreshold, result: DChartSeriesHitResult ): boolean {
 		return false;
 	}
 
