@@ -3,11 +3,10 @@ import { DApplications } from "./d-applications";
 import { DBaseOnOptions } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DChartCoordinate } from "./d-chart-coordinate";
-import { DChartSeries } from "./d-chart-series";
+import { DChartSeries, DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesContainer } from "./d-chart-series-container";
 import { DChartSeriesSelection, DChartSeriesSelectionPoint } from "./d-chart-series-selection";
 import { EShape, EShapeCircle } from "./shape";
-import { EShapeLineHitResult } from "./shape/variant/e-shape-line-hit-result";
 import { utilIsString } from "./util";
 
 export type DChartSeriesSelectionStyle = ( shape: EShape, series: DChartSeries ) => void;
@@ -86,7 +85,7 @@ export class DChartSeriesSelectionShape extends utils.EventEmitter implements DC
 		return this._position;
 	}
 
-	set( series: DChartSeries, result: EShapeLineHitResult ): void {
+	set( series: DChartSeries, result: DChartSeriesHitResult ): void {
 		const oldSelected = this._selected;
 		if( oldSelected !== series ) {
 			if( oldSelected ) {
@@ -135,7 +134,7 @@ export class DChartSeriesSelectionShape extends utils.EventEmitter implements DC
 		this.emit( "change", this );
 	}
 
-	protected setStyle( shape: EShape, series: DChartSeries ): void {
+	protected setStyle( this: unknown, shape: EShape, series: DChartSeries ): void {
 		const seriesShape = series.shape;
 		if( seriesShape ) {
 			const shapeStroke = shape.stroke;

@@ -7,12 +7,13 @@ import { IPoint, Point } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBaseStates } from "./d-base-states";
 import { DChartCoordinate } from "./d-chart-coordinate";
+import { DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesBase, DChartSeriesBaseOptions } from "./d-chart-series-base";
 import { DChartSeriesContainer } from "./d-chart-series-container";
 import { DChartSeriesStrokeComputed, DChartSeriesStrokeComputedOptions } from "./d-chart-series-stroke-computed";
 import { DChartSeriesStrokeComputedImpl } from "./d-chart-series-stroke-computed-impl";
+import { EShape } from "./shape/e-shape";
 import { EShapeLine } from "./shape/variant/e-shape-line";
-import { EShapeLineHitResult } from "./shape/variant/e-shape-line-hit-result";
 
 /**
  * {@link DChartSeriesLine} options.
@@ -228,13 +229,52 @@ export class DChartSeriesLine extends DChartSeriesBase {
 		return false;
 	}
 
-	calcHitX( global: IPoint, thresholdScale: number, thresholdMinimum: number, result: EShapeLineHitResult ): boolean {
+	calcHitPoint(
+		global: IPoint,
+		thresholdScale: number, thresholdMinimum: number,
+		result: DChartSeriesHitResult
+	): boolean {
 		const line = this._line;
 		if( line ) {
 			const work = DChartSeriesLine.WORK;
 			const local = line.toLocal( global, undefined, work );
-			if( line.calcHitX( local, thresholdScale, thresholdMinimum, result ) ) {
+			if( line.calcHitPoint( local, thresholdScale, thresholdMinimum, this.calcHitPointAbsT, result ) ) {
 				return true;
+			}
+		}
+		return false;
+	}
+
+	calcHitPointAbsT(
+		this: unknown,
+		shape: EShape,
+		x: number, y: number,
+		p0x: number, p0y: number,
+		p1x: number, p1y: number,
+		index: number,
+		threshold: number,
+		result: DChartSeriesHitResult
+	): boolean {
+		if( p0x <= x && x < p1x ) {
+			const l = p1x - p0x;
+			if( 0.0001 < Math.abs( l ) ) {
+				const t = (x - p0x) / l;
+				const p2x = x;
+				const p2y = p0y + t * (p1y - p0y);
+				if( Math.abs(p2y - y) < threshold ) {
+					const position = shape.transform.position;
+					const px = position.x;
+					const py = position.y;
+					result.x = px + p2x;
+					result.y = py + p2y;
+					result.p0x = px + p0x;
+					result.p0y = py + p0y;
+					result.p1x = px + p1x;
+					result.p1y = py + p1y;
+					result.t = t;
+					result.index = index;
+					return true;
+				}
 			}
 		}
 		return false;

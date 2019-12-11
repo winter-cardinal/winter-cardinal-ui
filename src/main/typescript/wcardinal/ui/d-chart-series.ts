@@ -9,7 +9,28 @@ import { DChartRegionImmutable } from "./d-chart-region";
 import { DChartSeriesContainer } from "./d-chart-series-container";
 import { DChartSeriesCoordinateContainer } from "./d-chart-series-coordinate";
 import { EShape } from "./shape";
-import { EShapeLineHitResult } from "./shape/variant/e-shape-line-hit-result";
+
+export class DChartSeriesHitResult {
+	x: number;
+	y: number;
+	p0x: number;
+	p0y: number;
+	p1x: number;
+	p1y: number;
+	index: number;
+	t: number;
+
+	constructor() {
+		this.x = 0;
+		this.y = 0;
+		this.p0x = 0;
+		this.p0y = 0;
+		this.p1x = 0;
+		this.p1y = 0;
+		this.index = 0;
+		this.t = 0;
+	}
+}
 
 export interface DChartSeries {
 	readonly domain: DChartRegionImmutable;
@@ -28,7 +49,11 @@ export interface DChartSeries {
 	destroy(): void;
 
 	hitTest( global: IPoint ): boolean;
-	calcHitX( global: IPoint, thresholdScale: number, thresholdMinimum: number, result: EShapeLineHitResult ): boolean;
+	calcHitPoint(
+		global: IPoint,
+		thresholdScale: number, thresholdMinimum: number,
+		result: DChartSeriesHitResult
+	): boolean;
 
 	setState( state: DBaseState, isOn: boolean ): void;
 }

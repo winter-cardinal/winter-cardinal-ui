@@ -6,10 +6,9 @@
 import { IPoint } from "pixi.js";
 import { DChartPlotArea } from "./d-chart-plot-area";
 import { DChartRegion } from "./d-chart-region";
-import { DChartSeries } from "./d-chart-series";
+import { DChartSeries, DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesSelection } from "./d-chart-series-selection";
 import { DChartSeriesStroke, DChartSeriesStrokeOptions } from "./d-chart-series-stroke";
-import { EShapeLineHitResult } from "./shape/variant/e-shape-line-hit-result";
 
 export interface DChartSeriesContainerOptions {
 	list: DChartSeries[];
@@ -36,10 +35,10 @@ export interface DChartSeriesContainer {
 	indexOf( series: DChartSeries ): number;
 
 	hitTest( global: IPoint ): DChartSeries | null;
-	calcHitX(
+	calcHitPoint(
 		global: IPoint,
 		thresholdScale: number, thresholdMinimum: number,
-		result: EShapeLineHitResult
+		result: DChartSeriesHitResult
 	): DChartSeries | null;
 	select( global: IPoint ): void;
 }

@@ -7,17 +7,16 @@ import { IPoint } from "pixi.js";
 import { DChartPlotArea } from "./d-chart-plot-area";
 import { DChartRegion } from "./d-chart-region";
 import { DChartRegionImpl } from "./d-chart-region-impl";
-import { DChartSeries } from "./d-chart-series";
+import { DChartSeries, DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesContainer, DChartSeriesContainerOptions } from "./d-chart-series-container";
 import { DChartSeriesSelection } from "./d-chart-series-selection";
 import { DChartSeriesSelectionShape } from "./d-chart-series-selection-shape";
 import { DChartSeriesStroke } from "./d-chart-series-stroke";
 import { DChartSeriesStrokeImpl } from "./d-chart-series-stroke-impl";
-import { EShapeLineHitResult } from "./shape/variant/e-shape-line-hit-result";
 import { utilIsNumber } from "./util/util-is-number";
 
 export class DChartSeriesContainerImpl implements DChartSeriesContainer {
-	protected static WORK_SELECT: EShapeLineHitResult = new EShapeLineHitResult();
+	protected static WORK_SELECT: DChartSeriesHitResult = new DChartSeriesHitResult();
 
 	protected _plotArea: DChartPlotArea;
 	protected _list: DChartSeries[];
@@ -176,15 +175,15 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 		return null;
 	}
 
-	calcHitX(
+	calcHitPoint(
 		global: IPoint,
 		thresholdScale: number, thresholdMinimum: number,
-		result: EShapeLineHitResult
+		result: DChartSeriesHitResult
 	): DChartSeries | null {
 		const list = this._list;
 		for( let i = list.length - 1; 0 <= i; --i ) {
 			const series = list[ i ];
-			if( series.calcHitX( global, thresholdScale, thresholdMinimum, result ) ) {
+			if( series.calcHitPoint( global, thresholdScale, thresholdMinimum, result ) ) {
 				return series;
 			}
 		}
@@ -195,7 +194,7 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 		const selection = this._selection;
 		if( selection ) {
 			const result = DChartSeriesContainerImpl.WORK_SELECT;
-			const series = this.calcHitX( global, 2, 6, result );
+			const series = this.calcHitPoint( global, 2, 6, result );
 			if( series ) {
 				selection.set( series, result );
 			} else {

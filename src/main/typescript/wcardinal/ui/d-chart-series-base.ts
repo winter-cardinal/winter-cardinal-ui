@@ -9,12 +9,11 @@ import { DBaseOnOptions } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DChartRegionImmutable } from "./d-chart-region";
 import { DChartRegionImpl } from "./d-chart-region-impl";
-import { DChartSeries } from "./d-chart-series";
+import { DChartSeries, DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesBaseCoordinateContainer } from "./d-chart-series-base-coordinate-container";
 import { DChartSeriesContainer } from "./d-chart-series-container";
 import { DChartSeriesCoordinateContainer, DChartSeriesCoordinateOptions } from "./d-chart-series-coordinate";
 import { EShape } from "./shape";
-import { EShapeLineHitResult } from "./shape/variant/e-shape-line-hit-result";
 
 /**
  * {@link DChartSeriesBase} options.
@@ -111,7 +110,11 @@ export abstract class DChartSeriesBase extends utils.EventEmitter implements DCh
 		return false;
 	}
 
-	calcHitX( global: IPoint, thresholdScale: number, thresholdMinimum: number, result: EShapeLineHitResult ): boolean {
+	calcHitPoint(
+		global: IPoint,
+		thresholdScale: number, thresholdMinimum: number,
+		result: DChartSeriesHitResult
+	): boolean {
 		return false;
 	}
 
