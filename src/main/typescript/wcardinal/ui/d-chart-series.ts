@@ -19,6 +19,7 @@ export class DChartSeriesHitResult {
 	p1y: number;
 	index: number;
 	t: number;
+	distance: number;
 
 	constructor() {
 		this.x = 0;
@@ -29,6 +30,20 @@ export class DChartSeriesHitResult {
 		this.p1y = 0;
 		this.index = 0;
 		this.t = 0;
+		this.distance = 0;
+	}
+
+	copyFrom( other: DChartSeriesHitResult ): this {
+		this.x = other.x;
+		this.y = other.y;
+		this.p0x = other.p0x;
+		this.p0y = other.p0y;
+		this.p1x = other.p1x;
+		this.p1y = other.p1y;
+		this.index = other.index;
+		this.t = other.t;
+		this.distance = other.distance;
+		return this;
 	}
 }
 

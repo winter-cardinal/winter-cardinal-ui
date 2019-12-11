@@ -23,7 +23,6 @@ export class DChart<
 	OPTIONS extends DChartOptions<THEME> = DChartOptions<THEME>
 > extends DBase<THEME, OPTIONS> {
 	protected _plotArea!: DChartPlotArea;
-	protected _onMoveBound!: ( e: InteractionEvent ) => void;
 
 	protected init( options?: OPTIONS ): void {
 		super.init( options );
@@ -32,26 +31,6 @@ export class DChart<
 		this._plotArea = plotArea;
 		this.addChild( plotArea.container );
 		this.addChild( plotArea.axis.container );
-
-		this._onMoveBound = ( e: InteractionEvent ): void => {
-			this.onMove( e );
-		};
-	}
-
-	protected onStateChange( newState: number, oldState: number ) {
-		if( DBaseStates.isHovered( newState ) ) {
-			if( ! DBaseStates.isHovered( oldState ) ) {
-				this.on( UtilPointerEvent.move, this._onMoveBound );
-			}
-		} else {
-			if( DBaseStates.isHovered( oldState ) ) {
-				this.off( UtilPointerEvent.move, this._onMoveBound );
-			}
-		}
-	}
-
-	protected onMove( e: InteractionEvent ): void {
-		this._plotArea.series.select( e.data.global );
 	}
 
 	get plotArea(): DChartPlotArea {

@@ -10,14 +10,14 @@ import { DChartRegionImpl } from "./d-chart-region-impl";
 import { DChartSeries, DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesContainer, DChartSeriesContainerOptions } from "./d-chart-series-container";
 import { DChartSeriesSelection } from "./d-chart-series-selection";
-import { DChartSeriesSelectionShape } from "./d-chart-series-selection-shape";
+import { DChartSeriesSelectionSimple } from "./d-chart-series-selection-simple";
 import { DChartSeriesStroke } from "./d-chart-series-stroke";
 import { DChartSeriesStrokeImpl } from "./d-chart-series-stroke-impl";
 import { EShapeLineHitThreshold } from "./shape/variant/e-shape-line-base";
 import { utilIsNumber } from "./util/util-is-number";
 
 export class DChartSeriesContainerImpl implements DChartSeriesContainer {
-	protected static WORK_SELECT: DChartSeriesHitResult = new DChartSeriesHitResult();
+	protected static WORK_CALCHITPOINT: DChartSeriesHitResult = new DChartSeriesHitResult();
 
 	protected _plotArea: DChartPlotArea;
 	protected _list: DChartSeries[];
@@ -32,7 +32,7 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 		this._range = new DChartRegionImpl( NaN, NaN );
 		this._stroke = new DChartSeriesStrokeImpl( options && options.stroke );
 		const selection = (options && options.selection !== undefined ?
-			options.selection : new DChartSeriesSelectionShape()
+			options.selection : new DChartSeriesSelectionSimple()
 		);
 		this._selection = selection;
 		if( selection ) {
@@ -181,30 +181,25 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 		threshold: EShapeLineHitThreshold,
 		result: DChartSeriesHitResult
 	): DChartSeries | null {
+		let tmp1 = result;
+		let tmp2 = DChartSeriesContainerImpl.WORK_CALCHITPOINT;
 		const list = this._list;
+		let closest: DChartSeries | null = null;
+		tmp2.distance = +Infinity;
 		for( let i = list.length - 1; 0 <= i; --i ) {
 			const series = list[ i ];
-			if( series.calcHitPoint( global, threshold, result ) ) {
-				return series;
+			if( series.calcHitPoint( global, threshold, tmp1 ) ) {
+				if( tmp1.distance < tmp2.distance ) {
+					closest = series;
+					const tmp = tmp1;
+					tmp1 = tmp2;
+					tmp2 = tmp;
+				}
 			}
 		}
-		return null;
-	}
-
-	select( global: IPoint ): void {
-		const selection = this._selection;
-		if( selection ) {
-			const result = DChartSeriesContainerImpl.WORK_SELECT;
-			const series = this.calcHitPoint( global, this.toThreshold, result );
-			if( series ) {
-				selection.set( series, result );
-			} else {
-				selection.unset();
-			}
+		if( closest && tmp2 !== result ) {
+			result.copyFrom( tmp2 );
 		}
-	}
-
-	protected toThreshold( this: unknown, shape: unknown, threshold: number ): number {
-		return Math.max( threshold * 2, 6 );
+		return closest;
 	}
 }

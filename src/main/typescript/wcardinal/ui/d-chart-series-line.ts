@@ -274,7 +274,8 @@ export class DChartSeriesLine extends DChartSeriesBase {
 				const t = (x - p0x) / l;
 				const p2x = x;
 				const p2y = p0y + t * (p1y - p0y);
-				if( Math.abs(p2y - y) < threshold ) {
+				const distance = Math.abs(p2y - y);
+				if( distance < threshold ) {
 					const position = shape.transform.position;
 					const px = position.x;
 					const py = position.y;
@@ -286,6 +287,7 @@ export class DChartSeriesLine extends DChartSeriesBase {
 					result.p1y = py + p1y;
 					result.t = t;
 					result.index = index;
+					result.distance = distance;
 					return true;
 				}
 			}

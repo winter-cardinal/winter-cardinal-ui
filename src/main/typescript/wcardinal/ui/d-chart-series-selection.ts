@@ -1,6 +1,7 @@
 import { utils } from "pixi.js";
-import { DChartSeries, DChartSeriesHitResult } from "./d-chart-series";
+import { DChartSeries } from "./d-chart-series";
 import { DChartSeriesContainer } from "./d-chart-series-container";
+import { EShape } from "./shape/e-shape";
 
 export enum DChartSeriesSelectionPoint {
 	PREVIOUS,
@@ -9,10 +10,10 @@ export enum DChartSeriesSelectionPoint {
 	INTERSECTION
 }
 
+export type DChartSeriesSelectionStyle = ( shape: EShape, series: DChartSeries ) => void;
+
 export interface DChartSeriesSelection extends utils.EventEmitter {
 	bind( container: DChartSeriesContainer ): void;
 	unbind(): void;
-	set( series: DChartSeries, result: DChartSeriesHitResult ): void;
-	unset(): void;
 	update(): void;
 }

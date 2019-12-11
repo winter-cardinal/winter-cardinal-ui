@@ -41,5 +41,4 @@ export interface DChartSeriesContainer {
 		threshold: EShapeLineHitThreshold,
 		result: DChartSeriesHitResult
 	): DChartSeries | null;
-	select( global: IPoint ): void;
 }
