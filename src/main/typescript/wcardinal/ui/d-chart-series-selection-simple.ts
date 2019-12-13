@@ -76,7 +76,7 @@ export class DChartSeriesSelectionSimple extends utils.EventEmitter implements D
 
 	protected onClick( e: interaction.InteractionEvent ): void {
 		const container = this._container;
-		if( container && e.target === container.plotArea.chart ) {
+		if( container && e.target === container.plotArea ) {
 			const hovered = this._hovered;
 			const series = hovered.series;
 			const selected = this._selected;
@@ -92,7 +92,7 @@ export class DChartSeriesSelectionSimple extends utils.EventEmitter implements D
 		const container = this._container;
 		if( container ) {
 			const hovered = this._hovered;
-			if( e.target === container.plotArea.chart ) {
+			if( e.target === container.plotArea ) {
 				const result = DChartSeriesSelectionSimple.WORK_SELECT;
 				const series = container.calcHitPoint( e.data.global, this.toThreshold, result );
 				if( series ) {
@@ -114,17 +114,17 @@ export class DChartSeriesSelectionSimple extends utils.EventEmitter implements D
 		this._container = container;
 		this._selected.bind( container );
 		this._hovered.bind( container );
-		const chart = container.plotArea.chart;
-		chart.on( UtilPointerEvent.move, this._onMoveBound );
-		UtilPointerEvent.onClick( chart, this._onClickBound );
+		const plotArea = container.plotArea;
+		plotArea.on( UtilPointerEvent.move, this._onMoveBound );
+		UtilPointerEvent.onClick( plotArea, this._onClickBound );
 	}
 
 	unbind(): void {
 		const container = this._container;
 		this._container = null;
 		if( container ) {
-			const chart = container.plotArea.chart;
-			chart.off( UtilPointerEvent.move, this._onMoveBound );
+			const plotArea = container.plotArea;
+			plotArea.off( UtilPointerEvent.move, this._onMoveBound );
 		}
 
 		this._selected.unbind();

@@ -3,13 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
-import InteractionEvent = interaction.InteractionEvent;
-import { DBaseStates } from "./d-base-states";
 import { DChartPlotArea, DChartPlotAreaOptions} from "./d-chart-plot-area";
-import { DChartPlotAreaImpl } from "./d-chart-plot-area-impl";
-import { UtilPointerEvent } from "./util";
 
 export interface DChartOptions<THEME extends DThemeChart> extends DBaseOptions<THEME> {
 	plotArea: DChartPlotAreaOptions;
@@ -27,10 +22,9 @@ export class DChart<
 	protected init( options?: OPTIONS ): void {
 		super.init( options );
 
-		const plotArea = new DChartPlotAreaImpl( this, options && options.plotArea );
+		const plotArea = new DChartPlotArea( this, options && options.plotArea );
 		this._plotArea = plotArea;
-		this.addChild( plotArea.container );
-		this.addChild( plotArea.axis.container );
+		this.addChild( plotArea );
 	}
 
 	get plotArea(): DChartPlotArea {

@@ -56,27 +56,27 @@ export class DChartAxisBase implements DChartAxis {
 		const container = this._container;
 		const bar = this._bar;
 		if( container && bar ) {
-			const plotAreaSize = container.plotArea.size;
-			const plotAreaSizeX = plotAreaSize.x;
-			const plotAreaSizeY = plotAreaSize.y;
+			const plotArea = container.plotArea;
+			const plotAreaWidth = plotArea.width;
+			const plotAreaHeight = plotArea.height;
 			const padding = this._padding * this._index;
 			bar.disallowUploadedUpdate();
 			switch( position ) {
 			case DChartAxisPosition.TOP:
-				bar.transform.position.set( plotAreaSizeX * 0.5, 0 - padding );
-				bar.size.set( plotAreaSizeX, 0 );
+				bar.transform.position.set( plotAreaWidth * 0.5, 0 - padding );
+				bar.size.set( plotAreaWidth, 0 );
 				break;
 			case DChartAxisPosition.BOTTOM:
-				bar.transform.position.set( plotAreaSizeX * 0.5, plotAreaSizeY + padding );
-				bar.size.set( plotAreaSizeX, 0 );
+				bar.transform.position.set( plotAreaWidth * 0.5, plotAreaHeight + padding );
+				bar.size.set( plotAreaWidth, 0 );
 				break;
 			case DChartAxisPosition.LEFT:
-				bar.transform.position.set( 0 - padding, plotAreaSizeY * 0.5 );
-				bar.size.set( 0, plotAreaSizeY );
+				bar.transform.position.set( 0 - padding, plotAreaHeight * 0.5 );
+				bar.size.set( 0, plotAreaHeight );
 				break;
 			case DChartAxisPosition.RIGHT:
-				bar.transform.position.set( plotAreaSizeX + padding, plotAreaSizeY * 0.5 );
-				bar.size.set( 0, plotAreaSizeY );
+				bar.transform.position.set( plotAreaWidth + padding, plotAreaHeight * 0.5 );
+				bar.size.set( 0, plotAreaHeight );
 				break;
 			}
 			bar.allowUploadedUpdate();
@@ -204,7 +204,7 @@ export class DChartAxisBase implements DChartAxis {
 					this.updateTicksX(
 						coordinate,
 						majorShapes, minorShapes,
-						plotArea.size.y + padding
+						plotArea.height + padding
 					);
 				}
 				break;
@@ -224,7 +224,7 @@ export class DChartAxisBase implements DChartAxis {
 					this.updateTicksY(
 						coordinate,
 						majorShapes, minorShapes,
-						plotArea.size.x + padding
+						plotArea.width + padding
 					);
 				}
 				break;

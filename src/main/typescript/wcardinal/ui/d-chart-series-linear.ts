@@ -95,21 +95,20 @@ export class DChartSeriesLinear extends DChartSeriesBase {
 			if( coordinateX && coordinateY ) {
 				const coordinateIdX = coordinateX.id;
 				const coordinateIdY = coordinateY.id;
-				const plotAreaSize = plotArea.size;
-				const plotAreaSizeX = plotAreaSize.x;
-				const plotAreaSizeY = plotAreaSize.y;
+				const plotAreaWidth = plotArea.width;
+				const plotAreaHeight = plotArea.height;
 
 				const parameters = this._parameters;
 				const isParametersChanged = parameters.isDirty();
 				const isCoordinateChanged = coordinate.isDirty( coordinateIdX, coordinateIdY );
-				const isPlotAreaSizeChagned = ( plotAreaSizeX !== this._plotAreaSizeXUpdated ||
-					plotAreaSizeY !== this._plotAreaSizeYUpdated );
+				const isPlotAreaSizeChagned = ( plotAreaWidth !== this._plotAreaSizeXUpdated ||
+					plotAreaHeight !== this._plotAreaSizeYUpdated );
 				if( isParametersChanged || isCoordinateChanged || isPlotAreaSizeChagned ) {
 					parameters.toClean();
 					coordinate.toClean( coordinateIdX, coordinateIdY );
-					this._plotAreaSizeXUpdated = plotAreaSizeX;
-					this._plotAreaSizeYUpdated = plotAreaSizeY;
-					this.updateLine( line, coordinateX, coordinateY, plotAreaSizeX, plotAreaSizeY );
+					this._plotAreaSizeXUpdated = plotAreaWidth;
+					this._plotAreaSizeYUpdated = plotAreaHeight;
+					this.updateLine( line, coordinateX, coordinateY, plotAreaWidth, plotAreaHeight );
 				}
 			}
 		}

@@ -112,9 +112,9 @@ export class DChartCoordinateLinear implements DChartCoordinate {
 				if( ! (utilIsNaN( domainFrom ) || utilIsNaN( domainTo )) ) {
 					this._domain.set( domainFrom, domainTo );
 					let pixelFrom = padding;
-					let pixelTo = plotArea.size.x - padding;
+					let pixelTo = plotArea.width - padding;
 					if( pixelTo < pixelFrom ) {
-						pixelFrom = plotArea.size.x * 0.5;
+						pixelFrom = plotArea.width * 0.5;
 						pixelTo = pixelFrom;
 					}
 					this._range.set( pixelFrom, pixelTo );
@@ -126,10 +126,10 @@ export class DChartCoordinateLinear implements DChartCoordinate {
 				const rangeTo = range.to;
 				if( ! (utilIsNaN( rangeFrom ) || utilIsNaN( rangeTo )) ) {
 					this._domain.set( rangeFrom, rangeTo );
-					let pixelFrom = plotArea.size.y - padding;
+					let pixelFrom = plotArea.height - padding;
 					let pixelTo = padding;
 					if( pixelFrom < pixelTo ) {
-						pixelFrom = plotArea.size.y * 0.5;
+						pixelFrom = plotArea.height * 0.5;
 						pixelTo = pixelFrom;
 					}
 					this._range.set( pixelFrom, pixelTo );
@@ -207,12 +207,12 @@ export class DChartCoordinateLinear implements DChartCoordinate {
 	protected getRangeMax(): number {
 		const container = this._container;
 		if( container ) {
-			const plotAreaSize = container.container.plotArea.size;
+			const plotArea = container.container.plotArea;
 			switch( this._direction ) {
 			case DChartCoordinateDirection.X:
-				return plotAreaSize.x;
+				return plotArea.width;
 			case DChartCoordinateDirection.Y:
-				return plotAreaSize.y;
+				return plotArea.height;
 			}
 		}
 		return 0;

@@ -19,7 +19,6 @@ import { DBaseState } from "./d-base-state";
 import { DBaseStates } from "./d-base-states";
 import { DBorderMask, DBorderStateAware } from "./d-border";
 import { DCoordinatePosition, DCoordinateSize } from "./d-coordinate";
-import { DCoordinateSet } from "./d-coordinates";
 import { DCorner, DCornerMask } from "./d-corner";
 import { DThemeFont } from "./d-font";
 import { DLayoutClearType } from "./d-layout-clear-type";
@@ -543,6 +542,12 @@ export interface DReflowable {
 	onReflow( base: DBase, width: number, height: number ): void;
 }
 
+const enum AutoFlag {
+	NONE = 0,
+	WIDTH = 1,
+	HEIGHT = 2
+}
+
 export class DBase<
 	THEME extends DThemeBase = DThemeBase,
 	OPTIONS extends DBaseOptions<THEME> = DBaseOptions<THEME>
@@ -559,7 +564,7 @@ export class DBase<
 	protected _padding: DPadding;
 	protected _corner: DCorner;
 	private _scalarSet: DScalarSet;
-	protected _coordinateSet: DCoordinateSet;
+	protected _autoFlags: AutoFlag;
 	private _isDirty: boolean;
 	private _hasDirty: boolean;
 	protected _isChildrenDirty: boolean;
@@ -598,7 +603,7 @@ export class DBase<
 		//
 		this._options = options;
 		const scalarSet: DScalarSet = this._scalarSet = {};
-		this._coordinateSet = new DCoordinateSet( this, scalarSet );
+		this._autoFlags = AutoFlag.NONE;
 		this._isDirty = true;
 		this._hasDirty = false;
 		this._isChildrenDirty = false;
@@ -652,7 +657,7 @@ export class DBase<
 			this._width = width;
 		} else if( width === "auto" || width === "AUTO" ) {
 			this._width = 100;
-			this._coordinateSet.toAutoWidth();
+			this.toWidthAuto();
 		} else {
 			this._width = 100;
 			scalarSet.width = DScalarFunctions.size( width );
@@ -664,7 +669,7 @@ export class DBase<
 			this._height = height;
 		} else if( height === "auto" || height === "AUTO" ) {
 			this._height = 100;
-			this._coordinateSet.toAutoHeight();
+			this.toHeightAuto();
 		} else {
 			this._height = 100;
 			scalarSet.height = DScalarFunctions.size( height );
@@ -847,10 +852,6 @@ export class DBase<
 		// DO NOTHING
 	}
 
-	get coordinate(): DCoordinateSet {
-		return this._coordinateSet;
-	}
-
 	protected init( options?: OPTIONS ): void {
 		// OTHER INITIALIZATIONS BEFORE `parent.addChild( this )`
 	}
@@ -951,12 +952,56 @@ export class DBase<
 		this._position.x = x;
 	}
 
+	getX(): DCoordinatePosition {
+		const scalarSet = this._scalarSet;
+		if( scalarSet.x != null ) {
+			return scalarSet.x;
+		} else {
+			return this.x;
+		}
+	}
+
+	setX( x: DCoordinatePosition ) {
+		if( utilIsNumber( x ) ) {
+			this.x = x;
+		} else {
+			const scalarSet = this._scalarSet;
+			const scalar = DScalarFunctions.position( x );
+			if( scalarSet.x !== scalar ) {
+				scalarSet.x = scalar;
+				this.layout();
+			}
+		}
+	}
+
 	get y(): number {
 		return this._position.y;
 	}
 
 	set y( y: number ) {
 		this._position.y = y;
+	}
+
+	getY(): DCoordinatePosition {
+		const scalarSet = this._scalarSet;
+		if( scalarSet.y != null ) {
+			return scalarSet.y;
+		} else {
+			return this.y;
+		}
+	}
+
+	setY( y: DCoordinatePosition ) {
+		if( utilIsNumber( y ) ) {
+			this.y = y;
+		} else {
+			const scalarSet = this._scalarSet;
+			const scalar = DScalarFunctions.position( y );
+			if( scalarSet.y !== scalar ) {
+				scalarSet.y = scalar;
+				this.layout();
+			}
+		}
 	}
 
 	get width(): number {
@@ -982,6 +1027,44 @@ export class DBase<
 		}
 	}
 
+	protected toWidthAuto() {
+		this._autoFlags |= AutoFlag.WIDTH;
+	}
+
+	protected isWidthAuto(): boolean {
+		return ( this._autoFlags & AutoFlag.WIDTH ) !== 0;
+	}
+
+	getWidth(): DCoordinateSize {
+		const scalarSet = this._scalarSet;
+		if( this.isWidthAuto() ) {
+			return "auto";
+		} else if( scalarSet.width != null ) {
+			return scalarSet.width;
+		} else {
+			return this.width;
+		}
+	}
+
+	setWidth( width: DCoordinateSize ) {
+		if( utilIsNumber( width ) ) {
+			this.width = width;
+		} else if( width === "auto" || width === "AUTO" ) {
+			if( ! this.isWidthAuto() ) {
+				this.toWidthAuto();
+				this.toChildrenDirty();
+				DApplications.update( this );
+			}
+		} else {
+			const scalarSet = this._scalarSet;
+			const scalar = DScalarFunctions.size( width );
+			if( scalarSet.width !== scalar ) {
+				scalarSet.width = scalar;
+				this.layout();
+			}
+		}
+	}
+
 	get height(): number {
 		return this._height;
 	}
@@ -1001,6 +1084,44 @@ export class DBase<
 				if( parent ) {
 					this.y = scalarSet.y( parent.height, height, parent.padding.getTop(), position.y );
 				}
+			}
+		}
+	}
+
+	protected toHeightAuto() {
+		this._autoFlags |= AutoFlag.HEIGHT;
+	}
+
+	protected isHeightAuto(): boolean {
+		return ( this._autoFlags & AutoFlag.HEIGHT ) !== 0;
+	}
+
+	getHeight(): DCoordinateSize {
+		const scalarSet = this._scalarSet;
+		if( this.isHeightAuto() ) {
+			return "auto";
+		} else if( scalarSet.height != null ) {
+			return scalarSet.height;
+		} else {
+			return this.height;
+		}
+	}
+
+	setHeight( height: DCoordinateSize ) {
+		if( utilIsNumber( height ) ) {
+			this.height = height;
+		} else if( height === "auto" || height === "AUTO" ) {
+			if( ! this.isHeightAuto() ) {
+				this.toHeightAuto();
+				this.toChildrenDirty();
+				DApplications.update( this );
+			}
+		} else {
+			const scalarSet = this._scalarSet;
+			const scalar = DScalarFunctions.size( height );
+			if( scalarSet.height !== scalar ) {
+				scalarSet.height = scalar;
+				this.layout();
 			}
 		}
 	}
@@ -1412,9 +1533,8 @@ export class DBase<
 	}
 
 	protected onRefit(): void {
-		const coordinateSet = this._coordinateSet;
-		const isWidthAuto = coordinateSet.isWidthAuto();
-		const isHeightAuto = coordinateSet.isHeightAuto();
+		const isWidthAuto = this.isWidthAuto();
+		const isHeightAuto = this.isHeightAuto();
 		if( isWidthAuto && isHeightAuto ) {
 			let width = 0;
 			let height = 0;
@@ -1463,12 +1583,12 @@ export class DBase<
 
 	protected hasRefitableHeight( target: any ): target is DRefitable {
 		return this.isRefitable( target ) &&
-			! ( target instanceof DBase && utilIsFunction( target.coordinate.height ) );
+			! ( target instanceof DBase && utilIsFunction( target.getHeight() ) );
 	}
 
 	protected hasRefitableWidth( target: any ): target is DBase<any, any> {
 		return this.isRefitable( target ) &&
-			! ( target instanceof DBase && utilIsFunction( target.coordinate.width ) );
+			! ( target instanceof DBase && utilIsFunction( target.getWidth() ) );
 	}
 
 	reflow(): void {

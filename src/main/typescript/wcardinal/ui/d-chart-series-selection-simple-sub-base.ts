@@ -170,8 +170,7 @@ export abstract class DChartSeriesSelectionSimpleSubBase extends utils.EventEmit
 			const container = this._container;
 			if( container ) {
 				const plotArea = container.plotArea;
-				const plotAreaSize = plotArea.size;
-				if( x < 0 || plotAreaSize.x < x || y < 0 || plotAreaSize.y < y ) {
+				if( x < 0 || plotArea.width < x || y < 0 || plotArea.height < y ) {
 					visible = false;
 				}
 			}
