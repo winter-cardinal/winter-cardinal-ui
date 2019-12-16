@@ -4,7 +4,6 @@
  */
 
 import { BaseTexture, BLEND_MODES, ObjectRenderer, Renderer, Shader, Texture, utils } from "pixi.js";
-import { DApplications } from "../d-applications";
 import { DynamicAtlas } from "../util/dynamic-atlas";
 import { DynamicAtlasItemImage } from "../util/dynamic-atlas-item-image";
 import { DynamicSDFFontAtlases } from "../util/dynamic-sdf-font-atlases";
@@ -392,7 +391,7 @@ export class EShapeRenderer extends ObjectRenderer {
 			}
 
 			// Render buffers
-			shader.uniforms.pixelScale = container.getPixelScale( resolution );
+			shader.uniforms.pixelScale = container.toPixelScale( resolution );
 			shader.uniforms.antialiasWeight = antialiasWeight;
 			shader.uniforms.translationMatrix = container.worldTransform.toArray( true );
 			renderer.shader.bind( shader, false );

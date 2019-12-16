@@ -101,7 +101,7 @@ export class EShapeContainer extends DisplayObject {
 		return this._buffers;
 	}
 
-	getPixelScale( resolution: number ): number {
+	toPixelScale( resolution: number ): number {
 		this.updateTransform();
 		const transform = this.transform;
 		const worldID = (transform as any)._worldID;
@@ -113,6 +113,10 @@ export class EShapeContainer extends DisplayObject {
 			const scale = Math.sqrt( a * a + b * b );
 			this._pixelScale = 1 / ( resolution * scale );
 		}
+		return this._pixelScale;
+	}
+
+	getPixelScale(): number {
 		return this._pixelScale;
 	}
 
