@@ -7,6 +7,7 @@ import { DChartCoordinate, DChartCoordinateDirection } from "./d-chart-coordinat
 import { DChartCoordinateContainerSub } from "./d-chart-coordinate-container-sub";
 import { DChartCoordinateTransform, DThemeChartCoordinateTransform } from "./d-chart-coordinate-transform";
 import { DChartCoordinateTransformImpl } from "./d-chart-coordinate-transform-impl";
+import { DChartRegion } from "./d-chart-region";
 import { DChartRegionImpl } from "./d-chart-region-impl";
 import { DThemes } from "./theme/d-themes";
 import { utilIsNaN } from "./util/util-is-nan";
@@ -65,11 +66,7 @@ export class DChartCoordinateLinear implements DChartCoordinate {
 
 	bind( container: DChartCoordinateContainerSub, direction: DChartCoordinateDirection ): void {
 		this._container = container;
-		if( this._direction !== direction ) {
-			this._direction = direction;
-			const transform = this._transform;
-			transform.scale = -transform.scale;
-		}
+		this._direction = direction;
 	}
 
 	unbind(): void {
@@ -79,60 +76,46 @@ export class DChartCoordinateLinear implements DChartCoordinate {
 	fit(): void {
 		const container = this._container;
 		if( container ) {
+			const plotArea = container.container.plotArea;
+			const padding = plotArea.padding;
 			switch( this._direction ) {
 			case DChartCoordinateDirection.X:
-				this.fitX( container );
+				this.fit_(
+					plotArea.width,
+					padding.getLeft(),
+					padding.getRight(),
+					plotArea.series.getDomain( this, this._work )
+				);
 				break;
 			case DChartCoordinateDirection.Y:
-				this.fitY( container );
+				this.fit_(
+					plotArea.height,
+					padding.getBottom(),
+					padding.getTop(),
+					plotArea.series.getRange( this, this._work )
+				);
 				break;
 			}
 		}
 	}
 
-	protected fitX( container: DChartCoordinateContainerSub ): void {
-		const plotArea = container.container.plotArea;
-		const region = plotArea.series.getDomain( this, this._work );
+	protected fit_( size: number, paddingFrom: number, paddingTo: number, region: DChartRegion ): void {
 		const regionFrom = region.from;
 		const regionTo = region.to;
 		if( ! (utilIsNaN( regionFrom ) || utilIsNaN( regionTo )) ) {
-			const transform = this._transform;
-			const theme = this._theme;
-			const padding = plotArea.padding;
-			const regionSize = Math.abs( regionTo - regionFrom );
-			const paddingLeft = padding.getLeft();
-			if( theme.isZero( regionSize ) ) {
-				transform.set( paddingLeft - regionFrom, +1 );
-			} else {
-				const paddingRight = padding.getRight();
-				const pixelSize = Math.max( 0, plotArea.width - paddingLeft - paddingRight );
-				const newScale = +pixelSize / regionSize;
-				const newTranslation = paddingLeft - regionFrom * newScale;
-				transform.set( newTranslation, newScale );
-			}
-		}
-	}
-
-	protected fitY( container: DChartCoordinateContainerSub ): void {
-		const plotArea = container.container.plotArea;
-		const region = plotArea.series.getRange( this, this._work );
-		const regionFrom = region.from;
-		const regionTo = region.to;
-		if( ! (utilIsNaN( regionFrom ) || utilIsNaN( regionTo )) ) {
-			const padding = plotArea.padding;
-			const theme = this._theme;
-			const transform = this._transform;
+			// Scale
+			let newScale = 1;
 			const rangeSize = Math.abs( regionTo - regionFrom );
-			const paddingTop = padding.getTop();
-			if( theme.isZero( rangeSize ) ) {
-				transform.set( paddingTop + regionTo, -1 );
-			} else {
-				const paddingBottom = padding.getBottom();
-				const pixelSize = Math.max( 0, plotArea.height - paddingTop - paddingBottom );
-				const newScale = -pixelSize / rangeSize;
-				const newTranslation = paddingTop - regionTo * newScale;
-				transform.set( newTranslation, newScale );
+			if( ! this._theme.isZero( rangeSize ) ) {
+				const pixelSize = Math.max( 0, size - paddingFrom - paddingTo );
+				newScale = pixelSize / rangeSize;
 			}
+
+			// Translation
+			const newTranslation = paddingFrom - regionFrom * newScale;
+
+			// Done
+			this._transform.set( newTranslation, newScale );
 		}
 	}
 
@@ -145,19 +128,26 @@ export class DChartCoordinateLinear implements DChartCoordinate {
 	}
 
 	map( value: number ): number {
+		if( this._direction === DChartCoordinateDirection.Y ) {
+			return -value;
+		}
 		return value;
 	}
 
 	mapAll( values: number[], ifrom: number, iend: number, stride: number, offset: number ): void {
-		// DO NOTHING
+		if( this._direction === DChartCoordinateDirection.Y ) {
+			for( let i = ifrom + offset; i < iend; i += stride ) {
+				values[ i ] = -values[ i ];
+			}
+		}
 	}
 
 	unmap( value: number ): number {
-		return value;
+		return this.map( value );
 	}
 
 	unmapAll( values: number[], ifrom: number, iend: number, stride: number, offset: number ): void {
-		// DO NOTHING
+		this.mapAll( values, ifrom, iend, stride, offset );
 	}
 
 	protected calcStepMajor( domainMin: number, domainMax: number, count: number ): number {
