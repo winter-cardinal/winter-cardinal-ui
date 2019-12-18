@@ -8,81 +8,21 @@ import { DApplications } from "./d-applications";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseOverflowMask } from "./d-base-overflow-mask";
 import { DCanvas } from "./d-canvas";
-import { DCanvasContainerView, DCanvasContainerViewChecker } from "./d-canvas-container-view";
-import { DDragMode } from "./d-drag-mode";
-import { DMouseModifier } from "./d-mouse-modifier";
-import { UtilDragCheckerOptions } from "./util/util-drag";
-import { UtilDragEasingOptions } from "./util/util-drag-easing";
+import { DView, DViewOptions } from "./d-view";
+import { DViewImpl } from "./d-view-impl";
 import { UtilWheelEventDeltas } from "./util/util-wheel-event";
-
-export interface DCanvasContainerDragOptions extends UtilDragEasingOptions {
-	mode?: (keyof typeof DDragMode) | DDragMode;
-	modifier?: (keyof typeof DMouseModifier) | DMouseModifier;
-	checker?: UtilDragCheckerOptions;
-}
-
-export interface DCanvasContainerZoomWheelOptions {
-	enable?: boolean;
-	speed?: number;
-	modifier?: (keyof typeof DMouseModifier) | DMouseModifier;
-	checker?: DCanvasContainerViewChecker;
-}
-
-export interface DCanvasContainerZoomDblClickOptions {
-	enable?: boolean;
-	amount?: number;
-	modifier?: (keyof typeof DMouseModifier) | DMouseModifier;
-	checker?: DCanvasContainerViewChecker;
-	duration?: number;
-}
-
-export interface DCanvasContainerZoomOptions {
-	min?: number;
-	max?: number;
-	wheel?: DCanvasContainerZoomWheelOptions;
-	dblclick?: DCanvasContainerZoomDblClickOptions;
-}
-
-export interface DCanvasContainerTranslationWheelOptions {
-	enable?: boolean;
-	speed?: number;
-	modifier?: (keyof typeof DMouseModifier) | DMouseModifier;
-	checker?: DCanvasContainerViewChecker;
-}
-
-export interface DCanvasContainerTranslationOptions {
-	wheel?: DCanvasContainerTranslationWheelOptions;
-}
 
 export interface DCanvasContainerOptions<
 	CANVAS extends DBase = DCanvas,
 	THEME extends DThemeCanvasContainer = DThemeCanvasContainer
 > extends DBaseOptions<THEME> {
 	mask?: boolean;
+	view?: DViewOptions;
 	canvas?: CANVAS;
-	drag?: DCanvasContainerDragOptions;
-	zoom?: DCanvasContainerZoomOptions;
-	translation?: DCanvasContainerTranslationOptions;
 }
 
 export interface DThemeCanvasContainer extends DThemeBase {
 	isOverflowMaskEnabled(): boolean;
-	isWheelZoomEnabled(): boolean;
-	isDblClickZoomEnabled(): boolean;
-	isWheelTranslationEnabled(): boolean;
-	getWheelZoomSpeed(): number;
-	getWheelZoomModifier(): DMouseModifier;
-	getDblClickZoomSpeed(): number;
-	getDblClickZoomModifier(): DMouseModifier;
-	getDblClickZoomDuration(): number;
-	getWheelTranslationSpeed(): number;
-	getWheelTranslationModifier(): DMouseModifier;
-	getDragMode(): DDragMode;
-	getDragModifier(): DMouseModifier;
-	getDragDurationPosition(): number;
-	getDragDurationScale(): number;
-	getZoomMin(): number;
-	getZoomMax(): number;
 }
 
 const isOverflowMaskEnabled = <
@@ -102,19 +42,20 @@ export class DCanvasContainer<
 > extends DBase<THEME, OPTIONS> {
 	protected _canvas!: CANVAS | null;
 	protected _overflowMask!: DBaseOverflowMask | null;
-	protected _view!: DCanvasContainerView<CANVAS, THEME, OPTIONS>;
+	protected _view!: DViewImpl;
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
 
 		this._canvas = null;
 		const theme = this.theme;
-		this._view = new DCanvasContainerView( this, theme, options );
+		this._view = new DViewImpl( this, () => this._canvas, options && options.view );
 
 		// Canvas
 		this.canvas = ( options && options.canvas ? options.canvas : null );
 
 		// Overflow mask
+		this._overflowMask = null;
 		if( isOverflowMaskEnabled( theme, options ) ) {
 			this.mask = this.getOrCreateOverflowMask();
 		}
@@ -170,7 +111,7 @@ export class DCanvasContainer<
 		}
 	}
 
-	get view(): DCanvasContainerView<CANVAS, THEME, OPTIONS> {
+	get view(): DView {
 		return this._view;
 	}
 

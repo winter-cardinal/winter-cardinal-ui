@@ -20,6 +20,7 @@ export abstract class DChartSeriesSelectionSimpleSubBase extends utils.EventEmit
 	protected _position: Point;
 	protected _point: DChartSeriesSelectionPoint;
 	protected _style: DChartSeriesSelectionStyle;
+	protected _work: Point;
 
 	constructor( point: DChartSeriesSelectionPoint, options?: DChartSeriesSelectionSimpleSubOptions ) {
 		super();
@@ -32,6 +33,7 @@ export abstract class DChartSeriesSelectionSimpleSubBase extends utils.EventEmit
 		this._position = new Point();
 		this._point = point;
 		this._style = (options && options.style) || this.setStyle;
+		this._work = new Point();
 
 		// Events
 		if( options ) {
@@ -47,7 +49,7 @@ export abstract class DChartSeriesSelectionSimpleSubBase extends utils.EventEmit
 	bind( container: DChartSeriesContainer ): void {
 		this._container = container;
 		const shape = this._shape = (this._shape || this.newShape());
-		shape.attach( container.plotArea.container );
+		shape.attach( container.plotArea.axis.container );
 		shape.visible = false;
 	}
 
@@ -76,16 +78,21 @@ export abstract class DChartSeriesSelectionSimpleSubBase extends utils.EventEmit
 
 	set( series: DChartSeries, result: DChartSeriesHitResult | Point ): void {
 		const shape = this._shape;
+		const container = this._container;
 		const coordinateX = this._coordinateX = series.coordinate.x;
 		const coordinateY = this._coordinateY = series.coordinate.y;
-		if( shape && coordinateX && coordinateY ) {
+		if( shape && container && coordinateX && coordinateY ) {
+			const transform = container.plotArea.container.localTransform;
 			const position = this._position;
+			const work = this._work;
 			if( result instanceof Point ) {
-				position.copyFrom( result );
-				shape.transform.position.set(
-					coordinateX.map( result.x ),
-					coordinateY.map( result.y )
+				work.set(
+					coordinateX.transform.map( coordinateX.map( result.x ) ),
+					coordinateY.transform.map( coordinateY.map( result.y ) )
 				);
+				transform.apply( work, work );
+				shape.transform.position.copyFrom( work );
+				position.copyFrom( result );
 			} else {
 				let x = result.x;
 				let y = result.y;
@@ -107,11 +114,14 @@ export abstract class DChartSeriesSelectionSimpleSubBase extends utils.EventEmit
 						y = result.p1y;
 					}
 				}
+
+				work.set( x, y );
+				transform.apply( work, work );
+				shape.transform.position.copyFrom( work );
 				position.set(
-					coordinateX.unmap( x ),
-					coordinateY.unmap( y )
+					coordinateX.unmap( coordinateX.transform.unmap( x ) ),
+					coordinateY.unmap( coordinateY.transform.unmap( y ) )
 				);
-				shape.transform.position.set( x, y );
 			}
 			this._style( shape, series );
 			shape.visible = true;
@@ -159,23 +169,25 @@ export abstract class DChartSeriesSelectionSimpleSubBase extends utils.EventEmit
 
 	update(): void {
 		const shape = this._shape;
+		const container = this._container;
 		const coordinateX = this._coordinateX;
 		const coordinateY = this._coordinateY;
-		if( shape && coordinateX && coordinateY ) {
+		if( shape && container && coordinateX && coordinateY ) {
+			// Position
 			const position = this._position;
-			const x = coordinateX.map( position.x );
-			const y = coordinateY.map( position.y );
+			const work = this._work;
+			work.set(
+				coordinateX.transform.map( coordinateX.map( position.x ) ),
+				coordinateY.transform.map( coordinateY.map( position.y ) )
+			);
+			container.plotArea.container.localTransform.apply( work, work );
+			shape.transform.position.copyFrom( work );
 
-			let visible = true;
-			const container = this._container;
-			if( container ) {
-				const plotArea = container.plotArea;
-				if( x < 0 || plotArea.width < x || y < 0 || plotArea.height < y ) {
-					visible = false;
-				}
-			}
-			shape.transform.position.set( x, y );
-			shape.visible = visible;
+			// Visibility
+			const x = work.x;
+			const y = work.y;
+			const plotArea = container.plotArea;
+			shape.visible = ( 0 <= x && x <= plotArea.width && 0 <= y && y <= plotArea.height );
 		}
 	}
 }

@@ -28,28 +28,38 @@
 
 		const application = new wcardinal.ui.DApplication();
 
-		new wcardinal.ui.DChart({
+		const chart = new wcardinal.ui.DChart({
 			parent: application.stage,
-			x: 100,
-			y: 50,
-			width: 500,
-			height: 300,
+			x: 100, y: 50,
+			width: 500, height: 300,
 			plotArea: {
 				coordinate: {
-					x: new wcardinal.ui.DChartCoordinateLinear(),
+					x: [
+						new wcardinal.ui.DChartCoordinateLinear(),
+						new wcardinal.ui.DChartCoordinateLinear()
+					],
 					y: new wcardinal.ui.DChartCoordinateLinear()
 				},
 				series: {
 					stroke: {
-						style: "DOTTED"
+						width: 4,
+						style: [[ "DOTTED", "NON_EXPANDING_WIDTH", "NON_SHRINKING_WIDTH", "NON_SCALING_DOT_AND_DASH" ]]
 					},
 					list: [
 						new wcardinal.ui.DChartSeriesLine(),
 						new wcardinal.ui.DChartSeriesLine(),
 						new wcardinal.ui.DChartSeriesLine(),
 						new wcardinal.ui.DChartSeriesLine(),
-						new wcardinal.ui.DChartSeriesLine(),
-						new wcardinal.ui.DChartSeriesLine()
+						new wcardinal.ui.DChartSeriesLine({
+							coordinate: {
+								x: 1
+							}
+						}),
+						new wcardinal.ui.DChartSeriesLine({
+							coordinate: {
+								x: 1
+							}
+						})
 					]
 				},
 				axis: {
@@ -65,7 +75,8 @@
 							},
 							label: {
 								value: "X2 Axis"
-							}
+							},
+							coordinate: 1
 						}),
 						new wcardinal.ui.DChartAxisY({
 							label: {
@@ -108,7 +119,7 @@
 							const series = plotArea.series.get( i );
 							const points = series.points;
 							const dy = Math.sin( dx * 0.025 + i ) * 12;
-							points.push( dx, dy );
+							points.push( dx + i * 10, dy );
 							if( 1024 < series.points.length ) {
 								points.shift();
 								points.shift();
@@ -127,6 +138,19 @@
 				}
 			}
 		});
+
+		new wcardinal.ui.DButton({
+			parent: application.stage,
+			x: 50, y: 600,
+			text: {
+				value: "Fit"
+			},
+			on: {
+				active: () => {
+					chart.plotArea.view.fit();
+				}
+			}
+		})
 	}());
 	</script>
 </body>

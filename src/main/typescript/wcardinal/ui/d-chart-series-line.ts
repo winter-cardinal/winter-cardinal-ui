@@ -15,7 +15,7 @@ import { DChartSeriesStrokeComputedImpl } from "./d-chart-series-stroke-computed
 import { EShape } from "./shape/e-shape";
 import { EShapeLine } from "./shape/variant/e-shape-line";
 import { EShapeLineHitThreshold } from "./shape/variant/e-shape-line-base";
-import { utilCeilingIndex } from "./util";
+import { utilCeilingIndex } from "./util/util-ceiling-index";
 
 /**
  * {@link DChartSeriesLine} options.
@@ -94,13 +94,9 @@ export class DChartSeriesLine extends DChartSeriesBase {
 			if( coordinateX && coordinateY ) {
 				const pointId = this._pointId;
 				const isPointChanged = ( pointId !== this._pointIdUpdated );
-
-				const coordinateIdX = coordinateX.id;
-				const coordinateIdY = coordinateY.id;
-				const isCoordinateChanged = coordinate.isDirty( coordinateIdX, coordinateIdY );
+				const isCoordinateChanged = coordinate.isDirty( coordinateX, coordinateY );
 				if( isPointChanged || isCoordinateChanged ) {
 					this._pointIdUpdated = pointId;
-					coordinate.toClean( coordinateIdX, coordinateIdY );
 					this.updateLine( line, coordinateX, coordinateY );
 				}
 			}
@@ -124,11 +120,9 @@ export class DChartSeriesLine extends DChartSeriesBase {
 		let ymin = NaN;
 		let ymax = NaN;
 		for( let i = 0, imax = points.length; i < imax; i += 2 ) {
-			const xraw = points[ i ];
-			const yraw = points[ i + 1 ];
-			if( xraw != null && yraw != null ) {
-				const x = xcoordinate.map( xraw );
-				const y = ycoordinate.map( yraw );
+			const x = points[ i ];
+			const y = points[ i + 1 ];
+			if( x != null && y != null ) {
 				if( ivalues < valuesLength ) {
 					values[ ivalues ] = x;
 					values[ ivalues + 1 ] = y;
@@ -163,14 +157,26 @@ export class DChartSeriesLine extends DChartSeriesBase {
 		if( segments.length !== isegments ) {
 			segments.length = isegments;
 		}
+
+		xcoordinate.mapAll( values, 0, ivalues, 2, 0 );
+		ycoordinate.mapAll( values, 0, ivalues, 2, 1 );
+		xcoordinate.transform.mapAll( values, 0, ivalues, 2, 0 );
+		ycoordinate.transform.mapAll( values, 0, ivalues, 2, 1 );
+
 		if( xmin !== xmin ) {
 			xmin = 0;
 			xmax = 0;
 			ymin = 0;
 			ymax = 0;
 		}
-		const sx = xmax - xmin;
-		const sy = ymax - ymin;
+
+		xmin = xcoordinate.transform.map( xcoordinate.map( xmin ) );
+		xmax = xcoordinate.transform.map( xcoordinate.map( xmax ) );
+		ymin = ycoordinate.transform.map( ycoordinate.map( ymin ) );
+		ymax = ycoordinate.transform.map( ycoordinate.map( ymax ) );
+
+		const sx = Math.abs( xmax - xmin );
+		const sy = Math.abs( ymax - ymin );
 		const cx = ( xmin + xmax ) * 0.5;
 		const cy = ( ymin + ymax ) * 0.5;
 		for( let i = 0, imax = values.length; i < imax; i += 2 ) {

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export interface DCanvasContainerViewStopper {
+export interface DViewStopper {
 	stop(): void;
 	toNormalizedScale( scale: number ): number;
 }

@@ -93,19 +93,16 @@ export class DChartSeriesLinear extends DChartSeriesBase {
 			const coordinateX = coordinate.x;
 			const coordinateY = coordinate.y;
 			if( coordinateX && coordinateY ) {
-				const coordinateIdX = coordinateX.id;
-				const coordinateIdY = coordinateY.id;
 				const plotAreaWidth = plotArea.width;
 				const plotAreaHeight = plotArea.height;
 
 				const parameters = this._parameters;
 				const isParametersChanged = parameters.isDirty();
-				const isCoordinateChanged = coordinate.isDirty( coordinateIdX, coordinateIdY );
+				const isCoordinateChanged = coordinate.isDirty( coordinateX, coordinateY );
 				const isPlotAreaSizeChagned = ( plotAreaWidth !== this._plotAreaSizeXUpdated ||
 					plotAreaHeight !== this._plotAreaSizeYUpdated );
 				if( isParametersChanged || isCoordinateChanged || isPlotAreaSizeChagned ) {
 					parameters.toClean();
-					coordinate.toClean( coordinateIdX, coordinateIdY );
 					this._plotAreaSizeXUpdated = plotAreaWidth;
 					this._plotAreaSizeYUpdated = plotAreaHeight;
 					this.updateLine( line, coordinateX, coordinateY, plotAreaWidth, plotAreaHeight );
@@ -139,14 +136,22 @@ export class DChartSeriesLinear extends DChartSeriesBase {
 
 		const threshold = 0.00001;
 		if( babs <= aabs ) {
-			const xfrom0 = xcoordinate.unmap( 0 );
-			const xto0 = xcoordinate.unmap( plotAreaSizeX );
+			const xfrom0 = xcoordinate.unmap(
+				xcoordinate.transform.unmap( 0 )
+			);
+			const xto0 = xcoordinate.unmap(
+				xcoordinate.transform.unmap( plotAreaSizeX )
+			);
 			p0x = Math.min( xfrom0, xto0 );
 			p1x = Math.max( xfrom0, xto0 );
 
 			if( threshold < aabs ) {
-				const yfrom = ycoordinate.unmap( 0 );
-				const yto = ycoordinate.unmap( plotAreaSizeY );
+				const yfrom = ycoordinate.unmap(
+					ycoordinate.transform.unmap( 0 )
+				);
+				const yto = ycoordinate.unmap(
+					ycoordinate.transform.unmap( plotAreaSizeY )
+				);
 				const xfrom1 = b * (yfrom - y0) / a + x0;
 				const xto1 = b * (yto - y0) / a + x0;
 				const p2x = Math.min( xfrom1, xto1 );
@@ -164,14 +169,22 @@ export class DChartSeriesLinear extends DChartSeriesBase {
 			p0y = a * (p0x - x0) + b * y0;
 			p1y = a * (p1x - x0) + b * y0;
 		} else {
-			const yfrom0 = ycoordinate.unmap( 0 );
-			const yto0 = ycoordinate.unmap( plotAreaSizeY );
+			const yfrom0 = ycoordinate.unmap(
+				ycoordinate.transform.unmap( 0 )
+			);
+			const yto0 = ycoordinate.unmap(
+				ycoordinate.transform.unmap( plotAreaSizeY )
+			);
 			p0y = Math.min( yfrom0, yto0 );
 			p1y = Math.max( yfrom0, yto0 );
 
 			if( threshold < babs ) {
-				const xfrom = xcoordinate.unmap( 0 );
-				const xto = xcoordinate.unmap( plotAreaSizeX );
+				const xfrom = xcoordinate.unmap(
+					xcoordinate.transform.unmap( 0 )
+				);
+				const xto = xcoordinate.unmap(
+					xcoordinate.transform.unmap( plotAreaSizeX )
+				);
 				const yfrom1 = a * (xfrom - x0) / b + y0;
 				const yto1 = a * (xto - x0) / b + y0;
 				const p2y = Math.min( yfrom1, yto1 );
@@ -190,10 +203,10 @@ export class DChartSeriesLinear extends DChartSeriesBase {
 			p1x = b * (p1y - y0) + a * x0;
 		}
 
-		p0x = xcoordinate.map( p0x );
-		p0y = ycoordinate.map( p0y );
-		p1x = xcoordinate.map( p1x );
-		p1y = ycoordinate.map( p1y );
+		p0x = xcoordinate.transform.map( xcoordinate.map( p0x ) );
+		p0y = ycoordinate.transform.map( ycoordinate.map( p0y ) );
+		p1x = xcoordinate.transform.map( xcoordinate.map( p1x ) );
+		p1y = ycoordinate.transform.map( ycoordinate.map( p1y ) );
 
 		const cx = ( p0x + p1x ) * 0.5;
 		const cy = ( p0y + p1y ) * 0.5;

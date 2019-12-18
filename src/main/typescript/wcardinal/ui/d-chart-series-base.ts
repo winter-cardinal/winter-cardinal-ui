@@ -13,7 +13,8 @@ import { DChartSeries, DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesBaseCoordinateContainer } from "./d-chart-series-base-coordinate-container";
 import { DChartSeriesContainer } from "./d-chart-series-container";
 import { DChartSeriesCoordinateContainer, DChartSeriesCoordinateOptions } from "./d-chart-series-coordinate";
-import { EShape, EShapeLineHitThreshold } from "./shape";
+import { EShape } from "./shape/e-shape";
+import { EShapeLineHitThreshold } from "./shape/variant/e-shape-line-base";
 
 /**
  * {@link DChartSeriesBase} options.

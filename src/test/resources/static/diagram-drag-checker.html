@@ -37,18 +37,20 @@
 			parent: application.stage,
 			x: 0, y: 0,
 			width: "100%", height: "100%",
-			drag: {
-				checker: {
-					start: ( e ) => {
-						if( ! diagram.isDragging() ) {
-							const layer = diagram.layer;
-							if( layer ) {
-								if( layer.hitTest( e.data.global ) ) {
-									return false;
+			view: {
+				drag: {
+					checker: {
+						start: ( e ) => {
+							if( ! diagram.isDragging() ) {
+								const layer = diagram.layer;
+								if( layer ) {
+									if( layer.hitTest( e.data.global ) ) {
+										return false;
+									}
 								}
 							}
+							return true;
 						}
-						return true;
 					}
 				}
 			}

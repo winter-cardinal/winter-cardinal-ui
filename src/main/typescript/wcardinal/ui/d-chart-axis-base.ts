@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { Matrix } from "pixi.js";
 import { DChartAxis, DChartAxisPosition } from "./d-chart-axis";
 import {
 	DChartAxisBaseOptionParser, DChartAxisBaseOptions, DChartAxisBaseTickContainer, DThemeChartAxisBase
@@ -51,17 +52,15 @@ export class DChartAxisBase implements DChartAxis {
 		return this._position;
 	}
 
-	protected updateBar(): void {
-		const position = this._position;
-		const container = this._container;
+	protected updateBar( container: DChartAxisContainer ): void {
 		const bar = this._bar;
-		if( container && bar ) {
+		if( bar ) {
 			const plotArea = container.plotArea;
 			const plotAreaWidth = plotArea.width;
 			const plotAreaHeight = plotArea.height;
 			const padding = this._padding * this._index;
 			bar.disallowUploadedUpdate();
-			switch( position ) {
+			switch( this._position ) {
 			case DChartAxisPosition.TOP:
 				bar.transform.position.set( plotAreaWidth * 0.5, 0 - padding );
 				bar.size.set( plotAreaWidth, 0 );
@@ -84,9 +83,11 @@ export class DChartAxisBase implements DChartAxis {
 	}
 
 	updateTicksX(
+		domainMin: number, domainMax: number,
 		coordinate: DChartCoordinate,
 		majorShapes: EShapeBar[], minorShapes: EShapeBar[],
-		shapePositionY: number
+		shapePositionY: number,
+		transform: Matrix
 	): void {
 		const tick = this._tick;
 		const majorCount = tick.major.count;
@@ -95,8 +96,14 @@ export class DChartAxisBase implements DChartAxis {
 		const minorCount = (majorCount + 1) * minorCountPerMajor;
 		const majorTicks = this._majorTicks;
 		const minorTicks = this._minorTicks;
-		coordinate.ticks( majorCount, minorCountPerMajor, minorCount, majorTicks, minorTicks );
+		coordinate.ticks(
+			domainMin, domainMax,
+			majorCount, minorCountPerMajor, minorCount,
+			majorTicks, minorTicks
+		);
 
+		const a = transform.a;
+		const tx = transform.tx;
 		for( let i = 0; i < majorCount; ++i ) {
 			const majorShape = majorShapes[ i ];
 			const imajorTick = i * 3;
@@ -106,7 +113,10 @@ export class DChartAxisBase implements DChartAxis {
 			if( ! utilIsNaN( majorTickPosition ) ) {
 				majorShape.disallowUploadedUpdate();
 				majorShape.visible = true;
-				majorShape.transform.position.set( majorTickProjectedPosition, shapePositionY );
+				majorShape.transform.position.set(
+					a * majorTickProjectedPosition + tx,
+					shapePositionY
+				);
 				majorShape.text.value = majorFormatter.format( majorTickPosition, majorTickStep );
 				majorShape.allowUploadedUpdate();
 			} else {
@@ -122,7 +132,10 @@ export class DChartAxisBase implements DChartAxis {
 			if( ! utilIsNaN( minorTickPosition ) ) {
 				minorShape.disallowUploadedUpdate();
 				minorShape.visible = true;
-				minorShape.transform.position.set( minorTickProjectedPosition, shapePositionY );
+				minorShape.transform.position.set(
+					a * minorTickProjectedPosition + tx,
+					shapePositionY
+				);
 				minorShape.allowUploadedUpdate();
 			} else {
 				minorShape.visible = false;
@@ -131,9 +144,11 @@ export class DChartAxisBase implements DChartAxis {
 	}
 
 	updateTicksY(
+		domainMin: number, domainMax: number,
 		coordinate: DChartCoordinate,
 		majorShapes: EShapeBar[], minorShapes: EShapeBar[],
-		shapePositionX: number
+		shapePositionX: number,
+		transform: Matrix
 	): void {
 		const tick = this._tick;
 		const majorCount = tick.major.count;
@@ -142,8 +157,14 @@ export class DChartAxisBase implements DChartAxis {
 		const minorCount = (majorCount + 1) * minorCountPerMajor;
 		const majorTicks = this._majorTicks;
 		const minorTicks = this._minorTicks;
-		coordinate.ticks( majorCount, minorCountPerMajor, minorCount, majorTicks, minorTicks );
+		coordinate.ticks(
+			domainMin, domainMax,
+			majorCount, minorCountPerMajor, minorCount,
+			majorTicks, minorTicks
+		);
 
+		const d = transform.d;
+		const ty = transform.ty;
 		for( let i = 0; i < majorCount; ++i ) {
 			const majorShape = majorShapes[ i ];
 			const imajorTick = i * 3;
@@ -153,7 +174,10 @@ export class DChartAxisBase implements DChartAxis {
 			if( ! utilIsNaN( majorTickPosition ) ) {
 				majorShape.disallowUploadedUpdate();
 				majorShape.visible = true;
-				majorShape.transform.position.set( shapePositionX, majorTickProjectedPosition );
+				majorShape.transform.position.set(
+					shapePositionX,
+					d * majorTickProjectedPosition + ty
+				);
 				majorShape.text.value = majorFormatter.format( majorTickPosition, majorTickStep );
 				majorShape.allowUploadedUpdate();
 			} else {
@@ -169,7 +193,10 @@ export class DChartAxisBase implements DChartAxis {
 			if( ! utilIsNaN( minorTickPosition ) ) {
 				minorShape.disallowUploadedUpdate();
 				minorShape.visible = true;
-				minorShape.transform.position.set( shapePositionX, minorTickProjectedPosition );
+				minorShape.transform.position.set(
+					shapePositionX,
+					d * minorTickProjectedPosition + ty
+				);
 				minorShape.allowUploadedUpdate();
 			} else {
 				minorShape.visible = false;
@@ -177,54 +204,88 @@ export class DChartAxisBase implements DChartAxis {
 		}
 	}
 
-	protected updateTicks(): void {
+	protected updateTicks( container: DChartAxisContainer ): void {
 		const tick = this._tick;
 		const majorShapes = tick.major.shapes;
 		const minorShapes = tick.minor.shapes;
-		const container = this._container;
-		if( majorShapes && minorShapes && container ) {
+		if( majorShapes && minorShapes ) {
 			const plotArea = container.plotArea;
+			const bounds = plotArea.getBoundsInContainer();
+			const transform = plotArea.container.transform.localTransform;
+
 			const coordinateIndex = this._coordinateIndex;
-			let coordinate: DChartCoordinate | null;
 			const padding = this._padding * this._index;
+			let coordinate: DChartCoordinate | null;
 			switch( this._position ) {
 			case DChartAxisPosition.TOP:
 				coordinate = plotArea.coordinate.x.get( coordinateIndex );
 				if( coordinate ) {
+					const domainFrom = coordinate.unmap(
+						coordinate.transform.unmap( bounds.x )
+					);
+					const domainTo = coordinate.unmap(
+						coordinate.transform.unmap( bounds.x + bounds.width )
+					);
 					this.updateTicksX(
+						domainFrom, domainTo,
 						coordinate,
 						majorShapes, minorShapes,
-						0 - padding
+						0 - padding,
+						transform
 					);
 				}
 				break;
 			case DChartAxisPosition.BOTTOM:
 				coordinate = plotArea.coordinate.x.get( coordinateIndex );
 				if( coordinate ) {
+					const domainFrom = coordinate.unmap(
+						coordinate.transform.unmap( bounds.x )
+					);
+					const domainTo = coordinate.unmap(
+						coordinate.transform.unmap( bounds.x + bounds.width )
+					);
 					this.updateTicksX(
+						domainFrom, domainTo,
 						coordinate,
 						majorShapes, minorShapes,
-						plotArea.height + padding
+						plotArea.height + padding,
+						transform
 					);
 				}
 				break;
 			case DChartAxisPosition.LEFT:
 				coordinate = plotArea.coordinate.y.get( coordinateIndex );
 				if( coordinate ) {
+					const domainFrom = coordinate.unmap(
+						coordinate.transform.unmap( bounds.y )
+					);
+					const domainTo = coordinate.unmap(
+						coordinate.transform.unmap( bounds.y + bounds.height )
+					);
 					this.updateTicksY(
+						domainFrom, domainTo,
 						coordinate,
 						majorShapes, minorShapes,
-						0 - padding
+						0 - padding,
+						transform
 					);
 				}
 				break;
 			case DChartAxisPosition.RIGHT:
 				coordinate = plotArea.coordinate.y.get( coordinateIndex );
 				if( coordinate ) {
+					const domainFrom = coordinate.unmap(
+						coordinate.transform.unmap( bounds.y )
+					);
+					const domainTo = coordinate.unmap(
+						coordinate.transform.unmap( bounds.y + bounds.height )
+					);
 					this.updateTicksY(
+						domainFrom, domainTo,
 						coordinate,
 						majorShapes, minorShapes,
-						plotArea.width + padding
+						plotArea.width + padding,
+						transform
 					);
 				}
 				break;
@@ -338,8 +399,11 @@ export class DChartAxisBase implements DChartAxis {
 	}
 
 	update(): void {
-		this.updateBar();
-		this.updateTicks();
+		const container = this._container;
+		if( container ) {
+			this.updateBar( container );
+			this.updateTicks( container );
+		}
 	}
 
 	destroy(): void {

@@ -71,13 +71,23 @@ export class EShapeContainer extends DisplayObject {
 		const childrenId = this._childrenId;
 		const childrenIdRendered = this._childrenIdRendered;
 		this._childrenIdRendered = childrenId;
+		const isChildrenDirty = childrenIdRendered < childrenId;
+		const children = this.children;
 
 		let shapeRenderer: EShapeRenderer | null = EShapeContainer.SHAPE_RENDERER;
 		if( shapeRenderer == null ) {
 			shapeRenderer = EShapeContainer.SHAPE_RENDERER = new EShapeRenderer( renderer );
 		}
 		renderer.batch.setObjectRenderer( shapeRenderer );
-		shapeRenderer.render_( this, this.children, childrenIdRendered < childrenId );
+
+		const mask = this._mask;
+		if( mask ) {
+			renderer.mask.push( this, mask );
+			shapeRenderer.render_( this, children, isChildrenDirty );
+			renderer.mask.pop( this, mask );
+		} else {
+			shapeRenderer.render_( this, children, isChildrenDirty );
+		}
 	}
 
 	containsPoint( point: Point ): boolean {

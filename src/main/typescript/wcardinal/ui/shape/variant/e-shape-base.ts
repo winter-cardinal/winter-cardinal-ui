@@ -284,8 +284,10 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	// Transform
 	updateTransform() {
 		const parent = this.parent;
-		if (parent != null) {
-			parent.updateTransform();
+		if( parent ) {
+			if( parent.parent ) {
+				parent.updateTransform();
+			}
 			this.transform.updateTransform(parent.transform);
 		} else {
 			this.transform.updateTransform((Transform as any).IDENTITY);

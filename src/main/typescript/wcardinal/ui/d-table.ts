@@ -16,7 +16,7 @@ import {
 } from "./d-table-column";
 import { DTableData, DTableDataOptions } from "./d-table-data";
 import { DTableHeader, DTableHeaderOptions, DThemeTableHeader } from "./d-table-header";
-import { utilIsArray } from "./util";
+import { utilIsArray } from "./util/util-is-array";
 import { utilIsString } from "./util/util-is-string";
 import { utilToString } from "./util/util-to-string";
 

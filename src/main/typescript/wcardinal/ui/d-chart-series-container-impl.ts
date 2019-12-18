@@ -4,6 +4,7 @@
  */
 
 import { IPoint } from "pixi.js";
+import { DChartCoordinate } from "./d-chart-coordinate";
 import { DChartPlotArea } from "./d-chart-plot-area";
 import { DChartRegion } from "./d-chart-region";
 import { DChartRegionImpl } from "./d-chart-region-impl";
@@ -35,9 +36,6 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 			options.selection : new DChartSeriesSelectionSimple()
 		);
 		this._selection = selection;
-		if( selection ) {
-			selection.bind( this );
-		}
 
 		this._list = [];
 		const list = options && options.list;
@@ -137,6 +135,36 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 		if( selection ) {
 			selection.unbind();
 		}
+	}
+
+	getDomain( coordinate: DChartCoordinate, result: DChartRegion ): DChartRegion {
+		result.clear();
+
+		const list = this._list;
+		for( let i = 0, imax = list.length; i < imax; ++i ) {
+			const series = list[ i ];
+			if( series.coordinate.x === coordinate ) {
+				const domain = series.domain;
+				result.add( domain.from, domain.to );
+			}
+		}
+
+		return result;
+	}
+
+	getRange( coordinate: DChartCoordinate, result: DChartRegion ): DChartRegion {
+		result.clear();
+
+		const list = this._list;
+		for( let i = 0, imax = list.length; i < imax; ++i ) {
+			const series = list[ i ];
+			if( series.coordinate.y === coordinate ) {
+				const range = series.range;
+				result.add( range.from, range.to );
+			}
+		}
+
+		return result;
 	}
 
 	get domain(): DChartRegion {

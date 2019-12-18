@@ -6,7 +6,8 @@
 import { DChartSeriesScalar } from "./d-chart-series-scalar";
 import { EShapePointsStyle } from "./shape/e-shape-points";
 
-export type DChartSeriesStrokeStyleOption = EShapePointsStyle | keyof typeof EShapePointsStyle;
+export type DChartSeriesStrokeStyleOption = EShapePointsStyle |
+	keyof typeof EShapePointsStyle | Array<keyof typeof EShapePointsStyle>;
 
 export interface DChartSeriesStrokeOptions {
 	color?: number | number[] | DChartSeriesScalar<number>;

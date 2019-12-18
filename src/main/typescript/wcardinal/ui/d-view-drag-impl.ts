@@ -5,45 +5,42 @@
 
 import { interaction } from "pixi.js";
 import { DBase } from "./d-base";
-import { DCanvas } from "./d-canvas";
-import { DCanvasContainerOptions, DThemeCanvasContainer } from "./d-canvas-container";
-import { DCanvasContainerViewParent } from "./d-canvas-container-view";
-import { DCanvasContainerViewStopper } from "./d-canvas-container-view-stopper";
 import { DDragMode } from "./d-drag-mode";
 import { DMouseModifier } from "./d-mouse-modifier";
+import { DThemeViewDrag, DViewDrag, DViewDragOptions } from "./d-view-drag";
+import { DViewStopper } from "./d-view-stopper";
+import { DViewToTarget } from "./d-view-to-target";
 import { UtilDrag } from "./util/util-drag";
 import { utilIsString } from "./util/util-is-string";
 
-export class DCanvasContainerViewDrag<
-	CANVAS extends DBase = DCanvas,
-	THEME extends DThemeCanvasContainer = DThemeCanvasContainer,
-	OPTIONS extends DCanvasContainerOptions<CANVAS, THEME> = DCanvasContainerOptions<CANVAS, THEME>
-> {
-	protected _parent: DCanvasContainerViewParent<CANVAS>;
-	protected _stopper: DCanvasContainerViewStopper;
+export class DViewDragImpl implements DViewDrag {
+	protected _parent: DBase;
+	protected _toTarget: DViewToTarget;
+	protected _stopper: DViewStopper;
 	protected _dragUtil?: UtilDrag;
 	protected _bind: boolean;
 
 	constructor(
-		parent: DCanvasContainerViewParent<CANVAS>,
-		stopper: DCanvasContainerViewStopper,
-		theme: THEME,
-		options: OPTIONS | undefined
+		parent: DBase,
+		toTarget: DViewToTarget,
+		stopper: DViewStopper,
+		theme: DThemeViewDrag,
+		options: DViewDragOptions | undefined
 	) {
 		this._parent = parent;
+		this._toTarget = toTarget;
 		this._stopper = stopper;
 
-		const drag = options && options.drag;
-		const mode = ( drag && drag.mode != null ?
-			( utilIsString( drag.mode ) ? DDragMode[ drag.mode ] : drag.mode ) :
+		const mode = ( options && options.mode != null ?
+			( utilIsString( options.mode ) ? DDragMode[ options.mode ] : options.mode ) :
 			theme.getDragMode()
 		);
-		const modifier = ( drag && drag.modifier != null ?
-			( utilIsString( drag.modifier ) ? DMouseModifier[ drag.modifier ] : drag.modifier ) :
+		const modifier = ( options && options.modifier != null ?
+			( utilIsString( options.modifier ) ? DMouseModifier[ options.modifier ] : options.modifier ) :
 			theme.getDragModifier()
 		);
-		const duration = ( drag && drag.duration != null ?
-			drag.duration : {
+		const duration = ( options && options.duration != null ?
+			options.duration : {
 				position: theme.getDragDurationPosition(),
 				scale: theme.getDragDurationScale()
 			}
@@ -55,7 +52,7 @@ export class DCanvasContainerViewDrag<
 				target: parent,
 				touch: bind,
 				modifier,
-				checker: drag && drag.checker,
+				checker: options && options.checker,
 				easing: {
 					duration
 				},
@@ -65,23 +62,23 @@ export class DCanvasContainerViewDrag<
 						this._stopper.stop();
 					},
 					move: ( dx: number, dy: number, x: number, y: number, ds: number ): void => {
-						const canvas = parent.canvas;
-						if( canvas != null ) {
+						const target = toTarget( parent );
+						if( target != null ) {
 							// Scale
-							const oldScale = canvas.scale.y;
+							const oldScale = target.scale.y;
 							const newScale = stopper.toNormalizedScale( oldScale * ds );
 							const scaleRatio = newScale / oldScale;
 
 							// Position
 							const cx = x - dx;
 							const cy = y - dy;
-							const position = canvas.position;
+							const position = target.position;
 							const newX = (position.x - cx) * scaleRatio + x;
 							const newY = (position.y - cy) * scaleRatio + y;
 
 							// Update
-							canvas.scale.set( newScale, newScale );
-							canvas.position.set( newX, newY );
+							target.scale.set( newScale, newScale );
+							target.position.set( newX, newY );
 						}
 					}
 				}

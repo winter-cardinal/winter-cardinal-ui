@@ -8,7 +8,8 @@ import { DBaseState } from "./d-base-state";
 import { DChartRegionImmutable } from "./d-chart-region";
 import { DChartSeriesContainer } from "./d-chart-series-container";
 import { DChartSeriesCoordinateContainer } from "./d-chart-series-coordinate";
-import { EShape, EShapeLineHitThreshold } from "./shape";
+import { EShape } from "./shape/e-shape";
+import { EShapeLineHitThreshold } from "./shape/variant/e-shape-line-base";
 
 export class DChartSeriesHitResult {
 	x: number;

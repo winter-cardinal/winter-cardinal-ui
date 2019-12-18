@@ -12,6 +12,8 @@ export class DChartSeriesBaseCoordinateContainer implements DChartSeriesCoordina
 	protected _coordinateIndexY: number;
 	protected _coordinateIdUpdatedX: number;
 	protected _coordinateIdUpdatedY: number;
+	protected _coordinateTransformIdUpdatedX: number;
+	protected _coordinateTransformIdUpdatedY: number;
 
 	constructor( parent: DChartSeriesBaseCoordinateContainerParent, options?: DChartSeriesCoordinateOptions ) {
 		this._parent = parent;
@@ -19,14 +21,16 @@ export class DChartSeriesBaseCoordinateContainer implements DChartSeriesCoordina
 		this._coordinateIndexY = ( options && options.y != null ? options.y : 0 );
 		this._coordinateIdUpdatedX = NaN;
 		this._coordinateIdUpdatedY = NaN;
+		this._coordinateTransformIdUpdatedX = NaN;
+		this._coordinateTransformIdUpdatedY = NaN;
 	}
 
 	get x(): DChartCoordinate | null {
 		const container = this._parent.container;
 		if( container ) {
-			const plotArea = container.plotArea;
-			const coordinate = plotArea.coordinate;
-			return coordinate.x.get( this._coordinateIndexX );
+			return container.plotArea.coordinate.x.get(
+				this._coordinateIndexX
+			);
 		}
 		return null;
 	}
@@ -34,22 +38,30 @@ export class DChartSeriesBaseCoordinateContainer implements DChartSeriesCoordina
 	get y(): DChartCoordinate | null {
 		const container = this._parent.container;
 		if( container ) {
-			const plotArea = container.plotArea;
-			const coordinate = plotArea.coordinate;
-			return coordinate.y.get( this._coordinateIndexX );
+			return container.plotArea.coordinate.y.get(
+				this._coordinateIndexY
+			);
 		}
 		return null;
 	}
 
-	isDirty( coordinateIdX: number, coordinateIdY: number ): boolean {
+	isDirty( coordinateX: DChartCoordinate, coordinateY: DChartCoordinate ): boolean {
+		const coordinateIdX = coordinateX.id;
+		const coordinateIdY = coordinateY.id;
 		const isCoordinateXChanged = ( coordinateIdX !== this._coordinateIdUpdatedX );
 		const isCoordinateYChanged = ( coordinateIdY !== this._coordinateIdUpdatedY );
-		return ( isCoordinateXChanged || isCoordinateYChanged );
-	}
-
-	toClean( coordinateIdX: number, coordinateIdY: number ): void {
 		this._coordinateIdUpdatedX = coordinateIdX;
 		this._coordinateIdUpdatedY = coordinateIdY;
+
+		const coordinateTransformIdX = coordinateX.transform.id;
+		const coordinateTransformIdY = coordinateY.transform.id;
+		const isCoordinateTransformXChanged = ( coordinateTransformIdX !== this._coordinateTransformIdUpdatedX );
+		const isCoordinateTransformYChanged = ( coordinateTransformIdY !== this._coordinateTransformIdUpdatedY );
+		this._coordinateTransformIdUpdatedX = coordinateTransformIdX;
+		this._coordinateTransformIdUpdatedY = coordinateTransformIdY;
+
+		return ( isCoordinateXChanged || isCoordinateYChanged ||
+			isCoordinateTransformXChanged || isCoordinateTransformYChanged );
 	}
 
 	reset(): void {

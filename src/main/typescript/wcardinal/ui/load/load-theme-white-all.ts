@@ -32,12 +32,14 @@ import { loadThemeWhitePickerTime } from "./load-theme-white-picker-time";
 import { loadThemeWhiteSelect } from "./load-theme-white-select";
 import { loadThemeWhiteTable } from "./load-theme-white-table";
 import { loadThemeWhiteText } from "./load-theme-white-text";
+import { loadThemeWhiteView } from "./load-theme-white-view";
 
 export const loadThemeWhiteAll = () => {
 	loadThemeWhite();
 	loadThemeWhiteBase();
 	loadThemeWhiteBoard();
 	loadThemeWhiteButtonAll();
+	loadThemeWhiteView();
 	loadThemeWhiteCanvasContainer();
 	loadThemeWhiteChart();
 	loadThemeWhiteDiagramEditor();

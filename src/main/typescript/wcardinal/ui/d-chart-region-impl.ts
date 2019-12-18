@@ -25,12 +25,6 @@ export class DChartRegionImpl implements DChartRegion {
 		return this;
 	}
 
-	clear(): this {
-		this.from = NaN;
-		this.to = NaN;
-		return this;
-	}
-
 	add( from: number, to: number ): this {
 		if( ! utilIsNaN( from ) ) {
 			this.from = ( utilIsNaN( this.from ) ?
@@ -44,6 +38,12 @@ export class DChartRegionImpl implements DChartRegion {
 			);
 		}
 
+		return this;
+	}
+
+	clear(): this {
+		this.from = NaN;
+		this.to = NaN;
 		return this;
 	}
 }

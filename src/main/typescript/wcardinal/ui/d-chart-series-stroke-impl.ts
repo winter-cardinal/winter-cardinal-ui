@@ -21,7 +21,11 @@ export class DChartSeriesStrokeImpl implements DChartSeriesStroke {
 		this.width = this.toScalar( options && options.width, EShapeDefaults.STROKE_WIDTH );
 		this.color = this.toScalar( options && options.color, DChartColorSet2 );
 		this.alpha = this.toScalar( options && options.alpha, EShapeDefaults.STROKE_ALPHA );
-		this.style = this.toScalar( options && options.style, EShapePointsStyle.NONE );
+		this.style = this.toScalar( options && options.style,
+			EShapePointsStyle.NON_EXPANDING_WIDTH |
+			EShapePointsStyle.NON_SHRINKING_WIDTH |
+			EShapePointsStyle.NON_SCALING_DOT_AND_DASH
+		);
 	}
 
 	protected toScalar<T>(

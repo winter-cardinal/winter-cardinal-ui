@@ -13,7 +13,8 @@ import { EShapePrimitive } from "./e-shape-primitive";
 
 export type EShapeLineHitThreshold = (
 	shape: EShapeLineBase,
-	threshold: number
+	strokeWidth: number,
+	strokeScale: number
 ) => number;
 
 export type EShapeLineTestRange = (
@@ -70,11 +71,6 @@ export abstract class EShapeLineBase extends EShapePrimitive {
 		}
 	}
 
-	protected getStrokeWidthScaled( points: EShapePoints ): number {
-		const stroke = this.stroke;
-		return ( stroke.enable ? stroke.width * this.getStrokeWidthScale( points ) : 0 );
-	}
-
 	containsAbs( x: number, y: number, ax: number, ay: number ): boolean {
 		return this.calcHitPointAbs( x, y, ax, ay, null, null, this.calcHitPointAbsHitTester, null );
 	}
@@ -104,8 +100,15 @@ export abstract class EShapeLineBase extends EShapePrimitive {
 		result: RESULT
 	): boolean {
 		const points = this.points;
-		const swh = this.getStrokeWidthScaled( points ) * 0.5;
-		const t = ( threshold ? threshold( this, swh ) : swh );
+
+		const stroke = this.stroke;
+		const strokeWidth = ( stroke.enable ? stroke.width : 0 );
+		const strokeScale = this.getStrokeWidthScale( points );
+
+		const t = ( threshold ?
+			threshold( this, strokeWidth, strokeScale ) :
+			strokeWidth * strokeScale * 0.5
+		);
 		if( this.containsAbsBBox( x, y, ax + t, ay + t ) ) {
 			const pointCount = points.length;
 			if( 2 <= pointCount ) {

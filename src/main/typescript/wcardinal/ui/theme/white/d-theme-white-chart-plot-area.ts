@@ -17,7 +17,27 @@ export class DThemeWhiteChartPlotArea extends DThemeWhiteBase implements DThemeC
 		return "100%";
 	}
 
+	getPaddingTop(): number {
+		return 10;
+	}
+
+	getPaddingRight(): number {
+		return 10;
+	}
+
+	getPaddingBottom(): number {
+		return 10;
+	}
+
+	getPaddingLeft(): number {
+		return 10;
+	}
+
 	getBorderColor( state: DBaseState ): number | null {
 		return null;
+	}
+
+	isOverflowMaskEnabled(): boolean {
+		return true;
 	}
 }

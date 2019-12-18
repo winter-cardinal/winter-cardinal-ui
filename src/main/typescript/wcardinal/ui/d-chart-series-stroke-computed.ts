@@ -4,7 +4,7 @@ export interface DChartSeriesStrokeComputedOptions {
 	width?: number;
 	color?: number;
 	alpha?: number;
-	style?: EShapePointsStyle | keyof typeof EShapePointsStyle;
+	style?: EShapePointsStyle | keyof typeof EShapePointsStyle | Array<keyof typeof EShapePointsStyle>;
 }
 
 export interface DChartSeriesStrokeComputed {

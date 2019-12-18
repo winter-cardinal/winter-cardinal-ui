@@ -570,7 +570,6 @@ export class DBase<
 	protected _isChildrenDirty: boolean;
 	private _shadow: DShadow | null;
 	private _onShadowUpdateBound: () => void;
-	private _transform: Transform;
 	private _weight: number;
 	private _position: DBasePoint;
 	private _scale: DBasePoint;
@@ -589,7 +588,7 @@ export class DBase<
 		super();
 
 		// Transform
-		const transform: Transform = this._transform = this.transform;
+		const transform: Transform = this.transform;
 		this._position = new DBasePoint( transform.position, (): void => {
 			this.onPositionChanged();
 		});
@@ -888,7 +887,7 @@ export class DBase<
 		if( widthResized ) {
 			const scalarSet = this._scalarSet;
 			if( scalarSet.x != null ) {
-				const position = this._transform.position;
+				const position = this.transform.position;
 				const parent = this.getParentOfSize();
 				if( parent ) {
 					this.x = scalarSet.x( parent.width, width, parent.padding.getLeft(), position.x );
@@ -899,7 +898,7 @@ export class DBase<
 		if( heightResized ) {
 			const scalarSet = this._scalarSet;
 			if( scalarSet.y != null ) {
-				const position = this._transform.position;
+				const position = this.transform.position;
 				const parent = this.getParentOfSize();
 				if( parent ) {
 					this.y = scalarSet.y( parent.height, height, parent.padding.getTop(), position.y );
@@ -1018,7 +1017,7 @@ export class DBase<
 			// Layout
 			const scalarSet = this._scalarSet;
 			if( scalarSet.x != null ) {
-				const position = this._transform.position;
+				const position = this.transform.position;
 				const parent = this.getParentOfSize();
 				if( parent ) {
 					this.x = scalarSet.x( parent.width, width, parent.padding.getLeft(), position.x );
@@ -1079,7 +1078,7 @@ export class DBase<
 			// Layout
 			const scalarSet = this._scalarSet;
 			if( scalarSet.y != null ) {
-				const position = this._transform.position;
+				const position = this.transform.position;
 				const parent = this.getParentOfSize();
 				if( parent ) {
 					this.y = scalarSet.y( parent.height, height, parent.padding.getTop(), position.y );
@@ -1126,15 +1125,15 @@ export class DBase<
 		}
 	}
 
-	get position() {
+	get position(): DBasePoint {
 		return this._position;
 	}
 
-	get scale() {
+	get scale(): DBasePoint {
 		return this._scale;
 	}
 
-	get skew() {
+	get skew(): DBasePoint {
 		return this._skew;
 	}
 
@@ -1159,7 +1158,7 @@ export class DBase<
 	}
 
 	get unsafe(): Transform {
-		return this._transform;
+		return this.transform;
 	}
 
 	get title(): string {
@@ -1666,7 +1665,7 @@ export class DBase<
 	 */
 	onParentResize( parentWidth: number, parentHeight: number, parentPadding: DPadding ): void {
 		const scalarSet = this._scalarSet;
-		const position = this._transform.position;
+		const position = this.transform.position;
 		const x = position.x;
 		const y = position.y;
 		const width = this._width;
@@ -1824,7 +1823,7 @@ export class DBase<
 
 	//
 	protected _calculateBounds(): void {
-		const worldTransform = this._transform.worldTransform;
+		const worldTransform = this.transform.worldTransform;
 		const bounds = this._bounds;
 
 		const work = DBase.WORK_CONTAINS_POINT;
