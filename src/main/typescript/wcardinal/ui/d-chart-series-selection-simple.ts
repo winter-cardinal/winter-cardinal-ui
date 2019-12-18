@@ -107,7 +107,7 @@ export class DChartSeriesSelectionSimple extends utils.EventEmitter implements D
 	}
 
 	protected toThreshold( this: unknown, shape: unknown, strokeWidth: number, strokeScale: number ): number {
-		return Math.max( strokeWidth, 12 ) * strokeScale;
+		return +Infinity;
 	}
 
 	bind( container: DChartSeriesContainer ): void {
