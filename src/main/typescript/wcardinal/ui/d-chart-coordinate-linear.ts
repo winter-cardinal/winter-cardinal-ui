@@ -5,6 +5,7 @@
 
 import { DChartCoordinate, DChartCoordinateDirection } from "./d-chart-coordinate";
 import { DChartCoordinateContainerSub } from "./d-chart-coordinate-container-sub";
+import { DChartCoordinateLinearTick, DThemeChartCoordinateLinearTick } from "./d-chart-coordinate-linear-tick";
 import { DChartCoordinateTransform, DThemeChartCoordinateTransform } from "./d-chart-coordinate-transform";
 import { DChartCoordinateTransformImpl } from "./d-chart-coordinate-transform-impl";
 import { DChartRegion } from "./d-chart-region";
@@ -12,23 +13,11 @@ import { DChartRegionImpl } from "./d-chart-region-impl";
 import { DThemes } from "./theme/d-themes";
 import { utilIsNaN } from "./util/util-is-nan";
 
-export interface DThemeChartCoordinateLinear extends DThemeChartCoordinateTransform {
-	toStepScale( scale: number ): number;
-}
+export interface DThemeChartCoordinateLinear extends DThemeChartCoordinateTransform, DThemeChartCoordinateLinearTick {
 
-export interface DChartCoordinateLinearDomainOptions {
-	from?: number;
-	to?: number;
-}
-
-export interface DChartCoordinateLinearRangeOptions {
-	from?: number;
-	to?: number;
 }
 
 export interface DChartCoordinateLinearOptions {
-	domain?: DChartCoordinateLinearDomainOptions;
-	range?: DChartCoordinateLinearRangeOptions;
 	theme?: DThemeChartCoordinateLinear;
 }
 
@@ -39,29 +28,16 @@ export class DChartCoordinateLinear implements DChartCoordinate {
 	protected _direction: DChartCoordinateDirection;
 	protected _theme: DThemeChartCoordinateLinear;
 	protected _work: DChartRegionImpl;
+	protected _tick: DChartCoordinateLinearTick;
 
 	constructor( options?: DChartCoordinateLinearOptions ) {
 		this._id = 0;
-
-		// Direction
 		this._direction = DChartCoordinateDirection.X;
-
-		// Theme
-		const theme = ( options && options.theme ) || this.getThemeDefault();
+		const theme = this.toTheme( options );
 		this._theme = theme;
-
-		// Transform
 		this._transform = new DChartCoordinateTransformImpl( theme );
-
+		this._tick = new DChartCoordinateLinearTick( theme );
 		this._work = new DChartRegionImpl( NaN, NaN );
-	}
-
-	protected getThemeDefault(): DThemeChartCoordinateLinear {
-		return DThemes.getInstance().get( this.getType() );
-	}
-
-	protected getType(): string {
-		return "DChartCoordinateLinear";
 	}
 
 	bind( container: DChartCoordinateContainerSub, direction: DChartCoordinateDirection ): void {
@@ -78,13 +54,14 @@ export class DChartCoordinateLinear implements DChartCoordinate {
 		if( container ) {
 			const plotArea = container.container.plotArea;
 			const padding = plotArea.padding;
+			const work = this._work;
 			switch( this._direction ) {
 			case DChartCoordinateDirection.X:
 				this.fit_(
 					plotArea.width,
 					padding.getLeft(),
 					padding.getRight(),
-					plotArea.series.getDomain( this, this._work )
+					plotArea.series.getDomain( this, work )
 				);
 				break;
 			case DChartCoordinateDirection.Y:
@@ -92,7 +69,7 @@ export class DChartCoordinateLinear implements DChartCoordinate {
 					plotArea.height,
 					padding.getBottom(),
 					padding.getTop(),
-					plotArea.series.getRange( this, this._work )
+					plotArea.series.getRange( this, work )
 				);
 				break;
 			}
@@ -150,51 +127,6 @@ export class DChartCoordinateLinear implements DChartCoordinate {
 		this.mapAll( values, ifrom, iend, stride, offset );
 	}
 
-	protected calcStepMajor( domainMin: number, domainMax: number, count: number ): number {
-		if( 0 < count ) {
-			const span = Math.abs( domainMax - domainMin ) / count;
-			const power = Math.floor( Math.log( span ) / Math.LN10 );
-			const base = Math.pow( 10, power );
-			return this._theme.toStepScale( span / base ) * base;
-		}
-		return -1;
-	}
-
-	protected calcStepMinor( step: number, minorCount: number ): number {
-		if( 0 <= step ) {
-			return step / ( minorCount + 1 );
-		} else {
-			return -1;
-		}
-	}
-
-	protected calcTickMinorPositions(
-		step: number, count: number, majorPosition: number,
-		rangeMin: number, rangeMax: number,
-		iresult: number, result: Float64Array
-	): void {
-		for( let i = 0; i < count; i += 1 ) {
-			const minorPosition = majorPosition + (i + 1) * step;
-			if( rangeMin <= minorPosition && minorPosition <= rangeMax ) {
-				result[ iresult++ ] = minorPosition;
-			}
-		}
-	}
-
-	protected getRangeMax(): number {
-		const container = this._container;
-		if( container ) {
-			const plotArea = container.container.plotArea;
-			switch( this._direction ) {
-			case DChartCoordinateDirection.X:
-				return plotArea.width;
-			case DChartCoordinateDirection.Y:
-				return plotArea.height;
-			}
-		}
-		return 0;
-	}
-
 	ticks(
 		domainFrom: number, domainTo: number,
 		majorCount: number,
@@ -203,81 +135,26 @@ export class DChartCoordinateLinear implements DChartCoordinate {
 		majorResult: Float64Array,
 		minorResult: Float64Array
 	): void {
-		if( majorCount <= 0 ) {
-			return;
-		}
+		this._tick.calculate(
+			domainFrom, domainTo,
+			majorCount,
+			minorCountPerMajor,
+			minorCount,
+			majorResult,
+			minorResult,
+			this
+		);
+	}
 
-		const transform = this._transform;
+	protected toTheme( options?: DChartCoordinateLinearOptions ): DThemeChartCoordinateLinear {
+		return ( options && options.theme ) || this.getThemeDefault();
+	}
 
-		const domainMin = Math.min( domainFrom, domainTo );
-		const domainMax = Math.max( domainFrom, domainTo );
+	protected getThemeDefault(): DThemeChartCoordinateLinear {
+		return DThemes.getInstance().get( this.getType() );
+	}
 
-		const majorStep = this.calcStepMajor( domainMin, domainMax, majorCount );
-		if( majorStep <= 0 ) {
-			majorResult[ 0 ] = domainMin;
-			majorResult[ 1 ] = transform.map( this.map( domainMin ) );
-			majorResult[ 2 ] = 0;
-			for( let i = 1; i < majorCount; ++i ) {
-				const imajorResult = i * 3;
-				majorResult[ imajorResult + 0 ] = NaN;
-				majorResult[ imajorResult + 1 ] = NaN;
-				majorResult[ imajorResult + 2 ] = NaN;
-			}
-			for( let i = 0; i < minorCount; ++i ) {
-				const iminorResult = i * 3;
-				minorResult[ iminorResult + 0 ] = NaN;
-				minorResult[ iminorResult + 1 ] = NaN;
-				minorResult[ iminorResult + 2 ] = NaN;
-			}
-			return;
-		}
-
-		// Major tick start position
-		const idomainStart = Math.floor( domainMin / majorStep ) - 1;
-		const idomainEnd = Math.ceil( domainMax / majorStep ) + 1;
-
-		// Major / minor tick positions
-		const minorStep = this.calcStepMinor( majorStep, minorCountPerMajor );
-		let imajor = 0;
-		let iminor = 0;
-		for( let i = idomainStart; i <= idomainEnd; ++i ) {
-			const majorPosition = i * majorStep;
-			if( imajor < majorCount ) {
-				if( domainMin <= majorPosition && majorPosition <= domainMax ) {
-					const majorProjectedPosition = transform.map( this.map( majorPosition ) );
-					const imajorResult = imajor * 3;
-					majorResult[ imajorResult + 0 ] = majorPosition;
-					majorResult[ imajorResult + 1 ] = majorProjectedPosition;
-					majorResult[ imajorResult + 2 ] = majorStep;
-					imajor += 1;
-				}
-			}
-
-			for( let j = 0; j < minorCountPerMajor; j += 1 ) {
-				if( iminor < minorCount ) {
-					const minorPosition = majorPosition + (j + 1) * minorStep;
-					if( domainMin <= minorPosition && minorPosition <= domainMax ) {
-						const minorProjectedPosition = transform.map( this.map( minorPosition ) );
-						const iminorResult = iminor * 3;
-						minorResult[ iminorResult + 0 ] = minorPosition;
-						minorResult[ iminorResult + 1 ] = minorProjectedPosition;
-						minorResult[ iminorResult + 2 ] = minorStep;
-						iminor += 1;
-					}
-				}
-			}
-		}
-		for( let i = imajor; i < majorCount; ++i ) {
-			const imajorResult = i * 3;
-			majorResult[ imajorResult + 0 ] = NaN;
-			majorResult[ imajorResult + 1 ] = NaN;
-			majorResult[ imajorResult + 2 ] = NaN;
-		}
-		for( let i = iminor; i < minorCount; ++i ) {
-			const iminorResult = i * 3;
-			minorResult[ iminorResult + 0 ] = NaN;
-			minorResult[ iminorResult + 1 ] = NaN;
-			minorResult[ iminorResult + 2 ] = NaN;
-		}
+	protected getType(): string {
+		return "DChartCoordinateLinear";
 	}
 }
