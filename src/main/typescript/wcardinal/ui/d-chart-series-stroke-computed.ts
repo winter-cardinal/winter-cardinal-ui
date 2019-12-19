@@ -1,10 +1,11 @@
 import { EShapePointsStyle } from "./shape/e-shape-points";
+import { EShapePointsStyleOption } from "./shape/e-shape-points-styles";
 
 export interface DChartSeriesStrokeComputedOptions {
 	width?: number;
 	color?: number;
 	alpha?: number;
-	style?: EShapePointsStyle | keyof typeof EShapePointsStyle | Array<keyof typeof EShapePointsStyle>;
+	style?: EShapePointsStyleOption;
 }
 
 export interface DChartSeriesStrokeComputed {

@@ -5,13 +5,13 @@
 
 import { Matrix } from "pixi.js";
 import { DChartAxis, DChartAxisPosition } from "./d-chart-axis";
+import { DChartAxisBaseOptions, DThemeChartAxisBase } from "./d-chart-axis-base-options";
 import {
-	DChartAxisBaseOptionParser, DChartAxisBaseOptions, DChartAxisBaseTickContainer, DThemeChartAxisBase
-} from "./d-chart-axis-base-options";
+	DChartAxisBaseBar, DChartAxisBaseOptionParser, DChartAxisBaseTickContainer
+} from "./d-chart-axis-base-options-parser";
 import { DChartAxisContainer } from "./d-chart-axis-container";
 import { DChartCoordinate } from "./d-chart-coordinate";
 import { EShapeDefaults } from "./shape/e-shape-defaults";
-import { EShapePointsStyle } from "./shape/e-shape-points";
 import { EShapeTextLike } from "./shape/e-shape-text";
 import { EShapeBar } from "./shape/variant/e-shape-bar";
 import { EShapeBarPosition } from "./shape/variant/e-shape-bar-position";
@@ -24,7 +24,7 @@ export class DChartAxisBase implements DChartAxis {
 	protected _padding: number;
 	protected _position: DChartAxisPosition;
 	protected _container?: DChartAxisContainer;
-	protected _bar?: EShapeBar;
+	protected _bar: DChartAxisBaseBar;
 	protected _index: number;
 	protected _tick: DChartAxisBaseTickContainer;
 	protected _majorTicks: Float64Array;
@@ -33,7 +33,7 @@ export class DChartAxisBase implements DChartAxis {
 	protected _theme: DThemeChartAxisBase;
 
 	constructor( options?: DChartAxisBaseOptions ) {
-		const theme = ( options && options.theme ) || this.getThemeDefault();
+		const theme = this.toTheme( options );
 		this._theme = theme;
 		this._index = 0;
 
@@ -44,6 +44,7 @@ export class DChartAxisBase implements DChartAxis {
 		const tick = parser.tick;
 		this._tick = tick;
 		this._label = parser.label;
+		this._bar = parser.bar;
 		this._majorTicks = new Float64Array( tick.major.count * 3 );
 		this._minorTicks = new Float64Array( (tick.major.count + 1) * tick.minor.count * 3 );
 	}
@@ -54,40 +55,41 @@ export class DChartAxisBase implements DChartAxis {
 
 	protected updateBar( container: DChartAxisContainer ): void {
 		const bar = this._bar;
-		if( bar ) {
+		const barShape = bar.shape;
+		if( barShape ) {
 			const plotArea = container.plotArea;
 			const plotAreaWidth = plotArea.width;
 			const plotAreaHeight = plotArea.height;
 			const padding = this._padding * this._index;
-			bar.disallowUploadedUpdate();
+			barShape.disallowUploadedUpdate();
 			switch( this._position ) {
 			case DChartAxisPosition.TOP:
-				bar.transform.position.set( plotAreaWidth * 0.5, 0 - padding );
-				bar.size.set( plotAreaWidth, 0 );
+				barShape.transform.position.set( plotAreaWidth * 0.5, 0 - padding );
+				barShape.size.set( plotAreaWidth, 0 );
 				break;
 			case DChartAxisPosition.BOTTOM:
-				bar.transform.position.set( plotAreaWidth * 0.5, plotAreaHeight + padding );
-				bar.size.set( plotAreaWidth, 0 );
+				barShape.transform.position.set( plotAreaWidth * 0.5, plotAreaHeight + padding );
+				barShape.size.set( plotAreaWidth, 0 );
 				break;
 			case DChartAxisPosition.LEFT:
-				bar.transform.position.set( 0 - padding, plotAreaHeight * 0.5 );
-				bar.size.set( 0, plotAreaHeight );
+				barShape.transform.position.set( 0 - padding, plotAreaHeight * 0.5 );
+				barShape.size.set( 0, plotAreaHeight );
 				break;
 			case DChartAxisPosition.RIGHT:
-				bar.transform.position.set( plotAreaWidth + padding, plotAreaHeight * 0.5 );
-				bar.size.set( 0, plotAreaHeight );
+				barShape.transform.position.set( plotAreaWidth + padding, plotAreaHeight * 0.5 );
+				barShape.size.set( 0, plotAreaHeight );
 				break;
 			}
-			bar.allowUploadedUpdate();
+			barShape.allowUploadedUpdate();
 		}
 	}
 
 	updateTicksX(
 		domainMin: number, domainMax: number,
 		coordinate: DChartCoordinate,
-		majorShapes: EShapeBar[], minorShapes: EShapeBar[],
+		majorShapes: EShapeBar[], minorShapes: EShapeBar[], gridlineShapes: EShapeBar[] | undefined,
 		shapePositionY: number,
-		transform: Matrix
+		transform: Matrix, plotAreaHeight: number
 	): void {
 		const tick = this._tick;
 		const majorCount = tick.major.count;
@@ -108,19 +110,30 @@ export class DChartAxisBase implements DChartAxis {
 			const majorShape = majorShapes[ i ];
 			const imajorTick = i * 3;
 			const majorTickPosition = majorTicks[ imajorTick + 0 ];
-			const majorTickProjectedPosition = majorTicks[ imajorTick + 1 ];
-			const majorTickStep = majorTicks[ imajorTick + 2 ];
 			if( ! utilIsNaN( majorTickPosition ) ) {
+				const majorTickProjectedPosition = majorTicks[ imajorTick + 1 ];
+				const majotTickPositionX = a * majorTickProjectedPosition + tx;
+				const majorTickStep = majorTicks[ imajorTick + 2 ];
+
 				majorShape.disallowUploadedUpdate();
 				majorShape.visible = true;
-				majorShape.transform.position.set(
-					a * majorTickProjectedPosition + tx,
-					shapePositionY
-				);
+				majorShape.transform.position.set( majotTickPositionX, shapePositionY );
 				majorShape.text.value = majorFormatter.format( majorTickPosition, majorTickStep );
 				majorShape.allowUploadedUpdate();
+
+				if( gridlineShapes ) {
+					const gridlineShape = gridlineShapes[ i ];
+					gridlineShape.disallowUploadedUpdate();
+					gridlineShape.visible = true;
+					gridlineShape.transform.position.set( majotTickPositionX, plotAreaHeight * 0.5 );
+					gridlineShape.size.set( 0, plotAreaHeight );
+					gridlineShape.allowUploadedUpdate();
+				}
 			} else {
 				majorShape.visible = false;
+				if( gridlineShapes ) {
+					gridlineShapes[ i ].visible = false;
+				}
 			}
 		}
 
@@ -146,9 +159,9 @@ export class DChartAxisBase implements DChartAxis {
 	updateTicksY(
 		domainMin: number, domainMax: number,
 		coordinate: DChartCoordinate,
-		majorShapes: EShapeBar[], minorShapes: EShapeBar[],
+		majorShapes: EShapeBar[], minorShapes: EShapeBar[], gridlineShapes: EShapeBar[] | undefined,
 		shapePositionX: number,
-		transform: Matrix
+		transform: Matrix, plotAreaWidth: number
 	): void {
 		const tick = this._tick;
 		const majorCount = tick.major.count;
@@ -169,19 +182,30 @@ export class DChartAxisBase implements DChartAxis {
 			const majorShape = majorShapes[ i ];
 			const imajorTick = i * 3;
 			const majorTickPosition = majorTicks[ imajorTick + 0 ];
-			const majorTickProjectedPosition = majorTicks[ imajorTick + 1 ];
-			const majorTickStep = majorTicks[ imajorTick + 2 ];
 			if( ! utilIsNaN( majorTickPosition ) ) {
+				const majorTickProjectedPosition = majorTicks[ imajorTick + 1 ];
+				const majotTickPositionY = d * majorTickProjectedPosition + ty;
+				const majorTickStep = majorTicks[ imajorTick + 2 ];
+
 				majorShape.disallowUploadedUpdate();
 				majorShape.visible = true;
-				majorShape.transform.position.set(
-					shapePositionX,
-					d * majorTickProjectedPosition + ty
-				);
+				majorShape.transform.position.set( shapePositionX, majotTickPositionY );
 				majorShape.text.value = majorFormatter.format( majorTickPosition, majorTickStep );
 				majorShape.allowUploadedUpdate();
+
+				if( gridlineShapes ) {
+					const gridlineShape = gridlineShapes[ i ];
+					gridlineShape.disallowUploadedUpdate();
+					gridlineShape.visible = true;
+					gridlineShape.transform.position.set( plotAreaWidth * 0.5, majotTickPositionY );
+					gridlineShape.size.set( plotAreaWidth, 0 );
+					gridlineShape.allowUploadedUpdate();
+				}
 			} else {
 				majorShape.visible = false;
+				if( gridlineShapes ) {
+					gridlineShapes[ i ].visible = false;
+				}
 			}
 		}
 
@@ -212,6 +236,7 @@ export class DChartAxisBase implements DChartAxis {
 			const plotArea = container.plotArea;
 			const bounds = plotArea.getBoundsInContainer();
 			const transform = plotArea.container.transform.localTransform;
+			const gridlineShapes = tick.major.gridline.shapes;
 
 			const coordinateIndex = this._coordinateIndex;
 			const padding = this._padding * this._index;
@@ -226,12 +251,13 @@ export class DChartAxisBase implements DChartAxis {
 					const domainTo = coordinate.unmap(
 						coordinate.transform.unmap( bounds.x + bounds.width )
 					);
+					const plotAreaHeight = plotArea.height;
 					this.updateTicksX(
 						domainFrom, domainTo,
 						coordinate,
-						majorShapes, minorShapes,
+						majorShapes, minorShapes, gridlineShapes,
 						0 - padding,
-						transform
+						transform, plotAreaHeight
 					);
 				}
 				break;
@@ -244,12 +270,13 @@ export class DChartAxisBase implements DChartAxis {
 					const domainTo = coordinate.unmap(
 						coordinate.transform.unmap( bounds.x + bounds.width )
 					);
+					const plotAreaHeight = plotArea.height;
 					this.updateTicksX(
 						domainFrom, domainTo,
 						coordinate,
-						majorShapes, minorShapes,
-						plotArea.height + padding,
-						transform
+						majorShapes, minorShapes, gridlineShapes,
+						plotAreaHeight + padding,
+						transform, plotAreaHeight
 					);
 				}
 				break;
@@ -262,12 +289,13 @@ export class DChartAxisBase implements DChartAxis {
 					const domainTo = coordinate.unmap(
 						coordinate.transform.unmap( bounds.y + bounds.height )
 					);
+					const plotAreaWidth = plotArea.width;
 					this.updateTicksY(
 						domainFrom, domainTo,
 						coordinate,
-						majorShapes, minorShapes,
+						majorShapes, minorShapes, gridlineShapes,
 						0 - padding,
-						transform
+						transform, plotAreaWidth
 					);
 				}
 				break;
@@ -280,12 +308,13 @@ export class DChartAxisBase implements DChartAxis {
 					const domainTo = coordinate.unmap(
 						coordinate.transform.unmap( bounds.y + bounds.height )
 					);
+					const plotAreaWidth = plotArea.width;
 					this.updateTicksY(
 						domainFrom, domainTo,
 						coordinate,
-						majorShapes, minorShapes,
-						plotArea.width + padding,
-						transform
+						majorShapes, minorShapes, gridlineShapes,
+						plotAreaWidth + padding,
+						transform, plotAreaWidth
 					);
 				}
 				break;
@@ -299,21 +328,57 @@ export class DChartAxisBase implements DChartAxis {
 		const tickShapeContainer = container.container;
 
 		// Bar
-		let bar = this._bar;
-		if( ! bar ) {
+		const bar = this._bar;
+		let barShape = bar.shape;
+		if( ! barShape ) {
 			const position = this._position;
 			const barPosition = ( position === DChartAxisPosition.LEFT || position === DChartAxisPosition.RIGHT ?
 				EShapeBarPosition.TOP : EShapeBarPosition.LEFT
 			);
-			bar = new EShapeBar( barPosition, -1, EShapeDefaults.STROKE_WIDTH, EShapePointsStyle.NONE );
-			bar.text.copy( this._label );
-			this._bar = bar;
+			barShape = new EShapeBar(
+				barPosition,
+				-1,
+				EShapeDefaults.STROKE_WIDTH,
+				bar.style
+			);
+			barShape.stroke.copy( bar.stroke );
+			barShape.text.copy( this._label );
+			this._bar.shape = barShape;
 		}
-		bar.attach( container.container );
+		barShape.attach( container.container );
 
-		// Major ticks
+		// Major tick gridline
 		const tick = this._tick;
 		const tickMajor = tick.major;
+		const gridline = tickMajor.gridline;
+		let gridlineShapes = gridline.shapes;
+		if( ! gridlineShapes && tick.enable && gridline.enable ) {
+			gridlineShapes = [];
+			gridline.shapes = gridlineShapes;
+			const position = this._position;
+			const gridlinePosition = ( position === DChartAxisPosition.LEFT || position === DChartAxisPosition.RIGHT ?
+				EShapeBarPosition.LEFT : EShapeBarPosition.TOP
+			);
+			const gridlineCount = tickMajor.count;
+			const gridlineStyle = gridline.style;
+			for( let i = 0; i < gridlineCount; ++i ) {
+				const gridlineShape = new EShapeBar(
+					gridlinePosition,
+					-1,
+					EShapeDefaults.STROKE_WIDTH,
+					gridlineStyle
+				);
+				gridlineShape.stroke.copy( gridline.stroke );
+				gridlineShapes.push( gridlineShape );
+			}
+		}
+		if( gridlineShapes ) {
+			for( let i = 0, imax = gridlineShapes.length; i < imax; ++i ) {
+				gridlineShapes[ i ].attach( tickShapeContainer );
+			}
+		}
+
+		// Major ticks
 		let tickMajorShapes = tickMajor.shapes;
 		if( ! tickMajorShapes && tick.enable ) {
 			tickMajorShapes = [];
@@ -372,9 +437,9 @@ export class DChartAxisBase implements DChartAxis {
 
 	unbind(): void {
 		// Bar
-		const bar = this._bar;
-		if( bar ) {
-			bar.detach();
+		const barShape = this._bar.shape;
+		if( barShape ) {
+			barShape.detach();
 		}
 
 		// Major ticks
@@ -383,6 +448,14 @@ export class DChartAxisBase implements DChartAxis {
 		if( tickMajorShapes ) {
 			for( let i = 0, imax = tickMajorShapes.length; i < imax; ++i ) {
 				tickMajorShapes[ i ].detach();
+			}
+		}
+
+		// Major tick gridlines
+		const tickMajorGridlineShapes = tick.major.gridline.shapes;
+		if( tickMajorGridlineShapes ) {
+			for( let i = 0, imax = tickMajorGridlineShapes.length; i < imax; ++i ) {
+				tickMajorGridlineShapes[ i ].detach();
 			}
 		}
 
@@ -408,9 +481,9 @@ export class DChartAxisBase implements DChartAxis {
 
 	destroy(): void {
 		// Bar
-		const bar = this._bar;
-		if( bar ) {
-			bar.destroy();
+		const barShape = this._bar.shape;
+		if( barShape ) {
+			barShape.destroy();
 		}
 
 		// Major ticks
@@ -419,6 +492,14 @@ export class DChartAxisBase implements DChartAxis {
 		if( tickMajorShapes ) {
 			for( let i = 0, imax = tickMajorShapes.length; i < imax; ++i ) {
 				tickMajorShapes[ i ].destroy();
+			}
+		}
+
+		// Major tick gridlines
+		const tickMajorGridlineShapes = tick.major.gridline.shapes;
+		if( tickMajorGridlineShapes ) {
+			for( let i = 0, imax = tickMajorGridlineShapes.length; i < imax; ++i ) {
+				tickMajorGridlineShapes[ i ].destroy();
 			}
 		}
 
@@ -432,6 +513,10 @@ export class DChartAxisBase implements DChartAxis {
 
 		//
 		this._container = undefined;
+	}
+
+	protected toTheme( options?: DChartAxisBaseOptions ): DThemeChartAxisBase {
+		return ( options && options.theme ) || this.getThemeDefault();
 	}
 
 	protected getThemeDefault(): DThemeChartAxisBase {

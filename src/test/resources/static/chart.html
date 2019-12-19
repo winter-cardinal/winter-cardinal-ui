@@ -41,10 +41,6 @@
 					y: new wcardinal.ui.DChartCoordinateLinear()
 				},
 				series: {
-					stroke: {
-						width: 4,
-						style: [[ "DOTTED", "NON_EXPANDING_WIDTH", "NON_SHRINKING_WIDTH", "NON_SCALING_DOT_AND_DASH" ]]
-					},
 					list: [
 						new wcardinal.ui.DChartSeriesLine(),
 						new wcardinal.ui.DChartSeriesLine(),
@@ -120,7 +116,7 @@
 							const points = series.points;
 							const dy = Math.sin( dx * 0.025 + i ) * 12;
 							points.push( dx + i * 10, dy );
-							if( 1024 < series.points.length ) {
+							if( 10240 < series.points.length ) {
 								points.shift();
 								points.shift();
 							}
@@ -130,9 +126,7 @@
 						plotArea.axis.update();
 						plotArea.series.update();
 
-						if( x - x0 <= 3000 ) {
-							setTimeout( update, 0 );
-						}
+						setTimeout( update, 32 );
 					};
 					update();
 				}

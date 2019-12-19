@@ -72,23 +72,25 @@ export class DChartPlotArea<
 	protected init( options?: OPTIONS ): void {
 		super.init( options );
 
-		this._container = new DChartPlotAreaContainer( (): void => {
+		const container = new DChartPlotAreaContainer( (): void => {
 			this._isViewDirty = true;
 			this._isBoundsInContainerDirty = true;
 			DApplications.update( this );
 		});
+		this._container = container;
 		this._coordinate = new DChartCoordinateContainerImpl( this, options && options.coordinate );
 		const series = new DChartSeriesContainerImpl( this, options && options.series );
 		this._series = series;
-		this._axis = new DChartAxisContainerImpl( this, options && options.axis );
+		const axis = new DChartAxisContainerImpl( this, options && options.axis );
+		this._axis = axis;
 		this._isViewDirty = true;
 		this._isBoundsInContainerDirty = true;
 		this._boundsInContainer = new Rectangle();
 
-		this.addChild( this._container );
-		this.addChild( this._axis.container );
+		this.addChild( container );
+		this.addChild( axis.container );
 
-		this._view = new DViewImpl( this, () => this._container, options && options.view );
+		this._view = new DViewImpl( this, () => container, options && options.view );
 
 		const selection = series.selection;
 		if( selection ) {

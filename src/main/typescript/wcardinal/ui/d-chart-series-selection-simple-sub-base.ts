@@ -1,4 +1,4 @@
-import { Point, utils } from "pixi.js";
+import { IPoint, Point, utils } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBaseState } from "./d-base-state";
 import { DChartCoordinate } from "./d-chart-coordinate";
@@ -91,8 +91,8 @@ export abstract class DChartSeriesSelectionSimpleSubBase extends utils.EventEmit
 					coordinateY.transform.map( coordinateY.map( result.y ) )
 				);
 				transform.apply( work, work );
-				shape.transform.position.copyFrom( work );
 				position.copyFrom( result );
+				shape.transform.position.copyFrom( work );
 			} else {
 				let x = result.x;
 				let y = result.y;
@@ -117,14 +117,14 @@ export abstract class DChartSeriesSelectionSimpleSubBase extends utils.EventEmit
 
 				work.set( x, y );
 				transform.apply( work, work );
-				shape.transform.position.copyFrom( work );
 				position.set(
 					coordinateX.unmap( coordinateX.transform.unmap( x ) ),
 					coordinateY.unmap( coordinateY.transform.unmap( y ) )
 				);
+				shape.transform.position.copyFrom( work );
 			}
 			this._style( shape, series );
-			shape.visible = true;
+			shape.visible = this.isVisible( container, work );
 			DApplications.update( shape );
 		}
 
@@ -173,7 +173,6 @@ export abstract class DChartSeriesSelectionSimpleSubBase extends utils.EventEmit
 		const coordinateX = this._coordinateX;
 		const coordinateY = this._coordinateY;
 		if( shape && container && coordinateX && coordinateY ) {
-			// Position
 			const position = this._position;
 			const work = this._work;
 			work.set(
@@ -182,12 +181,14 @@ export abstract class DChartSeriesSelectionSimpleSubBase extends utils.EventEmit
 			);
 			container.plotArea.container.localTransform.apply( work, work );
 			shape.transform.position.copyFrom( work );
-
-			// Visibility
-			const x = work.x;
-			const y = work.y;
-			const plotArea = container.plotArea;
-			shape.visible = ( 0 <= x && x <= plotArea.width && 0 <= y && y <= plotArea.height );
+			shape.visible = this.isVisible( container, work );
 		}
+	}
+
+	protected isVisible( container: DChartSeriesContainer, point: IPoint ): boolean {
+		const x = point.x;
+		const y = point.y;
+		const plotArea = container.plotArea;
+		return ( 0 <= x && x <= plotArea.width && 0 <= y && y <= plotArea.height );
 	}
 }

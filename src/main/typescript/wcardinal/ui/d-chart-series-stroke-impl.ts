@@ -5,9 +5,10 @@
 
 import { DChartColorSet2 } from "./d-chart-color-set";
 import { DChartSeriesScalar } from "./d-chart-series-scalar";
-import { DChartSeriesStroke, DChartSeriesStrokeOptions, DChartSeriesStrokeStyleOption } from "./d-chart-series-stroke";
+import { DChartSeriesStroke, DChartSeriesStrokeOptions } from "./d-chart-series-stroke";
 import { EShapeDefaults } from "./shape/e-shape-defaults";
 import { EShapePointsStyle } from "./shape/e-shape-points";
+import { EShapePointsStyleOption } from "./shape/e-shape-points-styles";
 import { utilIsArray } from "./util/util-is-array";
 import { utilIsFunction } from "./util/util-is-function";
 
@@ -15,7 +16,7 @@ export class DChartSeriesStrokeImpl implements DChartSeriesStroke {
 	width: DChartSeriesScalar<number>;
 	color: DChartSeriesScalar<number>;
 	alpha: DChartSeriesScalar<number>;
-	style: DChartSeriesScalar<DChartSeriesStrokeStyleOption>;
+	style: DChartSeriesScalar<EShapePointsStyleOption>;
 
 	constructor( options?: DChartSeriesStrokeOptions ) {
 		this.width = this.toScalar( options && options.width, EShapeDefaults.STROKE_WIDTH );
