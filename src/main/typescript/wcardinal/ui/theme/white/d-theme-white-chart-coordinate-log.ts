@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeChartCoordinateLinear } from "../../d-chart-coordinate-linear";
+import { DThemeChartCoordinateLog } from "../../d-chart-coordinate-log";
 
-export class DThemeWhiteChartCoordinateLinear implements DThemeChartCoordinateLinear {
+export class DThemeWhiteChartCoordinateLog implements DThemeChartCoordinateLog {
 	isZero( value: number ): boolean {
 		return Math.abs( value ) < 0.00001;
 	}

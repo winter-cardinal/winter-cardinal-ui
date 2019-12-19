@@ -34,11 +34,8 @@
 			width: 500, height: 300,
 			plotArea: {
 				coordinate: {
-					x: [
-						new wcardinal.ui.DChartCoordinateLinear(),
-						new wcardinal.ui.DChartCoordinateLinear()
-					],
-					y: new wcardinal.ui.DChartCoordinateLinear()
+					x: new wcardinal.ui.DChartCoordinateLinear(),
+					y: new wcardinal.ui.DChartCoordinateLog()
 				},
 				series: {
 					list: [
@@ -46,16 +43,8 @@
 						new wcardinal.ui.DChartSeriesLine(),
 						new wcardinal.ui.DChartSeriesLine(),
 						new wcardinal.ui.DChartSeriesLine(),
-						new wcardinal.ui.DChartSeriesLine({
-							coordinate: {
-								x: 1
-							}
-						}),
-						new wcardinal.ui.DChartSeriesLine({
-							coordinate: {
-								x: 1
-							}
-						})
+						new wcardinal.ui.DChartSeriesLine(),
+						new wcardinal.ui.DChartSeriesLine()
 					]
 				},
 				axis: {
@@ -64,15 +53,6 @@
 							label: {
 								value: "X1 Axis"
 							}
-						}),
-						new wcardinal.ui.DChartAxisX({
-							tick: {
-								position: "INSIDE"
-							},
-							label: {
-								value: "X2 Axis"
-							},
-							coordinate: 1
 						}),
 						new wcardinal.ui.DChartAxisY({
 							label: {
@@ -84,25 +64,6 @@
 			},
 			on: {
 				init: ( chart ) => {
-					new wcardinal.ui.DChartLegend({
-						parent: application.stage,
-						x: 450, y: 100,
-						width: 100, height: 100,
-						background: {
-							color: 0xff0000,
-							alpha: 0.5
-						}
-					});
-
-					new wcardinal.ui.DChartOverview({
-						parent: application.stage,
-						x: 100, y: 500,
-						width: 500, height: 50,
-						background: {
-							color: 0x0000ff
-						}
-					});
-
 					let x = Date.now();
 					let x0 = x;
 					const update = () => {
@@ -114,7 +75,7 @@
 						for( let i = 0; i < size; ++i ) {
 							const series = plotArea.series.get( i );
 							const points = series.points;
-							const dy = Math.sin( dx * 0.025 * (1 + i) );
+							const dy = Math.pow( 10, Math.sin( dx * 0.025 * (1 + i) ) );
 							points.push( dx + i * 10, dy );
 							if( 10240 < series.points.length ) {
 								points.shift();
@@ -135,7 +96,7 @@
 
 		new wcardinal.ui.DButton({
 			parent: application.stage,
-			x: 500, y: 600,
+			x: 500, y: 450,
 			text: {
 				value: "Fit"
 			},

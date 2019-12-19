@@ -9,6 +9,7 @@ import { DThemeWhiteChartAxisX } from "../theme/white/d-theme-white-chart-axis-x
 import { DThemeWhiteChartAxisXDatetime } from "../theme/white/d-theme-white-chart-axis-x-datetime";
 import { DThemeWhiteChartAxisY } from "../theme/white/d-theme-white-chart-axis-y";
 import { DThemeWhiteChartCoordinateLinear } from "../theme/white/d-theme-white-chart-coordinate-linear";
+import { DThemeWhiteChartCoordinateLog } from "../theme/white/d-theme-white-chart-coordinate-log";
 import { DThemeWhiteChartLegend } from "../theme/white/d-theme-white-chart-legend";
 import { DThemeWhiteChartLegendItem } from "../theme/white/d-theme-white-chart-legend-item";
 import { DThemeWhiteChartOverview } from "../theme/white/d-theme-white-chart-overview";
@@ -20,6 +21,7 @@ export const loadThemeWhiteChart = () => {
 	DThemeWhite.set( "DChartAxisXDatetime", DThemeWhiteChartAxisXDatetime );
 	DThemeWhite.set( "DChartAxisY", DThemeWhiteChartAxisY );
 	DThemeWhite.set( "DChartCoordinateLinear", DThemeWhiteChartCoordinateLinear );
+	DThemeWhite.set( "DChartCoordinateLog", DThemeWhiteChartCoordinateLog );
 	DThemeWhite.set( "DChartLegend", DThemeWhiteChartLegend );
 	DThemeWhite.set( "DChartLegendItem", DThemeWhiteChartLegendItem );
 	DThemeWhite.set( "DChartOverview", DThemeWhiteChartOverview );

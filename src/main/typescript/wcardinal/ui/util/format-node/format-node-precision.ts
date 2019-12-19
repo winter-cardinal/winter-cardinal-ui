@@ -6,13 +6,13 @@
 import { FormatNode } from "./format-node";
 
 export abstract class FormatNodePrecision implements FormatNode {
-	protected precision: number;
+	protected precision: number | undefined;
 
 	constructor( precision?: string ) {
-		if (precision != null) {
-			this.precision = +precision.substring(1, precision.length);
+		if( precision != null ) {
+			this.precision = +precision.substring( 1, precision.length );
 		} else {
-			this.precision = 0;
+			this.precision = undefined;
 		}
 	}
 

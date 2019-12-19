@@ -1,3 +1,6 @@
+import { DChartCoordinateDirection } from "./d-chart-coordinate";
+import { DChartCoordinateContainerSub } from "./d-chart-coordinate-container-sub";
+
 export interface DThemeChartCoordinateTransform {
 	/**
 	 * Returns true if the specified value is too close to zero.
@@ -24,6 +27,9 @@ export interface DChartCoordinateTransform {
 	scale: number;
 
 	set( translate?: number, scale?: number ): void;
+
+	bind( container: DChartCoordinateContainerSub, direction: DChartCoordinateDirection ): void;
+	unbind(): void;
 
 	/**
 	 * Transforms the given untransformed value to a transformed value.

@@ -1,3 +1,5 @@
+import { DChartCoordinateDirection } from "./d-chart-coordinate";
+import { DChartCoordinateContainerSub } from "./d-chart-coordinate-container-sub";
 import { DChartCoordinateTransform, DThemeChartCoordinateTransform } from "./d-chart-coordinate-transform";
 
 export class DChartCoordinateTransformImpl implements DChartCoordinateTransform {
@@ -35,6 +37,14 @@ export class DChartCoordinateTransformImpl implements DChartCoordinateTransform 
 
 	set scale( scale: number ) {
 		this.set( undefined, scale );
+	}
+
+	bind( container: DChartCoordinateContainerSub, direction: DChartCoordinateDirection ): void {
+		this.set( 0, direction === DChartCoordinateDirection.X ? +1 : -1 );
+	}
+
+	unbind(): void {
+		// DO NOTHING
 	}
 
 	set( translate?: number, scale?: number ): void {
