@@ -136,7 +136,7 @@ export class DViewImpl implements DView {
 		if( target ) {
 			const targetRect = target.getLocalBounds( this._workRect );
 			const newTargetX = (parent.width - targetRect.width) * 0.5 - targetRect.x;
-			const newTargetY = (parent.height - targetRect.width) * 0.5 - targetRect.y;
+			const newTargetY = (parent.height - targetRect.height) * 0.5 - targetRect.y;
 			this._transform.start( target, newTargetX, newTargetY, 1, 1, duration, stop );
 		}
 	}
