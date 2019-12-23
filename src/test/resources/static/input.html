@@ -33,9 +33,19 @@
 			x: 50, y: 50,
 		});
 
-		new wcardinal.ui.DInputText({
+		new wcardinal.ui.DInputReal({
 			parent: application.stage,
 			x: 50, y: 150,
+			text: {
+				formatter: ( value ) => {
+					return (value * 100).toFixed( 2 );
+				}
+			},
+			editing: {
+				unformatter: ( value ) => {
+					return value / 100;
+				}
+			}
 		});
 
 		new wcardinal.ui.DInputText({

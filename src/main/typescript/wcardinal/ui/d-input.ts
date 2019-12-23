@@ -1,3 +1,4 @@
+import { interaction } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DHTMLElement, DHTMLElementOptions, DThemeHTMLElement } from "./d-html-element";
 import { utilIsString } from "./util/util-is-string";
@@ -49,6 +50,7 @@ export abstract class DInput<
 		this._description = ( options && options.description ) || "";
 
 		this._editingFormatter = ( options && options.editing && options.editing.formatter ) ||
+			( options && options.text && options.text.formatter ) ||
 			this.theme.getEditingFormatter();
 		this._editingUnformatter = ( options && options.editing && options.editing.unformatter ) ||
 			this.theme.getEditingUnformatter();
@@ -171,6 +173,13 @@ export abstract class DInput<
 		if( e.target instanceof HTMLInputElement ) {
 			this.emit( "input", this.toValue( e.target.value ), this );
 		}
+	}
+
+	protected onDownThis( e: interaction.InteractionEvent ): void {
+		if( this.isFocused() ) {
+			this.start();
+		}
+		super.onDownThis( e );
 	}
 
 	protected getType(): string {
