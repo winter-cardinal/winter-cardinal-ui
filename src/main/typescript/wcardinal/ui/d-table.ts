@@ -15,16 +15,21 @@ import {
 	DTableGetter, DTableSelectingGetter, DTableSetter
 } from "./d-table-column";
 import { DTableData, DTableDataOptions } from "./d-table-data";
+import { DTableDataList } from "./d-table-data-list";
 import { DTableHeader, DTableHeaderOptions, DThemeTableHeader } from "./d-table-header";
 import { utilIsArray } from "./util/util-is-array";
 import { utilIsString } from "./util/util-is-string";
 import { utilToString } from "./util/util-to-string";
 
-export interface DTableOptions<ROW, THEME extends DThemeTable = DThemeTable> extends DLayoutVerticalOptions<THEME> {
+export interface DTableOptions<
+	ROW,
+	DATA extends DTableData<ROW> = DTableDataList<ROW>,
+	THEME extends DThemeTable = DThemeTable
+> extends DLayoutVerticalOptions<THEME> {
 	columns: Array<DTableColumnOptions<ROW>>;
 	header?: DTableHeaderOptions<ROW>;
-	body?: DTableBodyOptions<ROW>;
-	data?: ROW[] | DTableDataOptions<ROW> | DTableData<ROW>;
+	body?: DTableBodyOptions<ROW, DATA>;
+	data?: ROW[] | DTableDataOptions<ROW> | DATA;
 }
 
 export interface DThemeTable extends DThemeLayoutVertical {
@@ -175,11 +180,11 @@ const toHeaderOptions = <ROW, THEME extends DThemeTableHeader>(
 	};
 };
 
-const toBodyOptions = <ROW, THEME extends DThemeTableBody>(
-	options: DTableBodyOptions<ROW, THEME> | undefined,
+const toBodyOptions = <ROW, DATA extends DTableData<ROW>, THEME extends DThemeTableBody>(
+	options: DTableBodyOptions<ROW, DATA, THEME> | undefined,
 	columns: Array<DTableColumn<ROW>>,
-	data: ROW[] | DTableDataOptions<ROW> | DTableData<ROW> | undefined
-): DTableBodyOptions<ROW, THEME> => {
+	data: ROW[] | DTableDataOptions<ROW> | DATA | undefined
+): DTableBodyOptions<ROW, DATA, THEME> => {
 	if( options != null ) {
 		if( options.data === undefined && data !== undefined ) {
 			if( utilIsArray( data ) ) {
@@ -196,7 +201,7 @@ const toBodyOptions = <ROW, THEME extends DThemeTableBody>(
 		if( options.height === undefined && options.weight === undefined ) {
 			options.weight = 1;
 		}
-		return options as DTableBodyOptions<ROW, THEME>;
+		return options as DTableBodyOptions<ROW, DATA, THEME>;
 	}
 	if( utilIsArray( data ) ) {
 		return {
@@ -217,11 +222,12 @@ const toBodyOptions = <ROW, THEME extends DThemeTableBody>(
 
 export class DTable<
 	ROW,
+	DATA extends DTableData<ROW> = DTableDataList<ROW>,
 	THEME extends DThemeTable = DThemeTable,
-	OPTIONS extends DTableOptions<ROW, THEME> = DTableOptions<ROW, THEME>
+	OPTIONS extends DTableOptions<ROW, DATA, THEME> = DTableOptions<ROW, DATA, THEME>
 > extends DLayoutVertical<THEME, OPTIONS> {
 	protected _header!: DTableHeader<ROW>;
-	protected _body!: DTableBody<ROW>;
+	protected _body!: DTableBody<ROW, DATA>;
 
 	constructor( options: OPTIONS ) {
 		super( options );
@@ -245,8 +251,8 @@ export class DTable<
 		return new DTableHeader( toHeaderOptions( options.header, columns ) );
 	}
 
-	protected newBody( options: OPTIONS, columns: Array<DTableColumn<ROW>> ): DTableBody<ROW> {
-		return new DTableBody( toBodyOptions( options.body, columns, options.data ) );
+	protected newBody( options: OPTIONS, columns: Array<DTableColumn<ROW>> ): DTableBody<ROW, DATA> {
+		return new DTableBody<ROW, DATA>( toBodyOptions( options.body, columns, options.data ) );
 	}
 
 	protected getType(): string {
@@ -257,11 +263,11 @@ export class DTable<
 		return this._header;
 	}
 
-	get body(): DTableBody<ROW> {
+	get body(): DTableBody<ROW, DATA> {
 		return this._body;
 	}
 
-	get data(): DTableData<ROW> {
+	get data(): DATA {
 		return this._body.data;
 	}
 }

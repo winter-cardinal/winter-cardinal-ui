@@ -20,21 +20,22 @@ import { UtilPointerEvent } from "./util/util-pointer-event";
 
 export interface DTableBodyOptions<
 	ROW,
+	DATA extends DTableData<ROW> = DTableDataList<ROW>,
 	THEME extends DThemeTableBody = DThemeTableBody,
 	CONTENT_OPTIONS extends DBaseOptions = DContentOptions
 > extends DPaneOptions<THEME, CONTENT_OPTIONS> {
 	columns?: Array<DTableColumn<ROW>>;
 	row?: DTableBodyRowOptions<ROW>;
-	data?: DTableDataOptions<ROW> | DTableData<ROW>;
+	data?: DTableDataOptions<ROW> | DATA;
 }
 
 export interface DThemeTableBody extends DThemePane {
 	getRowHeight(): number;
 }
 
-const toRowOptions = <ROW>(
+const toRowOptions = <ROW, DATA extends DTableData<ROW>>(
 	theme: DThemeTableBody,
-	options: DTableBodyOptions<ROW>,
+	options: DTableBodyOptions<ROW, DATA>,
 	selectionType: DTableDataSelectionType
 ): DTableBodyRowOptions<ROW> => {
 	const columns = options.columns || [];
@@ -65,9 +66,11 @@ const isDTableData = <ROW>( target?: ROW[] | DTableDataOptions<ROW> | DTableData
 
 export class DTableBody<
 	ROW,
+	DATA extends DTableData<ROW> = DTableDataList<ROW>,
 	THEME extends DThemeTableBody = DThemeTableBody,
 	CONTENT_OPTIONS extends DBaseOptions = DContentOptions,
-	OPTIONS extends DTableBodyOptions<ROW, THEME, CONTENT_OPTIONS> = DTableBodyOptions<ROW, THEME, CONTENT_OPTIONS>
+	OPTIONS extends DTableBodyOptions<ROW, DATA, THEME, CONTENT_OPTIONS>
+		= DTableBodyOptions<ROW, DATA, THEME, CONTENT_OPTIONS>
 > extends DPane<THEME, CONTENT_OPTIONS, OPTIONS> {
 	protected static WORK_ON_CLICK = new Point();
 	protected _columns!: Array<DTableColumn<ROW>>;
@@ -80,7 +83,7 @@ export class DTableBody<
 	protected _isUpdateRowsCalledForcibly!: boolean;
 	protected _workRows!: Array<DTableBodyRow<ROW>>;
 
-	protected _data!: DTableData<ROW>;
+	protected _data!: DATA;
 
 	constructor( options: OPTIONS ) {
 		super( options );
@@ -91,7 +94,7 @@ export class DTableBody<
 		super.init( options );
 
 		const data = ( isDTableData( options.data ) ? options.data :
-			new DTableDataList<ROW>( options.data ) );
+			new DTableDataList<ROW>( options.data ) as unknown as DATA );
 		this._data = data;
 		data.bind( this );
 		const theme = this.theme;
@@ -359,7 +362,7 @@ export class DTableBody<
 		return "DTableBody";
 	}
 
-	get data(): DTableData<ROW> {
+	get data(): DATA {
 		return this._data;
 	}
 }
