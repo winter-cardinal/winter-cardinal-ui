@@ -102,8 +102,9 @@ loadThemeWhiteAll();
 	* Time button
 	* Undo button
 * Canvas container and Canvas
-* chart
+* Chart
 	* Line chart (In progress)
+	* Bar chart (In progress)
 * Diagram with tile server support
 * Dialog
 	* Gradient color dialog
