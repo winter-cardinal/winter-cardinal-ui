@@ -12,10 +12,13 @@ import { EShapeDefaults } from "./shape/e-shape-defaults";
 import { EShapeDeserializer } from "./shape/e-shape-deserializer";
 
 export class DDiagrams {
-	static toSerialized( simple: DDiagramSerializedSimple ): DDiagramSerialized {
-		const result: DDiagramSerialized = JSON.parse( simple.data );
-		result.id = simple.id;
-		return result;
+	static toSerialized( target: DDiagramSerializedSimple | DDiagramSerialized ): DDiagramSerialized {
+		if( "data" in target ) {
+			const result: DDiagramSerialized = JSON.parse( target.data );
+			result.id = target.id;
+			return result;
+		}
+		return target;
 	}
 
 	static newLayer(

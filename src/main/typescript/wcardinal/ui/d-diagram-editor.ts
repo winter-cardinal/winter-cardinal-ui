@@ -12,7 +12,7 @@ import { DDiagrams } from "./d-diagrams";
 import { ESnapper } from "./snapper/e-snapper";
 
 export interface DDiagramEditorController {
-	get( id: number ): Promise<DDiagramSerializedSimple>;
+	get( id: number ): Promise<DDiagramSerializedSimple | DDiagramSerialized>;
 	save( simple: DDiagramSerializedSimple ): Promise<number>;
 	delete( id: number ): Promise<void>;
 }
@@ -178,8 +178,8 @@ export class DDiagramEditor<
 	}
 
 	open( id: number ): Promise<unknown> | boolean {
-		return this._controller.get( id ).then(( simple: DDiagramSerializedSimple ): void => {
-			this.set( DDiagrams.toSerialized( simple ) );
+		return this._controller.get( id ).then(( serialized: DDiagramSerializedSimple | DDiagramSerialized ): void => {
+			this.set( DDiagrams.toSerialized( serialized ) );
 			this.emit( "success", "open", this );
 		}, ( reason: any ): void => {
 			this.emit( "fail", "open", this );
