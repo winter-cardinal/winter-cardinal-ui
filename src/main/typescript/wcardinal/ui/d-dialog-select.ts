@@ -7,6 +7,7 @@ import { DBase } from "./d-base";
 import { DDialog, DDialogOptions, DThemeDialog } from "./d-dialog";
 import { DDialogSelectList } from "./d-dialog-select-list";
 import { DDialogSelectListItem } from "./d-dialog-select-list-item";
+import { DDialogSelectSearh } from "./d-dialog-select-search";
 import { DInputText } from "./d-input-text";
 import { DLayoutVertical } from "./d-layout-vertical";
 import { DListItem } from "./d-list-item";
@@ -16,7 +17,7 @@ import { utilIsNumber } from "./util/util-is-number";
 import { utilIsString } from "./util/util-is-string";
 import { UtilTransition } from "./util/util-transition";
 
-export interface Search<SEARCH_RESULT> {
+export interface DDialogSelectSearch<SEARCH_RESULT> {
 	create( args: [ string ] ): void;
 	on( event: "success", handler: ( e: unknown, searchResults: SEARCH_RESULT[] ) => void ): void;
 	on( event: "change", handler: () => void ): void;
@@ -24,15 +25,17 @@ export interface Search<SEARCH_RESULT> {
 	getResult(): SEARCH_RESULT[] | null;
 }
 
-export interface Controller<SEARCH_RESULT> {
-	search: Search<SEARCH_RESULT>;
+export type DDialogSelectSearchFunction<SEARCH_RESULT> = ( word: string ) => Promise<SEARCH_RESULT[]>;
+
+export interface DDialogSelectController<SEARCH_RESULT> {
+	search: DDialogSelectSearch<SEARCH_RESULT> | DDialogSelectSearchFunction<SEARCH_RESULT>;
 }
 
 export interface DDialogSelectOptions<
 	SEARCH_RESULT,
 	THEME extends DThemeDialogSelect = DThemeDialogSelect
 > extends DDialogOptions<THEME> {
-	controller: Controller<SEARCH_RESULT>;
+	controller: DDialogSelectController<SEARCH_RESULT>;
 	converter?: {
 		toLabel?: ( searchResult: SEARCH_RESULT ) => string;
 	};
@@ -122,15 +125,15 @@ export class DDialogSelect<
 	protected _list: DDialogSelectList;
 	protected _noteNoItems: DNote;
 	protected _noteSearching: DNote;
-	protected _controller: Controller<SEARCH_RESULT>;
+	protected _toLabel: ( target: any ) => string;
+	protected _search: DDialogSelectSearch<SEARCH_RESULT>;
 
 	constructor( options: OPTIONS ) {
 		super( options );
 
 		this._value = null;
 		const theme = this.theme;
-		const controller = this._controller = options.controller;
-		const toLabel = toToLabel( options );
+		this._toLabel = toToLabel( options );
 
 		const layout = new DLayoutVertical({
 			parent: this,
@@ -171,50 +174,24 @@ export class DDialogSelect<
 		this._noteSearching = noteSearching;
 
 		// Controller binding
+		const controller = options.controller;
+		const search = ( "create" in controller.search ?
+			controller.search : new DDialogSelectSearh( controller.search )
+		);
+		this._search = search;
 		this._input.on( "input", ( value: string ): void => {
-			controller.search.create([ value ]);
+			search.create([ value ]);
 		});
 
-		controller.search.on( "success", ( e: unknown, searchResults: SEARCH_RESULT[] ): void => {
-			const content = list.content;
-			const children = content.children;
-
-			// Update the existing children
-			const childrenLength = children.length;
-			const searchResultsLength = searchResults.length;
-			const minLength = Math.min( childrenLength, searchResultsLength );
-			for( let i = 0, imax = minLength; i < imax; ++i ) {
-				const child = children[ i ];
-				const searchResult = searchResults[ i ];
-				if( child instanceof DListItem ) {
-					child.text = toLabel( searchResult );
-					child.value = searchResult;
-				} else {
-					content.removeChildAt( i );
-					child.destroy();
-					const newChild = this.newItem( searchResult, toLabel( searchResult ) );
-					content.addChildAt( newChild, i );
-				}
-			}
-
-			// Insert new children
-			for( let i = minLength, imax = searchResultsLength; i < imax; ++i ) {
-				const searchResult = searchResults[ i ];
-				const newChild = this.newItem( searchResult, toLabel( searchResult ) );
-				content.addChild( newChild );
-			}
-
-			// Remove unused children
-			for( let i = childrenLength - 1; minLength <= i; --i ) {
-				children[ i ].destroy();
-			}
+		search.on( "success", ( e: unknown, searchResults: SEARCH_RESULT[] ): void => {
+			this.onSearched( searchResults );
 		});
 
 		// Visibility
 		const transition = new UtilTransition();
-		controller.search.on( "change", (): void => {
-			if( controller.search.isDone() ) {
-				const result = controller.search.getResult();
+		search.on( "change", (): void => {
+			if( search.isDone() ) {
+				const result = search.getResult();
 				if( result != null && 0 < result.length ) {
 					transition.hide();
 				} else {
@@ -224,6 +201,43 @@ export class DDialogSelect<
 				transition.show( noteSearching );
 			}
 		});
+	}
+
+	protected onSearched( searchResults: SEARCH_RESULT[] ): void {
+		const list = this._list;
+		const toLabel = this._toLabel;
+		const content = list.content;
+		const children = content.children;
+
+		// Update the existing children
+		const childrenLength = children.length;
+		const searchResultsLength = searchResults.length;
+		const minLength = Math.min( childrenLength, searchResultsLength );
+		for( let i = 0, imax = minLength; i < imax; ++i ) {
+			const child = children[ i ];
+			const searchResult = searchResults[ i ];
+			if( child instanceof DListItem ) {
+				child.text = toLabel( searchResult );
+				child.value = searchResult;
+			} else {
+				content.removeChildAt( i );
+				child.destroy();
+				const newChild = this.newItem( searchResult, toLabel( searchResult ) );
+				content.addChildAt( newChild, i );
+			}
+		}
+
+		// Insert new children
+		for( let i = minLength, imax = searchResultsLength; i < imax; ++i ) {
+			const searchResult = searchResults[ i ];
+			const newChild = this.newItem( searchResult, toLabel( searchResult ) );
+			content.addChild( newChild );
+		}
+
+		// Remove unused children
+		for( let i = childrenLength - 1; minLength <= i; --i ) {
+			children[ i ].destroy();
+		}
 	}
 
 	protected newItem( searchResult: SEARCH_RESULT, label: string ): DDialogSelectListItem<SEARCH_RESULT> {
@@ -246,7 +260,7 @@ export class DDialogSelect<
 	protected onOpen() {
 		super.onOpen();
 		this._list.selection.clear();
-		this._controller.search.create([ this._input.value ]);
+		this._search.create([ this._input.value ]);
 	}
 
 	protected onClose() {
