@@ -81,61 +81,87 @@
 						})
 					]
 				}
+			}
+		});
+
+		class Updater {
+			constructor(){
+				this.x = Date.now();
+				this.x0 = this.x;
+				this.isEnabled = false;
+				this.updateBound = () => {
+					this.update();
+				};
+			}
+
+			start() {
+				this.isEnabled = true;
+				this.update();
+			}
+
+			stop() {
+				this.isEnabled = false;
+			}
+
+			toggle() {
+				if( this.isEnabled ) {
+					this.isEnabled = false;
+				} else {
+					this.isEnabled = true;
+					this.update();
+				}
+			}
+
+			isStarted() {
+				return this.isEnabled;
+			}
+
+			update() {
+				this.x += 32;
+				const dx = (this.x - this.x0) * 0.025;
+
+				const plotArea = chart.plotArea;
+				const size = plotArea.series.size();
+				for( let i = 0; i < size; ++i ) {
+					const series = plotArea.series.get( i );
+					const points = series.points;
+					const dy = Math.sin( dx * 0.025 * (1 + i) );
+					points.push( dx + i * 10, dy );
+					if( 512 < series.points.length ) {
+						points.shift();
+						points.shift();
+					}
+					series.toDirty();
+				}
+				plotArea.coordinate.fit();
+				plotArea.axis.update();
+				plotArea.series.update();
+
+				if( this.isEnabled ) {
+					setTimeout( this.updateBound, 32 );
+				}
+			}
+		}
+		const updater = new Updater();
+		updater.start();
+
+		new wcardinal.ui.DButton({
+			parent: application.stage,
+			x: 390, y: 520,
+			text: {
+				value: "Stop"
 			},
 			on: {
-				init: ( chart ) => {
-					new wcardinal.ui.DChartLegend({
-						parent: application.stage,
-						x: 450, y: 100,
-						width: 100, height: 100,
-						background: {
-							color: 0xff0000,
-							alpha: 0.5
-						}
-					});
-
-					new wcardinal.ui.DChartOverview({
-						parent: application.stage,
-						x: 100, y: 500,
-						width: 500, height: 50,
-						background: {
-							color: 0x0000ff
-						}
-					});
-
-					let x = Date.now();
-					let x0 = x;
-					const update = () => {
-						x = Date.now();
-						const dx = (x - x0) * 0.025;
-
-						const plotArea = chart.plotArea;
-						const size = plotArea.series.size();
-						for( let i = 0; i < size; ++i ) {
-							const series = plotArea.series.get( i );
-							const points = series.points;
-							const dy = Math.sin( dx * 0.025 * (1 + i) );
-							points.push( dx + i * 10, dy );
-							if( 10240 < series.points.length ) {
-								points.shift();
-								points.shift();
-							}
-							series.toDirty();
-						}
-						plotArea.coordinate.fit();
-						plotArea.axis.update();
-						plotArea.series.update();
-
-						setTimeout( update, 32 );
-					};
-					update();
+				active: ( self ) => {
+					updater.toggle();
+					self.text = updater.isStarted() ? "Stop" : "Start";
 				}
 			}
 		});
 
 		new wcardinal.ui.DButton({
 			parent: application.stage,
-			x: 500, y: 600,
+			x: 500, y: 520,
 			text: {
 				value: "Fit"
 			},
@@ -144,7 +170,7 @@
 					chart.plotArea.view.fit();
 				}
 			}
-		})
+		});
 	}());
 	</script>
 </body>
