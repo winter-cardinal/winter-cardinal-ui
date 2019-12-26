@@ -17,19 +17,19 @@ export class DThemeWhiteCanvasContainer extends DThemeWhiteBase implements DThem
 		return null;
 	}
 
-	getPaddingLeft() {
+	getPaddingLeft(): number {
 		return 50;
 	}
 
-	getPaddingTop() {
+	getPaddingTop(): number {
 		return 50;
 	}
 
-	getPaddingRight() {
+	getPaddingRight(): number {
 		return 50;
 	}
 
-	getPaddingBottom() {
+	getPaddingBottom(): number {
 		return 50;
 	}
 

@@ -24,19 +24,19 @@ export class DThemeWhiteDialog extends DThemeWhiteBase implements DThemeDialog {
 		return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
 	}
 
-	getPaddingLeft() {
+	getPaddingLeft(): number {
 		return 16;
 	}
 
-	getPaddingTop() {
+	getPaddingTop(): number {
 		return 16;
 	}
 
-	getPaddingRight() {
+	getPaddingRight(): number {
 		return 16;
 	}
 
-	getPaddingBottom() {
+	getPaddingBottom(): number {
 		return 16;
 	}
 

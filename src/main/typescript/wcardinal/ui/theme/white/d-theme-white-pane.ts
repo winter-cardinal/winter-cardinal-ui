@@ -11,7 +11,7 @@ import { DThemeWhiteBase } from "./d-theme-white-base";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 
 export class DThemeWhitePane extends DThemeWhiteBase implements DThemePane {
-	isOverflowMaskEnabled() {
+	isOverflowMaskEnabled(): boolean {
 		return true;
 	}
 

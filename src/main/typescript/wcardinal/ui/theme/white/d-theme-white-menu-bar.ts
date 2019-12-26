@@ -11,7 +11,7 @@ import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteLayoutHorizontal } from "./d-theme-white-layout-horizontal";
 
 export class DThemeWhiteMenuBar extends DThemeWhiteLayoutHorizontal implements DThemeMenuBar {
-	getBackgroundColor() {
+	getBackgroundColor(): number | null {
 		return DThemeWhiteConstants.BACKGROUND_COLOR;
 	}
 

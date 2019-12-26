@@ -11,7 +11,7 @@ import { DThemeWhiteBase } from "./d-theme-white-base";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 
 export class DThemeWhiteBoard extends DThemeWhiteBase implements DThemeBoard {
-	getBackgroundColor() {
+	getBackgroundColor(): number | null {
 		return DThemeWhiteConstants.BACKGROUND_COLOR;
 	}
 
@@ -23,19 +23,19 @@ export class DThemeWhiteBoard extends DThemeWhiteBase implements DThemeBoard {
 		return DCornerMask.ALL;
 	}
 
-	getPaddingLeft() {
+	getPaddingLeft(): number {
 		return 16;
 	}
 
-	getPaddingTop() {
+	getPaddingTop(): number {
 		return 16;
 	}
 
-	getPaddingRight() {
+	getPaddingRight(): number {
 		return 16;
 	}
 
-	getPaddingBottom() {
+	getPaddingBottom(): number {
 		return 16;
 	}
 
