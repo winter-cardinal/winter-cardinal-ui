@@ -8,48 +8,48 @@ import { DBorderMask } from "../../d-border";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DTableBodyCellIndex, DThemeTableBodyCellIndex } from "../../d-table-body-cell-index";
-import { DThemeWhiteImageBase } from "./d-theme-default-image-base";
-import { DThemeWhiteTableBodyCells } from "./d-theme-default-table-body-cells";
+import { DThemeDefaultImageBase } from "./d-theme-default-image-base";
+import { DThemeDefaultTableBodyCells } from "./d-theme-default-table-body-cells";
 
 const formatter = ( index: unknown ): string => {
 	return String( Number( index ) + 1 );
 };
 
-export class DThemeWhiteTableBodyCellIndex extends DThemeWhiteImageBase implements DThemeTableBodyCellIndex {
+export class DThemeDefaultTableBodyCellIndex extends DThemeDefaultImageBase implements DThemeTableBodyCellIndex {
 	getBackgroundColor( state: DBaseState ): number | null {
-		return DThemeWhiteTableBodyCells.getBackgroundColor( state );
+		return DThemeDefaultTableBodyCells.getBackgroundColor( state );
 	}
 
 	getBackgroundAlpha( state: DBaseState ): number {
-		return DThemeWhiteTableBodyCells.getBackgroundAlpha( state );
+		return DThemeDefaultTableBodyCells.getBackgroundAlpha( state );
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return DThemeWhiteTableBodyCells.getBorderColor( state );
+		return DThemeDefaultTableBodyCells.getBorderColor( state );
 	}
 
 	getBorderAlign( state: DBaseState ): number {
-		return DThemeWhiteTableBodyCells.getBorderAlign( state );
+		return DThemeDefaultTableBodyCells.getBorderAlign( state );
 	}
 
 	getBorderMask( state: DBaseState ): DBorderMask {
-		return DThemeWhiteTableBodyCells.getBorderMask( state );
+		return DThemeDefaultTableBodyCells.getBorderMask( state );
 	}
 
 	getColor( state: DBaseState ): number {
-		return DThemeWhiteTableBodyCells.getColor( state );
+		return DThemeDefaultTableBodyCells.getColor( state );
 	}
 
 	getAlpha( state: DBaseState ): number {
-		return DThemeWhiteTableBodyCells.getAlpha( state );
+		return DThemeDefaultTableBodyCells.getAlpha( state );
 	}
 
 	getHeight(): DCoordinateSize {
-		return DThemeWhiteTableBodyCells.getHeight();
+		return DThemeDefaultTableBodyCells.getHeight();
 	}
 
 	getCornerMask(): DCornerMask {
-		return DThemeWhiteTableBodyCells.getCornerMask();
+		return DThemeDefaultTableBodyCells.getCornerMask();
 	}
 
 	getPaddingLeft(): number {

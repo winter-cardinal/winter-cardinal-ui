@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhiteChartAxisX } from "./d-theme-default-chart-axis-x";
+import { DThemeDefaultChartAxisX } from "./d-theme-default-chart-axis-x";
 
-export class DThemeWhiteChartAxisXDatetime extends DThemeWhiteChartAxisX {
+export class DThemeDefaultChartAxisXDatetime extends DThemeDefaultChartAxisX {
 	getMajorTickTextFormat(): string {
 		return "%YMD\n%Hms.%mi";
 	}

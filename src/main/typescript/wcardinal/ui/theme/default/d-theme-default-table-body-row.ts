@@ -5,9 +5,9 @@
 
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeTableBodyRow } from "../../d-table-body-row";
-import { DThemeWhiteTableRow } from "./d-theme-default-table-row";
+import { DThemeDefaultTableRow } from "./d-theme-default-table-row";
 
-export class DThemeWhiteTableBodyRow extends DThemeWhiteTableRow implements DThemeTableBodyRow {
+export class DThemeDefaultTableBodyRow extends DThemeDefaultTableRow implements DThemeTableBodyRow {
 	getWidth(): DCoordinateSize {
 		return "100%";
 	}

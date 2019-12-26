@@ -4,9 +4,9 @@
  */
 
 import { DBaseState } from "../../d-base-state";
-import { DThemeWhitePane } from "./d-theme-default-pane";
+import { DThemeDefaultPane } from "./d-theme-default-pane";
 
-export class DThemeWhiteList extends DThemeWhitePane {
+export class DThemeDefaultList extends DThemeDefaultPane {
 	getBackgroundColor( state: DBaseState ): number | null {
 		return 0xffffff;
 	}

@@ -7,7 +7,7 @@ import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { DThemeDialogProcessing } from "../../d-dialog-processing";
 import { DStateAwareOrValue } from "../../d-state-aware";
-import { DThemeWhiteDialogConfirm } from "./d-theme-default-dialog-confirm";
+import { DThemeDefaultDialogConfirm } from "./d-theme-default-dialog-confirm";
 
 const message = ( state: DBaseState ): string => {
 	if( DBaseStates.isSucceeded( state ) ) {
@@ -19,7 +19,7 @@ const message = ( state: DBaseState ): string => {
 	}
 };
 
-export class DThemeWhiteDialogProcessing extends DThemeWhiteDialogConfirm implements DThemeDialogProcessing {
+export class DThemeDefaultDialogProcessing extends DThemeDefaultDialogConfirm implements DThemeDialogProcessing {
 	getOk(): string | null {
 		return "OK";
 	}

@@ -5,9 +5,9 @@
 
 import { DBaseInteractive } from "../../d-base-interactive";
 import { DThemeChart } from "../../d-chart";
-import { DThemeWhiteBase } from "./d-theme-default-base";
+import { DThemeDefaultBase } from "./d-theme-default-base";
 
-export class DThemeWhiteChart extends DThemeWhiteBase implements DThemeChart {
+export class DThemeDefaultChart extends DThemeDefaultBase implements DThemeChart {
 	getInteractive(): DBaseInteractive {
 		return DBaseInteractive.BOTH;
 	}

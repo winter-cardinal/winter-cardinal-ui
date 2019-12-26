@@ -7,12 +7,12 @@ import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseState } from "../../d-base-state";
 import { DThemeBoard } from "../../d-board";
 import { DCornerMask } from "../../d-corner";
-import { DThemeWhiteBase } from "./d-theme-default-base";
-import { DThemeWhiteConstants } from "./d-theme-default-constants";
+import { DThemeDefaultBase } from "./d-theme-default-base";
+import { DThemeDefaultConstants } from "./d-theme-default-constants";
 
-export class DThemeWhiteBoard extends DThemeWhiteBase implements DThemeBoard {
+export class DThemeDefaultBoard extends DThemeDefaultBase implements DThemeBoard {
 	getBackgroundColor() {
-		return DThemeWhiteConstants.BACKGROUND_COLOR;
+		return DThemeDefaultConstants.BACKGROUND_COLOR;
 	}
 
 	getBorderColor( state: DBaseState ): number | null {

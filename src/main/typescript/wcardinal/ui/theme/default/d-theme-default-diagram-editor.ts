@@ -5,8 +5,8 @@
 
 import { DThemeDiagramEditor } from "../../d-diagram-editor";
 import { DMouseModifier } from "../../d-mouse-modifier";
-import { DThemeWhiteDiagramBase } from "./d-theme-default-diagram-base";
+import { DThemeDefaultDiagramBase } from "./d-theme-default-diagram-base";
 
-export class DThemeWhiteDiagramEditor extends DThemeWhiteDiagramBase implements DThemeDiagramEditor {
+export class DThemeDefaultDiagramEditor extends DThemeDefaultDiagramBase implements DThemeDiagramEditor {
 	}
 }

@@ -15,9 +15,9 @@ import { DLayoutClearType } from "../../d-layout-clear-type";
 import { DShadow } from "../../d-shadow";
 import { DShadowImpl } from "../../d-shadow-impl";
 import { UtilTexturePlane } from "../../util/util-texture-plane";
-import { DThemeWhiteAtlas } from "./d-theme-default-atlas";
-import { DThemeWhiteConstants } from "./d-theme-default-constants";
-import { DThemeWhiteFont } from "./d-theme-default-font";
+import { DThemeDefaultAtlas } from "./d-theme-default-atlas";
+import { DThemeDefaultConstants } from "./d-theme-default-constants";
+import { DThemeDefaultFont } from "./d-theme-default-font";
 
 const newShadow = (
 	id: string,
@@ -25,7 +25,7 @@ const newShadow = (
 	size: number = radius * 0.125, stdDeviation: number = radius * 0.375
 ): void => {
 	const d = radius * 2;
-	DThemeWhiteAtlas.add( id, d, d,
+	DThemeDefaultAtlas.add( id, d, d,
 		`<g>` +
 			`<defs>` +
 				`<filter id="${id}_filter" x="0" y="0" width="${d}" height="${d}" filterUnits="userSpaceOnUse">` +
@@ -40,7 +40,7 @@ const newShadow = (
 newShadow( "shadow_weak", 8, 1 );
 newShadow( "shadow", 12, 1 );
 
-export class DThemeWhiteBase extends DThemeWhiteFont implements DThemeBase {
+export class DThemeDefaultBase extends DThemeDefaultFont implements DThemeBase {
 	getX(): DCoordinatePosition {
 		return 0;
 	}
@@ -71,7 +71,7 @@ export class DThemeWhiteBase extends DThemeWhiteFont implements DThemeBase {
 
 	getBorderColor( state: DBaseState ): number | null {
 		if( DBaseStates.isFocused( state ) ) {
-			return DThemeWhiteConstants.HIGHLIGHT_COLOR;
+			return DThemeDefaultConstants.HIGHLIGHT_COLOR;
 		} else {
 			return null;
 		}
@@ -166,11 +166,11 @@ export class DThemeWhiteBase extends DThemeWhiteFont implements DThemeBase {
 	}
 
 	newShadow(): DShadow | null {
-		return new DShadowImpl( DThemeWhiteAtlas.mappings.shadow, 12, 12, 0, 6 );
+		return new DShadowImpl( DThemeDefaultAtlas.mappings.shadow, 12, 12, 0, 6 );
 	}
 
 	newShadowWeak(): DShadow | null {
-		return new DShadowImpl( DThemeWhiteAtlas.mappings.shadow_weak, 8, 8, 0, 4 );
+		return new DShadowImpl( DThemeDefaultAtlas.mappings.shadow_weak, 8, 8, 0, 4 );
 	}
 
 	getCursor(): string | null {

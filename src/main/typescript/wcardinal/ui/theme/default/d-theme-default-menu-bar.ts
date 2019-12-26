@@ -7,12 +7,12 @@ import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseState } from "../../d-base-state";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeMenuBar } from "../../d-menu-bar";
-import { DThemeWhiteConstants } from "./d-theme-default-constants";
-import { DThemeWhiteLayoutHorizontal } from "./d-theme-default-layout-horizontal";
+import { DThemeDefaultConstants } from "./d-theme-default-constants";
+import { DThemeDefaultLayoutHorizontal } from "./d-theme-default-layout-horizontal";
 
-export class DThemeWhiteMenuBar extends DThemeWhiteLayoutHorizontal implements DThemeMenuBar {
+export class DThemeDefaultMenuBar extends DThemeDefaultLayoutHorizontal implements DThemeMenuBar {
 	getBackgroundColor() {
-		return DThemeWhiteConstants.BACKGROUND_COLOR;
+		return DThemeDefaultConstants.BACKGROUND_COLOR;
 	}
 
 	getBorderColor( state: DBaseState ): number | null {

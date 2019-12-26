@@ -4,8 +4,8 @@
  */
 
 import { DThemeMenuItemSpace } from "../../d-menu-item-space";
-import { DThemeWhiteLayoutSpace } from "./d-theme-default-layout-space";
+import { DThemeDefaultLayoutSpace } from "./d-theme-default-layout-space";
 
-export class DThemeWhiteMenuItemSpace extends DThemeWhiteLayoutSpace implements DThemeMenuItemSpace {
+export class DThemeDefaultMenuItemSpace extends DThemeDefaultLayoutSpace implements DThemeMenuItemSpace {
 
 }

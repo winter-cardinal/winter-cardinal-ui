@@ -7,9 +7,9 @@ import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DBaseInteractive } from "../../d-base-interactive";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeNote } from "../../d-note";
-import { DThemeWhiteText } from "./d-theme-default-text";
+import { DThemeDefaultText } from "./d-theme-default-text";
 
-export class DThemeWhiteNote extends DThemeWhiteText implements DThemeNote {
+export class DThemeDefaultNote extends DThemeDefaultText implements DThemeNote {
 	getWidth(): DCoordinateSize {
 		return "100%";
 	}

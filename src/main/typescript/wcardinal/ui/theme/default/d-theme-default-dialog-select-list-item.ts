@@ -6,10 +6,10 @@
 import { DBaseState } from "../../d-base-state";
 import { DCornerMask } from "../../d-corner";
 import { DThemeDialogSelecListItem } from "../../d-dialog-select-list-item";
-import { DThemeWhiteFont } from "./d-theme-default-font";
-import { DThemeWhiteListItem } from "./d-theme-default-list-item";
+import { DThemeDefaultFont } from "./d-theme-default-font";
+import { DThemeDefaultListItem } from "./d-theme-default-list-item";
 
-export class DThemeWhiteDialogSelectListItem extends DThemeWhiteListItem implements DThemeDialogSelecListItem {
+export class DThemeDefaultDialogSelectListItem extends DThemeDefaultListItem implements DThemeDialogSelecListItem {
 	getBackgroundColor( state: DBaseState ): number | null {
 		return super.getBackgroundColor( state & ~DBaseState.ACTIVE );
 	}
@@ -19,7 +19,7 @@ export class DThemeWhiteDialogSelectListItem extends DThemeWhiteListItem impleme
 	}
 
 	getColor( state: DBaseState ): number {
-		return DThemeWhiteFont.getColor( state );
+		return DThemeDefaultFont.getColor( state );
 	}
 
 	getCornerMask(): number {

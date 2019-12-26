@@ -8,9 +8,9 @@ import { DBaseState } from "../../d-base-state";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeMenu } from "../../d-menu";
 import { DShadow } from "../../d-shadow";
-import { DThemeWhiteLayoutVertical } from "./d-theme-default-layout-vertical";
+import { DThemeDefaultLayoutVertical } from "./d-theme-default-layout-vertical";
 
-export class DThemeWhiteMenu extends DThemeWhiteLayoutVertical implements DThemeMenu {
+export class DThemeDefaultMenu extends DThemeDefaultLayoutVertical implements DThemeMenu {
 	getBackgroundColor( state: DBaseState ): number | null {
 		return 0xffffff;
 	}

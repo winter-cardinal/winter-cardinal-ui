@@ -8,9 +8,9 @@ import { DBaseStates } from "../../d-base-states";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DThemeMenuItemExpandable } from "../../d-menu-item-expandable";
-import { DThemeWhiteLayoutVertical } from "./d-theme-default-layout-vertical";
+import { DThemeDefaultLayoutVertical } from "./d-theme-default-layout-vertical";
 
-export class DThemeWhiteMenuItemExpandable extends DThemeWhiteLayoutVertical implements DThemeMenuItemExpandable {
+export class DThemeDefaultMenuItemExpandable extends DThemeDefaultLayoutVertical implements DThemeMenuItemExpandable {
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isActive( state ) ) {
 			return 0xf0f8ff;

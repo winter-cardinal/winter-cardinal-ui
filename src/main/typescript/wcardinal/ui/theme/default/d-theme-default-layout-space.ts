@@ -8,9 +8,9 @@ import { DBaseState } from "../../d-base-state";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DLayoutClearType } from "../../d-layout-clear-type";
 import { DThemeLayoutSpace } from "../../d-layout-space";
-import { DThemeWhiteBase } from "./d-theme-default-base";
+import { DThemeDefaultBase } from "./d-theme-default-base";
 
-export class DThemeWhiteLayoutSpace extends DThemeWhiteBase implements DThemeLayoutSpace {
+export class DThemeDefaultLayoutSpace extends DThemeDefaultBase implements DThemeLayoutSpace {
 	getBackgroundColor( state: DBaseState ): number | null {
 		return null;
 	}

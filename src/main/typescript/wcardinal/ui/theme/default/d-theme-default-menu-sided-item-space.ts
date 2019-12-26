@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhiteMenuItemSpace } from "./d-theme-default-menu-item-space";
+import { DThemeDefaultMenuItemSpace } from "./d-theme-default-menu-item-space";
 
-export class DThemeWhiteMenuSidedItemSpace extends DThemeWhiteMenuItemSpace {
+export class DThemeDefaultMenuSidedItemSpace extends DThemeDefaultMenuItemSpace {
 
 }

@@ -6,9 +6,9 @@
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DThemeMenuItemExpandableBody } from "../../d-menu-item-expandable-body";
-import { DThemeWhiteLayoutVertical } from "./d-theme-default-layout-vertical";
+import { DThemeDefaultLayoutVertical } from "./d-theme-default-layout-vertical";
 
-export class DThemeWhiteMenuItemExpandableBody extends DThemeWhiteLayoutVertical
+export class DThemeDefaultMenuItemExpandableBody extends DThemeDefaultLayoutVertical
 	implements DThemeMenuItemExpandableBody {
 
 	getWidth(): DCoordinateSize {

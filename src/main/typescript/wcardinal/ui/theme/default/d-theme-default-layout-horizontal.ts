@@ -6,9 +6,9 @@
 import { DCoordinateSize } from "../../d-coordinate";
 import { DLayoutDirection } from "../../d-layout";
 import { DThemeLayoutHorizontal } from "../../d-layout-horizontal";
-import { DThemeWhiteLayout } from "./d-theme-default-layout";
+import { DThemeDefaultLayout } from "./d-theme-default-layout";
 
-export class DThemeWhiteLayoutHorizontal extends DThemeWhiteLayout implements DThemeLayoutHorizontal {
+export class DThemeDefaultLayoutHorizontal extends DThemeDefaultLayout implements DThemeLayoutHorizontal {
 	getDirection(): DLayoutDirection {
 		return DLayoutDirection.HORIZONTAL;
 	}

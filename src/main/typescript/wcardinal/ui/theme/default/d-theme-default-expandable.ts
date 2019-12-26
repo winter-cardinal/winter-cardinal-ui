@@ -7,9 +7,9 @@ import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { DCornerMask } from "../../d-corner";
 import { DThemeExpandable } from "../../d-expandable";
-import { DThemeWhiteLayoutVertical } from "./d-theme-default-layout-vertical";
+import { DThemeDefaultLayoutVertical } from "./d-theme-default-layout-vertical";
 
-export class DThemeWhiteExpandable extends DThemeWhiteLayoutVertical implements DThemeExpandable {
+export class DThemeDefaultExpandable extends DThemeDefaultLayoutVertical implements DThemeExpandable {
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isActive( state ) ) {
 			return 0xf0f8ff;

@@ -9,24 +9,24 @@ import { DBaseStates } from "../../d-base-states";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DThemeListItem } from "../../d-list-item";
-import { DThemeWhiteConstants } from "./d-theme-default-constants";
-import { DThemeWhiteImage } from "./d-theme-default-image";
+import { DThemeDefaultConstants } from "./d-theme-default-constants";
+import { DThemeDefaultImage } from "./d-theme-default-image";
 
-export class DThemeWhiteListItem extends DThemeWhiteImage implements DThemeListItem {
+export class DThemeDefaultListItem extends DThemeDefaultImage implements DThemeListItem {
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
 			return null;
 		} else if( DBaseStates.isActive( state ) ) {
-			return DThemeWhiteConstants.HIGHLIGHT_COLOR;
+			return DThemeDefaultConstants.HIGHLIGHT_COLOR;
 		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
+			return DThemeDefaultConstants.WEAK_HIGHLIGHT_COLOR;
 		} else {
 			return null;
 		}
 	}
 
 	getBackgroundAlpha( state: DBaseState ): number {
-		return DThemeWhiteConstants.HIGHLIGHT_ALPHA;
+		return DThemeDefaultConstants.HIGHLIGHT_ALPHA;
 	}
 
 	getBorderColor( state: DBaseState ): number | null {

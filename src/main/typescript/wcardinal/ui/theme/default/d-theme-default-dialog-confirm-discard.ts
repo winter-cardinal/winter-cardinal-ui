@@ -4,9 +4,9 @@
  */
 
 import { DStateAwareOrValue } from "../../d-state-aware";
-import { DThemeWhiteDialogConfirm } from "./d-theme-default-dialog-confirm";
+import { DThemeDefaultDialogConfirm } from "./d-theme-default-dialog-confirm";
 
-export class DThemeWhiteDialogConfirmDiscard extends DThemeWhiteDialogConfirm {
+export class DThemeDefaultDialogConfirmDiscard extends DThemeDefaultDialogConfirm {
 	getMessage(): DStateAwareOrValue<string> {
 		return "Your changes have not been saved.\n" +
 			"Do you want to discard the changes and continue?";

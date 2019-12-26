@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhiteMenuItemSeparator } from "./d-theme-default-menu-item-separator";
+import { DThemeDefaultMenuItemSeparator } from "./d-theme-default-menu-item-separator";
 
-export class DThemeWhiteMenuItemExpandableItemSeparator extends DThemeWhiteMenuItemSeparator {
+export class DThemeDefaultMenuItemExpandableItemSeparator extends DThemeDefaultMenuItemSeparator {
 	getPaddingLeft(): number {
 		return super.getPaddingLeft() + 16;
 	}

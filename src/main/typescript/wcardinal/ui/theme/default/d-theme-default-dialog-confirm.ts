@@ -5,9 +5,9 @@
 
 import { DThemeDialogConfirm } from "../../d-dialog-confirm";
 import { DStateAwareOrValue } from "../../d-state-aware";
-import { DThemeWhiteDialogCommand } from "./d-theme-default-dialog-command";
+import { DThemeDefaultDialogCommand } from "./d-theme-default-dialog-command";
 
-export class DThemeWhiteDialogConfirm extends DThemeWhiteDialogCommand implements DThemeDialogConfirm {
+export class DThemeDefaultDialogConfirm extends DThemeDefaultDialogCommand implements DThemeDialogConfirm {
 	getOk(): string | null {
 		return "Yes";
 	}

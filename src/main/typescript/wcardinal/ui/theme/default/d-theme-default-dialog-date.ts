@@ -5,9 +5,9 @@
 
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeDialogDate } from "../../d-dialog-date";
-import { DThemeWhiteDialogCommand } from "./d-theme-default-dialog-command";
+import { DThemeDefaultDialogCommand } from "./d-theme-default-dialog-command";
 
-export class DThemeWhiteDialogDate extends DThemeWhiteDialogCommand implements DThemeDialogDate {
+export class DThemeDefaultDialogDate extends DThemeDefaultDialogCommand implements DThemeDialogDate {
 	getWidth(): DCoordinateSize {
 		return "auto";
 	}

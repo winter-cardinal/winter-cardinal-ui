@@ -4,8 +4,8 @@
  */
 
 import { DThemeDiagram } from "../../d-diagram";
-import { DThemeWhiteDiagramBase } from "./d-theme-default-diagram-base";
+import { DThemeDefaultDiagramBase } from "./d-theme-default-diagram-base";
 
-export class DThemeWhiteDiagram extends DThemeWhiteDiagramBase implements DThemeDiagram {
+export class DThemeDefaultDiagram extends DThemeDefaultDiagramBase implements DThemeDiagram {
 
 }

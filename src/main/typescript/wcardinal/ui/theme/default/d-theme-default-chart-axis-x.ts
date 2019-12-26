@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhiteChartAxisBase } from "./d-theme-default-chart-axis-base";
+import { DThemeDefaultChartAxisBase } from "./d-theme-default-chart-axis-base";
 
-export class DThemeWhiteChartAxisX extends DThemeWhiteChartAxisBase {
+export class DThemeDefaultChartAxisX extends DThemeDefaultChartAxisBase {
 
 }

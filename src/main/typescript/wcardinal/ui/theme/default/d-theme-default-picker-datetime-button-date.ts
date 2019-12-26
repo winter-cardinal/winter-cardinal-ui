@@ -6,9 +6,9 @@
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemePickerDatetimeButtonDate } from "../../d-picker-datetime-button-date";
-import { DThemeWhiteButtonAmbient } from "./d-theme-default-button-ambient";
+import { DThemeDefaultButtonAmbient } from "./d-theme-default-button-ambient";
 
-export class DThemeWhitePickerDatetimeButtonDate extends DThemeWhiteButtonAmbient
+export class DThemeDefaultPickerDatetimeButtonDate extends DThemeDefaultButtonAmbient
 	implements DThemePickerDatetimeButtonDate {
 
 	getTextAlignHorizontal(): DAlignHorizontal {

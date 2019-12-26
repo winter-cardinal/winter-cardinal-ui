@@ -9,20 +9,20 @@ import { DAlignWith } from "../../d-align-with";
 import { DBaseState } from "../../d-base-state";
 import { DMenuOptions } from "../../d-menu";
 import { DMenuItemLinkMenuItemId, DThemeMenuItemLink } from "../../d-menu-item-link";
-import { DThemeWhiteAtlas } from "./d-theme-default-atlas";
-import { DThemeWhiteMenuItemText } from "./d-theme-default-menu-item-text";
+import { DThemeDefaultAtlas } from "./d-theme-default-atlas";
+import { DThemeDefaultMenuItemText } from "./d-theme-default-menu-item-text";
 
-DThemeWhiteAtlas.add( "menu_item_mark_link", 24, 24,
+DThemeDefaultAtlas.add( "menu_item_mark_link", 24, 24,
 	`<g>` +
 		`<path fill="none" stroke="#fff" stroke-width="1" ` +
 			`d="M10 6H7c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h8c1.1 0 2-.9 2-2v-3 M19 11V4h-7 M18.75 4.5l-8 8" />` +
 	`</g>`
 );
 
-export class DThemeWhiteMenuItemLink extends DThemeWhiteMenuItemText implements DThemeMenuItemLink {
+export class DThemeDefaultMenuItemLink extends DThemeDefaultMenuItemText implements DThemeMenuItemLink {
 	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
 		if( state & DBaseState.EXTENSION_0 ) {
-			return DThemeWhiteAtlas.mappings.menu_item_mark_link;
+			return DThemeDefaultAtlas.mappings.menu_item_mark_link;
 		}
 		return null;
 	}

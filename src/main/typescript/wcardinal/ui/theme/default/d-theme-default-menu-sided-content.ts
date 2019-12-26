@@ -5,9 +5,9 @@
 
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeMenuSidedContent } from "../../d-menu-sided-content";
-import { DThemeWhiteLayoutVertical } from "./d-theme-default-layout-vertical";
+import { DThemeDefaultLayoutVertical } from "./d-theme-default-layout-vertical";
 
-export class DThemeWhiteMenuSidedContent extends DThemeWhiteLayoutVertical implements DThemeMenuSidedContent {
+export class DThemeDefaultMenuSidedContent extends DThemeDefaultLayoutVertical implements DThemeMenuSidedContent {
 	getWidth(): DCoordinateSize {
 		return "100%";
 	}

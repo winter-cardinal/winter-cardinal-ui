@@ -10,10 +10,10 @@ import { DBorderMask } from "../../d-border";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DThemeTableBodyCellInputInteger } from "../../d-table-body-cell-input-integer";
-import { DThemeWhiteInputInteger } from "./d-theme-default-input-integer";
-import { DThemeWhiteTableBodyCells } from "./d-theme-default-table-body-cells";
+import { DThemeDefaultInputInteger } from "./d-theme-default-input-integer";
+import { DThemeDefaultTableBodyCells } from "./d-theme-default-table-body-cells";
 
-export class DThemeWhiteTableBodyCellInputInteger extends DThemeWhiteInputInteger
+export class DThemeDefaultTableBodyCellInputInteger extends DThemeDefaultInputInteger
 	implements DThemeTableBodyCellInputInteger {
 
 	getTextAlignHorizontal(): DAlignHorizontal {
@@ -21,39 +21,39 @@ export class DThemeWhiteTableBodyCellInputInteger extends DThemeWhiteInputIntege
 	}
 
 	getBackgroundColor( state: DBaseState ): number | null {
-		return DThemeWhiteTableBodyCells.getBackgroundColor( state );
+		return DThemeDefaultTableBodyCells.getBackgroundColor( state );
 	}
 
 	getBackgroundAlpha( state: DBaseState ): number {
-		return DThemeWhiteTableBodyCells.getBackgroundAlpha( state );
+		return DThemeDefaultTableBodyCells.getBackgroundAlpha( state );
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return DThemeWhiteTableBodyCells.getBorderColor( state );
+		return DThemeDefaultTableBodyCells.getBorderColor( state );
 	}
 
 	getBorderAlign( state: DBaseState ): number {
-		return DThemeWhiteTableBodyCells.getBorderAlign( state );
+		return DThemeDefaultTableBodyCells.getBorderAlign( state );
 	}
 
 	getBorderMask( state: DBaseState ): DBorderMask {
-		return DThemeWhiteTableBodyCells.getBorderMask( state );
+		return DThemeDefaultTableBodyCells.getBorderMask( state );
 	}
 
 	getColor( state: DBaseState ): number {
-		return DThemeWhiteTableBodyCells.getColor( state );
+		return DThemeDefaultTableBodyCells.getColor( state );
 	}
 
 	getAlpha( state: DBaseState ): number {
-		return DThemeWhiteTableBodyCells.getAlpha( state );
+		return DThemeDefaultTableBodyCells.getAlpha( state );
 	}
 
 	getHeight(): DCoordinateSize {
-		return DThemeWhiteTableBodyCells.getHeight();
+		return DThemeDefaultTableBodyCells.getHeight();
 	}
 
 	getCornerMask(): DCornerMask {
-		return DThemeWhiteTableBodyCells.getCornerMask();
+		return DThemeDefaultTableBodyCells.getCornerMask();
 	}
 
 	getOutlineColor( state: DBaseState ): number | null {
@@ -64,6 +64,6 @@ export class DThemeWhiteTableBodyCellInputInteger extends DThemeWhiteInputIntege
 	}
 
 	getOutlineAlign( state: DBaseState ): number {
-		return DThemeWhiteTableBodyCells.getOutlineAlign( state );
+		return DThemeDefaultTableBodyCells.getOutlineAlign( state );
 	}
 }

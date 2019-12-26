@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhiteDialogConfirmMessage } from "./d-theme-default-dialog-confirm-message";
+import { DThemeDefaultDialogConfirmMessage } from "./d-theme-default-dialog-confirm-message";
 
-export class DThemeWhiteDialogProcessingMessage extends DThemeWhiteDialogConfirmMessage {
+export class DThemeDefaultDialogProcessingMessage extends DThemeDefaultDialogConfirmMessage {
 	getHeight(): number {
 		return 90;
 	}

@@ -8,9 +8,9 @@ import { DBaseState } from "../../d-base-state";
 import { DThemeCanvasContainer } from "../../d-canvas-container";
 import { DDragMode } from "../../d-drag-mode";
 import { DMouseModifier } from "../../d-mouse-modifier";
-import { DThemeWhiteBase } from "./d-theme-default-base";
+import { DThemeDefaultBase } from "./d-theme-default-base";
 
-export class DThemeWhiteCanvasContainer extends DThemeWhiteBase implements DThemeCanvasContainer {
+export class DThemeDefaultCanvasContainer extends DThemeDefaultBase implements DThemeCanvasContainer {
 	getBackgroundColor( state: DBaseState ): number | null {
 		return null;
 	}

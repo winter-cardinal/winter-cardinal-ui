@@ -4,9 +4,9 @@
  */
 
 import { DThemeDialogMessage } from "../../d-dialog-message";
-import { DThemeWhiteDialogConfirm } from "./d-theme-default-dialog-confirm";
+import { DThemeDefaultDialogConfirm } from "./d-theme-default-dialog-confirm";
 
-export class DThemeWhiteDialogMessage extends DThemeWhiteDialogConfirm implements DThemeDialogMessage {
+export class DThemeDefaultDialogMessage extends DThemeDefaultDialogConfirm implements DThemeDialogMessage {
 	getOk(): string | null {
 		return "OK";
 	}

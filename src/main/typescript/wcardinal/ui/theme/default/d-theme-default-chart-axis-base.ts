@@ -12,7 +12,7 @@ import { EShapeTextAlignHorizontal } from "../../shape/e-shape-text-align-horizo
 import { EShapeTextAlignVertical } from "../../shape/e-shape-text-align-vertical";
 import { EShapeTextDirection } from "../../shape/e-shape-text-direction";
 
-export class DThemeWhiteChartAxisBase implements DThemeChartAxisBase {
+export class DThemeDefaultChartAxisBase implements DThemeChartAxisBase {
 	getPosition(): DChartAxisPosition {
 		return DChartAxisPosition.BOTTOM;
 	}

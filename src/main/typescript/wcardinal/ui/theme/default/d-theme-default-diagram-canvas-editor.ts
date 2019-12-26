@@ -4,8 +4,9 @@
  */
 
 import { DThemeDiagramCanvasEditor } from "../../d-diagram-canvas-editor";
-import { DThemeWhiteDiagramCanvasBase } from "./d-theme-default-diagram-canvas-base";
+import { DThemeDefaultDiagramCanvasBase } from "./d-theme-default-diagram-canvas-base";
 
-export class DThemeWhiteDiagramCanvasEditor extends DThemeWhiteDiagramCanvasBase implements DThemeDiagramCanvasEditor {
+export class DThemeDefaultDiagramCanvasEditor
+extends DThemeDefaultDiagramCanvasBase implements DThemeDiagramCanvasEditor {
 
 }

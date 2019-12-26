@@ -8,9 +8,9 @@ import { DBaseState } from "../../d-base-state";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DFontWeight } from "../../d-font";
 import { DThemePickerDatetimeLabel } from "../../d-picker-datetime-label";
-import { DThemeWhiteText } from "./d-theme-default-text";
+import { DThemeDefaultText } from "./d-theme-default-text";
 
-export class DThemeWhitePickerDatetimeLabel extends DThemeWhiteText implements DThemePickerDatetimeLabel {
+export class DThemeDefaultPickerDatetimeLabel extends DThemeDefaultText implements DThemePickerDatetimeLabel {
 	getWidth(): DCoordinateSize {
 		return 30;
 	}

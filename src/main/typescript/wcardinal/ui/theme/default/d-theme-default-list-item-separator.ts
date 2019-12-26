@@ -6,16 +6,16 @@
 import { DBaseState } from "../../d-base-state";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeListItemSeparator } from "../../d-list-item-separator";
-import { DThemeWhiteConstants } from "./d-theme-default-constants";
-import { DThemeWhiteImage } from "./d-theme-default-image";
+import { DThemeDefaultConstants } from "./d-theme-default-constants";
+import { DThemeDefaultImage } from "./d-theme-default-image";
 
-export class DThemeWhiteListItemSeparator extends DThemeWhiteImage implements DThemeListItemSeparator {
+export class DThemeDefaultListItemSeparator extends DThemeDefaultImage implements DThemeListItemSeparator {
 	getBorderColor( state: DBaseState ): number | null {
-		return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
+		return DThemeDefaultConstants.WEAK_HIGHLIGHT_COLOR;
 	}
 
 	getBorderAlpha( state: DBaseState ): number {
-		return DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
+		return DThemeDefaultConstants.WEAK_HIGHLIGHT_ALPHA;
 	}
 
 	getHeight(): DCoordinateSize {

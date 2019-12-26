@@ -9,9 +9,9 @@ import { DInputIntegerOptions } from "../../d-input-integer";
 import { DPickerDatetimeMask } from "../../d-picker-datetime-mask";
 import { DThemePickerTime } from "../../d-picker-time";
 import { DPickerTimeBoundDate } from "../../d-picker-time-bound";
-import { DThemeWhiteBase } from "./d-theme-default-base";
+import { DThemeDefaultBase } from "./d-theme-default-base";
 
-export class DThemeWhitePickerTime extends DThemeWhiteBase implements DThemePickerTime {
+export class DThemeDefaultPickerTime extends DThemeDefaultBase implements DThemePickerTime {
 	getInteractive(): DBaseInteractive {
 		return DBaseInteractive.BOTH;
 	}

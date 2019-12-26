@@ -6,9 +6,9 @@
 import { DBaseState } from "../../d-base-state";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemePickerDatetimeSpace } from "../../d-picker-datetime-space";
-import { DThemeWhiteBase } from "./d-theme-default-base";
+import { DThemeDefaultBase } from "./d-theme-default-base";
 
-export class DThemeWhitePickerDatetimeSpace extends DThemeWhiteBase implements DThemePickerDatetimeSpace {
+export class DThemeDefaultPickerDatetimeSpace extends DThemeDefaultBase implements DThemePickerDatetimeSpace {
 	getBackgroundColor( state: DBaseState ): number | null {
 		return null;
 	}

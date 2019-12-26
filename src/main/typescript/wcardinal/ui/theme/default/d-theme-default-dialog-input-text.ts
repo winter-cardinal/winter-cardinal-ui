@@ -5,9 +5,9 @@
 
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeDialogInputText } from "../../d-dialog-input-text";
-import { DThemeWhiteDialog } from "./d-theme-default-dialog";
+import { DThemeDefaultDialog } from "./d-theme-default-dialog";
 
-export class DThemeWhiteDialogInputText extends DThemeWhiteDialog implements DThemeDialogInputText {
+export class DThemeDefaultDialogInputText extends DThemeDefaultDialog implements DThemeDialogInputText {
 	getOk(): string {
 		return "OK";
 	}

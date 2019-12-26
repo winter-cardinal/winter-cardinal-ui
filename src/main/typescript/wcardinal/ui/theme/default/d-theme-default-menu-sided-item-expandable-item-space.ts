@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhiteMenuItemExpandableItemSpace } from "./d-theme-default-menu-item-expandable-item-space";
+import { DThemeDefaultMenuItemExpandableItemSpace } from "./d-theme-default-menu-item-expandable-item-space";
 
-export class DThemeWhiteMenuSidedItemExpandableItemSpace extends DThemeWhiteMenuItemExpandableItemSpace {
+export class DThemeDefaultMenuSidedItemExpandableItemSpace extends DThemeDefaultMenuItemExpandableItemSpace {
 
 }

@@ -4,8 +4,8 @@
  */
 
 import { DThemeImage } from "../../d-image";
-import { DThemeWhiteImageBase } from "./d-theme-default-image-base";
+import { DThemeDefaultImageBase } from "./d-theme-default-image-base";
 
-export class DThemeWhiteImage extends DThemeWhiteImageBase implements DThemeImage {
+export class DThemeDefaultImage extends DThemeDefaultImageBase implements DThemeImage {
 
 }

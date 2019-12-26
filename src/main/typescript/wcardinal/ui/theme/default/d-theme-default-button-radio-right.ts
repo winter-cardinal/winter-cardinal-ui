@@ -6,9 +6,9 @@
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignWith } from "../../d-align-with";
 import { DThemeButtonRadioRight } from "../../d-button-radio-right";
-import { DThemeWhiteButtonRadio } from "./d-theme-default-button-radio";
+import { DThemeDefaultButtonRadio } from "./d-theme-default-button-radio";
 
-export class DThemeWhiteButtonRadioRight extends DThemeWhiteButtonRadio implements DThemeButtonRadioRight {
+export class DThemeDefaultButtonRadioRight extends DThemeDefaultButtonRadio implements DThemeButtonRadioRight {
 	getImageAlignWith(): DAlignWith {
 		return DAlignWith.PADDING;
 	}

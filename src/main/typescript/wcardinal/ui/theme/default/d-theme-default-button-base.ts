@@ -9,10 +9,10 @@ import { DBaseStates } from "../../d-base-states";
 import { DThemeButtonBase } from "../../d-button-base";
 import { DCoordinateSize } from "../../d-coordinate";
 import { UtilRgb } from "../../util/util-rgb";
-import { DThemeWhiteConstants } from "./d-theme-default-constants";
-import { DThemeWhiteImageBase } from "./d-theme-default-image-base";
+import { DThemeDefaultConstants } from "./d-theme-default-constants";
+import { DThemeDefaultImageBase } from "./d-theme-default-image-base";
 
-export class DThemeWhiteButtonBase extends DThemeWhiteImageBase implements DThemeButtonBase {
+export class DThemeDefaultButtonBase extends DThemeDefaultImageBase implements DThemeButtonBase {
 	COLOR = 0xffffff;
 	COLOR_HOVERED = UtilRgb.darken( this.COLOR, 0.017 );
 	COLOR_PRESSED = UtilRgb.darken( this.COLOR, 0.034 );
@@ -21,7 +21,7 @@ export class DThemeWhiteButtonBase extends DThemeWhiteImageBase implements DThem
 		if( DBaseStates.isDisabled( state ) ) {
 			return null;
 		} else if( DBaseStates.isActive( state ) ) {
-			return DThemeWhiteConstants.HIGHLIGHT_COLOR;
+			return DThemeDefaultConstants.HIGHLIGHT_COLOR;
 		} else if( DBaseStates.isPressed( state ) ) {
 			return this.COLOR_PRESSED;
 		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {

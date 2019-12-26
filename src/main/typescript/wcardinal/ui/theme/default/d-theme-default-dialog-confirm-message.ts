@@ -6,9 +6,9 @@
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeDialogConfirmMessage } from "../../d-dialog-confirm-message";
-import { DThemeWhiteImage } from "./d-theme-default-image";
+import { DThemeDefaultImage } from "./d-theme-default-image";
 
-export class DThemeWhiteDialogConfirmMessage extends DThemeWhiteImage implements DThemeDialogConfirmMessage {
+export class DThemeDefaultDialogConfirmMessage extends DThemeDefaultImage implements DThemeDialogConfirmMessage {
 	getWidth(): DCoordinateSize {
 		return "padding";
 	}

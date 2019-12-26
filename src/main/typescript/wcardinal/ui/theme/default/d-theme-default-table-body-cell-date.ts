@@ -9,48 +9,48 @@ import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DPickerDates } from "../../d-picker-dates";
 import { DTableBodyCellDate, DThemeTableBodyCellDate } from "../../d-table-body-cell-date";
-import { DThemeWhiteButton } from "./d-theme-default-button";
-import { DThemeWhiteTableBodyCells } from "./d-theme-default-table-body-cells";
+import { DThemeDefaultButton } from "./d-theme-default-button";
+import { DThemeDefaultTableBodyCells } from "./d-theme-default-table-body-cells";
 
 const formatter = ( value: Date ): string => {
 	return DPickerDates.format( value );
 };
 
-export class DThemeWhiteTableBodyCellDate extends DThemeWhiteButton implements DThemeTableBodyCellDate {
+export class DThemeDefaultTableBodyCellDate extends DThemeDefaultButton implements DThemeTableBodyCellDate {
 	getBackgroundColor( state: DBaseState ): number | null {
-		return DThemeWhiteTableBodyCells.getBackgroundColor( state );
+		return DThemeDefaultTableBodyCells.getBackgroundColor( state );
 	}
 
 	getBackgroundAlpha( state: DBaseState ): number {
-		return DThemeWhiteTableBodyCells.getBackgroundAlpha( state );
+		return DThemeDefaultTableBodyCells.getBackgroundAlpha( state );
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return DThemeWhiteTableBodyCells.getBorderColor( state );
+		return DThemeDefaultTableBodyCells.getBorderColor( state );
 	}
 
 	getBorderAlign( state: DBaseState ): number {
-		return DThemeWhiteTableBodyCells.getBorderAlign( state );
+		return DThemeDefaultTableBodyCells.getBorderAlign( state );
 	}
 
 	getBorderMask( state: DBaseState ): DBorderMask {
-		return DThemeWhiteTableBodyCells.getBorderMask( state );
+		return DThemeDefaultTableBodyCells.getBorderMask( state );
 	}
 
 	getColor( state: DBaseState ): number {
-		return DThemeWhiteTableBodyCells.getColor( state);
+		return DThemeDefaultTableBodyCells.getColor( state);
 	}
 
 	getAlpha( state: DBaseState ): number {
-		return DThemeWhiteTableBodyCells.getAlpha( state );
+		return DThemeDefaultTableBodyCells.getAlpha( state );
 	}
 
 	getHeight(): DCoordinateSize {
-		return DThemeWhiteTableBodyCells.getHeight();
+		return DThemeDefaultTableBodyCells.getHeight();
 	}
 
 	getCornerMask(): DCornerMask {
-		return DThemeWhiteTableBodyCells.getCornerMask();
+		return DThemeDefaultTableBodyCells.getCornerMask();
 	}
 
 	getTextFormatter(): ( value: Date, caller: DTableBodyCellDate ) => string {

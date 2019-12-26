@@ -5,9 +5,9 @@
 
 import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
 import { DThemeDialogCommand } from "../../d-dialog-command";
-import { DThemeWhiteDialog } from "./d-theme-default-dialog";
+import { DThemeDefaultDialog } from "./d-theme-default-dialog";
 
-export class DThemeWhiteDialogCommand extends DThemeWhiteDialog implements DThemeDialogCommand {
+export class DThemeDefaultDialogCommand extends DThemeDefaultDialog implements DThemeDialogCommand {
 	getOk(): string | null {
 		return "OK";
 	}

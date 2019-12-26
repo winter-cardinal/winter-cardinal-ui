@@ -6,11 +6,11 @@
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { UtilRgb } from "../../util/util-rgb";
-import { DThemeWhiteButtonBase } from "./d-theme-default-button-base";
-import { DThemeWhiteConstants } from "./d-theme-default-constants";
+import { DThemeDefaultButtonBase } from "./d-theme-default-button-base";
+import { DThemeDefaultConstants } from "./d-theme-default-constants";
 
-export class DThemeWhiteButtonPrimary extends DThemeWhiteButtonBase {
-	COLOR = DThemeWhiteConstants.HIGHLIGHT_COLOR;
+export class DThemeDefaultButtonPrimary extends DThemeDefaultButtonBase {
+	COLOR = DThemeDefaultConstants.HIGHLIGHT_COLOR;
 	COLOR_HOVERED = UtilRgb.darken( this.COLOR, 0.1 );
 	COLOR_PRESSED = UtilRgb.darken( this.COLOR, 0.2 );
 

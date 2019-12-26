@@ -5,13 +5,13 @@
 
 import { DThemeInputInteger } from "../../d-input-integer";
 import { DInputNumber } from "../../d-input-number";
-import { DThemeWhiteInputNumber } from "./d-theme-default-input-number";
+import { DThemeDefaultInputNumber } from "./d-theme-default-input-number";
 
 const editingUnformatter = ( text: string ): number => {
 	return parseInt( text, 10 );
 };
 
-export class DThemeWhiteInputInteger extends DThemeWhiteInputNumber implements DThemeInputInteger {
+export class DThemeDefaultInputInteger extends DThemeDefaultInputNumber implements DThemeInputInteger {
 	getEditingUnformatter(): ( text: string, caller: DInputNumber ) => number {
 		return editingUnformatter;
 	}

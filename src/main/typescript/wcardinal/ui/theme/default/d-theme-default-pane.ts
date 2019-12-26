@@ -7,16 +7,16 @@ import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseState } from "../../d-base-state";
 import { DDragMode } from "../../d-drag-mode";
 import { DThemePane } from "../../d-pane";
-import { DThemeWhiteBase } from "./d-theme-default-base";
-import { DThemeWhiteConstants } from "./d-theme-default-constants";
+import { DThemeDefaultBase } from "./d-theme-default-base";
+import { DThemeDefaultConstants } from "./d-theme-default-constants";
 
-export class DThemeWhitePane extends DThemeWhiteBase implements DThemePane {
+export class DThemeDefaultPane extends DThemeDefaultBase implements DThemePane {
 	isOverflowMaskEnabled() {
 		return true;
 	}
 
 	getBackgroundColor( state: DBaseState ): number | null {
-		return DThemeWhiteConstants.BACKGROUND_COLOR;
+		return DThemeDefaultConstants.BACKGROUND_COLOR;
 	}
 
 	getInteractive(): DBaseInteractive {

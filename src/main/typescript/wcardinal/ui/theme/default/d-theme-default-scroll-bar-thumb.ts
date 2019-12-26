@@ -8,15 +8,15 @@ import { DBaseStates } from "../../d-base-states";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeScrollBarThumb } from "../../d-scroll-bar-thumb";
 import { UtilRgb } from "../../util/util-rgb";
-import { DThemeWhiteBase } from "./d-theme-default-base";
-import { DThemeWhiteConstants } from "./d-theme-default-constants";
+import { DThemeDefaultBase } from "./d-theme-default-base";
+import { DThemeDefaultConstants } from "./d-theme-default-constants";
 
-export class DThemeWhiteScrollBarThumb extends DThemeWhiteBase implements DThemeScrollBarThumb {
-	COLOR = UtilRgb.darken( DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR, 0.25 );
+export class DThemeDefaultScrollBarThumb extends DThemeDefaultBase implements DThemeScrollBarThumb {
+	COLOR = UtilRgb.darken( DThemeDefaultConstants.WEAK_HIGHLIGHT_COLOR, 0.25 );
 
 	getBackgroundColor( state: DBaseState ): number {
 		if( DBaseStates.isHovered( state ) || DBaseStates.isDragging( state ) ) {
-			return DThemeWhiteConstants.HIGHLIGHT_COLOR;
+			return DThemeDefaultConstants.HIGHLIGHT_COLOR;
 		} else {
 			return this.COLOR;
 		}
@@ -26,7 +26,7 @@ export class DThemeWhiteScrollBarThumb extends DThemeWhiteBase implements DTheme
 		if( DBaseStates.isHovered( state ) || DBaseStates.isDragging( state ) ) {
 			return 1.0;
 		} else {
-			return DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
+			return DThemeDefaultConstants.WEAK_HIGHLIGHT_ALPHA;
 		}
 	}
 

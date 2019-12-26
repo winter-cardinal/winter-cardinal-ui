@@ -10,10 +10,10 @@ import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DThemeMenuBarItem } from "../../d-menu-bar-item";
 import { UtilRgb } from "../../util/util-rgb";
-import { DThemeWhiteButton } from "./d-theme-default-button";
-import { DThemeWhiteConstants } from "./d-theme-default-constants";
+import { DThemeDefaultButton } from "./d-theme-default-button";
+import { DThemeDefaultConstants } from "./d-theme-default-constants";
 
-export class DThemeWhiteMenuBarItem extends DThemeWhiteButton implements DThemeMenuBarItem {
+export class DThemeDefaultMenuBarItem extends DThemeDefaultButton implements DThemeMenuBarItem {
 	COLOR = 0xffffff;
 	COLOR_HOVERED = UtilRgb.darken( this.COLOR, 0.017 );
 	COLOR_PRESSED = UtilRgb.darken( this.COLOR, 0.034 );
@@ -22,7 +22,7 @@ export class DThemeWhiteMenuBarItem extends DThemeWhiteButton implements DThemeM
 		if( DBaseStates.isDisabled( state ) ) {
 			return null;
 		} else if( DBaseStates.isActive( state ) ) {
-			return DThemeWhiteConstants.HIGHLIGHT_COLOR;
+			return DThemeDefaultConstants.HIGHLIGHT_COLOR;
 		} else if( DBaseStates.isPressed( state ) ) {
 			return this.COLOR_PRESSED;
 		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {

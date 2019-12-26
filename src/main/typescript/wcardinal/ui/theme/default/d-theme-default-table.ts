@@ -6,12 +6,12 @@
 import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseState } from "../../d-base-state";
 import { DThemeTable } from "../../d-table";
-import { DThemeWhiteConstants } from "./d-theme-default-constants";
-import { DThemeWhiteLayoutVertical } from "./d-theme-default-layout-vertical";
+import { DThemeDefaultConstants } from "./d-theme-default-constants";
+import { DThemeDefaultLayoutVertical } from "./d-theme-default-layout-vertical";
 
-export class DThemeWhiteTable extends DThemeWhiteLayoutVertical implements DThemeTable {
+export class DThemeDefaultTable extends DThemeDefaultLayoutVertical implements DThemeTable {
 	getBackgroundColor() {
-		return DThemeWhiteConstants.BACKGROUND_COLOR;
+		return DThemeDefaultConstants.BACKGROUND_COLOR;
 	}
 
 	getBorderColor( state: DBaseState ): number | null {

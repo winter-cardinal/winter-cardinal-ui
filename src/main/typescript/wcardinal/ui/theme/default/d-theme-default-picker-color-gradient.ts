@@ -8,10 +8,10 @@ import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseState } from "../../d-base-state";
 import { DThemePickerColorGradient } from "../../d-picker-color-gradient";
 import { DPickerColorGradientDataLike } from "../../d-picker-color-gradient-data";
-import { DThemeWhiteAtlas } from "./d-theme-default-atlas";
-import { DThemeWhiteBase } from "./d-theme-default-base";
+import { DThemeDefaultAtlas } from "./d-theme-default-atlas";
+import { DThemeDefaultBase } from "./d-theme-default-base";
 
-export class DThemeWhitePickerColorGradient extends DThemeWhiteBase implements DThemePickerColorGradient {
+export class DThemeDefaultPickerColorGradient extends DThemeDefaultBase implements DThemePickerColorGradient {
 	getGradientPointsWidth(): number {
 		return 30;
 	}
@@ -21,15 +21,15 @@ export class DThemeWhitePickerColorGradient extends DThemeWhiteBase implements D
 	}
 
 	getGradientAnchorTexture(): Texture {
-		return DThemeWhiteAtlas.mappings.picker_color_anchor;
+		return DThemeDefaultAtlas.mappings.picker_color_anchor;
 	}
 
 	getGradientAnchorOutlinedTexture(): Texture {
-		return DThemeWhiteAtlas.mappings.picker_color_anchor_outlined;
+		return DThemeDefaultAtlas.mappings.picker_color_anchor_outlined;
 	}
 
 	getGradientAnchorOutlineTexture(): Texture {
-		return DThemeWhiteAtlas.mappings.picker_color_anchor_outline;
+		return DThemeDefaultAtlas.mappings.picker_color_anchor_outline;
 	}
 
 	getGradientDirectionMargin(): number {
@@ -37,7 +37,7 @@ export class DThemeWhitePickerColorGradient extends DThemeWhiteBase implements D
 	}
 
 	getGradientDirectionTexture(): Texture {
-		return DThemeWhiteAtlas.mappings.picker_color_direction;
+		return DThemeDefaultAtlas.mappings.picker_color_direction;
 	}
 
 	getGradientRecentColumn(): number {

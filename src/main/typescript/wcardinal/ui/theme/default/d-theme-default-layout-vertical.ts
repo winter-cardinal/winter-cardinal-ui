@@ -6,9 +6,9 @@
 import { DCoordinateSize } from "../../d-coordinate";
 import { DLayoutDirection } from "../../d-layout";
 import { DThemeLayoutVertical } from "../../d-layout-vertical";
-import { DThemeWhiteLayout } from "./d-theme-default-layout";
+import { DThemeDefaultLayout } from "./d-theme-default-layout";
 
-export class DThemeWhiteLayoutVertical extends DThemeWhiteLayout implements DThemeLayoutVertical {
+export class DThemeDefaultLayoutVertical extends DThemeDefaultLayout implements DThemeLayoutVertical {
 	getDirection(): DLayoutDirection {
 		return DLayoutDirection.VERTICAL;
 	}

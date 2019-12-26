@@ -5,9 +5,9 @@
 
 import { DChartAxisPosition } from "../../d-chart-axis";
 import { EShapeTextDirection } from "../../shape/e-shape-text-direction";
-import { DThemeWhiteChartAxisBase } from "./d-theme-default-chart-axis-base";
+import { DThemeDefaultChartAxisBase } from "./d-theme-default-chart-axis-base";
 
-export class DThemeWhiteChartAxisY extends DThemeWhiteChartAxisBase {
+export class DThemeDefaultChartAxisY extends DThemeDefaultChartAxisBase {
 	getPosition(): DChartAxisPosition {
 		return DChartAxisPosition.LEFT;
 	}

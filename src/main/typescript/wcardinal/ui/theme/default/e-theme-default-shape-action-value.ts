@@ -16,7 +16,7 @@ import { EShapeActionValueTransformRotateType } from "../../shape/action/e-shape
 import { EShapeActionValueTransformType } from "../../shape/action/e-shape-action-value-transform-type";
 import { EShapeActionValueType } from "../../shape/action/e-shape-action-value-type";
 
-export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
+export class EThemeDefaultShapeActionValue implements EThemeShapeActionValue {
 	toLabel( value: EShapeActionValue ): string {
 		const type = value.type;
 		if( value instanceof EShapeActionValueSubtyped ) {

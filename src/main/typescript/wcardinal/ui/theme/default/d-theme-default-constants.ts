@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export class DThemeWhiteConstants {
+export class DThemeDefaultConstants {
 	static HIGHLIGHT_COLOR = 0x3399ff;
 	static HIGHLIGHT_ALPHA = 0.2;
 	static HIGHLIGHT_BLENDED = 0xddeeff; // UtilRgb.brighten( HIGHLIGHT_COLOR, 1 / (1 + HIGHLIGHT_ALPHA) )

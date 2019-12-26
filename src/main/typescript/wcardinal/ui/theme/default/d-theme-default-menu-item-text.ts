@@ -4,9 +4,9 @@
  */
 
 import { DThemeMenuItemText } from "../../d-menu-item-text";
-import { DThemeWhiteMenuItem } from "./d-theme-default-menu-item";
+import { DThemeDefaultMenuItem } from "./d-theme-default-menu-item";
 
-export class DThemeWhiteMenuItemText extends DThemeWhiteMenuItem implements DThemeMenuItemText {
+export class DThemeDefaultMenuItemText extends DThemeDefaultMenuItem implements DThemeMenuItemText {
 	getShortcutTextMargin(): number {
 		return this.getPaddingRight();
 	}

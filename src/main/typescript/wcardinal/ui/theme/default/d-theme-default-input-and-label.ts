@@ -5,9 +5,9 @@
 
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeInputAndLabel } from "../../d-input-and-label";
-import { DThemeWhiteLayoutHorizontal } from "./d-theme-default-layout-horizontal";
+import { DThemeDefaultLayoutHorizontal } from "./d-theme-default-layout-horizontal";
 
-export class DThemeWhiteInputAndLabel extends DThemeWhiteLayoutHorizontal implements DThemeInputAndLabel {
+export class DThemeDefaultInputAndLabel extends DThemeDefaultLayoutHorizontal implements DThemeInputAndLabel {
 	getHeight(): DCoordinateSize {
 		return this.getLineHeight();
 	}

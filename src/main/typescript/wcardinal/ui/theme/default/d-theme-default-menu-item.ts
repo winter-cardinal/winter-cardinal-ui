@@ -4,9 +4,9 @@
  */
 
 import { DThemeMenuItem } from "../../d-menu-item";
-import { DThemeWhiteListItem } from "./d-theme-default-list-item";
+import { DThemeDefaultListItem } from "./d-theme-default-list-item";
 
-export class DThemeWhiteMenuItem extends DThemeWhiteListItem implements DThemeMenuItem {
+export class DThemeDefaultMenuItem extends DThemeDefaultListItem implements DThemeMenuItem {
 	getPaddingLeft(): number {
 		return this.getPaddingRight();
 	}

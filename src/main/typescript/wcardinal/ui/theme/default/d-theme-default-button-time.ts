@@ -5,13 +5,13 @@
 
 import { DButtonTime, DThemeButtonTime } from "../../d-button-time";
 import { DPickerTimes } from "../../d-picker-times";
-import { DThemeWhiteButton } from "./d-theme-default-button";
+import { DThemeDefaultButton } from "./d-theme-default-button";
 
 const formatter = ( value: Date, caller: DButtonTime ): string => {
 	return DPickerTimes.format( value, caller.getDatetimeMask() );
 };
 
-export class DThemeWhiteButtonTime extends DThemeWhiteButton implements DThemeButtonTime {
+export class DThemeDefaultButtonTime extends DThemeDefaultButton implements DThemeButtonTime {
 	getTextFormatter(): ( value: Date, caller: DButtonTime ) => string {
 		return formatter;
 	}

@@ -8,9 +8,9 @@ import { DAlignVertical } from "../../d-align-vertical";
 import { DBaseState } from "../../d-base-state";
 import { DThemeTextBase } from "../../d-text-base";
 import { utilToString } from "../../util/util-to-string";
-import { DThemeWhiteBase } from "./d-theme-default-base";
+import { DThemeDefaultBase } from "./d-theme-default-base";
 
-export class DThemeWhiteTextBase extends DThemeWhiteBase implements DThemeTextBase {
+export class DThemeDefaultTextBase extends DThemeDefaultBase implements DThemeTextBase {
 	getTextAlignVertical(): DAlignVertical {
 		return DAlignVertical.MIDDLE;
 	}

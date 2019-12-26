@@ -9,9 +9,9 @@ import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeTableHeaderCell } from "../../d-table-header-cell";
-import { DThemeWhiteTextBase } from "./d-theme-default-text-base";
+import { DThemeDefaultTextBase } from "./d-theme-default-text-base";
 
-export class DThemeWhiteTableHeaderCell extends DThemeWhiteTextBase implements DThemeTableHeaderCell {
+export class DThemeDefaultTableHeaderCell extends DThemeDefaultTextBase implements DThemeTableHeaderCell {
 	getTextAlignHorizontal(): DAlignHorizontal {
 		return DAlignHorizontal.CENTER;
 	}

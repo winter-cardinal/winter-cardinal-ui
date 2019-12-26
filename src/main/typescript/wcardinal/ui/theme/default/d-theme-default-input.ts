@@ -9,8 +9,8 @@ import { DCoordinateSize } from "../../d-coordinate";
 import { DHTMLElementElementCreator } from "../../d-html-element";
 import { DThemeInput } from "../../d-input";
 import { UtilRgb } from "../../util/util-rgb";
-import { DThemeWhiteConstants } from "./d-theme-default-constants";
-import { DThemeWhiteHTMLElement } from "./d-theme-default-html-element";
+import { DThemeDefaultConstants } from "./d-theme-default-constants";
+import { DThemeDefaultHTMLElement } from "./d-theme-default-html-element";
 
 const editingValidator = (): unknown => {
 	return null;
@@ -60,7 +60,7 @@ const afterCreator = ( parent: HTMLElement ): HTMLDivElement => {
 	return divCreator( parent, CREATOR_CLASSNAME_AFTER );
 };
 
-export class DThemeWhiteInput extends DThemeWhiteHTMLElement<HTMLInputElement> implements DThemeInput {
+export class DThemeDefaultInput extends DThemeDefaultHTMLElement<HTMLInputElement> implements DThemeInput {
 	COLOR = 0xffffff;
 	COLOR_HOVERED = UtilRgb.darken( this.COLOR, 0.017 );
 
@@ -80,7 +80,7 @@ export class DThemeWhiteInput extends DThemeWhiteHTMLElement<HTMLInputElement> i
 
 	getOutlineColor( state: DBaseState ): number | null {
 		if( DBaseStates.isInvalid( state ) ) {
-			return DThemeWhiteConstants.INVALID_COLOR;
+			return DThemeDefaultConstants.INVALID_COLOR;
 		}
 		return super.getOutlineColor( state );
 	}

@@ -7,9 +7,9 @@ import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseState } from "../../d-base-state";
 import { DThemeCanvas } from "../../d-canvas";
 import { DCornerMask } from "../../d-corner";
-import { DThemeWhiteBase } from "./d-theme-default-base";
+import { DThemeDefaultBase } from "./d-theme-default-base";
 
-export class DThemeWhiteCanvas extends DThemeWhiteBase implements DThemeCanvas {
+export class DThemeDefaultCanvas extends DThemeDefaultBase implements DThemeCanvas {
 	getBackgroundColor() {
 		return 0xffffff;
 	}

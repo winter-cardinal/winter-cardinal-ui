@@ -8,20 +8,20 @@ import { DBaseState } from "../../d-base-state";
 import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
 import { DDialogCloseOn, DThemeDialog } from "../../d-dialog";
 import { DShadow } from "../../d-shadow";
-import { DThemeWhiteBase } from "./d-theme-default-base";
-import { DThemeWhiteConstants } from "./d-theme-default-constants";
+import { DThemeDefaultBase } from "./d-theme-default-base";
+import { DThemeDefaultConstants } from "./d-theme-default-constants";
 
-export class DThemeWhiteDialog extends DThemeWhiteBase implements DThemeDialog {
+export class DThemeDefaultDialog extends DThemeDefaultBase implements DThemeDialog {
 	closeOn(): DDialogCloseOn {
 		return DDialogCloseOn.ESC | DDialogCloseOn.CLICK_OUTSIDE;
 	}
 
 	getBackgroundColor() {
-		return DThemeWhiteConstants.BACKGROUND_COLOR;
+		return DThemeDefaultConstants.BACKGROUND_COLOR;
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
+		return DThemeDefaultConstants.WEAK_HIGHLIGHT_COLOR;
 	}
 
 	getPaddingLeft() {

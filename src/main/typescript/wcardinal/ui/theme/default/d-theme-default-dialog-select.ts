@@ -4,9 +4,9 @@
  */
 
 import { DThemeDialogSelect } from "../../d-dialog-select";
-import { DThemeWhiteDialog } from "./d-theme-default-dialog";
+import { DThemeDefaultDialog } from "./d-theme-default-dialog";
 
-export class DThemeWhiteDialogSelect extends DThemeWhiteDialog implements DThemeDialogSelect {
+export class DThemeDefaultDialogSelect extends DThemeDefaultDialog implements DThemeDialogSelect {
 	getNoteNoItemsText(): string {
 		return "No Items";
 	}

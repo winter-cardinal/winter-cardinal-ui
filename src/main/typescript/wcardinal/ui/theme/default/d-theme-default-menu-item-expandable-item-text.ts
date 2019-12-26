@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhiteMenuItemText } from "./d-theme-default-menu-item-text";
+import { DThemeDefaultMenuItemText } from "./d-theme-default-menu-item-text";
 
-export class DThemeWhiteMenuItemExpandableItemText extends DThemeWhiteMenuItemText {
+export class DThemeDefaultMenuItemExpandableItemText extends DThemeDefaultMenuItemText {
 	getPaddingLeft(): number {
 		return super.getPaddingLeft() + 16;
 	}

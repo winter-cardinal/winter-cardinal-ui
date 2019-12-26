@@ -10,7 +10,7 @@ import {
 import { DPickerDatetimeButtonBackOptions } from "../../d-picker-datetime-button-back";
 import { DPickerDatetimeButtonNextOptions } from "../../d-picker-datetime-button-next";
 import { DPickerDatetimeMask } from "../../d-picker-datetime-mask";
-import { DThemeWhitePickerTime } from "./d-theme-default-picker-time";
+import { DThemeDefaultPickerTime } from "./d-theme-default-picker-time";
 
 const MONTH_LABELS = [
 	"January",
@@ -43,7 +43,7 @@ const defaultLabelFormatter = ( date: Date ): string => {
 
 const defaultDateDecorator = (): void => { /* DO NOTHING*/ };
 
-export class DThemeWhitePickerDatetime extends DThemeWhitePickerTime implements DThemePickerDatetime {
+export class DThemeDefaultPickerDatetime extends DThemeDefaultPickerTime implements DThemePickerDatetime {
 	getDayLabels(): DPickerDatetimeDayLabels {
 		return DAY_LABELS;
 	}

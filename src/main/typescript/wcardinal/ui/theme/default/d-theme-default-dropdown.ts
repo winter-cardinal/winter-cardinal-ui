@@ -9,16 +9,16 @@ import { DAlignWith } from "../../d-align-with";
 import { DBaseState } from "../../d-base-state";
 import { DThemeDropdown } from "../../d-dropdown";
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
-import { DThemeWhiteAtlas } from "./d-theme-default-atlas";
-import { DThemeWhiteButtonBase } from "./d-theme-default-button-base";
+import { DThemeDefaultAtlas } from "./d-theme-default-atlas";
+import { DThemeDefaultButtonBase } from "./d-theme-default-button-base";
 
-DThemeWhiteAtlas.add( "dropdown_mark", 20, 14,
+DThemeDefaultAtlas.add( "dropdown_mark", 20, 14,
 	`<g>` +
 		`<polyline fill="none" stroke="#fff" stroke-width="1" points="16 5 10 11 4 5"></polyline>` +
 	`</g>`
 );
 
-export class DThemeWhiteDropdown extends DThemeWhiteButtonBase implements DThemeDropdown {
+export class DThemeDefaultDropdown extends DThemeDefaultButtonBase implements DThemeDropdown {
 	getImageAlignHorizontal(): DAlignHorizontal {
 		return DAlignHorizontal.RIGHT;
 	}
@@ -32,7 +32,7 @@ export class DThemeWhiteDropdown extends DThemeWhiteButtonBase implements DTheme
 	}
 
 	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
-		return DThemeWhiteAtlas.mappings.dropdown_mark;
+		return DThemeDefaultAtlas.mappings.dropdown_mark;
 	}
 
 	newTextValue(): DStateAwareOrValueMightBe<string> {

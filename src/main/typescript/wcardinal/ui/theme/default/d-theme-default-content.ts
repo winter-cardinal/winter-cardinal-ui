@@ -6,9 +6,9 @@
 import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseState } from "../../d-base-state";
 import { DCoordinateSize } from "../../d-coordinate";
-import { DThemeWhiteBase } from "./d-theme-default-base";
+import { DThemeDefaultBase } from "./d-theme-default-base";
 
-export class DThemeWhiteContent extends DThemeWhiteBase {
+export class DThemeDefaultContent extends DThemeDefaultBase {
 	getWidth(): DCoordinateSize {
 		return "100%";
 	}

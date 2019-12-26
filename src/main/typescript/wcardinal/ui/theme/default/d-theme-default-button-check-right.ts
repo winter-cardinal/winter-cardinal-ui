@@ -6,9 +6,9 @@
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignWith } from "../../d-align-with";
 import { DThemeButtonCheckRight } from "../../d-button-check-right";
-import { DThemeWhiteButtonCheck } from "./d-theme-default-button-check";
+import { DThemeDefaultButtonCheck } from "./d-theme-default-button-check";
 
-export class DThemeWhiteButtonCheckRight extends DThemeWhiteButtonCheck implements DThemeButtonCheckRight {
+export class DThemeDefaultButtonCheckRight extends DThemeDefaultButtonCheck implements DThemeButtonCheckRight {
 	getImageAlignWith(): DAlignWith {
 		return DAlignWith.PADDING;
 	}

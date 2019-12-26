@@ -6,9 +6,9 @@
 import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseState } from "../../d-base-state";
 import { DLayoutDirection, DThemeLayout } from "../../d-layout";
-import { DThemeWhiteBase } from "./d-theme-default-base";
+import { DThemeDefaultBase } from "./d-theme-default-base";
 
-export class DThemeWhiteLayout extends DThemeWhiteBase implements DThemeLayout {
+export class DThemeDefaultLayout extends DThemeDefaultBase implements DThemeLayout {
 	getBackgroundColor( state: DBaseState ): number | null {
 		return null;
 	}

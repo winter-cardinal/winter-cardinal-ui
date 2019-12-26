@@ -4,8 +4,8 @@
  */
 
 import { DThemeMenuItemSeparator } from "../../d-menu-item-separator";
-import { DThemeWhiteListItemSeparator } from "./d-theme-default-list-item-separator";
+import { DThemeDefaultListItemSeparator } from "./d-theme-default-list-item-separator";
 
-export class DThemeWhiteMenuItemSeparator extends DThemeWhiteListItemSeparator implements DThemeMenuItemSeparator {
+export class DThemeDefaultMenuItemSeparator extends DThemeDefaultListItemSeparator implements DThemeMenuItemSeparator {
 
 }

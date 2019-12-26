@@ -4,8 +4,8 @@
  */
 
 import { DThemeSelect } from "../../d-select";
-import { DThemeWhiteDropdown } from "./d-theme-default-dropdown";
+import { DThemeDefaultDropdown } from "./d-theme-default-dropdown";
 
-export class DThemeWhiteSelect extends DThemeWhiteDropdown implements DThemeSelect {
+export class DThemeDefaultSelect extends DThemeDefaultDropdown implements DThemeSelect {
 
 }

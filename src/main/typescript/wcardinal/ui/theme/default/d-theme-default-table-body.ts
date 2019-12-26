@@ -7,9 +7,9 @@ import { DBaseState } from "../../d-base-state";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DThemeTableBody } from "../../d-table-body";
-import { DThemeWhitePane } from "./d-theme-default-pane";
+import { DThemeDefaultPane } from "./d-theme-default-pane";
 
-export class DThemeWhiteTableBody extends DThemeWhitePane implements DThemeTableBody {
+export class DThemeDefaultTableBody extends DThemeDefaultPane implements DThemeTableBody {
 	getWidth(): DCoordinateSize {
 		return "100%";
 	}

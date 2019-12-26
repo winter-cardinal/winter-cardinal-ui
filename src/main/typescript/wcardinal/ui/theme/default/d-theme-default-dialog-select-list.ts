@@ -6,9 +6,9 @@
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DThemeDialogSelecList } from "../../d-dialog-select-list";
-import { DThemeWhiteList } from "./d-theme-default-list";
+import { DThemeDefaultList } from "./d-theme-default-list";
 
-export class DThemeWhiteDialogSelectList extends DThemeWhiteList implements DThemeDialogSelecList {
+export class DThemeDefaultDialogSelectList extends DThemeDefaultList implements DThemeDialogSelecList {
 	getBackgroundColor(): number | null {
 		return null;
 	}

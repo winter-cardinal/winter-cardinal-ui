@@ -4,8 +4,8 @@
  */
 
 import { DThemeButtonFile } from "../../d-button-file";
-import { DThemeWhiteButton } from "./d-theme-default-button";
+import { DThemeDefaultButton } from "./d-theme-default-button";
 
-export class DThemeWhiteButtonFile extends DThemeWhiteButton implements DThemeButtonFile {
+export class DThemeDefaultButtonFile extends DThemeDefaultButton implements DThemeButtonFile {
 
 }

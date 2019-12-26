@@ -6,9 +6,9 @@
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeInputLabel } from "../../d-input-label";
-import { DThemeWhiteText } from "./d-theme-default-text";
+import { DThemeDefaultText } from "./d-theme-default-text";
 
-export class DThemeWhiteInputLabel extends DThemeWhiteText implements DThemeInputLabel {
+export class DThemeDefaultInputLabel extends DThemeDefaultText implements DThemeInputLabel {
 	getTextAlignHorizontal() {
 		return DAlignHorizontal.RIGHT;
 	}

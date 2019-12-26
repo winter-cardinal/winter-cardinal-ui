@@ -7,7 +7,7 @@ import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { DFontStyle, DFontVariant, DFontWeight, DThemeFont } from "../../d-font";
 
-export class DThemeWhiteFont implements DThemeFont {
+export class DThemeDefaultFont implements DThemeFont {
 	getFontFamilly() {
 		return `ProximaNova,-apple-system,Meiryo,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif`;
 	}
@@ -17,7 +17,7 @@ export class DThemeWhiteFont implements DThemeFont {
 	}
 
 	getColor( state: DBaseState ): number {
-		return DThemeWhiteFont.getColor( state );
+		return DThemeDefaultFont.getColor( state );
 	}
 
 	getFontWeight(): DFontWeight {
@@ -33,7 +33,7 @@ export class DThemeWhiteFont implements DThemeFont {
 	}
 
 	getAlpha( state: DBaseState ): number {
-		return DThemeWhiteFont.getAlpha( state );
+		return DThemeDefaultFont.getAlpha( state );
 	}
 
 	getLineHeight(): number {

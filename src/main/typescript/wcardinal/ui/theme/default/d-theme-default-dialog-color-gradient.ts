@@ -5,9 +5,9 @@
 
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeDialogColorGradient } from "../../d-dialog-color-gradient";
-import { DThemeWhiteDialogCommand } from "./d-theme-default-dialog-command";
+import { DThemeDefaultDialogCommand } from "./d-theme-default-dialog-command";
 
-export class DThemeWhiteDialogColorGradient extends DThemeWhiteDialogCommand implements DThemeDialogColorGradient {
+export class DThemeDefaultDialogColorGradient extends DThemeDefaultDialogCommand implements DThemeDialogColorGradient {
 	getWidth(): DCoordinateSize {
 		return "auto";
 	}

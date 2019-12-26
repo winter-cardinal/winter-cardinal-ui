@@ -5,13 +5,13 @@
 
 import { DInputNumber } from "../../d-input-number";
 import { DThemeInputReal } from "../../d-input-real";
-import { DThemeWhiteInputNumber } from "./d-theme-default-input-number";
+import { DThemeDefaultInputNumber } from "./d-theme-default-input-number";
 
 const editingUnformatter = ( text: string ): number => {
 	return parseFloat( text );
 };
 
-export class DThemeWhiteInputReal extends DThemeWhiteInputNumber implements DThemeInputReal {
+export class DThemeDefaultInputReal extends DThemeDefaultInputNumber implements DThemeInputReal {
 	getStep(): number | null {
 		return 0.1;
 	}

@@ -9,17 +9,17 @@ import { DAlignWith } from "../../d-align-with";
 import { DBaseState } from "../../d-base-state";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemePickerDatetimeButtonNext } from "../../d-picker-datetime-button-next";
-import { DThemeWhiteAtlas } from "./d-theme-default-atlas";
-import { DThemeWhiteButtonAmbient } from "./d-theme-default-button-ambient";
+import { DThemeDefaultAtlas } from "./d-theme-default-atlas";
+import { DThemeDefaultButtonAmbient } from "./d-theme-default-button-ambient";
 
-DThemeWhiteAtlas.add( "picker_date_next", 24, 24,
+DThemeDefaultAtlas.add( "picker_date_next", 24, 24,
 	`<g>` +
 		`<path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="#fff" />` +
 	`</g>`
 );
 
-export class DThemeWhitePickerDatetimeButtonNext
-	extends DThemeWhiteButtonAmbient implements DThemePickerDatetimeButtonNext {
+export class DThemeDefaultPickerDatetimeButtonNext
+	extends DThemeDefaultButtonAmbient implements DThemePickerDatetimeButtonNext {
 	getWidth(): DCoordinateSize {
 		return "auto";
 	}
@@ -37,7 +37,7 @@ export class DThemeWhitePickerDatetimeButtonNext
 	}
 
 	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
-		return DThemeWhiteAtlas.mappings.picker_date_next;
+		return DThemeDefaultAtlas.mappings.picker_date_next;
 	}
 
 	getColor(): number {

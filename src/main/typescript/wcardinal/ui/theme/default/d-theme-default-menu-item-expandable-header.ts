@@ -8,22 +8,23 @@ import { DAlignWith } from "../../d-align-with";
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { DThemeMenuItemExpandableHeader } from "../../d-menu-item-expandable-header";
-import { DThemeWhiteAtlas } from "./d-theme-default-atlas";
-import { DThemeWhiteListItem } from "./d-theme-default-list-item";
+import { DThemeDefaultAtlas } from "./d-theme-default-atlas";
+import { DThemeDefaultListItem } from "./d-theme-default-list-item";
 
-DThemeWhiteAtlas.add( "menu_item_expandable_header_closed", 14, 14,
+DThemeDefaultAtlas.add( "menu_item_expandable_header_closed", 14, 14,
 	`<g transform="scale(1, 0.7)">` +
 		`<polyline fill="none" stroke="#fff" stroke-width="1" points="6 16 10 10 6 4"></polyline>` +
 	`</g>`
 );
 
-DThemeWhiteAtlas.add( "menu_item_expandable_header_opened", 14, 14,
+DThemeDefaultAtlas.add( "menu_item_expandable_header_opened", 14, 14,
 	`<g transform="scale(0.7, 1)">` +
 		`<polyline fill="none" stroke="#fff" stroke-width="1" points="16 6 10 10 4 6"></polyline>` +
 	`</g>`
 );
 
-export class DThemeWhiteMenuItemExpandableHeader extends DThemeWhiteListItem implements DThemeMenuItemExpandableHeader {
+export class DThemeDefaultMenuItemExpandableHeader
+extends DThemeDefaultListItem implements DThemeMenuItemExpandableHeader {
 	getPaddingLeft(): number {
 		return this.getPaddingRight();
 	}
@@ -34,9 +35,9 @@ export class DThemeWhiteMenuItemExpandableHeader extends DThemeWhiteListItem imp
 
 	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
 		if( DBaseStates.isActiveIn( state ) ) {
-			return DThemeWhiteAtlas.mappings.menu_item_expandable_header_opened;
+			return DThemeDefaultAtlas.mappings.menu_item_expandable_header_opened;
 		} else {
-			return DThemeWhiteAtlas.mappings.menu_item_expandable_header_closed;
+			return DThemeDefaultAtlas.mappings.menu_item_expandable_header_closed;
 		}
 	}
 

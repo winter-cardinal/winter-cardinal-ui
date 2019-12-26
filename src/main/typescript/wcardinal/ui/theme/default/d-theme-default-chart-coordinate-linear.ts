@@ -5,7 +5,7 @@
 
 import { DThemeChartCoordinateLinear } from "../../d-chart-coordinate-linear";
 
-export class DThemeWhiteChartCoordinateLinear implements DThemeChartCoordinateLinear {
+export class DThemeDefaultChartCoordinateLinear implements DThemeChartCoordinateLinear {
 	isZero( value: number ): boolean {
 		return Math.abs( value ) < 0.00001;
 	}

@@ -7,9 +7,9 @@ import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseState } from "../../d-base-state";
 import { DCornerMask } from "../../d-corner";
 import { DThemeTableRow } from "../../d-table-row";
-import { DThemeWhiteLayoutHorizontal } from "./d-theme-default-layout-horizontal";
+import { DThemeDefaultLayoutHorizontal } from "./d-theme-default-layout-horizontal";
 
-export class DThemeWhiteTableRow extends DThemeWhiteLayoutHorizontal implements DThemeTableRow {
+export class DThemeDefaultTableRow extends DThemeDefaultLayoutHorizontal implements DThemeTableRow {
 	getBorderColor( state: DBaseState ): number | null {
 		return null;
 	}

@@ -7,9 +7,9 @@ import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DFontWeight } from "../../d-font";
 import { DThemePickerDatetimeLabelDate } from "../../d-picker-datetime-label-date";
-import { DThemeWhiteText } from "./d-theme-default-text";
+import { DThemeDefaultText } from "./d-theme-default-text";
 
-export class DThemeWhitePickerDatetimeLabelDate extends DThemeWhiteText implements DThemePickerDatetimeLabelDate {
+export class DThemeDefaultPickerDatetimeLabelDate extends DThemeDefaultText implements DThemePickerDatetimeLabelDate {
 	getWidth(): DCoordinateSize {
 		return 30;
 	}

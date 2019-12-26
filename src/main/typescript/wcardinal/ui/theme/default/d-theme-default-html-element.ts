@@ -2,7 +2,7 @@ import { Rectangle } from "pixi.js";
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { DHTMLElementElementCreator, DHTMLElementWhen, DThemeHTMLElement } from "../../d-html-element";
-import { DThemeWhiteImageBase } from "./d-theme-default-image-base";
+import { DThemeDefaultImageBase } from "./d-theme-default-image-base";
 
 const divCreator = ( parent: HTMLElement ): HTMLDivElement => {
 	const result = document.createElement( "div" );
@@ -10,9 +10,9 @@ const divCreator = ( parent: HTMLElement ): HTMLDivElement => {
 	return result;
 };
 
-export class DThemeWhiteHTMLElement<
+export class DThemeDefaultHTMLElement<
 	ELEMENT extends HTMLElement = HTMLElement
-> extends DThemeWhiteImageBase implements DThemeHTMLElement<ELEMENT> {
+> extends DThemeDefaultImageBase implements DThemeHTMLElement<ELEMENT> {
 	getElementCreator(): DHTMLElementElementCreator<ELEMENT> | null {
 		return null;
 	}

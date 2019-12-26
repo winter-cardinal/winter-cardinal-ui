@@ -6,9 +6,9 @@
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { UtilRgb } from "../../util/util-rgb";
-import { DThemeWhiteButtonBase } from "./d-theme-default-button-base";
+import { DThemeDefaultButtonBase } from "./d-theme-default-button-base";
 
-export class DThemeWhiteButtonDanger extends DThemeWhiteButtonBase {
+export class DThemeDefaultButtonDanger extends DThemeDefaultButtonBase {
 	COLOR = 0xff5566;
 	COLOR_HOVERED = UtilRgb.darken( this.COLOR, 0.1 );
 	COLOR_PRESSED = UtilRgb.darken( this.COLOR, 0.2 );

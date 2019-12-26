@@ -5,9 +5,9 @@
 
 import { DThemePickerDate } from "../../d-picker-date";
 import { DPickerDatetimeMask } from "../../d-picker-datetime-mask";
-import { DThemeWhitePickerDatetime } from "./d-theme-default-picker-datetime";
+import { DThemeDefaultPickerDatetime } from "./d-theme-default-picker-datetime";
 
-export class DThemeWhitePickerDate extends DThemeWhitePickerDatetime implements DThemePickerDate {
+export class DThemeDefaultPickerDate extends DThemeDefaultPickerDatetime implements DThemePickerDate {
 	getMask(): DPickerDatetimeMask {
 		return DPickerDatetimeMask.DATE;
 	}

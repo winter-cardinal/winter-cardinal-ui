@@ -7,9 +7,9 @@ import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseState } from "../../d-base-state";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeScrollBar } from "../../d-scroll-bar";
-import { DThemeWhiteBase } from "./d-theme-default-base";
+import { DThemeDefaultBase } from "./d-theme-default-base";
 
-export class DThemeWhiteScrollBar extends DThemeWhiteBase implements DThemeScrollBar {
+export class DThemeDefaultScrollBar extends DThemeDefaultBase implements DThemeScrollBar {
 	getBackgroundColor( state: DBaseState ): number | null {
 		return 0x000000;
 	}

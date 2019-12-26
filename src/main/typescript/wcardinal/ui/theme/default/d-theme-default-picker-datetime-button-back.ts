@@ -9,17 +9,17 @@ import { DAlignWith } from "../../d-align-with";
 import { DBaseState } from "../../d-base-state";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemePickerDatetimeButtonBack } from "../../d-picker-datetime-button-back";
-import { DThemeWhiteAtlas } from "./d-theme-default-atlas";
-import { DThemeWhiteButtonAmbient } from "./d-theme-default-button-ambient";
+import { DThemeDefaultAtlas } from "./d-theme-default-atlas";
+import { DThemeDefaultButtonAmbient } from "./d-theme-default-button-ambient";
 
-DThemeWhiteAtlas.add( "picker_date_back", 24, 24,
+DThemeDefaultAtlas.add( "picker_date_back", 24, 24,
 	`<g>` +
 		`<path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="#fff" />` +
 	`</g>`
 );
 
-export class DThemeWhitePickerDatetimeButtonBack
-	extends DThemeWhiteButtonAmbient implements DThemePickerDatetimeButtonBack {
+export class DThemeDefaultPickerDatetimeButtonBack
+	extends DThemeDefaultButtonAmbient implements DThemePickerDatetimeButtonBack {
 	getWidth(): DCoordinateSize {
 		return "auto";
 	}
@@ -37,7 +37,7 @@ export class DThemeWhitePickerDatetimeButtonBack
 	}
 
 	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
-		return DThemeWhiteAtlas.mappings.picker_date_back;
+		return DThemeDefaultAtlas.mappings.picker_date_back;
 	}
 
 	getColor(): number {

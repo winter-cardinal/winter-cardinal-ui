@@ -5,7 +5,7 @@
 
 import { UtilSvgAtlasBuilder } from "../../util/util-atlas-builder";
 import { DTheme } from "../d-theme";
-import { DThemeWhiteAtlas } from "./d-theme-default-atlas";
+import { DThemeDefaultAtlas } from "./d-theme-default-atlas";
 
 interface CLASSES {
 	[ type: string ]: new () => any;
@@ -15,7 +15,7 @@ interface INSTANCES {
 	[ type: string ]: DTheme;
 }
 
-export class DThemeWhite implements DTheme {
+export class DThemeDefault implements DTheme {
 	protected static _classes: CLASSES = {};
 	protected _instances: INSTANCES;
 
@@ -28,7 +28,7 @@ export class DThemeWhite implements DTheme {
 		if( instance != null ) {
 			return instance;
 		} else {
-			const klass = DThemeWhite._classes[ type ];
+			const klass = DThemeDefault._classes[ type ];
 			if( klass != null ) {
 				instance = this._instances[ type ] = new klass();
 				return instance;
@@ -39,7 +39,7 @@ export class DThemeWhite implements DTheme {
 	}
 
 	getAtlas(): UtilSvgAtlasBuilder {
-		return DThemeWhiteAtlas;
+		return DThemeDefaultAtlas;
 	}
 
 	static set<THEME>( type: string, themeClass: new () => THEME ): void {
