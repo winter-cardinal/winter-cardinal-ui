@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/default/d-theme-default";
-import { DThemeWhiteDialogConfirmDelete } from "../theme/default/d-theme-default-dialog-confirm-delete";
+import { DThemeDefault } from "../theme/default/d-theme-default";
+import { DThemeDefaultDialogConfirmDelete } from "../theme/default/d-theme-default-dialog-confirm-delete";
 
-export const loadThemeWhiteDialogConfirmDelete = () => {
-	DThemeWhite.set( "DDialogConfirmDelete", DThemeWhiteDialogConfirmDelete );
+export const loadThemeDefaultDialogConfirmDelete = () => {
+	DThemeDefault.set( "DDialogConfirmDelete", DThemeDefaultDialogConfirmDelete );
 };

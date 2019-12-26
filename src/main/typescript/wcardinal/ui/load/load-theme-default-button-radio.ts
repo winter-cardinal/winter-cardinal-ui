@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/default/d-theme-default";
-import { DThemeWhiteButtonRadio } from "../theme/default/d-theme-default-button-radio";
+import { DThemeDefault } from "../theme/default/d-theme-default";
+import { DThemeDefaultButtonRadio } from "../theme/default/d-theme-default-button-radio";
 
-export const loadThemeWhiteButtonRadio = () => {
-	DThemeWhite.set( "DButtonRadio", DThemeWhiteButtonRadio );
+export const loadThemeDefaultButtonRadio = () => {
+	DThemeDefault.set( "DButtonRadio", DThemeDefaultButtonRadio );
 };

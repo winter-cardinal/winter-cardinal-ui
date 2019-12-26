@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/default/d-theme-default";
-import { DThemeWhiteDialogColor } from "../theme/default/d-theme-default-dialog-color";
-import { loadThemeWhitePickerColor } from "./load-theme-default-picker-color";
+import { DThemeDefault } from "../theme/default/d-theme-default";
+import { DThemeDefaultDialogColor } from "../theme/default/d-theme-default-dialog-color";
+import { loadThemeDefaultPickerColor } from "./load-theme-default-picker-color";
 
-export const loadThemeWhiteDialogColor = () => {
-	DThemeWhite.set( "DDialogColor", DThemeWhiteDialogColor );
-	loadThemeWhitePickerColor();
+export const loadThemeDefaultDialogColor = () => {
+	DThemeDefault.set( "DDialogColor", DThemeDefaultDialogColor );
+	loadThemeDefaultPickerColor();
 };

@@ -3,36 +3,36 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { loadThemeWhiteButton } from "./load-theme-default-button";
-import { loadThemeWhiteButtonAmbient } from "./load-theme-default-button-ambient";
-import { loadThemeWhiteButtonCheck } from "./load-theme-default-button-check";
-import { loadThemeWhiteButtonCheckRight } from "./load-theme-default-button-check-right";
-import { loadThemeWhiteButtonColor } from "./load-theme-default-button-color";
-import { loadThemeWhiteButtonColorGradient } from "./load-theme-default-button-color-gradient";
-import { loadThemeWhiteButtonDanger } from "./load-theme-default-button-danger";
-import { loadThemeWhiteButtonDate } from "./load-theme-default-button-date";
-import { loadThemeWhiteButtonDatetime } from "./load-theme-default-button-datetime";
-import { loadThemeWhiteButtonFile } from "./load-theme-default-button-file";
-import { loadThemeWhiteButtonPrimary } from "./load-theme-default-button-primary";
-import { loadThemeWhiteButtonRadio } from "./load-theme-default-button-radio";
-import { loadThemeWhiteButtonRadioRight } from "./load-theme-default-button-radio-right";
-import { loadThemeWhiteButtonSecondary } from "./load-theme-default-button-secondary";
-import { loadThemeWhiteButtonTime } from "./load-theme-default-button-time";
+import { loadThemeDefaultButton } from "./load-theme-default-button";
+import { loadThemeDefaultButtonAmbient } from "./load-theme-default-button-ambient";
+import { loadThemeDefaultButtonCheck } from "./load-theme-default-button-check";
+import { loadThemeDefaultButtonCheckRight } from "./load-theme-default-button-check-right";
+import { loadThemeDefaultButtonColor } from "./load-theme-default-button-color";
+import { loadThemeDefaultButtonColorGradient } from "./load-theme-default-button-color-gradient";
+import { loadThemeDefaultButtonDanger } from "./load-theme-default-button-danger";
+import { loadThemeDefaultButtonDate } from "./load-theme-default-button-date";
+import { loadThemeDefaultButtonDatetime } from "./load-theme-default-button-datetime";
+import { loadThemeDefaultButtonFile } from "./load-theme-default-button-file";
+import { loadThemeDefaultButtonPrimary } from "./load-theme-default-button-primary";
+import { loadThemeDefaultButtonRadio } from "./load-theme-default-button-radio";
+import { loadThemeDefaultButtonRadioRight } from "./load-theme-default-button-radio-right";
+import { loadThemeDefaultButtonSecondary } from "./load-theme-default-button-secondary";
+import { loadThemeDefaultButtonTime } from "./load-theme-default-button-time";
 
-export const loadThemeWhiteButtonAll = () => {
-	loadThemeWhiteButtonAmbient();
-	loadThemeWhiteButtonCheckRight();
-	loadThemeWhiteButtonCheck();
-	loadThemeWhiteButtonColorGradient();
-	loadThemeWhiteButtonColor();
-	loadThemeWhiteButtonDanger();
-	loadThemeWhiteButtonDate();
-	loadThemeWhiteButtonDatetime();
-	loadThemeWhiteButtonFile();
-	loadThemeWhiteButtonPrimary();
-	loadThemeWhiteButtonRadioRight();
-	loadThemeWhiteButtonRadio();
-	loadThemeWhiteButtonSecondary();
-	loadThemeWhiteButtonTime();
-	loadThemeWhiteButton();
+export const loadThemeDefaultButtonAll = () => {
+	loadThemeDefaultButtonAmbient();
+	loadThemeDefaultButtonCheckRight();
+	loadThemeDefaultButtonCheck();
+	loadThemeDefaultButtonColorGradient();
+	loadThemeDefaultButtonColor();
+	loadThemeDefaultButtonDanger();
+	loadThemeDefaultButtonDate();
+	loadThemeDefaultButtonDatetime();
+	loadThemeDefaultButtonFile();
+	loadThemeDefaultButtonPrimary();
+	loadThemeDefaultButtonRadioRight();
+	loadThemeDefaultButtonRadio();
+	loadThemeDefaultButtonSecondary();
+	loadThemeDefaultButtonTime();
+	loadThemeDefaultButton();
 };

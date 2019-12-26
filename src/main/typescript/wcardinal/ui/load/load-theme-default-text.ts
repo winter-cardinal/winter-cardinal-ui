@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/default/d-theme-default";
-import { DThemeWhiteText } from "../theme/default/d-theme-default-text";
+import { DThemeDefault } from "../theme/default/d-theme-default";
+import { DThemeDefaultText } from "../theme/default/d-theme-default-text";
 
-export const loadThemeWhiteText = () => {
-	DThemeWhite.set( "DText", DThemeWhiteText );
+export const loadThemeDefaultText = () => {
+	DThemeDefault.set( "DText", DThemeDefaultText );
 };

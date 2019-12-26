@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/default/d-theme-default";
-import { DThemeWhiteButtonColorGradient } from "../theme/default/d-theme-default-button-color-gradient";
-import { loadThemeWhiteDialogColorGradient } from "./load-theme-default-dialog-color-gradient";
+import { DThemeDefault } from "../theme/default/d-theme-default";
+import { DThemeDefaultButtonColorGradient } from "../theme/default/d-theme-default-button-color-gradient";
+import { loadThemeDefaultDialogColorGradient } from "./load-theme-default-dialog-color-gradient";
 
-export const loadThemeWhiteButtonColorGradient = () => {
-	DThemeWhite.set( "DButtonColorGradient", DThemeWhiteButtonColorGradient );
-	loadThemeWhiteDialogColorGradient();
+export const loadThemeDefaultButtonColorGradient = () => {
+	DThemeDefault.set( "DButtonColorGradient", DThemeDefaultButtonColorGradient );
+	loadThemeDefaultDialogColorGradient();
 };

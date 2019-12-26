@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/default/d-theme-default";
-import { DThemeWhiteMenuBar } from "../theme/default/d-theme-default-menu-bar";
-import { DThemeWhiteMenuBarItem } from "../theme/default/d-theme-default-menu-bar-item";
-import { loadThemeWhiteMenu } from "./load-theme-default-menu";
+import { DThemeDefault } from "../theme/default/d-theme-default";
+import { DThemeDefaultMenuBar } from "../theme/default/d-theme-default-menu-bar";
+import { DThemeDefaultMenuBarItem } from "../theme/default/d-theme-default-menu-bar-item";
+import { loadThemeDefaultMenu } from "./load-theme-default-menu";
 
-export const loadThemeWhiteMenuBar = () => {
-	DThemeWhite.set( "DMenuBarItem", DThemeWhiteMenuBarItem );
-	DThemeWhite.set( "DMenuBar", DThemeWhiteMenuBar );
-	loadThemeWhiteMenu();
+export const loadThemeDefaultMenuBar = () => {
+	DThemeDefault.set( "DMenuBarItem", DThemeDefaultMenuBarItem );
+	DThemeDefault.set( "DMenuBar", DThemeDefaultMenuBar );
+	loadThemeDefaultMenu();
 };

@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/default/d-theme-default";
-import { DThemeWhiteButtonDatetime } from "../theme/default/d-theme-default-button-datetime";
-import { loadThemeWhiteDialogDatetime } from "./load-theme-default-dialog-datetime";
+import { DThemeDefault } from "../theme/default/d-theme-default";
+import { DThemeDefaultButtonDatetime } from "../theme/default/d-theme-default-button-datetime";
+import { loadThemeDefaultDialogDatetime } from "./load-theme-default-dialog-datetime";
 
-export const loadThemeWhiteButtonDatetime = () => {
-	DThemeWhite.set( "DButtonDatetime", DThemeWhiteButtonDatetime );
-	loadThemeWhiteDialogDatetime();
+export const loadThemeDefaultButtonDatetime = () => {
+	DThemeDefault.set( "DButtonDatetime", DThemeDefaultButtonDatetime );
+	loadThemeDefaultDialogDatetime();
 };

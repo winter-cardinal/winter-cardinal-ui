@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/default/d-theme-default";
-import { DThemeWhiteDialogColorGradient } from "../theme/default/d-theme-default-dialog-color-gradient";
-import { loadThemeWhitePickerColorGradient } from "./load-theme-default-picker-color-gradient";
+import { DThemeDefault } from "../theme/default/d-theme-default";
+import { DThemeDefaultDialogColorGradient } from "../theme/default/d-theme-default-dialog-color-gradient";
+import { loadThemeDefaultPickerColorGradient } from "./load-theme-default-picker-color-gradient";
 
-export const loadThemeWhiteDialogColorGradient = () => {
-	DThemeWhite.set( "DDialogColorGradient", DThemeWhiteDialogColorGradient );
-	loadThemeWhitePickerColorGradient();
+export const loadThemeDefaultDialogColorGradient = () => {
+	DThemeDefault.set( "DDialogColorGradient", DThemeDefaultDialogColorGradient );
+	loadThemeDefaultPickerColorGradient();
 };

@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/default/d-theme-default";
-import { DThemeWhiteExpandable } from "../theme/default/d-theme-default-expandable";
-import { DThemeWhiteExpandableHeader } from "../theme/default/d-theme-default-expandable-header";
+import { DThemeDefault } from "../theme/default/d-theme-default";
+import { DThemeDefaultExpandable } from "../theme/default/d-theme-default-expandable";
+import { DThemeDefaultExpandableHeader } from "../theme/default/d-theme-default-expandable-header";
 
-export const loadThemeWhiteExpandable = () => {
-	DThemeWhite.set( "DExpandableHeader", DThemeWhiteExpandableHeader );
-	DThemeWhite.set( "DExpandable", DThemeWhiteExpandable );
+export const loadThemeDefaultExpandable = () => {
+	DThemeDefault.set( "DExpandableHeader", DThemeDefaultExpandableHeader );
+	DThemeDefault.set( "DExpandable", DThemeDefaultExpandable );
 };

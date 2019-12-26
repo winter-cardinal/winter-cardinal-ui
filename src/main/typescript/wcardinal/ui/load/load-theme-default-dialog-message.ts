@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/default/d-theme-default";
-import { DThemeWhiteDialogMessage } from "../theme/default/d-theme-default-dialog-message";
+import { DThemeDefault } from "../theme/default/d-theme-default";
+import { DThemeDefaultDialogMessage } from "../theme/default/d-theme-default-dialog-message";
 
-export const loadThemeWhiteDialogMessage = () => {
-	DThemeWhite.set( "DDialogMessage", DThemeWhiteDialogMessage );
+export const loadThemeDefaultDialogMessage = () => {
+	DThemeDefault.set( "DDialogMessage", DThemeDefaultDialogMessage );
 };

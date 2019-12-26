@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/default/d-theme-default";
-import { DThemeWhiteBoard } from "../theme/default/d-theme-default-board";
+import { DThemeDefault } from "../theme/default/d-theme-default";
+import { DThemeDefaultBoard } from "../theme/default/d-theme-default-board";
 
-export const loadThemeWhiteBoard = () => {
-	DThemeWhite.set( "DBoard", DThemeWhiteBoard );
+export const loadThemeDefaultBoard = () => {
+	DThemeDefault.set( "DBoard", DThemeDefaultBoard );
 };

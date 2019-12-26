@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/default/d-theme-default";
-import { DThemeWhiteCanvas } from "../theme/default/d-theme-default-canvas";
-import { DThemeWhiteCanvasContainer } from "../theme/default/d-theme-default-canvas-container";
+import { DThemeDefault } from "../theme/default/d-theme-default";
+import { DThemeDefaultCanvas } from "../theme/default/d-theme-default-canvas";
+import { DThemeDefaultCanvasContainer } from "../theme/default/d-theme-default-canvas-container";
 
-export const loadThemeWhiteCanvasContainer = () => {
-	DThemeWhite.set( "DCanvasContainer", DThemeWhiteCanvasContainer );
-	DThemeWhite.set( "DCanvas", DThemeWhiteCanvas );
+export const loadThemeDefaultCanvasContainer = () => {
+	DThemeDefault.set( "DCanvasContainer", DThemeDefaultCanvasContainer );
+	DThemeDefault.set( "DCanvas", DThemeDefaultCanvas );
 };

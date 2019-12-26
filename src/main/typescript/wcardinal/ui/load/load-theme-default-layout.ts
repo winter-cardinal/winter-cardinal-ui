@@ -3,15 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/default/d-theme-default";
-import { DThemeWhiteLayout } from "../theme/default/d-theme-default-layout";
-import { DThemeWhiteLayoutHorizontal } from "../theme/default/d-theme-default-layout-horizontal";
-import { DThemeWhiteLayoutSpace } from "../theme/default/d-theme-default-layout-space";
-import { DThemeWhiteLayoutVertical } from "../theme/default/d-theme-default-layout-vertical";
+import { DThemeDefault } from "../theme/default/d-theme-default";
+import { DThemeDefaultLayout } from "../theme/default/d-theme-default-layout";
+import { DThemeDefaultLayoutHorizontal } from "../theme/default/d-theme-default-layout-horizontal";
+import { DThemeDefaultLayoutSpace } from "../theme/default/d-theme-default-layout-space";
+import { DThemeDefaultLayoutVertical } from "../theme/default/d-theme-default-layout-vertical";
 
-export const loadThemeWhiteLayout = () => {
-	DThemeWhite.set( "DLayout", DThemeWhiteLayout );
-	DThemeWhite.set( "DLayoutHorizontal", DThemeWhiteLayoutHorizontal );
-	DThemeWhite.set( "DLayoutSpace", DThemeWhiteLayoutSpace );
-	DThemeWhite.set( "DLayoutVertical", DThemeWhiteLayoutVertical );
+export const loadThemeDefaultLayout = () => {
+	DThemeDefault.set( "DLayout", DThemeDefaultLayout );
+	DThemeDefault.set( "DLayoutHorizontal", DThemeDefaultLayoutHorizontal );
+	DThemeDefault.set( "DLayoutSpace", DThemeDefaultLayoutSpace );
+	DThemeDefault.set( "DLayoutVertical", DThemeDefaultLayoutVertical );
 };

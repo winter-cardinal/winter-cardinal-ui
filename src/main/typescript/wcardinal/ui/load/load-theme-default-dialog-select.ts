@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/default/d-theme-default";
-import { DThemeWhiteDialogSelect } from "../theme/default/d-theme-default-dialog-select";
-import { DThemeWhiteDialogSelectList } from "../theme/default/d-theme-default-dialog-select-list";
-import { DThemeWhiteDialogSelectListItem } from "../theme/default/d-theme-default-dialog-select-list-item";
+import { DThemeDefault } from "../theme/default/d-theme-default";
+import { DThemeDefaultDialogSelect } from "../theme/default/d-theme-default-dialog-select";
+import { DThemeDefaultDialogSelectList } from "../theme/default/d-theme-default-dialog-select-list";
+import { DThemeDefaultDialogSelectListItem } from "../theme/default/d-theme-default-dialog-select-list-item";
 
-export const loadThemeWhiteDialogSelect = () => {
-	DThemeWhite.set( "DDialogSelect", DThemeWhiteDialogSelect );
-	DThemeWhite.set( "DDialogSelectList", DThemeWhiteDialogSelectList );
-	DThemeWhite.set( "DDialogSelectListItem", DThemeWhiteDialogSelectListItem );
+export const loadThemeDefaultDialogSelect = () => {
+	DThemeDefault.set( "DDialogSelect", DThemeDefaultDialogSelect );
+	DThemeDefault.set( "DDialogSelectList", DThemeDefaultDialogSelectList );
+	DThemeDefault.set( "DDialogSelectListItem", DThemeDefaultDialogSelectListItem );
 };

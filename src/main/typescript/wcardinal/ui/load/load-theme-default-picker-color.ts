@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/default/d-theme-default";
-import { DThemeWhitePickerColor } from "../theme/default/d-theme-default-picker-color";
+import { DThemeDefault } from "../theme/default/d-theme-default";
+import { DThemeDefaultPickerColor } from "../theme/default/d-theme-default-picker-color";
 
-export const loadThemeWhitePickerColor = () => {
-	DThemeWhite.set( "DPickerColor", DThemeWhitePickerColor );
+export const loadThemeDefaultPickerColor = () => {
+	DThemeDefault.set( "DPickerColor", DThemeDefaultPickerColor );
 };

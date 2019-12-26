@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/default/d-theme-default";
-import { DThemeWhiteImage } from "../theme/default/d-theme-default-image";
+import { DThemeDefault } from "../theme/default/d-theme-default";
+import { DThemeDefaultImage } from "../theme/default/d-theme-default-image";
 
-export const loadThemeWhiteImage = () => {
-	DThemeWhite.set( "DImage", DThemeWhiteImage );
+export const loadThemeDefaultImage = () => {
+	DThemeDefault.set( "DImage", DThemeDefaultImage );
 };

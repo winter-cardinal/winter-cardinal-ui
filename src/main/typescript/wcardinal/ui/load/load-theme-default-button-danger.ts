@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/default/d-theme-default";
-import { DThemeWhiteButtonDanger } from "../theme/default/d-theme-default-button-danger";
+import { DThemeDefault } from "../theme/default/d-theme-default";
+import { DThemeDefaultButtonDanger } from "../theme/default/d-theme-default-button-danger";
 
-export const loadThemeWhiteButtonDanger = () => {
-	DThemeWhite.set( "DButtonDanger", DThemeWhiteButtonDanger );
+export const loadThemeDefaultButtonDanger = () => {
+	DThemeDefault.set( "DButtonDanger", DThemeDefaultButtonDanger );
 };
