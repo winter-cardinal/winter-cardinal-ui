@@ -27,7 +27,7 @@ const formatter = ( colorAndAlpha: DColorAndAlpha ): string => {
 
 export class DThemeDefaultButtonColor extends DThemeDefaultButton implements DThemeButtonColor {
 	getImageTintColor( state: DBaseState ): number | null {
-		return null;
+		return this.dThemeConfiguration.getButtonColorImageTintColor();
 	}
 
 	getImageSource( state: DBaseState ): Texture {
@@ -40,7 +40,7 @@ export class DThemeDefaultButtonColor extends DThemeDefaultButton implements DTh
 
 	newTextValue(): DColorAndAlpha {
 		return {
-			color: 0xffffff,
+			color: this.dThemeConfiguration.getButtonColorNewTextColor(),
 			alpha: 1
 		};
 	}

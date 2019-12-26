@@ -8,8 +8,6 @@ import { DBaseStates } from "../../d-base-states";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DHTMLElementElementCreator } from "../../d-html-element";
 import { DThemeInput } from "../../d-input";
-import { UtilRgb } from "../../util/util-rgb";
-import { DThemeDefaultConstants } from "./d-theme-default-constants";
 import { DThemeDefaultHTMLElement } from "./d-theme-default-html-element";
 
 const editingValidator = (): unknown => {
@@ -61,26 +59,24 @@ const afterCreator = ( parent: HTMLElement ): HTMLDivElement => {
 };
 
 export class DThemeDefaultInput extends DThemeDefaultHTMLElement<HTMLInputElement> implements DThemeInput {
-	COLOR = 0xffffff;
-	COLOR_HOVERED = UtilRgb.darken( this.COLOR, 0.017 );
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) || DBaseStates.isReadOnly( state ) ) {
-			return null;
+			return this.dThemeConfiguration.getInputDisabledBackgroundColor();
 		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return this.COLOR_HOVERED;
+			return this.dThemeConfiguration.getInputFocusedBackgroundColor();
 		} else {
-			return this.COLOR;
+			return this.dThemeConfiguration.getInputBackgroundColor();
 		}
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return 0xe5e5e5;
+		return this.dThemeConfiguration.getInputBorderColor();
 	}
 
 	getOutlineColor( state: DBaseState ): number | null {
 		if( DBaseStates.isInvalid( state ) ) {
-			return DThemeDefaultConstants.INVALID_COLOR;
+			return this.dThemeConfiguration.getInputInvalidColor();
 		}
 		return super.getOutlineColor( state );
 	}

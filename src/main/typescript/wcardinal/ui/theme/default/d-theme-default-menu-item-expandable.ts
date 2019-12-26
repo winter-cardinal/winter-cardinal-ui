@@ -13,9 +13,9 @@ import { DThemeDefaultLayoutVertical } from "./d-theme-default-layout-vertical";
 export class DThemeDefaultMenuItemExpandable extends DThemeDefaultLayoutVertical implements DThemeMenuItemExpandable {
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isActive( state ) ) {
-			return 0xf0f8ff;
+			return this.dThemeConfiguration.getMenuItemExpandableActiveBackgroundColor();
 		}
-		return null;
+		return this.dThemeConfiguration.getMenuItemExpandableBackgroundColor();
 	}
 
 	getBackgroundAlpha( state: DBaseState ): number {

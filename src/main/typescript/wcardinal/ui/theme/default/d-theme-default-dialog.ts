@@ -9,7 +9,6 @@ import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
 import { DDialogCloseOn, DThemeDialog } from "../../d-dialog";
 import { DShadow } from "../../d-shadow";
 import { DThemeDefaultBase } from "./d-theme-default-base";
-import { DThemeDefaultConstants } from "./d-theme-default-constants";
 
 export class DThemeDefaultDialog extends DThemeDefaultBase implements DThemeDialog {
 	closeOn(): DDialogCloseOn {
@@ -17,11 +16,11 @@ export class DThemeDefaultDialog extends DThemeDefaultBase implements DThemeDial
 	}
 
 	getBackgroundColor() {
-		return DThemeDefaultConstants.BACKGROUND_COLOR;
+		return this.dThemeConfiguration.getDialogBackgroundColor();
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return DThemeDefaultConstants.WEAK_HIGHLIGHT_COLOR;
+		return this.dThemeConfiguration.getDialogBorderColor();
 	}
 
 	getPaddingLeft() {

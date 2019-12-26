@@ -7,26 +7,21 @@ import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeTableHeader } from "../../d-table-header";
-import { UtilRgb } from "../../util/util-rgb";
-import { DThemeDefaultConstants } from "./d-theme-default-constants";
 import { DThemeDefaultTableRow } from "./d-theme-default-table-row";
 
 export class DThemeDefaultTableHeader extends DThemeDefaultTableRow implements DThemeTableHeader {
-	COLOR = 0xf9f9f9;
-	COLOR_HOVERED = UtilRgb.darken( this.COLOR, 0.017 );
-	COLOR_PRESSED = UtilRgb.darken( this.COLOR, 0.034 );
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
-			return null;
+			return this.dThemeConfiguration.getTableHeaderDisableBackgroundColor();
 		} else if( DBaseStates.isActive( state ) ) {
-			return DThemeDefaultConstants.HIGHLIGHT_COLOR;
+			return this.dThemeConfiguration.getTableHeaderActiveBackgroundColor();
 		} else if( DBaseStates.isPressed( state ) ) {
-			return this.COLOR_PRESSED;
+			return this.dThemeConfiguration.getTableHeaderPressedBackgroundColor();
 		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return this.COLOR_HOVERED;
+			return this.dThemeConfiguration.getTableHeaderFocusedBackgroundColor();
 		} else {
-			return this.COLOR;
+			return this.dThemeConfiguration.getTableHeaderBackgroundColor();
 		}
 	}
 

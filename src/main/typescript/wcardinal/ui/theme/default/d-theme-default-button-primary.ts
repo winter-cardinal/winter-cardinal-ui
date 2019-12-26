@@ -5,32 +5,27 @@
 
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
-import { UtilRgb } from "../../util/util-rgb";
 import { DThemeDefaultButtonBase } from "./d-theme-default-button-base";
-import { DThemeDefaultConstants } from "./d-theme-default-constants";
 
 export class DThemeDefaultButtonPrimary extends DThemeDefaultButtonBase {
-	COLOR = DThemeDefaultConstants.HIGHLIGHT_COLOR;
-	COLOR_HOVERED = UtilRgb.darken( this.COLOR, 0.1 );
-	COLOR_PRESSED = UtilRgb.darken( this.COLOR, 0.2 );
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
-			return null;
+			return this.dThemeConfiguration.getButtonPrimaryDisabledBackgroundColor();
 		} else if( DBaseStates.isPressed( state ) || DBaseStates.isActive( state ) ) {
-			return this.COLOR_PRESSED;
+			return this.dThemeConfiguration.getButtonPrimaryPressedBackgroundColor();
 		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return this.COLOR_HOVERED;
+			return this.dThemeConfiguration.getButtonPrimaryFocusedBackgroundColor();
 		} else {
-			return this.COLOR;
+			return this.dThemeConfiguration.getButtonPrimaryBackgroundColor();
 		}
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
-			return 0xe5e5e5;
+			return this.dThemeConfiguration.getButtonPrimaryDisabledBorderColor();
 		} else {
-			return null;
+			return this.dThemeConfiguration.getButtonPrimaryBorderColor();
 		}
 	}
 
@@ -38,7 +33,7 @@ export class DThemeDefaultButtonPrimary extends DThemeDefaultButtonBase {
 		if( DBaseStates.isDisabled( state ) ) {
 			return super.getColor( state );
 		} else {
-			return 0xffffff;
+			return this.dThemeConfiguration.getButtonPrimaryColor();
 		}
 	}
 }

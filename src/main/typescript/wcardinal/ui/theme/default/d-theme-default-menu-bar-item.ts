@@ -9,31 +9,26 @@ import { DBaseStates } from "../../d-base-states";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DThemeMenuBarItem } from "../../d-menu-bar-item";
-import { UtilRgb } from "../../util/util-rgb";
 import { DThemeDefaultButton } from "./d-theme-default-button";
-import { DThemeDefaultConstants } from "./d-theme-default-constants";
 
 export class DThemeDefaultMenuBarItem extends DThemeDefaultButton implements DThemeMenuBarItem {
-	COLOR = 0xffffff;
-	COLOR_HOVERED = UtilRgb.darken( this.COLOR, 0.017 );
-	COLOR_PRESSED = UtilRgb.darken( this.COLOR, 0.034 );
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
-			return null;
+			return this.dThemeConfiguration.getMenuBarItemDisabledBackgroundColor();
 		} else if( DBaseStates.isActive( state ) ) {
-			return DThemeDefaultConstants.HIGHLIGHT_COLOR;
+			return this.dThemeConfiguration.getMenuBarItemActiveBackgroundColor();
 		} else if( DBaseStates.isPressed( state ) ) {
-			return this.COLOR_PRESSED;
+			return this.dThemeConfiguration.getMenuBarItemPressedBackgroundColor();
 		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return this.COLOR_HOVERED;
+			return this.dThemeConfiguration.getMenuBarItemFocusedBackgroundColor();
 		} else {
-			return null;
+			return this.dThemeConfiguration.getMenuBarItemBackgroundColor();
 		}
 	}
 
 	getBorderColor(): number | null {
-		return null;
+		return this.dThemeConfiguration.getMenuBarItemBorderColor();
 	}
 
 	getWidth(): DCoordinateSize {

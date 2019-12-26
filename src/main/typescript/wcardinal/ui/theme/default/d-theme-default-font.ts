@@ -6,6 +6,7 @@
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { DFontStyle, DFontVariant, DFontWeight, DThemeFont } from "../../d-font";
+import { DThemeDefaultConfigurations } from "../d-theme-default-configurations";
 
 export class DThemeDefaultFont implements DThemeFont {
 	getFontFamilly() {
@@ -41,7 +42,8 @@ export class DThemeDefaultFont implements DThemeFont {
 	}
 
 	static getColor( state: DBaseState ): number {
-		return 0x5f5f5f;
+		const dThemeConfiguration = DThemeDefaultConfigurations.getInstance();
+		return dThemeConfiguration.getFontColor();
 	}
 
 	static getAlpha( state: DBaseState ): number {

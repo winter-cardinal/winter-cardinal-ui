@@ -11,7 +11,7 @@ import { DThemeDefaultBase } from "./d-theme-default-base";
 
 export class DThemeDefaultScrollBar extends DThemeDefaultBase implements DThemeScrollBar {
 	getBackgroundColor( state: DBaseState ): number | null {
-		return 0x000000;
+		return this.dThemeConfiguration.getScrollBarBackgroundColor();
 	}
 
 	getBackgroundAlpha( state: DBaseState ): number {

@@ -7,18 +7,16 @@ import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeScrollBarThumb } from "../../d-scroll-bar-thumb";
-import { UtilRgb } from "../../util/util-rgb";
 import { DThemeDefaultBase } from "./d-theme-default-base";
 import { DThemeDefaultConstants } from "./d-theme-default-constants";
 
 export class DThemeDefaultScrollBarThumb extends DThemeDefaultBase implements DThemeScrollBarThumb {
-	COLOR = UtilRgb.darken( DThemeDefaultConstants.WEAK_HIGHLIGHT_COLOR, 0.25 );
 
 	getBackgroundColor( state: DBaseState ): number {
 		if( DBaseStates.isHovered( state ) || DBaseStates.isDragging( state ) ) {
-			return DThemeDefaultConstants.HIGHLIGHT_COLOR;
+			return this.dThemeConfiguration.getScrollBarThumbHoverdBackgroundColor();
 		} else {
-			return this.COLOR;
+			return this.dThemeConfiguration.getScrollBarThumbBackgroundColor();
 		}
 	}
 
@@ -31,7 +29,7 @@ export class DThemeDefaultScrollBarThumb extends DThemeDefaultBase implements DT
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return null;
+		return this.dThemeConfiguration.getScrollBarThumbBorderColor();
 	}
 
 	getBorderAlpha( state: DBaseState ): number {

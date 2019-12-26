@@ -26,18 +26,18 @@ DThemeDefaultAtlas.add( "menu_item_expandable_header_opened", 14, 14,
 export class DThemeDefaultExpandableHeader extends DThemeDefaultImage implements DThemeExpandableHeader {
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
-			return null;
+			return this.dThemeConfiguration.getExpandableHeaderDisabledBackgroundColor();
 		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return 0xf8f8f8;
+			return this.dThemeConfiguration.getExpandableHeaderFocusedBackgroundColor();
 		} else if( DBaseStates.isActiveIn( state ) ) {
-			return 0xf8f8f8;
+			return this.dThemeConfiguration.getExpandableHeaderActiveBackgroundColor();
 		} else {
-			return null;
+			return this.dThemeConfiguration.getExpandableHeaderBackgroundColor();
 		}
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return null;
+		return this.dThemeConfiguration.getExpandableHeaderBorderColor();
 	}
 
 	getHeight(): DCoordinateSize {

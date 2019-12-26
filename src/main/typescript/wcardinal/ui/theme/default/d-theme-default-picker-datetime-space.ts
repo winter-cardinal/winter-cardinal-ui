@@ -10,11 +10,11 @@ import { DThemeDefaultBase } from "./d-theme-default-base";
 
 export class DThemeDefaultPickerDatetimeSpace extends DThemeDefaultBase implements DThemePickerDatetimeSpace {
 	getBackgroundColor( state: DBaseState ): number | null {
-		return null;
+		return this.dThemeConfiguration.getPickerDatetimeSpaceBackgroundColor();
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return null;
+		return this.dThemeConfiguration.getPickerDatetimeSpaceBorderColor();
 	}
 
 	getWidth(): DCoordinateSize {

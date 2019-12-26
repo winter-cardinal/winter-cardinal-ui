@@ -12,9 +12,9 @@ import { DThemeDefaultConstants } from "./d-theme-default-constants";
 export class DThemeDefaultButtonAmbient extends DThemeDefaultButtonBase implements DThemeButtonAmbient {
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isActive( state ) ) {
-			return DThemeDefaultConstants.HIGHLIGHT_COLOR;
+			return this.dThemeConfiguration.getButtonAmbientActiveBackgroundColor();
 		} else {
-			return DThemeDefaultConstants.WEAK_HIGHLIGHT_COLOR;
+			return this.dThemeConfiguration.getButtonAmbientBackgroundColor();
 		}
 	}
 
@@ -32,6 +32,6 @@ export class DThemeDefaultButtonAmbient extends DThemeDefaultButtonBase implemen
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return null;
+		return this.dThemeConfiguration.getButtonAmbientBorderColor();
 	}
 }

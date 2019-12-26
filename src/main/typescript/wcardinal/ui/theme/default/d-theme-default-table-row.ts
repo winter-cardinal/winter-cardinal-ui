@@ -11,7 +11,7 @@ import { DThemeDefaultLayoutHorizontal } from "./d-theme-default-layout-horizont
 
 export class DThemeDefaultTableRow extends DThemeDefaultLayoutHorizontal implements DThemeTableRow {
 	getBorderColor( state: DBaseState ): number | null {
-		return null;
+		return this.dThemeConfiguration.getTableRowBorderColor();
 	}
 
 	getCornerMask(): number {

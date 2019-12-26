@@ -11,7 +11,7 @@ import { DThemeDefaultImage } from "./d-theme-default-image";
 
 export class DThemeDefaultListItemSeparator extends DThemeDefaultImage implements DThemeListItemSeparator {
 	getBorderColor( state: DBaseState ): number | null {
-		return DThemeDefaultConstants.WEAK_HIGHLIGHT_COLOR;
+		return this.dThemeConfiguration.getListItemSeparatorBorderColor();
 	}
 
 	getBorderAlpha( state: DBaseState ): number {

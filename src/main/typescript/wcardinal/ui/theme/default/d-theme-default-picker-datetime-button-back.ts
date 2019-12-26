@@ -41,6 +41,6 @@ export class DThemeDefaultPickerDatetimeButtonBack
 	}
 
 	getColor(): number {
-		return 0x6f6f6f;
+		return this.dThemeConfiguration.getPickerDatetimeButtonBackColor();
 	}
 }

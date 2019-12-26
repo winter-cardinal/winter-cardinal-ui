@@ -12,11 +12,11 @@ import { DThemeDefaultBase } from "./d-theme-default-base";
 
 export class DThemeDefaultCanvasContainer extends DThemeDefaultBase implements DThemeCanvasContainer {
 	getBackgroundColor( state: DBaseState ): number | null {
-		return null;
+		return this.dThemeConfiguration.getCanvasContainerBackgroundColor();
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return null;
+		return this.dThemeConfiguration.getCanvasContainerBorderColor();
 	}
 
 	getPaddingLeft() {

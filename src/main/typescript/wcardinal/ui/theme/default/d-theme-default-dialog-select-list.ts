@@ -10,11 +10,11 @@ import { DThemeDefaultList } from "./d-theme-default-list";
 
 export class DThemeDefaultDialogSelectList extends DThemeDefaultList implements DThemeDialogSelecList {
 	getBackgroundColor(): number | null {
-		return null;
+		return this.dThemeConfiguration.getDialogSelectListBackgroundColor();
 	}
 
 	getBorderColor(): number | null {
-		return null;
+		return this.dThemeConfiguration.getDialogSelectListBorderColor();
 	}
 
 	getHeight(): DCoordinateSize {

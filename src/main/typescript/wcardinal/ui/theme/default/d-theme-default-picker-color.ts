@@ -136,7 +136,7 @@ export class DThemeDefaultPickerColor extends DThemeDefaultBase implements DThem
 	}
 
 	getMainPointerColor(): number {
-		return 0xffffff;
+		return this.dThemeConfiguration.getPickerColorMainPointerColor();
 	}
 
 	getMainPointerAlpha(): number {
@@ -160,7 +160,7 @@ export class DThemeDefaultPickerColor extends DThemeDefaultBase implements DThem
 	}
 
 	getBasePointerColor(): number {
-		return 0xffffff;
+		return this.dThemeConfiguration.getPickerColorBasePointerColor();
 	}
 
 	getBasePointerAlpha(): number {
@@ -252,11 +252,11 @@ export class DThemeDefaultPickerColor extends DThemeDefaultBase implements DThem
 	}
 
 	getBackgroundColor( state: DBaseState ): number | null {
-		return null;
+		return this.dThemeConfiguration.getPickerColorBackgroundColor();
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return null;
+		return this.dThemeConfiguration.getPickerColorBorderColor();
 	}
 
 	getInteractive(): DBaseInteractive {

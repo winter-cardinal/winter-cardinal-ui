@@ -12,7 +12,7 @@ import { DThemeDefaultLayoutVertical } from "./d-theme-default-layout-vertical";
 
 export class DThemeDefaultMenu extends DThemeDefaultLayoutVertical implements DThemeMenu {
 	getBackgroundColor( state: DBaseState ): number | null {
-		return 0xffffff;
+		return this.dThemeConfiguration.getMenuBackgroundColor();
 	}
 
 	getOffsetX(): number {

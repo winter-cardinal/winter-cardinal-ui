@@ -15,8 +15,8 @@ import { DLayoutClearType } from "../../d-layout-clear-type";
 import { DShadow } from "../../d-shadow";
 import { DShadowImpl } from "../../d-shadow-impl";
 import { UtilTexturePlane } from "../../util/util-texture-plane";
+import { DThemeDefaultConfigurations } from "../d-theme-default-configurations";
 import { DThemeDefaultAtlas } from "./d-theme-default-atlas";
-import { DThemeDefaultConstants } from "./d-theme-default-constants";
 import { DThemeDefaultFont } from "./d-theme-default-font";
 
 const newShadow = (
@@ -41,6 +41,8 @@ newShadow( "shadow_weak", 8, 1 );
 newShadow( "shadow", 12, 1 );
 
 export class DThemeDefaultBase extends DThemeDefaultFont implements DThemeBase {
+	readonly dThemeConfiguration = DThemeDefaultConfigurations.getInstance();
+
 	getX(): DCoordinatePosition {
 		return 0;
 	}
@@ -58,7 +60,7 @@ export class DThemeDefaultBase extends DThemeDefaultFont implements DThemeBase {
 	}
 
 	getBackgroundColor( state: DBaseState ): number | null {
-		return null;
+		return this.dThemeConfiguration.getBaseBackgroundColor();
 	}
 
 	getBackgroundAlpha( state: DBaseState ): number {
@@ -71,9 +73,9 @@ export class DThemeDefaultBase extends DThemeDefaultFont implements DThemeBase {
 
 	getBorderColor( state: DBaseState ): number | null {
 		if( DBaseStates.isFocused( state ) ) {
-			return DThemeDefaultConstants.HIGHLIGHT_COLOR;
+			return this.dThemeConfiguration.getBaseFocusedBorderColor();
 		} else {
-			return null;
+			return this.dThemeConfiguration.getBaseBorderColor();
 		}
 	}
 
@@ -122,7 +124,7 @@ export class DThemeDefaultBase extends DThemeDefaultFont implements DThemeBase {
 	}
 
 	getOutlineColor( state: DBaseState ): number | null {
-		return null;
+		return this.dThemeConfiguration.getBaseOutlineColor();
 	}
 
 	getOutlineAlpha( state: DBaseState ): number {

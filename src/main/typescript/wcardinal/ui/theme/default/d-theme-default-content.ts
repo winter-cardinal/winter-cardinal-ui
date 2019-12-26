@@ -14,7 +14,7 @@ export class DThemeDefaultContent extends DThemeDefaultBase {
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return null;
+		return this.dThemeConfiguration.getContentBorderColor();
 	}
 
 	getInteractive(): DBaseInteractive {

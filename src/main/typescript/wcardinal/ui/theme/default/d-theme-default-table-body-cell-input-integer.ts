@@ -58,7 +58,7 @@ export class DThemeDefaultTableBodyCellInputInteger extends DThemeDefaultInputIn
 
 	getOutlineColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
-			return null;
+			return this.dThemeConfiguration.getTableBodyCellInputIntegerDisabledOutlineColor();
 		}
 		return super.getOutlineColor( state );
 	}

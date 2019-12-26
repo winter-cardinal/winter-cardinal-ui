@@ -58,7 +58,7 @@ export class DThemeDefaultTableBodyCellInputReal extends DThemeDefaultInputReal
 
 	getOutlineColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
-			return null;
+			return this.dThemeConfiguration.getTableBodyCellInputRealDisabledOutlineColor();
 		}
 		return super.getOutlineColor( state );
 	}

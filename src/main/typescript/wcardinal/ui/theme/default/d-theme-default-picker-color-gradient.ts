@@ -61,11 +61,11 @@ export class DThemeDefaultPickerColorGradient extends DThemeDefaultBase implemen
 	}
 
 	getBackgroundColor( state: DBaseState ): number | null {
-		return null;
+		return this.dThemeConfiguration.getPickerColorGradientBackgroundColor();
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return null;
+		return this.dThemeConfiguration.getPickerColorGradientBorderColor();
 	}
 
 	getInteractive(): DBaseInteractive {

@@ -19,7 +19,7 @@ export class DThemeDefaultTableBody extends DThemeDefaultPane implements DThemeT
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return null;
+		return this.dThemeConfiguration.getTableBodyBorderColor();
 	}
 
 	getRowHeight(): number {

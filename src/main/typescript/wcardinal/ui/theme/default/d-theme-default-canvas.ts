@@ -11,11 +11,11 @@ import { DThemeDefaultBase } from "./d-theme-default-base";
 
 export class DThemeDefaultCanvas extends DThemeDefaultBase implements DThemeCanvas {
 	getBackgroundColor() {
-		return 0xffffff;
+		return this.dThemeConfiguration.getCanvasBackgroundColor();
 	}
 
 	getBorderColor( state: DBaseState ) {
-		return null;
+		return this.dThemeConfiguration.getCanvasBorderColor();
 	}
 
 	getCornerMask(): number {

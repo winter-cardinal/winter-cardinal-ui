@@ -12,9 +12,9 @@ import { DThemeDefaultLayoutVertical } from "./d-theme-default-layout-vertical";
 export class DThemeDefaultExpandable extends DThemeDefaultLayoutVertical implements DThemeExpandable {
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isActive( state ) ) {
-			return 0xf0f8ff;
+			return this.dThemeConfiguration.getExpandableActiveBackgroundColor();
 		}
-		return null;
+		return this.dThemeConfiguration.getExpandableBackgroundColor();
 	}
 
 	getBackgroundAlpha( state: DBaseState ): number {

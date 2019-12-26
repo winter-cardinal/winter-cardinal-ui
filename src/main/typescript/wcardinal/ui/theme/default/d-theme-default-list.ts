@@ -8,7 +8,7 @@ import { DThemeDefaultPane } from "./d-theme-default-pane";
 
 export class DThemeDefaultList extends DThemeDefaultPane {
 	getBackgroundColor( state: DBaseState ): number | null {
-		return 0xffffff;
+		return this.dThemeConfiguration.getListBackgroundColor();
 	}
 
 	getBorderAlign( state: DBaseState ): number {

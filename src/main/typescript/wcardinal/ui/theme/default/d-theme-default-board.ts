@@ -8,15 +8,14 @@ import { DBaseState } from "../../d-base-state";
 import { DThemeBoard } from "../../d-board";
 import { DCornerMask } from "../../d-corner";
 import { DThemeDefaultBase } from "./d-theme-default-base";
-import { DThemeDefaultConstants } from "./d-theme-default-constants";
 
 export class DThemeDefaultBoard extends DThemeDefaultBase implements DThemeBoard {
 	getBackgroundColor() {
-		return DThemeDefaultConstants.BACKGROUND_COLOR;
+		return this.dThemeConfiguration.getBoardBackgroundColor();
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return null;
+		return this.dThemeConfiguration.getBoardBorderColor();
 	}
 
 	getCornerMask(): number {

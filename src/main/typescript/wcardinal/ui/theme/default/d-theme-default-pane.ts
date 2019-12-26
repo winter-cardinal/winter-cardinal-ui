@@ -8,7 +8,6 @@ import { DBaseState } from "../../d-base-state";
 import { DDragMode } from "../../d-drag-mode";
 import { DThemePane } from "../../d-pane";
 import { DThemeDefaultBase } from "./d-theme-default-base";
-import { DThemeDefaultConstants } from "./d-theme-default-constants";
 
 export class DThemeDefaultPane extends DThemeDefaultBase implements DThemePane {
 	isOverflowMaskEnabled() {
@@ -16,7 +15,7 @@ export class DThemeDefaultPane extends DThemeDefaultBase implements DThemePane {
 	}
 
 	getBackgroundColor( state: DBaseState ): number | null {
-		return DThemeDefaultConstants.BACKGROUND_COLOR;
+		return this.dThemeConfiguration.getPaneBackgroundColor();
 	}
 
 	getInteractive(): DBaseInteractive {

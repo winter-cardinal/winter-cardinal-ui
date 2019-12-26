@@ -10,11 +10,11 @@ import { DThemeDefaultPane } from "./d-theme-default-pane";
 
 export class DThemeDefaultMenuSided extends DThemeDefaultPane implements DThemeMenuSided {
 	getBackgroundColor( state: DBaseState ): number | null {
-		return 0xffffff;
+		return this.dThemeConfiguration.getMenuSidedBackgroundColor();
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return null;
+		return this.dThemeConfiguration.getMenuSidedBorderColor();
 	}
 
 	getInteractive(): DBaseInteractive {

@@ -15,13 +15,13 @@ import { DThemeDefaultImage } from "./d-theme-default-image";
 export class DThemeDefaultListItem extends DThemeDefaultImage implements DThemeListItem {
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
-			return null;
+			return this.dThemeConfiguration.getListItemDisabledBackgroundColor();
 		} else if( DBaseStates.isActive( state ) ) {
-			return DThemeDefaultConstants.HIGHLIGHT_COLOR;
+			return this.dThemeConfiguration.getListItemActiveBackgroundColor();
 		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return DThemeDefaultConstants.WEAK_HIGHLIGHT_COLOR;
+			return this.dThemeConfiguration.getListItemFocusedBackgroundColor();
 		} else {
-			return null;
+			return this.dThemeConfiguration.getListItemBackgroundColor();
 		}
 	}
 
@@ -30,7 +30,7 @@ export class DThemeDefaultListItem extends DThemeDefaultImage implements DThemeL
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return null;
+		return this.dThemeConfiguration.getListItemBorderColor();
 	}
 
 	getHeight(): DCoordinateSize {

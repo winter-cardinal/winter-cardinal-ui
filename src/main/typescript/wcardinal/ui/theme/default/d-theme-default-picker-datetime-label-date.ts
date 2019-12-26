@@ -27,7 +27,7 @@ export class DThemeDefaultPickerDatetimeLabelDate extends DThemeDefaultText impl
 	}
 
 	getColor(): number {
-		return 0x6f6f6f;
+		return this.dThemeConfiguration.getPickerDatetimeLabelDateColor();
 	}
 
 	getFontWeight(): DFontWeight {

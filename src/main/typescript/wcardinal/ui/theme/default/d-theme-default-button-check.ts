@@ -7,7 +7,6 @@ import { DisplayObject, Texture } from "pixi.js";
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { DThemeButtonCheck } from "../../d-button-check";
-import { UtilRgb } from "../../util/util-rgb";
 import { DThemeDefaultAtlas } from "./d-theme-default-atlas";
 import { DThemeDefaultButtonAmbient } from "./d-theme-default-button-ambient";
 import { DThemeDefaultConstants } from "./d-theme-default-constants";
@@ -30,10 +29,9 @@ DThemeDefaultAtlas.add( "button_check_mark_off", 21, 21,
 );
 
 export class DThemeDefaultButtonCheck extends DThemeDefaultButtonAmbient implements DThemeButtonCheck {
-	readonly IMAGE_TINT_COLOR_FOCUSED = UtilRgb.darken( DThemeDefaultConstants.WEAK_HIGHLIGHT_COLOR, 0.1 );
 
 	getBackgroundColor( state: DBaseState ): number | null {
-		return DThemeDefaultConstants.WEAK_HIGHLIGHT_COLOR;
+		return this.dThemeConfiguration.getButtonCheckBackgroundColor();
 	}
 
 	getColor( state: DBaseState ): number {
@@ -52,12 +50,12 @@ export class DThemeDefaultButtonCheck extends DThemeDefaultButtonAmbient impleme
 	getImageTintColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) || DBaseStates.isReadOnly( state ) || ! DBaseStates.isActive( state ) ) {
 			if( DBaseStates.isFocused( state ) ) {
-				return this.IMAGE_TINT_COLOR_FOCUSED;
+				return this.dThemeConfiguration.getButtonCheckImageTintFocusedColor();
 			} else {
-				return DThemeDefaultConstants.WEAK_HIGHLIGHT_COLOR;
+				return this.dThemeConfiguration.getButtonCheckImageTintDisabledColor();
 			}
 		} else {
-			return DThemeDefaultConstants.HIGHLIGHT_COLOR;
+			return this.dThemeConfiguration.getButtonCheckImageTintColor();
 		}
 	}
 

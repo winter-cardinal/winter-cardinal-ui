@@ -12,11 +12,11 @@ import { DThemeDefaultBase } from "./d-theme-default-base";
 
 export class DThemeDefaultLayoutSpace extends DThemeDefaultBase implements DThemeLayoutSpace {
 	getBackgroundColor( state: DBaseState ): number | null {
-		return null;
+		return this.dThemeConfiguration.getLayoutSpaceBackgroundColor();
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return null;
+		return this.dThemeConfiguration.getLayoutSpaceBorderColor();
 	}
 
 	getWidth(): DCoordinateSize {

@@ -7,7 +7,6 @@ import { DisplayObject, Texture } from "pixi.js";
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { DThemeButtonRadio } from "../../d-button-radio";
-import { UtilRgb } from "../../util/util-rgb";
 import { DThemeDefaultAtlas } from "./d-theme-default-atlas";
 import { DThemeDefaultButtonAmbient } from "./d-theme-default-button-ambient";
 import { DThemeDefaultConstants } from "./d-theme-default-constants";
@@ -31,10 +30,9 @@ DThemeDefaultAtlas.add( "button_radio_mark_off", 21, 21,
 );
 
 export class DThemeDefaultButtonRadio extends DThemeDefaultButtonAmbient implements DThemeButtonRadio {
-	readonly IMAGE_TINT_COLOR_FOCUSED = UtilRgb.darken( DThemeDefaultConstants.WEAK_HIGHLIGHT_COLOR, 0.1 );
 
 	getBackgroundColor( state: DBaseState ): number | null {
-		return DThemeDefaultConstants.WEAK_HIGHLIGHT_COLOR;
+		return this.dThemeConfiguration.getButtonRadioBackgroundColor();
 	}
 
 	getColor( state: DBaseState ): number {
@@ -53,12 +51,12 @@ export class DThemeDefaultButtonRadio extends DThemeDefaultButtonAmbient impleme
 	getImageTintColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) || ! DBaseStates.isActive( state ) ) {
 			if( DBaseStates.isFocused( state ) ) {
-				return this.IMAGE_TINT_COLOR_FOCUSED;
+				return this.dThemeConfiguration.getButtonRadioFocusedImageTintColor();
 			} else {
-				return DThemeDefaultConstants.WEAK_HIGHLIGHT_COLOR;
+				return this.dThemeConfiguration.getButtonRadioDisabledImageTintColor();
 			}
 		} else {
-			return DThemeDefaultConstants.HIGHLIGHT_COLOR;
+			return this.dThemeConfiguration.getButtonRadioImageTintColor();
 		}
 	}
 

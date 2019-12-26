@@ -8,26 +8,21 @@ import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { DThemeButtonBase } from "../../d-button-base";
 import { DCoordinateSize } from "../../d-coordinate";
-import { UtilRgb } from "../../util/util-rgb";
-import { DThemeDefaultConstants } from "./d-theme-default-constants";
 import { DThemeDefaultImageBase } from "./d-theme-default-image-base";
 
 export class DThemeDefaultButtonBase extends DThemeDefaultImageBase implements DThemeButtonBase {
-	COLOR = 0xffffff;
-	COLOR_HOVERED = UtilRgb.darken( this.COLOR, 0.017 );
-	COLOR_PRESSED = UtilRgb.darken( this.COLOR, 0.034 );
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
-			return null;
+			return this.dThemeConfiguration.getButtonBaseDisabledBackgroundColor();
 		} else if( DBaseStates.isActive( state ) ) {
-			return DThemeDefaultConstants.HIGHLIGHT_COLOR;
+			return this.dThemeConfiguration.getButtonBaseActiveBackgroundColor();
 		} else if( DBaseStates.isPressed( state ) ) {
-			return this.COLOR_PRESSED;
+			return this.dThemeConfiguration.getButtonBasePressedBackgroundColor();
 		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return this.COLOR_HOVERED;
+			return this.dThemeConfiguration.getButtonBaseFocusedBackgroundColor();
 		} else {
-			return this.COLOR;
+			return this.dThemeConfiguration.getButtonBaseBackgroundColor();
 		}
 	}
 
@@ -35,15 +30,15 @@ export class DThemeDefaultButtonBase extends DThemeDefaultImageBase implements D
 		if( DBaseStates.isDisabled( state ) || ! DBaseStates.isActive( state ) ) {
 			return super.getColor( state );
 		} else {
-			return 0xffffff;
+			return this.dThemeConfiguration.getButtonBaseColor();
 		}
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) || ! DBaseStates.isActive( state ) ) {
-			return 0xe5e5e5;
+			return this.dThemeConfiguration.getButtonBaseDisabledBorderColor();
 		} else {
-			return null;
+			return this.dThemeConfiguration.getButtonBaseBorderColor();
 		}
 	}
 

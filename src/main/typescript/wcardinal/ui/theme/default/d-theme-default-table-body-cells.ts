@@ -8,20 +8,20 @@ import { DBaseStates } from "../../d-base-states";
 import { DBorderMask } from "../../d-border";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
-import { UtilRgb } from "../../util/util-rgb";
+import { DThemeDefaultConfigurations } from "../d-theme-default-configurations";
 import { DThemeDefaultConstants } from "./d-theme-default-constants";
 import { DThemeDefaultFont } from "./d-theme-default-font";
 
 export class DThemeDefaultTableBodyCells {
-	static readonly IMAGE_TINT_COLOR_FOCUSED = UtilRgb.darken( DThemeDefaultConstants.WEAK_HIGHLIGHT_COLOR, 0.1 );
 
 	static getBackgroundColor( state: DBaseState ): number | null {
+		const dThemeConfiguration = DThemeDefaultConfigurations.getInstance();
 		if( DBaseStates.isInvalid( state ) ) {
-			return DThemeDefaultConstants.INVALID_COLOR;
+			return dThemeConfiguration.getTableBodyCellsInvalidBackgroundColor();
 		} else if( state & DBaseState.ACTIVE_IN ) {
-			return DThemeDefaultConstants.HIGHLIGHT_COLOR;
+			return dThemeConfiguration.getTableBodyCellsActiveBackgroundColor();
 		} else {
-			return DThemeDefaultConstants.WEAK_HIGHLIGHT_COLOR;
+			return dThemeConfiguration.getTableBodyCellsBackgroundColor();
 		}
 	}
 
@@ -35,7 +35,8 @@ export class DThemeDefaultTableBodyCells {
 	}
 
 	static getBorderColor( state: DBaseState ): number | null {
-		return 0xf6f6f6;
+		const dThemeConfiguration = DThemeDefaultConfigurations.getInstance();
+		return dThemeConfiguration.getTableBodyCellsBorderColor();
 	}
 
 	static getBorderAlign( state: DBaseState ): number {
@@ -58,14 +59,15 @@ export class DThemeDefaultTableBodyCells {
 	}
 
 	static getImageTintColor( state: DBaseState ): number | null {
+		const dThemeConfiguration = DThemeDefaultConfigurations.getInstance();
 		if( DBaseStates.isDisabled( state ) || DBaseStates.isReadOnly( state ) || ! DBaseStates.isActive( state ) ) {
 			if( DBaseStates.isFocused( state ) ) {
-				return this.IMAGE_TINT_COLOR_FOCUSED;
+				return dThemeConfiguration.getTableBodyCellsFocusedImageTintColor();
 			} else {
-				return DThemeDefaultConstants.WEAK_HIGHLIGHT_COLOR;
+				return dThemeConfiguration.getTableBodyCellsDisabledImageTintColor();
 			}
 		} else {
-			return DThemeDefaultConstants.HIGHLIGHT_COLOR;
+			return dThemeConfiguration.getTableBodyCellsImageTintColor();
 		}
 	}
 
