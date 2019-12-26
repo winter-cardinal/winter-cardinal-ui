@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/white/d-theme-white";
-import { DThemeWhiteLayout } from "../theme/white/d-theme-white-layout";
-import { DThemeWhiteLayoutHorizontal } from "../theme/white/d-theme-white-layout-horizontal";
-import { DThemeWhiteLayoutSpace } from "../theme/white/d-theme-white-layout-space";
-import { DThemeWhiteLayoutVertical } from "../theme/white/d-theme-white-layout-vertical";
+import { DThemeWhite } from "../theme/default/d-theme-default";
+import { DThemeWhiteLayout } from "../theme/default/d-theme-default-layout";
+import { DThemeWhiteLayoutHorizontal } from "../theme/default/d-theme-default-layout-horizontal";
+import { DThemeWhiteLayoutSpace } from "../theme/default/d-theme-default-layout-space";
+import { DThemeWhiteLayoutVertical } from "../theme/default/d-theme-default-layout-vertical";
 
 export const loadThemeWhiteLayout = () => {
 	DThemeWhite.set( "DLayout", DThemeWhiteLayout );

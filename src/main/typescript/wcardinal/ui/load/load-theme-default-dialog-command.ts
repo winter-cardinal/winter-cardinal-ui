@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/white/d-theme-white";
-import { DThemeWhiteDialogCommand } from "../theme/white/d-theme-white-dialog-command";
+import { DThemeWhite } from "../theme/default/d-theme-default";
+import { DThemeWhiteDialogCommand } from "../theme/default/d-theme-default-dialog-command";
 
 export const loadThemeWhiteDialogCommand = () => {
 	DThemeWhite.set( "DDialogCommand", DThemeWhiteDialogCommand );

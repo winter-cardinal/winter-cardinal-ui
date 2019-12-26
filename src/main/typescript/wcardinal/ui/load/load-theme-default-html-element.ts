@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/white/d-theme-white";
-import { DThemeWhiteHTMLElement } from "../theme/white/d-theme-white-html-element";
+import { DThemeWhite } from "../theme/default/d-theme-default";
+import { DThemeWhiteHTMLElement } from "../theme/default/d-theme-default-html-element";
 
 export const loadThemeWhiteHTMLElement = () => {
 	DThemeWhite.set( "DHTMLElement", DThemeWhiteHTMLElement );

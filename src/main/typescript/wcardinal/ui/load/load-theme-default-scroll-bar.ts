@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/white/d-theme-white";
-import { DThemeWhiteScrollBar } from "../theme/white/d-theme-white-scroll-bar";
-import { DThemeWhiteScrollBarThumb } from "../theme/white/d-theme-white-scroll-bar-thumb";
+import { DThemeWhite } from "../theme/default/d-theme-default";
+import { DThemeWhiteScrollBar } from "../theme/default/d-theme-default-scroll-bar";
+import { DThemeWhiteScrollBarThumb } from "../theme/default/d-theme-default-scroll-bar-thumb";
 
 export const loadThemeWhiteScrollBar = () => {
 	DThemeWhite.set( "DScrollBar", DThemeWhiteScrollBar );

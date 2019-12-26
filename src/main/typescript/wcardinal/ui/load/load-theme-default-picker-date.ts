@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/white/d-theme-white";
-import { DThemeWhitePickerDate } from "../theme/white/d-theme-white-picker-date";
-import { loadThemeWhitePickerDatetime } from "./load-theme-white-picker-datetime";
+import { DThemeWhite } from "../theme/default/d-theme-default";
+import { DThemeWhitePickerDate } from "../theme/default/d-theme-default-picker-date";
+import { loadThemeWhitePickerDatetime } from "./load-theme-default-picker-datetime";
 
 export const loadThemeWhitePickerDate = () => {
 	DThemeWhite.set( "DPickerDate", DThemeWhitePickerDate );

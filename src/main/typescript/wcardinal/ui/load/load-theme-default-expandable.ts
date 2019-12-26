@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/white/d-theme-white";
-import { DThemeWhiteExpandable } from "../theme/white/d-theme-white-expandable";
-import { DThemeWhiteExpandableHeader } from "../theme/white/d-theme-white-expandable-header";
+import { DThemeWhite } from "../theme/default/d-theme-default";
+import { DThemeWhiteExpandable } from "../theme/default/d-theme-default-expandable";
+import { DThemeWhiteExpandableHeader } from "../theme/default/d-theme-default-expandable-header";
 
 export const loadThemeWhiteExpandable = () => {
 	DThemeWhite.set( "DExpandableHeader", DThemeWhiteExpandableHeader );

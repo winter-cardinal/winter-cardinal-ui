@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/white/d-theme-white";
-import { DThemeWhiteDialogConfirm } from "../theme/white/d-theme-white-dialog-confirm";
-import { DThemeWhiteDialogConfirmMessage } from "../theme/white/d-theme-white-dialog-confirm-message";
+import { DThemeWhite } from "../theme/default/d-theme-default";
+import { DThemeWhiteDialogConfirm } from "../theme/default/d-theme-default-dialog-confirm";
+import { DThemeWhiteDialogConfirmMessage } from "../theme/default/d-theme-default-dialog-confirm-message";
 
 export const loadThemeWhiteDialogConfirm = () => {
 	DThemeWhite.set( "DDialogConfirm", DThemeWhiteDialogConfirm );

@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/white/d-theme-white";
-import { DThemeWhiteChart } from "../theme/white/d-theme-white-chart";
-import { DThemeWhiteChartAxisX } from "../theme/white/d-theme-white-chart-axis-x";
-import { DThemeWhiteChartAxisXDatetime } from "../theme/white/d-theme-white-chart-axis-x-datetime";
-import { DThemeWhiteChartAxisY } from "../theme/white/d-theme-white-chart-axis-y";
-import { DThemeWhiteChartCoordinateLinear } from "../theme/white/d-theme-white-chart-coordinate-linear";
+import { DThemeWhite } from "../theme/default/d-theme-default";
+import { DThemeWhiteChart } from "../theme/default/d-theme-default-chart";
+import { DThemeWhiteChartAxisX } from "../theme/default/d-theme-default-chart-axis-x";
+import { DThemeWhiteChartAxisXDatetime } from "../theme/default/d-theme-default-chart-axis-x-datetime";
+import { DThemeWhiteChartAxisY } from "../theme/default/d-theme-default-chart-axis-y";
+import { DThemeWhiteChartCoordinateLinear } from "../theme/default/d-theme-default-chart-coordinate-linear";
 import { DThemeWhiteChartCoordinateLog } from "../theme/white/d-theme-white-chart-coordinate-log";
 import { DThemeWhiteChartLegend } from "../theme/white/d-theme-white-chart-legend";
 import { DThemeWhiteChartLegendItem } from "../theme/white/d-theme-white-chart-legend-item";

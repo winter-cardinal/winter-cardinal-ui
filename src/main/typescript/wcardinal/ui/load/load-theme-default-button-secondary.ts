@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/white/d-theme-white";
-import { DThemeWhiteButtonSecondary } from "../theme/white/d-theme-white-button-secondary";
+import { DThemeWhite } from "../theme/default/d-theme-default";
+import { DThemeWhiteButtonSecondary } from "../theme/default/d-theme-default-button-secondary";
 
 export const loadThemeWhiteButtonSecondary = () => {
 	DThemeWhite.set( "DButtonSecondary", DThemeWhiteButtonSecondary );

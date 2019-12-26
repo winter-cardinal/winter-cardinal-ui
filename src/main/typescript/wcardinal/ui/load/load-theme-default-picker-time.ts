@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/white/d-theme-white";
-import { DThemeWhitePickerTime } from "../theme/white/d-theme-white-picker-time";
+import { DThemeWhite } from "../theme/default/d-theme-default";
+import { DThemeWhitePickerTime } from "../theme/default/d-theme-default-picker-time";
 
 export const loadThemeWhitePickerTime = () => {
 	DThemeWhite.set( "DPickerTime", DThemeWhitePickerTime );

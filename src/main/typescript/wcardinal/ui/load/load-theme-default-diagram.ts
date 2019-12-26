@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/white/d-theme-white";
-import { DThemeWhiteDiagram } from "../theme/white/d-theme-white-diagram";
-import { DThemeWhiteDiagramCanvas } from "../theme/white/d-theme-white-diagram-canvas";
+import { DThemeWhite } from "../theme/default/d-theme-default";
+import { DThemeWhiteDiagram } from "../theme/default/d-theme-default-diagram";
+import { DThemeWhiteDiagramCanvas } from "../theme/default/d-theme-default-diagram-canvas";
 
 export const loadThemeWhiteDiagram = () => {
 	DThemeWhite.set( "DDiagram", DThemeWhiteDiagram );

@@ -3,34 +3,34 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/white/d-theme-white";
-import { DThemeWhiteMenuSided } from "../theme/white/d-theme-white-menu-sided";
-import { DThemeWhiteMenuSidedContent } from "../theme/white/d-theme-white-menu-sided-content";
-import { DThemeWhiteMenuSidedItemCheck } from "../theme/white/d-theme-white-menu-sided-item-check";
-import { DThemeWhiteMenuSidedItemExpandable } from "../theme/white/d-theme-white-menu-sided-item-expandable";
+import { DThemeWhite } from "../theme/default/d-theme-default";
+import { DThemeWhiteMenuSided } from "../theme/default/d-theme-default-menu-sided";
+import { DThemeWhiteMenuSidedContent } from "../theme/default/d-theme-default-menu-sided-content";
+import { DThemeWhiteMenuSidedItemCheck } from "../theme/default/d-theme-default-menu-sided-item-check";
+import { DThemeWhiteMenuSidedItemExpandable } from "../theme/default/d-theme-default-menu-sided-item-expandable";
 import {
 	DThemeWhiteMenuSidedItemExpandableItemCheck
-} from "../theme/white/d-theme-white-menu-sided-item-expandable-item-check";
+} from "../theme/default/d-theme-default-menu-sided-item-expandable-item-check";
 import {
 	DThemeWhiteMenuSidedItemExpandableItemLink
-} from "../theme/white/d-theme-white-menu-sided-item-expandable-item-link";
+} from "../theme/default/d-theme-default-menu-sided-item-expandable-item-link";
 import {
 	DThemeWhiteMenuSidedItemExpandableItemMenu
-} from "../theme/white/d-theme-white-menu-sided-item-expandable-item-menu";
+} from "../theme/default/d-theme-default-menu-sided-item-expandable-item-menu";
 import {
 	DThemeWhiteMenuSidedItemExpandableItemSeparator
-} from "../theme/white/d-theme-white-menu-sided-item-expandable-item-separator";
+} from "../theme/default/d-theme-default-menu-sided-item-expandable-item-separator";
 import {
 	DThemeWhiteMenuSidedItemExpandableItemSpace
-} from "../theme/white/d-theme-white-menu-sided-item-expandable-item-space";
+} from "../theme/default/d-theme-default-menu-sided-item-expandable-item-space";
 import {
 	DThemeWhiteMenuSidedItemExpandableItemText
-} from "../theme/white/d-theme-white-menu-sided-item-expandable-item-text";
-import { DThemeWhiteMenuSidedItemLink } from "../theme/white/d-theme-white-menu-sided-item-link";
-import { DThemeWhiteMenuSidedItemMenu } from "../theme/white/d-theme-white-menu-sided-item-menu";
-import { DThemeWhiteMenuSidedItemSeparator } from "../theme/white/d-theme-white-menu-sided-item-separator";
-import { DThemeWhiteMenuSidedItemSpace } from "../theme/white/d-theme-white-menu-sided-item-space";
-import { DThemeWhiteMenuSidedItemText } from "../theme/white/d-theme-white-menu-sided-item-text";
+} from "../theme/default/d-theme-default-menu-sided-item-expandable-item-text";
+import { DThemeWhiteMenuSidedItemLink } from "../theme/default/d-theme-default-menu-sided-item-link";
+import { DThemeWhiteMenuSidedItemMenu } from "../theme/default/d-theme-default-menu-sided-item-menu";
+import { DThemeWhiteMenuSidedItemSeparator } from "../theme/default/d-theme-default-menu-sided-item-separator";
+import { DThemeWhiteMenuSidedItemSpace } from "../theme/default/d-theme-default-menu-sided-item-space";
+import { DThemeWhiteMenuSidedItemText } from "../theme/default/d-theme-default-menu-sided-item-text";
 
 export const loadThemeWhiteMenuSided = () => {
 	DThemeWhite.set( "DMenuSided", DThemeWhiteMenuSided );

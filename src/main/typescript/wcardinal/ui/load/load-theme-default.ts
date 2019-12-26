@@ -4,7 +4,7 @@
  */
 
 import { DThemes } from "../theme/d-themes";
-import { DThemeWhite } from "../theme/white/d-theme-white";
+import { DThemeWhite } from "../theme/default/d-theme-default";
 
 export const loadThemeWhite = () => {
 	DThemes.setDefaultThemeClass( DThemeWhite );

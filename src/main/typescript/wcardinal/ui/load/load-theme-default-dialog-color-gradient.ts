@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/white/d-theme-white";
-import { DThemeWhiteDialogColorGradient } from "../theme/white/d-theme-white-dialog-color-gradient";
-import { loadThemeWhitePickerColorGradient } from "./load-theme-white-picker-color-gradient";
+import { DThemeWhite } from "../theme/default/d-theme-default";
+import { DThemeWhiteDialogColorGradient } from "../theme/default/d-theme-default-dialog-color-gradient";
+import { loadThemeWhitePickerColorGradient } from "./load-theme-default-picker-color-gradient";
 
 export const loadThemeWhiteDialogColorGradient = () => {
 	DThemeWhite.set( "DDialogColorGradient", DThemeWhiteDialogColorGradient );

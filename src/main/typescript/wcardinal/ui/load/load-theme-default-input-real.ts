@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/white/d-theme-white";
-import { DThemeWhiteInputReal } from "../theme/white/d-theme-white-input-real";
+import { DThemeWhite } from "../theme/default/d-theme-default";
+import { DThemeWhiteInputReal } from "../theme/default/d-theme-default-input-real";
 
 export const loadThemeWhiteInputReal = () => {
 	DThemeWhite.set( "DInputReal", DThemeWhiteInputReal );

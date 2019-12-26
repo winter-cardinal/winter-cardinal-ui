@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/white/d-theme-white";
-import { DThemeWhiteCanvas } from "../theme/white/d-theme-white-canvas";
-import { DThemeWhiteCanvasContainer } from "../theme/white/d-theme-white-canvas-container";
+import { DThemeWhite } from "../theme/default/d-theme-default";
+import { DThemeWhiteCanvas } from "../theme/default/d-theme-default-canvas";
+import { DThemeWhiteCanvasContainer } from "../theme/default/d-theme-default-canvas-container";
 
 export const loadThemeWhiteCanvasContainer = () => {
 	DThemeWhite.set( "DCanvasContainer", DThemeWhiteCanvasContainer );

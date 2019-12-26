@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/white/d-theme-white";
-import { DThemeWhiteContent } from "../theme/white/d-theme-white-content";
-import { DThemeWhitePane } from "../theme/white/d-theme-white-pane";
-import { loadThemeWhiteScrollBar } from "./load-theme-white-scroll-bar";
+import { DThemeWhite } from "../theme/default/d-theme-default";
+import { DThemeWhiteContent } from "../theme/default/d-theme-default-content";
+import { DThemeWhitePane } from "../theme/default/d-theme-default-pane";
+import { loadThemeWhiteScrollBar } from "./load-theme-default-scroll-bar";
 
 export const loadThemeWhitePane = () => {
 	DThemeWhite.set( "DPane", DThemeWhitePane );

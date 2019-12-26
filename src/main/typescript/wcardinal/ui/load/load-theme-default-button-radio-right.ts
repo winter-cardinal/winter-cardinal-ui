@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/white/d-theme-white";
-import { DThemeWhiteButtonRadioRight } from "../theme/white/d-theme-white-button-radio-right";
+import { DThemeWhite } from "../theme/default/d-theme-default";
+import { DThemeWhiteButtonRadioRight } from "../theme/default/d-theme-default-button-radio-right";
 
 export const loadThemeWhiteButtonRadioRight = () => {
 	DThemeWhite.set( "DButtonRadioRight", DThemeWhiteButtonRadioRight );
