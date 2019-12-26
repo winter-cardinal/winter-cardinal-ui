@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { UtilRgb } from "../util";
 import { DThemeDefaultConfiguration } from "./d-theme-default-configuration";
 
