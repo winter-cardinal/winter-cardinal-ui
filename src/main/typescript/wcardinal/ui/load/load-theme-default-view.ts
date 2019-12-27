@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/white/d-theme-white";
-import { DThemeWhiteView } from "../theme/white/d-theme-white-view";
+import { DThemeDefault } from "../theme/default/d-theme-default";
+import { DThemeDefaultView } from "../theme/default/d-theme-default-view";
 
-export const loadThemeWhiteView = () => {
-	DThemeWhite.set( "DView", DThemeWhiteView );
+export const loadThemeDefaultView = () => {
+	DThemeDefault.set( "DView", DThemeDefaultView );
 };

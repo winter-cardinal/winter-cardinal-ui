@@ -9,11 +9,11 @@ import { DThemeDefaultChartAxisX } from "../theme/default/d-theme-default-chart-
 import { DThemeDefaultChartAxisXDatetime } from "../theme/default/d-theme-default-chart-axis-x-datetime";
 import { DThemeDefaultChartAxisY } from "../theme/default/d-theme-default-chart-axis-y";
 import { DThemeDefaultChartCoordinateLinear } from "../theme/default/d-theme-default-chart-coordinate-linear";
-import { DThemeWhiteChartCoordinateLog } from "../theme/white/d-theme-white-chart-coordinate-log";
-import { DThemeWhiteChartLegend } from "../theme/white/d-theme-white-chart-legend";
-import { DThemeWhiteChartLegendItem } from "../theme/white/d-theme-white-chart-legend-item";
-import { DThemeWhiteChartOverview } from "../theme/white/d-theme-white-chart-overview";
-import { DThemeWhiteChartPlotArea } from "../theme/white/d-theme-white-chart-plot-area";
+import { DThemeDefaultChartCoordinateLog } from "../theme/default/d-theme-default-chart-coordinate-log";
+import { DThemeDefaultChartLegend } from "../theme/default/d-theme-default-chart-legend";
+import { DThemeDefaultChartLegendItem } from "../theme/default/d-theme-default-chart-legend-item";
+import { DThemeDefaultChartOverview } from "../theme/default/d-theme-default-chart-overview";
+import { DThemeDefaultChartPlotArea } from "../theme/default/d-theme-default-chart-plot-area";
 
 export const loadThemeDefaultChart = () => {
 	DThemeDefault.set( "DChart", DThemeDefaultChart );
@@ -21,9 +21,9 @@ export const loadThemeDefaultChart = () => {
 	DThemeDefault.set( "DChartAxisXDatetime", DThemeDefaultChartAxisXDatetime );
 	DThemeDefault.set( "DChartAxisY", DThemeDefaultChartAxisY );
 	DThemeDefault.set( "DChartCoordinateLinear", DThemeDefaultChartCoordinateLinear );
-	DThemeWhite.set( "DChartCoordinateLog", DThemeWhiteChartCoordinateLog );
-	DThemeWhite.set( "DChartLegend", DThemeWhiteChartLegend );
-	DThemeWhite.set( "DChartLegendItem", DThemeWhiteChartLegendItem );
-	DThemeWhite.set( "DChartOverview", DThemeWhiteChartOverview );
-	DThemeWhite.set( "DChartPlotArea", DThemeWhiteChartPlotArea );
+	DThemeDefault.set( "DChartCoordinateLog", DThemeDefaultChartCoordinateLog );
+	DThemeDefault.set( "DChartLegend", DThemeDefaultChartLegend );
+	DThemeDefault.set( "DChartLegendItem", DThemeDefaultChartLegendItem );
+	DThemeDefault.set( "DChartOverview", DThemeDefaultChartOverview );
+	DThemeDefault.set( "DChartPlotArea", DThemeDefaultChartPlotArea );
 };

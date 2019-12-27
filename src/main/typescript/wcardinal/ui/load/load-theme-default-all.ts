@@ -31,7 +31,8 @@ import { loadThemeDefaultPickerDatetime } from "./load-theme-default-picker-date
 import { loadThemeDefaultPickerTime } from "./load-theme-default-picker-time";
 import { loadThemeDefaultSelect } from "./load-theme-default-select";
 import { loadThemeDefaultTable } from "./load-theme-default-table";
-import { loadThemeDefaultText } from "./load-theme-default-text";import { loadThemeWhiteView } from "./load-theme-white-view";
+import { loadThemeDefaultText } from "./load-theme-default-text";
+import { loadThemeDefaultView } from "./load-theme-default-view";
 
 export const loadThemeDefaultAll = () => {
 	loadThemeDefault();
@@ -62,4 +63,6 @@ export const loadThemeDefaultAll = () => {
 	loadThemeDefaultPickerTime();
 	loadThemeDefaultSelect();
 	loadThemeDefaultTable();
-	loadThemeDefaultText();};
+	loadThemeDefaultText();
+	loadThemeDefaultView();
+};
