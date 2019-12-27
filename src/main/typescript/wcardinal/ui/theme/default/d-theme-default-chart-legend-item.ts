@@ -4,8 +4,8 @@
  */
 
 import { DThemeChartLegendItem } from "../../d-chart-legend-item";
-import { DThemeWhiteBase } from "./d-theme-white-base";
+import { DThemeDefaultBase } from "./d-theme-default-base";
 
-export class DThemeWhiteChartLegendItem extends DThemeWhiteBase implements DThemeChartLegendItem {
+export class DThemeDefaultChartLegendItem extends DThemeDefaultBase implements DThemeChartLegendItem {
 
 }

@@ -5,7 +5,7 @@
 
 import { DThemeChartCoordinateLog } from "../../d-chart-coordinate-log";
 
-export class DThemeWhiteChartCoordinateLog implements DThemeChartCoordinateLog {
+export class DThemeDefaultChartCoordinateLog implements DThemeChartCoordinateLog {
 	isZero( value: number ): boolean {
 		return Math.abs( value ) < 0.00001;
 	}

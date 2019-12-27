@@ -7,7 +7,7 @@ import { DDragMode } from "../../d-drag-mode";
 import { DMouseModifier } from "../../d-mouse-modifier";
 import { DThemeView } from "../../d-view";
 
-export class DThemeWhiteView implements DThemeView {
+export class DThemeDefaultView implements DThemeView {
 	isWheelZoomEnabled(): boolean {
 		return true;
 	}

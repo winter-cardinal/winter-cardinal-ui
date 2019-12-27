@@ -6,9 +6,9 @@
 import { DBaseState } from "../../d-base-state";
 import { DThemeChartPlotArea } from "../../d-chart-plot-area";
 import { DCoordinateSize } from "../../d-coordinate";
-import { DThemeWhiteBase } from "./d-theme-white-base";
+import { DThemeDefaultBase } from "./d-theme-default-base";
 
-export class DThemeWhiteChartPlotArea extends DThemeWhiteBase implements DThemeChartPlotArea {
+export class DThemeDefaultChartPlotArea extends DThemeDefaultBase implements DThemeChartPlotArea {
 	getWidth(): DCoordinateSize {
 		return "100%";
 	}
