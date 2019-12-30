@@ -258,17 +258,37 @@ export class DPane<
 		}
 	}
 
+	protected getScrollBarOffsetHorizontalStart( size: number ): number {
+		return size * 0.5;
+	}
+
+	protected getScrollBarOffsetHorizontalEnd( size: number ): number {
+		return size * 0.5;
+	}
+
+	protected getScrollBarOffsetVerticalStart( size: number ): number {
+		return size * 0.5;
+	}
+
+	protected getScrollBarOffsetVerticalEnd( size: number ): number {
+		return size * 0.5;
+	}
+
 	protected updateScrollBarPositions( verticalBar: DScrollBarVertical, horizontalBar: DScrollBarHorizontal ): void {
 		const width = this.width;
 		const height = this.height;
 
 		const verticalBarWidth = verticalBar.width;
-		verticalBar.position.set( width - verticalBarWidth, verticalBarWidth * 0.5 );
-		verticalBar.height = height - verticalBarWidth;
+		const verticalBarOffsetStart = this.getScrollBarOffsetVerticalStart( verticalBarWidth );
+		const verticalBarOffsetEnd = this.getScrollBarOffsetVerticalEnd( verticalBarWidth );
+		verticalBar.position.set( width - verticalBarWidth, verticalBarOffsetStart );
+		verticalBar.height = height - verticalBarOffsetStart - verticalBarOffsetEnd;
 
 		const horizontalBarHeight = horizontalBar.height;
-		horizontalBar.position.set( horizontalBarHeight * 0.5, height - horizontalBarHeight );
-		horizontalBar.width = width - horizontalBarHeight;
+		const horizontalBarOffsetStart = this.getScrollBarOffsetHorizontalStart( horizontalBarHeight );
+		const horizontalBarOffsetEnd = this.getScrollBarOffsetHorizontalEnd( horizontalBarHeight );
+		horizontalBar.position.set( horizontalBarOffsetStart, height - horizontalBarHeight );
+		horizontalBar.width = width - horizontalBarOffsetStart - horizontalBarOffsetEnd;
 	}
 
 	protected updateScrollBarRegions( verticalBar: DScrollBarVertical, horizontalBar: DScrollBarHorizontal ): void {
@@ -337,11 +357,13 @@ export class DPane<
 		let newX: number | null = null;
 		if( x0 < 0 ) {
 			if( x1 <= width ) {
-				newX = Math.max( width - contentWidth, Math.min( 0, contentX + (0 - x0) ) );
+				newX = contentX - Math.max( x0, x1 - width );
+				newX = Math.max( width - contentWidth, Math.min( 0, newX ) );
 			}
 		} else {
 			if( width < x1 ) {
-				newX = Math.max( width - contentWidth, Math.min( 0, contentX - (x1 - width) ) );
+				newX = contentX - Math.min( x0, x1 - width );
+				newX = Math.max( width - contentWidth, Math.min( 0, newX ) );
 			}
 		}
 
@@ -349,11 +371,13 @@ export class DPane<
 		let newY: number | null = null;
 		if( y0 < 0 ) {
 			if( y1 <= height ) {
-				newY = Math.max( height - contentHeight, Math.min( 0, contentY + (0 - y0) ) );
+				newY = contentY - Math.max( y0, y1 - height );
+				newY = Math.max( height - contentHeight, Math.min( 0, newY ) );
 			}
 		} else {
 			if( height < y1 ) {
-				newY = Math.max( height - contentHeight, Math.min( 0, contentY - (y1 - height) ) );
+				newY = contentY - Math.min( y0, y1 - height );
+				newY = Math.max( height - contentHeight, Math.min( 0, newY ) );
 			}
 		}
 

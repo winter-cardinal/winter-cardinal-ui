@@ -33,7 +33,6 @@ export class DTableBodyCellText<
 		super.init( options );
 		this._columnIndex = options.column.index;
 		this._columnData = options.column.data;
-		this.setState( DBaseState.UNFOCUSABLE, true );
 	}
 
 	set( value: unknown ): void {

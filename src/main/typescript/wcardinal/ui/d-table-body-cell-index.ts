@@ -36,7 +36,6 @@ export class DTableBodyCellIndex<
 		super.init( options );
 		this._columnIndex = options.column.index;
 		this._columnData = options.column.data;
-		this.setState( DBaseState.UNFOCUSABLE, true );
 	}
 
 	set( value: unknown, rowIndex: number): void {

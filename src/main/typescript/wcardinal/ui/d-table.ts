@@ -3,11 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { interaction } from "pixi.js";
 import { DDialogSelectOptions } from "../ui/d-dialog-select";
 import { DAlignHorizontal } from "./d-align-horizontal";
+import { DBaseOptions } from "./d-base";
+import { DContentOptions } from "./d-content";
+import { DCoordinateSize } from "./d-coordinate";
 import { DDialogSelect } from "./d-dialog-select";
-import { DLayoutVertical, DLayoutVerticalOptions, DThemeLayoutVertical } from "./d-layout-vertical";
 import { DMenu, DMenuOptions } from "./d-menu";
+import { DPane, DPaneOptions, DThemePane } from "./d-pane";
 import { DTableBody, DTableBodyOptions, DThemeTableBody } from "./d-table-body";
 import {
 	DTableColumn, DTableColumnEditing, DTableColumnEditingOptions, DTableColumnOptions,
@@ -16,23 +20,26 @@ import {
 } from "./d-table-column";
 import { DTableData, DTableDataOptions } from "./d-table-data";
 import { DTableDataList } from "./d-table-data-list";
+import { DTableDataSelectionType } from "./d-table-data-selection";
 import { DTableHeader, DTableHeaderOptions, DThemeTableHeader } from "./d-table-header";
 import { utilIsArray } from "./util/util-is-array";
 import { utilIsString } from "./util/util-is-string";
+import { UtilPointerEvent } from "./util/util-pointer-event";
 import { utilToString } from "./util/util-to-string";
 
 export interface DTableOptions<
 	ROW,
 	DATA extends DTableData<ROW> = DTableDataList<ROW>,
-	THEME extends DThemeTable = DThemeTable
-> extends DLayoutVerticalOptions<THEME> {
+	THEME extends DThemeTable = DThemeTable,
+	CONTENT_OPTIONS extends DBaseOptions = DContentOptions
+> extends DPaneOptions<THEME, CONTENT_OPTIONS> {
 	columns: Array<DTableColumnOptions<ROW>>;
 	header?: DTableHeaderOptions<ROW>;
 	body?: DTableBodyOptions<ROW, DATA>;
 	data?: ROW[] | DTableDataOptions<ROW> | DATA;
 }
 
-export interface DThemeTable extends DThemeLayoutVertical {
+export interface DThemeTable extends DThemePane {
 
 }
 
@@ -224,8 +231,9 @@ export class DTable<
 	ROW,
 	DATA extends DTableData<ROW> = DTableDataList<ROW>,
 	THEME extends DThemeTable = DThemeTable,
-	OPTIONS extends DTableOptions<ROW, DATA, THEME> = DTableOptions<ROW, DATA, THEME>
-> extends DLayoutVertical<THEME, OPTIONS> {
+	CONTENT_OPTIONS extends DBaseOptions = DContentOptions,
+	OPTIONS extends DTableOptions<ROW, DATA, THEME, CONTENT_OPTIONS> = DTableOptions<ROW, DATA, THEME, CONTENT_OPTIONS>
+>  extends DPane<THEME, CONTENT_OPTIONS, OPTIONS> {
 	protected _header!: DTableHeader<ROW>;
 	protected _body!: DTableBody<ROW, DATA>;
 
@@ -234,17 +242,62 @@ export class DTable<
 	}
 
 	protected init( options: OPTIONS ) {
-		super.init( options );
-
+		// Column
 		const columns = toColumns( options.columns );
 
+		// Header
 		const header = this.newHeader( options, columns );
 		this._header = header;
-		this.addChild( header );
 
+		// Body
 		const body = this.newBody( options, columns );
 		this._body = body;
-		this.addChild( body );
+		body.position.y = header.height;
+
+		// Super
+		super.init( options );
+
+		// Content
+		const content = this._content;
+		content.setWidth( this.toContentWidth( options ) );
+		content.addChild( body );
+		content.addChild( header );
+		content.on( "move", (): void => {
+			body.update();
+		});
+		content.on( "resize", (): void => {
+			body.update();
+		});
+		if( body.data.selection.type !== DTableDataSelectionType.NONE ) {
+			UtilPointerEvent.onClick( this, ( e: interaction.InteractionEvent ): void => {
+				body.onRowClicked( e );
+			});
+		}
+		body.update();
+	}
+
+	protected getScrollBarOffsetVerticalStart( size: number ): number {
+		return size * 0.5 + this._body.position.y;
+	}
+
+	protected toContentWidth( options: OPTIONS ): DCoordinateSize {
+		let columnWidthTotal = 0;
+		const columns = options.columns;
+		if( columns ) {
+			for( let i = 0, imax = columns.length; i < imax; ++i ) {
+				const column = columns[ i ];
+				const columnWidth = column.width;
+				if( columnWidth != null ) {
+					columnWidthTotal += columnWidth;
+				}
+			}
+		}
+		if( 0 < columnWidthTotal ) {
+			return ( p: number ): number => {
+				return Math.max( p, columnWidthTotal );
+			};
+		}
+		return "100%";
 	}
 
 	protected newHeader( options: OPTIONS, columns: Array<DTableColumn<ROW>> ): DTableHeader<ROW> {

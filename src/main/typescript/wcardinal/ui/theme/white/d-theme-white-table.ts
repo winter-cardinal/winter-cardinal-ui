@@ -7,9 +7,9 @@ import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseState } from "../../d-base-state";
 import { DThemeTable } from "../../d-table";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
-import { DThemeWhiteLayoutVertical } from "./d-theme-white-layout-vertical";
+import { DThemeWhitePane } from "./d-theme-white-pane";
 
-export class DThemeWhiteTable extends DThemeWhiteLayoutVertical implements DThemeTable {
+export class DThemeWhiteTable extends DThemeWhitePane implements DThemeTable {
 	getBackgroundColor() {
 		return DThemeWhiteConstants.BACKGROUND_COLOR;
 	}

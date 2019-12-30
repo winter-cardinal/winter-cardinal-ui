@@ -5,10 +5,8 @@
 
 import { interaction, Point } from "pixi.js";
 import InteractionEvent = interaction.InteractionEvent;
-import { DBase, DBaseOptions } from "./d-base";
+import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DButtonBase } from "./d-button-base";
-import { DContentOptions } from "./d-content";
-import { DPane, DPaneOptions, DThemePane } from "./d-pane";
 import { DTableBodyRow, DTableBodyRowOptions } from "./d-table-body-row";
 import { DTableBodyRowEven } from "./d-table-body-row-even";
 import { DTableBodyRowOdd } from "./d-table-body-row-odd";
@@ -21,15 +19,14 @@ import { UtilPointerEvent } from "./util/util-pointer-event";
 export interface DTableBodyOptions<
 	ROW,
 	DATA extends DTableData<ROW> = DTableDataList<ROW>,
-	THEME extends DThemeTableBody = DThemeTableBody,
-	CONTENT_OPTIONS extends DBaseOptions = DContentOptions
-> extends DPaneOptions<THEME, CONTENT_OPTIONS> {
+	THEME extends DThemeTableBody = DThemeTableBody
+> extends DBaseOptions<THEME> {
 	columns?: Array<DTableColumn<ROW>>;
 	row?: DTableBodyRowOptions<ROW>;
 	data?: DTableDataOptions<ROW> | DATA;
 }
 
-export interface DThemeTableBody extends DThemePane {
+export interface DThemeTableBody extends DThemeBase {
 	getRowHeight(): number;
 }
 
@@ -68,10 +65,8 @@ export class DTableBody<
 	ROW,
 	DATA extends DTableData<ROW> = DTableDataList<ROW>,
 	THEME extends DThemeTableBody = DThemeTableBody,
-	CONTENT_OPTIONS extends DBaseOptions = DContentOptions,
-	OPTIONS extends DTableBodyOptions<ROW, DATA, THEME, CONTENT_OPTIONS>
-		= DTableBodyOptions<ROW, DATA, THEME, CONTENT_OPTIONS>
-> extends DPane<THEME, CONTENT_OPTIONS, OPTIONS> {
+	OPTIONS extends DTableBodyOptions<ROW, DATA, THEME> = DTableBodyOptions<ROW, DATA, THEME>
+> extends DBase<THEME, OPTIONS> {
 	protected static WORK_ON_CLICK = new Point();
 	protected _columns!: Array<DTableColumn<ROW>>;
 	protected _rowHeight!: number;
@@ -108,40 +103,30 @@ export class DTableBody<
 		this._isUpdateRowsCalled = false;
 		this._isUpdateRowsCalledForcibly = false;
 		this._workRows = [];
+	}
 
-		const content = this.content;
-		content.on( "move", (): void => {
-			this.update();
-		});
-		content.on( "resize", (): void => {
-			this.update();
-		});
-		this.update();
-
-		if( data.selection.type !== DTableDataSelectionType.NONE ) {
-			UtilPointerEvent.onClick( this, ( e: InteractionEvent ): void => {
-				if( this.isActionable() ) {
-					const local = DTableBody.WORK_ON_CLICK;
-					local.copyFrom( e.data.global );
-					content.toLocal( local, undefined, local, false );
-					const rowIndexMapped = Math.floor( local.y / this._rowHeight );
-					if( 0 <= rowIndexMapped && rowIndexMapped < data.mapped.size() ) {
-						const isSingle = ( data.selection.type === DTableDataSelectionType.SINGLE );
-						const isNotSingle = ! isSingle;
-						const originalEvent = e.data.originalEvent;
-						const ctrlKey = originalEvent.ctrlKey;
-						const shiftKey = originalEvent.shiftKey;
-						const rowIndex = data.mapped.unmap( rowIndexMapped );
-						if( isSingle || data.selection.isEmpty() || ! ( isNotSingle && ( ctrlKey || shiftKey ) ) ) {
-							data.selection.clearAndAdd( rowIndex );
-						} else if( ctrlKey ) {
-							data.selection.toggle( rowIndex );
-						} else if( shiftKey ) {
-							data.selection.addTo( rowIndex );
-						}
-					}
+	onRowClicked( e: InteractionEvent ): void {
+		if( this.isActionable() ) {
+			const local = DTableBody.WORK_ON_CLICK;
+			local.copyFrom( e.data.global );
+			this.toLocal( local, undefined, local, false );
+			const rowIndexMapped = Math.floor( local.y / this._rowHeight );
+			const data = this._data;
+			if( 0 <= rowIndexMapped && rowIndexMapped < data.mapped.size() ) {
+				const isSingle = ( data.selection.type === DTableDataSelectionType.SINGLE );
+				const isNotSingle = ! isSingle;
+				const originalEvent = e.data.originalEvent;
+				const ctrlKey = originalEvent.ctrlKey;
+				const shiftKey = originalEvent.shiftKey;
+				const rowIndex = data.mapped.unmap( rowIndexMapped );
+				if( isSingle || data.selection.isEmpty() || ! ( isNotSingle && ( ctrlKey || shiftKey ) ) ) {
+					data.selection.clearAndAdd( rowIndex );
+				} else if( ctrlKey ) {
+					data.selection.toggle( rowIndex );
+				} else if( shiftKey ) {
+					data.selection.addTo( rowIndex );
 				}
-			});
+			}
 		}
 	}
 
@@ -188,9 +173,9 @@ export class DTableBody<
 			return;
 		}
 
-		const content = this.content;
-		const rows = content.children as Array<DTableBodyRow<ROW>>;
-		const height = this.height;
+		const content = this.parent;
+		const rows = this.children as Array<DTableBodyRow<ROW>>;
+		const height = content.parent.height;
 		const rowHeight = this._rowHeight;
 
 		const data = this._data;
@@ -200,7 +185,10 @@ export class DTableBody<
 		let oldRowIndexMappedEnd = this._rowIndexMappedEnd;
 		let oldRowCount = oldRowIndexMappedEnd - oldRowIndexMappedStart;
 
-		const newContentHeight = Math.max( height, dataMappedSize * rowHeight );
+		const newHeight = dataMappedSize * rowHeight;
+		this.height = newHeight;
+
+		const newContentHeight = Math.max( height, newHeight );
 		const newContentY = Math.max( height - newContentHeight, content.position.y );
 		content.position.y = newContentY;
 		content.height = newContentHeight;
@@ -220,13 +208,13 @@ export class DTableBody<
 			for( let i = oldRowCount; i < newRowCount; ++i ) {
 				const oldRowIndexMapped = oldRowIndexMappedStart + i;
 				const newRow = this.newRow( (oldRowIndexMapped % 2) === 0 );
-				content.addChild( newRow );
+				this.addChild( newRow );
 			}
 			oldRowCount = newRowCount;
 			oldRowIndexMappedEnd = oldRowIndexMappedStart + oldRowCount;
 		} else if( newRowCount < oldRowCount ) {
 			for( let i = oldRowCount - 1; newRowCount <= i; --i ) {
-				content.removeChild( rows[ i ] );
+				this.removeChild( rows[ i ] );
 			}
 			oldRowCount = newRowCount;
 			oldRowIndexMappedEnd = oldRowIndexMappedStart + oldRowCount;
@@ -308,7 +296,7 @@ export class DTableBody<
 			new DTableBodyRowEven<ROW>( options ) : new DTableBodyRowOdd<ROW>( options )
 		);
 		result.on( "change", ( newCellValue: unknown, oldCellValue: unknown, columnIndex: number ): void => {
-			const index = this.content.getChildIndex( result );
+			const index = this.getChildIndex( result );
 			if( 0 <= index ) {
 				const rowIndex = this._rowIndexMappedStart + index;
 				const data = this._data;
@@ -323,14 +311,13 @@ export class DTableBody<
 		const data = this._data;
 		if( this.isActionable() && data.selection.type !== DTableDataSelectionType.NONE ) {
 			const local = UtilPointerEvent.toGlobal( e, interactionManager, DTableBody.WORK_ON_CLICK );
-			const content = this.content;
-			content.toLocal( local, undefined, local, false );
+			this.toLocal( local, undefined, local, false );
 			const x = local.x;
 			const y = local.y;
 			const rowIndexMapped = Math.floor( y / this._rowHeight );
 			if( 0 <= rowIndexMapped && rowIndexMapped < data.mapped.size() ) {
 				const index = rowIndexMapped - this._rowIndexMappedStart;
-				const rows = content.children as Array<DTableBodyRow<ROW>>;
+				const rows = this.children as Array<DTableBodyRow<ROW>>;
 				if( 0 <= index && index < rows.length ) {
 					const row = rows[ index ];
 					const cells = row.children as DBase[];

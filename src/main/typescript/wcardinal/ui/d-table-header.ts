@@ -30,6 +30,11 @@ export class DTableHeader<
 		super.init( options );
 	}
 
+	onParentMove( x: number, y: number ): void {
+		super.onParentMove( x, y );
+		this.transform.position.y = -y;
+	}
+
 	protected newCell(
 		column: DTableColumn<ROW>,
 		columnIndex: number,

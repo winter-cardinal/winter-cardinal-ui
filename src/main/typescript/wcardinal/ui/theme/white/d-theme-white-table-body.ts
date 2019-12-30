@@ -3,13 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseState } from "../../d-base-state";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DThemeTableBody } from "../../d-table-body";
-import { DThemeWhitePane } from "./d-theme-white-pane";
+import { DThemeWhiteBase } from "./d-theme-white-base";
 
-export class DThemeWhiteTableBody extends DThemeWhitePane implements DThemeTableBody {
+export class DThemeWhiteTableBody extends DThemeWhiteBase implements DThemeTableBody {
 	getWidth(): DCoordinateSize {
 		return "100%";
 	}
@@ -24,5 +25,9 @@ export class DThemeWhiteTableBody extends DThemeWhitePane implements DThemeTable
 
 	getRowHeight(): number {
 		return 30;
+	}
+
+	getInteractive(): DBaseInteractive {
+		return DBaseInteractive.BOTH;
 	}
 }
