@@ -75,7 +75,7 @@ export class DThemeWhiteInput extends DThemeWhiteHTMLElement<HTMLInputElement> i
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return 0xe5e5e5;
+		return DThemeWhiteConstants.BORDER_COLOR;
 	}
 
 	getOutlineColor( state: DBaseState ): number | null {

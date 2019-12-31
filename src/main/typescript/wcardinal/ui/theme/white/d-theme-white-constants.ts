@@ -16,5 +16,7 @@ export class DThemeWhiteConstants {
 	static INVALID_ALPHA = 0.2;
 	static INVALID_BLENDED = 0xfff0f0;
 
+	static BORDER_COLOR = 0xe5e5e5;
+
 	static BACKGROUND_COLOR = 0xf2f2f2;
 }

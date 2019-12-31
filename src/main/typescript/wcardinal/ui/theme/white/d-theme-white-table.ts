@@ -15,7 +15,7 @@ export class DThemeWhiteTable extends DThemeWhitePane implements DThemeTable {
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return 0xdddddd;
+		return null;
 	}
 
 	getMargin(): number {

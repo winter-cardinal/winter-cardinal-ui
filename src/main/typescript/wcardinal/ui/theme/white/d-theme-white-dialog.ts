@@ -21,7 +21,7 @@ export class DThemeWhiteDialog extends DThemeWhiteBase implements DThemeDialog {
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
+		return DThemeWhiteConstants.BORDER_COLOR;
 	}
 
 	getPaddingLeft(): number {
