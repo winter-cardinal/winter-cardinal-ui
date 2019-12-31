@@ -198,11 +198,6 @@ export class DMenu<
 				context.remove( this );
 			}
 
-			const parent = this.parent;
-			if( parent ) {
-				parent.removeChild( this );
-			}
-
 			const layer = this._overlay.picked;
 			if( layer ) {
 				layer.renderer.off( "prerender", this._onPrerenderBound );
@@ -211,6 +206,11 @@ export class DMenu<
 			this._owner = null;
 
 			super.hide();
+
+			const parent = this.parent;
+			if( parent ) {
+				parent.removeChild( this );
+			}
 
 			this.emit( "close", this );
 		}
