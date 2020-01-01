@@ -319,6 +319,8 @@ export * from "./d-table-body-row-even";
 export * from "./d-table-body-row-odd";
 export * from "./d-table-body-row";
 export * from "./d-table-body";
+export * from "./d-table-category-cell";
+export * from "./d-table-category";
 export * from "./d-table-column";
 export * from "./d-table-data-filter-impl";
 export * from "./d-table-data-filter";

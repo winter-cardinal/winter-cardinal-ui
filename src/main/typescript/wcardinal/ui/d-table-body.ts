@@ -25,6 +25,7 @@ export interface DTableBodyOptions<
 	columns?: Array<DTableColumn<ROW>>;
 	row?: DTableBodyRowOptions<ROW>;
 	data?: DTableDataOptions<ROW> | DATA;
+	offset?: number;
 }
 
 export interface DThemeTableBody extends DThemeBase {
@@ -88,6 +89,8 @@ export class DTableBody<
 	}
 
 	protected init( options: OPTIONS ) {
+		this.transform.position.y = options.offset || 0;
+
 		super.init( options );
 
 		const data = ( isDTableData( options.data ) ? options.data :

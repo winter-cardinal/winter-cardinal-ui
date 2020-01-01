@@ -8,6 +8,7 @@ import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignWith } from "../../d-align-with";
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
+import { DBorderMask } from "../../d-border";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
@@ -51,7 +52,19 @@ export class DThemeWhiteTableHeaderCell extends DThemeWhiteImage implements DThe
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return null;
+		return 0xf0f0f0;
+	}
+
+	getBorderAlign( state: DBaseState ): number {
+		return 0;
+	}
+
+	getBorderMask( state: DBaseState ): DBorderMask {
+		if( DBaseStates.is( state, DBaseState.END ) ) {
+			return DBorderMask.ALL;
+		} else {
+			return DBorderMask.NOT_RIGHT;
+		}
 	}
 
 	getTextAlignHorizontal(): DAlignHorizontal {
@@ -101,5 +114,4 @@ export class DThemeWhiteTableHeaderCell extends DThemeWhiteImage implements DThe
 	getImageAlignWith(): DAlignWith {
 		return DAlignWith.PADDING;
 	}
-
 }

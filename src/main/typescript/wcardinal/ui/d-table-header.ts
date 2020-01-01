@@ -13,9 +13,12 @@ export interface DTableHeaderTable<ROW> {
 	readonly data: DTableData<ROW>;
 }
 
-export interface DTableHeaderOptions<ROW, THEME extends DThemeTableHeader = DThemeTableHeader>
-	extends DTableRowOptions<ROW, THEME> {
-	table: DTableHeaderTable<ROW>;
+export interface DTableHeaderOptions<
+	ROW,
+	THEME extends DThemeTableHeader = DThemeTableHeader
+> extends DTableRowOptions<ROW, DTableColumn<ROW>, THEME> {
+	table?: DTableHeaderTable<ROW>;
+	offset?: number;
 	cell?: DTableHeaderCellOptions<ROW>;
 }
 
@@ -27,25 +30,28 @@ export class DTableHeader<
 	ROW,
 	THEME extends DThemeTableHeader = DThemeTableHeader,
 	OPTIONS extends DTableHeaderOptions<ROW, THEME> = DTableHeaderOptions<ROW, THEME>
-> extends DTableRow<ROW, THEME, OPTIONS> {
-	protected _table!: DTableHeaderTable<ROW>;
+> extends DTableRow<ROW, DTableColumn<ROW>, THEME, OPTIONS> {
+	protected _table!: DTableHeaderTable<ROW> | null;
+	protected _offset!: number;
 
 	constructor( options: OPTIONS ) {
 		super( options );
 	}
 
 	protected init( options: OPTIONS ) {
-		this._table = options.table;
+		this._table = options.table || null;
+		this._offset = this.transform.position.y = options.offset || 0;
+
 		super.init( options );
 	}
 
-	get table(): DTableHeaderTable<ROW> {
+	get table(): DTableHeaderTable<ROW> | null {
 		return this._table;
 	}
 
 	onParentMove( x: number, y: number ): void {
 		super.onParentMove( x, y );
-		this.transform.position.y = -y;
+		this.transform.position.y = -y + this._offset;
 	}
 
 	protected newCell(
@@ -61,15 +67,28 @@ export class DTableHeader<
 		column: DTableColumn<ROW>,
 		options: OPTIONS
 	): DTableHeaderCellOptions<ROW> {
-		const header = column.header || options.cell;
-		if( header != null ) {
-			header.weight = column.weight;
-			header.width = column.width;
-			const text = header.text = header.text || {};
-			text.value = text.value || column.label;
-			header.column = column;
-			header.header = this;
-			return header;
+		const result = column.header || options.cell;
+		if( result != null ) {
+			if( result.weight === undefined ) {
+				result.weight = column.weight;
+			}
+			if( result.width === undefined ) {
+				result.width = column.width;
+			}
+			if( result.text === undefined ) {
+				result.text = {
+					value: column.label
+				};
+			} else if( result.text.value === undefined ) {
+				result.text.value = column.label;
+			}
+			if( result.header === undefined ) {
+				result.header = this;
+			}
+			if( result.column === undefined ) {
+				result.column = column;
+			}
+			return result;
 		} else {
 			return {
 				weight: column.weight,

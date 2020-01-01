@@ -117,6 +117,8 @@ export interface DTableColumnOptions<ROW> {
 	body?: DTableBodyCellOptionsUnion<ROW>;
 
 	selecting?: DTableColumnSelectingOptions;
+
+	category?: string;
 }
 
 export interface DTableColumn<ROW> {
@@ -137,4 +139,6 @@ export interface DTableColumn<ROW> {
 	body?: DTableBodyCellOptionsUnion<ROW>;
 
 	selecting: DTableColumnSelecting;
+
+	category?: string;
 }

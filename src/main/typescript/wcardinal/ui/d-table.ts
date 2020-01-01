@@ -13,6 +13,7 @@ import { DDialogSelect } from "./d-dialog-select";
 import { DMenu, DMenuOptions } from "./d-menu";
 import { DPane, DPaneOptions, DThemePane } from "./d-pane";
 import { DTableBody, DTableBodyOptions } from "./d-table-body";
+import { DTableCategory, DTableCategoryColumn, DTableCategoryOptions } from "./d-table-category";
 import {
 	DTableColumn, DTableColumnEditing, DTableColumnOptions,
 	DTableColumnSelecting, DTableColumnSelectingOptions, DTableColumnSorting, DTableColumnType,
@@ -35,6 +36,7 @@ export interface DTableOptions<
 	CONTENT_OPTIONS extends DBaseOptions = DContentOptions
 > extends DPaneOptions<THEME, CONTENT_OPTIONS> {
 	columns: Array<DTableColumnOptions<ROW>>;
+	category?: DTableCategoryOptions;
 	header?: DTableHeaderOptions<ROW>;
 	body?: DTableBodyOptions<ROW, DATA>;
 	data?: ROW[] | DTableDataOptions<ROW> | DATA;
@@ -205,7 +207,9 @@ const toColumn = <ROW>( index: number, options: DTableColumnOptions<ROW> ): DTab
 		header: options.header,
 		body: options.body,
 
-		selecting: toColumnSelecting( options.selecting )
+		selecting: toColumnSelecting( options.selecting ),
+
+		category: options.category
 	};
 };
 
@@ -224,6 +228,7 @@ export class DTable<
 	CONTENT_OPTIONS extends DBaseOptions = DContentOptions,
 	OPTIONS extends DTableOptions<ROW, DATA, THEME, CONTENT_OPTIONS> = DTableOptions<ROW, DATA, THEME, CONTENT_OPTIONS>
 >  extends DPane<THEME, CONTENT_OPTIONS, OPTIONS> {
+	protected _category!: DTableCategory | null;
 	protected _header!: DTableHeader<ROW>;
 	protected _body!: DTableBody<ROW, DATA>;
 
@@ -235,14 +240,19 @@ export class DTable<
 		// Column
 		const columns = toColumns( options.columns );
 
+		// Categories
+		const category = this.newCategory( options, columns );
+		this._category = category;
+
 		// Header
-		const header = this.newHeader( options, columns );
+		const headerOffset = (category && category.height) || 0;
+		const header = this.newHeader( options, columns, headerOffset );
 		this._header = header;
 
 		// Body
-		const body = this.newBody( options, columns );
+		const bodyOffset = headerOffset + header.height;
+		const body = this.newBody( options, columns, bodyOffset );
 		this._body = body;
-		body.position.y = header.height;
 
 		// Super
 		super.init( options );
@@ -252,6 +262,9 @@ export class DTable<
 		content.setWidth( this.toContentWidth( options ) );
 		content.addChild( body );
 		content.addChild( header );
+		if( category ) {
+			content.addChild( category );
+		}
 		content.on( "move", (): void => {
 			body.update();
 		});
@@ -264,6 +277,67 @@ export class DTable<
 			});
 		}
 		body.update();
+	}
+
+	protected hasCategories( columns: Array<DTableColumn<ROW>> ): boolean {
+		for( let i = 0, imax = columns.length; i < imax; ++i ) {
+			if( columns[ i ].category != null ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	protected toCategoryColumns( columns: Array<DTableColumn<ROW>> ): DTableCategoryColumn[] {
+		const result: DTableCategoryColumn[] = [];
+		let current: DTableCategoryColumn | null = null;
+		for( let i = 0, imax = columns.length; i < imax; ++i ) {
+			const column = columns[ i ];
+			if( current && current.label === column.category ) {
+				if( current.weight != null && column.weight != null ) {
+					current.weight += column.weight;
+				} else if( current.width != null && column.width != null ) {
+					current.width += column.width;
+				} else {
+					current = {
+						label: column.category,
+						weight: column.weight,
+						width: column.width
+					};
+					result.push( current );
+				}
+			} else {
+				current = {
+					label: column.category,
+					weight: column.weight,
+					width: column.width
+				};
+				result.push( current );
+			}
+		}
+		return result;
+	}
+
+	protected newCategory( options: OPTIONS, columns: Array<DTableColumn<ROW>> ): DTableCategory | null {
+		if( this.hasCategories( columns ) ) {
+			return new DTableCategory( this.toCategoryOptions( options.category, columns ) );
+		}
+		return null;
+	}
+
+	protected toCategoryOptions(
+		options: DTableCategoryOptions | undefined,
+		columns: Array<DTableColumn<ROW>>
+	): DTableCategoryOptions {
+		if( options ) {
+			if( options.columns === undefined ) {
+				options.columns = this.toCategoryColumns( columns );
+			}
+			return options;
+		}
+		return {
+			columns: this.toCategoryColumns( columns )
+		};
 	}
 
 	onDblClick( e: MouseEvent | TouchEvent, interactionManager: interaction.InteractionManager ): boolean {
@@ -295,34 +369,42 @@ export class DTable<
 		return "100%";
 	}
 
-	protected newHeader( options: OPTIONS, columns: Array<DTableColumn<ROW>> ): DTableHeader<ROW> {
-		return new DTableHeader( this.toHeaderOptions( options.header, columns ) );
+	protected newHeader( options: OPTIONS, columns: Array<DTableColumn<ROW>>, offset: number ): DTableHeader<ROW> {
+		return new DTableHeader( this.toHeaderOptions( options.header, columns, offset ) );
 	}
 
 	protected toHeaderOptions(
 		options: DTableHeaderOptions<ROW> | undefined,
-		columns: Array<DTableColumn<ROW>>
+		columns: Array<DTableColumn<ROW>>,
+		offset: number
 	): DTableHeaderOptions<ROW> {
 		if( options ) {
 			if( options.columns === undefined ) {
 				options.columns = columns;
 			}
-			options.table = this;
+			if( options.table === undefined ) {
+				options.table = this;
+			}
+			if( options.offset === undefined ) {
+				options.offset = offset;
+			}
 			return options;
 		}
 		return {
 			table: this,
+			offset,
 			columns
 		};
 	}
 
-	protected newBody( options: OPTIONS, columns: Array<DTableColumn<ROW>> ): DTableBody<ROW, DATA> {
-		return new DTableBody<ROW, DATA>( this.toBodyOptions( options.body, columns, options.data ) );
+	protected newBody( options: OPTIONS, columns: Array<DTableColumn<ROW>>, offset: number ): DTableBody<ROW, DATA> {
+		return new DTableBody<ROW, DATA>( this.toBodyOptions( options.body, columns, offset, options.data ) );
 	}
 
 	protected toBodyOptions(
 		options: DTableBodyOptions<ROW, DATA> | undefined,
 		columns: Array<DTableColumn<ROW>>,
+		offset: number,
 		data: ROW[] | DTableDataOptions<ROW> | DATA | undefined
 	): DTableBodyOptions<ROW, DATA> {
 		if( options != null ) {
@@ -338,6 +420,9 @@ export class DTable<
 			if( options.columns === undefined ) {
 				options.columns = columns;
 			}
+			if( options.offset === undefined ) {
+				options.offset = offset;
+			}
 			if( options.height === undefined && options.weight === undefined ) {
 				options.weight = 1;
 			}
@@ -346,6 +431,7 @@ export class DTable<
 		if( utilIsArray( data ) ) {
 			return {
 				columns,
+				offset,
 				data: {
 					rows: data
 				},
@@ -354,6 +440,7 @@ export class DTable<
 		} else {
 			return {
 				columns,
+				offset,
 				data,
 				weight: 1
 			};
@@ -362,6 +449,10 @@ export class DTable<
 
 	protected getType(): string {
 		return "DTable";
+	}
+
+	get category(): DTableCategory | null {
+		return this._category;
 	}
 
 	get header(): DTableHeader<ROW> {

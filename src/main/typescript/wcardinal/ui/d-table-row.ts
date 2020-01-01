@@ -4,12 +4,15 @@
  */
 
 import { DBase } from "./d-base";
+import { DBaseState } from "./d-base-state";
 import { DLayoutHorizontal, DLayoutHorizontalOptions, DThemeLayoutHorizontal } from "./d-layout-horizontal";
-import { DTableColumn } from "./d-table-column";
 
-export interface DTableRowOptions<ROW, THEME extends DThemeTableRow = DThemeTableRow>
-	extends DLayoutHorizontalOptions<THEME> {
-	columns?: Array<DTableColumn<ROW>>;
+export interface DTableRowOptions<
+	ROW,
+	COLUMN,
+	THEME extends DThemeTableRow = DThemeTableRow
+> extends DLayoutHorizontalOptions<THEME> {
+	columns?: COLUMN[];
 }
 
 export interface DThemeTableRow extends DThemeLayoutHorizontal {
@@ -18,10 +21,11 @@ export interface DThemeTableRow extends DThemeLayoutHorizontal {
 
 export abstract class DTableRow<
 	ROW,
+	COLUMN,
 	THEME extends DThemeTableRow = DThemeTableRow,
-	OPTIONS extends DTableRowOptions<ROW, THEME> = DTableRowOptions<ROW, THEME>
+	OPTIONS extends DTableRowOptions<ROW, COLUMN, THEME> = DTableRowOptions<ROW, COLUMN, THEME>
 > extends DLayoutHorizontal<THEME, OPTIONS> {
-	protected _columns!: Array<DTableColumn<ROW>>;
+	protected _columns!: COLUMN[];
 
 	constructor( options: OPTIONS ) {
 		super( options );
@@ -33,14 +37,21 @@ export abstract class DTableRow<
 		// Cells
 		const columns = this._columns = options.columns || [];
 		for( let i = 0, imax = columns.length; i < imax; ++i ) {
-			this.addChild( this.newCell( columns[ i ], i, columns, options ) );
+			const cell = this.newCell( columns[ i ], i, columns, options );
+			if( i === 0 ) {
+				cell.setState( DBaseState.START, true );
+			}
+			if( i === imax - 1 ) {
+				cell.setState( DBaseState.END, true );
+			}
+			this.addChild( cell );
 		}
 	}
 
 	protected abstract newCell(
-		column: DTableColumn<ROW>,
+		column: COLUMN,
 		columnIndex: number,
-		columns: Array<DTableColumn<ROW>>,
+		columns: COLUMN[],
 		options: OPTIONS
 	): DBase;
 

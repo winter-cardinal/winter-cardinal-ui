@@ -21,6 +21,8 @@ export enum DBaseState {
 	FAILED		= 1 << 13,
 	SORTED		= 1 << 14,
 	ASCENDING_ORDER = 1 << 15,
+	START		= 1 << 16,
+	END			= 1 << 17,
 
 	EXTENSION_0	= 1 << 20,
 	EXTENSION_1	= 1 << 21,

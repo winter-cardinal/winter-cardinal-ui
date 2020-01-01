@@ -39,11 +39,15 @@ export class DThemeWhiteTableBodyCells {
 	}
 
 	static getBorderAlign( state: DBaseState ): number {
-		return 0.5;
+		return 0;
 	}
 
 	static getBorderMask( state: DBaseState ): DBorderMask {
-		return DBorderMask.TOP_BOTTOM;
+		if( DBaseStates.is( state, DBaseState.END ) ) {
+			return DBorderMask.ALL;
+		} else {
+			return DBorderMask.NOT_RIGHT;
+		}
 	}
 
 	static getColor( state: DBaseState ): number {

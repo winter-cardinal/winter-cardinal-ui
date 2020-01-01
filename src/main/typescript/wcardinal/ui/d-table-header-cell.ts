@@ -16,11 +16,13 @@ import { DTableHeaderTable } from "./d-table-header";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
 export interface DTableHeaderCellHeader<ROW> {
-	readonly table: DTableHeaderTable<ROW>;
+	readonly table: DTableHeaderTable<ROW> | null;
 }
 
-export interface DTableHeaderCellOptions<ROW, THEME extends DThemeTableHeaderCell = DThemeTableHeaderCell>
-	extends DImageOptions<string | null, THEME> {
+export interface DTableHeaderCellOptions<
+	ROW,
+	THEME extends DThemeTableHeaderCell = DThemeTableHeaderCell
+> extends DImageOptions<string | null, THEME> {
 	header: DTableHeaderCellHeader<ROW>;
 	column: DTableColumn<ROW>;
 }
@@ -56,15 +58,18 @@ export class DTableHeaderCell<
 		}
 	}
 
-	get sorter(): DTableDataSorter<ROW> {
-		let sorter = this._sorter;
-		if( sorter === undefined ) {
-			sorter = this._header.table.data.sorter;
-			this._sorter = sorter;
-			this._onSorterChangeBound = this._onSorterChangeBound || (() => {
-				this.onSorterChange();
-			});
-			sorter.on( "change", this._onSorterChangeBound );
+	get sorter(): DTableDataSorter<ROW> | null {
+		let sorter = this._sorter || null;
+		if( sorter == null ) {
+			const table = this._header.table;
+			if( table ) {
+				sorter = table.data.sorter;
+				this._sorter = sorter;
+				this._onSorterChangeBound = this._onSorterChangeBound || (() => {
+					this.onSorterChange();
+				});
+				sorter.on( "change", this._onSorterChangeBound );
+			}
 		}
 		return sorter;
 	}
@@ -77,18 +82,20 @@ export class DTableHeaderCell<
 		const comparator = this._comparator;
 		if( comparator ) {
 			const sorter = this.sorter;
-			if( sorter.get() === comparator ) {
-				if( sorter.order === DTableDataOrder.ASCENDING ) {
-					sorter.order = DTableDataOrder.DESCENDING;
-					sorter.apply();
+			if( sorter ) {
+				if( sorter.get() === comparator ) {
+					if( sorter.order === DTableDataOrder.ASCENDING ) {
+						sorter.order = DTableDataOrder.DESCENDING;
+						sorter.apply();
+					} else {
+						sorter.set( null );
+						sorter.apply();
+					}
 				} else {
-					sorter.set( null );
+					sorter.set( comparator );
+					sorter.order = DTableDataOrder.ASCENDING;
 					sorter.apply();
 				}
-			} else {
-				sorter.set( comparator );
-				sorter.order = DTableDataOrder.ASCENDING;
-				sorter.apply();
 			}
 		}
 	}

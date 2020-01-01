@@ -24,8 +24,10 @@ import {
 } from "./d-table-column";
 import { DTableRow, DTableRowOptions, DThemeTableRow } from "./d-table-row";
 
-export interface DTableBodyRowOptions<ROW, THEME extends DThemeTableBodyRow = DThemeTableBodyRow>
-	extends DTableRowOptions<ROW, THEME> {
+export interface DTableBodyRowOptions<
+	ROW,
+	THEME extends DThemeTableBodyRow = DThemeTableBodyRow
+> extends DTableRowOptions<ROW, DTableColumn<ROW>, THEME> {
 	height?: number;
 	cell?: DTableBodyCellOptionsUnion<ROW>;
 }
@@ -47,7 +49,7 @@ export class DTableBodyRow<
 	ROW,
 	THEME extends DThemeTableBodyRow = DThemeTableBodyRow,
 	OPTIONS extends DTableBodyRowOptions<ROW, THEME> = DTableBodyRowOptions<ROW, THEME>
-> extends DTableRow<ROW, THEME, OPTIONS> {
+> extends DTableRow<ROW, DTableColumn<ROW>, THEME, OPTIONS> {
 	protected _row: ROW | undefined = undefined;
 	protected _onCellChangeBound!: OnCellChange;
 

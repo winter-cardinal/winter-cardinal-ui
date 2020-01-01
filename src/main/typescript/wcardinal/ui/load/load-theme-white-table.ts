@@ -22,6 +22,8 @@ import { DThemeWhiteTableBodyCellTime } from "../theme/white/d-theme-white-table
 import { DThemeWhiteTableBodyRow } from "../theme/white/d-theme-white-table-body-row";
 import { DThemeWhiteTableBodyRowEven } from "../theme/white/d-theme-white-table-body-row-even";
 import { DThemeWhiteTableBodyRowOdd } from "../theme/white/d-theme-white-table-body-row-odd";
+import { DThemeWhiteTableCategory } from "../theme/white/d-theme-white-table-category";
+import { DThemeWhiteTableCategoryCell } from "../theme/white/d-theme-white-table-category-cell";
 import { DThemeWhiteTableHeader } from "../theme/white/d-theme-white-table-header";
 import { DThemeWhiteTableHeaderCell } from "../theme/white/d-theme-white-table-header-cell";
 import { DThemeWhiteTableRow } from "../theme/white/d-theme-white-table-row";
@@ -53,6 +55,8 @@ export const loadThemeWhiteTable = () => {
 	DThemeWhite.set( "DTableBodyRowOdd", DThemeWhiteTableBodyRowOdd );
 	DThemeWhite.set( "DTableBodyRow", DThemeWhiteTableBodyRow );
 	DThemeWhite.set( "DTableBody", DThemeWhiteTableBody );
+	DThemeWhite.set( "DTableCategoryCell", DThemeWhiteTableCategoryCell );
+	DThemeWhite.set( "DTableCategory", DThemeWhiteTableCategory );
 	DThemeWhite.set( "DTableHeaderCell", DThemeWhiteTableHeaderCell );
 	DThemeWhite.set( "DTableHeader", DThemeWhiteTableHeader );
 	DThemeWhite.set( "DTableRow", DThemeWhiteTableRow );
