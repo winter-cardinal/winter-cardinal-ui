@@ -87,6 +87,11 @@
 						<li><code>/</code></li>
 						<li><code>(</code> and <code>)</code></li>
 					</ul>
+					<p>Functions</p>
+					<ul>
+						<li>min( a, b, ... )</li>
+						<li>max( a, b, ... )</li>
+					</ul>
 					<p>Examples</p>
 					<ul>
 						<li><code>90%</code>: 0.9 * parent value</li>
@@ -124,6 +129,7 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ui.dscalarexpression.html#_node" class="tsd-kind-icon">_node</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-static"><a href="ui.dscalarexpression.html#token_regex" class="tsd-kind-icon">TOKEN_<wbr>REGEX</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -133,6 +139,8 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="ui.dscalarexpression.html#evaluate" class="tsd-kind-icon">evaluate</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ui.dscalarexpression.html#toarithmetic" class="tsd-kind-icon">to<wbr>Arithmetic</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ui.dscalarexpression.html#toarithmeticnode" class="tsd-kind-icon">to<wbr>Arithmetic<wbr>Node</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ui.dscalarexpression.html#tocomma" class="tsd-kind-icon">to<wbr>Comma</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ui.dscalarexpression.html#tocommaof" class="tsd-kind-icon">to<wbr>Comma<wbr>Of</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ui.dscalarexpression.html#toparensesis" class="tsd-kind-icon">to<wbr>Parensesis</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ui.dscalarexpression.html#totoken" class="tsd-kind-icon">to<wbr>Token</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ui.dscalarexpression.html#tounary" class="tsd-kind-icon">to<wbr>Unary</a></li>
@@ -154,7 +162,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/eb515cd/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L126">d-scalar-expression.ts:126</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/06315e9/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L151">d-scalar-expression.ts:151</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -176,7 +184,17 @@
 					<div class="tsd-signature tsd-kind-icon">_node<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Node</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/eb515cd/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L126">d-scalar-expression.ts:126</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/06315e9/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L151">d-scalar-expression.ts:151</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-static">
+					<a name="token_regex" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagProtected">Protected</span> TOKEN_<wbr>REGEX</h3>
+					<div class="tsd-signature tsd-kind-icon">TOKEN_<wbr>REGEX<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol"> =&nbsp;/(?:\+|-|\*|\/|\(|\)|min|max|,|(?:\d+(?:\.\d*)?[%psc]?))/g</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/06315e9/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L150">d-scalar-expression.ts:150</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -194,7 +212,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/ui.dscalar.html">DScalar</a>.<a href="../interfaces/ui.dscalar.html#calculate">calculate</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/eb515cd/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L310">d-scalar-expression.ts:310</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/06315e9/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L411">d-scalar-expression.ts:411</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -226,7 +244,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/eb515cd/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L268">d-scalar-expression.ts:268</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/06315e9/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L346">d-scalar-expression.ts:346</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -261,7 +279,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/eb515cd/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L213">d-scalar-expression.ts:213</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/06315e9/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L292">d-scalar-expression.ts:292</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -290,7 +308,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/eb515cd/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L199">d-scalar-expression.ts:199</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/06315e9/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L278">d-scalar-expression.ts:278</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -310,16 +328,16 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="toparensesis" class="tsd-anchor"></a>
-					<h3>to<wbr>Parensesis</h3>
+					<a name="tocomma" class="tsd-anchor"></a>
+					<h3>to<wbr>Comma</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">to<wbr>Parensesis<span class="tsd-signature-symbol">(</span>nodes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NodeOrToken</span><span class="tsd-signature-symbol">[]</span>, from<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">to<wbr>Comma<span class="tsd-signature-symbol">(</span>nodes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NodeOrToken</span><span class="tsd-signature-symbol">[]</span>, ifrom<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, ito<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NodeOrToken</span><span class="tsd-signature-symbol">[]</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/eb515cd/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L144">d-scalar-expression.ts:144</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/06315e9/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L218">d-scalar-expression.ts:218</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -328,10 +346,68 @@
 									<h5>nodes: <span class="tsd-signature-type">NodeOrToken</span><span class="tsd-signature-symbol">[]</span></h5>
 								</li>
 								<li>
-									<h5>from: <span class="tsd-signature-type">number</span></h5>
+									<h5>ifrom: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>ito: <span class="tsd-signature-type">number</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">NodeOrToken</span><span class="tsd-signature-symbol">[]</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="tocommaof" class="tsd-anchor"></a>
+					<h3>to<wbr>Comma<wbr>Of</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>Comma<wbr>Of<span class="tsd-signature-symbol">(</span>nodes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NodeOrToken</span><span class="tsd-signature-symbol">[]</span>, ifrom<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, ito<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NodeOrToken</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/06315e9/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L203">d-scalar-expression.ts:203</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>nodes: <span class="tsd-signature-type">NodeOrToken</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+								<li>
+									<h5>ifrom: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>ito: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">NodeOrToken</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="toparensesis" class="tsd-anchor"></a>
+					<h3>to<wbr>Parensesis</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>Parensesis<span class="tsd-signature-symbol">(</span>nodes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NodeOrToken</span><span class="tsd-signature-symbol">[]</span>, ifrom<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/06315e9/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L172">d-scalar-expression.ts:172</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>nodes: <span class="tsd-signature-type">NodeOrToken</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+								<li>
+									<h5>ifrom: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -345,7 +421,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/eb515cd/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L238">d-scalar-expression.ts:238</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/06315e9/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L317">d-scalar-expression.ts:317</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -368,7 +444,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/eb515cd/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L174">d-scalar-expression.ts:174</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/06315e9/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L253">d-scalar-expression.ts:253</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -391,7 +467,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/eb515cd/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L168">d-scalar-expression.ts:168</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/06315e9/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L243">d-scalar-expression.ts:243</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -460,6 +536,9 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 								<a href="ui.dscalarexpression.html#_node" class="tsd-kind-icon">_node</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-static">
+								<a href="ui.dscalarexpression.html#token_regex" class="tsd-kind-icon">TOKEN_<wbr>REGEX</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="ui.dscalarexpression.html#calculate" class="tsd-kind-icon">calculate</a>
 							</li>
@@ -471,6 +550,12 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="ui.dscalarexpression.html#toarithmeticnode" class="tsd-kind-icon">to<wbr>Arithmetic<wbr>Node</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="ui.dscalarexpression.html#tocomma" class="tsd-kind-icon">to<wbr>Comma</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="ui.dscalarexpression.html#tocommaof" class="tsd-kind-icon">to<wbr>Comma<wbr>Of</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="ui.dscalarexpression.html#toparensesis" class="tsd-kind-icon">to<wbr>Parensesis</a>
