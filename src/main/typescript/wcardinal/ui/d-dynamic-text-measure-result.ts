@@ -6,6 +6,7 @@ export class DDynamicTextMeasureResult {
 	width: number;
 	height: number;
 	characters: DDynamicTextMeasureResultCharacter[];
+	clipped: boolean;
 
 	x: number;
 	y: number;
@@ -15,6 +16,7 @@ export class DDynamicTextMeasureResult {
 		this.width = 0;
 		this.height = 0;
 		this.characters = [];
+		this.clipped = false;
 
 		this.x = 0;
 		this.y = 0;
@@ -24,6 +26,7 @@ export class DDynamicTextMeasureResult {
 		this.count = 0;
 		this.width = 0;
 		this.height = 0;
+		this.clipped = false;
 
 		this.x = 0;
 		this.y = 0;

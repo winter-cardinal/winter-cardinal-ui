@@ -11,11 +11,13 @@ import { DynamicFontAtlasCharacter } from "./util/dynamic-font-atlas-character";
 export class DDynamicTextGeometry extends MeshGeometry {
 	width: number;
 	height: number;
+	clipped: boolean;
 
 	constructor() {
 		super( new Float32Array( 64 ), new Float32Array( 64 ), new Uint16Array( 48 ) );
 		this.width = 0;
 		this.height = 0;
+		this.clipped = false;
 	}
 
 	update( text: string, atlas: DynamicFontAtlas | null, clippingWidth: number | undefined ): void {
@@ -55,12 +57,14 @@ export class DDynamicTextGeometry extends MeshGeometry {
 			}
 			this.width = result.width;
 			this.height = result.height;
+			this.clipped = result.clipped;
 		} else {
 			for( let i = 0, imax = vertices.length >> 3; i < imax; ++i ) {
 				this.writeCharacterEmpty( vertices, uvs, indices, i );
 			}
 			this.width = 0;
 			this.height = 0;
+			this.clipped = false;
 		}
 
 		vertexBuffer.update();

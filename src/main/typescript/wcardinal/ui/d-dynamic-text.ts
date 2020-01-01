@@ -113,6 +113,10 @@ export class DDynamicText extends Mesh {
 		}
 	}
 
+	get clipped(): boolean {
+		return this.geometry.clipped;
+	}
+
 	get style(): DDynamicTextStyle {
 		return this._style;
 	}

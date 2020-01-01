@@ -351,6 +351,18 @@ export class DTextBase<
 			(target != null && target === this._text);
 	}
 
+	protected applyTitle(): void {
+		const text = this._text;
+		if( this._title.length <= 0 && text && ("clipped" in text) && text.clipped ) {
+			const layer = DApplications.getLayer( this );
+			if( layer ) {
+				layer.view.title = text.text;
+			}
+		} else {
+			super.applyTitle();
+		}
+	}
+
 	protected getType(): string {
 		return "DTextBase";
 	}

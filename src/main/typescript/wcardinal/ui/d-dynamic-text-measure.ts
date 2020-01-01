@@ -23,6 +23,7 @@ export class DDynamicTextMeasure {
 					if( a != null ) {
 						const x = result.x;
 						if( clippingWidth != null && clippingWidth < x + a.advance ) {
+							result.clipped = true;
 							const dots = atlas.get( "..." );
 							if( dots != null ) {
 								if( clippingWidth < x + dots.advance ) {
