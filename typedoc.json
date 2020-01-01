@@ -5,7 +5,7 @@
 	"theme": "default",
 	"target": "ES5",
 	"readme": "none",
-	"ignoreCompilerErrors": "false",
+	"ignoreCompilerErrors": "true",
 	"preserveConstEnums": "true",
 	"external-modulemap": ".*\/wcardinal\/([\\w\\-_\/]+)\/",
 	"stripInternal": "false",
