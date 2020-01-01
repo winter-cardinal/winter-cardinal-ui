@@ -27,7 +27,7 @@ export abstract class DTableRow<
 		super( options );
 	}
 
-	protected init( options: OPTIONS ) {
+	protected init( options: OPTIONS ): void {
 		super.init( options );
 
 		// Cells

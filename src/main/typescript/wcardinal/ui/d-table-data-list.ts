@@ -32,10 +32,10 @@ export class DTableDataList<ROW> extends utils.EventEmitter implements DTableDat
 				this._filter.set( filter );
 			}
 
-			// Sorter
-			const sorter = options.sorter;
-			if( sorter ) {
-				this._sorter.set( sorter );
+			// Comparator
+			const comparator = options.comparator;
+			if( comparator ) {
+				this._sorter.set( comparator );
 			}
 
 			// Events

@@ -8,10 +8,16 @@ import { DMenu } from "./d-menu";
 import { DMenuItem } from "./d-menu-item";
 import { DMenuItemMenu } from "./d-menu-item-menu";
 
+/**
+ * DSelect options.
+ */
 export interface DSelectOptions<
 	VALUE = unknown,
 	THEME extends DThemeSelect = DThemeSelect
 > extends DDropdownOptions<VALUE, THEME> {
+	/**
+	 * A default value.
+	 */
 	value?: VALUE;
 }
 
@@ -102,10 +108,16 @@ export class DSelect<
 		return null;
 	}
 
+	/**
+	 * Returns a selected value or null.
+	 */
 	get value(): VALUE | null {
 		return this._value;
 	}
 
+	/**
+	 * Sets to the specified value.
+	 */
 	set value( value: VALUE | null ) {
 		const item = this.findMenuItem( this._menu, value );
 		if( item != null ) {

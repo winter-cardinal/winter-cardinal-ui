@@ -8,13 +8,22 @@ import { DButtonBase, DButtonBaseOptions, DThemeButtonBase } from "./d-button-ba
 import { DMenu, DMenuOptions, DThemeMenu } from "./d-menu";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 
+/**
+ * Dropdown options.
+ */
 export interface DDropdownOptions<
 	VALUE = unknown,
 	THEME extends DThemeDropdown = DThemeDropdown
 > extends DButtonBaseOptions<string, THEME> {
+	/**
+	 * Menu options.
+	 */
 	menu?: DMenuOptions<VALUE> | DMenu<VALUE>;
 }
 
+/**
+ * A dropdown theme.
+ */
 export interface DThemeDropdown extends DThemeButtonBase {
 	getTextFormatter(): ( value: string, caller: DDropdown ) => string;
 	getTextValue( state: DBaseState ): string;

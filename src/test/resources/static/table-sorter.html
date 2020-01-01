@@ -32,19 +32,41 @@
 		const rows = [];
 		for( let i = 0; i < 20000; ++i ) {
 			rows.push([
-				undefined,
-				`B${i}`,
-				i,
-				0x3388ff,
-				i % 3 === 0
+				`A${i % 32}`,
+				`B${i % 64}`,
+				`C${i % 128}`
 			]);
 		}
 
 		// Filter
-		const input = new wcardinal.ui.DInputText({
+		const select = new wcardinal.ui.DSelect({
 			parent: application.stage,
 			x: 50, y: 50,
-			width: 200
+			width: 300,
+			value: -1,
+			menu: {
+				items: [{
+					value: -1,
+					text: {
+						value: "No sort"
+					}
+				}, {
+					value: 0,
+					text: {
+						value: "Sort by A"
+					}
+				},{
+					value: 1,
+					text: {
+						value: "Sort by B"
+					}
+				},{
+					value: 2,
+					text: {
+						value: "Sort by C"
+					}
+				}]
+			}
 		});
 
 		// Table
@@ -54,29 +76,13 @@
 			width: 600, height: 600,
 			columns: [{
 				label: "A",
-				type: "DATETIME",
-				editable: true
+				type: "TEXT"
 			},{
 				label: "B",
-				type: "TEXT",
-				editable: true
+				type: "TEXT"
 			},{
 				label: "C",
-				type: "INTEGER",
-				editable: true,
-				editing: {
-					validator: ( value ) => {
-						return ( value % 2 === 0 ? "No even numbers" : null );
-					}
-				}
-			},{
-				label: "D",
-				type: "COLOR",
-				editable: true
-			},{
-				label: "E",
-				type: "CHECK",
-				editable: true
+				type: "TEXT"
 			}],
 			data: {
 				rows: rows,
@@ -85,7 +91,7 @@
 				},
 				on: {
 					init: ( self ) => {
-						const sorter = {
+						const comparator = {
 							index: NaN,
 							compare( rowA, rowB ) {
 								const index = this.index;
@@ -98,17 +104,16 @@
 							}
 						}
 
-						input.on( "input", ( value ) => {
-							const word = value.trim();
-							sorter.index = ( 0 < word.length ? +word : NaN );
-							if( sorter.index === sorter.index ) {
+						select.on( "change", ( value ) => {
+							if( 0 <= value ) {
+								comparator.index = value;
 								self.sorter.apply();
 							} else {
 								self.sorter.unapply();
 							}
 						});
 
-						self.sorter.set( sorter );
+						self.sorter.set( comparator );
 					},
 
 					change: ( value, rowIndex, columnIndex, values, data ) => {

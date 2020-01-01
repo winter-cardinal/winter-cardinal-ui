@@ -11,15 +11,31 @@ import { DImageBase, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
+/**
+ * Base button options.
+ */
 export interface DButtonBaseOptions<
 	VALUE = unknown,
 	THEME extends DThemeButtonBase = DThemeButtonBase
 > extends DImageBaseOptions<VALUE, THEME> {
+	/**
+	 * True to turn a toggle mode on.
+	 */
 	toggle?: boolean;
+
+	/**
+	 * A button group.
+	 */
 	group?: DButtonGroup;
 }
 
+/**
+ * A base button theme.
+ */
 export interface DThemeButtonBase extends DThemeImageBase {
+	/**
+	 * Returns true to turn a toggle mode on.
+	 */
 	isToggle(): boolean;
 }
 

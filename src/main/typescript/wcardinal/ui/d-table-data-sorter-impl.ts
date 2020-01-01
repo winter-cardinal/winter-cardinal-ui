@@ -3,8 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { utils } from "pixi.js";
 import { DTableDataEachIterator } from "./d-table-data";
-import { DTableDataSorter, DTableDataSorterFunction, DTableDataSorterObject } from "./d-table-data-sorter";
+import {
+	DTableDataComparatorFunction, DTableDataComparatorObject,
+	DTableDataOrder, DTableDataSorter
+} from "./d-table-data-sorter";
 import { utilIsFunction } from "./util/util-is-function";
 
 export interface DTableDataSorterImplParent<ROW> {
@@ -12,17 +16,29 @@ export interface DTableDataSorterImplParent<ROW> {
 	update(): void;
 }
 
-export class DTableBodySorterImpl<ROW> implements DTableDataSorter<ROW> {
+export class DTableBodySorterImpl<ROW> extends utils.EventEmitter implements DTableDataSorter<ROW> {
 	protected _parent: DTableDataSorterImplParent<ROW>;
-	protected _sorter: DTableDataSorterFunction<ROW> | DTableDataSorterObject<ROW> | null;
+	protected _comparator: DTableDataComparatorFunction<ROW> | DTableDataComparatorObject<ROW> | null;
 	protected _sorted: number[] | null;
 	protected _isDirty: boolean;
+	protected _order: DTableDataOrder;
 
 	constructor( parent: DTableDataSorterImplParent<ROW> ) {
+		super();
+
 		this._parent = parent;
-		this._sorter = null;
+		this._comparator = null;
 		this._sorted = null;
 		this._isDirty = false;
+		this._order = DTableDataOrder.ASCENDING;
+	}
+
+	get order(): DTableDataOrder {
+		return this._order;
+	}
+
+	set order( order: DTableDataOrder ) {
+		this._order = order;
 	}
 
 	apply(): void {
@@ -34,6 +50,7 @@ export class DTableBodySorterImpl<ROW> implements DTableDataSorter<ROW> {
 		if( this._sorted != null ) {
 			this._isDirty = false;
 			this._sorted = null;
+			this.emit( "change", this );
 			this._parent.update();
 		}
 	}
@@ -43,8 +60,8 @@ export class DTableBodySorterImpl<ROW> implements DTableDataSorter<ROW> {
 	}
 
 	protected newSorted(): number[] | null {
-		const sorter = this._sorter;
-		if( sorter != null ) {
+		const comparator = this._comparator;
+		if( comparator != null ) {
 			const parent = this._parent;
 			const sorted: number[] = [];
 			const rows: ROW[] = [];
@@ -52,40 +69,60 @@ export class DTableBodySorterImpl<ROW> implements DTableDataSorter<ROW> {
 				sorted[ index ] = index;
 				rows[ index ] = row;
 			});
-			this.toSorted( sorted, rows, sorter );
+			sorted.sort( this.toComparator( rows, comparator ) );
 			return sorted;
 		} else {
 			return null;
 		}
 	}
 
-	protected toSorted(
-		sorted: number[], rows: ROW[],
-		sorter: DTableDataSorterFunction<ROW> | DTableDataSorterObject<ROW>
-	): number[] {
-		if( utilIsFunction( sorter ) ) {
-			sorted.sort(( indexA: number, indexB: number ): number => {
-				const rowA: ROW = rows[ indexA ];
-				const rowB: ROW = rows[ indexB ];
-				return sorter( rowA, rowB, indexA, indexB );
-			});
+	protected toComparator(
+		rows: ROW[],
+		comparator: DTableDataComparatorFunction<ROW> | DTableDataComparatorObject<ROW>
+	): ( indexA: number, indexB: number) => number {
+		const order = this._order;
+		if( utilIsFunction( comparator ) ) {
+			if( order === DTableDataOrder.ASCENDING ) {
+				return ( indexA: number, indexB: number ): number => {
+					return comparator(
+						rows[ indexA ], rows[ indexB ],
+						indexA, indexB
+					);
+				};
+			} else {
+				return ( indexA: number, indexB: number ): number => {
+					return comparator(
+						rows[ indexB ], rows[ indexA ],
+						indexB, indexA
+					);
+				};
+			}
 		} else {
-			sorted.sort(( indexA: number, indexB: number ): number => {
-				const rowA: ROW = rows[ indexA ];
-				const rowB: ROW = rows[ indexB ];
-				return sorter.compare( rowA, rowB, indexA, indexB );
-			});
+			if( order === DTableDataOrder.ASCENDING ) {
+				return ( indexA: number, indexB: number ): number => {
+					return comparator.compare(
+						rows[ indexA ], rows[ indexB ],
+						indexA, indexB
+					);
+				};
+			} else {
+				return ( indexA: number, indexB: number ): number => {
+					return comparator.compare(
+						rows[ indexB ], rows[ indexA ],
+						indexB, indexA
+					);
+				};
+			}
 		}
-		return sorted;
 	}
 
-	get(): DTableDataSorterFunction<ROW> | DTableDataSorterObject<ROW> | null {
-		return this._sorter;
+	get(): DTableDataComparatorFunction<ROW> | DTableDataComparatorObject<ROW> | null {
+		return this._comparator;
 	}
 
-	set( sorter: DTableDataSorterFunction<ROW> | DTableDataSorterObject<ROW> | null ): void {
-		if( this._sorter !== sorter ) {
-			this._sorter = sorter;
+	set( comparator: DTableDataComparatorFunction<ROW> | DTableDataComparatorObject<ROW> | null ): void {
+		if( this._comparator !== comparator ) {
+			this._comparator = comparator;
 		}
 	}
 
@@ -108,6 +145,7 @@ export class DTableBodySorterImpl<ROW> implements DTableDataSorter<ROW> {
 		if( this._isDirty ) {
 			this._isDirty = false;
 			this._sorted = this.newSorted();
+			this.emit( "change", this );
 		}
 	}
 

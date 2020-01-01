@@ -19,6 +19,8 @@ export enum DBaseState {
 	INVALID		= 1 << 11,
 	SUCCEEDED	= 1 << 12,
 	FAILED		= 1 << 13,
+	SORTED		= 1 << 14,
+	ASCENDING_ORDER = 1 << 15,
 
 	EXTENSION_0	= 1 << 20,
 	EXTENSION_1	= 1 << 21,

@@ -6,6 +6,7 @@
 import { interaction, Point } from "pixi.js";
 import InteractionEvent = interaction.InteractionEvent;
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
+import { DBaseState } from "./d-base-state";
 import { DButtonBase } from "./d-button-base";
 import { DTableBodyRow, DTableBodyRowOptions } from "./d-table-body-row";
 import { DTableBodyRowEven } from "./d-table-body-row-even";
@@ -82,6 +83,7 @@ export class DTableBody<
 
 	constructor( options: OPTIONS ) {
 		super( options );
+		this.setState( DBaseState.UNFOCUSABLE, true );
 		this._data.emit( "init", this._data );
 	}
 
@@ -103,31 +105,6 @@ export class DTableBody<
 		this._isUpdateRowsCalled = false;
 		this._isUpdateRowsCalledForcibly = false;
 		this._workRows = [];
-	}
-
-	onRowClicked( e: InteractionEvent ): void {
-		if( this.isActionable() ) {
-			const local = DTableBody.WORK_ON_CLICK;
-			local.copyFrom( e.data.global );
-			this.toLocal( local, undefined, local, false );
-			const rowIndexMapped = Math.floor( local.y / this._rowHeight );
-			const data = this._data;
-			if( 0 <= rowIndexMapped && rowIndexMapped < data.mapped.size() ) {
-				const isSingle = ( data.selection.type === DTableDataSelectionType.SINGLE );
-				const isNotSingle = ! isSingle;
-				const originalEvent = e.data.originalEvent;
-				const ctrlKey = originalEvent.ctrlKey;
-				const shiftKey = originalEvent.shiftKey;
-				const rowIndex = data.mapped.unmap( rowIndexMapped );
-				if( isSingle || data.selection.isEmpty() || ! ( isNotSingle && ( ctrlKey || shiftKey ) ) ) {
-					data.selection.clearAndAdd( rowIndex );
-				} else if( ctrlKey ) {
-					data.selection.toggle( rowIndex );
-				} else if( shiftKey ) {
-					data.selection.addTo( rowIndex );
-				}
-			}
-		}
 	}
 
 	onResize( newWidth: number, newHeight: number, oldWidth: number, oldHeight: number ): void {
@@ -306,6 +283,33 @@ export class DTableBody<
 		return result;
 	}
 
+	onRowClicked( e: InteractionEvent ): void {
+		if( this.isActionable() ) {
+			const local = DTableBody.WORK_ON_CLICK;
+			local.copyFrom( e.data.global );
+			this.toLocal( local, undefined, local, false );
+			if( 0 <= this.parent.position.y + local.y ) {
+				const rowIndexMapped = Math.floor( local.y / this._rowHeight );
+				const data = this._data;
+				if( 0 <= rowIndexMapped && rowIndexMapped < data.mapped.size() ) {
+					const isSingle = ( data.selection.type === DTableDataSelectionType.SINGLE );
+					const isNotSingle = ! isSingle;
+					const originalEvent = e.data.originalEvent;
+					const ctrlKey = originalEvent.ctrlKey;
+					const shiftKey = originalEvent.shiftKey;
+					const rowIndex = data.mapped.unmap( rowIndexMapped );
+					if( isSingle || data.selection.isEmpty() || ! ( isNotSingle && ( ctrlKey || shiftKey ) ) ) {
+						data.selection.clearAndAdd( rowIndex );
+					} else if( ctrlKey ) {
+						data.selection.toggle( rowIndex );
+					} else if( shiftKey ) {
+						data.selection.addTo( rowIndex );
+					}
+				}
+			}
+		}
+	}
+
 	onDblClick( e: MouseEvent | TouchEvent, interactionManager: interaction.InteractionManager ): boolean {
 		let result = false;
 		const data = this._data;
@@ -314,27 +318,29 @@ export class DTableBody<
 			this.toLocal( local, undefined, local, false );
 			const x = local.x;
 			const y = local.y;
-			const rowIndexMapped = Math.floor( y / this._rowHeight );
-			if( 0 <= rowIndexMapped && rowIndexMapped < data.mapped.size() ) {
-				const index = rowIndexMapped - this._rowIndexMappedStart;
-				const rows = this.children as Array<DTableBodyRow<ROW>>;
-				if( 0 <= index && index < rows.length ) {
-					const row = rows[ index ];
-					const cells = row.children as DBase[];
-					const cellsLength = cells.length;
-					const columns = this._columns;
-					const columnsLength = columns.length;
-					for( let i = 0, imax = Math.min( cellsLength, columnsLength ); i < imax; ++i ) {
-						const column = columns[ columnsLength - i - 1 ];
-						if( column.editable ) {
-							const cell = cells[ cellsLength - i - 1 ];
-							const dx = x - cell.position.x;
-							if( 0 <= dx && dx <= cell.width ) {
-								cell.focus();
-								if( cell instanceof DButtonBase ) {
-									cell.onClick();
+			if( 0 <= this.parent.position.y + y ) {
+				const rowIndexMapped = Math.floor( y / this._rowHeight );
+				if( 0 <= rowIndexMapped && rowIndexMapped < data.mapped.size() ) {
+					const index = rowIndexMapped - this._rowIndexMappedStart;
+					const rows = this.children as Array<DTableBodyRow<ROW>>;
+					if( 0 <= index && index < rows.length ) {
+						const row = rows[ index ];
+						const cells = row.children as DBase[];
+						const cellsLength = cells.length;
+						const columns = this._columns;
+						const columnsLength = columns.length;
+						for( let i = 0, imax = Math.min( cellsLength, columnsLength ); i < imax; ++i ) {
+							const column = columns[ columnsLength - i - 1 ];
+							if( column.editing.enable ) {
+								const cell = cells[ cellsLength - i - 1 ];
+								const dx = x - cell.position.x;
+								if( 0 <= dx && dx <= cell.width ) {
+									cell.focus();
+									if( cell instanceof DButtonBase ) {
+										cell.onClick();
+									}
+									result = true;
 								}
-								result = true;
 							}
 						}
 					}

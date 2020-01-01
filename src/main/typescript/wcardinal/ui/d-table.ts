@@ -12,16 +12,17 @@ import { DCoordinateSize } from "./d-coordinate";
 import { DDialogSelect } from "./d-dialog-select";
 import { DMenu, DMenuOptions } from "./d-menu";
 import { DPane, DPaneOptions, DThemePane } from "./d-pane";
-import { DTableBody, DTableBodyOptions, DThemeTableBody } from "./d-table-body";
+import { DTableBody, DTableBodyOptions } from "./d-table-body";
 import {
-	DTableColumn, DTableColumnEditing, DTableColumnEditingOptions, DTableColumnOptions,
-	DTableColumnSelecting, DTableColumnSelectingOptions, DTableColumnType, DTableEditingUnformatter,
-	DTableGetter, DTableSelectingGetter, DTableSetter
+	DTableColumn, DTableColumnEditing, DTableColumnOptions,
+	DTableColumnSelecting, DTableColumnSelectingOptions, DTableColumnSorting, DTableColumnType,
+	DTableEditingUnformatter, DTableGetter, DTableSelectingGetter, DTableSetter
 } from "./d-table-column";
 import { DTableData, DTableDataOptions } from "./d-table-data";
 import { DTableDataList } from "./d-table-data-list";
 import { DTableDataSelectionType } from "./d-table-data-selection";
-import { DTableHeader, DTableHeaderOptions, DThemeTableHeader } from "./d-table-header";
+import { DTableDataComparatorFunction } from "./d-table-data-sorter";
+import { DTableHeader, DTableHeaderOptions } from "./d-table-header";
 import { utilIsArray } from "./util/util-is-array";
 import { utilIsString } from "./util/util-is-string";
 import { UtilPointerEvent } from "./util/util-pointer-event";
@@ -77,18 +78,60 @@ const toColumnAlign = <ROW>( options: DTableColumnOptions<ROW>, type: DTableColu
 	}
 };
 
-const toColumnEditing = ( options: DTableColumnEditingOptions | undefined ): DTableColumnEditing => {
-	if( options ) {
+const toColumnEditing = <ROW>( options: DTableColumnOptions<ROW> ): DTableColumnEditing => {
+	const editing = options.editing;
+	if( editing ) {
 		return {
-			formatter: options.formatter || utilToString,
-			unformatter: options.unformatter || defaultEditingUnformatter,
-			validator: options.validator
+			enable: editing.enable === true || options.editable === true,
+			formatter: editing.formatter || utilToString,
+			unformatter: editing.unformatter || defaultEditingUnformatter,
+			validator: editing.validator
 		};
 	}
 	return {
+		enable: options.editable === true,
 		formatter: utilToString,
 		unformatter: defaultEditingUnformatter
 	};
+};
+
+const toComparator = <ROW>( getter: DTableGetter<ROW>, index: number ): DTableDataComparatorFunction<ROW> => {
+	return ( rowA: ROW, rowB: ROW ): number => {
+		const valueA = getter( rowA, index ) as any;
+		const valueB = getter( rowB, index ) as any;
+		return ( valueA < valueB ? -1 : ( valueB < valueA ? +1 : 0 ) );
+	};
+};
+
+const toColumnSorting = <ROW>(
+	getter: DTableGetter<ROW>,
+	index: number,
+	options: DTableColumnOptions<ROW>
+): DTableColumnSorting<ROW> => {
+	const sorting = options.sorting;
+	if( sorting ) {
+		const enable = sorting.enable === true || options.sortable === true;
+		if( enable ) {
+			return {
+				enable,
+				comparator: sorting.comparator || toComparator( getter, index )
+			};
+		} else {
+			return {
+				enable
+			};
+		}
+	}
+	if( options.sortable === true ) {
+		return {
+			enable: true,
+			comparator: toComparator( getter, index )
+		};
+	} else {
+		return {
+			enable: false
+		};
+	}
 };
 
 const toColumnMenu = ( options?: DMenuOptions<unknown> | DMenu<unknown> ): DMenu<unknown> | undefined => {
@@ -131,7 +174,7 @@ const toColumnSelecting = ( options: DTableColumnSelectingOptions | undefined ):
 	};
 };
 
-const toColumn = <ROW>( options: DTableColumnOptions<ROW> ): DTableColumn<ROW> => {
+const toColumn = <ROW>( index: number, options: DTableColumnOptions<ROW> ): DTableColumn<ROW> => {
 	const weight = ( options.weight != null ? options.weight :
 		( options.width != null ? undefined : +1 )
 	);
@@ -143,19 +186,21 @@ const toColumn = <ROW>( options: DTableColumnOptions<ROW> ): DTableColumn<ROW> =
 		DTableColumnType.TEXT
 	);
 	const align = toColumnAlign( options, type );
-	const editable = ( options.editable === true );
+	const label = options.label || "";
+	const getter = options.getter || defaultGetter;
+	const setter = options.setter || defaultSetter;
 	return {
 		weight,
 		width,
 		type,
-		label: options.label || "",
-		getter: options.getter || defaultGetter,
-		setter: options.setter || defaultSetter,
+		label,
+		getter,
+		setter,
 		formatter: options.formatter,
 		align,
 
-		editable,
-		editing: toColumnEditing( options.editing ),
+		editing: toColumnEditing( options ),
+		sorting: toColumnSorting( getter, index, options ),
 
 		header: options.header,
 		body: options.body,
@@ -167,64 +212,9 @@ const toColumn = <ROW>( options: DTableColumnOptions<ROW> ): DTableColumn<ROW> =
 const toColumns = <ROW>( options: Array<DTableColumnOptions<ROW>> ): Array<DTableColumn<ROW>> => {
 	const result = [];
 	for( let i = 0, imax = options.length; i < imax; ++i ) {
-		result.push( toColumn( options[ i ] ) );
+		result.push( toColumn( i, options[ i ] ) );
 	}
 	return result;
-};
-
-const toHeaderOptions = <ROW, THEME extends DThemeTableHeader>(
-	options: DTableHeaderOptions<ROW, THEME> | undefined,
-	columns: Array<DTableColumn<ROW>>
-): DTableHeaderOptions<ROW, THEME> => {
-	if( options != null ) {
-		if( options.columns === undefined ) {
-			options.columns = columns;
-		}
-		return options as DTableHeaderOptions<ROW, THEME>;
-	}
-	return {
-		columns
-	};
-};
-
-const toBodyOptions = <ROW, DATA extends DTableData<ROW>, THEME extends DThemeTableBody>(
-	options: DTableBodyOptions<ROW, DATA, THEME> | undefined,
-	columns: Array<DTableColumn<ROW>>,
-	data: ROW[] | DTableDataOptions<ROW> | DATA | undefined
-): DTableBodyOptions<ROW, DATA, THEME> => {
-	if( options != null ) {
-		if( options.data === undefined && data !== undefined ) {
-			if( utilIsArray( data ) ) {
-				options.data = {
-					rows: data
-				};
-			} else {
-				options.data = data;
-			}
-		}
-		if( options.columns === undefined ) {
-			options.columns = columns;
-		}
-		if( options.height === undefined && options.weight === undefined ) {
-			options.weight = 1;
-		}
-		return options as DTableBodyOptions<ROW, DATA, THEME>;
-	}
-	if( utilIsArray( data ) ) {
-		return {
-			columns,
-			data: {
-				rows: data
-			},
-			weight: 1
-		};
-	} else {
-		return {
-			columns,
-			data,
-			weight: 1
-		};
-	}
 };
 
 export class DTable<
@@ -276,6 +266,11 @@ export class DTable<
 		body.update();
 	}
 
+	onDblClick( e: MouseEvent | TouchEvent, interactionManager: interaction.InteractionManager ): boolean {
+		const result = this._body.onDblClick( e, interactionManager );
+		return super.onDblClick( e, interactionManager ) || result;
+	}
+
 	protected getScrollBarOffsetVerticalStart( size: number ): number {
 		return size * 0.5 + this._body.position.y;
 	}
@@ -301,11 +296,68 @@ export class DTable<
 	}
 
 	protected newHeader( options: OPTIONS, columns: Array<DTableColumn<ROW>> ): DTableHeader<ROW> {
-		return new DTableHeader( toHeaderOptions( options.header, columns ) );
+		return new DTableHeader( this.toHeaderOptions( options.header, columns ) );
+	}
+
+	protected toHeaderOptions(
+		options: DTableHeaderOptions<ROW> | undefined,
+		columns: Array<DTableColumn<ROW>>
+	): DTableHeaderOptions<ROW> {
+		if( options ) {
+			if( options.columns === undefined ) {
+				options.columns = columns;
+			}
+			options.table = this;
+			return options;
+		}
+		return {
+			table: this,
+			columns
+		};
 	}
 
 	protected newBody( options: OPTIONS, columns: Array<DTableColumn<ROW>> ): DTableBody<ROW, DATA> {
-		return new DTableBody<ROW, DATA>( toBodyOptions( options.body, columns, options.data ) );
+		return new DTableBody<ROW, DATA>( this.toBodyOptions( options.body, columns, options.data ) );
+	}
+
+	protected toBodyOptions(
+		options: DTableBodyOptions<ROW, DATA> | undefined,
+		columns: Array<DTableColumn<ROW>>,
+		data: ROW[] | DTableDataOptions<ROW> | DATA | undefined
+	): DTableBodyOptions<ROW, DATA> {
+		if( options != null ) {
+			if( options.data === undefined && data !== undefined ) {
+				if( utilIsArray( data ) ) {
+					options.data = {
+						rows: data
+					};
+				} else {
+					options.data = data;
+				}
+			}
+			if( options.columns === undefined ) {
+				options.columns = columns;
+			}
+			if( options.height === undefined && options.weight === undefined ) {
+				options.weight = 1;
+			}
+			return options;
+		}
+		if( utilIsArray( data ) ) {
+			return {
+				columns,
+				data: {
+					rows: data
+				},
+				weight: 1
+			};
+		} else {
+			return {
+				columns,
+				data,
+				weight: 1
+			};
+		}
 	}
 
 	protected getType(): string {

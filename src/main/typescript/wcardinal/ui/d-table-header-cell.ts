@@ -3,31 +3,130 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { interaction } from "pixi.js";
 import { DBaseState } from "./d-base-state";
+import { DImage, DImageOptions, DThemeImage } from "./d-image";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
-import { DThemeText } from "./d-text";
-import { DTextBase, DTextBaseOptions, DThemeTextBase } from "./d-text-base";
+import { DTableColumn } from "./d-table-column";
+import {
+	DTableDataComparatorFunction, DTableDataComparatorObject,
+	DTableDataOrder, DTableDataSorter
+} from "./d-table-data-sorter";
+import { DTableHeaderTable } from "./d-table-header";
+import { UtilPointerEvent } from "./util/util-pointer-event";
 
-export interface DTableHeaderCellOptions<THEME extends DThemeText = DThemeText>
-	extends DTextBaseOptions<string | null, THEME> {
+export interface DTableHeaderCellHeader<ROW> {
+	readonly table: DTableHeaderTable<ROW>;
 }
 
-export interface DThemeTableHeaderCell extends DThemeTextBase {
-	getTextFormatter(): ( value: string | null, caller: DTableHeaderCell ) => string;
+export interface DTableHeaderCellOptions<ROW, THEME extends DThemeTableHeaderCell = DThemeTableHeaderCell>
+	extends DImageOptions<string | null, THEME> {
+	header: DTableHeaderCellHeader<ROW>;
+	column: DTableColumn<ROW>;
+}
+
+export interface DThemeTableHeaderCell extends DThemeImage {
+	getTextFormatter(): ( value: string | null, caller: DTableHeaderCell<unknown> ) => string;
 	getTextValue( state: DBaseState ): string | null;
 	newTextValue(): DStateAwareOrValueMightBe<string | null>;
 }
 
 export class DTableHeaderCell<
+	ROW,
 	THEME extends DThemeTableHeaderCell = DThemeTableHeaderCell,
-	OPTIONS extends DTableHeaderCellOptions<THEME> = DTableHeaderCellOptions<THEME>
-> extends DTextBase<string | null, THEME, OPTIONS> {
-	protected init( options?: OPTIONS ) {
+	OPTIONS extends DTableHeaderCellOptions<ROW, THEME> = DTableHeaderCellOptions<ROW, THEME>
+> extends DImage<string | null, THEME, OPTIONS> {
+	protected _sorter?: DTableDataSorter<ROW>;
+	protected _onSorterChangeBound?: () => void;
+	protected _comparator?: DTableDataComparatorFunction<ROW> | DTableDataComparatorObject<ROW>;
+	protected _header: DTableHeaderCellHeader<ROW>;
+	protected _column: DTableColumn<ROW>;
+
+	constructor( options: OPTIONS ) {
+		super( options );
+		this._header = options.header;
+		this._column = options.column;
+		this._comparator = options.column.sorting.comparator;
+
+		const sorting = options.column.sorting;
+		if( sorting.enable ) {
+			UtilPointerEvent.onClick( this, ( e: interaction.InteractionEvent ): void => {
+				this.onClick();
+			});
+		}
+	}
+
+	get sorter(): DTableDataSorter<ROW> {
+		let sorter = this._sorter;
+		if( sorter === undefined ) {
+			sorter = this._header.table.data.sorter;
+			this._sorter = sorter;
+			this._onSorterChangeBound = this._onSorterChangeBound || (() => {
+				this.onSorterChange();
+			});
+			sorter.on( "change", this._onSorterChangeBound );
+		}
+		return sorter;
+	}
+
+	get comparator(): DTableDataComparatorFunction<ROW> | DTableDataComparatorObject<ROW> | null {
+		return this._comparator || null;
+	}
+
+	onClick(): void {
+		const comparator = this._comparator;
+		if( comparator ) {
+			const sorter = this.sorter;
+			if( sorter.get() === comparator ) {
+				if( sorter.order === DTableDataOrder.ASCENDING ) {
+					sorter.order = DTableDataOrder.DESCENDING;
+					sorter.apply();
+				} else {
+					sorter.set( null );
+					sorter.apply();
+				}
+			} else {
+				sorter.set( comparator );
+				sorter.order = DTableDataOrder.ASCENDING;
+				sorter.apply();
+			}
+		}
+	}
+
+	protected onSorterChange(): void {
+		const sorter = this._sorter;
+		const comparator = this._comparator;
+		if( sorter && comparator ) {
+			if( sorter.isApplied() && sorter.get() === comparator ) {
+				if( sorter.order === DTableDataOrder.ASCENDING ) {
+					this.setState( DBaseState.SORTED | DBaseState.ASCENDING_ORDER, true );
+				} else {
+					this.setStates( DBaseState.SORTED, DBaseState.ASCENDING_ORDER );
+				}
+			} else {
+				this.setState( DBaseState.SORTED, false );
+			}
+		}
+	}
+
+	protected init( options: OPTIONS ) {
 		super.init( options );
-		this.setState( DBaseState.UNFOCUSABLE, true );
 	}
 
 	protected getType(): string {
 		return "DTableHeaderCell";
+	}
+
+	destroy(): void {
+		const sorter = this._sorter;
+		const onSorterChangeBound = this._onSorterChangeBound;
+		if( sorter && onSorterChangeBound ) {
+			sorter.off( "change", onSorterChangeBound );
+		}
+		this._sorter = undefined;
+		this._onSorterChangeBound = undefined;
+		this._comparator = undefined;
+
+		super.destroy();
 	}
 }

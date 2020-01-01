@@ -19,6 +19,7 @@ import { DTableBodyCellSelectFetcherOptions } from "./d-table-body-cell-select-f
 import { DTableBodyCellSelectMenuOptions } from "./d-table-body-cell-select-menu";
 import { DTableBodyCellTextOptions } from "./d-table-body-cell-text";
 import { DTableBodyCellTimeOptions } from "./d-table-body-cell-time";
+import { DTableDataComparatorFunction, DTableDataComparatorObject } from "./d-table-data-sorter";
 import { DTableHeaderCellOptions } from "./d-table-header-cell";
 
 export enum DTableColumnType {
@@ -56,15 +57,27 @@ export type DTableBodyCellOptionsMerged<ROW> = DTableBodyCellTextOptions<ROW> & 
 	DTableBodyCellDatetimeOptions<ROW> & DTableBodyCellTimeOptions<ROW>;
 
 export interface DTableColumnEditingOptions {
+	enable?: boolean;
 	formatter?: DTableEditingFormatter;
 	unformatter?: DTableEditingUnformatter;
 	validator?: DTableEditingValidator;
 }
 
 export interface DTableColumnEditing {
-	formatter?: DTableEditingFormatter;
-	unformatter?: DTableEditingUnformatter;
+	enable: boolean;
+	formatter: DTableEditingFormatter;
+	unformatter: DTableEditingUnformatter;
 	validator?: DTableEditingValidator;
+}
+
+export interface DTableColumnSortingOptions<ROW> {
+	enable?: boolean;
+	comparator?: DTableDataComparatorFunction<ROW> | DTableDataComparatorObject<ROW>;
+}
+
+export interface DTableColumnSorting<ROW> {
+	enable: boolean;
+	comparator?: DTableDataComparatorFunction<ROW> | DTableDataComparatorObject<ROW>;
 }
 
 export interface DTableColumnSelectingOptions {
@@ -97,7 +110,10 @@ export interface DTableColumnOptions<ROW> {
 	editable?: boolean;
 	editing?: DTableColumnEditingOptions;
 
-	header?: DTableHeaderCellOptions;
+	sortable?: boolean;
+	sorting?: DTableColumnSortingOptions<ROW>;
+
+	header?: DTableHeaderCellOptions<ROW>;
 	body?: DTableBodyCellOptionsUnion<ROW>;
 
 	selecting?: DTableColumnSelectingOptions;
@@ -114,10 +130,10 @@ export interface DTableColumn<ROW> {
 	formatter?: DTableFormatter;
 	align: DAlignHorizontal;
 
-	editable: boolean;
 	editing: DTableColumnEditing;
+	sorting: DTableColumnSorting<ROW>;
 
-	header?: DTableHeaderCellOptions;
+	header?: DTableHeaderCellOptions<ROW>;
 	body?: DTableBodyCellOptionsUnion<ROW>;
 
 	selecting: DTableColumnSelecting;

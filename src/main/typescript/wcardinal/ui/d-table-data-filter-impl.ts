@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { utils } from "pixi.js";
 import { DTableDataEachIterator } from "./d-table-data";
 import { DTableDataFilter, DTableDataFilterFunction, DTableDataFilterObject } from "./d-table-data-filter";
 import { utilIsFunction } from "./util/util-is-function";
@@ -12,13 +13,15 @@ interface DTableDataFilterImplParent<ROW> {
 	update(): void;
 }
 
-export class DTableDataFilterImpl<ROW> implements DTableDataFilter<ROW> {
+export class DTableDataFilterImpl<ROW> extends utils.EventEmitter implements DTableDataFilter<ROW> {
 	protected _parent: DTableDataFilterImplParent<ROW>;
 	protected _filter: DTableDataFilterFunction<ROW> | DTableDataFilterObject<ROW> | null;
 	protected _filtered: number[] | null;
 	protected _isDirty: boolean;
 
 	constructor( parent: DTableDataFilterImplParent<ROW> ) {
+		super();
+
 		this._parent = parent;
 		this._filter = null;
 		this._filtered = null;
@@ -32,7 +35,9 @@ export class DTableDataFilterImpl<ROW> implements DTableDataFilter<ROW> {
 
 	unapply(): void {
 		if( this._filtered != null ) {
+			this._isDirty = false;
 			this._filtered = null;
+			this.emit( "change", this );
 			this._parent.update();
 		}
 	}
@@ -83,6 +88,7 @@ export class DTableDataFilterImpl<ROW> implements DTableDataFilter<ROW> {
 		if( this._isDirty ) {
 			this._isDirty = false;
 			this._filtered = this.newFiltered();
+			this.emit( "change", this );
 		}
 	}
 

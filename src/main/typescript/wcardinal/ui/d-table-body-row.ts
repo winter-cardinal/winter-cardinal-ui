@@ -76,7 +76,7 @@ export class DTableBodyRow<
 		options: OPTIONS
 	): DBase {
 		const cellOptions = this.toCellOptions( column, columnIndex, options ) as any;
-		if( column.editable ) {
+		if( column.editing.enable ) {
 			const cell = this.newCellEditable( column, columnIndex, cellOptions );
 			cell.on( "cellchange", this._onCellChangeBound );
 			return cell;
@@ -208,7 +208,7 @@ export class DTableBodyRow<
 			};
 		}
 
-		if( column.editable ) {
+		if( column.editing.enable ) {
 			const editing = result!.editing = result!.editing || {};
 			editing.formatter = editing.formatter || column.editing.formatter;
 			editing.unformatter = editing.unformatter || column.editing.unformatter as any;
