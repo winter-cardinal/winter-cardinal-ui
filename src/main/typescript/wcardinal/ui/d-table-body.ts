@@ -236,24 +236,25 @@ export class DTableBody<
 		data.mapped.each(( datum: ROW, index: number, unmappedIndex: number ): void | boolean => {
 			const row = rows[ index - newRowIndexMappedStart ];
 			row.position.y = index * rowHeight;
-			row.setDisabled( false );
-			row.setActive( selection.contains( unmappedIndex ) );
+			if( selection.contains( unmappedIndex ) ) {
+				row.setStates( DBaseState.ACTIVE, DBaseState.DISABLED );
+			} else {
+				row.setStates( DBaseState.NONE, DBaseState.ACTIVE | DBaseState.DISABLED );
+			}
 			row.set( datum, unmappedIndex, forcibly );
 		}, newRowIndexMappedStart, newRowIndexMappedStart + rowsLength );
 
 		for( let i = 0; newRowIndexMappedStart + i < 0 && i < rowsLength; ++i ) {
 			const row = rows[ i ];
 			row.position.y = ( newRowIndexMappedStart + i ) * rowHeight;
-			row.setDisabled( true );
-			row.setActive( false );
+			row.setStates( DBaseState.DISABLED, DBaseState.ACTIVE );
 			row.unset();
 		}
 
 		for( let i = rowsLength - 1; dataMappedSize <= newRowIndexMappedStart + i && 0 <= i; --i ) {
 			const row = rows[ i ];
 			row.position.y = ( newRowIndexMappedStart + i ) * rowHeight;
-			row.setDisabled( true );
-			row.setActive( false );
+			row.setStates( DBaseState.DISABLED, DBaseState.ACTIVE );
 			row.unset();
 		}
 	}
