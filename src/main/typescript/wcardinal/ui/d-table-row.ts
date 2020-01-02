@@ -36,16 +36,28 @@ export abstract class DTableRow<
 
 		// Cells
 		const columns = this._columns = options.columns || [];
+		const iend = this.toIndexEnd( columns );
 		for( let i = 0, imax = columns.length; i < imax; ++i ) {
 			const cell = this.newCell( columns[ i ], i, columns, options );
 			if( i === 0 ) {
 				cell.setState( DBaseState.START, true );
 			}
-			if( i === imax - 1 ) {
+			if( i === iend ) {
 				cell.setState( DBaseState.END, true );
 			}
 			this.addChild( cell );
 		}
+	}
+
+	protected toIndexEnd( columns: COLUMN[] ): number {
+		const imax = columns.length;
+		for( let i = 0; i < imax; ++i ) {
+			const column = columns[ i ];
+			if( (column as any).weight !== undefined ) {
+				return imax - 1;
+			}
+		}
+		return imax;
 	}
 
 	protected abstract newCell(
