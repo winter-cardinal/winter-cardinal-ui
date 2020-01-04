@@ -119,6 +119,7 @@ export interface DTableColumnOptions<ROW> {
 	selecting?: DTableColumnSelectingOptions;
 
 	category?: string;
+	frozen?: boolean;
 }
 
 export interface DTableColumn<ROW> {
@@ -141,4 +142,6 @@ export interface DTableColumn<ROW> {
 	selecting: DTableColumnSelecting;
 
 	category?: string;
+	frozen?: boolean;
+	offset: number;
 }

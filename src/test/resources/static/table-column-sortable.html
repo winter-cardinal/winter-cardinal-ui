@@ -30,11 +30,11 @@
 
 		// Rows
 		const rows = [];
-		for( let i = 0; i < 20000; ++i ) {
+		for( let i = 0; i < 128; ++i ) {
 			rows.push([
-				`A${i % 32}`,
-				`B${i % 64}`,
-				`C${i % 128}`
+				`A${i % 4}`,
+				`B${i % 8}`,
+				`C${i % 16}`
 			]);
 		}
 

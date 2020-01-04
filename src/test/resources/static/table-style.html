@@ -59,13 +59,6 @@
 			data: data,
 			body: {
 				row: {
-					cell: {
-						background: {
-							color: ( state ) => {
-								return 0xff0000;
-							}
-						}
-					},
 					on: {
 						set: ( _, rowIndex, row ) => {
 							if( rowIndex % 2 === 0 ) {

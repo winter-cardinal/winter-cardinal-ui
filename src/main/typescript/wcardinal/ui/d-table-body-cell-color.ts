@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DBaseState } from "./d-base-state";
 import { DButtonColor, DButtonColorOptions, DThemeButtonColor } from "./d-button-color";
 import { DColorAndAlpha } from "./d-color";
 import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
@@ -55,6 +56,11 @@ export class DTableBodyCellColor<
 		this.on( "select", ( newValue: DColorAndAlpha, oldValue: DColorAndAlpha ): void => {
 			this.emit( "cellchange", clone( newValue ), clone( oldValue ), this._columnIndex, this._columnData );
 		});
+	}
+
+	protected mergeState( stateLocal: DBaseState, stateParent: DBaseState ): DBaseState {
+		return super.mergeState( stateLocal, stateParent ) |
+			( stateParent & DBaseState.HOVERED ? DBaseState.HOVERED : DBaseState.NONE );
 	}
 
 	set( newValue: unknown ): void {

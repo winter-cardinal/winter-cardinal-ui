@@ -60,6 +60,11 @@ export class DTableBodyCellDate<
 		});
 	}
 
+	protected mergeState( stateLocal: DBaseState, stateParent: DBaseState ): DBaseState {
+		return super.mergeState( stateLocal, stateParent ) |
+			( stateParent & DBaseState.HOVERED ? DBaseState.HOVERED : DBaseState.NONE );
+	}
+
 	get dialog(): DDialogDate {
 		let dialog = this._dialog;
 		if( dialog == null ) {

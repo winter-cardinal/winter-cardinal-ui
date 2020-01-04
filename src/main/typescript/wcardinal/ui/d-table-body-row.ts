@@ -233,7 +233,7 @@ export class DTableBodyRow<
 			const columns = this._columns;
 			const columnsLength = columns.length;
 			for( let i = 0, imax = Math.min( columnsLength, cellsLength ); i < imax; ++i ) {
-				const cell = cells[ cellsLength - i - 1 ];
+				const cell = cells[ i ];
 				const columnIndex = columnsLength - i - 1;
 				const column = columns[ columnIndex ];
 				if( isBodyCell( cell ) ) {
@@ -259,5 +259,16 @@ export class DTableBodyRow<
 
 			this.emit( "unset", this );
 		}
+	}
+
+	protected getContentPositionX(): number {
+		const parent = this.parent;
+		if( parent ) {
+			const content = parent.parent;
+			if( content ) {
+				return content.position.x;
+			}
+		}
+		return 0;
 	}
 }

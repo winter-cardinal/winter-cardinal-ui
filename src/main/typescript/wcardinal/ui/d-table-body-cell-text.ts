@@ -35,6 +35,11 @@ export class DTableBodyCellText<
 		this._columnData = options.column.data;
 	}
 
+	protected mergeState( stateLocal: DBaseState, stateParent: DBaseState ): DBaseState {
+		return super.mergeState( stateLocal, stateParent ) |
+			( stateParent & DBaseState.HOVERED ? DBaseState.HOVERED : DBaseState.NONE );
+	}
+
 	set( value: unknown ): void {
 		this.text = value;
 	}

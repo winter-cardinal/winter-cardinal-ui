@@ -48,6 +48,7 @@ export class DControllerDefaultFocus implements DControllerFocus {
 			}
 		} else {
 			if( focusable != null && this._focused === focusable ) {
+				this._focused = null;
 				focusable.setState( DBaseState.FOCUSED, false );
 				if( select && isSelectable( focusable ) ) {
 					focusable.select();

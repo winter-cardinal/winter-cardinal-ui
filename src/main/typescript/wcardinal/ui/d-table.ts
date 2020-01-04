@@ -209,7 +209,9 @@ const toColumn = <ROW>( index: number, options: DTableColumnOptions<ROW> ): DTab
 
 		selecting: toColumnSelecting( options.selecting ),
 
-		category: options.category
+		category: options.category,
+		frozen: options.frozen,
+		offset: 0.0
 	};
 };
 
@@ -219,6 +221,15 @@ const toColumns = <ROW>( options: Array<DTableColumnOptions<ROW>> ): Array<DTabl
 		result.push( toColumn( i, options[ i ] ) );
 	}
 	return result;
+};
+
+const toFrozen = <ROW>( columns: Array<DTableColumn<ROW>> ): number => {
+	for( let i = columns.length - 1; 0 <= i; --i ) {
+		if( columns[ i ].frozen === true ) {
+			return i + 1;
+		}
+	}
+	return 0;
 };
 
 export class DTable<
@@ -240,18 +251,21 @@ export class DTable<
 		// Column
 		const columns = toColumns( options.columns );
 
+		// Frozen
+		const frozen = toFrozen( columns );
+
 		// Categories
-		const category = this.newCategory( options, columns );
+		const category = this.newCategory( options, columns, frozen );
 		this._category = category;
 
 		// Header
 		const headerOffset = (category && category.height) || 0;
-		const header = this.newHeader( options, columns, headerOffset );
+		const header = this.newHeader( options, columns, frozen, headerOffset );
 		this._header = header;
 
 		// Body
 		const bodyOffset = headerOffset + header.height;
-		const body = this.newBody( options, columns, bodyOffset );
+		const body = this.newBody( options, columns, frozen, bodyOffset );
 		this._body = body;
 
 		// Super
@@ -288,12 +302,12 @@ export class DTable<
 		return false;
 	}
 
-	protected toCategoryColumns( columns: Array<DTableColumn<ROW>> ): DTableCategoryColumn[] {
+	protected toCategoryColumns( columns: Array<DTableColumn<ROW>>, frozen: number ): DTableCategoryColumn[] {
 		const result: DTableCategoryColumn[] = [];
 		let current: DTableCategoryColumn | null = null;
 		for( let i = 0, imax = columns.length; i < imax; ++i ) {
 			const column = columns[ i ];
-			if( current && current.label === column.category ) {
+			if( i !== frozen && current && current.label === column.category ) {
 				if( current.weight != null && column.weight != null ) {
 					current.weight += column.weight;
 				} else if( current.width != null && column.width != null ) {
@@ -302,7 +316,8 @@ export class DTable<
 					current = {
 						label: column.category,
 						weight: column.weight,
-						width: column.width
+						width: column.width,
+						offset: 0.0
 					};
 					result.push( current );
 				}
@@ -310,7 +325,8 @@ export class DTable<
 				current = {
 					label: column.category,
 					weight: column.weight,
-					width: column.width
+					width: column.width,
+					offset: 0.0
 				};
 				result.push( current );
 			}
@@ -318,25 +334,30 @@ export class DTable<
 		return result;
 	}
 
-	protected newCategory( options: OPTIONS, columns: Array<DTableColumn<ROW>> ): DTableCategory | null {
+	protected newCategory( options: OPTIONS, columns: Array<DTableColumn<ROW>>, frozen: number ): DTableCategory | null {
 		if( this.hasCategories( columns ) ) {
-			return new DTableCategory( this.toCategoryOptions( options.category, columns ) );
+			return new DTableCategory( this.toCategoryOptions( options.category, columns, frozen ) );
 		}
 		return null;
 	}
 
 	protected toCategoryOptions(
 		options: DTableCategoryOptions | undefined,
-		columns: Array<DTableColumn<ROW>>
+		columns: Array<DTableColumn<ROW>>,
+		frozen: number
 	): DTableCategoryOptions {
 		if( options ) {
 			if( options.columns === undefined ) {
-				options.columns = this.toCategoryColumns( columns );
+				options.columns = this.toCategoryColumns( columns, frozen );
+			}
+			if( options.frozen == null ) {
+				options.frozen = frozen;
 			}
 			return options;
 		}
 		return {
-			columns: this.toCategoryColumns( columns )
+			columns: this.toCategoryColumns( columns, frozen ),
+			frozen
 		};
 	}
 
@@ -369,45 +390,72 @@ export class DTable<
 		return "100%";
 	}
 
-	protected newHeader( options: OPTIONS, columns: Array<DTableColumn<ROW>>, offset: number ): DTableHeader<ROW> {
-		return new DTableHeader( this.toHeaderOptions( options.header, columns, offset ) );
+	protected newHeader(
+		options: OPTIONS,
+		columns: Array<DTableColumn<ROW>>,
+		frozen: number,
+		offset: number
+	): DTableHeader<ROW> {
+		return new DTableHeader( this.toHeaderOptions( options.header, columns, frozen, offset ) );
 	}
 
 	protected toHeaderOptions(
 		options: DTableHeaderOptions<ROW> | undefined,
 		columns: Array<DTableColumn<ROW>>,
+		frozen: number,
 		offset: number
 	): DTableHeaderOptions<ROW> {
 		if( options ) {
 			if( options.columns === undefined ) {
 				options.columns = columns;
 			}
-			if( options.table === undefined ) {
-				options.table = this;
+			if( options.frozen == null ) {
+				options.frozen = frozen;
 			}
 			if( options.offset === undefined ) {
 				options.offset = offset;
 			}
+			if( options.table === undefined ) {
+				options.table = this;
+			}
 			return options;
 		}
 		return {
-			table: this,
+			columns,
+			frozen,
 			offset,
-			columns
+			table: this
 		};
 	}
 
-	protected newBody( options: OPTIONS, columns: Array<DTableColumn<ROW>>, offset: number ): DTableBody<ROW, DATA> {
-		return new DTableBody<ROW, DATA>( this.toBodyOptions( options.body, columns, offset, options.data ) );
+	protected newBody(
+		options: OPTIONS,
+		columns: Array<DTableColumn<ROW>>,
+		frozen: number,
+		offset: number
+	): DTableBody<ROW, DATA> {
+		return new DTableBody<ROW, DATA>(
+			this.toBodyOptions( options.body, columns, frozen, offset, options.data )
+		);
 	}
 
 	protected toBodyOptions(
 		options: DTableBodyOptions<ROW, DATA> | undefined,
 		columns: Array<DTableColumn<ROW>>,
+		frozen: number,
 		offset: number,
 		data: ROW[] | DTableDataOptions<ROW> | DATA | undefined
 	): DTableBodyOptions<ROW, DATA> {
 		if( options != null ) {
+			if( options.columns === undefined ) {
+				options.columns = columns;
+			}
+			if( options.frozen == null ) {
+				options.frozen = frozen;
+			}
+			if( options.offset === undefined ) {
+				options.offset = offset;
+			}
 			if( options.data === undefined && data !== undefined ) {
 				if( utilIsArray( data ) ) {
 					options.data = {
@@ -417,12 +465,6 @@ export class DTable<
 					options.data = data;
 				}
 			}
-			if( options.columns === undefined ) {
-				options.columns = columns;
-			}
-			if( options.offset === undefined ) {
-				options.offset = offset;
-			}
 			if( options.height === undefined && options.weight === undefined ) {
 				options.weight = 1;
 			}
@@ -431,6 +473,7 @@ export class DTable<
 		if( utilIsArray( data ) ) {
 			return {
 				columns,
+				frozen,
 				offset,
 				data: {
 					rows: data
@@ -440,6 +483,7 @@ export class DTable<
 		} else {
 			return {
 				columns,
+				frozen,
 				offset,
 				data,
 				weight: 1

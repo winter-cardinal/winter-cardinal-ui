@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DBaseState } from "./d-base-state";
 import { DSelect, DSelectOptions, DThemeSelect } from "./d-select";
 import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
 import { DTableColumn } from "./d-table-column";
@@ -44,6 +45,11 @@ export class DTableBodyCellSelectMenu<
 			const oldValue = getter( oldSelected );
 			this.emit( "cellchange", newValue, oldValue, this._columnIndex, this._columnData );
 		});
+	}
+
+	protected mergeState( stateLocal: DBaseState, stateParent: DBaseState ): DBaseState {
+		return super.mergeState( stateLocal, stateParent ) |
+			( stateParent & DBaseState.HOVERED ? DBaseState.HOVERED : DBaseState.NONE );
 	}
 
 	set( value: unknown ): void {

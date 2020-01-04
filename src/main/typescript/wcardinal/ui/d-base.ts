@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Container, DisplayObject, interaction, Point, Renderer, Texture, Transform } from "pixi.js";
+import { Container, DisplayObject, interaction, Point, Rectangle, Renderer, Texture, Transform } from "pixi.js";
 import InteractionEvent = interaction.InteractionEvent;
 import { DApplications } from "./d-applications";
 import { DBackgroundStateAware } from "./d-background";
@@ -1853,6 +1853,18 @@ export class DBase<
 			0 <= point.x && point.x <= this._width &&
 			0 <= point.y && point.y <= this._height
 		);
+	}
+
+	/**
+	 * Returns a clipping rect.
+	 *
+	 * @param result a clipping rect
+	 */
+	getClippingRect( target: DBase, result: Rectangle ): void {
+		result.x = 0;
+		result.y = 0;
+		result.width = this._width;
+		result.height = this._height;
 	}
 
 	destroy(): void {

@@ -8,6 +8,7 @@ import { DBaseState } from "./d-base-state";
 import { DMenu, DMenuOptions } from "./d-menu";
 import { Closeable } from "./d-menu-context";
 import { DMenuItem } from "./d-menu-item";
+import { DMenuItemLinkState } from "./d-menu-item-link-state";
 import { DMenuItemOptionsUnion } from "./d-menu-item-options-union";
 import { DMenuItemText, DMenuItemTextOptions, DThemeMenuItemText } from "./d-menu-item-text";
 import { DMenus } from "./d-menus";
@@ -64,7 +65,7 @@ export class DMenuItemLink<
 
 	protected init( options: OPTIONS ): void {
 		if( options.target === DMenuItemLinkTarget.NEW_WINDOW ) {
-			options.state = ( options.state || DBaseState.NONE ) || DBaseState.EXTENSION_0;
+			options.state = ( options.state || DBaseState.NONE ) || DMenuItemLinkState.NEW_WINDOW;
 		}
 		super.init( options );
 	}

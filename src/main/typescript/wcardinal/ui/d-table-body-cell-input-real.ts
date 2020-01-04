@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DBaseState } from "./d-base-state";
 import { DInputReal, DInputRealOptions, DThemeInputReal } from "./d-input-real";
 import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
 import { DTableColumn } from "./d-table-column";
@@ -36,6 +37,11 @@ export class DTableBodyCellInputReal<
 		this.on( "change", ( newCellValue: unknown, oldCellValue: unknown ): void => {
 			this.emit( "cellchange", newCellValue, oldCellValue, this._columnIndex, this._columnData );
 		});
+	}
+
+	protected mergeState( stateLocal: DBaseState, stateParent: DBaseState ): DBaseState {
+		return super.mergeState( stateLocal, stateParent ) |
+			( stateParent & DBaseState.HOVERED ? DBaseState.HOVERED : DBaseState.NONE );
 	}
 
 	set( value: unknown ): void {

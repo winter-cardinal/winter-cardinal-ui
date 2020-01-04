@@ -9,6 +9,7 @@ import { DAlignWith } from "../../d-align-with";
 import { DBaseState } from "../../d-base-state";
 import { DMenuOptions } from "../../d-menu";
 import { DMenuItemLinkMenuItemId, DThemeMenuItemLink } from "../../d-menu-item-link";
+import { DMenuItemLinkState } from "../../d-menu-item-link-state";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteMenuItemText } from "./d-theme-white-menu-item-text";
 
@@ -21,7 +22,7 @@ DThemeWhiteAtlas.add( "menu_item_mark_link", 24, 24,
 
 export class DThemeWhiteMenuItemLink extends DThemeWhiteMenuItemText implements DThemeMenuItemLink {
 	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
-		if( state & DBaseState.EXTENSION_0 ) {
+		if( state & DMenuItemLinkState.NEW_WINDOW ) {
 			return DThemeWhiteAtlas.mappings.menu_item_mark_link;
 		}
 		return null;

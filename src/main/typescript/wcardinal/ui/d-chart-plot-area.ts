@@ -40,15 +40,6 @@ export interface DThemeChartPlotArea extends DThemeBase {
 	isOverflowMaskEnabled(): boolean;
 }
 
-const isOverflowMaskEnabled = <
-	THEME extends DThemeChartPlotArea
->( theme: THEME, options?: DChartPlotAreaOptions<THEME> ): boolean => {
-	if( options && options.mask != null ) {
-		return options.mask;
-	}
-	return theme.isOverflowMaskEnabled();
-};
-
 export class DChartPlotArea<
 	THEME extends DThemeChartPlotArea = DThemeChartPlotArea,
 	OPTIONS extends DChartPlotAreaOptions<THEME> = DChartPlotAreaOptions<THEME>
@@ -63,6 +54,7 @@ export class DChartPlotArea<
 	protected _isBoundsInContainerDirty!: boolean;
 	protected _boundsInContainer!: Rectangle;
 	protected _overflowMask!: DBaseOverflowMask | null;
+	protected _workPoint!: Point;
 
 	constructor( chart: DChart, options?: OPTIONS ) {
 		super( options );
@@ -86,6 +78,7 @@ export class DChartPlotArea<
 		this._isViewDirty = true;
 		this._isBoundsInContainerDirty = true;
 		this._boundsInContainer = new Rectangle();
+		this._workPoint = new Point();
 
 		this.addChild( container );
 		this.addChild( axis.container );
@@ -99,7 +92,8 @@ export class DChartPlotArea<
 
 		// Overflow mask
 		this._overflowMask = null;
-		if( isOverflowMaskEnabled( this.theme, options ) ) {
+		if( options && options.mask != null ? options.mask :
+			this.theme.isOverflowMaskEnabled() ) {
 			this._container.mask = this.getOrCreateOverflowMask();
 		}
 	}
@@ -187,11 +181,13 @@ export class DChartPlotArea<
 			container.updateTransform();
 			const transform = container.transform.localTransform;
 
-			const work = new Point();
+			const work = this._workPoint;
+
 			work.set( 0, 0 );
 			transform.applyInverse( work, work );
 			result.x = work.x;
 			result.y = work.y;
+
 			work.set( this.width, this.height );
 			transform.applyInverse( work, work );
 			result.width = work.x - result.x;

@@ -36,4 +36,8 @@ export class DThemeWhiteLayout extends DThemeWhiteBase implements DThemeLayout {
 	getMultiplicity(): number {
 		return 1;
 	}
+
+	getReverse(): boolean {
+		return false;
+	}
 }

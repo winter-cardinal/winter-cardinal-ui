@@ -32,6 +32,7 @@ export interface DLayoutOptions<THEME extends DThemeLayout> extends DBaseOptions
 	row?: number;
 	column?: number;
 	direction?: (keyof typeof DLayoutDirection) | DLayoutDirection;
+	reverse?: boolean;
 }
 
 export interface DThemeLayout extends DThemeBase {
@@ -39,13 +40,14 @@ export interface DThemeLayout extends DThemeBase {
 	getDirection(): DLayoutDirection;
 	getCornerAdjust(): boolean;
 	getMultiplicity(): number;
+	getReverse(): boolean;
 }
 
-const isDBaseVisible = ( child: DisplayObject ): child is DBase => {
+const isVisible = ( child: DisplayObject ): child is DBase => {
 	return child instanceof DBase && (child.visible || child instanceof DLayoutSpace);
 };
 
-const toMultiplicity = <THEME extends DThemeLayout>( theme: THEME, options?: DLayoutOptions<THEME> ): number => {
+const toMultiplicity = ( theme: DThemeLayout, options?: DLayoutOptions<DThemeLayout> ): number => {
 	if( options ) {
 		if( options.row != null ) {
 			return options.row;
@@ -57,7 +59,7 @@ const toMultiplicity = <THEME extends DThemeLayout>( theme: THEME, options?: DLa
 	return theme.getMultiplicity();
 };
 
-const toMargin = <THEME extends DThemeLayout>( theme: THEME, options?: DLayoutOptions<THEME> ): DLayoutMargin => {
+const toMargin = ( theme: DThemeLayout, options?: DLayoutOptions<DThemeLayout> ): DLayoutMargin => {
 	if( options && options.margin != null ) {
 		const margin = options.margin;
 		if( utilIsNumber( margin ) ) {
@@ -81,7 +83,7 @@ const toMargin = <THEME extends DThemeLayout>( theme: THEME, options?: DLayoutOp
 	}
 };
 
-const toDirection = <THEME extends DThemeLayout>( theme: THEME, options?: DLayoutOptions<THEME> ): DLayoutDirection => {
+const toDirection = ( theme: DThemeLayout, options?: DLayoutOptions<DThemeLayout> ): DLayoutDirection => {
 	if( options && options.direction != null ) {
 		const direction = options.direction;
 		if( utilIsString( direction ) ) {
@@ -93,11 +95,18 @@ const toDirection = <THEME extends DThemeLayout>( theme: THEME, options?: DLayou
 	return theme.getDirection();
 };
 
-const toCornerAdjust = <THEME extends DThemeLayout>( theme: THEME, options?: DLayoutOptions<THEME> ): boolean => {
+const toCornerAdjust = ( theme: DThemeLayout, options?: DLayoutOptions<DThemeLayout> ): boolean => {
 	if( options && options.corner != null && ! utilIsNumber( options.corner ) && options.corner.adjust != null ) {
 		return options.corner.adjust;
 	}
 	return theme.getCornerAdjust();
+};
+
+const toReverse = ( theme: DThemeLayout, options?: DLayoutOptions<DThemeLayout> ): boolean => {
+	if( options && options.reverse != null ) {
+		return options.reverse;
+	}
+	return theme.getReverse();
 };
 
 export abstract class DLayout<
@@ -106,33 +115,39 @@ export abstract class DLayout<
 > extends DBase<THEME, OPTIONS> {
 	static CORNER_ADJUST_WORK: Float32Array | null = null;
 
-	protected _margin: DLayoutMargin;
-	protected _cornerAdjust: boolean;
-	protected _multiplicity: number;
-	protected _direction: DLayoutDirection;
+	protected _margin!: DLayoutMargin;
+	protected _cornerAdjust!: boolean;
+	protected _multiplicity!: number;
+	protected _direction!: DLayoutDirection;
+	protected _reverse!: boolean;
 
 	constructor( options?: OPTIONS ) {
 		super( options );
+	}
+
+	protected init( options?: OPTIONS ): void {
+		super.init( options );
 
 		this.setState( DBaseState.UNFOCUSABLE, true );
-
 		const theme = this.theme;
 		this._margin = toMargin( theme, options );
 		this._direction = toDirection( theme, options );
 		this._cornerAdjust = toCornerAdjust( theme, options );
 		this._multiplicity = toMultiplicity( theme, options );
+		this._reverse = toReverse( theme, options );
 	}
 
 	protected getWeightTotal() {
 		const children = this.children;
 		let result = 0;
 		const multiplicity = this._multiplicity;
+		const reverse = this._reverse;
 		for( let i = 0, imax = children.length; i < imax; ) {
 			let weight = -1;
 			let j = 0;
 			for( ; j < multiplicity && i + j < imax; ++j ) {
-				const child = children[ i + j ];
-				if( isDBaseVisible( child ) ) {
+				const child = children[ reverse ? imax - 1 - (i + j) : i + j ];
+				if( isVisible( child ) ) {
 					const clearType = child.getClearType();
 					if( j !== 0 && (clearType & DLayoutClearType.BEFORE) ) {
 						break;
@@ -159,6 +174,7 @@ export abstract class DLayout<
 	protected getSpaceLeft( baseSize: number, margin: number ) {
 		const children = this.children;
 		const multiplicity = this._multiplicity;
+		const reverse = this._reverse;
 		if( this._direction === DLayoutDirection.VERTICAL ) {
 			let result = baseSize;
 			let marginNext = 0;
@@ -167,8 +183,8 @@ export abstract class DLayout<
 				let weight = -1;
 				let j = 0;
 				for( ; j < multiplicity && i + j < imax; ++j ) {
-					const child = children[ i + j ];
-					if( isDBaseVisible( child ) ) {
+					const child = children[ reverse ? imax - 1 - (i + j) : i + j ];
+					if( isVisible( child ) ) {
 						const clearType = child.getClearType();
 						if( j !== 0 && (clearType & DLayoutClearType.BEFORE) ) {
 							break;
@@ -202,8 +218,8 @@ export abstract class DLayout<
 				let weight = -1;
 				let j = 0;
 				for( ; j < multiplicity && i + j < imax; ++j ) {
-					const child = children[ i + j ];
-					if( isDBaseVisible( child ) ) {
+					const child = children[ reverse ? imax - 1 - (i + j) : i + j ];
+					if( isVisible( child ) ) {
 						const clearType = child.getClearType();
 						if( j !== 0 && (clearType & DLayoutClearType.BEFORE) ) {
 							break;
@@ -244,6 +260,7 @@ export abstract class DLayout<
 		const marginHorizontal = margin.horizontal;
 		const weightTotal = this.getWeightTotal();
 		const multiplicity = this._multiplicity;
+		const reverse = this._reverse;
 
 		let cornerAdjustWork = null;
 		if( this._cornerAdjust ) {
@@ -270,8 +287,8 @@ export abstract class DLayout<
 					let height = 0;
 					let j = 0;
 					for( ; j < multiplicity && i + j < imax; ++j ) {
-						const child = children[ i + j ];
-						if( isDBaseVisible( child ) ) {
+						const child = children[ reverse ? imax - 1 - (i + j) : i + j ];
+						if( isVisible( child ) ) {
 							const clearType = child.getClearType();
 							if( j !== 0 && (clearType & DLayoutClearType.BEFORE) ) {
 								break;
@@ -316,8 +333,8 @@ export abstract class DLayout<
 
 				if( cornerAdjustWork != null ) {
 					for( let i = 0, imax = children.length; i < imax; ++i ) {
-						const child = children[ i ];
-						if( isDBaseVisible( child ) ) {
+						const child = children[ reverse ? imax - 1 - i : i ];
+						if( isVisible( child ) ) {
 							const i1 = 2 + ( i << 1 );
 							const icolumn1 = cornerAdjustWork[ i1 + 0 ];
 							const irow1 = cornerAdjustWork[ i1 + 1 ];
@@ -350,8 +367,8 @@ export abstract class DLayout<
 					let height = 0;
 					let j = 0;
 					for( ; j < multiplicity && i + j < imax; ++j ) {
-						const child = children[ i + j ];
-						if( isDBaseVisible( child ) ) {
+						const child = children[ reverse ? imax - 1 - (i + j) : i + j ];
+						if( isVisible( child ) ) {
 							const clearType = child.getClearType();
 							if( j !== 0 && (clearType & DLayoutClearType.BEFORE) ) {
 								break;
@@ -396,8 +413,8 @@ export abstract class DLayout<
 
 				if( cornerAdjustWork != null ) {
 					for( let i = 0, imax = children.length; i < imax; ++i ) {
-						const child = children[ i ];
-						if( isDBaseVisible( child ) ) {
+						const child = children[ reverse ? imax - 1 - i : i ];
+						if( isVisible( child ) ) {
 							const i1 = 2 + ( i << 1 );
 							const icolumn1 = cornerAdjustWork[ i1 + 0 ];
 							const irow1 = cornerAdjustWork[ i1 + 1 ];
@@ -437,8 +454,8 @@ export abstract class DLayout<
 					let width = 0;
 					let j = 0;
 					for( ; j < multiplicity && i + j < imax; ++j ) {
-						const child = children[ i + j ];
-						if( isDBaseVisible( child ) ) {
+						const child = children[ reverse ? imax - 1 - (i + j) : i + j ];
+						if( isVisible( child ) ) {
 							const clearType = child.getClearType();
 							if( j !== 0 && (clearType & DLayoutClearType.BEFORE) ) {
 								break;
@@ -483,8 +500,8 @@ export abstract class DLayout<
 
 				if( cornerAdjustWork != null ) {
 					for( let i = 0, imax = children.length; i < imax; ++i ) {
-						const child = children[ i ];
-						if( isDBaseVisible( child ) ) {
+						const child = children[ reverse ? imax - 1 - i : i ];
+						if( isVisible( child ) ) {
 							const i1 = 2 + ( i << 1 );
 							const icolumn1 = cornerAdjustWork[ i1 + 0 ];
 							const irow1 = cornerAdjustWork[ i1 + 1 ];
@@ -517,8 +534,8 @@ export abstract class DLayout<
 					let width = 0;
 					let j = 0;
 					for( ; j < multiplicity && i + j < imax; ++j ) {
-						const child = children[ i + j ];
-						if( isDBaseVisible( child ) ) {
+						const child = children[ reverse ? imax - 1 - (i + j) : i + j ];
+						if( isVisible( child ) ) {
 							const clearType = child.getClearType();
 							if( j !== 0 && (clearType & DLayoutClearType.BEFORE) ) {
 								break;
@@ -563,8 +580,8 @@ export abstract class DLayout<
 
 				if( cornerAdjustWork != null ) {
 					for( let i = 0, imax = children.length; i < imax; ++i ) {
-						const child = children[ i ];
-						if( isDBaseVisible( child ) ) {
+						const child = children[ reverse ? imax - 1 - i : i ];
+						if( isVisible( child ) ) {
 							const i1 = 2 + ( i << 1 );
 							const icolumn1 = cornerAdjustWork[ i1 + 0 ];
 							const irow1 = cornerAdjustWork[ i1 + 1 ];

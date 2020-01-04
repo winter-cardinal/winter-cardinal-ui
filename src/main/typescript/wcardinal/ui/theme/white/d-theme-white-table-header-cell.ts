@@ -13,6 +13,7 @@ import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeTableHeaderCell } from "../../d-table-header-cell";
+import { DTableState } from "../../d-table-state";
 import { UtilRgb } from "../../util/util-rgb";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
@@ -60,7 +61,7 @@ export class DThemeWhiteTableHeaderCell extends DThemeWhiteImage implements DThe
 	}
 
 	getBorderMask( state: DBaseState ): DBorderMask {
-		if( DBaseStates.is( state, DBaseState.END ) ) {
+		if( DBaseStates.is( state, DTableState.CELL_END ) ) {
 			return DBorderMask.ALL;
 		} else {
 			return DBorderMask.NOT_RIGHT;
@@ -96,8 +97,8 @@ export class DThemeWhiteTableHeaderCell extends DThemeWhiteImage implements DThe
 	}
 
 	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
-		if( DBaseStates.is( state, DBaseState.SORTED ) ) {
-			if( DBaseStates.is( state, DBaseState.ASCENDING_ORDER ) ) {
+		if( DBaseStates.is( state, DTableState.CELL_SORTED ) ) {
+			if( DBaseStates.is( state, DTableState.CELL_SORTED_ASCENDING ) ) {
 				return DThemeWhiteAtlas.mappings.sorted_ascending;
 			} else {
 				return DThemeWhiteAtlas.mappings.sorted_descending;

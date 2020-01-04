@@ -146,8 +146,6 @@ export * from "./d-theme-white-table-body-cell-select-menu";
 export * from "./d-theme-white-table-body-cell-text";
 export * from "./d-theme-white-table-body-cell-time";
 export * from "./d-theme-white-table-body-cells";
-export * from "./d-theme-white-table-body-row-even";
-export * from "./d-theme-white-table-body-row-odd";
 export * from "./d-theme-white-table-body-row";
 export * from "./d-theme-white-table-body";
 export * from "./d-theme-white-table-category-cell";

@@ -90,6 +90,8 @@ export class DHTMLElement<
 	THEME extends DThemeHTMLElement<ELEMENT> = DThemeHTMLElement<ELEMENT>,
 	OPTIONS extends DHTMLElementOptions<VALUE, ELEMENT, THEME> = DHTMLElementOptions<VALUE, ELEMENT, THEME>
 > extends DImageBase<VALUE, THEME, OPTIONS> {
+	protected _workPoint!: Point | null;
+
 	protected _clipper!: HTMLDivElement | null;
 	protected _clipperCreator!: DHTMLElementElementCreator<HTMLDivElement> | null;
 	protected _clipperStyle!: DHTMLElementStyle<THEME> | undefined;
@@ -120,6 +122,8 @@ export class DHTMLElement<
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
+
+		this._workPoint = null;
 
 		const theme = this.theme;
 		const clipper = options && options.clipper;
@@ -291,39 +295,42 @@ export class DHTMLElement<
 	 * @param elementRect
 	 * @param resolution
 	 */
-	protected getClipperRect( elementRect: Rectangle, resolution: number ) {
-		const rect = this._clipperRect = ( this._clipperRect != null ? this._clipperRect : new Rectangle() );
-		rect.copyFrom( elementRect );
+	protected getClipperRect( elementRect: Rectangle, resolution: number ): Rectangle {
+		const point = this._workPoint = ( this._workPoint || new Point( 0, 0 ) );
+		const rect = this._clipperRect = ( this._clipperRect || new Rectangle() );
 
-		const p = new Point( 0, 0 );
+		let x0 = elementRect.x;
+		let y0 = elementRect.y;
+		let x1 = x0 + elementRect.width;
+		let y1 = y0 + elementRect.height;
+
 		let current = this.parent;
 		while( current instanceof DBase ) {
-			p.set( 0, 0 );
-			current.toGlobal( p, p, false );
-			let x = p.x;
-			let y = p.y;
+			current.getClippingRect( this, rect );
 
-			p.set( current.width, current.height );
-			current.toGlobal( p, p, true );
-			const w = p.x - x;
-			const h = p.y - y;
+			point.set( rect.x, rect.y );
+			current.toGlobal( point, point, false );
+			const x = ( (point.x * resolution) | 0 ) / resolution;
+			const y = ( (point.y * resolution) | 0 ) / resolution;
 
-			x = ( (x * resolution) | 0 ) / resolution;
-			y = ( (y * resolution) | 0 ) / resolution;
+			point.set( rect.x + rect.width, rect.y + rect.height );
+			current.toGlobal( point, point, true );
+			const w = point.x - x;
+			const h = point.y - y;
 
-			const x0 = rect.x;
-			const y0 = rect.y;
-			const x1 = rect.x + rect.width;
-			const y1 = rect.y + rect.height;
+			x0 = Math.min( Math.max( x0, x ), x + w );
+			y0 = Math.min( Math.max( y0, y ), y + h );
 
-			rect.x = Math.min( Math.max( x0, x ), x + w );
-			rect.y = Math.min( Math.max( y0, y ), y + h );
-
-			rect.width = Math.min( Math.max( x1, x ), x + w ) - rect.x;
-			rect.height = Math.min( Math.max( y1, y ), y + h ) - rect.y;
+			x1 = Math.min( Math.max( x1, x ), x + w );
+			y1 = Math.min( Math.max( y1, y ), y + h );
 
 			current = current.parent;
 		}
+
+		rect.x = x0;
+		rect.y = y0;
+		rect.width = x1 - x0;
+		rect.height = y1 - y0;
 		return rect;
 	}
 
@@ -332,18 +339,19 @@ export class DHTMLElement<
 	 *
 	 * @param resolution
 	 */
-	protected getElementRect( resolution: number ) {
+	protected getElementRect( resolution: number ): Rectangle {
+		const point = this._workPoint = ( this._workPoint || new Point( 0, 0 ) );
 		const rect = this._elementRect = ( this._elementRect != null ? this._elementRect : new Rectangle() );
 
-		const p = new Point( 0, 0 );
-		this.toGlobal( p, p, false );
-		rect.x = p.x;
-		rect.y = p.y;
+		point.set( 0, 0 );
+		this.toGlobal( point, point, false );
+		rect.x = point.x;
+		rect.y = point.y;
 
-		p.set( this.width, this.height );
-		this.toGlobal( p, p, true );
-		rect.width = p.x - rect.x;
-		rect.height = p.y - rect.y;
+		point.set( this.width, this.height );
+		this.toGlobal( point, point, true );
+		rect.width = point.x - rect.x;
+		rect.height = point.y - rect.y;
 
 		// Rounds pixels as Pixi.js does
 		rect.x = ( (rect.x * resolution) | 0 ) / resolution;

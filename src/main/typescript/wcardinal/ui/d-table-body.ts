@@ -3,14 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction, Point } from "pixi.js";
+import { interaction, Point, Rectangle } from "pixi.js";
 import InteractionEvent = interaction.InteractionEvent;
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DButtonBase } from "./d-button-base";
 import { DTableBodyRow, DTableBodyRowOptions } from "./d-table-body-row";
-import { DTableBodyRowEven } from "./d-table-body-row-even";
-import { DTableBodyRowOdd } from "./d-table-body-row-odd";
 import { DTableColumn } from "./d-table-column";
 import { DTableData, DTableDataOptions } from "./d-table-data";
 import { DTableDataList } from "./d-table-data-list";
@@ -26,6 +24,7 @@ export interface DTableBodyOptions<
 	row?: DTableBodyRowOptions<ROW>;
 	data?: DTableDataOptions<ROW> | DATA;
 	offset?: number;
+	frozen: number;
 }
 
 export interface DThemeTableBody extends DThemeBase {
@@ -46,14 +45,18 @@ const toRowOptions = <ROW, DATA extends DTableData<ROW>>(
 		if( result.columns === undefined ) {
 			result.columns = columns;
 		}
-		if( selectionType !== DTableDataSelectionType.NONE && result.interactive == null ) {
+		if( result.interactive == null && selectionType !== DTableDataSelectionType.NONE ) {
 			result.interactive = "SELF";
+		}
+		if( result.frozen == null ) {
+			result.frozen = options.frozen;
 		}
 	} else {
 		result = {
 			columns,
 			height: theme.getRowHeight(),
-			interactive: ( selectionType !== DTableDataSelectionType.NONE ? "SELF" : undefined )
+			interactive: ( selectionType !== DTableDataSelectionType.NONE ? "SELF" : undefined ),
+			frozen: options.frozen
 		};
 	}
 	return result as DTableBodyRowOptions<ROW>;
@@ -273,9 +276,8 @@ export class DTableBody<
 
 	protected newRow( isEven: boolean ): DTableBodyRow<ROW> {
 		const options = this._rowOptions;
-		const result = ( isEven ?
-			new DTableBodyRowEven<ROW>( options ) : new DTableBodyRowOdd<ROW>( options )
-		);
+		options.even = isEven;
+		const result = new DTableBodyRow<ROW>( options );
 		result.on( "change", ( newCellValue: unknown, oldCellValue: unknown, columnIndex: number ): void => {
 			const index = this.getChildIndex( result );
 			if( 0 <= index ) {
@@ -285,6 +287,31 @@ export class DTableBody<
 			}
 		});
 		return result;
+	}
+
+	onParentMove( x: number, y: number ): void {
+		super.onParentMove( x, y );
+		this.updateFrozenCellPosition( x );
+	}
+
+	protected updateFrozenCellPosition( x: number ): void {
+		if( 0 < this._rowOptions.frozen ) {
+			const rows = this.children as Array<DTableBodyRow<ROW>>;
+			for( let i = 0, imax = rows.length; i < imax; ++i ) {
+				rows[ i ].updateFrozenCellPosition( x );
+			}
+		}
+	}
+
+	getClippingRect( target: DBase, result: Rectangle ): void {
+		super.getClippingRect( target, result );
+
+		const parent = this.parent;
+		if( parent ) {
+			const shiftY = -parent.transform.position.y;
+			result.y += shiftY;
+			result.height -= shiftY;
+		}
 	}
 
 	onRowClicked( e: InteractionEvent ): void {

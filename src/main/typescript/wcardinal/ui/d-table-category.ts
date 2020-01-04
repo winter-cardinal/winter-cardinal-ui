@@ -11,6 +11,7 @@ export interface DTableCategoryColumn {
 	label?: string;
 	weight?: number;
 	width?: number;
+	offset: number;
 }
 
 export interface DTableCategoryOptions<
@@ -38,6 +39,15 @@ export class DTableCategory<
 	onParentMove( x: number, y: number ): void {
 		super.onParentMove( x, y );
 		this.transform.position.y = -y;
+		this.updateFrozenCellPosition( x );
+	}
+
+	protected getContentPositionX(): number {
+		const content = this.parent;
+		if( content ) {
+			return content.position.x;
+		}
+		return 0;
 	}
 
 	protected newCell(

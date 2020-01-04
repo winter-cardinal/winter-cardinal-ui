@@ -20,8 +20,6 @@ import { DThemeWhiteTableBodyCellSelectMenu } from "../theme/white/d-theme-white
 import { DThemeWhiteTableBodyCellText } from "../theme/white/d-theme-white-table-body-cell-text";
 import { DThemeWhiteTableBodyCellTime } from "../theme/white/d-theme-white-table-body-cell-time";
 import { DThemeWhiteTableBodyRow } from "../theme/white/d-theme-white-table-body-row";
-import { DThemeWhiteTableBodyRowEven } from "../theme/white/d-theme-white-table-body-row-even";
-import { DThemeWhiteTableBodyRowOdd } from "../theme/white/d-theme-white-table-body-row-odd";
 import { DThemeWhiteTableCategory } from "../theme/white/d-theme-white-table-category";
 import { DThemeWhiteTableCategoryCell } from "../theme/white/d-theme-white-table-category-cell";
 import { DThemeWhiteTableHeader } from "../theme/white/d-theme-white-table-header";
@@ -51,8 +49,6 @@ export const loadThemeWhiteTable = () => {
 	DThemeWhite.set( "DTableBodyCellSelectMenu", DThemeWhiteTableBodyCellSelectMenu );
 	DThemeWhite.set( "DTableBodyCellText", DThemeWhiteTableBodyCellText );
 	DThemeWhite.set( "DTableBodyCellTime", DThemeWhiteTableBodyCellTime );
-	DThemeWhite.set( "DTableBodyRowEven", DThemeWhiteTableBodyRowEven );
-	DThemeWhite.set( "DTableBodyRowOdd", DThemeWhiteTableBodyRowOdd );
 	DThemeWhite.set( "DTableBodyRow", DThemeWhiteTableBodyRow );
 	DThemeWhite.set( "DTableBody", DThemeWhiteTableBody );
 	DThemeWhite.set( "DTableCategoryCell", DThemeWhiteTableCategoryCell );

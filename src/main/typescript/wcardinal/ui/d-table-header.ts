@@ -41,6 +41,7 @@ export class DTableHeader<
 	protected init( options: OPTIONS ) {
 		this._table = options.table || null;
 		this._offset = this.transform.position.y = options.offset || 0;
+		this._frozen = options.frozen;
 
 		super.init( options );
 	}
@@ -52,6 +53,15 @@ export class DTableHeader<
 	onParentMove( x: number, y: number ): void {
 		super.onParentMove( x, y );
 		this.transform.position.y = -y + this._offset;
+		this.updateFrozenCellPosition( x );
+	}
+
+	protected getContentPositionX(): number {
+		const content = this.parent;
+		if( content ) {
+			return content.position.x;
+		}
+		return 0;
 	}
 
 	protected newCell(

@@ -32,9 +32,12 @@
 		const rows = [];
 		for( let i = 0; i < 20000; ++i ) {
 			rows.push([
-				`A${i % 32}`,
-				`B${i % 64}`,
-				`C${i % 128}`
+				`A${i % 4}`,
+				`B${i % 8}`,
+				`C${i % 16}`,
+				`D${i % 32}`,
+				`E${i % 64}`,
+				`F${i % 128}`
 			]);
 		}
 
@@ -46,14 +49,37 @@
 			columns: [{
 				label: "A",
 				type: "TEXT",
-				category: "Category"
+				width: 200,
+				category: "Category",
+				editable: true,
+				frozen: true
 			},{
 				label: "B",
 				type: "TEXT",
-				category: "Category"
+				width: 200,
+				category: "Category",
+				editable: true
 			},{
 				label: "C",
-				type: "TEXT"
+				type: "TEXT",
+				width: 200,
+				category: "Category",
+				editable: true
+			},{
+				label: "D",
+				type: "TEXT",
+				width: 200,
+				editable: true
+			},{
+				label: "E",
+				type: "TEXT",
+				width: 200,
+				editable: true
+			},{
+				label: "F",
+				type: "TEXT",
+				width: 200,
+				editable: true
 			}],
 			data: rows
 		});

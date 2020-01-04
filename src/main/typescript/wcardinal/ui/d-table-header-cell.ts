@@ -13,6 +13,7 @@ import {
 	DTableDataOrder, DTableDataSorter
 } from "./d-table-data-sorter";
 import { DTableHeaderTable } from "./d-table-header";
+import { DTableState } from "./d-table-state";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
 export interface DTableHeaderCellHeader<ROW> {
@@ -106,12 +107,12 @@ export class DTableHeaderCell<
 		if( sorter && comparator ) {
 			if( sorter.isApplied() && sorter.get() === comparator ) {
 				if( sorter.order === DTableDataOrder.ASCENDING ) {
-					this.setState( DBaseState.SORTED | DBaseState.ASCENDING_ORDER, true );
+					this.setStates( DTableState.CELL_SORTED_ASCENDING, DTableState.CELL_SORTED_DESCENDING );
 				} else {
-					this.setStates( DBaseState.SORTED, DBaseState.ASCENDING_ORDER );
+					this.setStates( DTableState.CELL_SORTED_DESCENDING, DTableState.CELL_SORTED_ASCENDING );
 				}
 			} else {
-				this.setState( DBaseState.SORTED, false );
+				this.setState( DTableState.CELL_SORTED, false );
 			}
 		}
 	}
