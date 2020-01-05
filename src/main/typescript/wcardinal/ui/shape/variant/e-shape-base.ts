@@ -634,7 +634,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	}
 
 	setState( state: DBaseState, isOn: boolean ): this {
-		if( DBaseStates.is( this._stateLocal, state ) !== isOn ) {
+		if( (!! ( this._stateLocal & state )) !== isOn ) {
 			if( isOn ) {
 				this._stateLocal |= state;
 			} else {
@@ -646,7 +646,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	}
 
 	hasState( state: DBaseState ): boolean {
-		return DBaseStates.is( this._state, state );
+		return !! ( this._state & state );
 	}
 
 	focus(): this {

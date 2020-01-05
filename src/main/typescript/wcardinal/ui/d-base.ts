@@ -1494,7 +1494,7 @@ export class DBase<
 	}
 
 	hasState( state: DBaseState ): boolean {
-		return DBaseStates.is( this._state, state );
+		return !! ( this._state & state );
 	}
 
 	get theme(): THEME {

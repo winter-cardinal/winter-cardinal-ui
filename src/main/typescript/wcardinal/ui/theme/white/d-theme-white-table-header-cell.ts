@@ -12,8 +12,9 @@ import { DBorderMask } from "../../d-border";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner";
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
+import { DTableCellState } from "../../d-table-cell-state";
 import { DThemeTableHeaderCell } from "../../d-table-header-cell";
-import { DTableState } from "../../d-table-state";
+import { DTableHeaderCellState } from "../../d-table-header-cell-state";
 import { UtilRgb } from "../../util/util-rgb";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
@@ -40,7 +41,8 @@ export class DThemeWhiteTableHeaderCell extends DThemeWhiteImage implements DThe
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
-			return null;
+			return ( state & DTableCellState.FROZEN ) ?
+				this.COLOR : null;
 		} else if( DBaseStates.isActive( state ) ) {
 			return DThemeWhiteConstants.HIGHLIGHT_COLOR;
 		} else if( DBaseStates.isPressed( state ) ) {
@@ -48,8 +50,13 @@ export class DThemeWhiteTableHeaderCell extends DThemeWhiteImage implements DThe
 		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
 			return this.COLOR_HOVERED;
 		} else {
-			return this.COLOR;
+			return ( state & DTableCellState.FROZEN ) ?
+				this.COLOR : null;
 		}
+	}
+
+	getBackgroundAlpha( state: DBaseState ): number {
+		return 1;
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
@@ -61,7 +68,7 @@ export class DThemeWhiteTableHeaderCell extends DThemeWhiteImage implements DThe
 	}
 
 	getBorderMask( state: DBaseState ): DBorderMask {
-		if( DBaseStates.is( state, DTableState.CELL_END ) ) {
+		if( state & DTableCellState.END ) {
 			return DBorderMask.ALL;
 		} else {
 			return DBorderMask.NOT_RIGHT;
@@ -97,12 +104,10 @@ export class DThemeWhiteTableHeaderCell extends DThemeWhiteImage implements DThe
 	}
 
 	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
-		if( DBaseStates.is( state, DTableState.CELL_SORTED ) ) {
-			if( DBaseStates.is( state, DTableState.CELL_SORTED_ASCENDING ) ) {
-				return DThemeWhiteAtlas.mappings.sorted_ascending;
-			} else {
-				return DThemeWhiteAtlas.mappings.sorted_descending;
-			}
+		if( state & DTableHeaderCellState.SORTED_ASCENDING ) {
+			return DThemeWhiteAtlas.mappings.sorted_ascending;
+		} else if( state & DTableHeaderCellState.SORTED_DESCENDING ) {
+			return DThemeWhiteAtlas.mappings.sorted_descending;
 		} else {
 			return null;
 		}

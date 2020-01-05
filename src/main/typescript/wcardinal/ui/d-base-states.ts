@@ -8,63 +8,63 @@ import { DBaseState } from "./d-base-state";
 
 export class DBaseStates {
 	static is( target: DBaseState, state: DBaseState ): boolean {
-		return ( (target & state) !== 0 );
+		return !! ( target & state );
 	}
 
 	static isHovered( target: DBaseState ) {
-		return DBaseStates.is( target, DBaseState.HOVERED );
+		return !! ( target & DBaseState.HOVERED );
 	}
 
 	static isDragging( target: DBaseState ) {
-		return DBaseStates.is( target, DBaseState.DRAGGING );
+		return !! ( target & DBaseState.DRAGGING );
 	}
 
 	static isFocused( target: DBaseState ) {
-		return DBaseStates.is( target, DBaseState.FOCUSED );
+		return !! ( target & DBaseState.FOCUSED );
 	}
 
 	static isFocusedIn( target: DBaseState ) {
-		return DBaseStates.is( target, DBaseState.FOCUSED | DBaseState.FOCUSED_IN );
+		return !! ( target & (DBaseState.FOCUSED | DBaseState.FOCUSED_IN) );
 	}
 
 	static isActive( target: DBaseState ) {
-		return DBaseStates.is( target, DBaseState.ACTIVE );
+		return !! ( target & DBaseState.ACTIVE );
 	}
 
 	static isActiveIn( target: DBaseState ) {
-		return DBaseStates.is( target, DBaseState.ACTIVE | DBaseState.ACTIVE_IN );
+		return !! ( target & (DBaseState.ACTIVE | DBaseState.ACTIVE_IN) );
 	}
 
 	static isNotActive( state: DBaseState ): boolean {
-		return DBaseStates.is( state, DBaseState.DISABLED ) || ! DBaseStates.is( state, DBaseState.ACTIVE );
+		return (!! ( state & DBaseState.DISABLED )) || (! ( state & DBaseState.ACTIVE ));
 	}
 
 	static isPressed( target: DBaseState ) {
-		return DBaseStates.is( target, DBaseState.PRESSED );
+		return !! ( target & DBaseState.PRESSED );
 	}
 
 	static isDisabled( target: DBaseState ) {
-		return DBaseStates.is( target, DBaseState.DISABLED );
+		return !! ( target & DBaseState.DISABLED );
 	}
 
 	static isReadOnly( target: DBaseState ) {
-		return DBaseStates.is( target, DBaseState.READ_ONLY );
+		return !! ( target & DBaseState.READ_ONLY );
 	}
 
 	static isActionable( target: DBaseState ) {
-		return ! DBaseStates.is( target, DBaseState.DISABLED | DBaseState.READ_ONLY );
+		return ! ( target & (DBaseState.DISABLED | DBaseState.READ_ONLY) );
 	}
 
 	static isInvalid( target: DBaseState ) {
-		return DBaseStates.is( target, DBaseState.INVALID );
+		return !! ( target & DBaseState.INVALID );
 	}
 
 	static isSucceeded( target: DBaseState ) {
-		return DBaseStates.is( target, DBaseState.SUCCEEDED );
+		return !! ( target & DBaseState.SUCCEEDED );
 	}
 
 	static isFailed( target: DBaseState ) {
-		return DBaseStates.is( target, DBaseState.FAILED );
+		return !! ( target & DBaseState.FAILED );
 	}
 
 	static bind(

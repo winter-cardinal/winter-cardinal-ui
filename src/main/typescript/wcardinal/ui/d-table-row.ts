@@ -7,7 +7,8 @@ import { Rectangle } from "pixi.js";
 import { DBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DLayoutHorizontal, DLayoutHorizontalOptions, DThemeLayoutHorizontal } from "./d-layout-horizontal";
-import { DTableState } from "./d-table-state";
+import { DTableCellState } from "./d-table-cell-state";
+import { DTableRowState } from "./d-table-row-state";
 
 export interface DTableRowOptions<
 	ROW,
@@ -46,8 +47,10 @@ export abstract class DTableRow<
 		super.init( options );
 
 		// State
-		const state = options.even ? DTableState.EVEN : DBaseState.NONE;
-		this.setState( state, true );
+		const even = !! options.even;
+		if( even ) {
+			this.setState( DTableRowState.EVEN, true );
+		}
 
 		// Frozen
 		const frozen = this._frozen = options.frozen;
@@ -57,19 +60,20 @@ export abstract class DTableRow<
 		const iend = this.toIndexEnd( columns );
 		for( let i = columns.length - 1; 0 <= i; --i ) {
 			const cell = this.newCell( columns[ i ], i, columns, options );
-			let cellState = state;
-			if( i === 0 ) {
-				cellState |= DTableState.CELL_START;
+			const cellState = this.toCellState( even, i, iend, frozen );
+			if( cellState ) {
+				cell.setState( cellState, true );
 			}
-			if( i === iend ) {
-				cellState |= DTableState.CELL_END;
-			}
-			if( i < frozen ) {
-				cellState |= DTableState.CELL_FROZEN;
-			}
-			cell.setState( cellState, true );
 			this.addChild( cell );
 		}
+	}
+
+	protected toCellState( even: boolean, index: number, iend: number, frozen: number ): DBaseState {
+		return ( even ? DTableCellState.EVEN : DBaseState.NONE ) |
+			( index === 0 ? DTableCellState.START : DBaseState.NONE ) |
+			( index === iend ? DTableCellState.END : DBaseState.NONE ) |
+			( index < frozen ? DTableCellState.FROZEN : DBaseState.NONE ) |
+			( index === frozen - 1 ? DTableCellState.FROZEN_END : DBaseState.NONE );
 	}
 
 	protected toIndexEnd( columns: COLUMN[] ): number {
