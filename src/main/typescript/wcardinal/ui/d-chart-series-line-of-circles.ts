@@ -10,49 +10,83 @@ import { DChartCoordinate } from "./d-chart-coordinate";
 import { DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesBase, DChartSeriesBaseOptions } from "./d-chart-series-base";
 import { DChartSeriesContainer } from "./d-chart-series-container";
+import { DChartSeriesFillComputed, DChartSeriesFillComputedOptions } from "./d-chart-series-fill-computed";
+import { DChartSeriesFillComputedImpl } from "./d-chart-series-fill-computed-impl";
 import { DChartSeriesStrokeComputed, DChartSeriesStrokeComputedOptions } from "./d-chart-series-stroke-computed";
 import { DChartSeriesStrokeComputedImpl } from "./d-chart-series-stroke-computed-impl";
-import { EShape } from "./shape/e-shape";
 import { EShapePointsHitThreshold } from "./shape/e-shape-points";
-import { EShapeLine } from "./shape/variant/e-shape-line";
-import { utilCeilingIndex } from "./util/util-ceiling-index";
+import { EShapeLineOfCircles } from "./shape/variant/e-shape-line-of-circles";
+import { utilIsNumber } from "./util/util-is-number";
 
 /**
- * {@link DChartSeriesLine} options.
+ * {@link DChartSeriesLineOfCircles} options.
  */
-export interface DChartSeriesLineOptions extends DChartSeriesBaseOptions {
+export interface DChartSeriesLineOfCirclesOptions extends DChartSeriesBaseOptions {
 	points?: Array<number | null>;
+	fill?: DChartSeriesFillComputedOptions;
 	stroke?: DChartSeriesStrokeComputedOptions;
+	size?: number | { x?: number, y?: number };
 }
 
 /**
- * A series represents a polyline.
+ * A series represents a line of circles.
  * Data points must be sorted in ascending order on the X axis.
  */
-export class DChartSeriesLine extends DChartSeriesBase {
+export class DChartSeriesLineOfCircles extends DChartSeriesBase {
 	protected static WORK: Point = new Point();
-	protected _line: EShapeLine | null;
-	protected _lineStrokeOptions?: DChartSeriesStrokeComputedOptions;
+
+	protected _line: EShapeLineOfCircles | null;
+	protected _options?: DChartSeriesLineOfCirclesOptions;
 	protected _points: Array<number | null>;
 	protected _pointId: number;
 	protected _pointIdUpdated: number;
 	protected _stroke?: DChartSeriesStrokeComputed;
+	protected _fill?: DChartSeriesFillComputed;
+	protected _size: { x: number, y: number };
 
-	constructor( options?: DChartSeriesLineOptions ) {
+	constructor( options?: DChartSeriesLineOfCirclesOptions ) {
 		super( options );
 		this._line = null;
-		this._lineStrokeOptions = options && options.stroke;
+		this._options = options;
 		this._points = (options && options.points) || [];
 		this._pointId = 0;
 		this._pointIdUpdated = NaN;
+		this._size = this.toSize( options );
+	}
+
+	protected toSize( options?: DChartSeriesLineOfCirclesOptions ): { x: number, y: number } {
+		const result = { x: 10, y: 10 };
+		const size = options && options.size;
+		if( utilIsNumber( size ) ) {
+			result.x = result.y = size;
+		} else if( size != null ) {
+			if( size.x != null ) {
+				result.x = size.x;
+			}
+			if( size.y != null ) {
+				result.y = size.y;
+			}
+		}
+		return result;
 	}
 
 	bind( container: DChartSeriesContainer, index: number ): void {
 		let line = this._line;
 		if( ! line ) {
-			const stroke = this._stroke = DChartSeriesStrokeComputedImpl.from( container, index, this._lineStrokeOptions );
-			line = this._line = new EShapeLine([], [], stroke.width, stroke.style);
+			line = this._line = new EShapeLineOfCircles( [] );
+
+			const options = this._options;
+
+			const fill = DChartSeriesFillComputedImpl.from( container, index, options && options.fill );
+			line.fill.copy( fill );
+			this._fill = fill;
+
+			const stroke = DChartSeriesStrokeComputedImpl.from( container, index, options && options.stroke );
 			line.stroke.copy( stroke );
+			this._stroke = stroke;
+
+			const size = this._size;
+			line.size.set( size.x, size.y );
 		}
 		line.attach( container.plotArea.container, index );
 		this._pointIdUpdated = NaN;
@@ -67,7 +101,7 @@ export class DChartSeriesLine extends DChartSeriesBase {
 		super.unbind();
 	}
 
-	get shape(): EShapeLine | null {
+	get shape(): EShapeLineOfCircles | null {
 		return this._line;
 	}
 
@@ -103,16 +137,13 @@ export class DChartSeriesLine extends DChartSeriesBase {
 	}
 
 	protected updateLine(
-		line: EShapeLine,
+		line: EShapeLineOfCircles,
 		xcoordinate: DChartCoordinate,
 		ycoordinate: DChartCoordinate
 	): void {
 		const values = line.points.values;
-		const segments = line.points.segments;
 		const valuesLength = values.length;
-		const segmentsLength = segments.length;
 		let ivalues = 0;
-		let isegments = 0;
 		const points = this._points;
 		let xmin = NaN;
 		let xmax = NaN;
@@ -140,21 +171,10 @@ export class DChartSeriesLine extends DChartSeriesBase {
 					ymin = Math.min( ymin, y );
 					ymax = Math.max( ymax, y );
 				}
-			} else {
-				const segment = (i >> 1) - isegments;
-				if( isegments < segmentsLength ) {
-					segments[ isegments ] = segment;
-				} else {
-					segments.push( segment );
-				}
-				isegments += 1;
 			}
 		}
 		if( values.length !== ivalues ) {
 			values.length = ivalues;
-		}
-		if( segments.length !== isegments ) {
-			segments.length = isegments;
 		}
 
 		xcoordinate.mapAll( values, 0, ivalues, 2, 0 );
@@ -174,16 +194,13 @@ export class DChartSeriesLine extends DChartSeriesBase {
 		ymin = ycoordinate.transform.map( ycoordinate.map( ymin ) );
 		ymax = ycoordinate.transform.map( ycoordinate.map( ymax ) );
 
-		const sx = Math.abs( xmax - xmin );
-		const sy = Math.abs( ymax - ymin );
 		const cx = ( xmin + xmax ) * 0.5;
 		const cy = ( ymin + ymax ) * 0.5;
 		for( let i = 0, imax = values.length; i < imax; i += 2 ) {
 			values[ i + 0 ] -= cx;
 			values[ i + 1 ] -= cy;
 		}
-		line.points.set( values, segments );
-		line.size.set( sx, sy );
+		line.points.set( values );
 		line.transform.position.set( cx, cy );
 		DApplications.update( line );
 	}
@@ -230,7 +247,7 @@ export class DChartSeriesLine extends DChartSeriesBase {
 	hitTest( global: IPoint ): boolean {
 		const line = this._line;
 		if( line ) {
-			const work = DChartSeriesLine.WORK;
+			const work = DChartSeriesLineOfCircles.WORK;
 			const local = line.toLocal( global, undefined, work );
 			return line.contains( local ) != null;
 		}
@@ -240,7 +257,7 @@ export class DChartSeriesLine extends DChartSeriesBase {
 	calcHitPoint( global: IPoint, threshold: EShapePointsHitThreshold, result: DChartSeriesHitResult ): boolean {
 		const line = this._line;
 		if( line ) {
-			const work = DChartSeriesLine.WORK;
+			const work = DChartSeriesLineOfCircles.WORK;
 			const local = line.toLocal( global, undefined, work );
 			if( line.calcHitPoint( local, threshold, this.calcHitPointTestRange, this.calcHitPointHitTester, result ) ) {
 				return true;
@@ -256,7 +273,13 @@ export class DChartSeriesLine extends DChartSeriesBase {
 			const line = this._line;
 			const stroke = this._stroke;
 			if( line && stroke ) {
-				line.stroke.width = stroke.width * ( isActive ? 2 : 1 );
+				line.stroke.set(
+					undefined,
+					undefined,
+					undefined,
+					stroke.width * ( isActive ? 2 : 1 ),
+					stroke.align + ( isActive ? 0.5 : 0 )
+				);
 			}
 		}
 		super.onStateChange( newState, oldState );

@@ -5,35 +5,13 @@
 
 import { IPoint } from "pixi.js";
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
-import { utilIndexOf } from "../../util/util-index-of";
-import { EShapePoints, EShapePointsStyle } from "../e-shape-points";
+import {
+	EShapePoints, EShapePointsHitTester, EShapePointsHitThreshold,
+	EShapePointsStyle, EShapePointsTestRange
+} from "../e-shape-points";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeBase } from "./e-shape-base";
 import { EShapePrimitive } from "./e-shape-primitive";
-
-export type EShapeLineHitThreshold = (
-	shape: EShapeLineBase,
-	strokeWidth: number,
-	strokeScale: number
-) => number;
-
-export type EShapeLineTestRange = (
-	shape: EShapeLineBase,
-	x: number, y: number,
-	threshold: number,
-	values: number[],
-	result: [ number, number ]
-) => [ number, number ];
-
-export type EShapeLineHitTester<RESULT> = (
-	shape: EShapeLineBase,
-	x: number, y: number,
-	p0x: number, p0y: number,
-	p1x: number, p1y: number,
-	index: number,
-	threshold: number,
-	result: RESULT
-) => boolean;
 
 export abstract class EShapeLineBase extends EShapePrimitive {
 	protected static WORK_RANGE: [ number, number ] = [ 0, 0 ];
@@ -72,87 +50,43 @@ export abstract class EShapeLineBase extends EShapePrimitive {
 	}
 
 	containsAbs( x: number, y: number, ax: number, ay: number ): boolean {
-		return this.calcHitPointAbs( x, y, ax, ay, null, null, this.calcHitPointAbsHitTester, null );
+		const points = this.points;
+		return points.calcHitPointAbs(
+			this,
+			x, y,
+			ax, ay,
+			this.getStrokeWidthScale( points ),
+			null,
+			null,
+			this.calcHitPointAbsHitTester,
+			null
+		);
 	}
 
 	calcHitPoint<RESULT>(
 		point: IPoint,
-		threshold: EShapeLineHitThreshold | null,
-		range: EShapeLineTestRange | null,
-		tester: EShapeLineHitTester<RESULT>,
+		threshold: EShapePointsHitThreshold | null,
+		range: EShapePointsTestRange | null,
+		tester: EShapePointsHitTester<RESULT>,
 		testerResult: RESULT
 	): boolean {
+		const points = this.points;
 		const rect = this.toLocalRect( point, EShapeBase.WORK_RECT );
-		return this.calcHitPointAbs(
+		return points.calcHitPointAbs(
+			this,
 			rect.x, rect.y,
 			rect.width, rect.height,
+			this.getStrokeWidthScale( points ),
 			threshold,
-			range, tester, testerResult
+			range,
+			tester,
+			testerResult
 		);
-	}
-
-	calcHitPointAbs<RESULT>(
-		x: number, y: number,
-		ax: number, ay: number,
-		threshold: EShapeLineHitThreshold | null,
-		range: EShapeLineTestRange | null,
-		tester: EShapeLineHitTester<RESULT>,
-		result: RESULT
-	): boolean {
-		const points = this.points;
-
-		const stroke = this.stroke;
-		const strokeWidth = ( stroke.enable ? stroke.width : 0 );
-		const strokeScale = this.getStrokeWidthScale( points );
-
-		const t = ( threshold ?
-			threshold( this, strokeWidth, strokeScale ) :
-			strokeWidth * strokeScale * 0.5
-		);
-		if( this.containsAbsBBox( x, y, ax + t, ay + t ) ) {
-			const pointCount = points.length;
-			if( 2 <= pointCount ) {
-				const pointValues = points.values;
-				const pointSegments = points.segments;
-				let istart = 0;
-				let iend = pointCount;
-				if( range ) {
-					const rangeResult = range( this, x, y, t, pointValues, EShapeLineBase.WORK_RANGE );
-					istart = rangeResult[ 0 ];
-					iend = rangeResult[ 1 ];
-				}
-				for( let i = istart, imax = Math.min( iend, pointCount - 1 ), iv = 2 * istart; i < imax; i += 1, iv += 2 ) {
-					if( utilIndexOf( pointSegments, i + 1 ) < 0 ) {
-						const p0x = pointValues[ iv + 0 ];
-						const p0y = pointValues[ iv + 1 ];
-						const p1x = pointValues[ iv + 2 ];
-						const p1y = pointValues[ iv + 3 ];
-						if( tester( this, x, y, p0x, p0y, p1x, p1y, i, t, result ) ) {
-							return true;
-						}
-					}
-				}
-				if( 2 < pointCount && pointCount <= iend && (points.style & EShapePointsStyle.CLOSED) ) {
-					if( utilIndexOf( pointSegments, 0 ) < 0 ) {
-						const i = pointCount - 1;
-						const iv = i << 1;
-						const p0x = pointValues[ iv + 0 ];
-						const p0y = pointValues[ iv + 1 ];
-						const p1x = pointValues[ 0 ];
-						const p1y = pointValues[ 1 ];
-						if( tester( this, x, y, p0x, p0y, p1x, p1y, i, t, result ) ) {
-							return true;
-						}
-					}
-				}
-			}
-		}
-		return false;
 	}
 
 	protected calcHitPointAbsHitTester(
 		this: unknown,
-		shape: EShapeLineBase,
+		shape: unknown,
 		x: number, y: number,
 		p0x: number, p0y: number,
 		p1x: number, p1y: number,

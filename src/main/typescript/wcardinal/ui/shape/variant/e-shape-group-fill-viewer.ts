@@ -36,7 +36,7 @@ export class EShapeGroupFillViewer implements EShapeFill {
 		// DO NOTHING
 	}
 
-	copy( target: EShapeFillLike ) {
+	copy( target?: Partial<EShapeFillLike> ) {
 		// DO NOTHING
 	}
 

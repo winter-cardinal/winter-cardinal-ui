@@ -10,11 +10,13 @@ import { DChartRegion } from "./d-chart-region";
 import { DChartRegionImpl } from "./d-chart-region-impl";
 import { DChartSeries, DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesContainer, DChartSeriesContainerOptions } from "./d-chart-series-container";
+import { DChartSeriesFill } from "./d-chart-series-fill";
+import { DChartSeriesFillImpl } from "./d-chart-series-fill-impl";
 import { DChartSeriesSelection } from "./d-chart-series-selection";
 import { DChartSeriesSelectionSimple } from "./d-chart-series-selection-simple";
 import { DChartSeriesStroke } from "./d-chart-series-stroke";
 import { DChartSeriesStrokeImpl } from "./d-chart-series-stroke-impl";
-import { EShapeLineHitThreshold } from "./shape/variant/e-shape-line-base";
+import { EShapePointsHitThreshold } from "./shape/e-shape-points";
 import { utilIsNumber } from "./util/util-is-number";
 
 export class DChartSeriesContainerImpl implements DChartSeriesContainer {
@@ -24,6 +26,7 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 	protected _list: DChartSeries[];
 	protected _domain: DChartRegionImpl;
 	protected _range: DChartRegionImpl;
+	protected _fill: DChartSeriesFillImpl;
 	protected _stroke: DChartSeriesStrokeImpl;
 	protected _selection: DChartSeriesSelection | null;
 
@@ -31,6 +34,7 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 		this._plotArea = plotArea;
 		this._domain = new DChartRegionImpl( NaN, NaN );
 		this._range = new DChartRegionImpl( NaN, NaN );
+		this._fill = new DChartSeriesFillImpl( options && options.fill );
 		this._stroke = new DChartSeriesStrokeImpl( options && options.stroke );
 		const selection = (options && options.selection !== undefined ?
 			options.selection : new DChartSeriesSelectionSimple()
@@ -52,6 +56,10 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 
 	get plotArea(): DChartPlotArea {
 		return this._plotArea;
+	}
+
+	get fill(): DChartSeriesFill {
+		return this._fill;
 	}
 
 	get stroke(): DChartSeriesStroke {
@@ -206,7 +214,7 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 
 	calcHitPoint(
 		global: IPoint,
-		threshold: EShapeLineHitThreshold,
+		threshold: EShapePointsHitThreshold,
 		result: DChartSeriesHitResult
 	): DChartSeries | null {
 		let tmp1 = result;

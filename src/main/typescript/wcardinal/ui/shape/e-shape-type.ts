@@ -16,5 +16,6 @@ export enum EShapeType {
 	LABEL,
 	NULL,
 	GROUP_SHADOWED,
+	LINE_OF_CIRCLES,
 	EXTENSION = 1000
 }

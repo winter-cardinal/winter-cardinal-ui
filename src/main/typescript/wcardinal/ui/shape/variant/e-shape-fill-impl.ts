@@ -54,8 +54,10 @@ export class EShapeFillImpl implements EShapeFill {
 		}
 	}
 
-	copy( target: EShapeFillLike ): void {
-		this.set( target.enable, target.color, target.alpha );
+	copy( target?: Partial<EShapeFillLike> ): void {
+		if( target ) {
+			this.set( target.enable, target.color, target.alpha );
+		}
 	}
 
 	set( enable?: boolean, color?: number, alpha?: number ): void {

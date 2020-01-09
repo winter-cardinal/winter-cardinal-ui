@@ -8,12 +8,14 @@ import { DChartCoordinate } from "./d-chart-coordinate";
 import { DChartPlotArea } from "./d-chart-plot-area";
 import { DChartRegion } from "./d-chart-region";
 import { DChartSeries, DChartSeriesHitResult } from "./d-chart-series";
+import { DChartSeriesFill, DChartSeriesFillOptions } from "./d-chart-series-fill";
 import { DChartSeriesSelection } from "./d-chart-series-selection";
 import { DChartSeriesStroke, DChartSeriesStrokeOptions } from "./d-chart-series-stroke";
-import { EShapeLineHitThreshold } from "./shape/variant/e-shape-line-base";
+import { EShapePointsHitThreshold } from "./shape/e-shape-points";
 
 export interface DChartSeriesContainerOptions {
 	list: DChartSeries[];
+	fill?: DChartSeriesFillOptions;
 	stroke?: DChartSeriesStrokeOptions;
 	selection?: DChartSeriesSelection | null;
 }
@@ -23,6 +25,7 @@ export interface DChartSeriesContainer {
 	range: DChartRegion;
 
 	readonly plotArea: DChartPlotArea;
+	readonly fill: DChartSeriesFill;
 	readonly stroke: DChartSeriesStroke;
 	readonly selection: DChartSeriesSelection | null;
 
@@ -42,7 +45,7 @@ export interface DChartSeriesContainer {
 	hitTest( global: IPoint ): DChartSeries | null;
 	calcHitPoint(
 		global: IPoint,
-		threshold: EShapeLineHitThreshold,
+		threshold: EShapePointsHitThreshold,
 		result: DChartSeriesHitResult
 	): DChartSeries | null;
 }

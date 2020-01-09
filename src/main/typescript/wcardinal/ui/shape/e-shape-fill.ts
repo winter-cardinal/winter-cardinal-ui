@@ -13,7 +13,7 @@ export interface EShapeFillLike {
 }
 
 export interface EShapeFill extends EShapeFillLike {
-	copy( target: EShapeFillLike ): void;
+	copy( target?: Partial<EShapeFillLike> ): void;
 	set( enable?: boolean, color?: number, alpha?: number ): void;
 	clone(): EShapeFill;
 	toObject(): EShapeFillLike;

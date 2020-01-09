@@ -60,7 +60,7 @@ export class EShapeGroupFillEditor implements EShapeFill {
 		}
 	}
 
-	copy( target: EShapeFillLike ) {
+	copy( target?: Partial<EShapeFillLike> ) {
 		const children = this._parent.children;
 		for( let i = 0, imax = children.length; i < imax; ++i ) {
 			children[ i ].fill.copy( target );

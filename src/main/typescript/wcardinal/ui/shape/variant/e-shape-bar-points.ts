@@ -4,7 +4,11 @@
  */
 
 import { Matrix, Point } from "pixi.js";
-import { EShapePoints, EShapePointsStyle } from "../e-shape-points";
+import { EShape } from "../e-shape";
+import {
+	EShapePoints, EShapePointsHitTester, EShapePointsHitThreshold,
+	EShapePointsStyle, EShapePointsTestRange
+} from "../e-shape-points";
 import { EShapePointsParent } from "../e-shape-points-parent";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
@@ -225,5 +229,18 @@ export class EShapeBarPoints implements EShapePoints {
 			const parsed = JSON.parse( resource ) as [ number, number, number ];
 			this.moveTo( parsed[ 0 ], parsed[ 1 ], parsed[ 2 ] );
 		}
+	}
+
+	calcHitPointAbs<RESULT>(
+		shape: EShape,
+		x: number, y: number,
+		ax: number, ay: number,
+		strokeScale: number,
+		threshold: EShapePointsHitThreshold | null,
+		range: EShapePointsTestRange | null,
+		tester: EShapePointsHitTester<RESULT>,
+		result: RESULT
+	): boolean {
+		return false;
 	}
 }

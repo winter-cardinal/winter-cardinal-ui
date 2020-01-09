@@ -18,8 +18,8 @@ import { DChartSeriesExpressionParametersImpl } from "./d-chart-series-linear-pa
 import { DChartSeriesStrokeComputed, DChartSeriesStrokeComputedOptions } from "./d-chart-series-stroke-computed";
 import { DChartSeriesStrokeComputedImpl } from "./d-chart-series-stroke-computed-impl";
 import { EShape } from "./shape/e-shape";
+import { EShapePointsHitThreshold } from "./shape/e-shape-points";
 import { EShapeLine } from "./shape/variant/e-shape-line";
-import { EShapeLineHitThreshold } from "./shape/variant/e-shape-line-base";
 
 /**
  * {@link DChartSeriesLinear} options.
@@ -260,7 +260,7 @@ export class DChartSeriesLinear extends DChartSeriesBase {
 		return false;
 	}
 
-	calcHitPoint( global: IPoint, threshold: EShapeLineHitThreshold, result: DChartSeriesHitResult ): boolean {
+	calcHitPoint( global: IPoint, threshold: EShapePointsHitThreshold, result: DChartSeriesHitResult ): boolean {
 		const line = this._line;
 		if( line ) {
 			const work = DChartSeriesLinear.WORK;

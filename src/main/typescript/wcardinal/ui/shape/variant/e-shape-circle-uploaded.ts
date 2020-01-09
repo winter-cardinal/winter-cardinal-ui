@@ -8,6 +8,9 @@ import { EShapeBuffer } from "../e-shape-buffer";
 import { EShapeTextUploaded } from "./e-shape-text-uploaded";
 
 export class EShapeCircleUploaded extends EShapeTextUploaded {
+	static VERTEX_COUNT = 9;
+	static INDEX_COUNT = 8;
+
 	init( shape: EShape ): this {
 		super.init( shape );
 		const buffer = this.buffer;
@@ -90,6 +93,8 @@ export class EShapeCircleUploaded extends EShapeTextUploaded {
 		indices[ ii + 22 ] = voffset + 8;
 		indices[ ii + 23 ] = voffset + 7;
 
+		this.onInitCircle( buffer, shape );
+
 		// Text
 		this.initText();
 
@@ -97,16 +102,25 @@ export class EShapeCircleUploaded extends EShapeTextUploaded {
 		return this;
 	}
 
+	protected onInitCircle( buffer: EShapeBuffer, shape: EShape ): void {
+		// DO NOTHING
+	}
+
 	update( shape: EShape ): void {
 		const buffer = this.buffer;
-		this.updateType0Vertex( buffer, shape );
+		this.onUpdateCircle( buffer, shape );
+		this.updateCircleVertex( buffer, shape );
 		this.updateColor( buffer, shape );
-		this.updateType0Step( buffer, shape );
-		this.updateType0Uv( buffer, shape );
+		this.updateCircleStep( buffer, shape );
+		this.updateCircleUv( buffer, shape );
 		this.updateText( buffer, shape );
 	}
 
-	protected updateType0Vertex( buffer: EShapeBuffer, shape: EShape ) {
+	protected onUpdateCircle( buffer: EShapeBuffer, shape: EShape ): void {
+		// DO NOTHING
+	}
+
+	protected updateCircleVertex( buffer: EShapeBuffer, shape: EShape ) {
 		const size = shape.size;
 		const sizeX = size.x;
 		const sizeY = size.y;
@@ -189,10 +203,16 @@ export class EShapeCircleUploaded extends EShapeTextUploaded {
 			vertices[ iv + 15 ] = y7;
 			vertices[ iv + 16 ] = x7 + dx;
 			vertices[ iv + 17 ] = y7 + dy;
+
+			this.onUpdateCircleVertex( buffer, shape );
 		}
 	}
 
-	protected updateType0Step( buffer: EShapeBuffer, shape: EShape ): void {
+	protected onUpdateCircleVertex( buffer: EShapeBuffer, shape: EShape ): void {
+		// DO NOTHING
+	}
+
+	protected updateCircleStep( buffer: EShapeBuffer, shape: EShape ): void {
 		const stroke = shape.stroke;
 		const strokeWidth = (stroke.enable ? stroke.width : 0);
 		const strokeAlign = stroke.align;
@@ -216,10 +236,16 @@ export class EShapeCircleUploaded extends EShapeTextUploaded {
 			const voffset = this.vertexOffset;
 			const vcount = this.vertexCount - this.textVertexCount;
 			this.updateStep( buffer, voffset, vcount, swx, swy, px0, py0, px1, py1 );
+
+			this.onUpdateCircleStep( buffer, shape );
 		}
 	}
 
-	protected updateType0Uv( buffer: EShapeBuffer, shape: EShape ) {
+	protected onUpdateCircleStep( buffer: EShapeBuffer, shape: EShape ): void {
+		// DO NOTHING
+	}
+
+	protected updateCircleUv( buffer: EShapeBuffer, shape: EShape ) {
 		const texture = this.toTexture( shape );
 		const textureTransformId = this.toTextureTransformId( texture );
 		if( texture !== this.texture || textureTransformId !== this.textureTransformId ) {
@@ -261,6 +287,12 @@ export class EShapeCircleUploaded extends EShapeTextUploaded {
 			uvs[ iuv + 15 ] = 0.5 * ( y3 + y2 );
 			uvs[ iuv + 16 ] = x2;
 			uvs[ iuv + 17 ] = y2;
+
+			this.onUpdateCircleUv( buffer, shape );
 		}
+	}
+
+	protected onUpdateCircleUv( buffer: EShapeBuffer, shape: EShape ): void {
+		// DO NOTHING
 	}
 }
