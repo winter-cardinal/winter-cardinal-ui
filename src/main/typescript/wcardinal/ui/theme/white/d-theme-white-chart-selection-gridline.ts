@@ -18,7 +18,7 @@ export class DThemeWhiteChartSelectionGridline implements DThemeChartSelectionSh
 
 	newShape( state: DBaseState ): EShape {
 		const result = new EShapeBar( EShapeBarPosition.TOP, -1, EShapeDefaults.STROKE_WIDTH, EShapePointsStyle.NONE );
-		result.stroke.alpha = 0.25;
+		result.stroke.alpha = 0.5;
 		return result;
 	}
 }
