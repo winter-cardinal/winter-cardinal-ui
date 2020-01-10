@@ -12,6 +12,10 @@ import { loadThemeDarkDialogConfirmDelete } from "./load-theme-dark-dialog-confi
 import { loadThemeDarkDialogConfirmDiscard } from "./load-theme-dark-dialog-confirm-discard";
 import { loadThemeDarkDialogDate } from "./load-theme-dark-dialog-date";
 import { loadThemeDarkDialogDatetime } from "./load-theme-dark-dialog-datetime";
+import { loadThemeDarkDialogInputText } from "./load-theme-dark-dialog-input-text";
+import { loadThemeDarkDialogMessage } from "./load-theme-dark-dialog-message";
+import { loadThemeDarkDialogProcessing } from "./load-theme-dark-dialog-processing";
+import { loadThemeDarkDialogSaveAs } from "./load-theme-dark-dialog-save-as";
 import { loadThemeDarkDialogTime } from "./load-theme-dark-dialog-time";
 
 export const loadThemeDarkDialogAll = () => {
@@ -23,6 +27,10 @@ export const loadThemeDarkDialogAll = () => {
 	loadThemeDarkDialogConfirmDiscard();
 	loadThemeDarkDialogDate();
 	loadThemeDarkDialogDatetime();
+	loadThemeDarkDialogInputText();
+	loadThemeDarkDialogMessage();
+	loadThemeDarkDialogProcessing();
+	loadThemeDarkDialogSaveAs();
 	loadThemeDarkDialogTime();
 	loadThemeDarkDialog();
 };
