@@ -7,6 +7,7 @@ import { loadThemeDarkBase } from "./load-theme-dark-base";
 import { loadThemeDarkBoard } from "./load-theme-dark-board";
 import { loadThemeDarkButtonAll } from "./load-theme-dark-button-all";
 import { loadThemeDarkCanvasContainer } from "./load-theme-dark-canvas-container";
+import { loadThemeDarkChart } from "./load-theme-dark-chart";
 import { loadThemeDarkDialogAll } from "./load-theme-dark-dialog-all";
 import { loadThemeDarkDropdown } from "./load-theme-dark-dropdown";
 import { loadThemeDarkExpandable } from "./load-theme-dark-expandable";
@@ -36,6 +37,7 @@ export const loadThemeDarkAll = () => {
 	loadThemeDarkBoard();
 	loadThemeDarkButtonAll();
 	loadThemeDarkCanvasContainer();
+	loadThemeDarkChart();
 	loadThemeDarkDialogAll();
 	loadThemeDarkDropdown();
 	loadThemeDarkExpandable();
