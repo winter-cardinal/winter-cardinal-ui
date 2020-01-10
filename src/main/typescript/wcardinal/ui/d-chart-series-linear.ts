@@ -17,8 +17,7 @@ import {
 import { DChartSeriesExpressionParametersImpl } from "./d-chart-series-linear-parameters-impl";
 import { DChartSeriesStrokeComputed, DChartSeriesStrokeComputedOptions } from "./d-chart-series-stroke-computed";
 import { DChartSeriesStrokeComputedImpl } from "./d-chart-series-stroke-computed-impl";
-import { EShape } from "./shape/e-shape";
-import { EShapePointsHitThreshold } from "./shape/e-shape-points";
+import { EShapePointsToHitThreshold } from "./shape/e-shape-points";
 import { EShapeLine } from "./shape/variant/e-shape-line";
 
 /**
@@ -260,11 +259,12 @@ export class DChartSeriesLinear extends DChartSeriesBase {
 		return false;
 	}
 
-	calcHitPoint( global: IPoint, threshold: EShapePointsHitThreshold, result: DChartSeriesHitResult ): boolean {
+	calcHitPoint( global: IPoint, threshold: EShapePointsToHitThreshold, result: DChartSeriesHitResult ): boolean {
 		const line = this._line;
 		if( line ) {
 			const work = DChartSeriesLinear.WORK;
 			const local = line.toLocal( global, undefined, work );
+			result.shape = line;
 			return line.calcHitPoint( local, threshold, null, this.calcHitPointHitTester, result );
 		}
 		return false;
@@ -272,8 +272,8 @@ export class DChartSeriesLinear extends DChartSeriesBase {
 
 	calcHitPointHitTester(
 		this: unknown,
-		shape: EShape,
 		x: number, y: number,
+		ax: number, ay: number,
 		p0x: number, p0y: number,
 		p1x: number, p1y: number,
 		index: number,
@@ -288,7 +288,7 @@ export class DChartSeriesLinear extends DChartSeriesBase {
 				const p2y = p0y + t * (p1y - p0y);
 				const distance = Math.abs(p2y - y);
 				if( distance < threshold ) {
-					const position = shape.transform.position;
+					const position = result.shape!.transform.position;
 					const px = position.x;
 					const py = position.y;
 					result.x = result.p0x = result.p1x = px + p2x;

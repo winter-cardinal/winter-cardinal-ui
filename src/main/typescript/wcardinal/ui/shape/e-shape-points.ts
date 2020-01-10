@@ -4,7 +4,6 @@
  */
 
 import { Matrix, Point } from "pixi.js";
-import { EShape } from "./e-shape";
 import { EShapePointsParent } from "./e-shape-points-parent";
 import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
 
@@ -25,23 +24,22 @@ export enum EShapePointsStyle {
 	NON_SOLID_MASK = DOTTED_MASK | DASHED_MASK
 }
 
-export type EShapePointsHitThreshold = (
-	shape: EShape,
+export type EShapePointsToHitThreshold = (
 	strokeWidth: number,
 	strokeScale: number
 ) => number;
 
 export type EShapePointsTestRange = (
-	shape: EShape,
 	x: number, y: number,
+	ax: number, ay: number,
 	threshold: number,
 	values: number[],
 	result: [ number, number ]
 ) => [ number, number ];
 
 export type EShapePointsHitTester<RESULT> = (
-	shape: EShape,
 	x: number, y: number,
+	ax: number, ay: number,
 	p0x: number, p0y: number,
 	p1x: number, p1y: number,
 	index: number,
@@ -62,11 +60,9 @@ export interface EShapePoints {
 	toPoints( transform: Matrix ): Point[];
 	serialize( manager: EShapeResourceManagerSerialization ): number;
 	calcHitPointAbs<RESULT>(
-		shape: EShape,
 		x: number, y: number,
 		ax: number, ay: number,
-		strokeScale: number,
-		threshold: EShapePointsHitThreshold | null,
+		threshold: number,
 		range: EShapePointsTestRange | null,
 		tester: EShapePointsHitTester<RESULT>,
 		result: RESULT

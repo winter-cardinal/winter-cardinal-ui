@@ -9,9 +9,10 @@ import { DChartRegionImmutable } from "./d-chart-region";
 import { DChartSeriesContainer } from "./d-chart-series-container";
 import { DChartSeriesCoordinateContainer } from "./d-chart-series-coordinate";
 import { EShape } from "./shape/e-shape";
-import { EShapePointsHitThreshold } from "./shape/e-shape-points";
+import { EShapePointsToHitThreshold } from "./shape/e-shape-points";
 
 export class DChartSeriesHitResult {
+	shape: EShape | null;
 	x: number;
 	y: number;
 	p0x: number;
@@ -23,6 +24,7 @@ export class DChartSeriesHitResult {
 	distance: number;
 
 	constructor() {
+		this.shape = null;
 		this.x = 0;
 		this.y = 0;
 		this.p0x = 0;
@@ -35,6 +37,7 @@ export class DChartSeriesHitResult {
 	}
 
 	copyFrom( other: DChartSeriesHitResult ): this {
+		this.shape = other.shape;
 		this.x = other.x;
 		this.y = other.y;
 		this.p0x = other.p0x;
@@ -65,7 +68,7 @@ export interface DChartSeries {
 	destroy(): void;
 
 	hitTest( global: IPoint ): boolean;
-	calcHitPoint( global: IPoint, threshold: EShapePointsHitThreshold, result: DChartSeriesHitResult ): boolean;
+	calcHitPoint( global: IPoint, threshold: EShapePointsToHitThreshold, result: DChartSeriesHitResult ): boolean;
 
 	setState( state: DBaseState, isOn: boolean ): void;
 }

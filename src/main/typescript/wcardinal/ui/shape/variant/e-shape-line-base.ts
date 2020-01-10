@@ -6,8 +6,8 @@
 import { IPoint } from "pixi.js";
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import {
-	EShapePoints, EShapePointsHitTester, EShapePointsHitThreshold,
-	EShapePointsStyle, EShapePointsTestRange
+	EShapePoints, EShapePointsHitTester, EShapePointsStyle,
+	EShapePointsTestRange, EShapePointsToHitThreshold
 } from "../e-shape-points";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeBase } from "./e-shape-base";
@@ -49,45 +49,61 @@ export abstract class EShapeLineBase extends EShapePrimitive {
 		}
 	}
 
+	protected toHitThreshold(
+		toThreshold: EShapePointsToHitThreshold | null
+	): number {
+		const stroke = this.stroke;
+		const strokeWidth = ( stroke.enable ? stroke.width : 0 );
+		const strokeScale = this.getStrokeWidthScale( this.points );
+		return ( toThreshold ?
+			toThreshold( strokeWidth, strokeScale ) :
+			strokeWidth * strokeScale * 0.5
+		);
+	}
+
 	containsAbs( x: number, y: number, ax: number, ay: number ): boolean {
 		const points = this.points;
-		return points.calcHitPointAbs(
-			this,
-			x, y,
-			ax, ay,
-			this.getStrokeWidthScale( points ),
-			null,
-			null,
-			this.calcHitPointAbsHitTester,
-			null
-		);
+		const threshold = this.toHitThreshold( null );
+		if( this.containsAbsBBox( x, y, ax + threshold, ay + threshold ) ) {
+				return points.calcHitPointAbs(
+				x, y,
+				ax, ay,
+				threshold,
+				null,
+				this.calcHitPointAbsHitTester,
+				null
+			);
+		}
+		return false;
 	}
 
 	calcHitPoint<RESULT>(
 		point: IPoint,
-		threshold: EShapePointsHitThreshold | null,
+		toHitThreshold: EShapePointsToHitThreshold | null,
 		range: EShapePointsTestRange | null,
 		tester: EShapePointsHitTester<RESULT>,
-		testerResult: RESULT
+		result: RESULT
 	): boolean {
 		const points = this.points;
+		const threshold = this.toHitThreshold( toHitThreshold );
 		const rect = this.toLocalRect( point, EShapeBase.WORK_RECT );
-		return points.calcHitPointAbs(
-			this,
-			rect.x, rect.y,
-			rect.width, rect.height,
-			this.getStrokeWidthScale( points ),
-			threshold,
-			range,
-			tester,
-			testerResult
-		);
+		if( this.containsAbsBBox( rect.x, rect.y, rect.width + threshold, rect.height + threshold ) ) {
+			return points.calcHitPointAbs(
+				rect.x, rect.y,
+				rect.width, rect.height,
+				threshold,
+				range,
+				tester,
+				result
+			);
+		}
+		return false;
 	}
 
 	protected calcHitPointAbsHitTester(
 		this: unknown,
-		shape: unknown,
 		x: number, y: number,
+		ax: number, ay: number,
 		p0x: number, p0y: number,
 		p1x: number, p1y: number,
 		index: number,

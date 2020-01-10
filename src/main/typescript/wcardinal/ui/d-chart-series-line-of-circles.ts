@@ -14,8 +14,9 @@ import { DChartSeriesFillComputed, DChartSeriesFillComputedOptions } from "./d-c
 import { DChartSeriesFillComputedImpl } from "./d-chart-series-fill-computed-impl";
 import { DChartSeriesStrokeComputed, DChartSeriesStrokeComputedOptions } from "./d-chart-series-stroke-computed";
 import { DChartSeriesStrokeComputedImpl } from "./d-chart-series-stroke-computed-impl";
-import { EShapePointsHitThreshold } from "./shape/e-shape-points";
+import { EShapePointsToHitThreshold } from "./shape/e-shape-points";
 import { EShapeLineOfCircles } from "./shape/variant/e-shape-line-of-circles";
+import { utilCeilingIndex } from "./util/util-ceiling-index";
 import { utilIsNumber } from "./util/util-is-number";
 
 /**
@@ -254,14 +255,57 @@ export class DChartSeriesLineOfCircles extends DChartSeriesBase {
 		return false;
 	}
 
-	calcHitPoint( global: IPoint, threshold: EShapePointsHitThreshold, result: DChartSeriesHitResult ): boolean {
+	calcHitPoint( global: IPoint, threshold: EShapePointsToHitThreshold, result: DChartSeriesHitResult ): boolean {
 		const line = this._line;
 		if( line ) {
 			const work = DChartSeriesLineOfCircles.WORK;
 			const local = line.toLocal( global, undefined, work );
-			if( line.calcHitPoint( local, threshold, this.calcHitPointTestRange, this.calcHitPointHitTester, result ) ) {
-				return true;
+			result.shape = line;
+			return line.calcHitPoint( local, threshold, this.calcHitPointTestRange, this.calcHitPointHitTester, result );
+		}
+		return false;
+	}
+
+	calcHitPointTestRange(
+		this: unknown,
+		x: number, y: number,
+		ax: number, ay: number,
+		threshold: number,
+		values: number[],
+		result: [ number, number ]
+	): [ number, number ] {
+		const to = utilCeilingIndex( values, x + ax, 2, 0 );
+		let from = to;
+		for( let i = to - 1, iv = i << 1; 0 <= i; i -= 2, iv -= 2 ) {
+			if( values[ iv ] <= x - ax ) {
+				from = i;
+				break;
 			}
+		}
+		result[ 0 ] = from;
+		result[ 1 ] = to;
+		return result;
+	}
+
+	calcHitPointHitTester(
+		this: unknown,
+		x: number, y: number,
+		ax: number, ay: number,
+		px: number, py: number,
+		ux: number, uy: number,
+		index: number,
+		threshold: number,
+		result: DChartSeriesHitResult
+	): boolean {
+		const shape = result.shape as EShapeLineOfCircles;
+		if( shape.containsPointAbs( x, y, ax, ay, px, py ) ) {
+			const position = shape.transform.position;
+			result.x = result.p0x = result.p1x = position.x + px;
+			result.y = result.p0y = result.p1y = position.y + py;
+			result.t = threshold;
+			result.index = index;
+			result.distance = 0;
+			return true;
 		}
 		return false;
 	}

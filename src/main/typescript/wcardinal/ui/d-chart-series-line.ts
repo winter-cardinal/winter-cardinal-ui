@@ -12,8 +12,7 @@ import { DChartSeriesBase, DChartSeriesBaseOptions } from "./d-chart-series-base
 import { DChartSeriesContainer } from "./d-chart-series-container";
 import { DChartSeriesStrokeComputed, DChartSeriesStrokeComputedOptions } from "./d-chart-series-stroke-computed";
 import { DChartSeriesStrokeComputedImpl } from "./d-chart-series-stroke-computed-impl";
-import { EShape } from "./shape/e-shape";
-import { EShapePointsHitThreshold } from "./shape/e-shape-points";
+import { EShapePointsToHitThreshold } from "./shape/e-shape-points";
 import { EShapeLine } from "./shape/variant/e-shape-line";
 import { utilCeilingIndex } from "./util/util-ceiling-index";
 
@@ -237,13 +236,63 @@ export class DChartSeriesLine extends DChartSeriesBase {
 		return false;
 	}
 
-	calcHitPoint( global: IPoint, threshold: EShapePointsHitThreshold, result: DChartSeriesHitResult ): boolean {
+	calcHitPoint( global: IPoint, threshold: EShapePointsToHitThreshold, result: DChartSeriesHitResult ): boolean {
 		const line = this._line;
 		if( line ) {
 			const work = DChartSeriesLine.WORK;
 			const local = line.toLocal( global, undefined, work );
-			if( line.calcHitPoint( local, threshold, this.calcHitPointTestRange, this.calcHitPointHitTester, result ) ) {
-				return true;
+			result.shape = line;
+			return line.calcHitPoint( local, threshold, this.calcHitPointTestRange, this.calcHitPointHitTester, result );
+		}
+		return false;
+	}
+
+	calcHitPointTestRange(
+		this: unknown,
+		x: number, y: number,
+		ax: number, ay: number,
+		threshold: number,
+		values: number[],
+		result: [ number, number ]
+	): [ number, number ] {
+		const index = utilCeilingIndex( values, x, 2, 0 );
+		result[ 0 ] = Math.max( 0, index - 1 );
+		result[ 1 ] = index;
+		return result;
+	}
+
+	calcHitPointHitTester(
+		this: unknown,
+		x: number, y: number,
+		ax: number, ay: number,
+		p0x: number, p0y: number,
+		p1x: number, p1y: number,
+		index: number,
+		threshold: number,
+		result: DChartSeriesHitResult
+	): boolean {
+		if( p0x <= x && x < p1x ) {
+			const l = p1x - p0x;
+			if( 0.0001 < Math.abs( l ) ) {
+				const t = (x - p0x) / l;
+				const p2x = x;
+				const p2y = p0y + t * (p1y - p0y);
+				const distance = Math.abs(p2y - y);
+				if( distance < threshold ) {
+					const position = result.shape!.transform.position;
+					const px = position.x;
+					const py = position.y;
+					result.x = px + p2x;
+					result.y = py + p2y;
+					result.p0x = px + p0x;
+					result.p0y = py + p0y;
+					result.p1x = px + p1x;
+					result.p1y = py + p1y;
+					result.t = t;
+					result.index = index;
+					result.distance = distance;
+					return true;
+				}
 			}
 		}
 		return false;

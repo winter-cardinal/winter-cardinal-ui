@@ -5,11 +5,7 @@
 
 import { Matrix, Point } from "pixi.js";
 import { utilIndexOf } from "../../util/util-index-of";
-import { EShape } from "../e-shape";
-import {
-	EShapePoints, EShapePointsHitTester, EShapePointsHitThreshold,
-	EShapePointsStyle, EShapePointsTestRange
-} from "../e-shape-points";
+import { EShapePoints, EShapePointsHitTester, EShapePointsStyle, EShapePointsTestRange } from "../e-shape-points";
 import { EShapePointsParent } from "../e-shape-points-parent";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 
@@ -260,56 +256,46 @@ export class EShapeLinePoints implements EShapePoints {
 	}
 
 	calcHitPointAbs<RESULT>(
-		shape: EShape,
 		x: number, y: number,
 		ax: number, ay: number,
-		strokeScale: number,
-		threshold: EShapePointsHitThreshold | null,
+		threshold: number,
 		range: EShapePointsTestRange | null,
 		tester: EShapePointsHitTester<RESULT>,
 		result: RESULT
 	): boolean {
-		const stroke = shape.stroke;
-		const strokeWidth = ( stroke.enable ? stroke.width : 0 );
-		const t = ( threshold ?
-			threshold( shape, strokeWidth, strokeScale ) :
-			strokeWidth * strokeScale * 0.5
-		);
-		if( shape.containsAbsBBox( x, y, ax + t, ay + t ) ) {
-			const pointCount = this.length;
-			if( 2 <= pointCount ) {
-				const pointValues = this._values;
-				const pointSegments = this._segments;
-				let istart = 0;
-				let iend = pointCount;
-				if( range ) {
-					const rangeResult = range( shape, x, y, t, pointValues, EShapeLinePoints.WORK_RANGE );
-					istart = rangeResult[ 0 ];
-					iend = rangeResult[ 1 ];
-				}
-				tester = tester;
-				for( let i = istart, imax = Math.min( iend, pointCount - 1 ), iv = 2 * istart; i < imax; i += 1, iv += 2 ) {
-					if( utilIndexOf( pointSegments, i + 1 ) < 0 ) {
-						const p0x = pointValues[ iv + 0 ];
-						const p0y = pointValues[ iv + 1 ];
-						const p1x = pointValues[ iv + 2 ];
-						const p1y = pointValues[ iv + 3 ];
-						if( tester( shape, x, y, p0x, p0y, p1x, p1y, i, t, result ) ) {
-							return true;
-						}
+		const pointCount = this.length;
+		if( 2 <= pointCount ) {
+			const pointValues = this._values;
+			const pointSegments = this._segments;
+			let istart = 0;
+			let iend = pointCount;
+			if( range ) {
+				const rangeResult = range( x, y, ax, ay, threshold, pointValues, EShapeLinePoints.WORK_RANGE );
+				istart = rangeResult[ 0 ];
+				iend = rangeResult[ 1 ];
+			}
+			tester = tester;
+			for( let i = istart, imax = Math.min( iend, pointCount - 1 ), iv = 2 * istart; i < imax; i += 1, iv += 2 ) {
+				if( utilIndexOf( pointSegments, i + 1 ) < 0 ) {
+					const p0x = pointValues[ iv + 0 ];
+					const p0y = pointValues[ iv + 1 ];
+					const p1x = pointValues[ iv + 2 ];
+					const p1y = pointValues[ iv + 3 ];
+					if( tester( x, y, ax, ay, p0x, p0y, p1x, p1y, i, threshold, result ) ) {
+						return true;
 					}
 				}
-				if( 2 < pointCount && pointCount <= iend && (this.style & EShapePointsStyle.CLOSED) ) {
-					if( utilIndexOf( pointSegments, 0 ) < 0 ) {
-						const i = pointCount - 1;
-						const iv = i << 1;
-						const p0x = pointValues[ iv + 0 ];
-						const p0y = pointValues[ iv + 1 ];
-						const p1x = pointValues[ 0 ];
-						const p1y = pointValues[ 1 ];
-						if( tester( shape, x, y, p0x, p0y, p1x, p1y, i, t, result ) ) {
-							return true;
-						}
+			}
+			if( 2 < pointCount && pointCount <= iend && (this.style & EShapePointsStyle.CLOSED) ) {
+				if( utilIndexOf( pointSegments, 0 ) < 0 ) {
+					const i = pointCount - 1;
+					const iv = i << 1;
+					const p0x = pointValues[ iv + 0 ];
+					const p0y = pointValues[ iv + 1 ];
+					const p1x = pointValues[ 0 ];
+					const p1y = pointValues[ 1 ];
+					if( tester( x, y, ax, ay, p0x, p0y, p1x, p1y, i, threshold, result ) ) {
+						return true;
 					}
 				}
 			}

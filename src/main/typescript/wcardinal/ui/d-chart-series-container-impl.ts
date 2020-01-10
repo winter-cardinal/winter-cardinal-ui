@@ -16,7 +16,7 @@ import { DChartSeriesSelection } from "./d-chart-series-selection";
 import { DChartSeriesSelectionSimple } from "./d-chart-series-selection-simple";
 import { DChartSeriesStroke } from "./d-chart-series-stroke";
 import { DChartSeriesStrokeImpl } from "./d-chart-series-stroke-impl";
-import { EShapePointsHitThreshold } from "./shape/e-shape-points";
+import { EShapePointsToHitThreshold } from "./shape/e-shape-points";
 import { utilIsNumber } from "./util/util-is-number";
 
 export class DChartSeriesContainerImpl implements DChartSeriesContainer {
@@ -214,7 +214,7 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 
 	calcHitPoint(
 		global: IPoint,
-		threshold: EShapePointsHitThreshold,
+		threshold: EShapePointsToHitThreshold,
 		result: DChartSeriesHitResult
 	): DChartSeries | null {
 		let tmp1 = result;

@@ -4,11 +4,7 @@
  */
 
 import { Matrix, Point } from "pixi.js";
-import { EShape } from "../e-shape";
-import {
-	EShapePoints, EShapePointsHitTester, EShapePointsHitThreshold,
-	EShapePointsStyle, EShapePointsTestRange
-} from "../e-shape-points";
+import { EShapePoints, EShapePointsHitTester, EShapePointsStyle, EShapePointsTestRange } from "../e-shape-points";
 import { EShapePointsParent } from "../e-shape-points-parent";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeGroupPropertyParent } from "./e-shape-group-property-parent";
@@ -154,11 +150,9 @@ export class EShapeGroupPoints implements EShapePoints {
 	}
 
 	calcHitPointAbs<RESULT>(
-		shape: EShape,
 		x: number, y: number,
 		ax: number, ay: number,
-		strokeScale: number,
-		threshold: EShapePointsHitThreshold | null,
+		threshold: number,
 		range: EShapePointsTestRange | null,
 		tester: EShapePointsHitTester<RESULT>,
 		result: RESULT

@@ -106,7 +106,7 @@ export class DChartSeriesSelectionSimple extends utils.EventEmitter implements D
 		}
 	}
 
-	protected toThreshold( this: unknown, shape: unknown, strokeWidth: number, strokeScale: number ): number {
+	protected toThreshold( this: unknown, strokeWidth: number, strokeScale: number ): number {
 		return +Infinity;
 	}
 
