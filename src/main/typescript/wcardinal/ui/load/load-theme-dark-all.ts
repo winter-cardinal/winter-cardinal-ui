@@ -8,6 +8,8 @@ import { loadThemeDarkBoard } from "./load-theme-dark-board";
 import { loadThemeDarkButtonAll } from "./load-theme-dark-button-all";
 import { loadThemeDarkCanvasContainer } from "./load-theme-dark-canvas-container";
 import { loadThemeDarkChart } from "./load-theme-dark-chart";
+import { loadThemeDarkDiagram } from "./load-theme-dark-diagram";
+import { loadThemeDarkDiagramEditor } from "./load-theme-dark-diagram-editor";
 import { loadThemeDarkDialogAll } from "./load-theme-dark-dialog-all";
 import { loadThemeDarkDropdown } from "./load-theme-dark-dropdown";
 import { loadThemeDarkExpandable } from "./load-theme-dark-expandable";
@@ -39,6 +41,8 @@ export const loadThemeDarkAll = () => {
 	loadThemeDarkButtonAll();
 	loadThemeDarkCanvasContainer();
 	loadThemeDarkChart();
+	loadThemeDarkDiagram();
+	loadThemeDarkDiagramEditor();
 	loadThemeDarkDialogAll();
 	loadThemeDarkDropdown();
 	loadThemeDarkExpandable();
