@@ -1,8 +1,13 @@
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { DChartSeriesContainer } from "./d-chart-series-container";
 import { DChartSeriesStrokeComputed, DChartSeriesStrokeComputedOptions } from "./d-chart-series-stroke-computed";
-import { EShapeStrokeSide } from "./shape";
 import { EShapePointsStyle } from "./shape/e-shape-points";
 import { EShapePointsStyles } from "./shape/e-shape-points-styles";
+import { EShapeStrokeSide } from "./shape/e-shape-stroke";
 
 export class DChartSeriesStrokeComputedImpl implements DChartSeriesStrokeComputed {
 	enable: boolean;

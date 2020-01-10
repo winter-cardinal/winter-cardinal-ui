@@ -7,9 +7,9 @@ import { IPoint } from "pixi.js";
 import { DChartCoordinate } from "./d-chart-coordinate";
 import { DChartPlotArea } from "./d-chart-plot-area";
 import { DChartRegion } from "./d-chart-region";
+import { DChartSelection } from "./d-chart-selection";
 import { DChartSeries, DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesFill, DChartSeriesFillOptions } from "./d-chart-series-fill";
-import { DChartSeriesSelection } from "./d-chart-series-selection";
 import { DChartSeriesStroke, DChartSeriesStrokeOptions } from "./d-chart-series-stroke";
 import { EShapePointsToHitThreshold } from "./shape/e-shape-points";
 
@@ -17,7 +17,7 @@ export interface DChartSeriesContainerOptions {
 	list: DChartSeries[];
 	fill?: DChartSeriesFillOptions;
 	stroke?: DChartSeriesStrokeOptions;
-	selection?: DChartSeriesSelection | null;
+	selection?: DChartSelection | null;
 }
 
 export interface DChartSeriesContainer {
@@ -27,7 +27,7 @@ export interface DChartSeriesContainer {
 	readonly plotArea: DChartPlotArea;
 	readonly fill: DChartSeriesFill;
 	readonly stroke: DChartSeriesStroke;
-	readonly selection: DChartSeriesSelection | null;
+	readonly selection: DChartSelection | null;
 
 	update(): void;
 	add( series: DChartSeries ): void;

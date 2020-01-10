@@ -1,72 +1,73 @@
-import { IPoint, Point, utils } from "pixi.js";
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { Point, utils } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBaseState } from "./d-base-state";
 import { DChartCoordinate } from "./d-chart-coordinate";
+import { DChartSelectionPoint } from "./d-chart-selection";
+import { DChartSelectionGridlineContainer } from "./d-chart-selection-gridline-container";
+import { DChartSelectionGridlineContainerImpl } from "./d-chart-selection-gridline-container-impl";
+import { DChartSelectionMarker } from "./d-chart-selection-marker";
+import { DChartSelectionSub, DChartSelectionSubOptions } from "./d-chart-selection-sub";
 import { DChartSeries, DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesContainer } from "./d-chart-series-container";
-import { DChartSeriesSelectionPoint, DChartSeriesSelectionStyle } from "./d-chart-series-selection";
-import {
-	DChartSeriesSelectionSimpleSub, DChartSeriesSelectionSimpleSubOptions
-} from "./d-chart-series-selection-simple-sub";
 import { EShape } from "./shape/e-shape";
 
-export abstract class DChartSeriesSelectionSimpleSubBase extends utils.EventEmitter
-	implements DChartSeriesSelectionSimpleSub {
+export class DChartSelectionSubImpl extends utils.EventEmitter implements DChartSelectionSub {
 	protected _container: DChartSeriesContainer | null;
+	protected _isEnabled: boolean;
 	protected _series: DChartSeries | null;
-	protected _shape?: EShape;
 	protected _coordinateX: DChartCoordinate | null;
 	protected _coordinateY: DChartCoordinate | null;
 	protected _position: Point;
-	protected _point: DChartSeriesSelectionPoint;
-	protected _style: DChartSeriesSelectionStyle;
+	protected _point: DChartSelectionPoint;
 	protected _work: Point;
+	protected _gridline: DChartSelectionGridlineContainer;
+	protected _marker: DChartSelectionMarker;
+	protected _state: DBaseState;
 
-	constructor( point: DChartSeriesSelectionPoint, options?: DChartSeriesSelectionSimpleSubOptions ) {
+	constructor( options: DChartSelectionSubOptions ) {
 		super();
 
 		this._container = null;
 		this._series = null;
-		this._shape = options && options.shape;
+		this._isEnabled = ( options.enable != null ? options.enable : true );
+		this._gridline = new DChartSelectionGridlineContainerImpl( options.gridline );
+		this._marker = new DChartSelectionMarker( options.marker );
+		this._state = ( options.state != null ? options.state : DBaseState.HOVERED );
 		this._coordinateX = null;
 		this._coordinateY = null;
 		this._position = new Point();
-		this._point = point;
-		this._style = (options && options.style) || this.setStyle;
+		this._point = ( options.point != null ? options.point : DChartSelectionPoint.CLOSER );
 		this._work = new Point();
 
 		// Events
-		if( options ) {
-			const on = options.on;
-			if( on != null ) {
-				for( const name in on ) {
-					this.on( name, on[ name ] );
-				}
+		const on = options.on;
+		if( on ) {
+			for( const name in on ) {
+				this.on( name, on[ name ] );
 			}
 		}
 	}
 
 	bind( container: DChartSeriesContainer ): void {
-		this._container = container;
-		const shape = this._shape = (this._shape || this.newShape());
-		shape.attach( container.plotArea.axis.container );
-		shape.visible = false;
+		if( this._isEnabled ) {
+			this._container = container;
+			this._gridline.bind( container );
+			this._marker.bind( container );
+		}
 	}
 
 	unbind(): void {
+		this._marker.unbind();
+		this._gridline.unbind();
 		this._container = null;
-
-		const shape = this._shape;
-		if( shape ) {
-			shape.detach();
-		}
-
 		this._coordinateX = null;
 		this._coordinateY = null;
 	}
-
-	protected abstract newShape(): EShape;
-	protected abstract getSeriesState(): DBaseState;
 
 	get series(): DChartSeries | null {
 		return this._series;
@@ -76,12 +77,19 @@ export abstract class DChartSeriesSelectionSimpleSubBase extends utils.EventEmit
 		return this._position;
 	}
 
+	get gridline(): DChartSelectionGridlineContainer {
+		return this._gridline;
+	}
+
+	get marker(): DChartSelectionMarker {
+		return this._marker;
+	}
+
 	set( series: DChartSeries, result: DChartSeriesHitResult | Point ): void {
-		const shape = this._shape;
 		const container = this._container;
 		const coordinateX = this._coordinateX = series.coordinate.x;
 		const coordinateY = this._coordinateY = series.coordinate.y;
-		if( shape && container && coordinateX && coordinateY ) {
+		if( container && coordinateX && coordinateY ) {
 			const transform = container.plotArea.container.localTransform;
 			const position = this._position;
 			const work = this._work;
@@ -92,20 +100,19 @@ export abstract class DChartSeriesSelectionSimpleSubBase extends utils.EventEmit
 				);
 				transform.apply( work, work );
 				position.copyFrom( result );
-				shape.transform.position.copyFrom( work );
 			} else {
 				let x = result.x;
 				let y = result.y;
 				switch( this._point ) {
-				case DChartSeriesSelectionPoint.PREVIOUS:
+				case DChartSelectionPoint.PREVIOUS:
 					x = result.p0x;
 					y = result.p0y;
 					break;
-				case DChartSeriesSelectionPoint.NEXT:
+				case DChartSelectionPoint.NEXT:
 					x = result.p1x;
 					y = result.p1y;
 					break;
-				case DChartSeriesSelectionPoint.CLOSER:
+				case DChartSelectionPoint.CLOSER:
 					if( Math.abs( result.p0x - result.x ) < Math.abs( result.p1x - result.x ) ) {
 						x = result.p0x;
 						y = result.p0y;
@@ -121,16 +128,17 @@ export abstract class DChartSeriesSelectionSimpleSubBase extends utils.EventEmit
 					coordinateX.unmap( coordinateX.transform.unmap( x ) ),
 					coordinateY.unmap( coordinateY.transform.unmap( y ) )
 				);
-				shape.transform.position.copyFrom( work );
 			}
-			this._style( shape, series );
-			shape.visible = this.isVisible( container, work );
-			DApplications.update( shape );
+
+			this._gridline.set( container, work, series );
+			this._marker.set( container, work, series );
+
+			DApplications.update( container.plotArea );
 		}
 
 		const oldSeries = this._series;
 		if( oldSeries !== series ) {
-			const state = this.getSeriesState();
+			const state = this._state;
 			if( oldSeries ) {
 				oldSeries.setState( state, false );
 			}
@@ -156,23 +164,20 @@ export abstract class DChartSeriesSelectionSimpleSubBase extends utils.EventEmit
 			this._coordinateX = null;
 			this._coordinateY = null;
 
-			series.setState( this.getSeriesState(), false );
+			series.setState( this._state, false );
 
-			const shape = this._shape;
-			if( shape ) {
-				shape.visible = false;
-			}
+			this._gridline.unset();
+			this._marker.unset();
 
 			this.emit( "change", this );
 		}
 	}
 
 	update(): void {
-		const shape = this._shape;
 		const container = this._container;
 		const coordinateX = this._coordinateX;
 		const coordinateY = this._coordinateY;
-		if( shape && container && coordinateX && coordinateY ) {
+		if( container && coordinateX && coordinateY ) {
 			const position = this._position;
 			const work = this._work;
 			work.set(
@@ -180,15 +185,9 @@ export abstract class DChartSeriesSelectionSimpleSubBase extends utils.EventEmit
 				coordinateY.transform.map( coordinateY.map( position.y ) )
 			);
 			container.plotArea.container.localTransform.apply( work, work );
-			shape.transform.position.copyFrom( work );
-			shape.visible = this.isVisible( container, work );
-		}
-	}
 
-	protected isVisible( container: DChartSeriesContainer, point: IPoint ): boolean {
-		const x = point.x;
-		const y = point.y;
-		const plotArea = container.plotArea;
-		return ( 0 <= x && x <= plotArea.width && 0 <= y && y <= plotArea.height );
+			this._gridline.update( container, work );
+			this._marker.update( container, work );
+		}
 	}
 }

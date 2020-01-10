@@ -14,6 +14,9 @@ import { DThemeWhiteChartLegend } from "../theme/white/d-theme-white-chart-legen
 import { DThemeWhiteChartLegendItem } from "../theme/white/d-theme-white-chart-legend-item";
 import { DThemeWhiteChartOverview } from "../theme/white/d-theme-white-chart-overview";
 import { DThemeWhiteChartPlotArea } from "../theme/white/d-theme-white-chart-plot-area";
+import { DThemeWhiteChartSelectionGridlineX } from "../theme/white/d-theme-white-chart-selection-gridline-x";
+import { DThemeWhiteChartSelectionGridlineY } from "../theme/white/d-theme-white-chart-selection-gridline-y";
+import { DThemeWhiteChartSelectionMarker } from "../theme/white/d-theme-white-chart-selection-marker";
 
 export const loadThemeWhiteChart = () => {
 	DThemeWhite.set( "DChart", DThemeWhiteChart );
@@ -26,4 +29,7 @@ export const loadThemeWhiteChart = () => {
 	DThemeWhite.set( "DChartLegendItem", DThemeWhiteChartLegendItem );
 	DThemeWhite.set( "DChartOverview", DThemeWhiteChartOverview );
 	DThemeWhite.set( "DChartPlotArea", DThemeWhiteChartPlotArea );
+	DThemeWhite.set( "DChartSelectionGridlineX", DThemeWhiteChartSelectionGridlineX );
+	DThemeWhite.set( "DChartSelectionGridlineY", DThemeWhiteChartSelectionGridlineY );
+	DThemeWhite.set( "DChartSelectionMarker", DThemeWhiteChartSelectionMarker );
 };

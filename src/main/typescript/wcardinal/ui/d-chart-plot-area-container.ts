@@ -1,7 +1,12 @@
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { Rectangle, Transform } from "pixi.js";
 import { DBasePoint } from "./d-base-point";
 import { DViewTarget } from "./d-view-to-target";
-import { EShapeContainer } from "./shape";
+import { EShapeContainer } from "./shape/e-shape-container";
 
 export class DChartPlotAreaContainer extends EShapeContainer implements DViewTarget {
 	protected _position: DBasePoint;

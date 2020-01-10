@@ -4,8 +4,8 @@
  */
 
 import { DChartSeriesScalar } from "./d-chart-series-scalar";
-import { EShapeStrokeSide } from "./shape";
 import { EShapePointsStyleOption } from "./shape/e-shape-points-styles";
+import { EShapeStrokeSide } from "./shape/e-shape-stroke";
 
 export interface DChartSeriesStrokeOptions {
 	enable?: boolean | boolean[] | DChartSeriesScalar<boolean>;

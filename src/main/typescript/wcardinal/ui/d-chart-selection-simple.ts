@@ -1,40 +1,43 @@
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { interaction, utils } from "pixi.js";
 import { DBaseOnOptions } from "./d-base";
+import { DBaseState } from "./d-base-state";
+import { DChartSelection, DChartSelectionPoint } from "./d-chart-selection";
+import { DChartSelectionSub, DChartSelectionSubOptions } from "./d-chart-selection-sub";
+import { DChartSelectionSubImpl } from "./d-chart-selection-sub-impl";
 import { DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesContainer } from "./d-chart-series-container";
-import { DChartSeriesSelection, DChartSeriesSelectionPoint } from "./d-chart-series-selection";
-import {
-	DChartSeriesSelectionSimpleSub, DChartSeriesSelectionSimpleSubOptions
-} from "./d-chart-series-selection-simple-sub";
-import { DChartSeriesSelectionSimpleSubHovered } from "./d-chart-series-selection-simple-sub-hovered";
-import { DChartSeriesSelectionSimpleSubSelected } from "./d-chart-series-selection-simple-sub-selected";
 import { utilIsString } from "./util/util-is-string";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
-export interface DChartSeriesSelectionSimpleOptions {
-	selected?: DChartSeriesSelectionSimpleSubOptions;
-	hovered?: DChartSeriesSelectionSimpleSubOptions;
-	point?: DChartSeriesSelectionPoint | (keyof typeof DChartSeriesSelectionPoint);
+export interface DChartSelectionSimpleOptions {
+	selected?: DChartSelectionSubOptions;
+	hovered?: DChartSelectionSubOptions;
+	point?: DChartSelectionPoint | (keyof typeof DChartSelectionPoint);
 	on?: DBaseOnOptions;
 }
 
-export class DChartSeriesSelectionSimple extends utils.EventEmitter implements DChartSeriesSelection {
+export class DChartSelectionSimple extends utils.EventEmitter implements DChartSelection {
 	protected static WORK_SELECT: DChartSeriesHitResult = new DChartSeriesHitResult();
 
 	protected _container: DChartSeriesContainer | null;
-	protected _selected: DChartSeriesSelectionSimpleSub;
-	protected _hovered: DChartSeriesSelectionSimpleSub;
+	protected _selected: DChartSelectionSub;
+	protected _hovered: DChartSelectionSub;
 
 	protected _onClickBound!: ( e: interaction.InteractionEvent ) => void;
 	protected _onMoveBound!: ( e: interaction.InteractionEvent ) => void;
 
-	constructor( options?: DChartSeriesSelectionSimpleOptions ) {
+	constructor( options?: DChartSelectionSimpleOptions ) {
 		super();
 
 		this._container = null;
 		const point = ( options && options.point != null ?
-			( utilIsString( options.point ) ? DChartSeriesSelectionPoint[ options.point ] : options.point ) :
-			DChartSeriesSelectionPoint.CLOSER
+			( utilIsString( options.point ) ? DChartSelectionPoint[ options.point ] : options.point ) :
+			DChartSelectionPoint.CLOSER
 		);
 
 		this._selected = this.newSelected( point, options && options.selected );
@@ -61,17 +64,63 @@ export class DChartSeriesSelectionSimple extends utils.EventEmitter implements D
 	}
 
 	protected newSelected(
-		point: DChartSeriesSelectionPoint,
-		options?: DChartSeriesSelectionSimpleSubOptions
-	): DChartSeriesSelectionSimpleSub {
-		return new DChartSeriesSelectionSimpleSubSelected( point, options );
+		point: DChartSelectionPoint,
+		options?: DChartSelectionSubOptions
+	): DChartSelectionSub {
+		return new DChartSelectionSubImpl(
+			this.toSubOptions(
+				point,
+				options,
+				DBaseState.ACTIVE
+			)
+		);
 	}
 
 	protected newHovered(
-		point: DChartSeriesSelectionPoint,
-		options?: DChartSeriesSelectionSimpleSubOptions
-	): DChartSeriesSelectionSimpleSub {
-		return new DChartSeriesSelectionSimpleSubHovered( point, options );
+		point: DChartSelectionPoint,
+		options?: DChartSelectionSubOptions
+	): DChartSelectionSub {
+		return new DChartSelectionSubImpl(
+			this.toSubOptions(
+				point,
+				options,
+				DBaseState.HOVERED
+			)
+		);
+	}
+
+	protected toSubOptions(
+		point: DChartSelectionPoint,
+		options: DChartSelectionSubOptions | undefined,
+		state: DBaseState
+	): DChartSelectionSubOptions {
+		options = options || {};
+
+		if( options.point == null ) {
+			options.point = point;
+		}
+
+		if( options.state == null ) {
+			options.state = state;
+		}
+
+		const gridline = options.gridline || {};
+		const gridlineX = gridline.x || {};
+		if( gridlineX.state == null ) {
+			gridlineX.state = state;
+		}
+
+		const gridlineY = gridline.y || {};
+		if( gridlineY.state == null ) {
+			gridlineY.state = state;
+		}
+
+		const marker = options.marker || {};
+		if( marker.state == null ) {
+			marker.state = state;
+		}
+
+		return options;
 	}
 
 	protected onClick( e: interaction.InteractionEvent ): void {
@@ -93,7 +142,7 @@ export class DChartSeriesSelectionSimple extends utils.EventEmitter implements D
 		if( container ) {
 			const hovered = this._hovered;
 			if( e.target === container.plotArea ) {
-				const result = DChartSeriesSelectionSimple.WORK_SELECT;
+				const result = DChartSelectionSimple.WORK_SELECT;
 				const series = container.calcHitPoint( e.data.global, this.toThreshold, result );
 				if( series ) {
 					hovered.set( series, result );
@@ -131,11 +180,11 @@ export class DChartSeriesSelectionSimple extends utils.EventEmitter implements D
 		this._hovered.unbind();
 	}
 
-	get selected(): DChartSeriesSelectionSimpleSub {
+	get selected(): DChartSelectionSub {
 		return this._selected;
 	}
 
-	get hovered(): DChartSeriesSelectionSimpleSub {
+	get hovered(): DChartSelectionSub {
 		return this._hovered;
 	}
 

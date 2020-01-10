@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { DChartCoordinate } from "./d-chart-coordinate";
 import { DChartSeriesContainer } from "./d-chart-series-container";
 import { DChartSeriesCoordinateContainer, DChartSeriesCoordinateOptions } from "./d-chart-series-coordinate";

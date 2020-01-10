@@ -8,12 +8,12 @@ import { DChartCoordinate } from "./d-chart-coordinate";
 import { DChartPlotArea } from "./d-chart-plot-area";
 import { DChartRegion } from "./d-chart-region";
 import { DChartRegionImpl } from "./d-chart-region-impl";
+import { DChartSelection } from "./d-chart-selection";
+import { DChartSelectionSimple } from "./d-chart-selection-simple";
 import { DChartSeries, DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesContainer, DChartSeriesContainerOptions } from "./d-chart-series-container";
 import { DChartSeriesFill } from "./d-chart-series-fill";
 import { DChartSeriesFillImpl } from "./d-chart-series-fill-impl";
-import { DChartSeriesSelection } from "./d-chart-series-selection";
-import { DChartSeriesSelectionSimple } from "./d-chart-series-selection-simple";
 import { DChartSeriesStroke } from "./d-chart-series-stroke";
 import { DChartSeriesStrokeImpl } from "./d-chart-series-stroke-impl";
 import { EShapePointsToHitThreshold } from "./shape/e-shape-points";
@@ -28,7 +28,7 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 	protected _range: DChartRegionImpl;
 	protected _fill: DChartSeriesFillImpl;
 	protected _stroke: DChartSeriesStrokeImpl;
-	protected _selection: DChartSeriesSelection | null;
+	protected _selection: DChartSelection | null;
 
 	constructor( plotArea: DChartPlotArea, options?: DChartSeriesContainerOptions ) {
 		this._plotArea = plotArea;
@@ -37,7 +37,7 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 		this._fill = new DChartSeriesFillImpl( options && options.fill );
 		this._stroke = new DChartSeriesStrokeImpl( options && options.stroke );
 		const selection = (options && options.selection !== undefined ?
-			options.selection : new DChartSeriesSelectionSimple()
+			options.selection : new DChartSelectionSimple()
 		);
 		this._selection = selection;
 
@@ -66,7 +66,7 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 		return this._stroke;
 	}
 
-	get selection(): DChartSeriesSelection | null {
+	get selection(): DChartSelection | null {
 		return this._selection;
 	}
 

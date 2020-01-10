@@ -10,10 +10,7 @@ import { DChartCoordinate } from "./d-chart-coordinate";
 import { DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesBase, DChartSeriesBaseOptions } from "./d-chart-series-base";
 import { DChartSeriesContainer } from "./d-chart-series-container";
-import {
-	DChartSeriesLinearParameters,
-	DChartSeriesLinearParametersOptions
-} from "./d-chart-series-linear-parameters";
+import { DChartSeriesLinearParameters, DChartSeriesLinearParametersOptions } from "./d-chart-series-linear-parameters";
 import { DChartSeriesExpressionParametersImpl } from "./d-chart-series-linear-parameters-impl";
 import { DChartSeriesStrokeComputed, DChartSeriesStrokeComputedOptions } from "./d-chart-series-stroke-computed";
 import { DChartSeriesStrokeComputedImpl } from "./d-chart-series-stroke-computed-impl";

@@ -304,7 +304,9 @@ export class DChartSeriesLineOfCircles extends DChartSeriesBase {
 			result.y = result.p0y = result.p1y = position.y + py;
 			result.t = threshold;
 			result.index = index;
-			result.distance = 0;
+			const dx = x - px;
+			const dy = y - py;
+			result.distance = Math.sqrt( dx * dx + dy * dy );
 			return true;
 		}
 		return false;
