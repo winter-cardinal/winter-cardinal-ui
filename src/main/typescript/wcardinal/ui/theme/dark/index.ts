@@ -130,3 +130,4 @@ export * from "./d-theme-dark-text";
 export * from "./d-theme-dark-text-base";
 export * from "./d-theme-dark-view";
 export * from "./d-theme-dark";
+export * from "./e-theme-dark-shape-action-value";
