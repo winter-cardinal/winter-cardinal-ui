@@ -92,4 +92,7 @@ export * from "./load-theme-dark-base";
 export * from "./load-theme-dark";
 export * from "./load-theme-dark-html-element";
 export * from "./load-theme-dark-image";
+export * from "./load-theme-dark-note";
+export * from "./load-theme-dark-scroll-bar";
 export * from "./load-theme-dark-text";
+export * from "./load-theme-dark-view";
