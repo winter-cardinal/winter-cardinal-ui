@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2020 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { EShapeLineOfAnyPointsStroke } from "./e-shape-line-of-any-points-stroke";
 import { EShapeLineOfAnyValue, EShapeLinesOfAny } from "./e-shape-lines-of-any";
 

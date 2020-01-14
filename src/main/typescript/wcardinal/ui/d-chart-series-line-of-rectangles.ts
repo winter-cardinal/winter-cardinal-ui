@@ -5,14 +5,14 @@
 
 import { DChartSeriesLineOfAny } from "./d-chart-series-line-of-any";
 import { EShapeLineOfAny } from "./shape/variant/e-shape-line-of-any";
-import { EShapeLineOfCircles } from "./shape/variant/e-shape-line-of-circles";
+import { EShapeLineOfRectangles } from "./shape/variant/e-shape-line-of-rectangles";
 
 /**
- * A series represents a line of circles.
+ * A series represents a line of rectangles.
  * Data points must be sorted in ascending order on the X axis.
  */
-export class DChartSeriesLineOfCircles extends DChartSeriesLineOfAny {
+export class DChartSeriesLineOfRectangles extends DChartSeriesLineOfAny {
 	protected newLineOfAny(): EShapeLineOfAny {
-		return new EShapeLineOfCircles();
+		return new EShapeLineOfRectangles();
 	}
 }

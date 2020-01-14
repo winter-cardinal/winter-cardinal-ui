@@ -5,11 +5,11 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
-import { EShapeCircleUploaded } from "./e-shape-circle-uploaded";
 import { EShapeLineOfAnyPoints } from "./e-shape-line-of-any-points";
 import { EShapeLinesOfAny } from "./e-shape-lines-of-any";
+import { EShapeRectangleUploaded } from "./e-shape-rectangle-uploaded";
 
-export class EShapeLineOfCirclesUploaded extends EShapeCircleUploaded {
+export class EShapeLineOfRectanglesUploaded extends EShapeRectangleUploaded {
 	protected pointId: number;
 	protected pointCount: number;
 	protected pointSizeId: number;
@@ -32,17 +32,17 @@ export class EShapeLineOfCirclesUploaded extends EShapeCircleUploaded {
 		this.pointStrokeId = -1;
 	}
 
-	protected doInitCircle(
+	protected doInitRectangle(
 		clippings: Float32Array,
 		indices: Uint16Array | Uint32Array,
 		voffset: number,
 		ioffset: number
 	): void {
-		super.doInitCircle( clippings, indices, voffset, ioffset );
+		super.doInitRectangle( clippings, indices, voffset, ioffset );
 		EShapeLinesOfAny.copyClippingAndIndex(
 			clippings, indices,
-			voffset, EShapeCircleUploaded.VERTEX_COUNT,
-			ioffset, EShapeCircleUploaded.INDEX_COUNT,
+			voffset, EShapeRectangleUploaded.VERTEX_COUNT,
+			ioffset, EShapeRectangleUploaded.INDEX_COUNT,
 			this.pointCount
 		);
 	}
@@ -59,10 +59,10 @@ export class EShapeLineOfCirclesUploaded extends EShapeCircleUploaded {
 		const buffer = this.buffer;
 		const points = shape.points;
 		if( points instanceof EShapeLineOfAnyPoints ) {
-			this.updateLineOfCirclesVertexAndStep( buffer, shape, points );
-			this.updateLineOfCirclesColorFill( buffer, shape, points );
-			this.updateLineOfCirclesColorStroke( buffer, shape, points );
-			this.updateLineOfCirclesUv( buffer, shape );
+			this.updateLineOfRectanglesVertexAndStep( buffer, shape, points );
+			this.updateLineOfRectanglesColorFill( buffer, shape, points );
+			this.updateLineOfRectanglesColorStroke( buffer, shape, points );
+			this.updateLineOfRectanglesUv( buffer, shape );
 
 			const size = shape.size;
 			const sizeX = size.x;
@@ -77,7 +77,7 @@ export class EShapeLineOfCirclesUploaded extends EShapeCircleUploaded {
 		}
 	}
 
-	protected updateLineOfCirclesVertexAndStep( buffer: EShapeBuffer, shape: EShape, points: EShapeLineOfAnyPoints ) {
+	protected updateLineOfRectanglesVertexAndStep( buffer: EShapeBuffer, shape: EShape, points: EShapeLineOfAnyPoints ) {
 		const pointId = points.id;
 		const isPointChanged = ( pointId !== this.pointId );
 
@@ -91,7 +91,9 @@ export class EShapeLineOfCirclesUploaded extends EShapeCircleUploaded {
 		const stroke = shape.stroke;
 		const strokeWidth = (stroke.enable ? stroke.width : 0);
 		const strokeAlign = stroke.align;
-		const isStrokeChanged = ( this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth );
+		const strokeSide = stroke.side;
+		const isStrokeChanged = ( this.strokeAlign !== strokeAlign ||
+			this.strokeWidth !== strokeWidth || this.strokeSide !== strokeSide );
 
 		if( isPointChanged || isPointSizeChanged || isTransformChanged || isStrokeChanged ) {
 			this.pointId = pointId;
@@ -99,6 +101,7 @@ export class EShapeLineOfCirclesUploaded extends EShapeCircleUploaded {
 			this.transformLocalId = transformLocalId;
 			this.strokeWidth = strokeWidth;
 			this.strokeAlign = strokeAlign;
+			this.strokeSide = strokeSide;
 
 			if( isTransformChanged ) {
 				// Invalidate the text layout to update the text layout.
@@ -112,11 +115,10 @@ export class EShapeLineOfCirclesUploaded extends EShapeCircleUploaded {
 			const pointCount = this.pointCount;
 			const pointsValues = points.values;
 			const voffset = this.vertexOffset;
-			const div = EShapeCircleUploaded.VERTEX_COUNT;
+			const div = EShapeRectangleUploaded.VERTEX_COUNT;
 			const vertices = buffer.vertices;
 			const steps = buffer.steps;
 			const antialiases = buffer.antialiases;
-			const clippings = buffer.clippings;
 			const internalTransform = shape.transform.internalTransform;
 			const work = buffer.work;
 			const workStep = buffer.workStep;
@@ -124,12 +126,12 @@ export class EShapeLineOfCirclesUploaded extends EShapeCircleUploaded {
 				const pointSizeX = pointSize.getX( 0 );
 				const pointSizeY = pointSize.getY( 0 );
 
-				this.doUpdateCircleVertexAndStep(
-					vertices, voffset, div,
-					steps, antialiases, clippings,
+				this.doUpdateRectangleVertexAndStep(
+					vertices, voffset,
+					steps, antialiases,
 					0, 0,
 					pointSizeX, pointSizeY,
-					strokeAlign, strokeWidth, true,
+					strokeAlign, strokeWidth, strokeSide, true,
 					internalTransform,
 					work, workStep
 				);
@@ -146,12 +148,12 @@ export class EShapeLineOfCirclesUploaded extends EShapeCircleUploaded {
 					const py = pointsValues[ ip + 1 ];
 					const pointSizeX = pointSize.getX( i );
 					const pointSizeY = pointSize.getY( i );
-					this.doUpdateCircleVertexAndStep(
-						vertices, voffset + i * div, div,
-						steps, antialiases, clippings,
+					this.doUpdateRectangleVertexAndStep(
+						vertices, voffset + i * div,
+						steps, antialiases,
 						px, py,
 						pointSizeX, pointSizeY,
-						strokeAlign, strokeWidth, true,
+						strokeAlign, strokeWidth, strokeSide, true,
 						internalTransform,
 						work, workStep
 					);
@@ -160,7 +162,7 @@ export class EShapeLineOfCirclesUploaded extends EShapeCircleUploaded {
 		}
 	}
 
-	protected updateLineOfCirclesColorFill( buffer: EShapeBuffer, shape: EShape, points: EShapeLineOfAnyPoints ) {
+	protected updateLineOfRectanglesColorFill( buffer: EShapeBuffer, shape: EShape, points: EShapeLineOfAnyPoints ) {
 		const pointFill = points.fill;
 		const pointFillId = pointFill.id;
 		const isPointFillChanged = ( pointFillId !== this.pointFillId );
@@ -178,7 +180,7 @@ export class EShapeLineOfCirclesUploaded extends EShapeCircleUploaded {
 			buffer.colorFillBuffer.update();
 			EShapeLinesOfAny.updateColor(
 				this.vertexOffset,
-				EShapeLineOfCirclesUploaded.VERTEX_COUNT,
+				EShapeLineOfRectanglesUploaded.VERTEX_COUNT,
 				pointFill,
 				this.pointCount,
 				buffer.colorFills,
@@ -190,7 +192,7 @@ export class EShapeLineOfCirclesUploaded extends EShapeCircleUploaded {
 		}
 	}
 
-	protected updateLineOfCirclesColorStroke( buffer: EShapeBuffer, shape: EShape, points: EShapeLineOfAnyPoints ) {
+	protected updateLineOfRectanglesColorStroke( buffer: EShapeBuffer, shape: EShape, points: EShapeLineOfAnyPoints ) {
 		const pointStroke = points.stroke;
 		const pointStrokeId = pointStroke.id;
 		const isPointStrokeChanged = ( pointStrokeId !== this.pointStrokeId );
@@ -208,7 +210,7 @@ export class EShapeLineOfCirclesUploaded extends EShapeCircleUploaded {
 			buffer.colorStrokeBuffer.update();
 			EShapeLinesOfAny.updateColor(
 				this.vertexOffset,
-				EShapeLineOfCirclesUploaded.VERTEX_COUNT,
+				EShapeLineOfRectanglesUploaded.VERTEX_COUNT,
 				pointStroke,
 				this.pointCount,
 				buffer.colorStrokes,
@@ -220,7 +222,7 @@ export class EShapeLineOfCirclesUploaded extends EShapeCircleUploaded {
 		}
 	}
 
-	protected updateLineOfCirclesUv( buffer: EShapeBuffer, shape: EShape ) {
+	protected updateLineOfRectanglesUv( buffer: EShapeBuffer, shape: EShape ) {
 		const texture = this.toTexture( shape );
 		const textureTransformId = this.toTextureTransformId( texture );
 		if( texture !== this.texture || textureTransformId !== this.textureTransformId ) {
@@ -231,8 +233,8 @@ export class EShapeLineOfCirclesUploaded extends EShapeCircleUploaded {
 			const uvs = buffer.uvs;
 			const voffset = this.vertexOffset;
 			const textureUvs = this.toTextureUvs( texture );
-			this.doUpdateCircleUv( voffset, textureUvs, uvs );
-			EShapeLinesOfAny.copyUvs( voffset, EShapeCircleUploaded.VERTEX_COUNT, this.pointCount, uvs );
+			this.doUpdateRectangleUv( voffset, textureUvs, uvs );
+			EShapeLinesOfAny.copyUvs( voffset, EShapeRectangleUploaded.VERTEX_COUNT, this.pointCount, uvs );
 		}
 	}
 }

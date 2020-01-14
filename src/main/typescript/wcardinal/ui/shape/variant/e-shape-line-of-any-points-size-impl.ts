@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2020 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { utilIsFunction, utilIsNumber } from "../../util";
 import { EShapeDefaults } from "../e-shape-defaults";
 import { EShapeLineOfAnyPointsSize } from "./e-shape-line-of-any-points-size";

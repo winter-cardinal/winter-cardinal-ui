@@ -6,21 +6,21 @@
 import { IPoint } from "pixi.js";
 import { EShapeType } from "../e-shape-type";
 import { EShapeBase } from "./e-shape-base";
-import { EShapeCircle } from "./e-shape-circle";
 import { EShapeLineOfAny } from "./e-shape-line-of-any";
 import {
 	EShapeLineOfAnyPoints, EShapeLineOfAnyPointsHitTester,
 	EShapeLineOfAnyPointsTestRange, EShapeLineOfAnyPointsToHitThreshold
 } from "./e-shape-line-of-any-points";
 import { EShapeLinesOfAny } from "./e-shape-lines-of-any";
+import { EShapeRectangle } from "./e-shape-rectangle";
 
-export class EShapeLineOfCircles extends EShapeCircle implements EShapeLineOfAny {
+export class EShapeLineOfRectangles extends EShapeRectangle implements EShapeLineOfAny {
 	points!: EShapeLineOfAnyPoints;
 	protected _tester: EShapeLineOfAnyPointsHitTester<unknown>;
 	protected _testerBBox: EShapeLineOfAnyPointsHitTester<unknown>;
 
-	constructor( other?: EShapeLineOfCircles ) {
-		super( EShapeType.LINE_OF_CIRCLES );
+	constructor( other?: EShapeLineOfRectangles ) {
+		super( EShapeType.LINE_OF_RECTANGLES );
 		if( other ) {
 			this.copy( other );
 		} else {
@@ -36,8 +36,8 @@ export class EShapeLineOfCircles extends EShapeCircle implements EShapeLineOfAny
 		};
 	}
 
-	clone(): EShapeLineOfCircles {
-		return new EShapeLineOfCircles( this );
+	clone(): EShapeLineOfRectangles {
+		return new EShapeLineOfRectangles( this );
 	}
 
 	containsAbs( x: number, y: number, ax: number, ay: number ): boolean {
