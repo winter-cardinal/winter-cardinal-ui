@@ -17,7 +17,6 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 	protected pointCount: number;
 	protected pointId: number;
 	protected pointsClosed: boolean;
-	protected pointsStyle: EShapePointsStyle;
 	protected length: number;
 
 	constructor(
@@ -32,7 +31,6 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 		this.pointId = NaN;
 		this.pointCount = pointCount;
 		this.pointsClosed = pointsClosed;
-		this.pointsStyle = EShapePointsStyle.NONE;
 		this.length = 1;
 	}
 
@@ -145,13 +143,10 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 			const isStrokeWidthChanged = ( strokeWidth !== this.strokeWidth );
 			const transformLocalId = this.toTransformLocalId( shape );
 			const isTransformChanged = ( this.transformLocalId !== transformLocalId );
-			const pointsStyle = points.style;
-			const isPointsStyleChanged = ( pointsStyle !== this.pointsStyle );
-			if( isPointChanged || isTransformChanged || isStrokeWidthChanged || isPointsStyleChanged ) {
+			if( isPointChanged || isTransformChanged || isStrokeWidthChanged ) {
 				this.pointId = pointId;
 				this.strokeWidth = strokeWidth;
 				this.transformLocalId = transformLocalId;
-				this.pointsStyle = pointsStyle;
 				buffer.vertexBuffer.update();
 				buffer.stepBuffer.update();
 				buffer.antialiasBuffer.update();

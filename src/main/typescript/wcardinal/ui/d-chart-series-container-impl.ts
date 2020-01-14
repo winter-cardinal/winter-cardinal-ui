@@ -16,7 +16,6 @@ import { DChartSeriesFill } from "./d-chart-series-fill";
 import { DChartSeriesFillImpl } from "./d-chart-series-fill-impl";
 import { DChartSeriesStroke } from "./d-chart-series-stroke";
 import { DChartSeriesStrokeImpl } from "./d-chart-series-stroke-impl";
-import { EShapePointsToHitThreshold } from "./shape/e-shape-points";
 import { utilIsNumber } from "./util/util-is-number";
 
 export class DChartSeriesContainerImpl implements DChartSeriesContainer {
@@ -212,11 +211,7 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 		return null;
 	}
 
-	calcHitPoint(
-		global: IPoint,
-		threshold: EShapePointsToHitThreshold,
-		result: DChartSeriesHitResult
-	): DChartSeries | null {
+	calcHitPoint( global: IPoint, result: DChartSeriesHitResult ): DChartSeries | null {
 		let tmp1 = result;
 		let tmp2 = DChartSeriesContainerImpl.WORK_CALCHITPOINT;
 		const list = this._list;
@@ -224,7 +219,7 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 		tmp2.distance = +Infinity;
 		for( let i = list.length - 1; 0 <= i; --i ) {
 			const series = list[ i ];
-			if( series.calcHitPoint( global, threshold, tmp1 ) ) {
+			if( series.calcHitPoint( global, tmp1 ) ) {
 				if( tmp1.distance < tmp2.distance ) {
 					closest = series;
 					const tmp = tmp1;

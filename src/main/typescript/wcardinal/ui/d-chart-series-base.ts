@@ -14,7 +14,6 @@ import { DChartSeriesBaseCoordinateContainer } from "./d-chart-series-base-coord
 import { DChartSeriesContainer } from "./d-chart-series-container";
 import { DChartSeriesCoordinateContainer, DChartSeriesCoordinateOptions } from "./d-chart-series-coordinate";
 import { EShape } from "./shape/e-shape";
-import { EShapePointsToHitThreshold } from "./shape/e-shape-points";
 
 /**
  * {@link DChartSeriesBase} options.
@@ -111,7 +110,7 @@ export abstract class DChartSeriesBase extends utils.EventEmitter implements DCh
 		return false;
 	}
 
-	calcHitPoint( global: IPoint, threshold: EShapePointsToHitThreshold, result: DChartSeriesHitResult ): boolean {
+	calcHitPoint( global: IPoint, result: DChartSeriesHitResult ): boolean {
 		return false;
 	}
 

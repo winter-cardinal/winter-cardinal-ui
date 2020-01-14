@@ -4,13 +4,16 @@
  */
 
 import { Matrix, Point } from "pixi.js";
-import { EShapePoints, EShapePointsHitTester, EShapePointsStyle, EShapePointsTestRange } from "../e-shape-points";
+import { EShapePoints, EShapePointsStyle } from "../e-shape-points";
 import { EShapePointsParent } from "../e-shape-points-parent";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeBarPosition } from "./e-shape-bar-position";
+import {
+	EShapeLineBasePoints, EShapeLineBasePointsHitTester, EShapeLineBasePointsTestRange
+} from "./e-shape-line-base-points";
 
-export class EShapeBarPoints implements EShapePoints {
+export class EShapeBarPoints implements EShapeLineBasePoints {
 	protected _parent: EShapePointsParent;
 	protected _id: number;
 	protected _style: EShapePointsStyle;
@@ -231,10 +234,21 @@ export class EShapeBarPoints implements EShapePoints {
 		x: number, y: number,
 		ax: number, ay: number,
 		threshold: number,
-		range: EShapePointsTestRange | null,
-		tester: EShapePointsHitTester<RESULT>,
+		range: EShapeLineBasePointsTestRange | null,
+		tester: EShapeLineBasePointsHitTester<RESULT>,
 		result: RESULT
 	): boolean {
+		const length = this.length;
+		if( 2 <= length ) {
+			const values = this._values;
+			const v0x = values[ 0 ];
+			const v0y = values[ 1 ];
+			const v1x = values[ 2 ];
+			const v1y = values[ 3 ];
+			if( tester( x, y, v0x, v0y, v1x, v1y, 0, threshold, result ) ) {
+				return true;
+			}
+		}
 		return false;
 	}
 }

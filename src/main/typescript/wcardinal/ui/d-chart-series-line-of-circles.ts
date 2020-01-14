@@ -14,7 +14,6 @@ import { DChartSeriesFillComputed, DChartSeriesFillComputedOptions } from "./d-c
 import { DChartSeriesFillComputedImpl } from "./d-chart-series-fill-computed-impl";
 import { DChartSeriesStrokeComputed, DChartSeriesStrokeComputedOptions } from "./d-chart-series-stroke-computed";
 import { DChartSeriesStrokeComputedImpl } from "./d-chart-series-stroke-computed-impl";
-import { EShapePointsToHitThreshold } from "./shape/e-shape-points";
 import { EShapeLineOfCircles } from "./shape/variant/e-shape-line-of-circles";
 import { utilCeilingIndex } from "./util/util-ceiling-index";
 import { utilIsNumber } from "./util/util-is-number";
@@ -87,7 +86,7 @@ export class DChartSeriesLineOfCircles extends DChartSeriesBase {
 			this._stroke = stroke;
 
 			const size = this._size;
-			line.size.set( size.x, size.y );
+			line.points.size.set( size.x, size.y);
 		}
 		line.attach( container.plotArea.container, index );
 		this._pointIdUpdated = NaN;
@@ -195,6 +194,8 @@ export class DChartSeriesLineOfCircles extends DChartSeriesBase {
 		ymin = ycoordinate.transform.map( ycoordinate.map( ymin ) );
 		ymax = ycoordinate.transform.map( ycoordinate.map( ymax ) );
 
+		const sx = Math.abs( xmax - xmin );
+		const sy = Math.abs( ymax - ymin );
 		const cx = ( xmin + xmax ) * 0.5;
 		const cy = ( ymin + ymax ) * 0.5;
 		for( let i = 0, imax = values.length; i < imax; i += 2 ) {
@@ -202,6 +203,7 @@ export class DChartSeriesLineOfCircles extends DChartSeriesBase {
 			values[ i + 1 ] -= cy;
 		}
 		line.points.set( values );
+		line.size.set( sx, sy );
 		line.transform.position.set( cx, cy );
 		DApplications.update( line );
 	}
@@ -255,13 +257,13 @@ export class DChartSeriesLineOfCircles extends DChartSeriesBase {
 		return false;
 	}
 
-	calcHitPoint( global: IPoint, threshold: EShapePointsToHitThreshold, result: DChartSeriesHitResult ): boolean {
+	calcHitPoint( global: IPoint, result: DChartSeriesHitResult ): boolean {
 		const line = this._line;
 		if( line ) {
 			const work = DChartSeriesLineOfCircles.WORK;
 			const local = line.toLocal( global, undefined, work );
 			result.shape = line;
-			return line.calcHitPoint( local, threshold, this.calcHitPointTestRange, this.calcHitPointHitTester, result );
+			return line.calcHitPoint( local, null, this.calcHitPointTestRange, this.calcHitPointHitTester, result );
 		}
 		return false;
 	}
@@ -275,15 +277,15 @@ export class DChartSeriesLineOfCircles extends DChartSeriesBase {
 		result: [ number, number ]
 	): [ number, number ] {
 		const to = utilCeilingIndex( values, x + ax, 2, 0 );
-		let from = to;
-		for( let i = to - 1, iv = i << 1; 0 <= i; i -= 2, iv -= 2 ) {
+		let from = 0;
+		for( let i = to - 1, iv = i << 1; 0 <= i; i -= 1, iv -= 2 ) {
 			if( values[ iv ] <= x - ax ) {
 				from = i;
 				break;
 			}
 		}
 		result[ 0 ] = from;
-		result[ 1 ] = to;
+		result[ 1 ] = from !== to ? to : Math.min( values.length << 1, to + 1 );
 		return result;
 	}
 
@@ -292,7 +294,6 @@ export class DChartSeriesLineOfCircles extends DChartSeriesBase {
 		x: number, y: number,
 		ax: number, ay: number,
 		px: number, py: number,
-		ux: number, uy: number,
 		index: number,
 		threshold: number,
 		result: DChartSeriesHitResult

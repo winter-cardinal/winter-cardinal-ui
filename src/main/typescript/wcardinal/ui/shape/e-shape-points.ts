@@ -24,29 +24,6 @@ export enum EShapePointsStyle {
 	NON_SOLID_MASK = DOTTED_MASK | DASHED_MASK
 }
 
-export type EShapePointsToHitThreshold = (
-	strokeWidth: number,
-	strokeScale: number
-) => number;
-
-export type EShapePointsTestRange = (
-	x: number, y: number,
-	ax: number, ay: number,
-	threshold: number,
-	values: number[],
-	result: [ number, number ]
-) => [ number, number ];
-
-export type EShapePointsHitTester<RESULT> = (
-	x: number, y: number,
-	ax: number, ay: number,
-	p0x: number, p0y: number,
-	p1x: number, p1y: number,
-	index: number,
-	threshold: number,
-	result: RESULT
-) => boolean;
-
 export interface EShapePoints {
 	readonly length: number;
 	readonly id: number;
@@ -59,12 +36,4 @@ export interface EShapePoints {
 	clone( parent: EShapePointsParent ): EShapePoints;
 	toPoints( transform: Matrix ): Point[];
 	serialize( manager: EShapeResourceManagerSerialization ): number;
-	calcHitPointAbs<RESULT>(
-		x: number, y: number,
-		ax: number, ay: number,
-		threshold: number,
-		range: EShapePointsTestRange | null,
-		tester: EShapePointsHitTester<RESULT>,
-		result: RESULT
-	): boolean;
 }

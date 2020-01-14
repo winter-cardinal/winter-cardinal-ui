@@ -143,7 +143,7 @@ export class DChartSelectionSimple extends utils.EventEmitter implements DChartS
 			const hovered = this._hovered;
 			if( e.target === container.plotArea ) {
 				const result = DChartSelectionSimple.WORK_SELECT;
-				const series = container.calcHitPoint( e.data.global, this.toThreshold, result );
+				const series = container.calcHitPoint( e.data.global, result );
 				if( series ) {
 					hovered.set( series, result );
 				} else {
@@ -153,10 +153,6 @@ export class DChartSelectionSimple extends utils.EventEmitter implements DChartS
 				hovered.unset();
 			}
 		}
-	}
-
-	protected toThreshold( this: unknown, strokeWidth: number, strokeScale: number ): number {
-		return +Infinity;
 	}
 
 	bind( container: DChartSeriesContainer ): void {

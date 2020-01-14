@@ -181,7 +181,10 @@ export class EShapeTriangleUploaded extends EShapeTextUploaded {
 
 			const voffset = this.vertexOffset;
 			const vcount = this.vertexCount - this.textVertexCount;
-			this.updateStep( buffer, voffset, vcount, swc, swc, pc0, pc0, pc1, pc1 );
+			this.updateStep(
+				buffer.steps, buffer.antialiases, buffer.clippings,
+				voffset, vcount, swc, swc, pc0, pc0, pc1, pc1
+			);
 		}
 	}
 

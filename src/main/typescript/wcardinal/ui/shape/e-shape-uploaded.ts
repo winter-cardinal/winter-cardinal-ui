@@ -234,13 +234,12 @@ export abstract class EShapeUploadedBase implements EShapeUploaded {
 	}
 
 	protected updateStep(
-		buffer: EShapeBuffer,
+		steps: Float32Array,
+		antialiases: Float32Array,
+		clippings: Float32Array,
 		voffset: number, vcount: number,
 		swx: number, swy: number, px0: number, py0: number, px1: number, py1: number
 	) {
-		const steps = buffer.steps;
-		const antialiases = buffer.antialiases;
-		const clippings = buffer.clippings;
 		const istart = voffset * 2;
 		const imax = istart + vcount * 2;
 		const jstart = voffset * 3;

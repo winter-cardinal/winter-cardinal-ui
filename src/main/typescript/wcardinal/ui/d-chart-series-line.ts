@@ -12,7 +12,6 @@ import { DChartSeriesBase, DChartSeriesBaseOptions } from "./d-chart-series-base
 import { DChartSeriesContainer } from "./d-chart-series-container";
 import { DChartSeriesStrokeComputed, DChartSeriesStrokeComputedOptions } from "./d-chart-series-stroke-computed";
 import { DChartSeriesStrokeComputedImpl } from "./d-chart-series-stroke-computed-impl";
-import { EShapePointsToHitThreshold } from "./shape/e-shape-points";
 import { EShapeLine } from "./shape/variant/e-shape-line";
 import { utilCeilingIndex } from "./util/util-ceiling-index";
 
@@ -236,21 +235,24 @@ export class DChartSeriesLine extends DChartSeriesBase {
 		return false;
 	}
 
-	calcHitPoint( global: IPoint, threshold: EShapePointsToHitThreshold, result: DChartSeriesHitResult ): boolean {
+	calcHitPoint( global: IPoint, result: DChartSeriesHitResult ): boolean {
 		const line = this._line;
 		if( line ) {
 			const work = DChartSeriesLine.WORK;
 			const local = line.toLocal( global, undefined, work );
 			result.shape = line;
-			return line.calcHitPoint( local, threshold, this.calcHitPointTestRange, this.calcHitPointHitTester, result );
+			return line.calcHitPoint( local, this.toThreshold, this.calcHitPointTestRange, this.calcHitPointHitTester, result );
 		}
 		return false;
+	}
+
+	protected toThreshold( this: unknown, strokeWidth: number, strokeScale: number ): number {
+		return +Infinity;
 	}
 
 	calcHitPointTestRange(
 		this: unknown,
 		x: number, y: number,
-		ax: number, ay: number,
 		threshold: number,
 		values: number[],
 		result: [ number, number ]
@@ -264,7 +266,6 @@ export class DChartSeriesLine extends DChartSeriesBase {
 	calcHitPointHitTester(
 		this: unknown,
 		x: number, y: number,
-		ax: number, ay: number,
 		p0x: number, p0y: number,
 		p1x: number, p1y: number,
 		index: number,

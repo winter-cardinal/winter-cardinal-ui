@@ -11,7 +11,6 @@ import { DChartSelection } from "./d-chart-selection";
 import { DChartSeries, DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesFill, DChartSeriesFillOptions } from "./d-chart-series-fill";
 import { DChartSeriesStroke, DChartSeriesStrokeOptions } from "./d-chart-series-stroke";
-import { EShapePointsToHitThreshold } from "./shape/e-shape-points";
 
 export interface DChartSeriesContainerOptions {
 	list: DChartSeries[];
@@ -43,9 +42,5 @@ export interface DChartSeriesContainer {
 	getRange( coordinate: DChartCoordinate, result: DChartRegion ): DChartRegion;
 
 	hitTest( global: IPoint ): DChartSeries | null;
-	calcHitPoint(
-		global: IPoint,
-		threshold: EShapePointsToHitThreshold,
-		result: DChartSeriesHitResult
-	): DChartSeries | null;
+	calcHitPoint( global: IPoint, result: DChartSeriesHitResult ): DChartSeries | null;
 }

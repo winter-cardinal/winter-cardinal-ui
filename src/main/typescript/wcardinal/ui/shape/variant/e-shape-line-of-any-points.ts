@@ -4,42 +4,58 @@
  */
 
 import { Matrix, Point } from "pixi.js";
-import { EShapePoints, EShapePointsHitTester, EShapePointsStyle, EShapePointsTestRange } from "../e-shape-points";
+import { EShapePoints, EShapePointsStyle } from "../e-shape-points";
 import { EShapePointsParent } from "../e-shape-points-parent";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
+import { EShapeLineOfAnyPointsFill } from "./e-shape-line-of-any-points-fill";
+import { EShapeLineOfAnyPointsFillImpl } from "./e-shape-line-of-any-points-fill-impl";
+import { EShapeLineOfAnyPointsSize } from "./e-shape-line-of-any-points-size";
+import { EShapeLineOfAnyPointsSizeImpl } from "./e-shape-line-of-any-points-size-impl";
+import { EShapeLineOfAnyPointsStroke } from "./e-shape-line-of-any-points-stroke";
+import { EShapeLineOfAnyPointsStrokeImpl } from "./e-shape-line-of-any-points-stroke-impl";
 
-export class EShapeLineOfCirclesPoints implements EShapePoints {
+export type EShapeLineOfAnyPointsToHitThreshold = (
+	size: number,
+	scale: number
+) => number;
+
+export type EShapeLineOfAnyPointsTestRange = (
+	x: number, y: number,
+	ax: number, ay: number,
+	threshold: number,
+	values: number[],
+	result: [ number, number ]
+) => [ number, number ];
+
+export type EShapeLineOfAnyPointsHitTester<RESULT> = (
+	x: number, y: number,
+	ax: number, ay: number,
+	px: number, py: number,
+	index: number,
+	threshold: number,
+	result: RESULT
+) => boolean;
+
+export class EShapeLineOfAnyPoints implements EShapePoints {
 	protected static WORK_RANGE: [ number, number ] = [ 0, 0 ];
 
 	protected _parent: EShapePointsParent;
 	protected _values: number[];
 	protected _valuesLength: number;
 	protected _segments: number[];
-	readonly position: Point;
+	protected _size: EShapeLineOfAnyPointsSize;
+	protected _fill: EShapeLineOfAnyPointsFill;
+	protected _stroke: EShapeLineOfAnyPointsStroke;
 	protected _id: number;
 
-	constructor(
-		parent: EShapePointsParent,
-		points: number[]
-	) {
-		const values: number[] = [];
-		let cx = 0;
-		let cy = 0;
-		const pointsLength = points.length;
-		if( 2 <= pointsLength ) {
-			cx = points[ 0 ];
-			cy = points[ 1 ];
-			for( let i = 2; i < pointsLength; i += 2 ) {
-				const x = points[ i ];
-				const y = points[ i + 1 ];
-				values.push( x, y );
-			}
-		}
+	constructor( parent: EShapePointsParent ) {
 		this._parent = parent;
-		this._values = values;
-		this._valuesLength = values.length;
+		this._values = [];
+		this._valuesLength = 0;
 		this._segments = [];
-		this.position = new Point( cx, cy );
+		this._size = new EShapeLineOfAnyPointsSizeImpl( this );
+		this._fill = new EShapeLineOfAnyPointsFillImpl( parent );
+		this._stroke = new EShapeLineOfAnyPointsStrokeImpl( parent );
 		this._id = 0;
 	}
 
@@ -75,6 +91,18 @@ export class EShapeLineOfCirclesPoints implements EShapePoints {
 		this.set( undefined, undefined, style );
 	}
 
+	get size(): EShapeLineOfAnyPointsSize {
+		return this._size;
+	}
+
+	get fill(): EShapeLineOfAnyPointsFill {
+		return this._fill;
+	}
+
+	get stroke(): EShapeLineOfAnyPointsStroke {
+		return this._stroke;
+	}
+
 	copy( source: EShapePoints ): this {
 		return this.set( source.values, source.segments, source.style );
 	}
@@ -88,7 +116,6 @@ export class EShapeLineOfCirclesPoints implements EShapePoints {
 			const values = this._values;
 			const valuesLength = this._valuesLength;
 			const newValuesLength = newValues.length;
-			this._id += 1;
 			if( values !== newValues ) {
 				const iupdate = Math.min( valuesLength, newValuesLength );
 
@@ -119,18 +146,24 @@ export class EShapeLineOfCirclesPoints implements EShapePoints {
 
 		//
 		if( isDirty ) {
+			this._id += 1;
 			const parent = this._parent;
 			parent.uploaded = undefined;
 			parent.toDirty();
 		} else if( isUpdated ) {
+			this._id += 1;
 			this._parent.updateUploaded();
 		}
 
 		return this;
 	}
 
-	clone( parent: EShapePointsParent ): EShapeLineOfCirclesPoints {
-		return new EShapeLineOfCirclesPoints( parent, this._values );
+	updateUploaded(): void {
+		this._parent.updateUploaded();
+	}
+
+	clone( parent: EShapePointsParent ): EShapeLineOfAnyPoints {
+		return new EShapeLineOfAnyPoints( parent );
 	}
 
 	toPoints( transform: Matrix ): Point[] {
@@ -144,31 +177,34 @@ export class EShapeLineOfCirclesPoints implements EShapePoints {
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
-		return manager.add( `[${JSON.stringify(this._values)}]` );
+		return manager.add( `[]` );
 	}
 
 	calcHitPointAbs<RESULT>(
 		x: number, y: number,
-		ax: number, ay: number,
 		threshold: number,
-		range: EShapePointsTestRange | null,
-		tester: EShapePointsHitTester<RESULT>,
+		range: EShapeLineOfAnyPointsTestRange | null,
+		tester: EShapeLineOfAnyPointsHitTester<RESULT>,
 		result: RESULT
 	): boolean {
 		const pointCount = this.length;
 		const pointValues = this._values;
+		const size = this._size;
 		let istart = 0;
 		let iend = pointCount;
 		if( range ) {
-			const rangeResult = range( x, y, ax, ay, threshold, pointValues, EShapeLineOfCirclesPoints.WORK_RANGE );
+			const s = size.getLimit() * 0.5;
+			const rangeResult = range( x, y, s, s, threshold, pointValues, EShapeLineOfAnyPoints.WORK_RANGE );
 			istart = rangeResult[ 0 ];
 			iend = rangeResult[ 1 ];
 		}
 		tester = tester;
-		for( let i = istart, imax = Math.min( iend, pointCount ), iv = 2 * istart; i < imax; i += 1, iv += 2 ) {
-			const px = pointValues[ iv + 0 ];
+		for( let i = istart, imax = Math.min( iend, pointCount ), iv = istart << 1; i < imax; i += 1, iv += 2 ) {
+			const px = pointValues[ iv     ];
 			const py = pointValues[ iv + 1 ];
-			if( tester( x, y, ax, ay, px, py, 0, 0, i, threshold, result ) ) {
+			const sx = size.getX( i ) * 0.5;
+			const sy = size.getY( i ) * 0.5;
+			if( tester( x, y, sx, sy, px, py, i, threshold, result ) ) {
 				return true;
 			}
 		}

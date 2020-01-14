@@ -5,9 +5,10 @@
 
 import { Matrix, Point } from "pixi.js";
 import { utilIndexOf } from "../../util/util-index-of";
-import { EShapePoints, EShapePointsHitTester, EShapePointsStyle, EShapePointsTestRange } from "../e-shape-points";
+import { EShapePoints, EShapePointsStyle } from "../e-shape-points";
 import { EShapePointsParent } from "../e-shape-points-parent";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
+import { EShapeLineBasePointsHitTester, EShapeLineBasePointsTestRange } from "./e-shape-line-base-points";
 
 export class EShapeLinePoints implements EShapePoints {
 	protected static WORK_RANGE: [ number, number ] = [ 0, 0 ];
@@ -163,7 +164,6 @@ export class EShapeLinePoints implements EShapePoints {
 			const newValuesLength = newValues.length;
 			const iupdate = Math.min( newValuesLength, valuesBaseLength );
 			this._valuesBase = undefined;
-			this._id += 1;
 			if( values !== newValues ) {
 				for( let i = 0; i < iupdate; ++i ) {
 					values[ i ] = newValues[ i ];
@@ -193,7 +193,6 @@ export class EShapeLinePoints implements EShapePoints {
 		// Segments
 		if( newSegments != null ) {
 			const segments = this._segments;
-			this._id += 1;
 			if( segments !== newSegments ) {
 				const newSegmentsLength = newSegments.length;
 				const iupdate = Math.min( segments.length, newSegmentsLength );
@@ -227,10 +226,12 @@ export class EShapeLinePoints implements EShapePoints {
 
 		//
 		if( isDirty ) {
+			this._id += 1;
 			const parent = this._parent;
 			parent.uploaded = undefined;
 			parent.toDirty();
 		} else if( isUpdated ) {
+			this._id += 1;
 			this._parent.updateUploaded();
 		}
 
@@ -259,8 +260,8 @@ export class EShapeLinePoints implements EShapePoints {
 		x: number, y: number,
 		ax: number, ay: number,
 		threshold: number,
-		range: EShapePointsTestRange | null,
-		tester: EShapePointsHitTester<RESULT>,
+		range: EShapeLineBasePointsTestRange | null,
+		tester: EShapeLineBasePointsHitTester<RESULT>,
 		result: RESULT
 	): boolean {
 		const pointCount = this.length;
@@ -270,18 +271,17 @@ export class EShapeLinePoints implements EShapePoints {
 			let istart = 0;
 			let iend = pointCount;
 			if( range ) {
-				const rangeResult = range( x, y, ax, ay, threshold, pointValues, EShapeLinePoints.WORK_RANGE );
+				const rangeResult = range( x, y, threshold, pointValues, EShapeLinePoints.WORK_RANGE );
 				istart = rangeResult[ 0 ];
 				iend = rangeResult[ 1 ];
 			}
-			tester = tester;
 			for( let i = istart, imax = Math.min( iend, pointCount - 1 ), iv = 2 * istart; i < imax; i += 1, iv += 2 ) {
 				if( utilIndexOf( pointSegments, i + 1 ) < 0 ) {
 					const p0x = pointValues[ iv + 0 ];
 					const p0y = pointValues[ iv + 1 ];
 					const p1x = pointValues[ iv + 2 ];
 					const p1y = pointValues[ iv + 3 ];
-					if( tester( x, y, ax, ay, p0x, p0y, p1x, p1y, i, threshold, result ) ) {
+					if( tester( x, y, p0x, p0y, p1x, p1y, i, threshold, result ) ) {
 						return true;
 					}
 				}
@@ -294,7 +294,7 @@ export class EShapeLinePoints implements EShapePoints {
 					const p0y = pointValues[ iv + 1 ];
 					const p1x = pointValues[ 0 ];
 					const p1y = pointValues[ 1 ];
-					if( tester( x, y, ax, ay, p0x, p0y, p1x, p1y, i, threshold, result ) ) {
+					if( tester( x, y, p0x, p0y, p1x, p1y, i, threshold, result ) ) {
 						return true;
 					}
 				}

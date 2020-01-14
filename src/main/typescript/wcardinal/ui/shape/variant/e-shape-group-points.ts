@@ -4,7 +4,7 @@
  */
 
 import { Matrix, Point } from "pixi.js";
-import { EShapePoints, EShapePointsHitTester, EShapePointsStyle, EShapePointsTestRange } from "../e-shape-points";
+import { EShapePoints, EShapePointsStyle } from "../e-shape-points";
 import { EShapePointsParent } from "../e-shape-points-parent";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeGroupPropertyParent } from "./e-shape-group-property-parent";
@@ -147,16 +147,5 @@ export class EShapeGroupPoints implements EShapePoints {
 			}
 		}
 		return -1;
-	}
-
-	calcHitPointAbs<RESULT>(
-		x: number, y: number,
-		ax: number, ay: number,
-		threshold: number,
-		range: EShapePointsTestRange | null,
-		tester: EShapePointsHitTester<RESULT>,
-		result: RESULT
-	): boolean {
-		return false;
 	}
 }

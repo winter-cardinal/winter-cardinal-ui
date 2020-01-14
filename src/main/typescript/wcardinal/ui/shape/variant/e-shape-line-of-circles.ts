@@ -4,16 +4,18 @@
  */
 
 import { IPoint } from "pixi.js";
-import { EShapePointsHitTester, EShapePointsTestRange, EShapePointsToHitThreshold } from "../e-shape-points";
 import { EShapeType } from "../e-shape-type";
 import { EShapeBase } from "./e-shape-base";
 import { EShapeCircle } from "./e-shape-circle";
-import { EShapeLineOfCirclesPoints } from "./e-shape-line-of-circles-points";
+import {
+	EShapeLineOfAnyPoints, EShapeLineOfAnyPointsHitTester,
+	EShapeLineOfAnyPointsTestRange, EShapeLineOfAnyPointsToHitThreshold
+} from "./e-shape-line-of-any-points";
 
 export class EShapeLineOfCircles extends EShapeCircle {
-	points!: EShapeLineOfCirclesPoints;
-	protected _tester: EShapePointsHitTester<unknown>;
-	protected _testerBBox: EShapePointsHitTester<unknown>;
+	points!: EShapeLineOfAnyPoints;
+	protected _tester: EShapeLineOfAnyPointsHitTester<unknown>;
+	protected _testerBBox: EShapeLineOfAnyPointsHitTester<unknown>;
 
 	constructor( other: EShapeLineOfCircles );
 	constructor( points: number[] );
@@ -22,7 +24,7 @@ export class EShapeLineOfCircles extends EShapeCircle {
 		if( otherOrPoints instanceof EShapeLineOfCircles ) {
 			this.copy( otherOrPoints );
 		} else {
-			this.points = new EShapeLineOfCirclesPoints( this, otherOrPoints );
+			this.points = new EShapeLineOfAnyPoints( this );
 		}
 
 		this._tester = ( x: number, y: number, ax: number, ay: number, px: number, py: number ): boolean => {
@@ -39,36 +41,28 @@ export class EShapeLineOfCircles extends EShapeCircle {
 	}
 
 	protected toHitThreshold(
-		toThreshold: EShapePointsToHitThreshold | null
+		toThreshold: EShapeLineOfAnyPointsToHitThreshold | null
 	): number {
 		const stroke = this.stroke;
-		const strokeWidth = ( stroke.enable ? stroke.width : 0 );
+		const size = this.points.size.getLimit() + ( stroke.enable ? stroke.width * stroke.align : 0 );
 		return ( toThreshold ?
-			toThreshold( strokeWidth, 1 ) :
-			strokeWidth * 0.5
+			toThreshold( size, 1 ) :
+			size * 0.5
 		);
 	}
 
 	containsAbs( x: number, y: number, ax: number, ay: number ): boolean {
-		return this.points.calcHitPointAbs(
-			x, y,
-			ax, ay,
-			this.toHitThreshold( null ),
-			null,
-			this._tester,
-			null
-		);
-	}
-
-	containsAbsBBox( x: number, y: number, ax: number, ay: number ): boolean {
-		return this.points.calcHitPointAbs(
-			x, y,
-			ax, ay,
-			this.toHitThreshold( null ),
-			null,
-			this._testerBBox,
-			null
-		);
+		const threshold = this.toHitThreshold( null );
+		if( super.containsAbsBBox( x, y, ax + threshold, ay + threshold ) ) {
+			return this.points.calcHitPointAbs(
+				x, y,
+				threshold,
+				null,
+				this._tester,
+				null
+			);
+		}
+		return false;
 	}
 
 	containsPointAbs( x: number, y: number, ax: number, ay: number, px: number, py: number ): boolean {
@@ -81,19 +75,22 @@ export class EShapeLineOfCircles extends EShapeCircle {
 
 	calcHitPoint<RESULT>(
 		point: IPoint,
-		toThreshold: EShapePointsToHitThreshold | null,
-		range: EShapePointsTestRange | null,
-		tester: EShapePointsHitTester<RESULT> | null,
+		toThreshold: EShapeLineOfAnyPointsToHitThreshold | null,
+		range: EShapeLineOfAnyPointsTestRange | null,
+		tester: EShapeLineOfAnyPointsHitTester<RESULT> | null,
 		result: RESULT
 	): boolean {
 		const rect = this.toLocalRect( point, EShapeBase.WORK_RECT );
-		return this.points.calcHitPointAbs(
-			rect.x, rect.y,
-			rect.width, rect.height,
-			this.toHitThreshold( toThreshold ),
-			range,
-			tester || this._tester,
-			result
-		);
+		const threshold = this.toHitThreshold( toThreshold );
+		if( super.containsAbsBBox( rect.x, rect.y, rect.width + threshold, rect.height + threshold ) ) {
+			return this.points.calcHitPointAbs(
+				rect.x, rect.y,
+				threshold,
+				range,
+				tester || this._tester,
+				result
+			);
+		}
+		return false;
 	}
 }
