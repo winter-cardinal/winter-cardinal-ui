@@ -85,7 +85,7 @@ export class DChartSelectionSubImpl extends utils.EventEmitter implements DChart
 		return this._marker;
 	}
 
-	set( series: DChartSeries, result: DChartSeriesHitResult | Point ): void {
+	set( series: DChartSeries, result: DChartSeriesHitResult | DChartSelectionSub ): void {
 		const container = this._container;
 		const coordinateX = this._coordinateX = series.coordinate.x;
 		const coordinateY = this._coordinateY = series.coordinate.y;
@@ -93,14 +93,7 @@ export class DChartSelectionSubImpl extends utils.EventEmitter implements DChart
 			const transform = container.plotArea.container.localTransform;
 			const position = this._position;
 			const work = this._work;
-			if( result instanceof Point ) {
-				work.set(
-					coordinateX.transform.map( coordinateX.map( result.x ) ),
-					coordinateY.transform.map( coordinateY.map( result.y ) )
-				);
-				transform.apply( work, work );
-				position.copyFrom( result );
-			} else {
+			if( result instanceof DChartSeriesHitResult ) {
 				let x = result.x;
 				let y = result.y;
 				switch( this._point ) {
@@ -128,6 +121,13 @@ export class DChartSelectionSubImpl extends utils.EventEmitter implements DChart
 					coordinateX.unmap( coordinateX.transform.unmap( x ) ),
 					coordinateY.unmap( coordinateY.transform.unmap( y ) )
 				);
+			} else {
+				position.copyFrom( result.position );
+				work.set(
+					coordinateX.transform.map( coordinateX.map( position.x ) ),
+					coordinateY.transform.map( coordinateY.map( position.y ) )
+				);
+				transform.apply( work, work );
 			}
 
 			this._gridline.set( container, work, series );

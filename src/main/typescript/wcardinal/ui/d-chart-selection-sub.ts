@@ -31,7 +31,7 @@ export interface DChartSelectionSub extends utils.EventEmitter {
 
 	bind( container: DChartSeriesContainer ): void;
 	unbind(): void;
-	set( series: DChartSeries, result: DChartSeriesHitResult | Point ): void;
+	set( series: DChartSeries, result: DChartSeriesHitResult | DChartSelectionSub ): void;
 	unset(): void;
 	update(): void;
 }

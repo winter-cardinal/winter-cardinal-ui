@@ -130,7 +130,7 @@ export class DChartSelectionSimple extends utils.EventEmitter implements DChartS
 			const series = hovered.series;
 			const selected = this._selected;
 			if( series ) {
-				selected.set( series, hovered.position );
+				selected.set( series, hovered );
 			} else {
 				selected.unset();
 			}

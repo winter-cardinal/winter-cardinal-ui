@@ -9,7 +9,6 @@ import { DChartPlotArea } from "./d-chart-plot-area";
 import { DChartRegion } from "./d-chart-region";
 import { DChartRegionImpl } from "./d-chart-region-impl";
 import { DChartSelection } from "./d-chart-selection";
-import { DChartSelectionSimple } from "./d-chart-selection-simple";
 import { DChartSeries, DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesContainer, DChartSeriesContainerOptions } from "./d-chart-series-container";
 import { DChartSeriesFill } from "./d-chart-series-fill";
@@ -35,10 +34,7 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 		this._range = new DChartRegionImpl( NaN, NaN );
 		this._fill = new DChartSeriesFillImpl( options && options.fill );
 		this._stroke = new DChartSeriesStrokeImpl( options && options.stroke );
-		const selection = (options && options.selection !== undefined ?
-			options.selection : new DChartSelectionSimple()
-		);
-		this._selection = selection;
+		this._selection = (options && options.selection ) || null;
 
 		this._list = [];
 		const list = options && options.list;

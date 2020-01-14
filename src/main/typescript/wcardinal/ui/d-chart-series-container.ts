@@ -16,7 +16,7 @@ export interface DChartSeriesContainerOptions {
 	list: DChartSeries[];
 	fill?: DChartSeriesFillOptions;
 	stroke?: DChartSeriesStrokeOptions;
-	selection?: DChartSelection | null;
+	selection?: DChartSelection;
 }
 
 export interface DChartSeriesContainer {
