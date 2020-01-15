@@ -19,6 +19,7 @@ import { loadThemeWhiteImage } from "./load-theme-white-image";
 import { loadThemeWhiteInputAll } from "./load-theme-white-input-all";
 import { loadThemeWhiteLayout } from "./load-theme-white-layout";
 import { loadThemeWhiteList } from "./load-theme-white-list";
+import { loadThemeWhiteTree } from "./load-theme-white-tree";
 import { loadThemeWhiteMenu } from "./load-theme-white-menu";
 import { loadThemeWhiteMenuBar } from "./load-theme-white-menu-bar";
 import { loadThemeWhiteMenuSided } from "./load-theme-white-menu-sided";
@@ -52,6 +53,7 @@ export const loadThemeWhiteAll = () => {
 	loadThemeWhiteInputAll();
 	loadThemeWhiteLayout();
 	loadThemeWhiteList();
+	loadThemeWhiteTree();
 	loadThemeWhiteMenuBar();
 	loadThemeWhiteMenuSided();
 	loadThemeWhiteMenu();

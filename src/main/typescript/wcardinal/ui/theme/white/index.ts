@@ -58,6 +58,8 @@ export * from "./d-theme-white-dialog-processing";
 export * from "./d-theme-white-dialog-save-as";
 export * from "./d-theme-white-dialog-select-list-item";
 export * from "./d-theme-white-dialog-select-list";
+export * from "./d-theme-white-tree-item";
+export * from "./d-theme-white-tree";
 export * from "./d-theme-white-dialog-select";
 export * from "./d-theme-white-dialog-time";
 export * from "./d-theme-white-dialog";
