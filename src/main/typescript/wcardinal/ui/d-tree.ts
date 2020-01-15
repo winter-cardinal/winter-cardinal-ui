@@ -3,9 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBase, DBaseOptions, DThemeBase } from "./d-base";
-import { DListItem } from './d-list-item'
-import { DMenuBar } from './d-menu-bar'
+import { EventBus } from 'event-bus-station';
 import { DLayoutVertical, DLayoutVerticalOptions, DThemeLayoutVertical } from "./d-layout-vertical";
 import { UtilPointerEvent } from './util';
 
@@ -33,14 +31,15 @@ export class DTree <
 	extends DLayoutVertical<THEME, OPTIONS> {
 
 		protected _itemMap?: any = {}
-		protected _treeItems: DTreeItem[] = [];
+		protected _treeItems: DTreeItem[] = []
 		protected _selected?: VALUE | null
 		protected _value?: any
+		protected _bus?: EventBus
 		protected init(options ? : OPTIONS) {
 			super.init(options);
 
 			this._itemMap = {};
-
+			this._bus = new EventBus();
 			if (options && options.value) {
 				this._value = options.value
 				let parentPosition: number[] = []
@@ -61,30 +60,24 @@ export class DTree <
 					const itemId = item.id
 					this._itemMap[itemId] = itemData
 
-					let paddingValue : number = itemPosition.length * 30
+					let paddingValue : number = itemPosition.length * 25
 					const isParent: boolean = item.items && (item.items.length > 0)
 					paddingValue = isParent ? paddingValue - 20 : paddingValue
 
-
 					const treeItem = new DTreeItem({
-						width: 500,
+						bus: this._bus,
+						itemPosition: itemPosition,
 						text: {
 							value: item.name
 						},
 						isParent: isParent,
-						isExpand: false,
+						isExpand: true,
 						padding: {
 							left: paddingValue
 						}
 					});
-					const self = this;
-					treeItem.on( UtilPointerEvent.down, (): void => {
-						console.log("Send event");
-						self.emit("clicked-tree-parent-item")
-					})
 
 					this.addChild(treeItem)
-					// this._treeItems.push(treeItem);
 
 					if(item && item.items) {
 						this.addItem(itemPosition, item.items)

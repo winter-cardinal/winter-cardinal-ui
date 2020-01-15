@@ -52,7 +52,7 @@ export class DThemeWhiteTreeItem extends DThemeWhiteImage implements DThemeTreeI
 	}
 
 	getWidth(): DCoordinateSize {
-		return "padding";
+		return "100%";
 	}
 
 	getTextAlignHorizontal(): DAlignHorizontal {

@@ -11,26 +11,22 @@ import { DImage, DImageOptions, DThemeImage } from "./d-image";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from './util';
+import { EventBus } from 'event-bus-station';
 
 export interface DTreeItemOptions<
 	VALUE = unknown,
 	THEME extends DThemeTreeItem = DThemeTreeItem
 > extends DImageOptions<string, THEME> {
-	value?: VALUE
 	isParent?: boolean
-	isExpand?: boolean
+	isExpand?: boolean,
+	bus?: EventBus,
+	itemPosition?: number[]
 }
 
 export interface DThemeTreeItem extends DThemeImage {
 	getTextValue( state: DBaseState ): string;
 	newTextValue(): DStateAwareOrValueMightBe<string>;
 }
-
-// Option parser
-const toValue = <VALUE, THEME extends DThemeTreeItem>( options?: DTreeItemOptions<VALUE, THEME> ): VALUE | null => {
-	return ( options != null && options.value != null ?
-		options.value : null );
-};
 
 export interface DTreeItemSelection {
 	add( item: DBase ): void;
@@ -41,14 +37,13 @@ export class DTreeItem<
 	THEME extends DThemeTreeItem = DThemeTreeItem,
 	OPTIONS extends DTreeItemOptions<VALUE, THEME> = DTreeItemOptions<VALUE, THEME>
 > extends DImage<string, THEME, OPTIONS> {
-	protected _value!: VALUE | null;
 	protected _isParent!: boolean;
 	protected _isExpand!: boolean | null;
+	protected _bus!: EventBus;
+	protected _itemPosition!: number[]
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
-		this.buttonMode = true;
-		this._value = toValue( options );
 
 		// get isParent option
 		if (options && options.isParent) {
@@ -62,6 +57,15 @@ export class DTreeItem<
 		} else {
 			this._isExpand = null
 		}
+		//get event bus
+		if(options && options.bus) {
+			this._bus = options.bus
+		}
+
+		//get position of item
+		if(options && options.itemPosition) {
+			this._itemPosition = options.itemPosition
+		}
 
 		this.updateTreeItemState(false)
 
@@ -69,39 +73,37 @@ export class DTreeItem<
 			this.onSelect()
 		});
 
-		this.on("clicked-tree-parent-item", (): void => {
-			console.log("recive")
+		this._bus.on("clicked-tree-parent-item", (parentPosition, isParentExpand, isParentShown): void => {
+			if( this._itemPosition.length == parentPosition.length + 1 &&
+				this._itemPosition.join('-').indexOf(parentPosition.join('-')) == 0 ) {
+					this.toggle(isParentExpand, isParentShown)
+				}
 		})
+
 	}
 
-	get value(): VALUE | null {
-		return this._value;
-	}
-
-	set value( value: VALUE | null ) {
-		this._value = value;
-	}
-
-	protected hasSelection( target: any ): target is { selection: DTreeItemSelection } {
-		return ( target && target.selection && target.selection.add );
-	}
-
-	protected getSelection(): DTreeItemSelection | null {
-		let parent = this.parent as any;
-		while( parent ) {
-			if( this.hasSelection( parent ) ) {
-				return parent.selection;
-			}
-			parent = parent.parent;
+	protected toggle(isParentExpand: boolean, isParentShown: boolean) {
+		if(this.isShown()) {
+			this.hide()
+		} else if(isParentExpand && isParentShown) {
+			this.show()
 		}
-		return null;
+		this._bus.emit("clicked-tree-parent-item", this._itemPosition, this._isExpand, this.isShown())
+
+	}
+
+	public isExpand(): boolean {
+		if(this._isExpand != null) {
+			return this._isExpand
+		}
+		return false
 	}
 
 	protected onSelect(): void {
 		if(this._isExpand != null) {
 			this._isExpand = !this._isExpand
 		}
-		// this.emit("clicked-tree-parent-item")
+		this._bus.emit("clicked-tree-parent-item", this._itemPosition, this._isExpand, this.isShown())
 		this.updateTreeItemState(true)
 	}
 
@@ -116,18 +118,6 @@ export class DTreeItem<
 			this.setState(DBaseState.EXPAND, false)
 			this.setState(DBaseState.COLLAPSE, true)
 		}
-	}
-
-	onKeyDown( e: KeyboardEvent ): boolean {
-		if( this.isActionable() && this.isFocused() && UtilKeyboardEvent.isActivateKey( e ) ) {
-		}
-
-		return super.onKeyDown( e );
-	}
-
-	protected onStateChange( newState: number, oldState: number ) {
-		super.onStateChange( newState, oldState );
-		this.buttonMode = DBaseStates.isActionable( newState );
 	}
 
 	protected getType(): string {

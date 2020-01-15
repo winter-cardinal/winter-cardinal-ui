@@ -41,8 +41,7 @@
 		"prepublishOnly": "npm run build"
 	},
 	"dependencies": {
-		"pixi.js": "^5.2.1"
-	},
+		"pixi.js": "^5.2.1"	},
 	"devDependencies": {
 		"@wcardinal/typedoc-plugin-named-event": "^1.0.0",
 		"rimraf": "^3.0.0",
