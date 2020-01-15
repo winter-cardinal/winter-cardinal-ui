@@ -1,0 +1,86 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		html,
+		body {
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			background-color: #eeeeee;
+		}
+
+	</style>
+</head>
+
+<body>
+	<script src="../META-INF/resources/webjars/pixi/latest/pixi.js"></script>
+	<script src="../META-INF/resources/webjars/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
+	<script>
+		(function () {
+			"use strict";
+
+			const application = new wcardinal.ui.DApplication();
+			new wcardinal.ui.DTree({
+				parent: application.stage,
+				x: 100,
+				y: 100,
+				width: 300,
+				height: "100%-200",
+				value: [
+					{id : "0",
+					name: "item0",
+					items: [
+						{
+							id: "0.0",
+							name: "item0.0"
+						},
+						{
+							id: "0.1",
+							name: "item0.1"
+						},
+						{
+							id: "0.2",
+							name: "item0.2"
+						},
+						{
+							id: "0.3",
+							name: "item0.3",
+							items: [
+								{
+									id: "0.3,1",
+									name: "item0.3.1"
+								},
+								{
+									id: "0.3.2",
+									name: "item0.3.2"
+								},
+							]
+						},]
+					},
+					{id : "1",
+					name: "item1",
+					items: [
+						{
+							id: "1.0",
+							name: "item1.0"
+						}]
+					},
+				]
+			});
+		}());
+
+	</script>
+</body>
+
+</html>
