@@ -89,3 +89,4 @@ export * from "./load-theme-white-text";
 export * from "./load-theme-white";
 export * from "./load-theme-dark-all";
 export * from "./load-theme-dark-base";
+export * from "./load-theme-dark";
