@@ -388,6 +388,7 @@ export * from "./d-table";
 export * from "./d-text-base";
 export * from "./d-text";
 export * from "./d-tree";
+export * from "./d-tree-item";
 export * from "./d-view-drag-impl";
 export * from "./d-view-drag";
 export * from "./d-view-impl";
