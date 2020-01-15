@@ -35,6 +35,7 @@ export class DTree <
 		protected _selected?: VALUE | null
 		protected _value?: any
 		protected _bus?: EventBus
+
 		protected init(options ? : OPTIONS) {
 			super.init(options);
 
