@@ -87,3 +87,6 @@ export * from "./load-theme-white-shape-action-value";
 export * from "./load-theme-white-table";
 export * from "./load-theme-white-text";
 export * from "./load-theme-white";
+export * from "./load-theme-dark-all";
+export * from "./load-theme-dark-base";
+export * from "./load-theme-dark";
