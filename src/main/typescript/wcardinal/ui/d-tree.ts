@@ -78,6 +78,10 @@ export class DTree <
 						}
 					});
 
+					treeItem.on(UtilPointerEvent.down, (): void => {
+						this.emit("select", item.id, item.name, item.items)
+					});
+
 					this.addChild(treeItem)
 
 					if(item && item.items) {

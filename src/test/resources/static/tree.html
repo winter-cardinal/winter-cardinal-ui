@@ -37,6 +37,11 @@
 				y: 100,
 				width: 500,
 				height: "100%-200",
+				on: {
+					select: (id, name, items) => {
+						console.log(id + ", " + name + ", " + JSON.stringify(items))
+					}
+				},
 				value: [
 					{id : "0",
 					name: "item0",
