@@ -10,8 +10,8 @@ import { UtilPointerEvent } from './util';
 import { DTreeItem } from "./d-tree-item";
 
 interface TreeItemData {
-	name: String,
-	position: Array < number >
+	position: Array < number >,
+	item: DTreeItem
 }
 
 export interface DTreeOptions < THEME extends DThemeTree > extends DLayoutVerticalOptions<THEME> {
@@ -30,20 +30,18 @@ export class DTree <
 	>
 	extends DLayoutVertical<THEME, OPTIONS> {
 
-		protected _itemMap?: any = {}
-		protected _treeItems: DTreeItem[] = []
-		protected _selected?: VALUE | null
+		protected _itemMap?: any
 		protected _value?: any
 		protected _bus?: EventBus
 
 		protected init(options ? : OPTIONS) {
 			super.init(options);
 
-			this._itemMap = {};
+			this._itemMap = {"12": "sdsdsdsd"};
 			this._bus = new EventBus();
 			if (options && options.value) {
 				this._value = options.value
-				let parentPosition: number[] = []
+				const parentPosition: number[] = []
 				this.addItem(parentPosition, this._value)
 			}
 
@@ -54,12 +52,6 @@ export class DTree <
 				const item = items[index];
 				if (item && item.id && item.name) {
 					const itemPosition: number[] = parentPosition.concat([index])
-					const itemData: TreeItemData = {
-						name: item.name,
-						position: itemPosition
-					}
-					const itemId = item.id
-					this._itemMap[itemId] = itemData
 
 					let paddingValue : number = itemPosition.length * 25
 					const isParent: boolean = item.items && (item.items.length > 0)
@@ -78,6 +70,12 @@ export class DTree <
 						}
 					});
 
+					const itemData: TreeItemData = {
+						position: itemPosition,
+						item: treeItem
+					}
+					this._itemMap[item.id] = itemData
+
 					treeItem.on(UtilPointerEvent.down, (): void => {
 						this.emit("select", item.id, item.name, item.items)
 					});
@@ -91,4 +89,15 @@ export class DTree <
 			}
 		}
 
+		/**
+		 * toggle
+		 */
+		public toggle(id : string) {
+			if(this._itemMap && this._itemMap[id] && this._itemMap[id].item) {
+				const item = this._itemMap[id].item
+				if(item.isParent()) {
+					item.toggle()
+				}
+			}
+		}
 	}

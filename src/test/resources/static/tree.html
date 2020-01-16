@@ -31,12 +31,13 @@
 			"use strict";
 
 			const application = new wcardinal.ui.DApplication();
-			new wcardinal.ui.DTree({
+
+			const tree = new wcardinal.ui.DTree({
 				parent: application.stage,
 				x: 100,
 				y: 100,
 				width: 500,
-				height: "100%-200",
+				height: 300,
 				on: {
 					select: (id, name, items) => {
 						console.log(id + ", " + name + ", " + JSON.stringify(items))
@@ -123,7 +124,22 @@
 					},
 				]
 			});
-		}());
+
+			new wcardinal.ui.DButtonPrimary({
+				parent: application.stage,
+				x: 20,
+				y: 20,
+				text: {
+					value: "Toggle"
+				},
+				on: {
+					active: () => {
+						tree.toggle("0.3")
+					}
+				}
+			});
+		}()
+		);
 
 	</script>
 </body>

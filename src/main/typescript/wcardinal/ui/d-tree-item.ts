@@ -72,7 +72,7 @@ export class DTreeItem <
 
 			this._bus.on("toggle-tree", (parentPosition, isParentExpand, isParentShown): void => {
 
-				this.toggle(parentPosition, isParentExpand, isParentShown)
+				this.onToggle(parentPosition, isParentExpand, isParentShown)
 			})
 
 			this._bus.on("selected-tree-item", (selectedItemPosition): void => {
@@ -86,7 +86,7 @@ export class DTreeItem <
 
 		}
 
-		protected toggle(parentPosition: number[], isParentExpand: boolean, isParentShown: boolean) {
+		protected onToggle(parentPosition: number[], isParentExpand: boolean, isParentShown: boolean) {
 			this.updateTreeParentState()
 			if (this._itemPosition.length == parentPosition.length + 1 &&
 				this._itemPosition.join('-').indexOf(parentPosition.join('-')) == 0) {
@@ -102,6 +102,14 @@ export class DTreeItem <
 
 		}
 
+		protected onSelect(): void {
+			if (this._isParent) {
+				this.toggle()
+			} else {
+				this._bus.emit("selected-tree-item", this._itemPosition)
+			}
+		}
+
 		public isExpand(): boolean {
 			if (this._isExpand != null) {
 				return this._isExpand
@@ -109,14 +117,19 @@ export class DTreeItem <
 			return false
 		}
 
-		protected onSelect(): void {
-			if (this._isExpand != null) {
-				this._isExpand = !this._isExpand
+		public isParent(): boolean {
+			if (this._isParent != null) {
+				return this._isParent
 			}
+			return false
+		}
+
+		public toggle(): void {
 			if (this._isParent) {
+				if (this._isExpand != null) {
+					this._isExpand = !this._isExpand
+				}
 				this._bus.emit("toggle-tree", this._itemPosition, this._isExpand, this.isShown())
-			} else {
-				this._bus.emit("selected-tree-item", this._itemPosition)
 			}
 		}
 
