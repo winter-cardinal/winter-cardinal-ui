@@ -90,3 +90,6 @@ export * from "./load-theme-white";
 export * from "./load-theme-dark-all";
 export * from "./load-theme-dark-base";
 export * from "./load-theme-dark";
+export * from "./load-theme-dark-html-element";
+export * from "./load-theme-dark-image";
+export * from "./load-theme-dark-text";
