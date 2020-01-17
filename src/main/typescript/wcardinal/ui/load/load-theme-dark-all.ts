@@ -12,6 +12,7 @@ import { loadThemeDarkHTMLElement } from "./load-theme-dark-html-element";
 import { loadThemeDarkImage } from "./load-theme-dark-image";
 import { loadThemeDarkInputAll } from "./load-theme-dark-input-all";
 import { loadThemeDarkLayout } from "./load-theme-dark-layout";
+import { loadThemeDarkList } from "./load-theme-dark-list";
 import { loadThemeDarkNote } from "./load-theme-dark-note";
 import { loadThemeDarkPane } from "./load-theme-dark-pane";
 import { loadThemeDarkPickerColor } from "./load-theme-dark-picker-color";
@@ -34,6 +35,7 @@ export const loadThemeDarkAll = () => {
 	loadThemeDarkImage();
 	loadThemeDarkInputAll();
 	loadThemeDarkLayout();
+	loadThemeDarkList();
 	loadThemeDarkNote();
 	loadThemeDarkPane();
 	loadThemeDarkPickerColor();

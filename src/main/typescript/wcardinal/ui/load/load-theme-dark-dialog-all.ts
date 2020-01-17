@@ -16,6 +16,7 @@ import { loadThemeDarkDialogInputText } from "./load-theme-dark-dialog-input-tex
 import { loadThemeDarkDialogMessage } from "./load-theme-dark-dialog-message";
 import { loadThemeDarkDialogProcessing } from "./load-theme-dark-dialog-processing";
 import { loadThemeDarkDialogSaveAs } from "./load-theme-dark-dialog-save-as";
+import { loadThemeDarkDialogSelect } from "./load-theme-dark-dialog-select";
 import { loadThemeDarkDialogTime } from "./load-theme-dark-dialog-time";
 
 export const loadThemeDarkDialogAll = () => {
@@ -31,6 +32,7 @@ export const loadThemeDarkDialogAll = () => {
 	loadThemeDarkDialogMessage();
 	loadThemeDarkDialogProcessing();
 	loadThemeDarkDialogSaveAs();
+	loadThemeDarkDialogSelect();
 	loadThemeDarkDialogTime();
 	loadThemeDarkDialog();
 };
