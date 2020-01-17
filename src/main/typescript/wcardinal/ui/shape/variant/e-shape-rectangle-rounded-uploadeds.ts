@@ -17,8 +17,8 @@ export class EShapeRectangleRoundedUploadeds {
 		const tcount = EShapeTextUploadeds.getTextCount( shape, buffer.workCount );
 		const tvcount = tcount.vertexCount;
 		const ticount = tcount.indexCount;
-		const vcount = 36 + tvcount;
-		const icount = 24 + ticount;
+		const vcount = EShapeRectangleRoundedUploaded.VERTEX_COUNT + tvcount;
+		const icount = EShapeRectangleRoundedUploaded.INDEX_COUNT + ticount;
 		if( voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity ) {
 			return new EShapeRectangleRoundedUploaded(
 				buffer,

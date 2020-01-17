@@ -10,8 +10,8 @@ import { EShapeStrokeSide } from "../e-shape-stroke";
 import { EShapeTextUploaded } from "./e-shape-text-uploaded";
 
 export class EShapeRectangleUploaded extends EShapeTextUploaded {
-	static VERTEX_COUNT = 12;
-	static INDEX_COUNT = 8;
+	static readonly VERTEX_COUNT = 12;
+	static readonly INDEX_COUNT = 8;
 
 	init( shape: EShape ): this {
 		super.init( shape );
@@ -209,11 +209,11 @@ export class EShapeRectangleUploaded extends EShapeTextUploaded {
 		const s = strokeAlign * strokeWidth;
 		const sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
 		const sy = sizeY * 0.5 + (0 <= sizeY ? +s : -s);
-		work.set( -sx, -sy );
+		work.set( originX - sx, originY - sy );
 		internalTransform.apply( work, work );
 		const x0 = work.x;
 		const y0 = work.y;
-		work.set( 0, -sy );
+		work.set( originX, originY - sy );
 		internalTransform.apply( work, work );
 		const x1 = work.x;
 		const y1 = work.y;
@@ -437,14 +437,14 @@ export class EShapeRectangleUploaded extends EShapeTextUploaded {
 
 			buffer.uvBuffer.update();
 			const textureUvs = this.toTextureUvs( texture );
-			this.doUpdateRectangleUv( this.vertexOffset, textureUvs, buffer.uvs );
+			this.doUpdateRectangleUv( buffer.uvs, this.vertexOffset, textureUvs );
 		}
 	}
 
 	protected doUpdateRectangleUv(
+		uvs: Float32Array,
 		voffset: number,
-		textureUvs: TextureUvs,
-		uvs: Float32Array
+		textureUvs: TextureUvs
 	): void {
 		const x0 = textureUvs.x0;
 		const x1 = textureUvs.x1;

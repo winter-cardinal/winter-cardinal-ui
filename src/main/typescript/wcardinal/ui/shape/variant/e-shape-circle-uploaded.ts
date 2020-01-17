@@ -9,8 +9,8 @@ import { EShapeBuffer } from "../e-shape-buffer";
 import { EShapeTextUploaded } from "./e-shape-text-uploaded";
 
 export class EShapeCircleUploaded extends EShapeTextUploaded {
-	static VERTEX_COUNT = 9;
-	static INDEX_COUNT = 8;
+	static readonly VERTEX_COUNT = 9;
+	static readonly INDEX_COUNT = 8;
 
 	init( shape: EShape ): this {
 		super.init( shape );

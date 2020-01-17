@@ -39,11 +39,21 @@ export class EShapeLineOfCirclesUploaded extends EShapeCircleUploaded {
 		ioffset: number
 	): void {
 		super.doInitCircle( clippings, indices, voffset, ioffset );
-		EShapeLinesOfAny.copyClippingAndIndex(
-			clippings, indices,
-			voffset, EShapeCircleUploaded.VERTEX_COUNT,
-			ioffset, EShapeCircleUploaded.INDEX_COUNT,
-			this.pointCount
+		const vcountPerPoint = EShapeCircleUploaded.VERTEX_COUNT;
+		const icountPerPoint = EShapeCircleUploaded.INDEX_COUNT;
+		const pointCount = this.pointCount;
+		EShapeLinesOfAny.copyClipping(
+			clippings,
+			voffset,
+			vcountPerPoint,
+			pointCount
+		);
+		EShapeLinesOfAny.copyIndex(
+			indices,
+			vcountPerPoint,
+			ioffset,
+			icountPerPoint,
+			pointCount
 		);
 	}
 
@@ -63,16 +73,6 @@ export class EShapeLineOfCirclesUploaded extends EShapeCircleUploaded {
 			this.updateLineOfCirclesColorFill( buffer, shape, points );
 			this.updateLineOfCirclesColorStroke( buffer, shape, points );
 			this.updateLineOfCirclesUv( buffer, shape );
-
-			const size = shape.size;
-			const sizeX = size.x;
-			const sizeY = size.y;
-			const isSizeChanged = ( sizeX !== this.sizeX || sizeY !== this.sizeY );
-			if( isSizeChanged ) {
-				// Invalidate the text layout to update the text layout.
-				this.textSpacingHorizontal = NaN;
-			}
-
 			this.updateText( buffer, shape );
 		}
 	}
@@ -85,6 +85,11 @@ export class EShapeLineOfCirclesUploaded extends EShapeCircleUploaded {
 		const pointSizeId = pointSize.id;
 		const isPointSizeChanged = ( pointSizeId !== this.pointSizeId );
 
+		const size = shape.size;
+		const sizeX = size.x;
+		const sizeY = size.y;
+		const isSizeChanged = ( sizeX !== this.sizeX || sizeY !== this.sizeY );
+
 		const transformLocalId = this.toTransformLocalId( shape );
 		const isTransformChanged = ( this.transformLocalId !== transformLocalId );
 
@@ -93,14 +98,16 @@ export class EShapeLineOfCirclesUploaded extends EShapeCircleUploaded {
 		const strokeAlign = stroke.align;
 		const isStrokeChanged = ( this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth );
 
-		if( isPointChanged || isPointSizeChanged || isTransformChanged || isStrokeChanged ) {
+		if( isPointChanged || isPointSizeChanged || isSizeChanged || isTransformChanged || isStrokeChanged ) {
 			this.pointId = pointId;
 			this.pointSizeId = pointSizeId;
+			this.sizeX = sizeX;
+			this.sizeY = sizeY;
 			this.transformLocalId = transformLocalId;
 			this.strokeWidth = strokeWidth;
 			this.strokeAlign = strokeAlign;
 
-			if( isTransformChanged ) {
+			if( isSizeChanged || isTransformChanged || isStrokeChanged ) {
 				// Invalidate the text layout to update the text layout.
 				this.textSpacingHorizontal = NaN;
 			}
@@ -133,11 +140,16 @@ export class EShapeLineOfCirclesUploaded extends EShapeCircleUploaded {
 					internalTransform,
 					work, workStep
 				);
-				EShapeLinesOfAny.copyVertexAndStep(
-					vertices, steps, antialiases,
+				EShapeLinesOfAny.copyVertex(
+					vertices,
 					internalTransform,
 					voffset, div,
 					pointCount, pointsValues
+				);
+				EShapeLinesOfAny.copyStep(
+					steps, antialiases,
+					voffset, div,
+					pointCount
 				);
 			} else {
 				for( let i = 0; i < pointCount; ++i ) {
@@ -185,7 +197,7 @@ export class EShapeLineOfCirclesUploaded extends EShapeCircleUploaded {
 				isFillEnabled,
 				colorFill,
 				alphaFill,
-				this.buffer.workColor
+				buffer.workColor
 			);
 		}
 	}
@@ -215,7 +227,7 @@ export class EShapeLineOfCirclesUploaded extends EShapeCircleUploaded {
 				isStrokeEnabled,
 				colorStroke,
 				alphaStroke,
-				this.buffer.workColor
+				buffer.workColor
 			);
 		}
 	}
@@ -232,7 +244,12 @@ export class EShapeLineOfCirclesUploaded extends EShapeCircleUploaded {
 			const voffset = this.vertexOffset;
 			const textureUvs = this.toTextureUvs( texture );
 			this.doUpdateCircleUv( voffset, textureUvs, uvs );
-			EShapeLinesOfAny.copyUvs( voffset, EShapeCircleUploaded.VERTEX_COUNT, this.pointCount, uvs );
+			EShapeLinesOfAny.copyUvs(
+				uvs,
+				voffset,
+				EShapeCircleUploaded.VERTEX_COUNT,
+				this.pointCount
+			);
 		}
 	}
 }
