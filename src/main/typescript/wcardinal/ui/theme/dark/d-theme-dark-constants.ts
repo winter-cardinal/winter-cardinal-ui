@@ -12,4 +12,5 @@ export class DThemeDarkConstants {
 
 	// High light color when active
 	static HIGHLIGHT_COLOR = 0x90CAF9;
+	static WEAK_HIGHLIGHT_ALPHA = 0.2;
 }
