@@ -32,6 +32,10 @@ import { loadThemeWhiteSelect } from "./load-theme-white-select";
 import { loadThemeWhiteTable } from "./load-theme-white-table";
 import { loadThemeWhiteText } from "./load-theme-white-text";
 import { loadThemeWhiteView } from "./load-theme-white-view";
+import { loadThemeWhiteSlider } from "./load-theme-white-slider";
+import { loadThemeWhiteSliderRange } from "./load-theme-white-slider-range";
+import { loadThemeWhiteSliderBar } from "./load-theme-white-slider-bar";
+import { loadThemeWhiteSliderButton } from "./load-theme-white-slider-button";
 
 export const loadThemeWhiteAll = () => {
 	loadThemeWhite();
@@ -63,4 +67,8 @@ export const loadThemeWhiteAll = () => {
 	loadThemeWhiteSelect();
 	loadThemeWhiteTable();
 	loadThemeWhiteText();
+	loadThemeWhiteSlider();
+	loadThemeWhiteSliderRange();
+	loadThemeWhiteSliderBar();
+	loadThemeWhiteSliderButton();
 };
