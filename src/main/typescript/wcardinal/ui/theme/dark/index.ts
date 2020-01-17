@@ -5,6 +5,12 @@
 
 export * from "./d-theme-dark-atlas";
 export * from "./d-theme-dark-base";
+export * from "./d-theme-dark-board";
+export * from "./d-theme-dark-button";
+export * from "./d-theme-dark-button-base";
+export * from "./d-theme-dark-canvas";
+export * from "./d-theme-dark-canvas-container";
+export * from "./d-theme-dark-content";
 export * from "./d-theme-dark-font";
 export * from "./d-theme-dark-html-element";
 export * from "./d-theme-dark-image";
@@ -21,6 +27,7 @@ export * from "./d-theme-dark-layout-space";
 export * from "./d-theme-dark-layout-vertical";
 export * from "./d-theme-dark-layout";
 export * from "./d-theme-dark-note";
+export * from "./d-theme-dark-pane";
 export * from "./d-theme-dark-scroll-bar";
 export * from "./d-theme-dark-scroll-bar-thumb";
 export * from "./d-theme-dark-text";
