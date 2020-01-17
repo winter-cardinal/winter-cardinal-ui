@@ -20,7 +20,5 @@ export enum DBaseState {
 	SUCCEEDED	= 1 << 12,
 	FAILED		= 1 << 13,
 
-	CUSTOM		= 1 << 20,
-	EXPAND		= 1 << 21,
-	COLLAPSE	= 1 << 22
+	CUSTOM		= 1 << 20
 }

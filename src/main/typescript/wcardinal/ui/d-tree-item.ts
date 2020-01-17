@@ -8,6 +8,7 @@ import { DImage, DImageOptions, DThemeImage } from "./d-image";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { UtilPointerEvent } from './util';
 import { EventBus } from 'event-bus-station';
+import { DTreeItemState } from './d-tree-item-state';
 
 export interface DTreeItemOptions <
 	VALUE = unknown,
@@ -138,11 +139,11 @@ export class DTreeItem <
 				return
 			}
 			if (this._isExpand) {
-				this.setState(DBaseState.COLLAPSE, false)
-				this.setState(DBaseState.EXPAND, true)
+				this.setState(DTreeItemState.COLLAPSE, false)
+				this.setState(DTreeItemState.EXPAND, true)
 			} else {
-				this.setState(DBaseState.EXPAND, false)
-				this.setState(DBaseState.COLLAPSE, true)
+				this.setState(DTreeItemState.EXPAND, false)
+				this.setState(DTreeItemState.COLLAPSE, true)
 			}
 		}
 

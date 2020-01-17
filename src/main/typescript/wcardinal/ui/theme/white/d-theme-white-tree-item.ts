@@ -13,6 +13,7 @@ import { DThemeTreeItem } from "../../d-Tree-item";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteImage } from "./d-theme-white-image";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
+import { DTreeItemState } from '../../d-tree-item-state';
 
 DThemeWhiteAtlas.add( "menu_item_expandable_header_closed", 14, 14,
 	`<g transform="scale(1, 0.7)">` +
@@ -73,10 +74,10 @@ export class DThemeWhiteTreeItem extends DThemeWhiteImage implements DThemeTreeI
 
 	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
 
-		if (DBaseStates.isCollapse(state)) {
+		if (state & DTreeItemState.EXPAND) {
 			return DThemeWhiteAtlas.mappings.menu_item_expandable_header_closed;
 		}
-		else if ((DBaseStates.isExpand(state))){
+		else if (state & DTreeItemState.COLLAPSE){
 			return DThemeWhiteAtlas.mappings.menu_item_expandable_header_opened;
 		}
 		else {

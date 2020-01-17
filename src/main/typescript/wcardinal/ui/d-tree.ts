@@ -24,7 +24,6 @@ export interface DThemeTree extends DThemeLayoutVertical {
 
 
 export class DTree <
-	VALUE = unknown,
 	THEME extends DThemeTree = DThemeTree,
 	OPTIONS extends DTreeOptions < THEME > = DTreeOptions < THEME >
 	>
@@ -36,8 +35,6 @@ export class DTree <
 
 		protected init(options ? : OPTIONS) {
 			super.init(options);
-
-			this._itemMap = {"12": "sdsdsdsd"};
 			this._bus = new EventBus();
 			if (options && options.value) {
 				this._value = options.value

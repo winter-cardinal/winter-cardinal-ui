@@ -67,14 +67,6 @@ export class DBaseStates {
 		return !! ( target & DBaseState.FAILED );
 	}
 
-	static isExpand( target: DBaseState ) {
-		return !! ( target & DBaseState.EXPAND );
-	}
-
-	static isCollapse( target: DBaseState ) {
-		return !! ( target & DBaseState.COLLAPSE );
-	}
-
 	static bind(
 		destination: DBase<any, any>, destinationState: DBaseState,
 		source: DBase<any, any>, when: ( sourceState: DBaseState ) => boolean
