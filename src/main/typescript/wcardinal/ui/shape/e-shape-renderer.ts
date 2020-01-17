@@ -185,7 +185,9 @@ void main(void) {
 	vec2 v1 = vClipping.xy;
 	vec2 v2 = v0 * vAntialias.xy;
 	vec2 v3 = v1 * vAntialias.zw;
-	vec4 d0 = vec4( max( v0.x, v0.y ), max( v1.x, v1.y ), max( v2.x, v2.y ), max( v3.x, v3.y ) );
+	vec2 d01 = ( v0.x < v0.y ? vec2( v0.y, v2.y ) : vec2( v0.x, v2.x ) );
+	vec2 d02 = ( v1.x < v1.y ? vec2( v1.y, v3.y ) : vec2( v1.x, v3.x ) );
+	vec4 d0 = vec4( d01.x, d02.x, d01.y, d02.y );
 	vec4 d1 = vec4( dot( v0, v0 ), dot( v1, v1 ), dot( v2, v2 ), dot( v3, v3 ) );
 	vec4 d = ( type == 1.0 ? d1 : d0 );
 	vec2 s = step( vec2( 1.0 ), d.xy );
@@ -227,7 +229,9 @@ void main(void) {
 	vec2 v1 = vClipping.xy;
 	vec2 v2 = v0 * vAntialias.xy;
 	vec2 v3 = v1 * vAntialias.zw;
-	vec4 d0 = vec4( max( v0.x, v0.y ), max( v1.x, v1.y ), max( v2.x, v2.y ), max( v3.x, v3.y ) );
+	vec2 d01 = ( v0.x < v0.y ? vec2( v0.y, v2.y ) : vec2( v0.x, v2.x ) );
+	vec2 d02 = ( v1.x < v1.y ? vec2( v1.y, v3.y ) : vec2( v1.x, v3.x ) );
+	vec4 d0 = vec4( d01.x, d02.x, d01.y, d02.y );
 	vec4 d1 = vec4( dot( v0, v0 ), dot( v1, v1 ), dot( v2, v2 ), dot( v3, v3 ) );
 	vec4 d = ( type == 1.0 ? d1 : d0 );
 	vec2 s = smoothstep( 1.0 - (d.zw - d.xy), vec2( 1.0 ), d.xy );
