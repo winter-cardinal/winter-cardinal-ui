@@ -4,6 +4,7 @@
  */
 
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
+import { DSliderBarChosen } from './d-slider-bar-chosen';
 import { DSliderBar } from './d-slider-bar';
 import { DSliderButton } from './d-slider-button';
 
@@ -21,6 +22,7 @@ export class DSliderRange<
 > extends DBase<THEME, OPTIONS> {
 	protected _sliderBar?: DSliderBar;
 	protected _sliderButton?: DSliderButton;
+	protected _sliderBarChosen?: DSliderBarChosen;
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
@@ -29,8 +31,10 @@ export class DSliderRange<
 		this._sliderButton = new DSliderButton({
 			x: "CENTER",
 		});
+		this._sliderBarChosen = new DSliderBarChosen();
 
 		this.addChild(this._sliderBar);
+		this.addChild(this._sliderBarChosen);
 		this.addChild(this._sliderButton);
 	}
 	protected getType(): string {
