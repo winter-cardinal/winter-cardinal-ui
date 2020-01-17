@@ -39,6 +39,7 @@ import { loadThemeWhiteSliderButton } from "./load-theme-white-slider-button";
 import { loadThemeWhiteSliderMin } from "./load-theme-white-slider-min";
 import { loadThemeWhiteSliderMax } from "./load-theme-white-slider-max";
 import { loadThemeWhiteSliderBarChosen } from "./load-theme-white-slider-bar-chosen";
+import { loadThemeWhiteSliderValue } from "./load-theme-white-slider-value";
 
 export const loadThemeWhiteAll = () => {
 	loadThemeWhite();
@@ -77,4 +78,5 @@ export const loadThemeWhiteAll = () => {
 	loadThemeWhiteSliderMax();
 	loadThemeWhiteSliderMin();
 	loadThemeWhiteSliderBarChosen();
+	loadThemeWhiteSliderValue();
 };

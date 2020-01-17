@@ -16,18 +16,21 @@ export interface DThemeSlider extends DThemeBase {
 
 }
 
+// this is space beetween min, range and max elements
 const HORIZONTAL_PIXEL_BALANCE = 2;
 
 export class DSlider<
 	THEME extends DThemeSlider = DThemeSlider,
 	OPTIONS extends DSliderOptions<THEME> = DSliderOptions<THEME>
 > extends DBase<THEME, OPTIONS> {
-	protected _minRange?: DSliderMin;
-	protected _sliderRange?: DSliderRange;
-	protected _maxRange?: DSliderMax;
+	protected _minRange!: DSliderMin;
+	protected _sliderRange!: DSliderRange;
+	protected _maxRange!: DSliderMax;
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
+
+		/* Init elements for slider */
 
 		this._sliderRange = new DSliderRange({
 			y: 0
@@ -40,12 +43,27 @@ export class DSlider<
 		this._maxRange.text = String(this._maxRange.value);
 		this._maxRange.x = this._minRange.width + this._sliderRange.width + HORIZONTAL_PIXEL_BALANCE;
 		
+		const sliderBar = this._sliderRange.sliderBar;
+		const sliderBarChosen = this._sliderRange.sliderBarChosen;
+		const sliderButton = this._sliderRange.sliderButton;
+
+		if (sliderBar) {
+			// calculate y-offset to determine y-coordinate of slider mix, max
+			const yOffset = this._sliderRange.yOffset -	(this._minRange.height/2 - sliderBar.height/2);
+			this._minRange.y = yOffset;
+			this._maxRange.y = yOffset;
+			// calculate x-coordinate of slider max base on the widths of slier min, range
+			this._maxRange.x = this._minRange.width + this._sliderRange.width + HORIZONTAL_PIXEL_BALANCE;
+		}
+
 		this.addChild(this._minRange);
 		this.addChild(this._sliderRange);
 		this.addChild(this._maxRange);
 	}
 	protected getType(): string {
+
 		return "DSlider";
+		
 	}
 
 }
