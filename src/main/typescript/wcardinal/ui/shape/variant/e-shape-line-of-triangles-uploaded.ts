@@ -7,9 +7,9 @@ import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
 import { EShapeLineOfAnyPoints } from "./e-shape-line-of-any-points";
 import { EShapeLinesOfAny } from "./e-shape-lines-of-any";
-import { EShapeRectangleRoundedUploaded } from "./e-shape-rectangle-rounded-uploaded";
+import { EShapeTriangleUploaded } from "./e-shape-triangle-uploaded";
 
-export class EShapeLineOfRectangleRoundedsUploaded extends EShapeRectangleRoundedUploaded {
+export class EShapeLineOfTrianglesUploaded extends EShapeTriangleUploaded {
 	protected pointId: number;
 	protected pointCount: number;
 	protected pointSizeId: number;
@@ -32,18 +32,28 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeRectangleRounde
 		this.pointStrokeId = -1;
 	}
 
-	protected doInitRectangleRounded(
+	protected doInitTriangle(
+		clippings: Float32Array,
 		indices: Uint16Array | Uint32Array,
 		voffset: number,
 		ioffset: number
 	): void {
-		super.doInitRectangleRounded( indices, voffset, ioffset );
+		super.doInitTriangle( clippings, indices, voffset, ioffset );
+		const vcountPerPoint = EShapeTriangleUploaded.VERTEX_COUNT;
+		const icountPerPoint = EShapeTriangleUploaded.INDEX_COUNT;
+		const pointCount = this.pointCount;
+		EShapeLinesOfAny.copyClipping(
+			clippings,
+			voffset,
+			vcountPerPoint,
+			pointCount
+		);
 		EShapeLinesOfAny.copyIndex(
 			indices,
-			EShapeLineOfRectangleRoundedsUploaded.VERTEX_COUNT,
+			vcountPerPoint,
 			ioffset,
-			EShapeLineOfRectangleRoundedsUploaded.INDEX_COUNT,
-			this.pointCount
+			icountPerPoint,
+			pointCount
 		);
 	}
 
@@ -59,18 +69,14 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeRectangleRounde
 		const buffer = this.buffer;
 		const points = shape.points;
 		if( points instanceof EShapeLineOfAnyPoints ) {
-			this.updateLineOfRectangleRoundedsVertexClippingStepAndUv( buffer, shape, points );
-			this.updateLineOfRectangleRoundedsColorFill( buffer, shape, points );
-			this.updateLineOfRectangleRoundedsColorStroke( buffer, shape, points );
+			this.updateLineOfTrianglesVertexStepAndUvs( buffer, shape, points );
+			this.updateLineOfTrianglesColorFill( buffer, shape, points );
+			this.updateLineOfTrianglesColorStroke( buffer, shape, points );
 			this.updateText( buffer, shape );
 		}
 	}
 
-	protected updateLineOfRectangleRoundedsVertexClippingStepAndUv(
-		buffer: EShapeBuffer,
-		shape: EShape,
-		points: EShapeLineOfAnyPoints
-	): void {
+	protected updateLineOfTrianglesVertexStepAndUvs( buffer: EShapeBuffer, shape: EShape, points: EShapeLineOfAnyPoints ) {
 		const pointId = points.id;
 		const isPointChanged = ( pointId !== this.pointId );
 
@@ -81,8 +87,7 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeRectangleRounde
 		const size = shape.size;
 		const sizeX = size.x;
 		const sizeY = size.y;
-		const radius = shape.radius;
-		const isSizeChanged = ( sizeX !== this.sizeX || sizeY !== this.sizeY || radius !== this.radius );
+		const isSizeChanged = ( sizeX !== this.sizeX || sizeY !== this.sizeY );
 
 		const transformLocalId = this.toTransformLocalId( shape );
 		const isTransformChanged = ( this.transformLocalId !== transformLocalId );
@@ -90,12 +95,7 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeRectangleRounde
 		const stroke = shape.stroke;
 		const strokeWidth = (stroke.enable ? stroke.width : 0);
 		const strokeAlign = stroke.align;
-		const strokeSide = stroke.side;
-		const isStrokeChanged = ( this.strokeAlign !== strokeAlign ||
-			this.strokeWidth !== strokeWidth || this.strokeSide !== strokeSide );
-
-		const corner = shape.corner;
-		const isCornerChanged = ( corner !== this.corner );
+		const isStrokeChanged = ( this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth );
 
 		const texture = this.toTexture( shape );
 		const textureTransformId = this.toTextureTransformId( texture );
@@ -103,19 +103,14 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeRectangleRounde
 
 		const isVertexChanged = isPointChanged || isPointSizeChanged || isSizeChanged || isStrokeChanged;
 
-		if( isVertexChanged || isTransformChanged || isCornerChanged || isTextureChanged ) {
+		if( isVertexChanged || isTransformChanged || isTextureChanged ) {
 			this.pointId = pointId;
 			this.pointSizeId = pointSizeId;
 			this.sizeX = sizeX;
 			this.sizeY = sizeY;
-			this.radius = radius;
 			this.transformLocalId = transformLocalId;
 			this.strokeWidth = strokeWidth;
 			this.strokeAlign = strokeAlign;
-			this.strokeSide = strokeSide;
-			this.corner = corner;
-			this.texture = texture;
-			this.textureTransformId = textureTransformId;
 
 			if( isSizeChanged || isTransformChanged || isStrokeChanged ) {
 				// Invalidate the text layout to update the text layout.
@@ -128,36 +123,35 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeRectangleRounde
 				buffer.stepBuffer.update();
 				buffer.antialiasBuffer.update();
 			}
-			if( isVertexChanged || isCornerChanged ) {
-				buffer.clippingBuffer.update();
-			}
 			if( isVertexChanged || isTextureChanged ) {
 				buffer.uvBuffer.update();
 			}
+
 			const pointCount = this.pointCount;
 			const pointsValues = points.values;
 			const voffset = this.vertexOffset;
-			const div = EShapeLineOfRectangleRoundedsUploaded.VERTEX_COUNT;
+			const div = EShapeTriangleUploaded.VERTEX_COUNT;
 			const vertices = buffer.vertices;
-			const clippings = buffer.clippings;
 			const steps = buffer.steps;
 			const antialiases = buffer.antialiases;
+			const clippings = buffer.clippings;
 			const uvs = buffer.uvs;
-			const internalTransform = shape.transform.internalTransform;
 			const textureUvs = this.toTextureUvs( texture );
+			const internalTransform = shape.transform.internalTransform;
 			const work = buffer.work;
 			const workStep = buffer.workStep;
-			const worldSize = EShapeLineOfRectangleRoundedsUploaded.WORLD_SIZE;
+			const worldSize = EShapeTriangleUploaded.WORLD_SIZE;
 			if( pointSize.isStaticX() && pointSize.isStaticY() ) {
 				const pointSizeX = pointSize.getX( 0 );
 				const pointSizeY = pointSize.getY( 0 );
 
-				// Vertices
-				this.doUpdateRectangleRoundedVertex(
-					vertices, voffset,
+				this.doUpdateTriangleVertex(
+					vertices,
+					voffset,
 					0, 0,
 					pointSizeX, pointSizeY,
-					strokeAlign, strokeWidth, radius,
+					strokeAlign,
+					strokeWidth,
 					internalTransform,
 					worldSize,
 					work
@@ -168,15 +162,14 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeRectangleRounde
 					voffset, div,
 					pointCount, pointsValues
 				);
-
-				// Steps & antialiases
 				if( isVertexChanged || isTransformChanged ) {
-					this.doUpdateRectangleRoundedStep(
+					this.doUpdateTriangleStep(
 						steps,
 						antialiases,
+						clippings,
 						voffset,
-						strokeWidth, strokeSide,
-						corner,
+						div,
+						strokeWidth,
 						worldSize,
 						workStep
 					);
@@ -186,29 +179,11 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeRectangleRounde
 						pointCount
 					);
 				}
-
-				// Clippings
-				if( isVertexChanged || isCornerChanged ) {
-					this.doUpdateRectangleRoundedClipping(
-						clippings,
-						voffset,
-						corner,
-						worldSize
-					);
-					EShapeLinesOfAny.copyClipping(
-						clippings,
-						voffset,
-						div,
-						pointCount
-					);
-				}
-
-				// UVs
 				if( isVertexChanged || isTextureChanged ) {
-					this.doUpdateRectangleRoundedUv(
+					this.doUpdateTriangleUv(
 						uvs,
-						voffset,
 						textureUvs,
+						voffset,
 						worldSize
 					);
 					EShapeLinesOfAny.copyUvs(
@@ -225,49 +200,36 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeRectangleRounde
 					const py = pointsValues[ ip + 1 ];
 					const pointSizeX = pointSize.getX( i );
 					const pointSizeY = pointSize.getY( i );
-
 					const iv = voffset + i * div;
 
-					// Vertices
-					this.doUpdateRectangleRoundedVertex(
-						vertices, iv,
+					this.doUpdateTriangleVertex(
+						vertices,
+						iv,
 						px, py,
 						pointSizeX, pointSizeY,
-						strokeAlign, strokeWidth, radius,
+						strokeAlign,
+						strokeWidth,
 						internalTransform,
 						worldSize,
 						work
 					);
-
-					// Steps & antialiases
 					if( isVertexChanged || isTransformChanged ) {
-						this.doUpdateRectangleRoundedStep(
+						this.doUpdateTriangleStep(
 							steps,
 							antialiases,
+							clippings,
 							iv,
-							strokeWidth, strokeSide,
-							corner,
+							div,
+							strokeWidth,
 							worldSize,
 							workStep
 						);
 					}
-
-					// Clippings
-					if( isVertexChanged || isCornerChanged ) {
-						this.doUpdateRectangleRoundedClipping(
-							clippings,
-							iv,
-							corner,
-							worldSize
-						);
-					}
-
-					// UVs
 					if( isVertexChanged || isTextureChanged ) {
-						this.doUpdateRectangleRoundedUv(
+						this.doUpdateTriangleUv(
 							uvs,
-							iv,
 							textureUvs,
+							iv,
 							worldSize
 						);
 					}
@@ -276,11 +238,7 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeRectangleRounde
 		}
 	}
 
-	protected updateLineOfRectangleRoundedsColorFill(
-		buffer: EShapeBuffer,
-		shape: EShape,
-		points: EShapeLineOfAnyPoints
-	): void {
+	protected updateLineOfTrianglesColorFill( buffer: EShapeBuffer, shape: EShape, points: EShapeLineOfAnyPoints ) {
 		const pointFill = points.fill;
 		const pointFillId = pointFill.id;
 		const isPointFillChanged = ( pointFillId !== this.pointFillId );
@@ -298,7 +256,7 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeRectangleRounde
 			buffer.colorFillBuffer.update();
 			EShapeLinesOfAny.updateColor(
 				this.vertexOffset,
-				EShapeLineOfRectangleRoundedsUploaded.VERTEX_COUNT,
+				EShapeTriangleUploaded.VERTEX_COUNT,
 				pointFill,
 				this.pointCount,
 				buffer.colorFills,
@@ -310,11 +268,7 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeRectangleRounde
 		}
 	}
 
-	protected updateLineOfRectangleRoundedsColorStroke(
-		buffer: EShapeBuffer,
-		shape: EShape,
-		points: EShapeLineOfAnyPoints
-	): void {
+	protected updateLineOfTrianglesColorStroke( buffer: EShapeBuffer, shape: EShape, points: EShapeLineOfAnyPoints ) {
 		const pointStroke = points.stroke;
 		const pointStrokeId = pointStroke.id;
 		const isPointStrokeChanged = ( pointStrokeId !== this.pointStrokeId );
@@ -332,7 +286,7 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeRectangleRounde
 			buffer.colorStrokeBuffer.update();
 			EShapeLinesOfAny.updateColor(
 				this.vertexOffset,
-				EShapeLineOfRectangleRoundedsUploaded.VERTEX_COUNT,
+				EShapeTriangleUploaded.VERTEX_COUNT,
 				pointStroke,
 				this.pointCount,
 				buffer.colorStrokes,

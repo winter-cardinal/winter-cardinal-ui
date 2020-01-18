@@ -13,6 +13,7 @@ import { loadShapeLine } from "./load-shape-line";
 import { loadShapeLineOfCircles } from "./load-shape-line-of-circles";
 import { loadShapeLineOfRectangleRoundeds } from "./load-shape-line-of-rectangle-roundeds";
 import { loadShapeLineOfRectangles } from "./load-shape-line-of-rectangles";
+import { loadShapeLineOfTriangles } from "./load-shape-line-of-triangles";
 import { loadShapeNull } from "./load-shape-null";
 import { loadShapeRectangle } from "./load-shape-rectangle";
 import { loadShapeRectangleRounded } from "./load-shape-rectangle-rounded";
@@ -35,4 +36,5 @@ export const loadShapeAll = () => {
 	loadShapeLineOfCircles();
 	loadShapeLineOfRectangleRoundeds();
 	loadShapeLineOfRectangles();
+	loadShapeLineOfTriangles();
 };

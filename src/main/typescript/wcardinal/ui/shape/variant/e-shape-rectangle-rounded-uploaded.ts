@@ -175,9 +175,9 @@ export class EShapeRectangleRoundedUploaded extends EShapeTextUploaded {
 		const textureTransformId = this.toTextureTransformId( texture );
 		const isTextureChanged = ( texture !== this.texture || textureTransformId !== this.textureTransformId );
 
-		const isVertexChanged = isSizeChanged || isTransformChanged || isStrokeChanged;
+		const isVertexChanged = isSizeChanged || isStrokeChanged;
 
-		if( isVertexChanged || isCornerChanged || isTextureChanged ) {
+		if( isVertexChanged || isTransformChanged || isCornerChanged || isTextureChanged ) {
 			this.sizeX = sizeX;
 			this.sizeY = sizeY;
 			this.radius = radius;
@@ -189,7 +189,7 @@ export class EShapeRectangleRoundedUploaded extends EShapeTextUploaded {
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
 
-			if( isVertexChanged ) {
+			if( isVertexChanged || isTransformChanged ) {
 				// Invalidate the text layout to update the text layout.
 				this.textSpacingHorizontal = NaN;
 			}
@@ -209,7 +209,7 @@ export class EShapeRectangleRoundedUploaded extends EShapeTextUploaded {
 			);
 
 			// Steps & antialiases
-			if( isVertexChanged ) {
+			if( isVertexChanged || isTransformChanged ) {
 				buffer.stepBuffer.update();
 				buffer.antialiasBuffer.update();
 				this.doUpdateRectangleRoundedStep(
