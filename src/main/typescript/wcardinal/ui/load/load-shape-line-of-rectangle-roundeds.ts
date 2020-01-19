@@ -15,7 +15,7 @@ export const loadShapeLineOfRectangleRoundeds = () => {
 	EShapeUploadeds[ EShapeType.LINE_OF_RECTANGLE_ROUNDEDS ] = EShapeLineOfRectangleRoundedsUploadeds.create;
 	EShapeDeserializers[ EShapeType.LINE_OF_RECTANGLE_ROUNDEDS ] = EShapeLinesOfRectangleRoundeds.deserialize;
 	EShapeCapabilities.set(
-		EShapeType.RECTANGLE_ROUNDED,
+		EShapeType.LINE_OF_RECTANGLE_ROUNDEDS,
 		EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE | EShapeCapability.BORDER_RADIUS
 	);
 };

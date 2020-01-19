@@ -43,7 +43,7 @@
 				shape.id = id;
 				shape.transform.position.set( this.x, this.y );
 				shape.size.set( this.width, this.height );
-				shape.stroke.width = this.height * 0.4;
+				shape.stroke.width *= 2;
 				shape.transform.rotation = Math.PI * 0.1;
 				if( modifier ) {
 					modifier( shape );
@@ -86,6 +86,14 @@
 
 		application.stage.addChild( container );
 		application.update();
+		setInterval(() => {
+			const children = container.children;
+			for( let i = 0, imax = children.length; i < imax; ++i ) {
+				children[ i ].transform.rotation += 0.01;
+			}
+			application.render();
+		}, 32);
+
 	}());
 	</script>
 </body>

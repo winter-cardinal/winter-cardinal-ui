@@ -97,6 +97,7 @@ export * from "./d-chart-series-fill";
 export * from "./d-chart-series-line-of-circles";
 export * from "./d-chart-series-line-of-rectangle-roundeds";
 export * from "./d-chart-series-line-of-rectangles";
+export * from "./d-chart-series-line-of-triangle-roundeds";
 export * from "./d-chart-series-line-of-triangles";
 export * from "./d-chart-series-line";
 export * from "./d-chart-series-linear-parameters-impl";

@@ -15,7 +15,7 @@ export const loadShapeLineOfRectangles = () => {
 	EShapeUploadeds[ EShapeType.LINE_OF_RECTANGLES ] = EShapeLineOfRectanglesUploadeds.create;
 	EShapeDeserializers[ EShapeType.LINE_OF_RECTANGLES ] = EShapeLinesOfRectangles.deserialize;
 	EShapeCapabilities.set(
-		EShapeType.RECTANGLE,
+		EShapeType.LINE_OF_RECTANGLES,
 		EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE
 	);
 };
