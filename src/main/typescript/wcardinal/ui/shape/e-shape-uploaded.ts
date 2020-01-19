@@ -8,8 +8,7 @@ import { EShape } from "./e-shape";
 import { EShapeBuffer } from "./e-shape-buffer";
 import { EShapeBufferUnitBuilder } from "./e-shape-buffer-unit-builder";
 import { EShapeCorner } from "./e-shape-corner";
-
-const FMIN: number = 0.00001;
+import { buildColor } from "./variant/build-color";
 
 export interface EShapeUploaded {
 	update( shape: EShape ): void;
@@ -136,21 +135,6 @@ export abstract class EShapeUploadedBase implements EShapeUploaded {
 		return (texture as any)._uvs;
 	}
 
-	protected fillColor( color: number, alpha: number, voffset: number, count: number, colors: Float32Array ) {
-		const rgba = utils.premultiplyTintToRgba( color, alpha, this.buffer.workColor );
-		const r = rgba[ 0 ];
-		const g = rgba[ 1 ];
-		const b = rgba[ 2 ];
-		const a = rgba[ 3 ];
-
-		for( let i = voffset * 4, imax = i + count * 4; i < imax; i += 4 ) {
-			colors[ i + 0 ] = r;
-			colors[ i + 1 ] = g;
-			colors[ i + 2 ] = b;
-			colors[ i + 3 ] = a;
-		}
-	}
-
 	protected updateColorFill( buffer: EShapeBuffer, shape: EShape, vertexCount: number ) {
 		const fill = shape.fill;
 		const isEnabled = shape.visible && fill.enable;
@@ -161,7 +145,7 @@ export abstract class EShapeUploadedBase implements EShapeUploaded {
 			this.alphaFill = alpha;
 			buffer.colorFillBuffer.update();
 
-			this.fillColor(
+			buildColor(
 				color, alpha,
 				this.vertexOffset,
 				vertexCount,
@@ -180,7 +164,7 @@ export abstract class EShapeUploadedBase implements EShapeUploaded {
 			this.alphaStroke = alpha;
 			buffer.colorStrokeBuffer.update();
 
-			this.fillColor(
+			buildColor(
 				color, alpha,
 				this.vertexOffset,
 				vertexCount,
@@ -192,64 +176,6 @@ export abstract class EShapeUploadedBase implements EShapeUploaded {
 	protected updateColorFillAndStroke( buffer: EShapeBuffer, shape: EShape, vertexCount: number ) {
 		this.updateColorFill( buffer, shape, vertexCount );
 		this.updateColorStroke( buffer, shape, vertexCount );
-	}
-
-	protected calcStep( size: number, strokeWidth: number, result: Float32Array ): Float32Array {
-		const antialiasWeight = this.antialiasWeight;
-		if( FMIN < strokeWidth ) {
-			const dpc0 = size - strokeWidth;
-			if( FMIN < dpc0 ) {
-				const pc0 = antialiasWeight / dpc0;
-				const pc1 = antialiasWeight / Math.max( FMIN, size );
-				const swc = 1 / Math.max( FMIN, 1 - strokeWidth / size );
-				result[ 0 ] = swc;
-				result[ 1 ] = pc0;
-				result[ 2 ] = pc1;
-			} else {
-				const pc0 = antialiasWeight / FMIN;
-				const pc1 = antialiasWeight / Math.max( FMIN, size );
-				const swc = 1 / FMIN;
-				result[ 0 ] = swc;
-				result[ 1 ] = pc0;
-				result[ 2 ] = pc1;
-			}
-		} else {
-			// Assumes strokeWidth === 0
-			const pc = antialiasWeight / Math.max( FMIN, size );
-			result[ 0 ] = 1;
-			result[ 1 ] = pc;
-			result[ 2 ] = pc;
-		}
-		return result;
-	}
-
-	protected updateStep(
-		steps: Float32Array,
-		antialiases: Float32Array,
-		clippings: Float32Array,
-		voffset: number, vcount: number,
-		swx: number, swy: number, px0: number, py0: number, px1: number, py1: number
-	) {
-		const istart = voffset * 2;
-		const imax = istart + vcount * 2;
-		const jstart = voffset * 3;
-		const kstart = voffset * 4;
-		for( let i = istart, j = jstart, k = kstart; i < imax; i += 2, j += 3, k += 4 ) {
-			const cx = clippings[ j + 0 ];
-			const cy = clippings[ j + 1 ];
-			steps[ i + 0 ] = swx * cx;
-			steps[ i + 1 ] = swy * cy;
-			antialiases[ k + 0 ] = px0;
-			antialiases[ k + 1 ] = py0;
-			antialiases[ k + 2 ] = px1;
-			antialiases[ k + 3 ] = py1;
-		}
-	}
-
-	protected calcLength( p0x: number, p0y: number, p1x: number, p1y: number ) {
-		const dx01 = p1x - p0x;
-		const dy01 = p1y - p0y;
-		return Math.sqrt( dx01 * dx01 + dy01 * dy01 );
 	}
 
 	buildUnit( builder: EShapeBufferUnitBuilder ) {

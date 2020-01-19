@@ -10,6 +10,7 @@ import { EShapeBuffer } from "../e-shape-buffer";
 import { EShapePoints, EShapePointsStyle } from "../e-shape-points";
 import { EShapePointsStyleUploadeds } from "../e-shape-points-style-uploadeds";
 import { EShapeTextUploaded } from "./e-shape-text-uploaded";
+import { utilCalcLength } from "./util-calc-length";
 
 const FMIN: number = 0.00001;
 
@@ -282,7 +283,7 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 			pnexty = psecondy;
 			pseg = psegfirst;
 			psegnext = psegsecond;
-			lnext += this.calcLength( px, py, pnextx, pnexty );
+			lnext += utilCalcLength( px, py, pnextx, pnexty );
 
 			//
 			vertices[ iv + 0 ] = px;
@@ -336,7 +337,7 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 			}
 			lprev = l;
 			l = lnext;
-			lnext += this.calcLength( px, py, pnextx, pnexty );
+			lnext += utilCalcLength( px, py, pnextx, pnexty );
 
 			let pnextxn = pnextx;
 			let pnextyn = pnexty;

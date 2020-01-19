@@ -6,7 +6,9 @@
 import { utilIsFunction, utilIsNumber } from "../../util";
 import { EShapeDefaults } from "../e-shape-defaults";
 import { EShapeLineOfAnyPointsSize } from "./e-shape-line-of-any-points-size";
-import { EShapeLineOfAnyValue, EShapeLinesOfAny } from "./e-shape-lines-of-any";
+import { EShapeLineOfAnyValue } from "./e-shape-line-of-any-value";
+import { utilIsStatic } from "./util-is-static";
+import { utilToComputed } from "./util-to-computed";
 
 export interface EShapeLineOfAnyPointsSizeImplParent {
 	readonly length: number;
@@ -82,11 +84,11 @@ export class EShapeLineOfAnyPointsSizeImpl implements EShapeLineOfAnyPointsSize 
 	}
 
 	getX( index: number ): number {
-		return EShapeLinesOfAny.toComputed( index, this._x, EShapeDefaults.SIZE_X );
+		return utilToComputed( index, this._x, EShapeDefaults.SIZE_X );
 	}
 
 	getY( index: number ): number {
-		return EShapeLinesOfAny.toComputed( index, this._y, EShapeDefaults.SIZE_Y );
+		return utilToComputed( index, this._y, EShapeDefaults.SIZE_Y );
 	}
 
 	getLimit(): number {
@@ -140,11 +142,11 @@ export class EShapeLineOfAnyPointsSizeImpl implements EShapeLineOfAnyPointsSize 
 	}
 
 	isStaticX(): boolean {
-		return EShapeLinesOfAny.isStatic( this._x );
+		return utilIsStatic( this._x );
 	}
 
 	isStaticY(): boolean {
-		return EShapeLinesOfAny.isStatic( this._y );
+		return utilIsStatic( this._y );
 	}
 
 	toDirty(): void {

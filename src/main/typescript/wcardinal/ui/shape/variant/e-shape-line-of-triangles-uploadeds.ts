@@ -5,10 +5,10 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
+import { TRIANGLE_INDEX_COUNT, TRIANGLE_VERTEX_COUNT } from "./build-triangle";
 import { EShapeLineOfAnyUploadeds } from "./e-shape-line-of-any-uploadeds";
 import { EShapeLineOfNullsUploaded } from "./e-shape-line-of-nulls-uploaded";
 import { EShapeLineOfTrianglesUploaded } from "./e-shape-line-of-triangles-uploaded";
-import { EShapeTriangleUploaded } from "./e-shape-triangle-uploaded";
 
 export class EShapeLineOfTrianglesUploadeds {
 	static create(
@@ -18,8 +18,8 @@ export class EShapeLineOfTrianglesUploadeds {
 	): EShapeLineOfTrianglesUploaded | EShapeLineOfNullsUploaded | null {
 		return EShapeLineOfAnyUploadeds.create(
 			buffer, shape,
-			voffset, EShapeTriangleUploaded.VERTEX_COUNT,
-			ioffset, EShapeTriangleUploaded.INDEX_COUNT,
+			voffset, TRIANGLE_VERTEX_COUNT,
+			ioffset, TRIANGLE_INDEX_COUNT,
 			antialiasWeight,
 			EShapeLineOfTrianglesUploaded
 		);

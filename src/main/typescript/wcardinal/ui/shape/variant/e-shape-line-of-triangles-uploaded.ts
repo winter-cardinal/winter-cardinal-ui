@@ -5,78 +5,72 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
+import {
+	buildTriangleClipping, buildTriangleIndex, buildTriangleStep, buildTriangleUv, buildTriangleVertex,
+	TRIANGLE_INDEX_COUNT, TRIANGLE_VERTEX_COUNT, TRIANGLE_WORLD_SIZE
+} from "./build-triangle";
+import { copyClipping } from "./copy-clipping";
+import { copyIndex } from "./copy-index";
+import { copyStep } from "./copy-step";
+import { copyUvs } from "./copy-uv";
+import { copyVertex } from "./copy-vertex";
 import { EShapeLineOfAnyPoints } from "./e-shape-line-of-any-points";
-import { EShapeLinesOfAny } from "./e-shape-lines-of-any";
-import { EShapeTriangleUploaded } from "./e-shape-triangle-uploaded";
+import { EShapeLineOfAnyUploaded } from "./e-shape-line-of-any-uploaded";
 
-export class EShapeLineOfTrianglesUploaded extends EShapeTriangleUploaded {
-	protected pointId: number;
-	protected pointCount: number;
-	protected pointSizeId: number;
-	protected pointFillId: number;
-	protected pointStrokeId: number;
+export class EShapeLineOfTrianglesUploaded extends EShapeLineOfAnyUploaded {
+	init( shape: EShape ): this {
+		super.init( shape );
 
-	constructor(
-		buffer: EShapeBuffer,
-		voffset: number, ioffset: number,
-		tvcount: number, ticount: number,
-		vcount: number, icount: number,
-		antialiasWeight: number,
-		pointCount: number
-	) {
-		super( buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight );
-		this.pointId = -1;
-		this.pointCount = pointCount;
-		this.pointSizeId = -1;
-		this.pointFillId = -1;
-		this.pointStrokeId = -1;
-	}
-
-	protected doInitTriangle(
-		clippings: Float32Array,
-		indices: Uint16Array | Uint32Array,
-		voffset: number,
-		ioffset: number
-	): void {
-		super.doInitTriangle( clippings, indices, voffset, ioffset );
-		const vcountPerPoint = EShapeTriangleUploaded.VERTEX_COUNT;
-		const icountPerPoint = EShapeTriangleUploaded.INDEX_COUNT;
+		const buffer = this.buffer;
+		buffer.clippingBuffer.update();
+		buffer.indexBuffer.update();
+		const clippings = buffer.clippings;
+		const indices = buffer.indices;
+		const voffset = this.vertexOffset;
+		const ioffset = this.indexOffset;
 		const pointCount = this.pointCount;
-		EShapeLinesOfAny.copyClipping(
+		buildTriangleClipping(
+			clippings,
+			voffset
+		);
+		buildTriangleIndex(
+			indices,
+			voffset,
+			ioffset
+		);
+		copyClipping(
 			clippings,
 			voffset,
-			vcountPerPoint,
+			TRIANGLE_VERTEX_COUNT,
 			pointCount
 		);
-		EShapeLinesOfAny.copyIndex(
+		copyIndex(
 			indices,
-			vcountPerPoint,
+			TRIANGLE_VERTEX_COUNT,
 			ioffset,
-			icountPerPoint,
+			TRIANGLE_INDEX_COUNT,
 			pointCount
 		);
-	}
 
-	isCompatible( shape: EShape ): boolean {
-		if( super.isCompatible( shape ) ) {
-			const points = shape.points;
-			return this.pointCount === ( points ? points.length : 0 );
-		}
-		return false;
+		// Text
+		this.initText();
+
+		this.update( shape );
+		return this;
 	}
 
 	update( shape: EShape ): void {
 		const buffer = this.buffer;
 		const points = shape.points;
 		if( points instanceof EShapeLineOfAnyPoints ) {
-			this.updateLineOfTrianglesVertexStepAndUvs( buffer, shape, points );
-			this.updateLineOfTrianglesColorFill( buffer, shape, points );
-			this.updateLineOfTrianglesColorStroke( buffer, shape, points );
+			this.updateVertexStepAndUvs( buffer, shape, points );
+			this.updateLineOfAnyColorFill( buffer, shape, points, TRIANGLE_VERTEX_COUNT );
+			this.updateLineOfAnyColorStroke( buffer, shape, points, TRIANGLE_VERTEX_COUNT );
 			this.updateText( buffer, shape );
 		}
 	}
 
-	protected updateLineOfTrianglesVertexStepAndUvs( buffer: EShapeBuffer, shape: EShape, points: EShapeLineOfAnyPoints ) {
+	protected updateVertexStepAndUvs( buffer: EShapeBuffer, shape: EShape, points: EShapeLineOfAnyPoints ) {
 		const pointId = points.id;
 		const isPointChanged = ( pointId !== this.pointId );
 
@@ -130,7 +124,6 @@ export class EShapeLineOfTrianglesUploaded extends EShapeTriangleUploaded {
 			const pointCount = this.pointCount;
 			const pointsValues = points.values;
 			const voffset = this.vertexOffset;
-			const div = EShapeTriangleUploaded.VERTEX_COUNT;
 			const vertices = buffer.vertices;
 			const steps = buffer.steps;
 			const antialiases = buffer.antialiases;
@@ -138,14 +131,14 @@ export class EShapeLineOfTrianglesUploaded extends EShapeTriangleUploaded {
 			const uvs = buffer.uvs;
 			const textureUvs = this.toTextureUvs( texture );
 			const internalTransform = shape.transform.internalTransform;
+			const antialiasWeight = this.antialiasWeight;
 			const work = buffer.work;
 			const workStep = buffer.workStep;
-			const worldSize = EShapeTriangleUploaded.WORLD_SIZE;
 			if( pointSize.isStaticX() && pointSize.isStaticY() ) {
 				const pointSizeX = pointSize.getX( 0 );
 				const pointSizeY = pointSize.getY( 0 );
 
-				this.doUpdateTriangleVertex(
+				buildTriangleVertex(
 					vertices,
 					voffset,
 					0, 0,
@@ -153,43 +146,44 @@ export class EShapeLineOfTrianglesUploaded extends EShapeTriangleUploaded {
 					strokeAlign,
 					strokeWidth,
 					internalTransform,
-					worldSize,
+					TRIANGLE_WORLD_SIZE,
 					work
 				);
-				EShapeLinesOfAny.copyVertex(
+				copyVertex(
 					vertices,
 					internalTransform,
-					voffset, div,
+					voffset, TRIANGLE_VERTEX_COUNT,
 					pointCount, pointsValues
 				);
 				if( isVertexChanged || isTransformChanged ) {
-					this.doUpdateTriangleStep(
+					buildTriangleStep(
 						steps,
 						antialiases,
 						clippings,
 						voffset,
-						div,
+						TRIANGLE_VERTEX_COUNT,
 						strokeWidth,
-						worldSize,
+						antialiasWeight,
+						TRIANGLE_WORLD_SIZE,
 						workStep
 					);
-					EShapeLinesOfAny.copyStep(
+					copyStep(
 						steps, antialiases,
-						voffset, div,
+						voffset, TRIANGLE_VERTEX_COUNT,
 						pointCount
 					);
 				}
 				if( isVertexChanged || isTextureChanged ) {
-					this.doUpdateTriangleUv(
+					buildTriangleUv(
 						uvs,
 						textureUvs,
 						voffset,
-						worldSize
+						TRIANGLE_WORLD_SIZE
 					);
-					EShapeLinesOfAny.copyUvs(
+					copyUvs(
 						uvs,
 						voffset,
-						div,
+						TRIANGLE_VERTEX_COUNT,
 						pointCount
 					);
 				}
@@ -200,9 +194,9 @@ export class EShapeLineOfTrianglesUploaded extends EShapeTriangleUploaded {
 					const py = pointsValues[ ip + 1 ];
 					const pointSizeX = pointSize.getX( i );
 					const pointSizeY = pointSize.getY( i );
-					const iv = voffset + i * div;
+					const iv = voffset + i * TRIANGLE_VERTEX_COUNT;
 
-					this.doUpdateTriangleVertex(
+					buildTriangleVertex(
 						vertices,
 						iv,
 						px, py,
@@ -210,91 +204,32 @@ export class EShapeLineOfTrianglesUploaded extends EShapeTriangleUploaded {
 						strokeAlign,
 						strokeWidth,
 						internalTransform,
-						worldSize,
+						TRIANGLE_WORLD_SIZE,
 						work
 					);
 					if( isVertexChanged || isTransformChanged ) {
-						this.doUpdateTriangleStep(
+						buildTriangleStep(
 							steps,
 							antialiases,
 							clippings,
 							iv,
-							div,
+							TRIANGLE_VERTEX_COUNT,
 							strokeWidth,
-							worldSize,
+							antialiasWeight,
+							TRIANGLE_WORLD_SIZE,
 							workStep
 						);
 					}
 					if( isVertexChanged || isTextureChanged ) {
-						this.doUpdateTriangleUv(
+						buildTriangleUv(
 							uvs,
 							textureUvs,
 							iv,
-							worldSize
+							TRIANGLE_WORLD_SIZE
 						);
 					}
 				}
 			}
-		}
-	}
-
-	protected updateLineOfTrianglesColorFill( buffer: EShapeBuffer, shape: EShape, points: EShapeLineOfAnyPoints ) {
-		const pointFill = points.fill;
-		const pointFillId = pointFill.id;
-		const isPointFillChanged = ( pointFillId !== this.pointFillId );
-
-		const fill = shape.fill;
-		const isFillEnabled = shape.visible && fill.enable;
-		const colorFill = fill.color;
-		const alphaFill = (isFillEnabled ? fill.alpha : 0);
-		const isFillChanged = ( colorFill !== this.colorFill || alphaFill !== this.alphaFill );
-
-		if( isPointFillChanged || isFillChanged ) {
-			this.colorFill = colorFill;
-			this.alphaFill = alphaFill;
-			this.pointFillId = pointFillId;
-			buffer.colorFillBuffer.update();
-			EShapeLinesOfAny.updateColor(
-				this.vertexOffset,
-				EShapeTriangleUploaded.VERTEX_COUNT,
-				pointFill,
-				this.pointCount,
-				buffer.colorFills,
-				isFillEnabled,
-				colorFill,
-				alphaFill,
-				buffer.workColor
-			);
-		}
-	}
-
-	protected updateLineOfTrianglesColorStroke( buffer: EShapeBuffer, shape: EShape, points: EShapeLineOfAnyPoints ) {
-		const pointStroke = points.stroke;
-		const pointStrokeId = pointStroke.id;
-		const isPointStrokeChanged = ( pointStrokeId !== this.pointStrokeId );
-
-		const stroke = shape.stroke;
-		const isStrokeEnabled = shape.visible && stroke.enable;
-		const colorStroke = stroke.color;
-		const alphaStroke = (isStrokeEnabled ? stroke.alpha : 0);
-		const isStrokeChanged = ( colorStroke !== this.colorStroke || alphaStroke !== this.alphaStroke );
-
-		if( isPointStrokeChanged || isStrokeChanged ) {
-			this.colorStroke = colorStroke;
-			this.alphaStroke = alphaStroke;
-			this.pointStrokeId = pointStrokeId;
-			buffer.colorStrokeBuffer.update();
-			EShapeLinesOfAny.updateColor(
-				this.vertexOffset,
-				EShapeTriangleUploaded.VERTEX_COUNT,
-				pointStroke,
-				this.pointCount,
-				buffer.colorStrokes,
-				isStrokeEnabled,
-				colorStroke,
-				alphaStroke,
-				buffer.workColor
-			);
 		}
 	}
 }

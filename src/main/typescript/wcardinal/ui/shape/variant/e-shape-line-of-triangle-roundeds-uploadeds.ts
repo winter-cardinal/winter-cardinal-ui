@@ -5,6 +5,7 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
+import { TRIANGLE_ROUNDED_INDEX_COUNT, TRIANGLE_ROUNDED_VERTEX_COUNT } from "./build-triangle-rounded";
 import { EShapeLineOfAnyUploadeds } from "./e-shape-line-of-any-uploadeds";
 import { EShapeLineOfNullsUploaded } from "./e-shape-line-of-nulls-uploaded";
 import { EShapeLineOfTriangleRoundedsUploaded } from "./e-shape-line-of-triangle-roundeds-uploaded";
@@ -17,8 +18,8 @@ export class EShapeLineOfTriangleRoundedsUploadeds {
 	): EShapeLineOfTriangleRoundedsUploaded | EShapeLineOfNullsUploaded | null {
 		return EShapeLineOfAnyUploadeds.create(
 			buffer, shape,
-			voffset, EShapeLineOfTriangleRoundedsUploaded.VERTEX_COUNT,
-			ioffset, EShapeLineOfTriangleRoundedsUploaded.INDEX_COUNT,
+			voffset, TRIANGLE_ROUNDED_VERTEX_COUNT,
+			ioffset, TRIANGLE_ROUNDED_INDEX_COUNT,
 			antialiasWeight,
 			EShapeLineOfTriangleRoundedsUploaded
 		);

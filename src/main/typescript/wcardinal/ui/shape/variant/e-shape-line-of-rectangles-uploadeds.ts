@@ -5,10 +5,10 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
+import { RECTANGLE_INDEX_COUNT, RECTANGLE_VERTEX_COUNT } from "./build-rectangle";
 import { EShapeLineOfAnyUploadeds } from "./e-shape-line-of-any-uploadeds";
 import { EShapeLineOfNullsUploaded } from "./e-shape-line-of-nulls-uploaded";
 import { EShapeLineOfRectanglesUploaded } from "./e-shape-line-of-rectangles-uploaded";
-import { EShapeRectangleUploaded } from "./e-shape-rectangle-uploaded";
 
 export class EShapeLineOfRectanglesUploadeds {
 	static create(
@@ -18,8 +18,8 @@ export class EShapeLineOfRectanglesUploadeds {
 	): EShapeLineOfRectanglesUploaded | EShapeLineOfNullsUploaded | null {
 		return EShapeLineOfAnyUploadeds.create(
 			buffer, shape,
-			voffset, EShapeRectangleUploaded.VERTEX_COUNT,
-			ioffset, EShapeRectangleUploaded.INDEX_COUNT,
+			voffset, RECTANGLE_VERTEX_COUNT,
+			ioffset, RECTANGLE_INDEX_COUNT,
 			antialiasWeight,
 			EShapeLineOfRectanglesUploaded
 		);

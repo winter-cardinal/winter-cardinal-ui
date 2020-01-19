@@ -12,7 +12,7 @@ import {
 	EShapeLineOfAnyPoints, EShapeLineOfAnyPointsHitTester,
 	EShapeLineOfAnyPointsTestRange, EShapeLineOfAnyPointsToHitThreshold
 } from "./e-shape-line-of-any-points";
-import { EShapeLinesOfAny } from "./e-shape-lines-of-any";
+import { utilToHitThreshold } from "./util-to-hit-threshold";
 
 export class EShapeLineOfCircles extends EShapeCircle implements EShapeLineOfAny {
 	points!: EShapeLineOfAnyPoints;
@@ -41,7 +41,7 @@ export class EShapeLineOfCircles extends EShapeCircle implements EShapeLineOfAny
 	}
 
 	containsAbs( x: number, y: number, ax: number, ay: number ): boolean {
-		const threshold = EShapeLinesOfAny.toHitThreshold( this, null );
+		const threshold = utilToHitThreshold( this, null );
 		if( this.containsAbsBBox( x, y, ax + threshold, ay + threshold ) ) {
 			return this.points.calcHitPointAbs(
 				x, y,
@@ -70,7 +70,7 @@ export class EShapeLineOfCircles extends EShapeCircle implements EShapeLineOfAny
 		result: RESULT
 	): boolean {
 		const rect = this.toLocalRect( point, EShapeBase.WORK_RECT );
-		const threshold = EShapeLinesOfAny.toHitThreshold( this, toThreshold );
+		const threshold = utilToHitThreshold( this, toThreshold );
 		if( this.containsAbsBBox( rect.x, rect.y, rect.width + threshold, rect.height + threshold ) ) {
 			return this.points.calcHitPointAbs(
 				rect.x, rect.y,

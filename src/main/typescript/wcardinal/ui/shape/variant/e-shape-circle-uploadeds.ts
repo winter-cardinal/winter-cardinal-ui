@@ -5,6 +5,7 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
+import { CIRCLE_INDEX_COUNT, CIRCLE_VERTEX_COUNT } from "./build-circle";
 import { EShapeCircleUploaded } from "./e-shape-circle-uploaded";
 import { EShapeTextUploadeds } from "./e-shape-text-uploadeds";
 
@@ -17,8 +18,8 @@ export class EShapeCircleUploadeds {
 		const tcount = EShapeTextUploadeds.getTextCount( shape, buffer.workCount );
 		const tvcount = tcount.vertexCount;
 		const ticount = tcount.indexCount;
-		const vcount = EShapeCircleUploaded.VERTEX_COUNT + tvcount;
-		const icount = EShapeCircleUploaded.INDEX_COUNT + ticount;
+		const vcount = CIRCLE_VERTEX_COUNT + tvcount;
+		const icount = CIRCLE_INDEX_COUNT + ticount;
 		if( voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity ) {
 			return new EShapeCircleUploaded(
 				buffer,

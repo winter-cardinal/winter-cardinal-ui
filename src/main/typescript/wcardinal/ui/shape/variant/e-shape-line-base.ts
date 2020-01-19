@@ -13,6 +13,7 @@ import {
 	EShapeLineBasePointsToHitThreshold
 } from "./e-shape-line-base-points";
 import { EShapePrimitive } from "./e-shape-primitive";
+import { utilToHitThreshold } from "./util-to-hit-threshold";
 
 export abstract class EShapeLineBase extends EShapePrimitive {
 	protected static WORK_RANGE: [ number, number ] = [ 0, 0 ];

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EShapeLineOfAnyValue } from "./e-shape-lines-of-any";
+import { EShapeLineOfAnyValue } from "./e-shape-line-of-any-value";
 
 export interface EShapeLineOfAnyPointsFill {
 	id: number;

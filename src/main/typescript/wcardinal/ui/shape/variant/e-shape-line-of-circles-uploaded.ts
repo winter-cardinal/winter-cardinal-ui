@@ -5,79 +5,74 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
-import { EShapeCircleUploaded } from "./e-shape-circle-uploaded";
+import {
+	buildCircleClipping, buildCircleIndex, buildCircleUv, buildCircleVertexAndStep,
+	CIRCLE_INDEX_COUNT, CIRCLE_VERTEX_COUNT
+} from "./build-circle";
+import { copyClipping } from "./copy-clipping";
+import { copyIndex } from "./copy-index";
+import { copyStep } from "./copy-step";
+import { copyUvs } from "./copy-uv";
+import { copyVertex } from "./copy-vertex";
 import { EShapeLineOfAnyPoints } from "./e-shape-line-of-any-points";
-import { EShapeLinesOfAny } from "./e-shape-lines-of-any";
+import { EShapeLineOfAnyUploaded } from "./e-shape-line-of-any-uploaded";
 
-export class EShapeLineOfCirclesUploaded extends EShapeCircleUploaded {
-	protected pointId: number;
-	protected pointCount: number;
-	protected pointSizeId: number;
-	protected pointFillId: number;
-	protected pointStrokeId: number;
+export class EShapeLineOfCirclesUploaded extends EShapeLineOfAnyUploaded {
+	init( shape: EShape ): this {
+		super.init( shape );
 
-	constructor(
-		buffer: EShapeBuffer,
-		voffset: number, ioffset: number,
-		tvcount: number, ticount: number,
-		vcount: number, icount: number,
-		antialiasWeight: number,
-		pointCount: number
-	) {
-		super( buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight );
-		this.pointId = -1;
-		this.pointCount = pointCount;
-		this.pointSizeId = -1;
-		this.pointFillId = -1;
-		this.pointStrokeId = -1;
-	}
-
-	protected doInitCircle(
-		clippings: Float32Array,
-		indices: Uint16Array | Uint32Array,
-		voffset: number,
-		ioffset: number
-	): void {
-		super.doInitCircle( clippings, indices, voffset, ioffset );
-		const vcountPerPoint = EShapeCircleUploaded.VERTEX_COUNT;
-		const icountPerPoint = EShapeCircleUploaded.INDEX_COUNT;
+		// Clippings & indices
+		const buffer = this.buffer;
+		buffer.clippingBuffer.update();
+		buffer.indexBuffer.update();
+		const clippings = buffer.clippings;
+		const indices = buffer.indices;
+		const voffset = this.vertexOffset;
+		const ioffset = this.indexOffset;
 		const pointCount = this.pointCount;
-		EShapeLinesOfAny.copyClipping(
+		buildCircleClipping(
+			clippings,
+			voffset
+		);
+		buildCircleIndex(
+			indices,
+			voffset,
+			ioffset
+		);
+		copyClipping(
 			clippings,
 			voffset,
-			vcountPerPoint,
+			CIRCLE_VERTEX_COUNT,
 			pointCount
 		);
-		EShapeLinesOfAny.copyIndex(
+		copyIndex(
 			indices,
-			vcountPerPoint,
+			CIRCLE_VERTEX_COUNT,
 			ioffset,
-			icountPerPoint,
+			CIRCLE_INDEX_COUNT,
 			pointCount
 		);
-	}
 
-	isCompatible( shape: EShape ): boolean {
-		if( super.isCompatible( shape ) ) {
-			const points = shape.points;
-			return this.pointCount === ( points ? points.length : 0 );
-		}
-		return false;
+		// Text
+		this.initText();
+
+		this.update( shape );
+		return this;
 	}
 
 	update( shape: EShape ): void {
 		const buffer = this.buffer;
 		const points = shape.points;
 		if( points instanceof EShapeLineOfAnyPoints ) {
-			this.updateLineOfCirclesVertexAndStep( buffer, shape, points );
-			this.updateLineOfCirclesColorFill( buffer, shape, points );
-			this.updateLineOfCirclesColorStroke( buffer, shape, points );
-			this.updateLineOfCirclesUv( buffer, shape );
+			this.updateVertexAndStep( buffer, shape, points );
+			this.updateLineOfAnyColorFill( buffer, shape, points, CIRCLE_VERTEX_COUNT );
+			this.updateLineOfAnyColorStroke( buffer, shape, points, CIRCLE_VERTEX_COUNT );
+			this.updateUv( buffer, shape );
 			this.updateText( buffer, shape );
 		}
 	}
 
-	protected updateLineOfCirclesVertexAndStep( buffer: EShapeBuffer, shape: EShape, points: EShapeLineOfAnyPoints ) {
+	protected updateVertexAndStep( buffer: EShapeBuffer, shape: EShape, points: EShapeLineOfAnyPoints ) {
 		const pointId = points.id;
 		const isPointChanged = ( pointId !== this.pointId );
 
@@ -119,36 +114,37 @@ export class EShapeLineOfCirclesUploaded extends EShapeCircleUploaded {
 			const pointCount = this.pointCount;
 			const pointsValues = points.values;
 			const voffset = this.vertexOffset;
-			const div = EShapeCircleUploaded.VERTEX_COUNT;
 			const vertices = buffer.vertices;
 			const steps = buffer.steps;
 			const antialiases = buffer.antialiases;
 			const clippings = buffer.clippings;
 			const internalTransform = shape.transform.internalTransform;
+			const antialiasWeight = this.antialiasWeight;
 			const work = buffer.work;
 			const workStep = buffer.workStep;
 			if( pointSize.isStaticX() && pointSize.isStaticY() ) {
 				const pointSizeX = pointSize.getX( 0 );
 				const pointSizeY = pointSize.getY( 0 );
 
-				this.doUpdateCircleVertexAndStep(
-					vertices, voffset, div,
+				buildCircleVertexAndStep(
+					vertices, voffset, CIRCLE_VERTEX_COUNT,
 					steps, antialiases, clippings,
 					0, 0,
 					pointSizeX, pointSizeY,
 					strokeAlign, strokeWidth, true,
 					internalTransform,
+					antialiasWeight,
 					work, workStep
 				);
-				EShapeLinesOfAny.copyVertex(
+				copyVertex(
 					vertices,
 					internalTransform,
-					voffset, div,
+					voffset, CIRCLE_VERTEX_COUNT,
 					pointCount, pointsValues
 				);
-				EShapeLinesOfAny.copyStep(
+				copyStep(
 					steps, antialiases,
-					voffset, div,
+					voffset, CIRCLE_VERTEX_COUNT,
 					pointCount
 				);
 			} else {
@@ -158,13 +154,14 @@ export class EShapeLineOfCirclesUploaded extends EShapeCircleUploaded {
 					const py = pointsValues[ ip + 1 ];
 					const pointSizeX = pointSize.getX( i );
 					const pointSizeY = pointSize.getY( i );
-					this.doUpdateCircleVertexAndStep(
-						vertices, voffset + i * div, div,
+					buildCircleVertexAndStep(
+						vertices, voffset + i * CIRCLE_VERTEX_COUNT, CIRCLE_VERTEX_COUNT,
 						steps, antialiases, clippings,
 						px, py,
 						pointSizeX, pointSizeY,
 						strokeAlign, strokeWidth, true,
 						internalTransform,
+						antialiasWeight,
 						work, workStep
 					);
 				}
@@ -172,67 +169,7 @@ export class EShapeLineOfCirclesUploaded extends EShapeCircleUploaded {
 		}
 	}
 
-	protected updateLineOfCirclesColorFill( buffer: EShapeBuffer, shape: EShape, points: EShapeLineOfAnyPoints ) {
-		const pointFill = points.fill;
-		const pointFillId = pointFill.id;
-		const isPointFillChanged = ( pointFillId !== this.pointFillId );
-
-		const fill = shape.fill;
-		const isFillEnabled = shape.visible && fill.enable;
-		const colorFill = fill.color;
-		const alphaFill = (isFillEnabled ? fill.alpha : 0);
-		const isFillChanged = ( colorFill !== this.colorFill || alphaFill !== this.alphaFill );
-
-		if( isPointFillChanged || isFillChanged ) {
-			this.colorFill = colorFill;
-			this.alphaFill = alphaFill;
-			this.pointFillId = pointFillId;
-			buffer.colorFillBuffer.update();
-			EShapeLinesOfAny.updateColor(
-				this.vertexOffset,
-				EShapeLineOfCirclesUploaded.VERTEX_COUNT,
-				pointFill,
-				this.pointCount,
-				buffer.colorFills,
-				isFillEnabled,
-				colorFill,
-				alphaFill,
-				buffer.workColor
-			);
-		}
-	}
-
-	protected updateLineOfCirclesColorStroke( buffer: EShapeBuffer, shape: EShape, points: EShapeLineOfAnyPoints ) {
-		const pointStroke = points.stroke;
-		const pointStrokeId = pointStroke.id;
-		const isPointStrokeChanged = ( pointStrokeId !== this.pointStrokeId );
-
-		const stroke = shape.stroke;
-		const isStrokeEnabled = shape.visible && stroke.enable;
-		const colorStroke = stroke.color;
-		const alphaStroke = (isStrokeEnabled ? stroke.alpha : 0);
-		const isStrokeChanged = ( colorStroke !== this.colorStroke || alphaStroke !== this.alphaStroke );
-
-		if( isPointStrokeChanged || isStrokeChanged ) {
-			this.colorStroke = colorStroke;
-			this.alphaStroke = alphaStroke;
-			this.pointStrokeId = pointStrokeId;
-			buffer.colorStrokeBuffer.update();
-			EShapeLinesOfAny.updateColor(
-				this.vertexOffset,
-				EShapeLineOfCirclesUploaded.VERTEX_COUNT,
-				pointStroke,
-				this.pointCount,
-				buffer.colorStrokes,
-				isStrokeEnabled,
-				colorStroke,
-				alphaStroke,
-				buffer.workColor
-			);
-		}
-	}
-
-	protected updateLineOfCirclesUv( buffer: EShapeBuffer, shape: EShape ) {
+	protected updateUv( buffer: EShapeBuffer, shape: EShape ) {
 		const texture = this.toTexture( shape );
 		const textureTransformId = this.toTextureTransformId( texture );
 		if( texture !== this.texture || textureTransformId !== this.textureTransformId ) {
@@ -243,11 +180,11 @@ export class EShapeLineOfCirclesUploaded extends EShapeCircleUploaded {
 			const uvs = buffer.uvs;
 			const voffset = this.vertexOffset;
 			const textureUvs = this.toTextureUvs( texture );
-			this.doUpdateCircleUv( voffset, textureUvs, uvs );
-			EShapeLinesOfAny.copyUvs(
+			buildCircleUv( voffset, textureUvs, uvs );
+			copyUvs(
 				uvs,
 				voffset,
-				EShapeCircleUploaded.VERTEX_COUNT,
+				CIRCLE_VERTEX_COUNT,
 				this.pointCount
 			);
 		}

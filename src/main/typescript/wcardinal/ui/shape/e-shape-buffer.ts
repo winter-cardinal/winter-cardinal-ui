@@ -47,7 +47,6 @@ export class EShapeBuffer {
 	protected builder: EShapeBufferUnitBuilder;
 
 	work: Point;
-	workColor: Float32Array;
 	workStep: Float32Array;
 	workCount: EShapeBufferCount;
 
@@ -89,7 +88,6 @@ export class EShapeBuffer {
 		this.builder = new EShapeBufferUnitBuilder();
 
 		this.work = new Point();
-		this.workColor = new Float32Array( 4 );
 		this.workStep = new Float32Array( 3 );
 		this.workCount = new EShapeBufferCount();
 

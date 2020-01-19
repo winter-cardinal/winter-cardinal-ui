@@ -5,6 +5,7 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
+import { TRIANGLE_ROUNDED_INDEX_COUNT, TRIANGLE_ROUNDED_VERTEX_COUNT } from "./build-triangle-rounded";
 import { EShapeTextUploadeds } from "./e-shape-text-uploadeds";
 import { EShapeTriangleRoundedUploaded } from "./e-shape-triangle-rounded-uploaded";
 
@@ -17,8 +18,8 @@ export class EShapeTriangleRoundedUploadeds {
 		const tcount = EShapeTextUploadeds.getTextCount( shape, buffer.workCount );
 		const tvcount = tcount.vertexCount;
 		const ticount = tcount.indexCount;
-		const vcount = EShapeTriangleRoundedUploaded.VERTEX_COUNT + tvcount;
-		const icount = EShapeTriangleRoundedUploaded.INDEX_COUNT + ticount;
+		const vcount = TRIANGLE_ROUNDED_VERTEX_COUNT + tvcount;
+		const icount = TRIANGLE_ROUNDED_INDEX_COUNT + ticount;
 		if( voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity ) {
 			return new EShapeTriangleRoundedUploaded(
 				buffer,

@@ -5,6 +5,7 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
+import { RECTANGLE_INDEX_COUNT, RECTANGLE_VERTEX_COUNT } from "./build-rectangle";
 import { EShapeRectangleUploaded } from "./e-shape-rectangle-uploaded";
 import { EShapeTextUploadeds } from "./e-shape-text-uploadeds";
 
@@ -17,8 +18,8 @@ export class EShapeRectangleUploadeds {
 		const tcount = EShapeTextUploadeds.getTextCount( shape, buffer.workCount );
 		const tvcount = tcount.vertexCount;
 		const ticount = tcount.indexCount;
-		const vcount = 12 + tvcount;
-		const icount = 8 + ticount;
+		const vcount = RECTANGLE_VERTEX_COUNT + tvcount;
+		const icount = RECTANGLE_INDEX_COUNT + ticount;
 		if( voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity ) {
 			return new EShapeRectangleUploaded(
 				buffer,

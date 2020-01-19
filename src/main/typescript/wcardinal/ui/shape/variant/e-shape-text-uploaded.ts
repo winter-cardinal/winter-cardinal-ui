@@ -13,7 +13,9 @@ import { EShapeTextAlignHorizontal } from "../e-shape-text-align-horizontal";
 import { EShapeTextAlignVertical } from "../e-shape-text-align-vertical";
 import { EShapeTextDirection } from "../e-shape-text-direction";
 import { EShapeUploadedBase } from "../e-shape-uploaded";
+import { buildColor } from "./build-color";
 import { EShapeTextUploadeds } from "./e-shape-text-uploadeds";
+import { utilCalcLength } from "./util-calc-length";
 
 const FMIN: number = 0.00001;
 
@@ -494,13 +496,13 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 			const y3 = y0 + (y2 - y1);
 
 			// Horizontal normal
-			const hl = this.calcLength( x0, y0, x1, y1 );
+			const hl = utilCalcLength( x0, y0, x1, y1 );
 			this.normalize( internalTransform.a, internalTransform.b, 1, 0, work );
 			let hnx = work.x;
 			let hny = work.y;
 
 			// Vertical normal
-			const vl = this.calcLength( x0, y0, x3, y3 );
+			const vl = utilCalcLength( x0, y0, x3, y3 );
 			this.normalize( internalTransform.c, internalTransform.d, 0, 1, work );
 			let vnx = work.x;
 			let vny = work.y;
@@ -1049,7 +1051,7 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 			this.textAlpha = alpha;
 			buffer.colorFillBuffer.update();
 
-			this.fillColor(
+			buildColor(
 				color, alpha,
 				this.vertexOffset + this.vertexCount - this.textVertexCount,
 				this.textVertexCount,
@@ -1068,7 +1070,7 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 			this.textOutlineAlpha = alpha;
 			buffer.colorStrokeBuffer.update();
 
-			this.fillColor(
+			buildColor(
 				color, alpha,
 				this.vertexOffset + this.vertexCount - this.textVertexCount,
 				this.textVertexCount,
