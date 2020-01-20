@@ -3,10 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { interaction } from "pixi.js";
+import InteractionEvent = interaction.InteractionEvent;
+import { DApplications } from "./d-applications";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DSliderRange } from './d-slider-range';
 import { DSliderMin } from './d-slider-min';
 import { DSliderMax } from './d-slider-max';
+import { UtilPointerEvent } from "./util/util-pointer-event";
 
 export interface DSliderOptions<THEME extends DThemeSlider> extends DBaseOptions<THEME> {
 
@@ -26,6 +30,8 @@ export class DSlider<
 	protected _minRange!: DSliderMin;
 	protected _sliderRange!: DSliderRange;
 	protected _maxRange!: DSliderMax;
+	protected _onSliderButtonMove!: ( e: InteractionEvent ) => void;
+	protected _onSliderButtonUp!: ( e: InteractionEvent ) => void;
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
@@ -59,6 +65,49 @@ export class DSlider<
 		this.addChild(this._minRange);
 		this.addChild(this._sliderRange);
 		this.addChild(this._maxRange);
+
+		if (sliderBar && sliderBarChosen && sliderButton) {
+			sliderBar.on( UtilPointerEvent.down, ( e: InteractionEvent) => {
+				this.onsliderBarDown( e );
+			});
+			sliderBarChosen.on( UtilPointerEvent.down, ( e: InteractionEvent) => {
+				this.onsliderBarChosenDown( e );
+			});
+			sliderButton.on(UtilPointerEvent.down, ( e: InteractionEvent ) => {
+				this.onSliderButtonDown( e );
+			});
+			this._onSliderButtonMove = ( e: InteractionEvent ): void => {
+				this.onSliderButtonMove();
+			};
+			this._onSliderButtonUp = ( e: InteractionEvent ): void => {
+				this.onSliderButtonUp( e );
+			};
+		}
+	}
+	protected onsliderBarDown(e: InteractionEvent ): void {
+		this._sliderRange.updateSliderValue(this._minRange.value, this._maxRange.value);
+	}
+	protected onsliderBarChosenDown(e: InteractionEvent ): void {
+		this._sliderRange.updateSliderValue(this._minRange.value, this._maxRange.value);
+	}
+	protected onSliderButtonDown(e: InteractionEvent ): void {
+		const layer = DApplications.getLayer( this );
+		if( layer ) {
+			const stage = layer.stage;
+			stage.on( UtilPointerEvent.move, this._onSliderButtonMove );
+			stage.on( UtilPointerEvent.up, this._onSliderButtonUp );
+		}
+	}
+	protected onSliderButtonUp( e: InteractionEvent ): void {
+		const layer = DApplications.getLayer( this );
+		if( layer ) {
+			const stage = layer.stage;
+			stage.off( UtilPointerEvent.move, this._onSliderButtonMove );
+			stage.off( UtilPointerEvent.up, this._onSliderButtonUp );
+		}
+	}
+	protected onSliderButtonMove(): void {
+		this._sliderRange.updateSliderValue(this._minRange.value, this._maxRange.value);
 	}
 	protected getType(): string {
 

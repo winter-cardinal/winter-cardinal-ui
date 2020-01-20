@@ -3,11 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { interaction, Point } from "pixi.js";
+import { DApplications } from "./d-applications";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DSliderBarChosen } from './d-slider-bar-chosen';
 import { DSliderBar } from './d-slider-bar';
 import { DSliderButton } from './d-slider-button';
 import { DSliderValue } from "./d-slider-value";
+import InteractionEvent = interaction.InteractionEvent;
+import { UtilPointerEvent } from "./util/util-pointer-event";
 
 export interface DSliderRangeOptions<THEME extends DThemeSliderRange> extends DBaseOptions<THEME> {
 
@@ -33,9 +37,13 @@ export class DSliderRange<
 	protected _sliderValue?: DSliderValue;
 	protected _sliderBarWidth!: number;
 	protected _sliderButtonWidth!: number;
-	protected _offset?: number;
-	protected _yOffset?: number;
-	protected _ratioValue?: number;
+	protected _offset!: number;
+	protected _yOffset!: number;
+	protected _ratioValue!: number;
+	protected _onSliderButtonMove!: ( e: InteractionEvent ) => void;
+	protected _onSliderButtonUp!: ( e: InteractionEvent ) => void;
+	protected _onSliderBarUp!: ( e: InteractionEvent ) => void;
+	protected _onSliderBarChosenUp!: ( e: InteractionEvent ) => void;
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
@@ -69,8 +77,121 @@ export class DSliderRange<
 		this.addChild(this._sliderBar);
 		this.addChild(this._sliderBarChosen);
 		this.addChild(this._sliderButton);
-		this.addChild(this._sliderValue);
-		
+
+		this._sliderBar.on( UtilPointerEvent.down, ( e: InteractionEvent) => {
+			if ( this._sliderValue ) {
+				this.addChild(this._sliderValue);
+			}
+			this.onSliderBarDown(e.data.global);
+		});
+		this._sliderBarChosen.on( UtilPointerEvent.down, ( e: InteractionEvent) => {
+			if ( this._sliderValue ) {
+				this.addChild(this._sliderValue);
+			}
+			this.onSliderBarChosenDown(e.data.global);
+		});
+		this._onSliderBarUp = ( e: InteractionEvent ): void => {
+			this.onSliderBarUp( e );
+			if ( this._sliderValue ) {
+				this.removeChild(this._sliderValue);
+			}
+		};
+		this._onSliderBarChosenUp = ( e: InteractionEvent ): void => {
+			this.onSliderBarChosenUp( e );
+			if ( this._sliderValue ) {
+				this.removeChild(this._sliderValue);
+			}
+		};
+		this._sliderButton.on(UtilPointerEvent.down, ( e: InteractionEvent ) => {
+			if (this._sliderValue) {
+				this.addChild(this._sliderValue);
+			}
+			this.onSliderButtonDown( e );
+		});
+
+		this._onSliderButtonMove = ( e: InteractionEvent ): void => {
+			this.onSliderButtonMove( e );
+		};
+		this._onSliderButtonUp = ( e: InteractionEvent ): void => {
+			this.onSliderButtonUp( e );
+			if (this._sliderValue) {
+				this.removeChild(this._sliderValue);
+			}
+		};
+
+	}
+	protected onSliderBarDown( global: Point ) {
+		const layer = DApplications.getLayer( this );
+		if ( layer ) {
+			const stage = layer.stage;
+			stage.on( UtilPointerEvent.up, this._onSliderBarUp );
+		}
+		this.onPick( global );
+	}
+	protected onSliderBarChosenDown( global: Point ) {
+		const layer = DApplications.getLayer( this );
+		if ( layer ) {
+			const stage = layer.stage;
+			stage.on( UtilPointerEvent.up, this._onSliderBarChosenUp );
+		}
+		this.onPick( global );
+	}
+	protected onSliderBarUp( e: InteractionEvent ): void {
+		const layer = DApplications.getLayer( this );
+		if ( layer ) {
+			const stage = layer.stage;
+			stage.off( UtilPointerEvent.up, this._onSliderBarUp );
+		}
+	}
+	protected onSliderBarChosenUp( e: InteractionEvent ): void {
+		const layer = DApplications.getLayer( this );
+		if ( layer ) {
+			const stage = layer.stage;
+			stage.off( UtilPointerEvent.up, this._onSliderBarChosenUp );
+		}
+	}
+	protected onSliderButtonMove( e: InteractionEvent ): void {
+		this.onPick( e.data.global );
+	}
+	protected onSliderButtonDown( e: InteractionEvent ): void {
+		const layer = DApplications.getLayer( this );
+		if ( layer ) {
+			const stage = layer.stage;
+			stage.on( UtilPointerEvent.move, this._onSliderButtonMove );
+			stage.on( UtilPointerEvent.up, this._onSliderButtonUp );
+		}
+	}
+	protected onSliderButtonUp( e: InteractionEvent ): void {
+		const layer = DApplications.getLayer( this );
+		if ( layer ) {
+			const stage = layer.stage;
+			stage.off( UtilPointerEvent.move, this._onSliderButtonMove );
+			stage.off( UtilPointerEvent.up, this._onSliderButtonUp );
+		}
+	}
+	protected onPick( global: Point ) {
+		const point = new Point(0, 0);
+		this.toLocal( global, undefined, point );
+		const x = Math.max( 0, Math.min( this._sliderBarWidth, point.x ) );
+		if (this._sliderButton && this._sliderValue && this._sliderBarChosen) {
+			if ( x < this._sliderButtonWidth / 2 ) {
+				this._sliderButton.x = 0;
+			} else if (x > (this._sliderBarWidth - this._sliderButtonWidth / 2)) {
+				this._sliderButton.x = this._sliderBarWidth - this._sliderButtonWidth;
+			} else {
+				this._sliderButton.x = x - this._sliderButtonWidth / 2;
+			}
+			this._ratioValue = x / this._sliderBarWidth;
+			this._sliderBarChosen.width = this._sliderButton.x;
+			this._sliderValue.x = this._sliderButton.x - this._offset;
+		}
+	}
+	updateSliderValue(min: number, max: number) {
+		const value: number = min + this._ratioValue * (max - min);
+		if (this._sliderValue) {
+			this._sliderValue.value = Math.round(value);
+			this._sliderValue.text = String(this._sliderValue.value);
+		}
 	}
 	get sliderButton() : DSliderButton | null {
 		if (this._sliderButton) {
