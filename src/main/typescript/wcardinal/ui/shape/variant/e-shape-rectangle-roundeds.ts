@@ -12,10 +12,6 @@ export class EShapeRectangleRoundeds {
 	static deserialize(
 		item: DDiagramSerializedItem, manager: EShapeResourceManagerDeserialization
 	): Promise<EShapeRectangleRounded> | EShapeRectangleRounded {
-		return EShapeDeserializer.deserialize( item, manager, EShapeRectangleRoundeds.create() );
-	}
-
-	static create(): EShapeRectangleRounded {
-		return new EShapeRectangleRounded();
+		return EShapeDeserializer.deserialize( item, manager, new EShapeRectangleRounded() );
 	}
 }

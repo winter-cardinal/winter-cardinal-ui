@@ -12,10 +12,6 @@ export class EShapeRectangles {
 	static deserialize(
 		item: DDiagramSerializedItem, manager: EShapeResourceManagerDeserialization
 	): Promise<EShapeRectangle> | EShapeRectangle {
-		return EShapeDeserializer.deserialize( item, manager, EShapeRectangles.create() );
-	}
-
-	static create() {
-		return new EShapeRectangle();
+		return EShapeDeserializer.deserialize( item, manager, new EShapeRectangle() );
 	}
 }

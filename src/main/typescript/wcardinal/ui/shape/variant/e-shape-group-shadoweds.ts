@@ -12,13 +12,9 @@ export class EShapeGroupShadoweds {
 	static deserialize(
 		item: DDiagramSerializedItem, manager: EShapeResourceManagerDeserialization
 	): Promise<EShapeGroupShadowed> | EShapeGroupShadowed {
-		const shape = EShapeGroupShadoweds.create();
+		const shape = new EShapeGroupShadowed();
 		const result = EShapeDeserializer.deserialize( item, manager, shape );
 		shape.size.init();
 		return result;
-	}
-
-	static create(): EShapeGroupShadowed {
-		return new EShapeGroupShadowed();
 	}
 }

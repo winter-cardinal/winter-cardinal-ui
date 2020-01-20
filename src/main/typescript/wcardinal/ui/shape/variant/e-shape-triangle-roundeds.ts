@@ -12,10 +12,6 @@ export class EShapeTriangleRoundeds {
 	static deserialize(
 		item: DDiagramSerializedItem, manager: EShapeResourceManagerDeserialization
 	): Promise<EShapeTriangleRounded> | EShapeTriangleRounded {
-		return EShapeDeserializer.deserialize( item, manager, EShapeTriangleRoundeds.create() );
-	}
-
-	static create(): EShapeTriangleRounded {
-		return new EShapeTriangleRounded();
+		return EShapeDeserializer.deserialize( item, manager, new EShapeTriangleRounded() );
 	}
 }

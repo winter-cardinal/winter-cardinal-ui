@@ -19,10 +19,6 @@ export class EShapeImages {
 	static deserialize(
 		item: DDiagramSerializedItem, manager: EShapeResourceManagerDeserialization
 	): Promise<EShapeImage> | EShapeImage {
-		return EShapeDeserializer.deserialize( item, manager, EShapeImages.create() );
-	}
-
-	static create(): EShapeImage {
-		return new EShapeImage();
+		return EShapeDeserializer.deserialize( item, manager, new EShapeImage() );
 	}
 }

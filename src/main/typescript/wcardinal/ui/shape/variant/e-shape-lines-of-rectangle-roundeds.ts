@@ -12,10 +12,6 @@ export class EShapeLinesOfRectangleRoundeds {
 	static deserialize(
 		item: DDiagramSerializedItem, manager: EShapeResourceManagerDeserialization
 	): Promise<EShapeLineOfRectangleRoundeds> | EShapeLineOfRectangleRoundeds {
-		return EShapeDeserializer.deserialize( item, manager, EShapeLinesOfRectangleRoundeds.create() );
-	}
-
-	static create(): EShapeLineOfRectangleRoundeds {
-		return new EShapeLineOfRectangleRoundeds();
+		return EShapeDeserializer.deserialize( item, manager, new EShapeLineOfRectangleRoundeds() );
 	}
 }

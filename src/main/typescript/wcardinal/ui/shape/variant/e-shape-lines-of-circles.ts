@@ -12,10 +12,6 @@ export class EShapeLinesOfCircles {
 	static deserialize(
 		item: DDiagramSerializedItem, manager: EShapeResourceManagerDeserialization
 	): Promise<EShapeLineOfCircles> | EShapeLineOfCircles {
-		return EShapeDeserializer.deserialize( item, manager, EShapeLinesOfCircles.create() );
-	}
-
-	static create(): EShapeLineOfCircles {
-		return new EShapeLineOfCircles();
+		return EShapeDeserializer.deserialize( item, manager, new EShapeLineOfCircles() );
 	}
 }

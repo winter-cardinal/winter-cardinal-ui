@@ -12,13 +12,9 @@ export class EShapeGroups {
 	static deserialize(
 		item: DDiagramSerializedItem, manager: EShapeResourceManagerDeserialization
 	): Promise<EShapeGroup> | EShapeGroup {
-		const shape = EShapeGroups.create();
+		const shape = new EShapeGroup();
 		const result = EShapeDeserializer.deserialize( item, manager, shape );
 		shape.size.init();
 		return result;
-	}
-
-	static create(): EShapeGroup {
-		return new EShapeGroup();
 	}
 }
