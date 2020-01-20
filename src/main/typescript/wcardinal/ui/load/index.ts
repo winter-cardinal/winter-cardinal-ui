@@ -155,5 +155,6 @@ export * from "./load-theme-dark-picker-time";
 export * from "./load-theme-dark-scroll-bar";
 export * from "./load-theme-dark-select";
 export * from "./load-theme-dark-shape-action-value";
+export * from "./load-theme-dark-table";
 export * from "./load-theme-dark-text";
 export * from "./load-theme-dark-view";
