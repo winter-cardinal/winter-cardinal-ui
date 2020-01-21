@@ -5,6 +5,7 @@
 
 import { DThemeDark } from "../theme/dark/d-theme-dark";
 import { DThemeDarkTable } from "../theme/dark/d-theme-dark-table";
+import { DThemeDarkTableBody } from "../theme/dark/d-theme-dark-table-body";
 import { DThemeDarkTableBodyCellCheck } from "../theme/dark/d-theme-dark-table-body-cell-check";
 import { DThemeDarkTableBodyCellColor } from "../theme/dark/d-theme-dark-table-body-cell-color";
 import { DThemeDarkTableBodyCellDate } from "../theme/dark/d-theme-dark-table-body-cell-date";
@@ -17,6 +18,8 @@ import { DThemeDarkTableBodyCellSelectDialog } from "../theme/dark/d-theme-dark-
 import { DThemeDarkTableBodyCellSelectFetcher } from "../theme/dark/d-theme-dark-table-body-cell-select-fetcher";
 import { DThemeDarkTableBodyCellSelectMenu } from "../theme/dark/d-theme-dark-table-body-cell-select-menu";
 import { DThemeDarkTableBodyCellText } from "../theme/dark/d-theme-dark-table-body-cell-text";
+import { DThemeDarkTableBodyCellTime } from "../theme/dark/d-theme-dark-table-body-cell-time";
+import { DThemeDarkTableBodyRow } from "../theme/dark/d-theme-dark-table-body-row";
 import { DThemeDarkTableCategory } from "../theme/dark/d-theme-dark-table-category";
 import { DThemeDarkTableCategoryCell } from "../theme/dark/d-theme-dark-table-category-cell";
 import { DThemeDarkTableHeader } from "../theme/dark/d-theme-dark-table-header";
@@ -45,6 +48,9 @@ export const loadThemeDarkTable = () => {
 	DThemeDark.set( "DTableBodyCellSelectFetcher", DThemeDarkTableBodyCellSelectFetcher );
 	DThemeDark.set( "DTableBodyCellSelectMenu", DThemeDarkTableBodyCellSelectMenu );
 	DThemeDark.set( "DTableBodyCellText", DThemeDarkTableBodyCellText );
+	DThemeDark.set( "DTableBodyCellTime", DThemeDarkTableBodyCellTime );
+	DThemeDark.set( "DTableBodyRow", DThemeDarkTableBodyRow );
+	DThemeDark.set( "DTableBody", DThemeDarkTableBody );
 	DThemeDark.set( "DTableCategoryCell", DThemeDarkTableCategoryCell );
 	DThemeDark.set( "DTableCategory", DThemeDarkTableCategory );
 	DThemeDark.set( "DTableHeaderCell", DThemeDarkTableHeaderCell );
