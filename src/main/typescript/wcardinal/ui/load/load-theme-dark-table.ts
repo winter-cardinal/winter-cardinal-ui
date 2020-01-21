@@ -9,6 +9,10 @@ import { DThemeDarkTableBodyCellCheck } from "../theme/dark/d-theme-dark-table-b
 import { DThemeDarkTableBodyCellColor } from "../theme/dark/d-theme-dark-table-body-cell-color";
 import { DThemeDarkTableBodyCellDate } from "../theme/dark/d-theme-dark-table-body-cell-date";
 import { DThemeDarkTableBodyCellDatetime } from "../theme/dark/d-theme-dark-table-body-cell-datetime";
+import { DThemeDarkTableBodyCellIndex } from "../theme/dark/d-theme-dark-table-body-cell-index";
+import { DThemeDarkTableBodyCellInputInteger } from "../theme/dark/d-theme-dark-table-body-cell-input-integer";
+import { DThemeDarkTableBodyCellInputReal } from "../theme/dark/d-theme-dark-table-body-cell-input-real";
+import { DThemeDarkTableBodyCellInputText } from "../theme/dark/d-theme-dark-table-body-cell-input-text";
 import { DThemeDarkTableCategory } from "../theme/dark/d-theme-dark-table-category";
 import { DThemeDarkTableCategoryCell } from "../theme/dark/d-theme-dark-table-category-cell";
 import { DThemeDarkTableHeader } from "../theme/dark/d-theme-dark-table-header";
@@ -29,6 +33,10 @@ export const loadThemeDarkTable = () => {
 	DThemeDark.set( "DTableBodyCellColor", DThemeDarkTableBodyCellColor );
 	DThemeDark.set( "DTableBodyCellDate", DThemeDarkTableBodyCellDate );
 	DThemeDark.set( "DTableBodyCellDatetime", DThemeDarkTableBodyCellDatetime );
+	DThemeDark.set( "DTableBodyCellIndex", DThemeDarkTableBodyCellIndex );
+	DThemeDark.set( "DTableBodyCellInputInteger", DThemeDarkTableBodyCellInputInteger );
+	DThemeDark.set( "DTableBodyCellInputReal", DThemeDarkTableBodyCellInputReal );
+	DThemeDark.set( "DTableBodyCellInputText", DThemeDarkTableBodyCellInputText );
 	DThemeDark.set( "DTableCategoryCell", DThemeDarkTableCategoryCell );
 	DThemeDark.set( "DTableCategory", DThemeDarkTableCategory );
 	DThemeDark.set( "DTableHeaderCell", DThemeDarkTableHeaderCell );
