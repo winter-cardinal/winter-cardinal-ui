@@ -187,6 +187,23 @@ export class DSliderRangeVertical<
 		this._sliderValue.value = Math.round(value);
 		this._sliderValue.text = String(this._sliderValue.value);
 	}
+	updateSliderButton(min: number, max: number, value: number) {
+		this._ratioValue = (value - min) / (max - min);
+		const y = this.height - this._ratioValue * this._sliderBarHeight;
+		if (y > (this.height - this._sliderButtonHeight / 2)) {
+			this._sliderButton.y = this._sliderBarHeight - this._sliderButtonHeight;
+		} else {
+			this._sliderButton.y = y;
+		}
+		this._sliderBarChosen.y = this._sliderButton.y;
+		this._sliderBarChosen.height = this.height - this._sliderBarChosen.y;
+		this._sliderValue.y = this._sliderButton.y - this._Yoffset;
+		this._sliderValue.value = value;
+		this._sliderValue.text = String(value);
+	}
+	get sliderValue(): number {
+		return this._sliderValue.value;
+	}
 	get sliderButton(): DSliderButton {
 		return this._sliderButton;
 	}

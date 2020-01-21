@@ -6,6 +6,7 @@
 import { interaction } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
+import { SliderValues } from "./d-slider";
 import { DSliderMax } from "./d-slider-max";
 import { DSliderMin } from "./d-slider-min";
 import { DSliderRangeVertical } from "./d-slider-range-vertical";
@@ -100,6 +101,31 @@ export class DSliderVertical<
 	}
 	protected onSliderButtonMove(): void {
 		this._sliderRange.updateSliderValue(this._minRange.value, this._maxRange.value);
+	}
+	setSliderValues(sliderValues: SliderValues) {
+		if (this.isSliderValuesValid(sliderValues)) {
+			this._minRange.value = sliderValues.min;
+			this._minRange.text = String(this._minRange.value);
+			this._maxRange.value = sliderValues.max;
+			this._maxRange.text = String(this._maxRange.value);
+			this._sliderRange.updateSliderButton(sliderValues.min, sliderValues.max, sliderValues.value);
+		}
+	}
+	getSliderValues(): SliderValues {
+		return {
+			min: this._minRange.value,
+			max: this._maxRange.value,
+			value: this._sliderRange.sliderValue
+		};
+	}
+	isSliderValuesValid(sliderValues: SliderValues): boolean {
+		if (sliderValues.max < sliderValues.min) {
+			return false;
+		}
+		if (sliderValues.value < sliderValues.min || sliderValues.max < sliderValues.value) {
+			return false;
+		}
+		return true;
 	}
 	protected getType(): string {
 		return "DSliderVertical";

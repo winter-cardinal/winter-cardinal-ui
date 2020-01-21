@@ -190,6 +190,22 @@ export class DSliderRange<
 		this._sliderValue.value = Math.round(value);
 		this._sliderValue.text = String(this._sliderValue.value);
 	}
+	updateSliderButton(min: number, max: number, value: number) {
+		this._ratioValue = (value - min) / (max - min);
+		const x =  this._ratioValue * this._sliderBarWidth;
+		if (x > (this._sliderBarWidth - this._sliderButtonWidth / 2)) {
+			this._sliderButton.x = this._sliderBarWidth - this._sliderButtonWidth;
+		} else {
+			this._sliderButton.x = x;
+		}
+		this._sliderBarChosen.width = this._sliderButton.x;
+		this._sliderValue.x = this._sliderButton.x - this._offset;
+		this._sliderValue.value = value;
+		this._sliderValue.text = String(value);
+	}
+	get sliderValue(): number {
+		return this._sliderValue.value;
+	}
 	get sliderButton(): DSliderButton {
 		return this._sliderButton;
 	}
