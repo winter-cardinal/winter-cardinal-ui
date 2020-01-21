@@ -296,6 +296,7 @@ export default ( !process.env.ROLLUP_WATCH ?
 			}
 		}],
 		plugins: [
+			remove(),
 			resolve(),
 			commonjs()
 		],
@@ -306,7 +307,7 @@ export default ( !process.env.ROLLUP_WATCH ?
 		input: `${SOURCE_DIR}${name}-theme-white.browser.js`,
 		output: [{
 			name: 'none',
-			file: `${OUTPUT_FILE}.js`,
+			file: `${OUTPUT_FILE}-theme-white.js`,
 			format: 'iife',
 			banner: BANNER,
 			freeze: false,
@@ -315,7 +316,7 @@ export default ( !process.env.ROLLUP_WATCH ?
 			}
 		}],
 		plugins: [
-			remove(),
+			bypass( BYPASS_TARGET_WHITE ),
 			resolve(),
 			commonjs()
 		],
@@ -326,7 +327,7 @@ export default ( !process.env.ROLLUP_WATCH ?
 		input: `${SOURCE_DIR}${name}-theme-dark.browser.js`,
 		output: [{
 			name: 'none',
-			file: `${OUTPUT_FILE}.js`,
+			file: `${OUTPUT_FILE}-theme-dark.js`,
 			format: 'iife',
 			banner: BANNER,
 			freeze: false,
@@ -335,7 +336,7 @@ export default ( !process.env.ROLLUP_WATCH ?
 			}
 		}],
 		plugins: [
-			bypass( BYPASS_TARGET_WHITE ),
+			bypass( BYPASS_TARGET_DARK ),
 			resolve(),
 			commonjs(),
 			copy({
