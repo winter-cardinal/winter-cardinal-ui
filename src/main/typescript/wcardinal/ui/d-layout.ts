@@ -6,16 +6,12 @@
 import { DisplayObject } from "pixi.js";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
-import { DCornerMask } from "./d-corner";
+import { DCornerMask } from "./d-corner-mask";
 import { DLayoutClearType } from "./d-layout-clear-type";
+import { DLayoutDirection } from "./d-layout-direction";
 import { DLayoutSpace, DLayoutSpaceOptions } from "./d-layout-space";
-import { utilIsNumber } from "./util/util-is-number";
-import { utilIsString } from "./util/util-is-string";
-
-export enum DLayoutDirection {
-	VERTICAL,
-	HORIZONTAL
-}
+import { isNumber } from "./util/is-number";
+import { isString } from "./util/is-string";
 
 export interface DLayoutMargin {
 	horizontal: number;
@@ -62,7 +58,7 @@ const toMultiplicity = ( theme: DThemeLayout, options?: DLayoutOptions<DThemeLay
 const toMargin = ( theme: DThemeLayout, options?: DLayoutOptions<DThemeLayout> ): DLayoutMargin => {
 	if( options && options.margin != null ) {
 		const margin = options.margin;
-		if( utilIsNumber( margin ) ) {
+		if( isNumber( margin ) ) {
 			return {
 				horizontal: margin,
 				vertical: margin
@@ -86,7 +82,7 @@ const toMargin = ( theme: DThemeLayout, options?: DLayoutOptions<DThemeLayout> )
 const toDirection = ( theme: DThemeLayout, options?: DLayoutOptions<DThemeLayout> ): DLayoutDirection => {
 	if( options && options.direction != null ) {
 		const direction = options.direction;
-		if( utilIsString( direction ) ) {
+		if( isString( direction ) ) {
 			return DLayoutDirection[ direction ];
 		} else {
 			return direction;
@@ -96,7 +92,7 @@ const toDirection = ( theme: DThemeLayout, options?: DLayoutOptions<DThemeLayout
 };
 
 const toCornerAdjust = ( theme: DThemeLayout, options?: DLayoutOptions<DThemeLayout> ): boolean => {
-	if( options && options.corner != null && ! utilIsNumber( options.corner ) && options.corner.adjust != null ) {
+	if( options && options.corner != null && ! isNumber( options.corner ) && options.corner.adjust != null ) {
 		return options.corner.adjust;
 	}
 	return theme.getCornerAdjust();

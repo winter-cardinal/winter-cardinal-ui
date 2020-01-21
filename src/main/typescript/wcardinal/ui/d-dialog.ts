@@ -10,15 +10,10 @@ import { DApplications } from "./d-applications";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DFocusable } from "./d-controller-focus";
+import { DDialogCloseOn } from "./d-dialog-close-on";
 import { UtilClickOutside } from "./util/util-click-outside";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilOverlay } from "./util/util-overlay";
-
-export enum DDialogCloseOn {
-	NONE = 0,
-	ESC = 1,
-	CLICK_OUTSIDE = 2
-}
 
 export interface DDialogOptions<THEME extends DThemeDialog = DThemeDialog> extends DBaseOptions<THEME> {
 	closeOn?: DDialogCloseOn;

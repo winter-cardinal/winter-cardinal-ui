@@ -14,7 +14,7 @@ import { loadThemeWhiteDiagramEditor } from "./load-theme-white-diagram-editor";
 import { loadThemeWhiteDialogAll } from "./load-theme-white-dialog-all";
 import { loadThemeWhiteDropdown } from "./load-theme-white-dropdown";
 import { loadThemeWhiteExpandable } from "./load-theme-white-expandable";
-import { loadThemeWhiteHTMLElement } from "./load-theme-white-html-element";
+import { loadThemeWhiteHtmlElement } from "./load-theme-white-html-element";
 import { loadThemeWhiteImage } from "./load-theme-white-image";
 import { loadThemeWhiteInputAll } from "./load-theme-white-input-all";
 import { loadThemeWhiteLayout } from "./load-theme-white-layout";
@@ -47,7 +47,7 @@ export const loadThemeWhiteAll = () => {
 	loadThemeWhiteDialogAll();
 	loadThemeWhiteDropdown();
 	loadThemeWhiteExpandable();
-	loadThemeWhiteHTMLElement();
+	loadThemeWhiteHtmlElement();
 	loadThemeWhiteImage();
 	loadThemeWhiteInputAll();
 	loadThemeWhiteLayout();

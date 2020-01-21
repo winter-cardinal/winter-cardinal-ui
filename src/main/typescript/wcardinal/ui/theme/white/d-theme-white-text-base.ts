@@ -7,7 +7,7 @@ import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignVertical } from "../../d-align-vertical";
 import { DBaseState } from "../../d-base-state";
 import { DThemeTextBase } from "../../d-text-base";
-import { utilToString } from "../../util/util-to-string";
+import { toString } from "../../util/to-string";
 import { DThemeWhiteBase } from "./d-theme-white-base";
 
 export class DThemeWhiteTextBase extends DThemeWhiteBase implements DThemeTextBase {
@@ -40,6 +40,6 @@ export class DThemeWhiteTextBase extends DThemeWhiteBase implements DThemeTextBa
 	}
 
 	getTextFormatter(): ( value: any, caller: any ) => string {
-		return utilToString;
+		return toString;
 	}
 }

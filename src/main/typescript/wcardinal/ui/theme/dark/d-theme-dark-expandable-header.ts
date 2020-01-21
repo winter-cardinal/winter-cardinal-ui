@@ -6,7 +6,7 @@
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { DCoordinateSize } from "../../d-coordinate";
-import { DCornerMask } from "../../d-corner";
+import { DCornerMask } from "../../d-corner-mask";
 import { DThemeExpandableHeader } from "../../d-expandable-header";
 import { UtilRgb } from "../../util/util-rgb";
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";

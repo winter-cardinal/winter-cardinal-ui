@@ -4,8 +4,8 @@
  */
 
 import { DThemeWhite } from "../theme/white/d-theme-white";
-import { DThemeWhiteHTMLElement } from "../theme/white/d-theme-white-html-element";
+import { DThemeWhiteHtmlElement } from "../theme/white/d-theme-white-html-element";
 
-export const loadThemeWhiteHTMLElement = () => {
-	DThemeWhite.set( "DHTMLElement", DThemeWhiteHTMLElement );
+export const loadThemeWhiteHtmlElement = () => {
+	DThemeWhite.set( "DHtmlElement", DThemeWhiteHtmlElement );
 };

@@ -4,7 +4,7 @@
  */
 
 import { DDiagramSerializedItem } from "../d-diagram-serialized";
-import { utilIsString } from "../util/util-is-string";
+import { isString } from "../util/is-string";
 import { EShapeActionValueDeserializer } from "./action/e-shape-action-value-deserializer";
 import { EShape } from "./e-shape";
 import { EShapeDeserializers } from "./e-shape-deserializers";
@@ -78,7 +78,7 @@ export class EShapeDeserializer {
 		const gradientId = item[ 19 ];
 		if( 0 <= gradientId && gradientId < manager.resources.length ) {
 			const gradient = manager.resources[ gradientId ];
-			if( utilIsString( gradient ) ) {
+			if( isString( gradient ) ) {
 				result.gradient = EShapeGradients.deserializeGradient( gradient );
 			}
 		}
@@ -88,7 +88,7 @@ export class EShapeDeserializer {
 		const imageId = item[ 18 ];
 		if( 0 <= imageId && imageId < manager.resources.length ) {
 			const imageSrc = manager.resources[ imageId ];
-			if( utilIsString( imageSrc ) ) {
+			if( isString( imageSrc ) ) {
 				imagePromise = EShapeImageElements.toImageElement( imageSrc ).then(( imageElement ) => {
 					result.image = imageElement;
 					return result;

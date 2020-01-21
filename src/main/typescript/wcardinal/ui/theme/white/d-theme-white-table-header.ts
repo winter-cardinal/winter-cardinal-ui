@@ -5,7 +5,7 @@
 
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
-import { DBorderMask } from "../../d-border";
+import { DBorderMask } from "../../d-border-mask";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeTableHeader } from "../../d-table-header";
 import { DThemeWhiteTableRow } from "./d-theme-white-table-row";

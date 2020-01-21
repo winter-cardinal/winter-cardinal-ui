@@ -4,7 +4,7 @@ import { DApplicationLayerOptions } from "./d-application-layer-options";
 import { DApplicationLike } from "./d-application-like";
 import { DApplications } from "./d-applications";
 import { DPaddingLike } from "./d-padding";
-import { utilIsString } from "./util/util-is-string";
+import { isString } from "./util/is-string";
 
 export interface DApplicationBackgroundOptions {
 	color?: number;
@@ -112,7 +112,7 @@ export class DApplication implements DApplicationLike {
 	protected toRootElement( options?: DApplicationOptions ): HTMLElement {
 		const root = options && options.root;
 		if( root != null ) {
-			if( utilIsString( root ) ) {
+			if( isString( root ) ) {
 				const found = document.querySelector<HTMLElement>( root );
 				if( found ) {
 					return found;

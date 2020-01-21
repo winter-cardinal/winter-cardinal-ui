@@ -4,9 +4,10 @@
  */
 
 import { Matrix, Point } from "pixi.js";
-import { utilIndexOf } from "../../util/util-index-of";
-import { EShapePoints, EShapePointsStyle } from "../e-shape-points";
+import { toIndexOf } from "../../util/to-index-of";
+import { EShapePoints } from "../e-shape-points";
 import { EShapePointsParent } from "../e-shape-points-parent";
+import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeLineBasePointsHitTester, EShapeLineBasePointsTestRange } from "./e-shape-line-base-points";
 
@@ -276,7 +277,7 @@ export class EShapeLinePoints implements EShapePoints {
 				iend = rangeResult[ 1 ];
 			}
 			for( let i = istart, imax = Math.min( iend, pointCount - 1 ), iv = 2 * istart; i < imax; i += 1, iv += 2 ) {
-				if( utilIndexOf( pointSegments, i + 1 ) < 0 ) {
+				if( toIndexOf( pointSegments, i + 1 ) < 0 ) {
 					const p0x = pointValues[ iv + 0 ];
 					const p0y = pointValues[ iv + 1 ];
 					const p1x = pointValues[ iv + 2 ];
@@ -287,7 +288,7 @@ export class EShapeLinePoints implements EShapePoints {
 				}
 			}
 			if( 2 < pointCount && pointCount <= iend && (this.style & EShapePointsStyle.CLOSED) ) {
-				if( utilIndexOf( pointSegments, 0 ) < 0 ) {
+				if( toIndexOf( pointSegments, 0 ) < 0 ) {
 					const i = pointCount - 1;
 					const iv = i << 1;
 					const p0x = pointValues[ iv + 0 ];

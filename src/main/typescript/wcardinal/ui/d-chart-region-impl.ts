@@ -4,7 +4,7 @@
  */
 
 import { DChartRegion } from "./d-chart-region";
-import { utilIsNaN } from "./util/util-is-nan";
+import { isNaN } from "./util/is-nan";
 
 export class DChartRegionImpl implements DChartRegion {
 	from: number;
@@ -26,14 +26,14 @@ export class DChartRegionImpl implements DChartRegion {
 	}
 
 	add( from: number, to: number ): this {
-		if( ! utilIsNaN( from ) ) {
-			this.from = ( utilIsNaN( this.from ) ?
+		if( ! isNaN( from ) ) {
+			this.from = ( isNaN( this.from ) ?
 				from : Math.min( this.from, from )
 			);
 		}
 
-		if( ! utilIsNaN( to ) ) {
-			this.to = ( utilIsNaN( this.to ) ?
+		if( ! isNaN( to ) ) {
+			this.to = ( isNaN( this.to ) ?
 				to : Math.max( this.to, to )
 			);
 		}

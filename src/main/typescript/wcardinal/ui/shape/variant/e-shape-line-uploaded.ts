@@ -4,13 +4,14 @@
  */
 
 import { Matrix } from "pixi.js";
-import { utilIndexOf } from "../../util/util-index-of";
+import { toIndexOf } from "../../util/to-index-of";
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
-import { EShapePoints, EShapePointsStyle } from "../e-shape-points";
+import { EShapePoints } from "../e-shape-points";
+import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapePointsStyleUploadeds } from "../e-shape-points-style-uploadeds";
 import { EShapeTextUploaded } from "./e-shape-text-uploaded";
-import { utilCalcLength } from "./util-calc-length";
+import { toLength } from "./to-length";
 
 const FMIN: number = 0.00001;
 
@@ -244,7 +245,7 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 		internalTransform.apply( work, work );
 		const pfirstx = work.x;
 		const pfirsty = work.y;
-		const psegfirst = ( 0 <= utilIndexOf( pointSegments, 0 ) );
+		const psegfirst = ( 0 <= toIndexOf( pointSegments, 0 ) );
 
 		// Last point
 		const lastIndex = (pointCount - 1) << 1;
@@ -252,7 +253,7 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 		internalTransform.apply( work, work );
 		const plastx = work.x;
 		const plasty = work.y;
-		const pseglast = ( 0 <= utilIndexOf( pointSegments, pointCount - 1 ) );
+		const pseglast = ( 0 <= toIndexOf( pointSegments, pointCount - 1 ) );
 
 		// Second point
 		let psecondx = plastx;
@@ -263,7 +264,7 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 			internalTransform.apply( work, work );
 			psecondx = work.x;
 			psecondy = work.y;
-			psegsecond = ( 0 <= utilIndexOf( pointSegments, 1 ) );
+			psegsecond = ( 0 <= toIndexOf( pointSegments, 1 ) );
 		}
 
 		// First segment
@@ -283,7 +284,7 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 			pnexty = psecondy;
 			pseg = psegfirst;
 			psegnext = psegsecond;
-			lnext += utilCalcLength( px, py, pnextx, pnexty );
+			lnext += toLength( px, py, pnextx, pnexty );
 
 			//
 			vertices[ iv + 0 ] = px;
@@ -329,7 +330,7 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 				internalTransform.apply( work, work );
 				pnextx = work.x;
 				pnexty = work.y;
-				psegnext = ( 0 <= utilIndexOf( pointSegments, i + 1 ) );
+				psegnext = ( 0 <= toIndexOf( pointSegments, i + 1 ) );
 			} else {
 				pnextx = pfirstx;
 				pnexty = pfirsty;
@@ -337,7 +338,7 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 			}
 			lprev = l;
 			l = lnext;
-			lnext += utilCalcLength( px, py, pnextx, pnexty );
+			lnext += toLength( px, py, pnextx, pnexty );
 
 			let pnextxn = pnextx;
 			let pnextyn = pnexty;

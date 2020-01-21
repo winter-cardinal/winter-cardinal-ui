@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { utilPad } from "../util-pad";
+import { toPadded } from "../to-padded";
 import { FormatNode } from "./format-node";
 
 export class FormatNodePadding implements FormatNode {
@@ -18,6 +18,6 @@ export class FormatNodePadding implements FormatNode {
 	}
 
 	format( target: number, step: number, date: Date ): string {
-		return utilPad(this.node.format(target, step, date), this.length, this.character);
+		return toPadded(this.node.format(target, step, date), this.length, this.character);
 	}
 }

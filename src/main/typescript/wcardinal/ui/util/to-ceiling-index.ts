@@ -11,7 +11,7 @@
  * @param value a value to be searched
  * @returns a ceiling index of the given value
  */
-export const utilCeilingIndex = <V>( array: V[], value: V, size: number, offset: number ): number => {
+export const toCeilingIndex = <V>( array: V[], value: V, size: number, offset: number ): number => {
 	let i0 = 0;
 	let i1 = Math.floor( array.length / size ) - 1;
 

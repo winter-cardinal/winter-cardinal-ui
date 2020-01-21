@@ -4,7 +4,7 @@
  */
 
 import { DScalar } from "./d-scalar";
-import { utilIsNumber } from "./util/util-is-number";
+import { isNumber } from "./util/is-number";
 
 const enum NodeType {
 	// Parensesis
@@ -161,7 +161,7 @@ export class DScalarExpression implements DScalar {
 		this.toArithmetic( nodes, NodeType.ADD, NodeType.SUB );
 		if( nodes.length === 1 ) {
 			const node = nodes[ 0 ];
-			if( ! utilIsNumber( node ) ) {
+			if( ! isNumber( node ) ) {
 				this._node = node as any;
 				return;
 			}
@@ -241,7 +241,7 @@ export class DScalarExpression implements DScalar {
 	}
 
 	toUnaryNode( node: NodeOrToken ): void {
-		if( ! utilIsNumber( node ) ) {
+		if( ! isNumber( node ) ) {
 			if( node[ 0 ] === NodeType.PARENSESIS ||
 				node[ 0 ] === NodeType.MIN ||
 				node[ 0 ] === NodeType.MAX ) {
@@ -254,8 +254,8 @@ export class DScalarExpression implements DScalar {
 		for( let i = 0, imax = nodes.length; i < imax; ++i ) {
 			const node = nodes[ i ];
 			if( node === NodeType.ADD_OR_PLUS || node === NodeType.SUB_OR_MINUS ) {
-				if( i <= 0 || utilIsNumber( nodes[ i - 1 ] ) ) {
-					if( i + 1 < imax && ! utilIsNumber( nodes[ i + 1 ] ) ) {
+				if( i <= 0 || isNumber( nodes[ i - 1 ] ) ) {
+					if( i + 1 < imax && ! isNumber( nodes[ i + 1 ] ) ) {
 						const operand = nodes.splice( i + 1, 1 )[ 0 ];
 						const type = ( node === NodeType.ADD_OR_PLUS ? NodeType.PLUS : NodeType.MINUS );
 						nodes[ i ] = [ type, operand ];
@@ -276,7 +276,7 @@ export class DScalarExpression implements DScalar {
 	}
 
 	toArithmeticNode( node: NodeOrToken, operatorA: NodeArithmeticOperator, operatorB: NodeArithmeticOperator ): void {
-		if( ! utilIsNumber( node ) ) {
+		if( ! isNumber( node ) ) {
 			if( node[ 0 ] === NodeType.PARENSESIS || node[ 0 ] === NodeType.MIN || node[ 0 ] === NodeType.MAX ) {
 				this.toArithmetic( node[ 1 ], operatorA, operatorB );
 			} else if( node[ 0 ] === NodeType.PLUS || node[ 0 ] === NodeType.MINUS ) {
@@ -296,7 +296,7 @@ export class DScalarExpression implements DScalar {
 				if( 0 < i && i + 1 < imax ) {
 					const left = nodes[ i - 1 ];
 					const right = nodes[ i + 1 ];
-					if( ! utilIsNumber( left ) && ! utilIsNumber( right ) ) {
+					if( ! isNumber( left ) && ! isNumber( right ) ) {
 						nodes.splice( i, 2 );
 						nodes[ i - 1 ] = [ node, left, right ];
 						i -= 1;

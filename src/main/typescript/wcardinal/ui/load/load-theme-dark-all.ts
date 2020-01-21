@@ -13,7 +13,7 @@ import { loadThemeDarkDiagramEditor } from "./load-theme-dark-diagram-editor";
 import { loadThemeDarkDialogAll } from "./load-theme-dark-dialog-all";
 import { loadThemeDarkDropdown } from "./load-theme-dark-dropdown";
 import { loadThemeDarkExpandable } from "./load-theme-dark-expandable";
-import { loadThemeDarkHTMLElement } from "./load-theme-dark-html-element";
+import { loadThemeDarkHtmlElement } from "./load-theme-dark-html-element";
 import { loadThemeDarkImage } from "./load-theme-dark-image";
 import { loadThemeDarkInputAll } from "./load-theme-dark-input-all";
 import { loadThemeDarkLayout } from "./load-theme-dark-layout";
@@ -47,7 +47,7 @@ export const loadThemeDarkAll = () => {
 	loadThemeDarkDialogAll();
 	loadThemeDarkDropdown();
 	loadThemeDarkExpandable();
-	loadThemeDarkHTMLElement();
+	loadThemeDarkHtmlElement();
 	loadThemeDarkImage();
 	loadThemeDarkInputAll();
 	loadThemeDarkLayout();

@@ -4,19 +4,7 @@
  */
 
 import { DThemeBase } from "./d-base";
-
-export enum DCornerMask {
-	NONE = 0,
-	TOP_LEFT = 1,
-	TOP_RIGHT = 2,
-	BOTTOM_LEFT = 4,
-	BOTTOM_RIGHT = 8,
-	TOP = TOP_LEFT | TOP_RIGHT,
-	BOTTOM = BOTTOM_LEFT | BOTTOM_RIGHT,
-	LEFT = TOP_LEFT | BOTTOM_LEFT,
-	RIGHT = TOP_RIGHT | BOTTOM_RIGHT,
-	ALL = TOP_LEFT | TOP_RIGHT | BOTTOM_LEFT | BOTTOM_RIGHT
-}
+import { DCornerMask } from "./d-corner-mask";
 
 export interface DCornerLike {
 	radius?: number;

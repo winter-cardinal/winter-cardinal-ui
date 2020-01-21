@@ -7,9 +7,9 @@ import { DChartColorSet2 } from "./d-chart-color-set";
 import { DChartSeriesScalar, DChartSeriesScalars } from "./d-chart-series-scalar";
 import { DChartSeriesStroke, DChartSeriesStrokeOptions } from "./d-chart-series-stroke";
 import { EShapeDefaults } from "./shape/e-shape-defaults";
-import { EShapePointsStyle } from "./shape/e-shape-points";
+import { EShapePointsStyle } from "./shape/e-shape-points-style";
 import { EShapePointsStyleOption } from "./shape/e-shape-points-styles";
-import { EShapeStrokeSide } from "./shape/e-shape-stroke";
+import { EShapeStrokeSide } from "./shape/e-shape-stroke-side";
 
 export class DChartSeriesStrokeImpl implements DChartSeriesStroke {
 	enable: DChartSeriesScalar<boolean>;

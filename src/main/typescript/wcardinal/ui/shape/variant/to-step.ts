@@ -1,4 +1,4 @@
-export const utilCalcStep = (
+export const toStep = (
 	size: number,
 	strokeWidth: number,
 	antialiasWeight: number,

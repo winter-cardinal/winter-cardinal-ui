@@ -67,6 +67,7 @@ export * from "./e-shape-action-value-blink-type";
 export * from "./e-shape-action-value-blink";
 export * from "./e-shape-action-value-change-color-brightness";
 export * from "./e-shape-action-value-change-color-code";
+export * from "./e-shape-action-value-change-color-target";
 export * from "./e-shape-action-value-change-color-type";
 export * from "./e-shape-action-value-change-color";
 export * from "./e-shape-action-value-change-cursor";

@@ -5,7 +5,8 @@
 
 import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseState } from "../../d-base-state";
-import { DLayoutDirection, DThemeLayout } from "../../d-layout";
+import { DThemeLayout } from "../../d-layout";
+import { DLayoutDirection } from "../../d-layout-direction";
 import { DThemeDarkBase } from "./d-theme-dark-base";
 
 export class DThemeDarkLayout extends DThemeDarkBase implements DThemeLayout {

@@ -1,7 +1,7 @@
 import { Matrix, Point, TextureUvs } from "pixi.js";
 import { EShapeCorner } from "../e-shape-corner";
-import { utilCalcLength } from "./util-calc-length";
-import { utilCalcStep } from "./util-calc-step";
+import { toLength } from "./to-length";
+import { toStep } from "./to-step";
 
 export const TRIANGLE_ROUNDED_VERTEX_COUNT = 22;
 export const TRIANGLE_ROUNDED_INDEX_COUNT = 15;
@@ -153,7 +153,7 @@ export const buildTriangleRoundedVertex = (
 	// World size
 	const xb = tx + dx;
 	const yb = ty + dy;
-	worldSize[ 0 ] = utilCalcLength( xb, yb, x0, y0 );
+	worldSize[ 0 ] = toLength( xb, yb, x0, y0 );
 	worldSize[ 1 ] = rx;
 	worldSize[ 2 ] = ry;
 	worldSize[ 3 ] = rz;
@@ -375,12 +375,12 @@ export const buildTriangleRoundedStep = (
 	workStep: Float32Array
 ): void => {
 	const wsr = worldSize[ 0 ];
-	utilCalcStep( wsr, strokeWidth, antialiasWeight, workStep );
+	toStep( wsr, strokeWidth, antialiasWeight, workStep );
 	const swc = workStep[ 0 ];
 	const pc0 = workStep[ 1 ];
 	const pc1 = workStep[ 2 ];
 
-	utilCalcStep( radius * wsr, strokeWidth, antialiasWeight, workStep );
+	toStep( radius * wsr, strokeWidth, antialiasWeight, workStep );
 	const swr = workStep[ 0 ];
 	const pr0 = workStep[ 1 ];
 	const pr1 = workStep[ 2 ];

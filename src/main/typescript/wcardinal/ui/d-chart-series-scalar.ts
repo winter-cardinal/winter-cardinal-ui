@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { utilIsArray } from "./util/util-is-array";
-import { utilIsFunction } from "./util/util-is-function";
+import { isArray } from "./util/is-array";
+import { isFunction } from "./util/is-function";
 
 export type DChartSeriesScalar<T> = ( index: number ) => T;
 
@@ -13,15 +13,15 @@ export class DChartSeriesScalars {
 		value: T | T[] | DChartSeriesScalar<T> | undefined,
 		def: T | T[] | DChartSeriesScalar<T>
 	): DChartSeriesScalar<T> {
-		if( utilIsArray( value ) ) {
+		if( isArray( value ) ) {
 			return ( index: number ) => value[ index % value.length ];
-		} else if( utilIsFunction( value ) ) {
+		} else if( isFunction( value ) ) {
 			return value;
 		} else if( value != null ) {
 			return () => value;
-		} else if( utilIsArray( def ) ) {
+		} else if( isArray( def ) ) {
 			return ( index: number ) => def[ index % def.length ];
-		} else if( utilIsFunction( def ) ) {
+		} else if( isFunction( def ) ) {
 			return def;
 		} else {
 			return () => def;

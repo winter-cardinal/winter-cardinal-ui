@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export const utilIndexOf = <V>( array: V[], value: V ): number => {
+export const toIndexOf = <V>( array: V[], value: V ): number => {
 	let i0 = 0;
 	let i1 = array.length - 1;
 

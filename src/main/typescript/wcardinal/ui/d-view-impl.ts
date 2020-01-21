@@ -13,7 +13,7 @@ import { DViewDragImpl } from "./d-view-drag-impl";
 import { DViewTargetPoint, DViewToTarget } from "./d-view-to-target";
 import { DViewTransformImpl } from "./d-view-transform-impl";
 import { DThemes } from "./theme/d-themes";
-import { utilIsString } from "./util/util-is-string";
+import { isString } from "./util/is-string";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 import { UtilWheelEventDeltas } from "./util/util-wheel-event";
 
@@ -72,7 +72,7 @@ export class DViewImpl implements DView {
 			wheelZoom.speed : theme.getWheelZoomSpeed()
 		);
 		this._wheelZoomModifier = ( wheelZoom && wheelZoom.modifier != null ?
-			( utilIsString( wheelZoom.modifier ) ?
+			( isString( wheelZoom.modifier ) ?
 				DMouseModifier[ wheelZoom.modifier ] : wheelZoom.modifier
 			) :
 			theme.getWheelZoomModifier()
@@ -88,7 +88,7 @@ export class DViewImpl implements DView {
 			dblClickZoom.amount : theme.getDblClickZoomSpeed()
 		);
 		this._dblClickZoomModifier = ( dblClickZoom && dblClickZoom.modifier != null ?
-			( utilIsString( dblClickZoom.modifier ) ?
+			( isString( dblClickZoom.modifier ) ?
 				DMouseModifier[ dblClickZoom.modifier ] : dblClickZoom.modifier
 			) :
 			theme.getDblClickZoomModifier()
@@ -107,7 +107,7 @@ export class DViewImpl implements DView {
 			wheelTranslation.speed : theme.getWheelTranslationSpeed()
 		);
 		this._wheelTranslationModifier = ( wheelTranslation && wheelTranslation.modifier != null ?
-			( utilIsString( wheelTranslation.modifier ) ?
+			( isString( wheelTranslation.modifier ) ?
 				DMouseModifier[ wheelTranslation.modifier ] : wheelTranslation.modifier
 			) :
 			theme.getWheelTranslationModifier()
@@ -340,7 +340,7 @@ export class DViewImpl implements DView {
 	protected toTheme( options?: DViewOptions ): DThemeView | null {
 		if( options && options.theme ) {
 			const theme = options.theme;
-			if( utilIsString( theme ) ) {
+			if( isString( theme ) ) {
 				return DThemes.getInstance().get( theme );
 			} else {
 				return theme;

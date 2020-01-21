@@ -5,7 +5,7 @@
 
 import { BaseTexture, Rectangle, resources, SCALE_MODES, Texture } from "pixi.js";
 import { SVGResource } from "../resource/svg-resource";
-import { utilToSvgUrl } from "./util-to-svg-url";
+import { toSvgUrl } from "./to-svg-url";
 
 // PixiJS's SVGResource has a issue on Microsoft Edge.
 // Edge may invoke the HTMLImageElement#onload on an unexpected timing.
@@ -102,7 +102,7 @@ export class UtilSvgAtlasBuilder {
 			const attrHeight = `height="${realHeight}"`;
 			const attrViewBox = `viewBox="0 0 ${width * ratio} ${height * ratio}"`;
 			const attrXmlns = `xmlns="http://www.w3.org/2000/svg"`;
-			const url = utilToSvgUrl( `<svg ${attrWidth} ${attrHeight} ${attrViewBox} ${attrXmlns}>${this._svg}</svg>` );
+			const url = toSvgUrl( `<svg ${attrWidth} ${attrHeight} ${attrViewBox} ${attrXmlns}>${this._svg}</svg>` );
 			const scaleMode = (options && options.scaling != null ? options.scaling : SCALE_MODES.NEAREST);
 			const baseTexture = BaseTexture.from( url, {
 				resolution,

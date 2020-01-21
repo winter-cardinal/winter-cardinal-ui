@@ -5,11 +5,11 @@
 
 import { DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
-import { DBorderMask } from "./d-border";
+import { DBorderMask } from "./d-border-mask";
 import { DOutline } from "./d-outline";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
-import { utilIsFunction } from "./util/util-is-function";
-import { utilIsString } from "./util/util-is-string";
+import { isFunction } from "./util/is-function";
+import { isString } from "./util/is-string";
 
 type Callback = () => void;
 
@@ -33,7 +33,7 @@ export class DBaseOutline implements DOutline {
 			this._width = outline.width;
 			this._offset = outline.offset;
 			this._align = outline.align;
-			this._mask = ( utilIsString( outline.mask ) ? DBorderMask[ outline.mask ] : outline.mask );
+			this._mask = ( isString( outline.mask ) ? DBorderMask[ outline.mask ] : outline.mask );
 		}
 	}
 
@@ -48,7 +48,7 @@ export class DBaseOutline implements DOutline {
 	getColor( state: DBaseState ): number | null {
 		const color = this._color;
 		if( color !== undefined ) {
-			if( utilIsFunction( color ) ) {
+			if( isFunction( color ) ) {
 				const result = color( state );
 				if( result !== undefined ) {
 					return result;
@@ -77,7 +77,7 @@ export class DBaseOutline implements DOutline {
 	getAlpha( state: DBaseState ): number {
 		const alpha = this._alpha;
 		if( alpha !== undefined ) {
-			if( utilIsFunction( alpha ) ) {
+			if( isFunction( alpha ) ) {
 				const result = alpha( state );
 				if( result !== undefined ) {
 					return result;
@@ -106,7 +106,7 @@ export class DBaseOutline implements DOutline {
 	getWidth( state: DBaseState ): number {
 		const width = this._width;
 		if( width !== undefined ) {
-			if( utilIsFunction( width ) ) {
+			if( isFunction( width ) ) {
 				const result = width( state );
 				if( result !== undefined ) {
 					return result;
@@ -135,7 +135,7 @@ export class DBaseOutline implements DOutline {
 	getOffset( state: DBaseState ): number {
 		const offset = this._offset;
 		if( offset !== undefined ) {
-			if( utilIsFunction( offset ) ) {
+			if( isFunction( offset ) ) {
 				const result = offset( state );
 				if( result !== undefined ) {
 					return result;
@@ -164,7 +164,7 @@ export class DBaseOutline implements DOutline {
 	getAlign( state: DBaseState ): number {
 		const align = this._align;
 		if( align !== undefined ) {
-			if( utilIsFunction( align ) ) {
+			if( isFunction( align ) ) {
 				const result = align( state );
 				if( result !== undefined ) {
 					return result;
@@ -193,7 +193,7 @@ export class DBaseOutline implements DOutline {
 	getMask( state: DBaseState ): number {
 		const mask = this._mask;
 		if( mask !== undefined ) {
-			if( utilIsFunction( mask ) ) {
+			if( isFunction( mask ) ) {
 				const result = mask( state );
 				if( result !== undefined ) {
 					return result;

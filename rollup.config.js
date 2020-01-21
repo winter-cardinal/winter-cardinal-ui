@@ -64,6 +64,68 @@ const TERSER_OPTIONS = {
 	}
 };
 
+// Replace theme-related modules
+const toOsPath = ( target ) => {
+	return target.replace( /\//g, path.sep );
+};
+const remove = () => {
+	const targets = [
+		toOsPath( '/wcardinal/ui/theme/white/' ),
+		toOsPath( '/wcardinal/ui/theme/dark/' ),
+		toOsPath( '/wcardinal/ui/load/load-theme' )
+	];
+	return {
+		load( id ) {
+			for( let i = 0, imax = targets.length; i < imax; ++i ) {
+				if( 0 <= id.indexOf( targets[ i ] ) ) {
+					return '';
+				}
+			}
+			return null;
+		}
+	};
+};
+const toBypassedName = ( name ) => {
+	const index = name.lastIndexOf( path.sep );
+	if( 0 <= index ) {
+		return name.substring( index + 1, name.length - 3 )
+		.split( '-' )
+		.map( ( word, index ) => {
+			if( index === 0 && (word === 'is' || word === 'to') ) {
+				return word;
+			} else {
+				return word.substring( 0, 1 ).toUpperCase() + word.substring( 1 );
+			}
+		})
+		.join( '' );
+	}
+	return null;
+};
+const bypass = ( target ) => {
+	const basePath = toOsPath( '/wcardinal/ui/' );
+	const loadPath = toOsPath( '/wcardinal/ui/load/index.js' );
+	return {
+		load( id ) {
+			if( 0 <= id.indexOf( basePath ) ) {
+				if( 0 <= id.indexOf( 'theme-white' ) || 0 <= id.indexOf( loadPath ) || 0 <= id.indexOf( target ) ) {
+					return null;
+				} else {
+					const bypassed = toBypassedName( id );
+					if( bypassed != null ) {
+						console.log( id, '=>', bypassed );
+						return `export const ${bypassed} = wcardinal.ui.${bypassed};`;
+					}
+					console.log( id, '=> X' );
+					return '';
+				}
+			}
+			return null;
+		}
+	};
+};
+const BYPASS_TARGET_WHITE = toOsPath( '/wcardinal/ui/theme/white/' );
+const BYPASS_TARGET_DARK = toOsPath( '/wcardinal/ui/theme/dark/' );
+
 // Rollup settings
 export default ( !process.env.ROLLUP_WATCH ?
 	[{
@@ -73,11 +135,53 @@ export default ( !process.env.ROLLUP_WATCH ?
 			file: `${OUTPUT_FILE}.js`,
 			format: 'iife',
 			banner: BANNER,
+			freeze: false,
 			globals: {
 				"pixi.js": "PIXI"
 			}
 		}],
 		plugins: [
+			remove(),
+			resolve(),
+			commonjs()
+		],
+		external: [
+			"pixi.js"
+		]
+	},{
+		input: `${SOURCE_DIR}${name}-theme-white.browser.js`,
+		output: [{
+			name: 'none',
+			file: `${OUTPUT_FILE}-theme-white.js`,
+			format: 'iife',
+			banner: BANNER,
+			freeze: false,
+			globals: {
+				"pixi.js": "PIXI"
+			}
+		}],
+		plugins: [
+			bypass( BYPASS_TARGET_WHITE ),
+			resolve(),
+			commonjs()
+		],
+		external: [
+			"pixi.js"
+		]
+	},{
+		input: `${SOURCE_DIR}${name}-theme-dark.browser.js`,
+		output: [{
+			name: 'none',
+			file: `${OUTPUT_FILE}-theme-dark.js`,
+			format: 'iife',
+			banner: BANNER,
+			freeze: false,
+			globals: {
+				"pixi.js": "PIXI"
+			}
+		}],
+		plugins: [
+			bypass( BYPASS_TARGET_DARK ),
 			resolve(),
 			commonjs()
 		],
@@ -113,6 +217,55 @@ export default ( !process.env.ROLLUP_WATCH ?
 			}
 		}],
 		plugins: [
+			remove(),
+			sourcemaps(),
+			resolve(),
+			commonjs(),
+			terser( TERSER_OPTIONS )
+		],
+		external: [
+			"pixi.js"
+		]
+	},{
+		input: `${SOURCE_DIR}${name}-theme-white.browser.js`,
+		output: [{
+			name: 'none',
+			file: `${OUTPUT_FILE}-theme-white.min.js`,
+			format: 'iife',
+			sourcemap: true,
+			sourcemapPathTransform: ( relativePath ) => {
+				return path.relative( "../src/main/typescript/", relativePath )
+			},
+			globals: {
+				"pixi.js": "PIXI"
+			}
+		}],
+		plugins: [
+			bypass( BYPASS_TARGET_WHITE ),
+			sourcemaps(),
+			resolve(),
+			commonjs(),
+			terser( TERSER_OPTIONS )
+		],
+		external: [
+			"pixi.js"
+		]
+	},{
+		input: `${SOURCE_DIR}${name}-theme-dark.browser.js`,
+		output: [{
+			name: 'none',
+			file: `${OUTPUT_FILE}-theme-dark.min.js`,
+			format: 'iife',
+			sourcemap: true,
+			sourcemapPathTransform: ( relativePath ) => {
+				return path.relative( "../src/main/typescript/", relativePath )
+			},
+			globals: {
+				"pixi.js": "PIXI"
+			}
+		}],
+		plugins: [
+			bypass( BYPASS_TARGET_WHITE ),
 			sourcemaps(),
 			resolve(),
 			commonjs(),
@@ -144,11 +297,53 @@ export default ( !process.env.ROLLUP_WATCH ?
 		}],
 		plugins: [
 			resolve(),
+			commonjs()
+		],
+		external: [
+			"pixi.js"
+		]
+	},{
+		input: `${SOURCE_DIR}${name}-theme-white.browser.js`,
+		output: [{
+			name: 'none',
+			file: `${OUTPUT_FILE}.js`,
+			format: 'iife',
+			banner: BANNER,
+			globals: {
+				"pixi.js": "PIXI"
+			}
+		}],
+		plugins: [
+			remove(),
+			resolve(),
+			commonjs()
+		],
+		external: [
+			"pixi.js"
+		]
+	},{
+		input: `${SOURCE_DIR}${name}-theme-dark.browser.js`,
+		output: [{
+			name: 'none',
+			file: `${OUTPUT_FILE}.js`,
+			format: 'iife',
+			banner: BANNER,
+			globals: {
+				"pixi.js": "PIXI"
+			}
+		}],
+		plugins: [
+			bypass( BYPASS_TARGET_WHITE ),
+			resolve(),
 			commonjs(),
 			copy({
 				targets: [
 					{ src: `dist/${name}.js`, dest: META_INF_DIR },
 					{ src: `dist/${name}.js`, dest: META_INF_DIR, rename: `${name}.min.js` },
+					{ src: `dist/${name}-theme-white.js`, dest: META_INF_DIR },
+					{ src: `dist/${name}-theme-white.js`, dest: META_INF_DIR, rename: `${name}-theme-white.min.js` },
+					{ src: `dist/${name}-theme-dark.js`, dest: META_INF_DIR },
+					{ src: `dist/${name}-theme-dark.js`, dest: META_INF_DIR, rename: `${name}-theme-dark.min.js` },
 					{ src: 'node_modules/pixi.js/dist/*', dest: PIXI_DIR }
 				],
 				hook: 'writeBundle'

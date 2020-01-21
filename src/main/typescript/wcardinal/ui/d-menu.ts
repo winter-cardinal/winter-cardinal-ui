@@ -4,8 +4,6 @@
  */
 
 import { DisplayObject, Point } from "pixi.js";
-import { DApplicationLayerLike } from "./d-application-layer-like";
-import { DApplications } from "./d-applications";
 import { DBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DLayoutVertical, DLayoutVerticalOptions, DThemeLayoutVertical } from "./d-layout-vertical";
@@ -14,9 +12,9 @@ import { Closeable, DMenuContext } from "./d-menu-context";
 import { DMenuItem } from "./d-menu-item";
 import { DMenuItemOptionsUnion } from "./d-menu-item-options-union";
 import { DMenus } from "./d-menus";
+import { isString } from "./util/is-string";
 import { UtilAttach } from "./util/util-attach";
 import { UtilClickOutside } from "./util/util-click-outside";
-import { utilIsString } from "./util/util-is-string";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilOverlay } from "./util/util-overlay";
 
@@ -58,7 +56,7 @@ export class DMenu<
 
 		if( options != null ) {
 			this._align = ( options.align != null ?
-				( utilIsString( options.align ) ? DMenuAlign[ options.align ] : options.align ) :
+				( isString( options.align ) ? DMenuAlign[ options.align ] : options.align ) :
 				DMenuAlign.BOTTOM
 			);
 			this._fit = ( options.fit != null ? options.fit : false );

@@ -9,7 +9,7 @@ import {
 	DTableDataComparatorFunction, DTableDataComparatorObject,
 	DTableDataOrder, DTableDataSorter
 } from "./d-table-data-sorter";
-import { utilIsFunction } from "./util/util-is-function";
+import { isFunction } from "./util/is-function";
 
 export interface DTableDataSorterImplParent<ROW> {
 	each( iterator: DTableDataEachIterator<ROW>, ifrom?: number, ito?: number ): void;
@@ -81,7 +81,7 @@ export class DTableBodySorterImpl<ROW> extends utils.EventEmitter implements DTa
 		comparator: DTableDataComparatorFunction<ROW> | DTableDataComparatorObject<ROW>
 	): ( indexA: number, indexB: number) => number {
 		const order = this._order;
-		if( utilIsFunction( comparator ) ) {
+		if( isFunction( comparator ) ) {
 			if( order === DTableDataOrder.ASCENDING ) {
 				return ( indexA: number, indexB: number ): number => {
 					return comparator(

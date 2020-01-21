@@ -5,7 +5,7 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
-import { EShapePointsStyle } from "../e-shape-points";
+import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeLineUploaded } from "./e-shape-line-uploaded";
 import { EShapeTextUploadeds } from "./e-shape-text-uploadeds";
 

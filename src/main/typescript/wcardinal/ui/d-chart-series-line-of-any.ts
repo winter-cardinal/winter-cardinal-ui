@@ -15,8 +15,8 @@ import { DChartSeriesStrokeComputed, DChartSeriesStrokeComputedOptions } from ".
 import { DChartSeriesStrokeComputedImpl } from "./d-chart-series-stroke-computed-impl";
 import { EShapeLineOfAny } from "./shape/variant/e-shape-line-of-any";
 import { EShapeLineOfCircles } from "./shape/variant/e-shape-line-of-circles";
-import { utilCeilingIndex } from "./util/util-ceiling-index";
-import { utilIsNumber } from "./util/util-is-number";
+import { isNumber } from "./util/is-number";
+import { toCeilingIndex } from "./util/to-ceiling-index";
 
 /**
  * {@link DChartSeriesLineOfAny} options.
@@ -57,7 +57,7 @@ export abstract class DChartSeriesLineOfAny extends DChartSeriesBase {
 	protected toSize( options?: DChartSeriesLineOfAnyOptions ): { x: number, y: number } {
 		const result = { x: 10, y: 10 };
 		const size = options && options.size;
-		if( utilIsNumber( size ) ) {
+		if( isNumber( size ) ) {
 			result.x = result.y = size;
 		} else if( size != null ) {
 			if( size.x != null ) {
@@ -278,7 +278,7 @@ export abstract class DChartSeriesLineOfAny extends DChartSeriesBase {
 		values: number[],
 		result: [ number, number ]
 	): [ number, number ] {
-		const to = utilCeilingIndex( values, x + ax, 2, 0 );
+		const to = toCeilingIndex( values, x + ax, 2, 0 );
 		let from = 0;
 		for( let i = to - 1, iv = i << 1; 0 <= i; i -= 1, iv -= 2 ) {
 			if( values[ iv ] <= x - ax ) {

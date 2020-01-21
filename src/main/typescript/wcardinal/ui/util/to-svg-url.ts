@@ -3,6 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export const utilToSvgUrl = ( svg: string ): string => {
+export const toSvgUrl = ( svg: string ): string => {
 	return `data:image/svg+xml;base64,${btoa(svg)}`;
 };

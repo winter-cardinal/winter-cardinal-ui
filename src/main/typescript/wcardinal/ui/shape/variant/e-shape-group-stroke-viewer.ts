@@ -5,7 +5,8 @@
 
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
-import { EShapeStroke, EShapeStrokeLike, EShapeStrokeSide } from "../e-shape-stroke";
+import { EShapeStroke, EShapeStrokeLike } from "../e-shape-stroke";
+import { EShapeStrokeSide } from "../e-shape-stroke-side";
 
 export class EShapeGroupStrokeViewer implements EShapeStroke {
 	constructor() {

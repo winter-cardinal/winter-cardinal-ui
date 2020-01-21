@@ -1,7 +1,7 @@
 import { interaction } from "pixi.js";
 import { DApplications } from "./d-applications";
-import { DHTMLElement, DHTMLElementOptions, DThemeHTMLElement } from "./d-html-element";
-import { utilIsString } from "./util/util-is-string";
+import { DHtmlElement, DHtmlElementOptions, DThemeHtmlElement } from "./d-html-element";
+import { isString } from "./util/is-string";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 
 export interface DInputEditingOptions<VALUE = unknown> {
@@ -13,12 +13,12 @@ export interface DInputEditingOptions<VALUE = unknown> {
 export interface DInputOptions<
 	VALUE = unknown,
 	THEME extends DThemeInput = DThemeInput
-> extends DHTMLElementOptions<VALUE, HTMLInputElement, THEME> {
+> extends DHtmlElementOptions<VALUE, HTMLInputElement, THEME> {
 	description?: string;
 	editing?: DInputEditingOptions<VALUE>;
 }
 
-export interface DThemeInput extends DThemeHTMLElement<HTMLInputElement> {
+export interface DThemeInput extends DThemeHtmlElement<HTMLInputElement> {
 	getEditingFormatter(): ( value: any, caller: any ) => string;
 	getEditingUnformatter(): ( text: string, caller: any ) => any;
 	getEditingValidator(): ( value: any, caller: any ) => unknown;
@@ -28,7 +28,7 @@ export abstract class DInput<
 	VALUE = unknown,
 	THEME extends DThemeInput = DThemeInput,
 	OPTIONS extends DInputOptions<VALUE, THEME> = DInputOptions<VALUE, THEME>
-> extends DHTMLElement<VALUE, HTMLInputElement, THEME, OPTIONS> {
+> extends DHtmlElement<VALUE, HTMLInputElement, THEME, OPTIONS> {
 	protected _description!: string;
 
 	protected _onInputKeyDownBound!: ( e: KeyboardEvent ) => void;
@@ -93,7 +93,7 @@ export abstract class DInput<
 
 	protected applyTitle(): void {
 		const editingValidationResult = this._editingValidationResult;
-		if( utilIsString( editingValidationResult ) ) {
+		if( isString( editingValidationResult ) ) {
 			const layer = DApplications.getLayer( this );
 			if( layer ) {
 				layer.view.title = editingValidationResult;

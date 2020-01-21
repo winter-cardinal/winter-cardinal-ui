@@ -4,8 +4,9 @@
  */
 
 import { Matrix, Point } from "pixi.js";
-import { EShapePoints, EShapePointsStyle } from "../e-shape-points";
+import { EShapePoints } from "../e-shape-points";
 import { EShapePointsParent } from "../e-shape-points-parent";
+import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeBarPosition } from "./e-shape-bar-position";

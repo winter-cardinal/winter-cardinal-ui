@@ -7,7 +7,7 @@ import { DBackgroundStateAware } from "./d-background";
 import { DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
-import { utilIsFunction } from "./util/util-is-function";
+import { isFunction } from "./util/is-function";
 
 type Callback = () => void;
 
@@ -38,7 +38,7 @@ export class DBaseBackground implements DBackgroundStateAware {
 	getColor( state: DBaseState ): number | null {
 		const color = this._color;
 		if( color !== undefined ) {
-			if( utilIsFunction( color ) ) {
+			if( isFunction( color ) ) {
 				const result = color( state );
 				if( result !== undefined ) {
 					return result;
@@ -64,7 +64,7 @@ export class DBaseBackground implements DBackgroundStateAware {
 	getAlpha( state: DBaseState ): number {
 		const alpha = this._alpha;
 		if( alpha !== undefined ) {
-			if( utilIsFunction( alpha ) ) {
+			if( isFunction( alpha ) ) {
 				const result = alpha( state );
 				if( result !== undefined ) {
 					return result;

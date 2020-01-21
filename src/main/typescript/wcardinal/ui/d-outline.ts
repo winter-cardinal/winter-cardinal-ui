@@ -5,7 +5,7 @@
 
 import { DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
-import { DBorderMask } from "./d-border";
+import { DBorderMask } from "./d-border-mask";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 
 export interface DOutlineLike {

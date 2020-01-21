@@ -8,10 +8,10 @@ import { DApplicationLayerLike } from "../d-application-layer-like";
 import { DApplicationLike } from "../d-application-like";
 import { DApplications } from "../d-applications";
 import { DBase } from "../d-base";
+import { isNumber } from "./is-number";
 import { UtilExtractor } from "./util-extractor";
 import { UtilExtractorPixels } from "./util-extractor-pixels";
 import { UtilFileDownloader } from "./util-file-downloader";
-import { utilIsNumber } from "./util-is-number";
 
 export interface UtilExtractTextureResolutionOptions {
 	size: number;
@@ -61,7 +61,7 @@ const toSkipUpdateTransform = ( options: UtilExtractTextureOptions ): boolean | 
 const toResolution = ( options: UtilExtractTextureOptions ): number => {
 	const target = options.target;
 	if( options.resolution != null ) {
-		if( utilIsNumber( options.resolution ) ) {
+		if( isNumber( options.resolution ) ) {
 			return options.resolution;
 		} else {
 			return Math.min( 1, options.resolution.size / Math.max( target.width, target.height ) );
@@ -77,7 +77,7 @@ const toIgnorePremultipliedAlpha = ( options: UtilExtractCanvasOptions ): boolea
 
 const toScale = ( pixels: UtilExtractorPixels, options: UtilExtractCanvasOptions ): number | undefined => {
 	if( options.scale != null ) {
-		if( utilIsNumber( options.scale ) ) {
+		if( isNumber( options.scale ) ) {
 			return options.scale;
 		} else {
 			const size = options.scale.size;

@@ -6,9 +6,9 @@
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
-import { DBorderMask } from "../../d-border";
+import { DBorderMask } from "../../d-border-mask";
 import { DCoordinateSize } from "../../d-coordinate";
-import { DCornerMask } from "../../d-corner";
+import { DCornerMask } from "../../d-corner-mask";
 import { DThemeTableBodyCellInputReal } from "../../d-table-body-cell-input-real";
 import { DThemeWhiteInputReal } from "./d-theme-white-input-real";
 import { DThemeWhiteTableBodyCells } from "./d-theme-white-table-body-cells";

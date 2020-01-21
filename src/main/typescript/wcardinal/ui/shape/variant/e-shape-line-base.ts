@@ -5,7 +5,8 @@
 
 import { IPoint } from "pixi.js";
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
-import { EShapePoints, EShapePointsStyle } from "../e-shape-points";
+import { EShapePoints } from "../e-shape-points";
+import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeBase } from "./e-shape-base";
 import {
@@ -13,7 +14,6 @@ import {
 	EShapeLineBasePointsToHitThreshold
 } from "./e-shape-line-base-points";
 import { EShapePrimitive } from "./e-shape-primitive";
-import { utilToHitThreshold } from "./util-to-hit-threshold";
 
 export abstract class EShapeLineBase extends EShapePrimitive {
 	protected static WORK_RANGE: [ number, number ] = [ 0, 0 ];

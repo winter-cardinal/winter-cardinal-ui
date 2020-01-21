@@ -4,9 +4,10 @@
  */
 
 import { DBaseOptions, DThemeBase } from "./d-base";
-import { DCorner, DCornerMask } from "./d-corner";
-import { utilIsNumber } from "./util/util-is-number";
-import { utilIsString } from "./util/util-is-string";
+import { DCorner } from "./d-corner";
+import { DCornerMask } from "./d-corner-mask";
+import { isNumber } from "./util/is-number";
+import { isString } from "./util/is-string";
 
 type Callback = () => void;
 
@@ -21,12 +22,12 @@ export class DBaseCorner implements DCorner {
 		this._callback = callback;
 		if( options != null && options.corner != null ) {
 			const corner = options.corner;
-			if( utilIsNumber( corner ) ) {
+			if( isNumber( corner ) ) {
 				this._radius = corner;
 				this._mask = undefined;
 			} else {
 				this._radius = corner.radius;
-				this._mask = ( utilIsString( corner.mask ) ? DCornerMask[ corner.mask ] : corner.mask );
+				this._mask = ( isString( corner.mask ) ? DCornerMask[ corner.mask ] : corner.mask );
 			}
 		}
 	}

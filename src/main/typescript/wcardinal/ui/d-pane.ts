@@ -12,8 +12,8 @@ import { DDragMode } from "./d-drag-mode";
 import { DScrollBar, DScrollBarOptions } from "./d-scroll-bar";
 import { DScrollBarHorizontal } from "./d-scroll-bar-horizontal";
 import { DScrollBarVertical } from "./d-scroll-bar-vertical";
+import { isString } from "./util/is-string";
 import { UtilDrag } from "./util/util-drag";
-import { utilIsString } from "./util/util-is-string";
 import { UtilWheelEventDeltas } from "./util/util-wheel-event";
 
 export interface DPaneDragOptions {
@@ -95,7 +95,7 @@ export class DPane<
 
 	protected initDrag( content: DBase, theme: THEME, options?: OPTIONS ): void {
 		const dragMode = ( options && options.drag && options.drag.mode != null ?
-			( utilIsString( options.drag.mode ) ? DDragMode[ options.drag.mode ] : options.drag.mode ) :
+			( isString( options.drag.mode ) ? DDragMode[ options.drag.mode ] : options.drag.mode ) :
 			theme.getDragMode()
 		);
 		// Edge does not fire the wheel event when scrolling using the 2-fingure scroll gesture on a touchpad.

@@ -1,7 +1,7 @@
 import { Matrix, Point, TextureUvs } from "pixi.js";
 import { buildStep } from "./build-step";
-import { utilCalcLength } from "./util-calc-length";
-import { utilCalcStep } from "./util-calc-step";
+import { toLength } from "./to-length";
+import { toStep } from "./to-step";
 
 export const TRIANGLE_VERTEX_COUNT = 7;
 export const TRIANGLE_INDEX_COUNT = 3;
@@ -111,9 +111,9 @@ export const buildTriangleVertex = (
 	// World size
 	const xb = tx + dx;
 	const yb = ty + dy;
-	worldSize[ 0 ] = utilCalcLength( xb, yb, x3, y3 );
-	worldSize[ 1 ] = utilCalcLength( x1, y1, xb, yb );
-	worldSize[ 2 ] = utilCalcLength( x0, y0, tx, ty );
+	worldSize[ 0 ] = toLength( xb, yb, x3, y3 );
+	worldSize[ 1 ] = toLength( x1, y1, xb, yb );
+	worldSize[ 2 ] = toLength( x0, y0, tx, ty );
 
 	// Vertices
 	const iv = voffset << 1;
@@ -147,7 +147,7 @@ export const buildTriangleStep = (
 	worldSize: [ number, number, number ],
 	workStep: Float32Array
 ): void => {
-	utilCalcStep( worldSize[ 0 ], strokeWidth, antialiasWeight, workStep );
+	toStep( worldSize[ 0 ], strokeWidth, antialiasWeight, workStep );
 	const swc = workStep[ 0 ];
 	const pc0 = workStep[ 1 ];
 	const pc1 = workStep[ 2 ];

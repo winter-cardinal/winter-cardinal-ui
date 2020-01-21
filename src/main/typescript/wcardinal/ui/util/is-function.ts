@@ -3,6 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export const utilIsFunction = ( target: unknown ): target is Function => {
+export const isFunction = ( target: unknown ): target is Function => {
 	return (typeof target) === "function";
 };

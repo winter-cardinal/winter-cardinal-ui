@@ -5,8 +5,8 @@
 
 import { Texture } from "pixi.js";
 import { DApplications } from "../d-applications";
-import { DCornerMask } from "../d-corner";
-import { utilToSvgUrl } from "./util-to-svg-url";
+import { DCornerMask } from "../d-corner-mask";
+import { toSvgUrl } from "./to-svg-url";
 
 export class UtilTexturePlane {
 	protected static INSTANCE: UtilTexturePlane | null = null;
@@ -61,7 +61,7 @@ export class UtilTexturePlane {
 		const svg = `<svg ${widthAttr} ${heightAttr} ${viewBoxAttr} xmlns="http://www.w3.org/2000/svg">` +
 			`<path ${attr} d="${d}"></path>` +
 		`</svg>`;
-		return Texture.from( utilToSvgUrl( svg ), {
+		return Texture.from( toSvgUrl( svg ), {
 			resolution
 		});
 	}

@@ -4,8 +4,8 @@
  */
 
 import { DThemeDark } from "../theme/dark/d-theme-dark";
-import { DThemeDarkHTMLElement } from "../theme/dark/d-theme-dark-html-element";
+import { DThemeDarkHtmlElement } from "../theme/dark/d-theme-dark-html-element";
 
-export const loadThemeDarkHTMLElement = () => {
-	DThemeDark.set( "DHTMLElement", DThemeDarkHTMLElement );
+export const loadThemeDarkHtmlElement = () => {
+	DThemeDark.set( "DHtmlElement", DThemeDarkHtmlElement );
 };

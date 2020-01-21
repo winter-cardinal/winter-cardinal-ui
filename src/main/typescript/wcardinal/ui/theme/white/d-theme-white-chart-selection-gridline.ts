@@ -7,7 +7,7 @@ import { DBaseState } from "../../d-base-state";
 import { DThemeChartSelectionShape } from "../../d-chart-selection-shape";
 import { EShape } from "../../shape/e-shape";
 import { EShapeDefaults } from "../../shape/e-shape-defaults";
-import { EShapePointsStyle } from "../../shape/e-shape-points";
+import { EShapePointsStyle } from "../../shape/e-shape-points-style";
 import { EShapeBar } from "../../shape/variant/e-shape-bar";
 import { EShapeBarPosition } from "../../shape/variant/e-shape-bar-position";
 

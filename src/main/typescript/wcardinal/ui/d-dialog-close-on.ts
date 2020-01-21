@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export const utilIsNaN = ( target: number ): boolean => {
-	return target !== target;
-};
+export enum DDialogCloseOn {
+	NONE = 0,
+	ESC = 1,
+	CLICK_OUTSIDE = 2
+}

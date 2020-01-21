@@ -4,7 +4,7 @@
  */
 
 import { DBase } from "../d-base";
-import { utilIsString } from "./util-is-string";
+import { isString } from "./is-string";
 
 export interface UtilKeyboardEventShortcut {
 	alt: boolean;
@@ -189,7 +189,7 @@ export class UtilKeyboardEvent {
 	}
 
 	static toShortcut( expressionOrShortcut: string | UtilKeyboardEventShortcut ): UtilKeyboardEventShortcut {
-		if( ! utilIsString( expressionOrShortcut ) ) {
+		if( ! isString( expressionOrShortcut ) ) {
 			return expressionOrShortcut;
 		} else {
 			const expression = expressionOrShortcut;

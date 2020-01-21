@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { utilIsArray } from "../../util/util-is-array";
-import { utilIsNumber } from "../../util/util-is-number";
+import { isArray } from "../../util/is-array";
+import { isNumber } from "../../util/is-number";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeActionValue } from "./e-shape-action-value";
 import { EShapeActionValueBlink, EShapeActionValueBlinkSerialized } from "./e-shape-action-value-blink";
@@ -16,7 +16,7 @@ import {
 import {
 	EShapeActionValueChangeColorCode, EShapeActionValueChangeColorCodeSerialized
 } from "./e-shape-action-value-change-color-code";
-import { EShapeActionValueChangeColorTarget } from "./e-shape-action-value-change-color-type";
+import { EShapeActionValueChangeColorTarget } from "./e-shape-action-value-change-color-target";
 import {
 	EShapeActionValueChangeCursor, EShapeActionValueChangeCursorSerialized } from "./e-shape-action-value-change-cursor";
 import { EShapeActionValueChangeText, EShapeActionValueChangeTextSerialized } from "./e-shape-action-value-change-text";
@@ -52,9 +52,9 @@ export class EShapeActionValueDeserializer {
 	static toSerialized( resource: string ): EShapeActionValueSerialized | null {
 		try {
 			const parsed = JSON.parse( resource );
-			if( utilIsArray( parsed ) ) {
+			if( isArray( parsed ) ) {
 				for( let i = 0, imax = parsed.length; i < imax; ++i ) {
-					if( ! utilIsNumber( parsed[ i ] ) ) {
+					if( ! isNumber( parsed[ i ] ) ) {
 						return null;
 					}
 				}

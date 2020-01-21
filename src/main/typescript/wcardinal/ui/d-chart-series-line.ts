@@ -12,7 +12,7 @@ import { DChartSeriesContainer } from "./d-chart-series-container";
 import { DChartSeriesStrokeComputed, DChartSeriesStrokeComputedOptions } from "./d-chart-series-stroke-computed";
 import { DChartSeriesStrokeComputedImpl } from "./d-chart-series-stroke-computed-impl";
 import { EShapeLine } from "./shape/variant/e-shape-line";
-import { utilCeilingIndex } from "./util/util-ceiling-index";
+import { toCeilingIndex } from "./util/to-ceiling-index";
 
 /**
  * {@link DChartSeriesLine} options.
@@ -256,7 +256,7 @@ export class DChartSeriesLine extends DChartSeriesBase {
 		values: number[],
 		result: [ number, number ]
 	): [ number, number ] {
-		const index = utilCeilingIndex( values, x, 2, 0 );
+		const index = toCeilingIndex( values, x, 2, 0 );
 		result[ 0 ] = Math.max( 0, index - 1 );
 		result[ 1 ] = index;
 		return result;

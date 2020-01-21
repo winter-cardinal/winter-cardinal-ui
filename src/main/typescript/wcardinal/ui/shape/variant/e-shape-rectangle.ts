@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EShapeStrokeSide } from "../e-shape-stroke";
+import { EShapeStrokeSide } from "../e-shape-stroke-side";
 import { EShapeType } from "../e-shape-type";
 import { EShapePrimitive } from "./e-shape-primitive";
 
