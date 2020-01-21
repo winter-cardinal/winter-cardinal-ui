@@ -103,19 +103,16 @@ const toBypassedName = ( name ) => {
 };
 const bypass = ( target ) => {
 	const basePath = toOsPath( '/wcardinal/ui/' );
-	const loadPath = toOsPath( '/wcardinal/ui/load/index.js' );
 	return {
 		load( id ) {
 			if( 0 <= id.indexOf( basePath ) ) {
-				if( 0 <= id.indexOf( 'theme-white' ) || 0 <= id.indexOf( loadPath ) || 0 <= id.indexOf( target ) ) {
+				if( 0 <= id.indexOf( 'wcardinal-ui-theme-' ) || 0 <= id.indexOf( target ) ) {
 					return null;
 				} else {
 					const bypassed = toBypassedName( id );
 					if( bypassed != null ) {
-						console.log( id, '=>', bypassed );
 						return `export const ${bypassed} = wcardinal.ui.${bypassed};`;
 					}
-					console.log( id, '=> X' );
 					return '';
 				}
 			}
@@ -265,7 +262,7 @@ export default ( !process.env.ROLLUP_WATCH ?
 			}
 		}],
 		plugins: [
-			bypass( BYPASS_TARGET_WHITE ),
+			bypass( BYPASS_TARGET_DARK ),
 			sourcemaps(),
 			resolve(),
 			commonjs(),
