@@ -21,10 +21,11 @@ export class DSliderBarChosen<
 	THEME extends DThemeSliderBarChosen = DThemeSliderBarChosen,
 	OPTIONS extends DSliderBarChosenOptions<VALUE, THEME> = DSliderBarChosenOptions<VALUE, THEME>
 > extends DButton<VALUE, THEME, OPTIONS> {
-    protected init( options?: OPTIONS ) {
+	protected init( options?: OPTIONS ) {
 		super.init( options );
-    }
-    protected getType(): string {
+	}
+
+	protected getType(): string {
 		return "DSliderBarChosen";
-    }
+	}
 }

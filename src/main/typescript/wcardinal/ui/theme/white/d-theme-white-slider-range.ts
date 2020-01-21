@@ -5,12 +5,12 @@
 
 import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseState } from "../../d-base-state";
-import { DThemeWhiteBase } from "./d-theme-white-base";
 import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
+import { DThemeWhiteBase } from "./d-theme-white-base";
 
 export class DThemeWhiteSliderRange extends DThemeWhiteBase implements DThemeWhiteSliderRange {
-	
-    getHeight(): DCoordinateSize {
+
+	getHeight(): DCoordinateSize {
 		return 33;
 	}
 
@@ -77,7 +77,7 @@ export class DThemeWhiteSliderRange extends DThemeWhiteBase implements DThemeWhi
 	getBorderAlign( state: DBaseState ): number {
 		return 0;
 	}
-	
+
 	getOutlineAlpha( state: DBaseState ): number {
 		return 0;
 	}

@@ -8,11 +8,11 @@ import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeWhiteBase } from "./d-theme-white-base";
 
 export class DThemeWhiteSlider extends DThemeWhiteBase implements DThemeWhiteSlider {
-	
-    getHeight(): DCoordinateSize {
+
+	getHeight(): DCoordinateSize {
 		return "auto";
 	}
-	
+
 	getWidth(): DCoordinateSize {
 		return "auto";
 	}

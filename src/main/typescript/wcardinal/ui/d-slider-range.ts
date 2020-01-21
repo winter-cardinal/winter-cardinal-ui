@@ -6,9 +6,9 @@
 import { interaction, Point } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
-import { DSliderBarChosen } from './d-slider-bar-chosen';
-import { DSliderBar } from './d-slider-bar';
-import { DSliderButton } from './d-slider-button';
+import { DSliderBar } from "./d-slider-bar";
+import { DSliderBarChosen } from "./d-slider-bar-chosen";
+import { DSliderButton } from "./d-slider-button";
 import { DSliderValue } from "./d-slider-value";
 import InteractionEvent = interaction.InteractionEvent;
 import { UtilPointerEvent } from "./util/util-pointer-event";
@@ -21,7 +21,7 @@ export interface DThemeSliderRange extends DThemeBase {
 
 }
 
-// RATIO to calculate slider value from min, max values. 
+// RATIO to calculate slider value from min, max values.
 // Default ratio is zero mean default slider value is zero
 const DEFAULT_RATIO = 0;
 // this is space beetween slider value and slider button
@@ -31,10 +31,10 @@ export class DSliderRange<
 	THEME extends DThemeSliderRange = DThemeSliderRange,
 	OPTIONS extends DSliderRangeOptions<THEME> = DSliderRangeOptions<THEME>
 > extends DBase<THEME, OPTIONS> {
-	protected _sliderBar?: DSliderBar;
-	protected _sliderButton?: DSliderButton;
-	protected _sliderBarChosen?: DSliderBarChosen;
-	protected _sliderValue?: DSliderValue;
+	protected _sliderBar!: DSliderBar;
+	protected _sliderButton!: DSliderButton;
+	protected _sliderBarChosen!: DSliderBarChosen;
+	protected _sliderValue!: DSliderValue;
 	protected _sliderBarWidth!: number;
 	protected _sliderButtonWidth!: number;
 	protected _offset!: number;
@@ -63,7 +63,8 @@ export class DSliderRange<
 		this._sliderBarChosen.width = 0;
 
 		// calculate y-offset to determine y-coordinate of slider bar
-		this._yOffset = this._sliderValue.height + VERTICAL_PIXEL_BALANCE + this._sliderButton.height / 2 - this._sliderBar.height / 2;
+		this._yOffset = this._sliderValue.height + VERTICAL_PIXEL_BALANCE +
+						this._sliderButton.height / 2 - this._sliderBar.height / 2;
 		this._sliderBar.y = this._yOffset;
 		this._sliderBarChosen.y = this._yOffset;
 
@@ -173,53 +174,36 @@ export class DSliderRange<
 		const point = new Point(0, 0);
 		this.toLocal( global, undefined, point );
 		const x = Math.max( 0, Math.min( this._sliderBarWidth, point.x ) );
-		if (this._sliderButton && this._sliderValue && this._sliderBarChosen) {
-			if ( x < this._sliderButtonWidth / 2 ) {
-				this._sliderButton.x = 0;
-			} else if (x > (this._sliderBarWidth - this._sliderButtonWidth / 2)) {
-				this._sliderButton.x = this._sliderBarWidth - this._sliderButtonWidth;
-			} else {
-				this._sliderButton.x = x - this._sliderButtonWidth / 2;
-			}
-			this._ratioValue = x / this._sliderBarWidth;
-			this._sliderBarChosen.width = this._sliderButton.x;
-			this._sliderValue.x = this._sliderButton.x - this._offset;
+		if ( x < this._sliderButtonWidth / 2 ) {
+			this._sliderButton.x = 0;
+		} else if (x > (this._sliderBarWidth - this._sliderButtonWidth / 2)) {
+			this._sliderButton.x = this._sliderBarWidth - this._sliderButtonWidth;
+		} else {
+			this._sliderButton.x = x - this._sliderButtonWidth / 2;
 		}
+		this._ratioValue = x / this._sliderBarWidth;
+		this._sliderBarChosen.width = this._sliderButton.x;
+		this._sliderValue.x = this._sliderButton.x - this._offset;
 	}
 	updateSliderValue(min: number, max: number) {
 		const value: number = min + this._ratioValue * (max - min);
-		if (this._sliderValue) {
-			this._sliderValue.value = Math.round(value);
-			this._sliderValue.text = String(this._sliderValue.value);
-		}
+		this._sliderValue.value = Math.round(value);
+		this._sliderValue.text = String(this._sliderValue.value);
 	}
-	get sliderButton() : DSliderButton | null {
-		if (this._sliderButton) {
-			return this._sliderButton;
-		}
-		return null;
+	get sliderButton(): DSliderButton {
+		return this._sliderButton;
 	}
-	get sliderBar() : DSliderBar | null {
-		if (this._sliderBar) {
-			return this._sliderBar;
-		}
-		return null;
+	get sliderBar(): DSliderBar {
+		return this._sliderBar;
 	}
-	get sliderBarChosen() : DSliderBarChosen | null {
-		if (this._sliderBarChosen) {
-			return this._sliderBarChosen;
-		}
-		return null;
+	get sliderBarChosen(): DSliderBarChosen {
+		return this._sliderBarChosen;
 	}
-	get yOffset(): number{
-		if (this._yOffset) {
-			return this._yOffset;
-		}
-		return 0;
+	get yOffset(): number {
+		return this._yOffset;
 	}
 	protected getType(): string {
 		return "DSliderRange";
 	}
-
 
 }

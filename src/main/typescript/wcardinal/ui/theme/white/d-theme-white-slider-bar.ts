@@ -4,7 +4,7 @@
  */
 
 import { DBaseState } from "../../d-base-state";
-import { DCoordinateSize, DCoordinatePosition } from "../../d-coordinate";
+import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
 import { DThemeWhiteButton } from "./d-theme-white-button";
 
 export class DThemeWhiteSliderBar extends DThemeWhiteButton implements DThemeWhiteSliderBar {
@@ -12,8 +12,8 @@ export class DThemeWhiteSliderBar extends DThemeWhiteButton implements DThemeWhi
 	getBackgroundColor( state: DBaseState ): number | null {
 		return 0xCCCCCC;
 	}
-	
-    getBorderColor( state: DBaseState ): number | null {
+
+	getBorderColor( state: DBaseState ): number | null {
 		return null;
 	}
 
@@ -21,7 +21,7 @@ export class DThemeWhiteSliderBar extends DThemeWhiteButton implements DThemeWhi
 		return 0x5F5F5F;
 	}
 
-    getHeight(): DCoordinateSize {
+	getHeight(): DCoordinateSize {
 		return 5;
 	}
 

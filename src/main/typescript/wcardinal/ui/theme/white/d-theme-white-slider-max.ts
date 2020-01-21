@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DCoordinateSize } from "../../d-coordinate";
 import { DAlignHorizontal } from "../../d-align-horizontal";
-import { DThemeWhiteTextBase } from "./d-theme-white-text-base";
 import { DAlignVertical } from "../../d-align-vertical";
 import { DBaseState } from "../../d-base-state";
+import { DCoordinateSize } from "../../d-coordinate";
+import { DThemeWhiteTextBase } from "./d-theme-white-text-base";
 
 export class DThemeWhiteSliderMax extends DThemeWhiteTextBase implements DThemeWhiteSliderMax {
 
@@ -78,7 +78,7 @@ export class DThemeWhiteSliderMax extends DThemeWhiteTextBase implements DThemeW
 	getBorderAlign( state: DBaseState ): number {
 		return 0;
 	}
-	
+
 	getOutlineAlpha( state: DBaseState ): number {
 		return 0;
 	}

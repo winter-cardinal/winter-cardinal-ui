@@ -17,15 +17,15 @@ export class DThemeWhiteSliderButton extends DThemeWhiteButton implements DTheme
 		return null;
 	}
 
-    getHeight(): DCoordinateSize {
+	getHeight(): DCoordinateSize {
 		return 15;
 	}
 
 	getWidth(): DCoordinateSize {
 		return 15;
 	}
-	
-    getCornerRadius(): number {
+
+	getCornerRadius(): number {
 		return 15;
 	}
 

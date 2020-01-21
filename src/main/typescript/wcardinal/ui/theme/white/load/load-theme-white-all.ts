@@ -29,17 +29,17 @@ import { loadThemeWhitePickerDate } from "./load-theme-white-picker-date";
 import { loadThemeWhitePickerDatetime } from "./load-theme-white-picker-datetime";
 import { loadThemeWhitePickerTime } from "./load-theme-white-picker-time";
 import { loadThemeWhiteSelect } from "./load-theme-white-select";
+import { loadThemeWhiteSlider } from "./load-theme-white-slider";
+import { loadThemeWhiteSliderBar } from "./load-theme-white-slider-bar";
+import { loadThemeWhiteSliderBarChosen } from "./load-theme-white-slider-bar-chosen";
+import { loadThemeWhiteSliderButton } from "./load-theme-white-slider-button";
+import { loadThemeWhiteSliderMax } from "./load-theme-white-slider-max";
+import { loadThemeWhiteSliderMin } from "./load-theme-white-slider-min";
+import { loadThemeWhiteSliderRange } from "./load-theme-white-slider-range";
+import { loadThemeWhiteSliderValue } from "./load-theme-white-slider-value";
 import { loadThemeWhiteTable } from "./load-theme-white-table";
 import { loadThemeWhiteText } from "./load-theme-white-text";
 import { loadThemeWhiteView } from "./load-theme-white-view";
-import { loadThemeWhiteSlider } from "./load-theme-white-slider";
-import { loadThemeWhiteSliderRange } from "./load-theme-white-slider-range";
-import { loadThemeWhiteSliderBar } from "./load-theme-white-slider-bar";
-import { loadThemeWhiteSliderButton } from "./load-theme-white-slider-button";
-import { loadThemeWhiteSliderMin } from "./load-theme-white-slider-min";
-import { loadThemeWhiteSliderMax } from "./load-theme-white-slider-max";
-import { loadThemeWhiteSliderBarChosen } from "./load-theme-white-slider-bar-chosen";
-import { loadThemeWhiteSliderValue } from "./load-theme-white-slider-value";
 
 export const loadThemeWhiteAll = () => {
 	loadThemeWhite();

@@ -15,7 +15,7 @@ export class DThemeWhiteSliderValue extends DThemeWhiteTextBase implements DThem
 		return 0x3399FF;
 	}
 
-    getBorderColor( state: DBaseState ): number | null {
+	getBorderColor( state: DBaseState ): number | null {
 		return 0x3399FF;
 	}
 

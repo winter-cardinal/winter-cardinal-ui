@@ -22,7 +22,7 @@ export class DSliderMax<
 	THEME extends DSliderMaxText = DSliderMaxText,
 	OPTIONS extends DSliderMaxOptions<VALUE, THEME> = DSliderMaxOptions<VALUE, THEME>
 > extends DTextBase<VALUE, THEME, OPTIONS> {
-	protected _value?: number
+	protected _value!: number;
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
@@ -35,11 +35,8 @@ export class DSliderMax<
 		this._value = value;
 	}
 
-	get value() : number {
-		if (this._value) {
-			return this._value;
-		}
-		return 0;
+	get value(): number {
+		return this._value;
 	}
 
 	protected getType(): string {

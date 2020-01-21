@@ -22,12 +22,12 @@ export class DSliderMin<
 	THEME extends DSliderMinText = DSliderMinText,
 	OPTIONS extends DSliderMinOptions<VALUE, THEME> = DSliderMinOptions<VALUE, THEME>
 > extends DTextBase<VALUE, THEME, OPTIONS> {
-	protected _value?: number
+	protected _value!: number;
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
 		this.setState( DBaseState.UNFOCUSABLE, true );
-		
+
 		this._value = 0;
 	}
 
@@ -35,11 +35,8 @@ export class DSliderMin<
 		this._value = value;
 	}
 
-	get value() : number {
-		if (this._value) {
-			return this._value;
-		}
-		return 0;
+	get value(): number {
+		return this._value;
 	}
 
 	protected getType(): string {

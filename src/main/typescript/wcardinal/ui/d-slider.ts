@@ -7,9 +7,9 @@ import { interaction } from "pixi.js";
 import InteractionEvent = interaction.InteractionEvent;
 import { DApplications } from "./d-applications";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
-import { DSliderRange } from './d-slider-range';
-import { DSliderMin } from './d-slider-min';
-import { DSliderMax } from './d-slider-max';
+import { DSliderMax } from "./d-slider-max";
+import { DSliderMin } from "./d-slider-min";
+import { DSliderRange } from "./d-slider-range";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
 export interface DSliderOptions<THEME extends DThemeSlider> extends DBaseOptions<THEME> {
@@ -48,41 +48,38 @@ export class DSlider<
 		this._maxRange = new DSliderMax({});
 		this._maxRange.text = String(this._maxRange.value);
 		this._maxRange.x = this._minRange.width + this._sliderRange.width + HORIZONTAL_PIXEL_BALANCE;
-		
+
 		const sliderBar = this._sliderRange.sliderBar;
 		const sliderBarChosen = this._sliderRange.sliderBarChosen;
 		const sliderButton = this._sliderRange.sliderButton;
 
-		if (sliderBar) {
-			// calculate y-offset to determine y-coordinate of slider mix, max
-			const yOffset = this._sliderRange.yOffset -	(this._minRange.height/2 - sliderBar.height/2);
-			this._minRange.y = yOffset;
-			this._maxRange.y = yOffset;
-			// calculate x-coordinate of slider max base on the widths of slier min, range
-			this._maxRange.x = this._minRange.width + this._sliderRange.width + HORIZONTAL_PIXEL_BALANCE;
-		}
+		// calculate y-offset to determine y-coordinate of slider mix, max
+		const yOffset = this._sliderRange.yOffset -	(this._minRange.height / 2 - sliderBar.height / 2);
+		this._minRange.y = yOffset;
+		this._maxRange.y = yOffset;
+		// calculate x-coordinate of slider max base on the widths of slier min, range
+		this._maxRange.x = this._minRange.width + this._sliderRange.width + HORIZONTAL_PIXEL_BALANCE;
 
 		this.addChild(this._minRange);
 		this.addChild(this._sliderRange);
 		this.addChild(this._maxRange);
 
-		if (sliderBar && sliderBarChosen && sliderButton) {
-			sliderBar.on( UtilPointerEvent.down, ( e: InteractionEvent) => {
-				this.onsliderBarDown( e );
-			});
-			sliderBarChosen.on( UtilPointerEvent.down, ( e: InteractionEvent) => {
-				this.onsliderBarChosenDown( e );
-			});
-			sliderButton.on(UtilPointerEvent.down, ( e: InteractionEvent ) => {
-				this.onSliderButtonDown( e );
-			});
-			this._onSliderButtonMove = ( e: InteractionEvent ): void => {
-				this.onSliderButtonMove();
-			};
-			this._onSliderButtonUp = ( e: InteractionEvent ): void => {
-				this.onSliderButtonUp( e );
-			};
-		}
+		sliderBar.on( UtilPointerEvent.down, ( e: InteractionEvent) => {
+			this.onsliderBarDown( e );
+		});
+		sliderBarChosen.on( UtilPointerEvent.down, ( e: InteractionEvent) => {
+			this.onsliderBarChosenDown( e );
+		});
+		sliderButton.on(UtilPointerEvent.down, ( e: InteractionEvent ) => {
+			this.onSliderButtonDown( e );
+		});
+		this._onSliderButtonMove = ( e: InteractionEvent ): void => {
+			this.onSliderButtonMove();
+		};
+		this._onSliderButtonUp = ( e: InteractionEvent ): void => {
+			this.onSliderButtonUp( e );
+		};
+
 	}
 	protected onsliderBarDown(e: InteractionEvent ): void {
 		this._sliderRange.updateSliderValue(this._minRange.value, this._maxRange.value);
@@ -112,7 +109,7 @@ export class DSlider<
 	protected getType(): string {
 
 		return "DSlider";
-		
+
 	}
 
 }
