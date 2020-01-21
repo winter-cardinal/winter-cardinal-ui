@@ -1,0 +1,249 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<th:block th:insert="fragment/common::#head"></th:block>
+</head>
+<body>
+	<th:block th:insert="fragment/common::#body"></th:block>
+	<script>
+	(function(){
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+
+		new wcardinal.ui.DMenuBar({
+			parent: application.stage,
+			x: "50%-50s", y: 100,
+			items: [{
+				width: "auto",
+				text: {
+					value: "File"
+				},
+				menu: {
+					sticky: true,
+					items: [{
+						text: {
+							value: "A"
+						},
+						shortcut: "Ctrl+O"
+					}, {
+						separator: true
+					}, {
+						text: {
+							value: "B"
+						}
+					}, {
+						text: {
+							value: "C"
+						}
+					}, {
+						text: {
+							value: "D"
+						},
+						menu: {
+							items: [{
+								text: {
+									value: "D1"
+								},
+								shortcut: "Ctrl+P"
+							}, {
+								separator: true
+							}, {
+								text: {
+									value: "D2"
+								},
+								menu: {
+									align: "LEFT",
+									items: [{
+										text: {
+											value: "D2-1"
+										},
+										shortcut: "Ctrl+Q"
+									}, {
+										separator: true
+									}, {
+										text: {
+											value: "D2-2"
+										}
+									}, {
+										text: {
+											value: "D2-3"
+										}
+									}]
+								}
+							}, {
+								text: {
+									value: "D3"
+								}
+							}]
+						}
+					}]
+				}
+			}, {
+				text: {
+					value: "Edit"
+				},
+				menu: {
+					items: [{
+						text: {
+							value: "A"
+						},
+						shortcut: "Ctrl+O"
+					}, {
+						separator: true
+					}, {
+						text: {
+							value: "B"
+						},
+						check: true
+					}, {
+						text: {
+							value: "C"
+						},
+						check: false
+					}, {
+						text: {
+							value: "D"
+						},
+						check: false
+					}]
+				}
+			}],
+			on: {
+				select: ( value, item, menu ) => {
+					console.log( "Menu1", item.text, item, menu );
+				}
+			}
+		});
+
+		new wcardinal.ui.DMenuBar({
+			parent: application.stage,
+			x: 100, y: 200,
+			items: [{
+				width: "auto",
+				text: {
+					value: "File"
+				},
+				menu: {
+					items: [{
+						text: {
+							value: "A"
+						},
+						shortcut: "Ctrl+O"
+					}, {
+						separator: true
+					}, {
+						text: {
+							value: "B"
+						}
+					}, {
+						text: {
+							value: "C"
+						}
+					}, {
+						text: {
+							value: "D"
+						},
+						menu: {
+							items: [{
+								text: {
+									value: "D1"
+								},
+								shortcut: "Ctrl+P"
+							}, {
+								separator: true
+							}, {
+								text: {
+									value: "D2"
+								},
+								menu: {
+									align: "LEFT",
+									items: [{
+										text: {
+											value: "D2-1"
+										},
+										shortcut: "Ctrl+Q"
+									}, {
+										separator: true
+									}, {
+										text: {
+											value: "D2-2"
+										}
+									}, {
+										text: {
+											value: "D2-3"
+										}
+									}]
+								}
+							}, {
+								text: {
+									value: "D3"
+								}
+							}]
+						}
+					}]
+				}
+			}, {
+				text: {
+					value: "Edit"
+				},
+				menu: {
+					items: [{
+						text: {
+							value: "A"
+						},
+						shortcut: "Ctrl+O"
+					}, {
+						separator: true
+					}, {
+						text: {
+							value: "B"
+						}
+					}, {
+						text: {
+							value: "C"
+						}
+					}, {
+						text: {
+							value: "D"
+						}
+					}, {
+						header: {
+							text: {
+								value: "Expandable"
+							}
+						},
+						items: [{
+							text: {
+								value: "B"
+							}
+						}, {
+							text: {
+								value: "C"
+							},
+							check: true
+						}, {
+							separator: true
+						}, {
+							text: {
+								value: "D"
+							}
+						}]
+					}]
+				}
+			}],
+			on: {
+				select: ( value, item, menu ) => {
+					console.log( "Menu2", item.text, item, menu );
+				}
+			}
+		});
+	}());
+	</script>
+</body>
+</html>

@@ -186,7 +186,7 @@ export default ( !process.env.ROLLUP_WATCH ?
 			"pixi.js"
 		]
 	},{
-		input: `${SOURCE_DIR}${name}.js`,
+		input: `${SOURCE_DIR}${name}.esm.js`,
 		output: [{
 			file: `${OUTPUT_FILE}.cjs.js`,
 			format: 'cjs',
@@ -209,6 +209,7 @@ export default ( !process.env.ROLLUP_WATCH ?
 			sourcemapPathTransform: ( relativePath ) => {
 				return path.relative( "../src/main/typescript/", relativePath )
 			},
+			freeze: false,
 			globals: {
 				"pixi.js": "PIXI"
 			}
@@ -233,6 +234,7 @@ export default ( !process.env.ROLLUP_WATCH ?
 			sourcemapPathTransform: ( relativePath ) => {
 				return path.relative( "../src/main/typescript/", relativePath )
 			},
+			freeze: false,
 			globals: {
 				"pixi.js": "PIXI"
 			}
@@ -257,6 +259,7 @@ export default ( !process.env.ROLLUP_WATCH ?
 			sourcemapPathTransform: ( relativePath ) => {
 				return path.relative( "../src/main/typescript/", relativePath )
 			},
+			freeze: false,
 			globals: {
 				"pixi.js": "PIXI"
 			}
@@ -269,9 +272,8 @@ export default ( !process.env.ROLLUP_WATCH ?
 			terser( TERSER_OPTIONS ),
 			copy({
 				targets: [
-					{ src: `dist/${name}.js`, dest: META_INF_DIR },
-					{ src: `dist/${name}.min.js`, dest: META_INF_DIR },
-					{ src: `dist/${name}.min.js.map`, dest: META_INF_DIR },
+					{ src: `dist/${name}*.js`, dest: META_INF_DIR },
+					{ src: `dist/${name}*.map`, dest: META_INF_DIR },
 					{ src: 'node_modules/pixi.js/dist/*', dest: PIXI_DIR }
 				],
 				hook: 'writeBundle'
@@ -288,6 +290,7 @@ export default ( !process.env.ROLLUP_WATCH ?
 			file: `${OUTPUT_FILE}.js`,
 			format: 'iife',
 			banner: BANNER,
+			freeze: false,
 			globals: {
 				"pixi.js": "PIXI"
 			}
@@ -306,6 +309,7 @@ export default ( !process.env.ROLLUP_WATCH ?
 			file: `${OUTPUT_FILE}.js`,
 			format: 'iife',
 			banner: BANNER,
+			freeze: false,
 			globals: {
 				"pixi.js": "PIXI"
 			}
@@ -325,6 +329,7 @@ export default ( !process.env.ROLLUP_WATCH ?
 			file: `${OUTPUT_FILE}.js`,
 			format: 'iife',
 			banner: BANNER,
+			freeze: false,
 			globals: {
 				"pixi.js": "PIXI"
 			}

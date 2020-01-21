@@ -1,0 +1,105 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<th:block th:insert="fragment/common::#head"></th:block>
+</head>
+<body>
+	<th:block th:insert="fragment/common::#body"></th:block>
+	<script>
+	(function(){
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+
+		new wcardinal.ui.DChart({
+			parent: application.stage,
+			x: 100, y: 50,
+			width: 500, height: 300,
+			plotArea: {
+				coordinate: {
+					x: new wcardinal.ui.DChartCoordinateLinear(),
+					y: new wcardinal.ui.DChartCoordinateLinear()
+				},
+				series: {
+					list: [
+						new wcardinal.ui.DChartSeriesLine(),
+						new wcardinal.ui.DChartSeriesLine(),
+						new wcardinal.ui.DChartSeriesLine(),
+						new wcardinal.ui.DChartSeriesLine(),
+						new wcardinal.ui.DChartSeriesLine(),
+						new wcardinal.ui.DChartSeriesLine()
+					],
+					selection: new wcardinal.ui.DChartSelectionSimple({
+						selected: {
+							on: {
+								change: ( selected ) => {
+									console.log( "selected", selected.series, selected.position );
+								}
+							}
+						},
+						hovered: {
+							on: {
+								change: ( selected ) => {
+									console.log( "hovered", selected.series, selected.position );
+								}
+							}
+						}
+					})
+				},
+				axis: {
+					list: [
+						new wcardinal.ui.DChartAxisX({
+							label: {
+								value: "X Axis"
+							}
+						}),
+						new wcardinal.ui.DChartAxisY({
+							label: {
+								value: "Y Axis"
+							}
+						})
+					]
+				}
+			},
+			on: {
+				init: ( chart ) => {
+					let x = Date.now();
+					let x0 = x;
+					const update = () => {
+						x = Date.now();
+						const dx = (x - x0) * 0.025;
+
+						const plotArea = chart.plotArea;
+						const size = plotArea.series.size();
+						for( let i = 0; i < size; ++i ) {
+							const series = plotArea.series.get( i );
+							const points = series.points;
+							const dy = Math.sin( dx * 0.025 + i ) * 12;
+							points.push( dx, dy );
+							if( 1024 < series.points.length ) {
+								points.shift();
+								points.shift();
+							}
+							series.toDirty();
+						}
+						plotArea.coordinate.fit();
+						plotArea.axis.update();
+						plotArea.series.update();
+
+						if( x - x0 <= 5000 ) {
+							setTimeout( update, 0 );
+						}
+					};
+					update();
+				}
+			}
+		});
+	}());
+	</script>
+</body>
+</html>

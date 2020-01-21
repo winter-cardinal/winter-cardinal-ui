@@ -1,0 +1,90 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<th:block th:insert="fragment/common::#head"></th:block>
+</head>
+<body>
+	<th:block th:insert="fragment/common::#body"></th:block>
+	<script>
+	(function(){
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+
+		const container = new wcardinal.ui.EShapeContainer();
+		container.position.set( 50, 50 );
+
+		const radius = 60;
+		const padding = 10;
+		const points = [];
+		for( let i = 0; i <= 4; ++i ) {
+			const angle = (2 - i) * Math.PI / 4;
+			points.push(
+				Math.cos( angle ) * radius,
+				Math.sin( angle ) * radius
+			);
+		}
+		const width = 3;
+		const style = wcardinal.ui.EShapePointsStyle.CLOSED | wcardinal.ui.EShapePointsStyle.DOTTED_DENSELY;
+
+		let x = padding;
+		let y = radius * 0.5 + padding;
+		const line = new wcardinal.ui.EShapeLine(points, [], width, style);
+		line.stroke.color = 0x000000;
+		line.stroke.enable = true;
+		line.transform.position.set( x, y );
+		line.attach( container );
+
+		// One
+		for( let i = 0; i <= 4; ++i ) {
+			x += radius + padding;
+			const line1 = new wcardinal.ui.EShapeLine(points, [ i ], width, style);
+			line1.stroke.color = 0xff0000;
+			line1.stroke.enable = true;
+			line1.transform.position.set( x, y );
+			line1.attach( container );
+		}
+
+		// Two
+		x = padding;
+		y += radius * 2 + padding;
+		for( let i = 0; i <= 3; ++i ) {
+			for( let j = i + 1; j <= 4; ++j ) {
+				x += radius + padding;
+				const line2 = new wcardinal.ui.EShapeLine(points, [ i, j ], width, style);
+				line2.stroke.color = 0x0000ff;
+				line2.stroke.enable = true;
+				line2.transform.position.set( x, y );
+				line2.attach( container );
+			}
+		}
+
+		// Three
+		x = padding;
+		y += radius * 2 + padding;
+		for( let i = 0; i <= 4; ++i ) {
+			x += radius + padding;
+			const segments = []
+			for( let j = 0; j <= 4; ++j ) {
+				if( j !== i ) {
+					segments.push( j );
+				}
+			}
+			const line3 = new wcardinal.ui.EShapeLine(points, segments, width, style);
+			line3.stroke.color = 0x008800;
+			line3.stroke.enable = true;
+			line3.transform.position.set( x, y );
+			line3.attach( container );
+		}
+
+		application.stage.addChild( container );
+		application.update();
+	}());
+	</script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<th:block th:insert="fragment/common::#head"></th:block>
+</head>
+<body>
+	<th:block th:insert="fragment/common::#body"></th:block>
+	<script>
+	(function(){
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+
+		// Data
+		const data = [];
+		for( let i = 0; i < 20000; ++i ) {
+			data.push([
+				i % 3 === 0
+			]);
+		}
+
+		// Filter
+		const button = new wcardinal.ui.DButton({
+			parent: application.stage,
+			x: 50, y: 50,
+			width: 200,
+			text: {
+				value: "Toggle"
+			}
+		});
+
+		// Table
+		new wcardinal.ui.DTable({
+			parent: application.stage,
+			x: 50, y: 100,
+			width: 600, height: 600,
+			columns: [{
+				label: "A",
+				type: "CHECK",
+				editable: true
+			}],
+			data: data,
+			body: {
+				on: {
+					init: ( self ) => {
+						button.on( "active", () => {
+							const rows = self.data.rows;
+							if( 0 < rows.length ) {
+								const checked = ! rows[ 0 ][ 0 ];
+								for( let i = 0, imax = rows.length; i < imax; ++i ) {
+									rows[ i ][ 0 ] = checked;
+								}
+								self.update( true );
+							}
+						});
+					}
+				}
+			}
+		});
+	}());
+	</script>
+</body>
+</html>
