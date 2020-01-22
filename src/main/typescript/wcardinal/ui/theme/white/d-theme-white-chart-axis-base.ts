@@ -3,11 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DChartAxisPosition, DChartAxisTickPosition } from "../../d-chart-axis";
 import { DThemeChartAxisBase } from "../../d-chart-axis-base-options";
+import { DChartAxisPosition } from "../../d-chart-axis-position";
+import { DChartAxisTickPosition } from "../../d-chart-axis-tick-position";
 import { EShapeDefaults } from "../../shape/e-shape-defaults";
-import { EShapePointsStyle } from "../../shape/e-shape-points";
-import { EShapeStrokeSide } from "../../shape/e-shape-stroke";
+import { EShapePointsStyle } from "../../shape/e-shape-points-style";
+import { EShapeStrokeSide } from "../../shape/e-shape-stroke-side";
 import { EShapeTextAlignHorizontal } from "../../shape/e-shape-text-align-horizontal";
 import { EShapeTextAlignVertical } from "../../shape/e-shape-text-align-vertical";
 import { EShapeTextDirection } from "../../shape/e-shape-text-direction";

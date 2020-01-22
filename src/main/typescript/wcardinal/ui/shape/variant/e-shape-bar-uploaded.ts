@@ -6,7 +6,7 @@
 import { Matrix } from "pixi.js";
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
-import { EShapePointsStyle } from "../e-shape-points";
+import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapePointsStyleUploadeds } from "../e-shape-points-style-uploadeds";
 import { EShapeBar } from "./e-shape-bar";
 import { EShapeBarPoints } from "./e-shape-bar-points";

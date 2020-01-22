@@ -11,7 +11,7 @@ import { DChartCoordinateTransformImpl } from "./d-chart-coordinate-transform-im
 import { DChartRegion } from "./d-chart-region";
 import { DChartRegionImpl } from "./d-chart-region-impl";
 import { DThemes } from "./theme/d-themes";
-import { utilIsNaN } from "./util/util-is-nan";
+import { isNaN } from "./util/is-nan";
 
 export interface DThemeChartCoordinateLinear extends DThemeChartCoordinateTransform, DThemeChartCoordinateLinearTick {
 
@@ -77,7 +77,7 @@ export class DChartCoordinateLinear implements DChartCoordinate {
 	protected fit_( pixelFrom: number, pixelTo: number, region: DChartRegion ): void {
 		const regionFrom = region.from;
 		const regionTo = region.to;
-		if( ! (utilIsNaN( regionFrom ) || utilIsNaN( regionTo )) ) {
+		if( ! (isNaN( regionFrom ) || isNaN( regionTo )) ) {
 			// Scale
 			let newScale = 1;
 			const regionSize = ( regionTo - regionFrom );

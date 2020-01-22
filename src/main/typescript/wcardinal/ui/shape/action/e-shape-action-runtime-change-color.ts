@@ -14,7 +14,7 @@ import { EShapeTextOutline, EShapeTextOutlineLike } from "../e-shape-text-outlin
 import { EShapeActionExpression } from "./e-shape-action-runtime";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
 import { EShapeActionValueChangeColor } from "./e-shape-action-value-change-color";
-import { EShapeActionValueChangeColorTarget } from "./e-shape-action-value-change-color-type";
+import { EShapeActionValueChangeColorTarget } from "./e-shape-action-value-change-color-target";
 
 const blendDefault = (): number | null => null;
 

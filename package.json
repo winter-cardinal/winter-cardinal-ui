@@ -1,6 +1,6 @@
 {
 	"name": "@wcardinal/wcardinal-ui",
-	"version": "0.4.5",
+	"version": "0.5.0",
 	"license": "Apache-2.0",
 	"description": "A WebGL-based UI library",
 	"homepage": "https://github.com/winter-cardinal/winter-cardinal-ui",
@@ -14,10 +14,23 @@
 	"module": "dist/wcardinal-ui.esm.js",
 	"sideEffects": false,
 	"files": [
-		"dist/*"
+		"dist/types",
+		"dist/wcardinal",
+		"dist/wcardinal-ui-theme-dark.js",
+		"dist/wcardinal-ui-theme-dark.min.js",
+		"dist/wcardinal-ui-theme-dark.min.js.map",
+		"dist/wcardinal-ui-theme-white.js",
+		"dist/wcardinal-ui-theme-white.min.js",
+		"dist/wcardinal-ui-theme-white.min.js.map",
+		"dist/wcardinal-ui.cjs.js",
+		"dist/wcardinal-ui.esm.js",
+		"dist/wcardinal-ui.esm.js.map",
+		"dist/wcardinal-ui.js",
+		"dist/wcardinal-ui.min.js",
+		"dist/wcardinal-ui.min.js.map"
 	],
 	"scripts": {
-		"build": "rimraf dist && rimraf src/test/resources/META-INF && tsc && rollup -c",
+		"build": "rimraf dist/* && rimraf src/test/resources/META-INF && tsc && rollup -c",
 		"build:ts": "tsc",
 		"build:rollup": "rollup -c",
 		"build:api": "rimraf docs/api && typedoc --options typedoc.json --out docs/api --disableOutputCheck --excludeNotExported --excludePrivate",
@@ -34,16 +47,13 @@
 		"rollup": "^1.16.7",
 		"rollup-plugin-commonjs": "^10.0.1",
 		"rollup-plugin-copy": "^3.0.0",
-		"rollup-plugin-delete": "^1.0.0",
 		"rollup-plugin-node-resolve": "^5.2.0",
 		"rollup-plugin-sourcemaps": "^0.4.2",
-		"rollup-plugin-terser": "^5.1.1",
-		"rollup-plugin-typescript2": "^0.22.0",
-		"rollup-plugin-uglify": "^6.0.2",
+		"rollup-plugin-terser": "^5.2.0",
 		"tslib": "^1.10.0",
 		"tslint": "5.16.0",
 		"typedoc": "^0.15.6",
 		"typedoc-plugin-external-module-map": "^1.0.0",
-		"typescript": "^3.4.1"
+		"typescript": "^3.7.5"
 	}
 }

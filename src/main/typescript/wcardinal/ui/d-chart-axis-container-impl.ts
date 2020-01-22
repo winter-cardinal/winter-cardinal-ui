@@ -3,11 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DChartAxis, DChartAxisPosition } from "./d-chart-axis";
+import { DChartAxis } from "./d-chart-axis";
 import { DChartAxisContainer, DChartAxisContainerOptions } from "./d-chart-axis-container";
+import { DChartAxisPosition } from "./d-chart-axis-position";
 import { DChartPlotArea } from "./d-chart-plot-area";
 import { EShapeContainer } from "./shape/e-shape-container";
-import { utilIsNumber } from "./util/util-is-number";
+import { isNumber } from "./util/is-number";
 
 export class DChartAxisContainerImpl implements DChartAxisContainer {
 	protected _plotArea: DChartPlotArea;
@@ -70,7 +71,7 @@ export class DChartAxisContainerImpl implements DChartAxisContainer {
 	remove( position: DChartAxisPosition, index: number ): DChartAxis | null;
 	remove( axisOrPosition: DChartAxis | DChartAxisPosition, indexOrUndefined?: number ): DChartAxis | null {
 		const list = this._list;
-		if( utilIsNumber( axisOrPosition ) ) {
+		if( isNumber( axisOrPosition ) ) {
 			const position: DChartAxisPosition = axisOrPosition;
 			const index = indexOrUndefined!;
 			const axes = list.get( position );

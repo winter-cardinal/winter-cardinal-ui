@@ -7,9 +7,8 @@ import { EShape } from "../e-shape";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeActionRuntime } from "./e-shape-action-runtime";
 import { EShapeActionValueBlinkType } from "./e-shape-action-value-blink-type";
-import {
-	EShapeActionValueChangeColorTarget, EShapeActionValueChangeColorType
-} from "./e-shape-action-value-change-color-type";
+import { EShapeActionValueChangeColorTarget } from "./e-shape-action-value-change-color-target";
+import { EShapeActionValueChangeColorType } from "./e-shape-action-value-change-color-type";
 import { EShapeActionValueChangeTextType } from "./e-shape-action-value-change-text-type";
 import { EShapeActionValueMiscType } from "./e-shape-action-value-misc-type";
 import { EShapeActionValueOpenType } from "./e-shape-action-value-open-type";

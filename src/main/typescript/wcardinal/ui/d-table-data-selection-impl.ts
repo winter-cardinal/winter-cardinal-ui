@@ -6,7 +6,7 @@
 import { utils } from "pixi.js";
 import { DTableData } from "./d-table-data";
 import { DTableDataSelection, DTableDataSelectionOptions, DTableDataSelectionType } from "./d-table-data-selection";
-import { utilIsString } from "./util/util-is-string";
+import { isString } from "./util/is-string";
 
 const COMPARATOR = ( a: [number, unknown], b: [number, unknown] ): number => {
 	return a[ 0 ] - b[ 0 ];
@@ -31,7 +31,7 @@ export class DTableDataSelectionImpl<ROW> extends utils.EventEmitter implements 
 
 	protected toType( options?: DTableDataSelectionOptions ): DTableDataSelectionType {
 		return ( options && options.type != null ?
-			( utilIsString( options.type ) ? DTableDataSelectionType[ options.type ] : options.type ) :
+			( isString( options.type ) ? DTableDataSelectionType[ options.type ] : options.type ) :
 			DTableDataSelectionType.NONE
 		);
 	}

@@ -1,0 +1,41 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<th:block th:insert="fragment/common::#head"></th:block>
+</head>
+<body>
+	<th:block th:insert="fragment/common::#body"></th:block>
+	<script>
+	(function(){
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+
+		const container = new wcardinal.ui.EShapeContainer();
+		container.position.set( 50, 50 );
+
+		const rectangle = new wcardinal.ui.EShapeRectangle();
+		rectangle.transform.position.set( 200, 200 );
+		rectangle.attach( container );
+
+		const bar = new wcardinal.ui.EShapeBar(wcardinal.ui.EShapeBarPosition.TOP, -1, 10, wcardinal.ui.EShapePointsStyle);
+		bar.transform.position.set( 200, 200 );
+		bar.attach( container );
+
+		application.stage.on( "pointermove", ( e ) => {
+			const global = e.data.global;
+			const local = bar.toLocal( global );
+			console.log( local.x, local.y, bar.contains( local ) );
+		});
+
+		application.stage.addChild( container );
+		application.update();
+	}());
+	</script>
+</body>
+</html>

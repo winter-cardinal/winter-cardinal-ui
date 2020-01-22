@@ -8,117 +8,113 @@ import { DApplications } from "./d-applications";
 import { DBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DDynamicText } from "./d-dynamic-text";
+import { DHtmlElementWhen } from "./d-html-element-when";
 import { DImageBase, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
-import { utilIsString } from "./util/util-is-string";
+import { isString } from "./util/is-string";
 
-export type DHTMLElementElementCreator<T> = ( parent: HTMLElement ) => T;
+export type DHtmlElementElementCreator<T> = ( parent: HTMLElement ) => T;
 
-export type DHTMLElementStyle<THEME extends DThemeHTMLElement> = (
+export type DHtmlElementStyle<THEME extends DThemeHtmlElement> = (
 	target: HTMLElement,
 	state: DBaseState, theme: THEME,
 	elementRect: Rectangle, clipperRect: Rectangle
 ) => void;
 
-export type DHTMLElementStyleBefore<THEME extends DThemeHTMLElement> =
+export type DHtmlElementStyleBefore<THEME extends DThemeHtmlElement> =
 	( target: HTMLElement, theme: THEME ) => void;
 
-export type DHTMLElementStyleAfter<THEME extends DThemeHTMLElement> =
+export type DHtmlElementStyleAfter<THEME extends DThemeHtmlElement> =
 	( target: HTMLElement, theme: THEME ) => void;
 
-export enum DHTMLElementWhen {
-	FOCUSED,
-	ALWAYS
+export interface DHtmlElementElementOptions<ELEMENT, THEME extends DThemeHtmlElement> {
+	creator?: DHtmlElementElementCreator<ELEMENT>;
+	style?: DHtmlElementStyle<THEME>;
 }
 
-export interface DHTMLElementElementOptions<ELEMENT, THEME extends DThemeHTMLElement> {
-	creator?: DHTMLElementElementCreator<ELEMENT>;
-	style?: DHTMLElementStyle<THEME>;
+export interface DHtmlElementClipperOptions<THEME extends DThemeHtmlElement> {
+	creator?: DHtmlElementElementCreator<HTMLDivElement>;
+	style?: DHtmlElementStyle<THEME>;
 }
 
-export interface DHTMLElementClipperOptions<THEME extends DThemeHTMLElement> {
-	creator?: DHTMLElementElementCreator<HTMLDivElement>;
-	style?: DHTMLElementStyle<THEME>;
+export interface DHtmlElementBeforeOptions<THEME extends DThemeHtmlElement> {
+	creator?: DHtmlElementElementCreator<HTMLDivElement>;
+	style?: DHtmlElementStyleBefore<THEME>;
 }
 
-export interface DHTMLElementBeforeOptions<THEME extends DThemeHTMLElement> {
-	creator?: DHTMLElementElementCreator<HTMLDivElement>;
-	style?: DHTMLElementStyleBefore<THEME>;
+export interface DHtmlElementAfterOptions<THEME extends DThemeHtmlElement> {
+	creator?: DHtmlElementElementCreator<HTMLDivElement>;
+	style?: DHtmlElementStyleAfter<THEME>;
 }
 
-export interface DHTMLElementAfterOptions<THEME extends DThemeHTMLElement> {
-	creator?: DHTMLElementElementCreator<HTMLDivElement>;
-	style?: DHTMLElementStyleAfter<THEME>;
-}
-
-export interface DHTMLElementOptions<
+export interface DHtmlElementOptions<
 	VALUE = unknown,
 	ELEMENT extends HTMLElement = HTMLElement,
-	THEME extends DThemeHTMLElement<ELEMENT> = DThemeHTMLElement<ELEMENT>
+	THEME extends DThemeHtmlElement<ELEMENT> = DThemeHtmlElement<ELEMENT>
 > extends DImageBaseOptions<VALUE, THEME> {
-	element?: DHTMLElementElementOptions<ELEMENT, THEME>;
-	clipper?: DHTMLElementClipperOptions<THEME>;
-	before?: DHTMLElementBeforeOptions<THEME>;
-	after?: DHTMLElementAfterOptions<THEME>;
-	when?: DHTMLElementWhen | (keyof typeof DHTMLElementWhen);
+	element?: DHtmlElementElementOptions<ELEMENT, THEME>;
+	clipper?: DHtmlElementClipperOptions<THEME>;
+	before?: DHtmlElementBeforeOptions<THEME>;
+	after?: DHtmlElementAfterOptions<THEME>;
+	when?: DHtmlElementWhen | (keyof typeof DHtmlElementWhen);
 	select?: boolean;
 }
 
-export interface DThemeHTMLElement<
+export interface DThemeHtmlElement<
 	ELEMENT extends HTMLElement = HTMLElement
 > extends DThemeImageBase {
-	getElementCreator(): DHTMLElementElementCreator<ELEMENT> | null;
+	getElementCreator(): DHtmlElementElementCreator<ELEMENT> | null;
 	setElementStyle(
 		target: ELEMENT, state: DBaseState,
 		elementRect: Rectangle, clipperRect: Rectangle
 	): void;
-	getClipperCreator(): DHTMLElementElementCreator<HTMLDivElement> | null;
+	getClipperCreator(): DHtmlElementElementCreator<HTMLDivElement> | null;
 	setClipperStyle(
 		target: HTMLDivElement, state: DBaseState,
 		elementRect: Rectangle, clipperRect: Rectangle
 	): void;
-	getBeforeCreator(): DHTMLElementElementCreator<HTMLDivElement> | null;
+	getBeforeCreator(): DHtmlElementElementCreator<HTMLDivElement> | null;
 	setBeforeStyle( target: HTMLDivElement ): void;
-	getAfterCreator(): DHTMLElementElementCreator<HTMLDivElement> | null;
+	getAfterCreator(): DHtmlElementElementCreator<HTMLDivElement> | null;
 	setAfterStyle( target: HTMLDivElement ): void;
-	getWhen(): DHTMLElementWhen;
+	getWhen(): DHtmlElementWhen;
 	getSelect(): boolean;
 }
 
-export class DHTMLElement<
+export class DHtmlElement<
 	VALUE = unknown,
 	ELEMENT extends HTMLElement = HTMLElement,
-	THEME extends DThemeHTMLElement<ELEMENT> = DThemeHTMLElement<ELEMENT>,
-	OPTIONS extends DHTMLElementOptions<VALUE, ELEMENT, THEME> = DHTMLElementOptions<VALUE, ELEMENT, THEME>
+	THEME extends DThemeHtmlElement<ELEMENT> = DThemeHtmlElement<ELEMENT>,
+	OPTIONS extends DHtmlElementOptions<VALUE, ELEMENT, THEME> = DHtmlElementOptions<VALUE, ELEMENT, THEME>
 > extends DImageBase<VALUE, THEME, OPTIONS> {
 	protected _workPoint!: Point | null;
 
 	protected _clipper!: HTMLDivElement | null;
-	protected _clipperCreator!: DHTMLElementElementCreator<HTMLDivElement> | null;
-	protected _clipperStyle!: DHTMLElementStyle<THEME> | undefined;
+	protected _clipperCreator!: DHtmlElementElementCreator<HTMLDivElement> | null;
+	protected _clipperStyle!: DHtmlElementStyle<THEME> | undefined;
 	protected _clipperRect!: Rectangle | null;
 
 	protected _element!: ELEMENT | null;
-	protected _elementCreator!: DHTMLElementElementCreator<ELEMENT> | null;
-	protected _elementStyle!: DHTMLElementStyle<THEME> | undefined;
+	protected _elementCreator!: DHtmlElementElementCreator<ELEMENT> | null;
+	protected _elementStyle!: DHtmlElementStyle<THEME> | undefined;
 	protected _elementRect!: Rectangle | null;
 	protected _isElementShown!: boolean;
 	protected _isElementSelected!: boolean;
 	protected _onElementFocusedBound!: ( e: FocusEvent ) => void;
 
 	protected _before!: HTMLDivElement | null;
-	protected _beforeCreator!: DHTMLElementElementCreator<HTMLDivElement> | null;
-	protected _beforeStyle!: DHTMLElementStyleBefore<THEME> | undefined;
+	protected _beforeCreator!: DHtmlElementElementCreator<HTMLDivElement> | null;
+	protected _beforeStyle!: DHtmlElementStyleBefore<THEME> | undefined;
 	protected _onBeforeFocusedBound!: ( e: FocusEvent ) => void;
 
 	protected _after!: HTMLDivElement | null;
-	protected _afterCreator!: DHTMLElementElementCreator<HTMLDivElement> | null;
-	protected _afterStyle!: DHTMLElementStyleAfter<THEME> | undefined;
+	protected _afterCreator!: DHtmlElementElementCreator<HTMLDivElement> | null;
+	protected _afterStyle!: DHtmlElementStyleAfter<THEME> | undefined;
 	protected _onAfterFocusedBound!: ( e: FocusEvent ) => void;
 
 	protected _isStarted!: boolean;
 	protected _select!: boolean;
 	protected _doSelectBound!: () => void;
-	protected _when!: DHTMLElementWhen;
+	protected _when!: DHtmlElementWhen;
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
@@ -168,11 +164,11 @@ export class DHTMLElement<
 			this.doSelect();
 		};
 		const when = ( options && options.when != null ?
-			( utilIsString( options.when ) ? DHTMLElementWhen[ options.when ] : options.when ) :
+			( isString( options.when ) ? DHtmlElementWhen[ options.when ] : options.when ) :
 			theme.getWhen()
 		);
 		this._when = when;
-		if( when === DHTMLElementWhen.ALWAYS ) {
+		if( when === DHtmlElementWhen.ALWAYS ) {
 			this.start();
 		}
 	}
@@ -183,7 +179,7 @@ export class DHTMLElement<
 
 	protected onFocused(): void {
 		super.onFocused();
-		if( this._when === DHTMLElementWhen.FOCUSED ) {
+		if( this._when === DHtmlElementWhen.FOCUSED ) {
 			this.start();
 		} else {
 			const element = this._element;
@@ -195,14 +191,14 @@ export class DHTMLElement<
 
 	protected onBlured(): void {
 		super.onBlured();
-		if( this._when === DHTMLElementWhen.FOCUSED ) {
+		if( this._when === DHtmlElementWhen.FOCUSED ) {
 			this.onEndByBlured();
 			this.cancel();
 		}
 	}
 
 	protected isStartable(): boolean {
-		if( this._when === DHTMLElementWhen.FOCUSED ) {
+		if( this._when === DHtmlElementWhen.FOCUSED ) {
 			return ! this.isDisabled();
 		}
 		return true;
@@ -380,7 +376,7 @@ export class DHTMLElement<
 			const layer = DApplications.getLayer( this );
 			if( layer ) {
 				const view = layer.view;
-				if( this._when === DHTMLElementWhen.FOCUSED ) {
+				if( this._when === DHtmlElementWhen.FOCUSED ) {
 					view.focus();
 				}
 
@@ -545,7 +541,7 @@ export class DHTMLElement<
 	}
 
 	protected onElementFocused( e: FocusEvent ): void {
-		if( this._when === DHTMLElementWhen.ALWAYS ) {
+		if( this._when === DHtmlElementWhen.ALWAYS ) {
 			if( ! this.isFocused() ) {
 				this.focus();
 			}
@@ -596,6 +592,6 @@ export class DHTMLElement<
 	}
 
 	protected getType(): string {
-		return "DHTMLElement";
+		return "DHtmlElement";
 	}
 }

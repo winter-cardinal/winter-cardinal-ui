@@ -10,7 +10,7 @@ import { DPickerDatetimeMask } from "./d-picker-datetime-mask";
 import { DPickerTimes } from "./d-picker-times";
 import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
 import { DTableColumn } from "./d-table-column";
-import { utilIsNumber } from "./util/util-is-number";
+import { isNumber } from "./util/is-number";
 
 export interface DTableBodyCellTimeOptions<
 	ROW = unknown,
@@ -99,7 +99,7 @@ export class DTableBodyCellTime<
 			} else {
 				this.text = value;
 			}
-		} else if( utilIsNumber( value ) ) {
+		} else if( isNumber( value ) ) {
 			const textValueComputed = this._textValueComputed;
 			if( textValueComputed.getTime() !== value ) {
 				textValueComputed.setTime( value );

@@ -4,7 +4,7 @@
  */
 
 import { IPoint } from "pixi.js";
-import { EShapePointsStyle } from "./e-shape-points";
+import { EShapePointsStyle } from "./e-shape-points-style";
 
 export class EShapePointsStyleUploadeds {
 	static toScaleInvariant( style: EShapePointsStyle ): number {

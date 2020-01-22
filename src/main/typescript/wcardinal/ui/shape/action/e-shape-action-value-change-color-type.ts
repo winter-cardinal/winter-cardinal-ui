@@ -11,11 +11,3 @@ export enum EShapeActionValueChangeColorType {
 	TEXT_OUTLINE,
 	ALL
 }
-
-export enum EShapeActionValueChangeColorTarget {
-	COLOR_AND_ALPHA,
-	COLOR,
-	ALPHA,
-	CODE,
-	BRIGHTNESS
-}

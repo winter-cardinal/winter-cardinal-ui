@@ -6,8 +6,8 @@
 import { DAnimation } from "../d-animation";
 import { DAnimationBase } from "../d-animation-base";
 import { DAnimationTimings } from "../d-animation-timings";
+import { isNumber } from "./is-number";
 import { UtilDragEasingHistory } from "./util-drag-easing-history";
-import { utilIsNumber } from "./util-is-number";
 
 export type UtilDragEasingOnMove = ( dx: number, dy: number, ds: number, time: number ) => void;
 
@@ -53,7 +53,7 @@ export class UtilDragEasing {
 		});
 		const duration = options && options.duration;
 		if( duration ) {
-			if( utilIsNumber( duration ) ) {
+			if( isNumber( duration ) ) {
 				this._durationPosition = duration;
 				this._durationScale = duration;
 			} else {

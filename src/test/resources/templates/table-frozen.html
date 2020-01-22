@@ -1,0 +1,77 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<th:block th:insert="fragment/common::#head"></th:block>
+</head>
+<body>
+	<th:block th:insert="fragment/common::#body"></th:block>
+	<script>
+	(function(){
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+
+		// Rows
+		const rows = [];
+		for( let i = 0; i < 20000; ++i ) {
+			rows.push([
+				`A${i % 4}`,
+				`B${i % 8}`,
+				`C${i % 16}`,
+				`D${i % 32}`,
+				`E${i % 64}`,
+				`F${i % 128}`
+			]);
+		}
+
+		// Table
+		const table = new wcardinal.ui.DTable({
+			parent: application.stage,
+			x: 50, y: 50,
+			width: 600, height: 600,
+			columns: [{
+				label: "A",
+				type: "TEXT",
+				width: 200,
+				category: "Category",
+				editable: true,
+				frozen: true
+			},{
+				label: "B",
+				type: "TEXT",
+				width: 200,
+				category: "Category",
+				editable: true
+			},{
+				label: "C",
+				type: "TEXT",
+				width: 200,
+				category: "Category",
+				editable: true
+			},{
+				label: "D",
+				type: "TEXT",
+				width: 200,
+				editable: true
+			},{
+				label: "E",
+				type: "TEXT",
+				width: 200,
+				editable: true
+			},{
+				label: "F",
+				type: "TEXT",
+				width: 200,
+				editable: true
+			}],
+			data: rows
+		});
+	}());
+	</script>
+</body>
+</html>

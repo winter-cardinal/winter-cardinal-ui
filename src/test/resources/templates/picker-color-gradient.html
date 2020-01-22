@@ -1,0 +1,32 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<th:block th:insert="fragment/common::#head"></th:block>
+</head>
+<body>
+	<th:block th:insert="fragment/common::#body"></th:block>
+	<script>
+	(function(){
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+
+		new wcardinal.ui.DButtonColorGradient({
+			parent: application.stage,
+			x: 50, y: 50,
+			width: 200
+		});
+
+		new wcardinal.ui.DPickerColorGradient({
+			parent: application.stage,
+			x: 50, y: 100
+		});
+	}());
+	</script>
+</body>
+</html>

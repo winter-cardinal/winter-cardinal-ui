@@ -9,7 +9,7 @@ import { DDialogDate, DDialogDateOptions } from "./d-dialog-date";
 import { DDialogDates } from "./d-dialog-dates";
 import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
 import { DTableColumn } from "./d-table-column";
-import { utilIsNumber } from "./util/util-is-number";
+import { isNumber } from "./util/is-number";
 
 export interface DTableBodyCellDateOptions<
 	ROW = unknown,
@@ -89,7 +89,7 @@ export class DTableBodyCellDate<
 			} else {
 				this.text = value;
 			}
-		} else if( utilIsNumber( value ) ) {
+		} else if( isNumber( value ) ) {
 			const textValueComputed = this._textValueComputed;
 			if( textValueComputed.getTime() !== value ) {
 				textValueComputed.setTime( value );

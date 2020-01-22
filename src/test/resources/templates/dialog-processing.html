@@ -1,0 +1,30 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<th:block th:insert="fragment/common::#head"></th:block>
+</head>
+<body>
+	<th:block th:insert="fragment/common::#body"></th:block>
+	<script>
+	(function(){
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+		const dialog = new wcardinal.ui.DDialogProcessing();
+		dialog.open();
+		setTimeout(() => {
+			if( 0.5 < Math.random() ) {
+				dialog.resolve();
+			} else {
+				dialog.reject();
+			}
+		}, 0);
+	}());
+	</script>
+</body>
+</html>

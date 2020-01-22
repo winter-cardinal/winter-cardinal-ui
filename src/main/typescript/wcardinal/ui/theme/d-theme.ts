@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { UtilSvgAtlasBuilder } from "../util/util-atlas-builder";
+import { UtilSvgAtlasBuilder } from "../util/util-svg-atlas-builder";
 
 export interface DTheme {
 	get<THEME>( type: string ): THEME;

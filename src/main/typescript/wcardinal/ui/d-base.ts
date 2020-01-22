@@ -17,9 +17,11 @@ import { DBasePoint } from "./d-base-point";
 import { DBaseReflowable } from "./d-base-reflowable";
 import { DBaseState } from "./d-base-state";
 import { DBaseStates } from "./d-base-states";
-import { DBorderMask, DBorderStateAware } from "./d-border";
+import { DBorderStateAware } from "./d-border";
+import { DBorderMask } from "./d-border-mask";
 import { DCoordinatePosition, DCoordinateSize } from "./d-coordinate";
-import { DCorner, DCornerMask } from "./d-corner";
+import { DCorner } from "./d-corner";
+import { DCornerMask } from "./d-corner-mask";
 import { DThemeFont } from "./d-font";
 import { DLayoutClearType } from "./d-layout-clear-type";
 import { DOutline } from "./d-outline";
@@ -29,9 +31,9 @@ import { DScalarSet } from "./d-scalar-set";
 import { DShadow } from "./d-shadow";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { DThemes } from "./theme/d-themes";
-import { utilIsFunction } from "./util/util-is-function";
-import { utilIsNumber } from "./util/util-is-number";
-import { utilIsString } from "./util/util-is-string";
+import { isFunction } from "./util/is-function";
+import { isNumber } from "./util/is-number";
+import { isString } from "./util/is-string";
 import { UtilKeyboardEvent, UtilKeyboardEventShortcut } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 import { UtilWheelEventDeltas } from "./util/util-wheel-event";
@@ -499,7 +501,7 @@ export interface DThemeBase extends DThemeFont {
 const toTheme = <THEME extends DThemeBase>( options?: DBaseOptions<THEME> ): THEME | null => {
 	if( options != null && options.theme != null ) {
 		const theme = options.theme;
-		if( utilIsString( theme ) ) {
+		if( isString( theme ) ) {
 			return DThemes.getInstance().get( theme );
 		} else {
 			return theme;
@@ -613,7 +615,7 @@ export class DBase<
 		this._afters = [];
 		this._reflowables = [];
 		this._clearType = ( options && options.clear != null ?
-			( utilIsString( options.clear ) ? DLayoutClearType[ options.clear ] : options.clear ) :
+			( isString( options.clear ) ? DLayoutClearType[ options.clear ] : options.clear ) :
 			theme.getClearType()
 		);
 		this._padding = new DBasePadding( theme, options, (): void => {
@@ -634,7 +636,7 @@ export class DBase<
 		// X
 		const position = transform.position;
 		const x = ( options && options.x != null ? options.x : theme.getX() );
-		if( utilIsNumber( x ) ) {
+		if( isNumber( x ) ) {
 			position.x = x;
 		} else {
 			position.x = 0;
@@ -643,7 +645,7 @@ export class DBase<
 
 		// Y
 		const y = ( options && options.y != null ? options.y : theme.getY() );
-		if( utilIsNumber( y ) ) {
+		if( isNumber( y ) ) {
 			position.y = y;
 		} else {
 			position.y = 0;
@@ -652,7 +654,7 @@ export class DBase<
 
 		// Width
 		const width = ( options && options.width != null ? options.width : theme.getWidth() );
-		if( utilIsNumber( width ) ) {
+		if( isNumber( width ) ) {
 			this._width = width;
 		} else if( width === "auto" || width === "AUTO" ) {
 			this._width = 100;
@@ -664,7 +666,7 @@ export class DBase<
 
 		// Height
 		const height = ( options && options.height != null ? options.height : theme.getHeight() );
-		if( utilIsNumber( height ) ) {
+		if( isNumber( height ) ) {
 			this._height = height;
 		} else if( height === "auto" || height === "AUTO" ) {
 			this._height = 100;
@@ -685,7 +687,7 @@ export class DBase<
 
 		// Interactive
 		const interactive = ( options && options.interactive != null ?
-			( utilIsString( options.interactive ) ? DBaseInteractive[ options.interactive ] : options.interactive ) :
+			( isString( options.interactive ) ? DBaseInteractive[ options.interactive ] : options.interactive ) :
 			theme.getInteractive()
 		);
 		this.interactive = ( ( interactive & DBaseInteractive.SELF ) !== 0 );
@@ -773,9 +775,9 @@ export class DBase<
 
 		// State Override
 		if( options && options.state != null ) {
-			if( utilIsString( options.state ) ) {
+			if( isString( options.state ) ) {
 				this.setState( DBaseState[ options.state ], true );
-			} else if( utilIsNumber( options.state ) ) {
+			} else if( isNumber( options.state ) ) {
 				this.setState( options.state, true );
 			} else {
 				const states = options.state;
@@ -961,7 +963,7 @@ export class DBase<
 	}
 
 	setX( x: DCoordinatePosition ) {
-		if( utilIsNumber( x ) ) {
+		if( isNumber( x ) ) {
 			this.x = x;
 		} else {
 			const scalarSet = this._scalarSet;
@@ -991,7 +993,7 @@ export class DBase<
 	}
 
 	setY( y: DCoordinatePosition ) {
-		if( utilIsNumber( y ) ) {
+		if( isNumber( y ) ) {
 			this.y = y;
 		} else {
 			const scalarSet = this._scalarSet;
@@ -1046,7 +1048,7 @@ export class DBase<
 	}
 
 	setWidth( width: DCoordinateSize ) {
-		if( utilIsNumber( width ) ) {
+		if( isNumber( width ) ) {
 			this.width = width;
 		} else if( width === "auto" || width === "AUTO" ) {
 			if( ! this.isWidthAuto() ) {
@@ -1107,7 +1109,7 @@ export class DBase<
 	}
 
 	setHeight( height: DCoordinateSize ) {
-		if( utilIsNumber( height ) ) {
+		if( isNumber( height ) ) {
 			this.height = height;
 		} else if( height === "auto" || height === "AUTO" ) {
 			if( ! this.isHeightAuto() ) {
@@ -1582,12 +1584,12 @@ export class DBase<
 
 	protected hasRefitableHeight( target: any ): target is DRefitable {
 		return this.isRefitable( target ) &&
-			! ( target instanceof DBase && utilIsFunction( target.getHeight() ) );
+			! ( target instanceof DBase && isFunction( target.getHeight() ) );
 	}
 
 	protected hasRefitableWidth( target: any ): target is DBase<any, any> {
 		return this.isRefitable( target ) &&
-			! ( target instanceof DBase && utilIsFunction( target.getWidth() ) );
+			! ( target instanceof DBase && isFunction( target.getWidth() ) );
 	}
 
 	reflow(): void {

@@ -13,8 +13,8 @@ import { DLayoutVertical } from "./d-layout-vertical";
 import { DListItem } from "./d-list-item";
 import { DListSelection } from "./d-list-selection";
 import { DNote, DNoteOptions } from "./d-note";
-import { utilIsNumber } from "./util/util-is-number";
-import { utilIsString } from "./util/util-is-string";
+import { isNumber } from "./util/is-number";
+import { isString } from "./util/is-string";
 import { UtilTransition } from "./util/util-transition";
 
 export interface DDialogSelectSearch<SEARCH_RESULT> {
@@ -53,9 +53,9 @@ export interface DThemeDialogSelect extends DThemeDialog {
 // Helper
 const defaultConverter = {
 	toLabel: ( target: any ): string => {
-		if( utilIsString( target ) ) {
+		if( isString( target ) ) {
 			return target;
-		} else if( utilIsNumber( target ) ) {
+		} else if( isNumber( target ) ) {
 			return String( target );
 		} else if( "name" in target ) {
 			return target.name;

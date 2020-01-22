@@ -19,9 +19,8 @@ import {
 	EShapeActionRuntimeChangeColorBrightnessTextOutline
 } from "./e-shape-action-runtime-change-color-brightness-text-outline";
 import { EShapeActionValue } from "./e-shape-action-value";
-import {
-	EShapeActionValueChangeColorTarget, EShapeActionValueChangeColorType
-} from "./e-shape-action-value-change-color-type";
+import { EShapeActionValueChangeColorTarget } from "./e-shape-action-value-change-color-target";
+import { EShapeActionValueChangeColorType } from "./e-shape-action-value-change-color-type";
 import { EShapeActionValueSubtyped } from "./e-shape-action-value-subtyped";
 import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";

@@ -6,7 +6,7 @@
 import { utils } from "pixi.js";
 import { DTableDataEachIterator } from "./d-table-data";
 import { DTableDataFilter, DTableDataFilterFunction, DTableDataFilterObject } from "./d-table-data-filter";
-import { utilIsFunction } from "./util/util-is-function";
+import { isFunction } from "./util/is-function";
 
 interface DTableDataFilterImplParent<ROW> {
 	each( iterator: DTableDataEachIterator<ROW> ): void;
@@ -51,7 +51,7 @@ export class DTableDataFilterImpl<ROW> extends utils.EventEmitter implements DTa
 		if( filter != null ) {
 			const filtered: number[] = [];
 			const parent = this._parent;
-			if( utilIsFunction( filter ) ) {
+			if( isFunction( filter ) ) {
 				parent.each(( row: ROW, index: number ): void => {
 					if( filter( row, index ) ) {
 						filtered.push( index );

@@ -15,7 +15,7 @@ import { EShapeTextDirection } from "../e-shape-text-direction";
 import { EShapeUploadedBase } from "../e-shape-uploaded";
 import { buildColor } from "./build-color";
 import { EShapeTextUploadeds } from "./e-shape-text-uploadeds";
-import { utilCalcLength } from "./util-calc-length";
+import { toLength } from "./to-length";
 
 const FMIN: number = 0.00001;
 
@@ -496,13 +496,13 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 			const y3 = y0 + (y2 - y1);
 
 			// Horizontal normal
-			const hl = utilCalcLength( x0, y0, x1, y1 );
+			const hl = toLength( x0, y0, x1, y1 );
 			this.normalize( internalTransform.a, internalTransform.b, 1, 0, work );
 			let hnx = work.x;
 			let hny = work.y;
 
 			// Vertical normal
-			const vl = utilCalcLength( x0, y0, x3, y3 );
+			const vl = toLength( x0, y0, x3, y3 );
 			this.normalize( internalTransform.c, internalTransform.d, 0, 1, work );
 			let vnx = work.x;
 			let vny = work.y;

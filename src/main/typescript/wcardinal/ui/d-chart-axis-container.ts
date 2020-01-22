@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DChartAxis, DChartAxisPosition } from "./d-chart-axis";
+import { DChartAxis } from "./d-chart-axis";
+import { DChartAxisPosition } from "./d-chart-axis-position";
 import { DChartPlotArea } from "./d-chart-plot-area";
 import { EShapeContainer } from "./shape/e-shape-container";
 

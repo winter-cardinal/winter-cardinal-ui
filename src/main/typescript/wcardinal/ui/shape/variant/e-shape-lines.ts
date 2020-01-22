@@ -6,7 +6,7 @@
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { EShapeDefaults } from "../e-shape-defaults";
 import { EShapeDeserializer } from "../e-shape-deserializer";
-import { EShapePointsStyle } from "../e-shape-points";
+import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeLine } from "./e-shape-line";
 

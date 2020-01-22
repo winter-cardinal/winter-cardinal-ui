@@ -1,7 +1,7 @@
 import { Matrix, Point, TextureUvs } from "pixi.js";
-import { EShapeStrokeSide } from "../e-shape-stroke";
-import { utilCalcLength } from "./util-calc-length";
-import { utilCalcStep } from "./util-calc-step";
+import { EShapeStrokeSide } from "../e-shape-stroke-side";
+import { toLength } from "./to-length";
+import { toStep } from "./to-step";
 
 export const RECTANGLE_VERTEX_COUNT = 12;
 export const RECTANGLE_INDEX_COUNT = 8;
@@ -191,14 +191,14 @@ export const buildRectangleVertexAndStep = (
 	vertices[ iv + 5 ] = y10 + dy;
 
 	if( isStepsDirty ) {
-		const worldSizeX = utilCalcLength( x0, y0, x1, y1 );
-		utilCalcStep( worldSizeX, strokeWidth, antialiasWeight, workStep );
+		const worldSizeX = toLength( x0, y0, x1, y1 );
+		toStep( worldSizeX, strokeWidth, antialiasWeight, workStep );
 		const swx = workStep[ 0 ];
 		const px0 = workStep[ 1 ];
 		const px1 = workStep[ 2 ];
 
-		const worldSizeY = utilCalcLength( x0, y0, x4, y4 );
-		utilCalcStep( worldSizeY, strokeWidth, antialiasWeight, workStep );
+		const worldSizeY = toLength( x0, y0, x4, y4 );
+		toStep( worldSizeY, strokeWidth, antialiasWeight, workStep );
 		const swy = workStep[ 0 ];
 		const py0 = workStep[ 1 ];
 		const py1 = workStep[ 2 ];

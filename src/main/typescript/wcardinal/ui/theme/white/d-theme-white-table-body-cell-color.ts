@@ -4,9 +4,9 @@
  */
 
 import { DBaseState } from "../../d-base-state";
-import { DBorderMask } from "../../d-border";
+import { DBorderMask } from "../../d-border-mask";
 import { DCoordinateSize } from "../../d-coordinate";
-import { DCornerMask } from "../../d-corner";
+import { DCornerMask } from "../../d-corner-mask";
 import { DThemeTableBodyCellColor } from "../../d-table-body-cell-color";
 import { DThemeWhiteButtonColor } from "./d-theme-white-button-color";
 import { DThemeWhiteTableBodyCells } from "./d-theme-white-table-body-cells";

@@ -1,7 +1,8 @@
 import { Rectangle } from "pixi.js";
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
-import { DHTMLElementElementCreator, DHTMLElementWhen, DThemeHTMLElement } from "../../d-html-element";
+import { DHtmlElementElementCreator, DThemeHtmlElement } from "../../d-html-element";
+import { DHtmlElementWhen } from "../../d-html-element-when";
 import { DThemeDarkImageBase } from "./d-theme-dark-image-base";
 
 const divCreator = ( parent: HTMLElement ): HTMLDivElement => {
@@ -10,10 +11,10 @@ const divCreator = ( parent: HTMLElement ): HTMLDivElement => {
 	return result;
 };
 
-export class DThemeDarkHTMLElement<
+export class DThemeDarkHtmlElement<
 	ELEMENT extends HTMLElement = HTMLElement
-> extends DThemeDarkImageBase implements DThemeHTMLElement<ELEMENT> {
-	getElementCreator(): DHTMLElementElementCreator<ELEMENT> | null {
+> extends DThemeDarkImageBase implements DThemeHtmlElement<ELEMENT> {
+	getElementCreator(): DHtmlElementElementCreator<ELEMENT> | null {
 		return null;
 	}
 
@@ -87,7 +88,7 @@ export class DThemeDarkHTMLElement<
 		return "margin: 0;";
 	}
 
-	getClipperCreator(): DHTMLElementElementCreator<HTMLDivElement> | null {
+	getClipperCreator(): DHtmlElementElementCreator<HTMLDivElement> | null {
 		return divCreator;
 	}
 
@@ -110,7 +111,7 @@ export class DThemeDarkHTMLElement<
 			`line-height: ${elementRect.height}px;`;
 	}
 
-	getBeforeCreator(): DHTMLElementElementCreator<HTMLDivElement> | null {
+	getBeforeCreator(): DHtmlElementElementCreator<HTMLDivElement> | null {
 		return divCreator;
 	}
 
@@ -122,7 +123,7 @@ export class DThemeDarkHTMLElement<
 		target.setAttribute( "tabindex", "0" );
 	}
 
-	getAfterCreator(): DHTMLElementElementCreator<HTMLDivElement> | null {
+	getAfterCreator(): DHtmlElementElementCreator<HTMLDivElement> | null {
 		return divCreator;
 	}
 
@@ -130,8 +131,8 @@ export class DThemeDarkHTMLElement<
 		this.setBeforeStyle( target );
 	}
 
-	getWhen(): DHTMLElementWhen {
-		return DHTMLElementWhen.FOCUSED;
+	getWhen(): DHtmlElementWhen {
+		return DHtmlElementWhen.FOCUSED;
 	}
 
 	getSelect(): boolean {

@@ -5,7 +5,7 @@
 
 import { DisplayObject, IPoint, Matrix, Point, Rectangle, utils } from "pixi.js";
 import { DDiagramSerializedSnap } from "../d-diagram-serialized";
-import { utilIsNaN } from "../util/util-is-nan";
+import { isNaN } from "../util/is-nan";
 import { ESnapperGrid } from "./e-snapper-grid";
 import { ESnapperResult } from "./e-snapper-result";
 import { ESnapperResultScale } from "./e-snapper-result-scale";
@@ -191,8 +191,8 @@ export class ESnapper extends utils.EventEmitter {
 		this.grid.snap( py, y );
 
 		//
-		result.x = ( utilIsNaN( x.distance ) ? NaN : x.result );
-		result.y = ( utilIsNaN( y.distance ) ? NaN : y.result );
+		result.x = ( isNaN( x.distance ) ? NaN : x.result );
+		result.y = ( isNaN( y.distance ) ? NaN : y.result );
 		return result;
 	}
 
@@ -204,8 +204,8 @@ export class ESnapper extends utils.EventEmitter {
 			const x = result.x;
 			const y = result.y;
 			result.set(
-				utilIsNaN( x ) ? px : x,
-				utilIsNaN( y ) ? py : y
+				isNaN( x ) ? px : x,
+				isNaN( y ) ? py : y
 			);
 		} else {
 			result.set( px, py );
@@ -227,24 +227,24 @@ export class ESnapper extends utils.EventEmitter {
 				this.snap( workTranslate, workTranslate );
 
 				// X
-				if( ! utilIsNaN( workTranslate.x ) ) {
+				if( ! isNaN( workTranslate.x ) ) {
 					const newDx = workTranslate.x - point.x;
-					if( utilIsNaN( x ) || Math.abs( newDx - dx ) < Math.abs( x - dx ) ) {
+					if( isNaN( x ) || Math.abs( newDx - dx ) < Math.abs( x - dx ) ) {
 						x = newDx;
 					}
 				}
 
 				// Y
-				if( ! utilIsNaN( workTranslate.y ) ) {
+				if( ! isNaN( workTranslate.y ) ) {
 					const newDy = workTranslate.y - point.y;
-					if( utilIsNaN( y ) || Math.abs( newDy - dy ) < Math.abs( y - dy ) ) {
+					if( isNaN( y ) || Math.abs( newDy - dy ) < Math.abs( y - dy ) ) {
 						y = newDy;
 					}
 				}
 			}
 		}
-		result.x = ( utilIsNaN( x ) ? dx : x );
-		result.y = ( utilIsNaN( y ) ? dy : y );
+		result.x = ( isNaN( x ) ? dx : x );
+		result.y = ( isNaN( y ) ? dy : y );
 		return result;
 	}
 
@@ -350,7 +350,7 @@ export class ESnapper extends utils.EventEmitter {
 		result: ESnapperResultScale
 	): void {
 		if( EPSILON < length ) {
-			if( utilIsNaN( result.distance ) || distance < result.distance ) {
+			if( isNaN( result.distance ) || distance < result.distance ) {
 				result.distance = distance;
 				const newScale = 1 + move / length;
 				if( axis ) {
@@ -379,7 +379,7 @@ export class ESnapper extends utils.EventEmitter {
 		const y = work.y;
 
 		// X coordinate
-		if( ! utilIsNaN( x ) ) {
+		if( ! isNaN( x ) ) {
 			const nx = Math.abs( normal.x );
 			if( EPSILON < nx ) {
 				const dx = (x - tx) / normal.x;
@@ -390,7 +390,7 @@ export class ESnapper extends utils.EventEmitter {
 		}
 
 		// Y coordinate
-		if( ! utilIsNaN( y ) ) {
+		if( ! isNaN( y ) ) {
 			const ny = Math.abs( normal.y );
 			if( EPSILON < ny ) {
 				const dy = (y - ty) / normal.y;
@@ -433,14 +433,14 @@ export class ESnapper extends utils.EventEmitter {
 		this.snap( work, work );
 		let x = work.x;
 		let y = work.y;
-		if( utilIsNaN( x ) ) {
-			if( utilIsNaN( y ) ) {
+		if( isNaN( x ) ) {
+			if( isNaN( y ) ) {
 				return;
 			} else {
 				x = tx;
 			}
 		} else {
-			if( utilIsNaN( y ) ) {
+			if( isNaN( y ) ) {
 				y = ty;
 			}
 		}
@@ -461,7 +461,7 @@ export class ESnapper extends utils.EventEmitter {
 			const dx = x - tx;
 			const dy = y - ty;
 			const distance = Math.abs( dx * dx + dy * dy );
-			if( utilIsNaN( result.distance ) || distance < result.distance ) {
+			if( isNaN( result.distance ) || distance < result.distance ) {
 				result.distance = distance;
 				const mdx = x - point.x;
 				const mdy = y - point.y;
@@ -533,7 +533,7 @@ export class ESnapper extends utils.EventEmitter {
 				break;
 			}
 
-			if( ! utilIsNaN( work.distance ) ) {
+			if( ! isNaN( work.distance ) ) {
 				scale.copyFrom( work.scale );
 				if( keepRatio ) {
 					switch( anchor ) {

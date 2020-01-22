@@ -5,9 +5,9 @@
 
 import { DChartSeriesContainer } from "./d-chart-series-container";
 import { DChartSeriesStrokeComputed, DChartSeriesStrokeComputedOptions } from "./d-chart-series-stroke-computed";
-import { EShapePointsStyle } from "./shape/e-shape-points";
+import { EShapePointsStyle } from "./shape/e-shape-points-style";
 import { EShapePointsStyles } from "./shape/e-shape-points-styles";
-import { EShapeStrokeSide } from "./shape/e-shape-stroke";
+import { EShapeStrokeSide } from "./shape/e-shape-stroke-side";
 
 export class DChartSeriesStrokeComputedImpl implements DChartSeriesStrokeComputed {
 	enable: boolean;

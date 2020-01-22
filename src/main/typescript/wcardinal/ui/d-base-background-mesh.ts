@@ -5,7 +5,7 @@
 
 import { Mesh, MeshMaterial, Renderer, Texture } from "pixi.js";
 import { DBaseBackgroundMeshGeometry } from "./d-base-background-mesh-geometry";
-import { DCornerMask } from "./d-corner";
+import { DCornerMask } from "./d-corner-mask";
 
 export class DBaseBackgroundMesh extends Mesh {
 	geometry!: DBaseBackgroundMeshGeometry;

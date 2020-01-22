@@ -5,7 +5,7 @@
 
 import { DApplicationPadding } from "./d-application-padding";
 import { DPadding, DPaddingLike } from "./d-padding";
-import { utilIsNumber } from "./util/util-is-number";
+import { isNumber } from "./util/is-number";
 
 /**
  * PixiJS options
@@ -57,7 +57,7 @@ export class DApplicationLayerOptions {
 
 		// Padding
 		const padding = options && options.padding;
-		if( utilIsNumber( padding ) ) {
+		if( isNumber( padding ) ) {
 			this._padding = new DApplicationPadding( padding, padding, padding, padding );
 		} else if( padding != null ) {
 			this._padding = new DApplicationPadding(

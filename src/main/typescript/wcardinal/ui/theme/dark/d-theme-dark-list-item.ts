@@ -7,7 +7,7 @@ import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { DCoordinateSize } from "../../d-coordinate";
-import { DCornerMask } from "../../d-corner";
+import { DCornerMask } from "../../d-corner-mask";
 import { DThemeListItem } from "../../d-list-item";
 import { UtilRgb } from "../../util/util-rgb";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";

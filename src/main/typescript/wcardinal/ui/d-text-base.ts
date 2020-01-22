@@ -13,8 +13,8 @@ import { DBaseState } from "./d-base-state";
 import { DDynamicText } from "./d-dynamic-text";
 import { DDynamicTextStyleOptions } from "./d-dynamic-text-style";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
-import { utilIsFunction } from "./util/util-is-function";
-import { utilIsString } from "./util/util-is-string";
+import { isFunction } from "./util/is-function";
+import { isString } from "./util/is-string";
 
 export interface DTextBaseTextAlignOptions {
 	vertical?: (keyof typeof DAlignVertical) | DAlignVertical;
@@ -110,11 +110,11 @@ const toTextAlign = <VALUE, THEME extends DThemeTextBase>(
 	if( options && options.text && options.text.align ) {
 		const align = options.text.align;
 		const vertical = ( align.vertical != null ?
-			( utilIsString( align.vertical ) ? DAlignVertical[ align.vertical ] : align.vertical ) :
+			( isString( align.vertical ) ? DAlignVertical[ align.vertical ] : align.vertical ) :
 			theme.getTextAlignVertical()
 		);
 		const horizontal = ( align.horizontal != null ?
-			( utilIsString( align.horizontal ) ? DAlignHorizontal[ align.horizontal ] : align.horizontal ) :
+			( isString( align.horizontal ) ? DAlignHorizontal[ align.horizontal ] : align.horizontal ) :
 			theme.getTextAlignHorizontal()
 		);
 		return {
@@ -204,7 +204,7 @@ export class DTextBase<
 	protected computeTextValue(): VALUE {
 		const textValue = this._textValue;
 		if( textValue !== undefined ) {
-			if( utilIsFunction( textValue ) ) {
+			if( isFunction( textValue ) ) {
 				const result = textValue( this.state );
 				if( result !== undefined ) {
 					return result;
@@ -289,7 +289,7 @@ export class DTextBase<
 	protected getTextColor( theme: THEME, state: DBaseState ): number {
 		const color = this._textColor;
 		if( color !== undefined ) {
-			if( utilIsFunction( color ) ) {
+			if( isFunction( color ) ) {
 				const result = color( state );
 				if( result !== undefined ) {
 					return result;
@@ -304,7 +304,7 @@ export class DTextBase<
 	protected getTextAlpha( theme: THEME, state: DBaseState ): number {
 		const alpha = this._textAlpha;
 		if( alpha !== undefined ) {
-			if( utilIsFunction( alpha ) ) {
+			if( isFunction( alpha ) ) {
 				const result = alpha( state );
 				if( result !== undefined ) {
 					return result;

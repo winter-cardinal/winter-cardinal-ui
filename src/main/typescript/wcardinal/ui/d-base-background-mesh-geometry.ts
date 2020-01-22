@@ -4,7 +4,7 @@
  */
 
 import { Buffer, MeshGeometry, Texture, TextureUvs } from "pixi.js";
-import { DCornerMask } from "./d-corner";
+import { DCornerMask } from "./d-corner-mask";
 
 export class DBaseBackgroundMeshGeometry extends MeshGeometry {
 	protected _texture: Texture;

@@ -24,10 +24,10 @@ import { DTableDataList } from "./d-table-data-list";
 import { DTableDataSelectionType } from "./d-table-data-selection";
 import { DTableDataComparatorFunction } from "./d-table-data-sorter";
 import { DTableHeader, DTableHeaderOptions } from "./d-table-header";
-import { utilIsArray } from "./util/util-is-array";
-import { utilIsString } from "./util/util-is-string";
+import { isArray } from "./util/is-array";
+import { isString } from "./util/is-string";
+import { toString } from "./util/to-string";
 import { UtilPointerEvent } from "./util/util-pointer-event";
-import { utilToString } from "./util/util-to-string";
 
 export interface DTableOptions<
 	ROW,
@@ -60,7 +60,7 @@ const defaultEditingUnformatter: DTableEditingUnformatter = ( cell: string ): un
 
 const toColumnAlign = <ROW>( options: DTableColumnOptions<ROW>, type: DTableColumnType ): DAlignHorizontal => {
 	if( options.align != null ) {
-		if( utilIsString( options.align ) ) {
+		if( isString( options.align ) ) {
 			return DAlignHorizontal[ options.align ];
 		} else {
 			return options.align;
@@ -85,14 +85,14 @@ const toColumnEditing = <ROW>( options: DTableColumnOptions<ROW> ): DTableColumn
 	if( editing ) {
 		return {
 			enable: editing.enable === true || options.editable === true,
-			formatter: editing.formatter || utilToString,
+			formatter: editing.formatter || toString,
 			unformatter: editing.unformatter || defaultEditingUnformatter,
 			validator: editing.validator
 		};
 	}
 	return {
 		enable: options.editable === true,
-		formatter: utilToString,
+		formatter: toString,
 		unformatter: defaultEditingUnformatter
 	};
 };
@@ -184,7 +184,7 @@ const toColumn = <ROW>( index: number, options: DTableColumnOptions<ROW> ): DTab
 		( options.width != null ? options.width : 100 )
 	);
 	const type = ( options.type != null ?
-		( utilIsString( options.type ) ? DTableColumnType[ options.type ] : options.type ) :
+		( isString( options.type ) ? DTableColumnType[ options.type ] : options.type ) :
 		DTableColumnType.TEXT
 	);
 	const align = toColumnAlign( options, type );
@@ -457,7 +457,7 @@ export class DTable<
 				options.offset = offset;
 			}
 			if( options.data === undefined && data !== undefined ) {
-				if( utilIsArray( data ) ) {
+				if( isArray( data ) ) {
 					options.data = {
 						rows: data
 					};
@@ -470,7 +470,7 @@ export class DTable<
 			}
 			return options;
 		}
-		if( utilIsArray( data ) ) {
+		if( isArray( data ) ) {
 			return {
 				columns,
 				frozen,

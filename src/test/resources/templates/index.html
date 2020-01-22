@@ -18,8 +18,8 @@
 </head>
 <body>
 	<h1>List of resources</h1>
-	<ul th:each="link: ${links}">
-		<li><a th:href="${link}" th:text="${link}"></a></li>
+	<ul th:each="page: ${pages}">
+		<li><th:block th:text="${page}"></th:block> ( <a th:href="${'/'+page}">white theme</a>, <a th:href="${'/'+page+'?theme=dark'}">dark theme</a> )</li>
 	</ul>
 </body>
 </html>

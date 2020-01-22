@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { utilPad } from "./util-pad";
+import { toPadded } from "./to-padded";
 
 export class UtilRgb {
 	static toCode( color: number ): string {
-		return utilPad( color.toString( 16 ).toUpperCase(), 6, "0" );
+		return toPadded( color.toString( 16 ).toUpperCase(), 6, "0" );
 	}
 
 	static fromCode( code: string ): number | null {

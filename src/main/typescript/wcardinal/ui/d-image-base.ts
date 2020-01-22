@@ -13,8 +13,8 @@ import { DBaseState } from "./d-base-state";
 import { DDynamicText } from "./d-dynamic-text";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { DTextBase, DTextBaseOptions, DThemeTextBase } from "./d-text-base";
-import { utilIsFunction } from "./util/util-is-function";
-import { utilIsString } from "./util/util-is-string";
+import { isFunction } from "./util/is-function";
+import { isString } from "./util/is-string";
 
 export interface DImageBaseTintOptions {
 	color?: DStateAwareOrValueMightBe<number | null>;
@@ -64,15 +64,15 @@ const toImageAlign = <VALUE, THEME extends DThemeImageBase>(
 	if( options != null && options.image != null && options.image.align != null ) {
 		const align = options.image.align;
 		const alignWith: DAlignWith = ( align.with != null ?
-			( utilIsString( align.with ) ? DAlignWith[ align.with ] : align.with ) :
+			( isString( align.with ) ? DAlignWith[ align.with ] : align.with ) :
 			theme.getImageAlignWith()
 		);
 		const alignVertical: DAlignVertical = ( align.vertical != null ?
-			( utilIsString( align.vertical ) ? DAlignVertical[ align.vertical ] : align.vertical ) :
+			( isString( align.vertical ) ? DAlignVertical[ align.vertical ] : align.vertical ) :
 			theme.getImageAlignVertical()
 		);
 		const alignHorizontal: DAlignHorizontal = ( align.horizontal != null ?
-			( utilIsString( align.horizontal ) ? DAlignHorizontal[ align.horizontal ] : align.horizontal ) :
+			( isString( align.horizontal ) ? DAlignHorizontal[ align.horizontal ] : align.horizontal ) :
 			theme.getImageAlignHorizontal()
 		);
 		return {
@@ -168,7 +168,7 @@ export class DImageBase<
 	protected computeImageSource(): Texture | DisplayObject | null {
 		const imageSource = this._imageSource;
 		if( imageSource !== undefined ) {
-			if( utilIsFunction( imageSource ) ) {
+			if( isFunction( imageSource ) ) {
 				const result = imageSource( this.state );
 				if( result !== undefined ) {
 					return result;
@@ -427,7 +427,7 @@ export class DImageBase<
 		if( imageTint != null ) {
 			const color = imageTint.color;
 			if( color !== undefined ) {
-				if( utilIsFunction( color ) ) {
+				if( isFunction( color ) ) {
 					const result = color( state );
 					if( result !== undefined ) {
 						return result;
@@ -445,7 +445,7 @@ export class DImageBase<
 		if( imageTint != null ) {
 			const alpha = imageTint.alpha;
 			if( alpha !== undefined ) {
-				if( utilIsFunction( alpha ) ) {
+				if( isFunction( alpha ) ) {
 					const result = alpha( state );
 					if( result !== undefined ) {
 						return result;

@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { utilIsFunction, utilIsNumber } from "../../util";
+import { isFunction, isNumber } from "../../util";
 import { EShapeDefaults } from "../e-shape-defaults";
 import { EShapeLineOfAnyPointsSize } from "./e-shape-line-of-any-points-size";
 import { EShapeLineOfAnyValue } from "./e-shape-line-of-any-value";
-import { utilIsStatic } from "./util-is-static";
-import { utilToComputed } from "./util-to-computed";
+import { isStatic } from "./is-static";
+import { toComputed } from "./to-computed";
 
 export interface EShapeLineOfAnyPointsSizeImplParent {
 	readonly length: number;
@@ -84,11 +84,11 @@ export class EShapeLineOfAnyPointsSizeImpl implements EShapeLineOfAnyPointsSize 
 	}
 
 	getX( index: number ): number {
-		return utilToComputed( index, this._x, EShapeDefaults.SIZE_X );
+		return toComputed( index, this._x, EShapeDefaults.SIZE_X );
 	}
 
 	getY( index: number ): number {
-		return utilToComputed( index, this._y, EShapeDefaults.SIZE_Y );
+		return toComputed( index, this._y, EShapeDefaults.SIZE_Y );
 	}
 
 	getLimit(): number {
@@ -115,9 +115,9 @@ export class EShapeLineOfAnyPointsSizeImpl implements EShapeLineOfAnyPointsSize 
 	}
 
 	protected calcLimit( value: EShapeLineOfAnyValue, parentLenght: number, def: number ): number {
-		if( utilIsNumber( value ) ) {
+		if( isNumber( value ) ) {
 			return value;
-		} else if( utilIsFunction( value ) ) {
+		} else if( isFunction( value ) ) {
 			if( 0 < parentLenght ) {
 				let result = value( 0 );
 				for( let i = 1; i < parentLenght; ++i ) {
@@ -142,11 +142,11 @@ export class EShapeLineOfAnyPointsSizeImpl implements EShapeLineOfAnyPointsSize 
 	}
 
 	isStaticX(): boolean {
-		return utilIsStatic( this._x );
+		return isStatic( this._x );
 	}
 
 	isStaticY(): boolean {
-		return utilIsStatic( this._y );
+		return isStatic( this._y );
 	}
 
 	toDirty(): void {

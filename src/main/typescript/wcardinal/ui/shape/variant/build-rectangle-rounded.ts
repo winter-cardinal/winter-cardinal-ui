@@ -1,8 +1,8 @@
 import { Matrix, Point, TextureUvs } from "pixi.js";
 import { EShapeCorner } from "../e-shape-corner";
-import { EShapeStrokeSide } from "../e-shape-stroke";
-import { utilCalcLength } from "./util-calc-length";
-import { utilCalcStep } from "./util-calc-step";
+import { EShapeStrokeSide } from "../e-shape-stroke-side";
+import { toLength } from "./to-length";
+import { toStep } from "./to-step";
 
 export const RECTANGLE_ROUNDED_VERTEX_COUNT = 36;
 export const RECTANGLE_ROUNDED_INDEX_COUNT = 24;
@@ -234,9 +234,9 @@ export const buildRectangleRoundedVertex = (
 	const y21 = y22 - dyhr;
 
 	// World size
-	worldSize[ 0 ] = utilCalcLength( x0, y0, x1, y1 );
-	worldSize[ 1 ] = utilCalcLength( x0, y0, x2, y2 );
-	worldSize[ 2 ] = utilCalcLength( x0, y0, x10, y10 );
+	worldSize[ 0 ] = toLength( x0, y0, x1, y1 );
+	worldSize[ 1 ] = toLength( x0, y0, x2, y2 );
+	worldSize[ 2 ] = toLength( x0, y0, x10, y10 );
 
 	// Vertices
 	let iv = voffset * 2;
@@ -639,17 +639,17 @@ export const buildRectangleRoundedStep = (
 	worldSize: [ number, number, number ],
 	workStep: Float32Array
 ): void => {
-	utilCalcStep( worldSize[ 0 ], strokeWidth, antialiasWeight, workStep );
+	toStep( worldSize[ 0 ], strokeWidth, antialiasWeight, workStep );
 	const swc = workStep[ 0 ];
 	const pc0 = workStep[ 1 ];
 	const pc1 = workStep[ 2 ];
 
-	utilCalcStep( worldSize[ 1 ], strokeWidth, antialiasWeight, workStep );
+	toStep( worldSize[ 1 ], strokeWidth, antialiasWeight, workStep );
 	const swx = workStep[ 0 ];
 	const px0 = workStep[ 1 ];
 	const px1 = workStep[ 2 ];
 
-	utilCalcStep( worldSize[ 2 ], strokeWidth, antialiasWeight, workStep );
+	toStep( worldSize[ 2 ], strokeWidth, antialiasWeight, workStep );
 	const swy = workStep[ 0 ];
 	const py0 = workStep[ 1 ];
 	const py1 = workStep[ 2 ];

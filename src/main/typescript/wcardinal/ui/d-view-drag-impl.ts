@@ -10,8 +10,8 @@ import { DMouseModifier } from "./d-mouse-modifier";
 import { DThemeViewDrag, DViewDrag, DViewDragOptions } from "./d-view-drag";
 import { DViewStopper } from "./d-view-stopper";
 import { DViewToTarget } from "./d-view-to-target";
+import { isString } from "./util/is-string";
 import { UtilDrag } from "./util/util-drag";
-import { utilIsString } from "./util/util-is-string";
 
 export class DViewDragImpl implements DViewDrag {
 	protected _parent: DBase;
@@ -32,11 +32,11 @@ export class DViewDragImpl implements DViewDrag {
 		this._stopper = stopper;
 
 		const mode = ( options && options.mode != null ?
-			( utilIsString( options.mode ) ? DDragMode[ options.mode ] : options.mode ) :
+			( isString( options.mode ) ? DDragMode[ options.mode ] : options.mode ) :
 			theme.getDragMode()
 		);
 		const modifier = ( options && options.modifier != null ?
-			( utilIsString( options.modifier ) ? DMouseModifier[ options.modifier ] : options.modifier ) :
+			( isString( options.modifier ) ? DMouseModifier[ options.modifier ] : options.modifier ) :
 			theme.getDragModifier()
 		);
 		const duration = ( options && options.duration != null ?

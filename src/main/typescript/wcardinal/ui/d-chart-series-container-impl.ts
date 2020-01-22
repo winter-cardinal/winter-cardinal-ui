@@ -15,7 +15,7 @@ import { DChartSeriesFill } from "./d-chart-series-fill";
 import { DChartSeriesFillImpl } from "./d-chart-series-fill-impl";
 import { DChartSeriesStroke } from "./d-chart-series-stroke";
 import { DChartSeriesStrokeImpl } from "./d-chart-series-stroke-impl";
-import { utilIsNumber } from "./util/util-is-number";
+import { isNumber } from "./util/is-number";
 
 export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 	protected static WORK_CALCHITPOINT: DChartSeriesHitResult = new DChartSeriesHitResult();
@@ -98,7 +98,7 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 	remove( index: number ): DChartSeries | null;
 	remove( seriesOrIndex: DChartSeries | number ): DChartSeries | null {
 		const list = this._list;
-		if( utilIsNumber( seriesOrIndex ) ) {
+		if( isNumber( seriesOrIndex ) ) {
 			const index = seriesOrIndex;
 			if( 0 <= index && index < list.length ) {
 				const removed = list.splice( index, 1 )[ 0 ];

@@ -127,3 +127,8 @@ export * from "./e-shape-triangle-uploaded";
 export * from "./e-shape-triangle-uploadeds";
 export * from "./e-shape-triangle";
 export * from "./e-shape-triangles";
+export * from "./is-static";
+export * from "./to-computed";
+export * from "./to-hit-threshold";
+export * from "./to-length";
+export * from "./to-step";

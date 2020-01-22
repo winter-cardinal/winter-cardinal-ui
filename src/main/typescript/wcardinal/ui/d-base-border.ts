@@ -5,10 +5,11 @@
 
 import { DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
-import { DBorderMask, DBorderStateAware } from "./d-border";
+import { DBorderStateAware } from "./d-border";
+import { DBorderMask } from "./d-border-mask";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
-import { utilIsFunction } from "./util/util-is-function";
-import { utilIsString } from "./util/util-is-string";
+import { isFunction } from "./util/is-function";
+import { isString } from "./util/is-string";
 
 type Callback = () => void;
 
@@ -30,7 +31,7 @@ export class DBaseBorder implements DBorderStateAware {
 			this._alpha = border.alpha;
 			this._width = border.width;
 			this._align = border.align;
-			this._mask = ( utilIsString( border.mask ) ? DBorderMask[ border.mask ] : border.mask );
+			this._mask = ( isString( border.mask ) ? DBorderMask[ border.mask ] : border.mask );
 		}
 	}
 
@@ -45,7 +46,7 @@ export class DBaseBorder implements DBorderStateAware {
 	getColor( state: DBaseState ): number | null {
 		const color = this._color;
 		if( color !== undefined ) {
-			if( utilIsFunction( color ) ) {
+			if( isFunction( color ) ) {
 				const result = color( state );
 				if( result !== undefined ) {
 					return result;
@@ -71,7 +72,7 @@ export class DBaseBorder implements DBorderStateAware {
 	getAlpha( state: DBaseState ): number {
 		const alpha = this._alpha;
 		if( alpha !== undefined ) {
-			if( utilIsFunction( alpha ) ) {
+			if( isFunction( alpha ) ) {
 				const result = alpha( state );
 				if( result !== undefined ) {
 					return result;
@@ -97,7 +98,7 @@ export class DBaseBorder implements DBorderStateAware {
 	getWidth( state: DBaseState ): number {
 		const width = this._width;
 		if( width !== undefined ) {
-			if( utilIsFunction( width ) ) {
+			if( isFunction( width ) ) {
 				const result = width( state );
 				if( result !== undefined ) {
 					return result;
@@ -123,7 +124,7 @@ export class DBaseBorder implements DBorderStateAware {
 	getAlign( state: DBaseState ): number {
 		const align = this._align;
 		if( align !== undefined ) {
-			if( utilIsFunction( align ) ) {
+			if( isFunction( align ) ) {
 				const result = align( state );
 				if( result !== undefined ) {
 					return result;
@@ -149,7 +150,7 @@ export class DBaseBorder implements DBorderStateAware {
 	getMask( state: DBaseState ): number {
 		const mask = this._mask;
 		if( mask !== undefined ) {
-			if( utilIsFunction( mask ) ) {
+			if( isFunction( mask ) ) {
 				const result = mask( state );
 				if( result !== undefined ) {
 					return result;

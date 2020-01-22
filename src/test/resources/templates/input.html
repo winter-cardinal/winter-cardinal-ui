@@ -1,0 +1,51 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<th:block th:insert="fragment/common::#head"></th:block>
+</head>
+<body>
+	<th:block th:insert="fragment/common::#body"></th:block>
+	<script>
+	(function(){
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+
+		new wcardinal.ui.DInputText({
+			parent: application.stage,
+			x: 50, y: 50,
+		});
+
+		new wcardinal.ui.DInputReal({
+			parent: application.stage,
+			x: 50, y: 150,
+			text: {
+				formatter: ( value ) => {
+					return (value * 100).toFixed( 2 );
+				}
+			},
+			editing: {
+				unformatter: ( value ) => {
+					return value / 100;
+				}
+			}
+		});
+
+		new wcardinal.ui.DInputText({
+			parent: application.stage,
+			x: 50, y: 250,
+			editing: {
+				validator: ( value ) => {
+					return ( value.match( /[0-9]/ ) ? "Error message" : null );
+				}
+			}
+		});
+	}());
+	</script>
+</body>
+</html>

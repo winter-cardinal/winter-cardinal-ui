@@ -5,7 +5,7 @@
 
 import { DBaseOptions, DThemeBase } from "./d-base";
 import { DPadding } from "./d-padding";
-import { utilIsNumber } from "./util/util-is-number";
+import { isNumber } from "./util/is-number";
 
 type Callback = () => void;
 
@@ -23,7 +23,7 @@ export class DBasePadding implements DPadding {
 
 		if( options != null && options.padding != null ) {
 			const padding = options.padding;
-			if( utilIsNumber( padding ) ) {
+			if( isNumber( padding ) ) {
 				this._left = padding;
 				this._top = padding;
 				this._right = padding;

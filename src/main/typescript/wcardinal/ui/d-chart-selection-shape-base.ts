@@ -14,7 +14,7 @@ import { DChartSeries } from "./d-chart-series";
 import { DChartSeriesContainer } from "./d-chart-series-container";
 import { EShape } from "./shape/e-shape";
 import { DThemes } from "./theme/d-themes";
-import { utilIsString } from "./util/util-is-string";
+import { isString } from "./util/is-string";
 
 export abstract class DChartSelectionShapeBase implements DChartSelectionShape {
 	protected _isEnabled: boolean;
@@ -79,7 +79,7 @@ export abstract class DChartSelectionShapeBase implements DChartSelectionShape {
 
 	protected toTheme( options?: DChartSelectionShapeOptions ): DThemeChartSelectionShape {
 		const theme = ( options && options.theme );
-		if( utilIsString( theme ) ) {
+		if( isString( theme ) ) {
 			return this.getTheme( theme );
 		} else if( theme != null ) {
 			return theme;

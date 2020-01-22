@@ -4,7 +4,7 @@
  */
 
 import { DCoordinateSize } from "../../d-coordinate";
-import { DCornerMask } from "../../d-corner";
+import { DCornerMask } from "../../d-corner-mask";
 import { DThemeDialogSelecList } from "../../d-dialog-select-list";
 import { DThemeWhiteList } from "./d-theme-white-list";
 

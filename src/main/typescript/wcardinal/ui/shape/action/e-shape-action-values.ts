@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { utilIsNumber } from "../../util/util-is-number";
+import { isNumber } from "../../util/is-number";
 
 export class EShapeActionValues {
 	static toResource( index: number, parsed: number[], resources: string[] ): string {
 		if( 0 <= index && index < parsed.length ) {
 			const id = parsed[ index ];
-			if( utilIsNumber( id ) && 0 <= id && id < resources.length ) {
+			if( isNumber( id ) && 0 <= id && id < resources.length ) {
 				return resources[ id ];
 			}
 		}

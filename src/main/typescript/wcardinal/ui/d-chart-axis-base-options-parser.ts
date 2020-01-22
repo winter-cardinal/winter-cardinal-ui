@@ -3,15 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DChartAxisPosition, DChartAxisTickPosition } from "./d-chart-axis";
 import {
 	DChartAxisBaseOptions, DChartAxisBaseTickContainerOptions,
 	DChartAxisBaseTickMajorGridlineOptions, DChartAxisBaseTickMajorOptions,
 	DChartAxisBaseTickMajorTextOptions, DThemeChartAxisBase
 } from "./d-chart-axis-base-options";
-import { EShapePointsStyle } from "./shape/e-shape-points";
+import { DChartAxisPosition } from "./d-chart-axis-position";
+import { DChartAxisTickPosition } from "./d-chart-axis-tick-position";
+import { EShapePointsStyle } from "./shape/e-shape-points-style";
 import { EShapePointsStyleOption, EShapePointsStyles } from "./shape/e-shape-points-styles";
-import { EShapeStrokeLike, EShapeStrokeSide } from "./shape/e-shape-stroke";
+import { EShapeStrokeLike } from "./shape/e-shape-stroke";
+import { EShapeStrokeSide } from "./shape/e-shape-stroke-side";
 import { EShapeTextLike } from "./shape/e-shape-text";
 import { EShapeTextAlignLike } from "./shape/e-shape-text-align";
 import { EShapeTextDirection } from "./shape/e-shape-text-direction";
@@ -20,9 +22,9 @@ import { EShapeTextOutlineLike } from "./shape/e-shape-text-outline";
 import { EShapeBar } from "./shape/variant/e-shape-bar";
 import { EShapeBarPosition } from "./shape/variant/e-shape-bar-position";
 import { DeepPartial } from "./util/deep-partial";
+import { isString } from "./util/is-string";
 import { NumberFormatter } from "./util/number-formatter";
 import { NumberFormatters } from "./util/number-formatters";
-import { utilIsString } from "./util/util-is-string";
 
 export interface DChartAxisBaseGridline {
 	enable: boolean;
@@ -111,7 +113,7 @@ export class DChartAxisBaseOptionParser {
 		options?: DChartAxisBaseOptions
 	): DChartAxisPosition {
 		const position = options && options.position;
-		if( utilIsString( position ) ) {
+		if( isString( position ) ) {
 			return DChartAxisPosition[ position ];
 		} else if( position != null ) {
 			return position;

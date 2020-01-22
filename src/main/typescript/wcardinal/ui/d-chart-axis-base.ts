@@ -4,12 +4,13 @@
  */
 
 import { Matrix } from "pixi.js";
-import { DChartAxis, DChartAxisPosition } from "./d-chart-axis";
+import { DChartAxis } from "./d-chart-axis";
 import { DChartAxisBaseOptions, DThemeChartAxisBase } from "./d-chart-axis-base-options";
 import {
 	DChartAxisBaseBar, DChartAxisBaseOptionParser, DChartAxisBaseTickContainer
 } from "./d-chart-axis-base-options-parser";
 import { DChartAxisContainer } from "./d-chart-axis-container";
+import { DChartAxisPosition } from "./d-chart-axis-position";
 import { DChartCoordinate } from "./d-chart-coordinate";
 import { EShapeDefaults } from "./shape/e-shape-defaults";
 import { EShapeTextLike } from "./shape/e-shape-text";
@@ -17,7 +18,7 @@ import { EShapeBar } from "./shape/variant/e-shape-bar";
 import { EShapeBarPosition } from "./shape/variant/e-shape-bar-position";
 import { DThemes } from "./theme/d-themes";
 import { DeepPartial } from "./util/deep-partial";
-import { utilIsNaN } from "./util/util-is-nan";
+import { isNaN } from "./util/is-nan";
 
 export class DChartAxisBase implements DChartAxis {
 	protected _coordinateIndex: number;
@@ -110,7 +111,7 @@ export class DChartAxisBase implements DChartAxis {
 			const majorShape = majorShapes[ i ];
 			const imajorTick = i * 3;
 			const majorTickPosition = majorTicks[ imajorTick + 0 ];
-			if( ! utilIsNaN( majorTickPosition ) ) {
+			if( ! isNaN( majorTickPosition ) ) {
 				const majorTickProjectedPosition = majorTicks[ imajorTick + 1 ];
 				const majotTickPositionX = a * majorTickProjectedPosition + tx;
 				const majorTickStep = majorTicks[ imajorTick + 2 ];
@@ -142,7 +143,7 @@ export class DChartAxisBase implements DChartAxis {
 			const iminorTick = i * 3;
 			const minorTickPosition = minorTicks[ iminorTick + 0 ];
 			const minorTickProjectedPosition = minorTicks[ iminorTick + 1 ];
-			if( ! utilIsNaN( minorTickPosition ) ) {
+			if( ! isNaN( minorTickPosition ) ) {
 				minorShape.disallowUploadedUpdate();
 				minorShape.visible = true;
 				minorShape.transform.position.set(
@@ -182,7 +183,7 @@ export class DChartAxisBase implements DChartAxis {
 			const majorShape = majorShapes[ i ];
 			const imajorTick = i * 3;
 			const majorTickPosition = majorTicks[ imajorTick + 0 ];
-			if( ! utilIsNaN( majorTickPosition ) ) {
+			if( ! isNaN( majorTickPosition ) ) {
 				const majorTickProjectedPosition = majorTicks[ imajorTick + 1 ];
 				const majotTickPositionY = d * majorTickProjectedPosition + ty;
 				const majorTickStep = majorTicks[ imajorTick + 2 ];
@@ -214,7 +215,7 @@ export class DChartAxisBase implements DChartAxis {
 			const iminorTick = i * 3;
 			const minorTickPosition = minorTicks[ iminorTick + 0 ];
 			const minorTickProjectedPosition = minorTicks[ iminorTick + 1 ];
-			if( ! utilIsNaN( minorTickPosition ) ) {
+			if( ! isNaN( minorTickPosition ) ) {
 				minorShape.disallowUploadedUpdate();
 				minorShape.visible = true;
 				minorShape.transform.position.set(

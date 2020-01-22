@@ -6,7 +6,8 @@
 import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseState } from "../../d-base-state";
 import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
-import { DDialogCloseOn, DThemeDialog } from "../../d-dialog";
+import { DThemeDialog } from "../../d-dialog";
+import { DDialogCloseOn } from "../../d-dialog-close-on";
 import { DShadow } from "../../d-shadow";
 import { DThemeDarkBase } from "./d-theme-dark-base";
 

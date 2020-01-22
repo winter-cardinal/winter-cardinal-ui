@@ -11,7 +11,7 @@ import { DChartSelectionSub, DChartSelectionSubOptions } from "./d-chart-selecti
 import { DChartSelectionSubImpl } from "./d-chart-selection-sub-impl";
 import { DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesContainer } from "./d-chart-series-container";
-import { utilIsString } from "./util/util-is-string";
+import { isString } from "./util/is-string";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
 export interface DChartSelectionSimpleOptions {
@@ -36,7 +36,7 @@ export class DChartSelectionSimple extends utils.EventEmitter implements DChartS
 
 		this._container = null;
 		const point = ( options && options.point != null ?
-			( utilIsString( options.point ) ? DChartSelectionPoint[ options.point ] : options.point ) :
+			( isString( options.point ) ? DChartSelectionPoint[ options.point ] : options.point ) :
 			DChartSelectionPoint.CLOSER
 		);
 

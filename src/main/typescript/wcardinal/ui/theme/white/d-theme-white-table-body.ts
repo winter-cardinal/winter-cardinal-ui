@@ -6,7 +6,7 @@
 import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseState } from "../../d-base-state";
 import { DCoordinateSize } from "../../d-coordinate";
-import { DCornerMask } from "../../d-corner";
+import { DCornerMask } from "../../d-corner-mask";
 import { DThemeTableBody } from "../../d-table-body";
 import { DThemeWhiteBase } from "./d-theme-white-base";
 

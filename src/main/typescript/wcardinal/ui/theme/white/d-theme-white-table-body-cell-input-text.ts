@@ -5,9 +5,9 @@
 
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
-import { DBorderMask } from "../../d-border";
+import { DBorderMask } from "../../d-border-mask";
 import { DCoordinateSize } from "../../d-coordinate";
-import { DCornerMask } from "../../d-corner";
+import { DCornerMask } from "../../d-corner-mask";
 import { DThemeTableBodyCellInputText } from "../../d-table-body-cell-input-text";
 import { DThemeWhiteInputText } from "./d-theme-white-input-text";
 import { DThemeWhiteTableBodyCells } from "./d-theme-white-table-body-cells";

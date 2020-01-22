@@ -1,15 +1,15 @@
-import { utilIsNumber } from "../util/util-is-number";
-import { utilIsString } from "../util/util-is-string";
-import { EShapePointsStyle } from "./e-shape-points";
+import { isNumber } from "../util/is-number";
+import { isString } from "../util/is-string";
+import { EShapePointsStyle } from "./e-shape-points-style";
 
 export type EShapePointsStyleOption = EShapePointsStyle | keyof typeof EShapePointsStyle |
 	Array<keyof typeof EShapePointsStyle>;
 
 export class EShapePointsStyles {
 	static from( style: EShapePointsStyleOption ): EShapePointsStyle {
-		if( utilIsString( style ) ) {
+		if( isString( style ) ) {
 			return EShapePointsStyle[ style ];
-		} else if( utilIsNumber( style ) ) {
+		} else if( isNumber( style ) ) {
 			return style;
 		} else {
 			let result = EShapePointsStyle.NONE;

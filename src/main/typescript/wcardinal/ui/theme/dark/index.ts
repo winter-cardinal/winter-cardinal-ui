@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+export * from "./load";
 export * from "./d-theme-dark-atlas";
 export * from "./d-theme-dark-base";
 export * from "./d-theme-dark-board";

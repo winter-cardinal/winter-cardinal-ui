@@ -6,9 +6,9 @@
 import { DCoordinatePosition, DCoordinateSizeNoAuto } from "./d-coordinate";
 import { DScalarExpression } from "./d-scalar-expression";
 import { DScalarFunction } from "./d-scalar-function";
-import { utilIsFunction } from "./util/util-is-function";
-import { utilIsNumber } from "./util/util-is-number";
-import { utilIsString } from "./util/util-is-string";
+import { isFunction } from "./util/is-function";
+import { isNumber } from "./util/is-number";
+import { isString } from "./util/is-string";
 
 const POSITION_CENTER = ( p: number, s: number ) => ( p - s ) * 0.5;
 const POSITION_PADDING = ( p: number, s: number, d: number ) => d;
@@ -17,9 +17,9 @@ const SIZE_PADDING = ( p: number, s: number, d: number ) => p - d;
 
 export class DScalarFunctions {
 	static position( coordinate: DCoordinatePosition | undefined ): DScalarFunction | null {
-		if( coordinate == null || utilIsNumber( coordinate ) ) {
+		if( coordinate == null || isNumber( coordinate ) ) {
 			return null;
-		} else if( utilIsString( coordinate ) ) {
+		} else if( isString( coordinate ) ) {
 			switch( coordinate ) {
 			case "center":
 			case "CENTER":
@@ -33,7 +33,7 @@ export class DScalarFunctions {
 			return ( parent: number, self: number, padding: number, current: number ): number => {
 				return scalarExpression.calculate( parent, self, padding, current );
 			};
-		} else if( utilIsFunction( coordinate ) ) {
+		} else if( isFunction( coordinate ) ) {
 			return coordinate;
 		} else {
 			const scalar = coordinate;
@@ -44,9 +44,9 @@ export class DScalarFunctions {
 	}
 
 	static size( coordinate: DCoordinateSizeNoAuto | undefined ): DScalarFunction | null {
-		if( coordinate == null || utilIsNumber( coordinate ) ) {
+		if( coordinate == null || isNumber( coordinate ) ) {
 			return null;
-		} else if( utilIsString( coordinate ) ) {
+		} else if( isString( coordinate ) ) {
 			switch( coordinate ) {
 			case "100%":
 			case "maximized":
@@ -61,7 +61,7 @@ export class DScalarFunctions {
 			return ( parent: number, self: number, padding: number, current: number ): number => {
 				return scalarExpression.calculate( parent, self, padding, current );
 			};
-		} else if( utilIsFunction( coordinate ) ) {
+		} else if( isFunction( coordinate ) ) {
 			return coordinate;
 		} else {
 			const scalar = coordinate;

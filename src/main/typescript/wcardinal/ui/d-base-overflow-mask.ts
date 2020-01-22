@@ -5,7 +5,7 @@
 
 import { Graphics, Renderer } from "pixi.js";
 import { DBase, DReflowable } from "./d-base";
-import { DCornerMask } from "./d-corner";
+import { DCornerMask } from "./d-corner-mask";
 
 export class DBaseOverflowMask extends Graphics implements DReflowable {
 	constructor( parent: DBase ) {

@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EShapePointsStyle } from "./shape/e-shape-points";
+import { EShapePointsStyle } from "./shape/e-shape-points-style";
 import { EShapePointsStyleOption } from "./shape/e-shape-points-styles";
-import { EShapeStrokeSide } from "./shape/e-shape-stroke";
+import { EShapeStrokeSide } from "./shape/e-shape-stroke-side";
 
 export interface DChartSeriesStrokeComputedOptions {
 	enable?: boolean;

@@ -5,7 +5,7 @@
 
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
-import { DCornerMask } from "../../d-corner";
+import { DCornerMask } from "../../d-corner-mask";
 import { DThemeExpandable } from "../../d-expandable";
 import { DThemeWhiteLayoutVertical } from "./d-theme-white-layout-vertical";
 

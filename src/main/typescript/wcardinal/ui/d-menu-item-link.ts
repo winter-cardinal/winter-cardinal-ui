@@ -8,27 +8,18 @@ import { DBaseState } from "./d-base-state";
 import { DMenu, DMenuOptions } from "./d-menu";
 import { Closeable } from "./d-menu-context";
 import { DMenuItem } from "./d-menu-item";
+import { DMenuItemLinkMenuItemId } from "./d-menu-item-link-menu-item-id";
 import { DMenuItemLinkState } from "./d-menu-item-link-state";
+import { DMenuItemLinkTarget } from "./d-menu-item-link-target";
 import { DMenuItemOptionsUnion } from "./d-menu-item-options-union";
 import { DMenuItemText, DMenuItemTextOptions, DThemeMenuItemText } from "./d-menu-item-text";
 import { DMenus } from "./d-menus";
+import { isString } from "./util/is-string";
 import { UtilClipboard } from "./util/util-clipboard";
-import { utilIsString } from "./util/util-is-string";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
 export type DMenuItemLinkLinkMaker = ( item: DMenuItemLink ) => string | null | Promise<string | null>;
 export type DMenuItemLinkChecker = ( item: DMenuItemLink ) => boolean | Promise<boolean>;
-
-export enum DMenuItemLinkMenuItemId {
-	OPEN_LINK_IN_NEW_WINDOW,
-	COPY_LINK_ADDRESS
-}
-
-export enum DMenuItemLinkTarget {
-	AUTO,
-	THIS_WINDOW,
-	NEW_WINDOW
-}
 
 export interface DMenuItemLinkOptions<
 	VALUE = unknown,
@@ -72,7 +63,7 @@ export class DMenuItemLink<
 
 	get link(): string | null | Promise<string | null> {
 		const link = this._link;
-		if( utilIsString( link ) || link == null ) {
+		if( isString( link ) || link == null ) {
 			return link;
 		} else {
 			return link( this );
@@ -122,7 +113,7 @@ export class DMenuItemLink<
 		case DMenuItemLinkMenuItemId.COPY_LINK_ADDRESS:
 			const link = this.link;
 			if( link != null ) {
-				if( utilIsString( link ) ) {
+				if( isString( link ) ) {
 					this.copy( link );
 				} else {
 					link.then(( resolved: string | null ): void => {
@@ -176,7 +167,7 @@ export class DMenuItemLink<
 	open( inNewWindow: boolean ): void {
 		const link = this.link;
 		if( link != null ) {
-			if( utilIsString( link )  ) {
+			if( isString( link )  ) {
 				this.check( link, inNewWindow );
 			} else {
 				link.then(( resolved: string | null ): void => {

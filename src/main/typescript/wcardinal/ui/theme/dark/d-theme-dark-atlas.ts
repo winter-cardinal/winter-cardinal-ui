@@ -3,6 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { UtilSvgAtlasBuilder } from "../../util/util-atlas-builder";
+import { UtilSvgAtlasBuilder } from "../../util/util-svg-atlas-builder";
 
 export const DThemeDarkAtlas = new UtilSvgAtlasBuilder( 256, 1, 3 );

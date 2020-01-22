@@ -4,7 +4,7 @@
  */
 
 import { DBaseState } from "../../d-base-state";
-import { DCornerMask } from "../../d-corner";
+import { DCornerMask } from "../../d-corner-mask";
 import { DThemeDialogSelecListItem } from "../../d-dialog-select-list-item";
 import { DThemeWhiteFont } from "./d-theme-white-font";
 import { DThemeWhiteListItem } from "./d-theme-white-list-item";

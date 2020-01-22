@@ -8,8 +8,8 @@ import { DDialogCommand, DDialogCommandOptions, DThemeDialogCommand } from "./d-
 import { DDialogConfirmMessage, DDialogConfirmMessageOptions } from "./d-dialog-confirm-message";
 import { DLayoutVertical } from "./d-layout-vertical";
 import { DStateAwareOrValue } from "./d-state-aware";
-import { utilIsFunction } from "./util/util-is-function";
-import { utilIsString } from "./util/util-is-string";
+import { isFunction } from "./util/is-function";
+import { isString } from "./util/is-string";
 
 export interface DDialogConfirmOptions<
 	THEME extends DThemeDialogConfirm = DThemeDialogConfirm
@@ -37,7 +37,7 @@ export class DDialogConfirm<
 	protected toMessage( theme: DThemeDialogConfirm, options?: DDialogConfirmOptions ): DDialogConfirmMessage {
 		if( options && options.message != null ) {
 			const message = options.message;
-			if( utilIsString( message ) || utilIsFunction( message ) ) {
+			if( isString( message ) || isFunction( message ) ) {
 				return this.newMessage(
 					this.toMessageOptions( message )
 				);

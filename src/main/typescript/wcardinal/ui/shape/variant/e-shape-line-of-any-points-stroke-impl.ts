@@ -5,8 +5,8 @@
 
 import { EShapeLineOfAnyPointsStroke } from "./e-shape-line-of-any-points-stroke";
 import { EShapeLineOfAnyValue } from "./e-shape-line-of-any-value";
-import { utilIsStatic } from "./util-is-static";
-import { utilToComputed } from "./util-to-computed";
+import { isStatic } from "./is-static";
+import { toComputed } from "./to-computed";
 
 export interface EShapeLineOfAnyPointsStrokeImplParent {
 	updateUploaded(): void;
@@ -65,19 +65,19 @@ export class EShapeLineOfAnyPointsStrokeImpl implements EShapeLineOfAnyPointsStr
 	}
 
 	getColor( index: number, def: number ): number {
-		return utilToComputed( index, this._color, def );
+		return toComputed( index, this._color, def );
 	}
 
 	getAlpha( index: number, def: number ): number {
-		return utilToComputed( index, this._alpha, def );
+		return toComputed( index, this._alpha, def );
 	}
 
 	isStaticColor(): boolean {
-		return utilIsStatic( this._color );
+		return isStatic( this._color );
 	}
 
 	isStaticAlpha(): boolean {
-		return utilIsStatic( this._alpha );
+		return isStatic( this._alpha );
 	}
 
 	toDirty(): void {

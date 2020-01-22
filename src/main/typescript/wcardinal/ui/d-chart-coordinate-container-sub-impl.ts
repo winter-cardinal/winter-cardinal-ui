@@ -6,7 +6,7 @@
 import { DChartCoordinate, DChartCoordinateDirection } from "./d-chart-coordinate";
 import { DChartCoordinateContainer } from "./d-chart-coordinate-container";
 import { DChartCoordinateContainerSub } from "./d-chart-coordinate-container-sub";
-import { utilIsNumber } from "./util/util-is-number";
+import { isNumber } from "./util/is-number";
 
 export class DChartCoordinateContainerSubImpl implements DChartCoordinateContainerSub {
 	protected _list: DChartCoordinate[];
@@ -52,7 +52,7 @@ export class DChartCoordinateContainerSubImpl implements DChartCoordinateContain
 	remove( index: number ): DChartCoordinate | null;
 	remove( coordinateOrIndex: DChartCoordinate | number ): DChartCoordinate | null {
 		const list = this._list;
-		if( utilIsNumber( coordinateOrIndex ) ) {
+		if( isNumber( coordinateOrIndex ) ) {
 			const index = coordinateOrIndex;
 			if( 0 <= index && index < list.length ) {
 				const removed = list.splice( index, 1 )[ 0 ];

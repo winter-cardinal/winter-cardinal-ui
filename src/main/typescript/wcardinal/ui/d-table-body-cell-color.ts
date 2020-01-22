@@ -8,8 +8,8 @@ import { DButtonColor, DButtonColorOptions, DThemeButtonColor } from "./d-button
 import { DColorAndAlpha } from "./d-color";
 import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
 import { DTableColumn } from "./d-table-column";
-import { utilIsNumber } from "./util/util-is-number";
-import { utilIsString } from "./util/util-is-string";
+import { isNumber } from "./util/is-number";
+import { isString } from "./util/is-string";
 
 export interface DTableBodyCellColorOptions<
 	ROW = unknown,
@@ -65,10 +65,10 @@ export class DTableBodyCellColor<
 
 	set( newValue: unknown ): void {
 		const value = this._value;
-		if( utilIsNumber( newValue ) ) {
+		if( isNumber( newValue ) ) {
 			value.color = newValue;
 			value.alpha = 1;
-		} else if( utilIsString( newValue ) ) {
+		} else if( isString( newValue ) ) {
 			const parsed = Number( newValue );
 			if( parsed === parsed ) {
 				value.color = parsed;

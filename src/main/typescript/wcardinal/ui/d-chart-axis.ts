@@ -4,18 +4,7 @@
  */
 
 import { DChartAxisContainer } from "./d-chart-axis-container";
-
-export enum DChartAxisPosition {
-	TOP,
-	BOTTOM,
-	LEFT,
-	RIGHT
-}
-
-export enum DChartAxisTickPosition {
-	INSIDE,
-	OUTSIDE
-}
+import { DChartAxisPosition } from "./d-chart-axis-position";
 
 export interface DChartAxisOptions {
 	position?: DChartAxisPosition | keyof typeof DChartAxisPosition;

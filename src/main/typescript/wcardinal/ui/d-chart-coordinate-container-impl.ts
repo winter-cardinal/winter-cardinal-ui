@@ -8,7 +8,7 @@ import { DChartCoordinateContainer, DChartCoordinateContainerOptions } from "./d
 import { DChartCoordinateContainerSub } from "./d-chart-coordinate-container-sub";
 import { DChartCoordinateContainerSubImpl } from "./d-chart-coordinate-container-sub-impl";
 import { DChartPlotArea } from "./d-chart-plot-area";
-import { utilIsArray } from "./util/util-is-array";
+import { isArray } from "./util/is-array";
 
 export class DChartCoordinateContainerImpl implements DChartCoordinateContainer {
 	protected _x: DChartCoordinateContainerSub;
@@ -22,7 +22,7 @@ export class DChartCoordinateContainerImpl implements DChartCoordinateContainer 
 		if( options ) {
 			const cxs = options.x;
 			if( cxs ) {
-				if( utilIsArray( cxs ) ) {
+				if( isArray( cxs ) ) {
 					for( let i = 0, imax = cxs.length; i < imax; ++i ) {
 						x.add( cxs[ i ] );
 					}
@@ -32,7 +32,7 @@ export class DChartCoordinateContainerImpl implements DChartCoordinateContainer 
 			}
 			const cys = options.y;
 			if( cys ) {
-				if( utilIsArray( cys ) ) {
+				if( isArray( cys ) ) {
 					for( let i = 0, imax = cys.length; i < imax; ++i ) {
 						y.add( cys[ i ] );
 					}

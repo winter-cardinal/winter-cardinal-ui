@@ -13,9 +13,8 @@ import { EShapeActionRuntimeChangeColorStroke } from "./e-shape-action-runtime-c
 import { EShapeActionRuntimeChangeColorText } from "./e-shape-action-runtime-change-color-text";
 import { EShapeActionRuntimeChangeColorTextOutline } from "./e-shape-action-runtime-change-color-text-outline";
 import { EShapeActionValue } from "./e-shape-action-value";
-import {
-	EShapeActionValueChangeColorTarget, EShapeActionValueChangeColorType
-} from "./e-shape-action-value-change-color-type";
+import { EShapeActionValueChangeColorTarget } from "./e-shape-action-value-change-color-target";
+import { EShapeActionValueChangeColorType } from "./e-shape-action-value-change-color-type";
 import { EShapeActionValueSubtyped } from "./e-shape-action-value-subtyped";
 import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";

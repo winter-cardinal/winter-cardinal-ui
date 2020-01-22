@@ -6,7 +6,7 @@
 import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseState } from "../../d-base-state";
 import { DThemeCanvas } from "../../d-canvas";
-import { DCornerMask } from "../../d-corner";
+import { DCornerMask } from "../../d-corner-mask";
 import { DThemeDarkBase } from "./d-theme-dark-base";
 
 export class DThemeDarkCanvas extends DThemeDarkBase implements DThemeCanvas {

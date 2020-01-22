@@ -6,10 +6,10 @@
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { DCoordinateSize } from "../../d-coordinate";
-import { DHTMLElementElementCreator } from "../../d-html-element";
+import { DHtmlElementElementCreator } from "../../d-html-element";
 import { DThemeInput } from "../../d-input";
 import { UtilRgb } from "../../util/util-rgb";
-import { DThemeDarkHTMLElement } from "./d-theme-dark-html-element";
+import { DThemeDarkHtmlElement } from "./d-theme-dark-html-element";
 
 const editingValidator = (): unknown => {
 	return null;
@@ -59,7 +59,7 @@ const afterCreator = ( parent: HTMLElement ): HTMLDivElement => {
 	return divCreator( parent, CREATOR_CLASSNAME_AFTER );
 };
 
-export class DThemeDarkInput extends DThemeDarkHTMLElement<HTMLInputElement> implements DThemeInput {
+export class DThemeDarkInput extends DThemeDarkHtmlElement<HTMLInputElement> implements DThemeInput {
 	COLOR = 0x383838;
 	COLOR_HOVERED = UtilRgb.darken( this.COLOR, 0.017 );
 
@@ -120,19 +120,19 @@ export class DThemeDarkInput extends DThemeDarkHTMLElement<HTMLInputElement> imp
 		return editingValidator;
 	}
 
-	getElementCreator(): DHTMLElementElementCreator<HTMLInputElement> {
+	getElementCreator(): DHtmlElementElementCreator<HTMLInputElement> {
 		return elementCreator;
 	}
 
-	getClipperCreator(): DHTMLElementElementCreator<HTMLDivElement> {
+	getClipperCreator(): DHtmlElementElementCreator<HTMLDivElement> {
 		return clipperCreator;
 	}
 
-	getBeforeCreator(): DHTMLElementElementCreator<HTMLDivElement> {
+	getBeforeCreator(): DHtmlElementElementCreator<HTMLDivElement> {
 		return beforeCreator;
 	}
 
-	getAfterCreator(): DHTMLElementElementCreator<HTMLDivElement> {
+	getAfterCreator(): DHtmlElementElementCreator<HTMLDivElement> {
 		return afterCreator;
 	}
 

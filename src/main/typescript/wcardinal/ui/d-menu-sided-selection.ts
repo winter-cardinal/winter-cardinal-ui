@@ -8,7 +8,7 @@ import { DBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DListItem, DListItemSelection } from "./d-list-item";
 import { DMenu } from "./d-menu";
-import { utilIsString } from "./util/util-is-string";
+import { isString } from "./util/is-string";
 
 export enum DMenuSidedSelectionMode {
 	NONE,
@@ -43,7 +43,7 @@ export class DMenuSidedSelection extends utils.EventEmitter implements DListItem
 		this._item = null;
 		this._isDirty = true;
 		this._mode = ( options && options.mode != null ?
-			(utilIsString( options.mode ) ? DMenuSidedSelectionMode[ options.mode ] : options.mode) :
+			(isString( options.mode ) ? DMenuSidedSelectionMode[ options.mode ] : options.mode) :
 			DMenuSidedSelectionMode.DEFAULT
 		);
 		this._filter = ( options && options.filter ) || this.getFilterDefault();
