@@ -13,11 +13,12 @@ npm i @wcardinal/wcardinal-ui
 Please note that this package has no default exports.
 
 ```javascript
-import { loadAll, DApplication, DButtonCheck } from "@wcardinal/wcardinal-ui";
+import { loadAll, loadThemeWhiteAll, DApplication, DButtonCheck } from "@wcardinal/wcardinal-ui";
 
-// Loads all the optional modules and the default theme.
+// Loads all the optional modules and the white theme.
 // This is required for the tree shaking as explained later.
 loadAll();
+loadThemeWhiteAll();
 
 // Make a new application
 const application = new DApplication();
@@ -36,6 +37,7 @@ new DButtonCheck({
 ```html
 <script src="https://cdn.jsdelivr.net/npm/pixi.js/dist/pixi.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@wcardinal/wcardinal-ui/dist/wcardinal-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@wcardinal/wcardinal-ui/dist/wcardinal-ui-theme-white.min.js"></script>
 <script>
 (function(){
 	'use strict';
@@ -55,8 +57,8 @@ new DButtonCheck({
 ```
 
 All the classes are in the `wcardin.ui`.
-Please note that the `loadAll` is not required in this case.
-Prebuild files `wcardinal-ui.js` and `wcardinal-ui.min.js` call the `loadAll` for you.
+Please note that the `loadAll` and the `loadThemeWhiteALl` is not required in this case.
+Prebuild files `wcardinal-ui.min.js` and `wcardinal-ui-theme-white.min.js` call the `loadAll` and the `loadThemeWhiteAll` for you.
 
 See [sample/cdn.html](https://winter-cardinal.github.io/winter-cardinal-ui/sample/cdn.html) for complete example.
 
@@ -66,7 +68,8 @@ The NPM package `@wcardinal/wcardinal-ui` is large in its size
 because all the UI classes and their themes are included.
 This is why the tree shaking is important for this library.
 
-The `loadAll` loads all the optional modules (e.g., `DMenuItemCheck`) and the default theme (e.g., `DThemeWhite`).
+The `loadAll` loads all the optional modules (e.g., `DMenuItemCheck`).
+And the `loadThemeWhiteAll` loads the white theme (e.g., `DThemeWhite`).
 To remove unnecessary modules from your build, pick `load*` functions you need.
 
 ```javascript
