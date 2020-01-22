@@ -77,4 +77,10 @@ task copyJSToSampleDir( type: Copy, dependsOn: copyPixiJSToSampleDir ) {
 	include 'wcardinal-ui.js'
 	include 'wcardinal-ui.min.js'
 	include 'wcardinal-ui.min.js.map'
+	include 'wcardinal-ui-theme-white.js'
+	include 'wcardinal-ui-theme-white.min.js'
+	include 'wcardinal-ui-theme-white.min.js.map'
+	include 'wcardinal-ui-theme-dark.js'
+	include 'wcardinal-ui-theme-dark.min.js'
+	include 'wcardinal-ui-theme-dark.min.js.map'
 }
