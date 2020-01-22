@@ -19,6 +19,7 @@ export * from "./load-shape-label";
 export * from "./load-shape-line-of-circles";
 export * from "./load-shape-line-of-rectangle-roundeds";
 export * from "./load-shape-line-of-rectangles";
+export * from "./load-shape-line-of-triangle-roundeds";
 export * from "./load-shape-line-of-triangles";
 export * from "./load-shape-line";
 export * from "./load-shape-null";
