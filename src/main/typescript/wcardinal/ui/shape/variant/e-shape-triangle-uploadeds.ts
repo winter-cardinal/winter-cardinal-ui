@@ -5,8 +5,8 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
+import { TEXT_INDEX_COUNT, TEXT_VERTEX_COUNT, toTextBufferCount } from "./build-text";
 import { TRIANGLE_INDEX_COUNT, TRIANGLE_VERTEX_COUNT } from "./build-triangle";
-import { EShapeTextUploadeds } from "./e-shape-text-uploadeds";
 import { EShapeTriangleUploaded } from "./e-shape-triangle-uploaded";
 
 export class EShapeTriangleUploadeds {
@@ -15,9 +15,9 @@ export class EShapeTriangleUploadeds {
 		voffset: number, ioffset: number,
 		antialiasWeight: number
 	): EShapeTriangleUploaded | null {
-		const tcount = EShapeTextUploadeds.getTextCount( shape, buffer.workCount );
-		const tvcount = tcount.vertexCount;
-		const ticount = tcount.indexCount;
+		const tcount = toTextBufferCount( shape );
+		const tvcount = tcount * TEXT_VERTEX_COUNT;
+		const ticount = tcount * TEXT_INDEX_COUNT;
 		const vcount = TRIANGLE_VERTEX_COUNT + tvcount;
 		const icount = TRIANGLE_INDEX_COUNT + ticount;
 		if( voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity ) {

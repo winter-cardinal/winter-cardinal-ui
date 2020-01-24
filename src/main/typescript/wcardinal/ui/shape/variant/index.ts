@@ -119,7 +119,6 @@ export * from "./e-shape-text-offset-impl";
 export * from "./e-shape-text-outline-impl-parent";
 export * from "./e-shape-text-outline-impl";
 export * from "./e-shape-text-uploaded";
-export * from "./e-shape-text-uploadeds";
 export * from "./e-shape-triangle-rounded-uploaded";
 export * from "./e-shape-triangle-rounded-uploadeds";
 export * from "./e-shape-triangle-rounded";

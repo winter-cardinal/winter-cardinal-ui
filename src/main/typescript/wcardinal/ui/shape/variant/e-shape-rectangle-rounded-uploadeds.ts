@@ -6,8 +6,8 @@
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
 import { RECTANGLE_ROUNDED_INDEX_COUNT, RECTANGLE_ROUNDED_VERTEX_COUNT } from "./build-rectangle-rounded";
+import { TEXT_INDEX_COUNT, TEXT_VERTEX_COUNT, toTextBufferCount } from "./build-text";
 import { EShapeRectangleRoundedUploaded } from "./e-shape-rectangle-rounded-uploaded";
-import { EShapeTextUploadeds } from "./e-shape-text-uploadeds";
 
 export class EShapeRectangleRoundedUploadeds {
 	static create(
@@ -15,9 +15,9 @@ export class EShapeRectangleRoundedUploadeds {
 		voffset: number, ioffset: number,
 		antialiasWeight: number
 	): EShapeRectangleRoundedUploaded | null {
-		const tcount = EShapeTextUploadeds.getTextCount( shape, buffer.workCount );
-		const tvcount = tcount.vertexCount;
-		const ticount = tcount.indexCount;
+		const tcount = toTextBufferCount( shape );
+		const tvcount = tcount * TEXT_VERTEX_COUNT;
+		const ticount = tcount * TEXT_INDEX_COUNT;
 		const vcount = RECTANGLE_ROUNDED_VERTEX_COUNT + tvcount;
 		const icount = RECTANGLE_ROUNDED_INDEX_COUNT + ticount;
 		if( voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity ) {

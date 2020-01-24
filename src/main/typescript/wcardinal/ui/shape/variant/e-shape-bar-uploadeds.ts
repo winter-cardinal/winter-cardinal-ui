@@ -5,8 +5,8 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
+import { TEXT_INDEX_COUNT, TEXT_VERTEX_COUNT, toTextBufferCount } from "./build-text";
 import { EShapeBarUploaded } from "./e-shape-bar-uploaded";
-import { EShapeTextUploadeds } from "./e-shape-text-uploadeds";
 
 export class EShapeBarUploadeds {
 	static create(
@@ -14,9 +14,9 @@ export class EShapeBarUploadeds {
 		voffset: number, ioffset: number,
 		antialiasWeight: number
 	): EShapeBarUploaded | null {
-		const tcount = EShapeTextUploadeds.getTextCount( shape, buffer.workCount );
-		const tvcount = tcount.vertexCount;
-		const ticount = tcount.indexCount;
+		const tcount = toTextBufferCount( shape );
+		const tvcount = tcount * TEXT_VERTEX_COUNT;
+		const ticount = tcount * TEXT_INDEX_COUNT;
 		const vcount = 4 + tvcount;
 		const icount = 2 + ticount;
 		if( voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity ) {

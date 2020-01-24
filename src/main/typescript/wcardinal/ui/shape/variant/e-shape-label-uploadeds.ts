@@ -5,8 +5,8 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
+import { TEXT_INDEX_COUNT, TEXT_VERTEX_COUNT, toTextBufferCount } from "./build-text";
 import { EShapeLabelUploaded } from "./e-shape-label-uploaded";
-import { EShapeTextUploadeds } from "./e-shape-text-uploadeds";
 
 export class EShapeLabelUploadeds {
 	static create(
@@ -14,9 +14,9 @@ export class EShapeLabelUploadeds {
 		voffset: number, ioffset: number,
 		antialiasWeight: number
 	): EShapeLabelUploaded | null {
-		const tcount = EShapeTextUploadeds.getTextCount( shape, buffer.workCount );
-		const tvcount = tcount.vertexCount;
-		const ticount = tcount.indexCount;
+		const tcount = toTextBufferCount( shape );
+		const tvcount = tcount * TEXT_VERTEX_COUNT;
+		const ticount = tcount * TEXT_INDEX_COUNT;
 		const vcount = tvcount;
 		const icount = ticount;
 		if( voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity ) {

@@ -14,7 +14,7 @@ import { EShapeTextAlignVertical } from "../e-shape-text-align-vertical";
 import { EShapeTextDirection } from "../e-shape-text-direction";
 import { EShapeUploadedBase } from "../e-shape-uploaded";
 import { buildColor } from "./build-color";
-import { EShapeTextUploadeds } from "./e-shape-text-uploadeds";
+import { TEXT_VERTEX_COUNT, toTextBufferCount } from "./build-text";
 import { toLength } from "./to-length";
 
 const FMIN: number = 0.00001;
@@ -82,8 +82,7 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 
 	isCompatible( shape: EShape ): boolean {
 		if( super.isCompatible( shape ) ) {
-			const textCount = EShapeTextUploadeds.getTextCount( shape, this.buffer.workCount );
-			return ( textCount.vertexCount === this.textVertexCount );
+			return ( toTextBufferCount( shape ) * TEXT_VERTEX_COUNT === this.textVertexCount );
 		}
 		return false;
 	}

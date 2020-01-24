@@ -5,7 +5,6 @@
 
 export * from "./action";
 export * from "./variant";
-export * from "./e-shape-buffer-count";
 export * from "./e-shape-buffer-unit-builder";
 export * from "./e-shape-buffer-unit";
 export * from "./e-shape-buffer";

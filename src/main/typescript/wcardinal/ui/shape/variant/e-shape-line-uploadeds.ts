@@ -6,8 +6,8 @@
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
 import { EShapePointsStyle } from "../e-shape-points-style";
+import { TEXT_INDEX_COUNT, TEXT_VERTEX_COUNT, toTextBufferCount } from "./build-text";
 import { EShapeLineUploaded } from "./e-shape-line-uploaded";
-import { EShapeTextUploadeds } from "./e-shape-text-uploadeds";
 
 export class EShapeLineUploadeds {
 	static create(
@@ -18,9 +18,9 @@ export class EShapeLineUploadeds {
 		const points = shape.points;
 		const pointsClosed = ( points ? (points.style & EShapePointsStyle.CLOSED) !== 0 : false );
 		const pointCount = ( points ? points.length : 0 );
-		const tcount = EShapeTextUploadeds.getTextCount( shape, buffer.workCount );
-		const tvcount = tcount.vertexCount;
-		const ticount = tcount.indexCount;
+		const tcount = toTextBufferCount( shape );
+		const tvcount = tcount * TEXT_VERTEX_COUNT;
+		const ticount = tcount * TEXT_INDEX_COUNT;
 		let vcount = tvcount;
 		let icount = ticount;
 		if( 2 <= pointCount ) {

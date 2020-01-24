@@ -5,7 +5,6 @@
 
 import { Buffer, DRAW_MODES, Geometry, Point, Renderer, Shader, Texture } from "pixi.js";
 import { EShape } from "./e-shape";
-import { EShapeBufferCount } from "./e-shape-buffer-count";
 import { EShapeBufferUnitBuilder } from "./e-shape-buffer-unit-builder";
 import { EShapeRendererIterator } from "./e-shape-renderer-iterator";
 import { EShapeType } from "./e-shape-type";
@@ -48,7 +47,6 @@ export class EShapeBuffer {
 
 	work: Point;
 	workStep: Float32Array;
-	workCount: EShapeBufferCount;
 
 	constructor( ntriangles: number, renderer: Renderer, shader: Shader ) {
 		const nindices = ntriangles * 3;
@@ -89,7 +87,6 @@ export class EShapeBuffer {
 
 		this.work = new Point();
 		this.workStep = new Float32Array( 3 );
-		this.workCount = new EShapeBufferCount();
 
 		this.geometry = new Geometry()
 			.addIndex( this.indexBuffer )

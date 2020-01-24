@@ -5,8 +5,8 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
+import { TEXT_INDEX_COUNT, TEXT_VERTEX_COUNT, toTextBufferCount } from "./build-text";
 import { EShapeLineOfNullsUploaded } from "./e-shape-line-of-nulls-uploaded";
-import { EShapeTextUploadeds } from "./e-shape-text-uploadeds";
 
 export interface EShapeLineOfAnyUploaded {
 	init( shape: EShape ): this;
@@ -31,9 +31,9 @@ export class EShapeLineOfAnyUploadeds {
 		antialiasWeight: number,
 		constructor: EShapeLineOfAnyUploadedConstructor<T>
 	): T | EShapeLineOfNullsUploaded | null {
-		const tcount = EShapeTextUploadeds.getTextCount( shape, buffer.workCount );
-		const tvcount = tcount.vertexCount;
-		const ticount = tcount.indexCount;
+		const tcount = toTextBufferCount( shape );
+		const tvcount = tcount * TEXT_VERTEX_COUNT;
+		const ticount = tcount * TEXT_INDEX_COUNT;
 		const points = shape.points;
 		const pointCount = ( points ? points.length : 0 );
 		const vcount = pointCount * vcountPerPoint + tvcount;
