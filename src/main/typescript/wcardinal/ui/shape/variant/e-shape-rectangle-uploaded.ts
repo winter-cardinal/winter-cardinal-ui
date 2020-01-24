@@ -6,7 +6,8 @@
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
 import {
-	buildRectangleClipping, buildRectangleIndex, buildRectangleUv, buildRectangleVertexAndStep
+	buildRectangleClipping, buildRectangleIndex, buildRectangleStep, buildRectangleUv,
+	buildRectangleVertex, RECTANGLE_WORLD_SIZE
 } from "./build-rectangle";
 import { EShapeTextUploaded } from "./e-shape-text-uploaded";
 
@@ -14,18 +15,12 @@ export class EShapeRectangleUploaded extends EShapeTextUploaded {
 	init( shape: EShape ): this {
 		super.init( shape );
 
-		// Clippings
+		// Indices
 		const buffer = this.buffer;
-		buffer.clippingBuffer.update();
 		buffer.indexBuffer.update();
-		const voffset = this.vertexOffset;
-		buildRectangleClipping(
-			buffer.clippings,
-			voffset
-		);
 		buildRectangleIndex(
 			buffer.indices,
-			voffset,
+			this.vertexOffset,
 			this.indexOffset
 		);
 
@@ -38,13 +33,12 @@ export class EShapeRectangleUploaded extends EShapeTextUploaded {
 
 	update( shape: EShape ): void {
 		const buffer = this.buffer;
-		this.updateVertexAndStep( buffer, shape );
+		this.updateVertexClippingStepAndUv( buffer, shape );
 		this.updateColor( buffer, shape );
-		this.updateUv( buffer, shape );
 		this.updateText( buffer, shape );
 	}
 
-	protected updateVertexAndStep( buffer: EShapeBuffer, shape: EShape ): void {
+	protected updateVertexClippingStepAndUv( buffer: EShapeBuffer, shape: EShape ): void {
 		const size = shape.size;
 		const sizeX = size.x;
 		const sizeY = size.y;
@@ -60,43 +54,74 @@ export class EShapeRectangleUploaded extends EShapeTextUploaded {
 		const isStrokeChanged = ( this.strokeAlign !== strokeAlign ||
 			this.strokeWidth !== strokeWidth || this.strokeSide !== strokeSide );
 
-		if( isSizeChanged || isTransformChanged || isStrokeChanged ) {
+		const texture = this.toTexture( shape );
+		const textureTransformId = this.toTextureTransformId( texture );
+		const isTextureChanged = ( texture !== this.texture || textureTransformId !== this.textureTransformId );
+
+		const isVertexChanged = isSizeChanged || isStrokeChanged;
+
+		if( isVertexChanged || isTransformChanged || isTextureChanged ) {
 			this.sizeX = sizeX;
 			this.sizeY = sizeY;
 			this.transformLocalId = transformLocalId;
 			this.strokeWidth = strokeWidth;
 			this.strokeAlign = strokeAlign;
 			this.strokeSide = strokeSide;
-
-			// Invalidate the text layout to update the text layout.
-			this.textSpacingHorizontal = NaN;
-
-			buffer.vertexBuffer.update();
-			buffer.stepBuffer.update();
-			buffer.antialiasBuffer.update();
-			buildRectangleVertexAndStep(
-				buffer.vertices, this.vertexOffset,
-				buffer.steps, buffer.antialiases,
-				0, 0,
-				sizeX, sizeY,
-				strokeAlign, strokeWidth, strokeSide, true,
-				shape.transform.internalTransform,
-				this.antialiasWeight,
-				buffer.work, buffer.workStep
-			);
-		}
-	}
-
-	protected updateUv( buffer: EShapeBuffer, shape: EShape ) {
-		const texture = this.toTexture( shape );
-		const textureTransformId = this.toTextureTransformId( texture );
-		if( texture !== this.texture || textureTransformId !== this.textureTransformId ) {
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
 
-			buffer.uvBuffer.update();
-			const textureUvs = this.toTextureUvs( texture );
-			buildRectangleUv( buffer.uvs, this.vertexOffset, textureUvs );
+			if( isVertexChanged || isTransformChanged ) {
+				// Invalidate the text layout to update the text layout.
+				this.textSpacingHorizontal = NaN;
+			}
+
+			// Vertices
+			const voffset = this.vertexOffset;
+			buffer.vertexBuffer.update();
+			buildRectangleVertex(
+				buffer.vertices, voffset,
+				0, 0,
+				sizeX, sizeY,
+				strokeAlign, strokeWidth,
+				shape.transform.internalTransform,
+				RECTANGLE_WORLD_SIZE,
+				buffer.work
+			);
+
+			// Steps & antialiases
+			if( isVertexChanged || isTransformChanged ) {
+				buffer.stepBuffer.update();
+				buffer.antialiasBuffer.update();
+				buildRectangleStep(
+					voffset,
+					buffer.steps, buffer.antialiases,
+					strokeWidth, strokeSide,
+					this.antialiasWeight,
+					RECTANGLE_WORLD_SIZE,
+					buffer.workStep
+				);
+			}
+
+			// Clippings
+			if( isVertexChanged ) {
+				buffer.clippingBuffer.update();
+				buildRectangleClipping(
+					buffer.clippings,
+					voffset,
+					RECTANGLE_WORLD_SIZE
+				);
+			}
+
+			// UVs
+			if( isVertexChanged || isTextureChanged ) {
+				buffer.uvBuffer.update();
+				buildRectangleUv(
+					buffer.uvs,
+					voffset,
+					this.toTextureUvs( texture ),
+					RECTANGLE_WORLD_SIZE
+				);
+			}
 		}
 	}
 }

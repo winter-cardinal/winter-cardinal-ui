@@ -13,7 +13,6 @@ import { DChartSeriesContainer } from "./d-chart-series-container";
 import { DChartSeriesLinearParameters, DChartSeriesLinearParametersOptions } from "./d-chart-series-linear-parameters";
 import { DChartSeriesExpressionParametersImpl } from "./d-chart-series-linear-parameters-impl";
 import { DChartSeriesStrokeComputed, DChartSeriesStrokeComputedOptions } from "./d-chart-series-stroke-computed";
-import { DChartSeriesStrokeComputedImpl } from "./d-chart-series-stroke-computed-impl";
 import { EShapeLine } from "./shape/variant/e-shape-line";
 
 /**
@@ -29,7 +28,7 @@ export interface DChartSeriesLinearOptions extends DChartSeriesLinearParametersO
 export class DChartSeriesLinear extends DChartSeriesBase {
 	protected static WORK: Point = new Point();
 	protected _line: EShapeLine | null;
-	protected _lineStrokeOptions?: DChartSeriesStrokeComputedOptions;
+	protected _options?: DChartSeriesLinearOptions;
 	protected _plotAreaSizeXUpdated: number;
 	protected _plotAreaSizeYUpdated: number;
 	protected _parameters: DChartSeriesExpressionParametersImpl;
@@ -38,7 +37,7 @@ export class DChartSeriesLinear extends DChartSeriesBase {
 	constructor( options?: DChartSeriesLinearOptions ) {
 		super( options );
 		this._line = null;
-		this._lineStrokeOptions = options && options.stroke;
+		this._options = options;
 		this._plotAreaSizeXUpdated = NaN;
 		this._plotAreaSizeYUpdated = NaN;
 		this._parameters = DChartSeriesExpressionParametersImpl.from( options );
@@ -47,7 +46,7 @@ export class DChartSeriesLinear extends DChartSeriesBase {
 	bind( container: DChartSeriesContainer, index: number ): void {
 		let line = this._line;
 		if( ! line ) {
-			const stroke = this._stroke = DChartSeriesStrokeComputedImpl.from( container, index, this._lineStrokeOptions );
+			const stroke = this._stroke = container.newStroke( index, this._options?.stroke );
 			line = this._line = new EShapeLine([], [], stroke.width, stroke.style);
 			line.stroke.color = stroke.color;
 			line.stroke.alpha = stroke.alpha;

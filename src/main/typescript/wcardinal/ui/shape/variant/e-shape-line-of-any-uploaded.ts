@@ -13,6 +13,7 @@ export abstract class EShapeLineOfAnyUploaded extends EShapeTextUploaded {
 	protected pointId: number;
 	protected pointCount: number;
 	protected pointSizeId: number;
+	protected pointOffsetId: number;
 	protected pointFillId: number;
 	protected pointStrokeId: number;
 
@@ -28,6 +29,7 @@ export abstract class EShapeLineOfAnyUploaded extends EShapeTextUploaded {
 		this.pointId = -1;
 		this.pointCount = pointCount;
 		this.pointSizeId = -1;
+		this.pointOffsetId = -1;
 		this.pointFillId = -1;
 		this.pointStrokeId = -1;
 	}

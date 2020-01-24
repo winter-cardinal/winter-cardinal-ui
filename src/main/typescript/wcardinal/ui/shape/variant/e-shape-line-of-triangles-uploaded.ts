@@ -15,6 +15,7 @@ import { copyStep } from "./copy-step";
 import { copyUvs } from "./copy-uv";
 import { copyVertex } from "./copy-vertex";
 import { EShapeLineOfAnyPoints } from "./e-shape-line-of-any-points";
+import { EShapeLineOfAnyPointsImpl } from "./e-shape-line-of-any-points-impl";
 import { EShapeLineOfAnyUploaded } from "./e-shape-line-of-any-uploaded";
 
 export class EShapeLineOfTrianglesUploaded extends EShapeLineOfAnyUploaded {
@@ -62,7 +63,7 @@ export class EShapeLineOfTrianglesUploaded extends EShapeLineOfAnyUploaded {
 	update( shape: EShape ): void {
 		const buffer = this.buffer;
 		const points = shape.points;
-		if( points instanceof EShapeLineOfAnyPoints ) {
+		if( points instanceof EShapeLineOfAnyPointsImpl ) {
 			this.updateVertexStepAndUvs( buffer, shape, points );
 			this.updateLineOfAnyColorFill( buffer, shape, points, TRIANGLE_VERTEX_COUNT );
 			this.updateLineOfAnyColorStroke( buffer, shape, points, TRIANGLE_VERTEX_COUNT );
@@ -72,7 +73,9 @@ export class EShapeLineOfTrianglesUploaded extends EShapeLineOfAnyUploaded {
 
 	protected updateVertexStepAndUvs( buffer: EShapeBuffer, shape: EShape, points: EShapeLineOfAnyPoints ) {
 		const pointId = points.id;
-		const isPointChanged = ( pointId !== this.pointId );
+		const pointOffset = points.offset;
+		const pointOffsetId = pointOffset.id;
+		const isPointChanged = ( pointId !== this.pointId || pointOffsetId !== this.pointOffsetId );
 
 		const pointSize = points.size;
 		const pointSizeId = pointSize.id;
@@ -99,6 +102,7 @@ export class EShapeLineOfTrianglesUploaded extends EShapeLineOfAnyUploaded {
 
 		if( isVertexChanged || isTransformChanged || isTextureChanged ) {
 			this.pointId = pointId;
+			this.pointOffsetId = pointOffsetId;
 			this.pointSizeId = pointSizeId;
 			this.sizeX = sizeX;
 			this.sizeY = sizeY;
@@ -153,7 +157,8 @@ export class EShapeLineOfTrianglesUploaded extends EShapeLineOfAnyUploaded {
 					vertices,
 					internalTransform,
 					voffset, TRIANGLE_VERTEX_COUNT,
-					pointCount, pointsValues
+					pointCount, pointsValues,
+					pointOffset
 				);
 				if( isVertexChanged || isTransformChanged ) {
 					buildTriangleStep(
@@ -190,8 +195,8 @@ export class EShapeLineOfTrianglesUploaded extends EShapeLineOfAnyUploaded {
 			} else {
 				for( let i = 0; i < pointCount; ++i ) {
 					const ip = i << 1;
-					const px = pointsValues[ ip     ];
-					const py = pointsValues[ ip + 1 ];
+					const px = pointsValues[ ip     ] + pointOffset.getX( i );
+					const py = pointsValues[ ip + 1 ] + pointOffset.getY( i );
 					const pointSizeX = pointSize.getX( i );
 					const pointSizeY = pointSize.getY( i );
 					const iv = voffset + i * TRIANGLE_VERTEX_COUNT;

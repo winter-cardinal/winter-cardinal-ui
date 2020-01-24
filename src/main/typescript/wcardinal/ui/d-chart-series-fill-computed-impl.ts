@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DChartSeriesContainer } from "./d-chart-series-container";
+import { DChartSeriesFill } from "./d-chart-series-fill";
 import { DChartSeriesFillComputed, DChartSeriesFillComputedOptions } from "./d-chart-series-fill-computed";
 
 export class DChartSeriesFillComputedImpl implements DChartSeriesFillComputed {
@@ -18,21 +18,20 @@ export class DChartSeriesFillComputedImpl implements DChartSeriesFillComputed {
 	}
 
 	static from(
-		container: DChartSeriesContainer, index: number,
+		base: DChartSeriesFill, index: number,
 		fill?: DChartSeriesFillComputedOptions
 	): DChartSeriesFillComputed {
-		const containerFill = container.fill;
 		if( fill ) {
 			return new DChartSeriesFillComputedImpl(
-				( fill.enable != null ? fill.enable : containerFill.enable( index ) ),
-				( fill.color != null ? fill.color : containerFill.color( index ) ),
-				( fill.alpha != null ? fill.alpha : containerFill.alpha( index ) )
+				( fill.enable != null ? fill.enable : base.enable( index ) ),
+				( fill.color != null ? fill.color : base.color( index ) ),
+				( fill.alpha != null ? fill.alpha : base.alpha( index ) )
 			);
 		} else {
 			return new DChartSeriesFillComputedImpl(
-				containerFill.enable( index ),
-				containerFill.color( index ),
-				containerFill.alpha( index )
+				base.enable( index ),
+				base.color( index ),
+				base.alpha( index )
 			);
 		}
 	}

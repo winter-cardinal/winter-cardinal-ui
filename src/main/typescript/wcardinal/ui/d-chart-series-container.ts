@@ -4,19 +4,32 @@
  */
 
 import { IPoint } from "pixi.js";
+import { DChartSeriesFillComputed } from ".";
 import { DChartCoordinate } from "./d-chart-coordinate";
 import { DChartPlotArea } from "./d-chart-plot-area";
 import { DChartRegion } from "./d-chart-region";
 import { DChartSelection } from "./d-chart-selection";
 import { DChartSeries, DChartSeriesHitResult } from "./d-chart-series";
-import { DChartSeriesFill, DChartSeriesFillOptions } from "./d-chart-series-fill";
-import { DChartSeriesStroke, DChartSeriesStrokeOptions } from "./d-chart-series-stroke";
+import { DChartSeriesFillOptions } from "./d-chart-series-fill";
+import { DChartSeriesFillComputedOptions } from "./d-chart-series-fill-computed";
+import { DChartSeriesPaddingOptions } from "./d-chart-series-padding";
+import {
+	DChartSeriesPaddingComputed, DChartSeriesPaddingComputedOptions
+} from "./d-chart-series-padding-computed";
+import { DChartSeriesPointOptions } from "./d-chart-series-point";
+import { DChartSeriesPointComputed, DChartSeriesPointComputedOptions } from "./d-chart-series-point-computed";
+import { DChartSeriesStrokeOptions } from "./d-chart-series-stroke";
+import { DChartSeriesStrokeComputed, DChartSeriesStrokeComputedOptions } from "./d-chart-series-stroke-computed";
 
 export interface DChartSeriesContainerOptions {
 	list: DChartSeries[];
+	selection?: DChartSelection;
+
 	fill?: DChartSeriesFillOptions;
 	stroke?: DChartSeriesStrokeOptions;
-	selection?: DChartSelection;
+	size?: DChartSeriesPointOptions;
+	offset?: DChartSeriesPointOptions;
+	padding?: DChartSeriesPaddingOptions;
 }
 
 export interface DChartSeriesContainer {
@@ -24,9 +37,30 @@ export interface DChartSeriesContainer {
 	range: DChartRegion;
 
 	readonly plotArea: DChartPlotArea;
-	readonly fill: DChartSeriesFill;
-	readonly stroke: DChartSeriesStroke;
 	readonly selection: DChartSelection | null;
+
+	newFill(
+		index: number,
+		options: DChartSeriesFillComputedOptions | undefined
+	): DChartSeriesFillComputed;
+	newStroke(
+		index: number,
+		options: DChartSeriesStrokeComputedOptions | undefined
+	): DChartSeriesStrokeComputed;
+	newSize(
+		index: number,
+		options: DChartSeriesPointComputedOptions | undefined,
+		x: number, y: number
+	): DChartSeriesPointComputed;
+	newOffset(
+		index: number,
+		options: DChartSeriesPointComputedOptions | undefined,
+		x: number, y: number
+	): DChartSeriesPointComputed;
+	newPadding(
+		index: number,
+		options: DChartSeriesPaddingComputedOptions | undefined
+	): DChartSeriesPaddingComputed;
 
 	update(): void;
 	add( series: DChartSeries ): void;

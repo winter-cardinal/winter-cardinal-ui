@@ -298,7 +298,15 @@ export default ( !process.env.ROLLUP_WATCH ?
 		plugins: [
 			remove(),
 			resolve(),
-			commonjs()
+			commonjs(),
+			copy({
+				targets: [
+					{ src: `dist/${name}.js`, dest: META_INF_DIR },
+					{ src: `dist/${name}.js`, dest: META_INF_DIR, rename: `${name}.min.js` },
+					{ src: 'node_modules/pixi.js/dist/*', dest: PIXI_DIR }
+				],
+				hook: 'writeBundle'
+			})
 		],
 		external: [
 			"pixi.js"
@@ -318,7 +326,14 @@ export default ( !process.env.ROLLUP_WATCH ?
 		plugins: [
 			bypass( BYPASS_TARGET_WHITE ),
 			resolve(),
-			commonjs()
+			commonjs(),
+			copy({
+				targets: [
+					{ src: `dist/${name}-theme-white.js`, dest: META_INF_DIR },
+					{ src: `dist/${name}-theme-white.js`, dest: META_INF_DIR, rename: `${name}-theme-white.min.js` }
+				],
+				hook: 'writeBundle'
+			})
 		],
 		external: [
 			"pixi.js"
@@ -341,13 +356,8 @@ export default ( !process.env.ROLLUP_WATCH ?
 			commonjs(),
 			copy({
 				targets: [
-					{ src: `dist/${name}.js`, dest: META_INF_DIR },
-					{ src: `dist/${name}.js`, dest: META_INF_DIR, rename: `${name}.min.js` },
-					{ src: `dist/${name}-theme-white.js`, dest: META_INF_DIR },
-					{ src: `dist/${name}-theme-white.js`, dest: META_INF_DIR, rename: `${name}-theme-white.min.js` },
 					{ src: `dist/${name}-theme-dark.js`, dest: META_INF_DIR },
-					{ src: `dist/${name}-theme-dark.js`, dest: META_INF_DIR, rename: `${name}-theme-dark.min.js` },
-					{ src: 'node_modules/pixi.js/dist/*', dest: PIXI_DIR }
+					{ src: `dist/${name}-theme-dark.js`, dest: META_INF_DIR, rename: `${name}-theme-dark.min.js` }
 				],
 				hook: 'writeBundle'
 			})

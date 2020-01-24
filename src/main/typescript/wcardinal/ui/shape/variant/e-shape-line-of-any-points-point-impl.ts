@@ -4,32 +4,35 @@
  */
 
 import { isFunction, isNumber } from "../../util";
-import { EShapeDefaults } from "../e-shape-defaults";
-import { EShapeLineOfAnyPointsSize } from "./e-shape-line-of-any-points-size";
+import { EShapeLineOfAnyPointsPoint } from "./e-shape-line-of-any-points-point";
 import { EShapeLineOfAnyValue } from "./e-shape-line-of-any-value";
 import { isStatic } from "./is-static";
 import { toComputed } from "./to-computed";
 
-export interface EShapeLineOfAnyPointsSizeImplParent {
+export interface EShapeLineOfAnyPointsPointImplParent {
 	readonly length: number;
 	updateUploaded(): void;
 }
 
-export class EShapeLineOfAnyPointsSizeImpl implements EShapeLineOfAnyPointsSize {
-	protected _parent: EShapeLineOfAnyPointsSizeImplParent;
+export class EShapeLineOfAnyPointsPointImpl implements EShapeLineOfAnyPointsPoint {
+	protected _parent: EShapeLineOfAnyPointsPointImplParent;
 	protected _id: number;
 	protected _x: EShapeLineOfAnyValue;
 	protected _y: EShapeLineOfAnyValue;
+	protected _defX: number;
+	protected _defY: number;
 	protected _limit: number | null;
 	protected _limitComputed: number;
 	protected _limitId: number;
 	protected _limitParentLength: number;
 
-	constructor( parent: EShapeLineOfAnyPointsSizeImplParent ) {
+	constructor( parent: EShapeLineOfAnyPointsPointImplParent, defX: number, defY: number ) {
 		this._parent = parent;
 		this._id = 0;
 		this._x = null;
 		this._y = null;
+		this._defX = defX;
+		this._defY = defY;
 		this._limit = null;
 		this._limitComputed = 0;
 		this._limitId = -1;
@@ -84,11 +87,11 @@ export class EShapeLineOfAnyPointsSizeImpl implements EShapeLineOfAnyPointsSize 
 	}
 
 	getX( index: number ): number {
-		return toComputed( index, this._x, EShapeDefaults.SIZE_X );
+		return toComputed( index, this._x, this._defX );
 	}
 
 	getY( index: number ): number {
-		return toComputed( index, this._y, EShapeDefaults.SIZE_Y );
+		return toComputed( index, this._y, this._defY );
 	}
 
 	getLimit(): number {
@@ -108,20 +111,20 @@ export class EShapeLineOfAnyPointsSizeImpl implements EShapeLineOfAnyPointsSize 
 			this._limitId = limitId;
 			this._limitParentLength = limitParentLength;
 			this._limitComputed = Math.max(
-				this.calcLimit( this._x, limitParentLength, EShapeDefaults.SIZE_X ),
-				this.calcLimit( this._y, limitParentLength, EShapeDefaults.SIZE_Y )
+				this.calcLimit( this._x, limitParentLength, this._defX ),
+				this.calcLimit( this._y, limitParentLength, this._defY )
 			);
 		}
 	}
 
 	protected calcLimit( value: EShapeLineOfAnyValue, parentLenght: number, def: number ): number {
 		if( isNumber( value ) ) {
-			return value;
+			return Math.abs( value );
 		} else if( isFunction( value ) ) {
 			if( 0 < parentLenght ) {
-				let result = value( 0 );
+				let result = Math.abs( value( 0 ) );
 				for( let i = 1; i < parentLenght; ++i ) {
-					result = Math.max( result, value( i ) );
+					result = Math.max( result, Math.abs( value( i ) ) );
 				}
 				return result;
 			}
@@ -131,13 +134,13 @@ export class EShapeLineOfAnyPointsSizeImpl implements EShapeLineOfAnyPointsSize 
 			if( 0 < l ) {
 				let result = value[ 0 ];
 				for( let i = 1; i < l; ++i ) {
-					result = Math.max( result, value[ i ] );
+					result = Math.max( result, Math.abs( value[ i ] ) );
 				}
 				return result;
 			}
 			return 0;
 		} else {
-			return def;
+			return Math.abs( def );
 		}
 	}
 

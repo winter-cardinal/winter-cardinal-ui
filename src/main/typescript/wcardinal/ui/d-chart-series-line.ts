@@ -10,7 +10,6 @@ import { DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesBase, DChartSeriesBaseOptions } from "./d-chart-series-base";
 import { DChartSeriesContainer } from "./d-chart-series-container";
 import { DChartSeriesStrokeComputed, DChartSeriesStrokeComputedOptions } from "./d-chart-series-stroke-computed";
-import { DChartSeriesStrokeComputedImpl } from "./d-chart-series-stroke-computed-impl";
 import { EShapeLine } from "./shape/variant/e-shape-line";
 import { toCeilingIndex } from "./util/to-ceiling-index";
 
@@ -29,7 +28,7 @@ export interface DChartSeriesLineOptions extends DChartSeriesBaseOptions {
 export class DChartSeriesLine extends DChartSeriesBase {
 	protected static WORK: Point = new Point();
 	protected _line: EShapeLine | null;
-	protected _lineStrokeOptions?: DChartSeriesStrokeComputedOptions;
+	protected _options?: DChartSeriesLineOptions;
 	protected _points: Array<number | null>;
 	protected _pointId: number;
 	protected _pointIdUpdated: number;
@@ -38,7 +37,7 @@ export class DChartSeriesLine extends DChartSeriesBase {
 	constructor( options?: DChartSeriesLineOptions ) {
 		super( options );
 		this._line = null;
-		this._lineStrokeOptions = options && options.stroke;
+		this._options = options;
 		this._points = (options && options.points) || [];
 		this._pointId = 0;
 		this._pointIdUpdated = NaN;
@@ -47,7 +46,7 @@ export class DChartSeriesLine extends DChartSeriesBase {
 	bind( container: DChartSeriesContainer, index: number ): void {
 		let line = this._line;
 		if( ! line ) {
-			const stroke = this._stroke = DChartSeriesStrokeComputedImpl.from( container, index, this._lineStrokeOptions );
+			const stroke = this._stroke = container.newStroke( index, this._options?.stroke );
 			line = this._line = new EShapeLine([], [], stroke.width, stroke.style);
 			line.stroke.copy( stroke );
 		}

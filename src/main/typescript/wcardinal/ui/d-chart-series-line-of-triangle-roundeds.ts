@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DChartSeriesLineOfAny } from "./d-chart-series-line-of-any";
+import { DChartSeriesLineOfTriangles } from "./d-chart-series-line-of-triangles";
 import { EShapeLineOfAny } from "./shape/variant/e-shape-line-of-any";
 import { EShapeLineOfTriangleRoundeds } from "./shape/variant/e-shape-line-of-triangle-roundeds";
 
@@ -11,7 +11,7 @@ import { EShapeLineOfTriangleRoundeds } from "./shape/variant/e-shape-line-of-tr
  * A series represents a line of rounded triangles.
  * Data points must be sorted in ascending order on the X axis.
  */
-export class DChartSeriesLineOfTriangleRoundeds extends DChartSeriesLineOfAny {
+export class DChartSeriesLineOfTriangleRoundeds extends DChartSeriesLineOfTriangles {
 	protected newLineOfAny(): EShapeLineOfAny {
 		return new EShapeLineOfTriangleRoundeds();
 	}

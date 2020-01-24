@@ -6,8 +6,9 @@
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
 import {
-	buildRectangleClipping, buildRectangleIndex, buildRectangleUv, buildRectangleVertexAndStep,
-	RECTANGLE_INDEX_COUNT, RECTANGLE_VERTEX_COUNT
+	buildRectangleClipping, buildRectangleIndex, buildRectangleStep,
+	buildRectangleUv, buildRectangleVertex,
+	RECTANGLE_INDEX_COUNT, RECTANGLE_VERTEX_COUNT, RECTANGLE_WORLD_SIZE
 } from "./build-rectangle";
 import { copyClipping } from "./copy-clipping";
 import { copyIndex } from "./copy-index";
@@ -15,6 +16,7 @@ import { copyStep } from "./copy-step";
 import { copyUvs } from "./copy-uv";
 import { copyVertex } from "./copy-vertex";
 import { EShapeLineOfAnyPoints } from "./e-shape-line-of-any-points";
+import { EShapeLineOfAnyPointsImpl } from "./e-shape-line-of-any-points-impl";
 import { EShapeLineOfAnyUploaded } from "./e-shape-line-of-any-uploaded";
 
 export class EShapeLineOfRectanglesUploaded extends EShapeLineOfAnyUploaded {
@@ -23,34 +25,20 @@ export class EShapeLineOfRectanglesUploaded extends EShapeLineOfAnyUploaded {
 
 		// Clippings
 		const buffer = this.buffer;
-		buffer.clippingBuffer.update();
 		buffer.indexBuffer.update();
-		const clippings = buffer.clippings;
 		const indices = buffer.indices;
-		const voffset = this.vertexOffset;
 		const ioffset = this.indexOffset;
-		const pointCount = this.pointCount;
-		buildRectangleClipping(
-			clippings,
-			voffset
-		);
 		buildRectangleIndex(
 			indices,
-			voffset,
+			this.vertexOffset,
 			ioffset
-		);
-		copyClipping(
-			clippings,
-			voffset,
-			RECTANGLE_VERTEX_COUNT,
-			pointCount
 		);
 		copyIndex(
 			indices,
 			RECTANGLE_VERTEX_COUNT,
 			ioffset,
 			RECTANGLE_INDEX_COUNT,
-			pointCount
+			this.pointCount
 		);
 
 		// Text
@@ -63,18 +51,19 @@ export class EShapeLineOfRectanglesUploaded extends EShapeLineOfAnyUploaded {
 	update( shape: EShape ): void {
 		const buffer = this.buffer;
 		const points = shape.points;
-		if( points instanceof EShapeLineOfAnyPoints ) {
-			this.updateVertexAndStep( buffer, shape, points );
+		if( points instanceof EShapeLineOfAnyPointsImpl ) {
+			this.updateVertexClippingStepAndUv( buffer, shape, points );
 			this.updateLineOfAnyColorFill( buffer, shape, points, RECTANGLE_VERTEX_COUNT );
 			this.updateLineOfAnyColorStroke( buffer, shape, points, RECTANGLE_VERTEX_COUNT );
-			this.updateUv( buffer, shape );
 			this.updateText( buffer, shape );
 		}
 	}
 
-	protected updateVertexAndStep( buffer: EShapeBuffer, shape: EShape, points: EShapeLineOfAnyPoints ) {
+	protected updateVertexClippingStepAndUv( buffer: EShapeBuffer, shape: EShape, points: EShapeLineOfAnyPoints ) {
 		const pointId = points.id;
-		const isPointChanged = ( pointId !== this.pointId );
+		const pointOffset = points.offset;
+		const pointOffsetId = pointOffset.id;
+		const isPointChanged = ( pointId !== this.pointId || pointOffsetId !== this.pointOffsetId );
 
 		const pointSize = points.size;
 		const pointSizeId = pointSize.id;
@@ -95,13 +84,22 @@ export class EShapeLineOfRectanglesUploaded extends EShapeLineOfAnyUploaded {
 		const isStrokeChanged = ( this.strokeAlign !== strokeAlign ||
 			this.strokeWidth !== strokeWidth || this.strokeSide !== strokeSide );
 
-		if( isPointChanged || isPointSizeChanged || isSizeChanged || isTransformChanged || isStrokeChanged ) {
+		const texture = this.toTexture( shape );
+		const textureTransformId = this.toTextureTransformId( texture );
+		const isTextureChanged = ( texture !== this.texture || textureTransformId !== this.textureTransformId );
+
+		const isVertexChanged = isPointChanged || isPointSizeChanged || isSizeChanged || isStrokeChanged;
+
+		if( isVertexChanged || isTransformChanged || isTextureChanged ) {
 			this.pointId = pointId;
+			this.pointOffsetId = pointOffsetId;
 			this.pointSizeId = pointSizeId;
 			this.transformLocalId = transformLocalId;
 			this.strokeWidth = strokeWidth;
 			this.strokeAlign = strokeAlign;
 			this.strokeSide = strokeSide;
+			this.texture = texture;
+			this.textureTransformId = textureTransformId;
 
 			if( isSizeChanged || isTransformChanged || isStrokeChanged ) {
 				// Invalidate the text layout to update the text layout.
@@ -110,78 +108,148 @@ export class EShapeLineOfRectanglesUploaded extends EShapeLineOfAnyUploaded {
 
 			// Buffer
 			buffer.vertexBuffer.update();
-			buffer.stepBuffer.update();
-			buffer.antialiasBuffer.update();
+			if( isVertexChanged || isTransformChanged ) {
+				buffer.stepBuffer.update();
+				buffer.antialiasBuffer.update();
+			}
+			if( isVertexChanged ) {
+				buffer.clippingBuffer.update();
+			}
+			if( isVertexChanged || isTextureChanged ) {
+				buffer.uvBuffer.update();
+			}
 			const pointCount = this.pointCount;
 			const pointsValues = points.values;
 			const voffset = this.vertexOffset;
 			const vertices = buffer.vertices;
+			const clippings = buffer.clippings;
 			const steps = buffer.steps;
 			const antialiases = buffer.antialiases;
+			const uvs = buffer.uvs;
 			const internalTransform = shape.transform.internalTransform;
 			const antialiasWeight = this.antialiasWeight;
+			const textureUvs = this.toTextureUvs( texture );
 			const work = buffer.work;
 			const workStep = buffer.workStep;
 			if( pointSize.isStaticX() && pointSize.isStaticY() ) {
 				const pointSizeX = pointSize.getX( 0 );
 				const pointSizeY = pointSize.getY( 0 );
 
-				buildRectangleVertexAndStep(
+				// Vertices
+				buildRectangleVertex(
 					vertices, voffset,
-					steps, antialiases,
 					0, 0,
 					pointSizeX, pointSizeY,
-					strokeAlign, strokeWidth, strokeSide, true,
+					strokeAlign, strokeWidth,
 					internalTransform,
-					antialiasWeight,
-					work, workStep
+					RECTANGLE_WORLD_SIZE,
+					work
 				);
 				copyVertex(
 					vertices,
 					internalTransform,
 					voffset, RECTANGLE_VERTEX_COUNT,
-					pointCount, pointsValues
+					pointCount, pointsValues,
+					pointOffset
 				);
-				copyStep(
-					steps, antialiases,
-					voffset, RECTANGLE_VERTEX_COUNT,
-					pointCount
-				);
+
+				// Steps & antialiases
+				if( isVertexChanged || isTransformChanged ) {
+					buildRectangleStep(
+						voffset,
+						steps, antialiases,
+						strokeWidth, strokeSide,
+						antialiasWeight,
+						RECTANGLE_WORLD_SIZE,
+						workStep
+					);
+					copyStep(
+						steps, antialiases,
+						voffset, RECTANGLE_VERTEX_COUNT,
+						pointCount
+					);
+				}
+
+				// Clippings
+				if( isVertexChanged ) {
+					buildRectangleClipping(
+						clippings,
+						voffset,
+						RECTANGLE_WORLD_SIZE
+					);
+					copyClipping(
+						clippings,
+						voffset, RECTANGLE_VERTEX_COUNT,
+						pointCount
+					);
+				}
+
+				// UVs
+				if( isVertexChanged || isTextureChanged ) {
+					buildRectangleUv(
+						uvs,
+						voffset,
+						textureUvs,
+						RECTANGLE_WORLD_SIZE
+					);
+					copyUvs(
+						uvs,
+						voffset, RECTANGLE_VERTEX_COUNT,
+						pointCount
+					);
+				}
 			} else {
 				for( let i = 0; i < pointCount; ++i ) {
 					const ip = i << 1;
-					const px = pointsValues[ ip     ];
-					const py = pointsValues[ ip + 1 ];
+					const px = pointsValues[ ip     ] + pointOffset.getX( i );
+					const py = pointsValues[ ip + 1 ] + pointOffset.getY( i );
 					const pointSizeX = pointSize.getX( i );
 					const pointSizeY = pointSize.getY( i );
-					buildRectangleVertexAndStep(
-						vertices, voffset + i * RECTANGLE_VERTEX_COUNT,
-						steps, antialiases,
+					const iv = voffset + i * RECTANGLE_VERTEX_COUNT;
+
+					// Vertices
+					buildRectangleVertex(
+						vertices, iv,
 						px, py,
 						pointSizeX, pointSizeY,
-						strokeAlign, strokeWidth, strokeSide, true,
+						strokeAlign, strokeWidth,
 						internalTransform,
-						antialiasWeight,
-						work, workStep
+						RECTANGLE_WORLD_SIZE,
+						work
 					);
+
+					// Steps & antialiases
+					if( isVertexChanged || isTransformChanged ) {
+						buildRectangleStep(
+							iv,
+							steps, antialiases,
+							strokeWidth, strokeSide,
+							antialiasWeight,
+							RECTANGLE_WORLD_SIZE,
+							workStep
+						);
+					}
+
+					// Clippings
+					if( isVertexChanged ) {
+						buildRectangleClipping(
+							clippings,
+							iv,
+							RECTANGLE_WORLD_SIZE
+						);
+					}
+
+					// UVs
+					if( isVertexChanged || isTextureChanged ) {
+						buildRectangleUv(
+							uvs,
+							iv,
+							textureUvs,
+							RECTANGLE_WORLD_SIZE
+						);
+					}
 				}
 			}
-		}
-	}
-
-	protected updateUv( buffer: EShapeBuffer, shape: EShape ) {
-		const texture = this.toTexture( shape );
-		const textureTransformId = this.toTextureTransformId( texture );
-		if( texture !== this.texture || textureTransformId !== this.textureTransformId ) {
-			this.texture = texture;
-			this.textureTransformId = textureTransformId;
-
-			buffer.uvBuffer.update();
-			const uvs = buffer.uvs;
-			const voffset = this.vertexOffset;
-			const textureUvs = this.toTextureUvs( texture );
-			buildRectangleUv( uvs, voffset, textureUvs );
-			copyUvs( uvs, voffset, RECTANGLE_VERTEX_COUNT, this.pointCount );
 		}
 	}
 }

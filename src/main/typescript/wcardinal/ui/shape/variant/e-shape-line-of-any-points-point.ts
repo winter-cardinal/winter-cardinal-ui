@@ -5,7 +5,7 @@
 
 import { EShapeLineOfAnyValue } from "./e-shape-line-of-any-value";
 
-export interface EShapeLineOfAnyPointsSize {
+export interface EShapeLineOfAnyPointsPoint {
 	id: number;
 	x: EShapeLineOfAnyValue;
 	y: EShapeLineOfAnyValue;

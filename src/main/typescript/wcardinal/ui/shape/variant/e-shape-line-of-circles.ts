@@ -12,6 +12,7 @@ import {
 	EShapeLineOfAnyPoints, EShapeLineOfAnyPointsHitTester,
 	EShapeLineOfAnyPointsTestRange, EShapeLineOfAnyPointsToHitThreshold
 } from "./e-shape-line-of-any-points";
+import { EShapeLineOfAnyPointsImpl } from "./e-shape-line-of-any-points-impl";
 import { toHitThreshold } from "./to-hit-threshold";
 
 export class EShapeLineOfCircles extends EShapeCircle implements EShapeLineOfAny {
@@ -24,15 +25,15 @@ export class EShapeLineOfCircles extends EShapeCircle implements EShapeLineOfAny
 		if( other ) {
 			this.copy( other );
 		} else {
-			this.points = new EShapeLineOfAnyPoints( this );
+			this.points = new EShapeLineOfAnyPointsImpl( this );
 		}
 
-		this._tester = ( x: number, y: number, ax: number, ay: number, px: number, py: number ): boolean => {
-			return this.containsPointAbs( x, y, ax, ay, px, py );
+		this._tester = ( x, y, ax, ay, ox, oy, px, py ): boolean => {
+			return this.containsPointAbs( x, y, ax, ay, ox, oy, px, py );
 		};
 
-		this._testerBBox = ( x: number, y: number, ax: number, ay: number, px: number, py: number ): boolean => {
-			return this.containsPointAbsBBox( x, y, ax, ay, px, py );
+		this._testerBBox = ( x, y, ax, ay, ox, oy, px, py ): boolean => {
+			return this.containsPointAbsBBox( x, y, ax, ay, ox, oy, px, py );
 		};
 	}
 
@@ -54,12 +55,22 @@ export class EShapeLineOfCircles extends EShapeCircle implements EShapeLineOfAny
 		return false;
 	}
 
-	containsPointAbs( x: number, y: number, ax: number, ay: number, px: number, py: number ): boolean {
-		return super.containsAbs( x - px, y - py, ax, ay );
+	containsPointAbs(
+		x: number, y: number,
+		ax: number, ay: number,
+		ox: number, oy: number,
+		px: number, py: number
+	): boolean {
+		return super.containsAbs( x - px - ox, y - py - oy, ax, ay );
 	}
 
-	containsPointAbsBBox( x: number, y: number, ax: number, ay: number, px: number, py: number ): boolean {
-		return super.containsAbsBBox( x - px, y - py, ax, ay );
+	containsPointAbsBBox(
+		x: number, y: number,
+		ax: number, ay: number,
+		ox: number, oy: number,
+		px: number, py: number
+	): boolean {
+		return super.containsAbsBBox( x - px - ox, y - py - oy, ax, ay );
 	}
 
 	calcHitPoint<RESULT>(

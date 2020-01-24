@@ -16,6 +16,7 @@ import { copyStep } from "./copy-step";
 import { copyUvs } from "./copy-uv";
 import { copyVertex } from "./copy-vertex";
 import { EShapeLineOfAnyPoints } from "./e-shape-line-of-any-points";
+import { EShapeLineOfAnyPointsImpl } from "./e-shape-line-of-any-points-impl";
 import { EShapeLineOfAnyUploaded } from "./e-shape-line-of-any-uploaded";
 
 export class EShapeLineOfTriangleRoundedsUploaded extends EShapeLineOfAnyUploaded {
@@ -48,7 +49,7 @@ export class EShapeLineOfTriangleRoundedsUploaded extends EShapeLineOfAnyUploade
 	update( shape: EShape ): void {
 		const buffer = this.buffer;
 		const points = shape.points;
-		if( points instanceof EShapeLineOfAnyPoints ) {
+		if( points instanceof EShapeLineOfAnyPointsImpl ) {
 			this.updateVertexClippingStepAndUv( buffer, shape, points );
 			this.updateLineOfAnyColorFill( buffer, shape, points, TRIANGLE_ROUNDED_VERTEX_COUNT );
 			this.updateLineOfAnyColorStroke( buffer, shape, points, TRIANGLE_ROUNDED_VERTEX_COUNT );
@@ -62,7 +63,9 @@ export class EShapeLineOfTriangleRoundedsUploaded extends EShapeLineOfAnyUploade
 		points: EShapeLineOfAnyPoints
 	): void {
 		const pointId = points.id;
-		const isPointChanged = ( pointId !== this.pointId );
+		const pointOffset = points.offset;
+		const pointOffsetId = pointOffset.id;
+		const isPointChanged = ( pointId !== this.pointId || pointOffsetId !== this.pointOffsetId );
 
 		const pointSize = points.size;
 		const pointSizeId = pointSize.id;
@@ -95,6 +98,7 @@ export class EShapeLineOfTriangleRoundedsUploaded extends EShapeLineOfAnyUploade
 
 		if( isVertexChanged || isTransformChanged || isCornerChanged || isTextureChanged ) {
 			this.pointId = pointId;
+			this.pointOffsetId = pointOffsetId;
 			this.pointSizeId = pointSizeId;
 			this.sizeX = sizeX;
 			this.sizeY = sizeY;
@@ -154,7 +158,8 @@ export class EShapeLineOfTriangleRoundedsUploaded extends EShapeLineOfAnyUploade
 					vertices,
 					internalTransform,
 					voffset, TRIANGLE_ROUNDED_VERTEX_COUNT,
-					pointCount, pointsValues
+					pointCount, pointsValues,
+					pointOffset
 				);
 
 				// Clippings
@@ -212,8 +217,8 @@ export class EShapeLineOfTriangleRoundedsUploaded extends EShapeLineOfAnyUploade
 			} else {
 				for( let i = 0; i < pointCount; ++i ) {
 					const ip = i << 1;
-					const px = pointsValues[ ip     ];
-					const py = pointsValues[ ip + 1 ];
+					const px = pointsValues[ ip     ] + pointOffset.getX( i );
+					const py = pointsValues[ ip + 1 ] + pointOffset.getY( i );
 					const pointSizeX = pointSize.getX( i );
 					const pointSizeY = pointSize.getY( i );
 

@@ -32,7 +32,6 @@
 				shape.transform.position.set( this.x, this.y );
 				shape.size.set( this.width, this.height );
 				shape.stroke.width *= 2;
-				shape.transform.rotation = Math.PI * 0.1;
 				if( modifier ) {
 					modifier( shape );
 				}
@@ -53,18 +52,29 @@
 			}
 		};
 
+		creater.width = 100;
+		creater.height = 100;
 		creater.create( "circle-1", wcardinal.ui.EShapeCircle );
 		creater.create( "rectangle-1", wcardinal.ui.EShapeRectangle );
 		creater.create( "rectangle-rounded-1", wcardinal.ui.EShapeRectangleRounded );
 		creater.create( "triangle-1", wcardinal.ui.EShapeTriangle );
 		creater.create( "triangle-rounded-1", wcardinal.ui.EShapeTriangleRounded );
 
+		creater.width = 100;
 		creater.height = 10;
 		creater.create( "circle-2", wcardinal.ui.EShapeCircle );
 		creater.create( "rectangle-2", wcardinal.ui.EShapeRectangle );
 		creater.create( "rectangle-rounded-2", wcardinal.ui.EShapeRectangleRounded );
 		creater.create( "triangle-2", wcardinal.ui.EShapeTriangle );
 		creater.create( "triangle-rounded-2", wcardinal.ui.EShapeTriangleRounded );
+
+		creater.height = 100;
+		creater.width = 10;
+		creater.create( "circle-3", wcardinal.ui.EShapeCircle );
+		creater.create( "rectangle-3", wcardinal.ui.EShapeRectangle );
+		creater.create( "rectangle-rounded-3", wcardinal.ui.EShapeRectangleRounded );
+		creater.create( "triangle-3", wcardinal.ui.EShapeTriangle );
+		creater.create( "triangle-rounded-3", wcardinal.ui.EShapeTriangleRounded );
 
 		application.stage.on( "pointermove", ( e ) => {
 			container.hitTest( e.data.global, ( shape ) => {
@@ -81,7 +91,6 @@
 			}
 			application.render();
 		}, 32);
-
 	}());
 	</script>
 </body>

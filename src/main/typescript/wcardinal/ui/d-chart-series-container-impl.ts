@@ -11,9 +11,17 @@ import { DChartRegionImpl } from "./d-chart-region-impl";
 import { DChartSelection } from "./d-chart-selection";
 import { DChartSeries, DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesContainer, DChartSeriesContainerOptions } from "./d-chart-series-container";
-import { DChartSeriesFill } from "./d-chart-series-fill";
+import { DChartSeriesFillComputed, DChartSeriesFillComputedOptions } from "./d-chart-series-fill-computed";
+import { DChartSeriesFillComputedImpl } from "./d-chart-series-fill-computed-impl";
 import { DChartSeriesFillImpl } from "./d-chart-series-fill-impl";
-import { DChartSeriesStroke } from "./d-chart-series-stroke";
+import { DChartSeriesPaddingComputed, DChartSeriesPaddingComputedOptions } from "./d-chart-series-padding-computed";
+import { DChartSeriesPaddingComputedImpl } from "./d-chart-series-padding-computed-impl";
+import { DChartSeriesPaddingImpl } from "./d-chart-series-padding-impl";
+import { DChartSeriesPointComputed, DChartSeriesPointComputedOptions } from "./d-chart-series-point-computed";
+import { DChartSeriesPointComputedImpl } from "./d-chart-series-point-computed-impl";
+import { DChartSeriesPointImpl } from "./d-chart-series-point-impl";
+import { DChartSeriesStrokeComputed, DChartSeriesStrokeComputedOptions } from "./d-chart-series-stroke-computed";
+import { DChartSeriesStrokeComputedImpl } from "./d-chart-series-stroke-computed-impl";
 import { DChartSeriesStrokeImpl } from "./d-chart-series-stroke-impl";
 import { isNumber } from "./util/is-number";
 
@@ -24,17 +32,25 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 	protected _list: DChartSeries[];
 	protected _domain: DChartRegionImpl;
 	protected _range: DChartRegionImpl;
+	protected _selection: DChartSelection | null;
+
 	protected _fill: DChartSeriesFillImpl;
 	protected _stroke: DChartSeriesStrokeImpl;
-	protected _selection: DChartSelection | null;
+	protected _size: DChartSeriesPointImpl;
+	protected _offset: DChartSeriesPointImpl;
+	protected _padding: DChartSeriesPaddingImpl;
 
 	constructor( plotArea: DChartPlotArea, options?: DChartSeriesContainerOptions ) {
 		this._plotArea = plotArea;
 		this._domain = new DChartRegionImpl( NaN, NaN );
 		this._range = new DChartRegionImpl( NaN, NaN );
+		this._selection = (options && options.selection ) || null;
+
 		this._fill = new DChartSeriesFillImpl( options && options.fill );
 		this._stroke = new DChartSeriesStrokeImpl( options && options.stroke );
-		this._selection = (options && options.selection ) || null;
+		this._size = new DChartSeriesPointImpl( options && options.size );
+		this._offset = new DChartSeriesPointImpl( options && options.offset );
+		this._padding = new DChartSeriesPaddingImpl( options && options.padding );
 
 		this._list = [];
 		const list = options && options.list;
@@ -49,16 +65,45 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 		}
 	}
 
+	newFill(
+		index: number,
+		options: DChartSeriesFillComputedOptions | undefined
+	): DChartSeriesFillComputed {
+		return DChartSeriesFillComputedImpl.from( this._fill, index, options );
+	}
+
+	newStroke(
+		index: number,
+		options: DChartSeriesStrokeComputedOptions | undefined
+	): DChartSeriesStrokeComputed {
+		return DChartSeriesStrokeComputedImpl.from( this._stroke, index, options );
+	}
+
+	newSize(
+		index: number,
+		options: DChartSeriesPointComputedOptions | undefined,
+		x: number, y: number
+	): DChartSeriesPointComputed {
+		return DChartSeriesPointComputedImpl.from( this._size, index, options, x, y );
+	}
+
+	newOffset(
+		index: number,
+		options: DChartSeriesPointComputedOptions | undefined,
+		x: number, y: number
+	): DChartSeriesPointComputed {
+		return DChartSeriesPointComputedImpl.from( this._offset, index, options, x, y );
+	}
+
+	newPadding(
+		index: number,
+		options: DChartSeriesPaddingComputedOptions | undefined
+	): DChartSeriesPaddingComputed {
+		return DChartSeriesPaddingComputedImpl.from( this._padding, index, options );
+	}
+
 	get plotArea(): DChartPlotArea {
 		return this._plotArea;
-	}
-
-	get fill(): DChartSeriesFill {
-		return this._fill;
-	}
-
-	get stroke(): DChartSeriesStroke {
-		return this._stroke;
 	}
 
 	get selection(): DChartSelection | null {

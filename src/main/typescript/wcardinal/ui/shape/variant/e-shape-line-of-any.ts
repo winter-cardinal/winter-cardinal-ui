@@ -12,6 +12,18 @@ import {
 
 export interface EShapeLineOfAny extends EShape {
 	points: EShapeLineOfAnyPoints;
+	containsPointAbs(
+		x: number, y: number,
+		ax: number, ay: number,
+		ox: number, oy: number,
+		px: number, py: number
+	): boolean;
+	containsPointAbsBBox(
+		x: number, y: number,
+		ax: number, ay: number,
+		ox: number, oy: number,
+		px: number, py: number
+	): boolean;
 	calcHitPoint<RESULT>(
 		point: IPoint,
 		toThreshold: EShapeLineOfAnyPointsToHitThreshold | null,

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DChartSeriesContainer } from "./d-chart-series-container";
+import { DChartSeriesStroke } from "./d-chart-series-stroke";
 import { DChartSeriesStrokeComputed, DChartSeriesStrokeComputedOptions } from "./d-chart-series-stroke-computed";
 import { EShapePointsStyle } from "./shape/e-shape-points-style";
 import { EShapePointsStyles } from "./shape/e-shape-points-styles";
@@ -32,29 +32,28 @@ export class DChartSeriesStrokeComputedImpl implements DChartSeriesStrokeCompute
 	}
 
 	static from(
-		container: DChartSeriesContainer, index: number,
+		base: DChartSeriesStroke, index: number,
 		stroke?: DChartSeriesStrokeComputedOptions
 	): DChartSeriesStrokeComputed {
-		const containerStroke = container.stroke;
 		if( stroke ) {
 			return new DChartSeriesStrokeComputedImpl(
-				( stroke.enable != null ? stroke.enable : containerStroke.enable( index ) ),
-				( stroke.color != null ? stroke.color : containerStroke.color( index ) ),
-				( stroke.alpha != null ? stroke.alpha : containerStroke.alpha( index ) ),
-				( stroke.width != null ? stroke.width : containerStroke.width( index ) ),
-				( stroke.align != null ? stroke.align : containerStroke.align( index ) ),
-				( stroke.side != null ? stroke.side : containerStroke.side( index ) ),
-				EShapePointsStyles.from( stroke.style != null ? stroke.style : containerStroke.style( index ) )
+				( stroke.enable != null ? stroke.enable : base.enable( index ) ),
+				( stroke.color != null ? stroke.color : base.color( index ) ),
+				( stroke.alpha != null ? stroke.alpha : base.alpha( index ) ),
+				( stroke.width != null ? stroke.width : base.width( index ) ),
+				( stroke.align != null ? stroke.align : base.align( index ) ),
+				( stroke.side != null ? stroke.side : base.side( index ) ),
+				EShapePointsStyles.from( stroke.style != null ? stroke.style : base.style( index ) )
 			);
 		} else {
 			return new DChartSeriesStrokeComputedImpl(
-				containerStroke.enable( index ),
-				containerStroke.color( index ),
-				containerStroke.alpha( index ),
-				containerStroke.width( index ),
-				containerStroke.align( index ),
-				containerStroke.side( index ),
-				EShapePointsStyles.from( containerStroke.style( index ) )
+				base.enable( index ),
+				base.color( index ),
+				base.alpha( index ),
+				base.width( index ),
+				base.align( index ),
+				base.side( index ),
+				EShapePointsStyles.from( base.style( index ) )
 			);
 		}
 	}

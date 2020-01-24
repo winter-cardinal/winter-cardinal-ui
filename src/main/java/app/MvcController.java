@@ -27,7 +27,7 @@ public class MvcController {
 	@GetMapping( "/" )
 	public ModelAndView index() throws IOException {
 		ModelAndView mav = new ModelAndView( "index" );
-		mav.addObject( "pages", pages );
+		mav.addObject( "pages", pages.update() );
 		return mav;
 	}
 
