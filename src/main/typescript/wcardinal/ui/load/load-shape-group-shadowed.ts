@@ -6,10 +6,10 @@
 import { EShapeDeserializers } from "../shape/e-shape-deserializers";
 import { EShapeType } from "../shape/e-shape-type";
 import { EShapeUploadeds } from "../shape/e-shape-uploadeds";
-import { EShapeGroupShadoweds } from "../shape/variant/e-shape-group-shadoweds";
-import { EShapeGroupUploadeds } from "../shape/variant/e-shape-group-uploadeds";
+import { createGroupUploaded } from "../shape/variant/create-group-uploaded";
+import { deserializeGroupShadowed } from "../shape/variant/deserialize-group-shadowed";
 
 export const loadShapeGroupShadowed = () => {
-	EShapeUploadeds[ EShapeType.GROUP_SHADOWED ] = EShapeGroupUploadeds.create;
-	EShapeDeserializers[ EShapeType.GROUP_SHADOWED ] = EShapeGroupShadoweds.deserialize;
+	EShapeUploadeds[ EShapeType.GROUP_SHADOWED ] = createGroupUploaded;
+	EShapeDeserializers[ EShapeType.GROUP_SHADOWED ] = deserializeGroupShadowed;
 };

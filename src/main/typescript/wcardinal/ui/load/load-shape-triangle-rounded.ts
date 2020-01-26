@@ -8,12 +8,12 @@ import { EShapeCapability } from "../shape/e-shape-capability";
 import { EShapeDeserializers } from "../shape/e-shape-deserializers";
 import { EShapeType } from "../shape/e-shape-type";
 import { EShapeUploadeds } from "../shape/e-shape-uploadeds";
-import { EShapeTriangleRoundedUploadeds } from "../shape/variant/e-shape-triangle-rounded-uploadeds";
-import { EShapeTriangleRoundeds } from "../shape/variant/e-shape-triangle-roundeds";
+import { createTriangleRoundedUploaded } from "../shape/variant/create-triangle-rounded-uploaded";
+import { deserializeTriangleRounded } from "../shape/variant/deserialize-triangle-rounded";
 
 export const loadShapeTriangleRounded = () => {
-	EShapeUploadeds[ EShapeType.TRIANGLE_ROUNDED ] = EShapeTriangleRoundedUploadeds.create;
-	EShapeDeserializers[ EShapeType.TRIANGLE_ROUNDED ] = EShapeTriangleRoundeds.deserialize;
+	EShapeUploadeds[ EShapeType.TRIANGLE_ROUNDED ] = createTriangleRoundedUploaded;
+	EShapeDeserializers[ EShapeType.TRIANGLE_ROUNDED ] = deserializeTriangleRounded;
 	EShapeCapabilities.set(
 		EShapeType.TRIANGLE_ROUNDED,
 		EShapeCapability.PRIMITIVE | EShapeCapability.BORDER_RADIUS

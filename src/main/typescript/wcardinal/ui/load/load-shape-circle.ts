@@ -6,10 +6,10 @@
 import { EShapeDeserializers } from "../shape/e-shape-deserializers";
 import { EShapeType } from "../shape/e-shape-type";
 import { EShapeUploadeds } from "../shape/e-shape-uploadeds";
-import { EShapeCircleUploadeds } from "../shape/variant/e-shape-circle-uploadeds";
-import { EShapeCircles } from "../shape/variant/e-shape-circles";
+import { createCircle } from "../shape/variant/create-circle-uploaded";
+import { deserializeCircle } from "../shape/variant/deserialize-circle";
 
 export const loadShapeCircle = () => {
-	EShapeUploadeds[ EShapeType.CIRCLE ] = EShapeCircleUploadeds.create;
-	EShapeDeserializers[ EShapeType.CIRCLE ] = EShapeCircles.deserialize;
+	EShapeUploadeds[ EShapeType.CIRCLE ] = createCircle;
+	EShapeDeserializers[ EShapeType.CIRCLE ] = deserializeCircle;
 };

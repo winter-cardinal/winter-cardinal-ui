@@ -8,12 +8,12 @@ import { EShapeCapability } from "../shape/e-shape-capability";
 import { EShapeDeserializers } from "../shape/e-shape-deserializers";
 import { EShapeType } from "../shape/e-shape-type";
 import { EShapeUploadeds } from "../shape/e-shape-uploadeds";
-import { EShapeRectangleUploadeds } from "../shape/variant/e-shape-rectangle-uploadeds";
-import { EShapeRectangles } from "../shape/variant/e-shape-rectangles";
+import { createRectangleUploaded } from "../shape/variant/create-rectangle-uploaded";
+import { deserializeRectangle } from "../shape/variant/deserialize-rectangle";
 
 export const loadShapeRectangle = () => {
-	EShapeUploadeds[ EShapeType.RECTANGLE ] = EShapeRectangleUploadeds.create;
-	EShapeDeserializers[ EShapeType.RECTANGLE ] = EShapeRectangles.deserialize;
+	EShapeUploadeds[ EShapeType.RECTANGLE ] = createRectangleUploaded;
+	EShapeDeserializers[ EShapeType.RECTANGLE ] = deserializeRectangle;
 	EShapeCapabilities.set(
 		EShapeType.RECTANGLE,
 		EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE

@@ -6,10 +6,10 @@
 import { EShapeDeserializers } from "../shape/e-shape-deserializers";
 import { EShapeType } from "../shape/e-shape-type";
 import { EShapeUploadeds } from "../shape/e-shape-uploadeds";
-import { EShapeNullUploadeds } from "../shape/variant/e-shape-null-uploadeds";
-import { EShapeNulls } from "../shape/variant/e-shape-nulls";
+import { createNullUploaded } from "../shape/variant/create-null-uploaded";
+import { deserializeNull } from "../shape/variant/deserialize-null";
 
 export const loadShapeNull = () => {
-	EShapeUploadeds[ EShapeType.NULL ] = EShapeNullUploadeds.create;
-	EShapeDeserializers[ EShapeType.NULL ] = EShapeNulls.deserialize;
+	EShapeUploadeds[ EShapeType.NULL ] = createNullUploaded;
+	EShapeDeserializers[ EShapeType.NULL ] = deserializeNull;
 };

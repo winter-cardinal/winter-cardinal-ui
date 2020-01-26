@@ -6,10 +6,10 @@
 import { EShapeDeserializers } from "../shape/e-shape-deserializers";
 import { EShapeType } from "../shape/e-shape-type";
 import { EShapeUploadeds } from "../shape/e-shape-uploadeds";
-import { EShapeBarUploadeds } from "../shape/variant/e-shape-bar-uploadeds";
-import { EShapeBars } from "../shape/variant/e-shape-bars";
+import { createBarUploaded } from "../shape/variant/create-bar-uploaded";
+import { deserializeBar } from "../shape/variant/deserialize-bar";
 
 export const loadShapeBar = () => {
-	EShapeUploadeds[ EShapeType.BAR ] = EShapeBarUploadeds.create;
-	EShapeDeserializers[ EShapeType.BAR ] = EShapeBars.deserialize;
+	EShapeUploadeds[ EShapeType.BAR ] = createBarUploaded;
+	EShapeDeserializers[ EShapeType.BAR ] = deserializeBar;
 };

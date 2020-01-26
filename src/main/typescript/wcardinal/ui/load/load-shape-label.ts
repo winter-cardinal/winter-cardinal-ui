@@ -6,10 +6,10 @@
 import { EShapeDeserializers } from "../shape/e-shape-deserializers";
 import { EShapeType } from "../shape/e-shape-type";
 import { EShapeUploadeds } from "../shape/e-shape-uploadeds";
-import { EShapeLabelUploadeds } from "../shape/variant/e-shape-label-uploadeds";
-import { EShapeLabels } from "../shape/variant/e-shape-labels";
+import { createLabelUploaded } from "../shape/variant/create-label-uploaded";
+import { deserializeLabel } from "../shape/variant/deserialize-label";
 
 export const loadShapeLabel = () => {
-	EShapeUploadeds[ EShapeType.LABEL ] = EShapeLabelUploadeds.create;
-	EShapeDeserializers[ EShapeType.LABEL ] = EShapeLabels.deserialize;
+	EShapeUploadeds[ EShapeType.LABEL ] = createLabelUploaded;
+	EShapeDeserializers[ EShapeType.LABEL ] = deserializeLabel;
 };

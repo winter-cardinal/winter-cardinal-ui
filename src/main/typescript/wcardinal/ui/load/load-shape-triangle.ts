@@ -6,10 +6,10 @@
 import { EShapeDeserializers } from "../shape/e-shape-deserializers";
 import { EShapeType } from "../shape/e-shape-type";
 import { EShapeUploadeds } from "../shape/e-shape-uploadeds";
-import { EShapeTriangleUploadeds } from "../shape/variant/e-shape-triangle-uploadeds";
-import { EShapeTriangles } from "../shape/variant/e-shape-triangles";
+import { createTriangleUploaded } from "../shape/variant/create-triangle-uploaded";
+import { deserializeTriangle } from "../shape/variant/deserialize-triangle";
 
 export const loadShapeTriangle = () => {
-	EShapeUploadeds[ EShapeType.TRIANGLE ] = EShapeTriangleUploadeds.create;
-	EShapeDeserializers[ EShapeType.TRIANGLE ] = EShapeTriangles.deserialize;
+	EShapeUploadeds[ EShapeType.TRIANGLE ] = createTriangleUploaded;
+	EShapeDeserializers[ EShapeType.TRIANGLE ] = deserializeTriangle;
 };
