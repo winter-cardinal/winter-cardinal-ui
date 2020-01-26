@@ -22,10 +22,13 @@ export interface DChartCoordinate {
 	unbind(): void;
 
 	/**
-	 * Adjusts the transform so that mapped points fit into the plot area
+	 * Adjusts the transform so that mapped points of the given range fit into the plot area
 	 * if the plot area container's localTransform is an identity matrix.
+	 *
+	 * @param from a lower end of the range
+	 * @param to an upper end of the range
 	 */
-	fit(): void;
+	fit( from?: number, to?: number ): void;
 
 	/**
 	 * Transforms the given raw value to the untransformed value.

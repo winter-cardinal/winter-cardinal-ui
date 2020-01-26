@@ -55,9 +55,9 @@ export class DChartCoordinateContainerImpl implements DChartCoordinateContainer 
 		return this._plotArea;
 	}
 
-	fit(): this {
-		this._x.fit();
-		this._y.fit();
+	fit( domainFrom?: number, domainTo?: number, rangeFrom?: number, rangeTo?: number ): this {
+		this._x.fit( domainFrom, domainTo );
+		this._y.fit( rangeFrom, rangeTo );
 		return this;
 	}
 }

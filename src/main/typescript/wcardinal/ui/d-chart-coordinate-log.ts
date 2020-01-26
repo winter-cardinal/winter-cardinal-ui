@@ -8,6 +8,7 @@ import { DChartCoordinateContainerSub } from "./d-chart-coordinate-container-sub
 import { DChartCoordinateLogTick, DThemeChartCoordinateLogTick } from "./d-chart-coordinate-log-tick";
 import { DChartCoordinateTransform, DThemeChartCoordinateTransform } from "./d-chart-coordinate-transform";
 import { DChartCoordinateTransformImpl } from "./d-chart-coordinate-transform-impl";
+import { DChartPlotArea } from "./d-chart-plot-area";
 import { DChartRegion } from "./d-chart-region";
 import { DChartRegionImpl } from "./d-chart-region-impl";
 import { DThemes } from "./theme/d-themes";
@@ -49,7 +50,7 @@ export class DChartCoordinateLog implements DChartCoordinate {
 		this._container = undefined;
 	}
 
-	fit(): void {
+	fit( from?: number, to?: number ): void {
 		const container = this._container;
 		if( container ) {
 			const plotArea = container.container.plotArea;
@@ -59,17 +60,45 @@ export class DChartCoordinateLog implements DChartCoordinate {
 			case DChartCoordinateDirection.X:
 				this.fit_(
 					padding.getLeft(), plotArea.width - padding.getRight(),
-					plotArea.series.getDomain( this, work )
+					this.toFitDomain( from, to, plotArea, work )
 				);
 				break;
 			case DChartCoordinateDirection.Y:
 				this.fit_(
 					plotArea.height - padding.getBottom(), padding.getTop(),
-					plotArea.series.getRange( this, work )
+					this.toFitRange( from, to, plotArea, work )
 				);
 				break;
 			}
 		}
+	}
+
+	protected toFitDomain(
+		from: number | undefined, to: number | undefined,
+		plotArea: DChartPlotArea,
+		result: DChartRegion
+	): DChartRegion {
+		if( from != null && to != null ) {
+			result.set( from, to );
+		} else {
+			plotArea.series.getDomain( this, result );
+			result.set( from, to );
+		}
+		return result;
+	}
+
+	protected toFitRange(
+		from: number | undefined, to: number | undefined,
+		plotArea: DChartPlotArea,
+		result: DChartRegion
+	): DChartRegion {
+		if( from != null && to != null ) {
+			result.set( from, to );
+		} else {
+			plotArea.series.getRange( this, result );
+			result.set( from, to );
+		}
+		return result;
 	}
 
 	protected fit_( pixelFrom: number, pixelTo: number, region: DChartRegion ): void {

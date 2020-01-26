@@ -88,10 +88,10 @@ export class DChartCoordinateContainerSubImpl implements DChartCoordinateContain
 		return this._list.length;
 	}
 
-	fit(): this {
+	fit( from?: number, to?: number ): this {
 		const list = this._list;
 		for( let i = 0, imax = list.length; i < imax; ++i ) {
-			list[ i ].fit();
+			list[ i ].fit( from, to );
 		}
 		return this;
 	}

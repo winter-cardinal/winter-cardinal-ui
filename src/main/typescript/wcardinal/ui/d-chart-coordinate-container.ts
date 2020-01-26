@@ -17,5 +17,5 @@ export interface DChartCoordinateContainer {
 	y: DChartCoordinateContainerSub;
 	plotArea: DChartPlotArea;
 
-	fit(): this;
+	fit( domainFrom?: number, domainTo?: number, rangeFrom?: number, rangeTo?: number ): this;
 }

@@ -18,5 +18,5 @@ export interface DChartCoordinateContainerSub {
 	destroy(): this;
 	size(): number;
 
-	fit(): this;
+	fit( from?: number, to?: number ): this;
 }
