@@ -4,6 +4,7 @@
  */
 
 export * from "./action";
+export * from "./load";
 export * from "./variant";
 export * from "./e-shape-buffer-unit-builder";
 export * from "./e-shape-buffer-unit";
