@@ -19,18 +19,26 @@ import { isArray } from "./util/is-array";
  * Data points must be sorted in ascending order on the X axis.
  */
 export class DChartSeriesBar extends DChartSeriesLineOfAny {
-	protected _barCountId: number;
-	protected _indexId: number;
+	protected _barCount: number;
+	protected _barIndex: number;
 	protected _xcoordinateId: number;
 	protected _xcoordinateTransformId: number;
 	protected _padding?: DChartSeriesPaddingComputed;
 
 	constructor( options?: DChartSeriesLineOfAnyOptions ) {
 		super( options );
-		this._barCountId = 1;
-		this._indexId = 0;
+		this._barCount = -1;
+		this._barIndex = -1;
 		this._xcoordinateId = -1;
 		this._xcoordinateTransformId = -1;
+	}
+
+	bind( container: DChartSeriesContainer, index: number ): void {
+		this._barCount = -1;
+		this._barIndex = -1;
+		this._xcoordinateId = -1;
+		this._xcoordinateTransformId = -1;
+		super.bind( container, index );
 	}
 
 	protected initLine(
@@ -65,6 +73,30 @@ export class DChartSeriesBar extends DChartSeriesLineOfAny {
 		);
 	}
 
+	protected updateBarCountAndIndex(): boolean {
+		if( this._barIndex < 0 || this._barCount < 0 ) {
+			let barIndex = 0;
+			let barCount = 0;
+			const container = this._container;
+			if( container ) {
+				for( let i = 0, imax = container.size(); i < imax; ++i ) {
+					const series = container.get( i );
+					if( series === this ) {
+						barIndex = barCount;
+					}
+					if( series instanceof DChartSeriesBar ) {
+						barCount += 1;
+					}
+				}
+			}
+			barCount = Math.max( 1, barCount );
+			this._barCount = barCount;
+			this._barIndex = barIndex;
+			return true;
+		}
+		return false;
+	}
+
 	protected applyLine(
 		line: EShapeLineOfAny,
 		xcoordinate: DChartCoordinate,
@@ -74,18 +106,16 @@ export class DChartSeriesBar extends DChartSeriesLineOfAny {
 		values: number[]
 	): void {
 		// Offset
-		const barCount = this._container?.size() || 1;
-		const index = this._index;
-		const xcoordinateId = xcoordinate.id;
-		const xcoordinateTransformId = xcoordinate.transform.id;
 		const size = this._size;
 		const offset = this._offset;
 		const padding = this._padding;
 		if( size && offset && padding ) {
-			if( this._barCountId !== barCount || this._indexId !== index || this._xcoordinateId !== xcoordinateId ||
+			const xcoordinateId = xcoordinate.id;
+			const xcoordinateTransformId = xcoordinate.transform.id;
+			if( this.updateBarCountAndIndex() || this._xcoordinateId !== xcoordinateId ||
 				this._xcoordinateTransformId !== xcoordinateTransformId ) {
-				this._barCountId = barCount;
-				this._indexId = index;
+				const barCount = this._barCount;
+				const barIndex = this._barIndex;
 				this._xcoordinateId = xcoordinateId;
 				this._xcoordinateTransformId = xcoordinateTransformId;
 
@@ -100,7 +130,7 @@ export class DChartSeriesBar extends DChartSeriesLineOfAny {
 					const totalPaddingInner = totalBandWidth - totalBarWidth;
 					const barWidth = totalBarWidth / barCount;
 					const barPadding = totalPaddingInner / ( barCount - 1 );
-					const barX = barWidth * (index + 0.5) + index * barPadding;
+					const barX = barWidth * (barIndex + 0.5) + barIndex * barPadding;
 					line.points.offset.x = offset.x + barX - totalBandWidth * 0.5;
 					line.points.size.x = barWidth;
 				}

@@ -65,8 +65,6 @@ export interface DChartSeriesContainer {
 	update(): void;
 	add( series: DChartSeries ): void;
 	get( index: number ): DChartSeries | null;
-	remove( series: DChartSeries ): DChartSeries | null;
-	remove( index: number ): DChartSeries | null;
 	clear(): this;
 	size(): number;
 	destroy(): void;
