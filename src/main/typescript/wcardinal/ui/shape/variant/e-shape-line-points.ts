@@ -5,8 +5,8 @@
 
 import { Matrix, Point } from "pixi.js";
 import { toIndexOf } from "../../util/to-index-of";
+import { EShape } from "../e-shape";
 import { EShapePoints } from "../e-shape-points";
-import { EShapePointsParent } from "../e-shape-points-parent";
 import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeLineBasePointsHitTester, EShapeLineBasePointsTestRange } from "./e-shape-line-base-points";
@@ -14,7 +14,7 @@ import { EShapeLineBasePointsHitTester, EShapeLineBasePointsTestRange } from "./
 export class EShapeLinePoints implements EShapePoints {
 	protected static WORK_RANGE: [ number, number ] = [ 0, 0 ];
 
-	protected _parent: EShapePointsParent;
+	protected _parent: EShape;
 	protected _valuesBase?: number[];
 	protected _valuesBaseLength: number;
 	protected _values: number[];
@@ -26,7 +26,7 @@ export class EShapeLinePoints implements EShapePoints {
 	protected _style: EShapePointsStyle;
 
 	constructor(
-		parent: EShapePointsParent,
+		parent: EShape,
 		points: number[],
 		segments: number[],
 		style: EShapePointsStyle
@@ -217,11 +217,7 @@ export class EShapeLinePoints implements EShapePoints {
 			const oldStyle = this._style;
 			if( oldStyle !== newStyle ) {
 				this._style = newStyle;
-				if( (oldStyle & EShapePointsStyle.CLOSED) !== (newStyle & EShapePointsStyle.CLOSED) ) {
-					isDirty = true;
-				} else {
-					isUpdated = true;
-				}
+				isUpdated = true;
 			}
 		}
 
@@ -229,8 +225,17 @@ export class EShapeLinePoints implements EShapePoints {
 		if( isDirty ) {
 			this._id += 1;
 			const parent = this._parent;
-			parent.uploaded = undefined;
-			parent.toDirty();
+			const uploaded = parent.uploaded;
+			if( uploaded ) {
+				if( uploaded.isCompatible( parent ) ) {
+					parent.updateUploaded();
+				} else {
+					parent.uploaded = undefined;
+					parent.toDirty();
+				}
+			} else {
+				parent.updateUploaded();
+			}
 		} else if( isUpdated ) {
 			this._id += 1;
 			this._parent.updateUploaded();
@@ -239,7 +244,7 @@ export class EShapeLinePoints implements EShapePoints {
 		return this;
 	}
 
-	clone( parent: EShapePointsParent ): EShapeLinePoints {
+	clone( parent: EShape ): EShapeLinePoints {
 		return new EShapeLinePoints( parent, this._values, this._segments, this._style );
 	}
 

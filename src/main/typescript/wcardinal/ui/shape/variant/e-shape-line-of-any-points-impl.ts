@@ -4,9 +4,9 @@
  */
 
 import { Matrix, Point } from "pixi.js";
+import { EShape } from "../e-shape";
 import { EShapeDefaults } from "../e-shape-defaults";
 import { EShapePoints } from "../e-shape-points";
-import { EShapePointsParent } from "../e-shape-points-parent";
 import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import {
@@ -22,7 +22,7 @@ import { EShapeLineOfAnyPointsStrokeImpl } from "./e-shape-line-of-any-points-st
 export class EShapeLineOfAnyPointsImpl implements EShapeLineOfAnyPoints {
 	protected static WORK_RANGE: [ number, number ] = [ 0, 0 ];
 
-	protected _parent: EShapePointsParent;
+	protected _parent: EShape;
 	protected _values: number[];
 	protected _valuesLength: number;
 	protected _segments: number[];
@@ -32,7 +32,7 @@ export class EShapeLineOfAnyPointsImpl implements EShapeLineOfAnyPoints {
 	protected _stroke: EShapeLineOfAnyPointsStroke;
 	protected _id: number;
 
-	constructor( parent: EShapePointsParent ) {
+	constructor( parent: EShape ) {
 		this._parent = parent;
 		this._values = [];
 		this._valuesLength = 0;
@@ -151,7 +151,7 @@ export class EShapeLineOfAnyPointsImpl implements EShapeLineOfAnyPoints {
 		this._parent.updateUploaded();
 	}
 
-	clone( parent: EShapePointsParent ): EShapeLineOfAnyPointsImpl {
+	clone( parent: EShape ): EShapeLineOfAnyPointsImpl {
 		return new EShapeLineOfAnyPointsImpl( parent );
 	}
 

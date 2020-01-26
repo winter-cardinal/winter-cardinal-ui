@@ -4,8 +4,8 @@
  */
 
 import { Matrix, Point } from "pixi.js";
+import { EShape } from "../e-shape";
 import { EShapePoints } from "../e-shape-points";
-import { EShapePointsParent } from "../e-shape-points-parent";
 import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
@@ -15,7 +15,7 @@ import {
 } from "./e-shape-line-base-points";
 
 export class EShapeBarPoints implements EShapeLineBasePoints {
-	protected _parent: EShapePointsParent;
+	protected _parent: EShape;
 	protected _id: number;
 	protected _style: EShapePointsStyle;
 	protected _values: [ number, number, number, number ];
@@ -28,7 +28,7 @@ export class EShapeBarPoints implements EShapeLineBasePoints {
 	protected _updatedParentSizeY: number;
 	protected _updatedPosition: EShapeBarPosition;
 
-	constructor( parent: EShapePointsParent, position: EShapeBarPosition, size: number, style: EShapePointsStyle ) {
+	constructor( parent: EShape, position: EShapeBarPosition, size: number, style: EShapePointsStyle ) {
 		this._parent = parent;
 		this._id = 0;
 		this._values = [ 0, 0, 0, 0 ];
@@ -205,7 +205,7 @@ export class EShapeBarPoints implements EShapeLineBasePoints {
 		return this;
 	}
 
-	clone( parent: EShapePointsParent ): EShapeBarPoints {
+	clone( parent: EShape ): EShapeBarPoints {
 		return new EShapeBarPoints( parent, this._position, this._size, this._style );
 	}
 

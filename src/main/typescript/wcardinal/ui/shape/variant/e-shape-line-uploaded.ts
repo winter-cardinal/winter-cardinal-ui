@@ -6,7 +6,10 @@
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
 import { EShapePointsStyle } from "../e-shape-points-style";
-import { buildLineClippingAndIndex, buildLineUv, buildLineVertexStepAndColorFill } from "./build-line";
+import {
+	buildLineClipping, buildLineIndex, buildLineUv,
+	buildLineVertexStepAndColorFill, toLineVertexCount
+} from "./build-line";
 import { EShapeTextUploaded } from "./e-shape-text-uploaded";
 
 export class EShapeLineUploaded extends EShapeTextUploaded {
@@ -20,13 +23,12 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 		voffset: number, ioffset: number,
 		tvcount: number, ticount: number,
 		vcount: number, icount: number,
-		antialiasWeight: number,
-		pointCount: number, pointsClosed: boolean
+		antialiasWeight: number
 	) {
 		super( buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight );
-		this.pointId = NaN;
-		this.pointCount = pointCount;
-		this.pointsClosed = pointsClosed;
+		this.pointId = -1;
+		this.pointCount = 0;
+		this.pointsClosed = false;
 		this.length = 1;
 	}
 
@@ -35,20 +37,13 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 
 		// Clipping & indices
 		const buffer = this.buffer;
-		const pointCount = this.pointCount;
-		const pointsClosed = this.pointsClosed;
-		if( 2 <= pointCount ) {
-			buffer.clippingBuffer.update();
-			buffer.indexBuffer.update();
-			buildLineClippingAndIndex(
-				buffer.clippings,
-				buffer.indices,
-				this.vertexOffset,
-				this.indexOffset,
-				pointCount,
-				pointsClosed
-			);
-		}
+		buffer.indexBuffer.update();
+		buildLineIndex(
+			buffer.indices,
+			this.vertexOffset,
+			this.indexOffset,
+			this.indexCount - this.textIndexCount
+		);
 
 		// Text
 		this.initText();
@@ -59,17 +54,51 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 		return this;
 	}
 
+	isCompatible( shape: EShape ): boolean {
+		if( super.isCompatible( shape ) ) {
+			const points = shape.points;
+			const pointCount = ( points ? points.length : 0 );
+			return ( toLineVertexCount( pointCount ) === this.vertexCount - this.textVertexCount );
+		}
+		return false;
+	}
+
 	update( shape: EShape ): void {
 		const buffer = this.buffer;
+		this.updateLineClipping( buffer, shape );
 		this.updateLineVertexStepAndColorFill( buffer, shape );
 		this.updateColor( buffer, shape );
 		this.updateLineUv( buffer, shape );
 		this.updateText( buffer, shape );
 	}
 
+	protected updateLineClipping( buffer: EShapeBuffer, shape: EShape ): void {
+		const points = shape.points;
+		if( points ) {
+			const pointCount = points.length;
+			const pointsClosed = (!! (points.style & EShapePointsStyle.CLOSED));
+			if( this.pointCount !== pointCount || this.pointsClosed !== pointsClosed ) {
+				this.pointCount = pointCount;
+				this.pointsClosed = pointsClosed;
+
+				// Invalidate the pointId to update the vertices
+				this.pointId = -1;
+
+				buffer.clippingBuffer.update();
+				buildLineClipping(
+					buffer.clippings,
+					this.vertexOffset,
+					this.vertexCount - this.textVertexCount,
+					pointCount,
+					pointsClosed
+				);
+			}
+		}
+	}
+
 	protected updateLineVertexStepAndColorFill( buffer: EShapeBuffer, shape: EShape ): void {
 		const points = shape.points;
-		if( points && 2 <= points.length ) {
+		if( points ) {
 			const pointId = points.id;
 			const isPointChanged = ( pointId !== this.pointId );
 
@@ -104,6 +133,7 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 					buffer.antialiases,
 					buffer.colorFills,
 					this.vertexOffset,
+					this.vertexCount - this.textVertexCount,
 					this.pointCount,
 					this.pointsClosed,
 					points.values,
@@ -121,24 +151,6 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 		this.updateColorStroke( buffer, shape, vertexCount );
 	}
 
-	isCompatible( shape: EShape ): boolean {
-		if( super.isCompatible( shape ) ) {
-			const points = shape.points;
-			if( points ) {
-				return (
-					this.pointCount === points.length &&
-					this.pointsClosed === (!!( points.style & EShapePointsStyle.CLOSED ))
-				);
-			} else {
-				return (
-					this.pointCount === 0 &&
-					this.pointsClosed === false
-				);
-			}
-		}
-		return false;
-	}
-
 	updateLineUv( buffer: EShapeBuffer, shape: EShape ): void {
 		const texture = this.toTexture( shape );
 		const textureTransformId = this.toTextureTransformId( texture );
@@ -147,18 +159,17 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 			this.textureTransformId = textureTransformId;
 
 			const pointCount = this.pointCount;
-			if( 2 <= pointCount ) {
-				buffer.uvBuffer.update();
-				buildLineUv(
-					buffer.uvs,
-					buffer.colorFills,
-					this.vertexOffset,
-					pointCount,
-					this.pointsClosed,
-					this.toTextureUvs( texture ),
-					this.length
-				);
-			}
+			buffer.uvBuffer.update();
+			buildLineUv(
+				buffer.uvs,
+				buffer.colorFills,
+				this.vertexOffset,
+				this.vertexCount - this.textVertexCount,
+				pointCount,
+				this.pointsClosed,
+				this.toTextureUvs( texture ),
+				this.length
+			);
 		}
 	}
 }

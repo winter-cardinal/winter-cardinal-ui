@@ -5,7 +5,7 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
-import { EShapePointsStyle } from "../e-shape-points-style";
+import { toLineVertexCount } from "./build-line";
 import { TEXT_INDEX_COUNT, TEXT_VERTEX_COUNT, toTextBufferCount } from "./build-text";
 import { EShapeLineUploaded } from "./e-shape-line-uploaded";
 
@@ -16,30 +16,19 @@ export class EShapeLineUploadeds {
 		antialiasWeight: number
 	): EShapeLineUploaded | null {
 		const points = shape.points;
-		const pointsClosed = ( points ? (points.style & EShapePointsStyle.CLOSED) !== 0 : false );
 		const pointCount = ( points ? points.length : 0 );
 		const tcount = toTextBufferCount( shape );
 		const tvcount = tcount * TEXT_VERTEX_COUNT;
 		const ticount = tcount * TEXT_INDEX_COUNT;
-		let vcount = tvcount;
-		let icount = ticount;
-		if( 2 <= pointCount ) {
-			if( pointsClosed ) {
-				vcount += pointCount * 4 + 2;
-				icount += pointCount * 4;
-			} else {
-				vcount += (pointCount - 2) * 4 + 2 + 2;
-				icount += (pointCount - 2) * 4 + 2;
-			}
-		}
+		const vcount = toLineVertexCount( pointCount ) + tvcount;
+		const icount = vcount - tvcount - 2 + ticount;
 		if( voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity ) {
 			return new EShapeLineUploaded(
 				buffer,
 				voffset, ioffset,
 				tvcount, ticount,
 				vcount, icount,
-				antialiasWeight,
-				pointCount, pointsClosed
+				antialiasWeight
 			).init( shape );
 		}
 		return null;
