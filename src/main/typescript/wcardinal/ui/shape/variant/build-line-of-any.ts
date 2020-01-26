@@ -2,6 +2,10 @@ import { buildColor } from "./build-color";
 import { EShapeLineOfAnyPointsFill } from "./e-shape-line-of-any-points-fill";
 import { EShapeLineOfAnyPointsStroke } from "./e-shape-line-of-any-points-stroke";
 
+export const toLineOfAnyPointCount = ( pointCount: number ): number => {
+	return (Math.ceil( pointCount / 12 ) * 12);
+};
+
 export const buildLineOfAnyColor = (
 	voffset: number,
 	vcountPerPoint: number,

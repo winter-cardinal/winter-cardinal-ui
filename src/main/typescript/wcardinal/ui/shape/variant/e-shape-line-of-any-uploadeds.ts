@@ -5,8 +5,8 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
+import { toLineOfAnyPointCount } from "./build-line-of-any";
 import { TEXT_INDEX_COUNT, TEXT_VERTEX_COUNT, toTextBufferCount } from "./build-text";
-import { EShapeLineOfNullsUploaded } from "./e-shape-line-of-nulls-uploaded";
 
 export interface EShapeLineOfAnyUploaded {
 	init( shape: EShape ): this;
@@ -30,33 +30,23 @@ export class EShapeLineOfAnyUploadeds {
 		icountPerPoint: number,
 		antialiasWeight: number,
 		constructor: EShapeLineOfAnyUploadedConstructor<T>
-	): T | EShapeLineOfNullsUploaded | null {
+	): T | null {
 		const tcount = toTextBufferCount( shape );
 		const tvcount = tcount * TEXT_VERTEX_COUNT;
 		const ticount = tcount * TEXT_INDEX_COUNT;
 		const points = shape.points;
-		const pointCount = ( points ? points.length : 0 );
+		const pointCount = toLineOfAnyPointCount( points ? points.length : 0 );
 		const vcount = pointCount * vcountPerPoint + tvcount;
 		const icount = pointCount * icountPerPoint + ticount;
 		if( voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity ) {
-			if( 0 < pointCount ) {
-				return new constructor(
-					buffer,
-					voffset, ioffset,
-					tvcount, ticount,
-					vcount, icount,
-					antialiasWeight,
-					pointCount
-				).init( shape );
-			} else {
-				return new EShapeLineOfNullsUploaded(
-					buffer,
-					voffset, ioffset,
-					tvcount, ticount,
-					tvcount, ticount,
-					antialiasWeight
-				).init( shape );
-			}
+			return new constructor(
+				buffer,
+				voffset, ioffset,
+				tvcount, ticount,
+				vcount, icount,
+				antialiasWeight,
+				pointCount
+			).init( shape );
 		}
 		return null;
 	}

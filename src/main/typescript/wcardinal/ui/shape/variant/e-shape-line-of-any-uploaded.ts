@@ -5,13 +5,14 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
-import { buildLineOfAnyColor } from "./build-line-of-any-color";
+import { buildLineOfAnyColor, toLineOfAnyPointCount } from "./build-line-of-any";
 import { EShapeLineOfAnyPoints } from "./e-shape-line-of-any-points";
 import { EShapeTextUploaded } from "./e-shape-text-uploaded";
 
 export abstract class EShapeLineOfAnyUploaded extends EShapeTextUploaded {
 	protected pointId: number;
 	protected pointCount: number;
+	protected pointCountReserved: number;
 	protected pointSizeId: number;
 	protected pointOffsetId: number;
 	protected pointFillId: number;
@@ -23,11 +24,12 @@ export abstract class EShapeLineOfAnyUploaded extends EShapeTextUploaded {
 		tvcount: number, ticount: number,
 		vcount: number, icount: number,
 		antialiasWeight: number,
-		pointCount: number
+		pointCountReserved: number
 	) {
 		super( buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight );
 		this.pointId = -1;
-		this.pointCount = pointCount;
+		this.pointCount = 0;
+		this.pointCountReserved = pointCountReserved;
 		this.pointSizeId = -1;
 		this.pointOffsetId = -1;
 		this.pointFillId = -1;
@@ -37,7 +39,8 @@ export abstract class EShapeLineOfAnyUploaded extends EShapeTextUploaded {
 	isCompatible( shape: EShape ): boolean {
 		if( super.isCompatible( shape ) ) {
 			const points = shape.points;
-			return this.pointCount === ( points ? points.length : 0 );
+			const pointCount = toLineOfAnyPointCount( points ? points.length : 0 );
+			return pointCount === this.pointCountReserved;
 		}
 		return false;
 	}
@@ -65,7 +68,7 @@ export abstract class EShapeLineOfAnyUploaded extends EShapeTextUploaded {
 				this.vertexOffset,
 				vcountPerPoint,
 				pointFill,
-				this.pointCount,
+				this.pointCountReserved,
 				buffer.colorFills,
 				isFillEnabled,
 				colorFill,
@@ -97,7 +100,7 @@ export abstract class EShapeLineOfAnyUploaded extends EShapeTextUploaded {
 				this.vertexOffset,
 				vcountPerPoint,
 				pointStroke,
-				this.pointCount,
+				this.pointCountReserved,
 				buffer.colorStrokes,
 				isStrokeEnabled,
 				colorStroke,

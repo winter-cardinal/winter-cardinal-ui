@@ -57,8 +57,8 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 	isCompatible( shape: EShape ): boolean {
 		if( super.isCompatible( shape ) ) {
 			const points = shape.points;
-			const pointCount = ( points ? points.length : 0 );
-			return ( toLineVertexCount( pointCount ) === this.vertexCount - this.textVertexCount );
+			const vcount = toLineVertexCount( points ? points.length : 0 );
+			return vcount === this.vertexCount - this.textVertexCount;
 		}
 		return false;
 	}

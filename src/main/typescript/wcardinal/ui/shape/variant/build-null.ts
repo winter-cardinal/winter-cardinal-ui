@@ -1,0 +1,63 @@
+
+export const buildNullClipping = (
+	clippings: Float32Array,
+	voffset: number,
+	vcount: number
+): void => {
+	for( let i = voffset * 3, imax = (voffset + vcount) * 3; i < imax; i += 3 ) {
+		clippings[ i + 0 ] = 0;
+		clippings[ i + 1 ] = 0;
+		clippings[ i + 2 ] = 0;
+	}
+};
+
+export const buildNullIndex = (
+	indices: Uint16Array | Uint32Array,
+	voffset: number,
+	ioffset: number,
+	icount: number
+): void => {
+	for( let ii = ioffset * 3, iimax = (ioffset + icount) * 3; ii < iimax; ii += 3 ) {
+		indices[ ii + 0 ] = voffset;
+		indices[ ii + 1 ] = voffset;
+		indices[ ii + 2 ] = voffset;
+	}
+};
+
+export const buildNullVertex = (
+	vertices: Float32Array,
+	voffset: number,
+	vcount: number
+): void => {
+	for( let i = voffset * 2, imax = (voffset + vcount) * 2; i < imax; i += 2 ) {
+		vertices[ i + 0 ] = 0;
+		vertices[ i + 1 ] = 0;
+	}
+};
+
+export const buildNullStep = (
+	steps: Float32Array,
+	antialiases: Float32Array,
+	voffset: number,
+	vcount: number
+): void => {
+	for( let i = voffset * 2, imax = (voffset + vcount) * 2, j = voffset * 4; i < imax; i += 2, j += 4 ) {
+		steps[ i + 0 ] = 0;
+		steps[ i + 1 ] = 0;
+		antialiases[ j + 0 ] = 0;
+		antialiases[ j + 1 ] = 0;
+		antialiases[ j + 2 ] = 0;
+		antialiases[ j + 3 ] = 0;
+	}
+};
+
+export const buildNullUv = (
+	uvs: Float32Array,
+	voffset: number,
+	vcount: number
+): void => {
+	for( let i = voffset * 2, imax = (voffset + vcount) * 2; i < imax; i += 2 ) {
+		uvs[ i + 0 ] = 0;
+		uvs[ i + 1 ] = 0;
+	}
+};

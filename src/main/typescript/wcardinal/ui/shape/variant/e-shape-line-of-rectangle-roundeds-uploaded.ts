@@ -5,6 +5,7 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
+import { buildNullClipping, buildNullStep, buildNullUv, buildNullVertex } from "./build-null";
 import {
 	buildRectangleRoundedClipping, buildRectangleRoundedIndex, buildRectangleRoundedStep, buildRectangleRoundedUv,
 	buildRectangleRoundedVertex, RECTANGLE_ROUNDED_INDEX_COUNT, RECTANGLE_ROUNDED_VERTEX_COUNT,
@@ -29,19 +30,21 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeLineOfAnyUpload
 		const indices = buffer.indices;
 		const voffset = this.vertexOffset;
 		const ioffset = this.indexOffset;
-		const pointCount = this.pointCount;
-		buildRectangleRoundedIndex(
-			indices,
-			voffset,
-			ioffset
-		);
-		copyIndex(
-			indices,
-			RECTANGLE_ROUNDED_VERTEX_COUNT,
-			ioffset,
-			RECTANGLE_ROUNDED_INDEX_COUNT,
-			pointCount
-		);
+		const pointCountReserved = this.pointCountReserved;
+		if( 0 < pointCountReserved ) {
+			buildRectangleRoundedIndex(
+				indices,
+				voffset,
+				ioffset
+			);
+			copyIndex(
+				indices,
+				RECTANGLE_ROUNDED_VERTEX_COUNT,
+				ioffset,
+				RECTANGLE_ROUNDED_INDEX_COUNT,
+				pointCountReserved
+			);
+		}
 
 		// Text
 		this.initText();
@@ -102,6 +105,7 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeLineOfAnyUpload
 
 		if( isVertexChanged || isTransformChanged || isCornerChanged || isTextureChanged ) {
 			this.pointId = pointId;
+			this.pointCount = points.length;
 			this.pointOffsetId = pointOffsetId;
 			this.pointSizeId = pointSizeId;
 			this.sizeX = sizeX;
@@ -145,7 +149,7 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeLineOfAnyUpload
 			const antialiasWeight = this.antialiasWeight;
 			const work = buffer.work;
 			const workStep = buffer.workStep;
-			if( pointSize.isStaticX() && pointSize.isStaticY() ) {
+			if( 0 < pointCount && pointSize.isStaticX() && pointSize.isStaticY() ) {
 				const pointSizeX = pointSize.getX( 0 );
 				const pointSizeY = pointSize.getY( 0 );
 
@@ -273,6 +277,31 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeLineOfAnyUpload
 					}
 				}
 			}
+
+			// Fill the rest
+			const pointCountReserved = this.pointCountReserved;
+			const voffsetReserved = voffset + pointCount * RECTANGLE_ROUNDED_VERTEX_COUNT;
+			const vcountReserved = RECTANGLE_ROUNDED_VERTEX_COUNT * (pointCountReserved - pointCount);
+			buildNullVertex(
+				vertices,
+				voffsetReserved,
+				vcountReserved
+			);
+			buildNullStep(
+				steps, antialiases,
+				voffsetReserved,
+				vcountReserved
+			);
+			buildNullClipping(
+				clippings,
+				voffsetReserved,
+				vcountReserved
+			);
+			buildNullUv(
+				uvs,
+				voffsetReserved,
+				vcountReserved
+			);
 		}
 	}
 }

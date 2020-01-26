@@ -102,7 +102,11 @@ export class EShapeCircleUploaded extends EShapeTextUploaded {
 
 			buffer.uvBuffer.update();
 			const textureUvs = this.toTextureUvs( texture );
-			buildCircleUv( this.vertexOffset, textureUvs, buffer.uvs );
+			buildCircleUv(
+				buffer.uvs,
+				this.vertexOffset,
+				textureUvs
+			);
 		}
 	}
 }

@@ -187,9 +187,9 @@ export const buildCircleStep = (
 };
 
 export const buildCircleUv = (
+	uvs: Float32Array,
 	voffset: number,
-	textureUvs: TextureUvs,
-	uvs: Float32Array
+	textureUvs: TextureUvs
 ): void => {
 	const x0 = textureUvs.x0;
 	const x1 = textureUvs.x1;

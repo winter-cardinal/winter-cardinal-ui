@@ -5,6 +5,7 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
+import { buildNullStep, buildNullUv, buildNullVertex } from "./build-null";
 import {
 	buildTriangleClipping, buildTriangleIndex, buildTriangleStep, buildTriangleUv, buildTriangleVertex,
 	TRIANGLE_INDEX_COUNT, TRIANGLE_VERTEX_COUNT, TRIANGLE_WORLD_SIZE
@@ -29,29 +30,31 @@ export class EShapeLineOfTrianglesUploaded extends EShapeLineOfAnyUploaded {
 		const indices = buffer.indices;
 		const voffset = this.vertexOffset;
 		const ioffset = this.indexOffset;
-		const pointCount = this.pointCount;
-		buildTriangleClipping(
-			clippings,
-			voffset
-		);
-		buildTriangleIndex(
-			indices,
-			voffset,
-			ioffset
-		);
-		copyClipping(
-			clippings,
-			voffset,
-			TRIANGLE_VERTEX_COUNT,
-			pointCount
-		);
-		copyIndex(
-			indices,
-			TRIANGLE_VERTEX_COUNT,
-			ioffset,
-			TRIANGLE_INDEX_COUNT,
-			pointCount
-		);
+		const pointCountReserved = this.pointCountReserved;
+		if( 0 < pointCountReserved ) {
+			buildTriangleClipping(
+				clippings,
+				voffset
+			);
+			copyClipping(
+				clippings,
+				voffset,
+				TRIANGLE_VERTEX_COUNT,
+				pointCountReserved
+			);
+			buildTriangleIndex(
+				indices,
+				voffset,
+				ioffset
+			);
+			copyIndex(
+				indices,
+				TRIANGLE_VERTEX_COUNT,
+				ioffset,
+				TRIANGLE_INDEX_COUNT,
+				pointCountReserved
+			);
+		}
 
 		// Text
 		this.initText();
@@ -102,6 +105,7 @@ export class EShapeLineOfTrianglesUploaded extends EShapeLineOfAnyUploaded {
 
 		if( isVertexChanged || isTransformChanged || isTextureChanged ) {
 			this.pointId = pointId;
+			this.pointCount = points.length;
 			this.pointOffsetId = pointOffsetId;
 			this.pointSizeId = pointSizeId;
 			this.sizeX = sizeX;
@@ -138,7 +142,7 @@ export class EShapeLineOfTrianglesUploaded extends EShapeLineOfAnyUploaded {
 			const antialiasWeight = this.antialiasWeight;
 			const work = buffer.work;
 			const workStep = buffer.workStep;
-			if( pointSize.isStaticX() && pointSize.isStaticY() ) {
+			if( 0 < pointCount && pointSize.isStaticX() && pointSize.isStaticY() ) {
 				const pointSizeX = pointSize.getX( 0 );
 				const pointSizeY = pointSize.getY( 0 );
 
@@ -235,6 +239,26 @@ export class EShapeLineOfTrianglesUploaded extends EShapeLineOfAnyUploaded {
 					}
 				}
 			}
+
+			// Fill the rest
+			const pointCountReserved = this.pointCountReserved;
+			const voffsetReserved = voffset + pointCount * TRIANGLE_VERTEX_COUNT;
+			const vcountReserved = TRIANGLE_VERTEX_COUNT * (pointCountReserved - pointCount);
+			buildNullVertex(
+				vertices,
+				voffsetReserved,
+				vcountReserved
+			);
+			buildNullStep(
+				steps, antialiases,
+				voffsetReserved,
+				vcountReserved
+			);
+			buildNullUv(
+				uvs,
+				voffsetReserved,
+				vcountReserved
+			);
 		}
 	}
 }

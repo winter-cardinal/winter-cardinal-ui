@@ -5,6 +5,7 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
+import { buildNullClipping, buildNullStep, buildNullUv, buildNullVertex } from "./build-null";
 import {
 	buildRectangleClipping, buildRectangleIndex, buildRectangleStep,
 	buildRectangleUv, buildRectangleVertex,
@@ -23,23 +24,27 @@ export class EShapeLineOfRectanglesUploaded extends EShapeLineOfAnyUploaded {
 	init( shape: EShape ): this {
 		super.init( shape );
 
-		// Clippings
+		// Indices
 		const buffer = this.buffer;
 		buffer.indexBuffer.update();
 		const indices = buffer.indices;
+		const voffset = this.vertexOffset;
 		const ioffset = this.indexOffset;
-		buildRectangleIndex(
-			indices,
-			this.vertexOffset,
-			ioffset
-		);
-		copyIndex(
-			indices,
-			RECTANGLE_VERTEX_COUNT,
-			ioffset,
-			RECTANGLE_INDEX_COUNT,
-			this.pointCount
-		);
+		const pointCountReserved = this.pointCountReserved;
+		if( 0 < pointCountReserved ) {
+			buildRectangleIndex(
+				indices,
+				voffset,
+				ioffset
+			);
+			copyIndex(
+				indices,
+				RECTANGLE_VERTEX_COUNT,
+				ioffset,
+				RECTANGLE_INDEX_COUNT,
+				pointCountReserved
+			);
+		}
 
 		// Text
 		this.initText();
@@ -92,6 +97,7 @@ export class EShapeLineOfRectanglesUploaded extends EShapeLineOfAnyUploaded {
 
 		if( isVertexChanged || isTransformChanged || isTextureChanged ) {
 			this.pointId = pointId;
+			this.pointCount = points.length;
 			this.pointOffsetId = pointOffsetId;
 			this.pointSizeId = pointSizeId;
 			this.transformLocalId = transformLocalId;
@@ -131,7 +137,7 @@ export class EShapeLineOfRectanglesUploaded extends EShapeLineOfAnyUploaded {
 			const textureUvs = this.toTextureUvs( texture );
 			const work = buffer.work;
 			const workStep = buffer.workStep;
-			if( pointSize.isStaticX() && pointSize.isStaticY() ) {
+			if( 0 < pointCount && pointSize.isStaticX() && pointSize.isStaticY() ) {
 				const pointSizeX = pointSize.getX( 0 );
 				const pointSizeY = pointSize.getY( 0 );
 
@@ -250,6 +256,31 @@ export class EShapeLineOfRectanglesUploaded extends EShapeLineOfAnyUploaded {
 					}
 				}
 			}
+
+			// Fill the rest
+			const pointCountReserved = this.pointCountReserved;
+			const voffsetReserved = voffset + pointCount * RECTANGLE_VERTEX_COUNT;
+			const vcountReserved = RECTANGLE_VERTEX_COUNT * (pointCountReserved - pointCount);
+			buildNullVertex(
+				vertices,
+				voffsetReserved,
+				vcountReserved
+			);
+			buildNullStep(
+				steps, antialiases,
+				voffsetReserved,
+				vcountReserved
+			);
+			buildNullClipping(
+				clippings,
+				voffsetReserved,
+				vcountReserved
+			);
+			buildNullUv(
+				uvs,
+				voffsetReserved,
+				vcountReserved
+			);
 		}
 	}
 }

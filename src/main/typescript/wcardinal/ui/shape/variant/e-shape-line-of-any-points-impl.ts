@@ -137,8 +137,17 @@ export class EShapeLineOfAnyPointsImpl implements EShapeLineOfAnyPoints {
 		if( isDirty ) {
 			this._id += 1;
 			const parent = this._parent;
-			parent.uploaded = undefined;
-			parent.toDirty();
+			const uploaded = parent.uploaded;
+			if( uploaded ) {
+				if( uploaded.isCompatible( parent ) ) {
+					parent.updateUploaded();
+				} else {
+					parent.uploaded = undefined;
+					parent.toDirty();
+				}
+			} else {
+				parent.updateUploaded();
+			}
 		} else if( isUpdated ) {
 			this._id += 1;
 			this._parent.updateUploaded();
