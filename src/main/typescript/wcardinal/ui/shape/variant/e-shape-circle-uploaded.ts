@@ -6,7 +6,8 @@
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
 import {
-	buildCircleClipping, buildCircleIndex, buildCircleUv, buildCircleVertexAndStep, CIRCLE_VERTEX_COUNT
+	buildCircleClipping, buildCircleIndex, buildCircleStep, buildCircleUv,
+	buildCircleVertex, CIRCLE_WORLD_SIZE
 } from "./build-circle";
 import { EShapeTextUploaded } from "./e-shape-text-uploaded";
 
@@ -72,15 +73,22 @@ export class EShapeCircleUploaded extends EShapeTextUploaded {
 			buffer.vertexBuffer.update();
 			buffer.stepBuffer.update();
 			buffer.antialiasBuffer.update();
-			buildCircleVertexAndStep(
-				buffer.vertices, this.vertexOffset, CIRCLE_VERTEX_COUNT,
-				buffer.steps, buffer.antialiases, buffer.clippings,
+			buildCircleVertex(
+				buffer.vertices, this.vertexOffset,
 				0, 0,
 				sizeX, sizeY,
-				strokeAlign, strokeWidth, true,
+				strokeAlign, strokeWidth,
 				shape.transform.internalTransform,
+				CIRCLE_WORLD_SIZE,
+				buffer.work
+			);
+			buildCircleStep(
+				buffer.steps, buffer.antialiases, buffer.clippings,
+				this.vertexOffset,
+				strokeWidth,
 				this.antialiasWeight,
-				buffer.work, buffer.workStep
+				CIRCLE_WORLD_SIZE,
+				buffer.workStep
 			);
 		}
 	}

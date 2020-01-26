@@ -6,8 +6,8 @@
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
 import {
-	buildCircleClipping, buildCircleIndex, buildCircleUv, buildCircleVertexAndStep,
-	CIRCLE_INDEX_COUNT, CIRCLE_VERTEX_COUNT
+	buildCircleClipping, buildCircleIndex, buildCircleStep, buildCircleUv,
+	buildCircleVertex, CIRCLE_INDEX_COUNT, CIRCLE_VERTEX_COUNT, CIRCLE_WORLD_SIZE
 } from "./build-circle";
 import { copyClipping } from "./copy-clipping";
 import { copyIndex } from "./copy-index";
@@ -35,16 +35,16 @@ export class EShapeLineOfCirclesUploaded extends EShapeLineOfAnyUploaded {
 			clippings,
 			voffset
 		);
-		buildCircleIndex(
-			indices,
-			voffset,
-			ioffset
-		);
 		copyClipping(
 			clippings,
 			voffset,
 			CIRCLE_VERTEX_COUNT,
 			pointCount
+		);
+		buildCircleIndex(
+			indices,
+			voffset,
+			ioffset
 		);
 		copyIndex(
 			indices,
@@ -130,15 +130,14 @@ export class EShapeLineOfCirclesUploaded extends EShapeLineOfAnyUploaded {
 				const pointSizeX = pointSize.getX( 0 );
 				const pointSizeY = pointSize.getY( 0 );
 
-				buildCircleVertexAndStep(
-					vertices, voffset, CIRCLE_VERTEX_COUNT,
-					steps, antialiases, clippings,
+				buildCircleVertex(
+					vertices, voffset,
 					0, 0,
 					pointSizeX, pointSizeY,
-					strokeAlign, strokeWidth, true,
+					strokeAlign, strokeWidth,
 					internalTransform,
-					antialiasWeight,
-					work, workStep
+					CIRCLE_WORLD_SIZE,
+					work
 				);
 				copyVertex(
 					vertices,
@@ -146,6 +145,14 @@ export class EShapeLineOfCirclesUploaded extends EShapeLineOfAnyUploaded {
 					voffset, CIRCLE_VERTEX_COUNT,
 					pointCount, pointsValues,
 					pointOffset
+				);
+				buildCircleStep(
+					steps, antialiases, clippings,
+					voffset,
+					strokeWidth,
+					antialiasWeight,
+					CIRCLE_WORLD_SIZE,
+					workStep
 				);
 				copyStep(
 					steps, antialiases,
@@ -159,15 +166,23 @@ export class EShapeLineOfCirclesUploaded extends EShapeLineOfAnyUploaded {
 					const py = pointsValues[ ip + 1 ] + pointOffset.getY( i );
 					const pointSizeX = pointSize.getX( i );
 					const pointSizeY = pointSize.getY( i );
-					buildCircleVertexAndStep(
-						vertices, voffset + i * CIRCLE_VERTEX_COUNT, CIRCLE_VERTEX_COUNT,
-						steps, antialiases, clippings,
+					const iv = voffset + i * CIRCLE_VERTEX_COUNT;
+					buildCircleVertex(
+						vertices, iv,
 						px, py,
 						pointSizeX, pointSizeY,
-						strokeAlign, strokeWidth, true,
+						strokeAlign, strokeWidth,
 						internalTransform,
+						CIRCLE_WORLD_SIZE,
+						work
+					);
+					buildCircleStep(
+						steps, antialiases, clippings,
+						iv,
+						strokeWidth,
 						antialiasWeight,
-						work, workStep
+						CIRCLE_WORLD_SIZE,
+						workStep
 					);
 				}
 			}
@@ -185,7 +200,11 @@ export class EShapeLineOfCirclesUploaded extends EShapeLineOfAnyUploaded {
 			const uvs = buffer.uvs;
 			const voffset = this.vertexOffset;
 			const textureUvs = this.toTextureUvs( texture );
-			buildCircleUv( voffset, textureUvs, uvs );
+			buildCircleUv(
+				voffset,
+				textureUvs,
+				uvs
+			);
 			copyUvs(
 				uvs,
 				voffset,

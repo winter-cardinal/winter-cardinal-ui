@@ -5,6 +5,7 @@ import { toStep } from "./to-step";
 
 export const CIRCLE_VERTEX_COUNT = 9;
 export const CIRCLE_INDEX_COUNT = 8;
+export const CIRCLE_WORLD_SIZE: [ number, number ] = [ 0, 0 ];
 
 export const buildCircleClipping = (
 	clippings: Float32Array,
@@ -87,24 +88,18 @@ export const buildCircleIndex = (
 	indices[ ii + 23 ] = voffset + 7;
 };
 
-export const buildCircleVertexAndStep = (
+export const buildCircleVertex = (
 	vertices: Float32Array,
 	voffset: number,
-	vcount: number,
-	steps: Float32Array,
-	antialiases: Float32Array,
-	clippings: Float32Array,
 	originX: number,
 	originY: number,
 	sizeX: number,
 	sizeY: number,
 	strokeAlign: number,
 	strokeWidth: number,
-	isStepsDirty: boolean,
 	internalTransform: Matrix,
-	antialiasWeight: number,
-	work: Point,
-	workStep: Float32Array
+	worldSize: [ number, number ],
+	work: Point
 ): void => {
 	// Calculate the transformed positions
 	//
@@ -160,26 +155,35 @@ export const buildCircleVertexAndStep = (
 	vertices[ iv + 16 ] = x7 + dx;
 	vertices[ iv + 17 ] = y7 + dy;
 
-	// Steps and antialiases
-	if( isStepsDirty ) {
-		const worldSizeX = toLength( x0, y0, x1, y1 );
-		toStep( worldSizeX, strokeWidth, antialiasWeight, workStep );
-		const swx = workStep[ 0 ];
-		const px0 = workStep[ 1 ];
-		const px1 = workStep[ 2 ];
+	worldSize[ 0 ] = toLength( x0, y0, x1, y1 );
+	worldSize[ 1 ] = toLength( x0, y0, x3, y3 );
+};
 
-		const worldSizeY = toLength( x0, y0, x3, y3 );
-		toStep( worldSizeY, strokeWidth, antialiasWeight, workStep );
-		const swy = workStep[ 0 ];
-		const py0 = workStep[ 1 ];
-		const py1 = workStep[ 2 ];
+export const buildCircleStep = (
+	steps: Float32Array,
+	antialiases: Float32Array,
+	clippings: Float32Array,
+	voffset: number,
+	strokeWidth: number,
+	antialiasWeight: number,
+	worldSize: [ number, number ],
+	workStep: Float32Array
+): void => {
+	toStep( worldSize[ 0 ], strokeWidth, antialiasWeight, workStep );
+	const swx = workStep[ 0 ];
+	const px0 = workStep[ 1 ];
+	const px1 = workStep[ 2 ];
 
-		buildStep(
-			steps, antialiases, clippings,
-			voffset, vcount,
-			swx, swy, px0, py0, px1, py1
-		);
-	}
+	toStep( worldSize[ 1 ], strokeWidth, antialiasWeight, workStep );
+	const swy = workStep[ 0 ];
+	const py0 = workStep[ 1 ];
+	const py1 = workStep[ 2 ];
+
+	buildStep(
+		steps, antialiases, clippings,
+		voffset, CIRCLE_VERTEX_COUNT,
+		swx, swy, px0, py0, px1, py1
+	);
 };
 
 export const buildCircleUv = (
