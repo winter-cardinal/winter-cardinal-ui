@@ -192,20 +192,20 @@ export class DViewImpl implements DView {
 	zoomAt( x: number, y: number, scaleX: number, scaleY: number, duration?: number, stop?: boolean ): void {
 		const target = this._toTarget( this._parent );
 		if( target ) {
-			// Canvas Scale
-			const oldCanvasScaleX = target.scale.x;
-			const oldCanvasScaleY = target.scale.y;
-			const newCanvasScaleX = this.toNormalizedScale( scaleX );
-			const newCanvasScaleY = this.toNormalizedScale( scaleY );
-			const canvasScaleRatioX = newCanvasScaleX / oldCanvasScaleX;
-			const canvasScaleRatioY = newCanvasScaleY / oldCanvasScaleY;
+			// Scale
+			const oldScaleX = target.scale.x;
+			const oldScaleY = target.scale.y;
+			const newScaleX = this.toNormalizedScale( scaleX );
+			const newScaleY = this.toNormalizedScale( scaleY );
+			const scaleRatioX = newScaleX / oldScaleX;
+			const scaleRatioY = newScaleY / oldScaleY;
 
-			// Canvas Position
-			const newCanvasX = (target.position.x - x) * canvasScaleRatioX + x;
-			const newCanvasY = (target.position.y - y) * canvasScaleRatioY + y;
+			// Position
+			const newX = (target.position.x - x) * scaleRatioX + x;
+			const newY = (target.position.y - y) * scaleRatioY + y;
 
-			// Canvas
-			this._transform.start( target, newCanvasX, newCanvasY, newCanvasScaleX, newCanvasScaleY, duration, stop );
+			// Start
+			this._transform.start( target, newX, newY, newScaleX, newScaleY, duration, stop );
 		}
 	}
 

@@ -54,10 +54,10 @@ export class DViewTransformImpl implements DViewTransform {
 		const x = this._oldX * w0 + this._newX * w1;
 		const y = this._oldY * w0 + this._newY * w1;
 
-		const canvas = this._toTarget( this._parent );
-		if( canvas != null ) {
-			canvas.scale.set( scaleX, scaleY );
-			canvas.position.set( x, y );
+		const target = this._toTarget( this._parent );
+		if( target != null ) {
+			target.scale.set( scaleX, scaleY );
+			target.position.set( x, y );
 		}
 	}
 
