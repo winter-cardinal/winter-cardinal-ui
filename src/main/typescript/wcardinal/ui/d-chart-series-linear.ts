@@ -224,9 +224,11 @@ export class DChartSeriesLinear extends DChartSeriesBase {
 		if( segments.length !== 0 ) {
 			segments.length = 0;
 		}
+		line.disallowUploadedUpdate();
 		line.points.set( values, segments );
 		line.size.set( sx, sy );
 		line.transform.position.set( cx, cy );
+		line.allowUploadedUpdate();
 		DApplications.update( line );
 	}
 
