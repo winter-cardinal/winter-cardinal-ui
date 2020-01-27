@@ -8,11 +8,10 @@ import { DynamicAtlas } from "../util/dynamic-atlas";
 import { DynamicSDFFontAtlases } from "../util/dynamic-sdf-font-atlases";
 import { EShape } from "./e-shape";
 import { EShapeBuffer } from "./e-shape-buffer";
-import "./e-shape-renderer";
 import { EShapeRenderer } from "./e-shape-renderer";
 
 export class EShapeContainer extends DisplayObject {
-	static SHAPE_RENDERER: EShapeRenderer | null = null;
+	protected _shapeRenderer: EShapeRenderer | null = null;
 
 	readonly children: EShape[];
 	protected _childrenId: number;
@@ -74,9 +73,9 @@ export class EShapeContainer extends DisplayObject {
 		const isChildrenDirty = childrenIdRendered < childrenId;
 		const children = this.children;
 
-		let shapeRenderer: EShapeRenderer | null = EShapeContainer.SHAPE_RENDERER;
+		let shapeRenderer: EShapeRenderer | null = this._shapeRenderer;
 		if( shapeRenderer == null ) {
-			shapeRenderer = EShapeContainer.SHAPE_RENDERER = new EShapeRenderer( renderer );
+			shapeRenderer = this._shapeRenderer = new EShapeRenderer( renderer );
 		}
 		renderer.batch.setObjectRenderer( shapeRenderer );
 

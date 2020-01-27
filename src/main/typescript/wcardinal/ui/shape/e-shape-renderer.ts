@@ -257,6 +257,8 @@ void main(void) {
 }`;
 
 export class EShapeRenderer extends ObjectRenderer {
+	static SHADER: Shader | null = null;
+
 	protected _shader: Shader | null;
 	protected _iterator: EShapeRendererIterator;
 	protected _bufferSize: number;
@@ -264,7 +266,8 @@ export class EShapeRenderer extends ObjectRenderer {
 
 	constructor( renderer: Renderer ) {
 		super( renderer );
-		this._shader = Shader.from( VERTEX_SHADER, FRAGMENT_SHADER );
+		EShapeRenderer.SHADER = EShapeRenderer.SHADER || Shader.from( VERTEX_SHADER, FRAGMENT_SHADER );
+		this._shader = EShapeRenderer.SHADER;
 		this._iterator = new EShapeRendererIterator();
 		this._bufferSize = 5000;
 		this._bufferSizeMax = this.getBufferSizeMax( renderer );

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Texture, TextureUvs, utils } from "pixi.js";
+import { Texture, TextureUvs } from "pixi.js";
 import { EShape } from "./e-shape";
 import { EShapeBuffer } from "./e-shape-buffer";
 import { EShapeBufferUnitBuilder } from "./e-shape-buffer-unit-builder";
