@@ -19,13 +19,6 @@ import { DView, DViewOptions } from "./d-view";
 import { DViewImpl } from "./d-view-impl";
 import { UtilWheelEventDeltas } from "./util/util-wheel-event";
 
-export enum DChartPlotAreaFitTarget {
-	NONE	= 0,
-	DOMAIN	= 1,
-	RANGE	= 2,
-	BOTH	= DOMAIN | RANGE
-}
-
 export interface DChartPlotAreaOptions<
 	THEME extends DThemeChartPlotArea = DThemeChartPlotArea
 > extends DBaseOptions<THEME> {
