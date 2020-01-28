@@ -233,10 +233,13 @@ export const buildRectangleVertex = (
 	const bx3 = bx0 + (bx2 - bx1);
 	const by3 = by0 + (by2 - by1);
 
-	const ax = Math.abs( sx );
-	const ay = Math.abs( sy );
+	const ax = toLength( bx0, by0, bx1, by1 ) * 0.5;
+	const ay = toLength( bx1, by1, bx2, by2 ) * 0.5;
+	worldSize[ 1 ] = ax;
+	worldSize[ 2 ] = ay;
 	if( ax <= ay ) {
 		const br = ax / ay;
+		worldSize[ 0 ] = br;
 		buildRectangleVertexVertical(
 			br,
 			bx0, by0,
@@ -249,6 +252,7 @@ export const buildRectangleVertex = (
 		);
 	} else {
 		const br = ay / ax;
+		worldSize[ 0 ] = br;
 		buildRectangleVertexVertical(
 			br,
 			bx3, by3,
@@ -259,9 +263,6 @@ export const buildRectangleVertex = (
 			voffset,
 			worldSize
 		);
-		const tmp = worldSize[ 1 ];
-		worldSize[ 1 ] = worldSize[ 2 ];
-		worldSize[ 2 ] = tmp;
 	}
 };
 
@@ -393,10 +394,6 @@ export const buildRectangleVertexVertical = (
 	vertices[ iv + 5 ] = y16;
 	vertices[ iv + 6 ] = x17;
 	vertices[ iv + 7 ] = y17;
-
-	worldSize[ 0 ] = br;
-	worldSize[ 1 ] = toLength( x0, y0, x1, y1 );
-	worldSize[ 2 ] = toLength( x1, y1, xc, yc );
 };
 
 export const buildRectangleStep = (
