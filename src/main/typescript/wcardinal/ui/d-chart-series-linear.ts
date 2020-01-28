@@ -93,13 +93,20 @@ export class DChartSeriesLinear extends DChartSeriesBase {
 				const parameters = this._parameters;
 				const isParametersChanged = parameters.isDirty();
 				const isCoordinateChanged = coordinate.isDirty( coordinateX, coordinateY );
+				const isCoordinateTransformChanged = coordinate.isTransformDirty( coordinateX, coordinateY );
 				const isPlotAreaSizeChagned = ( plotAreaWidth !== this._plotAreaSizeXUpdated ||
 					plotAreaHeight !== this._plotAreaSizeYUpdated );
-				if( isParametersChanged || isCoordinateChanged || isPlotAreaSizeChagned ) {
+				if( isParametersChanged || isCoordinateChanged || isCoordinateTransformChanged || isPlotAreaSizeChagned ) {
 					parameters.toClean();
 					this._plotAreaSizeXUpdated = plotAreaWidth;
 					this._plotAreaSizeYUpdated = plotAreaHeight;
-					this.updateLine( line, coordinateX, coordinateY, plotAreaWidth, plotAreaHeight );
+					this.updateLine(
+						line,
+						coordinateX,
+						coordinateY,
+						plotAreaWidth,
+						plotAreaHeight
+					);
 				}
 			}
 		}

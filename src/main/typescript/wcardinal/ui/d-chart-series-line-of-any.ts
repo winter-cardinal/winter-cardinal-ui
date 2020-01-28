@@ -147,9 +147,14 @@ export abstract class DChartSeriesLineOfAny extends DChartSeriesBase {
 				const pointId = this._pointId;
 				const isPointChanged = ( pointId !== this._pointIdUpdated );
 				const isCoordinateChanged = coordinate.isDirty( coordinateX, coordinateY );
-				if( isPointChanged || isCoordinateChanged ) {
+				const isCoordinateTransformChanged = coordinate.isTransformDirty( coordinateX, coordinateY );
+				if( isPointChanged || isCoordinateChanged || isCoordinateTransformChanged ) {
 					this._pointIdUpdated = pointId;
-					this.updateLine( line, coordinateX, coordinateY );
+					this.updateLine(
+						line,
+						coordinateX,
+						coordinateY
+					);
 				}
 			}
 		}

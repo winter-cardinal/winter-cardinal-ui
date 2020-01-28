@@ -57,16 +57,17 @@ export class DChartSeriesBaseCoordinateContainer implements DChartSeriesCoordina
 		const isCoordinateYChanged = ( coordinateIdY !== this._coordinateIdUpdatedY );
 		this._coordinateIdUpdatedX = coordinateIdX;
 		this._coordinateIdUpdatedY = coordinateIdY;
+		return ( isCoordinateXChanged || isCoordinateYChanged );
+	}
 
+	isTransformDirty( coordinateX: DChartCoordinate, coordinateY: DChartCoordinate ): boolean {
 		const coordinateTransformIdX = coordinateX.transform.id;
 		const coordinateTransformIdY = coordinateY.transform.id;
 		const isCoordinateTransformXChanged = ( coordinateTransformIdX !== this._coordinateTransformIdUpdatedX );
 		const isCoordinateTransformYChanged = ( coordinateTransformIdY !== this._coordinateTransformIdUpdatedY );
 		this._coordinateTransformIdUpdatedX = coordinateTransformIdX;
 		this._coordinateTransformIdUpdatedY = coordinateTransformIdY;
-
-		return ( isCoordinateXChanged || isCoordinateYChanged ||
-			isCoordinateTransformXChanged || isCoordinateTransformYChanged );
+		return ( isCoordinateTransformXChanged || isCoordinateTransformYChanged );
 	}
 
 	reset(): void {

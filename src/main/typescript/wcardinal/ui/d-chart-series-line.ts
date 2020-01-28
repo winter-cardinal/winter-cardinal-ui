@@ -33,6 +33,8 @@ export class DChartSeriesLine extends DChartSeriesBase {
 	protected _pointId: number;
 	protected _pointIdUpdated: number;
 	protected _stroke?: DChartSeriesStrokeComputed;
+	protected _centerX: number;
+	protected _centerY: number;
 
 	constructor( options?: DChartSeriesLineOptions ) {
 		super( options );
@@ -41,6 +43,8 @@ export class DChartSeriesLine extends DChartSeriesBase {
 		this._points = (options && options.points) || [];
 		this._pointId = 0;
 		this._pointIdUpdated = NaN;
+		this._centerX = 0;
+		this._centerY = 0;
 	}
 
 	bind( container: DChartSeriesContainer, index: number ): void {
@@ -90,9 +94,15 @@ export class DChartSeriesLine extends DChartSeriesBase {
 				const pointId = this._pointId;
 				const isPointChanged = ( pointId !== this._pointIdUpdated );
 				const isCoordinateChanged = coordinate.isDirty( coordinateX, coordinateY );
-				if( isPointChanged || isCoordinateChanged ) {
+				const isCoordinateTransformChanged = coordinate.isTransformDirty( coordinateX, coordinateY );
+				if( isPointChanged || isCoordinateChanged || isCoordinateTransformChanged ) {
 					this._pointIdUpdated = pointId;
-					this.updateLine( line, coordinateX, coordinateY );
+					this.updateLine(
+						line,
+						coordinateX,
+						coordinateY,
+						isPointChanged || isCoordinateChanged
+					);
 				}
 			}
 		}
@@ -101,87 +111,100 @@ export class DChartSeriesLine extends DChartSeriesBase {
 	protected updateLine(
 		line: EShapeLine,
 		xcoordinate: DChartCoordinate,
-		ycoordinate: DChartCoordinate
+		ycoordinate: DChartCoordinate,
+		isPointsDirty: boolean
 	): void {
-		const values = line.points.values;
-		const segments = line.points.segments;
-		const valuesLength = values.length;
-		const segmentsLength = segments.length;
-		let ivalues = 0;
-		let isegments = 0;
-		const points = this._points;
-		let xmin = NaN;
-		let xmax = NaN;
-		let ymin = NaN;
-		let ymax = NaN;
-		for( let i = 0, imax = points.length; i < imax; i += 2 ) {
-			const x = points[ i ];
-			const y = points[ i + 1 ];
-			if( x != null && y != null ) {
-				if( ivalues < valuesLength ) {
-					values[ ivalues ] = x;
-					values[ ivalues + 1 ] = y;
-				} else {
-					values.push( x, y );
-				}
-				ivalues += 2;
-				if( xmin !== xmin ) {
-					xmin = x;
-					xmax = x;
-					ymin = y;
-					ymax = y;
-				} else {
-					xmin = Math.min( xmin, x );
-					xmax = Math.max( xmax, x );
-					ymin = Math.min( ymin, y );
-					ymax = Math.max( ymax, y );
-				}
-			} else {
-				const segment = (i >> 1) - isegments;
-				if( isegments < segmentsLength ) {
-					segments[ isegments ] = segment;
-				} else {
-					segments.push( segment );
-				}
-				isegments += 1;
-			}
-		}
-		if( values.length !== ivalues ) {
-			values.length = ivalues;
-		}
-		if( segments.length !== isegments ) {
-			segments.length = isegments;
-		}
-
-		xcoordinate.mapAll( values, 0, ivalues, 2, 0 );
-		ycoordinate.mapAll( values, 0, ivalues, 2, 1 );
-		xcoordinate.transform.mapAll( values, 0, ivalues, 2, 0 );
-		ycoordinate.transform.mapAll( values, 0, ivalues, 2, 1 );
-
-		if( xmin !== xmin ) {
-			xmin = 0;
-			xmax = 0;
-			ymin = 0;
-			ymax = 0;
-		}
-
-		xmin = xcoordinate.transform.map( xcoordinate.map( xmin ) );
-		xmax = xcoordinate.transform.map( xcoordinate.map( xmax ) );
-		ymin = ycoordinate.transform.map( ycoordinate.map( ymin ) );
-		ymax = ycoordinate.transform.map( ycoordinate.map( ymax ) );
-
-		const sx = Math.abs( xmax - xmin );
-		const sy = Math.abs( ymax - ymin );
-		const cx = ( xmin + xmax ) * 0.5;
-		const cy = ( ymin + ymax ) * 0.5;
-		for( let i = 0, imax = values.length; i < imax; i += 2 ) {
-			values[ i + 0 ] -= cx;
-			values[ i + 1 ] -= cy;
-		}
 		line.disallowUploadedUpdate();
-		line.points.set( values, segments );
-		line.size.set( sx, sy );
-		line.transform.position.set( cx, cy );
+		if( isPointsDirty ) {
+			const values = line.points.values;
+			const segments = line.points.segments;
+			const valuesLength = values.length;
+			const segmentsLength = segments.length;
+			let ivalues = 0;
+			let isegments = 0;
+			const points = this._points;
+			let xmin = NaN;
+			let xmax = NaN;
+			let ymin = NaN;
+			let ymax = NaN;
+			for( let i = 0, imax = points.length; i < imax; i += 2 ) {
+				const x = points[ i ];
+				const y = points[ i + 1 ];
+				if( x != null && y != null ) {
+					if( ivalues < valuesLength ) {
+						values[ ivalues ] = x;
+						values[ ivalues + 1 ] = y;
+					} else {
+						values.push( x, y );
+					}
+					ivalues += 2;
+					if( xmin !== xmin ) {
+						xmin = x;
+						xmax = x;
+						ymin = y;
+						ymax = y;
+					} else {
+						xmin = Math.min( xmin, x );
+						xmax = Math.max( xmax, x );
+						ymin = Math.min( ymin, y );
+						ymax = Math.max( ymax, y );
+					}
+				} else {
+					const segment = (i >> 1) - isegments;
+					if( isegments < segmentsLength ) {
+						segments[ isegments ] = segment;
+					} else {
+						segments.push( segment );
+					}
+					isegments += 1;
+				}
+			}
+			if( values.length !== ivalues ) {
+				values.length = ivalues;
+			}
+			if( segments.length !== isegments ) {
+				segments.length = isegments;
+			}
+
+			xcoordinate.mapAll( values, 0, ivalues, 2, 0 );
+			ycoordinate.mapAll( values, 0, ivalues, 2, 1 );
+
+			if( xmin !== xmin ) {
+				xmin = 0;
+				xmax = 0;
+				ymin = 0;
+				ymax = 0;
+			}
+
+			xmin = xcoordinate.map( xmin );
+			xmax = xcoordinate.map( xmax );
+			ymin = ycoordinate.map( ymin );
+			ymax = ycoordinate.map( ymax );
+
+			const sx = Math.abs( xmax - xmin );
+			const sy = Math.abs( ymax - ymin );
+			const cx = ( xmin + xmax ) * 0.5;
+			const cy = ( ymin + ymax ) * 0.5;
+			for( let i = 0, imax = values.length; i < imax; i += 2 ) {
+				values[ i + 0 ] -= cx;
+				values[ i + 1 ] -= cy;
+			}
+
+			line.size.set( sx, sy );
+			line.points.set( values, segments );
+			this._centerX = cx;
+			this._centerY = cy;
+		}
+
+		line.transform.position.set(
+			xcoordinate.transform.map( this._centerX ),
+			ycoordinate.transform.map( this._centerY )
+		);
+		line.transform.scale.set(
+			xcoordinate.transform.scale,
+			ycoordinate.transform.scale
+		);
+
 		line.allowUploadedUpdate();
 		DApplications.update( line );
 	}
