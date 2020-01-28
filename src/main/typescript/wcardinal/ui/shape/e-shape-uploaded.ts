@@ -143,7 +143,7 @@ export abstract class EShapeUploadedBase implements EShapeUploaded {
 		if( color !== this.colorFill || alpha !== this.alphaFill ) {
 			this.colorFill = color;
 			this.alphaFill = alpha;
-			buffer.colorFillBuffer.update();
+			buffer.updateColorFills();
 
 			buildColor(
 				color, alpha,
@@ -162,7 +162,7 @@ export abstract class EShapeUploadedBase implements EShapeUploaded {
 		if( color !== this.colorStroke || alpha !== this.alphaStroke ) {
 			this.colorStroke = color;
 			this.alphaStroke = alpha;
-			buffer.colorStrokeBuffer.update();
+			buffer.updateColorStrokes();
 
 			buildColor(
 				color, alpha,

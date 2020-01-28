@@ -19,7 +19,7 @@ export const createCircle = (
 	const ticount = tcount * TEXT_INDEX_COUNT;
 	const vcount = CIRCLE_VERTEX_COUNT + tvcount;
 	const icount = CIRCLE_INDEX_COUNT + ticount;
-	if( voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity ) {
+	if( buffer.check( voffset, ioffset, vcount, icount ) ) {
 		return new EShapeCircleUploaded(
 			buffer,
 			voffset, ioffset,

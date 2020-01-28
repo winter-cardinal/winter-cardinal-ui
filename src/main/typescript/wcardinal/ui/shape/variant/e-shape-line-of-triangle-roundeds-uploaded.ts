@@ -26,7 +26,7 @@ export class EShapeLineOfTriangleRoundedsUploaded extends EShapeLineOfAnyUploade
 
 		// Indices
 		const buffer = this.buffer;
-		buffer.indexBuffer.update();
+		buffer.updateIndices();
 		const voffset = this.vertexOffset;
 		const ioffset = this.indexOffset;
 		const pointCountReserved = this.pointCountReserved;
@@ -123,16 +123,15 @@ export class EShapeLineOfTriangleRoundedsUploaded extends EShapeLineOfAnyUploade
 			}
 
 			// Buffer
-			buffer.vertexBuffer.update();
+			buffer.updateVertices();
 			if( isVertexChanged || isCornerChanged ) {
-				buffer.clippingBuffer.update();
+				buffer.updateClippings();
 			}
 			if( isVertexChanged || isTransformChanged || isCornerChanged ) {
-				buffer.stepBuffer.update();
-				buffer.antialiasBuffer.update();
+				buffer.updateSteps();
 			}
 			if( isVertexChanged || isTextureChanged ) {
-				buffer.uvBuffer.update();
+				buffer.updateUvs();
 			}
 			const pointCount = this.pointCount;
 			const pointsValues = points.values;

@@ -13,7 +13,7 @@ export const createBarUploaded = (
 	const ticount = tcount * TEXT_INDEX_COUNT;
 	const vcount = 4 + tvcount;
 	const icount = 2 + ticount;
-	if( voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity ) {
+	if( buffer.check( voffset, ioffset, vcount, icount ) ) {
 		return new EShapeBarUploaded(
 			buffer,
 			voffset, ioffset,

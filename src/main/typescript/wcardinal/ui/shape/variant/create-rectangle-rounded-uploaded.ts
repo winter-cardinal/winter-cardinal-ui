@@ -19,7 +19,7 @@ export const createRectangleRoundedUploaded = (
 	const ticount = tcount * TEXT_INDEX_COUNT;
 	const vcount = RECTANGLE_ROUNDED_VERTEX_COUNT + tvcount;
 	const icount = RECTANGLE_ROUNDED_INDEX_COUNT + ticount;
-	if( voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity ) {
+	if( buffer.check( voffset, ioffset, vcount, icount ) ) {
 		return new EShapeRectangleRoundedUploaded(
 			buffer,
 			voffset, ioffset,

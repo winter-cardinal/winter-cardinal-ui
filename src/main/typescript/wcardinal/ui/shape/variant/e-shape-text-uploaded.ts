@@ -86,7 +86,7 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 			// Clippings
 			const buffer = this.buffer;
 			const voffset = this.textVertexOffset;
-			buffer.clippingBuffer.update();
+			buffer.updateClippings();
 			buildTextClipping(
 				buffer.clippings,
 				voffset,
@@ -94,7 +94,7 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 			);
 
 			// Indices
-			buffer.indexBuffer.update();
+			buffer.updateIndices();
 			buildTextIndex(
 				buffer.indices,
 				voffset,
@@ -190,8 +190,8 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 			}
 
 			// Vertices & UVs
-			buffer.vertexBuffer.update();
-			buffer.uvBuffer.update();
+			buffer.updateVertices();
+			buffer.updateUvs();
 			const shapeSize = shape.size;
 			const textWorld = text.world = text.world || new Float32Array( 8 );
 			buildTextVertex(
@@ -232,7 +232,7 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 		if( color !== this.textColor || alpha !== this.textAlpha ) {
 			this.textColor = color;
 			this.textAlpha = alpha;
-			buffer.colorFillBuffer.update();
+			buffer.updateColorFills();
 
 			buildColor(
 				color, alpha,
@@ -251,7 +251,7 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 		if( color !== this.textOutlineColor || alpha !== this.textOutlineAlpha ) {
 			this.textOutlineColor = color;
 			this.textOutlineAlpha = alpha;
-			buffer.colorStrokeBuffer.update();
+			buffer.updateColorStrokes();
 
 			buildColor(
 				color, alpha,
@@ -271,8 +271,7 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 			this.textWeight = textWeight;
 			this.textOutlineWidth = textOutlineWidth;
 
-			buffer.stepBuffer.update();
-			buffer.antialiasBuffer.update();
+			buffer.updateSteps();
 			buildTextStep(
 				buffer.steps,
 				buffer.antialiases,

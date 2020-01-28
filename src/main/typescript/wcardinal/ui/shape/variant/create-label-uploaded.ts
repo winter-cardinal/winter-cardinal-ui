@@ -18,7 +18,7 @@ export const createLabelUploaded = (
 	const ticount = tcount * TEXT_INDEX_COUNT;
 	const vcount = tvcount;
 	const icount = ticount;
-	if( voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity ) {
+	if( buffer.check( voffset, ioffset, vcount, icount ) ) {
 		return new EShapeLabelUploaded(
 			buffer,
 			voffset, ioffset,

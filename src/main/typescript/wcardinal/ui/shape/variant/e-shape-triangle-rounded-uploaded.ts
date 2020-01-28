@@ -17,7 +17,7 @@ export class EShapeTriangleRoundedUploaded extends EShapeTextUploaded {
 
 		// Indices
 		const buffer = this.buffer;
-		buffer.indexBuffer.update();
+		buffer.updateIndices();
 		buildTriangleRoundedIndex(
 			buffer.indices,
 			this.vertexOffset,
@@ -83,7 +83,7 @@ export class EShapeTriangleRoundedUploaded extends EShapeTextUploaded {
 			const voffset = this.vertexOffset;
 			const work = buffer.work;
 
-			buffer.vertexBuffer.update();
+			buffer.updateVertices();
 			buildTriangleRoundedVertex(
 				buffer.vertices,
 				voffset,
@@ -100,7 +100,7 @@ export class EShapeTriangleRoundedUploaded extends EShapeTextUploaded {
 			);
 
 			if( isRadiusChanged || isCornerChanged ) {
-				buffer.clippingBuffer.update();
+				buffer.updateClippings();
 				buildTriangleRoundedClipping(
 					buffer.clippings,
 					voffset,
@@ -110,8 +110,7 @@ export class EShapeTriangleRoundedUploaded extends EShapeTextUploaded {
 			}
 
 			if( isVertexChanged || isTransformChanged || isCornerChanged ) {
-				buffer.stepBuffer.update();
-				buffer.antialiasBuffer.update();
+				buffer.updateSteps();
 				buildTriangleRoundedStep(
 					buffer.steps,
 					buffer.antialiases,
@@ -126,7 +125,7 @@ export class EShapeTriangleRoundedUploaded extends EShapeTextUploaded {
 			}
 
 			if( isVertexChanged || isTextureChanged ) {
-				buffer.uvBuffer.update();
+				buffer.updateUvs();
 				buildTriangleRoundedUv(
 					buffer.uvs,
 					voffset,

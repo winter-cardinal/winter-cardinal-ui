@@ -17,7 +17,7 @@ export class EShapeRectangleUploaded extends EShapeTextUploaded {
 
 		// Indices
 		const buffer = this.buffer;
-		buffer.indexBuffer.update();
+		buffer.updateIndices();
 		buildRectangleIndex(
 			buffer.indices,
 			this.vertexOffset,
@@ -77,7 +77,7 @@ export class EShapeRectangleUploaded extends EShapeTextUploaded {
 
 			// Vertices
 			const voffset = this.vertexOffset;
-			buffer.vertexBuffer.update();
+			buffer.updateVertices();
 			buildRectangleVertex(
 				buffer.vertices, voffset,
 				0, 0,
@@ -90,8 +90,7 @@ export class EShapeRectangleUploaded extends EShapeTextUploaded {
 
 			// Steps & antialiases
 			if( isVertexChanged || isTransformChanged ) {
-				buffer.stepBuffer.update();
-				buffer.antialiasBuffer.update();
+				buffer.updateSteps();
 				buildRectangleStep(
 					voffset,
 					buffer.steps, buffer.antialiases,
@@ -104,7 +103,7 @@ export class EShapeRectangleUploaded extends EShapeTextUploaded {
 
 			// Clippings
 			if( isVertexChanged ) {
-				buffer.clippingBuffer.update();
+				buffer.updateClippings();
 				buildRectangleClipping(
 					buffer.clippings,
 					voffset,
@@ -114,7 +113,7 @@ export class EShapeRectangleUploaded extends EShapeTextUploaded {
 
 			// UVs
 			if( isVertexChanged || isTextureChanged ) {
-				buffer.uvBuffer.update();
+				buffer.updateUvs();
 				buildRectangleUv(
 					buffer.uvs,
 					voffset,

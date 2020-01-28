@@ -37,9 +37,9 @@ export class EShapeBarUploaded extends EShapeTextUploaded {
 		const ioffset = this.indexOffset;
 
 		// Clipping & indices
-		buffer.clippingBuffer.update();
+		buffer.updateClippings();
 		const clippings = buffer.clippings;
-		buffer.indexBuffer.update();
+		buffer.updateIndices();
 		const indices = buffer.indices;
 
 		// Clippings
@@ -101,10 +101,9 @@ export class EShapeBarUploaded extends EShapeTextUploaded {
 				this.transformLocalId = transformLocalId;
 				this.pointsId = pointsId;
 				this.pointsStyle = pointsStyle;
-				buffer.vertexBuffer.update();
-				buffer.stepBuffer.update();
-				buffer.antialiasBuffer.update();
-				buffer.colorFillBuffer.update();
+				buffer.updateVertices();
+				buffer.updateSteps();
+				buffer.updateColorFills();
 
 				if( isSizeChanged || isTransformChanged ) {
 					// Invalidate the text layout to update the text layout.
@@ -250,7 +249,7 @@ export class EShapeBarUploaded extends EShapeTextUploaded {
 			const textureUvs = this.toTextureUvs( texture );
 
 			// Uvs
-			buffer.uvBuffer.update();
+			buffer.updateUvs();
 			const uvs = buffer.uvs;
 			const voffset = this.vertexOffset;
 			const iuv = voffset * 2;

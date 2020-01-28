@@ -17,8 +17,8 @@ export class EShapeCircleUploaded extends EShapeTextUploaded {
 
 		// Clippings & indices
 		const buffer = this.buffer;
-		buffer.clippingBuffer.update();
-		buffer.indexBuffer.update();
+		buffer.updateClippings();
+		buffer.updateIndices();
 		const voffset = this.vertexOffset;
 		buildCircleClipping(
 			buffer.clippings,
@@ -70,9 +70,8 @@ export class EShapeCircleUploaded extends EShapeTextUploaded {
 			this.textSpacingHorizontal = NaN;
 
 			// Buffer
-			buffer.vertexBuffer.update();
-			buffer.stepBuffer.update();
-			buffer.antialiasBuffer.update();
+			buffer.updateVertices();
+			buffer.updateSteps();
 			buildCircleVertex(
 				buffer.vertices, this.vertexOffset,
 				0, 0,
@@ -100,7 +99,7 @@ export class EShapeCircleUploaded extends EShapeTextUploaded {
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
 
-			buffer.uvBuffer.update();
+			buffer.updateUvs();
 			const textureUvs = this.toTextureUvs( texture );
 			buildCircleUv(
 				buffer.uvs,

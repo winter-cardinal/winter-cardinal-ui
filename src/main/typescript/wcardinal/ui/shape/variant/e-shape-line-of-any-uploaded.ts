@@ -63,7 +63,7 @@ export abstract class EShapeLineOfAnyUploaded extends EShapeTextUploaded {
 			this.colorFill = colorFill;
 			this.alphaFill = alphaFill;
 			this.pointFillId = pointFillId;
-			buffer.colorFillBuffer.update();
+			buffer.updateColorFills();
 			buildLineOfAnyColor(
 				this.vertexOffset,
 				vcountPerPoint,
@@ -95,7 +95,7 @@ export abstract class EShapeLineOfAnyUploaded extends EShapeTextUploaded {
 			this.colorStroke = colorStroke;
 			this.alphaStroke = alphaStroke;
 			this.pointStrokeId = pointStrokeId;
-			buffer.colorStrokeBuffer.update();
+			buffer.updateColorStrokes();
 			buildLineOfAnyColor(
 				this.vertexOffset,
 				vcountPerPoint,

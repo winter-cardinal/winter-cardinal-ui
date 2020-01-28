@@ -19,7 +19,7 @@ export const createRectangleUploaded = (
 	const ticount = tcount * TEXT_INDEX_COUNT;
 	const vcount = RECTANGLE_VERTEX_COUNT + tvcount;
 	const icount = RECTANGLE_INDEX_COUNT + ticount;
-	if( voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity ) {
+	if( buffer.check( voffset, ioffset, vcount, icount ) ) {
 		return new EShapeRectangleUploaded(
 			buffer,
 			voffset, ioffset,

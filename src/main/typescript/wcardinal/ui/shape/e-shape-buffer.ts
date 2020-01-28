@@ -13,37 +13,38 @@ import { EShapeUploadeds } from "./e-shape-uploadeds";
 
 export class EShapeBuffer {
 	vertices: Float32Array;
-	vertexCapacity: number;
-	protected vertexCount: number;
-	vertexBuffer: Buffer;
+	protected _vertexCapacity: number;
+	protected _vertexCount: number;
+	protected _vertexBuffer: Buffer | null;
 
 	clippings: Float32Array;
-	clippingBuffer: Buffer;
+	protected _clippingBuffer: Buffer | null;
 
 	steps: Float32Array;
-	stepBuffer: Buffer;
+	protected _stepBuffer: Buffer | null;
 
 	antialiases: Float32Array;
-	antialiasBuffer: Buffer;
+	protected _antialiasBuffer: Buffer | null;
 
 	colorFills: Float32Array;
-	colorFillBuffer: Buffer;
+	protected _colorFillBuffer: Buffer | null;
 
 	colorStrokes: Float32Array;
-	colorStrokeBuffer: Buffer;
+	protected _colorStrokeBuffer: Buffer | null;
 
 	uvs: Float32Array;
-	uvBuffer: Buffer;
+	protected _uvBuffer: Buffer | null;
 
 	indices: Uint16Array | Uint32Array;
-	indexCapacity: number;
-	protected indexCount: number;
-	indexBuffer: Buffer;
+	protected _indexCapacity: number;
+	protected _indexCount: number;
+	indexCountRequested: number;
+	protected _indexBuffer: Buffer | null;
 
-	protected renderer: Renderer;
-	protected geometry: Geometry;
+	protected _renderer: Renderer;
+	protected _geometry: Geometry | null;
 
-	protected builder: EShapeBufferUnitBuilder;
+	protected _builder: EShapeBufferUnitBuilder;
 
 	work: Point;
 	workStep: Float32Array;
@@ -53,61 +54,132 @@ export class EShapeBuffer {
 		const nvertices = nindices;
 
 		this.vertices = new Float32Array( nvertices * 2 );
-		this.vertexCapacity = nvertices;
-		this.vertexCount = 0;
-		this.vertexBuffer = new Buffer( this.vertices, false, false );
+		this._vertexCapacity = nvertices;
+		this._vertexCount = 0;
+		this._vertexBuffer = null;
 
 		this.clippings = new Float32Array( nvertices * 3 );
-		this.clippingBuffer = new Buffer( this.clippings, false, false );
+		this._clippingBuffer = null;
 
 		this.steps = new Float32Array( nvertices * 2 );
-		this.stepBuffer = new Buffer( this.steps, false, false );
+		this._stepBuffer = null;
 
 		this.antialiases = new Float32Array( nvertices * 4 );
-		this.antialiasBuffer = new Buffer( this.antialiases, false, false );
+		this._antialiasBuffer = null;
 
 		this.colorFills = new Float32Array( nvertices * 4 );
-		this.colorFillBuffer = new Buffer( this.colorFills, false, false );
+		this._colorFillBuffer = null;
 
 		this.colorStrokes = new Float32Array( nvertices * 4 );
-		this.colorStrokeBuffer = new Buffer( this.colorStrokes, false, false );
+		this._colorStrokeBuffer = null;
 
 		this.uvs = new Float32Array( nvertices * 2 );
-		this.uvBuffer = new Buffer( this.uvs, false, false );
+		this._uvBuffer = new Buffer( this.uvs, false, false );
 
 		const isIndicesShort = ( nvertices <= 65535 );
 		this.indices = ( isIndicesShort ? new Uint16Array( nindices ) : new Uint32Array( nindices ) );
-		this.indexCapacity = ntriangles;
-		this.indexCount = 0;
-		this.indexBuffer = new Buffer( this.indices, false, true );
+		this._indexCapacity = ntriangles;
+		this._indexCount = 0;
+		this.indexCountRequested = 0;
+		this._indexBuffer = null;
 
-		this.renderer = renderer;
+		this._renderer = renderer;
 
-		this.builder = new EShapeBufferUnitBuilder();
+		this._builder = new EShapeBufferUnitBuilder();
 
 		this.work = new Point();
 		this.workStep = new Float32Array( 3 );
 
-		this.geometry = new Geometry()
-			.addIndex( this.indexBuffer )
-			.addAttribute( "aPosition", this.vertexBuffer, 2 )
-			.addAttribute( "aClipping", this.clippingBuffer, 3 )
-			.addAttribute( "aStep", this.stepBuffer, 2 )
-			.addAttribute( "aAntialias", this.antialiasBuffer, 4 )
-			.addAttribute( "aColorFill", this.colorFillBuffer, 4 )
-			.addAttribute( "aColorStroke", this.colorStrokeBuffer, 4 )
-			.addAttribute( "aUv", this.uvBuffer, 2 );
+		this._geometry = null;
+	}
+
+	updateVertices(): void {
+		const vertexBuffer = this._vertexBuffer;
+		if( vertexBuffer ) {
+			vertexBuffer.update();
+		}
+	}
+
+	updateClippings(): void {
+		const clippingBuffer = this._clippingBuffer;
+		if( clippingBuffer ) {
+			clippingBuffer.update();
+		}
+	}
+
+	updateSteps(): void {
+		const stepBuffer = this._stepBuffer;
+		if( stepBuffer ) {
+			stepBuffer.update();
+		}
+		const antialiasBuffer = this._antialiasBuffer;
+		if( antialiasBuffer ) {
+			antialiasBuffer.update();
+		}
+	}
+
+	updateColorFills(): void {
+		const colorFillBuffer = this._colorFillBuffer;
+		if( colorFillBuffer ) {
+			colorFillBuffer.update();
+		}
+	}
+
+	updateColorStrokes(): void {
+		const colorStrokeBuffer = this._colorStrokeBuffer;
+		if( colorStrokeBuffer ) {
+			colorStrokeBuffer.update();
+		}
+	}
+
+	updateUvs(): void {
+		const uvBuffer = this._uvBuffer;
+		if( uvBuffer ) {
+			uvBuffer.update();
+		}
+	}
+
+	updateIndices(): void {
+		const indexBuffer = this._indexBuffer;
+		if( indexBuffer ) {
+			indexBuffer.update();
+		}
+	}
+
+	protected getGeometry(): Geometry {
+		let result = this._geometry;
+		if( result == null ) {
+			this._vertexBuffer = new Buffer( this.vertices, false, false );
+			this._clippingBuffer = new Buffer( this.clippings, false, false );
+			this._stepBuffer = new Buffer( this.steps, false, false );
+			this._antialiasBuffer = new Buffer( this.antialiases, false, false );
+			this._colorFillBuffer = new Buffer( this.colorFills, false, false );
+			this._colorStrokeBuffer = new Buffer( this.colorStrokes, false, false );
+			this._uvBuffer = new Buffer( this.uvs, false, false );
+			this._indexBuffer = new Buffer( this.indices, false, true );
+
+			this._geometry = result = new Geometry()
+				.addIndex( this._indexBuffer )
+				.addAttribute( "aPosition", this._vertexBuffer, 2 )
+				.addAttribute( "aClipping", this._clippingBuffer, 3 )
+				.addAttribute( "aStep", this._stepBuffer, 2 )
+				.addAttribute( "aAntialias", this._antialiasBuffer, 4 )
+				.addAttribute( "aColorFill", this._colorFillBuffer, 4 )
+				.addAttribute( "aColorStroke", this._colorStrokeBuffer, 4 )
+				.addAttribute( "aUv", this._uvBuffer, 2 );
+		}
+		return result;
 	}
 
 	upload(): void {
-		this.renderer.geometry.bind( this.geometry );
+		this._renderer.geometry.bind( this.getGeometry() );
 	}
 
 	render( shader: Shader ): void {
-		const renderer = this.renderer;
-		renderer.geometry.bind( this.geometry );
+		const renderer = this._renderer;
+		renderer.geometry.bind( this.getGeometry() );
 
-		const units = this.builder.units;
+		const units = this._builder.units;
 		const unitCount = units.length;
 		if( 0 < unitCount ) {
 			const type = DRAW_MODES.TRIANGLES;
@@ -131,7 +203,7 @@ export class EShapeBuffer {
 				}
 			}
 
-			vcount = this.indexCount * 3 - ioffset1;
+			vcount = this._indexCount * 3 - ioffset1;
 			texture = unit1.texture || Texture.WHITE;
 			if( 0 < vcount && texture.valid ) {
 				shader.uniforms.sampler = renderer.texture.bind( texture );
@@ -149,8 +221,8 @@ export class EShapeBuffer {
 		);
 	}
 
-	update( iterator: EShapeRendererIterator, antialiasWeight: number ): boolean {
-		const builder = this.builder;
+	update( iterator: EShapeRendererIterator, antialiasWeight: number, noMoreThanOne: boolean ): boolean {
+		const builder = this._builder;
 		builder.begin();
 
 		let vindex = 0;
@@ -167,6 +239,14 @@ export class EShapeBuffer {
 
 			vindex += uploaded.getVertexCount();
 			iindex += uploaded.getIndexCount();
+
+			if( noMoreThanOne ) {
+				iterator.next();
+				builder.end();
+				this._vertexCount = vindex;
+				this._indexCount = iindex;
+				return 0 < builder.units.length;
+			}
 		}
 
 		for( ; shape != null; shape = iterator.next() ) {
@@ -183,17 +263,29 @@ export class EShapeBuffer {
 			uploaded.buildUnit( builder );
 			vindex += uploaded.getVertexCount();
 			iindex += uploaded.getIndexCount();
+
+			if( noMoreThanOne ) {
+				iterator.next();
+				break;
+			}
 		}
 
 		builder.end();
-		this.vertexCount = vindex;
-		this.indexCount = iindex;
-
+		this._vertexCount = vindex;
+		this._indexCount = iindex;
 		return 0 < builder.units.length;
 	}
 
+	check( vindex: number, ioffset: number, vcount: number, icount: number ): boolean {
+		this.indexCountRequested = icount;
+		return vindex + vcount <= this._vertexCapacity && ioffset + icount <= this._indexCapacity;
+	}
+
 	destroy(): void {
-		this.geometry.destroy();
-		this.builder.destroy();
+		const geometry = this._geometry;
+		if( geometry ) {
+			geometry.destroy();
+		}
+		this._builder.destroy();
 	}
 }

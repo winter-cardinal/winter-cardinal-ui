@@ -37,7 +37,7 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 
 		// Clipping & indices
 		const buffer = this.buffer;
-		buffer.indexBuffer.update();
+		buffer.updateIndices();
 		buildLineIndex(
 			buffer.indices,
 			this.vertexOffset,
@@ -84,7 +84,7 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 				// Invalidate the pointId to update the vertices
 				this.pointId = -1;
 
-				buffer.clippingBuffer.update();
+				buffer.updateClippings();
 				buildLineClipping(
 					buffer.clippings,
 					this.vertexOffset,
@@ -123,10 +123,9 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 					this.textureTransformId = NaN;
 				}
 
-				buffer.vertexBuffer.update();
-				buffer.stepBuffer.update();
-				buffer.antialiasBuffer.update();
-				buffer.colorFillBuffer.update();
+				buffer.updateVertices();
+				buffer.updateSteps();
+				buffer.updateColorFills();
 				this.length = buildLineVertexStepAndColorFill(
 					buffer.vertices,
 					buffer.steps,
@@ -159,7 +158,7 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 			this.textureTransformId = textureTransformId;
 
 			const pointCount = this.pointCount;
-			buffer.uvBuffer.update();
+			buffer.updateUvs();
 			buildLineUv(
 				buffer.uvs,
 				buffer.colorFills,

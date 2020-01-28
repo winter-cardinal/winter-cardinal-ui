@@ -25,8 +25,8 @@ export class EShapeLineOfCirclesUploaded extends EShapeLineOfAnyUploaded {
 
 		// Clippings & indices
 		const buffer = this.buffer;
-		buffer.clippingBuffer.update();
-		buffer.indexBuffer.update();
+		buffer.updateClippings();
+		buffer.updateIndices();
 		const clippings = buffer.clippings;
 		const indices = buffer.indices;
 		const voffset = this.vertexOffset;
@@ -116,9 +116,8 @@ export class EShapeLineOfCirclesUploaded extends EShapeLineOfAnyUploaded {
 			}
 
 			// Buffer
-			buffer.vertexBuffer.update();
-			buffer.stepBuffer.update();
-			buffer.antialiasBuffer.update();
+			buffer.updateVertices();
+			buffer.updateSteps();
 			const pointCount = this.pointCount;
 			const pointsValues = points.values;
 			const voffset = this.vertexOffset;
@@ -215,7 +214,7 @@ export class EShapeLineOfCirclesUploaded extends EShapeLineOfAnyUploaded {
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
 
-			buffer.uvBuffer.update();
+			buffer.updateUvs();
 			const uvs = buffer.uvs;
 			const voffset = this.vertexOffset;
 			const textureUvs = this.toTextureUvs( texture );

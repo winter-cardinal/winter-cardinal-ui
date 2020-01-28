@@ -26,7 +26,7 @@ export class EShapeLineOfRectanglesUploaded extends EShapeLineOfAnyUploaded {
 
 		// Indices
 		const buffer = this.buffer;
-		buffer.indexBuffer.update();
+		buffer.updateIndices();
 		const indices = buffer.indices;
 		const voffset = this.vertexOffset;
 		const ioffset = this.indexOffset;
@@ -113,16 +113,15 @@ export class EShapeLineOfRectanglesUploaded extends EShapeLineOfAnyUploaded {
 			}
 
 			// Buffer
-			buffer.vertexBuffer.update();
+			buffer.updateVertices();
 			if( isVertexChanged || isTransformChanged ) {
-				buffer.stepBuffer.update();
-				buffer.antialiasBuffer.update();
+				buffer.updateSteps();
 			}
 			if( isVertexChanged ) {
-				buffer.clippingBuffer.update();
+				buffer.updateClippings();
 			}
 			if( isVertexChanged || isTextureChanged ) {
-				buffer.uvBuffer.update();
+				buffer.updateUvs();
 			}
 			const pointCount = this.pointCount;
 			const pointsValues = points.values;

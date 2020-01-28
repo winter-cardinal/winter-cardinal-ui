@@ -24,8 +24,8 @@ export class EShapeLineOfTrianglesUploaded extends EShapeLineOfAnyUploaded {
 		super.init( shape );
 
 		const buffer = this.buffer;
-		buffer.clippingBuffer.update();
-		buffer.indexBuffer.update();
+		buffer.updateClippings();
+		buffer.updateIndices();
 		const clippings = buffer.clippings;
 		const indices = buffer.indices;
 		const voffset = this.vertexOffset;
@@ -120,13 +120,12 @@ export class EShapeLineOfTrianglesUploaded extends EShapeLineOfAnyUploaded {
 			}
 
 			// Buffer
-			buffer.vertexBuffer.update();
+			buffer.updateVertices();
 			if( isVertexChanged || isTransformChanged ) {
-				buffer.stepBuffer.update();
-				buffer.antialiasBuffer.update();
+				buffer.updateSteps();
 			}
 			if( isVertexChanged || isTextureChanged ) {
-				buffer.uvBuffer.update();
+				buffer.updateUvs();
 			}
 
 			const pointCount = this.pointCount;

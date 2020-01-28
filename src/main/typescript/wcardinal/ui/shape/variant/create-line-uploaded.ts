@@ -21,7 +21,7 @@ export const createLineUploaded = (
 	const ticount = tcount * TEXT_INDEX_COUNT;
 	const vcount = toLineVertexCount( pointCount ) + tvcount;
 	const icount = vcount - tvcount - 2 + ticount;
-	if( voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity ) {
+	if( buffer.check( voffset, ioffset, vcount, icount ) ) {
 		return new EShapeLineUploaded(
 			buffer,
 			voffset, ioffset,

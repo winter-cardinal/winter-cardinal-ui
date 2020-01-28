@@ -17,7 +17,7 @@ export class EShapeRectangleRoundedUploaded extends EShapeTextUploaded {
 
 		// Indices
 		const buffer = this.buffer;
-		buffer.indexBuffer.update();
+		buffer.updateIndices();
 		buildRectangleRoundedIndex(
 			buffer.indices,
 			this.vertexOffset,
@@ -83,7 +83,7 @@ export class EShapeRectangleRoundedUploaded extends EShapeTextUploaded {
 
 			// Vertices
 			const voffset = this.vertexOffset;
-			buffer.vertexBuffer.update();
+			buffer.updateVertices();
 			buildRectangleRoundedVertex(
 				buffer.vertices, voffset,
 				0, 0,
@@ -96,8 +96,7 @@ export class EShapeRectangleRoundedUploaded extends EShapeTextUploaded {
 
 			// Steps & antialiases
 			if( isVertexChanged || isTransformChanged ) {
-				buffer.stepBuffer.update();
-				buffer.antialiasBuffer.update();
+				buffer.updateSteps();
 				buildRectangleRoundedStep(
 					buffer.steps,
 					buffer.antialiases,
@@ -112,7 +111,7 @@ export class EShapeRectangleRoundedUploaded extends EShapeTextUploaded {
 
 			// Clippings
 			if( isVertexChanged || isCornerChanged ) {
-				buffer.clippingBuffer.update();
+				buffer.updateClippings();
 				buildRectangleRoundedClipping(
 					buffer.clippings,
 					voffset,
@@ -123,7 +122,7 @@ export class EShapeRectangleRoundedUploaded extends EShapeTextUploaded {
 
 			// UVs
 			if( isVertexChanged || isTextureChanged ) {
-				buffer.uvBuffer.update();
+				buffer.updateUvs();
 				buildRectangleRoundedUv(
 					buffer.uvs,
 					voffset,

@@ -19,7 +19,7 @@ export const createTriangleRoundedUploaded = (
 	const ticount = tcount * TEXT_INDEX_COUNT;
 	const vcount = TRIANGLE_ROUNDED_VERTEX_COUNT + tvcount;
 	const icount = TRIANGLE_ROUNDED_INDEX_COUNT + ticount;
-	if( voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity ) {
+	if( buffer.check( voffset, ioffset, vcount, icount ) ) {
 		return new EShapeTriangleRoundedUploaded(
 			buffer,
 			voffset, ioffset,

@@ -16,8 +16,8 @@ export class EShapeTriangleUploaded extends EShapeTextUploaded {
 		super.init( shape );
 
 		const buffer = this.buffer;
-		buffer.clippingBuffer.update();
-		buffer.indexBuffer.update();
+		buffer.updateClippings();
+		buffer.updateIndices();
 		buildTriangleClipping(
 			buffer.clippings,
 			this.vertexOffset
@@ -78,7 +78,7 @@ export class EShapeTriangleUploaded extends EShapeTextUploaded {
 
 			const voffset = this.vertexOffset;
 
-			buffer.vertexBuffer.update();
+			buffer.updateVertices();
 			buildTriangleVertex(
 				buffer.vertices,
 				voffset,
@@ -92,8 +92,7 @@ export class EShapeTriangleUploaded extends EShapeTextUploaded {
 			);
 
 			if( isVertexChanged || isTransformChanged ) {
-				buffer.stepBuffer.update();
-				buffer.antialiasBuffer.update();
+				buffer.updateSteps();
 				buildTriangleStep(
 					buffer.steps,
 					buffer.antialiases,
@@ -108,7 +107,7 @@ export class EShapeTriangleUploaded extends EShapeTextUploaded {
 			}
 
 			if( isVertexChanged || isTextureChanged ) {
-				buffer.uvBuffer.update();
+				buffer.updateUvs();
 				buildTriangleUv(
 					buffer.uvs,
 					this.toTextureUvs( texture ),

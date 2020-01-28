@@ -261,7 +261,6 @@ export class EShapeRenderer extends ObjectRenderer {
 
 	protected _shader: Shader | null;
 	protected _iterator: EShapeRendererIterator;
-	protected _bufferSize: number;
 	protected _bufferSizeMax: number;
 
 	constructor( renderer: Renderer ) {
@@ -269,7 +268,6 @@ export class EShapeRenderer extends ObjectRenderer {
 		EShapeRenderer.SHADER = EShapeRenderer.SHADER || Shader.from( VERTEX_SHADER, FRAGMENT_SHADER );
 		this._shader = EShapeRenderer.SHADER;
 		this._iterator = new EShapeRendererIterator();
-		this._bufferSize = 5000;
 		this._bufferSizeMax = this.getBufferSizeMax( renderer );
 	}
 
@@ -394,7 +392,7 @@ export class EShapeRenderer extends ObjectRenderer {
 				atlas.repack();
 
 				// Update buffers
-				this.updateBuffers( shapes, buffers, renderer, shader, antialiasWeight );
+				this.updateBuffers( shapes, buffers, renderer, antialiasWeight );
 			}
 
 			// Render buffers
@@ -415,59 +413,52 @@ export class EShapeRenderer extends ObjectRenderer {
 		}
 	}
 
-	protected increaseBufferSize(): boolean {
-		const bufferSize = this._bufferSize;
-		const bufferSizeMax = this._bufferSizeMax;
-		if( bufferSize < bufferSizeMax ) {
-			this._bufferSize = Math.min( bufferSizeMax, bufferSize << 1 );
-			return true;
-		}
-		return false;
-	}
-
-	protected getBufferSize(): number {
-		return this._bufferSize;
-	}
-
 	updateBuffers(
 		shapes: EShape[], buffers: EShapeBuffer[],
-		renderer: Renderer, shader: Shader,
-		antialiasWeight: number
+		renderer: Renderer, antialiasWeight: number
 	): void {
 		const iterator = this._iterator;
 		iterator.reset( shapes );
+
 		let ib = 0;
-		const ibmax = buffers.length;
-		for( ; iterator.get() != null && ib < ibmax; ++ib ) {
-			if( ! buffers[ ib ].update( iterator, antialiasWeight ) ) {
-				// Failed to update the shapes.
-				// This is most likely caused by small buffers.
-				// So increase the buffer size.
-				this.increaseBufferSize();
-				break;
+		let bufferSize = 0;
+		const bufferSizeBase = 5000;
+		const bufferSizeMax = this._bufferSizeMax;
+		while( iterator.get() != null ) {
+			let buffer: EShapeBuffer | null = null;
+			let noMoreThanOne = false;
+			if( 0 < bufferSize ) {
+				buffer = new EShapeBuffer( bufferSize, renderer );
+				buffers.splice( ib, 0, buffer );
+				noMoreThanOne = true;
+			} else if( ib < buffers.length ) {
+				buffer = buffers[ ib ];
+				noMoreThanOne = false;
+			} else {
+				buffer = new EShapeBuffer( bufferSizeBase, renderer );
+				buffers.push( buffer );
+				noMoreThanOne = false;
+			}
+			if( buffer.update( iterator, antialiasWeight, noMoreThanOne ) ) {
+				bufferSize = 0;
+				ib += 1;
+			} else {
+				bufferSize = buffer.indexCountRequested;
+				if( bufferSize <= bufferSizeMax ) {
+					bufferSize = Math.ceil( bufferSize / bufferSizeBase ) * bufferSizeBase;
+					bufferSize = Math.min( bufferSize, bufferSizeMax );
+				} else {
+					// No way to render
+					break;
+				}
 			}
 		}
 
-		if( ib < ibmax ) {
-			for( let jb = ib; jb < ibmax; ++jb ) {
+		if( ib < buffers.length ) {
+			for( let jb = ib, ibmax = buffers.length; jb < ibmax; ++jb ) {
 				buffers[ jb ].destroy();
 			}
 			buffers.length = ib;
-		}
-
-		while( iterator.get() != null ) {
-			const buffer = new EShapeBuffer( this.getBufferSize(), renderer );
-			if( buffer.update( iterator, antialiasWeight ) ) {
-				buffers.push( buffer );
-			} else {
-				buffer.destroy();
-
-				// Again, increase the buffer size;
-				if( ! this.increaseBufferSize() ) {
-					// No way to render
-					return;
-				}
-			}
 		}
 	}
 }

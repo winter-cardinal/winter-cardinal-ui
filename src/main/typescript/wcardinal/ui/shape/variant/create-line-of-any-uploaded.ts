@@ -37,7 +37,7 @@ export const createLineOfAnyUploaded = <T extends Initializable>(
 	const pointCount = toLineOfAnyPointCount( points ? points.length : 0 );
 	const vcount = pointCount * vcountPerPoint + tvcount;
 	const icount = pointCount * icountPerPoint + ticount;
-	if( voffset + vcount < buffer.vertexCapacity && ioffset + icount < buffer.indexCapacity ) {
+	if( buffer.check( voffset, ioffset, vcount, icount ) ) {
 		return new constructor(
 			buffer,
 			voffset, ioffset,
