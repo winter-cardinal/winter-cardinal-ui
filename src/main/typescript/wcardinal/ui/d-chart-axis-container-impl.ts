@@ -8,7 +8,6 @@ import { DChartAxisContainer, DChartAxisContainerOptions } from "./d-chart-axis-
 import { DChartAxisPosition } from "./d-chart-axis-position";
 import { DChartPlotArea } from "./d-chart-plot-area";
 import { EShapeContainer } from "./shape/e-shape-container";
-import { isNumber } from "./util/is-number";
 
 export class DChartAxisContainerImpl implements DChartAxisContainer {
 	protected _plotArea: DChartPlotArea;
@@ -65,39 +64,6 @@ export class DChartAxisContainerImpl implements DChartAxisContainer {
 			return axes.indexOf( axis );
 		}
 		return -1;
-	}
-
-	remove( axis: DChartAxis ): DChartAxis | null;
-	remove( position: DChartAxisPosition, index: number ): DChartAxis | null;
-	remove( axisOrPosition: DChartAxis | DChartAxisPosition, indexOrUndefined?: number ): DChartAxis | null {
-		const list = this._list;
-		if( isNumber( axisOrPosition ) ) {
-			const position: DChartAxisPosition = axisOrPosition;
-			const index = indexOrUndefined!;
-			const axes = list.get( position );
-			if( axes ) {
-				if( 0 <= index && index < axes.length ) {
-					const removed = axes.splice( index, 1 )[ 0 ];
-					removed.unbind();
-					removed.destroy();
-					return removed;
-				}
-			}
-		} else {
-			const axis = axisOrPosition;
-			const position: DChartAxisPosition = axis.position;
-			const axes = list.get( position );
-			if( axes ) {
-				const index = axes.indexOf( axisOrPosition );
-				if( 0 <= index ) {
-					axes.splice( index, 1 );
-					axis.unbind();
-					axis.destroy();
-					return axis;
-				}
-			}
-		}
-		return null;
 	}
 
 	clear( position: DChartAxisPosition ): this {

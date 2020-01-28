@@ -19,8 +19,6 @@ export interface DChartAxisContainer {
 	add( axis: DChartAxis ): void;
 	get( position: DChartAxisPosition, index: number ): DChartAxis | null;
 	indexOf( axis: DChartAxis ): number;
-	remove( axis: DChartAxis ): DChartAxis | null;
-	remove( position: DChartAxisPosition, index: number ): DChartAxis | null;
 	clear( position: DChartAxisPosition ): this;
 	size( position: DChartAxisPosition ): number;
 	update(): void;
