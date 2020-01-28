@@ -403,7 +403,13 @@ export class EShapeRenderer extends ObjectRenderer {
 			shader.uniforms.translationMatrix = container.worldTransform.toArray( true );
 			renderer.shader.bind( shader, false );
 			renderer.state!.setBlendMode(utils.correctBlendMode(BLEND_MODES.NORMAL, true));
-			for( let i = 0, imax = buffers.length; i < imax; ++i ) {
+			const buffersLength = buffers.length;
+			if( 1 < buffersLength ) {
+				for( let i = 0; i < buffersLength; ++i ) {
+					buffers[ i ].upload();
+				}
+			}
+			for( let i = 0; i < buffersLength; ++i ) {
 				buffers[ i ].render( shader );
 			}
 		}
@@ -450,7 +456,7 @@ export class EShapeRenderer extends ObjectRenderer {
 		}
 
 		while( iterator.get() != null ) {
-			const buffer = new EShapeBuffer( this.getBufferSize(), renderer, shader );
+			const buffer = new EShapeBuffer( this.getBufferSize(), renderer );
 			if( buffer.update( iterator, antialiasWeight ) ) {
 				buffers.push( buffer );
 			} else {

@@ -48,7 +48,7 @@ export class EShapeBuffer {
 	work: Point;
 	workStep: Float32Array;
 
-	constructor( ntriangles: number, renderer: Renderer, shader: Shader ) {
+	constructor( ntriangles: number, renderer: Renderer ) {
 		const nindices = ntriangles * 3;
 		const nvertices = nindices;
 
@@ -99,9 +99,13 @@ export class EShapeBuffer {
 			.addAttribute( "aUv", this.uvBuffer, 2 );
 	}
 
+	upload(): void {
+		this.renderer.geometry.bind( this.geometry );
+	}
+
 	render( shader: Shader ): void {
 		const renderer = this.renderer;
-		(renderer.geometry as any).bind( this.geometry );
+		renderer.geometry.bind( this.geometry );
 
 		const units = this.builder.units;
 		const unitCount = units.length;

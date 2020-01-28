@@ -137,7 +137,7 @@ export class DBaseBackgroundMeshGeometry extends MeshGeometry {
 	}
 
 	update(): void {
-		const texture = this.texture as any;
+		const texture = this.texture;
 		if( ! texture.valid ) {
 			return;
 		}
@@ -163,7 +163,7 @@ export class DBaseBackgroundMeshGeometry extends MeshGeometry {
 			const y2 = Math.max( height * 0.5, height - borderSize );
 			const y3 = height;
 
-			const textureUvs: TextureUvs = texture._uvs;
+			const textureUvs: TextureUvs = (texture as any)._uvs;
 
 			const l = textureUvs.x0;
 			const r = textureUvs.x1;
