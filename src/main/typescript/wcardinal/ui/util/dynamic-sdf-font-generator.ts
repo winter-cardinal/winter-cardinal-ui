@@ -71,6 +71,8 @@ void main(void) {
 `;
 
 export class DynamicSDFFontGenerator {
+	protected static _INSTANCE: DynamicSDFFontGenerator | null = null;
+
 	protected _canvas: HTMLCanvasElement | null;
 	protected _onLostBound: EventListener;
 	protected _onRestoreBound: EventListener;
@@ -217,12 +219,12 @@ export class DynamicSDFFontGenerator {
 		}
 	}
 
-	updateTexture( textureCanvas: HTMLCanvasElement ): WebGLTexture | null {
+	updateTexture( source: TexImageSource ): WebGLTexture | null {
 		const gl = this._gl;
 		const canvas = this._canvas;
 		if( gl != null && gl.isContextLost() !== true && canvas != null ) {
-			const width = textureCanvas.width;
-			const height = textureCanvas.height;
+			const width = source.width;
+			const height = source.height;
 			if( canvas.width !== width || canvas.height !== height ) {
 				canvas.width = width;
 				canvas.height = height;
@@ -233,7 +235,7 @@ export class DynamicSDFFontGenerator {
 			if( texture == null ) {
 				texture = this._texture = gl.createTexture();
 				gl.bindTexture( gl.TEXTURE_2D, texture );
-				gl.texImage2D( gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, textureCanvas );
+				gl.texImage2D( gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source );
 				gl.texParameteri( gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE );
 				gl.texParameteri( gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE );
 				gl.texParameteri( gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST );
@@ -241,7 +243,7 @@ export class DynamicSDFFontGenerator {
 				gl.bindTexture( gl.TEXTURE_2D, null );
 			} else {
 				gl.bindTexture( gl.TEXTURE_2D, texture );
-				gl.texImage2D( gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, textureCanvas );
+				gl.texImage2D( gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source );
 				gl.bindTexture( gl.TEXTURE_2D, null );
 			}
 			return texture;
@@ -389,5 +391,12 @@ export class DynamicSDFFontGenerator {
 				WebGLLoseContext.loseContext();
 			}
 		}
+	}
+
+	static getInstance(): DynamicSDFFontGenerator {
+		if( DynamicSDFFontGenerator._INSTANCE == null ) {
+			DynamicSDFFontGenerator._INSTANCE = new DynamicSDFFontGenerator();
+		}
+		return DynamicSDFFontGenerator._INSTANCE;
 	}
 }

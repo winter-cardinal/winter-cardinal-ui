@@ -8,6 +8,7 @@ import { loadShapeCircle } from "./load-shape-circle";
 import { loadShapeGroup } from "./load-shape-group";
 import { loadShapeGroupShadowed } from "./load-shape-group-shadowed";
 import { loadShapeImage } from "./load-shape-image";
+import { loadShapeImageSdf } from "./load-shape-image-sdf";
 import { loadShapeLabel } from "./load-shape-label";
 import { loadShapeLine } from "./load-shape-line";
 import { loadShapeLineOfCircles } from "./load-shape-line-of-circles";
@@ -27,6 +28,7 @@ export const loadShapeAll = () => {
 	loadShapeGroupShadowed();
 	loadShapeGroup();
 	loadShapeImage();
+	loadShapeImageSdf();
 	loadShapeLabel();
 	loadShapeLine();
 	loadShapeNull();

@@ -9,6 +9,7 @@ import { toLength } from "./to-length";
 
 export const TEXT_VERTEX_COUNT = 4;
 export const TEXT_INDEX_COUNT = 2;
+const TEXT_SDF_WINDOW = 12;
 const TEXT_FMIN: number = 0.00001;
 
 export const toTextBufferCount = ( shape: EShape ): number => {
@@ -53,10 +54,12 @@ export const buildTextStep = (
 	textAtlas: EShapeTextAtlas | undefined,
 	textSize: number,
 	textOutlineWidth: number,
-	textWeight: EShapeTextWeight
+	textWeight: EShapeTextWeight,
+	antialiasWeight: number
 ): void => {
 	if( textAtlas != null ) {
-		const scale = 0.05 / (textSize / textAtlas.font.size);
+		const scaleBase = (0.333 / TEXT_SDF_WINDOW) * antialiasWeight;
+		const scale = scaleBase * (textAtlas.font.size / textSize);
 		const outlineWidth = textOutlineWidth * 0.4;
 		const weight =  -0.025 + ( textWeight === EShapeTextWeight.NORMAL ? 0.0 : 0.05 );
 		for( let i = voffset * 2, imax = i + vcount * 2; i < imax; i += 2 ) {

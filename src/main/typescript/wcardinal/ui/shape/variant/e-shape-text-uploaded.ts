@@ -280,7 +280,8 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 				text.atlas,
 				text.size,
 				textOutlineWidth,
-				textWeight
+				textWeight,
+				this.antialiasWeight
 			);
 		}
 	}

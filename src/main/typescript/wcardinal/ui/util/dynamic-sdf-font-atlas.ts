@@ -24,7 +24,6 @@ export interface DynamicSDFFontAtlasJson {
 }
 
 export class DynamicSDFFontAtlas {
-	protected static GENERATOR: DynamicSDFFontGenerator | null = null;
 	protected static FONT_FAMILY_AUTO: string | null = null;
 
 	protected _id: string;
@@ -39,7 +38,7 @@ export class DynamicSDFFontAtlas {
 
 	constructor( fontFamily: string ) {
 		this._id = `font-atlas:${fontFamily}`;
-		this._generator = DynamicSDFFontAtlas.getGenerator().init();
+		this._generator = DynamicSDFFontGenerator.getInstance().init();
 		this._canvas = document.createElement( "canvas" );
 		this._font = {
 			family: DynamicSDFFontAtlas.toFontFamily( fontFamily ),
@@ -271,13 +270,6 @@ export class DynamicSDFFontAtlas {
 			result <<= 1;
 		}
 		return result;
-	}
-
-	static getGenerator(): DynamicSDFFontGenerator {
-		if( DynamicSDFFontAtlas.GENERATOR == null ) {
-			DynamicSDFFontAtlas.GENERATOR = new DynamicSDFFontGenerator();
-		}
-		return DynamicSDFFontAtlas.GENERATOR;
 	}
 
 	static getAutoFontFamily(): string {

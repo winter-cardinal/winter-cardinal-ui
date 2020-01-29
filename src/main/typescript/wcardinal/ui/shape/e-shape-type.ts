@@ -11,6 +11,7 @@ export enum EShapeType {
 	TRIANGLE_ROUNDED,
 	LINE,
 	IMAGE,
+	IMAGE_SDF,
 	GROUP,
 	BAR,
 	LABEL,
