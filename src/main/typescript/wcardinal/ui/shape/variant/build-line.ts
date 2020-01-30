@@ -1,8 +1,9 @@
 import { Matrix, Point, TextureUvs } from "pixi.js";
 import { toIndexOf } from "../../util/to-index-of";
 import { EShapePointsStyle } from "../e-shape-points-style";
-import { EShapePointsStyleUploadeds } from "../e-shape-points-style-uploadeds";
+import { toDash } from "./to-dash";
 import { toLength } from "./to-length";
+import { toScaleInvariant } from "./to-scale-invariant";
 
 const LINE_FMIN: number = 0.00001;
 const LINE_WORK_POINT: Point = new Point();
@@ -185,7 +186,7 @@ export const buildLineVertexStepAndColorFill = (
 	let px = 0;
 	let py = 0;
 	if( 2 <= pointCount ) {
-		const scaleInvariant = EShapePointsStyleUploadeds.toScaleInvariant( pointsStyle );
+		const scaleInvariant = toScaleInvariant( pointsStyle );
 
 		//
 		let l = 0;
@@ -314,7 +315,7 @@ export const buildLineVertexStepAndColorFill = (
 				lmax = Math.max( lmax, llo );
 
 				llop = lprev - loffset;
-				EShapePointsStyleUploadeds.toDash( llop, strokeWidth, pointsStyle, work );
+				toDash( llop, strokeWidth, pointsStyle, work );
 				const dash0 = work.x;
 				const dash1 = work.y;
 				for( let j = icfprev; j < icf + 8; j += 4 ) {
@@ -407,7 +408,7 @@ export const buildLineVertexStepAndColorFill = (
 				lmax = Math.max( lmax, llo );
 
 				llop = lprev - loffset;
-				EShapePointsStyleUploadeds.toDash( llop, strokeWidth, pointsStyle, work );
+				toDash( llop, strokeWidth, pointsStyle, work );
 				const dash0 = work.x;
 				const dash1 = work.y;
 				for( let j = icfprev; j < icf + 8; j += 4 ) {
@@ -450,7 +451,7 @@ export const buildLineVertexStepAndColorFill = (
 
 			// Total length
 			if( icfprev < icf ) {
-				EShapePointsStyleUploadeds.toDash( llop, strokeWidth, pointsStyle, work );
+				toDash( llop, strokeWidth, pointsStyle, work );
 				const dash0 = work.x;
 				const dash1 = work.y;
 				if( pointsClosed ) {

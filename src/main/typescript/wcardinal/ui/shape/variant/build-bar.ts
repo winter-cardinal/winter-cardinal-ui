@@ -1,6 +1,7 @@
 import { Matrix, Point, TextureUvs } from "pixi.js";
 import { EShapePointsStyle } from "../e-shape-points-style";
-import { EShapePointsStyleUploadeds } from "../e-shape-points-style-uploadeds";
+import { toDash } from "./to-dash";
+import { toScaleInvariant } from "./to-scale-invariant";
 
 export const BAR_VERTEX_COUNT = 4;
 export const BAR_INDEX_COUNT = 2;
@@ -89,7 +90,7 @@ export const buildBarVertexStepAndColorFill = (
 	const p3y = p2y + dy;
 
 	//
-	const scaleInvariant = EShapePointsStyleUploadeds.toScaleInvariant( pointsStyle );
+	const scaleInvariant = toScaleInvariant( pointsStyle );
 	const iv = voffset << 1;
 	const icf = voffset << 2;
 	const is = voffset * 6;
@@ -132,7 +133,7 @@ export const buildBarVertexStepAndColorFill = (
 	colorFills[ icf + 12 ] = l;
 
 	// Total length
-	EShapePointsStyleUploadeds.toDash( l, strokeWidth, pointsStyle, work );
+	toDash( l, strokeWidth, pointsStyle, work );
 	const dash0 = work.x;
 	const dash1 = work.y;
 	colorFills[ icf +  1 ] = dash0;

@@ -1,7 +1,3 @@
-import { utils } from "pixi.js";
-
-const WORK_COLOR = new Float32Array( 4 );
-
 export const buildColor = (
 	color: number,
 	alpha: number,
@@ -9,16 +5,17 @@ export const buildColor = (
 	vcount: number,
 	colors: Float32Array
 ): void => {
-	const rgba = utils.premultiplyTintToRgba( color, alpha, WORK_COLOR );
-	const r = rgba[ 0 ];
-	const g = rgba[ 1 ];
-	const b = rgba[ 2 ];
-	const a = rgba[ 3 ];
+	const r = ((color >> 16) & 0xFF) / 255.0 * alpha;
+	const g = ((color >>  8) & 0xFF) / 255.0 * alpha;
+	const b = ((color >>  0) & 0xFF) / 255.0 * alpha;
+	const a = alpha;
 
-	for( let i = voffset << 2, imax = (voffset + vcount) << 2; i < imax; i += 4 ) {
-		colors[ i + 0 ] = r;
-		colors[ i + 1 ] = g;
-		colors[ i + 2 ] = b;
-		colors[ i + 3 ] = a;
+	let ic = voffset << 2;
+	for( let i = 0; i < vcount; ++i ) {
+		colors[ ic + 0 ] = r;
+		colors[ ic + 1 ] = g;
+		colors[ ic + 2 ] = b;
+		colors[ ic + 3 ] = a;
+		ic += 4;
 	}
 };
