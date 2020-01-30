@@ -5,6 +5,7 @@ import { EShapePointsStyleUploadeds } from "../e-shape-points-style-uploadeds";
 export const BAR_VERTEX_COUNT = 4;
 export const BAR_INDEX_COUNT = 2;
 const BAR_FMIN: number = 0.00001;
+const BAR_WORK_POINT: Point = new Point();
 
 export const buildBarClipping = (
 	clippings: Float32Array,
@@ -46,17 +47,16 @@ export const buildBarIndex = (
 export const buildBarVertexStepAndColorFill = (
 	vertices: Float32Array,
 	steps: Float32Array,
-	antialiases: Float32Array,
 	colorFills: Float32Array,
 	voffset: number,
 	pointValues: number[],
 	pointsStyle: EShapePointsStyle,
 	pointsSize: number,
 	strokeWidth: number,
-	internalTransform: Matrix,
-	work: Point
+	internalTransform: Matrix
 ): void => {
 	// First point
+	const work = BAR_WORK_POINT;
 	work.set( pointValues[ 0 ], pointValues[ 1 ] );
 	internalTransform.apply( work, work );
 	const p1x = work.x;
@@ -91,64 +91,65 @@ export const buildBarVertexStepAndColorFill = (
 	//
 	const scaleInvariant = EShapePointsStyleUploadeds.toScaleInvariant( pointsStyle );
 	const iv = voffset << 1;
-	const ia = voffset << 2;
+	const icf = voffset << 2;
+	const is = voffset * 6;
 	vertices[ iv + 0 ] = p1x;
 	vertices[ iv + 1 ] = p1y;
 	vertices[ iv + 2 ] = p1x;
 	vertices[ iv + 3 ] = p1y;
-	steps[ iv + 0 ] = strokeWidth;
-	steps[ iv + 1 ] = scaleInvariant;
-	steps[ iv + 2 ] = strokeWidth;
-	steps[ iv + 3 ] = scaleInvariant;
-	antialiases[ ia + 0 ] = p0x;
-	antialiases[ ia + 1 ] = p0y;
-	antialiases[ ia + 2 ] = p2x;
-	antialiases[ ia + 3 ] = p2y;
-	antialiases[ ia + 4 ] = p0x;
-	antialiases[ ia + 5 ] = p0y;
-	antialiases[ ia + 6 ] = p2x;
-	antialiases[ ia + 7 ] = p2y;
-	colorFills[ ia + 0 ] = 0.0;
-	colorFills[ ia + 4 ] = 0.0;
+	steps[ is +  0 ] = strokeWidth;
+	steps[ is +  1 ] = scaleInvariant;
+	steps[ is +  2 ] = p0x;
+	steps[ is +  3 ] = p0y;
+	steps[ is +  4 ] = p2x;
+	steps[ is +  5 ] = p2y;
+	steps[ is +  6 ] = strokeWidth;
+	steps[ is +  7 ] = scaleInvariant;
+	steps[ is +  8 ] = p0x;
+	steps[ is +  9 ] = p0y;
+	steps[ is + 10 ] = p2x;
+	steps[ is + 11 ] = p2y;
+	colorFills[ icf + 0 ] = 0.0;
+	colorFills[ icf + 4 ] = 0.0;
 
 	vertices[ iv + 4 ] = p2x;
 	vertices[ iv + 5 ] = p2y;
 	vertices[ iv + 6 ] = p2x;
 	vertices[ iv + 7 ] = p2y;
-	steps[ iv + 4 ] = strokeWidth;
-	steps[ iv + 5 ] = scaleInvariant;
-	steps[ iv + 6 ] = strokeWidth;
-	steps[ iv + 7 ] = scaleInvariant;
-	antialiases[ ia +  8 ] = p1x;
-	antialiases[ ia +  9 ] = p1y;
-	antialiases[ ia + 10 ] = p3x;
-	antialiases[ ia + 11 ] = p3y;
-	antialiases[ ia + 12 ] = p1x;
-	antialiases[ ia + 13 ] = p1y;
-	antialiases[ ia + 14 ] = p3x;
-	antialiases[ ia + 15 ] = p3y;
-	colorFills[ ia +  8 ] = l;
-	colorFills[ ia + 12 ] = l;
+	steps[ is + 12 ] = strokeWidth;
+	steps[ is + 13 ] = scaleInvariant;
+	steps[ is + 14 ] = p1x;
+	steps[ is + 15 ] = p1y;
+	steps[ is + 16 ] = p3x;
+	steps[ is + 17 ] = p3y;
+	steps[ is + 18 ] = strokeWidth;
+	steps[ is + 19 ] = scaleInvariant;
+	steps[ is + 20 ] = p1x;
+	steps[ is + 21 ] = p1y;
+	steps[ is + 22 ] = p3x;
+	steps[ is + 23 ] = p3y;
+	colorFills[ icf +  8 ] = l;
+	colorFills[ icf + 12 ] = l;
 
 	// Total length
 	EShapePointsStyleUploadeds.toDash( l, strokeWidth, pointsStyle, work );
 	const dash0 = work.x;
 	const dash1 = work.y;
-	colorFills[ ia +  1 ] = dash0;
-	colorFills[ ia +  2 ] = dash1;
-	colorFills[ ia +  3 ] = l;
+	colorFills[ icf +  1 ] = dash0;
+	colorFills[ icf +  2 ] = dash1;
+	colorFills[ icf +  3 ] = l;
 
-	colorFills[ ia +  5 ] = dash0;
-	colorFills[ ia +  6 ] = dash1;
-	colorFills[ ia +  7 ] = l;
+	colorFills[ icf +  5 ] = dash0;
+	colorFills[ icf +  6 ] = dash1;
+	colorFills[ icf +  7 ] = l;
 
-	colorFills[ ia +  9 ] = dash0;
-	colorFills[ ia + 10 ] = dash1;
-	colorFills[ ia + 11 ] = l;
+	colorFills[ icf +  9 ] = dash0;
+	colorFills[ icf + 10 ] = dash1;
+	colorFills[ icf + 11 ] = l;
 
-	colorFills[ ia + 13 ] = dash0;
-	colorFills[ ia + 14 ] = dash1;
-	colorFills[ ia + 15 ] = l;
+	colorFills[ icf + 13 ] = dash0;
+	colorFills[ icf + 14 ] = dash1;
+	colorFills[ icf + 15 ] = l;
 };
 
 export const buildBarUv = (

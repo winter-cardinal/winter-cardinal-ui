@@ -2,11 +2,12 @@ import { Matrix, Point, TextureUvs } from "pixi.js";
 import { EShapeCorner } from "../e-shape-corner";
 import { EShapeStrokeSide } from "../e-shape-stroke-side";
 import { toLength } from "./to-length";
-import { toStep } from "./to-step";
+import { STEP_VALUES, toStep } from "./to-step";
 
 export const RECTANGLE_ROUNDED_VERTEX_COUNT = 36;
 export const RECTANGLE_ROUNDED_INDEX_COUNT = 24;
 export const RECTANGLE_ROUNDED_WORLD_SIZE: [ number, number, number ] = [ 0, 0, 0 ];
+const RECTANGLE_ROUNDED_WORK_POINT: Point = new Point();
 
 export const buildRectangleRoundedIndex = (
 	indices: Uint16Array | Uint32Array,
@@ -129,8 +130,7 @@ export const buildRectangleRoundedVertex = (
 	strokeWidth: number,
 	radius: number,
 	internalTransform: Matrix,
-	worldSize: [ number, number, number ],
-	work: Point
+	worldSize: [ number, number, number ]
 ): void => {
 	// Calculate the transformed positions
 	//
@@ -172,6 +172,7 @@ export const buildRectangleRoundedVertex = (
 	const rx = a / ax;
 	const ry = a / ay;
 
+	const work = RECTANGLE_ROUNDED_WORK_POINT;
 	work.set( originX - sx, originY - sy );
 	internalTransform.apply( work, work );
 	const x0 = work.x;
@@ -630,32 +631,28 @@ export const buildRectangleRoundedClipping = (
 
 export const buildRectangleRoundedStep = (
 	steps: Float32Array,
-	antialiases: Float32Array,
 	voffset: number,
 	strokeWidth: number,
 	strokeSide: EShapeStrokeSide,
 	corner: EShapeCorner,
 	antialiasWeight: number,
-	worldSize: [ number, number, number ],
-	workStep: Float32Array
+	worldSize: [ number, number, number ]
 ): void => {
-	toStep( worldSize[ 0 ], strokeWidth, antialiasWeight, workStep );
-	const swc = workStep[ 0 ];
-	const pc0 = workStep[ 1 ];
-	const pc1 = workStep[ 2 ];
+	toStep( worldSize[ 0 ], strokeWidth, antialiasWeight, STEP_VALUES );
+	const swc = STEP_VALUES[ 0 ];
+	const pc0 = STEP_VALUES[ 1 ];
+	const pc1 = STEP_VALUES[ 2 ];
 
-	toStep( worldSize[ 1 ], strokeWidth, antialiasWeight, workStep );
-	const swx = workStep[ 0 ];
-	const px0 = workStep[ 1 ];
-	const px1 = workStep[ 2 ];
+	toStep( worldSize[ 1 ], strokeWidth, antialiasWeight, STEP_VALUES );
+	const swx = STEP_VALUES[ 0 ];
+	const px0 = STEP_VALUES[ 1 ];
+	const px1 = STEP_VALUES[ 2 ];
 
-	toStep( worldSize[ 2 ], strokeWidth, antialiasWeight, workStep );
-	const swy = workStep[ 0 ];
-	const py0 = workStep[ 1 ];
-	const py1 = workStep[ 2 ];
+	toStep( worldSize[ 2 ], strokeWidth, antialiasWeight, STEP_VALUES );
+	const swy = STEP_VALUES[ 0 ];
+	const py0 = STEP_VALUES[ 1 ];
+	const py1 = STEP_VALUES[ 2 ];
 
-	let is = voffset * 2;
-	let ia = voffset * 4;
 	const rxc = 1 - worldSize[ 0 ] / worldSize[ 1 ];
 	const ryc = 1 - worldSize[ 0 ] / worldSize[ 2 ];
 
@@ -703,489 +700,438 @@ export const buildRectangleRoundedStep = (
 	const ptb0 = 0.5 * (pt0 + pb0);
 
 	// Top-left corner
+	let is = voffset * 6;
 	if( corner & EShapeCorner.TOP_LEFT ) {
 		steps[ is + 0 ] = swlc;
 		steps[ is + 1 ] = swtc;
-		antialiases[ ia + 0 ] = plc0;
-		antialiases[ ia + 1 ] = ptc0;
-		antialiases[ ia + 2 ] = pc1;
-		antialiases[ ia + 3 ] = pc1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = plc0;
+		steps[ is + 3 ] = ptc0;
+		steps[ is + 4 ] = pc1;
+		steps[ is + 5 ] = pc1;
+		is += 6;
 
 		steps[ is + 0 ] = 0;
 		steps[ is + 1 ] = swtc;
-		antialiases[ ia + 0 ] = plc0;
-		antialiases[ ia + 1 ] = ptc0;
-		antialiases[ ia + 2 ] = pc1;
-		antialiases[ ia + 3 ] = pc1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = plc0;
+		steps[ is + 3 ] = ptc0;
+		steps[ is + 4 ] = pc1;
+		steps[ is + 5 ] = pc1;
+		is += 6;
 
 		steps[ is + 0 ] = swlc;
 		steps[ is + 1 ] = 0;
-		antialiases[ ia + 0 ] = plc0;
-		antialiases[ ia + 1 ] = ptc0;
-		antialiases[ ia + 2 ] = pc1;
-		antialiases[ ia + 3 ] = pc1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = plc0;
+		steps[ is + 3 ] = ptc0;
+		steps[ is + 4 ] = pc1;
+		steps[ is + 5 ] = pc1;
+		is += 6;
 
 		steps[ is + 0 ] = 0;
 		steps[ is + 1 ] = 0;
-		antialiases[ ia + 0 ] = plc0;
-		antialiases[ ia + 1 ] = ptc0;
-		antialiases[ ia + 2 ] = pc1;
-		antialiases[ ia + 3 ] = pc1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = plc0;
+		steps[ is + 3 ] = ptc0;
+		steps[ is + 4 ] = pc1;
+		steps[ is + 5 ] = pc1;
+		is += 6;
 	} else {
 		steps[ is + 0 ] = swl;
 		steps[ is + 1 ] = swt;
-		antialiases[ ia + 0 ] = pl0;
-		antialiases[ ia + 1 ] = pt0;
-		antialiases[ ia + 2 ] = px1;
-		antialiases[ ia + 3 ] = py1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = pl0;
+		steps[ is + 3 ] = pt0;
+		steps[ is + 4 ] = px1;
+		steps[ is + 5 ] = py1;
+		is += 6;
 
 		steps[ is + 0 ] = swl * rxc;
 		steps[ is + 1 ] = swt;
-		antialiases[ ia + 0 ] = pl0;
-		antialiases[ ia + 1 ] = pt0;
-		antialiases[ ia + 2 ] = px1;
-		antialiases[ ia + 3 ] = py1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = pl0;
+		steps[ is + 3 ] = pt0;
+		steps[ is + 4 ] = px1;
+		steps[ is + 5 ] = py1;
+		is += 6;
 
 		steps[ is + 0 ] = swl;
 		steps[ is + 1 ] = swt * ryc;
-		antialiases[ ia + 0 ] = pl0;
-		antialiases[ ia + 1 ] = pt0;
-		antialiases[ ia + 2 ] = px1;
-		antialiases[ ia + 3 ] = py1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = pl0;
+		steps[ is + 3 ] = pt0;
+		steps[ is + 4 ] = px1;
+		steps[ is + 5 ] = py1;
+		is += 6;
 
 		steps[ is + 0 ] = swl * rxc;
 		steps[ is + 1 ] = swt * ryc;
-		antialiases[ ia + 0 ] = pl0;
-		antialiases[ ia + 1 ] = pt0;
-		antialiases[ ia + 2 ] = px1;
-		antialiases[ ia + 3 ] = py1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = pl0;
+		steps[ is + 3 ] = pt0;
+		steps[ is + 4 ] = px1;
+		steps[ is + 5 ] = py1;
+		is += 6;
 	}
 
 	// Top-right corner
 	if( corner & EShapeCorner.TOP_RIGHT ) {
 		steps[ is + 0 ] = 0;
 		steps[ is + 1 ] = swtc;
-		antialiases[ ia + 0 ] = prc0;
-		antialiases[ ia + 1 ] = ptc0;
-		antialiases[ ia + 2 ] = pc1;
-		antialiases[ ia + 3 ] = pc1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = prc0;
+		steps[ is + 3 ] = ptc0;
+		steps[ is + 4 ] = pc1;
+		steps[ is + 5 ] = pc1;
+		is += 6;
 
 		steps[ is + 0 ] = swrc;
 		steps[ is + 1 ] = swtc;
-		antialiases[ ia + 0 ] = prc0;
-		antialiases[ ia + 1 ] = ptc0;
-		antialiases[ ia + 2 ] = pc1;
-		antialiases[ ia + 3 ] = pc1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = prc0;
+		steps[ is + 3 ] = ptc0;
+		steps[ is + 4 ] = pc1;
+		steps[ is + 5 ] = pc1;
+		is += 6;
 
 		steps[ is + 0 ] = 0;
 		steps[ is + 1 ] = 0;
-		antialiases[ ia + 0 ] = prc0;
-		antialiases[ ia + 1 ] = ptc0;
-		antialiases[ ia + 2 ] = pc1;
-		antialiases[ ia + 3 ] = pc1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = prc0;
+		steps[ is + 3 ] = ptc0;
+		steps[ is + 4 ] = pc1;
+		steps[ is + 5 ] = pc1;
+		is += 6;
 
 		steps[ is + 0 ] = swrc;
 		steps[ is + 1 ] = 0;
-		antialiases[ ia + 0 ] = prc0;
-		antialiases[ ia + 1 ] = ptc0;
-		antialiases[ ia + 2 ] = pc1;
-		antialiases[ ia + 3 ] = pc1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = prc0;
+		steps[ is + 3 ] = ptc0;
+		steps[ is + 4 ] = pc1;
+		steps[ is + 5 ] = pc1;
+		is += 6;
 	} else {
 		steps[ is + 0 ] = swr * rxc;
 		steps[ is + 1 ] = swt;
-		antialiases[ ia + 0 ] = pr0;
-		antialiases[ ia + 1 ] = pt0;
-		antialiases[ ia + 2 ] = px1;
-		antialiases[ ia + 3 ] = py1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = pr0;
+		steps[ is + 3 ] = pt0;
+		steps[ is + 4 ] = px1;
+		steps[ is + 5 ] = py1;
+		is += 6;
 
 		steps[ is + 0 ] = swr;
 		steps[ is + 1 ] = swt;
-		antialiases[ ia + 0 ] = pr0;
-		antialiases[ ia + 1 ] = pt0;
-		antialiases[ ia + 2 ] = px1;
-		antialiases[ ia + 3 ] = py1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = pr0;
+		steps[ is + 3 ] = pt0;
+		steps[ is + 4 ] = px1;
+		steps[ is + 5 ] = py1;
+		is += 6;
 
 		steps[ is + 0 ] = swr * rxc;
 		steps[ is + 1 ] = swt * ryc;
-		antialiases[ ia + 0 ] = pr0;
-		antialiases[ ia + 1 ] = pt0;
-		antialiases[ ia + 2 ] = px1;
-		antialiases[ ia + 3 ] = py1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = pr0;
+		steps[ is + 3 ] = pt0;
+		steps[ is + 4 ] = px1;
+		steps[ is + 5 ] = py1;
+		is += 6;
 
 		steps[ is + 0 ] = swr;
 		steps[ is + 1 ] = swt * ryc;
-		antialiases[ ia + 0 ] = pr0;
-		antialiases[ ia + 1 ] = pt0;
-		antialiases[ ia + 2 ] = px1;
-		antialiases[ ia + 3 ] = py1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = pr0;
+		steps[ is + 3 ] = pt0;
+		steps[ is + 4 ] = px1;
+		steps[ is + 5 ] = py1;
+		is += 6;
 	}
 
 	// Bottom-left corner
 	if( corner & EShapeCorner.BOTTOM_LEFT ) {
 		steps[ is + 0 ] = swlc;
 		steps[ is + 1 ] = 0;
-		antialiases[ ia + 0 ] = plc0;
-		antialiases[ ia + 1 ] = pbc0;
-		antialiases[ ia + 2 ] = pc1;
-		antialiases[ ia + 3 ] = pc1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = plc0;
+		steps[ is + 3 ] = pbc0;
+		steps[ is + 4 ] = pc1;
+		steps[ is + 5 ] = pc1;
+		is += 6;
 
 		steps[ is + 0 ] = 0;
 		steps[ is + 1 ] = 0;
-		antialiases[ ia + 0 ] = plc0;
-		antialiases[ ia + 1 ] = pbc0;
-		antialiases[ ia + 2 ] = pc1;
-		antialiases[ ia + 3 ] = pc1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = plc0;
+		steps[ is + 3 ] = pbc0;
+		steps[ is + 4 ] = pc1;
+		steps[ is + 5 ] = pc1;
+		is += 6;
 
 		steps[ is + 0 ] = swlc;
 		steps[ is + 1 ] = swbc;
-		antialiases[ ia + 0 ] = plc0;
-		antialiases[ ia + 1 ] = pbc0;
-		antialiases[ ia + 2 ] = pc1;
-		antialiases[ ia + 3 ] = pc1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = plc0;
+		steps[ is + 3 ] = pbc0;
+		steps[ is + 4 ] = pc1;
+		steps[ is + 5 ] = pc1;
+		is += 6;
 
 		steps[ is + 0 ] = 0;
 		steps[ is + 1 ] = swbc;
-		antialiases[ ia + 0 ] = plc0;
-		antialiases[ ia + 1 ] = pbc0;
-		antialiases[ ia + 2 ] = pc1;
-		antialiases[ ia + 3 ] = pc1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = plc0;
+		steps[ is + 3 ] = pbc0;
+		steps[ is + 4 ] = pc1;
+		steps[ is + 5 ] = pc1;
+		is += 6;
 	} else {
 		steps[ is + 0 ] = swl;
 		steps[ is + 1 ] = swb * ryc;
-		antialiases[ ia + 0 ] = pl0;
-		antialiases[ ia + 1 ] = pb0;
-		antialiases[ ia + 2 ] = px1;
-		antialiases[ ia + 3 ] = py1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = pl0;
+		steps[ is + 3 ] = pb0;
+		steps[ is + 4 ] = px1;
+		steps[ is + 5 ] = py1;
+		is += 6;
 
 		steps[ is + 0 ] = swl * rxc;
 		steps[ is + 1 ] = swb * ryc;
-		antialiases[ ia + 0 ] = pl0;
-		antialiases[ ia + 1 ] = pb0;
-		antialiases[ ia + 2 ] = px1;
-		antialiases[ ia + 3 ] = py1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = pl0;
+		steps[ is + 3 ] = pb0;
+		steps[ is + 4 ] = px1;
+		steps[ is + 5 ] = py1;
+		is += 6;
 
 		steps[ is + 0 ] = swl;
 		steps[ is + 1 ] = swb;
-		antialiases[ ia + 0 ] = pl0;
-		antialiases[ ia + 1 ] = pb0;
-		antialiases[ ia + 2 ] = px1;
-		antialiases[ ia + 3 ] = py1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = pl0;
+		steps[ is + 3 ] = pb0;
+		steps[ is + 4 ] = px1;
+		steps[ is + 5 ] = py1;
+		is += 6;
 
 		steps[ is + 0 ] = swl * rxc;
 		steps[ is + 1 ] = swb;
-		antialiases[ ia + 0 ] = pl0;
-		antialiases[ ia + 1 ] = pb0;
-		antialiases[ ia + 2 ] = px1;
-		antialiases[ ia + 3 ] = py1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = pl0;
+		steps[ is + 3 ] = pb0;
+		steps[ is + 4 ] = px1;
+		steps[ is + 5 ] = py1;
+		is += 6;
 	}
 
 	// Bottom-right corner
 	if( corner & EShapeCorner.BOTTOM_RIGHT ) {
 		steps[ is + 0 ] = 0;
 		steps[ is + 1 ] = 0;
-		antialiases[ ia + 0 ] = prc0;
-		antialiases[ ia + 1 ] = pbc0;
-		antialiases[ ia + 2 ] = pc1;
-		antialiases[ ia + 3 ] = pc1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = prc0;
+		steps[ is + 3 ] = pbc0;
+		steps[ is + 4 ] = pc1;
+		steps[ is + 5 ] = pc1;
+		is += 6;
 
 		steps[ is + 0 ] = swrc;
 		steps[ is + 1 ] = 0;
-		antialiases[ ia + 0 ] = prc0;
-		antialiases[ ia + 1 ] = pbc0;
-		antialiases[ ia + 2 ] = pc1;
-		antialiases[ ia + 3 ] = pc1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = prc0;
+		steps[ is + 3 ] = pbc0;
+		steps[ is + 4 ] = pc1;
+		steps[ is + 5 ] = pc1;
+		is += 6;
 
 		steps[ is + 0 ] = 0;
 		steps[ is + 1 ] = swbc;
-		antialiases[ ia + 0 ] = prc0;
-		antialiases[ ia + 1 ] = pbc0;
-		antialiases[ ia + 2 ] = pc1;
-		antialiases[ ia + 3 ] = pc1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = prc0;
+		steps[ is + 3 ] = pbc0;
+		steps[ is + 4 ] = pc1;
+		steps[ is + 5 ] = pc1;
+		is += 6;
 
 		steps[ is + 0 ] = swrc;
 		steps[ is + 1 ] = swbc;
-		antialiases[ ia + 0 ] = prc0;
-		antialiases[ ia + 1 ] = pbc0;
-		antialiases[ ia + 2 ] = pc1;
-		antialiases[ ia + 3 ] = pc1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = prc0;
+		steps[ is + 3 ] = pbc0;
+		steps[ is + 4 ] = pc1;
+		steps[ is + 5 ] = pc1;
+		is += 6;
 	} else {
 		steps[ is + 0 ] = swr * rxc;
 		steps[ is + 1 ] = swb * ryc;
-		antialiases[ ia + 0 ] = pr0;
-		antialiases[ ia + 1 ] = pb0;
-		antialiases[ ia + 2 ] = px1;
-		antialiases[ ia + 3 ] = py1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = pr0;
+		steps[ is + 3 ] = pb0;
+		steps[ is + 4 ] = px1;
+		steps[ is + 5 ] = py1;
+		is += 6;
 
 		steps[ is + 0 ] = swr;
 		steps[ is + 1 ] = swb * ryc;
-		antialiases[ ia + 0 ] = pr0;
-		antialiases[ ia + 1 ] = pb0;
-		antialiases[ ia + 2 ] = px1;
-		antialiases[ ia + 3 ] = py1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = pr0;
+		steps[ is + 3 ] = pb0;
+		steps[ is + 4 ] = px1;
+		steps[ is + 5 ] = py1;
+		is += 6;
 
 		steps[ is + 0 ] = swr * rxc;
 		steps[ is + 1 ] = swb;
-		antialiases[ ia + 0 ] = pr0;
-		antialiases[ ia + 1 ] = pb0;
-		antialiases[ ia + 2 ] = px1;
-		antialiases[ ia + 3 ] = py1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = pr0;
+		steps[ is + 3 ] = pb0;
+		steps[ is + 4 ] = px1;
+		steps[ is + 5 ] = py1;
+		is += 6;
 
 		steps[ is + 0 ] = swr;
 		steps[ is + 1 ] = swb;
-		antialiases[ ia + 0 ] = pr0;
-		antialiases[ ia + 1 ] = pb0;
-		antialiases[ ia + 2 ] = px1;
-		antialiases[ ia + 3 ] = py1;
-		is += 2;
-		ia += 4;
+		steps[ is + 2 ] = pr0;
+		steps[ is + 3 ] = pb0;
+		steps[ is + 4 ] = px1;
+		steps[ is + 5 ] = py1;
+		is += 6;
 	}
 
 	// Top edge
 	steps[ is + 0 ] = swl * rxc;
 	steps[ is + 1 ] = swt;
-	antialiases[ ia + 0 ] = pl0;
-	antialiases[ ia + 1 ] = pt0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pl0;
+	steps[ is + 3 ] = pt0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	steps[ is + 0 ] = 0;
 	steps[ is + 1 ] = swt;
-	antialiases[ ia + 0 ] = plr0;
-	antialiases[ ia + 1 ] = pt0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = plr0;
+	steps[ is + 3 ] = pt0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	steps[ is + 0 ] = swr * rxc;
 	steps[ is + 1 ] = swt;
-	antialiases[ ia + 0 ] = plr0;
-	antialiases[ ia + 1 ] = pt0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = plr0;
+	steps[ is + 3 ] = pt0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// Top
 	steps[ is + 0 ] = swl;
 	steps[ is + 1 ] = swt * ryc;
-	antialiases[ ia + 0 ] = pl0;
-	antialiases[ ia + 1 ] = pt0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pl0;
+	steps[ is + 3 ] = pt0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	steps[ is + 0 ] = swl * rxc;
 	steps[ is + 1 ] = swt * ryc;
-	antialiases[ ia + 0 ] = pl0;
-	antialiases[ ia + 1 ] = pt0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pl0;
+	steps[ is + 3 ] = pt0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	steps[ is + 0 ] = 0;
 	steps[ is + 1 ] = swt * ryc;
-	antialiases[ ia + 0 ] = plr0;
-	antialiases[ ia + 1 ] = pt0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = plr0;
+	steps[ is + 3 ] = pt0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	steps[ is + 0 ] = swr * rxc;
 	steps[ is + 1 ] = swt * ryc;
-	antialiases[ ia + 0 ] = pr0;
-	antialiases[ ia + 1 ] = pt0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pr0;
+	steps[ is + 3 ] = pt0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	steps[ is + 0 ] = swr;
 	steps[ is + 1 ] = swt * ryc;
-	antialiases[ ia + 0 ] = pr0;
-	antialiases[ ia + 1 ] = pt0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pr0;
+	steps[ is + 3 ] = pt0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// Middle
 	steps[ is + 0 ] = swl;
 	steps[ is + 1 ] = 0;
-	antialiases[ ia + 0 ] = pl0;
-	antialiases[ ia + 1 ] = ptb0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pl0;
+	steps[ is + 3 ] = ptb0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	steps[ is + 0 ] = 0;
 	steps[ is + 1 ] = 0;
-	antialiases[ ia + 0 ] = pl0;
-	antialiases[ ia + 1 ] = ptb0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pl0;
+	steps[ is + 3 ] = ptb0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	steps[ is + 0 ] = 0;
 	steps[ is + 1 ] = 0;
-	antialiases[ ia + 0 ] = pr0;
-	antialiases[ ia + 1 ] = ptb0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pr0;
+	steps[ is + 3 ] = ptb0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	steps[ is + 0 ] = swr;
 	steps[ is + 1 ] = 0;
-	antialiases[ ia + 0 ] = pr0;
-	antialiases[ ia + 1 ] = ptb0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pr0;
+	steps[ is + 3 ] = ptb0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// Bottom
 	steps[ is + 0 ] = swl;
 	steps[ is + 1 ] = swb * ryc;
-	antialiases[ ia + 0 ] = pl0;
-	antialiases[ ia + 1 ] = pb0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pl0;
+	steps[ is + 3 ] = pb0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	steps[ is + 0 ] = swl * rxc;
 	steps[ is + 1 ] = swb * ryc;
-	antialiases[ ia + 0 ] = pl0;
-	antialiases[ ia + 1 ] = pb0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pl0;
+	steps[ is + 3 ] = pb0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	steps[ is + 0 ] = 0;
 	steps[ is + 1 ] = swb * ryc;
-	antialiases[ ia + 0 ] = plr0;
-	antialiases[ ia + 1 ] = pb0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = plr0;
+	steps[ is + 3 ] = pb0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	steps[ is + 0 ] = swr * rxc;
 	steps[ is + 1 ] = swb * ryc;
-	antialiases[ ia + 0 ] = pr0;
-	antialiases[ ia + 1 ] = pb0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pr0;
+	steps[ is + 3 ] = pb0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	steps[ is + 0 ] = swr;
 	steps[ is + 1 ] = swb * ryc;
-	antialiases[ ia + 0 ] = pr0;
-	antialiases[ ia + 1 ] = pb0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pr0;
+	steps[ is + 3 ] = pb0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// Bottom edge
 	steps[ is + 0 ] = swl * rxc;
 	steps[ is + 1 ] = swb;
-	antialiases[ ia + 0 ] = pl0;
-	antialiases[ ia + 1 ] = pb0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pl0;
+	steps[ is + 3 ] = pb0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	steps[ is + 0 ] = 0;
 	steps[ is + 1 ] = swb;
-	antialiases[ ia + 0 ] = plr0;
-	antialiases[ ia + 1 ] = pb0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = plr0;
+	steps[ is + 3 ] = pb0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	steps[ is + 0 ] = swr * rxc;
 	steps[ is + 1 ] = swb;
-	antialiases[ ia + 0 ] = pr0;
-	antialiases[ ia + 1 ] = pb0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pr0;
+	steps[ is + 3 ] = pb0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 };
 
 export const buildRectangleRoundedUv = (

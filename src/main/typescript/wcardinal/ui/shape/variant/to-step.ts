@@ -1,9 +1,11 @@
+export const STEP_VALUES: [ number, number, number ] = [ 0, 0, 0 ];
+
 export const toStep = (
 	size: number,
 	strokeWidth: number,
 	antialiasWeight: number,
-	result: Float32Array
-): Float32Array => {
+	result: [ number, number, number ]
+): [ number, number, number ] => {
 	const FMIN: number = 0.00001;
 	if( FMIN < strokeWidth ) {
 		const dpc0 = size - strokeWidth;

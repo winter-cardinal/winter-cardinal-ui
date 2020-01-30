@@ -1,28 +1,22 @@
 export const copyStep = (
 	steps: Float32Array,
-	antialiases: Float32Array,
 	voffset: number,
 	vcountPerPoint: number,
 	pointCount: number
 ): void => {
-	let iv = voffset + vcountPerPoint;
+	const iss0 = voffset * 6;
+	let isd = (voffset + vcountPerPoint) * 6;
 	for( let i = 1; i < pointCount; ++i ) {
-		let ivd = iv << 1;
-		let ivs = voffset << 1;
-		let iad = iv << 2;
-		let ias = voffset << 2;
+		let iss = iss0;
 		for( let j = 0; j < vcountPerPoint; ++j ) {
-			steps[ ivd     ] = steps[ ivs     ];
-			steps[ ivd + 1 ] = steps[ ivs + 1 ];
-			antialiases[ iad     ] = antialiases[ ias     ];
-			antialiases[ iad + 1 ] = antialiases[ ias + 1 ];
-			antialiases[ iad + 2 ] = antialiases[ ias + 2 ];
-			antialiases[ iad + 3 ] = antialiases[ ias + 3 ];
-			ivd += 2;
-			ivs += 2;
-			iad += 4;
-			ias += 4;
+			steps[ isd + 0 ] = steps[ iss + 0 ];
+			steps[ isd + 1 ] = steps[ iss + 1 ];
+			steps[ isd + 2 ] = steps[ iss + 2 ];
+			steps[ isd + 3 ] = steps[ iss + 3 ];
+			steps[ isd + 4 ] = steps[ iss + 4 ];
+			steps[ isd + 5 ] = steps[ iss + 5 ];
+			isd += 6;
+			iss += 6;
 		}
-		iv += vcountPerPoint;
 	}
 };

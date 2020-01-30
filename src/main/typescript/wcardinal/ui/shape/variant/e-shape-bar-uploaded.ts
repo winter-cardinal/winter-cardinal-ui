@@ -105,15 +105,13 @@ export class EShapeBarUploaded extends EShapeTextUploaded {
 				buildBarVertexStepAndColorFill(
 					buffer.vertices,
 					buffer.steps,
-					buffer.antialiases,
 					buffer.colorFills,
 					this.vertexOffset,
 					points.values,
 					pointsStyle,
 					points.size,
 					strokeWidth,
-					shape.transform.internalTransform,
-					buffer.work
+					shape.transform.internalTransform
 				);
 			}
 		}

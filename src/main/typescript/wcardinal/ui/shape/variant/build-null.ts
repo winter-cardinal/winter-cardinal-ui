@@ -37,17 +37,16 @@ export const buildNullVertex = (
 
 export const buildNullStep = (
 	steps: Float32Array,
-	antialiases: Float32Array,
 	voffset: number,
 	vcount: number
 ): void => {
-	for( let i = voffset * 2, imax = (voffset + vcount) * 2, j = voffset * 4; i < imax; i += 2, j += 4 ) {
+	for( let i = voffset * 6, imax = (voffset + vcount) * 6; i < imax; i += 6 ) {
 		steps[ i + 0 ] = 0;
 		steps[ i + 1 ] = 0;
-		antialiases[ j + 0 ] = 0;
-		antialiases[ j + 1 ] = 0;
-		antialiases[ j + 2 ] = 0;
-		antialiases[ j + 3 ] = 0;
+		steps[ i + 2 ] = 0;
+		steps[ i + 3 ] = 0;
+		steps[ i + 4 ] = 0;
+		steps[ i + 5 ] = 0;
 	}
 };
 

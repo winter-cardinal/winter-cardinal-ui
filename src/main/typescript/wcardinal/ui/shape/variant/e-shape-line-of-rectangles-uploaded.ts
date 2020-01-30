@@ -129,13 +129,10 @@ export class EShapeLineOfRectanglesUploaded extends EShapeLineOfAnyUploaded {
 			const vertices = buffer.vertices;
 			const clippings = buffer.clippings;
 			const steps = buffer.steps;
-			const antialiases = buffer.antialiases;
 			const uvs = buffer.uvs;
 			const internalTransform = shape.transform.internalTransform;
 			const antialiasWeight = this.antialiasWeight;
 			const textureUvs = this.toTextureUvs( texture );
-			const work = buffer.work;
-			const workStep = buffer.workStep;
 			if( 0 < pointCount && pointSize.isStaticX() && pointSize.isStaticY() ) {
 				const pointSizeX = pointSize.getX( 0 );
 				const pointSizeY = pointSize.getY( 0 );
@@ -147,8 +144,7 @@ export class EShapeLineOfRectanglesUploaded extends EShapeLineOfAnyUploaded {
 					pointSizeX, pointSizeY,
 					strokeAlign, strokeWidth,
 					internalTransform,
-					RECTANGLE_WORLD_SIZE,
-					work
+					RECTANGLE_WORLD_SIZE
 				);
 				copyVertex(
 					vertices,
@@ -158,18 +154,17 @@ export class EShapeLineOfRectanglesUploaded extends EShapeLineOfAnyUploaded {
 					pointOffset
 				);
 
-				// Steps & antialiases
+				// Steps
 				if( isVertexChanged || isTransformChanged ) {
 					buildRectangleStep(
 						voffset,
-						steps, antialiases,
+						steps,
 						strokeWidth, strokeSide,
 						antialiasWeight,
-						RECTANGLE_WORLD_SIZE,
-						workStep
+						RECTANGLE_WORLD_SIZE
 					);
 					copyStep(
-						steps, antialiases,
+						steps,
 						voffset, RECTANGLE_VERTEX_COUNT,
 						pointCount
 					);
@@ -219,19 +214,17 @@ export class EShapeLineOfRectanglesUploaded extends EShapeLineOfAnyUploaded {
 						pointSizeX, pointSizeY,
 						strokeAlign, strokeWidth,
 						internalTransform,
-						RECTANGLE_WORLD_SIZE,
-						work
+						RECTANGLE_WORLD_SIZE
 					);
 
-					// Steps & antialiases
+					// Steps
 					if( isVertexChanged || isTransformChanged ) {
 						buildRectangleStep(
 							iv,
-							steps, antialiases,
+							steps,
 							strokeWidth, strokeSide,
 							antialiasWeight,
-							RECTANGLE_WORLD_SIZE,
-							workStep
+							RECTANGLE_WORLD_SIZE
 						);
 					}
 
@@ -266,7 +259,7 @@ export class EShapeLineOfRectanglesUploaded extends EShapeLineOfAnyUploaded {
 				vcountReserved
 			);
 			buildNullStep(
-				steps, antialiases,
+				steps,
 				voffsetReserved,
 				vcountReserved
 			);

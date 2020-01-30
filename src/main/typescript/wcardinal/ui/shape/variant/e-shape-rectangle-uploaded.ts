@@ -84,20 +84,18 @@ export class EShapeRectangleUploaded extends EShapeTextUploaded {
 				sizeX, sizeY,
 				strokeAlign, strokeWidth,
 				shape.transform.internalTransform,
-				RECTANGLE_WORLD_SIZE,
-				buffer.work
+				RECTANGLE_WORLD_SIZE
 			);
 
-			// Steps & antialiases
+			// Steps
 			if( isVertexChanged || isTransformChanged ) {
 				buffer.updateSteps();
 				buildRectangleStep(
 					voffset,
-					buffer.steps, buffer.antialiases,
+					buffer.steps,
 					strokeWidth, strokeSide,
 					this.antialiasWeight,
-					RECTANGLE_WORLD_SIZE,
-					buffer.workStep
+					RECTANGLE_WORLD_SIZE
 				);
 			}
 

@@ -123,12 +123,9 @@ export class EShapeLineOfCirclesUploaded extends EShapeLineOfAnyUploaded {
 			const voffset = this.vertexOffset;
 			const vertices = buffer.vertices;
 			const steps = buffer.steps;
-			const antialiases = buffer.antialiases;
 			const clippings = buffer.clippings;
 			const internalTransform = shape.transform.internalTransform;
 			const antialiasWeight = this.antialiasWeight;
-			const work = buffer.work;
-			const workStep = buffer.workStep;
 			if( 0 < pointCount && pointSize.isStaticX() && pointSize.isStaticY() ) {
 				const pointSizeX = pointSize.getX( 0 );
 				const pointSizeY = pointSize.getY( 0 );
@@ -139,8 +136,7 @@ export class EShapeLineOfCirclesUploaded extends EShapeLineOfAnyUploaded {
 					pointSizeX, pointSizeY,
 					strokeAlign, strokeWidth,
 					internalTransform,
-					CIRCLE_WORLD_SIZE,
-					work
+					CIRCLE_WORLD_SIZE
 				);
 				copyVertex(
 					vertices,
@@ -150,15 +146,14 @@ export class EShapeLineOfCirclesUploaded extends EShapeLineOfAnyUploaded {
 					pointOffset
 				);
 				buildCircleStep(
-					steps, antialiases, clippings,
+					steps, clippings,
 					voffset,
 					strokeWidth,
 					antialiasWeight,
-					CIRCLE_WORLD_SIZE,
-					workStep
+					CIRCLE_WORLD_SIZE
 				);
 				copyStep(
-					steps, antialiases,
+					steps,
 					voffset, CIRCLE_VERTEX_COUNT,
 					pointCount
 				);
@@ -176,16 +171,14 @@ export class EShapeLineOfCirclesUploaded extends EShapeLineOfAnyUploaded {
 						pointSizeX, pointSizeY,
 						strokeAlign, strokeWidth,
 						internalTransform,
-						CIRCLE_WORLD_SIZE,
-						work
+						CIRCLE_WORLD_SIZE
 					);
 					buildCircleStep(
-						steps, antialiases, clippings,
+						steps, clippings,
 						iv,
 						strokeWidth,
 						antialiasWeight,
-						CIRCLE_WORLD_SIZE,
-						workStep
+						CIRCLE_WORLD_SIZE
 					);
 				}
 			}
@@ -200,7 +193,7 @@ export class EShapeLineOfCirclesUploaded extends EShapeLineOfAnyUploaded {
 				vcountReserved
 			);
 			buildNullStep(
-				steps, antialiases,
+				steps,
 				voffsetReserved,
 				vcountReserved
 			);

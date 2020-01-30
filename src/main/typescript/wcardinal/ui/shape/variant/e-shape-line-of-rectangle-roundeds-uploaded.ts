@@ -141,13 +141,10 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeLineOfAnyUpload
 			const vertices = buffer.vertices;
 			const clippings = buffer.clippings;
 			const steps = buffer.steps;
-			const antialiases = buffer.antialiases;
 			const uvs = buffer.uvs;
 			const internalTransform = shape.transform.internalTransform;
 			const textureUvs = this.toTextureUvs( texture );
 			const antialiasWeight = this.antialiasWeight;
-			const work = buffer.work;
-			const workStep = buffer.workStep;
 			if( 0 < pointCount && pointSize.isStaticX() && pointSize.isStaticY() ) {
 				const pointSizeX = pointSize.getX( 0 );
 				const pointSizeY = pointSize.getY( 0 );
@@ -159,8 +156,7 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeLineOfAnyUpload
 					pointSizeX, pointSizeY,
 					strokeAlign, strokeWidth, radius,
 					internalTransform,
-					RECTANGLE_ROUNDED_WORLD_SIZE,
-					work
+					RECTANGLE_ROUNDED_WORLD_SIZE
 				);
 				copyVertex(
 					vertices,
@@ -170,20 +166,18 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeLineOfAnyUpload
 					pointOffset
 				);
 
-				// Steps & antialiases
+				// Steps
 				if( isVertexChanged || isTransformChanged ) {
 					buildRectangleRoundedStep(
 						steps,
-						antialiases,
 						voffset,
 						strokeWidth, strokeSide,
 						corner,
 						antialiasWeight,
-						RECTANGLE_ROUNDED_WORLD_SIZE,
-						workStep
+						RECTANGLE_ROUNDED_WORLD_SIZE
 					);
 					copyStep(
-						steps, antialiases,
+						steps,
 						voffset, RECTANGLE_ROUNDED_VERTEX_COUNT,
 						pointCount
 					);
@@ -237,21 +231,18 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeLineOfAnyUpload
 						pointSizeX, pointSizeY,
 						strokeAlign, strokeWidth, radius,
 						internalTransform,
-						RECTANGLE_ROUNDED_WORLD_SIZE,
-						work
+						RECTANGLE_ROUNDED_WORLD_SIZE
 					);
 
-					// Steps & antialiases
+					// Steps
 					if( isVertexChanged || isTransformChanged ) {
 						buildRectangleRoundedStep(
 							steps,
-							antialiases,
 							iv,
 							strokeWidth, strokeSide,
 							corner,
 							antialiasWeight,
-							RECTANGLE_ROUNDED_WORLD_SIZE,
-							workStep
+							RECTANGLE_ROUNDED_WORLD_SIZE
 						);
 					}
 
@@ -287,7 +278,7 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeLineOfAnyUpload
 				vcountReserved
 			);
 			buildNullStep(
-				steps, antialiases,
+				steps,
 				voffsetReserved,
 				vcountReserved
 			);

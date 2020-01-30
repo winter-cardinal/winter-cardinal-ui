@@ -1,11 +1,12 @@
 import { Matrix, Point, TextureUvs } from "pixi.js";
 import { buildStep } from "./build-step";
 import { toLength } from "./to-length";
-import { toStep } from "./to-step";
+import { STEP_VALUES, toStep } from "./to-step";
 
 export const CIRCLE_VERTEX_COUNT = 9;
 export const CIRCLE_INDEX_COUNT = 8;
 export const CIRCLE_WORLD_SIZE: [ number, number ] = [ 0, 0 ];
+const CIRCLE_WORK_POINT: Point = new Point();
 
 export const buildCircleClipping = (
 	clippings: Float32Array,
@@ -98,8 +99,7 @@ export const buildCircleVertex = (
 	strokeAlign: number,
 	strokeWidth: number,
 	internalTransform: Matrix,
-	worldSize: [ number, number ],
-	work: Point
+	worldSize: [ number, number ]
 ): void => {
 	// Calculate the transformed positions
 	//
@@ -110,6 +110,7 @@ export const buildCircleVertex = (
 	// |6      |7      |8
 	// |-------|-------|
 	//
+	const work = CIRCLE_WORK_POINT;
 	const s = strokeAlign * strokeWidth;
 	const sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
 	const sy = sizeY * 0.5 + (0 <= sizeY ? +s : -s);
@@ -161,26 +162,24 @@ export const buildCircleVertex = (
 
 export const buildCircleStep = (
 	steps: Float32Array,
-	antialiases: Float32Array,
 	clippings: Float32Array,
 	voffset: number,
 	strokeWidth: number,
 	antialiasWeight: number,
-	worldSize: [ number, number ],
-	workStep: Float32Array
+	worldSize: [ number, number ]
 ): void => {
-	toStep( worldSize[ 0 ], strokeWidth, antialiasWeight, workStep );
-	const swx = workStep[ 0 ];
-	const px0 = workStep[ 1 ];
-	const px1 = workStep[ 2 ];
+	toStep( worldSize[ 0 ], strokeWidth, antialiasWeight, STEP_VALUES );
+	const swx = STEP_VALUES[ 0 ];
+	const px0 = STEP_VALUES[ 1 ];
+	const px1 = STEP_VALUES[ 2 ];
 
-	toStep( worldSize[ 1 ], strokeWidth, antialiasWeight, workStep );
-	const swy = workStep[ 0 ];
-	const py0 = workStep[ 1 ];
-	const py1 = workStep[ 2 ];
+	toStep( worldSize[ 1 ], strokeWidth, antialiasWeight, STEP_VALUES );
+	const swy = STEP_VALUES[ 0 ];
+	const py0 = STEP_VALUES[ 1 ];
+	const py1 = STEP_VALUES[ 2 ];
 
 	buildStep(
-		steps, antialiases, clippings,
+		steps, clippings,
 		voffset, CIRCLE_VERTEX_COUNT,
 		swx, swy, px0, py0, px1, py1
 	);

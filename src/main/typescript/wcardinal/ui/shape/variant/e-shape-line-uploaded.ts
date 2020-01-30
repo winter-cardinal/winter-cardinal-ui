@@ -129,7 +129,6 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 				this.length = buildLineVertexStepAndColorFill(
 					buffer.vertices,
 					buffer.steps,
-					buffer.antialiases,
 					buffer.colorFills,
 					this.vertexOffset,
 					this.vertexCount - this.textVertexCount,
@@ -139,8 +138,7 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 					points.segments,
 					points.style,
 					strokeWidth,
-					shape.transform.internalTransform,
-					buffer.work
+					shape.transform.internalTransform
 				);
 			}
 		}

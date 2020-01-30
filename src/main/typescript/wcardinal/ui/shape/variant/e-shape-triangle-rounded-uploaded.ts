@@ -81,7 +81,6 @@ export class EShapeTriangleRoundedUploaded extends EShapeTextUploaded {
 			}
 
 			const voffset = this.vertexOffset;
-			const work = buffer.work;
 
 			buffer.updateVertices();
 			buildTriangleRoundedVertex(
@@ -95,8 +94,7 @@ export class EShapeTriangleRoundedUploaded extends EShapeTextUploaded {
 				strokeWidth,
 				radius,
 				shape.transform.internalTransform,
-				TRIANGLE_ROUNDED_WORLD_SIZE,
-				work
+				TRIANGLE_ROUNDED_WORLD_SIZE
 			);
 
 			if( isRadiusChanged || isCornerChanged ) {
@@ -113,14 +111,12 @@ export class EShapeTriangleRoundedUploaded extends EShapeTextUploaded {
 				buffer.updateSteps();
 				buildTriangleRoundedStep(
 					buffer.steps,
-					buffer.antialiases,
 					buffer.clippings,
 					voffset,
 					strokeWidth,
 					shape.radius,
 					this.antialiasWeight,
-					TRIANGLE_ROUNDED_WORLD_SIZE,
-					buffer.workStep
+					TRIANGLE_ROUNDED_WORLD_SIZE
 				);
 			}
 

@@ -6,6 +6,7 @@ export const IMAGE_SDF_INDEX_COUNT = 8;
 export const IMAGE_SDF_WORLD_SIZE: [ number, number ] = [ 0, 0 ];
 const IMAGE_SDF_FMIN: number = 0.00001;
 const IMAGE_SDF_SDF_WINDOW: number = 12;
+const IMAGE_SDF_WORK_POINT: Point = new Point();
 
 export const buildImageSdfClipping = (
 	clippings: Float32Array,
@@ -58,7 +59,6 @@ export const buildImageSdfIndex = (
 
 export const buildImageSdfStep = (
 	steps: Float32Array,
-	antialiases: Float32Array,
 	voffset: number,
 	strokeAlign: number,
 	strokeWidth: number,
@@ -75,38 +75,80 @@ export const buildImageSdfStep = (
 	const strokeWidthMax = ( outlineLimit / 0.5 ) * IMAGE_SDF_SDF_WINDOW;
 	const strokeWidthRatio = Math.max( 0.0, Math.min( 1.0, strokeWidth / strokeWidthMax ));
 	const outlineWidth = strokeWidthRatio * outlineLimit;
-
-	let iv = voffset << 1;
-	steps[ iv + 0 ] = scaleZ;
-	steps[ iv + 1 ] = outlineWidth;
-	steps[ iv + 2 ] = scaleY;
-	steps[ iv + 3 ] = outlineWidth;
-	steps[ iv + 4 ] = scaleZ;
-	steps[ iv + 5 ] = outlineWidth;
-	iv += 6;
-
-	steps[ iv + 0 ] = scaleX;
-	steps[ iv + 1 ] = outlineWidth;
-	steps[ iv + 2 ] = scaleZ;
-	steps[ iv + 3 ] = outlineWidth;
-	steps[ iv + 4 ] = scaleX;
-	steps[ iv + 5 ] = outlineWidth;
-	iv += 6;
-
-	steps[ iv + 0 ] = scaleZ;
-	steps[ iv + 1 ] = outlineWidth;
-	steps[ iv + 2 ] = scaleY;
-	steps[ iv + 3 ] = outlineWidth;
-	steps[ iv + 4 ] = scaleY;
-	steps[ iv + 5 ] = outlineWidth;
-
 	const outlinePosition = -outlineWidth * (1 - strokeAlign);
-	for( let ia = (voffset << 2), iamax = ((voffset + IMAGE_SDF_VERTEX_COUNT) << 2); ia < iamax; ia += 4 ) {
-		antialiases[ ia + 0 ] = outlinePosition;
-		antialiases[ ia + 1 ] = IMAGE_SDF_FMIN;
-		antialiases[ ia + 2 ] = IMAGE_SDF_FMIN;
-		antialiases[ ia + 3 ] = IMAGE_SDF_FMIN;
-	}
+
+	let is = voffset * 6;
+	steps[ is + 0 ] = scaleZ;
+	steps[ is + 1 ] = outlineWidth;
+	steps[ is + 2 ] = outlinePosition;
+	steps[ is + 3 ] = IMAGE_SDF_FMIN;
+	steps[ is + 4 ] = IMAGE_SDF_FMIN;
+	steps[ is + 5 ] = IMAGE_SDF_FMIN;
+	is += 6;
+
+	steps[ is + 0 ] = scaleY;
+	steps[ is + 1 ] = outlineWidth;
+	steps[ is + 2 ] = outlinePosition;
+	steps[ is + 3 ] = IMAGE_SDF_FMIN;
+	steps[ is + 4 ] = IMAGE_SDF_FMIN;
+	steps[ is + 5 ] = IMAGE_SDF_FMIN;
+	is += 6;
+
+	steps[ is + 0 ] = scaleZ;
+	steps[ is + 1 ] = outlineWidth;
+	steps[ is + 2 ] = outlinePosition;
+	steps[ is + 3 ] = IMAGE_SDF_FMIN;
+	steps[ is + 4 ] = IMAGE_SDF_FMIN;
+	steps[ is + 5 ] = IMAGE_SDF_FMIN;
+	is += 6;
+
+	steps[ is + 0 ] = scaleX;
+	steps[ is + 1 ] = outlineWidth;
+	steps[ is + 2 ] = outlinePosition;
+	steps[ is + 3 ] = IMAGE_SDF_FMIN;
+	steps[ is + 4 ] = IMAGE_SDF_FMIN;
+	steps[ is + 5 ] = IMAGE_SDF_FMIN;
+	is += 6;
+
+	steps[ is + 0 ] = scaleZ;
+	steps[ is + 1 ] = outlineWidth;
+	steps[ is + 2 ] = outlinePosition;
+	steps[ is + 3 ] = IMAGE_SDF_FMIN;
+	steps[ is + 4 ] = IMAGE_SDF_FMIN;
+	steps[ is + 5 ] = IMAGE_SDF_FMIN;
+	is += 6;
+
+	steps[ is + 0 ] = scaleX;
+	steps[ is + 1 ] = outlineWidth;
+	steps[ is + 2 ] = outlinePosition;
+	steps[ is + 3 ] = IMAGE_SDF_FMIN;
+	steps[ is + 4 ] = IMAGE_SDF_FMIN;
+	steps[ is + 5 ] = IMAGE_SDF_FMIN;
+	is += 6;
+
+	steps[ is + 0 ] = scaleZ;
+	steps[ is + 1 ] = outlineWidth;
+	steps[ is + 2 ] = outlinePosition;
+	steps[ is + 3 ] = IMAGE_SDF_FMIN;
+	steps[ is + 4 ] = IMAGE_SDF_FMIN;
+	steps[ is + 5 ] = IMAGE_SDF_FMIN;
+	is += 6;
+
+	steps[ is + 0 ] = scaleY;
+	steps[ is + 1 ] = outlineWidth;
+	steps[ is + 2 ] = outlinePosition;
+	steps[ is + 3 ] = IMAGE_SDF_FMIN;
+	steps[ is + 4 ] = IMAGE_SDF_FMIN;
+	steps[ is + 5 ] = IMAGE_SDF_FMIN;
+	is += 6;
+
+	steps[ is + 0 ] = scaleY;
+	steps[ is + 1 ] = outlineWidth;
+	steps[ is + 2 ] = outlinePosition;
+	steps[ is + 3 ] = IMAGE_SDF_FMIN;
+	steps[ is + 4 ] = IMAGE_SDF_FMIN;
+	steps[ is + 5 ] = IMAGE_SDF_FMIN;
+	is += 6;
 };
 
 export const buildImageSdfVertex = (
@@ -117,8 +159,7 @@ export const buildImageSdfVertex = (
 	sizeX: number,
 	sizeY: number,
 	internalTransform: Matrix,
-	worldSize: [ number, number ],
-	work: Point
+	worldSize: [ number, number ]
 ): void => {
 	// Calculate the transformed positions
 	//
@@ -130,6 +171,7 @@ export const buildImageSdfVertex = (
 	// |-------|-------|
 	// 6       7       8
 	//
+	const work = IMAGE_SDF_WORK_POINT;
 	const sx = sizeX * 0.5;
 	const sy = sizeY * 0.5;
 	work.set( originX - sx, originY - sy );

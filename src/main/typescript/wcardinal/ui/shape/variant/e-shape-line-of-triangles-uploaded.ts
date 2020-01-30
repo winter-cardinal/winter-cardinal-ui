@@ -133,14 +133,11 @@ export class EShapeLineOfTrianglesUploaded extends EShapeLineOfAnyUploaded {
 			const voffset = this.vertexOffset;
 			const vertices = buffer.vertices;
 			const steps = buffer.steps;
-			const antialiases = buffer.antialiases;
 			const clippings = buffer.clippings;
 			const uvs = buffer.uvs;
 			const textureUvs = this.toTextureUvs( texture );
 			const internalTransform = shape.transform.internalTransform;
 			const antialiasWeight = this.antialiasWeight;
-			const work = buffer.work;
-			const workStep = buffer.workStep;
 			if( 0 < pointCount && pointSize.isStaticX() && pointSize.isStaticY() ) {
 				const pointSizeX = pointSize.getX( 0 );
 				const pointSizeY = pointSize.getY( 0 );
@@ -153,8 +150,7 @@ export class EShapeLineOfTrianglesUploaded extends EShapeLineOfAnyUploaded {
 					strokeAlign,
 					strokeWidth,
 					internalTransform,
-					TRIANGLE_WORLD_SIZE,
-					work
+					TRIANGLE_WORLD_SIZE
 				);
 				copyVertex(
 					vertices,
@@ -166,17 +162,15 @@ export class EShapeLineOfTrianglesUploaded extends EShapeLineOfAnyUploaded {
 				if( isVertexChanged || isTransformChanged ) {
 					buildTriangleStep(
 						steps,
-						antialiases,
 						clippings,
 						voffset,
 						TRIANGLE_VERTEX_COUNT,
 						strokeWidth,
 						antialiasWeight,
-						TRIANGLE_WORLD_SIZE,
-						workStep
+						TRIANGLE_WORLD_SIZE
 					);
 					copyStep(
-						steps, antialiases,
+						steps,
 						voffset, TRIANGLE_VERTEX_COUNT,
 						pointCount
 					);
@@ -212,20 +206,17 @@ export class EShapeLineOfTrianglesUploaded extends EShapeLineOfAnyUploaded {
 						strokeAlign,
 						strokeWidth,
 						internalTransform,
-						TRIANGLE_WORLD_SIZE,
-						work
+						TRIANGLE_WORLD_SIZE
 					);
 					if( isVertexChanged || isTransformChanged ) {
 						buildTriangleStep(
 							steps,
-							antialiases,
 							clippings,
 							iv,
 							TRIANGLE_VERTEX_COUNT,
 							strokeWidth,
 							antialiasWeight,
-							TRIANGLE_WORLD_SIZE,
-							workStep
+							TRIANGLE_WORLD_SIZE
 						);
 					}
 					if( isVertexChanged || isTextureChanged ) {
@@ -249,7 +240,7 @@ export class EShapeLineOfTrianglesUploaded extends EShapeLineOfAnyUploaded {
 				vcountReserved
 			);
 			buildNullStep(
-				steps, antialiases,
+				steps,
 				voffsetReserved,
 				vcountReserved
 			);

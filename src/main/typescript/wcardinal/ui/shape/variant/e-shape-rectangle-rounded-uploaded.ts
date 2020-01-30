@@ -90,22 +90,19 @@ export class EShapeRectangleRoundedUploaded extends EShapeTextUploaded {
 				sizeX, sizeY,
 				strokeAlign, strokeWidth, radius,
 				shape.transform.internalTransform,
-				RECTANGLE_ROUNDED_WORLD_SIZE,
-				buffer.work
+				RECTANGLE_ROUNDED_WORLD_SIZE
 			);
 
-			// Steps & antialiases
+			// Steps
 			if( isVertexChanged || isTransformChanged ) {
 				buffer.updateSteps();
 				buildRectangleRoundedStep(
 					buffer.steps,
-					buffer.antialiases,
 					voffset,
 					strokeWidth, strokeSide,
 					corner,
 					this.antialiasWeight,
-					RECTANGLE_ROUNDED_WORLD_SIZE,
-					buffer.workStep
+					RECTANGLE_ROUNDED_WORLD_SIZE
 				);
 			}
 

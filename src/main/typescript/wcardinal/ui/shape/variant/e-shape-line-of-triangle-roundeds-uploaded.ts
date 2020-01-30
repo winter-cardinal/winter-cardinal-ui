@@ -139,13 +139,10 @@ export class EShapeLineOfTriangleRoundedsUploaded extends EShapeLineOfAnyUploade
 			const vertices = buffer.vertices;
 			const clippings = buffer.clippings;
 			const steps = buffer.steps;
-			const antialiases = buffer.antialiases;
 			const uvs = buffer.uvs;
 			const internalTransform = shape.transform.internalTransform;
 			const textureUvs = this.toTextureUvs( texture );
 			const antialiasWeight = this.antialiasWeight;
-			const work = buffer.work;
-			const workStep = buffer.workStep;
 			if( 0 < pointCount && pointSize.isStaticX() && pointSize.isStaticY() ) {
 				const pointSizeX = pointSize.getX( 0 );
 				const pointSizeY = pointSize.getY( 0 );
@@ -157,8 +154,7 @@ export class EShapeLineOfTriangleRoundedsUploaded extends EShapeLineOfAnyUploade
 					pointSizeX, pointSizeY,
 					strokeAlign, strokeWidth, radius,
 					internalTransform,
-					TRIANGLE_ROUNDED_WORLD_SIZE,
-					work
+					TRIANGLE_ROUNDED_WORLD_SIZE
 				);
 				copyVertex(
 					vertices,
@@ -184,21 +180,19 @@ export class EShapeLineOfTriangleRoundedsUploaded extends EShapeLineOfAnyUploade
 					);
 				}
 
-				// Steps & antialiases
+				// Steps
 				if( isVertexChanged || isTransformChanged || isCornerChanged ) {
 					buildTriangleRoundedStep(
 						steps,
-						antialiases,
 						clippings,
 						voffset,
 						strokeWidth,
 						radius,
 						antialiasWeight,
-						TRIANGLE_ROUNDED_WORLD_SIZE,
-						workStep
+						TRIANGLE_ROUNDED_WORLD_SIZE
 					);
 					copyStep(
-						steps, antialiases,
+						steps,
 						voffset, TRIANGLE_ROUNDED_VERTEX_COUNT,
 						pointCount
 					);
@@ -237,8 +231,7 @@ export class EShapeLineOfTriangleRoundedsUploaded extends EShapeLineOfAnyUploade
 						pointSizeX, pointSizeY,
 						strokeAlign, strokeWidth, radius,
 						internalTransform,
-						TRIANGLE_ROUNDED_WORLD_SIZE,
-						work
+						TRIANGLE_ROUNDED_WORLD_SIZE
 					);
 
 					// Clippings
@@ -251,18 +244,16 @@ export class EShapeLineOfTriangleRoundedsUploaded extends EShapeLineOfAnyUploade
 						);
 					}
 
-					// Steps & antialiases
+					// Steps
 					if( isVertexChanged || isTransformChanged || isCornerChanged ) {
 						buildTriangleRoundedStep(
 							steps,
-							antialiases,
 							clippings,
 							iv,
 							strokeWidth,
 							radius,
 							antialiasWeight,
-							TRIANGLE_ROUNDED_WORLD_SIZE,
-							workStep
+							TRIANGLE_ROUNDED_WORLD_SIZE
 						);
 					}
 
@@ -289,7 +280,7 @@ export class EShapeLineOfTriangleRoundedsUploaded extends EShapeLineOfAnyUploade
 				vcountReserved
 			);
 			buildNullStep(
-				steps, antialiases,
+				steps,
 				voffsetReserved,
 				vcountReserved
 			);

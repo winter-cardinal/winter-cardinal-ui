@@ -1,11 +1,12 @@
 import { Matrix, Point, TextureUvs } from "pixi.js";
 import { EShapeStrokeSide } from "../e-shape-stroke-side";
 import { toLength } from "./to-length";
-import { toStep } from "./to-step";
+import { STEP_VALUES, toStep } from "./to-step";
 
 export const RECTANGLE_VERTEX_COUNT = 18;
 export const RECTANGLE_INDEX_COUNT = 12;
 export const RECTANGLE_WORLD_SIZE: [ number, number, number ] = [ 0, 0, 0 ];
+const RECTANGLE_WORK_POINT: Point = new Point();
 
 export const buildRectangleClipping = (
 	clippings: Float32Array,
@@ -205,8 +206,7 @@ export const buildRectangleVertex = (
 	strokeAlign: number,
 	strokeWidth: number,
 	internalTransform: Matrix,
-	worldSize: [ number, number, number ],
-	work: Point
+	worldSize: [ number, number, number ]
 ): void => {
 	// 0               1
 	// |-------|-------|
@@ -218,6 +218,7 @@ export const buildRectangleVertex = (
 	const s = strokeAlign * strokeWidth;
 	const sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
 	const sy = sizeY * 0.5 + (0 <= sizeY ? +s : -s);
+	const work = RECTANGLE_WORK_POINT;
 	work.set( originX - sx, originY - sy );
 	internalTransform.apply( work, work );
 	const bx0 = work.x;
@@ -399,26 +400,24 @@ export const buildRectangleVertexVertical = (
 export const buildRectangleStep = (
 	voffset: number,
 	steps: Float32Array,
-	antialiases: Float32Array,
 	strokeWidth: number,
 	strokeSide: EShapeStrokeSide,
 	antialiasWeight: number,
-	worldSize: [ number, number, number ],
-	workStep: Float32Array
+	worldSize: [ number, number, number ]
 ): void => {
 	const br = worldSize[ 0 ];
 	const bri = 1 - br;
 	const worldSizeX = worldSize[ 1 ];
 	const worldSizeY = worldSize[ 2 ];
-	toStep( worldSizeX, strokeWidth, antialiasWeight, workStep );
-	const swx = workStep[ 0 ];
-	const px0 = workStep[ 1 ];
-	const px1 = workStep[ 2 ];
+	toStep( worldSizeX, strokeWidth, antialiasWeight, STEP_VALUES );
+	const swx = STEP_VALUES[ 0 ];
+	const px0 = STEP_VALUES[ 1 ];
+	const px1 = STEP_VALUES[ 2 ];
 
-	toStep( worldSizeY, strokeWidth, antialiasWeight, workStep );
-	const swy = workStep[ 0 ];
-	const py0 = workStep[ 1 ];
-	const py1 = workStep[ 2 ];
+	toStep( worldSizeY, strokeWidth, antialiasWeight, STEP_VALUES );
+	const swy = STEP_VALUES[ 0 ];
+	const py0 = STEP_VALUES[ 1 ];
+	const py1 = STEP_VALUES[ 2 ];
 
 	let swt = swy;
 	let pt0 = py0;
@@ -457,8 +456,7 @@ export const buildRectangleStep = (
 			swl, pl0,
 			pc0, pm0,
 			voffset,
-			steps,
-			antialiases
+			steps
 		);
 	} else {
 		buildRectangleStepHorizontal(
@@ -471,8 +469,7 @@ export const buildRectangleStep = (
 			swl, pl0,
 			pc0, pm0,
 			voffset,
-			steps,
-			antialiases
+			steps
 		);
 	}
 };
@@ -487,195 +484,176 @@ export const buildRectangleStepVertical = (
 	swl: number, pl0: number,
 	pc0: number, pm0: number,
 	voffset: number,
-	steps: Float32Array,
-	antialiases: Float32Array
+	steps: Float32Array
 ): void => {
-	let is = voffset << 1;
-	let ia = voffset << 2;
+	let is = voffset * 6;
 
 	// 0
 	steps[ is     ] = swl;
 	steps[ is + 1 ] = swt;
-	antialiases[ ia     ] = pl0;
-	antialiases[ ia + 1 ] = pt0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pl0;
+	steps[ is + 3 ] = pt0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// 1
 	steps[ is     ] = 0;
 	steps[ is + 1 ] = swt;
-	antialiases[ ia     ] = pc0;
-	antialiases[ ia + 1 ] = pt0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pc0;
+	steps[ is + 3 ] = pt0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// 2
 	steps[ is     ] = swr;
 	steps[ is + 1 ] = swt;
-	antialiases[ ia     ] = pr0;
-	antialiases[ ia + 1 ] = pt0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pr0;
+	steps[ is + 3 ] = pt0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// 3
-	steps[ is    ] = 0;
+	steps[ is     ] = 0;
 	steps[ is + 1 ] = bri * swt;
-	antialiases[ ia     ] = pc0;
-	antialiases[ ia + 1 ] = pt0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pc0;
+	steps[ is + 3 ] = pt0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// 4
 	steps[ is     ] = 0;
 	steps[ is + 1 ] = bri * swb;
-	antialiases[ ia + 0 ] = pc0;
-	antialiases[ ia + 1 ] = pb0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pc0;
+	steps[ is + 3 ] = pb0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// 5
 	steps[ is     ] = swl;
 	steps[ is + 1 ] = swb;
-	antialiases[ ia     ] = pl0;
-	antialiases[ ia + 1 ] = pb0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pl0;
+	steps[ is + 3 ] = pb0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// 6
 	steps[ is     ] = 0;
 	steps[ is + 1 ] = swb;
-	antialiases[ ia     ] = pc0;
-	antialiases[ ia + 1 ] = pb0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pc0;
+	steps[ is + 3 ] = pb0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// 7
 	steps[ is     ] = swr;
 	steps[ is + 1 ] = swb;
-	antialiases[ ia     ] = pr0;
-	antialiases[ ia + 1 ] = pb0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pr0;
+	steps[ is + 3 ] = pb0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// ------------------------------
 
 	// 8
 	steps[ is     ] = swl;
 	steps[ is + 1 ] = swt;
-	antialiases[ ia     ] = pl0;
-	antialiases[ ia + 1 ] = pt0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pl0;
+	steps[ is + 3 ] = pt0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// 9
 	steps[ is     ] = swl;
 	steps[ is + 1 ] = bri * swt;
-	antialiases[ ia     ] = pl0;
-	antialiases[ ia + 1 ] = pt0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pl0;
+	steps[ is + 3 ] = pt0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// 10
 	steps[ is     ] = swl;
 	steps[ is + 1 ] = bri * swb;
-	antialiases[ ia     ] = pl0;
-	antialiases[ ia + 1 ] = pb0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pl0;
+	steps[ is + 3 ] = pb0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// 11
 	steps[ is     ] = swl;
 	steps[ is + 1 ] = swb;
-	antialiases[ ia     ] = pl0;
-	antialiases[ ia + 1 ] = pb0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pl0;
+	steps[ is + 3 ] = pb0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// ------------------------------
 
 	// 12
 	steps[ is     ] = 0;
 	steps[ is + 1 ] = bri * swt;
-	antialiases[ ia     ] = pc0;
-	antialiases[ ia + 1 ] = pt0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pc0;
+	steps[ is + 3 ] = pt0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// 13
 	steps[ is     ] = 0;
 	steps[ is + 1 ] = bri * swb;
-	antialiases[ ia     ] = pc0;
-	antialiases[ ia + 1 ] = pb0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pc0;
+	steps[ is + 3 ] = pb0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// ------------------------------
 
 	// 14
 	steps[ is     ] = swr;
 	steps[ is + 1 ] = swt;
-	antialiases[ ia     ] = pr0;
-	antialiases[ ia + 1 ] = pt0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pr0;
+	steps[ is + 3 ] = pt0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// 15
 	steps[ is     ] = swr;
 	steps[ is + 1 ] = bri * swt;
-	antialiases[ ia     ] = pr0;
-	antialiases[ ia + 1 ] = pt0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pr0;
+	steps[ is + 3 ] = pt0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// 16
 	steps[ is     ] = swr;
 	steps[ is + 1 ] = bri * swb;
-	antialiases[ ia     ] = pr0;
-	antialiases[ ia + 1 ] = pb0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pr0;
+	steps[ is + 3 ] = pb0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// 17
 	steps[ is     ] = swr;
 	steps[ is + 1 ] = swb;
-	antialiases[ ia     ] = pr0;
-	antialiases[ ia + 1 ] = pb0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
+	steps[ is + 2 ] = pr0;
+	steps[ is + 3 ] = pb0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
 };
 
 export const buildRectangleStepHorizontal = (
@@ -688,195 +666,176 @@ export const buildRectangleStepHorizontal = (
 	swl: number, pl0: number,
 	pc0: number, pm0: number,
 	voffset: number,
-	steps: Float32Array,
-	antialiases: Float32Array
+	steps: Float32Array
 ): void => {
-	let is = voffset << 1;
-	let ia = voffset << 2;
+	let is = voffset * 6;
 
 	// 0
 	steps[ is     ] = swl;
 	steps[ is + 1 ] = swb;
-	antialiases[ ia     ] = pl0;
-	antialiases[ ia + 1 ] = pb0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pl0;
+	steps[ is + 3 ] = pb0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// 1
 	steps[ is     ] = swl;
 	steps[ is + 1 ] = 0;
-	antialiases[ ia     ] = pl0;
-	antialiases[ ia + 1 ] = pm0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pl0;
+	steps[ is + 3 ] = pm0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// 2
 	steps[ is     ] = swl;
 	steps[ is + 1 ] = swt;
-	antialiases[ ia     ] = pl0;
-	antialiases[ ia + 1 ] = pt0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pl0;
+	steps[ is + 3 ] = pt0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// 3
 	steps[ is     ] = bri * swl;
 	steps[ is + 1 ] = 0;
-	antialiases[ ia + 0 ] = pl0;
-	antialiases[ ia + 1 ] = pm0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pl0;
+	steps[ is + 3 ] = pm0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// 4
 	steps[ is     ] = bri * swr;
 	steps[ is + 1 ] = 0;
-	antialiases[ ia     ] = pr0;
-	antialiases[ ia + 1 ] = pm0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pr0;
+	steps[ is + 3 ] = pm0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// 5
 	steps[ is     ] = swr;
 	steps[ is + 1 ] = swb;
-	antialiases[ ia     ] = pr0;
-	antialiases[ ia + 1 ] = pb0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pr0;
+	steps[ is + 3 ] = pb0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// 6
 	steps[ is     ] = swr;
 	steps[ is + 1 ] = 0;
-	antialiases[ ia     ] = pr0;
-	antialiases[ ia + 1 ] = pm0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pr0;
+	steps[ is + 3 ] = pm0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// 7
 	steps[ is     ] = swr;
 	steps[ is + 1 ] = swt;
-	antialiases[ ia     ] = pr0;
-	antialiases[ ia + 1 ] = pt0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pr0;
+	steps[ is + 3 ] = pt0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// ------------------------------
 
 	// 8
 	steps[ is     ] = swl;
 	steps[ is + 1 ] = swb;
-	antialiases[ ia     ] = pl0;
-	antialiases[ ia + 1 ] = pb0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pl0;
+	steps[ is + 3 ] = pb0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// 9
 	steps[ is     ] = bri * swl;
 	steps[ is + 1 ] = swb;
-	antialiases[ ia     ] = pl0;
-	antialiases[ ia + 1 ] = pb0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pl0;
+	steps[ is + 3 ] = pb0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// 10
 	steps[ is     ] = bri * swr;
 	steps[ is + 1 ] = swb;
-	antialiases[ ia     ] = pr0;
-	antialiases[ ia + 1 ] = pb0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pr0;
+	steps[ is + 3 ] = pb0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// 11
 	steps[ is     ] = swr;
 	steps[ is + 1 ] = swb;
-	antialiases[ ia     ] = pr0;
-	antialiases[ ia + 1 ] = pb0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pr0;
+	steps[ is + 3 ] = pb0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// ------------------------------
 
 	// 12
 	steps[ is     ] = bri * swl;
 	steps[ is + 1 ] = 0;
-	antialiases[ ia     ] = pl0;
-	antialiases[ ia + 1 ] = pm0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pl0;
+	steps[ is + 3 ] = pm0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// 13
 	steps[ is     ] = bri * swr;
 	steps[ is + 1 ] = 0;
-	antialiases[ ia     ] = pr0;
-	antialiases[ ia + 1 ] = pm0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pr0;
+	steps[ is + 3 ] = pm0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// ------------------------------
 
 	// 14
 	steps[ is     ] = swl;
 	steps[ is + 1 ] = swt;
-	antialiases[ ia     ] = pl0;
-	antialiases[ ia + 1 ] = pt0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pl0;
+	steps[ is + 3 ] = pt0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// 15
 	steps[ is     ] = bri * swl;
 	steps[ is + 1 ] = swt;
-	antialiases[ ia     ] = pl0;
-	antialiases[ ia + 1 ] = pt0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pl0;
+	steps[ is + 3 ] = pt0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// 16
 	steps[ is     ] = bri * swr;
 	steps[ is + 1 ] = swt;
-	antialiases[ ia     ] = pr0;
-	antialiases[ ia + 1 ] = pt0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
-	is += 2;
-	ia += 4;
+	steps[ is + 2 ] = pr0;
+	steps[ is + 3 ] = pt0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
+	is += 6;
 
 	// 17
 	steps[ is     ] = swr;
 	steps[ is + 1 ] = swt;
-	antialiases[ ia     ] = pr0;
-	antialiases[ ia + 1 ] = pt0;
-	antialiases[ ia + 2 ] = px1;
-	antialiases[ ia + 3 ] = py1;
+	steps[ is + 2 ] = pr0;
+	steps[ is + 3 ] = pt0;
+	steps[ is + 4 ] = px1;
+	steps[ is + 5 ] = py1;
 };
 
 export const buildRectangleUv = (

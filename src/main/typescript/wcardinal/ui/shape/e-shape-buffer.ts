@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Buffer, DRAW_MODES, Geometry, Point, Renderer, Shader, Texture } from "pixi.js";
+import { Buffer, DRAW_MODES, Geometry, Renderer, Shader, Texture } from "pixi.js";
 import { EShape } from "./e-shape";
 import { EShapeBufferUnitBuilder } from "./e-shape-buffer-unit-builder";
 import { EShapeRendererIterator } from "./e-shape-renderer-iterator";
@@ -22,9 +22,6 @@ export class EShapeBuffer {
 
 	steps: Float32Array;
 	protected _stepBuffer: Buffer | null;
-
-	antialiases: Float32Array;
-	protected _antialiasBuffer: Buffer | null;
 
 	colorFills: Float32Array;
 	protected _colorFillBuffer: Buffer | null;
@@ -46,9 +43,6 @@ export class EShapeBuffer {
 
 	protected _builder: EShapeBufferUnitBuilder;
 
-	work: Point;
-	workStep: Float32Array;
-
 	constructor( ntriangles: number, renderer: Renderer ) {
 		const nindices = ntriangles * 3;
 		const nvertices = nindices;
@@ -61,11 +55,8 @@ export class EShapeBuffer {
 		this.clippings = new Float32Array( nvertices * 3 );
 		this._clippingBuffer = null;
 
-		this.steps = new Float32Array( nvertices * 2 );
+		this.steps = new Float32Array( nvertices * 6 );
 		this._stepBuffer = null;
-
-		this.antialiases = new Float32Array( nvertices * 4 );
-		this._antialiasBuffer = null;
 
 		this.colorFills = new Float32Array( nvertices * 4 );
 		this._colorFillBuffer = null;
@@ -74,7 +65,7 @@ export class EShapeBuffer {
 		this._colorStrokeBuffer = null;
 
 		this.uvs = new Float32Array( nvertices * 2 );
-		this._uvBuffer = new Buffer( this.uvs, false, false );
+		this._uvBuffer = null;
 
 		const isIndicesShort = ( nvertices <= 65535 );
 		this.indices = ( isIndicesShort ? new Uint16Array( nindices ) : new Uint32Array( nindices ) );
@@ -86,9 +77,6 @@ export class EShapeBuffer {
 		this._renderer = renderer;
 
 		this._builder = new EShapeBufferUnitBuilder();
-
-		this.work = new Point();
-		this.workStep = new Float32Array( 3 );
 
 		this._geometry = null;
 	}
@@ -111,10 +99,6 @@ export class EShapeBuffer {
 		const stepBuffer = this._stepBuffer;
 		if( stepBuffer ) {
 			stepBuffer.update();
-		}
-		const antialiasBuffer = this._antialiasBuffer;
-		if( antialiasBuffer ) {
-			antialiasBuffer.update();
 		}
 	}
 
@@ -152,7 +136,6 @@ export class EShapeBuffer {
 			this._vertexBuffer = new Buffer( this.vertices, false, false );
 			this._clippingBuffer = new Buffer( this.clippings, false, false );
 			this._stepBuffer = new Buffer( this.steps, false, false );
-			this._antialiasBuffer = new Buffer( this.antialiases, false, false );
 			this._colorFillBuffer = new Buffer( this.colorFills, false, false );
 			this._colorStrokeBuffer = new Buffer( this.colorStrokes, false, false );
 			this._uvBuffer = new Buffer( this.uvs, false, false );
@@ -163,7 +146,7 @@ export class EShapeBuffer {
 				.addAttribute( "aPosition", this._vertexBuffer, 2 )
 				.addAttribute( "aClipping", this._clippingBuffer, 3 )
 				.addAttribute( "aStep", this._stepBuffer, 2 )
-				.addAttribute( "aAntialias", this._antialiasBuffer, 4 )
+				.addAttribute( "aAntialias", this._stepBuffer, 4 )
 				.addAttribute( "aColorFill", this._colorFillBuffer, 4 )
 				.addAttribute( "aColorStroke", this._colorStrokeBuffer, 4 )
 				.addAttribute( "aUv", this._uvBuffer, 2 );

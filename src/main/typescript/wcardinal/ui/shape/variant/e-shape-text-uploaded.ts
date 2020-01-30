@@ -219,8 +219,7 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 				textClipping,
 				textWorld,
 				this.toTextureUvs( textTexture ),
-				shape.transform.internalTransform,
-				buffer.work
+				shape.transform.internalTransform
 			);
 		}
 	}
@@ -274,7 +273,6 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 			buffer.updateSteps();
 			buildTextStep(
 				buffer.steps,
-				buffer.antialiases,
 				this.textVertexOffset,
 				this.textVertexCount,
 				text.atlas,

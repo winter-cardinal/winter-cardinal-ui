@@ -11,6 +11,7 @@ export const TEXT_VERTEX_COUNT = 4;
 export const TEXT_INDEX_COUNT = 2;
 const TEXT_SDF_WINDOW = 12;
 const TEXT_FMIN: number = 0.00001;
+const TEXT_WORK_POINT: Point = new Point();
 
 export const toTextBufferCount = ( shape: EShape ): number => {
 	return Math.ceil( shape.text.value.length / 12 ) * 12;
@@ -48,7 +49,6 @@ export const buildTextIndex = (
 
 export const buildTextStep = (
 	steps: Float32Array,
-	antialiases: Float32Array,
 	voffset: number,
 	vcount: number,
 	textAtlas: EShapeTextAtlas | undefined,
@@ -62,26 +62,22 @@ export const buildTextStep = (
 		const scale = scaleBase * (textAtlas.font.size / textSize);
 		const outlineWidth = textOutlineWidth * 0.4;
 		const weight =  -0.025 + ( textWeight === EShapeTextWeight.NORMAL ? 0.0 : 0.05 );
-		for( let i = voffset * 2, imax = i + vcount * 2; i < imax; i += 2 ) {
+		for( let i = voffset * 6, imax = i + vcount * 6; i < imax; i += 6 ) {
 			steps[ i + 0 ] = scale;
 			steps[ i + 1 ] = outlineWidth;
-		}
-		for( let i = voffset * 4, imax = i + vcount * 4; i < imax; i += 4 ) {
-			antialiases[ i +  0 ] = weight;
-			antialiases[ i +  1 ] = TEXT_FMIN;
-			antialiases[ i +  2 ] = TEXT_FMIN;
-			antialiases[ i +  3 ] = TEXT_FMIN;
+			steps[ i + 2 ] = weight;
+			steps[ i + 3 ] = TEXT_FMIN;
+			steps[ i + 4 ] = TEXT_FMIN;
+			steps[ i + 5 ] = TEXT_FMIN;
 		}
 	} else {
-		for( let i = voffset * 2, imax = i + vcount * 2; i < imax; i += 2 ) {
+		for( let i = voffset * 6, imax = i + vcount * 6; i < imax; i += 6 ) {
 			steps[ i + 0 ] = 0;
 			steps[ i + 1 ] = 0;
-		}
-		for( let i = voffset * 4, imax = i + vcount * 4; i < imax; i += 4 ) {
-			antialiases[ i +  0 ] = TEXT_FMIN;
-			antialiases[ i +  1 ] = TEXT_FMIN;
-			antialiases[ i +  2 ] = TEXT_FMIN;
-			antialiases[ i +  3 ] = TEXT_FMIN;
+			steps[ i + 2 ] = TEXT_FMIN;
+			steps[ i + 3 ] = TEXT_FMIN;
+			steps[ i + 4 ] = TEXT_FMIN;
+			steps[ i + 5 ] = TEXT_FMIN;
 		}
 	}
 };
@@ -424,8 +420,7 @@ export const buildTextVertex = (
 	textClipping: boolean,
 	textWorld: Float32Array,
 	textureUvs: TextureUvs,
-	internalTransform: Matrix,
-	work: Point
+	internalTransform: Matrix
 ): void => {
 	// Calculate the transformed positions
 	//
@@ -437,6 +432,7 @@ export const buildTextVertex = (
 	//
 	const sx = sizeX * 0.5;
 	const sy = sizeY * 0.5;
+	const work = TEXT_WORK_POINT;
 	work.set( originX - sx, originY - sy );
 	internalTransform.apply( work, work );
 	const x0 = work.x;

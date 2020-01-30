@@ -87,22 +87,19 @@ export class EShapeTriangleUploaded extends EShapeTextUploaded {
 				strokeAlign,
 				strokeWidth,
 				shape.transform.internalTransform,
-				TRIANGLE_WORLD_SIZE,
-				buffer.work
+				TRIANGLE_WORLD_SIZE
 			);
 
 			if( isVertexChanged || isTransformChanged ) {
 				buffer.updateSteps();
 				buildTriangleStep(
 					buffer.steps,
-					buffer.antialiases,
 					buffer.clippings,
 					voffset,
 					TRIANGLE_VERTEX_COUNT,
 					strokeWidth,
 					this.antialiasWeight,
-					TRIANGLE_WORLD_SIZE,
-					buffer.workStep
+					TRIANGLE_WORLD_SIZE
 				);
 			}
 

@@ -78,16 +78,14 @@ export class EShapeCircleUploaded extends EShapeTextUploaded {
 				sizeX, sizeY,
 				strokeAlign, strokeWidth,
 				shape.transform.internalTransform,
-				CIRCLE_WORLD_SIZE,
-				buffer.work
+				CIRCLE_WORLD_SIZE
 			);
 			buildCircleStep(
-				buffer.steps, buffer.antialiases, buffer.clippings,
+				buffer.steps, buffer.clippings,
 				this.vertexOffset,
 				strokeWidth,
 				this.antialiasWeight,
-				CIRCLE_WORLD_SIZE,
-				buffer.workStep
+				CIRCLE_WORLD_SIZE
 			);
 		}
 	}

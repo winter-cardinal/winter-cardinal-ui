@@ -1,11 +1,12 @@
 import { Matrix, Point, TextureUvs } from "pixi.js";
 import { buildStep } from "./build-step";
 import { toLength } from "./to-length";
-import { toStep } from "./to-step";
+import { STEP_VALUES, toStep } from "./to-step";
 
 export const TRIANGLE_VERTEX_COUNT = 7;
 export const TRIANGLE_INDEX_COUNT = 3;
 export const TRIANGLE_WORLD_SIZE: [ number, number, number ] = [ 0, 0, 0 ];
+const TRIANGLE_WORK_POINT: Point = new Point();
 
 export const buildTriangleClipping = (
 	clippings: Float32Array,
@@ -78,8 +79,7 @@ export const buildTriangleVertex = (
 	strokeAlign: number,
 	strokeWidth: number,
 	internalTransform: Matrix,
-	worldSize: [ number, number, number ],
-	work: Point
+	worldSize: [ number, number, number ]
 ): void => {
 	const s = strokeAlign * strokeWidth;
 	const sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
@@ -87,6 +87,7 @@ export const buildTriangleVertex = (
 	const sz = Math.sqrt( sx * sx + 4 * sy * sy );
 	const sw = 2 * sx * sy / (sx + sz);
 
+	const work = TRIANGLE_WORK_POINT;
 	work.set( originX, originY - sy );
 	internalTransform.apply( work, work );
 	const x0 = work.x;
@@ -138,23 +139,20 @@ export const buildTriangleVertex = (
 
 export const buildTriangleStep = (
 	steps: Float32Array,
-	antialiases: Float32Array,
 	clippings: Float32Array,
 	voffset: number,
 	vcount: number,
 	strokeWidth: number,
 	antialiasWeight: number,
-	worldSize: [ number, number, number ],
-	workStep: Float32Array
+	worldSize: [ number, number, number ]
 ): void => {
-	toStep( worldSize[ 0 ], strokeWidth, antialiasWeight, workStep );
-	const swc = workStep[ 0 ];
-	const pc0 = workStep[ 1 ];
-	const pc1 = workStep[ 2 ];
+	toStep( worldSize[ 0 ], strokeWidth, antialiasWeight, STEP_VALUES );
+	const swc = STEP_VALUES[ 0 ];
+	const pc0 = STEP_VALUES[ 1 ];
+	const pc1 = STEP_VALUES[ 2 ];
 
 	buildStep(
 		steps,
-		antialiases,
 		clippings,
 		voffset,
 		vcount,

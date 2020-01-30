@@ -100,15 +100,13 @@ export class EShapeImageSdfUploaded extends EShapeTextUploaded {
 				0, 0,
 				sizeX, sizeY,
 				shape.transform.internalTransform,
-				IMAGE_SDF_WORLD_SIZE,
-				buffer.work
+				IMAGE_SDF_WORLD_SIZE
 			);
 
 			// Steps
 			buffer.updateSteps();
 			buildImageSdfStep(
 				buffer.steps,
-				buffer.antialiases,
 				this.vertexOffset,
 				strokeAlign,
 				strokeWidth,

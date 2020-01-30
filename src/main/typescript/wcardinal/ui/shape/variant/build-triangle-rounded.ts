@@ -1,11 +1,12 @@
 import { Matrix, Point, TextureUvs } from "pixi.js";
 import { EShapeCorner } from "../e-shape-corner";
 import { toLength } from "./to-length";
-import { toStep } from "./to-step";
+import { STEP_VALUES, toStep } from "./to-step";
 
 export const TRIANGLE_ROUNDED_VERTEX_COUNT = 22;
 export const TRIANGLE_ROUNDED_INDEX_COUNT = 15;
 export const TRIANGLE_ROUNDED_WORLD_SIZE: [ number, number, number, number, number ] = [ 0, 0, 0, 0, 0 ];
+const TRIANGLE_ROUNDED_WORK_POINT: Point = new Point();
 
 export const buildTriangleRoundedIndex = (
 	indices: Uint16Array | Uint32Array,
@@ -91,8 +92,7 @@ export const buildTriangleRoundedVertex = (
 	strokeWidth: number,
 	radius: number,
 	internalTransform: Matrix,
-	worldSize: [ number, number, number, number, number ],
-	work: Point
+	worldSize: [ number, number, number, number, number ]
 ): void => {
 	// Calculate the transformed positions
 	const s = strokeAlign * strokeWidth;
@@ -104,6 +104,7 @@ export const buildTriangleRoundedVertex = (
 	const rz = ( 0.5 * ( sz - sw ) * radius ) / ( sz );
 	const rx = ( ry * sz ) / ( 2 * sx );
 
+	const work = TRIANGLE_ROUNDED_WORK_POINT;
 	work.set( originX, originY - sy );
 	internalTransform.apply( work, work );
 	const x1 = work.x;
@@ -365,48 +366,43 @@ export const buildTriangleRoundedClipping = (
 
 export const buildTriangleRoundedStep = (
 	steps: Float32Array,
-	antialiases: Float32Array,
 	clippings: Float32Array,
 	voffset: number,
 	strokeWidth: number,
 	radius: number,
 	antialiasWeight: number,
-	worldSize: [ number, number, number, number, number ],
-	workStep: Float32Array
+	worldSize: [ number, number, number, number, number ]
 ): void => {
 	const wsr = worldSize[ 0 ];
-	toStep( wsr, strokeWidth, antialiasWeight, workStep );
-	const swc = workStep[ 0 ];
-	const pc0 = workStep[ 1 ];
-	const pc1 = workStep[ 2 ];
+	toStep( wsr, strokeWidth, antialiasWeight, STEP_VALUES );
+	const swc = STEP_VALUES[ 0 ];
+	const pc0 = STEP_VALUES[ 1 ];
+	const pc1 = STEP_VALUES[ 2 ];
 
-	toStep( radius * wsr, strokeWidth, antialiasWeight, workStep );
-	const swr = workStep[ 0 ];
-	const pr0 = workStep[ 1 ];
-	const pr1 = workStep[ 2 ];
+	toStep( radius * wsr, strokeWidth, antialiasWeight, STEP_VALUES );
+	const swr = STEP_VALUES[ 0 ];
+	const pr0 = STEP_VALUES[ 1 ];
+	const pr1 = STEP_VALUES[ 2 ];
 
-	const istart = voffset << 1;
-	const imax = (voffset + TRIANGLE_ROUNDED_VERTEX_COUNT) << 1;
-	const jstart = voffset * 3;
-	const kstart = voffset * 4;
-	for( let i = istart, j = jstart, k = kstart; i < imax; i += 2, j += 3, k += 4 ) {
-		const cx = clippings[ j + 0 ];
-		const cy = clippings[ j + 1 ];
-		const cz = clippings[ j + 2 ];
+	let ic = voffset * 3;
+	let is = voffset * 6;
+	for( let i = 0; i < TRIANGLE_ROUNDED_VERTEX_COUNT; ++i ) {
 		let sw = swc;
 		let p0 = pc0;
 		let p1 = pc1;
-		if( 0.5 < cz ) {
+		if( 0.5 < clippings[ ic + 2 ] ) {
 			sw = swr;
 			p0 = pr0;
 			p1 = pr1;
 		}
-		steps[ i + 0 ] = sw * cx;
-		steps[ i + 1 ] = sw * cy;
-		antialiases[ k + 0 ] = p0;
-		antialiases[ k + 1 ] = p0;
-		antialiases[ k + 2 ] = p1;
-		antialiases[ k + 3 ] = p1;
+		steps[ is + 0 ] = sw * clippings[ ic + 0 ];
+		steps[ is + 1 ] = sw * clippings[ ic + 1 ];
+		steps[ is + 2 ] = p0;
+		steps[ is + 3 ] = p0;
+		steps[ is + 4 ] = p1;
+		steps[ is + 5 ] = p1;
+		ic += 3;
+		is += 6;
 	}
 };
 

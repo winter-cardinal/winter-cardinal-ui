@@ -5,6 +5,7 @@ import { EShapePointsStyleUploadeds } from "../e-shape-points-style-uploadeds";
 import { toLength } from "./to-length";
 
 const LINE_FMIN: number = 0.00001;
+const LINE_WORK_POINT: Point = new Point();
 
 export const toLineVertexCount = ( pointCount: number ): number => {
 	return (Math.ceil( pointCount / 12 ) * 12) * 4 + 2;
@@ -166,7 +167,6 @@ export const buildLineUv = (
 export const buildLineVertexStepAndColorFill = (
 	vertices: Float32Array,
 	steps: Float32Array,
-	antialiases: Float32Array,
 	colorFills: Float32Array,
 	voffset: number,
 	vcount: number,
@@ -176,11 +176,11 @@ export const buildLineVertexStepAndColorFill = (
 	pointSegments: number[],
 	pointsStyle: EShapePointsStyle,
 	strokeWidth: number,
-	internalTransform: Matrix,
-	work: Point
+	internalTransform: Matrix
 ): number => {
 	let iv = voffset << 1;
-	let ia = voffset << 2;
+	let is = voffset * 6;
+	let icf = voffset << 2;
 	let lmax = 0;
 	let px = 0;
 	let py = 0;
@@ -199,10 +199,11 @@ export const buildLineVertexStepAndColorFill = (
 		let pnexty = 0;
 		let pseg = false;
 		let psegnext = false;
-		let icfprev = voffset * 4;
+		let icfprev = icf;
 		let loffset = 0;
 
 		// First point
+		const work = LINE_WORK_POINT;
 		work.set( pointValues[ 0 ], pointValues[ 1 ] );
 		internalTransform.apply( work, work );
 		const pfirstx = work.x;
@@ -253,22 +254,23 @@ export const buildLineVertexStepAndColorFill = (
 			vertices[ iv + 1 ] = py;
 			vertices[ iv + 2 ] = px;
 			vertices[ iv + 3 ] = py;
-			steps[ iv + 0 ] = strokeWidth;
-			steps[ iv + 1 ] = scaleInvariant;
-			steps[ iv + 2 ] = strokeWidth;
-			steps[ iv + 3 ] = scaleInvariant;
-			antialiases[ ia + 0 ] = pprevx;
-			antialiases[ ia + 1 ] = pprevy;
-			antialiases[ ia + 2 ] = pnextx;
-			antialiases[ ia + 3 ] = pnexty;
-			antialiases[ ia + 4 ] = pprevx;
-			antialiases[ ia + 5 ] = pprevy;
-			antialiases[ ia + 6 ] = pnextx;
-			antialiases[ ia + 7 ] = pnexty;
-			colorFills[ ia + 0 ] = llo;
-			colorFills[ ia + 4 ] = llo;
+			steps[ is +  0 ] = strokeWidth;
+			steps[ is +  1 ] = scaleInvariant;
+			steps[ is +  2 ] = pprevx;
+			steps[ is +  3 ] = pprevy;
+			steps[ is +  4 ] = pnextx;
+			steps[ is +  5 ] = pnexty;
+			steps[ is +  6 ] = strokeWidth;
+			steps[ is +  7 ] = scaleInvariant;
+			steps[ is +  8 ] = pprevx;
+			steps[ is +  9 ] = pprevy;
+			steps[ is + 10 ] = pnextx;
+			steps[ is + 11 ] = pnexty;
+			colorFills[ icf + 0 ] = llo;
+			colorFills[ icf + 4 ] = llo;
 			iv += 4;
-			ia += 8;
+			is += 12;
+			icf += 8;
 		}
 
 		// Middle segments
@@ -315,12 +317,12 @@ export const buildLineVertexStepAndColorFill = (
 				EShapePointsStyleUploadeds.toDash( llop, strokeWidth, pointsStyle, work );
 				const dash0 = work.x;
 				const dash1 = work.y;
-				for( let j = icfprev; j < ia + 8; j += 4 ) {
+				for( let j = icfprev; j < icf + 8; j += 4 ) {
 					colorFills[ j + 1 ] = dash0;
 					colorFills[ j + 2 ] = dash1;
 					colorFills[ j + 3 ] = llop;
 				}
-				icfprev = ia + 8;
+				icfprev = icf + 8;
 				loffsetprev = loffset;
 				loffset = l;
 			} else if( psegnext ) {
@@ -333,45 +335,47 @@ export const buildLineVertexStepAndColorFill = (
 			vertices[ iv + 1 ] = py;
 			vertices[ iv + 2 ] = px;
 			vertices[ iv + 3 ] = py;
-			steps[ iv + 0 ] = strokeWidth;
-			steps[ iv + 1 ] = scaleInvariant;
-			steps[ iv + 2 ] = strokeWidth;
-			steps[ iv + 3 ] = scaleInvariant;
-			antialiases[ ia + 0 ] = pprevx;
-			antialiases[ ia + 1 ] = pprevy;
-			antialiases[ ia + 2 ] = pnextxn;
-			antialiases[ ia + 3 ] = pnextyn;
-			antialiases[ ia + 4 ] = pprevx;
-			antialiases[ ia + 5 ] = pprevy;
-			antialiases[ ia + 6 ] = pnextxn;
-			antialiases[ ia + 7 ] = pnextyn;
+			steps[ is +  0 ] = strokeWidth;
+			steps[ is +  1 ] = scaleInvariant;
+			steps[ is +  2 ] = pprevx;
+			steps[ is +  3 ] = pprevy;
+			steps[ is +  4 ] = pnextxn;
+			steps[ is +  5 ] = pnextyn;
+			steps[ is +  6 ] = strokeWidth;
+			steps[ is +  7 ] = scaleInvariant;
+			steps[ is +  8 ] = pprevx;
+			steps[ is +  9 ] = pprevy;
+			steps[ is + 10 ] = pnextxn;
+			steps[ is + 11 ] = pnextyn;
 			llop = l - loffsetprev;
-			colorFills[ ia + 0 ] = llop;
-			colorFills[ ia + 4 ] = llop;
+			colorFills[ icf + 0 ] = llop;
+			colorFills[ icf + 4 ] = llop;
 			iv += 4;
-			ia += 8;
+			is += 12;
+			icf += 8;
 
 			vertices[ iv + 0 ] = px;
 			vertices[ iv + 1 ] = py;
 			vertices[ iv + 2 ] = px;
 			vertices[ iv + 3 ] = py;
-			steps[ iv + 0 ] = strokeWidth;
-			steps[ iv + 1 ] = scaleInvariant;
-			steps[ iv + 2 ] = strokeWidth;
-			steps[ iv + 3 ] = scaleInvariant;
-			antialiases[ ia + 0 ] = pprevx;
-			antialiases[ ia + 1 ] = pprevy;
-			antialiases[ ia + 2 ] = pnextxn;
-			antialiases[ ia + 3 ] = pnextyn;
-			antialiases[ ia + 4 ] = pprevx;
-			antialiases[ ia + 5 ] = pprevy;
-			antialiases[ ia + 6 ] = pnextxn;
-			antialiases[ ia + 7 ] = pnextyn;
+			steps[ is +  0 ] = strokeWidth;
+			steps[ is +  1 ] = scaleInvariant;
+			steps[ is +  2 ] = pprevx;
+			steps[ is +  3 ] = pprevy;
+			steps[ is +  4 ] = pnextxn;
+			steps[ is +  5 ] = pnextyn;
+			steps[ is +  6 ] = strokeWidth;
+			steps[ is +  7 ] = scaleInvariant;
+			steps[ is +  8 ] = pprevx;
+			steps[ is +  9 ] = pprevy;
+			steps[ is + 10 ] = pnextxn;
+			steps[ is + 11 ] = pnextyn;
 			llo = l - loffset;
-			colorFills[ ia + 0 ] = llo;
-			colorFills[ ia + 4 ] = llo;
+			colorFills[ icf + 0 ] = llo;
+			colorFills[ icf + 4 ] = llo;
 			iv += 4;
-			ia += 8;
+			is += 12;
+			icf += 8;
 		}
 
 		// Last segment
@@ -406,12 +410,12 @@ export const buildLineVertexStepAndColorFill = (
 				EShapePointsStyleUploadeds.toDash( llop, strokeWidth, pointsStyle, work );
 				const dash0 = work.x;
 				const dash1 = work.y;
-				for( let j = icfprev; j < ia + 8; j += 4 ) {
+				for( let j = icfprev; j < icf + 8; j += 4 ) {
 					colorFills[ j + 1 ] = dash0;
 					colorFills[ j + 2 ] = dash1;
 					colorFills[ j + 3 ] = llop;
 				}
-				icfprev = ia + 8;
+				icfprev = icf + 8;
 				loffsetprev = loffset;
 				loffset = l;
 			} else if( psegnext ) {
@@ -424,38 +428,39 @@ export const buildLineVertexStepAndColorFill = (
 			vertices[ iv + 1 ] = py;
 			vertices[ iv + 2 ] = px;
 			vertices[ iv + 3 ] = py;
-			steps[ iv + 0 ] = strokeWidth;
-			steps[ iv + 1 ] = scaleInvariant;
-			steps[ iv + 2 ] = strokeWidth;
-			steps[ iv + 3 ] = scaleInvariant;
-			antialiases[ ia + 0 ] = pprevx;
-			antialiases[ ia + 1 ] = pprevy;
-			antialiases[ ia + 2 ] = pnextxn;
-			antialiases[ ia + 3 ] = pnextyn;
-			antialiases[ ia + 4 ] = pprevx;
-			antialiases[ ia + 5 ] = pprevy;
-			antialiases[ ia + 6 ] = pnextxn;
-			antialiases[ ia + 7 ] = pnextyn;
+			steps[ is +  0 ] = strokeWidth;
+			steps[ is +  1 ] = scaleInvariant;
+			steps[ is +  2 ] = pprevx;
+			steps[ is +  3 ] = pprevy;
+			steps[ is +  4 ] = pnextxn;
+			steps[ is +  5 ] = pnextyn;
+			steps[ is +  6 ] = strokeWidth;
+			steps[ is +  7 ] = scaleInvariant;
+			steps[ is +  8 ] = pprevx;
+			steps[ is +  9 ] = pprevy;
+			steps[ is + 10 ] = pnextxn;
+			steps[ is + 11 ] = pnextyn;
 			llop = l - loffsetprev;
 			lmax = Math.max( lmax, llop );
-			colorFills[ ia + 0 ] = llop;
-			colorFills[ ia + 4 ] = llop;
+			colorFills[ icf + 0 ] = llop;
+			colorFills[ icf + 4 ] = llop;
 			iv += 4;
-			ia += 8;
+			is += 12;
+			icf += 8;
 
 			// Total length
-			if( icfprev < ia ) {
+			if( icfprev < icf ) {
 				EShapePointsStyleUploadeds.toDash( llop, strokeWidth, pointsStyle, work );
 				const dash0 = work.x;
 				const dash1 = work.y;
 				if( pointsClosed ) {
-					for( let i = icfprev; i < ia; i += 4 ) {
+					for( let i = icfprev; i < icf; i += 4 ) {
 						colorFills[ i + 1 ] = dash0;
 						colorFills[ i + 2 ] = dash1;
 						colorFills[ i + 3 ] = -1;
 					}
 				} else {
-					for( let i = icfprev; i < ia; i += 4 ) {
+					for( let i = icfprev; i < icf; i += 4 ) {
 						colorFills[ i + 1 ] = dash0;
 						colorFills[ i + 2 ] = dash1;
 						colorFills[ i + 3 ] = llop;
@@ -467,19 +472,19 @@ export const buildLineVertexStepAndColorFill = (
 	}
 
 	// Fill the rest
-	for( const ivmax = ((voffset + vcount) << 1); iv < ivmax; iv += 2, ia += 4 ) {
+	for( const ivmax = ((voffset + vcount) << 1); iv < ivmax; iv += 2, is += 6, icf += 4 ) {
 		vertices[ iv + 0 ] = px;
 		vertices[ iv + 1 ] = py;
-		steps[ iv + 0 ] = 0;
-		steps[ iv + 1 ] = 0;
-		antialiases[ ia + 0 ] = 0;
-		antialiases[ ia + 1 ] = 0;
-		antialiases[ ia + 2 ] = 0;
-		antialiases[ ia + 3 ] = 0;
-		colorFills[ ia + 0 ] = 0;
-		colorFills[ ia + 1 ] = 0;
-		colorFills[ ia + 2 ] = 0;
-		colorFills[ ia + 4 ] = 0;
+		steps[ is + 0 ] = 0;
+		steps[ is + 1 ] = 0;
+		steps[ is + 2 ] = 0;
+		steps[ is + 3 ] = 0;
+		steps[ is + 4 ] = 0;
+		steps[ is + 5 ] = 0;
+		colorFills[ icf + 0 ] = 0;
+		colorFills[ icf + 1 ] = 0;
+		colorFills[ icf + 2 ] = 0;
+		colorFills[ icf + 4 ] = 0;
 	}
 
 	return lmax;
