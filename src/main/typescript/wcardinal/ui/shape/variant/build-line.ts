@@ -203,20 +203,27 @@ export const buildLineVertexStepAndColorFill = (
 		let icfprev = icf;
 		let loffset = 0;
 
+		//
+		const a  = internalTransform.a;
+		const b  = internalTransform.b;
+		const c  = internalTransform.c;
+		const d  = internalTransform.d;
+		const tx = internalTransform.tx;
+		const ty = internalTransform.ty;
+
 		// First point
-		const work = LINE_WORK_POINT;
-		work.set( pointValues[ 0 ], pointValues[ 1 ] );
-		internalTransform.apply( work, work );
-		const pfirstx = work.x;
-		const pfirsty = work.y;
+		const pv0 = pointValues[ 0 ];
+		const pv1 = pointValues[ 1 ];
+		const pfirstx = a * pv0 + c * pv1 + tx;
+		const pfirsty = b * pv0 + d * pv1 + ty;
 		const psegfirst = ( 0 <= toIndexOf( pointSegments, 0 ) );
 
 		// Last point
 		const lastIndex = (pointCount - 1) << 1;
-		work.set( pointValues[ lastIndex + 0 ], pointValues[ lastIndex + 1 ] );
-		internalTransform.apply( work, work );
-		const plastx = work.x;
-		const plasty = work.y;
+		const pvl0 = pointValues[ lastIndex + 0 ];
+		const pvl1 = pointValues[ lastIndex + 1 ];
+		const plastx = a * pvl0 + c * pvl1 + tx;
+		const plasty = b * pvl0 + d * pvl1 + ty;
 		const pseglast = ( 0 <= toIndexOf( pointSegments, pointCount - 1 ) );
 
 		// Second point
@@ -224,10 +231,10 @@ export const buildLineVertexStepAndColorFill = (
 		let psecondy = plasty;
 		let psegsecond = pseglast;
 		if( 2 < pointCount ) {
-			work.set( pointValues[ 2 ], pointValues[ 3 ] );
-			internalTransform.apply( work, work );
-			psecondx = work.x;
-			psecondy = work.y;
+			const pv2 = pointValues[ 2 ];
+			const pv3 = pointValues[ 3 ];
+			psecondx = a * pv2 + c * pv3 + tx;
+			psecondy = b * pv2 + d * pv3 + ty;
 			psegsecond = ( 0 <= toIndexOf( pointSegments, 1 ) );
 		}
 
@@ -291,10 +298,10 @@ export const buildLineVertexStepAndColorFill = (
 				psegnext = psegsecond;
 			} else if( i < pointCount - 1 ) {
 				const nextIndex = (i + 1) << 1;
-				work.set( pointValues[ nextIndex + 0 ], pointValues[ nextIndex + 1 ] );
-				internalTransform.apply( work, work );
-				pnextx = work.x;
-				pnexty = work.y;
+				const pvn0 = pointValues[ nextIndex + 0 ];
+				const pvn1 = pointValues[ nextIndex + 1 ];
+				pnextx = a * pvn0 + c * pvn1 + tx;
+				pnexty = b * pvn0 + d * pvn1 + ty;
 				psegnext = ( 0 <= toIndexOf( pointSegments, i + 1 ) );
 			} else {
 				pnextx = pfirstx;
@@ -315,9 +322,9 @@ export const buildLineVertexStepAndColorFill = (
 				lmax = Math.max( lmax, llo );
 
 				llop = lprev - loffset;
-				toDash( llop, strokeWidth, pointsStyle, work );
-				const dash0 = work.x;
-				const dash1 = work.y;
+				const dash = toDash( llop, strokeWidth, pointsStyle, LINE_WORK_POINT );
+				const dash0 = dash.x;
+				const dash1 = dash.y;
 				for( let j = icfprev; j < icf + 8; j += 4 ) {
 					colorFills[ j + 1 ] = dash0;
 					colorFills[ j + 2 ] = dash1;
@@ -408,9 +415,9 @@ export const buildLineVertexStepAndColorFill = (
 				lmax = Math.max( lmax, llo );
 
 				llop = lprev - loffset;
-				toDash( llop, strokeWidth, pointsStyle, work );
-				const dash0 = work.x;
-				const dash1 = work.y;
+				const dash = toDash( llop, strokeWidth, pointsStyle, LINE_WORK_POINT );
+				const dash0 = dash.x;
+				const dash1 = dash.y;
 				for( let j = icfprev; j < icf + 8; j += 4 ) {
 					colorFills[ j + 1 ] = dash0;
 					colorFills[ j + 2 ] = dash1;
@@ -451,9 +458,9 @@ export const buildLineVertexStepAndColorFill = (
 
 			// Total length
 			if( icfprev < icf ) {
-				toDash( llop, strokeWidth, pointsStyle, work );
-				const dash0 = work.x;
-				const dash1 = work.y;
+				const dash = toDash( llop, strokeWidth, pointsStyle, LINE_WORK_POINT );
+				const dash0 = dash.x;
+				const dash1 = dash.y;
 				if( pointsClosed ) {
 					for( let i = icfprev; i < icf; i += 4 ) {
 						colorFills[ i + 1 ] = dash0;

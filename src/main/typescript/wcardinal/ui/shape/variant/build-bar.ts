@@ -57,25 +57,30 @@ export const buildBarVertexStepAndColorFill = (
 	internalTransform: Matrix
 ): void => {
 	// First point
-	const work = BAR_WORK_POINT;
-	work.set( pointValues[ 0 ], pointValues[ 1 ] );
-	internalTransform.apply( work, work );
-	const p1x = work.x;
-	const p1y = work.y;
+	const a  = internalTransform.a;
+	const b  = internalTransform.b;
+	const c  = internalTransform.c;
+	const d  = internalTransform.d;
+	const tx = internalTransform.tx;
+	const ty = internalTransform.ty;
+	const pv0 = pointValues[ 0 ];
+	const pv1 = pointValues[ 1 ];
+	const p1x = a * pv0 + c * pv1 + tx;
+	const p1y = b * pv0 + d * pv1 + ty;
 
 	// Last point
-	work.set( pointValues[ 2 ], pointValues[ 3 ] );
-	internalTransform.apply( work, work );
-	let p2x = work.x;
-	let p2y = work.y;
+	const pv2 = pointValues[ 2 ];
+	const pv3 = pointValues[ 3 ];
+	let p2x = a * pv2 + c * pv3 + tx;
+	let p2y = b * pv2 + d * pv3 + ty;
 
 	// Normal
 	let dx = p2x - p1x;
 	let dy = p2y - p1y;
-	const d = Math.sqrt( dx * dx + dy * dy );
-	let l = d;
-	if( 0 <= pointsSize && BAR_FMIN < d ) {
-		const ratio = pointsSize / d;
+	const distance = Math.sqrt( dx * dx + dy * dy );
+	let l = distance;
+	if( 0 <= pointsSize && BAR_FMIN < distance ) {
+		const ratio = pointsSize / distance;
 		dx *= ratio;
 		dy *= ratio;
 		p2x = p1x + dx;
@@ -133,9 +138,9 @@ export const buildBarVertexStepAndColorFill = (
 	colorFills[ icf + 12 ] = l;
 
 	// Total length
-	toDash( l, strokeWidth, pointsStyle, work );
-	const dash0 = work.x;
-	const dash1 = work.y;
+	const dash = toDash( l, strokeWidth, pointsStyle, BAR_WORK_POINT );
+	const dash0 = dash.x;
+	const dash1 = dash.y;
 	colorFills[ icf +  1 ] = dash0;
 	colorFills[ icf +  2 ] = dash1;
 	colorFills[ icf +  3 ] = l;
@@ -158,7 +163,7 @@ export const buildBarUv = (
 	voffset: number,
 	textureUvs: TextureUvs
 ): void => {
-	const iuv = voffset * 2;
+	const iuv = voffset << 1;
 	uvs[ iuv + 0 ] = textureUvs.x0;
 	uvs[ iuv + 1 ] = textureUvs.y0;
 	uvs[ iuv + 2 ] = textureUvs.x3;
