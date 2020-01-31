@@ -9,6 +9,7 @@ import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { UtilPointerEvent } from './util';
 import { EventBus } from 'event-bus-station';
 import { DTreeItemState } from './d-tree-item-state';
+import { DBasePadding } from './d-base-padding';
 
 export interface DTreeItemOptions <
 	VALUE = unknown,
@@ -44,22 +45,26 @@ export class DTreeItem <
 			super.init(options);
 
 			// get isParent option
-			if (options && options.isParent) {
-				this._isParent = options.isParent
-			} else {
-				this._isParent = false
-			}
+			this._isParent = !! (options && options.isParent);
 			//get isExpand option
-			if (options && options.isExpand != undefined) {
-				this._isExpand = options.isExpand
-			} else {
-				this._isExpand = null
-			}
+			this._isExpand = !! ( options && options.isExpand );
 			//get event bus
 			if (options && options.bus) {
 				this._bus = options.bus
-			}
+				this._bus.on("toggle-tree", (parentPosition, isParentExpand, isParentShown): void => {
 
+					// this.onToggle(parentPosition, isParentExpand, isParentShown)
+				})
+
+				this._bus.on("selected-tree-item", (selectedItemPosition): void => {
+
+					if (!this._isParent) {
+						this.setState(DBaseState.ACTIVE, this._itemPosition.join('-') == selectedItemPosition.join('-'))
+
+					}
+
+				})
+			}
 			//get position of item
 			if (options && options.itemPosition) {
 				this._itemPosition = options.itemPosition
@@ -70,21 +75,6 @@ export class DTreeItem <
 			this.on(UtilPointerEvent.down, (): void => {
 				this.onSelect()
 			});
-
-			this._bus.on("toggle-tree", (parentPosition, isParentExpand, isParentShown): void => {
-
-				this.onToggle(parentPosition, isParentExpand, isParentShown)
-			})
-
-			this._bus.on("selected-tree-item", (selectedItemPosition): void => {
-
-				if (!this._isParent) {
-					this.setState(DBaseState.ACTIVE, this._itemPosition.join('-') == selectedItemPosition.join('-'))
-
-				}
-
-			})
-
 		}
 
 		protected onToggle(parentPosition: number[], isParentExpand: boolean, isParentShown: boolean) {
@@ -134,8 +124,29 @@ export class DTreeItem <
 			}
 		}
 
+		public updateItem(options : OPTIONS | null) {
+			if(options) {
+				if(options.text) {
+					this.text = options.text.value
+				}
+				if(options.itemPosition) {
+					this._itemPosition = options.itemPosition
+				}
+				if(options.padding) {
+					this._padding = new DBasePadding(this.theme, options)
+				}
+				this._isParent = !! (options.isParent)
+				this._isExpand = !! (options.isExpand)
+
+				this.updateTreeParentState()
+			}
+			return this
+		}
+
 		protected updateTreeParentState(): void {
 			if (!this._isParent) {
+				this.setState(DTreeItemState.COLLAPSE, false)
+				this.setState(DTreeItemState.EXPAND, false)
 				return
 			}
 			if (this._isExpand) {

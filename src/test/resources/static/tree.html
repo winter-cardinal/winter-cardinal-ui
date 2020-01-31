@@ -44,69 +44,55 @@
 					}
 				},
 				value: [
-					{id : "0",
+					{
 					name: "item0",
 					items: [
 						{
-							id: "0.0",
 							name: "item0.0"
 						},
 						{
-							id: "0.1",
 							name: "item0.1"
 						},
 						{
-							id: "0.2",
 							name: "item0.2"
 						},
 						{
-							id: "0.3",
 							name: "item0.3",
 							items: [
 								{
-									id: "0.3.0",
 									name: "item0.3.0"
 								},
 								{
-									id: "0.3.1",
 									name: "item0.3.1",
 									items: [
 											{
-												id: "0.3.1.0",
 												name: "item0.3.1.0",
 												items: [
 													{
-														id: "0.3.1.0.0",
 														name: "item0.3.1.0.0",
 														items: [
 															{
-																id: "0.3.1.0.0.0",
 																name: "item0.3.1.0.0",
 																items: [
 																	{
-																		id: "0.3.1.0.0.0.0",
 																		name: "item0.3.1.0.0.0"
 																	},
 																	{
-																		id: "0.3.1.0.0.0.1",
 																		name: "item0.3.1.1.0.0.0.1"
 																	},
 																]
 															},
 															{
-																id: "0.3.1.0.0.1",
 																name: "item0.3.1.1.0.0.1"
 															},
 														]
 													},
 													{
-														id: "0.3.1.0.1",
 														name: "item0.3.1.1.0.1"
 													},
 												]
 											},
 											{
-												id: "0.3.1.1",
 												name: "item0.3.1.1.1"
 											},
 										]
@@ -114,7 +100,7 @@
 							]
 						},]
 					},
-					{id : "1",
+					{
 					name: "item1",
 					items: [
 						{
@@ -123,20 +109,6 @@
 						}]
 					},
 				]
-			});
-
-			new wcardinal.ui.DButtonPrimary({
-				parent: application.stage,
-				x: 20,
-				y: 20,
-				text: {
-					value: "Toggle"
-				},
-				on: {
-					active: () => {
-						tree.toggle("0.3")
-					}
-				}
 			});
 		}()
 		);
