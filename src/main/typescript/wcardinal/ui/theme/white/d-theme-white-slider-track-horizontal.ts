@@ -7,7 +7,7 @@ import { DBaseState } from "../../d-base-state";
 import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
 import { DThemeWhiteButton } from "./d-theme-white-button";
 
-export class DThemeWhiteSliderBar extends DThemeWhiteButton implements DThemeWhiteSliderBar {
+export class DThemeWhiteSliderTrackHorizontal extends DThemeWhiteButton implements DThemeWhiteSliderTrackHorizontal {
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		return 0xCCCCCC;

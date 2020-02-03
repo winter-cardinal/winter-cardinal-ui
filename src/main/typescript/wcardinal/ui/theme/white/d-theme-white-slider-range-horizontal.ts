@@ -8,7 +8,7 @@ import { DBaseState } from "../../d-base-state";
 import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
 import { DThemeWhiteBase } from "./d-theme-white-base";
 
-export class DThemeWhiteSliderRange extends DThemeWhiteBase implements DThemeWhiteSliderRange {
+export class DThemeWhiteSliderRangeHorizontal extends DThemeWhiteBase implements DThemeWhiteSliderRangeHorizontal {
 
 	getHeight(): DCoordinateSize {
 		return 33;

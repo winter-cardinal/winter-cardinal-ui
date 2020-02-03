@@ -5,27 +5,28 @@
 
 import { DButton, DButtonOptions, DThemeButton } from "./d-button";
 
-export interface DSliderBarChosenOptions<
+export interface DSliderTrackSelectedHorizontalOptions<
 	VALUE = unknown,
-	THEME extends DThemeSliderBarChosen = DThemeSliderBarChosen
+	THEME extends DThemeSliderTrackSelectedHorizontal = DThemeSliderTrackSelectedHorizontal
 > extends DButtonOptions<VALUE, THEME> {
 
 }
 
-export interface DThemeSliderBarChosen extends DThemeButton {
+export interface DThemeSliderTrackSelectedHorizontal extends DThemeButton {
 
 }
 
-export class DSliderBarChosen<
+export class DSliderTrackSelectedHorizontal<
 	VALUE = unknown,
-	THEME extends DThemeSliderBarChosen = DThemeSliderBarChosen,
-	OPTIONS extends DSliderBarChosenOptions<VALUE, THEME> = DSliderBarChosenOptions<VALUE, THEME>
+	THEME extends DThemeSliderTrackSelectedHorizontal = DThemeSliderTrackSelectedHorizontal,
+	OPTIONS extends DSliderTrackSelectedHorizontalOptions<VALUE, THEME>
+	= DSliderTrackSelectedHorizontalOptions<VALUE, THEME>
 > extends DButton<VALUE, THEME, OPTIONS> {
 	protected init( options?: OPTIONS ) {
 		super.init( options );
 	}
 
 	protected getType(): string {
-		return "DSliderBarChosen";
+		return "DSliderTrackSelectedHorizontal";
 	}
 }

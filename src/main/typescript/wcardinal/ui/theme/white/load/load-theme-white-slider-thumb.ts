@@ -4,8 +4,8 @@
  */
 
 import { DThemeWhite } from "../d-theme-white";
-import { DThemeWhiteSliderButton } from "../d-theme-white-slider-button";
+import { DThemeWhiteSliderThumb } from "../d-theme-white-slider-thumb";
 
-export const loadThemeWhiteSliderButton = () => {
-	DThemeWhite.set( "DSliderButton", DThemeWhiteSliderButton );
+export const loadThemeWhiteSliderThumb = () => {
+	DThemeWhite.set( "DSliderThumb", DThemeWhiteSliderThumb );
 };

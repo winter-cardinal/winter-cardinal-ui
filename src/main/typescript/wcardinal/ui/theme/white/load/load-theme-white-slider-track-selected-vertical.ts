@@ -4,8 +4,8 @@
  */
 
 import { DThemeWhite } from "../d-theme-white";
-import { DThemeWhiteSliderBarChosenVertical } from "../d-theme-white-slider-bar-chosen-vertical";
+import { DThemeWhiteSliderTrackSelectedVertical } from "../d-theme-white-slider-track-selected-vertical";
 
-export const loadThemeWhiteSliderBarChosenVertical = () => {
-	DThemeWhite.set( "DSliderBarChosenVertical", DThemeWhiteSliderBarChosenVertical );
+export const loadThemeWhiteSliderTrackSelectedVertical = () => {
+	DThemeWhite.set( "DSliderTrackSelectedVertical", DThemeWhiteSliderTrackSelectedVertical );
 };

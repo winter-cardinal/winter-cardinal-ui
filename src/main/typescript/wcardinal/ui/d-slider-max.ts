@@ -8,18 +8,18 @@ import { DTextBase, DTextBaseOptions, DThemeTextBase } from "./d-text-base";
 
 export interface DSliderMaxOptions<
 	VALUE = unknown,
-	THEME extends DSliderMaxText = DSliderMaxText
+	THEME extends DThemeSliderMax = DThemeSliderMax
 > extends DTextBaseOptions<VALUE, THEME> {
 
 }
 
-export interface DSliderMaxText extends DThemeTextBase {
+export interface DThemeSliderMax extends DThemeTextBase {
 
 }
 
 export class DSliderMax<
 	VALUE = unknown,
-	THEME extends DSliderMaxText = DSliderMaxText,
+	THEME extends DThemeSliderMax = DThemeSliderMax,
 	OPTIONS extends DSliderMaxOptions<VALUE, THEME> = DSliderMaxOptions<VALUE, THEME>
 > extends DTextBase<VALUE, THEME, OPTIONS> {
 	protected _value!: number;

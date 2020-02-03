@@ -9,7 +9,7 @@ import { DApplications } from "./d-applications";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DSliderMax } from "./d-slider-max";
 import { DSliderMin } from "./d-slider-min";
-import { DSliderRange } from "./d-slider-range";
+import { DSliderRangeHorizontal } from "./d-slider-range-horizontal";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
 export interface SliderValues {
@@ -18,128 +18,128 @@ export interface SliderValues {
 	value: number;
 }
 
-export interface DSliderOptions<THEME extends DThemeSlider> extends DBaseOptions<THEME> {
+export interface DSliderHorizontalOptions<THEME extends DThemeSliderHorizontal> extends DBaseOptions<THEME> {
 
 }
 
-export interface DThemeSlider extends DThemeBase {
+export interface DThemeSliderHorizontal extends DThemeBase {
 
 }
 
 // this is space beetween min, range and max elements
 const HORIZONTAL_PIXEL_BALANCE = 2;
 
-export class DSlider<
-	THEME extends DThemeSlider = DThemeSlider,
-	OPTIONS extends DSliderOptions<THEME> = DSliderOptions<THEME>
+export class DSliderHorizontal<
+	THEME extends DThemeSliderHorizontal = DThemeSliderHorizontal,
+	OPTIONS extends DSliderHorizontalOptions<THEME> = DSliderHorizontalOptions<THEME>
 > extends DBase<THEME, OPTIONS> {
-	protected _minRange!: DSliderMin;
-	protected _sliderRange!: DSliderRange;
-	protected _maxRange!: DSliderMax;
-	protected _onSliderButtonMove!: ( e: InteractionEvent ) => void;
-	protected _onSliderButtonUp!: ( e: InteractionEvent ) => void;
+	protected _min!: DSliderMin;
+	protected _range!: DSliderRangeHorizontal;
+	protected _max!: DSliderMax;
+	protected _onThumbMove!: ( e: InteractionEvent ) => void;
+	protected _onThumbUp!: ( e: InteractionEvent ) => void;
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
 
 		/* Init elements for slider */
 
-		this._sliderRange = new DSliderRange({
+		this._range = new DSliderRangeHorizontal({
 			y: 0
 		});
-		this._minRange = new DSliderMin({
+		this._min = new DSliderMin({
 			x: 0
 		});
-		this._minRange.text = String(this._minRange.value);
-		this._maxRange = new DSliderMax({});
-		this._maxRange.text = String(this._maxRange.value);
-		this._maxRange.x = this._minRange.width + this._sliderRange.width + HORIZONTAL_PIXEL_BALANCE;
+		this._min.text = String(this._min.value);
+		this._max = new DSliderMax({});
+		this._max.text = String(this._max.value);
+		this._max.x = this._min.width + this._range.width + HORIZONTAL_PIXEL_BALANCE;
 
-		const sliderBar = this._sliderRange.sliderBar;
-		const sliderBarChosen = this._sliderRange.sliderBarChosen;
-		const sliderButton = this._sliderRange.sliderButton;
+		const track = this._range.track;
+		const trackSelected = this._range.trackSelected;
+		const thumb = this._range.thumb;
 
 		// calculate y-offset to determine y-coordinate of slider mix, max
-		const yOffset = this._sliderRange.yOffset -	(this._minRange.height / 2 - sliderBar.height / 2);
-		this._minRange.y = yOffset;
-		this._maxRange.y = yOffset;
+		const yOffset = this._range.yOffset -	(this._min.height / 2 - track.height / 2);
+		this._min.y = yOffset;
+		this._max.y = yOffset;
 		// calculate x-coordinate of slider max base on the widths of slier min, range
-		this._maxRange.x = this._minRange.width + this._sliderRange.width + HORIZONTAL_PIXEL_BALANCE;
+		this._max.x = this._min.width + this._range.width + HORIZONTAL_PIXEL_BALANCE;
 
-		this.addChild(this._minRange);
-		this.addChild(this._sliderRange);
-		this.addChild(this._maxRange);
+		this.addChild(this._min);
+		this.addChild(this._range);
+		this.addChild(this._max);
 
-		sliderBar.on( UtilPointerEvent.down, ( e: InteractionEvent) => {
-			this.onsliderBarDown( e );
+		track.on( UtilPointerEvent.down, ( e: InteractionEvent) => {
+			this.onTrackDown( e );
 		});
-		sliderBarChosen.on( UtilPointerEvent.down, ( e: InteractionEvent) => {
-			this.onsliderBarChosenDown( e );
+		trackSelected.on( UtilPointerEvent.down, ( e: InteractionEvent) => {
+			this.onTrackSelectedDown( e );
 		});
-		sliderButton.on(UtilPointerEvent.down, ( e: InteractionEvent ) => {
-			this.onSliderButtonDown( e );
+		thumb.on(UtilPointerEvent.down, ( e: InteractionEvent ) => {
+			this.onThumbDown( e );
 		});
-		this._onSliderButtonMove = ( e: InteractionEvent ): void => {
-			this.onSliderButtonMove();
+		this._onThumbMove = ( e: InteractionEvent ): void => {
+			this.onThumbMove();
 		};
-		this._onSliderButtonUp = ( e: InteractionEvent ): void => {
-			this.onSliderButtonUp( e );
+		this._onThumbUp = ( e: InteractionEvent ): void => {
+			this.onThumbUp( e );
 		};
 
 	}
-	protected onsliderBarDown(e: InteractionEvent ): void {
-		this._sliderRange.updateSliderValue(this._minRange.value, this._maxRange.value);
+	protected onTrackDown(e: InteractionEvent ): void {
+		this._range.updateValue(this._min.value, this._max.value);
 	}
-	protected onsliderBarChosenDown(e: InteractionEvent ): void {
-		this._sliderRange.updateSliderValue(this._minRange.value, this._maxRange.value);
+	protected onTrackSelectedDown(e: InteractionEvent ): void {
+		this._range.updateValue(this._min.value, this._max.value);
 	}
-	protected onSliderButtonDown(e: InteractionEvent ): void {
+	protected onThumbDown(e: InteractionEvent ): void {
 		const layer = DApplications.getLayer( this );
 		if( layer ) {
 			const stage = layer.stage;
-			stage.on( UtilPointerEvent.move, this._onSliderButtonMove );
-			stage.on( UtilPointerEvent.up, this._onSliderButtonUp );
+			stage.on( UtilPointerEvent.move, this._onThumbMove );
+			stage.on( UtilPointerEvent.up, this._onThumbUp );
 		}
 	}
-	protected onSliderButtonUp( e: InteractionEvent ): void {
+	protected onThumbUp( e: InteractionEvent ): void {
 		const layer = DApplications.getLayer( this );
 		if( layer ) {
 			const stage = layer.stage;
-			stage.off( UtilPointerEvent.move, this._onSliderButtonMove );
-			stage.off( UtilPointerEvent.up, this._onSliderButtonUp );
+			stage.off( UtilPointerEvent.move, this._onThumbMove );
+			stage.off( UtilPointerEvent.up, this._onThumbUp );
 		}
 	}
-	protected onSliderButtonMove(): void {
-		this._sliderRange.updateSliderValue(this._minRange.value, this._maxRange.value);
+	protected onThumbMove(): void {
+		this._range.updateValue(this._min.value, this._max.value);
 	}
-	setSliderValues(sliderValues: SliderValues) {
-		if (this.isSliderValuesValid(sliderValues)) {
-			this._minRange.value = sliderValues.min;
-			this._minRange.text = String(this._minRange.value);
-			this._maxRange.value = sliderValues.max;
-			this._maxRange.text = String(this._maxRange.value);
-			this._sliderRange.updateSliderButton(sliderValues.min, sliderValues.max, sliderValues.value);
+	setValues(values: SliderValues) {
+		if (this.isValuesValid(values)) {
+			this._min.value = values.min;
+			this._min.text = String(this._min.value);
+			this._max.value = values.max;
+			this._max.text = String(this._max.value);
+			this._range.updateThumb(values.min, values.max, values.value);
 		}
 	}
-	getSliderValues(): SliderValues {
+	getValues(): SliderValues {
 		return {
-			min: this._minRange.value,
-			max: this._maxRange.value,
-			value: this._sliderRange.sliderValue
+			min: this._min.value,
+			max: this._max.value,
+			value: this._range.value
 		};
 	}
-	isSliderValuesValid(sliderValues: SliderValues): boolean {
-		if (sliderValues.max < sliderValues.min) {
+	isValuesValid(values: SliderValues): boolean {
+		if (values.max < values.min) {
 			return false;
 		}
-		if (sliderValues.value < sliderValues.min || sliderValues.max < sliderValues.value) {
+		if (values.value < values.min || values.max < values.value) {
 			return false;
 		}
 		return true;
 	}
 	protected getType(): string {
 
-		return "DSlider";
+		return "DSliderHorizontal";
 
 	}
 

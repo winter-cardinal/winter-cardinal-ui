@@ -4,8 +4,8 @@
  */
 
 import { DThemeWhite } from "../d-theme-white";
-import { DThemeWhiteSliderBarChosen } from "../d-theme-white-slider-bar-chosen";
+import { DThemeWhiteSliderTrackSelectedHorizontal } from "../d-theme-white-slider-track-selected-horizontal";
 
-export const loadThemeWhiteSliderBarChosen = () => {
-	DThemeWhite.set( "DSliderBarChosen", DThemeWhiteSliderBarChosen );
+export const loadThemeWhiteSliderTrackSelectedHorizontal = () => {
+	DThemeWhite.set( "DSliderTrackSelectedHorizontal", DThemeWhiteSliderTrackSelectedHorizontal );
 };

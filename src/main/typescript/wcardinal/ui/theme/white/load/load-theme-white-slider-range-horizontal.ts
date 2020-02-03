@@ -4,8 +4,8 @@
  */
 
 import { DThemeWhite } from "../d-theme-white";
-import { DThemeWhiteSliderRange } from "../d-theme-white-slider-range";
+import { DThemeWhiteSliderRangeHorizontal } from "../d-theme-white-slider-range-horizontal";
 
 export const loadThemeWhiteSliderRange = () => {
-	DThemeWhite.set( "DSliderRange", DThemeWhiteSliderRange );
+	DThemeWhite.set( "DSliderRangeHorizontal", DThemeWhiteSliderRangeHorizontal );
 };

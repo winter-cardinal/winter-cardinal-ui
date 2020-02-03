@@ -4,8 +4,8 @@
  */
 
 import { DThemeWhite } from "../d-theme-white";
-import { DThemeWhiteSliderBarVertical } from "../d-theme-white-slider-bar-vertical";
+import { DThemeWhiteSliderTrackVertical } from "../d-theme-white-slider-track-vertical";
 
-export const loadThemeWhiteSliderBarVertical = () => {
-	DThemeWhite.set( "DSliderBarVertical", DThemeWhiteSliderBarVertical );
+export const loadThemeWhiteSliderTrackVertical = () => {
+	DThemeWhite.set( "DSliderTrackVertical", DThemeWhiteSliderTrackVertical );
 };

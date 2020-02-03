@@ -8,18 +8,18 @@ import { DTextBase, DTextBaseOptions, DThemeTextBase } from "./d-text-base";
 
 export interface DSliderMinOptions<
 	VALUE = unknown,
-	THEME extends DSliderMinText = DSliderMinText
+	THEME extends DThemeSliderMin = DThemeSliderMin
 > extends DTextBaseOptions<VALUE, THEME> {
 
 }
 
-export interface DSliderMinText extends DThemeTextBase {
+export interface DThemeSliderMin extends DThemeTextBase {
 
 }
 
 export class DSliderMin<
 	VALUE = unknown,
-	THEME extends DSliderMinText = DSliderMinText,
+	THEME extends DThemeSliderMin = DThemeSliderMin,
 	OPTIONS extends DSliderMinOptions<VALUE, THEME> = DSliderMinOptions<VALUE, THEME>
 > extends DTextBase<VALUE, THEME, OPTIONS> {
 	protected _value!: number;

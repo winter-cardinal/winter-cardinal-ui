@@ -7,7 +7,7 @@ import { DBaseInteractive } from "../../d-base-interactive";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeWhiteBase } from "./d-theme-white-base";
 
-export class DThemeWhiteSlider extends DThemeWhiteBase implements DThemeWhiteSlider {
+export class DThemeWhiteSliderHorizontal extends DThemeWhiteBase implements DThemeWhiteSliderHorizontal {
 
 	getHeight(): DCoordinateSize {
 		return "auto";

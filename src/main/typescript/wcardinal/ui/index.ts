@@ -338,7 +338,7 @@ export * from "./d-select-multiple";
 export * from "./d-select";
 export * from "./d-shadow-impl";
 export * from "./d-shadow";
-export * from "./d-slider";
+export * from "./d-slider-horizontal";
 export * from "./d-slider-vertical";
 export * from "./d-table-body-cell-action-dialog";
 export * from "./d-table-body-cell-action-menu";

@@ -4,8 +4,8 @@
  */
 
 import { DThemeWhite } from "../d-theme-white";
-import { DThemeWhiteSlider } from "../d-theme-white-slider";
+import { DThemeWhiteSliderHorizontal } from "../d-theme-white-slider-horizontal";
 
-export const loadThemeWhiteSlider = () => {
-	DThemeWhite.set( "DSlider", DThemeWhiteSlider );
+export const loadThemeWhiteSliderHorizontal = () => {
+	DThemeWhite.set( "DSliderHorizontal", DThemeWhiteSliderHorizontal );
 };

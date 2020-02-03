@@ -6,18 +6,18 @@
 import { interaction, Point } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
-import { DSliderBar } from "./d-slider-bar";
-import { DSliderBarChosen } from "./d-slider-bar-chosen";
-import { DSliderButton } from "./d-slider-button";
+import { DSliderThumb } from "./d-slider-thumb";
+import { DSliderTrackHorizontal } from "./d-slider-track-horizontal";
+import { DSliderTrackSelectedHorizontal } from "./d-slider-track-selected-horizontal";
 import { DSliderValue } from "./d-slider-value";
 import InteractionEvent = interaction.InteractionEvent;
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
-export interface DSliderRangeOptions<THEME extends DThemeSliderRange> extends DBaseOptions<THEME> {
+export interface DSliderRangeHorizontalOptions<THEME extends DThemeSliderRangeHorizontal> extends DBaseOptions<THEME> {
 
 }
 
-export interface DThemeSliderRange extends DThemeBase {
+export interface DThemeSliderRangeHorizontal extends DThemeBase {
 
 }
 
@@ -27,199 +27,199 @@ const DEFAULT_RATIO = 0;
 // this is space beetween slider value and slider button
 const VERTICAL_PIXEL_BALANCE = 2;
 
-export class DSliderRange<
-	THEME extends DThemeSliderRange = DThemeSliderRange,
-	OPTIONS extends DSliderRangeOptions<THEME> = DSliderRangeOptions<THEME>
+export class DSliderRangeHorizontal<
+	THEME extends DThemeSliderRangeHorizontal = DThemeSliderRangeHorizontal,
+	OPTIONS extends DSliderRangeHorizontalOptions<THEME> = DSliderRangeHorizontalOptions<THEME>
 > extends DBase<THEME, OPTIONS> {
-	protected _sliderBar!: DSliderBar;
-	protected _sliderButton!: DSliderButton;
-	protected _sliderBarChosen!: DSliderBarChosen;
-	protected _sliderValue!: DSliderValue;
-	protected _sliderBarWidth!: number;
-	protected _sliderButtonWidth!: number;
+	protected _track!: DSliderTrackHorizontal;
+	protected _thumb!: DSliderThumb;
+	protected _trackSelected!: DSliderTrackSelectedHorizontal;
+	protected _value!: DSliderValue;
+	protected _trackWidth!: number;
+	protected _thumbWidth!: number;
 	protected _offset!: number;
 	protected _yOffset!: number;
 	protected _ratioValue!: number;
-	protected _onSliderButtonMove!: ( e: InteractionEvent ) => void;
-	protected _onSliderButtonUp!: ( e: InteractionEvent ) => void;
-	protected _onSliderBarUp!: ( e: InteractionEvent ) => void;
-	protected _onSliderBarChosenUp!: ( e: InteractionEvent ) => void;
+	protected _onThumbMove!: ( e: InteractionEvent ) => void;
+	protected _onThumbUp!: ( e: InteractionEvent ) => void;
+	protected _onTrackUp!: ( e: InteractionEvent ) => void;
+	protected _onTrackSelectedUp!: ( e: InteractionEvent ) => void;
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
 
 		this._ratioValue = DEFAULT_RATIO;
 
-		this._sliderValue = new DSliderValue({
+		this._value = new DSliderValue({
 			y: 0
 		});
-		this._sliderValue.text = this._sliderValue.value;
-		this._sliderBar = new DSliderBar();
-		this._sliderButton = new DSliderButton({
+		this._value.text = this._value.value;
+		this._track = new DSliderTrackHorizontal();
+		this._thumb = new DSliderThumb({
 			x: 0,
-			y: this._sliderValue.height + VERTICAL_PIXEL_BALANCE
+			y: this._value.height + VERTICAL_PIXEL_BALANCE
 		});
-		this._sliderBarChosen = new DSliderBarChosen();
-		this._sliderBarChosen.width = 0;
+		this._trackSelected = new DSliderTrackSelectedHorizontal();
+		this._trackSelected.width = 0;
 
 		// calculate y-offset to determine y-coordinate of slider bar
-		this._yOffset = this._sliderValue.height + VERTICAL_PIXEL_BALANCE +
-						this._sliderButton.height / 2 - this._sliderBar.height / 2;
-		this._sliderBar.y = this._yOffset;
-		this._sliderBarChosen.y = this._yOffset;
+		this._yOffset = this._value.height + VERTICAL_PIXEL_BALANCE +
+						this._thumb.height / 2 - this._track.height / 2;
+		this._track.y = this._yOffset;
+		this._trackSelected.y = this._yOffset;
 
-		this._sliderBarWidth = Number(this._sliderBar.theme.getWidth());
-		this._sliderButtonWidth = Number(this._sliderButton.theme.getWidth());
+		this._trackWidth = Number(this._track.theme.getWidth());
+		this._thumbWidth = Number(this._thumb.theme.getWidth());
 
 		// this is offset beetween x-coordinate of slider value and slider button
-		this._offset = this._sliderValue.width / 2 - this._sliderButton.width / 2;
-		this._sliderValue.x = this._sliderButton.x - this._offset;
+		this._offset = this._value.width / 2 - this._thumb.width / 2;
+		this._value.x = this._thumb.x - this._offset;
 
-		this.addChild(this._sliderBar);
-		this.addChild(this._sliderBarChosen);
-		this.addChild(this._sliderButton);
+		this.addChild(this._track);
+		this.addChild(this._trackSelected);
+		this.addChild(this._thumb);
 
-		this._sliderBar.on( UtilPointerEvent.down, ( e: InteractionEvent) => {
-			if ( this._sliderValue ) {
-				this.addChild(this._sliderValue);
+		this._track.on( UtilPointerEvent.down, ( e: InteractionEvent) => {
+			if ( this._value ) {
+				this.addChild(this._value);
 			}
-			this.onSliderBarDown(e.data.global);
+			this.onTrackDown(e.data.global);
 		});
-		this._sliderBarChosen.on( UtilPointerEvent.down, ( e: InteractionEvent) => {
-			if ( this._sliderValue ) {
-				this.addChild(this._sliderValue);
+		this._trackSelected.on( UtilPointerEvent.down, ( e: InteractionEvent) => {
+			if ( this._value ) {
+				this.addChild(this._value);
 			}
-			this.onSliderBarChosenDown(e.data.global);
+			this.onTrackSelectedDown(e.data.global);
 		});
-		this._onSliderBarUp = ( e: InteractionEvent ): void => {
-			this.onSliderBarUp( e );
-			if ( this._sliderValue ) {
-				this.removeChild(this._sliderValue);
+		this._onTrackUp = ( e: InteractionEvent ): void => {
+			this.onTrackUp( e );
+			if ( this._value ) {
+				this.removeChild(this._value);
 			}
 		};
-		this._onSliderBarChosenUp = ( e: InteractionEvent ): void => {
-			this.onSliderBarChosenUp( e );
-			if ( this._sliderValue ) {
-				this.removeChild(this._sliderValue);
+		this._onTrackSelectedUp = ( e: InteractionEvent ): void => {
+			this.onTrackSelectedUp( e );
+			if ( this._value ) {
+				this.removeChild(this._value);
 			}
 		};
-		this._sliderButton.on(UtilPointerEvent.down, ( e: InteractionEvent ) => {
-			if (this._sliderValue) {
-				this.addChild(this._sliderValue);
+		this._thumb.on(UtilPointerEvent.down, ( e: InteractionEvent ) => {
+			if (this._value) {
+				this.addChild(this._value);
 			}
-			this.onSliderButtonDown( e );
+			this.onThumbDown( e );
 		});
 
-		this._onSliderButtonMove = ( e: InteractionEvent ): void => {
-			this.onSliderButtonMove( e );
+		this._onThumbMove = ( e: InteractionEvent ): void => {
+			this.onThumbMove( e );
 		};
-		this._onSliderButtonUp = ( e: InteractionEvent ): void => {
-			this.onSliderButtonUp( e );
-			if (this._sliderValue) {
-				this.removeChild(this._sliderValue);
+		this._onThumbUp = ( e: InteractionEvent ): void => {
+			this.onThumbUp( e );
+			if (this._value) {
+				this.removeChild(this._value);
 			}
 		};
 
 	}
-	protected onSliderBarDown( global: Point ) {
+	protected onTrackDown( global: Point ) {
 		const layer = DApplications.getLayer( this );
 		if ( layer ) {
 			const stage = layer.stage;
-			stage.on( UtilPointerEvent.up, this._onSliderBarUp );
+			stage.on( UtilPointerEvent.up, this._onTrackUp );
 		}
 		this.onPick( global );
 	}
-	protected onSliderBarChosenDown( global: Point ) {
+	protected onTrackSelectedDown( global: Point ) {
 		const layer = DApplications.getLayer( this );
 		if ( layer ) {
 			const stage = layer.stage;
-			stage.on( UtilPointerEvent.up, this._onSliderBarChosenUp );
+			stage.on( UtilPointerEvent.up, this._onTrackSelectedUp );
 		}
 		this.onPick( global );
 	}
-	protected onSliderBarUp( e: InteractionEvent ): void {
+	protected onTrackUp( e: InteractionEvent ): void {
 		const layer = DApplications.getLayer( this );
 		if ( layer ) {
 			const stage = layer.stage;
-			stage.off( UtilPointerEvent.up, this._onSliderBarUp );
+			stage.off( UtilPointerEvent.up, this._onTrackUp );
 		}
 	}
-	protected onSliderBarChosenUp( e: InteractionEvent ): void {
+	protected onTrackSelectedUp( e: InteractionEvent ): void {
 		const layer = DApplications.getLayer( this );
 		if ( layer ) {
 			const stage = layer.stage;
-			stage.off( UtilPointerEvent.up, this._onSliderBarChosenUp );
+			stage.off( UtilPointerEvent.up, this._onTrackSelectedUp );
 		}
 	}
-	protected onSliderButtonMove( e: InteractionEvent ): void {
+	protected onThumbMove( e: InteractionEvent ): void {
 		this.onPick( e.data.global );
 	}
-	protected onSliderButtonDown( e: InteractionEvent ): void {
+	protected onThumbDown( e: InteractionEvent ): void {
 		const layer = DApplications.getLayer( this );
 		if ( layer ) {
 			const stage = layer.stage;
-			stage.on( UtilPointerEvent.move, this._onSliderButtonMove );
-			stage.on( UtilPointerEvent.up, this._onSliderButtonUp );
+			stage.on( UtilPointerEvent.move, this._onThumbMove );
+			stage.on( UtilPointerEvent.up, this._onThumbUp );
 		}
 	}
-	protected onSliderButtonUp( e: InteractionEvent ): void {
+	protected onThumbUp( e: InteractionEvent ): void {
 		const layer = DApplications.getLayer( this );
 		if ( layer ) {
 			const stage = layer.stage;
-			stage.off( UtilPointerEvent.move, this._onSliderButtonMove );
-			stage.off( UtilPointerEvent.up, this._onSliderButtonUp );
+			stage.off( UtilPointerEvent.move, this._onThumbMove );
+			stage.off( UtilPointerEvent.up, this._onThumbUp );
 		}
 	}
 	protected onPick( global: Point ) {
 		const point = new Point(0, 0);
 		this.toLocal( global, undefined, point );
-		const x = Math.max( 0, Math.min( this._sliderBarWidth, point.x ) );
-		if ( x < this._sliderButtonWidth / 2 ) {
-			this._sliderButton.x = 0;
-		} else if (x > (this._sliderBarWidth - this._sliderButtonWidth / 2)) {
-			this._sliderButton.x = this._sliderBarWidth - this._sliderButtonWidth;
+		const x = Math.max( 0, Math.min( this._trackWidth, point.x ) );
+		if ( x < this._thumbWidth / 2 ) {
+			this._thumb.x = 0;
+		} else if (x > (this._trackWidth - this._thumbWidth / 2)) {
+			this._thumb.x = this._trackWidth - this._thumbWidth;
 		} else {
-			this._sliderButton.x = x - this._sliderButtonWidth / 2;
+			this._thumb.x = x - this._thumbWidth / 2;
 		}
-		this._ratioValue = x / this._sliderBarWidth;
-		this._sliderBarChosen.width = this._sliderButton.x;
-		this._sliderValue.x = this._sliderButton.x - this._offset;
+		this._ratioValue = x / this._trackWidth;
+		this._trackSelected.width = this._thumb.x;
+		this._value.x = this._thumb.x - this._offset;
 	}
-	updateSliderValue(min: number, max: number) {
+	updateValue(min: number, max: number) {
 		const value: number = min + this._ratioValue * (max - min);
-		this._sliderValue.value = Math.round(value);
-		this._sliderValue.text = String(this._sliderValue.value);
+		this._value.value = Math.round(value);
+		this._value.text = String(this._value.value);
 	}
-	updateSliderButton(min: number, max: number, value: number) {
+	updateThumb(min: number, max: number, value: number) {
 		this._ratioValue = (value - min) / (max - min);
-		const x =  this._ratioValue * this._sliderBarWidth;
-		if (x > (this._sliderBarWidth - this._sliderButtonWidth / 2)) {
-			this._sliderButton.x = this._sliderBarWidth - this._sliderButtonWidth;
+		const x =  this._ratioValue * this._trackWidth;
+		if (x > (this._trackWidth - this._thumbWidth / 2)) {
+			this._thumb.x = this._trackWidth - this._thumbWidth;
 		} else {
-			this._sliderButton.x = x;
+			this._thumb.x = x;
 		}
-		this._sliderBarChosen.width = this._sliderButton.x;
-		this._sliderValue.x = this._sliderButton.x - this._offset;
-		this._sliderValue.value = value;
-		this._sliderValue.text = String(value);
+		this._trackSelected.width = this._thumb.x;
+		this._value.x = this._thumb.x - this._offset;
+		this._value.value = value;
+		this._value.text = String(value);
 	}
-	get sliderValue(): number {
-		return this._sliderValue.value;
+	get value(): number {
+		return this._value.value;
 	}
-	get sliderButton(): DSliderButton {
-		return this._sliderButton;
+	get thumb(): DSliderThumb {
+		return this._thumb;
 	}
-	get sliderBar(): DSliderBar {
-		return this._sliderBar;
+	get track(): DSliderTrackHorizontal {
+		return this._track;
 	}
-	get sliderBarChosen(): DSliderBarChosen {
-		return this._sliderBarChosen;
+	get trackSelected(): DSliderTrackSelectedHorizontal {
+		return this._trackSelected;
 	}
 	get yOffset(): number {
 		return this._yOffset;
 	}
 	protected getType(): string {
-		return "DSliderRange";
+		return "DSliderRangeHorizontal";
 	}
 
 }
