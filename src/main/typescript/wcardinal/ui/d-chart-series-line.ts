@@ -49,13 +49,13 @@ export class DChartSeriesLine extends DChartSeriesBase {
 
 	bind( container: DChartSeriesContainer, index: number ): void {
 		let line = this._line;
-		if( ! line ) {
-			const stroke = this._stroke = container.newStroke( index, this._options?.stroke );
-			line = this._line = new EShapeLine([], [], stroke.width, stroke.style);
-			line.stroke.copy( stroke );
-		}
-		line.attach( container.plotArea.container, index );
-		this._pointIdUpdated = NaN;
+		// if( ! line ) {
+		// 	const stroke = this._stroke = container.newStroke( index, this._options?.stroke );
+		// 	line = this._line = new EShapeLine([], [], stroke.width, stroke.style);
+		// 	line.stroke.copy( stroke );
+		// }
+		// line.attach( container.plotArea.container, index );
+		// this._pointIdUpdated = NaN;
 		super.bind( container, index );
 	}
 

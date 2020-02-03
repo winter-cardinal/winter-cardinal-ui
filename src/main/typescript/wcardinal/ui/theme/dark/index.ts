@@ -84,6 +84,8 @@ export * from "./d-theme-dark-expandable-header";
 export * from "./d-theme-dark-list";
 export * from "./d-theme-dark-list-item";
 export * from "./d-theme-dark-list-item-separator";
+export * from "./d-theme-dark-tree";
+export * from "./d-theme-dark-tree-item";
 export * from "./d-theme-dark-menu";
 export * from "./d-theme-dark-menu-bar";
 export * from "./d-theme-dark-menu-bar-item";

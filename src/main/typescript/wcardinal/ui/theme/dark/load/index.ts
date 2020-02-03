@@ -55,6 +55,7 @@ export * from "./load-theme-dark-input-real";
 export * from "./load-theme-dark-input-text";
 export * from "./load-theme-dark-layout";
 export * from "./load-theme-dark-list";
+export * from "./load-theme-dark-tree";
 export * from "./load-theme-dark-menu";
 export * from "./load-theme-dark-menu-bar";
 export * from "./load-theme-dark-menu-sided";

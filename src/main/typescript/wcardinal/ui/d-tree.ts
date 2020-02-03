@@ -7,19 +7,11 @@ import {
 	EventBus
 } from 'event-bus-station';
 import {
-	DLayoutVertical,
-	DLayoutVerticalOptions,
-	DThemeLayoutVertical
-} from "./d-layout-vertical";
-import {
 	DTreeItemOptions, DTreeItem
 } from "./d-tree-item";
 import { DPaneOptions, DThemePane, DPane } from './d-pane';
 import { DBaseOptions } from './d-base';
 import { DContentOptions } from './d-content';
-import { DListItem } from './d-list-item';
-import { DThemeWhiteTreeItem } from './theme';
-
 
 export interface DTreeOptions <
 THEME extends DThemeTree = DThemeTree,
@@ -73,7 +65,7 @@ export class DTree <
 			let items = []
 			items = this.content.children as Array<DTreeItem>;
 			const height = this.height
-			const itemHeight: number = Number((new DThemeWhiteTreeItem()).getHeight())
+			const itemHeight: number = 30
 
 			const oldItemIndexMappedStart = this._itemIndexMappedStart;
 			let oldItemIndexMappedEnd = this._itemIndexMappedEnd;
