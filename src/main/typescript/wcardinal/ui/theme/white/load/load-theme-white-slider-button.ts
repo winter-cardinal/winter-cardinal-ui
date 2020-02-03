@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeWhite } from "../theme/white/d-theme-white";
-import { DThemeWhiteSliderButton } from "../theme/white/d-theme-white-slider-button";
+import { DThemeWhite } from "../d-theme-white";
+import { DThemeWhiteSliderButton } from "../d-theme-white-slider-button";
 
 export const loadThemeWhiteSliderButton = () => {
 	DThemeWhite.set( "DSliderButton", DThemeWhiteSliderButton );

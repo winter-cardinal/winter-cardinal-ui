@@ -6,22 +6,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<style>
-	html, body {
-		width: 100%;
-		height: 100%;
-		margin: 0;
-		padding: 0;
-		background-color: #eeeeee;
-	}
-	</style>
+	<th:block th:insert="fragment/common::#head"></th:block>
 </head>
 <body>
-	<script src="/webjars/pixi/pixi.js"></script>
-	<script src="/webjars/wcardinal-ui/wcardinal-ui.js"></script>
+	<th:block th:insert="fragment/common::#body"></th:block>
 	<script>
 	(function(){
 		"use strict";
