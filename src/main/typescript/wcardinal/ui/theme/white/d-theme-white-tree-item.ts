@@ -75,10 +75,10 @@ export class DThemeWhiteTreeItem extends DThemeWhiteImage implements DThemeTreeI
 	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
 
 		if (state & DTreeItemState.EXPAND) {
-			return DThemeWhiteAtlas.mappings.menu_item_expandable_header_closed;
+			return DThemeWhiteAtlas.mappings.menu_item_expandable_header_opened;
 		}
 		else if (state & DTreeItemState.COLLAPSE){
-			return DThemeWhiteAtlas.mappings.menu_item_expandable_header_opened;
+			return DThemeWhiteAtlas.mappings.menu_item_expandable_header_closed;
 		}
 		else {
 			return null;

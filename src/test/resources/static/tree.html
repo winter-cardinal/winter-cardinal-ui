@@ -32,13 +32,19 @@
 			"use strict";
 
 			const application = new wcardinal.ui.DApplication();
+			let items = []
+			for (let i = 0; i < 20000; i++) {
+				items.push({
+					name: "item " + i
+				})
 
+			}
 			const tree = new wcardinal.ui.DTree({
 				parent: application.stage,
 				x: 100,
 				y: 100,
 				width: 500,
-				height: 300,
+				height: 600,
 				on: {
 					select: (id, name, items) => {
 						console.log(id + ", " + name + ", " + JSON.stringify(items))
@@ -103,11 +109,7 @@
 					},
 					{
 					name: "item1",
-					items: [
-						{
-							id: "1.0",
-							name: "item1.0"
-						}]
+					items: items
 					},
 				]
 			});

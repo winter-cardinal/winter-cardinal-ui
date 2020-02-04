@@ -12,13 +12,13 @@ import { DTreeItemState } from './d-tree-item-state';
 import { DBasePadding } from './d-base-padding';
 
 export interface DTreeItemOptions <
-	VALUE = unknown,
 	THEME extends DThemeTreeItem = DThemeTreeItem >
 	extends DImageOptions < string, THEME > {
-		isParent ? : boolean
-		isExpand ? : boolean,
-		bus ? : EventBus,
-		itemPosition ? : number[]
+		isParent : boolean
+		expanded : boolean,
+		bus : EventBus,
+		itemPosition : number[],
+		y: number
 	}
 
 export interface DThemeTreeItem extends DThemeImage {
@@ -31,13 +31,12 @@ export interface DTreeItemSelection {
 }
 
 export class DTreeItem <
-	VALUE = unknown,
 	THEME extends DThemeTreeItem = DThemeTreeItem,
-	OPTIONS extends DTreeItemOptions < VALUE, THEME > = DTreeItemOptions < VALUE, THEME >
+	OPTIONS extends DTreeItemOptions < THEME > = DTreeItemOptions < THEME >
 	>
 	extends DImage < string, THEME, OPTIONS > {
 		protected _isParent!: boolean;
-		protected _isExpand!: boolean | null;
+		protected _isExpanded!: boolean | null;
 		protected _bus!: EventBus;
 		protected _itemPosition!: number[]
 
@@ -47,15 +46,11 @@ export class DTreeItem <
 			// get isParent option
 			this._isParent = !! (options && options.isParent);
 			//get isExpand option
-			this._isExpand = !! ( options && options.isExpand );
+			this._isExpanded = !! ( options && options.expanded );
+
 			//get event bus
 			if (options && options.bus) {
 				this._bus = options.bus
-				this._bus.on("toggle-tree", (parentPosition, isParentExpand, isParentShown): void => {
-
-					// this.onToggle(parentPosition, isParentExpand, isParentShown)
-				})
-
 				this._bus.on("selected-tree-item", (selectedItemPosition): void => {
 
 					if (!this._isParent) {
@@ -76,23 +71,6 @@ export class DTreeItem <
 				this.onSelect()
 			});
 		}
-
-		protected onToggle(parentPosition: number[], isParentExpand: boolean, isParentShown: boolean) {
-			this.updateTreeParentState()
-			if (this._itemPosition.length == parentPosition.length + 1 &&
-				this._itemPosition.join('-').indexOf(parentPosition.join('-')) == 0) {
-				if (this.isShown()) {
-					this.hide()
-				} else if (isParentExpand && isParentShown) {
-					this.show()
-				}
-				if (this._isParent) {
-					this._bus.emit("toggle-tree", this._itemPosition, this._isExpand, this.isShown())
-				}
-			}
-
-		}
-
 		protected onSelect(): void {
 			if (this._isParent) {
 				this.toggle()
@@ -101,11 +79,8 @@ export class DTreeItem <
 			}
 		}
 
-		public isExpand(): boolean {
-			if (this._isExpand != null) {
-				return this._isExpand
-			}
-			return false
+		public isExpanded(): boolean {
+			return !! this._isExpanded
 		}
 
 		public isParent(): boolean {
@@ -116,11 +91,9 @@ export class DTreeItem <
 		}
 
 		public toggle(): void {
-			if (this._isParent) {
-				if (this._isExpand != null) {
-					this._isExpand = !this._isExpand
-				}
-				this._bus.emit("toggle-tree", this._itemPosition, this._isExpand, this.isShown())
+			if (this._isParent && this._isExpanded != null) {
+				this._isExpanded = !this._isExpanded
+				this.updateTreeParentState()
 			}
 		}
 
@@ -128,6 +101,8 @@ export class DTreeItem <
 			if(options) {
 				if(options.text) {
 					this.text = options.text.value
+				} else {
+					this.text = ""
 				}
 				if(options.itemPosition) {
 					this._itemPosition = options.itemPosition
@@ -135,8 +110,11 @@ export class DTreeItem <
 				if(options.padding) {
 					this._padding = new DBasePadding(this.theme, options)
 				}
+				if(options.y != null) {
+					this.position.y = options.y
+				}
 				this._isParent = !! (options.isParent)
-				this._isExpand = !! (options.isExpand)
+				this._isExpanded = !! (options.expanded)
 
 				this.updateTreeParentState()
 			}
@@ -149,7 +127,7 @@ export class DTreeItem <
 				this.setState(DTreeItemState.EXPAND, false)
 				return
 			}
-			if (this._isExpand) {
+			if (this._isExpanded) {
 				this.setState(DTreeItemState.COLLAPSE, false)
 				this.setState(DTreeItemState.EXPAND, true)
 			} else {
