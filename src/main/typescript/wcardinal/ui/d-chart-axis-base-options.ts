@@ -97,6 +97,7 @@ export interface DThemeChartAxisBase {
 	getLabelPaddingHorizontal(): number;
 	getLabelPaddingVertical(): number;
 	getLabelDirection(): EShapeTextDirection;
+	getLabelColor(): number;
 
 	getStyle(): EShapePointsStyle;
 
@@ -117,6 +118,7 @@ export interface DThemeChartAxisBase {
 	getMajorTickTextAlignVertical( position: DChartAxisPosition ): EShapeTextAlignVertical;
 	getMajorTickTextDirection(): EShapeTextDirection;
 	getMajorTickTextFormat(): string;
+	getMajorTickTextColor(): number;
 	getMajorTickTextPaddingHorizontal(): number;
 	getMajorTickTextPaddingVertical(): number;
 	getMajorTickStrokeEnable(): boolean;

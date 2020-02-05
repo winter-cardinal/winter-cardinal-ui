@@ -60,6 +60,10 @@ export class DThemeDarkChartAxisBase implements DThemeChartAxisBase {
 		return EShapeTextDirection.LEFT_TO_RIGHT;
 	}
 
+	getLabelColor(): number {
+		return this.getStrokeColor();
+	}
+
 	getStyle(): EShapePointsStyle {
 		return EShapePointsStyle.NONE;
 	}
@@ -69,7 +73,7 @@ export class DThemeDarkChartAxisBase implements DThemeChartAxisBase {
 	}
 
 	getStrokeColor(): number {
-		return EShapeDefaults.STROKE_COLOR;
+		return EShapeDefaults.STROKE_COLOR_DARK;
 	}
 
 	getStrokeAlpha(): number {
@@ -136,6 +140,10 @@ export class DThemeDarkChartAxisBase implements DThemeChartAxisBase {
 
 	getMajorTickTextDirection(): EShapeTextDirection {
 		return EShapeTextDirection.LEFT_TO_RIGHT;
+	}
+
+	getMajorTickTextColor(): number {
+		return this.getStrokeColor();
 	}
 
 	getMajorTickTextFormat(): string {

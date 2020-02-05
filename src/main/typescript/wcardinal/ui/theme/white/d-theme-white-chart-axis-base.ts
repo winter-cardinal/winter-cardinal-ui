@@ -60,6 +60,10 @@ export class DThemeWhiteChartAxisBase implements DThemeChartAxisBase {
 		return EShapeTextDirection.LEFT_TO_RIGHT;
 	}
 
+	getLabelColor(): number {
+		return this.getStrokeColor();
+	}
+
 	getStyle(): EShapePointsStyle {
 		return EShapePointsStyle.NONE;
 	}
@@ -136,6 +140,10 @@ export class DThemeWhiteChartAxisBase implements DThemeChartAxisBase {
 
 	getMajorTickTextDirection(): EShapeTextDirection {
 		return EShapeTextDirection.LEFT_TO_RIGHT;
+	}
+
+	getMajorTickTextColor(): number {
+		return this.getStrokeColor();
 	}
 
 	getMajorTickTextFormat(): string {
