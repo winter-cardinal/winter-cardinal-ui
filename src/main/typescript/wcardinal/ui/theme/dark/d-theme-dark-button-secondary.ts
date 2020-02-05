@@ -29,7 +29,7 @@ export class DThemeDarkButtonSecondary extends DThemeDarkButtonBase {
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		if( DBaseStates.isDisabled( state ) || ! DBaseStates.isActive( state )) {
+		if( DBaseStates.isDisabled( state ) ) {
 			return this.COLOR_DISABLED;
 		}
 		return null;
