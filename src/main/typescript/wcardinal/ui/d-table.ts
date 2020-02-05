@@ -240,7 +240,7 @@ export class DTable<
 	OPTIONS extends DTableOptions<ROW, DATA, THEME, CONTENT_OPTIONS> = DTableOptions<ROW, DATA, THEME, CONTENT_OPTIONS>
 >  extends DPane<THEME, CONTENT_OPTIONS, OPTIONS> {
 	protected _category!: DTableCategory | null;
-	protected _header!: DTableHeader<ROW>;
+	protected _header!: DTableHeader<ROW> | null;
 	protected _body!: DTableBody<ROW, DATA>;
 
 	constructor( options: OPTIONS ) {
@@ -264,7 +264,7 @@ export class DTable<
 		this._header = header;
 
 		// Body
-		const bodyOffset = headerOffset + header.height;
+		const bodyOffset = headerOffset + ((header && header.height) || 0);
 		const body = this.newBody( options, columns, frozen, bodyOffset );
 		this._body = body;
 
@@ -275,7 +275,9 @@ export class DTable<
 		const content = this._content;
 		content.setWidth( this.toContentWidth( options ) );
 		content.addChild( body );
-		content.addChild( header );
+		if( header ) {
+			content.addChild( header );
+		}
 		if( category ) {
 			content.addChild( category );
 		}
@@ -390,13 +392,26 @@ export class DTable<
 		return "100%";
 	}
 
+	protected hasHeader( options: OPTIONS ): boolean {
+		const columns = options.columns;
+		for( let i = 0, imax = columns.length; i < imax; ++i ) {
+			if( columns[ i ].label != null ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	protected newHeader(
 		options: OPTIONS,
 		columns: Array<DTableColumn<ROW>>,
 		frozen: number,
 		offset: number
-	): DTableHeader<ROW> {
-		return new DTableHeader( this.toHeaderOptions( options.header, columns, frozen, offset ) );
+	): DTableHeader<ROW> | null {
+		if( this.hasHeader( options ) ) {
+			return new DTableHeader( this.toHeaderOptions( options.header, columns, frozen, offset ) );
+		}
+		return null;
 	}
 
 	protected toHeaderOptions(
@@ -499,7 +514,7 @@ export class DTable<
 		return this._category;
 	}
 
-	get header(): DTableHeader<ROW> {
+	get header(): DTableHeader<ROW> | null {
 		return this._header;
 	}
 
