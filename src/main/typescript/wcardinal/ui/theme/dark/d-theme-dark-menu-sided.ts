@@ -12,7 +12,7 @@ export class DThemeDarkMenuSided extends DThemeDarkPane implements DThemeMenuSid
 	COLOR = 0x646464;
 
 	getBackgroundColor( state: DBaseState ): number | null {
-		return null;
+		return 0x000000;
 	}
 
 	getBorderColor( state: DBaseState ): number | null {

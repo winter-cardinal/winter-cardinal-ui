@@ -14,7 +14,7 @@ import { DThemeDarkButton } from "./d-theme-dark-button";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 
 export class DThemeDarkMenuBarItem extends DThemeDarkButton implements DThemeMenuBarItem {
-	COLOR = 0x383838;
+	COLOR = 0x000000;
 	COLOR_HOVERED = UtilRgb.brighten( this.COLOR, DThemeDarkConstants.FOCUSED_ALPHA );
 	COLOR_PRESSED = UtilRgb.brighten( this.COLOR, DThemeDarkConstants.PRESSED_ALPHA );
 
