@@ -8,27 +8,33 @@ import { DButton, DButtonOptions, DThemeButton } from "./d-button";
 import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
 import { DTableColumn } from "./d-table-column";
 
-export interface DTableBodyCellSelectFetcherOptions<
+export interface DTableBodyCellSelectPromiseOptions<
 	ROW = unknown,
 	VALUE = unknown,
-	THEME extends DThemeTableBodyCellSelectFetcher = DThemeTableBodyCellSelectFetcher
+	THEME extends DThemeTableBodyCellSelectPromise = DThemeTableBodyCellSelectPromise
 > extends DButtonOptions<VALUE, THEME>, DTableBodyCellOptions<ROW> {
-
+	/**
+	 * False to stop synchronizing the resolved value and the text.
+	 */
+	sync?: boolean;
 }
 
-export interface DThemeTableBodyCellSelectFetcher extends DThemeButton {
-
+export interface DThemeTableBodyCellSelectPromise extends DThemeButton {
+	isSyncEnabled(): boolean;
 }
 
-export class DTableBodyCellSelectFetcher<
+export class DTableBodyCellSelectPromise<
 	ROW = unknown,
 	VALUE = unknown,
-	THEME extends DThemeTableBodyCellSelectFetcher = DThemeTableBodyCellSelectFetcher,
-	OPTIONS extends DTableBodyCellSelectFetcherOptions<ROW, VALUE, THEME> =
-		DTableBodyCellSelectFetcherOptions<ROW, VALUE, THEME>
-> extends DButton<VALUE, THEME, OPTIONS> implements DTableBodyCell {
+	THEME extends DThemeTableBodyCellSelectPromise = DThemeTableBodyCellSelectPromise,
+	OPTIONS extends DTableBodyCellSelectPromiseOptions<ROW, VALUE, THEME> =
+		DTableBodyCellSelectPromiseOptions<ROW, VALUE, THEME>
+> extends DButton<VALUE, THEME, OPTIONS> implements DTableBodyCell<ROW> {
+	protected _row?: ROW;
+	protected _rowIndex!: number;
 	protected _columnIndex!: number;
 	protected _columnData!: DTableColumn<ROW>;
+	protected _isSyncEnabled!: boolean;
 
 	constructor( options: OPTIONS ) {
 		super( options );
@@ -37,24 +43,38 @@ export class DTableBodyCellSelectFetcher<
 	protected init( options: OPTIONS ) {
 		super.init( options );
 		const column = options.column;
+		this._rowIndex = 0;
 		this._columnIndex = column.index;
 		this._columnData = column.data;
+		this._isSyncEnabled = this.toSync( this.theme, options );
 		const selecting = column.data.selecting;
-		const fetcher = selecting.fetcher;
-		if( fetcher != null ) {
+		const promise = selecting.promise;
+		if( promise != null ) {
 			const getter = selecting.getter;
 			const onSelectBound = ( selected: unknown ): void => {
 				const newValue = getter( selected );
 				const oldValue = this.text;
 				if( newValue !== oldValue ) {
-					this.text = newValue as VALUE;
-					this.emit( "cellchange", newValue, oldValue, this._columnIndex, this._columnData );
+					if( this._isSyncEnabled ) {
+						this.text = newValue as VALUE;
+					}
+					const row = this._row;
+					if( row !== undefined ) {
+						const rowIndex = this._rowIndex;
+						const columnIndex = this._columnIndex;
+						this._columnData.setter( row, rowIndex, newValue );
+						this.emit( "cellchange", newValue, oldValue, row, rowIndex, columnIndex, this );
+					}
 				}
 			};
 			this.on( "active", (): void => {
-				fetcher().then( onSelectBound );
+				promise().then( onSelectBound );
 			});
 		}
+	}
+
+	protected toSync( theme: THEME, options: OPTIONS ): boolean {
+		return ( options && options.sync != null ? options.sync : theme.isSyncEnabled() );
 	}
 
 	protected mergeState( stateLocal: DBaseState, stateParent: DBaseState ): DBaseState {
@@ -70,7 +90,9 @@ export class DTableBodyCellSelectFetcher<
 		this.text = value;
 	}
 
-	set( value: unknown, rowIndex: number, columnIndex: number, forcibly?: boolean ): void {
+	set( value: unknown, row: ROW, rowIndex: number, columnIndex: number, forcibly?: boolean ): void {
+		this._row = row;
+		this._rowIndex = rowIndex;
 		if( forcibly ) {
 			this._textValue = value as VALUE;
 			this._textValueComputed = value as VALUE;
@@ -82,10 +104,10 @@ export class DTableBodyCellSelectFetcher<
 	}
 
 	unset(): void {
-		// DO NOTHING
+		this._row = undefined;
 	}
 
 	protected getType(): string {
-		return "DTableBodyCellSelectFetcher";
+		return "DTableBodyCellSelectPromise";
 	}
 }

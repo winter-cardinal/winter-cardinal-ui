@@ -14,7 +14,6 @@ import { DCornerMask } from "../../d-corner-mask";
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DTableCellState } from "../../d-table-cell-state";
 import { DThemeTableHeaderCell } from "../../d-table-header-cell";
-import { DTableHeaderCellState } from "../../d-table-header-cell-state";
 import { UtilRgb } from "../../util/util-rgb";
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
@@ -105,10 +104,10 @@ export class DThemeDarkTableHeaderCell extends DThemeDarkImage implements DTheme
 	}
 
 	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
-		if( state & DTableHeaderCellState.SORTED_ASCENDING ) {
+		if( state & DTableCellState.SORTED_ASCENDING ) {
 			return DThemeDarkAtlas.mappings.sorted_ascending;
 		}
-		if( state & DTableHeaderCellState.SORTED_DESCENDING ) {
+		if( state & DTableCellState.SORTED_DESCENDING ) {
 			return DThemeDarkAtlas.mappings.sorted_descending;
 		}
 		return null;

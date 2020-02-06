@@ -10,12 +10,16 @@ import { DShadow } from "./d-shadow";
 export class DShadowImpl extends NineSlicePlane implements DShadow {
 	protected _offsetX: number;
 	protected _offsetY: number;
+	protected _shiftX: number;
+	protected _shiftY: number;
 
 	constructor( texture: Texture, width: number, height: number, offsetX: number, offsetY: number ) {
 		super( texture, width, height, width, height );
 
 		this._offsetX = offsetX;
 		this._offsetY = offsetY;
+		this._shiftX = width * 0.5;
+		this._shiftY = height * 0.5;
 
 		this.interactive = false;
 		this.interactiveChildren = false;
@@ -30,9 +34,11 @@ export class DShadowImpl extends NineSlicePlane implements DShadow {
 	}
 
 	onReflow( base: DBase, width: number, height: number ): void {
-		this.x = -this.leftWidth + this._offsetX;
-		this.y = -this.topHeight + this._offsetY;
-		this.width = this.leftWidth + width + this.rightWidth;
-		this.height = this.topHeight + height + this.bottomHeight;
+		const sx = this._shiftX;
+		const sy = this._shiftY;
+		this.x = -sx + this._offsetX;
+		this.y = -sy + this._offsetY;
+		this.width = sx + width + sx;
+		this.height = sy + height + sy;
 	}
 }

@@ -27,5 +27,20 @@ export const DTableCellState = {
 	/**
 	 * Cells of a right-most frozen column.
 	 */
-	FROZEN_END: DBaseState.CUSTOM << 4
+	FROZEN_END: DBaseState.CUSTOM << 4,
+
+	/**
+	 * Header cells of columns sorted in the ascending order.
+	 */
+	SORTED_ASCENDING: DBaseState.CUSTOM << 5,
+
+	/**
+	 * Header cells of columns sorted in the descending order.
+	 */
+	SORTED_DESCENDING: DBaseState.CUSTOM << 6,
+
+	/**
+	 * Cels with a link which is opened in a new window.
+	 */
+	NEW_WINDOW: DBaseState.CUSTOM << 7
 };

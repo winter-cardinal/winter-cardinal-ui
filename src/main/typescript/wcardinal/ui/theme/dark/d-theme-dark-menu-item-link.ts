@@ -7,11 +7,12 @@ import { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignWith } from "../../d-align-with";
 import { DBaseState } from "../../d-base-state";
+import { DLinkMenuItemId } from "../../d-link-menu-item-id";
 import { DMenuOptions } from "../../d-menu";
 import { DThemeMenuItemLink } from "../../d-menu-item-link";
-import { DMenuItemLinkMenuItemId } from "../../d-menu-item-link-menu-item-id";
 import { DMenuItemLinkState } from "../../d-menu-item-link-state";
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
+import { DThemeDarkLinks } from "./d-theme-dark-links";
 import { DThemeDarkMenuItemText } from "./d-theme-dark-menu-item-text";
 
 DThemeDarkAtlas.add( "menu_item_mark_link", 24, 24,
@@ -44,29 +45,7 @@ export class DThemeDarkMenuItemLink extends DThemeDarkMenuItemText implements DT
 		return DAlignHorizontal.RIGHT;
 	}
 
-	getMenuOptions(): DMenuOptions<DMenuItemLinkMenuItemId> {
-		return {
-			sticky: true,
-			fit: true,
-			items: [{
-				value: DMenuItemLinkMenuItemId.OPEN_LINK_IN_NEW_WINDOW,
-				text: {
-					value: this.getOpenLinkInNewWindow()
-				}
-			}, {
-				value: DMenuItemLinkMenuItemId.COPY_LINK_ADDRESS,
-				text: {
-					value: this.getCopyLinkAddress()
-				}
-			}]
-		};
-	}
-
-	getOpenLinkInNewWindow(): string {
-		return "Open link in new window";
-	}
-
-	getCopyLinkAddress(): string {
-		return "Copy link address";
+	getMenuOptions(): DMenuOptions<DLinkMenuItemId> {
+		return DThemeDarkLinks.getMenuOptions();
 	}
 }

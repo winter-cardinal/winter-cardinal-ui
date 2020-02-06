@@ -19,10 +19,15 @@ export interface DSelectOptions<
 	 * A default value.
 	 */
 	value?: VALUE;
+
+	/**
+	 * False to stop synchronizing the selected item text and the text.
+	 */
+	sync?: boolean;
 }
 
 export interface DThemeSelect extends DThemeDropdown {
-
+	isSyncEnabled(): boolean;
 }
 
 export class DSelect<
@@ -33,15 +38,17 @@ export class DSelect<
 	protected _value!: VALUE | null;
 	protected _onSelectedBound!: ( value: VALUE, child: DMenuItem<VALUE> ) => void;
 	protected _onClosedBound!: () => void;
+	protected _isSyncEnabled!: boolean;
 
-	constructor( options: OPTIONS ) {
+	constructor( options?: OPTIONS ) {
 		super( options );
 	}
 
-	protected init( options: OPTIONS ) {
+	protected init( options?: OPTIONS ) {
 		super.init( options );
 
 		this._value = null;
+		this._isSyncEnabled = this.toSync( this.theme, options );
 
 		this._onSelectedBound = ( value: VALUE, child: DMenuItem<VALUE> ): void => {
 			this.onSelected( value, child, true );
@@ -51,23 +58,29 @@ export class DSelect<
 		};
 
 		// Default value
-		if( options != null && options.value !== undefined ) {
+		if( options && options.value !== undefined ) {
 			this.value = options.value;
 		}
 	}
 
+	protected toSync( theme: THEME, options?: OPTIONS ): boolean {
+		return ( options && options.sync != null ? options.sync : theme.isSyncEnabled() );
+	}
+
 	protected onSelected( newValue: VALUE | null, item: DMenuItem<VALUE> | null, emit: boolean ): void {
-		if( this._value !== newValue ) {
+		if( this._isSyncEnabled === false || this._value !== newValue ) {
 			// Value
 			const oldValue = this._value;
 			this._value = newValue;
 
 			// Text
-			if( item != null ) {
-				this.text = item.text || "";
-			} else {
-				const options = this._options;
-				this.text = ( options && options.text && options.text.value ) || this.theme.newTextValue();
+			if( this._isSyncEnabled ) {
+				if( item != null ) {
+					this.text = item.text || "";
+				} else {
+					const options = this._options;
+					this.text = ( options && options.text && options.text.value ) || this.theme.newTextValue();
+				}
 			}
 
 			// Event

@@ -1,0 +1,103 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<th:block th:insert="fragment/common::#head"></th:block>
+</head>
+<body>
+	<th:block th:insert="fragment/common::#body"></th:block>
+	<script>
+	(function(){
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+
+		// Rows
+		const rows = [];
+		for( let i = 0; i < 15000; ++i ) {
+			rows.push([
+				"A" + i,
+				"B" + i,
+				"C" + i,
+			]);
+		}
+
+		// Table
+		new wcardinal.ui.DTable({
+			parent: application.stage,
+			x: 50, y: 50,
+			width: 600, height: 600,
+			columns: [{
+				label: "A",
+				type: "ACTION",
+				editable: true,
+				selecting: {
+					dialog: {
+						controller: {
+							search: ( word ) => {
+								return new Promise(( resolve ) => {
+									setTimeout(() => {
+										resolve([{
+											id: "A"
+										},{
+											id: "B"
+										},{
+											id: "C"
+										}]);
+									}, 1000);
+								});
+							}
+						}
+					}
+				}
+			},{
+				label: "B",
+				type: "ACTION",
+				editable: true,
+				selecting: {
+					promise: () => {
+						return new Promise(( resolve )=>{
+							setTimeout(() => {
+								return resolve( 128 );
+							}, 1000);
+						});
+					}
+				}
+			},{
+				label: "C",
+				type: "ACTION",
+				editable: true,
+				selecting: {
+					menu: {
+						items: [{
+							text: {
+								value: "C0"
+							},
+							value: "C0"
+						}, {
+							text: {
+								value: "C1"
+							},
+							value: "C1"
+						}],
+						fit: true
+					}
+				}
+			}],
+			data: {
+				rows: rows,
+				on: {
+					change: ( newValue, oldValue, row, rowIndex, columnIndex, data ) => {
+						console.log( newValue, oldValue, row, rowIndex, columnIndex, data );
+					}
+				}
+			}
+		});
+	}());
+	</script>
+</body>
+</html>

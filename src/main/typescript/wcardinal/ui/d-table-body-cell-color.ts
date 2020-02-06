@@ -40,7 +40,9 @@ export class DTableBodyCellColor<
 	ROW = unknown,
 	THEME extends DThemeTableBodyCellColor = DThemeTableBodyCellColor,
 	OPTIONS extends DTableBodyCellColorOptions<ROW, THEME> = DTableBodyCellColorOptions<ROW, THEME>
-> extends DButtonColor<THEME, OPTIONS> implements DTableBodyCell {
+> extends DButtonColor<THEME, OPTIONS> implements DTableBodyCell<ROW> {
+	protected _row?: ROW;
+	protected _rowIndex!: number;
 	protected _columnIndex!: number;
 	protected _columnData!: DTableColumn<ROW>;
 
@@ -50,11 +52,20 @@ export class DTableBodyCellColor<
 
 	protected init( options: OPTIONS ) {
 		super.init( options );
+		this._rowIndex = 0;
 		this._columnIndex = options.column.index;
 		this._columnData = options.column.data;
 
 		this.on( "select", ( newValue: DColorAndAlpha, oldValue: DColorAndAlpha ): void => {
-			this.emit( "cellchange", clone( newValue ), clone( oldValue ), this._columnIndex, this._columnData );
+			const row = this._row;
+			if( row !== undefined ) {
+				const newValueCloned = clone( newValue );
+				const oldValueCloned = clone( oldValue );
+				const rowIndex = this._rowIndex;
+				const columnIndex = this._columnIndex;
+				this._columnData.setter( row, rowIndex, newValueCloned );
+				this.emit( "cellchange", newValueCloned, oldValueCloned, row, rowIndex, columnIndex, this );
+			}
 		});
 	}
 
@@ -63,7 +74,9 @@ export class DTableBodyCellColor<
 			( stateParent & DBaseState.HOVERED ? DBaseState.HOVERED : DBaseState.NONE );
 	}
 
-	set( newValue: unknown ): void {
+	set( newValue: unknown, row: ROW, rowIndex: number ): void {
+		this._row = row;
+		this._rowIndex = rowIndex;
 		const value = this._value;
 		if( isNumber( newValue ) ) {
 			value.color = newValue;
@@ -94,7 +107,7 @@ export class DTableBodyCellColor<
 	}
 
 	unset(): void {
-		// DO NOTHING
+		this._row = undefined;
 	}
 
 	protected getType(): string {

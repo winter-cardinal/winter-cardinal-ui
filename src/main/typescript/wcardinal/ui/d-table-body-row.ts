@@ -5,6 +5,10 @@
 
 import { DBase } from "./d-base";
 import { DTableBodyCell } from "./d-table-body-cell";
+import { DTableBodyCellActionDialog } from "./d-table-body-cell-action-dialog";
+import { DTableBodyCellActionMenu } from "./d-table-body-cell-action-menu";
+import { DTableBodyCellActionPromise } from "./d-table-body-cell-action-promise";
+import { DTableBodyCellButton } from "./d-table-body-cell-button";
 import { DTableBodyCellCheck } from "./d-table-body-cell-check";
 import { DTableBodyCellColor } from "./d-table-body-cell-color";
 import { DTableBodyCellDate } from "./d-table-body-cell-date";
@@ -13,9 +17,11 @@ import { DTableBodyCellIndex } from "./d-table-body-cell-index";
 import { DTableBodyCellInputInteger } from "./d-table-body-cell-input-integer";
 import { DTableBodyCellInputReal } from "./d-table-body-cell-input-real";
 import { DTableBodyCellInputText } from "./d-table-body-cell-input-text";
+import { DTableBodyCellLink } from "./d-table-body-cell-link";
+import { DTableBodyCellLinkEdit } from "./d-table-body-cell-link-edit";
 import { DTableBodyCellSelectDialog } from "./d-table-body-cell-select-dialog";
-import { DTableBodyCellSelectFetcher } from "./d-table-body-cell-select-fetcher";
 import { DTableBodyCellSelectMenu } from "./d-table-body-cell-select-menu";
+import { DTableBodyCellSelectPromise } from "./d-table-body-cell-select-promise";
 import { DTableBodyCellText } from "./d-table-body-cell-text";
 import { DTableBodyCellTime } from "./d-table-body-cell-time";
 import {
@@ -36,13 +42,13 @@ export interface DThemeTableBodyRow extends DThemeTableRow {
 
 }
 
-const isBodyCell = ( target: any ): target is DTableBodyCell => {
+const isBodyCell = ( target: any ): target is DTableBodyCell<unknown> => {
 	return (target != null && "set" in target);
 };
 
-type OnCellChange = (
-	newCellValue: unknown, oldCellValue: unknown,
-	columnIndex: number, column: DTableColumn<unknown>
+type OnCellChange<ROW> = (
+	newValue: unknown, oldValue: unknown,
+	row: ROW, rowIndex: number, columnIndex: number
 ) => void;
 
 export class DTableBodyRow<
@@ -51,22 +57,15 @@ export class DTableBodyRow<
 	OPTIONS extends DTableBodyRowOptions<ROW, THEME> = DTableBodyRowOptions<ROW, THEME>
 > extends DTableRow<ROW, DTableColumn<ROW>, THEME, OPTIONS> {
 	protected _row: ROW | undefined = undefined;
-	protected _onCellChangeBound!: OnCellChange;
+	protected _onCellChangeBound!: OnCellChange<ROW>;
 
 	constructor( options: OPTIONS ) {
 		super( options );
 	}
 
 	protected init( options: OPTIONS ) {
-		this._onCellChangeBound = (
-			newCellValue: unknown, oldCellValue: unknown,
-			columnIndex: number, column: DTableColumn<unknown>
-		): void => {
-			const row = this._row;
-			if( row != null ) {
-				column.setter( row, columnIndex, newCellValue );
-				this.emit( "change", newCellValue, oldCellValue, columnIndex, this );
-			}
+		this._onCellChangeBound = ( newValue, oldValue, row, rowIndex, columnIndex ): void => {
+			this.emit( "rowchange", newValue, oldValue, row, rowIndex, columnIndex, this );
 		};
 		super.init( options );
 	}
@@ -108,18 +107,15 @@ export class DTableBodyRow<
 		case DTableColumnType.COLOR:
 			return new DTableBodyCellColor( options );
 		case DTableColumnType.BUTTON:
-			return new DTableBodyCellText( options );
+			return new DTableBodyCellButton( options );
+		case DTableColumnType.LINK:
+			return new DTableBodyCellLink( options );
+		case DTableColumnType.LINK_EDIT:
+			return new DTableBodyCellLinkEdit( options );
 		case DTableColumnType.SELECT:
-			const selecting = column.selecting;
-			if( selecting.menu != null ) {
-				return new DTableBodyCellSelectMenu( options );
-			} else if( selecting.dialog != null ) {
-				return new DTableBodyCellSelectDialog( options );
-			} else if( selecting.fetcher != null ) {
-				return new DTableBodyCellSelectFetcher( options );
-			} else {
-				return new DTableBodyCellText( options );
-			}
+			return this.newCellSelect( column, options );
+		case DTableColumnType.ACTION:
+			return this.newCellAction( column, options );
 		case DTableColumnType.DATE:
 			return new DTableBodyCellDate( options );
 		case DTableColumnType.DATETIME:
@@ -130,6 +126,7 @@ export class DTableBodyRow<
 			return new DTableBodyCellText( options );
 		}
 	}
+
 	protected newCellUnediable(
 		column: DTableColumn<ROW>,
 		columnIndex: number,
@@ -149,18 +146,15 @@ export class DTableBodyRow<
 		case DTableColumnType.COLOR:
 			return new DTableBodyCellColor( options );
 		case DTableColumnType.BUTTON:
-			return new DTableBodyCellText( options );
+			return new DTableBodyCellButton( options );
+		case DTableColumnType.LINK:
+			return new DTableBodyCellLink( options );
+		case DTableColumnType.LINK_EDIT:
+			return new DTableBodyCellLinkEdit( options );
 		case DTableColumnType.SELECT:
-			const selecting = column.selecting;
-			if( selecting.menu != null ) {
-				return new DTableBodyCellSelectMenu( options );
-			} else if( selecting.dialog != null ) {
-				return new DTableBodyCellSelectDialog( options );
-			} else if( selecting.fetcher != null ) {
-				return new DTableBodyCellSelectFetcher( options );
-			} else {
-				return new DTableBodyCellText( options );
-			}
+			return this.newCellSelect( column, options );
+		case DTableColumnType.ACTION:
+			return this.newCellAction( column, options );
 		case DTableColumnType.DATE:
 			return new DTableBodyCellDate( options );
 		case DTableColumnType.DATETIME:
@@ -168,6 +162,32 @@ export class DTableBodyRow<
 		case DTableColumnType.TIME:
 			return new DTableBodyCellTime( options );
 		default:
+			return new DTableBodyCellText( options );
+		}
+	}
+
+	protected newCellSelect( column: DTableColumn<ROW>, options: any ): DBase {
+		const selecting = column.selecting;
+		if( selecting.menu != null ) {
+			return new DTableBodyCellSelectMenu( options );
+		} else if( selecting.dialog != null ) {
+			return new DTableBodyCellSelectDialog( options );
+		} else if( selecting.promise != null ) {
+			return new DTableBodyCellSelectPromise( options );
+		} else {
+			return new DTableBodyCellText( options );
+		}
+	}
+
+	protected newCellAction( column: DTableColumn<ROW>, options: any ): DBase {
+		const selecting = column.selecting;
+		if( selecting.menu != null ) {
+			return new DTableBodyCellActionMenu( options );
+		} else if( selecting.dialog != null ) {
+			return new DTableBodyCellActionDialog( options );
+		} else if( selecting.promise != null ) {
+			return new DTableBodyCellActionPromise( options );
+		} else {
 			return new DTableBodyCellText( options );
 		}
 	}
@@ -217,6 +237,10 @@ export class DTableBodyRow<
 			editing.validator = editing.validator || column.editing.validator as any;
 		}
 
+		if( column.link ) {
+			result.link = column.link as any;
+		}
+
 		return result;
 	}
 
@@ -234,10 +258,9 @@ export class DTableBodyRow<
 			const columnsLength = columns.length;
 			for( let i = 0, imax = Math.min( columnsLength, cellsLength ); i < imax; ++i ) {
 				const cell = cells[ i ];
-				const columnIndex = columnsLength - i - 1;
-				const column = columns[ columnIndex ];
+				const column = columns[ i ];
 				if( isBodyCell( cell ) ) {
-					cell.set( column.getter( row, columnIndex ), rowIndex, columnIndex, forcibly );
+					cell.set( column.getter( row, i ), row, rowIndex, i, forcibly );
 				}
 			}
 

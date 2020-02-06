@@ -54,6 +54,10 @@ const defaultSetter: DTableSetter<any> = ( row: any, index: number, cell: unknow
 	row[ index ] = cell;
 };
 
+const defaultSetterEmpty: DTableSetter<any> = (): void => {
+	// DO NOTHING
+};
+
 const defaultEditingUnformatter: DTableEditingUnformatter = ( cell: string ): unknown => {
 	return cell;
 };
@@ -72,9 +76,13 @@ const toColumnAlign = <ROW>( options: DTableColumnOptions<ROW>, type: DTableColu
 	case DTableColumnType.REAL:
 	case DTableColumnType.INTEGER:
 		return DAlignHorizontal.RIGHT;
+	case DTableColumnType.BUTTON:
 	case DTableColumnType.INDEX:
 	case DTableColumnType.SELECT:
-		return DAlignHorizontal.CENTER;
+	case DTableColumnType.ACTION:
+	case DTableColumnType.LINK:
+	case DTableColumnType.LINK_EDIT:
+			return DAlignHorizontal.CENTER;
 	default:
 		return DAlignHorizontal.LEFT;
 	}
@@ -168,12 +176,31 @@ const toColumnSelecting = ( options: DTableColumnSelectingOptions | undefined ):
 			getter: options.getter || defaultSelectingGetter,
 			menu: toColumnMenu( options.menu ),
 			dialog: toColumnDialog( options.dialog ),
-			fetcher: options.fetcher
+			promise: options.promise
 		};
 	}
 	return {
 		getter: defaultSelectingGetter
 	};
+};
+
+const toColumnSetter = <ROW>(
+	options: DTableColumnOptions<ROW>,
+	type: DTableColumnType
+): DTableSetter<ROW> => {
+	const setter = options.setter;
+	if( setter ) {
+		return setter;
+	}
+	switch( type ) {
+	case DTableColumnType.BUTTON:
+	case DTableColumnType.ACTION:
+	case DTableColumnType.LINK:
+	case DTableColumnType.LINK_EDIT:
+		return defaultSetterEmpty;
+	default:
+		return defaultSetter;
+	}
 };
 
 const toColumn = <ROW>( index: number, options: DTableColumnOptions<ROW> ): DTableColumn<ROW> => {
@@ -190,7 +217,7 @@ const toColumn = <ROW>( index: number, options: DTableColumnOptions<ROW> ): DTab
 	const align = toColumnAlign( options, type );
 	const label = options.label || "";
 	const getter = options.getter || defaultGetter;
-	const setter = options.setter || defaultSetter;
+	const setter = toColumnSetter( options, type );
 	return {
 		weight,
 		width,
@@ -211,7 +238,9 @@ const toColumn = <ROW>( index: number, options: DTableColumnOptions<ROW> ): DTab
 
 		category: options.category,
 		frozen: options.frozen,
-		offset: 0.0
+		offset: 0.0,
+
+		link: options.link
 	};
 };
 

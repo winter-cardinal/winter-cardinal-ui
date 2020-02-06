@@ -25,8 +25,4 @@ export class DThemeDarkTableRow extends DThemeDarkLayoutHorizontal implements DT
 	getInteractive(): DBaseInteractive {
 		return DBaseInteractive.BOTH;
 	}
-
-	getReverse(): boolean {
-		return true;
-	}
 }

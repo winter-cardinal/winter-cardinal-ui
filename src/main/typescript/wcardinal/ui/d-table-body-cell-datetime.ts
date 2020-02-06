@@ -30,11 +30,13 @@ export class DTableBodyCellDatetime<
 	ROW = unknown,
 	THEME extends DThemeTableBodyCellDatetime = DThemeTableBodyCellDatetime,
 	OPTIONS extends DTableBodyCellDatetimeOptions<ROW, THEME> = DTableBodyCellDatetimeOptions<ROW, THEME>
-> extends DButton<Date, THEME, OPTIONS> implements DTableBodyCell {
+> extends DButton<Date, THEME, OPTIONS> implements DTableBodyCell<ROW> {
 	protected static DIALOG?: DDialogDatetime;
 	protected _dialog?: DDialogDatetime;
 	protected _dialogOptions?: DDialogDatetimeOptions;
 	protected _datetimeMask!: DPickerDatetimeMask;
+	protected _row?: ROW;
+	protected _rowIndex!: number;
 	protected _columnIndex!: number;
 	protected _columnData!: DTableColumn<ROW>;
 
@@ -57,10 +59,16 @@ export class DTableBodyCellDatetime<
 			dialog.new = new Date( currentTime );
 			dialog.page = new Date( currentTime );
 			dialog.open().then((): void => {
-				const dialogNew = dialog.new;
-				const dialogCurrent = dialog.current;
-				this.text = new Date( dialogNew.getTime() );
-				this.emit( "cellchange", dialogNew, dialogCurrent, this._columnIndex, this._columnData );
+				const newValue = dialog.new;
+				const oldValue = dialog.current;
+				this.text = new Date( newValue.getTime() );
+				const row = this._row;
+				if( row !== undefined ) {
+					const rowIndex = this._rowIndex;
+					const columnIndex = this._columnIndex;
+					this._columnData.setter( row, rowIndex, newValue );
+					this.emit( "cellchange", newValue, oldValue, row, rowIndex, columnIndex, this );
+				}
 			});
 		});
 	}
@@ -88,7 +96,9 @@ export class DTableBodyCellDatetime<
 		return dialog;
 	}
 
-	set( value: unknown, rowIndex: number, columnIndex: number, forcibly?: boolean ): void {
+	set( value: unknown, row: ROW, rowIndex: number, columnIndex: number, forcibly?: boolean ): void {
+		this._row = row;
+		this._rowIndex = rowIndex;
 		if( value instanceof Date ) {
 			if( forcibly ) {
 				this._textValue = value;
@@ -109,7 +119,7 @@ export class DTableBodyCellDatetime<
 	}
 
 	unset(): void {
-		// DO NOTHING
+		this._row = undefined;
 	}
 
 	protected getType(): string {

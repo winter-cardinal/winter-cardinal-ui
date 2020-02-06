@@ -14,7 +14,7 @@ export interface DTableBodyCellOptions<ROW> {
 	column: DTableBodyCellColumnOptions<ROW>;
 }
 
-export interface DTableBodyCell {
-	set( value: unknown, rowIndex: number, columnIndex: number, forcibly?: boolean ): void;
+export interface DTableBodyCell<ROW> {
+	set( value: unknown, row: ROW, rowIndex: number, columnIndex: number, forcibly?: boolean ): void;
 	unset(): void;
 }

@@ -7,5 +7,7 @@ import { DThemeSelect } from "../../d-select";
 import { DThemeDarkDropdown } from "./d-theme-dark-dropdown";
 
 export class DThemeDarkSelect extends DThemeDarkDropdown implements DThemeSelect {
-
+	isSyncEnabled(): boolean {
+		return true;
+	}
 }

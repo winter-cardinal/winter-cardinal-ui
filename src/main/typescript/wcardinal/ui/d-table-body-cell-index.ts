@@ -24,7 +24,7 @@ export class DTableBodyCellIndex<
 	ROW = unknown,
 	THEME extends DThemeTableBodyCellIndex = DThemeTableBodyCellIndex,
 	OPTIONS extends DTableBodyCellIndexOptions<ROW, THEME> = DTableBodyCellIndexOptions<ROW, THEME>
-> extends DImageBase<number, THEME, OPTIONS> implements DTableBodyCell {
+> extends DImageBase<number, THEME, OPTIONS> implements DTableBodyCell<ROW> {
 	protected _columnIndex!: number;
 	protected _columnData!: DTableColumn<ROW>;
 
@@ -43,7 +43,7 @@ export class DTableBodyCellIndex<
 			( stateParent & DBaseState.HOVERED ? DBaseState.HOVERED : DBaseState.NONE );
 	}
 
-	set( value: unknown, rowIndex: number): void {
+	set( value: unknown, row: ROW, rowIndex: number): void {
 		this.text = rowIndex;
 	}
 

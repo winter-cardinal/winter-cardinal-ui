@@ -28,9 +28,11 @@ export class DTableBodyCellDate<
 	ROW = unknown,
 	THEME extends DThemeTableBodyCellDate = DThemeTableBodyCellDate,
 	OPTIONS extends DTableBodyCellDateOptions<ROW, THEME> = DTableBodyCellDateOptions<ROW, THEME>
-> extends DButton<Date, THEME, OPTIONS> implements DTableBodyCell {
+> extends DButton<Date, THEME, OPTIONS> implements DTableBodyCell<ROW> {
 	protected _dialog?: DDialogDate;
 	protected _dialogOptions?: DDialogDateOptions;
+	protected _row?: ROW;
+	protected _rowIndex!: number;
 	protected _columnIndex!: number;
 	protected _columnData!: DTableColumn<ROW>;
 
@@ -42,6 +44,7 @@ export class DTableBodyCellDate<
 		super.init( options );
 
 		this._dialogOptions = options.dialog;
+		this._rowIndex = 0;
 		this._columnIndex = options.column.index;
 		this._columnData = options.column.data;
 
@@ -52,10 +55,16 @@ export class DTableBodyCellDate<
 			dialog.new = new Date( currentTime );
 			dialog.page = new Date( currentTime );
 			dialog.open().then((): void => {
-				const dialogNew = dialog.new;
-				const dialogCurrent = dialog.current;
-				this.text = new Date( dialogNew.getTime() );
-				this.emit( "cellchange", dialogNew, dialogCurrent, this._columnIndex, this._columnData );
+				const newValue = dialog.new;
+				const oldValue = dialog.current;
+				this.text = new Date( newValue.getTime() );
+				const row = this._row;
+				if( row !== undefined ) {
+					const rowIndex = this._rowIndex;
+					const columnIndex = this._columnIndex;
+					this._columnData.setter( row, rowIndex, newValue );
+					this.emit( "cellchange", newValue, oldValue, row, rowIndex, columnIndex, this );
+				}
 			});
 		});
 	}
@@ -79,7 +88,9 @@ export class DTableBodyCellDate<
 		return dialog;
 	}
 
-	set( value: unknown, rowIndex: number, columnIndex: number, forcibly?: boolean ): void {
+	set( value: unknown, row: ROW, rowIndex: number, columnIndex: number, forcibly?: boolean ): void {
+		this._row = row;
+		this._rowIndex = rowIndex;
 		if( value instanceof Date ) {
 			if( forcibly ) {
 				this._textValue = value;
@@ -100,7 +111,7 @@ export class DTableBodyCellDate<
 	}
 
 	unset(): void {
-		// DO NOTHING
+		this._row = undefined;
 	}
 
 	protected getType(): string {

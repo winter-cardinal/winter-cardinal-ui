@@ -37,7 +37,7 @@ export class DDropdown<
 > extends DButtonBase<string, THEME, OPTIONS> {
 	protected _menu!: DMenu<VALUE>;
 
-	constructor( options: OPTIONS ) {
+	constructor( options?: OPTIONS ) {
 		super( options );
 
 		this.on( "active", (): void => {

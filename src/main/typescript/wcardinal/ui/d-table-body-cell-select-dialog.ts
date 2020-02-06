@@ -13,11 +13,14 @@ export interface DTableBodyCellSelectDialogOptions<
 	VALUE = unknown,
 	THEME extends DThemeTableBodyCellSelectDialog = DThemeTableBodyCellSelectDialog
 > extends DButtonOptions<VALUE, THEME>, DTableBodyCellOptions<ROW> {
-
+	/**
+	 * False to stop synchronization of the selected value and the text.
+	 */
+	sync?: boolean;
 }
 
 export interface DThemeTableBodyCellSelectDialog extends DThemeButton {
-
+	isSyncEnabled(): boolean;
 }
 
 export class DTableBodyCellSelectDialog<
@@ -26,9 +29,12 @@ export class DTableBodyCellSelectDialog<
 	THEME extends DThemeTableBodyCellSelectDialog = DThemeTableBodyCellSelectDialog,
 	OPTIONS extends DTableBodyCellSelectDialogOptions<ROW, VALUE, THEME> =
 		DTableBodyCellSelectDialogOptions<ROW, VALUE, THEME>
-> extends DButton<VALUE, THEME, OPTIONS> implements DTableBodyCell {
+> extends DButton<VALUE, THEME, OPTIONS> implements DTableBodyCell<ROW> {
+	protected _row?: ROW;
+	protected _rowIndex!: number;
 	protected _columnIndex!: number;
 	protected _columnData!: DTableColumn<ROW>;
+	protected _isSyncEnabled!: boolean;
 
 	constructor( options: OPTIONS ) {
 		super( options );
@@ -37,18 +43,28 @@ export class DTableBodyCellSelectDialog<
 	protected init( options: OPTIONS ) {
 		super.init( options );
 		const column = options.column;
+		this._rowIndex = 0;
 		this._columnIndex = column.index;
 		this._columnData = column.data;
+		this._isSyncEnabled = this.toSync( this.theme, options );
 		const selecting = column.data.selecting;
 		const dialog = selecting.dialog;
 		if( dialog != null ) {
 			const getter = selecting.getter;
-			const onSelectBound = ( selected: VALUE | null ): void => {
+			const onSelectBound = ( selected: unknown ): void => {
 				const newValue = getter( selected );
 				const oldValue = this.text;
 				if( newValue !== oldValue ) {
-					this.text = newValue as VALUE;
-					this.emit( "cellchange", newValue, oldValue, this._columnIndex, this._columnData );
+					if( this._isSyncEnabled ) {
+						this.text = newValue as VALUE;
+					}
+					const row = this._row;
+					if( row !== undefined ) {
+						const rowIndex = this._rowIndex;
+						const columnIndex = this._columnIndex;
+						this._columnData.setter( row, rowIndex, newValue );
+						this.emit( "cellchange", newValue, oldValue, row, rowIndex, columnIndex, this );
+					}
 				}
 			};
 			const onCloseBound = (): void => {
@@ -61,6 +77,10 @@ export class DTableBodyCellSelectDialog<
 				dialog.open();
 			});
 		}
+	}
+
+	protected toSync( theme: THEME, options: OPTIONS ): boolean {
+		return ( options && options.sync != null ? options.sync : theme.isSyncEnabled() );
 	}
 
 	protected mergeState( stateLocal: DBaseState, stateParent: DBaseState ): DBaseState {
@@ -76,7 +96,9 @@ export class DTableBodyCellSelectDialog<
 		this.text = value;
 	}
 
-	set( value: unknown, rowIndex: number, columnIndex: number, forcibly?: boolean ): void {
+	set( value: unknown, row: ROW, rowIndex: number, columnIndex: number, forcibly?: boolean ): void {
+		this._row = row;
+		this._rowIndex = rowIndex;
 		if( forcibly ) {
 			this._textValue = value as VALUE;
 			this._textValueComputed = value as VALUE;
@@ -88,7 +110,7 @@ export class DTableBodyCellSelectDialog<
 	}
 
 	unset(): void {
-		// DO NOTHING
+		this._row = undefined;
 	}
 
 	protected getType(): string {

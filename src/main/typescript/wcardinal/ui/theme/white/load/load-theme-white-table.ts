@@ -6,6 +6,10 @@
 import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteTable } from "../d-theme-white-table";
 import { DThemeWhiteTableBody } from "../d-theme-white-table-body";
+import { DThemeWhiteTableBodyCellActionDialog } from "../d-theme-white-table-body-cell-action-dialog";
+import { DThemeWhiteTableBodyCellActionMenu } from "../d-theme-white-table-body-cell-action-menu";
+import { DThemeWhiteTableBodyCellActionPromise } from "../d-theme-white-table-body-cell-action-promise";
+import { DThemeWhiteTableBodyCellButton } from "../d-theme-white-table-body-cell-button";
 import { DThemeWhiteTableBodyCellCheck } from "../d-theme-white-table-body-cell-check";
 import { DThemeWhiteTableBodyCellColor } from "../d-theme-white-table-body-cell-color";
 import { DThemeWhiteTableBodyCellDate } from "../d-theme-white-table-body-cell-date";
@@ -14,9 +18,11 @@ import { DThemeWhiteTableBodyCellIndex } from "../d-theme-white-table-body-cell-
 import { DThemeWhiteTableBodyCellInputInteger } from "../d-theme-white-table-body-cell-input-integer";
 import { DThemeWhiteTableBodyCellInputReal } from "../d-theme-white-table-body-cell-input-real";
 import { DThemeWhiteTableBodyCellInputText } from "../d-theme-white-table-body-cell-input-text";
+import { DThemeWhiteTableBodyCellLink } from "../d-theme-white-table-body-cell-link";
+import { DThemeWhiteTableBodyCellLinkEdit } from "../d-theme-white-table-body-cell-link-edit";
 import { DThemeWhiteTableBodyCellSelectDialog } from "../d-theme-white-table-body-cell-select-dialog";
-import { DThemeWhiteTableBodyCellSelectFetcher } from "../d-theme-white-table-body-cell-select-fetcher";
 import { DThemeWhiteTableBodyCellSelectMenu } from "../d-theme-white-table-body-cell-select-menu";
+import { DThemeWhiteTableBodyCellSelectPromise } from "../d-theme-white-table-body-cell-select-promise";
 import { DThemeWhiteTableBodyCellText } from "../d-theme-white-table-body-cell-text";
 import { DThemeWhiteTableBodyCellTime } from "../d-theme-white-table-body-cell-time";
 import { DThemeWhiteTableBodyRow } from "../d-theme-white-table-body-row";
@@ -36,6 +42,10 @@ import { loadThemeWhiteInputText } from "./load-theme-white-input-text";
 import { loadThemeWhiteMenu } from "./load-theme-white-menu";
 
 export const loadThemeWhiteTable = () => {
+	DThemeWhite.set( "DTableBodyCellActionDialog", DThemeWhiteTableBodyCellActionDialog );
+	DThemeWhite.set( "DTableBodyCellActionMenu", DThemeWhiteTableBodyCellActionMenu );
+	DThemeWhite.set( "DTableBodyCellActionPromise", DThemeWhiteTableBodyCellActionPromise );
+	DThemeWhite.set( "DTableBodyCellButton", DThemeWhiteTableBodyCellButton );
 	DThemeWhite.set( "DTableBodyCellCheck", DThemeWhiteTableBodyCellCheck );
 	DThemeWhite.set( "DTableBodyCellColor", DThemeWhiteTableBodyCellColor );
 	DThemeWhite.set( "DTableBodyCellDate", DThemeWhiteTableBodyCellDate );
@@ -44,9 +54,11 @@ export const loadThemeWhiteTable = () => {
 	DThemeWhite.set( "DTableBodyCellInputInteger", DThemeWhiteTableBodyCellInputInteger );
 	DThemeWhite.set( "DTableBodyCellInputReal", DThemeWhiteTableBodyCellInputReal );
 	DThemeWhite.set( "DTableBodyCellInputText", DThemeWhiteTableBodyCellInputText );
+	DThemeWhite.set( "DTableBodyCellLinkEdit", DThemeWhiteTableBodyCellLinkEdit );
+	DThemeWhite.set( "DTableBodyCellLink", DThemeWhiteTableBodyCellLink );
 	DThemeWhite.set( "DTableBodyCellSelectDialog", DThemeWhiteTableBodyCellSelectDialog );
-	DThemeWhite.set( "DTableBodyCellSelectFetcher", DThemeWhiteTableBodyCellSelectFetcher );
 	DThemeWhite.set( "DTableBodyCellSelectMenu", DThemeWhiteTableBodyCellSelectMenu );
+	DThemeWhite.set( "DTableBodyCellSelectPromise", DThemeWhiteTableBodyCellSelectPromise );
 	DThemeWhite.set( "DTableBodyCellText", DThemeWhiteTableBodyCellText );
 	DThemeWhite.set( "DTableBodyCellTime", DThemeWhiteTableBodyCellTime );
 	DThemeWhite.set( "DTableBodyRow", DThemeWhiteTableBodyRow );

@@ -29,11 +29,13 @@ export class DTableBodyCellTime<
 	ROW = unknown,
 	THEME extends DThemeTableBodyCellTime = DThemeTableBodyCellTime,
 	OPTIONS extends DTableBodyCellTimeOptions<ROW, THEME> = DTableBodyCellTimeOptions<ROW, THEME>
-> extends DButton<Date, THEME, OPTIONS> implements DTableBodyCell {
+> extends DButton<Date, THEME, OPTIONS> implements DTableBodyCell<ROW> {
 	protected static DIALOG?: DDialogTime;
 	protected _dialog?: DDialogTime;
 	protected _dialogOptions?: DDialogTimeOptions;
 	protected _datetimeMask!: DPickerDatetimeMask;
+	protected _row?: ROW;
+	protected _rowIndex!: number;
 	protected _columnIndex!: number;
 	protected _columnData!: DTableColumn<ROW>;
 
@@ -44,6 +46,7 @@ export class DTableBodyCellTime<
 	protected init( options: OPTIONS ) {
 		this._dialogOptions = options.dialog;
 		this._datetimeMask = DPickerTimes.toMask( options.dialog && options.dialog.picker );
+		this._rowIndex = 0;
 		this._columnIndex = options.column.index;
 		this._columnData = options.column.data;
 
@@ -55,10 +58,16 @@ export class DTableBodyCellTime<
 			dialog.current = new Date( currentTime );
 			dialog.new = new Date( currentTime );
 			dialog.open().then((): void => {
-				const dialogNew = dialog.new;
-				const dialogCurrent = dialog.current;
-				this.text = new Date( dialogNew.getTime() );
-				this.emit( "cellchange", dialogNew, dialogCurrent, this._columnIndex, this._columnData );
+				const newValue = dialog.new;
+				const oldValue = dialog.current;
+				this.text = new Date( newValue.getTime() );
+				const row = this._row;
+				if( row !== undefined ) {
+					const rowIndex = this._rowIndex;
+					const columnIndex = this._columnIndex;
+					this._columnData.setter( row, rowIndex, newValue );
+					this.emit( "cellchange", newValue, oldValue, row, rowIndex, columnIndex, this );
+				}
 			});
 		});
 	}
@@ -89,7 +98,9 @@ export class DTableBodyCellTime<
 		return dialog;
 	}
 
-	set( value: unknown, rowIndex: number, columnIndex: number, forcibly?: boolean ): void {
+	set( value: unknown, row: ROW, rowIndex: number, columnIndex: number, forcibly?: boolean ): void {
+		this._row = row;
+		this._rowIndex = rowIndex;
 		if( value instanceof Date ) {
 			if( forcibly ) {
 				this._textValue = value;
@@ -110,7 +121,7 @@ export class DTableBodyCellTime<
 	}
 
 	unset(): void {
-		// DO NOTHING
+		this._row = undefined;
 	}
 
 	protected getType(): string {
