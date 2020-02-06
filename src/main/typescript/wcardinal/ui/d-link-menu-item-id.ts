@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export enum DMenuItemLinkTarget {
-	AUTO,
-	THIS_WINDOW,
-	NEW_WINDOW
+export enum DLinkMenuItemId {
+	OPEN_LINK_IN_NEW_WINDOW,
+	COPY_LINK_ADDRESS
 }

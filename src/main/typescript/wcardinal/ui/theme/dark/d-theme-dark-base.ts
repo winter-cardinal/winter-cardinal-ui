@@ -19,26 +19,22 @@ import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkFont } from "./d-theme-dark-font";
 
-const newShadow = (
-	id: string,
-	radius: number = 8, opacity: number = 0.1,
-	size: number = radius * 0.125, stdDeviation: number = radius * 0.375
-): void => {
+const newShadow = ( id: string, radius: number, opacity: number ): void => {
 	const d = radius * 2;
 	DThemeDarkAtlas.add( id, d, d,
 		`<g>` +
 			`<defs>` +
-				`<filter id="${id}_filter" x="0" y="0" width="${d}" height="${d}" filterUnits="userSpaceOnUse">` +
-					`<feGaussianBlur in="SourceAlpha" stdDeviation="${stdDeviation}"></feGaussianBlur>` +
-				`</filter>` +
+				`<radialGradient id="${id}_filter">` +
+					`<stop offset="0%" stop-color="black" stop-opacity="${opacity}" />` +
+					`<stop offset="100%" stop-color="black" stop-opacity="0" />` +
+				`</radialGradient>` +
 			`</defs>` +
-			`<circle cx="${radius}" cy="${radius}" r="${size}" stroke="none" ` +
-				`fill="rgba(0,0,0,${opacity})" filter="url(#${id}_filter)" />` +
+			`<rect x="0" y="0" width="${d}" height="${d}" fill="url(#${id}_filter)"/>` +
 		`</g>`
 	);
 };
-newShadow( "shadow_weak", 8, 1 );
-newShadow( "shadow", 12, 1 );
+newShadow( "shadow_weak", 8, 0.15 );
+newShadow( "shadow", 12, 0.15 );
 
 export class DThemeDarkBase extends DThemeDarkFont implements DThemeBase {
 	getX(): DCoordinatePosition {
@@ -165,11 +161,11 @@ export class DThemeDarkBase extends DThemeDarkFont implements DThemeBase {
 	}
 
 	newShadow(): DShadow | null {
-		return new DShadowImpl( DThemeDarkAtlas.mappings.shadow, 12, 12, 0, 6 );
+		return new DShadowImpl( DThemeDarkAtlas.mappings.shadow, 12, 12, 0, 3 );
 	}
 
 	newShadowWeak(): DShadow | null {
-		return new DShadowImpl( DThemeDarkAtlas.mappings.shadow_weak, 8, 8, 0, 4 );
+		return new DShadowImpl( DThemeDarkAtlas.mappings.shadow_weak, 8, 8, 0, 2 );
 	}
 
 	getCursor(): string | null {

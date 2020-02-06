@@ -92,8 +92,8 @@
 						self.filter.set( filter );
 					},
 
-					change: ( value, rowIndex, columnIndex, values, data ) => {
-						console.log( value, rowIndex, columnIndex, values, data );
+					change: ( newValue, oldValue, row, rowIndex, columnIndex, data ) => {
+						console.log( newValue, oldValue, row, rowIndex, columnIndex, data );
 					}
 				}
 			}

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Rectangle } from "pixi.js";
+import { Rectangle, Renderer } from "pixi.js";
 import { DBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DLayoutHorizontal, DLayoutHorizontalOptions, DThemeLayoutHorizontal } from "./d-layout-horizontal";
@@ -58,7 +58,7 @@ export abstract class DTableRow<
 		// Cells
 		const columns = this._columns = options.columns || [];
 		const iend = this.toIndexEnd( columns );
-		for( let i = columns.length - 1; 0 <= i; --i ) {
+		for( let i = 0, imax = columns.length; i < imax; ++i ) {
 			const cell = this.newCell( columns[ i ], i, columns, options );
 			const cellState = this.toCellState( even, i, iend, frozen );
 			if( cellState ) {
@@ -98,7 +98,7 @@ export abstract class DTableRow<
 		const frozen = this._frozen;
 		for( let i = 0; i < frozen; ++i ) {
 			const column = columns[ i ];
-			const cell = cells[ cells.length - 1 - i ];
+			const cell = cells[ i ];
 			cell.position.x = -x + column.offset;
 		}
 	}
@@ -110,7 +110,7 @@ export abstract class DTableRow<
 		const x = this.getContentPositionX();
 		for( let i = 0; i < frozen; ++i ) {
 			const column = columns[ i ];
-			const cell = cells[ cells.length - 1 - i ];
+			const cell = cells[ i ];
 			column.offset = cell.position.x;
 			cell.position.x = -x + column.offset;
 		}
@@ -126,14 +126,25 @@ export abstract class DTableRow<
 			const cells = this.children as DBase[];
 			const cellIndex = cells.indexOf( target );
 			if( 0 <= cellIndex ) {
-				const index = cells.length - 1 - cellIndex;
-				if( frozen <= index ) {
-					const previous = cells[ cellIndex + 1 ];
+				if( frozen <= cellIndex ) {
+					const previous = cells[ cellIndex - 1 ];
 					const shiftX = previous.position.x + previous.width;
 					result.x += shiftX;
 					result.width -= shiftX;
 				}
 			}
+		}
+	}
+
+	render( renderer: Renderer ) {
+		if( this.visible && 0 < this.worldAlpha && this.renderable ) {
+			this.renderBefore( renderer );
+			this._render( renderer );
+			const children = this.children;
+			for( let i = children.length - 1; 0 <= i; --i ) {
+				children[ i ].render( renderer );
+			}
+			this.renderAfter( renderer );
 		}
 	}
 

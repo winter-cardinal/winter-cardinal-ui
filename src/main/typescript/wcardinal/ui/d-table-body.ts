@@ -66,6 +66,11 @@ const isDTableData = <ROW>( target?: ROW[] | DTableDataOptions<ROW> | DTableData
 	return ( target != null && "mapped" in target );
 };
 
+type OnRowChange<ROW> = (
+	newValue: unknown, oldValue: unknown,
+	row: ROW, rowIndex: number, columnIndex: number
+) => void;
+
 export class DTableBody<
 	ROW,
 	DATA extends DTableData<ROW> = DTableDataList<ROW>,
@@ -82,6 +87,7 @@ export class DTableBody<
 	protected _isUpdateRowsCalled!: boolean;
 	protected _isUpdateRowsCalledForcibly!: boolean;
 	protected _workRows!: Array<DTableBodyRow<ROW>>;
+	protected _onRowChangeBound!: OnRowChange<ROW>;
 
 	protected _data!: DATA;
 
@@ -93,11 +99,14 @@ export class DTableBody<
 
 	protected init( options: OPTIONS ) {
 		this.transform.position.y = options.offset || 0;
-
+		this._onRowChangeBound = ( newValue, oldValue, row, rowIndex, columnIndex ): void => {
+			data.emit( "change", newValue, oldValue, row, rowIndex, columnIndex, data );
+		};
 		super.init( options );
 
 		const data = ( isDTableData( options.data ) ? options.data :
-			new DTableDataList<ROW>( options.data ) as unknown as DATA );
+			new DTableDataList<ROW>( options.data ) as unknown as DATA
+		);
 		this._data = data;
 		data.bind( this );
 		const theme = this.theme;
@@ -278,14 +287,7 @@ export class DTableBody<
 		const options = this._rowOptions;
 		options.even = isEven;
 		const result = new DTableBodyRow<ROW>( options );
-		result.on( "change", ( newCellValue: unknown, oldCellValue: unknown, columnIndex: number ): void => {
-			const index = this.getChildIndex( result );
-			if( 0 <= index ) {
-				const rowIndex = this._rowIndexMappedStart + index;
-				const data = this._data;
-				data.emit( "change", newCellValue, oldCellValue, rowIndex, columnIndex, data );
-			}
-		});
+		result.on( "rowchange", this._onRowChangeBound );
 		return result;
 	}
 

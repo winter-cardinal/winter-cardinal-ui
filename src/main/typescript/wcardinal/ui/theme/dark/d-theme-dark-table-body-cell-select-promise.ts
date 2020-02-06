@@ -7,12 +7,12 @@ import { DBaseState } from "../../d-base-state";
 import { DBorderMask } from "../../d-border-mask";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
-import { DThemeTableBodyCellSelectFetcher } from "../../d-table-body-cell-select-fetcher";
+import { DThemeTableBodyCellSelectPromise } from "../../d-table-body-cell-select-promise";
 import { DThemeDarkButton } from "./d-theme-dark-button";
 import { DThemeDarkTableBodyCells } from "./d-theme-dark-table-body-cells";
 
-export class DThemeDarkTableBodyCellSelectFetcher extends DThemeDarkButton
-	implements DThemeTableBodyCellSelectFetcher {
+export class DThemeDarkTableBodyCellSelectPromise extends DThemeDarkButton
+	implements DThemeTableBodyCellSelectPromise {
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		return DThemeDarkTableBodyCells.getBackgroundColor( state );
@@ -48,5 +48,9 @@ export class DThemeDarkTableBodyCellSelectFetcher extends DThemeDarkButton
 
 	getCornerMask(): DCornerMask {
 		return DThemeDarkTableBodyCells.getCornerMask();
+	}
+
+	isSyncEnabled(): boolean {
+		return true;
 	}
 }

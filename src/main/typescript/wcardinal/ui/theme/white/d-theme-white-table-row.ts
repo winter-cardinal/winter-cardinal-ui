@@ -25,8 +25,4 @@ export class DThemeWhiteTableRow extends DThemeWhiteLayoutHorizontal implements 
 	getInteractive(): DBaseInteractive {
 		return DBaseInteractive.BOTH;
 	}
-
-	getReverse(): boolean {
-		return true;
-	}
 }

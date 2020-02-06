@@ -49,4 +49,8 @@ export class DThemeWhiteTableBodyCellSelectDialog extends DThemeWhiteButton
 	getCornerMask(): DCornerMask {
 		return DThemeWhiteTableBodyCells.getCornerMask();
 	}
+
+	isSyncEnabled(): boolean {
+		return true;
+	}
 }

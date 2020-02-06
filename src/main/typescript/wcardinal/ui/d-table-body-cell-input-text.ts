@@ -22,7 +22,9 @@ export class DTableBodyCellInputText<
 	ROW = unknown,
 	THEME extends DThemeTableBodyCellInputText = DThemeTableBodyCellInputText,
 	OPTIONS extends DTableBodyCellInputTextOptions<ROW, THEME> = DTableBodyCellInputTextOptions<ROW, THEME>
-> extends DInputText<THEME, OPTIONS> implements DTableBodyCell {
+> extends DInputText<THEME, OPTIONS> implements DTableBodyCell<ROW> {
+	protected _row?: ROW;
+	protected _rowIndex!: number;
 	protected _columnIndex!: number;
 	protected _columnData!: DTableColumn<ROW>;
 
@@ -32,10 +34,17 @@ export class DTableBodyCellInputText<
 
 	protected init( options: OPTIONS ) {
 		super.init( options );
+		this._rowIndex = 0;
 		this._columnIndex = options.column.index;
 		this._columnData = options.column.data;
-		this.on( "change", ( newCellValue: unknown, oldCellValue: unknown ): void => {
-			this.emit( "cellchange", newCellValue, oldCellValue, this._columnIndex, this._columnData );
+		this.on( "change", ( newValue: unknown, oldValue: unknown ): void => {
+			const row = this._row;
+			if( row !== undefined ) {
+				const rowIndex = this._rowIndex;
+				const columnIndex = this._columnIndex;
+				this._columnData.setter( row, rowIndex, newValue );
+				this.emit( "cellchange", newValue, oldValue, row, rowIndex, columnIndex, this );
+			}
 		});
 	}
 
@@ -44,12 +53,14 @@ export class DTableBodyCellInputText<
 			( stateParent & DBaseState.HOVERED ? DBaseState.HOVERED : DBaseState.NONE );
 	}
 
-	set( value: unknown ): void {
+	set( value: unknown, row: ROW, rowIndex: number ): void {
+		this._row = row;
+		this._rowIndex = rowIndex;
 		this.text = String( value );
 	}
 
 	unset(): void {
-		// DO NOTHING
+		this._row = undefined;
 	}
 
 	protected getType(): string {

@@ -65,8 +65,8 @@
 					type: "MULTIPLE"
 				},
 				on: {
-					change: ( value, rowIndex, columnIndex, values, body ) => {
-						console.log( value, rowIndex, columnIndex, values, body );
+					change: ( newValue, oldValue, row, rowIndex, columnIndex, data ) => {
+						console.log( newValue, oldValue, row, rowIndex, columnIndex, data );
 					}
 				}
 			}

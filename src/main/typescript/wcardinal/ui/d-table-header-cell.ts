@@ -7,13 +7,13 @@ import { interaction } from "pixi.js";
 import { DBaseState } from "./d-base-state";
 import { DImage, DImageOptions, DThemeImage } from "./d-image";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
+import { DTableCellState } from "./d-table-cell-state";
 import { DTableColumn } from "./d-table-column";
 import {
 	DTableDataComparatorFunction, DTableDataComparatorObject,
 	DTableDataOrder, DTableDataSorter
 } from "./d-table-data-sorter";
 import { DTableHeaderTable } from "./d-table-header";
-import { DTableHeaderCellState } from "./d-table-header-cell-state";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
 export interface DTableHeaderCellHeader<ROW> {
@@ -105,8 +105,8 @@ export class DTableHeaderCell<
 		const sorter = this._sorter;
 		const comparator = this._comparator;
 		if( sorter && comparator ) {
-			const SORTED_ASCENDING = DTableHeaderCellState.SORTED_ASCENDING;
-			const SORTED_DESCENDING = DTableHeaderCellState.SORTED_DESCENDING;
+			const SORTED_ASCENDING = DTableCellState.SORTED_ASCENDING;
+			const SORTED_DESCENDING = DTableCellState.SORTED_DESCENDING;
 			if( sorter.isApplied() && sorter.get() === comparator ) {
 				if( sorter.order === DTableDataOrder.ASCENDING ) {
 					this.setStates( SORTED_ASCENDING, SORTED_DESCENDING );

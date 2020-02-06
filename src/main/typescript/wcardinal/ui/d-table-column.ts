@@ -6,6 +6,7 @@
 import { DAlignHorizontal } from "./d-align-horizontal";
 import { DDialogSelect, DDialogSelectOptions } from "./d-dialog-select";
 import { DMenu, DMenuOptions } from "./d-menu";
+import { DTableBodyCellButtonOptions } from "./d-table-body-cell-button";
 import { DTableBodyCellCheckOptions } from "./d-table-body-cell-check";
 import { DTableBodyCellColorOptions } from "./d-table-body-cell-color";
 import { DTableBodyCellDateOptions } from "./d-table-body-cell-date";
@@ -14,9 +15,11 @@ import { DTableBodyCellIndexOptions } from "./d-table-body-cell-index";
 import { DTableBodyCellInputIntegerOptions } from "./d-table-body-cell-input-integer";
 import { DTableBodyCellInputRealOptions } from "./d-table-body-cell-input-real";
 import { DTableBodyCellInputTextOptions } from "./d-table-body-cell-input-text";
+import { DTableBodyCellLinkOptions } from "./d-table-body-cell-link";
+import { DTableBodyCellLinkEditOptions } from "./d-table-body-cell-link-edit";
 import { DTableBodyCellSelectDialogOptions } from "./d-table-body-cell-select-dialog";
-import { DTableBodyCellSelectFetcherOptions } from "./d-table-body-cell-select-fetcher";
 import { DTableBodyCellSelectMenuOptions } from "./d-table-body-cell-select-menu";
+import { DTableBodyCellSelectPromiseOptions } from "./d-table-body-cell-select-promise";
 import { DTableBodyCellTextOptions } from "./d-table-body-cell-text";
 import { DTableBodyCellTimeOptions } from "./d-table-body-cell-time";
 import { DTableDataComparatorFunction, DTableDataComparatorObject } from "./d-table-data-sorter";
@@ -33,7 +36,10 @@ export enum DTableColumnType {
 	SELECT,
 	DATE,
 	DATETIME,
-	TIME
+	TIME,
+	ACTION,
+	LINK,
+	LINK_EDIT
 }
 
 export type DTableGetter<ROW> = ( row: ROW, index: number ) => unknown;
@@ -47,14 +53,16 @@ export type DTableSelectingGetter = ( selected: unknown ) => unknown;
 export type DTableBodyCellOptionsUnion<ROW> = DTableBodyCellTextOptions<ROW> | DTableBodyCellInputTextOptions<ROW> |
 	DTableBodyCellInputIntegerOptions<ROW> | DTableBodyCellInputRealOptions<ROW> | DTableBodyCellIndexOptions<ROW> |
 	DTableBodyCellColorOptions<ROW> | DTableBodyCellCheckOptions<ROW> | DTableBodyCellSelectDialogOptions<ROW> |
-	DTableBodyCellSelectFetcherOptions<ROW> | DTableBodyCellSelectMenuOptions<ROW> | DTableBodyCellDateOptions<ROW> |
-	DTableBodyCellDatetimeOptions<ROW> | DTableBodyCellTimeOptions<ROW>;
+	DTableBodyCellSelectPromiseOptions<ROW> | DTableBodyCellSelectMenuOptions<ROW> | DTableBodyCellDateOptions<ROW> |
+	DTableBodyCellDatetimeOptions<ROW> | DTableBodyCellTimeOptions<ROW> | DTableBodyCellButtonOptions<ROW> |
+	DTableBodyCellLinkOptions<ROW> | DTableBodyCellLinkEditOptions<ROW>;
 
 export type DTableBodyCellOptionsMerged<ROW> = DTableBodyCellTextOptions<ROW> & DTableBodyCellInputTextOptions<ROW> &
 	DTableBodyCellInputIntegerOptions<ROW> & DTableBodyCellInputRealOptions<ROW> & DTableBodyCellIndexOptions<ROW> &
 	DTableBodyCellColorOptions<ROW> & DTableBodyCellCheckOptions<ROW> & DTableBodyCellSelectDialogOptions<ROW> &
-	DTableBodyCellSelectFetcherOptions<ROW> & DTableBodyCellSelectMenuOptions<ROW> & DTableBodyCellDateOptions<ROW> &
-	DTableBodyCellDatetimeOptions<ROW> & DTableBodyCellTimeOptions<ROW>;
+	DTableBodyCellSelectPromiseOptions<ROW> & DTableBodyCellSelectMenuOptions<ROW> & DTableBodyCellDateOptions<ROW> &
+	DTableBodyCellDatetimeOptions<ROW> & DTableBodyCellTimeOptions<ROW> & DTableBodyCellButtonOptions<ROW> &
+	DTableBodyCellLinkOptions<ROW> & DTableBodyCellLinkEditOptions<ROW>;
 
 export interface DTableColumnEditingOptions {
 	enable?: boolean;
@@ -85,7 +93,7 @@ export interface DTableColumnSelectingOptions {
 
 	menu?: DMenuOptions<unknown> | DMenu<unknown>;
 	dialog?: DDialogSelectOptions<unknown> | DDialogSelect<unknown>;
-	fetcher?: () => Promise<unknown>;
+	promise?: () => Promise<unknown>;
 }
 
 export interface DTableColumnSelecting {
@@ -93,7 +101,7 @@ export interface DTableColumnSelecting {
 
 	menu?: DMenu<unknown>;
 	dialog?: DDialogSelect<unknown>;
-	fetcher?: () => Promise<unknown>;
+	promise?: () => Promise<unknown>;
 }
 
 export interface DTableColumnOptions<ROW> {
@@ -120,6 +128,8 @@ export interface DTableColumnOptions<ROW> {
 
 	category?: string;
 	frozen?: boolean;
+
+	link?: DTableBodyCellLinkOptions<ROW>;
 }
 
 export interface DTableColumn<ROW> {
@@ -144,4 +154,6 @@ export interface DTableColumn<ROW> {
 	category?: string;
 	frozen?: boolean;
 	offset: number;
+
+	link?: DTableBodyCellLinkOptions<ROW>;
 }

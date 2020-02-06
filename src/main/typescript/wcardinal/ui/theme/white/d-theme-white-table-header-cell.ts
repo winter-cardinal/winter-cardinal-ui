@@ -14,7 +14,6 @@ import { DCornerMask } from "../../d-corner-mask";
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DTableCellState } from "../../d-table-cell-state";
 import { DThemeTableHeaderCell } from "../../d-table-header-cell";
-import { DTableHeaderCellState } from "../../d-table-header-cell-state";
 import { UtilRgb } from "../../util/util-rgb";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
@@ -104,9 +103,9 @@ export class DThemeWhiteTableHeaderCell extends DThemeWhiteImage implements DThe
 	}
 
 	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
-		if( state & DTableHeaderCellState.SORTED_ASCENDING ) {
+		if( state & DTableCellState.SORTED_ASCENDING ) {
 			return DThemeWhiteAtlas.mappings.sorted_ascending;
-		} else if( state & DTableHeaderCellState.SORTED_DESCENDING ) {
+		} else if( state & DTableCellState.SORTED_DESCENDING ) {
 			return DThemeWhiteAtlas.mappings.sorted_descending;
 		} else {
 			return null;

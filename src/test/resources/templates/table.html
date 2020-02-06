@@ -83,7 +83,7 @@
 				type: "SELECT",
 				editable: true,
 				selecting: {
-					fetcher: () => {
+					promise: () => {
 						return new Promise(( resolve )=>{
 							setTimeout(() => {
 								return resolve( 128 );
@@ -106,8 +106,8 @@
 					type: "NONE"
 				},
 				on: {
-					change: ( value, rowIndex, columnIndex, values, data ) => {
-						console.log( value, rowIndex, columnIndex, values, data );
+					change: ( newValue, oldValue, row, rowIndex, columnIndex, data ) => {
+						console.log( newValue, oldValue, row, rowIndex, columnIndex, data );
 					}
 				}
 			}

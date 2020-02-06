@@ -49,4 +49,8 @@ export class DThemeDarkTableBodyCellSelectDialog extends DThemeDarkButton
 	getCornerMask(): DCornerMask {
 		return DThemeDarkTableBodyCells.getCornerMask();
 	}
+
+	isSyncEnabled(): boolean {
+		return true;
+	}
 }

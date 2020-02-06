@@ -25,7 +25,9 @@ export class DTableBodyCellSelectMenu<
 	VALUE = unknown,
 	THEME extends DThemeTableBodyCellSelectMenu = DThemeTableBodyCellSelectMenu,
 	OPTIONS extends DTableBodyCellSelectMenuOptions<ROW, VALUE, THEME> = DTableBodyCellSelectMenuOptions<ROW, VALUE, THEME>
-> extends DSelect<VALUE, THEME, OPTIONS> implements DTableBodyCell {
+> extends DSelect<VALUE, THEME, OPTIONS> implements DTableBodyCell<ROW> {
+	protected _row?: ROW;
+	protected _rowIndex!: number;
 	protected _columnIndex!: number;
 	protected _columnData!: DTableColumn<ROW>;
 
@@ -36,14 +38,21 @@ export class DTableBodyCellSelectMenu<
 	protected init( options: OPTIONS ) {
 		super.init( options );
 		const column = options.column;
+		this._rowIndex = 0;
 		this._columnIndex = column.index;
 		this._columnData = column.data;
 		const selecting = column.data.selecting;
 		const getter = selecting.getter;
-		this.on( "change", ( newSelected: VALUE | null, oldSelected: VALUE | null ): void => {
+		this.on( "change", ( newSelected: unknown, oldSelected: unknown ): void => {
 			const newValue = getter( newSelected );
 			const oldValue = getter( oldSelected );
-			this.emit( "cellchange", newValue, oldValue, this._columnIndex, this._columnData );
+			const row = this._row;
+			if( row !== undefined ) {
+				const rowIndex = this._rowIndex;
+				const columnIndex = this._columnIndex;
+				this._columnData.setter( row, rowIndex, newValue );
+				this.emit( "cellchange", newValue, oldValue, row, rowIndex, columnIndex, this );
+			}
 		});
 	}
 
@@ -52,12 +61,18 @@ export class DTableBodyCellSelectMenu<
 			( stateParent & DBaseState.HOVERED ? DBaseState.HOVERED : DBaseState.NONE );
 	}
 
-	set( value: unknown ): void {
-		this.value = value as VALUE;
+	set( value: unknown, row: ROW, rowIndex: number ): void {
+		this._row = row;
+		this._rowIndex = rowIndex;
+		if( this._isSyncEnabled ) {
+			this.value = value as VALUE;
+		} else {
+			this.text = String( value );
+		}
 	}
 
 	unset(): void {
-		// DO NOTHING
+		this._row = undefined;
 	}
 
 	protected getType(): string {
