@@ -7,7 +7,6 @@ import { DBaseState } from "./d-base-state";
 import { DImage, DImageOptions, DThemeImage } from "./d-image";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { UtilPointerEvent } from './util';
-import { EventBus } from 'event-bus-station';
 import { DTreeItemState } from './d-tree-item-state';
 import { DBasePadding } from './d-base-padding';
 
@@ -16,7 +15,6 @@ export interface DTreeItemOptions <
 	extends DImageOptions < string, THEME > {
 		isParent : boolean
 		expanded : boolean,
-		bus : EventBus,
 		itemPosition : number[],
 		y: number
 	}
@@ -37,7 +35,6 @@ export class DTreeItem <
 	extends DImage < string, THEME, OPTIONS > {
 		protected _isParent!: boolean;
 		protected _isExpanded!: boolean | null;
-		protected _bus!: EventBus;
 		protected _itemPosition!: number[]
 
 		protected init(options ? : OPTIONS) {
@@ -47,35 +44,26 @@ export class DTreeItem <
 			this._isParent = !! (options && options.isParent);
 			//get isExpand option
 			this._isExpanded = !! ( options && options.expanded );
-
-			//get event bus
-			if (options && options.bus) {
-				this._bus = options.bus
-				this._bus.on("selected-tree-item", (selectedItemPosition): void => {
-
-					if (!this._isParent) {
-						this.setState(DBaseState.ACTIVE, this._itemPosition.join('-') == selectedItemPosition.join('-'))
-
-					}
-
-				})
-			}
 			//get position of item
 			if (options && options.itemPosition) {
 				this._itemPosition = options.itemPosition
 			}
 
-			this.updateTreeParentState()
+			this.updateStates(false)
 
 			this.on(UtilPointerEvent.down, (): void => {
 				this.onSelect()
 			});
+
 		}
+
 		protected onSelect(): void {
+
 			if (this._isParent) {
 				this.toggle()
 			} else {
-				this._bus.emit("selected-tree-item", this._itemPosition)
+				this.parent.emit("select", this._itemPosition)
+				this.setState(DBaseState.ACTIVE, true)
 			}
 		}
 
@@ -93,11 +81,11 @@ export class DTreeItem <
 		public toggle(): void {
 			if (this._isParent && this._isExpanded != null) {
 				this._isExpanded = !this._isExpanded
-				this.updateTreeParentState()
+				this.updateStates(false)
 			}
 		}
 
-		public updateItem(options : OPTIONS | null) {
+		public updateItem(options : OPTIONS | null, selectedPosition: number[]) {
 			if(options) {
 				if(options.text) {
 					this.text = options.text.value
@@ -115,18 +103,28 @@ export class DTreeItem <
 				}
 				this._isParent = !! (options.isParent)
 				this._isExpanded = !! (options.expanded)
+				const isActive = JSON.stringify(this._itemPosition) == JSON.stringify(selectedPosition)
 
-				this.updateTreeParentState()
+				this.updateStates(isActive)
 			}
 			return this
 		}
 
-		protected updateTreeParentState(): void {
+		public updateActiveState(selectedPosition: number[]) {
+			const isActive = JSON.stringify(this._itemPosition) == JSON.stringify(selectedPosition)
+			this.setState(DBaseState.ACTIVE, isActive)
+		}
+
+		protected updateStates(isActive: boolean): void {
+			this.setState(DBaseState.ACTIVE, isActive)
+			this.setState(DBaseState.FOCUSED, false)
+
 			if (!this._isParent) {
 				this.setState(DTreeItemState.COLLAPSE, false)
 				this.setState(DTreeItemState.EXPAND, false)
 				return
 			}
+
 			if (this._isExpanded) {
 				this.setState(DTreeItemState.COLLAPSE, false)
 				this.setState(DTreeItemState.EXPAND, true)
