@@ -398,7 +398,7 @@ export class DChartAxisBaseOptionParser {
 		options = options || {};
 		return {
 			format: options.format,
-			color: options.color,
+			color: this.toMajorTickTextColor( theme, options.color ),
 			alpha: options.alpha,
 			family: options.family,
 			size: options.size,
@@ -494,6 +494,13 @@ export class DChartAxisBaseOptionParser {
 		return ( options != null ? options : theme.getMajorTickTextDirection() );
 	}
 
+	protected toMajorTickTextColor(
+		theme: DThemeChartAxisBase,
+		options?: number
+	): number {
+		return ( options != null ? options : theme.getMajorTickTextColor() );
+	}
+
 	protected toLabel(
 		theme: DThemeChartAxisBase,
 		options?: DChartAxisBaseOptions
@@ -502,7 +509,7 @@ export class DChartAxisBaseOptionParser {
 		if( label ) {
 			return {
 				value: label.value,
-				color: label.color,
+				color: this.toLabelColor(theme, label.color),
 				alpha: label.alpha,
 				family: label.family,
 				size: label.size,
@@ -597,5 +604,12 @@ export class DChartAxisBaseOptionParser {
 		options?: EShapeTextDirection
 	): EShapeTextDirection {
 		return ( options != null ? options : theme.getLabelDirection() );
+	}
+
+	protected toLabelColor(
+		theme: DThemeChartAxisBase,
+		options?: number
+	): number {
+		return ( options != null ? options : theme.getLabelColor() );
 	}
 }
