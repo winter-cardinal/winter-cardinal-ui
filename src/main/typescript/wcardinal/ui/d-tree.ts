@@ -133,7 +133,7 @@ export class DTree <
 				let items = this._value
 				//access to data of selected item in this.value to update expanded attribute
 				for (let i = 0; i < itemPosition.length - 1; i++) {
-					items = items[itemPosition[i]].items
+					items = items[itemPosition[i]].children
 				}
 				const item = items[itemPosition[itemPosition.length - 1]]
 				item.expanded = !item.expanded
@@ -159,7 +159,7 @@ export class DTree <
 
 						//calculate padding value of item
 						let paddingValue: number = itemPosition.length * 25
-						const isParent: boolean = item.items && (item.items.length > 0)
+						const isParent: boolean = item.children && (item.children.length > 0)
 						paddingValue = isParent ? paddingValue - 20 : paddingValue
 						const itemName = item.name ? item.name : null
 
@@ -196,8 +196,8 @@ export class DTree <
 						}
 
 						this._itemOptions[itemPosition.join('-')] = itemOptions
-						if (item && item.items) {
-							this.mapped(itemPosition, item.items)
+						if (item && item.children) {
+							this.mapped(itemPosition, item.children)
 						}
 					}
 				}

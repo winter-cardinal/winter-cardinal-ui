@@ -35,7 +35,7 @@
 			let items = []
 			for (let i = 0; i < 20000; i++) {
 				items.push({
-					name: "item " + i
+					name: "item1." + i
 				})
 
 			}
@@ -53,7 +53,7 @@
 				value: [
 					{
 					name: "item0",
-					items: [
+					children: [
 						{
 							name: "item0.0"
 						},
@@ -65,22 +65,22 @@
 						},
 						{
 							name: "item0.3",
-							items: [
+							children: [
 								{
 									name: "item0.3.0"
 								},
 								{
 									name: "item0.3.1",
-									items: [
+									children: [
 											{
 												name: "item0.3.1.0",
-												items: [
+												children: [
 													{
 														name: "item0.3.1.0.0",
-														items: [
+														children: [
 															{
 																name: "item0.3.1.0.0",
-																items: [
+																children: [
 																	{
 																		name: "item0.3.1.0.0.0"
 																	},
@@ -109,7 +109,7 @@
 					},
 					{
 					name: "item1",
-					items: items
+					children: items
 					},
 				]
 			});
