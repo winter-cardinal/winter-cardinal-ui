@@ -12,7 +12,7 @@ import { DThemeDarkLayoutVertical } from "./d-theme-dark-layout-vertical";
 export class DThemeDarkExpandable extends DThemeDarkLayoutVertical implements DThemeExpandable {
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isActive( state ) ) {
-			return null;
+			return 0x0F0700;
 		}
 		return null;
 	}
