@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DCoordinateSize } from "../../d-coordinate";
+import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
 import { DThemeWhiteSliderTrack } from "./d-theme-white-slider-track";
 
 export class DThemeWhiteSliderTrackVertical extends DThemeWhiteSliderTrack implements DThemeWhiteSliderTrackVertical {
@@ -14,6 +14,10 @@ export class DThemeWhiteSliderTrackVertical extends DThemeWhiteSliderTrack imple
 
 	getWidth(): DCoordinateSize {
 		return 5;
+	}
+
+	getX(): DCoordinatePosition {
+		return "CENTER";
 	}
 
 }

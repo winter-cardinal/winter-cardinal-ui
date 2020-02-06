@@ -4,12 +4,16 @@
  */
 
 import { DBaseState } from "../../d-base-state";
-import { DCoordinatePosition } from "../../d-coordinate";
+import { DBaseStates } from "../../d-base-states";
 import { DThemeWhiteButton } from "./d-theme-white-button";
+import { DThemeWhiteConstants } from "./d-theme-white-constants";
 
 export class DThemeWhiteSliderTrack extends DThemeWhiteButton implements DThemeWhiteSliderTrack {
 
 	getBackgroundColor( state: DBaseState ): number | null {
+		if( DBaseStates.isActive( state ) ) {
+			return DThemeWhiteConstants.HIGHLIGHT_COLOR;
+		}
 		return 0xCCCCCC;
 	}
 
@@ -19,10 +23,6 @@ export class DThemeWhiteSliderTrack extends DThemeWhiteButton implements DThemeW
 
 	getColor( state: DBaseState ): number {
 		return 0x5F5F5F;
-	}
-
-	getX(): DCoordinatePosition {
-		return "CENTER";
 	}
 
 }

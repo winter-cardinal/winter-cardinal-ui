@@ -3,14 +3,28 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseInteractive } from "../../d-base-interactive";
+import { DAlignHorizontal } from "../../d-align-horizontal";
+import { DAlignVertical } from "../../d-align-vertical";
 import { DBaseState } from "../../d-base-state";
-import { DThemeWhiteBase } from "./d-theme-white-base";
+import { DCoordinateSize } from "../../d-coordinate";
+import { DThemeWhiteTextBase } from "./d-theme-white-text-base";
 
-export class DThemeWhiteSliderRange extends DThemeWhiteBase implements DThemeWhiteSliderRange {
+export class DThemeWhiteSliderLabel extends DThemeWhiteTextBase implements DThemeWhiteSliderLabel {
 
-	getInteractive(): DBaseInteractive {
-		return DBaseInteractive.CHILDREN;
+	getHeight(): DCoordinateSize {
+		return 15;
+	}
+
+	getWidth(): DCoordinateSize {
+		return 30;
+	}
+
+	getTextAlignHorizontal(): DAlignHorizontal {
+		return DAlignHorizontal.CENTER;
+	}
+
+	getTextAlignVertical(): DAlignVertical {
+		return DAlignVertical.MIDDLE;
 	}
 
 	getPadding() {
@@ -80,4 +94,5 @@ export class DThemeWhiteSliderRange extends DThemeWhiteBase implements DThemeWhi
 	getOutlineAlign( state: DBaseState ): number {
 		return 0;
 	}
+
 }

@@ -6,21 +6,21 @@
 import { DBaseState } from "./d-base-state";
 import { DTextBase, DTextBaseOptions, DThemeTextBase } from "./d-text-base";
 
-export interface DSliderMinOptions<
+export interface DSliderLabelOptions<
 	VALUE = unknown,
-	THEME extends DThemeSliderMin = DThemeSliderMin
+	THEME extends DThemeSliderLabel = DThemeSliderLabel
 > extends DTextBaseOptions<VALUE, THEME> {
+	value?: number;
+}
+
+export interface DThemeSliderLabel extends DThemeTextBase {
 
 }
 
-export interface DThemeSliderMin extends DThemeTextBase {
-
-}
-
-export class DSliderMin<
+export class DSliderLabel<
 	VALUE = unknown,
-	THEME extends DThemeSliderMin = DThemeSliderMin,
-	OPTIONS extends DSliderMinOptions<VALUE, THEME> = DSliderMinOptions<VALUE, THEME>
+	THEME extends DThemeSliderLabel = DThemeSliderLabel,
+	OPTIONS extends DSliderLabelOptions<VALUE, THEME> = DSliderLabelOptions<VALUE, THEME>
 > extends DTextBase<VALUE, THEME, OPTIONS> {
 	protected _value!: number;
 
@@ -28,7 +28,7 @@ export class DSliderMin<
 		super.init( options );
 		this.setState( DBaseState.UNFOCUSABLE, true );
 
-		this._value = 0;
+		this._value = options && options.value || 0;
 	}
 
 	set value(value: number) {
@@ -40,6 +40,6 @@ export class DSliderMin<
 	}
 
 	protected getType(): string {
-		return "DSliderMin";
+		return "DSliderLabel";
 	}
 }
