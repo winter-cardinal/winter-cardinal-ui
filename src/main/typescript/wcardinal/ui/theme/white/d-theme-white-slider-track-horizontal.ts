@@ -3,23 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "../../d-base-state";
-import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
-import { DThemeWhiteButton } from "./d-theme-white-button";
+import { DCoordinateSize } from "../../d-coordinate";
+import { DThemeWhiteSliderTrack } from "./d-theme-white-slider-track";
 
-export class DThemeWhiteSliderTrackHorizontal extends DThemeWhiteButton implements DThemeWhiteSliderTrackHorizontal {
-
-	getBackgroundColor( state: DBaseState ): number | null {
-		return 0xCCCCCC;
-	}
-
-	getBorderColor( state: DBaseState ): number | null {
-		return null;
-	}
-
-	getColor( state: DBaseState ): number {
-		return 0x5F5F5F;
-	}
+export class DThemeWhiteSliderTrackHorizontal
+extends DThemeWhiteSliderTrack implements DThemeWhiteSliderTrackHorizontal {
 
 	getHeight(): DCoordinateSize {
 		return 5;
@@ -27,10 +15,6 @@ export class DThemeWhiteSliderTrackHorizontal extends DThemeWhiteButton implemen
 
 	getWidth(): DCoordinateSize {
 		return 300;
-	}
-
-	getX(): DCoordinatePosition {
-		return "CENTER";
 	}
 
 }

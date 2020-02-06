@@ -3,16 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DButton, DButtonOptions, DThemeButton } from "./d-button";
+import { DSliderTrack, DSliderTrackOptions, DThemeSliderTrack } from "./d-slider-track";
 
 export interface DSliderTrackVerticalOptions<
 	VALUE = unknown,
 	THEME extends DThemeSliderTrackVertical = DThemeSliderTrackVertical
-> extends DButtonOptions<VALUE, THEME> {
+> extends DSliderTrackOptions<VALUE, THEME> {
 
 }
 
-export interface DThemeSliderTrackVertical extends DThemeButton {
+export interface DThemeSliderTrackVertical extends DThemeSliderTrack {
 
 }
 
@@ -20,7 +20,7 @@ export class DSliderTrackVertical<
 	VALUE = unknown,
 	THEME extends DThemeSliderTrackVertical = DThemeSliderTrackVertical,
 	OPTIONS extends DSliderTrackVerticalOptions<VALUE, THEME> = DSliderTrackVerticalOptions<VALUE, THEME>
-> extends DButton<VALUE, THEME, OPTIONS> {
+> extends DSliderTrack<VALUE, THEME, OPTIONS> {
 	protected init( options?: OPTIONS ) {
 		super.init( options );
 	}
