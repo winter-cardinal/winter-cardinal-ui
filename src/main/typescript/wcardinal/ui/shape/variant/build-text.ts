@@ -58,10 +58,10 @@ export const buildTextStep = (
 	antialiasWeight: number
 ): void => {
 	if( textAtlas != null ) {
-		const scaleBase = (0.333 / TEXT_SDF_WINDOW) * antialiasWeight;
+		const scaleBase = (0.4 / TEXT_SDF_WINDOW) * antialiasWeight;
 		const scale = scaleBase * (textAtlas.font.size / textSize);
 		const outlineWidth = textOutlineWidth * 0.4;
-		const weight =  -0.025 + ( textWeight === EShapeTextWeight.NORMAL ? 0.0 : 0.05 );
+		const weight = ( textWeight === EShapeTextWeight.NORMAL ? 0.0 : 0.05 );
 		for( let i = voffset * 6, imax = i + vcount * 6; i < imax; i += 6 ) {
 			steps[ i + 0 ] = scale;
 			steps[ i + 1 ] = outlineWidth;
