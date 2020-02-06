@@ -21,8 +21,6 @@ export class DThemeDarkTableBodyCells {
 	static readonly BACKGROUND_COLOR_ODD = UtilRgb.brighten( DThemeDarkTableBodyCells.COLOR, 0.1 );
 	static readonly COLOR_HOVERED = UtilRgb.brighten(
 		DThemeDarkTableBodyCells.BACKGROUND_COLOR_ODD, DThemeDarkConstants.FOCUSED_ALPHA );
-	static readonly COLOR_PRESSED = UtilRgb.brighten(
-		DThemeDarkTableBodyCells.BACKGROUND_COLOR_ODD, DThemeDarkConstants.PRESSED_ALPHA );
 
 	static getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
