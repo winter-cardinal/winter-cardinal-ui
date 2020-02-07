@@ -130,7 +130,7 @@ export class DTree <
 			}
 		}
 
-		private onToggle(itemPosition: number[]) {
+		protected onToggle(itemPosition: number[]) {
 			if (this._value instanceof Array) {
 				let items = this._value
 				//access to data of selected item in this.value to update expanded attribute
