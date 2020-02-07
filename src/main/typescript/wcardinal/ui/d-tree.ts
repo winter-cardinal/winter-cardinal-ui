@@ -11,31 +11,35 @@ import { UtilPointerEvent } from './util';
 import { DThemes } from './theme';
 
 export interface DTreeOptions <
-	VALUE = unknown,
 	THEME extends DThemeTree = DThemeTree,
 	CONTENT_OPTIONS extends DBaseOptions = DContentOptions > extends DPaneOptions < THEME, CONTENT_OPTIONS > {
-		value: VALUE | null
+		value: Array<DTreeItemJsonData>
 	}
 
 export interface DThemeTree extends DThemePane {
 
 }
+
 interface MapDTreeItemOptions {
 	[key: string]: DTreeItemOptions
 }
 
+interface DTreeItemJsonData {
+	name: string,
+	expanded ?: boolean,
+	children: Array <DTreeItemJsonData>
+}
 
 export class DTree <
-	VALUE = unknown,
 	THEME extends DThemeTree = DThemeTree,
 	CONTENT_OPTIONS extends DBaseOptions = DContentOptions,
-	OPTIONS extends DTreeOptions < VALUE, THEME, CONTENT_OPTIONS > = DTreeOptions < VALUE, THEME, CONTENT_OPTIONS >
+	OPTIONS extends DTreeOptions < THEME, CONTENT_OPTIONS > = DTreeOptions < THEME, CONTENT_OPTIONS >
 	>
 	extends DPane < THEME, CONTENT_OPTIONS, OPTIONS > {
 
 		protected _itemOptions!: MapDTreeItemOptions
 		protected _itemOptionsShowable!: Array < DTreeItemOptions >
-		protected _value!: VALUE | null
+		protected _value!: Array<DTreeItemJsonData>
 		protected _itemIndexMappedStart!: number
 		protected _itemIndexMappedEnd!: number
 		protected _selectedPosition !: number[]
@@ -59,35 +63,35 @@ export class DTree <
 				this.mapped([], this._value)
 			}
 
+			this.update()
+
+			this.registerListeners()
+
+		}
+
+		private registerListeners () {
 			this._content.on("move", (): void => {
 				this.update()
 			});
 
 			this._content.on("resize", (): void => {
-				this.update(true);
+				this._content.removeChildren()
+				this.update();
 			});
 
-			this.update()
-
 			//update active state of all shown item when a child item is clicked
-			this.content.on("select", (selectedPosition: number[]): void => {
+			this._content.on("select", (selectedPosition: number[]): void => {
 				this._selectedPosition = selectedPosition
 				let items = this._content.children as Array < DTreeItem >
 				items.forEach(item => {
 					item.updateActiveState(selectedPosition)
 				});
-
 			})
 		}
 
-		protected update(forcibly ? : boolean) {
+		protected update() {
 			const content = this._content
-			let items: Array < DTreeItem > = []
-			if (forcibly) {
-				content.removeChildren()
-			} else {
-				items = content.children as Array < DTreeItem > ;
-			}
+			let	items = content.children as Array < DTreeItem > ;
 			content.height = this._itemOptionsShowable.length * this._itemHeight
 			const contentY = content.position.y
 			const height = this.height
@@ -106,15 +110,14 @@ export class DTree <
 				for (let i = items.length; i < itemOptionsShown.length; i++) {
 					const itemOptions = itemOptionsShown[i]
 					const treeItem = new DTreeItem(itemOptions)
+					content.addChild(treeItem)
 					//listen select item event
 					treeItem.on(UtilPointerEvent.down, (): void => {
 						this.emit("select", treeItem)
-						if (itemOptions.isParent) {
+						if (treeItem.isParent()) {
 							this.onToggle(itemOptions.itemPosition)
 						}
 					});
-					treeItem.updateItem(itemOptionsShown[i], this._selectedPosition)
-					content.addChild(treeItem)
 				}
 			} else if (items.length > itemOptionsShown.length) {
 				for (let i = itemOptionsShown.length; i < items.length; i++) {
@@ -122,7 +125,6 @@ export class DTree <
 					items.length = itemOptionsShown.length
 				}
 			}
-			//when scroll Dpane frame, update value of items in Dpane content
 			for (let i = 0; i < items.length; i++) {
 				items[i] = items[i].updateItem(itemOptionsShown[i], this._selectedPosition)
 			}
@@ -142,15 +144,17 @@ export class DTree <
 				this._itemOptions = {}
 				this._itemOptionsShowable.length = 0
 				this._itemY = 0
+				this._content.removeAllListeners()
+				this._content.removeChildren()
 
 				//re-render tree
 				this.mapped([], this._value)
-				this.update(true)
+				this.update()
+				this.registerListeners()
 			}
 		}
 
-		private mapped(parentPosition: number[], items: VALUE | null) {
-			if (items instanceof Array) {
+		private mapped(parentPosition: number[], items: Array<DTreeItemJsonData>) {
 				for (let i = 0; i < items.length; i++) {
 					const item = items[i];
 					if (item) {
@@ -161,14 +165,14 @@ export class DTree <
 						let paddingValue: number = itemPosition.length * 25
 						const isParent: boolean = item.children && (item.children.length > 0)
 						paddingValue = isParent ? paddingValue - 20 : paddingValue
-						const itemName = item.name ? item.name : null
+						const itemName = item.name ? item.name : ""
 
 						//set default expand status of item is false
-						if (!item.expanded) {
+						if (item.expanded == undefined || item.expanded == null) {
 							item.expanded = false
 						}
 
-						let itemOptions = {
+						let itemOptions : DTreeItemOptions= {
 							itemPosition: itemPosition,
 							text: {
 								value: itemName
@@ -201,6 +205,5 @@ export class DTree <
 						}
 					}
 				}
-			}
 		}
 	}

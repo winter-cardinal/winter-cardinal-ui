@@ -5,7 +5,6 @@
 import { DBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DImage, DImageOptions, DThemeImage } from "./d-image";
-import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { UtilPointerEvent } from './util';
 import { DTreeItemState } from './d-tree-item-state';
 import { DBasePadding } from './d-base-padding';
@@ -20,8 +19,6 @@ export interface DTreeItemOptions <
 	}
 
 export interface DThemeTreeItem extends DThemeImage {
-	getTextValue(state: DBaseState): string;
-	newTextValue(): DStateAwareOrValueMightBe < string > ;
 }
 
 export interface DTreeItemSelection {
@@ -104,7 +101,6 @@ export class DTreeItem <
 				this._isParent = !! (options.isParent)
 				this._isExpanded = !! (options.expanded)
 				const isActive = JSON.stringify(this._itemPosition) == JSON.stringify(selectedPosition)
-
 				this.updateStates(isActive)
 			}
 			return this
@@ -112,26 +108,20 @@ export class DTreeItem <
 
 		public updateActiveState(selectedPosition: number[]) {
 			const isActive = JSON.stringify(this._itemPosition) == JSON.stringify(selectedPosition)
-			this.setState(DBaseState.ACTIVE, isActive)
+			this.setActive(isActive)
+			this.setFocused(false)
 		}
 
 		protected updateStates(isActive: boolean): void {
-			this.setState(DBaseState.ACTIVE, isActive)
-			this.setState(DBaseState.FOCUSED, false)
-
+			this.setActive(isActive)
+			this.setFocused(false)
 			if (!this._isParent) {
 				this.setState(DTreeItemState.COLLAPSE, false)
 				this.setState(DTreeItemState.EXPAND, false)
 				return
 			}
-
-			if (this._isExpanded) {
-				this.setState(DTreeItemState.COLLAPSE, false)
-				this.setState(DTreeItemState.EXPAND, true)
-			} else {
-				this.setState(DTreeItemState.EXPAND, false)
-				this.setState(DTreeItemState.COLLAPSE, true)
-			}
+			this.setState(DTreeItemState.COLLAPSE, !this._isExpanded)
+			this.setState(DTreeItemState.EXPAND, !!this._isExpanded)
 		}
 
 		protected getType(): string {
