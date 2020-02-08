@@ -75,9 +75,10 @@ export class DMenuItemText<
 	protected updateShortcutText(): void {
 		const text = this._shortcutText;
 		if( text != null ) {
+			const toRounded = this.toRounded;
 			text.position.set(
-				this.toRounded( this.width - this._shortcutMargin - text.width ),
-				this.toRounded( ( this.height - text.height ) * 0.5 )
+				toRounded( this.width - this._shortcutMargin - text.width ),
+				toRounded( ( this.height - text.height ) * 0.5 )
 			);
 		}
 	}

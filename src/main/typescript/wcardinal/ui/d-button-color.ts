@@ -43,6 +43,7 @@ export class DButtonColor<
 			colorAndAlpha.alpha = alpha;
 			this.updateTextForcibly();
 		});
+		this._images[ 0 ].setTintColor( colorAndAlpha.color );
 
 		this.on( "active", (): void => {
 			const dialog = this.dialog;
@@ -62,14 +63,8 @@ export class DButtonColor<
 		});
 	}
 
-	protected getImageTintColor( theme: THEME, state: DBaseState ): number | null {
-		return this._textValueComputed.color;
-	}
-
 	protected onColorChange(): void {
-		const image = this._image;
-		if( this.isTintAware( image ) ) {
-			image.tint = this._textValueComputed.color;
+		if( this._images[ 0 ].setTintColor( this._textValueComputed.color ) ) {
 			DApplications.update( this );
 		}
 		this.updateTextForcibly();

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DisplayObject, Point, Rectangle, Sprite, Text, Texture } from "pixi.js";
+import { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "./d-align-horizontal";
 import { DAlignVertical } from "./d-align-vertical";
 import { DAlignWith } from "./d-align-with";
@@ -11,108 +11,45 @@ import { DApplications } from "./d-applications";
 import { DRefitable } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DDynamicText } from "./d-dynamic-text";
+import { DImageBaseThemeWrapperSecondary, DThemeImageBaseSecondary } from "./d-image-base-theme-wrapper-secondary";
+import { DImageBaseThemeWrapperTertiary, DThemeImageBaseTertiary } from "./d-image-base-theme-wrapper-tertiary";
+import { DImagePiece, DImagePieceOptions, DThemeImagePiece } from "./d-image-piece";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { DTextBase, DTextBaseOptions, DThemeTextBase } from "./d-text-base";
-import { isFunction } from "./util/is-function";
-import { isString } from "./util/is-string";
-
-export interface DImageBaseTintOptions {
-	color?: DStateAwareOrValueMightBe<number | null>;
-	alpha?: DStateAwareOrValueMightBe<number>;
-}
-
-export interface DImageBaseAlignOptions {
-	with?: (keyof typeof DAlignWith) | DAlignWith;
-	vertical?: (keyof typeof DAlignVertical) | DAlignVertical;
-	horizontal?: (keyof typeof DAlignHorizontal) | DAlignHorizontal;
-}
-
-export interface DImageBaseMarginOptions {
-	vertical?: number;
-	horizontal?: number;
-}
-
-export interface DImageBaseImageOptions {
-	source?: DStateAwareOrValueMightBe<Texture | DisplayObject | null>;
-	tint?: DImageBaseTintOptions;
-	align?: DImageBaseAlignOptions;
-	margin?: DImageBaseMarginOptions;
-}
 
 export interface DImageBaseOptions<
 	VALUE,
 	THEME extends DThemeImageBase = DThemeImageBase
 > extends DTextBaseOptions<VALUE, THEME> {
-	image?: DImageBaseImageOptions;
+	image?: DImagePieceOptions;
 }
 
-export interface DThemeImageBase extends DThemeTextBase {
-	getImageAlignHorizontal(): DAlignHorizontal;
-	getImageAlignVertical(): DAlignVertical;
-	getImageAlignWith(): DAlignWith;
-	getImageMarginHorizontal(): number;
-	getImageMarginVertial(): number;
-	getImageTintColor( state: DBaseState ): number | null;
-	getImageTintAlpha( state: DBaseState ): number;
-	getImageSource( state: DBaseState ): Texture | DisplayObject | null;
+export interface DThemeImageBase extends DThemeTextBase, DThemeImagePiece {
+	getSecondaryImageAlignHorizontal(): DAlignHorizontal;
+	getSecondaryImageAlignVertical(): DAlignVertical;
+	getSecondaryImageAlignWith(): DAlignWith;
+	getSecondaryImageMarginHorizontal(): number;
+	getSecondaryImageMarginVertial(): number;
+	getSecondaryImageTintColor( state: DBaseState ): number | null;
+	getSecondaryImageTintAlpha( state: DBaseState ): number;
+	getSecondaryImageSource?( state: DBaseState ): Texture | DisplayObject | null;
+
+	getTertiaryImageAlignHorizontal(): DAlignHorizontal;
+	getTertiaryImageAlignVertical(): DAlignVertical;
+	getTertiaryImageAlignWith(): DAlignWith;
+	getTertiaryImageMarginHorizontal(): number;
+	getTertiaryImageMarginVertial(): number;
+	getTertiaryImageTintColor( state: DBaseState ): number | null;
+	getTertiaryImageTintAlpha( state: DBaseState ): number;
+	getTertiaryImageSource?( state: DBaseState ): Texture | DisplayObject | null;
 }
 
-// Option parser
-const toImageAlign = <VALUE, THEME extends DThemeImageBase>(
-	theme: DThemeImageBase, options?: DImageBaseOptions<VALUE, THEME>
-) => {
-	if( options != null && options.image != null && options.image.align != null ) {
-		const align = options.image.align;
-		const alignWith: DAlignWith = ( align.with != null ?
-			( isString( align.with ) ? DAlignWith[ align.with ] : align.with ) :
-			theme.getImageAlignWith()
-		);
-		const alignVertical: DAlignVertical = ( align.vertical != null ?
-			( isString( align.vertical ) ? DAlignVertical[ align.vertical ] : align.vertical ) :
-			theme.getImageAlignVertical()
-		);
-		const alignHorizontal: DAlignHorizontal = ( align.horizontal != null ?
-			( isString( align.horizontal ) ? DAlignHorizontal[ align.horizontal ] : align.horizontal ) :
-			theme.getImageAlignHorizontal()
-		);
-		return {
-			with: alignWith,
-			vertical: alignVertical,
-			horizontal: alignHorizontal
-		};
-	}
-	return {
-		with: theme.getImageAlignWith(),
-		vertical: theme.getImageAlignVertical(),
-		horizontal: theme.getImageAlignHorizontal()
-	};
+const hasSecondaryImageSource = ( theme: DThemeImageBase ): theme is DThemeImageBase & DThemeImageBaseSecondary => {
+	return !! theme.getSecondaryImageSource;
 };
 
-const toImageMargin = <VALUE, THEME extends DThemeImageBase>(
-	theme: DThemeImageBase, options?: DImageBaseOptions<VALUE, THEME>
-) => {
-	if( options != null && options.image != null && options.image.margin != null ) {
-		const margin = options.image.margin;
-		const vertical = ( margin.vertical != null ? margin.vertical : theme.getImageMarginVertial() );
-		const horizontal = ( margin.horizontal != null ? margin.horizontal : theme.getImageMarginHorizontal() );
-		return {
-			vertical,
-			horizontal
-		};
-	}
-	return {
-		vertical: theme.getImageMarginVertial(),
-		horizontal: theme.getImageMarginHorizontal()
-	};
-};
-
-const toImageTint = <VALUE, THEME extends DThemeImageBase>(
-	theme: DThemeImageBase, options?: DImageBaseOptions<VALUE, THEME>
-): DImageBaseTintOptions | undefined => {
-	if( options != null && options.image != null && options.image.tint != null ) {
-		return options.image.tint;
-	}
-	return undefined;
+const hasTertiaryImageSource = ( theme: DThemeImageBase ): theme is DThemeImageBase & DThemeImageBaseTertiary => {
+	return !! theme.getTertiaryImageSource;
 };
 
 export class DImageBase<
@@ -120,471 +57,377 @@ export class DImageBase<
 	THEME extends DThemeImageBase = DThemeImageBase,
 	OPTIONS extends DImageBaseOptions<VALUE, THEME> = DImageBaseOptions<VALUE, THEME>
 > extends DTextBase<VALUE, THEME, OPTIONS> {
-	protected _image!: DisplayObject | null;
-	protected _imageSourceComputed!: Texture | DisplayObject | null;
-	protected _imageSource!: DStateAwareOrValueMightBe<Texture | DisplayObject | null>;
-	protected _imageAlign!: {
-		with: DAlignWith,
-		vertical: DAlignVertical,
-		horizontal: DAlignHorizontal
-	};
-	protected _imageMargin!: {
-		vertical: number,
-		horizontal: number
-	};
-	protected _imageTint!: DImageBaseTintOptions | undefined;
-	protected _imageBound!: Rectangle;
-	protected _imageBoundPoint!: Point;
-	protected _onImageChangeBound!: () => void;
+	protected _images!: DImagePiece[];
+	protected _onChangeBound!: () => void;
+	protected _applyMaskBound!: ( target: DisplayObject ) => void;
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
-		this._image = null;
-		const theme = this.theme;
-		this._imageAlign = toImageAlign( theme, options );
-		this._imageMargin = toImageMargin( theme, options );
-		this._imageTint = toImageTint( theme, options );
-		this._imageBound = new Rectangle();
-		this._imageBoundPoint = new Point();
-		this._imageSource = ( options && options.image && options.image.source );
-		this._imageSourceComputed = null;
-		this._onImageChangeBound = () => {
-			this.onImageChange();
+		this._onChangeBound = (): void => {
+			this.toDirty();
+			DApplications.update( this );
 		};
+		this._applyMaskBound = ( target: DisplayObject ): void => {
+			if( this._isOverflowMaskEnabled ) {
+				target.mask = this.getOrCreateOverflowMask();
+			}
+		};
+		this._images = this.newImages( this.theme, options );
+	}
+
+	protected newImages( theme: THEME, options?: OPTIONS ): DImagePiece[] {
+		const images: DImagePiece[] = [];
+		images.push( this.newImage( theme, options && options.image ) );
+		if( hasSecondaryImageSource( theme ) ) {
+			images.push( this.newImage( new DImageBaseThemeWrapperSecondary( theme ) ) );
+		}
+		if( hasTertiaryImageSource( theme ) ) {
+			images.push( this.newImage( new DImageBaseThemeWrapperTertiary( theme ) ) );
+		}
+		return images;
+	}
+
+	protected newImage( theme: DThemeImagePiece, options?: DImagePieceOptions ) {
+		return new DImagePiece(
+			this, theme, options,
+			this._textAlign, this._onChangeBound, this._applyMaskBound
+		);
 	}
 
 	get image(): DStateAwareOrValueMightBe<Texture | DisplayObject | null> {
-		return this._imageSource;
+		return this._images[ 0 ].source;
 	}
 
 	set image( imageSource: DStateAwareOrValueMightBe<Texture | DisplayObject | null> ) {
-		if( this._imageSource !== imageSource ) {
-			this._imageSource = imageSource;
-			this.toDirty();
-			DApplications.update( this );
-		}
-	}
-
-	protected computeImageSource(): Texture | DisplayObject | null {
-		const imageSource = this._imageSource;
-		if( imageSource !== undefined ) {
-			if( isFunction( imageSource ) ) {
-				const result = imageSource( this.state );
-				if( result !== undefined ) {
-					return result;
-				}
-			} else {
-				return imageSource;
-			}
-		}
-		return this.theme.getImageSource( this.state );
-	}
-
-	protected onImageChange(): void {
-		this.toDirty();
-		DApplications.update( this );
+		this._images[ 0 ].source = imageSource;
 	}
 
 	protected onStateChange( newState: DBaseState, oldState: DBaseState ): void {
 		super.onStateChange( newState, oldState );
-
-		const image = this._image;
-		if( image != null ) {
-			this.updateImageTint( image );
-		}
-	}
-
-	protected getImageRect( image: DisplayObject ): Rectangle {
-		image.updateTransform();
-		const bounds = image.getLocalBounds( this._imageBound );
-		const point = this._imageBoundPoint;
-		point.set( bounds.left, bounds.top );
-		image.localTransform.apply( point, point );
-		const x0 = point.x;
-		const y0 = point.y;
-		point.set( bounds.right, bounds.top );
-		image.localTransform.apply( point, point );
-		const x1 = point.x;
-		const y1 = point.y;
-		point.set( bounds.right, bounds.bottom );
-		image.localTransform.apply( point, point );
-		const x2 = point.x;
-		const y2 = point.y;
-		point.set( bounds.left, bounds.bottom );
-		image.localTransform.apply( point, point );
-		const x3 = point.x;
-		const y3 = point.y;
-		bounds.x = Math.min( x0, x1, x2, x3 );
-		bounds.y = Math.min( y0, y1, y2, y3 );
-		bounds.width = Math.max( x0, x1, x2, x3 ) - bounds.x;
-		bounds.height = Math.max( y0, y1, y2, y3 ) - bounds.y;
-		return bounds;
-	}
-
-	protected updateTextAndImagePosition( text: DDynamicText | Text, image: DisplayObject ): void {
-		const bounds = this.getImageRect( image );
-		const imageWidth = bounds.width;
-		const imageHeight = bounds.height;
-
-		const textAlign = this._textAlign;
-		const imageAlign = this._imageAlign;
-		const margin = this._imageMargin;
-		const padding = this._padding;
-
-		const marginHorizontal = margin.horizontal;
-		const imageWaMH = imageWidth + marginHorizontal;
-		switch( imageAlign.horizontal ) {
-		case DAlignHorizontal.LEFT:
-			switch( textAlign.horizontal ) {
-			case DAlignHorizontal.LEFT:
-				if( text instanceof DDynamicText ) {
-					text.setClippingWidthDelta( imageWaMH );
-				}
-				image.x = this.toRounded( padding.getLeft() );
-				break;
-			case DAlignHorizontal.CENTER:
-				if( text instanceof DDynamicText ) {
-					text.setClippingWidthDelta( imageWaMH );
-				}
-				image.x = this.toRounded( ( this.width - text.width - imageWaMH ) * 0.5 );
-				break;
-			case DAlignHorizontal.RIGHT:
-				if( text instanceof DDynamicText ) {
-					text.setClippingWidthDelta( 0 );
-				}
-				image.x = this.toRounded( this.width - text.width - padding.getRight() - imageWaMH );
-				break;
-			}
-			text.x = this.toRounded( image.x + imageWaMH );
-			break;
-		case DAlignHorizontal.CENTER:
-			if( text instanceof DDynamicText ) {
-				text.setClippingWidthDelta( 0 );
-			}
-			switch( textAlign.horizontal ) {
-			case DAlignHorizontal.LEFT:
-				text.x = this.toRounded( padding.getLeft() );
-				break;
-			case DAlignHorizontal.CENTER:
-				text.x = this.toRounded( ( this.width - text.width ) * 0.5 );
-				break;
-			case DAlignHorizontal.RIGHT:
-				text.x = this.toRounded( this.width - text.width - padding.getRight() );
-				break;
-			}
-			image.x = this.toRounded( text.x + ( text.width - imageWidth ) * 0.5 );
-			break;
-		case DAlignHorizontal.RIGHT:
-			switch( textAlign.horizontal ) {
-			case DAlignHorizontal.LEFT:
-				if( text instanceof DDynamicText ) {
-					text.setClippingWidthDelta( 0 );
-				}
-				text.x = this.toRounded( padding.getLeft() );
-				break;
-			case DAlignHorizontal.CENTER:
-				if( text instanceof DDynamicText ) {
-					text.setClippingWidthDelta( imageWaMH );
-				}
-				text.x = this.toRounded( ( this.width - text.width - imageWaMH ) * 0.5 );
-				break;
-			case DAlignHorizontal.RIGHT:
-				if( text instanceof DDynamicText ) {
-					text.setClippingWidthDelta( imageWaMH );
-				}
-				text.x = this.toRounded( this.width - text.width - padding.getRight() - imageWaMH );
-				break;
-			}
-			image.x = this.toRounded( text.x + text.width + marginHorizontal );
-			break;
-		}
-
-		const marginVertical = margin.vertical;
-		const imageHaMV = imageWidth + marginHorizontal;
-		switch( imageAlign.vertical ) {
-		case DAlignVertical.TOP:
-			switch( textAlign.vertical ) {
-			case DAlignVertical.TOP:
-				image.y = this.toRounded( padding.getTop() );
-				break;
-			case DAlignVertical.MIDDLE:
-				image.y = this.toRounded( ( this.height - text.height - imageHaMV ) * 0.5 );
-				break;
-			case DAlignVertical.BOTTOM:
-				image.y = this.toRounded( this.height - text.height - padding.getBottom() - imageHaMV );
-				break;
-			}
-			text.y = this.toRounded( image.y + imageHaMV );
-			break;
-		case DAlignVertical.MIDDLE:
-			switch( textAlign.vertical ) {
-			case DAlignVertical.TOP:
-				text.y = this.toRounded( padding.getTop() );
-				break;
-			case DAlignVertical.MIDDLE:
-				text.y = this.toRounded( ( this.height - text.height ) * 0.5 );
-				break;
-			case DAlignVertical.BOTTOM:
-				text.y = this.toRounded( this.height - text.height - padding.getBottom() );
-				break;
-			}
-			image.y = this.toRounded( text.y + ( text.height - imageHeight ) * 0.5 );
-			break;
-		case DAlignVertical.BOTTOM:
-			switch( textAlign.vertical ) {
-			case DAlignVertical.TOP:
-				text.y = this.toRounded( padding.getTop() );
-				break;
-			case DAlignVertical.MIDDLE:
-				text.y = this.toRounded( ( this.height - text.height - imageHaMV ) * 0.5 );
-				break;
-			case DAlignVertical.BOTTOM:
-				text.y = this.toRounded( this.height - text.height - padding.getBottom() - imageHaMV );
-				break;
-			}
-			image.y = this.toRounded( text.y + text.height + marginVertical );
-			break;
-		}
-	}
-
-	protected updateImagePositionText( image: DisplayObject ): void {
-		const bounds = this.getImageRect( image );
-		image.x = this.toRounded( ( this.width - bounds.width ) * 0.5 );
-		image.y = this.toRounded( ( this.height - bounds.height ) * 0.5 );
-	}
-
-	protected updateImagePositionPadding( image: DisplayObject ): void {
-		const margin = this._imageMargin;
-		const align = this._imageAlign;
-		const padding = this._padding;
-		const bounds = this.getImageRect( image );
-		const imageWidth = bounds.width;
-		const imageHeight = bounds.height;
-
-		const marginHorizontal = margin.horizontal;
-		switch( align.horizontal ) {
-		case DAlignHorizontal.LEFT:
-			image.x = this.toRounded( padding.getLeft() + marginHorizontal );
-			break;
-		case DAlignHorizontal.CENTER:
-			image.x = this.toRounded( ( this.width - imageWidth ) * 0.5 );
-			break;
-		case DAlignHorizontal.RIGHT:
-			image.x = this.toRounded( this.width - padding.getRight() - marginHorizontal - imageWidth );
-			break;
-		}
-
-		const marginVertical = margin.vertical;
-		switch( align.vertical ) {
-		case DAlignVertical.TOP:
-			image.y = this.toRounded( padding.getTop() + marginVertical );
-			break;
-		case DAlignVertical.MIDDLE:
-			image.y = this.toRounded( ( this.height - imageHeight ) * 0.5 );
-			break;
-		case DAlignVertical.BOTTOM:
-			image.y = this.toRounded( this.height - padding.getBottom() - marginVertical );
-			break;
-		}
-	}
-
-	protected updateImagePositionBorder( image: DisplayObject ): void {
-		const margin = this._imageMargin;
-		const align = this._imageAlign;
-		const bounds = this.getImageRect( image );
-		const imageWidth = bounds.width;
-		const imageHeight = bounds.height;
-
-		const marginHorizontal = margin.horizontal;
-		switch( align.horizontal ) {
-		case DAlignHorizontal.LEFT:
-			image.x = this.toRounded( marginHorizontal );
-			break;
-		case DAlignHorizontal.CENTER:
-			image.x = this.toRounded( ( this.width - imageWidth ) * 0.5 );
-			break;
-		case DAlignHorizontal.RIGHT:
-			image.x = this.toRounded( this.width - marginHorizontal - imageWidth );
-			break;
-		}
-
-		const marginVertical = margin.vertical;
-		switch( align.vertical ) {
-		case DAlignVertical.TOP:
-			image.y = this.toRounded( marginVertical );
-			break;
-		case DAlignVertical.MIDDLE:
-			image.y = this.toRounded( ( this.height - imageHeight ) * 0.5 );
-			break;
-		case DAlignVertical.BOTTOM:
-			image.y = this.toRounded( this.height - marginVertical );
-			break;
-		}
-	}
-
-	protected getImageTintColor( theme: THEME, state: DBaseState ): number | null {
-		const imageTint = this._imageTint;
-		if( imageTint != null ) {
-			const color = imageTint.color;
-			if( color !== undefined ) {
-				if( isFunction( color ) ) {
-					const result = color( state );
-					if( result !== undefined ) {
-						return result;
-					}
-				} else {
-					return color;
-				}
-			}
-		}
-		return theme.getImageTintColor( state );
-	}
-
-	protected getImageTintAlpha( theme: THEME, state: DBaseState ): number {
-		const imageTint = this._imageTint;
-		if( imageTint != null ) {
-			const alpha = imageTint.alpha;
-			if( alpha !== undefined ) {
-				if( isFunction( alpha ) ) {
-					const result = alpha( state );
-					if( result !== undefined ) {
-						return result;
-					}
-				} else {
-					return alpha;
-				}
-			}
-		}
-		return theme.getImageTintAlpha( state );
-	}
-
-	protected updateImageTint( image: DisplayObject ): void {
-		if( this.isTintAware( image ) ) {
-			const theme = this.theme;
-			const state = this.state;
-			const color = this.getImageTintColor( theme, state );
-			if( color != null ) {
-				if( image.tint !== color ) {
-					image.tint = color;
-				}
-				const alpha = this.getImageTintAlpha( theme, state );
-				if( image.alpha !== alpha ) {
-					image.alpha = alpha;
-				}
-			}
-		}
-	}
-
-	protected isTintAware( target: DisplayObject | null ): target is DisplayObject & { tint: number } {
-		return ( target != null && "tint" in target );
-	}
-
-	protected updateImageSource(): void {
-		const newImageSourceComputed = this.computeImageSource();
-		const oldImageSourceComputed = this._imageSourceComputed;
-		if( newImageSourceComputed !== oldImageSourceComputed ) {
-			this._imageSourceComputed = newImageSourceComputed;
-
-			const oldImage = this._image;
-			if( newImageSourceComputed instanceof Texture ) {
-				if( oldImageSourceComputed instanceof Texture ) {
-					oldImageSourceComputed.off( "update", this._onImageChangeBound );
-					if( oldImage instanceof Sprite ) {
-						oldImage.texture = newImageSourceComputed;
-						newImageSourceComputed.on( "update", this._onImageChangeBound );
-					}
-				} else {
-					if( oldImage != null ) {
-						this.removeChild( oldImage );
-					}
-
-					const newImage = new Sprite( newImageSourceComputed );
-					if( this._isOverflowMaskEnabled ) {
-						newImage.mask = this.getOrCreateOverflowMask();
-					}
-					newImageSourceComputed.on( "update", this._onImageChangeBound );
-					this.addChild( newImage );
-					this._image = newImage;
-				}
-			} else {
-				if( oldImageSourceComputed instanceof Texture ) {
-					oldImageSourceComputed.off( "update", this._onImageChangeBound );
-					if( oldImage != null ) {
-						this.removeChild( oldImage );
-						oldImage.destroy();
-					}
-				} else if( oldImage != null ) {
-					this.removeChild( oldImage );
-				}
-
-				if( newImageSourceComputed != null ) {
-					if( this._isOverflowMaskEnabled ) {
-						newImageSourceComputed.mask = this.getOrCreateOverflowMask();
-					}
-					this.addChild( newImageSourceComputed );
-				}
-				this._image = newImageSourceComputed;
-			}
+		const images = this._images;
+		for( let i = 0, imax = images.length; i < imax; ++i ) {
+			images[ i ].onStateChange( newState, oldState );
 		}
 	}
 
 	protected updateText(): void {
 		this.updateTextValue();
-		this.updateImageSource();
+		this.updateTextAndImage();
+	}
 
+	protected updateTextAndImage(): void {
 		const text = this._text;
-		const image = this._image;
+		const images = this._images;
+		const padding = this._padding;
+
+		const toRounded = this.toRounded;
+
+		const width = this.width;
+		const height = this.height;
+
+		const pl = padding.getLeft();
+		const pr = padding.getRight();
+		const pt = padding.getTop();
+		const pb = padding.getBottom();
+
+		const noText = text == null;
+
+		let textLeftFirst = noText;
+		let textTopFirst = noText;
+
+		let textRightLastMargin = 0;
+		let textBottomLastMargin = 0;
+
+		let textLeft = 0;
+		let textRight = 0;
+		let textTop = 0;
+		let textBottom = 0;
+
+		let paddingLeft = pl;
+		let paddingRight = width - pr;
+		let paddingTop = pt;
+		let paddingBottom = height - pb;
+
+		let borderLeft = 0;
+		let borderRight = width;
+		let borderTop = 0;
+		let borderBottom = height;
+
+		for( let i = 0, imax = images.length; i < imax; ++i ) {
+			const image = images[ i ];
+			image.updateSource();
+			image.updateTint();
+			image.updateBound();
+
+			const imageImage = image.image;
+			if( imageImage ) {
+				const imageBound = image.bound;
+				const imageBoundWidth = imageBound.width;
+				const imageBoundHeight = imageBound.height;
+				const imageMargin = image.margin;
+				const imageMarginHorizontal = imageMargin.horizontal;
+				const imageMarginVertical = imageMargin.vertical;
+
+				// Text
+				if( image.align.with === DAlignWith.TEXT ) {
+					switch( image.align.horizontal ) {
+					case DAlignHorizontal.LEFT:
+						imageImage.x = textLeft;
+						textLeft += imageBoundWidth;
+						if( textLeftFirst ) {
+							textLeftFirst = false;
+						} else {
+							textLeft += imageMarginHorizontal;
+						}
+						break;
+					case DAlignHorizontal.CENTER:
+						// DO NOTHING
+						break;
+					case DAlignHorizontal.RIGHT:
+						textRight -= imageBoundWidth;
+						imageImage.x = textRight;
+						textRight -= imageMarginHorizontal;
+						textRightLastMargin = imageMarginHorizontal;
+						break;
+					}
+					switch( image.align.vertical ) {
+					case DAlignVertical.TOP:
+						imageImage.y = textTop;
+						textTop += imageBoundHeight;
+						if( textTopFirst ) {
+							textTopFirst = false;
+						} else {
+							textTop += imageMarginVertical;
+						}
+						break;
+					case DAlignVertical.MIDDLE:
+						// DO NOTHING
+						break;
+					case DAlignVertical.BOTTOM:
+						textBottom -= imageBoundHeight;
+						imageImage.y = textBottom;
+						textBottom -= imageMarginVertical;
+						textBottomLastMargin = imageMarginVertical;
+						break;
+					}
+				}
+
+				// Padding
+				if( image.align.with === DAlignWith.PADDING ) {
+					switch( image.align.horizontal ) {
+					case DAlignHorizontal.LEFT:
+						paddingLeft += imageMarginHorizontal;
+						imageImage.x = toRounded( paddingLeft );
+						paddingLeft += imageBoundWidth;
+						break;
+					case DAlignHorizontal.CENTER:
+						// DO NOTHING
+						break;
+					case DAlignHorizontal.RIGHT:
+						paddingRight -= imageBoundWidth + imageMarginHorizontal;
+						imageImage.x = toRounded( paddingRight );
+						break;
+					}
+					switch( image.align.vertical ) {
+					case DAlignVertical.TOP:
+						paddingTop += imageMarginVertical;
+						imageImage.y = toRounded( paddingTop );
+						paddingTop += imageBoundHeight;
+						break;
+					case DAlignVertical.MIDDLE:
+						// DO NOTHING
+						break;
+					case DAlignVertical.BOTTOM:
+						paddingBottom -= imageBoundHeight + imageMarginVertical;
+						imageImage.y = toRounded( paddingBottom );
+						break;
+					}
+				}
+
+				// Border
+				if( image.align.with === DAlignWith.BORDER ) {
+					switch( image.align.horizontal ) {
+					case DAlignHorizontal.LEFT:
+						borderLeft += imageMarginHorizontal;
+						imageImage.x = toRounded( borderLeft );
+						borderLeft += imageBoundWidth;
+						break;
+					case DAlignHorizontal.CENTER:
+						// DO NOTHING
+						break;
+					case DAlignHorizontal.RIGHT:
+						borderRight -= imageBoundWidth + imageMarginHorizontal;
+						imageImage.x = toRounded( borderRight );
+						break;
+					}
+					switch( image.align.vertical ) {
+					case DAlignVertical.TOP:
+						borderTop += imageMarginVertical;
+						imageImage.y = toRounded( borderTop );
+						borderTop += imageBoundHeight;
+						break;
+					case DAlignVertical.MIDDLE:
+						// DO NOTHING
+						break;
+					case DAlignVertical.BOTTOM:
+						borderBottom -= imageBoundHeight + imageMarginVertical;
+						imageImage.y = toRounded( borderBottom );
+						break;
+					}
+				}
+			}
+		}
+		if( noText ) {
+			textRight += textRightLastMargin;
+			textBottom += textBottomLastMargin;
+		}
+
+		// Text
+		let textLeftAdjust = 0;
+		let textCenterAdjust = 0;
+		let textRightAdjust = 0;
+		let textTopAdjust = 0;
+		let textMiddleAdjust = 0;
+		let textBottomAdjust = 0;
+
 		if( text != null ) {
-			if( image != null ) {
-				const align = this._imageAlign;
-				switch( align.with ) {
-				case DAlignWith.TEXT:
-					this.updateTextAndImagePosition( text, image );
-					break;
-				case DAlignWith.PADDING:
-					if( text instanceof DDynamicText ) {
-						text.setClippingWidthDelta( 0 );
-					}
-					this.updateTextPosition( text );
-					this.updateImagePositionPadding( image );
-					break;
-				case DAlignWith.BORDER:
-					if( text instanceof DDynamicText ) {
-						text.setClippingWidthDelta( 0 );
-					}
-					this.updateTextPosition( text );
-					this.updateImagePositionBorder( image );
-					break;
-				}
-				this.updateTextColor( text );
-				this.updateImageTint( image );
-			} else {
-				if( text instanceof DDynamicText ) {
-					text.setClippingWidthDelta( 0 );
-				}
-				this.updateTextPosition( text );
-				this.updateTextColor( text );
+			this.updateTextColor( text );
+			if( text instanceof DDynamicText ) {
+				text.setClippingWidthDelta( textLeft - textRight );
 			}
-		} else if( image != null ) {
-			const align = this._imageAlign;
-			switch( align.with ) {
-			case DAlignWith.TEXT:
-				this.updateImagePositionText( image );
+
+			const textAlign = this._textAlign;
+			const textWidth = text.width;
+			const textHeight = text.height;
+			switch( textAlign.horizontal ) {
+			case DAlignHorizontal.LEFT:
+				textLeftAdjust = pl;
+				textRightAdjust = textLeftAdjust + textLeft + textWidth - textRight;
 				break;
-			case DAlignWith.PADDING:
-				this.updateImagePositionPadding( image );
+			case DAlignHorizontal.CENTER:
+				textLeftAdjust = (width - textLeft + textRight - textWidth) * 0.5;
+				textRightAdjust = textLeftAdjust + textLeft + textWidth - textRight;
 				break;
-			case DAlignWith.BORDER:
-				this.updateImagePositionBorder( image );
+			case DAlignHorizontal.RIGHT:
+				textRightAdjust = width - pr;
+				textLeftAdjust = textRightAdjust + textRight - textWidth - textLeft;
 				break;
 			}
-			this.updateImageTint( image );
+
+			text.x = toRounded( textLeftAdjust + textLeft );
+			textCenterAdjust = textLeftAdjust + textLeft + textWidth * 0.5;
+
+			switch( textAlign.vertical ) {
+			case DAlignVertical.TOP:
+				textTopAdjust = pt;
+				textBottomAdjust = textTopAdjust + textTop + textHeight - textBottom;
+				break;
+			case DAlignVertical.MIDDLE:
+				textTopAdjust = (height - textTop + textBottom - textHeight) * 0.5;
+				textBottomAdjust = textTopAdjust + textTop + textHeight - textBottom;
+				break;
+			case DAlignVertical.BOTTOM:
+				textBottomAdjust = height - pb;
+				textTopAdjust = textBottomAdjust + textBottom - textHeight - textTop;
+				break;
+			}
+
+			text.y = toRounded( textTopAdjust + textTop );
+			textMiddleAdjust = textTopAdjust + textTop + textHeight * 0.5;
+		} else {
+			textLeftAdjust = (width - textLeft + textRight) * 0.5;
+			textRightAdjust = textLeftAdjust + textLeft - textRight;
+			textCenterAdjust = textLeftAdjust + textLeft;
+
+			textTopAdjust = (height - textTop + textBottom) * 0.5;
+			textBottomAdjust = textTopAdjust + textTop - textBottom;
+			textMiddleAdjust = textTopAdjust + textTop;
+		}
+
+		const paddingCenterAdjust = width * 0.5;
+		const paddingMiddleAdjust = height * 0.5;
+
+		const borderCenterAdjust = width * 0.5;
+		const borderMiddleAdjust = height * 0.5;
+
+		for( let i = 0, imax = images.length; i < imax; ++i ) {
+			const image = images[ i ];
+			const imageImage = image.image;
+			if( imageImage ) {
+				const imageBound = image.bound;
+				const imageBoundWidth = imageBound.width;
+				const imageBoundHeight = imageBound.height;
+
+				// Text
+				if( image.align.with === DAlignWith.TEXT ) {
+					switch( image.align.horizontal ) {
+					case DAlignHorizontal.LEFT:
+						imageImage.x = toRounded( imageImage.x + textLeftAdjust );
+						break;
+					case DAlignHorizontal.CENTER:
+						imageImage.x = toRounded( textCenterAdjust - imageBoundWidth * 0.5 );
+						break;
+					case DAlignHorizontal.RIGHT:
+						imageImage.x = toRounded( imageImage.x + textRightAdjust );
+						break;
+					}
+					switch( image.align.vertical ) {
+					case DAlignVertical.TOP:
+						imageImage.y = toRounded( imageImage.y + textTopAdjust );
+						break;
+					case DAlignVertical.MIDDLE:
+						imageImage.y = toRounded( textMiddleAdjust - imageBoundHeight * 0.5 );
+						break;
+					case DAlignVertical.BOTTOM:
+						imageImage.y = toRounded( imageImage.y + textBottomAdjust );
+						break;
+					}
+				}
+
+				// Padding
+				if( image.align.with === DAlignWith.PADDING ) {
+					switch( image.align.horizontal ) {
+					case DAlignHorizontal.CENTER:
+						imageImage.x = toRounded( paddingCenterAdjust - imageBoundWidth * 0.5 );
+						break;
+					}
+					switch( image.align.vertical ) {
+					case DAlignVertical.MIDDLE:
+						imageImage.y = toRounded( paddingMiddleAdjust - imageBoundHeight * 0.5 );
+						break;
+					}
+				}
+
+				// Border
+				if( image.align.with === DAlignWith.BORDER ) {
+					switch( image.align.horizontal ) {
+					case DAlignHorizontal.CENTER:
+						imageImage.x = toRounded( borderCenterAdjust - imageBoundWidth * 0.5 );
+						break;
+					}
+					switch( image.align.vertical ) {
+					case DAlignVertical.MIDDLE:
+						imageImage.y = toRounded( borderMiddleAdjust - imageBoundHeight * 0.5 );
+						break;
+					}
+				}
+			}
 		}
 	}
 
 	protected isRefitable( target: any ): target is DRefitable {
-		return super.isRefitable( target ) ||
-			(target != null && target === this._image);
+		if( super.isRefitable( target ) ) {
+			return true;
+		}
+
+		const images = this._images;
+		for( let i = 0, imax = images.length; i < imax; ++i ) {
+			if( images[ i ].isRefitable( target ) ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	protected getType(): string {
@@ -592,18 +435,10 @@ export class DImageBase<
 	}
 
 	destroy(): void {
-		// Image
-		const image = this._image;
-		if( image != null ) {
-			this._image = null;
-			const imageSourceComputed = this._imageSourceComputed;
-			if( imageSourceComputed instanceof Texture ) {
-				imageSourceComputed.off( "update", this._onImageChangeBound, this );
-				image.destroy();
-			}
+		const images = this._images;
+		for( let i = 0, imax = images.length; i < imax; ++i ) {
+			images[ i ].destroy();
 		}
-
-		//
 		super.destroy();
 	}
 }

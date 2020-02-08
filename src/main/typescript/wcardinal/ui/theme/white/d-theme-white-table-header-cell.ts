@@ -102,7 +102,7 @@ export class DThemeWhiteTableHeaderCell extends DThemeWhiteImage implements DThe
 		return null;
 	}
 
-	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
+	getSecondaryImageSource( state: DBaseState ): Texture | DisplayObject | null {
 		if( state & DTableCellState.SORTED_ASCENDING ) {
 			return DThemeWhiteAtlas.mappings.sorted_ascending;
 		} else if( state & DTableCellState.SORTED_DESCENDING ) {
@@ -112,11 +112,11 @@ export class DThemeWhiteTableHeaderCell extends DThemeWhiteImage implements DThe
 		}
 	}
 
-	getImageAlignHorizontal(): DAlignHorizontal {
+	getSecondaryImageAlignHorizontal(): DAlignHorizontal {
 		return DAlignHorizontal.RIGHT;
 	}
 
-	getImageAlignWith(): DAlignWith {
+	getSecondaryImageAlignWith(): DAlignWith {
 		return DAlignWith.PADDING;
 	}
 }

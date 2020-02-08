@@ -21,16 +21,16 @@ export class DDynamicTextMeasure {
 				} else {
 					const a = atlas.get( character );
 					if( a != null ) {
-						const x = result.x;
-						if( clippingWidth != null && clippingWidth < x + a.advance ) {
+						if( clippingWidth != null && clippingWidth < result.x + a.advance ) {
 							result.clipped = true;
 							const dots = atlas.get( "..." );
 							if( dots != null ) {
-								if( clippingWidth < x + dots.advance ) {
-									if( result.pop() ) {
-										result.push( dots );
+								while( clippingWidth - dots.advance < result.x ) {
+									if( ! result.pop() ) {
+										break;
 									}
-								} else {
+								}
+								if( result.x <= clippingWidth - dots.advance ) {
 									result.push( dots );
 								}
 							}

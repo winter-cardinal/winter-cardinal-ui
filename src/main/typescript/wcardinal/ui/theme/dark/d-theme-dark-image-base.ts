@@ -43,4 +43,60 @@ export class DThemeDarkImageBase extends DThemeDarkTextBase implements DThemeIma
 	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
 		return null;
 	}
+
+	getSecondaryImageAlignHorizontal(): DAlignHorizontal {
+		return this.getImageAlignHorizontal();
+	}
+
+	getSecondaryImageAlignVertical(): DAlignVertical {
+		return this.getImageAlignVertical();
+	}
+
+	getSecondaryImageAlignWith(): DAlignWith {
+		return this.getImageAlignWith();
+	}
+
+	getSecondaryImageMarginHorizontal(): number {
+		return this.getImageMarginHorizontal();
+	}
+
+	getSecondaryImageMarginVertial(): number {
+		return this.getImageMarginVertial();
+	}
+
+	getSecondaryImageTintColor( state: DBaseState ): number | null {
+		return this.getImageTintColor( state );
+	}
+
+	getSecondaryImageTintAlpha( state: DBaseState ): number {
+		return this.getImageTintAlpha( state );
+	}
+
+	getTertiaryImageAlignHorizontal(): DAlignHorizontal {
+		return this.getImageAlignHorizontal();
+	}
+
+	getTertiaryImageAlignVertical(): DAlignVertical {
+		return this.getImageAlignVertical();
+	}
+
+	getTertiaryImageAlignWith(): DAlignWith {
+		return this.getImageAlignWith();
+	}
+
+	getTertiaryImageMarginHorizontal(): number {
+		return this.getImageMarginHorizontal();
+	}
+
+	getTertiaryImageMarginVertial(): number {
+		return this.getImageMarginVertial();
+	}
+
+	getTertiaryImageTintColor( state: DBaseState ): number | null {
+		return this.getImageTintColor( state );
+	}
+
+	getTertiaryImageTintAlpha( state: DBaseState ): number {
+		return this.getImageTintAlpha( state );
+	}
 }

@@ -256,33 +256,34 @@ export class DTextBase<
 	protected updateTextPosition( text: DDynamicText | Text ): void {
 		const align = this._textAlign;
 		const padding = this._padding;
+		const toRounded = this.toRounded;
 
 		switch( align.horizontal ) {
 		case DAlignHorizontal.LEFT:
-			text.x = this.toRounded( padding.getLeft() );
+			text.x = toRounded( padding.getLeft() );
 			break;
 		case DAlignHorizontal.CENTER:
-			text.x = this.toRounded( ( this.width - text.width ) * 0.5 );
+			text.x = toRounded( ( this.width - text.width ) * 0.5 );
 			break;
 		case DAlignHorizontal.RIGHT:
-			text.x = this.toRounded( this.width - text.width - padding.getRight() );
+			text.x = toRounded( this.width - text.width - padding.getRight() );
 			break;
 		}
 
 		switch( align.vertical ) {
 		case DAlignVertical.TOP:
-			text.y = this.toRounded( padding.getTop() );
+			text.y = toRounded( padding.getTop() );
 			break;
 		case DAlignVertical.MIDDLE:
-			text.y = this.toRounded( ( this.height - text.height ) * 0.5 );
+			text.y = toRounded( ( this.height - text.height ) * 0.5 );
 			break;
 		case DAlignVertical.BOTTOM:
-			text.y = this.toRounded( this.height - text.height - padding.getBottom() );
+			text.y = toRounded( this.height - text.height - padding.getBottom() );
 			break;
 		}
 	}
 
-	protected toRounded( value: number ): number {
+	protected toRounded( this: unknown, value: number ): number {
 		return Math.round( value );
 	}
 
