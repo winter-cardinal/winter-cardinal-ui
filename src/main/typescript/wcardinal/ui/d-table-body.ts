@@ -178,12 +178,9 @@ export class DTableBody<
 		let oldRowCount = oldRowIndexMappedEnd - oldRowIndexMappedStart;
 
 		const newHeight = dataMappedSize * rowHeight;
-		this.height = newHeight;
 
 		const newContentHeight = Math.max( height, newHeight );
 		const newContentY = Math.max( height - newContentHeight, content.position.y );
-		content.position.y = newContentY;
-		content.height = newContentHeight;
 
 		const newRowIndexMappedLowerBound = Math.floor( (0 - newContentY) / rowHeight );
 		const newRowIndexMappedUpperBound = Math.floor( (height - newContentY) / rowHeight );
@@ -269,6 +266,10 @@ export class DTableBody<
 			row.setStates( DBaseState.DISABLED, DBaseState.ACTIVE );
 			row.unset();
 		}
+
+		content.position.y = newContentY;
+		content.height = newContentHeight;
+		this.height = newHeight;
 	}
 
 	protected resetRow( row: DTableBodyRow<ROW> ): DTableBodyRow<ROW> {

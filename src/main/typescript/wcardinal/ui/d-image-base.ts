@@ -77,7 +77,7 @@ export class DImageBase<
 
 	protected newImages( theme: THEME, options?: OPTIONS ): DImagePiece[] {
 		const images: DImagePiece[] = [];
-		images.push( this.newImage( theme, options && options.image ) );
+		images.push( this.newImage( theme, this.toImageOptions( theme, options && options.image ) ) );
 		if( hasSecondaryImageSource( theme ) ) {
 			images.push( this.newImage( new DImageBaseThemeWrapperSecondary( theme ) ) );
 		}
@@ -85,6 +85,10 @@ export class DImageBase<
 			images.push( this.newImage( new DImageBaseThemeWrapperTertiary( theme ) ) );
 		}
 		return images;
+	}
+
+	protected toImageOptions( theme: THEME, options?: DImagePieceOptions ): DImagePieceOptions | undefined {
+		return options;
 	}
 
 	protected newImage( theme: DThemeImagePiece, options?: DImagePieceOptions ) {

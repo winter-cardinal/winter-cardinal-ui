@@ -290,7 +290,12 @@ export class DImagePiece {
 		return theme.getImageTintAlpha( state );
 	}
 
-	updateTint(): void {
+	/**
+	 * Updates the tint.
+	 *
+	 * @returns True if the tint is changed.
+	 */
+	updateTint(): boolean {
 		const image = this._image;
 		if( image ) {
 			if( this.isTintAware( image ) ) {
@@ -298,61 +303,29 @@ export class DImagePiece {
 				const state = this._parent.state;
 				const color = this.toTintColor( theme, state );
 				if( color != null ) {
+					let result = false;
 					if( image.tint !== color ) {
 						image.tint = color;
+						result = true;
 					}
 					const alpha = this.toTintAlpha( theme, state );
 					if( image.alpha !== alpha ) {
 						image.alpha = alpha;
+						result = true;
 					}
+					return result;
 				}
 			}
 		}
-	}
-
-	setTintColor( color: number ): boolean {
-		const image = this._image;
-		if( image ) {
-			if( this.isTintAware( image ) ) {
-				image.tint = color;
-				return true;
-			}
-		} else {
-			const tint = this._tint;
-			if( tint ) {
-				tint.color = color;
-			} else {
-				this._tint = {
-					color,
-					alpha: undefined
-				};
-			}
-		}
 		return false;
 	}
 
-	setTintAlpha( alpha: number ): boolean {
-		const image = this._image;
-		if( image ) {
-			if( this.isTintAware( image ) ) {
-				image.alpha = alpha;
-				return true;
-			}
-		} else {
-			const tint = this._tint;
-			if( tint ) {
-				tint.alpha = alpha;
-			} else {
-				this._tint = {
-					color: undefined,
-					alpha
-				};
-			}
-		}
-		return false;
-	}
-
-	updateSource(): void {
+	/**
+	 * Updates the computed source.
+	 *
+	 * @returns True if the computed source is changed
+	 */
+	updateSource(): boolean {
 		const newComputed = this.computeSource();
 		const oldComputed = this._computed;
 		if( newComputed !== oldComputed ) {
@@ -395,7 +368,9 @@ export class DImagePiece {
 				}
 				this._image = newComputed;
 			}
+			return true;
 		}
+		return false;
 	}
 
 	isRefitable( target: any ): boolean {

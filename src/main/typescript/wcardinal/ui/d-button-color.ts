@@ -8,6 +8,7 @@ import { DBaseState } from "./d-base-state";
 import { DButton, DButtonOptions, DThemeButton } from "./d-button";
 import { DColorAndAlpha } from "./d-color";
 import { DDialogColor, DDialogColorOptions } from "./d-dialog-color";
+import { DImagePieceOptions, DImagePieceTintOptions } from "./d-image-piece";
 import { DPickerColorAndAlpha } from "./d-picker-color-and-alpha";
 
 export interface DButtonColorOptions<
@@ -43,7 +44,6 @@ export class DButtonColor<
 			colorAndAlpha.alpha = alpha;
 			this.updateTextForcibly();
 		});
-		this._images[ 0 ].setTintColor( colorAndAlpha.color );
 
 		this.on( "active", (): void => {
 			const dialog = this.dialog;
@@ -63,8 +63,35 @@ export class DButtonColor<
 		});
 	}
 
+	protected toImageTintOptions( tint?: DImagePieceTintOptions ): DImagePieceTintOptions {
+		const color = () => this._textValueComputed.color;
+		if( tint ) {
+			return {
+				color: tint.color || color,
+				alpha: tint.alpha
+			};
+		}
+		return {
+			color
+		};
+	}
+
+	protected toImageOptions( theme: THEME, options?: DImagePieceOptions ): DImagePieceOptions | undefined {
+		if( options ) {
+			return {
+				source: options.source,
+				tint: this.toImageTintOptions( options.tint ),
+				align: options.align,
+				margin: options.margin
+			};
+		}
+		return {
+			tint: this.toImageTintOptions()
+		};
+	}
+
 	protected onColorChange(): void {
-		if( this._images[ 0 ].setTintColor( this._textValueComputed.color ) ) {
+		if( this._images[ 0 ].updateTint() ) {
 			DApplications.update( this );
 		}
 		this.updateTextForcibly();
