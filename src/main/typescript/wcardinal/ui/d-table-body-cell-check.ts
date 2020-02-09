@@ -6,7 +6,8 @@
 import { DBaseState } from "./d-base-state";
 import { DButtonCheck, DButtonCheckOptions, DThemeButtonCheck } from "./d-button-check";
 import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
-import { DTableColumn } from "./d-table-column";
+import { DTableColumn, DTableColumnType } from "./d-table-column";
+import { DTableData } from "./d-table-data";
 
 export interface DTableBodyCellCheckOptions<
 	ROW = unknown,
@@ -47,6 +48,31 @@ export class DTableBodyCellCheck<
 		});
 	}
 
+	protected onChangeSingle( rowIndex: number, columnIndex: number, columnData: DTableColumn<ROW> ) {
+		const tableBodyRow = this.parent;
+		if( tableBodyRow ) {
+			const tableBody = tableBodyRow.parent as any;
+			if( tableBody ) {
+				let isChanged = false;
+				const getter = columnData.getter;
+				const setter = columnData.setter;
+				const data = tableBody.data as DTableData<ROW>;
+				data.each(( row: ROW, index: number ): boolean => {
+					if( rowIndex !== index && getter( row, columnIndex ) ) {
+						setter( row, columnIndex, false );
+						isChanged = true;
+						this.emit( "cellchange", false, true, row, index, columnIndex, this );
+						return false;
+					}
+					return true;
+				});
+				if( isChanged ) {
+					tableBody.update( true );
+				}
+			}
+		}
+	}
+
 	protected onChange( newValue: boolean ): void {
 		const row = this._row;
 		if( row !== undefined ) {
@@ -55,6 +81,9 @@ export class DTableBodyCellCheck<
 			const columnData = this._columnData;
 			columnData.setter( row, columnIndex, newValue );
 			this.emit( "cellchange", newValue, ! newValue, row, rowIndex, columnIndex, this );
+			if( newValue && columnData.type === DTableColumnType.CHECK_SINGLE ) {
+				this.onChangeSingle( rowIndex, columnIndex, columnData );
+			}
 		}
 	}
 

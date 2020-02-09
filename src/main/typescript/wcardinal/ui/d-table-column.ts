@@ -31,6 +31,7 @@ export enum DTableColumnType {
 	INTEGER,
 	REAL,
 	CHECK,
+	CHECK_SINGLE,
 	COLOR,
 	BUTTON,
 	SELECT,

@@ -103,6 +103,7 @@ export class DTableBodyRow<
 		case DTableColumnType.REAL:
 			return new DTableBodyCellInputReal( options );
 		case DTableColumnType.CHECK:
+		case DTableColumnType.CHECK_SINGLE:
 			return new DTableBodyCellCheck( options );
 		case DTableColumnType.COLOR:
 			return new DTableBodyCellColor( options );
@@ -142,6 +143,7 @@ export class DTableBodyRow<
 		case DTableColumnType.REAL:
 			return new DTableBodyCellText( options );
 		case DTableColumnType.CHECK:
+		case DTableColumnType.CHECK_SINGLE:
 			return new DTableBodyCellCheck( options );
 		case DTableColumnType.COLOR:
 			return new DTableBodyCellColor( options );
