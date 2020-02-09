@@ -121,7 +121,7 @@ export class DTableBodyCellLink<
 		if( row !== undefined ) {
 			const rowIndex = this._rowIndex;
 			const columnIndex = this._columnIndex;
-			this._columnData.setter( row, rowIndex, null );
+			this._columnData.setter( row, columnIndex, null );
 			this.emit( "cellchange", null, null, row, rowIndex, columnIndex, this );
 			this.open( this._link.inNewWindow( e ) );
 		}

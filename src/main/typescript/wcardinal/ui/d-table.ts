@@ -46,20 +46,20 @@ export interface DThemeTable extends DThemePane {
 
 }
 
-const defaultGetter: DTableGetter<any> = ( row: any, index: number ): unknown => {
-	return row[ index ];
+const defaultGetter: DTableGetter<any> = ( row: any, columnIndex: number ): unknown => {
+	return row[ columnIndex ];
 };
 
-const defaultSetter: DTableSetter<any> = ( row: any, index: number, cell: unknown ): void => {
-	row[ index ] = cell;
+const defaultSetter: DTableSetter<any> = ( row: any, columnIndex: number, cell: unknown ): void => {
+	row[ columnIndex ] = cell;
 };
 
 const defaultSetterEmpty: DTableSetter<any> = (): void => {
 	// DO NOTHING
 };
 
-const defaultEditingUnformatter: DTableEditingUnformatter = ( cell: string ): unknown => {
-	return cell;
+const defaultEditingUnformatter: DTableEditingUnformatter = ( cellValue: string ): unknown => {
+	return cellValue;
 };
 
 const toColumnAlign = <ROW>( options: DTableColumnOptions<ROW>, type: DTableColumnType ): DAlignHorizontal => {

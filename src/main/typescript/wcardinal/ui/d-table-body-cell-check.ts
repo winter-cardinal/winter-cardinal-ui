@@ -52,7 +52,8 @@ export class DTableBodyCellCheck<
 		if( row !== undefined ) {
 			const rowIndex = this._rowIndex;
 			const columnIndex = this._columnIndex;
-			this._columnData.setter( row, rowIndex, newValue );
+			const columnData = this._columnData;
+			columnData.setter( row, columnIndex, newValue );
 			this.emit( "cellchange", newValue, ! newValue, row, rowIndex, columnIndex, this );
 		}
 	}

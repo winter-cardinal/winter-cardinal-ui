@@ -66,7 +66,7 @@ export class DTableBodyCellDatetime<
 				if( row !== undefined ) {
 					const rowIndex = this._rowIndex;
 					const columnIndex = this._columnIndex;
-					this._columnData.setter( row, rowIndex, newValue );
+					this._columnData.setter( row, columnIndex, newValue );
 					this.emit( "cellchange", newValue, oldValue, row, rowIndex, columnIndex, this );
 				}
 			});

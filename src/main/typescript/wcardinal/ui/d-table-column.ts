@@ -42,8 +42,8 @@ export enum DTableColumnType {
 	LINK_EDIT
 }
 
-export type DTableGetter<ROW> = ( row: ROW, index: number ) => unknown;
-export type DTableSetter<ROW> = ( row: ROW, index: number, cell: unknown ) => void;
+export type DTableGetter<ROW> = ( row: ROW, columnIndex: number ) => unknown;
+export type DTableSetter<ROW> = ( row: ROW, columnIndex: number, cell: unknown ) => void;
 export type DTableFormatter = ( cell: unknown ) => string;
 export type DTableEditingFormatter = ( cell: unknown ) => string;
 export type DTableEditingUnformatter = ( cell: string ) => unknown;
