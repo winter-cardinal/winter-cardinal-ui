@@ -62,7 +62,6 @@ export class DImageBase<
 	protected _applyMaskBound!: ( target: DisplayObject ) => void;
 
 	protected init( options?: OPTIONS ) {
-		super.init( options );
 		this._onChangeBound = (): void => {
 			this.toDirty();
 			DApplications.update( this );
@@ -73,6 +72,7 @@ export class DImageBase<
 			}
 		};
 		this._images = this.newImages( this.theme, options );
+		super.init( options );
 	}
 
 	protected newImages( theme: THEME, options?: OPTIONS ): DImagePiece[] {
