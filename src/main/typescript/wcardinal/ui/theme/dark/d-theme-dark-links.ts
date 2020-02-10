@@ -1,7 +1,23 @@
+import { DisplayObject, Texture } from "pixi.js";
+import { DBaseState } from "../../d-base-state";
 import { DLinkMenuItemId } from "../../d-link-menu-item-id";
 import { DMenuOptions } from "../../d-menu";
+import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
 
 export class DThemeDarkLinks {
+	static init(): void {
+		DThemeDarkAtlas.add( "link_mark", 24, 24,
+			`<g>` +
+				`<path fill="none" stroke="#fff" stroke-width="1" ` +
+					`d="M10 6H7c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h8c1.1 0 2-.9 2-2v-3 M19 11V4h-7 M18.75 4.5l-8 8" />` +
+			`</g>`
+		);
+	}
+
+	static getImageSource( state: DBaseState ): Texture | DisplayObject | null {
+		return DThemeDarkAtlas.mappings.link_mark;
+	}
+
 	static getMenuOptions(): DMenuOptions<DLinkMenuItemId> {
 		return {
 			sticky: true,

@@ -16,7 +16,6 @@ import { DTableBodyCellInputIntegerOptions } from "./d-table-body-cell-input-int
 import { DTableBodyCellInputRealOptions } from "./d-table-body-cell-input-real";
 import { DTableBodyCellInputTextOptions } from "./d-table-body-cell-input-text";
 import { DTableBodyCellLinkLinkOptions, DTableBodyCellLinkOptions } from "./d-table-body-cell-link";
-import { DTableBodyCellLinkEditOptions } from "./d-table-body-cell-link-edit";
 import { DTableBodyCellSelectDialogOptions } from "./d-table-body-cell-select-dialog";
 import { DTableBodyCellSelectMenuOptions } from "./d-table-body-cell-select-menu";
 import { DTableBodyCellSelectPromiseOptions } from "./d-table-body-cell-select-promise";
@@ -39,8 +38,7 @@ export enum DTableColumnType {
 	DATETIME,
 	TIME,
 	ACTION,
-	LINK,
-	LINK_EDIT
+	LINK
 }
 
 export type DTableGetter<ROW> = ( row: ROW, columnIndex: number ) => unknown;
@@ -56,14 +54,14 @@ export type DTableBodyCellOptionsUnion<ROW> = DTableBodyCellTextOptions<ROW> | D
 	DTableBodyCellColorOptions<ROW> | DTableBodyCellCheckOptions<ROW> | DTableBodyCellSelectDialogOptions<ROW> |
 	DTableBodyCellSelectPromiseOptions<ROW> | DTableBodyCellSelectMenuOptions<ROW> | DTableBodyCellDateOptions<ROW> |
 	DTableBodyCellDatetimeOptions<ROW> | DTableBodyCellTimeOptions<ROW> | DTableBodyCellButtonOptions<ROW> |
-	DTableBodyCellLinkOptions<ROW> | DTableBodyCellLinkEditOptions<ROW>;
+	DTableBodyCellLinkOptions<ROW>;
 
 export type DTableBodyCellOptionsMerged<ROW> = DTableBodyCellTextOptions<ROW> & DTableBodyCellInputTextOptions<ROW> &
 	DTableBodyCellInputIntegerOptions<ROW> & DTableBodyCellInputRealOptions<ROW> & DTableBodyCellIndexOptions<ROW> &
 	DTableBodyCellColorOptions<ROW> & DTableBodyCellCheckOptions<ROW> & DTableBodyCellSelectDialogOptions<ROW> &
 	DTableBodyCellSelectPromiseOptions<ROW> & DTableBodyCellSelectMenuOptions<ROW> & DTableBodyCellDateOptions<ROW> &
 	DTableBodyCellDatetimeOptions<ROW> & DTableBodyCellTimeOptions<ROW> & DTableBodyCellButtonOptions<ROW> &
-	DTableBodyCellLinkOptions<ROW> & DTableBodyCellLinkEditOptions<ROW>;
+	DTableBodyCellLinkOptions<ROW>;
 
 export interface DTableColumnEditingOptions {
 	enable?: boolean;

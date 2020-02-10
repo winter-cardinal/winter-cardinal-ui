@@ -19,19 +19,19 @@ DThemeWhiteAtlas.add( "dropdown_mark", 20, 14,
 );
 
 export class DThemeWhiteDropdown extends DThemeWhiteButtonBase implements DThemeDropdown {
-	getImageAlignHorizontal(): DAlignHorizontal {
+	getSecondaryImageAlignHorizontal(): DAlignHorizontal {
 		return DAlignHorizontal.RIGHT;
 	}
 
-	getImageAlignWith(): DAlignWith {
+	getSecondaryImageAlignWith(): DAlignWith {
 		return DAlignWith.PADDING;
 	}
 
-	getImageMarginHorizontal(): number {
+	getSecondaryImageMarginHorizontal(): number {
 		return - this.getPaddingRight() * 0.5;
 	}
 
-	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
+	getSecondaryImageSource( state: DBaseState ): Texture | DisplayObject | null {
 		return DThemeWhiteAtlas.mappings.dropdown_mark;
 	}
 

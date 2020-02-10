@@ -42,11 +42,11 @@
 								return new Promise(( resolve ) => {
 									setTimeout(() => {
 										resolve([{
-											id: "A"
+											id: "Action A"
 										},{
-											id: "B"
+											id: "Action B"
 										},{
-											id: "C"
+											id: "Action C"
 										}]);
 									}, 1000);
 								});
@@ -62,7 +62,7 @@
 					promise: () => {
 						return new Promise(( resolve )=>{
 							setTimeout(() => {
-								return resolve( 128 );
+								return resolve( "Action result" );
 							}, 1000);
 						});
 					}
@@ -75,14 +75,14 @@
 					menu: {
 						items: [{
 							text: {
-								value: "C0"
+								value: "Action A"
 							},
-							value: "C0"
+							value: "action-a-id"
 						}, {
 							text: {
-								value: "C1"
+								value: "Action B"
 							},
-							value: "C1"
+							value: "action-b-id"
 						}],
 						fit: true
 					}

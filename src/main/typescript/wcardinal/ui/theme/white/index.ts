@@ -142,7 +142,6 @@ export * from "./d-theme-white-table-body-cell-index";
 export * from "./d-theme-white-table-body-cell-input-integer";
 export * from "./d-theme-white-table-body-cell-input-real";
 export * from "./d-theme-white-table-body-cell-input-text";
-export * from "./d-theme-white-table-body-cell-link-edit";
 export * from "./d-theme-white-table-body-cell-link";
 export * from "./d-theme-white-table-body-cell-select-dialog";
 export * from "./d-theme-white-table-body-cell-select-menu";

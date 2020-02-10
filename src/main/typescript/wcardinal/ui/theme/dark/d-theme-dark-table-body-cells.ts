@@ -15,12 +15,14 @@ import { DThemeDarkFont } from "./d-theme-dark-font";
 
 export class DThemeDarkTableBodyCells {
 	static readonly COLOR = 0x000000;
-	static readonly IMAGE_TINT_COLOR_FOCUSED =
-	UtilRgb.brighten( DThemeDarkTableBodyCells.COLOR, DThemeDarkConstants.TINT_FOCUS_ALPHA );
+	static readonly IMAGE_TINT_COLOR_FOCUSED = UtilRgb.brighten(
+		DThemeDarkTableBodyCells.COLOR, DThemeDarkConstants.TINT_FOCUS_ALPHA
+	);
 	static readonly BACKGROUND_COLOR_EVEN = DThemeDarkTableBodyCells.COLOR;
 	static readonly BACKGROUND_COLOR_ODD = UtilRgb.brighten( DThemeDarkTableBodyCells.COLOR, 0.1 );
 	static readonly COLOR_HOVERED = UtilRgb.brighten(
-		DThemeDarkTableBodyCells.BACKGROUND_COLOR_ODD, DThemeDarkConstants.FOCUSED_ALPHA );
+		DThemeDarkTableBodyCells.BACKGROUND_COLOR_ODD, DThemeDarkConstants.FOCUSED_ALPHA
+	);
 
 	static getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {

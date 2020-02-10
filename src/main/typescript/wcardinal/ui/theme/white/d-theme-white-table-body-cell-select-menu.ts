@@ -51,7 +51,7 @@ export class DThemeWhiteTableBodyCellSelectMenu extends DThemeWhiteSelect
 		return DThemeWhiteTableBodyCells.getCornerMask();
 	}
 
-	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
+	getSecondaryImageSource( state: DBaseState ): Texture | DisplayObject | null {
 		return null;
 	}
 }

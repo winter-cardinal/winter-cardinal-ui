@@ -21,8 +21,7 @@
 		for( let i = 0; i < 15000; ++i ) {
 			rows.push([
 				"A" + i,
-				"B" + i,
-				"C" + i,
+				"B" + i
 			]);
 		}
 
@@ -40,21 +39,7 @@
 				}
 			},{
 				label: "B",
-				type: "LINK_EDIT",
-				width: 75,
-				getter: () => "",
-			},{
-				label: "C",
-				type: "LINK_EDIT",
-				editable: true,
-				width: 75,
-				getter: () => "",
-				link: {
-					url: ( row, rowIndex, columnIndex ) => {
-						console.log( row, rowIndex, columnIndex );
-						return "../";
-					}
-				}
+				type: "LINK",
 			}],
 			data: {
 				rows: rows,

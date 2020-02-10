@@ -50,6 +50,8 @@ const defaultGetter: DTableGetter<any> = ( row: any, columnIndex: number ): unkn
 	return row[ columnIndex ];
 };
 
+const defaultGetterEmpty: DTableGetter<any> = (): string => "";
+
 const defaultSetter: DTableSetter<any> = ( row: any, columnIndex: number, cell: unknown ): void => {
 	row[ columnIndex ] = cell;
 };
@@ -81,8 +83,7 @@ const toColumnAlign = <ROW>( options: DTableColumnOptions<ROW>, type: DTableColu
 	case DTableColumnType.SELECT:
 	case DTableColumnType.ACTION:
 	case DTableColumnType.LINK:
-	case DTableColumnType.LINK_EDIT:
-			return DAlignHorizontal.CENTER;
+		return DAlignHorizontal.CENTER;
 	default:
 		return DAlignHorizontal.LEFT;
 	}
@@ -184,6 +185,23 @@ const toColumnSelecting = ( options: DTableColumnSelectingOptions | undefined ):
 	};
 };
 
+const toColumnGetter = <ROW>(
+	options: DTableColumnOptions<ROW>,
+	type: DTableColumnType
+): DTableGetter<ROW> => {
+	const getter = options.getter;
+	if( getter ) {
+		return getter;
+	}
+	switch( type ) {
+	case DTableColumnType.ACTION:
+	case DTableColumnType.LINK:
+		return defaultGetterEmpty;
+	default:
+		return defaultGetter;
+	}
+};
+
 const toColumnSetter = <ROW>(
 	options: DTableColumnOptions<ROW>,
 	type: DTableColumnType
@@ -196,7 +214,6 @@ const toColumnSetter = <ROW>(
 	case DTableColumnType.BUTTON:
 	case DTableColumnType.ACTION:
 	case DTableColumnType.LINK:
-	case DTableColumnType.LINK_EDIT:
 		return defaultSetterEmpty;
 	default:
 		return defaultSetter;
@@ -216,7 +233,7 @@ const toColumn = <ROW>( index: number, options: DTableColumnOptions<ROW> ): DTab
 	);
 	const align = toColumnAlign( options, type );
 	const label = options.label || "";
-	const getter = options.getter || defaultGetter;
+	const getter = toColumnGetter( options, type );
 	const setter = toColumnSetter( options, type );
 	return {
 		weight,

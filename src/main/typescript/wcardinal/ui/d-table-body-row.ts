@@ -18,7 +18,6 @@ import { DTableBodyCellInputInteger } from "./d-table-body-cell-input-integer";
 import { DTableBodyCellInputReal } from "./d-table-body-cell-input-real";
 import { DTableBodyCellInputText } from "./d-table-body-cell-input-text";
 import { DTableBodyCellLink } from "./d-table-body-cell-link";
-import { DTableBodyCellLinkEdit } from "./d-table-body-cell-link-edit";
 import { DTableBodyCellSelectDialog } from "./d-table-body-cell-select-dialog";
 import { DTableBodyCellSelectMenu } from "./d-table-body-cell-select-menu";
 import { DTableBodyCellSelectPromise } from "./d-table-body-cell-select-promise";
@@ -111,8 +110,6 @@ export class DTableBodyRow<
 			return new DTableBodyCellButton( options );
 		case DTableColumnType.LINK:
 			return new DTableBodyCellLink( options );
-		case DTableColumnType.LINK_EDIT:
-			return new DTableBodyCellLinkEdit( options );
 		case DTableColumnType.SELECT:
 			return this.newCellSelect( column, options );
 		case DTableColumnType.ACTION:
@@ -151,8 +148,6 @@ export class DTableBodyRow<
 			return new DTableBodyCellButton( options );
 		case DTableColumnType.LINK:
 			return new DTableBodyCellLink( options );
-		case DTableColumnType.LINK_EDIT:
-			return new DTableBodyCellLinkEdit( options );
 		case DTableColumnType.SELECT:
 			return this.newCellSelect( column, options );
 		case DTableColumnType.ACTION:

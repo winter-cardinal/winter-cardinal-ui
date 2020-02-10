@@ -348,7 +348,6 @@ export * from "./d-table-body-cell-index";
 export * from "./d-table-body-cell-input-integer";
 export * from "./d-table-body-cell-input-real";
 export * from "./d-table-body-cell-input-text";
-export * from "./d-table-body-cell-link-edit";
 export * from "./d-table-body-cell-link";
 export * from "./d-table-body-cell-select-dialog";
 export * from "./d-table-body-cell-select-menu";

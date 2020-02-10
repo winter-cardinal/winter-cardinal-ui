@@ -48,6 +48,10 @@ export class DThemeWhiteTableBodyCellText extends DThemeWhiteImageBase implement
 		return DThemeWhiteTableBodyCells.getCornerMask();
 	}
 
+	getImageTintColor( state: DBaseState ): number | null {
+		return DThemeWhiteTableBodyCells.getImageTintColor( state );
+	}
+
 	getPaddingLeft(): number {
 		return 10;
 	}
