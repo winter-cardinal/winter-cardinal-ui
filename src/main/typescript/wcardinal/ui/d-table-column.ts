@@ -15,7 +15,7 @@ import { DTableBodyCellIndexOptions } from "./d-table-body-cell-index";
 import { DTableBodyCellInputIntegerOptions } from "./d-table-body-cell-input-integer";
 import { DTableBodyCellInputRealOptions } from "./d-table-body-cell-input-real";
 import { DTableBodyCellInputTextOptions } from "./d-table-body-cell-input-text";
-import { DTableBodyCellLinkOptions } from "./d-table-body-cell-link";
+import { DTableBodyCellLinkLinkOptions, DTableBodyCellLinkOptions } from "./d-table-body-cell-link";
 import { DTableBodyCellLinkEditOptions } from "./d-table-body-cell-link-edit";
 import { DTableBodyCellSelectDialogOptions } from "./d-table-body-cell-select-dialog";
 import { DTableBodyCellSelectMenuOptions } from "./d-table-body-cell-select-menu";
@@ -130,7 +130,7 @@ export interface DTableColumnOptions<ROW> {
 	category?: string;
 	frozen?: boolean;
 
-	link?: DTableBodyCellLinkOptions<ROW>;
+	link?: DTableBodyCellLinkLinkOptions<ROW>;
 }
 
 export interface DTableColumn<ROW> {
@@ -156,5 +156,5 @@ export interface DTableColumn<ROW> {
 	frozen?: boolean;
 	offset: number;
 
-	link?: DTableBodyCellLinkOptions<ROW>;
+	link?: DTableBodyCellLinkLinkOptions<ROW>;
 }

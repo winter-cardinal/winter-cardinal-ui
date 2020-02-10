@@ -240,7 +240,7 @@ export class DTableBodyRow<
 		}
 
 		if( column.link ) {
-			result.link = column.link as any;
+			result.link = column.link;
 		}
 
 		return result;
