@@ -63,13 +63,6 @@ export class DTree <
 				this.mapped([], this._value)
 			}
 
-			this.update()
-
-			this.registerListeners()
-
-		}
-
-		private registerListeners () {
 			this._content.on("move", (): void => {
 				this.update()
 			});
@@ -79,6 +72,14 @@ export class DTree <
 				this.update();
 			});
 
+			this.registerSelectEvent()
+
+			this.update()
+		}
+
+		private registerSelectEvent () {
+			//remove select event
+			this._content.removeListener("select")
 			//update active state of all shown item when a child item is clicked
 			this._content.on("select", (selectedPosition: number[]): void => {
 				this._selectedPosition = selectedPosition
@@ -144,13 +145,11 @@ export class DTree <
 				this._itemOptions = {}
 				this._itemOptionsShowable.length = 0
 				this._itemY = 0
-				this._content.removeAllListeners()
 				this._content.removeChildren()
-
 				//re-render tree
+				this.registerSelectEvent()
 				this.mapped([], this._value)
 				this.update()
-				this.registerListeners()
 			}
 		}
 
