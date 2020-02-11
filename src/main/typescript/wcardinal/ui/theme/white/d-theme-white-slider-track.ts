@@ -5,10 +5,11 @@
 
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
+import { DThemeSliderTrack } from "../../d-slider-track";
 import { DThemeWhiteButton } from "./d-theme-white-button";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 
-export class DThemeWhiteSliderTrack extends DThemeWhiteButton implements DThemeWhiteSliderTrack {
+export class DThemeWhiteSliderTrack extends DThemeWhiteButton implements DThemeSliderTrack {
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isActive( state ) ) {

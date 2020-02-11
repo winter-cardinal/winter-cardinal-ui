@@ -4,9 +4,10 @@
  */
 
 import { DCoordinateSize } from "../../d-coordinate";
+import { DThemeSliderVertical } from "../../d-slider-vertical";
 import { DThemeWhiteSlider } from "./d-theme-white-slider";
 
-export class DThemeWhiteSliderVertical extends DThemeWhiteSlider implements DThemeWhiteSliderVertical {
+export class DThemeWhiteSliderVertical extends DThemeWhiteSlider implements DThemeSliderVertical {
 	getHeight(): DCoordinateSize {
 		return 322;
 	}

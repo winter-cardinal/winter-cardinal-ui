@@ -7,9 +7,10 @@ import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignVertical } from "../../d-align-vertical";
 import { DBaseState } from "../../d-base-state";
 import { DCoordinateSize } from "../../d-coordinate";
+import { DThemeSliderValue } from "../../d-slider-value";
 import { DThemeWhiteTextBase } from "./d-theme-white-text-base";
 
-export class DThemeWhiteSliderValue extends DThemeWhiteTextBase implements DThemeWhiteSliderValue {
+export class DThemeWhiteSliderValue extends DThemeWhiteTextBase implements DThemeSliderValue {
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		return 0x3399FF;
@@ -107,4 +108,7 @@ export class DThemeWhiteSliderValue extends DThemeWhiteTextBase implements DThem
 		return 0;
 	}
 
+	getRoundNumber(): number {
+		return 0;
+	}
 }

@@ -18,12 +18,32 @@
 
 		new wcardinal.ui.DSliderHorizontal({
 			parent: application.stage,
-			x: 100, y: 100
+			x: 100, y: 100,
+			min: {
+				value: 0
+			},
+			max: {
+				value: 1
+			},
+			value: {
+				roundNumber: 2
+			}
 		});
 
 		new wcardinal.ui.DSliderVertical({
 			parent: application.stage,
-			x: 100, y: 200
+			x: 100, y: 200,
+			min: {
+				value: 0
+			},
+			max: {
+				value: 100
+			},
+			value: {
+				text: {
+					formatter: ( value ) => value + "%"
+				}
+			}
 		});
 	}());
 	</script>

@@ -5,11 +5,8 @@
 
 import { Point } from "pixi.js";
 import { DSlider, DSliderOptions, DThemeSlider } from "./d-slider";
-import { DSliderLabel } from "./d-slider-label";
-import { DSliderThumb } from "./d-slider-thumb";
 import { DSliderTrack } from "./d-slider-track";
 import { DSliderTrackHorizontal } from "./d-slider-track-horizontal";
-import { DSliderValue } from "./d-slider-value";
 
 export interface DSliderHorizontalOptions<THEME extends DThemeSliderHorizontal> extends DSliderOptions<THEME> {
 
@@ -31,35 +28,11 @@ export class DSliderHorizontal<
 		return new DSliderTrackHorizontal();
 	}
 
-	protected createValue(): DSliderValue {
-		return new DSliderValue({
-			y: 0
-		});
-	}
-
-	protected createThumb(): DSliderThumb {
-		return new DSliderThumb({
-			x: 0,
-			y: this._value.height + HORIZONTAL_PIXEL_BALANCE
-		});
-	}
-
-	protected createMax(): DSliderLabel {
-		return new DSliderLabel({value: 1});
-	}
-
-	protected createMin(): DSliderLabel {
-		return new DSliderLabel({
-			x: 0,
-			value: 0
-		});
-	}
-
 	protected createTrackSelected(): DSliderTrack {
 		return new DSliderTrackHorizontal();
 	}
 
-	protected updateCoordinate(): void {
+	protected updateCoordinates(): void {
 		this._trackSelected.width = 0;
 
 		// calculate y-offset to determine y-coordinate of slider bar
@@ -70,12 +43,20 @@ export class DSliderHorizontal<
 
 		// this is offset beetween x-coordinate of slider value and slider button
 		this._offset = this._value.width / 2 - this._thumb.width / 2;
-		this._value.x = this._thumb.x - this._offset;
 
+		// Set Coordinate of value
+		this._value.x = this._thumb.x - this._offset;
+		this._value.y = 0;
+
+		// Calculate coordinate of max and min label
 		this._min.x = 0 - this._min.width;
 		this._min.y = this.yOffset - (this._min.height / 2 - this.track.height / 2);
 		this._max.x = this.width + HORIZONTAL_PIXEL_BALANCE;
 		this._max.y = this.yOffset - (this._min.height / 2 - this.track.height / 2);
+
+		// Calculate coordinate of Thumb
+		this._thumb.x = 0;
+		this._thumb.y = this._value.height + HORIZONTAL_PIXEL_BALANCE;
 	}
 
 	protected onPick( global: Point ) {
@@ -95,7 +76,7 @@ export class DSliderHorizontal<
 		this.updateValue(this._min.value, this._max.value);
 	}
 
-	updateThumb(min: number, max: number, value: number) {
+	protected updateThumb(min: number, max: number, value: number) {
 		this._ratioValue = (value - min) / (max - min);
 		const x =  this._ratioValue * this._track.width;
 		if (x > (this._track.width - this._thumb.width / 2)) {

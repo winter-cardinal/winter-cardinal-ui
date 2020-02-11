@@ -5,11 +5,8 @@
 
 import { Point } from "pixi.js";
 import { DSlider, DSliderOptions, DThemeSlider } from "./d-slider";
-import { DSliderLabel } from "./d-slider-label";
-import { DSliderThumb } from "./d-slider-thumb";
 import { DSliderTrack } from "./d-slider-track";
 import { DSliderTrackVertical } from "./d-slider-track-vertical";
-import { DSliderValue } from "./d-slider-value";
 
 export interface DSliderVerticalOptions<
 	THEME extends DThemeSliderVertical = DThemeSliderVertical
@@ -33,37 +30,11 @@ export class DSliderVertical<
 		return new DSliderTrackVertical();
 	}
 
-	protected createValue(): DSliderValue {
-		return new DSliderValue({
-			x: "CENTER"
-		});
-	}
-
-	protected createThumb(): DSliderThumb {
-		return new DSliderThumb({
-			x: "CENTER"
-		});
-	}
-
-	protected createMax(): DSliderLabel {
-		return new DSliderLabel({
-			x: 0,
-			value: 1
-		});
-	}
-
-	protected createMin(): DSliderLabel {
-		return new DSliderLabel({
-			x: 0,
-			value: 0
-		});
-	}
-
 	protected createTrackSelected(): DSliderTrack {
 		return new DSliderTrackVertical();
 	}
 
-	protected updateCoordinate(): void {
+	protected updateCoordinates(): void {
 		this._yOffset = VERTICAL_PIXEL_BALANCE + this._value.height;
 		this._track.y = this._yOffset;
 		this._thumb.y = this.height - this._thumb.height;
@@ -75,6 +46,9 @@ export class DSliderVertical<
 		this._min.y = this.height - this._min.height;
 		this._max.x = 0 - this._max.width;
 		this._max.y = this.yOffset;
+
+		this._value.setX("CENTER");
+		this._thumb.setX("CENTER");
 	}
 
 	protected onPick( global: Point ) {
@@ -95,7 +69,7 @@ export class DSliderVertical<
 		this.updateValue(this._min.value, this._max.value);
 	}
 
-	updateThumb(min: number, max: number, value: number) {
+	protected updateThumb(min: number, max: number, value: number) {
 		this._ratioValue = (value - min) / (max - min);
 		const y = this.height - this._ratioValue * this._track.height;
 		if (y > (this.height - this.thumb.height / 2)) {

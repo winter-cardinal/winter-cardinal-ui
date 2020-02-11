@@ -4,10 +4,11 @@
  */
 
 import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
+import { DThemeSliderTrackHorizontal } from "../../d-slider-track-horizontal";
 import { DThemeWhiteSliderTrack } from "./d-theme-white-slider-track";
 
 export class DThemeWhiteSliderTrackHorizontal
-extends DThemeWhiteSliderTrack implements DThemeWhiteSliderTrackHorizontal {
+extends DThemeWhiteSliderTrack implements DThemeSliderTrackHorizontal {
 
 	getHeight(): DCoordinateSize {
 		return 5;

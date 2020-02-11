@@ -6,15 +6,17 @@
 import { interaction, Point } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
-import { DSliderLabel } from "./d-slider-label";
+import { DSliderLabel, DSliderLabelOptions } from "./d-slider-label";
 import { DSliderThumb } from "./d-slider-thumb";
 import { DSliderTrack } from "./d-slider-track";
-import { DSliderValue } from "./d-slider-value";
+import { DSliderValue, DSliderValueOptions } from "./d-slider-value";
 import InteractionEvent = interaction.InteractionEvent;
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
 export interface DSliderOptions<THEME extends DThemeSlider> extends DBaseOptions<THEME> {
-
+	min?: DSliderLabelOptions;
+	max?: DSliderLabelOptions;
+	value?: DSliderValueOptions;
 }
 
 export interface DThemeSlider extends DThemeBase {
@@ -33,6 +35,7 @@ export abstract class DSlider<
 	protected _thumb!: DSliderThumb;
 	protected _trackSelected!: DSliderTrack;
 	protected _value!: DSliderValue;
+	protected _roundNumber!: number;
 	protected _offset!: number;
 	protected _yOffset!: number;
 	protected _ratioValue!: number;
@@ -46,52 +49,65 @@ export abstract class DSlider<
 	protected init( options?: OPTIONS ) {
 		super.init( options );
 
+		this.prepareValues( options );
+		this.updateCoordinates();
+		this.appendChildToView();
+		this.initListeners();
+	}
+
+	protected prepareValues( options?: OPTIONS ): void {
 		this._ratioValue = DEFAULT_RATIO;
 
-		this._value = this.createValue();
+		this._value = this.createValue( options );
 		this._track = this.createTrack();
 		this._thumb = this.createThumb();
-		this._min = this.createMin();
-		this._max = this.createMax();
+		this._min = this.createMin( options );
+		this._max = this.createMax( options );
 
-		this._min.text = String(this._min.value);
-		this._max.text = String(this._max.value);
+		this._min.text = `${this._min.value}`;
+		this._max.text = `${this._max.value}`;
 
 		this._trackSelected = this.createTrackSelected();
 		this._trackSelected.setActive(true);
+	}
 
-		this.updateCoordinate();
-
+	protected appendChildToView() {
 		this.addChild(this._track);
 		this.addChild(this._trackSelected);
 		this.addChild(this._thumb);
 		this.addChild(this._min);
 		this.addChild(this._max);
+	}
 
+	protected initListeners() {
 		this._track.on( UtilPointerEvent.down, ( e: InteractionEvent) => {
 			if ( this._value ) {
 				this.addChild(this._value);
 			}
 			this.onTrackDown(e.data.global);
 		});
+
 		this._trackSelected.on( UtilPointerEvent.down, ( e: InteractionEvent) => {
 			if ( this._value ) {
 				this.addChild(this._value);
 			}
 			this.onTrackSelectedDown(e.data.global);
 		});
+
 		this._onTrackUp = ( e: InteractionEvent ): void => {
 			this.onTrackUp( e );
 			if ( this._value ) {
 				this.removeChild(this._value);
 			}
 		};
+
 		this._onTrackSelectedUp = ( e: InteractionEvent ): void => {
 			this.onTrackSelectedUp( e );
 			if ( this._value ) {
 				this.removeChild(this._value);
 			}
 		};
+
 		this._thumb.on(UtilPointerEvent.down, ( e: InteractionEvent ) => {
 			if (this._value) {
 				this.addChild(this._value);
@@ -102,24 +118,51 @@ export abstract class DSlider<
 		this._onThumbMoveBound = ( e: InteractionEvent ): void => {
 			this.onThumbMoveBound( e );
 		};
+
 		this._onThumbUpBound = ( e: InteractionEvent ): void => {
 			this.onThumbUpBound( e );
 			if (this._value) {
 				this.removeChild(this._value);
 			}
 		};
+	}
 
+	protected createValue( options?: OPTIONS ): DSliderValue {
+		if( options && options.value ) {
+			return new DSliderValue( options.value );
+		}
+		return new DSliderValue();
+	}
+
+	protected createMax(options?: OPTIONS): DSliderLabel {
+		let maxNumber: number = 1;
+		if( options && options.max && options.max.value ) {
+			maxNumber = options.max.value;
+		}
+		return new DSliderLabel({
+			value: maxNumber
+		});
+	}
+
+	protected createMin( options?: OPTIONS ): DSliderLabel {
+		let minNumber: number = 0;
+		if( options && options.min && options.min.value ) {
+			minNumber = options.min.value;
+		}
+		return new DSliderLabel({
+			value: minNumber
+		});
+	}
+
+	protected createThumb(): DSliderThumb {
+		return new DSliderThumb();
 	}
 
 	protected abstract createTrack(): DSliderTrack;
-	protected abstract createValue(): DSliderValue;
-	protected abstract createThumb(): DSliderThumb;
-	protected abstract createMax(): DSliderLabel;
-	protected abstract createMin(): DSliderLabel;
 	protected abstract createTrackSelected(): DSliderTrack;
-	protected abstract updateCoordinate(): void;
+	protected abstract updateCoordinates(): void;
 	protected abstract onPick( global: Point ): void;
-	abstract updateThumb(min: number, max: number, value: number): void;
+	protected abstract updateThumb(min: number, max: number, value: number): void;
 
 	protected onTrackDown( global: Point ) {
 		const layer = DApplications.getLayer( this );
@@ -177,10 +220,18 @@ export abstract class DSlider<
 		}
 	}
 
-	updateValue(min: number, max: number) {
+	protected updateValue(min: number, max: number) {
+		const roundNumber = this._value.roundNumber;
 		const value: number = min + this._ratioValue * (max - min);
-		this._value.value = Math.round(value);
-		this._value.text = String(this._value.value);
+		this._value.value = this.round( value, roundNumber );
+		this._value.text = this._value.value;
+	}
+
+	protected round(value: number, roundNumber: number): number {
+		if ( roundNumber > 0 ) {
+			return value = Math.round((value) * Math.pow(10, roundNumber)) / Math.pow(10, roundNumber);
+		}
+		return	value = Math.round((value));
 	}
 
 	get value(): number {
@@ -230,9 +281,7 @@ export abstract class DSlider<
 	}
 
 	protected getType(): string {
-
 		return "DSlider";
-
 	}
 
 }
