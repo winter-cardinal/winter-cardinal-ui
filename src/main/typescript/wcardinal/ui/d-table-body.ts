@@ -177,13 +177,13 @@ export class DTableBody<
 		let oldRowIndexMappedEnd = this._rowIndexMappedEnd;
 		let oldRowCount = oldRowIndexMappedEnd - oldRowIndexMappedStart;
 
-		const newHeight = dataMappedSize * rowHeight;
-
+		const y = this.transform.position.y;
+		const newHeight = y + dataMappedSize * rowHeight;
 		const newContentHeight = Math.max( height, newHeight );
 		const newContentY = Math.max( height - newContentHeight, content.position.y );
 
-		const newRowIndexMappedLowerBound = Math.floor( (0 - newContentY) / rowHeight );
-		const newRowIndexMappedUpperBound = Math.floor( (height - newContentY) / rowHeight );
+		const newRowIndexMappedLowerBound = Math.floor( (0 - (newContentY + y)) / rowHeight );
+		const newRowIndexMappedUpperBound = Math.floor( (height - (newContentY + y)) / rowHeight );
 		const newRowIndexMappedStart = newRowIndexMappedLowerBound - ( newRowIndexMappedLowerBound % 2 === 0 ? 2 : 1 );
 		let newRowIndexMappedEnd = newRowIndexMappedUpperBound +
 			((newRowIndexMappedUpperBound - newRowIndexMappedStart + 1) % 2 === 0 ? 3 : 2);
@@ -267,9 +267,11 @@ export class DTableBody<
 			row.unset();
 		}
 
+		this.lock();
 		content.position.y = newContentY;
 		content.height = newContentHeight;
 		this.height = newHeight;
+		this.unlock( false );
 	}
 
 	protected resetRow( row: DTableBodyRow<ROW> ): DTableBodyRow<ROW> {

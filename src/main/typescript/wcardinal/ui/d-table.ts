@@ -341,6 +341,14 @@ export class DTable<
 		body.update();
 	}
 
+	onResize( newWidth: number, newHeight: number, oldWidth: number, oldHeight: number ): void {
+		const body = this._body;
+		body.lock();
+		super.onResize( newWidth, newHeight, oldWidth, oldHeight );
+		body.update();
+		body.unlock( true );
+	}
+
 	protected hasCategories( columns: Array<DTableColumn<ROW>> ): boolean {
 		for( let i = 0, imax = columns.length; i < imax; ++i ) {
 			if( columns[ i ].category != null ) {
