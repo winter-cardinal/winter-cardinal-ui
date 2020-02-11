@@ -1,0 +1,61 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<th:block th:insert="fragment/common::#head"></th:block>
+</head>
+<body>
+	<th:block th:insert="fragment/common::#body"></th:block>
+	<script>
+	(function(){
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+
+		new wcardinal.ui.DLayoutVertical({
+			parent: application.stage,
+			x: 50, y: 50,
+			width: "100%-100", height: "100%-100",
+			children: [
+				new wcardinal.ui.DTable({
+					weight: 1,
+					width: "100%",
+					columns: [{
+						label: "A",
+						type: "TEXT",
+						editable: true
+					},{
+						label: "B",
+						type: "CHECK",
+						editable: true
+					},{
+						label: "C",
+						type: "SELECT",
+						editable: true
+					},{
+						label: "D",
+						type: "CHECK"
+					}],
+					data: {
+						rows: [{}],
+						selection: {
+							type: "NONE"
+						},
+						on: {
+							change: ( newValue, oldValue, row, rowIndex, columnIndex, data ) => {
+								console.log( newValue, oldValue, row, rowIndex, columnIndex, data );
+							}
+						}
+					}
+				})
+			]
+		});
+
+	}());
+	</script>
+</body>
+</html>
