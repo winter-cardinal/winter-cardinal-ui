@@ -15,6 +15,7 @@ import { DThemeDarkImage } from "./d-theme-dark-image";
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
 import { DTreeItemState } from '../../d-tree-item-state';
 import { UtilRgb } from "../../util/util-rgb";
+import { DThemeDarkLayoutHorizontal } from './d-theme-dark-layout-horizontal';
 
 DThemeDarkAtlas.add( "menu_item_expandable_header_closed", 14, 14,
 	`<g transform="scale(1, 0.7)">` +
@@ -28,7 +29,7 @@ DThemeDarkAtlas.add( "menu_item_expandable_header_opened", 14, 14,
 	`</g>`
 );
 
-export class DThemeDarkTreeItem extends DThemeDarkImage implements DThemeTreeItem {
+export class DThemeDarkTreeItem extends DThemeDarkLayoutHorizontal implements DThemeTreeItem {
 	COLOR = 0x383838;
 	COLOR_HOVERED = UtilRgb.darken( this.COLOR, DThemeDarkConstants.FOCUSED_ALPHA );
 	getBackgroundColor( state: DBaseState ): number | null {

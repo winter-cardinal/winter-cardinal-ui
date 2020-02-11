@@ -7,7 +7,6 @@ import { DTreeItemOptions, DTreeItem, DThemeTreeItem } from "./d-tree-item";
 import { DPaneOptions, DThemePane, DPane } from './d-pane';
 import { DBaseOptions } from './d-base';
 import { DContentOptions } from './d-content';
-import { UtilPointerEvent } from './util';
 import { DThemes } from './theme';
 
 export interface DTreeOptions <
@@ -25,7 +24,7 @@ interface MapDTreeItemOptions {
 }
 
 interface DTreeItemJsonData {
-	name: string,
+	text: string,
 	expanded ?: boolean,
 	children: Array <DTreeItemJsonData>
 }
@@ -113,7 +112,7 @@ export class DTree <
 					const treeItem = new DTreeItem(itemOptions)
 					content.addChild(treeItem)
 					//listen select item event
-					treeItem.on(UtilPointerEvent.down, (): void => {
+					treeItem.on("selected", (): void => {
 						this.emit("select", treeItem)
 						if (treeItem.isParent()) {
 							this.onToggle(itemOptions.itemPosition)
@@ -127,7 +126,7 @@ export class DTree <
 				}
 			}
 			for (let i = 0; i < items.length; i++) {
-				items[i] = items[i].updateItem(itemOptionsShown[i], this._selectedPosition)
+				items[i] = items[i].update(itemOptionsShown[i], this._selectedPosition)
 			}
 		}
 
@@ -161,27 +160,21 @@ export class DTree <
 						const itemPosition: number[] = parentPosition.concat([i])
 
 						//calculate padding value of item
-						let paddingValue: number = itemPosition.length * 25
+						let paddingValue: number = itemPosition.length * 15
 						const isParent: boolean = item.children && (item.children.length > 0)
-						paddingValue = isParent ? paddingValue - 20 : paddingValue
-						const itemName = item.name ? item.name : ""
+						const text = item.text ? item.text : ""
 
 						//set default expand status of item is false
 						if (item.expanded == undefined || item.expanded == null) {
 							item.expanded = false
 						}
-
 						let itemOptions : DTreeItemOptions= {
 							itemPosition: itemPosition,
-							text: {
-								value: itemName
-							},
+							text: text,
 							y: this._itemY,
 							isParent: isParent,
 							expanded: item.expanded,
-							padding: {
-								left: paddingValue
-							}
+							paddingLeft: paddingValue
 						}
 
 						const parentItemOptions = this._itemOptions[parentPosition.join('-')]
