@@ -58,16 +58,16 @@ export abstract class DSlider<
 	protected prepareValues( options?: OPTIONS ): void {
 		this._ratioValue = DEFAULT_RATIO;
 
-		this._value = this.createValue( options );
-		this._track = this.createTrack();
-		this._thumb = this.createThumb();
-		this._min = this.createMin( options );
-		this._max = this.createMax( options );
+		this._value = this.newValue( options );
+		this._track = this.newTrack();
+		this._thumb = this.newThumb();
+		this._min = this.newMin( options );
+		this._max = this.newMax( options );
 
 		this._min.text = `${this._min.value}`;
 		this._max.text = `${this._max.value}`;
 
-		this._trackSelected = this.createTrackSelected();
+		this._trackSelected = this.newTrackSelected();
 		this._trackSelected.setActive(true);
 	}
 
@@ -127,14 +127,14 @@ export abstract class DSlider<
 		};
 	}
 
-	protected createValue( options?: OPTIONS ): DSliderValue {
+	protected newValue( options?: OPTIONS ): DSliderValue {
 		if( options && options.value ) {
 			return new DSliderValue( options.value );
 		}
 		return new DSliderValue();
 	}
 
-	protected createMax(options?: OPTIONS): DSliderLabel {
+	protected newMax(options?: OPTIONS): DSliderLabel {
 		let maxNumber: number = 1;
 		if( options && options.max && options.max.value ) {
 			maxNumber = options.max.value;
@@ -144,7 +144,7 @@ export abstract class DSlider<
 		});
 	}
 
-	protected createMin( options?: OPTIONS ): DSliderLabel {
+	protected newMin( options?: OPTIONS ): DSliderLabel {
 		let minNumber: number = 0;
 		if( options && options.min && options.min.value ) {
 			minNumber = options.min.value;
@@ -154,12 +154,12 @@ export abstract class DSlider<
 		});
 	}
 
-	protected createThumb(): DSliderThumb {
+	protected newThumb(): DSliderThumb {
 		return new DSliderThumb();
 	}
 
-	protected abstract createTrack(): DSliderTrack;
-	protected abstract createTrackSelected(): DSliderTrack;
+	protected abstract newTrack(): DSliderTrack;
+	protected abstract newTrackSelected(): DSliderTrack;
 	protected abstract updateCoordinates(): void;
 	protected abstract onPick( global: Point ): void;
 	protected abstract updateThumb(min: number, max: number, value: number): void;
@@ -221,15 +221,15 @@ export abstract class DSlider<
 	}
 
 	protected updateValue(min: number, max: number) {
-		const roundNumber = this._value.roundNumber;
+		const precision = this._value.precision;
 		const value: number = min + this._ratioValue * (max - min);
-		this._value.value = this.round( value, roundNumber );
+		this._value.value = this.round( value, precision );
 		this._value.text = this._value.value;
 	}
 
-	protected round(value: number, roundNumber: number): number {
-		if ( roundNumber > 0 ) {
-			return value = Math.round((value) * Math.pow(10, roundNumber)) / Math.pow(10, roundNumber);
+	protected round(value: number, precision: number): number {
+		if ( precision > 0 ) {
+			return value = Math.round((value) * Math.pow(10, precision)) / Math.pow(10, precision);
 		}
 		return	value = Math.round((value));
 	}

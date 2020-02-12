@@ -108,7 +108,7 @@ export class DThemeWhiteSliderValue extends DThemeWhiteTextBase implements DThem
 		return 0;
 	}
 
-	getRoundNumber(): number {
+	getPrecision(): number {
 		return 0;
 	}
 }

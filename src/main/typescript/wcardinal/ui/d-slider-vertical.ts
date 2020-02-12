@@ -26,11 +26,11 @@ export class DSliderVertical<
 	OPTIONS extends DSliderVerticalOptions<THEME> = DSliderVerticalOptions<THEME>
 > extends DSlider<THEME, OPTIONS> {
 
-	protected createTrack(): DSliderTrack {
+	protected newTrack(): DSliderTrack {
 		return new DSliderTrackVertical();
 	}
 
-	protected createTrackSelected(): DSliderTrack {
+	protected newTrackSelected(): DSliderTrack {
 		return new DSliderTrackVertical();
 	}
 

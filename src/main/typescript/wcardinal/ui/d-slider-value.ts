@@ -10,21 +10,21 @@ export interface DSliderValueOptions<
 	VALUE = unknown,
 	THEME extends DThemeSliderValue = DThemeSliderValue
 > extends DTextBaseOptions<VALUE, THEME> {
-	roundNumber?: number;
+	precision?: number;
 }
 
 export interface DThemeSliderValue extends DThemeTextBase {
-	getRoundNumber(): number;
+	getPrecision(): number;
 }
 
-const toRoundNumber = <VALUE, THEME extends DThemeSliderValue>(
+const toPrecision = <VALUE, THEME extends DThemeSliderValue>(
 	theme: DThemeSliderValue,
 	options: DSliderValueOptions<VALUE, THEME> | undefined
 ): number => {
-	if( options && options.roundNumber ) {
-		return options.roundNumber;
+	if( options && options.precision ) {
+		return options.precision;
 	}
-	return theme.getRoundNumber();
+	return theme.getPrecision();
 };
 
 export class DSliderValue<
@@ -50,8 +50,8 @@ export class DSliderValue<
 		return this._value;
 	}
 
-	get roundNumber(): number {
-		return toRoundNumber(this.theme, this._options);
+	get precision(): number {
+		return toPrecision(this.theme, this._options);
 	}
 
 	protected getType(): string {

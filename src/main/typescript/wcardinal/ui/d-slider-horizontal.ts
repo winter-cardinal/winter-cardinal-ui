@@ -24,11 +24,11 @@ export class DSliderHorizontal<
 	OPTIONS extends DSliderHorizontalOptions<THEME> = DSliderHorizontalOptions<THEME>
 > extends DSlider<THEME, OPTIONS> {
 
-	protected createTrack(): DSliderTrack {
+	protected newTrack(): DSliderTrack {
 		return new DSliderTrackHorizontal();
 	}
 
-	protected createTrackSelected(): DSliderTrack {
+	protected newTrackSelected(): DSliderTrack {
 		return new DSliderTrackHorizontal();
 	}
 
