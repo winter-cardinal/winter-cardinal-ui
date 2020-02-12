@@ -7,6 +7,8 @@ import { DTreeItemState } from './d-tree-item-state';
 import { DLayoutHorizontalOptions, DThemeLayoutHorizontal, DLayoutHorizontal } from './d-layout-horizontal';
 import { DTreeItemText } from './d-Tree-item-text';
 import { DTreeItemToggleIcon} from './d-tree-item-toggle-icon';
+import { DTreeItemCheck } from './d-tree-item-check'
+import { DBaseState } from './d-base-state';
 
 export interface DTreeItemOptions <
 	THEME extends DThemeTreeItem = DThemeTreeItem >
@@ -14,9 +16,11 @@ export interface DTreeItemOptions <
 		text: string
 		isParent : boolean
 		expanded : boolean
+		check: boolean | null
 		itemPosition : number[]
 		y: number,
-		paddingLeft: number
+		paddingLeft: number,
+		showable ?: boolean
 	}
 
 export interface DThemeTreeItem extends DThemeLayoutHorizontal {
@@ -34,6 +38,7 @@ export class DTreeItem <
 		protected _itemPosition!: number[]
 		protected _treeItemText!: DTreeItemText
 		protected _treeItemToggleIcon !: DTreeItemToggleIcon
+		protected _treeItemCheck !: DTreeItemCheck
 
 		protected init(options ? : OPTIONS) {
 			super.init(options);
@@ -61,11 +66,21 @@ export class DTreeItem <
 					value: this._textValue
 				}
 			})
+
 			this._treeItemText.on(UtilPointerEvent.down, (): void => {
 				this.onSelect()
 			});
 
 			this.addChild(this._treeItemToggleIcon)
+
+			if (options && options.check != null && options.check != undefined) {
+				this._treeItemCheck = new DTreeItemCheck()
+				this._treeItemCheck.on(UtilPointerEvent.up, (): void => {
+					this.emit("check", this._treeItemCheck.isActive())
+				})
+				this.addChild(this._treeItemCheck)
+			}
+
 			this.addChild(this._treeItemText)
 		}
 
@@ -87,6 +102,10 @@ export class DTreeItem <
 				return this._isParent
 			}
 			return false
+		}
+
+		public getItemPosition(): number[] {
+			return this._itemPosition
 		}
 
 		public toggle(): void {
@@ -112,6 +131,9 @@ export class DTreeItem <
 				}
 				if(options.y != null) {
 					this.position.y = options.y
+				}
+				if(options.check != null && options.check != undefined) {
+					this._treeItemCheck.setActive(options.check)
 				}
 				this._isParent = !! (options.isParent)
 				this._isExpanded = !! (options.expanded)

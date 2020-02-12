@@ -64,6 +64,7 @@ export * from "./d-theme-white-tree";
 export * from "./d-theme-white-tree-item";
 export * from "./d-theme-white-tree-item-text";
 export * from "./d-theme-white-tree-item-toggle-icon";
+export * from "./d-theme-white-tree-item-check";
 export * from "./d-theme-white-dialog-select";
 export * from "./d-theme-white-dialog-time";
 export * from "./d-theme-white-dialog";

@@ -45,6 +45,7 @@
 				y: 100,
 				width: 500,
 				height: 600,
+				check: false,
 				on: {
 					select: (item) => {
 						console.log(item)
@@ -55,10 +56,10 @@
 					text: "item0",
 					children: [
 						{
-							text: "item0.0"
+							text: "item0.0",
 						},
 						{
-							text: "item0.1"
+							text: "item0.1",
 						},
 						{
 							text: "item0.2"
@@ -67,10 +68,11 @@
 							text: "item0.3",
 							children: [
 								{
-									text: "item0.3.0"
+									text: "item0.3.0",
 								},
 								{
 									text: "item0.3.1",
+									check: true,
 									children: [
 											{
 												text: "item0.3.1.0",
@@ -80,6 +82,7 @@
 														children: [
 															{
 																text: "item0.3.1.0.0.0",
+																check: false,
 																children: [
 																	{
 																		text: "item0.3.1.0.0.0.0"

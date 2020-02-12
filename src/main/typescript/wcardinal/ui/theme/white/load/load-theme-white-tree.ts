@@ -8,10 +8,13 @@ import { DThemeWhiteTree } from "../d-theme-white-tree";
 import { DThemeWhiteTreeItem } from "../d-theme-white-tree-item";
 import { DThemeWhiteTreeItemText } from "../d-theme-white-tree-item-text";
 import { DThemeWhiteTreeItemToggleIcon } from  "../d-theme-white-tree-item-toggle-icon";
+import { DThemeWhiteTreeItemCheck } from "../d-theme-white-tree-item-check"
 
 export const loadThemeWhiteTree = () => {
 	DThemeWhite.set( "DTreeItem", DThemeWhiteTreeItem );
 	DThemeWhite.set( "DTree", DThemeWhiteTree );
 	DThemeWhite.set( "DTreeItemText", DThemeWhiteTreeItemText);
 	DThemeWhite.set( "DTreeItemToggleIcon", DThemeWhiteTreeItemToggleIcon)
+	DThemeWhite.set( "DTreeItemCheck", DThemeWhiteTreeItemCheck)
+
 };
