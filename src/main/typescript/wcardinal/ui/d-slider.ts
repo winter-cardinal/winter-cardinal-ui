@@ -7,6 +7,7 @@ import { interaction, Point } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DSliderLabel, DSliderLabelOptions } from "./d-slider-label";
+import { DSliderSize } from "./d-slider-size";
 import { DSliderThumb } from "./d-slider-thumb";
 import { DSliderTrack } from "./d-slider-track";
 import { DSliderValue, DSliderValueOptions } from "./d-slider-value";
@@ -17,6 +18,7 @@ export interface DSliderOptions<THEME extends DThemeSlider> extends DBaseOptions
 	min?: DSliderLabelOptions;
 	max?: DSliderLabelOptions;
 	value?: DSliderValueOptions;
+	size?: DSliderSize;
 }
 
 export interface DThemeSlider extends DThemeBase {
@@ -41,6 +43,7 @@ export abstract class DSlider<
 	protected _ratioValue!: number;
 	protected _min!: DSliderLabel;
 	protected _max!: DSliderLabel;
+	protected _size!: DSliderSize;
 	protected _onThumbMoveBound!: ( e: InteractionEvent ) => void;
 	protected _onThumbUpBound!: ( e: InteractionEvent ) => void;
 	protected _onTrackUp!: ( e: InteractionEvent ) => void;
@@ -50,19 +53,21 @@ export abstract class DSlider<
 		super.init( options );
 
 		this.prepareValues( options );
+		this.assertSize( options );
 		this.updateCoordinates();
 		this.appendChildToView();
 		this.initListeners();
+		this.updateThumb(this._min.value, this._max.value, this._value.value);
 	}
 
 	protected prepareValues( options?: OPTIONS ): void {
 		this._ratioValue = DEFAULT_RATIO;
-
+		this._size = options && options.size || DSliderSize.MEDIUM;
 		this._value = this.newValue( options );
 		this._track = this.newTrack();
-		this._thumb = this.newThumb();
 		this._min = this.newMin( options );
 		this._max = this.newMax( options );
+		this._thumb = this.newThumb();
 
 		this._min.text = `${this._min.value}`;
 		this._max.text = `${this._max.value}`;
@@ -135,22 +140,22 @@ export abstract class DSlider<
 	}
 
 	protected newMax(options?: OPTIONS): DSliderLabel {
-		let maxNumber: number = 1;
+		let value: number = 1;
 		if( options && options.max && options.max.value ) {
-			maxNumber = options.max.value;
+			value = options.max.value;
 		}
 		return new DSliderLabel({
-			value: maxNumber
+			value
 		});
 	}
 
 	protected newMin( options?: OPTIONS ): DSliderLabel {
-		let minNumber: number = 0;
+		let value: number = 0;
 		if( options && options.min && options.min.value ) {
-			minNumber = options.min.value;
+			value = options.min.value;
 		}
 		return new DSliderLabel({
-			value: minNumber
+			value
 		});
 	}
 
@@ -163,6 +168,7 @@ export abstract class DSlider<
 	protected abstract updateCoordinates(): void;
 	protected abstract onPick( global: Point ): void;
 	protected abstract updateThumb(min: number, max: number, value: number): void;
+	protected abstract assertSize(options?: OPTIONS): void;
 
 	protected onTrackDown( global: Point ) {
 		const layer = DApplications.getLayer( this );
@@ -278,6 +284,10 @@ export abstract class DSlider<
 
 	get yOffset(): number {
 		return this._yOffset;
+	}
+
+	get size(): DSliderSize {
+		return this._size;
 	}
 
 	protected getType(): string {

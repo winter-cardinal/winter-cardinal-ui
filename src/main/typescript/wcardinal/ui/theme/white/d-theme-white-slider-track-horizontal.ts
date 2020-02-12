@@ -14,10 +14,6 @@ extends DThemeWhiteSliderTrack implements DThemeSliderTrackHorizontal {
 		return 5;
 	}
 
-	getWidth(): DCoordinateSize {
-		return 300;
-	}
-
 	getX(): DCoordinatePosition {
 		return 0;
 	}

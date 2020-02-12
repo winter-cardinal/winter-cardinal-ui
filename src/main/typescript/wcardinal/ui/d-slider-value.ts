@@ -10,6 +10,7 @@ export interface DSliderValueOptions<
 	VALUE = unknown,
 	THEME extends DThemeSliderValue = DThemeSliderValue
 > extends DTextBaseOptions<VALUE, THEME> {
+	value?: number;
 	precision?: number;
 }
 
@@ -39,7 +40,7 @@ export class DSliderValue<
 		super.init( options );
 		this.setState( DBaseState.UNFOCUSABLE, true );
 
-		this._value = 0;
+		this._value = options && options.value || 0;
 	}
 
 	set value(value: number) {
