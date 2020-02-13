@@ -199,6 +199,18 @@ npm run build
 ./gradlew copyJSToSampleDir
 ```
 
+#### Linting
+
+```shell
+npm run lint
+```
+
+To fix all the auto-fixable lint errors, do the following:
+
+```shell
+npm run lint:fix
+```
+
 ### License
 
 Apache License Version 2.0.

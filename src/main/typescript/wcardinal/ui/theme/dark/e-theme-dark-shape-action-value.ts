@@ -1,7 +1,7 @@
 import { EShapeActionValue, EThemeShapeActionValue } from "../../shape/action/e-shape-action-value";
 import { EShapeActionValueBase } from "../../shape/action/e-shape-action-value-base";
 import { EShapeActionValueBlinkType } from "../../shape/action/e-shape-action-value-blink-type";
-import { EShapeActionValueChangeColorTarget } from '../../shape/action/e-shape-action-value-change-color-target';
+import { EShapeActionValueChangeColorTarget } from "../../shape/action/e-shape-action-value-change-color-target";
 import { EShapeActionValueChangeColorType } from "../../shape/action/e-shape-action-value-change-color-type";
 import { EShapeActionValueChangeTextType } from "../../shape/action/e-shape-action-value-change-text-type";
 import { EShapeActionValueMiscType } from "../../shape/action/e-shape-action-value-misc-type";
