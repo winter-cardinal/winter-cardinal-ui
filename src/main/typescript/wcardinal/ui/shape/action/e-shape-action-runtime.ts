@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DApplications } from "../../d-applications";
+import { DCanvasContainer } from "../../d-canvas-container";
 import { EShape } from "../e-shape";
 import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
 
@@ -33,28 +33,15 @@ export class EShapeActionRuntime {
 		}
 	}
 
-	emit( name: string, shape: EShape, parameter1?: unknown, parameter2?: unknown ): void {
-		if( parameter1 === undefined ) {
-			shape.emit( name, shape );
-		} else if( parameter2 === undefined ) {
-			shape.emit( name, shape, parameter1 );
-		} else {
-			shape.emit( name, shape, parameter1, parameter2 );
-		}
-
-		const layer = DApplications.getLayer( shape );
-		if( layer ) {
-			const application = layer.application as any;
-			if( "shape" in application ) {
-				if( parameter1 === undefined ) {
-					application.shape.emit( name, shape );
-				} else if( parameter2 === undefined ) {
-					application.shape.emit( name, shape, parameter1 );
-				} else {
-					application.shape.emit( name, shape, parameter1, parameter2 );
-				}
+	protected toContainer( shape: EShape ): { shape: any } | null {
+		let current: { parent: any; } = shape;
+		while( current != null ) {
+			if( current instanceof DCanvasContainer ) {
+				return "shape" in current ? current : null;
 			}
+			current = current.parent;
 		}
+		return null;
 	}
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {

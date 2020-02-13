@@ -58,6 +58,7 @@ export abstract class DDiagramBase<
 			this.initialize( shapes );
 			canvas.initialize( shapes );
 			DApplications.update( this );
+			this.emit( "ready", this );
 		});
 		DDiagrams.applyBackground( serialized, canvas, this );
 		this.canvas = canvas;
