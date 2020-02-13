@@ -4,13 +4,13 @@
  */
 
 import { DSelectMultipleFormatter, DThemeSelectMultiple } from "../../d-select-multiple";
-import { DThemeDarkSelectBase } from "./d-theme-dark-select-base";
+import { DThemeDarkDropdown } from "./d-theme-dark-dropdown";
 
 const formatter = ( values: unknown[], texts: Array<string | null> ): string => {
 	return texts.join(", ");
 };
 
-export class DThemeDarkSelectMultiple extends DThemeDarkSelectBase implements DThemeSelectMultiple {
+export class DThemeDarkSelectMultiple extends DThemeDarkDropdown implements DThemeSelectMultiple {
 	getFormatter(): DSelectMultipleFormatter<unknown> {
 		return formatter;
 	}

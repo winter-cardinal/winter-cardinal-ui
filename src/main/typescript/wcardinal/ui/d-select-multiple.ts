@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DDropdown, DDropdownOptions, DThemeDropdown } from "./d-dropdown";
 import { DMenu } from "./d-menu";
 import { DMenuItem } from "./d-menu-item";
 import { DMenuItemCheck } from "./d-menu-item-check";
 import { DMenuItemMenu } from "./d-menu-item-menu";
-import { DSelectBase, DSelectBaseOptions, DThemeSelectBase } from "./d-select-base";
 
 export type DSelectMultipleFormatter<VALUE> = ( vales: VALUE[], texts: Array<string | null>, caller: any ) => string;
 
@@ -17,7 +17,7 @@ export type DSelectMultipleFormatter<VALUE> = ( vales: VALUE[], texts: Array<str
 export interface DSelectMultipleOptions<
 	VALUE = unknown,
 	THEME extends DThemeSelectMultiple = DThemeSelectMultiple
-> extends DSelectBaseOptions<VALUE, THEME> {
+> extends DDropdownOptions<VALUE, THEME> {
 	/**
 	 * A default values.
 	 */
@@ -29,7 +29,7 @@ export interface DSelectMultipleOptions<
 	formatter?: DSelectMultipleFormatter<VALUE>;
 }
 
-export interface DThemeSelectMultiple extends DThemeSelectBase {
+export interface DThemeSelectMultiple extends DThemeDropdown {
 	getFormatter(): DSelectMultipleFormatter<unknown>;
 }
 
@@ -37,7 +37,7 @@ export class DSelectMultiple<
 	VALUE = unknown,
 	THEME extends DThemeSelectMultiple = DThemeSelectMultiple,
 	OPTIONS extends DSelectMultipleOptions<VALUE, THEME> = DSelectMultipleOptions<VALUE, THEME>
-> extends DSelectBase<VALUE, THEME, OPTIONS> {
+> extends DDropdown<VALUE, THEME, OPTIONS> {
 	protected _values!: VALUE[];
 	protected _formatter!: DSelectMultipleFormatter<VALUE>;
 	protected _texts!: string[];

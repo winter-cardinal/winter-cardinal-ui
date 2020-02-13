@@ -4,13 +4,13 @@
  */
 
 import { DSelectFormatter, DThemeSelect } from "../../d-select";
-import { DThemeWhiteSelectBase } from "./d-theme-white-select-base";
+import { DThemeWhiteDropdown } from "./d-theme-white-dropdown";
 
 const formatter = ( value: unknown, text: string | null ): string => {
 	return text || "";
 };
 
-export class DThemeWhiteSelect extends DThemeWhiteSelectBase implements DThemeSelect {
+export class DThemeWhiteSelect extends DThemeWhiteDropdown implements DThemeSelect {
 	getFormatter(): DSelectFormatter<unknown> {
 		return formatter;
 	}

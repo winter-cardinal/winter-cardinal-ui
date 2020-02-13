@@ -7,18 +7,18 @@ import { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignWith } from "../../d-align-with";
 import { DBaseState } from "../../d-base-state";
-import { DThemeSelectBase } from "../../d-select-base";
+import { DThemeDropdown } from "../../d-dropdown";
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteButtonBase } from "./d-theme-white-button-base";
 
-DThemeWhiteAtlas.add( "select_mark", 20, 14,
+DThemeWhiteAtlas.add( "dropdown_mark", 20, 14,
 	`<g>` +
 		`<polyline fill="none" stroke="#fff" stroke-width="1" points="16 5 10 11 4 5"></polyline>` +
 	`</g>`
 );
 
-export class DThemeWhiteSelectBase extends DThemeWhiteButtonBase implements DThemeSelectBase {
+export class DThemeWhiteDropdown extends DThemeWhiteButtonBase implements DThemeDropdown {
 	getSecondaryImageAlignHorizontal(): DAlignHorizontal {
 		return DAlignHorizontal.RIGHT;
 	}
@@ -32,7 +32,7 @@ export class DThemeWhiteSelectBase extends DThemeWhiteButtonBase implements DThe
 	}
 
 	getSecondaryImageSource( state: DBaseState ): Texture | DisplayObject | null {
-		return DThemeWhiteAtlas.mappings.select_mark;
+		return DThemeWhiteAtlas.mappings.dropdown_mark;
 	}
 
 	newTextValue(): DStateAwareOrValueMightBe<string> {

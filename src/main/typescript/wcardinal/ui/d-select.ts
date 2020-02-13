@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DDropdown, DDropdownOptions, DThemeDropdown } from "./d-dropdown";
 import { DMenu } from "./d-menu";
 import { DMenuItem } from "./d-menu-item";
 import { DMenuItemMenu } from "./d-menu-item-menu";
-import { DSelectBase, DSelectBaseOptions, DThemeSelectBase } from "./d-select-base";
 
 export type DSelectFormatter<VALUE> = ( value: VALUE | null, text: string | null, caller: any ) => string;
 
@@ -16,7 +16,7 @@ export type DSelectFormatter<VALUE> = ( value: VALUE | null, text: string | null
 export interface DSelectOptions<
 	VALUE = unknown,
 	THEME extends DThemeSelect = DThemeSelect
-> extends DSelectBaseOptions<VALUE, THEME> {
+> extends DDropdownOptions<VALUE, THEME> {
 	/**
 	 * A default value.
 	 */
@@ -33,7 +33,7 @@ export interface DSelectOptions<
 	sync?: boolean;
 }
 
-export interface DThemeSelect extends DThemeSelectBase {
+export interface DThemeSelect extends DThemeDropdown {
 	getFormatter(): DSelectFormatter<unknown>;
 	isSyncEnabled(): boolean;
 }
@@ -42,7 +42,7 @@ export class DSelect<
 	VALUE = unknown,
 	THEME extends DThemeSelect = DThemeSelect,
 	OPTIONS extends DSelectOptions<VALUE, THEME> = DSelectOptions<VALUE, THEME>
-> extends DSelectBase<VALUE, THEME, OPTIONS> {
+> extends DDropdown<VALUE, THEME, OPTIONS> {
 	protected _value!: VALUE | null;
 	protected _formatter!: DSelectFormatter<VALUE>;
 	protected _onSelectedBound!: ( value: VALUE, child: DMenuItem<VALUE> ) => void;

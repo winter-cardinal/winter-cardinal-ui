@@ -11,11 +11,11 @@ import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { isString } from "./util/is-string";
 
 /**
- * DSelectBase options.
+ * Dropdown options.
  */
-export interface DSelectBaseOptions<
+export interface DDropdownOptions<
 	VALUE = unknown,
-	THEME extends DThemeSelectBase = DThemeSelectBase
+	THEME extends DThemeDropdown = DThemeDropdown
 > extends DButtonBaseOptions<string, THEME> {
 	/**
 	 * Menu options.
@@ -24,18 +24,18 @@ export interface DSelectBaseOptions<
 }
 
 /**
- * A DSelectBase theme.
+ * A dropdown theme.
  */
-export interface DThemeSelectBase extends DThemeButtonBase {
-	getTextFormatter(): ( value: string, caller: DSelectBase ) => string;
+export interface DThemeDropdown extends DThemeButtonBase {
+	getTextFormatter(): ( value: string, caller: DDropdown ) => string;
 	getTextValue( state: DBaseState ): string;
 	newTextValue(): DStateAwareOrValueMightBe<string>;
 }
 
-export class DSelectBase<
+export class DDropdown<
 	VALUE = unknown,
-	THEME extends DThemeSelectBase = DThemeSelectBase,
-	OPTIONS extends DSelectBaseOptions<VALUE, THEME> = DSelectBaseOptions<VALUE, THEME>
+	THEME extends DThemeDropdown = DThemeDropdown,
+	OPTIONS extends DDropdownOptions<VALUE, THEME> = DDropdownOptions<VALUE, THEME>
 > extends DButtonBase<string, THEME, OPTIONS> {
 	protected _menu!: DMenu<VALUE>;
 
@@ -87,7 +87,7 @@ export class DSelectBase<
 	}
 
 	protected getType(): string {
-		return "DSelectBase";
+		return "DDropdown";
 	}
 
 	start(): void {

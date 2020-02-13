@@ -5,11 +5,11 @@
 
 import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteSelect } from "../d-theme-white-select";
-import { DThemeWhiteSelectBase } from "../d-theme-white-select-base";
 import { DThemeWhiteSelectMultiple } from "../d-theme-white-select-multiple";
+import { loadThemeWhiteDropdown } from "./load-theme-white-dropdown";
 
 export const loadThemeWhiteSelect = () => {
-	DThemeWhite.set( "DSelectBase", DThemeWhiteSelectBase );
 	DThemeWhite.set( "DSelectMultiple", DThemeWhiteSelectMultiple );
 	DThemeWhite.set( "DSelect", DThemeWhiteSelect );
+	loadThemeWhiteDropdown();
 };
