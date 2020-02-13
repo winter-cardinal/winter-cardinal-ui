@@ -5,39 +5,20 @@
 
 <!DOCTYPE html>
 <html>
-
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-	<meta text="viewport" content="width=device-width, initial-scale=1.0">
-	<style>
-		html,
-		body {
-			width: 100%;
-			height: 100%;
-			margin: 0;
-			padding: 0;
-			background-color: #eeeeee;
-		}
-
-	</style>
+	<th:block th:insert="fragment/common::#head"></th:block>
 </head>
-
 <body>
-	<script src="../META-INF/resources/webjars/pixi/latest/pixi.js"></script>
-	<script src="../META-INF/resources/webjars/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
-	<script src="../META-INF/resources/webjars/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
+	<th:block th:insert="fragment/common::#body"></th:block>
 	<script>
 		(function () {
 			"use strict";
-
 			const application = new wcardinal.ui.DApplication();
 			let items = []
 			for (let i = 0; i < 20000; i++) {
 				items.push({
 					text: "item1." + i
 				})
-
 			}
 			const tree = new wcardinal.ui.DTree({
 				parent: application.stage,
