@@ -42,7 +42,6 @@ export * from "./load-theme-dark-dialog-save-as";
 export * from "./load-theme-dark-dialog-select";
 export * from "./load-theme-dark-dialog-time";
 export * from "./load-theme-dark-dialog";
-export * from "./load-theme-dark-dropdown";
 export * from "./load-theme-dark-expandable";
 export * from "./load-theme-dark-html-element";
 export * from "./load-theme-dark-image";

@@ -3,10 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeSelect } from "../../d-select";
-import { DThemeWhiteDropdown } from "./d-theme-white-dropdown";
+import { DSelectFormatter, DThemeSelect } from "../../d-select";
+import { DThemeWhiteSelectBase } from "./d-theme-white-select-base";
 
-export class DThemeWhiteSelect extends DThemeWhiteDropdown implements DThemeSelect {
+const formatter = ( value: unknown, text: string | null ): string => {
+	return text || "";
+};
+
+export class DThemeWhiteSelect extends DThemeWhiteSelectBase implements DThemeSelect {
+	getFormatter(): DSelectFormatter<unknown> {
+		return formatter;
+	}
+
 	isSyncEnabled(): boolean {
 		return true;
 	}

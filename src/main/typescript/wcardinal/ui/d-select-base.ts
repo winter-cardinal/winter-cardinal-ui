@@ -6,14 +6,16 @@
 import { DBaseState } from "./d-base-state";
 import { DButtonBase, DButtonBaseOptions, DThemeButtonBase } from "./d-button-base";
 import { DMenu, DMenuOptions, DThemeMenu } from "./d-menu";
+import { DMenuItem } from "./d-menu-item";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
+import { isString } from "./util/is-string";
 
 /**
- * Dropdown options.
+ * DSelectBase options.
  */
-export interface DDropdownOptions<
+export interface DSelectBaseOptions<
 	VALUE = unknown,
-	THEME extends DThemeDropdown = DThemeDropdown
+	THEME extends DThemeSelectBase = DThemeSelectBase
 > extends DButtonBaseOptions<string, THEME> {
 	/**
 	 * Menu options.
@@ -22,18 +24,18 @@ export interface DDropdownOptions<
 }
 
 /**
- * A dropdown theme.
+ * A DSelectBase theme.
  */
-export interface DThemeDropdown extends DThemeButtonBase {
-	getTextFormatter(): ( value: string, caller: DDropdown ) => string;
+export interface DThemeSelectBase extends DThemeButtonBase {
+	getTextFormatter(): ( value: string, caller: DSelectBase ) => string;
 	getTextValue( state: DBaseState ): string;
 	newTextValue(): DStateAwareOrValueMightBe<string>;
 }
 
-export class DDropdown<
+export class DSelectBase<
 	VALUE = unknown,
-	THEME extends DThemeDropdown = DThemeDropdown,
-	OPTIONS extends DDropdownOptions<VALUE, THEME> = DDropdownOptions<VALUE, THEME>
+	THEME extends DThemeSelectBase = DThemeSelectBase,
+	OPTIONS extends DSelectBaseOptions<VALUE, THEME> = DSelectBaseOptions<VALUE, THEME>
 > extends DButtonBase<string, THEME, OPTIONS> {
 	protected _menu!: DMenu<VALUE>;
 
@@ -48,6 +50,21 @@ export class DDropdown<
 	protected init( options?: OPTIONS ) {
 		super.init( options );
 		this._menu = this.toMenu( this.theme, options );
+	}
+
+	protected toItemText( item: DMenuItem<VALUE> | null ): string | null {
+		if( item ) {
+			const text = item.text;
+			if( isString( text ) ) {
+				return text;
+			} else if( text != null ) {
+				const computed = text( item.state );
+				if( computed != null ) {
+					return computed;
+				}
+			}
+		}
+		return null;
 	}
 
 	protected toMenu( theme: THEME, options?: OPTIONS ): DMenu<VALUE> {
@@ -70,7 +87,7 @@ export class DDropdown<
 	}
 
 	protected getType(): string {
-		return "DDropdown";
+		return "DSelectBase";
 	}
 
 	start(): void {

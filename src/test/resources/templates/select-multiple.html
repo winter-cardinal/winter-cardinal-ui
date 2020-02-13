@@ -1,0 +1,84 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<th:block th:insert="fragment/common::#head"></th:block>
+</head>
+<body>
+	<th:block th:insert="fragment/common::#body"></th:block>
+	<script>
+	(function(){
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+
+		new wcardinal.ui.DSelectMultiple({
+			parent: application.stage,
+			x: 100, y: 100,
+			width: 300,
+			menu: {
+				items: [{
+					value: 0,
+					text: {
+						value: "A"
+					},
+					check: true
+				},{
+					value: 1,
+					text: {
+						value: "B"
+					},
+					check: true
+				},{
+					value: 2,
+					text: {
+						value: "C"
+					},
+					check: true
+				}]
+			}
+		});
+
+		new wcardinal.ui.DSelectMultiple({
+			parent: application.stage,
+			x: 100, y: 250,
+			width: 300,
+			formatter: ( values, texts ) => {
+				return texts.map((t) => t.toLowerCase()).join(", ");
+			},
+			menu: {
+				items: [{
+					value: 0,
+					text: {
+						value: "A"
+					},
+					check: true
+				},{
+					value: 1,
+					text: {
+						value: "B"
+					},
+					check: true
+				},{
+					separator: true
+				},{
+					value: 2,
+					text: {
+						value: "C"
+					}
+				}]
+			},
+			on: {
+				select: ( a ) => {
+					console.log( a );
+				}
+			}
+		});
+	}());
+	</script>
+</body>
+</html>
