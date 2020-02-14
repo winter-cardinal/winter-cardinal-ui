@@ -42,7 +42,6 @@ export class DTableHeader<
 		this._table = options.table || null;
 		this._offset = this.transform.position.y = options.offset || 0;
 		this._frozen = options.frozen;
-
 		super.init( options );
 	}
 

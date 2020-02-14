@@ -17,6 +17,7 @@ export interface DTableCategoryColumn {
 export interface DTableCategoryOptions<
 	THEME extends DThemeTableCategory = DThemeTableCategory
 > extends DTableRowOptions<unknown, DTableCategoryColumn, THEME> {
+	offset?: number;
 	cell?: DTableCategoryCellOptions;
 }
 
@@ -28,17 +29,20 @@ export class DTableCategory<
 	THEME extends DThemeTableCategory = DThemeTableCategory,
 	OPTIONS extends DTableCategoryOptions<THEME> = DTableCategoryOptions<THEME>
 > extends DTableRow<unknown, DTableCategoryColumn, THEME, OPTIONS> {
+	protected _offset!: number;
+
 	constructor( options: OPTIONS ) {
 		super( options );
 	}
 
 	protected init( options: OPTIONS ) {
+		this._offset = this.transform.position.y = options.offset || 0;
 		super.init( options );
 	}
 
 	onParentMove( x: number, y: number ): void {
 		super.onParentMove( x, y );
-		this.transform.position.y = -y;
+		this.transform.position.y = -y + this._offset;
 		this.updateFrozenCellPosition( x );
 	}
 

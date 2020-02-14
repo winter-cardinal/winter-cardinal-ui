@@ -286,7 +286,7 @@ export class DTable<
 	CONTENT_OPTIONS extends DBaseOptions = DContentOptions,
 	OPTIONS extends DTableOptions<ROW, DATA, THEME, CONTENT_OPTIONS> = DTableOptions<ROW, DATA, THEME, CONTENT_OPTIONS>
 >  extends DPane<THEME, CONTENT_OPTIONS, OPTIONS> {
-	protected _category!: DTableCategory | null;
+	protected _categories!: DTableCategory[];
 	protected _header!: DTableHeader<ROW> | null;
 	protected _body!: DTableBody<ROW, DATA>;
 
@@ -302,11 +302,14 @@ export class DTable<
 		const frozen = toFrozen( columns );
 
 		// Categories
-		const category = this.newCategory( options, columns, frozen );
-		this._category = category;
+		const categories = this.newCategories( options, columns, frozen );
+		this._categories = categories;
 
 		// Header
-		const headerOffset = (category && category.height) || 0;
+		let headerOffset = 0;
+		for( let i = 0, imax = categories.length; i < imax; ++i ) {
+			headerOffset += categories[ i ].height;
+		}
 		const header = this.newHeader( options, columns, frozen, headerOffset );
 		this._header = header;
 
@@ -325,8 +328,8 @@ export class DTable<
 		if( header ) {
 			content.addChild( header );
 		}
-		if( category ) {
-			content.addChild( category );
+		for( let i = categories.length - 1; 0 <= i; --i ) {
+			content.addChild( categories[ i ] );
 		}
 		content.on( "move", (): void => {
 			body.update();
@@ -350,72 +353,186 @@ export class DTable<
 		body.unlock( true );
 	}
 
-	protected hasCategories( columns: Array<DTableColumn<ROW>> ): boolean {
+	protected getCategoryCount( columns: Array<DTableColumn<ROW>> ): number {
+		let result = 0;
 		for( let i = 0, imax = columns.length; i < imax; ++i ) {
-			if( columns[ i ].category != null ) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	protected toCategoryColumns( columns: Array<DTableColumn<ROW>>, frozen: number ): DTableCategoryColumn[] {
-		const result: DTableCategoryColumn[] = [];
-		let current: DTableCategoryColumn | null = null;
-		for( let i = 0, imax = columns.length; i < imax; ++i ) {
-			const column = columns[ i ];
-			if( i !== frozen && current && current.label === column.category ) {
-				if( current.weight != null && column.weight != null ) {
-					current.weight += column.weight;
-				} else if( current.width != null && column.width != null ) {
-					current.width += column.width;
-				} else {
-					current = {
-						label: column.category,
-						weight: column.weight,
-						width: column.width,
-						offset: 0.0
-					};
-					result.push( current );
-				}
-			} else {
-				current = {
-					label: column.category,
-					weight: column.weight,
-					width: column.width,
-					offset: 0.0
-				};
-				result.push( current );
+			const category = columns[ i ].category;
+			if( category != null ) {
+				const count = isString( category ) ? 1 : category.length;
+				result = Math.max( result, count );
 			}
 		}
 		return result;
 	}
 
-	protected newCategory( options: OPTIONS, columns: Array<DTableColumn<ROW>>, frozen: number ): DTableCategory | null {
-		if( this.hasCategories( columns ) ) {
-			return new DTableCategory( this.toCategoryOptions( options.category, columns, frozen ) );
+	protected toCategoryLabel( index: number, category: string | string[] | undefined ): string | undefined {
+		if( category ) {
+			if( isString( category ) ) {
+				if( index === 0 ) {
+					return category;
+				}
+			} else {
+				if( index < category.length ) {
+					return category[ index ];
+				}
+			}
 		}
-		return null;
+		return undefined;
+	}
+
+	protected isSameCategory(
+		index: number,
+		a: string | string[] | undefined,
+		b: string | string[] | undefined
+	): boolean {
+		if( a != null ) {
+			if( b != null ) {
+				if( isString( a ) ) {
+					if( isString( b ) ) {
+						if( 0 < index ) {
+							return true;
+						} else {
+							return a === b;
+						}
+					} else {
+						if( 0 < index ) {
+							return b.length <= index;
+						} else {
+							return b.length === 1 && a === b[ 0 ];
+						}
+					}
+				} else {
+					if( isString( b ) ) {
+						if( 0 < index ) {
+							return a.length <= index;
+						} else {
+							return a.length === 1 && a[ 0 ] === b;
+						}
+					} else {
+						if( a.length <= index && b.length <= index ) {
+							return true;
+						} else if( b.length === a.length ) {
+							for( let i = index, imax = a.length; i < imax; ++i ) {
+								if( a[ i ] !== b[ i ] ) {
+									return false;
+								}
+							}
+							return true;
+						}
+						return false;
+					}
+				}
+			} else {
+				if( isString( a ) ) {
+					if( 0 < index ) {
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					if( a.length <= index ) {
+						return true;
+					} else {
+						return false;
+					}
+				}
+			}
+		} else {
+			if( b != null ) {
+				if( isString( b ) ) {
+					if( 0 < index ) {
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					if( b.length <= index ) {
+						return true;
+					} else {
+						return false;
+					}
+				}
+			} else {
+				return true;
+			}
+		}
+	}
+
+	protected toCategoryColumns(
+		index: number,
+		columns: Array<DTableColumn<ROW>>,
+		frozen: number
+	): DTableCategoryColumn[] {
+		const result: DTableCategoryColumn[] = [];
+		let tcolumn: DTableColumn<ROW> | null = null;
+		let ccolumn: DTableCategoryColumn | null = null;
+		for( let i = 0, imax = columns.length; i < imax; ++i ) {
+			const column = columns[ i ];
+			if( i !== frozen && ccolumn && tcolumn && this.isSameCategory( index, tcolumn.category, column.category ) ) {
+				if( ccolumn.weight != null && column.weight != null ) {
+					ccolumn.weight += column.weight;
+				} else if( ccolumn.width != null && column.width != null ) {
+					ccolumn.width += column.width;
+				} else {
+					tcolumn = column;
+					ccolumn = {
+						label: this.toCategoryLabel( index, column.category ),
+						weight: column.weight,
+						width: column.width,
+						offset: 0.0
+					};
+					result.push( ccolumn );
+				}
+			} else {
+				tcolumn = column;
+				ccolumn = {
+					label: this.toCategoryLabel( index, column.category ),
+					weight: column.weight,
+					width: column.width,
+					offset: 0.0
+				};
+				result.push( ccolumn );
+			}
+		}
+		return result;
 	}
 
 	protected toCategoryOptions(
+		index: number,
 		options: DTableCategoryOptions | undefined,
 		columns: Array<DTableColumn<ROW>>,
-		frozen: number
+		frozen: number,
+		offset: number
 	): DTableCategoryOptions {
 		if( options ) {
 			if( options.columns === undefined ) {
-				options.columns = this.toCategoryColumns( columns, frozen );
+				options.columns = this.toCategoryColumns( index, columns, frozen );
 			}
 			if( options.frozen == null ) {
 				options.frozen = frozen;
 			}
+			if( options.offset == null ) {
+				options.offset = offset;
+			}
 			return options;
 		}
 		return {
-			columns: this.toCategoryColumns( columns, frozen ),
-			frozen
+			columns: this.toCategoryColumns( index, columns, frozen ),
+			frozen,
+			offset
 		};
+	}
+
+	protected newCategories( options: OPTIONS, columns: Array<DTableColumn<ROW>>, frozen: number ): DTableCategory[] {
+		const count = this.getCategoryCount( columns );
+		const result: DTableCategory[] = [];
+		let offset: number = 0;
+		for( let i = count - 1; 0 <= i; --i ) {
+			const category = new DTableCategory( this.toCategoryOptions( i, options.category, columns, frozen, offset ) );
+			result.push( category );
+			offset += category.height;
+		}
+		return result;
 	}
 
 	onDblClick( e: MouseEvent | TouchEvent, interactionManager: interaction.InteractionManager ): boolean {
@@ -565,8 +682,8 @@ export class DTable<
 		return "DTable";
 	}
 
-	get category(): DTableCategory | null {
-		return this._category;
+	get categories(): DTableCategory[] {
+		return this._categories;
 	}
 
 	get header(): DTableHeader<ROW> | null {

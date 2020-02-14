@@ -22,7 +22,8 @@
 			rows.push([
 				`A${i}`,
 				`B${i}`,
-				`C${i}`
+				`C${i}`,
+				`D${i}`
 			]);
 		}
 
@@ -34,13 +35,17 @@
 			columns: [{
 				label: "A",
 				type: "TEXT",
-				category: "Category"
+				category: "Category A"
 			},{
 				label: "B",
 				type: "TEXT",
-				category: "Category"
+				category: [ "Category B", "Category BC" ]
 			},{
 				label: "C",
+				type: "TEXT",
+				category: [ "Category C", "Category BC" ]
+			},{
+				label: "D",
 				type: "TEXT"
 			}],
 			data: rows

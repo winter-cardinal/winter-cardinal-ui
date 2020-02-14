@@ -128,7 +128,7 @@ export interface DTableColumnOptions<ROW> {
 
 	selecting?: DTableColumnSelectingOptions;
 
-	category?: string;
+	category?: string | string[];
 	frozen?: boolean;
 
 	link?: DTableBodyCellLinkLinkOptions<ROW>;
@@ -153,7 +153,7 @@ export interface DTableColumn<ROW> {
 
 	selecting: DTableColumnSelecting;
 
-	category?: string;
+	category?: string | string[];
 	frozen?: boolean;
 	offset: number;
 
