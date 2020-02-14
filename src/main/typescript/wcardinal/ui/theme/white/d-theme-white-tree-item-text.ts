@@ -45,7 +45,19 @@ export class DThemeWhiteTreeItemText extends DThemeWhiteImage implements DThemeT
 		return DCornerMask.ALL;
 	}
 
+	getImageTintColor( state: DBaseState ): number | null {
+		return null;
+	}
+
 	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
 		return null;
+	}
+
+	getImageWidth(): number | null {
+		return 20;
+	}
+
+	getImageHeight(): number | null {
+		return 20;
 	}
 }

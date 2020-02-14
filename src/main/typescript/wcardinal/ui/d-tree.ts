@@ -5,6 +5,7 @@
 
 import { DBaseOptions } from "./d-base";
 import { DContentOptions } from "./d-content";
+import { DisplayObject, Texture } from "pixi.js";
 import { DPane, DPaneOptions, DThemePane } from "./d-pane";
 import { DThemeTreeItem, DTreeItem, DTreeItemOptions } from "./d-tree-item";
 import { DThemes } from "./theme";
@@ -27,6 +28,7 @@ interface DTreeItemRawData {
 	text: string;
 	expanded?: boolean;
 	check?: boolean | null;
+	image?: DisplayObject | Texture | null;
 	children: DTreeItemRawData[];
 }
 
@@ -220,7 +222,7 @@ export class DTree <
 
 						let itemOptions = this._itemOptions[itemPositionStr];
 						let isItemExisted = false;
-
+						const itemImage = item.image ? item.image : null;
 						if(itemOptions != null) {
 							itemOptions.position = itemPosition;
 							itemOptions.text = text;
@@ -228,6 +230,7 @@ export class DTree <
 							itemOptions.isParent = isParent;
 							itemOptions.expanded = item.expanded;
 							itemOptions.check = item.check;
+							itemOptions.image = itemImage;
 							isItemExisted = true;
 						} else {
 							itemOptions = {
@@ -236,7 +239,8 @@ export class DTree <
 								y: this._itemY,
 								isParent,
 								expanded: item.expanded,
-								check: item.check
+								check: item.check,
+								image: itemImage
 							};
 						}
 

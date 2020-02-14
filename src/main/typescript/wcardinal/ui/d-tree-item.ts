@@ -20,6 +20,7 @@ export interface DTreeItemOptions <
 		position: number[];
 		y: number;
 		showable?: boolean;
+		image?: DisplayObject | Texture | null;
 	}
 
 export interface DThemeTreeItem extends DThemeLayoutHorizontal {
@@ -61,9 +62,13 @@ export class DTreeItem <
 				this.onSelect();
 			});
 			this.updateStates(false);
+			const imageSource = options && options.image ? options.image : null;
 			this._treeItemText = new DTreeItemText({
 				text: {
 					value: this._textValue
+				},
+				image: {
+					source: imageSource
 				}
 			});
 			this._treeItemText.on(UtilPointerEvent.down, (): void => {
@@ -130,6 +135,7 @@ export class DTreeItem <
 				if(options.check != null) {
 					this._treeItemCheck.setActive(options.check);
 				}
+				this._treeItemText.image = options.image;
 				this._isParent = !! (options.isParent);
 				this._isExpanded = !! (options.expanded);
 				const isActive = JSON.stringify(this._itemPosition) === JSON.stringify(selectedPosition);

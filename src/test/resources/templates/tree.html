@@ -14,12 +14,18 @@
 		(function () {
 			"use strict";
 			const application = new wcardinal.ui.DApplication();
+
+			const img_folder = PIXI.Texture.from('images/folder_black.png', {crossOrigin: 'anonymous'});
+			const img_file = PIXI.Texture.from('images/file_black.png', {crossOrigin: 'anonymous'});
+
 			let items = []
 			for (let i = 0; i < 20000; i++) {
 				items.push({
-					text: "item1." + i
+					text: "item1." + i,
+					image: img_file,
 				})
 			}
+
 			const tree = new wcardinal.ui.DTree({
 				parent: application.stage,
 				x: 100,
@@ -35,56 +41,72 @@
 				value: [
 					{
 					text: "item0",
+					image: img_folder,
 					children: [
 						{
 							text: "item0.0",
+							image: img_file,
 						},
 						{
 							text: "item0.1",
+							image: img_file,
 						},
 						{
-							text: "item0.2"
+							text: "item0.2",
+							image: img_file,
+
 						},
 						{
 							text: "item0.3",
+							image: img_folder,
 							children: [
 								{
 									text: "item0.3.0",
+									image: img_file,
 								},
 								{
 									text: "item0.3.1",
 									check: true,
+									image: img_folder,
 									children: [
 											{
 												text: "item0.3.1.0",
+												image: img_folder,
 												children: [
 													{
 														text: "item0.3.1.0.0",
+														image: img_folder,
 														children: [
 															{
 																text: "item0.3.1.0.0.0",
 																check: false,
+																image: img_folder,
 																children: [
 																	{
-																		text: "item0.3.1.0.0.0.0"
+																		text: "item0.3.1.0.0.0.0",
+																		image: img_file,
 																	},
 																	{
-																		text: "item0.3.1.0.0.0.1"
+																		text: "item0.3.1.0.0.0.1",
+																		image: img_file,
 																	},
 																]
 															},
 															{
-																text: "item0.3.1.0.0.1"
+																text: "item0.3.1.0.0.1",
+																image: img_file,
 															},
 														]
 													},
 													{
-														text: "item0.3.1.0.1"
+														text: "item0.3.1.0.1",
+														image: img_file,
 													},
 												]
 											},
 											{
-												text: "item0.3.1.1"
+												text: "item0.3.1.1",
+												image: img_file,
 											},
 										]
 								},
@@ -93,6 +115,7 @@
 					},
 					{
 					text: "item1",
+					image: img_folder,
 					children: items
 					},
 				]
