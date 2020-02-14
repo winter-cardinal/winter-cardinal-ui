@@ -33,10 +33,10 @@ export class DSliderHorizontal<
 		return new DSliderTrackHorizontal();
 	}
 
-	protected assertSize(options: OPTIONS): void {
+	protected assertSize( options: OPTIONS ): void {
 		if( options ) {
 			if( options.height ) {
-				this.setWidth(options.height);
+				this.setWidth( options.height );
 			} else if( options.size ) {
 				switch( options.size ) {
 					case DSliderSize.LARGE:
@@ -56,8 +56,8 @@ export class DSliderHorizontal<
 			this.setWidth( this.theme.getWidth() );
 		}
 
-		this.track.setWidth(this.width);
-		this.trackSelected.setWidth(this.track.width);
+		this.track.setWidth( this.width );
+		this.trackSelected.setWidth( this.track.width );
 	}
 
 	protected updateCoordinates(): void {
@@ -78,9 +78,9 @@ export class DSliderHorizontal<
 
 		// Calculate coordinate of max and min label
 		this._min.x = 0 - this._min.width;
-		this._min.y = this.yOffset - (this._min.height / 2 - this.track.height / 2);
+		this._min.y = this.yOffset - ( this._min.height / 2 - this.track.height / 2 );
 		this._max.x = this.width + HORIZONTAL_PIXEL_BALANCE;
-		this._max.y = this.yOffset - (this._min.height / 2 - this.track.height / 2);
+		this._max.y = this.yOffset - ( this._min.height / 2 - this.track.height / 2 );
 
 		// Calculate coordinate of Thumb
 		this._thumb.x = 0;
@@ -91,27 +91,27 @@ export class DSliderHorizontal<
 		const point = new Point(0, 0);
 		this.toLocal( global, undefined, point );
 		const x = Math.max( 0, Math.min( this._track.width, point.x ) );
-		this._thumb.x = this.toThumbCoordinate(x);
+		this._thumb.x = this.toThumbCoordinate( x );
 		this._ratioValue = x / this._track.width;
 		this._trackSelected.width = this._thumb.x;
 		this._value.x = this._thumb.x - this._offset;
-		this.updateValue(this._min.value, this._max.value);
+		this.updateValue( this._min.value, this._max.value );
 	}
 
-	protected updateThumb(min: number, max: number, value: number) {
-		this._ratioValue = (value - min) / (max - min);
+	protected updateThumb( min: number, max: number, value: number ) {
+		this._ratioValue = ( value - min ) / ( max - min );
 		const x =  this._ratioValue * this._track.width;
-		this._thumb.x = this.toThumbCoordinate(x);
+		this._thumb.x = this.toThumbCoordinate( x );
 		this._trackSelected.width = this._thumb.x;
 		this._value.x = this._thumb.x - this._offset;
 		this._value.value = value;
-		this._value.text = String(value);
+		this._value.text = value;
 	}
 
 	protected toThumbCoordinate(x: number): number {
 		if ( x < this._thumb.width / 2 ) {
 			return 0;
-		} else if (x > (this._track.width - this._thumb.width / 2)) {
+		} else if ( x > ( this._track.width - this._thumb.width / 2 ) ) {
 			return this._track.width - this._thumb.width;
 		} else {
 			return x - this._thumb.width / 2;

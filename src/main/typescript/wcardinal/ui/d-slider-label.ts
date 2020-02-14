@@ -31,7 +31,7 @@ export class DSliderLabel<
 		this._value = options && options.value || 0;
 	}
 
-	set value(value: number) {
+	set value( value: number ) {
 		this._value = value;
 	}
 

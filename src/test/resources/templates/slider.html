@@ -42,7 +42,11 @@
 				value: 1
 			},
 			value: {
-				precision: 2
+				width: 50,
+				precision: 2,
+				round: ( value ) => {
+					return value
+				}
 			},
 			size: "Large"
 		});
@@ -57,7 +61,9 @@
 				value: 1
 			},
 			value: {
-				precision: 2
+				round: ( value ) => {
+					return Math.round( ( value ) * Math.pow( 10, 3 ) ) / Math.pow( 10, 3 );
+				}
 			},
 			size: "Medium"
 		});

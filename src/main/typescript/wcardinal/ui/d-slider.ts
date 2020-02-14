@@ -25,10 +25,6 @@ export interface DThemeSlider extends DThemeBase {
 
 }
 
-// RATIO to calculate slider value from min, max values.
-// Default ratio is zero mean default slider value is zero
-const DEFAULT_RATIO = 0;
-
 export abstract class DSlider<
 	THEME extends DThemeSlider = DThemeSlider,
 	OPTIONS extends DSliderOptions<THEME> = DSliderOptions<THEME>
@@ -44,10 +40,10 @@ export abstract class DSlider<
 	protected _min!: DSliderLabel;
 	protected _max!: DSliderLabel;
 	protected _size!: DSliderSize;
-	protected _onThumbMoveBound!: ( e: InteractionEvent ) => void;
-	protected _onThumbUpBound!: ( e: InteractionEvent ) => void;
-	protected _onTrackUp!: ( e: InteractionEvent ) => void;
-	protected _onTrackSelectedUp!: ( e: InteractionEvent ) => void;
+	protected _onThumbMove!: ( e: InteractionEvent ) => void;
+	protected _onThumbUp!: ( e: InteractionEvent ) => void;
+	protected _onTrackUpBound!: ( e: InteractionEvent ) => void;
+	protected _onTrackSelectedUpBound!: ( e: InteractionEvent ) => void;
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
@@ -57,11 +53,11 @@ export abstract class DSlider<
 		this.updateCoordinates();
 		this.appendChildToView();
 		this.initListeners();
-		this.updateThumb(this._min.value, this._max.value, this._value.value);
+		this.updateThumb( this._min.value, this._max.value, this._value.value );
 	}
 
 	protected prepareValues( options?: OPTIONS ): void {
-		this._ratioValue = DEFAULT_RATIO;
+		this._ratioValue = 0;
 		this._size = options && options.size || DSliderSize.MEDIUM;
 		this._value = this.newValue( options );
 		this._track = this.newTrack();
@@ -73,89 +69,70 @@ export abstract class DSlider<
 		this._max.text = `${this._max.value}`;
 
 		this._trackSelected = this.newTrackSelected();
-		this._trackSelected.setActive(true);
+		this._trackSelected.setActive( true );
+		this._value.visible = false;
 	}
 
 	protected appendChildToView() {
-		this.addChild(this._track);
-		this.addChild(this._trackSelected);
-		this.addChild(this._thumb);
-		this.addChild(this._min);
-		this.addChild(this._max);
+		this.addChild( this._track );
+		this.addChild( this._trackSelected );
+		this.addChild( this._thumb );
+		this.addChild( this._min );
+		this.addChild( this._max );
+		this.addChild( this._value );
 	}
 
 	protected initListeners() {
 		this._track.on( UtilPointerEvent.down, ( e: InteractionEvent) => {
-			if ( this._value ) {
-				this.addChild(this._value);
-			}
-			this.onTrackDown(e.data.global);
+			this._value.visible = true;
+			this.onTrackDown( e.data.global );
 		});
 
 		this._trackSelected.on( UtilPointerEvent.down, ( e: InteractionEvent) => {
-			if ( this._value ) {
-				this.addChild(this._value);
-			}
-			this.onTrackSelectedDown(e.data.global);
+			this._value.visible = true;
+			this.onTrackSelectedDown( e.data.global );
 		});
 
-		this._onTrackUp = ( e: InteractionEvent ): void => {
-			this.onTrackUp( e );
-			if ( this._value ) {
-				this.removeChild(this._value);
-			}
+		this._onTrackUpBound = ( e: InteractionEvent ): void => {
+			this.onTrackUpBound( e );
+			this._value.visible = false;
 		};
 
-		this._onTrackSelectedUp = ( e: InteractionEvent ): void => {
-			this.onTrackSelectedUp( e );
-			if ( this._value ) {
-				this.removeChild(this._value);
-			}
+		this._onTrackSelectedUpBound = ( e: InteractionEvent ): void => {
+			this.onTrackSelectedUpBound( e );
+			this._value.visible = false;
 		};
 
-		this._thumb.on(UtilPointerEvent.down, ( e: InteractionEvent ) => {
-			if (this._value) {
-				this.addChild(this._value);
-			}
-			this.onThumbDownBound( e );
+		this._thumb.on( UtilPointerEvent.down, ( e: InteractionEvent ) => {
+			this._value.visible = true;
+			this.onThumbDown( e );
 		});
 
-		this._onThumbMoveBound = ( e: InteractionEvent ): void => {
-			this.onThumbMoveBound( e );
+		this._onThumbMove = ( e: InteractionEvent ): void => {
+			this.onThumbMove( e );
 		};
 
-		this._onThumbUpBound = ( e: InteractionEvent ): void => {
-			this.onThumbUpBound( e );
-			if (this._value) {
-				this.removeChild(this._value);
-			}
+		this._onThumbUp = ( e: InteractionEvent ): void => {
+			this.onThumbUp( e );
+			this._value.visible = false;
 		};
 	}
 
 	protected newValue( options?: OPTIONS ): DSliderValue {
-		if( options && options.value ) {
-			return new DSliderValue( options.value );
-		}
-		return new DSliderValue();
+		return new DSliderValue( options && options.value );
 	}
 
 	protected newMax(options?: OPTIONS): DSliderLabel {
-		let value: number = 1;
-		if( options && options.max && options.max.value ) {
-			value = options.max.value;
-		}
+		const max = options && options.max;
 		return new DSliderLabel({
-			value
+			value: ( max && max.value ) ?? 1
 		});
 	}
 
 	protected newMin( options?: OPTIONS ): DSliderLabel {
-		let value: number = 0;
-		if( options && options.min && options.min.value ) {
-			value = options.min.value;
-		}
+		const min = options && options.min;
 		return new DSliderLabel({
-			value
+			value: ( min && min.value ) ?? 0
 		});
 	}
 
@@ -167,14 +144,14 @@ export abstract class DSlider<
 	protected abstract newTrackSelected(): DSliderTrack;
 	protected abstract updateCoordinates(): void;
 	protected abstract onPick( global: Point ): void;
-	protected abstract updateThumb(min: number, max: number, value: number): void;
-	protected abstract assertSize(options?: OPTIONS): void;
+	protected abstract updateThumb( min: number, max: number, value: number ): void;
+	protected abstract assertSize( options?: OPTIONS ): void;
 
 	protected onTrackDown( global: Point ) {
 		const layer = DApplications.getLayer( this );
 		if ( layer ) {
 			const stage = layer.stage;
-			stage.on( UtilPointerEvent.up, this._onTrackUp );
+			stage.on( UtilPointerEvent.up, this._onTrackUpBound );
 		}
 		this.onPick( global );
 	}
@@ -183,61 +160,53 @@ export abstract class DSlider<
 		const layer = DApplications.getLayer( this );
 		if ( layer ) {
 			const stage = layer.stage;
-			stage.on( UtilPointerEvent.up, this._onTrackSelectedUp );
+			stage.on( UtilPointerEvent.up, this._onTrackSelectedUpBound );
 		}
 		this.onPick( global );
 	}
 
-	protected onTrackUp( e: InteractionEvent ): void {
+	protected onTrackUpBound( e: InteractionEvent ): void {
 		const layer = DApplications.getLayer( this );
 		if ( layer ) {
 			const stage = layer.stage;
-			stage.off( UtilPointerEvent.up, this._onTrackUp );
+			stage.off( UtilPointerEvent.up, this._onTrackUpBound );
 		}
 	}
 
-	protected onTrackSelectedUp( e: InteractionEvent ): void {
+	protected onTrackSelectedUpBound( e: InteractionEvent ): void {
 		const layer = DApplications.getLayer( this );
 		if ( layer ) {
 			const stage = layer.stage;
-			stage.off( UtilPointerEvent.up, this._onTrackSelectedUp );
+			stage.off( UtilPointerEvent.up, this._onTrackSelectedUpBound );
 		}
 	}
 
-	protected onThumbMoveBound( e: InteractionEvent ): void {
+	protected onThumbMove( e: InteractionEvent ): void {
 		this.onPick( e.data.global );
 	}
 
-	protected onThumbDownBound( e: InteractionEvent ): void {
+	protected onThumbDown( e: InteractionEvent ): void {
 		const layer = DApplications.getLayer( this );
 		if ( layer ) {
 			const stage = layer.stage;
-			stage.on( UtilPointerEvent.move, this._onThumbMoveBound );
-			stage.on( UtilPointerEvent.up, this._onThumbUpBound );
+			stage.on( UtilPointerEvent.move, this._onThumbMove );
+			stage.on( UtilPointerEvent.up, this._onThumbUp );
 		}
 	}
 
-	protected onThumbUpBound( e: InteractionEvent ): void {
+	protected onThumbUp( e: InteractionEvent ): void {
 		const layer = DApplications.getLayer( this );
 		if ( layer ) {
 			const stage = layer.stage;
-			stage.off( UtilPointerEvent.move, this._onThumbMoveBound );
-			stage.off( UtilPointerEvent.up, this._onThumbUpBound );
+			stage.off( UtilPointerEvent.move, this._onThumbMove );
+			stage.off( UtilPointerEvent.up, this._onThumbUp );
 		}
 	}
 
-	protected updateValue(min: number, max: number) {
-		const precision = this._value.precision;
-		const value: number = min + this._ratioValue * (max - min);
-		this._value.value = this.round( value, precision );
+	protected updateValue( min: number, max: number ) {
+		const value: number = min + this._ratioValue * ( max - min );
+		this._value.value = this._value.round( value );
 		this._value.text = this._value.value;
-	}
-
-	protected round(value: number, precision: number): number {
-		if ( precision > 0 ) {
-			return value = Math.round((value) * Math.pow(10, precision)) / Math.pow(10, precision);
-		}
-		return	value = Math.round((value));
 	}
 
 	get value(): number {
@@ -245,9 +214,7 @@ export abstract class DSlider<
 	}
 
 	set value( value: number ) {
-		if( this.min <= value  && value <= this.max) {
-			this._value.value = value;
-		}
+		this._value.value = Math.max( this._min.value, Math.min( this._max.value, value ) );
 	}
 
 	set min( min: number ) {
