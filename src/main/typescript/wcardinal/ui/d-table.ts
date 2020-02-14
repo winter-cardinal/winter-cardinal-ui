@@ -176,6 +176,7 @@ const toColumnSelecting = ( options: DTableColumnSelectingOptions | undefined ):
 		return {
 			getter: options.getter || defaultSelectingGetter,
 			menu: toColumnMenu( options.menu ),
+			multiple: toColumnMenu( options.multiple ),
 			dialog: toColumnDialog( options.dialog ),
 			promise: options.promise
 		};

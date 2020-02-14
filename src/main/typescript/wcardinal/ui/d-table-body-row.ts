@@ -20,6 +20,7 @@ import { DTableBodyCellInputText } from "./d-table-body-cell-input-text";
 import { DTableBodyCellLink } from "./d-table-body-cell-link";
 import { DTableBodyCellSelectDialog } from "./d-table-body-cell-select-dialog";
 import { DTableBodyCellSelectMenu } from "./d-table-body-cell-select-menu";
+import { DTableBodyCellSelectMultiple } from "./d-table-body-cell-select-multiple";
 import { DTableBodyCellSelectPromise } from "./d-table-body-cell-select-promise";
 import { DTableBodyCellText } from "./d-table-body-cell-text";
 import { DTableBodyCellTime } from "./d-table-body-cell-time";
@@ -167,6 +168,8 @@ export class DTableBodyRow<
 		const selecting = column.selecting;
 		if( selecting.menu != null ) {
 			return new DTableBodyCellSelectMenu( options );
+		} else if( selecting.multiple != null ) {
+			return new DTableBodyCellSelectMultiple( options );
 		} else if( selecting.dialog != null ) {
 			return new DTableBodyCellSelectDialog( options );
 		} else if( selecting.promise != null ) {
@@ -209,6 +212,9 @@ export class DTableBodyRow<
 			if( column.selecting.menu ) {
 				result.menu = column.selecting.menu;
 			}
+			if( column.selecting.multiple ) {
+				result.menu = column.selecting.menu;
+			}
 		} else {
 			result = {
 				weight: column.weight,
@@ -223,7 +229,7 @@ export class DTableBodyRow<
 					index: columnIndex,
 					data: column
 				},
-				menu: column.selecting.menu
+				menu: column.selecting.menu || column.selecting.multiple
 			};
 		}
 

@@ -21,6 +21,7 @@ import { DThemeWhiteTableBodyCellInputText } from "../d-theme-white-table-body-c
 import { DThemeWhiteTableBodyCellLink } from "../d-theme-white-table-body-cell-link";
 import { DThemeWhiteTableBodyCellSelectDialog } from "../d-theme-white-table-body-cell-select-dialog";
 import { DThemeWhiteTableBodyCellSelectMenu } from "../d-theme-white-table-body-cell-select-menu";
+import { DThemeWhiteTableBodyCellSelectMultiple } from "../d-theme-white-table-body-cell-select-multiple";
 import { DThemeWhiteTableBodyCellSelectPromise } from "../d-theme-white-table-body-cell-select-promise";
 import { DThemeWhiteTableBodyCellText } from "../d-theme-white-table-body-cell-text";
 import { DThemeWhiteTableBodyCellTime } from "../d-theme-white-table-body-cell-time";
@@ -56,6 +57,7 @@ export const loadThemeWhiteTable = () => {
 	DThemeWhite.set( "DTableBodyCellLink", DThemeWhiteTableBodyCellLink );
 	DThemeWhite.set( "DTableBodyCellSelectDialog", DThemeWhiteTableBodyCellSelectDialog );
 	DThemeWhite.set( "DTableBodyCellSelectMenu", DThemeWhiteTableBodyCellSelectMenu );
+	DThemeWhite.set( "DTableBodyCellSelectMultiple", DThemeWhiteTableBodyCellSelectMultiple );
 	DThemeWhite.set( "DTableBodyCellSelectPromise", DThemeWhiteTableBodyCellSelectPromise );
 	DThemeWhite.set( "DTableBodyCellText", DThemeWhiteTableBodyCellText );
 	DThemeWhite.set( "DTableBodyCellTime", DThemeWhiteTableBodyCellTime );

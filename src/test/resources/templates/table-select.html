@@ -23,6 +23,7 @@
 				"A" + i,
 				"B" + i,
 				"C" + (i % 2),
+				"D" + (i % 3)
 			]);
 		}
 
@@ -84,6 +85,34 @@
 								value: "C1"
 							},
 							value: "C1"
+						}],
+						fit: true
+					}
+				}
+			},{
+				label: "D",
+				type: "SELECT",
+				editable: true,
+				selecting: {
+					multiple: {
+						items: [{
+							text: {
+								value: "D0"
+							},
+							value: "D0",
+							check: true
+						}, {
+							text: {
+								value: "D1"
+							},
+							value: "D1",
+							check: true
+						}, {
+							text: {
+								value: "D2"
+							},
+							value: "D2",
+							check: true
 						}],
 						fit: true
 					}

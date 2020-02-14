@@ -18,6 +18,7 @@ import { DTableBodyCellInputTextOptions } from "./d-table-body-cell-input-text";
 import { DTableBodyCellLinkLinkOptions, DTableBodyCellLinkOptions } from "./d-table-body-cell-link";
 import { DTableBodyCellSelectDialogOptions } from "./d-table-body-cell-select-dialog";
 import { DTableBodyCellSelectMenuOptions } from "./d-table-body-cell-select-menu";
+import { DTableBodyCellSelectMultipleOptions } from "./d-table-body-cell-select-multiple";
 import { DTableBodyCellSelectPromiseOptions } from "./d-table-body-cell-select-promise";
 import { DTableBodyCellTextOptions } from "./d-table-body-cell-text";
 import { DTableBodyCellTimeOptions } from "./d-table-body-cell-time";
@@ -54,14 +55,14 @@ export type DTableBodyCellOptionsUnion<ROW> = DTableBodyCellTextOptions<ROW> | D
 	DTableBodyCellColorOptions<ROW> | DTableBodyCellCheckOptions<ROW> | DTableBodyCellSelectDialogOptions<ROW> |
 	DTableBodyCellSelectPromiseOptions<ROW> | DTableBodyCellSelectMenuOptions<ROW> | DTableBodyCellDateOptions<ROW> |
 	DTableBodyCellDatetimeOptions<ROW> | DTableBodyCellTimeOptions<ROW> | DTableBodyCellButtonOptions<ROW> |
-	DTableBodyCellLinkOptions<ROW>;
+	DTableBodyCellLinkOptions<ROW> | DTableBodyCellSelectMultipleOptions<ROW>;
 
 export type DTableBodyCellOptionsMerged<ROW> = DTableBodyCellTextOptions<ROW> & DTableBodyCellInputTextOptions<ROW> &
 	DTableBodyCellInputIntegerOptions<ROW> & DTableBodyCellInputRealOptions<ROW> & DTableBodyCellIndexOptions<ROW> &
 	DTableBodyCellColorOptions<ROW> & DTableBodyCellCheckOptions<ROW> & DTableBodyCellSelectDialogOptions<ROW> &
 	DTableBodyCellSelectPromiseOptions<ROW> & DTableBodyCellSelectMenuOptions<ROW> & DTableBodyCellDateOptions<ROW> &
 	DTableBodyCellDatetimeOptions<ROW> & DTableBodyCellTimeOptions<ROW> & DTableBodyCellButtonOptions<ROW> &
-	DTableBodyCellLinkOptions<ROW>;
+	DTableBodyCellLinkOptions<ROW> & DTableBodyCellSelectMenuOptions<ROW>;
 
 export interface DTableColumnEditingOptions {
 	enable?: boolean;
@@ -91,6 +92,7 @@ export interface DTableColumnSelectingOptions {
 	getter?: DTableSelectingGetter;
 
 	menu?: DMenuOptions<unknown> | DMenu<unknown>;
+	multiple?: DMenuOptions<unknown> | DMenu<unknown>;
 	dialog?: DDialogSelectOptions<unknown> | DDialogSelect<unknown>;
 	promise?: () => Promise<unknown>;
 }
@@ -99,6 +101,7 @@ export interface DTableColumnSelecting {
 	getter: DTableSelectingGetter;
 
 	menu?: DMenu<unknown>;
+	multiple?: DMenu<unknown>;
 	dialog?: DDialogSelect<unknown>;
 	promise?: () => Promise<unknown>;
 }
