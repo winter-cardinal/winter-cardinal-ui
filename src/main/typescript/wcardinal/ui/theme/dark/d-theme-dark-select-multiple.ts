@@ -3,15 +3,48 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DSelectMultipleFormatter, DThemeSelectMultiple } from "../../d-select-multiple";
-import { DThemeDarkDropdown } from "./d-theme-dark-dropdown";
+import { DBaseState } from "../../d-base-state";
+import { DMenuItem } from "../../d-menu-item";
+import { DThemeSelectMultiple } from "../../d-select-multiple";
+import { DStateAwareOrValueMightBe } from "../../d-state-aware";
+import { isString } from "../../util/is-string";
+import { DThemeDarkDropdownBase } from "./d-theme-dark-dropdown-base";
 
-const formatter = ( values: unknown[], texts: Array<string | null> ): string => {
-	return texts.join(", ");
+const formatter = ( values: Array<DMenuItem<any>> ): string => {
+	if( values ) {
+		let result = "";
+		let delimiter = "";
+		for( let i = 0, imax = values.length; i < imax; ++i ) {
+			const value = values[ i ];
+			const text = value.text;
+			if( isString( text ) ) {
+				result += delimiter + text;
+				delimiter = ", ";
+			} else if( text != null ) {
+				const computed = text( value.state );
+				if( computed != null ) {
+					result += delimiter + computed;
+					delimiter = ", ";
+				}
+			}
+		}
+		return result;
+	}
+	return "";
 };
 
-export class DThemeDarkSelectMultiple extends DThemeDarkDropdown implements DThemeSelectMultiple {
-	getFormatter(): DSelectMultipleFormatter<unknown> {
+export class DThemeDarkSelectMultiple extends DThemeDarkDropdownBase<Array<DMenuItem<any>>>
+	implements DThemeSelectMultiple {
+
+	newTextValue(): DStateAwareOrValueMightBe<Array<DMenuItem<any>>> {
+		return [];
+	}
+
+	getTextValue( state: DBaseState ): Array<DMenuItem<any>> {
+		return [];
+	}
+
+	getTextFormatter(): ( value: any, caller: any ) => string {
 		return formatter;
 	}
 }

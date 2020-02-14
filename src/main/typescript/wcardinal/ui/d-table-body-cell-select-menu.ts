@@ -64,11 +64,7 @@ export class DTableBodyCellSelectMenu<
 	set( value: unknown, row: ROW, rowIndex: number ): void {
 		this._row = row;
 		this._rowIndex = rowIndex;
-		if( this._isSyncEnabled ) {
-			this.value = value as VALUE;
-		} else {
-			this.text = String( value );
-		}
+		this.value = value as VALUE;
 	}
 
 	unset(): void {

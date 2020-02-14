@@ -3,12 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DDropdown, DDropdownOptions, DThemeDropdown } from "./d-dropdown";
+import { DDropdownBase, DDropdownBaseOptions, DThemeDropdownBase } from "./d-dropdown-base";
 import { DMenu } from "./d-menu";
 import { DMenuItem } from "./d-menu-item";
 import { DMenuItemMenu } from "./d-menu-item-menu";
-
-export type DSelectFormatter<VALUE> = ( value: VALUE | null, text: string | null, caller: any ) => string;
 
 /**
  * DSelect options.
@@ -16,38 +14,25 @@ export type DSelectFormatter<VALUE> = ( value: VALUE | null, text: string | null
 export interface DSelectOptions<
 	VALUE = unknown,
 	THEME extends DThemeSelect = DThemeSelect
-> extends DDropdownOptions<VALUE, THEME> {
+> extends DDropdownBaseOptions<VALUE, DMenuItem<VALUE> | null, THEME> {
 	/**
 	 * A default value.
 	 */
 	value?: VALUE;
-
-	/**
-	 * A value formatter.
-	 */
-	formatter?: DSelectFormatter<VALUE>;
-
-	/**
-	 * False to stop synchronizing the selected item text and the text.
-	 */
-	sync?: boolean;
 }
 
-export interface DThemeSelect extends DThemeDropdown {
-	getFormatter(): DSelectFormatter<unknown>;
-	isSyncEnabled(): boolean;
+export interface DThemeSelect extends DThemeDropdownBase<DMenuItem<any> | null> {
+
 }
 
 export class DSelect<
 	VALUE = unknown,
 	THEME extends DThemeSelect = DThemeSelect,
 	OPTIONS extends DSelectOptions<VALUE, THEME> = DSelectOptions<VALUE, THEME>
-> extends DDropdown<VALUE, THEME, OPTIONS> {
+> extends DDropdownBase<VALUE, DMenuItem<VALUE> | null, THEME, OPTIONS> {
 	protected _value!: VALUE | null;
-	protected _formatter!: DSelectFormatter<VALUE>;
 	protected _onSelectedBound!: ( value: VALUE, child: DMenuItem<VALUE> ) => void;
 	protected _onClosedBound!: () => void;
-	protected _isSyncEnabled!: boolean;
 
 	constructor( options?: OPTIONS ) {
 		super( options );
@@ -55,11 +40,6 @@ export class DSelect<
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
-
-		const theme = this.theme;
-		this._value = null;
-		this._formatter = this.toFormatter( theme, options );
-		this._isSyncEnabled = this.toSync( theme, options );
 
 		this._onSelectedBound = ( value: VALUE, child: DMenuItem<VALUE> ): void => {
 			this.onSelected( value, child, true );
@@ -69,29 +49,20 @@ export class DSelect<
 		};
 
 		// Default value
+		this._value = null;
 		if( options && options.value !== undefined ) {
 			this.value = options.value;
 		}
 	}
 
-	protected toFormatter( theme: THEME, options?: OPTIONS ): DSelectFormatter<VALUE> {
-		return ( options && options.formatter != null ? options.formatter : theme.getFormatter() );
-	}
-
-	protected toSync( theme: THEME, options?: OPTIONS ): boolean {
-		return ( options && options.sync != null ? options.sync : theme.isSyncEnabled() );
-	}
-
 	protected onSelected( newValue: VALUE | null, item: DMenuItem<VALUE> | null, emit: boolean ): void {
-		if( this._isSyncEnabled === false || this._value !== newValue ) {
+		if( this._value !== newValue ) {
 			// Value
 			const oldValue = this._value;
 			this._value = newValue;
 
 			// Text
-			if( this._isSyncEnabled ) {
-				this.text = this._formatter( newValue, this.toItemText( item ), this );
-			}
+			this.text = item;
 
 			// Event
 			if( emit ) {

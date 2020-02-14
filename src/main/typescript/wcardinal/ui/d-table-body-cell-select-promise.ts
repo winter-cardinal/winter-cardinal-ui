@@ -53,23 +53,29 @@ export class DTableBodyCellSelectPromise<
 			const getter = selecting.getter;
 			const onSelectBound = ( selected: unknown ): void => {
 				const newValue = getter( selected );
-				const oldValue = this.text;
-				if( newValue !== oldValue ) {
-					if( this._isSyncEnabled ) {
+				if( this._isSyncEnabled ) {
+					const oldValue = this.text;
+					if( newValue !== oldValue ) {
 						this.text = newValue as VALUE;
+						this.onCellChange( newValue, oldValue );
 					}
-					const row = this._row;
-					if( row !== undefined ) {
-						const rowIndex = this._rowIndex;
-						const columnIndex = this._columnIndex;
-						this._columnData.setter( row, columnIndex, newValue );
-						this.emit( "cellchange", newValue, oldValue, row, rowIndex, columnIndex, this );
-					}
+				} else {
+					this.onCellChange( newValue, null );
 				}
 			};
 			this.on( "active", (): void => {
 				promise().then( onSelectBound );
 			});
+		}
+	}
+
+	protected onCellChange( newValue: unknown, oldValue: unknown ): void {
+		const row = this._row;
+		if( row !== undefined ) {
+			const rowIndex = this._rowIndex;
+			const columnIndex = this._columnIndex;
+			this._columnData.setter( row, columnIndex, newValue );
+			this.emit( "cellchange", newValue, oldValue, row, rowIndex, columnIndex, this );
 		}
 	}
 

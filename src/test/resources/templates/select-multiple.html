@@ -47,8 +47,10 @@
 			parent: application.stage,
 			x: 100, y: 250,
 			width: 300,
-			formatter: ( values, texts ) => {
-				return texts.map((t) => t.toLowerCase()).join(", ");
+			text: {
+				formatter: ( items ) => {
+					return items.map(( item ) => item.text.toLowerCase() ).join(", ");
+				}
 			},
 			menu: {
 				items: [{
