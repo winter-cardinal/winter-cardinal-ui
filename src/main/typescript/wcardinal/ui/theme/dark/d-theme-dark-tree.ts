@@ -4,9 +4,10 @@
  */
 
 import { DBaseState } from "../../d-base-state";
-import { DThemeDarkPane } from './d-theme-dark-pane';
+import { DThemeTree } from "../../d-tree";
+import { DThemeDarkPane } from "./d-theme-dark-pane";
 
-export class DThemeDarkTree extends DThemeDarkPane {
+export class DThemeDarkTree extends DThemeDarkPane implements DThemeTree {
 	getBackgroundColor( state: DBaseState ): number | null {
 		return 0xffffff;
 	}

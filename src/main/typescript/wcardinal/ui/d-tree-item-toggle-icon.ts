@@ -17,7 +17,7 @@ export class DTreeItemToggleIcon <
 	>
 	extends DImage < string, THEME, OPTIONS > {
 
-		protected init(options ? : OPTIONS) {
+		protected init(options ?: OPTIONS) {
 			super.init(options);
 		}
 

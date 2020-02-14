@@ -4,9 +4,10 @@
  */
 
 import { DBaseState } from "../../d-base-state";
+import { DThemeTree } from "../../d-tree";
 import { DThemeWhitePane } from "./d-theme-white-pane";
 
-export class DThemeWhiteTree extends DThemeWhitePane {
+export class DThemeWhiteTree extends DThemeWhitePane implements DThemeTree {
 	getBackgroundColor( state: DBaseState ): number | null {
 		return 0xffffff;
 	}
@@ -14,4 +15,5 @@ export class DThemeWhiteTree extends DThemeWhitePane {
 	getBorderAlign( state: DBaseState ): number {
 		return 1;
 	}
+
 }

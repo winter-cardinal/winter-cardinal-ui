@@ -45,16 +45,16 @@ export class DChartSeriesLinear extends DChartSeriesBase {
 
 	bind( container: DChartSeriesContainer, index: number ): void {
 		let line = this._line;
-		// if( ! line ) {
-		// 	const stroke = this._stroke = container.newStroke( index, this._options?.stroke );
-		// 	line = this._line = new EShapeLine([], [], stroke.width, stroke.style);
-		// 	line.stroke.color = stroke.color;
-		// 	line.stroke.alpha = stroke.alpha;
-		// }
-		// line.attach( container.plotArea.container, index );
-		// this._parameters.toDirty();
-		// this._plotAreaSizeXUpdated = NaN;
-		// this._plotAreaSizeYUpdated = NaN;
+		if( ! line ) {
+			const stroke = this._stroke = container.newStroke( index, this._options?.stroke );
+			line = this._line = new EShapeLine([], [], stroke.width, stroke.style);
+			line.stroke.color = stroke.color;
+			line.stroke.alpha = stroke.alpha;
+		}
+		line.attach( container.plotArea.container, index );
+		this._parameters.toDirty();
+		this._plotAreaSizeXUpdated = NaN;
+		this._plotAreaSizeYUpdated = NaN;
 		super.bind( container, index );
 	}
 

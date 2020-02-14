@@ -18,7 +18,6 @@ import { loadThemeWhiteImage } from "./load-theme-white-image";
 import { loadThemeWhiteInputAll } from "./load-theme-white-input-all";
 import { loadThemeWhiteLayout } from "./load-theme-white-layout";
 import { loadThemeWhiteList } from "./load-theme-white-list";
-import { loadThemeWhiteTree } from "./load-theme-white-tree";
 import { loadThemeWhiteMenu } from "./load-theme-white-menu";
 import { loadThemeWhiteMenuBar } from "./load-theme-white-menu-bar";
 import { loadThemeWhiteMenuSided } from "./load-theme-white-menu-sided";
@@ -33,6 +32,7 @@ import { loadThemeWhiteSelect } from "./load-theme-white-select";
 import { loadThemeWhiteSlider } from "./load-theme-white-slider";
 import { loadThemeWhiteTable } from "./load-theme-white-table";
 import { loadThemeWhiteText } from "./load-theme-white-text";
+import { loadThemeWhiteTree } from "./load-theme-white-tree";
 import { loadThemeWhiteView } from "./load-theme-white-view";
 
 export const loadThemeWhiteAll = () => {

@@ -3,17 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "../../d-align-horizontal";
+import { DBaseState } from "../../d-base-state";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
 import { DThemeTreeItemText } from "../../d-Tree-item-text";
 import { DThemeWhiteImage } from "./d-theme-white-image";
-import { DBaseState } from "../../d-base-state";
 
 export class DThemeWhiteTreeItemText extends DThemeWhiteImage implements DThemeTreeItemText {
 
 	getBackgroundColor( state: DBaseState ): number | null {
-		return null
+		return null;
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
@@ -44,4 +45,7 @@ export class DThemeWhiteTreeItemText extends DThemeWhiteImage implements DThemeT
 		return DCornerMask.ALL;
 	}
 
+	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
+		return null;
+	}
 }

@@ -4,14 +4,14 @@
  */
 
 import { DAlignHorizontal } from "../../d-align-horizontal";
+import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
 import { DThemeTreeItem } from "../../d-Tree-item";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
-import { DThemeWhiteLayoutHorizontal } from './d-theme-white-layout-horizontal';
-import { DBaseInteractive } from '../../d-base-interactive';
+import { DThemeWhiteLayoutHorizontal } from "./d-theme-white-layout-horizontal";
 
 export class DThemeWhiteTreeItem extends DThemeWhiteLayoutHorizontal implements DThemeTreeItem {
 	getBackgroundColor( state: DBaseState ): number | null {
@@ -46,19 +46,15 @@ export class DThemeWhiteTreeItem extends DThemeWhiteLayoutHorizontal implements 
 		return DAlignHorizontal.LEFT;
 	}
 
-	getPaddingLeft(): number {
-		return 10;
-	}
-
-	getPaddingRight(): number {
-		return 10;
-	}
-
 	getCornerMask(): number {
 		return DCornerMask.ALL;
 	}
 
 	getInteractive(): DBaseInteractive {
 		return DBaseInteractive.BOTH;
+	}
+
+	getPaddingByLevel(level: number): number {
+		return level * 15;
 	}
 }

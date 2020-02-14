@@ -3,15 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "../../d-align-horizontal";
+import { DBaseState } from "../../d-base-state";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
+import { DTreeItemState } from "../../d-tree-item-state";
 import { DThemeTreeItemToggleIcon } from "../../d-tree-item-toggle-icon";
+import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteImage } from "./d-theme-white-image";
-import { DBaseState } from "../../d-base-state";
-import { DThemeWhiteAtlas } from './d-theme-white-atlas';
-import { Texture, DisplayObject } from 'pixi.js';
-import { DTreeItemState } from '../../d-tree-item-state';
 
 DThemeWhiteAtlas.add( "menu_item_expandable_header_closed", 14, 14,
 	`<g transform="scale(1, 0.7)">` +
@@ -28,7 +28,7 @@ DThemeWhiteAtlas.add( "menu_item_expandable_header_opened", 14, 14,
 export class DThemeWhiteTreeItemToggleIcon extends DThemeWhiteImage implements DThemeTreeItemToggleIcon {
 
 	getBackgroundColor( state: DBaseState ): number | null {
-		return null
+		return null;
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
@@ -61,13 +61,11 @@ export class DThemeWhiteTreeItemToggleIcon extends DThemeWhiteImage implements D
 
 	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
 
-		if (state & DTreeItemState.EXPAND) {
+		if (state & DTreeItemState.EXPANDED) {
 			return DThemeWhiteAtlas.mappings.menu_item_expandable_header_opened;
-		}
-		else if (state & DTreeItemState.COLLAPSE){
+		} else if (state & DTreeItemState.COLLAPSED) {
 			return DThemeWhiteAtlas.mappings.menu_item_expandable_header_closed;
-		}
-		else {
+		} else {
 			return null;
 		}
 	}

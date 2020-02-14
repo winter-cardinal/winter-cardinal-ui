@@ -6,8 +6,8 @@
 import { DBaseState } from "../../d-base-state";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
+import { DThemeTreeItemCheck } from "../../d-tree-item-check";
 import { DThemeWhiteButtonCheck } from "./d-theme-white-button-check";
-import { DThemeTreeItemCheck } from '../../d-tree-item-check';
 
 export class DThemeWhiteTreeItemCheck extends DThemeWhiteButtonCheck implements DThemeTreeItemCheck {
 	getBackgroundColor( state: DBaseState ): number | null {

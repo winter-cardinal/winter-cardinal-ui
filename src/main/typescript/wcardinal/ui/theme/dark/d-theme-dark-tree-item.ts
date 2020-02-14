@@ -10,12 +10,11 @@ import { DBaseStates } from "../../d-base-states";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
 import { DThemeTreeItem } from "../../d-Tree-item";
-import { DThemeDarkConstants } from "./d-theme-dark-constants";
-import { DThemeDarkImage } from "./d-theme-dark-image";
-import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
-import { DTreeItemState } from '../../d-tree-item-state';
+import { DTreeItemState } from "../../d-tree-item-state";
 import { UtilRgb } from "../../util/util-rgb";
-import { DThemeDarkLayoutHorizontal } from './d-theme-dark-layout-horizontal';
+import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
+import { DThemeDarkConstants } from "./d-theme-dark-constants";
+import { DThemeDarkLayoutHorizontal } from "./d-theme-dark-layout-horizontal";
 
 DThemeDarkAtlas.add( "menu_item_expandable_header_closed", 14, 14,
 	`<g transform="scale(1, 0.7)">` +
@@ -38,7 +37,7 @@ export class DThemeDarkTreeItem extends DThemeDarkLayoutHorizontal implements DT
 		} else if( DBaseStates.isActive( state ) ) {
 			return DThemeDarkConstants.HIGHLIGHT_COLOR;
 		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return this.COLOR_HOVERED
+			return this.COLOR_HOVERED;
 		} else {
 			return null;
 		}
@@ -78,14 +77,16 @@ export class DThemeDarkTreeItem extends DThemeDarkLayoutHorizontal implements DT
 
 	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
 
-		if (state & DTreeItemState.EXPAND) {
+		if (state & DTreeItemState.EXPANDED) {
 			return DThemeDarkAtlas.mappings.menu_item_expandable_header_closed;
-		}
-		else if (state & DTreeItemState.COLLAPSE){
+		} else if (state & DTreeItemState.COLLAPSED) {
 			return DThemeDarkAtlas.mappings.menu_item_expandable_header_opened;
-		}
-		else {
+		} else {
 			return null;
 		}
+	}
+
+	getPaddingByLevel(level: number): number {
+		return level * 15;
 	}
 }
