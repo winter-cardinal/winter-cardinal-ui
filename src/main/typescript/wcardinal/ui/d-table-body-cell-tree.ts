@@ -36,17 +36,24 @@ export class DTableBodyCellTree<
 	}
 
 	protected onActive( e: KeyboardEvent | interaction.InteractionEvent ): void {
-		const row = this.parent;
-		if( row ) {
-			const body = row.parent as any;
-			if( body ) {
-				const data = body.data;
-				if( data && data.toggle ) {
-					data.toggle( this._row );
+		this.emit( "active", this );
+		const row = this._row;
+		if( row !== undefined ) {
+			const rowIndex = this._rowIndex;
+			const columnIndex = this._columnIndex;
+			this.emit( "cellchange", null, null, row, rowIndex, columnIndex, this );
+
+			const parent = this.parent;
+			if( parent ) {
+				const body = parent.parent as any;
+				if( body ) {
+					const data = body.data;
+					if( data && data.toggle ) {
+						data.toggle( row );
+					}
 				}
 			}
 		}
-		super.onActive( e );
 	}
 
 	set(
