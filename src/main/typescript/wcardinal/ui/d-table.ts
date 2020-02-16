@@ -50,14 +50,46 @@ const defaultGetter: DTableGetter<any> = ( row: any, columnIndex: number ): unkn
 	return row[ columnIndex ];
 };
 
-const defaultGetterEmpty: DTableGetter<any> = (): string => "";
-
 const defaultSetter: DTableSetter<any> = ( row: any, columnIndex: number, cell: unknown ): void => {
 	row[ columnIndex ] = cell;
 };
 
+const defaultGetterEmpty: DTableGetter<any> = (): string => "";
+
 const defaultSetterEmpty: DTableSetter<any> = (): void => {
 	// DO NOTHING
+};
+
+const toPathGetter = ( path: string ): DTableGetter<any> => {
+	const parts = path.split( "." );
+	if( parts.length <= 1 ) {
+		return ( row: any ): unknown => {
+			return row[ path ];
+		};
+	} else {
+		return ( row: any ): unknown => {
+			for( let i = 0, imax = parts.length - 1; i < imax; ++i ) {
+				row = row[ parts[ i ] ];
+			}
+			return row[ parts[ parts.length - 1 ] ];
+		};
+	}
+};
+
+const toPathSetter = ( path: string ): DTableSetter<any> => {
+	const parts = path.split( "." );
+	if( parts.length <= 1 ) {
+		return ( row: any, columnIndex: number, cell: unknown ): void => {
+			row[ path ] = cell;
+		};
+	} else {
+		return ( row: any, columnIndex: number, cell: unknown ): void => {
+			for( let i = 0, imax = parts.length - 1; i < imax; ++i ) {
+				row = row[ parts[ i ] ] || {};
+			}
+			row[ parts[ parts.length - 1 ] ] = cell;
+		};
+	}
 };
 
 const defaultEditingUnformatter: DTableEditingUnformatter = ( cellValue: string ): unknown => {
@@ -199,7 +231,12 @@ const toColumnGetter = <ROW>(
 	case DTableColumnType.LINK:
 		return defaultGetterEmpty;
 	default:
-		return defaultGetter;
+		const path = options.path;
+		if( path == null ) {
+			return defaultGetter;
+		} else {
+			return toPathGetter( path );
+		}
 	}
 };
 
@@ -217,7 +254,12 @@ const toColumnSetter = <ROW>(
 	case DTableColumnType.LINK:
 		return defaultSetterEmpty;
 	default:
-		return defaultSetter;
+		const path = options.path;
+		if( path == null ) {
+			return defaultSetter;
+		} else {
+			return toPathSetter( path );
+		}
 	}
 };
 

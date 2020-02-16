@@ -74,7 +74,11 @@ export class DTableBodyCellColor<
 			( stateParent & DBaseState.HOVERED ? DBaseState.HOVERED : DBaseState.NONE );
 	}
 
-	set( newValue: unknown, row: ROW, rowIndex: number ): void {
+	set(
+		newValue: unknown, row: ROW, supplimental: unknown,
+		rowIndex: number, columnIndex: number,
+		forcibly?: boolean
+	): void {
 		this._row = row;
 		this._rowIndex = rowIndex;
 		const value = this._value;

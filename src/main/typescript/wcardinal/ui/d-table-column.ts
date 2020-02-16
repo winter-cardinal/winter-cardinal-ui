@@ -22,6 +22,7 @@ import { DTableBodyCellSelectMultipleOptions } from "./d-table-body-cell-select-
 import { DTableBodyCellSelectPromiseOptions } from "./d-table-body-cell-select-promise";
 import { DTableBodyCellTextOptions } from "./d-table-body-cell-text";
 import { DTableBodyCellTimeOptions } from "./d-table-body-cell-time";
+import { DTableBodyCellTreeOptions } from "./d-table-body-cell-tree";
 import { DTableDataComparatorFunction, DTableDataComparatorObject } from "./d-table-data-sorter";
 import { DTableHeaderCellOptions } from "./d-table-header-cell";
 
@@ -39,7 +40,8 @@ export enum DTableColumnType {
 	DATETIME,
 	TIME,
 	ACTION,
-	LINK
+	LINK,
+	TREE
 }
 
 export type DTableGetter<ROW> = ( row: ROW, columnIndex: number ) => unknown;
@@ -55,14 +57,14 @@ export type DTableBodyCellOptionsUnion<ROW> = DTableBodyCellTextOptions<ROW> | D
 	DTableBodyCellColorOptions<ROW> | DTableBodyCellCheckOptions<ROW> | DTableBodyCellSelectDialogOptions<ROW> |
 	DTableBodyCellSelectPromiseOptions<ROW> | DTableBodyCellSelectMenuOptions<ROW> | DTableBodyCellDateOptions<ROW> |
 	DTableBodyCellDatetimeOptions<ROW> | DTableBodyCellTimeOptions<ROW> | DTableBodyCellButtonOptions<ROW> |
-	DTableBodyCellLinkOptions<ROW> | DTableBodyCellSelectMultipleOptions<ROW>;
+	DTableBodyCellLinkOptions<ROW> | DTableBodyCellSelectMultipleOptions<ROW> | DTableBodyCellTreeOptions<ROW>;
 
 export type DTableBodyCellOptionsMerged<ROW> = DTableBodyCellTextOptions<ROW> & DTableBodyCellInputTextOptions<ROW> &
 	DTableBodyCellInputIntegerOptions<ROW> & DTableBodyCellInputRealOptions<ROW> & DTableBodyCellIndexOptions<ROW> &
 	DTableBodyCellColorOptions<ROW> & DTableBodyCellCheckOptions<ROW> & DTableBodyCellSelectDialogOptions<ROW> &
 	DTableBodyCellSelectPromiseOptions<ROW> & DTableBodyCellSelectMenuOptions<ROW> & DTableBodyCellDateOptions<ROW> &
 	DTableBodyCellDatetimeOptions<ROW> & DTableBodyCellTimeOptions<ROW> & DTableBodyCellButtonOptions<ROW> &
-	DTableBodyCellLinkOptions<ROW> & DTableBodyCellSelectMenuOptions<ROW>;
+	DTableBodyCellLinkOptions<ROW> & DTableBodyCellSelectMenuOptions<ROW> & DTableBodyCellTreeOptions<ROW>;
 
 export interface DTableColumnEditingOptions {
 	enable?: boolean;
@@ -114,6 +116,7 @@ export interface DTableColumnOptions<ROW> {
 	label?: string;
 	getter?: DTableGetter<ROW>;
 	setter?: DTableSetter<ROW>;
+	path?: string;
 	formatter?: DTableFormatter;
 	align?: (keyof typeof DAlignHorizontal) | DAlignHorizontal;
 

@@ -10,13 +10,14 @@ import { DBaseState } from "./d-base-state";
 import { DDynamicText } from "./d-dynamic-text";
 import { DHtmlElementWhen } from "./d-html-element-when";
 import { DImageBase, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
+import { DPadding } from "./d-padding";
 import { isString } from "./util/is-string";
 
 export type DHtmlElementElementCreator<T> = ( parent: HTMLElement ) => T;
 
 export type DHtmlElementStyle<THEME extends DThemeHtmlElement> = (
 	target: HTMLElement,
-	state: DBaseState, theme: THEME,
+	state: DBaseState, theme: THEME, padding: DPadding,
 	elementRect: Rectangle, clipperRect: Rectangle
 ) => void;
 
@@ -64,12 +65,12 @@ export interface DThemeHtmlElement<
 > extends DThemeImageBase {
 	getElementCreator(): DHtmlElementElementCreator<ELEMENT> | null;
 	setElementStyle(
-		target: ELEMENT, state: DBaseState,
+		target: ELEMENT, state: DBaseState, padding: DPadding,
 		elementRect: Rectangle, clipperRect: Rectangle
 	): void;
 	getClipperCreator(): DHtmlElementElementCreator<HTMLDivElement> | null;
 	setClipperStyle(
-		target: HTMLDivElement, state: DBaseState,
+		target: HTMLDivElement, state: DBaseState, padding: DPadding,
 		elementRect: Rectangle, clipperRect: Rectangle
 	): void;
 	getBeforeCreator(): DHtmlElementElementCreator<HTMLDivElement> | null;
@@ -239,8 +240,9 @@ export class DHtmlElement<
 					const clipperRect = this.getClipperRect( elementRect, resolution );
 					const theme = this.theme;
 					const state = this.state;
-					this.setClipperStyle( clipper, state, theme, elementRect, clipperRect );
-					this.setElementStyle( element, state, theme, elementRect, clipperRect );
+					const padding = this._padding;
+					this.setClipperStyle( clipper, state, theme, padding, elementRect, clipperRect );
+					this.setElementStyle( element, state, theme, padding, elementRect, clipperRect );
 					if( before ) {
 						this.setBeforeStyle( before, theme );
 					}
@@ -474,27 +476,27 @@ export class DHtmlElement<
 
 	protected setElementStyle(
 		target: ELEMENT,
-		state: DBaseState, theme: THEME,
+		state: DBaseState, theme: THEME, padding: DPadding,
 		elementRect: Rectangle, clipperRect: Rectangle
 	): void {
 		const style = this._elementStyle;
 		if( style ) {
-			return style( target, state, theme, elementRect, clipperRect );
+			return style( target, state, theme, padding, elementRect, clipperRect );
 		} else {
-			return this.theme.setElementStyle( target, state, elementRect, clipperRect );
+			return this.theme.setElementStyle( target, state, padding, elementRect, clipperRect );
 		}
 	}
 
 	protected setClipperStyle(
 		target: HTMLDivElement,
-		state: DBaseState, theme: THEME,
+		state: DBaseState, theme: THEME, padding: DPadding,
 		elementRect: Rectangle, clipperRect: Rectangle
 	): void {
 		const style = this._clipperStyle;
 		if( style ) {
-			return style( target, state, theme, elementRect, clipperRect );
+			return style( target, state, theme, padding, elementRect, clipperRect );
 		} else {
-			return this.theme.setClipperStyle( target, state, elementRect, clipperRect );
+			return this.theme.setClipperStyle( target, state, padding, elementRect, clipperRect );
 		}
 	}
 
@@ -582,8 +584,9 @@ export class DHtmlElement<
 					const clipperRect = this.getClipperRect( elementRect, resolution );
 					const theme = this.theme;
 					const state = this.state;
-					this.setClipperStyle( clipper, state, theme, elementRect, clipperRect );
-					this.setElementStyle( element, state, theme, elementRect, clipperRect );
+					const padding = this._padding;
+					this.setClipperStyle( clipper, state, theme, padding, elementRect, clipperRect );
+					this.setElementStyle( element, state, theme, padding, elementRect, clipperRect );
 				}
 			} else {
 				this.cancel();

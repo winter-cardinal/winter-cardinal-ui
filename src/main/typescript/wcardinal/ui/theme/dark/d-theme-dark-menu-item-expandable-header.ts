@@ -8,20 +8,10 @@ import { DAlignWith } from "../../d-align-with";
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { DThemeMenuItemExpandableHeader } from "../../d-menu-item-expandable-header";
-import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
+import { DThemeDarkExpandables } from "./d-theme-dark-expandables";
 import { DThemeDarkListItem } from "./d-theme-dark-list-item";
 
-DThemeDarkAtlas.add( "menu_item_expandable_header_closed", 14, 14,
-	`<g transform="scale(1, 0.7)">` +
-		`<polyline fill="none" stroke="#fff" stroke-width="1" points="6 16 10 10 6 4"></polyline>` +
-	`</g>`
-);
-
-DThemeDarkAtlas.add( "menu_item_expandable_header_opened", 14, 14,
-	`<g transform="scale(0.7, 1)">` +
-		`<polyline fill="none" stroke="#fff" stroke-width="1" points="16 6 10 10 4 6"></polyline>` +
-	`</g>`
-);
+DThemeDarkExpandables.init();
 
 export class DThemeDarkMenuItemExpandableHeader extends DThemeDarkListItem implements DThemeMenuItemExpandableHeader {
 	getPaddingLeft(): number {
@@ -34,9 +24,9 @@ export class DThemeDarkMenuItemExpandableHeader extends DThemeDarkListItem imple
 
 	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
 		if( DBaseStates.isActiveIn( state ) ) {
-			return DThemeDarkAtlas.mappings.menu_item_expandable_header_opened;
+			return DThemeDarkExpandables.getImageOpened();
 		}
-		return DThemeDarkAtlas.mappings.menu_item_expandable_header_closed;
+		return DThemeDarkExpandables.getImageClosed();
 	}
 
 	getImageAlignWith(): DAlignWith {

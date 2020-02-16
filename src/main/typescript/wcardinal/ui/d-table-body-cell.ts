@@ -15,6 +15,10 @@ export interface DTableBodyCellOptions<ROW> {
 }
 
 export interface DTableBodyCell<ROW> {
-	set( value: unknown, row: ROW, rowIndex: number, columnIndex: number, forcibly?: boolean ): void;
+	set(
+		value: unknown, row: ROW, supplimental: unknown,
+		rowIndex: number, columnIndex: number,
+		forcibly?: boolean
+	): void;
 	unset(): void;
 }

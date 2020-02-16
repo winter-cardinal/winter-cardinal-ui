@@ -1,13 +1,14 @@
 import { DTableData, DTableDataMapped, DTableDataMappedEachIterator } from "./d-table-data";
 
-export interface DTableDataMappedListParent<ROW> extends DTableData<ROW> {
+export interface DTableDataListMappedParent<ROW> extends DTableData<ROW> {
 	readonly rows: ROW[];
+	readonly supplimentals?: unknown[];
 }
 
-export class DTableDataMappedList<ROW> implements DTableDataMapped<ROW> {
-	protected _parent: DTableDataMappedListParent<ROW>;
+export class DTableDataListMapped<ROW> implements DTableDataMapped<ROW> {
+	protected _parent: DTableDataListMappedParent<ROW>;
 
-	constructor( parent: DTableDataMappedListParent<ROW> ) {
+	constructor( parent: DTableDataListMappedParent<ROW> ) {
 		this._parent = parent;
 	}
 
@@ -42,6 +43,7 @@ export class DTableDataMappedList<ROW> implements DTableDataMapped<ROW> {
 	each( iterator: DTableDataMappedEachIterator<ROW>, ifrom?: number, ito?: number ): void {
 		const parent = this._parent;
 		const rows = parent.rows;
+		const supplimentals = parent.supplimentals;
 		const indicesFiltered = parent.filter.indices;
 		const indicesSorted = parent.sorter.indices;
 		ifrom = ( ifrom != null ? Math.max( 0, ifrom ) : 0 );
@@ -52,7 +54,8 @@ export class DTableDataMappedList<ROW> implements DTableDataMapped<ROW> {
 				for( let i = ifrom; i < ito; ++i ) {
 					const unmappedIndex = indicesFiltered[ indicesSorted[ i ] ];
 					const row = rows[ unmappedIndex ];
-					if( iterator( row, i, unmappedIndex ) === false ) {
+					const supplimental = ( supplimentals ? supplimentals[ unmappedIndex ] : null );
+					if( iterator( row, supplimental, i, unmappedIndex ) === false ) {
 						break;
 					}
 				}
@@ -60,7 +63,8 @@ export class DTableDataMappedList<ROW> implements DTableDataMapped<ROW> {
 				for( let i = ifrom; i < ito; ++i ) {
 					const unmappedIndex = indicesFiltered[ i ];
 					const row = rows[ unmappedIndex ];
-					if( iterator( row, i, unmappedIndex ) === false ) {
+					const supplimental = ( supplimentals ? supplimentals[ unmappedIndex ] : null );
+					if( iterator( row, supplimental, i, unmappedIndex ) === false ) {
 						break;
 					}
 				}
@@ -72,14 +76,16 @@ export class DTableDataMappedList<ROW> implements DTableDataMapped<ROW> {
 				for( let i = ifrom; i < ito; ++i ) {
 					const unmappedIndex = indicesSorted[ i ];
 					const row = rows[ unmappedIndex ];
-					if( iterator( row, i, unmappedIndex ) === false ) {
+					const supplimental = ( supplimentals ? supplimentals[ unmappedIndex ] : null );
+					if( iterator( row, supplimental, i, unmappedIndex ) === false ) {
 						break;
 					}
 				}
 			} else {
 				for( let i = ifrom; i < ito; ++i ) {
 					const row = rows[ i ];
-					if( iterator( row, i, i ) === false ) {
+					const supplimental = ( supplimentals ? supplimentals[ i ] : null );
+					if( iterator( row, supplimental, i, i ) === false ) {
 						break;
 					}
 				}

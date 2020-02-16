@@ -40,7 +40,17 @@ export const DTableCellState = {
 	SORTED_DESCENDING: DBaseState.CUSTOM << 6,
 
 	/**
-	 * Cels with a link which is opened in a new window.
+	 * Cells with a link which is opened in a new window.
 	 */
-	NEW_WINDOW: DBaseState.CUSTOM << 7
+	NEW_WINDOW: DBaseState.CUSTOM << 7,
+
+	/**
+	 * Cells with child cells.
+	 */
+	HAS_CHILDREN: DBaseState.CUSTOM << 8,
+
+	/**
+	 * Cells opened.
+	 */
+	OPENED: DBaseState.CUSTOM << 9
 };

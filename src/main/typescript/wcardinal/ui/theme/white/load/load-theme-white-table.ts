@@ -18,6 +18,9 @@ import { DThemeWhiteTableBodyCellIndex } from "../d-theme-white-table-body-cell-
 import { DThemeWhiteTableBodyCellInputInteger } from "../d-theme-white-table-body-cell-input-integer";
 import { DThemeWhiteTableBodyCellInputReal } from "../d-theme-white-table-body-cell-input-real";
 import { DThemeWhiteTableBodyCellInputText } from "../d-theme-white-table-body-cell-input-text";
+import { DThemeWhiteTableBodyCellInputTree } from "../d-theme-white-table-body-cell-input-tree";
+import { DThemeWhiteTableBodyCellInputTreeInput } from "../d-theme-white-table-body-cell-input-tree-input";
+import { DThemeWhiteTableBodyCellInputTreeMarker } from "../d-theme-white-table-body-cell-input-tree-marker";
 import { DThemeWhiteTableBodyCellLink } from "../d-theme-white-table-body-cell-link";
 import { DThemeWhiteTableBodyCellSelectDialog } from "../d-theme-white-table-body-cell-select-dialog";
 import { DThemeWhiteTableBodyCellSelectMenu } from "../d-theme-white-table-body-cell-select-menu";
@@ -25,6 +28,7 @@ import { DThemeWhiteTableBodyCellSelectMultiple } from "../d-theme-white-table-b
 import { DThemeWhiteTableBodyCellSelectPromise } from "../d-theme-white-table-body-cell-select-promise";
 import { DThemeWhiteTableBodyCellText } from "../d-theme-white-table-body-cell-text";
 import { DThemeWhiteTableBodyCellTime } from "../d-theme-white-table-body-cell-time";
+import { DThemeWhiteTableBodyCellTree } from "../d-theme-white-table-body-cell-tree";
 import { DThemeWhiteTableBodyRow } from "../d-theme-white-table-body-row";
 import { DThemeWhiteTableCategory } from "../d-theme-white-table-category";
 import { DThemeWhiteTableCategoryCell } from "../d-theme-white-table-category-cell";
@@ -54,12 +58,16 @@ export const loadThemeWhiteTable = () => {
 	DThemeWhite.set( "DTableBodyCellInputInteger", DThemeWhiteTableBodyCellInputInteger );
 	DThemeWhite.set( "DTableBodyCellInputReal", DThemeWhiteTableBodyCellInputReal );
 	DThemeWhite.set( "DTableBodyCellInputText", DThemeWhiteTableBodyCellInputText );
+	DThemeWhite.set( "DTableBodyCellInputTreeMarker", DThemeWhiteTableBodyCellInputTreeMarker );
+	DThemeWhite.set( "DTableBodyCellInputTreeInput", DThemeWhiteTableBodyCellInputTreeInput );
+	DThemeWhite.set( "DTableBodyCellInputTree", DThemeWhiteTableBodyCellInputTree );
 	DThemeWhite.set( "DTableBodyCellLink", DThemeWhiteTableBodyCellLink );
 	DThemeWhite.set( "DTableBodyCellSelectDialog", DThemeWhiteTableBodyCellSelectDialog );
 	DThemeWhite.set( "DTableBodyCellSelectMenu", DThemeWhiteTableBodyCellSelectMenu );
 	DThemeWhite.set( "DTableBodyCellSelectMultiple", DThemeWhiteTableBodyCellSelectMultiple );
 	DThemeWhite.set( "DTableBodyCellSelectPromise", DThemeWhiteTableBodyCellSelectPromise );
 	DThemeWhite.set( "DTableBodyCellText", DThemeWhiteTableBodyCellText );
+	DThemeWhite.set( "DTableBodyCellTree", DThemeWhiteTableBodyCellTree );
 	DThemeWhite.set( "DTableBodyCellTime", DThemeWhiteTableBodyCellTime );
 	DThemeWhite.set( "DTableBodyRow", DThemeWhiteTableBodyRow );
 	DThemeWhite.set( "DTableBody", DThemeWhiteTableBody );

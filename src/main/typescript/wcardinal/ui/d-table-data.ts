@@ -4,7 +4,9 @@ import { DTableDataFilter, DTableDataFilterFunction, DTableDataFilterObject } fr
 import { DTableDataSelection, DTableDataSelectionOptions } from "./d-table-data-selection";
 import { DTableDataComparatorFunction, DTableDataComparatorObject, DTableDataSorter } from "./d-table-data-sorter";
 
-export type DTableDataMappedEachIterator<ROW> = ( row: ROW, index: number, unmappedIndex: number ) => void | boolean;
+export type DTableDataMappedEachIterator<ROW> = (
+	row: ROW, supplimental: unknown, index: number, unmappedIndex: number
+) => void | boolean;
 
 export interface DTableDataMapped<ROW> {
 	/**

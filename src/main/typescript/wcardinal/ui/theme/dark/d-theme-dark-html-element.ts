@@ -3,6 +3,7 @@ import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { DHtmlElementElementCreator, DThemeHtmlElement } from "../../d-html-element";
 import { DHtmlElementWhen } from "../../d-html-element-when";
+import { DPadding } from "../../d-padding";
 import { DThemeDarkImageBase } from "./d-theme-dark-image-base";
 
 const divCreator = ( parent: HTMLElement ): HTMLDivElement => {
@@ -19,7 +20,7 @@ export class DThemeDarkHtmlElement<
 	}
 
 	setElementStyle(
-		target: ELEMENT, state: DBaseState,
+		target: ELEMENT, state: DBaseState, padding: DPadding,
 		elementRect: Rectangle, clipperRect: Rectangle
 	): void {
 		// Style
@@ -28,7 +29,7 @@ export class DThemeDarkHtmlElement<
 			this.getElementStyleText( state ) +
 			this.getElementStyleBackground( state ) +
 			this.getElementStyleBorder( state ) +
-			this.getElementStylePadding( state, elementRect ) +
+			this.getElementStylePadding( state, padding, elementRect ) +
 			this.getElementStyleOutline( state );
 		target.setAttribute( "style", style );
 
@@ -55,11 +56,11 @@ export class DThemeDarkHtmlElement<
 		return `border: none; box-sizing: border-box;`;
 	}
 
-	protected getElementStylePadding( state: DBaseState, elementRect: Rectangle ): string {
-		const paddingTop = this.getPaddingTop();
-		const paddingRight = this.getPaddingRight();
-		const paddingBottom = this.getPaddingBottom();
-		const paddingLeft = this.getPaddingLeft();
+	protected getElementStylePadding( state: DBaseState, padding: DPadding, elementRect: Rectangle ): string {
+		const paddingTop = padding.getTop();
+		const paddingRight = padding.getRight();
+		const paddingBottom = padding.getBottom();
+		const paddingLeft = padding.getLeft();
 		return `padding: ${paddingTop}px ${paddingRight}px ${paddingBottom}px ${paddingLeft}px;`;
 	}
 
@@ -93,7 +94,7 @@ export class DThemeDarkHtmlElement<
 	}
 
 	setClipperStyle(
-		target: HTMLDivElement,  state: DBaseState,
+		target: HTMLDivElement,  state: DBaseState, padding: DPadding,
 		elementRect: Rectangle, clipperRect: Rectangle
 	): void {
 		const style = `overflow: hidden; outline: none;` +

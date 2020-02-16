@@ -17,6 +17,7 @@ import { DTableBodyCellIndex } from "./d-table-body-cell-index";
 import { DTableBodyCellInputInteger } from "./d-table-body-cell-input-integer";
 import { DTableBodyCellInputReal } from "./d-table-body-cell-input-real";
 import { DTableBodyCellInputText } from "./d-table-body-cell-input-text";
+import { DTableBodyCellInputTree } from "./d-table-body-cell-input-tree";
 import { DTableBodyCellLink } from "./d-table-body-cell-link";
 import { DTableBodyCellSelectDialog } from "./d-table-body-cell-select-dialog";
 import { DTableBodyCellSelectMenu } from "./d-table-body-cell-select-menu";
@@ -24,6 +25,7 @@ import { DTableBodyCellSelectMultiple } from "./d-table-body-cell-select-multipl
 import { DTableBodyCellSelectPromise } from "./d-table-body-cell-select-promise";
 import { DTableBodyCellText } from "./d-table-body-cell-text";
 import { DTableBodyCellTime } from "./d-table-body-cell-time";
+import { DTableBodyCellTree } from "./d-table-body-cell-tree";
 import {
 	DTableBodyCellOptionsMerged, DTableBodyCellOptionsUnion,
 	DTableColumn, DTableColumnType
@@ -83,7 +85,11 @@ export class DTableBodyRow<
 			return cell;
 		} else {
 			const cell = this.newCellUnediable( column, columnIndex, cellOptions );
-			cell.setReadOnly( true );
+			if( column.type === DTableColumnType.TREE ) {
+				cell.on( "cellchange", this._onCellChangeBound );
+			} else {
+				cell.setReadOnly( true );
+			}
 			return cell;
 		}
 	}
@@ -98,6 +104,8 @@ export class DTableBodyRow<
 			return new DTableBodyCellIndex( options );
 		case DTableColumnType.TEXT:
 			return new DTableBodyCellInputText( options );
+		case DTableColumnType.TREE:
+			return new DTableBodyCellInputTree( options );
 		case DTableColumnType.INTEGER:
 			return new DTableBodyCellInputInteger( options );
 		case DTableColumnType.REAL:
@@ -136,6 +144,8 @@ export class DTableBodyRow<
 			return new DTableBodyCellIndex( options );
 		case DTableColumnType.TEXT:
 			return new DTableBodyCellText( options );
+		case DTableColumnType.TREE:
+			return new DTableBodyCellTree( options );
 		case DTableColumnType.INTEGER:
 			return new DTableBodyCellText( options );
 		case DTableColumnType.REAL:
@@ -251,7 +261,7 @@ export class DTableBodyRow<
 		return "DTableBodyRow";
 	}
 
-	set( row: ROW, rowIndex: number, forcibly?: boolean ): void {
+	set( row: ROW, supplimental: unknown, rowIndex: number, forcibly?: boolean ): void {
 		if( forcibly || this._row !== row ) {
 			this._row = row;
 
@@ -263,7 +273,7 @@ export class DTableBodyRow<
 				const cell = cells[ i ];
 				const column = columns[ i ];
 				if( isBodyCell( cell ) ) {
-					cell.set( column.getter( row, i ), row, rowIndex, i, forcibly );
+					cell.set( column.getter( row, i ), row, supplimental, rowIndex, i, forcibly );
 				}
 			}
 

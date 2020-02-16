@@ -92,7 +92,11 @@ export class DTableBodyCellCheck<
 			( stateParent & DBaseState.HOVERED ? DBaseState.HOVERED : DBaseState.NONE );
 	}
 
-	set( value: unknown, row: ROW, rowIndex: number ): void {
+	set(
+		value: unknown, row: ROW, supplimental: unknown,
+		rowIndex: number, columnIndex: number,
+		forcibly?: boolean
+	): void {
 		this._row = row;
 		this._rowIndex = rowIndex;
 		this.setActive( !! value );

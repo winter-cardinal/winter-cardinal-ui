@@ -1,0 +1,80 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<th:block th:insert="fragment/common::#head"></th:block>
+</head>
+<body>
+	<th:block th:insert="fragment/common::#body"></th:block>
+	<script>
+	(function(){
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+
+		// Rows
+		const rows = [];
+		for( let i = 0; i < 150; ++i ) {
+			const children = [];
+			for( let j = 0; j < 3; ++j ) {
+				const grand = [];
+				for( let k = 0; k < 3; ++k ) {
+					grand.push({
+						a: "A" + i + "-" + j + "-" + k,
+						b: "B" + i + "-" + j + "-" + k,
+						c: "C" + i + "-" + j + "-" + k,
+					});
+				}
+				children.push({
+					a: "A" + i + "-" + j,
+					b: "B" + i + "-" + j,
+					c: "C" + i + "-" + j,
+					children: grand
+				});
+			}
+			rows.push({
+				a: "A" + i,
+				b: "B" + i,
+				c: "C" + i,
+				children: children
+			});
+		}
+
+		// Table
+		new wcardinal.ui.DTable({
+			parent: application.stage,
+			x: 50, y: 50,
+			width: 600, height: 600,
+			columns: [{
+				label: "A",
+				type: "TREE",
+				path: "a",
+				editable: true
+			},{
+				label: "B",
+				type: "TREE",
+				path: "b",
+				editable: false
+			},{
+				label: "C",
+				type: "TEXT",
+				path: "c",
+				editable: true
+			}],
+			data: new wcardinal.ui.DTableDataTree({
+				rows: rows,
+				on: {
+					change: ( newValue, oldValue, row, rowIndex, columnIndex, data ) => {
+						console.log( newValue, oldValue, row, rowIndex, columnIndex, data );
+					}
+				}
+			})
+		});
+	}());
+	</script>
+</body>
+</html>

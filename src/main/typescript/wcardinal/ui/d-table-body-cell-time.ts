@@ -98,7 +98,11 @@ export class DTableBodyCellTime<
 		return dialog;
 	}
 
-	set( value: unknown, row: ROW, rowIndex: number, columnIndex: number, forcibly?: boolean ): void {
+	set(
+		value: unknown, row: ROW, supplimental: unknown,
+		rowIndex: number, columnIndex: number,
+		forcibly?: boolean
+	): void {
 		this._row = row;
 		this._rowIndex = rowIndex;
 		if( value instanceof Date ) {

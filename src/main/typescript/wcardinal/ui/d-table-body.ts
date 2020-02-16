@@ -242,7 +242,7 @@ export class DTableBody<
 		}
 
 		const selection = data.selection;
-		data.mapped.each(( datum: ROW, index: number, unmappedIndex: number ): void | boolean => {
+		data.mapped.each(( datum: ROW, supplimental: unknown, index: number, unmappedIndex: number ): void | boolean => {
 			const row = rows[ index - newRowIndexMappedStart ];
 			row.position.y = index * rowHeight;
 			if( selection.contains( unmappedIndex ) ) {
@@ -250,7 +250,7 @@ export class DTableBody<
 			} else {
 				row.setStates( DBaseState.NONE, DBaseState.ACTIVE | DBaseState.DISABLED );
 			}
-			row.set( datum, unmappedIndex, forcibly );
+			row.set( datum, supplimental, unmappedIndex, forcibly );
 		}, newRowIndexMappedStart, newRowIndexMappedStart + rowsLength );
 
 		for( let i = 0; newRowIndexMappedStart + i < 0 && i < rowsLength; ++i ) {

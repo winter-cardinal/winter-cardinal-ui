@@ -2,7 +2,7 @@ import { utils } from "pixi.js";
 import { DTableData, DTableDataMapped, DTableDataOptions, DTableDataParent } from "./d-table-data";
 import { DTableDataFilter } from "./d-table-data-filter";
 import { DTableDataFilterImpl } from "./d-table-data-filter-impl";
-import { DTableDataMappedList } from "./d-table-data-mapped-list";
+import { DTableDataListMapped } from "./d-table-data-list-mapped";
 import { DTableDataSelection } from "./d-table-data-selection";
 import { DTableDataSelectionImpl } from "./d-table-data-selection-impl";
 import { DTableDataSorter } from "./d-table-data-sorter";
@@ -14,13 +14,13 @@ export class DTableDataList<ROW> extends utils.EventEmitter implements DTableDat
 	protected _filter: DTableDataFilterImpl<ROW>;
 	protected _sorter: DTableBodySorterImpl<ROW>;
 	protected _selection: DTableDataSelectionImpl<ROW>;
-	protected _mapped: DTableDataMappedList<ROW>;
+	protected _mapped: DTableDataMapped<ROW>;
 
 	constructor( options?: DTableDataOptions<ROW> ) {
 		super();
 
 		this._parent = null;
-		this._mapped = new DTableDataMappedList<ROW>( this );
+		this._mapped = new DTableDataListMapped<ROW>( this );
 		this._rows = this.toRows( options && options.rows );
 		this._selection = new DTableDataSelectionImpl<ROW>( this, options && options.selection );
 		this._filter = new DTableDataFilterImpl<ROW>( this );
@@ -149,28 +149,28 @@ export class DTableDataList<ROW> extends utils.EventEmitter implements DTableDat
 		}
 	}
 
-	addAll( rows: ROW[], index?: number ): void {
-		const data = this._rows;
-		const dataLength = data.length;
+	addAll( newRows: ROW[], index?: number ): void {
+		const rows = this._rows;
+		const rowsLength = rows.length;
 		const selection = this._selection;
 		const sorter = this._sorter;
 		const filter = this._filter;
 		if( index == null ) {
-			const rowsLength = rows.length;
-			for( let i = 0, imax = rowsLength; i < imax; ++i ) {
-				data.push( rows[ i ] );
+			const newRowsLength = newRows.length;
+			for( let i = 0, imax = newRowsLength; i < imax; ++i ) {
+				rows.push( newRows[ i ] );
 			}
 			this.lock();
 			sorter.toDirty();
 			filter.toDirty();
 			this.unlock();
-		} else if( 0 <= index && index < dataLength ) {
-			const rowsLength = rows.length;
-			for( let i = 0; i < rowsLength; ++i ) {
-				data.splice( index + i, 0, rows[ i ] );
+		} else if( 0 <= index && index < rowsLength ) {
+			const newRowsLength = newRows.length;
+			for( let i = 0; i < newRowsLength; ++i ) {
+				rows.splice( index + i, 0, newRows[ i ] );
 			}
 			this.lock();
-			selection.shift( index, rowsLength );
+			selection.shift( index, newRowsLength );
 			sorter.toDirty();
 			filter.toDirty();
 			this.unlock();
@@ -178,30 +178,31 @@ export class DTableDataList<ROW> extends utils.EventEmitter implements DTableDat
 	}
 
 	get( index: number ): ROW | null {
-		const data = this._rows;
-		if( 0 <= index && index < data.length ) {
-			return data[ index ];
+		const rows = this._rows;
+		if( 0 <= index && index < rows.length ) {
+			return rows[ index ];
 		}
 		return null;
 	}
 
 	set( index: number, row: ROW ): ROW | null {
-		const data = this._rows;
-		if( 0 <= index && index < data.length ) {
-			const result = data[ index ];
-			data[ index ] = row;
+		const rows = this._rows;
+		if( 0 <= index && index < rows.length ) {
+			const result = rows[ index ];
+			rows[ index ] = row;
+			this.lock();
 			this._sorter.toDirty();
 			this._filter.toDirty();
-			this.update();
+			this.unlock();
 			return result;
 		}
 		return null;
 	}
 
 	remove( index: number ): ROW | null {
-		const data = this._rows;
-		if( 0 <= index && index < data.length ) {
-			const result = data.splice( index, 1 )[ 0 ];
+		const rows = this._rows;
+		if( 0 <= index && index < rows.length ) {
+			const result = rows.splice( index, 1 )[ 0 ];
 			this.lock();
 			this._selection.remove( index );
 			this._sorter.toDirty();
@@ -213,11 +214,11 @@ export class DTableDataList<ROW> extends utils.EventEmitter implements DTableDat
 	}
 
 	each( iterator: ( row: ROW, index: number ) => boolean | void, ifrom?: number, ito?: number ): void {
-		const data = this._rows;
+		const rows = this._rows;
 		ifrom = ( ifrom != null ? Math.max( 0, ifrom ) : 0 );
-		ito = ( ito != null ? Math.min( data.length, ito ) : data.length );
+		ito = ( ito != null ? Math.min( rows.length, ito ) : rows.length );
 		for( let i = ifrom; i < ito; ++i ) {
-			const row = data[ i ];
+			const row = rows[ i ];
 			if( iterator( row, i ) === false ) {
 				break;
 			}

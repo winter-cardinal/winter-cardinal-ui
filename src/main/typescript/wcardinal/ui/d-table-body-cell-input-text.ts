@@ -10,7 +10,7 @@ import { DTableColumn } from "./d-table-column";
 
 export interface DTableBodyCellInputTextOptions<
 	ROW = unknown,
-	THEME extends DThemeInputText = DThemeInputText
+	THEME extends DThemeTableBodyCellInputText = DThemeTableBodyCellInputText
 > extends DInputTextOptions<THEME>, DTableBodyCellOptions<ROW> {
 }
 
@@ -53,7 +53,11 @@ export class DTableBodyCellInputText<
 			( stateParent & DBaseState.HOVERED ? DBaseState.HOVERED : DBaseState.NONE );
 	}
 
-	set( value: unknown, row: ROW, rowIndex: number ): void {
+	set(
+		value: unknown, row: ROW, supplimental: unknown,
+		rowIndex: number, columnIndex: number,
+		forcibly?: boolean
+	): void {
 		this._row = row;
 		this._rowIndex = rowIndex;
 		this.text = String( value );
