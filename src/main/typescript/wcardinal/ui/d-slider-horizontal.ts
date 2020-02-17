@@ -5,7 +5,6 @@
 
 import { Point } from "pixi.js";
 import { DSlider, DSliderOptions, DThemeSlider } from "./d-slider";
-import { DSliderSize } from "./d-slider-size";
 import { DSliderTrack } from "./d-slider-track";
 import { DSliderTrackHorizontal } from "./d-slider-track-horizontal";
 
@@ -25,38 +24,17 @@ export class DSliderHorizontal<
 	OPTIONS extends DSliderHorizontalOptions<THEME> = DSliderHorizontalOptions<THEME>
 > extends DSlider<THEME, OPTIONS> {
 
-	protected newTrack(): DSliderTrack {
-		return new DSliderTrackHorizontal();
+	protected newTrack( options?: OPTIONS ): DSliderTrack {
+		return new DSliderTrackHorizontal( options && options.track );
 	}
 
-	protected newTrackSelected(): DSliderTrack {
-		return new DSliderTrackHorizontal();
+	protected newTrackSelected( options?: OPTIONS ): DSliderTrack {
+		return new DSliderTrackHorizontal( options && options.track );
 	}
 
-	protected assertSize( options: OPTIONS ): void {
-		if( options ) {
-			if( options.height ) {
-				this.setWidth( options.height );
-			} else if( options.size ) {
-				switch( options.size ) {
-					case DSliderSize.LARGE:
-						this.setWidth( 450 );
-						break;
-					case DSliderSize.SMALL:
-						this.setWidth( 150 );
-						break;
-					default:
-						this.setWidth( this.theme.getWidth() );
-						break;
-				}
-			} else {
-				this.setWidth( this.theme.getWidth() );
-			}
-		} else {
-			this.setWidth( this.theme.getWidth() );
-		}
-
-		this.track.setWidth( this.width );
+	protected assertSize(): void {
+		this.track.setWidth( this.width);
+		this.trackSelected.setHeight( this.track.height);
 		this.trackSelected.setWidth( this.track.width );
 	}
 

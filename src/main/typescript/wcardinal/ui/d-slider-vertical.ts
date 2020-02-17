@@ -5,7 +5,6 @@
 
 import { Point } from "pixi.js";
 import { DSlider, DSliderOptions, DThemeSlider } from "./d-slider";
-import { DSliderSize } from "./d-slider-size";
 import { DSliderTrack } from "./d-slider-track";
 import { DSliderTrackVertical } from "./d-slider-track-vertical";
 
@@ -27,39 +26,18 @@ export class DSliderVertical<
 	OPTIONS extends DSliderVerticalOptions<THEME> = DSliderVerticalOptions<THEME>
 > extends DSlider<THEME, OPTIONS> {
 
-	protected newTrack(): DSliderTrack {
-		return new DSliderTrackVertical();
+	protected newTrack( options?: OPTIONS ): DSliderTrack {
+		return new DSliderTrackVertical( options && options.track );
 	}
 
-	protected newTrackSelected(): DSliderTrack {
-		return new DSliderTrackVertical();
+	protected newTrackSelected( options?: OPTIONS ): DSliderTrack {
+		return new DSliderTrackVertical( options && options.track );
 	}
 
-	protected assertSize( options: OPTIONS ): void {
-		if( options ) {
-			if( options.height ) {
-				this.setHeight( options.height );
-			} else if( options.size ) {
-				switch( options.size ) {
-					case DSliderSize.LARGE:
-						this.setHeight( 472 );
-						break;
-					case DSliderSize.SMALL:
-						this.setHeight( 172 );
-						break;
-					default:
-						this.setHeight( this.theme.getHeight() );
-						break;
-				}
-			} else {
-				this.setHeight( this.theme.getHeight() );
-			}
-		} else {
-			this.setHeight( this.theme.getHeight() );
-		}
-
+	protected assertSize(): void {
 		this.track.setHeight( this.height - this._value.height - VERTICAL_PIXEL_BALANCE );
 		this.trackSelected.setHeight( this.track.height - VERTICAL_PIXEL_BALANCE );
+		this.trackSelected.setWidth( this.track.width );
 	}
 
 	protected updateCoordinates(): void {

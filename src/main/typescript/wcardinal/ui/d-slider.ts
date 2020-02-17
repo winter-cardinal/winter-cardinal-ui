@@ -7,9 +7,8 @@ import { interaction, Point } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DSliderLabel, DSliderLabelOptions } from "./d-slider-label";
-import { DSliderSize } from "./d-slider-size";
-import { DSliderThumb } from "./d-slider-thumb";
-import { DSliderTrack } from "./d-slider-track";
+import { DSliderThumb, DSliderThumbOptions } from "./d-slider-thumb";
+import { DSliderTrack, DSliderTrackOptions } from "./d-slider-track";
 import { DSliderValue, DSliderValueOptions } from "./d-slider-value";
 import InteractionEvent = interaction.InteractionEvent;
 import { UtilPointerEvent } from "./util/util-pointer-event";
@@ -18,7 +17,8 @@ export interface DSliderOptions<THEME extends DThemeSlider> extends DBaseOptions
 	min?: DSliderLabelOptions;
 	max?: DSliderLabelOptions;
 	value?: DSliderValueOptions;
-	size?: DSliderSize;
+	track?: DSliderTrackOptions;
+	thumb?: DSliderThumbOptions;
 }
 
 export interface DThemeSlider extends DThemeBase {
@@ -39,7 +39,6 @@ export abstract class DSlider<
 	protected _ratioValue!: number;
 	protected _min!: DSliderLabel;
 	protected _max!: DSliderLabel;
-	protected _size!: DSliderSize;
 	protected _onThumbMove!: ( e: InteractionEvent ) => void;
 	protected _onThumbUp!: ( e: InteractionEvent ) => void;
 	protected _onTrackUpBound!: ( e: InteractionEvent ) => void;
@@ -58,9 +57,8 @@ export abstract class DSlider<
 
 	protected prepareValues( options?: OPTIONS ): void {
 		this._ratioValue = 0;
-		this._size = options && options.size || DSliderSize.MEDIUM;
 		this._value = this.newValue( options );
-		this._track = this.newTrack();
+		this._track = this.newTrack( options );
 		this._min = this.newMin( options );
 		this._max = this.newMax( options );
 		this._thumb = this.newThumb();
@@ -68,7 +66,7 @@ export abstract class DSlider<
 		this._min.text = `${this._min.value}`;
 		this._max.text = `${this._max.value}`;
 
-		this._trackSelected = this.newTrackSelected();
+		this._trackSelected = this.newTrackSelected( options );
 		this._trackSelected.setActive( true );
 		this._value.visible = false;
 	}
@@ -136,12 +134,12 @@ export abstract class DSlider<
 		});
 	}
 
-	protected newThumb(): DSliderThumb {
-		return new DSliderThumb();
+	protected newThumb( options?: OPTIONS ): DSliderThumb {
+		return new DSliderThumb( options && options.thumb );
 	}
 
-	protected abstract newTrack(): DSliderTrack;
-	protected abstract newTrackSelected(): DSliderTrack;
+	protected abstract newTrack(options?: OPTIONS): DSliderTrack;
+	protected abstract newTrackSelected(options?: OPTIONS): DSliderTrack;
 	protected abstract updateCoordinates(): void;
 	protected abstract onPick( global: Point ): void;
 	protected abstract updateThumb( min: number, max: number, value: number ): void;
@@ -251,10 +249,6 @@ export abstract class DSlider<
 
 	get yOffset(): number {
 		return this._yOffset;
-	}
-
-	get size(): DSliderSize {
-		return this._size;
 	}
 
 	protected getType(): string {

@@ -18,22 +18,6 @@
 
 		new wcardinal.ui.DSliderHorizontal({
 			parent: application.stage,
-			x: 100, y: 100,
-			min: {
-				value: 0
-			},
-			max: {
-				value: 1
-			},
-			value: {
-				precision: 2,
-				value: 0.7
-			},
-			size: "Small"
-		});
-
-		new wcardinal.ui.DSliderHorizontal({
-			parent: application.stage,
 			x: 100, y: 200,
 			min: {
 				value: 0
@@ -47,25 +31,7 @@
 				round: ( value ) => {
 					return value
 				}
-			},
-			size: "Large"
-		});
-
-		new wcardinal.ui.DSliderHorizontal({
-			parent: application.stage,
-			x: 100, y: 300,
-			min: {
-				value: 0
-			},
-			max: {
-				value: 1
-			},
-			value: {
-				round: ( value ) => {
-					return Math.round( ( value ) * Math.pow( 10, 3 ) ) / Math.pow( 10, 3 );
-				}
-			},
-			size: "Medium"
+			}
 		});
 
 		new wcardinal.ui.DSliderVertical({
@@ -83,42 +49,6 @@
 				},
 				value: 50
 			}
-		});
-
-		new wcardinal.ui.DSliderVertical({
-			parent: application.stage,
-			x: 800, y: 100,
-			min: {
-				value: 0
-			},
-			max: {
-				value: 100
-			},
-			value: {
-				text: {
-					formatter: ( value ) => value + "%"
-				},
-				value: 50
-			},
-			size: "Small"
-		});
-
-		new wcardinal.ui.DSliderVertical({
-			parent: application.stage,
-			x: 900, y: 100,
-			min: {
-				value: 0
-			},
-			max: {
-				value: 100
-			},
-			value: {
-				text: {
-					formatter: ( value ) => value + "%"
-				},
-				value: 50
-			},
-			size: "Large"
 		});
 	}());
 	</script>
