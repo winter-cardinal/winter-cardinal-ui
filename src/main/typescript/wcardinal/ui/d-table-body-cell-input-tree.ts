@@ -4,10 +4,11 @@
  */
 
 import { DBaseState } from "./d-base-state";
-import { DLayoutHorizontal, DLayoutHorizontalOptions, DThemeLayoutHorizontal } from "./d-layout-horizontal";
+import { DLayoutHorizontal, DThemeLayoutHorizontal } from "./d-layout-horizontal";
 import { DTableBodyCellInputTextOptions } from "./d-table-body-cell-input-text";
 import { DTableBodyCellInputTreeInput } from "./d-table-body-cell-input-tree-input";
 import { DTableBodyCellInputTreeMarker } from "./d-table-body-cell-input-tree-marker";
+import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableCellState } from "./d-table-cell-state";
 import { DTableColumn } from "./d-table-column";
 import { isNumber } from "./util/is-number";
@@ -124,10 +125,9 @@ export class DTableBodyCellInputTree<
 			marker.hide();
 		}
 
-		const enable = this._columnData.editing.enable;
-		if( enable !== false ) {
-			this._input.setReadOnly( enable !== true && ! enable( row, columnIndex ) );
-		}
+		const columnData = this._columnData;
+		DTableBodyCells.setReadOnly( this._input, row, columnIndex, columnData );
+		DTableBodyCells.setRenderable( this, row, columnIndex, columnData );
 	}
 
 	unset(): void {

@@ -7,6 +7,7 @@ import { DBaseState } from "./d-base-state";
 import { DButtonColor, DButtonColorOptions, DThemeButtonColor } from "./d-button-color";
 import { DColorAndAlpha } from "./d-color";
 import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
+import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
 import { isNumber } from "./util/is-number";
 import { isString } from "./util/is-string";
@@ -109,10 +110,9 @@ export class DTableBodyCellColor<
 			value.alpha = 1;
 		}
 
-		const enable = this._columnData.editing.enable;
-		if( enable !== false ) {
-			this.setReadOnly( enable !== true && ! enable( row, columnIndex ) );
-		}
+		const columnData = this._columnData;
+		DTableBodyCells.setReadOnly( this, row, columnIndex, columnData );
+		DTableBodyCells.setRenderable( this, row, columnIndex, columnData );
 	}
 
 	unset(): void {

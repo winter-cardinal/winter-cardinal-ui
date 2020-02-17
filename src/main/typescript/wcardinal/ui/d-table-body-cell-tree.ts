@@ -9,6 +9,7 @@ import { DBaseState } from "./d-base-state";
 import {
 	DTableBodyCellButton, DTableBodyCellButtonOptions, DThemeTableBodyCellButton
 } from "./d-table-body-cell-button";
+import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableCellState } from "./d-table-cell-state";
 import { isNumber } from "./util/is-number";
 
@@ -61,7 +62,12 @@ export class DTableBodyCellTree<
 		rowIndex: number, columnIndex: number,
 		forcibly?: boolean
 	): void {
-		super.set( value, row, supplimental, rowIndex, columnIndex, forcibly );
+		this._row = row;
+		this._rowIndex = rowIndex;
+		this.text = value;
+
+		const columnData = this._columnData;
+		DTableBodyCells.setRenderable( this, row, columnIndex, columnData );
 
 		const adjuster = this._padding.adjuster;
 		if( isNumber( supplimental ) ) {

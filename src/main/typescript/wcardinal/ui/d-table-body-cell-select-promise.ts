@@ -6,6 +6,7 @@
 import { DBaseState } from "./d-base-state";
 import { DButton, DButtonOptions, DThemeButton } from "./d-button";
 import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
+import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
 
 export interface DTableBodyCellSelectPromiseOptions<
@@ -112,10 +113,9 @@ export class DTableBodyCellSelectPromise<
 			this.text = value as VALUE;
 		}
 
-		const enable = this._columnData.editing.enable;
-		if( enable !== false ) {
-			this.setReadOnly( enable !== true && ! enable( row, columnIndex ) );
-		}
+		const columnData = this._columnData;
+		DTableBodyCells.setReadOnly( this, row, columnIndex, columnData );
+		DTableBodyCells.setRenderable( this, row, columnIndex, columnData );
 	}
 
 	unset(): void {

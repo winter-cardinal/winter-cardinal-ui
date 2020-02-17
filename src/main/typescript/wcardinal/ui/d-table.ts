@@ -17,7 +17,7 @@ import { DTableCategory, DTableCategoryColumn, DTableCategoryOptions } from "./d
 import {
 	DTableColumn, DTableColumnEditing, DTableColumnOptions,
 	DTableColumnSelecting, DTableColumnSelectingOptions, DTableColumnSorting, DTableColumnType,
-	DTableEditable, DTableEditingUnformatter, DTableGetter, DTableSelectingGetter, DTableSetter
+	DTableEditable, DTableEditingUnformatter, DTableGetter, DTableRenderable, DTableSelectingGetter, DTableSetter
 } from "./d-table-column";
 import { DTableData, DTableDataOptions } from "./d-table-data";
 import { DTableDataList } from "./d-table-data-list";
@@ -137,12 +137,7 @@ const toColumnAlign = <ROW>( options: DTableColumnOptions<ROW>, type: DTableColu
 	}
 };
 
-const toColumnEditingEnable = <ROW>(
-	options: DTableColumnOptions<ROW>, path: string[] | null
-): boolean | DTableEditable<ROW> => {
-	if( options.editable != null ) {
-		return options.editable;
-	}
+const toColumnDataChecker = <ROW>( path: string[] | null ): DTableEditable<ROW> => {
 	if( path != null ) {
 		if( path.length <= 1 ) {
 			const key = path[ 0 ];
@@ -168,18 +163,31 @@ const toColumnEditingEnable = <ROW>(
 	};
 };
 
+const toColumnEditingEnable = <ROW>(
+	enable: boolean | DTableEditable<ROW> | "auto" | "AUTO" | undefined,
+	path: string[] | null
+): boolean | DTableEditable<ROW> => {
+	if( isString( enable ) ) {
+		return toColumnDataChecker( path );
+	} else if( enable != null ) {
+		return enable;
+	} else {
+		return false;
+	}
+};
+
 const toColumnEditing = <ROW>( options: DTableColumnOptions<ROW>, path: string[] | null ): DTableColumnEditing<ROW> => {
 	const editing = options.editing;
 	if( editing ) {
 		return {
-			enable: ( editing.enable != null ? editing.enable : toColumnEditingEnable( options, path ) ),
+			enable: toColumnEditingEnable( editing.enable != null ? editing.enable : options.editable, path ),
 			formatter: editing.formatter || toString,
 			unformatter: editing.unformatter || defaultEditingUnformatter,
 			validator: editing.validator
 		};
 	}
 	return {
-		enable: toColumnEditingEnable( options, path ),
+		enable: toColumnEditingEnable( options.editable, path ),
 		formatter: toString,
 		unformatter: defaultEditingUnformatter
 	};
@@ -314,6 +322,19 @@ const toColumnPath = <ROW>( options: DTableColumnOptions<ROW> ): string[] | null
 	return options.path != null ? options.path.split( "." ) : null;
 };
 
+const toColumnRenderable = <ROW>(
+	options: DTableColumnOptions<ROW>,
+	path: string[] | null
+): boolean | DTableRenderable<ROW> => {
+	const renderable = options.renderable;
+	if( isString( renderable ) ) {
+		return toColumnDataChecker( path );
+	} else if( renderable != null ) {
+		return renderable;
+	}
+	return true;
+};
+
 const toColumn = <ROW>( index: number, options: DTableColumnOptions<ROW> ): DTableColumn<ROW> => {
 	const weight = ( options.weight != null ? options.weight :
 		( options.width != null ? undefined : +1 )
@@ -338,6 +359,7 @@ const toColumn = <ROW>( index: number, options: DTableColumnOptions<ROW> ): DTab
 		getter,
 		setter,
 		formatter: options.formatter,
+		renderable: toColumnRenderable( options, path ),
 		align,
 
 		editing: toColumnEditing( options, path ),

@@ -52,6 +52,7 @@ export type DTableEditingUnformatter = ( cell: string ) => unknown;
 export type DTableEditingValidator = ( cell: unknown ) => unknown;
 export type DTableSelectingGetter = ( selected: unknown ) => unknown;
 export type DTableEditable<ROW> = ( row: ROW, columnIndex: number ) => boolean;
+export type DTableRenderable<ROW> = ( row: ROW, columnIndex: number ) => boolean;
 
 export type DTableBodyCellOptionsUnion<ROW> = DTableBodyCellTextOptions<ROW> | DTableBodyCellInputTextOptions<ROW> |
 	DTableBodyCellInputIntegerOptions<ROW> | DTableBodyCellInputRealOptions<ROW> | DTableBodyCellIndexOptions<ROW> |
@@ -68,7 +69,7 @@ export type DTableBodyCellOptionsMerged<ROW> = DTableBodyCellTextOptions<ROW> & 
 	DTableBodyCellLinkOptions<ROW> & DTableBodyCellSelectMenuOptions<ROW> & DTableBodyCellTreeOptions<ROW>;
 
 export interface DTableColumnEditingOptions<ROW> {
-	enable?: boolean | DTableEditable<ROW>;
+	enable?: boolean | DTableEditable<ROW> | "auto" | "AUTO";
 	formatter?: DTableEditingFormatter;
 	unformatter?: DTableEditingUnformatter;
 	validator?: DTableEditingValidator;
@@ -122,7 +123,25 @@ export interface DTableColumnOptions<ROW> {
 	formatter?: DTableFormatter;
 	align?: (keyof typeof DAlignHorizontal) | DAlignHorizontal;
 
-	editable?: boolean | DTableEditable<ROW>;
+	/**
+	 * If the renderable is
+	 *
+	 * * true, cells get rendered.
+	 * * false, cells do not get rendered.
+	 * * a function, cells get rendered only when that function returns true.
+	 * * "AUTO", cells get rendered only when the cell data exit.
+	 */
+	renderable?: boolean | DTableRenderable<ROW> | "auto" | "AUTO";
+
+	/**
+	 * If the editable is
+	 *
+	 * * true, cells get editable.
+	 * * false, cells do not get editable.
+	 * * a function, cells are editable only when that function returns true.
+	 * * "AUTO", cells are editable only when the cell data exist.
+	 */
+	editable?: boolean | DTableEditable<ROW> | "auto" | "AUTO";
 	editing?: DTableColumnEditingOptions<ROW>;
 
 	sortable?: boolean;
@@ -149,6 +168,7 @@ export interface DTableColumn<ROW> {
 	setter: DTableSetter<ROW>;
 	formatter?: DTableFormatter;
 	align: DAlignHorizontal;
+	renderable: boolean | DTableRenderable<ROW>;
 
 	editing: DTableColumnEditing<ROW>;
 	sorting: DTableColumnSorting<ROW>;

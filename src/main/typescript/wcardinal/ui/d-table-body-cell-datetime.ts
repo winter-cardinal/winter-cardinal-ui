@@ -10,6 +10,7 @@ import { DDialogDatetimes } from "./d-dialog-datetimes";
 import { DPickerDatetimeMask } from "./d-picker-datetime-mask";
 import { DPickerDatetimes } from "./d-picker-datetimes";
 import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
+import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
 import { isNumber } from "./util/is-number";
 
@@ -121,10 +122,9 @@ export class DTableBodyCellDatetime<
 			}
 		}
 
-		const enable = this._columnData.editing.enable;
-		if( enable !== false ) {
-			this.setReadOnly( enable !== true && ! enable( row, columnIndex ) );
-		}
+		const columnData = this._columnData;
+		DTableBodyCells.setReadOnly( this, row, columnIndex, columnData );
+		DTableBodyCells.setRenderable( this, row, columnIndex, columnData );
 	}
 
 	unset(): void {
