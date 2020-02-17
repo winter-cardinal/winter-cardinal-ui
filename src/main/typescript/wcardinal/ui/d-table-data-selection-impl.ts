@@ -65,7 +65,7 @@ export class DTableDataSelectionImpl<ROW> extends utils.EventEmitter implements 
 		}
 	}
 
-	protected getFirstIndex(): number | null {
+	get first(): number | null {
 		const indices = this._indices;
 		if( 0 < indices.size ) {
 			let result: number = NaN;
@@ -79,7 +79,7 @@ export class DTableDataSelectionImpl<ROW> extends utils.EventEmitter implements 
 		return null;
 	}
 
-	protected getLastIndex(): number | null {
+	get last(): number | null {
 		const indices = this._indices;
 		if( 0 < indices.size ) {
 			let result: number = 0;
@@ -92,7 +92,7 @@ export class DTableDataSelectionImpl<ROW> extends utils.EventEmitter implements 
 	}
 
 	addTo( rowIndex: number ): void {
-		const lastRowIndex = this.getLastIndex();
+		const lastRowIndex = this.last;
 		if( lastRowIndex != null ) {
 			this.addRange( lastRowIndex, false, rowIndex, true );
 		}

@@ -12,21 +12,20 @@ export class DTableDataListMapped<ROW> implements DTableDataMapped<ROW> {
 		this._parent = parent;
 	}
 
-	unmap( index: number ): number {
-		let result = index;
-
+	map( unmappedIndex: number ): number | null {
 		const parent = this._parent;
-		const indicesSorted = parent.sorter.indices;
-		if( indicesSorted ) {
-			result = indicesSorted[ result ];
+		const sortedIndex = parent.sorter.map( unmappedIndex );
+		if( sortedIndex != null ) {
+			return parent.filter.map( sortedIndex );
 		}
+		return null;
+	}
 
-		const indicesFiltered = parent.filter.indices;
-		if( indicesFiltered ) {
-			result = indicesFiltered[ result ];
-		}
-
-		return result;
+	unmap( index: number ): number {
+		const parent = this._parent;
+		return parent.sorter.unmap(
+			parent.filter.unmap( index )
+		);
 	}
 
 	size(): number {
@@ -52,7 +51,7 @@ export class DTableDataListMapped<ROW> implements DTableDataMapped<ROW> {
 			ito = ( ito != null ? Math.min( size, ito ) : size );
 			if( indicesSorted ) {
 				for( let i = ifrom; i < ito; ++i ) {
-					const unmappedIndex = indicesFiltered[ indicesSorted[ i ] ];
+					const unmappedIndex = indicesSorted[ indicesFiltered[ i ] ];
 					const row = rows[ unmappedIndex ];
 					const supplimental = ( supplimentals ? supplimentals[ unmappedIndex ] : null );
 					if( iterator( row, supplimental, i, unmappedIndex ) === false ) {

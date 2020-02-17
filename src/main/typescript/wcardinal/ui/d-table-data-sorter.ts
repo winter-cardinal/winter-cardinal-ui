@@ -30,6 +30,8 @@ export enum DTableDataOrder {
  * Table data sorter.
  */
 export interface DTableDataSorter<ROW> extends utils.EventEmitter {
+	readonly id: number;
+
 	/**
 	 * An indices of sorted rows.
 	 * Must not change this indices directly.
@@ -67,4 +69,18 @@ export interface DTableDataSorter<ROW> extends utils.EventEmitter {
 	 * @param comparator A comparator
 	 */
 	set( comparator: DTableDataComparatorFunction<ROW> | DTableDataComparatorObject<ROW> | null ): void;
+
+	/**
+	 * Returns a sorted index of the specified unmapped index.
+	 *
+	 * @param unmappedIndex an unmapped index
+	 */
+	map( unmappedIndex: number ): number | null;
+
+	/**
+	 * Returns an unmapped index of the specified sorted index.
+	 *
+	 * @param index a mapped index
+	 */
+	unmap( index: number ): number;
 }

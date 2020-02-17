@@ -4,7 +4,6 @@
  */
 
 import { utils } from "pixi.js";
-import { DTableDataEachIterator } from "./d-table-data";
 import {
 	DTableDataComparatorFunction, DTableDataComparatorObject,
 	DTableDataOrder, DTableDataSorter
@@ -12,25 +11,33 @@ import {
 import { isFunction } from "./util/is-function";
 
 export interface DTableDataSorterImplParent<ROW> {
-	each( iterator: DTableDataEachIterator<ROW>, ifrom?: number, ito?: number ): void;
+	readonly rows: ROW[];
 	update(): void;
 }
 
-export class DTableBodySorterImpl<ROW> extends utils.EventEmitter implements DTableDataSorter<ROW> {
+export class DTableDataSorterImpl<ROW> extends utils.EventEmitter implements DTableDataSorter<ROW> {
+	protected _id: number;
+	protected _idUpdated: number;
+	protected _isApplied: boolean;
 	protected _parent: DTableDataSorterImplParent<ROW>;
 	protected _comparator: DTableDataComparatorFunction<ROW> | DTableDataComparatorObject<ROW> | null;
 	protected _sorted: number[] | null;
-	protected _isDirty: boolean;
 	protected _order: DTableDataOrder;
 
 	constructor( parent: DTableDataSorterImplParent<ROW> ) {
 		super();
 
+		this._id = 0;
+		this._idUpdated = -1;
+		this._isApplied = false;
 		this._parent = parent;
 		this._comparator = null;
 		this._sorted = null;
-		this._isDirty = false;
 		this._order = DTableDataOrder.ASCENDING;
+	}
+
+	get id(): number {
+		return this._id;
 	}
 
 	get order(): DTableDataOrder {
@@ -42,21 +49,21 @@ export class DTableBodySorterImpl<ROW> extends utils.EventEmitter implements DTa
 	}
 
 	apply(): void {
-		this._isDirty = true;
+		this._isApplied = true;
+		this._id += 1;
 		this._parent.update();
 	}
 
 	unapply(): void {
-		if( this._sorted != null ) {
-			this._isDirty = false;
-			this._sorted = null;
-			this.emit( "change", this );
+		if( this._isApplied ) {
+			this._isApplied = false;
+			this._id += 1;
 			this._parent.update();
 		}
 	}
 
 	isApplied(): boolean {
-		return this._sorted != null;
+		return this._isApplied;
 	}
 
 	protected newSorted(): number[] | null {
@@ -64,11 +71,10 @@ export class DTableBodySorterImpl<ROW> extends utils.EventEmitter implements DTa
 		if( comparator != null ) {
 			const parent = this._parent;
 			const sorted: number[] = [];
-			const rows: ROW[] = [];
-			parent.each(( row: ROW, index: number ): void => {
-				sorted[ index ] = index;
-				rows[ index ] = row;
-			});
+			const rows: ROW[] = parent.rows;
+			for( let i = 0, imax = rows.length; i < imax; ++i ) {
+				sorted.push( i );
+			}
 			sorted.sort( this.toComparator( rows, comparator ) );
 			return sorted;
 		} else {
@@ -126,31 +132,52 @@ export class DTableBodySorterImpl<ROW> extends utils.EventEmitter implements DTa
 		}
 	}
 
-	clear(): void {
-		const sorted = this._sorted;
-		if( sorted != null && 0 < sorted.length ) {
-			sorted.length = 0;
-			this._parent.update();
-		}
-	}
-
 	toDirty(): void {
-		const sorted = this._sorted;
-		if( sorted != null ) {
-			this._isDirty = true;
-		}
+		this._id += 1;
 	}
 
 	update(): void {
-		if( this._isDirty ) {
-			this._isDirty = false;
-			this._sorted = this.newSorted();
-			this.emit( "change", this );
+		if( this._id !== this._idUpdated ) {
+			this._idUpdated = this._id;
+			if( this._isApplied ) {
+				this._sorted = this.newSorted();
+				this.emit( "change", this );
+			} else if( this._sorted != null ) {
+				this._sorted = null;
+				this.emit( "change", this );
+			}
 		}
 	}
 
 	get indices(): number[] | null {
 		this.update();
 		return this._sorted;
+	}
+
+	map( unmappedIndex: number ): number | null {
+		let result = unmappedIndex;
+
+		const indicesSorted = this.indices;
+		if( indicesSorted ) {
+			const index = indicesSorted.indexOf( result );
+			if( 0 <= index ) {
+				result = index;
+			} else {
+				return null;
+			}
+		}
+
+		return result;
+	}
+
+	unmap( index: number ): number {
+		let result = index;
+
+		const indicesSorted = this.indices;
+		if( indicesSorted ) {
+			result = indicesSorted[ result ];
+		}
+
+		return result;
 	}
 }

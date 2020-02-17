@@ -10,7 +10,15 @@ export type DTableDataMappedEachIterator<ROW> = (
 
 export interface DTableDataMapped<ROW> {
 	/**
-	 * Returns an index of the specified mapped index.
+	 * Returns an mapped index of the specified unmapped index.
+	 * A mapped index is an index on rows filters and sorters are applied.
+	 *
+	 * @param unmappedIndex a unmapped index
+	 */
+	map( unmappedIndex: number ): number | null;
+
+	/**
+	 * Returns an unmapped index of the specified mapped index.
 	 * A mapped index is an index on rows filters and sorters are applied.
 	 *
 	 * @param index a mapped index

@@ -6,7 +6,7 @@ import { DTableDataListMapped } from "./d-table-data-list-mapped";
 import { DTableDataSelection } from "./d-table-data-selection";
 import { DTableDataSelectionImpl } from "./d-table-data-selection-impl";
 import { DTableDataSorter } from "./d-table-data-sorter";
-import { DTableBodySorterImpl } from "./d-table-data-sorter-impl";
+import { DTableDataSorterImpl } from "./d-table-data-sorter-impl";
 
 export interface DTableDataTreeItem<PARENT, CHILD> {
 	parent?: PARENT;
@@ -21,7 +21,7 @@ export class DTableDataTree<ROW extends DTableDataTreeItem<ROW, ROW>> extends ut
 	protected _supplimentals: number[];
 	protected _flags: WeakMap<ROW, number>;
 	protected _filter: DTableDataFilterImpl<ROW>;
-	protected _sorter: DTableBodySorterImpl<ROW>;
+	protected _sorter: DTableDataSorterImpl<ROW>;
 	protected _selection: DTableDataSelectionImpl<ROW>;
 	protected _mapped: DTableDataMapped<ROW>;
 
@@ -35,7 +35,7 @@ export class DTableDataTree<ROW extends DTableDataTreeItem<ROW, ROW>> extends ut
 		this._flags = new WeakMap<ROW, number>();
 		this._selection = new DTableDataSelectionImpl<ROW>( this, options && options.selection );
 		this._filter = new DTableDataFilterImpl<ROW>( this );
-		this._sorter = new DTableBodySorterImpl<ROW>( this );
+		this._sorter = new DTableDataSorterImpl<ROW>( this );
 		if( options ) {
 			// Filter
 			const filter = options.filter;
@@ -73,6 +73,8 @@ export class DTableDataTree<ROW extends DTableDataTreeItem<ROW, ROW>> extends ut
 	set tree( targets: ROW[] | undefined ) {
 		this._targets = targets;
 		this.updateRows( targets );
+		this._sorter.toDirty();
+		this._filter.toDirty();
 		this.update( true );
 	}
 

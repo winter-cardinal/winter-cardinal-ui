@@ -6,13 +6,13 @@ import { DTableDataListMapped } from "./d-table-data-list-mapped";
 import { DTableDataSelection } from "./d-table-data-selection";
 import { DTableDataSelectionImpl } from "./d-table-data-selection-impl";
 import { DTableDataSorter } from "./d-table-data-sorter";
-import { DTableBodySorterImpl } from "./d-table-data-sorter-impl";
+import { DTableDataSorterImpl } from "./d-table-data-sorter-impl";
 
 export class DTableDataList<ROW> extends utils.EventEmitter implements DTableData<ROW> {
 	protected _parent: DTableDataParent | null;
 	protected _rows: ROW[];
 	protected _filter: DTableDataFilterImpl<ROW>;
-	protected _sorter: DTableBodySorterImpl<ROW>;
+	protected _sorter: DTableDataSorterImpl<ROW>;
 	protected _selection: DTableDataSelectionImpl<ROW>;
 	protected _mapped: DTableDataMapped<ROW>;
 
@@ -24,7 +24,7 @@ export class DTableDataList<ROW> extends utils.EventEmitter implements DTableDat
 		this._rows = this.toRows( options && options.rows );
 		this._selection = new DTableDataSelectionImpl<ROW>( this, options && options.selection );
 		this._filter = new DTableDataFilterImpl<ROW>( this );
-		this._sorter = new DTableBodySorterImpl<ROW>( this );
+		this._sorter = new DTableDataSorterImpl<ROW>( this );
 		if( options ) {
 			// Filter
 			const filter = options.filter;
@@ -98,8 +98,8 @@ export class DTableDataList<ROW> extends utils.EventEmitter implements DTableDat
 			rows.length = 0;
 			this.lock();
 			this._selection.clear();
-			this._sorter.clear();
-			this._filter.clear();
+			this._sorter.toDirty();
+			this._filter.toDirty();
 			this.unlock();
 		}
 	}

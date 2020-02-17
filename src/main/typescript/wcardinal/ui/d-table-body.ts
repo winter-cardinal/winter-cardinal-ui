@@ -341,7 +341,54 @@ export class DTableBody<
 					} else if( ctrlKey ) {
 						selection.toggle( rowIndex );
 					} else if( shiftKey ) {
-						selection.addTo( rowIndex );
+						const lastRowIndex = selection.last;
+						if( lastRowIndex != null ) {
+							const sorter = data.sorter;
+							const filter = data.filter;
+							const rowIndexSorted = sorter.map( rowIndex );
+							const lastRowIndexSorted = sorter.map( lastRowIndex );
+							if( rowIndexSorted != null && lastRowIndexSorted != null ) {
+								let istart = lastRowIndexSorted + 1;
+								let iend = rowIndexSorted + 1;
+								if( rowIndexSorted < lastRowIndexSorted ) {
+									istart = rowIndexSorted;
+									iend = lastRowIndexSorted;
+								}
+								if( istart < iend ) {
+									const rowIndices: number[] = [];
+									const indicesFiltered = filter.indices;
+									const indicesSorted = sorter.indices;
+									if( indicesFiltered ) {
+										if( indicesSorted ) {
+											for( let i = 0, imax = indicesFiltered.length; i < imax; ++i ) {
+												const indexFiltered = indicesFiltered[ i ];
+												if( istart <= indexFiltered && indexFiltered < iend ) {
+													rowIndices.push( indicesSorted[ indexFiltered ] );
+												}
+											}
+										} else {
+											for( let i = 0, imax = indicesFiltered.length; i < imax; ++i ) {
+												const indexFiltered = indicesFiltered[ i ];
+												if( istart <= indexFiltered && indexFiltered < iend ) {
+													rowIndices.push( indexFiltered );
+												}
+											}
+										}
+									} else {
+										if( indicesSorted ) {
+											for( let i = istart; i < iend; ++i ) {
+												rowIndices.push( indicesSorted[ i ] );
+											}
+										} else {
+											for( let i = istart; i < iend; ++i ) {
+												rowIndices.push( i );
+											}
+										}
+									}
+									selection.addAll( rowIndices );
+								}
+							}
+						}
 					}
 				}
 			}

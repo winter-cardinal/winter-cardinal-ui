@@ -21,6 +21,8 @@ export interface DTableDataFilterObject<ROW> {
  * Table data filter.
  */
 export interface DTableDataFilter<ROW> extends utils.EventEmitter {
+	readonly id: number;
+
 	/**
 	 * An indices of filtered rows.
 	 * Must not change this indices directly.
@@ -53,4 +55,19 @@ export interface DTableDataFilter<ROW> extends utils.EventEmitter {
 	 * @param filter A filter
 	 */
 	set( filter: DTableDataFilterFunction<ROW> | DTableDataFilterObject<ROW> | null ): void;
+
+	/**
+	 * Returns a mapped index of the specified sorted index.
+	 *
+	 * @param sortedIndex an sorted index
+	 */
+	map( sortedIndex: number ): number | null;
+
+	/**
+	 * Returns an sorted index of the specified mapped index.
+	 * A mapped index is an index on rows filters and sorters are applied.
+	 *
+	 * @param index a mapped index
+	 */
+	unmap( index: number ): number;
 }

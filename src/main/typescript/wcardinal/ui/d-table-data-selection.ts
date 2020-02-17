@@ -30,6 +30,9 @@ export interface DTableDataSelection<ROW> extends utils.EventEmitter {
 
 	readonly type: DTableDataSelectionType;
 
+	readonly first: number | null;
+	readonly last: number | null;
+
 	toggle( rowIndex: number ): void;
 	add( rowIndex: number ): void;
 	addTo( rowIndex: number ): void;
