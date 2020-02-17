@@ -111,6 +111,11 @@ export class DTableBodyCellSelectPromise<
 		} else {
 			this.text = value as VALUE;
 		}
+
+		const enable = this._columnData.editing.enable;
+		if( enable !== false ) {
+			this.setReadOnly( enable !== true && ! enable( row, columnIndex ) );
+		}
 	}
 
 	unset(): void {

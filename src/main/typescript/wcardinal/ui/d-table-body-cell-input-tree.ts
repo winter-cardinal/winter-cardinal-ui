@@ -123,6 +123,11 @@ export class DTableBodyCellInputTree<
 			marker.setStates( DBaseState.NONE, DTableCellState.OPENED | DTableCellState.HAS_CHILDREN );
 			marker.hide();
 		}
+
+		const enable = this._columnData.editing.enable;
+		if( enable !== false ) {
+			this._input.setReadOnly( enable !== true && ! enable( row, columnIndex ) );
+		}
 	}
 
 	unset(): void {

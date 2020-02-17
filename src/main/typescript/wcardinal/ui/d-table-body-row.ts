@@ -44,7 +44,7 @@ export interface DThemeTableBodyRow extends DThemeTableRow {
 
 }
 
-const isBodyCell = ( target: any ): target is DTableBodyCell<unknown> => {
+const isBodyCell = <T>( target: T ): target is T & DTableBodyCell<unknown> => {
 	return (target != null && "set" in target);
 };
 
@@ -79,7 +79,7 @@ export class DTableBodyRow<
 		options: OPTIONS
 	): DBase {
 		const cellOptions = this.toCellOptions( column, columnIndex, options ) as any;
-		if( column.editing.enable ) {
+		if( column.editing.enable !== false ) {
 			const cell = this.newCellEditable( column, columnIndex, cellOptions );
 			cell.on( "cellchange", this._onCellChangeBound );
 			return cell;
@@ -243,8 +243,8 @@ export class DTableBodyRow<
 			};
 		}
 
-		if( column.editing.enable ) {
-			const editing = result!.editing = result!.editing || {};
+		if( column.editing.enable !== false ) {
+			const editing = result.editing = result.editing || {};
 			editing.formatter = editing.formatter || column.editing.formatter;
 			editing.unformatter = editing.unformatter || column.editing.unformatter as any;
 			editing.validator = editing.validator || column.editing.validator as any;

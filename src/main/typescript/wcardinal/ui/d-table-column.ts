@@ -51,6 +51,7 @@ export type DTableEditingFormatter = ( cell: unknown ) => string;
 export type DTableEditingUnformatter = ( cell: string ) => unknown;
 export type DTableEditingValidator = ( cell: unknown ) => unknown;
 export type DTableSelectingGetter = ( selected: unknown ) => unknown;
+export type DTableEditable<ROW> = ( row: ROW, columnIndex: number ) => boolean;
 
 export type DTableBodyCellOptionsUnion<ROW> = DTableBodyCellTextOptions<ROW> | DTableBodyCellInputTextOptions<ROW> |
 	DTableBodyCellInputIntegerOptions<ROW> | DTableBodyCellInputRealOptions<ROW> | DTableBodyCellIndexOptions<ROW> |
@@ -66,15 +67,15 @@ export type DTableBodyCellOptionsMerged<ROW> = DTableBodyCellTextOptions<ROW> & 
 	DTableBodyCellDatetimeOptions<ROW> & DTableBodyCellTimeOptions<ROW> & DTableBodyCellButtonOptions<ROW> &
 	DTableBodyCellLinkOptions<ROW> & DTableBodyCellSelectMenuOptions<ROW> & DTableBodyCellTreeOptions<ROW>;
 
-export interface DTableColumnEditingOptions {
-	enable?: boolean;
+export interface DTableColumnEditingOptions<ROW> {
+	enable?: boolean | DTableEditable<ROW>;
 	formatter?: DTableEditingFormatter;
 	unformatter?: DTableEditingUnformatter;
 	validator?: DTableEditingValidator;
 }
 
-export interface DTableColumnEditing {
-	enable: boolean;
+export interface DTableColumnEditing<ROW> {
+	enable: boolean | DTableEditable<ROW>;
 	formatter: DTableEditingFormatter;
 	unformatter: DTableEditingUnformatter;
 	validator?: DTableEditingValidator;
@@ -117,11 +118,12 @@ export interface DTableColumnOptions<ROW> {
 	getter?: DTableGetter<ROW>;
 	setter?: DTableSetter<ROW>;
 	path?: string;
+	default?: unknown;
 	formatter?: DTableFormatter;
 	align?: (keyof typeof DAlignHorizontal) | DAlignHorizontal;
 
-	editable?: boolean;
-	editing?: DTableColumnEditingOptions;
+	editable?: boolean | DTableEditable<ROW>;
+	editing?: DTableColumnEditingOptions<ROW>;
 
 	sortable?: boolean;
 	sorting?: DTableColumnSortingOptions<ROW>;
@@ -148,7 +150,7 @@ export interface DTableColumn<ROW> {
 	formatter?: DTableFormatter;
 	align: DAlignHorizontal;
 
-	editing: DTableColumnEditing;
+	editing: DTableColumnEditing<ROW>;
 	sorting: DTableColumnSorting<ROW>;
 
 	header?: DTableHeaderCellOptions<ROW>;

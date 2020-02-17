@@ -327,19 +327,21 @@ export class DTableBody<
 			if( 0 <= this.parent.position.y + local.y ) {
 				const rowIndexMapped = Math.floor( local.y / this._rowHeight );
 				const data = this._data;
-				if( 0 <= rowIndexMapped && rowIndexMapped < data.mapped.size() ) {
-					const isSingle = ( data.selection.type === DTableDataSelectionType.SINGLE );
+				const mapped = data.mapped;
+				const selection = data.selection;
+				if( 0 <= rowIndexMapped && rowIndexMapped < mapped.size() ) {
+					const isSingle = ( selection.type === DTableDataSelectionType.SINGLE );
 					const isNotSingle = ! isSingle;
 					const originalEvent = e.data.originalEvent;
 					const ctrlKey = originalEvent.ctrlKey;
 					const shiftKey = originalEvent.shiftKey;
-					const rowIndex = data.mapped.unmap( rowIndexMapped );
-					if( isSingle || data.selection.isEmpty() || ! ( isNotSingle && ( ctrlKey || shiftKey ) ) ) {
-						data.selection.clearAndAdd( rowIndex );
+					const rowIndex = mapped.unmap( rowIndexMapped );
+					if( isSingle || selection.isEmpty() || ! ( isNotSingle && ( ctrlKey || shiftKey ) ) ) {
+						selection.clearAndAdd( rowIndex );
 					} else if( ctrlKey ) {
-						data.selection.toggle( rowIndex );
+						selection.toggle( rowIndex );
 					} else if( shiftKey ) {
-						data.selection.addTo( rowIndex );
+						selection.addTo( rowIndex );
 					}
 				}
 			}
@@ -366,9 +368,8 @@ export class DTableBody<
 						const columns = this._columns;
 						const columnsLength = columns.length;
 						for( let i = 0, imax = Math.min( cellsLength, columnsLength ); i < imax; ++i ) {
-							const column = columns[ columnsLength - i - 1 ];
-							if( column.editing.enable ) {
-								const cell = cells[ cellsLength - i - 1 ];
+							const cell = cells[ cellsLength - i - 1 ];
+							if( cell.isActionable() ) {
 								const dx = x - cell.position.x;
 								if( 0 <= dx && dx <= cell.width ) {
 									cell.focus();

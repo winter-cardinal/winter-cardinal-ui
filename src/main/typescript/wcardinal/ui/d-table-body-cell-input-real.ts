@@ -61,6 +61,11 @@ export class DTableBodyCellInputReal<
 		this._row = row;
 		this._rowIndex = rowIndex;
 		this.text = Number( value );
+
+		const enable = this._columnData.editing.enable;
+		if( enable !== false ) {
+			this.setReadOnly( enable !== true && ! enable( row, columnIndex ) );
+		}
 	}
 
 	unset(): void {

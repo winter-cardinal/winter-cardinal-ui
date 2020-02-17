@@ -70,6 +70,11 @@ export class DTableBodyCellSelectMultiple<
 		this._row = row;
 		this._rowIndex = rowIndex;
 		this.values = value as VALUE[];
+
+		const enable = this._columnData.editing.enable;
+		if( enable !== false ) {
+			this.setReadOnly( enable !== true && ! enable( row, columnIndex ) );
+		}
 	}
 
 	unset(): void {

@@ -1431,7 +1431,9 @@ export class DBase<
 	}
 
 	protected mergeState( stateLocal: DBaseState, stateParent: DBaseState ): DBaseState {
-		return stateLocal | ( stateParent & DBaseState.DISABLED ) |
+		return stateLocal |
+			( stateParent & DBaseState.DISABLED ) |
+			( stateParent & DBaseState.READ_ONLY ) |
 			( stateParent & (DBaseState.FOCUSED | DBaseState.FOCUSED_IN) ? DBaseState.FOCUSED_IN : DBaseState.NONE ) |
 			( stateParent & (DBaseState.ACTIVE | DBaseState.ACTIVE_IN) ? DBaseState.ACTIVE_IN : DBaseState.NONE );
 	}

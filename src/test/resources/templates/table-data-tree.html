@@ -27,19 +27,18 @@
 						a: "A" + i + "-" + j + "-" + k,
 						b: "B" + i + "-" + j + "-" + k,
 						c: "C" + i + "-" + j + "-" + k,
+						d: i + j + k
 					});
 				}
 				children.push({
 					a: "A" + i + "-" + j,
 					b: "B" + i + "-" + j,
-					c: "C" + i + "-" + j,
 					children: grand
 				});
 			}
 			rows.push({
 				a: "A" + i,
 				b: "B" + i,
-				c: "C" + i,
 				children: children
 			});
 		}
@@ -63,7 +62,12 @@
 				label: "C",
 				type: "TEXT",
 				path: "c",
-				editable: true
+				default: ""
+			},{
+				label: "D",
+				type: "COLOR",
+				path: "d",
+				default: 0
 			}],
 			data: new wcardinal.ui.DTableDataTree({
 				rows: rows,

@@ -51,6 +51,11 @@ export class DTableBodyCellText<
 		this._row = row;
 		this._rowIndex = rowIndex;
 		this.text = value;
+
+		const enable = this._columnData.editing.enable;
+		if( enable !== false ) {
+			this.setReadOnly( enable !== true && ! enable( row, columnIndex ) );
+		}
 	}
 
 	unset(): void {

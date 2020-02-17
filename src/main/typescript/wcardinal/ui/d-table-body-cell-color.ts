@@ -108,6 +108,11 @@ export class DTableBodyCellColor<
 			value.color = 0xffffff;
 			value.alpha = 1;
 		}
+
+		const enable = this._columnData.editing.enable;
+		if( enable !== false ) {
+			this.setReadOnly( enable !== true && ! enable( row, columnIndex ) );
+		}
 	}
 
 	unset(): void {

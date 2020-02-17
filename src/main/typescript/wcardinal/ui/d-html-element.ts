@@ -200,7 +200,7 @@ export class DHtmlElement<
 
 	protected isStartable(): boolean {
 		if( this._when === DHtmlElementWhen.FOCUSED ) {
-			return ! this.isDisabled();
+			return this.isActionable();
 		}
 		return true;
 	}
