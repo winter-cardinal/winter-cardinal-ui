@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Point, Rectangle, Renderer, Text } from "pixi.js";
+import { interaction, Point, Rectangle, Renderer, Text } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
@@ -173,6 +173,14 @@ export class DHtmlElement<
 
 	get element(): ELEMENT | null {
 		return this._element;
+	}
+
+	protected onDownThis( e: interaction.InteractionEvent ): void {
+		const wasStarted = this._isStarted;
+		super.onDownThis( e );
+		if( ! wasStarted && this._isStarted ) {
+			e.data.originalEvent.preventDefault();
+		}
 	}
 
 	protected onFocused(): void {

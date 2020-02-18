@@ -1770,8 +1770,14 @@ export class DBase<
 	}
 
 	protected onDownThis( e: InteractionEvent ): void {
-		const lastDownPoint = this._lastDownPoint = this._lastDownPoint || new Point();
-		lastDownPoint.copyFrom( e.data.global );
+		const oe = e.data.originalEvent;
+		if( "touches" in oe ) {
+			const lastDownPoint = this._lastDownPoint || new Point();
+			this._lastDownPoint = lastDownPoint;
+			lastDownPoint.copyFrom( e.data.global );
+		} else {
+			this.focusOnClosest();
+		}
 	}
 
 	protected onUp( e: InteractionEvent ): void {
@@ -1781,19 +1787,26 @@ export class DBase<
 	}
 
 	protected onUpThis( e: InteractionEvent ): void {
-		const lastDownPoint = this._lastDownPoint;
-		if( lastDownPoint ) {
-			const global = e.data.global;
-			const dx = Math.abs( global.x - lastDownPoint.x );
-			const dy = Math.abs( global.y - lastDownPoint.y );
-			const threshold = UtilPointerEvent.CLICK_DISTANCE_THRESHOLD;
-			if( dx < threshold && dy < threshold ) {
-				const layer = DApplications.getLayer( this );
-				if( layer ) {
-					const focusController = layer.getFocusController();
-					focusController.setFocused( focusController.findFocusableParent( this ), true, true );
+		const oe = e.data.originalEvent;
+		if( "touches" in oe ) {
+			const lastDownPoint = this._lastDownPoint;
+			if( lastDownPoint ) {
+				const global = e.data.global;
+				const dx = Math.abs( global.x - lastDownPoint.x );
+				const dy = Math.abs( global.y - lastDownPoint.y );
+				const threshold = UtilPointerEvent.CLICK_DISTANCE_THRESHOLD;
+				if( dx < threshold && dy < threshold ) {
+					this.focusOnClosest();
 				}
 			}
+		}
+	}
+
+	protected focusOnClosest(): void {
+		const layer = DApplications.getLayer( this );
+		if( layer ) {
+			const focusController = layer.getFocusController();
+			focusController.setFocused( focusController.findFocusableParent( this ), true, true );
 		}
 	}
 
