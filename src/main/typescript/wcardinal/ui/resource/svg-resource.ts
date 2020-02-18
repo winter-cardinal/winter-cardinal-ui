@@ -37,10 +37,22 @@ export class SVGResource extends resources.BaseImageResource {
 				(this as any).onError.run( event ); // TODO: Fix PixiJS
 			};
 
-			image.onload = (): void => {
-				(this.resize as any)( image.width, image.height ); // TODO: Fix PixiJS
-				resolve();
-			};
+			const ua = navigator.userAgent;
+
+			// IE and Edge generates wrong images without setTimeout.
+			if( 0 <= ua.indexOf( "Trident/" ) || 0 <= ua.indexOf( "Edge/" ) ) {
+				image.onload = (): void => {
+					setTimeout((): void => {
+						this.resize( image.width, image.height );
+						resolve();
+					}, 0);
+				};
+			} else {
+				image.onload = (): void => {
+					this.resize( image.width, image.height );
+					resolve();
+				};
+			}
 
 			image.src = this.svg;
 		});
