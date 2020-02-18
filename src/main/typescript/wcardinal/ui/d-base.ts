@@ -585,6 +585,7 @@ export class DBase<
 	protected _befores: DRenderable[];
 	protected _afters: DRenderable[];
 	protected _reflowables: DReflowable[];
+	protected _lastDownPoint?: Point;
 
 	constructor( options?: OPTIONS ) {
 		super();
@@ -729,6 +730,10 @@ export class DBase<
 
 		this.on( UtilPointerEvent.down, ( e: InteractionEvent ): void => {
 			this.onDown( e );
+		});
+
+		this.on( UtilPointerEvent.up, ( e: InteractionEvent ): void => {
+			this.onUp( e );
 		});
 
 		// Children change detection
@@ -1744,26 +1749,51 @@ export class DBase<
 	}
 
 	// Down
-	protected onDown( e: InteractionEvent ): void {
+	protected isEventTarget( e: InteractionEvent ): boolean {
 		const target = e.target;
 		if( target === this ) {
-			this.onDownThis( e );
+			return true;
 		} else if( !( target instanceof DBase ) ) {
 			let parent = target.parent;
 			while( parent != null && ! ( parent instanceof DBase ) ) {
 				parent = parent.parent;
 			}
-			if( parent === this ) {
-				this.onDownThis( e );
-			}
+			return ( parent === this );
+		}
+		return false;
+	}
+
+	protected onDown( e: InteractionEvent ): void {
+		if( this.isEventTarget( e ) ) {
+			this.onDownThis( e );
 		}
 	}
 
 	protected onDownThis( e: InteractionEvent ): void {
-		const layer = DApplications.getLayer( this );
-		if( layer ) {
-			const focusController = layer.getFocusController();
-			focusController.setFocused( focusController.findFocusableParent( this ), true, true );
+		const lastDownPoint = this._lastDownPoint = this._lastDownPoint || new Point();
+		lastDownPoint.copyFrom( e.data.global );
+	}
+
+	protected onUp( e: InteractionEvent ): void {
+		if( this.isEventTarget( e ) ) {
+			this.onUpThis( e );
+		}
+	}
+
+	protected onUpThis( e: InteractionEvent ): void {
+		const lastDownPoint = this._lastDownPoint;
+		if( lastDownPoint ) {
+			const global = e.data.global;
+			const dx = Math.abs( global.x - lastDownPoint.x );
+			const dy = Math.abs( global.y - lastDownPoint.y );
+			const threshold = UtilPointerEvent.CLICK_DISTANCE_THRESHOLD;
+			if( dx < threshold && dy < threshold ) {
+				const layer = DApplications.getLayer( this );
+				if( layer ) {
+					const focusController = layer.getFocusController();
+					focusController.setFocused( focusController.findFocusableParent( this ), true, true );
+				}
+			}
 		}
 	}
 

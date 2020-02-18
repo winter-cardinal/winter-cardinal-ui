@@ -16,14 +16,6 @@ const isFocusableContainer = ( target: any ): target is DFocusableContainer => {
 	return ( target != null && "children" in target );
 };
 
-interface Selectable {
-	select(): void;
-}
-
-const isSelectable = ( target: any ): target is Selectable => {
-	return ( target != null && "select" in target );
-};
-
 export class DControllerDefaultFocus implements DControllerFocus {
 	private _focused: DFocusable | null = null;
 
@@ -38,9 +30,6 @@ export class DControllerDefaultFocus implements DControllerFocus {
 				this._focused = focusable;
 				if( focusable != null && this.isFocusable( focusable ) ) {
 					focusable.setState( DBaseState.FOCUSED, true );
-					if( select && isSelectable( focusable ) ) {
-						focusable.select();
-					}
 				}
 				return previous;
 			} else {
@@ -50,9 +39,6 @@ export class DControllerDefaultFocus implements DControllerFocus {
 			if( focusable != null && this._focused === focusable ) {
 				this._focused = null;
 				focusable.setState( DBaseState.FOCUSED, false );
-				if( select && isSelectable( focusable ) ) {
-					focusable.select();
-				}
 				return focusable;
 			} else {
 				return null;

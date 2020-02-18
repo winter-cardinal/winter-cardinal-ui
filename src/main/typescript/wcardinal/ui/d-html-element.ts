@@ -99,7 +99,6 @@ export class DHtmlElement<
 	protected _elementStyle!: DHtmlElementStyle<THEME> | undefined;
 	protected _elementRect!: Rectangle | null;
 	protected _isElementShown!: boolean;
-	protected _isElementSelected!: boolean;
 	protected _onElementFocusedBound!: ( e: FocusEvent ) => void;
 
 	protected _before!: HTMLDivElement | null;
@@ -116,6 +115,7 @@ export class DHtmlElement<
 	protected _select!: boolean;
 	protected _doSelectBound!: () => void;
 	protected _when!: DHtmlElementWhen;
+	protected _isStartRequested!: boolean;
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
@@ -136,7 +136,6 @@ export class DHtmlElement<
 		this._elementStyle = element && element.style;
 		this._elementRect = null;
 		this._isElementShown = false;
-		this._isElementSelected = false;
 		this._onElementFocusedBound = ( e: FocusEvent ): void => {
 			this.onElementFocused( e );
 		};
@@ -169,9 +168,7 @@ export class DHtmlElement<
 			theme.getWhen()
 		);
 		this._when = when;
-		if( when === DHtmlElementWhen.ALWAYS ) {
-			this.start();
-		}
+		this._isStartRequested = ( when === DHtmlElementWhen.ALWAYS );
 	}
 
 	get element(): ELEMENT | null {
@@ -195,6 +192,11 @@ export class DHtmlElement<
 		if( this._when === DHtmlElementWhen.FOCUSED ) {
 			this.onEndByBlured();
 			this.cancel();
+		} else {
+			const element = this._element;
+			if( element ) {
+				element.blur();
+			}
 		}
 	}
 
@@ -208,14 +210,18 @@ export class DHtmlElement<
 	start(): void {
 		if( ! this._isStarted && this.isStartable() ) {
 			this._isStarted = true;
+			this.doStart();
 			DApplications.update( this );
 		}
 	}
 
 	render( renderer: Renderer ): void {
+		if( this._isStartRequested ) {
+			this._isStartRequested = false;
+			this.doStart();
+		}
 		if( this._isStarted ) {
 			this._isStarted = false;
-			this.doStart( renderer );
 		}
 		super.render( renderer );
 		if( this._isElementShown ) {
@@ -223,7 +229,7 @@ export class DHtmlElement<
 		}
 	}
 
-	protected doStart( renderer: Renderer ): void {
+	protected doStart( renderer?: Renderer ): void {
 		if( ! this._isElementShown ) {
 			this._isElementShown = true;
 
@@ -235,7 +241,15 @@ export class DHtmlElement<
 				const element = this.getElement( clipper );
 				const after = this.getAfter( clipper );
 				if( element ) {
-					const resolution = renderer.resolution;
+					let resolution = 1;
+					if( renderer == null ) {
+						const layer = DApplications.getLayer( this );
+						if( layer ) {
+							resolution = layer.renderer.resolution;
+						}
+					} else {
+						resolution = renderer.resolution;
+					}
 					const elementRect = this.getElementRect( resolution );
 					const clipperRect = this.getClipperRect( elementRect, resolution );
 					const theme = this.theme;
@@ -260,8 +274,7 @@ export class DHtmlElement<
 					clipper.scrollLeft = 0;
 
 					// Select the element if required.
-					// Note that a selecting without the setTimeout causes a keystroke drop on Microsoft Edge.
-					if( this._isElementSelected && this._select && ("select" in element) ) {
+					if( this._select ) {
 						setTimeout( this._doSelectBound, 0 );
 					}
 				}
@@ -270,11 +283,13 @@ export class DHtmlElement<
 	}
 
 	protected doSelect(): void {
-		if( this._isElementShown ) {
-			const element = this._element;
-			if( element && this._isElementSelected && this._select && ("select" in element) ) {
-				this._isElementSelected = false;
-				(element as any).select();
+		const element = this._element;
+		if( element ) {
+			if( element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement ) {
+				// The following does not work on mobile devices.
+				// I think selecting texts on a tap is annoying.
+				// Though I leave this untouched.
+				element.select();
 			}
 		}
 	}
@@ -364,21 +379,10 @@ export class DHtmlElement<
 
 			this.onCancel();
 
-			const clipper = this._clipper;
-			if( clipper != null ) {
-				clipper.style.display = "none";
-			}
-
-			const element = this._element;
-			if( element != null ) {
-				this.onElementDetached( element, this._before, this._after );
-			}
-			this._isElementSelected = false;
-
 			const layer = DApplications.getLayer( this );
 			if( layer ) {
 				const view = layer.view;
-				if( this._when === DHtmlElementWhen.FOCUSED ) {
+				if( this._when === DHtmlElementWhen.FOCUSED && document.activeElement === this._element ) {
 					view.focus();
 				}
 
@@ -389,6 +393,16 @@ export class DHtmlElement<
 				}
 
 				layer.update();
+			}
+
+			const element = this._element;
+			if( element != null ) {
+				this.onElementDetached( element, this._before, this._after );
+			}
+
+			const clipper = this._clipper;
+			if( clipper != null ) {
+				clipper.style.display = "none";
 			}
 		}
 	}
@@ -564,11 +578,8 @@ export class DHtmlElement<
 	}
 
 	select(): this {
-		const element = this._element;
-		if( element != null && this._isElementShown && this._select && "select" in element ) {
-			(element as any).select();
-		} else {
-			this._isElementSelected = true;
+		if( this._isElementShown && this._select ) {
+			this.doSelect();
 		}
 		return this;
 	}
