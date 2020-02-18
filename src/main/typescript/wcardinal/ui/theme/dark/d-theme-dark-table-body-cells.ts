@@ -23,6 +23,9 @@ export class DThemeDarkTableBodyCells {
 	static readonly COLOR_HOVERED = UtilRgb.brighten(
 		DThemeDarkTableBodyCells.BACKGROUND_COLOR_ODD, DThemeDarkConstants.FOCUSED_ALPHA
 	);
+	static readonly COLOR_FOCUSED_AND_HOVERED = UtilRgb.brighten(
+		DThemeDarkTableBodyCells.BACKGROUND_COLOR_ODD, DThemeDarkConstants.FOCUSED_ALPHA * 2
+	);
 
 	static getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
@@ -37,6 +40,9 @@ export class DThemeDarkTableBodyCells {
 		}
 		if( state & DBaseState.ACTIVE_IN ) {
 			return DThemeDarkConstants.HIGHLIGHT_COLOR;
+		}
+		if( DBaseStates.isFocused( state ) && DBaseStates.isHovered( state ) ) {
+			return this.COLOR_FOCUSED_AND_HOVERED;
 		}
 		if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
 			return this.COLOR_HOVERED;

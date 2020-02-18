@@ -17,6 +17,7 @@ export class DThemeWhiteTableBodyCells {
 	static readonly IMAGE_TINT_COLOR_FOCUSED = UtilRgb.darken( DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR, 0.1 );
 	static readonly BACKGROUND_COLOR_EVEN = 0xffffff;
 	static readonly BACKGROUND_COLOR_ODD = UtilRgb.darken( 0xffffff, 0.017 );
+	static readonly WEAK_STRONG_HIGHLIGHT_COLOR = UtilRgb.darken( DThemeWhiteConstants.WEAK_HIGHLIGHT_BLENDED, 0.025 );
 
 	static getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
@@ -30,6 +31,8 @@ export class DThemeWhiteTableBodyCells {
 			return DThemeWhiteConstants.INVALID_BLENDED;
 		} else if( state & DBaseState.ACTIVE_IN ) {
 			return DThemeWhiteConstants.HIGHLIGHT_BLENDED;
+		} else if( DBaseStates.isFocused( state ) && DBaseStates.isHovered( state ) ) {
+			return this.WEAK_STRONG_HIGHLIGHT_COLOR;
 		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
 			return DThemeWhiteConstants.WEAK_HIGHLIGHT_BLENDED;
 		} else {
