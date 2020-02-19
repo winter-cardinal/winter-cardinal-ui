@@ -37,7 +37,7 @@ export interface DTableBodyRowOptions<
 	THEME extends DThemeTableBodyRow = DThemeTableBodyRow
 > extends DTableRowOptions<ROW, DTableColumn<ROW>, THEME> {
 	height?: number;
-	cell?: DTableBodyCellOptionsUnion<ROW>;
+	cell?: Partial<DTableBodyCellOptionsMerged<ROW>>;
 }
 
 export interface DThemeTableBodyRow extends DThemeTableRow {
