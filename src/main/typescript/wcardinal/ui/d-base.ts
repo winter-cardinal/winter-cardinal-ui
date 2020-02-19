@@ -281,7 +281,7 @@ export interface DBaseOptions<THEME extends DThemeBase = DThemeBase> {
 	outline?: DBaseOutlineOptions;
 
 	/** A shadow. */
-	shadow?: DShadow;
+	shadow?: "NONE" | "WEAK" | "DEFAULT" | DShadow;
 
 	/** A clear type used by {@link DLayoutVertical} and {@link DLayoutHorizontal}. */
 	clear?: (keyof typeof DLayoutClearType) | DLayoutClearType;
@@ -716,7 +716,18 @@ export class DBase<
 		};
 		const shadow = (options && options.shadow) || theme.getShadow();
 		if( shadow ) {
-			this.shadow = shadow;
+			if( isString( shadow )  ) {
+				switch( shadow ) {
+				case "WEAK":
+					this.shadow = theme.newShadowWeak();
+					break;
+				case "DEFAULT":
+					this.shadow = theme.newShadow();
+					break;
+				}
+			} else {
+				this.shadow = shadow;
+			}
 		}
 
 		// Event handlers
