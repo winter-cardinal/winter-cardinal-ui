@@ -16,7 +16,7 @@ export interface DTableRowOptions<
 	THEME extends DThemeTableRow = DThemeTableRow
 > extends DLayoutHorizontalOptions<THEME> {
 	columns?: COLUMN[];
-	frozen: number;
+	frozen?: number;
 	even?: boolean;
 }
 
@@ -53,7 +53,7 @@ export abstract class DTableRow<
 		}
 
 		// Frozen
-		const frozen = this._frozen = options.frozen;
+		const frozen = this._frozen = options.frozen ?? 0;
 
 		// Cells
 		const columns = this._columns = options.columns || [];

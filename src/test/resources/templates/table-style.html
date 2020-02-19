@@ -47,14 +47,10 @@
 			data: data,
 			body: {
 				row: {
-					on: {
-						set: ( _, rowIndex, row ) => {
-							if( rowIndex % 2 === 0 ) {
-								row.background.color = ( state ) => {
-									return ( state & wcardinal.ui.DBaseState.HOVERED ? 0x99ccff : undefined );
-								};
-							} else {
-								row.background.color = undefined;
+					cell: {
+						background: {
+							color: ( state ) => {
+								return state & wcardinal.ui.DTableCellState.EVEN ? 0xffdddd : 0xddddff;
 							}
 						}
 					}

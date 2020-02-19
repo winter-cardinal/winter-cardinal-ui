@@ -24,7 +24,7 @@ export interface DTableBodyOptions<
 	row?: DTableBodyRowOptions<ROW>;
 	data?: DTableDataOptions<ROW> | DATA;
 	offset?: number;
-	frozen: number;
+	frozen?: number;
 }
 
 export interface DThemeTableBody extends DThemeBase {
@@ -300,7 +300,8 @@ export class DTableBody<
 	}
 
 	protected updateFrozenCellPosition( x: number ): void {
-		if( 0 < this._rowOptions.frozen ) {
+		const frozen = this._rowOptions.frozen;
+		if( frozen != null && 0 < frozen ) {
 			const rows = this.children as Array<DTableBodyRow<ROW>>;
 			for( let i = 0, imax = rows.length; i < imax; ++i ) {
 				rows[ i ].updateFrozenCellPosition( x );
