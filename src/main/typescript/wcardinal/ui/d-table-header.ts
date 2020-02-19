@@ -41,7 +41,7 @@ export class DTableHeader<
 	protected init( options: OPTIONS ) {
 		this._table = options.table || null;
 		this._offset = this.transform.position.y = options.offset || 0;
-		this._frozen = options.frozen;
+		this._frozen = options.frozen ?? 0;
 		super.init( options );
 	}
 
