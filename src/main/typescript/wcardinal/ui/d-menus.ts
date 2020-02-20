@@ -53,14 +53,14 @@ export class DMenus {
 	static newItemsOf<VALUE>(
 		creator: { newItem( options: DMenuItemOptionsUnion<VALUE>, sticky: boolean ): DisplayObject | null },
 		parent: Container,
-		items: Array<DMenuItemOptionsUnion<VALUE> | DisplayObject>,
+		items: Array<DMenuItemOptionsUnion<VALUE> | DisplayObject | null | undefined>,
 		sticky: boolean
 	): void {
 		for( let i = 0, imax = items.length; i < imax; ++i ) {
 			const item = items[ i ];
 			if( item instanceof DisplayObject ) {
 				parent.addChild( item );
-			} else {
+			} else if( item != null ) {
 				const created = creator.newItem( item, sticky );
 				if( created != null ) {
 					parent.addChild( created );
@@ -73,7 +73,7 @@ export class DMenus {
 
 	static newItems<VALUE>(
 		parent: Container,
-		items: Array<DMenuItemOptionsUnion<VALUE> | DisplayObject>,
+		items: Array<DMenuItemOptionsUnion<VALUE> | DisplayObject | null | undefined>,
 		sticky: boolean
 	): void {
 		this.newItemsOf( this, parent, items, sticky );

@@ -105,12 +105,11 @@ export class DMenuItemText<
 	}
 
 	protected onSelect( e: KeyboardEvent | interaction.InteractionEvent ): void {
+		super.onSelect( e );
 		const closeable = this.getCloseable();
 		if( closeable != null ) {
 			closeable.emit( "select", this.value, this, closeable );
 		}
-
-		super.onSelect( e );
 	}
 
 	protected onShortcut( e: KeyboardEvent ) {

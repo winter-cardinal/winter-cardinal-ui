@@ -39,7 +39,7 @@ export class DMenuItemMenu<
 
 		UtilPointerEvent.onClick( this, (): void => {
 			if( this.isActionable() ) {
-				this.toggle();
+				this.open();
 			}
 		});
 

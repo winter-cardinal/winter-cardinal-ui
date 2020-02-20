@@ -40,9 +40,4 @@ export class DMenuItemExpandableHeader<
 	protected getType(): string {
 		return "DMenuItemExpandableHeader";
 	}
-
-	protected onSelect( e: KeyboardEvent | interaction.InteractionEvent ) {
-		this.emit( "select", this );
-		super.onSelect( e );
-	}
 }

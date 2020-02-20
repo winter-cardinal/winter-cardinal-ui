@@ -281,7 +281,7 @@ export interface DBaseOptions<THEME extends DThemeBase = DThemeBase> {
 	outline?: DBaseOutlineOptions;
 
 	/** A shadow. */
-	shadow?: "NONE" | "WEAK" | "DEFAULT" | DShadow;
+	shadow?: "NONE" | "WEAK" | "DEFAULT" | DShadow | null;
 
 	/** A clear type used by {@link DLayoutVertical} and {@link DLayoutHorizontal}. */
 	clear?: (keyof typeof DLayoutClearType) | DLayoutClearType;

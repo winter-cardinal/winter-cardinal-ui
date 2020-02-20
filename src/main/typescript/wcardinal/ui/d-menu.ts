@@ -25,7 +25,7 @@ export interface DMenuOptions<
 	align?: (keyof typeof DMenuAlign) | DMenuAlign;
 	fit?: boolean;
 	sticky?: boolean;
-	items?: Array<DMenuItemOptionsUnion<VALUE> | DisplayObject>;
+	items?: Array<DMenuItemOptionsUnion<VALUE> | DisplayObject | null | undefined>;
 }
 
 export interface DThemeMenu extends DThemeLayoutVertical {

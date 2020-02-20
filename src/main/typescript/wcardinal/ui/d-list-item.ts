@@ -70,6 +70,7 @@ export class DListItem<
 	}
 
 	protected onSelect( e: KeyboardEvent | interaction.InteractionEvent ): void {
+		this.emit( "select", this );
 		const selection = this.getSelection();
 		if( selection ) {
 			selection.add( this );
