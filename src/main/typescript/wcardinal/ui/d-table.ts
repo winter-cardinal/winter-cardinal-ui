@@ -245,8 +245,8 @@ const toColumnMenu = ( options?: DMenuOptions<unknown> | DMenu<unknown> ): DMenu
 };
 
 const toColumnDialog = (
-	options?: DDialogSelectOptions<unknown> | DTableColumnSelectingDialog
-): DTableColumnSelectingDialog | undefined => {
+	options?: DDialogSelectOptions<unknown> | DTableColumnSelectingDialog<unknown>
+): DTableColumnSelectingDialog<unknown> | undefined => {
 	if( options == null ) {
 		return undefined;
 	} else if( options instanceof DDialog ) {
@@ -256,11 +256,11 @@ const toColumnDialog = (
 	}
 };
 
-const defaultSelectingGetter: DTableSelectingGetter = ( dialog: DTableColumnSelectingDialog ): unknown => {
+const defaultSelectingGetter: DTableSelectingGetter = ( dialog: DTableColumnSelectingDialog<any> ): unknown => {
 	return dialog.value;
 };
 
-const defaultSelectingSetter: DTableSelectingSetter = ( dialog: DTableColumnSelectingDialog, value: unknown ): void => {
+const defaultSelectingSetter: DTableSelectingSetter = (): void => {
 	// DO NOTHING
 };
 
