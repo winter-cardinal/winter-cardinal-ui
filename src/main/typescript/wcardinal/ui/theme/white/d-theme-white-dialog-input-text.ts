@@ -3,28 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeDialogInputText } from "../../d-dialog-input-text";
-import { DThemeWhiteDialog } from "./d-theme-white-dialog";
+import { DThemeWhiteDialogCommand } from "./d-theme-white-dialog-command";
 
-export class DThemeWhiteDialogInputText extends DThemeWhiteDialog implements DThemeDialogInputText {
-	getOk(): string {
-		return "OK";
-	}
-
-	getCancel(): string {
-		return "Cancel";
-	}
-
+export class DThemeWhiteDialogInputText extends DThemeWhiteDialogCommand implements DThemeDialogInputText {
 	getLabel(): string {
 		return "";
 	}
 
 	getLabelWidth(): number {
 		return 60;
-	}
-
-	getHeight(): DCoordinateSize {
-		return "auto";
 	}
 }

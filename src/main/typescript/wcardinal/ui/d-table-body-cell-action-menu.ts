@@ -52,13 +52,12 @@ export class DTableBodyCellActionMenu<
 
 	protected onSelected( selected: unknown ): void {
 		const columnData = this._columnData;
-		const value = columnData.selecting.getter( selected );
 		const row = this._row;
 		if( row !== undefined ) {
 			const rowIndex = this._rowIndex;
 			const columnIndex = this._columnIndex;
-			columnData.setter( row, columnIndex, value );
-			this.emit( "cellchange", value, null, row, rowIndex, columnIndex, this );
+			columnData.setter( row, columnIndex, selected );
+			this.emit( "cellchange", selected, null, row, rowIndex, columnIndex, this );
 		}
 	}
 

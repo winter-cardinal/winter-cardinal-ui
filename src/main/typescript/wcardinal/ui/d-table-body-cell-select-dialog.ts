@@ -51,27 +51,20 @@ export class DTableBodyCellSelectDialog<
 		const selecting = column.data.selecting;
 		const dialog = selecting.dialog;
 		if( dialog != null ) {
-			const getter = selecting.getter;
-			const onSelectBound = ( selected: unknown ): void => {
-				const newValue = getter( selected );
-				if( this._isSyncEnabled ) {
-					const oldValue = this.text;
-					if( newValue !== oldValue ) {
-						this.text = newValue as VALUE;
-						this.onCellChange( newValue, oldValue );
-					}
-				} else {
-					this.onCellChange( newValue, null );
-				}
-			};
-			const onCloseBound = (): void => {
-				dialog.off( "select", onSelectBound );
-				dialog.off( "close", onCloseBound );
-			};
 			this.on( "active", (): void => {
-				dialog.on( "select", onSelectBound );
-				dialog.on( "close", onCloseBound );
-				dialog.open();
+				selecting.setter( dialog, this.text );
+				dialog.open().then(() => {
+					const newValue = selecting.getter( dialog );
+					if( this._isSyncEnabled ) {
+						const oldValue = this.text;
+						if( newValue !== oldValue ) {
+							this.text = newValue as VALUE;
+							this.onCellChange( newValue, oldValue );
+						}
+					} else {
+						this.onCellChange( newValue, null );
+					}
+				});
 			});
 		}
 	}

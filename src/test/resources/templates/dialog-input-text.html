@@ -15,23 +15,7 @@
 		"use strict";
 
 		const application = new wcardinal.ui.DApplication();
-		const dialog = new wcardinal.ui.DDialogSelect({
-			controller: {
-				search: ( word ) => {
-					return new Promise(( resolve ) => {
-						setTimeout(() => {
-							const result = [];
-							for( let i = 0; i < 10; ++i ) {
-								result.push({
-									id: i
-								});
-							}
-							resolve( result );
-						}, 1000 * Math.random());
-					});
-				}
-			}
-		});
+		const dialog = new wcardinal.ui.DDialogInputText();
 		dialog.open().then(() => {
 			console.log( "ok", dialog.value );
 		}).catch(() => {

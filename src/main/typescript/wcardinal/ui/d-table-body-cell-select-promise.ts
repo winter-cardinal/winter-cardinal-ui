@@ -51,21 +51,18 @@ export class DTableBodyCellSelectPromise<
 		const selecting = column.data.selecting;
 		const promise = selecting.promise;
 		if( promise != null ) {
-			const getter = selecting.getter;
-			const onSelectBound = ( selected: unknown ): void => {
-				const newValue = getter( selected );
-				if( this._isSyncEnabled ) {
-					const oldValue = this.text;
-					if( newValue !== oldValue ) {
-						this.text = newValue as VALUE;
-						this.onCellChange( newValue, oldValue );
-					}
-				} else {
-					this.onCellChange( newValue, null );
-				}
-			};
 			this.on( "active", (): void => {
-				promise().then( onSelectBound );
+				promise().then(( newValue: unknown ): void => {
+					if( this._isSyncEnabled ) {
+						const oldValue = this.text;
+						if( newValue !== oldValue ) {
+							this.text = newValue as VALUE;
+							this.onCellChange( newValue, oldValue );
+						}
+					} else {
+						this.onCellChange( newValue, null );
+					}
+				});
 			});
 		}
 	}

@@ -43,11 +43,7 @@ export class DTableBodyCellSelectMultiple<
 		this._rowIndex = 0;
 		this._columnIndex = column.index;
 		this._columnData = column.data;
-		const selecting = column.data.selecting;
-		const getter = selecting.getter;
-		this.on( "change", ( newSelected: unknown, oldSelected: unknown ): void => {
-			const newValue = getter( newSelected );
-			const oldValue = getter( oldSelected );
+		this.on( "change", ( newValue: unknown, oldValue: unknown ): void => {
 			const row = this._row;
 			if( row !== undefined ) {
 				const rowIndex = this._rowIndex;

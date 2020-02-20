@@ -6,10 +6,10 @@ export class DDialogSelectSearh<SEARCH_RESULT> extends utils.EventEmitter {
 	protected _idCompleted: number;
 	protected _result: SEARCH_RESULT[] | null;
 
-	constructor( search: ( word: string ) => Promise<SEARCH_RESULT[]> ) {
+	constructor( search?: ( word: string ) => Promise<SEARCH_RESULT[]> ) {
 		super();
 
-		this._search = search;
+		this._search = search || (( _: string ) => Promise.resolve([]));
 		this._id = 0;
 		this._idCompleted = 0;
 		this._result = null;

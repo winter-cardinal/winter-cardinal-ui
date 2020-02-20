@@ -9,6 +9,7 @@ import { DAlignHorizontal } from "./d-align-horizontal";
 import { DBaseOptions } from "./d-base";
 import { DContentOptions } from "./d-content";
 import { DCoordinateSize } from "./d-coordinate";
+import { DDialog } from "./d-dialog";
 import { DDialogSelect } from "./d-dialog-select";
 import { DMenu, DMenuOptions } from "./d-menu";
 import { DPane, DPaneOptions, DThemePane } from "./d-pane";
@@ -16,8 +17,9 @@ import { DTableBody, DTableBodyOptions } from "./d-table-body";
 import { DTableCategory, DTableCategoryColumn, DTableCategoryOptions } from "./d-table-category";
 import {
 	DTableColumn, DTableColumnEditing, DTableColumnOptions,
-	DTableColumnSelecting, DTableColumnSelectingOptions, DTableColumnSorting, DTableColumnType,
-	DTableEditable, DTableEditingUnformatter, DTableGetter, DTableRenderable, DTableSelectingGetter, DTableSetter
+	DTableColumnSelecting, DTableColumnSelectingDialog, DTableColumnSelectingOptions, DTableColumnSorting,
+	DTableColumnType, DTableEditable, DTableEditingUnformatter, DTableGetter, DTableRenderable,
+	DTableSelectingGetter, DTableSelectingSetter, DTableSetter
 } from "./d-table-column";
 import { DTableData, DTableDataOptions } from "./d-table-data";
 import { DTableDataList } from "./d-table-data-list";
@@ -243,25 +245,30 @@ const toColumnMenu = ( options?: DMenuOptions<unknown> | DMenu<unknown> ): DMenu
 };
 
 const toColumnDialog = (
-	options?: DDialogSelectOptions<unknown> | DDialogSelect<unknown>
-): DDialogSelect<unknown> | undefined => {
+	options?: DDialogSelectOptions<unknown> | DTableColumnSelectingDialog
+): DTableColumnSelectingDialog | undefined => {
 	if( options == null ) {
 		return undefined;
-	} else if( options instanceof DDialogSelect ) {
+	} else if( options instanceof DDialog ) {
 		return options;
 	} else {
 		return new DDialogSelect( options );
 	}
 };
 
-const defaultSelectingGetter: DTableSelectingGetter = ( selected: unknown ): unknown => {
-	return selected;
+const defaultSelectingGetter: DTableSelectingGetter = ( dialog: DTableColumnSelectingDialog ): unknown => {
+	return dialog.value;
+};
+
+const defaultSelectingSetter: DTableSelectingSetter = ( dialog: DTableColumnSelectingDialog, value: unknown ): void => {
+	// DO NOTHING
 };
 
 const toColumnSelecting = ( options: DTableColumnSelectingOptions | undefined ): DTableColumnSelecting => {
 	if( options ) {
 		return {
 			getter: options.getter || defaultSelectingGetter,
+			setter: options.setter || defaultSelectingSetter,
 			menu: toColumnMenu( options.menu ),
 			multiple: toColumnMenu( options.multiple ),
 			dialog: toColumnDialog( options.dialog ),
@@ -269,7 +276,8 @@ const toColumnSelecting = ( options: DTableColumnSelectingOptions | undefined ):
 		};
 	}
 	return {
-		getter: defaultSelectingGetter
+		getter: defaultSelectingGetter,
+		setter: defaultSelectingSetter
 	};
 };
 

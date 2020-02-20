@@ -4,9 +4,17 @@
  */
 
 import { DThemeDialogSelect } from "../../d-dialog-select";
-import { DThemeDarkDialog } from "./d-theme-dark-dialog";
+import { DThemeDarkDialogCommand } from "./d-theme-dark-dialog-command";
 
-export class DThemeDarkDialogSelect extends DThemeDarkDialog implements DThemeDialogSelect {
+export class DThemeDarkDialogSelect extends DThemeDarkDialogCommand implements DThemeDialogSelect {
+	getOk(): string | null {
+		return null;
+	}
+
+	getCancel(): string | null {
+		return null;
+	}
+
 	getNoteNoItemsText(): string {
 		return "No Items";
 	}

@@ -4,7 +4,7 @@
  */
 
 import { DBase } from "./d-base";
-import { DDialog, DDialogOptions, DThemeDialog } from "./d-dialog";
+import { DDialogCommand, DDialogCommandOptions, DThemeDialogCommand } from "./d-dialog-command";
 import { DDialogSelectList } from "./d-dialog-select-list";
 import { DDialogSelectListItem } from "./d-dialog-select-list-item";
 import { DDialogSelectSearh } from "./d-dialog-select-search";
@@ -34,7 +34,7 @@ export interface DDialogSelectController<SEARCH_RESULT> {
 export interface DDialogSelectOptions<
 	SEARCH_RESULT,
 	THEME extends DThemeDialogSelect = DThemeDialogSelect
-> extends DDialogOptions<THEME> {
+> extends DDialogCommandOptions<THEME> {
 	controller: DDialogSelectController<SEARCH_RESULT>;
 	converter?: {
 		toLabel?: ( searchResult: SEARCH_RESULT ) => string;
@@ -45,7 +45,7 @@ export interface DDialogSelectOptions<
 	};
 }
 
-export interface DThemeDialogSelect extends DThemeDialog {
+export interface DThemeDialogSelect extends DThemeDialogCommand {
 	getNoteNoItemsText(): string;
 	getNoteSearchingText(): string;
 }
@@ -69,8 +69,10 @@ const defaultConverter = {
 	}
 };
 
-const toToLabel = <SEARCH_RESULT>( options: DDialogSelectOptions<SEARCH_RESULT, any> ) => {
-	return ( options.converter != null ? options.converter.toLabel : null ) || defaultConverter.toLabel;
+const toToLabel = <SEARCH_RESULT>( options?: DDialogSelectOptions<SEARCH_RESULT, any> ) => {
+	const converter = options && options.converter;
+	const toLabel = converter && converter.toLabel;
+	return toLabel || defaultConverter.toLabel;
 };
 
 const toNoteOptions = ( options: DNoteOptions | undefined, parent: DBase, text: string ): DNoteOptions => {
@@ -96,50 +98,59 @@ const toNoteOptions = ( options: DNoteOptions | undefined, parent: DBase, text: 
 };
 
 const toNoteNoItemsOptions = (
-	theme: DThemeDialogSelect, options: DDialogSelectOptions<any>, parent: DBase
+	theme: DThemeDialogSelect, options: DDialogSelectOptions<any> | undefined, parent: DBase
 ): DNoteOptions => {
+	const note = options && options.note;
 	return toNoteOptions(
-		options.note && options.note.noItems,
+		note && note.noItems,
 		parent,
 		theme.getNoteNoItemsText()
 	);
 };
 
 const toNoteSearchingOptions = (
-	theme: DThemeDialogSelect, options: DDialogSelectOptions<any>, parent: DBase
+	theme: DThemeDialogSelect, options: DDialogSelectOptions<any> | undefined, parent: DBase
 ): DNoteOptions => {
+	const note = options && options.note;
 	return toNoteOptions(
-		options.note && options.note.searching,
+		note && note.noItems,
 		parent,
 		theme.getNoteSearchingText()
 	);
+};
+
+const toSearch = <SEARCH_RESULT>(
+	controller?: DDialogSelectController<SEARCH_RESULT>
+): DDialogSelectSearch<SEARCH_RESULT> => {
+	if( controller ) {
+		const search = controller.search;
+		if( "create" in search ) {
+			return search;
+		} else {
+			return new DDialogSelectSearh( search );
+		}
+	} else {
+		return new DDialogSelectSearh();
+	}
 };
 
 export class DDialogSelect<
 	SEARCH_RESULT,
 	THEME extends DThemeDialogSelect = DThemeDialogSelect,
 	OPTIONS extends DDialogSelectOptions<SEARCH_RESULT, THEME> = DDialogSelectOptions<SEARCH_RESULT, THEME>
-> extends DDialog<THEME, OPTIONS> {
-	protected _value: SEARCH_RESULT | null;
-	protected _input: DInputText;
-	protected _list: DDialogSelectList;
-	protected _noteNoItems: DNote;
-	protected _noteSearching: DNote;
-	protected _toLabel: ( target: any ) => string;
-	protected _search: DDialogSelectSearch<SEARCH_RESULT>;
+> extends DDialogCommand<THEME, OPTIONS> {
+	protected _value!: SEARCH_RESULT | null;
+	protected _input!: DInputText;
+	protected _list!: DDialogSelectList;
+	protected _noteNoItems!: DNote;
+	protected _noteSearching!: DNote;
+	protected _toLabel!: ( target: any ) => string;
+	protected _search!: DDialogSelectSearch<SEARCH_RESULT>;
 
-	constructor( options: OPTIONS ) {
-		super( options );
-
+	protected onInit( layout: DLayoutVertical, options?: OPTIONS ) {
 		this._value = null;
 		const theme = this.theme;
 		this._toLabel = toToLabel( options );
-
-		const layout = new DLayoutVertical({
-			parent: this,
-			x: "padding", y: "padding",
-			width: "padding", height: "auto"
-		});
 
 		// Search box
 		this._input = new DInputText({
@@ -156,9 +167,8 @@ export class DDialogSelect<
 					change: ( selection: DListSelection ): void => {
 						const item: DListItem<SEARCH_RESULT> | null = selection.first();
 						if( item != null ) {
-							const value = this._value = item.value;
-							this.emit( "select", value, this );
-							this.close();
+							this._value = item.value;
+							this.onOk();
 						}
 					}
 				}
@@ -174,10 +184,7 @@ export class DDialogSelect<
 		this._noteSearching = noteSearching;
 
 		// Controller binding
-		const controller = options.controller;
-		const search = ( "create" in controller.search ?
-			controller.search : new DDialogSelectSearh( controller.search )
-		);
+		const search = toSearch( options && options.controller );
 		this._search = search;
 		this._input.on( "input", ( value: string ): void => {
 			search.create([ value ]);
@@ -262,9 +269,9 @@ export class DDialogSelect<
 		this._list.selection.clear();
 		this._search.create([ this._input.value ]);
 	}
-
-	protected onClose() {
-		super.onClose();
+	protected onOk() {
+		this.emit( "select", this._value, this );
+		super.onOk();
 	}
 
 	destroy() {
