@@ -70,3 +70,4 @@ export * from "./load-theme-dark-shape-action-value";
 export * from "./load-theme-dark-table";
 export * from "./load-theme-dark-text";
 export * from "./load-theme-dark-view";
+export * from "./load-theme-dark-slider";
