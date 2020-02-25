@@ -213,13 +213,13 @@ export class DTableDataList<ROW> extends utils.EventEmitter implements DTableDat
 		return null;
 	}
 
-	each( iterator: ( row: ROW, index: number ) => boolean | void, ifrom?: number, ito?: number ): void {
+	each( iteratee: ( row: ROW, index: number ) => boolean | void, ifrom?: number, ito?: number ): void {
 		const rows = this._rows;
 		ifrom = ( ifrom != null ? Math.max( 0, ifrom ) : 0 );
 		ito = ( ito != null ? Math.min( rows.length, ito ) : rows.length );
 		for( let i = ifrom; i < ito; ++i ) {
 			const row = rows[ i ];
-			if( iterator( row, i ) === false ) {
+			if( iteratee( row, i ) === false ) {
 				break;
 			}
 		}

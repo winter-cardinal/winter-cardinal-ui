@@ -4,7 +4,7 @@ import { DTableDataFilter, DTableDataFilterFunction, DTableDataFilterObject } fr
 import { DTableDataSelection, DTableDataSelectionOptions } from "./d-table-data-selection";
 import { DTableDataComparatorFunction, DTableDataComparatorObject, DTableDataSorter } from "./d-table-data-sorter";
 
-export type DTableDataMappedEachIterator<ROW> = (
+export type DTableDataMappedEachIteratee<ROW> = (
 	row: ROW, supplimental: unknown, index: number, unmappedIndex: number
 ) => void | boolean;
 
@@ -39,17 +39,17 @@ export interface DTableDataMapped<ROW> {
 	get( index: number ): ROW | null;
 
 	/**
-	 * Calls the specified iterator on each mapped datum of the specified index range.
-	 * If called iterator explicitly returns false, stops an iteration.
+	 * Calls the specified iteratee on each mapped datum of the specified index range.
+	 * If called iteratee explicitly returns false, stops an iteration.
 	 *
-	 * @param iterator an function called on each mapped datum
+	 * @param iteratee an function called on each mapped datum
 	 * @param ifrom an index to start an iteration
 	 * @param ito an index before which an interation stops
 	 */
-	each( iterator: DTableDataMappedEachIterator<ROW>, ifrom?: number, iend?: number ): void;
+	each( iteratee: DTableDataMappedEachIteratee<ROW>, ifrom?: number, iend?: number ): void;
 }
 
-export type DTableDataEachIterator<ROW> = ( row: ROW, index: number ) => void | boolean;
+export type DTableDataEachIteratee<ROW> = ( row: ROW, index: number ) => void | boolean;
 
 export interface DTableDataOptions<ROW> {
 	/**
@@ -121,12 +121,12 @@ export interface DTableData<ROW> extends utils.EventEmitter {
 	get( index: number ): ROW | null;
 
 	/**
-	 * Calls the specified iterator on each datum of the specified index range.
-	 * If called iterator explicitly returns false, stops an iteration.
+	 * Calls the specified iteratee on each datum of the specified index range.
+	 * If called iteratee explicitly returns false, stops an iteration.
 	 *
-	 * @param iterator an function called on each datum
+	 * @param iteratee an function called on each datum
 	 * @param ifrom an index to start an iteration
 	 * @param ito an index before which an interation stops
 	 */
-	each( iterator: DTableDataEachIterator<ROW>, ifrom?: number, ito?: number ): void;
+	each( iteratee: DTableDataEachIteratee<ROW>, ifrom?: number, ito?: number ): void;
 }
