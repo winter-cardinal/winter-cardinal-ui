@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeDialogSelect } from "../../d-dialog-select";
+import { DDialogSelectItemTextFormatter, DThemeDialogSelect } from "../../d-dialog-select";
+import { toLabel } from "../../util/to-label";
 import { DThemeWhiteDialogCommand } from "./d-theme-white-dialog-command";
 
 export class DThemeWhiteDialogSelect extends DThemeWhiteDialogCommand implements DThemeDialogSelect {
@@ -13,6 +14,10 @@ export class DThemeWhiteDialogSelect extends DThemeWhiteDialogCommand implements
 
 	getCancel(): string | null {
 		return null;
+	}
+
+	getItemTextFormatter(): DDialogSelectItemTextFormatter<any> {
+		return toLabel;
 	}
 
 	getNoteNoItemsText(): string {

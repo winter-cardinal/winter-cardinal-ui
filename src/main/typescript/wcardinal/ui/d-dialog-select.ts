@@ -13,8 +13,6 @@ import { DLayoutVertical } from "./d-layout-vertical";
 import { DListItem } from "./d-list-item";
 import { DListSelection } from "./d-list-selection";
 import { DNote, DNoteOptions } from "./d-note";
-import { isNumber } from "./util/is-number";
-import { isString } from "./util/is-string";
 import { UtilTransition } from "./util/util-transition";
 
 export interface DDialogSelectSearch<SEARCH_RESULT> {
@@ -31,48 +29,50 @@ export interface DDialogSelectController<SEARCH_RESULT> {
 	search: DDialogSelectSearch<SEARCH_RESULT> | DDialogSelectSearchFunction<SEARCH_RESULT>;
 }
 
+export interface DDialogSelectNoteOptions {
+	noItems?: DNoteOptions;
+	searching?: DNoteOptions;
+}
+
+export type DDialogSelectItemTextFormatter<SEARCH_RESULT> = ( result: SEARCH_RESULT, caller: any ) => string;
+
+export interface DDialogSelectItemTextOptions<SEARCH_RESULT> {
+	formatter?: DDialogSelectItemTextFormatter<SEARCH_RESULT>;
+}
+
+export interface DDialogSelectItemOptions<SEARCH_RESULT> {
+	text?: DDialogSelectItemTextOptions<SEARCH_RESULT>;
+}
+
 export interface DDialogSelectOptions<
 	SEARCH_RESULT,
 	THEME extends DThemeDialogSelect = DThemeDialogSelect
 > extends DDialogCommandOptions<THEME> {
 	controller?: DDialogSelectController<SEARCH_RESULT>;
-	converter?: {
-		toLabel?: ( searchResult: SEARCH_RESULT ) => string;
-	};
-	note?: {
-		noItems?: DNoteOptions;
-		searching?: DNoteOptions;
-	};
+	item?: DDialogSelectItemOptions<SEARCH_RESULT>;
+	note?: DDialogSelectNoteOptions;
 }
 
 export interface DThemeDialogSelect extends DThemeDialogCommand {
+	getItemTextFormatter(): DDialogSelectItemTextFormatter<any>;
 	getNoteNoItemsText(): string;
 	getNoteSearchingText(): string;
 }
 
 // Helper
-const defaultConverter = {
-	toLabel: ( target: any ): string => {
-		if( isString( target ) ) {
-			return target;
-		} else if( isNumber( target ) ) {
-			return String( target );
-		} else if( "name" in target ) {
-			return target.name;
-		} else if( "label" in target ) {
-			return target.label;
-		} else if( "id" in target ) {
-			return target.id;
-		} else {
-			return "";
+const toItemTextFormatter = <SEARCH_RESULT>(
+	theme: DThemeDialogSelect, options?: DDialogSelectOptions<SEARCH_RESULT, any>
+): DDialogSelectItemTextFormatter<SEARCH_RESULT> => {
+	if( options ) {
+		const item = options.item;
+		if( item ) {
+			const text = item.text;
+			if( text ) {
+				return text.formatter || theme.getItemTextFormatter();
+			}
 		}
 	}
-};
-
-const toToLabel = <SEARCH_RESULT>( options?: DDialogSelectOptions<SEARCH_RESULT, any> ) => {
-	const converter = options && options.converter;
-	const toLabel = converter && converter.toLabel;
-	return toLabel || defaultConverter.toLabel;
+	return theme.getItemTextFormatter();
 };
 
 const toNoteOptions = ( options: DNoteOptions | undefined, parent: DBase, text: string ): DNoteOptions => {
@@ -135,7 +135,7 @@ const toSearch = <SEARCH_RESULT>(
 };
 
 export class DDialogSelect<
-	SEARCH_RESULT,
+	SEARCH_RESULT extends unknown = unknown,
 	THEME extends DThemeDialogSelect = DThemeDialogSelect,
 	OPTIONS extends DDialogSelectOptions<SEARCH_RESULT, THEME> = DDialogSelectOptions<SEARCH_RESULT, THEME>
 > extends DDialogCommand<THEME, OPTIONS> {
@@ -144,13 +144,13 @@ export class DDialogSelect<
 	protected _list!: DDialogSelectList;
 	protected _noteNoItems!: DNote;
 	protected _noteSearching!: DNote;
-	protected _toLabel!: ( target: any ) => string;
+	protected _itemTextFormatter!: DDialogSelectItemTextFormatter<SEARCH_RESULT>;
 	protected _search!: DDialogSelectSearch<SEARCH_RESULT>;
 
 	protected onInit( layout: DLayoutVertical, options?: OPTIONS ) {
 		this._value = null;
 		const theme = this.theme;
-		this._toLabel = toToLabel( options );
+		this._itemTextFormatter = toItemTextFormatter( theme, options );
 
 		// Search box
 		this._input = new DInputText({
@@ -190,8 +190,8 @@ export class DDialogSelect<
 			search.create([ value ]);
 		});
 
-		search.on( "success", ( e: unknown, searchResults: SEARCH_RESULT[] ): void => {
-			this.onSearched( searchResults );
+		search.on( "success", ( e: unknown, results: SEARCH_RESULT[] ): void => {
+			this.onSearched( results );
 		});
 
 		// Visibility
@@ -210,34 +210,34 @@ export class DDialogSelect<
 		});
 	}
 
-	protected onSearched( searchResults: SEARCH_RESULT[] ): void {
+	protected onSearched( results: SEARCH_RESULT[] ): void {
 		const list = this._list;
-		const toLabel = this._toLabel;
+		const itemTextFormatter = this._itemTextFormatter;
 		const content = list.content;
 		const children = content.children;
 
 		// Update the existing children
 		const childrenLength = children.length;
-		const searchResultsLength = searchResults.length;
+		const searchResultsLength = results.length;
 		const minLength = Math.min( childrenLength, searchResultsLength );
 		for( let i = 0, imax = minLength; i < imax; ++i ) {
 			const child = children[ i ];
-			const searchResult = searchResults[ i ];
+			const result = results[ i ];
 			if( child instanceof DListItem ) {
-				child.text = toLabel( searchResult );
-				child.value = searchResult;
+				child.text = itemTextFormatter( result, this );
+				child.value = result;
 			} else {
 				content.removeChildAt( i );
 				child.destroy();
-				const newChild = this.newItem( searchResult, toLabel( searchResult ) );
+				const newChild = this.newItem( result, itemTextFormatter( result, this ) );
 				content.addChildAt( newChild, i );
 			}
 		}
 
 		// Insert new children
 		for( let i = minLength, imax = searchResultsLength; i < imax; ++i ) {
-			const searchResult = searchResults[ i ];
-			const newChild = this.newItem( searchResult, toLabel( searchResult ) );
+			const result = results[ i ];
+			const newChild = this.newItem( result, itemTextFormatter( result, this ) );
 			content.addChild( newChild );
 		}
 
@@ -247,9 +247,9 @@ export class DDialogSelect<
 		}
 	}
 
-	protected newItem( searchResult: SEARCH_RESULT, label: string ): DDialogSelectListItem<SEARCH_RESULT> {
+	protected newItem( result: SEARCH_RESULT, label: string ): DDialogSelectListItem<SEARCH_RESULT> {
 		return new DDialogSelectListItem<SEARCH_RESULT>({
-			value: searchResult,
+			value: result,
 			text: {
 				value: label
 			}

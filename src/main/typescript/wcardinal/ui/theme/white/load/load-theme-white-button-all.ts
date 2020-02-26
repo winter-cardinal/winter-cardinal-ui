@@ -17,6 +17,7 @@ import { loadThemeWhiteButtonPrimary } from "./load-theme-white-button-primary";
 import { loadThemeWhiteButtonRadio } from "./load-theme-white-button-radio";
 import { loadThemeWhiteButtonRadioRight } from "./load-theme-white-button-radio-right";
 import { loadThemeWhiteButtonSecondary } from "./load-theme-white-button-secondary";
+import { loadThemeWhiteButtonSelect } from "./load-theme-white-button-select";
 import { loadThemeWhiteButtonTime } from "./load-theme-white-button-time";
 
 export const loadThemeWhiteButtonAll = () => {
@@ -25,6 +26,7 @@ export const loadThemeWhiteButtonAll = () => {
 	loadThemeWhiteButtonCheck();
 	loadThemeWhiteButtonColorGradient();
 	loadThemeWhiteButtonColor();
+	loadThemeWhiteButtonSelect();
 	loadThemeWhiteButtonDanger();
 	loadThemeWhiteButtonDate();
 	loadThemeWhiteButtonDatetime();

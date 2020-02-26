@@ -55,6 +55,7 @@ export * from "./d-button-radio-right";
 export * from "./d-button-radio";
 export * from "./d-button-redo";
 export * from "./d-button-secondary";
+export * from "./d-button-select";
 export * from "./d-button-time";
 export * from "./d-button-undo";
 export * from "./d-button";

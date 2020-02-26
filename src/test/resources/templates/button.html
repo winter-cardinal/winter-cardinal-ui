@@ -83,6 +83,22 @@
 									text: {
 										value: "File"
 									}
+								}),
+								new wcardinal.ui.DButtonSelect({
+									width: 200,
+									dialog: {
+										controller: {
+											search: () => {
+												return Promise.resolve([{
+													id: "1"
+												}, {
+													id: "2"
+												}, {
+													id: "3"
+												}]);
+											}
+										}
+									}
 								})
 							]
 						}),
@@ -146,6 +162,9 @@
 									text: {
 										value: "File"
 									}
+								}),
+								new wcardinal.ui.DButtonSelect({
+									width: 200
 								})
 							]
 						}),

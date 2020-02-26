@@ -17,6 +17,7 @@ import { loadThemeDarkButtonPrimary } from "./load-theme-dark-button-primary";
 import { loadThemeDarkButtonRadio } from "./load-theme-dark-button-radio";
 import { loadThemeDarkButtonRadioRight } from "./load-theme-dark-button-radio-right";
 import { loadThemeDarkButtonSecondary } from "./load-theme-dark-button-secondary";
+import { loadThemeDarkButtonSelect } from "./load-theme-dark-button-select";
 import { loadThemeDarkButtonTime } from "./load-theme-dark-button-time";
 
 export const loadThemeDarkButtonAll = () => {
@@ -25,6 +26,7 @@ export const loadThemeDarkButtonAll = () => {
 	loadThemeDarkButtonCheckRight();
 	loadThemeDarkButtonColor();
 	loadThemeDarkButtonColorGradient();
+	loadThemeDarkButtonSelect();
 	loadThemeDarkButtonDanger();
 	loadThemeDarkButtonDate();
 	loadThemeDarkButtonDatetime();

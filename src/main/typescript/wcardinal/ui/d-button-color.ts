@@ -29,14 +29,12 @@ export class DButtonColor<
 > extends DButton<DColorAndAlpha, THEME, OPTIONS> {
 	protected static DIALOG?: DDialogColor;
 	protected _dialog?: DDialogColor;
-	protected _dialogOptions!: DDialogColorOptions | undefined;
 	protected _value!: DPickerColorAndAlpha;
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
 
 		const colorAndAlpha = this._textValueComputed;
-		this._dialogOptions = options && options.dialog;
 		this._value = new DPickerColorAndAlpha( colorAndAlpha, ( color: number ): void => {
 			colorAndAlpha.color = color;
 			this.onColorChange();
@@ -105,9 +103,10 @@ export class DButtonColor<
 	get dialog(): DDialogColor {
 		let dialog = this._dialog;
 		if( dialog == null ) {
-			const dialogOptions = this._dialogOptions;
+			const options = this._options;
+			const dialogOptions = options && options.dialog;
 			if( dialogOptions != null ) {
-				dialog = new DDialogColor( this._dialogOptions );
+				dialog = new DDialogColor( dialogOptions );
 			} else {
 				if( DButtonColor.DIALOG == null ) {
 					DButtonColor.DIALOG = new DDialogColor();
