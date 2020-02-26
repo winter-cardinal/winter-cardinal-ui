@@ -62,13 +62,13 @@ export class DTableBodyCellActionMenu<
 	}
 
 	protected onClosed(): void {
-		const menu = this._menu;
+		const menu = this.menu;
 		menu.off( "select", this._onSelectedBound );
 		menu.off( "close", this._onClosedBound );
 	}
 
 	start(): void {
-		const menu = this._menu;
+		const menu = this.menu;
 		menu.on( "select", this._onSelectedBound );
 		menu.on( "close", this._onClosedBound );
 		super.start();

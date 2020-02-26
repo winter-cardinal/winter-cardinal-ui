@@ -39,7 +39,7 @@ export class DDropdownBase<
 	THEME extends DThemeDropdownBase<TEXT_VALUE> = DThemeDropdownBase<TEXT_VALUE>,
 	OPTIONS extends DDropdownBaseOptions<VALUE, TEXT_VALUE, THEME> = DDropdownBaseOptions<VALUE, TEXT_VALUE, THEME>
 > extends DButtonBase<TEXT_VALUE, THEME, OPTIONS> {
-	protected _menu!: DMenu<VALUE>;
+	protected _menu?: DMenu<VALUE>;
 
 	constructor( options?: OPTIONS ) {
 		super( options );
@@ -47,11 +47,6 @@ export class DDropdownBase<
 		this.on( "active", (): void => {
 			this.start();
 		});
-	}
-
-	protected init( options?: OPTIONS ) {
-		super.init( options );
-		this._menu = this.toMenu( this.theme, options );
 	}
 
 	protected toItemText( item: DMenuItem<VALUE> | null ): string | null {
@@ -85,7 +80,12 @@ export class DDropdownBase<
 	}
 
 	get menu(): DMenu<VALUE> {
-		return this._menu;
+		let menu = this._menu;
+		if( menu == null ) {
+			menu = this.toMenu( this.theme, this._options );
+			this._menu = menu;
+		}
+		return menu;
 	}
 
 	protected getType(): string {
@@ -93,10 +93,10 @@ export class DDropdownBase<
 	}
 
 	start(): void {
-		this._menu.open( this );
+		this.menu.open( this );
 	}
 
 	close(): void {
-		this._menu.close();
+		this.menu.close();
 	}
 }

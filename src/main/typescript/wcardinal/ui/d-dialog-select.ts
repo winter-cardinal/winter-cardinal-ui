@@ -35,7 +35,7 @@ export interface DDialogSelectOptions<
 	SEARCH_RESULT,
 	THEME extends DThemeDialogSelect = DThemeDialogSelect
 > extends DDialogCommandOptions<THEME> {
-	controller: DDialogSelectController<SEARCH_RESULT>;
+	controller?: DDialogSelectController<SEARCH_RESULT>;
 	converter?: {
 		toLabel?: ( searchResult: SEARCH_RESULT ) => string;
 	};

@@ -72,13 +72,13 @@ export class DSelect<
 	}
 
 	protected onClosed(): void {
-		const menu = this._menu;
+		const menu = this.menu;
 		menu.off( "select", this._onSelectedBound );
 		menu.off( "close", this._onClosedBound );
 	}
 
 	start(): void {
-		const menu = this._menu;
+		const menu = this.menu;
 		menu.on( "select", this._onSelectedBound );
 		menu.on( "close", this._onClosedBound );
 		super.start();
@@ -113,7 +113,7 @@ export class DSelect<
 	 * Sets to the specified value.
 	 */
 	set value( value: VALUE | null ) {
-		const item = this.findMenuItem( this._menu, value );
+		const item = this.findMenuItem( this.menu, value );
 		if( item != null ) {
 			this.onSelected( value, item, false );
 		} else {

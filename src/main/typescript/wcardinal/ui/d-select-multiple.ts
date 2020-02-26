@@ -47,7 +47,7 @@ export class DSelectMultiple<
 				const oldValues = this._values;
 				const newValues: VALUE[] = [];
 				const newItems: Array<DMenuItem<VALUE>> = [];
-				const menu = this._menu;
+				const menu = this.menu;
 				if( child.isActive() ) {
 					this.updateMenuItems( menu, oldValues, value, undefined, newValues, newItems );
 				} else {
@@ -67,8 +67,6 @@ export class DSelectMultiple<
 		this._values = [];
 		if( options && options.values !== undefined ) {
 			this.values = options.values;
-		} else {
-			this.updateMenuItems( this._menu, this._values );
 		}
 	}
 
@@ -83,13 +81,13 @@ export class DSelectMultiple<
 	}
 
 	protected onClosed(): void {
-		const menu = this._menu;
+		const menu = this.menu;
 		menu.off( "select", this._onSelectedBound );
 		menu.off( "close", this._onClosedBound );
 	}
 
 	start(): void {
-		const menu = this._menu;
+		const menu = this.menu;
 		menu.on( "select", this._onSelectedBound );
 		menu.on( "close", this._onClosedBound );
 		this.updateMenuItems( menu, this._values );
@@ -111,7 +109,7 @@ export class DSelectMultiple<
 		if( ! this.isSameValues( values, oldValues ) ) {
 			const newValues: VALUE[] = [];
 			const newItems: Array<DMenuItem<VALUE>> = [];
-			this.updateMenuItems( this._menu, values, undefined, undefined, newValues, newItems );
+			this.updateMenuItems( this.menu, values, undefined, undefined, newValues, newItems );
 			this._values = newValues;
 			this.onSelected( newValues, oldValues, newItems, false );
 		}
