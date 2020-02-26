@@ -35,9 +35,9 @@ export class DSliderVertical<
 	}
 
 	protected assertSize(): void {
-		this.track.setHeight( this.height - this._value.height - VERTICAL_PIXEL_BALANCE );
-		this.trackSelected.setHeight( this.track.height - VERTICAL_PIXEL_BALANCE );
-		this.trackSelected.setWidth( this.track.width );
+		this._track.setHeight( this.height - this._value.height - VERTICAL_PIXEL_BALANCE );
+		this._trackSelected.setHeight( this._track.height - VERTICAL_PIXEL_BALANCE );
+		this._trackSelected.setWidth( this._track.width );
 	}
 
 	protected updateCoordinates(): void {
@@ -51,42 +51,42 @@ export class DSliderVertical<
 		this._min.x = 0 - this._min.width;
 		this._min.y = this.height - this._min.height;
 		this._max.x = 0 - this._max.width;
-		this._max.y = this.yOffset;
+		this._max.y = this._yOffset;
 
 		this._value.setX( "CENTER" );
 		this._thumb.setX( "CENTER" );
 	}
 
-	protected onPick( global: Point ) {
+	protected onPick( global: Point ): void {
 		const point = new Point( 0, 0 );
 		this.toLocal( global, undefined, point );
 		const y = Math.max( this._yOffset, Math.min( this.height, point.y ) );
-		this._thumb.y = this.toThumbCoordinate( y );
 		this._ratioValue = ( this.height - y ) / this._track.height;
-		this._trackSelected.y = this._thumb.y;
-		this._trackSelected.height = this.height - this._trackSelected.y;
-		this._value.y = this._thumb.y - this._yOffset;
-		this.updateValue( this._min.value, this._max.value );
+		this.updateChildren( y );
 	}
 
-	protected updateThumb( min: number, max: number, value: number ) {
+	protected updateThumb(): void {
+		const [ min, max, value ] = [ this._min.value, this._max.value, this._value.value ];
 		this._ratioValue = ( value - min ) / ( max - min );
 		const y = this.height - this._ratioValue * this._track.height;
+		this.updateChildren( y );
+	}
+
+	protected updateChildren( y: number ): void {
 		this._thumb.y = this.toThumbCoordinate( y );
 		this._trackSelected.y = this._thumb.y;
 		this._trackSelected.height = this.height - this._trackSelected.y;
 		this._value.y = this._thumb.y - this._yOffset;
-		this._value.value = value;
-		this._value.text = value;
+		this.updateValue();
 	}
 
 	protected toThumbCoordinate( y: number ): number {
 		if ( y < ( this._thumb.height / 2 + this._yOffset ) ) {
 			return this._yOffset;
-		} else if ( y > ( this.height - this.thumb.height / 2 ) ) {
-			return this.height - this.thumb.height;
+		} else if ( y > ( this.height - this._thumb.height / 2 ) ) {
+			return this.height - this._thumb.height;
 		} else {
-			return y - this.thumb.height / 2;
+			return y - this._thumb.height / 2;
 		}
 	}
 

@@ -43,6 +43,7 @@ export abstract class DSlider<
 	protected _onThumbUp!: ( e: InteractionEvent ) => void;
 	protected _onTrackUpBound!: ( e: InteractionEvent ) => void;
 	protected _onTrackSelectedUpBound!: ( e: InteractionEvent ) => void;
+	
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
@@ -52,7 +53,7 @@ export abstract class DSlider<
 		this.updateCoordinates();
 		this.appendChildToView();
 		this.initListeners();
-		this.updateThumb( this._min.value, this._max.value, this._value.value );
+		this.updateThumb();
 	}
 
 	protected prepareValues( options?: OPTIONS ): void {
@@ -62,16 +63,15 @@ export abstract class DSlider<
 		this._min = this.newMin( options );
 		this._max = this.newMax( options );
 		this._thumb = this.newThumb();
-
 		this._min.text = `${this._min.value}`;
 		this._max.text = `${this._max.value}`;
-
+		this._value.text = this._value.value;
 		this._trackSelected = this.newTrackSelected( options );
 		this._trackSelected.setActive( true );
 		this._value.visible = false;
 	}
 
-	protected appendChildToView() {
+	protected appendChildToView(): void {
 		this.addChild( this._track );
 		this.addChild( this._trackSelected );
 		this.addChild( this._thumb );
@@ -80,7 +80,7 @@ export abstract class DSlider<
 		this.addChild( this._value );
 	}
 
-	protected initListeners() {
+	protected initListeners(): void {
 		this._track.on( UtilPointerEvent.down, ( e: InteractionEvent) => {
 			this._value.visible = true;
 			this.onTrackDown( e.data.global );
@@ -138,14 +138,15 @@ export abstract class DSlider<
 		return new DSliderThumb( options && options.thumb );
 	}
 
-	protected abstract newTrack(options?: OPTIONS): DSliderTrack;
-	protected abstract newTrackSelected(options?: OPTIONS): DSliderTrack;
+	protected abstract newTrack( options?: OPTIONS ): DSliderTrack;
+	protected abstract newTrackSelected( options?: OPTIONS ): DSliderTrack;
 	protected abstract updateCoordinates(): void;
 	protected abstract onPick( global: Point ): void;
-	protected abstract updateThumb( min: number, max: number, value: number ): void;
+	protected abstract updateThumb(): void;
+	protected abstract updateChildren( thumbCoordinate: number ): void;
 	protected abstract assertSize( options?: OPTIONS ): void;
 
-	protected onTrackDown( global: Point ) {
+	protected onTrackDown( global: Point ): void {
 		const layer = DApplications.getLayer( this );
 		if ( layer ) {
 			const stage = layer.stage;
@@ -154,7 +155,7 @@ export abstract class DSlider<
 		this.onPick( global );
 	}
 
-	protected onTrackSelectedDown( global: Point ) {
+	protected onTrackSelectedDown( global: Point ): void {
 		const layer = DApplications.getLayer( this );
 		if ( layer ) {
 			const stage = layer.stage;
@@ -201,58 +202,89 @@ export abstract class DSlider<
 		}
 	}
 
-	protected updateValue( min: number, max: number ) {
+	protected updateValue(): void {
+		const [ min, max ] = [this._min.value, this._max.value];
 		const value: number = min + this._ratioValue * ( max - min );
 		this._value.value = this._value.round( value );
 		this._value.text = this._value.value;
 	}
 
+	onResize( newWidth: number, newHeight: number, oldWidth: number, oldHeight: number ): void {
+		super.onResize( newWidth, newHeight, oldWidth, oldHeight );
+		// Adjust children's size
+		this.assertSize();
+		// Update thumb and children
+		this.updateThumb();
+    }
+
+	/**
+	 * Gets current value of slider
+	 */
 	get value(): number {
 		return this._value.value;
 	}
 
+	/**
+	 * Sets value for slider
+	 * - New value will be applied
+	 * - UI components will be changed arcording to new value
+	 */
 	set value( value: number ) {
-		this._value.value = Math.max( this._min.value, Math.min( this._max.value, value ) );
+		this.onUpdateValue( value );
 	}
 
-	set min( min: number ) {
-		if( min < this.max ) {
-			this._min.value = min;
-		}
-	}
-
+	/**
+	 * Gets min value of slider
+	 */
 	get min(): number {
 		return this._min.value;
 	}
 
-	set max( max: number ) {
-		if( max > this.min ) {
-			this._max.value = max;
+	/**
+	 * Sets min value for slider
+	 * - New min value will be applied
+	 * - UI components will be changed arcording to new value
+	 */
+	set min( min: number ) {
+		if( min < this.max ) {
+			this._min.value = min;
+			this._min.text = `${this._min.value}`;
+			this.onUpdateValue( this._value.value );
 		}
 	}
 
+	/**
+	 * Gets max value of slider
+	 */
 	get max(): number {
 		return this._max.value;
 	}
 
-	get thumb(): DSliderThumb {
-		return this._thumb;
+	/**
+	 * Sets max value for slider
+	 * - New max value will be applied
+	 * - UI components will be changed arcording to new value
+	 */
+	set max( max: number ) {
+		if( max > this.min ) {
+			this._max.value = max;
+			this._max.text = `${this._max.value}`;
+			this.onUpdateValue( this._value.value );
+		}
 	}
 
-	get track(): DSliderTrack {
-		return this._track;
-	}
-
-	get trackSelected(): DSliderTrack {
-		return this._trackSelected;
-	}
-
-	get yOffset(): number {
-		return this._yOffset;
+	/**
+	 * On update current slider value
+	 * - Update current value of slider
+	 * - Update children components such as thumb, track
+	 * @param value 
+	 */
+	private onUpdateValue( value: number ) {
+		this._value.value = Math.max( this._min.value, Math.min( this._max.value, value ) );
+		this.updateThumb();
 	}
 
 	protected getType(): string {
 		return "DSlider";
 	}
-
 }

@@ -33,9 +33,9 @@ export class DSliderHorizontal<
 	}
 
 	protected assertSize(): void {
-		this.track.setWidth( this.width);
-		this.trackSelected.setHeight( this.track.height);
-		this.trackSelected.setWidth( this.track.width );
+		this._track.setWidth( this.width );
+		this._trackSelected.setHeight( this._track.height );
+		this._trackSelected.setWidth( this._track.width );
 	}
 
 	protected updateCoordinates(): void {
@@ -56,34 +56,35 @@ export class DSliderHorizontal<
 
 		// Calculate coordinate of max and min label
 		this._min.x = 0 - this._min.width;
-		this._min.y = this.yOffset - ( this._min.height / 2 - this.track.height / 2 );
+		this._min.y = this._yOffset - ( this._min.height / 2 - this._track.height / 2 );
 		this._max.x = this.width + HORIZONTAL_PIXEL_BALANCE;
-		this._max.y = this.yOffset - ( this._min.height / 2 - this.track.height / 2 );
+		this._max.y = this._yOffset - ( this._min.height / 2 - this._track.height / 2 );
 
 		// Calculate coordinate of Thumb
 		this._thumb.x = 0;
 		this._thumb.y = this._value.height + HORIZONTAL_PIXEL_BALANCE;
 	}
 
-	protected onPick( global: Point ) {
+	protected onPick( global: Point ): void {
 		const point = new Point(0, 0);
 		this.toLocal( global, undefined, point );
 		const x = Math.max( 0, Math.min( this._track.width, point.x ) );
-		this._thumb.x = this.toThumbCoordinate( x );
 		this._ratioValue = x / this._track.width;
-		this._trackSelected.width = this._thumb.x;
-		this._value.x = this._thumb.x - this._offset;
-		this.updateValue( this._min.value, this._max.value );
+		this.updateChildren( x );
 	}
 
-	protected updateThumb( min: number, max: number, value: number ) {
+	protected updateThumb(): void {
+		const [ min, max, value ] = [ this._min.value, this._max.value, this._value.value ];
 		this._ratioValue = ( value - min ) / ( max - min );
 		const x =  this._ratioValue * this._track.width;
+		this.updateChildren( x );
+	}
+
+	protected updateChildren( x: number ): void {
 		this._thumb.x = this.toThumbCoordinate( x );
 		this._trackSelected.width = this._thumb.x;
 		this._value.x = this._thumb.x - this._offset;
-		this._value.value = value;
-		this._value.text = value;
+		this.updateValue();
 	}
 
 	protected toThumbCoordinate(x: number): number {
