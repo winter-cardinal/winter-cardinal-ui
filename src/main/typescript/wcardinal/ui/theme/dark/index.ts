@@ -86,6 +86,8 @@ export * from "./d-theme-dark-list-item";
 export * from "./d-theme-dark-list-item-separator";
 export * from "./d-theme-dark-tree";
 export * from "./d-theme-dark-tree-item";
+export * from "./d-theme-dark-tree-item-toggle-icon";
+export * from "./d-theme-dark-tree-item-text-and-image";
 export * from "./d-theme-dark-menu";
 export * from "./d-theme-dark-menu-bar";
 export * from "./d-theme-dark-menu-bar-item";

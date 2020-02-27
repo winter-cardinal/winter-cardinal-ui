@@ -3,30 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "../../d-align-horizontal";
+import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
 import { DThemeTreeItem } from "../../d-Tree-item";
-import { DTreeItemState } from "../../d-tree-item-state";
 import { UtilRgb } from "../../util/util-rgb";
-import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkLayoutHorizontal } from "./d-theme-dark-layout-horizontal";
-
-DThemeDarkAtlas.add( "menu_item_expandable_header_closed", 14, 14,
-	`<g transform="scale(1, 0.7)">` +
-		`<polyline fill="none" stroke="#fff" stroke-width="1" points="6 16 10 10 6 4"></polyline>` +
-	`</g>`
-);
-
-DThemeDarkAtlas.add( "menu_item_expandable_header_opened", 14, 14,
-	`<g transform="scale(0.7, 1)">` +
-		`<polyline fill="none" stroke="#fff" stroke-width="1" points="16 6 10 10 4 6"></polyline>` +
-	`</g>`
-);
 
 export class DThemeDarkTreeItem extends DThemeDarkLayoutHorizontal implements DThemeTreeItem {
 	COLOR = 0x383838;
@@ -44,7 +30,7 @@ export class DThemeDarkTreeItem extends DThemeDarkLayoutHorizontal implements DT
 	}
 
 	getBackgroundAlpha( state: DBaseState ): number {
-		return 1;
+		return 0.8;
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
@@ -75,15 +61,8 @@ export class DThemeDarkTreeItem extends DThemeDarkLayoutHorizontal implements DT
 		return DCornerMask.ALL;
 	}
 
-	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
-
-		if (state & DTreeItemState.EXPANDED) {
-			return DThemeDarkAtlas.mappings.menu_item_expandable_header_closed;
-		} else if (state & DTreeItemState.COLLAPSED) {
-			return DThemeDarkAtlas.mappings.menu_item_expandable_header_opened;
-		} else {
-			return null;
-		}
+	getInteractive(): DBaseInteractive {
+		return DBaseInteractive.BOTH;
 	}
 
 	getPaddingByLevel(level: number): number {
