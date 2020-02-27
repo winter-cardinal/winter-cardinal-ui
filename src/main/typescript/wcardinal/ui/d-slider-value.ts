@@ -12,7 +12,7 @@ export interface DSliderValueOptions<
 > extends DTextBaseOptions<VALUE, THEME> {
 	value?: number;
 	precision?: number;
-	rounder?( value: number ): number;
+	rounder?: ( value: number ) => number;
 }
 
 export interface DThemeSliderValue extends DThemeTextBase {

@@ -36,8 +36,7 @@ export class DSliderVertical<
 
 	protected adjustSize(): void {
 		this._track.setHeight( this.height - this._value.height - VERTICAL_PIXEL_BALANCE );
-		this._trackSelected.setHeight( this._track.height - VERTICAL_PIXEL_BALANCE );
-		this._trackSelected.setWidth( this._track.width );
+		this._trackSelected.setWidth( this._track.width);
 	}
 
 	protected updateCoordinates(): void {

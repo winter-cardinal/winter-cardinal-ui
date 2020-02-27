@@ -47,7 +47,6 @@ export abstract class DSlider<
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
-
 		this.prepareValues( options );
 		this.adjustSize( options );
 		this.updateCoordinates();
@@ -231,7 +230,15 @@ export abstract class DSlider<
 	 * - UI components will be changed arcording to new value
 	 */
 	set value( value: number ) {
-		this.onUpdateValue( value );
+		// Value must be in range [min, max]. Do nothing if not.
+		if (this._min.value <= value && value <= this._max.value) {
+			value = Math.max( this._min.value, Math.min( this._max.value, value ) );
+			// Adjust if value is new
+			if( this._value.value !== value ) {
+				this._value.value = value;
+				this.updateThumb();
+			}
+		}
 	}
 
 	/**
@@ -247,10 +254,21 @@ export abstract class DSlider<
 	 * - UI components will be changed arcording to new value
 	 */
 	set min( min: number ) {
-		if( min < this.max ) {
-			this._min.value = min;
-			this._min.text = `${this._min.value}`;
-			this.onUpdateValue( this._value.value );
+		// Do nothing if min is smaller than value
+		if (min <= this._value.value) {
+			const minComponent = this._min;
+			min = Math.min( this._max.value, min );
+			// If min is new value
+			if( minComponent.value !== min ) {
+				const valueComponent = this._value;
+				minComponent.text = minComponent.value = min;
+				// Adjust current value if it's out of range
+				if( valueComponent.value < min ) {
+					valueComponent.value = min;
+				}
+				// Update layout
+				this.updateThumb();
+			}
 		}
 	}
 
@@ -267,22 +285,22 @@ export abstract class DSlider<
 	 * - UI components will be changed arcording to new value
 	 */
 	set max( max: number ) {
-		if( max > this.min ) {
-			this._max.value = max;
-			this._max.text = `${this._max.value}`;
-			this.onUpdateValue( this._value.value );
+		// Do nothing if max is larger than value
+		if (max >= this._value.value) {
+			const maxComponent = this._max;
+			max = Math.max( this._min.value, max );
+			// If max is new value
+			if( maxComponent.value !== max ) {
+				const valueComponent = this._value;
+				maxComponent.text = maxComponent.value = max;
+				// Adjust current value if it's out of range
+				if( max < valueComponent.value ) {
+					valueComponent.value = max;
+				}
+				// Update layout
+				this.updateThumb();
+			}
 		}
-	}
-
-	/**
-	 * On update current slider value
-	 * - Update current value of slider
-	 * - Update children components such as thumb, track
-	 * @param value 
-	 */
-	private onUpdateValue( value: number ) {
-		this._value.value = Math.max( this._min.value, Math.min( this._max.value, value ) );
-		this.updateThumb();
 	}
 
 	protected getType(): string {
