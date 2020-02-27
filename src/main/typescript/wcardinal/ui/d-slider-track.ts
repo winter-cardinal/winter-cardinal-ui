@@ -21,10 +21,6 @@ export class DSliderTrack<
 	THEME extends DThemeSliderTrack = DThemeSliderTrack,
 	OPTIONS extends DSliderTrackOptions<VALUE, THEME> = DSliderTrackOptions<VALUE, THEME>
 > extends DButton<VALUE, THEME, OPTIONS> {
-	protected init( options?: OPTIONS ) {
-		super.init( options );
-	}
-
 	protected getType(): string {
 		return "DSliderTrack";
 	}

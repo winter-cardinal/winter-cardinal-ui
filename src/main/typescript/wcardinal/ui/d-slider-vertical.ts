@@ -34,7 +34,7 @@ export class DSliderVertical<
 		return new DSliderTrackVertical( options && options.track );
 	}
 
-	protected assertSize(): void {
+	protected adjustSize(): void {
 		this._track.setHeight( this.height - this._value.height - VERTICAL_PIXEL_BALANCE );
 		this._trackSelected.setHeight( this._track.height - VERTICAL_PIXEL_BALANCE );
 		this._trackSelected.setWidth( this._track.width );
@@ -44,14 +44,19 @@ export class DSliderVertical<
 		this._yOffset = VERTICAL_PIXEL_BALANCE + this._value.height;
 		this._track.y = this._yOffset;
 		this._thumb.y = this.height - this._thumb.height;
-		this._trackSelected.y = this._thumb.y;
-		this._trackSelected.height = this.height - this._trackSelected.y;
+
+		const trackSelected = this._trackSelected;
+		trackSelected.y = this._thumb.y;
+		trackSelected.height = this.height - trackSelected.y;
 		this._value.y = this._thumb.y - this._yOffset;
 
-		this._min.x = 0 - this._min.width;
-		this._min.y = this.height - this._min.height;
-		this._max.x = 0 - this._max.width;
-		this._max.y = this._yOffset;
+		const min = this._min;
+		min.x = 0 - min.width;
+		min.y = this.height - min.height;
+
+		const max = this._max;
+		max.x = 0 - max.width;
+		max.y = this._yOffset;
 
 		this._value.setX( "CENTER" );
 		this._thumb.setX( "CENTER" );
@@ -66,7 +71,9 @@ export class DSliderVertical<
 	}
 
 	protected updateThumb(): void {
-		const [ min, max, value ] = [ this._min.value, this._max.value, this._value.value ];
+		const min = this._min.value;
+		const max = this._max.value;
+		const value = this._value.value;
 		this._ratioValue = ( value - min ) / ( max - min );
 		const y = this.height - this._ratioValue * this._track.height;
 		this.updateChildren( y );

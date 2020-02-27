@@ -21,10 +21,6 @@ export class DSliderTrackHorizontal<
 	THEME extends DThemeSliderTrackHorizontal = DThemeSliderTrackHorizontal,
 	OPTIONS extends DSliderTrackHorizontalOptions<VALUE, THEME> = DSliderTrackHorizontalOptions<VALUE, THEME>
 > extends DSliderTrack<VALUE, THEME, OPTIONS> {
-	protected init( options?: OPTIONS ) {
-		super.init( options );
-	}
-
 	protected getType(): string {
 		return "DSliderTrackHorizontal";
 	}

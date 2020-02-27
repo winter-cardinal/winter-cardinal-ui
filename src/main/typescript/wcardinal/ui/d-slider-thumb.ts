@@ -21,10 +21,6 @@ export class DSliderThumb<
 	THEME extends DThemeSliderThumb = DThemeSliderThumb,
 	OPTIONS extends DSliderThumbOptions<VALUE, THEME> = DSliderThumbOptions<VALUE, THEME>
 > extends DButton<VALUE, THEME, OPTIONS> {
-	protected init( options?: OPTIONS ) {
-		super.init( options );
-	}
-
 	protected getType(): string {
 		return "DSliderThumb";
 	}

@@ -32,7 +32,7 @@ export class DSliderHorizontal<
 		return new DSliderTrackHorizontal( options && options.track );
 	}
 
-	protected assertSize(): void {
+	protected adjustSize(): void {
 		this._track.setWidth( this.width );
 		this._trackSelected.setHeight( this._track.height );
 		this._trackSelected.setWidth( this._track.width );
@@ -74,7 +74,9 @@ export class DSliderHorizontal<
 	}
 
 	protected updateThumb(): void {
-		const [ min, max, value ] = [ this._min.value, this._max.value, this._value.value ];
+		const min = this._min.value;
+		const max = this._max.value;
+		const value = this._value.value;
 		this._ratioValue = ( value - min ) / ( max - min );
 		const x =  this._ratioValue * this._track.width;
 		this.updateChildren( x );
@@ -98,9 +100,6 @@ export class DSliderHorizontal<
 	}
 
 	protected getType(): string {
-
 		return "DSliderHorizontal";
-
 	}
-
 }

@@ -39,8 +39,8 @@ export abstract class DSlider<
 	protected _ratioValue!: number;
 	protected _min!: DSliderLabel;
 	protected _max!: DSliderLabel;
-	protected _onThumbMove!: ( e: InteractionEvent ) => void;
-	protected _onThumbUp!: ( e: InteractionEvent ) => void;
+	protected _onThumbMoveBound!: ( e: InteractionEvent ) => void;
+	protected _onThumbUpBound!: ( e: InteractionEvent ) => void;
 	protected _onTrackUpBound!: ( e: InteractionEvent ) => void;
 	protected _onTrackSelectedUpBound!: ( e: InteractionEvent ) => void;
 	
@@ -49,7 +49,7 @@ export abstract class DSlider<
 		super.init( options );
 
 		this.prepareValues( options );
-		this.assertSize( options );
+		this.adjustSize( options );
 		this.updateCoordinates();
 		this.appendChildToView();
 		this.initListeners();
@@ -106,11 +106,11 @@ export abstract class DSlider<
 			this.onThumbDown( e );
 		});
 
-		this._onThumbMove = ( e: InteractionEvent ): void => {
+		this._onThumbMoveBound = ( e: InteractionEvent ): void => {
 			this.onThumbMove( e );
 		};
 
-		this._onThumbUp = ( e: InteractionEvent ): void => {
+		this._onThumbUpBound = ( e: InteractionEvent ): void => {
 			this.onThumbUp( e );
 			this._value.visible = false;
 		};
@@ -144,7 +144,7 @@ export abstract class DSlider<
 	protected abstract onPick( global: Point ): void;
 	protected abstract updateThumb(): void;
 	protected abstract updateChildren( thumbCoordinate: number ): void;
-	protected abstract assertSize( options?: OPTIONS ): void;
+	protected abstract adjustSize( options?: OPTIONS ): void;
 
 	protected onTrackDown( global: Point ): void {
 		const layer = DApplications.getLayer( this );
@@ -188,8 +188,8 @@ export abstract class DSlider<
 		const layer = DApplications.getLayer( this );
 		if ( layer ) {
 			const stage = layer.stage;
-			stage.on( UtilPointerEvent.move, this._onThumbMove );
-			stage.on( UtilPointerEvent.up, this._onThumbUp );
+			stage.on( UtilPointerEvent.move, this._onThumbMoveBound );
+			stage.on( UtilPointerEvent.up, this._onThumbUpBound );
 		}
 	}
 
@@ -197,22 +197,23 @@ export abstract class DSlider<
 		const layer = DApplications.getLayer( this );
 		if ( layer ) {
 			const stage = layer.stage;
-			stage.off( UtilPointerEvent.move, this._onThumbMove );
-			stage.off( UtilPointerEvent.up, this._onThumbUp );
+			stage.off( UtilPointerEvent.move, this._onThumbMoveBound );
+			stage.off( UtilPointerEvent.up, this._onThumbUpBound );
 		}
 	}
 
 	protected updateValue(): void {
-		const [ min, max ] = [this._min.value, this._max.value];
-		const value: number = min + this._ratioValue * ( max - min );
-		this._value.value = this._value.round( value );
-		this._value.text = this._value.value;
+		const min = this._min.value;
+		const max = this._max.value;
+		const value = this._value;
+		value.value = value.rounder( min + this._ratioValue * ( max - min ) );
+		value.text = value.value;
 	}
 
 	onResize( newWidth: number, newHeight: number, oldWidth: number, oldHeight: number ): void {
 		super.onResize( newWidth, newHeight, oldWidth, oldHeight );
 		// Adjust children's size
-		this.assertSize();
+		this.adjustSize();
 		// Update thumb and children
 		this.updateThumb();
     }
