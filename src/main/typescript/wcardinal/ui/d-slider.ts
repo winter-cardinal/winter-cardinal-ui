@@ -12,6 +12,7 @@ import { DSliderTrack, DSliderTrackOptions } from "./d-slider-track";
 import { DSliderValue, DSliderValueOptions } from "./d-slider-value";
 import InteractionEvent = interaction.InteractionEvent;
 import { UtilPointerEvent } from "./util/util-pointer-event";
+import { isNumber } from './util';
 
 export interface DSliderOptions<THEME extends DThemeSlider> extends DBaseOptions<THEME> {
 	min?: DSliderLabelOptions;
@@ -57,10 +58,8 @@ export abstract class DSlider<
 
 	protected prepareValues( options?: OPTIONS ): void {
 		this._ratioValue = 0;
-		this._value = this.newValue( options );
+		this.newValues( options );
 		this._track = this.newTrack( options );
-		this._min = this.newMin( options );
-		this._max = this.newMax( options );
 		this._thumb = this.newThumb();
 		this._min.text = `${this._min.value}`;
 		this._max.text = `${this._max.value}`;
@@ -115,21 +114,27 @@ export abstract class DSlider<
 		};
 	}
 
-	protected newValue( options?: OPTIONS ): DSliderValue {
-		return new DSliderValue( options && options.value );
-	}
+	protected newValues( options?: OPTIONS ): void {
+		// Get max / min value from options object
+		let max = options && options.max && options.max.value;
+		let min = options && options.min && options.min.value;
+		let value = options && options.value && options.value.value;
+		if (isNumber(max) && isNumber(min) && isNumber(value)) {
+			// Adjust if needed
+			max = Math.max( max, min );
+			value = Math.max( min, Math.min( max, value ) );
+		} else {
+			// Set as default
+			value = min = 0;
+			max = 1;
+		}
 
-	protected newMax(options?: OPTIONS): DSliderLabel {
-		const max = options && options.max;
-		return new DSliderLabel({
-			value: ( max && max.value ) ?? 1
-		});
-	}
-
-	protected newMin( options?: OPTIONS ): DSliderLabel {
-		const min = options && options.min;
-		return new DSliderLabel({
-			value: ( min && min.value ) ?? 0
+		// Init min, max, value as default
+		this._min = new DSliderLabel({ value: min });
+		this._max = new DSliderLabel({ value: max });
+		this._value = new DSliderValue({ 
+			...{ value: value }, 
+			...(options?.value ?? {})
 		});
 	}
 
