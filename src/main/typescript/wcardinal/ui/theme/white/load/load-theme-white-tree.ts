@@ -6,15 +6,12 @@
 import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteTree } from "../d-theme-white-tree";
 import { DThemeWhiteTreeItem } from "../d-theme-white-tree-item";
-import { DThemeWhiteTreeItemCheck } from "../d-theme-white-tree-item-check";
-import { DThemeWhiteTreeItemText } from "../d-theme-white-tree-item-text";
+import { DThemeWhiteTreeItemTextAndImage } from "../d-theme-white-tree-item-text-and-image";
 import { DThemeWhiteTreeItemToggleIcon } from "../d-theme-white-tree-item-toggle-icon";
 
 export const loadThemeWhiteTree = () => {
 	DThemeWhite.set( "DTreeItem", DThemeWhiteTreeItem );
 	DThemeWhite.set( "DTree", DThemeWhiteTree );
-	DThemeWhite.set( "DTreeItemText", DThemeWhiteTreeItemText);
+	DThemeWhite.set( "DTreeItemTextAndImage", DThemeWhiteTreeItemTextAndImage);
 	DThemeWhite.set( "DTreeItemToggleIcon", DThemeWhiteTreeItemToggleIcon);
-	DThemeWhite.set( "DTreeItemCheck", DThemeWhiteTreeItemCheck);
-
 };

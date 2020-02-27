@@ -8,10 +8,10 @@ import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DBaseState } from "../../d-base-state";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
-import { DThemeTreeItemText } from "../../d-Tree-item-text";
+import { DThemeTreeItemTextAndImage } from "../../d-tree-item-text-and-image";
 import { DThemeWhiteImage } from "./d-theme-white-image";
 
-export class DThemeWhiteTreeItemText extends DThemeWhiteImage implements DThemeTreeItemText {
+export class DThemeWhiteTreeItemTextAndImage extends DThemeWhiteImage implements DThemeTreeItemTextAndImage {
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		return null;
@@ -51,13 +51,5 @@ export class DThemeWhiteTreeItemText extends DThemeWhiteImage implements DThemeT
 
 	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
 		return null;
-	}
-
-	getImageWidth(): number | null {
-		return 20;
-	}
-
-	getImageHeight(): number | null {
-		return 20;
 	}
 }
