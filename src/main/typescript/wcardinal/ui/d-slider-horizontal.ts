@@ -35,12 +35,9 @@ export class DSliderHorizontal<
 	protected adjustSize(): void {
 		this._track.setWidth( this.width );
 		this._trackSelected.setHeight( this._track.height );
-		this._trackSelected.setWidth( this._track.width );
 	}
 
 	protected updateCoordinates(): void {
-		this._trackSelected.width = 0;
-
 		// calculate y-offset to determine y-coordinate of slider bar
 		this._yOffset = this._value.height + HORIZONTAL_PIXEL_BALANCE +
 						this._thumb.height / 2 - this._track.height / 2;
