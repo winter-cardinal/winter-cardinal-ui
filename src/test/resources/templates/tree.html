@@ -164,6 +164,17 @@
 							}
 						}
 					}),
+					new wcardinal.ui.DButtonPrimary({
+						width: 200,
+						text: {
+							value: "Collapse all"
+						},
+						on: {
+							active: (btn) => {
+								tree.collapseAll()
+							}
+						}
+					}),
 				]
 			});
 		}()

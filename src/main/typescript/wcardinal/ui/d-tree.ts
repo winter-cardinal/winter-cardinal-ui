@@ -196,6 +196,13 @@ export class DTree <
 			this.reload(true);
 		}
 
+		/**
+		 * Collapse all tree item.
+		 */
+		public collapseAll() {
+			this.reload(false);
+		}
+
 		private updateData(
 			parentItemOptions: DTreeItemOptions | null,
 			items: DTreeItemRawData[],
