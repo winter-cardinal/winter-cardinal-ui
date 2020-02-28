@@ -14,7 +14,7 @@ import { DThemeWhiteTableRow } from "./d-theme-white-table-row";
 
 export class DThemeWhiteTableBodyRow extends DThemeWhiteTableRow implements DThemeTableBodyRow {
 	BACKGROUND_COLOR_EVEN = 0xffffff;
-	BACKGROUND_COLOR_ODD = UtilRgb.darken( 0xffffff, 0.017 );
+	BACKGROUND_COLOR_ODD = UtilRgb.darken( 0xffffff, 0.01 );
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
