@@ -138,6 +138,15 @@
 		rectangle10.text.align.horizontal = wcardinal.ui.EShapeTextAlignHorizontal.OUTSIDE_LEFT;
 		rectangle10.text.align.vertical = wcardinal.ui.EShapeTextAlignVertical.BOTTOM;
 		rectangle10.attach( container );
+
+		setInterval(() => {
+			const children = container.children;
+			for( let i = 0, imax = children.length; i < imax; ++i ) {
+				const child = children[ i ];
+				child.text.clipping = ! child.text.clipping;
+			}
+			application.update();
+		}, 1000);
 	}());
 	</script>
 </body>

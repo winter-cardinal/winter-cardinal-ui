@@ -731,8 +731,8 @@ export const buildTextVertex = (
 							uvx0, uvy0
 						);
 
-						for( iv += 8; iterator.hasNext(); iv += 8 ) {
-							if( iterator.advance( "\n" ) ) {
+						for( iv += 8; true; iv += 8 ) {
+							if( iterator.hasNext() && iterator.advance( "\n" ) ) {
 								writeCharacterEmpty(
 									vertices, uvs, iv,
 									cx0, cy0, cx3, cy3,
@@ -812,7 +812,7 @@ export const buildTextVertex = (
 		vertices,
 		hnx, hny,
 		lineCount,
-		iv - 8,
+		iv,
 		width - lineWidth * scale,
 		textDirection,
 		textAlignHorizontal,
