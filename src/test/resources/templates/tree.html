@@ -153,6 +153,17 @@
 							}
 						}
 					}),
+					new wcardinal.ui.DButtonPrimary({
+						width: 200,
+						text: {
+							value: "Expand all"
+						},
+						on: {
+							active: (btn) => {
+								tree.expandAll()
+							}
+						}
+					}),
 				]
 			});
 		}()

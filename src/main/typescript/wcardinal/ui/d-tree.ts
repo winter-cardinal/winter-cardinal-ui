@@ -137,7 +137,7 @@ export class DTree <
 			this._content.removeChildren();
 			// re-render tree
 			this.onSelectionChangeListener();
-			this.updateData(null, this._value, 0, true, expandAll);
+			this.updateData(null, this._value, 0, expandAll);
 			this.update();
 		}
 
@@ -189,11 +189,17 @@ export class DTree <
 			}
 		}
 
+		/**
+		 * Expand all tree item.
+		 */
+		public expandAll() {
+			this.reload(true);
+		}
+
 		private updateData(
 			parentItemOptions: DTreeItemOptions | null,
 			items: DTreeItemRawData[],
 			level: number,
-			forcibly?: boolean,
 			expandAll?: boolean
 			) {
 			items.forEach((item) => {
@@ -251,7 +257,7 @@ export class DTree <
 
 					}
 					if (item && item.children) {
-						this.updateData(itemOptions, item.children, level + 1, forcibly, expandAll);
+						this.updateData(itemOptions, item.children, level + 1, expandAll);
 					}
 				}
 			});
