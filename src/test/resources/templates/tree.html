@@ -182,7 +182,7 @@
 						},
 						on: {
 							active: (btn) => {
-								console.log(tree.isCollapsed(tree.value[0].children[0]))
+								console.log(tree.isCollapsed(tree.value[0]))
 							}
 						}
 					}),
@@ -193,7 +193,18 @@
 						},
 						on: {
 							active: (btn) => {
-								console.log(tree.isExpanded(tree.value[0].children[0]))
+								console.log(tree.isExpanded(tree.value[0]))
+							}
+						}
+					}),
+					new wcardinal.ui.DButtonPrimary({
+						width: 200,
+						text: {
+							value: "Clear"
+						},
+						on: {
+							active: (btn) => {
+								tree.clear()
 							}
 						}
 					}),

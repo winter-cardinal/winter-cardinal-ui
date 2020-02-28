@@ -209,7 +209,10 @@ export class DTree <
 		 * @returns collapse status of the item.
 		 */
 		public isCollapsed(itemRawData: DTreeItemRawData) {
-			return !itemRawData.expanded;
+			if (itemRawData) {
+				return !itemRawData.expanded;
+			}
+			return false;
 		}
 
 		/**
@@ -218,7 +221,15 @@ export class DTree <
 		 * @returns expand status of the item.
 		 */
 		public isExpanded(itemRawData: DTreeItemRawData) {
-			return !!itemRawData.expanded;
+			return !!(itemRawData && itemRawData.expanded);
+		}
+
+		/**
+		 * Clear all tree item.
+		 */
+		public clear() {
+			this._value = [];
+			this.reload();
 		}
 
 		private updateData(
