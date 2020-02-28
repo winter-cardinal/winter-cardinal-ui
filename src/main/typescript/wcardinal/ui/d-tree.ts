@@ -163,6 +163,19 @@ export class DTree <
 			}
 		}
 
+		/**
+		 * Expand an tree parent item,
+		 * Expand an collapsed tree item.
+		 *
+		 * @param itemPosition Position of data item in "value" array (in tree input data).
+		 */
+		public expand(itemRawData: DTreeItemRawData) {
+			if(itemRawData) {
+				itemRawData.expanded = true;
+				this.reload();
+			}
+		}
+
 		private updateData(
 			parentItemOptions: DTreeItemOptions | null,
 			items: DTreeItemRawData[],
