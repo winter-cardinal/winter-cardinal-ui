@@ -212,6 +212,15 @@ export class DTree <
 			return !itemRawData.expanded;
 		}
 
+		/**
+		 * Check if an item is expanded.
+		 *
+		 * @returns expand status of the item.
+		 */
+		public isExpanded(itemRawData: DTreeItemRawData) {
+			return !!itemRawData.expanded;
+		}
+
 		private updateData(
 			parentItemOptions: DTreeItemOptions | null,
 			items: DTreeItemRawData[],
