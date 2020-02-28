@@ -57,8 +57,11 @@ export abstract class DSlider<
 	}
 
 	protected prepareValues( options?: OPTIONS ): void {
+		const initializedValues = this.initValues( options );
 		this._ratioValue = 0;
-		this.newValues( options );
+		this._value = this.newValue( initializedValues.value );
+		this._min = this.newLabel( initializedValues.min );
+		this._max = this.newLabel( initializedValues.max );
 		this._track = this.newTrack( options );
 		this._thumb = this.newThumb();
 		this._min.text = `${this._min.value}`;
@@ -114,7 +117,7 @@ export abstract class DSlider<
 		};
 	}
 
-	protected newValues( options?: OPTIONS ): void {
+	protected initValues( options?: OPTIONS ): { min: number, max: number, value: DSliderValueOptions } {
 		// Get max / min value from options object
 		let max = options && options.max && options.max.value;
 		let min = options && options.min && options.min.value;
@@ -129,17 +132,26 @@ export abstract class DSlider<
 			max = 1;
 		}
 
-		// Init min, max, value as default
-		this._min = new DSliderLabel({ value: min });
-		this._max = new DSliderLabel({ value: max });
-		this._value = new DSliderValue({ 
-			...{ value: value }, 
-			...(options?.value ?? {})
-		});
+		const valueOptions = options?.value ?? {};
+		valueOptions.value = value;
+
+		return {
+			min: min, 
+			max: max, 
+			value: valueOptions
+		};
 	}
 
 	protected newThumb( options?: OPTIONS ): DSliderThumb {
 		return new DSliderThumb( options && options.thumb );
+	}
+
+	protected newValue( options: DSliderValueOptions ): DSliderValue {
+		return new DSliderValue( options );
+	}
+
+	protected newLabel( value: number ): DSliderLabel {
+		return new DSliderLabel({ value: value });
 	}
 
 	protected abstract newTrack( options?: OPTIONS ): DSliderTrack;
