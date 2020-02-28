@@ -100,6 +100,10 @@ export class DTreeItem <
 			this._treeItemToggleIcon = new DTreeItemToggleIcon();
 			this._treeItemTextAndImage = toTreeItemTextAndImage(options);
 
+
+			this.addChild(this._treeItemToggleIcon);
+			this.addChild(this._treeItemTextAndImage);
+
 			this._treeItemToggleIcon.on(UtilPointerEvent.down, (): void => {
 				this.onToggle();
 			});
@@ -107,16 +111,17 @@ export class DTreeItem <
 				this.onSelect();
 			});
 
-			this.addChild(this._treeItemToggleIcon);
-			this.addChild(this._treeItemTextAndImage);
-
 			// update states
 			this.updateStates(false);
 		}
 
 		protected onSelect(): void {
 			this.emit("select");
-			this.parent.emit("select", this._rawData);
+			this.parent.emit("selection-change");
+		}
+
+		public onToggle(): void {
+			this.emit("toggle");
 		}
 
 		public isExpanded(): boolean {
@@ -131,15 +136,7 @@ export class DTreeItem <
 			return this._rawData;
 		}
 
-		public onToggle(): void {
-			this.emit("toggle");
-			if (this._isParent && this._isExpanded != null) {
-				this._isExpanded = !this._isExpanded;
-				this.updateStates(false);
-			}
-		}
-
-		public update(options: OPTIONS, selectedRawData: DTreeItemRawData) {
+		public update(options: OPTIONS, isActive: boolean) {
 			this._treeItemTextAndImage.text = toText(options);
 			this._treeItemTextAndImage.image = toImage(options);
 			this._rawData = toRawData(options);
@@ -152,29 +149,20 @@ export class DTreeItem <
 			this.position.y = toYCoordinate(options);
 			this._isParent = isParent(options);
 			this._isExpanded = isExpanded(options);
-			this.updateStates(this._rawData === selectedRawData);
+			this.updateStates(isActive);
 			return this;
 		}
 
-		public updateActiveState(selectedRawData: DTreeItemRawData | null, isActive?: boolean) {
-			if(isActive == null) {
-				isActive = this._rawData === selectedRawData;
-
-			}
+		public updateActiveState(isActive: boolean) {
 			this.setActive(isActive);
 			this._treeItemToggleIcon.setState(DTreeItemState.SELECTED, isActive);
 			this._treeItemTextAndImage.setState(DTreeItemState.SELECTED, isActive);
 		}
 
 		protected updateStates(isActive: boolean): void {
-			this.updateActiveState(null, isActive);
-			if (!this._isParent) {
-				this._treeItemToggleIcon.setState(DTreeItemState.COLLAPSED, false);
-				this._treeItemToggleIcon.setState(DTreeItemState.EXPANDED, false);
-				return;
-			}
-			this._treeItemToggleIcon.setState(DTreeItemState.COLLAPSED, !this._isExpanded);
-			this._treeItemToggleIcon.setState(DTreeItemState.EXPANDED, !!this._isExpanded);
+			this.updateActiveState(isActive);
+			this._treeItemToggleIcon.setState(DTreeItemState.COLLAPSED, !this._isExpanded && this._isParent);
+			this._treeItemToggleIcon.setState(DTreeItemState.EXPANDED, !!this._isExpanded && this._isParent);
 		}
 
 		protected getType(): string {

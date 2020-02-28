@@ -8,6 +8,7 @@ import { DBaseOptions } from "./d-base";
 import { DContentOptions } from "./d-content";
 import { DPane, DPaneOptions, DThemePane } from "./d-pane";
 import { DThemeTreeItem, DTreeItem, DTreeItemOptions } from "./d-tree-item";
+import { DTreeSelection } from "./d-tree-selection";
 import { DThemes } from "./theme";
 
 export interface DTreeOptions <
@@ -35,10 +36,10 @@ export class DTree <
 
 		protected _itemOptions!: WeakMap<DTreeItemRawData, DTreeItemOptions>;
 		protected _itemOptionsShowable!: DTreeItemOptions[];
+		protected _selection!: DTreeSelection;
 		protected _value!: DTreeItemRawData[];
 		protected _itemIndexMappedStart!: number;
 		protected _itemIndexMappedEnd!: number;
-		protected _selectedRawData !: DTreeItemRawData;
 		private _itemY!: number;
 		private _itemHeight!: number;
 
@@ -46,6 +47,7 @@ export class DTree <
 			super.init(options);
 
 			this._itemOptions = new WeakMap();
+			this._selection = new DTreeSelection();
 			this._itemOptionsShowable = [];
 			this._itemIndexMappedStart = 0;
 			this._itemIndexMappedEnd = 0;
@@ -66,27 +68,25 @@ export class DTree <
 				this.update();
 			});
 
-			this.registerSelectEvent();
+			this.onSelectionChangeListener();
 
 			this.update();
 		}
 
-		private registerSelectEvent() {
-			// remove select event
-			this._content.removeListener("select");
+		private onSelectionChangeListener() {
+			this._content.removeListener("selection-change");
 			// update active state of all shown item when a child item is clicked
-			this._content.on("select", (selectedItemRawData: DTreeItemRawData): void => {
-				this._selectedRawData = selectedItemRawData;
+			this._content.on("selection-change", () => {
 				const items = this._content.children as DTreeItem[];
 				items.forEach((item) => {
-					item.updateActiveState(selectedItemRawData);
+					item.updateActiveState(this._selection.get().includes(item.getRawData()));
 				});
 			});
 		}
 
 		protected update() {
 			const content = this._content;
-			const	items = content.children as DTreeItem[] ;
+			const items = content.children as DTreeItem[] ;
 			// calculate content height
 			content.height = this._itemOptionsShowable.length * this._itemHeight;
 			const contentY = content.position.y;
@@ -109,7 +109,8 @@ export class DTree <
 					content.addChild(treeItem);
 					// listen select item event
 					treeItem.on("select", (): void => {
-						this.emit("select", treeItem);
+						this._selection.clear();
+						this._selection.add(treeItem.getRawData());
 					});
 					// listen toggle item event
 					treeItem.on("toggle", (): void => {
@@ -125,21 +126,8 @@ export class DTree <
 				}
 			}
 			for (let i = 0; i < items.length; i++) {
-				items[i] = items[i].update(itemOptionsShown[i], this._selectedRawData);
+				items[i] = items[i].update(itemOptionsShown[i], this._selection.get().includes(itemOptionsShown[i].rawData));
 			}
-		}
-
-		protected getTreeItemRawData(itemPosition: number[]) {
-			let items = this._value;
-			// access to data of selected item in this.value to update expanded attribute
-			for (let i = 0; i < itemPosition.length - 1; i++) {
-				if(items[itemPosition[i]] && items[itemPosition[i]].children) {
-					items = items[itemPosition[i]].children;
-				} else {
-					return null;
-				}
-			}
-			return items[itemPosition[itemPosition.length - 1]];
 		}
 
 		protected reload(expandAll?: boolean) {
@@ -148,7 +136,7 @@ export class DTree <
 			this._itemY = 0;
 			this._content.removeChildren();
 			// re-render tree
-			this.registerSelectEvent();
+			this.onSelectionChangeListener();
 			this.updateData(null, this._value, 0, true, expandAll);
 			this.update();
 		}
