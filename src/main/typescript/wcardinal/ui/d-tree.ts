@@ -203,6 +203,15 @@ export class DTree <
 			this.reload(false);
 		}
 
+		/**
+		 * Check if an item is collapsed.
+		 *
+		 * @returns collapse status of the item.
+		 */
+		public isCollapsed(itemRawData: DTreeItemRawData) {
+			return !itemRawData.expanded;
+		}
+
 		private updateData(
 			parentItemOptions: DTreeItemOptions | null,
 			items: DTreeItemRawData[],

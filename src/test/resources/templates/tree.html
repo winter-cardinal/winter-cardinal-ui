@@ -175,6 +175,17 @@
 							}
 						}
 					}),
+					new wcardinal.ui.DButtonPrimary({
+						width: 200,
+						text: {
+							value: "Is collapsed"
+						},
+						on: {
+							active: (btn) => {
+								console.log(tree.isCollapsed(tree.value[0].children[0]))
+							}
+						}
+					}),
 				]
 			});
 		}()
