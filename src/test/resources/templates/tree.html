@@ -219,6 +219,20 @@
 							}
 						}
 					}),
+					new wcardinal.ui.DButtonPrimary({
+						width: 200,
+						text: {
+							value: "Add"
+						},
+						on: {
+							active: (btn) => {
+								const item = {
+									text: "added item"
+								}
+								tree.add(item, tree.value[0].children[0])
+							}
+						}
+					}),
 				]
 			});
 		}()

@@ -155,11 +155,11 @@ export class DTree <
 		 * Toggle an tree parent item,
 		 * Expand an collapsed tree item or collapse an expanded item.
 		 *
-		 * @param itemRawData Reference data of item want to collapse in “value” array.
+		 * @param item Reference data of item want to toggle in “value” array.
 		 */
-		public toggle(itemRawData: DTreeItemRawData) {
-			if(itemRawData) {
-				itemRawData.expanded = !itemRawData.expanded;
+		public toggle(item: DTreeItemRawData) {
+			if(item) {
+				item.expanded = !item.expanded;
 				this.reload();
 			}
 		}
@@ -167,11 +167,11 @@ export class DTree <
 		/**
 		 * Expand a collapsed tree item.
 		 *
-		 * @param itemRawData Reference data of item want to collapse in “value” array.
+		 * @param item Reference data of item want to expand in “value” array.
 		 */
-		public expand(itemRawData: DTreeItemRawData) {
-			if(itemRawData) {
-				itemRawData.expanded = true;
+		public expand(item: DTreeItemRawData) {
+			if(item) {
+				item.expanded = true;
 				this.reload();
 			}
 		}
@@ -179,11 +179,11 @@ export class DTree <
 		/**
 		 * Collapse an expanded tree item.
 		 *
-		 * @param itemRawData Reference data of item want to collapse in “value” array.
+		 * @param item Reference data of item want to collapse in “value” array.
 		 */
-		public collapse(itemRawData: DTreeItemRawData) {
-			if(itemRawData) {
-				itemRawData.expanded = false;
+		public collapse(item: DTreeItemRawData) {
+			if(item) {
+				item.expanded = false;
 				this.reload();
 			}
 		}
@@ -205,13 +205,13 @@ export class DTree <
 		/**
 		 * Check if an item is collapsed.
 		 *
-		 * @param itemRawData Reference data of item want to collapse in “value” array.
+		 * @param item Reference data of item want to check in “value” array.
 		 *
 		 * @returns collapse status of the item.
 		 */
-		public isCollapsed(itemRawData: DTreeItemRawData) {
-			if (itemRawData) {
-				return !itemRawData.expanded;
+		public isCollapsed(item: DTreeItemRawData) {
+			if (item) {
+				return !item.expanded;
 			}
 			return false;
 		}
@@ -219,12 +219,12 @@ export class DTree <
 		/**
 		 * Check if an item is expanded.
 		 *
-		 * @param itemRawData Reference data of item want to collapse in “value” array.
+		 * @param item Reference data of item want to check in “value” array.
 		 *
 		 * @returns expand status of the item.
 		 */
-		public isExpanded(itemRawData: DTreeItemRawData) {
-			return !!(itemRawData && itemRawData.expanded);
+		public isExpanded(item: DTreeItemRawData) {
+			return !!(item && item.expanded);
 		}
 
 		/**
@@ -238,10 +238,31 @@ export class DTree <
 		/**
 		 * Remove a tree item
 		 *
-		 * @param itemRawData Reference data of item want to collapse in “value” array.
+		 * @param item Reference data of item want to remove in “value” array.
 		 */
-		public remove(itemRawData: DTreeItemRawData) {
-			this._removeItem = itemRawData;
+		public remove(item: DTreeItemRawData) {
+			this._removeItem = item;
+			this.reload();
+		}
+
+		/**
+		 * Add a tree item
+		 *
+		 * @param item data of new item want to add to tree.
+		 * @param parent Reference data of parent item will contain the adding item.
+		 * If the parent is undefined, the item will be added at the top level.
+		 * If the parent is not undefined, the item will be inserted as a child of the given parent item.
+		 */
+		public add(item: DTreeItemRawData, parent?: DTreeItemRawData) {
+			if(parent) {
+				if(parent.children) {
+					parent.children.unshift(item);
+				} else {
+					parent.children = [item];
+				}
+			} else {
+				this._value.unshift(item);
+			}
 			this.reload();
 		}
 
