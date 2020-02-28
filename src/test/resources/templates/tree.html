@@ -113,6 +113,26 @@
 					},
 				]
 			});
+			new wcardinal.ui.DLayoutVertical({
+				parent: application.stage,
+				x: 650,
+				y: 100,
+				width: "100%-40",
+				height: "100%-40",
+				children: [
+					new wcardinal.ui.DButtonPrimary({
+						width: 200,
+						text: {
+							value: "Toggle"
+						},
+						on: {
+							active: (btn) => {
+								tree.toggle(tree.value[0])
+							}
+						}
+					}),
+				]
+			});
 		}()
 		);
 	</script>

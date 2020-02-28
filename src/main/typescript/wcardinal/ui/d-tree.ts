@@ -142,6 +142,15 @@ export class DTree <
 		}
 
 		/**
+		 * Getter method to access raw data.
+		 *
+		 * @returns raw data.
+		 */
+		get value() {
+			return this._value;
+		}
+
+		/**
 		 * Toggle an tree parent item,
 		 * Expand an collapsed tree item or collapse an expanded item.
 		 *
