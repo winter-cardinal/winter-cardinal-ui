@@ -208,6 +208,17 @@
 							}
 						}
 					}),
+					new wcardinal.ui.DButtonPrimary({
+						width: 200,
+						text: {
+							value: "Remove"
+						},
+						on: {
+							active: (btn) => {
+								tree.remove(tree.value[0].children[0])
+							}
+						}
+					}),
 				]
 			});
 		}()

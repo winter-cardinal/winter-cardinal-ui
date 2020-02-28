@@ -42,6 +42,7 @@ export class DTree <
 		protected _itemIndexMappedEnd!: number;
 		private _itemY!: number;
 		private _itemHeight!: number;
+		private _removeItem!: DTreeItemRawData | null;
 
 		protected init(options ?: OPTIONS) {
 			super.init(options);
@@ -57,7 +58,7 @@ export class DTree <
 			this._itemHeight = Number(dTreeItemTheme.getHeight());
 
 			this._value = options && options.value ? options.value : [];
-			this.updateData(null, this._value, 0);
+			this.updateData(null, this, 0);
 
 			this._content.on("move", (): void => {
 				this.update();
@@ -137,7 +138,7 @@ export class DTree <
 			this._content.removeChildren();
 			// re-render tree
 			this.onSelectionChangeListener();
-			this.updateData(null, this._value, 0, expandAll);
+			this.updateData(null, this, 0, expandAll);
 			this.update();
 		}
 
@@ -154,7 +155,7 @@ export class DTree <
 		 * Toggle an tree parent item,
 		 * Expand an collapsed tree item or collapse an expanded item.
 		 *
-		 * @param itemPosition Position of data item in "value" array (in tree input data).
+		 * @param itemRawData Reference data of item want to collapse in “value” array.
 		 */
 		public toggle(itemRawData: DTreeItemRawData) {
 			if(itemRawData) {
@@ -164,10 +165,9 @@ export class DTree <
 		}
 
 		/**
-		 * Expand an tree parent item,
-		 * Expand an collapsed tree item.
+		 * Expand a collapsed tree item.
 		 *
-		 * @param itemPosition Position of data item in "value" array (in tree input data).
+		 * @param itemRawData Reference data of item want to collapse in “value” array.
 		 */
 		public expand(itemRawData: DTreeItemRawData) {
 			if(itemRawData) {
@@ -177,10 +177,9 @@ export class DTree <
 		}
 
 		/**
-		 * Collapse an tree parent item,
 		 * Collapse an expanded tree item.
 		 *
-		 * @param itemPosition Position of data item in "value" array (in tree input data).
+		 * @param itemRawData Reference data of item want to collapse in “value” array.
 		 */
 		public collapse(itemRawData: DTreeItemRawData) {
 			if(itemRawData) {
@@ -206,6 +205,8 @@ export class DTree <
 		/**
 		 * Check if an item is collapsed.
 		 *
+		 * @param itemRawData Reference data of item want to collapse in “value” array.
+		 *
 		 * @returns collapse status of the item.
 		 */
 		public isCollapsed(itemRawData: DTreeItemRawData) {
@@ -217,6 +218,8 @@ export class DTree <
 
 		/**
 		 * Check if an item is expanded.
+		 *
+		 * @param itemRawData Reference data of item want to collapse in “value” array.
 		 *
 		 * @returns expand status of the item.
 		 */
@@ -232,25 +235,49 @@ export class DTree <
 			this.reload();
 		}
 
+		/**
+		 * Remove a tree item
+		 *
+		 * @param itemRawData Reference data of item want to collapse in “value” array.
+		 */
+		public remove(itemRawData: DTreeItemRawData) {
+			this._removeItem = itemRawData;
+			this.reload();
+		}
+
 		private updateData(
 			parentItemOptions: DTreeItemOptions | null,
-			items: DTreeItemRawData[],
+			parentRawData: DTreeItemRawData | DTree,
 			level: number,
 			expandAll?: boolean
 			) {
-			items.forEach((item) => {
+			const items = parentRawData instanceof DTree ?
+				this._value :
+				parentRawData && parentRawData.children;
+
+			for (let i = 0; i < items.length; i++) {
+				const item = items[i];
 				if (item) {
+					// handle remove item
+					if(item === this._removeItem) {
+						// remove item from this._value.
+						items.splice(i, 1);
+						this._removeItem = null;
+						i--;
+						if (parentItemOptions && items.length === 0) {
+							parentItemOptions.isParent  = false;
+						}
+						continue;
+					}
+
 					const isParent: boolean = item.children && (item.children.length > 0);
 					const text = item.text ? item.text : "";
-
 					if(expandAll != null) {
 						item.expanded = expandAll;
 					} else if (item.expanded == null) {
 						item.expanded = false; // set default expand status of item is false
 					}
-
 					const itemImage = item.image ? item.image : null;
-
 					let isItemExisted = false;
 					let itemOptions = this._itemOptions.get(item);
 
@@ -290,12 +317,11 @@ export class DTree <
 					}
 					if (!isItemExisted) {
 						this._itemOptions.set(item, itemOptions);
-
 					}
 					if (item && item.children) {
-						this.updateData(itemOptions, item.children, level + 1, expandAll);
+						this.updateData(itemOptions, item, level + 1, expandAll);
 					}
 				}
-			});
+			}
 		}
 	}
