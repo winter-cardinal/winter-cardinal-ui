@@ -690,16 +690,39 @@ export const buildTextVertex = (
 	for( ; iterator.hasNext(); iv += 8 ) {
 		const character = iterator.next();
 		if( character !== "\n" ) {
+			const lineWidthPrevious = lineWidth;
 			if( 0 < advancePrevious ) {
 				lineWidth += Math.max( 0, advancePrevious + textSpacingHorizontal );
 			}
+
+			const ax = lineWidth * snx;
+			const ay = lineWidth * sny;
+			cx0 = bx0 + ax;
+			cy0 = by0 + ay;
+			cx3 = bx3 + ax;
+			cy3 = by3 + ay;
+
 			const data = textAtlasCharacters[ character ];
 			lineCount += 1;
 			if( data ) {
 				const advance = data.advance;
-				if( lineWidthMaximum < lineWidth ) {
+				if( lineWidthMaximum < (lineWidth + advance) * scale ) {
 					const dots = textAtlasCharacters[ "..." ];
 					if( dots ) {
+						if( 1 < lineCount && lineWidthMaximum < (lineWidth + dots.advance) * scale ) {
+							lineWidth = lineWidthPrevious;
+							iv -= 8;
+							lineCount -= 1;
+							const bx = lineWidth * snx;
+							const by = lineWidth * sny;
+							cx0 = bx0 + bx;
+							cy0 = by0 + by;
+							cx3 = bx3 + bx;
+							cy3 = by3 + by;
+						}
+
+						advancePrevious = dots.advance;
+
 						writeCharacter(
 							vertices, uvs, iv, dots, textAtlas,
 							snx, sny,
@@ -707,15 +730,6 @@ export const buildTextVertex = (
 							duvx01, duvy01, duvx03, duvy03,
 							uvx0, uvy0
 						);
-
-						const advanceDots = dots.advance;
-						const ax = advanceDots * snx;
-						const ay = advanceDots * sny;
-						cx0 = cx0 + ax;
-						cy0 = cy0 + ay;
-						cx3 = cx3 + ax;
-						cy3 = cy3 + ay;
-						advancePrevious = advanceDots;
 
 						for( iv += 8; iterator.hasNext(); iv += 8 ) {
 							if( iterator.advance( "\n" ) ) {
@@ -749,13 +763,6 @@ export const buildTextVertex = (
 						duvx01, duvy01, duvx03, duvy03,
 						uvx0, uvy0
 					);
-
-					const ax = advance * snx;
-					const ay = advance * sny;
-					cx0 = cx0 + ax;
-					cy0 = cy0 + ay;
-					cx3 = cx3 + ax;
-					cy3 = cy3 + ay;
 				}
 			} else {
 				advancePrevious = 0;
@@ -770,12 +777,6 @@ export const buildTextVertex = (
 			lineWidth += advancePrevious;
 			advancePrevious = 0;
 
-			writeCharacterEmpty(
-				vertices, uvs, iv,
-				cx0, cy0, cx3, cy3,
-				uvx0, uvy0, uvx3, uvy3
-			);
-
 			bx0 += lhx;
 			by0 += lhy;
 			bx3 += lhx;
@@ -784,6 +785,12 @@ export const buildTextVertex = (
 			cy0 = by0;
 			cx3 = bx3;
 			cy3 = by3;
+
+			writeCharacterEmpty(
+				vertices, uvs, iv,
+				cx0, cy0, cx3, cy3,
+				uvx0, uvy0, uvx3, uvy3
+			);
 
 			adjustTextAlignment(
 				vertices,
@@ -805,7 +812,7 @@ export const buildTextVertex = (
 		vertices,
 		hnx, hny,
 		lineCount,
-		iv,
+		iv - 8,
 		width - lineWidth * scale,
 		textDirection,
 		textAlignHorizontal,
