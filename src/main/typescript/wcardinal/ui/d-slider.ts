@@ -57,7 +57,7 @@ export abstract class DSlider<
 	}
 
 	protected prepareValues( options?: OPTIONS ): void {
-		const initializedValues = this.initValues( options );
+		const initializedValues = this.extractValues( options );
 		this._ratioValue = 0;
 		this._value = this.newValue( initializedValues.value );
 		this._min = this.newLabel( initializedValues.min );
@@ -117,7 +117,7 @@ export abstract class DSlider<
 		};
 	}
 
-	protected initValues( options?: OPTIONS ): { min: number, max: number, value: DSliderValueOptions } {
+	protected extractValues( options?: OPTIONS ): { min: number, max: number, value: DSliderValueOptions } {
 		// Get max / min value from options object
 		let max = options && options.max && options.max.value;
 		let min = options && options.min && options.min.value;
