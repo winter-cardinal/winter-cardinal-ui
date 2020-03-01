@@ -17,7 +17,7 @@ import { DTableCategory, DTableCategoryColumn, DTableCategoryOptions } from "./d
 import {
 	DTableColumn, DTableColumnEditing, DTableColumnOptions,
 	DTableColumnSelecting, DTableColumnSelectingDialog, DTableColumnSelectingOptions, DTableColumnSorting,
-	DTableColumnType, DTableEditable, DTableEditingUnformatter, DTableGetter, DTableRenderable, DTableSetter
+	DTableColumnType, DTableEditable, DTableGetter, DTableRenderable, DTableSetter
 } from "./d-table-column";
 import { DTableData, DTableDataOptions } from "./d-table-data";
 import { DTableDataList } from "./d-table-data-list";
@@ -46,73 +46,76 @@ export interface DThemeTable extends DThemePane {
 
 }
 
-const defaultGetter: DTableGetter<any> = ( row: any, columnIndex: number ): unknown => {
-	return row[ columnIndex ];
+const defaultGetter = <ROW, CELL>( row: ROW, columnIndex: number ): CELL => {
+	return (row as any)[ columnIndex ];
 };
 
-const defaultSetter: DTableSetter<any> = ( row: any, columnIndex: number, cell: unknown ): void => {
-	row[ columnIndex ] = cell;
+const defaultSetter = <ROW, CELL>( row: ROW, columnIndex: number, cell: CELL ): void => {
+	(row as any)[ columnIndex ] = cell;
 };
 
-const defaultGetterEmpty: DTableGetter<any> = (): string => "";
+const defaultGetterEmpty = <CELL>(): CELL => "" as any;
 
-const defaultSetterEmpty: DTableSetter<any> = (): void => {
+const defaultSetterEmpty = (): void => {
 	// DO NOTHING
 };
 
-const toPathGetter = ( path: string[], def?: unknown ): DTableGetter<any> => {
+const toPathGetter = <ROW, CELL>( path: string[], def?: CELL ): DTableGetter<ROW, CELL> => {
 	if( path.length <= 1 ) {
 		const key = path[ 0 ];
 		if( def === undefined ) {
-			return ( row: any ): unknown => {
-				return row[ key ];
+			return ( row: ROW ): CELL => {
+				return (row as any)[ key ];
 			};
 		} else {
-			return ( row: any ): unknown => {
-				return key in row ? row[ key ] : def;
+			return ( row: ROW ): CELL => {
+				return key in row ? (row as any)[ key ] : def;
 			};
 		}
 	} else {
 		if( def === undefined ) {
-			return ( row: any ): unknown => {
+			return ( row: ROW ): CELL => {
 				for( let i = 0, imax = path.length - 1; i < imax; ++i ) {
-					row = row[ path[ i ] ];
+					row = (row as any)[ path[ i ] ];
 				}
-				return row[ path[ path.length - 1 ] ];
+				return (row as any)[ path[ path.length - 1 ] ];
 			};
 		} else {
-			return ( row: any ): unknown => {
+			return ( row: ROW ): CELL => {
 				for( let i = 0, imax = path.length - 1; i < imax; ++i ) {
-					row = row[ path[ i ] ];
+					row = (row as any)[ path[ i ] ];
 				}
 				const key = path[ path.length - 1 ];
-				return key in row ? row[ key ] : def;
+				return key in row ? (row as any)[ key ] : def;
 			};
 		}
 	}
 };
 
-const toPathSetter = ( path: string[] ): DTableSetter<any> => {
+const toPathSetter = <ROW, CELL>( path: string[] ): DTableSetter<ROW, CELL> => {
 	if( path.length <= 1 ) {
 		const key = path[ 0 ];
-		return ( row: any, columnIndex: number, cell: unknown ): void => {
-			row[ key ] = cell;
+		return ( row: ROW, columnIndex: number, cell: CELL ): void => {
+			(row as any)[ key ] = cell;
 		};
 	} else {
-		return ( row: any, columnIndex: number, cell: unknown ): void => {
+		return ( row: ROW, columnIndex: number, cell: CELL ): void => {
 			for( let i = 0, imax = path.length - 1; i < imax; ++i ) {
-				row = row[ path[ i ] ] || {};
+				row = (row as any)[ path[ i ] ] || {};
 			}
-			row[ path[ path.length - 1 ] ] = cell;
+			(row as any)[ path[ path.length - 1 ] ] = cell;
 		};
 	}
 };
 
-const defaultEditingUnformatter: DTableEditingUnformatter = ( cellValue: string ): unknown => {
-	return cellValue;
+const defaultEditingUnformatter = <CELL>( formatted: string ): CELL => {
+	return formatted as any;
 };
 
-const toColumnAlign = <ROW>( options: DTableColumnOptions<ROW>, type: DTableColumnType ): DAlignHorizontal => {
+const toColumnAlign = <ROW, CELL>(
+	options: DTableColumnOptions<ROW, CELL>,
+	type: DTableColumnType
+): DAlignHorizontal => {
 	if( options.align != null ) {
 		if( isString( options.align ) ) {
 			return DAlignHorizontal[ options.align ];
@@ -176,7 +179,10 @@ const toColumnEditingEnable = <ROW>(
 	}
 };
 
-const toColumnEditing = <ROW>( options: DTableColumnOptions<ROW>, path: string[] | null ): DTableColumnEditing<ROW> => {
+const toColumnEditing = <ROW, CELL>(
+	options: DTableColumnOptions<ROW, CELL>,
+	path: string[] | null
+): DTableColumnEditing<ROW, CELL> => {
 	const editing = options.editing;
 	if( editing ) {
 		return {
@@ -193,7 +199,10 @@ const toColumnEditing = <ROW>( options: DTableColumnOptions<ROW>, path: string[]
 	};
 };
 
-const toComparator = <ROW>( getter: DTableGetter<ROW>, index: number ): DTableDataComparatorFunction<ROW> => {
+const toComparator = <ROW, CELL>(
+	getter: DTableGetter<ROW, CELL>,
+	index: number
+): DTableDataComparatorFunction<ROW> => {
 	return ( rowA: ROW, rowB: ROW ): number => {
 		const valueA = getter( rowA, index ) as any;
 		const valueB = getter( rowB, index ) as any;
@@ -201,10 +210,10 @@ const toComparator = <ROW>( getter: DTableGetter<ROW>, index: number ): DTableDa
 	};
 };
 
-const toColumnSorting = <ROW>(
-	getter: DTableGetter<ROW>,
+const toColumnSorting = <ROW, CELL>(
+	getter: DTableGetter<ROW, CELL>,
 	index: number,
-	options: DTableColumnOptions<ROW>
+	options: DTableColumnOptions<ROW, CELL>
 ): DTableColumnSorting<ROW> => {
 	const sorting = options.sorting;
 	if( sorting ) {
@@ -281,11 +290,11 @@ const toColumnSelecting = (
 	};
 };
 
-const toColumnGetter = <ROW>(
-	options: DTableColumnOptions<ROW>,
+const toColumnGetter = <ROW, CELL>(
+	options: DTableColumnOptions<ROW, CELL>,
 	type: DTableColumnType,
 	parts: string[] | null
-): DTableGetter<ROW> => {
+): DTableGetter<ROW, CELL> => {
 	const getter = options.getter;
 	if( getter ) {
 		return getter;
@@ -303,11 +312,11 @@ const toColumnGetter = <ROW>(
 	}
 };
 
-const toColumnSetter = <ROW>(
-	options: DTableColumnOptions<ROW>,
+const toColumnSetter = <ROW, CELL>(
+	options: DTableColumnOptions<ROW, CELL>,
 	type: DTableColumnType,
 	path: string[] | null
-): DTableSetter<ROW> => {
+): DTableSetter<ROW, CELL> => {
 	const setter = options.setter;
 	if( setter ) {
 		return setter;
@@ -326,12 +335,14 @@ const toColumnSetter = <ROW>(
 	}
 };
 
-const toColumnPath = <ROW>( options: DTableColumnOptions<ROW> ): string[] | null => {
+const toColumnPath = <ROW, CELL>(
+	options: DTableColumnOptions<ROW, CELL>
+): string[] | null => {
 	return options.path != null ? options.path.split( "." ) : null;
 };
 
-const toColumnRenderable = <ROW>(
-	options: DTableColumnOptions<ROW>,
+const toColumnRenderable = <ROW, CELL>(
+	options: DTableColumnOptions<ROW, CELL>,
 	path: string[] | null
 ): boolean | DTableRenderable<ROW> => {
 	const renderable = options.renderable;
@@ -343,7 +354,10 @@ const toColumnRenderable = <ROW>(
 	return true;
 };
 
-const toColumn = <ROW>( index: number, options: DTableColumnOptions<ROW> ): DTableColumn<ROW> => {
+const toColumn = <ROW, CELL>(
+	index: number,
+	options: DTableColumnOptions<ROW, CELL>
+): DTableColumn<ROW, CELL> => {
 	const weight = ( options.weight != null ? options.weight :
 		( options.width != null ? undefined : +1 )
 	);
@@ -386,7 +400,9 @@ const toColumn = <ROW>( index: number, options: DTableColumnOptions<ROW> ): DTab
 	};
 };
 
-const toColumns = <ROW>( options: Array<DTableColumnOptions<ROW>> ): Array<DTableColumn<ROW>> => {
+const toColumns = <ROW, CELL>(
+	options: Array<DTableColumnOptions<ROW, CELL>>
+): Array<DTableColumn<ROW, CELL>> => {
 	const result = [];
 	for( let i = 0, imax = options.length; i < imax; ++i ) {
 		result.push( toColumn( i, options[ i ] ) );
@@ -394,7 +410,9 @@ const toColumns = <ROW>( options: Array<DTableColumnOptions<ROW>> ): Array<DTabl
 	return result;
 };
 
-const toFrozen = <ROW>( columns: Array<DTableColumn<ROW>> ): number => {
+const toFrozen = <ROW, CELL>(
+	columns: Array<DTableColumn<ROW, CELL>>
+): number => {
 	for( let i = columns.length - 1; 0 <= i; --i ) {
 		if( columns[ i ].frozen === true ) {
 			return i + 1;
