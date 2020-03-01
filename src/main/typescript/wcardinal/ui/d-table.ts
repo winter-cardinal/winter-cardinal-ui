@@ -9,7 +9,6 @@ import { DAlignHorizontal } from "./d-align-horizontal";
 import { DBaseOptions } from "./d-base";
 import { DContentOptions } from "./d-content";
 import { DCoordinateSize } from "./d-coordinate";
-import { DDialog } from "./d-dialog";
 import { DDialogSelect } from "./d-dialog-select";
 import { DMenu, DMenuOptions } from "./d-menu";
 import { DPane, DPaneOptions, DThemePane } from "./d-pane";
@@ -18,8 +17,7 @@ import { DTableCategory, DTableCategoryColumn, DTableCategoryOptions } from "./d
 import {
 	DTableColumn, DTableColumnEditing, DTableColumnOptions,
 	DTableColumnSelecting, DTableColumnSelectingDialog, DTableColumnSelectingOptions, DTableColumnSorting,
-	DTableColumnType, DTableEditable, DTableEditingUnformatter, DTableGetter, DTableRenderable,
-	DTableSelectingGetter, DTableSelectingSetter, DTableSetter
+	DTableColumnType, DTableEditable, DTableEditingUnformatter, DTableGetter, DTableRenderable, DTableSetter
 } from "./d-table-column";
 import { DTableData, DTableDataOptions } from "./d-table-data";
 import { DTableDataList } from "./d-table-data-list";
@@ -249,22 +247,24 @@ const toColumnDialog = (
 ): DTableColumnSelectingDialog<unknown> | undefined => {
 	if( options == null ) {
 		return undefined;
-	} else if( options instanceof DDialog ) {
+	} else if( "open" in options ) {
 		return options;
 	} else {
 		return new DDialogSelect( options );
 	}
 };
 
-const defaultSelectingGetter: DTableSelectingGetter = ( dialog: DTableColumnSelectingDialog<any> ): unknown => {
+const defaultSelectingGetter = ( dialog: DTableColumnSelectingDialog<unknown> ): unknown => {
 	return dialog.value;
 };
 
-const defaultSelectingSetter: DTableSelectingSetter = (): void => {
+const defaultSelectingSetter = (): void => {
 	// DO NOTHING
 };
 
-const toColumnSelecting = ( options: DTableColumnSelectingOptions | undefined ): DTableColumnSelecting => {
+const toColumnSelecting = (
+	options: DTableColumnSelectingOptions<any, any, any> | undefined
+): DTableColumnSelecting<any, any, any> => {
 	if( options ) {
 		return {
 			getter: options.getter || defaultSelectingGetter,

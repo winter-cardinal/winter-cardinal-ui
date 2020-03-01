@@ -4,7 +4,6 @@
  */
 
 import { DAlignHorizontal } from "./d-align-horizontal";
-import { DDialogCommand } from "./d-dialog-command";
 import { DDialogSelectOptions } from "./d-dialog-select";
 import { DMenu, DMenuOptions } from "./d-menu";
 import { DTableBodyCellButtonOptions } from "./d-table-body-cell-button";
@@ -51,8 +50,8 @@ export type DTableFormatter = ( cell: unknown ) => string;
 export type DTableEditingFormatter = ( cell: unknown ) => string;
 export type DTableEditingUnformatter = ( cell: string ) => unknown;
 export type DTableEditingValidator = ( cell: unknown ) => unknown;
-export type DTableSelectingGetter = ( dialog: DTableColumnSelectingDialog<any> ) => unknown;
-export type DTableSelectingSetter = ( dialog: DTableColumnSelectingDialog<any>, value: unknown ) => unknown;
+export type DTableSelectingGetter<VALUE, DIALOG> = ( dialog: DIALOG ) => VALUE;
+export type DTableSelectingSetter<VALUE, DIALOG> = ( dialog: DIALOG, value: VALUE ) => void;
 export type DTableEditable<ROW> = ( row: ROW, columnIndex: number ) => boolean;
 export type DTableRenderable<ROW> = ( row: ROW, columnIndex: number ) => boolean;
 
@@ -94,28 +93,37 @@ export interface DTableColumnSorting<ROW> {
 	comparator?: DTableDataComparatorFunction<ROW> | DTableDataComparatorObject<ROW>;
 }
 
-export interface DTableColumnSelectingDialog<VALUE> extends DDialogCommand {
+export interface DTableColumnSelectingDialog<VALUE> {
 	readonly value: VALUE;
+	open(): Promise<void>;
 }
 
-export interface DTableColumnSelectingOptions {
-	getter?: DTableSelectingGetter;
-	setter?: DTableSelectingSetter;
+export interface DTableColumnSelectingOptions<
+	VALUE,
+	DIALOG_VALUE,
+	DIALOG extends DTableColumnSelectingDialog<DIALOG_VALUE>
+> {
+	getter?: DTableSelectingGetter<VALUE, DIALOG>;
+	setter?: DTableSelectingSetter<VALUE, DIALOG>;
 
-	menu?: DMenuOptions<any> | DMenu<any>;
-	multiple?: DMenuOptions<any> | DMenu<any>;
-	dialog?: DDialogSelectOptions<any> | DTableColumnSelectingDialog<any>;
-	promise?: () => Promise<unknown>;
+	menu?: DMenuOptions<VALUE> | DMenu<VALUE>;
+	multiple?: DMenuOptions<VALUE> | DMenu<VALUE>;
+	dialog?: DDialogSelectOptions<DIALOG_VALUE> | DIALOG;
+	promise?: () => Promise<VALUE>;
 }
 
-export interface DTableColumnSelecting {
-	getter: DTableSelectingGetter;
-	setter: DTableSelectingSetter;
+export interface DTableColumnSelecting<
+	VALUE,
+	DIALOG_VALUE,
+	DIALOG extends DTableColumnSelectingDialog<DIALOG_VALUE>
+> {
+	getter: DTableSelectingGetter<VALUE, DIALOG>;
+	setter: DTableSelectingSetter<VALUE, DIALOG>;
 
-	menu?: DMenu<unknown>;
-	multiple?: DMenu<unknown>;
-	dialog?: DTableColumnSelectingDialog<unknown>;
-	promise?: () => Promise<unknown>;
+	menu?: DMenu<VALUE>;
+	multiple?: DMenu<VALUE>;
+	dialog?: DIALOG;
+	promise?: () => Promise<VALUE>;
 }
 
 export interface DTableColumnOptions<ROW> {
@@ -158,7 +166,7 @@ export interface DTableColumnOptions<ROW> {
 	header?: DTableHeaderCellOptions<ROW>;
 	body?: DTableBodyCellOptionsUnion<ROW>;
 
-	selecting?: DTableColumnSelectingOptions;
+	selecting?: DTableColumnSelectingOptions<any, any, any>;
 
 	category?: string | string[];
 	frozen?: boolean;
@@ -184,7 +192,7 @@ export interface DTableColumn<ROW> {
 	header?: DTableHeaderCellOptions<ROW>;
 	body?: DTableBodyCellOptionsUnion<ROW>;
 
-	selecting: DTableColumnSelecting;
+	selecting: DTableColumnSelecting<unknown, unknown, DTableColumnSelectingDialog<unknown>>;
 
 	category?: string | string[];
 	frozen?: boolean;
