@@ -11,6 +11,11 @@ import { DThemeTreeItem, DTreeItem, DTreeItemOptions } from "./d-tree-item";
 import { DTreeSelection } from "./d-tree-selection";
 import { DThemes } from "./theme";
 
+export enum DTreeAddedItemPosition {
+	BEFORE,
+	AFTER
+}
+
 export interface DTreeOptions <
 	THEME extends DThemeTree = DThemeTree,
 	CONTENT_OPTIONS extends DBaseOptions = DContentOptions > extends DPaneOptions < THEME, CONTENT_OPTIONS > {
@@ -25,6 +30,12 @@ export interface DTreeItemRawData {
 	expanded?: boolean;
 	image?: DisplayObject | Texture | null;
 	children: DTreeItemRawData[];
+}
+
+export interface DTreeAddedItemOptions {
+	item: DTreeItemRawData;
+	sibling: DTreeItemRawData;
+	positon: DTreeAddedItemPosition;
 }
 
 export class DTree <
@@ -43,6 +54,7 @@ export class DTree <
 		private _itemY!: number;
 		private _itemHeight!: number;
 		private _removeItem!: DTreeItemRawData | null;
+		private _addItemOptions!: DTreeAddedItemOptions | null;
 
 		protected init(options ?: OPTIONS) {
 			super.init(options);
@@ -266,6 +278,36 @@ export class DTree <
 			this.reload();
 		}
 
+		/**
+		 * Add the given item will be inserted before the given sibling item.
+		 *
+		 * @param item data of new item want to add to tree.
+		 * @param sibling Reference data of parent item will be using like anchor to add new item.
+		 */
+		public addBefore(item: DTreeItemRawData, sibling: DTreeItemRawData) {
+			this._addItemOptions = {
+				item,
+				sibling,
+				positon: DTreeAddedItemPosition.BEFORE
+			};
+			this.reload();
+		}
+
+		/**
+		 * Add the given item will be inserted after the given sibling item.
+		 *
+		 * @param item data of new item want to add to tree.
+		 * @param sibling Reference data of parent item will be using like anchor to add new item.
+		 */
+		public addAfter(item: DTreeItemRawData, sibling: DTreeItemRawData) {
+			this._addItemOptions = {
+				item,
+				sibling,
+				positon: DTreeAddedItemPosition.AFTER
+			};
+			this.reload();
+		}
+
 		private updateData(
 			parentItemOptions: DTreeItemOptions | null,
 			parentRawData: DTreeItemRawData | DTree,
@@ -289,6 +331,18 @@ export class DTree <
 							parentItemOptions.isParent  = false;
 						}
 						continue;
+					}
+					// handle add item
+					if(this._addItemOptions && item === this._addItemOptions.sibling) {
+						if(this._addItemOptions.positon === DTreeAddedItemPosition.AFTER) {
+							items.splice(i + 1, 0, this._addItemOptions.item);
+							this._addItemOptions = null;
+						} else if (this._addItemOptions.positon === DTreeAddedItemPosition.BEFORE) {
+							items.splice(i, 0, this._addItemOptions.item);
+							i--;
+							this._addItemOptions = null;
+							continue;
+						}
 					}
 
 					const isParent: boolean = item.children && (item.children.length > 0);

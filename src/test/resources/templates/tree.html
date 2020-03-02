@@ -29,10 +29,6 @@
 					image: img_file,
 				})
 			}
-			let indexAdded = 0
-			let indexAddedAtOnce = 0
-			let indexInserted = 0
-			let indexInsertedAtOne = 0
 			const tree = new wcardinal.ui.DTree({
 				parent: application.stage,
 				x: 100,
@@ -227,9 +223,40 @@
 						on: {
 							active: (btn) => {
 								const item = {
-									text: "added item"
+									text: "added item",
+									image: img_folder,
 								}
 								tree.add(item, tree.value[0].children[0])
+							}
+						}
+					}),
+					new wcardinal.ui.DButtonPrimary({
+						width: 200,
+						text: {
+							value: "Add before"
+						},
+						on: {
+							active: (btn) => {
+								const item = {
+									text: "added item before",
+									image: img_folder,
+								}
+								tree.addBefore(item, tree.value[0].children[0])
+							}
+						}
+					}),
+					new wcardinal.ui.DButtonPrimary({
+						width: 200,
+						text: {
+							value: "Add after",
+						},
+						on: {
+							active: (btn) => {
+								const item = {
+									text: "added item after",
+									image: img_folder,
+								}
+								tree.addAfter(item, tree.value[0].children[0])
 							}
 						}
 					}),
