@@ -43,13 +43,13 @@ export class DTableBodyCellSelectMultiple<
 		this._rowIndex = 0;
 		this._columnIndex = column.index;
 		this._columnData = column.data;
-		this.on( "change", ( newValue: unknown, oldValue: unknown ): void => {
+		this.on( "select", ( newValues: unknown, oldValues: unknown ): void => {
 			const row = this._row;
 			if( row !== undefined ) {
 				const rowIndex = this._rowIndex;
 				const columnIndex = this._columnIndex;
-				this._columnData.setter( row, columnIndex, newValue );
-				this.emit( "cellchange", newValue, oldValue, row, rowIndex, columnIndex, this );
+				this._columnData.setter( row, columnIndex, newValues );
+				this.emit( "cellchange", newValues, oldValues, row, rowIndex, columnIndex, this );
 			}
 		});
 	}

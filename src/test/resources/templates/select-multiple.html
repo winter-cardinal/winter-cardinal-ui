@@ -40,6 +40,19 @@
 					},
 					check: true
 				}]
+			},
+			on: {
+				menuselect: ( value, item ) => {
+					console.log( "menuselect", value, item );
+				},
+
+				select: ( newValues, oldValues ) => {
+					console.log( "select", newValues, oldValues );
+				},
+
+				change: () => {
+					console.log( "change" );
+				}
 			}
 		});
 
@@ -75,8 +88,16 @@
 				}]
 			},
 			on: {
-				select: ( a ) => {
-					console.log( a );
+				menuselect: ( value, item ) => {
+					console.log( "menuselect", value, item );
+				},
+
+				select: ( newValues, oldValues ) => {
+					console.log( "select", newValues, oldValues );
+				},
+
+				change: () => {
+					console.log( "change" );
 				}
 			}
 		});

@@ -54,6 +54,7 @@ export class DButtonColorGradient<
 			const dialog = this.dialog;
 			dialog.data.fromObject( data );
 			dialog.open().then((): void => {
+				this.emit( "select", dialog.data, data, this );
 				data.fromObject( dialog.data );
 				const view = this._view;
 				if( view != null ) {

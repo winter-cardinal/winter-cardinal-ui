@@ -66,7 +66,8 @@ export class DSelect<
 
 			// Event
 			if( emit ) {
-				this.emit( "change", newValue, oldValue, item, this );
+				this.emit( "select", newValue, oldValue, item, this );
+				this.emit( "change",  this );
 			}
 		}
 	}

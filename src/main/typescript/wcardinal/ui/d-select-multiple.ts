@@ -56,7 +56,7 @@ export class DSelectMultiple<
 				this._values = newValues;
 				this.onSelected( newValues, oldValues, newItems, true );
 			} else {
-				this.emit( "select", value, child, this );
+				this.emit( "menuselect", value, child, this );
 			}
 		};
 		this._onClosedBound = (): void => {
@@ -76,7 +76,8 @@ export class DSelectMultiple<
 
 		// Event
 		if( emit ) {
-			this.emit( "change", newValues, oldValues, this );
+			this.emit( "select", newValues, oldValues, items, this );
+			this.emit( "change", this );
 		}
 	}
 

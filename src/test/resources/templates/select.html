@@ -37,6 +37,15 @@
 						value: "C"
 					}
 				}]
+			},
+			on: {
+				select: ( newValue, oldValue ) => {
+					console.log( "select", newValue, oldValue );
+				},
+
+				change: () => {
+					console.log( "change" );
+				}
 			}
 		});
 	}());

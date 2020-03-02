@@ -42,7 +42,7 @@ export class DTableBodyCellSelectMenu<
 		this._rowIndex = 0;
 		this._columnIndex = column.index;
 		this._columnData = column.data;
-		this.on( "change", ( newValue: unknown, oldValue: unknown ): void => {
+		this.on( "select", ( newValue: unknown, oldValue: unknown ): void => {
 			const row = this._row;
 			if( row !== undefined ) {
 				const rowIndex = this._rowIndex;
