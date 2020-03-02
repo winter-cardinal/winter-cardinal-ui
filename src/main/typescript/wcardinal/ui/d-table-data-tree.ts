@@ -53,7 +53,10 @@ export class DTableDataTree<ROW extends DTableDataTreeItem<ROW, ROW>> extends ut
 			const on = options.on;
 			if( on ) {
 				for( const name in on ) {
-					this.on( name, on[ name ] );
+					const handler = on[ name ];
+					if( handler ) {
+						this.on( name, handler );
+					}
 				}
 			}
 		}

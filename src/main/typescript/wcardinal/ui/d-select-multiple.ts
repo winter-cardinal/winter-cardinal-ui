@@ -9,7 +9,7 @@ import { DMenuItem } from "./d-menu-item";
 import { DMenuItemCheck } from "./d-menu-item-check";
 import { DMenuItemMenu } from "./d-menu-item-menu";
 
-export interface DSelectOnOptions<VALUE> extends DDropdownBaseOnOptions<VALUE, DMenuItem<VALUE> | null> {
+export interface DSelectMultipleOnOptions<VALUE> extends DDropdownBaseOnOptions<VALUE, DMenuItem<VALUE> | null> {
 	/**
 	 * Called when a menu item is selected.
 	 *
@@ -43,6 +43,8 @@ export interface DSelectMultipleOptions<
 	 * A default values.
 	 */
 	values?: VALUE[];
+
+	on?: DSelectMultipleOnOptions<VALUE>;
 }
 
 export interface DThemeSelectMultiple extends DThemeDropdownBase<Array<DMenuItem<any>>> {

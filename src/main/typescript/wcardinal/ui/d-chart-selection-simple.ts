@@ -48,7 +48,10 @@ export class DChartSelectionSimple extends utils.EventEmitter implements DChartS
 			const on = options.on;
 			if( on != null ) {
 				for( const name in on ) {
-					this.on( name, on[ name ] );
+					const handler = on[ name ];
+					if( handler ) {
+						this.on( name, handler );
+					}
 				}
 			}
 		}
