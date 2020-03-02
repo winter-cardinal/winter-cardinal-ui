@@ -15,13 +15,18 @@ import { DImageBaseThemeWrapperSecondary, DThemeImageBaseSecondary } from "./d-i
 import { DImageBaseThemeWrapperTertiary, DThemeImageBaseTertiary } from "./d-image-base-theme-wrapper-tertiary";
 import { DImagePiece, DImagePieceOptions, DThemeImagePiece } from "./d-image-piece";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
-import { DTextBase, DTextBaseOptions, DThemeTextBase } from "./d-text-base";
+import { DTextBase, DTextBaseOnOptions, DTextBaseOptions, DThemeTextBase } from "./d-text-base";
+
+export interface DImageBaseOnOptions<VALUE> extends DTextBaseOnOptions<VALUE> {
+
+}
 
 export interface DImageBaseOptions<
 	VALUE,
 	THEME extends DThemeImageBase = DThemeImageBase
 > extends DTextBaseOptions<VALUE, THEME> {
 	image?: DImagePieceOptions;
+	on?: DImageBaseOnOptions<VALUE>;
 }
 
 export interface DThemeImageBase extends DThemeTextBase, DThemeImagePiece {

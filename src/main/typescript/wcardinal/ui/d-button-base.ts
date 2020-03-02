@@ -7,9 +7,25 @@ import { Container } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBaseStates } from "./d-base-states";
 import { DButtonGroup } from "./d-button-group";
-import { DImageBase, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
+import { DImageBase, DImageBaseOnOptions, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
+
+export interface DButtonOnOptions<VALUE> extends DImageBaseOnOptions<VALUE> {
+	/**
+	 * Called when the button is activated.
+	 *
+	 * @param self an activated button
+	 */
+	active?: ( self: any ) => void;
+
+	/**
+	 * Called when the button is inactivated.
+	 *
+	 * @param self an inactivated button
+	 */
+	inactive?: ( self: any ) => void;
+}
 
 /**
  * Base button options.
@@ -27,6 +43,8 @@ export interface DButtonBaseOptions<
 	 * A button group.
 	 */
 	group?: DButtonGroup;
+
+	on?: DButtonOnOptions<VALUE>;
 }
 
 /**

@@ -7,7 +7,7 @@ import { Graphics, Text } from "pixi.js";
 import { DAlignHorizontal } from "./d-align-horizontal";
 import { DAlignVertical } from "./d-align-vertical";
 import { DApplications } from "./d-applications";
-import { DBase, DBaseOptions, DRefitable, DThemeBase } from "./d-base";
+import { DBase, DBaseOnOptions, DBaseOptions, DRefitable, DThemeBase } from "./d-base";
 import { DBaseOverflowMaskSimple } from "./d-base-overflow-mask-simple";
 import { DBaseState } from "./d-base-state";
 import { DDynamicText } from "./d-dynamic-text";
@@ -31,12 +31,17 @@ export interface DTextBaseTextOptions<VALUE = unknown> {
 	dynamic?: boolean;
 }
 
+export interface DTextBaseOnOptions<VALUE> extends DBaseOnOptions {
+
+}
+
 export interface DTextBaseOptions<
 	VALUE = unknown,
 	THEME extends DThemeTextBase = DThemeTextBase
 > extends DBaseOptions<THEME> {
 	text?: DTextBaseTextOptions<VALUE>;
 	mask?: boolean;
+	on?: DTextBaseOnOptions<VALUE>;
 }
 
 export interface DThemeTextBase extends DThemeBase {

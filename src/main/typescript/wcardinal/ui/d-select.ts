@@ -3,10 +3,25 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DDropdownBase, DDropdownBaseOptions, DThemeDropdownBase } from "./d-dropdown-base";
+import { DDropdownBase, DDropdownBaseOnOptions, DDropdownBaseOptions, DThemeDropdownBase } from "./d-dropdown-base";
 import { DMenu } from "./d-menu";
 import { DMenuItem } from "./d-menu-item";
 import { DMenuItemMenu } from "./d-menu-item-menu";
+
+export interface DSelectOnOptions<VALUE> extends DDropdownBaseOnOptions<VALUE, DMenuItem<VALUE> | null> {
+	/**
+	 * Called when the selection is changed.
+	 *
+	 * @param newValue new selected value or null
+	 * @param oldValue old selected value or null
+	 */
+	select?: ( newValue: VALUE | null, oldValue: VALUE | null, self: any ) => void;
+
+	/**
+	 * Called when the value is changed.
+	 */
+	change?: ( self: any ) => void;
+}
 
 /**
  * DSelect options.
@@ -19,6 +34,8 @@ export interface DSelectOptions<
 	 * A default value.
 	 */
 	value?: VALUE;
+
+	on?: DSelectOnOptions<VALUE>;
 }
 
 export interface DThemeSelect extends DThemeDropdownBase<DMenuItem<any> | null> {

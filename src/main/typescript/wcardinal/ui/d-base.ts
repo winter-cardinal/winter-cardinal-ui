@@ -70,7 +70,14 @@ export interface DBaseCornerOptions {
  * Mappings of event names and event handlers.
  */
 export interface DBaseOnOptions {
-	[name: string]: Function;
+	[name: string]: Function | undefined;
+
+	/**
+	 * Called when an initialization is finished.
+	 *
+	 * @param self an initialized instance
+	 */
+	init?: ( self: any ) => void;
 }
 
 /**
@@ -699,7 +706,10 @@ export class DBase<
 			const on = options.on;
 			if( on ) {
 				for( const name in on ) {
-					this.on( name, on[ name ] );
+					const handler = on[ name ];
+					if( handler ) {
+						this.on( name, handler );
+					}
 				}
 			}
 		}

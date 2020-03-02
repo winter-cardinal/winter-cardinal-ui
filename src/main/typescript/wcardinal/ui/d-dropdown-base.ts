@@ -4,11 +4,15 @@
  */
 
 import { DBaseState } from "./d-base-state";
-import { DButtonBase, DButtonBaseOptions, DThemeButtonBase } from "./d-button-base";
+import { DButtonBase, DButtonBaseOptions, DButtonOnOptions, DThemeButtonBase } from "./d-button-base";
 import { DMenu, DMenuOptions, DThemeMenu } from "./d-menu";
 import { DMenuItem } from "./d-menu-item";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { isString } from "./util/is-string";
+
+export interface DDropdownBaseOnOptions<VALUE, TEXT_VALUE> extends DButtonOnOptions<VALUE> {
+
+}
 
 /**
  * Dropdown base options.
@@ -22,6 +26,8 @@ export interface DDropdownBaseOptions<
 	 * Menu options.
 	 */
 	menu?: DMenuOptions<VALUE> | DMenu<VALUE>;
+
+	on?: DDropdownBaseOnOptions<VALUE, TEXT_VALUE>;
 }
 
 /**
