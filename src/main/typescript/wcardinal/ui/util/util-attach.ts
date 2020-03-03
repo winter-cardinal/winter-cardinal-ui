@@ -39,10 +39,10 @@ export class UtilAttach {
 					x = 0;
 				}
 			}
-			y = this.adjust( bounds.top, height, clippingHeight );
+			y = this.adjust( bounds.top, bounds.bottom, height, clippingHeight );
 			break;
 		case UtilAttachAlign.TOP:
-			x = this.adjust( bounds.left, width, clippingWidth );
+			x = this.adjust( bounds.left, bounds.right, width, clippingWidth );
 			y = bounds.top - height - offsetY;
 			if( y < 0 ) {
 				y = bounds.bottom + offsetY;
@@ -59,10 +59,10 @@ export class UtilAttach {
 					x = clippingWidth - width;
 				}
 			}
-			y = this.adjust( bounds.top, height, clippingHeight );
+			y = this.adjust( bounds.top, bounds.bottom, height, clippingHeight );
 			break;
 		case UtilAttachAlign.BOTTOM:
-			x = this.adjust( bounds.left, width, clippingWidth );
+			x = this.adjust( bounds.left, bounds.right, width, clippingWidth );
 			y = bounds.bottom + offsetY;
 			if( clippingHeight < y + height ) {
 				y = bounds.top - height - offsetY;
@@ -75,20 +75,20 @@ export class UtilAttach {
 		target.position.set( x, y );
 	}
 
-	static adjust( position: number, size: number, clippingSize: number ): number {
-		if( position < 0 ) {
-			if( clippingSize < position + size ) {
+	static adjust( positionFirst: number, positionSecond: number, size: number, clippingSize: number ): number {
+		if( positionFirst < 0 ) {
+			if( clippingSize < positionFirst + size ) {
 				return (clippingSize - size) * 0.5;
 			} else {
 				return 0;
 			}
-		} else if( clippingSize < position + size ) {
+		} else if( clippingSize < positionFirst + size ) {
 			if( clippingSize < size ) {
 				return (clippingSize - size) * 0.5;
 			} else {
-				return clippingSize - size;
+				return Math.min( clippingSize, positionSecond ) - size;
 			}
 		}
-		return position;
+		return positionFirst;
 	}
 }

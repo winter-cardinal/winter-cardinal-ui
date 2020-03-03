@@ -15,8 +15,8 @@ import { DThemeWhiteConstants } from "./d-theme-white-constants";
 
 export class DThemeWhiteMenuBarItem extends DThemeWhiteButton implements DThemeMenuBarItem {
 	COLOR = 0xffffff;
-	COLOR_HOVERED = UtilRgb.darken( this.COLOR, 0.017 );
-	COLOR_PRESSED = UtilRgb.darken( this.COLOR, 0.034 );
+	COLOR_HOVERED = UtilRgb.darken( this.COLOR, 0.034 );
+	COLOR_PRESSED = UtilRgb.darken( this.COLOR, 0.051 );
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {

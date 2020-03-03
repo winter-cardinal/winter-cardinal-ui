@@ -124,6 +124,7 @@
 		new wcardinal.ui.DMenuBar({
 			parent: application.stage,
 			x: 100, y: 200,
+			width: 600,
 			items: [{
 				width: "auto",
 				text: {
@@ -234,6 +235,28 @@
 								value: "D"
 							}
 						}]
+					}]
+				}
+			}, {
+				weight: 1,
+				space: true
+			}, {
+				text: {
+					value: "Help"
+				},
+				menu: {
+					items: [{
+						text: {
+							value: "A"
+						}
+					}, {
+						text: {
+							value: "B"
+						}
+					}, {
+						text: {
+							value: "C"
+						}
 					}]
 				}
 			}],
