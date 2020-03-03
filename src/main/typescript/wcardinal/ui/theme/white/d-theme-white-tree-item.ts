@@ -54,7 +54,7 @@ export class DThemeWhiteTreeItem extends DThemeWhiteLayoutHorizontal implements 
 		return DBaseInteractive.BOTH;
 	}
 
-	getPaddingByLevel(level: number): number {
+	getPaddingByLevel( level: number ): number {
 		return level * 15;
 	}
 }

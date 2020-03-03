@@ -15,12 +15,8 @@
 			"use strict";
 			const application = new wcardinal.ui.DApplication();
 
-			const img_folder = PIXI.Texture.from('images/folder_black.png', {
-				crossOrigin: 'anonymous'
-			});
-			const img_file = PIXI.Texture.from('images/file_black.png', {
-				crossOrigin: 'anonymous'
-			});
+			const img_folder = PIXI.Texture.from('images/folder_black.png');
+			const img_file = PIXI.Texture.from('images/file_black.png');
 
 			let items = []
 			for (let i = 0; i < 20000; i++) {

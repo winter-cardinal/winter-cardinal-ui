@@ -65,7 +65,7 @@ export class DThemeDarkTreeItem extends DThemeDarkLayoutHorizontal implements DT
 		return DBaseInteractive.BOTH;
 	}
 
-	getPaddingByLevel(level: number): number {
+	getPaddingByLevel( level: number ): number {
 		return level * 15;
 	}
 }
