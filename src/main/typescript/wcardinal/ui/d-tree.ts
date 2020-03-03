@@ -55,6 +55,7 @@ export class DTree <
 		private _itemHeight!: number;
 		private _removeItem!: DTreeItemRawData | null;
 		private _addItemOptions!: DTreeAddedItemOptions | null;
+		private _keyboardEvent!: KeyboardEvent;
 
 		protected init( options ?: OPTIONS ) {
 			super.init( options );
@@ -117,8 +118,7 @@ export class DTree <
 					content.addChild( treeItem );
 					// listen select item event
 					treeItem.on( "select", (): void => {
-						this._selection.clear();
-						this._selection.add( treeItem.getRawData() );
+						this.onSelect( treeItem.getRawData() );
 					});
 					// listen toggle item event
 					treeItem.on( "toggle", (): void => {
@@ -380,6 +380,52 @@ export class DTree <
 						this.updateData( itemOptions, item, level + 1, expandAll );
 					}
 				}
+			}
+		}
+
+		onKeyDown( e: KeyboardEvent ): boolean {
+			this._keyboardEvent = e;
+			return super.onKeyDown( e );
+		}
+
+		onKeyUp( e: KeyboardEvent ): boolean {
+			this._keyboardEvent = e;
+			return super.onKeyUp( e );
+		}
+
+		protected onSelect( selection: DTreeItemRawData ) {
+			// multi select by "ctr" key + click
+			if( this._keyboardEvent && this._keyboardEvent.ctrlKey ) {
+				this._selection.toggle( selection );
+
+				// multi select by "shift" key + click
+			} else if ( this._keyboardEvent && this._keyboardEvent.shiftKey ) {
+				const lastSelection = this._selection.get( this._selection.size() - 1 );
+				if( lastSelection ) {
+					this._selection.clear();
+					const selectionY = Number( this._itemOptions.get( selection )?.y );
+					const lastSelectionY = Number( this._itemOptions.get ( lastSelection )?.y );
+					const maxY = selectionY < lastSelectionY ?
+						lastSelectionY - this._itemHeight :
+						selectionY;
+					const minY = selectionY < lastSelectionY ?
+						selectionY :
+						lastSelectionY + this._itemHeight;
+
+					this._itemOptionsShowable.every( ( item ) => {
+						if( item.y >= minY && item.y <= maxY && item.showable) {
+							this._selection.add( item.rawData );
+						}
+						return item.y < maxY;
+					} );
+					this._selection.add( lastSelection );
+
+				}
+
+			// single select
+			} else {
+				this._selection.clear();
+				this._selection.add( selection );
 			}
 		}
 	}
