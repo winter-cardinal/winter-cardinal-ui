@@ -4,7 +4,7 @@
  */
 
 import { DisplayObject } from "pixi.js";
-import { DBase, DBaseOptions, DThemeBase } from "./d-base";
+import { DBase, DBaseCornerOptions, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DCornerMask } from "./d-corner-mask";
 import { DLayoutClearType } from "./d-layout-clear-type";
@@ -18,13 +18,18 @@ export interface DLayoutMargin {
 	vertical: number;
 }
 
+export interface DLayoutMarginOptions {
+	horizontal?: number;
+	vertical?: number;
+}
+
+export interface DLayoutCornerOptions extends DBaseCornerOptions {
+	adjust?: boolean;
+}
+
 export interface DLayoutOptions<THEME extends DThemeLayout> extends DBaseOptions<THEME> {
-	margin?: number | { horizontal?: number, vertical?: number };
-	corner?: number | {
-		radius?: number;
-		mask?: DCornerMask;
-		adjust?: boolean
-	};
+	margin?: number | DLayoutMarginOptions;
+	corner?: number | DLayoutCornerOptions;
 	row?: number;
 	column?: number;
 	direction?: (keyof typeof DLayoutDirection) | DLayoutDirection;
