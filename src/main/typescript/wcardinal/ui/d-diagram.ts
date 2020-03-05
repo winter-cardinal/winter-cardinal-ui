@@ -33,6 +33,7 @@ export class DDiagram<
 > extends DDiagramBase<DDiagramCanvas, THEME, OPTIONS> {
 	tag: DDiagramTag;
 	shape: DDiagramShape;
+	opener?: ( target: string ) => void;
 
 	constructor( options: OPTIONS ) {
 		super( options );

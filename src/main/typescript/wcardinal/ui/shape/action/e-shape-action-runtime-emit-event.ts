@@ -25,7 +25,7 @@ export class EShapeActionRuntimeEmitEvent extends EShapeActionRuntimeConditional
 			if( name != null ) {
 				shape.emit( name, shape );
 				const container = this.toContainer( shape );
-				if( container ) {
+				if( container && ("shape" in container) ) {
 					container.shape.emit( name, shape );
 				}
 			}

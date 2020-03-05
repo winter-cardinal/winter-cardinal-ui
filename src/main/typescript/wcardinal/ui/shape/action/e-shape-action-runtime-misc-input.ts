@@ -25,7 +25,7 @@ export class EShapeActionRuntimeMiscInput extends EShapeActionRuntime {
 							shape.text.value = value;
 							shape.emit( name, shape, value );
 							const container = this.toContainer( shape );
-							if( container ) {
+							if( container && ("shape" in container) ) {
 								container.shape.emit( name, shape, value );
 							}
 						});

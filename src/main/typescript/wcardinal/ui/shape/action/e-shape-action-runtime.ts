@@ -33,11 +33,11 @@ export class EShapeActionRuntime {
 		}
 	}
 
-	protected toContainer( shape: EShape ): { shape: any } | null {
+	protected toContainer( shape: EShape ): any | null {
 		let current: { parent: any; } = shape;
 		while( current != null ) {
 			if( current instanceof DCanvasContainer ) {
-				return "shape" in current ? current : null;
+				return current;
 			}
 			current = current.parent;
 		}
