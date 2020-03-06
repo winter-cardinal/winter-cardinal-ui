@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DisplayObject, Texture } from "pixi.js";
+import { DisplayObject, interaction, Texture } from "pixi.js";
 import { DBaseOptions } from "./d-base";
 import { DContentOptions } from "./d-content";
 import { DPane, DPaneOptions, DThemePane } from "./d-pane";
@@ -16,9 +16,9 @@ export enum DTreeAddedItemPosition {
 	AFTER
 }
 
-export interface DTreeOptions <
+export interface DTreeOptions<
 	THEME extends DThemeTree = DThemeTree,
-	CONTENT_OPTIONS extends DBaseOptions = DContentOptions > extends DPaneOptions < THEME, CONTENT_OPTIONS > {
+	CONTENT_OPTIONS extends DBaseOptions = DContentOptions> extends DPaneOptions <THEME, CONTENT_OPTIONS> {
 		value: DTreeItemRawData[];
 	}
 
@@ -27,7 +27,6 @@ export interface DThemeTree extends DThemePane {
 
 export interface DTreeItemRawData {
 	text: string;
-	expanded?: boolean;
 	image?: DisplayObject | Texture | null;
 	children: DTreeItemRawData[];
 }
@@ -38,12 +37,12 @@ export interface DTreeAddedItemOptions {
 	positon: DTreeAddedItemPosition;
 }
 
-export class DTree <
+export class DTree<
 	THEME extends DThemeTree = DThemeTree,
 	CONTENT_OPTIONS extends DBaseOptions = DContentOptions,
-	OPTIONS extends DTreeOptions < THEME, CONTENT_OPTIONS > = DTreeOptions < THEME, CONTENT_OPTIONS >
+	OPTIONS extends DTreeOptions <THEME, CONTENT_OPTIONS> = DTreeOptions <THEME, CONTENT_OPTIONS>
 	>
-	extends DPane < THEME, CONTENT_OPTIONS, OPTIONS > {
+	extends DPane <THEME, CONTENT_OPTIONS, OPTIONS> {
 
 		protected _itemOptions!: WeakMap<DTreeItemRawData, DTreeItemOptions>;
 		protected _itemOptionsShowable!: DTreeItemOptions[];
@@ -55,7 +54,6 @@ export class DTree <
 		private _itemHeight!: number;
 		private _removeItem!: DTreeItemRawData | null;
 		private _addItemOptions!: DTreeAddedItemOptions | null;
-		private _keyboardEvent!: KeyboardEvent;
 
 		protected init( options ?: OPTIONS ) {
 			super.init( options );
@@ -67,11 +65,11 @@ export class DTree <
 			this._itemIndexMappedEnd = 0;
 			this._itemY = 0;
 
-			const dTreeItemTheme: DThemeTreeItem = DThemes.getInstance().get( "DTreeItem" );
-			this._itemHeight = Number( dTreeItemTheme.getHeight() );
+			const itemTheme: DThemeTreeItem = DThemes.getInstance().get( "DTreeItem" );
+			this._itemHeight = Number( itemTheme.getHeight() );
 
 			this._value = options && options.value ? options.value : [];
-			this.updateData( null, this, 0 );
+			this.updateData( null, this._value, 0 );
 
 			this._content.on( "move", (): void => {
 				this.update();
@@ -80,14 +78,6 @@ export class DTree <
 			this._content.on( "resize", (): void => {
 				this._content.removeChildren();
 				this.update();
-			});
-
-			// update active state of all shown item when a child item is clicked
-			this._content.on( "selection-change", () => {
-				const items = this._content.children as DTreeItem[];
-				items.forEach( ( item ) => {
-					item.updateActiveState(this._selection.isSelected( item.getRawData() ) );
-				});
 			});
 
 			this.update();
@@ -117,8 +107,8 @@ export class DTree <
 					const treeItem = new DTreeItem( itemOptions );
 					content.addChild( treeItem );
 					// listen select item event
-					treeItem.on( "select", (): void => {
-						this.onSelect( treeItem.getRawData() );
+					treeItem.on( "select", ( e: interaction.InteractionEvent ): void => {
+						this.onSelect( treeItem.getRawData(), e );
 					});
 					// listen toggle item event
 					treeItem.on( "toggle", (): void => {
@@ -130,12 +120,14 @@ export class DTree <
 			} else if ( items.length > itemOptionsShown.length ) {
 				for ( let i = itemOptionsShown.length; i < items.length; i++ ) {
 					items[ i ].hide();
-					items.length = itemOptionsShown.length;
 				}
 			}
-			for (let i = 0; i < items.length; i++) {
+			for ( let i = 0; i < itemOptionsShown.length; i++ ) {
 				items[ i ] = items[ i ].update( itemOptionsShown[ i ],
-												this._selection.isSelected( itemOptionsShown[ i ].rawData ) );
+					this._selection.contains( itemOptionsShown[ i ].rawData ) );
+				if( items[ i ].isHidden() ) {
+					items[ i ].show();
+				}
 			}
 		}
 
@@ -144,7 +136,7 @@ export class DTree <
 			this._itemOptionsShowable.length = 0;
 			this._itemY = 0;
 			// re-render tree
-			this.updateData( null, this, 0, expandAll );
+			this.updateData( null, this._value, 0, expandAll );
 			this.update();
 		}
 
@@ -164,8 +156,11 @@ export class DTree <
 		 * @param item Reference data of item want to toggle in “value” array.
 		 */
 		public toggle( item: DTreeItemRawData ) {
-				item.expanded = !item.expanded;
-				this.reload();
+				const itemOptions = this._itemOptions.get( item );
+				if( itemOptions ) {
+					itemOptions.expanded = !itemOptions.expanded;
+					this.reload();
+				}
 		}
 
 		/**
@@ -174,8 +169,11 @@ export class DTree <
 		 * @param item Reference data of item want to expand in “value” array.
 		 */
 		public expand( item: DTreeItemRawData ) {
-				item.expanded = true;
+			const itemOptions = this._itemOptions.get( item );
+			if( itemOptions ) {
+				itemOptions.expanded = true;
 				this.reload();
+			}
 		}
 
 		/**
@@ -184,8 +182,11 @@ export class DTree <
 		 * @param item Reference data of item want to collapse in “value” array.
 		 */
 		public collapse( item: DTreeItemRawData ) {
-				item.expanded = false;
+			const itemOptions = this._itemOptions.get( item );
+			if( itemOptions ) {
+				itemOptions.expanded = false;
 				this.reload();
+			}
 		}
 
 		/**
@@ -210,7 +211,8 @@ export class DTree <
 		 * @returns collapse status of the item.
 		 */
 		public isCollapsed( item: DTreeItemRawData ) {
-			return !item.expanded;
+			const itemOptions = this._itemOptions.get( item );
+			return itemOptions && !itemOptions.expanded;
 		}
 
 		/**
@@ -221,7 +223,8 @@ export class DTree <
 		 * @returns expand status of the item.
 		 */
 		public isExpanded( item: DTreeItemRawData ) {
-			return !!item.expanded;
+			const itemOptions = this._itemOptions.get( item );
+			return itemOptions && itemOptions.expanded;
 		}
 
 		/**
@@ -253,12 +256,12 @@ export class DTree <
 		public add( item: DTreeItemRawData, parent?: DTreeItemRawData ) {
 			if( parent ) {
 				if( parent.children ) {
-					parent.children.unshift( item );
+					parent.children.push( item );
 				} else {
 					parent.children = [ item ];
 				}
 			} else {
-				this._value.unshift( item );
+				this._value.push( item );
 			}
 			this.reload();
 		}
@@ -295,115 +298,103 @@ export class DTree <
 
 		private updateData(
 			parentItemOptions: DTreeItemOptions | null,
-			parentRawData: DTreeItemRawData | DTree,
+			items: DTreeItemRawData[],
 			level: number,
 			expandAll?: boolean
 			) {
-			const items = parentRawData instanceof DTree ? this._value : parentRawData.children;
 
 			for ( let i = 0; i < items.length; i++ ) {
 				const item = items[ i ];
-				if ( item ) {
-					// handle remove item
-					if( item === this._removeItem ) {
-						// remove item from this._value.
-						items.splice( i, 1 );
-						this._removeItem = null;
+				// handle remove item
+				if( item === this._removeItem ) {
+					// remove item from this._value.
+					items.splice( i, 1 );
+					this._removeItem = null;
+					i--;
+					if ( parentItemOptions && items.length === 0 ) {
+						parentItemOptions.isParent  = false;
+					}
+					continue;
+				}
+				// handle add item
+				if( this._addItemOptions && item === this._addItemOptions.sibling ) {
+					if( this._addItemOptions.positon === DTreeAddedItemPosition.AFTER ) {
+						items.splice( i + 1, 0, this._addItemOptions.item );
+						this._addItemOptions = null;
+					} else if ( this._addItemOptions.positon === DTreeAddedItemPosition.BEFORE ) {
+						items.splice( i, 0, this._addItemOptions.item );
 						i--;
-						if ( parentItemOptions && items.length === 0 ) {
-							parentItemOptions.isParent  = false;
-						}
+						this._addItemOptions = null;
 						continue;
 					}
-					// handle add item
-					if( this._addItemOptions && item === this._addItemOptions.sibling ) {
-						if( this._addItemOptions.positon === DTreeAddedItemPosition.AFTER ) {
-							items.splice( i + 1, 0, this._addItemOptions.item );
-							this._addItemOptions = null;
-						} else if ( this._addItemOptions.positon === DTreeAddedItemPosition.BEFORE ) {
-							items.splice( i, 0, this._addItemOptions.item );
-							i--;
-							this._addItemOptions = null;
-							continue;
-						}
-					}
+				}
 
-					const isParent: boolean = item.children && ( item.children.length > 0 );
-					const text = item.text ? item.text : "";
-					if( expandAll != null ) {
-						item.expanded = expandAll;
-					} else if ( item.expanded == null ) {
-						item.expanded = false; // set default expand status of item is false
-					}
-					const itemImage = item.image ? item.image : null;
-					let isItemExisted = false;
-					let itemOptions = this._itemOptions.get( item );
+				const isParent: boolean = item.children && ( item.children.length > 0 );
+				const text = item.text ? item.text : "";
 
-					if( itemOptions != null ) {
-						itemOptions.rawData = item;
-						itemOptions.text = text;
-						itemOptions.y = this._itemY;
-						itemOptions.isParent = isParent;
-						itemOptions.expanded = item.expanded;
-						itemOptions.image = itemImage;
-						isItemExisted = true;
-					} else {
-						itemOptions = {
-							rawData: item,
-							text,
-							level,
-							y: this._itemY,
-							isParent,
-							expanded: item.expanded,
-							image: itemImage
-						};
-					}
+				const itemImage = item.image ? item.image : null;
+				let isItemExisted = false;
+				let itemOptions = this._itemOptions.get( item );
+				let expanded = false; // set default expand status of item is false
+				if( expandAll != null ) {
+					expanded = expandAll;
+				} else if ( itemOptions ) {
+					expanded = itemOptions.expanded;
+				}
 
-					/* displayed items need to satisfy 1 of the 2 conditions:
-					1. is root item
-					2. the parent item is show and expand
-					*/
-					if ( parentItemOptions == null ||
-						( parentItemOptions &&
-							parentItemOptions.expanded &&
-							parentItemOptions.showable ) ) {
-						itemOptions.showable = true;
-						this._itemOptionsShowable.push( itemOptions );
-						this._itemY += this._itemHeight;
-					} else {
-						itemOptions.showable = false;
-					}
-					if ( !isItemExisted ) {
-						this._itemOptions.set( item, itemOptions );
-					}
-					if ( item && item.children ) {
-						this.updateData( itemOptions, item, level + 1, expandAll );
-					}
+				if( itemOptions != null ) {
+					itemOptions.rawData = item;
+					itemOptions.text = text;
+					itemOptions.y = this._itemY;
+					itemOptions.isParent = isParent;
+					itemOptions.expanded = expanded;
+					itemOptions.image = itemImage;
+					isItemExisted = true;
+				} else {
+					itemOptions = {
+						rawData: item,
+						text,
+						level,
+						y: this._itemY,
+						isParent,
+						expanded,
+						image: itemImage
+					};
+				}
+
+				/* displayed items need to satisfy 1 of the 2 conditions:
+				1. is root item
+				2. the parent item is show and expand
+				*/
+				if ( parentItemOptions == null ||
+					( parentItemOptions &&
+						parentItemOptions.expanded &&
+						parentItemOptions.showable ) ) {
+					itemOptions.showable = true;
+					this._itemOptionsShowable.push( itemOptions );
+					this._itemY += this._itemHeight;
+				} else {
+					itemOptions.showable = false;
+				}
+				if ( !isItemExisted ) {
+					this._itemOptions.set( item, itemOptions );
+				}
+				if ( item && item.children ) {
+					this.updateData( itemOptions, item.children, level + 1, expandAll );
 				}
 			}
 		}
 
-		onKeyDown( e: KeyboardEvent ): boolean {
-			this._keyboardEvent = e;
-			return super.onKeyDown( e );
-		}
-
-		onKeyUp( e: KeyboardEvent ): boolean {
-			this._keyboardEvent = e;
-			return super.onKeyUp( e );
-		}
-
-		protected onSelect( selection: DTreeItemRawData ) {
+		protected onSelect( item: DTreeItemRawData, e: interaction.InteractionEvent ) {
 			// multi select by "ctr" key + click
-			if( this._keyboardEvent && this._keyboardEvent.ctrlKey ) {
-				this._selection.toggle( selection );
-
-				// multi select by "shift" key + click
-			} else if ( this._keyboardEvent && this._keyboardEvent.shiftKey ) {
+			if( e.data.originalEvent.ctrlKey ) {
+				this._selection.toggle( item );
+			// multi select by "shift" key + click
+			} else if ( e.data.originalEvent.shiftKey ) {
 				const lastSelection = this._selection.get( this._selection.size() - 1 );
 				if( lastSelection ) {
 					this._selection.clear();
-					const selectionY = Number( this._itemOptions.get( selection )?.y );
+					const selectionY = Number( this._itemOptions.get( item )?.y );
 					const lastSelectionY = Number( this._itemOptions.get ( lastSelection )?.y );
 					const maxY = selectionY < lastSelectionY ?
 						lastSelectionY - this._itemHeight :
@@ -412,20 +403,28 @@ export class DTree <
 						selectionY :
 						lastSelectionY + this._itemHeight;
 
-					this._itemOptionsShowable.every( ( item ) => {
-						if( item.y >= minY && item.y <= maxY && item.showable) {
-							this._selection.add( item.rawData );
+					this._itemOptionsShowable.every( ( itemOptions ) => {
+						if( itemOptions.y >= minY && itemOptions.y <= maxY && itemOptions.showable) {
+							this._selection.add( itemOptions.rawData );
 						}
-						return item.y < maxY;
+						return itemOptions.y < maxY;
 					} );
 					this._selection.add( lastSelection );
 
 				}
-
 			// single select
 			} else {
 				this._selection.clear();
-				this._selection.add( selection );
+				this._selection.add( item );
 			}
+			this.updateActiveState();
+		}
+
+		// update active state of all shown item.
+		private updateActiveState() {
+			const items = this._content.children as DTreeItem[];
+			items.forEach( ( item ) => {
+				item.updateActiveState( this._selection.contains( item.getRawData() ) );
+			});
 		}
 	}

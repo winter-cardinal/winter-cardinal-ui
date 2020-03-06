@@ -2,7 +2,7 @@
  * Copyright (C) 2019 Toshiba Corporation
  * SPDX-License-Identifier: Apache-2.0
  */
-import { DisplayObject, Texture } from "pixi.js";
+import { DisplayObject, interaction, Texture } from "pixi.js";
 import { DLayoutHorizontal, DLayoutHorizontalOptions, DThemeLayoutHorizontal } from "./d-layout-horizontal";
 import { DTreeItemRawData } from "./d-tree";
 import { DTreeItemState } from "./d-tree-item-state";
@@ -106,17 +106,16 @@ export class DTreeItem<
 			this._icon.on( UtilPointerEvent.down, (): void => {
 				this.onToggle();
 			} );
-			this._textAndImage.on( UtilPointerEvent.down, (): void => {
-				this.onSelect();
+			this._textAndImage.on( UtilPointerEvent.down, ( e: interaction.InteractionEvent ): void => {
+				this.onSelect( e );
 			} );
 
 			// update states
 			this.updateStates( false );
 		}
 
-		protected onSelect(): void {
-			this.emit( "select" );
-			this.parent.emit( "selection-change" );
+		protected onSelect( e: interaction.InteractionEvent ): void {
+			this.emit( "select", e );
 		}
 
 		public onToggle(): void {

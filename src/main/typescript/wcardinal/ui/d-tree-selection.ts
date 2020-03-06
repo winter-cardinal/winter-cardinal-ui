@@ -46,7 +46,7 @@ export class DTreeSelection {
 		return null;
 	}
 
-	public isSelected( item: DTreeItemRawData ) {
+	public contains( item: DTreeItemRawData ) {
 		return this._selection.indexOf( item ) !== -1;
 	}
 
