@@ -107,15 +107,20 @@ export class DTree<
 					content.addChild( treeItem );
 					// listen select item event
 					treeItem.on( "select", ( e: interaction.InteractionEvent ): void => {
-						this.onSelect( treeItem.getRawData(), e );
+						if( !this.isDisabled() ) {
+							this.onSelect( treeItem.getRawData(), e );
+						}
 					});
 					// listen toggle item event
 					treeItem.on( "toggle", (): void => {
 						if( treeItem.isParent() ) {
-							this.toggle( treeItem.getRawData() );
+							if( !this.isDisabled() ) {
+								this.toggle( treeItem.getRawData() );
+							}
 						}
 					});
 				}
+
 			} else if ( items.length > itemOptionsShown.length ) {
 				for ( let i = itemOptionsShown.length; i < items.length; i++ ) {
 					items[ i ].hide();

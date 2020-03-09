@@ -6,6 +6,7 @@
 import { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DBaseState } from "../../d-base-state";
+import { DBaseStates } from "../../d-base-states";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
 import { DTreeItemState } from "../../d-tree-item-state";
@@ -61,7 +62,7 @@ export class DThemeDarkTreeItemToggleIcon extends DThemeDarkImage implements DTh
 	}
 
 	getImageTintColor( state: DBaseState ): number | null {
-		if( state & DTreeItemState.SELECTED ) {
+		if( ( state & DTreeItemState.SELECTED ) && !DBaseStates.isDisabled( state ) ) {
 			return 0x000000;
 		}
 		return DThemeDarkFont.getColor( state );
