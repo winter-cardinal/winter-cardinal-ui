@@ -57,7 +57,6 @@ export class DTree<
 
 		protected init( options ?: OPTIONS ) {
 			super.init( options );
-
 			this._itemOptions = new WeakMap();
 			this._selection = new DTreeSelection();
 			this._itemOptionsShowable = [];
@@ -294,6 +293,29 @@ export class DTree<
 				positon: DTreeAddedItemPosition.AFTER
 			};
 			this.reload();
+		}
+
+		/**
+		 * Iterate over all the items.
+		 *
+		 * @param iteratee  boolean function. If the iteratee explicitly returns false, an iteration stops.
+		 * @param item data of browsed item.
+		 */
+		public each( iteratee: (item: DTreeItemRawData) => boolean ): void {
+			this.inOrder(this._value, iteratee);
+		}
+
+		/**
+		 * The recursive function performs item browsing in the tree.
+		 */
+		private inOrder(items: DTreeItemRawData[], iteratee: (item: DTreeItemRawData) => boolean) {
+			for (const item of items) {
+				if(!iteratee (item)) {
+					return;
+				} else if( item.children ) {
+					this.inOrder(item.children, iteratee);
+				}
+			}
 		}
 
 		private updateData(

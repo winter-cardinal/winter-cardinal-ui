@@ -256,6 +256,20 @@
 							}
 						}
 					}),
+					new wcardinal.ui.DButtonPrimary({
+						width: 200,
+						text: {
+							value: "Selected iteratee",
+						},
+						on: {
+							active: (btn) => {
+								 tree.each((item) => {
+									 	console.log(item.text)
+										 return item.text != 'item1';
+								 })
+							}
+						}
+					}),
 				]
 			});
 		}()
