@@ -259,11 +259,25 @@
 					new wcardinal.ui.DButtonPrimary({
 						width: 200,
 						text: {
-							value: "Selected iteratee",
+							value: "Iteratee all item",
 						},
 						on: {
 							active: (btn) => {
 								 tree.each((item) => {
+									 	console.log(item.text)
+										 return item.text != 'item1';
+								 })
+							}
+						}
+					}),
+					new wcardinal.ui.DButtonPrimary({
+						width: 200,
+						text: {
+							value: "Iteratee selected item",
+						},
+						on: {
+							active: (btn) => {
+								 tree.selection.each((item) => {
 									 	console.log(item.text)
 										 return item.text != 'item1';
 								 })

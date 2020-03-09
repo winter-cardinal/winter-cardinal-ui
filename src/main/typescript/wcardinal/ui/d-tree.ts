@@ -318,6 +318,14 @@ export class DTree<
 			}
 		}
 
+		/**
+		 * Get selection object.
+		 * @returns selection.
+		 */
+		get selection() {
+			return this._selection;
+		}
+
 		private updateData(
 			parentItemOptions: DTreeItemOptions | null,
 			items: DTreeItemRawData[],
