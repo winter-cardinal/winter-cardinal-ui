@@ -19,7 +19,7 @@ export interface DThemeSliderHorizontal extends DThemeSlider {
 }
 
 export class DSliderHorizontal<
-	THEME extends DThemeSliderHorizontal 	= DThemeSliderHorizontal,
+	THEME extends DThemeSliderHorizontal = DThemeSliderHorizontal,
 	OPTIONS extends DSliderHorizontalOptions<THEME> = DSliderHorizontalOptions<THEME>
 > extends DSlider<THEME, OPTIONS> {
 	protected newTrack( options?: OPTIONS ): DSliderTrack {
