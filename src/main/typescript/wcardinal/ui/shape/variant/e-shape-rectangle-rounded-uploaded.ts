@@ -94,7 +94,7 @@ export class EShapeRectangleRoundedUploaded extends EShapeTextUploaded {
 			);
 
 			// Steps
-			if( isVertexChanged || isTransformChanged ) {
+			if( isVertexChanged || isCornerChanged || isTransformChanged ) {
 				buffer.updateSteps();
 				buildRectangleRoundedStep(
 					buffer.steps,
