@@ -1,0 +1,136 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<th:block th:insert="fragment/common::#head"></th:block>
+</head>
+<body>
+	<th:block th:insert="fragment/common::#body"></th:block>
+	<script>
+		(function () {
+			"use strict";
+
+			const application = new wcardinal.ui.DApplication();
+
+			const horizontalSlider = new wcardinal.ui.DSliderHorizontal({
+				parent: application.stage,
+				x: 100, y: 200,
+				min: {
+					value: 0
+				},
+				max: {
+					value: 1
+				},
+				value: {
+					width: 50,
+					precision: 2,
+					rounder: (value) => {
+						return value
+					}
+				}
+			});
+
+			const verticalSlider = new wcardinal.ui.DSliderVertical({
+				parent: application.stage,
+				x: 500, y: 100,
+				min: {
+					value: 0
+				},
+				max: {
+					value: 100
+				},
+				value: {
+					text: {
+						formatter: (value) => value + "%"
+					},
+					value: 50
+				}
+			});
+
+			new wcardinal.ui.DLayoutVertical({
+				parent: application.stage,
+				x: 650,
+				y: 100,
+				width: "100%-40",
+				height: "100%-40",
+				children: [
+					new wcardinal.ui.DButtonPrimary({
+						width: 200,
+						text: {
+							value: "Set Value"
+						},
+						on: {
+							active: (btn) => {
+								verticalSlider.value = 50;
+								horizontalSlider.value = 0.8;
+							}
+						}
+					}),
+					new wcardinal.ui.DButtonPrimary({
+						width: 200,
+						text: {
+							value: "Get Value"
+						},
+						on: {
+							active: (btn) => {
+								alert(`Vertical: ${verticalSlider.value}, Horizontal: ${horizontalSlider.value}`);
+							}
+						}
+					}),
+					new wcardinal.ui.DButtonPrimary({
+						width: 200,
+						text: {
+							value: "Set Min"
+						},
+						on: {
+							active: (btn) => {
+								verticalSlider.min = 20;
+								horizontalSlider.min = 0.1;
+							}
+						}
+					}),
+					new wcardinal.ui.DButtonPrimary({
+						width: 200,
+						text: {
+							value: "Get Min"
+						},
+						on: {
+							active: (btn) => {
+								alert(`Vertical Min: ${verticalSlider.min}, Horizontal Min: ${horizontalSlider.min}`);
+							}
+						}
+					}),
+					new wcardinal.ui.DButtonPrimary({
+						width: 200,
+						text: {
+							value: "Set Max"
+						},
+						on: {
+							active: (btn) => {
+								verticalSlider.max = 200;
+								horizontalSlider.max = 2;
+							}
+						}
+					}),
+					new wcardinal.ui.DButtonPrimary({
+						width: 200,
+						text: {
+							value: "Get Max"
+						},
+						on: {
+							active: (btn) => {
+								alert(`Vertical Max: ${verticalSlider.max}, Horizontal Max: ${horizontalSlider.max}`);
+							}
+						}
+					}),
+				]
+			});
+		}());
+	</script>
+</body>
+
+</html>

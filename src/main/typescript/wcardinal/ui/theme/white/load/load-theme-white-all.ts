@@ -29,6 +29,7 @@ import { loadThemeWhitePickerDate } from "./load-theme-white-picker-date";
 import { loadThemeWhitePickerDatetime } from "./load-theme-white-picker-datetime";
 import { loadThemeWhitePickerTime } from "./load-theme-white-picker-time";
 import { loadThemeWhiteSelect } from "./load-theme-white-select";
+import { loadThemeWhiteSlider } from "./load-theme-white-slider";
 import { loadThemeWhiteTable } from "./load-theme-white-table";
 import { loadThemeWhiteText } from "./load-theme-white-text";
 import { loadThemeWhiteView } from "./load-theme-white-view";
@@ -63,4 +64,5 @@ export const loadThemeWhiteAll = () => {
 	loadThemeWhiteSelect();
 	loadThemeWhiteTable();
 	loadThemeWhiteText();
+	loadThemeWhiteSlider();
 };
