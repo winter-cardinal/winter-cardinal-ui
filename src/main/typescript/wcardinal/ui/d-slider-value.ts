@@ -39,7 +39,7 @@ export class DSliderValue<
 	toRounder( options?: OPTIONS ) {
 		const rounder = options && options.rounder;
 		if( rounder ) {
-    		return rounder;
+			return rounder;
 		}
 
 		const precision = (options && options.precision) ? options.precision : this.theme.getPrecision();
