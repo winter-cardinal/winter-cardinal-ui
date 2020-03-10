@@ -299,6 +299,76 @@
 							}
 						}
 					}),
+					new wcardinal.ui.DButtonPrimary({
+						width: 200,
+						text: {
+							value: "Add select",
+						},
+						on: {
+							active: (btn) => {
+								tree.selection.add(tree.value[0])
+								tree.updateActiveState()
+							}
+						}
+					}),
+					new wcardinal.ui.DButtonPrimary({
+						width: 200,
+						text: {
+							value: "Remove select",
+						},
+						on: {
+							active: (btn) => {
+								tree.selection.remove(tree.value[0])
+								tree.updateActiveState()
+							}
+						}
+					}),
+					new wcardinal.ui.DButtonPrimary({
+						width: 200,
+						text: {
+							value: "Toggle select",
+						},
+						on: {
+							active: (btn) => {
+								tree.selection.toggle(tree.value[0])
+								tree.updateActiveState()
+							}
+						}
+					}),
+					new wcardinal.ui.DButtonPrimary({
+						width: 200,
+						text: {
+							value: "Get select",
+						},
+						on: {
+							active: (btn) => {
+								console.log(tree.selection.get(0))
+							}
+						}
+					}),
+					new wcardinal.ui.DButtonPrimary({
+						width: 200,
+						text: {
+							value: "Is selected",
+						},
+						on: {
+							active: (btn) => {
+								console.log(tree.selection.contains(tree.value[0]))
+							}
+						}
+					}),
+					new wcardinal.ui.DButtonPrimary({
+						width: 200,
+						text: {
+							value: "Clear all selects",
+						},
+						on: {
+							active: (btn) => {
+								tree.selection.clear()
+								tree.updateActiveState()
+							}
+						}
+					}),
 				]
 			});
 		}()

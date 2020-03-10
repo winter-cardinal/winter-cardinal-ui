@@ -455,8 +455,10 @@ export class DTree<
 			this.updateActiveState();
 		}
 
-		// update active state of all shown item.
-		private updateActiveState() {
+		/* update active state of all shown item.
+		*
+		**/
+		public updateActiveState() {
 			const items = this._content.children as DTreeItem[];
 			items.forEach( ( item ) => {
 				item.updateActiveState( this._selection.contains( item.getRawData() ) );
