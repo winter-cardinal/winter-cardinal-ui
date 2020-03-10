@@ -22,7 +22,7 @@ export class DThemeWhiteDialog extends DThemeWhiteBase implements DThemeDialog {
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return 0xffffff;
+		return 0xfafafa;
 	}
 
 	getPaddingLeft(): number {
