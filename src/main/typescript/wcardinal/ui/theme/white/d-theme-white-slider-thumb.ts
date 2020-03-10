@@ -4,11 +4,26 @@
  */
 
 import { DBaseState } from "../../d-base-state";
-import { DCoordinateSize } from "../../d-coordinate";
+import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
 import { DThemeSliderThumb } from "../../d-slider-thumb";
 import { DThemeWhiteButton } from "./d-theme-white-button";
 
 export class DThemeWhiteSliderThumb extends DThemeWhiteButton implements DThemeSliderThumb {
+	getX(): DCoordinatePosition {
+		return "CENTER";
+	}
+
+	getY(): DCoordinatePosition {
+		return "CENTER";
+	}
+
+	getWidth(): DCoordinateSize {
+		return 15;
+	}
+
+	getHeight(): DCoordinateSize {
+		return 15;
+	}
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		return 0x3399FF;
@@ -18,16 +33,8 @@ export class DThemeWhiteSliderThumb extends DThemeWhiteButton implements DThemeS
 		return null;
 	}
 
-	getHeight(): DCoordinateSize {
-		return 15;
-	}
-
-	getWidth(): DCoordinateSize {
-		return 15;
-	}
-
 	getCornerRadius(): number {
-		return 15;
+		return 7.5;
 	}
 
 }

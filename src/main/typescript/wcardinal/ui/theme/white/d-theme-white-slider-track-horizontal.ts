@@ -9,13 +9,19 @@ import { DThemeWhiteSliderTrack } from "./d-theme-white-slider-track";
 
 export class DThemeWhiteSliderTrackHorizontal
 extends DThemeWhiteSliderTrack implements DThemeSliderTrackHorizontal {
-
-	getHeight(): DCoordinateSize {
-		return 5;
-	}
-
 	getX(): DCoordinatePosition {
 		return 0;
 	}
 
+	getY(): DCoordinatePosition {
+		return "CENTER";
+	}
+
+	getWidth(): DCoordinateSize {
+		return "100%";
+	}
+
+	getHeight(): DCoordinateSize {
+		return 5;
+	}
 }

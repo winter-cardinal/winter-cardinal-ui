@@ -9,7 +9,6 @@ import { DThemeSlider  } from "../../d-slider";
 import { DThemeDarkBase } from "./d-theme-dark-base";
 
 export class DThemeDarkSlider extends DThemeDarkBase implements DThemeSlider {
-
 	getInteractive(): DBaseInteractive {
 		return DBaseInteractive.CHILDREN;
 	}
@@ -17,5 +16,4 @@ export class DThemeDarkSlider extends DThemeDarkBase implements DThemeSlider {
 	getBorderColor( state: DBaseState ): number | null {
 		return null;
 	}
-
 }

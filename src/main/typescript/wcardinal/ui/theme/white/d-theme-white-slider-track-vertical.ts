@@ -8,12 +8,19 @@ import { DThemeSliderTrackVertical } from "../../d-slider-track-vertical";
 import { DThemeWhiteSliderTrack } from "./d-theme-white-slider-track";
 
 export class DThemeWhiteSliderTrackVertical extends DThemeWhiteSliderTrack implements DThemeSliderTrackVertical {
-	getWidth(): DCoordinateSize {
-		return 5;
-	}
-
 	getX(): DCoordinatePosition {
 		return "CENTER";
 	}
 
+	getY(): DCoordinatePosition {
+		return 0;
+	}
+
+	getWidth(): DCoordinateSize {
+		return 5;
+	}
+
+	getHeight(): DCoordinateSize {
+		return "100%";
+	}
 }

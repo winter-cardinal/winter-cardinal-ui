@@ -10,9 +10,9 @@ import { DSliderLabel, DSliderLabelOptions } from "./d-slider-label";
 import { DSliderThumb, DSliderThumbOptions } from "./d-slider-thumb";
 import { DSliderTrack, DSliderTrackOptions } from "./d-slider-track";
 import { DSliderValue, DSliderValueOptions } from "./d-slider-value";
-import { isNumber } from "./util";
-import InteractionEvent = interaction.InteractionEvent;
 import { UtilPointerEvent } from "./util/util-pointer-event";
+import InteractionEvent = interaction.InteractionEvent;
+import InteractionManager = interaction.InteractionManager;
 
 export interface DSliderOptions<THEME extends DThemeSlider> extends DBaseOptions<THEME> {
 	min?: DSliderLabelOptions;
@@ -44,43 +44,28 @@ export abstract class DSlider<
 	protected _onThumbUpBound!: ( e: InteractionEvent ) => void;
 	protected _onTrackUpBound!: ( e: InteractionEvent ) => void;
 	protected _onTrackSelectedUpBound!: ( e: InteractionEvent ) => void;
+	protected _interactionManager?: InteractionManager;
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
-		this.prepareValues( options );
-		this.adjustSize( options );
-		this.updateCoordinates();
-		this.appendChildToView();
-		this.initListeners();
-		this.updateThumb();
-	}
 
-	protected prepareValues( options?: OPTIONS ): void {
-		const initializedValues = this.extractValues( options );
 		this._ratioValue = 0;
-		this._value = this.newValue( initializedValues.value );
-		this._min = this.newLabel( initializedValues.min );
-		this._max = this.newLabel( initializedValues.max );
+
 		this._track = this.newTrack( options );
-		this._thumb = this.newThumb();
-		this._min.text = `${this._min.value}`;
-		this._max.text = `${this._max.value}`;
-		this._value.text = this._value.value;
+		this.addChild( this._track );
 		this._trackSelected = this.newTrackSelected( options );
 		this._trackSelected.setActive( true );
-		this._value.visible = false;
-	}
-
-	protected appendChildToView(): void {
-		this.addChild( this._track );
 		this.addChild( this._trackSelected );
+		this._thumb = this.newThumb( options );
 		this.addChild( this._thumb );
+		this._min = this.newLabelMin( options );
 		this.addChild( this._min );
+		this._max = this.newLabelMax( options );
 		this.addChild( this._max );
+		this._value = this.newValue( options );
 		this.addChild( this._value );
-	}
 
-	protected initListeners(): void {
+		// Event listeners
 		this._track.on( UtilPointerEvent.down, ( e: InteractionEvent) => {
 			this._value.visible = true;
 			this.onTrackDown( e.data.global );
@@ -114,84 +99,110 @@ export abstract class DSlider<
 			this.onThumbUp( e );
 			this._value.visible = false;
 		};
-	}
 
-	protected extractValues( options?: OPTIONS ): { min: number, max: number, value: DSliderValueOptions } {
-		// Get max / min value from options object
-		let max = options && options.max && options.max.value;
-		let min = options && options.min && options.min.value;
-		let value = options && options.value && options.value.value;
-		if (isNumber(max) && isNumber(min) && isNumber(value)) {
-			// Adjust if needed
-			max = Math.max( max, min );
-			value = Math.max( min, Math.min( max, value ) );
-		} else {
-			// Set as default
-			value = min = 0;
-			max = 1;
-		}
-
-		const valueOptions = options?.value ?? {};
-		valueOptions.value = value;
-
-		return {
-			min,
-			max,
-			value: valueOptions
-		};
+		//
+		this.onValuesChanged();
 	}
 
 	protected newThumb( options?: OPTIONS ): DSliderThumb {
 		return new DSliderThumb( options && options.thumb );
 	}
 
-	protected newValue( options: DSliderValueOptions ): DSliderValue {
-		return new DSliderValue( options );
+	protected newValue( options?: OPTIONS ): DSliderValue {
+		return new DSliderValue( this.toValueOptions( options && options.value ) );
 	}
 
-	protected newLabel( value: number ): DSliderLabel {
-		return new DSliderLabel({ value });
+	protected toValueOptions( options?: DSliderValueOptions ): DSliderValueOptions {
+		options = options || {};
+		if( options.value == null ) {
+			options.value = 0;
+		}
+		const text = options.text = options.text || {};
+		if( text.value == null ) {
+			text.value = options.value;
+		}
+		if( options.visible == null ) {
+			options.visible = false;
+		}
+		return options;
+	}
+
+	protected newLabelMin( options?: OPTIONS ): DSliderLabel {
+		return new DSliderLabel( this.toLabelMinOptions( options && options.min ) );
+	}
+
+	protected toLabelMinOptions( options?: DSliderLabelOptions ): DSliderLabelOptions {
+		options = options || {};
+		if( options.value == null ) {
+			options.value = 0;
+		}
+		const text = options.text = options.text || {};
+		if( text.value == null ) {
+			text.value = `${options.value}`;
+		}
+		return options;
+	}
+
+	protected newLabelMax( options?: OPTIONS ): DSliderLabel {
+		return new DSliderLabel( this.toLabelMaxOptions( options && options.max ) );
+	}
+
+	protected toLabelMaxOptions( options?: DSliderLabelOptions ): DSliderLabelOptions {
+		options = options || {};
+		if( options.value == null ) {
+			options.value = 1;
+		}
+		const text = options.text = options.text || {};
+		if( text.value == null ) {
+			text.value = `${options.value}`;
+		}
+		return options;
 	}
 
 	protected abstract newTrack( options?: OPTIONS ): DSliderTrack;
 	protected abstract newTrackSelected( options?: OPTIONS ): DSliderTrack;
-	protected abstract updateCoordinates(): void;
+
 	protected abstract onPick( global: Point ): void;
-	protected abstract updateThumb(): void;
-	protected abstract updateChildren( thumbCoordinate: number ): void;
-	protected abstract adjustSize( options?: OPTIONS ): void;
+	protected abstract onValuesChanged(): void;
+	protected abstract moveThumbPosition( thumbCoordinate: number ): void;
+
+	protected getValueMargin(): number {
+		return 14;
+	}
 
 	protected onTrackDown( global: Point ): void {
 		const layer = DApplications.getLayer( this );
-		if ( layer ) {
-			const stage = layer.stage;
-			stage.on( UtilPointerEvent.up, this._onTrackUpBound );
+		if( layer ) {
+			const interactionManager = layer.renderer.plugins.interaction;
+			this._interactionManager = interactionManager;
+			interactionManager.on( UtilPointerEvent.up, this._onTrackUpBound );
 		}
 		this.onPick( global );
 	}
 
 	protected onTrackSelectedDown( global: Point ): void {
 		const layer = DApplications.getLayer( this );
-		if ( layer ) {
-			const stage = layer.stage;
-			stage.on( UtilPointerEvent.up, this._onTrackSelectedUpBound );
+		if( layer ) {
+			const interactionManager = layer.renderer.plugins.interaction;
+			this._interactionManager = interactionManager;
+			interactionManager.on( UtilPointerEvent.up, this._onTrackSelectedUpBound );
 		}
 		this.onPick( global );
 	}
 
 	protected onTrackUpBound( e: InteractionEvent ): void {
-		const layer = DApplications.getLayer( this );
-		if ( layer ) {
-			const stage = layer.stage;
-			stage.off( UtilPointerEvent.up, this._onTrackUpBound );
+		const interactionManager = this._interactionManager;
+		if( interactionManager ) {
+			this._interactionManager = undefined;
+			interactionManager.off( UtilPointerEvent.up, this._onTrackUpBound );
 		}
 	}
 
 	protected onTrackSelectedUpBound( e: InteractionEvent ): void {
-		const layer = DApplications.getLayer( this );
-		if ( layer ) {
-			const stage = layer.stage;
-			stage.off( UtilPointerEvent.up, this._onTrackSelectedUpBound );
+		const interactionManager = this._interactionManager;
+		if( interactionManager ) {
+			this._interactionManager = undefined;
+			interactionManager.off( UtilPointerEvent.up, this._onTrackSelectedUpBound );
 		}
 	}
 
@@ -204,19 +215,20 @@ export abstract class DSlider<
 
 	protected onThumbDown( e: InteractionEvent ): void {
 		const layer = DApplications.getLayer( this );
-		if ( layer ) {
-			const stage = layer.stage;
-			stage.on( UtilPointerEvent.move, this._onThumbMoveBound );
-			stage.on( UtilPointerEvent.up, this._onThumbUpBound );
+		if( layer ) {
+			const interactionManager = layer.renderer.plugins.interaction;
+			this._interactionManager = interactionManager;
+			interactionManager.on( UtilPointerEvent.move, this._onThumbMoveBound );
+			interactionManager.on( UtilPointerEvent.up, this._onThumbUpBound );
 		}
 	}
 
 	protected onThumbUp( e: InteractionEvent ): void {
-		const layer = DApplications.getLayer( this );
-		if ( layer ) {
-			const stage = layer.stage;
-			stage.off( UtilPointerEvent.move, this._onThumbMoveBound );
-			stage.off( UtilPointerEvent.up, this._onThumbUpBound );
+		const interactionManager = this._interactionManager;
+		if( interactionManager ) {
+			this._interactionManager = undefined;
+			interactionManager.off( UtilPointerEvent.move, this._onThumbMoveBound );
+			interactionManager.off( UtilPointerEvent.up, this._onThumbUpBound );
 		}
 	}
 
@@ -230,10 +242,7 @@ export abstract class DSlider<
 
 	onResize( newWidth: number, newHeight: number, oldWidth: number, oldHeight: number ): void {
 		super.onResize( newWidth, newHeight, oldWidth, oldHeight );
-		// Adjust children's size
-		this.adjustSize();
-		// Update thumb and children
-		this.updateThumb();
+		this.onValuesChanged();
 	}
 
 	/**
@@ -253,7 +262,7 @@ export abstract class DSlider<
 		// Adjust if value is new
 		if( this._value.value !== value ) {
 			this._value.value = value;
-			this.updateThumb();
+			this.onValuesChanged();
 		}
 	}
 
@@ -269,17 +278,14 @@ export abstract class DSlider<
 	 * - New min value will be applied
 	 * - UI components will be changed arcording to new value
 	 */
-	set min( min: number ) {
-		const minComponent = this._min;
-		min = Math.min( this._max.value, min );
-		// If min is new value
-		if( minComponent.value !== min ) {
-			const valueComponent = this._value;
-			minComponent.text = minComponent.value = min;
-			// Adjust current value if it's out of range
-			valueComponent.value = Math.max( min, valueComponent.value );
-			// Update layout
-			this.updateThumb();
+	set min( newMin: number ) {
+		const min = this._min;
+		newMin = Math.min( this._max.value, newMin );
+		if( min.value !== newMin ) {
+			const value = this._value;
+			min.text = min.value = newMin;
+			value.value = Math.max( newMin, value.value );
+			this.onValuesChanged();
 		}
 	}
 
@@ -295,17 +301,14 @@ export abstract class DSlider<
 	 * - New max value will be applied
 	 * - UI components will be changed arcording to new value
 	 */
-	set max( max: number ) {
-		const maxComponent = this._max;
-		max = Math.max( this._min.value, max );
-		// If max is new value
-		if( maxComponent.value !== max ) {
-			const valueComponent = this._value;
-			maxComponent.text = maxComponent.value = max;
-			// Adjust current value if it's out of range
-			valueComponent.value = Math.min( max, valueComponent.value );
-			// Update layout
-			this.updateThumb();
+	set max( newMax: number ) {
+		const max = this._max;
+		newMax = Math.max( this._min.value, newMax );
+		if( max.value !== newMax ) {
+			const value = this._value;
+			max.text = max.value = newMax;
+			value.value = Math.min( newMax, value.value );
+			this.onValuesChanged();
 		}
 	}
 

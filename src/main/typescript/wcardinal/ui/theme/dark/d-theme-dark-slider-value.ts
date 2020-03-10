@@ -7,12 +7,27 @@ import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignVertical } from "../../d-align-vertical";
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
-import { DCoordinateSize } from "../../d-coordinate";
+import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
 import { DThemeSliderValue } from "../../d-slider-value";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkTextBase } from "./d-theme-dark-text-base";
 
 export class DThemeDarkSliderValue extends DThemeDarkTextBase implements DThemeSliderValue {
+	getX(): DCoordinatePosition {
+		return "CENTER";
+	}
+
+	getY(): DCoordinatePosition {
+		return "CENTER";
+	}
+
+	getWidth(): DCoordinateSize {
+		return 35;
+	}
+
+	getHeight(): DCoordinateSize {
+		return 20;
+	}
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		if(DBaseStates.isDisabled(state)) {
@@ -34,14 +49,6 @@ export class DThemeDarkSliderValue extends DThemeDarkTextBase implements DThemeS
 			return 0.38;
 		}
 		return 1;
-	}
-
-	getHeight(): DCoordinateSize {
-		return 20;
-	}
-
-	getWidth(): DCoordinateSize {
-		return 35;
 	}
 
 	getTextAlignHorizontal(): DAlignHorizontal {
