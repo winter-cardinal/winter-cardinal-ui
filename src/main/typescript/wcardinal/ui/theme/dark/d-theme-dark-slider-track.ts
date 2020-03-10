@@ -10,7 +10,6 @@ import { DThemeDarkButton } from "./d-theme-dark-button";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 
 export class DThemeDarkSliderTrack extends DThemeDarkButton implements DThemeSliderTrack {
-
 	getBackgroundColor( state: DBaseState ): number | null {
 		if ( DBaseStates.isActive(state) ) {
 			if (DBaseStates.isDisabled(state)) {
@@ -42,5 +41,4 @@ export class DThemeDarkSliderTrack extends DThemeDarkButton implements DThemeSli
 		}
 		return 1;
 	}
-
 }

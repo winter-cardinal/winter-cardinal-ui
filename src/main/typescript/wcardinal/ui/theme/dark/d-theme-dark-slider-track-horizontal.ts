@@ -9,13 +9,19 @@ import { DThemeDarkSliderTrack } from "./d-theme-dark-slider-track";
 
 export class DThemeDarkSliderTrackHorizontal
 extends DThemeDarkSliderTrack implements DThemeSliderTrackHorizontal {
-
-	getHeight(): DCoordinateSize {
-		return 5;
-	}
-
 	getX(): DCoordinatePosition {
 		return 0;
 	}
 
+	getY(): DCoordinatePosition {
+		return "CENTER";
+	}
+
+	getWidth(): DCoordinateSize {
+		return "100%";
+	}
+
+	getHeight(): DCoordinateSize {
+		return 5;
+	}
 }

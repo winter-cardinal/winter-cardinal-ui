@@ -10,7 +10,6 @@ import { DThemeSliderLabel } from "../../d-slider-label";
 import { DThemeDarkTextBase } from "./d-theme-dark-text-base";
 
 export class DThemeDarkSliderLabel extends DThemeDarkTextBase implements DThemeSliderLabel {
-
 	getHeight(): DCoordinateSize {
 		return 15;
 	}
@@ -26,5 +25,4 @@ export class DThemeDarkSliderLabel extends DThemeDarkTextBase implements DThemeS
 	getTextAlignVertical(): DAlignVertical {
 		return DAlignVertical.MIDDLE;
 	}
-
 }

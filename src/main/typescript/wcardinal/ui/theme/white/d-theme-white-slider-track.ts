@@ -10,7 +10,6 @@ import { DThemeWhiteButton } from "./d-theme-white-button";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 
 export class DThemeWhiteSliderTrack extends DThemeWhiteButton implements DThemeSliderTrack {
-
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isActive( state ) ) {
 			return DThemeWhiteConstants.HIGHLIGHT_COLOR;
@@ -25,5 +24,4 @@ export class DThemeWhiteSliderTrack extends DThemeWhiteButton implements DThemeS
 	getColor( state: DBaseState ): number {
 		return 0x5F5F5F;
 	}
-
 }
