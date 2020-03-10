@@ -10,9 +10,9 @@ import { DSliderLabel, DSliderLabelOptions } from "./d-slider-label";
 import { DSliderThumb, DSliderThumbOptions } from "./d-slider-thumb";
 import { DSliderTrack, DSliderTrackOptions } from "./d-slider-track";
 import { DSliderValue, DSliderValueOptions } from "./d-slider-value";
+import { isNumber } from "./util";
 import InteractionEvent = interaction.InteractionEvent;
 import { UtilPointerEvent } from "./util/util-pointer-event";
-import { isNumber } from './util';
 
 export interface DSliderOptions<THEME extends DThemeSlider> extends DBaseOptions<THEME> {
 	min?: DSliderLabelOptions;
@@ -44,7 +44,6 @@ export abstract class DSlider<
 	protected _onThumbUpBound!: ( e: InteractionEvent ) => void;
 	protected _onTrackUpBound!: ( e: InteractionEvent ) => void;
 	protected _onTrackSelectedUpBound!: ( e: InteractionEvent ) => void;
-	
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
@@ -136,8 +135,8 @@ export abstract class DSlider<
 		valueOptions.value = value;
 
 		return {
-			min: min, 
-			max: max, 
+			min,
+			max,
 			value: valueOptions
 		};
 	}
@@ -151,7 +150,7 @@ export abstract class DSlider<
 	}
 
 	protected newLabel( value: number ): DSliderLabel {
-		return new DSliderLabel({ value: value });
+		return new DSliderLabel({ value });
 	}
 
 	protected abstract newTrack( options?: OPTIONS ): DSliderTrack;
@@ -197,6 +196,9 @@ export abstract class DSlider<
 	}
 
 	protected onThumbMove( e: InteractionEvent ): void {
+		if( this.isDisabled() ) {
+			return;
+		}
 		this.onPick( e.data.global );
 	}
 
@@ -232,7 +234,7 @@ export abstract class DSlider<
 		this.adjustSize();
 		// Update thumb and children
 		this.updateThumb();
-    }
+	}
 
 	/**
 	 * Gets current value of slider
