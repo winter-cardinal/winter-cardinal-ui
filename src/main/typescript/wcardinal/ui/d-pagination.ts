@@ -3,19 +3,21 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBase, DBaseOptions, DThemeBase } from "./d-base";
+import { DLayoutHorizontal, DLayoutHorizontalOptions, DThemeLayoutHorizontal } from "./d-layout-horizontal";
 
-export interface DPaginationOptions<THEME extends DThemePagination> extends DBaseOptions<THEME> {
+export interface DPaginationOptions<THEME extends DThemePagination> extends DLayoutHorizontalOptions<THEME> {
 
 }
 
-export interface DThemePagination extends DThemeBase {
+export interface DThemePagination extends DThemeLayoutHorizontal {
 
 }
 
 export class DPagination<
 	THEME extends DThemePagination = DThemePagination,
 	OPTIONS extends DPaginationOptions<THEME> = DPaginationOptions<THEME>
-> extends DBase<THEME, OPTIONS> {
-
+> extends DLayoutHorizontal<THEME, OPTIONS> {
+	protected init( options ?: OPTIONS ) {
+		super.init( options );
+	}
 }

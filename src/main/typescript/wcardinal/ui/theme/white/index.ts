@@ -119,6 +119,7 @@ export * from "./d-theme-white-menu-sided-item-text";
 export * from "./d-theme-white-menu-sided";
 export * from "./d-theme-white-menu";
 export * from "./d-theme-white-note";
+export * from "./d-theme-white-pagination";
 export * from "./d-theme-white-pane";
 export * from "./d-theme-white-picker-color-gradient";
 export * from "./d-theme-white-picker-color";
