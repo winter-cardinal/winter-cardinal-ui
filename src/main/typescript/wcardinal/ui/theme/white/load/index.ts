@@ -58,6 +58,7 @@ export * from "./load-theme-white-menu-sided";
 export * from "./load-theme-white-menu";
 export * from "./load-theme-white-note";
 export * from "./load-theme-white-pane";
+export * from "./load-theme-white-pagination";
 export * from "./load-theme-white-picker-color-gradient";
 export * from "./load-theme-white-picker-color";
 export * from "./load-theme-white-picker-date";

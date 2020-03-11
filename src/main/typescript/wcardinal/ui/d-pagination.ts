@@ -4,6 +4,7 @@
  */
 
 import { DLayoutHorizontal, DLayoutHorizontalOptions, DThemeLayoutHorizontal } from "./d-layout-horizontal";
+import { DPaginationDotsButton } from "./d-pagination-dots-button";
 import { DPaginationNavigationButton } from "./d-pagination-navigation-button";
 import { DThemes } from "./theme";
 
@@ -22,36 +23,38 @@ export class DPagination<
 	protected init( options ?: OPTIONS ) {
 		super.init( options );
 
-		const goFirstBtn = new DPaginationNavigationButton({
+		const goFirstBtn = new DPaginationNavigationButton( {
 			image: {
 				source: DThemes.getInstance().getAtlas().mappings.pagination_navigation_button_go_first
 
 			}
-		});
+		} );
 
-		const previousBtn = new DPaginationNavigationButton({
+		const previousBtn = new DPaginationNavigationButton( {
 			image: {
 				source: DThemes.getInstance().getAtlas().mappings.pagination_navigation_button_previous
 
 			}
-		});
+		} );
 
-		const nextBtn = new DPaginationNavigationButton({
+		const nextBtn = new DPaginationNavigationButton( {
 			image: {
 				source: DThemes.getInstance().getAtlas().mappings.pagination_navigation_button_next
 
 			}
-		});
+		} );
 
-		const goLastBtn = new DPaginationNavigationButton({
+		const goLastBtn = new DPaginationNavigationButton( {
 			image: {
 				source: DThemes.getInstance().getAtlas().mappings.pagination_navigation_button_go_last
 
 			}
-		});
+		} );
 
+		const dotsBtn = new DPaginationDotsButton();
 		this.addChild( goFirstBtn );
 		this.addChild( previousBtn );
+		this.addChild( dotsBtn );
 		this.addChild( nextBtn );
 		this.addChild( goLastBtn );
 	}

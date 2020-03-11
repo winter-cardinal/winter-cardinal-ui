@@ -3,15 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DButtonBase, DButtonBaseOptions, DThemeButtonBase } from "./d-button-base";
+import { DButtonAmbient, DButtonAmbientOptions, DThemeButtonAmbient } from "./d-button-ambient";
 
 export interface DPaginationNavigationButtonOptions<
 	VALUE = unknown,
 	THEME extends DThemePaginationNavigationButton = DThemePaginationNavigationButton
-> extends DButtonBaseOptions<VALUE, THEME> {
+> extends DButtonAmbientOptions<VALUE, THEME> {
 }
 
-export interface DThemePaginationNavigationButton extends DThemeButtonBase {
+export interface DThemePaginationNavigationButton extends DThemeButtonAmbient {
 
 }
 
@@ -19,7 +19,7 @@ export class DPaginationNavigationButton<
 	VALUE = unknown,
 	THEME extends DThemePaginationNavigationButton = DThemePaginationNavigationButton,
 	OPTIONS extends DPaginationNavigationButtonOptions<VALUE, THEME> = DPaginationNavigationButtonOptions<VALUE, THEME>
-> extends DButtonBase<VALUE, THEME, OPTIONS> {
+> extends DButtonAmbient<VALUE, THEME, OPTIONS> {
 
 	protected getType(): string {
 		return "DPaginationNavigationButton";
