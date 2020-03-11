@@ -294,6 +294,7 @@ export * from "./d-notification";
 export * from "./d-outline";
 export * from "./d-padding";
 export * from "./d-pagination";
+export * from "./d-pagination-navigation-button";
 export * from "./d-pane";
 export * from "./d-picker-color-and-alpha";
 export * from "./d-picker-color-gradient-data-view";
