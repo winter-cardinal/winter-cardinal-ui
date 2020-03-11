@@ -6,7 +6,7 @@
 import { DControllerDocument } from "./d-controller-document";
 import { DControllers } from "./d-controllers";
 import { DDiagramBase, DDiagramBaseOptions, DThemeDiagramBase } from "./d-diagram-base";
-import { DDiagramCanvasEditor } from "./d-diagram-canvas-editor";
+import { DDiagramCanvasEditor, DDiagramCanvasEditorOptions } from "./d-diagram-canvas-editor";
 import { DDiagramSerialized, DDiagramSerializedSimple, DDiagramSerializedVersion } from "./d-diagram-serialized";
 import { DDiagrams } from "./d-diagrams";
 import { ESnapper } from "./snapper/e-snapper";
@@ -52,7 +52,11 @@ export class DDiagramEditor<
 	}
 
 	protected newCanvas( serialized: DDiagramSerialized ): DDiagramCanvasEditor {
-		return new DDiagramCanvasEditor({
+		return new DDiagramCanvasEditor( this.toCanvasOptions( serialized ) );
+	}
+
+	protected toCanvasOptions( serialized: DDiagramSerialized ): DDiagramCanvasEditorOptions {
+		return {
 			name: serialized.name,
 			width: serialized.width,
 			height: serialized.height,
@@ -61,7 +65,7 @@ export class DDiagramEditor<
 				factory: this._tileFactory,
 				mapping: serialized.tile && serialized.tile.mapping
 			}
-		});
+		};
 	}
 
 	serialize(): DDiagramSerialized | null {

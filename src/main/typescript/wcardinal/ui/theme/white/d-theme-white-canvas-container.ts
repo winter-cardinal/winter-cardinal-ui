@@ -6,6 +6,7 @@
 import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseState } from "../../d-base-state";
 import { DThemeCanvasContainer } from "../../d-canvas-container";
+import { DCornerMask } from "../../d-corner-mask";
 import { DThemeWhiteBase } from "./d-theme-white-base";
 
 export class DThemeWhiteCanvasContainer extends DThemeWhiteBase implements DThemeCanvasContainer {
@@ -18,19 +19,19 @@ export class DThemeWhiteCanvasContainer extends DThemeWhiteBase implements DThem
 	}
 
 	getPaddingLeft(): number {
-		return 50;
+		return 32;
 	}
 
 	getPaddingTop(): number {
-		return 50;
+		return 32;
 	}
 
 	getPaddingRight(): number {
-		return 50;
+		return 32;
 	}
 
 	getPaddingBottom(): number {
-		return 50;
+		return 32;
 	}
 
 	isOverflowMaskEnabled(): boolean {
@@ -39,5 +40,9 @@ export class DThemeWhiteCanvasContainer extends DThemeWhiteBase implements DThem
 
 	getInteractive(): DBaseInteractive {
 		return DBaseInteractive.BOTH;
+	}
+
+	getCornerMask(): DCornerMask {
+		return DCornerMask.ALL;
 	}
 }

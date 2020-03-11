@@ -7,5 +7,7 @@ import { DThemeDiagramCanvasEditor } from "../../d-diagram-canvas-editor";
 import { DThemeDarkDiagramCanvasBase } from "./d-theme-dark-diagram-canvas-base";
 
 export class DThemeDarkDiagramCanvasEditor extends DThemeDarkDiagramCanvasBase implements DThemeDiagramCanvasEditor {
-
+	getBackgroundBase(): number | null {
+		return 0x000000;
+	}
 }

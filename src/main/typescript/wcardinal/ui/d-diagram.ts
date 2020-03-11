@@ -5,7 +5,7 @@
 
 import { interaction, Renderer } from "pixi.js";
 import { DDiagramBase, DDiagramBaseOptions, DThemeDiagramBase } from "./d-diagram-base";
-import { DDiagramCanvas, DDiagramCanvasTagOptions } from "./d-diagram-canvas";
+import { DDiagramCanvas, DDiagramCanvasOptions, DDiagramCanvasTagOptions } from "./d-diagram-canvas";
 import { DDiagramSerialized } from "./d-diagram-serialized";
 import { DDiagramShape } from "./d-diagram-shape";
 import { DDiagramTag } from "./d-diagram-tag";
@@ -167,8 +167,12 @@ export class DDiagram<
 	}
 
 	protected newCanvas( serialized: DDiagramSerialized ): DDiagramCanvas {
+		return new DDiagramCanvas( this.toCanvasOptions( serialized ) );
+	}
+
+	protected toCanvasOptions( serialized: DDiagramSerialized ): DDiagramCanvasOptions {
 		const options = this._options;
-		return new DDiagramCanvas({
+		return {
 			name: serialized.name,
 			width: serialized.width,
 			height: serialized.height,
@@ -183,7 +187,7 @@ export class DDiagram<
 				mapping: serialized.tile && serialized.tile.mapping
 			},
 			tag: options && options.tag
-		});
+		};
 	}
 
 	protected onDown( e: interaction.InteractionEvent ): void {

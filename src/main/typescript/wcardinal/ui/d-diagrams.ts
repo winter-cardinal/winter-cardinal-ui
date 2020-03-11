@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DApplications } from "./d-applications";
 import { DBase } from "./d-base";
 import { DDiagramLayerContainer } from "./d-diagram-layer-container";
 import { DDiagramSerialized, DDiagramSerializedSimple } from "./d-diagram-serialized";

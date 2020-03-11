@@ -4,7 +4,8 @@
 	"width": 500,
 	"height": 500,
 	"background": {
-		"color": 2201331
+		"color": 16777215,
+		"alpha": 0
 	},
 	"resources": ["wait"],
 	"layers": [

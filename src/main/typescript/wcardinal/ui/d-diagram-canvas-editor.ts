@@ -5,20 +5,28 @@
 
 import { Graphics } from "pixi.js";
 import { DApplications } from "./d-applications";
+import { DBaseBackgroundOptions } from "./d-base";
 import { DDiagramCanvasBase, DDiagramCanvasBaseOptions, DThemeDiagramCanvasBase } from "./d-diagram-canvas-base";
+import { DDiagramCanvasEditorBackground } from "./d-diagram-canvas-editor-background";
 import { DDiagramSerialized, DDiagramSerializedItem, DDiagramSerializedVersion } from "./d-diagram-serialized";
 import { EShapeResourceManagerSerialization } from "./shape/e-shape-resource-manager-serialization";
 import { ESnapper } from "./snapper/e-snapper";
 import { ESnapperTargetValueType } from "./snapper/e-snapper-target-value";
+import { isNumber } from "./util/is-number";
+
+export interface DDiagramCanvasEditorBackgroundOptions extends DBaseBackgroundOptions {
+	base?: number | null;
+}
 
 export interface DDiagramCanvasEditorOptions<
 	THEME extends DThemeDiagramCanvasEditor = DThemeDiagramCanvasEditor
 > extends DDiagramCanvasBaseOptions<THEME> {
 	snapper: ESnapper;
+	background?: DDiagramCanvasEditorBackgroundOptions;
 }
 
 export interface DThemeDiagramCanvasEditor extends DThemeDiagramCanvasBase {
-
+	getBackgroundBase(): number | null;
 }
 
 export class DDiagramCanvasEditor<
@@ -30,6 +38,11 @@ export class DDiagramCanvasEditor<
 
 	constructor( options: OPTIONS ) {
 		super( options );
+
+		this._background = new DDiagramCanvasEditorBackground(
+			this._background,
+			this.toBackgroundColorBase( this.theme, options )
+		);
 
 		this.shadow = this.theme.newShadowWeak();
 
@@ -46,10 +59,18 @@ export class DDiagramCanvasEditor<
 		this._snapper = snapper;
 	}
 
+	protected toBackgroundColorBase( theme: THEME, options: OPTIONS ): number | null {
+		const background = options.background;
+		const backgroundBase = background && background.base;
+		return ( backgroundBase != null ? backgroundBase : theme.getBackgroundBase() );
+	}
+
 	serialize( id: number | undefined ): DDiagramSerialized {
 		const manager = new EShapeResourceManagerSerialization();
 		const items: DDiagramSerializedItem[] = [];
-		const background = this.background;
+		const background = this._background;
+		const backgroundColor = background.color;
+		const backgroundAlpha = background.alpha;
 		return {
 			version: DDiagramSerializedVersion,
 			id,
@@ -57,8 +78,8 @@ export class DDiagramCanvasEditor<
 			width: this.width,
 			height: this.height,
 			background: {
-				color: background.getColor( 0 ),
-				alpha: background.getAlpha( 0 )
+				color: isNumber( backgroundColor ) ? backgroundColor : 0xffffff,
+				alpha: isNumber( backgroundAlpha ) ? backgroundAlpha : 0
 			},
 			tile: this._tile.serialize(),
 			resources: manager.serialize(),
