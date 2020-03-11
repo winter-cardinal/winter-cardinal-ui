@@ -5,7 +5,7 @@
 
 import { interaction, Renderer } from "pixi.js";
 import { DDiagramBase, DDiagramBaseOptions, DThemeDiagramBase } from "./d-diagram-base";
-import { DDiagramCanvas } from "./d-diagram-canvas";
+import { DDiagramCanvas, DDiagramCanvasTagOptions } from "./d-diagram-canvas";
 import { DDiagramSerialized } from "./d-diagram-serialized";
 import { DDiagramShape } from "./d-diagram-shape";
 import { DDiagramTag } from "./d-diagram-tag";
@@ -20,7 +20,7 @@ import { UtilPointerEvent } from "./util/util-pointer-event";
 export interface DDiagramOptions<
 	THEME extends DThemeDiagram = DThemeDiagram
 > extends DDiagramBaseOptions<DDiagramCanvas, THEME> {
-
+	tag?: DDiagramCanvasTagOptions;
 }
 
 export interface DThemeDiagram extends DThemeDiagramBase {
@@ -167,6 +167,7 @@ export class DDiagram<
 	}
 
 	protected newCanvas( serialized: DDiagramSerialized ): DDiagramCanvas {
+		const options = this._options;
 		return new DDiagramCanvas({
 			name: serialized.name,
 			width: serialized.width,
@@ -180,7 +181,8 @@ export class DDiagram<
 			tile: {
 				factory: this._tileFactory,
 				mapping: serialized.tile && serialized.tile.mapping
-			}
+			},
+			tag: options && options.tag
 		});
 	}
 

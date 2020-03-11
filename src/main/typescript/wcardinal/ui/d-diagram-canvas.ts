@@ -13,21 +13,30 @@ import { EShapeBase } from "./shape/variant/e-shape-base";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
+export type DDiagramCanvasTagMapper = ( tag: string ) => string | null;
+
+export interface DDiagramCanvasTagOptions {
+	mapper?: DDiagramCanvasTagMapper;
+}
+
 export interface DDiagramCanvasOptions<
 	THEME extends DThemeDiagramCanvas = DThemeDiagramCanvas
 > extends DDiagramCanvasBaseOptions<THEME> {
-
+	tag?: DDiagramCanvasTagOptions;
 }
 
 export interface DThemeDiagramCanvas extends DThemeDiagramCanvasBase {
 
 }
 
+const defaultTagMapper = ( tag: string ) => tag;
+
 export class DDiagramCanvas<
 	THEME extends DThemeDiagramCanvas = DThemeDiagramCanvas,
 	OPTIONS extends DDiagramCanvasOptions<THEME> = DDiagramCanvasOptions<THEME>
 > extends DDiagramCanvasBase<THEME, OPTIONS> {
 	tags: DDiagramCanvasTagMap;
+	tagMapper: DDiagramCanvasTagMapper;
 	interactives: EShape[];
 	actionables: EShape[];
 	ids: DDiagramCanvasIdMap;
@@ -39,6 +48,7 @@ export class DDiagramCanvas<
 	constructor( options: OPTIONS ) {
 		super( options );
 		this.tags = {};
+		this.tagMapper = (options.tag && options.tag.mapper) || defaultTagMapper;
 		this.interactives = [];
 		this.actionables = [];
 		this.ids = {};
@@ -50,13 +60,14 @@ export class DDiagramCanvas<
 	initialize(): void {
 		const time = Date.now();
 		const tags = this.tags;
+		const tagMapper = this.tagMapper;
 		const interactives = this.interactives;
 		const actionables = this.actionables;
 		const ids = this.ids;
 		const layers = this._layer.children;
 
 		for( let i = 0, imax = layers.length; i < imax; ++i ) {
-			this.initializeShapes( layers[ i ].children, tags, interactives, actionables, ids );
+			this.initializeShapes( layers[ i ].children, tags, tagMapper, interactives, actionables, ids );
 		}
 
 		for( let i = 0, imax = layers.length; i < imax; ++i ) {
@@ -78,7 +89,7 @@ export class DDiagramCanvas<
 	}
 
 	protected initializeShapes(
-		shapes: EShape[], tags: DDiagramCanvasTagMap,
+		shapes: EShape[], tags: DDiagramCanvasTagMap, tagMapper: DDiagramCanvasTagMapper,
 		interactives: EShape[], actionables: EShape[],
 		ids: DDiagramCanvasIdMap
 	): void {
@@ -92,12 +103,15 @@ export class DDiagramCanvas<
 				if( value ) {
 					const valueId = value.id;
 					if( 0 < valueId.length ) {
-						let values = tags[ valueId ];
-						if( values == null ) {
-							values = [];
-							tags[ valueId ] = values;
+						const mappedValueId = tagMapper( valueId );
+						if( mappedValueId != null ) {
+							let values = tags[ mappedValueId ];
+							if( values == null ) {
+								values = [];
+								tags[ mappedValueId ] = values;
+							}
+							values.push( value );
 						}
-						values.push( value );
 					}
 				}
 			}
@@ -135,7 +149,7 @@ export class DDiagramCanvas<
 			// Children
 			const children = shape.children;
 			if( 0 < children.length ) {
-				this.initializeShapes( children, tags, interactives, actionables, ids );
+				this.initializeShapes( children, tags, tagMapper, interactives, actionables, ids );
 			}
 		}
 	}
