@@ -422,7 +422,7 @@ export class DTableBody<
 								if( 0 <= dx && dx <= cell.width ) {
 									cell.focus();
 									if( cell instanceof DButtonBase ) {
-										cell.click( e );
+										cell.onClick( e );
 									}
 									result = true;
 								}
