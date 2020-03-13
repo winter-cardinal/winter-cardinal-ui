@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DThemeButton } from "../../d-button";
 import { DThemeDarkButtonBase } from "./d-theme-dark-button-base";
 
-export class DThemeDarkButton extends DThemeDarkButtonBase implements DThemeDarkButton {
+export class DThemeDarkButton extends DThemeDarkButtonBase implements DThemeButton {
 
 }

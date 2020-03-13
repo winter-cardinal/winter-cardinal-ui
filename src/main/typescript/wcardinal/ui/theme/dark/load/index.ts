@@ -17,6 +17,7 @@ export * from "./load-theme-dark-button-danger";
 export * from "./load-theme-dark-button-date";
 export * from "./load-theme-dark-button-datetime";
 export * from "./load-theme-dark-button-file";
+export * from "./load-theme-dark-button-link";
 export * from "./load-theme-dark-button-primary";
 export * from "./load-theme-dark-button-radio";
 export * from "./load-theme-dark-button-radio-right";

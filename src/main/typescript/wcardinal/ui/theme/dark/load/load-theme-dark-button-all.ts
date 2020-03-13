@@ -13,6 +13,7 @@ import { loadThemeDarkButtonDanger } from "./load-theme-dark-button-danger";
 import { loadThemeDarkButtonDate } from "./load-theme-dark-button-date";
 import { loadThemeDarkButtonDatetime } from "./load-theme-dark-button-datetime";
 import { loadThemeDarkButtonFile } from "./load-theme-dark-button-file";
+import { loadThemeDarkButtonLink } from "./load-theme-dark-button-link";
 import { loadThemeDarkButtonPrimary } from "./load-theme-dark-button-primary";
 import { loadThemeDarkButtonRadio } from "./load-theme-dark-button-radio";
 import { loadThemeDarkButtonRadioRight } from "./load-theme-dark-button-radio-right";
@@ -31,6 +32,7 @@ export const loadThemeDarkButtonAll = () => {
 	loadThemeDarkButtonDate();
 	loadThemeDarkButtonDatetime();
 	loadThemeDarkButtonFile();
+	loadThemeDarkButtonLink();
 	loadThemeDarkButtonPrimary();
 	loadThemeDarkButtonRadio();
 	loadThemeDarkButtonRadioRight();

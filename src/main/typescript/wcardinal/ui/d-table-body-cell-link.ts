@@ -5,7 +5,7 @@
 
 import { interaction } from "pixi.js";
 import { DBaseState } from "./d-base-state";
-import { DLink, DLinkChecker, DLinkOptions, DLinkUrlMaker } from "./d-link";
+import { DLink, DLinkChecker, DLinkOptions, DLinkUrlMaker, DThemeLink } from "./d-link";
 import { DLinkMenuItemId } from "./d-link-menu-item-id";
 import { DLinkTarget } from "./d-link-target";
 import { DMenu, DMenuOptions } from "./d-menu";
@@ -36,8 +36,8 @@ export interface DTableBodyCellLinkOptions<
 	link?: DTableBodyCellLinkLinkOptions<ROW>;
 }
 
-export interface DThemeTableBodyCellLink extends DThemeTableBodyCellButton {
-	getMenuOptions(): DMenuOptions<DLinkMenuItemId>;
+export interface DThemeTableBodyCellLink extends DThemeTableBodyCellButton, DThemeLink {
+
 }
 
 export class DTableBodyCellLink<

@@ -50,6 +50,7 @@ export * from "./d-button-date";
 export * from "./d-button-datetime";
 export * from "./d-button-file";
 export * from "./d-button-group";
+export * from "./d-button-link";
 export * from "./d-button-primary";
 export * from "./d-button-radio-right";
 export * from "./d-button-radio";

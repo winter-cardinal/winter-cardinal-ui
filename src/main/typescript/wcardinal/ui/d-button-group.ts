@@ -70,7 +70,7 @@ export class DButtonGroup extends utils.EventEmitter {
 			for( let i = 0, imax = buttons.length; i < imax; ++i ) {
 				const button = buttons[ i ];
 				if( button !== active && button.isToggle() && button.isActive() ) {
-					button.onClick();
+					button.toggle();
 				}
 			}
 		}

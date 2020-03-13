@@ -18,6 +18,7 @@ export * from "./d-theme-dark-button-danger";
 export * from "./d-theme-dark-button-date";
 export * from "./d-theme-dark-button-datetime";
 export * from "./d-theme-dark-button-file";
+export * from "./d-theme-dark-button-link";
 export * from "./d-theme-dark-button-primary";
 export * from "./d-theme-dark-button-radio";
 export * from "./d-theme-dark-button-radio-right";

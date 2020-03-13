@@ -39,7 +39,7 @@ export class DThemeWhiteMenuItemLink extends DThemeWhiteMenuItemText implements 
 		return DAlignHorizontal.RIGHT;
 	}
 
-	getMenuOptions(): DMenuOptions<DLinkMenuItemId> {
-		return DThemeWhiteLinks.getMenuOptions();
+	getLinkMenuOptions(): DMenuOptions<DLinkMenuItemId> {
+		return DThemeWhiteLinks.getLinkMenuOptions();
 	}
 }

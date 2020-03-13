@@ -16,6 +16,7 @@ export * from "./load-theme-white-button-danger";
 export * from "./load-theme-white-button-date";
 export * from "./load-theme-white-button-datetime";
 export * from "./load-theme-white-button-file";
+export * from "./load-theme-white-button-link";
 export * from "./load-theme-white-button-primary";
 export * from "./load-theme-white-button-radio-right";
 export * from "./load-theme-white-button-radio";

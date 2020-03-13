@@ -39,7 +39,7 @@ export class DThemeDarkMenuItemLink extends DThemeDarkMenuItemText implements DT
 		return DAlignHorizontal.RIGHT;
 	}
 
-	getMenuOptions(): DMenuOptions<DLinkMenuItemId> {
-		return DThemeDarkLinks.getMenuOptions();
+	getLinkMenuOptions(): DMenuOptions<DLinkMenuItemId> {
+		return DThemeDarkLinks.getLinkMenuOptions();
 	}
 }

@@ -26,7 +26,7 @@ export interface DLinkOptions {
 }
 
 export interface DThemeLink {
-	getMenuOptions(): DMenuOptions<DLinkMenuItemId>;
+	getLinkMenuOptions(): DMenuOptions<DLinkMenuItemId>;
 }
 
 export class DLink {
@@ -65,7 +65,7 @@ export class DLink {
 	get menu(): DMenu<DLinkMenuItemId> {
 		let menu = this._menu;
 		if( menu == null ) {
-			const options = this._menuOptions || this._theme.getMenuOptions();
+			const options = this._menuOptions || this._theme.getLinkMenuOptions();
 			menu = this.toMenu( options );
 			this._menu = menu;
 			menu.on( "select", (
@@ -195,7 +195,7 @@ export class DLink {
 		}
 	}
 
-	inNewWindow( e: KeyboardEvent | interaction.InteractionEvent ): boolean {
+	inNewWindow( e: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): boolean {
 		if( this._target === DLinkTarget.NEW_WINDOW ) {
 			return true;
 		} else {

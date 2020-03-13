@@ -13,6 +13,7 @@ import { loadThemeWhiteButtonDanger } from "./load-theme-white-button-danger";
 import { loadThemeWhiteButtonDate } from "./load-theme-white-button-date";
 import { loadThemeWhiteButtonDatetime } from "./load-theme-white-button-datetime";
 import { loadThemeWhiteButtonFile } from "./load-theme-white-button-file";
+import { loadThemeWhiteButtonLink } from "./load-theme-white-button-link";
 import { loadThemeWhiteButtonPrimary } from "./load-theme-white-button-primary";
 import { loadThemeWhiteButtonRadio } from "./load-theme-white-button-radio";
 import { loadThemeWhiteButtonRadioRight } from "./load-theme-white-button-radio-right";
@@ -31,6 +32,7 @@ export const loadThemeWhiteButtonAll = () => {
 	loadThemeWhiteButtonDate();
 	loadThemeWhiteButtonDatetime();
 	loadThemeWhiteButtonFile();
+	loadThemeWhiteButtonLink();
 	loadThemeWhiteButtonPrimary();
 	loadThemeWhiteButtonRadioRight();
 	loadThemeWhiteButtonRadio();

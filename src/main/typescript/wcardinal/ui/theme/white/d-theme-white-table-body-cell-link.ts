@@ -25,7 +25,7 @@ export class DThemeWhiteTableBodyCellLink extends DThemeWhiteTableBodyCellButton
 		return DThemeWhiteLinks.getImageSource( state );
 	}
 
-	getMenuOptions(): DMenuOptions<DLinkMenuItemId> {
-		return DThemeWhiteLinks.getMenuOptions();
+	getLinkMenuOptions(): DMenuOptions<DLinkMenuItemId> {
+		return DThemeWhiteLinks.getLinkMenuOptions();
 	}
 }

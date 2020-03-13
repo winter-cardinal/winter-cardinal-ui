@@ -17,6 +17,7 @@ export * from "./d-theme-white-button-danger";
 export * from "./d-theme-white-button-date";
 export * from "./d-theme-white-button-datetime";
 export * from "./d-theme-white-button-file";
+export * from "./d-theme-white-button-link";
 export * from "./d-theme-white-button-primary";
 export * from "./d-theme-white-button-radio-right";
 export * from "./d-theme-white-button-radio";

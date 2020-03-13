@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Container } from "pixi.js";
+import { interaction } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBaseStates } from "./d-base-states";
 import { DButtonGroup } from "./d-button-group";
@@ -73,54 +73,60 @@ export class DButtonBase<
 	OPTIONS extends DButtonBaseOptions<VALUE, THEME> = DButtonBaseOptions<VALUE, THEME>
 > extends DImageBase<VALUE, THEME, OPTIONS> {
 	protected _isToggle!: boolean;
-	protected _onActiveUpBound!: () => void;
-	protected _onActiveUpBoundTarget!: Container | null;
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
 
 		this.buttonMode = true;
 		this._isToggle = isToggle( this.theme, options );
-		this._onActiveUpBound = (): void => {
-			this.setPressed( false );
-			const target = this._onActiveUpBoundTarget;
-			if( target != null ) {
-				target.off( UtilPointerEvent.up, this._onActiveUpBound );
-			}
-		};
-		this._onActiveUpBoundTarget = null;
-		this.setActiveHandlers();
+
+		// Event handlers
+		this.initOnClick( options );
+		if( ! this._isToggle ) {
+			this.initOnPress( options );
+		}
 
 		// Group
-		if( options != null && options.group != null ) {
-			options.group.add( this );
+		const group = options && options.group;
+		if( group ) {
+			group.add( this );
 		}
 	}
 
 	protected onShortcut( e: KeyboardEvent ): void {
 		super.onShortcut( e );
-		this.onClick();
+		this.onClick( e );
 	}
 
 	isToggle(): boolean {
 		return this._isToggle;
 	}
 
-	protected setActiveHandlers(): void {
-		UtilPointerEvent.onClick( this, (): void => {
-			this.onClick();
+	protected initOnClick( options?: OPTIONS ): void {
+		UtilPointerEvent.onClick( this, ( e: interaction.InteractionEvent ): void => {
+			this.onClick( e );
 		});
+	}
 
-		if( ! this.isToggle() ) {
-			this.on( UtilPointerEvent.down, (): void => {
-				this.setPressed( true );
-				const layer = DApplications.getLayer( this );
-				if( layer ) {
-					const target = this._onActiveUpBoundTarget = layer.stage;
-					target.on( UtilPointerEvent.up, this._onActiveUpBound );
-				}
-			});
-		}
+	protected initOnPress( options?: OPTIONS ): void {
+		let interactionManager: interaction.InteractionManager | null = null;
+
+		const onUp = (): void => {
+			this.setPressed( false );
+			if( interactionManager != null ) {
+				interactionManager.off( UtilPointerEvent.up, onUp );
+				interactionManager = null;
+			}
+		};
+
+		this.on( UtilPointerEvent.down, (): void => {
+			this.setPressed( true );
+			const layer = DApplications.getLayer( this );
+			if( layer ) {
+				interactionManager = layer.renderer.plugins.interaction;
+				interactionManager.on( UtilPointerEvent.up, onUp );
+			}
+		});
 	}
 
 	protected onStateChange( newState: number, oldState: number ): void {
@@ -132,13 +138,26 @@ export class DButtonBase<
 		return "DButton";
 	}
 
-	onClick(): void {
+	onClick( e: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
 		if( this.isActionable() ) {
 			if( this.isToggle() ) {
 				this.onToggleStart();
 				this.onToggleEnd();
 			} else {
-				this.emit( "active", this );
+				this.onActivate( e );
+			}
+		}
+	}
+
+	protected onActivate( e: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
+		this.emit( "active", this );
+	}
+
+	toggle(): void {
+		if( this.isActionable() ) {
+			if( this.isToggle() ) {
+				this.onToggleStart();
+				this.onToggleEnd();
 			}
 		}
 	}
@@ -151,7 +170,7 @@ export class DButtonBase<
 		this.emit( this.isActive() ? "active" : "inactive", this );
 	}
 
-	protected onActivateKeyDown(): void {
+	protected onActivateKeyDown( e: KeyboardEvent ): void {
 		if( this.isActionable() ) {
 			if( this.isToggle() ) {
 				this.onToggleStart();
@@ -161,13 +180,13 @@ export class DButtonBase<
 		}
 	}
 
-	protected onActivateKeyUp(): void {
+	protected onActivateKeyUp( e: KeyboardEvent ): void {
 		if( this.isActionable() ) {
 			if( this.isToggle() ) {
 				this.onToggleEnd();
 			} else {
 				if( this.isPressed() ) {
-					this.emit( "active", this );
+					this.onActivate( e );
 				}
 				this.setPressed( false );
 			}
@@ -176,7 +195,7 @@ export class DButtonBase<
 
 	onKeyDown( e: KeyboardEvent ): boolean {
 		if( UtilKeyboardEvent.isActivateKey( e ) ) {
-			this.onActivateKeyDown();
+			this.onActivateKeyDown( e );
 		}
 
 		return super.onKeyDown( e );
@@ -184,7 +203,7 @@ export class DButtonBase<
 
 	onKeyUp( e: KeyboardEvent ): boolean {
 		if( UtilKeyboardEvent.isActivateKey( e ) ) {
-			this.onActivateKeyUp();
+			this.onActivateKeyUp( e );
 		}
 
 		return super.onKeyUp( e );

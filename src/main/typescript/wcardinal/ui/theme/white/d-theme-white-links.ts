@@ -18,7 +18,7 @@ export class DThemeWhiteLinks {
 		return DThemeWhiteAtlas.mappings.link_mark;
 	}
 
-	static getMenuOptions(): DMenuOptions<DLinkMenuItemId> {
+	static getLinkMenuOptions(): DMenuOptions<DLinkMenuItemId> {
 		return {
 			sticky: true,
 			align: "RIGHT",

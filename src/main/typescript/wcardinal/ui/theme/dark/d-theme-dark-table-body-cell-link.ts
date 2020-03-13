@@ -25,7 +25,7 @@ export class DThemeDarkTableBodyCellLink extends DThemeDarkTableBodyCellButton
 		return DThemeDarkLinks.getImageSource( state );
 	}
 
-	getMenuOptions(): DMenuOptions<DLinkMenuItemId> {
-		return DThemeDarkLinks.getMenuOptions();
+	getLinkMenuOptions(): DMenuOptions<DLinkMenuItemId> {
+		return DThemeDarkLinks.getLinkMenuOptions();
 	}
 }
