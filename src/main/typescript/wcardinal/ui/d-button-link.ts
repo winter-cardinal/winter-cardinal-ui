@@ -33,7 +33,7 @@ export class DButtonLink<
 		});
 	}
 
-	protected onActivate( e: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
+	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
 		super.onActivate( e );
 		this.open( this._link.inNewWindow( e ) );
 	}

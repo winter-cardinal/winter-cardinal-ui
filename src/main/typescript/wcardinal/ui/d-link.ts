@@ -195,15 +195,17 @@ export class DLink {
 		}
 	}
 
-	inNewWindow( e: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): boolean {
+	inNewWindow( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): boolean {
 		if( this._target === DLinkTarget.NEW_WINDOW ) {
 			return true;
-		} else {
+		} else if( e != null ) {
 			const oe = ( e instanceof interaction.InteractionEvent ? e.data.originalEvent : e );
 			return (
 				( oe.ctrlKey || oe.shiftKey || oe.altKey || oe.metaKey ) ||
 				( "button" in oe && oe.button !== 0 )
 			);
+		} else {
+			return false;
 		}
 	}
 }

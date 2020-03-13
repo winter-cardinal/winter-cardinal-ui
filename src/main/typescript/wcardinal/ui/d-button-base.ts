@@ -138,7 +138,11 @@ export class DButtonBase<
 		return "DButton";
 	}
 
-	onClick( e: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
+	click( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
+		this.onClick( e );
+	}
+
+	protected onClick( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
 		if( this.isActionable() ) {
 			if( this.isToggle() ) {
 				this.onToggleStart();
@@ -149,7 +153,7 @@ export class DButtonBase<
 		}
 	}
 
-	protected onActivate( e: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
+	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
 		this.emit( "active", this );
 	}
 
