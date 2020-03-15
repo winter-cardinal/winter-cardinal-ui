@@ -91,6 +91,12 @@ export class DChartPlotArea<
 		}
 	}
 
+	onResize( newWidth: number, newHeight: number, oldWidth: number, oldHeight: number ): void {
+		this._isViewDirty = true;
+		this._isBoundsInContainerDirty = true;
+		super.onResize( newWidth, newHeight, oldWidth, oldHeight );
+	}
+
 	protected getOrCreateOverflowMask(): DBaseOverflowMask {
 		if( this._overflowMask == null ) {
 			this._overflowMask = new DBaseOverflowMask( this );
