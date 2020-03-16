@@ -71,6 +71,7 @@ export class DPagination<
 			const widthOfNavigationBtns = numberNavigationBtn * ( this.getButtonWidth() + this._margin.horizontal * 2 );
 			const numberVisible =
 				this.toNumberVisible( this.width -  widthOfNavigationBtns);
+			this.update( numberVisible );
 		});
 
 	}
@@ -139,6 +140,57 @@ export class DPagination<
 		}
 		this.addChild( nextBtn );
 		this.addChild( goLastBtn );
+	}
+
+	protected update( numnerVisible: number ) {
+		const numberDynamicBtn = numnerVisible - 2; // dynamic button not include first and last page button.
+		if( numberDynamicBtn > 0 ) {
+			let numberDynamicInLeft = 0; // number of dynamic button in the left of selected
+			let numberDynamicInRight = 0; // // number of dynamic button in the right of selected
+			let startDynamic: number;
+			let endDynamic: number;
+			let dotsLeft: boolean;
+			let dotsRight: boolean;
+
+			if ( this._selected <= Math.ceil( (numberDynamicBtn - 1) * 0.5 ) ) {
+				numberDynamicInLeft = this._selected;
+				numberDynamicInRight = numberDynamicBtn - numberDynamicInLeft - 1;
+			} else if ( ( this._total - this._selected - 1 <= Math.floor( (numberDynamicBtn - 1) * 0.5 ) )) {
+				numberDynamicInRight = this._total - this._selected - 1;
+				numberDynamicInLeft = numberDynamicBtn - numberDynamicInLeft - 1;
+			} else {
+				numberDynamicInLeft = Math.ceil( (numberDynamicBtn - 1) * 0.5 );
+				numberDynamicInRight = numberDynamicBtn - numberDynamicInLeft - 1;
+			}
+			if(this._selected - numberDynamicInLeft <= 1) {
+				startDynamic = 1;
+				dotsLeft = false;
+			} else {
+				startDynamic = this._selected - numberDynamicInLeft + 1;
+				dotsLeft = true;
+			}
+
+			if(this._selected + numberDynamicInRight >= this._total - 1) {
+				endDynamic = this._total - 2;
+				dotsRight = false;
+			} else {
+				endDynamic = this._selected + numberDynamicInRight - 1;
+				dotsRight = true;
+			}
+			this._dynamicPageBtns.update( {
+				start: startDynamic,
+				end: endDynamic,
+				selected: this._selected,
+				button: {
+					width: this.getButtonWidth(),
+					dotsLeft,
+					dotsRight
+				}
+			} );
+		}
+
+		this._firstPageBtn.setActive( this._selected === 0 );
+		this._lastPageBtn.setActive( this._selected === this._total - 1 );
 	}
 
 	protected getButtonWidth() {
