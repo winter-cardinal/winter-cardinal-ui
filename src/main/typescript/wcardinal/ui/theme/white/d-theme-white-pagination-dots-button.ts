@@ -3,9 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DAlignVertical } from "../../d-align-vertical";
 import { DBaseState } from "../../d-base-state";
-import { DThemePaginationDotsButton } from "../../d-pagination-Dots-button";
+import { DThemePaginationDotsButton } from "../../d-pagination-dots-button";
 import { DThemeWhiteButtonAmbient } from "./d-theme-white-button-ambient";
 
 export class DThemeWhitePaginationDotsButton
@@ -19,19 +18,8 @@ export class DThemeWhitePaginationDotsButton
 		return null;
 	}
 
-	getWidth() {
-		return 30;
-	}
-
-	getHeight() {
-		return 30;
-	}
-
 	newTextValue(): any {
 		return "...";
 	}
 
-	getTextAlignVertical(): DAlignVertical {
-		return DAlignVertical.MIDDLE;
-	}
 }

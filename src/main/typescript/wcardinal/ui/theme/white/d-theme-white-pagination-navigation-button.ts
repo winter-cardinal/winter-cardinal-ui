@@ -35,11 +35,4 @@ DThemeWhiteAtlas.add( "pagination_navigation_button_go_last", 21, 21,
 export class DThemeWhitePaginationNavigationButton
 			extends DThemeWhiteButtonAmbient implements DThemePaginationNavigationButton {
 
-	getWidth() {
-		return 30;
-	}
-
-	getHeight() {
-		return 30;
-	}
 }

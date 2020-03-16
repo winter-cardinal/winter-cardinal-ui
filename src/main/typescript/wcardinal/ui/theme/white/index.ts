@@ -121,6 +121,8 @@ export * from "./d-theme-white-menu";
 export * from "./d-theme-white-note";
 export * from "./d-theme-white-pagination";
 export * from "./d-theme-white-pagination-navigation-button";
+export * from "./d-theme-white-pagination-dynamic-buttons";
+export * from "./d-theme-white-pagination-dots-button";
 export * from "./d-theme-white-pane";
 export * from "./d-theme-white-picker-color-gradient";
 export * from "./d-theme-white-picker-color";
