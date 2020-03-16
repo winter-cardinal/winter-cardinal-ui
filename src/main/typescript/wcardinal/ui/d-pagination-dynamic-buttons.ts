@@ -47,8 +47,6 @@ export class DPaginationDynamicButtons<
 		if( options.start == null || options.end == null ) {
 			return;
 		}
-		this._dotsBtnLeft.visible = !!options.button.dotsLeft;
-		this._dotsBtnRight.visible = !!options.button.dotsRight;
 		let pageButtons = ( this.children as DButton[] ).slice( 1, this.children.length - 1 );
 		if( pageButtons.length < options.end - options.start + 1 ) {
 			for ( let i = pageButtons.length; i < options.end - options.start + 1; i++ ) {
@@ -68,6 +66,7 @@ export class DPaginationDynamicButtons<
 				pageButtons[ i ].hide();
 			}
 		}
+		// update button text and active state
 		for ( let i = 0; i < options.end - options.start + 1; i++ ) {
 			const btn = pageButtons[ i ];
 			btn.text = options.start + i + 1;
@@ -75,6 +74,18 @@ export class DPaginationDynamicButtons<
 			if( btn.isHidden() ) {
 				btn.show();
 			}
+		}
+
+		// update visible state of dots buttons
+		if( !!options.button.dotsLeft ) {
+			this._dotsBtnLeft.show();
+		} else {
+			this._dotsBtnLeft.hide();
+		}
+		if( !!options.button.dotsRight ) {
+			this._dotsBtnRight.show();
+		} else {
+			this._dotsBtnRight.hide();
 		}
 	}
 	protected getType(): string {

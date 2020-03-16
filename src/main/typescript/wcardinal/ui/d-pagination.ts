@@ -166,51 +166,55 @@ export class DPagination<
 	}
 
 	protected update() {
-		const numberDynamicBtn = this._numberPageButtonVisible - 2; // dynamic button not include first and last page button.
-		if( numberDynamicBtn > 0 ) {
-			let numberDynamicInLeft = 0; // number of dynamic button in the left of selected
-			let numberDynamicInRight = 0; // // number of dynamic button in the right of selected
-			let startDynamic: number;
-			let endDynamic: number;
-			let dotsLeft: boolean;
-			let dotsRight: boolean;
+		let startDynamic: number;
+		let endDynamic: number;
+		let dotsLeft: boolean;
+		let dotsRight: boolean;
+		let numberButtonsInLeft = 0;
+		let numberButtonsInRight = 0;
 
-			if ( this._selected <= Math.ceil( (numberDynamicBtn - 1) * 0.5 ) ) {
-				numberDynamicInLeft = this._selected;
-				numberDynamicInRight = numberDynamicBtn - numberDynamicInLeft - 1;
-			} else if ( ( this._total - this._selected - 1 <= Math.floor( (numberDynamicBtn - 1) * 0.5 ) )) {
-				numberDynamicInRight = this._total - this._selected - 1;
-				numberDynamicInLeft = numberDynamicBtn - numberDynamicInLeft - 1;
-			} else {
-				numberDynamicInLeft = Math.ceil( (numberDynamicBtn - 1) * 0.5 );
-				numberDynamicInRight = numberDynamicBtn - numberDynamicInLeft - 1;
-			}
-			if(this._selected - numberDynamicInLeft <= 1) {
-				startDynamic = 1;
-				dotsLeft = false;
-			} else {
-				startDynamic = this._selected - numberDynamicInLeft + 1;
-				dotsLeft = true;
-			}
+		// Number displayed buttons from first button to selected button when select center button of all buttons.
+		// Not including selected button.
+		const numberButtonsFirstToCenter = Math.ceil( ( this._numberPageButtonVisible  - 1 ) * 0.5 );
+		const numberButtonsCenterToEnd = Math.floor( ( this._numberPageButtonVisible  - 1 ) * 0.5 );
 
-			if(this._selected + numberDynamicInRight >= this._total - 1) {
-				endDynamic = this._total - 2;
-				dotsRight = false;
-			} else {
-				endDynamic = this._selected + numberDynamicInRight - 1;
-				dotsRight = true;
-			}
-			this._dynamicPageBtns.update( {
-				start: startDynamic,
-				end: endDynamic,
-				selected: this._selected,
-				button: {
-					width: this.getButtonWidth(),
-					dotsLeft,
-					dotsRight
-				}
-			} );
+		if( this._selected < numberButtonsFirstToCenter ) {
+			numberButtonsInLeft =  this._selected;
+			numberButtonsInRight = this._numberPageButtonVisible - numberButtonsInLeft - 1;
+		} else if ( this._selected + numberButtonsCenterToEnd > this._total - 1 ) {
+			numberButtonsInRight = ( this._total - 1 ) - this.selected;
+			numberButtonsInLeft = this._numberPageButtonVisible - numberButtonsInRight - 1;
+		} else {
+			numberButtonsInLeft = numberButtonsFirstToCenter;
+			numberButtonsInRight = numberButtonsCenterToEnd;
 		}
+
+		if( this._selected <= numberButtonsInLeft ) {
+			startDynamic  = 1;
+			dotsLeft = false;
+		} else {
+			startDynamic = this._selected - numberButtonsInLeft + 2;
+			dotsLeft = true;
+		}
+
+		if( this._selected + numberButtonsInRight >= this._total - 1 ) {
+			endDynamic = this._total - 2;
+			dotsRight = false;
+		} else {
+			endDynamic = this._selected + numberButtonsInRight - 2;
+			dotsRight = true;
+		}
+
+		this._dynamicPageBtns.update({
+			start: startDynamic,
+			end: endDynamic,
+			selected: this._selected,
+			button: {
+				width: this.getButtonWidth(),
+				dotsLeft,
+				dotsRight
+			}
+		});
 
 		this._firstPageBtn.setActive( this._selected === 0 );
 		this._lastPageBtn.setActive( this._selected === this._total - 1 );
@@ -234,7 +238,6 @@ export class DPagination<
 			this._selected = btnIndex;
 			this.update();
 		}
-
 	}
 
 	protected getType(): string {
