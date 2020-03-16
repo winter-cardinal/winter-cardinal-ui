@@ -43,6 +43,11 @@ export class DPagination<
 	protected _lastPageBtn!: DButton;
 	protected _dynamicPageBtns!: DPaginationDynamicButtons;
 
+	protected _previousBtn!: DPaginationNavigationButton;
+	protected _nextBtn!: DPaginationNavigationButton;
+	protected _goFirstBtn!: DPaginationNavigationButton;
+	protected _goLastBtn!: DPaginationNavigationButton;
+
 	protected init( options: OPTIONS ) {
 		super.init( options );
 		this.DEFAULT_SELECTED = 0; // set default selected index page is page 0
@@ -58,6 +63,7 @@ export class DPagination<
 		};
 
 		this.initButtons( this.getButtonWidth() );
+		this.listenButtonClicked();
 
 		let numberNavigationBtn = 2;
 		if( this._buttonOptions.first ) {
@@ -90,7 +96,7 @@ export class DPagination<
 	}
 
 	protected initButtons( width: number ) {
-		const previousBtn = new DPaginationNavigationButton({
+		this._previousBtn = new DPaginationNavigationButton({
 			width,
 			image: {
 				source: DThemes.getInstance().getAtlas().mappings.pagination_navigation_button_previous
@@ -98,7 +104,7 @@ export class DPagination<
 			}
 		});
 
-		const nextBtn = new DPaginationNavigationButton({
+		this._nextBtn = new DPaginationNavigationButton({
 			width,
 			image: {
 				source: DThemes.getInstance().getAtlas().mappings.pagination_navigation_button_next
@@ -106,7 +112,7 @@ export class DPagination<
 			}
 		});
 
-		const goFirstBtn = new DPaginationNavigationButton({
+		this._goFirstBtn = new DPaginationNavigationButton({
 			width,
 			image: {
 				source: DThemes.getInstance().getAtlas().mappings.pagination_navigation_button_go_first
@@ -115,7 +121,7 @@ export class DPagination<
 			visible: this._buttonOptions.first
 		});
 
-		const goLastBtn = new DPaginationNavigationButton({
+		this._goLastBtn = new DPaginationNavigationButton({
 			width,
 			image: {
 				source: DThemes.getInstance().getAtlas().mappings.pagination_navigation_button_go_last
@@ -130,8 +136,8 @@ export class DPagination<
 			}
 		});
 
-		this.addChild( goFirstBtn );
-		this.addChild( previousBtn );
+		this.addChild( this._goFirstBtn );
+		this.addChild( this._previousBtn );
 		if(this._total > 0) {
 			this._firstPageBtn = new DButton({
 				width,
@@ -151,9 +157,11 @@ export class DPagination<
 			});
 			this.addChild( this._lastPageBtn );
 		}
-		this.addChild( nextBtn );
-		this.addChild( goLastBtn );
+		this.addChild( this._nextBtn );
+		this.addChild( this._goLastBtn );
+	}
 
+	protected listenButtonClicked() {
 		this._firstPageBtn.on( "active", ( btn: DButton ) => {
 			this.onClickPageButton( btn );
 		});
@@ -162,7 +170,23 @@ export class DPagination<
 		});
 		this._dynamicPageBtns.on( "active", ( btn: DButton ) => {
 			this.onClickPageButton( btn );
-		}) ;
+		});
+		this._goFirstBtn.on( "active", (btn: DButton) => {
+			this.selected = this.DEFAULT_SELECTED;
+		});
+		this._goLastBtn.on( "active", (btn: DButton) => {
+			this.selected = this._total - 1;
+		});
+		this._nextBtn.on( "active", (btn: DButton) => {
+			if( this.selected !== this._total + 1 ) {
+				this.selected = this._selected + 1;
+			}
+		});
+		this._previousBtn.on( "active", (btn: DButton) => {
+			if( this._selected !== 0 ) {
+				this.selected = this._selected - 1;
+			}
+		});
 	}
 
 	protected update() {
@@ -218,6 +242,10 @@ export class DPagination<
 
 		this._firstPageBtn.setActive( this._selected === 0 );
 		this._lastPageBtn.setActive( this._selected === this._total - 1 );
+		this._goFirstBtn.setDisabled( this._selected === this.DEFAULT_SELECTED );
+		this._previousBtn.setDisabled( this._selected === this.DEFAULT_SELECTED );
+		this._nextBtn.setDisabled( this._selected === this._total - 1 );
+		this._goLastBtn.setDisabled( this._selected === this._total - 1 );
 	}
 
 	protected getButtonWidth() {
