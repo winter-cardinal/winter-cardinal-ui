@@ -95,4 +95,20 @@ export class DChartCoordinateContainerSubImpl implements DChartCoordinateContain
 		}
 		return this;
 	}
+
+	mark( from?: number, to?: number ): this {
+		const list = this._list;
+		for( let i = 0, imax = list.length; i < imax; ++i ) {
+			list[ i ].mark( from, to );
+		}
+		return this;
+	}
+
+	blend( ratio: number ): this {
+		const list = this._list;
+		for( let i = 0, imax = list.length; i < imax; ++i ) {
+			list[ i ].blend( ratio );
+		}
+		return this;
+	}
 }

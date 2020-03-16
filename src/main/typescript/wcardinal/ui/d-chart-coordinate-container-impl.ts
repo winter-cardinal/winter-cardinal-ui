@@ -60,4 +60,16 @@ export class DChartCoordinateContainerImpl implements DChartCoordinateContainer 
 		this._y.fit( rangeFrom, rangeTo );
 		return this;
 	}
+
+	mark( domainFrom?: number, domainTo?: number, rangeFrom?: number, rangeTo?: number ): this {
+		this._x.mark( domainFrom, domainTo );
+		this._y.mark( rangeFrom, rangeTo );
+		return this;
+	}
+
+	blend( ratio: number ): this {
+		this._x.blend( ratio );
+		this._y.blend( ratio );
+		return this;
+	}
 }

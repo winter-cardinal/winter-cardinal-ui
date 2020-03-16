@@ -18,4 +18,6 @@ export interface DChartCoordinateContainer {
 	plotArea: DChartPlotArea;
 
 	fit( domainFrom?: number, domainTo?: number, rangeFrom?: number, rangeTo?: number ): this;
+	mark( domainFrom?: number, domainTo?: number, rangeFrom?: number, rangeTo?: number ): this;
+	blend( ratio: number ): this;
 }

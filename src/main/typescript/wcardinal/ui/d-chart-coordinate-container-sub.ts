@@ -19,4 +19,6 @@ export interface DChartCoordinateContainerSub {
 	size(): number;
 
 	fit( from?: number, to?: number ): this;
+	mark( from?: number, to?: number ): this;
+	blend( ratio: number ): this;
 }

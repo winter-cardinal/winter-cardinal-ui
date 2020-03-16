@@ -1,5 +1,6 @@
 import { DChartCoordinateDirection } from "./d-chart-coordinate";
 import { DChartCoordinateContainerSub } from "./d-chart-coordinate-container-sub";
+import { DChartCoordinateTransformMark } from "./d-chart-coordinate-transform-mark";
 
 export interface DThemeChartCoordinateTransform {
 	/**
@@ -27,6 +28,8 @@ export interface DChartCoordinateTransform {
 	scale: number;
 
 	set( translate?: number, scale?: number ): void;
+
+	blend( ratio: number, target: DChartCoordinateTransformMark ): void;
 
 	bind( container: DChartCoordinateContainerSub, direction: DChartCoordinateDirection ): void;
 	unbind(): void;

@@ -1,6 +1,7 @@
 import { DChartCoordinateDirection } from "./d-chart-coordinate";
 import { DChartCoordinateContainerSub } from "./d-chart-coordinate-container-sub";
 import { DChartCoordinateTransform, DThemeChartCoordinateTransform } from "./d-chart-coordinate-transform";
+import { DChartCoordinateTransformMark } from "./d-chart-coordinate-transform-mark";
 
 export class DChartCoordinateTransformImpl implements DChartCoordinateTransform {
 	protected _theme: DThemeChartCoordinateTransform;
@@ -65,6 +66,13 @@ export class DChartCoordinateTransformImpl implements DChartCoordinateTransform 
 			this._iscale = ( this._theme.isZero( this._scale ) ? 0 : 1 / this._scale );
 			this._itranslate = - this._translate * this._iscale;
 		}
+	}
+
+	blend( ratio: number, mark: DChartCoordinateTransformMark ): void {
+		const ratioi = 1 - ratio;
+		const newTranslate = mark.newTranslate * ratio + mark.oldTranslate * ratioi;
+		const newScale = mark.newScale * ratio + mark.oldScale * ratioi;
+		this.set( newTranslate, newScale );
 	}
 
 	map( value: number ): number {

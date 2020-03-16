@@ -4,6 +4,7 @@
  */
 
 import { interaction, Point, Rectangle, Renderer } from "pixi.js";
+import { DAnimationTimings } from "./d-animation-timings";
 import { DApplications } from "./d-applications";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseOverflowMask } from "./d-base-overflow-mask";
@@ -48,10 +49,20 @@ export class DChartPlotArea<
 	protected _boundsInContainer!: Rectangle;
 	protected _overflowMask!: DBaseOverflowMask | null;
 	protected _workPoint!: Point;
+	protected _blendStartTime: number;
+	protected _blendDuration: number;
+	protected _blendTimeout: number | null;
+	protected _onBlendBound: () => void;
 
 	constructor( chart: DChart, options?: OPTIONS ) {
 		super( options );
 		this._chart = chart;
+		this._blendStartTime = 0;
+		this._blendDuration = 1000;
+		this._blendTimeout = null;
+		this._onBlendBound = () => {
+			this.onBlend();
+		};
 	}
 
 	protected init( options?: OPTIONS ): void {
@@ -193,5 +204,40 @@ export class DChartPlotArea<
 			result.height = work.y - result.y;
 		}
 		return result;
+	}
+
+	fit( duration?: number, domainFrom?: number, domainTo?: number, rangeFrom?: number, rangeTo?: number ): this {
+		const coordinate = this._coordinate;
+		const axis = this._axis;
+		const series = this._series;
+		if( duration != null && duration <= 0 ) {
+			coordinate.fit( domainFrom, domainTo, rangeFrom, rangeTo );
+			axis.update();
+			series.update();
+		} else {
+			this._blendDuration = duration != null ? duration : 200;
+			this._blendStartTime = Date.now();
+			coordinate.mark( domainFrom, domainTo, rangeFrom, rangeTo );
+			const blendTimeout = this._blendTimeout;
+			if( blendTimeout != null ) {
+				window.clearTimeout( blendTimeout );
+			}
+			this._blendTimeout = window.setTimeout( this._onBlendBound, 0 );
+		}
+		return this;
+	}
+
+	protected onBlend(): void {
+		const now = Date.now();
+		let ratio = (now - this._blendStartTime) / this._blendDuration;
+		if( ratio < 1 ) {
+			this._blendTimeout = window.setTimeout( this._onBlendBound, 0 );
+		} else {
+			this._blendTimeout = null;
+			ratio = 1;
+		}
+		this._coordinate.blend( DAnimationTimings.ELASTIC( ratio ) );
+		this._axis.update();
+		this._series.update();
 	}
 }

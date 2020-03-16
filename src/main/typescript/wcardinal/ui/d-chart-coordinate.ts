@@ -30,6 +30,10 @@ export interface DChartCoordinate {
 	 */
 	fit( from?: number, to?: number ): void;
 
+	mark( from?: number, to?: number ): void;
+
+	blend( ratio: number ): void;
+
 	/**
 	 * Transforms the given raw value to the untransformed value.
 	 *
