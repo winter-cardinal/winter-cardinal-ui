@@ -147,7 +147,7 @@ export class DThemeWhiteChartAxisBase implements DThemeChartAxisBase {
 	}
 
 	getMajorTickTextFormat(): string {
-		return "%ssi";
+		return "%fsi";
 	}
 
 	getMajorTickTextPaddingHorizontal(): number {
