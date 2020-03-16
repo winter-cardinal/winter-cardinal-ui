@@ -15,19 +15,54 @@
 			"use strict";
 
 			const application = new wcardinal.ui.DApplication();
-			new wcardinal.ui.DPagination({
+			const pagination = new wcardinal.ui.DPagination({
 				parent: application.stage,
 				x: 100,
 				y: 200,
 				width: "100% - 100",
 				total: 15,
-				selected: 8,
+				selected: 0,
 				button: {
 					first: true,
 					last: true,
 					width: 36
 				}
 			})
+			const inputSelected = new wcardinal.ui.DInputText()
+			new wcardinal.ui.DLayoutVertical({
+				parent: application.stage,
+				x: 100,
+				y: 400,
+				width: "100%-40",
+				children: [
+					new wcardinal.ui.DLayoutHorizontal({
+						children: [
+							new wcardinal.ui.DButtonPrimary({
+								text: {
+									value: "set selected"
+								},
+								on: {
+									active: (btn) => {
+										pagination.selected = Number(inputSelected.value)
+									}
+								}
+							}),
+							inputSelected
+						]
+					}),
+					new wcardinal.ui.DButtonPrimary({
+						text: {
+							value: "get selected"
+						},
+						on: {
+							active: (btn) => {
+								console.log(pagination.selected)
+							}
+						}
+					}),
+				]
+			});
+
 		}());
 	</script>
 </body>

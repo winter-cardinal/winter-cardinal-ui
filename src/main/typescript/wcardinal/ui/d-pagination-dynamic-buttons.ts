@@ -56,6 +56,9 @@ export class DPaginationDynamicButtons<
 					width: options.button.width
 				});
 				this.addChildAt( btn, this.children.length - 1 );
+				btn.on( "active", ( clickedBtn: DButton ) => {
+					this.emit( "active", clickedBtn );
+				});
 			}
 			// re-new "pageButtons" after add new buttons
 			pageButtons = ( this.children as DButton[]).slice( 1, this.children.length - 1 );

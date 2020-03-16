@@ -36,6 +36,7 @@ export class DPagination<
 	protected _total!: number;
 	protected _selected!: number;
 	protected _buttonOptions!: DPaginationButtonOption;
+	protected _numberPageButtonVisible!: number;
 	protected DEFAULT_SELECTED!: number;
 
 	protected _firstPageBtn!: DButton;
@@ -69,11 +70,23 @@ export class DPagination<
 		this.on( "resize",  (): void => {
 			// <width of page buttons> = <width of pagination> - <width of navigation buttons>
 			const widthOfNavigationBtns = numberNavigationBtn * ( this.getButtonWidth() + this._margin.horizontal * 2 );
-			const numberVisible =
-				this.toNumberVisible( this.width -  widthOfNavigationBtns);
-			this.update( numberVisible );
+			this._numberPageButtonVisible = this.toNumberVisible( this.width -  widthOfNavigationBtns);
+			this.update();
 		});
 
+	}
+
+	set selected( selected: number ) {
+		if( selected < 0 || selected >= this._total ) {
+			selected = this.DEFAULT_SELECTED;
+		}
+		this._selected = selected;
+		this.update();
+
+	}
+
+	get selected() {
+		return this._selected;
 	}
 
 	protected initButtons( width: number ) {
@@ -140,10 +153,20 @@ export class DPagination<
 		}
 		this.addChild( nextBtn );
 		this.addChild( goLastBtn );
+
+		this._firstPageBtn.on( "active", ( btn: DButton ) => {
+			this.onClickPageButton( btn );
+		});
+		this._lastPageBtn.on( "active", ( btn: DButton ) => {
+			this.onClickPageButton( btn );
+		});
+		this._dynamicPageBtns.on( "active", ( btn: DButton ) => {
+			this.onClickPageButton( btn );
+		}) ;
 	}
 
-	protected update( numnerVisible: number ) {
-		const numberDynamicBtn = numnerVisible - 2; // dynamic button not include first and last page button.
+	protected update() {
+		const numberDynamicBtn = this._numberPageButtonVisible - 2; // dynamic button not include first and last page button.
 		if( numberDynamicBtn > 0 ) {
 			let numberDynamicInLeft = 0; // number of dynamic button in the left of selected
 			let numberDynamicInRight = 0; // // number of dynamic button in the right of selected
@@ -203,6 +226,15 @@ export class DPagination<
 			 If total pages less than numberVisible, set numberVisible equal total pages
 		**/
 		return Math.min( this._total, Math.max( numberVisible, 5 ) );
+	}
+
+	protected onClickPageButton( btn: DButton ) {
+		const btnIndex = Number( btn.text ) - 1;
+		if( this._selected !== btnIndex ) {
+			this._selected = btnIndex;
+			this.update();
+		}
+
 	}
 
 	protected getType(): string {
