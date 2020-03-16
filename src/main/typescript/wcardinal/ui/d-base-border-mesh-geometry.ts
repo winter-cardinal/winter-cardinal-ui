@@ -166,11 +166,11 @@ export class DBaseBorderMeshGeometry extends MeshGeometry {
 	}
 
 	update(): void {
-		const texture = this._texture as any;
+		const texture = this._texture;
 		if( ! texture.valid ) {
 			return;
 		}
-		const textureId = texture._updateID;
+		const textureId: number = (texture as any)._updateID;
 		if( this._isDirty || this._textureId !== textureId ) {
 			this._isDirty = false;
 			this._textureId = textureId;
@@ -192,7 +192,7 @@ export class DBaseBorderMeshGeometry extends MeshGeometry {
 			const y2 = Math.max( height * 0.5, height - borderSize );
 			const y3 = height;
 
-			const textureUvs: TextureUvs = texture._uvs;
+			const textureUvs: TextureUvs = (texture as any)._uvs;
 
 			const l = textureUvs.x0;
 			const r = textureUvs.x1;

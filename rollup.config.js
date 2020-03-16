@@ -58,7 +58,8 @@ const TERSER_OPTIONS = {
 				'_localID',
 				'_parentID',
 				'_destroyed',
-				'_updateID'
+				'_updateID',
+				'_lastBoundsID'
 			]
 		}
 	}

@@ -79,7 +79,7 @@ export class EShapeContainer extends DisplayObject {
 		}
 		renderer.batch.setObjectRenderer( shapeRenderer );
 
-		const mask = this._mask;
+		const mask = this.mask;
 		if( mask ) {
 			renderer.mask.push( this, mask );
 			shapeRenderer.render_( this, children, isChildrenDirty );
