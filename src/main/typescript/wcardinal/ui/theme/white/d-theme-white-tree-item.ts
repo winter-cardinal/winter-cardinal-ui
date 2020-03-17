@@ -9,7 +9,7 @@ import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
-import { DThemeTreeItem } from "../../d-Tree-item";
+import { DThemeTreeItem } from "../../d-tree-item";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteLayoutHorizontal } from "./d-theme-white-layout-horizontal";
 
