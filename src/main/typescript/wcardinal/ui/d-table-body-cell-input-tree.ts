@@ -98,6 +98,7 @@ export class DTableBodyCellInputTree<
 	): void {
 		this._row = row;
 		this._rowIndex = rowIndex;
+		this._input.visible = true;
 		this._input.text = String( value );
 
 		const marker = this._marker;
@@ -107,21 +108,21 @@ export class DTableBodyCellInputTree<
 			const level = (supplimental >> 2);
 			if( hasChildren ) {
 				if( isOpened ) {
-					marker.setStates( DTableCellState.HAS_CHILDREN | DTableCellState.OPENED, DBaseState.NONE );
+					marker.setStates( DTableCellState.HAS_CHILDREN | DTableCellState.OPENED, DBaseState.DISABLED );
 				} else {
-					marker.setStates( DTableCellState.HAS_CHILDREN, DTableCellState.OPENED );
+					marker.setStates( DTableCellState.HAS_CHILDREN, DBaseState.DISABLED | DTableCellState.OPENED );
 				}
 			} else {
 				if( isOpened ) {
-					marker.setStates( DTableCellState.OPENED, DTableCellState.HAS_CHILDREN );
+					marker.setStates( DBaseState.DISABLED | DTableCellState.OPENED, DTableCellState.HAS_CHILDREN );
 				} else {
-					marker.setStates( DBaseState.NONE, DTableCellState.HAS_CHILDREN | DTableCellState.OPENED );
+					marker.setStates( DBaseState.DISABLED, DTableCellState.HAS_CHILDREN | DTableCellState.OPENED );
 				}
 			}
 			marker.show();
 			marker.width = this.theme.getLevelPadding( level );
 		} else {
-			marker.setStates( DBaseState.NONE, DTableCellState.OPENED | DTableCellState.HAS_CHILDREN );
+			marker.setStates( DBaseState.DISABLED, DTableCellState.OPENED | DTableCellState.HAS_CHILDREN );
 			marker.hide();
 		}
 
@@ -132,6 +133,8 @@ export class DTableBodyCellInputTree<
 
 	unset(): void {
 		this._row = undefined;
+		this._input.visible = false;
+		this._marker.hide();
 	}
 
 	protected getType(): string {

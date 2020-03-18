@@ -1,17 +1,13 @@
 import { utils } from "pixi.js";
 import { DTableData, DTableDataMapped, DTableDataOptions, DTableDataParent } from "./d-table-data";
 import { DTableDataFilter } from "./d-table-data-filter";
-import { DTableDataFilterImpl } from "./d-table-data-filter-impl";
+import { DTableDataFilterTree } from "./d-table-data-filter-tree";
 import { DTableDataListMapped } from "./d-table-data-list-mapped";
 import { DTableDataSelection } from "./d-table-data-selection";
 import { DTableDataSelectionImpl } from "./d-table-data-selection-impl";
 import { DTableDataSorter } from "./d-table-data-sorter";
-import { DTableDataSorterImpl } from "./d-table-data-sorter-impl";
-
-export interface DTableDataTreeItem<PARENT, CHILD> {
-	parent?: PARENT;
-	children?: CHILD[];
-}
+import { DTableDataSorterTree } from "./d-table-data-sorter-tree";
+import { DTableDataTreeItem } from "./d-table-data-tree-item";
 
 export class DTableDataTree<ROW extends DTableDataTreeItem<ROW, ROW>> extends utils.EventEmitter
 	implements DTableData<ROW> {
@@ -20,8 +16,8 @@ export class DTableDataTree<ROW extends DTableDataTreeItem<ROW, ROW>> extends ut
 	protected _rows: ROW[];
 	protected _supplimentals: number[];
 	protected _flags: WeakMap<ROW, number>;
-	protected _filter: DTableDataFilterImpl<ROW>;
-	protected _sorter: DTableDataSorterImpl<ROW>;
+	protected _filter: DTableDataFilterTree<ROW>;
+	protected _sorter: DTableDataSorterTree<ROW>;
 	protected _selection: DTableDataSelectionImpl<ROW>;
 	protected _mapped: DTableDataMapped<ROW>;
 
@@ -34,8 +30,8 @@ export class DTableDataTree<ROW extends DTableDataTreeItem<ROW, ROW>> extends ut
 		this._supplimentals = [];
 		this._flags = new WeakMap<ROW, number>();
 		this._selection = new DTableDataSelectionImpl<ROW>( this, options && options.selection );
-		this._filter = new DTableDataFilterImpl<ROW>( this );
-		this._sorter = new DTableDataSorterImpl<ROW>( this );
+		this._filter = new DTableDataFilterTree<ROW>( this );
+		this._sorter = new DTableDataSorterTree<ROW>();
 		if( options ) {
 			// Filter
 			const filter = options.filter;
@@ -162,6 +158,8 @@ export class DTableDataTree<ROW extends DTableDataTreeItem<ROW, ROW>> extends ut
 		if( ! flags.has( row ) ) {
 			flags.set( row, 1 );
 			this.updateRows( this._targets );
+			this._sorter.toDirty();
+			this._filter.toDirty();
 			this.update( true );
 		}
 	}
@@ -171,6 +169,8 @@ export class DTableDataTree<ROW extends DTableDataTreeItem<ROW, ROW>> extends ut
 		if( flags.has( row ) ) {
 			flags.delete( row );
 			this.updateRows( this._targets );
+			this._sorter.toDirty();
+			this._filter.toDirty();
 			this.update( true );
 		}
 	}
@@ -187,6 +187,8 @@ export class DTableDataTree<ROW extends DTableDataTreeItem<ROW, ROW>> extends ut
 			flags.set( row, 1 );
 		}
 		this.updateRows( this._targets );
+		this._sorter.toDirty();
+		this._filter.toDirty();
 		this.update( true );
 	}
 

@@ -43,10 +43,17 @@
 			});
 		}
 
+		// Filter
+		const input = new wcardinal.ui.DInputText({
+			parent: application.stage,
+			x: 50, y: 50,
+			width: 200
+		});
+
 		// Table
 		new wcardinal.ui.DTable({
 			parent: application.stage,
-			x: 50, y: 50,
+			x: 50, y: 100,
 			width: 600, height: 600,
 			columns: [{
 				label: "A",
@@ -75,6 +82,26 @@
 			data: new wcardinal.ui.DTableDataTree({
 				rows: rows,
 				on: {
+					init: ( self ) => {
+						const filter = {
+							word: "",
+							test( row ) {
+								return 0 <= row.a.indexOf( this.word );
+							}
+						};
+
+						input.on( "input", ( value ) => {
+							filter.word = value.trim();
+							if( 0 < filter.word.length ) {
+								self.filter.apply();
+							} else {
+								self.filter.unapply();
+							}
+						});
+
+						self.filter.set( filter );
+					},
+
 					change: ( newValue, oldValue, row, rowIndex, columnIndex, data ) => {
 						console.log( newValue, oldValue, row, rowIndex, columnIndex, data );
 					}
