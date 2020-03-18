@@ -65,25 +65,20 @@ export class DPagination<
 		this.initButtons( this.getButtonWidth() );
 		this.listenButtonClicked();
 
-		let numberNavigationBtn = 2;
-		if( this._buttonOptions.first ) {
-			numberNavigationBtn++;
-		}
-		if( this._buttonOptions.last ) {
-			numberNavigationBtn++;
-		}
-
 		this.on( "resize",  (): void => {
-			// <width of page buttons> = <width of pagination> - <width of navigation buttons>
-			const widthOfNavigationBtns = numberNavigationBtn * ( this.getButtonWidth() + this._margin.horizontal * 2 );
-			this._numberPageButtonVisible = this.toNumberVisible( this.width -  widthOfNavigationBtns);
+			this._numberPageButtonVisible = this.toNumberVisible();
 			this.update();
 		});
 
 	}
 
+	/**
+	 * Set selected page.
+	 *
+	 * @param selected page's index want to select.
+	 */
 	set selected( selected: number ) {
-		if( selected < 0 || selected >= this._total ) {
+		if( selected < 0 || selected >= this._total || !Number.isInteger( selected ) ) {
 			selected = this.DEFAULT_SELECTED;
 		}
 		this._selected = selected;
@@ -91,8 +86,37 @@ export class DPagination<
 
 	}
 
+	/**
+	 * Get selected page.
+	 *
+	 * @returns index of selected page.
+	 */
 	get selected() {
 		return this._selected;
+	}
+
+	/**
+	 * Set total page.
+	 *
+	 * @param total number of page want to present in pagination.
+	 */
+	set total( total: number ) {
+		if( total >= 0 && Number.isInteger( total ) ) {
+			this._total = total;
+			this._numberPageButtonVisible = this.toNumberVisible();
+			this.selected = this._selected;
+			this._lastPageBtn.text = this._total;
+			this.update();
+		}
+	}
+
+	/**
+	 * Get total pages.
+	 *
+	 * @returns number of total pages.
+	 */
+	get total() {
+		return this._total;
 	}
 
 	protected initButtons( width: number ) {
@@ -136,27 +160,25 @@ export class DPagination<
 			}
 		});
 
+		this._firstPageBtn = new DButton({
+			width,
+			text: {
+				value: 1
+			}
+		});
+
+		this._lastPageBtn = new DButton({
+			width,
+			text: {
+				value: this._total
+			}
+		});
+
 		this.addChild( this._goFirstBtn );
 		this.addChild( this._previousBtn );
-		if(this._total > 0) {
-			this._firstPageBtn = new DButton({
-				width,
-				text: {
-					value: 1
-				}
-			});
-			this.addChild( this._firstPageBtn );
-		}
+		this.addChild( this._firstPageBtn );
 		this.addChild( this._dynamicPageBtns );
-		if( this._total > 1 ) {
-			this._lastPageBtn = new DButton({
-				width,
-				text: {
-					value: this._total
-				}
-			});
-			this.addChild( this._lastPageBtn );
-		}
+		this.addChild( this._lastPageBtn );
 		this.addChild( this._nextBtn );
 		this.addChild( this._goLastBtn );
 	}
@@ -197,6 +219,7 @@ export class DPagination<
 		let numberButtonsInLeft = 0;
 		let numberButtonsInRight = 0;
 
+		this.updateStaticButtons();
 		// Number displayed buttons from first button to selected button when select center button of all buttons.
 		// Not including selected button.
 		const numberButtonsFirstToCenter = Math.ceil( ( this._numberPageButtonVisible  - 1 ) * 0.5 );
@@ -239,21 +262,44 @@ export class DPagination<
 				dotsRight
 			}
 		});
+	}
 
-		this._firstPageBtn.setActive( this._selected === 0 );
-		this._lastPageBtn.setActive( this._selected === this._total - 1 );
-		this._goFirstBtn.setDisabled( this._selected === this.DEFAULT_SELECTED );
-		this._previousBtn.setDisabled( this._selected === this.DEFAULT_SELECTED );
-		this._nextBtn.setDisabled( this._selected === this._total - 1 );
-		this._goLastBtn.setDisabled( this._selected === this._total - 1 );
+	protected updateStaticButtons() {
+		if( this._total > 0 ) {
+			this._firstPageBtn.show();
+		} else {
+			this._firstPageBtn.hide();
+		}
+		if( this._total > 1 ) {
+			this._lastPageBtn.show();
+		} else {
+			this._lastPageBtn.hide();
+		}
+		const isFirst = this._selected === this.DEFAULT_SELECTED;
+		const isLast = this._selected === this._total - 1 || this._total === 0;
+		this._firstPageBtn.setActive( isFirst );
+		this._lastPageBtn.setActive( isLast );
+		this._goFirstBtn.setDisabled( isFirst );
+		this._previousBtn.setDisabled( isFirst );
+		this._nextBtn.setDisabled( isLast );
+		this._goLastBtn.setDisabled( isLast );
 	}
 
 	protected getButtonWidth() {
 		return this._buttonOptions.width ? this._buttonOptions.width : this.theme.getButtonWidth();
 	}
 
-	protected toNumberVisible( width: number ) {
-		const numberVisible = Math.floor( width / ( this.getButtonWidth() + this._margin.horizontal * 2 ) );
+	protected toNumberVisible() {
+		let numberNavigationBtn = 2; // 2 buttons always displayed are "next" and "previous" button
+		if( this._buttonOptions.first ) {
+			numberNavigationBtn++;
+		}
+		if( this._buttonOptions.last ) {
+			numberNavigationBtn++;
+		}
+		const widthOfNavigationBtns = numberNavigationBtn * ( this.getButtonWidth() + this._margin.horizontal * 2 );
+		const widthOfPageBtns = this.width -  widthOfNavigationBtns;
+		const numberVisible = Math.floor( widthOfPageBtns / ( this.getButtonWidth() + this._margin.horizontal * 2 ) );
 		/* set numberVisible is 5, if it less than 5
 			 If total pages less than numberVisible, set numberVisible equal total pages
 		**/

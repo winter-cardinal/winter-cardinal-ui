@@ -47,9 +47,10 @@ export class DPaginationDynamicButtons<
 		if( options.start == null || options.end == null ) {
 			return;
 		}
+		const btnsCount = options.end - options.start + 1 > 0 ? options.end - options.start + 1 : 0;
 		let pageButtons = ( this.children as DButton[] ).slice( 1, this.children.length - 1 );
-		if( pageButtons.length < options.end - options.start + 1 ) {
-			for ( let i = pageButtons.length; i < options.end - options.start + 1; i++ ) {
+		if( pageButtons.length < btnsCount ) {
+			for ( let i = pageButtons.length; i < btnsCount; i++ ) {
 				const btn = new DButton({
 					width: options.button.width
 				});
@@ -61,13 +62,13 @@ export class DPaginationDynamicButtons<
 			// re-new "pageButtons" after add new buttons
 			pageButtons = ( this.children as DButton[]).slice( 1, this.children.length - 1 );
 
-		} else if( pageButtons.length > options.end - options.start + 1 ) {
-			for ( let i = options.end - options.start + 1; i < pageButtons.length; i++ ) {
+		} else if( pageButtons.length > btnsCount ) {
+			for ( let i = btnsCount; i < pageButtons.length; i++ ) {
 				pageButtons[ i ].hide();
 			}
 		}
 		// update button text and active state
-		for ( let i = 0; i < options.end - options.start + 1; i++ ) {
+		for ( let i = 0; i < btnsCount; i++ ) {
 			const btn = pageButtons[ i ];
 			btn.text = options.start + i + 1;
 			btn.setActive( options.start + i  === options.selected );
