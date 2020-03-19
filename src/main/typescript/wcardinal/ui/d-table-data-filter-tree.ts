@@ -5,35 +5,30 @@
 
 import { utils } from "pixi.js";
 import { DTableDataFilter, DTableDataFilterFunction, DTableDataFilterObject } from "./d-table-data-filter";
-import { DTableDataSorter } from "./d-table-data-sorter";
 import { DTableDataTreeItem } from "./d-table-data-tree-item";
 import { isFunction } from "./util/is-function";
 
-interface DTableDataFilterTreeParent<ROW> {
-	readonly sorter: DTableDataSorter<ROW>;
-	readonly rows: ROW[];
-	readonly tree?: ROW[];
-	isOpened( row: ROW ): boolean;
+interface DTableDataFilterTreeParent<NODE> {
+	readonly nodes: NODE[] | undefined;
+	isOpened( node: NODE ): boolean;
 	update(): void;
 }
 
-export class DTableDataFilterTree<ROW extends DTableDataTreeItem<ROW, ROW>>
-	extends utils.EventEmitter implements DTableDataFilter<ROW> {
+export class DTableDataFilterTree<NODE extends DTableDataTreeItem<NODE, NODE>>
+	extends utils.EventEmitter implements DTableDataFilter<NODE> {
 	protected _id: number;
 	protected _idUpdated: number;
 	protected _isApplied: boolean;
-	protected _sorterId: number;
-	protected _parent: DTableDataFilterTreeParent<ROW>;
-	protected _filter: DTableDataFilterFunction<ROW> | DTableDataFilterObject<ROW> | null;
+	protected _parent: DTableDataFilterTreeParent<NODE>;
+	protected _filter: DTableDataFilterFunction<NODE> | DTableDataFilterObject<NODE> | null;
 	protected _filtered: number[] | null;
 
-	constructor( parent: DTableDataFilterTreeParent<ROW> ) {
+	constructor( parent: DTableDataFilterTreeParent<NODE> ) {
 		super();
 
 		this._id = 0;
 		this._idUpdated = -1;
 		this._isApplied = false;
-		this._sorterId = -1;
 
 		this._parent = parent;
 		this._filter = null;
@@ -62,55 +57,81 @@ export class DTableDataFilterTree<ROW extends DTableDataTreeItem<ROW, ROW>>
 		return this._isApplied;
 	}
 
-	protected newFilteredFunction(
-		parent: DTableDataFilterTreeParent<ROW>,
-		rows: ROW[],
-		filter: DTableDataFilterFunction<ROW>,
-		filtered: number[],
-		cursor: [ number ]
+	protected isFiltered(
+		node: NODE, index: number,
+		filter: DTableDataFilterFunction<NODE> | DTableDataFilterObject<NODE>
 	): boolean {
-		let result = false;
-		for( let i = 0, imax = rows.length; i < imax; ++i ) {
-			const row = rows[ i ];
-			const index = cursor[ 0 ];
-			cursor[ 0 ] += 1;
-			if( row.children != null && 0 < row.children.length && parent.isOpened( row ) ) {
-				const position = filtered.length;
-				if( this.newFilteredFunction( parent, row.children, filter, filtered, cursor ) ) {
-					filtered.splice( position, 0, index );
-					result = true;
-					continue;
-				}
-			}
-			if( filter( row, index ) ) {
-				filtered.push( index );
-				result = true;
-			}
+		if( isFunction( filter ) ) {
+			return filter( node, index );
+		} else {
+			return filter.test( node, index );
 		}
-		return result;
 	}
 
-	protected newFilteredObject(
-		parent: DTableDataFilterTreeParent<ROW>,
-		rows: ROW[],
-		filter: DTableDataFilterObject<ROW>,
+	protected hasFiltered(
+		parent: DTableDataFilterTreeParent<NODE>,
+		nodes: NODE[],
+		filter: DTableDataFilterFunction<NODE> | DTableDataFilterObject<NODE>
+	): boolean {
+		for( let i = 0, imax = nodes.length; i < imax; ++i ) {
+			const node = nodes[ i ];
+			if( this.isFiltered( node, -1, filter ) ) {
+				return true;
+			}
+			if( node.children != null && 0 < node.children.length && this.hasFiltered( parent, node.children, filter ) ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	protected addAllToFiltered(
+		parent: DTableDataFilterTreeParent<NODE>,
+		nodes: NODE[],
+		filtered: number[],
+		cursor: [ number ]
+	): void {
+		for( let i = 0, imax = nodes.length; i < imax; ++i ) {
+			const node = nodes[ i ];
+			filtered.push( cursor[ 0 ] );
+			cursor[ 0 ] += 1;
+			if( node.children != null && 0 < node.children.length && parent.isOpened( node ) ) {
+				this.addAllToFiltered( parent, node.children, filtered, cursor );
+			}
+		}
+	}
+
+	protected newFilteredSub(
+		parent: DTableDataFilterTreeParent<NODE>,
+		nodes: NODE[],
+		filter: DTableDataFilterFunction<NODE> | DTableDataFilterObject<NODE>,
 		filtered: number[],
 		cursor: [ number ]
 	): boolean {
 		let result = false;
-		for( let i = 0, imax = rows.length; i < imax; ++i ) {
-			const row = rows[ i ];
+		for( let i = 0, imax = nodes.length; i < imax; ++i ) {
+			const node = nodes[ i ];
 			const index = cursor[ 0 ];
 			cursor[ 0 ] += 1;
-			if( row.children != null && 0 < row.children.length && parent.isOpened( row ) ) {
-				const position = filtered.length;
-				if( this.newFilteredObject( parent, row.children, filter, filtered, cursor ) ) {
-					filtered.splice( position, 0, index );
+			const isFiltered = this.isFiltered( node, index, filter );
+			if( node.children != null && 0 < node.children.length ) {
+				if( parent.isOpened( node ) ) {
+					if( isFiltered ) {
+						filtered.push( index );
+						result = true;
+						this.addAllToFiltered( parent, node.children, filtered, cursor );
+					} else {
+						const position = filtered.length;
+						if( this.newFilteredSub( parent, node.children, filter, filtered, cursor ) ) {
+							filtered.splice( position, 0, index );
+							result = true;
+						}
+					}
+				} else if( isFiltered || this.hasFiltered( parent, node.children, filter ) ) {
+					filtered.push( index );
 					result = true;
-					continue;
 				}
-			}
-			if( filter.test( row, index ) ) {
+			} else if( isFiltered ) {
 				filtered.push( index );
 				result = true;
 			}
@@ -123,26 +144,21 @@ export class DTableDataFilterTree<ROW extends DTableDataTreeItem<ROW, ROW>>
 		if( filter != null ) {
 			const filtered: number[] = [];
 			const parent = this._parent;
-			const rows = parent.tree;
-			if( rows ) {
+			const nodes = parent.nodes;
+			if( nodes ) {
 				const cursor: [ number ] = [ 0 ];
-				if( isFunction( filter ) ) {
-					this.newFilteredFunction( parent, rows, filter, filtered, cursor );
-				} else {
-					this.newFilteredObject( parent, rows, filter, filtered, cursor );
-				}
+				this.newFilteredSub( parent, nodes, filter, filtered, cursor );
 			}
 			return filtered;
-		} else {
-			return null;
 		}
+		return null;
 	}
 
-	get(): DTableDataFilterFunction<ROW> | DTableDataFilterObject<ROW> | null {
+	get(): DTableDataFilterFunction<NODE> | DTableDataFilterObject<NODE> | null {
 		return this._filter;
 	}
 
-	set( filter: DTableDataFilterFunction<ROW> | DTableDataFilterObject<ROW> | null ): void {
+	set( filter: DTableDataFilterFunction<NODE> | DTableDataFilterObject<NODE> | null ): void {
 		if( this._filter !== filter ) {
 			this._filter = filter;
 		}
@@ -153,9 +169,8 @@ export class DTableDataFilterTree<ROW extends DTableDataTreeItem<ROW, ROW>>
 	}
 
 	update(): void {
-		if( this._id !== this._idUpdated || this._parent.sorter.id !== this._sorterId ) {
+		if( this._id !== this._idUpdated ) {
 			this._idUpdated = this._id;
-			this._sorterId = this._parent.sorter.id;
 			if( this._isApplied ) {
 				this._filtered = this.newFiltered();
 				this.emit( "change", this );
@@ -174,9 +189,9 @@ export class DTableDataFilterTree<ROW extends DTableDataTreeItem<ROW, ROW>>
 	map( sortedIndex: number ): number | null {
 		let result = sortedIndex;
 
-		const indicesFiltered = this.indices;
-		if( indicesFiltered ) {
-			const index = indicesFiltered.indexOf( result );
+		const indices = this.indices;
+		if( indices ) {
+			const index = indices.indexOf( result );
 			if( 0 <= index ) {
 				result = index;
 			} else {
@@ -190,9 +205,9 @@ export class DTableDataFilterTree<ROW extends DTableDataTreeItem<ROW, ROW>>
 	unmap( index: number ): number {
 		let result = index;
 
-		const indicesFiltered = this.indices;
-		if( indicesFiltered ) {
-			result = indicesFiltered[ result ];
+		const indices = this.indices;
+		if( indices ) {
+			result = indices[ result ];
 		}
 
 		return result;

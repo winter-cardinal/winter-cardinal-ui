@@ -20,7 +20,7 @@ import {
 	DTableColumnType, DTableEditable, DTableGetter, DTableRenderable, DTableSetter
 } from "./d-table-column";
 import { DTableData, DTableDataOptions } from "./d-table-data";
-import { DTableDataList } from "./d-table-data-list";
+import { DTableDataList, DTableDataListOptions } from "./d-table-data-list";
 import { DTableDataSelectionType } from "./d-table-data-selection";
 import { DTableDataComparatorFunction } from "./d-table-data-sorter";
 import { DTableHeader, DTableHeaderOptions } from "./d-table-header";
@@ -39,7 +39,7 @@ export interface DTableOptions<
 	category?: DTableCategoryOptions;
 	header?: DTableHeaderOptions<ROW>;
 	body?: DTableBodyOptions<ROW, DATA>;
-	data?: ROW[] | DTableDataOptions<ROW> | DATA;
+	data?: ROW[] | DTableDataListOptions<ROW> | DATA;
 }
 
 export interface DThemeTable extends DThemePane {

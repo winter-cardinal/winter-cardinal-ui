@@ -53,11 +53,6 @@ export type DTableDataEachIteratee<ROW> = ( row: ROW, index: number ) => void | 
 
 export interface DTableDataOptions<ROW> {
 	/**
-	 * Row data.
-	 */
-	rows?: ROW[];
-
-	/**
 	 * Selection options.
 	 */
 	selection?: DTableDataSelectionOptions;

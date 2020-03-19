@@ -9,40 +9,40 @@ import { DTableDataSorter } from "./d-table-data-sorter";
 import { DTableDataSorterTree } from "./d-table-data-sorter-tree";
 import { DTableDataTreeItem } from "./d-table-data-tree-item";
 
-export class DTableDataTree<ROW extends DTableDataTreeItem<ROW, ROW>> extends utils.EventEmitter
-	implements DTableData<ROW> {
-	protected _parent: DTableDataParent | null;
-	protected _targets?: ROW[];
-	protected _rows: ROW[];
-	protected _supplimentals: number[];
-	protected _flags: WeakMap<ROW, number>;
-	protected _filter: DTableDataFilterTree<ROW>;
-	protected _sorter: DTableDataSorterTree<ROW>;
-	protected _selection: DTableDataSelectionImpl<ROW>;
-	protected _mapped: DTableDataMapped<ROW>;
+export interface DTableDataTreeOptions<NODE> extends DTableDataOptions<NODE> {
+	nodes?: NODE[];
+}
 
-	constructor( options?: DTableDataOptions<ROW> ) {
+export class DTableDataTree<NODE extends DTableDataTreeItem<NODE, NODE>> extends utils.EventEmitter
+	implements DTableData<NODE> {
+	protected _parent: DTableDataParent | null;
+	protected _nodes?: NODE[];
+	protected _rows: NODE[];
+	protected _isRowsDirty: boolean;
+	protected _supplimentals: number[];
+	protected _flags: WeakMap<NODE, number>;
+	protected _filter: DTableDataFilterTree<NODE>;
+	protected _sorter: DTableDataSorterTree<NODE>;
+	protected _selection: DTableDataSelectionImpl<NODE>;
+	protected _mapped: DTableDataMapped<NODE>;
+
+	constructor( options?: DTableDataTreeOptions<NODE> ) {
 		super();
 
 		this._parent = null;
-		this._mapped = new DTableDataListMapped<ROW>( this );
+		this._mapped = new DTableDataListMapped<NODE>( this );
 		this._rows = [];
+		this._isRowsDirty = false;
 		this._supplimentals = [];
-		this._flags = new WeakMap<ROW, number>();
-		this._selection = new DTableDataSelectionImpl<ROW>( this, options && options.selection );
-		this._filter = new DTableDataFilterTree<ROW>( this );
-		this._sorter = new DTableDataSorterTree<ROW>();
+		this._flags = new WeakMap<NODE, number>();
+		this._selection = new DTableDataSelectionImpl<NODE>( this, options && options.selection );
+		this._filter = new DTableDataFilterTree<NODE>( this );
+		this._sorter = new DTableDataSorterTree<NODE>();
 		if( options ) {
 			// Filter
 			const filter = options.filter;
 			if( filter ) {
 				this._filter.set( filter );
-			}
-
-			// Comparator
-			const comparator = options.comparator;
-			if( comparator ) {
-				this._sorter.set( comparator );
 			}
 
 			// Events
@@ -58,26 +58,29 @@ export class DTableDataTree<ROW extends DTableDataTreeItem<ROW, ROW>> extends ut
 		}
 
 		// Update rows
-		this.tree = options && options.rows;
+		this.nodes = options && options.nodes;
 	}
 
 	bind( parent: DTableDataParent ): void {
 		this._parent = parent;
 	}
 
-	get tree(): ROW[] | undefined {
-		return this._targets;
+	get nodes(): NODE[] | undefined {
+		return this._nodes;
 	}
 
-	set tree( targets: ROW[] | undefined ) {
-		this._targets = targets;
-		this.updateRows( targets );
-		this._sorter.toDirty();
+	set nodes( nodes: NODE[] | undefined ) {
+		this._nodes = nodes;
+		this._isRowsDirty = true;
 		this._filter.toDirty();
 		this.update( true );
 	}
 
-	get rows(): ROW[] {
+	get rows(): NODE[] {
+		if( this._isRowsDirty ) {
+			this._isRowsDirty = false;
+			this.updateRows( this._nodes );
+		}
 		return this._rows;
 	}
 
@@ -85,12 +88,12 @@ export class DTableDataTree<ROW extends DTableDataTreeItem<ROW, ROW>> extends ut
 		return this._supplimentals;
 	}
 
-	protected updateRows( targets: ROW[] | undefined ): void {
+	protected updateRows( nodes: NODE[] | undefined ): void {
 		const rows = this._rows;
 		const supplimentals = this._supplimentals;
 		const flags = this._flags;
-		if( targets != null ) {
-			const irows = this.updateRows_( targets, 0, 0, rows, supplimentals, flags );
+		if( nodes != null ) {
+			const irows = this.updateRows_( nodes, 0, 0, rows, supplimentals, flags );
 			if( irows !== rows.length ) {
 				rows.length = irows;
 				supplimentals.length = irows;
@@ -106,23 +109,23 @@ export class DTableDataTree<ROW extends DTableDataTreeItem<ROW, ROW>> extends ut
 	}
 
 	protected updateRows_(
-		targets: ROW[],
+		nodes: NODE[],
 		irows: number,
 		ilevel: number,
-		rows: ROW[],
+		rows: NODE[],
 		supplimentals: number[],
-		flags: WeakMap<ROW, number>
+		flags: WeakMap<NODE, number>
 	): number {
-		for( let i = 0, imax = targets.length; i < imax; ++i ) {
-			const target = targets[ i ];
-			const children = target.children;
-			const isOpened = flags.has( target );
+		for( let i = 0, imax = nodes.length; i < imax; ++i ) {
+			const node = nodes[ i ];
+			const children = node.children;
+			const isOpened = flags.has( node );
 			const supplimental = this.toSupplimental( ilevel, !! (children && 0 < children.length), isOpened );
 			if( irows < rows.length ) {
-				rows[ irows ] = target;
+				rows[ irows ] = node;
 				supplimentals[ irows ] = supplimental;
 			} else {
-				rows.push( target );
+				rows.push( node );
 				supplimentals.push( supplimental );
 			}
 			irows += 1;
@@ -142,58 +145,55 @@ export class DTableDataTree<ROW extends DTableDataTreeItem<ROW, ROW>> extends ut
 	}
 
 	size(): number {
-		return this._rows.length;
+		return this.rows.length;
 	}
 
-	get( index: number ): ROW | null {
-		const rows = this._rows;
+	get( index: number ): NODE | null {
+		const rows = this.rows;
 		if( 0 <= index && index < rows.length ) {
 			return rows[ index ];
 		}
 		return null;
 	}
 
-	open( row: ROW ): void {
+	open( node: NODE ): void {
 		const flags = this._flags;
-		if( ! flags.has( row ) ) {
-			flags.set( row, 1 );
-			this.updateRows( this._targets );
-			this._sorter.toDirty();
+		if( ! flags.has( node ) ) {
+			flags.set( node, 1 );
+			this._isRowsDirty = true;
 			this._filter.toDirty();
 			this.update( true );
 		}
 	}
 
-	close( row: ROW ): void {
+	close( node: NODE ): void {
 		const flags = this._flags;
-		if( flags.has( row ) ) {
-			flags.delete( row );
-			this.updateRows( this._targets );
-			this._sorter.toDirty();
+		if( flags.has( node ) ) {
+			flags.delete( node );
+			this._isRowsDirty = true;
 			this._filter.toDirty();
 			this.update( true );
 		}
 	}
 
-	isOpened( row: ROW ): boolean {
-		return this._flags.has( row );
+	isOpened( node: NODE ): boolean {
+		return this._flags.has( node );
 	}
 
-	toggle( row: ROW ): void {
+	toggle( node: NODE ): void {
 		const flags = this._flags;
-		if( flags.has( row ) ) {
-			flags.delete( row );
+		if( flags.has( node ) ) {
+			flags.delete( node );
 		} else {
-			flags.set( row, 1 );
+			flags.set( node, 1 );
 		}
-		this.updateRows( this._targets );
-		this._sorter.toDirty();
+		this._isRowsDirty = true;
 		this._filter.toDirty();
 		this.update( true );
 	}
 
-	each( iteratee: ( row: ROW, index: number ) => boolean | void, ifrom?: number, ito?: number ): void {
-		const rows = this._rows;
+	each( iteratee: ( node: NODE, index: number ) => boolean | void, ifrom?: number, ito?: number ): void {
+		const rows = this.rows;
 		ifrom = ( ifrom != null ? Math.max( 0, ifrom ) : 0 );
 		ito = ( ito != null ? Math.min( rows.length, ito ) : rows.length );
 		for( let i = ifrom; i < ito; ++i ) {
@@ -204,19 +204,19 @@ export class DTableDataTree<ROW extends DTableDataTreeItem<ROW, ROW>> extends ut
 		}
 	}
 
-	get selection(): DTableDataSelection<ROW> {
+	get selection(): DTableDataSelection<NODE> {
 		return this._selection;
 	}
 
-	get filter(): DTableDataFilter<ROW> {
+	get filter(): DTableDataFilter<NODE> {
 		return this._filter;
 	}
 
-	get sorter(): DTableDataSorter<ROW> {
+	get sorter(): DTableDataSorter<NODE> {
 		return this._sorter;
 	}
 
-	get mapped(): DTableDataMapped<ROW> {
+	get mapped(): DTableDataMapped<NODE> {
 		return this._mapped;
 	}
 }

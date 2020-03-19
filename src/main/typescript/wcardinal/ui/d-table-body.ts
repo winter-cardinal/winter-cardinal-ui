@@ -11,7 +11,7 @@ import { DButtonBase } from "./d-button-base";
 import { DTableBodyRow, DTableBodyRowOptions } from "./d-table-body-row";
 import { DTableColumn } from "./d-table-column";
 import { DTableData, DTableDataOptions } from "./d-table-data";
-import { DTableDataList } from "./d-table-data-list";
+import { DTableDataList, DTableDataListOptions } from "./d-table-data-list";
 import { DTableDataSelection, DTableDataSelectionType } from "./d-table-data-selection";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
@@ -22,7 +22,7 @@ export interface DTableBodyOptions<
 > extends DBaseOptions<THEME> {
 	columns?: Array<DTableColumn<ROW>>;
 	row?: DTableBodyRowOptions<ROW>;
-	data?: DTableDataOptions<ROW> | DATA;
+	data?: DTableDataListOptions<ROW> | DATA;
 	offset?: number;
 	frozen?: number;
 }

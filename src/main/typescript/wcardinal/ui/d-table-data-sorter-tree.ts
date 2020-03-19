@@ -9,7 +9,7 @@ import {
 	DTableDataOrder, DTableDataSorter
 } from "./d-table-data-sorter";
 
-export class DTableDataSorterTree<ROW> extends utils.EventEmitter implements DTableDataSorter<ROW> {
+export class DTableDataSorterTree<NODE> extends utils.EventEmitter implements DTableDataSorter<NODE> {
 	constructor() {
 		super();
 	}
@@ -38,11 +38,11 @@ export class DTableDataSorterTree<ROW> extends utils.EventEmitter implements DTa
 		return false;
 	}
 
-	get(): DTableDataComparatorFunction<ROW> | DTableDataComparatorObject<ROW> | null {
+	get(): DTableDataComparatorFunction<NODE> | DTableDataComparatorObject<NODE> | null {
 		return null;
 	}
 
-	set( comparator: DTableDataComparatorFunction<ROW> | DTableDataComparatorObject<ROW> | null ): void {
+	set( comparator: DTableDataComparatorFunction<NODE> | DTableDataComparatorObject<NODE> | null ): void {
 		// DO NOTHING
 	}
 

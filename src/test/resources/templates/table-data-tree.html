@@ -17,26 +17,26 @@
 		const application = new wcardinal.ui.DApplication();
 
 		// Rows
-		const rows = [];
+		const nodes = [];
 		for( let i = 0; i < 150; ++i ) {
 			const children = [];
 			for( let j = 0; j < 3; ++j ) {
 				const grand = [];
 				for( let k = 0; k < 3; ++k ) {
 					grand.push({
-						a: "A" + i + "-" + j + "-" + k,
-						b: "B" + i + "-" + j + "-" + k,
-						c: "C" + i + "-" + j + "-" + k,
+						a: "E" + i + "-" + j + "-" + k,
+						b: "F" + i + "-" + j + "-" + k,
+						c: "G" + i + "-" + j + "-" + k,
 						d: i + j + k
 					});
 				}
 				children.push({
-					a: "A" + i + "-" + j,
-					b: "B" + i + "-" + j,
+					a: "C" + i + "-" + j,
+					b: "D" + i + "-" + j,
 					children: grand
 				});
 			}
-			rows.push({
+			nodes.push({
 				a: "A" + i,
 				b: "B" + i,
 				children: children
@@ -80,13 +80,13 @@
 				renderable: "AUTO"
 			}],
 			data: new wcardinal.ui.DTableDataTree({
-				rows: rows,
+				nodes: nodes,
 				on: {
 					init: ( self ) => {
 						const filter = {
 							word: "",
-							test( row ) {
-								return 0 <= row.a.indexOf( this.word );
+							test( node ) {
+								return 0 <= node.a.indexOf( this.word );
 							}
 						};
 
@@ -102,8 +102,8 @@
 						self.filter.set( filter );
 					},
 
-					change: ( newValue, oldValue, row, rowIndex, columnIndex, data ) => {
-						console.log( newValue, oldValue, row, rowIndex, columnIndex, data );
+					change: ( newValue, oldValue, node, rowIndex, columnIndex, data ) => {
+						console.log( newValue, oldValue, node, rowIndex, columnIndex, data );
 					}
 				}
 			})

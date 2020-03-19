@@ -8,6 +8,10 @@ import { DTableDataSelectionImpl } from "./d-table-data-selection-impl";
 import { DTableDataSorter } from "./d-table-data-sorter";
 import { DTableDataSorterImpl } from "./d-table-data-sorter-impl";
 
+export interface DTableDataListOptions<ROW> extends DTableDataOptions<ROW> {
+	rows?: ROW[];
+}
+
 export class DTableDataList<ROW> extends utils.EventEmitter implements DTableData<ROW> {
 	protected _parent: DTableDataParent | null;
 	protected _rows: ROW[];
@@ -16,7 +20,7 @@ export class DTableDataList<ROW> extends utils.EventEmitter implements DTableDat
 	protected _selection: DTableDataSelectionImpl<ROW>;
 	protected _mapped: DTableDataMapped<ROW>;
 
-	constructor( options?: DTableDataOptions<ROW> ) {
+	constructor( options?: DTableDataListOptions<ROW> ) {
 		super();
 
 		this._parent = null;
