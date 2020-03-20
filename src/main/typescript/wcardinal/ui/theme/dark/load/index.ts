@@ -59,6 +59,7 @@ export * from "./load-theme-dark-menu";
 export * from "./load-theme-dark-menu-bar";
 export * from "./load-theme-dark-menu-sided";
 export * from "./load-theme-dark-note";
+export * from "./load-theme-dark-pagination";
 export * from "./load-theme-dark-pane";
 export * from "./load-theme-dark-picker-color-gradient";
 export * from "./load-theme-dark-picker-color";

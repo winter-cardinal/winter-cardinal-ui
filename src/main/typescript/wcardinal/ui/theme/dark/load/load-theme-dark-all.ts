@@ -21,6 +21,7 @@ import { loadThemeDarkMenu } from "./load-theme-dark-menu";
 import { loadThemeDarkMenuBar } from "./load-theme-dark-menu-bar";
 import { loadThemeDarkMenuSided } from "./load-theme-dark-menu-sided";
 import { loadThemeDarkNote } from "./load-theme-dark-note";
+import { loadThemeDarkPagination } from "./load-theme-dark-pagination";
 import { loadThemeDarkPane } from "./load-theme-dark-pane";
 import { loadThemeDarkPickerColor } from "./load-theme-dark-picker-color";
 import { loadThemeDarkPickerColorGradient } from "./load-theme-dark-picker-color-gradient";
@@ -55,6 +56,7 @@ export const loadThemeDarkAll = () => {
 	loadThemeDarkMenuBar();
 	loadThemeDarkMenuSided();
 	loadThemeDarkNote();
+	loadThemeDarkPagination();
 	loadThemeDarkPane();
 	loadThemeDarkPickerColor();
 	loadThemeDarkPickerColorGradient();
