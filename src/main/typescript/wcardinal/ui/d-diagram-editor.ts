@@ -40,7 +40,7 @@ export interface DDiagramEditorOnOptions extends DDiagramBaseOnOptions<DDiagramC
 	 * @param operation an operation ID
 	 * @param self a diagram editor
 	 */
-	failed?: ( operation: "save" | "save-as", self: any ) => void;
+	fail?: ( operation: "save" | "save-as", self: any ) => void;
 }
 
 export interface DDiagramEditorOptions<
