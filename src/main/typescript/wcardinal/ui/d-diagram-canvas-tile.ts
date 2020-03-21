@@ -8,6 +8,9 @@ import { DDiagramCanvasTileMapping } from "./d-diagram-canvas-mapping";
 import { DDiagramCanvasTileMappingImpl } from "./d-diagram-canvas-mapping-impl";
 import { DMapTilePyramid } from "./d-map-tile-pyramid";
 
+/**
+ * A tile pyramid factory.
+ */
 export type DDiagramCanvasTilePyramidFactory = ( canvas: DDiagramCanvasBase<any, any> ) => DMapTilePyramid;
 
 export interface DDiagramCanvasTileOptions {

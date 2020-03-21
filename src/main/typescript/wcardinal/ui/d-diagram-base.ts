@@ -4,7 +4,9 @@
  */
 
 import { DApplications } from "./d-applications";
-import { DCanvasContainer, DCanvasContainerOptions, DThemeCanvasContainer } from "./d-canvas-container";
+import {
+	DCanvasContainer, DCanvasContainerOnOptions, DCanvasContainerOptions, DThemeCanvasContainer
+} from "./d-canvas-container";
 import { DDiagramCanvasBase } from "./d-diagram-canvas-base";
 import { DDiagramCanvasTilePyramidFactory } from "./d-diagram-canvas-tile";
 import { DDiagramLayer } from "./d-diagram-layer";
@@ -12,11 +14,25 @@ import { DDiagramSerialized } from "./d-diagram-serialized";
 import { DDiagrams } from "./d-diagrams";
 import { EShape } from "./shape/e-shape";
 
+export interface DDiagramBaseOnOptions<CANVAS> extends DCanvasContainerOnOptions<CANVAS> {
+	/**
+	 * Triggered when all the shape initializations are finished.
+	 *
+	 * @param self a diagram
+	 */
+	ready?: ( self: any ) => void;
+}
+
 export interface DDiagramBaseOptions<
 	CANVAS extends DDiagramCanvasBase = DDiagramCanvasBase,
 	THEME extends DThemeDiagramBase = DThemeDiagramBase
 > extends DCanvasContainerOptions<CANVAS, THEME> {
+	/**
+	 * A tile pyramid factory.
+	 */
 	tile?: DDiagramCanvasTilePyramidFactory;
+
+	on?: DDiagramBaseOnOptions<CANVAS>;
 }
 
 export interface DThemeDiagramBase extends DThemeCanvasContainer {

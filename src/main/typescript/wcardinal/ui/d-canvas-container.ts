@@ -5,12 +5,30 @@
 
 import { interaction, Point } from "pixi.js";
 import { DApplications } from "./d-applications";
-import { DBase, DBaseOptions, DThemeBase } from "./d-base";
+import { DBase, DBaseOnOptions, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseOverflowMask } from "./d-base-overflow-mask";
 import { DCanvas } from "./d-canvas";
 import { DView, DViewOptions } from "./d-view";
 import { DViewImpl } from "./d-view-impl";
 import { UtilWheelEventDeltas } from "./util/util-wheel-event";
+
+export interface DCanvasContainerOnOptions<CANVAS> extends DBaseOnOptions {
+	/**
+	 * Triggered when a canvas is removed.
+	 *
+	 * @param canvas a removed canvas
+	 * @param self a canvas container
+	 */
+	unset?: ( canvas: CANVAS, self: any ) => void;
+
+	/**
+	 * Triggered when a canvas is set.
+	 *
+	 * @param canvas a new canvas
+	 * @param self a canvas container
+	 */
+	set?: ( canvas: CANVAS, self: any ) => void;
+}
 
 export interface DCanvasContainerOptions<
 	CANVAS extends DBase = DCanvas,
@@ -19,6 +37,7 @@ export interface DCanvasContainerOptions<
 	mask?: boolean;
 	view?: DViewOptions;
 	canvas?: CANVAS;
+	on?: DCanvasContainerOnOptions<CANVAS>;
 }
 
 export interface DThemeCanvasContainer extends DThemeBase {

@@ -22,6 +22,9 @@ export interface DDiagramShapeDiagram extends DApplicationTarget {
 	canvas: DDiagramShapeCanvas | null;
 }
 
+/**
+ * A shape helper class for diagrams.
+ */
 export class DDiagramShape extends utils.EventEmitter {
 	protected _diagram: DDiagramShapeDiagram;
 	protected _updateBound: () => void;

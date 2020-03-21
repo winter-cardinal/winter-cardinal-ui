@@ -5,7 +5,7 @@
 
 import { DControllerDocument } from "./d-controller-document";
 import { DControllers } from "./d-controllers";
-import { DDiagramBase, DDiagramBaseOptions, DThemeDiagramBase } from "./d-diagram-base";
+import { DDiagramBase, DDiagramBaseOnOptions, DDiagramBaseOptions, DThemeDiagramBase } from "./d-diagram-base";
 import { DDiagramCanvasEditor, DDiagramCanvasEditorOptions } from "./d-diagram-canvas-editor";
 import { DDiagramSerialized, DDiagramSerializedSimple, DDiagramSerializedVersion } from "./d-diagram-serialized";
 import { DDiagrams } from "./d-diagrams";
@@ -17,10 +17,37 @@ export interface DDiagramEditorController {
 	delete( id: number ): Promise<void>;
 }
 
+export interface DDiagramEditorOnOptions extends DDiagramBaseOnOptions<DDiagramCanvasEditor> {
+	/**
+	 * Triggered when a serialized data is changed without using the set / unset methods.
+	 * This happens, for instance, when the name or the ID of the serialized data is changed.
+	 *
+	 * @param self a diagram editor
+	 */
+	change?: ( self: any ) => void;
+
+	/**
+	 * Triggered when an operation is successfully finished.
+	 *
+	 * @param operation an operation ID
+	 * @param self a diagram editor
+	 */
+	success?: ( operation: "save" | "save-as", self: any ) => void;
+
+	/**
+	 * Triggered when an operation is failed.
+	 *
+	 * @param operation an operation ID
+	 * @param self a diagram editor
+	 */
+	failed?: ( operation: "save" | "save-as", self: any ) => void;
+}
+
 export interface DDiagramEditorOptions<
 	THEME extends DThemeDiagramEditor = DThemeDiagramEditor
 > extends DDiagramBaseOptions<DDiagramCanvasEditor, THEME> {
 	controller: DDiagramEditorController;
+	on?: DDiagramEditorOnOptions;
 }
 
 export interface DThemeDiagramEditor extends DThemeDiagramBase {

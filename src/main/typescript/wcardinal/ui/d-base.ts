@@ -73,7 +73,7 @@ export interface DBaseOnOptions {
 	[name: string]: Function | undefined;
 
 	/**
-	 * Called when an initialization is finished.
+	 * Triggered when an initialization is finished.
 	 *
 	 * @param self an initialized instance
 	 */

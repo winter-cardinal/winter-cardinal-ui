@@ -13,15 +13,27 @@ import { EShapeBase } from "./shape/variant/e-shape-base";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
+/**
+ * A tag mapper.
+ *
+ * @param tag a tag
+ * @returns a mapped tag
+ */
 export type DDiagramCanvasTagMapper = ( tag: string ) => string | null;
 
 export interface DDiagramCanvasTagOptions {
+	/**
+	 * A tag mapper.
+	 */
 	mapper?: DDiagramCanvasTagMapper;
 }
 
 export interface DDiagramCanvasOptions<
 	THEME extends DThemeDiagramCanvas = DThemeDiagramCanvas
 > extends DDiagramCanvasBaseOptions<THEME> {
+	/**
+	 * A tag options.
+	 */
 	tag?: DDiagramCanvasTagOptions;
 }
 

@@ -9,6 +9,9 @@ export interface DDiagramTagDiagram {
 	canvas: DDiagramTagCanvas | null;
 }
 
+/**
+ * A tag helper class for diagrams.
+ */
 export class DDiagramTag {
 	protected _diagram: DDiagramTagDiagram;
 
