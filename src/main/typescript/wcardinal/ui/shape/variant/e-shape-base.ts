@@ -6,7 +6,6 @@
 import { DisplayObject, IPoint, Matrix, Point, Rectangle, Texture, Transform, utils } from "pixi.js";
 import { DApplications } from "../../d-applications";
 import { DBaseState } from "../../d-base-state";
-import { DBaseStates } from "../../d-base-states";
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { EShapeAction } from "../action/e-shape-action";
 import { EShape, EShapeCopyPart } from "../e-shape";
