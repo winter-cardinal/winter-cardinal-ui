@@ -702,14 +702,12 @@ export class DBase<
 		this.interactiveChildren = ( ( interactive & DBaseInteractive.CHILDREN ) !== 0 );
 
 		// Events
-		if( options ) {
-			const on = options.on;
-			if( on ) {
-				for( const name in on ) {
-					const handler = on[ name ];
-					if( handler ) {
-						this.on( name, handler );
-					}
+		const on = options && options.on;
+		if( on ) {
+			for( const name in on ) {
+				const handler = on[ name ];
+				if( handler ) {
+					this.on( name, handler );
 				}
 			}
 		}

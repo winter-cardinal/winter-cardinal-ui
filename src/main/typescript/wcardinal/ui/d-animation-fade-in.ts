@@ -14,11 +14,11 @@ export interface DAnimationFadeInShiftOptions {
 	y?: number | null;
 }
 
-export interface DAnimationFadeInOptions extends DAnimationOptions {
+export interface DAnimationFadeInOptions<TARGET> extends DAnimationOptions<TARGET> {
 	shift?: DAnimationFadeInShiftOptions;
 }
 
-export class DAnimationFadeIn extends DAnimationBase {
+export class DAnimationFadeIn<TARGET extends DBase = DBase> extends DAnimationBase<TARGET> {
 	protected _shiftX: number;
 	protected _shiftY: number;
 
@@ -26,14 +26,14 @@ export class DAnimationFadeIn extends DAnimationBase {
 	protected _storedY: number = 0;
 	protected _storedAlpha: number = 0;
 	protected _storedTime: number = 0;
-	protected _storedTarget: DBase<any, any> | null = null;
+	protected _storedTarget: TARGET | null = null;
 
 	protected _layer: DApplicationLayerLike | null = null;
 
 	protected _onPrerenderBound: () => void;
 	protected _onPostrenderBound: () => void;
 
-	constructor( options?: DAnimationFadeInOptions ) {
+	constructor( options?: DAnimationFadeInOptions<TARGET> ) {
 		super( options );
 
 		// Shifts
@@ -61,7 +61,7 @@ export class DAnimationFadeIn extends DAnimationBase {
 		super.stop();
 	}
 
-	protected addEventListeners( target: DBase<any, any> ): void {
+	protected addEventListeners( target: TARGET ): void {
 		const layer = DApplications.getLayer( target );
 		if( layer ) {
 			this._layer = layer;

@@ -6,26 +6,25 @@
 import { utils } from "pixi.js";
 import { DAnimation, DAnimationOnEnd, DAnimationOnTime, DAnimationOptions, DAnimationTiming } from "./d-animation";
 import { DAnimationTimings } from "./d-animation-timings";
-import { DBase } from "./d-base";
 
-export class DAnimationBase extends utils.EventEmitter implements DAnimation {
+export class DAnimationBase<TARGET = unknown> extends utils.EventEmitter implements DAnimation<TARGET> {
 	protected _id: number | null;
 	protected _startTime: number;
 	protected _duration: number;
 	protected _durationInverse: number;
 	protected _reverse: boolean;
-	protected _onTime: DAnimationOnTime | undefined;
+	protected _onTime: DAnimationOnTime<TARGET> | undefined;
 	protected _onTimeBaseBound: () => void;
-	protected _onStart: DAnimationOnEnd | undefined;
-	protected _onEnd: DAnimationOnEnd | undefined;
-	protected _timing: DAnimationTiming;
-	protected _target: DBase<any, any> | null;
+	protected _onStart: DAnimationOnEnd<TARGET> | undefined;
+	protected _onEnd: DAnimationOnEnd<TARGET> | undefined;
+	protected _timing: DAnimationTiming<TARGET>;
+	protected _target: TARGET | null;
 
-	constructor( options?: DAnimationOptions ) {
+	constructor( options?: DAnimationOptions<TARGET> ) {
 		super();
 
 		this._id = null;
-		this._target = null;
+		this._target = (options && options.target != null ? options.target : null);
 		this._startTime = 0;
 		this._duration = ( options != null && options.duration != null ? options.duration : 200 );
 		this._durationInverse = 1 / Math.max( 1, this._duration );
@@ -37,13 +36,24 @@ export class DAnimationBase extends utils.EventEmitter implements DAnimation {
 		this._onStart = ( options != null ? options.onStart : undefined );
 		this._onEnd = ( options != null ? options.onEnd : undefined );
 		this._timing = ( options != null && options.timing != null ? options.timing : DAnimationTimings.ELASTIC );
+
+		// Events
+		const on = options && options.on;
+		if( on ) {
+			for( const name in on ) {
+				const handler = on[ name ];
+				if( handler ) {
+					this.on( name, handler );
+				}
+			}
+		}
 	}
 
-	get target(): DBase<any, any> | null {
+	get target(): TARGET | null {
 		return this._target;
 	}
 
-	set target( target: DBase<any, any> | null ) {
+	set target( target: TARGET | null ) {
 		this._target = target;
 	}
 

@@ -17,7 +17,7 @@ import { UtilOverlay } from "./util/util-overlay";
 
 export interface DDialogOptions<THEME extends DThemeDialog = DThemeDialog> extends DBaseOptions<THEME> {
 	closeOn?: DDialogCloseOn;
-	animation?: DAnimation;
+	animation?: DAnimation<DBase>;
 }
 
 export interface DThemeDialog extends DThemeBase {
@@ -38,7 +38,7 @@ export class DDialog<
 	THEME extends DThemeDialog = DThemeDialog,
 	OPTIONS extends DDialogOptions<THEME> = DDialogOptions<THEME>
 > extends DBase<THEME, OPTIONS> {
-	protected _animation!: DAnimation;
+	protected _animation!: DAnimation<DBase>;
 	protected _closeOn!: DDialogCloseOn;
 	protected _focusable!: DFocusable | null;
 	protected _isOpened!: boolean;

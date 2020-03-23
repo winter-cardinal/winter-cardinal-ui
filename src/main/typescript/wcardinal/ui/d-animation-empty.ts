@@ -5,32 +5,31 @@
 
 import { utils } from "pixi.js";
 import { DAnimation, DAnimationOnEnd, DAnimationOnTime, DAnimationOptions } from "./d-animation";
-import { DBase } from "./d-base";
 
-export class DAnimationEmpty extends utils.EventEmitter implements DAnimation {
+export class DAnimationEmpty<TARGET = unknown> extends utils.EventEmitter implements DAnimation<TARGET> {
 	protected _reverse: boolean;
-	protected _onTime: DAnimationOnTime | undefined;
-	protected _onStart: DAnimationOnEnd | undefined;
-	protected _onEnd: DAnimationOnEnd | undefined;
-	protected _target: DBase<any, any> | null;
+	protected _onTime: DAnimationOnTime<TARGET> | undefined;
+	protected _onStart: DAnimationOnEnd<TARGET> | undefined;
+	protected _onEnd: DAnimationOnEnd<TARGET> | undefined;
+	protected _target: TARGET | null;
 	protected _isStarted: boolean;
 
-	constructor( options?: DAnimationOptions ) {
+	constructor( options?: DAnimationOptions<TARGET> ) {
 		super();
 
-		this._target = null;
+		this._target = (options && options.target != null ? options.target : null);
 		this._reverse = false;
 		this._isStarted = false;
-		this._onTime = ( options != null ? options.onTime : undefined );
-		this._onStart = ( options != null ? options.onStart : undefined );
-		this._onEnd = ( options != null ? options.onEnd : undefined );
+		this._onTime = options && options.onTime;
+		this._onStart = options && options.onStart;
+		this._onEnd = options && options.onEnd;
 	}
 
-	get target(): DBase<any, any> | null {
+	get target(): TARGET | null {
 		return this._target;
 	}
 
-	set target( target: DBase<any, any> | null ) {
+	set target( target: TARGET | null ) {
 		this._target = target;
 	}
 

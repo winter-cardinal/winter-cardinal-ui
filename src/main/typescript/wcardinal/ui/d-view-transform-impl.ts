@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DAnimation } from "./d-animation";
 import { DAnimationBase } from "./d-animation-base";
 import { DBase } from "./d-base";
 import { DViewStopper } from "./d-view-stopper";
@@ -20,7 +21,7 @@ export class DViewTransformImpl implements DViewTransform {
 	protected _oldY: number;
 	protected _oldScaleX: number;
 	protected _oldScaleY: number;
-	protected _animation: DAnimationBase;
+	protected _animation: DAnimation;
 	protected _stopper: DViewStopper;
 	protected _duration: number;
 
