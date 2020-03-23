@@ -162,7 +162,7 @@ export class ESnapper extends utils.EventEmitter {
 		}
 	}
 
-	protected snap( point: IPoint, result: IPoint ): IPoint {
+	protected snap( point: IPoint, result: Point ): Point {
 		const px = point.x;
 		const py = point.y;
 		const canvas = this._parent.canvas;
@@ -196,7 +196,7 @@ export class ESnapper extends utils.EventEmitter {
 		return result;
 	}
 
-	toSnapped( point: IPoint, result: IPoint ): IPoint {
+	toSnapped( point: IPoint, result: Point ): Point {
 		const px = point.x;
 		const py = point.y;
 		if( this._isEnabled ) {
@@ -213,7 +213,7 @@ export class ESnapper extends utils.EventEmitter {
 		return result;
 	}
 
-	toTranslationSnapped( delta: IPoint, result: IPoint ): IPoint {
+	toTranslationSnapped( delta: IPoint, result: Point ): Point {
 		const dx = delta.x;
 		const dy = delta.y;
 		let x = NaN;

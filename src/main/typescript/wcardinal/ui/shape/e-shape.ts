@@ -140,13 +140,8 @@ export interface EShape extends utils.EventEmitter {
 	containsAbsBBox( x: number, y: number, ax: number, ay: number ): boolean;
 
 	// Coordinate
-	toGlobal( position: IPoint, point: Point, skipUpdate?: boolean ): Point;
-	toLocal<T extends IPoint>(
-		position: IPoint,
-		from?: DisplayObject,
-		point?: T,
-		skipUpdate?: boolean
-	): T;
+	toGlobal( position: IPoint, result: Point, skipUpdate?: boolean ): Point;
+	toLocal( position: IPoint, from?: DisplayObject, result?: Point, skipUpdate?: boolean ): Point;
 	getBounds( work: Point, skipUpdate: boolean, result: Rectangle ): Rectangle;
 	getBoundsInternal( work: Point, skipUpdate: boolean, result: Rectangle ): Rectangle;
 	getBoundsLocal( work: Point, skipUpdate: boolean, result: Rectangle ): Rectangle;

@@ -459,30 +459,25 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	}
 
 	//
-	toGlobal( position: IPoint, point: Point, skipUpdate?: boolean ): Point {
+	toGlobal( position: IPoint, result: Point, skipUpdate?: boolean ): Point {
 		if( skipUpdate !== true ) {
 			this.updateTransform();
 		}
-		point.copyFrom( position );
-		this.transform.worldTransform.apply( point, point );
-		return point;
+		result.copyFrom( position );
+		this.transform.worldTransform.apply( result, result );
+		return result;
 	}
 
-	toLocal<T extends IPoint>(
-		position: IPoint,
-		from?: DisplayObject,
-		point?: T,
-		skipUpdate?: boolean
-	): T {
+	toLocal( position: IPoint, from?: DisplayObject, result?: Point, skipUpdate?: boolean ): Point {
 		if( skipUpdate !== true ) {
 			this.updateTransform();
 		}
-		if( point === undefined ) {
-			point = new Point() as any as T;
+		if( result === undefined ) {
+			result = new Point();
 		}
-		point.copyFrom( position );
-		this.transform.worldTransform.applyInverse( point as any, point as any );
-		return point;
+		result.copyFrom( position );
+		this.transform.worldTransform.applyInverse( result, result );
+		return result;
 	}
 
 	getBounds( work: Point, skipUpdate: boolean, result: Rectangle ): Rectangle {
