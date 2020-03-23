@@ -18,16 +18,21 @@ export interface UtilFileFacade {
 }
 
 /**
+ * An `open` event handler.
+ *
+ * @param result a file contents
+ * @param self an event emitter
+ */
+export type UtilFileOnOpen<RESULT, SELF> = ( result: RESULT, self: SELF ) => void;
+
+/**
  * Mappings of event names and halders.
  */
 export interface UtilFileOnOptions<SELF> {
 	/**
 	 * Triggered when a file is opened.
-	 *
-	 * @param result a file contents
-	 * @param self an event emitter
 	 */
-	open?: ( result: string | ArrayBuffer, self: SELF ) => void;
+	open?: UtilFileOnOpen<string, SELF> | UtilFileOnOpen<ArrayBuffer, SELF>;
 
 	/**
 	 * Triggered when an operation is aborted.
