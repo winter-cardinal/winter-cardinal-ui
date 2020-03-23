@@ -11,7 +11,10 @@ import { DImageBase, DImageBaseOnOptions, DImageBaseOptions, DThemeImageBase } f
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
-export interface DButtonOnOptions<VALUE> extends DImageBaseOnOptions<VALUE> {
+/**
+ * Mappings of event names and handlers.
+ */
+export interface DButtonBaseOnOptions<VALUE> extends DImageBaseOnOptions<VALUE> {
 	/**
 	 * Called when the button is activated.
 	 *
@@ -44,7 +47,10 @@ export interface DButtonBaseOptions<
 	 */
 	group?: DButtonGroup;
 
-	on?: DButtonOnOptions<VALUE>;
+	/**
+	 * Mappings of event names and handlers.
+	 */
+	on?: DButtonBaseOnOptions<VALUE>;
 }
 
 /**

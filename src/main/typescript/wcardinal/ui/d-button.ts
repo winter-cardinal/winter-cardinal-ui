@@ -3,7 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DButtonBase, DButtonBaseOptions, DThemeButtonBase } from "./d-button-base";
+import { DButtonBase, DButtonBaseOnOptions, DButtonBaseOptions, DThemeButtonBase } from "./d-button-base";
+
+export interface DButtonOnOptions<VALUE> extends DButtonBaseOnOptions<VALUE> {
+
+}
 
 export interface DButtonOptions<
 	VALUE = unknown,
