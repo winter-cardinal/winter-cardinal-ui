@@ -4,6 +4,7 @@
  */
 
 import { DDiagramCanvasTileMapping } from "./d-diagram-canvas-mapping";
+import { EShapeCorner } from "./shape/e-shape-corner";
 import { EShapeStrokeSide } from "./shape/e-shape-stroke-side";
 import { EShapeTagValueOrder } from "./shape/e-shape-tag-value";
 import { EShapeTextStyle, EShapeTextWeight } from "./shape/e-shape-text";
@@ -286,7 +287,7 @@ export interface DDiagramSerializedItem {
 	[ 13 ]: number;
 
 	/** A corner. */
-	[ 14 ]: number;
+	[ 14 ]: EShapeCorner;
 
 	/** A resource index number of a shape-specific resource. */
 	[ 15 ]: number;
