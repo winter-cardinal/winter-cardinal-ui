@@ -3,17 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { IPoint, Matrix, Transform } from "pixi.js";
+import { Matrix, ObservablePoint, Transform } from "pixi.js";
 import { EShapeTransformParent } from "./e-shape-transform-parent";
 
 export interface EShapeTransform extends Transform {
 	internalTransform: Matrix;
 
-	position: IPoint;
-	pivot: IPoint;
+	position: ObservablePoint;
+	pivot: ObservablePoint;
 	rotation: number;
-	skew: IPoint;
-	scale: IPoint;
+	skew: ObservablePoint;
+	scale: ObservablePoint;
 
 	getLocalIdCurrent(): number;
 	getLocalId(): number;
@@ -32,37 +32,37 @@ export class EShapeTransformImpl extends Transform implements EShapeTransform {
 	}
 
 	protected onChange(): void {
-		(Transform.prototype as any).onChange.call( this );
+		super.onChange();
 		this._parent.onTransformChange();
 	}
 
 	protected updateSkew(): void {
-		(Transform.prototype as any).updateSkew.call( this );
+		super.updateSkew();
 		this._parent.onTransformChange();
 	}
 
 	getLocalIdCurrent(): number {
-		return (this as any)._currentLocalID;
+		return this._currentLocalID;
 	}
 
 	getLocalId(): number {
-		return (this as any)._localID;
+		return this._localID;
 	}
 
 	getParentId(): number {
-		return (this as any)._parentID;
+		return this._parentID;
 	}
 
 	getWorldId(): number {
-		return (this as any)._worldID;
+		return this._worldID;
 	}
 
 	updateTransform( parentTransform: Transform ): void {
-		const oldLocalId = (this as any)._currentLocalID;
-		const oldWorldId = (this as any)._worldID;
+		const oldLocalId = this._currentLocalID;
+		const oldWorldId = this._worldID;
 		super.updateTransform( parentTransform );
-		const newLocalId = (this as any)._currentLocalID;
-		const newWorldId = (this as any)._worldID;
+		const newLocalId = this._currentLocalID;
+		const newWorldId = this._worldID;
 		if( oldLocalId !== newLocalId ) {
 			const localTransform = this.localTransform;
 			const internalTransform = this.internalTransform;
@@ -75,8 +75,8 @@ export class EShapeTransformImpl extends Transform implements EShapeTransform {
 			const internalTransform = this.internalTransform;
 			if( parentTransform instanceof EShapeTransformImpl ) {
 				localTransform.copyTo( internalTransform ).prepend( parentTransform.internalTransform );
-				(this as any)._currentLocalID += 1;
-				(this as any)._localID = (this as any)._currentLocalID;
+				this._currentLocalID += 1;
+				this._localID = this._currentLocalID;
 			}
 		}
 	}

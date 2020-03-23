@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { extract, Matrix, Renderer, RenderTexture, SCALE_MODES, utils } from "pixi.js";
+import { Extract, Matrix, Renderer, RenderTexture, SCALE_MODES, utils } from "pixi.js";
 import { DApplications } from "../d-applications";
 import { DBase } from "../d-base";
 import { UtilExtractorPixels } from "./util-extractor-pixels";
@@ -38,7 +38,7 @@ export class UtilExtractor {
 		const pixels = new Uint8Array( 4 * width * height );
 
 		renderer.renderTexture.bind( renderTexture );
-		const gl = (renderer as any).gl;
+		const gl = renderer.gl;
 		gl.readPixels(
 			frame.x * resolution,
 			frame.y * resolution,
@@ -66,7 +66,7 @@ export class UtilExtractor {
 		if( ignorePremutipliedAlpha ) {
 			imageData.data.set( array );
 		} else {
-			(extract.Extract as any).arrayPostDivide( array, imageData.data );
+			(Extract as any).arrayPostDivide( array, imageData.data );
 		}
 		canvasRenderTarget.context.putImageData( imageData, 0, 0 );
 

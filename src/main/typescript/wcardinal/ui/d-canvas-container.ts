@@ -158,7 +158,7 @@ export class DCanvasContainer<
 			this._overflowMask = null;
 			overflowMask.destroy();
 		}
-		this.mask = null;
+		(this as any).mask = null;
 
 		super.destroy();
 	}

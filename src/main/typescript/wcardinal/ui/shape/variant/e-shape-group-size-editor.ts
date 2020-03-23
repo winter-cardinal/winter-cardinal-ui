@@ -54,7 +54,7 @@ export class EShapeGroupSizeEditor implements EShapeGroupSize {
 		}
 	}
 
-	set( x?: number | undefined, y?: number | undefined ): void {
+	set( x?: number, y?: number ): this {
 		let isChanged = false;
 		const size = this._size;
 		const ox = size.x;
@@ -70,6 +70,7 @@ export class EShapeGroupSizeEditor implements EShapeGroupSize {
 		if( isChanged ) {
 			this.onChange( ox, oy );
 		}
+		return this;
 	}
 
 	clone(): EShapeGroupSizeEditor {

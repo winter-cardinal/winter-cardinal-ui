@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DisplayObject, interaction, IPoint } from "pixi.js";
+import { DisplayObject, interaction, Point } from "pixi.js";
 import InteractionEvent = interaction.InteractionEvent;
 import { DApplicationTarget } from "../d-application-like";
 import { DApplications } from "../d-applications";
@@ -62,8 +62,8 @@ export class UtilPointerEvent {
 	static toGlobal(
 		e: MouseEvent | TouchEvent,
 		interactionManager: interaction.InteractionManager,
-		result: IPoint
-	): IPoint {
+		result: Point
+	): Point {
 		if( "touches" in e ) {
 			const touches = e.changedTouches;
 			const touch = touches[ touches.length - 1 ];

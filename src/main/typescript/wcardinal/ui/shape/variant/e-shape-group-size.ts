@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { IPoint } from "pixi.js";
+import { IPoint, ObservablePoint } from "pixi.js";
 
 export interface EShapeGroupSize {
 	x: number;
@@ -11,10 +11,9 @@ export interface EShapeGroupSize {
 
 	init(): void;
 	fit(): void;
-	clone(): IPoint;
-	copy(): void;
-	copyFrom(p: IPoint): IPoint;
+	clone(): ObservablePoint;
+	copyFrom(p: IPoint): this;
 	copyTo(p: IPoint): IPoint;
 	equals(p: IPoint): boolean;
-	set( x?: number | undefined, y?: number | undefined ): void;
+	set( x?: number, y?: number ): this;
 }

@@ -41,12 +41,13 @@ export class DBasePoint {
 		}
 	}
 
-	set( x: number, y: number ) {
+	set( x: number, y: number ): this {
 		const point = this._point;
 		if( point.x !== x || point.y !== y ) {
 			point.set( x, y );
 			this.cb.call( this.scope );
 		}
+		return this;
 	}
 
 	copyFrom( target: IPoint ): this {
@@ -66,7 +67,7 @@ export class DBasePoint {
 		return this.copyFrom( arguments[ 0 ] );
 	}
 
-	clone( cb?: Function, scope?: any ): IPoint {
+	clone( cb?: Function, scope?: any ): DBasePoint {
 		cb = cb || this.cb;
 		scope = scope || this.scope;
 		return new DBasePoint( this._point, cb as Callback, scope );

@@ -392,7 +392,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		return result;
 	}
 
-	contains( point: IPoint ): EShape | null {
+	contains( point: Point ): EShape | null {
 		const rect = this.toLocalRect( point, EShapeBase.WORK_RECT );
 		if( this.containsAbs( rect.x, rect.y, rect.width, rect.height ) ) {
 			return this;
@@ -402,7 +402,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		return this.containsText( x, y, point ) || this.containsChildren( x, y, point );
 	}
 
-	protected containsText( x: number, y: number, work: IPoint ): EShape | null {
+	protected containsText( x: number, y: number, work: Point ): EShape | null {
 		const text = this.text;
 		const textAtlas = text.atlas;
 		if( textAtlas != null ) {
@@ -422,7 +422,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		return null;
 	}
 
-	protected containsChildren( x: number, y: number, work: IPoint ): EShape | null {
+	protected containsChildren( x: number, y: number, work: Point ): EShape | null {
 		const children = this.children;
 		for( let i = children.length - 1; 0 <= i; --i ) {
 			const child = children[ i ];

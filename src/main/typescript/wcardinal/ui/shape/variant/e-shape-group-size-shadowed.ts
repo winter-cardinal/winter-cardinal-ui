@@ -46,7 +46,7 @@ export class EShapeGroupSizeShadowed implements EShapeGroupSize {
 		}
 	}
 
-	set( x?: number | undefined, y?: number | undefined ): void {
+	set( x?: number | undefined, y?: number | undefined ): this {
 		let isChanged = false;
 		const size = this._size;
 		const ox = size.x;
@@ -62,6 +62,7 @@ export class EShapeGroupSizeShadowed implements EShapeGroupSize {
 		if( isChanged ) {
 			this.onChange( ox, oy );
 		}
+		return this;
 	}
 
 	clone(): EShapeGroupSizeShadowed {

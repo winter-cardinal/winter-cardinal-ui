@@ -41,7 +41,7 @@
 		"prepublishOnly": "npm run build"
 	},
 	"dependencies": {
-		"pixi.js": "^5.1.5"
+		"pixi.js": "^5.2.1"
 	},
 	"devDependencies": {
 		"@wcardinal/typedoc-plugin-named-event": "^1.0.0",
@@ -56,6 +56,6 @@
 		"tslint": "^5.16.0",
 		"typedoc": "^0.15.6",
 		"typedoc-plugin-external-module-map": "^1.0.0",
-		"typescript": "^3.7.5"
+		"typescript": "^3.8.3"
 	}
 }
