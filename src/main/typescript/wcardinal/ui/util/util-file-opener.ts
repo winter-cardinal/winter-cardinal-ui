@@ -3,6 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+/**
+ * An output format.
+ */
 export enum UtilFileAs {
 	TEXT,
 	DATA_URL,
@@ -12,6 +15,34 @@ export enum UtilFileAs {
 
 export interface UtilFileFacade {
 	emit( name: string, ...args: any[] ): void;
+}
+
+/**
+ * Mappings of event names and halders.
+ */
+export interface UtilFileOnOptions<SELF> {
+	/**
+	 * Triggered when a file is opened.
+	 *
+	 * @param result a file contents
+	 * @param self an event emitter
+	 */
+	open?: ( result: string | ArrayBuffer, self: SELF ) => void;
+
+	/**
+	 * Triggered when an operation is aborted.
+	 *
+	 * @param e an event object
+	 * @param en event emitter
+	 */
+	abort?: ( e: ProgressEvent, self: SELF ) => void;
+
+	/**
+	 * Triggered when an operation is canceled.
+	 *
+	 * @param en event emitter
+	 */
+	cancel?: ( self: SELF ) => void;
 }
 
 export class UtilFileOpener {
@@ -86,7 +117,7 @@ export class UtilFileOpener {
 		}
 	}
 
-	protected onOpen( result: unknown ): void {
+	protected onOpen( result: string | ArrayBuffer ): void {
 		const facade = this._facade;
 		facade.emit( "open", result, facade );
 	}

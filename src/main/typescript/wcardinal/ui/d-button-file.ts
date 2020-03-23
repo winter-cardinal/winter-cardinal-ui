@@ -3,18 +3,36 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DButton, DButtonOptions, DThemeButton } from "./d-button";
+import { DButton, DButtonOnOptions, DButtonOptions, DThemeButton } from "./d-button";
 import { isString } from "./util/is-string";
-import { UtilFileAs, UtilFileOpener } from "./util/util-file-opener";
+import { UtilFileAs, UtilFileOnOptions, UtilFileOpener } from "./util/util-file-opener";
 
 export import DButtonFileAs = UtilFileAs;
+
+/**
+ * Mappings of event names and handlers.
+ */
+export interface DButtonFileOnOptions<VALUE> extends DButtonOnOptions<VALUE>, UtilFileOnOptions<any> {
+
+}
 
 export interface DButtonFileOptions<
 	VALUE = unknown,
 	THEME extends DThemeButtonFile = DThemeButtonFile
 > extends DButtonOptions<VALUE, THEME> {
+	/**
+	 * An output format.
+	 */
 	as?: (keyof typeof UtilFileAs) | UtilFileAs;
+
+	/**
+	 * A checker called before opening a file.
+	 * If the checker returns false or the returned promise object is rejected,
+	 * files will not be opened.
+	 */
 	checker?: () => Promise<unknown> | boolean;
+
+	on?: DButtonFileOnOptions<VALUE>;
 }
 
 export interface DThemeButtonFile extends DThemeButton {
