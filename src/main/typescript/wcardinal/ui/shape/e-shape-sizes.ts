@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Point } from "pixi.js";
+import { IPoint } from "pixi.js";
 import { EShape } from "./e-shape";
 
 export class EShapeSizes {
@@ -19,7 +19,7 @@ export class EShapeSizes {
 		return EShapeSizes.toRounded( size );
 	}
 
-	static resize( shape: EShape, from: Point, to: Point, centerMode: boolean, isPerfect: boolean ): void {
+	static resize( shape: EShape, from: IPoint, to: IPoint, centerMode: boolean, isPerfect: boolean ): void {
 		shape.disallowUploadedUpdate();
 		const position = shape.transform.position;
 		if( centerMode ) {

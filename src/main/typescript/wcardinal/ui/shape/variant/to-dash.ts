@@ -1,10 +1,10 @@
-import { Point } from "pixi.js";
+import { IPoint } from "pixi.js";
 import { EShapePointsStyle } from "../e-shape-points-style";
 
 export const toDash = (
 	length: number, strokeWidth: number,
-	style: EShapePointsStyle, result: Point
-): Point => {
+	style: EShapePointsStyle, result: IPoint
+): IPoint => {
 	result.set( 2 * length, 0 );
 	if( style & EShapePointsStyle.NON_SOLID_MASK ) {
 		if( style & EShapePointsStyle.DOTTED ) {
