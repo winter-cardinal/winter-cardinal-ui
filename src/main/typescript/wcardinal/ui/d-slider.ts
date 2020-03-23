@@ -67,12 +67,12 @@ export abstract class DSlider<
 
 		// Event listeners
 		this._track.on( UtilPointerEvent.down, ( e: InteractionEvent) => {
-			this._value.visible = true;
+			this._value.visible = true && !this.isDisabled();
 			this.onTrackDown( e.data.global );
 		});
 
 		this._trackSelected.on( UtilPointerEvent.down, ( e: InteractionEvent) => {
-			this._value.visible = true;
+			this._value.visible = true && !this.isDisabled();
 			this.onTrackSelectedDown( e.data.global );
 		});
 
@@ -171,6 +171,9 @@ export abstract class DSlider<
 	}
 
 	protected onTrackDown( global: Point ): void {
+		if( this.isDisabled() ) {
+			return;
+		}
 		const layer = DApplications.getLayer( this );
 		if( layer ) {
 			const interactionManager = layer.renderer.plugins.interaction;
@@ -181,6 +184,9 @@ export abstract class DSlider<
 	}
 
 	protected onTrackSelectedDown( global: Point ): void {
+		if( this.isDisabled() ) {
+			return;
+		}
 		const layer = DApplications.getLayer( this );
 		if( layer ) {
 			const interactionManager = layer.renderer.plugins.interaction;
