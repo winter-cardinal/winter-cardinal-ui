@@ -5,16 +5,42 @@
 
 import { DApplications } from "./d-applications";
 import { DBaseState } from "./d-base-state";
-import { DButton, DButtonOptions, DThemeButton } from "./d-button";
+import { DButton, DButtonOnOptions, DButtonOptions, DThemeButton } from "./d-button";
 import { DColorAndAlpha } from "./d-color";
 import { DDialogColor, DDialogColorOptions } from "./d-dialog-color";
 import { DImagePieceOptions, DImagePieceTintOptions } from "./d-image-piece";
 import { DPickerColorAndAlpha } from "./d-picker-color-and-alpha";
 
+/**
+ * Mappings of event names and handlers.
+ */
+export interface DButtonColorOnOptions extends DButtonOnOptions<DColorAndAlpha> {
+	/**
+	 * Triggered when a selection is changed.
+	 *
+	 * @param newValue a newly selected value
+	 * @param oldValue a previously selected value
+	 * @param self a button
+	 */
+	select?: ( newValue: DColorAndAlpha | null, oldValue: DColorAndAlpha | null, self: any ) => void;
+
+	/**
+	 * Triggered when a selection is changed.
+	 *
+	 * @param self a button
+	 */
+	change?: ( self: any ) => void;
+}
+
 export interface DButtonColorOptions<
 	THEME extends DThemeButtonColor = DThemeButtonColor
 > extends DButtonOptions<DColorAndAlpha, THEME> {
+	/**
+	 * A dialog to pick a color.
+	 */
 	dialog?: DDialogColorOptions;
+
+	on?: DButtonColorOnOptions;
 }
 
 export interface DThemeButtonColor extends DThemeButton {
