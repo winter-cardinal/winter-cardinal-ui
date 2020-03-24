@@ -6,16 +6,47 @@
 import { DButton } from "./d-button";
 import { DButtonPrimary } from "./d-button-primary";
 import { DCoordinatePosition, DCoordinateSize } from "./d-coordinate";
-import { DDialog, DDialogOptions, DThemeDialog } from "./d-dialog";
+import { DDialog, DDialogOnOptions, DDialogOptions, DThemeDialog } from "./d-dialog";
 import { DLayoutHorizontal } from "./d-layout-horizontal";
 import { DLayoutSpace } from "./d-layout-space";
 import { DLayoutVertical } from "./d-layout-vertical";
 
+/**
+ * Mappings of event names and handlers.
+ */
+export interface DDialogCommandOnOptions extends DDialogOnOptions {
+	/**
+	 * Triggered when a dialog is successfully finished.
+	 *
+	 * @param self a dialog
+	 */
+	ok?: ( self: any ) => void;
+
+	/**
+	 * Triggered when a dialog is canceled.
+	 *
+	 * @param self a dialog
+	 */
+	cancel?: ( self: any ) => void;
+}
+
 export interface DDialogCommandOptions<
 	THEME extends DThemeDialogCommand = DThemeDialogCommand
 > extends DDialogOptions<THEME> {
+	/**
+	 * A ok button label.
+	 */
 	ok?: string;
+
+	/**
+	 * A cancel button label.
+	 */
 	cancel?: string;
+
+	/**
+	 * Mappings of event names and handlers.
+	 */
+	on?: DDialogCommandOnOptions;
 }
 
 export interface DThemeDialogCommand extends DThemeDialog {

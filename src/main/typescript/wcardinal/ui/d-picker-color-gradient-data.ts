@@ -164,7 +164,7 @@ export class DPickerColorGradientData extends utils.EventEmitter {
 		return false;
 	}
 
-	reset(): void {
+	reset(): this {
 		const oldDirection = this._direction;
 		this._direction = -90;
 
@@ -195,6 +195,7 @@ export class DPickerColorGradientData extends utils.EventEmitter {
 		}
 
 		this.emit( "change", this );
+		return this;
 	}
 
 	toObject(): DPickerColorGradientDataLike {
@@ -209,7 +210,7 @@ export class DPickerColorGradientData extends utils.EventEmitter {
 		};
 	}
 
-	fromObject( data: DPickerColorGradientDataLike ): void {
+	fromObject( data: DPickerColorGradientDataLike ): this {
 		const oldDirection = this._direction;
 		this._direction = data.direction;
 
@@ -247,5 +248,6 @@ export class DPickerColorGradientData extends utils.EventEmitter {
 		}
 
 		this.emit( "change", this );
+		return this;
 	}
 }
