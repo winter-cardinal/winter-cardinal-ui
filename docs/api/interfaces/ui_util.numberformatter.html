@@ -67,109 +67,6 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Formats numbers with the specified format.</p>
-					</div>
-					<a href="#datetime-format-specifiers" id="datetime-format-specifiers" style="color: inherit; text-decoration: none;">
-						<h4>Datetime format specifiers</h4>
-					</a>
-					<ul>
-						<li>%Y full year</li>
-						<li>%y short year: [0, 99]</li>
-						<li>%M month: [1, 12]</li>
-						<li>%D day of the month: [1, 31]</li>
-						<li>%H 24-hour clock: [0, 23]</li>
-						<li>%h 12-hour clock: [1, 12]</li>
-						<li>%m minute: [0, 59]</li>
-						<li>%mi milliseconds: [0, 999]</li>
-						<li>%a am or pm</li>
-						<li>%A AM or PM</li>
-						<li>%s seconds: [0, 61]</li>
-						<li>%z time zone</li>
-						<li>%% a % literal</li>
-						<li>%sdt Step-based adaptive datetime format</li>
-					</ul>
-					<a href="#syntax-sugers-for-datetime-format" id="syntax-sugers-for-datetime-format" style="color: inherit; text-decoration: none;">
-						<h5>Syntax sugers for Datetime format</h5>
-					</a>
-					<ul>
-						<li>%YM  shortened form of %Y/%M</li>
-						<li>%YMD shortened form of %Y/%M/%D</li>
-						<li>%yM  shortened form of %y/%M</li>
-						<li>%yMD shortened form of %y/%M/%D</li>
-						<li>%MD  shortened form of %M/%D</li>
-						<li>%Hm  shortened form of %H:%m</li>
-						<li>%Hms shortened form of %H:%m:%s</li>
-						<li>%hm  shortened form of %H:%m</li>
-						<li>%hms shortened form of %H:%m:%s</li>
-						<li>%ms  shortened form of %m:%s</li>
-					</ul>
-					<a href="#datetime-format-modifiers" id="datetime-format-modifiers" style="color: inherit; text-decoration: none;">
-						<h5>Datetime format modifiers</h5>
-					</a>
-					<ul>
-						<li>0 zero padding</li>
-						<li><ul>
-								<li>no padding</li>
-							</ul>
-						</li>
-						<li>_ space padding</li>
-					</ul>
-					<a href="#number-format-specifiers" id="number-format-specifiers" style="color: inherit; text-decoration: none;">
-						<h4>Number format specifiers</h4>
-					</a>
-					<ul>
-						<li>%f fixed point notation</li>
-						<li>%e exponent notation</li>
-						<li>%g %f or %e depending on given numbers</li>
-						<li>%rd rounded decimal notation</li>
-						<li>%d decimal notation</li>
-						<li>%P percent notation (Multiplied by 100)</li>
-						<li>%p percent notation (Not multiplied by 100)</li>
-						<li>%RP rounded percent notation (Multiplied by 100)</li>
-						<li>%rp rounded percent notation (Not multiplied by 100)</li>
-						<li>%fsi fixed point notation with a SI prefix<ul>
-								<li>y: yocto, 10^-24</li>
-								<li>z: zepto, 10^-21</li>
-								<li>a: atto,  10^-18</li>
-								<li>f: femto, 10^-15</li>
-								<li>p: pico,  10^-12</li>
-								<li>n: nano,  10^- 9</li>
-								<li>μ: micro, 10^- 6</li>
-								<li>m: milli, 10^- 3</li>
-								<li>: none,  10^  0</li>
-								<li>k: kilo,  10^+ 3</li>
-								<li>M: mega,  10^+ 6</li>
-								<li>G: giga,  10^+ 9</li>
-								<li>T: tera,  10^+12</li>
-								<li>P: peta,  10^+15</li>
-								<li>E: exa,   10^+18</li>
-								<li>Z: zetta, 10^+21</li>
-								<li>Y: yotta, 10^+24</li>
-							</ul>
-						</li>
-						<li>%ssi step-based fixed point notation with a SI prefix</li>
-					</ul>
-					<a href="#number-format-modifiers" id="number-format-modifiers" style="color: inherit; text-decoration: none;">
-						<h5>Number format modifiers</h5>
-					</a>
-					<ul>
-						<li><ul>
-								<li>Minus sign for negative numbers. Nothing for the others.</li>
-							</ul>
-						</li>
-						<li><ul>
-								<li>Minus sign for negative numbers. Plus sign for the others.</li>
-							</ul>
-						</li>
-						<li>( Parentheses for negative numbers. Nothing for the others.</li>
-						<li>_ Minus sign for negative numbers. Space for the others.</li>
-						<li>.N Number of digits after the fractional point.</li>
-					</ul>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -209,27 +106,16 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/util/number-formatter.ts#L91">src/main/typescript/wcardinal/ui/util/number-formatter.ts:91</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/util/number-formatter.ts#L91">src/main/typescript/wcardinal/ui/util/number-formatter.ts:91</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Formats the given number <code>target</code>.</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>target: <span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>A format target</p>
-									</div>
 								</li>
 								<li>
 									<h5>step: <span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>A step of numbers</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -260,6 +146,9 @@
 						<a href="../modules/ui_shape_action.html">ui/shape/action</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="../modules/ui_shape_load.html">ui/shape/load</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/ui_shape_variant.html">ui/shape/variant</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -269,7 +158,16 @@
 						<a href="../modules/ui_theme.html">ui/theme</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="../modules/ui_theme_dark.html">ui/theme/dark</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/ui_theme_dark_load.html">ui/theme/dark/load</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/ui_theme_white.html">ui/theme/white</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/ui_theme_white_load.html">ui/theme/white/load</a>
 					</li>
 					<li class="current tsd-kind-external-module">
 						<a href="../modules/ui_util.html">ui/util</a>

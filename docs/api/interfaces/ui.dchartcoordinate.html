@@ -97,9 +97,11 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ui.dchartcoordinate.html#bind" class="tsd-kind-icon">bind</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ui.dchartcoordinate.html#blend" class="tsd-kind-icon">blend</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ui.dchartcoordinate.html#fit" class="tsd-kind-icon">fit</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ui.dchartcoordinate.html#map" class="tsd-kind-icon">map</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ui.dchartcoordinate.html#mapall" class="tsd-kind-icon">map<wbr>All</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ui.dchartcoordinate.html#mark" class="tsd-kind-icon">mark</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ui.dchartcoordinate.html#ticks" class="tsd-kind-icon">ticks</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ui.dchartcoordinate.html#unbind" class="tsd-kind-icon">unbind</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ui.dchartcoordinate.html#unmap" class="tsd-kind-icon">unmap</a></li>
@@ -117,14 +119,9 @@
 					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L18">src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L18">src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:18</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Monotonic increasing ID for change detection.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="transform" class="tsd-anchor"></a>
@@ -132,7 +129,7 @@
 					<div class="tsd-signature tsd-kind-icon">transform<span class="tsd-signature-symbol">:</span> <a href="ui.dchartcoordinatetransform.html" class="tsd-signature-type">DChartCoordinateTransform</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L19">src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L19">src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:19</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -149,7 +146,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L21">src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L21">src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:21</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -166,24 +163,50 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="fit" class="tsd-anchor"></a>
-					<h3>fit</h3>
+					<a name="blend" class="tsd-anchor"></a>
+					<h3>blend</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">fit<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">blend<span class="tsd-signature-symbol">(</span>ratio<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L28">src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:28</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L35">src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:35</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Adjusts the transform so that mapped points fit into the plot area
-									if the plot area container&#39;s localTransform is an identity matrix.</p>
-								</div>
-							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>ratio: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="fit" class="tsd-anchor"></a>
+					<h3>fit</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">fit<span class="tsd-signature-symbol">(</span>from<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span>, to<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L31">src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:31</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> from: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> to: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -198,21 +221,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L35">src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L42">src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:42</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Transforms the given raw value to the untransformed value.</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>value: <span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>a raw value</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -229,47 +244,51 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L48">src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:48</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L55">src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:55</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Transforms the given raw values to untransformed values.
-										Numbers whose indices are ifrom + i * stride + offset and less than iend will be transformed.
-									Here, i is a non-negative integer.</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>values: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>raw values to be transformed</p>
-									</div>
 								</li>
 								<li>
 									<h5>ifrom: <span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>an index on raw values at which to begin a transformation</p>
-									</div>
 								</li>
 								<li>
 									<h5>iend: <span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>an index on raw values before which to end a transformation</p>
-									</div>
 								</li>
 								<li>
 									<h5>stride: <span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>a stride of indices</p>
-									</div>
 								</li>
 								<li>
 									<h5>offset: <span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>an offset of indices</p>
-									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="mark" class="tsd-anchor"></a>
+					<h3>mark</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">mark<span class="tsd-signature-symbol">(</span>from<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span>, to<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L33">src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:33</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> from: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> to: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -286,57 +305,31 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L81">src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:81</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L88">src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:88</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Returns major / minor tick positions.</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>domainMin: <span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>minimum domain</p>
-									</div>
 								</li>
 								<li>
 									<h5>domainMax: <span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>maximum domain</p>
-									</div>
 								</li>
 								<li>
 									<h5>majorCount: <span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Expected major tick count</p>
-									</div>
 								</li>
 								<li>
 									<h5>minorCountPerMajor: <span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Expected minor tick count per major ticks</p>
-									</div>
 								</li>
 								<li>
 									<h5>minorCount: <span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Expected total minor tick count</p>
-									</div>
 								</li>
 								<li>
 									<h5>majorResult: <span class="tsd-signature-type">Float64Array</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p><code>majorResult.length</code> must be larger than <code>majorCount * 3</code>.</p>
-									</div>
 								</li>
 								<li>
 									<h5>minorResult: <span class="tsd-signature-type">Float64Array</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p><code>minorResult.length</code> must be larger than <code>minorCount * 3</code>.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -353,7 +346,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L22">src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L22">src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:22</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -370,21 +363,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L55">src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L62">src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:62</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Transforms the given untransformed value to the raw value.</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>value: <span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>an untransformed value</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -401,47 +386,25 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L68">src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:68</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L75">src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:75</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Transforms the given untransformed values to raw values.
-										Numbers whose indices are ifrom + i * stride + offset and less than iend will be transformed.
-									Here, i is a non-negative integer.</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>values: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>untrasformed values to be transformed</p>
-									</div>
 								</li>
 								<li>
 									<h5>ifrom: <span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>an index on raw values at which to begin a transformation</p>
-									</div>
 								</li>
 								<li>
 									<h5>iend: <span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>an index on raw values at which to begin a transformation</p>
-									</div>
 								</li>
 								<li>
 									<h5>stride: <span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>a stride of indices</p>
-									</div>
 								</li>
 								<li>
 									<h5>offset: <span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>an offset of indices</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -472,6 +435,9 @@
 						<a href="../modules/ui_shape_action.html">ui/shape/action</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="../modules/ui_shape_load.html">ui/shape/load</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/ui_shape_variant.html">ui/shape/variant</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -481,7 +447,16 @@
 						<a href="../modules/ui_theme.html">ui/theme</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="../modules/ui_theme_dark.html">ui/theme/dark</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/ui_theme_dark_load.html">ui/theme/dark/load</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/ui_theme_white.html">ui/theme/white</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/ui_theme_white_load.html">ui/theme/white/load</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/ui_util.html">ui/util</a>
@@ -508,6 +483,9 @@
 								<a href="ui.dchartcoordinate.html#bind" class="tsd-kind-icon">bind</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="ui.dchartcoordinate.html#blend" class="tsd-kind-icon">blend</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="ui.dchartcoordinate.html#fit" class="tsd-kind-icon">fit</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
@@ -515,6 +493,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="ui.dchartcoordinate.html#mapall" class="tsd-kind-icon">map<wbr>All</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="ui.dchartcoordinate.html#mark" class="tsd-kind-icon">mark</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="ui.dchartcoordinate.html#ticks" class="tsd-kind-icon">ticks</a>

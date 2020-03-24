@@ -80,6 +80,14 @@
 				<ul class="tsd-hierarchy">
 					<li>
 						<span class="target">DTableDataOptions</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<a href="ui.dtabledatalistoptions.html" class="tsd-signature-type">DTableDataListOptions</a>
+							</li>
+							<li>
+								<a href="ui.dtabledatatreeoptions.html" class="tsd-signature-type">DTableDataTreeOptions</a>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -93,7 +101,6 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ui.dtabledataoptions.html#comparator" class="tsd-kind-icon">comparator</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ui.dtabledataoptions.html#filter" class="tsd-kind-icon">filter</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ui.dtabledataoptions.html#on" class="tsd-kind-icon">on</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ui.dtabledataoptions.html#rows" class="tsd-kind-icon">rows</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ui.dtabledataoptions.html#selection" class="tsd-kind-icon">selection</a></li>
 							</ul>
 						</section>
@@ -108,14 +115,9 @@
 					<div class="tsd-signature tsd-kind-icon">comparator<span class="tsd-signature-symbol">:</span> <a href="../modules/ui.html#dtabledatacomparatorfunction" class="tsd-signature-type">DTableDataComparatorFunction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ROW</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="ui.dtabledatacomparatorobject.html" class="tsd-signature-type">DTableDataComparatorObject</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ROW</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-table-data.ts#L63">src/main/typescript/wcardinal/ui/d-table-data.ts:63</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-table-data.ts#L68">src/main/typescript/wcardinal/ui/d-table-data.ts:68</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>A comparator.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="filter" class="tsd-anchor"></a>
@@ -123,14 +125,9 @@
 					<div class="tsd-signature tsd-kind-icon">filter<span class="tsd-signature-symbol">:</span> <a href="../modules/ui.html#dtabledatafilterfunction" class="tsd-signature-type">DTableDataFilterFunction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ROW</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="ui.dtabledatafilterobject.html" class="tsd-signature-type">DTableDataFilterObject</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ROW</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-table-data.ts#L58">src/main/typescript/wcardinal/ui/d-table-data.ts:58</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-table-data.ts#L63">src/main/typescript/wcardinal/ui/d-table-data.ts:63</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>A filter.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="on" class="tsd-anchor"></a>
@@ -138,29 +135,9 @@
 					<div class="tsd-signature tsd-kind-icon">on<span class="tsd-signature-symbol">:</span> <a href="ui.dbaseonoptions.html" class="tsd-signature-type">DBaseOnOptions</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-table-data.ts#L68">src/main/typescript/wcardinal/ui/d-table-data.ts:68</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-table-data.ts#L73">src/main/typescript/wcardinal/ui/d-table-data.ts:73</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Mappings of event names and event handlers.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="rows" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> rows</h3>
-					<div class="tsd-signature tsd-kind-icon">rows<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ROW</span><span class="tsd-signature-symbol">[]</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-table-data.ts#L48">src/main/typescript/wcardinal/ui/d-table-data.ts:48</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Row data.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="selection" class="tsd-anchor"></a>
@@ -168,14 +145,9 @@
 					<div class="tsd-signature tsd-kind-icon">selection<span class="tsd-signature-symbol">:</span> <a href="ui.dtabledataselectionoptions.html" class="tsd-signature-type">DTableDataSelectionOptions</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-table-data.ts#L53">src/main/typescript/wcardinal/ui/d-table-data.ts:53</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-table-data.ts#L58">src/main/typescript/wcardinal/ui/d-table-data.ts:58</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Selection options.</p>
-						</div>
-					</div>
 				</section>
 			</section>
 		</div>
@@ -201,6 +173,9 @@
 						<a href="../modules/ui_shape_action.html">ui/shape/action</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="../modules/ui_shape_load.html">ui/shape/load</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/ui_shape_variant.html">ui/shape/variant</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -210,7 +185,16 @@
 						<a href="../modules/ui_theme.html">ui/theme</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="../modules/ui_theme_dark.html">ui/theme/dark</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/ui_theme_dark_load.html">ui/theme/dark/load</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/ui_theme_white.html">ui/theme/white</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/ui_theme_white_load.html">ui/theme/white/load</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/ui_util.html">ui/util</a>
@@ -235,9 +219,6 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="ui.dtabledataoptions.html#on" class="tsd-kind-icon">on</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="ui.dtabledataoptions.html#rows" class="tsd-kind-icon">rows</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="ui.dtabledataoptions.html#selection" class="tsd-kind-icon">selection</a>

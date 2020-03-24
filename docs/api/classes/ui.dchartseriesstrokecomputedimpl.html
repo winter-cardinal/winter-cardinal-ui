@@ -94,8 +94,11 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="ui.dchartseriesstrokecomputedimpl.html#align" class="tsd-kind-icon">align</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="ui.dchartseriesstrokecomputedimpl.html#alpha" class="tsd-kind-icon">alpha</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="ui.dchartseriesstrokecomputedimpl.html#color" class="tsd-kind-icon">color</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="ui.dchartseriesstrokecomputedimpl.html#enable" class="tsd-kind-icon">enable</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="ui.dchartseriesstrokecomputedimpl.html#side" class="tsd-kind-icon">side</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="ui.dchartseriesstrokecomputedimpl.html#style" class="tsd-kind-icon">style</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="ui.dchartseriesstrokecomputedimpl.html#width" class="tsd-kind-icon">width</a></li>
 							</ul>
@@ -115,25 +118,34 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new DChart<wbr>Series<wbr>Stroke<wbr>Computed<wbr>Impl<span class="tsd-signature-symbol">(</span>width<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, color<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, alpha<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, style<span class="tsd-signature-symbol">: </span><a href="../enums/ui_shape.eshapepointsstyle.html" class="tsd-signature-type">EShapePointsStyle</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ui.dchartseriesstrokecomputedimpl.html" class="tsd-signature-type">DChartSeriesStrokeComputedImpl</a></li>
+						<li class="tsd-signature tsd-kind-icon">new DChart<wbr>Series<wbr>Stroke<wbr>Computed<wbr>Impl<span class="tsd-signature-symbol">(</span>enable<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span>, color<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, alpha<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, width<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, align<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, side<span class="tsd-signature-symbol">: </span><a href="../enums/ui_shape.eshapestrokeside.html" class="tsd-signature-type">EShapeStrokeSide</a>, style<span class="tsd-signature-symbol">: </span><a href="../enums/ui_shape.eshapepointsstyle.html" class="tsd-signature-type">EShapePointsStyle</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ui.dchartseriesstrokecomputedimpl.html" class="tsd-signature-type">DChartSeriesStrokeComputedImpl</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L10">src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L19">src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:19</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>width: <span class="tsd-signature-type">number</span></h5>
+									<h5>enable: <span class="tsd-signature-type">boolean</span></h5>
 								</li>
 								<li>
 									<h5>color: <span class="tsd-signature-type">number</span></h5>
 								</li>
 								<li>
 									<h5>alpha: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>width: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>align: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>side: <a href="../enums/ui_shape.eshapestrokeside.html" class="tsd-signature-type">EShapeStrokeSide</a></h5>
 								</li>
 								<li>
 									<h5>style: <a href="../enums/ui_shape.eshapepointsstyle.html" class="tsd-signature-type">EShapePointsStyle</a></h5>
@@ -147,13 +159,24 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="align" class="tsd-anchor"></a>
+					<h3>align</h3>
+					<div class="tsd-signature tsd-kind-icon">align<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<p>Implementation of <a href="../interfaces/ui.dchartseriesstrokecomputed.html">DChartSeriesStrokeComputed</a>.<a href="../interfaces/ui.dchartseriesstrokecomputed.html#align">align</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L17">src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:17</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="alpha" class="tsd-anchor"></a>
 					<h3>alpha</h3>
 					<div class="tsd-signature tsd-kind-icon">alpha<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/ui.dchartseriesstrokecomputed.html">DChartSeriesStrokeComputed</a>.<a href="../interfaces/ui.dchartseriesstrokecomputed.html#alpha">alpha</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L9">src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L15">src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -164,7 +187,29 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/ui.dchartseriesstrokecomputed.html">DChartSeriesStrokeComputed</a>.<a href="../interfaces/ui.dchartseriesstrokecomputed.html#color">color</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L8">src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L14">src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:14</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="enable" class="tsd-anchor"></a>
+					<h3>enable</h3>
+					<div class="tsd-signature tsd-kind-icon">enable<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<p>Implementation of <a href="../interfaces/ui.dchartseriesstrokecomputed.html">DChartSeriesStrokeComputed</a>.<a href="../interfaces/ui.dchartseriesstrokecomputed.html#enable">enable</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L13">src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:13</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="side" class="tsd-anchor"></a>
+					<h3>side</h3>
+					<div class="tsd-signature tsd-kind-icon">side<span class="tsd-signature-symbol">:</span> <a href="../enums/ui_shape.eshapestrokeside.html" class="tsd-signature-type">EShapeStrokeSide</a></div>
+					<aside class="tsd-sources">
+						<p>Implementation of <a href="../interfaces/ui.dchartseriesstrokecomputed.html">DChartSeriesStrokeComputed</a>.<a href="../interfaces/ui.dchartseriesstrokecomputed.html#side">side</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L18">src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:18</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -175,7 +220,7 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/ui.dchartseriesstrokecomputed.html">DChartSeriesStrokeComputed</a>.<a href="../interfaces/ui.dchartseriesstrokecomputed.html#style">style</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L10">src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L19">src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:19</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -186,7 +231,7 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/ui.dchartseriesstrokecomputed.html">DChartSeriesStrokeComputed</a>.<a href="../interfaces/ui.dchartseriesstrokecomputed.html#width">width</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L7">src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L16">src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -197,19 +242,19 @@
 					<a name="from" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> from</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">from<span class="tsd-signature-symbol">(</span>container<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.dchartseriescontainer.html" class="tsd-signature-type">DChartSeriesContainer</a>, index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, stroke<span class="tsd-signature-symbol">?: </span><a href="../interfaces/ui.dchartseriesstrokecomputedoptions.html" class="tsd-signature-type">DChartSeriesStrokeComputedOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.dchartseriesstrokecomputed.html" class="tsd-signature-type">DChartSeriesStrokeComputed</a></li>
+						<li class="tsd-signature tsd-kind-icon">from<span class="tsd-signature-symbol">(</span>base<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.dchartseriesstroke.html" class="tsd-signature-type">DChartSeriesStroke</a>, index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, stroke<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.dchartseriesstrokecomputedoptions.html" class="tsd-signature-type">DChartSeriesStrokeComputedOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.dchartseriesstrokecomputed.html" class="tsd-signature-type">DChartSeriesStrokeComputed</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L19">src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts#L34">src/main/typescript/wcardinal/ui/d-chart-series-stroke-computed-impl.ts:34</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>container: <a href="../interfaces/ui.dchartseriescontainer.html" class="tsd-signature-type">DChartSeriesContainer</a></h5>
+									<h5>base: <a href="../interfaces/ui.dchartseriesstroke.html" class="tsd-signature-type">DChartSeriesStroke</a></h5>
 								</li>
 								<li>
 									<h5>index: <span class="tsd-signature-type">number</span></h5>
@@ -246,6 +291,9 @@
 						<a href="../modules/ui_shape_action.html">ui/shape/action</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="../modules/ui_shape_load.html">ui/shape/load</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/ui_shape_variant.html">ui/shape/variant</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -255,7 +303,16 @@
 						<a href="../modules/ui_theme.html">ui/theme</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="../modules/ui_theme_dark.html">ui/theme/dark</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/ui_theme_dark_load.html">ui/theme/dark/load</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/ui_theme_white.html">ui/theme/white</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/ui_theme_white_load.html">ui/theme/white/load</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/ui_util.html">ui/util</a>
@@ -276,10 +333,19 @@
 								<a href="ui.dchartseriesstrokecomputedimpl.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="ui.dchartseriesstrokecomputedimpl.html#align" class="tsd-kind-icon">align</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="ui.dchartseriesstrokecomputedimpl.html#alpha" class="tsd-kind-icon">alpha</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="ui.dchartseriesstrokecomputedimpl.html#color" class="tsd-kind-icon">color</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="ui.dchartseriesstrokecomputedimpl.html#enable" class="tsd-kind-icon">enable</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="ui.dchartseriesstrokecomputedimpl.html#side" class="tsd-kind-icon">side</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="ui.dchartseriesstrokecomputedimpl.html#style" class="tsd-kind-icon">style</a>

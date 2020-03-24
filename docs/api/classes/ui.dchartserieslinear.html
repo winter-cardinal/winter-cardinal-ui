@@ -67,13 +67,6 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>A series represents a linear equation <code>a (x - x0) === b (y - y0)</code>.</p>
-					</div>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -111,7 +104,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="ui.dchartserieslinear.html#_domain" class="tsd-kind-icon">_domain</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="ui.dchartserieslinear.html#_index" class="tsd-kind-icon">_index</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ui.dchartserieslinear.html#_line" class="tsd-kind-icon">_line</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ui.dchartserieslinear.html#_linestrokeoptions" class="tsd-kind-icon">_line<wbr>Stroke<wbr>Options</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ui.dchartserieslinear.html#_options" class="tsd-kind-icon">_options</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ui.dchartserieslinear.html#_parameters" class="tsd-kind-icon">_parameters</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ui.dchartserieslinear.html#_plotareasizexupdated" class="tsd-kind-icon">_plot<wbr>Area<wbr>SizeXUpdated</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ui.dchartserieslinear.html#_plotareasizeyupdated" class="tsd-kind-icon">_plot<wbr>Area<wbr>SizeYUpdated</a></li>
@@ -147,6 +140,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected"><a href="ui.dchartserieslinear.html#onstatechange" class="tsd-kind-icon">on<wbr>State<wbr>Change</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="ui.dchartserieslinear.html#setstate" class="tsd-kind-icon">set<wbr>State</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="ui.dchartserieslinear.html#todirty" class="tsd-kind-icon">to<wbr>Dirty</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="ui.dchartserieslinear.html#tothreshold" class="tsd-kind-icon">to<wbr>Threshold</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="ui.dchartserieslinear.html#unbind" class="tsd-kind-icon">unbind</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="ui.dchartserieslinear.html#update" class="tsd-kind-icon">update</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="ui.dchartserieslinear.html#updateline" class="tsd-kind-icon">update<wbr>Line</a></li>
@@ -163,14 +157,14 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new DChart<wbr>Series<wbr>Linear<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/ui.dchartserieslinearoptions.html" class="tsd-signature-type">DChartSeriesLinearOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ui.dchartserieslinear.html" class="tsd-signature-type">DChartSeriesLinear</a></li>
+						<li class="tsd-signature tsd-kind-icon">new DChart<wbr>Series<wbr>Linear<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.dchartserieslinearoptions.html" class="tsd-signature-type">DChartSeriesLinearOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ui.dchartserieslinear.html" class="tsd-signature-type">DChartSeriesLinear</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overrides <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L41">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L35">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:35</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -193,7 +187,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#_container">_container</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L33">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:33</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L32">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:32</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -204,7 +198,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#_coordinate">_coordinate</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L31">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:31</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L30">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:30</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -215,7 +209,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#_domain">_domain</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L36">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L35">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:35</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -226,7 +220,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#_index">_index</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L34">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:34</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L33">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:33</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -236,17 +230,17 @@
 					<div class="tsd-signature tsd-kind-icon">_line<span class="tsd-signature-symbol">:</span> <a href="ui_shape_variant.eshapeline.html" class="tsd-signature-type">EShapeLine</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L36">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L30">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:30</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
-					<a name="_linestrokeoptions" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagProtected">Protected</span> <span class="tsd-flag ts-flagOptional">Optional</span> _line<wbr>Stroke<wbr>Options</h3>
-					<div class="tsd-signature tsd-kind-icon">_line<wbr>Stroke<wbr>Options<span class="tsd-signature-symbol">:</span> <a href="../interfaces/ui.dchartseriesstrokecomputedoptions.html" class="tsd-signature-type">DChartSeriesStrokeComputedOptions</a></div>
+					<a name="_options" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> <span class="tsd-flag ts-flagOptional">Optional</span> _options</h3>
+					<div class="tsd-signature tsd-kind-icon">_options<span class="tsd-signature-symbol">:</span> <a href="../interfaces/ui.dchartserieslinearoptions.html" class="tsd-signature-type">DChartSeriesLinearOptions</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L37">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L31">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:31</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -256,7 +250,7 @@
 					<div class="tsd-signature tsd-kind-icon">_parameters<span class="tsd-signature-symbol">:</span> <a href="ui.dchartseriesexpressionparametersimpl.html" class="tsd-signature-type">DChartSeriesExpressionParametersImpl</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L40">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:40</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L34">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:34</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -266,7 +260,7 @@
 					<div class="tsd-signature tsd-kind-icon">_plot<wbr>Area<wbr>SizeXUpdated<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L38">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:38</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L32">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:32</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -276,7 +270,7 @@
 					<div class="tsd-signature tsd-kind-icon">_plot<wbr>Area<wbr>SizeYUpdated<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L39">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:39</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L33">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:33</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -287,7 +281,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#_range">_range</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L37">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L36">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:36</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -298,7 +292,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#_regionpointid">_regionPointId</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L38">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:38</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L37">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:37</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -309,7 +303,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#_state">_state</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L40">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:40</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L39">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:39</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -320,7 +314,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#_statelocal">_stateLocal</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L41">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:41</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L40">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:40</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -330,7 +324,7 @@
 					<div class="tsd-signature tsd-kind-icon">_stroke<span class="tsd-signature-symbol">:</span> <a href="../interfaces/ui.dchartseriesstrokecomputed.html" class="tsd-signature-type">DChartSeriesStrokeComputed</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L41">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:41</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L35">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:35</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -340,7 +334,7 @@
 					<div class="tsd-signature tsd-kind-icon">WORK<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Point</span><span class="tsd-signature-symbol"> =&nbsp;new Point()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L35">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:35</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L29">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:29</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -350,133 +344,84 @@
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 					<a name="container" class="tsd-anchor"></a>
 					<h3>container</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> container<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.dchartseriescontainer.html" class="tsd-signature-type">DChartSeriesContainer</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#container">container</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L91">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:91</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="../interfaces/ui.dchartseriescontainer.html" class="tsd-signature-type">DChartSeriesContainer</a>
-								<span class="tsd-signature-symbol"> | </span>
-								<span class="tsd-signature-type">null</span>
-							</h4>
-						</li>
-					</ul>
+					<div class="tsd-signature tsd-kind-icon">container<span class="tsd-signature-symbol">:</span> </div>
+					<aside class="tsd-sources">
+						<p>Implementation of <a href="../interfaces/ui.dchartseries.html">DChartSeries</a>.<a href="../interfaces/ui.dchartseries.html#container">container</a></p>
+						<p>Inherited from <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#container">container</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L93">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:93</a></li>
+						</ul>
+					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 					<a name="coordinate" class="tsd-anchor"></a>
 					<h3>coordinate</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> coordinate<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.dchartseriescoordinatecontainer.html" class="tsd-signature-type">DChartSeriesCoordinateContainer</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#coordinate">coordinate</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L99">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:99</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="../interfaces/ui.dchartseriescoordinatecontainer.html" class="tsd-signature-type">DChartSeriesCoordinateContainer</a></h4>
-						</li>
-					</ul>
+					<div class="tsd-signature tsd-kind-icon">coordinate<span class="tsd-signature-symbol">:</span> </div>
+					<aside class="tsd-sources">
+						<p>Implementation of <a href="../interfaces/ui.dchartseries.html">DChartSeries</a>.<a href="../interfaces/ui.dchartseries.html#coordinate">coordinate</a></p>
+						<p>Inherited from <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#coordinate">coordinate</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L101">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:101</a></li>
+						</ul>
+					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 					<a name="domain" class="tsd-anchor"></a>
 					<h3>domain</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> domain<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.dchartregionimmutable.html" class="tsd-signature-type">DChartRegionImmutable</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#domain">domain</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L81">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:81</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="../interfaces/ui.dchartregionimmutable.html" class="tsd-signature-type">DChartRegionImmutable</a></h4>
-						</li>
-					</ul>
+					<div class="tsd-signature tsd-kind-icon">domain<span class="tsd-signature-symbol">:</span> </div>
+					<aside class="tsd-sources">
+						<p>Implementation of <a href="../interfaces/ui.dchartseries.html">DChartSeries</a>.<a href="../interfaces/ui.dchartseries.html#domain">domain</a></p>
+						<p>Inherited from <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#domain">domain</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L83">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:83</a></li>
+						</ul>
+					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 					<a name="index" class="tsd-anchor"></a>
 					<h3>index</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> index<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#index">index</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L95">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:95</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
-						</li>
-					</ul>
+					<div class="tsd-signature tsd-kind-icon">index<span class="tsd-signature-symbol">:</span> </div>
+					<aside class="tsd-sources">
+						<p>Implementation of <a href="../interfaces/ui.dchartseries.html">DChartSeries</a>.<a href="../interfaces/ui.dchartseries.html#index">index</a></p>
+						<p>Inherited from <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#index">index</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L97">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:97</a></li>
+						</ul>
+					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
 					<a name="parameters" class="tsd-anchor"></a>
 					<h3>parameters</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> parameters<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.dchartserieslinearparameters.html" class="tsd-signature-type">DChartSeriesLinearParameters</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L79">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:79</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="../interfaces/ui.dchartserieslinearparameters.html" class="tsd-signature-type">DChartSeriesLinearParameters</a></h4>
-						</li>
-					</ul>
+					<div class="tsd-signature tsd-kind-icon">parameters<span class="tsd-signature-symbol">:</span> </div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L73">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:73</a></li>
+						</ul>
+					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 					<a name="range" class="tsd-anchor"></a>
 					<h3>range</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> range<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.dchartregionimmutable.html" class="tsd-signature-type">DChartRegionImmutable</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#range">range</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L86">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:86</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="../interfaces/ui.dchartregionimmutable.html" class="tsd-signature-type">DChartRegionImmutable</a></h4>
-						</li>
-					</ul>
+					<div class="tsd-signature tsd-kind-icon">range<span class="tsd-signature-symbol">:</span> </div>
+					<aside class="tsd-sources">
+						<p>Implementation of <a href="../interfaces/ui.dchartseries.html">DChartSeries</a>.<a href="../interfaces/ui.dchartseries.html#range">range</a></p>
+						<p>Inherited from <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#range">range</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L88">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:88</a></li>
+						</ul>
+					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
 					<a name="shape" class="tsd-anchor"></a>
 					<h3>shape</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> shape<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ui_shape_variant.eshapeline.html" class="tsd-signature-type">EShapeLine</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Overrides <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#shape">shape</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L75">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:75</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="ui_shape_variant.eshapeline.html" class="tsd-signature-type">EShapeLine</a>
-								<span class="tsd-signature-symbol"> | </span>
-								<span class="tsd-signature-type">null</span>
-							</h4>
-						</li>
-					</ul>
+					<div class="tsd-signature tsd-kind-icon">shape<span class="tsd-signature-symbol">:</span> </div>
+					<aside class="tsd-sources">
+						<p>Implementation of <a href="../interfaces/ui.dchartseries.html">DChartSeries</a>.<a href="../interfaces/ui.dchartseries.html#shape">shape</a></p>
+						<p>Overrides <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#shape">shape</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L69">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:69</a></li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -493,7 +438,7 @@
 								<p>Implementation of <a href="../interfaces/ui.dchartseries.html">DChartSeries</a>.<a href="../interfaces/ui.dchartseries.html#bind">bind</a></p>
 								<p>Overrides <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#bind">bind</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L52">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:52</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L46">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:46</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -513,7 +458,7 @@
 					<a name="calchitpoint" class="tsd-anchor"></a>
 					<h3>calc<wbr>Hit<wbr>Point</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">calc<wbr>Hit<wbr>Point<span class="tsd-signature-symbol">(</span>global<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IPoint</span>, threshold<span class="tsd-signature-symbol">: </span><a href="../modules/ui_shape_variant.html#eshapelinehitthreshold" class="tsd-signature-type">EShapeLineHitThreshold</a>, result<span class="tsd-signature-symbol">: </span><a href="ui.dchartserieshitresult.html" class="tsd-signature-type">DChartSeriesHitResult</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">calc<wbr>Hit<wbr>Point<span class="tsd-signature-symbol">(</span>global<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IPoint</span>, result<span class="tsd-signature-symbol">: </span><a href="ui.dchartserieshitresult.html" class="tsd-signature-type">DChartSeriesHitResult</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -521,16 +466,13 @@
 								<p>Implementation of <a href="../interfaces/ui.dchartseries.html">DChartSeries</a>.<a href="../interfaces/ui.dchartseries.html#calchitpoint">calcHitPoint</a></p>
 								<p>Overrides <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#calchitpoint">calcHitPoint</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L263">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:263</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L266">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:266</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>global: <span class="tsd-signature-type">IPoint</span></h5>
-								</li>
-								<li>
-									<h5>threshold: <a href="../modules/ui_shape_variant.html#eshapelinehitthreshold" class="tsd-signature-type">EShapeLineHitThreshold</a></h5>
 								</li>
 								<li>
 									<h5>result: <a href="ui.dchartserieshitresult.html" class="tsd-signature-type">DChartSeriesHitResult</a></h5>
@@ -544,22 +486,19 @@
 					<a name="calchitpointhittester" class="tsd-anchor"></a>
 					<h3>calc<wbr>Hit<wbr>Point<wbr>Hit<wbr>Tester</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">calc<wbr>Hit<wbr>Point<wbr>Hit<wbr>Tester<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span>, shape<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui_shape.eshape.html" class="tsd-signature-type">EShape</a>, x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, p0x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, p0y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, p1x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, p1y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, threshold<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, result<span class="tsd-signature-symbol">: </span><a href="ui.dchartserieshitresult.html" class="tsd-signature-type">DChartSeriesHitResult</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">calc<wbr>Hit<wbr>Point<wbr>Hit<wbr>Tester<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span>, x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, p0x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, p0y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, p1x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, p1y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, threshold<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, result<span class="tsd-signature-symbol">: </span><a href="ui.dchartserieshitresult.html" class="tsd-signature-type">DChartSeriesHitResult</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L273">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:273</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L281">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:281</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>this: <span class="tsd-signature-type">unknown</span></h5>
-								</li>
-								<li>
-									<h5>shape: <a href="../interfaces/ui_shape.eshape.html" class="tsd-signature-type">EShape</a></h5>
 								</li>
 								<li>
 									<h5>x: <span class="tsd-signature-type">number</span></h5>
@@ -605,7 +544,7 @@
 								<p>Implementation of <a href="../interfaces/ui.dchartseries.html">DChartSeries</a>.<a href="../interfaces/ui.dchartseries.html#destroy">destroy</a></p>
 								<p>Overrides <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#destroy">destroy</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L243">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:243</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L246">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:246</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -624,7 +563,7 @@
 								<p>Implementation of <a href="../interfaces/ui.dchartseries.html">DChartSeries</a>.<a href="../interfaces/ui.dchartseries.html#hittest">hitTest</a></p>
 								<p>Overrides <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#hittest">hitTest</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L253">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:253</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L256">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:256</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -648,7 +587,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#mergestate">mergeState</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L142">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:142</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L144">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:144</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -675,7 +614,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#onstatechange">onStateChange</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L306">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:306</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L313">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:313</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -703,7 +642,7 @@
 								<p>Implementation of <a href="../interfaces/ui.dchartseries.html">DChartSeries</a>.<a href="../interfaces/ui.dchartseries.html#setstate">setState</a></p>
 								<p>Inherited from <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#setstate">setState</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L118">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:118</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L120">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:120</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -731,10 +670,39 @@
 								<p>Implementation of <a href="../interfaces/ui.dchartseries.html">DChartSeries</a>.<a href="../interfaces/ui.dchartseries.html#todirty">toDirty</a></p>
 								<p>Overrides <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#todirty">toDirty</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L83">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:83</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L77">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:77</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a name="tothreshold" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> to<wbr>Threshold</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>Threshold<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span>, strokeWidth<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, strokeScale<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L277">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:277</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>this: <span class="tsd-signature-type">unknown</span></h5>
+								</li>
+								<li>
+									<h5>strokeWidth: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>strokeScale: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -750,7 +718,7 @@
 								<p>Implementation of <a href="../interfaces/ui.dchartseries.html">DChartSeries</a>.<a href="../interfaces/ui.dchartseries.html#unbind">unbind</a></p>
 								<p>Overrides <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#unbind">unbind</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L67">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:67</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L61">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:61</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -769,7 +737,7 @@
 								<p>Implementation of <a href="../interfaces/ui.dchartseries.html">DChartSeries</a>.<a href="../interfaces/ui.dchartseries.html#update">update</a></p>
 								<p>Overrides <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#update">update</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L87">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:87</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L81">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:81</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -786,7 +754,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L114">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:114</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L115">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:115</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -822,7 +790,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#updateregion">updateRegion</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L239">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:239</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L242">src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:242</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -840,7 +808,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="ui.dchartseriesbase.html">DChartSeriesBase</a>.<a href="ui.dchartseriesbase.html#updatestate">updateState</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L127">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:127</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L129">src/main/typescript/wcardinal/ui/d-chart-series-base.ts:129</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -871,6 +839,9 @@
 						<a href="../modules/ui_shape_action.html">ui/shape/action</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="../modules/ui_shape_load.html">ui/shape/load</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/ui_shape_variant.html">ui/shape/variant</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -880,7 +851,16 @@
 						<a href="../modules/ui_theme.html">ui/theme</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="../modules/ui_theme_dark.html">ui/theme/dark</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/ui_theme_dark_load.html">ui/theme/dark/load</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/ui_theme_white.html">ui/theme/white</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/ui_theme_white_load.html">ui/theme/white/load</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/ui_util.html">ui/util</a>
@@ -916,7 +896,7 @@
 								<a href="ui.dchartserieslinear.html#_line" class="tsd-kind-icon">_line</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
-								<a href="ui.dchartserieslinear.html#_linestrokeoptions" class="tsd-kind-icon">_line<wbr>Stroke<wbr>Options</a>
+								<a href="ui.dchartserieslinear.html#_options" class="tsd-kind-icon">_options</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 								<a href="ui.dchartserieslinear.html#_parameters" class="tsd-kind-icon">_parameters</a>
@@ -992,6 +972,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 								<a href="ui.dchartserieslinear.html#todirty" class="tsd-kind-icon">to<wbr>Dirty</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+								<a href="ui.dchartserieslinear.html#tothreshold" class="tsd-kind-icon">to<wbr>Threshold</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 								<a href="ui.dchartserieslinear.html#unbind" class="tsd-kind-icon">unbind</a>

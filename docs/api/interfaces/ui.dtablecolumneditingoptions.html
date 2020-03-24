@@ -60,13 +60,24 @@
 					<a href="ui.dtablecolumneditingoptions.html">DTableColumnEditingOptions</a>
 				</li>
 			</ul>
-			<h1>Interface DTableColumnEditingOptions</h1>
+			<h1>Interface DTableColumnEditingOptions&lt;ROW, CELL&gt;</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>ROW</h4>
+					</li>
+					<li>
+						<h4>CELL</h4>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -96,40 +107,40 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="enable" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> enable</h3>
-					<div class="tsd-signature tsd-kind-icon">enable<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
+					<div class="tsd-signature tsd-kind-icon">enable<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><a href="../modules/ui.html#dtableeditable" class="tsd-signature-type">DTableEditable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ROW</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"auto"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"AUTO"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-table-column.ts#L60">src/main/typescript/wcardinal/ui/d-table-column.ts:60</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-table-column.ts#L73">src/main/typescript/wcardinal/ui/d-table-column.ts:73</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="formatter" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> formatter</h3>
-					<div class="tsd-signature tsd-kind-icon">formatter<span class="tsd-signature-symbol">:</span> <a href="../modules/ui.html#dtableeditingformatter" class="tsd-signature-type">DTableEditingFormatter</a></div>
+					<div class="tsd-signature tsd-kind-icon">formatter<span class="tsd-signature-symbol">:</span> <a href="../modules/ui.html#dtableeditingformatter" class="tsd-signature-type">DTableEditingFormatter</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">CELL</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-table-column.ts#L61">src/main/typescript/wcardinal/ui/d-table-column.ts:61</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-table-column.ts#L74">src/main/typescript/wcardinal/ui/d-table-column.ts:74</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="unformatter" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> unformatter</h3>
-					<div class="tsd-signature tsd-kind-icon">unformatter<span class="tsd-signature-symbol">:</span> <a href="../modules/ui.html#dtableeditingunformatter" class="tsd-signature-type">DTableEditingUnformatter</a></div>
+					<div class="tsd-signature tsd-kind-icon">unformatter<span class="tsd-signature-symbol">:</span> <a href="../modules/ui.html#dtableeditingunformatter" class="tsd-signature-type">DTableEditingUnformatter</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">CELL</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-table-column.ts#L62">src/main/typescript/wcardinal/ui/d-table-column.ts:62</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-table-column.ts#L75">src/main/typescript/wcardinal/ui/d-table-column.ts:75</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="validator" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> validator</h3>
-					<div class="tsd-signature tsd-kind-icon">validator<span class="tsd-signature-symbol">:</span> <a href="../modules/ui.html#dtableeditingvalidator" class="tsd-signature-type">DTableEditingValidator</a></div>
+					<div class="tsd-signature tsd-kind-icon">validator<span class="tsd-signature-symbol">:</span> <a href="../modules/ui.html#dtableeditingvalidator" class="tsd-signature-type">DTableEditingValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">CELL</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/95ceb0b/src/main/typescript/wcardinal/ui/d-table-column.ts#L63">src/main/typescript/wcardinal/ui/d-table-column.ts:63</a></li>
+							<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-table-column.ts#L76">src/main/typescript/wcardinal/ui/d-table-column.ts:76</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -157,6 +168,9 @@
 						<a href="../modules/ui_shape_action.html">ui/shape/action</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="../modules/ui_shape_load.html">ui/shape/load</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/ui_shape_variant.html">ui/shape/variant</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -166,7 +180,16 @@
 						<a href="../modules/ui_theme.html">ui/theme</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="../modules/ui_theme_dark.html">ui/theme/dark</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/ui_theme_dark_load.html">ui/theme/dark/load</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/ui_theme_white.html">ui/theme/white</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/ui_theme_white_load.html">ui/theme/white/load</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/ui_util.html">ui/util</a>
@@ -180,7 +203,7 @@
 				<ul class="before-current">
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
+					<li class="current tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
 						<a href="ui.dtablecolumneditingoptions.html" class="tsd-kind-icon">DTable<wbr>Column<wbr>Editing<wbr>Options</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
