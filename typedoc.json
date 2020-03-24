@@ -10,5 +10,6 @@
 	"external-modulemap": ".*\/wcardinal\/([\\w\\-_\/]+)\/",
 	"stripInternal": "false",
 	"exclude": "**/+(wcardinal|bundle)*",
-	"externalPattern": "**/internal/**/*"
+	"externalPattern": "**/internal/**/*",
+	"gitRevision": "v0.21.0"
 }
