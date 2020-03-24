@@ -10,6 +10,7 @@ import { DHtmlElementElementCreator } from "../../d-html-element";
 import { DThemeInput } from "../../d-input";
 import { UtilRgb } from "../../util/util-rgb";
 import { DThemeDarkHtmlElement } from "./d-theme-dark-html-element";
+import { DThemeDarkConstants } from './d-theme-dark-constants';
 
 const editingValidator = (): unknown => {
 	return null;
@@ -60,21 +61,32 @@ const afterCreator = ( parent: HTMLElement ): HTMLDivElement => {
 };
 
 export class DThemeDarkInput extends DThemeDarkHtmlElement<HTMLInputElement> implements DThemeInput {
-	COLOR = 0x383838;
-	COLOR_HOVERED = UtilRgb.darken( this.COLOR, 0.017 );
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) || DBaseStates.isReadOnly( state ) ) {
-			return null;
+			return 0x1F1F1F;
 		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return this.COLOR_HOVERED;
+			return 0x2E2E2E;
 		} else {
-			return this.COLOR;
+			return null;
 		}
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return 0x646464;
+		if( DBaseStates.isDisabled( state ) ) {
+			return 0x1F1F1F;
+		} else if( DBaseStates.isFocused( state ) ) {
+			return DThemeDarkConstants.HIGHLIGHT_COLOR;
+		} else {
+			return 0x646464;
+		}
+	}
+
+	getColor( state: DBaseState ): number {
+		if( DBaseStates.isDisabled( state ) || DBaseStates.isReadOnly( state ) ) {
+			return 0x646464;
+		}
+		return super.getColor( state );
 	}
 
 	getOutlineColor( state: DBaseState ): number | null {
