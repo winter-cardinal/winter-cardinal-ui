@@ -7,7 +7,7 @@ import { Point } from "pixi.js";
 import { DAnimation } from "./d-animation";
 import { DAnimationFadeIn } from "./d-animation-fade-in";
 import { DApplications } from "./d-applications";
-import { DBase, DBaseOptions, DThemeBase } from "./d-base";
+import { DBase, DBaseOnOptions, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DFocusable } from "./d-controller-focus";
 import { DDialogCloseOn } from "./d-dialog-close-on";
@@ -15,9 +15,33 @@ import { UtilClickOutside } from "./util/util-click-outside";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilOverlay } from "./util/util-overlay";
 
+/**
+ * Mappings of event names and handlers.
+ */
+export interface DDialogOnOptions extends DBaseOnOptions {
+	/**
+	 * Triggered when a dialog is opened.
+	 *
+	 * @param self a dialog
+	 */
+	open?: ( self: any ) => void;
+
+	/**
+	 * Triggered when a dialog is closed.
+	 *
+	 * @param self a dialog
+	 */
+	close?: ( self: any ) => void;
+}
+
 export interface DDialogOptions<THEME extends DThemeDialog = DThemeDialog> extends DBaseOptions<THEME> {
 	closeOn?: DDialogCloseOn;
 	animation?: DAnimation<DBase>;
+
+	/**
+	 * Mappings of event names and handlers.
+	 */
+	on?: DDialogOnOptions;
 }
 
 export interface DThemeDialog extends DThemeBase {

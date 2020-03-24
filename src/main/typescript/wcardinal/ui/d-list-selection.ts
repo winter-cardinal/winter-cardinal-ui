@@ -12,12 +12,26 @@ export enum DListSelectionMode {
 	MULTIPLE
 }
 
+/**
+ * Mappings of event names and handlers.
+ */
 export interface DListSelectionOnOptions {
-	[ name: string ]: Function;
+	[ name: string ]: Function | undefined;
+
+	/**
+	 * Triggered when a selection is changed.
+	 *
+	 * @param self a selection
+	 */
+	change?: ( self: any ) => void;
 }
 
 export interface DListSelectionOptions {
 	mode?: DListSelectionMode;
+
+	/**
+	 * Mappings of event names and handlers.
+	 */
 	on?: DListSelectionOnOptions;
 }
 
@@ -39,7 +53,10 @@ export class DListSelection extends utils.EventEmitter {
 		const on = options && options.on;
 		if( on ) {
 			for( const name in on ) {
-				this.on( name, on[ name ] );
+				const handler = on[ name ];
+				if( handler ) {
+					this.on( name, handler );
+				}
 			}
 		}
 	}

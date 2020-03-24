@@ -4,7 +4,9 @@
  */
 
 import { DBase } from "./d-base";
-import { DDialogCommand, DDialogCommandOptions, DThemeDialogCommand } from "./d-dialog-command";
+import {
+	DDialogCommand, DDialogCommandOnOptions, DDialogCommandOptions, DThemeDialogCommand
+} from "./d-dialog-command";
 import { DDialogSelectList } from "./d-dialog-select-list";
 import { DDialogSelectListItem } from "./d-dialog-select-list-item";
 import { DDialogSelectSearh } from "./d-dialog-select-search";
@@ -15,18 +17,18 @@ import { DListSelection } from "./d-list-selection";
 import { DNote, DNoteOptions } from "./d-note";
 import { UtilTransition } from "./util/util-transition";
 
-export interface DDialogSelectSearch<SEARCH_RESULT> {
+export interface DDialogSelectSearch<VALUE> {
 	create( args: [ string ] ): void;
-	on( event: "success", handler: ( e: unknown, searchResults: SEARCH_RESULT[] ) => void ): void;
+	on( event: "success", handler: ( e: unknown, searchResults: VALUE[] ) => void ): void;
 	on( event: "change", handler: () => void ): void;
 	isDone(): boolean;
-	getResult(): SEARCH_RESULT[] | null;
+	getResult(): VALUE[] | null;
 }
 
-export type DDialogSelectSearchFunction<SEARCH_RESULT> = ( word: string ) => Promise<SEARCH_RESULT[]>;
+export type DDialogSelectSearchFunction<VALUE> = ( word: string ) => Promise<VALUE[]>;
 
-export interface DDialogSelectController<SEARCH_RESULT> {
-	search: DDialogSelectSearch<SEARCH_RESULT> | DDialogSelectSearchFunction<SEARCH_RESULT>;
+export interface DDialogSelectController<VALUE> {
+	search: DDialogSelectSearch<VALUE> | DDialogSelectSearchFunction<VALUE>;
 }
 
 export interface DDialogSelectNoteOptions {
@@ -34,23 +36,28 @@ export interface DDialogSelectNoteOptions {
 	searching?: DNoteOptions;
 }
 
-export type DDialogSelectItemTextFormatter<SEARCH_RESULT> = ( result: SEARCH_RESULT, caller: any ) => string;
+export type DDialogSelectItemTextFormatter<VALUE> = ( result: VALUE, caller: any ) => string;
 
-export interface DDialogSelectItemTextOptions<SEARCH_RESULT> {
-	formatter?: DDialogSelectItemTextFormatter<SEARCH_RESULT>;
+export interface DDialogSelectItemTextOptions<VALUE> {
+	formatter?: DDialogSelectItemTextFormatter<VALUE>;
 }
 
-export interface DDialogSelectItemOptions<SEARCH_RESULT> {
-	text?: DDialogSelectItemTextOptions<SEARCH_RESULT>;
+export interface DDialogSelectItemOptions<VALUE> {
+	text?: DDialogSelectItemTextOptions<VALUE>;
+}
+
+export interface DDialogSelectOnOptions<VALUE> extends DDialogCommandOnOptions {
+	select?: ( value: VALUE, self: any ) => void;
 }
 
 export interface DDialogSelectOptions<
-	SEARCH_RESULT,
+	VALUE,
 	THEME extends DThemeDialogSelect = DThemeDialogSelect
 > extends DDialogCommandOptions<THEME> {
-	controller?: DDialogSelectController<SEARCH_RESULT>;
-	item?: DDialogSelectItemOptions<SEARCH_RESULT>;
+	controller?: DDialogSelectController<VALUE>;
+	item?: DDialogSelectItemOptions<VALUE>;
 	note?: DDialogSelectNoteOptions;
+	on?: DDialogSelectOnOptions<VALUE>;
 }
 
 export interface DThemeDialogSelect extends DThemeDialogCommand {
@@ -60,9 +67,9 @@ export interface DThemeDialogSelect extends DThemeDialogCommand {
 }
 
 // Helper
-const toItemTextFormatter = <SEARCH_RESULT>(
-	theme: DThemeDialogSelect, options?: DDialogSelectOptions<SEARCH_RESULT, any>
-): DDialogSelectItemTextFormatter<SEARCH_RESULT> => {
+const toItemTextFormatter = <VALUE>(
+	theme: DThemeDialogSelect, options?: DDialogSelectOptions<VALUE, any>
+): DDialogSelectItemTextFormatter<VALUE> => {
 	if( options ) {
 		const item = options.item;
 		if( item ) {
@@ -119,9 +126,9 @@ const toNoteSearchingOptions = (
 	);
 };
 
-const toSearch = <SEARCH_RESULT>(
-	controller?: DDialogSelectController<SEARCH_RESULT>
-): DDialogSelectSearch<SEARCH_RESULT> => {
+const toSearch = <VALUE>(
+	controller?: DDialogSelectController<VALUE>
+): DDialogSelectSearch<VALUE> => {
 	if( controller ) {
 		const search = controller.search;
 		if( "create" in search ) {
@@ -135,17 +142,17 @@ const toSearch = <SEARCH_RESULT>(
 };
 
 export class DDialogSelect<
-	SEARCH_RESULT extends unknown = unknown,
+	VALUE extends unknown = unknown,
 	THEME extends DThemeDialogSelect = DThemeDialogSelect,
-	OPTIONS extends DDialogSelectOptions<SEARCH_RESULT, THEME> = DDialogSelectOptions<SEARCH_RESULT, THEME>
+	OPTIONS extends DDialogSelectOptions<VALUE, THEME> = DDialogSelectOptions<VALUE, THEME>
 > extends DDialogCommand<THEME, OPTIONS> {
-	protected _value!: SEARCH_RESULT | null;
+	protected _value!: VALUE | null;
 	protected _input!: DInputText;
 	protected _list!: DDialogSelectList;
 	protected _noteNoItems!: DNote;
 	protected _noteSearching!: DNote;
-	protected _itemTextFormatter!: DDialogSelectItemTextFormatter<SEARCH_RESULT>;
-	protected _search!: DDialogSelectSearch<SEARCH_RESULT>;
+	protected _itemTextFormatter!: DDialogSelectItemTextFormatter<VALUE>;
+	protected _search!: DDialogSelectSearch<VALUE>;
 
 	protected onInit( layout: DLayoutVertical, options?: OPTIONS ) {
 		this._value = null;
@@ -165,7 +172,7 @@ export class DDialogSelect<
 			selection: {
 				on: {
 					change: ( selection: DListSelection ): void => {
-						const item: DListItem<SEARCH_RESULT> | null = selection.first();
+						const item: DListItem<VALUE> | null = selection.first();
 						if( item != null ) {
 							this._value = item.value;
 							this.onOk();
@@ -190,7 +197,7 @@ export class DDialogSelect<
 			search.create([ value ]);
 		});
 
-		search.on( "success", ( e: unknown, results: SEARCH_RESULT[] ): void => {
+		search.on( "success", ( e: unknown, results: VALUE[] ): void => {
 			this.onSearched( results );
 		});
 
@@ -210,7 +217,7 @@ export class DDialogSelect<
 		});
 	}
 
-	protected onSearched( results: SEARCH_RESULT[] ): void {
+	protected onSearched( results: VALUE[] ): void {
 		const list = this._list;
 		const itemTextFormatter = this._itemTextFormatter;
 		const content = list.content;
@@ -247,8 +254,8 @@ export class DDialogSelect<
 		}
 	}
 
-	protected newItem( result: SEARCH_RESULT, label: string ): DDialogSelectListItem<SEARCH_RESULT> {
-		return new DDialogSelectListItem<SEARCH_RESULT>({
+	protected newItem( result: VALUE, label: string ): DDialogSelectListItem<VALUE> {
+		return new DDialogSelectListItem<VALUE>({
 			value: result,
 			text: {
 				value: label
@@ -256,7 +263,7 @@ export class DDialogSelect<
 		});
 	}
 
-	get value() {
+	get value(): VALUE | null {
 		return this._value;
 	}
 

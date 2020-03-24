@@ -8,7 +8,7 @@ import { DApplications } from "./d-applications";
 import { DBaseState } from "./d-base-state";
 import { DButton, DButtonOnOptions, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogColorGradient, DDialogColorGradientOptions } from "./d-dialog-color-gradient";
-import { DPickerColorGradientData, DPickerColorGradientDataLike } from "./d-picker-color-gradient-data";
+import { DPickerColorGradientData } from "./d-picker-color-gradient-data";
 import { DPickerColorGradientDataView } from "./d-picker-color-gradient-data-view";
 
 export interface DButtonColorGradientOnOptions extends DButtonOnOptions<DPickerColorGradientData> {
@@ -19,7 +19,7 @@ export interface DButtonColorGradientOnOptions extends DButtonOnOptions<DPickerC
 	 * @param oldValue a previously selected value
 	 * @param self a button
 	 */
-	change?: ( newValue: DPickerColorGradientDataLike, oldValue: DPickerColorGradientDataLike, self: any ) => void;
+	change?: ( newValue: DPickerColorGradientData, oldValue: DPickerColorGradientData, self: any ) => void;
 }
 
 export interface DButtonColorGradientOptions<
@@ -67,7 +67,7 @@ export class DButtonColorGradient<
 			dialog.data.fromObject( data );
 			dialog.open().then((): void => {
 				const newValue = dialog.data;
-				const oldValue = data.toObject();
+				const oldValue = new DPickerColorGradientData().fromObject( data );
 				data.fromObject( newValue );
 				const view = this._view;
 				if( view != null ) {
