@@ -19,13 +19,9 @@ export class DThemeDarkTableBodyCells {
 		DThemeDarkTableBodyCells.COLOR, DThemeDarkConstants.TINT_FOCUS_ALPHA
 	);
 	static readonly BACKGROUND_COLOR_EVEN = DThemeDarkTableBodyCells.COLOR;
-	static readonly BACKGROUND_COLOR_ODD = UtilRgb.brighten( DThemeDarkTableBodyCells.COLOR, 0.1 );
-	static readonly COLOR_HOVERED = UtilRgb.brighten(
-		DThemeDarkTableBodyCells.BACKGROUND_COLOR_ODD, DThemeDarkConstants.FOCUSED_ALPHA
-	);
-	static readonly COLOR_FOCUSED_AND_HOVERED = UtilRgb.brighten(
-		DThemeDarkTableBodyCells.BACKGROUND_COLOR_ODD, DThemeDarkConstants.FOCUSED_ALPHA * 2
-	);
+	static readonly BACKGROUND_COLOR_ODD = 0x1B1B1B;
+	static readonly COLOR_HOVERED = 0x232323;
+	static readonly COLOR_FOCUSED_AND_HOVERED = 0x323232;
 
 	static getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
@@ -59,6 +55,9 @@ export class DThemeDarkTableBodyCells {
 	}
 
 	static getBorderColor( state: DBaseState ): number | null {
+		if( DBaseStates.isHovered( state ) ) {
+			return this.COLOR_HOVERED;
+		}
 		return 0x202020;
 	}
 

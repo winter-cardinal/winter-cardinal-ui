@@ -14,8 +14,8 @@ import { DThemeDarkTableRow } from "./d-theme-dark-table-row";
 
 export class DThemeDarkTableBodyRow extends DThemeDarkTableRow implements DThemeTableBodyRow {
 	BACKGROUND_COLOR_EVEN = 0x000000;
-	BACKGROUND_COLOR_ODD = UtilRgb.brighten( this.BACKGROUND_COLOR_EVEN, 0.1 );
-	COLOR_HOVERED = UtilRgb.brighten( this.BACKGROUND_COLOR_ODD, DThemeDarkConstants.FOCUSED_ALPHA );
+	BACKGROUND_COLOR_ODD = 0x1B1B1B;
+	COLOR_HOVERED = 0x232323;
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
