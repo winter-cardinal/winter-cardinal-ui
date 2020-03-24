@@ -54,7 +54,7 @@
 		"rollup-plugin-terser": "^5.2.0",
 		"tslib": "^1.10.0",
 		"tslint": "^5.16.0",
-		"typedoc": "^0.15.6",
+		"typedoc": "^0.15.8",
 		"typedoc-plugin-external-module-map": "^1.0.0",
 		"typescript": "^3.8.3"
 	}

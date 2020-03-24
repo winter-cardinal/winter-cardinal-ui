@@ -119,7 +119,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L12">src/main/typescript/wcardinal/ui/d-map-coordinate.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/c6ed805/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L12">src/main/typescript/wcardinal/ui/d-map-coordinate.ts:12</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -136,16 +136,37 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L25">src/main/typescript/wcardinal/ui/d-map-coordinate.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/c6ed805/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L25">src/main/typescript/wcardinal/ui/d-map-coordinate.ts:25</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Converts the given (lon, lat) point in WGS84 to (x, y) in EPSG:900913.
+										The origin of the converted point (x, y) is at the middle-left corner.
+									The <code>meters</code> can be the same instance that is passed in as the <code>lonlat</code>.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="https://www.maptiler.com/google-maps-coordinates-tile-bounds-projection/">https://www.maptiler.com/google-maps-coordinates-tile-bounds-projection/</a></p>
+									</dd>
+									<dt>see</dt>
+									<dd><p><a href="https://qiita.com/MALORGIS/items/1a9114dd090e5b891bf7">https://qiita.com/MALORGIS/items/1a9114dd090e5b891bf7</a></p>
+									</dd>
+								</dl>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>lonlat: <a href="ui.dmappoint.html" class="tsd-signature-type">DMapPoint</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>(lon, lat) point</p>
+									</div>
 								</li>
 								<li>
 									<h5>meters: <a href="ui.dmappoint.html" class="tsd-signature-type">DMapPoint</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>(x, y) point in meters converted from the given lonlat.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="ui.dmappoint.html" class="tsd-signature-type">DMapPoint</a></h4>
@@ -163,7 +184,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L64">src/main/typescript/wcardinal/ui/d-map-coordinate.ts:64</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/c6ed805/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L64">src/main/typescript/wcardinal/ui/d-map-coordinate.ts:64</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -195,7 +216,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L62">src/main/typescript/wcardinal/ui/d-map-coordinate.ts:62</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/c6ed805/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L62">src/main/typescript/wcardinal/ui/d-map-coordinate.ts:62</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -224,9 +245,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L33">src/main/typescript/wcardinal/ui/d-map-coordinate.ts:33</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/c6ed805/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L33">src/main/typescript/wcardinal/ui/d-map-coordinate.ts:33</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The <code>lonlat</code> can be the same instance that is passed in as the <code>meters</code>.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -234,6 +260,8 @@
 								</li>
 								<li>
 									<h5>lonlat: <a href="ui.dmappoint.html" class="tsd-signature-type">DMapPoint</a></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="ui.dmappoint.html" class="tsd-signature-type">DMapPoint</a></h4>
@@ -250,9 +278,16 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L47">src/main/typescript/wcardinal/ui/d-map-coordinate.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/c6ed805/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L47">src/main/typescript/wcardinal/ui/d-map-coordinate.ts:47</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Converts EPSG:900913 to pyramid pixel coordinates in given zoom level.
+										The origin of the pixels is the top-left corner.
+									The <code>pixels</code> can be the same instance that is passed in as the <code>meters</code>.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -282,9 +317,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L60">src/main/typescript/wcardinal/ui/d-map-coordinate.ts:60</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/c6ed805/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L60">src/main/typescript/wcardinal/ui/d-map-coordinate.ts:60</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The origin of the tile is the top-left corner.
+									The <code>tile</code> can be the same instance that is passed in as the <code>meters</code>.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -311,7 +352,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L66">src/main/typescript/wcardinal/ui/d-map-coordinate.ts:66</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/c6ed805/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L66">src/main/typescript/wcardinal/ui/d-map-coordinate.ts:66</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -343,9 +384,16 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L40">src/main/typescript/wcardinal/ui/d-map-coordinate.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/c6ed805/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L40">src/main/typescript/wcardinal/ui/d-map-coordinate.ts:40</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Converts pixel coordinates in given zoom level of pyramid to EPSG:900913.
+										The origin of the <code>pixels</code> is the top-left corner.
+									The <code>meters</code> can be the same instance that is passed in as the <code>pixels</code>.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -375,9 +423,16 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L54">src/main/typescript/wcardinal/ui/d-map-coordinate.ts:54</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/c6ed805/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L54">src/main/typescript/wcardinal/ui/d-map-coordinate.ts:54</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns a tile covering region in given pixel coordinates.
+										The origin of the tile is the top-left corner.
+									The <code>tile</code> can be the same instance that is passed in as the <code>pixels</code>.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -404,9 +459,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L77">src/main/typescript/wcardinal/ui/d-map-coordinate.ts:77</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/c6ed805/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L77">src/main/typescript/wcardinal/ui/d-map-coordinate.ts:77</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns bounds of the given tile in EPSG:900913 coordinates
+									The <code>meters</code> can be the same instance that is passed in as the <code>tile</code>.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -433,9 +494,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L71">src/main/typescript/wcardinal/ui/d-map-coordinate.ts:71</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/c6ed805/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L71">src/main/typescript/wcardinal/ui/d-map-coordinate.ts:71</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The <code>pixels</code> can be the same instance that is passed in as the <code>tile</code>.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -462,7 +528,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L81">src/main/typescript/wcardinal/ui/d-map-coordinate.ts:81</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/c6ed805/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L81">src/main/typescript/wcardinal/ui/d-map-coordinate.ts:81</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -491,7 +557,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/805d09a/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L79">src/main/typescript/wcardinal/ui/d-map-coordinate.ts:79</a></li>
+									<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/c6ed805/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L79">src/main/typescript/wcardinal/ui/d-map-coordinate.ts:79</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
