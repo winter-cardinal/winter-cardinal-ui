@@ -12,14 +12,13 @@ import { DShadow } from "../../d-shadow";
 import { DThemeDarkBase } from "./d-theme-dark-base";
 
 export class DThemeDarkDialog extends DThemeDarkBase implements DThemeDialog {
-	COLOR = 0x383838;
 
 	closeOn(): DDialogCloseOn {
 		return DDialogCloseOn.ESC | DDialogCloseOn.CLICK_OUTSIDE;
 	}
 
 	getBackgroundColor() {
-		return this.COLOR;
+		return 0x2E2E2E;
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
