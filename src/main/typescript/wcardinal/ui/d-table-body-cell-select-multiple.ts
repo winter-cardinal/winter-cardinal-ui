@@ -43,7 +43,7 @@ export class DTableBodyCellSelectMultiple<
 		this._rowIndex = 0;
 		this._columnIndex = column.index;
 		this._columnData = column.data;
-		this.on( "select", ( newValues: unknown, oldValues: unknown ): void => {
+		this.on( "change", ( newValues: unknown, oldValues: unknown ): void => {
 			const row = this._row;
 			if( row !== undefined ) {
 				const rowIndex = this._rowIndex;

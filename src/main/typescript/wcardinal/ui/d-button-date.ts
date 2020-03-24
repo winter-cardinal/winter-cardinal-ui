@@ -4,14 +4,26 @@
  */
 
 import { DBaseState } from "./d-base-state";
-import { DButton, DButtonOptions, DThemeButton } from "./d-button";
+import { DButton, DButtonOnOptions, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogDate, DDialogDateOptions } from "./d-dialog-date";
 import { DDialogDates } from "./d-dialog-dates";
+
+export interface DButtonDateOnOptions extends DButtonOnOptions<Date> {
+	/**
+	 * Triggered when a selection is changed.
+	 *
+	 * @param newValue a newly selected value
+	 * @param oldValue a previously selected value
+	 * @param self a button
+	 */
+	change?: ( newValue: Date, oldValue: Date, self: any ) => void;
+}
 
 export interface DButtonDateOptions<
 	THEME extends DThemeButtonDate = DThemeButtonDate
 > extends DButtonOptions<Date, THEME> {
 	dialog?: DDialogDateOptions;
+	on?: DButtonDateOnOptions;
 }
 
 export interface DThemeButtonDate extends DThemeButton {
@@ -41,9 +53,8 @@ export class DButtonDate<
 			dialog.open().then((): void => {
 				const dateNew = dialog.new;
 				const dateCurrent = dialog.current;
-				this.emit( "select", dateNew, dateCurrent, this );
 				this.text = new Date( dateNew.getTime() );
-				this.emit( "change", this );
+				this.emit( "change", dateNew, dateCurrent, this );
 			});
 		});
 	}

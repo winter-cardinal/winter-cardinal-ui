@@ -22,14 +22,7 @@ export interface DButtonColorOnOptions extends DButtonOnOptions<DColorAndAlpha> 
 	 * @param oldValue a previously selected value
 	 * @param self a button
 	 */
-	select?: ( newValue: DColorAndAlpha | null, oldValue: DColorAndAlpha | null, self: any ) => void;
-
-	/**
-	 * Triggered when a selection is changed.
-	 *
-	 * @param self a button
-	 */
-	change?: ( self: any ) => void;
+	change?: ( newValue: DColorAndAlpha, oldValue: DColorAndAlpha, self: any ) => void;
 }
 
 export interface DButtonColorOptions<
@@ -78,11 +71,10 @@ export class DButtonColor<
 			dialog.open().then((): void => {
 				const dialogNew = dialog.new;
 				const dialogCurrent = dialog.current;
-				this.emit( "select", dialogNew, dialogCurrent, this );
 				colorAndAlpha.color = dialogNew.color;
 				colorAndAlpha.alpha = dialogNew.alpha;
 				this.onColorChange();
-				this.emit( "change", this );
+				this.emit( "change", dialogNew, dialogCurrent, this );
 			});
 		});
 	}

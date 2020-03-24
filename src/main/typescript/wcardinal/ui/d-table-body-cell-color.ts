@@ -57,7 +57,7 @@ export class DTableBodyCellColor<
 		this._columnIndex = options.column.index;
 		this._columnData = options.column.data;
 
-		this.on( "select", ( newValue: DColorAndAlpha, oldValue: DColorAndAlpha ): void => {
+		this.on( "change", ( newValue: DColorAndAlpha, oldValue: DColorAndAlpha ): void => {
 			const row = this._row;
 			if( row !== undefined ) {
 				const newValueCloned = clone( newValue );

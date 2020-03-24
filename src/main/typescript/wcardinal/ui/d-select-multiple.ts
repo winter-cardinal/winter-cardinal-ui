@@ -9,12 +9,16 @@ import { DMenuItem } from "./d-menu-item";
 import { DMenuItemCheck } from "./d-menu-item-check";
 import { DMenuItemMenu } from "./d-menu-item-menu";
 
+/**
+ * Mappings of event names and handlers.
+ */
 export interface DSelectMultipleOnOptions<VALUE> extends DDropdownBaseOnOptions<VALUE, DMenuItem<VALUE> | null> {
 	/**
 	 * Called when a menu item is selected.
 	 *
 	 * @param value a value of a selected menu item
 	 * @param item a selected menu item
+	 * @param self an event emitter
 	 */
 	menuselect?: ( value: VALUE, item: DMenuItem<VALUE>, self: any ) => void;
 
@@ -23,13 +27,10 @@ export interface DSelectMultipleOnOptions<VALUE> extends DDropdownBaseOnOptions<
 	 *
 	 * @param newValues new selected values
 	 * @param oldValues old selected values
+	 * @param items selected items
+	 * @param self an event emitter
 	 */
-	select?: ( newValues: VALUE[], oldValues: VALUE[], self: any ) => void;
-
-	/**
-	 * Called when the value is changed.
-	 */
-	change?: ( self: any ) => void;
+	change?: ( newValues: VALUE[], oldValues: VALUE[], items: Array<DMenuItem<VALUE>>, self: any ) => void;
 }
 
 /**
@@ -101,8 +102,7 @@ export class DSelectMultiple<
 
 		// Event
 		if( emit ) {
-			this.emit( "select", newValues, oldValues, items, this );
-			this.emit( "change", this );
+			this.emit( "change", newValues, oldValues, items, this );
 		}
 	}
 

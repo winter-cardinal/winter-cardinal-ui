@@ -10,17 +10,9 @@ import { DMenuItemMenu } from "./d-menu-item-menu";
 
 export interface DSelectOnOptions<VALUE> extends DDropdownBaseOnOptions<VALUE, DMenuItem<VALUE> | null> {
 	/**
-	 * Called when the selection is changed.
-	 *
-	 * @param newValue new selected value or null
-	 * @param oldValue old selected value or null
+	 * Called when a selection is changed.
 	 */
-	select?: ( newValue: VALUE | null, oldValue: VALUE | null, self: any ) => void;
-
-	/**
-	 * Called when the value is changed.
-	 */
-	change?: ( self: any ) => void;
+	change?: ( newValue: VALUE | null, oldValue: VALUE | null, item: DMenuItem<VALUE> | null, self: any ) => void;
 }
 
 /**
@@ -83,8 +75,7 @@ export class DSelect<
 
 			// Event
 			if( emit ) {
-				this.emit( "select", newValue, oldValue, item, this );
-				this.emit( "change",  this );
+				this.emit( "change", newValue, oldValue, item,  this );
 			}
 		}
 	}

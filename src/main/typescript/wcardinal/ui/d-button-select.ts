@@ -37,14 +37,7 @@ export interface DButtonSelectOnOptions<VALUE> extends DButtonOnOptions<VALUE> {
 	 * @param oldValue a previously selected value
 	 * @param self a button
 	 */
-	select?: ( newValue: VALUE | null, oldValue: VALUE | null, self: any ) => void;
-
-	/**
-	 * Triggered when a selection is changed.
-	 *
-	 * @param self a button
-	 */
-	change?: ( self: any ) => void;
+	change?: ( newValue: VALUE | null, oldValue: VALUE | null, self: any ) => void;
 }
 
 export interface DButtonSelectOptions<
@@ -110,8 +103,7 @@ export class DButtonSelect<
 				const oldValue = this._textValueComputed;
 				if( newValue !== oldValue ) {
 					this.text = newValue;
-					this.emit( "select", newValue, oldValue, this );
-					this.emit( "change", this );
+					this.emit( "change", newValue, oldValue, this );
 				}
 			});
 		});

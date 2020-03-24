@@ -6,15 +6,27 @@
 import { Texture } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBaseState } from "./d-base-state";
-import { DButton, DButtonOptions, DThemeButton } from "./d-button";
+import { DButton, DButtonOnOptions, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogColorGradient, DDialogColorGradientOptions } from "./d-dialog-color-gradient";
-import { DPickerColorGradientData } from "./d-picker-color-gradient-data";
+import { DPickerColorGradientData, DPickerColorGradientDataLike } from "./d-picker-color-gradient-data";
 import { DPickerColorGradientDataView } from "./d-picker-color-gradient-data-view";
+
+export interface DButtonColorGradientOnOptions extends DButtonOnOptions<DPickerColorGradientData> {
+	/**
+	 * Triggered when a selection is changed.
+	 *
+	 * @param newValue a newly selected value
+	 * @param oldValue a previously selected value
+	 * @param self a button
+	 */
+	change?: ( newValue: DPickerColorGradientDataLike, oldValue: DPickerColorGradientDataLike, self: any ) => void;
+}
 
 export interface DButtonColorGradientOptions<
 	THEME extends DThemeButtonColorGradient = DThemeButtonColorGradient
 > extends DButtonOptions<DPickerColorGradientData, THEME> {
 	dialog?: DDialogColorGradientOptions;
+	on?: DButtonColorGradientOnOptions;
 }
 
 export interface DThemeButtonColorGradient extends DThemeButton {
@@ -54,8 +66,9 @@ export class DButtonColorGradient<
 			const dialog = this.dialog;
 			dialog.data.fromObject( data );
 			dialog.open().then((): void => {
-				this.emit( "select", dialog.data, data, this );
-				data.fromObject( dialog.data );
+				const newValue = dialog.data;
+				const oldValue = data.toObject();
+				data.fromObject( newValue );
 				const view = this._view;
 				if( view != null ) {
 					view.update();
@@ -63,7 +76,7 @@ export class DButtonColorGradient<
 				this.onTextChange();
 				this.createOrUpdateText();
 				DApplications.update( this );
-				this.emit( "change", this );
+				this.emit( "change", newValue, oldValue, this );
 			});
 		});
 	}
