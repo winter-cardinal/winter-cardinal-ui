@@ -56,7 +56,7 @@ new DButtonCheck({
 </script>
 ```
 
-All the classes are in the `wcardin.ui`.
+All the classes are in the `wcardinal.ui`.
 Please note that the `loadAll` and the `loadThemeWhiteALl` is not required in this case.
 Prebuild files `wcardinal-ui.min.js` and `wcardinal-ui-theme-white.min.js` call the `loadAll` and the `loadThemeWhiteAll` for you.
 
