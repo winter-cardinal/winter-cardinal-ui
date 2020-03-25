@@ -15,12 +15,12 @@ import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkLayoutHorizontal } from "./d-theme-dark-layout-horizontal";
 
 export class DThemeDarkTreeItem extends DThemeDarkLayoutHorizontal implements DThemeTreeItem {
-	COLOR = 0x383838;
-	COLOR_HOVERED = UtilRgb.darken( this.COLOR, DThemeDarkConstants.FOCUSED_ALPHA );
+	COLOR_HOVERED = 0x646464;
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
 			return null;
-		} else if( DBaseStates.isActive( state ) ) {
+		}
+		if( DBaseStates.isActive( state ) ) {
 			return DThemeDarkConstants.HIGHLIGHT_COLOR;
 		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
 			return this.COLOR_HOVERED;
@@ -30,7 +30,13 @@ export class DThemeDarkTreeItem extends DThemeDarkLayoutHorizontal implements DT
 	}
 
 	getBackgroundAlpha( state: DBaseState ): number {
-		return 0.8;
+		if( DBaseStates.isActive( state ) ) {
+			return 0.8;
+		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
+			return 0.2;
+		} else {
+			return 0;
+		}
 	}
 
 	getBorderColor( state: DBaseState ): number | null {

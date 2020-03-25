@@ -464,4 +464,8 @@ export class DTree<
 				item.updateActiveState( this._selection.contains( item.getRawData() ) );
 			});
 		}
+
+		protected getType(): string {
+			return "DTree";
+		}
 	}

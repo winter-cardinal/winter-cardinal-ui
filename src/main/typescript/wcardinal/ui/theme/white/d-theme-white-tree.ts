@@ -9,7 +9,7 @@ import { DThemeWhitePane } from "./d-theme-white-pane";
 
 export class DThemeWhiteTree extends DThemeWhitePane implements DThemeTree {
 	getBackgroundColor( state: DBaseState ): number | null {
-		return 0xffffff;
+		return null;
 	}
 
 	getBorderAlign( state: DBaseState ): number {

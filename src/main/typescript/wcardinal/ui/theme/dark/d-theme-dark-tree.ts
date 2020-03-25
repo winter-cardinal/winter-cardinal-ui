@@ -9,7 +9,7 @@ import { DThemeDarkPane } from "./d-theme-dark-pane";
 
 export class DThemeDarkTree extends DThemeDarkPane implements DThemeTree {
 	getBackgroundColor( state: DBaseState ): number | null {
-		return 0x000000;
+		return null;
 	}
 
 	getBorderAlign( state: DBaseState ): number {
