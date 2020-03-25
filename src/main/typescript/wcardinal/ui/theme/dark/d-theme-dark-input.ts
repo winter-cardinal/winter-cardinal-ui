@@ -8,9 +8,8 @@ import { DBaseStates } from "../../d-base-states";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DHtmlElementElementCreator } from "../../d-html-element";
 import { DThemeInput } from "../../d-input";
-import { UtilRgb } from "../../util/util-rgb";
+import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkHtmlElement } from "./d-theme-dark-html-element";
-import { DThemeDarkConstants } from './d-theme-dark-constants';
 
 const editingValidator = (): unknown => {
 	return null;
