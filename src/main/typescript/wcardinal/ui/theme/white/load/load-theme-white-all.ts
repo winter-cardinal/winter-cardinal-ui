@@ -22,6 +22,7 @@ import { loadThemeWhiteMenu } from "./load-theme-white-menu";
 import { loadThemeWhiteMenuBar } from "./load-theme-white-menu-bar";
 import { loadThemeWhiteMenuSided } from "./load-theme-white-menu-sided";
 import { loadThemeWhiteNote } from "./load-theme-white-note";
+import { loadThemeWhitePagination } from "./load-theme-white-pagination";
 import { loadThemeWhitePane } from "./load-theme-white-pane";
 import { loadThemeWhitePickerColor } from "./load-theme-white-picker-color";
 import { loadThemeWhitePickerColorGradient } from "./load-theme-white-picker-color-gradient";
@@ -56,6 +57,7 @@ export const loadThemeWhiteAll = () => {
 	loadThemeWhiteMenu();
 	loadThemeWhiteNote();
 	loadThemeWhitePane();
+	loadThemeWhitePagination();
 	loadThemeWhitePickerColorGradient();
 	loadThemeWhitePickerColor();
 	loadThemeWhitePickerDate();
