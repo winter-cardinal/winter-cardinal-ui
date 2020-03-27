@@ -15,5 +15,4 @@ export class DThemeWhiteTree extends DThemeWhitePane implements DThemeTree {
 	getBorderAlign( state: DBaseState ): number {
 		return 1;
 	}
-
 }
