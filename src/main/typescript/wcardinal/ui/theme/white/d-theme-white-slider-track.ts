@@ -13,18 +13,18 @@ export class DThemeWhiteSliderTrack extends DThemeWhiteButton implements DThemeS
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isActive( state ) ) {
 			if (DBaseStates.isDisabled(state)) {
-				return 0xAAAAAA;
+				return 0xaaaaaa;
 			}
 			return DThemeWhiteConstants.HIGHLIGHT_COLOR;
+		} else {
+			if ( DBaseStates.isDisabled( state ) ) {
+				return 0xe5e5e5; // blend( 0xffffff, 0xcccccc, 0.5 )
+			}
+			return 0xcccccc;
 		}
-		return 0xCCCCCC;
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
 		return null;
-	}
-
-	getColor( state: DBaseState ): number {
-		return 0x5F5F5F;
 	}
 }

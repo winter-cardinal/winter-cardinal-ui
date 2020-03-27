@@ -18,7 +18,7 @@ export class DThemeDarkSliderTrack extends DThemeDarkButton implements DThemeSli
 			return DThemeDarkConstants.HIGHLIGHT_COLOR;
 		} else {
 			if ( DBaseStates.isDisabled( state ) ) {
-				return 0x1F1F1F;
+				return 0x414141; // blend( 0x1f1f1f, 0x646464, 0.5 )
 			}
 			return 0x646464;
 		}
@@ -26,19 +26,5 @@ export class DThemeDarkSliderTrack extends DThemeDarkButton implements DThemeSli
 
 	getBorderColor( state: DBaseState ): number | null {
 		return null;
-	}
-
-	getColor( state: DBaseState ): number {
-		if( DBaseStates.isDisabled( state ) ) {
-			return 0xFFFFFF;
-		}
-		return 0xDEDEDE;
-	}
-
-	getAlpha( state: DBaseState ): number {
-		if( DBaseStates.isDisabled( state ) ) {
-			return 0.38;
-		}
-		return 1;
 	}
 }
