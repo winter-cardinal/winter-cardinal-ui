@@ -15,7 +15,7 @@ export class DThemeDarkTable extends DThemeDarkPane implements DThemeTable {
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return null;
+		return 0x272727;
 	}
 
 	getMargin(): number {

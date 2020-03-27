@@ -11,7 +11,7 @@ import { DThemeDarkBase } from "./d-theme-dark-base";
 
 export class DThemeDarkCanvas extends DThemeDarkBase implements DThemeCanvas {
 	getBackgroundColor(): number | null {
-		return 0x2e2e2e;
+		return 0x484848;
 	}
 
 	getBorderColor( state: DBaseState ): number | null {

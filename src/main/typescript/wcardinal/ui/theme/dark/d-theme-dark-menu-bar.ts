@@ -12,11 +12,11 @@ import { DThemeDarkLayoutHorizontal } from "./d-theme-dark-layout-horizontal";
 
 export class DThemeDarkMenuBar extends DThemeDarkLayoutHorizontal implements DThemeMenuBar {
 	getBackgroundColor(): number | null {
-		return 0x2E2E2E;
+		return DThemeDarkConstants.BACKGROUND_COLOR;
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return 0x646464;
+		return null;
 	}
 
 	getHeight(): DCoordinateSize {
@@ -25,6 +25,14 @@ export class DThemeDarkMenuBar extends DThemeDarkLayoutHorizontal implements DTh
 
 	getMargin(): number {
 		return 0;
+	}
+
+	getPaddingLeft(): number {
+		return 5;
+	}
+
+	getPaddingRight(): number {
+		return 5;
 	}
 
 	getInteractive(): DBaseInteractive {

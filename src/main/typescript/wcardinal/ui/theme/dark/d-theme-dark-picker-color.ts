@@ -29,8 +29,8 @@ DThemeDarkAtlas.add( "picker_color_main", 234, 156,
 const makeCheckerboard = ( width: number, height: number ): string => {
 	width = width + width;
 
-	const LIGHT = "#bfbfbf";
-	const DARK = "#a5a5a5";
+	const LIGHT = "#5f5f5f";
+	const DARK = "#454545";
 	let result = "<g>";
 	for( let iheight = 0; iheight < height; ++iheight ) {
 		for( let i = 0; i < width; ++i ) {

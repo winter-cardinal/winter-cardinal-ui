@@ -4,10 +4,11 @@
  */
 
 import { DThemeDiagramCanvasEditor } from "../../d-diagram-canvas-editor";
+import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkDiagramCanvasBase } from "./d-theme-dark-diagram-canvas-base";
 
 export class DThemeDarkDiagramCanvasEditor extends DThemeDarkDiagramCanvasBase implements DThemeDiagramCanvasEditor {
 	getBackgroundBase(): number | null {
-		return 0x000000;
+		return DThemeDarkConstants.BACKGROUND_COLOR;
 	}
 }

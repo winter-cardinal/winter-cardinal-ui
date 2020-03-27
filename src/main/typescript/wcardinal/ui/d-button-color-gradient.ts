@@ -34,6 +34,7 @@ export interface DThemeButtonColorGradient extends DThemeButton {
 	getTextFormatter(): ( value: DPickerColorGradientData, caller: DButtonColorGradient ) => string;
 	getTextValue( state: DBaseState ): DPickerColorGradientData;
 	newTextValue(): DPickerColorGradientData;
+	getCheckerColors(): [ number, number ];
 }
 
 export class DButtonColorGradient<
@@ -52,9 +53,11 @@ export class DButtonColorGradient<
 		this._dialogOptions = options && options.dialog;
 
 		if( options == null || options.image == null || options.image.source === undefined ) {
-			const texture = this.theme.getViewBaseTexture();
+			const theme = this.theme;
+			const texture = theme.getViewBaseTexture();
 			if( texture instanceof Texture ) {
-				const view = this._view = DPickerColorGradientDataView.from( 1, 10, texture );
+				const checkers = theme.getCheckerColors();
+				const view = this._view = DPickerColorGradientDataView.from( 1, 10, checkers, texture );
 				view.setRectangle( 0, 0, 0, texture.width, texture.height );
 				view.setData( 0, data );
 				view.update();

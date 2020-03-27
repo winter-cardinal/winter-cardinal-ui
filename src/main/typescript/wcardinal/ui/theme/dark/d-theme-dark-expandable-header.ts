@@ -8,9 +8,7 @@ import { DBaseStates } from "../../d-base-states";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
 import { DThemeExpandableHeader } from "../../d-expandable-header";
-import { UtilRgb } from "../../util/util-rgb";
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
-import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkImage } from "./d-theme-dark-image";
 
 DThemeDarkAtlas.add( "menu_item_expandable_header_closed", 14, 14,
@@ -26,24 +24,20 @@ DThemeDarkAtlas.add( "menu_item_expandable_header_opened", 14, 14,
 );
 
 export class DThemeDarkExpandableHeader extends DThemeDarkImage implements DThemeExpandableHeader {
-	COLOR = 0x383838;
-	COLOR_HOVERED = UtilRgb.brighten( this.COLOR, DThemeDarkConstants.FOCUSED_ALPHA );
-
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
 			return null;
+		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
+			return 0x2e2e2e;
+		} else if( DBaseStates.isActiveIn( state ) ) {
+			return 0x2e2e2e;
+		} else {
+			return null;
 		}
-		if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return this.COLOR_HOVERED;
-		}
-		if( DBaseStates.isActiveIn( state ) ) {
-			return DThemeDarkConstants.HIGHLIGHT_COLOR;
-		}
-		return null;
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return 0x646464;
+		return null;
 	}
 
 	getHeight(): DCoordinateSize {

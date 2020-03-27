@@ -35,7 +35,7 @@ export class DThemeDarkButtonBase extends DThemeDarkImageBase implements DThemeB
 		if( DBaseStates.isDisabled( state ) || ! DBaseStates.isActive( state ) ) {
 			return super.getColor( state );
 		} else {
-			return 0x222222;
+			return 0x000000;
 		}
 	}
 

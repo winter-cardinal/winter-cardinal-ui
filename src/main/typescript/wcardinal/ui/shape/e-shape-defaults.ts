@@ -12,7 +12,7 @@ export class EShapeDefaults {
 	static FILL_ALPHA: number = 0.5;
 	static STROKE_COLOR: number = 0x4f4f4f;
 	static STROKE_COLOR_DARK: number = 0x4f4f4f;
-	static STROKE_COLOR_LIGHT: number = 0xd0d0d0;
+	static STROKE_COLOR_LIGHT: number = 0xcccccc;
 	static STROKE_ALPHA: number = 1;
 	static STROKE_WIDTH: number = 2;
 	static STROKE_ALIGN: number = 0;

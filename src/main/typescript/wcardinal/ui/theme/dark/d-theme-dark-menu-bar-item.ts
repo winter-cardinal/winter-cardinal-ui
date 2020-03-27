@@ -14,24 +14,22 @@ import { DThemeDarkButton } from "./d-theme-dark-button";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 
 export class DThemeDarkMenuBarItem extends DThemeDarkButton implements DThemeMenuBarItem {
-	COLOR = 0x000000;
-	COLOR_HOVERED = UtilRgb.brighten( this.COLOR, DThemeDarkConstants.FOCUSED_ALPHA );
-	COLOR_PRESSED = UtilRgb.brighten( this.COLOR, DThemeDarkConstants.PRESSED_ALPHA );
+	COLOR = DThemeDarkConstants.BACKGROUND_COLOR;
+	COLOR_HOVERED = UtilRgb.brighten( this.COLOR, 0.034 );
+	COLOR_PRESSED = UtilRgb.brighten( this.COLOR, 0.051 );
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
 			return null;
-		}
-		if( DBaseStates.isActive( state ) ) {
+		} else if( DBaseStates.isActive( state ) ) {
 			return DThemeDarkConstants.HIGHLIGHT_COLOR;
-		}
-		if( DBaseStates.isPressed( state ) ) {
+		} else if( DBaseStates.isPressed( state ) ) {
 			return this.COLOR_PRESSED;
-		}
-		if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
+		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
 			return this.COLOR_HOVERED;
+		} else {
+			return null;
 		}
-		return null;
 	}
 
 	getBorderColor(): number | null {

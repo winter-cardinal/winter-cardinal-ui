@@ -35,4 +35,8 @@ export class DThemeDarkButtonColorGradient extends DThemeDarkButton implements D
 	newTextValue(): DPickerColorGradientData {
 		return new DPickerColorGradientData();
 	}
+
+	getCheckerColors(): [ number, number ] {
+		return [ 0x37255, 0.27 ];
+	}
 }

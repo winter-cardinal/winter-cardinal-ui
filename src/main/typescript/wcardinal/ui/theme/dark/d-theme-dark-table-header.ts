@@ -15,12 +15,12 @@ export class DThemeDarkTableHeader extends DThemeDarkTableRow implements DThemeT
 		if( DBaseStates.isDisabled( state ) ) {
 			return null;
 		} else {
-			return 0x4f4f4f;
+			return 0x252525;
 		}
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return 0x525252;
+		return 0x272727;
 	}
 
 	getBorderAlign( state: DBaseState ): number {

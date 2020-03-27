@@ -31,12 +31,13 @@ varying vec2 vUv;
 varying vec4 vColor;
 
 uniform sampler2D uSampler;
+uniform vec2 uCheckerColors;
 
 void main(void) {
 	vec4 texture = texture2D(uSampler, vUv);
 	float cy = step( 1.0, mod( gl_FragCoord.y / 10.0, 2.0 ) );
 	float cx = step( 1.0, mod( gl_FragCoord.x / 10.0 + cy, 2.0 ) );
-	float c = mix( 0.75, 0.65, cx );
+	float c = mix( uCheckerColors.x, uCheckerColors.y, cx );
 	gl_FragColor = texture * vec4( mix( vec3( c ), vColor.xyz, vColor.a ), 1.0 );
 }`;
 
@@ -281,7 +282,12 @@ export class DPickerColorGradientDataView extends Mesh {
 		return false;
 	}
 
-	static from( size: number, nPointsPerData: number, texture: Texture = Texture.WHITE ) {
+	static from(
+		size: number,
+		nPointsPerData: number,
+		checkerColors: [ number, number ],
+		texture: Texture = Texture.WHITE
+	) {
 		const vertices = new Float32Array( size * ( nPointsPerData + 2 ) * 2 * 2 );
 		const uvs = new Float32Array( size * ( nPointsPerData + 2 ) * 2 * 2 );
 		const colors = new Float32Array( size * ( nPointsPerData + 2 ) * 2 * 4 );
@@ -300,7 +306,7 @@ export class DPickerColorGradientDataView extends Mesh {
 			.addAttribute( "aPosition", new Buffer( vertices, false, false ), 2 )
 			.addAttribute( "aUv", new Buffer( uvs, false, false ), 2 )
 			.addAttribute( "aColor", new Buffer( colors, false, false ), 4 );
-		const shader = Shader.from( VERTEX_SHADER, FRAGMENT_SHADER, { uSampler: texture } );
+		const shader = Shader.from( VERTEX_SHADER, FRAGMENT_SHADER, { uSampler: texture, uCheckerColors: checkerColors } );
 
 		return new DPickerColorGradientDataView(
 			nPointsPerData,

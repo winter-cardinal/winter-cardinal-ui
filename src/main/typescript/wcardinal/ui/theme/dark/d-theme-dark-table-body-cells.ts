@@ -15,8 +15,8 @@ import { DThemeDarkFont } from "./d-theme-dark-font";
 
 export class DThemeDarkTableBodyCells {
 	static readonly IMAGE_TINT_COLOR_FOCUSED = UtilRgb.brighten( DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR, 0.1 );
-	static readonly BACKGROUND_COLOR_EVEN = 0x484848;
-	static readonly BACKGROUND_COLOR_ODD = UtilRgb.brighten( 0x484848, 0.02 );
+	static readonly BACKGROUND_COLOR_EVEN = 0x1f1f1f;
+	static readonly BACKGROUND_COLOR_ODD = UtilRgb.brighten( 0x1f1f1f, 0.02 );
 	static readonly WEAK_STRONG_HIGHLIGHT_COLOR = UtilRgb.brighten( DThemeDarkConstants.WEAK_HIGHLIGHT_BLENDED, 0.05 );
 
 	static getBackgroundColor( state: DBaseState ): number | null {
@@ -50,7 +50,7 @@ export class DThemeDarkTableBodyCells {
 	}
 
 	static getBorderColor( state: DBaseState ): number | null {
-		return 0x505050;
+		return 0x272727;
 	}
 
 	static getBorderAlign( state: DBaseState ): number {
