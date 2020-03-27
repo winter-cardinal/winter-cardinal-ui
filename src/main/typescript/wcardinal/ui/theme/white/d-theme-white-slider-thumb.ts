@@ -4,6 +4,7 @@
  */
 
 import { DisplayObject, Texture } from "pixi.js";
+import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DBaseState } from "../../d-base-state";
 import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
 import { DThemeSliderThumb } from "../../d-slider-thumb";
@@ -25,11 +26,11 @@ export class DThemeWhiteSliderThumb extends DThemeWhiteButton implements DThemeS
 	}
 
 	getWidth(): DCoordinateSize {
-		return 15;
+		return 16;
 	}
 
 	getHeight(): DCoordinateSize {
-		return 15;
+		return 16;
 	}
 
 	getBackgroundColor( state: DBaseState ): number | null {
@@ -50,5 +51,9 @@ export class DThemeWhiteSliderThumb extends DThemeWhiteButton implements DThemeS
 
 	getImageTintAlpha( state: DBaseState ): number {
 		return 1;
+	}
+
+	getImageAlignHorizontal(): DAlignHorizontal {
+		return DAlignHorizontal.CENTER;
 	}
 }
