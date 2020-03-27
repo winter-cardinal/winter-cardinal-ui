@@ -13,7 +13,7 @@ export class DThemeDarkDialogCommand extends DThemeDarkDialog implements DThemeD
 	}
 
 	getCancel(): string | null {
-		return "Cacnel";
+		return "Cancel";
 	}
 
 	getLayoutX(): DCoordinatePosition {

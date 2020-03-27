@@ -6,8 +6,10 @@
 export class DThemeDarkConstants {
 	// Common configuration
 	static FOCUSED_ALPHA = 0.04;
-	static PRESSED_ALPHA = 0.12;
+	static ACTIVE_ALPHA = 0.12;
+	static PRESSED_ALPHA = 0.16;
 	static DISABLED_ALPHA = 0.12;
+	static DISABLED_TEXT_ALPHA = 0.38;
 	static TINT_FOCUS_ALPHA = 0.1;
 
 	// High light color when active

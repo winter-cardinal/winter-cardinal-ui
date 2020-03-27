@@ -10,7 +10,7 @@ import { DThemePane } from "../../d-pane";
 import { DThemeDarkBase } from "./d-theme-dark-base";
 
 export class DThemeDarkPane extends DThemeDarkBase implements DThemePane {
-	COLOR = 0x2C2C2C;
+	COLOR = 0x2E2E2E;
 
 	isOverflowMaskEnabled(): boolean {
 		return true;

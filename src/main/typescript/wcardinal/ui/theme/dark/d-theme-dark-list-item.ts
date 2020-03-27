@@ -14,8 +14,6 @@ import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkImage } from "./d-theme-dark-image";
 
 export class DThemeDarkListItem extends DThemeDarkImage implements DThemeListItem {
-	COLOR = 0x383838;
-	COLOR_HOVERED = UtilRgb.darken( this.COLOR, DThemeDarkConstants.FOCUSED_ALPHA );
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
@@ -25,7 +23,7 @@ export class DThemeDarkListItem extends DThemeDarkImage implements DThemeListIte
 			return DThemeDarkConstants.HIGHLIGHT_COLOR;
 		}
 		if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return this.COLOR_HOVERED;
+			return 0x232323;
 		}
 		return null;
 	}

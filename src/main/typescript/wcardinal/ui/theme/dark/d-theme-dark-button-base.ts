@@ -14,36 +14,33 @@ import { DThemeDarkImageBase } from "./d-theme-dark-image-base";
 
 export class DThemeDarkButtonBase extends DThemeDarkImageBase implements DThemeButtonBase {
 	COLOR = 0x383838;
-	COLOR_HOVERED = UtilRgb.darken( this.COLOR, DThemeDarkConstants.FOCUSED_ALPHA );
-	COLOR_PRESSED = UtilRgb.brighten( this.COLOR, DThemeDarkConstants.PRESSED_ALPHA );
-	COLOR_DISABLED = UtilRgb.brighten( 0x000000, DThemeDarkConstants.DISABLED_ALPHA );
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
-			return this.COLOR_DISABLED;
+			return UtilRgb.blend( 0x000000, 0xFFFFFF, DThemeDarkConstants.DISABLED_ALPHA );
 		}
 		if( DBaseStates.isActive( state ) ) {
-			return DThemeDarkConstants.HIGHLIGHT_COLOR;
+			return UtilRgb.blend( this.COLOR, this.getColor( DBaseState.ACTIVE ), DThemeDarkConstants.ACTIVE_ALPHA );
 		}
 		if( DBaseStates.isPressed( state ) ) {
-			return this.COLOR_PRESSED;
+			return UtilRgb.blend( this.COLOR, this.getColor( DBaseState.PRESSED ), DThemeDarkConstants.PRESSED_ALPHA );
 		}
 		if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return this.COLOR_HOVERED;
+			return UtilRgb.blend( this.COLOR, this.getColor( DBaseState.HOVERED ), DThemeDarkConstants.FOCUSED_ALPHA );
 		}
 		return this.COLOR;
 	}
 
 	getColor( state: DBaseState ): number {
-		if( DBaseStates.isDisabled( state ) || ! DBaseStates.isActive( state ) ) {
-			return super.getColor( state );
+		if( DBaseStates.isDisabled( state ) ) {
+			return UtilRgb.blend( 0x000000, 0xFFFFFF, DThemeDarkConstants.DISABLED_TEXT_ALPHA );
 		}
-		return 0x000000;
+		return super.getColor( state );
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		if( DBaseStates.isDisabled( state ) || ! DBaseStates.isActive( state ) ) {
-			return this.COLOR_DISABLED;
+		if( DBaseStates.isDisabled( state ) ) {
+			return UtilRgb.blend( 0x000000, 0xFFFFFF, DThemeDarkConstants.DISABLED_ALPHA );
 		}
 		return null;
 	}

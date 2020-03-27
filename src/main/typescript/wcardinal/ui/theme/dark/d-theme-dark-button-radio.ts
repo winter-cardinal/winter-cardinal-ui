@@ -31,36 +31,26 @@ DThemeDarkAtlas.add( "button_radio_mark_off", 21, 21,
 );
 
 export class DThemeDarkButtonRadio extends DThemeDarkButtonAmbient implements DThemeButtonRadio {
-	COLOR = 0x646464;
-	readonly IMAGE_TINT_COLOR_FOCUSED = UtilRgb.darken( this.COLOR, DThemeDarkConstants.TINT_FOCUS_ALPHA );
+	COLOR = 0x131313;
 
 	getBackgroundColor( state: DBaseState ): number | null {
-		return this.COLOR;
-	}
-
-	getColor( state: DBaseState ): number {
-		return DThemeDarkFont.getColor( state );
-	}
-
-	getBackgroundAlpha( state: DBaseState ): number {
-		if( ! DBaseStates.isDisabled( state ) ) {
-			if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-				return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
-			}
+		if( DBaseStates.isDisabled( state ) ) {
+			return UtilRgb.blend( 0x000000, 0xFFFFFF, DThemeDarkConstants.DISABLED_ALPHA );
 		}
-		return 0;
+		if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
+			return UtilRgb.blend( this.COLOR, this.getColor( DBaseState.HOVERED ), DThemeDarkConstants.FOCUSED_ALPHA );
+		}
+		if( DBaseStates.isActive( state ) ) {
+			return UtilRgb.blend( this.COLOR, this.getColor( DBaseState.ACTIVE ), DThemeDarkConstants.ACTIVE_ALPHA );
+		}
+		return null;
 	}
 
 	getImageTintColor( state: DBaseState ): number | null {
-		if( DBaseStates.isDisabled( state ) || ! DBaseStates.isActive( state ) ) {
-			if( DBaseStates.isFocused( state ) ) {
-				return this.IMAGE_TINT_COLOR_FOCUSED;
-			} else {
-				return this.COLOR;
-			}
-		} else {
-			return DThemeDarkConstants.HIGHLIGHT_COLOR;
+		if( DBaseStates.isDisabled( state ) || DBaseStates.isReadOnly( state ) || ! DBaseStates.isActive( state ) ) {
+			return DThemeDarkFont.getColor( state );
 		}
+		return DThemeDarkConstants.HIGHLIGHT_COLOR;
 	}
 
 	isToggle(): boolean {
