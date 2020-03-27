@@ -11,13 +11,13 @@ import { DThemeDarkConstants } from "./d-theme-dark-constants";
 
 export class DThemeDarkSliderTrack extends DThemeDarkButton implements DThemeSliderTrack {
 	getBackgroundColor( state: DBaseState ): number | null {
-		if ( DBaseStates.isActive(state) ) {
-			if (DBaseStates.isDisabled(state)) {
+		if ( DBaseStates.isActive( state ) ) {
+			if ( DBaseStates.isDisabled( state ) ) {
 				return 0x646464;
 			}
 			return DThemeDarkConstants.HIGHLIGHT_COLOR;
 		} else {
-			if (DBaseStates.isDisabled(state)) {
+			if ( DBaseStates.isDisabled( state ) ) {
 				return 0x1F1F1F;
 			}
 			return 0x646464;
@@ -36,7 +36,7 @@ export class DThemeDarkSliderTrack extends DThemeDarkButton implements DThemeSli
 	}
 
 	getAlpha( state: DBaseState ): number {
-		if(DBaseStates.isDisabled(state)) {
+		if( DBaseStates.isDisabled( state ) ) {
 			return 0.38;
 		}
 		return 1;

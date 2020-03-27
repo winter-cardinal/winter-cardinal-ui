@@ -22,7 +22,7 @@ export class DThemeDarkSliderValue extends DThemeDarkTextBase implements DThemeS
 	}
 
 	getWidth(): DCoordinateSize {
-		return 35;
+		return "AUTO";
 	}
 
 	getHeight(): DCoordinateSize {
@@ -30,7 +30,7 @@ export class DThemeDarkSliderValue extends DThemeDarkTextBase implements DThemeS
 	}
 
 	getBackgroundColor( state: DBaseState ): number | null {
-		if(DBaseStates.isDisabled(state)) {
+		if ( DBaseStates.isDisabled( state ) ) {
 			return 0x646464;
 		}
 		return DThemeDarkConstants.HIGHLIGHT_COLOR;
@@ -45,7 +45,7 @@ export class DThemeDarkSliderValue extends DThemeDarkTextBase implements DThemeS
 	}
 
 	getAlpha( state: DBaseState ): number {
-		if(DBaseStates.isDisabled(state)) {
+		if ( DBaseStates.isDisabled( state ) ) {
 			return 0.38;
 		}
 		return 1;

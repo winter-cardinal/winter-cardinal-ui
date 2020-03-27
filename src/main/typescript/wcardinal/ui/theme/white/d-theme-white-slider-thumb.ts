@@ -4,6 +4,7 @@
  */
 
 import { DBaseState } from "../../d-base-state";
+import { DBaseStates } from "../../d-base-states";
 import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
 import { DThemeSliderThumb } from "../../d-slider-thumb";
 import { DThemeWhiteButton } from "./d-theme-white-button";
@@ -26,6 +27,9 @@ export class DThemeWhiteSliderThumb extends DThemeWhiteButton implements DThemeS
 	}
 
 	getBackgroundColor( state: DBaseState ): number | null {
+		if( DBaseStates.isDisabled( state ) ) {
+			return 0xAAAAAA;
+		}
 		return 0x3399FF;
 	}
 
