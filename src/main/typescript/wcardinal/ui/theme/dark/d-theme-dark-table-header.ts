@@ -11,17 +11,16 @@ import { DThemeTableHeader } from "../../d-table-header";
 import { DThemeDarkTableRow } from "./d-theme-dark-table-row";
 
 export class DThemeDarkTableHeader extends DThemeDarkTableRow implements DThemeTableHeader {
-	COLOR = 0x1b1b1b;
-
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
 			return null;
+		} else {
+			return 0x4f4f4f;
 		}
-		return this.COLOR;
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return null;
+		return 0x525252;
 	}
 
 	getBorderAlign( state: DBaseState ): number {

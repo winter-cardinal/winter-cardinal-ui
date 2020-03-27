@@ -4,22 +4,11 @@
  */
 
 import { DBaseState } from "../../d-base-state";
-import { DBaseStates } from "../../d-base-states";
-import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkPane } from "./d-theme-dark-pane";
 
 export class DThemeDarkList extends DThemeDarkPane {
-	COLOR = 0x646464;
-
 	getBackgroundColor( state: DBaseState ): number | null {
-		return 0x000000;
-	}
-
-	getBorderColor( state: DBaseState ): number | null {
-		if( DBaseStates.isFocused( state ) ) {
-			return DThemeDarkConstants.HIGHLIGHT_COLOR;
-		}
-		return this.COLOR;
+		return 0x484848;
 	}
 
 	getBorderAlign( state: DBaseState ): number {

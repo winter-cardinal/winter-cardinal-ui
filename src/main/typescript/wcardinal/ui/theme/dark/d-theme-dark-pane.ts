@@ -8,16 +8,15 @@ import { DBaseState } from "../../d-base-state";
 import { DDragMode } from "../../d-drag-mode";
 import { DThemePane } from "../../d-pane";
 import { DThemeDarkBase } from "./d-theme-dark-base";
+import { DThemeDarkConstants } from "./d-theme-dark-constants";
 
 export class DThemeDarkPane extends DThemeDarkBase implements DThemePane {
-	COLOR = 0x2E2E2E;
-
 	isOverflowMaskEnabled(): boolean {
 		return true;
 	}
 
 	getBackgroundColor( state: DBaseState ): number | null {
-		return this.COLOR;
+		return DThemeDarkConstants.BACKGROUND_COLOR;
 	}
 
 	getInteractive(): DBaseInteractive {

@@ -26,7 +26,7 @@ export class DThemeWhiteListItem extends DThemeWhiteImage implements DThemeListI
 	}
 
 	getBackgroundAlpha( state: DBaseState ): number {
-		return DThemeWhiteConstants.HIGHLIGHT_ALPHA;
+		return DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
 	}
 
 	getBorderColor( state: DBaseState ): number | null {

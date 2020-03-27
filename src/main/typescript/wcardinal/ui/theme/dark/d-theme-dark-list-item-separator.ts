@@ -10,10 +10,8 @@ import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkImage } from "./d-theme-dark-image";
 
 export class DThemeDarkListItemSeparator extends DThemeDarkImage implements DThemeListItemSeparator {
-	COLOR = 0x383838;
-
 	getBorderColor( state: DBaseState ): number | null {
-		return this.COLOR;
+		return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
 	}
 
 	getBorderAlpha( state: DBaseState ): number {

@@ -9,34 +9,24 @@ import { DBaseStates } from "../../d-base-states";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
 import { DThemeListItem } from "../../d-list-item";
-import { UtilRgb } from "../../util/util-rgb";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkImage } from "./d-theme-dark-image";
 
 export class DThemeDarkListItem extends DThemeDarkImage implements DThemeListItem {
-
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
 			return null;
-		}
-		if( DBaseStates.isActive( state ) ) {
+		} else if( DBaseStates.isActive( state ) ) {
 			return DThemeDarkConstants.HIGHLIGHT_COLOR;
+		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
+			return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
+		} else {
+			return null;
 		}
-		if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return 0x232323;
-		}
-		return null;
-	}
-
-	getColor( state: DBaseState ): number {
-		if( DBaseStates.isActive( state ) ) {
-			return 0x000000;
-		}
-		return super.getColor( state );
 	}
 
 	getBackgroundAlpha( state: DBaseState ): number {
-		return 1;
+		return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
 	}
 
 	getBorderColor( state: DBaseState ): number | null {

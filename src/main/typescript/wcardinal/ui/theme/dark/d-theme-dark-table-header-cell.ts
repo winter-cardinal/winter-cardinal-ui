@@ -34,26 +34,24 @@ DThemeDarkAtlas.add( "sorted_ascending", 24, 24,
 );
 
 export class DThemeDarkTableHeaderCell extends DThemeDarkImage implements DThemeTableHeaderCell {
-	COLOR = 0x1b1b1b;
-	COLOR_HOVERED = UtilRgb.brighten( this.COLOR, DThemeDarkConstants.FOCUSED_ALPHA );
-	COLOR_PRESSED = UtilRgb.brighten( this.COLOR, DThemeDarkConstants.PRESSED_ALPHA );
+	COLOR = 0x4f4f4f;
+	COLOR_HOVERED = UtilRgb.brighten( this.COLOR, 0.04 );
+	COLOR_PRESSED = UtilRgb.brighten( this.COLOR, 0.16 );
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
 			return ( state & DTableCellState.FROZEN ) ?
 				this.COLOR : null;
-		}
-		if( DBaseStates.isActive( state ) ) {
+		} else if( DBaseStates.isActive( state ) ) {
 			return DThemeDarkConstants.HIGHLIGHT_COLOR;
-		}
-		if( DBaseStates.isPressed( state ) ) {
+		} else if( DBaseStates.isPressed( state ) ) {
 			return this.COLOR_PRESSED;
-		}
-		if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
+		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
 			return this.COLOR_HOVERED;
-		}
-		return ( state & DTableCellState.FROZEN ) ?
+		} else {
+			return ( state & DTableCellState.FROZEN ) ?
 				this.COLOR : null;
+		}
 	}
 
 	getBackgroundAlpha( state: DBaseState ): number {
@@ -61,7 +59,7 @@ export class DThemeDarkTableHeaderCell extends DThemeDarkImage implements DTheme
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return null;
+		return 0x525252;
 	}
 
 	getBorderAlign( state: DBaseState ): number {
@@ -71,8 +69,9 @@ export class DThemeDarkTableHeaderCell extends DThemeDarkImage implements DTheme
 	getBorderMask( state: DBaseState ): DBorderMask {
 		if( state & DTableCellState.END ) {
 			return DBorderMask.ALL;
+		} else {
+			return DBorderMask.NOT_RIGHT;
 		}
-		return DBorderMask.NOT_RIGHT;
 	}
 
 	getTextAlignHorizontal(): DAlignHorizontal {
@@ -106,11 +105,11 @@ export class DThemeDarkTableHeaderCell extends DThemeDarkImage implements DTheme
 	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
 		if( state & DTableCellState.SORTED_ASCENDING ) {
 			return DThemeDarkAtlas.mappings.sorted_ascending;
-		}
-		if( state & DTableCellState.SORTED_DESCENDING ) {
+		} else if( state & DTableCellState.SORTED_DESCENDING ) {
 			return DThemeDarkAtlas.mappings.sorted_descending;
+		} else {
+			return null;
 		}
-		return null;
 	}
 
 	getImageAlignHorizontal(): DAlignHorizontal {

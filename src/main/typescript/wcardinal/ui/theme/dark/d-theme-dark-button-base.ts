@@ -13,34 +13,35 @@ import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkImageBase } from "./d-theme-dark-image-base";
 
 export class DThemeDarkButtonBase extends DThemeDarkImageBase implements DThemeButtonBase {
-	COLOR = 0x383838;
+	COLOR = 0x484848;
+	COLOR_HOVERED = UtilRgb.brighten( this.COLOR, 0.017 );
+	COLOR_PRESSED = UtilRgb.brighten( this.COLOR, 0.034 );
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
-			return UtilRgb.blend( 0x000000, 0xFFFFFF, DThemeDarkConstants.DISABLED_ALPHA );
+			return null;
+		} else if( DBaseStates.isActive( state ) ) {
+			return DThemeDarkConstants.HIGHLIGHT_COLOR;
+		} else if( DBaseStates.isPressed( state ) ) {
+			return this.COLOR_PRESSED;
+		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
+			return this.COLOR_HOVERED;
+		} else {
+			return this.COLOR;
 		}
-		if( DBaseStates.isActive( state ) ) {
-			return UtilRgb.blend( this.COLOR, this.getColor( DBaseState.ACTIVE ), DThemeDarkConstants.ACTIVE_ALPHA );
-		}
-		if( DBaseStates.isPressed( state ) ) {
-			return UtilRgb.blend( this.COLOR, this.getColor( DBaseState.PRESSED ), DThemeDarkConstants.PRESSED_ALPHA );
-		}
-		if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return UtilRgb.blend( this.COLOR, this.getColor( DBaseState.HOVERED ), DThemeDarkConstants.FOCUSED_ALPHA );
-		}
-		return this.COLOR;
 	}
 
 	getColor( state: DBaseState ): number {
-		if( DBaseStates.isDisabled( state ) ) {
-			return UtilRgb.blend( 0x000000, 0xFFFFFF, DThemeDarkConstants.DISABLED_TEXT_ALPHA );
+		if( DBaseStates.isDisabled( state ) || ! DBaseStates.isActive( state ) ) {
+			return super.getColor( state );
+		} else {
+			return 0x222222;
 		}
-		return super.getColor( state );
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		if( DBaseStates.isDisabled( state ) ) {
-			return UtilRgb.blend( 0x000000, 0xFFFFFF, DThemeDarkConstants.DISABLED_ALPHA );
+		if( DBaseStates.isDisabled( state ) || ! DBaseStates.isActive( state ) ) {
+			return DThemeDarkConstants.BORDER_COLOR;
 		}
 		return null;
 	}

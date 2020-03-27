@@ -6,26 +6,32 @@
 import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { DThemeButtonAmbient } from "../../d-button-ambient";
-import { UtilRgb } from "../../util/util-rgb";
 import { DThemeDarkButtonBase } from "./d-theme-dark-button-base";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 
 export class DThemeDarkButtonAmbient extends DThemeDarkButtonBase implements DThemeButtonAmbient {
-	COLOR = 0x131313;
-
 	getBackgroundColor( state: DBaseState ): number | null {
-		if( DBaseStates.isDisabled( state ) ) {
-			return UtilRgb.blend( 0x000000, 0xFFFFFF, DThemeDarkConstants.DISABLED_ALPHA );
-		}
 		if( DBaseStates.isActive( state ) ) {
-			return UtilRgb.blend( this.COLOR, this.getColor( DBaseState.ACTIVE ), DThemeDarkConstants.ACTIVE_ALPHA );
+			return DThemeDarkConstants.HIGHLIGHT_COLOR;
+		} else {
+			return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
 		}
-		if( DBaseStates.isPressed( state ) ) {
-			return UtilRgb.blend( this.COLOR, this.getColor( DBaseState.PRESSED ), DThemeDarkConstants.PRESSED_ALPHA );
+	}
+
+	getBackgroundAlpha( state: DBaseState ): number {
+		if( ! DBaseStates.isDisabled( state ) ) {
+			if( DBaseStates.isActive( state ) ) {
+				return 1.0;
+			} else if( DBaseStates.isPressed( state ) ) {
+				return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA * 2;
+			} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
+				return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
+			}
 		}
-		if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return UtilRgb.blend( this.COLOR, this.getColor( DBaseState.HOVERED ), DThemeDarkConstants.FOCUSED_ALPHA );
-		}
+		return 0;
+	}
+
+	getBorderColor( state: DBaseState ): number | null {
 		return null;
 	}
 }

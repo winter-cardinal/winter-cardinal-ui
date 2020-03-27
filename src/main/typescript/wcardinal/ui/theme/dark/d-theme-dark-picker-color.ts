@@ -74,7 +74,7 @@ DThemeDarkAtlas.add( "picker_color_base", 234, 18,
 );
 
 DThemeDarkAtlas.add( "picker_color_base_pointer", 16.2, 31.8,
-	`<rect x="4.5" y="4.5" width="7.2" height="22.8" stroke="#5f5f5f" stroke-width="2.4" fill="none" />`
+	`<rect x="4.5" y="4.5" width="7.2" height="22.8" stroke="#ffffff" stroke-width="2.4" fill="none" />`
 );
 
 DThemeDarkAtlas.add( "picker_color_pointer", 25.8, 25.8,

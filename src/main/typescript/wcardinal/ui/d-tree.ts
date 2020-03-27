@@ -9,7 +9,7 @@ import { DContentOptions } from "./d-content";
 import { DPane, DPaneOptions, DThemePane } from "./d-pane";
 import { DThemeTreeItem, DTreeItem, DTreeItemOptions } from "./d-tree-item";
 import { DTreeSelection } from "./d-tree-selection";
-import { DThemes } from "./theme";
+import { DThemes } from "./theme/d-themes";
 
 export enum DTreeAddedItemPosition {
 	BEFORE,

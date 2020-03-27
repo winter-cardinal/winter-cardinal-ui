@@ -30,27 +30,35 @@ DThemeDarkAtlas.add( "button_check_mark_off", 21, 21,
 );
 
 export class DThemeDarkButtonCheck extends DThemeDarkButtonAmbient implements DThemeButtonCheck {
-
-	COLOR = 0x131313;
+	readonly IMAGE_TINT_COLOR_FOCUSED = UtilRgb.brighten( DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR, 0.1 );
 
 	getBackgroundColor( state: DBaseState ): number | null {
-		if( DBaseStates.isDisabled( state ) ) {
-			return UtilRgb.blend( 0x000000, 0xFFFFFF, DThemeDarkConstants.DISABLED_ALPHA );
+		return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
+	}
+
+	getColor( state: DBaseState ): number {
+		return DThemeDarkFont.getColor( state );
+	}
+
+	getBackgroundAlpha( state: DBaseState ): number {
+		if( ! DBaseStates.isDisabled( state ) ) {
+			if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
+				return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
+			}
 		}
-		if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return UtilRgb.blend( this.COLOR, this.getColor( DBaseState.HOVERED ), DThemeDarkConstants.FOCUSED_ALPHA );
-		}
-		if( DBaseStates.isActive( state ) ) {
-			return UtilRgb.blend( this.COLOR, this.getColor( DBaseState.ACTIVE ), DThemeDarkConstants.ACTIVE_ALPHA );
-		}
-		return null;
+		return 0;
 	}
 
 	getImageTintColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) || DBaseStates.isReadOnly( state ) || ! DBaseStates.isActive( state ) ) {
-			return DThemeDarkFont.getColor( state );
+			if( DBaseStates.isFocused( state ) ) {
+				return this.IMAGE_TINT_COLOR_FOCUSED;
+			} else {
+				return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
+			}
+		} else {
+			return DThemeDarkConstants.HIGHLIGHT_COLOR;
 		}
-		return DThemeDarkConstants.HIGHLIGHT_COLOR;
 	}
 
 	isToggle(): boolean {
@@ -60,7 +68,8 @@ export class DThemeDarkButtonCheck extends DThemeDarkButtonAmbient implements DT
 	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
 		if( DBaseStates.isActive( state ) ) {
 			return DThemeDarkAtlas.mappings.button_check_mark_on;
+		} else {
+			return DThemeDarkAtlas.mappings.button_check_mark_off;
 		}
-		return DThemeDarkAtlas.mappings.button_check_mark_off;
 	}
 }

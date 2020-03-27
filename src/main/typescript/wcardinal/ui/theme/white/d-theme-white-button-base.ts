@@ -41,7 +41,7 @@ export class DThemeWhiteButtonBase extends DThemeWhiteImageBase implements DThem
 
 	getBorderColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) || ! DBaseStates.isActive( state ) ) {
-			return 0xe5e5e5;
+			return DThemeWhiteConstants.BORDER_COLOR;
 		} else {
 			return null;
 		}

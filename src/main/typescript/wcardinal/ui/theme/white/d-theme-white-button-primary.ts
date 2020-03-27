@@ -28,7 +28,7 @@ export class DThemeWhiteButtonPrimary extends DThemeWhiteButtonBase {
 
 	getBorderColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
-			return 0xe5e5e5;
+			return DThemeWhiteConstants.BORDER_COLOR;
 		} else {
 			return null;
 		}

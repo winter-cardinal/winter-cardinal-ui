@@ -14,40 +14,35 @@ import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkFont } from "./d-theme-dark-font";
 
 export class DThemeDarkTableBodyCells {
-	static readonly COLOR = 0x000000;
-	static readonly IMAGE_TINT_COLOR_FOCUSED = UtilRgb.brighten(
-		DThemeDarkTableBodyCells.COLOR, DThemeDarkConstants.TINT_FOCUS_ALPHA
-	);
-	static readonly BACKGROUND_COLOR_EVEN = DThemeDarkTableBodyCells.COLOR;
-	static readonly BACKGROUND_COLOR_ODD = 0x1B1B1B;
-	static readonly COLOR_HOVERED = 0x232323;
-	static readonly COLOR_FOCUSED_AND_HOVERED = 0x323232;
+	static readonly IMAGE_TINT_COLOR_FOCUSED = UtilRgb.brighten( DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR, 0.1 );
+	static readonly BACKGROUND_COLOR_EVEN = 0x484848;
+	static readonly BACKGROUND_COLOR_ODD = UtilRgb.brighten( 0x484848, 0.02 );
+	static readonly WEAK_STRONG_HIGHLIGHT_COLOR = UtilRgb.brighten( DThemeDarkConstants.WEAK_HIGHLIGHT_BLENDED, 0.05 );
 
 	static getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
 			if( state & DTableCellState.FROZEN ) {
 				return ( state & DTableCellState.EVEN ) ?
 					this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
+			} else {
+				return null;
 			}
-			return null;
+		} else if( DBaseStates.isInvalid( state ) ) {
+			return DThemeDarkConstants.INVALID_BLENDED;
+		} else if( state & DBaseState.ACTIVE_IN ) {
+			return DThemeDarkConstants.HIGHLIGHT_BLENDED;
+		} else if( DBaseStates.isFocused( state ) && DBaseStates.isHovered( state ) ) {
+			return this.WEAK_STRONG_HIGHLIGHT_COLOR;
+		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
+			return DThemeDarkConstants.WEAK_HIGHLIGHT_BLENDED;
+		} else {
+			if( state & DTableCellState.FROZEN ) {
+				return ( state & DTableCellState.EVEN ) ?
+					this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
+			} else {
+				return null;
+			}
 		}
-		if( DBaseStates.isInvalid( state ) ) {
-			return 0xCF6679;
-		}
-		if( state & DBaseState.ACTIVE_IN ) {
-			return DThemeDarkConstants.HIGHLIGHT_COLOR;
-		}
-		if( DBaseStates.isFocused( state ) && DBaseStates.isHovered( state ) ) {
-			return this.COLOR_FOCUSED_AND_HOVERED;
-		}
-		if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return this.COLOR_HOVERED;
-		}
-		if( state & DTableCellState.FROZEN ) {
-			return ( state & DTableCellState.EVEN ) ?
-				this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
-		}
-		return null;
 	}
 
 	static getBackgroundAlpha( state: DBaseState ): number {
@@ -55,10 +50,7 @@ export class DThemeDarkTableBodyCells {
 	}
 
 	static getBorderColor( state: DBaseState ): number | null {
-		if( DBaseStates.isHovered( state ) ) {
-			return this.COLOR_HOVERED;
-		}
-		return 0x202020;
+		return 0x505050;
 	}
 
 	static getBorderAlign( state: DBaseState ): number {
@@ -90,8 +82,9 @@ export class DThemeDarkTableBodyCells {
 				return this.IMAGE_TINT_COLOR_FOCUSED;
 			}
 			return 0x646464;
+		} else {
+			return DThemeDarkConstants.HIGHLIGHT_COLOR;
 		}
-		return DThemeDarkConstants.HIGHLIGHT_COLOR;
 	}
 
 	static getOutlineAlign( state: DBaseState ): number {

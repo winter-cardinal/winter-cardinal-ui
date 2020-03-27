@@ -33,8 +33,8 @@ const newShadow = ( id: string, radius: number, opacity: number ): void => {
 		`</g>`
 	);
 };
-newShadow( "shadow_weak", 8, 0.15 );
-newShadow( "shadow", 12, 0.15 );
+newShadow( "shadow_weak", 8, 0.5 );
+newShadow( "shadow", 12, 0.5 );
 
 export class DThemeDarkBase extends DThemeDarkFont implements DThemeBase {
 	getX(): DCoordinatePosition {

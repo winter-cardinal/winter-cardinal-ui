@@ -7,6 +7,7 @@ import { DBaseState } from "../../d-base-state";
 import { DBaseStates } from "../../d-base-states";
 import { UtilRgb } from "../../util/util-rgb";
 import { DThemeWhiteButtonBase } from "./d-theme-white-button-base";
+import { DThemeWhiteConstants } from "./d-theme-white-constants";
 
 export class DThemeWhiteButtonDanger extends DThemeWhiteButtonBase {
 	COLOR = 0xff5566;
@@ -27,7 +28,7 @@ export class DThemeWhiteButtonDanger extends DThemeWhiteButtonBase {
 
 	getBorderColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
-			return 0xe5e5e5;
+			return DThemeWhiteConstants.BORDER_COLOR;
 		} else {
 			return null;
 		}

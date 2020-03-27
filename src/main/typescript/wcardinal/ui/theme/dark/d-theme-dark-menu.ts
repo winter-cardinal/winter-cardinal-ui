@@ -12,11 +12,7 @@ import { DThemeDarkLayoutVertical } from "./d-theme-dark-layout-vertical";
 
 export class DThemeDarkMenu extends DThemeDarkLayoutVertical implements DThemeMenu {
 	getBackgroundColor( state: DBaseState ): number | null {
-		return 0x000000;
-	}
-
-	getBorderColor( state: DBaseState ): number | null {
-		return 0x646464;
+		return 0x484848;
 	}
 
 	getOffsetX(): number {

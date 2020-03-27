@@ -41,15 +41,12 @@ export class DThemeDarkFont implements DThemeFont {
 	}
 
 	static getColor( state: DBaseState ): number {
-		if( DBaseStates.isDisabled( state ) ) {
-			return 0xFFFFFF;
-		}
-		return 0xDEDEDE;
+		return 0xcccccc;
 	}
 
 	static getAlpha( state: DBaseState ): number {
 		if( DBaseStates.isDisabled( state ) ) {
-			return 0.38;
+			return 0.5;
 		}
 		return 1.0;
 	}
