@@ -28,7 +28,6 @@ DThemeDarkAtlas.add( "menu_item_expandable_header_opened", 14, 14,
 );
 
 export class DThemeDarkTreeItemToggleIcon extends DThemeDarkImage implements DThemeTreeItemToggleIcon {
-
 	getBackgroundColor( state: DBaseState ): number | null {
 		return null;
 	}
@@ -69,7 +68,6 @@ export class DThemeDarkTreeItemToggleIcon extends DThemeDarkImage implements DTh
 	}
 
 	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
-
 		if (state & DTreeItemState.EXPANDED) {
 			return DThemeDarkAtlas.mappings.menu_item_expandable_header_opened;
 		} else if (state & DTreeItemState.COLLAPSED) {
