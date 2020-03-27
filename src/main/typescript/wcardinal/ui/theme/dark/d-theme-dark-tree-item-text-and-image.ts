@@ -15,7 +15,6 @@ import { DThemeDarkFont } from "./d-theme-dark-font";
 import { DThemeDarkImage } from "./d-theme-dark-image";
 
 export class DThemeDarkTreeItemTextAndImage extends DThemeDarkImage implements DThemeTreeItemTextAndImage {
-
 	getBackgroundColor( state: DBaseState ): number | null {
 		return null;
 	}
