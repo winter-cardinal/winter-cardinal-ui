@@ -53,6 +53,7 @@ export * from "./load-theme-white-input-real";
 export * from "./load-theme-white-input-text";
 export * from "./load-theme-white-layout";
 export * from "./load-theme-white-list";
+export * from "./load-theme-white-tree";
 export * from "./load-theme-white-menu-bar";
 export * from "./load-theme-white-menu-sided";
 export * from "./load-theme-white-menu";

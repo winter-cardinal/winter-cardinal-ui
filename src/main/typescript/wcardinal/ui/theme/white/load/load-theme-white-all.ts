@@ -33,6 +33,7 @@ import { loadThemeWhiteSelect } from "./load-theme-white-select";
 import { loadThemeWhiteSlider } from "./load-theme-white-slider";
 import { loadThemeWhiteTable } from "./load-theme-white-table";
 import { loadThemeWhiteText } from "./load-theme-white-text";
+import { loadThemeWhiteTree } from "./load-theme-white-tree";
 import { loadThemeWhiteView } from "./load-theme-white-view";
 
 export const loadThemeWhiteAll = () => {
@@ -52,6 +53,7 @@ export const loadThemeWhiteAll = () => {
 	loadThemeWhiteInputAll();
 	loadThemeWhiteLayout();
 	loadThemeWhiteList();
+	loadThemeWhiteTree();
 	loadThemeWhiteMenuBar();
 	loadThemeWhiteMenuSided();
 	loadThemeWhiteMenu();

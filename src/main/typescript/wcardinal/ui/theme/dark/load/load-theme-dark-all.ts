@@ -34,6 +34,7 @@ import { loadThemeDarkShapeActionValue } from "./load-theme-dark-shape-action-va
 import { loadThemeDarkSlider } from "./load-theme-dark-slider";
 import { loadThemeDarkTable } from "./load-theme-dark-table";
 import { loadThemeDarkText } from "./load-theme-dark-text";
+import { loadThemeDarkTree } from "./load-theme-dark-tree";
 import { loadThemeDarkView } from "./load-theme-dark-view";
 
 export const loadThemeDarkAll = () => {
@@ -52,6 +53,7 @@ export const loadThemeDarkAll = () => {
 	loadThemeDarkInputAll();
 	loadThemeDarkLayout();
 	loadThemeDarkList();
+	loadThemeDarkTree();
 	loadThemeDarkMenu();
 	loadThemeDarkMenuBar();
 	loadThemeDarkMenuSided();
