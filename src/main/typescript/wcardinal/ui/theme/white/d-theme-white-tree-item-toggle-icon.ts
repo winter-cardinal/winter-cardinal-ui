@@ -59,7 +59,6 @@ export class DThemeWhiteTreeItemToggleIcon extends DThemeWhiteImage implements D
 	}
 
 	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
-
 		if (state & DTreeItemState.EXPANDED) {
 			return DThemeWhiteAtlas.mappings.menu_item_expandable_header_opened;
 		} else if (state & DTreeItemState.COLLAPSED) {
