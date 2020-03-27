@@ -12,7 +12,6 @@ import { DThemeTreeItemTextAndImage } from "../../d-tree-item-text-and-image";
 import { DThemeWhiteImage } from "./d-theme-white-image";
 
 export class DThemeWhiteTreeItemTextAndImage extends DThemeWhiteImage implements DThemeTreeItemTextAndImage {
-
 	getBackgroundColor( state: DBaseState ): number | null {
 		return null;
 	}
