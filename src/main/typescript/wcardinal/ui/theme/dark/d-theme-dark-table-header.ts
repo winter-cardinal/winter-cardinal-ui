@@ -13,14 +13,14 @@ import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkTableRow } from "./d-theme-dark-table-row";
 
 export class DThemeDarkTableHeader extends DThemeDarkTableRow implements DThemeTableHeader {
-	COLOR = UtilRgb.brighten( DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.02 );
-	BORDER_COLOR = UtilRgb.darken( DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.05 );
+	protected readonly BACKGROUND_COLOR = UtilRgb.brighten( DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.02 );
+	protected readonly BORDER_COLOR = UtilRgb.darken( DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.05 );
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
 			return null;
 		} else {
-			return this.COLOR;
+			return this.BACKGROUND_COLOR;
 		}
 	}
 
