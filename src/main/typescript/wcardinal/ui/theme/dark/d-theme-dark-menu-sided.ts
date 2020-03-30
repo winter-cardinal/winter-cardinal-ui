@@ -11,7 +11,7 @@ import { DThemeDarkPane } from "./d-theme-dark-pane";
 
 export class DThemeDarkMenuSided extends DThemeDarkPane implements DThemeMenuSided {
 	getBackgroundColor( state: DBaseState ): number | null {
-		return DThemeDarkConstants.BACKGROUND_COLOR;
+		return DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
 	}
 
 	getBorderColor( state: DBaseState ): number | null {

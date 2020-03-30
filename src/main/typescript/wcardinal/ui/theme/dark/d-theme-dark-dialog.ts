@@ -22,7 +22,7 @@ export class DThemeDarkDialog extends DThemeDarkBase implements DThemeDialog {
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return 0x404040;
+		return 0x393939;
 	}
 
 	getPaddingLeft(): number {

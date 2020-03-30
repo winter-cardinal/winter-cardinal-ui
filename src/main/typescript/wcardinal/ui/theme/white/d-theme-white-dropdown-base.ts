@@ -11,6 +11,7 @@ import { DThemeDropdownBase } from "../../d-dropdown-base";
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteButtonBase } from "./d-theme-white-button-base";
+import { DThemeWhiteConstants } from "./d-theme-white-constants";
 
 DThemeWhiteAtlas.add( "dropdown_mark", 20, 14,
 	`<g>` +
@@ -20,6 +21,10 @@ DThemeWhiteAtlas.add( "dropdown_mark", 20, 14,
 
 export abstract class DThemeWhiteDropdownBase<TEXT_VALUE> extends DThemeWhiteButtonBase
 	implements DThemeDropdownBase<TEXT_VALUE> {
+
+	constructor() {
+		super( DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD );
+	}
 
 	getSecondaryImageAlignHorizontal(): DAlignHorizontal {
 		return DAlignHorizontal.RIGHT;

@@ -13,9 +13,16 @@ import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteImageBase } from "./d-theme-white-image-base";
 
 export class DThemeWhiteButtonBase extends DThemeWhiteImageBase implements DThemeButtonBase {
-	COLOR = 0xffffff;
-	COLOR_HOVERED = UtilRgb.darken( this.COLOR, 0.017 );
-	COLOR_PRESSED = UtilRgb.darken( this.COLOR, 0.034 );
+	protected readonly BACKGROUND_COLOR: number;
+	protected readonly BACKGROUND_COLOR_HOVERED: number;
+	protected readonly BACKGROUND_COLOR_PRESSED: number;
+
+	constructor( backgroundColor: number = 0xffffff, hover: number = 0.017, pressed: number = 0.034 ) {
+		super();
+		this.BACKGROUND_COLOR = backgroundColor;
+		this.BACKGROUND_COLOR_HOVERED = UtilRgb.darken( this.BACKGROUND_COLOR, hover );
+		this.BACKGROUND_COLOR_PRESSED = UtilRgb.darken( this.BACKGROUND_COLOR, pressed );
+	}
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
@@ -23,11 +30,11 @@ export class DThemeWhiteButtonBase extends DThemeWhiteImageBase implements DThem
 		} else if( DBaseStates.isActive( state ) ) {
 			return DThemeWhiteConstants.HIGHLIGHT_COLOR;
 		} else if( DBaseStates.isPressed( state ) ) {
-			return this.COLOR_PRESSED;
+			return this.BACKGROUND_COLOR_PRESSED;
 		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return this.COLOR_HOVERED;
+			return this.BACKGROUND_COLOR_HOVERED;
 		} else {
-			return this.COLOR;
+			return this.BACKGROUND_COLOR;
 		}
 	}
 

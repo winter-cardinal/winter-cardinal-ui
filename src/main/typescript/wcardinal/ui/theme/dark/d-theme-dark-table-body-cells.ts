@@ -15,9 +15,12 @@ import { DThemeDarkFont } from "./d-theme-dark-font";
 
 export class DThemeDarkTableBodyCells {
 	static readonly IMAGE_TINT_COLOR_FOCUSED = UtilRgb.brighten( DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR, 0.1 );
-	static readonly BACKGROUND_COLOR_EVEN = 0x1f1f1f;
-	static readonly BACKGROUND_COLOR_ODD = UtilRgb.brighten( 0x1f1f1f, 0.02 );
-	static readonly WEAK_STRONG_HIGHLIGHT_COLOR = UtilRgb.brighten( DThemeDarkConstants.WEAK_HIGHLIGHT_BLENDED, 0.05 );
+	static readonly BACKGROUND_COLOR_EVEN = DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
+	static readonly BACKGROUND_COLOR_ODD = UtilRgb.brighten( DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.02 );
+	static readonly WEAK_STRONG_HIGHLIGHT_COLOR = UtilRgb.brighten(
+		DThemeDarkConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD, 0.05
+	);
+	static readonly BORDER_COLOR = DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
 
 	static getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
@@ -28,13 +31,13 @@ export class DThemeDarkTableBodyCells {
 				return null;
 			}
 		} else if( DBaseStates.isInvalid( state ) ) {
-			return DThemeDarkConstants.INVALID_BLENDED;
+			return DThemeDarkConstants.INVALID_BLENDED_ON_BOARD;
 		} else if( state & DBaseState.ACTIVE_IN ) {
-			return DThemeDarkConstants.HIGHLIGHT_BLENDED;
+			return DThemeDarkConstants.HIGHLIGHT_BLENDED_ON_BOARD;
 		} else if( DBaseStates.isFocused( state ) && DBaseStates.isHovered( state ) ) {
 			return this.WEAK_STRONG_HIGHLIGHT_COLOR;
 		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return DThemeDarkConstants.WEAK_HIGHLIGHT_BLENDED;
+			return DThemeDarkConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD;
 		} else {
 			if( state & DTableCellState.FROZEN ) {
 				return ( state & DTableCellState.EVEN ) ?
@@ -50,7 +53,7 @@ export class DThemeDarkTableBodyCells {
 	}
 
 	static getBorderColor( state: DBaseState ): number | null {
-		return 0x272727;
+		return this.BORDER_COLOR;
 	}
 
 	static getBorderAlign( state: DBaseState ): number {

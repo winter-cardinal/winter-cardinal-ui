@@ -12,7 +12,7 @@ import { DThemeDarkLayoutHorizontal } from "./d-theme-dark-layout-horizontal";
 
 export class DThemeDarkMenuBar extends DThemeDarkLayoutHorizontal implements DThemeMenuBar {
 	getBackgroundColor(): number | null {
-		return DThemeDarkConstants.BACKGROUND_COLOR;
+		return DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
 	}
 
 	getBorderColor( state: DBaseState ): number | null {

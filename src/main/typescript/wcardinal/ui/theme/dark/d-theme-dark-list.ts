@@ -4,11 +4,12 @@
  */
 
 import { DBaseState } from "../../d-base-state";
+import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkPane } from "./d-theme-dark-pane";
 
 export class DThemeDarkList extends DThemeDarkPane {
 	getBackgroundColor( state: DBaseState ): number | null {
-		return 0x1f1f1f;
+		return DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
 	}
 
 	getBorderAlign( state: DBaseState ): number {

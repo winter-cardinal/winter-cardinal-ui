@@ -34,9 +34,10 @@ DThemeDarkAtlas.add( "sorted_ascending", 24, 24,
 );
 
 export class DThemeDarkTableHeaderCell extends DThemeDarkImage implements DThemeTableHeaderCell {
-	COLOR = 0x1f1f1f;
+	COLOR = UtilRgb.brighten( DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.02 );
 	COLOR_HOVERED = UtilRgb.brighten( this.COLOR, 0.08 );
 	COLOR_PRESSED = UtilRgb.brighten( this.COLOR, 0.32 );
+	BORDER_COLOR = UtilRgb.darken( DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.05 );
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
@@ -59,7 +60,7 @@ export class DThemeDarkTableHeaderCell extends DThemeDarkImage implements DTheme
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return 0x272727;
+		return this.BORDER_COLOR;
 	}
 
 	getBorderAlign( state: DBaseState ): number {

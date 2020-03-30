@@ -19,7 +19,7 @@ export class DThemeWhiteTreeItem extends DThemeWhiteLayoutHorizontal implements 
 			return null;
 		} else if( DBaseStates.isActive( state )  ) {
 			return DThemeWhiteConstants.HIGHLIGHT_COLOR;
-		} else if( DBaseStates.isHovered( state ) ) {
+		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
 			return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
 		} else {
 			return null;

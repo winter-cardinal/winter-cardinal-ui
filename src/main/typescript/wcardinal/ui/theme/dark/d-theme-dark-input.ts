@@ -61,21 +61,21 @@ const afterCreator = ( parent: HTMLElement ): HTMLDivElement => {
 };
 
 export class DThemeDarkInput extends DThemeDarkHtmlElement<HTMLInputElement> implements DThemeInput {
-	COLOR = 0x484848;
-	COLOR_HOVERED = UtilRgb.brighten( this.COLOR, 0.017 );
+	protected readonly BACKGROUND_COLOR = DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
+	protected readonly BACKGROUND_COLOR_HOVERED = UtilRgb.brighten( this.BACKGROUND_COLOR, 0.017 );
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) || DBaseStates.isReadOnly( state ) ) {
 			return null;
 		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return this.COLOR_HOVERED;
+			return this.BACKGROUND_COLOR_HOVERED;
 		} else {
-			return this.COLOR;
+			return this.BACKGROUND_COLOR;
 		}
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return DThemeDarkConstants.BORDER_COLOR;
+		return null;
 	}
 
 	getOutlineColor( state: DBaseState ): number | null {

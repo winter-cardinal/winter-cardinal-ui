@@ -13,9 +13,16 @@ import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkImageBase } from "./d-theme-dark-image-base";
 
 export class DThemeDarkButtonBase extends DThemeDarkImageBase implements DThemeButtonBase {
-	COLOR = 0x484848;
-	COLOR_HOVERED = UtilRgb.brighten( this.COLOR, 0.017 );
-	COLOR_PRESSED = UtilRgb.brighten( this.COLOR, 0.034 );
+	protected readonly BACKGROUND_COLOR: number;
+	protected readonly BACKGROUND_COLOR_HOVERED: number;
+	protected readonly BACKGROUND_COLOR_PRESSED: number;
+
+	constructor( backgrouncColor: number = 0x484848, hover: number = 0.017, pressed: number = 0.034 ) {
+		super();
+		this.BACKGROUND_COLOR = backgrouncColor;
+		this.BACKGROUND_COLOR_HOVERED = UtilRgb.brighten( this.BACKGROUND_COLOR, hover );
+		this.BACKGROUND_COLOR_PRESSED = UtilRgb.brighten( this.BACKGROUND_COLOR, pressed );
+	}
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
@@ -23,11 +30,11 @@ export class DThemeDarkButtonBase extends DThemeDarkImageBase implements DThemeB
 		} else if( DBaseStates.isActive( state ) ) {
 			return DThemeDarkConstants.HIGHLIGHT_COLOR;
 		} else if( DBaseStates.isPressed( state ) ) {
-			return this.COLOR_PRESSED;
+			return this.BACKGROUND_COLOR_PRESSED;
 		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return this.COLOR_HOVERED;
+			return this.BACKGROUND_COLOR_HOVERED;
 		} else {
-			return this.COLOR;
+			return this.BACKGROUND_COLOR;
 		}
 	}
 
@@ -40,10 +47,11 @@ export class DThemeDarkButtonBase extends DThemeDarkImageBase implements DThemeB
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		if( DBaseStates.isDisabled( state ) || ! DBaseStates.isActive( state ) ) {
+		if( DBaseStates.isDisabled( state ) ) {
 			return DThemeDarkConstants.BORDER_COLOR;
+		} else {
+			return null;
 		}
-		return null;
 	}
 
 	getHeight(): DCoordinateSize {

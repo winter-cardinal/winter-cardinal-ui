@@ -13,8 +13,8 @@ import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkTableRow } from "./d-theme-dark-table-row";
 
 export class DThemeDarkTableBodyRow extends DThemeDarkTableRow implements DThemeTableBodyRow {
-	BACKGROUND_COLOR_EVEN = 0x1f1f1f;
-	BACKGROUND_COLOR_ODD = UtilRgb.brighten( 0x1f1f1f, 0.02 );
+	BACKGROUND_COLOR_EVEN = DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
+	BACKGROUND_COLOR_ODD = UtilRgb.brighten( DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.02 );
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
@@ -23,7 +23,7 @@ export class DThemeDarkTableBodyRow extends DThemeDarkTableRow implements DTheme
 		} else if( DBaseStates.isActive( state ) ) {
 			return DThemeDarkConstants.HIGHLIGHT_COLOR;
 		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return DThemeDarkConstants.WEAK_HIGHLIGHT_BLENDED;
+			return DThemeDarkConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD;
 		} else {
 			return ( state & DTableRowState.EVEN ) ?
 				this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
