@@ -14,12 +14,17 @@ import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteFont } from "./d-theme-white-font";
 
 export class DThemeWhiteTableBodyCells {
-	static readonly IMAGE_TINT_COLOR_FOCUSED = UtilRgb.darken( DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR, 0.1 );
-	static readonly BACKGROUND_COLOR_EVEN = DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD;
-	static readonly BACKGROUND_COLOR_ODD = UtilRgb.darken( DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD, 0.01 );
-	static readonly WEAK_STRONG_HIGHLIGHT_COLOR = UtilRgb.darken(
-		DThemeWhiteConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD, 0.025 );
-	static readonly BORDER_COLOR = UtilRgb.darken( DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD, 0.035 );
+	protected static readonly IMAGE_TINT_COLOR_FOCUSED = UtilRgb.darken( DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR, 0.1 );
+	protected static readonly BACKGROUND_COLOR_EVEN = DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD;
+	protected static readonly BACKGROUND_COLOR_ODD = UtilRgb.darken(
+		DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD, 0.01
+	);
+	protected static readonly WEAK_STRONG_HIGHLIGHT_COLOR = UtilRgb.darken(
+		DThemeWhiteConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD, 0.025
+	);
+	protected static readonly BORDER_COLOR = UtilRgb.darken(
+		DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD, 0.035
+	);
 
 	static getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {

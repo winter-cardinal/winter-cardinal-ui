@@ -13,8 +13,8 @@ import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkTableRow } from "./d-theme-dark-table-row";
 
 export class DThemeDarkTableBodyRow extends DThemeDarkTableRow implements DThemeTableBodyRow {
-	BACKGROUND_COLOR_EVEN = DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
-	BACKGROUND_COLOR_ODD = UtilRgb.brighten( DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.02 );
+	protected readonly BACKGROUND_COLOR_EVEN = DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
+	protected readonly BACKGROUND_COLOR_ODD = UtilRgb.brighten( DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.02 );
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {

@@ -14,13 +14,15 @@ import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkFont } from "./d-theme-dark-font";
 
 export class DThemeDarkTableBodyCells {
-	static readonly IMAGE_TINT_COLOR_FOCUSED = UtilRgb.brighten( DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR, 0.1 );
-	static readonly BACKGROUND_COLOR_EVEN = DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
-	static readonly BACKGROUND_COLOR_ODD = UtilRgb.brighten( DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.02 );
-	static readonly WEAK_STRONG_HIGHLIGHT_COLOR = UtilRgb.brighten(
+	protected static readonly IMAGE_TINT_COLOR_FOCUSED = UtilRgb.brighten( DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR, 0.1 );
+	protected static readonly BACKGROUND_COLOR_EVEN = DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
+	protected static readonly BACKGROUND_COLOR_ODD = UtilRgb.brighten(
+		DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.02
+	);
+	protected static readonly WEAK_STRONG_HIGHLIGHT_COLOR = UtilRgb.brighten(
 		DThemeDarkConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD, 0.05
 	);
-	static readonly BORDER_COLOR = DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
+	protected static readonly BORDER_COLOR = DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
 
 	static getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
