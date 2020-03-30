@@ -60,6 +60,10 @@ export class DThemeWhitePickerColorGradient extends DThemeWhiteBase implements D
 		return [];
 	}
 
+	getGradientCheckerColors(): [ number, number ] {
+		return [ 0.75, 0.65 ];
+	}
+
 	getBackgroundColor( state: DBaseState ): number | null {
 		return null;
 	}

@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { isFunction, isNumber } from "../../util";
+import { isFunction } from "../../util/is-function";
+import { isNumber } from "../../util/is-number";
 import { EShapeLineOfAnyPointsPoint } from "./e-shape-line-of-any-points-point";
 import { EShapeLineOfAnyValue } from "./e-shape-line-of-any-value";
 import { isStatic } from "./is-static";

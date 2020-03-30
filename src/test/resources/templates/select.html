@@ -39,12 +39,8 @@
 				}]
 			},
 			on: {
-				select: ( newValue, oldValue ) => {
-					console.log( "select", newValue, oldValue );
-				},
-
-				change: () => {
-					console.log( "change" );
+				change: ( newValue, oldValue ) => {
+					console.log( "change", newValue, oldValue );
 				}
 			}
 		});

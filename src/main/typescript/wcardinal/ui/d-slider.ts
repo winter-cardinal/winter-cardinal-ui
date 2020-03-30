@@ -5,7 +5,7 @@
 
 import { interaction, Point } from "pixi.js";
 import { DApplications } from "./d-applications";
-import { DBase, DBaseOptions, DThemeBase } from "./d-base";
+import { DBase, DBaseOnOptions, DBaseOptions, DThemeBase } from "./d-base";
 import { DSliderLabel, DSliderLabelOptions } from "./d-slider-label";
 import { DSliderThumb, DSliderThumbOptions } from "./d-slider-thumb";
 import { DSliderTrack, DSliderTrackOptions } from "./d-slider-track";
@@ -14,12 +14,27 @@ import { UtilPointerEvent } from "./util/util-pointer-event";
 import InteractionEvent = interaction.InteractionEvent;
 import InteractionManager = interaction.InteractionManager;
 
+/**
+ * Mappings of event names and handlers.
+ */
+export interface DSliderOnOptions extends DBaseOnOptions {
+	/**
+	 * Triggered when a value is changed.
+	 *
+	 * @param newValue a new value
+	 * @param oldValue an old value
+	 * @param self a slider
+	 */
+	change?: ( newValue: number, oldValue: number, self: any ) => void;
+}
+
 export interface DSliderOptions<THEME extends DThemeSlider> extends DBaseOptions<THEME> {
 	min?: DSliderLabelOptions;
 	max?: DSliderLabelOptions;
 	value?: DSliderValueOptions;
 	track?: DSliderTrackOptions;
 	thumb?: DSliderThumbOptions;
+	on?: DSliderOnOptions;
 }
 
 export interface DThemeSlider extends DThemeBase {
@@ -242,8 +257,13 @@ export abstract class DSlider<
 		const min = this._min.value;
 		const max = this._max.value;
 		const value = this._value;
-		value.value = value.rounder( min + this._ratioValue * ( max - min ) );
-		value.text = value.value;
+		const newValue = value.rounder( min + this._ratioValue * ( max - min ) );
+		const oldValue = value.value;
+		if( newValue !== oldValue ) {
+			value.value = newValue;
+			value.text = value.value;
+			this.emit( "change", newValue, oldValue, this );
+		}
 	}
 
 	onResize( newWidth: number, newHeight: number, oldWidth: number, oldHeight: number ): void {

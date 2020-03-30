@@ -7,7 +7,7 @@ import { DButton } from "./d-button";
 import { DLayoutHorizontal, DLayoutHorizontalOptions, DThemeLayoutHorizontal } from "./d-layout-horizontal";
 import { DPaginationDynamicButtons } from "./d-pagination-dynamic-buttons";
 import { DPaginationNavigationButton } from "./d-pagination-navigation-button";
-import { DThemes } from "./theme";
+import { DThemes } from "./theme/d-themes";
 
 export interface DPaginationOptions<THEME extends DThemePagination> extends DLayoutHorizontalOptions<THEME> {
 	total: number;

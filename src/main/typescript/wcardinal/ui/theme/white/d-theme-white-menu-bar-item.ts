@@ -9,27 +9,24 @@ import { DBaseStates } from "../../d-base-states";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
 import { DThemeMenuBarItem } from "../../d-menu-bar-item";
-import { UtilRgb } from "../../util/util-rgb";
 import { DThemeWhiteButton } from "./d-theme-white-button";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 
 export class DThemeWhiteMenuBarItem extends DThemeWhiteButton implements DThemeMenuBarItem {
-	COLOR = 0xffffff;
-	COLOR_HOVERED = UtilRgb.darken( this.COLOR, 0.034 );
-	COLOR_PRESSED = UtilRgb.darken( this.COLOR, 0.051 );
-
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
 			return null;
 		} else if( DBaseStates.isActive( state ) ) {
 			return DThemeWhiteConstants.HIGHLIGHT_COLOR;
-		} else if( DBaseStates.isPressed( state ) ) {
-			return this.COLOR_PRESSED;
 		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return this.COLOR_HOVERED;
+			return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
 		} else {
 			return null;
 		}
+	}
+
+	getBackgroundAlpha( state: DBaseState ): number {
+		return DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
 	}
 
 	getBorderColor(): number | null {

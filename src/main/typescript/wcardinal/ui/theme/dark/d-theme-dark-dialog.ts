@@ -10,19 +10,19 @@ import { DThemeDialog } from "../../d-dialog";
 import { DDialogCloseOn } from "../../d-dialog-close-on";
 import { DShadow } from "../../d-shadow";
 import { DThemeDarkBase } from "./d-theme-dark-base";
+import { DThemeDarkConstants } from "./d-theme-dark-constants";
 
 export class DThemeDarkDialog extends DThemeDarkBase implements DThemeDialog {
-
 	closeOn(): DDialogCloseOn {
 		return DDialogCloseOn.ESC | DDialogCloseOn.CLICK_OUTSIDE;
 	}
 
 	getBackgroundColor() {
-		return 0x2E2E2E;
+		return DThemeDarkConstants.BACKGROUND_COLOR;
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return null;
+		return 0x393939;
 	}
 
 	getPaddingLeft(): number {

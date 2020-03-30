@@ -8,7 +8,7 @@ import { DTreeItemRawData } from "./d-tree";
 import { DTreeItemState } from "./d-tree-item-state";
 import { DTreeItemTextAndImage } from "./d-tree-item-text-and-image";
 import { DTreeItemToggleIcon} from "./d-tree-item-toggle-icon";
-import { UtilPointerEvent } from "./util";
+import { UtilPointerEvent } from "./util/util-pointer-event";
 
 export interface DTreeItemOptions<
 	THEME extends DThemeTreeItem = DThemeTreeItem

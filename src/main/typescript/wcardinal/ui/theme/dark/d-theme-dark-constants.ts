@@ -3,16 +3,50 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export class DThemeDarkConstants {
-	// Common configuration
-	static FOCUSED_ALPHA = 0.04;
-	static ACTIVE_ALPHA = 0.12;
-	static PRESSED_ALPHA = 0.16;
-	static DISABLED_ALPHA = 0.12;
-	static DISABLED_TEXT_ALPHA = 0.38;
-	static TINT_FOCUS_ALPHA = 0.1;
+import { UtilRgb } from "../../util/util-rgb";
 
-	// High light color when active
-	static HIGHLIGHT_COLOR = 0x90CAF9;
+export class DThemeDarkConstants {
+	static BORDER_COLOR = 0x4a4a4a;
+
+	static BACKGROUND_COLOR = 0x2E2E2E;
+	static BACKGROUND_COLOR_ON_BOARD = 0x1f1f1f;
+
+	static HIGHLIGHT_COLOR = 0x2297f3;
+	static HIGHLIGHT_ALPHA = 0.2;
+	static HIGHLIGHT_BLENDED = UtilRgb.blend(
+		DThemeDarkConstants.BACKGROUND_COLOR,
+		DThemeDarkConstants.HIGHLIGHT_COLOR,
+		DThemeDarkConstants.HIGHLIGHT_ALPHA
+	);
+	static HIGHLIGHT_BLENDED_ON_BOARD = UtilRgb.blend(
+		DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD,
+		DThemeDarkConstants.HIGHLIGHT_COLOR,
+		DThemeDarkConstants.HIGHLIGHT_ALPHA
+	);
+
+	static WEAK_HIGHLIGHT_COLOR = 0x555555;
 	static WEAK_HIGHLIGHT_ALPHA = 0.2;
+	static WEAK_HIGHLIGHT_BLENDED = UtilRgb.blend(
+		DThemeDarkConstants.BACKGROUND_COLOR,
+		DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR,
+		DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA
+	);
+	static WEAK_HIGHLIGHT_BLENDED_ON_BOARD = UtilRgb.blend(
+		DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD,
+		DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR,
+		DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA
+	);
+
+	static INVALID_COLOR = 0xda0e0e;
+	static INVALID_ALPHA = 0.2;
+	static INVALID_BLENDED = UtilRgb.blend(
+		DThemeDarkConstants.BACKGROUND_COLOR,
+		DThemeDarkConstants.INVALID_COLOR,
+		DThemeDarkConstants.INVALID_ALPHA
+	);
+	static INVALID_BLENDED_ON_BOARD = UtilRgb.blend(
+		DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD,
+		DThemeDarkConstants.INVALID_COLOR,
+		DThemeDarkConstants.INVALID_ALPHA
+	);
 }

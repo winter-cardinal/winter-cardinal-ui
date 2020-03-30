@@ -34,23 +34,24 @@ DThemeWhiteAtlas.add( "sorted_ascending", 24, 24,
 );
 
 export class DThemeWhiteTableHeaderCell extends DThemeWhiteImage implements DThemeTableHeaderCell {
-	COLOR = 0xf9f9f9;
-	COLOR_HOVERED = UtilRgb.darken( this.COLOR, 0.017 );
-	COLOR_PRESSED = UtilRgb.darken( this.COLOR, 0.034 );
+	protected readonly BACKGROUND_COLOR = UtilRgb.darken( DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD, 0.02 );
+	protected readonly BACKGROUND_COLOR_HOVERED = UtilRgb.darken( this.BACKGROUND_COLOR, 0.017 );
+	protected readonly BACKGROUND_COLOR_PRESSED = UtilRgb.darken( this.BACKGROUND_COLOR, 0.034 );
+	protected readonly BORDER_COLOR = UtilRgb.darken( DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD, 0.055 );
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
 			return ( state & DTableCellState.FROZEN ) ?
-				this.COLOR : null;
+				this.BACKGROUND_COLOR : null;
 		} else if( DBaseStates.isActive( state ) ) {
 			return DThemeWhiteConstants.HIGHLIGHT_COLOR;
 		} else if( DBaseStates.isPressed( state ) ) {
-			return this.COLOR_PRESSED;
+			return this.BACKGROUND_COLOR_PRESSED;
 		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return this.COLOR_HOVERED;
+			return this.BACKGROUND_COLOR_HOVERED;
 		} else {
 			return ( state & DTableCellState.FROZEN ) ?
-				this.COLOR : null;
+				this.BACKGROUND_COLOR : null;
 		}
 	}
 
@@ -59,7 +60,7 @@ export class DThemeWhiteTableHeaderCell extends DThemeWhiteImage implements DThe
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return 0xf0f0f0;
+		return this.BORDER_COLOR;
 	}
 
 	getBorderAlign( state: DBaseState ): number {

@@ -8,19 +8,24 @@ import { DBaseStates } from "../../d-base-states";
 import { DBorderMask } from "../../d-border-mask";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeTableHeader } from "../../d-table-header";
+import { UtilRgb } from "../../util/util-rgb";
+import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteTableRow } from "./d-theme-white-table-row";
 
 export class DThemeWhiteTableHeader extends DThemeWhiteTableRow implements DThemeTableHeader {
+	protected readonly BACKGROUND_COLOR = UtilRgb.darken( DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD, 0.02 );
+	protected readonly BORDER_COLOR = UtilRgb.darken( DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD, 0.055 );
+
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
 			return null;
 		} else {
-			return 0xf9f9f9;
+			return this.BACKGROUND_COLOR;
 		}
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return 0xf0f0f0;
+		return this.BORDER_COLOR;
 	}
 
 	getBorderAlign( state: DBaseState ): number {

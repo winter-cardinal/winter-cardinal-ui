@@ -10,10 +10,8 @@ import { DCornerMask } from "../../d-corner-mask";
 import { DThemeDarkBase } from "./d-theme-dark-base";
 
 export class DThemeDarkCanvas extends DThemeDarkBase implements DThemeCanvas {
-	COLOR = 0x2E2E2E;
-
 	getBackgroundColor(): number | null {
-		return this.COLOR;
+		return 0x484848;
 	}
 
 	getBorderColor( state: DBaseState ): number | null {

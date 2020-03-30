@@ -60,6 +60,10 @@ export class DThemeDarkPickerColorGradient extends DThemeDarkBase implements DTh
 		return [];
 	}
 
+	getGradientCheckerColors(): [ number, number ] {
+		return [ 0.37255, 0.27 ];
+	}
+
 	getBackgroundColor( state: DBaseState ): number | null {
 		return null;
 	}

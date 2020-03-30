@@ -14,10 +14,17 @@ import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteFont } from "./d-theme-white-font";
 
 export class DThemeWhiteTableBodyCells {
-	static readonly IMAGE_TINT_COLOR_FOCUSED = UtilRgb.darken( DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR, 0.1 );
-	static readonly BACKGROUND_COLOR_EVEN = 0xffffff;
-	static readonly BACKGROUND_COLOR_ODD = UtilRgb.darken( 0xffffff, 0.01 );
-	static readonly WEAK_STRONG_HIGHLIGHT_COLOR = UtilRgb.darken( DThemeWhiteConstants.WEAK_HIGHLIGHT_BLENDED, 0.025 );
+	protected static readonly IMAGE_TINT_COLOR_FOCUSED = UtilRgb.darken( DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR, 0.1 );
+	protected static readonly BACKGROUND_COLOR_EVEN = DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD;
+	protected static readonly BACKGROUND_COLOR_ODD = UtilRgb.darken(
+		DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD, 0.01
+	);
+	protected static readonly WEAK_STRONG_HIGHLIGHT_COLOR = UtilRgb.darken(
+		DThemeWhiteConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD, 0.025
+	);
+	protected static readonly BORDER_COLOR = UtilRgb.darken(
+		DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD, 0.035
+	);
 
 	static getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
@@ -28,13 +35,13 @@ export class DThemeWhiteTableBodyCells {
 				return null;
 			}
 		} else if( DBaseStates.isInvalid( state ) ) {
-			return DThemeWhiteConstants.INVALID_BLENDED;
+			return DThemeWhiteConstants.INVALID_BLENDED_ON_BOARD;
 		} else if( state & DBaseState.ACTIVE_IN ) {
-			return DThemeWhiteConstants.HIGHLIGHT_BLENDED;
+			return DThemeWhiteConstants.HIGHLIGHT_BLENDED_ON_BOARD;
 		} else if( DBaseStates.isFocused( state ) && DBaseStates.isHovered( state ) ) {
 			return this.WEAK_STRONG_HIGHLIGHT_COLOR;
 		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return DThemeWhiteConstants.WEAK_HIGHLIGHT_BLENDED;
+			return DThemeWhiteConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD;
 		} else {
 			if( state & DTableCellState.FROZEN ) {
 				return ( state & DTableCellState.EVEN ) ?
@@ -50,7 +57,7 @@ export class DThemeWhiteTableBodyCells {
 	}
 
 	static getBorderColor( state: DBaseState ): number | null {
-		return 0xf6f6f6;
+		return this.BORDER_COLOR;
 	}
 
 	static getBorderAlign( state: DBaseState ): number {

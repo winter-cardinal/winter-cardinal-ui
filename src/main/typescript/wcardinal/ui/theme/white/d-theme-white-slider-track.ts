@@ -4,27 +4,16 @@
  */
 
 import { DBaseState } from "../../d-base-state";
-import { DBaseStates } from "../../d-base-states";
 import { DThemeSliderTrack } from "../../d-slider-track";
 import { DThemeWhiteButton } from "./d-theme-white-button";
-import { DThemeWhiteConstants } from "./d-theme-white-constants";
+import { DThemeWhiteSliders } from "./d-theme-white-sliders";
 
 export class DThemeWhiteSliderTrack extends DThemeWhiteButton implements DThemeSliderTrack {
 	getBackgroundColor( state: DBaseState ): number | null {
-		if( DBaseStates.isActive( state ) ) {
-			if (DBaseStates.isDisabled(state)) {
-				return 0xAAAAAA;
-			}
-			return DThemeWhiteConstants.HIGHLIGHT_COLOR;
-		}
-		return 0xCCCCCC;
+		return DThemeWhiteSliders.getBackgroundColor( state );
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
 		return null;
-	}
-
-	getColor( state: DBaseState ): number {
-		return 0x5F5F5F;
 	}
 }

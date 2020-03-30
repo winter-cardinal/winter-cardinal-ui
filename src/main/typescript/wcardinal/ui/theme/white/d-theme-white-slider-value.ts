@@ -40,7 +40,7 @@ export class DThemeWhiteSliderValue extends DThemeWhiteTextBase implements DThem
 	}
 
 	getColor( state: DBaseState ): number {
-		return 0xFFFFFF;
+		return 0xffffff;
 	}
 
 	getTextAlignHorizontal(): DAlignHorizontal {

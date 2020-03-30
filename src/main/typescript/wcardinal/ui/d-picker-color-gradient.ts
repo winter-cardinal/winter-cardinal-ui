@@ -40,6 +40,8 @@ export interface DThemePickerColorGradient extends DThemeBase {
 	getGradientRecentMargin(): number;
 	getGradientRecentCount(): number;
 	getGradientRecents(): DPickerColorGradientDataLike[];
+
+	getGradientCheckerColors(): [ number, number ];
 }
 
 export class DPickerColorGradient<
@@ -89,7 +91,7 @@ export class DPickerColorGradient<
 		this.addChild( picker );
 
 		// Points view
-		const view = this._view = DPickerColorGradientDataView.from( 17, 10 );
+		const view = this._view = DPickerColorGradientDataView.from( 17, 10, theme.getGradientCheckerColors() );
 		view.setRectangle( 0, paddingLeft, paddingTop, gradientPointsWidth, picker.height );
 		this.addChild( view );
 		view.on( UtilPointerEvent.down, ( e: InteractionEvent ): void => {

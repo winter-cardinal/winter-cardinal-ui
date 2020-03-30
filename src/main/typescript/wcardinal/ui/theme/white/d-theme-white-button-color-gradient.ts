@@ -35,4 +35,8 @@ export class DThemeWhiteButtonColorGradient extends DThemeWhiteButton implements
 	newTextValue(): DPickerColorGradientData {
 		return new DPickerColorGradientData();
 	}
+
+	getCheckerColors(): [ number, number ] {
+		return [ 0.75, 0.65 ];
+	}
 }

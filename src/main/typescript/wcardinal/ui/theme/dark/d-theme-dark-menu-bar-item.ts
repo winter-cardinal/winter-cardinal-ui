@@ -9,29 +9,24 @@ import { DBaseStates } from "../../d-base-states";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
 import { DThemeMenuBarItem } from "../../d-menu-bar-item";
-import { UtilRgb } from "../../util/util-rgb";
 import { DThemeDarkButton } from "./d-theme-dark-button";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 
 export class DThemeDarkMenuBarItem extends DThemeDarkButton implements DThemeMenuBarItem {
-	COLOR = 0x000000;
-	COLOR_HOVERED = UtilRgb.brighten( this.COLOR, DThemeDarkConstants.FOCUSED_ALPHA );
-	COLOR_PRESSED = UtilRgb.brighten( this.COLOR, DThemeDarkConstants.PRESSED_ALPHA );
-
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
 			return null;
-		}
-		if( DBaseStates.isActive( state ) ) {
+		} else if( DBaseStates.isActive( state ) ) {
 			return DThemeDarkConstants.HIGHLIGHT_COLOR;
+		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
+			return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
+		} else {
+			return null;
 		}
-		if( DBaseStates.isPressed( state ) ) {
-			return this.COLOR_PRESSED;
-		}
-		if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return this.COLOR_HOVERED;
-		}
-		return null;
+	}
+
+	getBackgroundAlpha( state: DBaseState ): number {
+		return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
 	}
 
 	getBorderColor(): number | null {

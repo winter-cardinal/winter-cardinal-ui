@@ -6,13 +6,11 @@
 import { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DBaseState } from "../../d-base-state";
-import { DBaseStates } from "../../d-base-states";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
 import { DTreeItemState } from "../../d-tree-item-state";
 import { DThemeTreeItemToggleIcon } from "../../d-tree-item-toggle-icon";
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
-import { DThemeDarkFont } from "./d-theme-dark-font";
 import { DThemeDarkImage } from "./d-theme-dark-image";
 
 DThemeDarkAtlas.add( "menu_item_expandable_header_closed", 14, 14,
@@ -58,13 +56,6 @@ export class DThemeDarkTreeItemToggleIcon extends DThemeDarkImage implements DTh
 
 	getCornerMask(): number {
 		return DCornerMask.ALL;
-	}
-
-	getImageTintColor( state: DBaseState ): number | null {
-		if( ( state & DTreeItemState.SELECTED ) && !DBaseStates.isDisabled( state ) ) {
-			return 0x000000;
-		}
-		return DThemeDarkFont.getColor( state );
 	}
 
 	getImageSource( state: DBaseState ): Texture | DisplayObject | null {

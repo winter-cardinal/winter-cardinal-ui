@@ -29,8 +29,8 @@ DThemeDarkAtlas.add( "picker_color_main", 234, 156,
 const makeCheckerboard = ( width: number, height: number ): string => {
 	width = width + width;
 
-	const LIGHT = "#bfbfbf";
-	const DARK = "#a5a5a5";
+	const LIGHT = "#5f5f5f";
+	const DARK = "#454545";
 	let result = "<g>";
 	for( let iheight = 0; iheight < height; ++iheight ) {
 		for( let i = 0; i < width; ++i ) {
@@ -74,7 +74,7 @@ DThemeDarkAtlas.add( "picker_color_base", 234, 18,
 );
 
 DThemeDarkAtlas.add( "picker_color_base_pointer", 16.2, 31.8,
-	`<rect x="4.5" y="4.5" width="7.2" height="22.8" stroke="#5f5f5f" stroke-width="2.4" fill="none" />`
+	`<rect x="4.5" y="4.5" width="7.2" height="22.8" stroke="#ffffff" stroke-width="2.4" fill="none" />`
 );
 
 DThemeDarkAtlas.add( "picker_color_pointer", 25.8, 25.8,

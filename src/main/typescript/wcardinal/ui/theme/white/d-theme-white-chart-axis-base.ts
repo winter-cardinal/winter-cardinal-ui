@@ -73,7 +73,7 @@ export class DThemeWhiteChartAxisBase implements DThemeChartAxisBase {
 	}
 
 	getStrokeColor(): number {
-		return EShapeDefaults.STROKE_COLOR;
+		return EShapeDefaults.STROKE_COLOR_DARK;
 	}
 
 	getStrokeAlpha(): number {

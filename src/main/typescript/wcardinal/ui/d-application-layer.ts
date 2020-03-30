@@ -140,7 +140,7 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 
 		const interactionManager: interaction.InteractionManager = this.renderer.plugins.interaction;
 		interactionManager.on( UtilPointerEvent.down, ( e: interaction.InteractionEvent ): void => {
-			if( e.target == null ) {
+			if( e.target == null || e.target === stageAny ) {
 				focusController.setFocused( null, true, false );
 			}
 		});

@@ -61,16 +61,16 @@ const afterCreator = ( parent: HTMLElement ): HTMLDivElement => {
 };
 
 export class DThemeWhiteInput extends DThemeWhiteHtmlElement<HTMLInputElement> implements DThemeInput {
-	COLOR = 0xffffff;
-	COLOR_HOVERED = UtilRgb.darken( this.COLOR, 0.017 );
+	protected readonly BACKGROUND_COLOR = DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD;
+	protected readonly BACKGROUND_COLOR_HOVERED = UtilRgb.darken( this.BACKGROUND_COLOR, 0.017 );
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) || DBaseStates.isReadOnly( state ) ) {
 			return null;
 		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return this.COLOR_HOVERED;
+			return this.BACKGROUND_COLOR_HOVERED;
 		} else {
-			return this.COLOR;
+			return this.BACKGROUND_COLOR;
 		}
 	}
 

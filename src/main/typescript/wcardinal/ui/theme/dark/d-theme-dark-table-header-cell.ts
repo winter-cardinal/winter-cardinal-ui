@@ -34,26 +34,25 @@ DThemeDarkAtlas.add( "sorted_ascending", 24, 24,
 );
 
 export class DThemeDarkTableHeaderCell extends DThemeDarkImage implements DThemeTableHeaderCell {
-	COLOR = 0x1b1b1b;
-	COLOR_HOVERED = UtilRgb.brighten( this.COLOR, DThemeDarkConstants.FOCUSED_ALPHA );
-	COLOR_PRESSED = UtilRgb.brighten( this.COLOR, DThemeDarkConstants.PRESSED_ALPHA );
+	protected readonly BACKGROUND_COLOR = UtilRgb.brighten( DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.02 );
+	protected readonly BACKGROUND_COLOR_HOVERED = UtilRgb.brighten( this.BACKGROUND_COLOR, 0.08 );
+	protected readonly BACKGROUND_COLOR_PRESSED = UtilRgb.brighten( this.BACKGROUND_COLOR, 0.32 );
+	protected readonly BORDER_COLOR = UtilRgb.darken( DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.05 );
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
 			return ( state & DTableCellState.FROZEN ) ?
-				this.COLOR : null;
-		}
-		if( DBaseStates.isActive( state ) ) {
+				this.BACKGROUND_COLOR : null;
+		} else if( DBaseStates.isActive( state ) ) {
 			return DThemeDarkConstants.HIGHLIGHT_COLOR;
+		} else if( DBaseStates.isPressed( state ) ) {
+			return this.BACKGROUND_COLOR_PRESSED;
+		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
+			return this.BACKGROUND_COLOR_HOVERED;
+		} else {
+			return ( state & DTableCellState.FROZEN ) ?
+				this.BACKGROUND_COLOR : null;
 		}
-		if( DBaseStates.isPressed( state ) ) {
-			return this.COLOR_PRESSED;
-		}
-		if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return this.COLOR_HOVERED;
-		}
-		return ( state & DTableCellState.FROZEN ) ?
-				this.COLOR : null;
 	}
 
 	getBackgroundAlpha( state: DBaseState ): number {
@@ -61,7 +60,7 @@ export class DThemeDarkTableHeaderCell extends DThemeDarkImage implements DTheme
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
-		return null;
+		return this.BORDER_COLOR;
 	}
 
 	getBorderAlign( state: DBaseState ): number {
@@ -71,8 +70,9 @@ export class DThemeDarkTableHeaderCell extends DThemeDarkImage implements DTheme
 	getBorderMask( state: DBaseState ): DBorderMask {
 		if( state & DTableCellState.END ) {
 			return DBorderMask.ALL;
+		} else {
+			return DBorderMask.NOT_RIGHT;
 		}
-		return DBorderMask.NOT_RIGHT;
 	}
 
 	getTextAlignHorizontal(): DAlignHorizontal {
@@ -106,11 +106,11 @@ export class DThemeDarkTableHeaderCell extends DThemeDarkImage implements DTheme
 	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
 		if( state & DTableCellState.SORTED_ASCENDING ) {
 			return DThemeDarkAtlas.mappings.sorted_ascending;
-		}
-		if( state & DTableCellState.SORTED_DESCENDING ) {
+		} else if( state & DTableCellState.SORTED_DESCENDING ) {
 			return DThemeDarkAtlas.mappings.sorted_descending;
+		} else {
+			return null;
 		}
-		return null;
 	}
 
 	getImageAlignHorizontal(): DAlignHorizontal {

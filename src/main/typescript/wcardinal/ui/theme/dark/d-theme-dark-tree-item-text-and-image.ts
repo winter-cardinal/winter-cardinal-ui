@@ -6,12 +6,9 @@
 import { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DBaseState } from "../../d-base-state";
-import { DBaseStates } from "../../d-base-states";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
-import { DTreeItemState } from "../../d-tree-item-state";
 import { DThemeTreeItemTextAndImage } from "../../d-tree-item-text-and-image";
-import { DThemeDarkFont } from "./d-theme-dark-font";
 import { DThemeDarkImage } from "./d-theme-dark-image";
 
 export class DThemeDarkTreeItemTextAndImage extends DThemeDarkImage implements DThemeTreeItemTextAndImage {
@@ -49,12 +46,5 @@ export class DThemeDarkTreeItemTextAndImage extends DThemeDarkImage implements D
 
 	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
 		return null;
-	}
-
-	getColor( state: DBaseState ): number {
-		if( ( state & DTreeItemState.SELECTED ) && !DBaseStates.isDisabled( state ) ) {
-			return 0x000000;
-		}
-		return DThemeDarkFont.getColor( state );
 	}
 }

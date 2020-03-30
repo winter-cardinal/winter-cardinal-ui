@@ -13,36 +13,45 @@ import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkImageBase } from "./d-theme-dark-image-base";
 
 export class DThemeDarkButtonBase extends DThemeDarkImageBase implements DThemeButtonBase {
-	COLOR = 0x383838;
+	protected readonly BACKGROUND_COLOR: number;
+	protected readonly BACKGROUND_COLOR_HOVERED: number;
+	protected readonly BACKGROUND_COLOR_PRESSED: number;
+
+	constructor( backgrouncColor: number = 0x484848, hover: number = 0.017, pressed: number = 0.034 ) {
+		super();
+		this.BACKGROUND_COLOR = backgrouncColor;
+		this.BACKGROUND_COLOR_HOVERED = UtilRgb.brighten( this.BACKGROUND_COLOR, hover );
+		this.BACKGROUND_COLOR_PRESSED = UtilRgb.brighten( this.BACKGROUND_COLOR, pressed );
+	}
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
-			return UtilRgb.blend( 0x000000, 0xFFFFFF, DThemeDarkConstants.DISABLED_ALPHA );
+			return null;
+		} else if( DBaseStates.isActive( state ) ) {
+			return DThemeDarkConstants.HIGHLIGHT_COLOR;
+		} else if( DBaseStates.isPressed( state ) ) {
+			return this.BACKGROUND_COLOR_PRESSED;
+		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
+			return this.BACKGROUND_COLOR_HOVERED;
+		} else {
+			return this.BACKGROUND_COLOR;
 		}
-		if( DBaseStates.isActive( state ) ) {
-			return UtilRgb.blend( this.COLOR, this.getColor( DBaseState.ACTIVE ), DThemeDarkConstants.ACTIVE_ALPHA );
-		}
-		if( DBaseStates.isPressed( state ) ) {
-			return UtilRgb.blend( this.COLOR, this.getColor( DBaseState.PRESSED ), DThemeDarkConstants.PRESSED_ALPHA );
-		}
-		if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
-			return UtilRgb.blend( this.COLOR, this.getColor( DBaseState.HOVERED ), DThemeDarkConstants.FOCUSED_ALPHA );
-		}
-		return this.COLOR;
 	}
 
 	getColor( state: DBaseState ): number {
-		if( DBaseStates.isDisabled( state ) ) {
-			return UtilRgb.blend( 0x000000, 0xFFFFFF, DThemeDarkConstants.DISABLED_TEXT_ALPHA );
+		if( DBaseStates.isDisabled( state ) || ! DBaseStates.isActive( state ) ) {
+			return super.getColor( state );
+		} else {
+			return 0x000000;
 		}
-		return super.getColor( state );
 	}
 
 	getBorderColor( state: DBaseState ): number | null {
 		if( DBaseStates.isDisabled( state ) ) {
-			return UtilRgb.blend( 0x000000, 0xFFFFFF, DThemeDarkConstants.DISABLED_ALPHA );
+			return DThemeDarkConstants.BORDER_COLOR;
+		} else {
+			return null;
 		}
-		return null;
 	}
 
 	getHeight(): DCoordinateSize {
