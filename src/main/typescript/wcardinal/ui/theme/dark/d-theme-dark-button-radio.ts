@@ -31,7 +31,7 @@ DThemeDarkAtlas.add( "button_radio_mark_off", 21, 21,
 );
 
 export class DThemeDarkButtonRadio extends DThemeDarkButtonAmbient implements DThemeButtonRadio {
-	readonly IMAGE_TINT_COLOR_FOCUSED = UtilRgb.darken( DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR, 0.1 );
+	protected readonly IMAGE_TINT_COLOR_FOCUSED = UtilRgb.darken( DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR, 0.1 );
 
 	getBackgroundColor( state: DBaseState ): number | null {
 		return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
