@@ -3,17 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export class UtilHsv {
+export class UtilHsl {
 	/**
-	 * Returns HSV colors.
+	 * Returns HSL colors.
 	 * Ranges of components are:
 	 *
 	 * * H: [0, 360)
 	 * * S: [0, 255]
-	 * * V: [0, 255]
+	 * * L: [0, 255]
 	 *
 	 * @param color a rgb color
-	 * @return an array of hsv components
+	 * @return an array of hsl components
 	 */
 	static fromRgb( color: number ): [ number, number, number ] {
 		const r = (color & 0xff0000) >> 16;
@@ -37,14 +37,19 @@ export class UtilHsv {
 			}
 		}
 
-		const s = ( length / max ) * 255;
-		const v = max;
-		return [ h, s, v ];
+		const l = 0.5 * (max + min);
+		const lp = ( l <= 128 ? l : 255 - l );
+		const sp = ( 0 < lp ? 0.5 * length / lp : 0);
+		const s = 255 * sp;
+
+		return [ h, s, l ];
 	}
 
-	static toRgb( h: number, s: number, v: number ): number {
-		const max = v;
-		const min = v - (s / 255) * v;
+	static toRgb( h: number, s: number, l: number ): number {
+		const lp = ( l < 128 ? l : 255 - l );
+		const sp = s / 255;
+		const max = (l + lp * sp);
+		const min = (l - lp * sp);
 		const length = max - min;
 
 		let r = 0;
