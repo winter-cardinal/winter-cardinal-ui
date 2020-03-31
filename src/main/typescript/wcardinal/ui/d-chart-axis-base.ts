@@ -12,7 +12,6 @@ import {
 import { DChartAxisContainer } from "./d-chart-axis-container";
 import { DChartAxisPosition } from "./d-chart-axis-position";
 import { DChartCoordinate } from "./d-chart-coordinate";
-import { EShapeDefaults } from "./shape/e-shape-defaults";
 import { EShapeTextLike } from "./shape/e-shape-text";
 import { EShapeBar } from "./shape/variant/e-shape-bar";
 import { EShapeBarPosition } from "./shape/variant/e-shape-bar-position";
@@ -338,8 +337,8 @@ export class DChartAxisBase implements DChartAxis {
 			);
 			barShape = new EShapeBar(
 				barPosition,
-				-1,
-				EShapeDefaults.STROKE_WIDTH,
+				undefined,
+				undefined,
 				bar.style
 			);
 			barShape.stroke.copy( bar.stroke );
@@ -365,8 +364,8 @@ export class DChartAxisBase implements DChartAxis {
 			for( let i = 0; i < gridlineCount; ++i ) {
 				const gridlineShape = new EShapeBar(
 					gridlinePosition,
-					-1,
-					EShapeDefaults.STROKE_WIDTH,
+					undefined,
+					undefined,
 					gridlineStyle
 				);
 				gridlineShape.stroke.copy( gridline.stroke );
@@ -392,7 +391,7 @@ export class DChartAxisBase implements DChartAxis {
 				const tickMajorShape = new EShapeBar(
 					tickMajorPosition,
 					tickMajorSize,
-					EShapeDefaults.STROKE_WIDTH,
+					undefined,
 					tickMajorStyle
 				);
 				tickMajorShape.stroke.copy( tickMajor.stroke );
@@ -421,7 +420,7 @@ export class DChartAxisBase implements DChartAxis {
 				const tickMinorShape = new EShapeBar(
 					tickMinorPosition,
 					tickMinorSize,
-					EShapeDefaults.STROKE_WIDTH,
+					undefined,
 					tickMinorStyle
 				);
 				tickMinorShape.stroke.copy( tickMinor.stroke );

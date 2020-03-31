@@ -6,7 +6,6 @@
 import { DThemeChartAxisBase } from "../../d-chart-axis-base-options";
 import { DChartAxisPosition } from "../../d-chart-axis-position";
 import { DChartAxisTickPosition } from "../../d-chart-axis-tick-position";
-import { EShapeDefaults } from "../../shape/e-shape-defaults";
 import { EShapePointsStyle } from "../../shape/e-shape-points-style";
 import { EShapeStrokeSide } from "../../shape/e-shape-stroke-side";
 import { EShapeTextAlignHorizontal } from "../../shape/e-shape-text-align-horizontal";
@@ -60,36 +59,36 @@ export class DThemeWhiteChartAxisBase implements DThemeChartAxisBase {
 		return EShapeTextDirection.LEFT_TO_RIGHT;
 	}
 
-	getLabelColor(): number {
+	getLabelColor(): number | undefined {
 		return this.getStrokeColor();
 	}
 
-	getStyle(): EShapePointsStyle {
-		return EShapePointsStyle.NONE;
+	getStyle(): EShapePointsStyle | undefined {
+		return undefined;
 	}
 
 	getStrokeEnable(): boolean {
 		return true;
 	}
 
-	getStrokeColor(): number {
-		return EShapeDefaults.STROKE_COLOR_DARK;
+	getStrokeColor(): number | undefined {
+		return undefined;
 	}
 
-	getStrokeAlpha(): number {
-		return EShapeDefaults.STROKE_ALPHA;
+	getStrokeAlpha(): number | undefined {
+		return undefined;
 	}
 
-	getStrokeWidth(): number {
-		return EShapeDefaults.STROKE_WIDTH;
+	getStrokeWidth(): number | undefined {
+		return undefined;
 	}
 
-	getStrokeAlign(): number {
-		return EShapeDefaults.STROKE_ALIGN;
+	getStrokeAlign(): number | undefined {
+		return undefined;
 	}
 
-	getStrokeSide(): EShapeStrokeSide {
-		return EShapeStrokeSide.ALL;
+	getStrokeSide(): EShapeStrokeSide | undefined {
+		return undefined;
 	}
 
 	getTickEnable(): boolean {
@@ -108,8 +107,8 @@ export class DThemeWhiteChartAxisBase implements DThemeChartAxisBase {
 		return DChartAxisTickPosition.OUTSIDE;
 	}
 
-	getMajorTickStyle(): EShapePointsStyle {
-		return EShapePointsStyle.NONE;
+	getMajorTickStyle(): EShapePointsStyle | undefined {
+		return undefined;
 	}
 
 	getMajorTickTextAlignHorizontal( position: DChartAxisPosition ): EShapeTextAlignHorizontal {
@@ -142,7 +141,7 @@ export class DThemeWhiteChartAxisBase implements DThemeChartAxisBase {
 		return EShapeTextDirection.LEFT_TO_RIGHT;
 	}
 
-	getMajorTickTextColor(): number {
+	getMajorTickTextColor(): number | undefined {
 		return this.getStrokeColor();
 	}
 
@@ -158,27 +157,27 @@ export class DThemeWhiteChartAxisBase implements DThemeChartAxisBase {
 		return 15;
 	}
 
-	getMajorTickStrokeEnable(): boolean {
+	getMajorTickStrokeEnable(): boolean | undefined {
 		return true;
 	}
 
-	getMajorTickStrokeColor(): number {
+	getMajorTickStrokeColor(): number | undefined {
 		return this.getStrokeColor();
 	}
 
-	getMajorTickStrokeAlpha(): number {
+	getMajorTickStrokeAlpha(): number | undefined {
 		return this.getStrokeAlpha();
 	}
 
-	getMajorTickStrokeWidth(): number {
+	getMajorTickStrokeWidth(): number | undefined {
 		return this.getStrokeWidth();
 	}
 
-	getMajorTickStrokeAlign(): number {
+	getMajorTickStrokeAlign(): number | undefined {
 		return this.getStrokeAlign();
 	}
 
-	getMajorTickStrokeSide(): EShapeStrokeSide {
+	getMajorTickStrokeSide(): EShapeStrokeSide | undefined {
 		return this.getStrokeSide();
 	}
 
@@ -186,31 +185,31 @@ export class DThemeWhiteChartAxisBase implements DThemeChartAxisBase {
 		return true;
 	}
 
-	getMajorTickGridlineStyle(): EShapePointsStyle {
-		return EShapePointsStyle.NONE;
+	getMajorTickGridlineStyle(): EShapePointsStyle | undefined {
+		return undefined;
 	}
 
-	getMajorTickGridlineStrokeEnable(): boolean {
+	getMajorTickGridlineStrokeEnable(): boolean | undefined {
 		return true;
 	}
 
-	getMajorTickGridlineStrokeColor(): number {
+	getMajorTickGridlineStrokeColor(): number | undefined {
 		return this.getStrokeColor();
 	}
 
-	getMajorTickGridlineStrokeAlpha(): number {
+	getMajorTickGridlineStrokeAlpha(): number | undefined {
 		return 0.1;
 	}
 
-	getMajorTickGridlineStrokeWidth(): number {
+	getMajorTickGridlineStrokeWidth(): number | undefined {
 		return this.getStrokeWidth();
 	}
 
-	getMajorTickGridlineStrokeAlign(): number {
+	getMajorTickGridlineStrokeAlign(): number | undefined {
 		return this.getStrokeAlign();
 	}
 
-	getMajorTickGridlineStrokeSide(): EShapeStrokeSide {
+	getMajorTickGridlineStrokeSide(): EShapeStrokeSide | undefined {
 		return this.getStrokeSide();
 	}
 
@@ -226,31 +225,31 @@ export class DThemeWhiteChartAxisBase implements DThemeChartAxisBase {
 		return DChartAxisTickPosition.OUTSIDE;
 	}
 
-	getMinorTickStyle(): EShapePointsStyle {
-		return EShapePointsStyle.NONE;
+	getMinorTickStyle(): EShapePointsStyle | undefined {
+		return undefined;
 	}
 
-	getMinorTickStrokeEnable(): boolean {
+	getMinorTickStrokeEnable(): boolean | undefined {
 		return true;
 	}
 
-	getMinorTickStrokeColor(): number {
+	getMinorTickStrokeColor(): number | undefined {
 		return this.getStrokeColor();
 	}
 
-	getMinorTickStrokeAlpha(): number {
+	getMinorTickStrokeAlpha(): number | undefined {
 		return this.getStrokeAlpha();
 	}
 
-	getMinorTickStrokeWidth(): number {
+	getMinorTickStrokeWidth(): number | undefined {
 		return this.getStrokeWidth();
 	}
 
-	getMinorTickStrokeAlign(): number {
+	getMinorTickStrokeAlign(): number | undefined {
 		return this.getStrokeAlign();
 	}
 
-	getMinorTickStrokeSide(): EShapeStrokeSide {
+	getMinorTickStrokeSide(): EShapeStrokeSide | undefined {
 		return this.getStrokeSide();
 	}
 }

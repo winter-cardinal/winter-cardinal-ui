@@ -28,7 +28,7 @@ import { NumberFormatters } from "./util/number-formatters";
 
 export interface DChartAxisBaseGridline {
 	enable: boolean;
-	style: EShapePointsStyle;
+	style?: EShapePointsStyle;
 	stroke?: Partial<EShapeStrokeLike>;
 	shapes?: EShapeBar[];
 }
@@ -37,7 +37,7 @@ export interface DChartAxisBaseTickMajor {
 	count: number;
 	size: number;
 	position: EShapeBarPosition;
-	style: EShapePointsStyle;
+	style?: EShapePointsStyle;
 	stroke?: Partial<EShapeStrokeLike>;
 	text?: DChartAxisBaseTickMajorTextOptions;
 	formatter: NumberFormatter;
@@ -50,13 +50,13 @@ export interface DChartAxisBaseTickMinor {
 	count: number;
 	size: number;
 	position: EShapeBarPosition;
-	style: EShapePointsStyle;
+	style?: EShapePointsStyle;
 	stroke?: Partial<EShapeStrokeLike>;
 	shapes?: EShapeBar[];
 }
 
 export interface DChartAxisBaseBar {
-	style: EShapePointsStyle;
+	style?: EShapePointsStyle;
 	stroke?: Partial<EShapeStrokeLike>;
 	shape?: EShapeBar;
 }
@@ -245,7 +245,7 @@ export class DChartAxisBaseOptionParser {
 	protected toBarStroke(
 		theme: DThemeChartAxisBase,
 		options?: Partial<EShapeStrokeLike>
-	): EShapeStrokeLike {
+	): Partial<EShapeStrokeLike> {
 		return this.toStroke(
 			options, undefined,
 			theme.getStrokeEnable(),
@@ -261,7 +261,7 @@ export class DChartAxisBaseOptionParser {
 		theme: DThemeChartAxisBase,
 		optionsA?: Partial<EShapeStrokeLike>,
 		optionsB?: Partial<EShapeStrokeLike>
-	): EShapeStrokeLike {
+	): Partial<EShapeStrokeLike> {
 		return this.toStroke(
 			optionsA, optionsB,
 			theme.getMajorTickStrokeEnable(),
@@ -277,7 +277,7 @@ export class DChartAxisBaseOptionParser {
 		theme: DThemeChartAxisBase,
 		optionsA?: Partial<EShapeStrokeLike>,
 		optionsB?: Partial<EShapeStrokeLike>
-	): EShapeStrokeLike {
+	): Partial<EShapeStrokeLike> {
 		return this.toStroke(
 			optionsA, optionsB,
 			theme.getMajorTickGridlineStrokeEnable(),
@@ -293,7 +293,7 @@ export class DChartAxisBaseOptionParser {
 		theme: DThemeChartAxisBase,
 		optionsA?: Partial<EShapeStrokeLike>,
 		optionsB?: Partial<EShapeStrokeLike>
-	): EShapeStrokeLike {
+	): Partial<EShapeStrokeLike> {
 		return this.toStroke(
 			optionsA, optionsB,
 			theme.getMinorTickStrokeEnable(),
@@ -308,13 +308,13 @@ export class DChartAxisBaseOptionParser {
 	protected toStroke(
 		optionsA: Partial<EShapeStrokeLike> | undefined,
 		optionsB: Partial<EShapeStrokeLike> | undefined,
-		enable: boolean,
-		color: number,
-		alpha: number,
-		width: number,
-		align: number,
-		side: EShapeStrokeSide
-	): EShapeStrokeLike {
+		enable: boolean | undefined,
+		color: number | undefined,
+		alpha: number | undefined,
+		width: number | undefined,
+		align: number | undefined,
+		side: EShapeStrokeSide | undefined
+	): Partial<EShapeStrokeLike> {
 		if( optionsA ) {
 			if( optionsB ) {
 				return {
@@ -497,7 +497,7 @@ export class DChartAxisBaseOptionParser {
 	protected toMajorTickTextColor(
 		theme: DThemeChartAxisBase,
 		options?: number
-	): number {
+	): number | undefined {
 		return ( options != null ? options : theme.getMajorTickTextColor() );
 	}
 
@@ -609,7 +609,7 @@ export class DChartAxisBaseOptionParser {
 	protected toLabelColor(
 		theme: DThemeChartAxisBase,
 		options?: number
-	): number {
+	): number | undefined {
 		return ( options != null ? options : theme.getLabelColor() );
 	}
 }

@@ -12,7 +12,7 @@ import { EShapeLineBase } from "./e-shape-line-base";
 export class EShapeBar extends EShapeLineBase {
 	points: EShapeBarPoints;
 
-	constructor( position: EShapeBarPosition, size: number, width: number, style: EShapePointsStyle ) {
+	constructor( position: EShapeBarPosition, size?: number, width?: number, style?: EShapePointsStyle ) {
 		super( EShapeType.BAR );
 		this.fill.enable = false;
 		this.stroke.set( true, undefined, undefined, width );

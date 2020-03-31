@@ -28,13 +28,13 @@ export class EShapeBarPoints implements EShapeLineBasePoints {
 	protected _updatedParentSizeY: number;
 	protected _updatedPosition: EShapeBarPosition;
 
-	constructor( parent: EShape, position: EShapeBarPosition, size: number, style: EShapePointsStyle ) {
+	constructor( parent: EShape, position: EShapeBarPosition, size?: number, style?: EShapePointsStyle ) {
 		this._parent = parent;
 		this._id = 0;
 		this._values = [ 0, 0, 0, 0 ];
 		this._segments = [];
-		this._style = style;
-		this._size = size;
+		this._style = style != null ? style : EShapePointsStyle.NONE;
+		this._size = size != null ? size : -1;
 		this._position = position;
 
 		this._updatedSize = NaN;

@@ -34,6 +34,14 @@ export class EThemeWhiteShape implements EThemeShape {
 		return "";
 	}
 
+	getTextColor(): number {
+		return this.getStrokeColor();
+	}
+
+	getTextAlpha(): number {
+		return this.getStrokeAlpha();
+	}
+
 	getTextFamily(): string {
 		return "auto";
 	}

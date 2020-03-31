@@ -6,17 +6,19 @@ export type EShapePointsStyleOption = EShapePointsStyle | keyof typeof EShapePoi
 	Array<keyof typeof EShapePointsStyle>;
 
 export class EShapePointsStyles {
-	static from( style: EShapePointsStyleOption ): EShapePointsStyle {
+	static from( style: EShapePointsStyleOption | undefined ): EShapePointsStyle {
 		if( isString( style ) ) {
 			return EShapePointsStyle[ style ];
 		} else if( isNumber( style ) ) {
 			return style;
-		} else {
+		} else if( style != null ) {
 			let result = EShapePointsStyle.NONE;
 			for( let i = 0, imax = style.length; i < imax; ++i ) {
 				result |= EShapePointsStyle[ style[ i ] ];
 			}
 			return result;
+		} else {
+			return EShapePointsStyle.NONE;
 		}
 	}
 }

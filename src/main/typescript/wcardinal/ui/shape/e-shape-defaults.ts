@@ -15,6 +15,8 @@ export interface EThemeShape {
 	getStrokeAlign(): number;
 	getStrokeSide(): EShapeStrokeSide;
 	getTextValue(): string;
+	getTextColor(): number;
+	getTextAlpha(): number;
 	getTextFamily(): string;
 	getTextSize(): number;
 	getCursor(): string;
@@ -69,6 +71,14 @@ export class EShapeDefaults {
 
 	static get TEXT_VALUE(): string {
 		return this.THEME.getTextValue();
+	}
+
+	static get TEXT_COLOR(): number {
+		return this.THEME.getTextColor();
+	}
+
+	static get TEXT_ALPHA(): number {
+		return this.THEME.getTextAlpha();
 	}
 
 	static get TEXT_FAMILY(): string {
