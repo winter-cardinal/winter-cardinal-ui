@@ -30,7 +30,6 @@ import { loadThemeDarkPickerDatetime } from "./load-theme-dark-picker-datetime";
 import { loadThemeDarkPickerTime } from "./load-theme-dark-picker-time";
 import { loadThemeDarkScrollBar } from "./load-theme-dark-scroll-bar";
 import { loadThemeDarkSelect } from "./load-theme-dark-select";
-import { loadThemeDarkShapeActionValue } from "./load-theme-dark-shape-action-value";
 import { loadThemeDarkSlider } from "./load-theme-dark-slider";
 import { loadThemeDarkTable } from "./load-theme-dark-table";
 import { loadThemeDarkText } from "./load-theme-dark-text";
@@ -68,7 +67,6 @@ export const loadThemeDarkAll = () => {
 	loadThemeDarkScrollBar();
 	loadThemeDarkSelect();
 	loadThemeDarkSlider();
-	loadThemeDarkShapeActionValue();
 	loadThemeDarkTable();
 	loadThemeDarkText();
 	loadThemeDarkView();

@@ -181,3 +181,4 @@ export * from "./d-theme-white-text";
 export * from "./d-theme-white-view";
 export * from "./d-theme-white";
 export * from "./e-theme-white-shape-action-value";
+export * from "./e-theme-white-shape";

@@ -3,26 +3,99 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DThemes } from "../theme/d-themes";
 import { EShapeStrokeSide } from "./e-shape-stroke-side";
 
+export interface EThemeShape {
+	getFillColor(): number;
+	getFillAlpha(): number;
+	getStrokeColor(): number;
+	getStrokeAlpha(): number;
+	getStrokeWidth(): number;
+	getStrokeAlign(): number;
+	getStrokeSide(): EShapeStrokeSide;
+	getTextValue(): string;
+	getTextFamily(): string;
+	getTextSize(): number;
+	getCursor(): string;
+	getRadius(): number;
+	getSizeX(): number;
+	getSizeY(): number;
+	getHighlightColor(): number;
+}
+
 export class EShapeDefaults {
+	protected static _THEME?: EThemeShape;
+
 	static IS_EDIT_MODE: boolean = false;
 
-	static FILL_COLOR: number = 0xffffff;
-	static FILL_ALPHA: number = 0.5;
-	static STROKE_COLOR: number = 0x4f4f4f;
-	static STROKE_COLOR_DARK: number = 0x4f4f4f;
-	static STROKE_COLOR_LIGHT: number = 0xcccccc;
-	static STROKE_ALPHA: number = 1;
-	static STROKE_WIDTH: number = 2;
-	static STROKE_ALIGN: number = 0;
-	static STROKE_SIDE: number = EShapeStrokeSide.ALL;
-	static TEXT_VALUE: string = "";
-	static TEXT_FAMILY: string = "auto";
-	static TEXT_SIZE: number = 14;
-	static CURSOR: string = "";
-	static RADIUS: number = 0.25;
-	static SIZE_X: number = 100;
-	static SIZE_Y: number = 100;
-	static HIGHLIGHT_COLOR: number = 0x1e87f0;
+	static get THEME(): EThemeShape {
+		const theme = this._THEME;
+		if( theme != null ) {
+			return theme;
+		}
+		const newTheme: EThemeShape = DThemes.getInstance().get( "EShape" );
+		this._THEME = newTheme;
+		return newTheme;
+	}
+
+	static get FILL_COLOR(): number {
+		return this.THEME.getFillColor();
+	}
+
+	static get FILL_ALPHA(): number {
+		return this.THEME.getFillAlpha();
+	}
+
+	static get STROKE_COLOR(): number {
+		return this.THEME.getStrokeColor();
+	}
+
+	static get STROKE_ALPHA(): number {
+		return this.THEME.getStrokeAlpha();
+	}
+
+	static get STROKE_WIDTH(): number {
+		return this.THEME.getStrokeWidth();
+	}
+
+	static get STROKE_ALIGN(): number {
+		return this.THEME.getStrokeAlign();
+	}
+
+	static get STROKE_SIDE(): number {
+		return this.THEME.getStrokeSide();
+	}
+
+	static get TEXT_VALUE(): string {
+		return this.THEME.getTextValue();
+	}
+
+	static get TEXT_FAMILY(): string {
+		return this.THEME.getTextFamily();
+	}
+
+	static get TEXT_SIZE(): number {
+		return this.THEME.getTextSize();
+	}
+
+	static get CURSOR(): string {
+		return this.THEME.getCursor();
+	}
+
+	static get RADIUS(): number {
+		return this.THEME.getRadius();
+	}
+
+	static get SIZE_X(): number {
+		return this.THEME.getSizeX();
+	}
+
+	static get SIZE_Y(): number {
+		return this.THEME.getSizeY();
+	}
+
+	static get HIGHLIGHT_COLOR(): number {
+		return this.THEME.getHighlightColor();
+	}
 }
