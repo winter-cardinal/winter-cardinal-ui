@@ -12,32 +12,33 @@ import { DView, DViewOptions } from "./d-view";
 import { DViewImpl } from "./d-view-impl";
 import { UtilWheelEventDeltas } from "./util/util-wheel-event";
 
-export interface DCanvasContainerOnOptions<CANVAS> extends DBaseOnOptions {
+export interface DCanvasContainerOnOptions<CANVAS, SELF> extends DBaseOnOptions<SELF> {
 	/**
 	 * Triggered when a canvas is removed.
 	 *
 	 * @param canvas a removed canvas
-	 * @param self a canvas container
+	 * @param self this
 	 */
-	unset?: ( canvas: CANVAS, self: any ) => void;
+	unset?: ( canvas: CANVAS, self: SELF ) => void;
 
 	/**
 	 * Triggered when a canvas is set.
 	 *
 	 * @param canvas a new canvas
-	 * @param self a canvas container
+	 * @param self this
 	 */
-	set?: ( canvas: CANVAS, self: any ) => void;
+	set?: ( canvas: CANVAS, self: SELF ) => void;
 }
 
 export interface DCanvasContainerOptions<
 	CANVAS extends DBase = DCanvas,
-	THEME extends DThemeCanvasContainer = DThemeCanvasContainer
+	THEME extends DThemeCanvasContainer = DThemeCanvasContainer,
+	SELF = any
 > extends DBaseOptions<THEME> {
 	mask?: boolean;
 	view?: DViewOptions;
 	canvas?: CANVAS;
-	on?: DCanvasContainerOnOptions<CANVAS>;
+	on?: DCanvasContainerOnOptions<CANVAS, SELF>;
 }
 
 export interface DThemeCanvasContainer extends DThemeBase {
@@ -53,6 +54,16 @@ const isOverflowMaskEnabled = <
 	}
 	return theme.isOverflowMaskEnabled();
 };
+
+export interface DCanvasContainer<CANVAS> {
+	on<T extends DCanvasContainerOnOptions<CANVAS, this>, E extends Extract<keyof T, string>>(
+		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	): this;
+
+	emit<T extends DCanvasContainerOnOptions<CANVAS, this>, E extends Extract<keyof T, string>>(
+		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	): boolean;
+}
 
 export class DCanvasContainer<
 	CANVAS extends DBase = DCanvas,

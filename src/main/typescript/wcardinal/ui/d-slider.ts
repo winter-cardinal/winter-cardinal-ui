@@ -17,28 +17,41 @@ import InteractionManager = interaction.InteractionManager;
 /**
  * Mappings of event names and handlers.
  */
-export interface DSliderOnOptions extends DBaseOnOptions {
+export interface DSliderOnOptions<SELF> extends DBaseOnOptions<SELF> {
 	/**
 	 * Triggered when a value is changed.
 	 *
 	 * @param newValue a new value
 	 * @param oldValue an old value
-	 * @param self a slider
+	 * @param self this
 	 */
-	change?: ( newValue: number, oldValue: number, self: any ) => void;
+	change?: ( newValue: number, oldValue: number, self: SELF ) => void;
 }
 
-export interface DSliderOptions<THEME extends DThemeSlider> extends DBaseOptions<THEME> {
+export interface DSliderOptions<
+	THEME extends DThemeSlider = DThemeSlider,
+	SELF = any
+> extends DBaseOptions<THEME, SELF> {
 	min?: DSliderLabelOptions;
 	max?: DSliderLabelOptions;
 	value?: DSliderValueOptions;
 	track?: DSliderTrackOptions;
 	thumb?: DSliderThumbOptions;
-	on?: DSliderOnOptions;
+	on?: DSliderOnOptions<SELF>;
 }
 
 export interface DThemeSlider extends DThemeBase {
 
+}
+
+export interface DSlider {
+	on<T extends DSliderOnOptions<this>, E extends Extract<keyof T, string>>(
+		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	): this;
+
+	emit<T extends DSliderOnOptions<this>, E extends Extract<keyof T, string>>(
+		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	): boolean;
 }
 
 export abstract class DSlider<

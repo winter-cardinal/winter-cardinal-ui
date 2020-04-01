@@ -31,17 +31,18 @@ export interface DTextBaseTextOptions<VALUE = unknown> {
 	dynamic?: boolean;
 }
 
-export interface DTextBaseOnOptions<VALUE> extends DBaseOnOptions {
+export interface DTextBaseOnOptions<VALUE, SELF> extends DBaseOnOptions<SELF> {
 
 }
 
 export interface DTextBaseOptions<
 	VALUE = unknown,
-	THEME extends DThemeTextBase = DThemeTextBase
-> extends DBaseOptions<THEME> {
+	THEME extends DThemeTextBase = DThemeTextBase,
+	SELF = any
+> extends DBaseOptions<THEME, SELF> {
 	text?: DTextBaseTextOptions<VALUE>;
 	mask?: boolean;
-	on?: DTextBaseOnOptions<VALUE>;
+	on?: DTextBaseOnOptions<VALUE, SELF>;
 }
 
 export interface DThemeTextBase extends DThemeBase {
@@ -151,6 +152,16 @@ const toTextDynamic = <VALUE, THEME extends DThemeTextBase>(
 	}
 	return theme.isTextDynamic();
 };
+
+export interface DTextBase<VALUE> {
+	on<T extends DTextBaseOnOptions<VALUE, this>, E extends Extract<keyof T, string>>(
+		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	): this;
+
+	emit<T extends DTextBaseOnOptions<VALUE, this>, E extends Extract<keyof T, string>>(
+		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	): boolean;
+}
 
 export class DTextBase<
 	VALUE = unknown,

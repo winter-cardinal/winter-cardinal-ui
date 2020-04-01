@@ -18,9 +18,9 @@ import { EShape } from "./shape/e-shape";
 /**
  * {@link DChartSeriesBase} options.
  */
-export interface DChartSeriesBaseOptions {
+export interface DChartSeriesBaseOptions<SELF = any> {
 	coordinate?: DChartSeriesCoordinateOptions;
-	on?: DBaseOnOptions;
+	on?: DBaseOnOptions<SELF>;
 }
 
 /**

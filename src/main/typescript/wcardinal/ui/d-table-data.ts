@@ -51,7 +51,7 @@ export interface DTableDataMapped<ROW> {
 
 export type DTableDataEachIteratee<ROW> = ( row: ROW, index: number ) => void | boolean;
 
-export interface DTableDataOptions<ROW> {
+export interface DTableDataOptions<ROW, SELF = any> {
 	/**
 	 * Selection options.
 	 */
@@ -70,7 +70,7 @@ export interface DTableDataOptions<ROW> {
 	/**
 	 * Mappings of event names and event handlers.
 	 */
-	on?: DBaseOnOptions;
+	on?: DBaseOnOptions<SELF>;
 }
 
 export interface DTableDataParent {

@@ -17,41 +17,52 @@ export interface DDiagramEditorController {
 	delete( id: number ): Promise<void>;
 }
 
-export interface DDiagramEditorOnOptions extends DDiagramBaseOnOptions<DDiagramCanvasEditor> {
+export interface DDiagramEditorOnOptions<SELF> extends DDiagramBaseOnOptions<DDiagramCanvasEditor, SELF> {
 	/**
 	 * Triggered when a serialized data is changed without using the set / unset methods.
 	 * This happens, for instance, when the name or the ID of the serialized data is changed.
 	 *
-	 * @param self a diagram editor
+	 * @param self this
 	 */
-	change?: ( self: any ) => void;
+	change?: ( self: SELF ) => void;
 
 	/**
 	 * Triggered when an operation is successfully finished.
 	 *
 	 * @param operation an operation ID
-	 * @param self a diagram editor
+	 * @param self this
 	 */
-	success?: ( operation: "save" | "save-as", self: any ) => void;
+	success?: ( operation: "save" | "save-as" | "open" | "delete", self: SELF ) => void;
 
 	/**
 	 * Triggered when an operation is failed.
 	 *
 	 * @param operation an operation ID
-	 * @param self a diagram editor
+	 * @param self this
 	 */
-	fail?: ( operation: "save" | "save-as", self: any ) => void;
+	fail?: ( operation: "save" | "save-as" | "open" | "delete", self: SELF ) => void;
 }
 
 export interface DDiagramEditorOptions<
-	THEME extends DThemeDiagramEditor = DThemeDiagramEditor
+	THEME extends DThemeDiagramEditor = DThemeDiagramEditor,
+	SELF = any
 > extends DDiagramBaseOptions<DDiagramCanvasEditor, THEME> {
 	controller: DDiagramEditorController;
-	on?: DDiagramEditorOnOptions;
+	on?: DDiagramEditorOnOptions<SELF>;
 }
 
 export interface DThemeDiagramEditor extends DThemeDiagramBase {
 
+}
+
+export interface DDiagramEditor {
+	on<T extends DDiagramEditorOnOptions<this>, E extends Extract<keyof T, string>>(
+		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	): this;
+
+	emit<T extends DDiagramEditorOnOptions<this>, E extends Extract<keyof T, string>>(
+		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	): boolean;
 }
 
 export class DDiagramEditor<

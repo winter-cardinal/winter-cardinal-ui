@@ -12,15 +12,16 @@ import { DMenuItemMenu } from "./d-menu-item-menu";
 /**
  * Mappings of event names and handlers.
  */
-export interface DSelectMultipleOnOptions<VALUE> extends DDropdownBaseOnOptions<VALUE, DMenuItem<VALUE> | null> {
+export interface DSelectMultipleOnOptions<VALUE, SELF>
+	extends DDropdownBaseOnOptions<VALUE, DMenuItem<VALUE> | null, SELF> {
 	/**
 	 * Called when a menu item is selected.
 	 *
 	 * @param value a value of a selected menu item
 	 * @param item a selected menu item
-	 * @param self an event emitter
+	 * @param self this
 	 */
-	menuselect?: ( value: VALUE, item: DMenuItem<VALUE>, self: any ) => void;
+	menuselect?: ( value: VALUE, item: DMenuItem<VALUE>, self: SELF ) => void;
 
 	/**
 	 * Called when the selection is changed.
@@ -28,9 +29,9 @@ export interface DSelectMultipleOnOptions<VALUE> extends DDropdownBaseOnOptions<
 	 * @param newValues new selected values
 	 * @param oldValues old selected values
 	 * @param items selected items
-	 * @param self an event emitter
+	 * @param self this
 	 */
-	change?: ( newValues: VALUE[], oldValues: VALUE[], items: Array<DMenuItem<VALUE>>, self: any ) => void;
+	change?: ( newValues: VALUE[], oldValues: VALUE[], items: Array<DMenuItem<VALUE>>, self: SELF ) => void;
 }
 
 /**
@@ -38,18 +39,29 @@ export interface DSelectMultipleOnOptions<VALUE> extends DDropdownBaseOnOptions<
  */
 export interface DSelectMultipleOptions<
 	VALUE = unknown,
-	THEME extends DThemeSelectMultiple = DThemeSelectMultiple
-> extends DDropdownBaseOptions<VALUE, Array<DMenuItem<VALUE>>, THEME> {
+	THEME extends DThemeSelectMultiple = DThemeSelectMultiple,
+	SELF = any
+> extends DDropdownBaseOptions<VALUE, Array<DMenuItem<VALUE>>, THEME, SELF> {
 	/**
 	 * A default values.
 	 */
 	values?: VALUE[];
 
-	on?: DSelectMultipleOnOptions<VALUE>;
+	on?: DSelectMultipleOnOptions<VALUE, SELF>;
 }
 
 export interface DThemeSelectMultiple extends DThemeDropdownBase<Array<DMenuItem<any>>> {
 
+}
+
+export interface DSelectMultiple<VALUE> {
+	on<T extends DSelectMultipleOnOptions<VALUE, this>, E extends Extract<keyof T, string>>(
+		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	): this;
+
+	emit<T extends DSelectMultipleOnOptions<VALUE, this>, E extends Extract<keyof T, string>>(
+		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	): boolean;
 }
 
 export class DSelectMultiple<

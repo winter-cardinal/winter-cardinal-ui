@@ -14,24 +14,25 @@ import { DLayoutVertical } from "./d-layout-vertical";
 /**
  * Mappings of event names and handlers.
  */
-export interface DDialogCommandOnOptions extends DDialogOnOptions {
+export interface DDialogCommandOnOptions<SELF> extends DDialogOnOptions<SELF> {
 	/**
 	 * Triggered when a dialog is successfully finished.
 	 *
-	 * @param self a dialog
+	 * @param self this
 	 */
-	ok?: ( self: any ) => void;
+	ok?: ( self: SELF ) => void;
 
 	/**
 	 * Triggered when a dialog is canceled.
 	 *
-	 * @param self a dialog
+	 * @param self this
 	 */
-	cancel?: ( self: any ) => void;
+	cancel?: ( self: SELF ) => void;
 }
 
 export interface DDialogCommandOptions<
-	THEME extends DThemeDialogCommand = DThemeDialogCommand
+	THEME extends DThemeDialogCommand = DThemeDialogCommand,
+	SELF = any
 > extends DDialogOptions<THEME> {
 	/**
 	 * A ok button label.
@@ -46,7 +47,7 @@ export interface DDialogCommandOptions<
 	/**
 	 * Mappings of event names and handlers.
 	 */
-	on?: DDialogCommandOnOptions;
+	on?: DDialogCommandOnOptions<SELF>;
 }
 
 export interface DThemeDialogCommand extends DThemeDialog {
@@ -56,6 +57,16 @@ export interface DThemeDialogCommand extends DThemeDialog {
 	getLayoutY(): DCoordinatePosition;
 	getLayoutWidth(): DCoordinateSize;
 	getLayoutHeight(): DCoordinateSize;
+}
+
+export interface DDialogCommand {
+	on<T extends DDialogCommandOnOptions<this>, E extends Extract<keyof T, string>>(
+		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	): this;
+
+	emit<T extends DDialogCommandOnOptions<this>, E extends Extract<keyof T, string>>(
+		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	): boolean;
 }
 
 export class DDialogCommand<

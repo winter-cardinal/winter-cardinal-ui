@@ -8,11 +8,11 @@ import { DMenu } from "./d-menu";
 import { DMenuItem } from "./d-menu-item";
 import { DMenuItemMenu } from "./d-menu-item-menu";
 
-export interface DSelectOnOptions<VALUE> extends DDropdownBaseOnOptions<VALUE, DMenuItem<VALUE> | null> {
+export interface DSelectOnOptions<VALUE, SELF> extends DDropdownBaseOnOptions<VALUE, DMenuItem<VALUE> | null, SELF> {
 	/**
 	 * Called when a selection is changed.
 	 */
-	change?: ( newValue: VALUE | null, oldValue: VALUE | null, item: DMenuItem<VALUE> | null, self: any ) => void;
+	change?: ( newValue: VALUE | null, oldValue: VALUE | null, item: DMenuItem<VALUE> | null, self: SELF ) => void;
 }
 
 /**
@@ -20,14 +20,15 @@ export interface DSelectOnOptions<VALUE> extends DDropdownBaseOnOptions<VALUE, D
  */
 export interface DSelectOptions<
 	VALUE = unknown,
-	THEME extends DThemeSelect = DThemeSelect
-> extends DDropdownBaseOptions<VALUE, DMenuItem<VALUE> | null, THEME> {
+	THEME extends DThemeSelect = DThemeSelect,
+	SELF = any
+> extends DDropdownBaseOptions<VALUE, DMenuItem<VALUE> | null, THEME, SELF> {
 	/**
 	 * A default value.
 	 */
 	value?: VALUE;
 
-	on?: DSelectOnOptions<VALUE>;
+	on?: DSelectOnOptions<VALUE, SELF>;
 }
 
 export interface DThemeSelect extends DThemeDropdownBase<DMenuItem<any> | null> {

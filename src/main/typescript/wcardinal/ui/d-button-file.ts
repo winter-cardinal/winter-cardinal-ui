@@ -12,14 +12,15 @@ export import DButtonFileAs = UtilFileAs;
 /**
  * Mappings of event names and handlers.
  */
-export interface DButtonFileOnOptions<VALUE> extends DButtonOnOptions<VALUE>, UtilFileOnOptions<any> {
+export interface DButtonFileOnOptions<VALUE, SELF> extends DButtonOnOptions<VALUE, SELF>, UtilFileOnOptions<SELF> {
 
 }
 
 export interface DButtonFileOptions<
 	VALUE = unknown,
-	THEME extends DThemeButtonFile = DThemeButtonFile
-> extends DButtonOptions<VALUE, THEME> {
+	THEME extends DThemeButtonFile = DThemeButtonFile,
+	SELF = any
+> extends DButtonOptions<VALUE, THEME, SELF> {
 	/**
 	 * An output format.
 	 */
@@ -32,7 +33,7 @@ export interface DButtonFileOptions<
 	 */
 	checker?: () => Promise<unknown> | boolean;
 
-	on?: DButtonFileOnOptions<VALUE>;
+	on?: DButtonFileOnOptions<VALUE, SELF>;
 }
 
 export interface DThemeButtonFile extends DThemeButton {

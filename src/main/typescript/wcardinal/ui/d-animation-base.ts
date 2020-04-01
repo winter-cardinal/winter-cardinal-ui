@@ -4,8 +4,21 @@
  */
 
 import { utils } from "pixi.js";
-import { DAnimation, DAnimationOnEnd, DAnimationOnTime, DAnimationOptions, DAnimationTiming } from "./d-animation";
+import {
+	DAnimation, DAnimationOnEnd, DAnimationOnOptions, DAnimationOnTime,
+	DAnimationOptions, DAnimationTiming
+} from "./d-animation";
 import { DAnimationTimings } from "./d-animation-timings";
+
+export interface DAnimationBase {
+	on<T extends DAnimationOnOptions<this>, E extends Extract<keyof T, string>>(
+		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	): this;
+
+	emit<T extends DAnimationOnOptions<this>, E extends Extract<keyof T, string>>(
+		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	): boolean;
+}
 
 export class DAnimationBase<TARGET = unknown> extends utils.EventEmitter implements DAnimation<TARGET> {
 	protected _id: number | null;

@@ -8,28 +8,39 @@ import { DButton, DButtonOnOptions, DButtonOptions, DThemeButton } from "./d-but
 import { DDialogDate, DDialogDateOptions } from "./d-dialog-date";
 import { DDialogDates } from "./d-dialog-dates";
 
-export interface DButtonDateOnOptions extends DButtonOnOptions<Date> {
+export interface DButtonDateOnOptions<SELF> extends DButtonOnOptions<Date, SELF> {
 	/**
 	 * Triggered when a selection is changed.
 	 *
 	 * @param newValue a newly selected value
 	 * @param oldValue a previously selected value
-	 * @param self a button
+	 * @param self this
 	 */
-	change?: ( newValue: Date, oldValue: Date, self: any ) => void;
+	change?: ( newValue: Date, oldValue: Date, self: SELF ) => void;
 }
 
 export interface DButtonDateOptions<
-	THEME extends DThemeButtonDate = DThemeButtonDate
-> extends DButtonOptions<Date, THEME> {
+	THEME extends DThemeButtonDate = DThemeButtonDate,
+	SELF = any
+> extends DButtonOptions<Date, THEME, SELF> {
 	dialog?: DDialogDateOptions;
-	on?: DButtonDateOnOptions;
+	on?: DButtonDateOnOptions<SELF>;
 }
 
 export interface DThemeButtonDate extends DThemeButton {
 	getTextFormatter(): ( value: Date, caller: DButtonDate ) => string;
 	getTextValue( state: DBaseState ): Date;
 	newTextValue(): Date;
+}
+
+export interface DButtonDate {
+	on<T extends DButtonDateOnOptions<this>, E extends Extract<keyof T, string>>(
+		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	): this;
+
+	emit<T extends DButtonDateOnOptions<this>, E extends Extract<keyof T, string>>(
+		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	): boolean;
 }
 
 export class DButtonDate<

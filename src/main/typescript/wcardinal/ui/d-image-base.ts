@@ -17,16 +17,17 @@ import { DImagePiece, DImagePieceOptions, DThemeImagePiece } from "./d-image-pie
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { DTextBase, DTextBaseOnOptions, DTextBaseOptions, DThemeTextBase } from "./d-text-base";
 
-export interface DImageBaseOnOptions<VALUE> extends DTextBaseOnOptions<VALUE> {
+export interface DImageBaseOnOptions<VALUE, SELF> extends DTextBaseOnOptions<VALUE, SELF> {
 
 }
 
 export interface DImageBaseOptions<
-	VALUE,
-	THEME extends DThemeImageBase = DThemeImageBase
-> extends DTextBaseOptions<VALUE, THEME> {
+	VALUE = unknown,
+	THEME extends DThemeImageBase = DThemeImageBase,
+	SELF = any
+> extends DTextBaseOptions<VALUE, THEME, SELF> {
 	image?: DImagePieceOptions;
-	on?: DImageBaseOnOptions<VALUE>;
+	on?: DImageBaseOnOptions<VALUE, SELF>;
 }
 
 export interface DThemeImageBase extends DThemeTextBase, DThemeImagePiece {
@@ -56,6 +57,16 @@ const hasSecondaryImageSource = ( theme: DThemeImageBase ): theme is DThemeImage
 const hasTertiaryImageSource = ( theme: DThemeImageBase ): theme is DThemeImageBase & DThemeImageBaseTertiary => {
 	return !! theme.getTertiaryImageSource;
 };
+
+export interface DImageBase<VALUE> {
+	on<T extends DImageBaseOnOptions<VALUE, this>, E extends Extract<keyof T, string>>(
+		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	): this;
+
+	emit<T extends DImageBaseOnOptions<VALUE, this>, E extends Extract<keyof T, string>>(
+		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	): boolean;
+}
 
 export class DImageBase<
 	VALUE = unknown,

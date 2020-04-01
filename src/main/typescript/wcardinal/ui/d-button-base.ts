@@ -14,20 +14,20 @@ import { UtilPointerEvent } from "./util/util-pointer-event";
 /**
  * Mappings of event names and handlers.
  */
-export interface DButtonBaseOnOptions<VALUE> extends DImageBaseOnOptions<VALUE> {
+export interface DButtonBaseOnOptions<VALUE, SELF> extends DImageBaseOnOptions<VALUE, SELF> {
 	/**
 	 * Called when the button is activated.
 	 *
-	 * @param self an activated button
+	 * @param self this
 	 */
-	active?: ( self: any ) => void;
+	active?: ( self: SELF ) => void;
 
 	/**
 	 * Called when the button is inactivated.
 	 *
-	 * @param self an inactivated button
+	 * @param self this
 	 */
-	inactive?: ( self: any ) => void;
+	inactive?: ( self: SELF ) => void;
 }
 
 /**
@@ -35,8 +35,9 @@ export interface DButtonBaseOnOptions<VALUE> extends DImageBaseOnOptions<VALUE> 
  */
 export interface DButtonBaseOptions<
 	VALUE = unknown,
-	THEME extends DThemeButtonBase = DThemeButtonBase
-> extends DImageBaseOptions<VALUE, THEME> {
+	THEME extends DThemeButtonBase = DThemeButtonBase,
+	SELF = any
+> extends DImageBaseOptions<VALUE, THEME, SELF> {
 	/**
 	 * True to turn a toggle mode on.
 	 */
@@ -50,7 +51,7 @@ export interface DButtonBaseOptions<
 	/**
 	 * Mappings of event names and handlers.
 	 */
-	on?: DButtonBaseOnOptions<VALUE>;
+	on?: DButtonBaseOnOptions<VALUE, SELF>;
 }
 
 /**
@@ -72,6 +73,16 @@ const isToggle = <VALUE, THEME extends DThemeButtonBase>(
 	}
 	return theme.isToggle();
 };
+
+export interface DButtonBase<VALUE> {
+	on<T extends DButtonBaseOnOptions<VALUE, this>, E extends Extract<keyof T, string>>(
+		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	): this;
+
+	emit<T extends DButtonBaseOnOptions<VALUE, this>, E extends Extract<keyof T, string>>(
+		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	): boolean;
+}
 
 export class DButtonBase<
 	VALUE = unknown,

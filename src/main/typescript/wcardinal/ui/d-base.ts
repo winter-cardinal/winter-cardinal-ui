@@ -69,15 +69,15 @@ export interface DBaseCornerOptions {
 /**
  * Mappings of event names and event handlers.
  */
-export interface DBaseOnOptions {
-	[name: string]: Function | undefined;
+export interface DBaseOnOptions<SELF> {
+	[ name: string ]: ((...args: any) => any) | undefined;
 
 	/**
 	 * Triggered when an initialization is finished.
 	 *
-	 * @param self an initialized instance
+	 * @param self this
 	 */
-	init?: ( self: any ) => void;
+	init?: ( self: SELF ) => void;
 }
 
 /**
@@ -178,7 +178,10 @@ export interface DBaseOutlineOptions {
 /**
  * {@link DBase} options.
  */
-export interface DBaseOptions<THEME extends DThemeBase = DThemeBase> {
+export interface DBaseOptions<
+	THEME extends DThemeBase = DThemeBase,
+	SELF = any
+> {
 	/**
 	 * A parent.
 	 *
@@ -262,7 +265,7 @@ export interface DBaseOptions<THEME extends DThemeBase = DThemeBase> {
 	/**
 	 * Mappings of event names and event handlers.
 	 */
-	on?: DBaseOnOptions;
+	on?: DBaseOnOptions<SELF>;
 
 	/**
 	 * A weight used by {@link DLayoutVertical} and {@link DLayoutHorizontal}.
@@ -555,6 +558,16 @@ const enum AutoFlag {
 	NONE = 0,
 	WIDTH = 1,
 	HEIGHT = 2
+}
+
+export interface DBase<THEME> {
+	on<T extends DBaseOnOptions<this>, E extends Extract<keyof T, string>>(
+		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	): this;
+
+	emit<T extends DBaseOnOptions<this>, E extends Extract<keyof T, string>>(
+		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	): boolean;
 }
 
 export class DBase<

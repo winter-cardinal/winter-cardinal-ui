@@ -12,12 +12,12 @@ import { DChartSelectionShapeOptions } from "./d-chart-selection-shape";
 import { DChartSeries, DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesContainer } from "./d-chart-series-container";
 
-export interface DChartSelectionSubOptions {
+export interface DChartSelectionSubOptions<SELF = any> {
 	enable?: boolean;
 	gridline?: DChartSelectionGridlineContainerOptions;
 	marker?: DChartSelectionShapeOptions;
 	state?: DBaseState;
-	on?: DBaseOnOptions;
+	on?: DBaseOnOptions<SELF>;
 	point?: DChartSelectionPoint;
 }
 

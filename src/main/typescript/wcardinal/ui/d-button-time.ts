@@ -13,26 +13,37 @@ import { DPickerTimes } from "./d-picker-times";
 /**
  * Mappings of event names and handlers.
  */
-export interface DButtonTimeOnOptions extends DButtonOnOptions<Date> {
+export interface DButtonTimeOnOptions<SELF> extends DButtonOnOptions<Date, SELF> {
 	/**
 	 * Triggered when a selection is changed.
 	 *
-	 * @param self a button
+	 * @param self this
 	 */
-	change?: ( newValue: Date, oldValue: Date, self: any ) => void;
+	change?: ( newValue: Date, oldValue: Date, self: SELF ) => void;
 }
 
 export interface DButtonTimeOptions<
-	THEME extends DThemeButtonTime = DThemeButtonTime
-> extends DButtonOptions<Date, THEME> {
+	THEME extends DThemeButtonTime = DThemeButtonTime,
+	SELF = any
+> extends DButtonOptions<Date, THEME, SELF> {
 	dialog?: DDialogTimeOptions;
-	on?: DButtonTimeOnOptions;
+	on?: DButtonTimeOnOptions<SELF>;
 }
 
 export interface DThemeButtonTime extends DThemeButton {
 	getTextFormatter(): ( value: Date, caller: DButtonTime ) => string;
 	getTextValue( state: DBaseState ): Date;
 	newTextValue(): Date;
+}
+
+export interface DButtonTime {
+	on<T extends DButtonTimeOnOptions<this>, E extends Extract<keyof T, string>>(
+		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	): this;
+
+	emit<T extends DButtonTimeOnOptions<this>, E extends Extract<keyof T, string>>(
+		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	): boolean;
 }
 
 export class DButtonTime<

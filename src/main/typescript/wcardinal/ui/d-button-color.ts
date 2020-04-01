@@ -14,32 +14,43 @@ import { DPickerColorAndAlpha } from "./d-picker-color-and-alpha";
 /**
  * Mappings of event names and handlers.
  */
-export interface DButtonColorOnOptions extends DButtonOnOptions<DColorAndAlpha> {
+export interface DButtonColorOnOptions<SELF> extends DButtonOnOptions<DColorAndAlpha, SELF> {
 	/**
 	 * Triggered when a selection is changed.
 	 *
 	 * @param newValue a newly selected value
 	 * @param oldValue a previously selected value
-	 * @param self a button
+	 * @param self this
 	 */
-	change?: ( newValue: DColorAndAlpha, oldValue: DColorAndAlpha, self: any ) => void;
+	change?: ( newValue: DColorAndAlpha, oldValue: DColorAndAlpha, self: SELF ) => void;
 }
 
 export interface DButtonColorOptions<
-	THEME extends DThemeButtonColor = DThemeButtonColor
-> extends DButtonOptions<DColorAndAlpha, THEME> {
+	THEME extends DThemeButtonColor = DThemeButtonColor,
+	SELF = any
+> extends DButtonOptions<DColorAndAlpha, THEME, SELF> {
 	/**
 	 * A dialog to pick a color.
 	 */
 	dialog?: DDialogColorOptions;
 
-	on?: DButtonColorOnOptions;
+	on?: DButtonColorOnOptions<SELF>;
 }
 
 export interface DThemeButtonColor extends DThemeButton {
 	getTextFormatter(): ( value: DColorAndAlpha, caller: DButtonColor ) => string;
 	getTextValue( state: DBaseState ): DColorAndAlpha;
 	newTextValue(): DColorAndAlpha;
+}
+
+export interface DButtonColor {
+	on<T extends DButtonColorOnOptions<this>, E extends Extract<keyof T, string>>(
+		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	): this;
+
+	emit<T extends DButtonColorOnOptions<this>, E extends Extract<keyof T, string>>(
+		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	): boolean;
 }
 
 export class DButtonColor<

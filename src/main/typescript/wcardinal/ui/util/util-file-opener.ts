@@ -21,7 +21,7 @@ export interface UtilFileFacade {
  * An `open` event handler.
  *
  * @param result a file contents
- * @param self an event emitter
+ * @param self this
  */
 export type UtilFileOnOpen<RESULT, SELF> = ( result: RESULT, self: SELF ) => void;
 
@@ -38,14 +38,14 @@ export interface UtilFileOnOptions<SELF> {
 	 * Triggered when an operation is aborted.
 	 *
 	 * @param e an event object
-	 * @param en event emitter
+	 * @param self this
 	 */
 	abort?: ( e: ProgressEvent, self: SELF ) => void;
 
 	/**
 	 * Triggered when an operation is canceled.
 	 *
-	 * @param en event emitter
+	 * @param self this
 	 */
 	cancel?: ( self: SELF ) => void;
 }

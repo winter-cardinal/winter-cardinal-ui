@@ -14,11 +14,11 @@ import { DChartSeriesContainer } from "./d-chart-series-container";
 import { isString } from "./util/is-string";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
-export interface DChartSelectionSimpleOptions {
+export interface DChartSelectionSimpleOptions<SELF = any> {
 	selected?: DChartSelectionSubOptions;
 	hovered?: DChartSelectionSubOptions;
 	point?: DChartSelectionPoint | (keyof typeof DChartSelectionPoint);
-	on?: DBaseOnOptions;
+	on?: DBaseOnOptions<SELF>;
 }
 
 export class DChartSelectionSimple extends utils.EventEmitter implements DChartSelection {

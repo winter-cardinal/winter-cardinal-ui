@@ -14,29 +14,40 @@ import { DDiagramSerialized } from "./d-diagram-serialized";
 import { DDiagrams } from "./d-diagrams";
 import { EShape } from "./shape/e-shape";
 
-export interface DDiagramBaseOnOptions<CANVAS> extends DCanvasContainerOnOptions<CANVAS> {
+export interface DDiagramBaseOnOptions<CANVAS, SELF> extends DCanvasContainerOnOptions<CANVAS, SELF> {
 	/**
 	 * Triggered when all the shape initializations are finished.
 	 *
-	 * @param self a diagram
+	 * @param self this
 	 */
-	ready?: ( self: any ) => void;
+	ready?: ( self: SELF ) => void;
 }
 
 export interface DDiagramBaseOptions<
 	CANVAS extends DDiagramCanvasBase = DDiagramCanvasBase,
-	THEME extends DThemeDiagramBase = DThemeDiagramBase
+	THEME extends DThemeDiagramBase = DThemeDiagramBase,
+	SELF = any
 > extends DCanvasContainerOptions<CANVAS, THEME> {
 	/**
 	 * A tile pyramid factory.
 	 */
 	tile?: DDiagramCanvasTilePyramidFactory;
 
-	on?: DDiagramBaseOnOptions<CANVAS>;
+	on?: DDiagramBaseOnOptions<CANVAS, SELF>;
 }
 
 export interface DThemeDiagramBase extends DThemeCanvasContainer {
 
+}
+
+export interface DDiagramBase<CANVAS> {
+	on<T extends DDiagramBaseOnOptions<CANVAS, this>, E extends Extract<keyof T, string>>(
+		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	): this;
+
+	emit<T extends DDiagramBaseOnOptions<CANVAS, this>, E extends Extract<keyof T, string>>(
+		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	): boolean;
 }
 
 export abstract class DDiagramBase<

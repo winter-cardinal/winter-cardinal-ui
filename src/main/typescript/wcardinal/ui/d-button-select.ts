@@ -29,23 +29,34 @@ export type DButtonSelectSetter<VALUE, DIALOG> = ( dialog: DIALOG, value: VALUE 
 /**
  * Mappings of event names and handlers.
  */
-export interface DButtonSelectOnOptions<VALUE> extends DButtonOnOptions<VALUE> {
+export interface DButtonSelectOnOptions<VALUE, SELF> extends DButtonOnOptions<VALUE, SELF> {
 	/**
 	 * Triggered when a selection is changed.
 	 *
 	 * @param newValue a newly selected value
 	 * @param oldValue a previously selected value
-	 * @param self a button
+	 * @param self this
 	 */
-	change?: ( newValue: VALUE | null, oldValue: VALUE | null, self: any ) => void;
+	change?: ( newValue: VALUE | null, oldValue: VALUE | null, self: SELF ) => void;
+}
+
+export interface DButtonSelect<VALUE> {
+	on<T extends DButtonSelectOnOptions<VALUE, this>, E extends Extract<keyof T, string>>(
+		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	): this;
+
+	emit<T extends DButtonSelectOnOptions<VALUE, this>, E extends Extract<keyof T, string>>(
+		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	): boolean;
 }
 
 export interface DButtonSelectOptions<
 	VALUE extends unknown = unknown,
 	DIALOG_VALUE extends unknown = unknown,
 	DIALOG extends DButtonSelectDialog<DIALOG_VALUE> = DButtonSelectDialog<DIALOG_VALUE>,
-	THEME extends DThemeButtonSelect = DThemeButtonSelect
-> extends DButtonOptions<VALUE | null, THEME> {
+	THEME extends DThemeButtonSelect = DThemeButtonSelect,
+	SELF = any
+> extends DButtonOptions<VALUE | null, THEME, SELF> {
 	/**
 	 * A function to retrieve a selected value from a dialog.
 	 */
@@ -62,7 +73,7 @@ export interface DButtonSelectOptions<
 	 */
 	dialog?: DDialogSelectOptions<DIALOG_VALUE> | DIALOG;
 
-	on?: DButtonSelectOnOptions<VALUE>;
+	on?: DButtonSelectOnOptions<VALUE, SELF>;
 }
 
 export interface DThemeButtonSelect extends DThemeButton {

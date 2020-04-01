@@ -17,13 +17,20 @@ export enum DMenuSidedSelectionMode {
 	DEFAULT = SINGLE_ONCE
 }
 
-export interface DMenuSidedSelectionOnOptions {
-	[ name: string ]: Function;
+export interface DMenuSidedSelectionOnOptions<SELF> {
+	[ name: string ]: (( ...args: any) => any) | undefined;
+
+	/**
+	 * Triggered when a selection is changed.
+	 *
+	 * @param self this
+	 */
+	change?: ( self: SELF ) => void;
 }
 
-export interface DMenuSidedSelectionOptions {
+export interface DMenuSidedSelectionOptions<SELF = any> {
 	mode?: (keyof typeof DMenuSidedSelectionMode) | DMenuSidedSelectionMode;
-	on?: DMenuSidedSelectionOnOptions;
+	on?: DMenuSidedSelectionOnOptions<SELF>;
 	filter?: ( item: DBase | null ) => boolean;
 }
 
@@ -52,7 +59,10 @@ export class DMenuSidedSelection extends utils.EventEmitter implements DListItem
 		const on = options && options.on;
 		if( on ) {
 			for( const name in on ) {
-				this.on( name, on[ name ] );
+				const handler = on[ name ];
+				if( handler ) {
+					this.on( name, handler );
+				}
 			}
 		}
 	}

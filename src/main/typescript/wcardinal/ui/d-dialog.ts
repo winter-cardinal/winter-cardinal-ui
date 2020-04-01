@@ -18,34 +18,47 @@ import { UtilOverlay } from "./util/util-overlay";
 /**
  * Mappings of event names and handlers.
  */
-export interface DDialogOnOptions extends DBaseOnOptions {
+export interface DDialogOnOptions<SELF> extends DBaseOnOptions<SELF> {
 	/**
 	 * Triggered when a dialog is opened.
 	 *
-	 * @param self a dialog
+	 * @param self this
 	 */
-	open?: ( self: any ) => void;
+	open?: ( self: SELF ) => void;
 
 	/**
 	 * Triggered when a dialog is closed.
 	 *
-	 * @param self a dialog
+	 * @param self this
 	 */
-	close?: ( self: any ) => void;
+	close?: ( self: SELF ) => void;
 }
 
-export interface DDialogOptions<THEME extends DThemeDialog = DThemeDialog> extends DBaseOptions<THEME> {
+export interface DDialogOptions<
+	THEME extends DThemeDialog = DThemeDialog,
+	SELF = any
+> extends DBaseOptions<THEME> {
 	closeOn?: DDialogCloseOn;
 	animation?: DAnimation<DBase>;
 
 	/**
 	 * Mappings of event names and handlers.
 	 */
-	on?: DDialogOnOptions;
+	on?: DDialogOnOptions<SELF>;
 }
 
 export interface DThemeDialog extends DThemeBase {
 	closeOn(): DDialogCloseOn;
+}
+
+export interface DDialog {
+	on<T extends DDialogOnOptions<this>, E extends Extract<keyof T, string>>(
+		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	): this;
+
+	emit<T extends DDialogOnOptions<this>, E extends Extract<keyof T, string>>(
+		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	): boolean;
 }
 
 /**

@@ -44,16 +44,16 @@ export type DAnimationTiming<TARGET> = ( time: number, animation: DAnimation<TAR
 /**
  * Mappings of event names and handlers.
  */
-export interface DAnimationOnOptions<TARGET> {
-	[name: string]: Function | undefined;
+export interface DAnimationOnOptions<SELF> {
+	[name: string]: ((...args: any) => any) | undefined;
 
 	/**
 	 * Triggered when an animation starts.
 	 *
 	 * @param isReverse true if an animation is playing in reverse
-	 * @param animation an instance
+	 * @param self this
 	 */
-	start?: ( isReverse: boolean, animation: DAnimation<TARGET> ) => void;
+	start?: ( isReverse: boolean, self: SELF ) => void;
 
 	/**
 	 * Triggered constantly when an animation is on a run.
@@ -61,23 +61,23 @@ export interface DAnimationOnOptions<TARGET> {
 	 * @param time a timing value in a range [0, 1]
 	 * @param isReverse true if an animation is playing in reverse
 	 * @param elapsedTime an elapsed time since an animation has started
-	 * @param animation an instance
+	 * @param self this
 	 */
-	time?: ( time: number, isReverse: boolean, elapsedTime: number, animation: DAnimation<TARGET> ) => void;
+	time?: ( time: number, isReverse: boolean, elapsedTime: number, self: SELF ) => void;
 
 	/**
 	 * Triggered when an animation stops.
 	 *
 	 * @param isReverse true if an animation is playing in reverse
-	 * @param animation an instance
+	 * @param self this
 	 */
-	end?: ( isReverse: boolean, animation: DAnimation<TARGET> ) => void;
+	end?: ( isReverse: boolean, self: SELF ) => void;
 }
 
 /**
  * An animation options.
  */
-export interface DAnimationOptions<TARGET> {
+export interface DAnimationOptions<TARGET, SELF = DAnimation<TARGET>> {
 	/**
 	 * An animation target.
 	 */
@@ -108,7 +108,7 @@ export interface DAnimationOptions<TARGET> {
 	/**
 	 * Event handlers.
 	 */
-	on?: DAnimationOnOptions<TARGET>;
+	on?: DAnimationOnOptions<SELF>;
 }
 
 export interface DAnimation<TARGET = unknown> extends utils.EventEmitter {
@@ -148,4 +148,12 @@ export interface DAnimation<TARGET = unknown> extends utils.EventEmitter {
 	 * Moves an animation frame to the end.
 	 */
 	end(): void;
+
+	on<T extends DAnimationOnOptions<this>, E extends Extract<keyof T, string>>(
+		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	): this;
+
+	emit<T extends DAnimationOnOptions<this>, E extends Extract<keyof T, string>>(
+		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	): boolean;
 }

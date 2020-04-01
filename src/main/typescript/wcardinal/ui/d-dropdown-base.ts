@@ -10,7 +10,7 @@ import { DMenuItem } from "./d-menu-item";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { isString } from "./util/is-string";
 
-export interface DDropdownBaseOnOptions<VALUE, TEXT_VALUE> extends DButtonBaseOnOptions<VALUE> {
+export interface DDropdownBaseOnOptions<VALUE, TEXT_VALUE, SELF> extends DButtonBaseOnOptions<VALUE, SELF> {
 
 }
 
@@ -20,14 +20,15 @@ export interface DDropdownBaseOnOptions<VALUE, TEXT_VALUE> extends DButtonBaseOn
 export interface DDropdownBaseOptions<
 	VALUE = unknown,
 	TEXT_VALUE = string,
-	THEME extends DThemeDropdownBase<TEXT_VALUE> = DThemeDropdownBase<TEXT_VALUE>
-> extends DButtonBaseOptions<TEXT_VALUE, THEME> {
+	THEME extends DThemeDropdownBase<TEXT_VALUE> = DThemeDropdownBase<TEXT_VALUE>,
+	SELF = any
+> extends DButtonBaseOptions<TEXT_VALUE, THEME, SELF> {
 	/**
 	 * Menu options.
 	 */
 	menu?: DMenuOptions<VALUE> | DMenu<VALUE>;
 
-	on?: DDropdownBaseOnOptions<VALUE, TEXT_VALUE>;
+	on?: DDropdownBaseOnOptions<VALUE, TEXT_VALUE, SELF>;
 }
 
 /**

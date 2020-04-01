@@ -46,18 +46,19 @@ export interface DDialogSelectItemOptions<VALUE> {
 	text?: DDialogSelectItemTextOptions<VALUE>;
 }
 
-export interface DDialogSelectOnOptions<VALUE> extends DDialogCommandOnOptions {
-	select?: ( value: VALUE, self: any ) => void;
+export interface DDialogSelectOnOptions<VALUE, SELF> extends DDialogCommandOnOptions<SELF> {
+	select?: ( value: VALUE, self: SELF ) => void;
 }
 
 export interface DDialogSelectOptions<
 	VALUE,
-	THEME extends DThemeDialogSelect = DThemeDialogSelect
+	THEME extends DThemeDialogSelect = DThemeDialogSelect,
+	SELF = any
 > extends DDialogCommandOptions<THEME> {
 	controller?: DDialogSelectController<VALUE>;
 	item?: DDialogSelectItemOptions<VALUE>;
 	note?: DDialogSelectNoteOptions;
-	on?: DDialogSelectOnOptions<VALUE>;
+	on?: DDialogSelectOnOptions<VALUE, SELF>;
 }
 
 export interface DThemeDialogSelect extends DThemeDialogCommand {

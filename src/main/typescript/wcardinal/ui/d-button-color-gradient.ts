@@ -11,22 +11,23 @@ import { DDialogColorGradient, DDialogColorGradientOptions } from "./d-dialog-co
 import { DPickerColorGradientData } from "./d-picker-color-gradient-data";
 import { DPickerColorGradientDataView } from "./d-picker-color-gradient-data-view";
 
-export interface DButtonColorGradientOnOptions extends DButtonOnOptions<DPickerColorGradientData> {
+export interface DButtonColorGradientOnOptions<SELF> extends DButtonOnOptions<DPickerColorGradientData, SELF> {
 	/**
 	 * Triggered when a selection is changed.
 	 *
 	 * @param newValue a newly selected value
 	 * @param oldValue a previously selected value
-	 * @param self a button
+	 * @param self this
 	 */
-	change?: ( newValue: DPickerColorGradientData, oldValue: DPickerColorGradientData, self: any ) => void;
+	change?: ( newValue: DPickerColorGradientData, oldValue: DPickerColorGradientData, self: SELF ) => void;
 }
 
 export interface DButtonColorGradientOptions<
-	THEME extends DThemeButtonColorGradient = DThemeButtonColorGradient
-> extends DButtonOptions<DPickerColorGradientData, THEME> {
+	THEME extends DThemeButtonColorGradient = DThemeButtonColorGradient,
+	SELF = any
+> extends DButtonOptions<DPickerColorGradientData, THEME, SELF> {
 	dialog?: DDialogColorGradientOptions;
-	on?: DButtonColorGradientOnOptions;
+	on?: DButtonColorGradientOnOptions<SELF>;
 }
 
 export interface DThemeButtonColorGradient extends DThemeButton {
@@ -35,6 +36,16 @@ export interface DThemeButtonColorGradient extends DThemeButton {
 	getTextValue( state: DBaseState ): DPickerColorGradientData;
 	newTextValue(): DPickerColorGradientData;
 	getCheckerColors(): [ number, number ];
+}
+
+export interface DButtonColorGradient {
+	on<T extends DButtonColorGradientOnOptions<this>, E extends Extract<keyof T, string>>(
+		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	): this;
+
+	emit<T extends DButtonColorGradientOnOptions<this>, E extends Extract<keyof T, string>>(
+		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	): boolean;
 }
 
 export class DButtonColorGradient<
