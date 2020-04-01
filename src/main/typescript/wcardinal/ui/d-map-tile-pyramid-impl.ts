@@ -57,7 +57,7 @@ export class DMapTilePyramidImpl extends utils.EventEmitter implements DMapTileP
 		};
 		canvas.on( "scale", fitThrottledBound );
 		canvas.on( "move", fitThrottledBound );
-		canvas.appendRenderable( this, true );
+		canvas.addRenderable( this, true );
 	}
 
 	get coordinate(): DMapCoordinate {

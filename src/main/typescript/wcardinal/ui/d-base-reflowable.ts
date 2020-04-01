@@ -28,7 +28,7 @@ export class DBaseReflowable implements DReflowable {
 			theme.getBackgroundTexture( cornerRadius ),
 			cornerHeight, cornerMask
 		);
-		base.appendRenderable( backgroundPlane, true );
+		base.addRenderable( backgroundPlane, true );
 
 		const state = base.state;
 
@@ -41,7 +41,7 @@ export class DBaseReflowable implements DReflowable {
 			borderMask,
 			cornerMask
 		);
-		base.appendRenderable( borderPlane, false );
+		base.addRenderable( borderPlane, false );
 
 		const outline = base.outline;
 		const outlineWidth = outline.getWidth( state );
@@ -52,7 +52,7 @@ export class DBaseReflowable implements DReflowable {
 			outlineMask,
 			cornerMask
 		);
-		base.appendRenderable( outlinePlane, false );
+		base.addRenderable( outlinePlane, false );
 
 		this._lastBackgroundCornerRadius = cornerRadius;
 		this._lastBorderCornerRadius = cornerRadius;

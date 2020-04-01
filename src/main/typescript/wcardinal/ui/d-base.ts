@@ -831,16 +831,20 @@ export class DBase<
 		this.emit( "init", this );
 	}
 
-	prependRenderable( renderable: DRenderable, phase: boolean ): void {
-		(renderable as any).parent = this;
-		const list = ( phase ? this._befores : this._afters );
-		list.unshift( renderable );
-	}
-
-	appendRenderable( renderable: DRenderable, phase: boolean ): void {
+	addRenderable( renderable: DRenderable, phase: boolean ): void {
 		(renderable as any).parent = this;
 		const list = ( phase ? this._befores : this._afters );
 		list.push( renderable );
+	}
+
+	addRenderableAt( renderable: DRenderable, phase: boolean, index: number ): void {
+		(renderable as any).parent = this;
+		const list = ( phase ? this._befores : this._afters );
+		if( 0 <= index && index < list.length ) {
+			list.splice( index, 0, renderable );
+		} else {
+			list.push( renderable );
+		}
 	}
 
 	removeRenderable( renderable: DRenderable, phase: boolean ): void {
@@ -1662,7 +1666,7 @@ export class DBase<
 			if( shadow != null ) {
 				shadow.on( "update", this._onShadowUpdateBound );
 				this.addReflowable( shadow );
-				this.prependRenderable( shadow, true );
+				this.addRenderableAt( shadow, true, 0 );
 			}
 
 			DApplications.update( this );

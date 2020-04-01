@@ -10,7 +10,7 @@ import { DScrollBarThumb } from "./d-scroll-bar-thumb";
 export class DScrollBarThumbReflowableHorizontal extends Graphics implements DReflowable {
 	constructor( base: DScrollBarThumb ) {
 		super();
-		base.appendRenderable( this, true );
+		base.addRenderable( this, true );
 		base.addReflowable( this );
 	}
 

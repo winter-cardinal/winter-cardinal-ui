@@ -9,7 +9,7 @@ import { DBase, DReflowable } from "./d-base";
 export class DListItemSeparatorReflowable extends Graphics implements DReflowable {
 	constructor( base: DBase ) {
 		super();
-		base.appendRenderable( this, true );
+		base.addRenderable( this, true );
 		base.addReflowable( this );
 	}
 

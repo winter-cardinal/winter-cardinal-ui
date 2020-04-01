@@ -66,7 +66,7 @@ export class DMenuItemText<
 				new DDynamicText( shortcutTextValue, this._textStyle ) :
 				new Text( shortcutTextValue, this._textStyle )
 			);
-			this.appendRenderable( this._shortcutText, true );
+			this.addRenderable( this._shortcutText, true );
 		} else {
 			this._shortcutText = null;
 		}
