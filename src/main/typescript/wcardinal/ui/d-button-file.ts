@@ -3,16 +3,24 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DButton, DButtonOnOptions, DButtonOptions, DThemeButton } from "./d-button";
+import { DButton, DButtonOn, DButtonOptions, DThemeButton } from "./d-button";
 import { isString } from "./util/is-string";
-import { UtilFileAs, UtilFileOnOptions, UtilFileOpener } from "./util/util-file-opener";
+import { UtilFileAs, UtilFileOn, UtilFileOpener } from "./util/util-file-opener";
 
 export import DButtonFileAs = UtilFileAs;
 
 /**
+ * Event handlers.
+ */
+export interface DButtonFileOn<VALUE, SELF> extends DButtonOn<VALUE, SELF>, UtilFileOn<SELF> {
+
+}
+
+/**
  * Mappings of event names and handlers.
  */
-export interface DButtonFileOnOptions<VALUE, SELF> extends DButtonOnOptions<VALUE, SELF>, UtilFileOnOptions<SELF> {
+export interface DButtonFileOnOptions<VALUE, SELF>
+	extends Partial<DButtonFileOn<VALUE, SELF> & Record<string, Function>> {
 
 }
 

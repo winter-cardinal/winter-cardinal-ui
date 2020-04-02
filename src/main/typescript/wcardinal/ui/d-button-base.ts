@@ -7,27 +7,35 @@ import { interaction } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBaseStates } from "./d-base-states";
 import { DButtonGroup } from "./d-button-group";
-import { DImageBase, DImageBaseOnOptions, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
+import { DImageBase, DImageBaseOn, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
 /**
- * Mappings of event names and handlers.
+ * Event handlers.
  */
-export interface DButtonBaseOnOptions<VALUE, SELF> extends DImageBaseOnOptions<VALUE, SELF> {
+export interface DButtonBaseOn<VALUE, SELF> extends DImageBaseOn<VALUE, SELF> {
 	/**
 	 * Called when the button is activated.
 	 *
 	 * @param self this
 	 */
-	active?: ( self: SELF ) => void;
+	active( self: SELF ): void;
 
 	/**
 	 * Called when the button is inactivated.
 	 *
 	 * @param self this
 	 */
-	inactive?: ( self: SELF ) => void;
+	inactive( self: SELF ): void;
+}
+
+/**
+ * Mappings of event names and handlers.
+ */
+export interface DButtonBaseOnOptions<VALUE, SELF>
+	extends Partial<DButtonBaseOn<VALUE, SELF> & Record<string, Function>> {
+
 }
 
 /**
@@ -75,13 +83,15 @@ const isToggle = <VALUE, THEME extends DThemeButtonBase>(
 };
 
 export interface DButtonBase<VALUE> {
-	on<T extends DButtonBaseOnOptions<VALUE, this>, E extends Extract<keyof T, string>>(
-		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	on<E extends keyof DButtonBaseOn<VALUE, this>>(
+		event: E, handler: DButtonBaseOn<VALUE, this>[ E ], context?: any
 	): this;
+	on( event: string, handler: Function, context?: any ): this;
 
-	emit<T extends DButtonBaseOnOptions<VALUE, this>, E extends Extract<keyof T, string>>(
-		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	emit<E extends keyof DButtonBaseOn<VALUE, this>>(
+		event: E, ...args: Parameters<DButtonBaseOn<VALUE, this>[ E ]>
 	): boolean;
+	emit( event: string, ...args: any ): boolean;
 }
 
 export class DButtonBase<

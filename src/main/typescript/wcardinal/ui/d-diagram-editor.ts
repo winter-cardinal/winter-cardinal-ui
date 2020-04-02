@@ -5,7 +5,7 @@
 
 import { DControllerDocument } from "./d-controller-document";
 import { DControllers } from "./d-controllers";
-import { DDiagramBase, DDiagramBaseOnOptions, DDiagramBaseOptions, DThemeDiagramBase } from "./d-diagram-base";
+import { DDiagramBase, DDiagramBaseOn, DDiagramBaseOptions, DThemeDiagramBase } from "./d-diagram-base";
 import { DDiagramCanvasEditor, DDiagramCanvasEditorOptions } from "./d-diagram-canvas-editor";
 import { DDiagramSerialized, DDiagramSerializedSimple, DDiagramSerializedVersion } from "./d-diagram-serialized";
 import { DDiagrams } from "./d-diagrams";
@@ -17,14 +17,17 @@ export interface DDiagramEditorController {
 	delete( id: number ): Promise<void>;
 }
 
-export interface DDiagramEditorOnOptions<SELF> extends DDiagramBaseOnOptions<DDiagramCanvasEditor, SELF> {
+/**
+ * Event handlers.
+ */
+export interface DDiagramEditorOn<SELF> extends DDiagramBaseOn<DDiagramCanvasEditor, SELF> {
 	/**
 	 * Triggered when a serialized data is changed without using the set / unset methods.
 	 * This happens, for instance, when the name or the ID of the serialized data is changed.
 	 *
 	 * @param self this
 	 */
-	change?: ( self: SELF ) => void;
+	change( self: SELF ): void;
 
 	/**
 	 * Triggered when an operation is successfully finished.
@@ -32,7 +35,7 @@ export interface DDiagramEditorOnOptions<SELF> extends DDiagramBaseOnOptions<DDi
 	 * @param operation an operation ID
 	 * @param self this
 	 */
-	success?: ( operation: "save" | "save-as" | "open" | "delete", self: SELF ) => void;
+	success( operation: "save" | "save-as" | "open" | "delete", self: SELF ): void;
 
 	/**
 	 * Triggered when an operation is failed.
@@ -40,7 +43,14 @@ export interface DDiagramEditorOnOptions<SELF> extends DDiagramBaseOnOptions<DDi
 	 * @param operation an operation ID
 	 * @param self this
 	 */
-	fail?: ( operation: "save" | "save-as" | "open" | "delete", self: SELF ) => void;
+	fail( operation: "save" | "save-as" | "open" | "delete", self: SELF ): void;
+}
+
+/**
+ * Mappings of event names and handlers.
+ */
+export interface DDiagramEditorOnOptions<SELF> extends Partial<DDiagramEditorOn<SELF> & Record<string, Function>> {
+
 }
 
 export interface DDiagramEditorOptions<
@@ -56,13 +66,15 @@ export interface DThemeDiagramEditor extends DThemeDiagramBase {
 }
 
 export interface DDiagramEditor {
-	on<T extends DDiagramEditorOnOptions<this>, E extends Extract<keyof T, string>>(
-		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	on<E extends keyof DDiagramEditorOn<this>>(
+		event: E, handler: DDiagramEditorOn<this>[ E ], context?: any
 	): this;
+	on( event: string, handler: Function, context?: any ): this;
 
-	emit<T extends DDiagramEditorOnOptions<this>, E extends Extract<keyof T, string>>(
-		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	emit<E extends keyof DDiagramEditorOn<this>>(
+		event: E, ...args: Parameters<DDiagramEditorOn<this>[ E ]>
 	): boolean;
+	emit( event: string, ...args: any ): boolean;
 }
 
 export class DDiagramEditor<

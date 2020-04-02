@@ -26,13 +26,13 @@ export interface UtilFileFacade {
 export type UtilFileOnOpen<RESULT, SELF> = ( result: RESULT, self: SELF ) => void;
 
 /**
- * Mappings of event names and halders.
+ * Event halders.
  */
-export interface UtilFileOnOptions<SELF> {
+export interface UtilFileOn<SELF> {
 	/**
 	 * Triggered when a file is opened.
 	 */
-	open?: UtilFileOnOpen<string, SELF> | UtilFileOnOpen<ArrayBuffer, SELF>;
+	open: UtilFileOnOpen<string, SELF> | UtilFileOnOpen<ArrayBuffer, SELF>;
 
 	/**
 	 * Triggered when an operation is aborted.
@@ -40,14 +40,14 @@ export interface UtilFileOnOptions<SELF> {
 	 * @param e an event object
 	 * @param self this
 	 */
-	abort?: ( e: ProgressEvent, self: SELF ) => void;
+	abort( e: ProgressEvent, self: SELF ): void;
 
 	/**
 	 * Triggered when an operation is canceled.
 	 *
 	 * @param self this
 	 */
-	cancel?: ( self: SELF ) => void;
+	cancel( self: SELF ): void;
 }
 
 export class UtilFileOpener {

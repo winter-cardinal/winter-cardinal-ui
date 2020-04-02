@@ -5,19 +5,21 @@
 
 import { utils } from "pixi.js";
 import {
-	DAnimation, DAnimationOnEnd, DAnimationOnOptions, DAnimationOnTime,
+	DAnimation, DAnimationOn, DAnimationOnEnd, DAnimationOnTime,
 	DAnimationOptions, DAnimationTiming
 } from "./d-animation";
 import { DAnimationTimings } from "./d-animation-timings";
 
 export interface DAnimationBase {
-	on<T extends DAnimationOnOptions<this>, E extends Extract<keyof T, string>>(
-		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	on<E extends keyof DAnimationOn<this>>(
+		event: E, handler: DAnimationOn<this>[ E ], context?: any
 	): this;
+	on( event: string, handler: Function, context?: any ): this;
 
-	emit<T extends DAnimationOnOptions<this>, E extends Extract<keyof T, string>>(
-		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	emit<E extends keyof DAnimationOn<this>>(
+		event: E, ...args: Parameters<DAnimationOn<this>[ E ]>
 	): boolean;
+	emit( event: string, ...args: any ): boolean;
 }
 
 export class DAnimationBase<TARGET = unknown> extends utils.EventEmitter implements DAnimation<TARGET> {

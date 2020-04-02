@@ -5,21 +5,24 @@
 
 import { interaction, Point } from "pixi.js";
 import { DApplications } from "./d-applications";
-import { DBase, DBaseOnOptions, DBaseOptions, DThemeBase } from "./d-base";
+import { DBase, DBaseOn, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseOverflowMask } from "./d-base-overflow-mask";
 import { DCanvas } from "./d-canvas";
 import { DView, DViewOptions } from "./d-view";
 import { DViewImpl } from "./d-view-impl";
 import { UtilWheelEventDeltas } from "./util/util-wheel-event";
 
-export interface DCanvasContainerOnOptions<CANVAS, SELF> extends DBaseOnOptions<SELF> {
+/**
+ * Event handlers.
+ */
+export interface DCanvasContainerOn<CANVAS, SELF> extends DBaseOn<SELF> {
 	/**
 	 * Triggered when a canvas is removed.
 	 *
 	 * @param canvas a removed canvas
 	 * @param self this
 	 */
-	unset?: ( canvas: CANVAS, self: SELF ) => void;
+	unset( canvas: CANVAS, self: SELF ): void;
 
 	/**
 	 * Triggered when a canvas is set.
@@ -27,7 +30,15 @@ export interface DCanvasContainerOnOptions<CANVAS, SELF> extends DBaseOnOptions<
 	 * @param canvas a new canvas
 	 * @param self this
 	 */
-	set?: ( canvas: CANVAS, self: SELF ) => void;
+	set( canvas: CANVAS, self: SELF ): void;
+}
+
+/**
+ * Mappings of event names and handlers.
+ */
+export interface DCanvasContainerOnOptions<CANVAS, SELF>
+	extends Partial<DCanvasContainerOn<CANVAS, SELF> & Record<string, Function>> {
+
 }
 
 export interface DCanvasContainerOptions<
@@ -56,13 +67,15 @@ const isOverflowMaskEnabled = <
 };
 
 export interface DCanvasContainer<CANVAS> {
-	on<T extends DCanvasContainerOnOptions<CANVAS, this>, E extends Extract<keyof T, string>>(
-		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	on<E extends keyof DCanvasContainerOn<CANVAS, this>>(
+		event: E, handler: DCanvasContainerOn<CANVAS, this>[ E ], context?: any
 	): this;
+	on( event: string, handler: Function, context?: any ): this;
 
-	emit<T extends DCanvasContainerOnOptions<CANVAS, this>, E extends Extract<keyof T, string>>(
-		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	emit<E extends keyof DCanvasContainerOn<CANVAS, this>>(
+		event: E, ...args: Parameters<DCanvasContainerOn<CANVAS, this>[ E ]>
 	): boolean;
+	emit( event: string, ...args: any ): boolean;
 }
 
 export class DCanvasContainer<

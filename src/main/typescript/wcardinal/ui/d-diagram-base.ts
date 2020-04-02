@@ -5,7 +5,7 @@
 
 import { DApplications } from "./d-applications";
 import {
-	DCanvasContainer, DCanvasContainerOnOptions, DCanvasContainerOptions, DThemeCanvasContainer
+	DCanvasContainer, DCanvasContainerOn, DCanvasContainerOptions, DThemeCanvasContainer
 } from "./d-canvas-container";
 import { DDiagramCanvasBase } from "./d-diagram-canvas-base";
 import { DDiagramCanvasTilePyramidFactory } from "./d-diagram-canvas-tile";
@@ -14,13 +14,24 @@ import { DDiagramSerialized } from "./d-diagram-serialized";
 import { DDiagrams } from "./d-diagrams";
 import { EShape } from "./shape/e-shape";
 
-export interface DDiagramBaseOnOptions<CANVAS, SELF> extends DCanvasContainerOnOptions<CANVAS, SELF> {
+/**
+ * Event handlers.
+ */
+export interface DDiagramBaseOn<CANVAS, SELF> extends DCanvasContainerOn<CANVAS, SELF> {
 	/**
 	 * Triggered when all the shape initializations are finished.
 	 *
 	 * @param self this
 	 */
-	ready?: ( self: SELF ) => void;
+	ready( self: SELF ): void;
+}
+
+/**
+ * Mappings of event names and handlers.
+ */
+export interface DDiagramBaseOnOptions<CANVAS, SELF>
+	extends Partial<DDiagramBaseOn<CANVAS, SELF> & Record<string, Function>> {
+
 }
 
 export interface DDiagramBaseOptions<
@@ -41,13 +52,15 @@ export interface DThemeDiagramBase extends DThemeCanvasContainer {
 }
 
 export interface DDiagramBase<CANVAS> {
-	on<T extends DDiagramBaseOnOptions<CANVAS, this>, E extends Extract<keyof T, string>>(
-		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	on<E extends keyof DDiagramBaseOn<CANVAS, this>>(
+		event: E, handler: DDiagramBaseOn<CANVAS, this>[ E ], context?: any
 	): this;
+	on( event: string, handler: Function, context?: any ): this;
 
-	emit<T extends DDiagramBaseOnOptions<CANVAS, this>, E extends Extract<keyof T, string>>(
-		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	emit<E extends keyof DDiagramBaseOn<CANVAS, this>>(
+		event: E, ...args: Parameters<DDiagramBaseOn<CANVAS, this>[ E ]>
 	): boolean;
+	emit( event: string, ...args: any ): boolean;
 }
 
 export abstract class DDiagramBase<

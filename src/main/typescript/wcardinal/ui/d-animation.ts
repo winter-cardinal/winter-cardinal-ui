@@ -42,18 +42,16 @@ export type DAnimationOnEnd<TARGET> = ( isReverse: boolean, animation: DAnimatio
 export type DAnimationTiming<TARGET> = ( time: number, animation: DAnimation<TARGET> ) => number;
 
 /**
- * Mappings of event names and handlers.
+ * Event handlers.
  */
-export interface DAnimationOnOptions<SELF> {
-	[name: string]: ((...args: any) => any) | undefined;
-
+export interface DAnimationOn<SELF> {
 	/**
 	 * Triggered when an animation starts.
 	 *
 	 * @param isReverse true if an animation is playing in reverse
 	 * @param self this
 	 */
-	start?: ( isReverse: boolean, self: SELF ) => void;
+	start( isReverse: boolean, self: SELF ): void;
 
 	/**
 	 * Triggered constantly when an animation is on a run.
@@ -63,7 +61,7 @@ export interface DAnimationOnOptions<SELF> {
 	 * @param elapsedTime an elapsed time since an animation has started
 	 * @param self this
 	 */
-	time?: ( time: number, isReverse: boolean, elapsedTime: number, self: SELF ) => void;
+	time( time: number, isReverse: boolean, elapsedTime: number, self: SELF ): void;
 
 	/**
 	 * Triggered when an animation stops.
@@ -71,7 +69,14 @@ export interface DAnimationOnOptions<SELF> {
 	 * @param isReverse true if an animation is playing in reverse
 	 * @param self this
 	 */
-	end?: ( isReverse: boolean, self: SELF ) => void;
+	end( isReverse: boolean, self: SELF ): void;
+}
+
+/**
+ * Mappings of event names and handlers.
+ */
+export interface DAnimationOnOptions<SELF> extends Partial<DAnimationOn<SELF> & Record<string, Function>> {
+
 }
 
 /**
@@ -149,11 +154,13 @@ export interface DAnimation<TARGET = unknown> extends utils.EventEmitter {
 	 */
 	end(): void;
 
-	on<T extends DAnimationOnOptions<this>, E extends Extract<keyof T, string>>(
-		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	on<E extends keyof DAnimationOn<this>>(
+		event: E, handler: DAnimationOn<this>[ E ], context?: any
 	): this;
+	on( event: string, handler: Function, context?: any ): this;
 
-	emit<T extends DAnimationOnOptions<this>, E extends Extract<keyof T, string>>(
-		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	emit<E extends keyof DAnimationOn<this>>(
+		event: E, ...args: Parameters<DAnimationOn<this>[ E ]>
 	): boolean;
+	emit( event: string, ...args: any ): boolean;
 }

@@ -4,7 +4,7 @@
  */
 
 import { DBaseState } from "./d-base-state";
-import { DButton, DButtonOnOptions, DButtonOptions, DThemeButton } from "./d-button";
+import { DButton, DButtonOn, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogSelect, DDialogSelectOptions } from "./d-dialog-select";
 
 /**
@@ -27,9 +27,9 @@ export type DButtonSelectGetter<VALUE, DIALOG> = ( dialog: DIALOG ) => VALUE | n
 export type DButtonSelectSetter<VALUE, DIALOG> = ( dialog: DIALOG, value: VALUE | null ) => void;
 
 /**
- * Mappings of event names and handlers.
+ * Event handlers.
  */
-export interface DButtonSelectOnOptions<VALUE, SELF> extends DButtonOnOptions<VALUE, SELF> {
+export interface DButtonSelectOn<VALUE, SELF> extends DButtonOn<VALUE, SELF> {
 	/**
 	 * Triggered when a selection is changed.
 	 *
@@ -37,17 +37,27 @@ export interface DButtonSelectOnOptions<VALUE, SELF> extends DButtonOnOptions<VA
 	 * @param oldValue a previously selected value
 	 * @param self this
 	 */
-	change?: ( newValue: VALUE | null, oldValue: VALUE | null, self: SELF ) => void;
+	change( newValue: VALUE | null, oldValue: VALUE | null, self: SELF ): void;
+}
+
+/**
+ * Mappings of event names and handlers.
+ */
+export interface DButtonSelectOnOptions<VALUE, SELF>
+	extends Partial<DButtonSelectOn<VALUE, SELF> & Record<string, Function>> {
+
 }
 
 export interface DButtonSelect<VALUE> {
-	on<T extends DButtonSelectOnOptions<VALUE, this>, E extends Extract<keyof T, string>>(
-		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	on<E extends keyof DButtonSelectOn<VALUE, this>>(
+		event: E, handler: DButtonSelectOn<VALUE, this>[ E ], context?: any
 	): this;
+	on( event: string, handler: Function, context?: any ): this;
 
-	emit<T extends DButtonSelectOnOptions<VALUE, this>, E extends Extract<keyof T, string>>(
-		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	emit<E extends keyof DButtonSelectOn<VALUE, this>>(
+		event: E, ...args: Parameters<DButtonSelectOn<VALUE, this>[ E ]>
 	): boolean;
+	emit( event: string, ...args: any ): boolean;
 }
 
 export interface DButtonSelectOptions<

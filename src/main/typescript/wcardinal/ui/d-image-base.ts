@@ -15,9 +15,20 @@ import { DImageBaseThemeWrapperSecondary, DThemeImageBaseSecondary } from "./d-i
 import { DImageBaseThemeWrapperTertiary, DThemeImageBaseTertiary } from "./d-image-base-theme-wrapper-tertiary";
 import { DImagePiece, DImagePieceOptions, DThemeImagePiece } from "./d-image-piece";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
-import { DTextBase, DTextBaseOnOptions, DTextBaseOptions, DThemeTextBase } from "./d-text-base";
+import { DTextBase, DTextBaseOn, DTextBaseOptions, DThemeTextBase } from "./d-text-base";
 
-export interface DImageBaseOnOptions<VALUE, SELF> extends DTextBaseOnOptions<VALUE, SELF> {
+/**
+ * Event handlers.
+ */
+export interface DImageBaseOn<VALUE, SELF> extends DTextBaseOn<VALUE, SELF> {
+
+}
+
+/**
+ * Mappings of event names and handlers.
+ */
+export interface DImageBaseOnOptions<VALUE, SELF>
+	extends Partial<DImageBaseOn<VALUE, SELF> & Record<string, Function>> {
 
 }
 
@@ -59,13 +70,15 @@ const hasTertiaryImageSource = ( theme: DThemeImageBase ): theme is DThemeImageB
 };
 
 export interface DImageBase<VALUE> {
-	on<T extends DImageBaseOnOptions<VALUE, this>, E extends Extract<keyof T, string>>(
-		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	on<E extends keyof DImageBaseOn<VALUE, this>>(
+		event: E, handler: DImageBaseOn<VALUE, this>[ E ], context?: any
 	): this;
+	on( event: string, handler: Function, context?: any ): this;
 
-	emit<T extends DImageBaseOnOptions<VALUE, this>, E extends Extract<keyof T, string>>(
-		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	emit<E extends keyof DImageBaseOn<VALUE, this>>(
+		event: E, ...args: Parameters<DImageBaseOn<VALUE, this>[ E ]>
 	): boolean;
+	emit( event: string, ...args: any ): boolean;
 }
 
 export class DImageBase<

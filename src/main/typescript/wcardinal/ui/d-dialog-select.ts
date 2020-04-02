@@ -5,7 +5,7 @@
 
 import { DBase } from "./d-base";
 import {
-	DDialogCommand, DDialogCommandOnOptions, DDialogCommandOptions, DThemeDialogCommand
+	DDialogCommand, DDialogCommandOn, DDialogCommandOptions, DThemeDialogCommand
 } from "./d-dialog-command";
 import { DDialogSelectList } from "./d-dialog-select-list";
 import { DDialogSelectListItem } from "./d-dialog-select-list-item";
@@ -46,8 +46,19 @@ export interface DDialogSelectItemOptions<VALUE> {
 	text?: DDialogSelectItemTextOptions<VALUE>;
 }
 
-export interface DDialogSelectOnOptions<VALUE, SELF> extends DDialogCommandOnOptions<SELF> {
-	select?: ( value: VALUE, self: SELF ) => void;
+/**
+ * Event handlers.
+ */
+export interface DDialogSelectOn<VALUE, SELF> extends DDialogCommandOn<SELF> {
+	select( value: VALUE, self: SELF ): void;
+}
+
+/**
+ * Mappings of event names and handlers.
+ */
+export interface DDialogSelectOnOptions<VALUE, SELF>
+	extends Partial<DDialogSelectOn<VALUE, SELF> & Record<string, Function>> {
+
 }
 
 export interface DDialogSelectOptions<

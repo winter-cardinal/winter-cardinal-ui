@@ -7,7 +7,7 @@ import { Graphics, Text } from "pixi.js";
 import { DAlignHorizontal } from "./d-align-horizontal";
 import { DAlignVertical } from "./d-align-vertical";
 import { DApplications } from "./d-applications";
-import { DBase, DBaseOnOptions, DBaseOptions, DRefitable, DThemeBase } from "./d-base";
+import { DBase, DBaseOn, DBaseOptions, DRefitable, DThemeBase } from "./d-base";
 import { DBaseOverflowMaskSimple } from "./d-base-overflow-mask-simple";
 import { DBaseState } from "./d-base-state";
 import { DDynamicText } from "./d-dynamic-text";
@@ -31,7 +31,17 @@ export interface DTextBaseTextOptions<VALUE = unknown> {
 	dynamic?: boolean;
 }
 
-export interface DTextBaseOnOptions<VALUE, SELF> extends DBaseOnOptions<SELF> {
+/**
+ * Event handlers.
+ */
+export interface DTextBaseOn<VALUE, SELF> extends DBaseOn<SELF> {
+
+}
+
+/**
+ * Mappings of event names and handlers.
+ */
+export interface DTextBaseOnOptions<VALUE, SELF> extends Partial<DTextBaseOn<VALUE, SELF> & Record<string, Function>> {
 
 }
 
@@ -154,13 +164,15 @@ const toTextDynamic = <VALUE, THEME extends DThemeTextBase>(
 };
 
 export interface DTextBase<VALUE> {
-	on<T extends DTextBaseOnOptions<VALUE, this>, E extends Extract<keyof T, string>>(
-		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	on<E extends keyof DTextBaseOn<VALUE, this>>(
+		event: E, handler: DTextBaseOn<VALUE, this>[ E ], context?: any
 	): this;
+	on( event: string, handler: Function, context?: any ): this;
 
-	emit<T extends DTextBaseOnOptions<VALUE, this>, E extends Extract<keyof T, string>>(
-		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	emit<E extends keyof DTextBaseOn<VALUE, this>>(
+		event: E, ...args: Parameters<DTextBaseOn<VALUE, this>[ E ]>
 	): boolean;
+	emit( event: string, ...args: any ): boolean;
 }
 
 export class DTextBase<

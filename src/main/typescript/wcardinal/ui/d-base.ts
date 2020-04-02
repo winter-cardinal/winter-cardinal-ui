@@ -67,17 +67,22 @@ export interface DBaseCornerOptions {
 }
 
 /**
- * Mappings of event names and event handlers.
+ * Event handlers.
  */
-export interface DBaseOnOptions<SELF> {
-	[ name: string ]: ((...args: any) => any) | undefined;
-
+export interface DBaseOn<SELF> {
 	/**
 	 * Triggered when an initialization is finished.
 	 *
 	 * @param self this
 	 */
-	init?: ( self: SELF ) => void;
+	init( self: SELF ): void;
+}
+
+/**
+ * Mappings of event names and event handlers.
+ */
+export interface DBaseOnOptions<SELF> extends Partial<DBaseOn<SELF> & Record<string, Function>> {
+
 }
 
 /**
@@ -561,13 +566,15 @@ const enum AutoFlag {
 }
 
 export interface DBase<THEME> {
-	on<T extends DBaseOnOptions<this>, E extends Extract<keyof T, string>>(
-		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	on<E extends keyof DBaseOn<this>>(
+		event: E, handler: DBaseOn<this>[ E ], context?: any
 	): this;
+	on( event: string, handler: Function, context?: any ): this;
 
-	emit<T extends DBaseOnOptions<this>, E extends Extract<keyof T, string>>(
-		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	emit<E extends keyof DBaseOn<this>>(
+		event: E, ...args: Parameters<DBaseOn<this>[ E ]>
 	): boolean;
+	emit( event: string, ...args: any ): boolean;
 }
 
 export class DBase<

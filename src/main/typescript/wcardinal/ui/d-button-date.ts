@@ -4,11 +4,14 @@
  */
 
 import { DBaseState } from "./d-base-state";
-import { DButton, DButtonOnOptions, DButtonOptions, DThemeButton } from "./d-button";
+import { DButton, DButtonOn, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogDate, DDialogDateOptions } from "./d-dialog-date";
 import { DDialogDates } from "./d-dialog-dates";
 
-export interface DButtonDateOnOptions<SELF> extends DButtonOnOptions<Date, SELF> {
+/**
+ * Event handlers.
+ */
+export interface DButtonDateOn<SELF> extends DButtonOn<Date, SELF> {
 	/**
 	 * Triggered when a selection is changed.
 	 *
@@ -16,7 +19,14 @@ export interface DButtonDateOnOptions<SELF> extends DButtonOnOptions<Date, SELF>
 	 * @param oldValue a previously selected value
 	 * @param self this
 	 */
-	change?: ( newValue: Date, oldValue: Date, self: SELF ) => void;
+	change( newValue: Date, oldValue: Date, self: SELF ): void;
+}
+
+/**
+ * Mappings of event names and handlers.
+ */
+export interface DButtonDateOnOptions<SELF> extends Partial<DButtonDateOn<SELF> & Record<string, Function>> {
+
 }
 
 export interface DButtonDateOptions<
@@ -34,13 +44,15 @@ export interface DThemeButtonDate extends DThemeButton {
 }
 
 export interface DButtonDate {
-	on<T extends DButtonDateOnOptions<this>, E extends Extract<keyof T, string>>(
-		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	on<E extends keyof DButtonDateOn<this>>(
+		event: E, handler: DButtonDateOn<this>[ E ], context?: any
 	): this;
+	on( event: string, handler: Function, context?: any ): this;
 
-	emit<T extends DButtonDateOnOptions<this>, E extends Extract<keyof T, string>>(
-		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	emit<E extends keyof DButtonDateOn<this>>(
+		event: E, ...args: Parameters<DButtonDateOn<this>[ E ]>
 	): boolean;
+	emit( event: string, ...args: any ): boolean;
 }
 
 export class DButtonDate<

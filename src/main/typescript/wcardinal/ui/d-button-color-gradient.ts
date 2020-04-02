@@ -6,12 +6,15 @@
 import { Texture } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBaseState } from "./d-base-state";
-import { DButton, DButtonOnOptions, DButtonOptions, DThemeButton } from "./d-button";
+import { DButton, DButtonOn, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogColorGradient, DDialogColorGradientOptions } from "./d-dialog-color-gradient";
 import { DPickerColorGradientData } from "./d-picker-color-gradient-data";
 import { DPickerColorGradientDataView } from "./d-picker-color-gradient-data-view";
 
-export interface DButtonColorGradientOnOptions<SELF> extends DButtonOnOptions<DPickerColorGradientData, SELF> {
+/**
+ * Event handlers
+ */
+export interface DButtonColorGradientOn<SELF> extends DButtonOn<DPickerColorGradientData, SELF> {
 	/**
 	 * Triggered when a selection is changed.
 	 *
@@ -19,7 +22,15 @@ export interface DButtonColorGradientOnOptions<SELF> extends DButtonOnOptions<DP
 	 * @param oldValue a previously selected value
 	 * @param self this
 	 */
-	change?: ( newValue: DPickerColorGradientData, oldValue: DPickerColorGradientData, self: SELF ) => void;
+	change( newValue: DPickerColorGradientData, oldValue: DPickerColorGradientData, self: SELF ): void;
+}
+
+/**
+ * Mappings of event names and handlers.
+ */
+export interface DButtonColorGradientOnOptions<SELF>
+	extends Partial<DButtonColorGradientOn<SELF>>, Record<string, Function | undefined> {
+
 }
 
 export interface DButtonColorGradientOptions<
@@ -39,13 +50,15 @@ export interface DThemeButtonColorGradient extends DThemeButton {
 }
 
 export interface DButtonColorGradient {
-	on<T extends DButtonColorGradientOnOptions<this>, E extends Extract<keyof T, string>>(
-		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	on<E extends keyof DButtonColorGradientOn<this>>(
+		event: E, handler: DButtonColorGradientOn<this>[ E ], context?: any
 	): this;
+	on( event: string, handler: Function, context?: any ): this;
 
-	emit<T extends DButtonColorGradientOnOptions<this>, E extends Extract<keyof T, string>>(
-		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	emit<E extends keyof DButtonColorGradientOn<this>>(
+		event: E, ...args: Parameters<DButtonColorGradientOn<this>[ E ]>
 	): boolean;
+	emit( event: string, ...args: any ): boolean;
 }
 
 export class DButtonColorGradient<

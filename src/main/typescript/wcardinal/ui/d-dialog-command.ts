@@ -6,28 +6,35 @@
 import { DButton } from "./d-button";
 import { DButtonPrimary } from "./d-button-primary";
 import { DCoordinatePosition, DCoordinateSize } from "./d-coordinate";
-import { DDialog, DDialogOnOptions, DDialogOptions, DThemeDialog } from "./d-dialog";
+import { DDialog, DDialogOn, DDialogOptions, DThemeDialog } from "./d-dialog";
 import { DLayoutHorizontal } from "./d-layout-horizontal";
 import { DLayoutSpace } from "./d-layout-space";
 import { DLayoutVertical } from "./d-layout-vertical";
 
 /**
- * Mappings of event names and handlers.
+ * Event handlers.
  */
-export interface DDialogCommandOnOptions<SELF> extends DDialogOnOptions<SELF> {
+export interface DDialogCommandOn<SELF> extends DDialogOn<SELF> {
 	/**
 	 * Triggered when a dialog is successfully finished.
 	 *
 	 * @param self this
 	 */
-	ok?: ( self: SELF ) => void;
+	ok( self: SELF ): void;
 
 	/**
 	 * Triggered when a dialog is canceled.
 	 *
 	 * @param self this
 	 */
-	cancel?: ( self: SELF ) => void;
+	cancel( self: SELF ): void;
+}
+
+/**
+ * Mappings of event names and handlers.
+ */
+export interface DDialogCommandOnOptions<SELF> extends Partial<DDialogCommandOn<SELF> & Record<string, Function>> {
+
 }
 
 export interface DDialogCommandOptions<
@@ -60,13 +67,15 @@ export interface DThemeDialogCommand extends DThemeDialog {
 }
 
 export interface DDialogCommand {
-	on<T extends DDialogCommandOnOptions<this>, E extends Extract<keyof T, string>>(
-		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	on<E extends keyof DDialogCommandOn<this>>(
+		event: E, handler: DDialogCommandOn<this>[ E ], context?: any
 	): this;
+	on( event: string, handler: Function, context?: any ): this;
 
-	emit<T extends DDialogCommandOnOptions<this>, E extends Extract<keyof T, string>>(
-		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	emit<E extends keyof DDialogCommandOn<this>>(
+		event: E, ...args: Parameters<DDialogCommandOn<this>[ E ]>
 	): boolean;
+	emit( event: string, ...args: any ): boolean;
 }
 
 export class DDialogCommand<

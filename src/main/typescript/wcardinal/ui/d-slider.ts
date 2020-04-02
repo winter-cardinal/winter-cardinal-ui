@@ -5,7 +5,7 @@
 
 import { interaction, Point } from "pixi.js";
 import { DApplications } from "./d-applications";
-import { DBase, DBaseOnOptions, DBaseOptions, DThemeBase } from "./d-base";
+import { DBase, DBaseOn, DBaseOptions, DThemeBase } from "./d-base";
 import { DSliderLabel, DSliderLabelOptions } from "./d-slider-label";
 import { DSliderThumb, DSliderThumbOptions } from "./d-slider-thumb";
 import { DSliderTrack, DSliderTrackOptions } from "./d-slider-track";
@@ -15,9 +15,9 @@ import InteractionEvent = interaction.InteractionEvent;
 import InteractionManager = interaction.InteractionManager;
 
 /**
- * Mappings of event names and handlers.
+ * Event handlers.
  */
-export interface DSliderOnOptions<SELF> extends DBaseOnOptions<SELF> {
+export interface DSliderOn<SELF> extends DBaseOn<SELF> {
 	/**
 	 * Triggered when a value is changed.
 	 *
@@ -25,7 +25,14 @@ export interface DSliderOnOptions<SELF> extends DBaseOnOptions<SELF> {
 	 * @param oldValue an old value
 	 * @param self this
 	 */
-	change?: ( newValue: number, oldValue: number, self: SELF ) => void;
+	change( newValue: number, oldValue: number, self: SELF ): void;
+}
+
+/**
+ * Mappings of event names and handlers.
+ */
+export interface DSliderOnOptions<SELF> extends Partial<DSliderOn<SELF> & Record<string, Function>> {
+
 }
 
 export interface DSliderOptions<
@@ -45,13 +52,15 @@ export interface DThemeSlider extends DThemeBase {
 }
 
 export interface DSlider {
-	on<T extends DSliderOnOptions<this>, E extends Extract<keyof T, string>>(
-		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	on<E extends keyof DSliderOn<this>>(
+		event: E, handler: DSliderOn<this>[ E ], context?: any
 	): this;
+	on( event: string, handler: Function, context?: any ): this;
 
-	emit<T extends DSliderOnOptions<this>, E extends Extract<keyof T, string>>(
-		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	emit<E extends keyof DSliderOn<this>>(
+		event: E, ...args: Parameters<DSliderOn<this>[ E ]>
 	): boolean;
+	emit( event: string, ...args: any ): boolean;
 }
 
 export abstract class DSlider<

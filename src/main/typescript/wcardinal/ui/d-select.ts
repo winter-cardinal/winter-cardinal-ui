@@ -3,16 +3,26 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DDropdownBase, DDropdownBaseOnOptions, DDropdownBaseOptions, DThemeDropdownBase } from "./d-dropdown-base";
+import { DDropdownBase, DDropdownBaseOn, DDropdownBaseOptions, DThemeDropdownBase } from "./d-dropdown-base";
 import { DMenu } from "./d-menu";
 import { DMenuItem } from "./d-menu-item";
 import { DMenuItemMenu } from "./d-menu-item-menu";
 
-export interface DSelectOnOptions<VALUE, SELF> extends DDropdownBaseOnOptions<VALUE, DMenuItem<VALUE> | null, SELF> {
+/**
+ * Event handlers.
+ */
+export interface DSelectOn<VALUE, SELF> extends DDropdownBaseOn<VALUE, DMenuItem<VALUE> | null, SELF> {
 	/**
 	 * Called when a selection is changed.
 	 */
-	change?: ( newValue: VALUE | null, oldValue: VALUE | null, item: DMenuItem<VALUE> | null, self: SELF ) => void;
+	change( newValue: VALUE | null, oldValue: VALUE | null, item: DMenuItem<VALUE> | null, self: SELF ): void;
+}
+
+/**
+ * Mappings of event names and handlers.
+ */
+export interface DSelectOnOptions<VALUE, SELF> extends Partial<DSelectOn<VALUE, SELF> & Record<string, Function>> {
+
 }
 
 /**
@@ -33,6 +43,18 @@ export interface DSelectOptions<
 
 export interface DThemeSelect extends DThemeDropdownBase<DMenuItem<any> | null> {
 
+}
+
+export interface DSelect<VALUE> {
+	on<E extends keyof DSelectOn<VALUE, this>>(
+		event: E, handler: DSelectOn<VALUE, this>[ E ], context?: any
+	): this;
+	on( event: string, handler: Function, context?: any ): this;
+
+	emit<E extends keyof DSelectOn<VALUE, this>>(
+		event: E, ...args: Parameters<DSelectOn<VALUE, this>[ E ]>
+	): boolean;
+	emit( event: string, ...args: any ): boolean;
 }
 
 export class DSelect<

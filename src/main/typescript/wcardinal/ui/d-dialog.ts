@@ -7,7 +7,7 @@ import { Point } from "pixi.js";
 import { DAnimation } from "./d-animation";
 import { DAnimationFadeIn } from "./d-animation-fade-in";
 import { DApplications } from "./d-applications";
-import { DBase, DBaseOnOptions, DBaseOptions, DThemeBase } from "./d-base";
+import { DBase, DBaseOn, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DFocusable } from "./d-controller-focus";
 import { DDialogCloseOn } from "./d-dialog-close-on";
@@ -16,22 +16,29 @@ import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilOverlay } from "./util/util-overlay";
 
 /**
- * Mappings of event names and handlers.
+ * Event handlers.
  */
-export interface DDialogOnOptions<SELF> extends DBaseOnOptions<SELF> {
+export interface DDialogOn<SELF> extends DBaseOn<SELF> {
 	/**
 	 * Triggered when a dialog is opened.
 	 *
 	 * @param self this
 	 */
-	open?: ( self: SELF ) => void;
+	open( self: SELF ): void;
 
 	/**
 	 * Triggered when a dialog is closed.
 	 *
 	 * @param self this
 	 */
-	close?: ( self: SELF ) => void;
+	close( self: SELF ): void;
+}
+
+/**
+ * Mappings of event names and handlers.
+ */
+export interface DDialogOnOptions<SELF> extends Partial<DDialogOn<SELF> & Record<string, Function>> {
+
 }
 
 export interface DDialogOptions<
@@ -52,13 +59,15 @@ export interface DThemeDialog extends DThemeBase {
 }
 
 export interface DDialog {
-	on<T extends DDialogOnOptions<this>, E extends Extract<keyof T, string>>(
-		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	on<E extends keyof DDialogOn<this>>(
+		event: E, handler: DDialogOn<this>[ E ], context?: any
 	): this;
+	on( event: string, handler: Function, context?: any ): this;
 
-	emit<T extends DDialogOnOptions<this>, E extends Extract<keyof T, string>>(
-		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	emit<E extends keyof DDialogOn<this>>(
+		event: E, ...args: Parameters<DDialogOn<this>[ E ]>
 	): boolean;
+	emit( event: string, ...args: any ): boolean;
 }
 
 /**

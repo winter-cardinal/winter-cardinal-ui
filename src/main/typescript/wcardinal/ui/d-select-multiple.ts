@@ -3,17 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DDropdownBase, DDropdownBaseOnOptions, DDropdownBaseOptions, DThemeDropdownBase } from "./d-dropdown-base";
+import { DDropdownBase, DDropdownBaseOn, DDropdownBaseOptions, DThemeDropdownBase } from "./d-dropdown-base";
 import { DMenu } from "./d-menu";
 import { DMenuItem } from "./d-menu-item";
 import { DMenuItemCheck } from "./d-menu-item-check";
 import { DMenuItemMenu } from "./d-menu-item-menu";
 
 /**
- * Mappings of event names and handlers.
+ * Event handlers.
  */
-export interface DSelectMultipleOnOptions<VALUE, SELF>
-	extends DDropdownBaseOnOptions<VALUE, DMenuItem<VALUE> | null, SELF> {
+export interface DSelectMultipleOn<VALUE, SELF>
+	extends DDropdownBaseOn<VALUE, DMenuItem<VALUE> | null, SELF> {
 	/**
 	 * Called when a menu item is selected.
 	 *
@@ -21,7 +21,7 @@ export interface DSelectMultipleOnOptions<VALUE, SELF>
 	 * @param item a selected menu item
 	 * @param self this
 	 */
-	menuselect?: ( value: VALUE, item: DMenuItem<VALUE>, self: SELF ) => void;
+	menuselect( value: VALUE, item: DMenuItem<VALUE>, self: SELF ): void;
 
 	/**
 	 * Called when the selection is changed.
@@ -31,7 +31,15 @@ export interface DSelectMultipleOnOptions<VALUE, SELF>
 	 * @param items selected items
 	 * @param self this
 	 */
-	change?: ( newValues: VALUE[], oldValues: VALUE[], items: Array<DMenuItem<VALUE>>, self: SELF ) => void;
+	change( newValues: VALUE[], oldValues: VALUE[], items: Array<DMenuItem<VALUE>>, self: SELF ): void;
+}
+
+/**
+ * Mappings of event names and handlers.
+ */
+export interface DSelectMultipleOnOptions<VALUE, SELF>
+	extends Partial<DSelectMultipleOn<VALUE, SELF> & Record<string, Function>> {
+
 }
 
 /**
@@ -55,13 +63,15 @@ export interface DThemeSelectMultiple extends DThemeDropdownBase<Array<DMenuItem
 }
 
 export interface DSelectMultiple<VALUE> {
-	on<T extends DSelectMultipleOnOptions<VALUE, this>, E extends Extract<keyof T, string>>(
-		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	on<E extends keyof DSelectMultipleOn<VALUE, this>>(
+		event: E, handler: DSelectMultipleOn<VALUE, this>[ E ], context?: any
 	): this;
+	on( event: string, handler: Function, context?: any ): this;
 
-	emit<T extends DSelectMultipleOnOptions<VALUE, this>, E extends Extract<keyof T, string>>(
-		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	emit<E extends keyof DSelectMultipleOn<VALUE, this>>(
+		event: E, ...args: Parameters<DSelectMultipleOn<VALUE, this>[ E ]>
 	): boolean;
+	emit( event: string, ...args: any ): boolean;
 }
 
 export class DSelectMultiple<

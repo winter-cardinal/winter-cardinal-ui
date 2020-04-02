@@ -5,16 +5,16 @@
 
 import { DApplications } from "./d-applications";
 import { DBaseState } from "./d-base-state";
-import { DButton, DButtonOnOptions, DButtonOptions, DThemeButton } from "./d-button";
+import { DButton, DButtonOn, DButtonOptions, DThemeButton } from "./d-button";
 import { DColorAndAlpha } from "./d-color";
 import { DDialogColor, DDialogColorOptions } from "./d-dialog-color";
 import { DImagePieceOptions, DImagePieceTintOptions } from "./d-image-piece";
 import { DPickerColorAndAlpha } from "./d-picker-color-and-alpha";
 
 /**
- * Mappings of event names and handlers.
+ * Event handlers.
  */
-export interface DButtonColorOnOptions<SELF> extends DButtonOnOptions<DColorAndAlpha, SELF> {
+export interface DButtonColorOn<SELF> extends DButtonOn<DColorAndAlpha, SELF> {
 	/**
 	 * Triggered when a selection is changed.
 	 *
@@ -22,7 +22,14 @@ export interface DButtonColorOnOptions<SELF> extends DButtonOnOptions<DColorAndA
 	 * @param oldValue a previously selected value
 	 * @param self this
 	 */
-	change?: ( newValue: DColorAndAlpha, oldValue: DColorAndAlpha, self: SELF ) => void;
+	change( newValue: DColorAndAlpha, oldValue: DColorAndAlpha, self: SELF ): void;
+}
+
+/**
+ * Mappings of event names and handlers.
+ */
+export interface DButtonColorOnOptions<SELF> extends Partial<DButtonColorOn<SELF> & Record<string, Function>> {
+
 }
 
 export interface DButtonColorOptions<
@@ -44,13 +51,15 @@ export interface DThemeButtonColor extends DThemeButton {
 }
 
 export interface DButtonColor {
-	on<T extends DButtonColorOnOptions<this>, E extends Extract<keyof T, string>>(
-		event: E, handler: Exclude<T[ E ], undefined>, context?: any
+	on<E extends keyof DButtonColorOn<this>>(
+		event: E, handler: DButtonColorOn<this>[ E ], context?: any
 	): this;
+	on( event: string, handler: Function, context?: any ): this;
 
-	emit<T extends DButtonColorOnOptions<this>, E extends Extract<keyof T, string>>(
-		event: E, ...args: Parameters<Exclude<T[ E ], undefined>>
+	emit<E extends keyof DButtonColorOn<this>>(
+		event: E, ...args: Parameters<DButtonColorOn<this>[ E ]>
 	): boolean;
+	emit( event: string, ...args: any ): boolean;
 }
 
 export class DButtonColor<
