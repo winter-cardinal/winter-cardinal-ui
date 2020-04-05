@@ -11,7 +11,7 @@
 	"stripInternal": "false",
 	"exclude": "**/+(wcardinal|bundle|index)*",
 	"externalPattern": "**/internal/**/*",
-	"gitRevision": "v0.22.0",
+	"gitRevision": "v0.23.0",
 	"disableOutputCheck": true,
 	"excludeNotExported": true,
 	"excludePrivate": true
