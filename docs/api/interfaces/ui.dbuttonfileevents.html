@@ -2724,9 +2724,6 @@ img {
 		<li class="current tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 			<a href="ui.dbuttonfileevents.html" class="tsd-kind-icon">DButton<wbr>File<wbr>Events</a>
 			<ul>
-				<li class=" tsd-kind-event tsd-parent-kind-interface tsd-is-inherited">
-					<a href="ui.dbuttonfileevents.html#init" class="tsd-kind-icon">init</a>
-				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a href="ui.dbuttonfileevents.html#open" class="tsd-kind-icon">open</a>
 				</li>
@@ -2737,10 +2734,19 @@ img {
 					<a href="ui.dbuttonfileevents.html#active" class="tsd-kind-icon">active</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<a href="ui.dbuttonfileevents.html#added" class="tsd-kind-icon">added</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
 					<a href="ui.dbuttonfileevents.html#cancel" class="tsd-kind-icon">cancel</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
 					<a href="ui.dbuttonfileevents.html#inactive" class="tsd-kind-icon">inactive</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<a href="ui.dbuttonfileevents.html#init" class="tsd-kind-icon">init</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<a href="ui.dbuttonfileevents.html#removed" class="tsd-kind-icon">removed</a>
 				</li>
 			</ul>
 		</li>
@@ -2762,7 +2768,7 @@ img {
 					<h4>VALUE</h4>
 				</li>
 				<li>
-					<h4>SELF</h4>
+					<h4>EMITTER</h4>
 				</li>
 			</ul>
 		</section>
@@ -2770,10 +2776,10 @@ img {
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
 				<li>
-					<a href="ui.dbuttonevents.html" class="tsd-signature-type">DButtonEvents</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">SELF</span><span class="tsd-signature-symbol">&gt;</span>
+					<a href="ui.dbuttonevents.html" class="tsd-signature-type">DButtonEvents</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">&gt;</span>
 				</li>
 				<li>
-					<a href="ui_util.utilfileon.html" class="tsd-signature-type">UtilFileOn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SELF</span><span class="tsd-signature-symbol">&gt;</span>
+					<a href="ui_util.utilfileevents.html" class="tsd-signature-type">UtilFileEvents</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">&gt;</span>
 					<ul class="tsd-hierarchy">
 						<li>
 							<span class="target">DButtonFileEvents</span>
@@ -2787,12 +2793,6 @@ img {
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
 					<section class="tsd-index-section tsd-is-inherited">
-						<h3>Events</h3>
-						<ul class="tsd-index-list">
-							<li class="tsd-kind-event tsd-parent-kind-interface tsd-is-inherited"><a href="ui.dbuttonfileevents.html#init" class="tsd-kind-icon">init</a></li>
-						</ul>
-					</section>
-					<section class="tsd-index-section tsd-is-inherited">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="ui.dbuttonfileevents.html#open" class="tsd-kind-icon">open</a></li>
@@ -2803,47 +2803,14 @@ img {
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="ui.dbuttonfileevents.html#abort" class="tsd-kind-icon">abort</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="ui.dbuttonfileevents.html#active" class="tsd-kind-icon">active</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="ui.dbuttonfileevents.html#added" class="tsd-kind-icon">added</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="ui.dbuttonfileevents.html#cancel" class="tsd-kind-icon">cancel</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="ui.dbuttonfileevents.html#inactive" class="tsd-kind-icon">inactive</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="ui.dbuttonfileevents.html#init" class="tsd-kind-icon">init</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="ui.dbuttonfileevents.html#removed" class="tsd-kind-icon">removed</a></li>
 						</ul>
 					</section>
 				</div>
-			</section>
-		</section>
-		<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
-			<h2>Events</h2>
-			<section class="tsd-panel tsd-member tsd-kind-event tsd-parent-kind-interface tsd-is-inherited">
-				<a name="init" class="tsd-anchor"></a>
-				<h3>init</h3>
-				<ul class="tsd-signatures tsd-kind-event tsd-parent-kind-interface tsd-is-inherited">
-					<li class="tsd-signature tsd-kind-icon">init<span class="tsd-signature-symbol">(</span>self<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SELF</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<p>Inherited from <a href="ui.dbaseevents.html">DBaseEvents</a>.<a href="ui.dbaseevents.html#init">init</a></p>
-							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.21.0/src/main/typescript/wcardinal/ui/d-base.ts#L81">src/main/typescript/wcardinal/ui/d-base.ts:81</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Triggered when an initialization is finished.</p>
-							</div>
-							<pre><code><span class="hljs-keyword">on</span><span class="hljs-params">( <span class="hljs-string">"init"</span>, <span class="hljs-params">( self )</span> =&gt; {} )</span></code></pre>
-						</div>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>self: <span class="tsd-signature-type">SELF</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>this</p>
-								</div>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-					</li>
-				</ul>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
@@ -2851,11 +2818,11 @@ img {
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 				<a name="open" class="tsd-anchor"></a>
 				<h3>open</h3>
-				<div class="tsd-signature tsd-kind-icon">open<span class="tsd-signature-symbol">:</span> <a href="../modules/ui_util.html#utilfileonopen" class="tsd-signature-type">UtilFileOnOpen</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">SELF</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="../modules/ui_util.html#utilfileonopen" class="tsd-signature-type">UtilFileOnOpen</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">SELF</span><span class="tsd-signature-symbol">&gt;</span></div>
+				<div class="tsd-signature tsd-kind-icon">open<span class="tsd-signature-symbol">:</span> <a href="../modules/ui_util.html#utilfileonopen" class="tsd-signature-type">UtilFileOnOpen</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="../modules/ui_util.html#utilfileonopen" class="tsd-signature-type">UtilFileOnOpen</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
-					<p>Inherited from <a href="ui_util.utilfileon.html">UtilFileOn</a>.<a href="ui_util.utilfileon.html#open">open</a></p>
+					<p>Inherited from <a href="ui_util.utilfileevents.html">UtilFileEvents</a>.<a href="ui_util.utilfileevents.html#open">open</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.21.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L35">src/main/typescript/wcardinal/ui/util/util-file-opener.ts:35</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.22.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L35">src/main/typescript/wcardinal/ui/util/util-file-opener.ts:35</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2871,14 +2838,14 @@ img {
 				<a name="abort" class="tsd-anchor"></a>
 				<h3>abort</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-					<li class="tsd-signature tsd-kind-icon">abort<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ProgressEvent</span>, self<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SELF</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">abort<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ProgressEvent</span>, emitter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
-							<p>Inherited from <a href="ui_util.utilfileon.html">UtilFileOn</a>.<a href="ui_util.utilfileon.html#abort">abort</a></p>
+							<p>Inherited from <a href="ui_util.utilfileevents.html">UtilFileEvents</a>.<a href="ui_util.utilfileevents.html#abort">abort</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.21.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L43">src/main/typescript/wcardinal/ui/util/util-file-opener.ts:43</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.22.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L43">src/main/typescript/wcardinal/ui/util/util-file-opener.ts:43</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2895,9 +2862,9 @@ img {
 								</div>
 							</li>
 							<li>
-								<h5>self: <span class="tsd-signature-type">SELF</span></h5>
+								<h5>emitter: <span class="tsd-signature-type">EMITTER</span></h5>
 								<div class="tsd-comment tsd-typography">
-									<p>this</p>
+									<p>an emitter</p>
 								</div>
 							</li>
 						</ul>
@@ -2909,27 +2876,59 @@ img {
 				<a name="active" class="tsd-anchor"></a>
 				<h3>active</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-					<li class="tsd-signature tsd-kind-icon">active<span class="tsd-signature-symbol">(</span>self<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SELF</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">active<span class="tsd-signature-symbol">(</span>emitter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="ui.dbuttonbaseevents.html">DButtonBaseEvents</a>.<a href="ui.dbuttonbaseevents.html#active">active</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.21.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L23">src/main/typescript/wcardinal/ui/d-button-base.ts:23</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.22.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L24">src/main/typescript/wcardinal/ui/d-button-base.ts:24</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Called when the button is activated.</p>
+								<p>Triggered when the button is activated.</p>
 							</div>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5>self: <span class="tsd-signature-type">SELF</span></h5>
+								<h5>emitter: <span class="tsd-signature-type">EMITTER</span></h5>
 								<div class="tsd-comment tsd-typography">
-									<p>this</p>
+									<p>an emitter</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+				<a name="added" class="tsd-anchor"></a>
+				<h3>added</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">added<span class="tsd-signature-symbol">(</span>container<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Container</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from <a href="ui.dbaseevents.html">DBaseEvents</a>.<a href="ui.dbaseevents.html#added">added</a></p>
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.22.0/src/main/typescript/wcardinal/ui/d-base.ts#L88">src/main/typescript/wcardinal/ui/d-base.ts:88</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Triggered when added to a container.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>container: <span class="tsd-signature-type">Container</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>a container added to</p>
 								</div>
 							</li>
 						</ul>
@@ -2941,14 +2940,14 @@ img {
 				<a name="cancel" class="tsd-anchor"></a>
 				<h3>cancel</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-					<li class="tsd-signature tsd-kind-icon">cancel<span class="tsd-signature-symbol">(</span>self<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SELF</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">cancel<span class="tsd-signature-symbol">(</span>emitter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
-							<p>Inherited from <a href="ui_util.utilfileon.html">UtilFileOn</a>.<a href="ui_util.utilfileon.html#cancel">cancel</a></p>
+							<p>Inherited from <a href="ui_util.utilfileevents.html">UtilFileEvents</a>.<a href="ui_util.utilfileevents.html#cancel">cancel</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.21.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L50">src/main/typescript/wcardinal/ui/util/util-file-opener.ts:50</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.22.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L50">src/main/typescript/wcardinal/ui/util/util-file-opener.ts:50</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2959,9 +2958,9 @@ img {
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5>self: <span class="tsd-signature-type">SELF</span></h5>
+								<h5>emitter: <span class="tsd-signature-type">EMITTER</span></h5>
 								<div class="tsd-comment tsd-typography">
-									<p>this</p>
+									<p>an emitter</p>
 								</div>
 							</li>
 						</ul>
@@ -2973,27 +2972,92 @@ img {
 				<a name="inactive" class="tsd-anchor"></a>
 				<h3>inactive</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-					<li class="tsd-signature tsd-kind-icon">inactive<span class="tsd-signature-symbol">(</span>self<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SELF</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">inactive<span class="tsd-signature-symbol">(</span>emitter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="ui.dbuttonbaseevents.html">DButtonBaseEvents</a>.<a href="ui.dbuttonbaseevents.html#inactive">inactive</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.21.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L30">src/main/typescript/wcardinal/ui/d-button-base.ts:30</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.22.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L31">src/main/typescript/wcardinal/ui/d-button-base.ts:31</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Called when the button is inactivated.</p>
+								<p>Triggered when the button is inactivated.</p>
 							</div>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5>self: <span class="tsd-signature-type">SELF</span></h5>
+								<h5>emitter: <span class="tsd-signature-type">EMITTER</span></h5>
 								<div class="tsd-comment tsd-typography">
-									<p>this</p>
+									<p>an emitter</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+				<a name="init" class="tsd-anchor"></a>
+				<h3>init</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">init<span class="tsd-signature-symbol">(</span>emitter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from <a href="ui.dbaseevents.html">DBaseEvents</a>.<a href="ui.dbaseevents.html#init">init</a></p>
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.22.0/src/main/typescript/wcardinal/ui/d-base.ts#L81">src/main/typescript/wcardinal/ui/d-base.ts:81</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Triggered when an initialization is finished.</p>
+							</div>
+							<pre><code><span class="hljs-keyword">on</span><span class="hljs-params">( <span class="hljs-string">"init"</span>, <span class="hljs-params">( emitter )</span> =&gt; {} )</span></code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>emitter: <span class="tsd-signature-type">EMITTER</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an emitter</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+				<a name="removed" class="tsd-anchor"></a>
+				<h3>removed</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">removed<span class="tsd-signature-symbol">(</span>container<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Container</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from <a href="ui.dbaseevents.html">DBaseEvents</a>.<a href="ui.dbaseevents.html#removed">removed</a></p>
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.22.0/src/main/typescript/wcardinal/ui/d-base.ts#L95">src/main/typescript/wcardinal/ui/d-base.ts:95</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Triggered when removed from a container.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>container: <span class="tsd-signature-type">Container</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>a container removed from</p>
 								</div>
 							</li>
 						</ul>
