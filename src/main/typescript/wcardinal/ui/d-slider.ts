@@ -5,7 +5,7 @@
 
 import { interaction, Point } from "pixi.js";
 import { DApplications } from "./d-applications";
-import { DBase, DBaseOn, DBaseOptions, DThemeBase } from "./d-base";
+import { DBase, DBaseEvents, DBaseOptions, DThemeBase } from "./d-base";
 import { DSliderLabel, DSliderLabelOptions } from "./d-slider-label";
 import { DSliderThumb, DSliderThumbOptions } from "./d-slider-thumb";
 import { DSliderTrack, DSliderTrackOptions } from "./d-slider-track";
@@ -15,9 +15,9 @@ import InteractionEvent = interaction.InteractionEvent;
 import InteractionManager = interaction.InteractionManager;
 
 /**
- * Event handlers.
+ * {@link DSlider} events.
  */
-export interface DSliderOn<SELF> extends DBaseOn<SELF> {
+export interface DSliderEvents<SELF> extends DBaseEvents<SELF> {
 	/**
 	 * Triggered when a value is changed.
 	 *
@@ -31,7 +31,7 @@ export interface DSliderOn<SELF> extends DBaseOn<SELF> {
 /**
  * Mappings of event names and handlers.
  */
-export interface DSliderOnOptions<SELF> extends Partial<DSliderOn<SELF> & Record<string, Function>> {
+export interface DSliderOnOptions<SELF> extends Partial<DSliderEvents<SELF> & Record<string, Function>> {
 
 }
 
@@ -52,13 +52,13 @@ export interface DThemeSlider extends DThemeBase {
 }
 
 export interface DSlider {
-	on<E extends keyof DSliderOn<this>>(
-		event: E, handler: DSliderOn<this>[ E ], context?: any
+	on<E extends keyof DSliderEvents<this>>(
+		event: E, handler: DSliderEvents<this>[ E ], context?: any
 	): this;
 	on( event: string, handler: Function, context?: any ): this;
 
-	emit<E extends keyof DSliderOn<this>>(
-		event: E, ...args: Parameters<DSliderOn<this>[ E ]>
+	emit<E extends keyof DSliderEvents<this>>(
+		event: E, ...args: Parameters<DSliderEvents<this>[ E ]>
 	): boolean;
 	emit( event: string, ...args: any ): boolean;
 }

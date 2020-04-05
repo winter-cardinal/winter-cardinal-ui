@@ -67,11 +67,13 @@ export interface DBaseCornerOptions {
 }
 
 /**
- * Event handlers.
+ * {@link DBase} events.
  */
-export interface DBaseOn<SELF> {
+export interface DBaseEvents<SELF> {
 	/**
 	 * Triggered when an initialization is finished.
+	 *
+	 *     on( "init", ( self ) => {} )
 	 *
 	 * @param self this
 	 */
@@ -79,9 +81,9 @@ export interface DBaseOn<SELF> {
 }
 
 /**
- * Mappings of event names and event handlers.
+ * {@link DBase} "on" options.
  */
-export interface DBaseOnOptions<SELF> extends Partial<DBaseOn<SELF> & Record<string, Function>> {
+export interface DBaseOnOptions<SELF> extends Partial<DBaseEvents<SELF> & Record<string, Function>> {
 
 }
 
@@ -306,7 +308,7 @@ export interface DBaseOptions<
 }
 
 /**
- * DBase theme
+ * {@link DBase} theme.
  */
 export interface DThemeBase extends DThemeFont {
 	/**
@@ -565,18 +567,22 @@ const enum AutoFlag {
 	HEIGHT = 2
 }
 
-export interface DBase<THEME> {
-	on<E extends keyof DBaseOn<this>>(
-		event: E, handler: DBaseOn<this>[ E ], context?: any
+export interface DBase {
+	on<E extends keyof DBaseEvents<this>>(
+		event: E, handler: DBaseEvents<this>[ E ], context?: any
 	): this;
 	on( event: string, handler: Function, context?: any ): this;
 
-	emit<E extends keyof DBaseOn<this>>(
-		event: E, ...args: Parameters<DBaseOn<this>[ E ]>
+	emit<E extends keyof DBaseEvents<this>>(
+		event: E, ...args: Parameters<DBaseEvents<this>[ E ]>
 	): boolean;
 	emit( event: string, ...args: any ): boolean;
 }
 
+/**
+ * A base class for UI classes.
+ * See {@link DBaseEvents} for event details.
+ */
 export class DBase<
 	THEME extends DThemeBase = DThemeBase,
 	OPTIONS extends DBaseOptions<THEME> = DBaseOptions<THEME>

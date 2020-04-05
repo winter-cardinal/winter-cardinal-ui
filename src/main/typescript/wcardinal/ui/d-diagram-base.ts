@@ -5,7 +5,7 @@
 
 import { DApplications } from "./d-applications";
 import {
-	DCanvasContainer, DCanvasContainerOn, DCanvasContainerOptions, DThemeCanvasContainer
+	DCanvasContainer, DCanvasContainerEvents, DCanvasContainerOptions, DThemeCanvasContainer
 } from "./d-canvas-container";
 import { DDiagramCanvasBase } from "./d-diagram-canvas-base";
 import { DDiagramCanvasTilePyramidFactory } from "./d-diagram-canvas-tile";
@@ -15,9 +15,9 @@ import { DDiagrams } from "./d-diagrams";
 import { EShape } from "./shape/e-shape";
 
 /**
- * Event handlers.
+ * {@link DDiagramBase} events.
  */
-export interface DDiagramBaseOn<CANVAS, SELF> extends DCanvasContainerOn<CANVAS, SELF> {
+export interface DDiagramBaseEvents<CANVAS, SELF> extends DCanvasContainerEvents<CANVAS, SELF> {
 	/**
 	 * Triggered when all the shape initializations are finished.
 	 *
@@ -30,7 +30,7 @@ export interface DDiagramBaseOn<CANVAS, SELF> extends DCanvasContainerOn<CANVAS,
  * Mappings of event names and handlers.
  */
 export interface DDiagramBaseOnOptions<CANVAS, SELF>
-	extends Partial<DDiagramBaseOn<CANVAS, SELF> & Record<string, Function>> {
+	extends Partial<DDiagramBaseEvents<CANVAS, SELF> & Record<string, Function>> {
 
 }
 
@@ -52,13 +52,13 @@ export interface DThemeDiagramBase extends DThemeCanvasContainer {
 }
 
 export interface DDiagramBase<CANVAS> {
-	on<E extends keyof DDiagramBaseOn<CANVAS, this>>(
-		event: E, handler: DDiagramBaseOn<CANVAS, this>[ E ], context?: any
+	on<E extends keyof DDiagramBaseEvents<CANVAS, this>>(
+		event: E, handler: DDiagramBaseEvents<CANVAS, this>[ E ], context?: any
 	): this;
 	on( event: string, handler: Function, context?: any ): this;
 
-	emit<E extends keyof DDiagramBaseOn<CANVAS, this>>(
-		event: E, ...args: Parameters<DDiagramBaseOn<CANVAS, this>[ E ]>
+	emit<E extends keyof DDiagramBaseEvents<CANVAS, this>>(
+		event: E, ...args: Parameters<DDiagramBaseEvents<CANVAS, this>[ E ]>
 	): boolean;
 	emit( event: string, ...args: any ): boolean;
 }

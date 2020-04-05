@@ -3,19 +3,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DButtonBase, DButtonBaseOn, DButtonBaseOptions, DThemeButtonBase } from "./d-button-base";
+import { DButtonBase, DButtonBaseEvents, DButtonBaseOptions, DThemeButtonBase } from "./d-button-base";
 
 /**
- * Event handlers.
+ * {@link DButton} events.
  */
-export interface DButtonOn<VALUE, SELF> extends DButtonBaseOn<VALUE, SELF> {
+export interface DButtonEvents<VALUE, SELF> extends DButtonBaseEvents<VALUE, SELF> {
 
 }
 
 /**
  * Mappings of event names and handlers.
  */
-export interface DButtonOnOptions<VALUE, SELF> extends Partial<DButtonOn<VALUE, SELF> & Record<string, Function>> {
+export interface DButtonOnOptions<VALUE, SELF> extends Partial<DButtonEvents<VALUE, SELF> & Record<string, Function>> {
 
 }
 
@@ -32,13 +32,13 @@ export interface DThemeButton extends DThemeButtonBase {
 }
 
 export interface DButton<VALUE> {
-	on<E extends keyof DButtonOn<VALUE, this>>(
-		event: E, handler: DButtonOn<VALUE, this>[ E ], context?: any
+	on<E extends keyof DButtonEvents<VALUE, this>>(
+		event: E, handler: DButtonEvents<VALUE, this>[ E ], context?: any
 	): this;
 	on( event: string, handler: Function, context?: any ): this;
 
-	emit<E extends keyof DButtonOn<VALUE, this>>(
-		event: E, ...args: Parameters<DButtonOn<VALUE, this>[ E ]>
+	emit<E extends keyof DButtonEvents<VALUE, this>>(
+		event: E, ...args: Parameters<DButtonEvents<VALUE, this>[ E ]>
 	): boolean;
 	emit( event: string, ...args: any ): boolean;
 }

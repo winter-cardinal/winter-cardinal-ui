@@ -5,7 +5,7 @@
 
 import { interaction, Point } from "pixi.js";
 import { DApplications } from "./d-applications";
-import { DBase, DBaseOn, DBaseOptions, DThemeBase } from "./d-base";
+import { DBase, DBaseEvents, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseOverflowMask } from "./d-base-overflow-mask";
 import { DCanvas } from "./d-canvas";
 import { DView, DViewOptions } from "./d-view";
@@ -15,7 +15,7 @@ import { UtilWheelEventDeltas } from "./util/util-wheel-event";
 /**
  * Event handlers.
  */
-export interface DCanvasContainerOn<CANVAS, SELF> extends DBaseOn<SELF> {
+export interface DCanvasContainerEvents<CANVAS, SELF> extends DBaseEvents<SELF> {
 	/**
 	 * Triggered when a canvas is removed.
 	 *
@@ -37,7 +37,7 @@ export interface DCanvasContainerOn<CANVAS, SELF> extends DBaseOn<SELF> {
  * Mappings of event names and handlers.
  */
 export interface DCanvasContainerOnOptions<CANVAS, SELF>
-	extends Partial<DCanvasContainerOn<CANVAS, SELF> & Record<string, Function>> {
+	extends Partial<DCanvasContainerEvents<CANVAS, SELF> & Record<string, Function>> {
 
 }
 
@@ -67,13 +67,13 @@ const isOverflowMaskEnabled = <
 };
 
 export interface DCanvasContainer<CANVAS> {
-	on<E extends keyof DCanvasContainerOn<CANVAS, this>>(
-		event: E, handler: DCanvasContainerOn<CANVAS, this>[ E ], context?: any
+	on<E extends keyof DCanvasContainerEvents<CANVAS, this>>(
+		event: E, handler: DCanvasContainerEvents<CANVAS, this>[ E ], context?: any
 	): this;
 	on( event: string, handler: Function, context?: any ): this;
 
-	emit<E extends keyof DCanvasContainerOn<CANVAS, this>>(
-		event: E, ...args: Parameters<DCanvasContainerOn<CANVAS, this>[ E ]>
+	emit<E extends keyof DCanvasContainerEvents<CANVAS, this>>(
+		event: E, ...args: Parameters<DCanvasContainerEvents<CANVAS, this>[ E ]>
 	): boolean;
 	emit( event: string, ...args: any ): boolean;
 }

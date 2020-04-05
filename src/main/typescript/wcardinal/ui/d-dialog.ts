@@ -7,7 +7,7 @@ import { Point } from "pixi.js";
 import { DAnimation } from "./d-animation";
 import { DAnimationFadeIn } from "./d-animation-fade-in";
 import { DApplications } from "./d-applications";
-import { DBase, DBaseOn, DBaseOptions, DThemeBase } from "./d-base";
+import { DBase, DBaseEvents, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DFocusable } from "./d-controller-focus";
 import { DDialogCloseOn } from "./d-dialog-close-on";
@@ -16,9 +16,9 @@ import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilOverlay } from "./util/util-overlay";
 
 /**
- * Event handlers.
+ * {@link DDialog} events.
  */
-export interface DDialogOn<SELF> extends DBaseOn<SELF> {
+export interface DDialogEvents<SELF> extends DBaseEvents<SELF> {
 	/**
 	 * Triggered when a dialog is opened.
 	 *
@@ -37,7 +37,7 @@ export interface DDialogOn<SELF> extends DBaseOn<SELF> {
 /**
  * Mappings of event names and handlers.
  */
-export interface DDialogOnOptions<SELF> extends Partial<DDialogOn<SELF> & Record<string, Function>> {
+export interface DDialogOnOptions<SELF> extends Partial<DDialogEvents<SELF> & Record<string, Function>> {
 
 }
 
@@ -59,13 +59,13 @@ export interface DThemeDialog extends DThemeBase {
 }
 
 export interface DDialog {
-	on<E extends keyof DDialogOn<this>>(
-		event: E, handler: DDialogOn<this>[ E ], context?: any
+	on<E extends keyof DDialogEvents<this>>(
+		event: E, handler: DDialogEvents<this>[ E ], context?: any
 	): this;
 	on( event: string, handler: Function, context?: any ): this;
 
-	emit<E extends keyof DDialogOn<this>>(
-		event: E, ...args: Parameters<DDialogOn<this>[ E ]>
+	emit<E extends keyof DDialogEvents<this>>(
+		event: E, ...args: Parameters<DDialogEvents<this>[ E ]>
 	): boolean;
 	emit( event: string, ...args: any ): boolean;
 }

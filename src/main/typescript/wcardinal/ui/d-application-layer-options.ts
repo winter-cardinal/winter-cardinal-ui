@@ -203,7 +203,6 @@ export class DApplicationLayerOptions {
 	 * @param top new top padding
 	 * @param right new right padding
 	 * @param bottom new bottom padding
-	 * @asse getPadding
 	 */
 	setPadding( left: number, top: number, right: number, bottom: number ): this {
 		const padding = this._padding;

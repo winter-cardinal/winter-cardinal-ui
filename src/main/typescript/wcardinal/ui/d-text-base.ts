@@ -7,7 +7,7 @@ import { Graphics, Text } from "pixi.js";
 import { DAlignHorizontal } from "./d-align-horizontal";
 import { DAlignVertical } from "./d-align-vertical";
 import { DApplications } from "./d-applications";
-import { DBase, DBaseOn, DBaseOptions, DRefitable, DThemeBase } from "./d-base";
+import { DBase, DBaseEvents, DBaseOptions, DRefitable, DThemeBase } from "./d-base";
 import { DBaseOverflowMaskSimple } from "./d-base-overflow-mask-simple";
 import { DBaseState } from "./d-base-state";
 import { DDynamicText } from "./d-dynamic-text";
@@ -32,16 +32,17 @@ export interface DTextBaseTextOptions<VALUE = unknown> {
 }
 
 /**
- * Event handlers.
+ * {@link DTextBase} events.
  */
-export interface DTextBaseOn<VALUE, SELF> extends DBaseOn<SELF> {
+export interface DTextBaseEvents<VALUE, SELF> extends DBaseEvents<SELF> {
 
 }
 
 /**
  * Mappings of event names and handlers.
  */
-export interface DTextBaseOnOptions<VALUE, SELF> extends Partial<DTextBaseOn<VALUE, SELF> & Record<string, Function>> {
+export interface DTextBaseOnOptions<VALUE, SELF>
+	extends Partial<DTextBaseEvents<VALUE, SELF> & Record<string, Function>> {
 
 }
 
@@ -164,17 +165,21 @@ const toTextDynamic = <VALUE, THEME extends DThemeTextBase>(
 };
 
 export interface DTextBase<VALUE> {
-	on<E extends keyof DTextBaseOn<VALUE, this>>(
-		event: E, handler: DTextBaseOn<VALUE, this>[ E ], context?: any
+	on<E extends keyof DTextBaseEvents<VALUE, this>>(
+		event: E, handler: DTextBaseEvents<VALUE, this>[ E ], context?: any
 	): this;
 	on( event: string, handler: Function, context?: any ): this;
 
-	emit<E extends keyof DTextBaseOn<VALUE, this>>(
-		event: E, ...args: Parameters<DTextBaseOn<VALUE, this>[ E ]>
+	emit<E extends keyof DTextBaseEvents<VALUE, this>>(
+		event: E, ...args: Parameters<DTextBaseEvents<VALUE, this>[ E ]>
 	): boolean;
 	emit( event: string, ...args: any ): boolean;
 }
 
+/**
+ * A base class for UI classes with a text support.
+ * See {@link DTextBaseEvents} for event defaults.
+ */
 export class DTextBase<
 	VALUE = unknown,
 	THEME extends DThemeTextBase = DThemeTextBase,

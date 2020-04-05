@@ -13,9 +13,9 @@ export enum DListSelectionMode {
 }
 
 /**
- * Event handlers.
+ * {@link DListSelection} events.
  */
-export interface DListSelectionOn<SELF> {
+export interface DListSelectionEvents<SELF> {
 	/**
 	 * Triggered when a selection is changed.
 	 *
@@ -27,7 +27,7 @@ export interface DListSelectionOn<SELF> {
 /**
  * Mappings of event names and handlers.
  */
-export interface DListSelectionOnOptions<SELF> extends Partial<DListSelectionOn<SELF> & Record<string, Function>> {
+export interface DListSelectionOnOptions<SELF> extends Partial<DListSelectionEvents<SELF> & Record<string, Function>> {
 
 }
 
@@ -41,13 +41,13 @@ export interface DListSelectionOptions<SELF = any> {
 }
 
 export interface DListSelection {
-	on<E extends keyof DListSelectionOn<this>>(
-		event: E, handler: DListSelectionOn<this>[ E ], context?: any
+	on<E extends keyof DListSelectionEvents<this>>(
+		event: E, handler: DListSelectionEvents<this>[ E ], context?: any
 	): this;
 	on( event: string, handler: Function, context?: any ): this;
 
-	emit<E extends keyof DListSelectionOn<this>>(
-		event: E, ...args: Parameters<DListSelectionOn<this>[ E ]>
+	emit<E extends keyof DListSelectionEvents<this>>(
+		event: E, ...args: Parameters<DListSelectionEvents<this>[ E ]>
 	): boolean;
 	emit( event: string, ...args: any ): boolean;
 }

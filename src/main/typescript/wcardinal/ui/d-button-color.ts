@@ -5,16 +5,16 @@
 
 import { DApplications } from "./d-applications";
 import { DBaseState } from "./d-base-state";
-import { DButton, DButtonOn, DButtonOptions, DThemeButton } from "./d-button";
+import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DColorAndAlpha } from "./d-color";
 import { DDialogColor, DDialogColorOptions } from "./d-dialog-color";
 import { DImagePieceOptions, DImagePieceTintOptions } from "./d-image-piece";
 import { DPickerColorAndAlpha } from "./d-picker-color-and-alpha";
 
 /**
- * Event handlers.
+ * {@link DButtonColor} events.
  */
-export interface DButtonColorOn<SELF> extends DButtonOn<DColorAndAlpha, SELF> {
+export interface DButtonColorEvents<SELF> extends DButtonEvents<DColorAndAlpha, SELF> {
 	/**
 	 * Triggered when a selection is changed.
 	 *
@@ -28,7 +28,7 @@ export interface DButtonColorOn<SELF> extends DButtonOn<DColorAndAlpha, SELF> {
 /**
  * Mappings of event names and handlers.
  */
-export interface DButtonColorOnOptions<SELF> extends Partial<DButtonColorOn<SELF> & Record<string, Function>> {
+export interface DButtonColorOnOptions<SELF> extends Partial<DButtonColorEvents<SELF> & Record<string, Function>> {
 
 }
 
@@ -51,13 +51,13 @@ export interface DThemeButtonColor extends DThemeButton {
 }
 
 export interface DButtonColor {
-	on<E extends keyof DButtonColorOn<this>>(
-		event: E, handler: DButtonColorOn<this>[ E ], context?: any
+	on<E extends keyof DButtonColorEvents<this>>(
+		event: E, handler: DButtonColorEvents<this>[ E ], context?: any
 	): this;
 	on( event: string, handler: Function, context?: any ): this;
 
-	emit<E extends keyof DButtonColorOn<this>>(
-		event: E, ...args: Parameters<DButtonColorOn<this>[ E ]>
+	emit<E extends keyof DButtonColorEvents<this>>(
+		event: E, ...args: Parameters<DButtonColorEvents<this>[ E ]>
 	): boolean;
 	emit( event: string, ...args: any ): boolean;
 }

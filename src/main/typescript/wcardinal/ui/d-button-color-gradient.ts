@@ -6,15 +6,15 @@
 import { Texture } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBaseState } from "./d-base-state";
-import { DButton, DButtonOn, DButtonOptions, DThemeButton } from "./d-button";
+import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogColorGradient, DDialogColorGradientOptions } from "./d-dialog-color-gradient";
 import { DPickerColorGradientData } from "./d-picker-color-gradient-data";
 import { DPickerColorGradientDataView } from "./d-picker-color-gradient-data-view";
 
 /**
- * Event handlers
+ * {@link DButtonColorGradient} events.
  */
-export interface DButtonColorGradientOn<SELF> extends DButtonOn<DPickerColorGradientData, SELF> {
+export interface DButtonColorGradientEvents<SELF> extends DButtonEvents<DPickerColorGradientData, SELF> {
 	/**
 	 * Triggered when a selection is changed.
 	 *
@@ -29,7 +29,7 @@ export interface DButtonColorGradientOn<SELF> extends DButtonOn<DPickerColorGrad
  * Mappings of event names and handlers.
  */
 export interface DButtonColorGradientOnOptions<SELF>
-	extends Partial<DButtonColorGradientOn<SELF>>, Record<string, Function | undefined> {
+	extends Partial<DButtonColorGradientEvents<SELF>>, Record<string, Function | undefined> {
 
 }
 
@@ -50,13 +50,13 @@ export interface DThemeButtonColorGradient extends DThemeButton {
 }
 
 export interface DButtonColorGradient {
-	on<E extends keyof DButtonColorGradientOn<this>>(
-		event: E, handler: DButtonColorGradientOn<this>[ E ], context?: any
+	on<E extends keyof DButtonColorGradientEvents<this>>(
+		event: E, handler: DButtonColorGradientEvents<this>[ E ], context?: any
 	): this;
 	on( event: string, handler: Function, context?: any ): this;
 
-	emit<E extends keyof DButtonColorGradientOn<this>>(
-		event: E, ...args: Parameters<DButtonColorGradientOn<this>[ E ]>
+	emit<E extends keyof DButtonColorGradientEvents<this>>(
+		event: E, ...args: Parameters<DButtonColorGradientEvents<this>[ E ]>
 	): boolean;
 	emit( event: string, ...args: any ): boolean;
 }

@@ -5,7 +5,7 @@
 
 import { DControllerDocument } from "./d-controller-document";
 import { DControllers } from "./d-controllers";
-import { DDiagramBase, DDiagramBaseOn, DDiagramBaseOptions, DThemeDiagramBase } from "./d-diagram-base";
+import { DDiagramBase, DDiagramBaseEvents, DDiagramBaseOptions, DThemeDiagramBase } from "./d-diagram-base";
 import { DDiagramCanvasEditor, DDiagramCanvasEditorOptions } from "./d-diagram-canvas-editor";
 import { DDiagramSerialized, DDiagramSerializedSimple, DDiagramSerializedVersion } from "./d-diagram-serialized";
 import { DDiagrams } from "./d-diagrams";
@@ -18,9 +18,9 @@ export interface DDiagramEditorController {
 }
 
 /**
- * Event handlers.
+ * {@link DDiagramEditor} events.
  */
-export interface DDiagramEditorOn<SELF> extends DDiagramBaseOn<DDiagramCanvasEditor, SELF> {
+export interface DDiagramEditorEvents<SELF> extends DDiagramBaseEvents<DDiagramCanvasEditor, SELF> {
 	/**
 	 * Triggered when a serialized data is changed without using the set / unset methods.
 	 * This happens, for instance, when the name or the ID of the serialized data is changed.
@@ -49,7 +49,7 @@ export interface DDiagramEditorOn<SELF> extends DDiagramBaseOn<DDiagramCanvasEdi
 /**
  * Mappings of event names and handlers.
  */
-export interface DDiagramEditorOnOptions<SELF> extends Partial<DDiagramEditorOn<SELF> & Record<string, Function>> {
+export interface DDiagramEditorOnOptions<SELF> extends Partial<DDiagramEditorEvents<SELF> & Record<string, Function>> {
 
 }
 
@@ -66,13 +66,13 @@ export interface DThemeDiagramEditor extends DThemeDiagramBase {
 }
 
 export interface DDiagramEditor {
-	on<E extends keyof DDiagramEditorOn<this>>(
-		event: E, handler: DDiagramEditorOn<this>[ E ], context?: any
+	on<E extends keyof DDiagramEditorEvents<this>>(
+		event: E, handler: DDiagramEditorEvents<this>[ E ], context?: any
 	): this;
 	on( event: string, handler: Function, context?: any ): this;
 
-	emit<E extends keyof DDiagramEditorOn<this>>(
-		event: E, ...args: Parameters<DDiagramEditorOn<this>[ E ]>
+	emit<E extends keyof DDiagramEditorEvents<this>>(
+		event: E, ...args: Parameters<DDiagramEditorEvents<this>[ E ]>
 	): boolean;
 	emit( event: string, ...args: any ): boolean;
 }

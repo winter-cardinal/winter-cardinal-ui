@@ -6,15 +6,15 @@
 import { DButton } from "./d-button";
 import { DButtonPrimary } from "./d-button-primary";
 import { DCoordinatePosition, DCoordinateSize } from "./d-coordinate";
-import { DDialog, DDialogOn, DDialogOptions, DThemeDialog } from "./d-dialog";
+import { DDialog, DDialogEvents, DDialogOptions, DThemeDialog } from "./d-dialog";
 import { DLayoutHorizontal } from "./d-layout-horizontal";
 import { DLayoutSpace } from "./d-layout-space";
 import { DLayoutVertical } from "./d-layout-vertical";
 
 /**
- * Event handlers.
+ * {@link DDialogCommand} events.
  */
-export interface DDialogCommandOn<SELF> extends DDialogOn<SELF> {
+export interface DDialogCommandEvents<SELF> extends DDialogEvents<SELF> {
 	/**
 	 * Triggered when a dialog is successfully finished.
 	 *
@@ -33,7 +33,7 @@ export interface DDialogCommandOn<SELF> extends DDialogOn<SELF> {
 /**
  * Mappings of event names and handlers.
  */
-export interface DDialogCommandOnOptions<SELF> extends Partial<DDialogCommandOn<SELF> & Record<string, Function>> {
+export interface DDialogCommandOnOptions<SELF> extends Partial<DDialogCommandEvents<SELF> & Record<string, Function>> {
 
 }
 
@@ -67,13 +67,13 @@ export interface DThemeDialogCommand extends DThemeDialog {
 }
 
 export interface DDialogCommand {
-	on<E extends keyof DDialogCommandOn<this>>(
-		event: E, handler: DDialogCommandOn<this>[ E ], context?: any
+	on<E extends keyof DDialogCommandEvents<this>>(
+		event: E, handler: DDialogCommandEvents<this>[ E ], context?: any
 	): this;
 	on( event: string, handler: Function, context?: any ): this;
 
-	emit<E extends keyof DDialogCommandOn<this>>(
-		event: E, ...args: Parameters<DDialogCommandOn<this>[ E ]>
+	emit<E extends keyof DDialogCommandEvents<this>>(
+		event: E, ...args: Parameters<DDialogCommandEvents<this>[ E ]>
 	): boolean;
 	emit( event: string, ...args: any ): boolean;
 }

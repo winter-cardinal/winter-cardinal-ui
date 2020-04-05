@@ -4,16 +4,16 @@
  */
 
 import { DBaseState } from "./d-base-state";
-import { DButtonBase, DButtonBaseOn, DButtonBaseOptions, DThemeButtonBase } from "./d-button-base";
+import { DButtonBase, DButtonBaseEvents, DButtonBaseOptions, DThemeButtonBase } from "./d-button-base";
 import { DMenu, DMenuOptions, DThemeMenu } from "./d-menu";
 import { DMenuItem } from "./d-menu-item";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { isString } from "./util/is-string";
 
 /**
- * Event handlers.
+ * {@link DDropdownBase} events.
  */
-export interface DDropdownBaseOn<VALUE, TEXT_VALUE, SELF> extends DButtonBaseOn<VALUE, SELF> {
+export interface DDropdownBaseEvents<VALUE, TEXT_VALUE, SELF> extends DButtonBaseEvents<VALUE, SELF> {
 
 }
 
@@ -21,7 +21,7 @@ export interface DDropdownBaseOn<VALUE, TEXT_VALUE, SELF> extends DButtonBaseOn<
  * Mappings of event names and handlers.
  */
 export interface DDropdownBaseOnOptions<VALUE, TEXT_VALUE, SELF>
-	extends Partial<DDropdownBaseOn<VALUE, TEXT_VALUE, SELF> & Record<string, Function>> {
+	extends Partial<DDropdownBaseEvents<VALUE, TEXT_VALUE, SELF> & Record<string, Function>> {
 
 }
 

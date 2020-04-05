@@ -15,23 +15,26 @@ import { DImageBaseThemeWrapperSecondary, DThemeImageBaseSecondary } from "./d-i
 import { DImageBaseThemeWrapperTertiary, DThemeImageBaseTertiary } from "./d-image-base-theme-wrapper-tertiary";
 import { DImagePiece, DImagePieceOptions, DThemeImagePiece } from "./d-image-piece";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
-import { DTextBase, DTextBaseOn, DTextBaseOptions, DThemeTextBase } from "./d-text-base";
+import { DTextBase, DTextBaseEvents, DTextBaseOptions, DThemeTextBase } from "./d-text-base";
 
 /**
- * Event handlers.
+ * {@link DImageBase} events.
  */
-export interface DImageBaseOn<VALUE, SELF> extends DTextBaseOn<VALUE, SELF> {
+export interface DImageBaseEvents<VALUE, SELF> extends DTextBaseEvents<VALUE, SELF> {
 
 }
 
 /**
- * Mappings of event names and handlers.
+ * {@link DImageBase} "on" options.
  */
 export interface DImageBaseOnOptions<VALUE, SELF>
-	extends Partial<DImageBaseOn<VALUE, SELF> & Record<string, Function>> {
+	extends Partial<DImageBaseEvents<VALUE, SELF> & Record<string, Function>> {
 
 }
 
+/**
+ * {@link DImageBase} options.
+ */
 export interface DImageBaseOptions<
 	VALUE = unknown,
 	THEME extends DThemeImageBase = DThemeImageBase,
@@ -41,6 +44,9 @@ export interface DImageBaseOptions<
 	on?: DImageBaseOnOptions<VALUE, SELF>;
 }
 
+/**
+ * {@link DImageBase} theme.
+ */
 export interface DThemeImageBase extends DThemeTextBase, DThemeImagePiece {
 	getSecondaryImageAlignHorizontal(): DAlignHorizontal;
 	getSecondaryImageAlignVertical(): DAlignVertical;
@@ -70,17 +76,21 @@ const hasTertiaryImageSource = ( theme: DThemeImageBase ): theme is DThemeImageB
 };
 
 export interface DImageBase<VALUE> {
-	on<E extends keyof DImageBaseOn<VALUE, this>>(
-		event: E, handler: DImageBaseOn<VALUE, this>[ E ], context?: any
+	on<E extends keyof DImageBaseEvents<VALUE, this>>(
+		event: E, handler: DImageBaseEvents<VALUE, this>[ E ], context?: any
 	): this;
 	on( event: string, handler: Function, context?: any ): this;
 
-	emit<E extends keyof DImageBaseOn<VALUE, this>>(
-		event: E, ...args: Parameters<DImageBaseOn<VALUE, this>[ E ]>
+	emit<E extends keyof DImageBaseEvents<VALUE, this>>(
+		event: E, ...args: Parameters<DImageBaseEvents<VALUE, this>[ E ]>
 	): boolean;
 	emit( event: string, ...args: any ): boolean;
 }
 
+/**
+ * A base class for UI classes with an image support.
+ * See {@link DImageBaseEvents} for event details.
+ */
 export class DImageBase<
 	VALUE = unknown,
 	THEME extends DThemeImageBase = DThemeImageBase,

@@ -4,7 +4,7 @@
  */
 
 import { DBaseState } from "./d-base-state";
-import { DButton, DButtonOn, DButtonOptions, DThemeButton } from "./d-button";
+import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogSelect, DDialogSelectOptions } from "./d-dialog-select";
 
 /**
@@ -27,9 +27,9 @@ export type DButtonSelectGetter<VALUE, DIALOG> = ( dialog: DIALOG ) => VALUE | n
 export type DButtonSelectSetter<VALUE, DIALOG> = ( dialog: DIALOG, value: VALUE | null ) => void;
 
 /**
- * Event handlers.
+ * {@link DButtonSelect} events.
  */
-export interface DButtonSelectOn<VALUE, SELF> extends DButtonOn<VALUE, SELF> {
+export interface DButtonSelectEvents<VALUE, SELF> extends DButtonEvents<VALUE, SELF> {
 	/**
 	 * Triggered when a selection is changed.
 	 *
@@ -44,18 +44,18 @@ export interface DButtonSelectOn<VALUE, SELF> extends DButtonOn<VALUE, SELF> {
  * Mappings of event names and handlers.
  */
 export interface DButtonSelectOnOptions<VALUE, SELF>
-	extends Partial<DButtonSelectOn<VALUE, SELF> & Record<string, Function>> {
+	extends Partial<DButtonSelectEvents<VALUE, SELF> & Record<string, Function>> {
 
 }
 
 export interface DButtonSelect<VALUE> {
-	on<E extends keyof DButtonSelectOn<VALUE, this>>(
-		event: E, handler: DButtonSelectOn<VALUE, this>[ E ], context?: any
+	on<E extends keyof DButtonSelectEvents<VALUE, this>>(
+		event: E, handler: DButtonSelectEvents<VALUE, this>[ E ], context?: any
 	): this;
 	on( event: string, handler: Function, context?: any ): this;
 
-	emit<E extends keyof DButtonSelectOn<VALUE, this>>(
-		event: E, ...args: Parameters<DButtonSelectOn<VALUE, this>[ E ]>
+	emit<E extends keyof DButtonSelectEvents<VALUE, this>>(
+		event: E, ...args: Parameters<DButtonSelectEvents<VALUE, this>[ E ]>
 	): boolean;
 	emit( event: string, ...args: any ): boolean;
 }

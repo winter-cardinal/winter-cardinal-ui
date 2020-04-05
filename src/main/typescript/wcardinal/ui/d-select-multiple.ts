@@ -3,17 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DDropdownBase, DDropdownBaseOn, DDropdownBaseOptions, DThemeDropdownBase } from "./d-dropdown-base";
+import { DDropdownBase, DDropdownBaseEvents, DDropdownBaseOptions, DThemeDropdownBase } from "./d-dropdown-base";
 import { DMenu } from "./d-menu";
 import { DMenuItem } from "./d-menu-item";
 import { DMenuItemCheck } from "./d-menu-item-check";
 import { DMenuItemMenu } from "./d-menu-item-menu";
 
 /**
- * Event handlers.
+ * {@link DSelectMultiple} events.
  */
-export interface DSelectMultipleOn<VALUE, SELF>
-	extends DDropdownBaseOn<VALUE, DMenuItem<VALUE> | null, SELF> {
+export interface DSelectMultipleEvents<VALUE, SELF>
+	extends DDropdownBaseEvents<VALUE, DMenuItem<VALUE> | null, SELF> {
 	/**
 	 * Called when a menu item is selected.
 	 *
@@ -38,7 +38,7 @@ export interface DSelectMultipleOn<VALUE, SELF>
  * Mappings of event names and handlers.
  */
 export interface DSelectMultipleOnOptions<VALUE, SELF>
-	extends Partial<DSelectMultipleOn<VALUE, SELF> & Record<string, Function>> {
+	extends Partial<DSelectMultipleEvents<VALUE, SELF> & Record<string, Function>> {
 
 }
 
@@ -63,13 +63,13 @@ export interface DThemeSelectMultiple extends DThemeDropdownBase<Array<DMenuItem
 }
 
 export interface DSelectMultiple<VALUE> {
-	on<E extends keyof DSelectMultipleOn<VALUE, this>>(
-		event: E, handler: DSelectMultipleOn<VALUE, this>[ E ], context?: any
+	on<E extends keyof DSelectMultipleEvents<VALUE, this>>(
+		event: E, handler: DSelectMultipleEvents<VALUE, this>[ E ], context?: any
 	): this;
 	on( event: string, handler: Function, context?: any ): this;
 
-	emit<E extends keyof DSelectMultipleOn<VALUE, this>>(
-		event: E, ...args: Parameters<DSelectMultipleOn<VALUE, this>[ E ]>
+	emit<E extends keyof DSelectMultipleEvents<VALUE, this>>(
+		event: E, ...args: Parameters<DSelectMultipleEvents<VALUE, this>[ E ]>
 	): boolean;
 	emit( event: string, ...args: any ): boolean;
 }

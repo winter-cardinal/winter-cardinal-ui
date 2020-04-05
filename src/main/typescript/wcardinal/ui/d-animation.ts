@@ -42,9 +42,9 @@ export type DAnimationOnEnd<TARGET> = ( isReverse: boolean, animation: DAnimatio
 export type DAnimationTiming<TARGET> = ( time: number, animation: DAnimation<TARGET> ) => number;
 
 /**
- * Event handlers.
+ * {@link DAnimation} events.
  */
-export interface DAnimationOn<SELF> {
+export interface DAnimationEvents<SELF> {
 	/**
 	 * Triggered when an animation starts.
 	 *
@@ -75,7 +75,7 @@ export interface DAnimationOn<SELF> {
 /**
  * Mappings of event names and handlers.
  */
-export interface DAnimationOnOptions<SELF> extends Partial<DAnimationOn<SELF> & Record<string, Function>> {
+export interface DAnimationOnOptions<SELF> extends Partial<DAnimationEvents<SELF> & Record<string, Function>> {
 
 }
 
@@ -154,13 +154,13 @@ export interface DAnimation<TARGET = unknown> extends utils.EventEmitter {
 	 */
 	end(): void;
 
-	on<E extends keyof DAnimationOn<this>>(
-		event: E, handler: DAnimationOn<this>[ E ], context?: any
+	on<E extends keyof DAnimationEvents<this>>(
+		event: E, handler: DAnimationEvents<this>[ E ], context?: any
 	): this;
 	on( event: string, handler: Function, context?: any ): this;
 
-	emit<E extends keyof DAnimationOn<this>>(
-		event: E, ...args: Parameters<DAnimationOn<this>[ E ]>
+	emit<E extends keyof DAnimationEvents<this>>(
+		event: E, ...args: Parameters<DAnimationEvents<this>[ E ]>
 	): boolean;
 	emit( event: string, ...args: any ): boolean;
 }
