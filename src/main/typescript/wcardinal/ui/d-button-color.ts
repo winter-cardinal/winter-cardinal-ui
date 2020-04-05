@@ -10,58 +10,55 @@ import { DColorAndAlpha } from "./d-color";
 import { DDialogColor, DDialogColorOptions } from "./d-dialog-color";
 import { DImagePieceOptions, DImagePieceTintOptions } from "./d-image-piece";
 import { DPickerColorAndAlpha } from "./d-picker-color-and-alpha";
+import { EventSupport } from "./decorator/event-support";
 
 /**
  * {@link DButtonColor} events.
  */
-export interface DButtonColorEvents<SELF> extends DButtonEvents<DColorAndAlpha, SELF> {
+export interface DButtonColorEvents<EMITTER> extends DButtonEvents<DColorAndAlpha, EMITTER> {
 	/**
 	 * Triggered when a selection is changed.
 	 *
 	 * @param newValue a newly selected value
 	 * @param oldValue a previously selected value
-	 * @param self this
+	 * @param emitter an emitter
 	 */
-	change( newValue: DColorAndAlpha, oldValue: DColorAndAlpha, self: SELF ): void;
+	change( newValue: DColorAndAlpha, oldValue: DColorAndAlpha, emitter: EMITTER ): void;
 }
 
 /**
- * Mappings of event names and handlers.
+ * {@link DButtonColor} "on" options.
  */
-export interface DButtonColorOnOptions<SELF> extends Partial<DButtonColorEvents<SELF> & Record<string, Function>> {
+export interface DButtonColorOnOptions<EMITTER>
+	extends Partial<DButtonColorEvents<EMITTER> & Record<string, Function>> {
 
 }
 
+/**
+ * {@link DButtonColor} options.
+ */
 export interface DButtonColorOptions<
 	THEME extends DThemeButtonColor = DThemeButtonColor,
-	SELF = any
-> extends DButtonOptions<DColorAndAlpha, THEME, SELF> {
+	EMITTER = any
+> extends DButtonOptions<DColorAndAlpha, THEME, EMITTER> {
 	/**
 	 * A dialog to pick a color.
 	 */
 	dialog?: DDialogColorOptions;
 
-	on?: DButtonColorOnOptions<SELF>;
+	on?: DButtonColorOnOptions<EMITTER>;
 }
 
+/**
+ * {@link DButtonColor} theme.
+ */
 export interface DThemeButtonColor extends DThemeButton {
 	getTextFormatter(): ( value: DColorAndAlpha, caller: DButtonColor ) => string;
 	getTextValue( state: DBaseState ): DColorAndAlpha;
 	newTextValue(): DColorAndAlpha;
 }
 
-export interface DButtonColor {
-	on<E extends keyof DButtonColorEvents<this>>(
-		event: E, handler: DButtonColorEvents<this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-
-	emit<E extends keyof DButtonColorEvents<this>>(
-		event: E, ...args: Parameters<DButtonColorEvents<this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-}
-
+@EventSupport
 export class DButtonColor<
 	THEME extends DThemeButtonColor = DThemeButtonColor,
 	OPTIONS extends DButtonColorOptions<THEME> = DButtonColorOptions<THEME>
@@ -163,4 +160,23 @@ export class DButtonColor<
 	protected getType(): string {
 		return "DButtonColor";
 	}
+
+	// Event handlings
+	on<E extends keyof DButtonColorEvents<this>>(
+		event: E, handler: DButtonColorEvents<this>[ E ], context?: any
+	): this;
+	on( event: string, handler: Function, context?: any ): this;
+	on(): this { return this; }
+
+	once<E extends keyof DButtonColorEvents<this>>(
+		event: E, handler: DButtonColorEvents<this>[ E ], context?: any
+	): this;
+	once( event: string, handler: Function, context?: any ): this;
+	once(): this { return this; }
+
+	emit<E extends keyof DButtonColorEvents<this>>(
+		event: E, ...args: Parameters<DButtonColorEvents<this>[ E ]>
+	): boolean;
+	emit( event: string, ...args: any ): boolean;
+	emit(): boolean { return true; }
 }

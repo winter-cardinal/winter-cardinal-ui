@@ -6,6 +6,7 @@
 import { DBaseState } from "./d-base-state";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogSelect, DDialogSelectOptions } from "./d-dialog-select";
+import { EventSupport } from "./decorator/event-support";
 
 /**
  * A dialog to select values.
@@ -29,44 +30,35 @@ export type DButtonSelectSetter<VALUE, DIALOG> = ( dialog: DIALOG, value: VALUE 
 /**
  * {@link DButtonSelect} events.
  */
-export interface DButtonSelectEvents<VALUE, SELF> extends DButtonEvents<VALUE, SELF> {
+export interface DButtonSelectEvents<VALUE, EMITTER> extends DButtonEvents<VALUE, EMITTER> {
 	/**
 	 * Triggered when a selection is changed.
 	 *
 	 * @param newValue a newly selected value
 	 * @param oldValue a previously selected value
-	 * @param self this
+	 * @param emitter an emitter
 	 */
-	change( newValue: VALUE | null, oldValue: VALUE | null, self: SELF ): void;
+	change( newValue: VALUE | null, oldValue: VALUE | null, emitter: EMITTER ): void;
 }
 
 /**
- * Mappings of event names and handlers.
+ * {@link DButtonSelect} "on" options.
  */
-export interface DButtonSelectOnOptions<VALUE, SELF>
-	extends Partial<DButtonSelectEvents<VALUE, SELF> & Record<string, Function>> {
+export interface DButtonSelectOnOptions<VALUE, EMITTER>
+	extends Partial<DButtonSelectEvents<VALUE, EMITTER> & Record<string, Function>> {
 
 }
 
-export interface DButtonSelect<VALUE> {
-	on<E extends keyof DButtonSelectEvents<VALUE, this>>(
-		event: E, handler: DButtonSelectEvents<VALUE, this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-
-	emit<E extends keyof DButtonSelectEvents<VALUE, this>>(
-		event: E, ...args: Parameters<DButtonSelectEvents<VALUE, this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-}
-
+/**
+ * {@link DButtonSelect} options.
+ */
 export interface DButtonSelectOptions<
 	VALUE extends unknown = unknown,
 	DIALOG_VALUE extends unknown = unknown,
 	DIALOG extends DButtonSelectDialog<DIALOG_VALUE> = DButtonSelectDialog<DIALOG_VALUE>,
 	THEME extends DThemeButtonSelect = DThemeButtonSelect,
-	SELF = any
-> extends DButtonOptions<VALUE | null, THEME, SELF> {
+	EMITTER = any
+> extends DButtonOptions<VALUE | null, THEME, EMITTER> {
 	/**
 	 * A function to retrieve a selected value from a dialog.
 	 */
@@ -83,9 +75,12 @@ export interface DButtonSelectOptions<
 	 */
 	dialog?: DDialogSelectOptions<DIALOG_VALUE> | DIALOG;
 
-	on?: DButtonSelectOnOptions<VALUE, SELF>;
+	on?: DButtonSelectOnOptions<VALUE, EMITTER>;
 }
 
+/**
+ * {@link DButtonSelect} theme.
+ */
 export interface DThemeButtonSelect extends DThemeButton {
 	getTextFormatter(): ( value: unknown | null, caller: DButtonSelect ) => string;
 	getTextValue( state: DBaseState ): unknown | null;
@@ -101,6 +96,7 @@ const defaultSetter = (): void => {
 	// DO NOTHING
 };
 
+@EventSupport
 export class DButtonSelect<
 	VALUE extends unknown = unknown,
 	DIALOG_VALUE extends unknown = unknown,
@@ -190,4 +186,23 @@ export class DButtonSelect<
 	protected getType(): string {
 		return "DButtonSelect";
 	}
+
+	// Event handlings
+	on<E extends keyof DButtonSelectEvents<VALUE, this>>(
+		event: E, handler: DButtonSelectEvents<VALUE, this>[ E ], context?: any
+	): this;
+	on( event: string, handler: Function, context?: any ): this;
+	on(): this { return this; }
+
+	once<E extends keyof DButtonSelectEvents<VALUE, this>>(
+		event: E, handler: DButtonSelectEvents<VALUE, this>[ E ], context?: any
+	): this;
+	once( event: string, handler: Function, context?: any ): this;
+	once(): this { return this; }
+
+	emit<E extends keyof DButtonSelectEvents<VALUE, this>>(
+		event: E, ...args: Parameters<DButtonSelectEvents<VALUE, this>[ E ]>
+	): boolean;
+	emit( event: string, ...args: any ): boolean;
+	emit(): boolean { return true; }
 }

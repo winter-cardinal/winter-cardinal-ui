@@ -7,56 +7,58 @@ import { DDropdownBase, DDropdownBaseEvents, DDropdownBaseOptions, DThemeDropdow
 import { DMenu } from "./d-menu";
 import { DMenuItem } from "./d-menu-item";
 import { DMenuItemMenu } from "./d-menu-item-menu";
+import { EventSupport } from "./decorator/event-support";
 
 /**
  * {@link DSelect} events.
  */
-export interface DSelectEvents<VALUE, SELF> extends DDropdownBaseEvents<VALUE, DMenuItem<VALUE> | null, SELF> {
+export interface DSelectEvents<VALUE, EMITTER> extends DDropdownBaseEvents<VALUE, DMenuItem<VALUE> | null, EMITTER> {
 	/**
-	 * Called when a selection is changed.
+	 * Triggered when a selection is changed.
+	 *
+	 * @param newVAlue a newly-selected value
+	 * @param oldValue a previously-selected value
+	 * @param item a newly-selected item
+	 * @param emitter an emitter
 	 */
-	change( newValue: VALUE | null, oldValue: VALUE | null, item: DMenuItem<VALUE> | null, self: SELF ): void;
+	change( newValue: VALUE | null, oldValue: VALUE | null, item: DMenuItem<VALUE> | null, emitter: EMITTER ): void;
 }
 
 /**
- * Mappings of event names and handlers.
+ * {@link DSelect} "on" options.
  */
-export interface DSelectOnOptions<VALUE, SELF> extends Partial<DSelectEvents<VALUE, SELF> & Record<string, Function>> {
+export interface DSelectOnOptions<VALUE, EMITTER>
+	extends Partial<DSelectEvents<VALUE, EMITTER> & Record<string, Function>> {
 
 }
 
 /**
- * DSelect options.
+ * {@link DSelect} options.
  */
 export interface DSelectOptions<
 	VALUE = unknown,
 	THEME extends DThemeSelect = DThemeSelect,
-	SELF = any
-> extends DDropdownBaseOptions<VALUE, DMenuItem<VALUE> | null, THEME, SELF> {
+	EMITTER = any
+> extends DDropdownBaseOptions<VALUE, DMenuItem<VALUE> | null, THEME, EMITTER> {
 	/**
 	 * A default value.
 	 */
 	value?: VALUE;
 
-	on?: DSelectOnOptions<VALUE, SELF>;
+	on?: DSelectOnOptions<VALUE, EMITTER>;
 }
 
+/**
+ * {@link DSelect} theme.
+ */
 export interface DThemeSelect extends DThemeDropdownBase<DMenuItem<any> | null> {
 
 }
 
-export interface DSelect<VALUE> {
-	on<E extends keyof DSelectEvents<VALUE, this>>(
-		event: E, handler: DSelectEvents<VALUE, this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-
-	emit<E extends keyof DSelectEvents<VALUE, this>>(
-		event: E, ...args: Parameters<DSelectEvents<VALUE, this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-}
-
+/**
+ * A selector class.
+ */
+@EventSupport
 export class DSelect<
 	VALUE = unknown,
 	THEME extends DThemeSelect = DThemeSelect,
@@ -156,4 +158,23 @@ export class DSelect<
 	protected getType(): string {
 		return "DSelect";
 	}
+
+	// Event handlings
+	on<E extends keyof DSelectEvents<VALUE, this>>(
+		event: E, handler: DSelectEvents<VALUE, this>[ E ], context?: any
+	): this;
+	on( event: string, handler: Function, context?: any ): this;
+	on(): this { return this; }
+
+	once<E extends keyof DSelectEvents<VALUE, this>>(
+		event: E, handler: DSelectEvents<VALUE, this>[ E ], context?: any
+	): this;
+	once( event: string, handler: Function, context?: any ): this;
+	once(): this { return this; }
+
+	emit<E extends keyof DSelectEvents<VALUE, this>>(
+		event: E, ...args: Parameters<DSelectEvents<VALUE, this>[ E ]>
+	): boolean;
+	emit( event: string, ...args: any ): boolean;
+	emit(): boolean { return true; }
 }

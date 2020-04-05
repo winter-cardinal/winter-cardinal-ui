@@ -8,72 +8,68 @@ import { DMenu } from "./d-menu";
 import { DMenuItem } from "./d-menu-item";
 import { DMenuItemCheck } from "./d-menu-item-check";
 import { DMenuItemMenu } from "./d-menu-item-menu";
+import { EventSupport } from "./decorator/event-support";
 
 /**
  * {@link DSelectMultiple} events.
  */
-export interface DSelectMultipleEvents<VALUE, SELF>
-	extends DDropdownBaseEvents<VALUE, DMenuItem<VALUE> | null, SELF> {
+export interface DSelectMultipleEvents<VALUE, EMITTER>
+	extends DDropdownBaseEvents<VALUE, DMenuItem<VALUE> | null, EMITTER> {
 	/**
-	 * Called when a menu item is selected.
+	 * Triggered when a menu item is selected.
 	 *
 	 * @param value a value of a selected menu item
 	 * @param item a selected menu item
-	 * @param self this
+	 * @param emitter an emitter
 	 */
-	menuselect( value: VALUE, item: DMenuItem<VALUE>, self: SELF ): void;
+	menuselect( value: VALUE, item: DMenuItem<VALUE>, emitter: EMITTER ): void;
 
 	/**
-	 * Called when the selection is changed.
+	 * Triggered when the selection is changed.
 	 *
 	 * @param newValues new selected values
 	 * @param oldValues old selected values
 	 * @param items selected items
-	 * @param self this
+	 * @param emitter an emitter
 	 */
-	change( newValues: VALUE[], oldValues: VALUE[], items: Array<DMenuItem<VALUE>>, self: SELF ): void;
+	change( newValues: VALUE[], oldValues: VALUE[], items: Array<DMenuItem<VALUE>>, emitter: EMITTER ): void;
 }
 
 /**
- * Mappings of event names and handlers.
+ * {@link DSelectMultiple} "on" options.
  */
-export interface DSelectMultipleOnOptions<VALUE, SELF>
-	extends Partial<DSelectMultipleEvents<VALUE, SELF> & Record<string, Function>> {
+export interface DSelectMultipleOnOptions<VALUE, EMITTER>
+	extends Partial<DSelectMultipleEvents<VALUE, EMITTER> & Record<string, Function>> {
 
 }
 
 /**
- * DSelect options.
+ * {@link DSelectMultiple} options.
  */
 export interface DSelectMultipleOptions<
 	VALUE = unknown,
 	THEME extends DThemeSelectMultiple = DThemeSelectMultiple,
-	SELF = any
-> extends DDropdownBaseOptions<VALUE, Array<DMenuItem<VALUE>>, THEME, SELF> {
+	EMITTER = any
+> extends DDropdownBaseOptions<VALUE, Array<DMenuItem<VALUE>>, THEME, EMITTER> {
 	/**
 	 * A default values.
 	 */
 	values?: VALUE[];
 
-	on?: DSelectMultipleOnOptions<VALUE, SELF>;
+	on?: DSelectMultipleOnOptions<VALUE, EMITTER>;
 }
 
+/**
+ * {@link DSelectMultiple} theme.
+ */
 export interface DThemeSelectMultiple extends DThemeDropdownBase<Array<DMenuItem<any>>> {
 
 }
 
-export interface DSelectMultiple<VALUE> {
-	on<E extends keyof DSelectMultipleEvents<VALUE, this>>(
-		event: E, handler: DSelectMultipleEvents<VALUE, this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-
-	emit<E extends keyof DSelectMultipleEvents<VALUE, this>>(
-		event: E, ...args: Parameters<DSelectMultipleEvents<VALUE, this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-}
-
+/**
+ * A multi-value selector class.
+ */
+@EventSupport
 export class DSelectMultiple<
 	VALUE = unknown,
 	THEME extends DThemeSelectMultiple = DThemeSelectMultiple,
@@ -209,4 +205,23 @@ export class DSelectMultiple<
 	protected getType(): string {
 		return "DSelectMultiple";
 	}
+
+	// Event handlings
+	on<E extends keyof DSelectMultipleEvents<VALUE, this>>(
+		event: E, handler: DSelectMultipleEvents<VALUE, this>[ E ], context?: any
+	): this;
+	on( event: string, handler: Function, context?: any ): this;
+	on(): this { return this; }
+
+	once<E extends keyof DSelectMultipleEvents<VALUE, this>>(
+		event: E, handler: DSelectMultipleEvents<VALUE, this>[ E ], context?: any
+	): this;
+	once( event: string, handler: Function, context?: any ): this;
+	once(): this { return this; }
+
+	emit<E extends keyof DSelectMultipleEvents<VALUE, this>>(
+		event: E, ...args: Parameters<DSelectMultipleEvents<VALUE, this>[ E ]>
+	): boolean;
+	emit( event: string, ...args: any ): boolean;
+	emit(): boolean { return true; }
 }

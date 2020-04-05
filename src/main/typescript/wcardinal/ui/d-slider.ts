@@ -4,65 +4,64 @@
  */
 
 import { interaction, Point } from "pixi.js";
+import InteractionEvent = interaction.InteractionEvent;
+import InteractionManager = interaction.InteractionManager;
 import { DApplications } from "./d-applications";
 import { DBase, DBaseEvents, DBaseOptions, DThemeBase } from "./d-base";
 import { DSliderLabel, DSliderLabelOptions } from "./d-slider-label";
 import { DSliderThumb, DSliderThumbOptions } from "./d-slider-thumb";
 import { DSliderTrack, DSliderTrackOptions } from "./d-slider-track";
 import { DSliderValue, DSliderValueOptions } from "./d-slider-value";
+import { EventSupport } from "./decorator/event-support";
 import { UtilPointerEvent } from "./util/util-pointer-event";
-import InteractionEvent = interaction.InteractionEvent;
-import InteractionManager = interaction.InteractionManager;
 
 /**
  * {@link DSlider} events.
  */
-export interface DSliderEvents<SELF> extends DBaseEvents<SELF> {
+export interface DSliderEvents<EMITTER> extends DBaseEvents<EMITTER> {
 	/**
 	 * Triggered when a value is changed.
 	 *
 	 * @param newValue a new value
 	 * @param oldValue an old value
-	 * @param self this
+	 * @param emitter an emitter
 	 */
-	change( newValue: number, oldValue: number, self: SELF ): void;
+	change( newValue: number, oldValue: number, emitter: EMITTER ): void;
 }
 
 /**
- * Mappings of event names and handlers.
+ * {@link DSlider} "on" options.
  */
-export interface DSliderOnOptions<SELF> extends Partial<DSliderEvents<SELF> & Record<string, Function>> {
+export interface DSliderOnOptions<EMITTER> extends Partial<DSliderEvents<EMITTER> & Record<string, Function>> {
 
 }
 
+/**
+ * {@link DSlider} options.
+ */
 export interface DSliderOptions<
 	THEME extends DThemeSlider = DThemeSlider,
-	SELF = any
-> extends DBaseOptions<THEME, SELF> {
+	EMITTER = any
+> extends DBaseOptions<THEME, EMITTER> {
 	min?: DSliderLabelOptions;
 	max?: DSliderLabelOptions;
 	value?: DSliderValueOptions;
 	track?: DSliderTrackOptions;
 	thumb?: DSliderThumbOptions;
-	on?: DSliderOnOptions<SELF>;
+	on?: DSliderOnOptions<EMITTER>;
 }
 
+/**
+ * {@link DSlider} theme.
+ */
 export interface DThemeSlider extends DThemeBase {
 
 }
 
-export interface DSlider {
-	on<E extends keyof DSliderEvents<this>>(
-		event: E, handler: DSliderEvents<this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-
-	emit<E extends keyof DSliderEvents<this>>(
-		event: E, ...args: Parameters<DSliderEvents<this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-}
-
+/**
+ * A slider class.
+ */
+@EventSupport
 export abstract class DSlider<
 	THEME extends DThemeSlider = DThemeSlider,
 	OPTIONS extends DSliderOptions<THEME> = DSliderOptions<THEME>
@@ -294,16 +293,14 @@ export abstract class DSlider<
 	}
 
 	/**
-	 * Gets current value of slider
+	 * Returns a current value.
 	 */
 	get value(): number {
 		return this._value.value;
 	}
 
 	/**
-	 * Sets value for slider
-	 * - New value will be applied
-	 * - UI components will be changed arcording to new value
+	 * Sets a current value.
 	 */
 	set value( value: number ) {
 		value = Math.max( this._min.value, Math.min( this._max.value, value ) );
@@ -315,16 +312,14 @@ export abstract class DSlider<
 	}
 
 	/**
-	 * Gets min value of slider
+	 * Returns a minimum value.
 	 */
 	get min(): number {
 		return this._min.value;
 	}
 
 	/**
-	 * Sets min value for slider
-	 * - New min value will be applied
-	 * - UI components will be changed arcording to new value
+	 * Sets a minimum value.
 	 */
 	set min( newMin: number ) {
 		const min = this._min;
@@ -338,16 +333,14 @@ export abstract class DSlider<
 	}
 
 	/**
-	 * Gets max value of slider
+	 * Returns a maximum value.
 	 */
 	get max(): number {
 		return this._max.value;
 	}
 
 	/**
-	 * Sets max value for slider
-	 * - New max value will be applied
-	 * - UI components will be changed arcording to new value
+	 * Sets a maximum value.
 	 */
 	set max( newMax: number ) {
 		const max = this._max;
@@ -363,4 +356,23 @@ export abstract class DSlider<
 	protected getType(): string {
 		return "DSlider";
 	}
+
+	// Event handlings
+	on<E extends keyof DSliderEvents<this>>(
+		event: E, handler: DSliderEvents<this>[ E ], context?: any
+	): this;
+	on( event: string, handler: Function, context?: any ): this;
+	on(): this { return this; }
+
+	once<E extends keyof DSliderEvents<this>>(
+		event: E, handler: DSliderEvents<this>[ E ], context?: any
+	): this;
+	once( event: string, handler: Function, context?: any ): this;
+	once(): this { return this; }
+
+	emit<E extends keyof DSliderEvents<this>>(
+		event: E, ...args: Parameters<DSliderEvents<this>[ E ]>
+	): boolean;
+	emit( event: string, ...args: any ): boolean;
+	emit(): boolean { return true; }
 }

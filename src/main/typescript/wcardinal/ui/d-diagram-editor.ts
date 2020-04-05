@@ -9,8 +9,12 @@ import { DDiagramBase, DDiagramBaseEvents, DDiagramBaseOptions, DThemeDiagramBas
 import { DDiagramCanvasEditor, DDiagramCanvasEditorOptions } from "./d-diagram-canvas-editor";
 import { DDiagramSerialized, DDiagramSerializedSimple, DDiagramSerializedVersion } from "./d-diagram-serialized";
 import { DDiagrams } from "./d-diagrams";
+import { EventSupport } from "./decorator/event-support";
 import { ESnapper } from "./snapper/e-snapper";
 
+/**
+ * {@link DDiagramEditor} controller.
+ */
 export interface DDiagramEditorController {
 	get( id: number ): Promise<DDiagramSerializedSimple | DDiagramSerialized>;
 	save( simple: DDiagramSerializedSimple ): Promise<number>;
@@ -20,63 +24,59 @@ export interface DDiagramEditorController {
 /**
  * {@link DDiagramEditor} events.
  */
-export interface DDiagramEditorEvents<SELF> extends DDiagramBaseEvents<DDiagramCanvasEditor, SELF> {
+export interface DDiagramEditorEvents<EMITTER> extends DDiagramBaseEvents<DDiagramCanvasEditor, EMITTER> {
 	/**
 	 * Triggered when a serialized data is changed without using the set / unset methods.
 	 * This happens, for instance, when the name or the ID of the serialized data is changed.
 	 *
-	 * @param self this
+	 * @param emitter an emitter
 	 */
-	change( self: SELF ): void;
+	change( emitter: EMITTER ): void;
 
 	/**
 	 * Triggered when an operation is successfully finished.
 	 *
 	 * @param operation an operation ID
-	 * @param self this
+	 * @param emitter an emitter
 	 */
-	success( operation: "save" | "save-as" | "open" | "delete", self: SELF ): void;
+	success( operation: "save" | "save-as" | "open" | "delete", emitter: EMITTER ): void;
 
 	/**
 	 * Triggered when an operation is failed.
 	 *
 	 * @param operation an operation ID
-	 * @param self this
+	 * @param emitter an emitter
 	 */
-	fail( operation: "save" | "save-as" | "open" | "delete", self: SELF ): void;
+	fail( operation: "save" | "save-as" | "open" | "delete", emitter: EMITTER ): void;
 }
 
 /**
- * Mappings of event names and handlers.
+ * {@link DDiagramEditor} "on" options.
  */
-export interface DDiagramEditorOnOptions<SELF> extends Partial<DDiagramEditorEvents<SELF> & Record<string, Function>> {
+export interface DDiagramEditorOnOptions<EMITTER>
+	extends Partial<DDiagramEditorEvents<EMITTER> & Record<string, Function>> {
 
 }
 
+/**
+ * {@link DDiagramEditor} options.
+ */
 export interface DDiagramEditorOptions<
 	THEME extends DThemeDiagramEditor = DThemeDiagramEditor,
-	SELF = any
+	EMITTER = any
 > extends DDiagramBaseOptions<DDiagramCanvasEditor, THEME> {
 	controller: DDiagramEditorController;
-	on?: DDiagramEditorOnOptions<SELF>;
+	on?: DDiagramEditorOnOptions<EMITTER>;
 }
 
+/**
+ * {@link DDiagramEditor} theme.
+ */
 export interface DThemeDiagramEditor extends DThemeDiagramBase {
 
 }
 
-export interface DDiagramEditor {
-	on<E extends keyof DDiagramEditorEvents<this>>(
-		event: E, handler: DDiagramEditorEvents<this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-
-	emit<E extends keyof DDiagramEditorEvents<this>>(
-		event: E, ...args: Parameters<DDiagramEditorEvents<this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-}
-
+@EventSupport
 export class DDiagramEditor<
 	THEME extends DThemeDiagramEditor = DThemeDiagramEditor,
 	OPTIONS extends DDiagramEditorOptions<THEME> = DDiagramEditorOptions<THEME>
@@ -271,4 +271,23 @@ export class DDiagramEditor<
 	protected getType(): string {
 		return "DDiagramEditor";
 	}
+
+	// Event handlings
+	on<E extends keyof DDiagramEditorEvents<this>>(
+		event: E, handler: DDiagramEditorEvents<this>[ E ], context?: any
+	): this;
+	on( event: string, handler: Function, context?: any ): this;
+	on(): this { return this; }
+
+	once<E extends keyof DDiagramEditorEvents<this>>(
+		event: E, handler: DDiagramEditorEvents<this>[ E ], context?: any
+	): this;
+	once( event: string, handler: Function, context?: any ): this;
+	once(): this { return this; }
+
+	emit<E extends keyof DDiagramEditorEvents<this>>(
+		event: E, ...args: Parameters<DDiagramEditorEvents<this>[ E ]>
+	): boolean;
+	emit( event: string, ...args: any ): boolean;
+	emit(): boolean { return true; }
 }

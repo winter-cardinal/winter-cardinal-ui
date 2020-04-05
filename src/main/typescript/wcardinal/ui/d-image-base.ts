@@ -16,19 +16,20 @@ import { DImageBaseThemeWrapperTertiary, DThemeImageBaseTertiary } from "./d-ima
 import { DImagePiece, DImagePieceOptions, DThemeImagePiece } from "./d-image-piece";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { DTextBase, DTextBaseEvents, DTextBaseOptions, DThemeTextBase } from "./d-text-base";
+import { EventSupport } from "./decorator/event-support";
 
 /**
  * {@link DImageBase} events.
  */
-export interface DImageBaseEvents<VALUE, SELF> extends DTextBaseEvents<VALUE, SELF> {
+export interface DImageBaseEvents<VALUE, EMITTER> extends DTextBaseEvents<VALUE, EMITTER> {
 
 }
 
 /**
  * {@link DImageBase} "on" options.
  */
-export interface DImageBaseOnOptions<VALUE, SELF>
-	extends Partial<DImageBaseEvents<VALUE, SELF> & Record<string, Function>> {
+export interface DImageBaseOnOptions<VALUE, EMITTER>
+	extends Partial<DImageBaseEvents<VALUE, EMITTER> & Record<string, Function>> {
 
 }
 
@@ -38,10 +39,10 @@ export interface DImageBaseOnOptions<VALUE, SELF>
 export interface DImageBaseOptions<
 	VALUE = unknown,
 	THEME extends DThemeImageBase = DThemeImageBase,
-	SELF = any
-> extends DTextBaseOptions<VALUE, THEME, SELF> {
+	EMITTER = any
+> extends DTextBaseOptions<VALUE, THEME, EMITTER> {
 	image?: DImagePieceOptions;
-	on?: DImageBaseOnOptions<VALUE, SELF>;
+	on?: DImageBaseOnOptions<VALUE, EMITTER>;
 }
 
 /**
@@ -75,22 +76,11 @@ const hasTertiaryImageSource = ( theme: DThemeImageBase ): theme is DThemeImageB
 	return !! theme.getTertiaryImageSource;
 };
 
-export interface DImageBase<VALUE> {
-	on<E extends keyof DImageBaseEvents<VALUE, this>>(
-		event: E, handler: DImageBaseEvents<VALUE, this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-
-	emit<E extends keyof DImageBaseEvents<VALUE, this>>(
-		event: E, ...args: Parameters<DImageBaseEvents<VALUE, this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-}
-
 /**
  * A base class for UI classes with an image support.
  * See {@link DImageBaseEvents} for event details.
  */
+@EventSupport
 export class DImageBase<
 	VALUE = unknown,
 	THEME extends DThemeImageBase = DThemeImageBase,
@@ -484,4 +474,23 @@ export class DImageBase<
 		}
 		super.destroy();
 	}
+
+	// Event handlings
+	on<E extends keyof DImageBaseEvents<VALUE, this>>(
+		event: E, handler: DImageBaseEvents<VALUE, this>[ E ], context?: any
+	): this;
+	on( event: string, handler: Function, context?: any ): this;
+	on(): this { return this; }
+
+	once<E extends keyof DImageBaseEvents<VALUE, this>>(
+		event: E, handler: DImageBaseEvents<VALUE, this>[ E ], context?: any
+	): this;
+	once( event: string, handler: Function, context?: any ): this;
+	once(): this { return this; }
+
+	emit<E extends keyof DImageBaseEvents<VALUE, this>>(
+		event: E, ...args: Parameters<DImageBaseEvents<VALUE, this>[ E ]>
+	): boolean;
+	emit( event: string, ...args: any ): boolean;
+	emit(): boolean { return true; }
 }

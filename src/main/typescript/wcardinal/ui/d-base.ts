@@ -30,6 +30,7 @@ import { DScalarFunctions } from "./d-scalar-functions";
 import { DScalarSet } from "./d-scalar-set";
 import { DShadow } from "./d-shadow";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
+import { EventSupport } from "./decorator/event-support";
 import { DThemes } from "./theme/d-themes";
 import { isFunction } from "./util/is-function";
 import { isNumber } from "./util/is-number";
@@ -69,21 +70,35 @@ export interface DBaseCornerOptions {
 /**
  * {@link DBase} events.
  */
-export interface DBaseEvents<SELF> {
+export interface DBaseEvents<EMITTER> {
 	/**
 	 * Triggered when an initialization is finished.
 	 *
-	 *     on( "init", ( self ) => {} )
+	 *     on( "init", ( emitter ) => {} )
 	 *
-	 * @param self this
+	 * @param emitter an emitter
 	 */
-	init( self: SELF ): void;
+	init( emitter: EMITTER ): void;
+
+	/**
+	 * Triggered when added to a container.
+	 *
+	 * @param container a container added to
+	 */
+	added( container: Container ): void;
+
+	/**
+	 * Triggered when removed from a container.
+	 *
+	 * @param container a container removed from
+	 */
+	removed( container: Container ): void;
 }
 
 /**
  * {@link DBase} "on" options.
  */
-export interface DBaseOnOptions<SELF> extends Partial<DBaseEvents<SELF> & Record<string, Function>> {
+export interface DBaseOnOptions<EMITTER> extends Partial<DBaseEvents<EMITTER> & Record<string, Function>> {
 
 }
 
@@ -187,7 +202,7 @@ export interface DBaseOutlineOptions {
  */
 export interface DBaseOptions<
 	THEME extends DThemeBase = DThemeBase,
-	SELF = any
+	EMITTER = any
 > {
 	/**
 	 * A parent.
@@ -272,7 +287,7 @@ export interface DBaseOptions<
 	/**
 	 * Mappings of event names and event handlers.
 	 */
-	on?: DBaseOnOptions<SELF>;
+	on?: DBaseOnOptions<EMITTER>;
 
 	/**
 	 * A weight used by {@link DLayoutVertical} and {@link DLayoutHorizontal}.
@@ -567,22 +582,11 @@ const enum AutoFlag {
 	HEIGHT = 2
 }
 
-export interface DBase {
-	on<E extends keyof DBaseEvents<this>>(
-		event: E, handler: DBaseEvents<this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-
-	emit<E extends keyof DBaseEvents<this>>(
-		event: E, ...args: Parameters<DBaseEvents<this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-}
-
 /**
  * A base class for UI classes.
  * See {@link DBaseEvents} for event details.
  */
+@EventSupport
 export class DBase<
 	THEME extends DThemeBase = DThemeBase,
 	OPTIONS extends DBaseOptions<THEME> = DBaseOptions<THEME>
@@ -1988,4 +1992,23 @@ export class DBase<
 		//
 		super.destroy();
 	}
+
+	// Event handlings
+	on<E extends keyof DBaseEvents<this>>(
+		event: E, handler: DBaseEvents<this>[ E ], context?: any
+	): this;
+	on( event: string, handler: Function, context?: any ): this;
+	on(): this { return this; }
+
+	once<E extends keyof DBaseEvents<this>>(
+		event: E, handler: DBaseEvents<this>[ E ], context?: any
+	): this;
+	once( event: string, handler: Function, context?: any ): this;
+	once(): this { return this; }
+
+	emit<E extends keyof DBaseEvents<this>>(
+		event: E, ...args: Parameters<DBaseEvents<this>[ E ]>
+	): boolean;
+	emit( event: string, ...args: any ): boolean;
+	emit(): boolean { return true; }
 }

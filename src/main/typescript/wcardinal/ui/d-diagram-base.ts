@@ -12,57 +12,53 @@ import { DDiagramCanvasTilePyramidFactory } from "./d-diagram-canvas-tile";
 import { DDiagramLayer } from "./d-diagram-layer";
 import { DDiagramSerialized } from "./d-diagram-serialized";
 import { DDiagrams } from "./d-diagrams";
+import { EventSupport } from "./decorator/event-support";
 import { EShape } from "./shape/e-shape";
 
 /**
  * {@link DDiagramBase} events.
  */
-export interface DDiagramBaseEvents<CANVAS, SELF> extends DCanvasContainerEvents<CANVAS, SELF> {
+export interface DDiagramBaseEvents<CANVAS, EMITTER> extends DCanvasContainerEvents<CANVAS, EMITTER> {
 	/**
 	 * Triggered when all the shape initializations are finished.
 	 *
-	 * @param self this
+	 * @param emitter an emitter
 	 */
-	ready( self: SELF ): void;
+	ready( emitter: EMITTER ): void;
 }
 
 /**
- * Mappings of event names and handlers.
+ * {@link DDiagramBase} "on" options.
  */
-export interface DDiagramBaseOnOptions<CANVAS, SELF>
-	extends Partial<DDiagramBaseEvents<CANVAS, SELF> & Record<string, Function>> {
+export interface DDiagramBaseOnOptions<CANVAS, EMITTER>
+	extends Partial<DDiagramBaseEvents<CANVAS, EMITTER> & Record<string, Function>> {
 
 }
 
+/**
+ * {@link DDiagramBase} options.
+ */
 export interface DDiagramBaseOptions<
 	CANVAS extends DDiagramCanvasBase = DDiagramCanvasBase,
 	THEME extends DThemeDiagramBase = DThemeDiagramBase,
-	SELF = any
+	EMITTER = any
 > extends DCanvasContainerOptions<CANVAS, THEME> {
 	/**
 	 * A tile pyramid factory.
 	 */
 	tile?: DDiagramCanvasTilePyramidFactory;
 
-	on?: DDiagramBaseOnOptions<CANVAS, SELF>;
+	on?: DDiagramBaseOnOptions<CANVAS, EMITTER>;
 }
 
+/**
+ * {@link DDiagramBase} theme.
+ */
 export interface DThemeDiagramBase extends DThemeCanvasContainer {
 
 }
 
-export interface DDiagramBase<CANVAS> {
-	on<E extends keyof DDiagramBaseEvents<CANVAS, this>>(
-		event: E, handler: DDiagramBaseEvents<CANVAS, this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-
-	emit<E extends keyof DDiagramBaseEvents<CANVAS, this>>(
-		event: E, ...args: Parameters<DDiagramBaseEvents<CANVAS, this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-}
-
+@EventSupport
 export abstract class DDiagramBase<
 	CANVAS extends DDiagramCanvasBase = DDiagramCanvasBase,
 	THEME extends DThemeDiagramBase = DThemeDiagramBase,
@@ -132,4 +128,23 @@ export abstract class DDiagramBase<
 	protected getType(): string {
 		return "DDiagramBase";
 	}
+
+	// Event handlings
+	on<E extends keyof DDiagramBaseEvents<CANVAS, this>>(
+		event: E, handler: DDiagramBaseEvents<CANVAS, this>[ E ], context?: any
+	): this;
+	on( event: string, handler: Function, context?: any ): this;
+	on(): this { return this; }
+
+	once<E extends keyof DDiagramBaseEvents<CANVAS, this>>(
+		event: E, handler: DDiagramBaseEvents<CANVAS, this>[ E ], context?: any
+	): this;
+	once( event: string, handler: Function, context?: any ): this;
+	once(): this { return this; }
+
+	emit<E extends keyof DDiagramBaseEvents<CANVAS, this>>(
+		event: E, ...args: Parameters<DDiagramBaseEvents<CANVAS, this>[ E ]>
+	): boolean;
+	emit( event: string, ...args: any ): boolean;
+	emit(): boolean { return true; }
 }

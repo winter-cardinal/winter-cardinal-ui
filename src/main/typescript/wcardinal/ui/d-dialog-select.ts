@@ -15,8 +15,12 @@ import { DLayoutVertical } from "./d-layout-vertical";
 import { DListItem } from "./d-list-item";
 import { DListSelection } from "./d-list-selection";
 import { DNote, DNoteOptions } from "./d-note";
+import { EventSupport } from "./decorator/event-support";
 import { UtilTransition } from "./util/util-transition";
 
+/**
+ * {@link DDialogSelect} search object.
+ */
 export interface DDialogSelectSearch<VALUE> {
 	create( args: [ string ] ): void;
 	on( event: "success", handler: ( e: unknown, searchResults: VALUE[] ) => void ): void;
@@ -25,23 +29,41 @@ export interface DDialogSelectSearch<VALUE> {
 	getResult(): VALUE[] | null;
 }
 
+/**
+ * {@link DDialogSelect} search function.
+ */
 export type DDialogSelectSearchFunction<VALUE> = ( word: string ) => Promise<VALUE[]>;
 
+/**
+ * {@link DDialogSelect} controller.
+ */
 export interface DDialogSelectController<VALUE> {
 	search: DDialogSelectSearch<VALUE> | DDialogSelectSearchFunction<VALUE>;
 }
 
+/**
+ * {@link DDialogSelect} note options.
+ */
 export interface DDialogSelectNoteOptions {
 	noItems?: DNoteOptions;
 	searching?: DNoteOptions;
 }
 
+/**
+ * {@link DDialogSelect} item text formatter options.
+ */
 export type DDialogSelectItemTextFormatter<VALUE> = ( result: VALUE, caller: any ) => string;
 
+/**
+ * {@link DDialogSelect} item text options.
+ */
 export interface DDialogSelectItemTextOptions<VALUE> {
 	formatter?: DDialogSelectItemTextFormatter<VALUE>;
 }
 
+/**
+ * {@link DDialogSelect} item options.
+ */
 export interface DDialogSelectItemOptions<VALUE> {
 	text?: DDialogSelectItemTextOptions<VALUE>;
 }
@@ -49,29 +71,35 @@ export interface DDialogSelectItemOptions<VALUE> {
 /**
  * {@link DDialogSelect} events.
  */
-export interface DDialogSelectEvents<VALUE, SELF> extends DDialogCommandEvents<SELF> {
-	select( value: VALUE, self: SELF ): void;
+export interface DDialogSelectEvents<VALUE, EMITTER> extends DDialogCommandEvents<EMITTER> {
+	select( value: VALUE, self: EMITTER ): void;
 }
 
 /**
- * Mappings of event names and handlers.
+ * {@link DDialogSelect} "on" options.
  */
-export interface DDialogSelectOnOptions<VALUE, SELF>
-	extends Partial<DDialogSelectEvents<VALUE, SELF> & Record<string, Function>> {
+export interface DDialogSelectOnOptions<VALUE, EMITTER>
+	extends Partial<DDialogSelectEvents<VALUE, EMITTER> & Record<string, Function>> {
 
 }
 
+/**
+ * {@link DDialogSelect} options.
+ */
 export interface DDialogSelectOptions<
 	VALUE,
 	THEME extends DThemeDialogSelect = DThemeDialogSelect,
-	SELF = any
+	EMITTER = any
 > extends DDialogCommandOptions<THEME> {
 	controller?: DDialogSelectController<VALUE>;
 	item?: DDialogSelectItemOptions<VALUE>;
 	note?: DDialogSelectNoteOptions;
-	on?: DDialogSelectOnOptions<VALUE, SELF>;
+	on?: DDialogSelectOnOptions<VALUE, EMITTER>;
 }
 
+/**
+ * {@link DDialogSelect} theme.
+ */
 export interface DThemeDialogSelect extends DThemeDialogCommand {
 	getItemTextFormatter(): DDialogSelectItemTextFormatter<any>;
 	getNoteNoItemsText(): string;
@@ -153,6 +181,7 @@ const toSearch = <VALUE>(
 	}
 };
 
+@EventSupport
 export class DDialogSelect<
 	VALUE extends unknown = unknown,
 	THEME extends DThemeDialogSelect = DThemeDialogSelect,
@@ -300,4 +329,23 @@ export class DDialogSelect<
 		this._list.destroy();
 		super.destroy();
 	}
+
+	// Event handlings
+	on<E extends keyof DDialogSelectEvents<VALUE, this>>(
+		event: E, handler: DDialogSelectEvents<VALUE, this>[ E ], context?: any
+	): this;
+	on( event: string, handler: Function, context?: any ): this;
+	on(): this { return this; }
+
+	once<E extends keyof DDialogSelectEvents<VALUE, this>>(
+		event: E, handler: DDialogSelectEvents<VALUE, this>[ E ], context?: any
+	): this;
+	once( event: string, handler: Function, context?: any ): this;
+	once(): this { return this; }
+
+	emit<E extends keyof DDialogSelectEvents<VALUE, this>>(
+		event: E, ...args: Parameters<DDialogSelectEvents<VALUE, this>[ E ]>
+	): boolean;
+	emit( event: string, ...args: any ): boolean;
+	emit(): boolean { return true; }
 }

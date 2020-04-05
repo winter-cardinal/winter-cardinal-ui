@@ -18,7 +18,8 @@
 		"downlevelIteration": false,
 		"preserveConstEnums": true,
 		"stripInternal": true,
-		"incremental": true
+		"incremental": true,
+		"experimentalDecorators": true
 	},
 	"include": [
 		"src/main/typescript/"

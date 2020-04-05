@@ -8,6 +8,7 @@ import { DBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DListItem, DListItemSelection } from "./d-list-item";
 import { DMenu } from "./d-menu";
+import { EventSupport } from "./decorator/event-support";
 import { isString } from "./util/is-string";
 
 export enum DMenuSidedSelectionMode {
@@ -17,25 +18,37 @@ export enum DMenuSidedSelectionMode {
 	DEFAULT = SINGLE_ONCE
 }
 
-export interface DMenuSidedSelectionOnOptions<SELF> {
-	[ name: string ]: (( ...args: any) => any) | undefined;
-
+/**
+ * {@link DMenuSidedSelection} events.
+ */
+export interface DMenuSidedSelectionEvents<EMITTER> {
 	/**
 	 * Triggered when a selection is changed.
 	 *
-	 * @param self this
+	 * @param emitter an emitter
 	 */
-	change?: ( self: SELF ) => void;
+	change( emitter: EMITTER ): void;
 }
 
-export interface DMenuSidedSelectionOptions<SELF = any> {
+/**
+ * {@link DMenuSidedSelection} "on" options.
+ */
+export interface DMenuSidedSelectionOnOptions<EMITTER>
+	extends Partial<DMenuSidedSelectionEvents<EMITTER> & Record<string, Function>> {
+}
+
+/**
+ * {@link DMenuSidedSelection} options.
+ */
+export interface DMenuSidedSelectionOptions<EMITTER = any> {
 	mode?: (keyof typeof DMenuSidedSelectionMode) | DMenuSidedSelectionMode;
-	on?: DMenuSidedSelectionOnOptions<SELF>;
+	on?: DMenuSidedSelectionOnOptions<EMITTER>;
 	filter?: ( item: DBase | null ) => boolean;
 }
 
 const defaultFilter = () => true;
 
+@EventSupport
 export class DMenuSidedSelection extends utils.EventEmitter implements DListItemSelection {
 	protected _content: Container;
 	protected _item: DBase | null;
@@ -163,4 +176,23 @@ export class DMenuSidedSelection extends utils.EventEmitter implements DListItem
 			}
 		}
 	}
+
+	// Event handlings
+	on<E extends keyof DMenuSidedSelectionEvents<this>>(
+		event: E, handler: DMenuSidedSelectionEvents<this>[ E ], context?: any
+	): this;
+	on( event: string, handler: Function, context?: any ): this;
+	on(): this { return this; }
+
+	once<E extends keyof DMenuSidedSelectionEvents<this>>(
+		event: E, handler: DMenuSidedSelectionEvents<this>[ E ], context?: any
+	): this;
+	once( event: string, handler: Function, context?: any ): this;
+	once(): this { return this; }
+
+	emit<E extends keyof DMenuSidedSelectionEvents<this>>(
+		event: E, ...args: Parameters<DMenuSidedSelectionEvents<this>[ E ]>
+	): boolean;
+	emit( event: string, ...args: any ): boolean;
+	emit(): boolean { return true; }
 }

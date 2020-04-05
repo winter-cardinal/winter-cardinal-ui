@@ -21,35 +21,38 @@ export interface UtilFileFacade {
  * An `open` event handler.
  *
  * @param result a file contents
- * @param self this
+ * @param emitter an emitter
  */
-export type UtilFileOnOpen<RESULT, SELF> = ( result: RESULT, self: SELF ) => void;
+export type UtilFileOnOpen<RESULT, EMITTER> = ( result: RESULT, emitter: EMITTER ) => void;
 
 /**
- * Event halders.
+ * {@link UtilFileOpener} events.
  */
-export interface UtilFileOn<SELF> {
+export interface UtilFileEvents<EMITTER> {
 	/**
 	 * Triggered when a file is opened.
 	 */
-	open: UtilFileOnOpen<string, SELF> | UtilFileOnOpen<ArrayBuffer, SELF>;
+	open: UtilFileOnOpen<string, EMITTER> | UtilFileOnOpen<ArrayBuffer, EMITTER>;
 
 	/**
 	 * Triggered when an operation is aborted.
 	 *
 	 * @param e an event object
-	 * @param self this
+	 * @param emitter an emitter
 	 */
-	abort( e: ProgressEvent, self: SELF ): void;
+	abort( e: ProgressEvent, emitter: EMITTER ): void;
 
 	/**
 	 * Triggered when an operation is canceled.
 	 *
-	 * @param self this
+	 * @param emitter an emitter
 	 */
-	cancel( self: SELF ): void;
+	cancel( emitter: EMITTER ): void;
 }
 
+/**
+ * An utility class for opening files.
+ */
 export class UtilFileOpener {
 	protected _input: HTMLInputElement | null;
 	protected _as: UtilFileAs;

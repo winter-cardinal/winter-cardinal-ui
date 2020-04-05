@@ -4,31 +4,35 @@
  */
 
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
+import { EventSupport } from "./decorator/event-support";
 import { isString } from "./util/is-string";
-import { UtilFileAs, UtilFileOn, UtilFileOpener } from "./util/util-file-opener";
+import { UtilFileAs, UtilFileEvents, UtilFileOpener } from "./util/util-file-opener";
 
 export import DButtonFileAs = UtilFileAs;
 
 /**
  * {@link DButtonFile} events.
  */
-export interface DButtonFileEvents<VALUE, SELF> extends DButtonEvents<VALUE, SELF>, UtilFileOn<SELF> {
+export interface DButtonFileEvents<VALUE, EMITTER> extends DButtonEvents<VALUE, EMITTER>, UtilFileEvents<EMITTER> {
 
 }
 
 /**
- * Mappings of event names and handlers.
+ * {@link DButtonFile} "on" options.
  */
-export interface DButtonFileOnOptions<VALUE, SELF>
-	extends Partial<DButtonFileEvents<VALUE, SELF> & Record<string, Function>> {
+export interface DButtonFileOnOptions<VALUE, EMITTER>
+	extends Partial<DButtonFileEvents<VALUE, EMITTER> & Record<string, Function>> {
 
 }
 
+/**
+ * {@link DButtonFile} options.
+ */
 export interface DButtonFileOptions<
 	VALUE = unknown,
 	THEME extends DThemeButtonFile = DThemeButtonFile,
-	SELF = any
-> extends DButtonOptions<VALUE, THEME, SELF> {
+	EMITTER = any
+> extends DButtonOptions<VALUE, THEME, EMITTER> {
 	/**
 	 * An output format.
 	 */
@@ -41,13 +45,20 @@ export interface DButtonFileOptions<
 	 */
 	checker?: () => Promise<unknown> | boolean;
 
-	on?: DButtonFileOnOptions<VALUE, SELF>;
+	on?: DButtonFileOnOptions<VALUE, EMITTER>;
 }
 
+/**
+ * {@link DButtonFile} theme.
+ */
 export interface DThemeButtonFile extends DThemeButton {
 
 }
 
+/**
+ * A file selector.
+ */
+@EventSupport
 export class DButtonFile<
 	VALUE = unknown,
 	THEME extends DThemeButtonFile = DThemeButtonFile,
@@ -95,4 +106,23 @@ export class DButtonFile<
 	protected getType(): string {
 		return "DButtonFile";
 	}
+
+	// Event handlings
+	on<E extends keyof DButtonFileEvents<VALUE, this>>(
+		event: E, handler: DButtonFileEvents<VALUE, this>[ E ], context?: any
+	): this;
+	on( event: string, handler: Function, context?: any ): this;
+	on(): this { return this; }
+
+	once<E extends keyof DButtonFileEvents<VALUE, this>>(
+		event: E, handler: DButtonFileEvents<VALUE, this>[ E ], context?: any
+	): this;
+	once( event: string, handler: Function, context?: any ): this;
+	once(): this { return this; }
+
+	emit<E extends keyof DButtonFileEvents<VALUE, this>>(
+		event: E, ...args: Parameters<DButtonFileEvents<VALUE, this>[ E ]>
+	): boolean;
+	emit( event: string, ...args: any ): boolean;
+	emit(): boolean { return true; }
 }

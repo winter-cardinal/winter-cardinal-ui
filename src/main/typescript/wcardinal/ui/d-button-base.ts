@@ -8,33 +8,34 @@ import { DApplications } from "./d-applications";
 import { DBaseStates } from "./d-base-states";
 import { DButtonGroup } from "./d-button-group";
 import { DImageBase, DImageBaseEvents, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
+import { EventSupport } from "./decorator/event-support";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
 /**
  * {@link DButtonBase} events.
  */
-export interface DButtonBaseEvents<VALUE, SELF> extends DImageBaseEvents<VALUE, SELF> {
+export interface DButtonBaseEvents<VALUE, EMITTER> extends DImageBaseEvents<VALUE, EMITTER> {
 	/**
-	 * Called when the button is activated.
+	 * Triggered when the button is activated.
 	 *
-	 * @param self this
+	 * @param emitter an emitter
 	 */
-	active( self: SELF ): void;
+	active( emitter: EMITTER ): void;
 
 	/**
-	 * Called when the button is inactivated.
+	 * Triggered when the button is inactivated.
 	 *
-	 * @param self this
+	 * @param emitter an emitter
 	 */
-	inactive( self: SELF ): void;
+	inactive( emitter: EMITTER ): void;
 }
 
 /**
  * {@link DButtonBase} "on" options.
  */
-export interface DButtonBaseOnOptions<VALUE, SELF>
-	extends Partial<DButtonBaseEvents<VALUE, SELF> & Record<string, Function>> {
+export interface DButtonBaseOnOptions<VALUE, EMITTER>
+	extends Partial<DButtonBaseEvents<VALUE, EMITTER> & Record<string, Function>> {
 
 }
 
@@ -44,8 +45,8 @@ export interface DButtonBaseOnOptions<VALUE, SELF>
 export interface DButtonBaseOptions<
 	VALUE = unknown,
 	THEME extends DThemeButtonBase = DThemeButtonBase,
-	SELF = any
-> extends DImageBaseOptions<VALUE, THEME, SELF> {
+	EMITTER = any
+> extends DImageBaseOptions<VALUE, THEME, EMITTER> {
 	/**
 	 * True to turn a toggle mode on.
 	 */
@@ -59,7 +60,7 @@ export interface DButtonBaseOptions<
 	/**
 	 * Mappings of event names and handlers.
 	 */
-	on?: DButtonBaseOnOptions<VALUE, SELF>;
+	on?: DButtonBaseOnOptions<VALUE, EMITTER>;
 }
 
 /**
@@ -82,30 +83,11 @@ const isToggle = <VALUE, THEME extends DThemeButtonBase>(
 	return theme.isToggle();
 };
 
-export interface DButtonBase<VALUE> {
-	/**
-	 * Registers a given event handler.
-	 * See {@link DButtonBaseEvents} for event details.
-	 *
-	 * @param event an event name
-	 * @param handler an event handler
-	 * @param context a context
-	 */
-	on<E extends keyof DButtonBaseEvents<VALUE, this>>(
-		event: E, handler: DButtonBaseEvents<VALUE, this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-
-	emit<E extends keyof DButtonBaseEvents<VALUE, this>>(
-		event: E, ...args: Parameters<DButtonBaseEvents<VALUE, this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-}
-
 /**
  * A base class for button classes.
  * See {@link DButtonBaseEvents} for event details.
  */
+@EventSupport
 export class DButtonBase<
 	VALUE = unknown,
 	THEME extends DThemeButtonBase = DThemeButtonBase,
@@ -257,4 +239,23 @@ export class DButtonBase<
 
 		super.destroy();
 	}
+
+	// Event handlings
+	on<E extends keyof DButtonBaseEvents<VALUE, this>>(
+		event: E, handler: DButtonBaseEvents<VALUE, this>[ E ], context?: any
+	): this;
+	on( event: string, handler: Function, context?: any ): this;
+	on(): this { return this; }
+
+	once<E extends keyof DButtonBaseEvents<VALUE, this>>(
+		event: E, handler: DButtonBaseEvents<VALUE, this>[ E ], context?: any
+	): this;
+	once( event: string, handler: Function, context?: any ): this;
+	once(): this { return this; }
+
+	emit<E extends keyof DButtonBaseEvents<VALUE, this>>(
+		event: E, ...args: Parameters<DButtonBaseEvents<VALUE, this>[ E ]>
+	): boolean;
+	emit( event: string, ...args: any ): boolean;
+	emit(): boolean { return true; }
 }

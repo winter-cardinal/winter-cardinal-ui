@@ -13,14 +13,21 @@ import { DBaseState } from "./d-base-state";
 import { DDynamicText } from "./d-dynamic-text";
 import { DDynamicTextStyleOptions } from "./d-dynamic-text-style";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
+import { EventSupport } from "./decorator/event-support";
 import { isFunction } from "./util/is-function";
 import { isString } from "./util/is-string";
 
+/**
+ * {@link DTextBase} text align options.
+ */
 export interface DTextBaseTextAlignOptions {
 	vertical?: (keyof typeof DAlignVertical) | DAlignVertical;
 	horizontal?: (keyof typeof DAlignHorizontal) | DAlignHorizontal;
 }
 
+/**
+ * {@link DTextBase} text options.
+ */
 export interface DTextBaseTextOptions<VALUE = unknown> {
 	value?: DStateAwareOrValueMightBe<VALUE>;
 	color?: DStateAwareOrValueMightBe<number>;
@@ -34,28 +41,34 @@ export interface DTextBaseTextOptions<VALUE = unknown> {
 /**
  * {@link DTextBase} events.
  */
-export interface DTextBaseEvents<VALUE, SELF> extends DBaseEvents<SELF> {
+export interface DTextBaseEvents<VALUE, EMITTER> extends DBaseEvents<EMITTER> {
 
 }
 
 /**
- * Mappings of event names and handlers.
+ * {@link DTextBase} "on" options.
  */
-export interface DTextBaseOnOptions<VALUE, SELF>
-	extends Partial<DTextBaseEvents<VALUE, SELF> & Record<string, Function>> {
+export interface DTextBaseOnOptions<VALUE, EMITTER>
+	extends Partial<DTextBaseEvents<VALUE, EMITTER> & Record<string, Function>> {
 
 }
 
+/**
+ * {@link DTextBase} options.
+ */
 export interface DTextBaseOptions<
 	VALUE = unknown,
 	THEME extends DThemeTextBase = DThemeTextBase,
-	SELF = any
-> extends DBaseOptions<THEME, SELF> {
+	EMITTER = any
+> extends DBaseOptions<THEME, EMITTER> {
 	text?: DTextBaseTextOptions<VALUE>;
 	mask?: boolean;
-	on?: DTextBaseOnOptions<VALUE, SELF>;
+	on?: DTextBaseOnOptions<VALUE, EMITTER>;
 }
 
+/**
+ * {@link DTextBase} theme.
+ */
 export interface DThemeTextBase extends DThemeBase {
 	getTextFormatter(): ( value: any, caller: any ) => string;
 	newTextValue(): any;
@@ -164,22 +177,11 @@ const toTextDynamic = <VALUE, THEME extends DThemeTextBase>(
 	return theme.isTextDynamic();
 };
 
-export interface DTextBase<VALUE> {
-	on<E extends keyof DTextBaseEvents<VALUE, this>>(
-		event: E, handler: DTextBaseEvents<VALUE, this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-
-	emit<E extends keyof DTextBaseEvents<VALUE, this>>(
-		event: E, ...args: Parameters<DTextBaseEvents<VALUE, this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-}
-
 /**
  * A base class for UI classes with a text support.
  * See {@link DTextBaseEvents} for event defaults.
  */
+@EventSupport
 export class DTextBase<
 	VALUE = unknown,
 	THEME extends DThemeTextBase = DThemeTextBase,
@@ -418,4 +420,23 @@ export class DTextBase<
 
 		super.destroy();
 	}
+
+	// Event handlings
+	on<E extends keyof DTextBaseEvents<VALUE, this>>(
+		event: E, handler: DTextBaseEvents<VALUE, this>[ E ], context?: any
+	): this;
+	on( event: string, handler: Function, context?: any ): this;
+	on(): this { return this; }
+
+	once<E extends keyof DTextBaseEvents<VALUE, this>>(
+		event: E, handler: DTextBaseEvents<VALUE, this>[ E ], context?: any
+	): this;
+	once( event: string, handler: Function, context?: any ): this;
+	once(): this { return this; }
+
+	emit<E extends keyof DTextBaseEvents<VALUE, this>>(
+		event: E, ...args: Parameters<DTextBaseEvents<VALUE, this>[ E ]>
+	): boolean;
+	emit( event: string, ...args: any ): boolean;
+	emit(): boolean { return true; }
 }

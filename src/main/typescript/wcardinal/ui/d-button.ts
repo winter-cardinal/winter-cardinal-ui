@@ -4,45 +4,45 @@
  */
 
 import { DButtonBase, DButtonBaseEvents, DButtonBaseOptions, DThemeButtonBase } from "./d-button-base";
+import { EventSupport } from "./decorator/event-support";
 
 /**
  * {@link DButton} events.
  */
-export interface DButtonEvents<VALUE, SELF> extends DButtonBaseEvents<VALUE, SELF> {
+export interface DButtonEvents<VALUE, EMITTER> extends DButtonBaseEvents<VALUE, EMITTER> {
 
 }
 
 /**
- * Mappings of event names and handlers.
+ * {@link DButton} "on" options.
  */
-export interface DButtonOnOptions<VALUE, SELF> extends Partial<DButtonEvents<VALUE, SELF> & Record<string, Function>> {
+export interface DButtonOnOptions<VALUE, EMITTER>
+	extends Partial<DButtonEvents<VALUE, EMITTER> & Record<string, Function>> {
 
 }
 
+/**
+ * {@link DButton} options.
+ */
 export interface DButtonOptions<
 	VALUE = unknown,
 	THEME extends DThemeButton = DThemeButton,
-	SELF = any
-> extends DButtonBaseOptions<VALUE, THEME, SELF> {
-	on?: DButtonOnOptions<VALUE, SELF>;
+	EMITTER = any
+> extends DButtonBaseOptions<VALUE, THEME, EMITTER> {
+	on?: DButtonOnOptions<VALUE, EMITTER>;
 }
 
+/**
+ * {@link DButton} theme.
+ */
 export interface DThemeButton extends DThemeButtonBase {
 
 }
 
-export interface DButton<VALUE> {
-	on<E extends keyof DButtonEvents<VALUE, this>>(
-		event: E, handler: DButtonEvents<VALUE, this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-
-	emit<E extends keyof DButtonEvents<VALUE, this>>(
-		event: E, ...args: Parameters<DButtonEvents<VALUE, this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-}
-
+/**
+ * A button class.
+ */
+@EventSupport
 export class DButton<
 	VALUE = unknown,
 	THEME extends DThemeButton = DThemeButton,
@@ -51,4 +51,23 @@ export class DButton<
 	protected getType(): string {
 		return "DButton";
 	}
+
+	// Event handlings
+	on<E extends keyof DButtonEvents<VALUE, this>>(
+		event: E, handler: DButtonEvents<VALUE, this>[ E ], context?: any
+	): this;
+	on( event: string, handler: Function, context?: any ): this;
+	on(): this { return this; }
+
+	once<E extends keyof DButtonEvents<VALUE, this>>(
+		event: E, handler: DButtonEvents<VALUE, this>[ E ], context?: any
+	): this;
+	once( event: string, handler: Function, context?: any ): this;
+	once(): this { return this; }
+
+	emit<E extends keyof DButtonEvents<VALUE, this>>(
+		event: E, ...args: Parameters<DButtonEvents<VALUE, this>[ E ]>
+	): boolean;
+	emit( event: string, ...args: any ): boolean;
+	emit(): boolean { return true; }
 }

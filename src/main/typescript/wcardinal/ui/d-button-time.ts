@@ -9,52 +9,48 @@ import { DDialogTime, DDialogTimeOptions } from "./d-dialog-time";
 import { DDialogTimes } from "./d-dialog-times";
 import { DPickerDatetimeMask } from "./d-picker-datetime-mask";
 import { DPickerTimes } from "./d-picker-times";
+import { EventSupport } from "./decorator/event-support";
 
 /**
  * {@link DButtonTime} events.
  */
-export interface DButtonTimeEvents<SELF> extends DButtonEvents<Date, SELF> {
+export interface DButtonTimeEvents<EMITTER> extends DButtonEvents<Date, EMITTER> {
 	/**
 	 * Triggered when a selection is changed.
 	 *
-	 * @param self this
+	 * @param emitter an emitter
 	 */
-	change( newValue: Date, oldValue: Date, self: SELF ): void;
+	change( newValue: Date, oldValue: Date, emitter: EMITTER ): void;
 }
 
 /**
- * Mappings of event names and handlers.
+ * {@link DButtonTime} "on" options.
  */
-export interface DButtonTimeOnOptions<SELF> extends Partial<DButtonTimeEvents<SELF> & Record<string, Function>> {
+export interface DButtonTimeOnOptions<EMITTER> extends Partial<DButtonTimeEvents<EMITTER> & Record<string, Function>> {
 
 }
 
+/**
+ * {@link DButtonTime} options.
+ */
 export interface DButtonTimeOptions<
 	THEME extends DThemeButtonTime = DThemeButtonTime,
-	SELF = any
-> extends DButtonOptions<Date, THEME, SELF> {
+	EMITTER = any
+> extends DButtonOptions<Date, THEME, EMITTER> {
 	dialog?: DDialogTimeOptions;
-	on?: DButtonTimeOnOptions<SELF>;
+	on?: DButtonTimeOnOptions<EMITTER>;
 }
 
+/**
+ * {@link DButtonTime} theme.
+ */
 export interface DThemeButtonTime extends DThemeButton {
 	getTextFormatter(): ( value: Date, caller: DButtonTime ) => string;
 	getTextValue( state: DBaseState ): Date;
 	newTextValue(): Date;
 }
 
-export interface DButtonTime {
-	on<E extends keyof DButtonTimeEvents<this>>(
-		event: E, handler: DButtonTimeEvents<this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-
-	emit<E extends keyof DButtonTimeEvents<this>>(
-		event: E, ...args: Parameters<DButtonTimeEvents<this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-}
-
+@EventSupport
 export class DButtonTime<
 	THEME extends DThemeButtonTime = DThemeButtonTime,
 	OPTIONS extends DButtonTimeOptions<THEME> = DButtonTimeOptions<THEME>
@@ -114,4 +110,23 @@ export class DButtonTime<
 	protected getType(): string {
 		return "DButtonTime";
 	}
+
+	// Event handlings
+	on<E extends keyof DButtonTimeEvents<this>>(
+		event: E, handler: DButtonTimeEvents<this>[ E ], context?: any
+	): this;
+	on( event: string, handler: Function, context?: any ): this;
+	on(): this { return this; }
+
+	once<E extends keyof DButtonTimeEvents<this>>(
+		event: E, handler: DButtonTimeEvents<this>[ E ], context?: any
+	): this;
+	once( event: string, handler: Function, context?: any ): this;
+	once(): this { return this; }
+
+	emit<E extends keyof DButtonTimeEvents<this>>(
+		event: E, ...args: Parameters<DButtonTimeEvents<this>[ E ]>
+	): boolean;
+	emit( event: string, ...args: any ): boolean;
+	emit(): boolean { return true; }
 }

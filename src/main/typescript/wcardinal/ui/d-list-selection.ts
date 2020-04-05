@@ -5,6 +5,7 @@
 
 import { Container, utils } from "pixi.js";
 import { DBase } from "./d-base";
+import { EventSupport } from "./decorator/event-support";
 
 export enum DListSelectionMode {
 	NONE,
@@ -15,43 +16,36 @@ export enum DListSelectionMode {
 /**
  * {@link DListSelection} events.
  */
-export interface DListSelectionEvents<SELF> {
+export interface DListSelectionEvents<EMITTER> {
 	/**
 	 * Triggered when a selection is changed.
 	 *
-	 * @param self this
+	 * @param emitter an emitter
 	 */
-	change( self: SELF ): void;
+	change( emitter: EMITTER ): void;
 }
 
 /**
- * Mappings of event names and handlers.
+ * {@link DListSelection} "on" options.
  */
-export interface DListSelectionOnOptions<SELF> extends Partial<DListSelectionEvents<SELF> & Record<string, Function>> {
+export interface DListSelectionOnOptions<EMITTER>
+	extends Partial<DListSelectionEvents<EMITTER> & Record<string, Function>> {
 
 }
 
-export interface DListSelectionOptions<SELF = any> {
+/**
+ * {@link DListSelection} options.
+ */
+export interface DListSelectionOptions<EMITTER = any> {
 	mode?: DListSelectionMode;
 
 	/**
 	 * Mappings of event names and handlers.
 	 */
-	on?: DListSelectionOnOptions<SELF>;
+	on?: DListSelectionOnOptions<EMITTER>;
 }
 
-export interface DListSelection {
-	on<E extends keyof DListSelectionEvents<this>>(
-		event: E, handler: DListSelectionEvents<this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-
-	emit<E extends keyof DListSelectionEvents<this>>(
-		event: E, ...args: Parameters<DListSelectionEvents<this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-}
-
+@EventSupport
 export class DListSelection extends utils.EventEmitter {
 	protected _content: Container;
 	protected _isDirty: boolean;
@@ -229,4 +223,23 @@ export class DListSelection extends utils.EventEmitter {
 			}
 		}
 	}
+
+	// Event handlings
+	on<E extends keyof DListSelectionEvents<this>>(
+		event: E, handler: DListSelectionEvents<this>[ E ], context?: any
+	): this;
+	on( event: string, handler: Function, context?: any ): this;
+	on(): this { return this; }
+
+	once<E extends keyof DListSelectionEvents<this>>(
+		event: E, handler: DListSelectionEvents<this>[ E ], context?: any
+	): this;
+	once( event: string, handler: Function, context?: any ): this;
+	once(): this { return this; }
+
+	emit<E extends keyof DListSelectionEvents<this>>(
+		event: E, ...args: Parameters<DListSelectionEvents<this>[ E ]>
+	): boolean;
+	emit( event: string, ...args: any ): boolean;
+	emit(): boolean { return true; }
 }

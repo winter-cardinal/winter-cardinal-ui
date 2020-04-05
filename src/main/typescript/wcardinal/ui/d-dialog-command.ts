@@ -10,36 +10,41 @@ import { DDialog, DDialogEvents, DDialogOptions, DThemeDialog } from "./d-dialog
 import { DLayoutHorizontal } from "./d-layout-horizontal";
 import { DLayoutSpace } from "./d-layout-space";
 import { DLayoutVertical } from "./d-layout-vertical";
+import { EventSupport } from "./decorator/event-support";
 
 /**
  * {@link DDialogCommand} events.
  */
-export interface DDialogCommandEvents<SELF> extends DDialogEvents<SELF> {
+export interface DDialogCommandEvents<EMITTER> extends DDialogEvents<EMITTER> {
 	/**
 	 * Triggered when a dialog is successfully finished.
 	 *
-	 * @param self this
+	 * @param emitter an emitter
 	 */
-	ok( self: SELF ): void;
+	ok( emitter: EMITTER ): void;
 
 	/**
 	 * Triggered when a dialog is canceled.
 	 *
-	 * @param self this
+	 * @param emitter an emitter
 	 */
-	cancel( self: SELF ): void;
+	cancel( emitter: EMITTER ): void;
 }
 
 /**
- * Mappings of event names and handlers.
+ * {@link DDialogCommand} "on" options.
  */
-export interface DDialogCommandOnOptions<SELF> extends Partial<DDialogCommandEvents<SELF> & Record<string, Function>> {
+export interface DDialogCommandOnOptions<EMITTER>
+	extends Partial<DDialogCommandEvents<EMITTER> & Record<string, Function>> {
 
 }
 
+/**
+ * {@link DDialogCommand} options.
+ */
 export interface DDialogCommandOptions<
 	THEME extends DThemeDialogCommand = DThemeDialogCommand,
-	SELF = any
+	EMITTER = any
 > extends DDialogOptions<THEME> {
 	/**
 	 * A ok button label.
@@ -54,9 +59,12 @@ export interface DDialogCommandOptions<
 	/**
 	 * Mappings of event names and handlers.
 	 */
-	on?: DDialogCommandOnOptions<SELF>;
+	on?: DDialogCommandOnOptions<EMITTER>;
 }
 
+/**
+ * {@link DDialogCommand} theme.
+ */
 export interface DThemeDialogCommand extends DThemeDialog {
 	getOk(): string | null;
 	getCancel(): string | null;
@@ -66,18 +74,10 @@ export interface DThemeDialogCommand extends DThemeDialog {
 	getLayoutHeight(): DCoordinateSize;
 }
 
-export interface DDialogCommand {
-	on<E extends keyof DDialogCommandEvents<this>>(
-		event: E, handler: DDialogCommandEvents<this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-
-	emit<E extends keyof DDialogCommandEvents<this>>(
-		event: E, ...args: Parameters<DDialogCommandEvents<this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-}
-
+/**
+ * A dialog with "ok" and "cancel" buttons.
+ */
+@EventSupport
 export class DDialogCommand<
 	THEME extends DThemeDialogCommand = DThemeDialogCommand,
 	OPTIONS extends DDialogCommandOptions<THEME> = DDialogCommandOptions<THEME>
@@ -240,4 +240,23 @@ export class DDialogCommand<
 	protected getType(): string {
 		return "DDialogCommand";
 	}
+
+	// Event handlings
+	on<E extends keyof DDialogCommandEvents<this>>(
+		event: E, handler: DDialogCommandEvents<this>[ E ], context?: any
+	): this;
+	on( event: string, handler: Function, context?: any ): this;
+	on(): this { return this; }
+
+	once<E extends keyof DDialogCommandEvents<this>>(
+		event: E, handler: DDialogCommandEvents<this>[ E ], context?: any
+	): this;
+	once( event: string, handler: Function, context?: any ): this;
+	once(): this { return this; }
+
+	emit<E extends keyof DDialogCommandEvents<this>>(
+		event: E, ...args: Parameters<DDialogCommandEvents<this>[ E ]>
+	): boolean;
+	emit( event: string, ...args: any ): boolean;
+	emit(): boolean { return true; }
 }

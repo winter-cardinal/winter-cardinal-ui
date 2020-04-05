@@ -44,14 +44,14 @@ export type DAnimationTiming<TARGET> = ( time: number, animation: DAnimation<TAR
 /**
  * {@link DAnimation} events.
  */
-export interface DAnimationEvents<SELF> {
+export interface DAnimationEvents<EMITTER> {
 	/**
 	 * Triggered when an animation starts.
 	 *
 	 * @param isReverse true if an animation is playing in reverse
-	 * @param self this
+	 * @param emitter an emitter
 	 */
-	start( isReverse: boolean, self: SELF ): void;
+	start( isReverse: boolean, emitter: EMITTER ): void;
 
 	/**
 	 * Triggered constantly when an animation is on a run.
@@ -59,30 +59,30 @@ export interface DAnimationEvents<SELF> {
 	 * @param time a timing value in a range [0, 1]
 	 * @param isReverse true if an animation is playing in reverse
 	 * @param elapsedTime an elapsed time since an animation has started
-	 * @param self this
+	 * @param emitter an emitter
 	 */
-	time( time: number, isReverse: boolean, elapsedTime: number, self: SELF ): void;
+	time( time: number, isReverse: boolean, elapsedTime: number, emitter: EMITTER ): void;
 
 	/**
 	 * Triggered when an animation stops.
 	 *
 	 * @param isReverse true if an animation is playing in reverse
-	 * @param self this
+	 * @param emitter an emitter
 	 */
-	end( isReverse: boolean, self: SELF ): void;
+	end( isReverse: boolean, emitter: EMITTER ): void;
 }
 
 /**
- * Mappings of event names and handlers.
+ * {@link DAnimation} "on" options.
  */
-export interface DAnimationOnOptions<SELF> extends Partial<DAnimationEvents<SELF> & Record<string, Function>> {
+export interface DAnimationOnOptions<EMITTER> extends Partial<DAnimationEvents<EMITTER> & Record<string, Function>> {
 
 }
 
 /**
- * An animation options.
+ * {@link DAnimation} options.
  */
-export interface DAnimationOptions<TARGET, SELF = DAnimation<TARGET>> {
+export interface DAnimationOptions<TARGET, EMITTER = DAnimation<TARGET>> {
 	/**
 	 * An animation target.
 	 */
@@ -113,7 +113,7 @@ export interface DAnimationOptions<TARGET, SELF = DAnimation<TARGET>> {
 	/**
 	 * Event handlers.
 	 */
-	on?: DAnimationOnOptions<SELF>;
+	on?: DAnimationOnOptions<EMITTER>;
 }
 
 export interface DAnimation<TARGET = unknown> extends utils.EventEmitter {
@@ -158,6 +158,11 @@ export interface DAnimation<TARGET = unknown> extends utils.EventEmitter {
 		event: E, handler: DAnimationEvents<this>[ E ], context?: any
 	): this;
 	on( event: string, handler: Function, context?: any ): this;
+
+	once<E extends keyof DAnimationEvents<this>>(
+		event: E, handler: DAnimationEvents<this>[ E ], context?: any
+	): this;
+	once( event: string, handler: Function, context?: any ): this;
 
 	emit<E extends keyof DAnimationEvents<this>>(
 		event: E, ...args: Parameters<DAnimationEvents<this>[ E ]>

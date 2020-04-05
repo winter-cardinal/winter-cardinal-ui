@@ -8,42 +8,43 @@ import { DButtonBase, DButtonBaseEvents, DButtonBaseOptions, DThemeButtonBase } 
 import { DMenu, DMenuOptions, DThemeMenu } from "./d-menu";
 import { DMenuItem } from "./d-menu-item";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
+import { EventSupport } from "./decorator/event-support";
 import { isString } from "./util/is-string";
 
 /**
  * {@link DDropdownBase} events.
  */
-export interface DDropdownBaseEvents<VALUE, TEXT_VALUE, SELF> extends DButtonBaseEvents<VALUE, SELF> {
+export interface DDropdownBaseEvents<VALUE, TEXT_VALUE, EMITTER> extends DButtonBaseEvents<VALUE, EMITTER> {
 
 }
 
 /**
- * Mappings of event names and handlers.
+ * {@link DDropdownBase} "on" options.
  */
-export interface DDropdownBaseOnOptions<VALUE, TEXT_VALUE, SELF>
-	extends Partial<DDropdownBaseEvents<VALUE, TEXT_VALUE, SELF> & Record<string, Function>> {
+export interface DDropdownBaseOnOptions<VALUE, TEXT_VALUE, EMITTER>
+	extends Partial<DDropdownBaseEvents<VALUE, TEXT_VALUE, EMITTER> & Record<string, Function>> {
 
 }
 
 /**
- * Dropdown base options.
+ * {@link DDropdownBase} options.
  */
 export interface DDropdownBaseOptions<
 	VALUE = unknown,
 	TEXT_VALUE = string,
 	THEME extends DThemeDropdownBase<TEXT_VALUE> = DThemeDropdownBase<TEXT_VALUE>,
-	SELF = any
-> extends DButtonBaseOptions<TEXT_VALUE, THEME, SELF> {
+	EMITTER = any
+> extends DButtonBaseOptions<TEXT_VALUE, THEME, EMITTER> {
 	/**
 	 * Menu options.
 	 */
 	menu?: DMenuOptions<VALUE> | DMenu<VALUE>;
 
-	on?: DDropdownBaseOnOptions<VALUE, TEXT_VALUE, SELF>;
+	on?: DDropdownBaseOnOptions<VALUE, TEXT_VALUE, EMITTER>;
 }
 
 /**
- * A Dropdown base theme.
+ * {@link DDropdownBase} theme.
  */
 export interface DThemeDropdownBase<TEXT_VALUE> extends DThemeButtonBase {
 	getTextFormatter(): ( value: TEXT_VALUE, caller: DDropdownBase ) => string;
@@ -51,6 +52,10 @@ export interface DThemeDropdownBase<TEXT_VALUE> extends DThemeButtonBase {
 	newTextValue(): DStateAwareOrValueMightBe<TEXT_VALUE>;
 }
 
+/**
+ * A dropdown base class.
+ */
+@EventSupport
 export class DDropdownBase<
 	VALUE = unknown,
 	TEXT_VALUE = string,
@@ -117,4 +122,23 @@ export class DDropdownBase<
 	close(): void {
 		this.menu.close();
 	}
+
+	// Event handlings
+	on<E extends keyof DDropdownBaseEvents<VALUE, TEXT_VALUE, this>>(
+		event: E, handler: DDropdownBaseEvents<VALUE, TEXT_VALUE, this>[ E ], context?: any
+	): this;
+	on( event: string, handler: Function, context?: any ): this;
+	on(): this { return this; }
+
+	once<E extends keyof DDropdownBaseEvents<VALUE, TEXT_VALUE, this>>(
+		event: E, handler: DDropdownBaseEvents<VALUE, TEXT_VALUE, this>[ E ], context?: any
+	): this;
+	once( event: string, handler: Function, context?: any ): this;
+	once(): this { return this; }
+
+	emit<E extends keyof DDropdownBaseEvents<VALUE, TEXT_VALUE, this>>(
+		event: E, ...args: Parameters<DDropdownBaseEvents<VALUE, TEXT_VALUE, this>[ E ]>
+	): boolean;
+	emit( event: string, ...args: any ): boolean;
+	emit(): boolean { return true; }
 }

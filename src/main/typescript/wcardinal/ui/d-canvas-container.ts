@@ -10,48 +10,55 @@ import { DBaseOverflowMask } from "./d-base-overflow-mask";
 import { DCanvas } from "./d-canvas";
 import { DView, DViewOptions } from "./d-view";
 import { DViewImpl } from "./d-view-impl";
+import { EventSupport } from "./decorator/event-support";
 import { UtilWheelEventDeltas } from "./util/util-wheel-event";
 
 /**
- * Event handlers.
+ * {@link DCanvasContainer} events.
  */
-export interface DCanvasContainerEvents<CANVAS, SELF> extends DBaseEvents<SELF> {
+export interface DCanvasContainerEvents<CANVAS, EMITTER> extends DBaseEvents<EMITTER> {
 	/**
 	 * Triggered when a canvas is removed.
 	 *
 	 * @param canvas a removed canvas
-	 * @param self this
+	 * @param emitter an emitter
 	 */
-	unset( canvas: CANVAS, self: SELF ): void;
+	unset( canvas: CANVAS, emitter: EMITTER ): void;
 
 	/**
 	 * Triggered when a canvas is set.
 	 *
 	 * @param canvas a new canvas
-	 * @param self this
+	 * @param emitter an emitter
 	 */
-	set( canvas: CANVAS, self: SELF ): void;
+	set( canvas: CANVAS, emitter: EMITTER ): void;
 }
 
 /**
- * Mappings of event names and handlers.
+ * {@link DCanvasContainer} "on" options.
  */
-export interface DCanvasContainerOnOptions<CANVAS, SELF>
-	extends Partial<DCanvasContainerEvents<CANVAS, SELF> & Record<string, Function>> {
+export interface DCanvasContainerOnOptions<CANVAS, EMITTER>
+	extends Partial<DCanvasContainerEvents<CANVAS, EMITTER> & Record<string, Function>> {
 
 }
 
+/**
+ * {@link DCanvasContainer} options.
+ */
 export interface DCanvasContainerOptions<
 	CANVAS extends DBase = DCanvas,
 	THEME extends DThemeCanvasContainer = DThemeCanvasContainer,
-	SELF = any
+	EMITTER = any
 > extends DBaseOptions<THEME> {
 	mask?: boolean;
 	view?: DViewOptions;
 	canvas?: CANVAS;
-	on?: DCanvasContainerOnOptions<CANVAS, SELF>;
+	on?: DCanvasContainerOnOptions<CANVAS, EMITTER>;
 }
 
+/**
+ * {@link DCanvasContainer} theme.
+ */
 export interface DThemeCanvasContainer extends DThemeBase {
 	isOverflowMaskEnabled(): boolean;
 }
@@ -66,18 +73,10 @@ const isOverflowMaskEnabled = <
 	return theme.isOverflowMaskEnabled();
 };
 
-export interface DCanvasContainer<CANVAS> {
-	on<E extends keyof DCanvasContainerEvents<CANVAS, this>>(
-		event: E, handler: DCanvasContainerEvents<CANVAS, this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-
-	emit<E extends keyof DCanvasContainerEvents<CANVAS, this>>(
-		event: E, ...args: Parameters<DCanvasContainerEvents<CANVAS, this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-}
-
+/**
+ * A canvas container.
+ */
+@EventSupport
 export class DCanvasContainer<
 	CANVAS extends DBase = DCanvas,
 	THEME extends DThemeCanvasContainer = DThemeCanvasContainer,
@@ -186,4 +185,23 @@ export class DCanvasContainer<
 
 		super.destroy();
 	}
+
+	// Event handlings
+	on<E extends keyof DCanvasContainerEvents<CANVAS, this>>(
+		event: E, handler: DCanvasContainerEvents<CANVAS, this>[ E ], context?: any
+	): this;
+	on( event: string, handler: Function, context?: any ): this;
+	on(): this { return this; }
+
+	once<E extends keyof DCanvasContainerEvents<CANVAS, this>>(
+		event: E, handler: DCanvasContainerEvents<CANVAS, this>[ E ], context?: any
+	): this;
+	once( event: string, handler: Function, context?: any ): this;
+	once(): this { return this; }
+
+	emit<E extends keyof DCanvasContainerEvents<CANVAS, this>>(
+		event: E, ...args: Parameters<DCanvasContainerEvents<CANVAS, this>[ E ]>
+	): boolean;
+	emit( event: string, ...args: any ): boolean;
+	emit(): boolean { return true; }
 }

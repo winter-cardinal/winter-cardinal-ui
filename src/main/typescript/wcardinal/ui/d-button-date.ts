@@ -7,54 +7,50 @@ import { DBaseState } from "./d-base-state";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogDate, DDialogDateOptions } from "./d-dialog-date";
 import { DDialogDates } from "./d-dialog-dates";
+import { EventSupport } from "./decorator/event-support";
 
 /**
  * {@link DButtonDate} events.
  */
-export interface DButtonDateEvents<SELF> extends DButtonEvents<Date, SELF> {
+export interface DButtonDateEvents<EMITTER> extends DButtonEvents<Date, EMITTER> {
 	/**
 	 * Triggered when a selection is changed.
 	 *
 	 * @param newValue a newly selected value
 	 * @param oldValue a previously selected value
-	 * @param self this
+	 * @param emitter an emitter
 	 */
-	change( newValue: Date, oldValue: Date, self: SELF ): void;
+	change( newValue: Date, oldValue: Date, emitter: EMITTER ): void;
 }
 
 /**
- * Mappings of event names and handlers.
+ * {@link DButtonDate} "on" options.
  */
-export interface DButtonDateOnOptions<SELF> extends Partial<DButtonDateEvents<SELF> & Record<string, Function>> {
+export interface DButtonDateOnOptions<EMITTER> extends Partial<DButtonDateEvents<EMITTER> & Record<string, Function>> {
 
 }
 
+/**
+ * {@link DButtonDate} options.
+ */
 export interface DButtonDateOptions<
 	THEME extends DThemeButtonDate = DThemeButtonDate,
-	SELF = any
-> extends DButtonOptions<Date, THEME, SELF> {
+	EMITTER = any
+> extends DButtonOptions<Date, THEME, EMITTER> {
 	dialog?: DDialogDateOptions;
-	on?: DButtonDateOnOptions<SELF>;
+	on?: DButtonDateOnOptions<EMITTER>;
 }
 
+/**
+ * {@link DButtonDate} theme.
+ */
 export interface DThemeButtonDate extends DThemeButton {
 	getTextFormatter(): ( value: Date, caller: DButtonDate ) => string;
 	getTextValue( state: DBaseState ): Date;
 	newTextValue(): Date;
 }
 
-export interface DButtonDate {
-	on<E extends keyof DButtonDateEvents<this>>(
-		event: E, handler: DButtonDateEvents<this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-
-	emit<E extends keyof DButtonDateEvents<this>>(
-		event: E, ...args: Parameters<DButtonDateEvents<this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-}
-
+@EventSupport
 export class DButtonDate<
 	THEME extends DThemeButtonDate = DThemeButtonDate,
 	OPTIONS extends DButtonDateOptions<THEME> = DButtonDateOptions<THEME>
@@ -109,4 +105,23 @@ export class DButtonDate<
 	protected getType(): string {
 		return "DButtonDate";
 	}
+
+	// Event handlings
+	on<E extends keyof DButtonDateEvents<this>>(
+		event: E, handler: DButtonDateEvents<this>[ E ], context?: any
+	): this;
+	on( event: string, handler: Function, context?: any ): this;
+	on(): this { return this; }
+
+	once<E extends keyof DButtonDateEvents<this>>(
+		event: E, handler: DButtonDateEvents<this>[ E ], context?: any
+	): this;
+	once( event: string, handler: Function, context?: any ): this;
+	once(): this { return this; }
+
+	emit<E extends keyof DButtonDateEvents<this>>(
+		event: E, ...args: Parameters<DButtonDateEvents<this>[ E ]>
+	): boolean;
+	emit( event: string, ...args: any ): boolean;
+	emit(): boolean { return true; }
 }

@@ -11,6 +11,7 @@ import { DBase, DBaseEvents, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DFocusable } from "./d-controller-focus";
 import { DDialogCloseOn } from "./d-dialog-close-on";
+import { EventSupport } from "./decorator/event-support";
 import { UtilClickOutside } from "./util/util-click-outside";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilOverlay } from "./util/util-overlay";
@@ -18,32 +19,35 @@ import { UtilOverlay } from "./util/util-overlay";
 /**
  * {@link DDialog} events.
  */
-export interface DDialogEvents<SELF> extends DBaseEvents<SELF> {
+export interface DDialogEvents<EMITTER> extends DBaseEvents<EMITTER> {
 	/**
 	 * Triggered when a dialog is opened.
 	 *
-	 * @param self this
+	 * @param emitter this
 	 */
-	open( self: SELF ): void;
+	open( emitter: EMITTER ): void;
 
 	/**
 	 * Triggered when a dialog is closed.
 	 *
-	 * @param self this
+	 * @param emitter this
 	 */
-	close( self: SELF ): void;
+	close( emitter: EMITTER ): void;
 }
 
 /**
- * Mappings of event names and handlers.
+ * {@link DDialog} "on" options.
  */
-export interface DDialogOnOptions<SELF> extends Partial<DDialogEvents<SELF> & Record<string, Function>> {
+export interface DDialogOnOptions<EMITTER> extends Partial<DDialogEvents<EMITTER> & Record<string, Function>> {
 
 }
 
+/**
+ * {@link DDialog} options.
+ */
 export interface DDialogOptions<
 	THEME extends DThemeDialog = DThemeDialog,
-	SELF = any
+	EMITTER = any
 > extends DBaseOptions<THEME> {
 	closeOn?: DDialogCloseOn;
 	animation?: DAnimation<DBase>;
@@ -51,35 +55,25 @@ export interface DDialogOptions<
 	/**
 	 * Mappings of event names and handlers.
 	 */
-	on?: DDialogOnOptions<SELF>;
+	on?: DDialogOnOptions<EMITTER>;
 }
 
+/**
+ * {@link DDialog} theme.
+ */
 export interface DThemeDialog extends DThemeBase {
 	closeOn(): DDialogCloseOn;
 }
 
-export interface DDialog {
-	on<E extends keyof DDialogEvents<this>>(
-		event: E, handler: DDialogEvents<this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-
-	emit<E extends keyof DDialogEvents<this>>(
-		event: E, ...args: Parameters<DDialogEvents<this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-}
-
 /**
- * A base class for dialogs.
+ * A dialog class.
  *
- * If multiple application instances are there, better to set
- * the constructor option `parent` to an `application.stage`
- * so that the dialog picks a right application.
- *
- * By default, the dialog assumes the last created application is
+ * If multiple application instances are there, better to set the constructor
+ * option `parent` to an `application.stage` so that the dialog picks a right
+ * application. By default, the dialog assumes the last created application is
  * the one it belongs to at the time when it is created.
  */
+@EventSupport
 export class DDialog<
 	THEME extends DThemeDialog = DThemeDialog,
 	OPTIONS extends DDialogOptions<THEME> = DDialogOptions<THEME>
@@ -202,4 +196,23 @@ export class DDialog<
 	protected containsGlobalPoint( point: Point ): boolean {
 		return true;
 	}
+
+	// Event handlings
+	on<E extends keyof DDialogEvents<this>>(
+		event: E, handler: DDialogEvents<this>[ E ], context?: any
+	): this;
+	on( event: string, handler: Function, context?: any ): this;
+	on(): this { return this; }
+
+	once<E extends keyof DDialogEvents<this>>(
+		event: E, handler: DDialogEvents<this>[ E ], context?: any
+	): this;
+	once( event: string, handler: Function, context?: any ): this;
+	once(): this { return this; }
+
+	emit<E extends keyof DDialogEvents<this>>(
+		event: E, ...args: Parameters<DDialogEvents<this>[ E ]>
+	): boolean;
+	emit( event: string, ...args: any ): boolean;
+	emit(): boolean { return true; }
 }
