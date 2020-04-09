@@ -61,9 +61,9 @@ export class EShapeActionValueTransformMove
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
-		const conditionId = manager.add(this.condition);
-		const amountId = manager.add(this.amount);
-		return manager.add(
+		const conditionId = manager.addResources(this.condition);
+		const amountId = manager.addResources(this.amount);
+		return manager.addResources(
 			`[${this.type},${conditionId},${this.subtype},${this.opetype},${amountId}]`
 		);
 	}

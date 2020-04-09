@@ -25,8 +25,8 @@ export class EShapeActionValueShowHide extends EShapeActionValueSubtyped<EShapeA
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
-		const conditionId = manager.add(this.condition);
-		return manager.add( `[${this.type},${conditionId},${this.subtype}]` );
+		const conditionId = manager.addResources(this.condition);
+		return manager.addResources( `[${this.type},${conditionId},${this.subtype}]` );
 	}
 
 	static deserialize(

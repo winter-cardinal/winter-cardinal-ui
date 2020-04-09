@@ -408,7 +408,7 @@ export interface DDiagramSerializedTile {
 /**
  * A serialized diagram.
  */
-export interface DDiagramSerialized {
+export interface DDiagramSerialized  {
 	version: number;
 	id?: number;
 	name: string;
@@ -417,6 +417,7 @@ export interface DDiagramSerialized {
 	background?: DDiagramSerializedBackground;
 	tile?: DDiagramSerializedTile;
 	resources: string[];
+	tags?: string[];
 	layers: DDiagramSerializedLayer[];
 	items: DDiagramSerializedItem[];
 	snap?: DDiagramSerializedSnap;
@@ -429,6 +430,12 @@ export interface DDiagramSerializedSimple {
 	version: number;
 	id: number | undefined;
 	name: string;
+	tags?: string[];
+
+	/**
+	 * Thumbnail data URL.
+	 */
+	thumbnail?: string;
 
 	/**
 	 * A stringified DDiagramSerialized,

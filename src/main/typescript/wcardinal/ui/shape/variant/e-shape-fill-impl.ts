@@ -97,13 +97,13 @@ export class EShapeFillImpl implements EShapeFill {
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
 		const stringified = `[${this._enable ? 1 : 0},${this._color},${this._alpha}]`;
-		return manager.add( stringified );
+		return manager.addResources( stringified );
 	}
 
 	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void {
 		const resources = manager.resources;
 		if( 0 <= target && target < resources.length ) {
-			const parsed = manager.fills.get( target );
+			const parsed = manager.getFill( target );
 			if( parsed != null ) {
 				this.set(
 					parsed[ 0 ] !== 0,
@@ -112,7 +112,7 @@ export class EShapeFillImpl implements EShapeFill {
 				);
 			} else {
 				const deserialized = JSON.parse( resources[ target ] );
-				manager.fills.set( target, deserialized );
+				manager.setFill( target, deserialized );
 				this.set(
 					deserialized[ 0 ] !== 0,
 					deserialized[ 1 ],

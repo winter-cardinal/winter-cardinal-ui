@@ -13,6 +13,9 @@ export type DViewChecker = (
 	e: WheelEvent | MouseEvent | TouchEvent, modifier: DMouseModifier, target: DBase
 ) => boolean;
 
+/**
+ * {@link DView} wheel zoom options.
+ */
 export interface DViewZoomWheelOptions {
 	/** True to enable wheel zoom */
 	enable?: boolean;
@@ -30,6 +33,9 @@ export interface DViewZoomWheelOptions {
 	checker?: DViewChecker;
 }
 
+/**
+ * {@link DView} double-click zoom options.
+ */
 export interface DViewZoomDblClickOptions {
 	/** True to enable double click zoom */
 	enable?: boolean;
@@ -50,7 +56,10 @@ export interface DViewZoomDblClickOptions {
 	duration?: number;
 }
 
-export interface DViewrZoomOptions {
+/**
+ * {@link DView} zoom options.
+ */
+export interface DViewZoomOptions {
 	/** Minimum scale */
 	min?: number;
 
@@ -67,6 +76,9 @@ export interface DViewrZoomOptions {
 	dblclick?: DViewZoomDblClickOptions;
 }
 
+/**
+ * {@link DView} wheel translation options.
+ */
 export interface DViewTranslationWheelOptions {
 	/** True to enable wheel translation */
 	enable?: boolean;
@@ -84,17 +96,23 @@ export interface DViewTranslationWheelOptions {
 	checker?: DViewChecker;
 }
 
+/**
+ * {@link DView} translation options.
+ */
 export interface DViewTranslationOptions {
 	/** Wheel transtion options */
 	wheel?: DViewTranslationWheelOptions;
 }
 
+/**
+ * {@link DView} options.
+ */
 export interface DViewOptions {
 	/** Drag options */
 	drag?: DViewDragOptions;
 
 	/** Zoom options */
-	zoom?: DViewrZoomOptions;
+	zoom?: DViewZoomOptions;
 
 	/** Translation options */
 	translation?: DViewTranslationOptions;
@@ -103,6 +121,9 @@ export interface DViewOptions {
 	theme?: DThemeView | string;
 }
 
+/**
+ * {@link DView} theme.
+ */
 export interface DThemeView extends DThemeViewDrag {
 	isWheelZoomEnabled(): boolean;
 	isDblClickZoomEnabled(): boolean;
@@ -133,7 +154,7 @@ export interface DView {
 	 * Resets a position and a scale.
 	 *
 	 * @param duration an animation duration
-	 * @param stop false to stop a previous animation
+	 * @param stop false to keep a previous animation
 	 */
 	reset( duration?: number, stop?: boolean ): void;
 
@@ -141,7 +162,7 @@ export interface DView {
 	 * Fits into a screen.
 	 *
 	 * @param duration an animation duration
-	 * @param stop false to stop a previous animation
+	 * @param stop false to keep a previous animation
 	 */
 	fit( duration?: number, stop?: boolean ): void;
 

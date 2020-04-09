@@ -34,6 +34,14 @@ export interface DDiagramEditorEvents<EMITTER> extends DDiagramBaseEvents<DDiagr
 	change( emitter: EMITTER ): void;
 
 	/**
+	 * Triggered before saving.
+	 *
+	 * @param simple a serialized data
+	 * @param emitter an emitter
+	 */
+	saving( simple: DDiagramSerializedSimple, emitter: EMITTER ): void;
+
+	/**
 	 * Triggered when an operation is successfully finished.
 	 *
 	 * @param operation an operation ID
@@ -130,12 +138,10 @@ export class DDiagramEditor<
 	save(): Promise<unknown> | boolean {
 		const serialized = this.serialize();
 		if( serialized != null ) {
-			return this.controller.save({
-				version: serialized.version,
-				id: serialized.id,
-				name: serialized.name,
-				data: JSON.stringify( serialized )
-			})
+			const simple = this.toSimple( serialized );
+			this.emit( "saving", simple, this );
+			return this.controller
+			.save( simple )
 			.then(( newId: number ): void => {
 				this._isChanged = false;
 				serialized.id = newId;
@@ -154,12 +160,10 @@ export class DDiagramEditor<
 		if( serialized != null ) {
 			serialized.id = undefined;
 			serialized.name = name;
-			return this.controller.save({
-				version: serialized.version,
-				id: serialized.id,
-				name: serialized.name,
-				data: JSON.stringify( serialized )
-			})
+			const simple = this.toSimple( serialized );
+			this.emit( "saving", simple, this );
+			return this.controller
+			.save( simple )
 			.then(( newId: number ): void => {
 				this._isChanged = false;
 				serialized.id = newId;
@@ -175,6 +179,16 @@ export class DDiagramEditor<
 			});
 		}
 		return true;
+	}
+
+	protected toSimple( serialized: DDiagramSerialized ): DDiagramSerializedSimple {
+		return {
+			version: serialized.version,
+			id: serialized.id,
+			name: serialized.name,
+			tags: serialized.tags,
+			data: JSON.stringify( serialized )
+		};
 	}
 
 	delete(): Promise<unknown> | boolean {
@@ -205,6 +219,7 @@ export class DDiagramEditor<
 			width,
 			height,
 			resources: [],
+			tags: [],
 			layers: [[ "Default layer" ]],
 			items: [],
 			snap: undefined

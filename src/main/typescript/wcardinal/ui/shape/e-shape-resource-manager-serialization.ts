@@ -4,28 +4,35 @@
  */
 
 export class EShapeResourceManagerSerialization {
-	protected resources: string[];
+	resources: string[];
+	tags: string[];
 	protected resourceToIndex: Map<string, number>;
+	protected tagToIndex: Map<string, number>;
 
 	constructor() {
 		this.resources = [];
+		this.tags = [];
 		this.resourceToIndex = new Map<string, number>();
+		this.tagToIndex = new Map<string, number>();
 	}
 
-	add( resource: string ): number {
-		const resources = this.resources;
-		const resourceToIndex = this.resourceToIndex;
-		const result = resourceToIndex.get( resource );
+	addResources( resource: string ): number {
+		return this.add_( resource, this.resources, this.resourceToIndex );
+	}
+
+	addTag( tag: string ): number {
+		return this.add_( tag, this.tags, this.tagToIndex );
+	}
+
+	protected add_( target: string, array: string[], map: Map<string, number> ): number {
+		const tagToIndex = this.tagToIndex;
+		const result = tagToIndex.get( target );
 		if( result != null ) {
 			return result;
 		}
-		const index = resources.length;
-		resources.push( resource );
-		resourceToIndex.set( resource, index );
+		const index = array.length;
+		array.push( target );
+		map.set( target, index );
 		return index;
-	}
-
-	serialize(): string[] {
-		return this.resources;
 	}
 }

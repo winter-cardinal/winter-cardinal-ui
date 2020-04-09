@@ -502,11 +502,11 @@ export class EShapeTagValueImpl implements EShapeTagValue {
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
-		const idSerialized = manager.add( this.id );
-		const initialSerialized = manager.add( this.initial );
-		const formatSerialized = manager.add( this.format.trim() );
+		const idSerialized = manager.addTag( this.id );
+		const initialSerialized = manager.addResources( this.initial );
+		const formatSerialized = manager.addResources( this.format.trim() );
 		const rangeSerialized = this.range.serialize( manager );
-		return manager.add(
+		return manager.addResources(
 			`[${idSerialized},${initialSerialized},${formatSerialized},${rangeSerialized},${this._capacity},${this._order}]`
 		);
 	}
@@ -514,12 +514,12 @@ export class EShapeTagValueImpl implements EShapeTagValue {
 	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): this {
 		const resources = manager.resources;
 		if( 0 <= target && target < resources.length ) {
-			let parsed = manager.tagValues.get( target );
+			let parsed = manager.getTagValue( target );
 			if( parsed == null ) {
 				parsed = JSON.parse( resources[ target ] ) as DDiagramSerializedTagValue;
-				manager.tagValues.set( target, parsed );
+				manager.setTagValue( target, parsed );
 			}
-			this.id = resources[ parsed[ 0 ] ] || "";
+			this.id = manager.tags[ parsed[ 0 ] ] || "";
 			this.initial = resources[ parsed[ 1 ] ] || "";
 			this.format = resources[ parsed[ 2 ] ] || "";
 			this.range.deserialize( parsed[ 3 ], manager );

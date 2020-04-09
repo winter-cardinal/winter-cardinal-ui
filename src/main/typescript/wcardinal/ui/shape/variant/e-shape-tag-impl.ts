@@ -316,23 +316,23 @@ export class EShapeTagImpl implements EShapeTag {
 	serialize( manager: EShapeResourceManagerSerialization ): number {
 		const values = this._values;
 		if( values.length <= 0 ) {
-			return manager.add( "[]" );
+			return manager.addResources( "[]" );
 		} else {
 			let serialized = `[${values[ 0 ].serialize( manager )}`;
 			for( let i = 1, imax = values.length; i < imax; ++i ) {
 				serialized += `,${values[ i ].serialize( manager )}`;
 			}
 			serialized += "]";
-			return manager.add( serialized );
+			return manager.addResources( serialized );
 		}
 	}
 
 	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void {
 		if( 0 <= target && target < manager.resources.length ) {
-			let deserialized: number[] | undefined = manager.tags.get( target );
+			let deserialized: number[] | undefined = manager.getTag( target );
 			if( deserialized == null ) {
 				deserialized = JSON.parse( manager.resources[ target ] ) as number[];
-				manager.tags.set( target, deserialized );
+				manager.setTag( target, deserialized );
 			}
 
 			const values = this._values;

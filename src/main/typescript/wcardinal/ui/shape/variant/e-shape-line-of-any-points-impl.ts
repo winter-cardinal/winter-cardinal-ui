@@ -175,7 +175,7 @@ export class EShapeLineOfAnyPointsImpl implements EShapeLineOfAnyPoints {
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
-		return manager.add( `[]` );
+		return manager.addResources( `[]` );
 	}
 
 	calcHitPointAbs<RESULT>(

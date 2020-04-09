@@ -47,9 +47,9 @@ export class EShapeActionValueOpen extends EShapeActionValueSubtyped<EShapeActio
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
-		const conditionId = manager.add(this.condition);
-		const targetId = manager.add(this.target);
-		return manager.add( `[${this.type},${conditionId},${this.subtype},${targetId}]` );
+		const conditionId = manager.addResources(this.condition);
+		const targetId = manager.addResources(this.target);
+		return manager.addResources( `[${this.type},${conditionId},${this.subtype},${targetId}]` );
 	}
 
 	static deserialize(

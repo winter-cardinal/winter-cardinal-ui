@@ -69,12 +69,12 @@ export class EShapeActionValueChangeColorCode extends EShapeActionValueSubtyped<
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
-		const conditionId = manager.add(this.condition);
+		const conditionId = manager.addResources(this.condition);
 		const target = EShapeActionValueChangeColorTarget.CODE;
-		const colorId = manager.add(this.color);
-		const alphaId = manager.add(this.alpha);
-		const blendId = manager.add(this.blend);
-		return manager.add(
+		const colorId = manager.addResources(this.color);
+		const alphaId = manager.addResources(this.alpha);
+		const blendId = manager.addResources(this.blend);
+		return manager.addResources(
 			`[${this.type},${conditionId},${this.subtype},${target},${colorId},${alphaId},${blendId}]`
 		);
 	}

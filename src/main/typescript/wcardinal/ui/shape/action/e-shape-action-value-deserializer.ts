@@ -69,8 +69,7 @@ export class EShapeActionValueDeserializer {
 	}
 
 	static deserialize( id: number, manager: EShapeResourceManagerDeserialization ): EShapeActionValue {
-		const actions = manager.actions;
-		const action = actions.get( id );
+		const action = manager.getAction( id );
 		if( action != null ) {
 			return action;
 		}

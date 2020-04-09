@@ -67,10 +67,10 @@ export class EShapeActionValueChangeColorBrightness
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
-		const conditionId = manager.add(this.condition);
+		const conditionId = manager.addResources(this.condition);
 		const target = EShapeActionValueChangeColorTarget.BRIGHTNESS;
-		const brightnessId = manager.add(this.brightness);
-		return manager.add(
+		const brightnessId = manager.addResources(this.brightness);
+		return manager.addResources(
 			`[${this.type},${conditionId},${this.subtype},${target},${brightnessId}]`
 		);
 	}

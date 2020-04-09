@@ -116,13 +116,13 @@ export class EShapeTextOutlineImpl implements EShapeTextOutline {
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
 		const serialized = `[${this._enable ? 1 : 0},${this._color},${this._alpha},${this._width}]`;
-		return manager.add( serialized );
+		return manager.addResources( serialized );
 	}
 
 	deserialize( target: number, manager: EShapeResourceManagerDeserialization ) {
 		const resources = manager.resources;
 		if( 0 <= target && target < resources.length ) {
-			const parsed = manager.textOutlines.get( target );
+			const parsed = manager.getTextOutline( target );
 			if( parsed != null ) {
 				this.set(
 					parsed[ 0 ] !== 0,
@@ -132,7 +132,7 @@ export class EShapeTextOutlineImpl implements EShapeTextOutline {
 				);
 			} else {
 				const deserialized = JSON.parse( resources[ target ] );
-				manager.textOutlines.set( target, deserialized );
+				manager.setTextOutline( target, deserialized );
 				this.set(
 					deserialized[ 0 ] !== 0,
 					deserialized[ 1 ],

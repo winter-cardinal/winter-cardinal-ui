@@ -204,13 +204,13 @@ export class EShapeTagValueRangeImpl implements EShapeTagValueRange {
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
 		const serialized = `[${this._type},${this._from},${this._to}]`;
-		return manager.add( serialized );
+		return manager.addResources( serialized );
 	}
 
 	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void {
 		const resources = manager.resources;
 		if( 0 <= target && target < resources.length ) {
-			const parsed = manager.ranges.get( target );
+			const parsed = manager.getRange( target );
 			if( parsed != null ) {
 				this.copy_(
 					parsed[ 0 ],
@@ -219,7 +219,7 @@ export class EShapeTagValueRangeImpl implements EShapeTagValueRange {
 				);
 			} else {
 				const deserialized = JSON.parse( resources[ target ] );
-				manager.ranges.set( target, deserialized );
+				manager.setRange( target, deserialized );
 				this.copy_(
 					deserialized[ 0 ],
 					deserialized[ 1 ],

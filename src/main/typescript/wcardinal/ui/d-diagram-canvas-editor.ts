@@ -82,7 +82,8 @@ export class DDiagramCanvasEditor<
 				alpha: isNumber( backgroundAlpha ) ? backgroundAlpha : 0
 			},
 			tile: this._tile.serialize(),
-			resources: manager.serialize(),
+			resources: manager.resources,
+			tags: manager.tags,
 			layers: this._layer.serialize( manager, items ),
 			items,
 			snap: this._snapper.serialize()

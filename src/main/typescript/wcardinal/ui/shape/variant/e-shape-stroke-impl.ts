@@ -164,13 +164,13 @@ export class EShapeStrokeImpl implements EShapeStroke {
 	serialize( manager: EShapeResourceManagerSerialization ): number {
 		const enable = this._enable ? 1 : 0;
 		const serialized = `[${enable},${this._color},${this._alpha},${this._width},${this._align},${this._side}]`;
-		return manager.add( serialized );
+		return manager.addResources( serialized );
 	}
 
 	deserialize( target: number, manager: EShapeResourceManagerDeserialization ) {
 		const resources = manager.resources;
 		if( 0 <= target && target < resources.length ) {
-			const parsed = manager.strokes.get( target );
+			const parsed = manager.getStroke( target );
 			if( parsed != null ) {
 				this.set(
 					parsed[ 0 ] !== 0,
@@ -182,7 +182,7 @@ export class EShapeStrokeImpl implements EShapeStroke {
 				);
 			} else {
 				const deserialized = JSON.parse( resources[ target ] );
-				manager.strokes.set( target, deserialized );
+				manager.setStroke( target, deserialized );
 				this.set(
 					deserialized[ 0 ] !== 0,
 					deserialized[ 1 ],

@@ -114,8 +114,12 @@ export class EShapeDeserializer {
 		}
 	}
 
-	static deserializeAll( serializeds: DDiagramSerializedItem[], resources: string[] ): Promise<EShape[]> | null {
-		const manager = new EShapeResourceManagerDeserialization( resources );
+	static deserializeAll(
+		serializeds: DDiagramSerializedItem[],
+		resources: string[],
+		tags?: string[]
+	): Promise<EShape[]> | null {
+		const manager = new EShapeResourceManagerDeserialization( resources, tags );
 		const shapes: Array<Promise<EShape> | EShape> = [];
 		for( let i = 0, imax = serializeds.length; i < imax; ++i ) {
 			const serialized = serializeds[ i ];

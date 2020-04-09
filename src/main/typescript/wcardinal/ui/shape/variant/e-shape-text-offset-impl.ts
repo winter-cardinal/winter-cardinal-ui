@@ -73,13 +73,13 @@ export class EShapeTextOffsetImpl implements EShapeTextOffset {
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
-		return manager.add( `[${this._horizontal},${this._vertical}]` );
+		return manager.addResources( `[${this._horizontal},${this._vertical}]` );
 	}
 
 	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void {
 		const resources = manager.resources;
 		if( 0 <= target && target < resources.length ) {
-			const parsed = manager.margins.get( target );
+			const parsed = manager.getMargin( target );
 			if( parsed != null ) {
 				this.set(
 					parsed[ 0 ],
@@ -87,7 +87,7 @@ export class EShapeTextOffsetImpl implements EShapeTextOffset {
 				);
 			} else {
 				const deserialized = JSON.parse( resources[ target ] );
-				manager.margins.set( target, deserialized );
+				manager.setMargin( target, deserialized );
 				this.set(
 					deserialized[ 0 ],
 					deserialized[ 1 ]

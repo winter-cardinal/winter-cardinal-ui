@@ -78,13 +78,13 @@ export class EShapeTextAlignImpl implements EShapeTextAlign {
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
-		return manager.add( `[${this._horizontal},${this._vertical}]` );
+		return manager.addResources( `[${this._horizontal},${this._vertical}]` );
 	}
 
 	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void {
 		const resources = manager.resources;
 		if( 0 <= target && target < resources.length ) {
-			const parsed = manager.aligns.get( target );
+			const parsed = manager.getAlign( target );
 			if( parsed != null ) {
 				this.set(
 					parsed[ 0 ],
@@ -92,7 +92,7 @@ export class EShapeTextAlignImpl implements EShapeTextAlign {
 				);
 			} else {
 				const deserialized = JSON.parse( resources[ target ] );
-				manager.aligns.set( target, deserialized );
+				manager.setAlign( target, deserialized );
 				this.set(
 					deserialized[ 0 ],
 					deserialized[ 1 ]

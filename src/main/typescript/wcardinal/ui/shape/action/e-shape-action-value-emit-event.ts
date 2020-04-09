@@ -36,9 +36,9 @@ export class EShapeActionValueEmitEvent extends EShapeActionValueBase {
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
-		const conditionId = manager.add(this.condition);
-		const nameId = manager.add(this.name);
-		return manager.add( `[${this.type},${conditionId},${nameId}]` );
+		const conditionId = manager.addResources(this.condition);
+		const nameId = manager.addResources(this.name);
+		return manager.addResources( `[${this.type},${conditionId},${nameId}]` );
 	}
 
 	static deserialize(

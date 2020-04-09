@@ -15,10 +15,10 @@ export const deserializeLine = (
 	const resources = manager.resources;
 	const resourceId = item[ 15 ];
 	if( 0 <= resourceId && resourceId < resources.length ) {
-		let parsed = manager.extensions.get( resourceId ) as [ number[], number[], number ] | undefined;
+		let parsed = manager.getExtension<[ number[], number[], number ]>( resourceId );
 		if( parsed == null ) {
 			parsed = JSON.parse( resources[ resourceId ] ) as [ number[], number[], number ];
-			manager.extensions.set( resourceId, parsed );
+			manager.setExtension( resourceId, parsed );
 		}
 		const shape = new EShapeLine(
 			parsed[ 0 ],

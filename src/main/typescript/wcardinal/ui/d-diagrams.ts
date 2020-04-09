@@ -25,9 +25,9 @@ export class DDiagrams {
 		container: DDiagramLayerContainer
 	): Promise<EShape[]> {
 		// Layers
-		const pflayers = serialized.layers;
-		for( let i = 0, imax = pflayers.length; i < imax; ++i ) {
-			container.create( pflayers[ i ][ 0 ] || "" );
+		const serializedLayers = serialized.layers;
+		for( let i = 0, imax = serializedLayers.length; i < imax; ++i ) {
+			container.create( serializedLayers[ i ][ 0 ] || "" );
 		}
 
 		// Activate the first later if it exists
@@ -36,16 +36,17 @@ export class DDiagrams {
 		}
 
 		// Items
-		const pfresources = serialized.resources;
-		const pfitems = serialized.items;
-		const shapePromises = EShapeDeserializer.deserializeAll( pfitems, pfresources );
+		const serializedItems = serialized.items;
+		const serializedResources = serialized.resources;
+		const serializedTags = serialized.tags;
+		const shapePromises = EShapeDeserializer.deserializeAll( serializedItems, serializedResources, serializedTags );
 		if( shapePromises != null ) {
 			return shapePromises.then(( shapes: EShape[] ): EShape[] => {
 				const layers = container.children;
 				for( let i = 0, imax = shapes.length; i < imax; ++i ) {
-					const pfitem = pfitems[ i ];
+					const serializedItem = serializedItems[ i ];
 					const shape = shapes[ i ];
-					const layer = layers[ pfitem[ 16 ] ];
+					const layer = layers[ serializedItem[ 16 ] ];
 					if( layer != null ) {
 						shape.attach( layer );
 					}

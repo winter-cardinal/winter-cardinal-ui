@@ -64,8 +64,8 @@ export class EShapeActionValueBlink extends EShapeActionValueSubtyped<EShapeActi
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
-		const conditionId = manager.add(this.condition);
-		return manager.add(
+		const conditionId = manager.addResources(this.condition);
+		return manager.addResources(
 			`[${this.type},${conditionId},${this.subtype},${this.interval},${this.color},${this.alpha}]`
 		);
 	}
