@@ -13,9 +13,10 @@ export class UtilExtractor {
 		target: DBase, resolution?: number,
 		clear?: boolean, skipUpdateTransform?: boolean
 	): RenderTexture {
+		const scale = target.transform.scale;
 		const result = RenderTexture.create({
-			width: target.width,
-			height: target.height,
+			width: target.width * scale.x,
+			height: target.height * scale.y,
 			scaleMode: SCALE_MODES.LINEAR,
 			resolution
 		});

@@ -64,7 +64,9 @@ const toResolution = ( options: UtilExtractTextureOptions ): number => {
 		if( isNumber( options.resolution ) ) {
 			return options.resolution;
 		} else {
-			return Math.min( 1, options.resolution.size / Math.max( target.width, target.height ) );
+			const scale = target.transform.scale;
+			const size = Math.max( target.width * scale.x, target.height * scale.y );
+			return Math.min( 1, options.resolution.size / size );
 		}
 	} else {
 		return window.devicePixelRatio || 1;
