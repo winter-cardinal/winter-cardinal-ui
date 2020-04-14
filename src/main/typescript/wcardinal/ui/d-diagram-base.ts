@@ -10,10 +10,13 @@ import {
 import { DDiagramCanvasBase } from "./d-diagram-canvas-base";
 import { DDiagramCanvasTilePyramidFactory } from "./d-diagram-canvas-tile";
 import { DDiagramLayer } from "./d-diagram-layer";
-import { DDiagramSerialized } from "./d-diagram-serialized";
+import { DDiagramSerialized, DDiagramSerializedSimple } from "./d-diagram-serialized";
 import { DDiagrams } from "./d-diagrams";
 import { EventSupport } from "./decorator/event-support";
 import { EShape } from "./shape/e-shape";
+import { EShapeLayerContainer } from "./shape/e-shape-layer-container";
+import { EShapeResourceManagerDeserialization } from "./shape/e-shape-resource-manager-deserialization";
+import { EShapeEmbeddedLayerContainer } from "./shape/variant/e-shape-embedded-layer-container";
 
 /**
  * {@link DDiagramBase} events.
@@ -25,6 +28,14 @@ export interface DDiagramBaseEvents<CANVAS, EMITTER> extends DCanvasContainerEve
 	 * @param emitter an emitter
 	 */
 	ready( emitter: EMITTER ): void;
+}
+
+/**
+ * {@link DDiagram} controller.
+ */
+export interface DDiagramBaseController {
+	getByName( name: string ): Promise<DDiagramSerializedSimple | DDiagramSerialized>;
+	getPieceByName( name: string ): Promise<DDiagramSerializedSimple | DDiagramSerialized>;
 }
 
 /**
@@ -40,9 +51,12 @@ export interface DDiagramBaseOnOptions<CANVAS, EMITTER>
  */
 export interface DDiagramBaseOptions<
 	CANVAS extends DDiagramCanvasBase = DDiagramCanvasBase,
+	CONTROLLER extends DDiagramBaseController = DDiagramBaseController,
 	THEME extends DThemeDiagramBase = DThemeDiagramBase,
 	EMITTER = any
 > extends DCanvasContainerOptions<CANVAS, THEME> {
+	controller?: CONTROLLER;
+
 	/**
 	 * A tile pyramid factory.
 	 */
@@ -61,19 +75,22 @@ export interface DThemeDiagramBase extends DThemeCanvasContainer {
 @EventSupport
 export abstract class DDiagramBase<
 	CANVAS extends DDiagramCanvasBase = DDiagramCanvasBase,
+	CONTROLLER extends DDiagramBaseController = DDiagramBaseController,
 	THEME extends DThemeDiagramBase = DThemeDiagramBase,
-	OPTIONS extends DDiagramBaseOptions<CANVAS, THEME> = DDiagramBaseOptions<CANVAS, THEME>
+	OPTIONS extends DDiagramBaseOptions<CANVAS, CONTROLLER, THEME> = DDiagramBaseOptions<CANVAS, CONTROLLER, THEME>
 > extends DCanvasContainer<CANVAS, THEME, OPTIONS> {
 	protected _serialized: DDiagramSerialized | null;
 	protected _tileFactory?: DDiagramCanvasTilePyramidFactory;
+	protected _controller?: CONTROLLER;
 
 	constructor( options?: OPTIONS ) {
 		super( options );
 		this._serialized = null;
 		this._tileFactory = options && options.tile;
+		this._controller = options && options.controller;
 	}
 
-	set( serialized: DDiagramSerialized | null ) {
+	set( serialized: DDiagramSerialized | null ): void {
 		const oldSerialized = this._serialized;
 		if( oldSerialized !== serialized ) {
 			if( oldSerialized ) {
@@ -90,14 +107,82 @@ export abstract class DDiagramBase<
 
 	protected onSet( serialized: DDiagramSerialized ): void {
 		const canvas = this.newCanvas( serialized );
-		DDiagrams.newLayer( serialized, canvas.layer ).then(( shapes: EShape[] ): void => {
+		const pieces = serialized.pieces;
+		const promise = this.toPieces( pieces );
+		if( promise == null ) {
+			this.newLayer( serialized, canvas );
+		} else {
+			promise.then(( pieceToShapes ): void => {
+				this.newLayer( serialized, canvas, pieces, pieceToShapes );
+			});
+		}
+		this.canvas = canvas;
+	}
+
+	protected newLayer(
+		serialized: DDiagramSerialized,
+		canvas: CANVAS,
+		pieces?: string[],
+		pieceToShapes?: Map<string, EShapeLayerContainer>
+	): void {
+		const layer = canvas.layer;
+		const manager = new EShapeResourceManagerDeserialization(
+			serialized.resources, serialized.tags, pieces, pieceToShapes
+		);
+		DDiagrams.newLayer( serialized, layer, manager )
+		.then(( shapes: EShape[] ): void => {
+			layer.init();
 			this.initialize( shapes );
 			canvas.initialize( shapes );
 			DApplications.update( this );
 			this.emit( "ready", this );
 		});
 		DDiagrams.applyBackground( serialized, canvas, this );
-		this.canvas = canvas;
+	}
+
+	protected toPieces(
+		pieces?: string[]
+	): Promise<Map<string, EShapeLayerContainer>> | undefined {
+		const controller = this._controller;
+		if( pieces && controller ) {
+			const mappings = new Map<string, EShapeLayerContainer>();
+			return new Promise(( resolve ): void => {
+				const size = pieces.length;
+				let finished = size;
+				const onFinished = (): void => {
+					finished -= 1;
+					if( finished <= 0 ) {
+						resolve( mappings );
+					}
+				};
+				const load = ( piece: string ): void => {
+					controller.getPieceByName( piece ).then(( found ) => {
+						const container = new EShapeEmbeddedLayerContainer();
+						const serialized = DDiagrams.toSerialized( found );
+						const manager = new EShapeResourceManagerDeserialization(
+							serialized.resources, serialized.tags
+						);
+						DDiagrams.newLayer( serialized, container, manager )
+						.then((): void => {
+							mappings.set( piece, container );
+							onFinished();
+						}, onFinished );
+					}, onFinished );
+				};
+				for( let i = 0; i < size; ++i ) {
+					load( pieces[ i ] );
+				}
+			});
+		}
+	}
+
+	openByName( name: string ) {
+		const controller = this._controller;
+		if( controller ) {
+			controller.getByName( name ).then(( found ): void => {
+				this.set( DDiagrams.toSerialized( found ) );
+			});
+		}
 	}
 
 	protected initialize( shapes: EShape[] ): void {

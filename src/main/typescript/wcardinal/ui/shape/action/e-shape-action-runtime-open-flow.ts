@@ -18,8 +18,8 @@ export class EShapeActionRuntimeOpenFlow extends EShapeActionRuntimeOpen {
 			const target = this.target( shape, time );
 			if( target != null ) {
 				const container = this.toContainer( shape );
-				if( container && ("opener" in container) ) {
-					container.opener( target );
+				if( container ) {
+					container.openByName( target );
 				}
 			}
 		}

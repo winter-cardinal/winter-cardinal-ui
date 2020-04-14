@@ -21,6 +21,7 @@ export * from "./e-shape-editor";
 export * from "./e-shape-fill";
 export * from "./e-shape-gradient";
 export * from "./e-shape-image-elements";
+export * from "./e-shape-layer-container";
 export * from "./e-shape-layout";
 export * from "./e-shape-points-style";
 export * from "./e-shape-points";

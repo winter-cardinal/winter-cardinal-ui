@@ -10,7 +10,7 @@ export interface DControllerDocument<DOCUMENT extends DDocument> {
 	isNew(): boolean;
 	get(): DOCUMENT | null;
 	getName(): string | null;
-	save(): Promise<unknown> | boolean;
-	saveAs( name: string ): Promise<unknown> | boolean;
-	delete(): Promise<unknown> | boolean;
+	save(): Promise<unknown>;
+	saveAs( name: string ): Promise<unknown>;
+	delete(): Promise<unknown>;
 }

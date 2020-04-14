@@ -5,7 +5,9 @@
 
 import { DControllerDocument } from "./d-controller-document";
 import { DControllers } from "./d-controllers";
-import { DDiagramBase, DDiagramBaseEvents, DDiagramBaseOptions, DThemeDiagramBase } from "./d-diagram-base";
+import {
+	DDiagramBase, DDiagramBaseController, DDiagramBaseEvents, DDiagramBaseOptions, DThemeDiagramBase
+} from "./d-diagram-base";
 import { DDiagramCanvasEditor, DDiagramCanvasEditorOptions } from "./d-diagram-canvas-editor";
 import { DDiagramSerialized, DDiagramSerializedSimple, DDiagramSerializedVersion } from "./d-diagram-serialized";
 import { DDiagrams } from "./d-diagrams";
@@ -15,7 +17,7 @@ import { ESnapper } from "./snapper/e-snapper";
 /**
  * {@link DDiagramEditor} controller.
  */
-export interface DDiagramEditorController {
+export interface DDiagramEditorController extends DDiagramBaseController {
 	get( id: number ): Promise<DDiagramSerializedSimple | DDiagramSerialized>;
 	save( simple: DDiagramSerializedSimple ): Promise<number>;
 	delete( id: number ): Promise<void>;
@@ -72,8 +74,8 @@ export interface DDiagramEditorOnOptions<EMITTER>
 export interface DDiagramEditorOptions<
 	THEME extends DThemeDiagramEditor = DThemeDiagramEditor,
 	EMITTER = any
-> extends DDiagramBaseOptions<DDiagramCanvasEditor, THEME> {
-	controller: DDiagramEditorController;
+> extends DDiagramBaseOptions<DDiagramCanvasEditor, DDiagramEditorController, THEME> {
+	controller?: DDiagramEditorController;
 	on?: DDiagramEditorOnOptions<EMITTER>;
 }
 
@@ -88,14 +90,13 @@ export interface DThemeDiagramEditor extends DThemeDiagramBase {
 export class DDiagramEditor<
 	THEME extends DThemeDiagramEditor = DThemeDiagramEditor,
 	OPTIONS extends DDiagramEditorOptions<THEME> = DDiagramEditorOptions<THEME>
-> extends DDiagramBase<DDiagramCanvasEditor, THEME, OPTIONS> implements DControllerDocument<DDiagramSerialized> {
+> extends DDiagramBase<DDiagramCanvasEditor, DDiagramEditorController, THEME, OPTIONS>
+	implements DControllerDocument<DDiagramSerialized> {
 	protected _isChanged: boolean = false;
-	protected _controller: DDiagramEditorController;
 	snapper: ESnapper;
 
-	constructor( options: OPTIONS ) {
+	constructor( options?: OPTIONS ) {
 		super( options );
-		this._controller = options.controller;
 		this._isChanged = false;
 
 		const commands = DControllers.getCommandController();
@@ -135,67 +136,70 @@ export class DDiagramEditor<
 		return null;
 	}
 
-	save(): Promise<unknown> | boolean {
+	save(): Promise<unknown> {
 		const serialized = this.serialize();
 		if( serialized != null ) {
-			const simple = this.toSimple( serialized );
-			this.emit( "saving", simple, this );
-			return this.controller
-			.save( simple )
-			.then(( newId: number ): void => {
-				this._isChanged = false;
-				serialized.id = newId;
-				this._serialized = serialized;
-				this.emit( "change", this );
-				this.emit( "success", "save", this );
-			}, ( reason: any ): void => {
+			const controller = this._controller;
+			if( controller ) {
+				const simple = DDiagrams.toSimple( serialized );
+				this.emit( "saving", simple, this );
+				return controller.save( simple )
+				.then(( newId: number ): void => {
+					this._isChanged = false;
+					serialized.id = newId;
+					this._serialized = serialized;
+					this.emit( "change", this );
+					this.emit( "success", "save", this );
+				}, ( reason: any ): void => {
+					this.emit( "fail", "save", this );
+				});
+			} else {
 				this.emit( "fail", "save", this );
-			});
+				return Promise.reject();
+			}
 		}
-		return true;
+		this.emit( "success", "save", this );
+		return Promise.resolve();
 	}
 
-	saveAs( name: string ): Promise<unknown> | boolean {
+	saveAs( name: string ): Promise<unknown> {
 		const serialized = this.serialize();
 		if( serialized != null ) {
-			serialized.id = undefined;
-			serialized.name = name;
-			const simple = this.toSimple( serialized );
-			this.emit( "saving", simple, this );
-			return this.controller
-			.save( simple )
-			.then(( newId: number ): void => {
-				this._isChanged = false;
-				serialized.id = newId;
-				this._serialized = serialized;
-				const canvas = this.canvas;
-				if( canvas != null ) {
-					canvas.name = name;
-				}
-				this.emit( "change", this );
-				this.emit( "success", "save-as", this );
-			}, ( reason: any ): void => {
+			const controller = this._controller;
+			if( controller ) {
+				serialized.id = undefined;
+				serialized.name = name;
+				const simple = DDiagrams.toSimple( serialized );
+				this.emit( "saving", simple, this );
+				return controller.save( simple )
+				.then(( newId: number ): void => {
+					this._isChanged = false;
+					serialized.id = newId;
+					this._serialized = serialized;
+					const canvas = this.canvas;
+					if( canvas != null ) {
+						canvas.name = name;
+					}
+					this.emit( "change", this );
+					this.emit( "success", "save-as", this );
+				}, ( reason: any ): void => {
+					this.emit( "fail", "save-as", this );
+				});
+			} else {
 				this.emit( "fail", "save-as", this );
-			});
+				return Promise.reject( "no-controller" );
+			}
 		}
-		return true;
+		this.emit( "success", "save-as", this );
+		return Promise.resolve();
 	}
 
-	protected toSimple( serialized: DDiagramSerialized ): DDiagramSerializedSimple {
-		return {
-			version: serialized.version,
-			id: serialized.id,
-			name: serialized.name,
-			tags: serialized.tags,
-			data: JSON.stringify( serialized )
-		};
-	}
-
-	delete(): Promise<unknown> | boolean {
+	delete(): Promise<unknown> {
 		const serialized = this._serialized;
-		if( serialized != null ) {
-			if( serialized.id != null ) {
-				return this.controller.delete( serialized.id )
+		if( serialized && serialized.id != null ) {
+			const controller = this._controller;
+			if( controller ) {
+				return controller.delete( serialized.id )
 				.then((): void => {
 					this.set( null );
 					this.emit( "success", "delete", this );
@@ -203,15 +207,16 @@ export class DDiagramEditor<
 					this.emit( "fail", "delete", this );
 				});
 			} else {
-				this.set( null );
-				this.emit( "success", "delete", this );
+				this.emit( "fail", "delete", this );
+				return Promise.reject( "no-controller" );
 			}
-			return true;
 		}
-		return false;
+		this.set( null );
+		this.emit( "success", "delete", this );
+		return Promise.resolve();
 	}
 
-	create( name: string, width: number, height: number ): Promise<unknown> | boolean {
+	create( name: string, width: number, height: number ): void {
 		this.set({
 			version: DDiagramSerializedVersion,
 			id: undefined,
@@ -224,7 +229,6 @@ export class DDiagramEditor<
 			items: [],
 			snap: undefined
 		});
-		return true;
 	}
 
 	protected onSet( serialized: DDiagramSerialized ): void {
@@ -246,13 +250,19 @@ export class DDiagramEditor<
 		this.emit( "change", this );
 	}
 
-	open( id: number ): Promise<unknown> | boolean {
-		return this._controller.get( id ).then(( serialized: DDiagramSerializedSimple | DDiagramSerialized ): void => {
-			this.set( DDiagrams.toSerialized( serialized ) );
-			this.emit( "success", "open", this );
-		}, ( reason: any ): void => {
-			this.emit( "fail", "open", this );
-		});
+	open( id: number ): Promise<unknown> {
+		const controller = this._controller;
+		if( controller ) {
+			return controller.get( id )
+			.then(( serialized: DDiagramSerializedSimple | DDiagramSerialized ): void => {
+				this.set( DDiagrams.toSerialized( serialized ) );
+				this.emit( "success", "open", this );
+			}, ( reason: any ): void => {
+				this.emit( "fail", "open", this );
+			});
+		}
+		this.emit( "fail", "open", this );
+		return Promise.reject( "no-controller" );
 	}
 
 	close(): void {
@@ -279,8 +289,8 @@ export class DDiagramEditor<
 		return null;
 	}
 
-	get controller(): DDiagramEditorController {
-		return this._controller;
+	get controller(): DDiagramEditorController | null {
+		return this._controller || null;
 	}
 
 	protected getType(): string {

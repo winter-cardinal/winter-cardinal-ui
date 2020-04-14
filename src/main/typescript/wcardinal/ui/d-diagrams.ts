@@ -9,12 +9,38 @@ import { DDiagramSerialized, DDiagramSerializedSimple } from "./d-diagram-serial
 import { EShape } from "./shape/e-shape";
 import { EShapeDefaults } from "./shape/e-shape-defaults";
 import { EShapeDeserializer } from "./shape/e-shape-deserializer";
+import { EShapeLayerContainer } from "./shape/e-shape-layer-container";
+import { EShapeResourceManagerDeserialization } from "./shape/e-shape-resource-manager-deserialization";
 
 export class DDiagrams {
+	static toSimple( serialized: DDiagramSerialized ): DDiagramSerializedSimple {
+		return {
+			version: serialized.version,
+			id: serialized.id,
+			name: serialized.name,
+			tags: serialized.tags,
+			pieces: serialized.pieces,
+			data: JSON.stringify({
+				width: serialized.width,
+				height: serialized.height,
+				background: serialized.background,
+				tile: serialized.tile,
+				resources: serialized.resources,
+				layers: serialized.layers,
+				items: serialized.items,
+				snap: serialized.snap
+			})
+		};
+	}
+
 	static toSerialized( target: DDiagramSerializedSimple | DDiagramSerialized ): DDiagramSerialized {
 		if( "data" in target ) {
 			const result: DDiagramSerialized = JSON.parse( target.data );
+			result.version = target.version;
 			result.id = target.id;
+			result.name = target.name;
+			result.tags = target.tags;
+			result.pieces = target.pieces;
 			return result;
 		}
 		return target;
@@ -22,7 +48,8 @@ export class DDiagrams {
 
 	static newLayer(
 		serialized: DDiagramSerialized,
-		container: DDiagramLayerContainer
+		container: DDiagramLayerContainer | EShapeLayerContainer,
+		manager: EShapeResourceManagerDeserialization
 	): Promise<EShape[]> {
 		// Layers
 		const serializedLayers = serialized.layers;
@@ -30,16 +57,9 @@ export class DDiagrams {
 			container.create( serializedLayers[ i ][ 0 ] || "" );
 		}
 
-		// Activate the first later if it exists
-		if( 0 < container.size() ) {
-			container.active = container.children[ 0 ];
-		}
-
 		// Items
 		const serializedItems = serialized.items;
-		const serializedResources = serialized.resources;
-		const serializedTags = serialized.tags;
-		const shapePromises = EShapeDeserializer.deserializeAll( serializedItems, serializedResources, serializedTags );
+		const shapePromises = EShapeDeserializer.deserializeAll( serializedItems, manager );
 		if( shapePromises != null ) {
 			return shapePromises.then(( shapes: EShape[] ): EShape[] => {
 				const layers = container.children;

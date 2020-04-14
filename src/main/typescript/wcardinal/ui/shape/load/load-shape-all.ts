@@ -5,6 +5,7 @@
 
 import { loadShapeBar } from "./load-shape-bar";
 import { loadShapeCircle } from "./load-shape-circle";
+import { loadShapeEmbedded } from "./load-shape-embedded";
 import { loadShapeGroup } from "./load-shape-group";
 import { loadShapeGroupShadowed } from "./load-shape-group-shadowed";
 import { loadShapeImage } from "./load-shape-image";
@@ -25,6 +26,7 @@ import { loadShapeTriangleRounded } from "./load-shape-triangle-rounded";
 export const loadShapeAll = () => {
 	loadShapeBar();
 	loadShapeCircle();
+	loadShapeEmbedded();
 	loadShapeGroupShadowed();
 	loadShapeGroup();
 	loadShapeImage();

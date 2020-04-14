@@ -20,6 +20,15 @@ export class DDiagramLayerContainer extends Container {
 		this.interactiveChildren = false;
 	}
 
+	init(): void {
+		if( this._active == null ) {
+			const children = this.children;
+			if( 0 < children.length ) {
+				this._active = children[ 0 ];
+			}
+		}
+	}
+
 	get active(): DDiagramLayer | null {
 		return this._active;
 	}

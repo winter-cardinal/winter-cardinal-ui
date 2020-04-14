@@ -4,7 +4,7 @@
  */
 
 import { interaction, Renderer } from "pixi.js";
-import { DDiagramBase, DDiagramBaseOptions, DThemeDiagramBase } from "./d-diagram-base";
+import { DDiagramBase, DDiagramBaseController, DDiagramBaseOptions, DThemeDiagramBase } from "./d-diagram-base";
 import { DDiagramCanvas, DDiagramCanvasOptions, DDiagramCanvasTagOptions } from "./d-diagram-canvas";
 import { DDiagramSerialized } from "./d-diagram-serialized";
 import { DDiagramShape } from "./d-diagram-shape";
@@ -17,12 +17,26 @@ import { EShapeRuntime } from "./shape/e-shape-runtime";
 import { EShapeRuntimes } from "./shape/e-shape-runtimes";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
+/**
+ * {@link DDiagram} controller.
+ */
+export interface DDiagramController extends DDiagramBaseController {
+
+}
+
+/**
+ * {@link DDiagram} options.
+ */
 export interface DDiagramOptions<
-	THEME extends DThemeDiagram = DThemeDiagram
-> extends DDiagramBaseOptions<DDiagramCanvas, THEME> {
+	THEME extends DThemeDiagram = DThemeDiagram,
+	EMITTER = any
+> extends DDiagramBaseOptions<DDiagramCanvas, DDiagramController, THEME, EMITTER> {
 	tag?: DDiagramCanvasTagOptions;
 }
 
+/**
+ * {@link DDiagram} theme.
+ */
 export interface DThemeDiagram extends DThemeDiagramBase {
 
 }
@@ -30,10 +44,9 @@ export interface DThemeDiagram extends DThemeDiagramBase {
 export class DDiagram<
 	THEME extends DThemeDiagram = DThemeDiagram,
 	OPTIONS extends DDiagramOptions<THEME> = DDiagramOptions<THEME>
-> extends DDiagramBase<DDiagramCanvas, THEME, OPTIONS> {
+> extends DDiagramBase<DDiagramCanvas, DDiagramController, THEME, OPTIONS> {
 	tag: DDiagramTag;
 	shape: DDiagramShape;
-	opener?: ( target: string ) => void;
 
 	constructor( options: OPTIONS ) {
 		super( options );

@@ -6,14 +6,18 @@
 export class EShapeResourceManagerSerialization {
 	resources: string[];
 	tags: string[];
+	pieces: string[];
 	protected resourceToIndex: Map<string, number>;
 	protected tagToIndex: Map<string, number>;
+	protected pieceToIndex: Map<string, number>;
 
 	constructor() {
 		this.resources = [];
-		this.tags = [];
 		this.resourceToIndex = new Map<string, number>();
+		this.tags = [];
 		this.tagToIndex = new Map<string, number>();
+		this.pieces = [];
+		this.pieceToIndex = new Map<string, number>();
 	}
 
 	addResources( resource: string ): number {
@@ -22,6 +26,10 @@ export class EShapeResourceManagerSerialization {
 
 	addTag( tag: string ): number {
 		return this.add_( tag, this.tags, this.tagToIndex );
+	}
+
+	addPiece( piece: string ): number {
+		return this.add_( piece, this.pieces, this.pieceToIndex );
 	}
 
 	protected add_( target: string, array: string[], map: Map<string, number> ): number {

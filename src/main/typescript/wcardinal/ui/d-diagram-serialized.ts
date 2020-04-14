@@ -418,6 +418,7 @@ export interface DDiagramSerialized  {
 	tile?: DDiagramSerializedTile;
 	resources: string[];
 	tags?: string[];
+	pieces?: string[];
 	layers: DDiagramSerializedLayer[];
 	items: DDiagramSerializedItem[];
 	snap?: DDiagramSerializedSnap;
@@ -430,7 +431,16 @@ export interface DDiagramSerializedSimple {
 	version: number;
 	id: number | undefined;
 	name: string;
+
+	/**
+	 * Tags
+	 */
 	tags?: string[];
+
+	/**
+	 * Embedded piece names.
+	 */
+	pieces?: string[];
 
 	/**
 	 * Thumbnail data URL.
@@ -438,8 +448,14 @@ export interface DDiagramSerializedSimple {
 	thumbnail?: string;
 
 	/**
-	 * A stringified DDiagramSerialized,
-	 * JSON.stringiify(DDiagramSerialized).
+	 * A stringified DDiagramSerialized.
+	 * Please note that the following properties are not included:
+	 *
+	 * * DDiagramSerialized#version
+	 * * DDiagramSerialized#id
+	 * * DDiagramSerialized#name
+	 * * DDiagramSerialized#tags
+	 * * DDiagramSerialized#pieces
 	 */
 	data: string;
 }

@@ -84,6 +84,7 @@ export class DDiagramCanvasEditor<
 			tile: this._tile.serialize(),
 			resources: manager.resources,
 			tags: manager.tags,
+			pieces: manager.pieces,
 			layers: this._layer.serialize( manager, items ),
 			items,
 			snap: this._snapper.serialize()

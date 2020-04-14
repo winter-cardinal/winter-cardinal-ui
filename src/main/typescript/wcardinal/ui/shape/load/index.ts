@@ -6,6 +6,7 @@
 export * from "./load-shape-all";
 export * from "./load-shape-bar";
 export * from "./load-shape-circle";
+export * from "./load-shape-embedded";
 export * from "./load-shape-group-shadowed";
 export * from "./load-shape-group";
 export * from "./load-shape-image";

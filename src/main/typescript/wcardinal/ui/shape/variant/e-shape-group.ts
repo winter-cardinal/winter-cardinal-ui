@@ -31,7 +31,7 @@ export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent
 	tag: EShapeTag;
 	text: EShapeText;
 
-	protected _points?: EShapeGroupPoints;
+	protected _points?: EShapePoints;
 
 	constructor( type = EShapeType.GROUP ) {
 		super( type );
@@ -40,7 +40,7 @@ export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent
 		this.fill = this.newGroupFill();
 		this.stroke = this.newGroupStroke();
 		this.text = this.newGroupText();
-		this.points = this.newGroupPoints();
+		this._points = this.newGroupPoints();
 	}
 
 	protected newGroupSize(): EShapeGroupSize {

@@ -9,6 +9,7 @@ import { EShapeActionValueDeserializer } from "./action/e-shape-action-value-des
 import { EShape } from "./e-shape";
 import { EShapeDeserializers } from "./e-shape-deserializers";
 import { EShapeImageElements } from "./e-shape-image-elements";
+import { EShapeLayerContainer } from "./e-shape-layer-container";
 import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
 import { EShapeSizes } from "./e-shape-sizes";
 import { EShapeGradients } from "./variant/e-shape-gradients";
@@ -116,10 +117,8 @@ export class EShapeDeserializer {
 
 	static deserializeAll(
 		serializeds: DDiagramSerializedItem[],
-		resources: string[],
-		tags?: string[]
+		manager: EShapeResourceManagerDeserialization
 	): Promise<EShape[]> | null {
-		const manager = new EShapeResourceManagerDeserialization( resources, tags );
 		const shapes: Array<Promise<EShape> | EShape> = [];
 		for( let i = 0, imax = serializeds.length; i < imax; ++i ) {
 			const serialized = serializeds[ i ];
