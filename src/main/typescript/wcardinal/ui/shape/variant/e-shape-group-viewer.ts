@@ -26,7 +26,7 @@ export abstract class EShapeGroupViewer extends EShapeBase {
 
 	constructor( type: EShapeType ) {
 		super( type );
-		this.tag = new EShapeTagImpl();
+		this.tag = this.newTag();
 		this.size = this.newGroupSize();
 		this.fill = this.newGroupFill();
 		this.stroke = this.newGroupStroke();
@@ -54,6 +54,10 @@ export abstract class EShapeGroupViewer extends EShapeBase {
 			);
 			return result;
 		}
+	}
+
+	protected newTag(): EShapeTag {
+		return new EShapeTagImpl();
 	}
 
 	protected newGroupFill(): EShapeFill {
