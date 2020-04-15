@@ -44,9 +44,9 @@ export class EShapeActionValueChangeText extends EShapeActionValueSubtyped<EShap
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
-		const conditionId = manager.addResources(this.condition);
-		const valueId = manager.addResources(this.value);
-		return manager.addResources(
+		const conditionId = manager.addResource(this.condition);
+		const valueId = manager.addResource(this.value);
+		return manager.addResource(
 			`[${this.type},${conditionId},${this.subtype},${valueId}]`
 		);
 	}

@@ -320,7 +320,7 @@ export class EShapeTagImpl implements EShapeTag {
 		const values = this._values;
 		const mapping = this.mapping;
 		if( values.length <= 0 ) {
-			return manager.addResources(
+			return manager.addResource(
 				mapping ? `[${mapping.serialize( manager )}]` : "[]"
 			);
 		} else {
@@ -332,7 +332,7 @@ export class EShapeTagImpl implements EShapeTag {
 				serialized += `,${mapping.serialize( manager )}`;
 			}
 			serialized += "]";
-			return manager.addResources( serialized );
+			return manager.addResource( serialized );
 		}
 	}
 

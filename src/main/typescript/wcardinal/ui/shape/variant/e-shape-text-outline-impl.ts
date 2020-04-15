@@ -116,7 +116,7 @@ export class EShapeTextOutlineImpl implements EShapeTextOutline {
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
 		const serialized = `[${this._enable ? 1 : 0},${this._color},${this._alpha},${this._width}]`;
-		return manager.addResources( serialized );
+		return manager.addResource( serialized );
 	}
 
 	deserialize( target: number, manager: EShapeResourceManagerDeserialization ) {

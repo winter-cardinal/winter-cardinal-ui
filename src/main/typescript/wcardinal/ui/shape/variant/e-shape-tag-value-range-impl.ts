@@ -204,7 +204,7 @@ export class EShapeTagValueRangeImpl implements EShapeTagValueRange {
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
 		const serialized = `[${this._type},${this._from},${this._to}]`;
-		return manager.addResources( serialized );
+		return manager.addResource( serialized );
 	}
 
 	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void {

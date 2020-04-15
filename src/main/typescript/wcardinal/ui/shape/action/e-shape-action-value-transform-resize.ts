@@ -83,9 +83,9 @@ export class EShapeActionValueTransformResize
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
-		const conditionId = manager.addResources( this.condition );
-		const amountId = manager.addResources( this.amount );
-		return manager.addResources(
+		const conditionId = manager.addResource( this.condition );
+		const amountId = manager.addResource( this.amount );
+		return manager.addResource(
 			`[${this.type},${conditionId},${this.subtype},${this.opetype},${this.originX},${this.originY},${amountId}]`
 		);
 	}

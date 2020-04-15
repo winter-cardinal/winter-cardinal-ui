@@ -512,10 +512,10 @@ export class EShapeTagValueImpl implements EShapeTagValue {
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
 		const idSerialized = manager.addTag( this.id );
-		const initialSerialized = manager.addResources( this.initial );
-		const formatSerialized = manager.addResources( this.format.trim() );
+		const initialSerialized = manager.addResource( this.initial );
+		const formatSerialized = manager.addResource( this.format.trim() );
 		const rangeSerialized = this.range.serialize( manager );
-		return manager.addResources(
+		return manager.addResource(
 			`[${idSerialized},${initialSerialized},${formatSerialized},${rangeSerialized},${this._capacity},${this._order}]`
 		);
 	}

@@ -97,7 +97,7 @@ export class EShapeFillImpl implements EShapeFill {
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
 		const stringified = `[${this._enable ? 1 : 0},${this._color},${this._alpha}]`;
-		return manager.addResources( stringified );
+		return manager.addResource( stringified );
 	}
 
 	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void {

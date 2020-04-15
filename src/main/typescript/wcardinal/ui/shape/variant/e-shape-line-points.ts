@@ -259,7 +259,7 @@ export class EShapeLinePoints implements EShapePoints {
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
-		return manager.addResources( `[${JSON.stringify(this._values)},${JSON.stringify(this._segments)},${this._style}]` );
+		return manager.addResource( `[${JSON.stringify(this._values)},${JSON.stringify(this._segments)},${this._style}]` );
 	}
 
 	calcHitPointAbs<RESULT>(

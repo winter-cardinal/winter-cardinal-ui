@@ -53,7 +53,7 @@ export class EShapeGradients {
 			if( gradient.serialized == null ) {
 				gradient.serialized = this.serializeGradient( gradient );
 			}
-			return manager.addResources( gradient.serialized );
+			return manager.addResource( gradient.serialized );
 		}
 		return -1;
 	}

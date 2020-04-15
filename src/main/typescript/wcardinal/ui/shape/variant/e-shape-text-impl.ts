@@ -313,11 +313,11 @@ export class EShapeTextImpl implements EShapeText {
 		const outlineSerialized = this.outline.serialize( manager );
 		const spacingSerialized = this.spacing.serialize( manager );
 		const paddingSerialized = this.padding.serialize( manager );
-		const serialized = `[${manager.addResources( this._value )},${this._color},${this._alpha},` +
-			`${manager.addResources( this._family )},${this._size},${this._weight},${alignSerialized},` +
+		const serialized = `[${manager.addResource( this._value )},${this._color},${this._alpha},` +
+			`${manager.addResource( this._family )},${this._size},${this._weight},${alignSerialized},` +
 			`${offsetSerialized},${this._style},${outlineSerialized},${spacingSerialized},` +
 			`${this._direction},${paddingSerialized},${this._clipping ? 1 : 0 }]`;
-		return manager.addResources( serialized );
+		return manager.addResource( serialized );
 	}
 
 	deserialize( target: number, manager: EShapeResourceManagerDeserialization ) {

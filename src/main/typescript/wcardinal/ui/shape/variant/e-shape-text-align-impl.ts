@@ -78,7 +78,7 @@ export class EShapeTextAlignImpl implements EShapeTextAlign {
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
-		return manager.addResources( `[${this._horizontal},${this._vertical}]` );
+		return manager.addResource( `[${this._horizontal},${this._vertical}]` );
 	}
 
 	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void {

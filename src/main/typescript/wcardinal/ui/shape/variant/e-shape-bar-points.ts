@@ -220,7 +220,7 @@ export class EShapeBarPoints implements EShapeLineBasePoints {
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
-		return manager.addResources( `[${this._position},${this._size},${this._style}]` );
+		return manager.addResource( `[${this._position},${this._size},${this._style}]` );
 	}
 
 	deserialize( resourceId: number, manager: EShapeResourceManagerDeserialization ): void {

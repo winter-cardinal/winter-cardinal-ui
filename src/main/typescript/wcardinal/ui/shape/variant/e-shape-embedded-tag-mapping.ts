@@ -62,11 +62,11 @@ export class EShapeEmbeddedTagMapping implements EShapeTagMapping {
 		for( const originalId in value ) {
 			const id = value[ originalId ];
 			if( id != null ) {
-				result.push( manager.addResources( originalId ) );
-				result.push( manager.addResources( id ) );
+				result.push( manager.addResource( originalId ) );
+				result.push( manager.addResource( id ) );
 			}
 		}
-		return manager.addResources( JSON.stringify( result ) );
+		return manager.addResource( JSON.stringify( result ) );
 	}
 
 	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void {

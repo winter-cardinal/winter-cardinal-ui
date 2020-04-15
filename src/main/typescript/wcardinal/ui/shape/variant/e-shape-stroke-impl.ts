@@ -164,7 +164,7 @@ export class EShapeStrokeImpl implements EShapeStroke {
 	serialize( manager: EShapeResourceManagerSerialization ): number {
 		const enable = this._enable ? 1 : 0;
 		const serialized = `[${enable},${this._color},${this._alpha},${this._width},${this._align},${this._side}]`;
-		return manager.addResources( serialized );
+		return manager.addResource( serialized );
 	}
 
 	deserialize( target: number, manager: EShapeResourceManagerDeserialization ) {

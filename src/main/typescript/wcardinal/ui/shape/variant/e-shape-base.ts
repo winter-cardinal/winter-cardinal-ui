@@ -306,7 +306,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 	serializeImage( manager: EShapeResourceManagerSerialization ): number {
 		const image = this.image;
-		return (image != null ? manager.addResources( image.src ) : -1);
+		return (image != null ? manager.addResource( image.src ) : -1);
 	}
 
 	serializeGradient( manager: EShapeResourceManagerSerialization ): number {
@@ -319,12 +319,12 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		const pivot = transform.pivot;
 		const size = this.size;
 		const shortcut = this.shortcut;
-		const shortcutId = ( shortcut != null ? manager.addResources( shortcut ) : -1 );
+		const shortcutId = ( shortcut != null ? manager.addResource( shortcut ) : -1 );
 		const title = this.title;
-		const titleId = ( title != null ? manager.addResources( title ) : -1 );
+		const titleId = ( title != null ? manager.addResource( title ) : -1 );
 		return [
 			this.type,
-			manager.addResources(this.id),
+			manager.addResource(this.id),
 			position.x,
 			position.y,
 			size.x,
@@ -333,7 +333,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 			transform.skew.x,
 			this.fill.serialize( manager ),
 			this.stroke.serialize( manager ),
-			manager.addResources( this.cursor.trim() ),
+			manager.addResource( this.cursor.trim() ),
 			this.text.serialize( manager ),
 			this.tag.serialize( manager ),
 			this.radius,

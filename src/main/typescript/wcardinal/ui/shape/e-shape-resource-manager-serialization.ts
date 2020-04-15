@@ -20,7 +20,7 @@ export class EShapeResourceManagerSerialization {
 		this.pieceToIndex = new Map<string, number>();
 	}
 
-	addResources( resource: string ): number {
+	addResource( resource: string ): number {
 		return this.add_( resource, this.resources, this.resourceToIndex );
 	}
 

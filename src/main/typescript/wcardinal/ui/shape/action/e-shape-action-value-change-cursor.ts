@@ -36,9 +36,9 @@ export class EShapeActionValueChangeCursor extends EShapeActionValueBase {
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
-		const conditionId = manager.addResources(this.condition);
-		const nameId = manager.addResources(this.name);
-		return manager.addResources(
+		const conditionId = manager.addResource(this.condition);
+		const nameId = manager.addResource(this.name);
+		return manager.addResource(
 			`[${this.type},${conditionId},${nameId}]`
 		);
 	}
