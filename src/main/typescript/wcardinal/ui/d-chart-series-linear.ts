@@ -295,11 +295,15 @@ export class DChartSeriesLinear extends DChartSeriesBase {
 				const p2y = p0y + t * (p1y - p0y);
 				const distance = Math.abs(p2y - y);
 				if( distance < threshold ) {
-					const position = result.shape!.transform.position;
+					const transform = result.shape!.transform;
+					const position = transform.position;
 					const px = position.x;
 					const py = position.y;
-					result.x = result.p0x = result.p1x = px + p2x;
-					result.y = result.p0y = result.p1y = py + p2y;
+					const scale = transform.scale;
+					const sx = scale.x;
+					const sy = scale.y;
+					result.x = result.p0x = result.p1x = px + sx * p2x;
+					result.y = result.p0y = result.p1y = py + sy * p2y;
 					result.t = t;
 					result.index = index;
 					result.distance = distance;
