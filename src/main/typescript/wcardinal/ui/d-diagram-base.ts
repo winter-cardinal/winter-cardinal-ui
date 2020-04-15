@@ -140,9 +140,7 @@ export abstract class DDiagramBase<
 		DDiagrams.applyBackground( serialized, canvas, this );
 	}
 
-	protected toPieceData(
-		pieces?: string[]
-	): Promise<Map<string, EShapePieceDatum>> | undefined {
+	toPieceData( pieces?: string[] ): Promise<Map<string, EShapePieceDatum>> | undefined {
 		const controller = this._controller;
 		if( pieces && controller ) {
 			const mappings = new Map<string, EShapePieceDatum>();
