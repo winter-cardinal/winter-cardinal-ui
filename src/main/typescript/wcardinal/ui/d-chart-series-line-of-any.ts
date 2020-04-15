@@ -360,9 +360,11 @@ export abstract class DChartSeriesLineOfAny extends DChartSeriesBase {
 	): boolean {
 		const shape = result.shape as EShapeLineOfCircles;
 		if( shape.containsPointAbs( x, y, ax, ay, ox, oy, px, py ) ) {
-			const position = shape.transform.position;
-			result.x = result.p0x = result.p1x = position.x + px;
-			result.y = result.p0y = result.p1y = position.y + py;
+			const transform = shape.transform;
+			const position = transform.position;
+			const scale = transform.scale;
+			result.x = result.p0x = result.p1x = position.x + scale.x * px;
+			result.y = result.p0y = result.p1y = position.y + scale.y * py;
 			result.t = threshold;
 			result.index = index;
 			const dx = x - (px + ox);
