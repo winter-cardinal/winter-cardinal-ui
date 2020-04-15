@@ -18,14 +18,14 @@ export class DDiagrams {
 			version: serialized.version,
 			id: serialized.id,
 			name: serialized.name,
-			tags: serialized.tags,
-			pieces: serialized.pieces,
 			data: JSON.stringify({
 				width: serialized.width,
 				height: serialized.height,
 				background: serialized.background,
 				tile: serialized.tile,
 				resources: serialized.resources,
+				tags: serialized.tags,
+				pieces: serialized.pieces,
 				layers: serialized.layers,
 				items: serialized.items,
 				snap: serialized.snap
@@ -39,8 +39,6 @@ export class DDiagrams {
 			result.version = target.version;
 			result.id = target.id;
 			result.name = target.name;
-			result.tags = target.tags;
-			result.pieces = target.pieces;
 			return result;
 		}
 		return target;

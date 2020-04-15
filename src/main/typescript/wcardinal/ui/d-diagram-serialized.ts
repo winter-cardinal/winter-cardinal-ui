@@ -433,16 +433,6 @@ export interface DDiagramSerializedSimple {
 	name: string;
 
 	/**
-	 * Tags
-	 */
-	tags?: string[];
-
-	/**
-	 * Embedded piece names.
-	 */
-	pieces?: string[];
-
-	/**
 	 * Thumbnail data URL.
 	 */
 	thumbnail?: string;
@@ -454,8 +444,6 @@ export interface DDiagramSerializedSimple {
 	 * * DDiagramSerialized#version
 	 * * DDiagramSerialized#id
 	 * * DDiagramSerialized#name
-	 * * DDiagramSerialized#tags
-	 * * DDiagramSerialized#pieces
 	 */
 	data: string;
 }
