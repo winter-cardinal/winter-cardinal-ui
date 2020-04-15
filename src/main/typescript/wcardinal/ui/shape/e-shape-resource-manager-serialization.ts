@@ -33,8 +33,7 @@ export class EShapeResourceManagerSerialization {
 	}
 
 	protected add_( target: string, array: string[], map: Map<string, number> ): number {
-		const tagToIndex = this.tagToIndex;
-		const result = tagToIndex.get( target );
+		const result = map.get( target );
 		if( result != null ) {
 			return result;
 		}
