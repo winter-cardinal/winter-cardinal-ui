@@ -14,8 +14,8 @@ import { DDiagramSerialized, DDiagramSerializedSimple } from "./d-diagram-serial
 import { DDiagrams } from "./d-diagrams";
 import { EventSupport } from "./decorator/event-support";
 import { EShape } from "./shape/e-shape";
-import { EShapePieceDatum } from "./shape/e-shape-piece-datum";
 import { EShapeResourceManagerDeserialization } from "./shape/e-shape-resource-manager-deserialization";
+import { EShapeEmbeddedDatum } from "./shape/variant/e-shape-embedded-datum";
 import { EShapeEmbeddedLayerContainer } from "./shape/variant/e-shape-embedded-layer-container";
 
 /**
@@ -123,7 +123,7 @@ export abstract class DDiagramBase<
 		serialized: DDiagramSerialized,
 		canvas: CANVAS,
 		pieces?: string[],
-		pieceData?: Map<string, EShapePieceDatum>
+		pieceData?: Map<string, EShapeEmbeddedDatum>
 	): void {
 		const layer = canvas.layer;
 		const manager = new EShapeResourceManagerDeserialization(
@@ -140,10 +140,10 @@ export abstract class DDiagramBase<
 		DDiagrams.applyBackground( serialized, canvas, this );
 	}
 
-	toPieceData( pieces?: string[] ): Promise<Map<string, EShapePieceDatum>> | undefined {
+	toPieceData( pieces?: string[] ): Promise<Map<string, EShapeEmbeddedDatum>> | undefined {
 		const controller = this._controller;
 		if( pieces && controller ) {
-			const mappings = new Map<string, EShapePieceDatum>();
+			const mappings = new Map<string, EShapeEmbeddedDatum>();
 			return new Promise(( resolve ): void => {
 				const size = pieces.length;
 				let finished = size;
@@ -160,7 +160,7 @@ export abstract class DDiagramBase<
 						const manager = new EShapeResourceManagerDeserialization(
 							serialized.resources, serialized.tags
 						);
-						mappings.set( piece, new EShapePieceDatum( container, serialized.tags ) );
+						mappings.set( piece, new EShapeEmbeddedDatum( container, serialized.tags ) );
 						DDiagrams.newLayer( serialized, container, manager ).then( onFinished, onFinished );
 					}, onFinished );
 				};

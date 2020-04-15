@@ -1,6 +1,6 @@
-import { EShapeLayerContainer } from "./e-shape-layer-container";
+import { EShapeLayerContainer } from "../e-shape-layer-container";
 
-export class EShapePieceDatum {
+export class EShapeEmbeddedDatum {
 	layer: EShapeLayerContainer;
 	tags?: string[];
 

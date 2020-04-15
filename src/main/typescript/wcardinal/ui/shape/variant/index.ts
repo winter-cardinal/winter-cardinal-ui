@@ -66,6 +66,7 @@ export * from "./e-shape-bar";
 export * from "./e-shape-base";
 export * from "./e-shape-circle-uploaded";
 export * from "./e-shape-circle";
+export * from "./e-shape-embedded-datum";
 export * from "./e-shape-embedded-layer-container";
 export * from "./e-shape-embedded-layer";
 export * from "./e-shape-embedded";

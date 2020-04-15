@@ -8,13 +8,13 @@ import {
 	DDiagramSerializedTagValue, DDiagramSerializedText, DDiagramSerializedTextOutline
 } from "../d-diagram-serialized";
 import { EShapeActionValue } from "./action/e-shape-action-value";
-import { EShapePieceDatum } from "./e-shape-piece-datum";
+import { EShapeEmbeddedDatum } from "./variant/e-shape-embedded-datum";
 
 export class EShapeResourceManagerDeserialization {
 	resources: string[];
 	tags: string[];
 	pieces?: string[];
-	pieceData?: Map<string, EShapePieceDatum>;
+	pieceData?: Map<string, EShapeEmbeddedDatum>;
 
 	protected _actions: Map<number, EShapeActionValue>;
 	protected _fills: Map<number, DDiagramSerializedFill>;
@@ -32,7 +32,7 @@ export class EShapeResourceManagerDeserialization {
 		resources: string[],
 		tags?: string[],
 		pieces?: string[],
-		pieceData?: Map<string, EShapePieceDatum>
+		pieceData?: Map<string, EShapeEmbeddedDatum>
 	) {
 		this.resources = resources;
 		this.tags = tags || resources;
