@@ -42,6 +42,7 @@ export interface EShapeTagValue extends EShapeTagValueLike {
 	remove( index: number ): void;
 	removeAll( indices: number[] ): void;
 	copy( target: EShapeTagValue ): void;
+	isEquals( target: EShapeTagValue ): boolean;
 	serialize( manager: EShapeResourceManagerSerialization ): number;
 	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void;
 }

@@ -245,32 +245,25 @@ export class EShapeTagImpl implements EShapeTag {
 
 	indexOf( target: EShapeTagValue ): number {
 		const values = this._values;
+		const valuesLength = values.length;
 
 		// Instance-based matching
-		for( let i = 0, imax = values.length; i < imax; ++i ) {
-			const value = values[ i ];
-			if( value === target ) {
+		for( let i = 0; i < valuesLength; ++i ) {
+			if( values[ i ] === target ) {
 				return i;
 			}
 		}
 
 		// Data-based matching
-		for( let i = 0, imax = values.length; i < imax; ++i ) {
-			const value = values[ i ];
-			if(
-				value.id === target.id &&
-				value.initial === target.initial &&
-				value.formatter === target.formatter &&
-				value.range.isEquals( target.range )
-			) {
+		for( let i = 0; i < valuesLength; ++i ) {
+			if( values[ i ].isEquals( target ) ) {
 				return i;
 			}
 		}
 
 		// ID-based matching
-		for( let i = 0, imax = values.length; i < imax; ++i ) {
-			const value = values[ i ];
-			if( value.id === target.id ) {
+		for( let i = 0; i < valuesLength; ++i ) {
+			if( values[ i ].id === target.id ) {
 				return i;
 			}
 		}

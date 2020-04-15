@@ -501,6 +501,15 @@ export class EShapeTagValueImpl implements EShapeTagValue {
 		return this;
 	}
 
+	isEquals( target: EShapeTagValue ): boolean {
+		return (
+			this.id === target.id &&
+			this.initial === target.initial &&
+			this.formatter === target.formatter &&
+			this.range.isEquals( target.range )
+		);
+	}
+
 	serialize( manager: EShapeResourceManagerSerialization ): number {
 		const idSerialized = manager.addTag( this.id );
 		const initialSerialized = manager.addResources( this.initial );
