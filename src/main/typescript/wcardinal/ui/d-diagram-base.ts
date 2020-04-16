@@ -16,7 +16,6 @@ import { EventSupport } from "./decorator/event-support";
 import { EShape } from "./shape/e-shape";
 import { EShapeResourceManagerDeserialization } from "./shape/e-shape-resource-manager-deserialization";
 import { EShapeEmbeddedDatum } from "./shape/variant/e-shape-embedded-datum";
-import { EShapeEmbeddedLayerContainer } from "./shape/variant/e-shape-embedded-layer-container";
 
 /**
  * {@link DDiagramBase} events.
@@ -97,6 +96,10 @@ export abstract class DDiagramBase<
 		this._controller = options && options.controller;
 	}
 
+	get controller(): CONTROLLER | null {
+		return this._controller || null;
+	}
+
 	set( serialized: DDiagramSerialized | null ): void {
 		const oldSerialized = this._serialized;
 		if( oldSerialized !== serialized ) {
@@ -115,7 +118,7 @@ export abstract class DDiagramBase<
 	protected onSet( serialized: DDiagramSerialized ): void {
 		const canvas = this.newCanvas( serialized );
 		const pieces = serialized.pieces;
-		const pieceDataOrPromise = this.toPieceData( pieces );
+		const pieceDataOrPromise = DDiagrams.toPieceData( this._controller, pieces );
 		if( pieceDataOrPromise == null ) {
 			this.newLayer( serialized, canvas );
 		} else {
@@ -145,37 +148,6 @@ export abstract class DDiagramBase<
 			this.emit( "ready", this );
 		});
 		DDiagrams.applyBackground( serialized, canvas, this );
-	}
-
-	toPieceData( pieces?: string[] ): Promise<Map<string, EShapeEmbeddedDatum>> | undefined {
-		const controller = this._controller;
-		if( pieces && 0 < pieces.length && controller ) {
-			return new Promise(( resolve ): void => {
-				const mappings = new Map<string, EShapeEmbeddedDatum>();
-				const size = pieces.length;
-				let finished = size;
-				const onFinished = (): void => {
-					finished -= 1;
-					if( finished <= 0 ) {
-						resolve( mappings );
-					}
-				};
-				const load = ( piece: string ): void => {
-					controller.piece.getByName( piece ).then(( found ): void => {
-						const serialized = DDiagrams.toSerialized( found );
-						const container = new EShapeEmbeddedLayerContainer();
-						const manager = new EShapeResourceManagerDeserialization(
-							serialized.resources, serialized.tags
-						);
-						mappings.set( piece, new EShapeEmbeddedDatum( container, serialized.tags ) );
-						DDiagrams.newLayer( serialized, container, manager ).then( onFinished, onFinished );
-					}, onFinished );
-				};
-				for( let i = 0; i < size; ++i ) {
-					load( pieces[ i ] );
-				}
-			});
-		}
 	}
 
 	openByName( name: string ) {

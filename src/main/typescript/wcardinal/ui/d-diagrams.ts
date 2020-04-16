@@ -4,6 +4,7 @@
  */
 
 import { DBase } from "./d-base";
+import { DDiagramBaseController } from "./d-diagram-base";
 import { DDiagramLayerContainer } from "./d-diagram-layer-container";
 import { DDiagramSerialized, DDiagramSerializedSimple } from "./d-diagram-serialized";
 import { EShape } from "./shape/e-shape";
@@ -11,6 +12,8 @@ import { EShapeDefaults } from "./shape/e-shape-defaults";
 import { EShapeDeserializer } from "./shape/e-shape-deserializer";
 import { EShapeLayerContainer } from "./shape/e-shape-layer-container";
 import { EShapeResourceManagerDeserialization } from "./shape/e-shape-resource-manager-deserialization";
+import { EShapeEmbeddedDatum } from "./shape/variant/e-shape-embedded-datum";
+import { EShapeEmbeddedLayerContainer } from "./shape/variant/e-shape-embedded-layer-container";
 
 export class DDiagrams {
 	static toSimple( serialized: DDiagramSerialized ): DDiagramSerializedSimple {
@@ -102,6 +105,39 @@ export class DDiagrams {
 			const canvasContainerBackground = canvasContainer.background;
 			canvasContainerBackground.color = backgroundColor;
 			canvasContainerBackground.alpha = backgroundAlpha;
+		}
+	}
+
+	static toPieceData(
+		controller?: DDiagramBaseController | null,
+		pieces?: string[] | null
+	): Promise<Map<string, EShapeEmbeddedDatum>> | undefined {
+		if( pieces && 0 < pieces.length && controller ) {
+			return new Promise(( resolve ): void => {
+				const mappings = new Map<string, EShapeEmbeddedDatum>();
+				const size = pieces.length;
+				let finished = size;
+				const onFinished = (): void => {
+					finished -= 1;
+					if( finished <= 0 ) {
+						resolve( mappings );
+					}
+				};
+				const load = ( piece: string ): void => {
+					controller.piece.getByName( piece ).then(( found ): void => {
+						const serialized = this.toSerialized( found );
+						const container = new EShapeEmbeddedLayerContainer();
+						const manager = new EShapeResourceManagerDeserialization(
+							serialized.resources, serialized.tags
+						);
+						mappings.set( piece, new EShapeEmbeddedDatum( container, serialized.tags ) );
+						this.newLayer( serialized, container, manager ).then( onFinished, onFinished );
+					}, onFinished );
+				};
+				for( let i = 0; i < size; ++i ) {
+					load( pieces[ i ] );
+				}
+			});
 		}
 	}
 }

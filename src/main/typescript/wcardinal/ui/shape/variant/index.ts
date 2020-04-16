@@ -70,6 +70,7 @@ export * from "./e-shape-embedded-datum";
 export * from "./e-shape-embedded-layer-container";
 export * from "./e-shape-embedded-layer";
 export * from "./e-shape-embedded";
+export * from "./e-shape-embeddeds";
 export * from "./e-shape-fill-impl-parent";
 export * from "./e-shape-fill-impl";
 export * from "./e-shape-gradients";
