@@ -14,18 +14,20 @@ import { EShapeResourceManagerDeserialization } from "./shape/e-shape-resource-m
 
 export class DDiagrams {
 	static toSimple( serialized: DDiagramSerialized ): DDiagramSerializedSimple {
+		const tags = serialized.tags;
+		const pieces = serialized.pieces;
 		return {
 			version: serialized.version,
 			id: serialized.id,
 			name: serialized.name,
+			tags: (tags != null ? JSON.stringify(tags) : undefined),
+			pieces: (pieces != null ? JSON.stringify(pieces) : undefined),
 			data: JSON.stringify({
 				width: serialized.width,
 				height: serialized.height,
 				background: serialized.background,
 				tile: serialized.tile,
 				resources: serialized.resources,
-				tags: serialized.tags,
-				pieces: serialized.pieces,
 				layers: serialized.layers,
 				items: serialized.items,
 				snap: serialized.snap
@@ -39,6 +41,14 @@ export class DDiagrams {
 			result.version = target.version;
 			result.id = target.id;
 			result.name = target.name;
+			const tags = target.tags;
+			if( tags != null ) {
+				result.tags = JSON.parse(tags);
+			}
+			const pieces = target.pieces;
+			if( pieces != null ) {
+				result.pieces = JSON.parse(pieces);
+			}
 			return result;
 		}
 		return target;

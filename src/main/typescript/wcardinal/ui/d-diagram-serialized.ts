@@ -433,6 +433,16 @@ export interface DDiagramSerializedSimple {
 	name: string;
 
 	/**
+	 * Stringified tags, JSON.stringify(DDiagramSerialized#tags).
+	 */
+	tags?: string;
+
+	/**
+	 * Stringified piece names, JSON.stringify(DDiagramSerialized#pieces).
+	 */
+	pieces?: string;
+
+	/**
 	 * Thumbnail data URL.
 	 */
 	thumbnail?: string;
@@ -444,6 +454,8 @@ export interface DDiagramSerializedSimple {
 	 * * DDiagramSerialized#version
 	 * * DDiagramSerialized#id
 	 * * DDiagramSerialized#name
+	 * * DDiagramSerialized#tags
+	 * * DDiagramSerialized#pieces
 	 */
 	data: string;
 }

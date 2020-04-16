@@ -6,7 +6,7 @@ export interface EShapeTagMappingObject {
 }
 
 export interface EShapeTagMapping {
-	readonly tags?: string[];
+	readonly tags: string[];
 
 	set( target: string, id: string ): void;
 	get( target: string ): string | null;

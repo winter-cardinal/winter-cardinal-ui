@@ -3,11 +3,11 @@ import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-
 import { EShapeTagMapping, EShapeTagMappingObject } from "../e-shape-tag-mapping";
 
 export class EShapeEmbeddedTagMapping implements EShapeTagMapping {
-	protected _tags: string[] | undefined;
+	protected _tags: string[];
 	protected _value: EShapeTagMappingObject;
 
 	constructor() {
-		this._tags = undefined;
+		this._tags = [];
 		this._value = {};
 	}
 
@@ -19,11 +19,11 @@ export class EShapeEmbeddedTagMapping implements EShapeTagMapping {
 				value[ tag ] = tag;
 			}
 		}
-		this._tags = tags;
+		this._tags = tags || [];
 		this._value = value;
 	}
 
-	get tags(): string[] | undefined {
+	get tags(): string[] {
 		return this._tags;
 	}
 
@@ -48,6 +48,7 @@ export class EShapeEmbeddedTagMapping implements EShapeTagMapping {
 		for( const originalId in targetObject ) {
 			value[ originalId ] = targetObject[ originalId ];
 		}
+		this._tags = target.tags;
 		this._value = value;
 		return this;
 	}
@@ -63,7 +64,7 @@ export class EShapeEmbeddedTagMapping implements EShapeTagMapping {
 			const id = value[ originalId ];
 			if( id != null ) {
 				result.push( manager.addResource( originalId ) );
-				result.push( manager.addResource( id ) );
+				result.push( manager.addTag( id ) );
 			}
 		}
 		return manager.addResource( JSON.stringify( result ) );
@@ -72,7 +73,7 @@ export class EShapeEmbeddedTagMapping implements EShapeTagMapping {
 	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void {
 		const resources = manager.resources;
 		if( 0 <= target && target < resources.length ) {
-			let parsed: number[] | undefined = manager.getExtension( target );
+			let parsed = manager.getExtension<number[]>( target );
 			if( parsed == null ) {
 				parsed = JSON.parse( resources[ target ] ) as number[];
 				manager.setExtension( target, parsed );
