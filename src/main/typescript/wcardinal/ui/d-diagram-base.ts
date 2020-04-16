@@ -142,9 +142,9 @@ export abstract class DDiagramBase<
 
 	toPieceData( pieces?: string[] ): Promise<Map<string, EShapeEmbeddedDatum>> | undefined {
 		const controller = this._controller;
-		if( pieces && controller ) {
-			const mappings = new Map<string, EShapeEmbeddedDatum>();
+		if( pieces && 0 < pieces.length && controller ) {
 			return new Promise(( resolve ): void => {
+				const mappings = new Map<string, EShapeEmbeddedDatum>();
 				const size = pieces.length;
 				let finished = size;
 				const onFinished = (): void => {
