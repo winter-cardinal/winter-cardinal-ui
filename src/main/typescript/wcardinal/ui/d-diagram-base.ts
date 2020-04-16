@@ -31,11 +31,18 @@ export interface DDiagramBaseEvents<CANVAS, EMITTER> extends DCanvasContainerEve
 }
 
 /**
+ * {@link DDiagram} piece controller.
+ */
+export interface DDiagramBasePieceController {
+	getByName( name: string ): Promise<DDiagramSerializedSimple | DDiagramSerialized>;
+}
+
+/**
  * {@link DDiagram} controller.
  */
 export interface DDiagramBaseController {
+	piece: DDiagramBasePieceController;
 	getByName( name: string ): Promise<DDiagramSerializedSimple | DDiagramSerialized>;
-	getPieceByName( name: string ): Promise<DDiagramSerializedSimple | DDiagramSerialized>;
 }
 
 /**
@@ -154,7 +161,7 @@ export abstract class DDiagramBase<
 					}
 				};
 				const load = ( piece: string ): void => {
-					controller.getPieceByName( piece ).then(( found ): void => {
+					controller.piece.getByName( piece ).then(( found ): void => {
 						const serialized = DDiagrams.toSerialized( found );
 						const container = new EShapeEmbeddedLayerContainer();
 						const manager = new EShapeResourceManagerDeserialization(
