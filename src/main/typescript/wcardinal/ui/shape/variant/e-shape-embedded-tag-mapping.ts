@@ -78,11 +78,12 @@ export class EShapeEmbeddedTagMapping implements EShapeTagMapping {
 				parsed = JSON.parse( resources[ target ] ) as number[];
 				manager.setExtension( target, parsed );
 			}
+			const tags = manager.tags;
 			const value = this._value;
 			for( let i = 0, imax = parsed.length; i < imax; i += 2 ) {
 				const originalId = (resources[ parsed[ i ] ] || "");
 				if( originalId in value ) {
-					value[ originalId ] = (resources[ parsed[ i + 1 ] ] || "");
+					value[ originalId ] = (tags[ parsed[ i + 1 ] ] || "");
 				}
 			}
 		}
