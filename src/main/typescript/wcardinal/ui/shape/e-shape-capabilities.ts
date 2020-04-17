@@ -8,22 +8,29 @@ import { EShapeCapability } from "./e-shape-capability";
 import { EShapeType } from "./e-shape-type";
 
 export class EShapeCapabilities {
-	static mappings: { [ type: number ]: EShapeCapability } = {};
+	static mappings: { [ type: number ]: EShapeCapability | undefined } = {};
 
 	static get( type: EShapeType ): EShapeCapability {
-		return this.mappings[ type ] || EShapeCapability.PRIMITIVE;
+		const capability = this.mappings[ type ];
+		if( capability != null ) {
+			return capability;
+		}
+		return EShapeCapability.PRIMITIVE;
 	}
 
-	static contains( shape: EShape | null | undefined, capability: EShapeCapability ): shape is EShape {
+	static contains( shape: EShape | null | undefined, target: EShapeCapability ): shape is EShape {
 		if( shape != null ) {
-			if( this.get( shape.type ) & capability ) {
+			const capability = this.get( shape.type );
+			if( capability & target ) {
 				return true;
 			}
 
-			const children = shape.children;
-			for( let i = 0, imax = children.length; i < imax; ++i ) {
-				if( this.contains( children[ i ], capability ) ) {
-					return true;
+			if( capability & EShapeCapability.CHILDREN ) {
+				const children = shape.children;
+				for( let i = 0, imax = children.length; i < imax; ++i ) {
+					if( this.contains( children[ i ], target ) ) {
+						return true;
+					}
 				}
 			}
 		}

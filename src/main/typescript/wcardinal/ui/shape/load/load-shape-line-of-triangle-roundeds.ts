@@ -16,6 +16,6 @@ export const loadShapeLineOfTriangleRoundeds = () => {
 	EShapeDeserializers[ EShapeType.LINE_OF_TRIANGLE_ROUNDEDS ] = deserializeLineOfTriangleRoundeds;
 	EShapeCapabilities.set(
 		EShapeType.LINE_OF_TRIANGLE_ROUNDEDS,
-		EShapeCapability.PRIMITIVE | EShapeCapability.BORDER_RADIUS
+		EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE | EShapeCapability.BORDER_RADIUS
 	);
 };
