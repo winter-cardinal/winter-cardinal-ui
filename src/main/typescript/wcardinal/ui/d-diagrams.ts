@@ -126,11 +126,16 @@ export class DDiagrams {
 				const load = ( piece: string ): void => {
 					controller.piece.getByName( piece ).then(( found ): void => {
 						const serialized = this.toSerialized( found );
-						const container = new EShapeEmbeddedLayerContainer();
+						const width = serialized.width;
+						const height = serialized.height;
+						const container = new EShapeEmbeddedLayerContainer( width, height );
 						const manager = new EShapeResourceManagerDeserialization(
 							serialized.resources, serialized.tags
 						);
-						mappings.set( piece, new EShapeEmbeddedDatum( container, serialized.tags ) );
+						const datum = new EShapeEmbeddedDatum(
+							serialized.name, width, height, serialized.tags, container
+						);
+						mappings.set( piece, datum );
 						this.newLayer( serialized, container, manager ).then( onFinished, onFinished );
 					}, onFinished );
 				};

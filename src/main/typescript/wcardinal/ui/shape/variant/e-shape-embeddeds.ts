@@ -12,11 +12,15 @@ import { EShapeEmbeddedLayerContainer } from "./e-shape-embedded-layer-container
 export class EShapeEmbeddeds {
 	static from(
 		name: string,
+		width: number,
+		height: number,
 		tags: string[] | undefined,
 		layer: EShapeLayerContainer
 	): EShapeEmbedded;
 	static from(
 		name: string,
+		width: number,
+		height: number,
 		tags: string[] | undefined,
 		layer: EShapeLayerContainer,
 		item: DDiagramSerializedItem,
@@ -27,6 +31,8 @@ export class EShapeEmbeddeds {
 	): Promise<EShapeEmbedded>;
 	static from(
 		serializedOrName: any,
+		width?: number,
+		height?: number,
 		tags?: string[],
 		layer?: EShapeLayerContainer,
 		item?: DDiagramSerializedItem,
@@ -34,35 +40,45 @@ export class EShapeEmbeddeds {
 	): Promise<EShapeEmbedded> | EShapeEmbedded {
 		if( layer == null ) {
 			return this.from1_( DDiagrams.toSerialized( serializedOrName ) );
-		} else if( item != null && manager != null ) {
-			return this.from2_( serializedOrName, tags, layer, item, manager );
+		} else if( item != null ) {
+			return this.from2_( serializedOrName, width!, height!, tags, layer, item, manager! );
 		} else {
-			return this.from3_( serializedOrName, tags, layer );
+			return this.from3_( serializedOrName, width!, height!, tags, layer );
 		}
 	}
 
 	protected static from1_( serialized: DDiagramSerialized ): Promise<EShapeEmbedded> {
-		const container = new EShapeEmbeddedLayerContainer();
+		const width = serialized.width;
+		const height = serialized.height;
+		const container = new EShapeEmbeddedLayerContainer( width, height );
 		const manager = new EShapeResourceManagerDeserialization( serialized.resources, serialized.tags );
 		return DDiagrams.newLayer( serialized, container, manager ).then(() => {
-			return this.from( serialized.name, serialized.tags, container );
+			return this.from( serialized.name, width, height, serialized.tags, container );
 		});
 	}
 
 	protected static from2_(
-		name: string, tags: string[] | undefined, layer: EShapeLayerContainer,
+		name: string, width: number, height: number, tags: string[] | undefined, layer: EShapeLayerContainer,
 		item: DDiagramSerializedItem, manager: EShapeResourceManagerDeserialization
 	): Promise<EShapeEmbedded> | EShapeEmbedded {
 		const shape = new EShapeEmbedded( name );
 		shape.tag.mapping.init( tags );
 		const result = EShapeDeserializer.deserialize( item, manager, shape );
+		const shapeSize = shape.size;
+		const sizeX = shapeSize.x;
+		const sizeY = shapeSize.y;
+		shape.size.set( width, height );
 		this.init( shape, layer );
+		shape.size.set( sizeX, sizeY );
 		return result;
 	}
 
-	protected static from3_( name: string, tags: string[] | undefined, layer: EShapeLayerContainer ): EShapeEmbedded {
+	protected static from3_(
+		name: string, width: number, height: number, tags: string[] | undefined, layer: EShapeLayerContainer
+	): EShapeEmbedded {
 		const shape = new EShapeEmbedded( name );
 		shape.tag.mapping.init( tags );
+		shape.size.set( width, height );
 		this.init( shape, layer );
 		return shape;
 	}
