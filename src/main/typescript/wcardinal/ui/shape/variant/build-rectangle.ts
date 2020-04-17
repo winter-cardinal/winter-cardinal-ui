@@ -17,7 +17,7 @@ export const buildRectangleClipping = (
 	const bri = 1 - br;
 	const worldSizeX = worldSize[ 1 ];
 	const worldSizeY = worldSize[ 2 ];
-	if( worldSizeX < worldSizeY ) {
+	if( worldSizeX <= worldSizeY ) {
 		buildRectangleClippingVertical(
 			0, 1,
 			0, bri,
@@ -445,7 +445,7 @@ export const buildRectangleStep = (
 	}
 	const pc0 = 0.5 * (pl0 + pr0);
 	const pm0 = 0.5 * (pt0 + pb0);
-	if( worldSizeX < worldSizeY ) {
+	if( worldSizeX <= worldSizeY ) {
 		buildRectangleStepVertical(
 			bri,
 			swx, px0, px1,
@@ -856,7 +856,7 @@ export const buildRectangleUv = (
 	const y1 = textureUvs.y1;
 	const y2 = textureUvs.y2;
 	const y3 = textureUvs.y3;
-	if( worldSizeX < worldSizeY ) {
+	if( worldSizeX <= worldSizeY ) {
 		buildRectangleUvVertical(
 			bri,
 			x0, x1, x2, x3,
