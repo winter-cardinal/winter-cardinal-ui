@@ -431,11 +431,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 			child.transform.localTransform.applyInverse( work, work );
 			const childResult = child.contains( work );
 			if( childResult != null ) {
-				if( this.shadowed ) {
-					return this;
-				} else {
-					return childResult;
-				}
+				return childResult;
 			}
 		}
 		return null;

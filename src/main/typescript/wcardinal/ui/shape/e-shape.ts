@@ -91,7 +91,6 @@ export interface EShape extends utils.EventEmitter {
 	readonly pressed: boolean;
 	readonly down: boolean;
 	readonly up: boolean;
-	readonly shadowed: boolean;
 
 	//
 	toDirty(): void;
