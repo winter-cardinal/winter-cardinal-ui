@@ -47,7 +47,7 @@ export class DTableBodyCellTime<
 	protected init( options: OPTIONS ) {
 		this._dialogOptions = options.dialog;
 		this._datetimeMask = DPickerTimes.toMask( options.dialog && options.dialog.picker );
-		this._rowIndex = 0;
+		this._rowIndex = -1;
 		this._columnIndex = options.column.index;
 		this._columnData = options.column.data;
 
@@ -99,6 +99,14 @@ export class DTableBodyCellTime<
 		return dialog;
 	}
 
+	get row(): ROW | undefined {
+		return this._row;
+	}
+
+	get rowIndex(): number {
+		return this._rowIndex;
+	}
+
 	set(
 		value: unknown, row: ROW, supplimental: unknown,
 		rowIndex: number, columnIndex: number,
@@ -131,6 +139,7 @@ export class DTableBodyCellTime<
 
 	unset(): void {
 		this._row = undefined;
+		this._rowIndex = -1;
 	}
 
 	protected getType(): string {

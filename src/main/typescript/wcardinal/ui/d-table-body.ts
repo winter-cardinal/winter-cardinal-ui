@@ -294,9 +294,9 @@ export class DTableBody<
 		return result;
 	}
 
-	onParentMove( x: number, y: number ): void {
-		super.onParentMove( x, y );
-		this.updateFrozenCellPosition( x );
+	protected onParentMove( newX: number, newY: number, oldX: number, oldY: number ): void {
+		super.onParentMove( newX, newY, oldX, oldY );
+		this.updateFrozenCellPosition( newX );
 	}
 
 	protected updateFrozenCellPosition( x: number ): void {

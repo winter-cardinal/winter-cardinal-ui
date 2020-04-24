@@ -58,11 +58,13 @@ export class DTableBodyRow<
 	THEME extends DThemeTableBodyRow = DThemeTableBodyRow,
 	OPTIONS extends DTableBodyRowOptions<ROW, THEME> = DTableBodyRowOptions<ROW, THEME>
 > extends DTableRow<ROW, DTableColumn<ROW>, THEME, OPTIONS> {
-	protected _row: ROW | undefined = undefined;
+	protected _value: ROW | undefined = undefined;
+	protected _index: number;
 	protected _onCellChangeBound!: OnCellChange<ROW>;
 
 	constructor( options: OPTIONS ) {
 		super( options );
+		this._index = -1;
 	}
 
 	protected init( options: OPTIONS ) {
@@ -261,9 +263,30 @@ export class DTableBodyRow<
 		return "DTableBodyRow";
 	}
 
-	set( row: ROW, supplimental: unknown, rowIndex: number, forcibly?: boolean ): void {
-		if( forcibly || this._row !== row ) {
-			this._row = row;
+	/**
+	 * Returns a row data if exists.
+	 * Returns undefined if a row data does not exit.
+	 *
+	 * @returns a row data or undefined.
+	 */
+	get value(): ROW | undefined {
+		return this._value;
+	}
+
+	/**
+	 * Returns a row index if a row data exists.
+	 * Returns -1 if a row data does not exit.
+	 *
+	 * @returns a row index or -1.
+	 */
+	get index(): number {
+		return this._index;
+	}
+
+	set( value: ROW, supplimental: unknown, rowIndex: number, forcibly?: boolean ): void {
+		if( forcibly || this._value !== value || this._index !== rowIndex ) {
+			this._value = value;
+			this._index = rowIndex;
 
 			const cells = this.children;
 			const cellsLength = cells.length;
@@ -273,17 +296,18 @@ export class DTableBodyRow<
 				const cell = cells[ i ];
 				const column = columns[ i ];
 				if( isBodyCell( cell ) ) {
-					cell.set( column.getter( row, i ), row, supplimental, rowIndex, i, forcibly );
+					cell.set( column.getter( value, i ), value, supplimental, rowIndex, i, forcibly );
 				}
 			}
 
-			this.emit( "set", row, rowIndex, this );
+			this.emit( "set", value, rowIndex, this );
 		}
 	}
 
 	unset(): void {
-		if( this._row !== undefined ) {
-			this._row = undefined;
+		if( this._value !== undefined ) {
+			this._value = undefined;
+			this._index = -1;
 
 			const cells = this.children;
 			for( let i = 0, imax = cells.length; i < imax; ++i ) {

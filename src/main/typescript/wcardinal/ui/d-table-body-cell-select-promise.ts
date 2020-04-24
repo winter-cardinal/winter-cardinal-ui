@@ -44,7 +44,7 @@ export class DTableBodyCellSelectPromise<
 	protected init( options: OPTIONS ) {
 		super.init( options );
 		const column = options.column;
-		this._rowIndex = 0;
+		this._rowIndex = -1;
 		this._columnIndex = column.index;
 		this._columnData = column.data;
 		this._isSyncEnabled = this.toSync( this.theme, options );
@@ -86,6 +86,14 @@ export class DTableBodyCellSelectPromise<
 			( stateParent & DBaseState.HOVERED ? DBaseState.HOVERED : DBaseState.NONE );
 	}
 
+	get row(): ROW | undefined {
+		return this._row;
+	}
+
+	get rowIndex(): number {
+		return this._rowIndex;
+	}
+
 	get value(): VALUE {
 		return this._textValueComputed;
 	}
@@ -117,6 +125,7 @@ export class DTableBodyCellSelectPromise<
 
 	unset(): void {
 		this._row = undefined;
+		this._rowIndex = -1;
 	}
 
 	protected getType(): string {

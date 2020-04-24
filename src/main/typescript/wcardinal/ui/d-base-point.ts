@@ -5,16 +5,15 @@
 
 import { IPoint } from "pixi.js";
 
-type Callback = () => any;
+export type DBasePointCallback = ( newX: number, newY: number, oldX: number, oldY: number ) => any;
 
 export class DBasePoint {
 	protected _point: IPoint;
-	cb: Callback;
-	scope: any;
+	protected _onChange: DBasePointCallback;
 
-	constructor( point: IPoint, cb: Callback, scope?: any ) {
+	constructor( point: IPoint, onChange: DBasePointCallback ) {
 		this._point = point;
-		this.cb = cb;
+		this._onChange = onChange;
 	}
 
 	get x() {
@@ -23,9 +22,11 @@ export class DBasePoint {
 
 	set x( x: number ) {
 		const point = this._point;
-		if( point.x !== x ) {
+		const oldX = point.x;
+		if( oldX !== x ) {
 			point.x = x;
-			this.cb.call( this.scope );
+			const y = point.y;
+			this._onChange( x, y, oldX, y );
 		}
 	}
 
@@ -35,26 +36,34 @@ export class DBasePoint {
 
 	set y( y: number ) {
 		const point = this._point;
-		if( point.y !== y ) {
+		const oldY = point.y;
+		if( oldY !== y ) {
 			point.y = y;
-			this.cb.call( this.scope );
+			const x = point.x;
+			this._onChange( x, y, x, oldY );
 		}
 	}
 
 	set( x: number, y: number ): this {
 		const point = this._point;
-		if( point.x !== x || point.y !== y ) {
+		const oldX = point.x;
+		const oldY = point.y;
+		if( oldY !== x || oldY !== y ) {
 			point.set( x, y );
-			this.cb.call( this.scope );
+			this._onChange( x, y, oldX, oldY );
 		}
 		return this;
 	}
 
 	copyFrom( target: IPoint ): this {
+		const x = target.x;
+		const y = target.y;
 		const point = this._point;
-		if( point.x !== target.x || point.y !== target.y ) {
+		const oldX = point.x;
+		const oldY = point.y;
+		if( oldX !== x || oldY !== y ) {
 			point.copyFrom( target );
-			this.cb.call( this.scope );
+			this._onChange( x, y, oldX, oldY );
 		}
 		return this;
 	}
@@ -67,10 +76,9 @@ export class DBasePoint {
 		return this.copyFrom( arguments[ 0 ] );
 	}
 
-	clone( cb?: Function, scope?: any ): DBasePoint {
-		cb = cb || this.cb;
-		scope = scope || this.scope;
-		return new DBasePoint( this._point, cb as Callback, scope );
+	clone( onChange?: DBasePointCallback ): DBasePoint {
+		onChange = onChange || this._onChange;
+		return new DBasePoint( this._point, onChange );
 	}
 
 	equals( p: IPoint ): boolean {

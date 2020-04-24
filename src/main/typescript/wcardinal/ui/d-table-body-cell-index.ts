@@ -26,6 +26,8 @@ export class DTableBodyCellIndex<
 	THEME extends DThemeTableBodyCellIndex = DThemeTableBodyCellIndex,
 	OPTIONS extends DTableBodyCellIndexOptions<ROW, THEME> = DTableBodyCellIndexOptions<ROW, THEME>
 > extends DImageBase<number, THEME, OPTIONS> implements DTableBodyCell<ROW> {
+	protected _row?: ROW;
+	protected _rowIndex!: number;
 	protected _columnIndex!: number;
 	protected _columnData!: DTableColumn<ROW>;
 
@@ -35,6 +37,7 @@ export class DTableBodyCellIndex<
 
 	protected init( options: OPTIONS ) {
 		super.init( options );
+		this._rowIndex = -1;
 		this._columnIndex = options.column.index;
 		this._columnData = options.column.data;
 	}
@@ -44,11 +47,21 @@ export class DTableBodyCellIndex<
 			( stateParent & DBaseState.HOVERED ? DBaseState.HOVERED : DBaseState.NONE );
 	}
 
+	get row(): ROW | undefined {
+		return this._row;
+	}
+
+	get rowIndex(): number {
+		return this._rowIndex;
+	}
+
 	set(
 		value: unknown, row: ROW, supplimental: unknown,
 		rowIndex: number, columnIndex: number,
 		forcibly?: boolean
 	): void {
+		this._row = row;
+		this._rowIndex = rowIndex;
 		this.text = rowIndex;
 
 		const columnData = this._columnData;
@@ -57,7 +70,8 @@ export class DTableBodyCellIndex<
 	}
 
 	unset(): void {
-		// DO NOTHING
+		this._row = undefined;
+		this._rowIndex = -1;
 	}
 
 	protected getType(): string {

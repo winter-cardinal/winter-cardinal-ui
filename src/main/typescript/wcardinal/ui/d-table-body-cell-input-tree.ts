@@ -35,7 +35,7 @@ export class DTableBodyCellInputTree<
 			width: options.width
 		});
 
-		this._rowIndex = 0;
+		this._rowIndex = -1;
 		this._columnIndex = options.column.index;
 		this._columnData = options.column.data;
 
@@ -91,6 +91,14 @@ export class DTableBodyCellInputTree<
 			( stateParent & DBaseState.HOVERED ? DBaseState.HOVERED : DBaseState.NONE );
 	}
 
+	get row(): ROW | undefined {
+		return this._row;
+	}
+
+	get rowIndex(): number {
+		return this._rowIndex;
+	}
+
 	set(
 		value: unknown, row: ROW, supplimental: unknown,
 		rowIndex: number, columnIndex: number,
@@ -133,6 +141,7 @@ export class DTableBodyCellInputTree<
 
 	unset(): void {
 		this._row = undefined;
+		this._rowIndex = -1;
 		this._input.visible = false;
 		this._marker.hide();
 	}

@@ -5,6 +5,7 @@
 
 import { Container, DisplayObject, interaction, Point, Rectangle, Renderer, Texture, Transform } from "pixi.js";
 import InteractionEvent = interaction.InteractionEvent;
+import InteractionManager = interaction.InteractionManager;
 import { DApplications } from "./d-applications";
 import { DBackgroundStateAware } from "./d-background";
 import { DBaseBackground } from "./d-base-background";
@@ -93,6 +94,126 @@ export interface DBaseEvents<EMITTER> {
 	 * @param container a container removed from
 	 */
 	removed( container: Container ): void;
+
+	/**
+	 * Triggered when moved.
+	 *
+	 * @param newX a new x
+	 * @param newY a new y
+	 * @param oldX an old x
+	 * @param oldY an old y
+	 * @param emitter an emitter
+	 */
+	move( newX: number, newY: number, oldX: number, oldY: number, emitter: EMITTER ): void;
+
+	/**
+	 * Triggered when resized.
+	 *
+	 * @param newWidth a new width
+	 * @param newHeight a new height
+	 * @param oldWidth an old width
+	 * @param oldHeight an old height
+	 * @param emitter an emitter
+	 */
+	resize( newWidth: number, newHeight: number, oldWidth: number, oldHeight: number, emitter: EMITTER ): void;
+
+	/**
+	 * Triggered when scaled.
+	 *
+	 * @param newX a new x
+	 * @param newY a new y
+	 * @param oldX an old x
+	 * @param oldY an old y
+	 * @param emitter an emitter
+	 */
+	scale( newX: number, newY: number, oldX: number, oldY: number, emitter: EMITTER ): void;
+
+	/**
+	 * Triggered when skewed.
+	 *
+	 * @param newX a new x
+	 * @param newY a new y
+	 * @param oldX an old x
+	 * @param oldY an old y
+	 * @param emitter an emitter
+	 */
+	skew( newX: number, newY: number, oldX: number, oldY: number, emitter: EMITTER ): void;
+
+	/**
+	 * Triggered when a state is changed.
+	 *
+	 * @param newState a new state
+	 * @param oldState an old state
+	 * @param emitter an emitter
+	 */
+	statechange( newState: DBaseState, oldState: DBaseState, emitter: EMITTER ): void;
+
+	/**
+	 * Triggered when a wheel moves.
+	 *
+	 * @param e a wheel event
+	 * @param deltas wheel move amounts
+	 * @param global a point wheel moved
+	 * @param emitter an emitter
+	 */
+	wheel( e: WheelEvent, deltas: UtilWheelEventDeltas, global: Point, emitter: EMITTER ): void;
+
+	/**
+	 * Triggered when a key gets down.
+	 *
+	 * @param e a keyboard event
+	 * @param emitter an emitter
+	 */
+	keydown( e: KeyboardEvent, emitter: EMITTER ): void;
+
+	/**
+	 * Triggered when a key gets up.
+	 *
+	 * @param e a keyboard event
+	 * @param emitter an emitter
+	 */
+	keyup( e: KeyboardEvent, emitter: EMITTER ): void;
+
+	/**
+	 * Triggered when a pointer gets on an emitter.
+	 *
+	 * @param e an interaction event.
+	 * @param emitter an emitter
+	 */
+	over( e: InteractionEvent, emitter: EMITTER ): void;
+
+	/**
+	 * Triggered when a pointer gets out of an emitter.
+	 *
+	 * @param e an interaction event
+	 * @param emitter an emitter
+	 */
+	out( e: InteractionEvent, emitter: EMITTER ): void;
+
+	/**
+	 * Triggered when a pointer gets down on an emitter.
+	 *
+	 * @param e an interaction event.
+	 * @param emitter an emitter
+	 */
+	down( e: InteractionEvent, emitter: EMITTER ): void;
+
+	/**
+	 * Triggered when a pointer gets up on an emitter.
+	 *
+	 * @param e an interaction event
+	 * @param emitter an emitter
+	 */
+	up( e: InteractionEvent, emitter: EMITTER ): void;
+
+	/**
+	 * Triggered when an emitter is double clicked.
+	 *
+	 * @param e an event
+	 * @param interactionManager an interaction manager
+	 * @param emitter an emitter
+	 */
+	dblclick( e: MouseEvent | TouchEvent, interactionManager: InteractionManager, emitter: EMITTER ): void;
 }
 
 /**
@@ -629,14 +750,14 @@ export class DBase<
 
 		// Transform
 		const transform: Transform = this.transform;
-		this._position = new DBasePoint( transform.position, (): void => {
-			this.onPositionChanged();
+		this._position = new DBasePoint( transform.position, ( newX, newY, oldX, oldY ): void => {
+			this.onPositionChanged( newX, newY, oldX, oldY );
 		});
-		this._scale = new DBasePoint( transform.scale, (): void => {
-			this.onScaleChanged();
+		this._scale = new DBasePoint( transform.scale, ( newX, newY, oldX, oldY ): void => {
+			this.onScaleChanged( newX, newY, oldX, oldY );
 		});
-		this._skew = new DBasePoint( transform.skew, (): void => {
-			this.onSkewChanged();
+		this._skew = new DBasePoint( transform.skew, ( newX, newY, oldX, oldY ): void => {
+			this.onSkewChanged( newX, newY, oldX, oldY );
 		});
 
 		//
@@ -919,10 +1040,10 @@ export class DBase<
 		return this._weight;
 	}
 
-	protected onPositionChanged(): void {
-		this.moveChildren();
+	protected onPositionChanged( newX: number, newY: number, oldX: number, oldY: number ): void {
+		this.moveChildren( newX, newY, oldX, oldY );
 		DApplications.update( this );
-		this.emit( "move", this );
+		this.emit( "move", newX, newY, oldX, oldY, this );
 	}
 
 	resize( width: number, height: number ): boolean {
@@ -981,14 +1102,14 @@ export class DBase<
 		this.emit( "resize", newWidth, newHeight, oldWidth, oldHeight, this );
 	}
 
-	protected onScaleChanged(): void {
+	protected onScaleChanged( newX: number, newY: number, oldX: number, oldY: number ): void {
 		DApplications.update( this );
-		this.emit( "scale", this );
+		this.emit( "scale", newX, newY, oldX, oldY, this );
 	}
 
-	protected onSkewChanged(): void {
+	protected onSkewChanged( newX: number, newY: number, oldX: number, oldY: number ): void {
 		DApplications.update( this );
-		this.emit( "skew", this );
+		this.emit( "skew", newX, newY, oldX, oldY, this );
 	}
 
 	get type(): string {
@@ -1765,21 +1886,21 @@ export class DBase<
 	/**
 	 * Called when a parent moved.
 	 *
-	 * @param x a parent's local x position
-	 * @param y a parent's local y position
+	 * @param newX a new parent's local x position
+	 * @param newY a new parent's local y position
+	 * @param oldX an old parent's local x position
+	 * @param oldY an old parent's local y position
 	 */
-	onParentMove( x: number, y: number ): void {
+	protected onParentMove( newX: number, newY: number, oldX: number, oldY: number ): void {
 		// DO NOTHING
 	}
 
-	protected moveChildren() {
-		const x = this.x;
-		const y = this.y;
+	protected moveChildren( newX: number, newY: number, oldX: number, oldY: number ) {
 		const children = this.children;
 		for( let i = 0, imax = children.length; i < imax; ++i ) {
 			const child = children[ i ];
 			if( child instanceof DBase ) {
-				child.onParentMove( x, y );
+				child.onParentMove( newX, newY, oldX, oldY );
 			}
 		}
 	}
@@ -1820,6 +1941,7 @@ export class DBase<
 		if( this.isEventTarget( e ) ) {
 			this.onDownThis( e );
 		}
+		this.emit( "down", e, this );
 	}
 
 	protected onDownThis( e: InteractionEvent ): void {
@@ -1837,6 +1959,7 @@ export class DBase<
 		if( this.isEventTarget( e ) ) {
 			this.onUpThis( e );
 		}
+		this.emit( "up", e, this );
 	}
 
 	protected onUpThis( e: InteractionEvent ): void {
@@ -1865,22 +1988,29 @@ export class DBase<
 
 	// Over
 	protected onOver( e: InteractionEvent ): void {
-		// Hover
+		// Update the hover state
 		this.setHovered( true );
 
-		// Title
+		// Update the title
 		if( e.target === this ) {
 			this.applyTitle();
 		}
+
+		// Event
+		this.emit( "over", e, this );
 	}
 
 	// Out
 	protected onOut( e: InteractionEvent ): void {
+		// Update the hover state
 		this.setHovered( false );
+
+		// Event
+		this.emit( "out", e, this );
 	}
 
 	// Double click
-	onDblClick( e: MouseEvent | TouchEvent, interactionManager: interaction.InteractionManager ): boolean {
+	onDblClick( e: MouseEvent | TouchEvent, interactionManager: InteractionManager ): boolean {
 		this.emit( "dblclick", e, interactionManager, this );
 		return false;
 	}

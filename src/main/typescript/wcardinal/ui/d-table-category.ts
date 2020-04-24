@@ -40,10 +40,10 @@ export class DTableCategory<
 		super.init( options );
 	}
 
-	onParentMove( x: number, y: number ): void {
-		super.onParentMove( x, y );
-		this.transform.position.y = -y + this._offset;
-		this.updateFrozenCellPosition( x );
+	protected onParentMove( newX: number, newY: number, oldX: number, oldY: number ): void {
+		super.onParentMove( newX, newY, oldX, oldY );
+		this.transform.position.y = -newY + this._offset;
+		this.updateFrozenCellPosition( newX );
 	}
 
 	protected getContentPositionX(): number {

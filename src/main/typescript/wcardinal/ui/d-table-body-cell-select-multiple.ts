@@ -40,7 +40,7 @@ export class DTableBodyCellSelectMultiple<
 	protected init( options: OPTIONS ) {
 		super.init( options );
 		const column = options.column;
-		this._rowIndex = 0;
+		this._rowIndex = -1;
 		this._columnIndex = column.index;
 		this._columnData = column.data;
 		this.on( "change", ( newValues: unknown, oldValues: unknown ): void => {
@@ -59,6 +59,14 @@ export class DTableBodyCellSelectMultiple<
 			( stateParent & DBaseState.HOVERED ? DBaseState.HOVERED : DBaseState.NONE );
 	}
 
+	get row(): ROW | undefined {
+		return this._row;
+	}
+
+	get rowIndex(): number {
+		return this._rowIndex;
+	}
+
 	set(
 		value: unknown, row: ROW, supplimental: unknown,
 		rowIndex: number, columnIndex: number,
@@ -75,6 +83,7 @@ export class DTableBodyCellSelectMultiple<
 
 	unset(): void {
 		this._row = undefined;
+		this._rowIndex = -1;
 	}
 
 	protected getType(): string {
