@@ -21,9 +21,10 @@ export interface UtilFileFacade {
  * An `open` event handler.
  *
  * @param result a file contents
+ * @param file an opened file
  * @param emitter an emitter
  */
-export type UtilFileOnOpen<RESULT, EMITTER> = ( result: RESULT, emitter: EMITTER ) => void;
+export type UtilFileOnOpen<RESULT, EMITTER> = ( result: RESULT, file: File, emitter: EMITTER ) => void;
 
 /**
  * {@link UtilFileOpener} events.
@@ -64,7 +65,7 @@ export class UtilFileOpener {
 		this._facade = facade;
 	}
 
-	open() {
+	open(): void {
 		const input = this.getOrCreateInput();
 		if( input != null ) {
 			input.click();
@@ -89,7 +90,7 @@ export class UtilFileOpener {
 		return this._input;
 	}
 
-	protected onInputChange( input: HTMLInputElement ) {
+	protected onInputChange( input: HTMLInputElement ): void {
 		const files = input.files;
 		if( files != null && 0 < files.length ) {
 			const file = files[ 0 ];
@@ -97,7 +98,7 @@ export class UtilFileOpener {
 			fileReader.onload = ( e: ProgressEvent ) => {
 				if( e.target != null ) {
 					const target = e.target as any;
-					this.onOpen( target.result );
+					this.onOpen( target.result, file );
 				}
 			};
 			fileReader.onabort = ( e: ProgressEvent ) => {
@@ -125,9 +126,9 @@ export class UtilFileOpener {
 		}
 	}
 
-	protected onOpen( result: string | ArrayBuffer ): void {
+	protected onOpen( result: string | ArrayBuffer, file: File ): void {
 		const facade = this._facade;
-		facade.emit( "open", result, facade );
+		facade.emit( "open", result, file, facade );
 	}
 
 	protected onAboart( e: ProgressEvent ): void {
