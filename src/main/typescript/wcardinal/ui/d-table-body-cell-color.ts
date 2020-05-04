@@ -83,6 +83,10 @@ export class DTableBodyCellColor<
 		return this._rowIndex;
 	}
 
+	get columnIndex(): number {
+		return this._columnIndex;
+	}
+
 	set(
 		newValue: unknown, row: ROW, supplimental: unknown,
 		rowIndex: number, columnIndex: number,

@@ -36,6 +36,7 @@ export class DLink {
 	protected _menu?: DMenu<DLinkMenuItemId>;
 	protected _menuOptions?: DMenuOptions<DLinkMenuItemId> | DMenu<DLinkMenuItemId>;
 	protected _theme: DThemeLink;
+	protected _isDisabled?: boolean;
 
 	constructor( theme: DThemeLink, options?: DLinkOptions ) {
 		if( options ) {
@@ -124,12 +125,12 @@ export class DLink {
 
 	apply( target: DBase, onSelect: ( e: interaction.InteractionEvent ) => void ): void {
 		const onClick = ( e: interaction.InteractionEvent ): void => {
-			if( target.isActionable() ) {
+			if( this.isEnabled() && target.isActionable() ) {
 				onSelect( e );
 			}
 		};
 		const onLongClick = ( e: interaction.InteractionEvent ): void => {
-			if( target.isActionable() ) {
+			if( this.isEnabled() && target.isActionable() ) {
 				const menu = this.menu;
 				if( menu.isHidden() ) {
 					menu.open( target );
@@ -207,5 +208,21 @@ export class DLink {
 		} else {
 			return false;
 		}
+	}
+
+	isEnabled(): boolean {
+		return ! this._isDisabled;
+	}
+
+	isDisabled(): boolean {
+		return !! this._isDisabled;
+	}
+
+	enable(): void {
+		this._isDisabled = false;
+	}
+
+	disable(): void {
+		this._isDisabled = true;
 	}
 }

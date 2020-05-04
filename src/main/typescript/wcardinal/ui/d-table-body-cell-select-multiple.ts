@@ -67,6 +67,10 @@ export class DTableBodyCellSelectMultiple<
 		return this._rowIndex;
 	}
 
+	get columnIndex(): number {
+		return this._columnIndex;
+	}
+
 	set(
 		value: unknown, row: ROW, supplimental: unknown,
 		rowIndex: number, columnIndex: number,

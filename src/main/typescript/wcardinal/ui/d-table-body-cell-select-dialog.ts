@@ -96,6 +96,10 @@ export class DTableBodyCellSelectDialog<
 		return this._rowIndex;
 	}
 
+	get columnIndex(): number {
+		return this._columnIndex;
+	}
+
 	get value(): VALUE {
 		return this.text as VALUE;
 	}

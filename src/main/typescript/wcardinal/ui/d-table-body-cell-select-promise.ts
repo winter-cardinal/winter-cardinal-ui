@@ -94,6 +94,10 @@ export class DTableBodyCellSelectPromise<
 		return this._rowIndex;
 	}
 
+	get columnIndex(): number {
+		return this._columnIndex;
+	}
+
 	get value(): VALUE {
 		return this._textValueComputed;
 	}

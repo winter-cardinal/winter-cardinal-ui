@@ -21,7 +21,7 @@ export class DThemeDarkLinks {
 	static getLinkMenuOptions(): DMenuOptions<DLinkMenuItemId> {
 		return {
 			sticky: true,
-			align: "RIGHT",
+			align: "OVER",
 			items: [{
 				value: DLinkMenuItemId.OPEN_LINK_IN_NEW_WINDOW,
 				text: {

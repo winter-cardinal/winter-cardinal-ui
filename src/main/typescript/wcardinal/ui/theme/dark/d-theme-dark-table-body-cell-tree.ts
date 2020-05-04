@@ -6,10 +6,14 @@
 import { DisplayObject, Texture } from "pixi.js";
 import { DAlignWith } from "../../d-align-with";
 import { DBaseState } from "../../d-base-state";
+import { DLinkMenuItemId } from "../../d-link-menu-item-id";
+import { DMenuOptions } from "../../d-menu";
 import { DThemeTableBodyCellTree } from "../../d-table-body-cell-tree";
+import { DThemeDarkLinks } from "./d-theme-dark-links";
 import { DThemeDarkTableBodyCellButton } from "./d-theme-dark-table-body-cell-button";
 import { DThemeDarkTableBodyCellTrees } from "./d-theme-dark-table-body-cell-trees";
 
+DThemeDarkLinks.init();
 DThemeDarkTableBodyCellTrees.init();
 
 export class DThemeDarkTableBodyCellTree extends DThemeDarkTableBodyCellButton implements DThemeTableBodyCellTree {
@@ -27,5 +31,9 @@ export class DThemeDarkTableBodyCellTree extends DThemeDarkTableBodyCellButton i
 
 	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
 		return DThemeDarkTableBodyCellTrees.getImageSource( state );
+	}
+
+	getLinkMenuOptions(): DMenuOptions<DLinkMenuItemId> {
+		return DThemeDarkLinks.getLinkMenuOptions();
 	}
 }

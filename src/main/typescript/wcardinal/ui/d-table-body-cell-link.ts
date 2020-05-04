@@ -9,6 +9,7 @@ import { DLink, DLinkChecker, DLinkOptions, DLinkUrlMaker, DThemeLink } from "./
 import { DLinkMenuItemId } from "./d-link-menu-item-id";
 import { DLinkTarget } from "./d-link-target";
 import { DMenu, DMenuOptions } from "./d-menu";
+import { DTableBodyCell } from "./d-table-body-cell";
 import {
 	DTableBodyCellButton, DTableBodyCellButtonOptions, DThemeTableBodyCellButton
 } from "./d-table-body-cell-button";
@@ -16,10 +17,10 @@ import { DTableCellState } from "./d-table-cell-state";
 import { isString } from "./util/is-string";
 
 export type DTableBodyCellLinkUrlMaker<ROW> = (
-	row: ROW, rowIndex: number, columnIndex: number, link: DTableBodyCellLink<ROW>
+	row: ROW, rowIndex: number, columnIndex: number, link: DTableBodyCell<ROW>
 ) => string | null | Promise<string | null>;
 export type DTableBodyCellLinkChecker<ROW> = (
-	row: ROW, rowIndex: number, columnIndex: number, link: DTableBodyCellLink<ROW>
+	row: ROW, rowIndex: number, columnIndex: number, link: DTableBodyCell<ROW>
 ) => boolean | Promise<boolean>;
 
 export interface DTableBodyCellLinkLinkOptions<ROW> {
@@ -40,6 +41,55 @@ export interface DThemeTableBodyCellLink extends DThemeTableBodyCellButton, DThe
 
 }
 
+export const toLinkOptions = <ROW>(
+	cell: DTableBodyCell<ROW>,
+	options: DTableBodyCellLinkOptions<ROW, any>
+): DLinkOptions | undefined => {
+	const link = options.link;
+	if( link ) {
+		return {
+			url: toUrl( cell, link.url ),
+			target: link.target,
+			checker: toChecker( cell, link.checker ),
+			menu: link.menu
+		};
+	}
+	return undefined;
+};
+
+export const toUrl = <ROW>(
+	cell: DTableBodyCell<ROW>,
+	url?: string | DTableBodyCellLinkUrlMaker<ROW>
+): string | DLinkUrlMaker | undefined => {
+	if( isString( url ) || url == null ) {
+		return url;
+	} else {
+		return () => {
+			const row = cell.row;
+			if( row !== undefined ) {
+				return url( row, cell.rowIndex, cell.columnIndex, cell );
+			}
+			return null;
+		};
+	}
+};
+
+export const toChecker = <ROW>(
+	cell: DTableBodyCell<ROW>,
+	checker?: DTableBodyCellLinkChecker<ROW>
+): DLinkChecker | undefined => {
+	if( checker != null ) {
+		return (): boolean | Promise<boolean> => {
+			const row = cell.row;
+			if( row !== undefined ) {
+				return checker( row, cell.rowIndex, cell.columnIndex, cell );
+			}
+			return false;
+		};
+	}
+	return undefined;
+};
+
 export class DTableBodyCellLink<
 	ROW,
 	THEME extends DThemeTableBodyCellLink = DThemeTableBodyCellLink,
@@ -51,51 +101,11 @@ export class DTableBodyCellLink<
 		super( options );
 	}
 
-	protected toLinkOptions( options: OPTIONS ): DLinkOptions | undefined {
-		const link = options.link;
-		if( link ) {
-			return {
-				url: this.toUrl( link.url ),
-				target: link.target,
-				checker: this.toChecker( link.checker ),
-				menu: link.menu
-			};
-		}
-		return undefined;
-	}
-
-	protected toUrl( url?: string | DTableBodyCellLinkUrlMaker<ROW> ): string | DLinkUrlMaker | undefined {
-		if( isString( url ) || url == null ) {
-			return url;
-		} else {
-			return () => {
-				const row = this._row;
-				if( row !== undefined ) {
-					return url( row, this._rowIndex, this._columnIndex, this );
-				}
-				return null;
-			};
-		}
-	}
-
-	protected toChecker( checker?: DTableBodyCellLinkChecker<ROW> ): DLinkChecker | undefined {
-		if( checker != null ) {
-			return () => {
-				const row = this._row;
-				if( row !== undefined ) {
-					return checker( row, this._rowIndex, this._columnIndex, this );
-				}
-				return false;
-			};
-		}
-		return undefined;
-	}
-
 	protected init( options: OPTIONS ): void {
 		if( options.link && options.link.target === DLinkTarget.NEW_WINDOW ) {
 			options.state = ( options.state || DBaseState.NONE ) || DTableCellState.NEW_WINDOW;
 		}
-		this._link = new DLink( this.theme, this.toLinkOptions( options ) );
+		this._link = new DLink( this.theme, toLinkOptions( this, options ) );
 		super.init( options );
 	}
 
