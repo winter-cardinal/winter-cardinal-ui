@@ -19,7 +19,7 @@ export class EShapeEmbeddedLayerContainer implements EShapeLayerContainer {
 	create( name: string ): EShapeEmbeddedLayer {
 		const result = new EShapeEmbeddedLayer( name );
 		result.transform.position.set( this._x, this._y );
-		result.size.set( this._width, this._height );
+		result.size.set( this._width, this._height ).init();
 		this.children.push( result );
 		return result;
 	}

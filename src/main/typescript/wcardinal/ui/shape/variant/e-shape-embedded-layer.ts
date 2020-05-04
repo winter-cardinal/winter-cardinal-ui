@@ -22,6 +22,7 @@ export class EShapeEmbeddedLayer extends EShapeGroupViewer {
 		}
 		result.onChildTransformChange();
 		result.toDirty();
+		result.size.init();
 		return result;
 	}
 
