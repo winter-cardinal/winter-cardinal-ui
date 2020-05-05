@@ -2,13 +2,11 @@ import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeText } from "../e-shape-text";
 import { EShapeType } from "../e-shape-type";
-import { EShapeEmbeddedTag } from "./e-shape-embedded-tag";
 import { EShapeGroupTextEditor } from "./e-shape-group-text-editor";
 import { EShapeGroupViewer } from "./e-shape-group-viewer";
 
 export class EShapeEmbedded extends EShapeGroupViewer {
 	protected _name: string;
-	tag!: EShapeEmbeddedTag;
 
 	constructor( name: string, type = EShapeType.EMBEDDED ) {
 		super( type );
@@ -17,10 +15,6 @@ export class EShapeEmbedded extends EShapeGroupViewer {
 
 	get name(): string {
 		return this._name;
-	}
-
-	protected newTag(): EShapeEmbeddedTag {
-		return new EShapeEmbeddedTag();
 	}
 
 	protected newGroupText(): EShapeText {

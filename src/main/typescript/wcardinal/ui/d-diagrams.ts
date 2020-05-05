@@ -133,7 +133,7 @@ export class DDiagrams {
 							serialized.resources, serialized.tags
 						);
 						const datum = new EShapeEmbeddedDatum(
-							serialized.name, width, height, serialized.tags, container
+							serialized.name, width, height, container
 						);
 						mappings.set( piece, datum );
 						this.newLayer( serialized, container, manager ).then( onFinished, onFinished );

@@ -21,7 +21,7 @@ export const deserializeEmbedded = (
 			if( pieceDatum ) {
 				return EShapeEmbeddeds.from(
 					piece, pieceDatum.width, pieceDatum.height,
-					pieceDatum.tags, pieceDatum.layer, item, manager
+					pieceDatum.layer, item, manager
 				);
 			}
 		}

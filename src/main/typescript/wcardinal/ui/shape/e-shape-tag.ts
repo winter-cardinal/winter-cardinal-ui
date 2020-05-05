@@ -5,7 +5,6 @@
 
 import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
-import { EShapeTagMapping } from "./e-shape-tag-mapping";
 import { EShapeTagValue } from "./e-shape-tag-value";
 import { EShapeTagValueRange } from "./e-shape-tag-value-range";
 
@@ -17,7 +16,6 @@ export interface EShapeTag {
 	readonly format: string;
 	readonly range: EShapeTagValueRange;
 	inherited?: EShapeTagValue;
-	mapping?: EShapeTagMapping;
 
 	// Shortcut for elements which have just one tag.
 	value: unknown;

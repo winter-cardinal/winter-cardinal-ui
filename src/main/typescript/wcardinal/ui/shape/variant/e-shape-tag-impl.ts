@@ -6,7 +6,6 @@
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeTag } from "../e-shape-tag";
-import { EShapeTagMapping } from "../e-shape-tag-mapping";
 import { EShapeTagValue } from "../e-shape-tag-value";
 import { EShapeTagValueRange } from "../e-shape-tag-value-range";
 import { EShapeTagValueImpl } from "./e-shape-tag-value-impl";
@@ -19,7 +18,6 @@ export class EShapeTagImpl implements EShapeTag {
 	protected _values: EShapeTagValue[];
 	isChanged: boolean;
 	inherited?: EShapeTagValue;
-	mapping?: EShapeTagMapping;
 
 	constructor() {
 		this._values = [];
@@ -305,31 +303,17 @@ export class EShapeTagImpl implements EShapeTag {
 			}
 		}
 
-		const mapping = this.mapping;
-		if( mapping ) {
-			const targetMapping = target.mapping;
-			if( targetMapping ) {
-				mapping.copy( targetMapping );
-			}
-		}
-
 		return this;
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
 		const values = this._values;
-		const mapping = this.mapping;
 		if( values.length <= 0 ) {
-			return manager.addResource(
-				mapping ? `[${mapping.serialize( manager )}]` : "[]"
-			);
+			return manager.addResource( "[]" );
 		} else {
 			let serialized = `[${values[ 0 ].serialize( manager )}`;
 			for( let i = 1, imax = values.length; i < imax; ++i ) {
 				serialized += `,${values[ i ].serialize( manager )}`;
-			}
-			if( mapping ) {
-				serialized += `,${mapping.serialize( manager )}`;
 			}
 			serialized += "]";
 			return manager.addResource( serialized );
@@ -346,18 +330,13 @@ export class EShapeTagImpl implements EShapeTag {
 
 			const values = this._values;
 			values.length = 0;
-			const mapping = this.mapping;
 			const deserializedLength = deserialized.length;
-			const valuesLength = mapping ? deserializedLength - 1 : deserializedLength;
-			for( let i = 0; i < valuesLength; ++i ) {
+			for( let i = 0; i < deserializedLength; ++i ) {
 				const index = deserialized[ i ];
 				const value = new EShapeTagValueImpl();
 				value.parent = this;
 				value.deserialize( index, manager );
 				values.push( value );
-			}
-			if( mapping && 0 < deserializedLength ) {
-				mapping.deserialize( deserialized[ deserializedLength - 1 ], manager );
 			}
 		}
 	}

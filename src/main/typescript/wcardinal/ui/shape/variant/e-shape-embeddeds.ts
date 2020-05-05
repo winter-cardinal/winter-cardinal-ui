@@ -1,11 +1,8 @@
 import { DDiagramSerialized, DDiagramSerializedItem, DDiagramSerializedSimple } from "../../d-diagram-serialized";
 import { DDiagrams } from "../../d-diagrams";
-import { EShape } from "../e-shape";
-import { EShapeDefaults } from "../e-shape-defaults";
 import { EShapeDeserializer } from "../e-shape-deserializer";
 import { EShapeLayerContainer } from "../e-shape-layer-container";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
-import { EShapeTagMappingObject } from "../e-shape-tag-mapping";
 import { EShapeEmbedded } from "./e-shape-embedded";
 import { EShapeEmbeddedLayerContainer } from "./e-shape-embedded-layer-container";
 
@@ -14,14 +11,12 @@ export class EShapeEmbeddeds {
 		name: string,
 		width: number,
 		height: number,
-		tags: string[] | undefined,
 		layer: EShapeLayerContainer
 	): EShapeEmbedded;
 	static from(
 		name: string,
 		width: number,
 		height: number,
-		tags: string[] | undefined,
 		layer: EShapeLayerContainer,
 		item: DDiagramSerializedItem,
 		manager: EShapeResourceManagerDeserialization
@@ -33,7 +28,6 @@ export class EShapeEmbeddeds {
 		serializedOrName: any,
 		width?: number,
 		height?: number,
-		tags?: string[],
 		layer?: EShapeLayerContainer,
 		item?: DDiagramSerializedItem,
 		manager?: EShapeResourceManagerDeserialization
@@ -41,9 +35,9 @@ export class EShapeEmbeddeds {
 		if( layer == null ) {
 			return this.from1_( DDiagrams.toSerialized( serializedOrName ) );
 		} else if( item != null ) {
-			return this.from2_( serializedOrName, width!, height!, tags, layer, item, manager! );
+			return this.from2_( serializedOrName, width!, height!, layer, item, manager! );
 		} else {
-			return this.from3_( serializedOrName, width!, height!, tags, layer );
+			return this.from3_( serializedOrName, width!, height!, layer );
 		}
 	}
 
@@ -53,16 +47,15 @@ export class EShapeEmbeddeds {
 		const container = new EShapeEmbeddedLayerContainer( width, height );
 		const manager = new EShapeResourceManagerDeserialization( serialized.resources, serialized.tags );
 		return DDiagrams.newLayer( serialized, container, manager ).then(() => {
-			return this.from( serialized.name, width, height, serialized.tags, container );
+			return this.from( serialized.name, width, height, container );
 		});
 	}
 
 	protected static from2_(
-		name: string, width: number, height: number, tags: string[] | undefined, layer: EShapeLayerContainer,
+		name: string, width: number, height: number, layer: EShapeLayerContainer,
 		item: DDiagramSerializedItem, manager: EShapeResourceManagerDeserialization
 	): Promise<EShapeEmbedded> | EShapeEmbedded {
 		const shape = new EShapeEmbedded( name );
-		shape.tag.mapping.init( tags );
 		const result = EShapeDeserializer.deserialize( item, manager, shape );
 		const shapeSize = shape.size;
 		const sizeX = shapeSize.x;
@@ -74,10 +67,9 @@ export class EShapeEmbeddeds {
 	}
 
 	protected static from3_(
-		name: string, width: number, height: number, tags: string[] | undefined, layer: EShapeLayerContainer
+		name: string, width: number, height: number, layer: EShapeLayerContainer
 	): EShapeEmbedded {
 		const shape = new EShapeEmbedded( name );
-		shape.tag.mapping.init( tags );
 		shape.size.set( width, height );
 		this.init( shape, layer );
 		return shape;
@@ -91,31 +83,8 @@ export class EShapeEmbeddeds {
 			clone.parent = shape;
 			children.push( clone );
 		}
-		if( ! EShapeDefaults.IS_EDIT_MODE ) {
-			this.replaceTags( shape.tag.mapping.toObject(), shape.children );
-		}
 		shape.onChildTransformChange();
 		shape.toDirty();
 		shape.size.init();
-	}
-
-	protected static replaceTagsOf( mapping: EShapeTagMappingObject, shape: EShape ): void {
-		const tag = shape.tag;
-		for( let i = 0, imax = tag.size(); i < imax; ++i ) {
-			const value = tag.get( i );
-			if( value ) {
-				const mappedId = mapping[ value.id ];
-				if( mappedId != null ) {
-					value.id = mappedId;
-				}
-			}
-		}
-		this.replaceTags( mapping, shape.children );
-	}
-
-	protected static replaceTags( mapping: EShapeTagMappingObject, shapes: EShape[] ): void {
-		for( let i = 0, imax = shapes.length; i < imax; ++i ) {
-			this.replaceTagsOf( mapping, shapes[ i ] );
-		}
 	}
 }
