@@ -33,6 +33,14 @@ export class DThemeDarkTableBodyCellTree extends DThemeDarkTableBodyCellButton i
 		return DThemeDarkTableBodyCellTrees.getImageSource( state );
 	}
 
+	getImageTintColor( state: DBaseState ): number | null {
+		return DThemeDarkTableBodyCellTrees.getImageTintColor( state );
+	}
+
+	getImageTintAlpha( state: DBaseState ): number {
+		return DThemeDarkTableBodyCellTrees.getImageTintAlpha( state );
+	}
+
 	getLinkMenuOptions(): DMenuOptions<DLinkMenuItemId> {
 		return DThemeDarkLinks.getLinkMenuOptions();
 	}

@@ -46,4 +46,12 @@ export class DThemeDarkTableBodyCellInputTreeMarker extends DThemeDarkButtonBase
 	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
 		return DThemeDarkTableBodyCellTrees.getImageSource( state );
 	}
+
+	getImageTintColor( state: DBaseState ): number | null {
+		return DThemeDarkTableBodyCellTrees.getImageTintColor( state );
+	}
+
+	getImageTintAlpha( state: DBaseState ): number {
+		return DThemeDarkTableBodyCellTrees.getImageTintAlpha( state );
+	}
 }

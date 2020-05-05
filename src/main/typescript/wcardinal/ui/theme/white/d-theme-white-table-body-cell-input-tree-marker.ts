@@ -49,6 +49,10 @@ export class DThemeWhiteTableBodyCellInputTreeMarker extends DThemeWhiteButtonBa
 	}
 
 	getImageTintColor( state: DBaseState ): number | null {
-		return DThemeWhiteTableBodyCells.getImageTintColor( state );
+		return DThemeWhiteTableBodyCellTrees.getImageTintColor( state );
+	}
+
+	getImageTintAlpha( state: DBaseState ): number {
+		return DThemeWhiteTableBodyCellTrees.getImageTintAlpha( state );
 	}
 }
