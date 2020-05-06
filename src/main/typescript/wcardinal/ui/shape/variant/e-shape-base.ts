@@ -29,6 +29,7 @@ import { EShapeGradients } from "./e-shape-gradients";
 export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	protected static WORK_RECT = new Rectangle();
 	id: string;
+	uuid: number;
 	readonly type: EShapeType;
 	abstract readonly size: IPoint;
 	abstract readonly fill: EShapeFill;
@@ -87,6 +88,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	constructor( type: EShapeType ) {
 		super();
 		this.id = "";
+		this.uuid = 0;
 		this.type = type;
 		this.transform = this.newTransform();
 		this._onTransformChangeLock = 0;
@@ -348,8 +350,25 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 			pivot.y,
 			( this.interactive ? 1 : 0 ) | ( this.unfocusable ? 2 : 0 ),
 			shortcutId,
-			titleId
+			titleId,
+			this.uuid
 		];
+	}
+
+	addUuid( manager: EShapeResourceManagerSerialization ): void {
+		this.uuid = manager.addUuid( this.uuid );
+		const children = this.children;
+		for( let i = 0, imax = children.length; i < imax; ++i ) {
+			children[ i ].addUuid( manager );
+		}
+	}
+
+	updateUuid( manager: EShapeResourceManagerSerialization ): void {
+		this.uuid = manager.updateUuid( this.uuid );
+		const children = this.children;
+		for( let i = 0, imax = children.length; i < imax; ++i ) {
+			children[ i ].updateUuid( manager );
+		}
 	}
 
 	// Hit test
@@ -792,6 +811,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 	copy( source: EShape, part: EShapeCopyPart = EShapeCopyPart.ALL ): this {
 		this.id = source.id;
+		this.uuid = source.uuid;
 		if( (part & EShapeCopyPart.TRANSFORM) !== 0 ) {
 			const transform = this.transform;
 			const sourceTransform = source.transform;

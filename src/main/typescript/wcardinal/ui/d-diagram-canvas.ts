@@ -9,6 +9,7 @@ import { DDiagramCanvasBase, DDiagramCanvasBaseOptions, DThemeDiagramCanvasBase 
 import { DDiagramCanvasIdMap } from "./d-diagram-canvas-id-map";
 import { DDiagramCanvasTagMap } from "./d-diagram-canvas-tag-map";
 import { EShape } from "./shape/e-shape";
+import { EShapeType } from "./shape/e-shape-type";
 import { EShapeBase } from "./shape/variant/e-shape-base";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
@@ -19,7 +20,7 @@ import { UtilPointerEvent } from "./util/util-pointer-event";
  * @param tag a tag
  * @returns a mapped tag
  */
-export type DDiagramCanvasTagMapper = ( tag: string ) => string | null;
+export type DDiagramCanvasTagMapper = ( tag: string, shape: EShape ) => string | null;
 
 export interface DDiagramCanvasTagOptions {
 	/**
@@ -79,7 +80,15 @@ export class DDiagramCanvas<
 		const layers = this._layer.children;
 
 		for( let i = 0, imax = layers.length; i < imax; ++i ) {
-			this.initializeShapes( layers[ i ].children, tags, tagMapper, interactives, actionables, ids );
+			this.initializeShapes(
+				layers[ i ].children,
+				tags,
+				tagMapper,
+				null,
+				interactives,
+				actionables,
+				ids
+			);
 		}
 
 		for( let i = 0, imax = layers.length; i < imax; ++i ) {
@@ -101,8 +110,12 @@ export class DDiagramCanvas<
 	}
 
 	protected initializeShapes(
-		shapes: EShape[], tags: DDiagramCanvasTagMap, tagMapper: DDiagramCanvasTagMapper,
-		interactives: EShape[], actionables: EShape[],
+		shapes: EShape[],
+		tags: DDiagramCanvasTagMap,
+		tagMapper: DDiagramCanvasTagMapper,
+		tagShape: EShape | null,
+		interactives: EShape[],
+		actionables: EShape[],
 		ids: DDiagramCanvasIdMap
 	): void {
 		for( let i = 0, imax = shapes.length; i < imax; ++i ) {
@@ -115,7 +128,7 @@ export class DDiagramCanvas<
 				if( value ) {
 					const valueId = value.id;
 					if( 0 < valueId.length ) {
-						const mappedValueId = tagMapper( valueId );
+						const mappedValueId = tagMapper( valueId, tagShape || shape );
 						if( mappedValueId != null ) {
 							let values = tags[ mappedValueId ];
 							if( values == null ) {
@@ -161,9 +174,27 @@ export class DDiagramCanvas<
 			// Children
 			const children = shape.children;
 			if( 0 < children.length ) {
-				this.initializeShapes( children, tags, tagMapper, interactives, actionables, ids );
+				this.initializeShapes(
+					children,
+					tags,
+					tagMapper,
+					this.toTagShape( tagShape, shape ),
+					interactives,
+					actionables,
+					ids
+				);
 			}
 		}
+	}
+
+	protected toTagShape( tagShape: EShape | null, shape: EShape ): EShape | null {
+		if( tagShape != null ) {
+			return tagShape;
+		}
+		if( shape.type === EShapeType.EMBEDDED ) {
+			return shape;
+		}
+		return null;
 	}
 
 	protected updateShapes( shapes: EShape[], time: number ): void {

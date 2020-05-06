@@ -164,8 +164,13 @@ export class DDiagramLayerContainer extends Container {
 		const result: DDiagramSerializedLayer[] = [];
 		const children = this.children;
 		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			const child = children[ i ];
-			result.push( child.serialize( i, manager, items ) );
+			children[ i ].addUuid( manager );
+		}
+		for( let i = 0, imax = children.length; i < imax; ++i ) {
+			children[ i ].updateUuid( manager );
+		}
+		for( let i = 0, imax = children.length; i < imax; ++i ) {
+			result.push( children[ i ].serialize( i, manager, items ) );
 		}
 		return result;
 	}

@@ -45,6 +45,7 @@ export class EShapeDeserializer {
 		result.unfocusable = !! ( item[ 23 ] & 2 );
 		result.shortcut = ( 0 <= item[ 24 ] ? manager.resources[ item[ 24 ] ] : undefined );
 		result.title = ( 0 <= item[ 25 ] ? manager.resources[ item[ 25 ] ] : undefined );
+		result.uuid = ( item[ 26 ] != null ? item[ 26 ] : 0 );
 
 		// Children
 		let childrenPromise: Promise<SHAPE> | null = null;

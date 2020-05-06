@@ -43,4 +43,18 @@ export class DDiagramLayer extends EShapeContainer {
 			this.name || ""
 		];
 	}
+
+	addUuid( manager: EShapeResourceManagerSerialization ): void {
+		const children = this.children;
+		for( let i = 0, imax = children.length; i < imax; ++i ) {
+			children[ i ].addUuid( manager );
+		}
+	}
+
+	updateUuid( manager: EShapeResourceManagerSerialization ): void {
+		const children = this.children;
+		for( let i = 0, imax = children.length; i < imax; ++i ) {
+			children[ i ].updateUuid( manager );
+		}
+	}
 }

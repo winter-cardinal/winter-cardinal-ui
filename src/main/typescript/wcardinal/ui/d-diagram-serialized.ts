@@ -330,6 +330,9 @@ export interface DDiagramSerializedItem {
 
 	/** A resource index number of a title. */
 	[ 25 ]: number;
+
+	/** UUID */
+	[ 26 ]: number;
 }
 
 /**

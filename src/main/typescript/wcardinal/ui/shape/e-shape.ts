@@ -35,7 +35,8 @@ export enum EShapeCopyPart {
 }
 
 export interface EShape extends utils.EventEmitter {
-	id: string;
+	id: string; // Used to identity a shape by users
+	uuid: number; // Used to identify a shape uniquely
 	readonly type: EShapeType;
 	readonly size: IPoint;
 	readonly fill: EShapeFill;
@@ -131,6 +132,8 @@ export interface EShape extends utils.EventEmitter {
 
 	// Serialization
 	serialize( manager: EShapeResourceManagerSerialization ): DDiagramSerializedItem;
+	addUuid( manager: EShapeResourceManagerSerialization ): void;
+	updateUuid( manager: EShapeResourceManagerSerialization ): void;
 
 	// Hit test
 	contains( point: Point ): EShape | null;
