@@ -52,4 +52,12 @@ export class EShapeEmbedded extends EShapeGroupViewer {
 		result[ 15 ] = manager.addPiece( this._name );
 		return result;
 	}
+
+	addUuid( manager: EShapeResourceManagerSerialization ): void {
+		this.uuid = manager.addUuid( this.uuid );
+	}
+
+	updateUuid( manager: EShapeResourceManagerSerialization ): void {
+		this.uuid = manager.updateUuid( this.uuid );
+	}
 }

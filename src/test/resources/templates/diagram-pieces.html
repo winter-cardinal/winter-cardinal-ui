@@ -36,6 +36,11 @@
 						});
 					}
 				}
+			},
+			on: {
+				ready: () => {
+					console.log( diagram.serialize() );
+				}
 			}
 		});
 
