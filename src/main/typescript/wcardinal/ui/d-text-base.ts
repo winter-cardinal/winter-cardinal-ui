@@ -71,12 +71,29 @@ export interface DTextBaseOptions<
  */
 export interface DThemeTextBase extends DThemeBase {
 	getTextFormatter(): ( value: any, caller: any ) => string;
+
+	/**
+	 * Returns a new text value.
+	 * Called to initialize a text value if a text value is not given.
+	 */
 	newTextValue(): any;
+
+	/**
+	 * Returns a text value.
+	 * Called to get a text vale if there is no text value.
+	 *
+	 * @param state a state
+	 */
 	getTextValue( state: DBaseState ): any;
+
 	getTextAlignVertical(): DAlignVertical;
 	getTextAlignHorizontal(): DAlignHorizontal;
 	getTextStyleClipping(): boolean;
 	isOverflowMaskEnabled(): boolean;
+
+	/**
+	 * Returns true if a dynamic text should be enabled.
+	 */
 	isTextDynamic(): boolean;
 }
 

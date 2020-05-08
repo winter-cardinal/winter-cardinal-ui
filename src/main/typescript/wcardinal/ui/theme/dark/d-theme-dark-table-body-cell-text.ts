@@ -59,4 +59,12 @@ export class DThemeDarkTableBodyCellText extends DThemeDarkImageBase implements 
 	getPaddingRight(): number {
 		return 10;
 	}
+
+	newTextValue(): any {
+		return null;
+	}
+
+	getTextValue( state: DBaseState ): any {
+		return null;
+	}
 }

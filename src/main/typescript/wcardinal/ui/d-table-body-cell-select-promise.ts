@@ -13,7 +13,7 @@ export interface DTableBodyCellSelectPromiseOptions<
 	ROW = unknown,
 	VALUE = unknown,
 	THEME extends DThemeTableBodyCellSelectPromise = DThemeTableBodyCellSelectPromise
-> extends DButtonOptions<VALUE, THEME>, DTableBodyCellOptions<ROW> {
+> extends DButtonOptions<VALUE | null, THEME>, DTableBodyCellOptions<ROW> {
 	/**
 	 * False to stop synchronizing the resolved value and the text.
 	 */
@@ -30,7 +30,7 @@ export class DTableBodyCellSelectPromise<
 	THEME extends DThemeTableBodyCellSelectPromise = DThemeTableBodyCellSelectPromise,
 	OPTIONS extends DTableBodyCellSelectPromiseOptions<ROW, VALUE, THEME> =
 		DTableBodyCellSelectPromiseOptions<ROW, VALUE, THEME>
-> extends DButton<VALUE, THEME, OPTIONS> implements DTableBodyCell<ROW> {
+> extends DButton<VALUE | null, THEME, OPTIONS> implements DTableBodyCell<ROW> {
 	protected _row?: ROW;
 	protected _rowIndex!: number;
 	protected _columnIndex!: number;
@@ -98,11 +98,11 @@ export class DTableBodyCellSelectPromise<
 		return this._columnIndex;
 	}
 
-	get value(): VALUE {
+	get value(): VALUE | null {
 		return this._textValueComputed;
 	}
 
-	set value( value: VALUE ) {
+	set value( value: VALUE | null ) {
 		this.text = value;
 	}
 

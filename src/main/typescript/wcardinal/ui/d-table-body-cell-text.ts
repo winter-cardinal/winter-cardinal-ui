@@ -22,7 +22,7 @@ export class DTableBodyCellText<
 	ROW,
 	THEME extends DThemeTableBodyCellText = DThemeTableBodyCellText,
 	OPTIONS extends DTableBodyCellTextOptions<ROW, THEME> = DTableBodyCellTextOptions<ROW, THEME>
-> extends DImageBase<unknown, THEME, OPTIONS> implements DTableBodyCell<ROW> {
+> extends DImageBase<unknown | null, THEME, OPTIONS> implements DTableBodyCell<ROW> {
 	protected _row?: ROW;
 	protected _rowIndex!: number;
 	protected _columnIndex!: number;

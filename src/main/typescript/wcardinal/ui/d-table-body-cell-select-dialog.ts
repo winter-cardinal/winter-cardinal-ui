@@ -13,7 +13,7 @@ export interface DTableBodyCellSelectDialogOptions<
 	ROW = unknown,
 	VALUE = unknown,
 	THEME extends DThemeTableBodyCellSelectDialog = DThemeTableBodyCellSelectDialog
-> extends DButtonOptions<VALUE, THEME>, DTableBodyCellOptions<ROW> {
+> extends DButtonOptions<VALUE | null, THEME>, DTableBodyCellOptions<ROW> {
 	/**
 	 * False to stop synchronization of the selected value and the text.
 	 */
@@ -30,7 +30,7 @@ export class DTableBodyCellSelectDialog<
 	THEME extends DThemeTableBodyCellSelectDialog = DThemeTableBodyCellSelectDialog,
 	OPTIONS extends DTableBodyCellSelectDialogOptions<ROW, VALUE, THEME> =
 		DTableBodyCellSelectDialogOptions<ROW, VALUE, THEME>
-> extends DButton<VALUE, THEME, OPTIONS> implements DTableBodyCell<ROW> {
+> extends DButton<VALUE | null, THEME, OPTIONS> implements DTableBodyCell<ROW> {
 	protected _row?: ROW;
 	protected _rowIndex!: number;
 	protected _columnIndex!: number;
@@ -100,11 +100,11 @@ export class DTableBodyCellSelectDialog<
 		return this._columnIndex;
 	}
 
-	get value(): VALUE {
-		return this.text as VALUE;
+	get value(): VALUE | null {
+		return this._textValueComputed;
 	}
 
-	set value( value: VALUE ) {
+	set value( value: VALUE | null ) {
 		this.text = value;
 	}
 

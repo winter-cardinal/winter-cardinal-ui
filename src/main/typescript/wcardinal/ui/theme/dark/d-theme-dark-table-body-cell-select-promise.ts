@@ -53,4 +53,12 @@ export class DThemeDarkTableBodyCellSelectPromise extends DThemeDarkButton
 	isSyncEnabled(): boolean {
 		return true;
 	}
+
+	newTextValue(): any {
+		return null;
+	}
+
+	getTextValue( state: DBaseState ): any {
+		return null;
+	}
 }

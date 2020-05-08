@@ -53,4 +53,12 @@ export class DThemeWhiteTableBodyCellSelectDialog extends DThemeWhiteButton
 	isSyncEnabled(): boolean {
 		return true;
 	}
+
+	newTextValue(): any {
+		return null;
+	}
+
+	getTextValue( state: DBaseState ): any {
+		return null;
+	}
 }

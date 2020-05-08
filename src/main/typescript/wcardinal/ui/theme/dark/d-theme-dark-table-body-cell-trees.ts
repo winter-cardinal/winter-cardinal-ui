@@ -8,6 +8,7 @@ import { DBaseState } from "../../d-base-state";
 import { DTableCellState } from "../../d-table-cell-state";
 import { DThemeDarkExpandables } from "./d-theme-dark-expandables";
 import { DThemeDarkFont } from "./d-theme-dark-font";
+import { DThemeDarkTableBodyCells } from "./d-theme-dark-table-body-cells";
 
 export class DThemeDarkTableBodyCellTrees {
 	static init(): void {
@@ -30,6 +31,6 @@ export class DThemeDarkTableBodyCellTrees {
 	}
 
 	static getImageTintAlpha( state: DBaseState ): number {
-		return 0.5;
+		return DThemeDarkTableBodyCells.getAlpha( state ) * 0.5;
 	}
 }
