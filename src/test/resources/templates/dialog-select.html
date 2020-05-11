@@ -16,6 +16,16 @@
 
 		const application = new wcardinal.ui.DApplication();
 		const dialog = new wcardinal.ui.DDialogSelect({
+			item: {
+				text: {
+					formatter: ( value ) => {
+						return "# " + value.id;
+					}
+				},
+				predefineds: [{
+					id: -1
+				}]
+			},
 			controller: {
 				search: ( word ) => {
 					return new Promise(( resolve ) => {

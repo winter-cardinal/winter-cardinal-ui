@@ -66,6 +66,7 @@ export interface DDialogSelectItemTextOptions<VALUE> {
  */
 export interface DDialogSelectItemOptions<VALUE> {
 	text?: DDialogSelectItemTextOptions<VALUE>;
+	predefineds?: VALUE[];
 }
 
 /**
@@ -194,11 +195,13 @@ export class DDialogSelect<
 	protected _noteSearching!: DNote;
 	protected _itemTextFormatter!: DDialogSelectItemTextFormatter<VALUE>;
 	protected _search!: DDialogSelectSearch<VALUE>;
+	protected _predefineds?: VALUE[];
 
 	protected onInit( layout: DLayoutVertical, options?: OPTIONS ) {
 		this._value = null;
 		const theme = this.theme;
 		this._itemTextFormatter = toItemTextFormatter( theme, options );
+		this._predefineds = options && options.item && options.item.predefineds;
 
 		// Search box
 		this._input = new DInputText({
@@ -263,14 +266,17 @@ export class DDialogSelect<
 		const itemTextFormatter = this._itemTextFormatter;
 		const content = list.content;
 		const children = content.children;
+		const predefineds = this._predefineds;
 
 		// Update the existing children
 		const childrenLength = children.length;
-		const searchResultsLength = results.length;
-		const minLength = Math.min( childrenLength, searchResultsLength );
-		for( let i = 0, imax = minLength; i < imax; ++i ) {
+		const resultsLength = results.length;
+		const predefinedsLength = predefineds ? predefineds.length : 0;
+		const totalLength = predefinedsLength + resultsLength;
+		const minLength = Math.min( childrenLength, totalLength );
+		for( let i = 0; i < minLength; ++i ) {
 			const child = children[ i ];
-			const result = results[ i ];
+			const result = i < predefinedsLength ? predefineds![ i ] : results[ i - predefinedsLength ];
 			if( child instanceof DListItem ) {
 				child.text = itemTextFormatter( result, this );
 				child.value = result;
@@ -283,8 +289,8 @@ export class DDialogSelect<
 		}
 
 		// Insert new children
-		for( let i = minLength, imax = searchResultsLength; i < imax; ++i ) {
-			const result = results[ i ];
+		for( let i = minLength; i < totalLength; ++i ) {
+			const result = i < predefinedsLength ? predefineds![ i ] : results[ i - predefinedsLength ];
 			const newChild = this.newItem( result, itemTextFormatter( result, this ) );
 			content.addChild( newChild );
 		}
