@@ -65,7 +65,7 @@ export interface DDiagramEditorEvents<EMITTER> extends DDiagramBaseEvents<DDiagr
 	 * @param operation an operation ID
 	 * @param emitter an emitter
 	 */
-	fail( operation: "save" | "save-as" | "open" | "delete", emitter: EMITTER ): void;
+	fail( operation: "save" | "save-as" | "open" | "delete", reason: string, emitter: EMITTER ): void;
 }
 
 /**
@@ -159,10 +159,10 @@ export class DDiagramEditor<
 					this.emit( "change", this );
 					this.emit( "success", "save", this );
 				}, ( reason: any ): void => {
-					this.emit( "fail", "save", this );
+					this.emit( "fail", "save", reason, this );
 				});
 			} else {
-				this.emit( "fail", "save", this );
+				this.emit( "fail", "save", "no-controller", this );
 				return Promise.reject();
 			}
 		}
@@ -191,10 +191,10 @@ export class DDiagramEditor<
 					this.emit( "change", this );
 					this.emit( "success", "save-as", this );
 				}, ( reason: any ): void => {
-					this.emit( "fail", "save-as", this );
+					this.emit( "fail", "save-as", reason, this );
 				});
 			} else {
-				this.emit( "fail", "save-as", this );
+				this.emit( "fail", "save-as", "no-controller", this );
 				return Promise.reject( "no-controller" );
 			}
 		}
@@ -212,10 +212,10 @@ export class DDiagramEditor<
 					this.set( null );
 					this.emit( "success", "delete", this );
 				}, ( reason: any ): void => {
-					this.emit( "fail", "delete", this );
+					this.emit( "fail", "delete", reason, this );
 				});
 			} else {
-				this.emit( "fail", "delete", this );
+				this.emit( "fail", "delete", "no-controller", this );
 				return Promise.reject( "no-controller" );
 			}
 		}
@@ -266,10 +266,10 @@ export class DDiagramEditor<
 				this.set( DDiagrams.toSerialized( serialized ) );
 				this.emit( "success", "open", this );
 			}, ( reason: any ): void => {
-				this.emit( "fail", "open", this );
+				this.emit( "fail", "open", reason, this );
 			});
 		}
-		this.emit( "fail", "open", this );
+		this.emit( "fail", "open", "no-controller", this );
 		return Promise.reject( "no-controller" );
 	}
 
