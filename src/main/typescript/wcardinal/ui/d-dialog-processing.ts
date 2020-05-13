@@ -57,7 +57,9 @@ export class DDialogProcessing<
 		if( closeTimeoutId != null ) {
 			clearTimeout( closeTimeoutId );
 		}
-		this._message.setStates( DBaseState.NONE, DBaseState.SUCCEEDED | DBaseState.FAILED );
+		const message = this._message;
+		message.text = this._messageText;
+		message.setStates( DBaseState.NONE, DBaseState.SUCCEEDED | DBaseState.FAILED );
 		const buttonLayout = this._buttonLayout;
 		if( buttonLayout != null ) {
 			buttonLayout.hide();
@@ -76,7 +78,9 @@ export class DDialogProcessing<
 	}
 
 	protected onResolved( message?: string ): void {
-		this._message.text = ( message != null ? message : this._messageText );
+		if( message != null ) {
+			this._message.text = message;
+		}
 		this._message.setStates( DBaseState.SUCCEEDED, DBaseState.FAILED );
 		const delayClose = this._delayClose;
 		if( delayClose != null ) {
@@ -92,7 +96,9 @@ export class DDialogProcessing<
 	}
 
 	protected onRejected( message?: string ): void {
-		this._message.text = ( message != null ? message : this._messageText );
+		if( message != null ) {
+			this._message.text = message;
+		}
 		this._message.setStates( DBaseState.FAILED, DBaseState.SUCCEEDED );
 		const buttonLayout = this._buttonLayout;
 		if( buttonLayout != null ) {
