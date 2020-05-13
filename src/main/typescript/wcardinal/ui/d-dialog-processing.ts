@@ -9,11 +9,15 @@ import { DDialogConfirmMessage, DDialogConfirmMessageOptions } from "./d-dialog-
 import { DDialogProcessingMessage } from "./d-dialog-processing-message";
 
 export interface DDialogProcessingOptions<THEME extends DThemeDialogProcessing> extends DDialogConfirmOptions<THEME> {
-	interval?: number;
+	delay?: {
+		done?: number;
+		close?: number | null;
+	};
 }
 
 export interface DThemeDialogProcessing extends DThemeDialogConfirm {
-	getInterval(): number;
+	getDoneDelay(): number;
+	getCloseDelay(): number | null;
 }
 
 export class DDialogProcessing<
@@ -22,14 +26,20 @@ export class DDialogProcessing<
 > extends DDialogConfirm<THEME, OPTIONS> {
 	protected _isDone: boolean;
 	protected _startTime: number;
-	protected _interval: number;
+	protected _delayDone: number;
+	protected _delayClose: number | null;
 	protected _timeoutId?: number;
+	protected _messageText: unknown;
+	protected _closeTimeoutId?: number;
 
 	constructor( options?: OPTIONS ) {
 		super( options );
 		this._isDone = true;
 		this._startTime =  0;
-		this._interval = ( options && options.interval != null ? options.interval : this.theme.getInterval() );
+		const delay = options && options.delay;
+		this._delayDone = ( delay && delay.done != null ? delay.done : this.theme.getDoneDelay() );
+		this._delayClose = ( delay && delay.close !== undefined ? delay.close : this.theme.getCloseDelay() );
+		this._messageText = this._message.text;
 	}
 
 	protected newMessage( options: DDialogConfirmMessageOptions ): DDialogConfirmMessage {
@@ -43,44 +53,60 @@ export class DDialogProcessing<
 		if( timeoutId != null ) {
 			clearTimeout( timeoutId );
 		}
+		const closeTimeoutId = this._closeTimeoutId;
+		if( closeTimeoutId != null ) {
+			clearTimeout( closeTimeoutId );
+		}
 		this._message.setStates( DBaseState.NONE, DBaseState.SUCCEEDED | DBaseState.FAILED );
 		const buttonLayout = this._buttonLayout;
 		if( buttonLayout != null ) {
-			buttonLayout.setDisabled( true );
+			buttonLayout.hide();
 		}
 		super.onOpen();
 	}
 
-	protected onDone(): void {
-		const buttonLayout = this._buttonLayout;
-		if( buttonLayout != null ) {
-			buttonLayout.setDisabled( false );
+	protected onDone( delay: number | null ) {
+		if( delay != null ) {
+			this._closeTimeoutId = window.setTimeout(() => {
+				this.close();
+			}, delay );
 		} else {
 			this.close();
 		}
 	}
 
 	protected onResolved( message?: string ): void {
-		if( message != null ) {
-			this._message.text = message;
-		}
+		this._message.text = ( message != null ? message : this._messageText );
 		this._message.setStates( DBaseState.SUCCEEDED, DBaseState.FAILED );
-		this.onDone();
+		const delayClose = this._delayClose;
+		if( delayClose != null ) {
+			this.onDone( delayClose );
+		} else {
+			const buttonLayout = this._buttonLayout;
+			if( buttonLayout != null ) {
+				buttonLayout.show();
+			} else {
+				this.close();
+			}
+		}
 	}
 
 	protected onRejected( message?: string ): void {
-		if( message != null ) {
-			this._message.text = message;
-		}
+		this._message.text = ( message != null ? message : this._messageText );
 		this._message.setStates( DBaseState.FAILED, DBaseState.SUCCEEDED );
-		this.onDone();
+		const buttonLayout = this._buttonLayout;
+		if( buttonLayout != null ) {
+			buttonLayout.show();
+		} else {
+			this.onDone( this._delayClose );
+		}
 	}
 
 	resolve( message?: string ): void {
 		if( ! this._isDone ) {
 			this._isDone = true;
 			const elapsedTime = Date.now() - this._startTime;
-			const delay = this._interval - elapsedTime;
+			const delay = this._delayDone - elapsedTime;
 			if( 0 < delay ) {
 				this._timeoutId = window.setTimeout((): void => {
 					this._timeoutId = undefined;
@@ -96,7 +122,7 @@ export class DDialogProcessing<
 		if( ! this._isDone ) {
 			this._isDone = true;
 			const elapsedTime = Date.now() - this._startTime;
-			const delay = this._interval - elapsedTime;
+			const delay = this._delayDone - elapsedTime;
 			if( 0 < delay ) {
 				this._timeoutId = window.setTimeout((): void => {
 					this._timeoutId = undefined;

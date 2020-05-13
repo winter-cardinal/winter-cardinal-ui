@@ -32,7 +32,11 @@ export class DThemeDarkDialogProcessing extends DThemeDarkDialogConfirm implemen
 		return message;
 	}
 
-	getInterval(): number {
+	getDoneDelay(): number {
 		return 400;
+	}
+
+	getCloseDelay(): number | null {
+		return 1000;
 	}
 }
