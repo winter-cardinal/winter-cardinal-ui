@@ -52,20 +52,42 @@ export interface DDiagramEditorEvents<EMITTER> extends DDiagramBaseEvents<DDiagr
 	saving( simple: DDiagramSerializedSimple, emitter: EMITTER ): void;
 
 	/**
-	 * Triggered when an operation is successfully finished.
+	 * Triggered when saved successfully or when failed to save.
 	 *
-	 * @param operation an operation ID
+	 * @param reason Null if succeeded. Otherwise, a string representing a reason.
 	 * @param emitter an emitter
 	 */
-	success( operation: "save" | "save-as" | "open" | "delete", emitter: EMITTER ): void;
+	saved( reason: string | null, emitter: EMITTER ): void;
 
 	/**
-	 * Triggered when an operation is failed.
+	 * Triggered before opening.
 	 *
-	 * @param operation an operation ID
 	 * @param emitter an emitter
 	 */
-	fail( operation: "save" | "save-as" | "open" | "delete", reason: string, emitter: EMITTER ): void;
+	opening( emitter: EMITTER ): void;
+
+	/**
+	 * Triggered when opened successfully or when failed to open.
+	 *
+	 * @param reason Null if succeeded. Otherwise, a string representing a reason.
+	 * @param emitter an emitter
+	 */
+	opened( reason: string | null, emitter: EMITTER ): void;
+
+	/**
+	 * Triggered before deleting.
+	 *
+	 * @param emitter an emitter
+	 */
+	deleting( emitter: EMITTER ): void;
+
+	/**
+	 * Triggered when deleted successfully or when failed to delete.
+	 *
+	 * @param reason Null if succeeded. Otherwise, a string representing a reason.
+	 * @param emitter an emitter.
+	 */
+	deleted( reason: string | null, emitter: EMITTER ): void;
 }
 
 /**
@@ -157,16 +179,16 @@ export class DDiagramEditor<
 					serialized.id = newId;
 					this._serialized = serialized;
 					this.emit( "change", this );
-					this.emit( "success", "save", this );
-				}, ( reason: any ): void => {
-					this.emit( "fail", "save", reason, this );
+					this.emit( "saved", null, this );
+				}, ( reason: string ): void => {
+					this.emit( "saved", reason, this );
 				});
 			} else {
-				this.emit( "fail", "save", "no-controller", this );
+				this.emit( "saved", "no-controller", this );
 				return Promise.reject();
 			}
 		}
-		this.emit( "success", "save", this );
+		this.emit( "saved", null, this );
 		return Promise.resolve();
 	}
 
@@ -189,16 +211,16 @@ export class DDiagramEditor<
 						canvas.name = name;
 					}
 					this.emit( "change", this );
-					this.emit( "success", "save-as", this );
-				}, ( reason: any ): void => {
-					this.emit( "fail", "save-as", reason, this );
+					this.emit( "saved", null, this );
+				}, ( reason: string ): void => {
+					this.emit( "saved", reason, this );
 				});
 			} else {
-				this.emit( "fail", "save-as", "no-controller", this );
+				this.emit( "saved", "no-controller", this );
 				return Promise.reject( "no-controller" );
 			}
 		}
-		this.emit( "success", "save-as", this );
+		this.emit( "saved", null, this );
 		return Promise.resolve();
 	}
 
@@ -207,20 +229,21 @@ export class DDiagramEditor<
 		if( serialized && serialized.id != null ) {
 			const controller = this._controller;
 			if( controller ) {
+				this.emit( "deleting", this );
 				return controller.delete( serialized.id )
 				.then((): void => {
 					this.set( null );
-					this.emit( "success", "delete", this );
-				}, ( reason: any ): void => {
-					this.emit( "fail", "delete", reason, this );
+					this.emit( "deleted", this );
+				}, ( reason: string ): void => {
+					this.emit( "deleted", reason, this );
 				});
 			} else {
-				this.emit( "fail", "delete", "no-controller", this );
+				this.emit( "deleted", "no-controller", this );
 				return Promise.reject( "no-controller" );
 			}
 		}
 		this.set( null );
-		this.emit( "success", "delete", this );
+		this.emit( "deleted", null, this );
 		return Promise.resolve();
 	}
 
@@ -261,15 +284,16 @@ export class DDiagramEditor<
 	open( id: number ): Promise<unknown> {
 		const controller = this._controller;
 		if( controller ) {
+			this.emit( "opening", this );
 			return controller.get( id )
 			.then(( serialized: DDiagramSerializedSimple | DDiagramSerialized ): void => {
 				this.set( DDiagrams.toSerialized( serialized ) );
-				this.emit( "success", "open", this );
-			}, ( reason: any ): void => {
-				this.emit( "fail", "open", reason, this );
+				this.emit( "opened", null, this );
+			}, ( reason: string ): void => {
+				this.emit( "opened", reason, this );
 			});
 		}
-		this.emit( "fail", "open", "no-controller", this );
+		this.emit( "opened", "no-controller", this );
 		return Promise.reject( "no-controller" );
 	}
 
