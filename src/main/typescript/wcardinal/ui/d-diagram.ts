@@ -57,7 +57,7 @@ export class DDiagram<
 	tag: DDiagramTag;
 	shape: DDiagramShape;
 
-	constructor( options: OPTIONS ) {
+	constructor( options?: OPTIONS ) {
 		super( options );
 
 		// Hover handling
@@ -91,7 +91,7 @@ export class DDiagram<
 		});
 
 		//
-		this.tag = new DDiagramTag( this );
+		this.tag = new DDiagramTag( this, options && options.tag );
 		this.shape = new DDiagramShape( this );
 	}
 
@@ -193,7 +193,6 @@ export class DDiagram<
 	}
 
 	protected toCanvasOptions( serialized: DDiagramSerialized ): DDiagramCanvasOptions {
-		const options = this._options;
 		return {
 			name: serialized.name,
 			width: serialized.width,
@@ -208,7 +207,9 @@ export class DDiagram<
 				factory: this._tileFactory,
 				mapping: serialized.tile && serialized.tile.mapping
 			},
-			tag: options && options.tag
+			tag: {
+				mapper: this.tag.mapper || undefined
+			}
 		};
 	}
 

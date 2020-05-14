@@ -1,3 +1,4 @@
+import { DDiagramCanvasTagMapper, DDiagramCanvasTagOptions } from "./d-diagram-canvas";
 import { DDiagramCanvasTagMap } from "./d-diagram-canvas-tag-map";
 import { EShapeTagValueRangeType } from "./shape/e-shape-tag-value-range";
 
@@ -14,13 +15,23 @@ export interface DDiagramTagDiagram {
  */
 export class DDiagramTag {
 	protected _diagram: DDiagramTagDiagram;
+	protected _mapper: DDiagramCanvasTagMapper | null;
 
-	constructor( diagram: DDiagramTagDiagram ) {
+	constructor( diagram: DDiagramTagDiagram, options?: DDiagramCanvasTagOptions ) {
 		this._diagram = diagram;
+		this._mapper = (options && options.mapper) || null;
 	}
 
 	update(): void {
 		// DO NOTHING
+	}
+
+	get mapper(): DDiagramCanvasTagMapper | null {
+		return this._mapper;
+	}
+
+	set mapper( mapper: DDiagramCanvasTagMapper | null ) {
+		this._mapper = mapper;
 	}
 
 	getIds(): string[] {
