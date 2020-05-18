@@ -48,7 +48,7 @@ export class DBasePoint {
 		const point = this._point;
 		const oldX = point.x;
 		const oldY = point.y;
-		if( oldY !== x || oldY !== y ) {
+		if( oldX !== x || oldY !== y ) {
 			point.set( x, y );
 			this._onChange( x, y, oldX, oldY );
 		}
