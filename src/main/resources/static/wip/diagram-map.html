@@ -1,0 +1,193 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>WebGL-based Diagram Map</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #2196F3;
+	}
+
+	/* BANNER */
+	#banner {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+	}
+
+	#banner.done {
+		animation: banner-done-keys 0.75s 1 ease-in-out;
+	}
+
+	@keyframes banner-done-keys {
+		0% { opacity: 1; }
+		100% { opacity: 0; }
+	}
+
+	#banner p {
+		position: absolute;
+		top: 45%;
+		left: 50%;
+		transform: translate(-50%, -100%);
+
+		color: #eeeeee;
+		font-size: 24px;
+		font-weight: bold;
+		font-variant: small-caps;
+		text-align: center;
+	}
+	</style>
+</head>
+<body>
+	<div id="banner">
+		<p>WebGL-base Diagram Map</p>
+	</div>
+	<script>
+	window.banner = {
+		close: function() {
+			setTimeout(function(){
+				var banner = document.querySelector( "#banner" );
+				if( banner.style.animationName !== undefined ) {
+					banner.setAttribute( "class", "done" );
+					banner.addEventListener( "animationend", function( e ) {
+						if( banner === e.target && banner.parentElement != null ) {
+							banner.parentElement.removeChild( banner );
+						}
+					});
+				} else {
+					banner.parentElement.removeChild( banner );
+				}
+			}, 500);
+		}
+	};
+	</script>
+	<script src="/webjars/pixi/pixi.js"></script>
+	<script src="/webjars/wcardinal-ui/wcardinal-ui.js"></script>
+	<script src="/webjars/wcardinal-ui/wcardinal-ui-theme-white.min.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication({
+			background: {
+				color: 0x2196F3
+			}
+		});
+
+		const diagram = new wcardinal.ui.DDiagram({
+			parent: application.stage,
+			x: 0, y: 0,
+			width: "100%", height: "100%",
+			zoom: {
+				min: 0.01
+			},
+			tile: ( canvas ) => {
+				return wcardinal.ui.DMapTilePyramids.from({
+					canvas: canvas
+				});
+			}
+		});
+
+		const gscale = 0.3652971972116819;
+		const gx = -17041.889912271465;
+		const gy = -8801.74251553155;
+		const gduration = 5000;
+
+		new wcardinal.ui.DLayoutHorizontal({
+			parent: application.stage,
+			x: "100%-100s-10", y: "100%-100s-10",
+			width: "auto", height: "auto",
+			children: [
+				new wcardinal.ui.DButton({
+					text: {
+						value: "-"
+					},
+					title: "Zoom out",
+					on: {
+						active: () => {
+							diagram.view.zoomOut();
+						}
+					}
+				}),
+				new wcardinal.ui.DButton({
+					text: {
+						value: "+"
+					},
+					title: "Zoom in",
+					on: {
+						active: () => {
+							diagram.view.zoomIn();
+						}
+					}
+				}),
+				new wcardinal.ui.DButton({
+					text: {
+						value: "Reset"
+					},
+					title: "Reset the zoom level",
+					on: {
+						active: () => {
+							diagram.view.transform( gx, gy, gscale, gscale );
+						}
+					}
+				}),
+				new wcardinal.ui.DButton({
+					text: {
+						value: "Fit"
+					},
+					title: "Fit the viewport to the screen",
+					on: {
+						active: () => {
+							diagram.view.fit();
+						}
+					}
+				})
+			]
+		});
+
+		fetch( "./diagram/diagram.map.json" ).then(( response ) => {
+			response.json().then(( json ) => {
+				diagram.set( json );
+
+				// Banner
+				window.banner.close();
+
+				// Reset
+				diagram.view.transform( gx, gy, gscale, gscale, 0 );
+
+				// Start updating
+				const update = () => {
+					const color = (Math.round(Date.now() / 2000) % 2 ? 0x444488 : 0x88ff88);
+					const shapes = diagram.layer.children;
+					const istart = (Math.random() * 40) | 0;
+					const iinterval = Math.max( 1, (Math.random() * 40) | 0 );
+					for( let i = istart, imax = shapes.length; i < imax; i += iinterval ) {
+						const stroke = shapes[ i ].stroke;
+						if( stroke.color !== 0x31a1ff ) {
+							stroke.color = color;
+						}
+					}
+					application.update();
+					setTimeout( update, 333 );
+				};
+				setTimeout( update, 333 );
+			});
+		});
+	}());
+	</script>
+</body>
+</html>

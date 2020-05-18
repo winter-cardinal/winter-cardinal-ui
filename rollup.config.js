@@ -11,8 +11,8 @@ import fs from 'fs';
 const name = 'wcardinal-ui';
 const SOURCE_DIR = 'dist/';
 const OUTPUT_FILE = `dist/${name}`
-const META_INF_DIR = `src/test/resources/META-INF/resources/webjars/${name}/latest/`;
-const PIXI_DIR = 'src/test/resources/META-INF/resources/webjars/pixi/latest/';
+const META_INF_DIR = `src/main/resources/META-INF/resources/webjars/${name}/latest/`;
+const PIXI_DIR = 'src/main/resources/META-INF/resources/webjars/pixi/latest/';
 
 // License header
 const LICENSE_HEADER_LINES = fs.readFileSync( './LICENSE_HEADER', 'UTF-8' ).split( '\n' );
