@@ -37,6 +37,6 @@ export class DThemeDarkDialogProcessing extends DThemeDarkDialogConfirm implemen
 	}
 
 	getCloseDelay(): number | null {
-		return 1000;
+		return 600;
 	}
 }

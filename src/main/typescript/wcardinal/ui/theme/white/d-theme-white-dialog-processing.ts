@@ -37,6 +37,6 @@ export class DThemeWhiteDialogProcessing extends DThemeWhiteDialogConfirm implem
 	}
 
 	getCloseDelay(): number | null {
-		return 1000;
+		return 600;
 	}
 }
