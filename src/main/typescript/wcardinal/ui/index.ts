@@ -62,6 +62,8 @@ export * from "./d-button-undo";
 export * from "./d-button";
 export * from "./d-canvas-container";
 export * from "./d-canvas";
+export * from "./d-chart-axis-base-options-parser";
+export * from "./d-chart-axis-base-options";
 export * from "./d-chart-axis-base";
 export * from "./d-chart-axis-container-impl";
 export * from "./d-chart-axis-container";

@@ -19,7 +19,9 @@ import { DThemes } from "./theme/d-themes";
 import { DeepPartial } from "./util/deep-partial";
 import { isNaN } from "./util/is-nan";
 
-export class DChartAxisBase implements DChartAxis {
+export class DChartAxisBase<
+	OPTIONS extends DChartAxisBaseOptions = DChartAxisBaseOptions
+> implements DChartAxis {
 	protected _coordinateIndex: number;
 	protected _padding: number;
 	protected _position: DChartAxisPosition;
@@ -32,7 +34,7 @@ export class DChartAxisBase implements DChartAxis {
 	protected _label?: DeepPartial<EShapeTextLike>;
 	protected _theme: DThemeChartAxisBase;
 
-	constructor( options?: DChartAxisBaseOptions ) {
+	constructor( options?: OPTIONS ) {
 		const theme = this.toTheme( options );
 		this._theme = theme;
 		this._index = 0;

@@ -4,11 +4,18 @@
  */
 
 import { DChartAxisBase } from "./d-chart-axis-base";
+import { DChartAxisBaseOptions } from "./d-chart-axis-base-options";
+
+export interface DChartAxisYOptions extends DChartAxisBaseOptions {
+
+}
 
 /**
  * An Y axis.
  */
-export class DChartAxisY extends DChartAxisBase {
+export class DChartAxisY<
+	OPTIONS extends DChartAxisYOptions = DChartAxisYOptions
+> extends DChartAxisBase<OPTIONS> {
 	protected getType(): string {
 		return "DChartAxisY";
 	}
