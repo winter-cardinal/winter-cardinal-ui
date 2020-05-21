@@ -96,9 +96,9 @@ export class DChartPlotArea<
 
 		// Overflow mask
 		this._overflowMask = null;
-		if( options && options.mask != null ? options.mask :
-			this.theme.isOverflowMaskEnabled() ) {
-			this._container.mask = this.getOrCreateOverflowMask();
+		const mask = options && options.mask;
+		if( mask != null ? mask : this.theme.isOverflowMaskEnabled() ) {
+			container.mask = this.getOrCreateOverflowMask();
 		}
 	}
 

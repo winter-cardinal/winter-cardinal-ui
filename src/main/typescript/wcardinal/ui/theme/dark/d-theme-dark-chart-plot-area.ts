@@ -5,16 +5,24 @@
 
 import { DBaseState } from "../../d-base-state";
 import { DThemeChartPlotArea } from "../../d-chart-plot-area";
-import { DCoordinateSize } from "../../d-coordinate";
+import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
 import { DThemeDarkBase } from "./d-theme-dark-base";
 
 export class DThemeDarkChartPlotArea extends DThemeDarkBase implements DThemeChartPlotArea {
+	getX(): DCoordinatePosition {
+		return "padding";
+	}
+
+	getY(): DCoordinatePosition {
+		return "padding";
+	}
+
 	getWidth(): DCoordinateSize {
-		return "100%";
+		return "padding";
 	}
 
 	getHeight(): DCoordinateSize {
-		return "100%";
+		return "padding";
 	}
 
 	getPaddingTop(): number {

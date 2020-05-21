@@ -48,7 +48,7 @@ export class DThemeWhiteChartAxisBase implements DThemeChartAxisBase {
 	}
 
 	getLabelPaddingHorizontal(): number {
-		return 75;
+		return 50;
 	}
 
 	getLabelPaddingVertical(): number {

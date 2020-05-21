@@ -32,11 +32,7 @@ export class DBaseOverflowMask extends Graphics implements DReflowable {
 		this.beginFill( 0xFFFFFF, 1 );
 		this.lineStyle( 0, 0, 0, 0, false );
 		if( tl <= 0 && tr <= 0 && bl <= 0 && br <= 0 ) {
-			this.moveTo( x, y );
-			this.lineTo( x + width, y );
-			this.lineTo( x + width, y + height );
-			this.lineTo( x, y + height );
-			this.lineTo( x, y );
+			this.drawRect( x, y, width, height );
 		} else {
 			this.moveTo( x + tl, y );
 			if( 0 < tr ) {
