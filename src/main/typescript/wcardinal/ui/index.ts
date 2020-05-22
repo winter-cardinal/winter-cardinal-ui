@@ -102,6 +102,7 @@ export * from "./d-chart-series-fill-computed-impl";
 export * from "./d-chart-series-fill-computed";
 export * from "./d-chart-series-fill-impl";
 export * from "./d-chart-series-fill";
+export * from "./d-chart-series-line-of-any";
 export * from "./d-chart-series-line-of-circles";
 export * from "./d-chart-series-line-of-rectangle-roundeds";
 export * from "./d-chart-series-line-of-rectangles";

@@ -4,14 +4,13 @@
  */
 
 import { IPoint } from "pixi.js";
-import { DChartSeriesFillComputed } from ".";
 import { DChartCoordinate } from "./d-chart-coordinate";
 import { DChartPlotArea } from "./d-chart-plot-area";
 import { DChartRegion } from "./d-chart-region";
 import { DChartSelection } from "./d-chart-selection";
 import { DChartSeries, DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesFillOptions } from "./d-chart-series-fill";
-import { DChartSeriesFillComputedOptions } from "./d-chart-series-fill-computed";
+import { DChartSeriesFillComputed, DChartSeriesFillComputedOptions } from "./d-chart-series-fill-computed";
 import { DChartSeriesPaddingOptions } from "./d-chart-series-padding";
 import {
 	DChartSeriesPaddingComputed, DChartSeriesPaddingComputedOptions
