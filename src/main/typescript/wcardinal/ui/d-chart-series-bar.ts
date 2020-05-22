@@ -119,9 +119,10 @@ export class DChartSeriesBar extends DChartSeriesLineOfAny {
 				this._xcoordinateId = xcoordinateId;
 				this._xcoordinateTransformId = xcoordinateTransformId;
 
-				const x0 = xcoordinate.transform.map( xcoordinate.map( 0 ) );
-				const x1 = xcoordinate.transform.map( xcoordinate.map( size.x ) );
-				const totalBandWidth = Math.abs( x1 - x0 ) * ( 1 - padding.outer );
+				const totalBandWidth = Math.abs(
+					xcoordinate.transform.map( xcoordinate.map( 0 ) ) -
+					xcoordinate.transform.map( xcoordinate.map( size.x ) )
+				) * ( 1 - padding.outer );
 				if( barCount <= 1 ) {
 					line.points.offset.x = offset.x;
 					line.points.size.x = totalBandWidth;
@@ -183,13 +184,31 @@ export class DChartSeriesBar extends DChartSeriesLineOfAny {
 		super.applyLine( line, xcoordinate, ycoordinate, sx, sy, cx, cy, values );
 	}
 
+	protected calcSizeX( def: number ): number {
+		const points = this._points;
+		if( 2 < points.length ) {
+			let x0: number | null = points[ 0 ];
+			for( let i = 2, imax = points.length; i < imax; i += 2 ) {
+				const x1 = points[ i ];
+				if( x0 != null && x1 != null ) {
+					return x1 - x0;
+				} else {
+					x0 = x1;
+				}
+			}
+		}
+		return def;
+	}
+
 	protected calcRegion( points: Array<number | null>, domain: DChartRegion, range: DChartRegion ): void {
 		super.calcRegion( points, domain, range );
 
 		const size = this._size;
 		if( size ) {
-			const sx = size.x * 0.5;
-			domain.set( domain.from - sx, domain.to + sx );
+			const sx = this.calcSizeX( size.x );
+			size.x = sx;
+			const sxh = sx * 0.5;
+			domain.set( domain.from - sxh, domain.to + sxh );
 		}
 		range.add( 0, 0 );
 	}
