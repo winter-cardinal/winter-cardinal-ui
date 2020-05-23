@@ -10,9 +10,18 @@ import {
 	DChartSeriesLineOfAny, DChartSeriesLineOfAnyOptions, DChartSeriesLineOfAnyRegion
 } from "./d-chart-series-line-of-any";
 import { DChartSeriesPaddingComputed } from "./d-chart-series-padding-computed";
+import { DChartSeriesPointComputedOptions } from "./d-chart-series-point-computed";
 import { EShapeLineOfAny } from "./shape/variant/e-shape-line-of-any";
 import { EShapeLineOfRectangles } from "./shape/variant/e-shape-line-of-rectangles";
 import { isArray } from "./util/is-array";
+
+export interface DChartSeriesBarSizeOptions extends DChartSeriesPointComputedOptions {
+	auto?: boolean;
+}
+
+export interface DChartSeriesBarOptions extends DChartSeriesLineOfAnyOptions {
+	size?: DChartSeriesBarSizeOptions;
+}
 
 /**
  * A series represents bars.
@@ -24,13 +33,15 @@ export class DChartSeriesBar extends DChartSeriesLineOfAny {
 	protected _xcoordinateId: number;
 	protected _xcoordinateTransformId: number;
 	protected _padding?: DChartSeriesPaddingComputed;
+	protected _isSizeAutomatic: boolean;
 
-	constructor( options?: DChartSeriesLineOfAnyOptions ) {
+	constructor( options?: DChartSeriesBarOptions ) {
 		super( options );
 		this._barCount = -1;
 		this._barIndex = -1;
 		this._xcoordinateId = -1;
 		this._xcoordinateTransformId = -1;
+		this._isSizeAutomatic = (options && options.size && options.size.auto) !== false;
 	}
 
 	bind( container: DChartSeriesContainer, index: number ): void {
@@ -187,11 +198,12 @@ export class DChartSeriesBar extends DChartSeriesLineOfAny {
 	protected calcSizeX( def: number ): number {
 		const points = this._points;
 		if( 2 < points.length ) {
-			let x0: number | null = points[ 0 ];
-			for( let i = 2, imax = points.length; i < imax; i += 2 ) {
+			const pointsLength = points.length;
+			let x0: number | null = points[ pointsLength - 2 ];
+			for( let i = pointsLength - 4; 0 <= i; i -= 2 ) {
 				const x1 = points[ i ];
 				if( x0 != null && x1 != null ) {
-					return x1 - x0;
+					return Math.abs(x0 - x1);
 				} else {
 					x0 = x1;
 				}
@@ -205,8 +217,11 @@ export class DChartSeriesBar extends DChartSeriesLineOfAny {
 
 		const size = this._size;
 		if( size ) {
-			const sx = this.calcSizeX( size.x );
-			size.x = sx;
+			let sx = size.x;
+			if( this._isSizeAutomatic ) {
+				sx = this.calcSizeX( sx );
+				size.x = sx;
+			}
 			const sxh = sx * 0.5;
 			domain.set( domain.from - sxh, domain.to + sxh );
 		}
