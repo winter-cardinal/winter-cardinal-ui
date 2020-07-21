@@ -4,20 +4,17 @@
  */
 
 import { utils } from "pixi.js";
-import { DBaseState } from "./d-base-state";
 import { DButtonBase } from "./d-button-base";
-
-type BUTTON = DButtonBase<any, any, any>;
 
 export interface DButtonGroupOptions {
 	on?: { [name: string]: Function };
 }
 
-export class DButtonGroup extends utils.EventEmitter {
+export class DButtonGroup<
+	BUTTON extends DButtonBase<any, any, any> = DButtonBase<any, any, any>
+> extends utils.EventEmitter {
 	protected _buttons: BUTTON[];
 	protected _active: BUTTON | null;
-	protected _stateOn: DBaseState;
-	protected _stateOff: DBaseState;
 	protected _onActiveBound: ( button: BUTTON ) => void;
 
 	constructor( options?: DButtonGroupOptions ) {
@@ -25,8 +22,6 @@ export class DButtonGroup extends utils.EventEmitter {
 
 		this._buttons = [];
 		this._active = null;
-		this._stateOn = DBaseState.NONE;
-		this._stateOff = DBaseState.NONE;
 		this._onActiveBound = ( button: BUTTON ): void => {
 			this.onActive( button );
 		};
@@ -50,7 +45,6 @@ export class DButtonGroup extends utils.EventEmitter {
 		const index = buttons.indexOf( button );
 		if( index < 0 ) {
 			this._buttons.push( button );
-			button.state.set( this._stateOn, this._stateOff );
 			button.on( "active", this._onActiveBound );
 			if( button.state.isActive ) {
 				this.onActive( button );
@@ -90,82 +84,36 @@ export class DButtonGroup extends utils.EventEmitter {
 		return ( 0 <= index );
 	}
 
-	setHovered( isHovered: boolean ) {
-		return this.setState( DBaseState.HOVERED, isHovered );
-	}
-
-	setActive( isActive: boolean ) {
-		return this.setState( DBaseState.ACTIVE, isActive );
-	}
-
-	setReadOnly( isReadOnly: boolean ) {
-		return this.setState( DBaseState.READ_ONLY, isReadOnly );
-	}
-
-	setDisabled( isDisabled: boolean ) {
-		return this.setState( DBaseState.DISABLED, isDisabled );
-	}
-
-	setDragging( isDragging: boolean ) {
-		return this.setState( DBaseState.DRAGGING, isDragging );
-	}
-
-	isHovered(): boolean {
-		return this.hasState( DBaseState.HOVERED );
-	}
-
-	isActive(): boolean {
-		return this.hasState( DBaseState.ACTIVE );
-	}
-
-	isReadOnly(): boolean {
-		return this.hasState( DBaseState.READ_ONLY );
-	}
-
-	isDisabled(): boolean {
-		return this.hasState( DBaseState.DISABLED );
-	}
-
-	isDragging(): boolean {
-		return this.hasState( DBaseState.DRAGGING );
-	}
-
-	isFocused(): boolean {
-		return this.hasState( DBaseState.FOCUSED );
-	}
-
-	isUnfocusable(): boolean {
-		return this.hasState( DBaseState.UNFOCUSABLE );
-	}
-
-	setState( state: DBaseState, isOn: boolean ) {
-		if( isOn ) {
-			this._stateOn |= state;
-			this._stateOff &= ~state;
-		} else {
-			this._stateOff |= state;
-			this._stateOn &= ~state;
-		}
-
-		const buttons = this._buttons;
-		for( let i = 0, imax = buttons.length; i < imax; ++i ) {
-			buttons[ i ].state.set( state, isOn );
-		}
-		return this;
-	}
-
-	hasState( state: DBaseState ): boolean {
-		const buttons = this._buttons;
-		for( let i = 0, imax = buttons.length; i < imax; ++i ) {
-			if( buttons[ i ].state.is( state ) ) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	clear(): void {
 		this._buttons.length = 0;
+	}
+
+	size(): number {
+		return this._buttons.length;
+	}
+
+	each( iteratee: ( button: BUTTON ) => boolean | void ): void {
+		const buttons = this._buttons;
+		for( let i = 0, imax = buttons.length; i < imax; ++i ) {
+			const button = buttons[ i ];
+			if( iteratee( button ) === false ) {
+				break;
+			}
+		}
+	}
+
+	disable(): void {
+		const buttons = this._buttons;
+		for( let i = 0, imax = buttons.length; i < imax; ++i ) {
+			buttons[ i ].state.isDisabled = true;
+		}
+	}
+
+	enable(): void {
+		const buttons = this._buttons;
+		for( let i = 0, imax = buttons.length; i < imax; ++i ) {
+			buttons[ i ].state.isDisabled = false;
+		}
 	}
 
 	destroy(): void {
