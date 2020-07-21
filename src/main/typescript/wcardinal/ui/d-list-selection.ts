@@ -86,7 +86,7 @@ export class DListSelection extends utils.EventEmitter {
 			for( let i = 0, imax = children.length; i < imax; ++i ) {
 				const child = children[ i ];
 				if( child instanceof DBase ) {
-					if( child.isActive() ) {
+					if( child.state.isActive ) {
 						indices.push( i );
 					}
 				}
@@ -138,7 +138,7 @@ export class DListSelection extends utils.EventEmitter {
 			for( let i = 0, imax = indices.length; i < imax; ++i ) {
 				const child = children[ indices[ i ] ];
 				if( child instanceof DBase ) {
-					child.setActive( false );
+					child.state.isActive = false;
 				}
 			}
 			indices.length = 0;
@@ -150,7 +150,7 @@ export class DListSelection extends utils.EventEmitter {
 		const mode = this._mode;
 		const content = this._content;
 		if( mode === DListSelectionMode.SINGLE ) {
-			if( ! target.isActive() ) {
+			if( ! target.state.isActive ) {
 				this.update();
 
 				// Remove the existing
@@ -159,22 +159,22 @@ export class DListSelection extends utils.EventEmitter {
 				for( let i = 0, imax = indices.length; i < imax; ++i ) {
 					const child = children[ indices[ i ] ];
 					if( child instanceof DBase ) {
-						child.setActive( false );
+						child.state.isActive = false;
 					}
 				}
 				indices.length = 0;
 
 				// Add a new child
 				indices.push( content.getChildIndex( target ) );
-				target.setActive( true );
+				target.state.isActive = true;
 
 				// Event
 				this.emit( "change", this );
 			}
 		} else if( mode === DListSelectionMode.MULTIPLE ) {
-			if( ! target.isActive() ) {
+			if( ! target.state.isActive ) {
 				if( this._isDirty ) {
-					target.setActive( true );
+					target.state.isActive = true;
 					this.emit( "change", this );
 				} else {
 					// Find an insertion position
@@ -183,11 +183,11 @@ export class DListSelection extends utils.EventEmitter {
 					for( let i = 0, imax = indices.length; i < imax; ++i ) {
 						const index = indices[ i ];
 						if( targetIndex === index ) {
-							target.setActive( true );
+							target.state.isActive = true;
 							return;
 						} else if( targetIndex < index ) {
 							indices.splice( i, 0, targetIndex );
-							target.setActive( true );
+							target.state.isActive = true;
 							this.emit( "change", this );
 							return;
 						}
@@ -195,7 +195,7 @@ export class DListSelection extends utils.EventEmitter {
 
 					// Push
 					indices.push( targetIndex );
-					target.setActive( true );
+					target.state.isActive = true;
 					this.emit( "change", this );
 				}
 			}
@@ -203,9 +203,9 @@ export class DListSelection extends utils.EventEmitter {
 	}
 
 	remove<T extends DBase<any, any>>( target: T ) {
-		if( ! target.isActive() ) {
+		if( ! target.state.isActive ) {
 			if( this._isDirty ) {
-				target.setActive( false );
+				target.state.isActive = false;
 				this.emit( "change", this );
 			} else {
 				const indices = this._indices;
@@ -215,7 +215,7 @@ export class DListSelection extends utils.EventEmitter {
 					const index = indices[ i ];
 					if( targetIndex === index ) {
 						indices.splice( i, 1 );
-						target.setActive( false );
+						target.state.isActive = false;
 						this.emit( "change", this );
 						return;
 					}

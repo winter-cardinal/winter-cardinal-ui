@@ -4,16 +4,16 @@
  */
 
 import { DBaseInteractive } from "../../d-base-interactive";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeCanvasContainer } from "../../d-canvas-container";
 import { DThemeDarkBase } from "./d-theme-dark-base";
 
 export class DThemeDarkCanvasContainer extends DThemeDarkBase implements DThemeCanvasContainer {
-	getBackgroundColor( state: DBaseState ): number | null {
+	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 
-	getBorderColor( state: DBaseState ): number | null {
+	getBorderColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 

@@ -5,7 +5,7 @@
 
 import { DisplayObject, Texture } from "pixi.js";
 import { DAlignWith } from "../../d-align-with";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DLinkMenuItemId } from "../../d-link-menu-item-id";
 import { DMenuOptions } from "../../d-menu";
 import { DThemeTableBodyCellTree } from "../../d-table-body-cell-tree";
@@ -29,15 +29,15 @@ export class DThemeDarkTableBodyCellTree extends DThemeDarkTableBodyCellButton i
 		return -19;
 	}
 
-	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
+	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
 		return DThemeDarkTableBodyCellTrees.getImageSource( state );
 	}
 
-	getImageTintColor( state: DBaseState ): number | null {
+	getImageTintColor( state: DBaseStateSet ): number | null {
 		return DThemeDarkTableBodyCellTrees.getImageTintColor( state );
 	}
 
-	getImageTintAlpha( state: DBaseState ): number {
+	getImageTintAlpha( state: DBaseStateSet ): number {
 		return DThemeDarkTableBodyCellTrees.getImageTintAlpha( state );
 	}
 

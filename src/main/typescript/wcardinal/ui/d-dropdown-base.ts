@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "./d-base-state";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DButtonBase, DButtonBaseEvents, DButtonBaseOptions, DThemeButtonBase } from "./d-button-base";
 import { DMenu, DMenuOptions, DThemeMenu } from "./d-menu";
 import { DMenuItem } from "./d-menu-item";
@@ -48,7 +48,7 @@ export interface DDropdownBaseOptions<
  */
 export interface DThemeDropdownBase<TEXT_VALUE> extends DThemeButtonBase {
 	getTextFormatter(): ( value: TEXT_VALUE, caller: DDropdownBase ) => string;
-	getTextValue( state: DBaseState ): TEXT_VALUE;
+	getTextValue( state: DBaseStateSet ): TEXT_VALUE;
 	newTextValue(): DStateAwareOrValueMightBe<TEXT_VALUE>;
 }
 

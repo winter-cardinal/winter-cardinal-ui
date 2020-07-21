@@ -4,7 +4,7 @@
  */
 
 import { DBaseInteractive } from "../../d-base-interactive";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeTable } from "../../d-table";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkPane } from "./d-theme-dark-pane";
@@ -14,7 +14,7 @@ export class DThemeDarkTable extends DThemeDarkPane implements DThemeTable {
 		return DThemeDarkConstants.BACKGROUND_COLOR;
 	}
 
-	getBorderColor( state: DBaseState ): number | null {
+	getBorderColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 

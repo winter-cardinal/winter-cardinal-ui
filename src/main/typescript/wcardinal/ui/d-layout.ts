@@ -5,7 +5,6 @@
 
 import { DisplayObject } from "pixi.js";
 import { DBase, DBaseCornerOptions, DBaseOptions, DThemeBase } from "./d-base";
-import { DBaseState } from "./d-base-state";
 import { DCornerMask } from "./d-corner-mask";
 import { DLayoutClearType } from "./d-layout-clear-type";
 import { DLayoutDirection } from "./d-layout-direction";
@@ -129,7 +128,7 @@ export abstract class DLayout<
 	protected init( options?: OPTIONS ): void {
 		super.init( options );
 
-		this.setState( DBaseState.UNFOCUSABLE, true );
+		this.state.isFocusable = false;
 		const theme = this.theme;
 		this._margin = toMargin( theme, options );
 		this._direction = toDirection( theme, options );

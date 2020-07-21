@@ -4,7 +4,7 @@
  */
 
 import { DBaseInteractive } from "../../d-base-interactive";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeMenuBar } from "../../d-menu-bar";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
@@ -15,7 +15,7 @@ export class DThemeDarkMenuBar extends DThemeDarkLayoutHorizontal implements DTh
 		return DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
 	}
 
-	getBorderColor( state: DBaseState ): number | null {
+	getBorderColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 

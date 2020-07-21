@@ -4,7 +4,7 @@
  */
 
 import { DisplayObject, Texture } from "pixi.js";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
 import { DThemeDarkDialogConfirmMessage } from "./d-theme-dark-dialog-confirm-message";
 
@@ -29,16 +29,16 @@ export class DThemeDarkDialogProcessingMessage extends DThemeDarkDialogConfirmMe
 		return 90;
 	}
 
-	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
-		if( state & DBaseState.SUCCEEDED ) {
+	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
+		if( state.isSucceeded ) {
 			return DThemeDarkAtlas.mappings.success_mark;
-		} else if( state & DBaseState.FAILED ) {
+		} else if( state.isFailed ) {
 			return DThemeDarkAtlas.mappings.fail_mark;
 		}
 		return null;
 	}
 
-	getImageTintAlpha( state: DBaseState ): number {
+	getImageTintAlpha( state: DBaseStateSet ): number {
 		return 0.75;
 	}
 }

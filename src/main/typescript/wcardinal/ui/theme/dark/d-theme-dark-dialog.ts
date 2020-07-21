@@ -4,7 +4,7 @@
  */
 
 import { DBaseInteractive } from "../../d-base-interactive";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
 import { DThemeDialog } from "../../d-dialog";
 import { DDialogCloseOn } from "../../d-dialog-close-on";
@@ -21,7 +21,7 @@ export class DThemeDarkDialog extends DThemeDarkBase implements DThemeDialog {
 		return DThemeDarkConstants.BACKGROUND_COLOR;
 	}
 
-	getBorderColor( state: DBaseState ): number | null {
+	getBorderColor( state: DBaseStateSet ): number | null {
 		return 0x393939;
 	}
 

@@ -4,7 +4,7 @@
  */
 
 import { DBaseInteractive } from "../../d-base-interactive";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DDragMode } from "../../d-drag-mode";
 import { DThemePane } from "../../d-pane";
 import { DThemeWhiteBase } from "./d-theme-white-base";
@@ -15,7 +15,7 @@ export class DThemeWhitePane extends DThemeWhiteBase implements DThemePane {
 		return true;
 	}
 
-	getBackgroundColor( state: DBaseState ): number | null {
+	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return DThemeWhiteConstants.BACKGROUND_COLOR;
 	}
 

@@ -5,7 +5,7 @@
 
 import { Texture } from "pixi.js";
 import { DBaseInteractive } from "../../d-base-interactive";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemePickerColorGradient } from "../../d-picker-color-gradient";
 import { DPickerColorGradientDataLike } from "../../d-picker-color-gradient-data";
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
@@ -64,11 +64,11 @@ export class DThemeDarkPickerColorGradient extends DThemeDarkBase implements DTh
 		return [ 0.37255, 0.27 ];
 	}
 
-	getBackgroundColor( state: DBaseState ): number | null {
+	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 
-	getBorderColor( state: DBaseState ): number | null {
+	getBorderColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 

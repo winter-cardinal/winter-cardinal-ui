@@ -5,8 +5,7 @@
 
 import { interaction } from "pixi.js";
 import { DBase } from "./d-base";
-import { DBaseState } from "./d-base-state";
-import { DBaseStates } from "./d-base-states";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DImage, DImageOptions, DThemeImage } from "./d-image";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
@@ -19,7 +18,7 @@ export interface DListItemOptions<
 }
 
 export interface DThemeListItem extends DThemeImage {
-	getTextValue( state: DBaseState ): string;
+	getTextValue( state: DBaseStateSet ): string;
 	newTextValue(): DStateAwareOrValueMightBe<string>;
 }
 
@@ -78,16 +77,16 @@ export class DListItem<
 	}
 
 	onKeyDown( e: KeyboardEvent ): boolean {
-		if( this.isActionable() && this.isFocused() && UtilKeyboardEvent.isActivateKey( e ) ) {
+		if( this.state.isActionable && this.state.isFocused && UtilKeyboardEvent.isActivateKey( e ) ) {
 			this.onSelect( e );
 		}
 
 		return super.onKeyDown( e );
 	}
 
-	protected onStateChange( newState: number, oldState: number ) {
+	protected onStateChange( newState: DBaseStateSet, oldState: DBaseStateSet ) {
 		super.onStateChange( newState, oldState );
-		this.buttonMode = DBaseStates.isActionable( newState );
+		this.buttonMode = newState.isActionable;
 	}
 
 	protected getType(): string {

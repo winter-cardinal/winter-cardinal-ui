@@ -4,7 +4,6 @@
  */
 
 import { DBaseOptions } from "./d-base";
-import { DBaseState } from "./d-base-state";
 import { DContentOptions } from "./d-content";
 import { DList, DListOptions, DThemeList } from "./d-list";
 
@@ -26,7 +25,7 @@ export class DDialogSelectList<
 > extends DList<THEME, CONTENT_OPTIONS, OPTIONS> {
 	constructor( options?: OPTIONS ) {
 		super( options );
-		this.setState( DBaseState.UNFOCUSABLE, true );
+		this.state.isFocusable = false;
 	}
 
 	protected getType(): string {

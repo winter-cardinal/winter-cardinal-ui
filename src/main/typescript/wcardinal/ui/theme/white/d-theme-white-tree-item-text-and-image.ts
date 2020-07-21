@@ -5,18 +5,18 @@
 
 import { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "../../d-align-horizontal";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
 import { DThemeTreeItemTextAndImage } from "../../d-tree-item-text-and-image";
 import { DThemeWhiteImage } from "./d-theme-white-image";
 
 export class DThemeWhiteTreeItemTextAndImage extends DThemeWhiteImage implements DThemeTreeItemTextAndImage {
-	getBackgroundColor( state: DBaseState ): number | null {
+	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 
-	getBorderColor( state: DBaseState ): number | null {
+	getBorderColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 
@@ -44,7 +44,7 @@ export class DThemeWhiteTreeItemTextAndImage extends DThemeWhiteImage implements
 		return DCornerMask.ALL;
 	}
 
-	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
+	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
 		return null;
 	}
 }

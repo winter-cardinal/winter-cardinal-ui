@@ -4,7 +4,7 @@
  */
 
 import { DBaseInteractive } from "../../d-base-interactive";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeCanvas } from "../../d-canvas";
 import { DCornerMask } from "../../d-corner-mask";
 import { DThemeWhiteBase } from "./d-theme-white-base";
@@ -14,7 +14,7 @@ export class DThemeWhiteCanvas extends DThemeWhiteBase implements DThemeCanvas {
 		return 0xffffff;
 	}
 
-	getBorderColor( state: DBaseState ): number | null {
+	getBorderColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 

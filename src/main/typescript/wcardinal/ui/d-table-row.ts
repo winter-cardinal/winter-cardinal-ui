@@ -8,7 +8,6 @@ import { DBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DLayoutHorizontal, DLayoutHorizontalOptions, DThemeLayoutHorizontal } from "./d-layout-horizontal";
 import { DTableCellState } from "./d-table-cell-state";
-import { DTableRowState } from "./d-table-row-state";
 
 export interface DTableRowOptions<
 	ROW,
@@ -47,9 +46,8 @@ export abstract class DTableRow<
 		super.init( options );
 
 		// State
-		const even = !! options.even;
-		if( even ) {
-			this.setState( DTableRowState.EVEN, true );
+		if( !! options.even ) {
+			this.state.isAlternated = true;
 		}
 
 		// Frozen
@@ -60,17 +58,16 @@ export abstract class DTableRow<
 		const iend = this.toIndexEnd( columns );
 		for( let i = 0, imax = columns.length; i < imax; ++i ) {
 			const cell = this.newCell( columns[ i ], i, columns, options );
-			const cellState = this.toCellState( even, i, iend, frozen );
+			const cellState = this.toCellState( i, iend, frozen );
 			if( cellState ) {
-				cell.setState( cellState, true );
+				cell.state.add( cellState );
 			}
 			this.addChild( cell );
 		}
 	}
 
-	protected toCellState( even: boolean, index: number, iend: number, frozen: number ): DBaseState {
-		return ( even ? DTableCellState.EVEN : DBaseState.NONE ) |
-			( index === 0 ? DTableCellState.START : DBaseState.NONE ) |
+	protected toCellState( index: number, iend: number, frozen: number ): DBaseState {
+		return ( index === 0 ? DTableCellState.START : DBaseState.NONE ) |
 			( index === iend ? DTableCellState.END : DBaseState.NONE ) |
 			( index < frozen ? DTableCellState.FROZEN : DBaseState.NONE ) |
 			( index === frozen - 1 ? DTableCellState.FROZEN_END : DBaseState.NONE );

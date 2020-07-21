@@ -22,13 +22,13 @@ export class DPickerDatetimeButtonDate<
 	OPTIONS extends DPickerDatetimeButtonDateOptions<VALUE, THEME> = DPickerDatetimeButtonDateOptions<VALUE, THEME>
 > extends DButtonAmbient<VALUE, THEME, OPTIONS> {
 	protected onToggleStart(): void {
-		if( ! this.isActive() ) {
-			this.setActive( true );
+		if( ! this.state.isActive ) {
+			this.state.isActive = true;
 		}
 	}
 
 	protected onToggleEnd(): void {
-		this.emit( this.isActive() ? "active" : "inactive", this );
+		this.emit( this.state.isActive ? "active" : "inactive", this );
 	}
 
 	protected getType(): string {

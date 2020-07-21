@@ -38,7 +38,7 @@ export class DMenuItemMenu<
 		super.init( options );
 
 		UtilPointerEvent.onClick( this, (): void => {
-			if( this.isActionable() ) {
+			if( this.state.isActionable ) {
 				this.open();
 			}
 		});
@@ -54,7 +54,7 @@ export class DMenuItemMenu<
 
 	protected initHover( options: OPTIONS ): void {
 		this.on( UtilPointerEvent.over, (): void => {
-			if( this.isActionable() ) {
+			if( this.state.isActionable ) {
 				this.open();
 			}
 		});

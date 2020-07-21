@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "../../d-base-state";
-import { DBaseStates } from "../../d-base-states";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
 import { DThemeExpandableHeader } from "../../d-expandable-header";
@@ -24,19 +23,19 @@ DThemeWhiteAtlas.add( "menu_item_expandable_header_opened", 14, 14,
 );
 
 export class DThemeWhiteExpandableHeader extends DThemeWhiteImage implements DThemeExpandableHeader {
-	getBackgroundColor( state: DBaseState ): number | null {
-		if( DBaseStates.isDisabled( state ) ) {
+	getBackgroundColor( state: DBaseStateSet ): number | null {
+		if( state.inDisabled ) {
 			return null;
-		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
+		} else if( state.isFocused || state.isHovered ) {
 			return 0xf8f8f8;
-		} else if( DBaseStates.isActiveIn( state ) ) {
+		} else if( state.inActive ) {
 			return 0xf8f8f8;
 		} else {
 			return null;
 		}
 	}
 
-	getBorderColor( state: DBaseState ): number | null {
+	getBorderColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 

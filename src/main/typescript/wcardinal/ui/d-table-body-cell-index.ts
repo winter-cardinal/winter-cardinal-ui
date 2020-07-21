@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "./d-base-state";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DImageBase, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
 import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
@@ -17,7 +17,7 @@ export interface DTableBodyCellIndexOptions<
 
 export interface DThemeTableBodyCellIndex extends DThemeImageBase {
 	getTextFormatter(): ( value: number, caller: DTableBodyCellIndex ) => string;
-	getTextValue( state: DBaseState ): number;
+	getTextValue( state: DBaseStateSet ): number;
 	newTextValue(): number;
 }
 
@@ -40,11 +40,6 @@ export class DTableBodyCellIndex<
 		this._rowIndex = -1;
 		this._columnIndex = options.column.index;
 		this._columnData = options.column.data;
-	}
-
-	protected mergeState( stateLocal: DBaseState, stateParent: DBaseState ): DBaseState {
-		return super.mergeState( stateLocal, stateParent ) |
-			( stateParent & DBaseState.HOVERED ? DBaseState.HOVERED : DBaseState.NONE );
 	}
 
 	get row(): ROW | undefined {

@@ -70,7 +70,7 @@ export class DMenu<
 		this._owner = null;
 		this.visible = false;
 		this._context = null;
-		this.setState( DBaseState.FOCUS_ROOT, true );
+		this.state.isFocusRoot = true;
 
 		// Event handlers
 		UtilClickOutside.apply( this, (): void => {
@@ -123,7 +123,7 @@ export class DMenu<
 			for( let i = 0, imax = children.length; i < imax; ++i ) {
 				const child = children[ i ];
 				if( child instanceof DBase ) {
-					child.setState( DBaseState.FOCUSED | DBaseState.HOVERED, false );
+					child.state.remove( DBaseState.FOCUSED | DBaseState.HOVERED );
 				}
 			}
 
@@ -224,7 +224,7 @@ export class DMenu<
 				if( focused != null ) {
 					const direction = UtilKeyboardEvent.isArrowDownKey( e );
 					const next = focusController.findFocusable(
-						focused, false, focused.hasState( DBaseState.FOCUS_ROOT ) || direction, direction
+						focused, false, focused.state.isFocusRoot || direction, direction
 					);
 					if( next != null ) {
 						focusController.setFocused( next, true, true );

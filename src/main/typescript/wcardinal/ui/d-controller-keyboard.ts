@@ -4,7 +4,6 @@
  */
 
 import { Container, utils } from "pixi.js";
-import { DBaseState } from "./d-base-state";
 import { DControllerFocus, DFocusable, DFocusableContainer } from "./d-controller-focus";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 
@@ -30,7 +29,7 @@ export class DControllerKeyboard extends utils.EventEmitter {
 				const direction = UtilKeyboardEvent.getFocusDirection( e );
 				const next = ( focused != null ?
 					focusController.findFocusable(
-						focused, false, focused.hasState( DBaseState.FOCUS_ROOT ) || direction, direction
+						focused, false, focused.state.isFocusRoot || direction, direction
 					) :
 					focusController.findFocusable( stage, false, true, direction )
 				);

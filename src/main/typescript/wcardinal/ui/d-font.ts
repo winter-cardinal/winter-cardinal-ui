@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "./d-base-state";
+import { DBaseStateSet } from "./d-base-state-set";
 
 export type DFontStyle = "normal" | "italic";
 export type DFontWeight = "normal" | "bold" | "bolder" | "lighter" |
@@ -16,7 +16,7 @@ export interface DThemeFont {
 	getFontWeight(): DFontWeight;
 	getFontStyle(): DFontStyle;
 	getFontVariant(): DFontVariant;
-	getColor( state: DBaseState ): number;
-	getAlpha( state: DBaseState ): number;
+	getColor( state: DBaseStateSet ): number;
+	getAlpha( state: DBaseStateSet ): number;
 	getLineHeight(): number;
 }

@@ -83,8 +83,8 @@ export abstract class DInput<
 		const result = this._editingValidator( this._textValueComputed, this );
 		if( this._editingValidationResult !== result ) {
 			this._editingValidationResult = result;
-			this.setInvalid( result != null );
-			if( this.isHovered() ) {
+			this.state.isInvalid = ( result != null );
+			if( this.state.isHovered ) {
 				this.applyTitle();
 			}
 		}
@@ -176,7 +176,7 @@ export abstract class DInput<
 	}
 
 	protected onDownThis( e: interaction.InteractionEvent ): void {
-		if( this.isFocused() ) {
+		if( this.state.isFocused ) {
 			this.start();
 		}
 		super.onDownThis( e );

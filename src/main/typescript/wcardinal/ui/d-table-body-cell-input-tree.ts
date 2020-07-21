@@ -71,7 +71,7 @@ export class DTableBodyCellInputTree<
 	}
 
 	protected onMarkerActive(): void {
-		if( this._marker.state & DTableCellState.HAS_CHILDREN ) {
+		if( this._marker.state.is( DTableCellState.HAS_CHILDREN ) ) {
 			const row = this.parent;
 			if( row ) {
 				const body = row.parent as any;
@@ -84,11 +84,6 @@ export class DTableBodyCellInputTree<
 				}
 			}
 		}
-	}
-
-	protected mergeState( stateLocal: DBaseState, stateParent: DBaseState ): DBaseState {
-		return super.mergeState( stateLocal, stateParent ) |
-			( stateParent & DBaseState.HOVERED ? DBaseState.HOVERED : DBaseState.NONE );
 	}
 
 	get row(): ROW | undefined {
@@ -120,21 +115,21 @@ export class DTableBodyCellInputTree<
 			const level = (supplimental >> 2);
 			if( hasChildren ) {
 				if( isOpened ) {
-					marker.setStates( DTableCellState.HAS_CHILDREN | DTableCellState.OPENED, DBaseState.DISABLED );
+					marker.state.set( DTableCellState.HAS_CHILDREN | DTableCellState.OPENED, DBaseState.DISABLED );
 				} else {
-					marker.setStates( DTableCellState.HAS_CHILDREN, DBaseState.DISABLED | DTableCellState.OPENED );
+					marker.state.set( DTableCellState.HAS_CHILDREN, DBaseState.DISABLED | DTableCellState.OPENED );
 				}
 			} else {
 				if( isOpened ) {
-					marker.setStates( DBaseState.DISABLED | DTableCellState.OPENED, DTableCellState.HAS_CHILDREN );
+					marker.state.set( DBaseState.DISABLED | DTableCellState.OPENED, DTableCellState.HAS_CHILDREN );
 				} else {
-					marker.setStates( DBaseState.DISABLED, DTableCellState.HAS_CHILDREN | DTableCellState.OPENED );
+					marker.state.remove( DTableCellState.HAS_CHILDREN | DTableCellState.OPENED );
 				}
 			}
 			marker.show();
 			marker.width = this.theme.getLevelPadding( level );
 		} else {
-			marker.setStates( DBaseState.DISABLED, DTableCellState.OPENED | DTableCellState.HAS_CHILDREN );
+			marker.state.remove( DTableCellState.OPENED | DTableCellState.HAS_CHILDREN );
 			marker.hide();
 		}
 

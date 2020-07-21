@@ -4,8 +4,7 @@
  */
 
 import { DisplayObject } from "pixi.js";
-import { DBaseState } from "./d-base-state";
-import { DBaseStates } from "./d-base-states";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DLayoutHorizontal, DLayoutHorizontalOptions, DThemeLayoutHorizontal } from "./d-layout-horizontal";
 import { DLayoutSpace, DLayoutSpaceOptions, DThemeLayoutSpace } from "./d-layout-space";
 import { DMenuBarBlocker } from "./d-menu-bar-blocker";
@@ -47,14 +46,18 @@ export class DMenuBar<
 	protected init( options?: OPTIONS ) {
 		super.init( options );
 
-		this.setState( DBaseState.FOCUS_ROOT, true );
+		this.state.isFocusRoot = true;
 
 		if( options != null && options.items != null ) {
 			const items = options.items;
 			UtilClickOutside.apply( this, (): void => {
 				this.close();
 			});
-			const onItemStateChangeBound = ( newState: DBaseState, oldState: DBaseState, item: DMenuBarItem<VALUE> ): void => {
+			const onItemStateChangeBound = (
+				newState: DBaseStateSet,
+				oldState: DBaseStateSet,
+				item: DMenuBarItem<VALUE>
+			): void => {
 				this.onItemStateChange( newState, oldState, item );
 			};
 			for( let i = 0, imax = items.length; i < imax; ++i ) {
@@ -80,20 +83,20 @@ export class DMenuBar<
 		this._overlay = new UtilOverlay( options );
 	}
 
-	protected onItemStateChange( newState: DBaseState, oldState: DBaseState, item: DMenuBarItem<VALUE> ): void {
+	protected onItemStateChange( newState: DBaseStateSet, oldState: DBaseStateSet, item: DMenuBarItem<VALUE> ): void {
 		const context = this._context;
 		if( context == null ) {
-			if( ! DBaseStates.isDisabled( newState ) ) {
-				if( DBaseStates.isPressed( newState ) ) {
+			if( ! newState.inDisabled ) {
+				if( newState.isPressed ) {
 					if( item.menu.isHidden() ) {
-						item.setPressed( false );
+						item.state.isPressed = false;
 						this.open( item );
 					}
 				}
 			}
 		} else {
-			if( ! DBaseStates.isDisabled( newState ) ) {
-				if( DBaseStates.isHovered( newState ) && ! DBaseStates.isHovered( oldState ) ) {
+			if( ! newState.inDisabled ) {
+				if( newState.isHovered && ! oldState.isHovered ) {
 					const menu = item.menu;
 					if( menu.isHidden() ) {
 						menu.open( item, this, context );

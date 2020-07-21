@@ -107,14 +107,14 @@ export class DTree<
 				content.addChild( treeItem );
 				// listen select item event
 				treeItem.on( "select", ( e: interaction.InteractionEvent ): void => {
-					if( !this.isDisabled() ) {
+					if( this.state.inEnabled ) {
 						this.onSelect( treeItem.getRawData(), e );
 					}
 				});
 				// listen toggle item event
 				treeItem.on( "toggle", (): void => {
 					if( treeItem.isParent() ) {
-						if( !this.isDisabled() ) {
+						if( this.state.inEnabled ) {
 							this.toggle( treeItem.getRawData() );
 						}
 					}
@@ -160,11 +160,11 @@ export class DTree<
 	 * @param item Reference data of item want to toggle in “value” array.
 	 */
 	public toggle( item: DTreeItemRawData ) {
-			const itemOptions = this._itemOptions.get( item );
-			if( itemOptions ) {
-				itemOptions.expanded = !itemOptions.expanded;
-				this.reload();
-			}
+		const itemOptions = this._itemOptions.get( item );
+		if( itemOptions ) {
+			itemOptions.expanded = !itemOptions.expanded;
+			this.reload();
+		}
 	}
 
 	/**
@@ -336,8 +336,7 @@ export class DTree<
 		items: DTreeItemRawData[],
 		level: number,
 		expandAll?: boolean
-		) {
-
+	) {
 		for ( let i = 0; i < items.length; i++ ) {
 			const item = items[ i ];
 			// handle remove item

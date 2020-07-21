@@ -4,7 +4,6 @@
  */
 
 import { DisplayObject, IPoint, Point, Rectangle, Texture, utils } from "pixi.js";
-import { DBaseState } from "../d-base-state";
 import { DDiagramSerializedItem } from "../d-diagram-serialized";
 import { EShapeAction } from "./action/e-shape-action";
 import { EShapeContainer } from "./e-shape-container";
@@ -16,6 +15,7 @@ import { EShapeLayout } from "./e-shape-layout";
 import { EShapePoints } from "./e-shape-points";
 import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
 import { EShapeRuntime } from "./e-shape-runtime";
+import { EShapeStateSet } from "./e-shape-state-set";
 import { EShapeStroke } from "./e-shape-stroke";
 import { EShapeTag } from "./e-shape-tag";
 import { EShapeText } from "./e-shape-text";
@@ -79,19 +79,7 @@ export interface EShape extends utils.EventEmitter {
 	uploaded?: EShapeUploaded;
 
 	//
-	hovered: boolean;
-	active: boolean;
-	readonly: boolean;
-	readonly enabled: boolean;
-	disabled: boolean;
-	dragging: boolean;
-	focused: boolean;
-	readonly focusedin: boolean;
-	unfocusable: boolean;
-	readonly clicked: boolean;
-	readonly pressed: boolean;
-	readonly down: boolean;
-	readonly up: boolean;
+	readonly state: EShapeStateSet;
 
 	//
 	toDirty(): void;
@@ -103,9 +91,6 @@ export interface EShape extends utils.EventEmitter {
 	destroy(): void;
 
 	//
-	getState(): DBaseState;
-	setState( state: DBaseState, isOn: boolean ): this;
-	hasState( state: DBaseState ): boolean;
 	focus(): this;
 	blur(): this;
 

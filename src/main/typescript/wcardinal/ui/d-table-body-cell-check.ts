@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "./d-base-state";
 import { DButtonCheck, DButtonCheckOptions, DThemeButtonCheck } from "./d-button-check";
 import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
@@ -88,11 +87,6 @@ export class DTableBodyCellCheck<
 		}
 	}
 
-	protected mergeState( stateLocal: DBaseState, stateParent: DBaseState ): DBaseState {
-		return super.mergeState( stateLocal, stateParent ) |
-			( stateParent & DBaseState.HOVERED ? DBaseState.HOVERED : DBaseState.NONE );
-	}
-
 	get row(): ROW | undefined {
 		return this._row;
 	}
@@ -112,7 +106,7 @@ export class DTableBodyCellCheck<
 	): void {
 		this._row = row;
 		this._rowIndex = rowIndex;
-		this.setActive( !! value );
+		this.state.isActive = !! value;
 
 		const columnData = this._columnData;
 		DTableBodyCells.setReadOnly( this, row, columnIndex, columnData );

@@ -8,7 +8,6 @@ import { DAnimation } from "./d-animation";
 import { DAnimationFadeIn } from "./d-animation-fade-in";
 import { DApplications } from "./d-applications";
 import { DBase, DBaseEvents, DBaseOptions, DThemeBase } from "./d-base";
-import { DBaseState } from "./d-base-state";
 import { DFocusable } from "./d-controller-focus";
 import { DDialogCloseOn } from "./d-dialog-close-on";
 import { EventSupport } from "./decorator/event-support";
@@ -88,7 +87,7 @@ export class DDialog<
 		super.init( options );
 
 		this.visible = false;
-		this.setState( DBaseState.FOCUS_ROOT, true );
+		this.state.isFocusRoot = true;
 		this._focusable = null;
 		this._isOpened = false;
 

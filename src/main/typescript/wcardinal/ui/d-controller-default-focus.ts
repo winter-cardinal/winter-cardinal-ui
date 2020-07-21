@@ -3,13 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "./d-base-state";
 import {
 	DControllerFocus, DFocusable, DFocusableContainer, DFocusableMightBe
 } from "./d-controller-focus";
 
 const isFocusable = ( target: any ): target is DFocusable => {
-	return ( target != null && ("setState" in target) );
+	return ( target != null && ("state" in target) );
 };
 
 const isFocusableContainer = ( target: any ): target is DFocusableContainer => {
@@ -24,12 +23,12 @@ export class DControllerDefaultFocus implements DControllerFocus {
 			const previous = this._focused;
 			if( previous !== focusable ) {
 				if( previous != null ) {
-					previous.setState( DBaseState.FOCUSED, false );
+					previous.state.isFocused = false;
 				}
 
 				this._focused = focusable;
 				if( focusable != null && this.isFocusable( focusable ) ) {
-					focusable.setState( DBaseState.FOCUSED, true );
+					focusable.state.isFocused = true;
 				}
 				return previous;
 			} else {
@@ -38,7 +37,7 @@ export class DControllerDefaultFocus implements DControllerFocus {
 		} else {
 			if( focusable != null && this._focused === focusable ) {
 				this._focused = null;
-				focusable.setState( DBaseState.FOCUSED, false );
+				focusable.state.isFocused = false;
 				return focusable;
 			} else {
 				return null;
@@ -65,7 +64,8 @@ export class DControllerDefaultFocus implements DControllerFocus {
 	protected isFocusable( target: unknown ): target is DFocusable {
 		return (
 			isFocusable( target ) &&
-			! target.hasState( DBaseState.DISABLED | DBaseState.UNFOCUSABLE ) &&
+			target.state.inEnabled &&
+			target.state.isFocusable &&
 			target.visible
 		);
 	}
@@ -73,7 +73,7 @@ export class DControllerDefaultFocus implements DControllerFocus {
 	protected isFocusRoot( target: unknown ): target is DFocusable {
 		return (
 			isFocusable( target ) &&
-			target.hasState( DBaseState.FOCUS_ROOT ) &&
+			target.state.isFocusRoot &&
 			target.visible
 		);
 	}

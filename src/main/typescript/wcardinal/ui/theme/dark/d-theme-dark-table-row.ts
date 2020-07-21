@@ -4,13 +4,13 @@
  */
 
 import { DBaseInteractive } from "../../d-base-interactive";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DCornerMask } from "../../d-corner-mask";
 import { DThemeTableRow } from "../../d-table-row";
 import { DThemeDarkLayoutHorizontal } from "./d-theme-dark-layout-horizontal";
 
 export class DThemeDarkTableRow extends DThemeDarkLayoutHorizontal implements DThemeTableRow {
-	getBorderColor( state: DBaseState ): number | null {
+	getBorderColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 

@@ -5,7 +5,7 @@
 
 import { DBackgroundStateAware } from "./d-background";
 import { DBaseOptions, DThemeBase } from "./d-base";
-import { DBaseState } from "./d-base-state";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { isFunction } from "./util/is-function";
 
@@ -35,7 +35,7 @@ export class DBaseBackground implements DBackgroundStateAware {
 		this._theme = theme;
 	}
 
-	getColor( state: DBaseState ): number | null {
+	getColor( state: DBaseStateSet ): number | null {
 		const color = this._color;
 		if( color !== undefined ) {
 			if( isFunction( color ) ) {
@@ -61,7 +61,7 @@ export class DBaseBackground implements DBackgroundStateAware {
 		}
 	}
 
-	getAlpha( state: DBaseState ): number {
+	getAlpha( state: DBaseStateSet ): number {
 		const alpha = this._alpha;
 		if( alpha !== undefined ) {
 			if( isFunction( alpha ) ) {

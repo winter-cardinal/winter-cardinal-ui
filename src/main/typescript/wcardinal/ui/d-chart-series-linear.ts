@@ -5,7 +5,7 @@
 
 import { IPoint, Point } from "pixi.js";
 import { DApplications } from "./d-applications";
-import { DBaseStates } from "./d-base-states";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DChartCoordinate } from "./d-chart-coordinate";
 import { DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesBase, DChartSeriesBaseOptions } from "./d-chart-series-base";
@@ -312,18 +312,5 @@ export class DChartSeriesLinear extends DChartSeriesBase {
 			}
 		}
 		return false;
-	}
-
-	protected onStateChange( newState: number, oldState: number ) {
-		const isActive = DBaseStates.isActive( newState );
-		const wasActive = DBaseStates.isActive( oldState );
-		if( isActive !== wasActive ) {
-			const line = this._line;
-			const stroke = this._stroke;
-			if( line && stroke ) {
-				line.stroke.width = stroke.width * ( isActive ? 2 : 1 );
-			}
-		}
-		super.onStateChange( newState, oldState );
 	}
 }

@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "./d-base-state";
 import { DTextBase, DTextBaseOptions, DThemeTextBase } from "./d-text-base";
 
 export interface DTextOptions<
@@ -24,7 +23,7 @@ export class DText<
 > extends DTextBase<VALUE, THEME, OPTIONS> {
 	protected init( options?: OPTIONS ) {
 		super.init( options );
-		this.setState( DBaseState.UNFOCUSABLE, true );
+		this.state.isFocusable = false;
 	}
 
 	protected getType(): string {

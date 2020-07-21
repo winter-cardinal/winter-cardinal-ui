@@ -92,7 +92,7 @@ export class DSelectMultiple<
 				const newValues: VALUE[] = [];
 				const newItems: Array<DMenuItem<VALUE>> = [];
 				const menu = this.menu;
-				if( child.isActive() ) {
+				if( child.state.isActive ) {
 					this.updateMenuItems( menu, oldValues, value, undefined, newValues, newItems );
 				} else {
 					this.updateMenuItems( menu, oldValues, undefined, value, newValues, newItems );
@@ -186,7 +186,7 @@ export class DSelectMultiple<
 			} else if( child instanceof DMenuItemCheck ) {
 				const childValue = child.value;
 				if( removedValue !== undefined && removedValue === childValue ) {
-					child.setActive( false );
+					child.state.isActive = false;
 				} else if( ( addedValue !== undefined && child.value === addedValue ) || 0 <= oldValues.indexOf( child.value ) ) {
 					if( newValues ) {
 						newValues.push( child.value );
@@ -194,9 +194,9 @@ export class DSelectMultiple<
 					if( newItems ) {
 						newItems.push( child );
 					}
-					child.setActive( true );
+					child.state.isActive = true;
 				} else {
-					child.setActive( false );
+					child.state.isActive = false;
 				}
 			}
 		}

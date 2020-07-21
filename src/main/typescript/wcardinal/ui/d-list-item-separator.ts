@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "./d-base-state";
 import { DListItem, DListItemOptions, DThemeListItem } from "./d-list-item";
 import { DListItemSeparatorReflowable } from "./d-list-item-separator-reflowable";
 
@@ -25,7 +24,7 @@ export class DListItemSeparator<
 		super.init( options );
 		this.interactive = false;
 		this.buttonMode = false;
-		this.setState( DBaseState.UNFOCUSABLE, true );
+		this.state.isFocusable = false;
 	}
 
 	protected initReflowable(): void {

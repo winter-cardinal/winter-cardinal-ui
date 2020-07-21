@@ -4,8 +4,7 @@
  */
 
 import { DisplayObject, Texture } from "pixi.js";
-import { DBaseState } from "../../d-base-state";
-import { DBaseStates } from "../../d-base-states";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeButtonCheck } from "../../d-button-check";
 import { UtilRgb } from "../../util/util-rgb";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
@@ -32,26 +31,26 @@ DThemeWhiteAtlas.add( "button_check_mark_off", 21, 21,
 export class DThemeWhiteButtonCheck extends DThemeWhiteButtonAmbient implements DThemeButtonCheck {
 	readonly IMAGE_TINT_COLOR_FOCUSED = UtilRgb.darken( DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR, 0.1 );
 
-	getBackgroundColor( state: DBaseState ): number | null {
+	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
 	}
 
-	getColor( state: DBaseState ): number {
+	getColor( state: DBaseStateSet ): number {
 		return DThemeWhiteFont.getColor( state );
 	}
 
-	getBackgroundAlpha( state: DBaseState ): number {
-		if( ! DBaseStates.isDisabled( state ) ) {
-			if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
+	getBackgroundAlpha( state: DBaseStateSet ): number {
+		if( state.inEnabled ) {
+			if( state.isFocused || state.isHovered ) {
 				return DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
 			}
 		}
 		return 0;
 	}
 
-	getImageTintColor( state: DBaseState ): number | null {
-		if( DBaseStates.isDisabled( state ) || DBaseStates.isReadOnly( state ) || ! DBaseStates.isActive( state ) ) {
-			if( DBaseStates.isFocused( state ) ) {
+	getImageTintColor( state: DBaseStateSet ): number | null {
+		if( state.inDisabled || state.inReadOnly || ! state.isActive ) {
+			if( state.isFocused ) {
 				return this.IMAGE_TINT_COLOR_FOCUSED;
 			} else {
 				return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
@@ -65,8 +64,8 @@ export class DThemeWhiteButtonCheck extends DThemeWhiteButtonAmbient implements 
 		return true;
 	}
 
-	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
-		if( DBaseStates.isActive( state ) ) {
+	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
+		if( state.isActive ) {
 			return DThemeWhiteAtlas.mappings.button_check_mark_on;
 		} else {
 			return DThemeWhiteAtlas.mappings.button_check_mark_off;

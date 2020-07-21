@@ -4,7 +4,7 @@
  */
 
 import { interaction } from "pixi.js";
-import { DBaseState } from "./d-base-state";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DImage, DImageOptions, DThemeImage } from "./d-image";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { DTableCellState } from "./d-table-cell-state";
@@ -30,7 +30,7 @@ export interface DTableHeaderCellOptions<
 
 export interface DThemeTableHeaderCell extends DThemeImage {
 	getTextFormatter(): ( value: string | null, caller: DTableHeaderCell<unknown> ) => string;
-	getTextValue( state: DBaseState ): string | null;
+	getTextValue( state: DBaseStateSet ): string | null;
 	newTextValue(): DStateAwareOrValueMightBe<string | null>;
 }
 
@@ -109,12 +109,12 @@ export class DTableHeaderCell<
 			const SORTED_DESCENDING = DTableCellState.SORTED_DESCENDING;
 			if( sorter.isApplied() && sorter.get() === comparator ) {
 				if( sorter.order === DTableDataOrder.ASCENDING ) {
-					this.setStates( SORTED_ASCENDING, SORTED_DESCENDING );
+					this.state.set( SORTED_ASCENDING, SORTED_DESCENDING );
 				} else {
-					this.setStates( SORTED_DESCENDING, SORTED_ASCENDING );
+					this.state.set( SORTED_DESCENDING, SORTED_ASCENDING );
 				}
 			} else {
-				this.setState( SORTED_ASCENDING | SORTED_DESCENDING, false );
+				this.state.remove( SORTED_ASCENDING | SORTED_DESCENDING );
 			}
 		}
 	}

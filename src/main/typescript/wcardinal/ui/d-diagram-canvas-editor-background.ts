@@ -5,7 +5,7 @@
 
 import { DBackgroundStateAware } from "./d-background";
 import { DThemeBase } from "./d-base";
-import { DBaseState } from "./d-base-state";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { UtilRgb } from "./util/util-rgb";
 
@@ -34,7 +34,7 @@ export class DDiagramCanvasEditorBackground implements DBackgroundStateAware {
 		this._base = baseColor;
 	}
 
-	getColor( state: DBaseState ): number | null {
+	getColor( state: DBaseStateSet ): number | null {
 		const target = this._target;
 		const base = this._base;
 		const color = target.getColor( state );
@@ -55,7 +55,7 @@ export class DDiagramCanvasEditorBackground implements DBackgroundStateAware {
 		this._target.color = color;
 	}
 
-	getAlpha( state: DBaseState ): number {
+	getAlpha( state: DBaseStateSet ): number {
 		const base = this._base;
 		if( base != null ) {
 			return 1;

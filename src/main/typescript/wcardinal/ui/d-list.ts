@@ -39,7 +39,7 @@ export class DList<
 
 		UtilPointerEvent.onClick( this, ( e: InteractionEvent ): void => {
 			const child: DisplayObject | null = this.findItem( e.target );
-			if( child instanceof DBase && child.isActionable() ) {
+			if( child instanceof DBase && child.state.isActionable ) {
 				this.selection.add( child );
 			}
 		});

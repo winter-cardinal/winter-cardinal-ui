@@ -5,8 +5,7 @@
 
 import { Container, DisplayObject } from "pixi.js";
 import { DBase } from "./d-base";
-import { DBaseState } from "./d-base-state";
-import { DBaseStates } from "./d-base-states";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DLayoutVertical, DLayoutVerticalOptions, DThemeLayoutVertical } from "./d-layout-vertical";
 import { DMenuItemExpandableBody, DMenuItemExpandableBodyOptions } from "./d-menu-item-expandable-body";
 import { DMenuItemExpandableHeader, DMenuItemExpandableHeaderOptions } from "./d-menu-item-expandable-header";
@@ -55,7 +54,7 @@ export class DMenuItemExpandable<
 		this.addChild( body );
 
 		//
-		if( this.isActive() ) {
+		if( this.state.isActive ) {
 			this.onActivated();
 		} else {
 			this.onDeactivated();
@@ -99,15 +98,15 @@ export class DMenuItemExpandable<
 	}
 
 	open(): void {
-		this.setActive( true );
+		this.state.isActive = true;
 	}
 
 	close(): void {
-		this.setActive( false );
+		this.state.isActive = false;
 	}
 
 	toggle(): void {
-		this.setActive( ! this.isActive() );
+		this.state.isActive = ! this.state.isActive;
 	}
 
 	protected onActivated(): void {
@@ -128,15 +127,15 @@ export class DMenuItemExpandable<
 		}
 	}
 
-	protected onStateChange( newState: DBaseState, oldState: DBaseState ): void {
+	protected onStateChange( newState: DBaseStateSet, oldState: DBaseStateSet ): void {
 		super.onStateChange( newState, oldState );
 
-		if( DBaseStates.isActive( newState ) ) {
-			if( ! DBaseStates.isActive( oldState ) ) {
+		if( newState.isActive ) {
+			if( ! oldState.isActive ) {
 				this.onActivated();
 			}
 		} else {
-			if( DBaseStates.isActive( oldState ) ) {
+			if( oldState.isActive ) {
 				this.onDeactivated();
 			}
 		}

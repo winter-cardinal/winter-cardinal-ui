@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "./d-base-state";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DButton, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogTime, DDialogTimeOptions } from "./d-dialog-time";
 import { DPickerDatetimeMask } from "./d-picker-datetime-mask";
@@ -22,7 +22,7 @@ export interface DTableBodyCellTimeOptions<
 
 export interface DThemeTableBodyCellTime extends DThemeButton {
 	getTextFormatter(): ( value: Date, caller: DTableBodyCellTime ) => string;
-	getTextValue( state: DBaseState ): Date;
+	getTextValue( state: DBaseStateSet ): Date;
 	newTextValue(): Date;
 }
 
@@ -71,11 +71,6 @@ export class DTableBodyCellTime<
 				}
 			});
 		});
-	}
-
-	protected mergeState( stateLocal: DBaseState, stateParent: DBaseState ): DBaseState {
-		return super.mergeState( stateLocal, stateParent ) |
-			( stateParent & DBaseState.HOVERED ? DBaseState.HOVERED : DBaseState.NONE );
 	}
 
 	getDatetimeMask(): DPickerDatetimeMask {

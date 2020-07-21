@@ -277,12 +277,12 @@ export class DPagination<
 		}
 		const isFirst = this._selected === this.DEFAULT_SELECTED;
 		const isLast = this._selected === this._total - 1 || this._total === 0;
-		this._firstPageBtn.setActive( isFirst );
-		this._lastPageBtn.setActive( isLast );
-		this._goFirstBtn.setDisabled( isFirst );
-		this._previousBtn.setDisabled( isFirst );
-		this._nextBtn.setDisabled( isLast );
-		this._goLastBtn.setDisabled( isLast );
+		this._firstPageBtn.state.isActive = isFirst;
+		this._lastPageBtn.state.isActive = isLast;
+		this._goFirstBtn.state.isDisabled = isFirst;
+		this._previousBtn.state.isDisabled = isFirst;
+		this._nextBtn.state.isDisabled = isLast;
+		this._goLastBtn.state.isDisabled = isLast;
 	}
 
 	protected getButtonWidth() {

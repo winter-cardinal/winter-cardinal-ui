@@ -2,7 +2,7 @@ import { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "./d-align-horizontal";
 import { DAlignVertical } from "./d-align-vertical";
 import { DAlignWith } from "./d-align-with";
-import { DBaseState } from "./d-base-state";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DThemeImagePiece } from "./d-image-piece";
 
 export interface DThemeImageBaseTertiary {
@@ -11,9 +11,9 @@ export interface DThemeImageBaseTertiary {
 	getTertiaryImageAlignWith(): DAlignWith;
 	getTertiaryImageMarginHorizontal(): number;
 	getTertiaryImageMarginVertial(): number;
-	getTertiaryImageTintColor( state: DBaseState ): number | null;
-	getTertiaryImageTintAlpha( state: DBaseState ): number;
-	getTertiaryImageSource( state: DBaseState ): Texture | DisplayObject | null;
+	getTertiaryImageTintColor( state: DBaseStateSet ): number | null;
+	getTertiaryImageTintAlpha( state: DBaseStateSet ): number;
+	getTertiaryImageSource( state: DBaseStateSet ): Texture | DisplayObject | null;
 }
 
 export class DImageBaseThemeWrapperTertiary implements DThemeImagePiece {
@@ -43,15 +43,15 @@ export class DImageBaseThemeWrapperTertiary implements DThemeImagePiece {
 		return this._theme.getTertiaryImageMarginVertial();
 	}
 
-	getImageTintColor( state: DBaseState ): number | null {
+	getImageTintColor( state: DBaseStateSet ): number | null {
 		return this._theme.getTertiaryImageTintColor( state );
 	}
 
-	getImageTintAlpha( state: DBaseState ): number {
+	getImageTintAlpha( state: DBaseStateSet ): number {
 		return this._theme.getTertiaryImageTintAlpha( state );
 	}
 
-	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
+	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
 		return this._theme.getTertiaryImageSource( state );
 	}
 }

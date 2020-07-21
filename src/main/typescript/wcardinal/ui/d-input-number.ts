@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "./d-base-state";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DInput, DInputOptions, DThemeInput } from "./d-input";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 
@@ -19,7 +19,7 @@ export interface DThemeInputNumber extends DThemeInput {
 	getEditingFormatter(): ( value: number, caller: any ) => string;
 	getEditingUnformatter(): ( text: string, caller: any ) => number;
 	getEditingValidator(): ( value: number, caller: any ) => unknown;
-	getTextValue( state: DBaseState ): number;
+	getTextValue( state: DBaseStateSet ): number;
 	newTextValue(): DStateAwareOrValueMightBe<number>;
 	getStep(): number | null;
 	getMin(): number | null;

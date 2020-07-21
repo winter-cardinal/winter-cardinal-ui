@@ -4,7 +4,7 @@
  */
 
 import { DBaseInteractive } from "../../d-base-interactive";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeBoard } from "../../d-board";
 import { DCornerMask } from "../../d-corner-mask";
 import { DThemeWhiteBase } from "./d-theme-white-base";
@@ -15,7 +15,7 @@ export class DThemeWhiteBoard extends DThemeWhiteBase implements DThemeBoard {
 		return DThemeWhiteConstants.BACKGROUND_COLOR;
 	}
 
-	getBorderColor( state: DBaseState ): number | null {
+	getBorderColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 

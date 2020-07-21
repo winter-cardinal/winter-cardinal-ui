@@ -143,11 +143,11 @@ export class DChartSelectionSubImpl extends utils.EventEmitter implements DChart
 		if( oldSeries !== series ) {
 			const state = this._state;
 			if( oldSeries ) {
-				oldSeries.setState( state, false );
+				oldSeries.state.remove( state );
 			}
 
 			this._series = series;
-			series.setState( state, true );
+			series.state.add( state );
 		}
 
 		this.emit( "change", this );
@@ -167,7 +167,7 @@ export class DChartSelectionSubImpl extends utils.EventEmitter implements DChart
 			this._coordinateX = null;
 			this._coordinateY = null;
 
-			series.setState( this._state, false );
+			series.state.remove( this._state );
 
 			this._gridline.unset();
 			this._marker.unset();

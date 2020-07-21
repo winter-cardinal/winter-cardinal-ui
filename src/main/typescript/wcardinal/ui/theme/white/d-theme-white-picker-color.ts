@@ -5,7 +5,7 @@
 
 import { Texture } from "pixi.js";
 import { DBaseInteractive } from "../../d-base-interactive";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DColorAndAlpha } from "../../d-color";
 import { DThemePickerColor } from "../../d-picker-color";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
@@ -251,11 +251,11 @@ export class DThemeWhitePickerColor extends DThemeWhiteBase implements DThemePic
 		return DThemeWhiteAtlas.mappings.picker_color_sample_null;
 	}
 
-	getBackgroundColor( state: DBaseState ): number | null {
+	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 
-	getBorderColor( state: DBaseState ): number | null {
+	getBorderColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 

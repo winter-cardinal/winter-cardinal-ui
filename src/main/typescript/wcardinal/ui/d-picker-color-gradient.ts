@@ -8,7 +8,6 @@ import InteractionEvent = interaction.InteractionEvent;
 import { DAlignWith } from "./d-align-with";
 import { DApplications } from "./d-applications";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
-import { DBaseState } from "./d-base-state";
 import { DInputReal } from "./d-input-real";
 import { DPickerColor } from "./d-picker-color";
 import { DPickerColorGradientData, DPickerColorGradientDataLike } from "./d-picker-color-gradient-data";
@@ -65,7 +64,7 @@ export class DPickerColorGradient<
 	protected init( options?: OPTIONS ) {
 		super.init( options );
 
-		this.setState( DBaseState.UNFOCUSABLE, true );
+		this.state.isFocusable = false;
 
 		const theme = this.theme;
 		const padding = this._padding;

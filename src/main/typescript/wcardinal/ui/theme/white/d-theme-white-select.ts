@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DMenuItem } from "../../d-menu-item";
 import { DThemeSelect } from "../../d-select";
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
@@ -30,7 +30,7 @@ export class DThemeWhiteSelect extends DThemeWhiteDropdownBase<DMenuItem<any> | 
 		return null;
 	}
 
-	getTextValue( state: DBaseState ): DMenuItem<any> | null {
+	getTextValue( state: DBaseStateSet ): DMenuItem<any> | null {
 		return null;
 	}
 

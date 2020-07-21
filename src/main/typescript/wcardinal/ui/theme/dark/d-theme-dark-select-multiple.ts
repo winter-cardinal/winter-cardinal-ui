@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DMenuItem } from "../../d-menu-item";
 import { DThemeSelectMultiple } from "../../d-select-multiple";
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
@@ -40,7 +40,7 @@ export class DThemeDarkSelectMultiple extends DThemeDarkDropdownBase<Array<DMenu
 		return [];
 	}
 
-	getTextValue( state: DBaseState ): Array<DMenuItem<any>> {
+	getTextValue( state: DBaseStateSet ): Array<DMenuItem<any>> {
 		return [];
 	}
 

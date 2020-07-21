@@ -5,7 +5,6 @@
 
 import { Point } from "pixi.js";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
-import { DBaseState } from "./d-base-state";
 import { UtilDrag } from "./util/util-drag";
 
 export interface DScrollBarThumbOptions extends DBaseOptions<DThemeScrollBarThumb> {
@@ -21,7 +20,7 @@ export abstract class DScrollBarThumb extends DBase<DThemeScrollBarThumb, DScrol
 
 	protected init( options?: DScrollBarThumbOptions ) {
 		super.init( options );
-		this.setState( DBaseState.UNFOCUSABLE, true );
+		this.state.isFocusable = false;
 
 		const position = new Point();
 		this._dragUtil = new UtilDrag({

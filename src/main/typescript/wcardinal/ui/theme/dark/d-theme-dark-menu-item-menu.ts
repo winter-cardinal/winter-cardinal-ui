@@ -6,7 +6,7 @@
 import { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignWith } from "../../d-align-with";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeMenuItemMenu } from "../../d-menu-item-menu";
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
 import { DThemeDarkMenuItem } from "./d-theme-dark-menu-item";
@@ -18,7 +18,7 @@ DThemeDarkAtlas.add( "menu_item_mark_next", 14, 20,
 );
 
 export class DThemeDarkMenuItemMenu extends DThemeDarkMenuItem implements DThemeMenuItemMenu {
-	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
+	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
 		return DThemeDarkAtlas.mappings.menu_item_mark_next;
 	}
 

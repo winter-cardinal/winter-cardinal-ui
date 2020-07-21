@@ -245,7 +245,7 @@ export class UtilKeyboardEvent {
 				e.shiftKey === shortcut.shift &&
 				( e.key === shortcut.key || e.which === shortcut.which )
 			) {
-				if( target.isActionable() ) {
+				if( target.state.isActionable ) {
 					if( shortcut.event != null ) {
 						target.emit( shortcut.event );
 					} else if( handler != null ) {

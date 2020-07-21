@@ -7,15 +7,15 @@ export const DTreeItemState = {
 	/**
 	 * the parent item is expanded
 	 */
-	EXPANDED: DBaseState.CUSTOM << 0,
-	
+	EXPANDED: DBaseState.CUSTOM,
+
 	/**
 	 * the parent item is collapsed
 	 */
-	COLLAPSED: DBaseState.CUSTOM << 1,
-	
+	COLLAPSED: DBaseState.CUSTOM * 2,
+
 	/**
 	 * the child item is selected
 	 */
-	SELECTED: DBaseState.CUSTOM << 2
+	SELECTED: DBaseState.CUSTOM * 4
 };

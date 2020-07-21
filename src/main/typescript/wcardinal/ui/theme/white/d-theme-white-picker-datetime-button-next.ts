@@ -6,7 +6,7 @@
 import { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignWith } from "../../d-align-with";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemePickerDatetimeButtonNext } from "../../d-picker-datetime-button-next";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
@@ -36,7 +36,7 @@ export class DThemeWhitePickerDatetimeButtonNext
 		return DAlignHorizontal.LEFT;
 	}
 
-	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
+	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
 		return DThemeWhiteAtlas.mappings.picker_date_next;
 	}
 

@@ -4,7 +4,7 @@
  */
 
 import { DisplayObject, Texture } from "pixi.js";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteDialogConfirmMessage } from "./d-theme-white-dialog-confirm-message";
 
@@ -29,16 +29,16 @@ export class DThemeWhiteDialogProcessingMessage extends DThemeWhiteDialogConfirm
 		return 90;
 	}
 
-	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
-		if( state & DBaseState.SUCCEEDED ) {
+	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
+		if( state.isSucceeded ) {
 			return DThemeWhiteAtlas.mappings.success_mark;
-		} else if( state & DBaseState.FAILED ) {
+		} else if( state.isFailed ) {
 			return DThemeWhiteAtlas.mappings.fail_mark;
 		}
 		return null;
 	}
 
-	getImageTintAlpha( state: DBaseState ): number {
+	getImageTintAlpha( state: DBaseStateSet ): number {
 		return 0.75;
 	}
 }

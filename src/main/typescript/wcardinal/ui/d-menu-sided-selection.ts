@@ -100,7 +100,7 @@ export class DMenuSidedSelection extends utils.EventEmitter implements DListItem
 		for( let i = 0, imax = children.length; i < imax; ++i ) {
 			const child = children[ i ];
 			if( child instanceof DListItem ) {
-				if( child.isActive() ) {
+				if( child.state.isActive ) {
 					this.set_( child, false );
 				}
 			}
@@ -170,9 +170,9 @@ export class DMenuSidedSelection extends utils.EventEmitter implements DListItem
 	protected setState( item: DBase | null, mode: DMenuSidedSelectionMode, isOn: boolean ): void {
 		if( item ) {
 			if( mode === DMenuSidedSelectionMode.SINGLE ) {
-				item.setState( DBaseState.ACTIVE, isOn );
+				item.state.isActive = isOn;
 			} else {
-				item.setState( DBaseState.ACTIVE | DBaseState.READ_ONLY, isOn );
+				item.state.set( DBaseState.ACTIVE | DBaseState.READ_ONLY, isOn );
 			}
 		}
 	}

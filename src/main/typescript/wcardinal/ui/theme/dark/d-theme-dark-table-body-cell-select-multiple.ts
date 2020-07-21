@@ -4,7 +4,7 @@
  */
 
 import { DisplayObject, Texture } from "pixi.js";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DBorderMask } from "../../d-border-mask";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
@@ -15,31 +15,31 @@ import { DThemeDarkTableBodyCells } from "./d-theme-dark-table-body-cells";
 export class DThemeDarkTableBodyCellSelectMultiple extends DThemeDarkSelectMultiple
 	implements DThemeTableBodyCellSelectMultiple {
 
-	getBackgroundColor( state: DBaseState ): number | null {
+	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return DThemeDarkTableBodyCells.getBackgroundColor( state );
 	}
 
-	getBackgroundAlpha( state: DBaseState ): number {
+	getBackgroundAlpha( state: DBaseStateSet ): number {
 		return DThemeDarkTableBodyCells.getBackgroundAlpha( state );
 	}
 
-	getBorderColor( state: DBaseState ): number | null {
+	getBorderColor( state: DBaseStateSet ): number | null {
 		return DThemeDarkTableBodyCells.getBorderColor( state );
 	}
 
-	getBorderAlign( state: DBaseState ): number {
+	getBorderAlign( state: DBaseStateSet ): number {
 		return DThemeDarkTableBodyCells.getBorderAlign( state );
 	}
 
-	getBorderMask( state: DBaseState ): DBorderMask {
+	getBorderMask( state: DBaseStateSet ): DBorderMask {
 		return DThemeDarkTableBodyCells.getBorderMask( state );
 	}
 
-	getColor( state: DBaseState ): number {
+	getColor( state: DBaseStateSet ): number {
 		return DThemeDarkTableBodyCells.getColor( state );
 	}
 
-	getAlpha( state: DBaseState ): number {
+	getAlpha( state: DBaseStateSet ): number {
 		return DThemeDarkTableBodyCells.getAlpha( state );
 	}
 
@@ -51,7 +51,7 @@ export class DThemeDarkTableBodyCellSelectMultiple extends DThemeDarkSelectMulti
 		return DThemeDarkTableBodyCells.getCornerMask();
 	}
 
-	getSecondaryImageSource( state: DBaseState ): Texture | DisplayObject | null {
+	getSecondaryImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
 		return null;
 	}
 }

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeChartPlotArea } from "../../d-chart-plot-area";
 import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
 import { DThemeDarkBase } from "./d-theme-dark-base";
@@ -41,7 +41,7 @@ export class DThemeDarkChartPlotArea extends DThemeDarkBase implements DThemeCha
 		return 10;
 	}
 
-	getBorderColor( state: DBaseState ): number | null {
+	getBorderColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 

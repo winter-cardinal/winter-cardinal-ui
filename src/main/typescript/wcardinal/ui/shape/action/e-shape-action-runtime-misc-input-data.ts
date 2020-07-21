@@ -93,14 +93,14 @@ export class EShapeActionRuntimeMiscInputData {
 		input.setAttribute( "style", this.getInputStyle( shape ) );
 
 		// ReadOnly
-		if( shape.readonly ) {
+		if( shape.state.inReadOnly ) {
 			input.setAttribute( "readonly", "readonly" );
 		} else {
 			input.removeAttribute( "readonly" );
 		}
 
 		// Disabled
-		if( shape.disabled ) {
+		if( shape.state.inDisabled ) {
 			input.setAttribute( "disabled", "disabled" );
 		} else {
 			input.removeAttribute( "disabled" );

@@ -158,15 +158,15 @@ export class DPickerDatetime<
 			tmp.setDate( i + 1 );
 
 			const button = buttons[ i + 7 ];
-			button.setActive( dateNewDate === i + 1 );
-			button.setDisabled( ! bounds.contains( tmp ) );
+			button.state.isActive = dateNewDate === i + 1;
+			button.state.isDisabled = ! bounds.contains( tmp );
 			button.show();
 
 			dateDecorator( tmp, button as DPickerDatetimeButtonDate );
 		}
 		for( let i = dateCount; i < 31; ++i ) {
 			const button = buttons[ i + 7 ];
-			button.setActive( false );
+			button.state.isActive = false;
 			button.hide();
 		}
 

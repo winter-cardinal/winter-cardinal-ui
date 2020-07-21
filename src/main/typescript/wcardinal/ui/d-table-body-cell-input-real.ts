@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "./d-base-state";
 import { DInputReal, DInputRealOptions, DThemeInputReal } from "./d-input-real";
 import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
@@ -47,11 +46,6 @@ export class DTableBodyCellInputReal<
 				this.emit( "cellchange", newValue, oldValue, row, rowIndex, columnIndex, this );
 			}
 		});
-	}
-
-	protected mergeState( stateLocal: DBaseState, stateParent: DBaseState ): DBaseState {
-		return super.mergeState( stateLocal, stateParent ) |
-			( stateParent & DBaseState.HOVERED ? DBaseState.HOVERED : DBaseState.NONE );
 	}
 
 	get row(): ROW | undefined {

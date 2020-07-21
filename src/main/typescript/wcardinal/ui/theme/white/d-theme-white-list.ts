@@ -3,16 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhitePane } from "./d-theme-white-pane";
 
 export class DThemeWhiteList extends DThemeWhitePane {
-	getBackgroundColor( state: DBaseState ): number | null {
+	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD;
 	}
 
-	getBorderAlign( state: DBaseState ): number {
+	getBorderAlign( state: DBaseStateSet ): number {
 		return 1;
 	}
 }

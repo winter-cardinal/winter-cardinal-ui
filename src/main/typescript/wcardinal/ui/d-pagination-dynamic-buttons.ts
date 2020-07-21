@@ -71,7 +71,7 @@ export class DPaginationDynamicButtons<
 		for ( let i = 0; i < btnsCount; i++ ) {
 			const btn = pageButtons[ i ];
 			btn.text = options.start + i + 1;
-			btn.setActive( options.start + i  === options.selected );
+			btn.state.isActive = ( options.start + i === options.selected );
 			if( btn.isHidden() ) {
 				btn.show();
 			}

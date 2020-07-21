@@ -3,16 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "../../d-base-state";
-import { DBaseStates } from "../../d-base-states";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeDialogProcessing } from "../../d-dialog-processing";
 import { DStateAwareOrValue } from "../../d-state-aware";
 import { DThemeWhiteDialogConfirm } from "./d-theme-white-dialog-confirm";
 
-const message = ( state: DBaseState ): string => {
-	if( DBaseStates.isSucceeded( state ) ) {
+const message = ( state: DBaseStateSet ): string => {
+	if( state.isSucceeded ) {
 		return "Processed successfully";
-	} else if( DBaseStates.isFailed( state ) ) {
+	} else if( state.isFailed ) {
 		return "Failed to process the request";
 	} else {
 		return "Processing...";

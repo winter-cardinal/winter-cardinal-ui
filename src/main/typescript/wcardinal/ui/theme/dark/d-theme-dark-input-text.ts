@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeInputText } from "../../d-input-text";
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeDarkInput } from "./d-theme-dark-input";
@@ -13,7 +13,7 @@ export class DThemeDarkInputText extends DThemeDarkInput implements DThemeInputT
 		return "";
 	}
 
-	getTextValue( state: DBaseState ): string {
+	getTextValue( state: DBaseStateSet ): string {
 		return "";
 	}
 }

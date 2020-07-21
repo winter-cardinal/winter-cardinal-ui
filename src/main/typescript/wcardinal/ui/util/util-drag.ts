@@ -181,14 +181,14 @@ export class UtilDrag {
 			if( layer ) {
 				e.stopPropagation();
 
-				if( target.isDragging() ) {
+				if( target.state.isDragging ) {
 					const interactionManager = this._interactionManager;
 					if( interactionManager ) {
 						const center = this._center;
 						this._scale = this.calcCenterAndScale( e, center, interactionManager );
 					}
 				} else {
-					target.setDragging( true );
+					target.state.isDragging = true;
 
 					// Interaction manager
 					const interactionManager = layer.renderer.plugins.interaction;
@@ -223,7 +223,7 @@ export class UtilDrag {
 
 	protected onMove( e: InteractionEvent ): void {
 		const target = this._target;
-		if( target.isDragging() && this._checker.move( e, this._modifier, target ) ) {
+		if( target.state.isDragging && this._checker.move( e, this._modifier, target ) ) {
 			const interactionManager = this._interactionManager;
 			if( interactionManager ) {
 				// Update the center
@@ -262,7 +262,7 @@ export class UtilDrag {
 
 	protected onEnd( e: InteractionEvent ): void {
 		const target = this._target;
-		if( target.isDragging() ) {
+		if( target.state.isDragging ) {
 			const interactionManager = this._interactionManager;
 			if( interactionManager ) {
 				// Update the center
@@ -273,7 +273,7 @@ export class UtilDrag {
 				// Finalize
 				const oe = e.data.originalEvent;
 				if( "touches" in oe ? oe.touches.length <= 0 : true ) {
-					target.setDragging( false );
+					target.state.isDragging = false;
 
 					// Event handler
 					this._interactionManager = null;

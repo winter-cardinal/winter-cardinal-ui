@@ -4,7 +4,7 @@
  */
 
 import { DisplayObject, Texture } from "pixi.js";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DTableCellState } from "../../d-table-cell-state";
 import { DThemeWhiteExpandables } from "./d-theme-white-expandables";
 import { DThemeWhiteFont } from "./d-theme-white-font";
@@ -15,9 +15,9 @@ export class DThemeWhiteTableBodyCellTrees {
 		DThemeWhiteExpandables.init();
 	}
 
-	static getImageSource( state: DBaseState ): Texture | DisplayObject | null {
-		if( state & DTableCellState.HAS_CHILDREN ) {
-			if( state & DTableCellState.OPENED ) {
+	static getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
+		if( state.is( DTableCellState.HAS_CHILDREN ) ) {
+			if( state.is( DTableCellState.OPENED ) ) {
 				return DThemeWhiteExpandables.getImageOpened();
 			} else {
 				return DThemeWhiteExpandables.getImageClosed();
@@ -26,11 +26,11 @@ export class DThemeWhiteTableBodyCellTrees {
 		return null;
 	}
 
-	static 	getImageTintColor( state: DBaseState ): number | null {
+	static 	getImageTintColor( state: DBaseStateSet ): number | null {
 		return DThemeWhiteFont.getColor( state );
 	}
 
-	static getImageTintAlpha( state: DBaseState ): number {
+	static getImageTintAlpha( state: DBaseStateSet ): number {
 		return DThemeWhiteTableBodyCells.getAlpha( state ) * 0.5;
 	}
 }

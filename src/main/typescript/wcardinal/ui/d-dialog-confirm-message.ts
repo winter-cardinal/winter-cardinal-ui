@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "./d-base-state";
 import { DImage, DImageOptions, DThemeImage } from "./d-image";
 
 export interface DDialogConfirmMessageOptions<
@@ -24,7 +23,7 @@ export class DDialogConfirmMessage<
 > extends DImage<VALUE, THEME, OPTIONS> {
 	constructor( options?: OPTIONS ) {
 		super( options );
-		this.setState( DBaseState.UNFOCUSABLE, true );
+		this.state.isFocusable = false;
 	}
 
 	protected getType(): string {

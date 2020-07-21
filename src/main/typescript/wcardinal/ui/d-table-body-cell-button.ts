@@ -4,7 +4,7 @@
  */
 
 import { interaction } from "pixi.js";
-import { DBaseStates } from "./d-base-states";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DTableBodyCellText, DTableBodyCellTextOptions, DThemeTableBodyCellText } from "./d-table-body-cell-text";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
@@ -34,7 +34,7 @@ export class DTableBodyCellButton<
 
 	protected initOnClick( options: OPTIONS ): void {
 		UtilPointerEvent.onClick( this, ( e: interaction.InteractionEvent ): void => {
-			if( this.isActionable() ) {
+			if( this.state.isActionable ) {
 				this.onActive( e );
 			}
 		});
@@ -52,17 +52,17 @@ export class DTableBodyCellButton<
 	}
 
 	protected onActivateKeyDown( e: KeyboardEvent ): void {
-		if( this.isActionable() ) {
-			this.setPressed( true );
+		if( this.state.isActionable ) {
+			this.state.isPressed = true;
 		}
 	}
 
 	protected onActivateKeyUp( e: KeyboardEvent ): void {
-		if( this.isActionable() ) {
-			if( this.isPressed() ) {
+		if( this.state.isActionable ) {
+			if( this.state.isPressed ) {
 				this.onActive( e );
 			}
-			this.setPressed( false );
+			this.state.isPressed = false;
 		}
 	}
 
@@ -82,9 +82,9 @@ export class DTableBodyCellButton<
 		return super.onKeyUp( e );
 	}
 
-	protected onStateChange( newState: number, oldState: number ): void {
+	protected onStateChange( newState: DBaseStateSet, oldState: DBaseStateSet ): void {
 		super.onStateChange( newState, oldState );
-		this.buttonMode = DBaseStates.isActionable( newState );
+		this.buttonMode = newState.isActionable;
 	}
 
 	protected getType(): string {

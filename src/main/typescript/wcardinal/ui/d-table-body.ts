@@ -93,7 +93,7 @@ export class DTableBody<
 
 	constructor( options: OPTIONS ) {
 		super( options );
-		this.setState( DBaseState.UNFOCUSABLE, true );
+		this.state.isFocusable = false;
 		this._data.emit( "init", this._data );
 	}
 
@@ -246,9 +246,9 @@ export class DTableBody<
 			const row = rows[ index - newRowIndexMappedStart ];
 			row.position.y = index * rowHeight;
 			if( selection.contains( unmappedIndex ) ) {
-				row.setStates( DBaseState.ACTIVE, DBaseState.DISABLED );
+				row.state.set( DBaseState.ACTIVE, DBaseState.DISABLED );
 			} else {
-				row.setStates( DBaseState.NONE, DBaseState.ACTIVE | DBaseState.DISABLED );
+				row.state.remove( DBaseState.ACTIVE | DBaseState.DISABLED );
 			}
 			row.set( datum, supplimental, unmappedIndex, forcibly );
 		}, newRowIndexMappedStart, newRowIndexMappedStart + rowsLength );
@@ -256,14 +256,14 @@ export class DTableBody<
 		for( let i = 0; newRowIndexMappedStart + i < 0 && i < rowsLength; ++i ) {
 			const row = rows[ i ];
 			row.position.y = ( newRowIndexMappedStart + i ) * rowHeight;
-			row.setStates( DBaseState.DISABLED, DBaseState.ACTIVE );
+			row.state.set( DBaseState.DISABLED, DBaseState.ACTIVE );
 			row.unset();
 		}
 
 		for( let i = rowsLength - 1; dataMappedSize <= newRowIndexMappedStart + i && 0 <= i; --i ) {
 			const row = rows[ i ];
 			row.position.y = ( newRowIndexMappedStart + i ) * rowHeight;
-			row.setStates( DBaseState.DISABLED, DBaseState.ACTIVE );
+			row.state.set( DBaseState.DISABLED, DBaseState.ACTIVE );
 			row.unset();
 		}
 
@@ -280,7 +280,7 @@ export class DTableBody<
 		for( let i = 0, imax = cells.length; i < imax; ++i ) {
 			const cell = cells[ i ];
 			if( cell instanceof DBase ) {
-				cell.setPressed( false );
+				cell.state.isPressed = false;
 			}
 		}
 		return row;
@@ -321,7 +321,7 @@ export class DTableBody<
 	}
 
 	onRowClicked( e: InteractionEvent ): void {
-		if( this.isActionable() ) {
+		if( this.state.isActionable ) {
 			const local = DTableBody.WORK_ON_CLICK;
 			local.copyFrom( e.data.global );
 			this.toLocal( local, undefined, local, false );
@@ -399,7 +399,7 @@ export class DTableBody<
 	onDblClick( e: MouseEvent | TouchEvent, interactionManager: interaction.InteractionManager ): boolean {
 		let result = false;
 		const data = this._data;
-		if( this.isActionable() && data.selection.type !== DTableDataSelectionType.NONE ) {
+		if( this.state.isActionable && data.selection.type !== DTableDataSelectionType.NONE ) {
 			const local = UtilPointerEvent.toGlobal( e, interactionManager, DTableBody.WORK_ON_CLICK );
 			this.toLocal( local, undefined, local, false );
 			const x = local.x;
@@ -417,7 +417,7 @@ export class DTableBody<
 						const columnsLength = columns.length;
 						for( let i = 0, imax = Math.min( cellsLength, columnsLength ); i < imax; ++i ) {
 							const cell = cells[ cellsLength - i - 1 ];
-							if( cell.isActionable() ) {
+							if( cell.state.isActionable ) {
 								const dx = x - cell.position.x;
 								if( 0 <= dx && dx <= cell.width ) {
 									cell.focus();

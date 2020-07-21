@@ -5,7 +5,7 @@
 
 import { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "../../d-align-horizontal";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
 import { DTreeItemState } from "../../d-tree-item-state";
@@ -26,11 +26,11 @@ DThemeDarkAtlas.add( "menu_item_expandable_header_opened", 14, 14,
 );
 
 export class DThemeDarkTreeItemToggleIcon extends DThemeDarkImage implements DThemeTreeItemToggleIcon {
-	getBackgroundColor( state: DBaseState ): number | null {
+	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 
-	getBorderColor( state: DBaseState ): number | null {
+	getBorderColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 
@@ -58,10 +58,10 @@ export class DThemeDarkTreeItemToggleIcon extends DThemeDarkImage implements DTh
 		return DCornerMask.ALL;
 	}
 
-	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
-		if (state & DTreeItemState.EXPANDED) {
+	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
+		if( state.is( DTreeItemState.EXPANDED ) ) {
 			return DThemeDarkAtlas.mappings.menu_item_expandable_header_opened;
-		} else if (state & DTreeItemState.COLLAPSED) {
+		} else if( state.is( DTreeItemState.COLLAPSED ) ) {
 			return DThemeDarkAtlas.mappings.menu_item_expandable_header_closed;
 		} else {
 			return null;

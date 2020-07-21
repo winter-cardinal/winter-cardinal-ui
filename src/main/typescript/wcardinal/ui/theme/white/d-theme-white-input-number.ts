@@ -4,7 +4,7 @@
  */
 
 import { DAlignHorizontal } from "../../d-align-horizontal";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeInputNumber } from "../../d-input-number";
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeWhiteInput } from "./d-theme-white-input";
@@ -30,7 +30,7 @@ export class DThemeWhiteInputNumber extends DThemeWhiteInput implements DThemeIn
 		return 0;
 	}
 
-	getTextValue( state: DBaseState ): number {
+	getTextValue( state: DBaseStateSet ): number {
 		return 0;
 	}
 }

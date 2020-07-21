@@ -5,7 +5,7 @@
 
 import { Texture } from "pixi.js";
 import { DApplications } from "./d-applications";
-import { DBaseState } from "./d-base-state";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogColorGradient, DDialogColorGradientOptions } from "./d-dialog-color-gradient";
 import { DPickerColorGradientData } from "./d-picker-color-gradient-data";
@@ -51,7 +51,7 @@ export interface DButtonColorGradientOptions<
 export interface DThemeButtonColorGradient extends DThemeButton {
 	getViewBaseTexture(): Texture | null;
 	getTextFormatter(): ( value: DPickerColorGradientData, caller: DButtonColorGradient ) => string;
-	getTextValue( state: DBaseState ): DPickerColorGradientData;
+	getTextValue( state: DBaseStateSet ): DPickerColorGradientData;
 	newTextValue(): DPickerColorGradientData;
 	getCheckerColors(): [ number, number ];
 }

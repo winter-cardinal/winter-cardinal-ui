@@ -5,7 +5,7 @@
 
 import { DisplayObject, IPoint, Matrix, Point, Rectangle, Texture, Transform, utils } from "pixi.js";
 import { DApplications } from "../../d-applications";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { EShapeAction } from "../action/e-shape-action";
 import { EShape, EShapeCopyPart } from "../e-shape";
@@ -17,7 +17,9 @@ import { EShapeGradientLike } from "../e-shape-gradient";
 import { EShapeLayout } from "../e-shape-layout";
 import { EShapePoints } from "../e-shape-points";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
-import { EShapeRuntime, EShapeRuntimeState } from "../e-shape-runtime";
+import { EShapeRuntime } from "../e-shape-runtime";
+import { EShapeStateSet } from "../e-shape-state-set";
+import { EShapeStateSetImpl } from "../e-shape-state-set-impl";
 import { EShapeStroke } from "../e-shape-stroke";
 import { EShapeTag } from "../e-shape-tag";
 import { EShapeText } from "../e-shape-text";
@@ -63,8 +65,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	protected _boundsLocal?: Rectangle;
 	protected _boundsLocalTransformId: number;
 
-	protected _state: DBaseState;
-	protected _stateLocal: DBaseState;
+	protected _state: EShapeStateSet;
 
 	// Hierarchy
 	parent: EShapeContainer | EShape | null;
@@ -103,7 +104,9 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		this._boundsInternalTransformId = NaN;
 		this._boundsLocalTransformId = NaN;
 
-		this._state = this._stateLocal = DBaseState.UNFOCUSABLE;
+		this._state = new EShapeStateSetImpl(( newState, oldState ): void => {
+			this.onStateChange( newState, oldState );
+		});
 		this.interactive = false;
 
 		//
@@ -348,7 +351,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 			this.serializeChildren( manager ),
 			pivot.x,
 			pivot.y,
-			( this.interactive ? 1 : 0 ) | ( this.unfocusable ? 2 : 0 ),
+			( this.interactive ? 1 : 0 ) | ( this.state.isFocusable ? 0 : 2 ),
 			shortcutId,
 			titleId,
 			this.uuid
@@ -595,26 +598,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	}
 
 	//
-	protected updateState(): void {
-		const parent = this.parent;
-		const stateLocal = this._stateLocal;
-		const newState = ( parent instanceof EShapeBase ?
-			this.mergeState( stateLocal, parent.getState() ) :
-			stateLocal
-		);
-		const oldState = this._state;
-		if( oldState !== newState ) {
-			this._state = newState;
-			this.onStateChange( newState, oldState );
-		}
-	}
-
-	protected mergeState( stateLocal: DBaseState, stateParent: DBaseState ): DBaseState {
-		return stateLocal | (stateParent & DBaseState.DISABLED) |
-			(stateParent & (DBaseState.FOCUSED | DBaseState.FOCUSED_IN) ? DBaseState.FOCUSED_IN : DBaseState.NONE);
-	}
-
-	protected onStateChange( newState: number, oldState: number ) {
+	protected onStateChange( newState: DBaseStateSet, oldState: DBaseStateSet ): void {
 		const runtime = this.runtime;
 		if( runtime != null ) {
 			runtime.onStateChange( this, newState, oldState );
@@ -624,137 +608,32 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		for( let i = 0, imax = children.length; i < imax; ++i ) {
 			const child = children[ i ];
 			if( child instanceof EShapeBase ) {
-				child.onParentStateChange( newState, oldState );
+				child._state.update( newState );
 			}
 		}
 	}
 
-	protected onParentStateChange( newStateParent: number, oldStateParent: number ) {
-		const newState = this.mergeState( this._stateLocal, newStateParent );
-		const oldState = this._state;
-		if( oldState !== newState ) {
-			this._state = newState;
-			this.onStateChange( newState, oldState );
-		}
-	}
-
-	getState(): DBaseState {
+	get state(): EShapeStateSet {
 		return this._state;
 	}
 
-	setState( state: DBaseState, isOn: boolean ): this {
-		if( (!! ( this._stateLocal & state )) !== isOn ) {
-			if( isOn ) {
-				this._stateLocal |= state;
-			} else {
-				this._stateLocal &= ~state;
-			}
-			this.updateState();
-		}
-		return this;
-	}
-
-	hasState( state: DBaseState ): boolean {
-		return !! ( this._state & state );
-	}
-
 	focus(): this {
-		this.focused = true;
+		this.setFocused( true );
 		return this;
 	}
 
 	blur(): this {
-		this.focused = false;
+		this.setFocused( false );
 		return this;
 	}
 
-	get hovered(): boolean {
-		return this.hasState( DBaseState.HOVERED );
-	}
-
-	set hovered( isHovered: boolean ) {
-		this.setState( DBaseState.HOVERED, isHovered );
-	}
-
-	get active(): boolean {
-		return this.hasState( DBaseState.ACTIVE );
-	}
-
-	set active( isActive: boolean ) {
-		this.setState( DBaseState.ACTIVE, isActive );
-	}
-
-	get readonly(): boolean {
-		return this.hasState( DBaseState.READ_ONLY );
-	}
-
-	set readonly( isReadOnly: boolean ) {
-		this.setState( DBaseState.READ_ONLY, isReadOnly );
-	}
-
-	get enabled(): boolean {
-		return ! this.hasState( DBaseState.DISABLED );
-	}
-
-	get disabled(): boolean {
-		return this.hasState( DBaseState.DISABLED );
-	}
-
-	set disabled( isDisabled: boolean ) {
-		this.setState( DBaseState.DISABLED, isDisabled );
-	}
-
-	get dragging(): boolean {
-		return this.hasState( DBaseState.DRAGGING );
-	}
-
-	set dragging( isDragging: boolean ) {
-		this.setState( DBaseState.DRAGGING, isDragging );
-	}
-
-	get focused(): boolean {
-		return this.hasState( DBaseState.FOCUSED );
-	}
-
-	set focused( focused: boolean ) {
-		if( this.focused !== focused ) {
+	protected setFocused( isFocused: boolean ): void {
+		if( this.state.isFocused !== isFocused ) {
 			const layer = DApplications.getLayer( this );
 			if( layer ) {
-				layer.getFocusController().setFocused( this, focused, false );
+				layer.getFocusController().setFocused( this, isFocused, false );
 			}
 		}
-	}
-
-	get focusedin(): boolean {
-		return this.hasState( DBaseState.FOCUSED | DBaseState.FOCUSED_IN );
-	}
-
-	get unfocusable(): boolean {
-		return this.hasState( DBaseState.UNFOCUSABLE );
-	}
-
-	set unfocusable( unforcusable: boolean ) {
-		this.setState( DBaseState.UNFOCUSABLE, unforcusable );
-	}
-
-	get clicked(): boolean {
-		const runtime = this.runtime;
-		return !! ( runtime && (runtime.state & EShapeRuntimeState.CLICKED) );
-	}
-
-	get pressed(): boolean {
-		const runtime = this.runtime;
-		return !! ( runtime && (runtime.state & EShapeRuntimeState.PRESSED) );
-	}
-
-	get down(): boolean {
-		const runtime = this.runtime;
-		return !! ( runtime && (runtime.state & EShapeRuntimeState.DOWN) );
-	}
-
-	get up(): boolean {
-		const runtime = this.runtime;
-		return !! ( runtime && (runtime.state & EShapeRuntimeState.UP) );
 	}
 
 	get shadowed(): boolean {
@@ -853,7 +732,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 			}
 		}
 		if( (part & EShapeCopyPart.STATE) !== 0 ) {
-			this.setState( source.getState(), true );
+			this.state.copy( source.state );
 		}
 		return this;
 	}

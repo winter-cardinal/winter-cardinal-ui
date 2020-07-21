@@ -56,6 +56,7 @@ export * from "./util-pointer-event";
 export * from "./util-promise";
 export * from "./util-rgb";
 export * from "./util-rgba";
+export * from "./util-state-blinker";
 export * from "./util-texture-plane";
 export * from "./util-texture";
 export * from "./util-transition";

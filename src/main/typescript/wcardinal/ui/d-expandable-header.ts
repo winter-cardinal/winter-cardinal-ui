@@ -27,7 +27,7 @@ export class DExpandableHeader<
 		super( options );
 
 		this.on( UtilPointerEvent.down, (): void => {
-			if( this.isActionable() ) {
+			if( this.state.isActionable ) {
 				this.onSelect();
 			}
 		});
@@ -38,7 +38,7 @@ export class DExpandableHeader<
 	}
 
 	onKeyDown( e: KeyboardEvent ): boolean {
-		if( this.isActionable() && this.isFocused() && UtilKeyboardEvent.isActivateKey( e ) ) {
+		if( this.state.isActionable && this.state.isFocused && UtilKeyboardEvent.isActivateKey( e ) ) {
 			this.onSelect();
 		}
 

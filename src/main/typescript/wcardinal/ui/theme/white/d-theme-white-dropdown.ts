@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeDropdown } from "../../d-dropdown";
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeWhiteDropdownBase } from "./d-theme-white-dropdown-base";
@@ -13,7 +13,7 @@ export class DThemeWhiteDropdown extends DThemeWhiteDropdownBase<string> impleme
 		return "";
 	}
 
-	getTextValue( state: DBaseState ): string {
+	getTextValue( state: DBaseStateSet ): string {
 		return "";
 	}
 }

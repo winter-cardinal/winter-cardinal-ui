@@ -4,8 +4,7 @@
  */
 
 import { DAlignHorizontal } from "../../d-align-horizontal";
-import { DBaseState } from "../../d-base-state";
-import { DBaseStates } from "../../d-base-states";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
 import { DThemeMenuBarItem } from "../../d-menu-bar-item";
@@ -13,19 +12,19 @@ import { DThemeWhiteButton } from "./d-theme-white-button";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 
 export class DThemeWhiteMenuBarItem extends DThemeWhiteButton implements DThemeMenuBarItem {
-	getBackgroundColor( state: DBaseState ): number | null {
-		if( DBaseStates.isDisabled( state ) ) {
+	getBackgroundColor( state: DBaseStateSet ): number | null {
+		if( state.inDisabled ) {
 			return null;
-		} else if( DBaseStates.isActive( state ) ) {
+		} else if( state.isActive ) {
 			return DThemeWhiteConstants.HIGHLIGHT_COLOR;
-		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
+		} else if( state.isFocused || state.isHovered ) {
 			return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
 		} else {
 			return null;
 		}
 	}
 
-	getBackgroundAlpha( state: DBaseState ): number {
+	getBackgroundAlpha( state: DBaseStateSet ): number {
 		return DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
 	}
 

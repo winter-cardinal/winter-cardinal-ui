@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "./d-base-state";
 import { DLayoutHorizontal } from "./d-layout-horizontal";
 import { DLayoutVerticalOptions, DThemeLayoutVertical } from "./d-layout-vertical";
 
@@ -23,7 +22,7 @@ export class DMenuSidedContent<
 > extends DLayoutHorizontal<THEME, OPTIONS> {
 	protected init( options?: OPTIONS ) {
 		super.init( options );
-		this.setState( DBaseState.UNFOCUSABLE, true );
+		this.state.isFocusable = false;
 	}
 
 	protected initReflowable(): void {

@@ -5,8 +5,7 @@
 
 import { Container, DisplayObject } from "pixi.js";
 import { DBase } from "./d-base";
-import { DBaseState } from "./d-base-state";
-import { DBaseStates } from "./d-base-states";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DExpandableHeader, DExpandableHeaderOptions } from "./d-expandable-header";
 import { DLayoutVertical, DLayoutVerticalOptions, DThemeLayoutVertical } from "./d-layout-vertical";
 
@@ -46,7 +45,7 @@ export class DExpandable<
 		this.addChild( body );
 
 		//
-		if( this.isActive() ) {
+		if( this.state.isActive ) {
 			this.onActivated();
 		} else {
 			this.onDeactivated();
@@ -73,15 +72,15 @@ export class DExpandable<
 	}
 
 	open(): void {
-		this.setActive( true );
+		this.state.isActive = true;
 	}
 
 	close(): void {
-		this.setActive( false );
+		this.state.isActive = false;
 	}
 
 	toggle(): void {
-		this.setActive( ! this.isActive() );
+		this.state.isActive = ! this.state.isActive;
 	}
 
 	protected onActivated(): void {
@@ -102,15 +101,15 @@ export class DExpandable<
 		}
 	}
 
-	protected onStateChange( newState: DBaseState, oldState: DBaseState ): void {
+	protected onStateChange( newState: DBaseStateSet, oldState: DBaseStateSet ): void {
 		super.onStateChange( newState, oldState );
 
-		if( DBaseStates.isActive( newState ) ) {
-			if( ! DBaseStates.isActive( oldState ) ) {
+		if( newState.isActive ) {
+			if( ! oldState.isActive ) {
 				this.onActivated();
 			}
 		} else {
-			if( DBaseStates.isActive( oldState ) ) {
+			if( oldState.isActive ) {
 				this.onDeactivated();
 			}
 		}

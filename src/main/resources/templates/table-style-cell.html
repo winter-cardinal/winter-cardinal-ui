@@ -50,7 +50,8 @@
 					cell: {
 						background: {
 							color: ( state ) => {
-								return state & wcardinal.ui.DTableCellState.EVEN ? undefined : 0xe0f0ff;
+								return state.onAlternated ?
+									undefined : 0xe0f0ff;
 							}
 						}
 					}

@@ -1,5 +1,5 @@
 import { DisplayObject, Texture } from "pixi.js";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
 import { DThemeDarkTableBodyCells } from "./d-theme-dark-table-body-cells";
 
@@ -16,11 +16,11 @@ export class DThemeDarkTableBodyCellActions {
 		);
 	}
 
-	static getImageSource( state: DBaseState ): Texture | DisplayObject | null {
+	static getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
 		return DThemeDarkAtlas.mappings.action_mark;
 	}
 
-	static getImageTintColor( state: DBaseState ): number | null {
-		return DThemeDarkTableBodyCells.getImageTintColor( state | DBaseState.ACTIVE );
+	static getImageTintColor( state: DBaseStateSet ): number | null {
+		return DThemeDarkTableBodyCells.getImageTintColor( state, true );
 	}
 }

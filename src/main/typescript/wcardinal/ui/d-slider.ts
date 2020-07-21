@@ -90,7 +90,7 @@ export abstract class DSlider<
 		this._track = this.newTrack( options );
 		this.addChild( this._track );
 		this._trackSelected = this.newTrackSelected( options );
-		this._trackSelected.setActive( true );
+		this._trackSelected.state.isActive = true;
 		this.addChild( this._trackSelected );
 		this._thumb = this.newThumb( options );
 		this.addChild( this._thumb );
@@ -103,12 +103,12 @@ export abstract class DSlider<
 
 		// Event listeners
 		this._track.on( UtilPointerEvent.down, ( e: InteractionEvent) => {
-			this._value.visible = true && !this.isDisabled();
+			this._value.visible = this.state.inEnabled;
 			this.onTrackDown( e.data.global );
 		});
 
 		this._trackSelected.on( UtilPointerEvent.down, ( e: InteractionEvent) => {
-			this._value.visible = true && !this.isDisabled();
+			this._value.visible = this.state.inEnabled;
 			this.onTrackSelectedDown( e.data.global );
 		});
 
@@ -207,7 +207,7 @@ export abstract class DSlider<
 	}
 
 	protected onTrackDown( global: Point ): void {
-		if( this.isDisabled() ) {
+		if( this.state.inDisabled ) {
 			return;
 		}
 		const layer = DApplications.getLayer( this );
@@ -220,7 +220,7 @@ export abstract class DSlider<
 	}
 
 	protected onTrackSelectedDown( global: Point ): void {
-		if( this.isDisabled() ) {
+		if( this.state.inDisabled ) {
 			return;
 		}
 		const layer = DApplications.getLayer( this );
@@ -249,7 +249,7 @@ export abstract class DSlider<
 	}
 
 	protected onThumbMove( e: InteractionEvent ): void {
-		if( this.isDisabled() ) {
+		if( this.state.inDisabled ) {
 			return;
 		}
 		this.onPick( e.data.global );

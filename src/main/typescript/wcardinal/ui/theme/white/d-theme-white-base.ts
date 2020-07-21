@@ -6,8 +6,7 @@
 import { Texture } from "pixi.js";
 import { DThemeBase } from "../../d-base";
 import { DBaseInteractive } from "../../d-base-interactive";
-import { DBaseState } from "../../d-base-state";
-import { DBaseStates } from "../../d-base-states";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DBorderMask } from "../../d-border-mask";
 import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
@@ -53,11 +52,11 @@ export class DThemeWhiteBase extends DThemeWhiteFont implements DThemeBase {
 		return 100;
 	}
 
-	getBackgroundColor( state: DBaseState ): number | null {
+	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 
-	getBackgroundAlpha( state: DBaseState ): number {
+	getBackgroundAlpha( state: DBaseStateSet ): number {
 		return 1;
 	}
 
@@ -65,27 +64,27 @@ export class DThemeWhiteBase extends DThemeWhiteFont implements DThemeBase {
 		return UtilTexturePlane.getInstance().getBackground( radius );
 	}
 
-	getBorderColor( state: DBaseState ): number | null {
-		if( DBaseStates.isFocused( state ) ) {
+	getBorderColor( state: DBaseStateSet ): number | null {
+		if( state.isFocused ) {
 			return DThemeWhiteConstants.HIGHLIGHT_COLOR;
 		} else {
 			return null;
 		}
 	}
 
-	getBorderAlpha( state: DBaseState ): number {
+	getBorderAlpha( state: DBaseStateSet ): number {
 		return 1;
 	}
 
-	getBorderWidth( state: DBaseState ): number {
+	getBorderWidth( state: DBaseStateSet ): number {
 		return 1;
 	}
 
-	getBorderAlign( state: DBaseState ): number {
+	getBorderAlign( state: DBaseStateSet ): number {
 		return 0.5;
 	}
 
-	getBorderMask( state: DBaseState ): number {
+	getBorderMask( state: DBaseStateSet ): number {
 		return DBorderMask.NONE;
 	}
 
@@ -117,27 +116,27 @@ export class DThemeWhiteBase extends DThemeWhiteFont implements DThemeBase {
 		return DCornerMask.NONE;
 	}
 
-	getOutlineColor( state: DBaseState ): number | null {
+	getOutlineColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 
-	getOutlineAlpha( state: DBaseState ): number {
+	getOutlineAlpha( state: DBaseStateSet ): number {
 		return 1;
 	}
 
-	getOutlineWidth( state: DBaseState ): number {
+	getOutlineWidth( state: DBaseStateSet ): number {
 		return 1;
 	}
 
-	getOutlineOffset( state: DBaseState ): number {
+	getOutlineOffset( state: DBaseStateSet ): number {
 		return 1;
 	}
 
-	getOutlineAlign( state: DBaseState ): number {
+	getOutlineAlign( state: DBaseStateSet ): number {
 		return 1;
 	}
 
-	getOutlineMask( state: DBaseState ): DBorderMask {
+	getOutlineMask( state: DBaseStateSet ): DBorderMask {
 		return DBorderMask.NONE;
 	}
 

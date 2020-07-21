@@ -3,22 +3,25 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DCornerMask } from "../../d-corner-mask";
 import { DThemeDialogSelecListItem } from "../../d-dialog-select-list-item";
+import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteFont } from "./d-theme-white-font";
 import { DThemeWhiteListItem } from "./d-theme-white-list-item";
 
 export class DThemeWhiteDialogSelectListItem extends DThemeWhiteListItem implements DThemeDialogSelecListItem {
-	getBackgroundColor( state: DBaseState ): number | null {
-		return super.getBackgroundColor( state & ~DBaseState.ACTIVE );
+	getBackgroundColor( state: DBaseStateSet ): number | null {
+		if( state.inDisabled ) {
+			return null;
+		} else if( state.isFocused || state.isHovered ) {
+			return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
+		} else {
+			return null;
+		}
 	}
 
-	getBackgroundAlpha( state: DBaseState ): number {
-		return super.getBackgroundAlpha( state & ~DBaseState.ACTIVE );
-	}
-
-	getColor( state: DBaseState ): number {
+	getColor( state: DBaseStateSet ): number {
 		return DThemeWhiteFont.getColor( state );
 	}
 

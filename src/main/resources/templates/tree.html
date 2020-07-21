@@ -48,10 +48,10 @@
 						},
 						on: {
 							active: ( btn ) => {
-								tree.setDisabled( true )
+								tree.state.isDisabled = true;
 							},
 							inactive: ( btn ) => {
-								tree.setDisabled( false )
+								tree.state.isDisabled = false;
 							}
 						}
 					} )
@@ -310,8 +310,7 @@
 								on: {
 									active: ( btn ) => {
 										if ( treeItem.text === "not existed" ) {
-											tree.expand( anotherTree.value[ 0 ].children[
-												0 ] );
+											tree.expand( anotherTree.value[ 0 ].children[ 0 ] );
 										} else {
 											let i = 0;
 											while ( i < tree.selection.size() ) {
@@ -331,8 +330,7 @@
 								on: {
 									active: ( btn ) => {
 										if ( treeItem.text === "not existed" ) {
-											tree.collapse( anotherTree.value[ 0 ].children[
-												0 ] );
+											tree.collapse( anotherTree.value[ 0 ].children[ 0 ] );
 										} else {
 											let i = 0;
 											while ( i < tree.selection.size() ) {
@@ -352,8 +350,7 @@
 								on: {
 									active: ( btn ) => {
 										if ( treeItem.text === "not existed" ) {
-											tree.toggle( anotherTree.value[ 0 ].children[
-												0 ] );
+											tree.toggle( anotherTree.value[ 0 ].children[ 0 ] );
 										} else {
 											let i = 0;
 											while ( i < tree.selection.size() ) {
@@ -378,8 +375,7 @@
 								on: {
 									active: ( btn ) => {
 										if ( treeItem.text === "not existed" ) {
-											tree.remove( anotherTree.value[ 0 ].children[
-												0 ] );
+											tree.remove( anotherTree.value[ 0 ].children[ 0 ] );
 										} else {
 											let i = 0;
 											while ( i < tree.selection.size() ) {
@@ -408,11 +404,9 @@
 										}
 
 										if ( interactedTree !== 0 ) {
-											tree.add( item, anotherTree.value[ 0 ].children[
-												0 ] );
+											tree.add( item, anotherTree.value[ 0 ].children[ 0 ] );
 										} else {
-											if ( selectedTreeValue.text !==
-												undefined ) {
+											if ( selectedTreeValue.text !== undefined ) {
 												tree.add( item, tree.selection.get( 0 ) );
 											} else {
 												tree.add( item );
@@ -440,8 +434,7 @@
 										}
 
 										if ( interactedTree !== 0 ) {
-											tree.addBefore( item, anotherTree.value[ 0 ]
-												.children[ 0 ] );
+											tree.addBefore( item, anotherTree.value[ 0 ].children[ 0 ] );
 										} else {
 											tree.addBefore( item, tree.selection.get( 0 ) );
 										}
@@ -467,8 +460,7 @@
 										}
 
 										if ( interactedTree !== 0 ) {
-											tree.addAfter( item, anotherTree.value[ 0 ]
-												.children[ 0 ] );
+											tree.addAfter( item, anotherTree.value[ 0 ].children[ 0 ] );
 										} else {
 											tree.addAfter( item, tree.selection.get( 0 ) );
 										}
@@ -550,8 +542,7 @@
 								},
 								on: {
 									active: ( btn ) => {
-										let item = tree.value[ 0 ].children[ 3 ]
-											.children[ 1 ];
+										let item = tree.value[ 0 ].children[ 3 ].children[ 1 ];
 										if ( treeItem.text === "not existed" ) {
 											item = anotherTree.value[ 0 ].children[ 0 ];
 										}

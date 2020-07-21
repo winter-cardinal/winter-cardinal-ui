@@ -1,5 +1,5 @@
 import { DisplayObject, Texture } from "pixi.js";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DLinkMenuItemId } from "../../d-link-menu-item-id";
 import { DMenuOptions } from "../../d-menu";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
@@ -14,7 +14,7 @@ export class DThemeWhiteLinks {
 		);
 	}
 
-	static getImageSource( state: DBaseState ): Texture | DisplayObject | null {
+	static getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
 		return DThemeWhiteAtlas.mappings.link_mark;
 	}
 

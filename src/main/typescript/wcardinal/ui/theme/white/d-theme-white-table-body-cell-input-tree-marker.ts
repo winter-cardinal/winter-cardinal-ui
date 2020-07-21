@@ -6,12 +6,11 @@
 import { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignWith } from "../../d-align-with";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeTableBodyCellInputTreeMarker } from "../../d-table-body-cell-input-tree-marker";
 import { DThemeWhiteButtonBase } from "./d-theme-white-button-base";
 import { DThemeWhiteTableBodyCellTrees } from "./d-theme-white-table-body-cell-trees";
-import { DThemeWhiteTableBodyCells } from "./d-theme-white-table-body-cells";
 
 export class DThemeWhiteTableBodyCellInputTreeMarker extends DThemeWhiteButtonBase
 	implements DThemeTableBodyCellInputTreeMarker {
@@ -20,15 +19,15 @@ export class DThemeWhiteTableBodyCellInputTreeMarker extends DThemeWhiteButtonBa
 		return "100%";
 	}
 
-	getBackgroundColor( state: DBaseState ): number | null {
+	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 
-	getBorderColor( state: DBaseState ): number | null {
+	getBorderColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 
-	getOutlineColor( state: DBaseState ): number | null {
+	getOutlineColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 
@@ -44,15 +43,15 @@ export class DThemeWhiteTableBodyCellInputTreeMarker extends DThemeWhiteButtonBa
 		return DAlignHorizontal.RIGHT;
 	}
 
-	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
+	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
 		return DThemeWhiteTableBodyCellTrees.getImageSource( state );
 	}
 
-	getImageTintColor( state: DBaseState ): number | null {
+	getImageTintColor( state: DBaseStateSet ): number | null {
 		return DThemeWhiteTableBodyCellTrees.getImageTintColor( state );
 	}
 
-	getImageTintAlpha( state: DBaseState ): number {
+	getImageTintAlpha( state: DBaseStateSet ): number {
 		return DThemeWhiteTableBodyCellTrees.getImageTintAlpha( state );
 	}
 }

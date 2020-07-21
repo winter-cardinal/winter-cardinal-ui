@@ -5,7 +5,7 @@
 
 import { interaction } from "pixi.js";
 import { DApplications } from "./d-applications";
-import { DBaseStates } from "./d-base-states";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DButtonGroup } from "./d-button-group";
 import { DImageBase, DImageBaseEvents, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
 import { EventSupport } from "./decorator/event-support";
@@ -133,7 +133,7 @@ export class DButtonBase<
 		let interactionManager: interaction.InteractionManager | null = null;
 
 		const onUp = (): void => {
-			this.setPressed( false );
+			this.state.isPressed = false;
 			if( interactionManager != null ) {
 				interactionManager.off( UtilPointerEvent.up, onUp );
 				interactionManager = null;
@@ -141,7 +141,7 @@ export class DButtonBase<
 		};
 
 		this.on( UtilPointerEvent.down, (): void => {
-			this.setPressed( true );
+			this.state.isPressed = true;
 			const layer = DApplications.getLayer( this );
 			if( layer ) {
 				interactionManager = layer.renderer.plugins.interaction;
@@ -150,9 +150,9 @@ export class DButtonBase<
 		});
 	}
 
-	protected onStateChange( newState: number, oldState: number ): void {
+	protected onStateChange( newState: DBaseStateSet, oldState: DBaseStateSet ): void {
 		super.onStateChange( newState, oldState );
-		this.buttonMode = DBaseStates.isActionable( newState );
+		this.buttonMode = newState.isActionable;
 	}
 
 	protected getType(): string {
@@ -160,7 +160,7 @@ export class DButtonBase<
 	}
 
 	onClick( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
-		if( this.isActionable() ) {
+		if( this.state.isActionable ) {
 			if( this.isToggle() ) {
 				this.onToggleStart();
 				this.onToggleEnd();
@@ -175,7 +175,7 @@ export class DButtonBase<
 	}
 
 	toggle(): void {
-		if( this.isActionable() ) {
+		if( this.state.isActionable ) {
 			if( this.isToggle() ) {
 				this.onToggleStart();
 				this.onToggleEnd();
@@ -184,32 +184,32 @@ export class DButtonBase<
 	}
 
 	protected onToggleStart(): void {
-		this.setActive( ! this.isActive() );
+		this.state.isActive = ! this.state.isActive;
 	}
 
 	protected onToggleEnd(): void {
-		this.emit( this.isActive() ? "active" : "inactive", this );
+		this.emit( this.state.isActive ? "active" : "inactive", this );
 	}
 
 	protected onActivateKeyDown( e: KeyboardEvent ): void {
-		if( this.isActionable() ) {
+		if( this.state.isActionable ) {
 			if( this.isToggle() ) {
 				this.onToggleStart();
 			} else {
-				this.setPressed( true );
+				this.state.isPressed = true;
 			}
 		}
 	}
 
 	protected onActivateKeyUp( e: KeyboardEvent ): void {
-		if( this.isActionable() ) {
+		if( this.state.isActionable ) {
 			if( this.isToggle() ) {
 				this.onToggleEnd();
 			} else {
-				if( this.isPressed() ) {
+				if( this.state.isPressed ) {
 					this.onActivate( e );
 				}
-				this.setPressed( false );
+				this.state.isPressed = false;
 			}
 		}
 	}

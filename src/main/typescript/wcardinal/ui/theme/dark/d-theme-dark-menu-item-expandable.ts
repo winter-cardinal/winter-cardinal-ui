@@ -3,23 +3,22 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "../../d-base-state";
-import { DBaseStates } from "../../d-base-states";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
 import { DThemeMenuItemExpandable } from "../../d-menu-item-expandable";
 import { DThemeDarkLayoutVertical } from "./d-theme-dark-layout-vertical";
 
 export class DThemeDarkMenuItemExpandable extends DThemeDarkLayoutVertical implements DThemeMenuItemExpandable {
-	getBackgroundColor( state: DBaseState ): number | null {
-		if( DBaseStates.isActive( state ) ) {
+	getBackgroundColor( state: DBaseStateSet ): number | null {
+		if( state.isActive ) {
 			return 0x0F0700;
 		}
 		return null;
 	}
 
-	getBackgroundAlpha( state: DBaseState ): number {
-		if( DBaseStates.isActive( state ) ) {
+	getBackgroundAlpha( state: DBaseStateSet ): number {
+		if( state.isActive ) {
 			return 0.1;
 		}
 		return 0;

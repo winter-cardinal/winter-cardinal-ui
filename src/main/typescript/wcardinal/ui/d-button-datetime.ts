@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "./d-base-state";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogDatetime, DDialogDatetimeOptions } from "./d-dialog-datetime";
 import { DDialogDatetimes } from "./d-dialog-datetimes";
@@ -47,7 +47,7 @@ export interface DButtonDatetimeOptions<
  */
 export interface DThemeButtonDatetime extends DThemeButton {
 	getTextFormatter(): ( value: Date, caller: DButtonDatetime ) => string;
-	getTextValue( state: DBaseState ): Date;
+	getTextValue( state: DBaseStateSet ): Date;
 	newTextValue(): Date;
 }
 

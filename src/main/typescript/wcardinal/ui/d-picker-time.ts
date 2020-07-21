@@ -5,7 +5,6 @@
 
 import { DisplayObject } from "pixi.js";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
-import { DBaseState } from "./d-base-state";
 import { DCoordinateSize } from "./d-coordinate";
 import { DInputInteger, DInputIntegerOptions } from "./d-input-integer";
 import { DLayoutHorizontal } from "./d-layout-horizontal";
@@ -102,7 +101,7 @@ export class DPickerTime<
 	protected init( options?: OPTIONS ) {
 		super.init( options );
 
-		this.setState( DBaseState.UNFOCUSABLE, true );
+		this.state.isFocusable = false;
 
 		const theme = this.theme;
 		this._dateCurrent = new Date();

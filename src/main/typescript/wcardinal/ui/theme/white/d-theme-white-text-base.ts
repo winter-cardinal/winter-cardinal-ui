@@ -5,7 +5,7 @@
 
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignVertical } from "../../d-align-vertical";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeTextBase } from "../../d-text-base";
 import { toString } from "../../util/to-string";
 import { DThemeWhiteBase } from "./d-theme-white-base";
@@ -35,7 +35,7 @@ export class DThemeWhiteTextBase extends DThemeWhiteBase implements DThemeTextBa
 		return "";
 	}
 
-	getTextValue( state: DBaseState ): any {
+	getTextValue( state: DBaseStateSet ): any {
 		return "";
 	}
 

@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DBaseStateSetImpl } from "./d-base-state-set-impl";
 import { DFontStyle, DFontVariant, DFontWeight, DThemeFont } from "./d-font";
 import { DThemes } from "./theme/d-themes";
 
@@ -20,7 +21,7 @@ export interface DDynamicTextStyleOptions {
 }
 
 export class DDynamicTextStyle {
-	protected static FONT: DThemeFont | null = null;
+	protected static DEFAULT_OPTIONS?: Required<DDynamicTextStyleOptions>;
 
 	protected _id: number;
 	protected _idApproved: number;
@@ -42,26 +43,53 @@ export class DDynamicTextStyle {
 		this._id = 0;
 		this._idApproved = -1;
 
-		const font = DDynamicTextStyle.FONT = (
-			DDynamicTextStyle.FONT || DThemes.getInstance().get( "DBase" ) as DThemeFont
-		);
-		this._align = (options && options.align) || "left";
-		this._fontFamily = (options && options.fontFamily) || font.getFontFamilly();
-		this._fontSize = (options && options.fontSize) || font.getFontSize();
-		this._fontStyle = (options && options.fontStyle) || "normal";
-		this._fontVariant = (options && options.fontVariant) || "normal";
-		this._fontWeight = (options && options.fontWeight) || "normal";
+		const defaultOptions = this.getDefaultOptions();
+		if( options ) {
+			this._align = options.align || defaultOptions.align;
+			this._fontFamily = options.fontFamily || defaultOptions.fontFamily;
+			this._fontSize = options.fontSize || defaultOptions.fontSize;
+			this._fontStyle = options.fontStyle || defaultOptions.fontStyle;
+			this._fontVariant = options.fontVariant || defaultOptions.fontVariant;
+			this._fontWeight = options.fontWeight || defaultOptions.fontWeight;
+			this._fill = options.fill || defaultOptions.fill;
+			const clipping = options.clipping;
+			this._clipping = ( clipping != null ? clipping : defaultOptions.clipping );
+		} else {
+			this._align = defaultOptions.align;
+			this._fontFamily = defaultOptions.fontFamily;
+			this._fontSize = defaultOptions.fontSize;
+			this._fontStyle = defaultOptions.fontStyle;
+			this._fontVariant = defaultOptions.fontVariant;
+			this._fontWeight = defaultOptions.fontWeight;
+			this._fill = defaultOptions.fill;
+			this._clipping = defaultOptions.clipping;
+		}
 
 		this._fontIdId = -1;
 		this._fontId = "";
 		this._fontIdApproved = "";
-
-		this._fill = (options && options.fill) || font.getColor( 0 );
 		this._fillApproved = 0x000000;
 
-		this._clipping = ((options && options.clipping != null) ? options.clipping : true);
-
 		this._onChange = onChange;
+	}
+
+	protected getDefaultOptions(): Required<DDynamicTextStyleOptions> {
+		let result = DDynamicTextStyle.DEFAULT_OPTIONS;
+		if( result == null ) {
+			const theme = DThemes.getInstance().get( "DBase" ) as DThemeFont;
+			result = {
+				align: "left",
+				fontFamily: theme.getFontFamilly(),
+				fontSize: theme.getFontSize(),
+				fontStyle: "normal",
+				fontVariant: "normal",
+				fontWeight: "normal",
+				fill: theme.getColor( new DBaseStateSetImpl() ),
+				clipping: true
+			};
+			DDynamicTextStyle.DEFAULT_OPTIONS = result;
+		}
+		return result;
 	}
 
 	get id(): number {

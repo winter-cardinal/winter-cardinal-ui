@@ -4,7 +4,6 @@
  */
 
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
-import { DBaseState } from "./d-base-state";
 
 export interface DPickerDatetimeSpaceOptions<
 	THEME extends DThemePickerDatetimeSpace = DThemePickerDatetimeSpace
@@ -22,7 +21,7 @@ export class DPickerDatetimeSpace<
 > extends DBase<THEME, OPTIONS> {
 	constructor( options?: OPTIONS ) {
 		super( options );
-		this.setState( DBaseState.UNFOCUSABLE, true );
+		this.state.isFocusable = false;
 		this.renderable = false;
 	}
 

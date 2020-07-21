@@ -5,10 +5,10 @@
 
 import { DisplayObject, Texture } from "pixi.js";
 import { DAlignWith } from "../../d-align-with";
-import { DBaseState } from "../../d-base-state";
-import { DBaseStates } from "../../d-base-states";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeMenuItemCheck } from "../../d-menu-item-check";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
+import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteMenuItemText } from "./d-theme-white-menu-item-text";
 
 DThemeWhiteAtlas.add( "menu_item_mark_check_active", 14, 14,
@@ -22,16 +22,18 @@ DThemeWhiteAtlas.add( "menu_item_mark_check_inactive", 14, 14,
 );
 
 export class DThemeWhiteMenuItemCheck extends DThemeWhiteMenuItemText implements DThemeMenuItemCheck {
-	getBackgroundColor( state: DBaseState ): number | null {
-		return super.getBackgroundColor( state & ~DBaseState.ACTIVE );
+	getBackgroundColor( state: DBaseStateSet ): number | null {
+		if( state.inDisabled ) {
+			return null;
+		} else if( state.isFocused || state.isHovered ) {
+			return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
+		} else {
+			return null;
+		}
 	}
 
-	getColor( state: DBaseState ): number {
-		return super.getColor( state & ~DBaseState.ACTIVE );
-	}
-
-	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
-		if( DBaseStates.isActive( state ) ) {
+	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
+		if( state.isActive ) {
 			return DThemeWhiteAtlas.mappings.menu_item_mark_check_active;
 		} else {
 			return DThemeWhiteAtlas.mappings.menu_item_mark_check_inactive;

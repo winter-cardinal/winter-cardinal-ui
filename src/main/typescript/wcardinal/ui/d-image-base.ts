@@ -9,7 +9,7 @@ import { DAlignVertical } from "./d-align-vertical";
 import { DAlignWith } from "./d-align-with";
 import { DApplications } from "./d-applications";
 import { DRefitable } from "./d-base";
-import { DBaseState } from "./d-base-state";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DDynamicText } from "./d-dynamic-text";
 import { DImageBaseThemeWrapperSecondary, DThemeImageBaseSecondary } from "./d-image-base-theme-wrapper-secondary";
 import { DImageBaseThemeWrapperTertiary, DThemeImageBaseTertiary } from "./d-image-base-theme-wrapper-tertiary";
@@ -54,18 +54,18 @@ export interface DThemeImageBase extends DThemeTextBase, DThemeImagePiece {
 	getSecondaryImageAlignWith(): DAlignWith;
 	getSecondaryImageMarginHorizontal(): number;
 	getSecondaryImageMarginVertial(): number;
-	getSecondaryImageTintColor( state: DBaseState ): number | null;
-	getSecondaryImageTintAlpha( state: DBaseState ): number;
-	getSecondaryImageSource?( state: DBaseState ): Texture | DisplayObject | null;
+	getSecondaryImageTintColor( state: DBaseStateSet ): number | null;
+	getSecondaryImageTintAlpha( state: DBaseStateSet ): number;
+	getSecondaryImageSource?( state: DBaseStateSet ): Texture | DisplayObject | null;
 
 	getTertiaryImageAlignHorizontal(): DAlignHorizontal;
 	getTertiaryImageAlignVertical(): DAlignVertical;
 	getTertiaryImageAlignWith(): DAlignWith;
 	getTertiaryImageMarginHorizontal(): number;
 	getTertiaryImageMarginVertial(): number;
-	getTertiaryImageTintColor( state: DBaseState ): number | null;
-	getTertiaryImageTintAlpha( state: DBaseState ): number;
-	getTertiaryImageSource?( state: DBaseState ): Texture | DisplayObject | null;
+	getTertiaryImageTintColor( state: DBaseStateSet ): number | null;
+	getTertiaryImageTintAlpha( state: DBaseStateSet ): number;
+	getTertiaryImageSource?( state: DBaseStateSet ): Texture | DisplayObject | null;
 }
 
 const hasSecondaryImageSource = ( theme: DThemeImageBase ): theme is DThemeImageBase & DThemeImageBaseSecondary => {
@@ -135,8 +135,9 @@ export class DImageBase<
 		this._images[ 0 ].source = imageSource;
 	}
 
-	protected onStateChange( newState: DBaseState, oldState: DBaseState ): void {
+	protected onStateChange( newState: DBaseStateSet, oldState: DBaseStateSet ): void {
 		super.onStateChange( newState, oldState );
+
 		const images = this._images;
 		for( let i = 0, imax = images.length; i < imax; ++i ) {
 			images[ i ].onStateChange( newState, oldState );

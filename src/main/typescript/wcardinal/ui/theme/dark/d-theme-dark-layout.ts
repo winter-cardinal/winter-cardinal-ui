@@ -4,17 +4,17 @@
  */
 
 import { DBaseInteractive } from "../../d-base-interactive";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeLayout } from "../../d-layout";
 import { DLayoutDirection } from "../../d-layout-direction";
 import { DThemeDarkBase } from "./d-theme-dark-base";
 
 export class DThemeDarkLayout extends DThemeDarkBase implements DThemeLayout {
-	getBackgroundColor( state: DBaseState ): number | null {
+	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 
-	getBorderColor( state: DBaseState ): number | null {
+	getBorderColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 

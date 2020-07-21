@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "./d-base-state";
+import { DBaseStateSet } from "./d-base-state-set";
 
 /**
  * A {@link DBaseState}-aware function returning R.
  */
-export type DStateAware<R> = ( state: DBaseState ) => R;
+export type DStateAware<R> = ( state: DBaseStateSet ) => R;
 
 /**
  * R or a {@link DBaseState}-aware function returning R.

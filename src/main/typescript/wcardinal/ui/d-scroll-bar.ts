@@ -4,7 +4,6 @@
  */
 
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
-import { DBaseState } from "./d-base-state";
 import { DScrollBarThumb, DScrollBarThumbOptions } from "./d-scroll-bar-thumb";
 
 export interface DScrollBarOptions extends DBaseOptions<DThemeScrollBar> {
@@ -27,7 +26,7 @@ export abstract class DScrollBar extends DBase<DThemeScrollBar, DScrollBarOption
 		this._end = 1;
 		const thumb = this._thumb = this.createThumb( options != null ? options.thumb : undefined );
 		this.addChild( thumb );
-		this.setState( DBaseState.UNFOCUSABLE, true );
+		this.state.isFocusable = false;
 	}
 
 	get thumb(): DScrollBarThumb {

@@ -3,22 +3,21 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "../../d-base-state";
-import { DBaseStates } from "../../d-base-states";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DCornerMask } from "../../d-corner-mask";
 import { DThemeExpandable } from "../../d-expandable";
 import { DThemeWhiteLayoutVertical } from "./d-theme-white-layout-vertical";
 
 export class DThemeWhiteExpandable extends DThemeWhiteLayoutVertical implements DThemeExpandable {
-	getBackgroundColor( state: DBaseState ): number | null {
-		if( DBaseStates.isActive( state ) ) {
+	getBackgroundColor( state: DBaseStateSet ): number | null {
+		if( state.isActive ) {
 			return 0xf0f8ff;
 		}
 		return null;
 	}
 
-	getBackgroundAlpha( state: DBaseState ): number {
-		if( DBaseStates.isActive( state ) ) {
+	getBackgroundAlpha( state: DBaseStateSet ): number {
+		if( state.isActive ) {
 			return 0.1;
 		}
 		return 0;

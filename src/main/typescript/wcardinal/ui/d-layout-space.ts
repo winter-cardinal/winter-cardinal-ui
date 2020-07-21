@@ -4,7 +4,6 @@
  */
 
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
-import { DBaseState } from "./d-base-state";
 
 export interface DLayoutSpaceOptions<THEME extends DThemeLayoutSpace = DThemeLayoutSpace> extends DBaseOptions<THEME> {
 
@@ -21,7 +20,7 @@ export class DLayoutSpace<
 	constructor( options?: OPTIONS ) {
 		super( options );
 		this.visible = false;
-		this.setState( DBaseState.UNFOCUSABLE, true );
+		this.state.isFocusable = false;
 	}
 
 	protected getType(): string {

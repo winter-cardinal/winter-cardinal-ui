@@ -5,8 +5,7 @@
 
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignVertical } from "../../d-align-vertical";
-import { DBaseState } from "../../d-base-state";
-import { DBaseStates } from "../../d-base-states";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
 import { DThemeSliderValue } from "../../d-slider-value";
 import { DThemeWhiteTextBase } from "./d-theme-white-text-base";
@@ -28,18 +27,18 @@ export class DThemeWhiteSliderValue extends DThemeWhiteTextBase implements DThem
 		return 20;
 	}
 
-	getBackgroundColor( state: DBaseState ): number | null {
-		if ( DBaseStates.isDisabled( state ) ) {
+	getBackgroundColor( state: DBaseStateSet ): number | null {
+		if ( state.inDisabled ) {
 			return 0xAAAAAA;
 		}
 		return 0x3399FF;
 	}
 
-	getBorderColor( state: DBaseState ): number | null {
+	getBorderColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 
-	getColor( state: DBaseState ): number {
+	getColor( state: DBaseStateSet ): number {
 		return 0xffffff;
 	}
 

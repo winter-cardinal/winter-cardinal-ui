@@ -125,12 +125,12 @@ export class DLink {
 
 	apply( target: DBase, onSelect: ( e: interaction.InteractionEvent ) => void ): void {
 		const onClick = ( e: interaction.InteractionEvent ): void => {
-			if( this.isEnabled() && target.isActionable() ) {
+			if( this.isEnabled() && target.state.isActionable ) {
 				onSelect( e );
 			}
 		};
 		const onLongClick = ( e: interaction.InteractionEvent ): void => {
-			if( this.isEnabled() && target.isActionable() ) {
+			if( this.isEnabled() && target.state.isActionable ) {
 				const menu = this.menu;
 				if( menu.isHidden() ) {
 					menu.open( target );

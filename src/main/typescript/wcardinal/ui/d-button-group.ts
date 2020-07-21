@@ -50,10 +50,9 @@ export class DButtonGroup extends utils.EventEmitter {
 		const index = buttons.indexOf( button );
 		if( index < 0 ) {
 			this._buttons.push( button );
-			button.setState( this._stateOn, true );
-			button.setState( this._stateOff, false );
+			button.state.set( this._stateOn, this._stateOff );
 			button.on( "active", this._onActiveBound );
-			if( button.isActive() ) {
+			if( button.state.isActive ) {
 				this.onActive( button );
 			}
 		}
@@ -69,7 +68,7 @@ export class DButtonGroup extends utils.EventEmitter {
 			const buttons = this._buttons;
 			for( let i = 0, imax = buttons.length; i < imax; ++i ) {
 				const button = buttons[ i ];
-				if( button !== active && button.isToggle() && button.isActive() ) {
+				if( button !== active && button.isToggle() && button.state.isActive ) {
 					button.toggle();
 				}
 			}
@@ -150,8 +149,7 @@ export class DButtonGroup extends utils.EventEmitter {
 
 		const buttons = this._buttons;
 		for( let i = 0, imax = buttons.length; i < imax; ++i ) {
-			const button = buttons[ i ];
-			button.setState( state, isOn );
+			buttons[ i ].state.set( state, isOn );
 		}
 		return this;
 	}
@@ -159,7 +157,7 @@ export class DButtonGroup extends utils.EventEmitter {
 	hasState( state: DBaseState ): boolean {
 		const buttons = this._buttons;
 		for( let i = 0, imax = buttons.length; i < imax; ++i ) {
-			if( buttons[ i ].hasState( state ) ) {
+			if( buttons[ i ].state.is( state ) ) {
 				return true;
 			}
 		}

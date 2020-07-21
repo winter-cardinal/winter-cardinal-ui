@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "../../d-base-state";
-import { DBaseStates } from "../../d-base-states";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeScrollBarThumb } from "../../d-scroll-bar-thumb";
 import { UtilRgb } from "../../util/util-rgb";
@@ -14,31 +13,31 @@ import { DThemeDarkConstants } from "./d-theme-dark-constants";
 export class DThemeDarkScrollBarThumb extends DThemeDarkBase implements DThemeScrollBarThumb {
 	COLOR = UtilRgb.brighten( DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR, 0.5 );
 
-	getBackgroundColor( state: DBaseState ): number {
-		if( DBaseStates.isHovered( state ) || DBaseStates.isDragging( state ) ) {
+	getBackgroundColor( state: DBaseStateSet ): number {
+		if( state.isHovered || state.isDragging ) {
 			return DThemeDarkConstants.HIGHLIGHT_COLOR;
 		} else {
 			return this.COLOR;
 		}
 	}
 
-	getBackgroundAlpha( state: DBaseState ): number {
-		if( DBaseStates.isHovered( state ) || DBaseStates.isDragging( state ) ) {
+	getBackgroundAlpha( state: DBaseStateSet ): number {
+		if( state.isHovered || state.isDragging ) {
 			return 1.0;
 		} else {
 			return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
 		}
 	}
 
-	getBorderColor( state: DBaseState ): number | null {
+	getBorderColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 
-	getBorderAlpha( state: DBaseState ): number {
+	getBorderAlpha( state: DBaseStateSet ): number {
 		return 0;
 	}
 
-	getBorderWidth( state: DBaseState ): number {
+	getBorderWidth( state: DBaseStateSet ): number {
 		return 1;
 	}
 

@@ -7,7 +7,7 @@ import { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignVertical } from "../../d-align-vertical";
 import { DAlignWith } from "../../d-align-with";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeImageBase } from "../../d-image-base";
 import { DThemeDarkTextBase } from "./d-theme-dark-text-base";
 
@@ -32,15 +32,15 @@ export class DThemeDarkImageBase extends DThemeDarkTextBase implements DThemeIma
 		return 5;
 	}
 
-	getImageTintColor( state: DBaseState ): number | null {
+	getImageTintColor( state: DBaseStateSet ): number | null {
 		return this.getColor( state );
 	}
 
-	getImageTintAlpha( state: DBaseState ): number {
+	getImageTintAlpha( state: DBaseStateSet ): number {
 		return this.getAlpha( state );
 	}
 
-	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
+	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
 		return null;
 	}
 
@@ -64,11 +64,11 @@ export class DThemeDarkImageBase extends DThemeDarkTextBase implements DThemeIma
 		return this.getImageMarginVertial();
 	}
 
-	getSecondaryImageTintColor( state: DBaseState ): number | null {
+	getSecondaryImageTintColor( state: DBaseStateSet ): number | null {
 		return this.getImageTintColor( state );
 	}
 
-	getSecondaryImageTintAlpha( state: DBaseState ): number {
+	getSecondaryImageTintAlpha( state: DBaseStateSet ): number {
 		return this.getImageTintAlpha( state );
 	}
 
@@ -92,11 +92,11 @@ export class DThemeDarkImageBase extends DThemeDarkTextBase implements DThemeIma
 		return this.getImageMarginVertial();
 	}
 
-	getTertiaryImageTintColor( state: DBaseState ): number | null {
+	getTertiaryImageTintColor( state: DBaseStateSet ): number | null {
 		return this.getImageTintColor( state );
 	}
 
-	getTertiaryImageTintAlpha( state: DBaseState ): number {
+	getTertiaryImageTintAlpha( state: DBaseStateSet ): number {
 		return this.getImageTintAlpha( state );
 	}
 }

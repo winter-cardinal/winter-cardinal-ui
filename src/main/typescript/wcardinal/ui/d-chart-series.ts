@@ -4,7 +4,7 @@
  */
 
 import { IPoint } from "pixi.js";
-import { DBaseState } from "./d-base-state";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DChartRegionImmutable } from "./d-chart-region";
 import { DChartSeriesContainer } from "./d-chart-series-container";
 import { DChartSeriesCoordinateContainer } from "./d-chart-series-coordinate";
@@ -57,6 +57,7 @@ export interface DChartSeries {
 	readonly container: DChartSeriesContainer | null;
 	readonly coordinate: DChartSeriesCoordinateContainer;
 	readonly index: number;
+	readonly state: DBaseStateSet;
 
 	bind( container: DChartSeriesContainer, index: number ): void;
 	unbind(): void;
@@ -68,6 +69,4 @@ export interface DChartSeries {
 
 	hitTest( global: IPoint ): boolean;
 	calcHitPoint( global: IPoint, result: DChartSeriesHitResult ): boolean;
-
-	setState( state: DBaseState, isOn: boolean ): void;
 }

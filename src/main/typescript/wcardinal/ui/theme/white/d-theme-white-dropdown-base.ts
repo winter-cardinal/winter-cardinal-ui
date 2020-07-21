@@ -6,7 +6,7 @@
 import { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignWith } from "../../d-align-with";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeDropdownBase } from "../../d-dropdown-base";
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
@@ -38,10 +38,10 @@ export abstract class DThemeWhiteDropdownBase<TEXT_VALUE> extends DThemeWhiteBut
 		return - this.getPaddingRight() * 0.5;
 	}
 
-	getSecondaryImageSource( state: DBaseState ): Texture | DisplayObject | null {
+	getSecondaryImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
 		return DThemeWhiteAtlas.mappings.dropdown_mark;
 	}
 
 	abstract newTextValue(): DStateAwareOrValueMightBe<TEXT_VALUE>;
-	abstract getTextValue( state: DBaseState ): TEXT_VALUE;
+	abstract getTextValue( state: DBaseStateSet ): TEXT_VALUE;
 }

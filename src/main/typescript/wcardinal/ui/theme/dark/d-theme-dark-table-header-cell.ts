@@ -6,8 +6,7 @@
 import { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignWith } from "../../d-align-with";
-import { DBaseState } from "../../d-base-state";
-import { DBaseStates } from "../../d-base-states";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DBorderMask } from "../../d-border-mask";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
@@ -39,36 +38,36 @@ export class DThemeDarkTableHeaderCell extends DThemeDarkImage implements DTheme
 	protected readonly BACKGROUND_COLOR_PRESSED = UtilRgb.brighten( this.BACKGROUND_COLOR, 0.32 );
 	protected readonly BORDER_COLOR = UtilRgb.darken( DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.05 );
 
-	getBackgroundColor( state: DBaseState ): number | null {
-		if( DBaseStates.isDisabled( state ) ) {
-			return ( state & DTableCellState.FROZEN ) ?
+	getBackgroundColor( state: DBaseStateSet ): number | null {
+		if( state.inDisabled ) {
+			return ( state.is( DTableCellState.FROZEN ) ) ?
 				this.BACKGROUND_COLOR : null;
-		} else if( DBaseStates.isActive( state ) ) {
+		} else if( state.isActive ) {
 			return DThemeDarkConstants.HIGHLIGHT_COLOR;
-		} else if( DBaseStates.isPressed( state ) ) {
+		} else if( state.isPressed ) {
 			return this.BACKGROUND_COLOR_PRESSED;
-		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
+		} else if( state.isFocused || state.isHovered ) {
 			return this.BACKGROUND_COLOR_HOVERED;
 		} else {
-			return ( state & DTableCellState.FROZEN ) ?
+			return ( state.is( DTableCellState.FROZEN ) ) ?
 				this.BACKGROUND_COLOR : null;
 		}
 	}
 
-	getBackgroundAlpha( state: DBaseState ): number {
+	getBackgroundAlpha( state: DBaseStateSet ): number {
 		return 1;
 	}
 
-	getBorderColor( state: DBaseState ): number | null {
+	getBorderColor( state: DBaseStateSet ): number | null {
 		return this.BORDER_COLOR;
 	}
 
-	getBorderAlign( state: DBaseState ): number {
+	getBorderAlign( state: DBaseStateSet ): number {
 		return 0;
 	}
 
-	getBorderMask( state: DBaseState ): DBorderMask {
-		if( state & DTableCellState.END ) {
+	getBorderMask( state: DBaseStateSet ): DBorderMask {
+		if( state.is( DTableCellState.END ) ) {
 			return DBorderMask.ALL;
 		} else {
 			return DBorderMask.NOT_RIGHT;
@@ -95,7 +94,7 @@ export class DThemeDarkTableHeaderCell extends DThemeDarkImage implements DTheme
 		return 10;
 	}
 
-	getTextValue( state: DBaseState ): string | null {
+	getTextValue( state: DBaseStateSet ): string | null {
 		return null;
 	}
 
@@ -103,10 +102,10 @@ export class DThemeDarkTableHeaderCell extends DThemeDarkImage implements DTheme
 		return null;
 	}
 
-	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
-		if( state & DTableCellState.SORTED_ASCENDING ) {
+	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
+		if( state.is( DTableCellState.SORTED_ASCENDING ) ) {
 			return DThemeDarkAtlas.mappings.sorted_ascending;
-		} else if( state & DTableCellState.SORTED_DESCENDING ) {
+		} else if( state.is( DTableCellState.SORTED_DESCENDING ) ) {
 			return DThemeDarkAtlas.mappings.sorted_descending;
 		} else {
 			return null;

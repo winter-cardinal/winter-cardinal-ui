@@ -6,7 +6,7 @@
 import { interaction, Point, Rectangle, Renderer, Text } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBase } from "./d-base";
-import { DBaseState } from "./d-base-state";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DDynamicText } from "./d-dynamic-text";
 import { DHtmlElementWhen } from "./d-html-element-when";
 import { DImageBase, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
@@ -17,7 +17,7 @@ export type DHtmlElementElementCreator<T> = ( parent: HTMLElement ) => T;
 
 export type DHtmlElementStyle<THEME extends DThemeHtmlElement> = (
 	target: HTMLElement,
-	state: DBaseState, theme: THEME, padding: DPadding,
+	state: DBaseStateSet, theme: THEME, padding: DPadding,
 	elementRect: Rectangle, clipperRect: Rectangle
 ) => void;
 
@@ -65,12 +65,12 @@ export interface DThemeHtmlElement<
 > extends DThemeImageBase {
 	getElementCreator(): DHtmlElementElementCreator<ELEMENT> | null;
 	setElementStyle(
-		target: ELEMENT, state: DBaseState, padding: DPadding,
+		target: ELEMENT, state: DBaseStateSet, padding: DPadding,
 		elementRect: Rectangle, clipperRect: Rectangle
 	): void;
 	getClipperCreator(): DHtmlElementElementCreator<HTMLDivElement> | null;
 	setClipperStyle(
-		target: HTMLDivElement, state: DBaseState, padding: DPadding,
+		target: HTMLDivElement, state: DBaseStateSet, padding: DPadding,
 		elementRect: Rectangle, clipperRect: Rectangle
 	): void;
 	getBeforeCreator(): DHtmlElementElementCreator<HTMLDivElement> | null;
@@ -210,7 +210,7 @@ export class DHtmlElement<
 
 	protected isStartable(): boolean {
 		if( this._when === DHtmlElementWhen.FOCUSED ) {
-			return this.isActionable();
+			return this.state.isActionable;
 		}
 		return true;
 	}
@@ -275,7 +275,7 @@ export class DHtmlElement<
 
 					// Show HTML elements
 					clipper.style.display = "";
-					if( this.isFocused() ) {
+					if( this.state.isFocused ) {
 						element.focus();
 					}
 					clipper.scrollTop = 0;
@@ -395,8 +395,8 @@ export class DHtmlElement<
 				}
 
 				const interactionManager = layer.renderer.plugins.interaction;
-				if( this.containsPoint( interactionManager.mouse.global ) && ! this.isHovered() ) {
-					this.setHovered( true );
+				if( this.containsPoint( interactionManager.mouse.global ) && ! this.state.isHovered ) {
+					this.state.isHovered = true;
 					view.style.cursor = this.cursor;
 				}
 
@@ -498,7 +498,7 @@ export class DHtmlElement<
 
 	protected setElementStyle(
 		target: ELEMENT,
-		state: DBaseState, theme: THEME, padding: DPadding,
+		state: DBaseStateSet, theme: THEME, padding: DPadding,
 		elementRect: Rectangle, clipperRect: Rectangle
 	): void {
 		const style = this._elementStyle;
@@ -511,7 +511,7 @@ export class DHtmlElement<
 
 	protected setClipperStyle(
 		target: HTMLDivElement,
-		state: DBaseState, theme: THEME, padding: DPadding,
+		state: DBaseStateSet, theme: THEME, padding: DPadding,
 		elementRect: Rectangle, clipperRect: Rectangle
 	): void {
 		const style = this._clipperStyle;
@@ -566,7 +566,7 @@ export class DHtmlElement<
 
 	protected onElementFocused( e: FocusEvent ): void {
 		if( this._when === DHtmlElementWhen.ALWAYS ) {
-			if( ! this.isFocused() ) {
+			if( ! this.state.isFocused ) {
 				this.focus();
 			}
 		}

@@ -4,8 +4,7 @@
  */
 
 import { DAlignHorizontal } from "../../d-align-horizontal";
-import { DBaseState } from "../../d-base-state";
-import { DBaseStates } from "../../d-base-states";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DBorderMask } from "../../d-border-mask";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
@@ -20,31 +19,31 @@ export class DThemeDarkTableBodyCellInputReal extends DThemeDarkInputReal
 		return DAlignHorizontal.RIGHT;
 	}
 
-	getBackgroundColor( state: DBaseState ): number | null {
+	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return DThemeDarkTableBodyCells.getBackgroundColor( state );
 	}
 
-	getBackgroundAlpha( state: DBaseState ): number {
+	getBackgroundAlpha( state: DBaseStateSet ): number {
 		return DThemeDarkTableBodyCells.getBackgroundAlpha( state );
 	}
 
-	getBorderColor( state: DBaseState ): number | null {
+	getBorderColor( state: DBaseStateSet ): number | null {
 		return DThemeDarkTableBodyCells.getBorderColor( state );
 	}
 
-	getBorderAlign( state: DBaseState ): number {
+	getBorderAlign( state: DBaseStateSet ): number {
 		return DThemeDarkTableBodyCells.getBorderAlign( state );
 	}
 
-	getBorderMask( state: DBaseState ): DBorderMask {
+	getBorderMask( state: DBaseStateSet ): DBorderMask {
 		return DThemeDarkTableBodyCells.getBorderMask( state );
 	}
 
-	getColor( state: DBaseState ): number {
+	getColor( state: DBaseStateSet ): number {
 		return DThemeDarkTableBodyCells.getColor( state );
 	}
 
-	getAlpha( state: DBaseState ): number {
+	getAlpha( state: DBaseStateSet ): number {
 		return DThemeDarkTableBodyCells.getAlpha( state );
 	}
 
@@ -56,14 +55,14 @@ export class DThemeDarkTableBodyCellInputReal extends DThemeDarkInputReal
 		return DThemeDarkTableBodyCells.getCornerMask();
 	}
 
-	getOutlineColor( state: DBaseState ): number | null {
-		if( DBaseStates.isDisabled( state ) ) {
+	getOutlineColor( state: DBaseStateSet ): number | null {
+		if( state.inDisabled ) {
 			return null;
 		}
 		return super.getOutlineColor( state );
 	}
 
-	getOutlineAlign( state: DBaseState ): number {
+	getOutlineAlign( state: DBaseStateSet ): number {
 		return DThemeDarkTableBodyCells.getOutlineAlign( state );
 	}
 }

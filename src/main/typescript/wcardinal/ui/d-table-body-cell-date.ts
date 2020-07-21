@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "./d-base-state";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DButton, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogDate, DDialogDateOptions } from "./d-dialog-date";
 import { DDialogDates } from "./d-dialog-dates";
@@ -21,7 +21,7 @@ export interface DTableBodyCellDateOptions<
 
 export interface DThemeTableBodyCellDate extends DThemeButton {
 	getTextFormatter(): ( value: Date, caller: DTableBodyCellDate ) => string;
-	getTextValue( state: DBaseState ): Date;
+	getTextValue( state: DBaseStateSet ): Date;
 	newTextValue(): Date;
 }
 
@@ -68,11 +68,6 @@ export class DTableBodyCellDate<
 				}
 			});
 		});
-	}
-
-	protected mergeState( stateLocal: DBaseState, stateParent: DBaseState ): DBaseState {
-		return super.mergeState( stateLocal, stateParent ) |
-			( stateParent & DBaseState.HOVERED ? DBaseState.HOVERED : DBaseState.NONE );
 	}
 
 	get dialog(): DDialogDate {

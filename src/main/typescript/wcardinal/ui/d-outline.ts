@@ -4,7 +4,7 @@
  */
 
 import { DThemeBase } from "./d-base";
-import { DBaseState } from "./d-base-state";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DBorderMask } from "./d-border-mask";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 
@@ -20,10 +20,10 @@ export interface DOutlineLike {
 export interface DOutline extends DOutlineLike {
 	getTheme(): DThemeBase;
 	setTheme( theme: DThemeBase ): void;
-	getColor( state: DBaseState ): number | null;
-	getAlpha( state: DBaseState ): number;
-	getWidth( state: DBaseState ): number;
-	getOffset( state: DBaseState ): number;
-	getAlign( state: DBaseState ): number;
-	getMask( state: DBaseState ): DBorderMask;
+	getColor( state: DBaseStateSet ): number | null;
+	getAlpha( state: DBaseStateSet ): number;
+	getWidth( state: DBaseStateSet ): number;
+	getOffset( state: DBaseStateSet ): number;
+	getAlign( state: DBaseStateSet ): number;
+	getMask( state: DBaseStateSet ): DBorderMask;
 }

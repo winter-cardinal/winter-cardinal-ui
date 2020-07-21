@@ -16,7 +16,7 @@ export class Lazy<INSTANCE, OPTIONS> {
 		this.options = options;
 
 		if( base != null ) {
-			if( base.isActive() ) {
+			if( base.state.isActive ) {
 				setTimeout((): void => {
 					this.get();
 				}, 0);

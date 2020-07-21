@@ -5,7 +5,7 @@
 
 import { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "../../d-align-horizontal";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
 import { DThemeSliderThumb } from "../../d-slider-thumb";
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
@@ -33,23 +33,23 @@ export class DThemeDarkSliderThumb extends DThemeDarkButton implements DThemeSli
 		return 16;
 	}
 
-	getBackgroundColor( state: DBaseState ): number | null {
+	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 
-	getBorderColor( state: DBaseState ): number | null {
+	getBorderColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 
-	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
+	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
 		return DThemeDarkAtlas.mappings.slider_thumb;
 	}
 
-	getImageTintColor( state: DBaseState ): number | null {
-		return DThemeDarkSliders.getBackgroundColor( state | DBaseState.ACTIVE );
+	getImageTintColor( state: DBaseStateSet ): number | null {
+		return DThemeDarkSliders.getBackgroundColor( state, true );
 	}
 
-	getImageTintAlpha( state: DBaseState ): number {
+	getImageTintAlpha( state: DBaseStateSet ): number {
 		return 1;
 	}
 

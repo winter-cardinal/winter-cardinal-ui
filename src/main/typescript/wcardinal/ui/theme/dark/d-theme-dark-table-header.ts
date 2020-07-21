@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "../../d-base-state";
-import { DBaseStates } from "../../d-base-states";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DBorderMask } from "../../d-border-mask";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeTableHeader } from "../../d-table-header";
@@ -16,23 +15,23 @@ export class DThemeDarkTableHeader extends DThemeDarkTableRow implements DThemeT
 	protected readonly BACKGROUND_COLOR = UtilRgb.brighten( DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.02 );
 	protected readonly BORDER_COLOR = UtilRgb.darken( DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.05 );
 
-	getBackgroundColor( state: DBaseState ): number | null {
-		if( DBaseStates.isDisabled( state ) ) {
+	getBackgroundColor( state: DBaseStateSet ): number | null {
+		if( state.inDisabled ) {
 			return null;
 		} else {
 			return this.BACKGROUND_COLOR;
 		}
 	}
 
-	getBorderColor( state: DBaseState ): number | null {
+	getBorderColor( state: DBaseStateSet ): number | null {
 		return this.BORDER_COLOR;
 	}
 
-	getBorderAlign( state: DBaseState ): number {
+	getBorderAlign( state: DBaseStateSet ): number {
 		return 0;
 	}
 
-	getBorderMask( state: DBaseState ): DBorderMask {
+	getBorderMask( state: DBaseStateSet ): DBorderMask {
 		return DBorderMask.NOT_BOTTOM;
 	}
 

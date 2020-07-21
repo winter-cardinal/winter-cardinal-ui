@@ -4,7 +4,6 @@
  */
 
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
-import { DBaseState } from "./d-base-state";
 
 export interface DContentOptions extends DBaseOptions<DThemeContent> {
 
@@ -17,7 +16,7 @@ export interface DThemeContent extends DThemeBase {
 export class DContent extends DBase<DThemeContent, DContentOptions> {
 	protected init( options?: DContentOptions ) {
 		super.init( options );
-		this.setState( DBaseState.UNFOCUSABLE, true );
+		this.state.isFocusable = false;
 	}
 
 	protected initReflowable(): void {

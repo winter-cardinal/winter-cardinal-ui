@@ -4,7 +4,7 @@
  */
 
 import { Texture } from "pixi.js";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DButtonColor, DThemeButtonColor } from "../../d-button-color";
 import { DColorAndAlpha } from "../../d-color";
 import { UtilRgb } from "../../util/util-rgb";
@@ -26,11 +26,11 @@ const formatter = ( colorAndAlpha: DColorAndAlpha ): string => {
 };
 
 export class DThemeWhiteButtonColor extends DThemeWhiteButton implements DThemeButtonColor {
-	getImageTintColor( state: DBaseState ): number | null {
+	getImageTintColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 
-	getImageSource( state: DBaseState ): Texture {
+	getImageSource( state: DBaseStateSet ): Texture {
 		return DThemeWhiteAtlas.mappings.button_color_sample;
 	}
 

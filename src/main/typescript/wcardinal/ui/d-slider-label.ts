@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "./d-base-state";
 import { DTextBase, DTextBaseOptions, DThemeTextBase } from "./d-text-base";
 
 export interface DSliderLabelOptions<
@@ -26,7 +25,7 @@ export class DSliderLabel<
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
-		this.setState( DBaseState.UNFOCUSABLE, true );
+		this.state.isFocusable = false;
 
 		this._value = options && options.value || 0;
 	}

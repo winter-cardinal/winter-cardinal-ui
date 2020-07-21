@@ -17,7 +17,8 @@ import { DBasePadding } from "./d-base-padding";
 import { DBasePoint } from "./d-base-point";
 import { DBaseReflowable } from "./d-base-reflowable";
 import { DBaseState } from "./d-base-state";
-import { DBaseStates } from "./d-base-states";
+import { DBaseStateSet } from "./d-base-state-set";
+import { DBaseStateSetImpl } from "./d-base-state-set-impl";
 import { DBorderStateAware } from "./d-border";
 import { DBorderMask } from "./d-border-mask";
 import { DCoordinatePosition, DCoordinateSize } from "./d-coordinate";
@@ -146,7 +147,7 @@ export interface DBaseEvents<EMITTER> {
 	 * @param oldState an old state
 	 * @param emitter an emitter
 	 */
-	statechange( newState: DBaseState, oldState: DBaseState, emitter: EMITTER ): void;
+	statechange( newState: DBaseStateSet, oldState: DBaseStateSet, emitter: EMITTER ): void;
 
 	/**
 	 * Triggered when a wheel moves.
@@ -473,14 +474,14 @@ export interface DThemeBase extends DThemeFont {
 	 *
 	 * @param state a state
 	 */
-	getBackgroundColor( state: DBaseState ): number | null;
+	getBackgroundColor( state: DBaseStateSet ): number | null;
 
 	/**
 	 * Returns a background alpha.
 	 *
 	 * @param state a state
 	 */
-	getBackgroundAlpha( state: DBaseState ): number;
+	getBackgroundAlpha( state: DBaseStateSet ): number;
 
 	/**
 	 * Returns a background texture of the given radius.
@@ -495,35 +496,35 @@ export interface DThemeBase extends DThemeFont {
 	 *
 	 * @param state a state
 	 */
-	getBorderColor( state: DBaseState ): number | null;
+	getBorderColor( state: DBaseStateSet ): number | null;
 
 	/**
 	 * Returns a border alpha.
 	 *
 	 * @param state a state
 	 */
-	getBorderAlpha( state: DBaseState ): number;
+	getBorderAlpha( state: DBaseStateSet ): number;
 
 	/**
 	 * Returns a border width.
 	 *
 	 * @param state a state
 	 */
-	getBorderWidth( state: DBaseState ): number;
+	getBorderWidth( state: DBaseStateSet ): number;
 
 	/**
 	 * Returns a border align.
 	 *
 	 * @param state a state
 	 */
-	getBorderAlign( state: DBaseState ): number;
+	getBorderAlign( state: DBaseStateSet ): number;
 
 	/**
 	 * Returns a border mask.
 	 *
 	 * @param state a mask
 	 */
-	getBorderMask( state: DBaseState ): DBorderMask;
+	getBorderMask( state: DBaseStateSet ): DBorderMask;
 
 	/**
 	 * Returns a border texture of the given radius and width.
@@ -569,42 +570,42 @@ export interface DThemeBase extends DThemeFont {
 	 *
 	 * @param state a state
 	 */
-	getOutlineColor( state: DBaseState ): number | null;
+	getOutlineColor( state: DBaseStateSet ): number | null;
 
 	/**
 	 * Returns an outline alpha.
 	 *
 	 * @param state a state
 	 */
-	getOutlineAlpha( state: DBaseState ): number;
+	getOutlineAlpha( state: DBaseStateSet ): number;
 
 	/**
 	 * Returns an outline width.
 	 *
 	 * @param state a state
 	 */
-	getOutlineWidth( state: DBaseState ): number;
+	getOutlineWidth( state: DBaseStateSet ): number;
 
 	/**
 	 * Returns an outline offset.
 	 *
 	 * @param state a state
 	 */
-	getOutlineOffset( state: DBaseState ): number;
+	getOutlineOffset( state: DBaseStateSet ): number;
 
 	/**
 	 * Returns an outline align.
 	 *
 	 * @param state a state
 	 */
-	getOutlineAlign( state: DBaseState ): number;
+	getOutlineAlign( state: DBaseStateSet ): number;
 
 	/**
 	 * Returns an outline mask.
 	 *
 	 * @param state a state
 	 */
-	getOutlineMask( state: DBaseState ): DBorderMask;
+	getOutlineMask( state: DBaseStateSet ): DBorderMask;
 
 	/**
 	 * Returns a shadow.
@@ -715,8 +716,7 @@ export class DBase<
 	protected static WORK_CONTAINS_POINT: Point = new Point();
 
 	private _name: string;
-	private _state: DBaseState;
-	private _stateLocal: DBaseState;
+	private _state: DBaseStateSet;
 	private _theme: THEME;
 	protected _options: OPTIONS | undefined;
 	private _width: number;
@@ -790,7 +790,6 @@ export class DBase<
 		this._border = new DBaseBorder( theme, options, toDirtyAndUpdate );
 		this._outline = new DBaseOutline( theme, options, toDirtyAndUpdate );
 		this._corner = new DBaseCorner( theme, options, toDirtyAndUpdate );
-		this.initReflowable();
 
 		// X
 		const position = transform.position;
@@ -841,8 +840,9 @@ export class DBase<
 		}
 
 		// State
-		this._state = DBaseState.NONE;
-		this._stateLocal = DBaseState.NONE;
+		this._state = new DBaseStateSetImpl(( newState, oldState ): void => {
+			this.onStateChange( newState, oldState );
+		});
 
 		// Interactive
 		const interactive = ( options && options.interactive != null ?
@@ -868,6 +868,9 @@ export class DBase<
 
 		// Weight
 		this._weight = ( options && options.weight != null ? options.weight : theme.getWeight() );
+
+		// Reflowable
+		this.initReflowable();
 
 		// Shadow
 		this._onShadowUpdateBound = (): void => {
@@ -915,13 +918,19 @@ export class DBase<
 			if( this._isChildrenDirty ) {
 				this.toParentChildrenDirty();
 			}
-			this.updateState();
+			const parent = this.parent;
+			if( parent instanceof DBase ) {
+				this.state.update( parent.state );
+			}
 			DApplications.update( this );
 		});
 
 		this.on( "removed", (): void => {
 			this.blur( true );
-			this.updateState();
+			const parent = this.parent;
+			if( parent instanceof DBase ) {
+				this.state.update( parent.state );
+			}
 			DApplications.update( this );
 		});
 
@@ -950,15 +959,17 @@ export class DBase<
 
 		// State Override
 		if( options && options.state != null ) {
-			if( isString( options.state ) ) {
-				this.setState( DBaseState[ options.state ], true );
-			} else if( isNumber( options.state ) ) {
-				this.setState( options.state, true );
+			const state = options.state;
+			if( isString( state ) ) {
+				this.state.set( DBaseState[ state ], true );
+			} else if( isNumber( state ) ) {
+				this.state.set( state, true );
 			} else {
-				const states = options.state;
-				for( let i = 0, imax = states.length; i < imax; ++i ) {
-					this.setState( DBaseState[ states[ i ] ], true );
+				let states = DBaseState.NONE;
+				for( let i = 0, imax = state.length; i < imax; ++i ) {
+					states |= DBaseState[ state[ i ] ];
 				}
+				this.state.set( states, true );
 			}
 		}
 
@@ -1349,7 +1360,7 @@ export class DBase<
 	set title( title: string ) {
 		if( this._title !== title ) {
 			this._title = title;
-			if( this.isHovered() ) {
+			if( this.state.isHovered ) {
 				this.applyTitle();
 			}
 		}
@@ -1446,44 +1457,8 @@ export class DBase<
 		return this._hasDirty;
 	}
 
-	setHovered( isHovered: boolean ) {
-		return this.setState( DBaseState.HOVERED, isHovered );
-	}
-
-	setActive( isActive: boolean ) {
-		return this.setState( DBaseState.ACTIVE, isActive );
-	}
-
-	setPressed( isPressed: boolean ) {
-		return this.setState( DBaseState.PRESSED, isPressed );
-	}
-
-	setReadOnly( isReadOnly: boolean ) {
-		return this.setState( DBaseState.READ_ONLY, isReadOnly );
-	}
-
-	setDisabled( isDisabled: boolean ) {
-		return this.setState( DBaseState.DISABLED, isDisabled );
-	}
-
-	setDragging( isDragging: boolean ) {
-		return this.setState( DBaseState.DRAGGING, isDragging );
-	}
-
-	setInvalid( isInvalid: boolean ) {
-		return this.setState( DBaseState.INVALID, isInvalid );
-	}
-
-	setSucceeded( isSucceeded: boolean ) {
-		return this.setState( DBaseState.SUCCEEDED, isSucceeded );
-	}
-
-	setFailed( isFailed: boolean ) {
-		return this.setState( DBaseState.FAILED, isFailed );
-	}
-
-	setFocused( isFocused: boolean ) {
-		if( this.isFocused() !== isFocused ) {
+	protected setFocused( isFocused: boolean ) {
+		if( this.state.isFocused !== isFocused ) {
 			const layer = DApplications.getLayer( this );
 			if( layer ) {
 				layer.getFocusController().setFocused( this, isFocused, false );
@@ -1519,105 +1494,7 @@ export class DBase<
 		return this;
 	}
 
-	isHovered(): boolean {
-		return this.hasState( DBaseState.HOVERED );
-	}
-
-	isActive(): boolean {
-		return this.hasState( DBaseState.ACTIVE );
-	}
-
-	isActiveIn(): boolean {
-		return this.hasState( DBaseState.ACTIVE | DBaseState.ACTIVE_IN );
-	}
-
-	isPressed(): boolean {
-		return this.hasState( DBaseState.PRESSED );
-	}
-
-	isReadOnly(): boolean {
-		return this.hasState( DBaseState.READ_ONLY );
-	}
-
-	isDisabled(): boolean {
-		return this.hasState( DBaseState.DISABLED );
-	}
-
-	isActionable(): boolean {
-		return ! this.hasState( DBaseState.DISABLED | DBaseState.READ_ONLY );
-	}
-
-	isDragging(): boolean {
-		return this.hasState( DBaseState.DRAGGING );
-	}
-
-	isFocused(): boolean {
-		return this.hasState( DBaseState.FOCUSED );
-	}
-
-	isFocusedIn(): boolean {
-		return this.hasState( DBaseState.FOCUSED | DBaseState.FOCUSED_IN );
-	}
-
-	isUnfocusable(): boolean {
-		return this.hasState( DBaseState.UNFOCUSABLE );
-	}
-
-	isInvalid(): boolean {
-		return this.hasState( DBaseState.INVALID );
-	}
-
-	isSucceeded(): boolean {
-		return this.hasState( DBaseState.SUCCEEDED );
-	}
-
-	isFailed(): boolean {
-		return this.hasState( DBaseState.FAILED );
-	}
-
-	setState( state: DBaseState, isOn: boolean ) {
-		const oldStateLocal = this._stateLocal;
-		const newStateLocal = ( isOn ? (oldStateLocal | state) : (oldStateLocal & ~state) );
-		if( oldStateLocal !== newStateLocal ) {
-			this._stateLocal = newStateLocal;
-			this.updateState();
-		}
-		return this;
-	}
-
-	setStates( statesOn: DBaseState, statesOff: DBaseState ) {
-		const oldStateLocal = this._stateLocal;
-		const newStateLocal = ( (oldStateLocal | statesOn) & ~statesOff );
-		if( oldStateLocal !== newStateLocal ) {
-			this._stateLocal = newStateLocal;
-			this.updateState();
-		}
-		return this;
-	}
-
-	protected updateState(): void {
-		const parent = this.parent;
-		const stateLocal = this._stateLocal;
-		const newState = ( parent instanceof DBase ?
-			this.mergeState( stateLocal, parent.state ) :
-			stateLocal
-		);
-		const oldState = this._state;
-		if( oldState !== newState ) {
-			this._state = newState;
-			this.onStateChange( newState, oldState );
-		}
-	}
-
-	protected mergeState( stateLocal: DBaseState, stateParent: DBaseState ): DBaseState {
-		return stateLocal |
-			( stateParent & DBaseState.DISABLED ) |
-			( stateParent & DBaseState.READ_ONLY ) |
-			( stateParent & (DBaseState.FOCUSED | DBaseState.FOCUSED_IN) ? DBaseState.FOCUSED_IN : DBaseState.NONE ) |
-			( stateParent & (DBaseState.ACTIVE | DBaseState.ACTIVE_IN) ? DBaseState.ACTIVE_IN : DBaseState.NONE );
-	}
-
-	protected onStateChange( newState: number, oldState: number ) {
+	protected onStateChange( newState: DBaseStateSet, oldState: DBaseStateSet ): void {
 		this.toDirty();
 		DApplications.update( this );
 		this.emit( "statechange", newState, oldState, this );
@@ -1626,16 +1503,16 @@ export class DBase<
 		for( let i = 0, imax = children.length; i < imax; ++i ) {
 			const child = children[ i ];
 			if( child instanceof DBase ) {
-				child.onParentStateChange( newState, oldState );
+				child.state.update( newState );
 			}
 		}
 
-		if( DBaseStates.isFocused( newState ) ) {
-			if( ! DBaseStates.isFocused( oldState ) ) {
+		if( newState.isFocused ) {
+			if( ! oldState.isFocused ) {
 				this.onFocused();
 			}
 		} else {
-			if( DBaseStates.isFocused( oldState ) ) {
+			if( oldState.isFocused ) {
 				this.onBlured();
 			}
 		}
@@ -1659,25 +1536,8 @@ export class DBase<
 		//
 	}
 
-	protected onParentStateChange( newStateParent: number, oldStateParent: number ) {
-		const newState = this.mergeState( this._stateLocal, newStateParent );
-		const oldState = this._state;
-		if( oldState !== newState ) {
-			this._state = newState;
-			this.onStateChange( newState, oldState );
-		}
-	}
-
-	get state(): DBaseState {
+	get state(): DBaseStateSet {
 		return this._state;
-	}
-
-	getState(): DBaseState {
-		return this._state;
-	}
-
-	hasState( state: DBaseState ): boolean {
-		return !! ( this._state & state );
 	}
 
 	get theme(): THEME {
@@ -1989,7 +1849,7 @@ export class DBase<
 	// Over
 	protected onOver( e: InteractionEvent ): void {
 		// Update the hover state
-		this.setHovered( true );
+		this.state.isHovered = true;
 
 		// Update the title
 		if( e.target === this ) {
@@ -2003,7 +1863,7 @@ export class DBase<
 	// Out
 	protected onOut( e: InteractionEvent ): void {
 		// Update the hover state
-		this.setHovered( false );
+		this.state.isHovered = false;
 
 		// Event
 		this.emit( "out", e, this );

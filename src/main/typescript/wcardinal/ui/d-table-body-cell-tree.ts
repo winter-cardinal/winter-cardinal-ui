@@ -57,7 +57,7 @@ export class DTableBodyCellTree<
 		if( link ) {
 			link.apply( this, ( e ): void => this.onActive( e ) );
 			UtilPointerEvent.onClick( this, ( e: interaction.InteractionEvent ): void => {
-				if( link.isDisabled() && this.isActionable() ) {
+				if( link.isDisabled() && this.state.isActionable ) {
 					this.onActive( e );
 				}
 			});
@@ -116,18 +116,18 @@ export class DTableBodyCellTree<
 			const level = (supplimental >> 2);
 			if( hasChildren ) {
 				if( isOpened ) {
-					this.setStates( DTableCellState.HAS_CHILDREN | DTableCellState.OPENED, DBaseState.NONE );
+					this.state.add( DTableCellState.HAS_CHILDREN | DTableCellState.OPENED );
 				} else {
-					this.setStates( DTableCellState.HAS_CHILDREN, DTableCellState.OPENED );
+					this.state.set( DTableCellState.HAS_CHILDREN, DTableCellState.OPENED );
 				}
 				if( link ) {
 					link.disable();
 				}
 			} else {
 				if( isOpened ) {
-					this.setStates( DTableCellState.OPENED, DTableCellState.HAS_CHILDREN );
+					this.state.set( DTableCellState.OPENED, DTableCellState.HAS_CHILDREN );
 				} else {
-					this.setStates( DBaseState.NONE, DTableCellState.HAS_CHILDREN | DTableCellState.OPENED );
+					this.state.remove( DTableCellState.HAS_CHILDREN | DTableCellState.OPENED );
 				}
 				if( link ) {
 					link.enable();
@@ -135,7 +135,7 @@ export class DTableBodyCellTree<
 			}
 			adjuster.left = this.theme.getLevelPadding( level );
 		} else {
-			this.setStates( DBaseState.NONE, DTableCellState.OPENED | DTableCellState.HAS_CHILDREN );
+			this.state.remove( DTableCellState.OPENED | DTableCellState.HAS_CHILDREN );
 			adjuster.left = 0;
 			if( link ) {
 				link.disable();

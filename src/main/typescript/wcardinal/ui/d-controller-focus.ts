@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "./d-base-state";
+import { DBaseStateSet } from "./d-base-state-set";
 
 export interface DFocusableMightBe {
 	parent: DFocusableContainer | null;
@@ -15,8 +15,7 @@ export interface DFocusableContainer extends DFocusableMightBe {
 }
 
 export interface DFocusable extends DFocusableMightBe {
-	setState( state: DBaseState, isOn: boolean ): void;
-	hasState( state: DBaseState ): boolean;
+	readonly state: DBaseStateSet;
 }
 
 export interface DControllerFocus {

@@ -21,11 +21,12 @@ export class DMenuBarBlocker extends Container {
 		});
 		this.on( UtilPointerEvent.move, ( e: interaction.InteractionEvent ): void => {
 			if( e.target === this ) {
+				const global = e.data.global;
 				const children = target.children;
 				for( let i = 0, imax = children.length; i < imax; ++i ) {
 					const child = children[ i ];
 					if( child instanceof DMenuBarItem ) {
-						child.setHovered( child.containsPoint( e.data.global ) );
+						child.state.isHovered = child.containsPoint( global );
 					}
 				}
 			}

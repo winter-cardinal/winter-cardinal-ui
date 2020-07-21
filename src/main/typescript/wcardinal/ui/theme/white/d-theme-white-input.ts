@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "../../d-base-state";
-import { DBaseStates } from "../../d-base-states";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DHtmlElementElementCreator } from "../../d-html-element";
 import { DThemeInput } from "../../d-input";
@@ -64,22 +63,22 @@ export class DThemeWhiteInput extends DThemeWhiteHtmlElement<HTMLInputElement> i
 	protected readonly BACKGROUND_COLOR = DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD;
 	protected readonly BACKGROUND_COLOR_HOVERED = UtilRgb.darken( this.BACKGROUND_COLOR, 0.017 );
 
-	getBackgroundColor( state: DBaseState ): number | null {
-		if( DBaseStates.isDisabled( state ) || DBaseStates.isReadOnly( state ) ) {
+	getBackgroundColor( state: DBaseStateSet ): number | null {
+		if( state.inDisabled || state.inReadOnly ) {
 			return null;
-		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
+		} else if( state.isFocused || state.isHovered ) {
 			return this.BACKGROUND_COLOR_HOVERED;
 		} else {
 			return this.BACKGROUND_COLOR;
 		}
 	}
 
-	getBorderColor( state: DBaseState ): number | null {
+	getBorderColor( state: DBaseStateSet ): number | null {
 		return DThemeWhiteConstants.BORDER_COLOR;
 	}
 
-	getOutlineColor( state: DBaseState ): number | null {
-		if( DBaseStates.isInvalid( state ) ) {
+	getOutlineColor( state: DBaseStateSet ): number | null {
+		if( state.isInvalid ) {
 			return DThemeWhiteConstants.INVALID_COLOR;
 		}
 		return super.getOutlineColor( state );
@@ -141,7 +140,7 @@ export class DThemeWhiteInput extends DThemeWhiteHtmlElement<HTMLInputElement> i
 		return true;
 	}
 
-	protected getElementStyleMargin( state: DBaseState ): string {
+	protected getElementStyleMargin( state: DBaseStateSet ): string {
 		return "margin: 0.1em 0 0 0;";
 	}
 }

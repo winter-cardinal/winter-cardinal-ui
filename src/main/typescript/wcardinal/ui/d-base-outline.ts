@@ -4,7 +4,7 @@
  */
 
 import { DBaseOptions, DThemeBase } from "./d-base";
-import { DBaseState } from "./d-base-state";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DBorderMask } from "./d-border-mask";
 import { DOutline } from "./d-outline";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
@@ -45,7 +45,7 @@ export class DBaseOutline implements DOutline {
 		this._theme = theme;
 	}
 
-	getColor( state: DBaseState ): number | null {
+	getColor( state: DBaseStateSet ): number | null {
 		const color = this._color;
 		if( color !== undefined ) {
 			if( isFunction( color ) ) {
@@ -74,7 +74,7 @@ export class DBaseOutline implements DOutline {
 		}
 	}
 
-	getAlpha( state: DBaseState ): number {
+	getAlpha( state: DBaseStateSet ): number {
 		const alpha = this._alpha;
 		if( alpha !== undefined ) {
 			if( isFunction( alpha ) ) {
@@ -103,7 +103,7 @@ export class DBaseOutline implements DOutline {
 		}
 	}
 
-	getWidth( state: DBaseState ): number {
+	getWidth( state: DBaseStateSet ): number {
 		const width = this._width;
 		if( width !== undefined ) {
 			if( isFunction( width ) ) {
@@ -132,7 +132,7 @@ export class DBaseOutline implements DOutline {
 		}
 	}
 
-	getOffset( state: DBaseState ): number {
+	getOffset( state: DBaseStateSet ): number {
 		const offset = this._offset;
 		if( offset !== undefined ) {
 			if( isFunction( offset ) ) {
@@ -161,7 +161,7 @@ export class DBaseOutline implements DOutline {
 		}
 	}
 
-	getAlign( state: DBaseState ): number {
+	getAlign( state: DBaseStateSet ): number {
 		const align = this._align;
 		if( align !== undefined ) {
 			if( isFunction( align ) ) {
@@ -190,7 +190,7 @@ export class DBaseOutline implements DOutline {
 		}
 	}
 
-	getMask( state: DBaseState ): number {
+	getMask( state: DBaseStateSet ): number {
 		const mask = this._mask;
 		if( mask !== undefined ) {
 			if( isFunction( mask ) ) {

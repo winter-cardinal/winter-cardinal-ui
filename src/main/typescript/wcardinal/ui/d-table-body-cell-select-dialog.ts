@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "./d-base-state";
 import { DButton, DButtonOptions, DThemeButton } from "./d-button";
 import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
@@ -81,11 +80,6 @@ export class DTableBodyCellSelectDialog<
 
 	protected toSync( theme: THEME, options: OPTIONS ): boolean {
 		return ( options && options.sync != null ? options.sync : theme.isSyncEnabled() );
-	}
-
-	protected mergeState( stateLocal: DBaseState, stateParent: DBaseState ): DBaseState {
-		return super.mergeState( stateLocal, stateParent ) |
-			( stateParent & DBaseState.HOVERED ? DBaseState.HOVERED : DBaseState.NONE );
 	}
 
 	get row(): ROW | undefined {

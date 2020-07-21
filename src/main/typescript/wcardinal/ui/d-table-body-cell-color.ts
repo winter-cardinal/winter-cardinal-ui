@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "./d-base-state";
 import { DButtonColor, DButtonColorOptions, DThemeButtonColor } from "./d-button-color";
 import { DColorAndAlpha } from "./d-color";
 import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
@@ -68,11 +67,6 @@ export class DTableBodyCellColor<
 				this.emit( "cellchange", newValueCloned, oldValueCloned, row, rowIndex, columnIndex, this );
 			}
 		});
-	}
-
-	protected mergeState( stateLocal: DBaseState, stateParent: DBaseState ): DBaseState {
-		return super.mergeState( stateLocal, stateParent ) |
-			( stateParent & DBaseState.HOVERED ? DBaseState.HOVERED : DBaseState.NONE );
 	}
 
 	get row(): ROW | undefined {

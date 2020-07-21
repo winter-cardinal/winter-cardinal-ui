@@ -4,7 +4,7 @@
  */
 
 import { DisplayObject, Texture } from "pixi.js";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeTableBodyCellActionDialog } from "../../d-table-body-cell-action-dialog";
 import { DThemeWhiteTableBodyCellActions } from "./d-theme-white-table-body-cell-actions";
 import { DThemeWhiteTableBodyCellSelectDialog } from "./d-theme-white-table-body-cell-select-dialog";
@@ -14,11 +14,11 @@ DThemeWhiteTableBodyCellActions.init();
 export class DThemeWhiteTableBodyCellActionDialog extends DThemeWhiteTableBodyCellSelectDialog
 	implements DThemeTableBodyCellActionDialog {
 
-	getImageTintColor( state: DBaseState ): number | null {
+	getImageTintColor( state: DBaseStateSet ): number | null {
 		return DThemeWhiteTableBodyCellActions.getImageTintColor( state );
 	}
 
-	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
+	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
 		return DThemeWhiteTableBodyCellActions.getImageSource( state );
 	}
 

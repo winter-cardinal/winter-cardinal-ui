@@ -6,11 +6,12 @@
 import { interaction, Point } from "pixi.js";
 import { DApplications } from "../d-applications";
 import { DBaseState } from "../d-base-state";
-import { DControllers } from "../d-controllers";
+import { DBaseStateSet } from "../d-base-state-set";
 import { UtilKeyboardEvent } from "../util/util-keyboard-event";
 import { EShapeActionRuntime } from "./action/e-shape-action-runtime";
 import { EShape } from "./e-shape";
 import { EShapeFillLike } from "./e-shape-fill";
+import { EShapeState } from "./e-shape-state";
 import { EShapeStrokeLike } from "./e-shape-stroke";
 import { EShapeTextLike } from "./e-shape-text";
 
@@ -34,16 +35,6 @@ export enum EShapeRuntimeReset {
 	CURSOR = 2048
 }
 
-export enum EShapeRuntimeState {
-	NONE = 0,
-	CHANGED = 1,
-	CLICKED = 2,
-	DOWN = 4,
-	UP = 8,
-	PRESSED = 16,
-	PERSISTENT = PRESSED
-}
-
 export class EShapeRuntime {
 	x: number;
 	y: number;
@@ -60,8 +51,7 @@ export class EShapeRuntime {
 
 	effect: number;
 
-	state: EShapeRuntimeState;
-
+	isStateChanged: boolean;
 	interactive: boolean;
 
 	constructor( shape: EShape ) {
@@ -79,16 +69,13 @@ export class EShapeRuntime {
 		this.reset = EShapeRuntimeReset.NONE;
 		this.written = EShapeRuntimeReset.NONE;
 		this.effect = NaN;
-		this.state = EShapeRuntimeState.NONE;
+		this.isStateChanged = false;
 		this.interactive = false;
 	}
 
 	onPointerClick( shape: EShape, e?: interaction.InteractionEvent ): void {
-		if( ! shape.disabled ) {
-			if( ! (this.state & EShapeRuntimeState.CLICKED) ) {
-				this.state |= EShapeRuntimeState.CHANGED | EShapeRuntimeState.CLICKED;
-				DApplications.update( shape );
-			}
+		if( ! shape.state.inDisabled ) {
+			shape.state.isClicked = true;
 		}
 	}
 
@@ -97,21 +84,18 @@ export class EShapeRuntime {
 	}
 
 	onPointerOver( shape: EShape, e?: interaction.InteractionEvent ): void {
-		shape.hovered = true;
+		shape.state.isHovered = true;
 	}
 
 	onPointerOut( shape: EShape, e?: interaction.InteractionEvent ): void {
-		shape.hovered = false;
+		shape.state.isHovered = false;
 	}
 
 	onPointerDown( shape: EShape, e?: interaction.InteractionEvent ): void {
-		const layer = DApplications.getLayer( shape );
-		if( ! (this.state & EShapeRuntimeState.DOWN) ) {
-			this.state |= EShapeRuntimeState.CHANGED | EShapeRuntimeState.DOWN | EShapeRuntimeState.PRESSED;
-			if( layer ) {
-				layer.update();
-			}
+		if( ! shape.state.isDown ) {
+			shape.state.add( EShapeState.DOWN | DBaseState.PRESSED );
 		}
+		const layer = DApplications.getLayer( shape );
 		if( layer ) {
 			const focusController = layer.getFocusController();
 			focusController.setFocused( focusController.findFocusableParent( shape ), true, true );
@@ -119,10 +103,8 @@ export class EShapeRuntime {
 	}
 
 	onPointerUp( shape: EShape, e?: interaction.InteractionEvent ): void {
-		if( ! (this.state & EShapeRuntimeState.UP) ) {
-			this.state |= EShapeRuntimeState.CHANGED | EShapeRuntimeState.UP;
-			this.state &= ~EShapeRuntimeState.PRESSED;
-			DApplications.update( shape );
+		if( ! shape.state.isUp ) {
+			shape.state.set( EShapeState.UP, DBaseState.PRESSED );
 		}
 	}
 
@@ -145,22 +127,23 @@ export class EShapeRuntime {
 		return false;
 	}
 
-	onStateChange( shape: EShape, newState: DBaseState, oldState: DBaseState ): void {
-		this.state |= EShapeRuntimeState.CHANGED;
+	onStateChange( shape: EShape, newState: DBaseStateSet, oldState: DBaseStateSet ): void {
+		this.isStateChanged = true;
 		DApplications.update( shape );
 	}
 
 	update( shape: EShape, time: number ): void {
 		const tag = shape.tag;
 		const isEffectTimeUp = ( this.effect <= time );
-		if( tag.isChanged || (this.state & EShapeRuntimeState.CHANGED) || isEffectTimeUp ) {
+		if( tag.isChanged || this.isStateChanged || isEffectTimeUp ) {
 			if( isEffectTimeUp ) {
 				this.effect = NaN;
 			}
 			shape.disallowUploadedUpdate();
 			this.onUpdate( shape, time );
 			shape.allowUploadedUpdate();
-			this.state &= EShapeRuntimeState.PERSISTENT;
+			shape.state.remove( EShapeState.CLICKED | EShapeState.DOWN | EShapeState.UP );
+			this.isStateChanged = false;
 			tag.isChanged = false;
 		}
 	}

@@ -4,7 +4,7 @@
  */
 
 import { DApplications } from "./d-applications";
-import { DBaseState } from "./d-base-state";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DColorAndAlpha } from "./d-color";
 import { DDialogColor, DDialogColorOptions } from "./d-dialog-color";
@@ -54,7 +54,7 @@ export interface DButtonColorOptions<
  */
 export interface DThemeButtonColor extends DThemeButton {
 	getTextFormatter(): ( value: DColorAndAlpha, caller: DButtonColor ) => string;
-	getTextValue( state: DBaseState ): DColorAndAlpha;
+	getTextValue( state: DBaseStateSet ): DColorAndAlpha;
 	newTextValue(): DColorAndAlpha;
 }
 

@@ -145,15 +145,23 @@ export class DTreeItem<
 	}
 
 	public updateActiveState( isActive: boolean ) {
-		this.setActive( isActive );
-		this._icon.setState( DTreeItemState.SELECTED, isActive );
-		this._textAndImage.setState( DTreeItemState.SELECTED, isActive );
+		this.state.isActive = isActive;
+		this._icon.state.set( DTreeItemState.SELECTED, isActive );
+		this._textAndImage.state.set( DTreeItemState.SELECTED, isActive );
 	}
 
 	protected updateStates( isActive: boolean ): void {
 		this.updateActiveState( isActive );
-		this._icon.setState( DTreeItemState.COLLAPSED, !this._isExpanded && this._isParent );
-		this._icon.setState( DTreeItemState.EXPANDED, !!this._isExpanded && this._isParent );
+		const icon = this._icon;
+		if( this._isParent ) {
+			if( this._isExpanded ) {
+				icon.state.set( DTreeItemState.EXPANDED, DTreeItemState.COLLAPSED );
+			} else {
+				icon.state.set( DTreeItemState.COLLAPSED, DTreeItemState.EXPANDED );
+			}
+		} else {
+			icon.state.remove( DTreeItemState.COLLAPSED | DTreeItemState.EXPANDED );
+		}
 	}
 
 	protected getType(): string {

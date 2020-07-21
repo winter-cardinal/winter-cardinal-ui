@@ -90,7 +90,7 @@ export class DTableBodyRow<
 			if( column.type === DTableColumnType.TREE ) {
 				cell.on( "cellchange", this._onCellChangeBound );
 			} else {
-				cell.setReadOnly( true );
+				cell.state.isReadOnly = true;
 			}
 			return cell;
 		}
@@ -300,8 +300,12 @@ export class DTableBodyRow<
 				}
 			}
 
-			this.emit( "set", value, rowIndex, this );
+			this.onSet( value, rowIndex );
 		}
+	}
+
+	protected onSet( value: ROW, rowIndex: number ): void {
+		this.emit( "set", value, rowIndex, this );
 	}
 
 	unset(): void {
@@ -317,8 +321,12 @@ export class DTableBodyRow<
 				}
 			}
 
-			this.emit( "unset", this );
+			this.onUnset();
 		}
+	}
+
+	protected onUnset(): void {
+		this.emit( "unset", this );
 	}
 
 	protected getContentPositionX(): number {

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeTableBodyCellInputTreeInput } from "../../d-table-body-cell-input-tree-input";
 import { DThemeWhiteInputText } from "./d-theme-white-input-text";
@@ -15,15 +15,15 @@ export class DThemeWhiteTableBodyCellInputTreeInput extends DThemeWhiteInputText
 		return "100%";
 	}
 
-	getBackgroundColor( state: DBaseState ): number | null {
+	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 
-	getBorderColor( state: DBaseState ): number | null {
+	getBorderColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 
-	getOutlineColor( state: DBaseState ): number | null {
+	getOutlineColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 

@@ -6,7 +6,8 @@
 import { IPoint, utils } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBaseOnOptions } from "./d-base";
-import { DBaseState } from "./d-base-state";
+import { DBaseStateSet } from "./d-base-state-set";
+import { DBaseStateSetImpl } from "./d-base-state-set-impl";
 import { DChartRegionImmutable } from "./d-chart-region";
 import { DChartRegionImpl } from "./d-chart-region-impl";
 import { DChartSeries, DChartSeriesHitResult } from "./d-chart-series";
@@ -36,8 +37,7 @@ export abstract class DChartSeriesBase extends utils.EventEmitter implements DCh
 	protected _range: DChartRegionImpl;
 	protected _regionPointId: number;
 
-	protected _state: DBaseState;
-	protected _stateLocal: DBaseState;
+	protected _state: DBaseStateSet;
 
 	abstract readonly shape: EShape | null;
 
@@ -50,8 +50,9 @@ export abstract class DChartSeriesBase extends utils.EventEmitter implements DCh
 		this._range = new DChartRegionImpl( NaN, NaN );
 		this._regionPointId = NaN;
 
-		this._state = DBaseState.NONE;
-		this._stateLocal = DBaseState.NONE;
+		this._state = new DBaseStateSetImpl(( newState, oldState ): void => {
+			this.onStateChange( newState, oldState );
+		});
 
 		// Events
 		if( options ) {
@@ -71,6 +72,11 @@ export abstract class DChartSeriesBase extends utils.EventEmitter implements DCh
 		this._container = container;
 		this._coordinate.reset();
 		this._index = index;
+
+		const chart = container.plotArea.chart;
+		if( chart ) {
+			this.state.update( chart.state );
+		}
 	}
 
 	unbind(): void {
@@ -102,6 +108,10 @@ export abstract class DChartSeriesBase extends utils.EventEmitter implements DCh
 		return this._coordinate;
 	}
 
+	get state(): DBaseStateSet {
+		return this._state;
+	}
+
 	protected abstract updateRegion(): void;
 
 	destroy(): void {
@@ -117,37 +127,7 @@ export abstract class DChartSeriesBase extends utils.EventEmitter implements DCh
 		return false;
 	}
 
-	setState( state: DBaseState, isOn: boolean ): void {
-		const oldStateLocal = this._stateLocal;
-		const newStateLocal = ( isOn ? (oldStateLocal | state) : (oldStateLocal & ~state) );
-		if( oldStateLocal !== newStateLocal ) {
-			this._stateLocal = newStateLocal;
-			this.updateState();
-		}
-	}
-
-	protected updateState(): void {
-		const container = this._container;
-		const chart = container && container.plotArea.chart;
-		const stateLocal = this._stateLocal;
-		const newState = ( chart ?
-			this.mergeState( stateLocal, chart.state ) :
-			stateLocal
-		);
-		const oldState = this._state;
-		if( oldState !== newState ) {
-			this._state = newState;
-			this.onStateChange( newState, oldState );
-		}
-	}
-
-	protected mergeState( stateLocal: DBaseState, stateParent: DBaseState ): DBaseState {
-		return stateLocal | ( stateParent & DBaseState.DISABLED ) |
-			( stateParent & (DBaseState.FOCUSED | DBaseState.FOCUSED_IN) ? DBaseState.FOCUSED_IN : DBaseState.NONE ) |
-			( stateParent & (DBaseState.ACTIVE | DBaseState.ACTIVE_IN) ? DBaseState.ACTIVE_IN : DBaseState.NONE );
-	}
-
-	protected onStateChange( newState: number, oldState: number ) {
+	protected onStateChange( newState: DBaseStateSet, oldState: DBaseStateSet ): void {
 		this.toDirty();
 		const container = this._container;
 		const chart = container && container.plotArea.chart;

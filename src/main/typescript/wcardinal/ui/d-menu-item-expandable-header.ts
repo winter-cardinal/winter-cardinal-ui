@@ -27,7 +27,7 @@ export class DMenuItemExpandableHeader<
 		super.init( options );
 
 		this.on( UtilPointerEvent.down, ( e: interaction.InteractionEvent ): void => {
-			if( this.isActionable() ) {
+			if( this.state.isActionable ) {
 				this.onSelect( e );
 			}
 		});

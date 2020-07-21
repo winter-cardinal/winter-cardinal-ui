@@ -9,7 +9,6 @@ import { EShapeActionValueDeserializer } from "./action/e-shape-action-value-des
 import { EShape } from "./e-shape";
 import { EShapeDeserializers } from "./e-shape-deserializers";
 import { EShapeImageElements } from "./e-shape-image-elements";
-import { EShapeLayerContainer } from "./e-shape-layer-container";
 import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
 import { EShapeSizes } from "./e-shape-sizes";
 import { EShapeGradients } from "./variant/e-shape-gradients";
@@ -42,7 +41,7 @@ export class EShapeDeserializer {
 		result.radius = item[ 13 ];
 		result.corner = item[ 14 ];
 		result.interactive = !! ( item[ 23 ] & 1 );
-		result.unfocusable = !! ( item[ 23 ] & 2 );
+		result.state.isFocusable = ! ( item[ 23 ] & 2 );
 		result.shortcut = ( 0 <= item[ 24 ] ? manager.resources[ item[ 24 ] ] : undefined );
 		result.title = ( 0 <= item[ 25 ] ? manager.resources[ item[ 25 ] ] : undefined );
 		result.uuid = ( item[ 26 ] != null ? item[ 26 ] : 0 );

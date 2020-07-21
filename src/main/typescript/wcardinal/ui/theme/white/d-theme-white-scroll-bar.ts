@@ -4,17 +4,17 @@
  */
 
 import { DBaseInteractive } from "../../d-base-interactive";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeScrollBar } from "../../d-scroll-bar";
 import { DThemeWhiteBase } from "./d-theme-white-base";
 
 export class DThemeWhiteScrollBar extends DThemeWhiteBase implements DThemeScrollBar {
-	getBackgroundColor( state: DBaseState ): number | null {
+	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return 0x000000;
 	}
 
-	getBackgroundAlpha( state: DBaseState ): number {
+	getBackgroundAlpha( state: DBaseStateSet ): number {
 		return 0;
 	}
 

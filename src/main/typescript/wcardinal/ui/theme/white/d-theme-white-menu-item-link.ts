@@ -6,7 +6,7 @@
 import { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignWith } from "../../d-align-with";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DLinkMenuItemId } from "../../d-link-menu-item-id";
 import { DMenuOptions } from "../../d-menu";
 import { DThemeMenuItemLink } from "../../d-menu-item-link";
@@ -17,15 +17,15 @@ import { DThemeWhiteMenuItemText } from "./d-theme-white-menu-item-text";
 DThemeWhiteLinks.init();
 
 export class DThemeWhiteMenuItemLink extends DThemeWhiteMenuItemText implements DThemeMenuItemLink {
-	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
-		if( state & DMenuItemLinkState.NEW_WINDOW ) {
+	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
+		if( state.is( DMenuItemLinkState.NEW_WINDOW ) ) {
 			return DThemeWhiteLinks.getImageSource( state );
 		}
 		return null;
 	}
 
-	getImageTintAlpha( state: DBaseState ): number {
-		if( state & DBaseState.HOVERED ) {
+	getImageTintAlpha( state: DBaseStateSet ): number {
+		if( state.isHovered ) {
 			return super.getImageTintAlpha( state );
 		}
 		return 0;

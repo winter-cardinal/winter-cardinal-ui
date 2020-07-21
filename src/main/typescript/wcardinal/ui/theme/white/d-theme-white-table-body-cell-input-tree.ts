@@ -4,8 +4,7 @@
  */
 
 import { DBaseInteractive } from "../../d-base-interactive";
-import { DBaseState } from "../../d-base-state";
-import { DBaseStates } from "../../d-base-states";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DBorderMask } from "../../d-border-mask";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
@@ -31,31 +30,31 @@ export class DThemeWhiteTableBodyCellInputTree extends DThemeWhiteLayoutHorizont
 		return DBaseInteractive.BOTH;
 	}
 
-	getBackgroundColor( state: DBaseState ): number | null {
+	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return DThemeWhiteTableBodyCells.getBackgroundColor( state );
 	}
 
-	getBackgroundAlpha( state: DBaseState ): number {
+	getBackgroundAlpha( state: DBaseStateSet ): number {
 		return DThemeWhiteTableBodyCells.getBackgroundAlpha( state );
 	}
 
-	getBorderColor( state: DBaseState ): number | null {
+	getBorderColor( state: DBaseStateSet ): number | null {
 		return DThemeWhiteTableBodyCells.getBorderColor( state );
 	}
 
-	getBorderAlign( state: DBaseState ): number {
+	getBorderAlign( state: DBaseStateSet ): number {
 		return DThemeWhiteTableBodyCells.getBorderAlign( state );
 	}
 
-	getBorderMask( state: DBaseState ): DBorderMask {
+	getBorderMask( state: DBaseStateSet ): DBorderMask {
 		return DThemeWhiteTableBodyCells.getBorderMask( state );
 	}
 
-	getColor( state: DBaseState ): number {
+	getColor( state: DBaseStateSet ): number {
 		return DThemeWhiteTableBodyCells.getColor( state );
 	}
 
-	getAlpha( state: DBaseState ): number {
+	getAlpha( state: DBaseStateSet ): number {
 		return DThemeWhiteTableBodyCells.getAlpha( state );
 	}
 
@@ -67,14 +66,14 @@ export class DThemeWhiteTableBodyCellInputTree extends DThemeWhiteLayoutHorizont
 		return DThemeWhiteTableBodyCells.getCornerMask();
 	}
 
-	getOutlineColor( state: DBaseState ): number | null {
-		if( DBaseStates.isDisabled( state ) ) {
+	getOutlineColor( state: DBaseStateSet ): number | null {
+		if( state.inDisabled ) {
 			return null;
 		}
 		return super.getOutlineColor( state );
 	}
 
-	getOutlineAlign( state: DBaseState ): number {
+	getOutlineAlign( state: DBaseStateSet ): number {
 		return DThemeWhiteTableBodyCells.getOutlineAlign( state );
 	}
 }

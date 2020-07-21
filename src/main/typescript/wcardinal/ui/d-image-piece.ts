@@ -2,7 +2,7 @@ import { DisplayObject, Point, Rectangle, Sprite, Texture } from "pixi.js";
 import { DAlignHorizontal } from "./d-align-horizontal";
 import { DAlignVertical } from "./d-align-vertical";
 import { DAlignWith } from "./d-align-with";
-import { DBaseState } from "./d-base-state";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { isFunction } from "./util/is-function";
 import { isString } from "./util/is-string";
@@ -51,7 +51,7 @@ export interface DImagePieceTextAlign {
 }
 
 export interface DImagePieceParent {
-	readonly state: DBaseState;
+	readonly state: DBaseStateSet;
 	addChild( displayObject: DisplayObject ): void;
 	removeChild( displayObject: DisplayObject ): void;
 }
@@ -62,9 +62,9 @@ export interface DThemeImagePiece {
 	getImageAlignWith(): DAlignWith;
 	getImageMarginHorizontal(): number;
 	getImageMarginVertial(): number;
-	getImageTintColor( state: DBaseState ): number | null;
-	getImageTintAlpha( state: DBaseState ): number;
-	getImageSource( state: DBaseState ): Texture | DisplayObject | null;
+	getImageTintColor( state: DBaseStateSet ): number | null;
+	getImageTintAlpha( state: DBaseStateSet ): number;
+	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null;
 }
 
 const toImageAlign = ( theme: DThemeImagePiece, options?: DImagePieceOptions ): DImagePieceAlign => {
@@ -203,7 +203,7 @@ export class DImagePiece {
 		return this._theme.getImageSource( this._parent.state );
 	}
 
-	onStateChange( newState: DBaseState, oldState: DBaseState ): void {
+	onStateChange( newState: DBaseStateSet, oldState: DBaseStateSet ): void {
 		this.updateTint();
 	}
 
@@ -254,7 +254,7 @@ export class DImagePiece {
 		return ( target != null && "tint" in target );
 	}
 
-	protected toTintColor( theme: DThemeImagePiece, state: DBaseState ): number | null {
+	protected toTintColor( theme: DThemeImagePiece, state: DBaseStateSet ): number | null {
 		const tint = this._tint;
 		if( tint ) {
 			const color = tint.color;
@@ -272,7 +272,7 @@ export class DImagePiece {
 		return theme.getImageTintColor( state );
 	}
 
-	protected toTintAlpha( theme: DThemeImagePiece, state: DBaseState ): number {
+	protected toTintAlpha( theme: DThemeImagePiece, state: DBaseStateSet ): number {
 		const tint = this._tint;
 		if( tint ) {
 			const alpha = tint.alpha;

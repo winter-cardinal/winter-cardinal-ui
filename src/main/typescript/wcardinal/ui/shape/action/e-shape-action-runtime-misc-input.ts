@@ -16,9 +16,9 @@ export class EShapeActionRuntimeMiscInput extends EShapeActionRuntime {
 	}
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( ! shape.disabled ) {
+		if( ! shape.state.inDisabled ) {
 			const data = EShapeActionRuntimeMiscInput.getData();
-			if( shape.focused ) {
+			if( shape.state.isFocused ) {
 				if( ! data.isShown( shape ) ) {
 					setTimeout(() => {
 						data.show( shape, shape.text.value, ( _: EShape, value: string ): void => {

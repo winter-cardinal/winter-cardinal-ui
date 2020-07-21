@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "./d-base-state";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogSelect, DDialogSelectOptions } from "./d-dialog-select";
 import { EventSupport } from "./decorator/event-support";
@@ -83,7 +83,7 @@ export interface DButtonSelectOptions<
  */
 export interface DThemeButtonSelect extends DThemeButton {
 	getTextFormatter(): ( value: unknown | null, caller: DButtonSelect ) => string;
-	getTextValue( state: DBaseState ): unknown | null;
+	getTextValue( state: DBaseStateSet ): unknown | null;
 	newTextValue(): unknown | null;
 }
 

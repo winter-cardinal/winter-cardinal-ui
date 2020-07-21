@@ -38,7 +38,7 @@ export class DMenuItemText<
 
 	protected initOnClick( options?: OPTIONS ): void {
 		UtilPointerEvent.onClick( this, ( e: interaction.InteractionEvent ): void => {
-			if( this.isActionable() ) {
+			if( this.state.isActionable ) {
 				this.onSelect( e );
 			}
 		});

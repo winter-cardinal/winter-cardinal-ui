@@ -4,7 +4,7 @@
  */
 
 import { DBaseOptions, DThemeBase } from "./d-base";
-import { DBaseState } from "./d-base-state";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DBorderStateAware } from "./d-border";
 import { DBorderMask } from "./d-border-mask";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
@@ -43,7 +43,7 @@ export class DBaseBorder implements DBorderStateAware {
 		this._theme = theme;
 	}
 
-	getColor( state: DBaseState ): number | null {
+	getColor( state: DBaseStateSet ): number | null {
 		const color = this._color;
 		if( color !== undefined ) {
 			if( isFunction( color ) ) {
@@ -69,7 +69,7 @@ export class DBaseBorder implements DBorderStateAware {
 		}
 	}
 
-	getAlpha( state: DBaseState ): number {
+	getAlpha( state: DBaseStateSet ): number {
 		const alpha = this._alpha;
 		if( alpha !== undefined ) {
 			if( isFunction( alpha ) ) {
@@ -95,7 +95,7 @@ export class DBaseBorder implements DBorderStateAware {
 		}
 	}
 
-	getWidth( state: DBaseState ): number {
+	getWidth( state: DBaseStateSet ): number {
 		const width = this._width;
 		if( width !== undefined ) {
 			if( isFunction( width ) ) {
@@ -121,7 +121,7 @@ export class DBaseBorder implements DBorderStateAware {
 		}
 	}
 
-	getAlign( state: DBaseState ): number {
+	getAlign( state: DBaseStateSet ): number {
 		const align = this._align;
 		if( align !== undefined ) {
 			if( isFunction( align ) ) {
@@ -147,7 +147,7 @@ export class DBaseBorder implements DBorderStateAware {
 		}
 	}
 
-	getMask( state: DBaseState ): number {
+	getMask( state: DBaseStateSet ): number {
 		const mask = this._mask;
 		if( mask !== undefined ) {
 			if( isFunction( mask ) ) {

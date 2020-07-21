@@ -8,13 +8,13 @@ import { DTableColumn } from "./d-table-column";
 
 export class DTableBodyCells {
 	static setReadOnly<ROW>( target: DBase, row: ROW, columnIndex: number, columnData: DTableColumn<ROW> ): void {
-		target.setReadOnly( this.toReadOnly( row, columnIndex, columnData ) );
+		target.state.isReadOnly = this.toReadOnly( row, columnIndex, columnData );
 	}
 
 	static setRenderable<ROW>( target: DBase, row: ROW, columnIndex: number, columnData: DTableColumn<ROW> ): void {
 		const renderable = this.toRenderable( row, columnIndex, columnData );
 		target.renderable = renderable;
-		target.setDisabled( ! renderable );
+		target.state.isDisabled = ! renderable;
 	}
 
 	static toReadOnly<ROW>( row: ROW, columnIndex: number, columnData: DTableColumn<ROW> ): boolean {

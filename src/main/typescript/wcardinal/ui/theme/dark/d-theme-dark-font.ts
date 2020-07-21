@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "../../d-base-state";
-import { DBaseStates } from "../../d-base-states";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DFontStyle, DFontVariant, DFontWeight, DThemeFont } from "../../d-font";
 
 export class DThemeDarkFont implements DThemeFont {
@@ -16,7 +15,7 @@ export class DThemeDarkFont implements DThemeFont {
 		return 14;
 	}
 
-	getColor( state: DBaseState ): number {
+	getColor( state: DBaseStateSet ): number {
 		return DThemeDarkFont.getColor( state );
 	}
 
@@ -32,7 +31,7 @@ export class DThemeDarkFont implements DThemeFont {
 		return "normal";
 	}
 
-	getAlpha( state: DBaseState ): number {
+	getAlpha( state: DBaseStateSet ): number {
 		return DThemeDarkFont.getAlpha( state );
 	}
 
@@ -40,12 +39,12 @@ export class DThemeDarkFont implements DThemeFont {
 		return 30;
 	}
 
-	static getColor( state: DBaseState ): number {
+	static getColor( state: DBaseStateSet ): number {
 		return 0xcccccc;
 	}
 
-	static getAlpha( state: DBaseState ): number {
-		if( DBaseStates.isDisabled( state ) ) {
+	static getAlpha( state: DBaseStateSet ): number {
+		if( state.inDisabled ) {
 			return 0.5;
 		}
 		return 1.0;

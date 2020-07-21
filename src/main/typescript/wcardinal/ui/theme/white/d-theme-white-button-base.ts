@@ -4,8 +4,7 @@
  */
 
 import { DAlignHorizontal } from "../../d-align-horizontal";
-import { DBaseState } from "../../d-base-state";
-import { DBaseStates } from "../../d-base-states";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeButtonBase } from "../../d-button-base";
 import { DCoordinateSize } from "../../d-coordinate";
 import { UtilRgb } from "../../util/util-rgb";
@@ -24,30 +23,30 @@ export class DThemeWhiteButtonBase extends DThemeWhiteImageBase implements DThem
 		this.BACKGROUND_COLOR_PRESSED = UtilRgb.darken( this.BACKGROUND_COLOR, pressed );
 	}
 
-	getBackgroundColor( state: DBaseState ): number | null {
-		if( DBaseStates.isDisabled( state ) ) {
+	getBackgroundColor( state: DBaseStateSet ): number | null {
+		if( state.inDisabled ) {
 			return null;
-		} else if( DBaseStates.isActive( state ) ) {
+		} else if( state.isActive ) {
 			return DThemeWhiteConstants.HIGHLIGHT_COLOR;
-		} else if( DBaseStates.isPressed( state ) ) {
+		} else if( state.isPressed ) {
 			return this.BACKGROUND_COLOR_PRESSED;
-		} else if( DBaseStates.isFocused( state ) || DBaseStates.isHovered( state ) ) {
+		} else if( state.isFocused || state.isHovered ) {
 			return this.BACKGROUND_COLOR_HOVERED;
 		} else {
 			return this.BACKGROUND_COLOR;
 		}
 	}
 
-	getColor( state: DBaseState ): number {
-		if( DBaseStates.isDisabled( state ) || ! DBaseStates.isActive( state ) ) {
+	getColor( state: DBaseStateSet ): number {
+		if( state.inDisabled || ! state.isActive ) {
 			return super.getColor( state );
 		} else {
 			return 0xffffff;
 		}
 	}
 
-	getBorderColor( state: DBaseState ): number | null {
-		if( DBaseStates.isDisabled( state ) || ! DBaseStates.isActive( state ) ) {
+	getBorderColor( state: DBaseStateSet ): number | null {
+		if( state.inDisabled || ! state.isActive ) {
 			return DThemeWhiteConstants.BORDER_COLOR;
 		} else {
 			return null;

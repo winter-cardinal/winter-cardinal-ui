@@ -7,7 +7,6 @@ import { Container, interaction, Point, Sprite, Texture } from "pixi.js";
 import InteractionEvent = interaction.InteractionEvent;
 import { DApplications } from "./d-applications";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
-import { DBaseState } from "./d-base-state";
 import { DColorAndAlpha } from "./d-color";
 import { DInputRealAndLabel } from "./d-input-real-and-label";
 import { DInputTextAndLabel } from "./d-input-text-and-label";
@@ -116,7 +115,7 @@ export class DPickerColor<
 	protected init( options?: OPTIONS ) {
 		super.init( options );
 
-		this.setState( DBaseState.UNFOCUSABLE, true );
+		this.state.isFocusable = false;
 
 		this._base = 0xff0000;
 		this._new = { color: 0xffffff, alpha: 1 };

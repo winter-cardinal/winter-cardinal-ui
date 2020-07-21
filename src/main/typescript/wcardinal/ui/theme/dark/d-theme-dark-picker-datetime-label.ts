@@ -4,7 +4,7 @@
  */
 
 import { DAlignHorizontal } from "../../d-align-horizontal";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DFontWeight } from "../../d-font";
 import { DThemePickerDatetimeLabel } from "../../d-picker-datetime-label";
@@ -43,7 +43,7 @@ export class DThemeDarkPickerDatetimeLabel extends DThemeDarkText implements DTh
 		return new Date();
 	}
 
-	getTextValue( state: DBaseState ): any {
+	getTextValue( state: DBaseStateSet ): any {
 		return new Date();
 	}
 }

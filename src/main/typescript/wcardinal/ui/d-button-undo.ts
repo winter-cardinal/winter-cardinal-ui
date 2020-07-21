@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "./d-base-state";
 import { DButton, DButtonOptions, DThemeButton } from "./d-button";
 import { DControllers } from "./d-controllers";
 
@@ -16,12 +15,12 @@ export class DButtonUndo<
 		super( options );
 
 		const commandController = DControllers.getCommandController();
-		this.setState( DBaseState.DISABLED, ! commandController.isUndoable() );
-		commandController.on( "change", () => {
-			this.setState( DBaseState.DISABLED, ! commandController.isUndoable() );
+		this.state.isDisabled = ! commandController.isUndoable();
+		commandController.on( "change", (): void => {
+			this.state.isDisabled = ! commandController.isUndoable();
 		});
 
-		this.on( "active", () => {
+		this.on( "active", (): void => {
 			commandController.undo();
 		});
 	}

@@ -4,7 +4,7 @@
  */
 
 import { DisplayObject, Texture } from "pixi.js";
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DLinkMenuItemId } from "../../d-link-menu-item-id";
 import { DMenuOptions } from "../../d-menu";
 import { DThemeTableBodyCellLink } from "../../d-table-body-cell-link";
@@ -17,11 +17,11 @@ DThemeDarkLinks.init();
 export class DThemeDarkTableBodyCellLink extends DThemeDarkTableBodyCellButton
 	implements DThemeTableBodyCellLink {
 
-	getImageTintColor( state: DBaseState ): number | null {
-		return DThemeDarkTableBodyCells.getImageTintColor( state | DBaseState.ACTIVE );
+	getImageTintColor( state: DBaseStateSet ): number | null {
+		return DThemeDarkTableBodyCells.getImageTintColor( state, true );
 	}
 
-	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
+	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
 		return DThemeDarkLinks.getImageSource( state );
 	}
 

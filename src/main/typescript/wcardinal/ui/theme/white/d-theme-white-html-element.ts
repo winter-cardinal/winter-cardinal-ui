@@ -1,6 +1,5 @@
 import { Rectangle } from "pixi.js";
-import { DBaseState } from "../../d-base-state";
-import { DBaseStates } from "../../d-base-states";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DHtmlElementElementCreator, DThemeHtmlElement } from "../../d-html-element";
 import { DHtmlElementWhen } from "../../d-html-element-when";
 import { DPadding } from "../../d-padding";
@@ -20,7 +19,7 @@ export class DThemeWhiteHtmlElement<
 	}
 
 	setElementStyle(
-		target: ELEMENT, state: DBaseState, padding: DPadding,
+		target: ELEMENT, state: DBaseStateSet, padding: DPadding,
 		elementRect: Rectangle, clipperRect: Rectangle
 	): void {
 		// Style
@@ -34,29 +33,29 @@ export class DThemeWhiteHtmlElement<
 		target.setAttribute( "style", style );
 
 		// ReadOnly
-		if( DBaseStates.isReadOnly( state ) ) {
+		if( state.inReadOnly ) {
 			target.setAttribute( "readonly", "readonly" );
 		} else {
 			target.removeAttribute( "readonly" );
 		}
 
 		// Disabled
-		if( DBaseStates.isDisabled( state ) ) {
+		if( state.inDisabled ) {
 			target.setAttribute( "disabled", "disabled" );
 		} else {
 			target.removeAttribute( "disabled" );
 		}
 	}
 
-	protected getElementStyleBackground( state: DBaseState ): string {
+	protected getElementStyleBackground( state: DBaseStateSet ): string {
 		return `background-color: transparent;`;
 	}
 
-	protected getElementStyleBorder( state: DBaseState ): string {
+	protected getElementStyleBorder( state: DBaseStateSet ): string {
 		return `border: none; box-sizing: border-box;`;
 	}
 
-	protected getElementStylePadding( state: DBaseState, padding: DPadding, elementRect: Rectangle ): string {
+	protected getElementStylePadding( state: DBaseStateSet, padding: DPadding, elementRect: Rectangle ): string {
 		const paddingTop = padding.getTop();
 		const paddingRight = padding.getRight();
 		const paddingBottom = padding.getBottom();
@@ -64,12 +63,12 @@ export class DThemeWhiteHtmlElement<
 		return `padding: ${paddingTop}px ${paddingRight}px ${paddingBottom}px ${paddingLeft}px;`;
 	}
 
-	protected getElementStyleOutline( state: DBaseState ): string {
+	protected getElementStyleOutline( state: DBaseStateSet ): string {
 		return `outline: none;`;
 	}
 
 	protected getElementStylePosition(
-		state: DBaseState, elementRect: Rectangle, clipperRect: Rectangle
+		state: DBaseStateSet, elementRect: Rectangle, clipperRect: Rectangle
 	): string {
 		return `position: absolute;` +
 			`left: ${elementRect.x - clipperRect.x}px;` +
@@ -79,13 +78,13 @@ export class DThemeWhiteHtmlElement<
 			`line-height: ${elementRect.height}px;`;
 	}
 
-	protected getElementStyleText( state: DBaseState ): string {
+	protected getElementStyleText( state: DBaseStateSet ): string {
 		return `font-family: ${this.getFontFamilly()};` +
 			`font-size: ${this.getFontSize()}px;` +
 			`color: #${this.getColor( state ).toString( 16 )};`;
 	}
 
-	protected getElementStyleMargin( state: DBaseState ): string {
+	protected getElementStyleMargin( state: DBaseStateSet ): string {
 		return "margin: 0;";
 	}
 
@@ -94,7 +93,7 @@ export class DThemeWhiteHtmlElement<
 	}
 
 	setClipperStyle(
-		target: HTMLDivElement,  state: DBaseState, padding: DPadding,
+		target: HTMLDivElement,  state: DBaseStateSet, padding: DPadding,
 		elementRect: Rectangle, clipperRect: Rectangle
 	): void {
 		const style = `overflow: hidden; outline: none;` +
@@ -103,7 +102,7 @@ export class DThemeWhiteHtmlElement<
 		target.setAttribute( "style", style );
 	}
 
-	protected getClipperStylePosition( state: DBaseState, elementRect: Rectangle, clipperRect: Rectangle ): string {
+	protected getClipperStylePosition( state: DBaseStateSet, elementRect: Rectangle, clipperRect: Rectangle ): string {
 		return `position: absolute;` +
 			`left: ${clipperRect.x}px;` +
 			`top: ${clipperRect.y}px;` +

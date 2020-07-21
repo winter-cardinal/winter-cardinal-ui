@@ -3,17 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "../../d-base-state";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeSliderTrack } from "../../d-slider-track";
 import { DThemeWhiteButton } from "./d-theme-white-button";
 import { DThemeWhiteSliders } from "./d-theme-white-sliders";
 
 export class DThemeWhiteSliderTrack extends DThemeWhiteButton implements DThemeSliderTrack {
-	getBackgroundColor( state: DBaseState ): number | null {
+	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return DThemeWhiteSliders.getBackgroundColor( state );
 	}
 
-	getBorderColor( state: DBaseState ): number | null {
+	getBorderColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 }

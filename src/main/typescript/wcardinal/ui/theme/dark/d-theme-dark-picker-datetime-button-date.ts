@@ -4,8 +4,7 @@
  */
 
 import { DAlignHorizontal } from "../../d-align-horizontal";
-import { DBaseState } from "../../d-base-state";
-import { DBaseStates } from "../../d-base-states";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemePickerDatetimeButtonDate } from "../../d-picker-datetime-button-date";
 import { DThemeDarkButtonAmbient } from "./d-theme-dark-button-ambient";
@@ -14,15 +13,15 @@ import { DThemeDarkConstants } from "./d-theme-dark-constants";
 export class DThemeDarkPickerDatetimeButtonDate extends DThemeDarkButtonAmbient
 	implements DThemePickerDatetimeButtonDate {
 
-	getBackgroundColor( state: DBaseState ): number | null {
-		if( DBaseStates.isActive( state ) ) {
+	getBackgroundColor( state: DBaseStateSet ): number | null {
+		if( state.isActive ) {
 			return DThemeDarkConstants.HIGHLIGHT_COLOR;
 		}
 		return super.getBackgroundColor( state );
 	}
 
-	getColor( state: DBaseState ): number {
-		if( DBaseStates.isActive( state ) ) {
+	getColor( state: DBaseStateSet ): number {
+		if( state.isActive ) {
 			return 0x000000;
 		}
 		return super.getColor( state );

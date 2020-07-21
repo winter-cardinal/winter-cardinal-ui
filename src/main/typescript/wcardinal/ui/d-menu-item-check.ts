@@ -26,7 +26,7 @@ export class DMenuItemCheck<
 	protected init( options?: OPTIONS ) {
 		super.init( options );
 		if( options && options.check ) {
-			this.setActive( true );
+			this.state.isActive = true;
 		}
 	}
 
@@ -35,7 +35,7 @@ export class DMenuItemCheck<
 	}
 
 	protected onSelect( e: KeyboardEvent | interaction.InteractionEvent ): void {
-		this.setActive( ! this.isActive() );
+		this.state.isActive = ! this.state.isActive;
 		super.onSelect( e );
 	}
 

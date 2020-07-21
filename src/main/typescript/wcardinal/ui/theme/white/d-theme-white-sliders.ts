@@ -1,5 +1,4 @@
-import { DBaseState } from "../../d-base-state";
-import { DBaseStates } from "../../d-base-states";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { UtilRgb } from "../../util/util-rgb";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 
@@ -13,23 +12,23 @@ export class DThemeWhiteSliders {
 	protected static BACKGROUND_COLOR_DISABLED = UtilRgb.blend( DThemeWhiteSliders.BACKGROUND_COLOR,
 		DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD, 0.5 );
 
-	static getBackgroundColor( state: DBaseState ): number | null {
-		if ( DBaseStates.isActive( state ) ) {
-			if ( DBaseStates.isDisabled( state ) ) {
+	static getBackgroundColor( state: DBaseStateSet, isActive?: boolean ): number | null {
+		if ( state.isActive || isActive ) {
+			if ( state.inDisabled ) {
 				return this.BACKGROUND_COLOR;
-			} else if( DBaseStates.isPressed( state ) && DBaseStates.isHovered( state ) ) {
+			} else if( state.isPressed && state.isHovered ) {
 				return this.BACKGROUND_COLOR_ACTIVE_PRESSED;
-			} else if( DBaseStates.isPressed( state ) || DBaseStates.isHovered( state ) ) {
+			} else if( state.isPressed || state.isHovered ) {
 				return this.BACKGROUND_COLOR_ACTIVE_HOVERED;
 			} else {
 				return this.BACKGROUND_COLOR_ACTIVE;
 			}
 		} else {
-			if ( DBaseStates.isDisabled( state ) ) {
+			if ( state.inDisabled ) {
 				return this.BACKGROUND_COLOR_DISABLED;
-			} else if( DBaseStates.isPressed( state ) && DBaseStates.isHovered( state ) ) {
+			} else if( state.isPressed && state.isHovered ) {
 				return this.BACKGROUND_COLOR_PRESSED;
-			} else if( DBaseStates.isPressed( state ) || DBaseStates.isHovered( state ) ) {
+			} else if( state.isPressed || state.isHovered ) {
 				return this.BACKGROUND_COLOR_HOVERED;
 			} else {
 				return this.BACKGROUND_COLOR;

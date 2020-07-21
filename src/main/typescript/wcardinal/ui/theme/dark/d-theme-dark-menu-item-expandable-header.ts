@@ -5,8 +5,7 @@
 
 import { DisplayObject, Texture } from "pixi.js";
 import { DAlignWith } from "../../d-align-with";
-import { DBaseState } from "../../d-base-state";
-import { DBaseStates } from "../../d-base-states";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeMenuItemExpandableHeader } from "../../d-menu-item-expandable-header";
 import { DThemeDarkExpandables } from "./d-theme-dark-expandables";
 import { DThemeDarkListItem } from "./d-theme-dark-list-item";
@@ -22,8 +21,8 @@ export class DThemeDarkMenuItemExpandableHeader extends DThemeDarkListItem imple
 		return 26;
 	}
 
-	getImageSource( state: DBaseState ): Texture | DisplayObject | null {
-		if( DBaseStates.isActiveIn( state ) ) {
+	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
+		if( state.inActive ) {
 			return DThemeDarkExpandables.getImageOpened();
 		}
 		return DThemeDarkExpandables.getImageClosed();

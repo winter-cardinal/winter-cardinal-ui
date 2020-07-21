@@ -9,7 +9,7 @@ import { DAlignVertical } from "./d-align-vertical";
 import { DApplications } from "./d-applications";
 import { DBase, DBaseEvents, DBaseOptions, DRefitable, DThemeBase } from "./d-base";
 import { DBaseOverflowMaskSimple } from "./d-base-overflow-mask-simple";
-import { DBaseState } from "./d-base-state";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DDynamicText } from "./d-dynamic-text";
 import { DDynamicTextStyleOptions } from "./d-dynamic-text-style";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
@@ -84,7 +84,7 @@ export interface DThemeTextBase extends DThemeBase {
 	 *
 	 * @param state a state
 	 */
-	getTextValue( state: DBaseState ): any;
+	getTextValue( state: DBaseStateSet ): any;
 
 	getTextAlignVertical(): DAlignVertical;
 	getTextAlignHorizontal(): DAlignHorizontal;
@@ -118,7 +118,7 @@ const toTextValue = <VALUE, THEME extends DThemeTextBase>(
 };
 
 const toTextStyle = <VALUE, THEME extends DThemeTextBase>(
-	theme: DThemeTextBase, options: DTextBaseOptions<VALUE, THEME> | undefined, state: DBaseState
+	theme: DThemeTextBase, options: DTextBaseOptions<VALUE, THEME> | undefined, state: DBaseStateSet
 ): DDynamicTextStyleOptions => {
 	if( options && options.text && options.text.style != null ) {
 		const style = options.text.style;
@@ -339,7 +339,7 @@ export class DTextBase<
 		return Math.round( value );
 	}
 
-	protected getTextColor( theme: THEME, state: DBaseState ): number {
+	protected getTextColor( theme: THEME, state: DBaseStateSet ): number {
 		const color = this._textColor;
 		if( color !== undefined ) {
 			if( isFunction( color ) ) {
@@ -354,7 +354,7 @@ export class DTextBase<
 		return theme.getColor( state );
 	}
 
-	protected getTextAlpha( theme: THEME, state: DBaseState ): number {
+	protected getTextAlpha( theme: THEME, state: DBaseStateSet ): number {
 		const alpha = this._textAlpha;
 		if( alpha !== undefined ) {
 			if( isFunction( alpha ) ) {
