@@ -16,6 +16,7 @@ export class DButtonGroup<
 	protected _buttons: BUTTON[];
 	protected _active: BUTTON | null;
 	protected _onActiveBound: ( button: BUTTON ) => void;
+	protected _isEnabled?: boolean;
 
 	constructor( options?: DButtonGroupOptions ) {
 		super();
@@ -45,6 +46,10 @@ export class DButtonGroup<
 		const index = buttons.indexOf( button );
 		if( index < 0 ) {
 			this._buttons.push( button );
+			const isEnabled = this._isEnabled;
+			if( isEnabled != null ) {
+				button.state.isEnabled = isEnabled;
+			}
 			button.on( "active", this._onActiveBound );
 			if( button.state.isActive ) {
 				this.onActive( button );
@@ -107,6 +112,7 @@ export class DButtonGroup<
 		for( let i = 0, imax = buttons.length; i < imax; ++i ) {
 			buttons[ i ].state.isDisabled = true;
 		}
+		this._isEnabled = false;
 	}
 
 	enable(): void {
@@ -114,6 +120,7 @@ export class DButtonGroup<
 		for( let i = 0, imax = buttons.length; i < imax; ++i ) {
 			buttons[ i ].state.isDisabled = false;
 		}
+		this._isEnabled = true;
 	}
 
 	destroy(): void {
