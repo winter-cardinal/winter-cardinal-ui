@@ -4,6 +4,12 @@
  */
 
 export class UtilFileDownloader {
+	/**
+	 * Downloads a file of the given name and URL.
+	 *
+	 * @param filename a file name
+	 * @param url a file URL
+	 */
 	static downloadUrl( filename: string, url: string ): void {
 		const a = document.createElement( "a" );
 		if( "download" in a ) {
@@ -22,9 +28,16 @@ export class UtilFileDownloader {
 		}
 	}
 
-	static download( filename: string, contents: string ): void {
+	/**
+	 * Downloads a file of the given name with the given contents.
+	 *
+	 * @param filename a file name
+	 * @param contents file contents
+	 * @param insertBom false to stop the BOM insertion
+	 */
+	static download( filename: string, contents: string, insertBom?: boolean ): void {
 		const blob = new Blob(
-			[ contents ],
+			( insertBom !== false ? [ "\ufeff", contents ] : [ contents ] ),
 			{ type: "text/plain" }
 		);
 		if( window.navigator.msSaveBlob ) {
