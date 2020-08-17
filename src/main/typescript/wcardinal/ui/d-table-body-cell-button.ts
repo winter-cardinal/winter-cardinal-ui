@@ -27,8 +27,8 @@ export class DTableBodyCellButton<
 	}
 
 	protected init( options: OPTIONS ): void {
-		super.init( options );
 		this.buttonMode = true;
+		super.init( options );
 		this.initOnClick( options );
 	}
 

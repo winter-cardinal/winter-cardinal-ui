@@ -15,6 +15,7 @@ import { DTableCellState } from "../../d-table-cell-state";
 import { DThemeTableHeaderCell } from "../../d-table-header-cell";
 import { UtilRgb } from "../../util/util-rgb";
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
+import { DThemeDarkButtonChecks } from "./d-theme-dark-button-checks";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkImage } from "./d-theme-dark-image";
 
@@ -42,8 +43,6 @@ export class DThemeDarkTableHeaderCell extends DThemeDarkImage implements DTheme
 		if( state.inDisabled ) {
 			return ( state.is( DTableCellState.FROZEN ) ) ?
 				this.BACKGROUND_COLOR : null;
-		} else if( state.isActive ) {
-			return DThemeDarkConstants.HIGHLIGHT_COLOR;
 		} else if( state.isPressed ) {
 			return this.BACKGROUND_COLOR_PRESSED;
 		} else if( state.isFocused || state.isHovered ) {
@@ -102,7 +101,21 @@ export class DThemeDarkTableHeaderCell extends DThemeDarkImage implements DTheme
 		return null;
 	}
 
+	getImageTintColor( state: DBaseStateSet ): number | null {
+		if( state.is( DTableCellState.CHECKABLE ) ) {
+			return DThemeDarkButtonChecks.getImageTintColor( state );
+		}
+		return super.getImageTintColor( state );
+	}
+
 	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
+		if( state.is( DTableCellState.CHECKABLE ) ) {
+			return DThemeDarkButtonChecks.getImageSource( state );
+		}
+		return super.getImageSource( state );
+	}
+
+	getSecondaryImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
 		if( state.is( DTableCellState.SORTED_ASCENDING ) ) {
 			return DThemeDarkAtlas.mappings.sorted_ascending;
 		} else if( state.is( DTableCellState.SORTED_DESCENDING ) ) {
@@ -112,11 +125,11 @@ export class DThemeDarkTableHeaderCell extends DThemeDarkImage implements DTheme
 		}
 	}
 
-	getImageAlignHorizontal(): DAlignHorizontal {
+	getSecondaryImageAlignHorizontal(): DAlignHorizontal {
 		return DAlignHorizontal.RIGHT;
 	}
 
-	getImageAlignWith(): DAlignWith {
+	getSecondaryImageAlignWith(): DAlignWith {
 		return DAlignWith.PADDING;
 	}
 }

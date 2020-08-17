@@ -6,9 +6,9 @@
 import { DisplayObject, Texture } from "pixi.js";
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeButtonCheck } from "../../d-button-check";
-import { UtilRgb } from "../../util/util-rgb";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteButtonAmbient } from "./d-theme-white-button-ambient";
+import { DThemeWhiteButtonChecks } from "./d-theme-white-button-checks";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteFont } from "./d-theme-white-font";
 
@@ -29,8 +29,6 @@ DThemeWhiteAtlas.add( "button_check_mark_off", 21, 21,
 );
 
 export class DThemeWhiteButtonCheck extends DThemeWhiteButtonAmbient implements DThemeButtonCheck {
-	readonly IMAGE_TINT_COLOR_FOCUSED = UtilRgb.darken( DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR, 0.1 );
-
 	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
 	}
@@ -49,15 +47,7 @@ export class DThemeWhiteButtonCheck extends DThemeWhiteButtonAmbient implements 
 	}
 
 	getImageTintColor( state: DBaseStateSet ): number | null {
-		if( state.inDisabled || state.inReadOnly || ! state.isActive ) {
-			if( state.isFocused ) {
-				return this.IMAGE_TINT_COLOR_FOCUSED;
-			} else {
-				return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
-			}
-		} else {
-			return DThemeWhiteConstants.HIGHLIGHT_COLOR;
-		}
+		return DThemeWhiteButtonChecks.getImageTintColor( state );
 	}
 
 	isToggle(): boolean {
@@ -65,10 +55,6 @@ export class DThemeWhiteButtonCheck extends DThemeWhiteButtonAmbient implements 
 	}
 
 	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
-		if( state.isActive ) {
-			return DThemeWhiteAtlas.mappings.button_check_mark_on;
-		} else {
-			return DThemeWhiteAtlas.mappings.button_check_mark_off;
-		}
+		return DThemeWhiteButtonChecks.getImageSource( state );
 	}
 }

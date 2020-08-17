@@ -15,6 +15,7 @@ import { DTableCellState } from "../../d-table-cell-state";
 import { DThemeTableHeaderCell } from "../../d-table-header-cell";
 import { UtilRgb } from "../../util/util-rgb";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
+import { DThemeWhiteButtonChecks } from "./d-theme-white-button-checks";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteImage } from "./d-theme-white-image";
 
@@ -42,8 +43,6 @@ export class DThemeWhiteTableHeaderCell extends DThemeWhiteImage implements DThe
 		if( state.inDisabled ) {
 			return ( state.is( DTableCellState.FROZEN ) ) ?
 				this.BACKGROUND_COLOR : null;
-		} else if( state.isActive ) {
-			return DThemeWhiteConstants.HIGHLIGHT_COLOR;
 		} else if( state.isPressed ) {
 			return this.BACKGROUND_COLOR_PRESSED;
 		} else if( state.isFocused || state.isHovered ) {
@@ -100,6 +99,20 @@ export class DThemeWhiteTableHeaderCell extends DThemeWhiteImage implements DThe
 
 	newTextValue(): DStateAwareOrValueMightBe<string | null> {
 		return null;
+	}
+
+	getImageTintColor( state: DBaseStateSet ): number | null {
+		if( state.is( DTableCellState.CHECKABLE ) ) {
+			return DThemeWhiteButtonChecks.getImageTintColor( state );
+		}
+		return super.getImageTintColor( state );
+	}
+
+	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
+		if( state.is( DTableCellState.CHECKABLE ) ) {
+			return DThemeWhiteButtonChecks.getImageSource( state );
+		}
+		return super.getImageSource( state );
 	}
 
 	getSecondaryImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {

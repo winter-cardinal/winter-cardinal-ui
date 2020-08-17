@@ -54,7 +54,12 @@ export const DTableCellState = {
 	OPENED: DBaseState.CUSTOM * 256,
 
 	/**
+	 * Cells checkable
+	 */
+	CHECKABLE: DBaseState.CUSTOM * 512,
+
+	/**
 	 * Custom cell events.
 	 */
-	CUSTOM: DBaseState.CUSTOM * 512
+	CUSTOM: DBaseState.CUSTOM * 1024
 };

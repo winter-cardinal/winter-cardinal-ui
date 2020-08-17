@@ -69,11 +69,12 @@ export class DTableHeader<
 		columns: Array<DTableColumn<ROW>>,
 		options: OPTIONS
 	): DBase {
-		return new DTableHeaderCell<ROW>( this.toCellOptions( column, options ) );
+		return new DTableHeaderCell<ROW>( this.toCellOptions( column, columnIndex, options ) );
 	}
 
 	protected toCellOptions(
 		column: DTableColumn<ROW>,
+		columnIndex: number,
 		options: OPTIONS
 	): DTableHeaderCellOptions<ROW> {
 		const result = column.header || options.cell;
@@ -97,6 +98,9 @@ export class DTableHeader<
 			if( result.column === undefined ) {
 				result.column = column;
 			}
+			if( result.columnIndex === undefined ) {
+				result.columnIndex = columnIndex;
+			}
 			return result;
 		} else {
 			return {
@@ -106,7 +110,8 @@ export class DTableHeader<
 					value: column.label
 				},
 				header: this,
-				column
+				column,
+				columnIndex
 			};
 		}
 	}

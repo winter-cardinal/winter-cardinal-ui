@@ -12,6 +12,7 @@ export * from "./d-theme-dark-button-ambient";
 export * from "./d-theme-dark-button-base";
 export * from "./d-theme-dark-button-check";
 export * from "./d-theme-dark-button-check-right";
+export * from "./d-theme-dark-button-checks";
 export * from "./d-theme-dark-button-color";
 export * from "./d-theme-dark-button-color-gradient";
 export * from "./d-theme-dark-button-danger";
