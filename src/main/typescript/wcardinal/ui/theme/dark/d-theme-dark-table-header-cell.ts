@@ -5,6 +5,7 @@
 
 import { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "../../d-align-horizontal";
+import { DAlignVertical } from "../../d-align-vertical";
 import { DAlignWith } from "../../d-align-with";
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DBorderMask } from "../../d-border-mask";
@@ -101,21 +102,33 @@ export class DThemeDarkTableHeaderCell extends DThemeDarkImage implements DTheme
 		return null;
 	}
 
-	getImageTintColor( state: DBaseStateSet ): number | null {
+	getSecondaryImageTintColor( state: DBaseStateSet ): number | null {
 		if( state.is( DTableCellState.CHECKABLE ) ) {
 			return DThemeDarkButtonChecks.getImageTintColor( state );
 		}
-		return super.getImageTintColor( state );
-	}
-
-	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
-		if( state.is( DTableCellState.CHECKABLE ) ) {
-			return DThemeDarkButtonChecks.getImageSource( state );
-		}
-		return super.getImageSource( state );
+		return super.getSecondaryImageTintColor( state );
 	}
 
 	getSecondaryImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
+		if( state.is( DTableCellState.CHECKABLE ) ) {
+			return DThemeDarkButtonChecks.getImageSource( state );
+		}
+		return null;
+	}
+
+	getSecondaryImageAlignHorizontal(): DAlignHorizontal {
+		return DAlignHorizontal.LEFT;
+	}
+
+	getSecondaryImageAlignVertical(): DAlignVertical {
+		return DAlignVertical.MIDDLE;
+	}
+
+	getSecondaryImageAlignWith(): DAlignWith {
+		return DAlignWith.TEXT;
+	}
+
+	getTertiaryImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
 		if( state.is( DTableCellState.SORTED_ASCENDING ) ) {
 			return DThemeDarkAtlas.mappings.sorted_ascending;
 		} else if( state.is( DTableCellState.SORTED_DESCENDING ) ) {
@@ -125,11 +138,11 @@ export class DThemeDarkTableHeaderCell extends DThemeDarkImage implements DTheme
 		}
 	}
 
-	getSecondaryImageAlignHorizontal(): DAlignHorizontal {
+	getTertiaryImageAlignHorizontal(): DAlignHorizontal {
 		return DAlignHorizontal.RIGHT;
 	}
 
-	getSecondaryImageAlignWith(): DAlignWith {
+	getTertiaryImageAlignWith(): DAlignWith {
 		return DAlignWith.PADDING;
 	}
 }
