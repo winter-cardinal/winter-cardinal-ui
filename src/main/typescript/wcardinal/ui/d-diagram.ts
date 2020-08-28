@@ -7,16 +7,17 @@ import { interaction, Renderer } from "pixi.js";
 import {
 	DDiagramBase, DDiagramBaseController, DDiagramBaseOptions, DDiagramBasePieceController, DThemeDiagramBase
 } from "./d-diagram-base";
-import { DDiagramCanvas, DDiagramCanvasOptions, DDiagramCanvasTagOptions } from "./d-diagram-canvas";
+import { DDiagramCanvas, DDiagramCanvasOptions } from "./d-diagram-canvas";
 import { DDiagramSerialized } from "./d-diagram-serialized";
 import { DDiagramShape } from "./d-diagram-shape";
-import { DDiagramTag } from "./d-diagram-tag";
+import { DDiagramTag, DDiagramTagMapper, DDiagramTagOptions } from "./d-diagram-tag";
 import { EShapeActionRuntime } from "./shape/action/e-shape-action-runtime";
 import { EShapeActionRuntimeOpen } from "./shape/action/e-shape-action-runtime-open";
 import { EShapeActionValue } from "./shape/action/e-shape-action-value";
 import { EShape } from "./shape/e-shape";
 import { EShapeRuntime } from "./shape/e-shape-runtime";
 import { EShapeRuntimes } from "./shape/e-shape-runtimes";
+import { EShapeType } from "./shape/e-shape-type";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
 /**
@@ -40,7 +41,7 @@ export interface DDiagramOptions<
 	THEME extends DThemeDiagram = DThemeDiagram,
 	EMITTER = any
 > extends DDiagramBaseOptions<DDiagramCanvas, DDiagramController, THEME, EMITTER> {
-	tag?: DDiagramCanvasTagOptions;
+	tag?: DDiagramTagOptions;
 }
 
 /**
@@ -96,6 +97,10 @@ export class DDiagram<
 	}
 
 	protected initialize( shapes: EShape[] ): void {
+		this.initializeShapes( shapes, null, this.tag.mapper );
+	}
+
+	protected initializeShapes( shapes: EShape[], tagShape: EShape | null, tagMapper: DDiagramTagMapper | null ): void {
 		const formatterMap: { [format: string]: ( value: unknown ) => unknown } = {};
 		const initialMap: { [initial: string]: unknown | undefined } = {};
 		const actionMap: Map<EShapeActionValue, EShapeActionRuntime> = new Map<EShapeActionValue, EShapeActionRuntime>();
@@ -110,6 +115,11 @@ export class DDiagram<
 			for( let j = 0, jmax = tag.size(); j < jmax; ++j ) {
 				const value = tag.get( j );
 				if( value ) {
+					// Mapping
+					if( tagMapper ) {
+						tagMapper( value, tagShape || shape );
+					}
+
 					// Format
 					const tagFormat = value.format;
 					const tagInitial = value.initial;
@@ -183,9 +193,23 @@ export class DDiagram<
 			// Children
 			const children = shape.children;
 			if( 0 < children.length ) {
-				this.initialize( children );
+				this.initializeShapes(
+					children,
+					this.toTagShape( tagShape, shape ),
+					tagMapper
+				);
 			}
 		}
+	}
+
+	protected toTagShape( tagShape: EShape | null, shape: EShape ): EShape | null {
+		if( tagShape != null ) {
+			return tagShape;
+		}
+		if( shape.type === EShapeType.EMBEDDED ) {
+			return shape;
+		}
+		return null;
 	}
 
 	protected newCanvas( serialized: DDiagramSerialized ): DDiagramCanvas {
@@ -206,9 +230,6 @@ export class DDiagram<
 			tile: {
 				factory: this._tileFactory,
 				mapping: serialized.tile && serialized.tile.mapping
-			},
-			tag: {
-				mapper: this.tag.mapper || undefined
 			}
 		};
 	}

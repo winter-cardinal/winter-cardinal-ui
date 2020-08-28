@@ -1,5 +1,6 @@
-import { DDiagramCanvasTagMapper, DDiagramCanvasTagOptions } from "./d-diagram-canvas";
 import { DDiagramCanvasTagMap } from "./d-diagram-canvas-tag-map";
+import { EShape } from "./shape/e-shape";
+import { EShapeTagValue } from "./shape/e-shape-tag-value";
 import { EShapeTagValueRangeType } from "./shape/e-shape-tag-value-range";
 
 export interface DDiagramTagCanvas {
@@ -11,13 +12,28 @@ export interface DDiagramTagDiagram {
 }
 
 /**
+ * A tag mapper.
+ *
+ * @param tag a tag
+ * @returns a mapped tag
+ */
+export type DDiagramTagMapper = ( tag: EShapeTagValue, shape: EShape ) => void;
+
+export interface DDiagramTagOptions {
+	/**
+	 * A tag mapper.
+	 */
+	mapper?: DDiagramTagMapper;
+}
+
+/**
  * A tag helper class for diagrams.
  */
 export class DDiagramTag {
 	protected _diagram: DDiagramTagDiagram;
-	protected _mapper: DDiagramCanvasTagMapper | null;
+	protected _mapper: DDiagramTagMapper | null;
 
-	constructor( diagram: DDiagramTagDiagram, options?: DDiagramCanvasTagOptions ) {
+	constructor( diagram: DDiagramTagDiagram, options?: DDiagramTagOptions ) {
 		this._diagram = diagram;
 		this._mapper = (options && options.mapper) || null;
 	}
@@ -26,11 +42,11 @@ export class DDiagramTag {
 		// DO NOTHING
 	}
 
-	get mapper(): DDiagramCanvasTagMapper | null {
+	get mapper(): DDiagramTagMapper | null {
 		return this._mapper;
 	}
 
-	set mapper( mapper: DDiagramCanvasTagMapper | null ) {
+	set mapper( mapper: DDiagramTagMapper | null ) {
 		this._mapper = mapper;
 	}
 
