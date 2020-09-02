@@ -26,7 +26,15 @@ export class EShapeActionRuntime {
 		try {
 			return Function(
 				"shape", "time",
-				`try{ with( shape ) { return (${expression}); } } catch( e ) { return ${defLiteral}; }`
+				`try{` +
+					`with( shape ) {` +
+						`with( state ) {` +
+							`return (${expression});` +
+						`}` +
+					`}` +
+				`} catch( e ) {` +
+					`return ${defLiteral};` +
+				`}`
 			) as EShapeActionExpression<T>;
 		} catch( e ) {
 			return def;

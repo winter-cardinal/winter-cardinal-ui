@@ -23,10 +23,10 @@ export class EShapeActionRuntimeMiscInput extends EShapeActionRuntime {
 					setTimeout(() => {
 						data.show( shape, shape.text.value, ( _: EShape, value: string ): void => {
 							shape.text.value = value;
-							shape.emit( name, shape, value );
+							shape.emit( "input", shape, value );
 							const container = this.toContainer( shape );
 							if( container && ("shape" in container) ) {
-								container.shape.emit( name, shape, value );
+								container.shape.emit( "input", shape, value );
 							}
 						});
 					}, 0);
