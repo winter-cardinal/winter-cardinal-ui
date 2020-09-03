@@ -5,13 +5,11 @@
 
 import { utils } from "pixi.js";
 import {
-	DAnimation, DAnimationEvents, DAnimationOnEnd, DAnimationOnTime,
+	DAnimation, DAnimationOnEnd, DAnimationOnTime,
 	DAnimationOptions, DAnimationTiming
 } from "./d-animation";
 import { DAnimationTimings } from "./d-animation-timings";
-import { EventSupport } from "./decorator/event-support";
 
-@EventSupport
 export class DAnimationBase<TARGET = unknown> extends utils.EventEmitter implements DAnimation<TARGET> {
 	protected _id: number | null;
 	protected _startTime: number;
@@ -171,23 +169,4 @@ export class DAnimationBase<TARGET = unknown> extends utils.EventEmitter impleme
 			this.onEnd( reverse );
 		}
 	}
-
-	// Event handlings
-	on<E extends keyof DAnimationEvents<this>>(
-		event: E, handler: DAnimationEvents<this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-	on(): this { return this; }
-
-	once<E extends keyof DAnimationEvents<this>>(
-		event: E, handler: DAnimationEvents<this>[ E ], context?: any
-	): this;
-	once( event: string, handler: Function, context?: any ): this;
-	once(): this { return this; }
-
-	emit<E extends keyof DAnimationEvents<this>>(
-		event: E, ...args: Parameters<DAnimationEvents<this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-	emit(): boolean { return true; }
 }

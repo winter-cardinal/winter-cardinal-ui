@@ -6,7 +6,6 @@
 import { DBaseStateSet } from "./d-base-state-set";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogSelect, DDialogSelectOptions } from "./d-dialog-select";
-import { EventSupport } from "./decorator/event-support";
 
 /**
  * A dialog to select values.
@@ -96,7 +95,6 @@ const defaultSetter = (): void => {
 	// DO NOTHING
 };
 
-@EventSupport
 export class DButtonSelect<
 	VALUE extends unknown = unknown,
 	DIALOG_VALUE extends unknown = unknown,
@@ -186,23 +184,4 @@ export class DButtonSelect<
 	protected getType(): string {
 		return "DButtonSelect";
 	}
-
-	// Event handlings
-	on<E extends keyof DButtonSelectEvents<VALUE, this>>(
-		event: E, handler: DButtonSelectEvents<VALUE, this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-	on(): this { return this; }
-
-	once<E extends keyof DButtonSelectEvents<VALUE, this>>(
-		event: E, handler: DButtonSelectEvents<VALUE, this>[ E ], context?: any
-	): this;
-	once( event: string, handler: Function, context?: any ): this;
-	once(): this { return this; }
-
-	emit<E extends keyof DButtonSelectEvents<VALUE, this>>(
-		event: E, ...args: Parameters<DButtonSelectEvents<VALUE, this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-	emit(): boolean { return true; }
 }

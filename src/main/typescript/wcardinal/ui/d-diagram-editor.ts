@@ -12,7 +12,6 @@ import {
 import { DDiagramCanvasEditor, DDiagramCanvasEditorOptions } from "./d-diagram-canvas-editor";
 import { DDiagramSerialized, DDiagramSerializedSimple, DDiagramSerializedVersion } from "./d-diagram-serialized";
 import { DDiagrams } from "./d-diagrams";
-import { EventSupport } from "./decorator/event-support";
 import { ESnapper } from "./snapper/e-snapper";
 
 /**
@@ -116,7 +115,6 @@ export interface DThemeDiagramEditor extends DThemeDiagramBase {
 
 }
 
-@EventSupport
 export class DDiagramEditor<
 	THEME extends DThemeDiagramEditor = DThemeDiagramEditor,
 	OPTIONS extends DDiagramEditorOptions<THEME> = DDiagramEditorOptions<THEME>
@@ -335,23 +333,4 @@ export class DDiagramEditor<
 	protected getType(): string {
 		return "DDiagramEditor";
 	}
-
-	// Event handlings
-	on<E extends keyof DDiagramEditorEvents<this>>(
-		event: E, handler: DDiagramEditorEvents<this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-	on(): this { return this; }
-
-	once<E extends keyof DDiagramEditorEvents<this>>(
-		event: E, handler: DDiagramEditorEvents<this>[ E ], context?: any
-	): this;
-	once( event: string, handler: Function, context?: any ): this;
-	once(): this { return this; }
-
-	emit<E extends keyof DDiagramEditorEvents<this>>(
-		event: E, ...args: Parameters<DDiagramEditorEvents<this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-	emit(): boolean { return true; }
 }

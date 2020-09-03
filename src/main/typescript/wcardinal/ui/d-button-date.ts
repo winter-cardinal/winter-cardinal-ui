@@ -7,7 +7,6 @@ import { DBaseStateSet } from "./d-base-state-set";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogDate, DDialogDateOptions } from "./d-dialog-date";
 import { DDialogDates } from "./d-dialog-dates";
-import { EventSupport } from "./decorator/event-support";
 
 /**
  * {@link DButtonDate} events.
@@ -50,7 +49,6 @@ export interface DThemeButtonDate extends DThemeButton {
 	newTextValue(): Date;
 }
 
-@EventSupport
 export class DButtonDate<
 	THEME extends DThemeButtonDate = DThemeButtonDate,
 	OPTIONS extends DButtonDateOptions<THEME> = DButtonDateOptions<THEME>
@@ -105,23 +103,4 @@ export class DButtonDate<
 	protected getType(): string {
 		return "DButtonDate";
 	}
-
-	// Event handlings
-	on<E extends keyof DButtonDateEvents<this>>(
-		event: E, handler: DButtonDateEvents<this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-	on(): this { return this; }
-
-	once<E extends keyof DButtonDateEvents<this>>(
-		event: E, handler: DButtonDateEvents<this>[ E ], context?: any
-	): this;
-	once( event: string, handler: Function, context?: any ): this;
-	once(): this { return this; }
-
-	emit<E extends keyof DButtonDateEvents<this>>(
-		event: E, ...args: Parameters<DButtonDateEvents<this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-	emit(): boolean { return true; }
 }

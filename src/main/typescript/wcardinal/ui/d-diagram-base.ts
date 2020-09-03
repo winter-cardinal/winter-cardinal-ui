@@ -12,7 +12,6 @@ import { DDiagramCanvasTilePyramidFactory } from "./d-diagram-canvas-tile";
 import { DDiagramLayer } from "./d-diagram-layer";
 import { DDiagramSerialized, DDiagramSerializedSimple } from "./d-diagram-serialized";
 import { DDiagrams } from "./d-diagrams";
-import { EventSupport } from "./decorator/event-support";
 import { EShape } from "./shape/e-shape";
 import { EShapeResourceManagerDeserialization } from "./shape/e-shape-resource-manager-deserialization";
 import { EShapeEmbeddedDatum } from "./shape/variant/e-shape-embedded-datum";
@@ -79,7 +78,6 @@ export interface DThemeDiagramBase extends DThemeCanvasContainer {
 
 }
 
-@EventSupport
 export abstract class DDiagramBase<
 	CANVAS extends DDiagramCanvasBase = DDiagramCanvasBase,
 	CANVAS_OPTIONS extends DDiagramCanvasBaseOptions = DDiagramCanvasBaseOptions,
@@ -190,23 +188,4 @@ export abstract class DDiagramBase<
 	protected getType(): string {
 		return "DDiagramBase";
 	}
-
-	// Event handlings
-	on<E extends keyof DDiagramBaseEvents<CANVAS, this>>(
-		event: E, handler: DDiagramBaseEvents<CANVAS, this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-	on(): this { return this; }
-
-	once<E extends keyof DDiagramBaseEvents<CANVAS, this>>(
-		event: E, handler: DDiagramBaseEvents<CANVAS, this>[ E ], context?: any
-	): this;
-	once( event: string, handler: Function, context?: any ): this;
-	once(): this { return this; }
-
-	emit<E extends keyof DDiagramBaseEvents<CANVAS, this>>(
-		event: E, ...args: Parameters<DDiagramBaseEvents<CANVAS, this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-	emit(): boolean { return true; }
 }

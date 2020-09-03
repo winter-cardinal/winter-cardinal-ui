@@ -8,7 +8,6 @@ import { DApplications } from "./d-applications";
 import { DBaseStateSet } from "./d-base-state-set";
 import { DButtonGroup } from "./d-button-group";
 import { DImageBase, DImageBaseEvents, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
-import { EventSupport } from "./decorator/event-support";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
@@ -87,7 +86,6 @@ const isToggle = <VALUE, THEME extends DThemeButtonBase>(
  * A base class for button classes.
  * See {@link DButtonBaseEvents} for event details.
  */
-@EventSupport
 export class DButtonBase<
 	VALUE = unknown,
 	THEME extends DThemeButtonBase = DThemeButtonBase,
@@ -239,23 +237,4 @@ export class DButtonBase<
 
 		super.destroy();
 	}
-
-	// Event handlings
-	on<E extends keyof DButtonBaseEvents<VALUE, this>>(
-		event: E, handler: DButtonBaseEvents<VALUE, this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-	on(): this { return this; }
-
-	once<E extends keyof DButtonBaseEvents<VALUE, this>>(
-		event: E, handler: DButtonBaseEvents<VALUE, this>[ E ], context?: any
-	): this;
-	once( event: string, handler: Function, context?: any ): this;
-	once(): this { return this; }
-
-	emit<E extends keyof DButtonBaseEvents<VALUE, this>>(
-		event: E, ...args: Parameters<DButtonBaseEvents<VALUE, this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-	emit(): boolean { return true; }
 }

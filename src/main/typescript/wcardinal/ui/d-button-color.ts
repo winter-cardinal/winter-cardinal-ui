@@ -10,7 +10,6 @@ import { DColorAndAlpha } from "./d-color";
 import { DDialogColor, DDialogColorOptions } from "./d-dialog-color";
 import { DImagePieceOptions, DImagePieceTintOptions } from "./d-image-piece";
 import { DPickerColorAndAlpha } from "./d-picker-color-and-alpha";
-import { EventSupport } from "./decorator/event-support";
 
 /**
  * {@link DButtonColor} events.
@@ -58,7 +57,6 @@ export interface DThemeButtonColor extends DThemeButton {
 	newTextValue(): DColorAndAlpha;
 }
 
-@EventSupport
 export class DButtonColor<
 	THEME extends DThemeButtonColor = DThemeButtonColor,
 	OPTIONS extends DButtonColorOptions<THEME> = DButtonColorOptions<THEME>
@@ -160,23 +158,4 @@ export class DButtonColor<
 	protected getType(): string {
 		return "DButtonColor";
 	}
-
-	// Event handlings
-	on<E extends keyof DButtonColorEvents<this>>(
-		event: E, handler: DButtonColorEvents<this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-	on(): this { return this; }
-
-	once<E extends keyof DButtonColorEvents<this>>(
-		event: E, handler: DButtonColorEvents<this>[ E ], context?: any
-	): this;
-	once( event: string, handler: Function, context?: any ): this;
-	once(): this { return this; }
-
-	emit<E extends keyof DButtonColorEvents<this>>(
-		event: E, ...args: Parameters<DButtonColorEvents<this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-	emit(): boolean { return true; }
 }

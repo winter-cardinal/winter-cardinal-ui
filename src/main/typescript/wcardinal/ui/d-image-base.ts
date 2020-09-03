@@ -16,7 +16,6 @@ import { DImageBaseThemeWrapperTertiary, DThemeImageBaseTertiary } from "./d-ima
 import { DImagePiece, DImagePieceOptions, DThemeImagePiece } from "./d-image-piece";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { DTextBase, DTextBaseEvents, DTextBaseOptions, DThemeTextBase } from "./d-text-base";
-import { EventSupport } from "./decorator/event-support";
 
 /**
  * {@link DImageBase} events.
@@ -80,7 +79,6 @@ const hasTertiaryImageSource = ( theme: DThemeImageBase ): theme is DThemeImageB
  * A base class for UI classes with an image support.
  * See {@link DImageBaseEvents} for event details.
  */
-@EventSupport
 export class DImageBase<
 	VALUE = unknown,
 	THEME extends DThemeImageBase = DThemeImageBase,
@@ -475,23 +473,4 @@ export class DImageBase<
 		}
 		super.destroy();
 	}
-
-	// Event handlings
-	on<E extends keyof DImageBaseEvents<VALUE, this>>(
-		event: E, handler: DImageBaseEvents<VALUE, this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-	on(): this { return this; }
-
-	once<E extends keyof DImageBaseEvents<VALUE, this>>(
-		event: E, handler: DImageBaseEvents<VALUE, this>[ E ], context?: any
-	): this;
-	once( event: string, handler: Function, context?: any ): this;
-	once(): this { return this; }
-
-	emit<E extends keyof DImageBaseEvents<VALUE, this>>(
-		event: E, ...args: Parameters<DImageBaseEvents<VALUE, this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-	emit(): boolean { return true; }
 }

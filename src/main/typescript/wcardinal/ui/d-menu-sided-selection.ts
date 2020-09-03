@@ -8,7 +8,6 @@ import { DBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DListItem, DListItemSelection } from "./d-list-item";
 import { DMenu } from "./d-menu";
-import { EventSupport } from "./decorator/event-support";
 import { isString } from "./util/is-string";
 
 export enum DMenuSidedSelectionMode {
@@ -48,7 +47,6 @@ export interface DMenuSidedSelectionOptions<EMITTER = any> {
 
 const defaultFilter = () => true;
 
-@EventSupport
 export class DMenuSidedSelection extends utils.EventEmitter implements DListItemSelection {
 	protected _content: Container;
 	protected _item: DBase | null;
@@ -176,23 +174,4 @@ export class DMenuSidedSelection extends utils.EventEmitter implements DListItem
 			}
 		}
 	}
-
-	// Event handlings
-	on<E extends keyof DMenuSidedSelectionEvents<this>>(
-		event: E, handler: DMenuSidedSelectionEvents<this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-	on(): this { return this; }
-
-	once<E extends keyof DMenuSidedSelectionEvents<this>>(
-		event: E, handler: DMenuSidedSelectionEvents<this>[ E ], context?: any
-	): this;
-	once( event: string, handler: Function, context?: any ): this;
-	once(): this { return this; }
-
-	emit<E extends keyof DMenuSidedSelectionEvents<this>>(
-		event: E, ...args: Parameters<DMenuSidedSelectionEvents<this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-	emit(): boolean { return true; }
 }

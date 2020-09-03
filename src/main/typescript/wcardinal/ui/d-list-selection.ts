@@ -5,7 +5,6 @@
 
 import { Container, utils } from "pixi.js";
 import { DBase } from "./d-base";
-import { EventSupport } from "./decorator/event-support";
 
 export enum DListSelectionMode {
 	NONE,
@@ -45,7 +44,6 @@ export interface DListSelectionOptions<EMITTER = any> {
 	on?: DListSelectionOnOptions<EMITTER>;
 }
 
-@EventSupport
 export class DListSelection extends utils.EventEmitter {
 	protected _content: Container;
 	protected _isDirty: boolean;
@@ -223,23 +221,4 @@ export class DListSelection extends utils.EventEmitter {
 			}
 		}
 	}
-
-	// Event handlings
-	on<E extends keyof DListSelectionEvents<this>>(
-		event: E, handler: DListSelectionEvents<this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-	on(): this { return this; }
-
-	once<E extends keyof DListSelectionEvents<this>>(
-		event: E, handler: DListSelectionEvents<this>[ E ], context?: any
-	): this;
-	once( event: string, handler: Function, context?: any ): this;
-	once(): this { return this; }
-
-	emit<E extends keyof DListSelectionEvents<this>>(
-		event: E, ...args: Parameters<DListSelectionEvents<this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-	emit(): boolean { return true; }
 }

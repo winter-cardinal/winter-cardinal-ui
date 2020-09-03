@@ -10,7 +10,6 @@ import { DDialog, DDialogEvents, DDialogOptions, DThemeDialog } from "./d-dialog
 import { DLayoutHorizontal } from "./d-layout-horizontal";
 import { DLayoutSpace } from "./d-layout-space";
 import { DLayoutVertical } from "./d-layout-vertical";
-import { EventSupport } from "./decorator/event-support";
 
 /**
  * {@link DDialogCommand} events.
@@ -77,7 +76,6 @@ export interface DThemeDialogCommand extends DThemeDialog {
 /**
  * A dialog with "ok" and "cancel" buttons.
  */
-@EventSupport
 export class DDialogCommand<
 	THEME extends DThemeDialogCommand = DThemeDialogCommand,
 	OPTIONS extends DDialogCommandOptions<THEME> = DDialogCommandOptions<THEME>
@@ -240,23 +238,4 @@ export class DDialogCommand<
 	protected getType(): string {
 		return "DDialogCommand";
 	}
-
-	// Event handlings
-	on<E extends keyof DDialogCommandEvents<this>>(
-		event: E, handler: DDialogCommandEvents<this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-	on(): this { return this; }
-
-	once<E extends keyof DDialogCommandEvents<this>>(
-		event: E, handler: DDialogCommandEvents<this>[ E ], context?: any
-	): this;
-	once( event: string, handler: Function, context?: any ): this;
-	once(): this { return this; }
-
-	emit<E extends keyof DDialogCommandEvents<this>>(
-		event: E, ...args: Parameters<DDialogCommandEvents<this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-	emit(): boolean { return true; }
 }

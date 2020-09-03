@@ -15,7 +15,6 @@ import { DLayoutVertical } from "./d-layout-vertical";
 import { DListItem } from "./d-list-item";
 import { DListSelection } from "./d-list-selection";
 import { DNote, DNoteOptions } from "./d-note";
-import { EventSupport } from "./decorator/event-support";
 import { UtilTransition } from "./util/util-transition";
 
 /**
@@ -182,7 +181,6 @@ const toSearch = <VALUE>(
 	}
 };
 
-@EventSupport
 export class DDialogSelect<
 	VALUE extends unknown = unknown,
 	THEME extends DThemeDialogSelect = DThemeDialogSelect,
@@ -335,23 +333,4 @@ export class DDialogSelect<
 		this._list.destroy();
 		super.destroy();
 	}
-
-	// Event handlings
-	on<E extends keyof DDialogSelectEvents<VALUE, this>>(
-		event: E, handler: DDialogSelectEvents<VALUE, this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-	on(): this { return this; }
-
-	once<E extends keyof DDialogSelectEvents<VALUE, this>>(
-		event: E, handler: DDialogSelectEvents<VALUE, this>[ E ], context?: any
-	): this;
-	once( event: string, handler: Function, context?: any ): this;
-	once(): this { return this; }
-
-	emit<E extends keyof DDialogSelectEvents<VALUE, this>>(
-		event: E, ...args: Parameters<DDialogSelectEvents<VALUE, this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-	emit(): boolean { return true; }
 }

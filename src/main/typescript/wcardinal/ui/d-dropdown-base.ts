@@ -8,7 +8,6 @@ import { DButtonBase, DButtonBaseEvents, DButtonBaseOptions, DThemeButtonBase } 
 import { DMenu, DMenuOptions, DThemeMenu } from "./d-menu";
 import { DMenuItem } from "./d-menu-item";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
-import { EventSupport } from "./decorator/event-support";
 import { isString } from "./util/is-string";
 
 /**
@@ -55,7 +54,6 @@ export interface DThemeDropdownBase<TEXT_VALUE> extends DThemeButtonBase {
 /**
  * A dropdown base class.
  */
-@EventSupport
 export class DDropdownBase<
 	VALUE = unknown,
 	TEXT_VALUE = string,
@@ -122,23 +120,4 @@ export class DDropdownBase<
 	close(): void {
 		this.menu.close();
 	}
-
-	// Event handlings
-	on<E extends keyof DDropdownBaseEvents<VALUE, TEXT_VALUE, this>>(
-		event: E, handler: DDropdownBaseEvents<VALUE, TEXT_VALUE, this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-	on(): this { return this; }
-
-	once<E extends keyof DDropdownBaseEvents<VALUE, TEXT_VALUE, this>>(
-		event: E, handler: DDropdownBaseEvents<VALUE, TEXT_VALUE, this>[ E ], context?: any
-	): this;
-	once( event: string, handler: Function, context?: any ): this;
-	once(): this { return this; }
-
-	emit<E extends keyof DDropdownBaseEvents<VALUE, TEXT_VALUE, this>>(
-		event: E, ...args: Parameters<DDropdownBaseEvents<VALUE, TEXT_VALUE, this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-	emit(): boolean { return true; }
 }

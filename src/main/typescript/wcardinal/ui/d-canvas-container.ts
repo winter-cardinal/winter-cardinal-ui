@@ -10,7 +10,6 @@ import { DBaseOverflowMask } from "./d-base-overflow-mask";
 import { DCanvas } from "./d-canvas";
 import { DView, DViewOptions } from "./d-view";
 import { DViewImpl } from "./d-view-impl";
-import { EventSupport } from "./decorator/event-support";
 import { UtilWheelEventDeltas } from "./util/util-wheel-event";
 
 /**
@@ -67,7 +66,6 @@ export interface DThemeCanvasContainer extends DThemeBase {
 /**
  * A canvas container.
  */
-@EventSupport
 export class DCanvasContainer<
 	CANVAS extends DBase = DCanvas,
 	CANVAS_OPTIONS extends DBaseOptions = DBaseOptions,
@@ -185,23 +183,4 @@ export class DCanvasContainer<
 
 		super.destroy();
 	}
-
-	// Event handlings
-	on<E extends keyof DCanvasContainerEvents<CANVAS, this>>(
-		event: E, handler: DCanvasContainerEvents<CANVAS, this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-	on(): this { return this; }
-
-	once<E extends keyof DCanvasContainerEvents<CANVAS, this>>(
-		event: E, handler: DCanvasContainerEvents<CANVAS, this>[ E ], context?: any
-	): this;
-	once( event: string, handler: Function, context?: any ): this;
-	once(): this { return this; }
-
-	emit<E extends keyof DCanvasContainerEvents<CANVAS, this>>(
-		event: E, ...args: Parameters<DCanvasContainerEvents<CANVAS, this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-	emit(): boolean { return true; }
 }

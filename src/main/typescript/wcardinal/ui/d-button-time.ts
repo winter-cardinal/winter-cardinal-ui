@@ -9,7 +9,6 @@ import { DDialogTime, DDialogTimeOptions } from "./d-dialog-time";
 import { DDialogTimes } from "./d-dialog-times";
 import { DPickerDatetimeMask } from "./d-picker-datetime-mask";
 import { DPickerTimes } from "./d-picker-times";
-import { EventSupport } from "./decorator/event-support";
 
 /**
  * {@link DButtonTime} events.
@@ -50,7 +49,6 @@ export interface DThemeButtonTime extends DThemeButton {
 	newTextValue(): Date;
 }
 
-@EventSupport
 export class DButtonTime<
 	THEME extends DThemeButtonTime = DThemeButtonTime,
 	OPTIONS extends DButtonTimeOptions<THEME> = DButtonTimeOptions<THEME>
@@ -110,23 +108,4 @@ export class DButtonTime<
 	protected getType(): string {
 		return "DButtonTime";
 	}
-
-	// Event handlings
-	on<E extends keyof DButtonTimeEvents<this>>(
-		event: E, handler: DButtonTimeEvents<this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-	on(): this { return this; }
-
-	once<E extends keyof DButtonTimeEvents<this>>(
-		event: E, handler: DButtonTimeEvents<this>[ E ], context?: any
-	): this;
-	once( event: string, handler: Function, context?: any ): this;
-	once(): this { return this; }
-
-	emit<E extends keyof DButtonTimeEvents<this>>(
-		event: E, ...args: Parameters<DButtonTimeEvents<this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-	emit(): boolean { return true; }
 }

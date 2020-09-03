@@ -7,7 +7,6 @@ import { DDropdownBase, DDropdownBaseEvents, DDropdownBaseOptions, DThemeDropdow
 import { DMenu } from "./d-menu";
 import { DMenuItem } from "./d-menu-item";
 import { DMenuItemMenu } from "./d-menu-item-menu";
-import { EventSupport } from "./decorator/event-support";
 
 /**
  * {@link DSelect} events.
@@ -58,7 +57,6 @@ export interface DThemeSelect extends DThemeDropdownBase<DMenuItem<any> | null> 
 /**
  * A selector class.
  */
-@EventSupport
 export class DSelect<
 	VALUE = unknown,
 	THEME extends DThemeSelect = DThemeSelect,
@@ -158,23 +156,4 @@ export class DSelect<
 	protected getType(): string {
 		return "DSelect";
 	}
-
-	// Event handlings
-	on<E extends keyof DSelectEvents<VALUE, this>>(
-		event: E, handler: DSelectEvents<VALUE, this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-	on(): this { return this; }
-
-	once<E extends keyof DSelectEvents<VALUE, this>>(
-		event: E, handler: DSelectEvents<VALUE, this>[ E ], context?: any
-	): this;
-	once( event: string, handler: Function, context?: any ): this;
-	once(): this { return this; }
-
-	emit<E extends keyof DSelectEvents<VALUE, this>>(
-		event: E, ...args: Parameters<DSelectEvents<VALUE, this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-	emit(): boolean { return true; }
 }

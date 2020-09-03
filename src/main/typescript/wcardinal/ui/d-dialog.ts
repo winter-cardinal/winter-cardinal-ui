@@ -10,7 +10,6 @@ import { DApplications } from "./d-applications";
 import { DBase, DBaseEvents, DBaseOptions, DThemeBase } from "./d-base";
 import { DFocusable } from "./d-controller-focus";
 import { DDialogCloseOn } from "./d-dialog-close-on";
-import { EventSupport } from "./decorator/event-support";
 import { UtilClickOutside } from "./util/util-click-outside";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilOverlay } from "./util/util-overlay";
@@ -72,7 +71,6 @@ export interface DThemeDialog extends DThemeBase {
  * application. By default, the dialog assumes the last created application is
  * the one it belongs to at the time when it is created.
  */
-@EventSupport
 export class DDialog<
 	THEME extends DThemeDialog = DThemeDialog,
 	OPTIONS extends DDialogOptions<THEME> = DDialogOptions<THEME>
@@ -195,23 +193,4 @@ export class DDialog<
 	protected containsGlobalPoint( point: Point ): boolean {
 		return true;
 	}
-
-	// Event handlings
-	on<E extends keyof DDialogEvents<this>>(
-		event: E, handler: DDialogEvents<this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-	on(): this { return this; }
-
-	once<E extends keyof DDialogEvents<this>>(
-		event: E, handler: DDialogEvents<this>[ E ], context?: any
-	): this;
-	once( event: string, handler: Function, context?: any ): this;
-	once(): this { return this; }
-
-	emit<E extends keyof DDialogEvents<this>>(
-		event: E, ...args: Parameters<DDialogEvents<this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-	emit(): boolean { return true; }
 }

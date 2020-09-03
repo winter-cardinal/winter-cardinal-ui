@@ -8,7 +8,6 @@ import { DMenu } from "./d-menu";
 import { DMenuItem } from "./d-menu-item";
 import { DMenuItemCheck } from "./d-menu-item-check";
 import { DMenuItemMenu } from "./d-menu-item-menu";
-import { EventSupport } from "./decorator/event-support";
 
 /**
  * {@link DSelectMultiple} events.
@@ -69,7 +68,6 @@ export interface DThemeSelectMultiple extends DThemeDropdownBase<Array<DMenuItem
 /**
  * A multi-value selector class.
  */
-@EventSupport
 export class DSelectMultiple<
 	VALUE = unknown,
 	THEME extends DThemeSelectMultiple = DThemeSelectMultiple,
@@ -205,23 +203,4 @@ export class DSelectMultiple<
 	protected getType(): string {
 		return "DSelectMultiple";
 	}
-
-	// Event handlings
-	on<E extends keyof DSelectMultipleEvents<VALUE, this>>(
-		event: E, handler: DSelectMultipleEvents<VALUE, this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-	on(): this { return this; }
-
-	once<E extends keyof DSelectMultipleEvents<VALUE, this>>(
-		event: E, handler: DSelectMultipleEvents<VALUE, this>[ E ], context?: any
-	): this;
-	once( event: string, handler: Function, context?: any ): this;
-	once(): this { return this; }
-
-	emit<E extends keyof DSelectMultipleEvents<VALUE, this>>(
-		event: E, ...args: Parameters<DSelectMultipleEvents<VALUE, this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-	emit(): boolean { return true; }
 }

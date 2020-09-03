@@ -13,7 +13,6 @@ import { DBaseStateSet } from "./d-base-state-set";
 import { DDynamicText } from "./d-dynamic-text";
 import { DDynamicTextStyleOptions } from "./d-dynamic-text-style";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
-import { EventSupport } from "./decorator/event-support";
 import { isFunction } from "./util/is-function";
 import { isString } from "./util/is-string";
 
@@ -198,7 +197,6 @@ const toTextDynamic = <VALUE, THEME extends DThemeTextBase>(
  * A base class for UI classes with a text support.
  * See {@link DTextBaseEvents} for event defaults.
  */
-@EventSupport
 export class DTextBase<
 	VALUE = unknown,
 	THEME extends DThemeTextBase = DThemeTextBase,
@@ -437,23 +435,4 @@ export class DTextBase<
 
 		super.destroy();
 	}
-
-	// Event handlings
-	on<E extends keyof DTextBaseEvents<VALUE, this>>(
-		event: E, handler: DTextBaseEvents<VALUE, this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-	on(): this { return this; }
-
-	once<E extends keyof DTextBaseEvents<VALUE, this>>(
-		event: E, handler: DTextBaseEvents<VALUE, this>[ E ], context?: any
-	): this;
-	once( event: string, handler: Function, context?: any ): this;
-	once(): this { return this; }
-
-	emit<E extends keyof DTextBaseEvents<VALUE, this>>(
-		event: E, ...args: Parameters<DTextBaseEvents<VALUE, this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-	emit(): boolean { return true; }
 }

@@ -12,7 +12,6 @@ import { DSliderLabel, DSliderLabelOptions } from "./d-slider-label";
 import { DSliderThumb, DSliderThumbOptions } from "./d-slider-thumb";
 import { DSliderTrack, DSliderTrackOptions } from "./d-slider-track";
 import { DSliderValue, DSliderValueOptions } from "./d-slider-value";
-import { EventSupport } from "./decorator/event-support";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
 /**
@@ -61,7 +60,6 @@ export interface DThemeSlider extends DThemeBase {
 /**
  * A slider class.
  */
-@EventSupport
 export abstract class DSlider<
 	THEME extends DThemeSlider = DThemeSlider,
 	OPTIONS extends DSliderOptions<THEME> = DSliderOptions<THEME>
@@ -356,23 +354,4 @@ export abstract class DSlider<
 	protected getType(): string {
 		return "DSlider";
 	}
-
-	// Event handlings
-	on<E extends keyof DSliderEvents<this>>(
-		event: E, handler: DSliderEvents<this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-	on(): this { return this; }
-
-	once<E extends keyof DSliderEvents<this>>(
-		event: E, handler: DSliderEvents<this>[ E ], context?: any
-	): this;
-	once( event: string, handler: Function, context?: any ): this;
-	once(): this { return this; }
-
-	emit<E extends keyof DSliderEvents<this>>(
-		event: E, ...args: Parameters<DSliderEvents<this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-	emit(): boolean { return true; }
 }

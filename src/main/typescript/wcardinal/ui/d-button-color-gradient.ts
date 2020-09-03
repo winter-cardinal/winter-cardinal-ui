@@ -10,7 +10,6 @@ import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button
 import { DDialogColorGradient, DDialogColorGradientOptions } from "./d-dialog-color-gradient";
 import { DPickerColorGradientData } from "./d-picker-color-gradient-data";
 import { DPickerColorGradientDataView } from "./d-picker-color-gradient-data-view";
-import { EventSupport } from "./decorator/event-support";
 
 /**
  * {@link DButtonColorGradient} events.
@@ -56,7 +55,6 @@ export interface DThemeButtonColorGradient extends DThemeButton {
 	getCheckerColors(): [ number, number ];
 }
 
-@EventSupport
 export class DButtonColorGradient<
 	THEME extends DThemeButtonColorGradient = DThemeButtonColorGradient,
 	OPTIONS extends DButtonColorGradientOptions<THEME> = DButtonColorGradientOptions<THEME>
@@ -128,23 +126,4 @@ export class DButtonColorGradient<
 	protected getType(): string {
 		return "DButtonColorGradient";
 	}
-
-	// Event handlings
-	on<E extends keyof DButtonColorGradientEvents<this>>(
-		event: E, handler: DButtonColorGradientEvents<this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-	on(): this { return this; }
-
-	once<E extends keyof DButtonColorGradientEvents<this>>(
-		event: E, handler: DButtonColorGradientEvents<this>[ E ], context?: any
-	): this;
-	once( event: string, handler: Function, context?: any ): this;
-	once(): this { return this; }
-
-	emit<E extends keyof DButtonColorGradientEvents<this>>(
-		event: E, ...args: Parameters<DButtonColorGradientEvents<this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-	emit(): boolean { return true; }
 }

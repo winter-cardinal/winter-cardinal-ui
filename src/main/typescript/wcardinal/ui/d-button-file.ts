@@ -4,7 +4,6 @@
  */
 
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
-import { EventSupport } from "./decorator/event-support";
 import { isString } from "./util/is-string";
 import { UtilFileAs, UtilFileEvents, UtilFileOpener } from "./util/util-file-opener";
 
@@ -58,7 +57,6 @@ export interface DThemeButtonFile extends DThemeButton {
 /**
  * A file selector.
  */
-@EventSupport
 export class DButtonFile<
 	VALUE = unknown,
 	THEME extends DThemeButtonFile = DThemeButtonFile,
@@ -106,23 +104,4 @@ export class DButtonFile<
 	protected getType(): string {
 		return "DButtonFile";
 	}
-
-	// Event handlings
-	on<E extends keyof DButtonFileEvents<VALUE, this>>(
-		event: E, handler: DButtonFileEvents<VALUE, this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-	on(): this { return this; }
-
-	once<E extends keyof DButtonFileEvents<VALUE, this>>(
-		event: E, handler: DButtonFileEvents<VALUE, this>[ E ], context?: any
-	): this;
-	once( event: string, handler: Function, context?: any ): this;
-	once(): this { return this; }
-
-	emit<E extends keyof DButtonFileEvents<VALUE, this>>(
-		event: E, ...args: Parameters<DButtonFileEvents<VALUE, this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-	emit(): boolean { return true; }
 }

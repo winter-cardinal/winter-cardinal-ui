@@ -32,7 +32,6 @@ import { DScalarFunctions } from "./d-scalar-functions";
 import { DScalarSet } from "./d-scalar-set";
 import { DShadow } from "./d-shadow";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
-import { EventSupport } from "./decorator/event-support";
 import { DThemes } from "./theme/d-themes";
 import { isFunction } from "./util/is-function";
 import { isNumber } from "./util/is-number";
@@ -708,7 +707,6 @@ const enum AutoFlag {
  * A base class for UI classes.
  * See {@link DBaseEvents} for event details.
  */
-@EventSupport
 export class DBase<
 	THEME extends DThemeBase = DThemeBase,
 	OPTIONS extends DBaseOptions<THEME> = DBaseOptions<THEME>
@@ -1982,23 +1980,4 @@ export class DBase<
 		//
 		super.destroy();
 	}
-
-	// Event handlings
-	on<E extends keyof DBaseEvents<this>>(
-		event: E, handler: DBaseEvents<this>[ E ], context?: any
-	): this;
-	on( event: string, handler: Function, context?: any ): this;
-	on(): this { return this; }
-
-	once<E extends keyof DBaseEvents<this>>(
-		event: E, handler: DBaseEvents<this>[ E ], context?: any
-	): this;
-	once( event: string, handler: Function, context?: any ): this;
-	once(): this { return this; }
-
-	emit<E extends keyof DBaseEvents<this>>(
-		event: E, ...args: Parameters<DBaseEvents<this>[ E ]>
-	): boolean;
-	emit( event: string, ...args: any ): boolean;
-	emit(): boolean { return true; }
 }
