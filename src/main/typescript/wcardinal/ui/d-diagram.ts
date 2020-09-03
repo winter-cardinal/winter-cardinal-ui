@@ -40,7 +40,7 @@ export interface DDiagramController extends DDiagramBaseController {
 export interface DDiagramOptions<
 	THEME extends DThemeDiagram = DThemeDiagram,
 	EMITTER = any
-> extends DDiagramBaseOptions<DDiagramCanvas, DDiagramController, THEME, EMITTER> {
+> extends DDiagramBaseOptions<DDiagramCanvas, DDiagramCanvasOptions, DDiagramController, THEME, EMITTER> {
 	tag?: DDiagramTagOptions;
 }
 
@@ -54,7 +54,7 @@ export interface DThemeDiagram extends DThemeDiagramBase {
 export class DDiagram<
 	THEME extends DThemeDiagram = DThemeDiagram,
 	OPTIONS extends DDiagramOptions<THEME> = DDiagramOptions<THEME>
-> extends DDiagramBase<DDiagramCanvas, DDiagramController, THEME, OPTIONS> {
+> extends DDiagramBase<DDiagramCanvas, DDiagramCanvasOptions, DDiagramController, THEME, OPTIONS> {
 	tag: DDiagramTag;
 	shape: DDiagramShape;
 
@@ -217,21 +217,32 @@ export class DDiagram<
 	}
 
 	protected toCanvasOptions( serialized: DDiagramSerialized ): DDiagramCanvasOptions {
-		return {
-			name: serialized.name,
-			width: serialized.width,
-			height: serialized.height,
-			background: {
-				color: null
-			},
-			border: {
-				color: null
-			},
-			tile: {
-				factory: this._tileFactory,
-				mapping: serialized.tile && serialized.tile.mapping
-			}
-		};
+		const options = this._canvasOptions || {};
+		if( options.name === undefined ) {
+			options.name = serialized.name;
+		}
+		if( options.width === undefined ) {
+			options.width = serialized.width;
+		}
+		if( options.height === undefined ) {
+			options.height = serialized.height;
+		}
+		const background = options.background || {};
+		if( background.color === undefined ) {
+			background.color = null;
+		}
+		const border = options.border || {};
+		if( border.color === undefined ) {
+			border.color = null;
+		}
+		const tileOptions = options.tile || {};
+		if( tileOptions.factory === undefined ) {
+			tileOptions.factory = this._tileFactory;
+		}
+		if( tileOptions.mapping === undefined ) {
+			tileOptions.mapping = serialized.tile && serialized.tile.mapping;
+		}
+		return options;
 	}
 
 	protected onDown( e: interaction.InteractionEvent ): void {

@@ -47,12 +47,13 @@ export interface DCanvasContainerOnOptions<CANVAS, EMITTER>
  */
 export interface DCanvasContainerOptions<
 	CANVAS extends DBase = DCanvas,
+	CANVAS_OPTIONS extends DBaseOptions = DBaseOptions,
 	THEME extends DThemeCanvasContainer = DThemeCanvasContainer,
 	EMITTER = any
 > extends DBaseOptions<THEME> {
 	mask?: boolean;
 	view?: DViewOptions;
-	canvas?: CANVAS;
+	canvas?: CANVAS | CANVAS_OPTIONS;
 	on?: DCanvasContainerOnOptions<CANVAS, EMITTER>;
 }
 
@@ -63,26 +64,19 @@ export interface DThemeCanvasContainer extends DThemeBase {
 	isOverflowMaskEnabled(): boolean;
 }
 
-const isOverflowMaskEnabled = <
-	CANVAS extends DBase,
-	THEME extends DThemeCanvasContainer
->( theme: THEME, options?: DCanvasContainerOptions<CANVAS, THEME> ): boolean => {
-	if( options && options.mask != null ) {
-		return options.mask;
-	}
-	return theme.isOverflowMaskEnabled();
-};
-
 /**
  * A canvas container.
  */
 @EventSupport
 export class DCanvasContainer<
 	CANVAS extends DBase = DCanvas,
+	CANVAS_OPTIONS extends DBaseOptions = DBaseOptions,
 	THEME extends DThemeCanvasContainer = DThemeCanvasContainer,
-	OPTIONS extends DCanvasContainerOptions<CANVAS, THEME> = DCanvasContainerOptions<CANVAS, THEME>
+	OPTIONS extends DCanvasContainerOptions<CANVAS, CANVAS_OPTIONS, THEME>
+		= DCanvasContainerOptions<CANVAS, CANVAS_OPTIONS, THEME>
 > extends DBase<THEME, OPTIONS> {
 	protected _canvas!: CANVAS | null;
+	protected _canvasOptions!: CANVAS_OPTIONS | null;
 	protected _overflowMask!: DBaseOverflowMask | null;
 	protected _view!: DViewImpl;
 
@@ -94,11 +88,17 @@ export class DCanvasContainer<
 		this._view = new DViewImpl( this, () => this._canvas, options && options.view );
 
 		// Canvas
-		this.canvas = ( options && options.canvas ? options.canvas : null );
+		const canvas = ( options && options.canvas ? options.canvas : null );
+		if( canvas instanceof DBase ) {
+			this._canvasOptions = null;
+			this.canvas = canvas;
+		} else {
+			this._canvasOptions = canvas;
+		}
 
 		// Overflow mask
 		this._overflowMask = null;
-		if( isOverflowMaskEnabled( theme, options ) ) {
+		if( options && options.mask != null ? options.mask : theme.isOverflowMaskEnabled() ) {
 			this.mask = this.getOrCreateOverflowMask();
 		}
 	}

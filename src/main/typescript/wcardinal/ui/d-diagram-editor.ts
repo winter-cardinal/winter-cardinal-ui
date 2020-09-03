@@ -104,7 +104,7 @@ export interface DDiagramEditorOnOptions<EMITTER>
 export interface DDiagramEditorOptions<
 	THEME extends DThemeDiagramEditor = DThemeDiagramEditor,
 	EMITTER = any
-> extends DDiagramBaseOptions<DDiagramCanvasEditor, DDiagramEditorController, THEME> {
+> extends DDiagramBaseOptions<DDiagramCanvasEditor, DDiagramCanvasEditorOptions, DDiagramEditorController, THEME> {
 	controller?: DDiagramEditorController;
 	on?: DDiagramEditorOnOptions<EMITTER>;
 }
@@ -120,7 +120,7 @@ export interface DThemeDiagramEditor extends DThemeDiagramBase {
 export class DDiagramEditor<
 	THEME extends DThemeDiagramEditor = DThemeDiagramEditor,
 	OPTIONS extends DDiagramEditorOptions<THEME> = DDiagramEditorOptions<THEME>
-> extends DDiagramBase<DDiagramCanvasEditor, DDiagramEditorController, THEME, OPTIONS>
+> extends DDiagramBase<DDiagramCanvasEditor, DDiagramCanvasEditorOptions, DDiagramEditorController, THEME, OPTIONS>
 	implements DControllerDocument<DDiagramSerialized> {
 	protected _isChanged: boolean = false;
 	snapper: ESnapper;
@@ -145,16 +145,27 @@ export class DDiagramEditor<
 	}
 
 	protected toCanvasOptions( serialized: DDiagramSerialized ): DDiagramCanvasEditorOptions {
-		return {
-			name: serialized.name,
-			width: serialized.width,
-			height: serialized.height,
-			snapper: this.snapper,
-			tile: {
-				factory: this._tileFactory,
-				mapping: serialized.tile && serialized.tile.mapping
-			}
-		};
+		const options = this._canvasOptions || { snapper: this.snapper };
+		if( options.name === undefined ) {
+			options.name = serialized.name;
+		}
+		if( options.width === undefined ) {
+			options.width = serialized.width;
+		}
+		if( options.height === undefined ) {
+			options.height = serialized.height;
+		}
+		if( options.snapper === undefined ) {
+			options.snapper = this.snapper;
+		}
+		const tileOptions = options.tile || {};
+		if( tileOptions.factory === undefined ) {
+			tileOptions.factory = this._tileFactory;
+		}
+		if( tileOptions.mapping === undefined ) {
+			tileOptions.mapping = serialized.tile && serialized.tile.mapping;
+		}
+		return options;
 	}
 
 	serialize(): DDiagramSerialized | null {

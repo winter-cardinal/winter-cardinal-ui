@@ -7,7 +7,7 @@ import { DApplications } from "./d-applications";
 import {
 	DCanvasContainer, DCanvasContainerEvents, DCanvasContainerOptions, DThemeCanvasContainer
 } from "./d-canvas-container";
-import { DDiagramCanvasBase } from "./d-diagram-canvas-base";
+import { DDiagramCanvasBase, DDiagramCanvasBaseOptions } from "./d-diagram-canvas-base";
 import { DDiagramCanvasTilePyramidFactory } from "./d-diagram-canvas-tile";
 import { DDiagramLayer } from "./d-diagram-layer";
 import { DDiagramSerialized, DDiagramSerializedSimple } from "./d-diagram-serialized";
@@ -57,10 +57,11 @@ export interface DDiagramBaseOnOptions<CANVAS, EMITTER>
  */
 export interface DDiagramBaseOptions<
 	CANVAS extends DDiagramCanvasBase = DDiagramCanvasBase,
+	CANVAS_OPTIONS extends DDiagramCanvasBaseOptions = DDiagramCanvasBaseOptions,
 	CONTROLLER extends DDiagramBaseController = DDiagramBaseController,
 	THEME extends DThemeDiagramBase = DThemeDiagramBase,
 	EMITTER = any
-> extends DCanvasContainerOptions<CANVAS, THEME> {
+> extends DCanvasContainerOptions<CANVAS, CANVAS_OPTIONS, THEME> {
 	controller?: CONTROLLER;
 
 	/**
@@ -81,10 +82,12 @@ export interface DThemeDiagramBase extends DThemeCanvasContainer {
 @EventSupport
 export abstract class DDiagramBase<
 	CANVAS extends DDiagramCanvasBase = DDiagramCanvasBase,
+	CANVAS_OPTIONS extends DDiagramCanvasBaseOptions = DDiagramCanvasBaseOptions,
 	CONTROLLER extends DDiagramBaseController = DDiagramBaseController,
 	THEME extends DThemeDiagramBase = DThemeDiagramBase,
-	OPTIONS extends DDiagramBaseOptions<CANVAS, CONTROLLER, THEME> = DDiagramBaseOptions<CANVAS, CONTROLLER, THEME>
-> extends DCanvasContainer<CANVAS, THEME, OPTIONS> {
+	OPTIONS extends DDiagramBaseOptions<CANVAS, CANVAS_OPTIONS, CONTROLLER, THEME>
+		= DDiagramBaseOptions<CANVAS, CANVAS_OPTIONS, CONTROLLER, THEME>
+> extends DCanvasContainer<CANVAS, CANVAS_OPTIONS, THEME, OPTIONS> {
 	protected _serialized: DDiagramSerialized | null;
 	protected _tileFactory?: DDiagramCanvasTilePyramidFactory;
 	protected _controller?: CONTROLLER;
