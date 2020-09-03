@@ -166,6 +166,12 @@ export class DDiagramEditor<
 		return options;
 	}
 
+	protected applyBackground( serialized: DDiagramSerialized, canvas: DDiagramCanvasEditor ): void {
+		const background = this.toBackground( serialized );
+		canvas.background.color = background.color;
+		canvas.background.alpha = background.alpha;
+	}
+
 	serialize(): DDiagramSerialized | null {
 		const canvas = this.canvas;
 		const serialized = this._serialized;

@@ -89,25 +89,6 @@ export class DDiagrams {
 		}
 	}
 
-	static applyBackground(
-		serialized: DDiagramSerialized,
-		canvas: DBase,
-		canvasContainer: DBase
-	): void {
-		const background = serialized.background;
-		const backgroundColor = ( background && background.color != null ? background.color : 0xffffff );
-		const backgroundAlpha = ( background && background.alpha != null ? background.alpha : 1.0 );
-		if( EShapeDefaults.IS_EDIT_MODE ) {
-			const canvasBackground = canvas.background;
-			canvasBackground.color = backgroundColor;
-			canvasBackground.alpha = backgroundAlpha;
-		} else {
-			const canvasContainerBackground = canvasContainer.background;
-			canvasContainerBackground.color = backgroundColor;
-			canvasContainerBackground.alpha = backgroundAlpha;
-		}
-	}
-
 	static toPieceData(
 		controller?: DDiagramBaseController | null,
 		pieces?: string[] | null

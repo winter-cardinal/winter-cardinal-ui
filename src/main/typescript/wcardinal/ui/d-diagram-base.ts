@@ -148,8 +148,26 @@ export abstract class DDiagramBase<
 			DApplications.update( this );
 			this.emit( "ready", this );
 		});
-		DDiagrams.applyBackground( serialized, canvas, this );
+		this.applyBackground( serialized, canvas );
 	}
+
+	protected toBackground( serialized: DDiagramSerialized ): { color: number, alpha: number } {
+		const background = serialized.background;
+		if( background != null ) {
+			const color = background.color;
+			const alpha = background.alpha;
+			return {
+				color: ( color != null ? color : 0xffffff ),
+				alpha: ( alpha != null ? alpha : 1.0 )
+			};
+		}
+		return {
+			color: 0xffffff,
+			alpha: 1.0
+		};
+	}
+
+	protected abstract applyBackground( serialized: DDiagramSerialized, canvas: CANVAS ): void;
 
 	openByName( name: string ) {
 		const controller = this._controller;

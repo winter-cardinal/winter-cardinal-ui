@@ -245,6 +245,12 @@ export class DDiagram<
 		return options;
 	}
 
+	protected applyBackground( serialized: DDiagramSerialized, canvas: DDiagramCanvas ): void {
+		const background = this.toBackground( serialized );
+		this.background.color = background.color;
+		this.background.alpha = background.alpha;
+	}
+
 	protected onDown( e: interaction.InteractionEvent ): void {
 		const canvas = this.canvas;
 		if( canvas && canvas.onShapeDown( e ) ) {
