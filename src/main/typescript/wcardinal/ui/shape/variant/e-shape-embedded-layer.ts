@@ -12,8 +12,7 @@ export class EShapeEmbeddedLayer extends EShapeGroupViewer {
 	}
 
 	clone(): EShapeEmbeddedLayer {
-		const constructor = this.constructor as typeof EShapeEmbeddedLayer;
-		const result = new constructor( this._name, this._isEditMode, this.type ).copy( this );
+		const result = this.newClone().copy( this );
 		const children = this.children;
 		for( let i = 0, imax = children.length; i < imax; ++i ) {
 			const clone = children[ i ].clone();
@@ -24,6 +23,11 @@ export class EShapeEmbeddedLayer extends EShapeGroupViewer {
 		result.toDirty();
 		result.size.init();
 		return result;
+	}
+
+	protected newClone(): EShapeEmbeddedLayer {
+		const constructor = this.constructor as typeof EShapeEmbeddedLayer;
+		return new constructor(  this._name, this._isEditMode, this.type );
 	}
 
 	serializeChildren( manager: EShapeResourceManagerSerialization ): DDiagramSerializedItem[] {

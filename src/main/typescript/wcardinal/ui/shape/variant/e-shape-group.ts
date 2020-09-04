@@ -45,6 +45,10 @@ export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent
 		this._points = this.newGroupPoints();
 	}
 
+	get isEditMode(): boolean {
+		return this._isEditMode;
+	}
+
 	protected newGroupSize( isEditMode: boolean ): EShapeGroupSize {
 		if( isEditMode ) {
 			return new EShapeGroupSizeEditor(
@@ -195,8 +199,7 @@ export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent
 	}
 
 	clone(): EShapeGroup {
-		const constructor = this.constructor as typeof EShapeGroup;
-		const result = new constructor( this._isEditMode ).copy( this );
+		const result = this.newClone().copy( this );
 		const children = this.children;
 		for( let i = 0, imax = children.length; i < imax; ++i ) {
 			const clone = children[ i ].clone();
@@ -206,6 +209,11 @@ export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent
 		result.onChildTransformChange();
 		result.toDirty();
 		return result;
+	}
+
+	protected newClone(): EShapeGroup {
+		const constructor = this.constructor as typeof EShapeGroup;
+		return new constructor( this._isEditMode, this.type );
 	}
 
 	containsAbs( x: number, y: number, ax: number, ay: number ): boolean {

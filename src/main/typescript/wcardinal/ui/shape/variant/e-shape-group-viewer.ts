@@ -36,6 +36,10 @@ export abstract class EShapeGroupViewer extends EShapeBase {
 		this.text = this.newGroupText();
 	}
 
+	get isEditMode(): boolean {
+		return this._isEditMode;
+	}
+
 	protected newGroupSize( isEditMode: boolean ): EShapeGroupSize {
 		if( isEditMode ) {
 			return new EShapeGroupSizeEditor(

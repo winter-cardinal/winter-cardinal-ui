@@ -1,4 +1,4 @@
-import { DDiagramSerialized, DDiagramSerializedItem } from "../../d-diagram-serialized";
+import { DDiagramSerialized, DDiagramSerializedItem, DDiagramSerializedSimple } from "../../d-diagram-serialized";
 import { DDiagrams } from "../../d-diagrams";
 import { EShapeDeserializer } from "../e-shape-deserializer";
 import { EShapeLayerContainer } from "../e-shape-layer-container";
@@ -7,7 +7,11 @@ import { EShapeEmbedded } from "./e-shape-embedded";
 import { EShapeEmbeddedLayerContainer } from "./e-shape-embedded-layer-container";
 
 export class EShapeEmbeddeds {
-	static from( serialized: DDiagramSerialized, isEditMode: boolean ): Promise<EShapeEmbedded> {
+	static from(
+		serializedOrSimple: DDiagramSerialized | DDiagramSerializedSimple,
+		isEditMode: boolean
+	): Promise<EShapeEmbedded> {
+		const serialized = DDiagrams.toSerialized( serializedOrSimple );
 		const width = serialized.width;
 		const height = serialized.height;
 		const container = new EShapeEmbeddedLayerContainer( width, height, isEditMode );
