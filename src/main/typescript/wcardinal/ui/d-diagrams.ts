@@ -3,12 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBase } from "./d-base";
 import { DDiagramBaseController } from "./d-diagram-base";
 import { DDiagramLayerContainer } from "./d-diagram-layer-container";
 import { DDiagramSerialized, DDiagramSerializedSimple } from "./d-diagram-serialized";
 import { EShape } from "./shape/e-shape";
-import { EShapeDefaults } from "./shape/e-shape-defaults";
 import { EShapeDeserializer } from "./shape/e-shape-deserializer";
 import { EShapeLayerContainer } from "./shape/e-shape-layer-container";
 import { EShapeResourceManagerDeserialization } from "./shape/e-shape-resource-manager-deserialization";
@@ -90,8 +88,9 @@ export class DDiagrams {
 	}
 
 	static toPieceData(
-		controller?: DDiagramBaseController | null,
-		pieces?: string[] | null
+		controller: DDiagramBaseController | null | undefined,
+		pieces: string[] | null | undefined,
+		isEditMode: boolean
 	): Promise<Map<string, EShapeEmbeddedDatum>> | undefined {
 		if( pieces && 0 < pieces.length && controller ) {
 			return new Promise(( resolve ): void => {
@@ -109,9 +108,9 @@ export class DDiagrams {
 						const serialized = this.toSerialized( found );
 						const width = serialized.width;
 						const height = serialized.height;
-						const container = new EShapeEmbeddedLayerContainer( width, height );
+						const container = new EShapeEmbeddedLayerContainer( width, height, isEditMode );
 						const manager = new EShapeResourceManagerDeserialization(
-							serialized.resources, serialized.tags
+							serialized, undefined, undefined, isEditMode
 						);
 						const datum = new EShapeEmbeddedDatum(
 							serialized.name, width, height, container

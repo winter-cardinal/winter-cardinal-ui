@@ -10,19 +10,19 @@ import { EShapeGroupSize } from "./e-shape-group-size";
 import { EShapeGroupSizeShadowed } from "./e-shape-group-size-shadowed";
 
 export class EShapeGroupShadowed extends EShapeGroup {
-	constructor( type: EShapeType = EShapeType.GROUP_SHADOWED ) {
-		super( type );
+	constructor( isEditMode: boolean, type: EShapeType = EShapeType.GROUP_SHADOWED ) {
+		super( isEditMode, type );
 	}
 
-	protected newGroupSize(): EShapeGroupSize {
-		if( EShapeDefaults.IS_EDIT_MODE ) {
+	protected newGroupSize( isEditMode: boolean ): EShapeGroupSize {
+		if( isEditMode ) {
 			return new EShapeGroupSizeShadowed(
 				this,
 				EShapeDefaults.SIZE_X,
 				EShapeDefaults.SIZE_Y
 			);
 		} else {
-			return super.newGroupSize();
+			return super.newGroupSize( isEditMode );
 		}
 	}
 }

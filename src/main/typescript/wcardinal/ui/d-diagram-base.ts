@@ -119,7 +119,9 @@ export abstract class DDiagramBase<
 	protected onSet( serialized: DDiagramSerialized ): void {
 		const canvas = this.newCanvas( serialized );
 		const pieces = serialized.pieces;
-		const pieceDataOrPromise = DDiagrams.toPieceData( this._controller, pieces );
+		const pieceDataOrPromise = DDiagrams.toPieceData(
+			this._controller, pieces, this.isEditMode()
+		);
 		if( pieceDataOrPromise == null ) {
 			this.newLayer( serialized, canvas );
 		} else {
@@ -137,8 +139,9 @@ export abstract class DDiagramBase<
 		pieceData?: Map<string, EShapeEmbeddedDatum>
 	): void {
 		const layer = canvas.layer;
+		const isEditMode = this.isEditMode();
 		const manager = new EShapeResourceManagerDeserialization(
-			serialized.resources, serialized.tags, pieces, pieceData
+			serialized, pieces, pieceData, isEditMode
 		);
 		DDiagrams.newLayer( serialized, layer, manager )
 		.then(( shapes: EShape[] ): void => {
@@ -148,8 +151,13 @@ export abstract class DDiagramBase<
 			DApplications.update( this );
 			this.emit( "ready", this );
 		});
-		this.applyBackground( serialized, canvas );
+		const background = this.toBackground( serialized );
+		const backgroundTarget = ( isEditMode ? canvas : this ).background;
+		backgroundTarget.color = background.color;
+		backgroundTarget.alpha = background.alpha;
 	}
+
+	protected abstract isEditMode(): boolean;
 
 	protected toBackground( serialized: DDiagramSerialized ): { color: number, alpha: number } {
 		const background = serialized.background;
@@ -166,8 +174,6 @@ export abstract class DDiagramBase<
 			alpha: 1.0
 		};
 	}
-
-	protected abstract applyBackground( serialized: DDiagramSerialized, canvas: CANVAS ): void;
 
 	openByName( name: string ) {
 		const controller = this._controller;

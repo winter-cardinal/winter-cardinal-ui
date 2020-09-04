@@ -31,20 +31,22 @@ export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent
 	tag: EShapeTag;
 	text: EShapeText;
 
+	protected _isEditMode: boolean;
 	protected _points?: EShapePoints;
 
-	constructor( type = EShapeType.GROUP ) {
+	constructor( isEditMode: boolean, type = EShapeType.GROUP ) {
 		super( type );
+		this._isEditMode = isEditMode;
 		this.tag = new EShapeTagImpl();
-		this.size = this.newGroupSize();
+		this.size = this.newGroupSize( isEditMode );
 		this.fill = this.newGroupFill();
 		this.stroke = this.newGroupStroke();
 		this.text = this.newGroupText();
 		this._points = this.newGroupPoints();
 	}
 
-	protected newGroupSize(): EShapeGroupSize {
-		if( EShapeDefaults.IS_EDIT_MODE ) {
+	protected newGroupSize( isEditMode: boolean ): EShapeGroupSize {
+		if( isEditMode ) {
 			return new EShapeGroupSizeEditor(
 				this,
 				EShapeDefaults.SIZE_X,
@@ -193,8 +195,8 @@ export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent
 	}
 
 	clone(): EShapeGroup {
-		const constructor = this.constructor as new () => EShapeGroup;
-		const result = new constructor().copy( this );
+		const constructor = this.constructor as typeof EShapeGroup;
+		const result = new constructor( this._isEditMode ).copy( this );
 		const children = this.children;
 		for( let i = 0, imax = children.length; i < imax; ++i ) {
 			const clone = children[ i ].clone();

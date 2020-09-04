@@ -212,6 +212,10 @@ export class DDiagram<
 		return null;
 	}
 
+	protected isEditMode(): boolean {
+		return false;
+	}
+
 	protected newCanvas( serialized: DDiagramSerialized ): DDiagramCanvas {
 		return new DDiagramCanvas( this.toCanvasOptions( serialized ) );
 	}
@@ -243,12 +247,6 @@ export class DDiagram<
 			tileOptions.mapping = serialized.tile && serialized.tile.mapping;
 		}
 		return options;
-	}
-
-	protected applyBackground( serialized: DDiagramSerialized, canvas: DDiagramCanvas ): void {
-		const background = this.toBackground( serialized );
-		this.background.color = background.color;
-		this.background.alpha = background.alpha;
 	}
 
 	protected onDown( e: interaction.InteractionEvent ): void {

@@ -29,8 +29,6 @@ export interface EThemeShape {
 export class EShapeDefaults {
 	protected static _THEME?: EThemeShape;
 
-	static IS_EDIT_MODE: boolean = false;
-
 	static get THEME(): EThemeShape {
 		const theme = this._THEME;
 		if( theme != null ) {

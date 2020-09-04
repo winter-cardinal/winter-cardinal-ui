@@ -16,9 +16,7 @@
 
 		const application = new wcardinal.ui.DApplication();
 
-		wcardinal.ui.EShapeDefaults.IS_EDIT_MODE = true;
-		const Diagram = wcardinal.ui.EShapeDefaults.IS_EDIT_MODE ? wcardinal.ui.DDiagramEditor : wcardinal.ui.DDiagram;
-		const diagram = new Diagram({
+		const diagram = new wcardinal.ui.DDiagramEditor({
 			parent: application.stage,
 			x: 0, y: 0,
 			width: "100%", height: "100%",

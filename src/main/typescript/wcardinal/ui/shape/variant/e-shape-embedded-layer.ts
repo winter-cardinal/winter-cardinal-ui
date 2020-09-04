@@ -6,14 +6,14 @@ import { EShapeGroupViewer } from "./e-shape-group-viewer";
 export class EShapeEmbeddedLayer extends EShapeGroupViewer {
 	protected _name: string;
 
-	constructor( name: string, type = EShapeType.LAYER ) {
-		super( type );
+	constructor( name: string, isEditMode: boolean, type = EShapeType.LAYER ) {
+		super( isEditMode, type );
 		this._name = name;
 	}
 
 	clone(): EShapeEmbeddedLayer {
 		const constructor = this.constructor as typeof EShapeEmbeddedLayer;
-		const result = new constructor( this._name ).copy( this );
+		const result = new constructor( this._name, this._isEditMode, this.type ).copy( this );
 		const children = this.children;
 		for( let i = 0, imax = children.length; i < imax; ++i ) {
 			const clone = children[ i ].clone();

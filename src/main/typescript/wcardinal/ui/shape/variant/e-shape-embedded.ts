@@ -8,8 +8,8 @@ import { EShapeGroupViewer } from "./e-shape-group-viewer";
 export class EShapeEmbedded extends EShapeGroupViewer {
 	protected _name: string;
 
-	constructor( name: string, type = EShapeType.EMBEDDED ) {
-		super( type );
+	constructor( name: string, isEditMode: boolean, type = EShapeType.EMBEDDED ) {
+		super( isEditMode, type );
 		this._name = name;
 	}
 
@@ -23,7 +23,7 @@ export class EShapeEmbedded extends EShapeGroupViewer {
 
 	clone(): EShapeEmbedded {
 		const constructor = this.constructor as typeof EShapeEmbedded;
-		const result = new constructor( this._name ).copy( this );
+		const result = new constructor( this._name, this._isEditMode, this.type ).copy( this );
 		const children = this.children;
 		for( let i = 0, imax = children.length; i < imax; ++i ) {
 			const clone = children[ i ].clone();

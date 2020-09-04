@@ -10,11 +10,17 @@ import {
 import { EShapeActionValue } from "./action/e-shape-action-value";
 import { EShapeEmbeddedDatum } from "./variant/e-shape-embedded-datum";
 
+export interface EShapeResourceManagerDeserializationSerialized {
+	resources: string[];
+	tags?: string[];
+}
+
 export class EShapeResourceManagerDeserialization {
 	resources: string[];
 	tags: string[];
 	pieces?: string[];
 	pieceData?: Map<string, EShapeEmbeddedDatum>;
+	isEditMode: boolean;
 
 	protected _actions: Map<number, EShapeActionValue>;
 	protected _fills: Map<number, DDiagramSerializedFill>;
@@ -29,15 +35,16 @@ export class EShapeResourceManagerDeserialization {
 	protected _extensions: Map<number, unknown>;
 
 	constructor(
-		resources: string[],
-		tags?: string[],
-		pieces?: string[],
-		pieceData?: Map<string, EShapeEmbeddedDatum>
+		serialized: EShapeResourceManagerDeserializationSerialized,
+		pieces: string[] | undefined,
+		pieceData: Map<string, EShapeEmbeddedDatum> | undefined,
+		isEditMode: boolean
 	) {
-		this.resources = resources;
-		this.tags = tags || resources;
+		this.resources = serialized.resources;
+		this.tags = serialized.tags || serialized.resources;
 		this.pieces = pieces;
 		this.pieceData = pieceData;
+		this.isEditMode = isEditMode;
 
 		this._actions = new Map<number, EShapeActionValue>();
 		this._fills = new Map<number, DDiagramSerializedFill>();

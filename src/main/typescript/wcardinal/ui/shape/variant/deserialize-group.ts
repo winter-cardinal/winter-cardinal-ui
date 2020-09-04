@@ -11,7 +11,7 @@ import { EShapeGroup } from "./e-shape-group";
 export const deserializeGroup = (
 	item: DDiagramSerializedItem, manager: EShapeResourceManagerDeserialization
 ): Promise<EShapeGroup> | EShapeGroup => {
-	const shape = new EShapeGroup();
+	const shape = new EShapeGroup( manager.isEditMode );
 	const result = EShapeDeserializer.deserialize( item, manager, shape );
 	shape.size.init();
 	return result;

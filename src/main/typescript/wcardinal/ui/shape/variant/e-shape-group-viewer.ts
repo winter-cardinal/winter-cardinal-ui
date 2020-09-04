@@ -24,17 +24,20 @@ export abstract class EShapeGroupViewer extends EShapeBase {
 	tag: EShapeTag;
 	text: EShapeText;
 
-	constructor( type: EShapeType ) {
+	protected _isEditMode: boolean;
+
+	constructor( isEditMode: boolean, type: EShapeType ) {
 		super( type );
+		this._isEditMode = isEditMode;
 		this.tag = this.newTag();
-		this.size = this.newGroupSize();
+		this.size = this.newGroupSize( isEditMode );
 		this.fill = this.newGroupFill();
 		this.stroke = this.newGroupStroke();
 		this.text = this.newGroupText();
 	}
 
-	protected newGroupSize(): EShapeGroupSize {
-		if( EShapeDefaults.IS_EDIT_MODE ) {
+	protected newGroupSize( isEditMode: boolean ): EShapeGroupSize {
+		if( isEditMode ) {
 			return new EShapeGroupSizeEditor(
 				this,
 				EShapeDefaults.SIZE_X,

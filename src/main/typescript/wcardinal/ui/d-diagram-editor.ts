@@ -138,6 +138,10 @@ export class DDiagramEditor<
 		this.snapper = new ESnapper( this );
 	}
 
+	protected isEditMode(): boolean {
+		return true;
+	}
+
 	protected newCanvas( serialized: DDiagramSerialized ): DDiagramCanvasEditor {
 		return new DDiagramCanvasEditor( this.toCanvasOptions( serialized ) );
 	}
@@ -164,12 +168,6 @@ export class DDiagramEditor<
 			tileOptions.mapping = serialized.tile && serialized.tile.mapping;
 		}
 		return options;
-	}
-
-	protected applyBackground( serialized: DDiagramSerialized, canvas: DDiagramCanvasEditor ): void {
-		const background = this.toBackground( serialized );
-		canvas.background.color = background.color;
-		canvas.background.alpha = background.alpha;
 	}
 
 	serialize(): DDiagramSerialized | null {

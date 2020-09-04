@@ -19,9 +19,9 @@ export const deserializeEmbedded = (
 			const piece = pieces[ pieceId ];
 			const pieceDatum = pieceData.get( piece );
 			if( pieceDatum ) {
-				return EShapeEmbeddeds.from(
+				return EShapeEmbeddeds.deserialize(
 					piece, pieceDatum.width, pieceDatum.height,
-					pieceDatum.layer, item, manager
+					pieceDatum.layer, manager, item
 				);
 			}
 		}
