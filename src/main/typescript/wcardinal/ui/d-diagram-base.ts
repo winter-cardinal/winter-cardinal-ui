@@ -4,6 +4,7 @@
  */
 
 import { DApplications } from "./d-applications";
+import { DBaseBackgroundOptions } from "./d-base";
 import {
 	DCanvasContainer, DCanvasContainerEvents, DCanvasContainerOptions, DThemeCanvasContainer
 } from "./d-canvas-container";
@@ -51,6 +52,10 @@ export interface DDiagramBaseOnOptions<CANVAS, EMITTER>
 
 }
 
+export interface DDiagramBaseBackgroundOptions extends DBaseBackgroundOptions {
+	ambient?: boolean;
+}
+
 /**
  * {@link DDiagramBase} options.
  */
@@ -68,6 +73,8 @@ export interface DDiagramBaseOptions<
 	 */
 	tile?: DDiagramCanvasTilePyramidFactory;
 
+	background?: DDiagramBaseBackgroundOptions;
+
 	on?: DDiagramBaseOnOptions<CANVAS, EMITTER>;
 }
 
@@ -75,7 +82,7 @@ export interface DDiagramBaseOptions<
  * {@link DDiagramBase} theme.
  */
 export interface DThemeDiagramBase extends DThemeCanvasContainer {
-
+	getBackgroundAmbient(): boolean;
 }
 
 export abstract class DDiagramBase<
@@ -89,12 +96,14 @@ export abstract class DDiagramBase<
 	protected _serialized: DDiagramSerialized | null;
 	protected _tileFactory?: DDiagramCanvasTilePyramidFactory;
 	protected _controller?: CONTROLLER;
+	protected _backgroundAmbient: boolean;
 
 	constructor( options?: OPTIONS ) {
 		super( options );
 		this._serialized = null;
 		this._tileFactory = options && options.tile;
 		this._controller = options && options.controller;
+		this._backgroundAmbient = this.toBackgroundAmbient( this.theme, this._options );
 	}
 
 	get controller(): CONTROLLER | null {
@@ -139,9 +148,8 @@ export abstract class DDiagramBase<
 		pieceData?: Map<string, EShapeEmbeddedDatum>
 	): void {
 		const layer = canvas.layer;
-		const isEditMode = this.isEditMode();
 		const manager = new EShapeResourceManagerDeserialization(
-			serialized, pieces, pieceData, isEditMode
+			serialized, pieces, pieceData, this.isEditMode()
 		);
 		DDiagrams.newLayer( serialized, layer, manager )
 		.then(( shapes: EShape[] ): void => {
@@ -151,10 +159,79 @@ export abstract class DDiagramBase<
 			DApplications.update( this );
 			this.emit( "ready", this );
 		});
-		const background = this.toBackground( serialized );
-		const backgroundTarget = ( isEditMode ? canvas : this ).background;
-		backgroundTarget.color = background.color;
-		backgroundTarget.alpha = background.alpha;
+		if( this._backgroundAmbient ) {
+			const background = this.toBackground( serialized );
+			this.background.color = background.color;
+			this.background.alpha = background.alpha;
+		}
+	}
+
+	protected toCanvasBaseOptions( serialized: DDiagramSerialized, options: CANVAS_OPTIONS ): CANVAS_OPTIONS {
+		// Name
+		if( options.name === undefined ) {
+			options.name = serialized.name;
+		}
+
+		// Width
+		if( options.width === undefined ) {
+			options.width = serialized.width;
+		}
+
+		// Height
+		if( options.height === undefined ) {
+			options.height = serialized.height;
+		}
+
+		// Background, border and shadow
+		const background = options.background = options.background || {};
+		const backgroundAmbient = this._backgroundAmbient;
+		const backgroundSerialized = this.toBackground( serialized );
+		if( backgroundAmbient ) {
+			if( background.color === undefined ) {
+				background.color = null;
+			}
+			const border = options.border = options.border || {};
+			if( border.color === undefined ) {
+				border.color = null;
+			}
+		} else {
+			if( background.color === undefined ) {
+				background.color = backgroundSerialized.color;
+			}
+			if( background.alpha === undefined ) {
+				background.alpha = backgroundSerialized.alpha;
+			}
+			if( options.shadow === undefined ) {
+				options.shadow = "WEAK";
+			}
+		}
+		if( background.ambient === undefined ) {
+			const diagramOptions = this._options;
+			if( diagramOptions ) {
+				const diagramBackgroundOptions = diagramOptions.background;
+				if( diagramBackgroundOptions && diagramBackgroundOptions.ambient !== undefined ) {
+					background.ambient = backgroundAmbient;
+				}
+			}
+		}
+
+		// Tile
+		const tileOptions = options.tile = options.tile || {};
+		if( tileOptions.factory === undefined ) {
+			tileOptions.factory = this._tileFactory;
+		}
+		if( tileOptions.mapping === undefined ) {
+			tileOptions.mapping = serialized.tile && serialized.tile.mapping;
+		}
+
+		// Done
+		return options;
+	}
+
+	protected toBackgroundAmbient( theme: THEME, options?: OPTIONS ): boolean {
+		const background = options && options.background;
+		const ambient = background && background.ambient;
+		return ( ambient != null ? ambient : theme.getBackgroundAmbient() );
 	}
 
 	protected abstract isEditMode(): boolean;

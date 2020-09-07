@@ -7,5 +7,7 @@ import { DThemeDiagramBase } from "../../d-diagram-base";
 import { DThemeDarkCanvasContainer } from "./d-theme-dark-canvas-container";
 
 export class DThemeDarkDiagramBase extends DThemeDarkCanvasContainer implements DThemeDiagramBase {
-
+	getBackgroundAmbient(): boolean {
+		return true;
+	}
 }

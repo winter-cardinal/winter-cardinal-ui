@@ -147,25 +147,9 @@ export class DDiagramEditor<
 	}
 
 	protected toCanvasOptions( serialized: DDiagramSerialized ): DDiagramCanvasEditorOptions {
-		const options = this._canvasOptions || { snapper: this.snapper };
-		if( options.name === undefined ) {
-			options.name = serialized.name;
-		}
-		if( options.width === undefined ) {
-			options.width = serialized.width;
-		}
-		if( options.height === undefined ) {
-			options.height = serialized.height;
-		}
+		const options = super.toCanvasBaseOptions( serialized, this._canvasOptions || { snapper: this.snapper } );
 		if( options.snapper === undefined ) {
 			options.snapper = this.snapper;
-		}
-		const tileOptions = options.tile || {};
-		if( tileOptions.factory === undefined ) {
-			tileOptions.factory = this._tileFactory;
-		}
-		if( tileOptions.mapping === undefined ) {
-			tileOptions.mapping = serialized.tile && serialized.tile.mapping;
 		}
 		return options;
 	}

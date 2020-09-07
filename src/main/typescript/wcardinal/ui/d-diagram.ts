@@ -221,32 +221,7 @@ export class DDiagram<
 	}
 
 	protected toCanvasOptions( serialized: DDiagramSerialized ): DDiagramCanvasOptions {
-		const options = this._canvasOptions || {};
-		if( options.name === undefined ) {
-			options.name = serialized.name;
-		}
-		if( options.width === undefined ) {
-			options.width = serialized.width;
-		}
-		if( options.height === undefined ) {
-			options.height = serialized.height;
-		}
-		const background = options.background || {};
-		if( background.color === undefined ) {
-			background.color = null;
-		}
-		const border = options.border || {};
-		if( border.color === undefined ) {
-			border.color = null;
-		}
-		const tileOptions = options.tile || {};
-		if( tileOptions.factory === undefined ) {
-			tileOptions.factory = this._tileFactory;
-		}
-		if( tileOptions.mapping === undefined ) {
-			tileOptions.mapping = serialized.tile && serialized.tile.mapping;
-		}
-		return options;
+		return super.toCanvasBaseOptions( serialized, this._canvasOptions || {} );
 	}
 
 	protected onDown( e: interaction.InteractionEvent ): void {

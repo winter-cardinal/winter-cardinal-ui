@@ -4,19 +4,28 @@
  */
 
 import { IPoint } from "pixi.js";
+import { DBaseBackgroundOptions } from "./d-base";
 import { DCanvas, DCanvasOptions, DThemeCanvas } from "./d-canvas";
+import { DDiagramCanvasEditorBackground } from "./d-diagram-canvas-editor-background";
 import { DDiagramCanvasTile, DDiagramCanvasTileOptions } from "./d-diagram-canvas-tile";
 import { DDiagramLayerContainer } from "./d-diagram-layer-container";
 import { EShape } from "./shape/e-shape";
+
+export interface DDiagramCanvasBackgroundOptions extends DBaseBackgroundOptions {
+	ambient?: boolean;
+	base?: number | null;
+}
 
 export interface DDiagramCanvasBaseOptions<
 	THEME extends DThemeDiagramCanvasBase = DThemeDiagramCanvasBase
 > extends DCanvasOptions<THEME> {
 	tile?: DDiagramCanvasTileOptions;
+	background?: DDiagramCanvasBackgroundOptions;
 }
 
 export interface DThemeDiagramCanvasBase extends DThemeCanvas {
-
+	getBackgroundAmbient(): boolean;
+	getBackgroundBase(): number | null;
 }
 
 export class DDiagramCanvasBase<
@@ -29,12 +38,34 @@ export class DDiagramCanvasBase<
 	constructor( options?: OPTIONS ) {
 		super( options );
 
+		// Background
+		if( ! this.toBackgroundAmbient( this.theme, options ) ) {
+			this._background = new DDiagramCanvasEditorBackground(
+				this._background,
+				this.toBackgroundColorBase( this.theme, options )
+			);
+		}
+
+		// Layer
 		const layer = new DDiagramLayerContainer();
 		this._layer = layer;
 		this.addChild( layer );
 
+		// Tile
 		const tile = this._tile = new DDiagramCanvasTile( this, options && options.tile );
 		tile.init();
+	}
+
+	protected toBackgroundAmbient( theme: THEME, options?: OPTIONS ): boolean {
+		const background = options && options.background;
+		const ambient = background && background.ambient;
+		return ( ambient != null ? ambient : theme.getBackgroundAmbient() );
+	}
+
+	protected toBackgroundColorBase( theme: THEME, options?: OPTIONS ): number | null {
+		const background = options && options.background;
+		const backgroundBase = background && background.base;
+		return ( backgroundBase != null ? backgroundBase : theme.getBackgroundBase() );
 	}
 
 	get tile(): DDiagramCanvasTile {
