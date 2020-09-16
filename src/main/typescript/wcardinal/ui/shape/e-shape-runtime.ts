@@ -92,19 +92,24 @@ export class EShapeRuntime {
 	}
 
 	onPointerDown( shape: EShape, e?: interaction.InteractionEvent ): void {
-		if( ! shape.state.isDown ) {
+		if( ! shape.state.isDown && ! shape.state.isPressed ) {
 			shape.state.add( EShapeState.DOWN | DBaseState.PRESSED );
-		}
-		const layer = DApplications.getLayer( shape );
-		if( layer ) {
-			const focusController = layer.getFocusController();
-			focusController.setFocused( focusController.findFocusableParent( shape ), true, true );
+
+			// Focus
+			const layer = DApplications.getLayer( shape );
+			if( layer ) {
+				const focusController = layer.getFocusController();
+				focusController.setFocused( focusController.findFocusableParent( shape ), true, true );
+			}
 		}
 	}
 
 	onPointerUp( shape: EShape, e?: interaction.InteractionEvent ): void {
-		if( ! shape.state.isUp ) {
+		if( ! shape.state.isUp && shape.state.isPressed ) {
 			shape.state.set( EShapeState.UP, DBaseState.PRESSED );
+
+			// Click
+			this.onPointerClick( shape );
 		}
 	}
 
@@ -122,7 +127,6 @@ export class EShapeRuntime {
 	onKeyUp( shape: EShape, e: KeyboardEvent ): boolean {
 		if( UtilKeyboardEvent.isActivateKey( e ) ) {
 			this.onPointerUp( shape );
-			this.onPointerClick( shape );
 		}
 		return false;
 	}
