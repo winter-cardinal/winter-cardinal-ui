@@ -12,19 +12,29 @@ import { EShapeActionValueOpen } from "./e-shape-action-value-open";
 
 export abstract class EShapeActionRuntimeOpenDialog<VALUE = unknown> extends EShapeActionRuntimeOpen {
 	protected onInputAction: EShapeActionValueOnInputAction;
+	protected isOpened: boolean;
 
 	constructor( value: EShapeActionValueOpen ) {
 		super( value, EShapeRuntimeReset.NONE );
 		this.onInputAction = value.onInputAction;
+		this.isOpened = false;
 	}
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( !! this.condition( shape, time ) ) {
-			const target = this.target( shape, time );
-			if( target != null ) {
-				this.open( target ).then(( value ) => {
-					EShapeActionValueOnInputActions.execute( shape, this.onInputAction, target, value, time );
-				});
+		if( ! this.isOpened ) {
+			if( !! this.condition( shape, time ) ) {
+				const target = this.target( shape, time );
+				if( target != null ) {
+					this.isOpened = true;
+					setTimeout(() => {
+						this.open( target ).then(( value ) => {
+							this.isOpened = false;
+							EShapeActionValueOnInputActions.execute( shape, this.onInputAction, target, value, time );
+						}, () => {
+							this.isOpened = false;
+						});
+					}, 0);
+				}
 			}
 		}
 	}
