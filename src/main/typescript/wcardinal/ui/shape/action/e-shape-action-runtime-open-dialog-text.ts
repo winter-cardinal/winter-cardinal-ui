@@ -9,7 +9,7 @@ import { EShapeActionRuntimeOpenDialog } from "./e-shape-action-runtime-open-dia
 export class EShapeActionRuntimeOpenDialogText extends EShapeActionRuntimeOpenDialog<string> {
 	protected static DIALOG?: DDialogInputText;
 
-	protected open( target: string ): Promise<string> {
+	protected open( target: string, initial: string ): Promise<string> {
 		let dialog = EShapeActionRuntimeOpenDialogText.DIALOG;
 		if( dialog == null ) {
 			dialog = new DDialogInputText({
@@ -22,6 +22,15 @@ export class EShapeActionRuntimeOpenDialogText extends EShapeActionRuntimeOpenDi
 				label.text = target;
 			}
 		}
+		dialog.value = initial;
 		return dialog.open();
+	}
+
+	protected newInitial( this: unknown ): string {
+		return "";
+	}
+
+	protected getInitialLiteral(): string {
+		return "\"\"";
 	}
 }

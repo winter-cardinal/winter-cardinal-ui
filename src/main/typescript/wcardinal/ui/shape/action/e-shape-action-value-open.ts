@@ -21,22 +21,25 @@ import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 export type EShapeActionValueOpenSerialized = [
-	EShapeActionValueType.OPEN, number, EShapeActionValueOpenType, number, EShapeActionValueOnInputAction
+	EShapeActionValueType.OPEN, number, EShapeActionValueOpenType, number, EShapeActionValueOnInputAction, number
 ];
 
 export class EShapeActionValueOpen extends EShapeActionValueSubtyped<EShapeActionValueOpenType> {
 	readonly target: string;
 	readonly onInputAction: EShapeActionValueOnInputAction;
+	readonly initial: string;
 
 	constructor(
 		subtype: EShapeActionValueOpenType,
 		condition: string,
 		target: string,
-		onInputAction: EShapeActionValueOnInputAction
+		onInputAction: EShapeActionValueOnInputAction,
+		initial: string
 	) {
 		super( EShapeActionValueType.OPEN, condition, subtype );
 		this.target = target;
 		this.onInputAction = onInputAction;
+		this.initial = initial;
 	}
 
 	isEquals( value: EShapeActionValue ): boolean {
@@ -69,7 +72,10 @@ export class EShapeActionValueOpen extends EShapeActionValueSubtyped<EShapeActio
 	serialize( manager: EShapeResourceManagerSerialization ): number {
 		const conditionId = manager.addResource(this.condition);
 		const targetId = manager.addResource(this.target);
-		return manager.addResource( `[${this.type},${conditionId},${this.subtype},${targetId},${this.onInputAction}]` );
+		const initialId = manager.addResource(this.initial);
+		return manager.addResource(
+			`[${this.type},${conditionId},${this.subtype},${targetId},${this.onInputAction},${initialId}]`
+		);
 	}
 
 	static deserialize(
@@ -78,6 +84,7 @@ export class EShapeActionValueOpen extends EShapeActionValueSubtyped<EShapeActio
 	): EShapeActionValueOpen {
 		const condition = EShapeActionValues.toResource( 1, serialized, manager.resources );
 		const target = EShapeActionValues.toResource( 3, serialized, manager.resources );
-		return new EShapeActionValueOpen( serialized[ 2 ], condition, target, serialized[ 4 ] );
+		const initial = EShapeActionValues.toResource( 5, serialized, manager.resources );
+		return new EShapeActionValueOpen( serialized[ 2 ], condition, target, serialized[ 4 ], initial );
 	}
 }

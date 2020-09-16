@@ -9,7 +9,7 @@ import { EShapeActionRuntimeOpenDialog } from "./e-shape-action-runtime-open-dia
 export class EShapeActionRuntimeOpenDialogBoolean extends EShapeActionRuntimeOpenDialog<boolean> {
 	protected static DIALOG?: DDialogInputBoolean;
 
-	protected open( target: string ): Promise<boolean> {
+	protected open( target: string, initial: boolean ): Promise<boolean> {
 		let dialog = EShapeActionRuntimeOpenDialogBoolean.DIALOG;
 		if( dialog == null ) {
 			dialog = new DDialogInputBoolean({
@@ -22,6 +22,15 @@ export class EShapeActionRuntimeOpenDialogBoolean extends EShapeActionRuntimeOpe
 				label.text = target;
 			}
 		}
+		dialog.value = initial;
 		return dialog.open();
+	}
+
+	protected newInitial( this: unknown ): boolean {
+		return false;
+	}
+
+	protected getInitialLiteral(): string {
+		return "false";
 	}
 }
