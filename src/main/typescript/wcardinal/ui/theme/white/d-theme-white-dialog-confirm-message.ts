@@ -13,8 +13,8 @@ export class DThemeWhiteDialogConfirmMessage extends DThemeWhiteImage implements
 		return "padding";
 	}
 
-	getHeight(): number {
-		return 200;
+	getHeight(): DCoordinateSize {
+		return "auto";
 	}
 
 	getTextAlignHorizontal(): DAlignHorizontal {
