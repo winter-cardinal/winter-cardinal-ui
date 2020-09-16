@@ -4,7 +4,8 @@
  */
 
 import { EShapeRuntimeReset } from "../e-shape-runtime";
-import { EShapeActionExpression } from "./e-shape-action-runtime";
+import { EShapeActionExpression } from "./e-shape-action-expression";
+import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
 import { EShapeActionValueOpen } from "./e-shape-action-value-open";
 
@@ -15,6 +16,6 @@ export class EShapeActionRuntimeOpen extends EShapeActionRuntimeConditional {
 
 	constructor( value: EShapeActionValueOpen, reset: EShapeRuntimeReset ) {
 		super( value, reset );
-		this.target = this.toExpression( value.target, targetDefault, "null" );
+		this.target = EShapeActionExpressions.from( value.target, targetDefault, "null" );
 	}
 }

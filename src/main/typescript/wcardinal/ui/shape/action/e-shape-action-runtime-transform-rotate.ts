@@ -5,7 +5,8 @@
 
 import { EShape } from "../e-shape";
 import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
-import { EShapeActionExpression } from "./e-shape-action-runtime";
+import { EShapeActionExpression } from "./e-shape-action-expression";
+import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
 import { EShapeActionValueTransformRotate } from "./e-shape-action-value-transform-rotate";
 
@@ -20,7 +21,7 @@ export class EShapeActionRuntimeTransformRotate extends EShapeActionRuntimeCondi
 		super( value, reset );
 		this.originX = value.originX;
 		this.originY = value.originY;
-		this.amount = this.toExpression( `(${value.amount}) * (Math.PI / 180)`, amountDefault, "0" );
+		this.amount = EShapeActionExpressions.from( `(${value.amount}) * (Math.PI / 180)`, amountDefault, "0" );
 	}
 
 	protected adjustPosition(

@@ -7,7 +7,8 @@ import { NumberFormatter } from "../../util/number-formatter";
 import { NumberFormatters } from "../../util/number-formatters";
 import { EShape } from "../e-shape";
 import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
-import { EShapeActionExpression } from "./e-shape-action-runtime";
+import { EShapeActionExpression } from "./e-shape-action-expression";
+import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
 import { EShapeActionValueChangeText } from "./e-shape-action-value-change-text";
 
@@ -20,7 +21,7 @@ export class EShapeActionRuntimeChangeTextNumber extends EShapeActionRuntimeCond
 	constructor( value: EShapeActionValueChangeText, format: string ) {
 		super( value, EShapeRuntimeReset.TEXT );
 
-		this.number = this.toExpression( value.value, numberDefault, `0` );
+		this.number = EShapeActionExpressions.from( value.value, numberDefault, `0` );
 
 		format = format.trim();
 		this.formatter = ( 0 < format.length ? NumberFormatters.create( format ) : null );

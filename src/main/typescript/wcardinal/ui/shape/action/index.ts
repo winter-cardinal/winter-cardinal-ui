@@ -4,6 +4,8 @@
  */
 
 export * from "./e-shape-action-bases";
+export * from "./e-shape-action-expression";
+export * from "./e-shape-action-expressions";
 export * from "./e-shape-action-runtime-blink-brighten";
 export * from "./e-shape-action-runtime-blink-color-fill";
 export * from "./e-shape-action-runtime-blink-color-stroke";
@@ -62,6 +64,7 @@ export * from "./e-shape-action-runtime-transform-rotate-absolute";
 export * from "./e-shape-action-runtime-transform-rotate-relative";
 export * from "./e-shape-action-runtime-transform-rotate";
 export * from "./e-shape-action-runtime";
+export * from "./e-shape-action-runtimes";
 export * from "./e-shape-action-value-base";
 export * from "./e-shape-action-value-blink-type";
 export * from "./e-shape-action-value-blink";
@@ -78,6 +81,7 @@ export * from "./e-shape-action-value-emit-event";
 export * from "./e-shape-action-value-misc-type";
 export * from "./e-shape-action-value-misc";
 export * from "./e-shape-action-value-on-input-action";
+export * from "./e-shape-action-value-on-input-actions";
 export * from "./e-shape-action-value-open-type";
 export * from "./e-shape-action-value-open";
 export * from "./e-shape-action-value-opetyped";

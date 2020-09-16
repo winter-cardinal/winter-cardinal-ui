@@ -5,7 +5,8 @@
 
 import { EShape } from "../e-shape";
 import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
-import { EShapeActionExpression } from "./e-shape-action-runtime";
+import { EShapeActionExpression } from "./e-shape-action-expression";
+import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
 import { EShapeActionValueChangeCursor } from "./e-shape-action-value-change-cursor";
 
@@ -16,7 +17,7 @@ export class EShapeActionRuntimeChangeCursor extends EShapeActionRuntimeConditio
 
 	constructor( value: EShapeActionValueChangeCursor ) {
 		super( value, EShapeRuntimeReset.CURSOR );
-		this.name = this.toExpression( value.name, nameDefault, "null" );
+		this.name = EShapeActionExpressions.from( value.name, nameDefault, "null" );
 	}
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {

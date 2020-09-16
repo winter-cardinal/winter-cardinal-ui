@@ -5,7 +5,8 @@
 
 import { EShape } from "../e-shape";
 import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
-import { EShapeActionExpression } from "./e-shape-action-runtime";
+import { EShapeActionExpression } from "./e-shape-action-expression";
+import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
 import { EShapeActionValueTransformResize } from "./e-shape-action-value-transform-resize";
 import { EShapeActionValueTransformResizeType } from "./e-shape-action-value-transform-resize-type";
@@ -20,22 +21,22 @@ export class EShapeActionRuntimeTransformResize extends EShapeActionRuntimeCondi
 		super( value, reset );
 		switch( value.opetype ) {
 		case EShapeActionValueTransformResizeType.RELATIVE_SIZE:
-			this.size = this.toExpression( value.amount, sizeRelativeDefault, "1" );
+			this.size = EShapeActionExpressions.from( value.amount, sizeRelativeDefault, "1" );
 			break;
 		case EShapeActionValueTransformResizeType.ABSOLUTE_SIZE:
-			this.size = this.toExpression( value.amount, sizeAbsoluteDefault, "100" );
+			this.size = EShapeActionExpressions.from( value.amount, sizeAbsoluteDefault, "100" );
 			break;
 		case EShapeActionValueTransformResizeType.RELATIVE_HEIGHT:
-			this.size = this.toExpression( value.amount, sizeRelativeDefault, "1" );
+			this.size = EShapeActionExpressions.from( value.amount, sizeRelativeDefault, "1" );
 			break;
 		case EShapeActionValueTransformResizeType.ABSOLUTE_HEIGHT:
-			this.size = this.toExpression( value.amount, sizeAbsoluteDefault, "100" );
+			this.size = EShapeActionExpressions.from( value.amount, sizeAbsoluteDefault, "100" );
 			break;
 		case EShapeActionValueTransformResizeType.RELATIVE_WIDTH:
-			this.size = this.toExpression( value.amount, sizeRelativeDefault, "1" );
+			this.size = EShapeActionExpressions.from( value.amount, sizeRelativeDefault, "1" );
 			break;
 		case EShapeActionValueTransformResizeType.ABSOLUTE_WIDTH:
-			this.size = this.toExpression( value.amount, sizeAbsoluteDefault, "100" );
+			this.size = EShapeActionExpressions.from( value.amount, sizeAbsoluteDefault, "100" );
 			break;
 		default:
 			this.size = sizeRelativeDefault;

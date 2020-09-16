@@ -4,7 +4,9 @@
  */
 
 import { EShapeRuntimeReset } from "../e-shape-runtime";
-import { EShapeActionExpression, EShapeActionRuntime } from "./e-shape-action-runtime";
+import { EShapeActionExpression } from "./e-shape-action-expression";
+import { EShapeActionExpressions } from "./e-shape-action-expressions";
+import { EShapeActionRuntime } from "./e-shape-action-runtime";
 import { EShapeActionValue } from "./e-shape-action-value";
 
 const conditionDefault = (): boolean => true;
@@ -14,6 +16,6 @@ export class EShapeActionRuntimeConditional extends EShapeActionRuntime {
 
 	constructor( value: EShapeActionValue, reset: EShapeRuntimeReset ) {
 		super( reset );
-		this.condition = this.toExpression( value.condition, conditionDefault, "true" );
+		this.condition = EShapeActionExpressions.from( value.condition, conditionDefault, "true" );
 	}
 }

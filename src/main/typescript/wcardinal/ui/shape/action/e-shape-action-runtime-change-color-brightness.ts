@@ -10,7 +10,8 @@ import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
 import { EShapeStroke, EShapeStrokeLike } from "../e-shape-stroke";
 import { EShapeText, EShapeTextLike } from "../e-shape-text";
 import { EShapeTextOutline, EShapeTextOutlineLike } from "../e-shape-text-outline";
-import { EShapeActionExpression } from "./e-shape-action-runtime";
+import { EShapeActionExpression } from "./e-shape-action-expression";
+import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
 import { EShapeActionValueChangeColorBrightness } from "./e-shape-action-value-change-color-brightness";
 
@@ -21,7 +22,7 @@ export class EShapeActionRuntimeChangeColorBrightness extends EShapeActionRuntim
 
 	constructor( value: EShapeActionValueChangeColorBrightness, reset: EShapeRuntimeReset ) {
 		super( value, reset );
-		this.brightness = this.toExpression( value.brightness, brightnessDefault, "null" );
+		this.brightness = EShapeActionExpressions.from( value.brightness, brightnessDefault, "null" );
 	}
 
 	protected set(

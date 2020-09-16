@@ -7,12 +7,18 @@ import { EShape } from "../e-shape";
 import { EShapeRuntime } from "../e-shape-runtime";
 import { EShapeActionRuntime } from "./e-shape-action-runtime";
 import { EShapeActionRuntimeMiscInputData } from "./e-shape-action-runtime-misc-input-data";
+import { EShapeActionValueMisc } from "./e-shape-action-value-misc";
+import { EShapeActionValueOnInputAction } from "./e-shape-action-value-on-input-action";
+import { EShapeActionValueOnInputActions } from "./e-shape-action-value-on-input-actions";
 
 export class EShapeActionRuntimeMiscInput extends EShapeActionRuntime {
 	static data: EShapeActionRuntimeMiscInputData | null = null;
 
-	constructor() {
+	protected onInputAction: EShapeActionValueOnInputAction;
+
+	constructor( value: EShapeActionValueMisc ) {
 		super();
+		this.onInputAction = value.onInputAction;
 	}
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
@@ -23,11 +29,9 @@ export class EShapeActionRuntimeMiscInput extends EShapeActionRuntime {
 					setTimeout(() => {
 						data.show( shape, shape.text.value, ( _: EShape, value: string ): void => {
 							shape.text.value = value;
-							shape.emit( "input", shape, value );
-							const container = this.toContainer( shape );
-							if( container && ("shape" in container) ) {
-								container.shape.emit( "input", shape, value );
-							}
+							EShapeActionValueOnInputActions.execute(
+								shape, this.onInputAction, "input", value, Date.now()
+							);
 						});
 					}, 0);
 				}

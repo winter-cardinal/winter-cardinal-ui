@@ -11,7 +11,8 @@ import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
 import { EShapeStroke, EShapeStrokeLike } from "../e-shape-stroke";
 import { EShapeText, EShapeTextLike } from "../e-shape-text";
 import { EShapeTextOutline, EShapeTextOutlineLike } from "../e-shape-text-outline";
-import { EShapeActionExpression } from "./e-shape-action-runtime";
+import { EShapeActionExpression } from "./e-shape-action-expression";
+import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
 import { EShapeActionValueChangeColor } from "./e-shape-action-value-change-color";
 import { EShapeActionValueChangeColorTarget } from "./e-shape-action-value-change-color-target";
@@ -41,7 +42,7 @@ export class EShapeActionRuntimeChangeColor extends EShapeActionRuntimeCondition
 			break;
 		}
 
-		this.blend = this.toExpression( value.blend, blendDefault, "null" );
+		this.blend = EShapeActionExpressions.from( value.blend, blendDefault, "null" );
 	}
 
 	protected set(

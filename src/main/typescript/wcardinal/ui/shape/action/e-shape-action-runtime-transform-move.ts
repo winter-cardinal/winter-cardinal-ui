@@ -4,7 +4,8 @@
  */
 
 import { EShapeRuntimeReset } from "../e-shape-runtime";
-import { EShapeActionExpression } from "./e-shape-action-runtime";
+import { EShapeActionExpression } from "./e-shape-action-expression";
+import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
 import { EShapeActionValueTransformMove } from "./e-shape-action-value-transform-move";
 
@@ -15,6 +16,6 @@ export class EShapeActionRuntimeTransformMove extends EShapeActionRuntimeConditi
 
 	constructor( value: EShapeActionValueTransformMove, reset: EShapeRuntimeReset ) {
 		super( value, reset );
-		this.amount = this.toExpression( value.amount, amountDefault, "0" );
+		this.amount = EShapeActionExpressions.from( value.amount, amountDefault, "0" );
 	}
 }
