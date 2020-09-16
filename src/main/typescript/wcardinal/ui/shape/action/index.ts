@@ -77,6 +77,7 @@ export * from "./e-shape-action-value-deserializer";
 export * from "./e-shape-action-value-emit-event";
 export * from "./e-shape-action-value-misc-type";
 export * from "./e-shape-action-value-misc";
+export * from "./e-shape-action-value-on-input-action";
 export * from "./e-shape-action-value-open-type";
 export * from "./e-shape-action-value-open";
 export * from "./e-shape-action-value-opetyped";
