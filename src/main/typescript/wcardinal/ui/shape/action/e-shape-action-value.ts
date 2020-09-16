@@ -11,6 +11,7 @@ import { EShapeActionValueChangeColorTarget } from "./e-shape-action-value-chang
 import { EShapeActionValueChangeColorType } from "./e-shape-action-value-change-color-type";
 import { EShapeActionValueChangeTextType } from "./e-shape-action-value-change-text-type";
 import { EShapeActionValueMiscType } from "./e-shape-action-value-misc-type";
+import { EShapeActionValueOnInputAction } from "./e-shape-action-value-on-input-action";
 import { EShapeActionValueOpenType } from "./e-shape-action-value-open-type";
 import { EShapeActionValueShowHideType } from "./e-shape-action-value-show-hide-type";
 import { EShapeActionValueTransformMoveType } from "./e-shape-action-value-transform-move-type";
@@ -34,6 +35,7 @@ export interface EThemeShapeActionValue {
 	toChangeTextTypeLabel( type: EShapeActionValueChangeTextType ): string;
 	toOpenTypeLabel( type: EShapeActionValueOpenType ): string;
 	toMiscTypeLabel( type: EShapeActionValueMiscType ): string;
+	toOnInputActionLabel( type: EShapeActionValueOnInputAction ): string;
 }
 
 export interface EShapeActionValue {

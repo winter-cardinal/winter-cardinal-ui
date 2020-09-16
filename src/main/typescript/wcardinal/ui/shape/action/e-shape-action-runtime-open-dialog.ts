@@ -38,10 +38,10 @@ export abstract class EShapeActionRuntimeOpenDialog<VALUE = unknown> extends ESh
 			shape.emit( target, shape, value );
 			this.toContainerShape( shape )?.emit( target, shape, value );
 			break;
-		case EShapeActionValueOnInputAction.WRITE_LOCALLY:
+		case EShapeActionValueOnInputAction.WRITE_LOCAL:
 			this.toContainerTag( shape )?.set( target, value, time );
 			break;
-		case EShapeActionValueOnInputAction.WRITE_REMOTELLY:
+		case EShapeActionValueOnInputAction.WRITE_REMOTE:
 			this.toContainerTag( shape )?.remove.set( target, value, time );
 			break;
 		case EShapeActionValueOnInputAction.WRITE_BOTH:

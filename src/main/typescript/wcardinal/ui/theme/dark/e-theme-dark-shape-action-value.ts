@@ -5,6 +5,7 @@ import { EShapeActionValueChangeColorTarget } from "../../shape/action/e-shape-a
 import { EShapeActionValueChangeColorType } from "../../shape/action/e-shape-action-value-change-color-type";
 import { EShapeActionValueChangeTextType } from "../../shape/action/e-shape-action-value-change-text-type";
 import { EShapeActionValueMiscType } from "../../shape/action/e-shape-action-value-misc-type";
+import { EShapeActionValueOnInputAction } from "../../shape/action/e-shape-action-value-on-input-action";
 import { EShapeActionValueOpenType } from "../../shape/action/e-shape-action-value-open-type";
 import { EShapeActionValueOpetyped } from "../../shape/action/e-shape-action-value-opetyped";
 import { EShapeActionValueShowHideType } from "../../shape/action/e-shape-action-value-show-hide-type";
@@ -262,5 +263,20 @@ export class EThemeDarkShapeActionValue implements EThemeShapeActionValue {
 		case EShapeActionValueMiscType.INPUT:
 			return "Input";
 		}
+		return "Unknown";
+	}
+
+	toOnInputActionLabel( type: EShapeActionValueOnInputAction ): string {
+		switch( type ) {
+		case EShapeActionValueOnInputAction.EMIT_EVENT:
+			return "Emit event";
+		case EShapeActionValueOnInputAction.WRITE_BOTH:
+			return "Write (Both)";
+		case EShapeActionValueOnInputAction.WRITE_LOCAL:
+			return "Write (Local)";
+		case EShapeActionValueOnInputAction.WRITE_REMOTE:
+			return "Write (Remote)";
+		}
+		return "Unknown";
 	}
 }
