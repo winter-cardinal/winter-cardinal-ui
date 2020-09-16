@@ -22,7 +22,7 @@ export class DDialogSaveAs<
 	protected onOpen() {
 		const name = DControllers.getDocumentController().getName();
 		if( name != null ) {
-			this._inputAndLabel.input.value = name;
+			this.input.value = name;
 		}
 		super.onOpen();
 	}
@@ -30,7 +30,7 @@ export class DDialogSaveAs<
 	protected onOk() {
 		super.onOk();
 
-		const name = this._inputAndLabel.input.value;
+		const name = this.input.value;
 		DControllers.getCommandController().push( new DCommandSaveAs( name ) );
 	}
 

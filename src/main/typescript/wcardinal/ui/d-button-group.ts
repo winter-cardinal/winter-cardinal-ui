@@ -6,25 +6,49 @@
 import { utils } from "pixi.js";
 import { DButtonBase } from "./d-button-base";
 
-export interface DButtonGroupOptions {
-	on?: { [name: string]: Function };
+/**
+ * {@link DButtonGroup} events.
+ */
+export interface DButtonGroupEvents<BUTTON, EMITTER> {
+	/**
+	 * Triggered when the active button is changed.
+	 *
+	 * @param emitter an emitter
+	 */
+	active( newActive: BUTTON | null, oldActive: BUTTON | null, emitter: EMITTER ): void;
+}
+
+/**
+ * {@link DButtonGroup} "on" options.
+ */
+export interface DButtonGroupOnOptions<BUTTON, EMITTER>
+	extends Partial<DButtonGroupEvents<BUTTON, EMITTER> & Record<string, Function>> {
+
+}
+
+export interface DButtonGroupOptions<
+	BUTTON extends DButtonBase<any, any, any> = DButtonBase<any, any, any>,
+	EMITTER = any
+> {
+	on?: DButtonGroupOnOptions<BUTTON, EMITTER>;
 }
 
 export class DButtonGroup<
-	BUTTON extends DButtonBase<any, any, any> = DButtonBase<any, any, any>
+	BUTTON extends DButtonBase<any, any, any> = DButtonBase<any, any, any>,
+	OPTIONS extends DButtonGroupOptions<BUTTON> = DButtonGroupOptions<BUTTON>
 > extends utils.EventEmitter {
 	protected _buttons: BUTTON[];
 	protected _active: BUTTON | null;
 	protected _onActiveBound: ( button: BUTTON ) => void;
 	protected _isEnabled?: boolean;
 
-	constructor( options?: DButtonGroupOptions ) {
+	constructor( options?: OPTIONS ) {
 		super();
 
 		this._buttons = [];
 		this._active = null;
 		this._onActiveBound = ( button: BUTTON ): void => {
-			this.onActive( button );
+			this.active = button;
 		};
 
 		// Events
@@ -32,7 +56,10 @@ export class DButtonGroup<
 			const on = options.on;
 			if( on != null ) {
 				for( const name in on ) {
-					this.on( name, on[ name ] );
+					const handler = on[ name ];
+					if( handler ) {
+						this.on( name, handler );
+					}
 				}
 			}
 		}
@@ -52,25 +79,27 @@ export class DButtonGroup<
 			}
 			button.on( "active", this._onActiveBound );
 			if( button.state.isActive ) {
-				this.onActive( button );
+				this.active = button;
 			}
 		}
 	}
 
-	get active() {
+	get active(): BUTTON | null {
 		return this._active;
 	}
 
-	protected onActive( active: BUTTON ): void {
-		if( active.isToggle() ) {
-			this._active = active;
+	set active( newActive: BUTTON | null ) {
+		if( (newActive == null || newActive.isToggle()) && this._active !== newActive ) {
+			const oldActive = this._active;
+			this._active = null;
 			const buttons = this._buttons;
 			for( let i = 0, imax = buttons.length; i < imax; ++i ) {
 				const button = buttons[ i ];
-				if( button !== active && button.isToggle() && button.state.isActive ) {
+				if( button !== newActive && button.isToggle() && button.state.isActive ) {
 					button.toggle();
 				}
 			}
+			this.emit( "active", newActive, oldActive, this );
 		}
 	}
 
@@ -80,6 +109,9 @@ export class DButtonGroup<
 		if( 0 <= index ) {
 			buttons.splice( index, 1 );
 			button.off( "active", this._onActiveBound );
+			if( this._active === button ) {
+				this.active = null;
+			}
 		}
 	}
 
@@ -91,6 +123,7 @@ export class DButtonGroup<
 
 	clear(): void {
 		this._buttons.length = 0;
+		this.active = null;
 	}
 
 	size(): number {

@@ -8,12 +8,12 @@ import InteractionEvent = interaction.InteractionEvent;
 import { DAlignWith } from "./d-align-with";
 import { DApplications } from "./d-applications";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
+import { DColorGradient, DColorGradientPoint } from "./d-color-gradient";
+import { DColorGradientObservable } from "./d-color-gradient-observable";
 import { DInputReal } from "./d-input-real";
 import { DPickerColor } from "./d-picker-color";
-import { DPickerColorGradientData, DPickerColorGradientDataLike } from "./d-picker-color-gradient-data";
-import { DPickerColorGradientDataView } from "./d-picker-color-gradient-data-view";
-import { DPickerColorGradientPoint } from "./d-picker-color-gradient-point";
 import { DPickerColorGradientRecent } from "./d-picker-color-gradient-recent";
+import { DPickerColorGradientView } from "./d-picker-color-gradient-view";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
@@ -38,7 +38,7 @@ export interface DThemePickerColorGradient extends DThemeBase {
 	getGradientRecentWidth(): number;
 	getGradientRecentMargin(): number;
 	getGradientRecentCount(): number;
-	getGradientRecents(): DPickerColorGradientDataLike[];
+	getGradientRecents(): DColorGradient[];
 
 	getGradientCheckerColors(): [ number, number ];
 }
@@ -50,7 +50,7 @@ export class DPickerColorGradient<
 	protected static RECENT_COLOR_GRADIENT: DPickerColorGradientRecent | null = null;
 
 	protected _picker!: DPickerColor;
-	protected _view!: DPickerColorGradientDataView;
+	protected _view!: DPickerColorGradientView;
 	protected _anchors!: Sprite[];
 	protected _recent!: DPickerColorGradientRecent;
 
@@ -58,7 +58,7 @@ export class DPickerColorGradient<
 	protected _onAnchorMoveBound!: ( e: InteractionEvent ) => void;
 	protected _onAnchorUpBound!: ( e: InteractionEvent ) => void;
 
-	protected _data!: DPickerColorGradientData;
+	protected _value!: DColorGradientObservable;
 	protected _work!: Point;
 
 	protected init( options?: OPTIONS ) {
@@ -90,7 +90,7 @@ export class DPickerColorGradient<
 		this.addChild( picker );
 
 		// Points view
-		const view = this._view = DPickerColorGradientDataView.from( 17, 10, theme.getGradientCheckerColors() );
+		const view = this._view = DPickerColorGradientView.from( 17, 10, theme.getGradientCheckerColors() );
 		view.setRectangle( 0, paddingLeft, paddingTop, gradientPointsWidth, picker.height );
 		this.addChild( view );
 		view.on( UtilPointerEvent.down, ( e: InteractionEvent ): void => {
@@ -135,7 +135,7 @@ export class DPickerColorGradient<
 			},
 			on: {
 				change: ( value: number ) => {
-					(this._data as any)._direction = value;
+					(this._value as any)._direction = value;
 				}
 			}
 		});
@@ -173,12 +173,12 @@ export class DPickerColorGradient<
 		});
 
 		// Points
-		const data = this._data = new DPickerColorGradientData();
+		const data = this._value = new DColorGradientObservable();
 		data.on( "change", (): void => {
 			this.updateAnchors();
 			view.update();
 		});
-		data.on( "selectionchange", ( point: DPickerColorGradientPoint ): void => {
+		data.on( "selectionchange", ( point: DColorGradientPoint ): void => {
 			this.onAnchorSelect( point );
 		});
 		data.on( "directionchange", ( value: number ): void => {
@@ -206,20 +206,20 @@ export class DPickerColorGradient<
 		}
 	}
 
-	get data(): DPickerColorGradientData {
-		return this._data;
+	get value(): DColorGradientObservable {
+		return this._value;
 	}
 
 	get recent() {
 		return this._recent;
 	}
 
-	protected onRecentClick( recentData: DPickerColorGradientDataLike | null ) {
-		const data = this._data;
+	protected onRecentClick( recentData: DColorGradient | null ) {
+		const value = this._value;
 		if( recentData != null ) {
-			data.fromObject( recentData );
+			value.fromObject( recentData );
 		} else {
-			data.reset();
+			value.reset();
 		}
 	}
 
@@ -239,23 +239,23 @@ export class DPickerColorGradient<
 	}
 
 	protected onViewDown( e: InteractionEvent ) {
-		this._data.addAt( this.toAnchorPosition( e ) );
+		this._value.addAt( this.toAnchorPosition( e ) );
 		this.onAnchorDragStart();
 	}
 
 	protected onAnchorDown( e: InteractionEvent ) {
 		const target = e.target;
 		if( target instanceof Sprite ) {
-			const data = this._data;
+			const value = this._value;
 			const index = this._anchors.indexOf( target );
-			if( 0 <= index && index < data.points.length ) {
-				data.points[ index ].selected = true;
+			if( 0 <= index && index < value.points.length ) {
+				value.points[ index ].selected = true;
 				this.onAnchorDragStart();
 			}
 		}
 	}
 
-	protected onAnchorSelect( point: DPickerColorGradientPoint ) {
+	protected onAnchorSelect( point: DColorGradientPoint ) {
 		const picker = this._picker;
 		picker.current.color = point.color;
 		picker.current.alpha = point.alpha;
@@ -264,9 +264,9 @@ export class DPickerColorGradient<
 	}
 
 	protected onAnchorColorChange( color: number ) {
-		const points = this._data;
-		if( points != null ) {
-			const selected = points.selected;
+		const value = this._value;
+		if( value != null ) {
+			const selected = value.selected;
 			if( selected != null ) {
 				selected.color = color;
 			}
@@ -274,9 +274,9 @@ export class DPickerColorGradient<
 	}
 
 	protected onAnchorAlphaChange( alpha: number ) {
-		const points = this._data;
-		if( points != null ) {
-			const selected = points.selected;
+		const value = this._value;
+		if( value != null ) {
+			const selected = value.selected;
 			if( selected != null ) {
 				selected.alpha = alpha;
 			}
@@ -293,9 +293,9 @@ export class DPickerColorGradient<
 	}
 
 	protected onAnchorMove( e: InteractionEvent ): void {
-		const points = this._data;
-		if( points != null ) {
-			const selected = points.selected;
+		const value = this._value;
+		if( value != null ) {
+			const selected = value.selected;
 			if( selected != null ) {
 				selected.position = this.toAnchorPosition( e );
 			}
@@ -317,8 +317,8 @@ export class DPickerColorGradient<
 		const anchorOutlinedTexture = theme.getGradientAnchorOutlinedTexture();
 		const gradientPointsWidth = theme.getGradientPointsWidth();
 
-		const data = this._data;
-		const pointSize = data.points.length;
+		const value = this._value;
+		const pointSize = value.points.length;
 
 		const anchors = this._anchors;
 		const anchorSize = anchors.length;
@@ -343,7 +343,7 @@ export class DPickerColorGradient<
 		const right = this.padding.getLeft() + gradientPointsWidth;
 		const height = this._picker.height;
 		for( let i = 0; i < pointSize; ++i ) {
-			const point = data.points[ i ];
+			const point = value.points[ i ];
 			const anchor = anchors[ i ];
 			anchor.tint = point.color;
 			anchor.position.set(
@@ -358,11 +358,11 @@ export class DPickerColorGradient<
 
 	onKeyDown( e: KeyboardEvent ): boolean {
 		if( UtilKeyboardEvent.isDeleteKey( e ) ) {
-			const points = this._data;
-			if( points != null ) {
-				const selected = points.selected;
+			const value = this._value;
+			if( value != null ) {
+				const selected = value.selected;
 				if( selected != null ) {
-					points.remove( selected );
+					value.remove( selected );
 					super.onKeyDown( e );
 					return true;
 				}

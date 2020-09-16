@@ -137,6 +137,14 @@ export abstract class DLayout<
 		this._reverse = toReverse( theme, options );
 	}
 
+	get margin(): DLayoutMargin {
+		return this._margin;
+	}
+
+	get multiplicity(): number {
+		return this._multiplicity;
+	}
+
 	protected getWeightTotal() {
 		const children = this.children;
 		let result = 0;

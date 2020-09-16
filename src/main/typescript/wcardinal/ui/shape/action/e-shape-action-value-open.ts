@@ -6,25 +6,37 @@
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeActionRuntimeOpen } from "./e-shape-action-runtime-open";
+import { EShapeActionRuntimeOpenDialogBoolean } from "./e-shape-action-runtime-open-dialog-boolean";
+import { EShapeActionRuntimeOpenDialogInteger } from "./e-shape-action-runtime-open-dialog-integer";
+import { EShapeActionRuntimeOpenDialogReal } from "./e-shape-action-runtime-open-dialog-real";
+import { EShapeActionRuntimeOpenDialogText } from "./e-shape-action-runtime-open-dialog-text";
 import { EShapeActionRuntimeOpenFlow } from "./e-shape-action-runtime-open-flow";
 import { EShapeActionRuntimeOpenPage } from "./e-shape-action-runtime-open-page";
 import { EShapeActionRuntimeOpenPageInplace } from "./e-shape-action-runtime-open-page-inplace";
 import { EShapeActionValue } from "./e-shape-action-value";
+import { EShapeActionValueOnInputAction } from "./e-shape-action-value-on-input-action";
 import { EShapeActionValueOpenType } from "./e-shape-action-value-open-type";
 import { EShapeActionValueSubtyped } from "./e-shape-action-value-subtyped";
 import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 export type EShapeActionValueOpenSerialized = [
-	EShapeActionValueType.OPEN, number, EShapeActionValueOpenType, number
+	EShapeActionValueType.OPEN, number, EShapeActionValueOpenType, number, EShapeActionValueOnInputAction
 ];
 
 export class EShapeActionValueOpen extends EShapeActionValueSubtyped<EShapeActionValueOpenType> {
 	readonly target: string;
+	readonly onInputAction: EShapeActionValueOnInputAction;
 
-	constructor( subtype: EShapeActionValueOpenType, condition: string, target: string ) {
+	constructor(
+		subtype: EShapeActionValueOpenType,
+		condition: string,
+		target: string,
+		onInputAction: EShapeActionValueOnInputAction
+	) {
 		super( EShapeActionValueType.OPEN, condition, subtype );
 		this.target = target;
+		this.onInputAction = onInputAction;
 	}
 
 	isEquals( value: EShapeActionValue ): boolean {
@@ -43,13 +55,21 @@ export class EShapeActionValueOpen extends EShapeActionValueSubtyped<EShapeActio
 			return new EShapeActionRuntimeOpenPage( this );
 		case EShapeActionValueOpenType.PAGE_INPLACE:
 			return new EShapeActionRuntimeOpenPageInplace( this );
+		case EShapeActionValueOpenType.DIALOG_TEXT:
+			return new EShapeActionRuntimeOpenDialogText( this );
+		case EShapeActionValueOpenType.DIALOG_INTEGER:
+			return new EShapeActionRuntimeOpenDialogInteger( this );
+		case EShapeActionValueOpenType.DIALOG_REAL:
+			return new EShapeActionRuntimeOpenDialogReal( this );
+		case EShapeActionValueOpenType.DIALOG_BOOLEAN:
+			return new EShapeActionRuntimeOpenDialogBoolean( this );
 		}
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
 		const conditionId = manager.addResource(this.condition);
 		const targetId = manager.addResource(this.target);
-		return manager.addResource( `[${this.type},${conditionId},${this.subtype},${targetId}]` );
+		return manager.addResource( `[${this.type},${conditionId},${this.subtype},${targetId},${this.onInputAction}]` );
 	}
 
 	static deserialize(
@@ -58,6 +78,6 @@ export class EShapeActionValueOpen extends EShapeActionValueSubtyped<EShapeActio
 	): EShapeActionValueOpen {
 		const condition = EShapeActionValues.toResource( 1, serialized, manager.resources );
 		const target = EShapeActionValues.toResource( 3, serialized, manager.resources );
-		return new EShapeActionValueOpen( serialized[ 2 ], condition, target );
+		return new EShapeActionValueOpen( serialized[ 2 ], condition, target, serialized[ 4 ] );
 	}
 }

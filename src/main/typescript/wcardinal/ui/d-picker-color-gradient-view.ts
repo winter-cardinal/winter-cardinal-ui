@@ -5,7 +5,7 @@
 
 import { Buffer, Geometry, Mesh, Point, Rectangle, Shader, Texture, TextureUvs, utils } from "pixi.js";
 import { DApplications } from "./d-applications";
-import { DPickerColorGradientDataLike } from "./d-picker-color-gradient-data";
+import { DColorGradient } from "./d-color-gradient";
 
 const VERTEX_SHADER = `
 attribute vec2 aPosition;
@@ -41,9 +41,9 @@ void main(void) {
 	gl_FragColor = texture * vec4( mix( vec3( c ), vColor.xyz, vColor.a ), 1.0 );
 }`;
 
-type Parts = Array<{ data: DPickerColorGradientDataLike | null, rect: Rectangle }>;
+type Parts = Array<{ data: DColorGradient | null, rect: Rectangle }>;
 
-export class DPickerColorGradientDataView extends Mesh {
+export class DPickerColorGradientView extends Mesh {
 	protected _nPointsPerData: number;
 	protected _vertices: Float32Array;
 	protected _uvs: Float32Array;
@@ -103,7 +103,7 @@ export class DPickerColorGradientDataView extends Mesh {
 		}
 	}
 
-	getData( index: number ): DPickerColorGradientDataLike | null {
+	getData( index: number ): DColorGradient | null {
 		const parts = this._parts;
 		if( 0 <= index && index < parts.length ) {
 			return parts[ index ].data;
@@ -111,7 +111,7 @@ export class DPickerColorGradientDataView extends Mesh {
 		return null;
 	}
 
-	setData( index: number, data: DPickerColorGradientDataLike | null ): void {
+	setData( index: number, data: DColorGradient | null ): void {
 		const parts = this._parts;
 		if( 0 <= index && index < parts.length ) {
 			parts[ index ].data = data;
@@ -146,7 +146,7 @@ export class DPickerColorGradientDataView extends Mesh {
 		this.setColors( ic, colors, rgb, 0 );
 	}
 
-	private setColorsPoint( ic: number, data: DPickerColorGradientDataLike, index: number, colors: Float32Array ) {
+	private setColorsPoint( ic: number, data: DColorGradient, index: number, colors: Float32Array ) {
 		const point = data.points[ index ];
 		if( point != null ) {
 			this.setColorsHex( ic, colors, point.color, point.alpha );
@@ -308,7 +308,7 @@ export class DPickerColorGradientDataView extends Mesh {
 			.addAttribute( "aColor", new Buffer( colors, false, false ), 4 );
 		const shader = Shader.from( VERTEX_SHADER, FRAGMENT_SHADER, { uSampler: texture, uCheckerColors: checkerColors } );
 
-		return new DPickerColorGradientDataView(
+		return new DPickerColorGradientView(
 			nPointsPerData,
 			vertices, uvs, colors, indices,
 			parts, geometry, shader

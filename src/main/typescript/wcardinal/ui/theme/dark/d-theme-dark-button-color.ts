@@ -6,7 +6,7 @@
 import { Texture } from "pixi.js";
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DButtonColor, DThemeButtonColor } from "../../d-button-color";
-import { DColorAndAlpha } from "../../d-color";
+import { DColorAndAlpha } from "../../d-color-and-alpha";
 import { UtilRgb } from "../../util/util-rgb";
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
 import { DThemeDarkButton } from "./d-theme-dark-button";

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DColorAndAlpha } from "./d-color";
+import { DColorAndAlpha } from "./d-color-and-alpha";
 import { DDialogCommand, DDialogCommandOptions, DThemeDialogCommand } from "./d-dialog-command";
 import { DLayoutVertical } from "./d-layout-vertical";
 import { DPickerColor, DPickerColorOptions } from "./d-picker-color";
@@ -22,7 +22,7 @@ export interface DThemeDialogColor extends DThemeDialogCommand {
 export class DDialogColor<
 	THEME extends DThemeDialogColor = DThemeDialogColor,
 	OPTIONS extends DDialogColorOptions<THEME> = DDialogColorOptions<THEME>
-> extends DDialogCommand<THEME, OPTIONS> {
+> extends DDialogCommand<DColorAndAlpha, THEME, OPTIONS> {
 	protected _picker!: DPickerColor;
 
 	protected onInit( layout: DLayoutVertical, options?: OPTIONS ) {
@@ -54,6 +54,10 @@ export class DDialogColor<
 
 	get picker(): DPickerColor {
 		return this._picker;
+	}
+
+	protected doResolve( resolve: ( value?: DColorAndAlpha | PromiseLike<DColorAndAlpha> ) => void ): void {
+		resolve( this.new );
 	}
 
 	protected getType(): string {

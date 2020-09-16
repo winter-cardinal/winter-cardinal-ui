@@ -185,7 +185,7 @@ export class DDialogSelect<
 	VALUE extends unknown = unknown,
 	THEME extends DThemeDialogSelect = DThemeDialogSelect,
 	OPTIONS extends DDialogSelectOptions<VALUE, THEME> = DDialogSelectOptions<VALUE, THEME>
-> extends DDialogCommand<THEME, OPTIONS> {
+> extends DDialogCommand<VALUE | null, THEME, OPTIONS> {
 	protected _value!: VALUE | null;
 	protected _input!: DInputText;
 	protected _list!: DDialogSelectList;
@@ -310,6 +310,10 @@ export class DDialogSelect<
 
 	get value(): VALUE | null {
 		return this._value;
+	}
+
+	protected doResolve( resolve: ( value?: VALUE | null | PromiseLike<VALUE | null> ) => void ): void {
+		resolve( this.value );
 	}
 
 	protected getType(): string {

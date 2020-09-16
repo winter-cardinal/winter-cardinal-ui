@@ -4,14 +4,8 @@
  */
 
 import { DThemeDialogInputText } from "../../d-dialog-input-text";
-import { DThemeDarkDialogCommand } from "./d-theme-dark-dialog-command";
+import { DThemeDarkDialogInput } from "./d-theme-dark-dialog-input";
 
-export class DThemeDarkDialogInputText extends DThemeDarkDialogCommand implements DThemeDialogInputText {
-	getLabel(): string {
-		return "";
-	}
+export class DThemeDarkDialogInputText extends DThemeDarkDialogInput implements DThemeDialogInputText {
 
-	getLabelWidth(): number {
-		return 60;
-	}
 }

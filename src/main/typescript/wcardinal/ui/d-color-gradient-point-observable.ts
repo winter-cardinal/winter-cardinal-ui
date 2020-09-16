@@ -3,15 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-type Callback = ( target: DPickerColorGradientPoint ) => void;
+import { DColorGradientPoint } from "./d-color-gradient";
 
-export interface DPickerColorGradientPointLike {
-	color: number;
-	alpha: number;
-	position: number;
-}
+type Callback = ( target: DColorGradientPointObservable ) => void;
 
-export class DPickerColorGradientPoint implements DPickerColorGradientPointLike {
+export class DColorGradientPointObservable implements DColorGradientPoint {
 	protected _color: number;
 	protected _alpha: number;
 	protected _position: number;
@@ -80,7 +76,7 @@ export class DPickerColorGradientPoint implements DPickerColorGradientPointLike 
 		}
 	}
 
-	toObject(): DPickerColorGradientPointLike {
+	toObject(): DColorGradientPoint {
 		return {
 			color: this._color,
 			alpha: this._alpha,

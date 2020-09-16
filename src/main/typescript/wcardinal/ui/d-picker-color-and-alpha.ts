@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DColorAndAlpha } from "./d-color";
+import { DColorAndAlpha } from "./d-color-and-alpha";
 
 export class DPickerColorAndAlpha implements DColorAndAlpha {
 	protected _colorAndAlpha: DColorAndAlpha;

@@ -7,7 +7,7 @@ import { Container, interaction, Point, Sprite, Texture } from "pixi.js";
 import InteractionEvent = interaction.InteractionEvent;
 import { DApplications } from "./d-applications";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
-import { DColorAndAlpha } from "./d-color";
+import { DColorAndAlpha } from "./d-color-and-alpha";
 import { DInputRealAndLabel } from "./d-input-real-and-label";
 import { DInputTextAndLabel } from "./d-input-text-and-label";
 import { DPickerColorAndAlpha } from "./d-picker-color-and-alpha";

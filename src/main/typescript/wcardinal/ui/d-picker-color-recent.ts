@@ -4,7 +4,7 @@
  */
 
 import { utils } from "pixi.js";
-import { DColorAndAlpha } from "./d-color";
+import { DColorAndAlpha } from "./d-color-and-alpha";
 
 export class DPickerColorRecent extends utils.EventEmitter {
 	protected _recents: DColorAndAlpha[];

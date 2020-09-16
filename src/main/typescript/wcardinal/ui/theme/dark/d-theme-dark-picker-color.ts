@@ -6,7 +6,7 @@
 import { Texture } from "pixi.js";
 import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseStateSet } from "../../d-base-state-set";
-import { DColorAndAlpha } from "../../d-color";
+import { DColorAndAlpha } from "../../d-color-and-alpha";
 import { DThemePickerColor } from "../../d-picker-color";
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
 import { DThemeDarkBase } from "./d-theme-dark-base";

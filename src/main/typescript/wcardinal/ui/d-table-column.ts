@@ -95,7 +95,7 @@ export interface DTableColumnSorting<ROW> {
 
 export interface DTableColumnSelectingDialog<VALUE> {
 	readonly value: VALUE;
-	open(): Promise<void>;
+	open(): Promise<VALUE>;
 }
 
 export interface DTableColumnSelectingOptions<

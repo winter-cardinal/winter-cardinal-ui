@@ -4,14 +4,8 @@
  */
 
 import { DThemeDialogInputText } from "../../d-dialog-input-text";
-import { DThemeWhiteDialogCommand } from "./d-theme-white-dialog-command";
+import { DThemeWhiteDialogInput } from "./d-theme-white-dialog-input";
 
-export class DThemeWhiteDialogInputText extends DThemeWhiteDialogCommand implements DThemeDialogInputText {
-	getLabel(): string {
-		return "";
-	}
+export class DThemeWhiteDialogInputText extends DThemeWhiteDialogInput implements DThemeDialogInputText {
 
-	getLabelWidth(): number {
-		return 60;
-	}
 }

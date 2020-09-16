@@ -31,4 +31,8 @@ export class DThemeDarkDialogCommand extends DThemeDarkDialog implements DThemeD
 	getLayoutHeight(): DCoordinateSize {
 		return "auto";
 	}
+
+	getLayoutMargin(): number | undefined {
+		return undefined;
+	}
 }

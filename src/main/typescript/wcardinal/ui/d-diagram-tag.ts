@@ -1,4 +1,5 @@
 import { DDiagramCanvasTagMap } from "./d-diagram-canvas-tag-map";
+import { DDiagramTagRemote, DDiagramTagRemoteOptions } from "./d-diagram-tag-remote";
 import { EShape } from "./shape/e-shape";
 import { EShapeTagValue } from "./shape/e-shape-tag-value";
 import { EShapeTagValueRangeType } from "./shape/e-shape-tag-value-range";
@@ -24,6 +25,11 @@ export interface DDiagramTagOptions {
 	 * A tag mapper.
 	 */
 	mapper?: DDiagramTagMapper;
+
+	/**
+	 * Remote tag options.
+	 */
+	remote?: DDiagramTagRemoteOptions;
 }
 
 /**
@@ -32,10 +38,12 @@ export interface DDiagramTagOptions {
 export class DDiagramTag {
 	protected _diagram: DDiagramTagDiagram;
 	protected _mapper: DDiagramTagMapper | null;
+	protected _remote: DDiagramTagRemote;
 
 	constructor( diagram: DDiagramTagDiagram, options?: DDiagramTagOptions ) {
 		this._diagram = diagram;
 		this._mapper = (options && options.mapper) || null;
+		this._remote = new DDiagramTagRemote( options && options.remote );
 	}
 
 	update(): void {
@@ -48,6 +56,10 @@ export class DDiagramTag {
 
 	set mapper( mapper: DDiagramTagMapper | null ) {
 		this._mapper = mapper;
+	}
+
+	get remote(): DDiagramTagRemote {
+		return this._remote;
 	}
 
 	getIds(): string[] {

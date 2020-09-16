@@ -6,8 +6,8 @@
 import { Texture } from "pixi.js";
 import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseStateSet } from "../../d-base-state-set";
+import { DColorGradient } from "../../d-color-gradient";
 import { DThemePickerColorGradient } from "../../d-picker-color-gradient";
-import { DPickerColorGradientDataLike } from "../../d-picker-color-gradient-data";
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
 import { DThemeDarkBase } from "./d-theme-dark-base";
 
@@ -56,7 +56,7 @@ export class DThemeDarkPickerColorGradient extends DThemeDarkBase implements DTh
 		return 16;
 	}
 
-	getGradientRecents(): DPickerColorGradientDataLike[] {
+	getGradientRecents(): DColorGradient[] {
 		return [];
 	}
 

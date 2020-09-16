@@ -4,7 +4,7 @@
  */
 
 import { DButtonColor, DButtonColorOptions, DThemeButtonColor } from "./d-button-color";
-import { DColorAndAlpha } from "./d-color";
+import { DColorAndAlpha } from "./d-color-and-alpha";
 import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";

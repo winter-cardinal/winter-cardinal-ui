@@ -24,7 +24,7 @@ export interface DThemeDialogConfirm extends DThemeDialogCommand {
 export class DDialogConfirm<
 	THEME extends DThemeDialogConfirm = DThemeDialogConfirm,
 	OPTIONS extends DDialogConfirmOptions<THEME> = DDialogConfirmOptions<THEME>
-> extends DDialogCommand<THEME, OPTIONS> {
+> extends DDialogCommand<void, THEME, OPTIONS> {
 	protected _message!: DDialogConfirmMessage;
 
 	protected onInit( layout: DLayoutVertical, options?: OPTIONS ) {

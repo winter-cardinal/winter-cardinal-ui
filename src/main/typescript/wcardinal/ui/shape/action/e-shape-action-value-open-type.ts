@@ -6,5 +6,9 @@
 export enum EShapeActionValueOpenType {
 	FLOW,
 	PAGE,
-	PAGE_INPLACE
+	PAGE_INPLACE,
+	DIALOG_TEXT,
+	DIALOG_INTEGER,
+	DIALOG_REAL,
+	DIALOG_BOOLEAN
 }

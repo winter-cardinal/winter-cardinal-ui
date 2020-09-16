@@ -31,4 +31,8 @@ export class DThemeWhiteDialogCommand extends DThemeWhiteDialog implements DThem
 	getLayoutHeight(): DCoordinateSize {
 		return "auto";
 	}
+
+	getLayoutMargin(): number | undefined {
+		return undefined;
+	}
 }

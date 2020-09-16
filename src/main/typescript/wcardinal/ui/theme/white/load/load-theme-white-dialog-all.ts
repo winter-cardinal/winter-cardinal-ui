@@ -12,6 +12,9 @@ import { loadThemeWhiteDialogConfirmDelete } from "./load-theme-white-dialog-con
 import { loadThemeWhiteDialogConfirmDiscard } from "./load-theme-white-dialog-confirm-discard";
 import { loadThemeWhiteDialogDate } from "./load-theme-white-dialog-date";
 import { loadThemeWhiteDialogDatetime } from "./load-theme-white-dialog-datetime";
+import { loadThemeWhiteDialogInputBoolean } from "./load-theme-white-dialog-input-boolean";
+import { loadThemeWhiteDialogInputInteger } from "./load-theme-white-dialog-input-integer";
+import { loadThemeWhiteDialogInputReal } from "./load-theme-white-dialog-input-real";
 import { loadThemeWhiteDialogInputText } from "./load-theme-white-dialog-input-text";
 import { loadThemeWhiteDialogMessage } from "./load-theme-white-dialog-message";
 import { loadThemeWhiteDialogProcessing } from "./load-theme-white-dialog-processing";
@@ -28,6 +31,9 @@ export const loadThemeWhiteDialogAll = () => {
 	loadThemeWhiteDialogConfirm();
 	loadThemeWhiteDialogDate();
 	loadThemeWhiteDialogDatetime();
+	loadThemeWhiteDialogInputBoolean();
+	loadThemeWhiteDialogInputInteger();
+	loadThemeWhiteDialogInputReal();
 	loadThemeWhiteDialogInputText();
 	loadThemeWhiteDialogMessage();
 	loadThemeWhiteDialogProcessing();

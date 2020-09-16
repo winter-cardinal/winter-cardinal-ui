@@ -245,6 +245,14 @@ export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
 			return "Page (New window)";
 		case EShapeActionValueOpenType.PAGE_INPLACE:
 			return "Page (In-place)";
+		case EShapeActionValueOpenType.DIALOG_TEXT:
+			return "Dialog (Text)";
+		case EShapeActionValueOpenType.DIALOG_INTEGER:
+			return "Dialog (Integer)";
+		case EShapeActionValueOpenType.DIALOG_REAL:
+			return "Dialog (Real)";
+		case EShapeActionValueOpenType.DIALOG_BOOLEAN:
+			return "Dialog (Boolean)";
 		}
 		return "Unknown";
 	}

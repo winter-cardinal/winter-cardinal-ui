@@ -5,7 +5,7 @@
 
 import { Texture } from "pixi.js";
 import { DButtonColorGradient, DThemeButtonColorGradient } from "../../d-button-color-gradient";
-import { DPickerColorGradientData } from "../../d-picker-color-gradient-data";
+import { DColorGradientObservable } from "../../d-color-gradient-observable";
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
 import { DThemeDarkButton } from "./d-theme-dark-button";
 
@@ -28,12 +28,12 @@ export class DThemeDarkButtonColorGradient extends DThemeDarkButton implements D
 		return DThemeDarkAtlas.mappings.button_color_gradient_sample;
 	}
 
-	getTextFormatter(): ( value: DPickerColorGradientData, caller: DButtonColorGradient ) => string {
+	getTextFormatter(): ( value: DColorGradientObservable, caller: DButtonColorGradient ) => string {
 		return formatter;
 	}
 
-	newTextValue(): DPickerColorGradientData {
-		return new DPickerColorGradientData();
+	newTextValue(): DColorGradientObservable {
+		return new DColorGradientObservable();
 	}
 
 	getCheckerColors(): [ number, number ] {

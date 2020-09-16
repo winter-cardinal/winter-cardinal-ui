@@ -6,7 +6,7 @@
 import { DApplications } from "./d-applications";
 import { DBaseStateSet } from "./d-base-state-set";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
-import { DColorAndAlpha } from "./d-color";
+import { DColorAndAlpha } from "./d-color-and-alpha";
 import { DDialogColor, DDialogColorOptions } from "./d-dialog-color";
 import { DImagePieceOptions, DImagePieceTintOptions } from "./d-image-piece";
 import { DPickerColorAndAlpha } from "./d-picker-color-and-alpha";

@@ -4,41 +4,37 @@
  */
 
 import { utils } from "pixi.js";
-import { DPickerColorGradientPoint, DPickerColorGradientPointLike } from "./d-picker-color-gradient-point";
+import { DColorGradient, DColorGradientPoint } from "./d-color-gradient";
+import { DColorGradientPointObservable } from "./d-color-gradient-point-observable";
 
-const POINT_SORTER = ( a: DPickerColorGradientPoint, b: DPickerColorGradientPoint ): number => {
+const POINT_SORTER = ( a: DColorGradientPoint, b: DColorGradientPoint ): number => {
 	return a.position - b.position;
 };
 
-export interface DPickerColorGradientDataLike {
-	points: DPickerColorGradientPointLike[];
-	direction: number;
-}
-
-export class DPickerColorGradientData extends utils.EventEmitter {
-	protected _points: DPickerColorGradientPoint[];
+export class DColorGradientObservable extends utils.EventEmitter implements DColorGradient {
+	protected _points: DColorGradientPointObservable[];
 	protected _direction: number;
-	protected _selected: DPickerColorGradientPoint | null;
+	protected _selected: DColorGradientPointObservable | null;
 
-	protected _onChangeBound: ( target: DPickerColorGradientPoint ) => void;
+	protected _onChangeBound: ( target: DColorGradientPointObservable ) => void;
 	protected _workColor: number[];
 
 	constructor() {
 		super();
 
-		this._onChangeBound = ( target: DPickerColorGradientPoint ): void => {
+		this._onChangeBound = ( target: DColorGradientPointObservable ): void => {
 			this.onChange( target );
 		};
 
-		const first = new DPickerColorGradientPoint( 0xffffff, 1, 0, false, this._onChangeBound );
-		const second = new DPickerColorGradientPoint( 0x808080, 1, 1, true, this._onChangeBound );
+		const first = new DColorGradientPointObservable( 0xffffff, 1, 0, false, this._onChangeBound );
+		const second = new DColorGradientPointObservable( 0x808080, 1, 1, true, this._onChangeBound );
 		this._points = [ first, second ];
 		this._direction = -90;
 		this._selected = second;
 		this._workColor = [ 0, 0, 0 ];
 	}
 
-	protected onChange( target: DPickerColorGradientPoint ): void {
+	protected onChange( target: DColorGradientPointObservable ): void {
 		const isSelectionChanged = ( target.selected && this._selected !== target );
 		if( isSelectionChanged ) {
 			const selected = this._selected;
@@ -54,7 +50,7 @@ export class DPickerColorGradientData extends utils.EventEmitter {
 		this.emit( "change", this );
 	}
 
-	get points(): DPickerColorGradientPoint[] {
+	get points(): DColorGradientPointObservable[] {
 		return this._points;
 	}
 
@@ -70,7 +66,7 @@ export class DPickerColorGradientData extends utils.EventEmitter {
 		}
 	}
 
-	get selected(): DPickerColorGradientPoint | null {
+	get selected(): DColorGradientPointObservable | null {
 		return this._selected;
 	}
 
@@ -78,7 +74,7 @@ export class DPickerColorGradientData extends utils.EventEmitter {
 		return this._points.length;
 	}
 
-	get( index: number ): DPickerColorGradientPoint | null {
+	get( index: number ): DColorGradientPointObservable | null {
 		const points = this._points;
 		if( 0 <= index && index < points.length ) {
 			return points[ index ];
@@ -86,9 +82,9 @@ export class DPickerColorGradientData extends utils.EventEmitter {
 		return null;
 	}
 
-	addAt( position: number ): DPickerColorGradientPoint {
+	addAt( position: number ): DColorGradientPointObservable {
 		const points = this._points;
-		let previous: DPickerColorGradientPoint | null = null;
+		let previous: DColorGradientPointObservable | null = null;
 		for( let i = 0, imax = points.length; i < imax; ++i ) {
 			const point = points[ i ];
 			if( position <= point.position ) {
@@ -132,14 +128,14 @@ export class DPickerColorGradientData extends utils.EventEmitter {
 		}
 	}
 
-	add( color: number, alpha: number, position: number, selected: boolean ): DPickerColorGradientPoint {
-		const result = new DPickerColorGradientPoint( color, alpha, position, selected, this._onChangeBound );
+	add( color: number, alpha: number, position: number, selected: boolean ): DColorGradientPointObservable {
+		const result = new DColorGradientPointObservable( color, alpha, position, selected, this._onChangeBound );
 		this._points.push( result );
 		this._onChangeBound( result );
 		return result;
 	}
 
-	remove( point: DPickerColorGradientPoint ): boolean {
+	remove( point: DColorGradientPointObservable ): boolean {
 		const points = this._points;
 		if( 2 < points.length ) {
 			for( let i = 0, imax = points.length; i < imax; ++i ) {
@@ -172,8 +168,8 @@ export class DPickerColorGradientData extends utils.EventEmitter {
 		const oldSelected = this._selected;
 		const index = ( oldSelected ? points.indexOf( oldSelected ) : -1 );
 		points.length = 0;
-		points.push( new DPickerColorGradientPoint( 0xffffff, 0, 0, false, this._onChangeBound ) );
-		points.push( new DPickerColorGradientPoint( 0xffffff, 0, 1, false, this._onChangeBound ) );
+		points.push( new DColorGradientPointObservable( 0xffffff, 0, 0, false, this._onChangeBound ) );
+		points.push( new DColorGradientPointObservable( 0xffffff, 0, 1, false, this._onChangeBound ) );
 
 		if( 0 <= index && index < points.length ) {
 			const point = points[ index ];
@@ -198,7 +194,7 @@ export class DPickerColorGradientData extends utils.EventEmitter {
 		return this;
 	}
 
-	toObject(): DPickerColorGradientDataLike {
+	toObject(): DColorGradient {
 		const pointsCopy = [];
 		const points = this._points;
 		for( let i = 0, imax = points.length; i < imax; ++i ) {
@@ -210,7 +206,7 @@ export class DPickerColorGradientData extends utils.EventEmitter {
 		};
 	}
 
-	fromObject( data: DPickerColorGradientDataLike ): this {
+	fromObject( data: DColorGradient ): this {
 		const oldDirection = this._direction;
 		this._direction = data.direction;
 
@@ -220,7 +216,7 @@ export class DPickerColorGradientData extends utils.EventEmitter {
 		points.length = 0;
 		for( let i = 0, imax = data.points.length; i < imax; ++i ) {
 			const pointLike = data.points[ i ];
-			const point = new DPickerColorGradientPoint(
+			const point = new DColorGradientPointObservable(
 				pointLike.color, pointLike.alpha, pointLike.position,
 				false, this._onChangeBound
 			);

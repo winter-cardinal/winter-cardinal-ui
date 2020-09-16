@@ -7,14 +7,14 @@ import { Texture } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBaseStateSet } from "./d-base-state-set";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
+import { DColorGradientObservable } from "./d-color-gradient-observable";
 import { DDialogColorGradient, DDialogColorGradientOptions } from "./d-dialog-color-gradient";
-import { DPickerColorGradientData } from "./d-picker-color-gradient-data";
-import { DPickerColorGradientDataView } from "./d-picker-color-gradient-data-view";
+import { DPickerColorGradientView } from "./d-picker-color-gradient-view";
 
 /**
  * {@link DButtonColorGradient} events.
  */
-export interface DButtonColorGradientEvents<EMITTER> extends DButtonEvents<DPickerColorGradientData, EMITTER> {
+export interface DButtonColorGradientEvents<EMITTER> extends DButtonEvents<DColorGradientObservable, EMITTER> {
 	/**
 	 * Triggered when a selection is changed.
 	 *
@@ -22,7 +22,7 @@ export interface DButtonColorGradientEvents<EMITTER> extends DButtonEvents<DPick
 	 * @param oldValue a previously selected value
 	 * @param emitter an emitter
 	 */
-	change( newValue: DPickerColorGradientData, oldValue: DPickerColorGradientData, emitter: EMITTER ): void;
+	change( newValue: DColorGradientObservable, oldValue: DColorGradientObservable, emitter: EMITTER ): void;
 }
 
 /**
@@ -39,7 +39,7 @@ export interface DButtonColorGradientOnOptions<EMITTER>
 export interface DButtonColorGradientOptions<
 	THEME extends DThemeButtonColorGradient = DThemeButtonColorGradient,
 	EMITTER = any
-> extends DButtonOptions<DPickerColorGradientData, THEME, EMITTER> {
+> extends DButtonOptions<DColorGradientObservable, THEME, EMITTER> {
 	dialog?: DDialogColorGradientOptions;
 	on?: DButtonColorGradientOnOptions<EMITTER>;
 }
@@ -49,20 +49,20 @@ export interface DButtonColorGradientOptions<
  */
 export interface DThemeButtonColorGradient extends DThemeButton {
 	getViewBaseTexture(): Texture | null;
-	getTextFormatter(): ( value: DPickerColorGradientData, caller: DButtonColorGradient ) => string;
-	getTextValue( state: DBaseStateSet ): DPickerColorGradientData;
-	newTextValue(): DPickerColorGradientData;
+	getTextFormatter(): ( value: DColorGradientObservable, caller: DButtonColorGradient ) => string;
+	getTextValue( state: DBaseStateSet ): DColorGradientObservable;
+	newTextValue(): DColorGradientObservable;
 	getCheckerColors(): [ number, number ];
 }
 
 export class DButtonColorGradient<
 	THEME extends DThemeButtonColorGradient = DThemeButtonColorGradient,
 	OPTIONS extends DButtonColorGradientOptions<THEME> = DButtonColorGradientOptions<THEME>
-> extends DButton<DPickerColorGradientData, THEME, OPTIONS> {
+> extends DButton<DColorGradientObservable, THEME, OPTIONS> {
 	protected static DIALOG?: DDialogColorGradient;
 	protected _dialog?: DDialogColorGradient;
 	protected _dialogOptions?: DDialogColorGradientOptions;
-	protected _view?: DPickerColorGradientDataView;
+	protected _view?: DPickerColorGradientView;
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
@@ -75,7 +75,7 @@ export class DButtonColorGradient<
 			const texture = theme.getViewBaseTexture();
 			if( texture instanceof Texture ) {
 				const checkers = theme.getCheckerColors();
-				const view = this._view = DPickerColorGradientDataView.from( 1, 10, checkers, texture );
+				const view = this._view = DPickerColorGradientView.from( 1, 10, checkers, texture );
 				view.setRectangle( 0, 0, 0, texture.width, texture.height );
 				view.setData( 0, data );
 				view.update();
@@ -85,10 +85,10 @@ export class DButtonColorGradient<
 
 		this.on( "active", (): void => {
 			const dialog = this.dialog;
-			dialog.data.fromObject( data );
+			dialog.value.fromObject( data );
 			dialog.open().then((): void => {
-				const newValue = dialog.data;
-				const oldValue = new DPickerColorGradientData().fromObject( data );
+				const newValue = dialog.value;
+				const oldValue = new DColorGradientObservable().fromObject( data );
 				data.fromObject( newValue );
 				const view = this._view;
 				if( view != null ) {
@@ -119,7 +119,7 @@ export class DButtonColorGradient<
 		return dialog;
 	}
 
-	get value(): DPickerColorGradientData {
+	get value(): DColorGradientObservable {
 		return this._textValueComputed;
 	}
 

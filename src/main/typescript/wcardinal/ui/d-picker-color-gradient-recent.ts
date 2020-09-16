@@ -4,9 +4,9 @@
  */
 
 import { utils } from "pixi.js";
-import { DPickerColorGradientDataLike } from "./d-picker-color-gradient-data";
+import { DColorGradient } from "./d-color-gradient";
 
-const isEqual = ( a: DPickerColorGradientDataLike, b: DPickerColorGradientDataLike ) => {
+const isEqual = ( a: DColorGradient, b: DColorGradient ) => {
 	if( a.direction !== b.direction ) {
 		return false;
 	}
@@ -29,10 +29,10 @@ const isEqual = ( a: DPickerColorGradientDataLike, b: DPickerColorGradientDataLi
 };
 
 export class DPickerColorGradientRecent extends utils.EventEmitter {
-	protected _recents: DPickerColorGradientDataLike[];
+	protected _recents: DColorGradient[];
 	protected _capacity: number;
 
-	constructor( recents: DPickerColorGradientDataLike[], capacity: number ) {
+	constructor( recents: DColorGradient[], capacity: number ) {
 		super();
 
 		this._recents = recents;
@@ -43,7 +43,7 @@ export class DPickerColorGradientRecent extends utils.EventEmitter {
 		return this._capacity;
 	}
 
-	get( index: number ): DPickerColorGradientDataLike | null {
+	get( index: number ): DColorGradient | null {
 		const recents = this._recents;
 		if( 0 <= index && index < recents.length ) {
 			return recents[ recents.length - 1 - index ];
@@ -51,7 +51,7 @@ export class DPickerColorGradientRecent extends utils.EventEmitter {
 		return null;
 	}
 
-	set( index: number, points: DPickerColorGradientDataLike ): DPickerColorGradientDataLike | null {
+	set( index: number, points: DColorGradient ): DColorGradient | null {
 		const recents = this._recents;
 		if( 0 <= index && index < recents.length ) {
 			const result = recents[ recents.length - 1 - index ];
@@ -62,7 +62,7 @@ export class DPickerColorGradientRecent extends utils.EventEmitter {
 		return null;
 	}
 
-	contains( points: DPickerColorGradientDataLike ): boolean {
+	contains( points: DColorGradient ): boolean {
 		const recents = this._recents;
 		for( let i = 0, imax = recents.length; i < imax; ++i ) {
 			if( isEqual( recents[ i ], points ) ) {
@@ -72,7 +72,7 @@ export class DPickerColorGradientRecent extends utils.EventEmitter {
 		return false;
 	}
 
-	add( points: DPickerColorGradientDataLike ): this {
+	add( points: DColorGradient ): this {
 		const recents = this._recents;
 		recents.push( points );
 		if( this._capacity < recents.length ) {
@@ -82,7 +82,7 @@ export class DPickerColorGradientRecent extends utils.EventEmitter {
 		return this;
 	}
 
-	pop(): DPickerColorGradientDataLike | null {
+	pop(): DColorGradient | null {
 		const recents = this._recents;
 		const result = recents.shift();
 		if( result != null ) {

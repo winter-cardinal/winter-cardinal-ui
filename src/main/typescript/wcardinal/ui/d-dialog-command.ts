@@ -71,18 +71,20 @@ export interface DThemeDialogCommand extends DThemeDialog {
 	getLayoutY(): DCoordinatePosition;
 	getLayoutWidth(): DCoordinateSize;
 	getLayoutHeight(): DCoordinateSize;
+	getLayoutMargin(): number | undefined;
 }
 
 /**
  * A dialog with "ok" and "cancel" buttons.
  */
 export class DDialogCommand<
+	VALUE = void,
 	THEME extends DThemeDialogCommand = DThemeDialogCommand,
 	OPTIONS extends DDialogCommandOptions<THEME> = DDialogCommandOptions<THEME>
 > extends DDialog<THEME, OPTIONS> {
-	protected _promise: Promise<void> | null = null;
-	protected _resolve: (() => void) | null = null;
-	protected _reject: (() => void) | null = null;
+	protected _promise: Promise<VALUE> | null = null;
+	protected _resolve: (( value?: VALUE | PromiseLike<VALUE> ) => void) | null = null;
+	protected _reject: (( reason?: any ) => void) | null = null;
 	protected _buttonLayout?: DLayoutHorizontal;
 	protected _buttonOk?: DButton;
 	protected _buttonCancel?: DButton;
@@ -96,7 +98,8 @@ export class DDialogCommand<
 			x: theme.getLayoutX(),
 			y: theme.getLayoutY(),
 			width: theme.getLayoutWidth(),
-			height: theme.getLayoutHeight()
+			height: theme.getLayoutHeight(),
+			margin: theme.getLayoutMargin()
 		});
 
 		this.onInit( layout, options );
@@ -109,7 +112,7 @@ export class DDialogCommand<
 				parent: layout,
 				width: "padding", height: "auto",
 				padding: {
-					top: this.padding.getTop()
+					top: Math.max( 0, this.padding.getTop() - layout.margin.vertical )
 				}
 			});
 			this._buttonLayout = buttonLayout;
@@ -176,7 +179,7 @@ export class DDialogCommand<
 		// OVERRIDE THIS
 	}
 
-	open(): Promise<void> {
+	open(): Promise<VALUE> {
 		super.open();
 		return this._promise!;
 	}
@@ -185,7 +188,7 @@ export class DDialogCommand<
 		super.onOpen();
 
 		if( this._promise == null ) {
-			this._promise = new Promise(( resolve, reject ): void => {
+			this._promise = new Promise<VALUE>(( resolve, reject ): void => {
 				this._resolve = resolve;
 				this._reject = reject;
 			});
@@ -214,7 +217,7 @@ export class DDialogCommand<
 		this.close();
 
 		if( resolve != null ) {
-			resolve();
+			this.doResolve( resolve );
 		}
 
 		this.emit( "ok", this );
@@ -229,10 +232,18 @@ export class DDialogCommand<
 		this.close();
 
 		if( reject != null ) {
-			reject();
+			this.doReject( reject );
 		}
 
 		this.emit( "cancel", this );
+	}
+
+	protected doResolve( resolve: ( value?: VALUE | PromiseLike<VALUE> ) => void ): void {
+		resolve();
+	}
+
+	protected doReject( reject: ( reason?: any ) => void ): void {
+		reject();
 	}
 
 	protected getType(): string {

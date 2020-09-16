@@ -20,7 +20,7 @@ export interface DThemeDialogDatetime extends DThemeDialogCommand {
 export class DDialogDatetime<
 	THEME extends DThemeDialogDatetime = DThemeDialogDatetime,
 	OPTIONS extends DDialogDatetimeOptions<THEME> = DDialogDatetimeOptions<THEME>
-> extends DDialogCommand<THEME, OPTIONS> {
+> extends DDialogCommand<Date, THEME, OPTIONS> {
 	protected _picker!: DPickerDatetime;
 
 	protected onInit( layout: DLayoutVertical, options?: OPTIONS ) {
@@ -57,6 +57,10 @@ export class DDialogDatetime<
 
 	get picker(): DPickerDatetime {
 		return this._picker;
+	}
+
+	protected doResolve( resolve: ( value?: Date | PromiseLike<Date> ) => void ): void {
+		resolve( this.new );
 	}
 
 	protected getType(): string {
