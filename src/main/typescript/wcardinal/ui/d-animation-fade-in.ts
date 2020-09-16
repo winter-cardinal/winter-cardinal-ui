@@ -99,11 +99,9 @@ export class DAnimationFadeIn<TARGET extends DBase = DBase> extends DAnimationBa
 		if( target != null ) {
 			const layer = this._layer;
 			if( layer ) {
-				layer.disallowUpdate();
 				this._storedTime = time;
 				super.onTime( time, isReverse, elapsedTime );
-				layer.allowUpdate();
-				layer.render();
+				layer.update();
 			} else {
 				this._storedTime = time;
 				super.onTime( time, isReverse, elapsedTime );
