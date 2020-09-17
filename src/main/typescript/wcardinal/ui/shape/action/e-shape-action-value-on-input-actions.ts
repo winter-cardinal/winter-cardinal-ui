@@ -16,20 +16,17 @@ export class EShapeActionValueOnInputActions {
 		switch( action ) {
 		case EShapeActionValueOnInputAction.EMIT_EVENT:
 			shape.emit( target, shape, value );
-			EShapeActionRuntimes.toContainerShape( shape )?.emit( target, value, time, shape );
+			EShapeActionRuntimes.emit( shape, target, value, time );
 			break;
 		case EShapeActionValueOnInputAction.WRITE_LOCAL:
-			EShapeActionRuntimes.toContainerTag( shape )?.set( target, value, time );
+			EShapeActionRuntimes.write( shape, target, value, time, false );
 			break;
 		case EShapeActionValueOnInputAction.WRITE_REMOTE:
-			EShapeActionRuntimes.toContainerTag( shape )?.remove.set( target, value, time );
+			EShapeActionRuntimes.write( shape, target, value, time, true );
 			break;
 		case EShapeActionValueOnInputAction.WRITE_BOTH:
-			const containerTag = EShapeActionRuntimes.toContainerTag( shape );
-			if( containerTag ) {
-				containerTag.set( target, value, time );
-				containerTag.remote.set( target, value, time );
-			}
+			EShapeActionRuntimes.write( shape, target, value, time, false );
+			EShapeActionRuntimes.write( shape, target, value, time, true );
 			break;
 		}
 	}

@@ -25,11 +25,7 @@ export class EShapeActionRuntimeEmitEvent extends EShapeActionRuntimeConditional
 		if( !! this.condition( shape, time ) ) {
 			const name = this.name( shape, time );
 			if( name != null ) {
-				shape.emit( name, shape );
-				const container = EShapeActionRuntimes.toContainer( shape );
-				if( container && ("shape" in container) ) {
-					container.shape.emit( name, shape );
-				}
+				EShapeActionRuntimes.emit( shape, name );
 			}
 		}
 	}
