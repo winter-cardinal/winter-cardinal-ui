@@ -97,9 +97,9 @@ export class DInputBoolean<
 	set value( value: boolean ) {
 		if( this.value !== value ) {
 			if( value ) {
-				this.getButtonOn().state.isActive = true;
+				this.getButtonOn().onClick();
 			} else {
-				this.getButtonOff().state.isActive = true;
+				this.getButtonOff().onClick();
 			}
 		}
 	}

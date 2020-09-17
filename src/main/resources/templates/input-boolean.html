@@ -25,6 +25,28 @@
 				}
 			}
 		});
+
+		new wcardinal.ui.DInputBoolean({
+			parent: application.stage,
+			x: 50, y: 100,
+			value: false,
+			on: {
+				change: ( newValue, oldValue, emitter ) => {
+					console.log( newValue, oldValue, emitter );
+				}
+			}
+		});
+
+		new wcardinal.ui.DInputBoolean({
+			parent: application.stage,
+			x: 50, y: 150,
+			value: true,
+			on: {
+				change: ( newValue, oldValue, emitter ) => {
+					console.log( newValue, oldValue, emitter );
+				}
+			}
+		});
 	}());
 	</script>
 </body>
