@@ -92,7 +92,7 @@ export class EShapeRuntime {
 	}
 
 	onPointerDown( shape: EShape, e?: interaction.InteractionEvent ): void {
-		if( ! shape.state.isDown && ! shape.state.isPressed ) {
+		if( ! shape.state.isDown ) {
 			shape.state.add( EShapeState.DOWN | DBaseState.PRESSED );
 
 			// Focus
