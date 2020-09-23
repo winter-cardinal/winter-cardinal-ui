@@ -15,7 +15,7 @@ export class EShapeActionRuntimeOpenFlow extends EShapeActionRuntimeOpen {
 	}
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( !! this.condition( shape, time ) ) {
+		if( this.condition( shape, time ) ) {
 			const target = this.target( shape, time );
 			if( target != null ) {
 				EShapeActionRuntimes.open( shape, target );

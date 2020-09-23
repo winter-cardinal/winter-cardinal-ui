@@ -15,7 +15,7 @@ export class EShapeActionRuntimeChangeColorBrightnessAll extends EShapeActionRun
 	}
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( !! this.condition( shape, time ) ) {
+		if( this.condition( shape, time ) ) {
 			this.setAll(
 				shape, runtime, time,
 				shape.fill,

@@ -4,10 +4,19 @@
  */
 
 import { DDialogInputText } from "../../d-dialog-input-text";
+import { EShapeActionExpression } from "./e-shape-action-expression";
+import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeOpenDialog } from "./e-shape-action-runtime-open-dialog";
+import { EShapeActionValueOpen } from "./e-shape-action-value-open";
 
 export class EShapeActionRuntimeOpenDialogText extends EShapeActionRuntimeOpenDialog<string> {
 	protected static DIALOG?: DDialogInputText;
+	protected initial: EShapeActionExpression<string>;
+
+	constructor( value: EShapeActionValueOpen ) {
+		super( value );
+		this.initial = EShapeActionExpressions.ofString( value.initial );
+	}
 
 	protected open( target: string, initial: string ): Promise<string> {
 		let dialog = EShapeActionRuntimeOpenDialogText.DIALOG;
@@ -24,13 +33,5 @@ export class EShapeActionRuntimeOpenDialogText extends EShapeActionRuntimeOpenDi
 		}
 		dialog.value = initial;
 		return dialog.open();
-	}
-
-	protected newInitial( this: unknown ): string {
-		return "";
-	}
-
-	protected getInitialLiteral(): string {
-		return "\"\"";
 	}
 }

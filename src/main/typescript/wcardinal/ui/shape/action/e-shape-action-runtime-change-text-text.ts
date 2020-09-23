@@ -10,19 +10,17 @@ import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
 import { EShapeActionValueChangeText } from "./e-shape-action-value-change-text";
 
-const textDefault = () => "";
-
 export class EShapeActionRuntimeChangeTextText extends EShapeActionRuntimeConditional {
 	protected text: EShapeActionExpression<string>;
 
 	constructor( value: EShapeActionValueChangeText ) {
 		super( value, EShapeRuntimeReset.TEXT );
-		this.text = EShapeActionExpressions.from( value.value, textDefault, `""` );
+		this.text = EShapeActionExpressions.ofString( value.value );
 	}
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( !! this.condition( shape, time ) ) {
-			shape.text.value = String(this.text( shape, time ));
+		if( this.condition( shape, time ) ) {
+			shape.text.value = this.text( shape, time );
 			runtime.written |= this.reset;
 		}
 	}

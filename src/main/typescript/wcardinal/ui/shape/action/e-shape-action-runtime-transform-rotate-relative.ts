@@ -15,7 +15,7 @@ export class EShapeActionRuntimeTransformRotateRelative extends EShapeActionRunt
 	}
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( !! this.condition( shape, time ) ) {
+		if( this.condition( shape, time ) ) {
 			const amount = this.amount( shape, time );
 			const transform = shape.transform;
 			const writtenRotation = ( (runtime.written & EShapeRuntimeReset.ROTATION) !== 0 );

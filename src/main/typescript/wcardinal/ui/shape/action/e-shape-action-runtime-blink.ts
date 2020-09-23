@@ -17,7 +17,7 @@ export class EShapeActionRuntimeBlink extends EShapeActionRuntimeConditional {
 	}
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( !! this.condition( shape, time ) ) {
+		if( this.condition( shape, time ) ) {
 			const interval = this.interval;
 			const dinterval = ( interval << 1 );
 			const elapsed = ( time % dinterval );

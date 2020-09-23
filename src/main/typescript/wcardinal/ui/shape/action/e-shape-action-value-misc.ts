@@ -15,14 +15,21 @@ import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 export type EShapeActionValueMiscSerialized = [
-	EShapeActionValueType.MISC, number, EShapeActionValueMiscType, EShapeActionValueOnInputAction
+	EShapeActionValueType.MISC, number, EShapeActionValueMiscType, number, EShapeActionValueOnInputAction
 ];
 
 export class EShapeActionValueMisc extends EShapeActionValueSubtyped<EShapeActionValueMiscType> {
 	readonly onInputAction: EShapeActionValueOnInputAction;
+	readonly target: string;
 
-	constructor( subtype: EShapeActionValueMiscType, condition: string, onInputType: EShapeActionValueOnInputAction ) {
+	constructor(
+		subtype: EShapeActionValueMiscType,
+		condition: string,
+		target: string,
+		onInputType: EShapeActionValueOnInputAction
+	) {
 		super( EShapeActionValueType.MISC, condition, subtype );
+		this.target = target;
 		this.onInputAction = onInputType;
 	}
 
@@ -35,7 +42,8 @@ export class EShapeActionValueMisc extends EShapeActionValueSubtyped<EShapeActio
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
 		const conditionId = manager.addResource(this.condition);
-		return manager.addResource( `[${this.type},${conditionId},${this.subtype},${this.onInputAction}]` );
+		const targetId = manager.addResource(this.target);
+		return manager.addResource( `[${this.type},${conditionId},${this.subtype},${targetId},${this.onInputAction}]` );
 	}
 
 	static deserialize(
@@ -43,6 +51,7 @@ export class EShapeActionValueMisc extends EShapeActionValueSubtyped<EShapeActio
 		manager: EShapeResourceManagerDeserialization
 	): EShapeActionValueMisc {
 		const condition = EShapeActionValues.toResource( 1, serialized, manager.resources );
-		return new EShapeActionValueMisc( serialized[ 2 ], condition, serialized[ 3 ] );
+		const target = EShapeActionValues.toResource( 3, serialized, manager.resources );
+		return new EShapeActionValueMisc( serialized[ 2 ], condition, target, serialized[ 3 ] );
 	}
 }

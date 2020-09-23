@@ -14,7 +14,7 @@ export class EShapeActionRuntimeOpenPageInplace extends EShapeActionRuntimeOpen 
 	}
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( !! this.condition( shape, time ) ) {
+		if( this.condition( shape, time ) ) {
 			const target = this.target( shape, time );
 			if( target != null ) {
 				window.location.href = target;

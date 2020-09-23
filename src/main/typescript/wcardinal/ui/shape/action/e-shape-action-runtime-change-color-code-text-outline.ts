@@ -15,7 +15,7 @@ export class EShapeActionRuntimeChangeColorCodeTextOutline extends EShapeActionR
 	}
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( !! this.condition( shape, time ) ) {
+		if( this.condition( shape, time ) ) {
 			this.set( shape, runtime, time, shape.text.outline, EShapeActionBases.toBaseTextOutline( shape, runtime ) );
 		}
 	}

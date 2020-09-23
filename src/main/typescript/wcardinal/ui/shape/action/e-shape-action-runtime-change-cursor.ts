@@ -10,18 +10,16 @@ import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
 import { EShapeActionValueChangeCursor } from "./e-shape-action-value-change-cursor";
 
-const nameDefault = (): string | null => null;
-
 export class EShapeActionRuntimeChangeCursor extends EShapeActionRuntimeConditional {
 	protected name: EShapeActionExpression<string | null>;
 
 	constructor( value: EShapeActionValueChangeCursor ) {
 		super( value, EShapeRuntimeReset.CURSOR );
-		this.name = EShapeActionExpressions.from( value.name, nameDefault, "null" );
+		this.name = EShapeActionExpressions.ofStringOrNull( value.name );
 	}
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( !! this.condition( shape, time ) ) {
+		if( this.condition( shape, time ) ) {
 			const name = this.name( shape, time );
 			if( name != null ) {
 				shape.cursor = name;

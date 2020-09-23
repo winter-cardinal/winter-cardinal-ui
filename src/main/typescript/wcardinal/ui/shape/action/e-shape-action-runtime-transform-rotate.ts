@@ -10,8 +10,6 @@ import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
 import { EShapeActionValueTransformRotate } from "./e-shape-action-value-transform-rotate";
 
-const amountDefault = (): number => 0;
-
 export class EShapeActionRuntimeTransformRotate extends EShapeActionRuntimeConditional {
 	protected originY: number;
 	protected originX: number;
@@ -21,7 +19,7 @@ export class EShapeActionRuntimeTransformRotate extends EShapeActionRuntimeCondi
 		super( value, reset );
 		this.originX = value.originX;
 		this.originY = value.originY;
-		this.amount = EShapeActionExpressions.from( `(${value.amount}) * (Math.PI / 180)`, amountDefault, "0" );
+		this.amount = EShapeActionExpressions.ofNumber( `(${value.amount}) * (Math.PI / 180)` );
 	}
 
 	protected adjustPosition(

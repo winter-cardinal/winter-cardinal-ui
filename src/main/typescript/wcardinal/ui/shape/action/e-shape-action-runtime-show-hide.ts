@@ -18,7 +18,7 @@ export class EShapeActionRuntimeShowHide extends EShapeActionRuntimeConditional 
 	}
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( !! this.condition( shape, time ) ) {
+		if( this.condition( shape, time ) ) {
 			shape.visible = this.visibility;
 			runtime.written |= this.reset;
 		}

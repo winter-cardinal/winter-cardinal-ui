@@ -15,7 +15,7 @@ export class EShapeActionRuntimeChangeColorBrightnessText extends EShapeActionRu
 	}
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( !! this.condition( shape, time ) ) {
+		if( this.condition( shape, time ) ) {
 			this.set( shape, runtime, time, shape.text, EShapeActionBases.toBaseText( shape, runtime ) );
 		}
 	}

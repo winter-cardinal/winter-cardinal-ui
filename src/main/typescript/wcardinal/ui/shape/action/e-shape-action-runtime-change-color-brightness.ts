@@ -15,14 +15,12 @@ import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
 import { EShapeActionValueChangeColorBrightness } from "./e-shape-action-value-change-color-brightness";
 
-const brightnessDefault = (): number | null => null;
-
 export class EShapeActionRuntimeChangeColorBrightness extends EShapeActionRuntimeConditional {
 	protected readonly brightness: EShapeActionExpression<number | null>;
 
 	constructor( value: EShapeActionValueChangeColorBrightness, reset: EShapeRuntimeReset ) {
 		super( value, reset );
-		this.brightness = EShapeActionExpressions.from( value.brightness, brightnessDefault, "null" );
+		this.brightness = EShapeActionExpressions.ofNumberOrNull( value.brightness );
 	}
 
 	protected set(

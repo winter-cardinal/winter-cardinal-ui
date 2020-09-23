@@ -15,7 +15,7 @@ export class EShapeActionRuntimeChangeColorCodeStroke extends EShapeActionRuntim
 	}
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( !! this.condition( shape, time ) ) {
+		if( this.condition( shape, time ) ) {
 			this.set( shape, runtime, time, shape.stroke, EShapeActionBases.toBaseStroke( shape, runtime ) );
 		}
 	}

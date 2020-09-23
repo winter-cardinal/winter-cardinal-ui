@@ -19,7 +19,7 @@ export class EShapeActionRuntimeTransformResizeHeightRelative extends EShapeActi
 	}
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( !! this.condition( shape, time ) ) {
+		if( this.condition( shape, time ) ) {
 			const sizeRelative = this.size( shape, time );
 			const size = shape.size;
 			const writtenHeight = ( (runtime.written & EShapeRuntimeReset.HEIGHT) !== 0 );

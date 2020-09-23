@@ -9,13 +9,11 @@ import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
 import { EShapeActionValueTransformMove } from "./e-shape-action-value-transform-move";
 
-const amountDefault = (): number => 0;
-
 export class EShapeActionRuntimeTransformMove extends EShapeActionRuntimeConditional {
 	protected readonly amount: EShapeActionExpression<number>;
 
 	constructor( value: EShapeActionValueTransformMove, reset: EShapeRuntimeReset ) {
 		super( value, reset );
-		this.amount = EShapeActionExpressions.from( value.amount, amountDefault, "0" );
+		this.amount = EShapeActionExpressions.ofNumber( value.amount );
 	}
 }

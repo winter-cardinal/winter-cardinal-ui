@@ -21,7 +21,7 @@ export class EShapeActionRuntimeTransformResizeSizeAbsolute extends EShapeAction
 	}
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( !! this.condition( shape, time ) ) {
+		if( this.condition( shape, time ) ) {
 			const sizeAbsolute = EShapeSizes.toNormalized( this.size( shape, time ) );
 			const size = shape.size;
 			const writtenWidth = ( (runtime.written & EShapeRuntimeReset.WIDTH) !== 0 );

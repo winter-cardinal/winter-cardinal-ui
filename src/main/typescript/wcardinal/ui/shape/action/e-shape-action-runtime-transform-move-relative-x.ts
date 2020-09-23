@@ -14,7 +14,7 @@ export class EShapeActionRuntimeTransformMoveRelativeX extends EShapeActionRunti
 	}
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( !! this.condition( shape, time ) ) {
+		if( this.condition( shape, time ) ) {
 			const amount = this.amount( shape, time );
 			const writtenPositionX = ( (runtime.written & EShapeRuntimeReset.POSITION_X) !== 0 );
 			const position = shape.transform.position;

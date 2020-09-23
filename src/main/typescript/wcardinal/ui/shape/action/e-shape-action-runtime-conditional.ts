@@ -9,13 +9,11 @@ import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntime } from "./e-shape-action-runtime";
 import { EShapeActionValue } from "./e-shape-action-value";
 
-const conditionDefault = (): boolean => true;
-
 export class EShapeActionRuntimeConditional extends EShapeActionRuntime {
 	protected readonly condition: EShapeActionExpression<boolean>;
 
 	constructor( value: EShapeActionValue, reset: EShapeRuntimeReset ) {
 		super( reset );
-		this.condition = EShapeActionExpressions.from( value.condition, conditionDefault, "true" );
+		this.condition = EShapeActionExpressions.ofBoolean( value.condition );
 	}
 }

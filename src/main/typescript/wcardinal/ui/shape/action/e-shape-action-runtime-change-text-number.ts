@@ -12,8 +12,6 @@ import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
 import { EShapeActionValueChangeText } from "./e-shape-action-value-change-text";
 
-const numberDefault = (): number => 0;
-
 export class EShapeActionRuntimeChangeTextNumber extends EShapeActionRuntimeConditional {
 	protected number: EShapeActionExpression<number>;
 	protected formatter: NumberFormatter | null;
@@ -21,14 +19,14 @@ export class EShapeActionRuntimeChangeTextNumber extends EShapeActionRuntimeCond
 	constructor( value: EShapeActionValueChangeText, format: string ) {
 		super( value, EShapeRuntimeReset.TEXT );
 
-		this.number = EShapeActionExpressions.from( value.value, numberDefault, `0` );
+		this.number = EShapeActionExpressions.ofNumber( value.value );
 
 		format = format.trim();
 		this.formatter = ( 0 < format.length ? NumberFormatters.create( format ) : null );
 	}
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( !! this.condition( shape, time ) ) {
+		if( this.condition( shape, time ) ) {
 			const value = this.number( shape, time );
 			shape.text.value = ( this.formatter != null ? this.formatter.format( value, 0 ) : String(value) );
 			runtime.written |= this.reset;

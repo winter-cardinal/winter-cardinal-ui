@@ -11,18 +11,16 @@ import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditi
 import { EShapeActionRuntimes } from "./e-shape-action-runtimes";
 import { EShapeActionValueEmitEvent } from "./e-shape-action-value-emit-event";
 
-const nameDefault = (): string | null => null;
-
 export class EShapeActionRuntimeEmitEvent extends EShapeActionRuntimeConditional {
 	protected name: EShapeActionExpression<string | null>;
 
 	constructor( value: EShapeActionValueEmitEvent ) {
 		super( value, EShapeRuntimeReset.NONE );
-		this.name = EShapeActionExpressions.from( value.name, nameDefault, "null" );
+		this.name = EShapeActionExpressions.ofStringOrNull( value.name );
 	}
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( !! this.condition( shape, time ) ) {
+		if( this.condition( shape, time ) ) {
 			const name = this.name( shape, time );
 			if( name != null ) {
 				EShapeActionRuntimes.emit( shape, name );

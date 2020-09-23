@@ -15,7 +15,7 @@ export class EShapeActionRuntimeChangeColorBrightnessFillAndStroke extends EShap
 	}
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( !! this.condition( shape, time ) ) {
+		if( this.condition( shape, time ) ) {
 			this.sets(
 				shape, runtime, time,
 				shape.fill,

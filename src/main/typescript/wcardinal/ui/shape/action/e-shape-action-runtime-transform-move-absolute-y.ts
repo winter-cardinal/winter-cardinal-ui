@@ -14,7 +14,7 @@ export class EShapeActionRuntimeTransformMoveAbsoluteY extends EShapeActionRunti
 	}
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( !! this.condition( shape, time ) ) {
+		if( this.condition( shape, time ) ) {
 			const amount = this.amount( shape, time );
 			shape.transform.position.y = amount;
 			runtime.written |= this.reset;

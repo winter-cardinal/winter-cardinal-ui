@@ -14,7 +14,7 @@ export class EShapeActionRuntimeTransformMoveLeftOrRight extends EShapeActionRun
 	}
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( !! this.condition( shape, time ) ) {
+		if( this.condition( shape, time ) ) {
 			const amount = this.amount( shape, time );
 			const transform = shape.transform;
 			const position = transform.position;

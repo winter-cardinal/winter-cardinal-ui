@@ -16,10 +16,6 @@ import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
 import { EShapeActionValueChangeColorCode } from "./e-shape-action-value-change-color-code";
 
-const colorDefault = (): number | null => null;
-const alphaDefault = (): number | null => null;
-const blendDefault = (): number | null => null;
-
 export class EShapeActionRuntimeChangeColorCode extends EShapeActionRuntimeConditional {
 	protected readonly color: EShapeActionExpression<number | null>;
 	protected readonly alpha: EShapeActionExpression<number | null>;
@@ -27,9 +23,9 @@ export class EShapeActionRuntimeChangeColorCode extends EShapeActionRuntimeCondi
 
 	constructor( value: EShapeActionValueChangeColorCode, reset: EShapeRuntimeReset ) {
 		super( value, reset );
-		this.color = EShapeActionExpressions.from( value.color, colorDefault, "null" );
-		this.alpha = EShapeActionExpressions.from( value.alpha, alphaDefault, "null" );
-		this.blend = EShapeActionExpressions.from( value.blend, blendDefault, "null" );
+		this.color = EShapeActionExpressions.ofNumberOrNull( value.color );
+		this.alpha = EShapeActionExpressions.ofNumberOrNull( value.alpha );
+		this.blend = EShapeActionExpressions.ofNumberOrNull( value.blend );
 	}
 
 	protected set(
