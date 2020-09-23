@@ -4,5 +4,11 @@
  */
 
 export enum EShapeActionValueMiscType {
-	INPUT
+	INPUT_TEXT,
+	INPUT_INTEGER,
+	INPUT_REAL,
+	EMIT_EVENT,
+	WRITE_BOTH,
+	WRITE_LOCAL,
+	WRITE_REMOTE
 }

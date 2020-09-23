@@ -260,8 +260,20 @@ export class EThemeDarkShapeActionValue implements EThemeShapeActionValue {
 
 	toMiscTypeLabel( type: EShapeActionValueMiscType ): string {
 		switch( type ) {
-		case EShapeActionValueMiscType.INPUT:
-			return "Input";
+		case EShapeActionValueMiscType.INPUT_TEXT:
+			return "Input (Text)";
+		case EShapeActionValueMiscType.INPUT_INTEGER:
+			return "Input (Integer)";
+		case EShapeActionValueMiscType.INPUT_REAL:
+			return "Input (Real)";
+		case EShapeActionValueMiscType.EMIT_EVENT:
+			return this.toOnInputActionLabel( EShapeActionValueOnInputAction.EMIT_EVENT );
+		case EShapeActionValueMiscType.WRITE_BOTH:
+			return this.toOnInputActionLabel( EShapeActionValueOnInputAction.WRITE_BOTH );
+		case EShapeActionValueMiscType.WRITE_LOCAL:
+			return this.toOnInputActionLabel( EShapeActionValueOnInputAction.WRITE_LOCAL );
+		case EShapeActionValueMiscType.WRITE_REMOTE:
+			return this.toOnInputActionLabel( EShapeActionValueOnInputAction.WRITE_REMOTE );
 		}
 		return "Unknown";
 	}

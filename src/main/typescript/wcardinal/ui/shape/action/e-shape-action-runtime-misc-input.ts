@@ -13,9 +13,7 @@ import { EShapeActionValueMisc } from "./e-shape-action-value-misc";
 import { EShapeActionValueOnInputAction } from "./e-shape-action-value-on-input-action";
 import { EShapeActionValueOnInputActions } from "./e-shape-action-value-on-input-actions";
 
-export class EShapeActionRuntimeMiscInput extends EShapeActionRuntime {
-	static data: EShapeActionRuntimeMiscInputData | null = null;
-
+export abstract class EShapeActionRuntimeMiscInput extends EShapeActionRuntime {
 	protected readonly target: EShapeActionExpression<string | null>;
 	protected onInputAction: EShapeActionValueOnInputAction;
 
@@ -27,17 +25,17 @@ export class EShapeActionRuntimeMiscInput extends EShapeActionRuntime {
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
 		if( ! shape.state.inDisabled ) {
-			const data = EShapeActionRuntimeMiscInput.getData();
+			const data = this.getData();
 			if( shape.state.isFocused ) {
 				if( ! data.isShown( shape ) ) {
 					setTimeout(() => {
-						data.show( shape, shape.text.value, ( _: EShape, value: string ): void => {
+						data.show( shape, this.toValue( shape.text.value ), ( _: EShape, value: string ): void => {
 							shape.text.value = value;
 							const now = Date.now();
 							const target = this.target( shape, now );
 							if( target != null ) {
 								EShapeActionValueOnInputActions.execute(
-									shape, this.onInputAction, target, value, now
+									shape, this.onInputAction, target, this.fromValue( value ), now
 								);
 							}
 						});
@@ -52,10 +50,7 @@ export class EShapeActionRuntimeMiscInput extends EShapeActionRuntime {
 		}
 	}
 
-	static getData(): EShapeActionRuntimeMiscInputData {
-		if( EShapeActionRuntimeMiscInput.data == null ) {
-			EShapeActionRuntimeMiscInput.data = new EShapeActionRuntimeMiscInputData();
-		}
-		return EShapeActionRuntimeMiscInput.data;
-	}
+	protected abstract getData(): EShapeActionRuntimeMiscInputData;
+	protected abstract toValue( value: string ): string;
+	protected abstract fromValue( value: string ): unknown;
 }

@@ -14,7 +14,7 @@ import { EShapeTextWeight } from "../e-shape-text";
 type OnChange = ( shape: EShape, value: string ) => void;
 type OnInput = ( shape: EShape, value: string ) => void;
 
-export class EShapeActionRuntimeMiscInputData {
+export abstract class EShapeActionRuntimeMiscInputData {
 	protected input: HTMLInputElement | null;
 	protected shape: EShape | null;
 	protected value: string;
@@ -77,9 +77,7 @@ export class EShapeActionRuntimeMiscInputData {
 		return result;
 	}
 
-	protected getInputType(): string {
-		return "text";
-	}
+	protected abstract getInputType(): string;
 
 	protected initInput( shape: EShape, input: HTMLInputElement, value: string ): void {
 		input.type = this.getInputType();
