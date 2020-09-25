@@ -178,9 +178,14 @@ export class DDiagramCanvas<
 
 		const layer = DApplications.getLayer( this );
 		if( found ) {
-			if( 0 < found.cursor.length ) {
-				if( layer && layer.view.style.cursor !== found.cursor ) {
-					layer.view.style.cursor = found.cursor;
+			if( layer ) {
+				let cursor = found.cursor;
+				if( cursor.length <= 0 ) {
+					cursor = "auto";
+				}
+				const style = layer.view.style;
+				if( style.cursor !== cursor ) {
+					style.cursor = cursor;
 				}
 			}
 
@@ -233,8 +238,11 @@ export class DDiagramCanvas<
 
 			return true;
 		} else {
-			if( layer && layer.view.style.cursor !== "auto" ) {
-				layer.view.style.cursor = "auto";
+			if( layer ) {
+				const style = layer.view.style;
+				if( style.cursor !== "auto" ) {
+					style.cursor = "auto";
+				}
 			}
 
 			// Previous
