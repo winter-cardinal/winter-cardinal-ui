@@ -18,22 +18,22 @@ export class EShapeActionRuntimeTransformResize extends EShapeActionRuntimeCondi
 		super( value, reset );
 		switch( value.opetype ) {
 		case EShapeActionValueTransformResizeType.RELATIVE_SIZE:
-			this.size = EShapeActionExpressions.from( value.amount, "Number", EShapeActionExpressions.ONE, "1" );
+			this.size = EShapeActionExpressions.ofNumberOrOne( value.amount );
 			break;
 		case EShapeActionValueTransformResizeType.ABSOLUTE_SIZE:
-			this.size = EShapeActionExpressions.from( value.amount, "Number", EShapeActionExpressions.ONE_HUNDRED, "100" );
+			this.size = EShapeActionExpressions.ofNumberOrOneHundred( value.amount );
 			break;
 		case EShapeActionValueTransformResizeType.RELATIVE_HEIGHT:
-			this.size = EShapeActionExpressions.from( value.amount, "Number", EShapeActionExpressions.ONE, "1" );
+			this.size = EShapeActionExpressions.ofNumberOrOne( value.amount );
 			break;
 		case EShapeActionValueTransformResizeType.ABSOLUTE_HEIGHT:
-			this.size = EShapeActionExpressions.from( value.amount, "Number", EShapeActionExpressions.ONE_HUNDRED, "100" );
+			this.size = EShapeActionExpressions.ofNumberOrOneHundred( value.amount );
 			break;
 		case EShapeActionValueTransformResizeType.RELATIVE_WIDTH:
-			this.size = EShapeActionExpressions.from( value.amount, "Number", EShapeActionExpressions.ONE, "1" );
+			this.size = EShapeActionExpressions.ofNumberOrOne( value.amount );
 			break;
 		case EShapeActionValueTransformResizeType.ABSOLUTE_WIDTH:
-			this.size = EShapeActionExpressions.from( value.amount, "Number", EShapeActionExpressions.ONE_HUNDRED, "100" );
+			this.size = EShapeActionExpressions.ofNumberOrOneHundred( value.amount );
 			break;
 		default:
 			this.size = EShapeActionExpressions.ONE;

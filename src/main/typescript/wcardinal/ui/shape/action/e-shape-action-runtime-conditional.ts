@@ -14,6 +14,6 @@ export class EShapeActionRuntimeConditional extends EShapeActionRuntime {
 
 	constructor( value: EShapeActionValue, reset: EShapeRuntimeReset ) {
 		super( reset );
-		this.condition = EShapeActionExpressions.ofBoolean( value.condition, true );
+		this.condition = EShapeActionExpressions.ofBoolean( value.condition );
 	}
 }

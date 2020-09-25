@@ -65,15 +65,27 @@ export class EShapeActionExpressions {
 		return this.from( expression, "Number", this.ZERO, "0", false );
 	}
 
+	static ofNumberOrOne( expression: string ) {
+		return this.from( expression, "Number", this.ONE, "1", false );
+	}
+
+	static ofNumberOrOneHundred( expression: string ) {
+		return this.from( expression, "Number", this.ONE_HUNDRED, "100", false );
+	}
+
 	static ofString( expression: string ): EShapeActionExpression<string> {
 		return this.from( expression, "String", this.EMPTY, '""', false );
 	}
 
-	static ofBoolean( expression: string, def: boolean ): EShapeActionExpression<boolean> {
-		if( def ) {
-			return this.from( expression, "Boolean", this.TRUE, "true", false );
-		} else {
-			return this.from( expression, "Boolean", this.FALSE, "false", false );
-		}
+	static ofBoolean( expression: string ): EShapeActionExpression<boolean> {
+		return this.from( expression, "Boolean", this.TRUE, "true", false );
+	}
+
+	static ofBooleanOrTrue( expression: string ): EShapeActionExpression<boolean> {
+		return this.from( expression, "Boolean", this.TRUE, "true", false );
+	}
+
+	static ofBooleanOrFalse( expression: string ): EShapeActionExpression<boolean> {
+		return this.from( expression, "Boolean", this.FALSE, "false", false );
 	}
 }

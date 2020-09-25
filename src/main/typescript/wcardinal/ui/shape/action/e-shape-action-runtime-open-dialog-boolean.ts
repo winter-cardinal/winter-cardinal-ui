@@ -15,7 +15,7 @@ export class EShapeActionRuntimeOpenDialogBoolean extends EShapeActionRuntimeOpe
 
 	constructor( value: EShapeActionValueOpen ) {
 		super( value );
-		this.initial = EShapeActionExpressions.ofBoolean( value.initial, false );
+		this.initial = EShapeActionExpressions.ofBooleanOrFalse( value.initial );
 	}
 
 	protected open( target: string, initial: boolean ): Promise<boolean> {
