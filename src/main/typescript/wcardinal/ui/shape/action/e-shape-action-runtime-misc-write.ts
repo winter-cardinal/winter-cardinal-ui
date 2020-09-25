@@ -17,7 +17,7 @@ export abstract class EShapeActionRuntimeMiscWrite extends EShapeActionRuntimeCo
 	constructor( value: EShapeActionValueMisc ) {
 		super( value, EShapeRuntimeReset.NONE );
 		this.target = EShapeActionExpressions.ofStringOrNull( value.target );
-		this.value = EShapeActionExpressions.from( value.value, "", EShapeActionExpressions.NULL, "null" );
+		this.value = EShapeActionExpressions.ofUnknownOrNull( value.value );
 	}
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {

@@ -15,7 +15,11 @@ export class EShapeActionExpressions {
 	static FALSE = () => false;
 
 	static from<T>(
-		expression: string, caster: string, def: EShapeActionExpression<T>, defLiteral: string
+		expression: string,
+		caster: string,
+		def: EShapeActionExpression<T>,
+		defLiteral: string,
+		nullable: boolean
 	): EShapeActionExpression<T> {
 		if( expression.trim().length <= 0 ) {
 			return def;
@@ -27,7 +31,13 @@ export class EShapeActionExpressions {
 				`try{` +
 					`with( shape ) {` +
 						`with( state ) {` +
-							`return ${caster}(${expression});` +
+							( nullable ?
+								(
+									`var result = (${expression});` +
+									`return (result != null ? ${caster}(result) : null);`
+								) :
+								`return ${caster}(${expression});`
+							) +
 						`}` +
 					`}` +
 				`} catch( e ) {` +
@@ -40,22 +50,30 @@ export class EShapeActionExpressions {
 	}
 
 	static ofNumberOrNull( expression: string ): EShapeActionExpression<number | null> {
-		return this.from<number | null>( expression, "Number", this.NULL, "null" );
+		return this.from<number | null>( expression, "Number", this.NULL, "null", true );
 	}
 
 	static ofStringOrNull( expression: string ): EShapeActionExpression<string | null> {
-		return this.from<string | null>( expression, "String", this.NULL, "null" );
+		return this.from<string | null>( expression, "String", this.NULL, "null", true );
+	}
+
+	static ofUnknownOrNull( expression: string ): EShapeActionExpression<unknown | null> {
+		return this.from( expression, "", this.NULL, "null", false );
 	}
 
 	static ofNumber( expression: string ): EShapeActionExpression<number> {
-		return this.from( expression, "Number", this.ZERO, "0" );
+		return this.from( expression, "Number", this.ZERO, "0", false );
 	}
 
 	static ofString( expression: string ): EShapeActionExpression<string> {
-		return this.from( expression, "String", this.EMPTY, '""' );
+		return this.from( expression, "String", this.EMPTY, '""', false );
 	}
 
-	static ofBoolean( expression: string ): EShapeActionExpression<boolean> {
-		return this.from( expression, "Boolean", this.TRUE, "true" );
+	static ofBoolean( expression: string, def: boolean ): EShapeActionExpression<boolean> {
+		if( def ) {
+			return this.from( expression, "Boolean", this.TRUE, "true", false );
+		} else {
+			return this.from( expression, "Boolean", this.FALSE, "false", false );
+		}
 	}
 }
