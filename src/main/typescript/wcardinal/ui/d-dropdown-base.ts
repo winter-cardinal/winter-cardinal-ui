@@ -21,8 +21,8 @@ export interface DDropdownBaseEvents<VALUE, TEXT_VALUE, EMITTER> extends DButton
  * {@link DDropdownBase} "on" options.
  */
 export interface DDropdownBaseOnOptions<VALUE, TEXT_VALUE, EMITTER>
-	extends Partial<DDropdownBaseEvents<VALUE, TEXT_VALUE, EMITTER> & Record<string, Function>> {
-
+	extends Partial<DDropdownBaseEvents<VALUE, TEXT_VALUE, EMITTER>> {
+	[ key: string ]: Function | undefined;
 }
 
 /**

@@ -28,9 +28,8 @@ export interface DButtonColorEvents<EMITTER> extends DButtonEvents<DColorAndAlph
 /**
  * {@link DButtonColor} "on" options.
  */
-export interface DButtonColorOnOptions<EMITTER>
-	extends Partial<DButtonColorEvents<EMITTER> & Record<string, Function>> {
-
+export interface DButtonColorOnOptions<EMITTER>	extends Partial<DButtonColorEvents<EMITTER>> {
+	[ key: string ]: Function | undefined;
 }
 
 /**

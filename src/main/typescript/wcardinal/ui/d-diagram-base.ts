@@ -47,9 +47,8 @@ export interface DDiagramBaseController {
 /**
  * {@link DDiagramBase} "on" options.
  */
-export interface DDiagramBaseOnOptions<CANVAS, EMITTER>
-	extends Partial<DDiagramBaseEvents<CANVAS, EMITTER> & Record<string, Function>> {
-
+export interface DDiagramBaseOnOptions<CANVAS, EMITTER> extends Partial<DDiagramBaseEvents<CANVAS, EMITTER>> {
+	[ key: string ]: Function | undefined;
 }
 
 export interface DDiagramBaseBackgroundOptions extends DBaseBackgroundOptions {

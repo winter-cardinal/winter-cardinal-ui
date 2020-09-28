@@ -75,8 +75,8 @@ export interface DAnimationEvents<EMITTER> {
 /**
  * {@link DAnimation} "on" options.
  */
-export interface DAnimationOnOptions<EMITTER> extends Partial<DAnimationEvents<EMITTER> & Record<string, Function>> {
-
+export interface DAnimationOnOptions<EMITTER> extends Partial<DAnimationEvents<EMITTER>> {
+	[ key: string ]: Function | undefined;
 }
 
 /**

@@ -33,9 +33,8 @@ export interface DButtonBaseEvents<VALUE, EMITTER> extends DImageBaseEvents<VALU
 /**
  * {@link DButtonBase} "on" options.
  */
-export interface DButtonBaseOnOptions<VALUE, EMITTER>
-	extends Partial<DButtonBaseEvents<VALUE, EMITTER> & Record<string, Function>> {
-
+export interface DButtonBaseOnOptions<VALUE, EMITTER> extends Partial<DButtonBaseEvents<VALUE, EMITTER>> {
+	[ key: string ]: Function | undefined;
 }
 
 /**

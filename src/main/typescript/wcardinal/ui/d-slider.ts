@@ -31,8 +31,8 @@ export interface DSliderEvents<EMITTER> extends DBaseEvents<EMITTER> {
 /**
  * {@link DSlider} "on" options.
  */
-export interface DSliderOnOptions<EMITTER> extends Partial<DSliderEvents<EMITTER> & Record<string, Function>> {
-
+export interface DSliderOnOptions<EMITTER> extends Partial<DSliderEvents<EMITTER>> {
+	[ key: string ]: Function | undefined;
 }
 
 /**

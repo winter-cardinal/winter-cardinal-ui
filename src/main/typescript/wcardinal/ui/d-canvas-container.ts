@@ -36,9 +36,8 @@ export interface DCanvasContainerEvents<CANVAS, EMITTER> extends DBaseEvents<EMI
 /**
  * {@link DCanvasContainer} "on" options.
  */
-export interface DCanvasContainerOnOptions<CANVAS, EMITTER>
-	extends Partial<DCanvasContainerEvents<CANVAS, EMITTER> & Record<string, Function>> {
-
+export interface DCanvasContainerOnOptions<CANVAS, EMITTER> extends Partial<DCanvasContainerEvents<CANVAS, EMITTER>> {
+	[ key: string ]: Function | undefined;
 }
 
 /**

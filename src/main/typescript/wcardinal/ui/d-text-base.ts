@@ -47,9 +47,8 @@ export interface DTextBaseEvents<VALUE, EMITTER> extends DBaseEvents<EMITTER> {
 /**
  * {@link DTextBase} "on" options.
  */
-export interface DTextBaseOnOptions<VALUE, EMITTER>
-	extends Partial<DTextBaseEvents<VALUE, EMITTER> & Record<string, Function>> {
-
+export interface DTextBaseOnOptions<VALUE, EMITTER> extends Partial<DTextBaseEvents<VALUE, EMITTER>> {
+	[ key: string ]: Function | undefined;
 }
 
 /**

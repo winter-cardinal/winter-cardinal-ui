@@ -92,9 +92,8 @@ export interface DDiagramEditorEvents<EMITTER> extends DDiagramBaseEvents<DDiagr
 /**
  * {@link DDiagramEditor} "on" options.
  */
-export interface DDiagramEditorOnOptions<EMITTER>
-	extends Partial<DDiagramEditorEvents<EMITTER> & Record<string, Function>> {
-
+export interface DDiagramEditorOnOptions<EMITTER> extends Partial<DDiagramEditorEvents<EMITTER>> {
+	[ key: string ]: Function | undefined;
 }
 
 /**

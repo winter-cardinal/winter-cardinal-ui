@@ -28,9 +28,8 @@ export interface DButtonColorGradientEvents<EMITTER> extends DButtonEvents<DColo
 /**
  * {@link DButtonColorGradient} "on" options.
  */
-export interface DButtonColorGradientOnOptions<EMITTER>
-	extends Partial<DButtonColorGradientEvents<EMITTER>>, Record<string, Function | undefined> {
-
+export interface DButtonColorGradientOnOptions<EMITTER> extends Partial<DButtonColorGradientEvents<EMITTER>> {
+	[ key: string ]: Function | undefined;
 }
 
 /**

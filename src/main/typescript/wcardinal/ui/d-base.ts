@@ -219,8 +219,8 @@ export interface DBaseEvents<EMITTER> {
 /**
  * {@link DBase} "on" options.
  */
-export interface DBaseOnOptions<EMITTER> extends Partial<DBaseEvents<EMITTER> & Record<string, Function>> {
-
+export interface DBaseOnOptions<EMITTER> extends Partial<DBaseEvents<EMITTER>> {
+	[ key: string ]: Function | undefined;
 }
 
 /**

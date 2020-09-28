@@ -21,9 +21,8 @@ export interface DButtonGroupEvents<BUTTON, EMITTER> {
 /**
  * {@link DButtonGroup} "on" options.
  */
-export interface DButtonGroupOnOptions<BUTTON, EMITTER>
-	extends Partial<DButtonGroupEvents<BUTTON, EMITTER> & Record<string, Function>> {
-
+export interface DButtonGroupOnOptions<BUTTON, EMITTER> extends Partial<DButtonGroupEvents<BUTTON, EMITTER>> {
+	[ key: string ]: Function | undefined;
 }
 
 export interface DButtonGroupOptions<

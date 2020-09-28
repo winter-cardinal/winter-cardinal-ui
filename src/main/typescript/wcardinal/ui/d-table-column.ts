@@ -62,13 +62,6 @@ export type DTableBodyCellOptionsUnion<ROW> = DTableBodyCellTextOptions<ROW> | D
 	DTableBodyCellDatetimeOptions<ROW> | DTableBodyCellTimeOptions<ROW> | DTableBodyCellButtonOptions<ROW> |
 	DTableBodyCellLinkOptions<ROW> | DTableBodyCellSelectMultipleOptions<ROW> | DTableBodyCellTreeOptions<ROW>;
 
-export type DTableBodyCellOptionsMerged<ROW> = DTableBodyCellTextOptions<ROW> & DTableBodyCellInputTextOptions<ROW> &
-	DTableBodyCellInputIntegerOptions<ROW> & DTableBodyCellInputRealOptions<ROW> & DTableBodyCellIndexOptions<ROW> &
-	DTableBodyCellColorOptions<ROW> & DTableBodyCellCheckOptions<ROW> & DTableBodyCellSelectDialogOptions<ROW> &
-	DTableBodyCellSelectPromiseOptions<ROW> & DTableBodyCellSelectMenuOptions<ROW> & DTableBodyCellDateOptions<ROW> &
-	DTableBodyCellDatetimeOptions<ROW> & DTableBodyCellTimeOptions<ROW> & DTableBodyCellButtonOptions<ROW> &
-	DTableBodyCellLinkOptions<ROW> & DTableBodyCellSelectMenuOptions<ROW> & DTableBodyCellTreeOptions<ROW>;
-
 export interface DTableColumnEditingOptions<ROW, CELL> {
 	enable?: boolean | DTableEditable<ROW> | "auto" | "AUTO";
 	formatter?: DTableEditingFormatter<CELL>;

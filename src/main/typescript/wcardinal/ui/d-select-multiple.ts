@@ -37,9 +37,8 @@ export interface DSelectMultipleEvents<VALUE, EMITTER>
 /**
  * {@link DSelectMultiple} "on" options.
  */
-export interface DSelectMultipleOnOptions<VALUE, EMITTER>
-	extends Partial<DSelectMultipleEvents<VALUE, EMITTER> & Record<string, Function>> {
-
+export interface DSelectMultipleOnOptions<VALUE, EMITTER> extends Partial<DSelectMultipleEvents<VALUE, EMITTER>> {
+	[ key: string ]: Function | undefined;
 }
 
 /**

@@ -27,9 +27,8 @@ export interface DListSelectionEvents<EMITTER> {
 /**
  * {@link DListSelection} "on" options.
  */
-export interface DListSelectionOnOptions<EMITTER>
-	extends Partial<DListSelectionEvents<EMITTER> & Record<string, Function>> {
-
+export interface DListSelectionOnOptions<EMITTER> extends Partial<DListSelectionEvents<EMITTER>> {
+	[ key: string ]: Function | undefined;
 }
 
 /**

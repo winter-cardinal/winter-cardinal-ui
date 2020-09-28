@@ -26,9 +26,8 @@ export interface DSelectEvents<VALUE, EMITTER> extends DDropdownBaseEvents<VALUE
 /**
  * {@link DSelect} "on" options.
  */
-export interface DSelectOnOptions<VALUE, EMITTER>
-	extends Partial<DSelectEvents<VALUE, EMITTER> & Record<string, Function>> {
-
+export interface DSelectOnOptions<VALUE, EMITTER> extends Partial<DSelectEvents<VALUE, EMITTER>> {
+	[ key: string ]: Function | undefined;
 }
 
 /**

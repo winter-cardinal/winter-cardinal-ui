@@ -26,10 +26,7 @@ import { DTableBodyCellSelectPromise } from "./d-table-body-cell-select-promise"
 import { DTableBodyCellText } from "./d-table-body-cell-text";
 import { DTableBodyCellTime } from "./d-table-body-cell-time";
 import { DTableBodyCellTree } from "./d-table-body-cell-tree";
-import {
-	DTableBodyCellOptionsMerged, DTableBodyCellOptionsUnion,
-	DTableColumn, DTableColumnType
-} from "./d-table-column";
+import { DTableBodyCellOptionsUnion, DTableColumn, DTableColumnType } from "./d-table-column";
 import { DTableRow, DTableRowOptions, DThemeTableRow } from "./d-table-row";
 
 export interface DTableBodyRowOptions<
@@ -37,7 +34,7 @@ export interface DTableBodyRowOptions<
 	THEME extends DThemeTableBodyRow = DThemeTableBodyRow
 > extends DTableRowOptions<ROW, DTableColumn<ROW>, THEME> {
 	height?: number;
-	cell?: Partial<DTableBodyCellOptionsMerged<ROW>>;
+	cell?: DTableBodyCellOptionsUnion<ROW>;
 }
 
 export interface DThemeTableBodyRow extends DThemeTableRow {
@@ -209,7 +206,7 @@ export class DTableBodyRow<
 		columnIndex: number,
 		options: OPTIONS
 	): DTableBodyCellOptionsUnion<ROW> {
-		let result = (column.body || options.cell) as DTableBodyCellOptionsMerged<ROW> | undefined;
+		let result: any = (column.body || options.cell);
 		if( result != null ) {
 			result.weight = column.weight;
 			result.width = column.width;

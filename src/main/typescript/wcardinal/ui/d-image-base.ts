@@ -27,9 +27,8 @@ export interface DImageBaseEvents<VALUE, EMITTER> extends DTextBaseEvents<VALUE,
 /**
  * {@link DImageBase} "on" options.
  */
-export interface DImageBaseOnOptions<VALUE, EMITTER>
-	extends Partial<DImageBaseEvents<VALUE, EMITTER> & Record<string, Function>> {
-
+export interface DImageBaseOnOptions<VALUE, EMITTER> extends Partial<DImageBaseEvents<VALUE, EMITTER>> {
+	[ key: string ]: Function | undefined;
 }
 
 /**

@@ -32,8 +32,8 @@ export interface DMenuSidedSelectionEvents<EMITTER> {
 /**
  * {@link DMenuSidedSelection} "on" options.
  */
-export interface DMenuSidedSelectionOnOptions<EMITTER>
-	extends Partial<DMenuSidedSelectionEvents<EMITTER> & Record<string, Function>> {
+export interface DMenuSidedSelectionOnOptions<EMITTER> extends Partial<DMenuSidedSelectionEvents<EMITTER>> {
+	[ key: string ]: Function | undefined;
 }
 
 /**

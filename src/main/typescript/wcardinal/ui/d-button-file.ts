@@ -19,9 +19,8 @@ export interface DButtonFileEvents<VALUE, EMITTER> extends DButtonEvents<VALUE, 
 /**
  * {@link DButtonFile} "on" options.
  */
-export interface DButtonFileOnOptions<VALUE, EMITTER>
-	extends Partial<DButtonFileEvents<VALUE, EMITTER> & Record<string, Function>> {
-
+export interface DButtonFileOnOptions<VALUE, EMITTER> extends Partial<DButtonFileEvents<VALUE, EMITTER>> {
+	[ key: string ]: Function | undefined;
 }
 
 /**

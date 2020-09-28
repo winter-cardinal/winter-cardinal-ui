@@ -25,8 +25,8 @@ export interface DButtonDateEvents<EMITTER> extends DButtonEvents<Date, EMITTER>
 /**
  * {@link DButtonDate} "on" options.
  */
-export interface DButtonDateOnOptions<EMITTER> extends Partial<DButtonDateEvents<EMITTER> & Record<string, Function>> {
-
+export interface DButtonDateOnOptions<EMITTER> extends Partial<DButtonDateEvents<EMITTER>> {
+	[ key: string ]: Function | undefined;
 }
 
 /**

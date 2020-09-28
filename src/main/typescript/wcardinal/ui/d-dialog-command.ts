@@ -33,8 +33,8 @@ export interface DDialogCommandEvents<EMITTER> extends DDialogEvents<EMITTER> {
 /**
  * {@link DDialogCommand} "on" options.
  */
-export interface DDialogCommandOnOptions<EMITTER>
-	extends Partial<DDialogCommandEvents<EMITTER> & Record<string, Function>> {
+export interface DDialogCommandOnOptions<EMITTER> extends Partial<DDialogCommandEvents<EMITTER>> {
+	[ key: string ]: Function | undefined;
 
 }
 

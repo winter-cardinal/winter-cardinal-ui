@@ -43,9 +43,8 @@ export interface DButtonSelectEvents<VALUE, EMITTER> extends DButtonEvents<VALUE
 /**
  * {@link DButtonSelect} "on" options.
  */
-export interface DButtonSelectOnOptions<VALUE, EMITTER>
-	extends Partial<DButtonSelectEvents<VALUE, EMITTER> & Record<string, Function>> {
-
+export interface DButtonSelectOnOptions<VALUE, EMITTER> extends Partial<DButtonSelectEvents<VALUE, EMITTER>> {
+	[ key: string ]: Function | undefined;
 }
 
 /**

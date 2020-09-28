@@ -36,8 +36,8 @@ export interface DDialogEvents<EMITTER> extends DBaseEvents<EMITTER> {
 /**
  * {@link DDialog} "on" options.
  */
-export interface DDialogOnOptions<EMITTER> extends Partial<DDialogEvents<EMITTER> & Record<string, Function>> {
-
+export interface DDialogOnOptions<EMITTER> extends Partial<DDialogEvents<EMITTER>> {
+	[ key: string ]: Function | undefined;
 }
 
 /**
