@@ -157,13 +157,13 @@
 								},
 								on: {
 									active: ( btn ) => {
-										horizontalSlider.setDisabled( true );
-										verticalSlider.setDisabled( true );
+										horizontalSlider.state.isDisabled = true;
+										verticalSlider.state.isDisabled = true;
 									},
 
 									inactive: ( btn ) => {
-										horizontalSlider.setDisabled( false );
-										verticalSlider.setDisabled( false );
+										horizontalSlider.state.isDisabled = false;
+										verticalSlider.state.isDisabled = false;
 									}
 								}
 							}),
