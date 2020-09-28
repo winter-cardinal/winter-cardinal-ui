@@ -39,8 +39,8 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	readonly transform: EShapeTransform;
 	abstract radius: number;
 	abstract corner: EShapeCorner;
-	points?: EShapePoints;
-	image?: HTMLImageElement;
+	protected _points?: EShapePoints;
+	protected _image?: HTMLImageElement;
 	imageSrc?: string;
 	texture?: Texture;
 	abstract gradient?: EShapeGradientLike;
@@ -216,6 +216,18 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		}
 	}
 
+	get image(): HTMLImageElement | undefined {
+		return this._image;
+	}
+
+	set image( image: HTMLImageElement | undefined ) {
+		this._image = image;
+	}
+
+	get points(): EShapePoints | undefined {
+		return this._points;
+	}
+
 	//
 	get root(): EShape {
 		let root: EShape = this;
@@ -310,7 +322,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	}
 
 	serializeImage( manager: EShapeResourceManagerSerialization ): number {
-		const image = this.image;
+		const image = this._image;
 		return (image != null ? manager.addResource( image.src ) : -1);
 	}
 
@@ -710,8 +722,8 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 			this.text.copy( source.text );
 			this.radius = source.radius;
 			this.corner = source.corner;
-			if (this.image == null) {
-				this.image = source.image;
+			if (this._image == null) {
+				this._image = source.image;
 			}
 		}
 		if( (part & EShapeCopyPart.ACTION) !== 0 ) {
@@ -727,7 +739,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 				if( points != null ) {
 					points.copy( sourcePoints );
 				} else {
-					this.points = sourcePoints.clone( this );
+					this._points = sourcePoints.clone( this );
 				}
 			}
 		}

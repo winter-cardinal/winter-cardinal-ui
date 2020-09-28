@@ -85,6 +85,7 @@ export class DDynamicText extends Mesh {
 		}
 	}
 
+	// @ts-ignore
 	get width(): number {
 		this.update();
 		return Math.abs( this.scale.x ) * this.geometry.width;
@@ -99,6 +100,7 @@ export class DDynamicText extends Mesh {
 		}
 	}
 
+	// @ts-ignore
 	get height(): number {
 		this.update();
 		return Math.abs( this.scale.y ) * this.geometry.height;

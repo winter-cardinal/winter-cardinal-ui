@@ -21,10 +21,12 @@ export class DChartPlotAreaContainer extends EShapeContainer implements DViewTar
 		this._workRect = new Rectangle();
 	}
 
+	// @ts-ignore
 	get position(): DBasePoint {
 		return this._position;
 	}
 
+	// @ts-ignore
 	get scale(): DBasePoint {
 		return this._scale;
 	}

@@ -713,7 +713,6 @@ export class DBase<
 > extends Container {
 	protected static WORK_CONTAINS_POINT: Point = new Point();
 
-	private _name: string;
 	private _state: DBaseStateSet;
 	private _theme: THEME;
 	protected _options: OPTIONS | undefined;
@@ -766,7 +765,7 @@ export class DBase<
 		this._hasDirty = false;
 		this._isChildrenDirty = false;
 		this._shadow = null;
-		this._name = ( options && options.name ) || "";
+		this.name = ( options && options.name ) || "";
 		const theme = this._theme = toTheme( options ) || this.getThemeDefault();
 		this._befores = [];
 		this._afters = [];
@@ -1125,14 +1124,7 @@ export class DBase<
 		return this.getType();
 	}
 
-	get name(): string {
-		return this._name;
-	}
-
-	set name( name: string ) {
-		this._name = name;
-	}
-
+	// @ts-ignore
 	get x(): number {
 		return this._position.x;
 	}
@@ -1163,6 +1155,7 @@ export class DBase<
 		}
 	}
 
+	// @ts-ignore
 	get y(): number {
 		return this._position.y;
 	}
@@ -1193,6 +1186,7 @@ export class DBase<
 		}
 	}
 
+	// @ts-ignore
 	get width(): number {
 		return this._width;
 	}
@@ -1254,6 +1248,7 @@ export class DBase<
 		}
 	}
 
+	// @ts-ignore
 	get height(): number {
 		return this._height;
 	}
@@ -1315,14 +1310,17 @@ export class DBase<
 		}
 	}
 
+	// @ts-ignore
 	get position(): DBasePoint {
 		return this._position;
 	}
 
+	// @ts-ignore
 	get scale(): DBasePoint {
 		return this._scale;
 	}
 
+	// @ts-ignore
 	get skew(): DBasePoint {
 		return this._skew;
 	}

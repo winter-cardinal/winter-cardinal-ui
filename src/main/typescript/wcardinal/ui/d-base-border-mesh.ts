@@ -19,6 +19,7 @@ export class DBaseBorderMesh extends Mesh {
 		);
 	}
 
+	// @ts-ignore
 	get texture() {
 		return this.shader.texture;
 	}
@@ -30,6 +31,7 @@ export class DBaseBorderMesh extends Mesh {
 		}
 	}
 
+	// @ts-ignore
 	get width(): number {
 		return this.geometry.width;
 	}
@@ -38,6 +40,7 @@ export class DBaseBorderMesh extends Mesh {
 		this.geometry.width = width;
 	}
 
+	// @ts-ignore
 	get height(): number {
 		return this.geometry.height;
 	}
