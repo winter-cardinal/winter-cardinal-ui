@@ -11,7 +11,7 @@ import {
 } from "./e-shape-line-of-any-points";
 
 export interface EShapeLineOfAny extends EShape {
-	points: EShapeLineOfAnyPoints;
+	readonly points: EShapeLineOfAnyPoints;
 	containsPointAbs(
 		x: number, y: number,
 		ax: number, ay: number,

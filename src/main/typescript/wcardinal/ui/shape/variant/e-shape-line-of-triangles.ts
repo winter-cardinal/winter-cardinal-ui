@@ -16,7 +16,7 @@ import { EShapeTriangle } from "./e-shape-triangle";
 import { toHitThreshold } from "./to-hit-threshold";
 
 export class EShapeLineOfTriangles extends EShapeTriangle implements EShapeLineOfAny {
-	points!: EShapeLineOfAnyPoints;
+	protected declare _points: EShapeLineOfAnyPoints;
 	protected _tester: EShapeLineOfAnyPointsHitTester<unknown>;
 	protected _testerBBox: EShapeLineOfAnyPointsHitTester<unknown>;
 
@@ -25,7 +25,7 @@ export class EShapeLineOfTriangles extends EShapeTriangle implements EShapeLineO
 		if( other ) {
 			this.copy( other );
 		} else {
-			this.points = new EShapeLineOfAnyPointsImpl( this );
+			this._points = new EShapeLineOfAnyPointsImpl( this );
 		}
 
 		this._tester = ( x, y, ax, ay, ox, oy, px, py ): boolean => {
@@ -37,6 +37,10 @@ export class EShapeLineOfTriangles extends EShapeTriangle implements EShapeLineO
 		};
 	}
 
+	get points(): EShapeLineOfAnyPoints {
+		return this._points;
+	}
+
 	clone(): EShapeLineOfTriangles {
 		return new EShapeLineOfTriangles( this );
 	}
@@ -44,7 +48,7 @@ export class EShapeLineOfTriangles extends EShapeTriangle implements EShapeLineO
 	containsAbs( x: number, y: number, ax: number, ay: number ): boolean {
 		const threshold = toHitThreshold( this, null );
 		if( this.containsAbsBBox( x, y, ax + threshold, ay + threshold ) ) {
-			return this.points.calcHitPointAbs(
+			return this._points.calcHitPointAbs(
 				x, y,
 				threshold,
 				null,
@@ -83,7 +87,7 @@ export class EShapeLineOfTriangles extends EShapeTriangle implements EShapeLineO
 		const rect = this.toLocalRect( point, EShapeBase.WORK_RECT );
 		const threshold = toHitThreshold( this, toThreshold );
 		if( this.containsAbsBBox( rect.x, rect.y, rect.width + threshold, rect.height + threshold ) ) {
-			return this.points.calcHitPointAbs(
+			return this._points.calcHitPointAbs(
 				rect.x, rect.y,
 				threshold,
 				range,

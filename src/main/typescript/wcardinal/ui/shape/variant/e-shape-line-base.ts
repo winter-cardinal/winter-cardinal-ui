@@ -17,12 +17,12 @@ import { EShapePrimitive } from "./e-shape-primitive";
 
 export abstract class EShapeLineBase extends EShapePrimitive {
 	protected static WORK_RANGE: [ number, number ] = [ 0, 0 ];
-	abstract points: EShapeLineBasePoints;
+	protected declare _points: EShapeLineBasePoints;
 	abstract clone(): EShapeLineBase;
 
 	serialize( manager: EShapeResourceManagerSerialization ): DDiagramSerializedItem {
 		const result = super.serialize( manager );
-		result[ 15 ] = this.points.serialize( manager );
+		result[ 15 ] = this._points.serialize( manager );
 		return result;
 	}
 
@@ -56,7 +56,7 @@ export abstract class EShapeLineBase extends EShapePrimitive {
 	): number {
 		const stroke = this.stroke;
 		const strokeWidth = ( stroke.enable ? stroke.width : 0 );
-		const strokeScale = this.getStrokeWidthScale( this.points );
+		const strokeScale = this.getStrokeWidthScale( this._points );
 		return ( toThreshold ?
 			toThreshold( strokeWidth, strokeScale ) :
 			strokeWidth * strokeScale * 0.5
@@ -64,7 +64,7 @@ export abstract class EShapeLineBase extends EShapePrimitive {
 	}
 
 	containsAbs( x: number, y: number, ax: number, ay: number ): boolean {
-		const points = this.points;
+		const points = this._points;
 		const threshold = this.toHitThreshold( null );
 		if( this.containsAbsBBox( x, y, ax + threshold, ay + threshold ) ) {
 			return points.calcHitPointAbs(
@@ -86,7 +86,7 @@ export abstract class EShapeLineBase extends EShapePrimitive {
 		tester: EShapeLineBasePointsHitTester<RESULT>,
 		result: RESULT
 	): boolean {
-		const points = this.points;
+		const points = this._points;
 		const threshold = this.toHitThreshold( toHitThreshold );
 		const rect = this.toLocalRect( point, EShapeBase.WORK_RECT );
 		if( this.containsAbsBBox( rect.x, rect.y, rect.width + threshold, rect.height + threshold ) ) {

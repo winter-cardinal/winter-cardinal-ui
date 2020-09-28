@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { EShapeStroke } from "../e-shape-stroke";
 import { EShapeLineOfAnyPoints, EShapeLineOfAnyPointsToHitThreshold } from "./e-shape-line-of-any-points";
 

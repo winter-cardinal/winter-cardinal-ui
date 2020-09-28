@@ -9,7 +9,6 @@ import { EShapeCorner } from "../e-shape-corner";
 import { EShapeDefaults } from "../e-shape-defaults";
 import { EShapeFill } from "../e-shape-fill";
 import { EShapeGradientLike } from "../e-shape-gradient";
-import { EShapePoints } from "../e-shape-points";
 import { EShapeStroke } from "../e-shape-stroke";
 import { EShapeTag } from "../e-shape-tag";
 import { EShapeText } from "../e-shape-text";
@@ -26,7 +25,6 @@ export abstract class EShapePrimitive extends EShapeBase {
 	readonly stroke: EShapeStroke;
 	protected _radius: number;
 	protected _corner: EShapeCorner;
-	points?: EShapePoints;
 	protected _image?: HTMLImageElement;
 	gradient?: EShapeGradientLike;
 	readonly text: EShapeText;
