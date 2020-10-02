@@ -25,6 +25,8 @@ export * from "./d-application-padding";
 export * from "./d-application";
 export * from "./d-applications";
 export * from "./d-background";
+export * from "./d-base-auto-set";
+export * from "./d-base-auto";
 export * from "./d-base-background";
 export * from "./d-base-border";
 export * from "./d-base-corner";

@@ -39,6 +39,7 @@ import { isString } from "./util/is-string";
 import { UtilKeyboardEvent, UtilKeyboardEventShortcut } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 import { UtilWheelEventDeltas } from "./util/util-wheel-event";
+import { DBaseAutoSet } from "./d-base-auto-set";
 
 /**
  * {@link DBase} padding options.
@@ -697,12 +698,6 @@ export interface DReflowable {
 	onReflow( base: DBase, width: number, height: number ): void;
 }
 
-const enum AutoFlag {
-	NONE = 0,
-	WIDTH = 1,
-	HEIGHT = 2
-}
-
 /**
  * A base class for UI classes.
  * See {@link DBaseEvents} for event details.
@@ -721,7 +716,7 @@ export class DBase<
 	protected _padding: DPadding;
 	protected _corner: DCorner;
 	private _scalarSet: DScalarSet;
-	protected _autoFlags: AutoFlag;
+	protected _auto: DBaseAutoSet;
 	private _isDirty: boolean;
 	private _hasDirty: boolean;
 	protected _isChildrenDirty: boolean;
@@ -760,7 +755,7 @@ export class DBase<
 		//
 		this._options = options;
 		const scalarSet: DScalarSet = this._scalarSet = {};
-		this._autoFlags = AutoFlag.NONE;
+		this._auto = new DBaseAutoSet();
 		this._isDirty = true;
 		this._hasDirty = false;
 		this._isChildrenDirty = false;
@@ -811,24 +806,22 @@ export class DBase<
 		const width = ( options && options.width != null ? options.width : theme.getWidth() );
 		if( isNumber( width ) ) {
 			this._width = width;
-		} else if( width === "auto" || width === "AUTO" ) {
-			this._width = 100;
-			this.toWidthAuto();
 		} else {
 			this._width = 100;
-			scalarSet.width = DScalarFunctions.size( width );
+			if( this._auto.width.from( width ) == null ) {
+				scalarSet.width = DScalarFunctions.size( width );
+			}
 		}
 
 		// Height
 		const height = ( options && options.height != null ? options.height : theme.getHeight() );
 		if( isNumber( height ) ) {
 			this._height = height;
-		} else if( height === "auto" || height === "AUTO" ) {
-			this._height = 100;
-			this.toHeightAuto();
 		} else {
 			this._height = 100;
-			scalarSet.height = DScalarFunctions.size( height );
+			if( this._auto.height.from( height ) == null ) {
+				scalarSet.height = DScalarFunctions.size( height );
+			}
 		}
 
 		// Visibility
@@ -1210,40 +1203,32 @@ export class DBase<
 		}
 	}
 
-	protected toWidthAuto() {
-		this._autoFlags |= AutoFlag.WIDTH;
-	}
-
-	protected isWidthAuto(): boolean {
-		return ( this._autoFlags & AutoFlag.WIDTH ) !== 0;
-	}
-
 	getWidth(): DCoordinateSize {
-		const scalarSet = this._scalarSet;
-		if( this.isWidthAuto() ) {
-			return "auto";
-		} else if( scalarSet.width != null ) {
-			return scalarSet.width;
-		} else {
-			return this.width;
-		}
+		return this._auto.width.toCoordinate(
+			this._scalarSet.width || this._width
+		);
 	}
 
 	setWidth( width: DCoordinateSize ) {
 		if( isNumber( width ) ) {
 			this.width = width;
-		} else if( width === "auto" || width === "AUTO" ) {
-			if( ! this.isWidthAuto() ) {
-				this.toWidthAuto();
+		} else {
+			switch( this._auto.width.from( width ) ) {
+			case true:
 				this.toChildrenDirty();
 				DApplications.update( this );
-			}
-		} else {
-			const scalarSet = this._scalarSet;
-			const scalar = DScalarFunctions.size( width );
-			if( scalarSet.width !== scalar ) {
-				scalarSet.width = scalar;
-				this.layout();
+				break;
+			case false:
+				// DO NOTHING
+				break;
+			case null:
+				const scalarSet = this._scalarSet;
+				const scalar = DScalarFunctions.size( width );
+				if( scalarSet.width !== scalar ) {
+					scalarSet.width = scalar;
+					this.layout();
+				}
+				break;
 			}
 		}
 	}
@@ -1272,40 +1257,32 @@ export class DBase<
 		}
 	}
 
-	protected toHeightAuto() {
-		this._autoFlags |= AutoFlag.HEIGHT;
-	}
-
-	protected isHeightAuto(): boolean {
-		return ( this._autoFlags & AutoFlag.HEIGHT ) !== 0;
-	}
-
 	getHeight(): DCoordinateSize {
-		const scalarSet = this._scalarSet;
-		if( this.isHeightAuto() ) {
-			return "auto";
-		} else if( scalarSet.height != null ) {
-			return scalarSet.height;
-		} else {
-			return this.height;
-		}
+		return this._auto.height.toCoordinate(
+			this._scalarSet.height || this._height
+		);
 	}
 
 	setHeight( height: DCoordinateSize ) {
 		if( isNumber( height ) ) {
 			this.height = height;
-		} else if( height === "auto" || height === "AUTO" ) {
-			if( ! this.isHeightAuto() ) {
-				this.toHeightAuto();
+		} else {
+			switch( this._auto.height.from( height  ) ) {
+			case true:
 				this.toChildrenDirty();
 				DApplications.update( this );
-			}
-		} else {
-			const scalarSet = this._scalarSet;
-			const scalar = DScalarFunctions.size( height );
-			if( scalarSet.height !== scalar ) {
-				scalarSet.height = scalar;
-				this.layout();
+				break;
+			case false:
+				// DO NOTHING
+				break;
+			case null:
+				const scalarSet = this._scalarSet;
+				const scalar = DScalarFunctions.size( height );
+				if( scalarSet.height !== scalar ) {
+					scalarSet.height = scalar;
+					this.layout();
+				}
+				break;
 			}
 		}
 	}
@@ -1571,8 +1548,9 @@ export class DBase<
 	}
 
 	protected onRefit(): void {
-		const isWidthAuto = this.isWidthAuto();
-		const isHeightAuto = this.isHeightAuto();
+		const auto = this._auto;
+		const isWidthAuto = auto.width.isOn;
+		const isHeightAuto = auto.height.isOn;
 		if( isWidthAuto && isHeightAuto ) {
 			let width = 0;
 			let height = 0;
@@ -1599,8 +1577,7 @@ export class DBase<
 					width = Math.max( width, child.x + child.width );
 				}
 			}
-			const padding = this.padding;
-			this.width = width + padding.getRight();
+			this.width = width + this.padding.getRight();
 		} else if( isHeightAuto ) {
 			let height = 0;
 			const children = this.children;
@@ -1610,8 +1587,7 @@ export class DBase<
 					height = Math.max( height, child.y + child.height );
 				}
 			}
-			const padding = this.padding;
-			this.height = height + padding.getBottom();
+			this.height = height + this.padding.getBottom();
 		}
 	}
 

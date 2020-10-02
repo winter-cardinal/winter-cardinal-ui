@@ -74,7 +74,7 @@ export class EShapeActionExpressions {
 	}
 
 	static ofString( expression: string ): EShapeActionExpression<string> {
-		return this.from( expression, "String", this.EMPTY, '""', false );
+		return this.from( expression, "String", this.EMPTY, "\"\"", false );
 	}
 
 	static ofBoolean( expression: string ): EShapeActionExpression<boolean> {

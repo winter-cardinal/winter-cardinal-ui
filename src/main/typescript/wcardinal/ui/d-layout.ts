@@ -256,6 +256,10 @@ export abstract class DLayout<
 		}
 	}
 
+	protected calcSpaceLeft( isOn: boolean, size: number, padding: number, margin: number ): number {
+		return ( isOn ? 0 : this.getSpaceLeft( size - padding, margin ) );
+	}
+
 	protected onRefit(): void {
 		const children = this.children;
 		const padding = this._padding;
@@ -269,6 +273,7 @@ export abstract class DLayout<
 		const weightTotal = this.getWeightTotal();
 		const multiplicity = this._multiplicity;
 		const reverse = this._reverse;
+		const auto = this._auto;
 
 		let cornerAdjustWork = null;
 		if( this._cornerAdjust ) {
@@ -288,8 +293,12 @@ export abstract class DLayout<
 			let y = paddingTop - marginVertical;
 			if( 0 < weightTotal ) {
 				const weightTotalInverse = 1 / weightTotal;
-				const baseSize = this.height - paddingTop - paddingBottom;
-				const spaceLeft = this.getSpaceLeft( baseSize, marginVertical );
+				const spaceLeft = this.calcSpaceLeft(
+					auto.height.isOn,
+					this.height,
+					paddingTop + paddingBottom,
+					marginVertical
+				);
 				for( let i = 0, imax = children.length; i < imax; ) {
 					let x = paddingLeft - marginHorizontal;
 					let height = 0;
@@ -455,8 +464,12 @@ export abstract class DLayout<
 			let x = paddingLeft - marginHorizontal;
 			if( 0 < weightTotal ) {
 				const weightTotalInverse = 1 / weightTotal;
-				const baseSize = this.width - paddingLeft - paddingRight;
-				const spaceLeft = this.getSpaceLeft( baseSize, marginHorizontal );
+				const spaceLeft = this.calcSpaceLeft(
+					auto.width.isOn,
+					this.width,
+					paddingLeft + paddingRight,
+					marginHorizontal
+				);
 				for( let i = 0, imax = children.length; i < imax; ) {
 					let y = paddingTop - marginVertical;
 					let width = 0;

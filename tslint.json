@@ -44,6 +44,8 @@
 			]
 		},
 		"no-empty-interface": false,
-		"no-unused-expression": [true, "allow-new"]
+		"no-unused-expression": [true, "allow-new"],
+		"array-type": [ true, "array-simple" ],
+		"quotemark": [ true, "double" ]
 	}
 }

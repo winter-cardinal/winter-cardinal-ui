@@ -73,7 +73,7 @@ export class DList<
 		return null;
 	}
 
-	onRefit(): void {
+	protected onRefit(): void {
 		super.onRefit();
 		this.updateChildPosition();
 		this.updateChildVisibility();
