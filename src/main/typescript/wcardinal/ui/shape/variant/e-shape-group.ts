@@ -50,25 +50,12 @@ export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent
 	}
 
 	protected newGroupSize( isEditMode: boolean ): EShapeGroupSize {
+		const sizeX = EShapeDefaults.SIZE_X;
+		const sizeY = EShapeDefaults.SIZE_Y;
 		if( isEditMode ) {
-			return new EShapeGroupSizeEditor(
-				this,
-				EShapeDefaults.SIZE_X,
-				EShapeDefaults.SIZE_Y
-			);
+			return new EShapeGroupSizeEditor( this, sizeX, sizeY );
 		} else {
-			const result = new EShapeGroupSizeViewer(
-				() => {
-					const base = result.base;
-					this.transform.scale.set(
-						result.x / base.x,
-						result.y / base.y
-					);
-				},
-				EShapeDefaults.SIZE_X,
-				EShapeDefaults.SIZE_Y
-			);
-			return result;
+			return new EShapeGroupSizeViewer( this, sizeX, sizeY, sizeX, sizeY );
 		}
 	}
 

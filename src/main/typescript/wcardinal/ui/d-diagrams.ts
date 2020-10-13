@@ -90,38 +90,66 @@ export class DDiagrams {
 	static toPieceData(
 		controller: DDiagramBaseController | null | undefined,
 		pieces: string[] | null | undefined,
-		isEditMode: boolean
+		isEditMode: boolean,
+		mappings?: Map<string, EShapeEmbeddedDatum>
 	): Promise<Map<string, EShapeEmbeddedDatum>> | undefined {
 		if( pieces && 0 < pieces.length && controller ) {
+			const newMappings = mappings || new Map<string, EShapeEmbeddedDatum>();
 			return new Promise(( resolve ): void => {
-				const mappings = new Map<string, EShapeEmbeddedDatum>();
 				const size = pieces.length;
 				let finished = size;
 				const onFinished = (): void => {
 					finished -= 1;
 					if( finished <= 0 ) {
-						resolve( mappings );
+						resolve( newMappings );
 					}
 				};
 				const load = ( piece: string ): void => {
-					controller.piece.getByName( piece ).then(( found ): void => {
-						const serialized = this.toSerialized( found );
-						const width = serialized.width;
-						const height = serialized.height;
-						const container = new EShapeEmbeddedLayerContainer( width, height, isEditMode );
-						const manager = new EShapeResourceManagerDeserialization(
-							serialized, undefined, undefined, isEditMode
-						);
-						const datum = new EShapeEmbeddedDatum(
-							serialized.name, width, height, container
-						);
-						mappings.set( piece, datum );
-						this.newLayer( serialized, container, manager ).then( onFinished, onFinished );
-					}, onFinished );
+					if( newMappings.has( piece ) ) {
+						onFinished();
+					} else {
+						controller.piece.getByName( piece ).then(( found ): void => {
+							this.toPieceDataSub( controller, piece, found, isEditMode, newMappings )
+							.then( onFinished, onFinished );
+						}, onFinished );
+					}
 				};
 				for( let i = 0; i < size; ++i ) {
 					load( pieces[ i ] );
 				}
+			});
+		}
+	}
+
+	static toPieceDataSub(
+		controller: DDiagramBaseController,
+		name: string,
+		serializedOrSimple: DDiagramSerialized | DDiagramSerializedSimple,
+		isEditMode: boolean,
+		mappings: Map<string, EShapeEmbeddedDatum>
+	): Promise<EShape[]> {
+		const serialized = this.toSerialized( serializedOrSimple );
+		const width = serialized.width;
+		const height = serialized.height;
+		const container = new EShapeEmbeddedLayerContainer( width, height, isEditMode );
+
+		mappings.set( name, new EShapeEmbeddedDatum(
+			name, width, height, container
+		));
+
+		const pieces = serialized.pieces;
+		const pieceDataOrPromise = this.toPieceData(
+			controller, pieces, isEditMode, mappings
+		);
+		if( pieceDataOrPromise == null ) {
+			return this.newLayer( serialized, container, new EShapeResourceManagerDeserialization(
+				serialized, undefined, undefined, isEditMode
+			));
+		} else {
+			return pieceDataOrPromise.then(( pieceData ): Promise<EShape[]> => {
+				return this.newLayer( serialized, container, new EShapeResourceManagerDeserialization(
+					serialized, pieces, pieceData, isEditMode
+				));
 			});
 		}
 	}

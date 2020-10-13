@@ -127,14 +127,15 @@ export abstract class DDiagramBase<
 	protected onSet( serialized: DDiagramSerialized ): void {
 		const canvas = this.newCanvas( serialized );
 		const pieces = serialized.pieces;
+		const isEditMode = this.isEditMode();
 		const pieceDataOrPromise = DDiagrams.toPieceData(
-			this._controller, pieces, this.isEditMode()
+			this._controller, pieces, isEditMode
 		);
 		if( pieceDataOrPromise == null ) {
-			this.newLayer( serialized, canvas );
+			this.newLayer( serialized, canvas, isEditMode );
 		} else {
 			pieceDataOrPromise.then(( pieceData ): void => {
-				this.newLayer( serialized, canvas, pieces, pieceData );
+				this.newLayer( serialized, canvas, isEditMode, pieces, pieceData );
 			});
 		}
 		this.canvas = canvas;
@@ -143,12 +144,13 @@ export abstract class DDiagramBase<
 	protected newLayer(
 		serialized: DDiagramSerialized,
 		canvas: CANVAS,
+		isEditMode: boolean,
 		pieces?: string[],
 		pieceData?: Map<string, EShapeEmbeddedDatum>
 	): void {
 		const layer = canvas.layer;
 		const manager = new EShapeResourceManagerDeserialization(
-			serialized, pieces, pieceData, this.isEditMode()
+			serialized, pieces, pieceData, isEditMode
 		);
 		DDiagrams.newLayer( serialized, layer, manager )
 		.then(( shapes: EShape[] ): void => {
