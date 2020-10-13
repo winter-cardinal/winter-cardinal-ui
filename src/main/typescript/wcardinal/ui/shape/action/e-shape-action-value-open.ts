@@ -10,7 +10,7 @@ import { EShapeActionRuntimeOpenDialogBoolean } from "./e-shape-action-runtime-o
 import { EShapeActionRuntimeOpenDialogInteger } from "./e-shape-action-runtime-open-dialog-integer";
 import { EShapeActionRuntimeOpenDialogReal } from "./e-shape-action-runtime-open-dialog-real";
 import { EShapeActionRuntimeOpenDialogText } from "./e-shape-action-runtime-open-dialog-text";
-import { EShapeActionRuntimeOpenFlow } from "./e-shape-action-runtime-open-flow";
+import { EShapeActionRuntimeOpenDiagram } from "./e-shape-action-runtime-open-diagram";
 import { EShapeActionRuntimeOpenPage } from "./e-shape-action-runtime-open-page";
 import { EShapeActionRuntimeOpenPageInplace } from "./e-shape-action-runtime-open-page-inplace";
 import { EShapeActionValue } from "./e-shape-action-value";
@@ -52,8 +52,8 @@ export class EShapeActionValueOpen extends EShapeActionValueSubtyped<EShapeActio
 
 	toRuntime(): EShapeActionRuntimeOpen {
 		switch( this.subtype ) {
-		case EShapeActionValueOpenType.FLOW:
-			return new EShapeActionRuntimeOpenFlow( this );
+		case EShapeActionValueOpenType.DIAGRAM:
+			return new EShapeActionRuntimeOpenDiagram( this );
 		case EShapeActionValueOpenType.PAGE:
 			return new EShapeActionRuntimeOpenPage( this );
 		case EShapeActionValueOpenType.PAGE_INPLACE:

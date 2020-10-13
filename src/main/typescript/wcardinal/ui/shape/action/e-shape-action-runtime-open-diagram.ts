@@ -9,7 +9,7 @@ import { EShapeActionRuntimeOpen } from "./e-shape-action-runtime-open";
 import { EShapeActionRuntimes } from "./e-shape-action-runtimes";
 import { EShapeActionValueOpen } from "./e-shape-action-value-open";
 
-export class EShapeActionRuntimeOpenFlow extends EShapeActionRuntimeOpen {
+export class EShapeActionRuntimeOpenDiagram extends EShapeActionRuntimeOpen {
 	constructor( value: EShapeActionValueOpen ) {
 		super( value, EShapeRuntimeReset.NONE );
 	}

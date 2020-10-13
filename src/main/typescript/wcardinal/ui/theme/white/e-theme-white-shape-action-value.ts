@@ -240,8 +240,8 @@ export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
 
 	toOpenTypeLabel( type: EShapeActionValueOpenType ): string {
 		switch (type) {
-		case EShapeActionValueOpenType.FLOW:
-			return "Flow";
+		case EShapeActionValueOpenType.DIAGRAM:
+			return "Diagram";
 		case EShapeActionValueOpenType.PAGE:
 			return "Page (New window)";
 		case EShapeActionValueOpenType.PAGE_INPLACE:

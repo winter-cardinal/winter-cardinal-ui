@@ -4,7 +4,7 @@
  */
 
 export enum EShapeActionValueOpenType {
-	FLOW,
+	DIAGRAM,
 	PAGE,
 	PAGE_INPLACE,
 	DIALOG_TEXT,
