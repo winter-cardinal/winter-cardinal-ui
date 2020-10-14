@@ -6,6 +6,7 @@
 import { interaction } from "pixi.js";
 import { DBaseStateSet } from "./d-base-state-set";
 import { DTableBodyCellText, DTableBodyCellTextOptions, DThemeTableBodyCellText } from "./d-table-body-cell-text";
+import { DTableColumn } from "./d-table-column";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
@@ -22,13 +23,10 @@ export class DTableBodyCellButton<
 	THEME extends DThemeTableBodyCellButton = DThemeTableBodyCellButton,
 	OPTIONS extends DTableBodyCellButtonOptions<ROW, THEME> = DTableBodyCellButtonOptions<ROW, THEME>
 > extends DTableBodyCellText<ROW, THEME, OPTIONS> {
-	constructor( options: OPTIONS ) {
-		super( options );
-	}
+	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options: OPTIONS ) {
+		super( columnIndex, columnData, options );
 
-	protected init( options: OPTIONS ): void {
 		this.buttonMode = true;
-		super.init( options );
 		this.initOnClick( options );
 	}
 

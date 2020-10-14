@@ -4,7 +4,7 @@
  */
 
 import { DSelect, DSelectOptions, DThemeSelect } from "./d-select";
-import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
+import { DTableBodyCell } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
 
@@ -12,7 +12,7 @@ export interface DTableBodyCellSelectMenuOptions<
 	ROW = unknown,
 	VALUE = unknown,
 	THEME extends DThemeTableBodyCellSelectMenu = DThemeTableBodyCellSelectMenu
-> extends DSelectOptions<VALUE, THEME>, DTableBodyCellOptions<ROW> {
+> extends DSelectOptions<VALUE, THEME> {
 
 }
 
@@ -31,21 +31,17 @@ export class DTableBodyCellSelectMenu<
 	protected _columnIndex!: number;
 	protected _columnData!: DTableColumn<ROW>;
 
-	constructor( options: OPTIONS ) {
+	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options: OPTIONS ) {
 		super( options );
-	}
 
-	protected init( options: OPTIONS ) {
-		super.init( options );
-		const column = options.column;
 		this._rowIndex = -1;
-		this._columnIndex = column.index;
-		this._columnData = column.data;
+		this._columnIndex = columnIndex;
+		this._columnData = columnData;
+
 		this.on( "change", ( newValue: unknown, oldValue: unknown ): void => {
 			const row = this._row;
 			if( row !== undefined ) {
 				const rowIndex = this._rowIndex;
-				const columnIndex = this._columnIndex;
 				this._columnData.setter( row, columnIndex, newValue );
 				this.emit( "cellchange", newValue, oldValue, row, rowIndex, columnIndex, this );
 			}

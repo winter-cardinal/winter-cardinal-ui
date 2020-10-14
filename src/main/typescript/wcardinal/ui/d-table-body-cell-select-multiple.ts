@@ -4,7 +4,7 @@
  */
 
 import { DSelectMultiple, DSelectMultipleOptions, DThemeSelectMultiple } from "./d-select-multiple";
-import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
+import { DTableBodyCell } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
 
@@ -12,7 +12,7 @@ export interface DTableBodyCellSelectMultipleOptions<
 	ROW = unknown,
 	VALUE = unknown,
 	THEME extends DThemeTableBodyCellSelectMultiple = DThemeTableBodyCellSelectMultiple
-> extends DSelectMultipleOptions<VALUE, THEME>, DTableBodyCellOptions<ROW> {
+> extends DSelectMultipleOptions<VALUE, THEME> {
 
 }
 
@@ -32,21 +32,17 @@ export class DTableBodyCellSelectMultiple<
 	protected _columnIndex!: number;
 	protected _columnData!: DTableColumn<ROW>;
 
-	constructor( options: OPTIONS ) {
+	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options: OPTIONS ) {
 		super( options );
-	}
 
-	protected init( options: OPTIONS ) {
-		super.init( options );
-		const column = options.column;
 		this._rowIndex = -1;
-		this._columnIndex = column.index;
-		this._columnData = column.data;
+		this._columnIndex = columnIndex;
+		this._columnData = columnData;
+
 		this.on( "change", ( newValues: unknown, oldValues: unknown ): void => {
 			const row = this._row;
 			if( row !== undefined ) {
 				const rowIndex = this._rowIndex;
-				const columnIndex = this._columnIndex;
 				this._columnData.setter( row, columnIndex, newValues );
 				this.emit( "cellchange", newValues, oldValues, row, rowIndex, columnIndex, this );
 			}

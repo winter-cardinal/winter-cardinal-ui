@@ -7,7 +7,7 @@ import { DBaseStateSet } from "./d-base-state-set";
 import { DButton, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogDate, DDialogDateOptions } from "./d-dialog-date";
 import { DDialogDates } from "./d-dialog-dates";
-import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
+import { DTableBodyCell } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
 import { isNumber } from "./util/is-number";
@@ -15,7 +15,7 @@ import { isNumber } from "./util/is-number";
 export interface DTableBodyCellDateOptions<
 	ROW = unknown,
 	THEME extends DThemeTableBodyCellDate = DThemeTableBodyCellDate
-> extends DButtonOptions<Date, THEME>, DTableBodyCellOptions<ROW> {
+> extends DButtonOptions<Date, THEME> {
 	dialog?: DDialogDateOptions;
 }
 
@@ -31,23 +31,17 @@ export class DTableBodyCellDate<
 	OPTIONS extends DTableBodyCellDateOptions<ROW, THEME> = DTableBodyCellDateOptions<ROW, THEME>
 > extends DButton<Date, THEME, OPTIONS> implements DTableBodyCell<ROW> {
 	protected _dialog?: DDialogDate;
-	protected _dialogOptions?: DDialogDateOptions;
 	protected _row?: ROW;
-	protected _rowIndex!: number;
-	protected _columnIndex!: number;
-	protected _columnData!: DTableColumn<ROW>;
+	protected _rowIndex: number;
+	protected _columnIndex: number;
+	protected _columnData: DTableColumn<ROW>;
 
-	constructor( options: OPTIONS ) {
+	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options: OPTIONS ) {
 		super( options );
-	}
 
-	protected init( options: OPTIONS ) {
-		super.init( options );
-
-		this._dialogOptions = options.dialog;
 		this._rowIndex = -1;
-		this._columnIndex = options.column.index;
-		this._columnData = options.column.data;
+		this._columnIndex = columnIndex;
+		this._columnData = columnData;
 
 		this.on( "active", (): void => {
 			const currentTime = this._textValueComputed.getTime();
@@ -62,7 +56,6 @@ export class DTableBodyCellDate<
 				const row = this._row;
 				if( row !== undefined ) {
 					const rowIndex = this._rowIndex;
-					const columnIndex = this._columnIndex;
 					this._columnData.setter( row, columnIndex, newValue );
 					this.emit( "cellchange", newValue, oldValue, row, rowIndex, columnIndex, this );
 				}
@@ -73,9 +66,9 @@ export class DTableBodyCellDate<
 	get dialog(): DDialogDate {
 		let dialog = this._dialog;
 		if( dialog == null ) {
-			const dialogOptions = this._dialogOptions;
-			if( dialogOptions != null ) {
-				dialog = new DDialogDate( this._dialogOptions );
+			const options = this._options?.dialog;
+			if( options ) {
+				dialog = new DDialogDate( options );
 			} else {
 				dialog = DDialogDates.getInstance();
 			}

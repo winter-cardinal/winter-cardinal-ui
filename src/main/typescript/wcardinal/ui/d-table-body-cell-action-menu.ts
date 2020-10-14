@@ -4,14 +4,14 @@
  */
 
 import { DDropdown, DDropdownOptions, DThemeDropdown } from "./d-dropdown";
-import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
+import { DTableBodyCell } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
 
 export interface DTableBodyCellActionMenuOptions<
 	ROW = unknown,
 	THEME extends DThemeTableBodyCellActionMenu = DThemeTableBodyCellActionMenu
-> extends DDropdownOptions<unknown, THEME>, DTableBodyCellOptions<ROW> {
+> extends DDropdownOptions<unknown, THEME> {
 
 }
 
@@ -25,22 +25,19 @@ export class DTableBodyCellActionMenu<
 	OPTIONS extends DTableBodyCellActionMenuOptions<ROW, THEME> = DTableBodyCellActionMenuOptions<ROW, THEME>
 > extends DDropdown<unknown, THEME, OPTIONS> implements DTableBodyCell<ROW> {
 	protected _row?: ROW;
-	protected _rowIndex!: number;
-	protected _columnIndex!: number;
-	protected _columnData!: DTableColumn<ROW>;
-	protected _onSelectedBound!: ( selected: unknown ) => void;
-	protected _onClosedBound!: () => void;
+	protected _rowIndex: number;
+	protected _columnIndex: number;
+	protected _columnData: DTableColumn<ROW>;
+	protected _onSelectedBound: ( selected: unknown ) => void;
+	protected _onClosedBound: () => void;
 
-	constructor( options: OPTIONS ) {
+	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options: OPTIONS ) {
 		super( options );
-	}
 
-	protected init( options: OPTIONS ) {
-		super.init( options );
-		const column = options.column;
 		this._rowIndex = -1;
-		this._columnIndex = column.index;
-		this._columnData = column.data;
+		this._columnIndex = columnIndex;
+		this._columnData = columnData;
+
 		this._onSelectedBound = ( selected: unknown ): void => {
 			this.onSelected( selected );
 		};

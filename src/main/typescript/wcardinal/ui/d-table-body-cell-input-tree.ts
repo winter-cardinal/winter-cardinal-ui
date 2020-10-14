@@ -22,22 +22,22 @@ export class DTableBodyCellInputTree<
 	THEME extends DThemeTableBodyCellInputTree = DThemeTableBodyCellInputTree
 > extends DLayoutHorizontal<THEME> {
 	protected _row?: ROW;
-	protected _rowIndex!: number;
-	protected _columnIndex!: number;
-	protected _columnData!: DTableColumn<ROW>;
+	protected _rowIndex: number;
+	protected _columnIndex: number;
+	protected _columnData: DTableColumn<ROW>;
 
-	protected _marker!: DTableBodyCellInputTreeMarker;
-	protected _input!: DTableBodyCellInputTreeInput;
+	protected _marker: DTableBodyCellInputTreeMarker;
+	protected _input: DTableBodyCellInputTreeInput;
 
-	constructor( options: DTableBodyCellInputTextOptions<ROW> ) {
+	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options: DTableBodyCellInputTextOptions<ROW> ) {
 		super({
 			weight: options.weight,
 			width: options.width
 		});
 
 		this._rowIndex = -1;
-		this._columnIndex = options.column.index;
-		this._columnData = options.column.data;
+		this._columnIndex = columnIndex;
+		this._columnData = columnData;
 
 		// Marker
 		const marker = new DTableBodyCellInputTreeMarker({
@@ -62,7 +62,6 @@ export class DTableBodyCellInputTree<
 			const row = this._row;
 			if( row !== undefined ) {
 				const rowIndex = this._rowIndex;
-				const columnIndex = this._columnIndex;
 				this._columnData.setter( row, columnIndex, newValue );
 				this.emit( "cellchange", newValue, oldValue, row, rowIndex, columnIndex, this );
 			}

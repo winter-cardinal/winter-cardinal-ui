@@ -4,7 +4,7 @@
  */
 
 import { DButtonCheck, DButtonCheckOptions, DThemeButtonCheck } from "./d-button-check";
-import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
+import { DTableBodyCell } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn, DTableColumnType } from "./d-table-column";
 import { DTableData } from "./d-table-data";
@@ -12,7 +12,7 @@ import { DTableData } from "./d-table-data";
 export interface DTableBodyCellCheckOptions<
 	ROW = unknown,
 	THEME extends DThemeTableBodyCellCheck = DThemeTableBodyCellCheck
-> extends DButtonCheckOptions<unknown, THEME>, DTableBodyCellOptions<ROW> {
+> extends DButtonCheckOptions<unknown, THEME> {
 }
 
 export interface DThemeTableBodyCellCheck extends DThemeButtonCheck {
@@ -25,19 +25,16 @@ export class DTableBodyCellCheck<
 	OPTIONS extends DTableBodyCellCheckOptions<ROW, THEME> = DTableBodyCellCheckOptions<ROW, THEME>
 > extends DButtonCheck<unknown, THEME, OPTIONS> implements DTableBodyCell<ROW> {
 	protected _row?: ROW;
-	protected _rowIndex!: number;
-	protected _columnIndex!: number;
-	protected _columnData!: DTableColumn<ROW>;
+	protected _rowIndex: number;
+	protected _columnIndex: number;
+	protected _columnData: DTableColumn<ROW>;
 
-	constructor( options: OPTIONS ) {
+	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options: OPTIONS ) {
 		super( options );
-	}
 
-	protected init( options: OPTIONS ) {
-		super.init( options );
 		this._rowIndex = -1;
-		this._columnIndex = options.column.index;
-		this._columnData = options.column.data;
+		this._columnIndex = columnIndex;
+		this._columnData = columnData;
 
 		this.on( "active", (): void => {
 			this.onChange( true );

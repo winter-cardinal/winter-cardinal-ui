@@ -5,7 +5,7 @@
 
 import { DButtonColor, DButtonColorOptions, DThemeButtonColor } from "./d-button-color";
 import { DColorAndAlpha } from "./d-color-and-alpha";
-import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
+import { DTableBodyCell } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
 import { isNumber } from "./util/is-number";
@@ -14,7 +14,7 @@ import { isString } from "./util/is-string";
 export interface DTableBodyCellColorOptions<
 	ROW = unknown,
 	THEME extends DThemeTableBodyCellColor = DThemeTableBodyCellColor
-> extends DButtonColorOptions<THEME>, DTableBodyCellOptions<ROW> {
+> extends DButtonColorOptions<THEME> {
 }
 
 export interface DThemeTableBodyCellColor extends DThemeButtonColor {
@@ -42,19 +42,16 @@ export class DTableBodyCellColor<
 	OPTIONS extends DTableBodyCellColorOptions<ROW, THEME> = DTableBodyCellColorOptions<ROW, THEME>
 > extends DButtonColor<THEME, OPTIONS> implements DTableBodyCell<ROW> {
 	protected _row?: ROW;
-	protected _rowIndex!: number;
-	protected _columnIndex!: number;
-	protected _columnData!: DTableColumn<ROW>;
+	protected _rowIndex: number;
+	protected _columnIndex: number;
+	protected _columnData: DTableColumn<ROW>;
 
-	constructor( options: OPTIONS ) {
+	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options: OPTIONS ) {
 		super( options );
-	}
 
-	protected init( options: OPTIONS ) {
-		super.init( options );
 		this._rowIndex = -1;
-		this._columnIndex = options.column.index;
-		this._columnData = options.column.data;
+		this._columnIndex = columnIndex;
+		this._columnData = columnData;
 
 		this.on( "change", ( newValue: DColorAndAlpha, oldValue: DColorAndAlpha ): void => {
 			const row = this._row;
@@ -62,7 +59,6 @@ export class DTableBodyCellColor<
 				const newValueCloned = clone( newValue );
 				const oldValueCloned = clone( oldValue );
 				const rowIndex = this._rowIndex;
-				const columnIndex = this._columnIndex;
 				this._columnData.setter( row, columnIndex, newValueCloned );
 				this.emit( "cellchange", newValueCloned, oldValueCloned, row, rowIndex, columnIndex, this );
 			}

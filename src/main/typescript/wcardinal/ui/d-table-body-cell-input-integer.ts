@@ -4,14 +4,14 @@
  */
 
 import { DInputInteger, DInputIntegerOptions, DThemeInputInteger } from "./d-input-integer";
-import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
+import { DTableBodyCell } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
 
 export interface DTableBodyCellInputIntegerOptions<
 	ROW = unknown,
 	THEME extends DThemeTableBodyCellInputInteger = DThemeTableBodyCellInputInteger
-> extends DInputIntegerOptions<THEME>, DTableBodyCellOptions<ROW> {
+> extends DInputIntegerOptions<THEME> {
 }
 
 export interface DThemeTableBodyCellInputInteger extends DThemeInputInteger {
@@ -24,24 +24,21 @@ export class DTableBodyCellInputInteger<
 	OPTIONS extends DTableBodyCellInputIntegerOptions<ROW, THEME> = DTableBodyCellInputIntegerOptions<ROW, THEME>
 > extends DInputInteger<THEME, OPTIONS> implements DTableBodyCell<ROW> {
 	protected _row?: ROW;
-	protected _rowIndex!: number;
-	protected _columnIndex!: number;
-	protected _columnData!: DTableColumn<ROW>;
+	protected _rowIndex: number;
+	protected _columnIndex: number;
+	protected _columnData: DTableColumn<ROW>;
 
-	constructor( options: OPTIONS ) {
+	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options: OPTIONS ) {
 		super( options );
-	}
 
-	protected init( options: OPTIONS ) {
-		super.init( options );
 		this._rowIndex = -1;
-		this._columnIndex = options.column.index;
-		this._columnData = options.column.data;
+		this._columnIndex = columnIndex;
+		this._columnData = columnData;
+
 		this.on( "change", ( newValue: unknown, oldValue: unknown ): void => {
 			const row = this._row;
 			if( row !== undefined ) {
 				const rowIndex = this._rowIndex;
-				const columnIndex = this._columnIndex;
 				this._columnData.setter( row, columnIndex, newValue );
 				this.emit( "cellchange", newValue, oldValue, row, rowIndex, columnIndex, this );
 			}

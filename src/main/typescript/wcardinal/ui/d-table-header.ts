@@ -64,39 +64,39 @@ export class DTableHeader<
 	}
 
 	protected newCell(
-		column: DTableColumn<ROW>,
 		columnIndex: number,
-		columns: Array<DTableColumn<ROW>>,
+		columnData: DTableColumn<ROW>,
+		columnDataList: Array<DTableColumn<ROW>>,
 		options: OPTIONS
 	): DBase {
-		return new DTableHeaderCell<ROW>( this.toCellOptions( column, columnIndex, options ) );
+		return new DTableHeaderCell<ROW>( this.toCellOptions( columnIndex, columnData, options ) );
 	}
 
 	protected toCellOptions(
-		column: DTableColumn<ROW>,
 		columnIndex: number,
+		columnData: DTableColumn<ROW>,
 		options: OPTIONS
 	): DTableHeaderCellOptions<ROW> {
-		const result = column.header || options.cell;
+		const result = columnData.header || options.cell;
 		if( result != null ) {
 			if( result.weight === undefined ) {
-				result.weight = column.weight;
+				result.weight = columnData.weight;
 			}
 			if( result.width === undefined ) {
-				result.width = column.width;
+				result.width = columnData.width;
 			}
 			if( result.text === undefined ) {
 				result.text = {
-					value: column.label
+					value: columnData.label
 				};
 			} else if( result.text.value === undefined ) {
-				result.text.value = column.label;
+				result.text.value = columnData.label;
 			}
 			if( result.header === undefined ) {
 				result.header = this;
 			}
 			if( result.column === undefined ) {
-				result.column = column;
+				result.column = columnData;
 			}
 			if( result.columnIndex === undefined ) {
 				result.columnIndex = columnIndex;
@@ -104,13 +104,13 @@ export class DTableHeader<
 			return result;
 		} else {
 			return {
-				weight: column.weight,
-				width: column.width,
+				weight: columnData.weight,
+				width: columnData.width,
 				text: {
-					value: column.label
+					value: columnData.label
 				},
 				header: this,
-				column,
+				column: columnData,
 				columnIndex
 			};
 		}

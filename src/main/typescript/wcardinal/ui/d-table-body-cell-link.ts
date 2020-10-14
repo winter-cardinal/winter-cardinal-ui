@@ -14,6 +14,7 @@ import {
 	DTableBodyCellButton, DTableBodyCellButtonOptions, DThemeTableBodyCellButton
 } from "./d-table-body-cell-button";
 import { DTableCellState } from "./d-table-cell-state";
+import { DTableColumn } from "./d-table-column";
 import { isString } from "./util/is-string";
 
 export type DTableBodyCellLinkUrlMaker<ROW> = (
@@ -43,15 +44,14 @@ export interface DThemeTableBodyCellLink extends DThemeTableBodyCellButton, DThe
 
 export const toLinkOptions = <ROW>(
 	cell: DTableBodyCell<ROW>,
-	options: DTableBodyCellLinkOptions<ROW, any>
+	options?: DTableBodyCellLinkLinkOptions<ROW>
 ): DLinkOptions | undefined => {
-	const link = options.link;
-	if( link ) {
+	if( options ) {
 		return {
-			url: toUrl( cell, link.url ),
-			target: link.target,
-			checker: toChecker( cell, link.checker ),
-			menu: link.menu
+			url: toUrl( cell, options.url ),
+			target: options.target,
+			checker: toChecker( cell, options.checker ),
+			menu: options.menu
 		};
 	}
 	return undefined;
@@ -90,35 +90,47 @@ export const toChecker = <ROW>(
 	return undefined;
 };
 
+const toOptions = <
+	ROW,
+	THEME extends DThemeTableBodyCellLink = DThemeTableBodyCellLink,
+	OPTIONS extends DTableBodyCellLinkOptions<ROW, THEME> = DTableBodyCellLinkOptions<ROW, THEME>
+>( options: OPTIONS ): OPTIONS => {
+	if( options?.link?.target === DLinkTarget.NEW_WINDOW ) {
+		options.state = ( options.state || DBaseState.NONE ) || DTableCellState.NEW_WINDOW;
+	}
+	return options;
+};
+
 export class DTableBodyCellLink<
 	ROW,
 	THEME extends DThemeTableBodyCellLink = DThemeTableBodyCellLink,
 	OPTIONS extends DTableBodyCellLinkOptions<ROW, THEME> = DTableBodyCellLinkOptions<ROW, THEME>
 > extends DTableBodyCellButton<ROW, THEME, OPTIONS> {
-	protected _link!: DLink;
+	protected _link?: DLink;
 
-	constructor( options: OPTIONS ) {
-		super( options );
-	}
-
-	protected init( options: OPTIONS ): void {
-		if( options.link && options.link.target === DLinkTarget.NEW_WINDOW ) {
-			options.state = ( options.state || DBaseState.NONE ) || DTableCellState.NEW_WINDOW;
-		}
-		this._link = new DLink( this.theme, toLinkOptions( this, options ) );
-		super.init( options );
+	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options: OPTIONS ) {
+		super( columnIndex, columnData, toOptions<ROW, THEME, OPTIONS>( options ) );
 	}
 
 	protected initOnClick( options: OPTIONS ): void {
-		this._link.apply( this, ( e ) => this.onActive( e ) );
+		this.link.apply( this, ( e ) => this.onActive( e ) );
+	}
+
+	get link(): DLink {
+		let result = this._link;
+		if( result == null ) {
+			result = new DLink( this.theme, toLinkOptions( this, this._options?.link ) );
+			this._link = result;
+		}
+		return result;
 	}
 
 	get url(): string | null | Promise<string | null> {
-		return this._link.url;
+		return this.link.url;
 	}
 
 	get menu(): DMenu<DLinkMenuItemId> {
-		return this._link.menu;
+		return this.link.menu;
 	}
 
 	protected getType(): string {
@@ -133,11 +145,11 @@ export class DTableBodyCellLink<
 			const columnIndex = this._columnIndex;
 			this._columnData.setter( row, columnIndex, null );
 			this.emit( "cellchange", null, null, row, rowIndex, columnIndex, this );
-			this.open( this._link.inNewWindow( e ) );
+			this.open( this.link.inNewWindow( e ) );
 		}
 	}
 
 	open( inNewWindow: boolean ): void {
-		this._link.open( inNewWindow );
+		this.link.open( inNewWindow );
 	}
 }

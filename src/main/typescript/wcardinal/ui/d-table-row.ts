@@ -57,7 +57,7 @@ export abstract class DTableRow<
 		const columns = this._columns = options.columns || [];
 		const iend = this.toIndexEnd( columns );
 		for( let i = 0, imax = columns.length; i < imax; ++i ) {
-			const cell = this.newCell( columns[ i ], i, columns, options );
+			const cell = this.newCell( i, columns[ i ], columns, options );
 			const cellState = this.toCellState( i, iend, frozen );
 			if( cellState ) {
 				cell.state.add( cellState );
@@ -146,9 +146,9 @@ export abstract class DTableRow<
 	}
 
 	protected abstract newCell(
-		column: COLUMN,
 		columnIndex: number,
-		columns: COLUMN[],
+		columnData: COLUMN,
+		columnDataList: COLUMN[],
 		options: OPTIONS
 	): DBase;
 

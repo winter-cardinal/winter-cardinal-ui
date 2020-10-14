@@ -5,12 +5,12 @@
 
 import { DBaseStateSet } from "./d-base-state-set";
 import { DImageBase, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
-import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
+import { DTableBodyCell } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
 
 export interface DTableBodyCellTextOptions<ROW, THEME extends DThemeTableBodyCellText = DThemeTableBodyCellText>
-	extends DImageBaseOptions<unknown, THEME>, DTableBodyCellOptions<ROW> {
+	extends DImageBaseOptions<unknown, THEME> {
 }
 
 export interface DThemeTableBodyCellText extends DThemeImageBase {
@@ -28,15 +28,12 @@ export class DTableBodyCellText<
 	protected _columnIndex!: number;
 	protected _columnData!: DTableColumn<ROW>;
 
-	constructor( options: OPTIONS ) {
+	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options: OPTIONS ) {
 		super( options );
-	}
 
-	protected init( options: OPTIONS ): void {
-		super.init( options );
 		this._rowIndex = -1;
-		this._columnIndex = options.column.index;
-		this._columnData = options.column.data;
+		this._columnIndex = columnIndex;
+		this._columnData = columnData;
 	}
 
 	get row(): ROW | undefined {

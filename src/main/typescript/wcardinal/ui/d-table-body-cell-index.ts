@@ -5,14 +5,14 @@
 
 import { DBaseStateSet } from "./d-base-state-set";
 import { DImageBase, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
-import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
+import { DTableBodyCell } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
 
 export interface DTableBodyCellIndexOptions<
 	ROW = unknown,
 	THEME extends DThemeTableBodyCellIndex = DThemeTableBodyCellIndex
-> extends DImageBaseOptions<number, THEME>, DTableBodyCellOptions<ROW> {
+> extends DImageBaseOptions<number, THEME> {
 }
 
 export interface DThemeTableBodyCellIndex extends DThemeImageBase {
@@ -27,19 +27,16 @@ export class DTableBodyCellIndex<
 	OPTIONS extends DTableBodyCellIndexOptions<ROW, THEME> = DTableBodyCellIndexOptions<ROW, THEME>
 > extends DImageBase<number, THEME, OPTIONS> implements DTableBodyCell<ROW> {
 	protected _row?: ROW;
-	protected _rowIndex!: number;
-	protected _columnIndex!: number;
-	protected _columnData!: DTableColumn<ROW>;
+	protected _rowIndex: number;
+	protected _columnIndex: number;
+	protected _columnData: DTableColumn<ROW>;
 
-	constructor( options: OPTIONS ) {
+	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options: OPTIONS ) {
 		super( options );
-	}
 
-	protected init( options: OPTIONS ) {
-		super.init( options );
 		this._rowIndex = -1;
-		this._columnIndex = options.column.index;
-		this._columnData = options.column.data;
+		this._columnIndex = columnIndex;
+		this._columnData = columnData;
 	}
 
 	get row(): ROW | undefined {

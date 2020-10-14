@@ -54,13 +54,9 @@ export class DButtonDatetime<
 	OPTIONS extends DButtonDatetimeOptions<THEME> = DButtonDatetimeOptions<THEME>
 > extends DButton<Date, THEME, OPTIONS> {
 	protected _dialog?: DDialogDatetime;
-	protected _dialogOptions?: DDialogDatetimeOptions;
-	protected _datetimeMask!: DPickerDatetimeMask;
+	protected _datetimeMask?: DPickerDatetimeMask;
 
 	protected init( options?: OPTIONS ) {
-		this._dialogOptions = options && options.dialog;
-		this._datetimeMask = DPickerDatetimes.toMask( options && options.dialog && options.dialog.picker );
-
 		super.init( options );
 
 		this.on( "active", (): void => {
@@ -79,15 +75,20 @@ export class DButtonDatetime<
 	}
 
 	getDatetimeMask(): DPickerDatetimeMask {
-		return this._datetimeMask;
+		let result = this._datetimeMask;
+		if( result == null ) {
+			result = DPickerDatetimes.toMask( this._options?.dialog?.picker );
+			this._datetimeMask = result;
+		}
+		return result;
 	}
 
 	get dialog(): DDialogDatetime {
 		let dialog = this._dialog;
 		if( dialog == null ) {
-			const dialogOptions = this._dialogOptions;
-			if( dialogOptions != null ) {
-				dialog = new DDialogDatetime( this._dialogOptions );
+			const options = this._options?.dialog;
+			if( options != null ) {
+				dialog = new DDialogDatetime( options );
 			} else {
 				dialog = DDialogDatetimes.getInstance();
 			}

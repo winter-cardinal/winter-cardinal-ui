@@ -55,31 +55,32 @@ export class DTableCategory<
 	}
 
 	protected newCell(
-		column: DTableCategoryColumn,
 		columnIndex: number,
-		columns: DTableCategoryColumn[],
+		columnData: DTableCategoryColumn,
+		columnDataList: DTableCategoryColumn[],
 		options: OPTIONS
 	): DBase {
-		return new DTableCategoryCell( this.toCellOptions( column, options ) );
+		return new DTableCategoryCell( this.toCellOptions( columnIndex, columnData, options ) );
 	}
 
 	protected toCellOptions(
-		column: DTableCategoryColumn,
+		columnIndex: number,
+		columnData: DTableCategoryColumn,
 		options: OPTIONS
 	): DTableCategoryCellOptions {
 		const result = options.cell;
 		if( result ) {
-			result.weight = column.weight;
-			result.width = column.width;
+			result.weight = columnData.weight;
+			result.width = columnData.width;
 			const text = result.text = result.text || {};
-			text.value = text.value || column.label;
+			text.value = text.value || columnData.label;
 			return result;
 		} else {
 			return {
-				weight: column.weight,
-				width: column.width,
+				weight: columnData.weight,
+				width: columnData.width,
 				text: {
-					value: column.label
+					value: columnData.label
 				}
 			};
 		}

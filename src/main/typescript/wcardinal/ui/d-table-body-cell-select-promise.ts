@@ -4,7 +4,7 @@
  */
 
 import { DButton, DButtonOptions, DThemeButton } from "./d-button";
-import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
+import { DTableBodyCell } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
 
@@ -12,7 +12,7 @@ export interface DTableBodyCellSelectPromiseOptions<
 	ROW = unknown,
 	VALUE = unknown,
 	THEME extends DThemeTableBodyCellSelectPromise = DThemeTableBodyCellSelectPromise
-> extends DButtonOptions<VALUE | null, THEME>, DTableBodyCellOptions<ROW> {
+> extends DButtonOptions<VALUE | null, THEME> {
 	/**
 	 * False to stop synchronizing the resolved value and the text.
 	 */
@@ -31,28 +31,24 @@ export class DTableBodyCellSelectPromise<
 		DTableBodyCellSelectPromiseOptions<ROW, VALUE, THEME>
 > extends DButton<VALUE | null, THEME, OPTIONS> implements DTableBodyCell<ROW> {
 	protected _row?: ROW;
-	protected _rowIndex!: number;
-	protected _columnIndex!: number;
-	protected _columnData!: DTableColumn<ROW>;
-	protected _isSyncEnabled!: boolean;
+	protected _rowIndex: number;
+	protected _columnIndex: number;
+	protected _columnData: DTableColumn<ROW>;
 
-	constructor( options: OPTIONS ) {
+	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options: OPTIONS ) {
 		super( options );
-	}
 
-	protected init( options: OPTIONS ) {
-		super.init( options );
-		const column = options.column;
 		this._rowIndex = -1;
-		this._columnIndex = column.index;
-		this._columnData = column.data;
-		this._isSyncEnabled = this.toSync( this.theme, options );
-		const selecting = column.data.selecting;
+		this._columnIndex = columnIndex;
+		this._columnData = columnData;
+
+		const isSyncEnabled = this.toSync( this.theme, options );
+		const selecting = columnData.selecting;
 		const promise = selecting.promise;
 		if( promise != null ) {
 			this.on( "active", (): void => {
 				promise().then(( newValue: unknown ): void => {
-					if( this._isSyncEnabled ) {
+					if( isSyncEnabled ) {
 						const oldValue = this.text;
 						if( newValue !== oldValue ) {
 							this.text = newValue as VALUE;

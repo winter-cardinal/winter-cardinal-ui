@@ -9,7 +9,7 @@ import { DDialogDatetime, DDialogDatetimeOptions } from "./d-dialog-datetime";
 import { DDialogDatetimes } from "./d-dialog-datetimes";
 import { DPickerDatetimeMask } from "./d-picker-datetime-mask";
 import { DPickerDatetimes } from "./d-picker-datetimes";
-import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
+import { DTableBodyCell } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
 import { isNumber } from "./util/is-number";
@@ -17,7 +17,7 @@ import { isNumber } from "./util/is-number";
 export interface DTableBodyCellDatetimeOptions<
 	ROW = unknown,
 	THEME extends DThemeTableBodyCellDatetime = DThemeTableBodyCellDatetime
-> extends DButtonOptions<Date, THEME>, DTableBodyCellOptions<ROW> {
+> extends DButtonOptions<Date, THEME> {
 	dialog?: DDialogDatetimeOptions;
 }
 
@@ -34,25 +34,18 @@ export class DTableBodyCellDatetime<
 > extends DButton<Date, THEME, OPTIONS> implements DTableBodyCell<ROW> {
 	protected static DIALOG?: DDialogDatetime;
 	protected _dialog?: DDialogDatetime;
-	protected _dialogOptions?: DDialogDatetimeOptions;
-	protected _datetimeMask!: DPickerDatetimeMask;
+	protected _datetimeMask?: DPickerDatetimeMask;
 	protected _row?: ROW;
-	protected _rowIndex!: number;
-	protected _columnIndex!: number;
-	protected _columnData!: DTableColumn<ROW>;
+	protected _rowIndex: number;
+	protected _columnIndex: number;
+	protected _columnData: DTableColumn<ROW>;
 
-	constructor( options: OPTIONS ) {
+	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options: OPTIONS ) {
 		super( options );
-	}
 
-	protected init( options: OPTIONS ) {
-		this._dialogOptions = options.dialog;
-		this._datetimeMask = DPickerDatetimes.toMask( options && options.dialog && options.dialog.picker );
 		this._rowIndex = -1;
-		this._columnIndex = options.column.index;
-		this._columnData = options.column.data;
-
-		super.init( options );
+		this._columnIndex = columnIndex;
+		this._columnData = columnData;
 
 		this.on( "active", (): void => {
 			const currentTime = this._textValueComputed.getTime();
@@ -67,7 +60,6 @@ export class DTableBodyCellDatetime<
 				const row = this._row;
 				if( row !== undefined ) {
 					const rowIndex = this._rowIndex;
-					const columnIndex = this._columnIndex;
 					this._columnData.setter( row, columnIndex, newValue );
 					this.emit( "cellchange", newValue, oldValue, row, rowIndex, columnIndex, this );
 				}
@@ -76,15 +68,20 @@ export class DTableBodyCellDatetime<
 	}
 
 	getDatetimeMask(): DPickerDatetimeMask {
-		return this._datetimeMask;
+		let result = this._datetimeMask;
+		if( result == null ) {
+			result = DPickerDatetimes.toMask( this._options?.dialog?.picker );
+			this._datetimeMask = result;
+		}
+		return result;
 	}
 
 	get dialog(): DDialogDatetime {
 		let dialog = this._dialog;
 		if( dialog == null ) {
-			const dialogOptions = this._dialogOptions;
-			if( dialogOptions != null ) {
-				dialog = new DDialogDatetime( this._dialogOptions );
+			const options = this._options?.dialog;
+			if( options != null ) {
+				dialog = new DDialogDatetime( options );
 			} else {
 				dialog = DDialogDatetimes.getInstance();
 			}

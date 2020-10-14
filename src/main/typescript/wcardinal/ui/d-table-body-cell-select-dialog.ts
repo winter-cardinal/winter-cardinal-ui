@@ -4,7 +4,7 @@
  */
 
 import { DButton, DButtonOptions, DThemeButton } from "./d-button";
-import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
+import { DTableBodyCell } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
 
@@ -12,7 +12,7 @@ export interface DTableBodyCellSelectDialogOptions<
 	ROW = unknown,
 	VALUE = unknown,
 	THEME extends DThemeTableBodyCellSelectDialog = DThemeTableBodyCellSelectDialog
-> extends DButtonOptions<VALUE | null, THEME>, DTableBodyCellOptions<ROW> {
+> extends DButtonOptions<VALUE | null, THEME> {
 	/**
 	 * False to stop synchronization of the selected value and the text.
 	 */
@@ -34,27 +34,23 @@ export class DTableBodyCellSelectDialog<
 	protected _rowIndex!: number;
 	protected _columnIndex!: number;
 	protected _columnData!: DTableColumn<ROW>;
-	protected _isSyncEnabled!: boolean;
 
-	constructor( options: OPTIONS ) {
+	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options: OPTIONS ) {
 		super( options );
-	}
 
-	protected init( options: OPTIONS ) {
-		super.init( options );
-		const column = options.column;
 		this._rowIndex = -1;
-		this._columnIndex = column.index;
-		this._columnData = column.data;
-		this._isSyncEnabled = this.toSync( this.theme, options );
-		const selecting = column.data.selecting;
+		this._columnIndex = columnIndex;
+		this._columnData = columnData;
+
+		const isSyncEnabled = this.toSync( this.theme, options );
+		const selecting = columnData.selecting;
 		const dialog = selecting.dialog;
 		if( dialog != null ) {
 			this.on( "active", (): void => {
 				selecting.setter( dialog, this.text );
 				dialog.open().then(() => {
 					const newValue = selecting.getter( dialog );
-					if( this._isSyncEnabled ) {
+					if( isSyncEnabled ) {
 						const oldValue = this.text;
 						if( newValue !== oldValue ) {
 							this.text = newValue as VALUE;

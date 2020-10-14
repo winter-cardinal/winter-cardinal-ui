@@ -8,7 +8,7 @@ import { DButton, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogTime, DDialogTimeOptions } from "./d-dialog-time";
 import { DPickerDatetimeMask } from "./d-picker-datetime-mask";
 import { DPickerTimes } from "./d-picker-times";
-import { DTableBodyCell, DTableBodyCellOptions } from "./d-table-body-cell";
+import { DTableBodyCell } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
 import { isNumber } from "./util/is-number";
@@ -16,7 +16,7 @@ import { isNumber } from "./util/is-number";
 export interface DTableBodyCellTimeOptions<
 	ROW = unknown,
 	THEME extends DThemeTableBodyCellTime = DThemeTableBodyCellTime
-> extends DButtonOptions<Date, THEME>, DTableBodyCellOptions<ROW> {
+> extends DButtonOptions<Date, THEME> {
 	dialog?: DDialogTimeOptions;
 }
 
@@ -33,25 +33,18 @@ export class DTableBodyCellTime<
 > extends DButton<Date, THEME, OPTIONS> implements DTableBodyCell<ROW> {
 	protected static DIALOG?: DDialogTime;
 	protected _dialog?: DDialogTime;
-	protected _dialogOptions?: DDialogTimeOptions;
-	protected _datetimeMask!: DPickerDatetimeMask;
+	protected _datetimeMask?: DPickerDatetimeMask;
 	protected _row?: ROW;
 	protected _rowIndex!: number;
 	protected _columnIndex!: number;
 	protected _columnData!: DTableColumn<ROW>;
 
-	constructor( options: OPTIONS ) {
+	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options: OPTIONS ) {
 		super( options );
-	}
 
-	protected init( options: OPTIONS ) {
-		this._dialogOptions = options.dialog;
-		this._datetimeMask = DPickerTimes.toMask( options.dialog && options.dialog.picker );
 		this._rowIndex = -1;
-		this._columnIndex = options.column.index;
-		this._columnData = options.column.data;
-
-		super.init( options );
+		this._columnIndex = columnIndex;
+		this._columnData = columnData;
 
 		this.on( "active", (): void => {
 			const currentTime = this._textValueComputed.getTime();
@@ -65,7 +58,6 @@ export class DTableBodyCellTime<
 				const row = this._row;
 				if( row !== undefined ) {
 					const rowIndex = this._rowIndex;
-					const columnIndex = this._columnIndex;
 					this._columnData.setter( row, columnIndex, newValue );
 					this.emit( "cellchange", newValue, oldValue, row, rowIndex, columnIndex, this );
 				}
@@ -74,15 +66,20 @@ export class DTableBodyCellTime<
 	}
 
 	getDatetimeMask(): DPickerDatetimeMask {
-		return this._datetimeMask;
+		let result = this._datetimeMask;
+		if( result == null ) {
+			result = DPickerTimes.toMask( this._options?.dialog?.picker );
+			this._datetimeMask = result;
+		}
+		return result;
 	}
 
 	get dialog(): DDialogTime {
 		let dialog = this._dialog;
 		if( dialog == null ) {
-			const dialogOptions = this._dialogOptions;
-			if( dialogOptions != null ) {
-				dialog = new DDialogTime( this._dialogOptions );
+			const options = this._options?.dialog;
+			if( options != null ) {
+				dialog = new DDialogTime( options );
 			} else {
 				if( DTableBodyCellTime.DIALOG == null ) {
 					DTableBodyCellTime.DIALOG = new DDialogTime();

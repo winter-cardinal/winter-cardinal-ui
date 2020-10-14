@@ -14,6 +14,7 @@ import {
 import { DTableBodyCellLinkLinkOptions, toLinkOptions } from "./d-table-body-cell-link";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableCellState } from "./d-table-cell-state";
+import { DTableColumn } from "./d-table-column";
 import { isNumber } from "./util/is-number";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
@@ -28,32 +29,32 @@ export interface DThemeTableBodyCellTree extends DThemeTableBodyCellButton, DThe
 	getLevelPadding( level: number ): number;
 }
 
+const toOptions = <
+	ROW,
+	THEME extends DThemeTableBodyCellTree = DThemeTableBodyCellTree,
+	OPTIONS extends DTableBodyCellTreeOptions<ROW, THEME> = DTableBodyCellTreeOptions<ROW, THEME>
+>( options: OPTIONS ): OPTIONS => {
+	if( options?.link?.target === DLinkTarget.NEW_WINDOW ) {
+		options.state = ( options.state || DBaseState.NONE ) || DTableCellState.NEW_WINDOW;
+	}
+	return options;
+};
+
 export class DTableBodyCellTree<
 	ROW,
 	THEME extends DThemeTableBodyCellTree = DThemeTableBodyCellTree,
 	OPTIONS extends DTableBodyCellTreeOptions<ROW, THEME> = DTableBodyCellTreeOptions<ROW, THEME>
 > extends DTableBodyCellButton<ROW, THEME, OPTIONS> {
 	protected _padding!: DBasePaddingAdjustable;
-	protected _link?: DLink;
+	protected _link?: DLink | null;
 
-	constructor( options: OPTIONS ) {
-		super( options );
+	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options: OPTIONS ) {
+		super( columnIndex, columnData, toOptions<ROW, THEME, OPTIONS>( options ) );
 		this._padding = new DBasePaddingAdjustable( this._padding );
 	}
 
-	protected init( options: OPTIONS ): void {
-		const link = options.link;
-		if( link ) {
-			if( link.target === DLinkTarget.NEW_WINDOW ) {
-				options.state = ( options.state || DBaseState.NONE ) || DTableCellState.NEW_WINDOW;
-			}
-			this._link = new DLink( this.theme, toLinkOptions( this, options ) );
-		}
-		super.init( options );
-	}
-
 	protected initOnClick( options: OPTIONS ): void {
-		const link = this._link;
+		const link = this.link;
 		if( link ) {
 			link.apply( this, ( e ): void => this.onActive( e ) );
 			UtilPointerEvent.onClick( this, ( e: interaction.InteractionEvent ): void => {
@@ -67,7 +68,20 @@ export class DTableBodyCellTree<
 	}
 
 	get link(): DLink | null {
-		return this._link || null;
+		let result = this._link;
+		if( result === undefined ) {
+			result = this.newLink();
+			this._link = result;
+		}
+		return result;
+	}
+
+	protected newLink(): DLink | null {
+		const options = this._options?.link;
+		if( options ) {
+			return new DLink( this.theme, toLinkOptions( this, options ) );
+		}
+		return null;
 	}
 
 	protected onActive( e: KeyboardEvent | interaction.InteractionEvent ): void {
@@ -78,7 +92,7 @@ export class DTableBodyCellTree<
 			const columnIndex = this._columnIndex;
 			this.emit( "cellchange", null, null, row, rowIndex, columnIndex, this );
 
-			const link = this._link;
+			const link = this.link;
 			if( link && link.isEnabled() ) {
 				link.open( link.inNewWindow( e ) );
 			} else {
@@ -108,7 +122,7 @@ export class DTableBodyCellTree<
 		const columnData = this._columnData;
 		DTableBodyCells.setRenderable( this, row, columnIndex, columnData );
 
-		const link = this._link;
+		const link = this.link;
 		const adjuster = this._padding.adjuster;
 		if( isNumber( supplimental ) ) {
 			const isOpened = !! (supplimental & 0x1);
