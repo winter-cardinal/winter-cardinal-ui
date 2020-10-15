@@ -1,22 +1,44 @@
+import { DDiagramBaseController } from "../../d-diagram-base";
 import { DDiagramSerialized, DDiagramSerializedItem, DDiagramSerializedSimple } from "../../d-diagram-serialized";
 import { DDiagrams } from "../../d-diagrams";
 import { EShapeDeserializer } from "../e-shape-deserializer";
 import { EShapeLayerContainer } from "../e-shape-layer-container";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeEmbedded } from "./e-shape-embedded";
+import { EShapeEmbeddedDatum } from "./e-shape-embedded-datum";
 import { EShapeEmbeddedLayerContainer } from "./e-shape-embedded-layer-container";
 
 export class EShapeEmbeddeds {
 	static from(
 		serializedOrSimple: DDiagramSerialized | DDiagramSerializedSimple,
+		controller: DDiagramBaseController | null | undefined,
 		isEditMode: boolean
 	): Promise<EShapeEmbedded> {
 		const serialized = DDiagrams.toSerialized( serializedOrSimple );
+		const pieces = serialized.pieces;
+		const pieceDataOrPromise = DDiagrams.toPieceData( controller, pieces, isEditMode );
+		if( pieceDataOrPromise == null ) {
+			return this.from_( serialized, isEditMode );
+		} else {
+			return pieceDataOrPromise.then(( pieceData ) => {
+				return this.from_( serialized, isEditMode, pieces, pieceData );
+			});
+		}
+	}
+
+	protected static from_(
+		serialized: DDiagramSerialized,
+		isEditMode: boolean,
+		pieces?: string[],
+		pieceData?: Map<string, EShapeEmbeddedDatum>
+	): Promise<EShapeEmbedded> {
 		const width = serialized.width;
 		const height = serialized.height;
-		const container = new EShapeEmbeddedLayerContainer( width, height, isEditMode );
+		const container = new EShapeEmbeddedLayerContainer(
+			width, height, isEditMode
+		);
 		const manager = new EShapeResourceManagerDeserialization(
-			serialized, undefined, undefined, isEditMode
+			serialized, pieces, pieceData, isEditMode
 		);
 		return DDiagrams.newLayer( serialized, container, manager ).then(() => {
 			return this.create( serialized.name, width, height, container, manager );
