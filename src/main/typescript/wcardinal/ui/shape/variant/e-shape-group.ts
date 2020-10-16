@@ -53,10 +53,14 @@ export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent
 		const sizeX = EShapeDefaults.SIZE_X;
 		const sizeY = EShapeDefaults.SIZE_Y;
 		if( isEditMode ) {
-			return new EShapeGroupSizeEditor( this, sizeX, sizeY );
+			return new EShapeGroupSizeEditor( this, sizeX, sizeY, this.isGroupSizeFittable() );
 		} else {
 			return new EShapeGroupSizeViewer( this, sizeX, sizeY, sizeX, sizeY );
 		}
+	}
+
+	protected isGroupSizeFittable(): boolean {
+		return true;
 	}
 
 	protected newGroupFill(): EShapeFill {

@@ -11,6 +11,7 @@ import { EShapeType } from "../e-shape-type";
 import { EShapeBase } from "./e-shape-base";
 import { EShapeGroupFillViewer } from "./e-shape-group-fill-viewer";
 import { EShapeGroupSize } from "./e-shape-group-size";
+import { EShapeGroupSizeEditor } from "./e-shape-group-size-editor";
 import { EShapeGroupSizeViewer } from "./e-shape-group-size-viewer";
 import { EShapeGroupStrokeViewer } from "./e-shape-group-stroke-viewer";
 import { EShapeGroupTextViewer } from "./e-shape-group-text-viewer";
@@ -42,7 +43,15 @@ export abstract class EShapeGroupViewer extends EShapeBase {
 	protected newGroupSize( isEditMode: boolean ): EShapeGroupSize {
 		const sizeX = EShapeDefaults.SIZE_X;
 		const sizeY = EShapeDefaults.SIZE_Y;
-		return new EShapeGroupSizeViewer( this, sizeX, sizeY, sizeX, sizeY );
+		if( isEditMode ) {
+			return new EShapeGroupSizeEditor( this, sizeX, sizeY, this.isGroupSizeFittable() );
+		} else {
+			return new EShapeGroupSizeViewer( this, sizeX, sizeY, sizeX, sizeY );
+		}
+	}
+
+	protected isGroupSizeFittable(): boolean {
+		return true;
 	}
 
 	protected newTag(): EShapeTag {

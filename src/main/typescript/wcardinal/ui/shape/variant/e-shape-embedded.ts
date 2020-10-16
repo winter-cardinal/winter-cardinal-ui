@@ -21,6 +21,10 @@ export class EShapeEmbedded extends EShapeGroupViewer {
 		return new EShapeGroupTextEditor( this );
 	}
 
+	protected isGroupSizeFittable(): boolean {
+		return false;
+	}
+
 	clone(): EShapeEmbedded {
 		const result = this.newClone().copy( this );
 		const children = this.children;

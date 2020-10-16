@@ -11,6 +11,10 @@ export class EShapeEmbeddedLayer extends EShapeGroupViewer {
 		this._name = name;
 	}
 
+	protected isGroupSizeFittable(): boolean {
+		return false;
+	}
+
 	clone(): EShapeEmbeddedLayer {
 		const result = this.newClone().copy( this );
 		const children = this.children;

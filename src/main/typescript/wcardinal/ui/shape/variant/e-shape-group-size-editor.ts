@@ -17,11 +17,13 @@ export class EShapeGroupSizeEditor implements EShapeGroupSize {
 	protected _workPoint: Point = new Point();
 	protected _workRectForCalcRect: Rectangle = new Rectangle();
 	protected _workRectForFit: Rectangle = new Rectangle();
+	protected _isFittable: boolean;
 
-	constructor( parent: EShapeGroupSizeParent, x: number, y: number ) {
+	constructor( parent: EShapeGroupSizeParent, x: number, y: number, isFittable: boolean ) {
 		this._parent = parent;
 		this._layouts = [];
 		this._size = new Point( x, y );
+		this._isFittable = isFittable;
 	}
 
 	init(): void {
@@ -75,7 +77,7 @@ export class EShapeGroupSizeEditor implements EShapeGroupSize {
 
 	clone(): EShapeGroupSizeEditor {
 		const size = this._size;
-		return new EShapeGroupSizeEditor( this._parent, size.x, size.y );
+		return new EShapeGroupSizeEditor( this._parent, size.x, size.y, this._isFittable );
 	}
 
 	copy(): void {
@@ -105,6 +107,12 @@ export class EShapeGroupSizeEditor implements EShapeGroupSize {
 	}
 
 	fit(): void {
+		if( this._isFittable ) {
+			this.doFit();
+		}
+	}
+
+	protected doFit(): void {
 		const parent = this._parent;
 		parent.disallowOnTransformChange();
 
