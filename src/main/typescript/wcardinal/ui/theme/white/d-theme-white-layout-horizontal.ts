@@ -13,7 +13,7 @@ export class DThemeWhiteLayoutHorizontal extends DThemeWhiteLayout implements DT
 		return DLayoutDirection.HORIZONTAL;
 	}
 
-	getWidth(): DCoordinateSize {
+	getHeight(): DCoordinateSize {
 		return "auto";
 	}
 }

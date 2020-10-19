@@ -36,6 +36,10 @@ export class DThemeDarkMenu extends DThemeDarkLayoutVertical implements DThemeMe
 		return 200;
 	}
 
+	getHeight(): DCoordinateSize {
+		return "auto";
+	}
+
 	getMargin(): number {
 		return 0;
 	}

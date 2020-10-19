@@ -11,88 +11,97 @@
 <body>
 	<th:block th:insert="fragment/common::#body"></th:block>
 	<script>
-		(function () {
-			"use strict";
+	(function(){
+		"use strict";
 
-			const application = new wcardinal.ui.DApplication();
-			const pagination = new wcardinal.ui.DPagination({
-				parent: application.stage,
-				x: 100,
-				y: 200,
-				width: "100% - 100",
-				total: 15,
-				selected: 0,
-				button: {
-					first: true,
-					last: true,
-					width: 36
-				}
-			})
-			const inputSelected = new wcardinal.ui.DInputText()
-			const inputTotal = new wcardinal.ui.DInputText()
-			new wcardinal.ui.DLayoutVertical({
-				parent: application.stage,
-				x: 100,
-				y: 400,
-				width: "100%-40",
-				children: [
-					new wcardinal.ui.DLayoutHorizontal({
-						height: 30,
-						children: [
-							new wcardinal.ui.DButtonPrimary({
-								text: {
-									value: "set selected"
-								},
-								on: {
-									active: (btn) => {
-										pagination.selected = Number(inputSelected.value)
-									}
-								}
-							}),
-							inputSelected
-						]
-					}),
-					new wcardinal.ui.DButtonPrimary({
-						text: {
-							value: "get selected"
-						},
-						on: {
-							active: (btn) => {
-								console.log(pagination.selected)
-							}
-						}
-					}),
-					new wcardinal.ui.DLayoutHorizontal({
-						height: 30,
-						children: [
-							new wcardinal.ui.DButtonPrimary({
-								text: {
-									value: "set total"
-								},
-								on: {
-									active: (btn) => {
-										pagination.total = Number(inputTotal.value)
-									}
-								}
-							}),
-							inputTotal
-						]
-					}),
-					new wcardinal.ui.DButtonPrimary({
-						text: {
-							value: "get total"
-						},
-						on: {
-							active: (btn) => {
-								console.log(pagination.total)
-							}
-						}
-					}),
-				]
-			});
+		const application = new wcardinal.ui.DApplication();
 
-		}());
+		const pagination = new wcardinal.ui.DPagination({
+			parent: application.stage,
+			x: 50,
+			y: 50,
+			width: "100% - 100",
+			total: 15,
+			selected: 0,
+			button: {
+				first: true,
+				last: true,
+				width: 36
+			}
+		})
+
+		const inputSelected = new wcardinal.ui.DInputInteger({
+			weight: 1
+		});
+
+		const inputTotal = new wcardinal.ui.DInputInteger({
+			weight: 1
+		});
+
+		new wcardinal.ui.DLayoutVertical({
+			parent: application.stage,
+			x: 50, y: 100,
+			children: [
+				new wcardinal.ui.DLayoutHorizontal({
+					width: 460,
+					children: [
+						new wcardinal.ui.DButtonPrimary({
+							weight: 1,
+							text: {
+								value: "Set Selected"
+							},
+							on: {
+								active: () => {
+									pagination.selected = inputSelected.value
+								}
+							}
+						}),
+						new wcardinal.ui.DButtonPrimary({
+							weight: 1,
+							text: {
+								value: "Get Selected"
+							},
+							on: {
+								active: () => {
+									inputSelected.value = pagination.selected;
+								}
+							}
+						}),
+						inputSelected
+					]
+				}),
+				new wcardinal.ui.DLayoutHorizontal({
+					width: 460,
+					children: [
+						new wcardinal.ui.DButtonPrimary({
+							weight: 1,
+							text: {
+								value: "Set Total"
+							},
+							on: {
+								active: () => {
+									pagination.total = inputTotal.value
+								}
+							}
+						}),
+						new wcardinal.ui.DButtonPrimary({
+							weight: 1,
+							text: {
+								value: "Get Total"
+							},
+							on: {
+								active: () => {
+									inputTotal.value = pagination.total;
+								}
+							}
+						}),
+						inputTotal
+					]
+				}),
+			]
+		});
+
+	}());
 	</script>
 </body>
-
 </html>

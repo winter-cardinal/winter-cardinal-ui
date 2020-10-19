@@ -32,6 +32,10 @@ export class DThemeWhiteMenuItemExpandable extends DThemeWhiteLayoutVertical imp
 		return "padding";
 	}
 
+	getHeight(): DCoordinateSize {
+		return "auto";
+	}
+
 	getCornerMask(): DCornerMask {
 		return DCornerMask.ALL;
 	}

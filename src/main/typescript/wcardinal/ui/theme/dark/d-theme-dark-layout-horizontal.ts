@@ -13,7 +13,7 @@ export class DThemeDarkLayoutHorizontal extends DThemeDarkLayout implements DThe
 		return DLayoutDirection.HORIZONTAL;
 	}
 
-	getWidth(): DCoordinateSize {
+	getHeight(): DCoordinateSize {
 		return "auto";
 	}
 }

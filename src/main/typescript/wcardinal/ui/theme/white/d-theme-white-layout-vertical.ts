@@ -13,7 +13,7 @@ export class DThemeWhiteLayoutVertical extends DThemeWhiteLayout implements DThe
 		return DLayoutDirection.VERTICAL;
 	}
 
-	getHeight(): DCoordinateSize {
+	getWidth(): DCoordinateSize {
 		return "auto";
 	}
 }

@@ -13,7 +13,7 @@ export class DThemeDarkLayoutVertical extends DThemeDarkLayout implements DTheme
 		return DLayoutDirection.VERTICAL;
 	}
 
-	getHeight(): DCoordinateSize {
+	getWidth(): DCoordinateSize {
 		return "auto";
 	}
 }

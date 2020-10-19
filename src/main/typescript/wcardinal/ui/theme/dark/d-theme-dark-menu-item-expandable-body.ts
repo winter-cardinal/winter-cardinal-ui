@@ -15,6 +15,10 @@ export class DThemeDarkMenuItemExpandableBody extends DThemeDarkLayoutVertical
 		return "padding";
 	}
 
+	getHeight(): DCoordinateSize {
+		return "auto";
+	}
+
 	getCornerMask(): DCornerMask {
 		return DCornerMask.ALL;
 	}

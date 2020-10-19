@@ -35,6 +35,10 @@ export class DThemeWhiteMenu extends DThemeWhiteLayoutVertical implements DTheme
 		return 200;
 	}
 
+	getHeight(): DCoordinateSize {
+		return "auto";
+	}
+
 	getMargin(): number {
 		return 0;
 	}
