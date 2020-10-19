@@ -804,24 +804,28 @@ export class DBase<
 
 		// Width
 		const width = ( options && options.width != null ? options.width : theme.getWidth() );
-		if( isNumber( width ) ) {
-			this._width = width;
-		} else {
-			this._width = 100;
-			if( this._auto.width.from( width ) == null ) {
+		if( ! this._auto.width.from( width ) ) {
+			if( isNumber( width ) ) {
+				this._width = width;
+			} else {
+				this._width = 100;
 				scalarSet.width = DScalarFunctions.size( width );
 			}
+		} else {
+			this._width = 100;
 		}
 
 		// Height
 		const height = ( options && options.height != null ? options.height : theme.getHeight() );
-		if( isNumber( height ) ) {
-			this._height = height;
-		} else {
-			this._height = 100;
-			if( this._auto.height.from( height ) == null ) {
+		if( ! this._auto.height.from( height ) ) {
+			if( isNumber( height ) ) {
+				this._height = height;
+			} else {
+				this._height = 100;
 				scalarSet.height = DScalarFunctions.size( height );
 			}
+		} else {
+			this._height = 100;
 		}
 
 		// Visibility
@@ -1210,25 +1214,23 @@ export class DBase<
 	}
 
 	setWidth( width: DCoordinateSize ) {
-		if( isNumber( width ) ) {
-			this.width = width;
-		} else {
-			switch( this._auto.width.from( width ) ) {
-			case true:
-				this.toChildrenDirty();
-				DApplications.update( this );
-				break;
-			case false:
-				// DO NOTHING
-				break;
-			case null:
+		const auto = this._auto.width;
+		const isOn = auto.isOn;
+		const isAuto = auto.from( width );
+		if( auto.isOn !== isOn ) {
+			this.toChildrenDirty();
+			DApplications.update( this );
+		}
+		if( ! isAuto ){
+			if( isNumber( width ) ) {
+				this.width = width;
+			} else {
 				const scalarSet = this._scalarSet;
 				const scalar = DScalarFunctions.size( width );
 				if( scalarSet.width !== scalar ) {
 					scalarSet.width = scalar;
 					this.layout();
 				}
-				break;
 			}
 		}
 	}
@@ -1264,25 +1266,23 @@ export class DBase<
 	}
 
 	setHeight( height: DCoordinateSize ) {
-		if( isNumber( height ) ) {
-			this.height = height;
-		} else {
-			switch( this._auto.height.from( height  ) ) {
-			case true:
-				this.toChildrenDirty();
-				DApplications.update( this );
-				break;
-			case false:
-				// DO NOTHING
-				break;
-			case null:
+		const auto = this._auto.height;
+		const isOn = auto.isOn;
+		const isAuto = auto.from( height );
+		if( auto.isOn !== isOn ) {
+			this.toChildrenDirty();
+			DApplications.update( this );
+		}
+		if( ! isAuto ) {
+			if( isNumber( height ) ) {
+				this.height = height;
+			} else {
 				const scalarSet = this._scalarSet;
 				const scalar = DScalarFunctions.size( height );
 				if( scalarSet.height !== scalar ) {
 					scalarSet.height = scalar;
 					this.layout();
 				}
-				break;
 			}
 		}
 	}

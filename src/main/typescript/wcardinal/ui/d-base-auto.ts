@@ -28,17 +28,14 @@ export class DBaseAuto {
 	 * Update the auto settings by the given size.
 	 *
 	 * @param size a size
-	 * @returns True if changed. False if not changed.
-	 * Null if the given size is not an auto parameter.
+	 * @returns True if the given size is "auto".
 	 */
-	from( size: DCoordinateSize ): boolean | null {
+	from( size: DCoordinateSize ): boolean {
 		if( size === "auto" || size === "AUTO" ) {
-			if( ! this._isOn ) {
-				this._isOn = true;
-				return true;
-			}
-			return false;
+			this._isOn = true;
+			return true;
 		}
-		return null;
+		this._isOn = false;
+		return false;
 	}
 }
