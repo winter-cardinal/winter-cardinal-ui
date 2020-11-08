@@ -10,7 +10,8 @@ export enum UtilFileAs {
 	TEXT,
 	DATA_URL,
 	BINARY_STRING,
-	ARRAY_BUTTER
+	ARRAY_BUTTER,
+	FILE
 }
 
 export interface UtilFileFacade {
@@ -33,7 +34,7 @@ export interface UtilFileEvents<EMITTER> {
 	/**
 	 * Triggered when a file is opened.
 	 */
-	open: UtilFileOnOpen<string, EMITTER> | UtilFileOnOpen<ArrayBuffer, EMITTER>;
+	open: UtilFileOnOpen<string, EMITTER> | UtilFileOnOpen<ArrayBuffer, EMITTER> | UtilFileOnOpen<File, EMITTER>;
 
 	/**
 	 * Triggered when an operation is aborted.
@@ -94,39 +95,43 @@ export class UtilFileOpener {
 		const files = input.files;
 		if( files != null && 0 < files.length ) {
 			const file = files[ 0 ];
-			const fileReader = new FileReader();
-			fileReader.onload = ( e: ProgressEvent ) => {
-				if( e.target != null ) {
-					const target = e.target as any;
-					this.onOpen( target.result, file );
+			if( this._as === UtilFileAs.FILE ) {
+				this.onOpen( file, file );
+			} else {
+				const fileReader = new FileReader();
+				fileReader.onload = ( e: ProgressEvent ) => {
+					if( e.target != null ) {
+						const target = e.target as any;
+						this.onOpen( target.result, file );
+					}
+				};
+				fileReader.onabort = ( e: ProgressEvent ) => {
+					this.onAboart( e );
+				};
+				switch( this._as ) {
+				case UtilFileAs.TEXT:
+					fileReader.readAsText( file );
+					break;
+				case UtilFileAs.DATA_URL:
+					fileReader.readAsDataURL( file );
+					break;
+				case UtilFileAs.BINARY_STRING:
+					fileReader.readAsBinaryString( file );
+					break;
+				case UtilFileAs.ARRAY_BUTTER:
+					fileReader.readAsArrayBuffer( file );
+					break;
+				default:
+					fileReader.readAsText( file );
+					break;
 				}
-			};
-			fileReader.onabort = ( e: ProgressEvent ) => {
-				this.onAboart( e );
-			};
-			switch( this._as ) {
-			case UtilFileAs.TEXT:
-				fileReader.readAsText( file );
-				break;
-			case UtilFileAs.DATA_URL:
-				fileReader.readAsDataURL( file );
-				break;
-			case UtilFileAs.BINARY_STRING:
-				fileReader.readAsBinaryString( file );
-				break;
-			case UtilFileAs.ARRAY_BUTTER:
-				fileReader.readAsArrayBuffer( file );
-				break;
-			default:
-				fileReader.readAsText( file );
-				break;
 			}
 		} else {
 			this.onCancel();
 		}
 	}
 
-	protected onOpen( result: string | ArrayBuffer, file: File ): void {
+	protected onOpen( result: string | ArrayBuffer | File, file: File ): void {
 		const facade = this._facade;
 		facade.emit( "open", result, file, facade );
 	}
