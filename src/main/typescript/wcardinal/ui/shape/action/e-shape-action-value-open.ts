@@ -19,6 +19,9 @@ import { EShapeActionValueOpenType } from "./e-shape-action-value-open-type";
 import { EShapeActionValueSubtyped } from "./e-shape-action-value-subtyped";
 import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
+import { EShapeActionRuntimeOpenDialogDatetime } from "./e-shape-action-runtime-open-dialog-datetime";
+import { EShapeActionRuntimeOpenDialogTime } from "./e-shape-action-runtime-open-dialog-time";
+import { EShapeActionRuntimeOpenDialogDate } from "./e-shape-action-runtime-open-dialog-date";
 
 export type EShapeActionValueOpenSerialized = [
 	EShapeActionValueType.OPEN, number, EShapeActionValueOpenType, number, EShapeActionValueOnInputAction, number
@@ -66,6 +69,12 @@ export class EShapeActionValueOpen extends EShapeActionValueSubtyped<EShapeActio
 			return new EShapeActionRuntimeOpenDialogReal( this );
 		case EShapeActionValueOpenType.DIALOG_BOOLEAN:
 			return new EShapeActionRuntimeOpenDialogBoolean( this );
+		case EShapeActionValueOpenType.DIALOG_DATE:
+			return new EShapeActionRuntimeOpenDialogDate( this );
+		case EShapeActionValueOpenType.DIALOG_TIME:
+			return new EShapeActionRuntimeOpenDialogTime( this );
+		case EShapeActionValueOpenType.DIALOG_DATETIME:
+			return new EShapeActionRuntimeOpenDialogDatetime( this );
 		}
 	}
 

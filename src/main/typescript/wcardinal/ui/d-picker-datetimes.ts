@@ -4,10 +4,9 @@
  */
 
 import { DPickerDates } from "./d-picker-dates";
-import { DThemePickerDatetime } from "./d-picker-datetime";
 import { DPickerDatetimeMask } from "./d-picker-datetime-mask";
+import { DPickerDatetimeMaskOptions, DPickerDatetimeMasks } from "./d-picker-datetime-masks";
 import { DPickerTimes } from "./d-picker-times";
-import { DThemes } from "./theme/d-themes";
 
 export class DPickerDatetimes {
 	static format( date: Date, mask: DPickerDatetimeMask ): string {
@@ -19,8 +18,7 @@ export class DPickerDatetimes {
 		}
 	}
 
-	static toMask( options?: { mask?: DPickerDatetimeMask } ): DPickerDatetimeMask {
-		return ( options && options.mask != null ? options.mask :
-			(DThemes.getInstance().get( "DPickerDatetime" ) as DThemePickerDatetime).getMask() );
+	static toMask( options?: DPickerDatetimeMaskOptions ) {
+		return DPickerDatetimeMasks.from( "DPickerDatetime", options );
 	}
 }

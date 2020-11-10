@@ -11,10 +11,10 @@ import { EShapeActionValueOnInputAction } from "./e-shape-action-value-on-input-
 import { EShapeActionValueOnInputActions } from "./e-shape-action-value-on-input-actions";
 import { EShapeActionValueOpen } from "./e-shape-action-value-open";
 
-export abstract class EShapeActionRuntimeOpenDialog<VALUE = unknown> extends EShapeActionRuntimeOpen {
+export abstract class EShapeActionRuntimeOpenDialog<VALUE = unknown, INITIAL = VALUE> extends EShapeActionRuntimeOpen {
 	protected onInputAction: EShapeActionValueOnInputAction;
 	protected isOpened: boolean;
-	protected abstract initial: EShapeActionExpression<VALUE>;
+	protected abstract initial: EShapeActionExpression<INITIAL>;
 
 	constructor( value: EShapeActionValueOpen ) {
 		super( value, EShapeRuntimeReset.NONE );
@@ -42,5 +42,5 @@ export abstract class EShapeActionRuntimeOpenDialog<VALUE = unknown> extends ESh
 		}
 	}
 
-	protected abstract open( target: string, initial: VALUE ): Promise<VALUE>;
+	protected abstract open( target: string, initial: INITIAL ): Promise<VALUE>;
 }

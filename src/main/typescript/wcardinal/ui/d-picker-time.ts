@@ -10,6 +10,7 @@ import { DInputInteger, DInputIntegerOptions } from "./d-input-integer";
 import { DLayoutHorizontal } from "./d-layout-horizontal";
 import { DLayoutVertical } from "./d-layout-vertical";
 import { DPickerDatetimeMask } from "./d-picker-datetime-mask";
+import { DPickerDatetimeMasks } from "./d-picker-datetime-masks";
 import { DPickerTimeBoundDate, DPickerTimeBoundOptions } from "./d-picker-time-bound";
 import { DPickerTimeBounds, DPickerTimeBoundsOptions } from "./d-picker-time-bounds";
 import { DText } from "./d-text";
@@ -19,7 +20,7 @@ export interface DPickerTimeOptions<THEME extends DThemePickerTime = DThemePicke
 	hours?: DInputIntegerOptions;
 	minutes?: DInputIntegerOptions;
 	seconds?: DInputIntegerOptions;
-	mask?: DPickerDatetimeMask;
+	mask?: keyof typeof DPickerDatetimeMask | Array<keyof typeof DPickerDatetimeMask> | DPickerDatetimeMask;
 	bounds?: DPickerTimeBoundsOptions;
 }
 
@@ -200,7 +201,7 @@ export class DPickerTime<
 	}
 
 	protected newChildren( theme: THEME, options: OPTIONS | undefined, margin: number ): Array<DisplayObject | null> {
-		const mask = ( (options && options.mask != null) ? options.mask : theme.getMask() );
+		const mask = DPickerDatetimeMasks.from( theme, options );
 		this._dateBounds.mask = mask;
 		this._inputHours = ( (mask & DPickerDatetimeMask.HOURS) ? this.newInputHours( theme, options ) : null );
 		this._inputMinutes = ( (mask & DPickerDatetimeMask.MINUTES) ? this.newInputMinutes( theme, options ) : null );

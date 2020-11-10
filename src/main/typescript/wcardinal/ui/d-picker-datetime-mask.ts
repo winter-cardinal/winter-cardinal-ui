@@ -9,5 +9,6 @@ export enum DPickerDatetimeMask {
 	HOURS = 2,
 	MINUTES = 4,
 	SECONDS = 8,
-	ALL = DATE | HOURS | MINUTES | SECONDS
+	TIME = HOURS | MINUTES | SECONDS,
+	ALL = DATE | TIME
 }

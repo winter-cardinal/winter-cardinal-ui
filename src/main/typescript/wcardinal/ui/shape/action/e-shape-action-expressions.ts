@@ -57,19 +57,19 @@ export class EShapeActionExpressions {
 		return this.from<string | null>( expression, "String", this.NULL, "null", true );
 	}
 
-	static ofUnknownOrNull( expression: string ): EShapeActionExpression<unknown | null> {
-		return this.from( expression, "", this.NULL, "null", false );
+	static ofUnknown( expression: string ): EShapeActionExpression<unknown> {
+		return this.from<unknown>( expression, "", this.NULL, "null", false );
 	}
 
 	static ofNumber( expression: string ): EShapeActionExpression<number> {
 		return this.from( expression, "Number", this.ZERO, "0", false );
 	}
 
-	static ofNumberOrOne( expression: string ) {
+	static ofNumberOrOne( expression: string ): EShapeActionExpression<number> {
 		return this.from( expression, "Number", this.ONE, "1", false );
 	}
 
-	static ofNumberOrOneHundred( expression: string ) {
+	static ofNumberOrOneHundred( expression: string ): EShapeActionExpression<number> {
 		return this.from( expression, "Number", this.ONE_HUNDRED, "100", false );
 	}
 

@@ -40,6 +40,7 @@ export * from "./e-shape-action-runtime-change-text-text";
 export * from "./e-shape-action-runtime-conditional";
 export * from "./e-shape-action-runtime-emit-event";
 export * from "./e-shape-action-runtime-misc-emit-event";
+export * from "./e-shape-action-runtime-misc-input-data-base";
 export * from "./e-shape-action-runtime-misc-input-data-integer";
 export * from "./e-shape-action-runtime-misc-input-data-real";
 export * from "./e-shape-action-runtime-misc-input-data-text";

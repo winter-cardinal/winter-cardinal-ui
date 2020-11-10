@@ -4,9 +4,9 @@
  */
 
 import { EShape } from "../e-shape";
-import { EShapeActionRuntimeMiscInputData } from "./e-shape-action-runtime-misc-input-data";
+import { EShapeActionRuntimeMiscInputDataBase } from "./e-shape-action-runtime-misc-input-data-base";
 
-export class EShapeActionRuntimeMiscInputDataReal extends EShapeActionRuntimeMiscInputData {
+export class EShapeActionRuntimeMiscInputDataReal extends EShapeActionRuntimeMiscInputDataBase {
 	protected getInputType(): string {
 		return "number";
 	}

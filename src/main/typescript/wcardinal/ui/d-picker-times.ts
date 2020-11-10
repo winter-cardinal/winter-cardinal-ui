@@ -4,8 +4,7 @@
  */
 
 import { DPickerDatetimeMask } from "./d-picker-datetime-mask";
-import { DThemePickerTime } from "./d-picker-time";
-import { DThemes } from "./theme/d-themes";
+import { DPickerDatetimeMaskOptions, DPickerDatetimeMasks } from "./d-picker-datetime-masks";
 import { toPadded } from "./util/to-padded";
 
 export class DPickerTimes {
@@ -29,8 +28,7 @@ export class DPickerTimes {
 		return result;
 	}
 
-	static toMask( options?: { mask?: DPickerDatetimeMask } ): DPickerDatetimeMask {
-		return ( options && options.mask != null ? options.mask :
-			(DThemes.getInstance().get( "DPickerTime" ) as DThemePickerTime).getMask() );
+	static toMask( options?: DPickerDatetimeMaskOptions ) {
+		return DPickerDatetimeMasks.from( "DPickerTime", options );
 	}
 }
