@@ -6,23 +6,22 @@
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeActionRuntimeChangeColorCode } from "./e-shape-action-runtime-change-color-code";
-import { EShapeActionRuntimeChangeColorCodeAll } from "./e-shape-action-runtime-change-color-code-all";
-import { EShapeActionRuntimeChangeColorCodeFill } from "./e-shape-action-runtime-change-color-code-fill";
-import {
-	EShapeActionRuntimeChangeColorCodeFillAndStroke
-} from "./e-shape-action-runtime-change-color-code-fill-and-stroke";
-import { EShapeActionRuntimeChangeColorCodeStroke } from "./e-shape-action-runtime-change-color-code-stroke";
-import { EShapeActionRuntimeChangeColorCodeText } from "./e-shape-action-runtime-change-color-code-text";
-import { EShapeActionRuntimeChangeColorCodeTextOutline } from "./e-shape-action-runtime-change-color-code-text-outline";
 import { EShapeActionValue } from "./e-shape-action-value";
 import { EShapeActionValueChangeColorTarget } from "./e-shape-action-value-change-color-target";
+import { EShapeActionValueChangeColorTypeLegacy } from "./e-shape-action-value-change-color-type-legacy";
 import { EShapeActionValueChangeColorType } from "./e-shape-action-value-change-color-type";
 import { EShapeActionValueSubtyped } from "./e-shape-action-value-subtyped";
 import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
+import { EShapeActionValueChangeColorTypes } from "./e-shape-action-value-change-color-types";
 
 export type EShapeActionValueChangeColorCodeSerialized = [
 	EShapeActionValueType.CHANGE_COLOR, number, EShapeActionValueChangeColorType,
+	EShapeActionValueChangeColorTarget.CODE, number, number, number
+];
+
+export type EShapeActionValueChangeColorCodeSerializedLegacy = [
+	EShapeActionValueType.CHANGE_COLOR_LEGACY, number, EShapeActionValueChangeColorTypeLegacy,
 	EShapeActionValueChangeColorTarget.CODE, number, number, number
 ];
 
@@ -52,43 +51,31 @@ export class EShapeActionValueChangeColorCode extends EShapeActionValueSubtyped<
 	}
 
 	toRuntime(): EShapeActionRuntimeChangeColorCode {
-		switch( this.subtype ) {
-		case EShapeActionValueChangeColorType.FILL:
-			return new EShapeActionRuntimeChangeColorCodeFill( this );
-		case EShapeActionValueChangeColorType.STROKE:
-			return new EShapeActionRuntimeChangeColorCodeStroke( this );
-		case EShapeActionValueChangeColorType.FILL_AND_STROKE:
-			return new EShapeActionRuntimeChangeColorCodeFillAndStroke( this );
-		case EShapeActionValueChangeColorType.TEXT:
-			return new EShapeActionRuntimeChangeColorCodeText( this );
-		case EShapeActionValueChangeColorType.TEXT_OUTLINE:
-			return new EShapeActionRuntimeChangeColorCodeTextOutline( this );
-		case EShapeActionValueChangeColorType.ALL:
-			return new EShapeActionRuntimeChangeColorCodeAll( this );
-		}
+		return new EShapeActionRuntimeChangeColorCode( this );
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number {
-		const conditionId = manager.addResource(this.condition);
+		const conditionId = manager.addResource( this.condition );
 		const target = EShapeActionValueChangeColorTarget.CODE;
-		const colorId = manager.addResource(this.color);
-		const alphaId = manager.addResource(this.alpha);
-		const blendId = manager.addResource(this.blend);
+		const colorId = manager.addResource( this.color );
+		const alphaId = manager.addResource( this.alpha );
+		const blendId = manager.addResource( this.blend );
 		return manager.addResource(
 			`[${this.type},${conditionId},${this.subtype},${target},${colorId},${alphaId},${blendId}]`
 		);
 	}
 
 	static deserialize(
-		serialized: EShapeActionValueChangeColorCodeSerialized,
+		serialized: EShapeActionValueChangeColorCodeSerialized | EShapeActionValueChangeColorCodeSerializedLegacy,
 		manager: EShapeResourceManagerDeserialization
 	): EShapeActionValueChangeColorCode {
+		const subtype = EShapeActionValueChangeColorTypes.from( serialized );
 		const condition = EShapeActionValues.toResource( 1, serialized, manager.resources );
 		const color = EShapeActionValues.toResource( 4, serialized, manager.resources );
 		const alpha = EShapeActionValues.toResource( 5, serialized, manager.resources );
 		const blend = EShapeActionValues.toResource( 6, serialized, manager.resources );
 		return new EShapeActionValueChangeColorCode(
-			serialized[ 2 ], condition, color, alpha, blend
+			subtype, condition, color, alpha, blend
 		);
 	}
 }

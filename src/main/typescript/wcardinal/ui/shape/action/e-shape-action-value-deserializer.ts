@@ -9,12 +9,13 @@ import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manage
 import { EShapeActionValue } from "./e-shape-action-value";
 import { EShapeActionValueBlink, EShapeActionValueBlinkSerialized } from "./e-shape-action-value-blink";
 import {
-	EShapeActionValueChangeColor, EShapeActionValueChangeColorSerialized } from "./e-shape-action-value-change-color";
+	EShapeActionValueChangeColor, EShapeActionValueChangeColorSerialized, EShapeActionValueChangeColorSerializedLegacy
+} from "./e-shape-action-value-change-color";
 import {
-	EShapeActionValueChangeColorBrightness, EShapeActionValueChangeColorBrightnessSerialized
+	EShapeActionValueChangeColorBrightness, EShapeActionValueChangeColorBrightnessSerialized, EShapeActionValueChangeColorBrightnessSerializedLegacy
 } from "./e-shape-action-value-change-color-brightness";
 import {
-	EShapeActionValueChangeColorCode, EShapeActionValueChangeColorCodeSerialized
+	EShapeActionValueChangeColorCode, EShapeActionValueChangeColorCodeSerialized, EShapeActionValueChangeColorCodeSerializedLegacy
 } from "./e-shape-action-value-change-color-code";
 import { EShapeActionValueChangeColorTarget } from "./e-shape-action-value-change-color-target";
 import {
@@ -41,8 +42,10 @@ import { EShapeActionValueType } from "./e-shape-action-value-type";
 
 export type EShapeActionValueSerialized = EShapeActionValueShowHideSerialized |
 	EShapeActionValueBlinkSerialized | EShapeActionValueBlinkSerialized |
-	EShapeActionValueChangeColorSerialized | EShapeActionValueChangeColorCodeSerialized |
-	EShapeActionValueChangeColorBrightnessSerialized | EShapeActionValueChangeTextSerialized |
+	EShapeActionValueChangeColorSerialized | EShapeActionValueChangeColorSerializedLegacy |
+	EShapeActionValueChangeColorCodeSerialized | EShapeActionValueChangeColorCodeSerializedLegacy |
+	EShapeActionValueChangeColorBrightnessSerialized | EShapeActionValueChangeColorBrightnessSerializedLegacy |
+	EShapeActionValueChangeTextSerialized |
 	EShapeActionValueChangeCursorSerialized | EShapeActionValueEmitEventSerialized |
 	EShapeActionValueOpenSerialized | EShapeActionValueTransformMoveSerialized |
 	EShapeActionValueTransformResizeSerialized | EShapeActionValueTransformRotateSerialized |
@@ -85,15 +88,16 @@ export class EShapeActionValueDeserializer {
 				case EShapeActionValueType.BLINK:
 					return EShapeActionValueBlink.deserialize( serialized, manager );
 				case EShapeActionValueType.CHANGE_COLOR:
+				case EShapeActionValueType.CHANGE_COLOR_LEGACY:
 					switch( serialized[ 3 ] ) {
-						case EShapeActionValueChangeColorTarget.COLOR_AND_ALPHA:
-						case EShapeActionValueChangeColorTarget.COLOR:
-						case EShapeActionValueChangeColorTarget.ALPHA:
-							return EShapeActionValueChangeColor.deserialize( serialized, manager );
-						case EShapeActionValueChangeColorTarget.CODE:
-							return EShapeActionValueChangeColorCode.deserialize( serialized, manager );
-						case EShapeActionValueChangeColorTarget.BRIGHTNESS:
-							return EShapeActionValueChangeColorBrightness.deserialize( serialized, manager );
+					case EShapeActionValueChangeColorTarget.COLOR_AND_ALPHA:
+					case EShapeActionValueChangeColorTarget.COLOR:
+					case EShapeActionValueChangeColorTarget.ALPHA:
+						return EShapeActionValueChangeColor.deserialize( serialized, manager );
+					case EShapeActionValueChangeColorTarget.CODE:
+						return EShapeActionValueChangeColorCode.deserialize( serialized, manager );
+					case EShapeActionValueChangeColorTarget.BRIGHTNESS:
+						return EShapeActionValueChangeColorBrightness.deserialize( serialized, manager );
 					}
 				case EShapeActionValueType.CHANGE_TEXT:
 					return EShapeActionValueChangeText.deserialize( serialized, manager );

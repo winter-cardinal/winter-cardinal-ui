@@ -5,99 +5,70 @@
 
 import { UtilRgb } from "../../util/util-rgb";
 import { EShape } from "../e-shape";
-import { EShapeFill, EShapeFillLike } from "../e-shape-fill";
 import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
-import { EShapeStroke, EShapeStrokeLike } from "../e-shape-stroke";
-import { EShapeText, EShapeTextLike } from "../e-shape-text";
-import { EShapeTextOutline, EShapeTextOutlineLike } from "../e-shape-text-outline";
+import { EShapeActionBases } from "./e-shape-action-bases";
 import { EShapeActionExpression } from "./e-shape-action-expression";
 import { EShapeActionExpressions } from "./e-shape-action-expressions";
-import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
+import { EShapeActionRuntimeChangeColorBase } from "./e-shape-action-runtime-change-color-base";
 import { EShapeActionValueChangeColorBrightness } from "./e-shape-action-value-change-color-brightness";
 
-export class EShapeActionRuntimeChangeColorBrightness extends EShapeActionRuntimeConditional {
+export class EShapeActionRuntimeChangeColorBrightness extends EShapeActionRuntimeChangeColorBase {
 	protected readonly brightness: EShapeActionExpression<number | null>;
 
-	constructor( value: EShapeActionValueChangeColorBrightness, reset: EShapeRuntimeReset ) {
-		super( value, reset );
+	constructor( value: EShapeActionValueChangeColorBrightness ) {
+		super( value );
 		this.brightness = EShapeActionExpressions.ofNumberOrNull( value.brightness );
 	}
 
-	protected set(
-		shape: EShape, runtime: EShapeRuntime, time: number,
-		target: EShapeStroke | EShapeFill | EShapeText | EShapeTextOutline,
-		base: EShapeStrokeLike | EShapeFillLike | EShapeTextLike | EShapeTextOutlineLike
-	): void {
-		const brightness = this.brightness( shape, time );
-		if( brightness != null ) {
-			target.set(
-				undefined,
-				this.toColorAdjusted( base.color, brightness ),
-				base.alpha
-			);
-			runtime.written |= this.reset;
+	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
+		if( this.condition( shape, time ) ) {
+			const brightness = this.brightness( shape, time );
+			this.set( shape, runtime, time, brightness );
 		}
 	}
 
-	protected sets(
-		shape: EShape, runtime: EShapeRuntime, time: number,
-		fill: EShapeFill, stroke: EShapeStroke,
-		baseFill: EShapeFillLike, baseStroke: EShapeStrokeLike
-	): void {
-		const brightness = this.brightness( shape, time );
+	protected set( shape: EShape, runtime: EShapeRuntime, time: number, brightness: number | null ): void {
+		const reset = this.reset;
 		if( brightness != null ) {
-			fill.set(
-				undefined,
-				this.toColorAdjusted( baseFill.color, brightness ),
-				baseFill.alpha
-			);
+			const toAdjusted = this.toAdjusted;
 
-			stroke.set(
-				undefined,
-				this.toColorAdjusted( baseStroke.color, brightness ),
-				baseStroke.alpha
-			);
-
-			runtime.written |= this.reset;
+			if( reset & EShapeRuntimeReset.COLOR_FILL ) {
+				const base = EShapeActionBases.toBaseFill( shape, runtime );
+				shape.fill.set(
+					undefined,
+					toAdjusted( base.color, brightness ),
+					base.alpha
+				);
+			}
+			if( reset & EShapeRuntimeReset.COLOR_STROKE ) {
+				const base = EShapeActionBases.toBaseStroke( shape, runtime );
+				shape.stroke.set(
+					undefined,
+					toAdjusted( base.color, brightness ),
+					base.alpha
+				);
+			}
+			if( reset & EShapeRuntimeReset.COLOR_TEXT ) {
+				const base = EShapeActionBases.toBaseText( shape, runtime );
+				shape.text.set(
+					undefined,
+					toAdjusted( base.color, brightness ),
+					base.alpha
+				);
+			}
+			if( reset & EShapeRuntimeReset.COLOR_TEXT_OUTLINE ) {
+				const base = EShapeActionBases.toBaseTextOutline( shape, runtime );
+				shape.text.outline.set(
+					undefined,
+					toAdjusted( base.color, brightness ),
+					base.alpha
+				);
+			}
+			runtime.written |= reset;
 		}
 	}
 
-	protected setAll(
-		shape: EShape, runtime: EShapeRuntime, time: number,
-		fill: EShapeFill, stroke: EShapeStroke, text: EShapeText, outline: EShapeTextOutline,
-		baseFill: EShapeFillLike, baseStroke: EShapeStrokeLike, baseText: EShapeTextLike, baseOutline: EShapeTextOutlineLike
-	): void {
-		const brightness = this.brightness( shape, time );
-		if( brightness != null ) {
-			fill.set(
-				undefined,
-				this.toColorAdjusted( baseFill.color, brightness ),
-				baseFill.alpha
-			);
-
-			stroke.set(
-				undefined,
-				this.toColorAdjusted( baseStroke.color, brightness ),
-				baseStroke.alpha
-			);
-
-			text.set(
-				undefined,
-				this.toColorAdjusted( baseText.color, brightness ),
-				baseText.alpha
-			);
-
-			outline.set(
-				undefined,
-				this.toColorAdjusted( baseOutline.color, brightness ),
-				baseOutline.alpha
-			);
-
-			runtime.written |= this.reset;
-		}
-	}
-
-	protected toColorAdjusted( color: number, brightness: number ): number {
+	protected toAdjusted( color: number, brightness: number ): number {
 		if( 0 <= brightness ) {
 			return UtilRgb.brighten( color, +brightness );
 		} else {

@@ -50,6 +50,7 @@ export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
 		case EShapeActionValueType.BLINK:
 			return `${typeLabel}: ${this.toBlinkTypeLabel( subtype )}`;
 		case EShapeActionValueType.CHANGE_COLOR:
+		case EShapeActionValueType.CHANGE_COLOR_LEGACY:
 			return `${typeLabel}: ${this.toChangeColorTypeLabel( subtype )}`;
 		case EShapeActionValueType.MISC:
 			return `${typeLabel}: ${this.toMiscTypeLabel( subtype )}`;
@@ -86,6 +87,7 @@ export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
 		case EShapeActionValueType.OPEN:
 			return "Open";
 		case EShapeActionValueType.CHANGE_COLOR:
+		case EShapeActionValueType.CHANGE_COLOR_LEGACY:
 			return "Change color";
 		case EShapeActionValueType.CHANGE_TEXT:
 			return "Change text";
@@ -200,14 +202,10 @@ export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
 			return "Fill";
 		case EShapeActionValueChangeColorType.STROKE:
 			return "Stroke";
-		case EShapeActionValueChangeColorType.FILL_AND_STROKE:
-			return "Fill and stroke";
 		case EShapeActionValueChangeColorType.TEXT:
 			return "Text";
 		case EShapeActionValueChangeColorType.TEXT_OUTLINE:
 			return "Text outline";
-		case EShapeActionValueChangeColorType.ALL:
-			return "ALL";
 		}
 		return "Unknown";
 	}
