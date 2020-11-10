@@ -58,6 +58,14 @@ export class DThemeDarkTableBodyCellActionMenu extends DThemeDarkDropdown
 		return null;
 	}
 
+	getPaddingLeft(): number {
+		return 10;
+	}
+
+	getPaddingRight(): number {
+		return 10;
+	}
+
 	getImageTintColor( state: DBaseStateSet ): number | null {
 		return DThemeDarkTableBodyCellActions.getImageTintColor( state );
 	}

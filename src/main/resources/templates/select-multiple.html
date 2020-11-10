@@ -19,24 +19,30 @@
 		new wcardinal.ui.DSelectMultiple({
 			parent: application.stage,
 			x: 100, y: 100,
-			width: 300,
+			width: 250,
 			menu: {
 				items: [{
 					value: 0,
 					text: {
-						value: "A"
+						value: "Apple"
 					},
 					check: true
 				},{
 					value: 1,
 					text: {
-						value: "B"
+						value: "Beer"
 					},
 					check: true
 				},{
 					value: 2,
 					text: {
-						value: "C"
+						value: "Columbia"
+					},
+					check: true
+				},{
+					value: 3,
+					text: {
+						value: "Decomposition"
 					},
 					check: true
 				}]
@@ -55,7 +61,7 @@
 		new wcardinal.ui.DSelectMultiple({
 			parent: application.stage,
 			x: 100, y: 250,
-			width: 300,
+			width: 250,
 			text: {
 				formatter: ( items ) => {
 					return items.map(( item ) => item.text.toLowerCase() ).join(", ");
@@ -65,13 +71,13 @@
 				items: [{
 					value: 0,
 					text: {
-						value: "A"
+						value: "Apple"
 					},
 					check: true
 				},{
 					value: 1,
 					text: {
-						value: "B"
+						value: "Beer"
 					},
 					check: true
 				},{
@@ -79,7 +85,12 @@
 				},{
 					value: 2,
 					text: {
-						value: "C"
+						value: "Columbia"
+					}
+				},{
+					value: 3,
+					text: {
+						value: "Decomposition"
 					}
 				}]
 			},

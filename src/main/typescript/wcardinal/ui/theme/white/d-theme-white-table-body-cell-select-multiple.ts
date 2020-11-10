@@ -54,4 +54,12 @@ export class DThemeWhiteTableBodyCellSelectMultiple extends DThemeWhiteSelectMul
 	getSecondaryImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
 		return null;
 	}
+
+	getPaddingLeft(): number {
+		return 10;
+	}
+
+	getPaddingRight(): number {
+		return 10;
+	}
 }

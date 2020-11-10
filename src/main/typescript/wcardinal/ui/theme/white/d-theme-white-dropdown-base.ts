@@ -35,7 +35,15 @@ export abstract class DThemeWhiteDropdownBase<TEXT_VALUE> extends DThemeWhiteBut
 	}
 
 	getSecondaryImageMarginHorizontal(): number {
-		return - this.getPaddingRight() * 0.5;
+		return -20;
+	}
+
+	getPaddingLeft(): number {
+		return 25;
+	}
+
+	getPaddingRight(): number {
+		return 25;
 	}
 
 	getSecondaryImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
