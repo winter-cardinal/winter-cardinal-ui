@@ -254,6 +254,12 @@ export class EThemeDarkShapeActionValue implements EThemeShapeActionValue {
 			return "Dialog (Real)";
 		case EShapeActionValueOpenType.DIALOG_BOOLEAN:
 			return "Dialog (Boolean)";
+		case EShapeActionValueOpenType.DIALOG_DATE:
+			return "Dialog (Date)";
+		case EShapeActionValueOpenType.DIALOG_TIME:
+			return "Dialog (Time)";
+		case EShapeActionValueOpenType.DIALOG_DATETIME:
+			return "Dialog (Datetime)";
 		}
 		return "Unknown";
 	}
