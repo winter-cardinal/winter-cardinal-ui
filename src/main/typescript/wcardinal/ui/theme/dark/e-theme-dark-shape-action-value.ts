@@ -197,17 +197,27 @@ export class EThemeDarkShapeActionValue implements EThemeShapeActionValue {
 	}
 
 	toChangeColorTypeLabel( type: EShapeActionValueChangeColorType ): string {
-		switch (type) {
-		case EShapeActionValueChangeColorType.FILL:
-			return "Fill";
-		case EShapeActionValueChangeColorType.STROKE:
-			return "Stroke";
-		case EShapeActionValueChangeColorType.TEXT:
-			return "Text";
-		case EShapeActionValueChangeColorType.TEXT_OUTLINE:
-			return "Text outline";
+		if( type === EShapeActionValueChangeColorType.NONE ) {
+			return "None";
 		}
-		return "Unknown";
+		let result = "";
+		let delimiter = "";
+		if( type & EShapeActionValueChangeColorType.FILL ) {
+			result += delimiter + "Fill";
+			delimiter = ", ";
+		}
+		if( type & EShapeActionValueChangeColorType.STROKE ) {
+			result += delimiter + "Stroke";
+			delimiter = ", ";
+		}
+		if( type & EShapeActionValueChangeColorType.TEXT ) {
+			result += delimiter + "Text";
+			delimiter = ", ";
+		}
+		if( type & EShapeActionValueChangeColorType.TEXT_OUTLINE ) {
+			result += delimiter + "Text outline";
+		}
+		return result;
 	}
 
 	toChangeColorTargetLabel( type: EShapeActionValueChangeColorTarget ): string {

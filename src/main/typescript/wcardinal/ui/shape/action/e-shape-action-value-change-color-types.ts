@@ -39,4 +39,29 @@ export class EShapeActionValueChangeColorTypes {
 			return EShapeActionValueChangeColorType.ALL;
 		}
 	}
+
+	static unpack( type: EShapeActionValueChangeColorType ): EShapeActionValueChangeColorType[] {
+		const result: EShapeActionValueChangeColorType[] = [];
+		if( type & EShapeActionValueChangeColorType.FILL ) {
+			result.push( EShapeActionValueChangeColorType.FILL );
+		}
+		if( type & EShapeActionValueChangeColorType.STROKE ) {
+			result.push( EShapeActionValueChangeColorType.STROKE );
+		}
+		if( type & EShapeActionValueChangeColorType.TEXT ) {
+			result.push( EShapeActionValueChangeColorType.TEXT );
+		}
+		if( type & EShapeActionValueChangeColorType.TEXT_OUTLINE ) {
+			result.push( EShapeActionValueChangeColorType.TEXT_OUTLINE );
+		}
+		return result;
+	}
+
+	static pack( types: EShapeActionValueChangeColorType[] ): EShapeActionValueChangeColorType {
+		let result = EShapeActionValueChangeColorType.NONE;
+		for( let i = 0, imax = types.length; i < imax; ++i ) {
+			result |= types[ i ];
+		}
+		return result;
+	}
 }
