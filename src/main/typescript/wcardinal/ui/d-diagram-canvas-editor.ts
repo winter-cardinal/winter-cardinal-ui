@@ -23,7 +23,7 @@ export interface DThemeDiagramCanvasEditor extends DThemeDiagramCanvasBase {
 }
 
 export interface DDiagramCanvasEditorThumbnail {
-	create(): string | undefined;
+	serialize(): string | undefined;
 }
 
 export class DDiagramCanvasEditor<
@@ -74,7 +74,7 @@ export class DDiagramCanvasEditor<
 			layers: this._layer.serialize( manager, items ),
 			items,
 			snap: this._snapper?.serialize(),
-			thumbnail: thumbnail?.create()
+			thumbnail: thumbnail?.serialize()
 		};
 	}
 
