@@ -36,7 +36,7 @@ export class DLink {
 	protected _menu?: DMenu<DLinkMenuItemId>;
 	protected _menuOptions?: DMenuOptions<DLinkMenuItemId> | DMenu<DLinkMenuItemId>;
 	protected _theme: DThemeLink;
-	protected _isDisabled?: boolean;
+	protected _isEnabled: boolean;
 
 	constructor( theme: DThemeLink, options?: DLinkOptions ) {
 		if( options ) {
@@ -46,6 +46,15 @@ export class DLink {
 			this._menuOptions = options.menu;
 		}
 		this._theme = theme;
+		this._isEnabled = true;
+	}
+
+	get enable(): boolean {
+		return this._isEnabled;
+	}
+
+	set enable( enable: boolean ) {
+		this._isEnabled = enable;
 	}
 
 	get url(): string | null | Promise<string | null> {
@@ -125,12 +134,12 @@ export class DLink {
 
 	apply( target: DBase, onSelect: ( e: interaction.InteractionEvent ) => void ): void {
 		const onClick = ( e: interaction.InteractionEvent ): void => {
-			if( this.isEnabled() && target.state.isActionable ) {
+			if( this.enable && target.state.isActionable ) {
 				onSelect( e );
 			}
 		};
 		const onLongClick = ( e: interaction.InteractionEvent ): void => {
-			if( this.isEnabled() && target.state.isActionable ) {
+			if( this.enable && target.state.isActionable ) {
 				const menu = this.menu;
 				if( menu.isHidden() ) {
 					menu.open( target );
@@ -208,21 +217,5 @@ export class DLink {
 		} else {
 			return false;
 		}
-	}
-
-	isEnabled(): boolean {
-		return ! this._isDisabled;
-	}
-
-	isDisabled(): boolean {
-		return !! this._isDisabled;
-	}
-
-	enable(): void {
-		this._isDisabled = false;
-	}
-
-	disable(): void {
-		this._isDisabled = true;
 	}
 }

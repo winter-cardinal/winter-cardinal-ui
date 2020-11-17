@@ -47,7 +47,7 @@ export class DApplications {
 		return DApplications.INSTANCES.length;
 	}
 
-	protected static toStage( target: DApplicationTarget ): DApplicationLayerStageLike | null {
+	protected static getStage( target: DApplicationTarget ): DApplicationLayerStageLike | null {
 		let stage: any = target;
 		while( stage.parent ) {
 			stage = stage.parent;
@@ -59,7 +59,7 @@ export class DApplications {
 	}
 
 	static find( target: DApplicationTarget ): DApplicationLike | null {
-		const stage = this.toStage( target );
+		const stage = this.getStage( target );
 		if( stage ) {
 			return stage.layer.application;
 		}
@@ -67,7 +67,7 @@ export class DApplications {
 	}
 
 	static getLayerBase( target: DApplicationTarget ): DApplicationLayerLike | null {
-		const stage = this.toStage( target );
+		const stage = this.getStage( target );
 		if( stage ) {
 			return stage.layer.application.getLayerBase();
 		}
@@ -75,7 +75,7 @@ export class DApplications {
 	}
 
 	static getLayerOverlay( target: DApplicationTarget ): DApplicationLayerLike | null {
-		const stage = this.toStage( target );
+		const stage = this.getStage( target );
 		if( stage ) {
 			return stage.layer.application.getLayerOverlay();
 		}
@@ -83,16 +83,24 @@ export class DApplications {
 	}
 
 	static getLayer( target: DApplicationTarget ): DApplicationLayerLike | null {
-		const stage = this.toStage( target );
+		const stage = this.getStage( target );
 		if( stage ) {
 			return stage.layer;
 		}
 		return null;
 	}
 
+	static getResolution( target: DApplicationTarget ): number {
+		const layer = this.getLayer( target );
+		if( layer ) {
+			return layer.renderer.resolution;
+		}
+		return (window.devicePixelRatio ?? 1);
+	}
+
 	static update( target?: DApplicationTarget ): void {
 		if( target ) {
-			const stage = this.toStage( target );
+			const stage = this.getStage( target );
 			if( stage ) {
 				stage.layer.update();
 			}
@@ -106,7 +114,7 @@ export class DApplications {
 
 	static render( target?: DApplicationTarget ): void {
 		if( target ) {
-			const stage = this.toStage( target );
+			const stage = this.getStage( target );
 			if( stage ) {
 				stage.layer.render();
 			}

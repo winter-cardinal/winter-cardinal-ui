@@ -10,4 +10,12 @@ export class DThemeDarkDiagramEditor extends DThemeDarkDiagramBase implements DT
 	getBackgroundAmbient(): boolean {
 		return false;
 	}
+
+	isThumbnailEnabled(): boolean {
+		return false;
+	}
+
+	getThumbnailSize(): number {
+		return 128;
+	}
 }

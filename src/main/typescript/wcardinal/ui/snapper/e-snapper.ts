@@ -112,26 +112,13 @@ export class ESnapper extends utils.EventEmitter {
 		this._isEnabled = true;
 	}
 
-	isEnabled(): boolean {
+	get enable() {
 		return this._isEnabled;
 	}
 
-	toggle(): boolean {
-		this._isEnabled = ! this._isEnabled;
-		this.emit( "change", this );
-		return this._isEnabled;
-	}
-
-	enable(): void {
-		if( this._isEnabled !== true ) {
-			this._isEnabled = true;
-			this.emit( "change", this );
-		}
-	}
-
-	disable(): void {
-		if( this._isEnabled !== false ) {
-			this._isEnabled = false;
+	set enable( enable: boolean ) {
+		if( this._isEnabled !== enable ) {
+			this._isEnabled = enable;
 			this.emit( "change", this );
 		}
 	}
@@ -562,7 +549,7 @@ export class ESnapper extends utils.EventEmitter {
 	}
 
 	reset(): void {
-		this.enable();
+		this.enable = true;
 		this.target.reset();
 		this.grid.reset();
 	}
@@ -576,11 +563,7 @@ export class ESnapper extends utils.EventEmitter {
 	}
 
 	deserialize( serialized: DDiagramSerializedSnap ): void {
-		if( serialized[ 0 ] !== 0 ) {
-			this.enable();
-		} else {
-			this.disable();
-		}
+		this.enable = ( serialized[ 0 ] !== 0 );
 		this.target.deserialize( serialized[ 1 ] );
 		this.grid.deserialize( serialized[ 2 ] );
 	}

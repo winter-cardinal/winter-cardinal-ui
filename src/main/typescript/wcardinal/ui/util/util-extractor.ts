@@ -57,7 +57,7 @@ export class UtilExtractor {
 		};
 	}
 
-	static toCanvas( pixels: UtilExtractorPixels, scale?: number, ignorePremutipliedAlpha?: boolean ): HTMLCanvasElement {
+	static toCanvas( pixels: UtilExtractorPixels, scale?: number, ignorePremutipliedAlpha?: boolean ): utils.CanvasRenderTarget {
 		const width = pixels.width;
 		const height = pixels.height;
 		const array = pixels.array;
@@ -82,7 +82,7 @@ export class UtilExtractor {
 			canvasRenderTarget.context.putImageData( scaledImageData, 0, 0 );
 		}
 
-		return canvasRenderTarget.canvas;
+		return canvasRenderTarget;
 	}
 
 	static toBase64( canvas: HTMLCanvasElement, format?: string, quality?: number ): string {

@@ -17,28 +17,15 @@ export class ESnapperGrid extends utils.EventEmitter {
 		this._size = 10;
 	}
 
-	toggle(): boolean {
-		this._isEnabled = ! this._isEnabled;
-		this.emit( "change", this );
+	get enable() {
 		return this._isEnabled;
 	}
 
-	enable(): void {
-		if( this._isEnabled !== true ) {
-			this._isEnabled = true;
+	set enable( enable: boolean ) {
+		if( this._isEnabled !== enable ) {
+			this._isEnabled = enable;
 			this.emit( "change", this );
 		}
-	}
-
-	disable(): void {
-		if( this._isEnabled !== false ) {
-			this._isEnabled = false;
-			this.emit( "change", this );
-		}
-	}
-
-	isEnabled(): boolean {
-		return this._isEnabled;
 	}
 
 	get size(): number {
@@ -73,12 +60,7 @@ export class ESnapperGrid extends utils.EventEmitter {
 	}
 
 	deserialize( serialized: DDiagramSerializedSnapGrid ): void {
-		if( serialized[ 0 ] !== 0 ) {
-			this.enable();
-		} else {
-			this.disable();
-		}
-
+		this.enable = ( serialized[ 0 ] !== 0 );
 		this.size = serialized[ 1 ];
 	}
 }

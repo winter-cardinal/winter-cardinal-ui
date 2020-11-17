@@ -58,7 +58,7 @@ export class DTableBodyCellTree<
 		if( link ) {
 			link.apply( this, ( e ): void => this.onActive( e ) );
 			UtilPointerEvent.onClick( this, ( e: interaction.InteractionEvent ): void => {
-				if( link.isDisabled() && this.state.isActionable ) {
+				if( link.enable && this.state.isActionable ) {
 					this.onActive( e );
 				}
 			});
@@ -93,7 +93,7 @@ export class DTableBodyCellTree<
 			this.emit( "cellchange", null, null, row, rowIndex, columnIndex, this );
 
 			const link = this.link;
-			if( link && link.isEnabled() ) {
+			if( link?.enable ) {
 				link.open( link.inNewWindow( e ) );
 			} else {
 				const parent = this.parent;
@@ -135,7 +135,7 @@ export class DTableBodyCellTree<
 					this.state.set( DTableCellState.HAS_CHILDREN, DTableCellState.OPENED );
 				}
 				if( link ) {
-					link.disable();
+					link.enable = true;
 				}
 			} else {
 				if( isOpened ) {
@@ -144,7 +144,7 @@ export class DTableBodyCellTree<
 					this.state.remove( DTableCellState.HAS_CHILDREN | DTableCellState.OPENED );
 				}
 				if( link ) {
-					link.enable();
+					link.enable = true;
 				}
 			}
 			adjuster.left = this.theme.getLevelPadding( level );
@@ -152,7 +152,7 @@ export class DTableBodyCellTree<
 			this.state.remove( DTableCellState.OPENED | DTableCellState.HAS_CHILDREN );
 			adjuster.left = 0;
 			if( link ) {
-				link.disable();
+				link.enable = false;
 			}
 		}
 	}

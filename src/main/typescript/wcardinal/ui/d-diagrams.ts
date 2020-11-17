@@ -23,6 +23,7 @@ export class DDiagrams {
 			name: serialized.name,
 			tags: (tags != null ? JSON.stringify(tags) : undefined),
 			pieces: (pieces != null ? JSON.stringify(pieces) : undefined),
+			thumbnail: serialized.thumbnail,
 			data: JSON.stringify({
 				width: serialized.width,
 				height: serialized.height,
@@ -50,6 +51,7 @@ export class DDiagrams {
 			if( pieces != null ) {
 				result.pieces = JSON.parse(pieces);
 			}
+			result.thumbnail = target.thumbnail;
 			return result;
 		}
 		return target;

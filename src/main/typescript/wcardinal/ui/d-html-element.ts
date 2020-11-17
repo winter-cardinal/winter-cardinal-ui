@@ -249,15 +249,10 @@ export class DHtmlElement<
 				const element = this.getElement( clipper );
 				const after = this.getAfter( clipper );
 				if( element ) {
-					let resolution = 1;
-					if( renderer == null ) {
-						const layer = DApplications.getLayer( this );
-						if( layer ) {
-							resolution = layer.renderer.resolution;
-						}
-					} else {
-						resolution = renderer.resolution;
-					}
+					const resolution = ( renderer == null ?
+						DApplications.getResolution( this ) :
+						renderer.resolution
+					);
 					const elementRect = this.getElementRect( resolution );
 					const clipperRect = this.getClipperRect( elementRect, resolution );
 					const theme = this.theme;

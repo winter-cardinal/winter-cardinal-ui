@@ -10,6 +10,7 @@ import {
 	DDiagramBasePieceController, DThemeDiagramBase
 } from "./d-diagram-base";
 import { DDiagramCanvasEditor, DDiagramCanvasEditorOptions } from "./d-diagram-canvas-editor";
+import { DDiagramEditorThumbnail, DDiagramEditorThumbnailOptions, DThemeDiagramEditorThumbnail } from "./d-diagram-editor-thumbnail";
 import { DDiagramSerialized, DDiagramSerializedSimple, DDiagramSerializedVersion } from "./d-diagram-serialized";
 import { DDiagrams } from "./d-diagrams";
 import { ESnapper } from "./snapper/e-snapper";
@@ -105,12 +106,13 @@ export interface DDiagramEditorOptions<
 > extends DDiagramBaseOptions<DDiagramCanvasEditor, DDiagramCanvasEditorOptions, DDiagramEditorController, THEME> {
 	controller?: DDiagramEditorController;
 	on?: DDiagramEditorOnOptions<EMITTER>;
+	thumbnail?: DDiagramEditorThumbnailOptions;
 }
 
 /**
  * {@link DDiagramEditor} theme.
  */
-export interface DThemeDiagramEditor extends DThemeDiagramBase {
+export interface DThemeDiagramEditor extends DThemeDiagramBase, DThemeDiagramEditorThumbnail {
 
 }
 
@@ -120,7 +122,8 @@ export class DDiagramEditor<
 > extends DDiagramBase<DDiagramCanvasEditor, DDiagramCanvasEditorOptions, DDiagramEditorController, THEME, OPTIONS>
 	implements DControllerDocument<DDiagramSerialized> {
 	protected _isChanged: boolean = false;
-	snapper: ESnapper;
+	protected _snapper: ESnapper;
+	protected _thumbnail: DDiagramEditorThumbnail;
 
 	constructor( options?: OPTIONS ) {
 		super( options );
@@ -134,7 +137,16 @@ export class DDiagramEditor<
 			}
 		});
 
-		this.snapper = new ESnapper( this );
+		this._snapper = new ESnapper( this );
+		this._thumbnail = new DDiagramEditorThumbnail( this._snapshot, this.theme, options?.thumbnail );
+	}
+
+	get thumbnail(): DDiagramEditorThumbnail {
+		return this._thumbnail;
+	}
+
+	get snapper(): ESnapper {
+		return this._snapper;
 	}
 
 	protected isEditMode(): boolean {
@@ -146,9 +158,9 @@ export class DDiagramEditor<
 	}
 
 	protected toCanvasOptions( serialized: DDiagramSerialized ): DDiagramCanvasEditorOptions {
-		const options = super.toCanvasBaseOptions( serialized, this._canvasOptions || { snapper: this.snapper } );
+		const options = super.toCanvasBaseOptions( serialized, this._canvasOptions || { snapper: this._snapper } );
 		if( options.snapper === undefined ) {
-			options.snapper = this.snapper;
+			options.snapper = this._snapper;
 		}
 		return options;
 	}
@@ -157,7 +169,7 @@ export class DDiagramEditor<
 		const canvas = this.canvas;
 		const serialized = this._serialized;
 		if( canvas != null && serialized != null ) {
-			return canvas.serialize( serialized.id );
+			return canvas.serialize( serialized.id, this._thumbnail );
 		}
 		return null;
 	}
@@ -261,7 +273,7 @@ export class DDiagramEditor<
 	protected onSet( serialized: DDiagramSerialized ): void {
 		super.onSet( serialized );
 		const snap = serialized.snap;
-		const snapper = this.snapper;
+		const snapper = this._snapper;
 		if( snap != null ) {
 			snapper.deserialize( snap );
 		} else {

@@ -12,6 +12,7 @@ import { DDiagramCanvasBase, DDiagramCanvasBaseOptions } from "./d-diagram-canva
 import { DDiagramCanvasTilePyramidFactory } from "./d-diagram-canvas-tile";
 import { DDiagramLayer } from "./d-diagram-layer";
 import { DDiagramSerialized, DDiagramSerializedSimple } from "./d-diagram-serialized";
+import { DDiagramSnapshot } from "./d-diagram-snapshot";
 import { DDiagrams } from "./d-diagrams";
 import { EShape } from "./shape/e-shape";
 import { EShapeResourceManagerDeserialization } from "./shape/e-shape-resource-manager-deserialization";
@@ -96,13 +97,19 @@ export abstract class DDiagramBase<
 	protected _tileFactory?: DDiagramCanvasTilePyramidFactory;
 	protected _controller?: CONTROLLER;
 	protected _backgroundAmbient: boolean;
+	protected _snapshot: DDiagramSnapshot;
 
 	constructor( options?: OPTIONS ) {
 		super( options );
 		this._serialized = null;
-		this._tileFactory = options && options.tile;
-		this._controller = options && options.controller;
+		this._tileFactory = options?.tile;
+		this._controller = options?.controller;
 		this._backgroundAmbient = this.toBackgroundAmbient( this.theme, this._options );
+		this._snapshot = new DDiagramSnapshot( this );
+	}
+
+	get snapshot(): DDiagramSnapshot {
+		return this._snapshot;
 	}
 
 	get controller(): CONTROLLER | null {

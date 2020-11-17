@@ -20,28 +20,30 @@ export class ESnapperTarget extends utils.EventEmitter {
 		this._isEnabled = true;
 	}
 
-	isEnabled(): boolean {
+	get enable(): boolean {
 		return this._isEnabled;
 	}
 
-	toggle(): boolean {
-		this._isEnabled = ! this._isEnabled;
-		this.emit( "change", this );
-		return this._isEnabled;
-	}
-
-	enable(): void {
-		if( this._isEnabled !== true ) {
-			this._isEnabled = true;
+	set enable( enable: boolean ) {
+		if( this._isEnabled !== enable ) {
+			this._isEnabled = enable;
 			this.emit( "change", this );
 		}
 	}
 
-	disable(): void {
-		if( this._isEnabled !== false ) {
-			this._isEnabled = false;
+	get visible(): boolean {
+		return this._isVisible;
+	}
+
+	set visible( visible: boolean ) {
+		if( this._isVisible !== visible ) {
+			this._isVisible = visible;
 			this.emit( "change", this );
 		}
+	}
+
+	get size(): number {
+		return this.values.length;
 	}
 
 	add( target: ESnapperTargetValue, index?: number ): void {
@@ -61,10 +63,6 @@ export class ESnapperTarget extends utils.EventEmitter {
 		}
 	}
 
-	size(): number {
-		return this.values.length;
-	}
-
 	replace( index: number, value: ESnapperTargetValue ): ESnapperTargetValue | null {
 		const values = this.values;
 		if( 0 <= index && index < values.length ) {
@@ -82,17 +80,6 @@ export class ESnapperTarget extends utils.EventEmitter {
 			const valueA = values[ indexA ];
 			values[ indexA ] = values[ indexB ];
 			values[ indexB ] = valueA;
-		}
-	}
-
-	get visible(): boolean {
-		return this._isVisible;
-	}
-
-	set visible( visible: boolean ) {
-		if( this._isVisible !== visible ) {
-			this._isVisible = visible;
-			this.emit( "change", this );
 		}
 	}
 

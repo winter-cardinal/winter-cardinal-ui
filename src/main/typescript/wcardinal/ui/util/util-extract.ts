@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Renderer, RenderTexture } from "pixi.js";
+import { Renderer, RenderTexture, utils } from "pixi.js";
 import { DApplicationLayerLike } from "../d-application-layer-like";
 import { DApplicationLike } from "../d-application-like";
 import { DApplications } from "../d-applications";
@@ -115,10 +115,17 @@ export class UtilExtract {
 
 	static pixels( options: UtilExtractPixelsOptions ): UtilExtractorPixels {
 		const renderer = toRenderer( options );
-		return UtilExtractor.toPixels( this.texture( options ), renderer );
+		const texture = this.texture( options );
+		try {
+			return UtilExtractor.toPixels( texture, renderer );
+		} finally {
+			if( texture ) {
+				texture.destroy();
+			}
+		}
 	}
 
-	static canvas( options: UtilExtractCanvasOptions ): HTMLCanvasElement {
+	static canvas( options: UtilExtractCanvasOptions ): utils.CanvasRenderTarget {
 		const pixels = this.pixels( options );
 		const ignorePremutipliedAlpha = toIgnorePremultipliedAlpha( options );
 		const scale = toScale( pixels, options );
@@ -126,7 +133,14 @@ export class UtilExtract {
 	}
 
 	static base64( options: UtilExtractBase64Options ): string {
-		return UtilExtractor.toBase64( this.canvas( options ), options.format, options.quality );
+		const canvas = this.canvas( options );
+		try {
+			return UtilExtractor.toBase64( canvas.canvas, options.format, options.quality );
+		} finally {
+			if( canvas ) {
+				canvas.destroy();
+			}
+		}
 	}
 
 	static file( options: UtilExtractFileOptions ): void {

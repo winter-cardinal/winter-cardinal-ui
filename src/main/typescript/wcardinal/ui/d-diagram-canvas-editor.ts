@@ -22,6 +22,10 @@ export interface DThemeDiagramCanvasEditor extends DThemeDiagramCanvasBase {
 
 }
 
+export interface DDiagramCanvasEditorThumbnail {
+	create(): string | undefined;
+}
+
 export class DDiagramCanvasEditor<
 	THEME extends DThemeDiagramCanvasEditor = DThemeDiagramCanvasEditor,
 	OPTIONS extends DDiagramCanvasEditorOptions<THEME> = DDiagramCanvasEditorOptions<THEME>
@@ -47,13 +51,12 @@ export class DDiagramCanvasEditor<
 		}
 	}
 
-	serialize( id: number | undefined ): DDiagramSerialized {
+	serialize( id?: number, thumbnail?: DDiagramCanvasEditorThumbnail ): DDiagramSerialized {
 		const manager = new EShapeResourceManagerSerialization();
 		const items: DDiagramSerializedItem[] = [];
 		const background = this._background;
 		const backgroundColor = background.color;
 		const backgroundAlpha = background.alpha;
-		const snapper = this._snapper;
 		return {
 			version: DDiagramSerializedVersion,
 			id,
@@ -70,7 +73,8 @@ export class DDiagramCanvasEditor<
 			pieces: manager.pieces,
 			layers: this._layer.serialize( manager, items ),
 			items,
-			snap: snapper && snapper.serialize()
+			snap: this._snapper?.serialize(),
+			thumbnail: thumbnail?.create()
 		};
 	}
 

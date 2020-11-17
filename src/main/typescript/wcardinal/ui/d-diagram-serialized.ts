@@ -425,6 +425,7 @@ export interface DDiagramSerialized  {
 	layers: DDiagramSerializedLayer[];
 	items: DDiagramSerializedItem[];
 	snap?: DDiagramSerializedSnap;
+	thumbnail?: string;
 }
 
 /**
