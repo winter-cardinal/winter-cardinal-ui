@@ -9,8 +9,13 @@ import { DTableData } from "./d-table-data";
 import { DTableHeaderCell, DTableHeaderCellOptions } from "./d-table-header-cell";
 import { DTableRow, DTableRowOptions, DThemeTableRow } from "./d-table-row";
 
+export interface DTableHeaderTableBody {
+	update( forcibly?: boolean ): void;
+}
+
 export interface DTableHeaderTable<ROW> {
 	readonly data: DTableData<ROW>;
+	readonly body: DTableHeaderTableBody;
 }
 
 export interface DTableHeaderOptions<

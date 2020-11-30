@@ -3,27 +3,23 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
+import { interaction, Point } from "pixi.js";
 import { DBaseStateSet } from "./d-base-state-set";
 import { DImage, DImageOptions, DThemeImage } from "./d-image";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { DTableCellState } from "./d-table-cell-state";
 import { DTableColumn } from "./d-table-column";
-import { DTableData } from "./d-table-data";
 import {
 	DTableDataComparatorFunction, DTableDataComparatorObject,
 	DTableDataOrder, DTableDataSorter
 } from "./d-table-data-sorter";
 import { DTableHeaderTable } from "./d-table-header";
+import { DTableHeaderCellCheck, DTableHeaderCellCheckOptions } from "./d-table-header-cell-check";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
 export interface DTableHeaderCellHeader<ROW> {
 	readonly table: DTableHeaderTable<ROW> | null;
-}
-
-export interface DTableHeaderCellCheckOptions {
-	enable?: boolean;
 }
 
 export interface DTableHeaderCellOptions<
@@ -52,28 +48,44 @@ export class DTableHeaderCell<
 	protected _header?: DTableHeaderCellHeader<ROW>;
 	protected _column?: DTableColumn<ROW>;
 	protected _columnIndex?: number;
-	protected _checkable?: boolean;
+	protected _check!: DTableHeaderCellCheck<ROW>;
+	protected _checkWork?: Point;
 
 	protected init( options?: OPTIONS ) {
 		if( options != null ) {
 			this._header = options.header;
 			this._column = options.column;
 			this._columnIndex = options.columnIndex;
-			const check = options.check;
-			if( check ) {
-				this._checkable = check.enable;
-			}
+			this._check = new DTableHeaderCellCheck<ROW>( this, options.check );
+		} else {
+			this._check = new DTableHeaderCellCheck<ROW>( this );
 		}
 		super.init( options );
 		this.initOnClick( options );
 	}
 
+	get column(): DTableColumn<ROW> | undefined {
+		return this._column;
+	}
+
+	get columnIndex(): number | undefined {
+		return this._columnIndex;
+	}
+
+	get header(): DTableHeaderCellHeader<ROW> | undefined {
+		return this._header;
+	}
+
+	get check(): DTableHeaderCellCheck<ROW> {
+		return this._check;
+	}
+
 	protected initOnClick( options?: OPTIONS ): void {
 		const column = this._column;
 		if( column ) {
-			const sorting = column.sorting;
-			const checkable = this._checkable;
-			if( checkable || sorting.enable ) {
+			const sortable = column.sorting.enable;
+			const checkable = this._check.isEnabled;
+			if( checkable || sortable ) {
 				this.buttonMode = this.state.isActionable;
 				UtilPointerEvent.onClick( this, ( e: interaction.InteractionEvent ): void => {
 					this.onClick( e );
@@ -136,9 +148,32 @@ export class DTableHeaderCell<
 		}
 	}
 
-	onClick( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
+	protected toClickPosition( e: interaction.InteractionEvent ): number {
+		const checkWork = ( this._checkWork || new Point() );
+		this._checkWork = checkWork;
+		return e.data.getLocalPosition( this, checkWork ).x;
+	}
+
+	protected isCheckClicked( e: interaction.InteractionEvent ): boolean {
+		if( this._check.isEnabled ) {
+			if( this.isSortable ) {
+				const image = this._images[ 1 ];
+				if( image && image.image != null ) {
+					const position = this.toClickPosition( e );
+					const bound = image.bound;
+					const margin = image.margin.horizontal;
+					return ( bound.left - margin <= position && position <= bound.right + margin );
+				}
+			} else {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	onClick( e: interaction.InteractionEvent ): void {
 		if( this.state.isActionable ) {
-			if( this.isToggle() ) {
+			if( this.isCheckClicked( e ) ) {
 				this.onToggleStart();
 				this.onToggleEnd();
 			} else {
@@ -153,7 +188,7 @@ export class DTableHeaderCell<
 	}
 
 	protected doSort( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
-		if( this.isSortable() ) {
+		if( this.isSortable ) {
 			const comparator = this.comparator;
 			if( comparator ) {
 				const sorter = this.sorter;
@@ -176,11 +211,7 @@ export class DTableHeaderCell<
 		}
 	}
 
-	isCheckable(): boolean {
-		return !! this._checkable;
-	}
-
-	isSortable(): boolean {
+	get isSortable(): boolean {
 		const column = this._column;
 		if( column ) {
 			return column.sorting.enable;
@@ -188,17 +219,17 @@ export class DTableHeaderCell<
 		return false;
 	}
 
-	isButton(): boolean {
-		return this.isCheckable() || this.isSortable();
+	get isButton(): boolean {
+		return this.check.isEnabled || this.isSortable;
 	}
 
-	isToggle(): boolean {
-		return this.isCheckable();
+	get isToggle(): boolean {
+		return this.check.isEnabled;
 	}
 
 	toggle(): void {
 		if( this.state.isActionable ) {
-			if( this.isToggle() ) {
+			if( this.isToggle ) {
 				this.onToggleStart();
 				this.onToggleEnd();
 			}
@@ -211,45 +242,17 @@ export class DTableHeaderCell<
 
 	protected onToggleEnd(): void {
 		if( this.state.isActive ) {
-			this.onCheckChange( true );
+			this._check.execute( true );
 			this.emit( "active", this );
 		} else {
-			this.onCheckChange( false );
+			this._check.execute( false );
 			this.emit( "inactive", this );
-		}
-	}
-
-	protected onCheckChange( isChecked: boolean ) {
-		const header = this.parent as any;
-		if( header ) {
-			const table = header.table;
-			if( table ) {
-				const column = this._column;
-				const columnIndex = this._columnIndex;
-				if( column && columnIndex != null ) {
-					let isChanged = false;
-					const getter = column.getter;
-					const setter = column.setter;
-					const data = table.data as DTableData<ROW>;
-					data.each(( row: ROW, index: number ): boolean => {
-						if( getter( row, columnIndex ) !== isChecked ) {
-							setter( row, columnIndex, isChecked );
-							isChanged = true;
-							this.emit( "cellchange", ! isChecked, isChecked, row, index, columnIndex, this );
-						}
-						return true;
-					});
-					if( isChanged ) {
-						table.body.update( true );
-					}
-				}
-			}
 		}
 	}
 
 	protected onActivateKeyDown( e: KeyboardEvent ): void {
 		if( this.state.isActionable ) {
-			if( this.isToggle() ) {
+			if( this.isToggle ) {
 				this.onToggleStart();
 			} else {
 				this.state.isPressed = true;
@@ -259,7 +262,7 @@ export class DTableHeaderCell<
 
 	protected onActivateKeyUp( e: KeyboardEvent ): void {
 		if( this.state.isActionable ) {
-			if( this.isToggle() ) {
+			if( this.isToggle ) {
 				this.onToggleEnd();
 			} else {
 				if( this.state.isPressed ) {
@@ -288,7 +291,7 @@ export class DTableHeaderCell<
 
 	protected onStateChange( newState: DBaseStateSet, oldState: DBaseStateSet ): void {
 		super.onStateChange( newState, oldState );
-		if( this.isButton() ) {
+		if( this.isButton ) {
 			this.buttonMode = newState.isActionable;
 		}
 	}
