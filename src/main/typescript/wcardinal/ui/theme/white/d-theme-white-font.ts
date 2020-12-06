@@ -40,7 +40,7 @@ export class DThemeWhiteFont implements DThemeFont {
 	}
 
 	static getColor( state: DBaseStateSet ): number {
-		return 0x5f5f5f;
+		return 0x555555;
 	}
 
 	static getAlpha( state: DBaseStateSet ): number {
