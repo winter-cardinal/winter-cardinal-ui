@@ -78,31 +78,39 @@ export class DDynamicTextGeometry extends MeshGeometry {
 		character: DynamicFontAtlasCharacter,
 		width: number, height: number
 	): void {
-		const offsetX = character.x - character.origin.x;
-		const offsetY = 0;
+		const cx = character.x;
+		const cy = character.y;
+		const cw = character.width;
+		const ch = character.height;
+		const cox = character.origin.x;
+
+		const x0 = x + (cx - cox);
+		const y0 = y;
+		const x1 = x0 + cw;
+		const y1 = y0 + ch;
 
 		const iv = index << 3;
-		vertices[ iv + 0 ] = x + offsetX;
-		vertices[ iv + 1 ] = y + offsetY;
-		vertices[ iv + 2 ] = x + offsetX + character.width;
-		vertices[ iv + 3 ] = y + offsetY;
-		vertices[ iv + 4 ] = x + offsetX + character.width;
-		vertices[ iv + 5 ] = y + offsetY + character.height;
-		vertices[ iv + 6 ] = x + offsetX;
-		vertices[ iv + 7 ] = y + offsetY + character.height;
+		vertices[ iv + 0 ] = x0;
+		vertices[ iv + 1 ] = y0;
+		vertices[ iv + 2 ] = x1;
+		vertices[ iv + 3 ] = y0;
+		vertices[ iv + 4 ] = x1;
+		vertices[ iv + 5 ] = y1;
+		vertices[ iv + 6 ] = x0;
+		vertices[ iv + 7 ] = y1;
 
-		const x0 = character.x / width;
-		const y0 = character.y / height;
-		const x1 = ( character.x + character.width ) / width;
-		const y1 = ( character.y + character.height ) / height;
-		uvs[ iv + 0 ] = x0;
-		uvs[ iv + 1 ] = y0;
-		uvs[ iv + 2 ] = x1;
-		uvs[ iv + 3 ] = y0;
-		uvs[ iv + 4 ] = x1;
-		uvs[ iv + 5 ] = y1;
-		uvs[ iv + 6 ] = x0;
-		uvs[ iv + 7 ] = y1;
+		const u0 = cx / width;
+		const v0 = cy / height;
+		const u1 = ( cx + cw ) / width;
+		const v1 = ( cy + ch ) / height;
+		uvs[ iv + 0 ] = u0;
+		uvs[ iv + 1 ] = v0;
+		uvs[ iv + 2 ] = u1;
+		uvs[ iv + 3 ] = v0;
+		uvs[ iv + 4 ] = u1;
+		uvs[ iv + 5 ] = v1;
+		uvs[ iv + 6 ] = u0;
+		uvs[ iv + 7 ] = v1;
 
 		const ii = index * 6;
 		const vo = index << 2;

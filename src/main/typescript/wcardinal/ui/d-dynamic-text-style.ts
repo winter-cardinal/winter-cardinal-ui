@@ -45,15 +45,14 @@ export class DDynamicTextStyle {
 
 		const defaultOptions = this.getDefaultOptions();
 		if( options ) {
-			this._align = options.align || defaultOptions.align;
-			this._fontFamily = options.fontFamily || defaultOptions.fontFamily;
-			this._fontSize = options.fontSize || defaultOptions.fontSize;
-			this._fontStyle = options.fontStyle || defaultOptions.fontStyle;
-			this._fontVariant = options.fontVariant || defaultOptions.fontVariant;
-			this._fontWeight = options.fontWeight || defaultOptions.fontWeight;
-			this._fill = options.fill || defaultOptions.fill;
-			const clipping = options.clipping;
-			this._clipping = ( clipping != null ? clipping : defaultOptions.clipping );
+			this._align = options.align ?? defaultOptions.align;
+			this._fontFamily = options.fontFamily ?? defaultOptions.fontFamily;
+			this._fontSize = options.fontSize ?? defaultOptions.fontSize;
+			this._fontStyle = options.fontStyle ?? defaultOptions.fontStyle;
+			this._fontVariant = options.fontVariant ?? defaultOptions.fontVariant;
+			this._fontWeight = options.fontWeight ?? defaultOptions.fontWeight;
+			this._fill = options.fill ?? defaultOptions.fill;
+			this._clipping = options.clipping ?? defaultOptions.clipping;
 		} else {
 			this._align = defaultOptions.align;
 			this._fontFamily = defaultOptions.fontFamily;
