@@ -89,10 +89,8 @@ export class UtilSvgAtlasBuilder {
 
 	build( options?: UtilSvgAtlasBuilderBuildOptions ): { [ name: string ]: Texture } {
 		let built = this._built;
-		if( built == null || (options && options.force) ) {
-			const resolution = ( options && options.resolution != null ?
-				options.resolution : (window.devicePixelRatio || 1)
-			);
+		if( built == null || (options?.force) ) {
+			const resolution = ( options?.resolution ?? (window.devicePixelRatio ?? 1) );
 			const width = this._width;
 			const height = Math.pow( 2, Math.ceil( Math.log( this._nextY + this._height ) / Math.LN2 ) );
 			const realWidth = width * resolution;
@@ -103,7 +101,7 @@ export class UtilSvgAtlasBuilder {
 			const attrViewBox = `viewBox="0 0 ${width * ratio} ${height * ratio}"`;
 			const attrXmlns = `xmlns="http://www.w3.org/2000/svg"`;
 			const url = toSvgUrl( `<svg ${attrWidth} ${attrHeight} ${attrViewBox} ${attrXmlns}>${this._svg}</svg>` );
-			const scaleMode = (options && options.scaling != null ? options.scaling : SCALE_MODES.NEAREST);
+			const scaleMode = (options?.scaling ?? SCALE_MODES.NEAREST);
 			const baseTexture = BaseTexture.from( url, {
 				resolution,
 				scaleMode
