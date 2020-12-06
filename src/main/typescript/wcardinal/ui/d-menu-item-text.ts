@@ -5,6 +5,7 @@
 
 import { interaction, Text } from "pixi.js";
 import { DBase } from "./d-base";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DDynamicText } from "./d-dynamic-text";
 import { DMenuItem, DMenuItemOptions, DThemeMenuItem } from "./d-menu-item";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
@@ -19,6 +20,8 @@ export interface DMenuItemTextOptions<
 
 export interface DThemeMenuItemText extends DThemeMenuItem {
 	getShortcutTextMargin(): number;
+	getShortcutColor( state: DBaseStateSet ): number;
+	getShortcutAlpha( state: DBaseStateSet ): number;
 }
 
 export class DMenuItemText<
@@ -62,10 +65,7 @@ export class DMenuItemText<
 		if( shortcuts != null && 0 < shortcuts.length ) {
 			const shortcut = shortcuts[ 0 ];
 			const shortcutTextValue = UtilKeyboardEvent.toString( shortcut );
-			this._shortcutText = ( this._textDynamic ?
-				new DDynamicText( shortcutTextValue, this._textStyle ) :
-				new Text( shortcutTextValue, this._textStyle )
-			);
+			this._shortcutText = this.createText( shortcutTextValue );
 			this.addRenderable( this._shortcutText, true );
 		} else {
 			this._shortcutText = null;
@@ -90,8 +90,8 @@ export class DMenuItemText<
 		if( shortcutText != null ) {
 			const theme = this.theme;
 			const state = this.state;
-			shortcutText.style.fill = theme.getColor( state );
-			shortcutText.alpha = theme.getAlpha( state );
+			shortcutText.style.fill = theme.getShortcutColor( state );
+			shortcutText.alpha = theme.getShortcutAlpha( state );
 		}
 	}
 
