@@ -40,7 +40,7 @@ export class DThemeWhitePickerDatetimeButtonNext
 		return DThemeWhiteAtlas.mappings.picker_date_next;
 	}
 
-	getColor(): number {
-		return 0x6f6f6f;
+	getAlpha( state: DBaseStateSet ): number {
+		return super.getAlpha( state ) * 0.9;
 	}
 }

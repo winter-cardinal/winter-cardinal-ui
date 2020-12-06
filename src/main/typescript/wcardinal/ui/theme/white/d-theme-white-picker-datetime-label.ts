@@ -27,8 +27,8 @@ export class DThemeWhitePickerDatetimeLabel extends DThemeWhiteText implements D
 		return DAlignHorizontal.CENTER;
 	}
 
-	getColor(): number {
-		return 0x6f6f6f;
+	getAlpha( state: DBaseStateSet ): number {
+		return super.getAlpha( state ) * 0.9;
 	}
 
 	getFontWeight(): DFontWeight {

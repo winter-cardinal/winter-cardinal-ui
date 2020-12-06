@@ -27,8 +27,8 @@ export class DThemeDarkPickerDatetimeLabel extends DThemeDarkText implements DTh
 		return DAlignHorizontal.CENTER;
 	}
 
-	getColor(): number {
-		return 0xDEDEDE;
+	getAlpha( state: DBaseStateSet ): number {
+		return super.getAlpha( state ) * 0.9;
 	}
 
 	getFontWeight(): DFontWeight {

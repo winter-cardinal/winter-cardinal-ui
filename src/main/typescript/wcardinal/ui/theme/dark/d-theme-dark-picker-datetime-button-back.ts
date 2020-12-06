@@ -40,7 +40,7 @@ export class DThemeDarkPickerDatetimeButtonBack
 		return DThemeDarkAtlas.mappings.picker_date_back;
 	}
 
-	getColor(): number {
-		return 0xDEDEDE;
+	getAlpha( state: DBaseStateSet ): number {
+		return super.getAlpha( state ) * 0.9;
 	}
 }

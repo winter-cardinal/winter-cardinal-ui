@@ -4,6 +4,7 @@
  */
 
 import { DAlignHorizontal } from "../../d-align-horizontal";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DFontWeight } from "../../d-font";
 import { DThemePickerDatetimeLabelDate } from "../../d-picker-datetime-label-date";
@@ -26,8 +27,8 @@ export class DThemeWhitePickerDatetimeLabelDate extends DThemeWhiteText implemen
 		return DAlignHorizontal.CENTER;
 	}
 
-	getColor(): number {
-		return 0x6f6f6f;
+	getAlpha( state: DBaseStateSet ): number {
+		return super.getAlpha( state ) * 0.9;
 	}
 
 	getFontWeight(): DFontWeight {
