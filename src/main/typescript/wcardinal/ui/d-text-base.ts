@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Graphics, Text } from "pixi.js";
+import { Graphics, SCALE_MODES, Text } from "pixi.js";
 import { DAlignHorizontal } from "./d-align-horizontal";
 import { DAlignVertical } from "./d-align-vertical";
 import { DApplications } from "./d-applications";
@@ -120,13 +120,13 @@ const toTextStyle = <VALUE, THEME extends DThemeTextBase>(
 ): DDynamicTextStyleOptions => {
 	if( options && options.text && options.text.style != null ) {
 		const style = options.text.style;
-		const fill = style.fill != null ? style.fill : theme.getColor( state );
-		const fontSize = style.fontSize != null ? style.fontSize : theme.getFontSize();
-		const fontFamily = style.fontFamily != null ? style.fontFamily : theme.getFontFamilly();
-		const fontWeight = style.fontWeight != null ? style.fontWeight : theme.getFontWeight();
-		const fontStyle = style.fontStyle != null ? style.fontStyle : theme.getFontStyle();
-		const fontVariant = style.fontVariant != null ? style.fontVariant : theme.getFontVariant();
-		const clipping = style.clipping != null ? style.clipping : theme.getTextStyleClipping();
+		const fill = style.fill ?? theme.getColor( state );
+		const fontSize = style.fontSize ?? theme.getFontSize();
+		const fontFamily = style.fontFamily ?? theme.getFontFamilly();
+		const fontWeight = style.fontWeight ?? theme.getFontWeight();
+		const fontStyle = style.fontStyle ?? theme.getFontStyle();
+		const fontVariant = style.fontVariant ?? theme.getFontVariant();
+		const clipping = style.clipping ?? theme.getTextStyleClipping();
 		return {
 			fill,
 			fontSize,
@@ -287,10 +287,14 @@ export class DTextBase<
 	}
 
 	protected createText( formatted: string ): Text | DDynamicText {
-		return ( this._textDynamic ?
-			new DDynamicText( formatted, this._textStyle ) :
-			new Text( formatted, this._textStyle )
-		);
+		if( this._textDynamic ) {
+			return new DDynamicText( formatted, this._textStyle );
+		} else {
+			const result = new Text( formatted, this._textStyle );
+			result.texture.baseTexture.scaleMode = SCALE_MODES.NEAREST;
+			result.resolution = DApplications.getResolution( this );
+			return result;
+		}
 	}
 
 	protected getOrCreateOverflowMask(): Graphics {
