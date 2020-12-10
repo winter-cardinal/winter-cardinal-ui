@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2020 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { DBaseState } from "./d-base-state";
 import { DBaseStateSet } from "./d-base-state-set";
 import { isNumber } from "./util/is-number";
