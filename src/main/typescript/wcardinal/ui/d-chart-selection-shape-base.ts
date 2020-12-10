@@ -28,11 +28,11 @@ export abstract class DChartSelectionShapeBase implements DChartSelectionShape {
 	constructor( options?: DChartSelectionShapeOptions ) {
 		const theme = this.toTheme( options );
 		this._theme = theme;
-		const state = new DBaseStateSetImpl().add( options && options.state != null ? options.state : DBaseState.HOVERED );
+		const state = new DBaseStateSetImpl().add( options?.state ?? DBaseState.HOVERED );
 		this._state = state;
-		this._isEnabled = ( options && options.enable != null ? options.enable : theme.isEnabled( state ) );
-		this._shape = options && options.shape;
-		this._style = (options && options.style) || this.setStyle;
+		this._isEnabled = ( options?.enable ?? theme.isEnabled( state ) );
+		this._shape = options?.shape;
+		this._style = options?.style ?? this.setStyle;
 	}
 
 	bind( container: DChartSeriesContainer ): void {
