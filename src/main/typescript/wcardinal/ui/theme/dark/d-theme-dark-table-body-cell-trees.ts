@@ -6,8 +6,8 @@
 import { DisplayObject, Texture } from "pixi.js";
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DTableCellState } from "../../d-table-cell-state";
+import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkExpandables } from "./d-theme-dark-expandables";
-import { DThemeDarkFont } from "./d-theme-dark-font";
 import { DThemeDarkTableBodyCells } from "./d-theme-dark-table-body-cells";
 
 export class DThemeDarkTableBodyCellTrees {
@@ -27,7 +27,7 @@ export class DThemeDarkTableBodyCellTrees {
 	}
 
 	static getImageTintColor( state: DBaseStateSet ): number | null {
-		return DThemeDarkFont.getColor( state );
+		return DThemeDarkConstants.COLOR;
 	}
 
 	static getImageTintAlpha( state: DBaseStateSet ): number {

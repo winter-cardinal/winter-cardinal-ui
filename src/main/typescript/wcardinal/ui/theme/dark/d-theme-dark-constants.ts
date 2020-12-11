@@ -6,6 +6,9 @@
 import { UtilRgb } from "../../util/util-rgb";
 
 export class DThemeDarkConstants {
+	static COLOR = 0xcccccc;
+	static ACTIVE_COLOR = 0x000000;
+
 	static BORDER_COLOR = 0x4a4a4a;
 
 	static BACKGROUND_COLOR = 0x2E2E2E;

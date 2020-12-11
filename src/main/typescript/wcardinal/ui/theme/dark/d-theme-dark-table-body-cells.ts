@@ -70,12 +70,12 @@ export class DThemeDarkTableBodyCells {
 	}
 
 	static getColor( state: DBaseStateSet ): number {
-		return DThemeDarkFont.getColor( state );
+		return DThemeDarkConstants.COLOR;
 	}
 
 	static getAlpha( state: DBaseStateSet ): number {
 		if( state.inEnabled ) {
-			return DThemeDarkFont.getAlpha( state );
+			return 1.0;
 		}
 		return 0;
 	}

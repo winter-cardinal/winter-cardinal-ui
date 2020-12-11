@@ -10,7 +10,6 @@ import { UtilRgb } from "../../util/util-rgb";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteButtonAmbient } from "./d-theme-white-button-ambient";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
-import { DThemeWhiteFont } from "./d-theme-white-font";
 
 // Material Design icons by Google.
 // Apache license version 2.0.
@@ -37,7 +36,7 @@ export class DThemeWhiteButtonRadio extends DThemeWhiteButtonAmbient implements 
 	}
 
 	getColor( state: DBaseStateSet ): number {
-		return DThemeWhiteFont.getColor( state );
+		return DThemeWhiteConstants.COLOR;
 	}
 
 	getBackgroundAlpha( state: DBaseStateSet ): number {

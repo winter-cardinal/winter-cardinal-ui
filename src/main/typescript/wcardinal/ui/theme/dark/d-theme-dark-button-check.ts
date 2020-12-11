@@ -9,7 +9,6 @@ import { DThemeButtonCheck } from "../../d-button-check";
 import { DThemeDarkButtonAmbient } from "./d-theme-dark-button-ambient";
 import { DThemeDarkButtonChecks } from "./d-theme-dark-button-checks";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
-import { DThemeDarkFont } from "./d-theme-dark-font";
 
 export class DThemeDarkButtonCheck extends DThemeDarkButtonAmbient implements DThemeButtonCheck {
 	getBackgroundColor( state: DBaseStateSet ): number | null {
@@ -17,7 +16,7 @@ export class DThemeDarkButtonCheck extends DThemeDarkButtonAmbient implements DT
 	}
 
 	getColor( state: DBaseStateSet ): number {
-		return DThemeDarkFont.getColor( state );
+		return DThemeDarkConstants.COLOR;
 	}
 
 	getBackgroundAlpha( state: DBaseStateSet ): number {

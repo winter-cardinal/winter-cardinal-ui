@@ -10,7 +10,6 @@ import { DCornerMask } from "../../d-corner-mask";
 import { DTableCellState } from "../../d-table-cell-state";
 import { UtilRgb } from "../../util/util-rgb";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
-import { DThemeWhiteFont } from "./d-theme-white-font";
 
 export class DThemeWhiteTableBodyCells {
 	protected static readonly IMAGE_TINT_COLOR_FOCUSED = UtilRgb.darken( DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR, 0.1 );
@@ -72,12 +71,12 @@ export class DThemeWhiteTableBodyCells {
 	}
 
 	static getColor( state: DBaseStateSet ): number {
-		return DThemeWhiteFont.getColor( state );
+		return DThemeWhiteConstants.COLOR;
 	}
 
 	static getAlpha( state: DBaseStateSet ): number {
-		if( ! state.inDisabled ) {
-			return DThemeWhiteFont.getAlpha( state );
+		if( state.inEnabled ) {
+			return 1.0;
 		}
 		return 0;
 	}

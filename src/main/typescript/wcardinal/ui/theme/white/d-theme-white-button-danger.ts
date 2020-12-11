@@ -36,7 +36,7 @@ export class DThemeWhiteButtonDanger extends DThemeWhiteButtonBase {
 		if( state.inDisabled ) {
 			return super.getColor( state );
 		} else {
-			return 0xffffff;
+			return DThemeWhiteConstants.ACTIVE_COLOR;
 		}
 	}
 }

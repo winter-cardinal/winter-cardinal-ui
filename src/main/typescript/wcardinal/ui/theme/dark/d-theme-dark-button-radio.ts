@@ -10,7 +10,6 @@ import { UtilRgb } from "../../util/util-rgb";
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
 import { DThemeDarkButtonAmbient } from "./d-theme-dark-button-ambient";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
-import { DThemeDarkFont } from "./d-theme-dark-font";
 
 // Material Design icons by Google.
 // Apache license version 2.0.
@@ -37,7 +36,7 @@ export class DThemeDarkButtonRadio extends DThemeDarkButtonAmbient implements DT
 	}
 
 	getColor( state: DBaseStateSet ): number {
-		return DThemeDarkFont.getColor( state );
+		return DThemeDarkConstants.COLOR;
 	}
 
 	getBackgroundAlpha( state: DBaseStateSet ): number {

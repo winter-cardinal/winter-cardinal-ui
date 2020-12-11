@@ -5,6 +5,7 @@
 
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DFontStyle, DFontVariant, DFontWeight, DThemeFont } from "../../d-font";
+import { DThemeWhiteConstants } from "./d-theme-white-constants";
 
 export class DThemeWhiteFont implements DThemeFont {
 	getFontFamilly() {
@@ -16,7 +17,7 @@ export class DThemeWhiteFont implements DThemeFont {
 	}
 
 	getColor( state: DBaseStateSet ): number {
-		return DThemeWhiteFont.getColor( state );
+		return DThemeWhiteConstants.COLOR;
 	}
 
 	getFontWeight(): DFontWeight {
@@ -32,22 +33,13 @@ export class DThemeWhiteFont implements DThemeFont {
 	}
 
 	getAlpha( state: DBaseStateSet ): number {
-		return DThemeWhiteFont.getAlpha( state );
+		if( state.inDisabled ) {
+			return 0.5;
+		}
+		return 1.0;
 	}
 
 	getLineHeight(): number {
 		return 30;
-	}
-
-	static getColor( state: DBaseStateSet ): number {
-		return 0x555555;
-	}
-
-	static getAlpha( state: DBaseStateSet ): number {
-		if( state.inDisabled ) {
-			return 0.5;
-		} else {
-			return 1.0;
-		}
 	}
 }

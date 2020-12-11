@@ -28,7 +28,7 @@ export class DThemeDarkButtonPrimary extends DThemeDarkButtonBase {
 		if( state.inDisabled ) {
 			return super.getColor( state );
 		} else {
-			return 0x000000;
+			return DThemeDarkConstants.ACTIVE_COLOR;
 		}
 	}
 }

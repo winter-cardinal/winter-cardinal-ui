@@ -22,14 +22,20 @@ DThemeWhiteAtlas.add( "menu_item_mark_check_inactive", 14, 14,
 );
 
 export class DThemeWhiteMenuItemCheck extends DThemeWhiteMenuItemText implements DThemeMenuItemCheck {
-	getBackgroundColor( state: DBaseStateSet ): number | null {
-		if( state.inDisabled ) {
-			return null;
-		} else if( state.isFocused || state.isHovered ) {
+	protected getBackgroundColorActive( state: DBaseStateSet ): number | null {
+		if( state.isFocused || state.isHovered ) {
 			return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
 		} else {
 			return null;
 		}
+	}
+
+	protected getBackgroundAlphaActive( state: DBaseStateSet ): number {
+		return DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
+	}
+
+	protected getColorActive( state: DBaseStateSet ): number {
+		return DThemeWhiteConstants.COLOR;
 	}
 
 	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {

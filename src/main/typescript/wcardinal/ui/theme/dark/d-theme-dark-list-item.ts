@@ -16,7 +16,7 @@ export class DThemeDarkListItem extends DThemeDarkImage implements DThemeListIte
 		if( state.inDisabled ) {
 			return null;
 		} else if( state.isActive ) {
-			return DThemeDarkConstants.HIGHLIGHT_COLOR;
+			return this.getBackgroundColorActive( state );
 		} else if( state.isFocused || state.isHovered ) {
 			return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
 		} else {
@@ -24,8 +24,36 @@ export class DThemeDarkListItem extends DThemeDarkImage implements DThemeListIte
 		}
 	}
 
+	protected getBackgroundColorActive( state: DBaseStateSet ): number | null {
+		return DThemeDarkConstants.HIGHLIGHT_COLOR;
+	}
+
 	getBackgroundAlpha( state: DBaseStateSet ): number {
-		return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
+		if( state.inDisabled ) {
+			return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
+		} else if( state.isActive ) {
+			return this.getBackgroundAlphaActive( state );
+		} else {
+			return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
+		}
+	}
+
+	protected getBackgroundAlphaActive( state: DBaseStateSet ): number {
+		return DThemeDarkConstants.HIGHLIGHT_ALPHA;
+	}
+
+	getColor( state: DBaseStateSet ): number {
+		if( state.inDisabled ) {
+			return super.getColor( state );
+		} else if( state.isActive ) {
+			return this.getColorActive( state );
+		} else {
+			return super.getColor( state );
+		}
+	}
+
+	protected getColorActive( state: DBaseStateSet ): number {
+		return DThemeDarkConstants.COLOR;
 	}
 
 	getBorderColor( state: DBaseStateSet ): number | null {

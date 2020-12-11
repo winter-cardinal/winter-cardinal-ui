@@ -5,6 +5,7 @@
 
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeDarkButtonBase } from "./d-theme-dark-button-base";
+import { DThemeDarkConstants } from "./d-theme-dark-constants";
 
 export class DThemeDarkButtonDanger extends DThemeDarkButtonBase {
 	constructor() {
@@ -27,7 +28,7 @@ export class DThemeDarkButtonDanger extends DThemeDarkButtonBase {
 		if( state.inDisabled ) {
 			return super.getColor( state );
 		} else {
-			return 0x000000;
+			return DThemeDarkConstants.ACTIVE_COLOR;
 		}
 	}
 }

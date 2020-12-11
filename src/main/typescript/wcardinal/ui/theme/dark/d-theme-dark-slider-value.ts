@@ -40,7 +40,7 @@ export class DThemeDarkSliderValue extends DThemeDarkTextBase implements DThemeS
 	}
 
 	getColor( state: DBaseStateSet ): number {
-		return 0x000000;
+		return DThemeDarkConstants.ACTIVE_COLOR;
 	}
 
 	getAlpha( state: DBaseStateSet ): number {

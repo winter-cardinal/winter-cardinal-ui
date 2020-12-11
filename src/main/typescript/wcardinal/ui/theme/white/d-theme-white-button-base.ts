@@ -41,7 +41,7 @@ export class DThemeWhiteButtonBase extends DThemeWhiteImageBase implements DThem
 		if( state.inDisabled || ! state.isActive ) {
 			return super.getColor( state );
 		} else {
-			return 0xffffff;
+			return DThemeWhiteConstants.ACTIVE_COLOR;
 		}
 	}
 

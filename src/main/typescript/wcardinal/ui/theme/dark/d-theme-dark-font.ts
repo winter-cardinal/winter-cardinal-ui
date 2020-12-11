@@ -5,6 +5,7 @@
 
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DFontStyle, DFontVariant, DFontWeight, DThemeFont } from "../../d-font";
+import { DThemeDarkConstants } from "./d-theme-dark-constants";
 
 export class DThemeDarkFont implements DThemeFont {
 	getFontFamilly() {
@@ -16,7 +17,7 @@ export class DThemeDarkFont implements DThemeFont {
 	}
 
 	getColor( state: DBaseStateSet ): number {
-		return DThemeDarkFont.getColor( state );
+		return DThemeDarkConstants.COLOR;
 	}
 
 	getFontWeight(): DFontWeight {
@@ -32,21 +33,13 @@ export class DThemeDarkFont implements DThemeFont {
 	}
 
 	getAlpha( state: DBaseStateSet ): number {
-		return DThemeDarkFont.getAlpha( state );
-	}
-
-	getLineHeight(): number {
-		return 30;
-	}
-
-	static getColor( state: DBaseStateSet ): number {
-		return 0xcccccc;
-	}
-
-	static getAlpha( state: DBaseStateSet ): number {
 		if( state.inDisabled ) {
 			return 0.5;
 		}
 		return 1.0;
+	}
+
+	getLineHeight(): number {
+		return 30;
 	}
 }

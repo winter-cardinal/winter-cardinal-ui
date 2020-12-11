@@ -7,22 +7,19 @@ import { DBaseStateSet } from "../../d-base-state-set";
 import { DCornerMask } from "../../d-corner-mask";
 import { DThemeDialogSelecListItem } from "../../d-dialog-select-list-item";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
-import { DThemeWhiteFont } from "./d-theme-white-font";
 import { DThemeWhiteListItem } from "./d-theme-white-list-item";
 
 export class DThemeWhiteDialogSelectListItem extends DThemeWhiteListItem implements DThemeDialogSelecListItem {
-	getBackgroundColor( state: DBaseStateSet ): number | null {
-		if( state.inDisabled ) {
-			return null;
-		} else if( state.isFocused || state.isHovered ) {
-			return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
-		} else {
-			return null;
-		}
+	protected getBackgroundColorActive( state: DBaseStateSet ): number | null {
+		return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
 	}
 
-	getColor( state: DBaseStateSet ): number {
-		return DThemeWhiteFont.getColor( state );
+	protected getBackgroundAlphaActive( state: DBaseStateSet ): number {
+		return DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
+	}
+
+	protected getColorActive( state: DBaseStateSet ): number {
+		return DThemeWhiteConstants.COLOR;
 	}
 
 	getCornerMask(): number {
