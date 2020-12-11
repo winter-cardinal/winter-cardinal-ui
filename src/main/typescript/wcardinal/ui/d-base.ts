@@ -444,6 +444,12 @@ export interface DBaseOptions<
 
 	/** A cursor shape. */
 	cursor?: DStateAwareOrValueMightBe<string>;
+
+	/** An order option. */
+	order?: number;
+
+	/** A dynamic layer flag option. */
+	dynamicLayerEnabled?: boolean;
 }
 
 /**
@@ -960,9 +966,19 @@ export class DBase<
 		// Children
 		const children = options?.children;
 		if( children != null ) {
+			let maxZIndex = 0;
 			for( let i = 0, imax = children.length; i < imax; ++i ) {
 				const child = children[ i ];
 				if( child != null ) {
+					// Define max of zIndex
+					if ( child.zIndex > maxZIndex ) {
+						maxZIndex = child.zIndex;
+					}
+					// Order of child will be increase automaticly if user did not set it before
+					if ( child.zIndex === 0 ) {
+						child.zIndex = maxZIndex + 1;
+						maxZIndex = child.zIndex;
+					}
 					this.addChild( child );
 				}
 			}
@@ -975,6 +991,14 @@ export class DBase<
 
 		// Done
 		this.emit( "init", this );
+
+		// Order
+		if ( options?.order ) {
+			this.zIndex = options.order;
+		}
+
+		// DynamicLayoutEnabled
+		this.sortableChildren = options?.dynamicLayerEnabled ?? false;
 	}
 
 	protected toCursor( cursor: DStateAwareOrValueMightBe<string> | undefined, state: DBaseStateSet ): string {
@@ -1967,5 +1991,33 @@ export class DBase<
 
 		//
 		super.destroy();
+	}
+
+	/**
+	 * Get order number of widget
+	 */
+	get order(): number {
+		return this.zIndex;
+	}
+
+	/**
+	 * Set order number for widget
+	 */
+	set order( order: number ) {
+		this.zIndex = order;
+	}
+
+	/**
+	 * Get flag of dynamic layer
+	 */
+	get dynamicLayerEnabled(): boolean {
+		return this.sortableChildren;
+	}
+
+	/**
+	 * Set dynamic layer flag
+	 */
+	set dynamicLayerEnabled( flag: boolean ) {
+		this.sortableChildren = flag;
 	}
 }
