@@ -539,9 +539,9 @@ export class DHtmlElement<
 		const layer = DApplications.getLayer( this );
 		if( layer ) {
 			const focusController = layer.getFocusController();
-			const focusable = focusController.findFocusable( this, false, false, false );
+			const focusable = focusController.find( this, false, false, false );
 			layer.view.focus();
-			focusController.setFocused( focusable, true, true );
+			focusController.focus( focusable );
 			e.preventDefault();
 			e.stopImmediatePropagation();
 		}
@@ -551,9 +551,9 @@ export class DHtmlElement<
 		const layer = DApplications.getLayer( this );
 		if( layer ) {
 			const focusController = layer.getFocusController();
-			const focusable = focusController.findFocusable( this, false, false, true );
+			const focusable = focusController.find( this, false, false, true );
 			layer.view.focus();
-			focusController.setFocused( focusable, true, true );
+			focusController.focus( focusable );
 			e.preventDefault();
 			e.stopImmediatePropagation();
 		}

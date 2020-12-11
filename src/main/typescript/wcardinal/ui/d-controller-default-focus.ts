@@ -3,53 +3,53 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-	DControllerFocus, DFocusable, DFocusableContainer, DFocusableMightBe
-} from "./d-controller-focus";
-
-const isFocusable = ( target: any ): target is DFocusable => {
-	return ( target != null && ("state" in target) );
-};
-
-const isFocusableContainer = ( target: any ): target is DFocusableContainer => {
-	return ( target != null && "children" in target );
-};
+import { DControllerFocus, DFocusable, DFocusableContainer, DFocusableMightBe } from "./d-controller-focus";
 
 export class DControllerDefaultFocus implements DControllerFocus {
 	private _focused: DFocusable | null = null;
 
-	setFocused( focusable: DFocusable | null, isFocused: boolean, select: boolean ): DFocusable | null {
-		if( isFocused ) {
-			const previous = this._focused;
-			if( previous !== focusable ) {
-				if( previous != null ) {
-					previous.state.isFocused = false;
-				}
+	focus( focusable: DFocusable | null ): DFocusable | null {
+		const previous = this._focused;
+		if( previous !== focusable ) {
+			if( previous != null ) {
+				previous.state.isFocused = false;
+			}
 
-				this._focused = focusable;
-				if( focusable != null && this.isFocusable( focusable ) ) {
-					focusable.state.isFocused = true;
-				}
-				return previous;
-			} else {
-				return null;
+			this._focused = focusable;
+			if( this.isFocusable( focusable ) ) {
+				focusable.state.isFocused = true;
 			}
+			return previous;
+		}
+		return null;
+	}
+
+	blur( focusable: DFocusable | null ): DFocusable | null {
+		if( focusable != null && this._focused === focusable ) {
+			this._focused = null;
+			focusable.state.isFocused = false;
+			return focusable;
+		}
+		return null;
+	}
+
+	clear(): DFocusable | null {
+		return this.focus( null );
+	}
+
+	set( focusable: DFocusable | null, isFocused: boolean ): DFocusable | null {
+		if( isFocused ) {
+			return this.focus( focusable );
 		} else {
-			if( focusable != null && this._focused === focusable ) {
-				this._focused = null;
-				focusable.state.isFocused = false;
-				return focusable;
-			} else {
-				return null;
-			}
+			return this.blur( focusable );
 		}
 	}
 
-	getFocused(): DFocusable | null {
+	get(): DFocusable | null {
 		return this._focused;
 	}
 
-	findFocusableParent( mightBeFocusable: DFocusableMightBe | null ): DFocusable | null {
+	findParent( mightBeFocusable: DFocusableMightBe | null ): DFocusable | null {
 		let current: DFocusableMightBe | DFocusableContainer | null = mightBeFocusable;
 		while( current != null ) {
 			if( this.isFocusable( current ) ) {
@@ -61,28 +61,12 @@ export class DControllerDefaultFocus implements DControllerFocus {
 		return null;
 	}
 
-	protected isFocusable( target: unknown ): target is DFocusable {
-		return (
-			isFocusable( target ) &&
-			target.state.inEnabled &&
-			target.state.isFocusable &&
-			target.visible
-		);
-	}
-
-	protected isFocusRoot( target: unknown ): target is DFocusable {
-		return (
-			isFocusable( target ) &&
-			target.state.isFocusRoot &&
-			target.visible
-		);
-	}
-
-	findFocusable(
-		target: DFocusableMightBe, includesTarget: boolean, includesTargetChildren: boolean, direction: boolean
+	find(
+		target: DFocusableMightBe, includesTarget: boolean, includesTargetChildren: boolean,
+		direction: boolean, root?: unknown
 	): DFocusable | null {
 		if( direction ) {
-			const result = this.findFocusableNext( target, includesTarget, includesTargetChildren );
+			const result = this.findNext( target, includesTarget, includesTargetChildren );
 			if( result != null ) {
 				return result;
 			}
@@ -94,14 +78,14 @@ export class DControllerDefaultFocus implements DControllerFocus {
 				if( 0 <= index ) {
 					// Siblings
 					for( let i = index + 1, imax = children.length; i < imax; ++i ) {
-						const found = this.findFocusableNext( children[ i ], true, true );
+						const found = this.findNext( children[ i ], true, true );
 						if( found != null ) {
 							return found;
 						}
 					}
 					if( this.isFocusRoot( parent ) ) {
 						for( let i = 0, imax = index + 1; i < imax; ++i ) {
-							const found = this.findFocusableNext( children[ i ], true, true );
+							const found = this.findNext( children[ i ], true, true );
 							if( found != null ) {
 								return found;
 							}
@@ -109,11 +93,13 @@ export class DControllerDefaultFocus implements DControllerFocus {
 					}
 
 					// Parent
-					return this.findFocusable( parent, false, false, true );
+					if( parent !== root ) {
+						return this.find( parent, false, false, true, root );
+					}
 				}
 			}
 		} else {
-			const result = this.findFocusablePrevious( target, includesTarget, includesTargetChildren );
+			const result = this.findPrevious( target, includesTarget, includesTargetChildren );
 			if( result != null ) {
 				return result;
 			}
@@ -125,14 +111,14 @@ export class DControllerDefaultFocus implements DControllerFocus {
 				if( 0 <= index ) {
 					// Siblings
 					for( let i = index - 1; 0 <= i; --i ) {
-						const found = this.findFocusablePrevious( children[ i ], true, true );
+						const found = this.findPrevious( children[ i ], true, true );
 						if( found != null ) {
 							return found;
 						}
 					}
 					if( this.isFocusRoot( parent ) ) {
 						for( let i = children.length - 1; index <= i; --i ) {
-							const found = this.findFocusablePrevious( children[ i ], true, true );
+							const found = this.findPrevious( children[ i ], true, true );
 							if( found != null ) {
 								return found;
 							}
@@ -141,14 +127,16 @@ export class DControllerDefaultFocus implements DControllerFocus {
 					}
 
 					// Parent
-					return this.findFocusable( parent, true, false, false );
+					if( parent !== root ) {
+						return this.find( parent, true, false, false, root );
+					}
 				}
 			}
 		}
 		return null;
 	}
 
-	protected findFocusableNext(
+	protected findNext(
 		target: DFocusableMightBe, includesTarget: boolean, includesTargetChildren: boolean
 	): DFocusable | null {
 		// Target itself
@@ -159,10 +147,10 @@ export class DControllerDefaultFocus implements DControllerFocus {
 		}
 
 		// Target children
-		if( includesTargetChildren && isFocusableContainer( target ) && target.visible ) {
+		if( includesTargetChildren && this.isFocusableContainer( target ) && target.visible ) {
 			const children = target.children;
 			for( let i = 0, imax = children.length; i < imax; ++i ) {
-				const found = this.findFocusableNext( children[ i ], true, true );
+				const found = this.findNext( children[ i ], true, true );
 				if( found != null ) {
 					return found;
 				}
@@ -178,14 +166,14 @@ export class DControllerDefaultFocus implements DControllerFocus {
 		return null;
 	}
 
-	protected findFocusablePrevious(
+	protected findPrevious(
 		target: DFocusableMightBe, includesTarget: boolean, includesTargetChildren: boolean
 	): DFocusable | null {
 		// Target children
-		if( includesTargetChildren && isFocusableContainer( target ) && target.visible ) {
+		if( includesTargetChildren && this.isFocusableContainer( target ) && target.visible ) {
 			const children = target.children;
 			for( let i = children.length - 1; 0 <= i; --i ) {
-				const found = this.findFocusablePrevious( children[ i ], true, true );
+				const found = this.findPrevious( children[ i ], true, true );
 				if( found != null ) {
 					return found;
 				}
@@ -206,5 +194,31 @@ export class DControllerDefaultFocus implements DControllerFocus {
 
 		// Found nothing
 		return null;
+	}
+
+	protected isFocusable( target: any ): target is DFocusable {
+		return (
+			target != null &&
+			("state" in target) &&
+			target.state.inEnabled &&
+			target.state.isFocusable &&
+			target.visible
+		);
+	}
+
+	protected isFocusableContainer( target: any ): target is DFocusableContainer {
+		return (
+			target != null &&
+			("children" in target)
+		);
+	}
+
+	protected isFocusRoot( target: any ): target is DFocusable {
+		return (
+			target != null &&
+			("state" in target) &&
+			target.state.isFocusRoot &&
+			target.visible
+		);
 	}
 }

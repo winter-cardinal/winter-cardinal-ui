@@ -3,8 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DApplicationLayerLike } from "../d-application-layer-like";
+import { DApplications } from "../d-applications";
 import { DBase } from "../d-base";
 import { isString } from "./is-string";
+
+export interface UtilKeyboardEventLayerPicker {
+	picked: DApplicationLayerLike | null;
+}
 
 export interface UtilKeyboardEventShortcut {
 	alt: boolean;
@@ -255,5 +261,45 @@ export class UtilKeyboardEvent {
 				e.preventDefault();
 			}
 		});
+	}
+
+	static moveFocusVertically( e: KeyboardEvent, target: DBase, picker?: UtilKeyboardEventLayerPicker ): boolean {
+		if( target.state.isActionable ) {
+			const isBackward = UtilKeyboardEvent.isArrowUpKey( e );
+			const isForward = UtilKeyboardEvent.isArrowDownKey( e );
+			if( isBackward || isForward ) {
+				return this.moveFocus( isForward, target, picker );
+			}
+		}
+		return false;
+	}
+
+	static moveFocusHorizontally( e: KeyboardEvent, target: DBase, picker?: UtilKeyboardEventLayerPicker ) {
+		if( target.state.isActionable ) {
+			const isBackward = UtilKeyboardEvent.isArrowLeftKey( e );
+			const isForward = UtilKeyboardEvent.isArrowRightKey( e );
+			if( isBackward || isForward ) {
+				return this.moveFocus( isForward, target, picker );
+			}
+		}
+		return false;
+	}
+
+	static moveFocus( direction: boolean, target: DBase, picker?: UtilKeyboardEventLayerPicker ): boolean {
+		const layer = ( picker?.picked ?? DApplications.getLayer( target ) );
+		if( layer ) {
+			const focusController = layer.getFocusController();
+			const focused = focusController.get();
+			if( focused != null ) {
+				const next = focusController.find(
+					focused, false, focused.state.isFocusRoot || direction, direction, target
+				);
+				if( next != null ) {
+					focusController.focus( next );
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

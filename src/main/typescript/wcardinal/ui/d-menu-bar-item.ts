@@ -3,9 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { interaction } from "pixi.js";
 import { DButton, DButtonOptions, DThemeButton } from "./d-button";
 import { DMenu, DMenuOptions } from "./d-menu";
 import { DMenuItem } from "./d-menu-item";
+import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 
 export interface DMenuBarItemOptions<
 	VALUE = unknown,
@@ -30,12 +32,12 @@ export class DMenuBarItem<
 
 		this._menu = this.toMenu( this.theme, options );
 		this._menu.on( "select", ( value: VALUE, item: DMenuItem<VALUE>, menu: DMenu<VALUE> ): void => {
-			this.onSelect( value, item, menu );
+			this.onMenuSelect( value, item, menu );
 		});
 	}
 
 	protected toMenu( theme: THEME, options?: OPTIONS ): DMenu<VALUE> {
-		const menu = options && options.menu;
+		const menu = options?.menu;
 		if( menu instanceof DMenu ) {
 			return menu;
 		} else {
@@ -55,6 +57,15 @@ export class DMenuBarItem<
 		return options;
 	}
 
+	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
+		super.onActivate( e );
+		this.open();
+	}
+
+	open(): void {
+		this._menu.open( this );
+	}
+
 	close(): void {
 		this._menu.close();
 	}
@@ -63,11 +74,15 @@ export class DMenuBarItem<
 		return this._menu;
 	}
 
-	protected onSelect( value: VALUE, item: DMenuItem<VALUE>, menu: DMenu<VALUE> ): void {
-		const parent = this.parent;
-		if( parent != null ) {
-			parent.emit( "select", value, item, menu );
+	protected onMenuSelect( value: VALUE, item: DMenuItem<VALUE>, menu: DMenu<VALUE> ): void {
+		this.parent?.emit( "select", value, item, menu );
+	}
+
+	onKeyDown( e: KeyboardEvent ): boolean {
+		if( this.state.isActionable && this.state.isFocused && UtilKeyboardEvent.isArrowDownKey( e ) ) {
+			this.onActivate( e );
 		}
+		return super.onKeyDown( e );
 	}
 
 	protected getType(): string {

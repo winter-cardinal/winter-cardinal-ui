@@ -124,7 +124,7 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 		const focusController = this.getFocusController();
 		const onBlurBound = (): void => {
 			if( ! hasFocus ) {
-				focusController.setFocused( null, true, false );
+				focusController.clear();
 			}
 		};
 		rootElement.addEventListener( "focus", ( e ): void => {
@@ -141,7 +141,7 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 		const interactionManager: interaction.InteractionManager = this.renderer.plugins.interaction;
 		interactionManager.on( UtilPointerEvent.down, ( e: interaction.InteractionEvent ): void => {
 			if( e.target == null || e.target === stageAny ) {
-				focusController.setFocused( null, true, false );
+				focusController.clear();
 			}
 		});
 
@@ -178,7 +178,7 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 
 		// Double click handling
 		UtilPointerEvent.onDblClick( this.view, ( e: MouseEvent | TouchEvent ) => {
-			const focused = focusController.getFocused();
+			const focused = focusController.get();
 			if( focused != null ) {
 				let current: DFocusable | DFocusableContainer | null = focused;
 				while( current != null ) {

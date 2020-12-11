@@ -9,6 +9,7 @@ import { DMenu, DMenuOptions, DThemeMenu } from "./d-menu";
 import { DMenuItem } from "./d-menu-item";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { isString } from "./util/is-string";
+import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 
 /**
  * {@link DDropdownBase} events.
@@ -111,6 +112,13 @@ export class DDropdownBase<
 
 	protected getType(): string {
 		return "DDropdownBase";
+	}
+
+	onKeyDown( e: KeyboardEvent ): boolean {
+		if( this.state.isActionable && this.state.isFocused && UtilKeyboardEvent.isArrowDownKey( e ) ) {
+			this.onClick( e );
+		}
+		return super.onKeyDown( e );
 	}
 
 	start(): void {

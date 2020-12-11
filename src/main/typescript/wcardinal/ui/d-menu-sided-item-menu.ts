@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DListItemSelection } from "./d-list-item";
 import { DMenu } from "./d-menu";
 import { Closeable } from "./d-menu-context";
 import { DMenuItem } from "./d-menu-item";
@@ -19,7 +20,7 @@ export class DMenuSidedItemMenu<
 
 	protected onMenuSelect( value: VALUE, item: DMenuItem<VALUE>, closeable: Closeable ): void {
 		super.onMenuSelect( value, item, closeable );
-		const selection = this.getSelection();
+		const selection = super.getSelection();
 		if( selection ) {
 			selection.add( item );
 		}
@@ -27,6 +28,10 @@ export class DMenuSidedItemMenu<
 
 	protected onOpen( menu: DMenu<VALUE> ): void {
 		menu.open( this, this );
+	}
+
+	protected getSelection(): DListItemSelection | null {
+		return null;
 	}
 
 	protected getType(): string {

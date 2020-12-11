@@ -1434,7 +1434,7 @@ export class DBase<
 		if( this.state.isFocused !== isFocused ) {
 			const layer = DApplications.getLayer( this );
 			if( layer ) {
-				layer.getFocusController().setFocused( this, isFocused, false );
+				layer.getFocusController().set( this, isFocused );
 			}
 		}
 		return this;
@@ -1449,7 +1449,7 @@ export class DBase<
 			const layer = DApplications.getLayer( this );
 			if( layer ) {
 				const focusController = layer.getFocusController();
-				const focused = focusController.getFocused();
+				const focused = focusController.get();
 				if( focused instanceof DBase ) {
 					let current: Container = focused;
 					while( current ) {
@@ -1814,7 +1814,7 @@ export class DBase<
 		const layer = DApplications.getLayer( this );
 		if( layer ) {
 			const focusController = layer.getFocusController();
-			focusController.setFocused( focusController.findFocusableParent( this ), true, true );
+			focusController.focus( focusController.findParent( this ) );
 		}
 	}
 

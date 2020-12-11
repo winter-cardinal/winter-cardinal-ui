@@ -120,9 +120,9 @@ export class DDialog<
 			const layer = DApplications.getLayer( this );
 			if( layer ) {
 				const focusController = layer.getFocusController();
-				this._focusable = focusController.getFocused();
-				const firstFocusable = focusController.findFocusable( this, false, true, true );
-				focusController.setFocused( firstFocusable || this, true, true );
+				this._focusable = focusController.get();
+				const firstFocusable = focusController.find( this, false, true, true );
+				focusController.focus( firstFocusable || this );
 			}
 		}
 	}
@@ -161,7 +161,7 @@ export class DDialog<
 			this._focusable = null;
 			const layer = DApplications.getLayer( this );
 			if( layer ) {
-				layer.getFocusController().setFocused( focusable, true, false );
+				layer.getFocusController().focus( focusable );
 			}
 		}
 

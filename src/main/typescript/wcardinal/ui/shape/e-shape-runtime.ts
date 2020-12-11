@@ -99,7 +99,7 @@ export class EShapeRuntime {
 			const layer = DApplications.getLayer( shape );
 			if( layer ) {
 				const focusController = layer.getFocusController();
-				focusController.setFocused( focusController.findFocusableParent( shape ), true, true );
+				focusController.focus( focusController.findParent( shape ) );
 			}
 		}
 	}

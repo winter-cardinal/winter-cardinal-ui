@@ -76,9 +76,9 @@ export class DDiagramCanvas<
 		const layer = DApplications.getLayer( this );
 		if( layer ) {
 			const focusController = layer.getFocusController();
-			const focusable = focusController.findFocusable( this, false, true, true );
+			const focusable = focusController.find( this, false, true, true );
 			if( focusable ) {
-				focusController.setFocused( focusable, true, true );
+				focusController.focus( focusable );
 			}
 		}
 	}

@@ -201,7 +201,13 @@ export class DMenu<
 				layer.renderer.off( "prerender", this._onPrerenderBound );
 			}
 
-			this._owner = null;
+			const owner = this._owner;
+			if( owner ) {
+				owner.focus();
+				this._owner = null;
+			} else {
+				this.blur( true );
+			}
 
 			super.hide();
 
@@ -216,23 +222,10 @@ export class DMenu<
 	}
 
 	onKeyDown( e: KeyboardEvent ): boolean {
-		if( UtilKeyboardEvent.isArrowUpKey( e ) || UtilKeyboardEvent.isArrowDownKey( e ) ) {
-			const layer = this._overlay.picked;
-			if( layer ) {
-				const focusController = layer.getFocusController();
-				const focused = focusController.getFocused();
-				if( focused != null ) {
-					const direction = UtilKeyboardEvent.isArrowDownKey( e );
-					const next = focusController.findFocusable(
-						focused, false, focused.state.isFocusRoot || direction, direction
-					);
-					if( next != null ) {
-						focusController.setFocused( next, true, true );
-					}
-				}
-			}
+		UtilKeyboardEvent.moveFocusVertically( e, this, this._overlay );
+		if( this.state.isActionable && (UtilKeyboardEvent.isArrowLeftKey( e ) || UtilKeyboardEvent.isCancelKey( e )) ) {
+			this.close();
 		}
-
 		return super.onKeyDown( e );
 	}
 

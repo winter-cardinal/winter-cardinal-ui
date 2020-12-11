@@ -51,9 +51,6 @@ export class DMenuContext {
 		if( 0 <= index ) {
 			this.close( index + 1 );
 			this._closeables.splice( index, 1 );
-			if( index === 0 ) {
-				this._owner.focus();
-			}
 		}
 	}
 }

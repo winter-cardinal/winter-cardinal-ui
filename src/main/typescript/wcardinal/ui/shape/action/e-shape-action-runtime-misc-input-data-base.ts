@@ -181,11 +181,11 @@ export abstract class EShapeActionRuntimeMiscInputDataBase {
 				if( layer ) {
 					const focusController = layer.getFocusController();
 					const direction = UtilKeyboardEvent.getFocusDirection( e );
-					const focusable = focusController.findFocusable( shape, false, false, direction );
+					const focusable = focusController.find( shape, false, false, direction );
 					if( focusable != null ) {
 						layer.view.focus();
 						e.preventDefault();
-						focusController.setFocused( focusable, true, true );
+						focusController.focus( focusable );
 					}
 				}
 			}

@@ -262,7 +262,6 @@ export * from "./d-map-tile-pyramids";
 export * from "./d-map-tile-url-builder";
 export * from "./d-map-tile";
 export * from "./d-menu-align";
-export * from "./d-menu-bar-blocker";
 export * from "./d-menu-bar-item";
 export * from "./d-menu-bar";
 export * from "./d-menu-context";

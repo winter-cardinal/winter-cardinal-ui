@@ -11,6 +11,7 @@ import { DMenuItemExpandableBody, DMenuItemExpandableBodyOptions } from "./d-men
 import { DMenuItemExpandableHeader, DMenuItemExpandableHeaderOptions } from "./d-menu-item-expandable-header";
 import { DMenuItemExpandables } from "./d-menu-item-expandables";
 import { DMenuItemOptionsUnion } from "./d-menu-item-options-union";
+import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 
 export interface DMenuItemExpandableOptions<
 	VALUE = unknown,
@@ -139,6 +140,36 @@ export class DMenuItemExpandable<
 				this.onDeactivated();
 			}
 		}
+	}
+
+	onKeyDown( e: KeyboardEvent ): boolean {
+		if( UtilKeyboardEvent.isArrowRightKey( e ) ) {
+			if( this.state.isActionable && ! this.state.isActive ) {
+				const header = this._header;
+				if( header instanceof DBase && header.state.isFocused ) {
+					this.state.isActive = true;
+				}
+			}
+		} else if( UtilKeyboardEvent.isArrowLeftKey( e ) ) {
+			if( this.state.isActionable && this.state.isActive ) {
+				// Move the focus
+				const header = this._header;
+				if( header instanceof DBase ) {
+					header.focus();
+				} else {
+					this.focus();
+				}
+
+				// Deactivate
+				this.state.isActive = false;
+
+				// Key handling
+				super.onKeyDown( e );
+				return true;
+			}
+		}
+
+		return super.onKeyDown( e );
 	}
 
 	protected getType(): string {

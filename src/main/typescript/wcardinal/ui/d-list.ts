@@ -10,6 +10,7 @@ import { DContentOptions } from "./d-content";
 import { DListSelection, DListSelectionOptions } from "./d-list-selection";
 import { DPane, DPaneOptions, DThemePane } from "./d-pane";
 import { UtilPointerEvent } from "./util/util-pointer-event";
+import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 
 export interface DListOptions<
 	THEME extends DThemeList = DThemeList,
@@ -114,6 +115,11 @@ export class DList<
 	protected onContentChanged(): void {
 		super.onContentChanged();
 		this.updateChildVisibility();
+	}
+
+	onKeyDown( e: KeyboardEvent ): boolean {
+		UtilKeyboardEvent.moveFocusVertically( e, this );
+		return super.onKeyDown( e );
 	}
 
 	protected getType(): string {

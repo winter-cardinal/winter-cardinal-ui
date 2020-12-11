@@ -11,6 +11,7 @@ import { DMenuSidedContent, DMenuSidedContentOptions } from "./d-menu-sided-cont
 import { DMenuSidedSelection, DMenuSidedSelectionOptions } from "./d-menu-sided-selection";
 import { DMenuSideds } from "./d-menu-sideds";
 import { DPane, DPaneOptions, DThemePane } from "./d-pane";
+import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 
 export interface DMenuSidedOptions<
 	VALUE = unknown,
@@ -91,6 +92,11 @@ export class DMenuSided<
 
 	close(): void {
 		// DO NOTHING
+	}
+
+	onKeyDown( e: KeyboardEvent ): boolean {
+		UtilKeyboardEvent.moveFocusVertically( e, this );
+		return super.onKeyDown( e );
 	}
 
 	protected getType(): string {

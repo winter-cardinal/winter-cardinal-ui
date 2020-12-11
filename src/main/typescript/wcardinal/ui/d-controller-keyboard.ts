@@ -12,7 +12,7 @@ export class DControllerKeyboard extends utils.EventEmitter {
 		element.addEventListener( "keydown", ( e: KeyboardEvent ): void => {
 			this.emit( "keydown", e );
 
-			const focused = focusController.getFocused();
+			const focused = focusController.get();
 			if( focused != null ) {
 				let current: DFocusable | DFocusableContainer | null = focused;
 				while( current != null ) {
@@ -28,13 +28,13 @@ export class DControllerKeyboard extends utils.EventEmitter {
 			if( UtilKeyboardEvent.isFocusKey( e ) ) {
 				const direction = UtilKeyboardEvent.getFocusDirection( e );
 				const next = ( focused != null ?
-					focusController.findFocusable(
+					focusController.find(
 						focused, false, focused.state.isFocusRoot || direction, direction
 					) :
-					focusController.findFocusable( stage, false, true, direction )
+					focusController.find( stage, false, true, direction )
 				);
 				if( next != null ) {
-					focusController.setFocused( next, true, true );
+					focusController.focus( next );
 					e.preventDefault();
 					e.stopImmediatePropagation();
 				}
@@ -44,7 +44,7 @@ export class DControllerKeyboard extends utils.EventEmitter {
 		element.addEventListener( "keyup", ( e: KeyboardEvent ): void => {
 			this.emit( "keyup", e );
 
-			const focused = focusController.getFocused();
+			const focused = focusController.get();
 			if( focused != null ) {
 				let current: DFocusable | DFocusableContainer | null = focused;
 				while( current != null ) {

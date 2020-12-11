@@ -10,6 +10,7 @@ import { Closeable } from "./d-menu-context";
 import { DMenuItem, DMenuItemOptions, DThemeMenuItem } from "./d-menu-item";
 import { DMenuItemOptionsUnion } from "./d-menu-item-options-union";
 import { DMenus } from "./d-menus";
+import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
 export interface DMenuItemMenuOptions<
@@ -117,6 +118,13 @@ export class DMenuItemMenu<
 		if( next != null ) {
 			next.emit( "select", value, item, closeable );
 		}
+	}
+
+	onKeyDown( e: KeyboardEvent ): boolean {
+		if( this.state.isActionable && this.state.isFocused && UtilKeyboardEvent.isArrowRightKey( e ) ) {
+			this.onSelect( e );
+		}
+		return super.onKeyDown( e );
 	}
 
 	static isCompatible<VALUE>( options: DMenuItemOptionsUnion<VALUE> ): options is DMenuItemMenuOptions<VALUE> {

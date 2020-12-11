@@ -643,7 +643,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		if( this.state.isFocused !== isFocused ) {
 			const layer = DApplications.getLayer( this );
 			if( layer ) {
-				layer.getFocusController().setFocused( this, isFocused, false );
+				layer.getFocusController().set( this, isFocused );
 			}
 		}
 	}
