@@ -2020,4 +2020,21 @@ export class DBase<
 	set dynamicLayerEnabled( flag: boolean ) {
 		this.sortableChildren = flag;
 	}
+
+	/**
+	 * Bring an element to front of container.
+	 */
+	bringToFront(): void {
+		if ( this.parent && this.parent.sortableChildren ) {
+			// List children is sorted list by order
+			const listChildren = this.parent.children;
+			if ( listChildren != null && listChildren.length > 1 ) {
+				const elementIndex = listChildren.indexOf( this );
+				if ( elementIndex === listChildren.length - 1 ) return;
+				// Last element has highest order
+				const orderMax = listChildren[ listChildren.length - 1 ].zIndex;
+				this.zIndex = orderMax + 1;
+			}
+		}
+	}
 }
