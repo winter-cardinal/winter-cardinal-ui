@@ -2063,4 +2063,21 @@ export class DBase<
 			}
 		}
 	}
+
+	/**
+	 * Send an element to back of container.
+	 */
+	sendToBack(): void {
+		if ( this.parent && this.parent.sortableChildren ) {
+			// List children is sorted list by order
+			const listChildren = this.parent.children;
+			if ( listChildren != null && listChildren.length > 1 ) {
+				const elementIndex = listChildren.indexOf( this );
+				if ( elementIndex === 0 ) return;
+				// First element has lowest order
+				const orderMin = listChildren[ 0 ].zIndex;
+				this.zIndex = orderMin - 1;
+			}
+		}
+	}
 }
