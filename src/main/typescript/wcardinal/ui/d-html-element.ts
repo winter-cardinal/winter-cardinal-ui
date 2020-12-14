@@ -291,18 +291,10 @@ export class DHtmlElement<
 			if( element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement ) {
 				// The following does not work on mobile devices.
 				// I think selecting texts on a tap is annoying.
-				// Though I leave this untouched.
+				// Therefore, I leave this untouched.
 				element.select();
 			}
 		}
-	}
-
-	protected createText( formatted: string ): Text | DDynamicText {
-		const result = super.createText( formatted );
-		if( this._isElementShown ) {
-			this.onStart();
-		}
-		return result;
 	}
 
 	/**

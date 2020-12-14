@@ -1,5 +1,6 @@
-import { interaction } from "pixi.js";
+import { interaction, Text } from "pixi.js";
 import { DApplications } from "./d-applications";
+import { DDynamicText } from "./d-dynamic-text";
 import { DHtmlElement, DHtmlElementOptions, DThemeHtmlElement } from "./d-html-element";
 import { isString } from "./util/is-string";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
@@ -72,6 +73,14 @@ export abstract class DInput<
 
 	set value( value: VALUE ) {
 		this.text = value;
+	}
+
+	protected createText( formatted: string ): Text | DDynamicText {
+		const result = super.createText( formatted );
+		if( this._isElementShown ) {
+			result.visible = false;
+		}
+		return result;
 	}
 
 	protected onTextChange(): void {
