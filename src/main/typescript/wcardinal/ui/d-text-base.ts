@@ -96,30 +96,19 @@ export interface DThemeTextBase extends DThemeBase {
 }
 
 // Option parser
-const isOverflowMaskEnabled = <VALUE, THEME extends DThemeTextBase>(
-	theme: DThemeTextBase, options?: DTextBaseOptions<VALUE, THEME>
-) => {
-	if( options && options.mask != null ) {
-		return options.mask;
-	}
-	return theme.isOverflowMaskEnabled();
-};
-
 const toTextValue = <VALUE, THEME extends DThemeTextBase>(
 	theme: DThemeTextBase,
 	options: DTextBaseOptions<VALUE, THEME> | undefined
 ): DStateAwareOrValueMightBe<VALUE> => {
-	if( options && options.text && options.text.value !== undefined ) {
-		return options.text.value;
-	}
-	return theme.newTextValue();
+	const value = options?.text?.value;
+	return ( value !== undefined ? value : theme.newTextValue() );
 };
 
 const toTextStyle = <VALUE, THEME extends DThemeTextBase>(
 	theme: DThemeTextBase, options: DTextBaseOptions<VALUE, THEME> | undefined, state: DBaseStateSet
 ): DDynamicTextStyleOptions => {
-	if( options && options.text && options.text.style != null ) {
-		const style = options.text.style;
+	const style = options?.text?.style;
+	if( style != null ) {
 		const fill = style.fill ?? theme.getColor( state );
 		const fontSize = style.fontSize ?? theme.getFontSize();
 		const fontFamily = style.fontFamily ?? theme.getFontFamilly();
@@ -152,8 +141,8 @@ const toTextStyle = <VALUE, THEME extends DThemeTextBase>(
 const toTextAlign = <VALUE, THEME extends DThemeTextBase>(
 	theme: DThemeTextBase, options?: DTextBaseOptions<VALUE, THEME>
 ): { vertical: DAlignVertical, horizontal: DAlignHorizontal } => {
-	if( options && options.text && options.text.align ) {
-		const align = options.text.align;
+	const align = options?.text?.align;
+	if( align != null ) {
 		const vertical = ( align.vertical != null ?
 			( isString( align.vertical ) ? DAlignVertical[ align.vertical ] : align.vertical ) :
 			theme.getTextAlignVertical()
@@ -173,25 +162,6 @@ const toTextAlign = <VALUE, THEME extends DThemeTextBase>(
 	};
 };
 
-const toTextFormatter = <VALUE, THEME extends DThemeTextBase>(
-	theme: DThemeTextBase,
-	options: DTextBaseOptions<VALUE, THEME> | undefined
-): ( value: VALUE, caller: any ) => string => {
-	if( options && options.text && options.text.formatter ) {
-		return options.text.formatter;
-	}
-	return theme.getTextFormatter();
-};
-
-const toTextDynamic = <VALUE, THEME extends DThemeTextBase>(
-	theme: DThemeTextBase, options?: DTextBaseOptions<VALUE, THEME>
-): boolean => {
-	if( options && options.text && options.text.dynamic != null ) {
-		return options.text.dynamic;
-	}
-	return theme.isTextDynamic();
-};
-
 /**
  * A base class for UI classes with a text support.
  * See {@link DTextBaseEvents} for event defaults.
@@ -201,7 +171,7 @@ export class DTextBase<
 	THEME extends DThemeTextBase = DThemeTextBase,
 	OPTIONS extends DTextBaseOptions<VALUE, THEME> = DTextBaseOptions<VALUE, THEME>
 > extends DBase<THEME, OPTIONS> {
-	protected _text!: DDynamicText | Text | null;
+	protected _text?: DDynamicText | Text | null;
 	protected _textValue!: DStateAwareOrValueMightBe<VALUE>;
 	protected _textValueComputed!: VALUE;
 	protected _textColor!: DStateAwareOrValueMightBe<number>;
@@ -219,17 +189,16 @@ export class DTextBase<
 	protected init( options?: OPTIONS ): void {
 		super.init( options );
 
-		this._text = null;
 		const theme = this.theme;
 		this._textValue = toTextValue( theme, options );
 		this._textValueComputed = this.computeTextValue();
-		this._textColor = ( options && options.text && options.text.color );
-		this._textAlpha = ( options && options.text && options.text.alpha );
+		this._textColor = options?.text?.color;
+		this._textAlpha = options?.text?.alpha;
 		this._textStyle = toTextStyle( theme, options, this.state );
 		this._textAlign = toTextAlign( theme, options );
-		this._textFormatter = toTextFormatter( theme, options );
-		this._textDynamic = toTextDynamic( theme, options );
-		this._isOverflowMaskEnabled = isOverflowMaskEnabled( theme, options );
+		this._textFormatter = ( options?.text?.formatter ?? theme.getTextFormatter() );
+		this._textDynamic = ( options?.text?.dynamic ?? theme.isTextDynamic() );
+		this._isOverflowMaskEnabled = ( options?.mask ?? theme.isOverflowMaskEnabled() );
 		this._overflowMask = null;
 		this.onTextChange();
 		this.createOrUpdateText();
@@ -267,20 +236,21 @@ export class DTextBase<
 
 	protected createOrUpdateText(): void {
 		const formatted = this._textFormatter( this._textValueComputed, this );
-		if( this._text == null ) {
+		const text = this._text;
+		if( text == null ) {
 			if( 0 < formatted.length ) {
-				const text = this.createText( formatted );
-				this._text = text;
-				this.addChild( text );
-				this.updateTextPosition( text );
+				const newText = this.createText( formatted );
+				this._text = newText;
+				this.addChild( newText );
+				this.updateTextPosition( newText );
 				if( this._isOverflowMaskEnabled ) {
-					text.mask = this.getOrCreateOverflowMask();
+					newText.mask = this.getOrCreateOverflowMask();
 				}
 				this.toDirty();
 				DApplications.update( this );
 			}
 		} else {
-			this._text.text = formatted;
+			text.text = formatted;
 			this.toDirty();
 			DApplications.update( this );
 		}
