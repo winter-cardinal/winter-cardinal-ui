@@ -2080,4 +2080,30 @@ export class DBase<
 			}
 		}
 	}
+
+	/**
+	 * Send an element backward of other element.
+	 */
+	sendBackward(): void {
+		if ( this.parent && this.parent.sortableChildren ) {
+			// List children is sorted list by order
+			const listChildren = this.parent.children;
+			if ( listChildren != null && listChildren.length > 1 ) {
+				const elementIndex = listChildren.indexOf( this );
+				// Element must not be the first element in children list
+				if ( elementIndex === 0 ) return;
+				const elementOrder = this.zIndex;
+				const previousElement = listChildren[ elementIndex - 1 ];
+				if ( elementOrder === previousElement.zIndex ) {
+					// Swap 2 elements in children list
+					listChildren[ elementIndex - 1 ] = this;
+					listChildren[ elementIndex ] = previousElement;
+				} else {
+					// Swap 2 order of elements in children list
+					this.zIndex = previousElement.zIndex;
+					previousElement.zIndex = elementOrder;
+				}
+			}
+		}
+	}
 }
