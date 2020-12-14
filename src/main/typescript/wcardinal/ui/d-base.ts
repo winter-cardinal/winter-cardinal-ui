@@ -2037,4 +2037,30 @@ export class DBase<
 			}
 		}
 	}
+
+	/**
+	 * Bring an element forward of other element.
+	 */
+	bringForward(): void {
+		if ( this.parent && this.parent.sortableChildren ) {
+			// List children is sorted list by order
+			const listChildren = this.parent.children;
+			if ( listChildren != null && listChildren.length > 1 ) {
+				const elementIndex = listChildren.indexOf( this );
+				// Element must not be the last element in children list
+				if ( elementIndex === listChildren.length - 1 ) return;
+				const elementOrder = this.zIndex;
+				const nextElement = listChildren[ elementIndex + 1 ];
+				if ( elementOrder === nextElement.zIndex ) {
+					// Swap 2 elements in children list
+					listChildren[ elementIndex + 1 ] = this;
+					listChildren[ elementIndex ] = nextElement;
+				} else {
+					// Swap 2 order of elements in children list
+					this.zIndex = nextElement.zIndex;
+					nextElement.zIndex = elementOrder;
+				}
+			}
+		}
+	}
 }
