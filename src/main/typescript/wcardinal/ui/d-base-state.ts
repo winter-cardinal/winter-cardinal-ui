@@ -4,25 +4,26 @@
  */
 
 export enum DBaseState {
-	NONE		= 0,
+	NONE			= 0,
 
-	HOVERED		= 1 << 0,
-	ACTIVE		= 1 << 1,
-	FOCUSED		= 1 << 2,
-	UNFOCUSABLE	= 1 << 3,
-	FOCUS_ROOT	= 1 << 4,
-	READ_ONLY	= 1 << 5,
-	DISABLED	= 1 << 6,
-	DRAGGING	= 1 << 7,
-	PRESSED		= 1 << 8,
+	HOVERED			= 1 << 0,
+	ACTIVE			= 1 << 1,
+	FOCUSED			= 1 << 2,
+	UNFOCUSABLE		= 1 << 3,
+	FOCUS_ROOT		= 1 << 4,
+	FOCUS_REVERSE	= 1 << 5,
+	READ_ONLY		= 1 << 6,
+	DISABLED		= 1 << 7,
+	DRAGGING		= 1 << 8,
+	PRESSED			= 1 << 9,
 
-	INVALID		= 1 << 9,
-	SUCCEEDED	= 1 << 10,
-	FAILED		= 1 << 11,
-	WARNED		= 1 << 12,
+	INVALID			= 1 << 10,
+	SUCCEEDED		= 1 << 11,
+	FAILED			= 1 << 12,
+	WARNED			= 1 << 13,
 
-	CHANGED		= 1 << 13,
-	ALTERNATED	= 1 << 14,
+	CHANGED			= 1 << 14,
+	ALTERNATED		= 1 << 15,
 
-	CUSTOM		= 1 << 15
+	CUSTOM			= 1 << 16
 }

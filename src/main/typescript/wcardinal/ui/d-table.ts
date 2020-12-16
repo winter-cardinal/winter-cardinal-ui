@@ -484,6 +484,7 @@ export class DTable<
 				body.onRowClicked( e );
 			});
 		}
+		content.state.isFocusReverse = true;
 		body.update();
 	}
 

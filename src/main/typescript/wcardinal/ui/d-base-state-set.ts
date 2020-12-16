@@ -51,6 +51,10 @@ export interface DBaseStateSet {
 	readonly inFocusRoot: boolean;
 	readonly onFocusRoot: boolean;
 	readonly underFocusRoot: boolean;
+	isFocusReverse: boolean;
+	readonly inFocusReverse: boolean;
+	readonly onFocusReverse: boolean;
+	readonly underFocusReverse: boolean;
 	isInvalid: boolean;
 	readonly inInvalid: boolean;
 	readonly onInvalid: boolean;

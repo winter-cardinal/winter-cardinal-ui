@@ -281,11 +281,12 @@ export class DTableBodyRow<
 			const cellsLength = cells.length;
 			const columns = this._columns;
 			const columnsLength = columns.length;
-			for( let i = 0, imax = Math.min( columnsLength, cellsLength ); i < imax; ++i ) {
+			for( let i = 0; i < cellsLength; ++i ) {
 				const cell = cells[ i ];
-				const column = columns[ i ];
+				const columnIndex = columnsLength - 1 - i;
+				const column = columns[ columnIndex ];
 				if( isBodyCell( cell ) ) {
-					cell.set( column.getter( value, i ), value, supplimental, rowIndex, i, forcibly );
+					cell.set( column.getter( value, columnIndex ), value, supplimental, rowIndex, columnIndex, forcibly );
 				}
 			}
 
@@ -303,7 +304,8 @@ export class DTableBodyRow<
 			this._index = -1;
 
 			const cells = this.children;
-			for( let i = 0, imax = cells.length; i < imax; ++i ) {
+			const cellsLength = cells.length;
+			for( let i = 0; i < cellsLength; ++i ) {
 				const cell = cells[ i ];
 				if( isBodyCell( cell ) ) {
 					cell.unset();

@@ -77,17 +77,35 @@ export class DControllerDefaultFocus implements DControllerFocus {
 				const index = children.indexOf( target );
 				if( 0 <= index ) {
 					// Siblings
-					for( let i = index + 1, imax = children.length; i < imax; ++i ) {
-						const found = this.findNext( children[ i ], true, true );
-						if( found != null ) {
-							return found;
-						}
-					}
-					if( this.isFocusRoot( parent ) ) {
-						for( let i = 0, imax = index + 1; i < imax; ++i ) {
+					const childrenLength = children.length;
+					if( this.isFocusReverse( parent ) ) {
+						for( let i = index - 1; 0 <= i; --i ) {
 							const found = this.findNext( children[ i ], true, true );
 							if( found != null ) {
 								return found;
+							}
+						}
+						if( this.isFocusRoot( parent ) ) {
+							for( let i = childrenLength - 1; index <= i; --i ) {
+								const found = this.findNext( children[ i ], true, true );
+								if( found != null ) {
+									return found;
+								}
+							}
+						}
+					} else {
+						for( let i = index + 1; i < childrenLength; ++i ) {
+							const found = this.findNext( children[ i ], true, true );
+							if( found != null ) {
+								return found;
+							}
+						}
+						if( this.isFocusRoot( parent ) ) {
+							for( let i = 0; i <= index; ++i ) {
+								const found = this.findNext( children[ i ], true, true );
+								if( found != null ) {
+									return found;
+								}
 							}
 						}
 					}
@@ -110,20 +128,39 @@ export class DControllerDefaultFocus implements DControllerFocus {
 				const index = children.indexOf( target );
 				if( 0 <= index ) {
 					// Siblings
-					for( let i = index - 1; 0 <= i; --i ) {
-						const found = this.findPrevious( children[ i ], true, true );
-						if( found != null ) {
-							return found;
-						}
-					}
-					if( this.isFocusRoot( parent ) ) {
-						for( let i = children.length - 1; index <= i; --i ) {
+					const childrenLength = children.length;
+					if( this.isFocusReverse( parent ) ) {
+						for( let i = index + 1; i < childrenLength; ++i ) {
 							const found = this.findPrevious( children[ i ], true, true );
 							if( found != null ) {
 								return found;
 							}
 						}
-						return parent;
+						if( this.isFocusRoot( parent ) ) {
+							for( let i = 0; i <= index; ++i ) {
+								const found = this.findPrevious( children[ i ], true, true );
+								if( found != null ) {
+									return found;
+								}
+							}
+							return parent;
+						}
+					} else {
+						for( let i = index - 1; 0 <= i; --i ) {
+							const found = this.findPrevious( children[ i ], true, true );
+							if( found != null ) {
+								return found;
+							}
+						}
+						if( this.isFocusRoot( parent ) ) {
+							for( let i = childrenLength - 1; index <= i; --i ) {
+								const found = this.findPrevious( children[ i ], true, true );
+								if( found != null ) {
+									return found;
+								}
+							}
+							return parent;
+						}
 					}
 
 					// Parent
@@ -149,10 +186,20 @@ export class DControllerDefaultFocus implements DControllerFocus {
 		// Target children
 		if( includesTargetChildren && this.isFocusableContainer( target ) && target.visible ) {
 			const children = target.children;
-			for( let i = 0, imax = children.length; i < imax; ++i ) {
-				const found = this.findNext( children[ i ], true, true );
-				if( found != null ) {
-					return found;
+			const childrenLength = children.length;
+			if( this.isFocusReverse( target ) ) {
+				for( let i = childrenLength - 1; 0 <= i; --i ) {
+					const found = this.findNext( children[ i ], true, true );
+					if( found != null ) {
+						return found;
+					}
+				}
+			} else {
+				for( let i = 0; i < childrenLength; ++i ) {
+					const found = this.findNext( children[ i ], true, true );
+					if( found != null ) {
+						return found;
+					}
 				}
 			}
 		}
@@ -172,10 +219,20 @@ export class DControllerDefaultFocus implements DControllerFocus {
 		// Target children
 		if( includesTargetChildren && this.isFocusableContainer( target ) && target.visible ) {
 			const children = target.children;
-			for( let i = children.length - 1; 0 <= i; --i ) {
-				const found = this.findPrevious( children[ i ], true, true );
-				if( found != null ) {
-					return found;
+			const childrenLength = children.length;
+			if( this.isFocusReverse( target ) ) {
+				for( let i = 0; i < childrenLength; ++i ) {
+					const found = this.findPrevious( children[ i ], true, true );
+					if( found != null ) {
+						return found;
+					}
+				}
+			} else {
+				for( let i = childrenLength - 1; 0 <= i; --i ) {
+					const found = this.findPrevious( children[ i ], true, true );
+					if( found != null ) {
+						return found;
+					}
 				}
 			}
 		}
@@ -219,6 +276,14 @@ export class DControllerDefaultFocus implements DControllerFocus {
 			("state" in target) &&
 			target.state.isFocusRoot &&
 			target.visible
+		);
+	}
+
+	protected isFocusReverse( target: any ): boolean {
+		return (
+			target != null &&
+			("state" in target) &&
+			target.state.isFocusReverse
 		);
 	}
 }

@@ -353,6 +353,26 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 		return this.under( DBaseState.FOCUS_ROOT );
 	}
 
+	get isFocusReverse(): boolean {
+		return this.is( DBaseState.FOCUS_REVERSE );
+	}
+
+	set isFocusReverse( isFocusReverse: boolean ) {
+		this.set( DBaseState.FOCUS_REVERSE, isFocusReverse );
+	}
+
+	get inFocusReverse(): boolean {
+		return this.in( DBaseState.FOCUS_REVERSE );
+	}
+
+	get onFocusReverse(): boolean {
+		return this.on( DBaseState.FOCUS_REVERSE );
+	}
+
+	get underFocusReverse(): boolean {
+		return this.under( DBaseState.FOCUS_REVERSE );
+	}
+
 	get isFocusable(): boolean {
 		return ! this.is( DBaseState.UNFOCUSABLE );
 	}
