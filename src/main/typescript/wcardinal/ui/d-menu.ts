@@ -6,6 +6,7 @@
 import { DisplayObject, Point } from "pixi.js";
 import { DBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
+import { DFocusable } from "./d-controller-focus";
 import { DLayoutVertical, DLayoutVerticalOptions, DThemeLayoutVertical } from "./d-layout-vertical";
 import { DMenuAlign } from "./d-menu-align";
 import { Closeable, DMenuContext } from "./d-menu-context";
@@ -46,6 +47,7 @@ export class DMenu<
 	protected _context!: DMenuContext | null;
 	protected _overlay!: UtilOverlay;
 	protected _onPrerenderBound!: () => void;
+	protected _focused?: DFocusable | null;
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
@@ -155,6 +157,7 @@ export class DMenu<
 			layer.stage.addChild( this );
 
 			// Focus
+			this._focused = layer.getFocusController().get();
 			this.focus();
 
 			// Show
@@ -191,31 +194,44 @@ export class DMenu<
 
 	close(): this {
 		if( this.isShown() ) {
+			// Remove from the context
 			const context = this._context;
 			if( context ) {
 				context.remove( this );
 			}
 
+			// Remove the prerender event handler
 			const layer = this._overlay.picked;
 			if( layer ) {
 				layer.renderer.off( "prerender", this._onPrerenderBound );
 			}
 
-			const owner = this._owner;
-			if( owner ) {
-				owner.focus();
-				this._owner = null;
+			// Forget the owner
+			this._owner = null;
+
+			// Restore the focus
+			const focused = this._focused;
+			if( focused != null ) {
+				this._focused = null;
+				if( layer ) {
+					layer.getFocusController().focus( focused );
+				} else {
+					this.blur( true );
+				}
 			} else {
 				this.blur( true );
 			}
 
+			// Visibility
 			super.hide();
 
+			// Remove from the tree
 			const parent = this.parent;
 			if( parent ) {
 				parent.removeChild( this );
 			}
 
+			// Emit the event
 			this.emit( "close", this );
 		}
 		return this;
