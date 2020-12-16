@@ -49,19 +49,21 @@ const isVisible = ( child: DisplayObject ): child is DBase => {
 
 const toMultiplicity = ( theme: DThemeLayout, options?: DLayoutOptions<DThemeLayout> ): number => {
 	if( options ) {
-		if( options.row != null ) {
-			return options.row;
+		const row = options.row;
+		if( row != null ) {
+			return row;
 		}
-		if( options.column != null ) {
-			return options.column;
+		const column = options.column;
+		if( column != null ) {
+			return column;
 		}
 	}
 	return theme.getMultiplicity();
 };
 
 const toMargin = ( theme: DThemeLayout, options?: DLayoutOptions<DThemeLayout> ): DLayoutMargin => {
-	if( options && options.margin != null ) {
-		const margin = options.margin;
+	const margin = options?.margin;
+	if( margin != null ) {
 		if( isNumber( margin ) ) {
 			return {
 				horizontal: margin,
@@ -84,8 +86,8 @@ const toMargin = ( theme: DThemeLayout, options?: DLayoutOptions<DThemeLayout> )
 };
 
 const toDirection = ( theme: DThemeLayout, options?: DLayoutOptions<DThemeLayout> ): DLayoutDirection => {
-	if( options && options.direction != null ) {
-		const direction = options.direction;
+	const direction = options?.direction;
+	if( direction != null ) {
 		if( isString( direction ) ) {
 			return DLayoutDirection[ direction ];
 		} else {
@@ -96,17 +98,18 @@ const toDirection = ( theme: DThemeLayout, options?: DLayoutOptions<DThemeLayout
 };
 
 const toCornerAdjust = ( theme: DThemeLayout, options?: DLayoutOptions<DThemeLayout> ): boolean => {
-	if( options && options.corner != null && ! isNumber( options.corner ) && options.corner.adjust != null ) {
-		return options.corner.adjust;
+	const corner = options?.corner;
+	if( corner != null && ! isNumber( corner ) ) {
+		const adjust = corner.adjust;
+		if( adjust != null ) {
+			return adjust;
+		}
 	}
 	return theme.getCornerAdjust();
 };
 
 const toReverse = ( theme: DThemeLayout, options?: DLayoutOptions<DThemeLayout> ): boolean => {
-	if( options && options.reverse != null ) {
-		return options.reverse;
-	}
-	return theme.getReverse();
+	return options?.reverse ?? theme.getReverse();
 };
 
 export abstract class DLayout<
