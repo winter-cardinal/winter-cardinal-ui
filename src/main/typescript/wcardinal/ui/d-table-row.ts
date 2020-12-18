@@ -91,6 +91,23 @@ export abstract class DTableRow<
 		this.resetFrozenCellPosition();
 	}
 
+	getFocusedChildClippingPositionX( focused: DBase ): number {
+		const frozen = this._frozen;
+		if( 0 < frozen ) {
+			const cells = this.children as DBase[];
+			const cellIndex = cells.indexOf( focused );
+			if( 0 <= cellIndex ) {
+				const cellsLength = cells.length;
+				const columnIndex = cellsLength - 1 - cellIndex;
+				if( frozen <= columnIndex ) {
+					const cell = cells[ cellsLength - frozen ];
+					return cell.position.x + cell.width;
+				}
+			}
+		}
+		return 0;
+	}
+
 	updateFrozenCellPosition( x: number ): void {
 		const columns = this._columns;
 		const cells = this.children;

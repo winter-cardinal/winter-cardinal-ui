@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
+import { interaction, Rectangle } from "pixi.js";
 import { DDialogSelectOptions } from "../ui/d-dialog-select";
 import { DAlignHorizontal } from "./d-align-horizontal";
-import { DBaseOptions } from "./d-base";
+import { DBase, DBaseOptions } from "./d-base";
 import { DContentOptions } from "./d-content";
 import { DCoordinateSize } from "./d-coordinate";
 import { DDialogSelect } from "./d-dialog-select";
@@ -24,6 +24,7 @@ import { DTableDataList, DTableDataListOptions } from "./d-table-data-list";
 import { DTableDataSelectionType } from "./d-table-data-selection";
 import { DTableDataComparatorFunction } from "./d-table-data-sorter";
 import { DTableHeader, DTableHeaderOptions } from "./d-table-header";
+import { DTableRow } from "./d-table-row";
 import { isArray } from "./util/is-array";
 import { isString } from "./util/is-string";
 import { toString } from "./util/to-string";
@@ -819,6 +820,34 @@ export class DTable<
 				weight: 1
 			};
 		}
+	}
+
+	protected getFocusedChildClippingRect(
+		focused: DBase,
+		contentX: number, contentY: number,
+		contentWidth: number, contentHeight: number,
+		width: number, height: number,
+		result: Rectangle
+	): Rectangle {
+		super.getFocusedChildClippingRect(
+			focused,
+			contentX, contentY,
+			contentWidth, contentHeight,
+			width, height,
+			result
+		);
+
+		const parent = focused.parent;
+		if( parent instanceof DTableRow ) {
+			const x = contentX + parent.getFocusedChildClippingPositionX( focused );
+			const dx = x - result.x;
+			if( 0 < dx ) {
+				result.x += dx;
+				result.width -= dx;
+			}
+		}
+
+		return result;
 	}
 
 	protected getType(): string {

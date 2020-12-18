@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Point } from "pixi.js";
+import { Point, Rectangle } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseOverflowMask } from "./d-base-overflow-mask";
@@ -66,7 +66,9 @@ export class DPane<
 	CONTENT_OPTIONS extends DBaseOptions = DContentOptions,
 	OPTIONS extends DPaneOptions<THEME, CONTENT_OPTIONS> = DPaneOptions<THEME, CONTENT_OPTIONS>
 > extends DBase<THEME, OPTIONS> {
-	protected static WORK_ON_FOCUSED = new Point();
+	protected static WORK_POINT?: Point;
+	protected static WORK_RECTANGLE?: Rectangle;
+
 	protected _content!: DBase;
 	protected _overflowMask!: DBaseOverflowMask | null;
 	protected _verticalBar?: DScrollBarVertical;
@@ -333,63 +335,91 @@ export class DPane<
 		return false;
 	}
 
+	protected getFocusedChildClippingRect(
+		focused: DBase,
+		contentX: number, contentY: number,
+		contentWidth: number, contentHeight: number,
+		width: number, height: number,
+		result: Rectangle
+	): Rectangle {
+		result.x = 0;
+		result.y = 0;
+		result.width = width;
+		result.height = height;
+		return result;
+	}
+
 	protected onChildFocused( focused: DBase ): void {
-		const work = DPane.WORK_ON_FOCUSED;
-		const content = this.content;
+		const point = DPane.WORK_POINT = (DPane.WORK_POINT || new Point());
+
+		// Content rectangle
+		const content = this._content;
 		const contentX = content.x;
 		const contentY = content.y;
 		const contentWidth = content.width;
 		const contentHeight = content.height;
 
-		work.set( 0, 0 );
-		focused.toGlobal( work, work, false );
-		content.toLocal( work, undefined, work, false );
-		const x0 = contentX + Math.min( contentWidth, Math.max( 0, work.x ) );
-		const y0 = contentY + Math.min( contentHeight, Math.max( 0, work.y ) );
+		point.set( 0, 0 );
+		focused.toGlobal( point, point, false );
+		content.toLocal( point, undefined, point, false );
+		const x0 = contentX + Math.min( contentWidth, Math.max( 0, point.x ) );
+		const y0 = contentY + Math.min( contentHeight, Math.max( 0, point.y ) );
 
-		work.set( focused.width, focused.height );
-		focused.toGlobal( work, work, true );
-		content.toLocal( work, undefined, work, true );
-		const x1 = contentX + Math.min( contentWidth, Math.max( 0, work.x ) );
-		const y1 = contentY + Math.min( contentHeight, Math.max( 0, work.y ) );
+		point.set( focused.width, focused.height );
+		focused.toGlobal( point, point, true );
+		content.toLocal( point, undefined, point, true );
+		const x1 = contentX + Math.min( contentWidth, Math.max( 0, point.x ) );
+		const y1 = contentY + Math.min( contentHeight, Math.max( 0, point.y ) );
 
 		const width = this.width;
-		let newX: number | null = null;
-		if( x0 < 0 ) {
-			if( x1 <= width ) {
-				newX = contentX - Math.max( x0, x1 - width );
-				newX = Math.max( width - contentWidth, Math.min( 0, newX ) );
-			}
-		} else {
-			if( width < x1 ) {
-				newX = contentX - Math.min( x0, x1 - width );
-				newX = Math.max( width - contentWidth, Math.min( 0, newX ) );
-			}
-		}
-
 		const height = this.height;
-		let newY: number | null = null;
-		if( y0 < 0 ) {
-			if( y1 <= height ) {
-				newY = contentY - Math.max( y0, y1 - height );
-				newY = Math.max( height - contentHeight, Math.min( 0, newY ) );
+		const clippingRect = DPane.WORK_RECTANGLE = (DPane.WORK_RECTANGLE || new Rectangle());
+		this.getFocusedChildClippingRect(
+			focused,
+			contentX, contentY,
+			contentWidth, contentHeight,
+			width, height,
+			clippingRect
+		);
+		const clippingRectX = clippingRect.x;
+		const clippingRectY = clippingRect.y;
+		const clippingRectX0 = clippingRectX;
+		const clippingRectY0 = clippingRectY;
+		const clippingRectX1 = clippingRectX + clippingRect.width;
+		const clippingRectY1 = clippingRectY + clippingRect.height;
+
+		let newX: number | null = null;
+		if( x0 < clippingRectX0 ) {
+			if( x1 <= clippingRectX1 ) {
+				newX = contentX + Math.min( clippingRectX0 - x0, clippingRectX1 - x1 );
+				newX = Math.max( width - contentWidth, Math.min( 0, newX ) );
 			}
-		} else {
-			if( height < y1 ) {
-				newY = contentY - Math.min( y0, y1 - height );
-				newY = Math.max( height - contentHeight, Math.min( 0, newY ) );
-			}
+		} else if( clippingRectX1 < x1 ) {
+			newX = contentX - Math.min( x0 - clippingRectX0, x1 - clippingRectX1 );
+			newX = Math.max( width - contentWidth, Math.min( 0, newX ) );
 		}
 
+		let newY: number | null = null;
+		if( y0 < clippingRectY0 ) {
+			if( y1 <= clippingRectY1 ) {
+				newY = contentY + Math.min( clippingRectY0 - y0, clippingRectY1 - y1 );
+				newY = Math.max( height - contentHeight, Math.min( 0, newY ) );
+			}
+		} else if( clippingRectY1 < y1 ) {
+			newY = contentY - Math.min( y0 - clippingRectY0, y1 - clippingRectY1 );
+			newY = Math.max( height - contentHeight, Math.min( 0, newY ) );
+		}
+
+		const contentPosition = content.position;
 		if( newX != null ) {
 			if( newY != null ) {
-				content.position.set( newX, newY );
+				contentPosition.set( newX, newY );
 			} else {
-				content.position.x = newX;
+				contentPosition.x = newX;
 			}
 		} else {
 			if( newY != null ) {
-				content.position.y = newY;
+				contentPosition.y = newY;
 			}
 		}
 

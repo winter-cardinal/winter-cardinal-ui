@@ -63,7 +63,7 @@ export class DList<
 	}
 
 	protected findItem( target: DisplayObject | null ): DisplayObject | null {
-		const content = this.content;
+		const content = this._content;
 		let current = target;
 		while( current != null ) {
 			if( current.parent === content ) {
@@ -81,7 +81,7 @@ export class DList<
 	}
 
 	protected updateChildPosition(): void {
-		const content = this.content;
+		const content = this._content;
 		const items = content.children;
 		let y = 0;
 		for( let i = 0, imax = items.length; i < imax; ++i ) {
@@ -99,7 +99,7 @@ export class DList<
 	}
 
 	protected updateChildVisibility(): void {
-		const content = this.content;
+		const content = this._content;
 		const items = content.children;
 		const from = -content.y;
 		const to = from + this.height;

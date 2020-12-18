@@ -67,7 +67,7 @@ export class DMenuSided<
 	}
 
 	protected newItems( items: Array<DMenuItemOptionsUnion<VALUE> | DisplayObject>, sticky: boolean ): void {
-		DMenuSideds.newItems( this.content, items, sticky );
+		DMenuSideds.newItems( this._content, items, sticky );
 	}
 
 	protected newContent( options?: CONTENT_OPTIONS ): DBase {
