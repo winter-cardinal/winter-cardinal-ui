@@ -6,11 +6,11 @@
 import { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignWith } from "../../d-align-with";
+import { DBaseState } from "../../d-base-state";
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DLinkMenuItemId } from "../../d-link-menu-item-id";
 import { DMenuOptions } from "../../d-menu";
 import { DThemeMenuItemLink } from "../../d-menu-item-link";
-import { DMenuItemLinkState } from "../../d-menu-item-link-state";
 import { DThemeWhiteLinks } from "./d-theme-white-links";
 import { DThemeWhiteMenuItemText } from "./d-theme-white-menu-item-text";
 
@@ -18,7 +18,7 @@ DThemeWhiteLinks.init();
 
 export class DThemeWhiteMenuItemLink extends DThemeWhiteMenuItemText implements DThemeMenuItemLink {
 	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
-		if( state.is( DMenuItemLinkState.NEW_WINDOW ) ) {
+		if( state.is( DBaseState.NEW_WINDOW ) ) {
 			return DThemeWhiteLinks.getImageSource( state );
 		}
 		return null;

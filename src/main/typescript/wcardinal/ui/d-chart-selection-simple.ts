@@ -95,7 +95,7 @@ export class DChartSelectionSimple extends utils.EventEmitter implements DChartS
 	protected toSubOptions(
 		point: DChartSelectionPoint,
 		options: DChartSelectionSubOptions | undefined,
-		state: DBaseState
+		state: string
 	): DChartSelectionSubOptions {
 		options = options || {};
 

@@ -142,7 +142,7 @@ export class DTableHeaderCell<
 						this.state.set( SORTED_DESCENDING, SORTED_ASCENDING );
 					}
 				} else {
-					this.state.remove( SORTED_ASCENDING | SORTED_DESCENDING );
+					this.state.removeAll( SORTED_ASCENDING, SORTED_DESCENDING );
 				}
 			}
 		}

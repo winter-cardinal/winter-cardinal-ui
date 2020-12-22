@@ -4,10 +4,10 @@
  */
 
 import { interaction } from "pixi.js";
-import { DBaseState } from "./d-base-state";
 import { DLink, DLinkChecker, DLinkOptions, DLinkUrlMaker, DThemeLink } from "./d-link";
 import { DLinkMenuItemId } from "./d-link-menu-item-id";
 import { DLinkTarget } from "./d-link-target";
+import { DLinks } from "./d-links";
 import { DMenu, DMenuOptions } from "./d-menu";
 import { DTableBodyCell } from "./d-table-body-cell";
 import {
@@ -90,17 +90,6 @@ export const toChecker = <ROW>(
 	return undefined;
 };
 
-const toOptions = <
-	ROW,
-	THEME extends DThemeTableBodyCellLink = DThemeTableBodyCellLink,
-	OPTIONS extends DTableBodyCellLinkOptions<ROW, THEME> = DTableBodyCellLinkOptions<ROW, THEME>
->( options: OPTIONS ): OPTIONS => {
-	if( options?.link?.target === DLinkTarget.NEW_WINDOW ) {
-		options.state = ( options.state || DBaseState.NONE ) || DTableCellState.NEW_WINDOW;
-	}
-	return options;
-};
-
 export class DTableBodyCellLink<
 	ROW,
 	THEME extends DThemeTableBodyCellLink = DThemeTableBodyCellLink,
@@ -109,7 +98,7 @@ export class DTableBodyCellLink<
 	protected _link?: DLink;
 
 	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options: OPTIONS ) {
-		super( columnIndex, columnData, toOptions<ROW, THEME, OPTIONS>( options ) );
+		super( columnIndex, columnData, DLinks.toStateOptions( options?.link?.target, options ) );
 	}
 
 	protected initOnClick( options: OPTIONS ): void {

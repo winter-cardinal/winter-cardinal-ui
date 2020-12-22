@@ -5,7 +5,6 @@
 
 import { Rectangle } from "pixi.js";
 import { DBase } from "./d-base";
-import { DBaseState } from "./d-base-state";
 import { DLayoutHorizontal, DLayoutHorizontalOptions, DThemeLayoutHorizontal } from "./d-layout-horizontal";
 import { DTableCellState } from "./d-table-cell-state";
 
@@ -60,19 +59,23 @@ export abstract class DTableRow<
 		const iend = this.toIndexEnd( columns );
 		for( let i = columns.length - 1; 0 <= i; --i ) {
 			const cell = this.newCell( i, columns[ i ], columns, options );
-			const cellState = this.toCellState( i, iend, frozen );
-			if( cellState ) {
-				cell.state.add( cellState );
+			const cellState = cell.state;
+			cellState.lock( false );
+			if( i === 0 ) {
+				cellState.add( DTableCellState.START );
 			}
+			if( i === iend ) {
+				cellState.add( DTableCellState.END );
+			}
+			if( i < frozen ) {
+				cellState.add( DTableCellState.FROZEN );
+			}
+			if( i === frozen - 1 ) {
+				cellState.add( DTableCellState.FROZEN_END );
+			}
+			cellState.unlock();
 			this.addChild( cell );
 		}
-	}
-
-	protected toCellState( index: number, iend: number, frozen: number ): DBaseState {
-		return ( index === 0 ? DTableCellState.START : DBaseState.NONE ) |
-			( index === iend ? DTableCellState.END : DBaseState.NONE ) |
-			( index < frozen ? DTableCellState.FROZEN : DBaseState.NONE ) |
-			( index === frozen - 1 ? DTableCellState.FROZEN_END : DBaseState.NONE );
 	}
 
 	protected toIndexEnd( columns: COLUMN[] ): number {

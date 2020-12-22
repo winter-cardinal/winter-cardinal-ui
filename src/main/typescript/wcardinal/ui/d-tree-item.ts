@@ -2,6 +2,7 @@
  * Copyright (C) 2019 Toshiba Corporation
  * SPDX-License-Identifier: Apache-2.0
  */
+
 import { DisplayObject, interaction, Texture } from "pixi.js";
 import { DLayoutHorizontal, DLayoutHorizontalOptions, DThemeLayoutHorizontal } from "./d-layout-horizontal";
 import { DTreeItemRawData } from "./d-tree";
@@ -144,23 +145,18 @@ export class DTreeItem<
 		return this;
 	}
 
-	public updateActiveState( isActive: boolean ) {
-		this.state.isActive = isActive;
-		this._icon.state.set( DTreeItemState.SELECTED, isActive );
-		this._textAndImage.state.set( DTreeItemState.SELECTED, isActive );
-	}
-
 	protected updateStates( isActive: boolean ): void {
-		this.updateActiveState( isActive );
-		const icon = this._icon;
+		this.state.isActive = isActive;
+
+		const iconState = this._icon.state;
 		if( this._isParent ) {
 			if( this._isExpanded ) {
-				icon.state.set( DTreeItemState.EXPANDED, DTreeItemState.COLLAPSED );
+				iconState.set( DTreeItemState.EXPANDED, DTreeItemState.COLLAPSED );
 			} else {
-				icon.state.set( DTreeItemState.COLLAPSED, DTreeItemState.EXPANDED );
+				iconState.set( DTreeItemState.COLLAPSED, DTreeItemState.EXPANDED );
 			}
 		} else {
-			icon.state.remove( DTreeItemState.COLLAPSED | DTreeItemState.EXPANDED );
+			iconState.removeAll( DTreeItemState.COLLAPSED, DTreeItemState.EXPANDED );
 		}
 	}
 

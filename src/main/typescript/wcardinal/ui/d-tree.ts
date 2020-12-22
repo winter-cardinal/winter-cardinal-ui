@@ -459,9 +459,10 @@ export class DTree<
 	**/
 	public updateActiveState() {
 		const items = this._content.children as DTreeItem[];
-		items.forEach( ( item ) => {
-			item.updateActiveState( this._selection.contains( item.getRawData() ) );
-		});
+		for( let i = 0, imax = items.length; i < imax; ++i ) {
+			const item = items[ i ];
+			item.state.isActive = this._selection.contains( item.getRawData() );
+		}
 	}
 
 	protected getType(): string {

@@ -7,7 +7,7 @@ import { IPoint, utils } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBaseOnOptions } from "./d-base";
 import { DBaseStateSet } from "./d-base-state-set";
-import { DBaseStateSetImpl } from "./d-base-state-set-impl";
+import { DBaseStateSetImplObservable } from "./d-base-state-set-impl-observable";
 import { DChartRegionImmutable } from "./d-chart-region";
 import { DChartRegionImpl } from "./d-chart-region-impl";
 import { DChartSeries, DChartSeriesHitResult } from "./d-chart-series";
@@ -44,13 +44,13 @@ export abstract class DChartSeriesBase extends utils.EventEmitter implements DCh
 	constructor( options?: DChartSeriesBaseOptions ) {
 		super();
 
-		this._coordinate = new DChartSeriesBaseCoordinateContainer( this, options && options.coordinate );
+		this._coordinate = new DChartSeriesBaseCoordinateContainer( this, options?.coordinate );
 		this._index = 0;
 		this._domain = new DChartRegionImpl( NaN, NaN );
 		this._range = new DChartRegionImpl( NaN, NaN );
 		this._regionPointId = NaN;
 
-		this._state = new DBaseStateSetImpl(( newState, oldState ): void => {
+		this._state = new DBaseStateSetImplObservable(( newState, oldState ): void => {
 			this.onStateChange( newState, oldState );
 		});
 
@@ -75,7 +75,7 @@ export abstract class DChartSeriesBase extends utils.EventEmitter implements DCh
 
 		const chart = container.plotArea.chart;
 		if( chart ) {
-			this.state.update( chart.state );
+			this._state.parent = chart.state;
 		}
 	}
 
@@ -129,8 +129,7 @@ export abstract class DChartSeriesBase extends utils.EventEmitter implements DCh
 
 	protected onStateChange( newState: DBaseStateSet, oldState: DBaseStateSet ): void {
 		this.toDirty();
-		const container = this._container;
-		const chart = container && container.plotArea.chart;
+		const chart = this._container?.plotArea.chart;
 		DApplications.update( chart );
 		this.emit( "statechange", newState, oldState, this );
 	}

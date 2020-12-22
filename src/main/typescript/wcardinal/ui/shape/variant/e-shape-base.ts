@@ -19,7 +19,7 @@ import { EShapePoints } from "../e-shape-points";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeRuntime } from "../e-shape-runtime";
 import { EShapeStateSet } from "../e-shape-state-set";
-import { EShapeStateSetImpl } from "../e-shape-state-set-impl";
+import { EShapeStateSetImplObservable } from "../e-shape-state-set-impl-observable";
 import { EShapeStroke } from "../e-shape-stroke";
 import { EShapeTag } from "../e-shape-tag";
 import { EShapeText } from "../e-shape-text";
@@ -104,7 +104,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		this._boundsInternalTransformId = NaN;
 		this._boundsLocalTransformId = NaN;
 
-		this._state = new EShapeStateSetImpl(( newState, oldState ): void => {
+		this._state = new EShapeStateSetImplObservable(( newState, oldState ): void => {
 			this.onStateChange( newState, oldState );
 		});
 		this.interactive = false;
@@ -620,7 +620,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		for( let i = 0, imax = children.length; i < imax; ++i ) {
 			const child = children[ i ];
 			if( child instanceof EShapeBase ) {
-				child._state.update( newState );
+				child._state.parent = newState;
 			}
 		}
 	}
@@ -744,7 +744,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 			}
 		}
 		if( (part & EShapeCopyPart.STATE) !== 0 ) {
-			this.state.copy( source.state );
+			this.state.lock( false ).copy( source.state ).unlock();
 		}
 		return this;
 	}

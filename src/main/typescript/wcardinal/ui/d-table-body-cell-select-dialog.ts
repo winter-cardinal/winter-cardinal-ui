@@ -35,7 +35,7 @@ export class DTableBodyCellSelectDialog<
 	protected _columnIndex!: number;
 	protected _columnData!: DTableColumn<ROW>;
 
-	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options: OPTIONS ) {
+	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options?: OPTIONS ) {
 		super( options );
 
 		this._rowIndex = -1;
@@ -74,8 +74,8 @@ export class DTableBodyCellSelectDialog<
 		}
 	}
 
-	protected toSync( theme: THEME, options: OPTIONS ): boolean {
-		return ( options && options.sync != null ? options.sync : theme.isSyncEnabled() );
+	protected toSync( theme: THEME, options?: OPTIONS ): boolean {
+		return options?.sync ?? theme.isSyncEnabled();
 	}
 
 	get row(): ROW | undefined {

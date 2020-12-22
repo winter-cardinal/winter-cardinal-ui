@@ -1,7 +1,10 @@
-import { DBaseState } from "../d-base-state";
+/*
+ * Copyright (C) 2020 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
 export const EShapeState = {
-	CLICKED: DBaseState.CUSTOM,
-	DOWN: DBaseState.CUSTOM * 2,
-	UP: DBaseState.CUSTOM * 4
+	CLICKED: "CLICKED",
+	DOWN: "DOWN",
+	UP: "UP"
 };

@@ -4,7 +4,6 @@
  */
 
 import { IPoint } from "pixi.js";
-import { DBaseState } from "./d-base-state";
 import { DBaseStateSet } from "./d-base-state-set";
 import { DChartSelectionStyle } from "./d-chart-selection";
 import { DChartSeries } from "./d-chart-series";
@@ -15,7 +14,7 @@ export interface DChartSelectionShapeOptions {
 	enable?: boolean;
 	shape?: EShape;
 	style?: DChartSelectionStyle;
-	state?: DBaseState;
+	state?: string;
 	theme?: string | DThemeChartSelectionShape;
 }
 

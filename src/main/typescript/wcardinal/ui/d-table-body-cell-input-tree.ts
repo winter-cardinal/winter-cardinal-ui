@@ -6,7 +6,7 @@
 import { DBaseState } from "./d-base-state";
 import { DLayoutHorizontal, DThemeLayoutHorizontal } from "./d-layout-horizontal";
 import { DTableBodyCellInputTextOptions } from "./d-table-body-cell-input-text";
-import { DTableBodyCellInputTreeInput } from "./d-table-body-cell-input-tree-input";
+import { DTableBodyCellInputTreeInput, DTableBodyCellInputTreeInputOptions } from "./d-table-body-cell-input-tree-input";
 import { DTableBodyCellInputTreeMarker } from "./d-table-body-cell-input-tree-marker";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableCellState } from "./d-table-cell-state";
@@ -17,9 +17,20 @@ export interface DThemeTableBodyCellInputTree extends DThemeLayoutHorizontal {
 	getLevelPadding( level: number ): number;
 }
 
+const toLayoutOptions = ( options?: DTableBodyCellInputTextOptions<unknown> ) => {
+	if( options != null ) {
+		return {
+			weight: options.weight,
+			width: options.width
+		};
+	}
+	return undefined;
+}
+
 export class DTableBodyCellInputTree<
 	ROW = unknown,
-	THEME extends DThemeTableBodyCellInputTree = DThemeTableBodyCellInputTree
+	THEME extends DThemeTableBodyCellInputTree = DThemeTableBodyCellInputTree,
+	OPTIONS extends DTableBodyCellInputTextOptions<ROW> = DTableBodyCellInputTextOptions<ROW>
 > extends DLayoutHorizontal<THEME> {
 	protected _row?: ROW;
 	protected _rowIndex: number;
@@ -29,18 +40,53 @@ export class DTableBodyCellInputTree<
 	protected _marker: DTableBodyCellInputTreeMarker;
 	protected _input: DTableBodyCellInputTreeInput;
 
-	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options: DTableBodyCellInputTextOptions<ROW> ) {
-		super({
-			weight: options.weight,
-			width: options.width
-		});
+	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options?: OPTIONS ) {
+		super( toLayoutOptions( options ) );
 
 		this._rowIndex = -1;
 		this._columnIndex = columnIndex;
 		this._columnData = columnData;
 
 		// Marker
-		const marker = new DTableBodyCellInputTreeMarker({
+		const marker = this.newMarker( options );
+		this._marker = marker;
+		this.addChild( marker );
+
+		// Input
+		const input = this.newInput( options );
+		this._input = input;
+		this.addChild( input );
+	}
+
+	protected newInput( options?: OPTIONS ): DTableBodyCellInputTreeInput {
+		return new DTableBodyCellInputTreeInput( this.toInputOptions( options ) );
+	}
+
+	protected toInputOptions( options?: OPTIONS ): DTableBodyCellInputTreeInputOptions {
+		return {
+			weight: 1,
+			text: options?.text,
+			editing: options?.editing,
+			on: {
+				change: ( newValue: unknown, oldValue: unknown ): void => {
+					this.onInputChange( newValue, oldValue );
+				}
+			}
+		};
+	}
+
+	protected onInputChange( newValue: unknown, oldValue: unknown ): void {
+		const row = this._row;
+		if( row !== undefined ) {
+			const rowIndex = this._rowIndex;
+			const columnIndex = this._columnIndex;
+			this._columnData.setter( row, columnIndex, newValue );
+			this.emit( "cellchange", newValue, oldValue, row, rowIndex, columnIndex, this );
+		}
+	}
+
+	protected newMarker( options?: OPTIONS ) {
+		return new DTableBodyCellInputTreeMarker({
 			visible: false,
 			on: {
 				active: () => {
@@ -48,25 +94,6 @@ export class DTableBodyCellInputTree<
 				}
 			}
 		});
-		this._marker = marker;
-		this.addChild( marker );
-
-		// Input
-		const input = new DTableBodyCellInputTreeInput({
-			weight: 1,
-			text: options.text,
-			editing: options.editing
-		});
-		this._input = input;
-		input.on( "change", ( newValue: unknown, oldValue: unknown ): void => {
-			const row = this._row;
-			if( row !== undefined ) {
-				const rowIndex = this._rowIndex;
-				this._columnData.setter( row, columnIndex, newValue );
-				this.emit( "cellchange", newValue, oldValue, row, rowIndex, columnIndex, this );
-			}
-		});
-		this.addChild( input );
 	}
 
 	protected onMarkerActive(): void {
@@ -114,21 +141,30 @@ export class DTableBodyCellInputTree<
 			const level = (supplimental >> 2);
 			if( hasChildren ) {
 				if( isOpened ) {
-					marker.state.set( DTableCellState.HAS_CHILDREN | DTableCellState.OPENED, DBaseState.DISABLED );
+					marker.state.lock()
+						.addAll( DTableCellState.HAS_CHILDREN, DTableCellState.OPENED )
+						.remove( DBaseState.DISABLED )
+						.unlock();
 				} else {
-					marker.state.set( DTableCellState.HAS_CHILDREN, DBaseState.DISABLED | DTableCellState.OPENED );
+					marker.state.lock()
+						.add( DTableCellState.HAS_CHILDREN )
+						.removeAll( DBaseState.DISABLED, DTableCellState.OPENED )
+						.unlock();
 				}
 			} else {
 				if( isOpened ) {
-					marker.state.set( DBaseState.DISABLED | DTableCellState.OPENED, DTableCellState.HAS_CHILDREN );
+					marker.state.lock()
+						.addAll( DBaseState.DISABLED, DTableCellState.OPENED )
+						.remove( DTableCellState.HAS_CHILDREN )
+						.unlock();
 				} else {
-					marker.state.remove( DTableCellState.HAS_CHILDREN | DTableCellState.OPENED );
+					marker.state.removeAll( DTableCellState.HAS_CHILDREN, DTableCellState.OPENED );
 				}
 			}
 			marker.show();
 			marker.width = this.theme.getLevelPadding( level );
 		} else {
-			marker.state.remove( DTableCellState.OPENED | DTableCellState.HAS_CHILDREN );
+			marker.state.removeAll( DTableCellState.OPENED, DTableCellState.HAS_CHILDREN );
 			marker.hide();
 		}
 

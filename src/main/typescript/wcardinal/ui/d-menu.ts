@@ -125,7 +125,7 @@ export class DMenu<
 			for( let i = 0, imax = children.length; i < imax; ++i ) {
 				const child = children[ i ];
 				if( child instanceof DBase ) {
-					child.state.remove( DBaseState.FOCUSED | DBaseState.HOVERED );
+					child.state.removeAll( DBaseState.FOCUSED, DBaseState.HOVERED );
 				}
 			}
 

@@ -3,8 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseState } from "./d-base-state";
-
 export interface DBaseStateSet {
 	isHovered: boolean;
 	readonly inHovered: boolean;
@@ -80,13 +78,16 @@ export interface DBaseStateSet {
 	readonly onAlternated: boolean;
 	readonly underAlternated: boolean;
 
+	parent: DBaseStateSet | null;
+	readonly revision: number;
+
 	/**
 	 * Returns true if the given state is on.
 	 *
 	 * @param state a state
 	 * @return true if the given state is on
 	 */
-	is( state: DBaseState ): boolean;
+	is( state: string ): boolean;
 
 	/**
 	 * Returns true if the given state is on or if one of the parents has the given state.
@@ -94,7 +95,7 @@ export interface DBaseStateSet {
 	 * @param state a state
 	 * @return true if the given state is on or if one of the parents has the given state.
 	 */
-	in( state: DBaseState ): boolean;
+	in( state: string ): boolean;
 
 	/**
 	 * Returns true if the direct parent has the given state.
@@ -102,7 +103,7 @@ export interface DBaseStateSet {
 	 * @param state a state
 	 * @return true if the direct parent has the given state.
 	 */
-	on( state: DBaseState ): boolean;
+	on( state: string ): boolean;
 
 	/**
 	 * Returns true if one of the parents has the given state.
@@ -110,16 +111,37 @@ export interface DBaseStateSet {
 	 * @param state a state
 	 * @return true if one of the parents has the given state.
 	 */
-	under( state: DBaseState ): boolean;
+	under( state: string ): boolean;
 
-	add( state: DBaseState ): this;
-	remove( state: DBaseState ): this;
-	set( state: DBaseState, toOn: boolean ): this;
-	set( on: DBaseState, off: DBaseState ): this;
+	/**
+	 * Locks this state set.
+	 * The locked state set delays calling the change event handler.
+	 *
+	 * @param callOnChange false to stop calling the change event handler when unlocked
+	 * @return this
+	 */
+	lock( callOnChange?: boolean ): this;
+
+	/**
+	 * Unlocks this state set and calls the change event handler if this state set has changed.
+	 * However, if this state set is locked with the `callOnChange` of false, the change event handler is not called.
+	 *
+	 * @return this
+	 */
+	unlock(): this;
+
+	add( state: string ): this;
+	addAll( states: string[] ): this;
+	addAll( ...states: string[] ): this;
+	remove( state: string ): this;
+	removeAll( states: string[] ): this;
+	removeAll( ...states: string[] ): this;
+	set( state: string, isOn: boolean ): this;
+	set( added: string | null, removed: string | null ): this;
+	setAll( state: string[], isOn: boolean ): this;
+	setAll( addeds: string[] | null, removeds: string[] | null ): this;
 
 	copy( state: DBaseStateSet ): this;
-
-	update( parentState: DBaseStateSet ): this;
 
 	toString(): string;
 }

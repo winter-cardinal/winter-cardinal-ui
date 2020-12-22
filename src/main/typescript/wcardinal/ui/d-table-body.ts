@@ -248,7 +248,7 @@ export class DTableBody<
 			if( selection.contains( unmappedIndex ) ) {
 				row.state.set( DBaseState.ACTIVE, DBaseState.DISABLED );
 			} else {
-				row.state.remove( DBaseState.ACTIVE | DBaseState.DISABLED );
+				row.state.removeAll( DBaseState.ACTIVE, DBaseState.DISABLED );
 			}
 			row.set( datum, supplimental, unmappedIndex, forcibly );
 		}, newRowIndexMappedStart, newRowIndexMappedStart + rowsLength );
