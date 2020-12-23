@@ -65,7 +65,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	protected _boundsLocal?: Rectangle;
 	protected _boundsLocalTransformId: number;
 
-	protected _state: EShapeStateSet;
+	protected _state?: EShapeStateSet;
 
 	// Hierarchy
 	parent: EShapeContainer | EShape | null;
@@ -104,9 +104,6 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		this._boundsInternalTransformId = NaN;
 		this._boundsLocalTransformId = NaN;
 
-		this._state = new EShapeStateSetImplObservable(( newState, oldState ): void => {
-			this.onStateChange( newState, oldState );
-		});
 		this.interactive = false;
 
 		//
@@ -620,13 +617,20 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		for( let i = 0, imax = children.length; i < imax; ++i ) {
 			const child = children[ i ];
 			if( child instanceof EShapeBase ) {
-				child._state.parent = newState;
+				child.state.parent = newState;
 			}
 		}
 	}
 
 	get state(): EShapeStateSet {
-		return this._state;
+		let result = this._state;
+		if( result == null ) {
+			result = new EShapeStateSetImplObservable(( newState, oldState ): void => {
+				this.onStateChange( newState, oldState );
+			});
+			this._state = result;
+		}
+		return result;
 	}
 
 	focus(): this {
