@@ -236,12 +236,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 	//
 	get visible(): boolean {
-		const parent = this.parent;
-		if( parent instanceof EShapeBase ) {
-			return parent.visible && this._visible;
-		} else {
-			return this._visible;
-		}
+		return this._visible && (this.parent?.visible ?? true);
 	}
 
 	set visible( visible: boolean ) {
@@ -256,10 +251,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 	//
 	toDirty() {
-		const parent = this.parent;
-		if( parent != null ) {
-			parent.toDirty();
-		}
+		this.parent?.toDirty();
 	}
 
 	// Hierarchy
@@ -280,7 +272,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 	detach(): this {
 		const parent = this.parent;
-		if( parent != null ) {
+		if( parent ) {
 			this.parent = null;
 			this.uploaded = undefined;
 			const children = parent.children;
@@ -608,10 +600,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 	//
 	protected onStateChange( newState: DBaseStateSet, oldState: DBaseStateSet ): void {
-		const runtime = this.runtime;
-		if( runtime != null ) {
-			runtime.onStateChange( this, newState, oldState );
-		}
+		this.runtime?.onStateChange( this, newState, oldState );
 
 		const children = this.children;
 		for( let i = 0, imax = children.length; i < imax; ++i ) {
@@ -658,7 +647,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 	onDblClick( e: MouseEvent ): boolean {
 		const runtime = this.runtime;
-		if( runtime != null ) {
+		if( runtime ) {
 			return runtime.onPointerDblClick( this );
 		}
 		return false;
@@ -666,14 +655,14 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 	onShortcut( e: KeyboardEvent ): void {
 		const runtime = this.runtime;
-		if( runtime != null ) {
+		if( runtime ) {
 			return runtime.onPointerClick( this );
 		}
 	}
 
 	onKeyDown( e: KeyboardEvent ): boolean {
 		const runtime = this.runtime;
-		if( runtime != null ) {
+		if( runtime ) {
 			return runtime.onKeyDown( this, e );
 		}
 		return false;
@@ -681,7 +670,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 	onKeyUp( e: KeyboardEvent ): boolean {
 		const runtime = this.runtime;
-		if( runtime != null ) {
+		if( runtime ) {
 			return runtime.onKeyUp( this, e );
 		}
 		return false;
@@ -690,7 +679,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	//
 	update( time: number ): void {
 		const runtime = this.runtime;
-		if( runtime != null ) {
+		if( runtime ) {
 			runtime.update( this, time );
 		}
 	}
