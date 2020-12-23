@@ -16,7 +16,6 @@ import { DBaseOutline } from "./d-base-outline";
 import { DBasePadding } from "./d-base-padding";
 import { DBasePoint } from "./d-base-point";
 import { DBaseReflowable } from "./d-base-reflowable";
-import { DBaseState } from "./d-base-state";
 import { DBaseStateSet } from "./d-base-state-set";
 import { DBaseStateSetImplObservable } from "./d-base-state-set-impl-observable";
 import { DBorderStateAware } from "./d-border";
@@ -690,6 +689,7 @@ const toShortcuts = <THEME extends DThemeBase>(
 };
 
 export interface DRenderable {
+	parent?: Container | null;
 	render( renderer: Renderer ): void;
 	updateTransform(): void;
 }
@@ -983,27 +983,35 @@ export class DBase<
 	}
 
 	addRenderable( renderable: DRenderable, phase: boolean ): void {
-		(renderable as any).parent = this;
 		const list = ( phase ? this._befores : this._afters );
 		list.push( renderable );
+		if( "parent" in renderable ) {
+			renderable.parent = this;
+		}
 	}
 
 	addRenderableAt( renderable: DRenderable, phase: boolean, index: number ): void {
-		(renderable as any).parent = this;
 		const list = ( phase ? this._befores : this._afters );
-		if( 0 <= index && index < list.length ) {
+		if( index === 0 ) {
+			list.unshift( renderable );
+		} else if( 0 < index && index < list.length ) {
 			list.splice( index, 0, renderable );
 		} else {
 			list.push( renderable );
 		}
+		if( "parent" in renderable ) {
+			renderable.parent = this;
+		}
 	}
 
 	removeRenderable( renderable: DRenderable, phase: boolean ): void {
-		(renderable as any).parent = null;
 		const list = ( phase ? this._befores : this._afters );
 		const index = list.indexOf( renderable );
 		if( 0 <= index ) {
 			list.splice( index, 1 );
+			if( "parent" in renderable ) {
+				renderable.parent = null;
+			}
 		}
 	}
 
