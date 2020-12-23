@@ -418,7 +418,7 @@ export const buildTextVertex = (
 	textPaddingHorizontal: number,
 	textPaddingVertical: number,
 	textClipping: boolean,
-	textWorld: Float32Array,
+	textWorld: number[],
 	textureUvs: TextureUvs,
 	internalTransform: Matrix
 ): void => {

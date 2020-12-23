@@ -193,7 +193,11 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 			buffer.updateVertices();
 			buffer.updateUvs();
 			const shapeSize = shape.size;
-			const textWorld = text.world = text.world || new Float32Array( 8 );
+			let textWorld = text.world;
+			if( textWorld == null ) {
+				textWorld = [ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ];
+				text.world = textWorld;
+			}
 			buildTextVertex(
 				buffer.vertices,
 				buffer.uvs,
