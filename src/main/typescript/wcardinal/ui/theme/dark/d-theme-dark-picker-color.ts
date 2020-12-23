@@ -232,15 +232,7 @@ export class DThemeDarkPickerColor extends DThemeDarkBase implements DThemePicke
 	}
 
 	getInputLabelWidth(): number {
-		return 20;
-	}
-
-	getSampleWidth(): number {
-		return 54;
-	}
-
-	getSampleHeight(): number {
-		return this.getSampleWidth();
+		return 15;
 	}
 
 	getSampleCheckerboardTexture(): Texture {
