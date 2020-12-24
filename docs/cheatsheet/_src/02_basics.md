@@ -46,7 +46,7 @@ Available keywords for positions are:
 
 Note that the `DBase` position is adjusted when a parent size is changed automatically.
 
-Please refer to [sample/basics-position-keyword.html](../sample/basics-position-keyword.html).
+Please refer to [sample/basics-position-keyword](../sample/basics-position-keyword).
 
 ### Initializing a position with expressions
 
@@ -127,7 +127,7 @@ new DBase({
 
 Note that the size is adjusted when a parent size is changed automatically.
 
-Please refer to [sample/basics-size-keyword.html](../sample/basics-size-keyword.html).
+Please refer to [sample/basics-size-keyword](../sample/basics-size-keyword).
 
 ### Initializing a size with expressions
 

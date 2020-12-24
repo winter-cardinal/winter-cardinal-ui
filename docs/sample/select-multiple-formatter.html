@@ -30,7 +30,9 @@
 			width: 300,
 			text: {
 				formatter: function ( items ) {
-					return items.join( ", " );
+					return items.map(function( item ) {
+						return item.text;
+					}).join( ", " );
 				}
 			},
 			menu: {

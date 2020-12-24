@@ -60,7 +60,7 @@ All the classes are in the `wcardinal.ui`.
 Please note that the `loadAll` and the `loadThemeWhiteALl` is not required in this case.
 Prebuild files `wcardinal-ui.min.js` and `wcardinal-ui-theme-white.min.js` call the `loadAll` and the `loadThemeWhiteAll` for you.
 
-See [sample/cdn.html](https://winter-cardinal.github.io/winter-cardinal-ui/sample/cdn.html) for complete example.
+See [sample/cdn](https://winter-cardinal.github.io/winter-cardinal-ui/sample/cdn) for complete example.
 
 ### Tree shaking
 
@@ -83,20 +83,20 @@ loadThemeWhiteAll();
 ### Documentation
 
 * [API document](https://winter-cardinal.github.io/winter-cardinal-ui/api/)
-* [Cheatsheet](https://winter-cardinal.github.io/winter-cardinal-ui/cheatsheet/all-in-one.html)
+* [Cheatsheet](https://winter-cardinal.github.io/winter-cardinal-ui/cheatsheet/all-in-one)
 
 ### Samples
 
 * Bsics
-  * [Position keyword](https://winter-cardinal.github.io/winter-cardinal-ui/sample/basics-position-keyword.html)
-  * [Size keyword](https://winter-cardinal.github.io/winter-cardinal-ui/sample/basics-size-keyword.html)
-* [Buttons](https://winter-cardinal.github.io/winter-cardinal-ui/sample/button.html)
+  * [Position keyword](https://winter-cardinal.github.io/winter-cardinal-ui/sample/basics-position-keyword)
+  * [Size keyword](https://winter-cardinal.github.io/winter-cardinal-ui/sample/basics-size-keyword)
+* [Buttons](https://winter-cardinal.github.io/winter-cardinal-ui/sample/button)
 * Select
-  * [Single select](https://winter-cardinal.github.io/winter-cardinal-ui/sample/select.html)
-  * [Multiple select](https://winter-cardinal.github.io/winter-cardinal-ui/sample/select-multiple.html)
-  * [Multiple select custom text formatter](https://winter-cardinal.github.io/winter-cardinal-ui/sample/select-multiple-formatter.html)
-  * [Multiple select with menu items](https://winter-cardinal.github.io/winter-cardinal-ui/sample/select-multiple-menu.html)
-* [List](https://winter-cardinal.github.io/winter-cardinal-ui/sample/list.html)
+  * [Single select](https://winter-cardinal.github.io/winter-cardinal-ui/sample/select)
+  * [Multiple select](https://winter-cardinal.github.io/winter-cardinal-ui/sample/select-multiple)
+  * [Multiple select custom text formatter](https://winter-cardinal.github.io/winter-cardinal-ui/sample/select-multiple-formatter)
+  * [Multiple select with menu items](https://winter-cardinal.github.io/winter-cardinal-ui/sample/select-multiple-menu)
+* [List](https://winter-cardinal.github.io/winter-cardinal-ui/sample/list)
 
 ### Requirements
 
