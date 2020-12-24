@@ -15,7 +15,7 @@
 ## Basics
 
 Almost of all the UI classes including [DButton](../api/classes/ui.dbutton.html) inherits [DBase](../api/classes/ui.dbase.html).
-Therefore, the `DBase` constructor options, properties and methods are also available in them.
+Therefore, the `DBase` constructor options, properties and methods are also available for them.
 This section gives basics of UI classes.
 Namely, how to use the `DBase`.
 
@@ -100,8 +100,8 @@ The first argument `parent` is a parent width / height.
 The second argument `self` is a self width / height.
 Thus, the expression `(parent - self) * 0.5` moves the `DBase` to a center of a parent.
 
-`x` and `y` accept any functions compatible with [ui.DScalarFunction](../api/classes/ui.dscalarfunction.html).
-Please refer to [ui.DScalarFunction](../api/classes/ui.dscalarfunction.html) the more details.
+`x` and `y` accept any functions compatible with [ui.DScalarFunction](../api/modules/ui.html#dscalarfunction).
+Please refer to [ui.DScalarFunction](../api/modules/ui.html#dscalarfunction) the more details.
 
 Note that functions are reevaluated and the position is adjusted when a parent size is changed automatically.
 
@@ -181,7 +181,7 @@ The first argument `parent` is a parent width / height.
 The third argument `padding` is a parent padding width / height.
 Thus, the expression `parent - padding` expands the `DBase` so as to fit into a parent space excluding a parent padding space.
 
-`width` and `height` accept any functions compatible with [ui.DScalarFunction](../api/classes/ui.dscalarfunction.html).
-Please refer to [ui.DScalarFunction](../api/classes/ui.dscalarfunction.html) the more details.
+`width` and `height` accept any functions compatible with [ui.DScalarFunction](../api/modules/ui.html#dscalarfunction).
+Please refer to [ui.DScalarFunction](../api/modules/ui.html#dscalarfunction) the more details.
 
 Note that functions are reevaluated and the size is adjusted when a parent size is changed automatically.
