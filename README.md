@@ -82,71 +82,21 @@ loadThemeWhiteAll();
 
 ### Documentation
 
-* [API document (In progress)](https://winter-cardinal.github.io/winter-cardinal-ui/api/)
-* [Cheatsheet (In progress)](https://winter-cardinal.github.io/winter-cardinal-ui/cheatsheet/all-in-one.html)
+* [API document](https://winter-cardinal.github.io/winter-cardinal-ui/api/)
+* [Cheatsheet](https://winter-cardinal.github.io/winter-cardinal-ui/cheatsheet/all-in-one.html)
 
-### UI Elements
+### Samples
 
-* Board
-* Button
-	* Ambient button
-	* Check button (Left / right)
-	* Gradient color button
-	* Color button
-	* Danger button
-	* Date button
-	* Datetime button
-	* File button
-	* Group button
-	* Primary button
-	* Radio button (Left / right)
-	* Redo button
-	* Secondary button
-	* Time button
-	* Undo button
-* Canvas container and Canvas
-* Chart
-	* Line chart (In progress)
-	* Bar chart (In progress)
-* Diagram with tile server support
-* Dialog
-	* Gradient color dialog
-	* Color dialog
-	* Confirm dialog
-		* For deleting
-		* For discarding
-	* Date dialog
-	* Datetime dialog
-	* Text input dialog
-	* Message dialog
-	* Processing dialog
-	* Save-as dialog
-	* Select dialog
-	* Time dialog
-* Input
-	* Integer input
-	* Real number input
-	* Text input
-* Layout
-	* Horizontal layout
-	* Vertical layout
-* List
-* Menu
-* Side menu
-* Menu bar
-* Pane
-* Picker
-	* Gradient color picker
-	* Color picker
-	* Date picker
-	* Datetime picker
-	* Time picker
-* Scroll bar
-	* Horizontal scroll bar
-	* Vertical scroll bar
-* Slider (In progress)
-* Table
-* Tree (In progress)
+* Bsics
+  * [Position keyword](https://winter-cardinal.github.io/winter-cardinal-ui/sample/basics-position-keyword.html)
+  * [Size keyword](https://winter-cardinal.github.io/winter-cardinal-ui/sample/basics-size-keyword.html)
+* [Buttons](https://winter-cardinal.github.io/winter-cardinal-ui/sample/button.html)
+* Select
+  * [Single select](https://winter-cardinal.github.io/winter-cardinal-ui/sample/select.html)
+  * [Multiple select](https://winter-cardinal.github.io/winter-cardinal-ui/sample/select-multiple.html)
+  * [Multiple select custom text formatter](https://winter-cardinal.github.io/winter-cardinal-ui/sample/select-multiple-formatter.html)
+  * [Multiple select with menu items](https://winter-cardinal.github.io/winter-cardinal-ui/sample/select-multiple-menu.html)
+* [List](https://winter-cardinal.github.io/winter-cardinal-ui/sample/list.html)
 
 ### Requirements
 
@@ -160,7 +110,6 @@ loadThemeWhiteAll();
 ### How to build
 
 The following commands are for building `@wcardinal/wcardinal-ui` itself.
-For most users, you do not need to do this.
 
 #### JS for release
 
