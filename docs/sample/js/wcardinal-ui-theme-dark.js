@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.21.0
+ Winter Cardinal UI v0.67.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -62,25 +62,25 @@
     };
 
     /*! *****************************************************************************
-    Copyright (c) Microsoft Corporation. All rights reserved.
-    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-    this file except in compliance with the License. You may obtain a copy of the
-    License at http://www.apache.org/licenses/LICENSE-2.0
+    Copyright (c) Microsoft Corporation.
 
-    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-    MERCHANTABLITY OR NON-INFRINGEMENT.
+    Permission to use, copy, modify, and/or distribute this software for any
+    purpose with or without fee is hereby granted.
 
-    See the Apache Version 2.0 License for specific language governing permissions
-    and limitations under the License.
+    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+    REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+    AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+    INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+    LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+    OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+    PERFORMANCE OF THIS SOFTWARE.
     ***************************************************************************** */
     /* global Reflect, Promise */
 
     var extendStatics = function(d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
 
@@ -92,8 +92,6 @@
 
     const DBaseInteractive = wcardinal.ui.DBaseInteractive;
 
-    const DBaseStates = wcardinal.ui.DBaseStates;
-
     const DBorderMask = wcardinal.ui.DBorderMask;
 
     const DCornerMask = wcardinal.ui.DCornerMask;
@@ -104,6 +102,8 @@
 
     const UtilTexturePlane = wcardinal.ui.UtilTexturePlane;
 
+    const UtilRgb = wcardinal.ui.UtilRgb;
+
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
@@ -111,14 +111,23 @@
     var DThemeDarkConstants = /** @class */ (function () {
         function DThemeDarkConstants() {
         }
-        // Common configuration
-        DThemeDarkConstants.FOCUSED_ALPHA = 0.04;
-        DThemeDarkConstants.PRESSED_ALPHA = 0.12;
-        DThemeDarkConstants.DISABLED_ALPHA = 0.12;
-        DThemeDarkConstants.TINT_FOCUS_ALPHA = 0.1;
-        // High light color when active
-        DThemeDarkConstants.HIGHLIGHT_COLOR = 0x90CAF9;
+        DThemeDarkConstants.COLOR = 0xcccccc;
+        DThemeDarkConstants.ACTIVE_COLOR = 0x000000;
+        DThemeDarkConstants.BORDER_COLOR = 0x4a4a4a;
+        DThemeDarkConstants.BACKGROUND_COLOR = 0x2E2E2E;
+        DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD = 0x1f1f1f;
+        DThemeDarkConstants.HIGHLIGHT_COLOR = 0x2297f3;
+        DThemeDarkConstants.HIGHLIGHT_ALPHA = 0.2;
+        DThemeDarkConstants.HIGHLIGHT_BLENDED = UtilRgb.blend(DThemeDarkConstants.BACKGROUND_COLOR, DThemeDarkConstants.HIGHLIGHT_COLOR, DThemeDarkConstants.HIGHLIGHT_ALPHA);
+        DThemeDarkConstants.HIGHLIGHT_BLENDED_ON_BOARD = UtilRgb.blend(DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, DThemeDarkConstants.HIGHLIGHT_COLOR, DThemeDarkConstants.HIGHLIGHT_ALPHA);
+        DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR = 0x555555;
         DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA = 0.2;
+        DThemeDarkConstants.WEAK_HIGHLIGHT_BLENDED = UtilRgb.blend(DThemeDarkConstants.BACKGROUND_COLOR, DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR, DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA);
+        DThemeDarkConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD = UtilRgb.blend(DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR, DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA);
+        DThemeDarkConstants.INVALID_COLOR = 0xda0e0e;
+        DThemeDarkConstants.INVALID_ALPHA = 0.2;
+        DThemeDarkConstants.INVALID_BLENDED = UtilRgb.blend(DThemeDarkConstants.BACKGROUND_COLOR, DThemeDarkConstants.INVALID_COLOR, DThemeDarkConstants.INVALID_ALPHA);
+        DThemeDarkConstants.INVALID_BLENDED_ON_BOARD = UtilRgb.blend(DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, DThemeDarkConstants.INVALID_COLOR, DThemeDarkConstants.INVALID_ALPHA);
         return DThemeDarkConstants;
     }());
 
@@ -136,7 +145,7 @@
             return 14;
         };
         DThemeDarkFont.prototype.getColor = function (state) {
-            return DThemeDarkFont.getColor(state);
+            return DThemeDarkConstants.COLOR;
         };
         DThemeDarkFont.prototype.getFontWeight = function () {
             return "normal";
@@ -148,19 +157,13 @@
             return "normal";
         };
         DThemeDarkFont.prototype.getAlpha = function (state) {
-            return DThemeDarkFont.getAlpha(state);
-        };
-        DThemeDarkFont.prototype.getLineHeight = function () {
-            return 30;
-        };
-        DThemeDarkFont.getColor = function (state) {
-            return 0xDEDEDE;
-        };
-        DThemeDarkFont.getAlpha = function (state) {
-            if (DBaseStates.isDisabled(state)) {
+            if (state.inDisabled) {
                 return 0.5;
             }
             return 1.0;
+        };
+        DThemeDarkFont.prototype.getLineHeight = function () {
+            return 30;
         };
         return DThemeDarkFont;
     }());
@@ -181,8 +184,8 @@
             ("<rect x=\"0\" y=\"0\" width=\"" + d + "\" height=\"" + d + "\" fill=\"url(#" + id + "_filter)\"/>") +
             "</g>");
     };
-    newShadow("shadow_weak", 8, 0.15);
-    newShadow("shadow", 12, 0.15);
+    newShadow("shadow_weak", 8, 0.5);
+    newShadow("shadow", 12, 0.5);
     var DThemeDarkBase = /** @class */ (function (_super) {
         __extends(DThemeDarkBase, _super);
         function DThemeDarkBase() {
@@ -210,7 +213,7 @@
             return UtilTexturePlane.getInstance().getBackground(radius);
         };
         DThemeDarkBase.prototype.getBorderColor = function (state) {
-            if (DBaseStates.isFocused(state)) {
+            if (state.isFocused) {
                 return DThemeDarkConstants.HIGHLIGHT_COLOR;
             }
             return null;
@@ -243,7 +246,7 @@
             return 0;
         };
         DThemeDarkBase.prototype.getCornerRadius = function () {
-            return 4;
+            return 2;
         };
         DThemeDarkBase.prototype.getCornerMask = function () {
             return DCornerMask.NONE;
@@ -348,8 +351,6 @@
     };
 
     const DAlignHorizontal = wcardinal.ui.DAlignHorizontal;
-
-    const UtilRgb = wcardinal.ui.UtilRgb;
 
     const DAlignVertical = wcardinal.ui.DAlignVertical;
 
@@ -477,40 +478,48 @@
      */
     var DThemeDarkButtonBase = /** @class */ (function (_super) {
         __extends(DThemeDarkButtonBase, _super);
-        function DThemeDarkButtonBase() {
-            var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this.COLOR = 0x383838;
-            _this.COLOR_HOVERED = UtilRgb.darken(_this.COLOR, DThemeDarkConstants.FOCUSED_ALPHA);
-            _this.COLOR_PRESSED = UtilRgb.brighten(_this.COLOR, DThemeDarkConstants.PRESSED_ALPHA);
-            _this.COLOR_DISABLED = UtilRgb.brighten(0x000000, DThemeDarkConstants.DISABLED_ALPHA);
+        function DThemeDarkButtonBase(backgrouncColor, hover, pressed) {
+            if (backgrouncColor === void 0) { backgrouncColor = 0x484848; }
+            if (hover === void 0) { hover = 0.017; }
+            if (pressed === void 0) { pressed = 0.034; }
+            var _this = _super.call(this) || this;
+            _this.BACKGROUND_COLOR = backgrouncColor;
+            _this.BACKGROUND_COLOR_HOVERED = UtilRgb.brighten(_this.BACKGROUND_COLOR, hover);
+            _this.BACKGROUND_COLOR_PRESSED = UtilRgb.brighten(_this.BACKGROUND_COLOR, pressed);
             return _this;
         }
         DThemeDarkButtonBase.prototype.getBackgroundColor = function (state) {
-            if (DBaseStates.isDisabled(state)) {
-                return this.COLOR_DISABLED;
+            if (state.inDisabled) {
+                return null;
             }
-            if (DBaseStates.isActive(state)) {
+            else if (state.isActive) {
                 return DThemeDarkConstants.HIGHLIGHT_COLOR;
             }
-            if (DBaseStates.isPressed(state)) {
-                return this.COLOR_PRESSED;
+            else if (state.isPressed) {
+                return this.BACKGROUND_COLOR_PRESSED;
             }
-            if (DBaseStates.isFocused(state) || DBaseStates.isHovered(state)) {
-                return this.COLOR_HOVERED;
+            else if (state.isFocused || state.isHovered) {
+                return this.BACKGROUND_COLOR_HOVERED;
             }
-            return this.COLOR;
+            else {
+                return this.BACKGROUND_COLOR;
+            }
         };
         DThemeDarkButtonBase.prototype.getColor = function (state) {
-            if (DBaseStates.isDisabled(state) || !DBaseStates.isActive(state)) {
+            if (state.inDisabled || !state.isActive) {
                 return _super.prototype.getColor.call(this, state);
             }
-            return 0x000000;
+            else {
+                return DThemeDarkConstants.ACTIVE_COLOR;
+            }
         };
         DThemeDarkButtonBase.prototype.getBorderColor = function (state) {
-            if (DBaseStates.isDisabled(state) || !DBaseStates.isActive(state)) {
-                return this.COLOR_DISABLED;
+            if (state.inDisabled) {
+                return DThemeDarkConstants.BORDER_COLOR;
             }
-            return null;
+            else {
+                return null;
+            }
         };
         DThemeDarkButtonBase.prototype.getHeight = function () {
             return 30;
@@ -560,25 +569,25 @@
     var DThemeDarkButtonAmbient = /** @class */ (function (_super) {
         __extends(DThemeDarkButtonAmbient, _super);
         function DThemeDarkButtonAmbient() {
-            var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this.COLOR = 0x646464;
-            return _this;
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeDarkButtonAmbient.prototype.getBackgroundColor = function (state) {
-            if (DBaseStates.isActive(state)) {
+            if (state.isActive) {
                 return DThemeDarkConstants.HIGHLIGHT_COLOR;
             }
-            return this.COLOR;
+            else {
+                return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
+            }
         };
         DThemeDarkButtonAmbient.prototype.getBackgroundAlpha = function (state) {
-            if (!DBaseStates.isDisabled(state)) {
-                if (DBaseStates.isActive(state)) {
+            if (state.inEnabled) {
+                if (state.isActive) {
                     return 1.0;
                 }
-                if (DBaseStates.isPressed(state)) {
+                else if (state.isPressed) {
                     return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA * 2;
                 }
-                if (DBaseStates.isFocused(state) || DBaseStates.isHovered(state)) {
+                else if (state.isFocused || state.isHovered) {
                     return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
                 }
             }
@@ -598,10 +607,6 @@
         DThemeDark.set("DButtonAmbient", DThemeDarkButtonAmbient);
     };
 
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     // Material Design icons by Google.
     // Apache license version 2.0.
     DThemeDarkAtlas.add("button_check_mark_on", 21, 21, "<g transform=\"scale(0.875,0.875)\">" +
@@ -612,45 +617,65 @@
         "<path d=\"M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z\" " +
         "fill=\"#fff\" />" +
         "</g>");
+    var DThemeDarkButtonChecks = /** @class */ (function () {
+        function DThemeDarkButtonChecks() {
+        }
+        DThemeDarkButtonChecks.getImageTintColor = function (state) {
+            if (state.inDisabled || state.inReadOnly || !state.isActive) {
+                if (state.isFocused) {
+                    return this.IMAGE_TINT_COLOR_FOCUSED;
+                }
+                else {
+                    return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
+                }
+            }
+            else {
+                return DThemeDarkConstants.HIGHLIGHT_COLOR;
+            }
+        };
+        DThemeDarkButtonChecks.getImageSource = function (state) {
+            if (state.isActive) {
+                return DThemeDarkAtlas.mappings.button_check_mark_on;
+            }
+            else {
+                return DThemeDarkAtlas.mappings.button_check_mark_off;
+            }
+        };
+        DThemeDarkButtonChecks.IMAGE_TINT_COLOR_FOCUSED = UtilRgb.brighten(DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR, 0.1);
+        return DThemeDarkButtonChecks;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var DThemeDarkButtonCheck = /** @class */ (function (_super) {
         __extends(DThemeDarkButtonCheck, _super);
         function DThemeDarkButtonCheck() {
-            var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this.COLOR = 0x646464;
-            _this.IMAGE_TINT_COLOR_FOCUSED = UtilRgb.darken(_this.COLOR, DThemeDarkConstants.TINT_FOCUS_ALPHA);
-            return _this;
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeDarkButtonCheck.prototype.getBackgroundColor = function (state) {
-            return this.COLOR;
+            return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
         };
         DThemeDarkButtonCheck.prototype.getColor = function (state) {
-            return DThemeDarkFont.getColor(state);
+            return DThemeDarkConstants.COLOR;
         };
         DThemeDarkButtonCheck.prototype.getBackgroundAlpha = function (state) {
-            if (!DBaseStates.isDisabled(state)) {
-                if (DBaseStates.isFocused(state) || DBaseStates.isHovered(state)) {
+            if (state.inEnabled) {
+                if (state.isFocused || state.isHovered) {
                     return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
                 }
             }
             return 0;
         };
         DThemeDarkButtonCheck.prototype.getImageTintColor = function (state) {
-            if (DBaseStates.isDisabled(state) || DBaseStates.isReadOnly(state) || !DBaseStates.isActive(state)) {
-                if (DBaseStates.isFocused(state)) {
-                    return this.IMAGE_TINT_COLOR_FOCUSED;
-                }
-                return this.COLOR;
-            }
-            return DThemeDarkConstants.HIGHLIGHT_COLOR;
+            return DThemeDarkButtonChecks.getImageTintColor(state);
         };
         DThemeDarkButtonCheck.prototype.isToggle = function () {
             return true;
         };
         DThemeDarkButtonCheck.prototype.getImageSource = function (state) {
-            if (DBaseStates.isActive(state)) {
-                return DThemeDarkAtlas.mappings.button_check_mark_on;
-            }
-            return DThemeDarkAtlas.mappings.button_check_mark_off;
+            return DThemeDarkButtonChecks.getImageSource(state);
         };
         return DThemeDarkButtonCheck;
     }(DThemeDarkButtonAmbient));
@@ -703,8 +728,6 @@
     // Apache license version 2.0.
     DThemeDarkAtlas.add("button_color_sample", 21, 21, "<g transform=\"scale(0.875,0.875)\">" +
         "<path d=\"M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z\" fill=\"#fff\"/>" +
-        "<path d=\"M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z\" " +
-        "fill=\"#eee\" />" +
         "</g>");
     var formatter = function (colorAndAlpha) {
         return "#" + UtilRgb.toCode(colorAndAlpha.color) + " A" + colorAndAlpha.alpha.toFixed(2);
@@ -741,18 +764,16 @@
     var DThemeDarkDialog = /** @class */ (function (_super) {
         __extends(DThemeDarkDialog, _super);
         function DThemeDarkDialog() {
-            var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this.COLOR = 0x383838;
-            return _this;
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeDarkDialog.prototype.closeOn = function () {
             return DDialogCloseOn.ESC | DDialogCloseOn.CLICK_OUTSIDE;
         };
         DThemeDarkDialog.prototype.getBackgroundColor = function () {
-            return this.COLOR;
+            return DThemeDarkConstants.BACKGROUND_COLOR;
         };
         DThemeDarkDialog.prototype.getBorderColor = function (state) {
-            return null;
+            return 0x393939;
         };
         DThemeDarkDialog.prototype.getPaddingLeft = function () {
             return 16;
@@ -800,7 +821,7 @@
             return "OK";
         };
         DThemeDarkDialogCommand.prototype.getCancel = function () {
-            return "Cacnel";
+            return "Cancel";
         };
         DThemeDarkDialogCommand.prototype.getLayoutX = function () {
             return "padding";
@@ -813,6 +834,9 @@
         };
         DThemeDarkDialogCommand.prototype.getLayoutHeight = function () {
             return "auto";
+        };
+        DThemeDarkDialogCommand.prototype.getLayoutMargin = function () {
+            return undefined;
         };
         return DThemeDarkDialogCommand;
     }(DThemeDarkDialog));
@@ -859,8 +883,8 @@
         "</g>");
     var makeCheckerboard = function (width, height) {
         width = width + width;
-        var LIGHT = "#bfbfbf";
-        var DARK = "#a5a5a5";
+        var LIGHT = "#5f5f5f";
+        var DARK = "#454545";
         var result = "<g>";
         for (var iheight = 0; iheight < height; ++iheight) {
             for (var i = 0; i < width; ++i) {
@@ -895,7 +919,7 @@
         "</linearGradient>" +
         "<rect x=\"0\" y=\"0\" width=\"234\" height=\"18\" fill=\"url(#ni2rbisdf3)\" />" +
         "</g>");
-    DThemeDarkAtlas.add("picker_color_base_pointer", 16.2, 31.8, "<rect x=\"4.5\" y=\"4.5\" width=\"7.2\" height=\"22.8\" stroke=\"#5f5f5f\" stroke-width=\"2.4\" fill=\"none\" />");
+    DThemeDarkAtlas.add("picker_color_base_pointer", 16.2, 31.8, "<rect x=\"4.5\" y=\"4.5\" width=\"7.2\" height=\"22.8\" stroke=\"#ffffff\" stroke-width=\"2.4\" fill=\"none\" />");
     DThemeDarkAtlas.add("picker_color_pointer", 25.8, 25.8, "<circle cx=\"12.9\" cy=\"12.9\" r=\"4.8\" stroke=\"#5f5f5f\" stroke-width=\"2.4\" fill=\"none\" />" +
         "<circle cx=\"12.9\" cy=\"12.9\" r=\"7.2\" stroke=\"#ffffff\" stroke-width=\"2.4\" fill=\"none\" />");
     DThemeDarkAtlas.add("picker_color_recent_checkerboard", 18, 18, makeCheckerboard(1, 1));
@@ -1059,7 +1083,7 @@
         loadThemeDarkDialogColor();
     };
 
-    const DPickerColorGradientData = wcardinal.ui.DPickerColorGradientData;
+    const DColorGradientObservable = wcardinal.ui.DColorGradientObservable;
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -1069,8 +1093,6 @@
     // Apache license version 2.0.
     DThemeDarkAtlas.add("button_color_gradient_sample", 21, 21, "<g transform=\"scale(0.875,0.875)\">" +
         "<path d=\"M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z\" fill=\"#fff\"/>" +
-        "<path d=\"M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z\" " +
-        "fill=\"#eee\" />" +
         "</g>");
     var formatter$1 = function () {
         return "";
@@ -1087,7 +1109,10 @@
             return formatter$1;
         };
         DThemeDarkButtonColorGradient.prototype.newTextValue = function () {
-            return new DPickerColorGradientData();
+            return new DColorGradientObservable();
+        };
+        DThemeDarkButtonColorGradient.prototype.getCheckerColors = function () {
+            return [0x37255, 0.27];
         };
         return DThemeDarkButtonColorGradient;
     }(DThemeDarkButton));
@@ -1161,6 +1186,9 @@
         DThemeDarkPickerColorGradient.prototype.getGradientRecents = function () {
             return [];
         };
+        DThemeDarkPickerColorGradient.prototype.getGradientCheckerColors = function () {
+            return [0.37255, 0.27];
+        };
         DThemeDarkPickerColorGradient.prototype.getBackgroundColor = function (state) {
             return null;
         };
@@ -1207,39 +1235,28 @@
     var DThemeDarkButtonDanger = /** @class */ (function (_super) {
         __extends(DThemeDarkButtonDanger, _super);
         function DThemeDarkButtonDanger() {
-            var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this.COLOR = 0xEF9A9A;
-            _this.COLOR_HOVERED = UtilRgb.darken(_this.COLOR, DThemeDarkConstants.FOCUSED_ALPHA);
-            _this.COLOR_PRESSED = UtilRgb.darken(_this.COLOR, DThemeDarkConstants.PRESSED_ALPHA);
-            _this.COLOR_DISABLED = UtilRgb.brighten(0x000000, DThemeDarkConstants.DISABLED_ALPHA);
-            return _this;
+            return _super.call(this, 0xef9a9a, 0.1, 0.2) || this;
         }
         DThemeDarkButtonDanger.prototype.getBackgroundColor = function (state) {
-            if (DBaseStates.isDisabled(state)) {
-                return this.COLOR_DISABLED;
+            if (state.inDisabled) {
+                return null;
             }
-            if (DBaseStates.isPressed(state) || DBaseStates.isActive(state)) {
-                return this.COLOR_PRESSED;
+            else if (state.isPressed || state.isActive) {
+                return this.BACKGROUND_COLOR_PRESSED;
             }
-            if (DBaseStates.isFocused(state) || DBaseStates.isHovered(state)) {
-                return this.COLOR_HOVERED;
-            }
-            return this.COLOR;
-        };
-        DThemeDarkButtonDanger.prototype.getBorderColor = function (state) {
-            if (DBaseStates.isDisabled(state)) {
-                return this.COLOR_DISABLED;
+            else if (state.isFocused || state.isHovered) {
+                return this.BACKGROUND_COLOR_HOVERED;
             }
             else {
-                return null;
+                return this.BACKGROUND_COLOR;
             }
         };
         DThemeDarkButtonDanger.prototype.getColor = function (state) {
-            if (DBaseStates.isDisabled(state)) {
+            if (state.inDisabled) {
                 return _super.prototype.getColor.call(this, state);
             }
             else {
-                return 0x000000;
+                return DThemeDarkConstants.ACTIVE_COLOR;
             }
         };
         return DThemeDarkButtonDanger;
@@ -1465,8 +1482,8 @@
         DThemeDarkPickerDatetimeButtonBack.prototype.getImageSource = function (state) {
             return DThemeDarkAtlas.mappings.picker_date_back;
         };
-        DThemeDarkPickerDatetimeButtonBack.prototype.getColor = function () {
-            return 0xDEDEDE;
+        DThemeDarkPickerDatetimeButtonBack.prototype.getAlpha = function (state) {
+            return _super.prototype.getAlpha.call(this, state) * 0.9;
         };
         return DThemeDarkPickerDatetimeButtonBack;
     }(DThemeDarkButtonAmbient));
@@ -1525,8 +1542,8 @@
         DThemeDarkPickerDatetimeButtonNext.prototype.getImageSource = function (state) {
             return DThemeDarkAtlas.mappings.picker_date_next;
         };
-        DThemeDarkPickerDatetimeButtonNext.prototype.getColor = function () {
-            return 0xDEDEDE;
+        DThemeDarkPickerDatetimeButtonNext.prototype.getAlpha = function (state) {
+            return _super.prototype.getAlpha.call(this, state) * 0.9;
         };
         return DThemeDarkPickerDatetimeButtonNext;
     }(DThemeDarkButtonAmbient));
@@ -1567,8 +1584,8 @@
         DThemeDarkPickerDatetimeLabel.prototype.getTextAlignHorizontal = function () {
             return DAlignHorizontal.CENTER;
         };
-        DThemeDarkPickerDatetimeLabel.prototype.getColor = function () {
-            return 0xDEDEDE;
+        DThemeDarkPickerDatetimeLabel.prototype.getAlpha = function (state) {
+            return _super.prototype.getAlpha.call(this, state) * 0.9;
         };
         DThemeDarkPickerDatetimeLabel.prototype.getFontWeight = function () {
             return "bold";
@@ -1606,8 +1623,8 @@
         DThemeDarkPickerDatetimeLabelDate.prototype.getTextAlignHorizontal = function () {
             return DAlignHorizontal.CENTER;
         };
-        DThemeDarkPickerDatetimeLabelDate.prototype.getColor = function () {
-            return 0xDEDEDE;
+        DThemeDarkPickerDatetimeLabelDate.prototype.getAlpha = function (state) {
+            return _super.prototype.getAlpha.call(this, state) * 0.9;
         };
         DThemeDarkPickerDatetimeLabelDate.prototype.getFontWeight = function () {
             return "bold";
@@ -1791,7 +1808,7 @@
         DThemeDarkLinks.getLinkMenuOptions = function () {
             return {
                 sticky: true,
-                align: "RIGHT",
+                align: "OVER",
                 items: [{
                         value: DLinkMenuItemId.OPEN_LINK_IN_NEW_WINDOW,
                         text: {
@@ -1845,36 +1862,29 @@
     var DThemeDarkButtonPrimary = /** @class */ (function (_super) {
         __extends(DThemeDarkButtonPrimary, _super);
         function DThemeDarkButtonPrimary() {
-            var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this.COLOR = DThemeDarkConstants.HIGHLIGHT_COLOR;
-            _this.COLOR_HOVERED = UtilRgb.darken(_this.COLOR, DThemeDarkConstants.FOCUSED_ALPHA);
-            _this.COLOR_PRESSED = UtilRgb.darken(_this.COLOR, DThemeDarkConstants.PRESSED_ALPHA);
-            _this.COLOR_DISABLED = UtilRgb.brighten(0x000000, DThemeDarkConstants.DISABLED_ALPHA);
-            return _this;
+            return _super.call(this, DThemeDarkConstants.HIGHLIGHT_COLOR, 0.1, 0.2) || this;
         }
         DThemeDarkButtonPrimary.prototype.getBackgroundColor = function (state) {
-            if (DBaseStates.isDisabled(state)) {
-                return this.COLOR_DISABLED;
+            if (state.inDisabled) {
+                return null;
             }
-            if (DBaseStates.isPressed(state) || DBaseStates.isActive(state)) {
-                return this.COLOR_PRESSED;
+            else if (state.isPressed || state.isActive) {
+                return this.BACKGROUND_COLOR_PRESSED;
             }
-            if (DBaseStates.isFocused(state) || DBaseStates.isHovered(state)) {
-                return this.COLOR_HOVERED;
+            else if (state.isFocused || state.isHovered) {
+                return this.BACKGROUND_COLOR_HOVERED;
             }
-            return this.COLOR;
-        };
-        DThemeDarkButtonPrimary.prototype.getBorderColor = function (state) {
-            if (DBaseStates.isDisabled(state)) {
-                return this.COLOR_DISABLED;
+            else {
+                return this.BACKGROUND_COLOR;
             }
-            return null;
         };
         DThemeDarkButtonPrimary.prototype.getColor = function (state) {
-            if (DBaseStates.isDisabled(state)) {
+            if (state.inDisabled) {
                 return _super.prototype.getColor.call(this, state);
             }
-            return 0x000000;
+            else {
+                return DThemeDarkConstants.ACTIVE_COLOR;
+            }
         };
         return DThemeDarkButtonPrimary;
     }(DThemeDarkButtonBase));
@@ -1906,31 +1916,30 @@
         __extends(DThemeDarkButtonRadio, _super);
         function DThemeDarkButtonRadio() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this.COLOR = 0x646464;
-            _this.IMAGE_TINT_COLOR_FOCUSED = UtilRgb.darken(_this.COLOR, DThemeDarkConstants.TINT_FOCUS_ALPHA);
+            _this.IMAGE_TINT_COLOR_FOCUSED = UtilRgb.darken(DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR, 0.1);
             return _this;
         }
         DThemeDarkButtonRadio.prototype.getBackgroundColor = function (state) {
-            return this.COLOR;
+            return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
         };
         DThemeDarkButtonRadio.prototype.getColor = function (state) {
-            return DThemeDarkFont.getColor(state);
+            return DThemeDarkConstants.COLOR;
         };
         DThemeDarkButtonRadio.prototype.getBackgroundAlpha = function (state) {
-            if (!DBaseStates.isDisabled(state)) {
-                if (DBaseStates.isFocused(state) || DBaseStates.isHovered(state)) {
+            if (state.inEnabled) {
+                if (state.isFocused || state.isHovered) {
                     return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
                 }
             }
             return 0;
         };
         DThemeDarkButtonRadio.prototype.getImageTintColor = function (state) {
-            if (DBaseStates.isDisabled(state) || !DBaseStates.isActive(state)) {
-                if (DBaseStates.isFocused(state)) {
+            if (state.inDisabled || !state.isActive) {
+                if (state.isFocused) {
                     return this.IMAGE_TINT_COLOR_FOCUSED;
                 }
                 else {
-                    return this.COLOR;
+                    return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
                 }
             }
             else {
@@ -1941,7 +1950,7 @@
             return true;
         };
         DThemeDarkButtonRadio.prototype.getImageSource = function (state) {
-            if (DBaseStates.isActive(state)) {
+            if (state.isActive) {
                 return DThemeDarkAtlas.mappings.button_radio_mark_on;
             }
             else {
@@ -1998,36 +2007,29 @@
     var DThemeDarkButtonSecondary = /** @class */ (function (_super) {
         __extends(DThemeDarkButtonSecondary, _super);
         function DThemeDarkButtonSecondary() {
-            var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this.COLOR = 0xB894F6;
-            _this.COLOR_HOVERED = UtilRgb.darken(_this.COLOR, DThemeDarkConstants.FOCUSED_ALPHA);
-            _this.COLOR_PRESSED = UtilRgb.darken(_this.COLOR, DThemeDarkConstants.PRESSED_ALPHA);
-            _this.COLOR_DISABLED = UtilRgb.brighten(0x000000, DThemeDarkConstants.DISABLED_ALPHA);
-            return _this;
+            return _super.call(this, 0xb894f6, 0.1, 0.2) || this;
         }
         DThemeDarkButtonSecondary.prototype.getBackgroundColor = function (state) {
-            if (DBaseStates.isDisabled(state)) {
-                return this.COLOR_DISABLED;
+            if (state.inDisabled) {
+                return null;
             }
-            if (DBaseStates.isPressed(state) || DBaseStates.isActive(state)) {
-                return this.COLOR_PRESSED;
+            else if (state.isPressed || state.isActive) {
+                return this.BACKGROUND_COLOR_PRESSED;
             }
-            if (DBaseStates.isFocused(state) || DBaseStates.isHovered(state)) {
-                return this.COLOR_HOVERED;
+            else if (state.isFocused || state.isHovered) {
+                return this.BACKGROUND_COLOR_HOVERED;
             }
-            return this.COLOR;
-        };
-        DThemeDarkButtonSecondary.prototype.getBorderColor = function (state) {
-            if (DBaseStates.isDisabled(state)) {
-                return this.COLOR_DISABLED;
+            else {
+                return this.BACKGROUND_COLOR;
             }
-            return null;
         };
         DThemeDarkButtonSecondary.prototype.getColor = function (state) {
-            if (DBaseStates.isDisabled(state)) {
+            if (state.inDisabled) {
                 return _super.prototype.getColor.call(this, state);
             }
-            return 0x000000;
+            else {
+                return 0x000000;
+            }
         };
         return DThemeDarkButtonSecondary;
     }(DThemeDarkButtonBase));
@@ -2096,15 +2098,13 @@
     var DThemeDarkPane = /** @class */ (function (_super) {
         __extends(DThemeDarkPane, _super);
         function DThemeDarkPane() {
-            var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this.COLOR = 0x2C2C2C;
-            return _this;
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeDarkPane.prototype.isOverflowMaskEnabled = function () {
             return true;
         };
         DThemeDarkPane.prototype.getBackgroundColor = function (state) {
-            return this.COLOR;
+            return DThemeDarkConstants.BACKGROUND_COLOR;
         };
         DThemeDarkPane.prototype.getInteractive = function () {
             return DBaseInteractive.BOTH;
@@ -2125,18 +2125,10 @@
     var DThemeDarkList = /** @class */ (function (_super) {
         __extends(DThemeDarkList, _super);
         function DThemeDarkList() {
-            var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this.COLOR = 0x646464;
-            return _this;
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeDarkList.prototype.getBackgroundColor = function (state) {
-            return 0x000000;
-        };
-        DThemeDarkList.prototype.getBorderColor = function (state) {
-            if (DBaseStates.isFocused(state)) {
-                return DThemeDarkConstants.HIGHLIGHT_COLOR;
-            }
-            return this.COLOR;
+            return DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
         };
         DThemeDarkList.prototype.getBorderAlign = function (state) {
             return 1;
@@ -2168,8 +2160,6 @@
         return DThemeDarkDialogSelectList;
     }(DThemeDarkList));
 
-    const DBaseState = wcardinal.ui.DBaseState;
-
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
@@ -2189,31 +2179,52 @@
     var DThemeDarkListItem = /** @class */ (function (_super) {
         __extends(DThemeDarkListItem, _super);
         function DThemeDarkListItem() {
-            var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this.COLOR = 0x383838;
-            _this.COLOR_HOVERED = UtilRgb.darken(_this.COLOR, DThemeDarkConstants.FOCUSED_ALPHA);
-            return _this;
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeDarkListItem.prototype.getBackgroundColor = function (state) {
-            if (DBaseStates.isDisabled(state)) {
+            if (state.inDisabled) {
                 return null;
             }
-            if (DBaseStates.isActive(state)) {
-                return DThemeDarkConstants.HIGHLIGHT_COLOR;
+            else if (state.isActive) {
+                return this.getBackgroundColorActive(state);
             }
-            if (DBaseStates.isFocused(state) || DBaseStates.isHovered(state)) {
-                return this.COLOR_HOVERED;
+            else if (state.isFocused || state.isHovered) {
+                return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
             }
-            return null;
+            else {
+                return null;
+            }
         };
-        DThemeDarkListItem.prototype.getColor = function (state) {
-            if (DBaseStates.isActive(state)) {
-                return 0x000000;
-            }
-            return _super.prototype.getColor.call(this, state);
+        DThemeDarkListItem.prototype.getBackgroundColorActive = function (state) {
+            return DThemeDarkConstants.HIGHLIGHT_COLOR;
         };
         DThemeDarkListItem.prototype.getBackgroundAlpha = function (state) {
-            return 1;
+            if (state.inDisabled) {
+                return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
+            }
+            else if (state.isActive) {
+                return this.getBackgroundAlphaActive(state);
+            }
+            else {
+                return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
+            }
+        };
+        DThemeDarkListItem.prototype.getBackgroundAlphaActive = function (state) {
+            return DThemeDarkConstants.HIGHLIGHT_ALPHA;
+        };
+        DThemeDarkListItem.prototype.getColor = function (state) {
+            if (state.inDisabled) {
+                return _super.prototype.getColor.call(this, state);
+            }
+            else if (state.isActive) {
+                return this.getColorActive(state);
+            }
+            else {
+                return _super.prototype.getColor.call(this, state);
+            }
+        };
+        DThemeDarkListItem.prototype.getColorActive = function (state) {
+            return DThemeDarkConstants.COLOR;
         };
         DThemeDarkListItem.prototype.getBorderColor = function (state) {
             return null;
@@ -2248,14 +2259,14 @@
         function DThemeDarkDialogSelectListItem() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkDialogSelectListItem.prototype.getBackgroundColor = function (state) {
-            return _super.prototype.getBackgroundColor.call(this, state & ~DBaseState.ACTIVE);
+        DThemeDarkDialogSelectListItem.prototype.getBackgroundColorActive = function (state) {
+            return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
         };
-        DThemeDarkDialogSelectListItem.prototype.getBackgroundAlpha = function (state) {
-            return _super.prototype.getBackgroundAlpha.call(this, state & ~DBaseState.ACTIVE);
+        DThemeDarkDialogSelectListItem.prototype.getBackgroundAlphaActive = function (state) {
+            return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
         };
-        DThemeDarkDialogSelectListItem.prototype.getColor = function (state) {
-            return DThemeDarkFont.getColor(state);
+        DThemeDarkDialogSelectListItem.prototype.getColorActive = function (state) {
+            return DThemeDarkConstants.COLOR;
         };
         DThemeDarkDialogSelectListItem.prototype.getCornerMask = function () {
             return DCornerMask.NONE;
@@ -2378,12 +2389,10 @@
     var DThemeDarkCanvas = /** @class */ (function (_super) {
         __extends(DThemeDarkCanvas, _super);
         function DThemeDarkCanvas() {
-            var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this.COLOR = 0x2C2C2C;
-            return _this;
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeDarkCanvas.prototype.getBackgroundColor = function () {
-            return this.COLOR;
+            return 0x484848;
         };
         DThemeDarkCanvas.prototype.getBorderColor = function (state) {
             return null;
@@ -2451,8 +2460,26 @@
         function DThemeDarkChart() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
+        DThemeDarkChart.prototype.getPaddingLeft = function () {
+            return 70;
+        };
+        DThemeDarkChart.prototype.getPaddingRight = function () {
+            return 10;
+        };
+        DThemeDarkChart.prototype.getPaddingTop = function () {
+            return 10;
+        };
+        DThemeDarkChart.prototype.getPaddingBottom = function () {
+            return 70;
+        };
+        DThemeDarkChart.prototype.getBorderColor = function (state) {
+            return null;
+        };
         DThemeDarkChart.prototype.getInteractive = function () {
             return DBaseInteractive.BOTH;
+        };
+        DThemeDarkChart.prototype.isOverflowMaskEnabled = function () {
+            return true;
         };
         return DThemeDarkChart;
     }(DThemeDarkBase));
@@ -2460,12 +2487,6 @@
     const DChartAxisPosition = wcardinal.ui.DChartAxisPosition;
 
     const DChartAxisTickPosition = wcardinal.ui.DChartAxisTickPosition;
-
-    const EShapeDefaults = wcardinal.ui.EShapeDefaults;
-
-    const EShapePointsStyle = wcardinal.ui.EShapePointsStyle;
-
-    const EShapeStrokeSide = wcardinal.ui.EShapeStrokeSide;
 
     const EShapeTextAlignHorizontal = wcardinal.ui.EShapeTextAlignHorizontal;
 
@@ -2511,7 +2532,7 @@
             }
         };
         DThemeDarkChartAxisBase.prototype.getLabelPaddingHorizontal = function () {
-            return 75;
+            return 50;
         };
         DThemeDarkChartAxisBase.prototype.getLabelPaddingVertical = function () {
             return 50;
@@ -2523,25 +2544,25 @@
             return this.getStrokeColor();
         };
         DThemeDarkChartAxisBase.prototype.getStyle = function () {
-            return EShapePointsStyle.NONE;
+            return undefined;
         };
         DThemeDarkChartAxisBase.prototype.getStrokeEnable = function () {
             return true;
         };
         DThemeDarkChartAxisBase.prototype.getStrokeColor = function () {
-            return 0xdedede;
+            return undefined;
         };
         DThemeDarkChartAxisBase.prototype.getStrokeAlpha = function () {
-            return EShapeDefaults.STROKE_ALPHA;
+            return undefined;
         };
         DThemeDarkChartAxisBase.prototype.getStrokeWidth = function () {
-            return EShapeDefaults.STROKE_WIDTH;
+            return undefined;
         };
         DThemeDarkChartAxisBase.prototype.getStrokeAlign = function () {
-            return EShapeDefaults.STROKE_ALIGN;
+            return undefined;
         };
         DThemeDarkChartAxisBase.prototype.getStrokeSide = function () {
-            return EShapeStrokeSide.ALL;
+            return undefined;
         };
         DThemeDarkChartAxisBase.prototype.getTickEnable = function () {
             return true;
@@ -2556,7 +2577,7 @@
             return DChartAxisTickPosition.OUTSIDE;
         };
         DThemeDarkChartAxisBase.prototype.getMajorTickStyle = function () {
-            return EShapePointsStyle.NONE;
+            return undefined;
         };
         DThemeDarkChartAxisBase.prototype.getMajorTickTextAlignHorizontal = function (position) {
             switch (position) {
@@ -2619,7 +2640,7 @@
             return true;
         };
         DThemeDarkChartAxisBase.prototype.getMajorTickGridlineStyle = function () {
-            return EShapePointsStyle.NONE;
+            return undefined;
         };
         DThemeDarkChartAxisBase.prototype.getMajorTickGridlineStrokeEnable = function () {
             return true;
@@ -2649,7 +2670,7 @@
             return DChartAxisTickPosition.OUTSIDE;
         };
         DThemeDarkChartAxisBase.prototype.getMinorTickStyle = function () {
-            return EShapePointsStyle.NONE;
+            return undefined;
         };
         DThemeDarkChartAxisBase.prototype.getMinorTickStrokeEnable = function () {
             return true;
@@ -2812,11 +2833,17 @@
         function DThemeDarkChartPlotArea() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
+        DThemeDarkChartPlotArea.prototype.getX = function () {
+            return "padding";
+        };
+        DThemeDarkChartPlotArea.prototype.getY = function () {
+            return "padding";
+        };
         DThemeDarkChartPlotArea.prototype.getWidth = function () {
-            return "100%";
+            return "padding";
         };
         DThemeDarkChartPlotArea.prototype.getHeight = function () {
-            return "100%";
+            return "padding";
         };
         DThemeDarkChartPlotArea.prototype.getPaddingTop = function () {
             return 10;
@@ -2854,7 +2881,7 @@
             return true;
         };
         DThemeDarkChartSelectionGridline.prototype.newShape = function (state) {
-            var result = new EShapeBar(EShapeBarPosition.TOP, -1, EShapeDefaults.STROKE_WIDTH, EShapePointsStyle.NONE);
+            var result = new EShapeBar(EShapeBarPosition.TOP);
             result.stroke.alpha = 0.5;
             return result;
         };
@@ -2883,7 +2910,7 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeDarkChartSelectionGridlineY.prototype.newShape = function (state) {
-            var result = new EShapeBar(EShapeBarPosition.LEFT, -1, EShapeDefaults.STROKE_WIDTH, EShapePointsStyle.NONE);
+            var result = new EShapeBar(EShapeBarPosition.LEFT);
             result.stroke.alpha = 0.5;
             return result;
         };
@@ -2904,7 +2931,7 @@
         };
         DThemeDarkChartSelectionMarker.prototype.newShape = function (state) {
             var result = new EShapeCircle();
-            if (DBaseStates.isHovered(state)) {
+            if (state.isHovered) {
                 result.size.set(14, 14);
             }
             else {
@@ -2944,6 +2971,9 @@
         function DThemeDarkDiagramBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
+        DThemeDarkDiagramBase.prototype.getBackgroundAmbient = function () {
+            return true;
+        };
         return DThemeDarkDiagramBase;
     }(DThemeDarkCanvasContainer));
 
@@ -2968,6 +2998,12 @@
         function DThemeDarkDiagramCanvasBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
+        DThemeDarkDiagramCanvasBase.prototype.getBackgroundAmbient = function () {
+            return true;
+        };
+        DThemeDarkDiagramCanvasBase.prototype.getBackgroundBase = function () {
+            return DThemeDarkConstants.BACKGROUND_COLOR;
+        };
         return DThemeDarkDiagramCanvasBase;
     }(DThemeDarkCanvas));
 
@@ -2983,6 +3019,73 @@
         return DThemeDarkDiagramCanvas;
     }(DThemeDarkDiagramCanvasBase));
 
+    const EShapeStrokeSide = wcardinal.ui.EShapeStrokeSide;
+
+    var EThemeDarkShape = /** @class */ (function () {
+        function EThemeDarkShape() {
+        }
+        EThemeDarkShape.prototype.getFillColor = function () {
+            return 0xffffff;
+        };
+        EThemeDarkShape.prototype.getFillAlpha = function () {
+            return 0.5;
+        };
+        EThemeDarkShape.prototype.getStrokeColor = function () {
+            return 0xdddddd;
+        };
+        EThemeDarkShape.prototype.getStrokeAlpha = function () {
+            return 1;
+        };
+        EThemeDarkShape.prototype.getStrokeWidth = function () {
+            return 2;
+        };
+        EThemeDarkShape.prototype.getStrokeAlign = function () {
+            return 0;
+        };
+        EThemeDarkShape.prototype.getStrokeSide = function () {
+            return EShapeStrokeSide.ALL;
+        };
+        EThemeDarkShape.prototype.getTextValue = function () {
+            return "";
+        };
+        EThemeDarkShape.prototype.getTextColor = function () {
+            return this.getStrokeColor();
+        };
+        EThemeDarkShape.prototype.getTextAlpha = function () {
+            return this.getStrokeAlpha();
+        };
+        EThemeDarkShape.prototype.getTextFamily = function () {
+            return "auto";
+        };
+        EThemeDarkShape.prototype.getTextSize = function () {
+            return 14;
+        };
+        EThemeDarkShape.prototype.getCursor = function () {
+            return "";
+        };
+        EThemeDarkShape.prototype.getRadius = function () {
+            return 0.25;
+        };
+        EThemeDarkShape.prototype.getSizeX = function () {
+            return 100;
+        };
+        EThemeDarkShape.prototype.getSizeY = function () {
+            return 100;
+        };
+        EThemeDarkShape.prototype.getHighlightColor = function () {
+            return 0x1e87f0;
+        };
+        return EThemeDarkShape;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadThemeDarkShape = function () {
+        DThemeDark.set("EShape", EThemeDarkShape);
+    };
+
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
@@ -2990,6 +3093,7 @@
     var loadThemeDarkDiagram = function () {
         DThemeDark.set("DDiagram", DThemeDarkDiagram);
         DThemeDark.set("DDiagramCanvas", DThemeDarkDiagramCanvas);
+        loadThemeDarkShape();
     };
 
     /*
@@ -3001,8 +3105,8 @@
         function DThemeDarkDiagramCanvasEditor() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkDiagramCanvasEditor.prototype.getBackgroundBase = function () {
-            return 0x000000;
+        DThemeDarkDiagramCanvasEditor.prototype.getBackgroundAmbient = function () {
+            return false;
         };
         return DThemeDarkDiagramCanvasEditor;
     }(DThemeDarkDiagramCanvasBase));
@@ -3016,6 +3120,15 @@
         function DThemeDarkDiagramEditor() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
+        DThemeDarkDiagramEditor.prototype.getBackgroundAmbient = function () {
+            return false;
+        };
+        DThemeDarkDiagramEditor.prototype.isThumbnailEnabled = function () {
+            return false;
+        };
+        DThemeDarkDiagramEditor.prototype.getThumbnailSize = function () {
+            return 128;
+        };
         return DThemeDarkDiagramEditor;
     }(DThemeDarkDiagramBase));
 
@@ -3028,6 +3141,8 @@
     const EShapeActionValueChangeTextType = wcardinal.ui.EShapeActionValueChangeTextType;
 
     const EShapeActionValueMiscType = wcardinal.ui.EShapeActionValueMiscType;
+
+    const EShapeActionValueOnInputAction = wcardinal.ui.EShapeActionValueOnInputAction;
 
     const EShapeActionValueOpenType = wcardinal.ui.EShapeActionValueOpenType;
 
@@ -3080,6 +3195,7 @@
                 case EShapeActionValueType.BLINK:
                     return typeLabel + ": " + this.toBlinkTypeLabel(subtype);
                 case EShapeActionValueType.CHANGE_COLOR:
+                case EShapeActionValueType.CHANGE_COLOR_LEGACY:
                     return typeLabel + ": " + this.toChangeColorTypeLabel(subtype);
                 case EShapeActionValueType.MISC:
                     return typeLabel + ": " + this.toMiscTypeLabel(subtype);
@@ -3112,6 +3228,7 @@
                 case EShapeActionValueType.OPEN:
                     return "Open";
                 case EShapeActionValueType.CHANGE_COLOR:
+                case EShapeActionValueType.CHANGE_COLOR_LEGACY:
                     return "Change color";
                 case EShapeActionValueType.CHANGE_TEXT:
                     return "Change text";
@@ -3214,21 +3331,27 @@
             return "Unknown";
         };
         EThemeDarkShapeActionValue.prototype.toChangeColorTypeLabel = function (type) {
-            switch (type) {
-                case EShapeActionValueChangeColorType.FILL:
-                    return "Fill";
-                case EShapeActionValueChangeColorType.STROKE:
-                    return "Stroke";
-                case EShapeActionValueChangeColorType.FILL_AND_STROKE:
-                    return "Fill and stroke";
-                case EShapeActionValueChangeColorType.TEXT:
-                    return "Text";
-                case EShapeActionValueChangeColorType.TEXT_OUTLINE:
-                    return "Text outline";
-                case EShapeActionValueChangeColorType.ALL:
-                    return "ALL";
+            if (type === EShapeActionValueChangeColorType.NONE) {
+                return "None";
             }
-            return "Unknown";
+            var result = "";
+            var delimiter = "";
+            if (type & EShapeActionValueChangeColorType.FILL) {
+                result += delimiter + "Fill";
+                delimiter = ", ";
+            }
+            if (type & EShapeActionValueChangeColorType.STROKE) {
+                result += delimiter + "Stroke";
+                delimiter = ", ";
+            }
+            if (type & EShapeActionValueChangeColorType.TEXT) {
+                result += delimiter + "Text";
+                delimiter = ", ";
+            }
+            if (type & EShapeActionValueChangeColorType.TEXT_OUTLINE) {
+                result += delimiter + "Text outline";
+            }
+            return result;
         };
         EThemeDarkShapeActionValue.prototype.toChangeColorTargetLabel = function (type) {
             switch (type) {
@@ -3256,20 +3379,60 @@
         };
         EThemeDarkShapeActionValue.prototype.toOpenTypeLabel = function (type) {
             switch (type) {
-                case EShapeActionValueOpenType.FLOW:
-                    return "Flow";
+                case EShapeActionValueOpenType.DIAGRAM:
+                    return "Diagram";
                 case EShapeActionValueOpenType.PAGE:
                     return "Page (New window)";
                 case EShapeActionValueOpenType.PAGE_INPLACE:
                     return "Page (In-place)";
+                case EShapeActionValueOpenType.DIALOG_TEXT:
+                    return "Dialog (Text)";
+                case EShapeActionValueOpenType.DIALOG_INTEGER:
+                    return "Dialog (Integer)";
+                case EShapeActionValueOpenType.DIALOG_REAL:
+                    return "Dialog (Real)";
+                case EShapeActionValueOpenType.DIALOG_BOOLEAN:
+                    return "Dialog (Boolean)";
+                case EShapeActionValueOpenType.DIALOG_DATE:
+                    return "Dialog (Date)";
+                case EShapeActionValueOpenType.DIALOG_TIME:
+                    return "Dialog (Time)";
+                case EShapeActionValueOpenType.DIALOG_DATETIME:
+                    return "Dialog (Datetime)";
             }
             return "Unknown";
         };
         EThemeDarkShapeActionValue.prototype.toMiscTypeLabel = function (type) {
             switch (type) {
-                case EShapeActionValueMiscType.INPUT:
-                    return "Input";
+                case EShapeActionValueMiscType.INPUT_TEXT:
+                    return "Input (Text)";
+                case EShapeActionValueMiscType.INPUT_INTEGER:
+                    return "Input (Integer)";
+                case EShapeActionValueMiscType.INPUT_REAL:
+                    return "Input (Real)";
+                case EShapeActionValueMiscType.EMIT_EVENT:
+                    return this.toOnInputActionLabel(EShapeActionValueOnInputAction.EMIT_EVENT);
+                case EShapeActionValueMiscType.WRITE_BOTH:
+                    return this.toOnInputActionLabel(EShapeActionValueOnInputAction.WRITE_BOTH);
+                case EShapeActionValueMiscType.WRITE_LOCAL:
+                    return this.toOnInputActionLabel(EShapeActionValueOnInputAction.WRITE_LOCAL);
+                case EShapeActionValueMiscType.WRITE_REMOTE:
+                    return this.toOnInputActionLabel(EShapeActionValueOnInputAction.WRITE_REMOTE);
             }
+            return "Unknown";
+        };
+        EThemeDarkShapeActionValue.prototype.toOnInputActionLabel = function (type) {
+            switch (type) {
+                case EShapeActionValueOnInputAction.EMIT_EVENT:
+                    return "Emit event";
+                case EShapeActionValueOnInputAction.WRITE_BOTH:
+                    return "Write (Both)";
+                case EShapeActionValueOnInputAction.WRITE_LOCAL:
+                    return "Write (Local)";
+                case EShapeActionValueOnInputAction.WRITE_REMOTE:
+                    return "Write (Remote)";
+            }
+            return "Unknown";
         };
         return EThemeDarkShapeActionValue;
     }());
@@ -3290,6 +3453,7 @@
         DThemeDark.set("DDiagramEditor", DThemeDarkDiagramEditor);
         DThemeDark.set("DDiagramCanvasEditor", DThemeDarkDiagramCanvasEditor);
         loadThemeDarkShapeActionValue();
+        loadThemeDarkShape();
     };
 
     /*
@@ -3342,7 +3506,7 @@
             return "padding";
         };
         DThemeDarkDialogConfirmMessage.prototype.getHeight = function () {
-            return 200;
+            return "auto";
         };
         DThemeDarkDialogConfirmMessage.prototype.getTextAlignHorizontal = function () {
             return DAlignHorizontal.CENTER;
@@ -3410,19 +3574,94 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var DThemeDarkDialogInput = /** @class */ (function (_super) {
+        __extends(DThemeDarkDialogInput, _super);
+        function DThemeDarkDialogInput() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeDarkDialogInput.prototype.getLabel = function () {
+            return "";
+        };
+        DThemeDarkDialogInput.prototype.getMarginVertical = function () {
+            return 0;
+        };
+        DThemeDarkDialogInput.prototype.getMarginHorizontal = function () {
+            return 32;
+        };
+        return DThemeDarkDialogInput;
+    }(DThemeDarkDialogCommand));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DThemeDarkDialogInputBoolean = /** @class */ (function (_super) {
+        __extends(DThemeDarkDialogInputBoolean, _super);
+        function DThemeDarkDialogInputBoolean() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        return DThemeDarkDialogInputBoolean;
+    }(DThemeDarkDialogInput));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadThemeDarkDialogInputBoolean = function () {
+        DThemeDark.set("DDialogInputBoolean", DThemeDarkDialogInputBoolean);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DThemeDarkDialogInputInteger = /** @class */ (function (_super) {
+        __extends(DThemeDarkDialogInputInteger, _super);
+        function DThemeDarkDialogInputInteger() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        return DThemeDarkDialogInputInteger;
+    }(DThemeDarkDialogInput));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadThemeDarkDialogInputInteger = function () {
+        DThemeDark.set("DDialogInputInteger", DThemeDarkDialogInputInteger);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DThemeDarkDialogInputReal = /** @class */ (function (_super) {
+        __extends(DThemeDarkDialogInputReal, _super);
+        function DThemeDarkDialogInputReal() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        return DThemeDarkDialogInputReal;
+    }(DThemeDarkDialogInput));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadThemeDarkDialogInputReal = function () {
+        DThemeDark.set("DDialogInputReal", DThemeDarkDialogInputReal);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var DThemeDarkDialogInputText = /** @class */ (function (_super) {
         __extends(DThemeDarkDialogInputText, _super);
         function DThemeDarkDialogInputText() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkDialogInputText.prototype.getLabel = function () {
-            return "";
-        };
-        DThemeDarkDialogInputText.prototype.getLabelWidth = function () {
-            return 60;
-        };
         return DThemeDarkDialogInputText;
-    }(DThemeDarkDialogCommand));
+    }(DThemeDarkDialogInput));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -3463,10 +3702,10 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var message = function (state) {
-        if (DBaseStates.isSucceeded(state)) {
+        if (state.isSucceeded) {
             return "Processed successfully";
         }
-        if (DBaseStates.isFailed(state)) {
+        if (state.isFailed) {
             return "Failed to process the request";
         }
         return "Processing...";
@@ -3485,8 +3724,11 @@
         DThemeDarkDialogProcessing.prototype.getMessage = function () {
             return message;
         };
-        DThemeDarkDialogProcessing.prototype.getInterval = function () {
+        DThemeDarkDialogProcessing.prototype.getDoneDelay = function () {
             return 400;
+        };
+        DThemeDarkDialogProcessing.prototype.getCloseDelay = function () {
+            return 600;
         };
         return DThemeDarkDialogProcessing;
     }(DThemeDarkDialogConfirm));
@@ -3495,6 +3737,16 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    // Material Design icons by Google.
+    // Apache license version 2.0.
+    DThemeDarkAtlas.add("success_mark", 21, 21, "<g transform=\"scale(0.875,0.875)\">" +
+        "<path d=\"M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z\" fill=\"#fff\" />" +
+        "</g>");
+    DThemeDarkAtlas.add("fail_mark", 21, 21, "<g transform=\"scale(0.875,0.875)\">" +
+        "<path d=\"M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52" +
+        " 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8" +
+        "-3.58 8-8 8z\" fill=\"#fff\" />" +
+        "</g>");
     var DThemeDarkDialogProcessingMessage = /** @class */ (function (_super) {
         __extends(DThemeDarkDialogProcessingMessage, _super);
         function DThemeDarkDialogProcessingMessage() {
@@ -3502,6 +3754,18 @@
         }
         DThemeDarkDialogProcessingMessage.prototype.getHeight = function () {
             return 90;
+        };
+        DThemeDarkDialogProcessingMessage.prototype.getImageSource = function (state) {
+            if (state.isSucceeded) {
+                return DThemeDarkAtlas.mappings.success_mark;
+            }
+            else if (state.isFailed) {
+                return DThemeDarkAtlas.mappings.fail_mark;
+            }
+            return null;
+        };
+        DThemeDarkDialogProcessingMessage.prototype.getImageTintAlpha = function (state) {
+            return 0.75;
         };
         return DThemeDarkDialogProcessingMessage;
     }(DThemeDarkDialogConfirmMessage));
@@ -3551,6 +3815,9 @@
         loadThemeDarkDialogConfirmDiscard();
         loadThemeDarkDialogDate();
         loadThemeDarkDialogDatetime();
+        loadThemeDarkDialogInputBoolean();
+        loadThemeDarkDialogInputInteger();
+        loadThemeDarkDialogInputReal();
         loadThemeDarkDialogInputText();
         loadThemeDarkDialogMessage();
         loadThemeDarkDialogProcessing();
@@ -3610,7 +3877,7 @@
         DThemeDarkLayoutVertical.prototype.getDirection = function () {
             return DLayoutDirection.VERTICAL;
         };
-        DThemeDarkLayoutVertical.prototype.getHeight = function () {
+        DThemeDarkLayoutVertical.prototype.getWidth = function () {
             return "auto";
         };
         return DThemeDarkLayoutVertical;
@@ -3626,13 +3893,13 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeDarkExpandable.prototype.getBackgroundColor = function (state) {
-            if (DBaseStates.isActive(state)) {
+            if (state.isActive) {
                 return 0x0F0700;
             }
             return null;
         };
         DThemeDarkExpandable.prototype.getBackgroundAlpha = function (state) {
-            if (DBaseStates.isActive(state)) {
+            if (state.isActive) {
                 return 0.1;
             }
             return 0;
@@ -3659,25 +3926,24 @@
     var DThemeDarkExpandableHeader = /** @class */ (function (_super) {
         __extends(DThemeDarkExpandableHeader, _super);
         function DThemeDarkExpandableHeader() {
-            var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this.COLOR = 0x383838;
-            _this.COLOR_HOVERED = UtilRgb.brighten(_this.COLOR, DThemeDarkConstants.FOCUSED_ALPHA);
-            return _this;
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeDarkExpandableHeader.prototype.getBackgroundColor = function (state) {
-            if (DBaseStates.isDisabled(state)) {
+            if (state.inDisabled) {
                 return null;
             }
-            if (DBaseStates.isFocused(state) || DBaseStates.isHovered(state)) {
-                return this.COLOR_HOVERED;
+            else if (state.isFocused || state.isHovered) {
+                return 0x2e2e2e;
             }
-            if (DBaseStates.isActiveIn(state)) {
-                return DThemeDarkConstants.HIGHLIGHT_COLOR;
+            else if (state.inActive) {
+                return 0x2e2e2e;
             }
-            return null;
+            else {
+                return null;
+            }
         };
         DThemeDarkExpandableHeader.prototype.getBorderColor = function (state) {
-            return 0x646464;
+            return null;
         };
         DThemeDarkExpandableHeader.prototype.getHeight = function () {
             return 30;
@@ -3732,14 +3998,14 @@
                 this.getElementStyleOutline(state);
             target.setAttribute("style", style);
             // ReadOnly
-            if (DBaseStates.isReadOnly(state)) {
+            if (state.inReadOnly) {
                 target.setAttribute("readonly", "readonly");
             }
             else {
                 target.removeAttribute("readonly");
             }
             // Disabled
-            if (DBaseStates.isDisabled(state)) {
+            if (state.inDisabled) {
                 target.setAttribute("disabled", "disabled");
             }
             else {
@@ -3848,7 +4114,7 @@
         DThemeDarkLayoutHorizontal.prototype.getDirection = function () {
             return DLayoutDirection.HORIZONTAL;
         };
-        DThemeDarkLayoutHorizontal.prototype.getWidth = function () {
+        DThemeDarkLayoutHorizontal.prototype.getHeight = function () {
             return "auto";
         };
         return DThemeDarkLayoutHorizontal;
@@ -3875,6 +4141,76 @@
      */
     var loadThemeDarkInputAndLabel = function () {
         DThemeDark.set("DInputAndLabel", DThemeDarkInputAndLabel);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DThemeDarkInputBoolean = /** @class */ (function (_super) {
+        __extends(DThemeDarkInputBoolean, _super);
+        function DThemeDarkInputBoolean() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeDarkInputBoolean.prototype.getCornerAdjust = function () {
+            return true;
+        };
+        DThemeDarkInputBoolean.prototype.getMargin = function () {
+            return 0;
+        };
+        return DThemeDarkInputBoolean;
+    }(DThemeDarkLayoutHorizontal));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DThemeDarkInputBooleanButtonOff = /** @class */ (function (_super) {
+        __extends(DThemeDarkInputBooleanButtonOff, _super);
+        function DThemeDarkInputBooleanButtonOff() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeDarkInputBooleanButtonOff.prototype.getBorderMask = function () {
+            return DBorderMask.RIGHT;
+        };
+        DThemeDarkInputBooleanButtonOff.prototype.isToggle = function () {
+            return true;
+        };
+        DThemeDarkInputBooleanButtonOff.prototype.newTextValue = function () {
+            return "OFF";
+        };
+        return DThemeDarkInputBooleanButtonOff;
+    }(DThemeDarkButton));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DThemeDarkInputBooleanButtonOn = /** @class */ (function (_super) {
+        __extends(DThemeDarkInputBooleanButtonOn, _super);
+        function DThemeDarkInputBooleanButtonOn() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeDarkInputBooleanButtonOn.prototype.getBorderMask = function () {
+            return DBorderMask.LEFT;
+        };
+        DThemeDarkInputBooleanButtonOn.prototype.isToggle = function () {
+            return true;
+        };
+        DThemeDarkInputBooleanButtonOn.prototype.newTextValue = function () {
+            return "ON";
+        };
+        return DThemeDarkInputBooleanButtonOn;
+    }(DThemeDarkButton));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadThemeDarkInputBoolean = function () {
+        DThemeDark.set("DInputBoolean", DThemeDarkInputBoolean);
+        DThemeDark.set("DInputBooleanButtonOn", DThemeDarkInputBooleanButtonOn);
+        DThemeDark.set("DInputBooleanButtonOff", DThemeDarkInputBooleanButtonOff);
     };
 
     /*
@@ -3926,27 +4262,27 @@
         __extends(DThemeDarkInput, _super);
         function DThemeDarkInput() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this.COLOR = 0x383838;
-            _this.COLOR_HOVERED = UtilRgb.darken(_this.COLOR, 0.017);
+            _this.BACKGROUND_COLOR = DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
+            _this.BACKGROUND_COLOR_HOVERED = UtilRgb.brighten(_this.BACKGROUND_COLOR, 0.017);
             return _this;
         }
         DThemeDarkInput.prototype.getBackgroundColor = function (state) {
-            if (DBaseStates.isDisabled(state) || DBaseStates.isReadOnly(state)) {
+            if (state.inDisabled || state.inReadOnly) {
                 return null;
             }
-            else if (DBaseStates.isFocused(state) || DBaseStates.isHovered(state)) {
-                return this.COLOR_HOVERED;
+            else if (state.isFocused || state.isHovered) {
+                return this.BACKGROUND_COLOR_HOVERED;
             }
             else {
-                return this.COLOR;
+                return this.BACKGROUND_COLOR;
             }
         };
         DThemeDarkInput.prototype.getBorderColor = function (state) {
-            return 0x646464;
+            return null;
         };
         DThemeDarkInput.prototype.getOutlineColor = function (state) {
-            if (DBaseStates.isInvalid(state)) {
-                return 0xCF6679;
+            if (state.isInvalid) {
+                return DThemeDarkConstants.INVALID_COLOR;
             }
             return _super.prototype.getOutlineColor.call(this, state);
         };
@@ -4144,6 +4480,7 @@
      */
     var loadThemeDarkInputAll = function () {
         loadThemeDarkInputAndLabel();
+        loadThemeDarkInputBoolean();
         loadThemeDarkInputInteger();
         loadThemeDarkInputLabel();
         loadThemeDarkInputReal();
@@ -4198,12 +4535,10 @@
     var DThemeDarkListItemSeparator = /** @class */ (function (_super) {
         __extends(DThemeDarkListItemSeparator, _super);
         function DThemeDarkListItemSeparator() {
-            var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this.COLOR = 0x383838;
-            return _this;
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeDarkListItemSeparator.prototype.getBorderColor = function (state) {
-            return this.COLOR;
+            return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
         };
         DThemeDarkListItemSeparator.prototype.getBorderAlpha = function (state) {
             return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
@@ -4243,10 +4578,7 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeDarkMenu.prototype.getBackgroundColor = function (state) {
-            return 0x000000;
-        };
-        DThemeDarkMenu.prototype.getBorderColor = function (state) {
-            return 0x646464;
+            return DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
         };
         DThemeDarkMenu.prototype.getOffsetX = function () {
             return 5;
@@ -4262,6 +4594,9 @@
         };
         DThemeDarkMenu.prototype.getWidth = function () {
             return 200;
+        };
+        DThemeDarkMenu.prototype.getHeight = function () {
+            return "auto";
         };
         DThemeDarkMenu.prototype.getMargin = function () {
             return 0;
@@ -4284,6 +4619,15 @@
         function DThemeDarkMenuItem() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
+        DThemeDarkMenuItem.prototype.getBackgroundColorActive = function (state) {
+            return DThemeDarkConstants.HIGHLIGHT_COLOR;
+        };
+        DThemeDarkMenuItem.prototype.getBackgroundAlphaActive = function (state) {
+            return 1.0;
+        };
+        DThemeDarkMenuItem.prototype.getColorActive = function (state) {
+            return DThemeDarkConstants.ACTIVE_COLOR;
+        };
         DThemeDarkMenuItem.prototype.getPaddingLeft = function () {
             return this.getPaddingRight();
         };
@@ -4305,6 +4649,12 @@
         DThemeDarkMenuItemText.prototype.getShortcutTextMargin = function () {
             return this.getPaddingRight();
         };
+        DThemeDarkMenuItemText.prototype.getShortcutColor = function (state) {
+            return this.getColor(state);
+        };
+        DThemeDarkMenuItemText.prototype.getShortcutAlpha = function (state) {
+            return this.getAlpha(state) * 0.5;
+        };
         return DThemeDarkMenuItemText;
     }(DThemeDarkMenuItem));
 
@@ -4321,14 +4671,22 @@
         function DThemeDarkMenuItemCheck() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkMenuItemCheck.prototype.getBackgroundColor = function (state) {
-            return _super.prototype.getBackgroundColor.call(this, state & ~DBaseState.ACTIVE);
+        DThemeDarkMenuItemCheck.prototype.getBackgroundColorActive = function (state) {
+            if (state.isFocused || state.isHovered) {
+                return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
+            }
+            else {
+                return null;
+            }
         };
-        DThemeDarkMenuItemCheck.prototype.getColor = function (state) {
-            return _super.prototype.getColor.call(this, state & ~DBaseState.ACTIVE);
+        DThemeDarkMenuItemCheck.prototype.getBackgroundAlphaActive = function (state) {
+            return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
+        };
+        DThemeDarkMenuItemCheck.prototype.getColorActive = function (state) {
+            return DThemeDarkConstants.COLOR;
         };
         DThemeDarkMenuItemCheck.prototype.getImageSource = function (state) {
-            if (DBaseStates.isActive(state)) {
+            if (state.isActive) {
                 return DThemeDarkAtlas.mappings.menu_item_mark_check_active;
             }
             return DThemeDarkAtlas.mappings.menu_item_mark_check_inactive;
@@ -4352,13 +4710,13 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeDarkMenuItemExpandable.prototype.getBackgroundColor = function (state) {
-            if (DBaseStates.isActive(state)) {
+            if (state.isActive) {
                 return 0x0F0700;
             }
             return null;
         };
         DThemeDarkMenuItemExpandable.prototype.getBackgroundAlpha = function (state) {
-            if (DBaseStates.isActive(state)) {
+            if (state.isActive) {
                 return 0.1;
             }
             return 0;
@@ -4368,6 +4726,9 @@
         };
         DThemeDarkMenuItemExpandable.prototype.getWidth = function () {
             return "padding";
+        };
+        DThemeDarkMenuItemExpandable.prototype.getHeight = function () {
+            return "auto";
         };
         DThemeDarkMenuItemExpandable.prototype.getCornerMask = function () {
             return DCornerMask.ALL;
@@ -4386,6 +4747,9 @@
         }
         DThemeDarkMenuItemExpandableBody.prototype.getWidth = function () {
             return "padding";
+        };
+        DThemeDarkMenuItemExpandableBody.prototype.getHeight = function () {
+            return "auto";
         };
         DThemeDarkMenuItemExpandableBody.prototype.getCornerMask = function () {
             return DCornerMask.ALL;
@@ -4430,7 +4794,7 @@
             return 26;
         };
         DThemeDarkMenuItemExpandableHeader.prototype.getImageSource = function (state) {
-            if (DBaseStates.isActiveIn(state)) {
+            if (state.inActive) {
                 return DThemeDarkExpandables.getImageOpened();
             }
             return DThemeDarkExpandables.getImageClosed();
@@ -4475,13 +4839,13 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeDarkMenuItemLink.prototype.getImageSource = function (state) {
-            if (state & DMenuItemLinkState.NEW_WINDOW) {
+            if (state.is(DMenuItemLinkState.NEW_WINDOW)) {
                 return DThemeDarkLinks.getImageSource(state);
             }
             return null;
         };
         DThemeDarkMenuItemLink.prototype.getImageTintAlpha = function (state) {
-            if (state & DBaseState.HOVERED) {
+            if (state.isHovered) {
                 return _super.prototype.getImageTintAlpha.call(this, state);
             }
             return 0;
@@ -4658,16 +5022,22 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeDarkMenuBar.prototype.getBackgroundColor = function () {
-            return 0x2E2E2E;
+            return DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
         };
         DThemeDarkMenuBar.prototype.getBorderColor = function (state) {
-            return 0x646464;
+            return null;
         };
         DThemeDarkMenuBar.prototype.getHeight = function () {
             return 30;
         };
         DThemeDarkMenuBar.prototype.getMargin = function () {
             return 0;
+        };
+        DThemeDarkMenuBar.prototype.getPaddingLeft = function () {
+            return 5;
+        };
+        DThemeDarkMenuBar.prototype.getPaddingRight = function () {
+            return 5;
         };
         DThemeDarkMenuBar.prototype.getInteractive = function () {
             return DBaseInteractive.BOTH;
@@ -4682,26 +5052,24 @@
     var DThemeDarkMenuBarItem = /** @class */ (function (_super) {
         __extends(DThemeDarkMenuBarItem, _super);
         function DThemeDarkMenuBarItem() {
-            var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this.COLOR = 0x000000;
-            _this.COLOR_HOVERED = UtilRgb.brighten(_this.COLOR, DThemeDarkConstants.FOCUSED_ALPHA);
-            _this.COLOR_PRESSED = UtilRgb.brighten(_this.COLOR, DThemeDarkConstants.PRESSED_ALPHA);
-            return _this;
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeDarkMenuBarItem.prototype.getBackgroundColor = function (state) {
-            if (DBaseStates.isDisabled(state)) {
+            if (state.inDisabled) {
                 return null;
             }
-            if (DBaseStates.isActive(state)) {
+            else if (state.isActive) {
                 return DThemeDarkConstants.HIGHLIGHT_COLOR;
             }
-            if (DBaseStates.isPressed(state)) {
-                return this.COLOR_PRESSED;
+            else if (state.isFocused || state.isHovered) {
+                return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
             }
-            if (DBaseStates.isFocused(state) || DBaseStates.isHovered(state)) {
-                return this.COLOR_HOVERED;
+            else {
+                return null;
             }
-            return null;
+        };
+        DThemeDarkMenuBarItem.prototype.getBackgroundAlpha = function (state) {
+            return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
         };
         DThemeDarkMenuBarItem.prototype.getBorderColor = function () {
             return null;
@@ -4744,15 +5112,13 @@
     var DThemeDarkMenuSided = /** @class */ (function (_super) {
         __extends(DThemeDarkMenuSided, _super);
         function DThemeDarkMenuSided() {
-            var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this.COLOR = 0x646464;
-            return _this;
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeDarkMenuSided.prototype.getBackgroundColor = function (state) {
-            return 0x000000;
+            return DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
         };
         DThemeDarkMenuSided.prototype.getBorderColor = function (state) {
-            return this.COLOR;
+            return null;
         };
         DThemeDarkMenuSided.prototype.getInteractive = function () {
             return DBaseInteractive.BOTH;
@@ -5001,6 +5367,97 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var DThemeDarkPagination = /** @class */ (function (_super) {
+        __extends(DThemeDarkPagination, _super);
+        function DThemeDarkPagination() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeDarkPagination.prototype.getWidth = function () {
+            return "auto";
+        };
+        DThemeDarkPagination.prototype.getButtonWidth = function () {
+            return 30;
+        };
+        return DThemeDarkPagination;
+    }(DThemeDarkLayoutHorizontal));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DThemeDarkPaginationDotsButton = /** @class */ (function (_super) {
+        __extends(DThemeDarkPaginationDotsButton, _super);
+        function DThemeDarkPaginationDotsButton() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeDarkPaginationDotsButton.prototype.getBackgroundColor = function (state) {
+            return null;
+        };
+        DThemeDarkPaginationDotsButton.prototype.getBorderColor = function (state) {
+            return null;
+        };
+        DThemeDarkPaginationDotsButton.prototype.newTextValue = function () {
+            return "...";
+        };
+        return DThemeDarkPaginationDotsButton;
+    }(DThemeDarkButtonAmbient));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DThemeDarkPaginationDynamicButtons = /** @class */ (function (_super) {
+        __extends(DThemeDarkPaginationDynamicButtons, _super);
+        function DThemeDarkPaginationDynamicButtons() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeDarkPaginationDynamicButtons.prototype.getWidth = function () {
+            return "auto";
+        };
+        return DThemeDarkPaginationDynamicButtons;
+    }(DThemeDarkLayoutHorizontal));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    DThemeDarkAtlas.add("pagination_navigation_button_previous", 21, 21, "<g>" +
+        "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"13 15 7 10 13 5\"></polyline>" +
+        "</g>");
+    DThemeDarkAtlas.add("pagination_navigation_button_next", 21, 21, "<g>" +
+        "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"7 15 13 10 7 5\"></polyline>" +
+        "</g>");
+    DThemeDarkAtlas.add("pagination_navigation_button_go_first", 21, 21, "<g>" +
+        "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"11 15 5 10 11 5\"></polyline>" +
+        "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"15 15 9 10 15 5\"></polyline>" +
+        "</g>");
+    DThemeDarkAtlas.add("pagination_navigation_button_go_last", 21, 21, "<g>" +
+        "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"9 15 15 10 9 5\"></polyline>" +
+        "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"5 15 11 10 5 5\"></polyline>" +
+        "</g>");
+    var DThemeDarkPaginationNavigationButton = /** @class */ (function (_super) {
+        __extends(DThemeDarkPaginationNavigationButton, _super);
+        function DThemeDarkPaginationNavigationButton() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        return DThemeDarkPaginationNavigationButton;
+    }(DThemeDarkButtonAmbient));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadThemeDarkPagination = function () {
+        DThemeDark.set("DPagination", DThemeDarkPagination);
+        DThemeDark.set("DPaginationNavigationButton", DThemeDarkPaginationNavigationButton);
+        DThemeDark.set("DPaginationDynamicButtons", DThemeDarkPaginationDynamicButtons);
+        DThemeDark.set("DPaginationDotsButton", DThemeDarkPaginationDotsButton);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var DThemeDarkContent = /** @class */ (function (_super) {
         __extends(DThemeDarkContent, _super);
         function DThemeDarkContent() {
@@ -5053,20 +5510,24 @@
         __extends(DThemeDarkScrollBarThumb, _super);
         function DThemeDarkScrollBarThumb() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this.COLOR = 0x646464;
+            _this.COLOR = UtilRgb.brighten(DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR, 0.5);
             return _this;
         }
         DThemeDarkScrollBarThumb.prototype.getBackgroundColor = function (state) {
-            if (DBaseStates.isHovered(state) || DBaseStates.isDragging(state)) {
+            if (state.isHovered || state.isDragging) {
                 return DThemeDarkConstants.HIGHLIGHT_COLOR;
             }
-            return this.COLOR;
+            else {
+                return this.COLOR;
+            }
         };
         DThemeDarkScrollBarThumb.prototype.getBackgroundAlpha = function (state) {
-            if (DBaseStates.isHovered(state) || DBaseStates.isDragging(state)) {
+            if (state.isHovered || state.isDragging) {
                 return 1.0;
             }
-            return 0.2;
+            else {
+                return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
+            }
         };
         DThemeDarkScrollBarThumb.prototype.getBorderColor = function (state) {
             return null;
@@ -5120,7 +5581,7 @@
     var DThemeDarkDropdownBase = /** @class */ (function (_super) {
         __extends(DThemeDarkDropdownBase, _super);
         function DThemeDarkDropdownBase() {
-            return _super !== null && _super.apply(this, arguments) || this;
+            return _super.call(this, DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD) || this;
         }
         DThemeDarkDropdownBase.prototype.getSecondaryImageAlignHorizontal = function () {
             return DAlignHorizontal.RIGHT;
@@ -5129,7 +5590,13 @@
             return DAlignWith.PADDING;
         };
         DThemeDarkDropdownBase.prototype.getSecondaryImageMarginHorizontal = function () {
-            return -this.getPaddingRight() * 0.5;
+            return -20;
+        };
+        DThemeDarkDropdownBase.prototype.getPaddingLeft = function () {
+            return 25;
+        };
+        DThemeDarkDropdownBase.prototype.getPaddingRight = function () {
+            return 25;
         };
         DThemeDarkDropdownBase.prototype.getSecondaryImageSource = function (state) {
             return DThemeDarkAtlas.mappings.dropdown_mark;
@@ -5265,9 +5732,6 @@
         DThemeDarkSlider.prototype.getInteractive = function () {
             return DBaseInteractive.CHILDREN;
         };
-        DThemeDarkSlider.prototype.getBorderColor = function (state) {
-            return null;
-        };
         return DThemeDarkSlider;
     }(DThemeDarkBase));
 
@@ -5316,10 +5780,54 @@
         return DThemeDarkSliderLabel;
     }(DThemeDarkTextBase));
 
+    var DThemeDarkSliders = /** @class */ (function () {
+        function DThemeDarkSliders() {
+        }
+        DThemeDarkSliders.getBackgroundColor = function (state, isActive) {
+            if (state.isActive || isActive) {
+                if (state.inDisabled) {
+                    return this.BACKGROUND_COLOR;
+                }
+                else if (state.isPressed && state.isHovered) {
+                    return this.BACKGROUND_COLOR_ACTIVE_PRESSED;
+                }
+                else if (state.isPressed || state.isHovered) {
+                    return this.BACKGROUND_COLOR_ACTIVE_HOVERED;
+                }
+                else {
+                    return this.BACKGROUND_COLOR_ACTIVE;
+                }
+            }
+            else {
+                if (state.inDisabled) {
+                    return this.BACKGROUND_COLOR_DISABLED;
+                }
+                else if (state.isPressed && state.isHovered) {
+                    return this.BACKGROUND_COLOR_PRESSED;
+                }
+                else if (state.isPressed || state.isHovered) {
+                    return this.BACKGROUND_COLOR_HOVERED;
+                }
+                else {
+                    return this.BACKGROUND_COLOR;
+                }
+            }
+        };
+        DThemeDarkSliders.BACKGROUND_COLOR_ACTIVE = DThemeDarkConstants.HIGHLIGHT_COLOR;
+        DThemeDarkSliders.BACKGROUND_COLOR_ACTIVE_HOVERED = UtilRgb.darken(DThemeDarkSliders.BACKGROUND_COLOR_ACTIVE, 0.1);
+        DThemeDarkSliders.BACKGROUND_COLOR_ACTIVE_PRESSED = UtilRgb.darken(DThemeDarkSliders.BACKGROUND_COLOR_ACTIVE, 0.2);
+        DThemeDarkSliders.BACKGROUND_COLOR = DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
+        DThemeDarkSliders.BACKGROUND_COLOR_HOVERED = UtilRgb.darken(DThemeDarkSliders.BACKGROUND_COLOR, 0.1);
+        DThemeDarkSliders.BACKGROUND_COLOR_PRESSED = UtilRgb.darken(DThemeDarkSliders.BACKGROUND_COLOR, 0.2);
+        DThemeDarkSliders.BACKGROUND_COLOR_DISABLED = UtilRgb.blend(DThemeDarkSliders.BACKGROUND_COLOR, DThemeDarkConstants.BACKGROUND_COLOR, 0.5);
+        return DThemeDarkSliders;
+    }());
+
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    DThemeDarkAtlas.add("slider_thumb", 16, 16, "<circle cx=\"8\" cy=\"8\" r=\"7.5\" stroke=\"none\" fill=\"#ffffff\" />");
     var DThemeDarkSliderThumb = /** @class */ (function (_super) {
         __extends(DThemeDarkSliderThumb, _super);
         function DThemeDarkSliderThumb() {
@@ -5332,22 +5840,28 @@
             return "CENTER";
         };
         DThemeDarkSliderThumb.prototype.getWidth = function () {
-            return 15;
+            return 16;
         };
         DThemeDarkSliderThumb.prototype.getHeight = function () {
-            return 15;
+            return 16;
         };
         DThemeDarkSliderThumb.prototype.getBackgroundColor = function (state) {
-            if (DBaseStates.isDisabled(state)) {
-                return 0x646464;
-            }
-            return DThemeDarkConstants.HIGHLIGHT_COLOR;
+            return null;
         };
         DThemeDarkSliderThumb.prototype.getBorderColor = function (state) {
             return null;
         };
-        DThemeDarkSliderThumb.prototype.getCornerRadius = function () {
-            return 7.5;
+        DThemeDarkSliderThumb.prototype.getImageSource = function (state) {
+            return DThemeDarkAtlas.mappings.slider_thumb;
+        };
+        DThemeDarkSliderThumb.prototype.getImageTintColor = function (state) {
+            return DThemeDarkSliders.getBackgroundColor(state, true);
+        };
+        DThemeDarkSliderThumb.prototype.getImageTintAlpha = function (state) {
+            return 1;
+        };
+        DThemeDarkSliderThumb.prototype.getImageAlignHorizontal = function () {
+            return DAlignHorizontal.CENTER;
         };
         return DThemeDarkSliderThumb;
     }(DThemeDarkButton));
@@ -5362,33 +5876,10 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeDarkSliderTrack.prototype.getBackgroundColor = function (state) {
-            if (DBaseStates.isActive(state)) {
-                if (DBaseStates.isDisabled(state)) {
-                    return 0x646464;
-                }
-                return DThemeDarkConstants.HIGHLIGHT_COLOR;
-            }
-            else {
-                if (DBaseStates.isDisabled(state)) {
-                    return 0x1F1F1F;
-                }
-                return 0x646464;
-            }
+            return DThemeDarkSliders.getBackgroundColor(state);
         };
         DThemeDarkSliderTrack.prototype.getBorderColor = function (state) {
             return null;
-        };
-        DThemeDarkSliderTrack.prototype.getColor = function (state) {
-            if (DBaseStates.isDisabled(state)) {
-                return 0xFFFFFF;
-            }
-            return 0xDEDEDE;
-        };
-        DThemeDarkSliderTrack.prototype.getAlpha = function (state) {
-            if (DBaseStates.isDisabled(state)) {
-                return 0.38;
-            }
-            return 1;
         };
         return DThemeDarkSliderTrack;
     }(DThemeDarkButton));
@@ -5457,13 +5948,13 @@
             return "CENTER";
         };
         DThemeDarkSliderValue.prototype.getWidth = function () {
-            return 35;
+            return "AUTO";
         };
         DThemeDarkSliderValue.prototype.getHeight = function () {
             return 20;
         };
         DThemeDarkSliderValue.prototype.getBackgroundColor = function (state) {
-            if (DBaseStates.isDisabled(state)) {
+            if (state.inDisabled) {
                 return 0x646464;
             }
             return DThemeDarkConstants.HIGHLIGHT_COLOR;
@@ -5472,10 +5963,10 @@
             return null;
         };
         DThemeDarkSliderValue.prototype.getColor = function (state) {
-            return 0x000000;
+            return DThemeDarkConstants.ACTIVE_COLOR;
         };
         DThemeDarkSliderValue.prototype.getAlpha = function (state) {
-            if (DBaseStates.isDisabled(state)) {
+            if (state.inDisabled) {
                 return 0.38;
             }
             return 1;
@@ -5536,10 +6027,10 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeDarkTable.prototype.getBackgroundColor = function () {
-            return null;
+            return DThemeDarkConstants.BACKGROUND_COLOR;
         };
         DThemeDarkTable.prototype.getBorderColor = function (state) {
-            return 0x646464;
+            return null;
         };
         DThemeDarkTable.prototype.getMargin = function () {
             return 0;
@@ -5587,42 +6078,48 @@
         function DThemeDarkTableBodyCells() {
         }
         DThemeDarkTableBodyCells.getBackgroundColor = function (state) {
-            if (DBaseStates.isDisabled(state)) {
-                if (state & DTableCellState.FROZEN) {
-                    return (state & DTableCellState.EVEN) ?
+            if (state.inDisabled) {
+                if (state.is(DTableCellState.FROZEN)) {
+                    return state.onAlternated ?
                         this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
                 }
-                return null;
+                else {
+                    return null;
+                }
             }
-            if (DBaseStates.isInvalid(state)) {
-                return 0xCF6679;
+            else if (state.isInvalid) {
+                return DThemeDarkConstants.INVALID_BLENDED_ON_BOARD;
             }
-            if (state & DBaseState.ACTIVE_IN) {
-                return DThemeDarkConstants.HIGHLIGHT_COLOR;
+            else if (state.underActive) {
+                return DThemeDarkConstants.HIGHLIGHT_BLENDED_ON_BOARD;
             }
-            if (DBaseStates.isFocused(state) && DBaseStates.isHovered(state)) {
-                return this.COLOR_FOCUSED_AND_HOVERED;
+            else if (state.isFocused && (state.onHovered || state.isHovered)) {
+                return this.WEAK_STRONG_HIGHLIGHT_COLOR;
             }
-            if (DBaseStates.isFocused(state) || DBaseStates.isHovered(state)) {
-                return this.COLOR_HOVERED;
+            else if (state.isFocused || (state.onHovered || state.isHovered)) {
+                return DThemeDarkConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD;
             }
-            if (state & DTableCellState.FROZEN) {
-                return (state & DTableCellState.EVEN) ?
-                    this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
+            else {
+                if (state.is(DTableCellState.FROZEN)) {
+                    return state.onAlternated ?
+                        this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
+                }
+                else {
+                    return null;
+                }
             }
-            return null;
         };
         DThemeDarkTableBodyCells.getBackgroundAlpha = function (state) {
             return 1;
         };
         DThemeDarkTableBodyCells.getBorderColor = function (state) {
-            return 0x202020;
+            return this.BORDER_COLOR;
         };
         DThemeDarkTableBodyCells.getBorderAlign = function (state) {
             return 0;
         };
         DThemeDarkTableBodyCells.getBorderMask = function (state) {
-            if (state & DTableCellState.END) {
+            if (state.is(DTableCellState.END)) {
                 return DBorderMask.ALL;
             }
             else {
@@ -5630,22 +6127,24 @@
             }
         };
         DThemeDarkTableBodyCells.getColor = function (state) {
-            return DThemeDarkFont.getColor(state);
+            return DThemeDarkConstants.COLOR;
         };
         DThemeDarkTableBodyCells.getAlpha = function (state) {
-            if (!DBaseStates.isDisabled(state)) {
-                return DThemeDarkFont.getAlpha(state);
+            if (state.inEnabled) {
+                return 1.0;
             }
             return 0;
         };
-        DThemeDarkTableBodyCells.getImageTintColor = function (state) {
-            if (DBaseStates.isDisabled(state) || DBaseStates.isReadOnly(state) || !DBaseStates.isActive(state)) {
-                if (DBaseStates.isFocused(state)) {
+        DThemeDarkTableBodyCells.getImageTintColor = function (state, isActive) {
+            if (state.inDisabled || state.inReadOnly || !(state.isActive || isActive)) {
+                if (state.isFocused) {
                     return this.IMAGE_TINT_COLOR_FOCUSED;
                 }
                 return 0x646464;
             }
-            return DThemeDarkConstants.HIGHLIGHT_COLOR;
+            else {
+                return DThemeDarkConstants.HIGHLIGHT_COLOR;
+            }
         };
         DThemeDarkTableBodyCells.getOutlineAlign = function (state) {
             return -2;
@@ -5656,12 +6155,11 @@
         DThemeDarkTableBodyCells.getCornerMask = function () {
             return DCornerMask.ALL;
         };
-        DThemeDarkTableBodyCells.COLOR = 0x000000;
-        DThemeDarkTableBodyCells.IMAGE_TINT_COLOR_FOCUSED = UtilRgb.brighten(DThemeDarkTableBodyCells.COLOR, DThemeDarkConstants.TINT_FOCUS_ALPHA);
-        DThemeDarkTableBodyCells.BACKGROUND_COLOR_EVEN = DThemeDarkTableBodyCells.COLOR;
-        DThemeDarkTableBodyCells.BACKGROUND_COLOR_ODD = UtilRgb.brighten(DThemeDarkTableBodyCells.COLOR, 0.1);
-        DThemeDarkTableBodyCells.COLOR_HOVERED = UtilRgb.brighten(DThemeDarkTableBodyCells.BACKGROUND_COLOR_ODD, DThemeDarkConstants.FOCUSED_ALPHA);
-        DThemeDarkTableBodyCells.COLOR_FOCUSED_AND_HOVERED = UtilRgb.brighten(DThemeDarkTableBodyCells.BACKGROUND_COLOR_ODD, DThemeDarkConstants.FOCUSED_ALPHA * 2);
+        DThemeDarkTableBodyCells.IMAGE_TINT_COLOR_FOCUSED = UtilRgb.brighten(DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR, 0.1);
+        DThemeDarkTableBodyCells.BACKGROUND_COLOR_EVEN = DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
+        DThemeDarkTableBodyCells.BACKGROUND_COLOR_ODD = UtilRgb.brighten(DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.02);
+        DThemeDarkTableBodyCells.WEAK_STRONG_HIGHLIGHT_COLOR = UtilRgb.brighten(DThemeDarkConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD, 0.05);
+        DThemeDarkTableBodyCells.BORDER_COLOR = DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
         return DThemeDarkTableBodyCells;
     }());
 
@@ -5681,7 +6179,7 @@
             return DThemeDarkAtlas.mappings.action_mark;
         };
         DThemeDarkTableBodyCellActions.getImageTintColor = function (state) {
-            return DThemeDarkTableBodyCells.getImageTintColor(state | DBaseState.ACTIVE);
+            return DThemeDarkTableBodyCells.getImageTintColor(state, true);
         };
         return DThemeDarkTableBodyCellActions;
     }());
@@ -5724,6 +6222,12 @@
         };
         DThemeDarkTableBodyCellSelectDialog.prototype.isSyncEnabled = function () {
             return true;
+        };
+        DThemeDarkTableBodyCellSelectDialog.prototype.newTextValue = function () {
+            return null;
+        };
+        DThemeDarkTableBodyCellSelectDialog.prototype.getTextValue = function (state) {
+            return null;
         };
         return DThemeDarkTableBodyCellSelectDialog;
     }(DThemeDarkButton));
@@ -5790,6 +6294,12 @@
         DThemeDarkTableBodyCellActionMenu.prototype.getSecondaryImageSource = function (state) {
             return null;
         };
+        DThemeDarkTableBodyCellActionMenu.prototype.getPaddingLeft = function () {
+            return 10;
+        };
+        DThemeDarkTableBodyCellActionMenu.prototype.getPaddingRight = function () {
+            return 10;
+        };
         DThemeDarkTableBodyCellActionMenu.prototype.getImageTintColor = function (state) {
             return DThemeDarkTableBodyCellActions.getImageTintColor(state);
         };
@@ -5837,6 +6347,12 @@
         };
         DThemeDarkTableBodyCellSelectPromise.prototype.isSyncEnabled = function () {
             return true;
+        };
+        DThemeDarkTableBodyCellSelectPromise.prototype.newTextValue = function () {
+            return null;
+        };
+        DThemeDarkTableBodyCellSelectPromise.prototype.getTextValue = function (state) {
+            return null;
         };
         return DThemeDarkTableBodyCellSelectPromise;
     }(DThemeDarkButton));
@@ -5907,6 +6423,12 @@
         };
         DThemeDarkTableBodyCellText.prototype.getPaddingRight = function () {
             return 10;
+        };
+        DThemeDarkTableBodyCellText.prototype.newTextValue = function () {
+            return null;
+        };
+        DThemeDarkTableBodyCellText.prototype.getTextValue = function (state) {
+            return null;
         };
         return DThemeDarkTableBodyCellText;
     }(DThemeDarkImageBase));
@@ -6203,7 +6725,7 @@
             return DThemeDarkTableBodyCells.getCornerMask();
         };
         DThemeDarkTableBodyCellInputInteger.prototype.getOutlineColor = function (state) {
-            if (DBaseStates.isDisabled(state)) {
+            if (state.inDisabled) {
                 return null;
             }
             return _super.prototype.getOutlineColor.call(this, state);
@@ -6254,7 +6776,7 @@
             return DThemeDarkTableBodyCells.getCornerMask();
         };
         DThemeDarkTableBodyCellInputReal.prototype.getOutlineColor = function (state) {
-            if (DBaseStates.isDisabled(state)) {
+            if (state.inDisabled) {
                 return null;
             }
             return _super.prototype.getOutlineColor.call(this, state);
@@ -6302,7 +6824,7 @@
             return DThemeDarkTableBodyCells.getCornerMask();
         };
         DThemeDarkTableBodyCellInputText.prototype.getOutlineColor = function (state) {
-            if (DBaseStates.isDisabled(state)) {
+            if (state.inDisabled) {
                 return null;
             }
             return _super.prototype.getOutlineColor.call(this, state);
@@ -6324,8 +6846,8 @@
             DThemeDarkExpandables.init();
         };
         DThemeDarkTableBodyCellTrees.getImageSource = function (state) {
-            if (state & DTableCellState.HAS_CHILDREN) {
-                if (state & DTableCellState.OPENED) {
+            if (state.is(DTableCellState.HAS_CHILDREN)) {
+                if (state.is(DTableCellState.OPENED)) {
                     return DThemeDarkExpandables.getImageOpened();
                 }
                 else {
@@ -6333,6 +6855,12 @@
                 }
             }
             return null;
+        };
+        DThemeDarkTableBodyCellTrees.getImageTintColor = function (state) {
+            return DThemeDarkConstants.COLOR;
+        };
+        DThemeDarkTableBodyCellTrees.getImageTintAlpha = function (state) {
+            return DThemeDarkTableBodyCells.getAlpha(state) * 0.5;
         };
         return DThemeDarkTableBodyCellTrees;
     }());
@@ -6384,7 +6912,7 @@
             return DThemeDarkTableBodyCells.getCornerMask();
         };
         DThemeDarkTableBodyCellInputTree.prototype.getOutlineColor = function (state) {
-            if (DBaseStates.isDisabled(state)) {
+            if (state.inDisabled) {
                 return null;
             }
             return _super.prototype.getOutlineColor.call(this, state);
@@ -6455,6 +6983,12 @@
         DThemeDarkTableBodyCellInputTreeMarker.prototype.getImageSource = function (state) {
             return DThemeDarkTableBodyCellTrees.getImageSource(state);
         };
+        DThemeDarkTableBodyCellInputTreeMarker.prototype.getImageTintColor = function (state) {
+            return DThemeDarkTableBodyCellTrees.getImageTintColor(state);
+        };
+        DThemeDarkTableBodyCellInputTreeMarker.prototype.getImageTintAlpha = function (state) {
+            return DThemeDarkTableBodyCellTrees.getImageTintAlpha(state);
+        };
         return DThemeDarkTableBodyCellInputTreeMarker;
     }(DThemeDarkButtonBase));
 
@@ -6469,7 +7003,7 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeDarkTableBodyCellLink.prototype.getImageTintColor = function (state) {
-            return DThemeDarkTableBodyCells.getImageTintColor(state | DBaseState.ACTIVE);
+            return DThemeDarkTableBodyCells.getImageTintColor(state, true);
         };
         DThemeDarkTableBodyCellLink.prototype.getImageSource = function (state) {
             return DThemeDarkLinks.getImageSource(state);
@@ -6519,6 +7053,12 @@
         DThemeDarkTableBodyCellSelectMenu.prototype.getSecondaryImageSource = function (state) {
             return null;
         };
+        DThemeDarkTableBodyCellSelectMenu.prototype.getPaddingLeft = function () {
+            return 10;
+        };
+        DThemeDarkTableBodyCellSelectMenu.prototype.getPaddingRight = function () {
+            return 10;
+        };
         return DThemeDarkTableBodyCellSelectMenu;
     }(DThemeDarkSelect));
 
@@ -6560,6 +7100,12 @@
         };
         DThemeDarkTableBodyCellSelectMultiple.prototype.getSecondaryImageSource = function (state) {
             return null;
+        };
+        DThemeDarkTableBodyCellSelectMultiple.prototype.getPaddingLeft = function () {
+            return 10;
+        };
+        DThemeDarkTableBodyCellSelectMultiple.prototype.getPaddingRight = function () {
+            return 10;
         };
         return DThemeDarkTableBodyCellSelectMultiple;
     }(DThemeDarkSelectMultiple));
@@ -6619,6 +7165,7 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    DThemeDarkLinks.init();
     DThemeDarkTableBodyCellTrees.init();
     var DThemeDarkTableBodyCellTree = /** @class */ (function (_super) {
         __extends(DThemeDarkTableBodyCellTree, _super);
@@ -6637,10 +7184,17 @@
         DThemeDarkTableBodyCellTree.prototype.getImageSource = function (state) {
             return DThemeDarkTableBodyCellTrees.getImageSource(state);
         };
+        DThemeDarkTableBodyCellTree.prototype.getImageTintColor = function (state) {
+            return DThemeDarkTableBodyCellTrees.getImageTintColor(state);
+        };
+        DThemeDarkTableBodyCellTree.prototype.getImageTintAlpha = function (state) {
+            return DThemeDarkTableBodyCellTrees.getImageTintAlpha(state);
+        };
+        DThemeDarkTableBodyCellTree.prototype.getLinkMenuOptions = function () {
+            return DThemeDarkLinks.getLinkMenuOptions();
+        };
         return DThemeDarkTableBodyCellTree;
     }(DThemeDarkTableBodyCellButton));
-
-    const DTableRowState = wcardinal.ui.DTableRowState;
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -6674,24 +7228,25 @@
         __extends(DThemeDarkTableBodyRow, _super);
         function DThemeDarkTableBodyRow() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this.BACKGROUND_COLOR_EVEN = 0x000000;
-            _this.BACKGROUND_COLOR_ODD = UtilRgb.brighten(_this.BACKGROUND_COLOR_EVEN, 0.1);
-            _this.COLOR_HOVERED = UtilRgb.brighten(_this.BACKGROUND_COLOR_ODD, DThemeDarkConstants.FOCUSED_ALPHA);
+            _this.BACKGROUND_COLOR_EVEN = DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
+            _this.BACKGROUND_COLOR_ODD = UtilRgb.brighten(DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.02);
             return _this;
         }
         DThemeDarkTableBodyRow.prototype.getBackgroundColor = function (state) {
-            if (DBaseStates.isDisabled(state)) {
-                return (state & DTableRowState.EVEN) ?
+            if (state.inDisabled) {
+                return state.isAlternated ?
                     this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
             }
-            if (DBaseStates.isActive(state)) {
+            else if (state.isActive) {
                 return DThemeDarkConstants.HIGHLIGHT_COLOR;
             }
-            if (DBaseStates.isFocused(state) || DBaseStates.isHovered(state)) {
-                return this.COLOR_HOVERED;
+            else if (state.isFocused || state.isHovered) {
+                return DThemeDarkConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD;
             }
-            return (state & DTableRowState.EVEN) ?
-                this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
+            else {
+                return state.isAlternated ?
+                    this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
+            }
         };
         DThemeDarkTableBodyRow.prototype.getWidth = function () {
             return "100%";
@@ -6707,17 +7262,20 @@
         __extends(DThemeDarkTableHeader, _super);
         function DThemeDarkTableHeader() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this.COLOR = 0x1b1b1b;
+            _this.BACKGROUND_COLOR = UtilRgb.brighten(DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.02);
+            _this.BORDER_COLOR = UtilRgb.darken(DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.05);
             return _this;
         }
         DThemeDarkTableHeader.prototype.getBackgroundColor = function (state) {
-            if (DBaseStates.isDisabled(state)) {
+            if (state.inDisabled) {
                 return null;
             }
-            return this.COLOR;
+            else {
+                return this.BACKGROUND_COLOR;
+            }
         };
         DThemeDarkTableHeader.prototype.getBorderColor = function (state) {
-            return null;
+            return this.BORDER_COLOR;
         };
         DThemeDarkTableHeader.prototype.getBorderAlign = function (state) {
             return 0;
@@ -6762,42 +7320,44 @@
         __extends(DThemeDarkTableHeaderCell, _super);
         function DThemeDarkTableHeaderCell() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this.COLOR = 0x1b1b1b;
-            _this.COLOR_HOVERED = UtilRgb.brighten(_this.COLOR, DThemeDarkConstants.FOCUSED_ALPHA);
-            _this.COLOR_PRESSED = UtilRgb.brighten(_this.COLOR, DThemeDarkConstants.PRESSED_ALPHA);
+            _this.BACKGROUND_COLOR = UtilRgb.brighten(DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.02);
+            _this.BACKGROUND_COLOR_HOVERED = UtilRgb.brighten(_this.BACKGROUND_COLOR, 0.08);
+            _this.BACKGROUND_COLOR_PRESSED = UtilRgb.brighten(_this.BACKGROUND_COLOR, 0.32);
+            _this.BORDER_COLOR = UtilRgb.darken(DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.05);
             return _this;
         }
         DThemeDarkTableHeaderCell.prototype.getBackgroundColor = function (state) {
-            if (DBaseStates.isDisabled(state)) {
-                return (state & DTableCellState.FROZEN) ?
-                    this.COLOR : null;
+            if (state.inDisabled) {
+                return (state.is(DTableCellState.FROZEN)) ?
+                    this.BACKGROUND_COLOR : null;
             }
-            if (DBaseStates.isActive(state)) {
-                return DThemeDarkConstants.HIGHLIGHT_COLOR;
+            else if (state.isPressed) {
+                return this.BACKGROUND_COLOR_PRESSED;
             }
-            if (DBaseStates.isPressed(state)) {
-                return this.COLOR_PRESSED;
+            else if (state.isFocused || state.isHovered) {
+                return this.BACKGROUND_COLOR_HOVERED;
             }
-            if (DBaseStates.isFocused(state) || DBaseStates.isHovered(state)) {
-                return this.COLOR_HOVERED;
+            else {
+                return (state.is(DTableCellState.FROZEN)) ?
+                    this.BACKGROUND_COLOR : null;
             }
-            return (state & DTableCellState.FROZEN) ?
-                this.COLOR : null;
         };
         DThemeDarkTableHeaderCell.prototype.getBackgroundAlpha = function (state) {
             return 1;
         };
         DThemeDarkTableHeaderCell.prototype.getBorderColor = function (state) {
-            return null;
+            return this.BORDER_COLOR;
         };
         DThemeDarkTableHeaderCell.prototype.getBorderAlign = function (state) {
             return 0;
         };
         DThemeDarkTableHeaderCell.prototype.getBorderMask = function (state) {
-            if (state & DTableCellState.END) {
+            if (state.is(DTableCellState.END)) {
                 return DBorderMask.ALL;
             }
-            return DBorderMask.NOT_RIGHT;
+            else {
+                return DBorderMask.NOT_RIGHT;
+            }
         };
         DThemeDarkTableHeaderCell.prototype.getTextAlignHorizontal = function () {
             return DAlignHorizontal.CENTER;
@@ -6820,19 +7380,42 @@
         DThemeDarkTableHeaderCell.prototype.newTextValue = function () {
             return null;
         };
-        DThemeDarkTableHeaderCell.prototype.getImageSource = function (state) {
-            if (state & DTableCellState.SORTED_ASCENDING) {
-                return DThemeDarkAtlas.mappings.sorted_ascending;
+        DThemeDarkTableHeaderCell.prototype.getSecondaryImageTintColor = function (state) {
+            if (state.is(DTableCellState.CHECKABLE)) {
+                return DThemeDarkButtonChecks.getImageTintColor(state);
             }
-            if (state & DTableCellState.SORTED_DESCENDING) {
-                return DThemeDarkAtlas.mappings.sorted_descending;
+            return _super.prototype.getSecondaryImageTintColor.call(this, state);
+        };
+        DThemeDarkTableHeaderCell.prototype.getSecondaryImageSource = function (state) {
+            if (state.is(DTableCellState.CHECKABLE)) {
+                return DThemeDarkButtonChecks.getImageSource(state);
             }
             return null;
         };
-        DThemeDarkTableHeaderCell.prototype.getImageAlignHorizontal = function () {
+        DThemeDarkTableHeaderCell.prototype.getSecondaryImageAlignHorizontal = function () {
+            return DAlignHorizontal.LEFT;
+        };
+        DThemeDarkTableHeaderCell.prototype.getSecondaryImageAlignVertical = function () {
+            return DAlignVertical.MIDDLE;
+        };
+        DThemeDarkTableHeaderCell.prototype.getSecondaryImageAlignWith = function () {
+            return DAlignWith.TEXT;
+        };
+        DThemeDarkTableHeaderCell.prototype.getTertiaryImageSource = function (state) {
+            if (state.is(DTableCellState.SORTED_ASCENDING)) {
+                return DThemeDarkAtlas.mappings.sorted_ascending;
+            }
+            else if (state.is(DTableCellState.SORTED_DESCENDING)) {
+                return DThemeDarkAtlas.mappings.sorted_descending;
+            }
+            else {
+                return null;
+            }
+        };
+        DThemeDarkTableHeaderCell.prototype.getTertiaryImageAlignHorizontal = function () {
             return DAlignHorizontal.RIGHT;
         };
-        DThemeDarkTableHeaderCell.prototype.getImageAlignWith = function () {
+        DThemeDarkTableHeaderCell.prototype.getTertiaryImageAlignWith = function () {
             return DAlignWith.PADDING;
         };
         return DThemeDarkTableHeaderCell;
@@ -6903,6 +7486,185 @@
      */
     var loadThemeDarkText = function () {
         DThemeDark.set("DText", DThemeDarkText);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DThemeDarkTree = /** @class */ (function (_super) {
+        __extends(DThemeDarkTree, _super);
+        function DThemeDarkTree() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeDarkTree.prototype.getBackgroundColor = function (state) {
+            return DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
+        };
+        DThemeDarkTree.prototype.getBorderAlign = function (state) {
+            return 1;
+        };
+        return DThemeDarkTree;
+    }(DThemeDarkPane));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DThemeDarkTreeItem = /** @class */ (function (_super) {
+        __extends(DThemeDarkTreeItem, _super);
+        function DThemeDarkTreeItem() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeDarkTreeItem.prototype.getBackgroundColor = function (state) {
+            if (state.inDisabled) {
+                return null;
+            }
+            else if (state.isActive) {
+                return DThemeDarkConstants.HIGHLIGHT_COLOR;
+            }
+            else if (state.isFocused || state.isHovered) {
+                return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
+            }
+            else {
+                return null;
+            }
+        };
+        DThemeDarkTreeItem.prototype.getBackgroundAlpha = function (state) {
+            return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
+        };
+        DThemeDarkTreeItem.prototype.getBorderColor = function (state) {
+            return null;
+        };
+        DThemeDarkTreeItem.prototype.getHeight = function () {
+            return 30;
+        };
+        DThemeDarkTreeItem.prototype.getWidth = function () {
+            return "100%";
+        };
+        DThemeDarkTreeItem.prototype.getTextAlignHorizontal = function () {
+            return DAlignHorizontal.LEFT;
+        };
+        DThemeDarkTreeItem.prototype.getPaddingLeft = function () {
+            return 10;
+        };
+        DThemeDarkTreeItem.prototype.getPaddingRight = function () {
+            return 10;
+        };
+        DThemeDarkTreeItem.prototype.getCornerMask = function () {
+            return DCornerMask.ALL;
+        };
+        DThemeDarkTreeItem.prototype.getInteractive = function () {
+            return DBaseInteractive.BOTH;
+        };
+        DThemeDarkTreeItem.prototype.getPaddingByLevel = function (level) {
+            return level * 15;
+        };
+        return DThemeDarkTreeItem;
+    }(DThemeDarkLayoutHorizontal));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DThemeDarkTreeItemTextAndImage = /** @class */ (function (_super) {
+        __extends(DThemeDarkTreeItemTextAndImage, _super);
+        function DThemeDarkTreeItemTextAndImage() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeDarkTreeItemTextAndImage.prototype.getBackgroundColor = function (state) {
+            return null;
+        };
+        DThemeDarkTreeItemTextAndImage.prototype.getBorderColor = function (state) {
+            return null;
+        };
+        DThemeDarkTreeItemTextAndImage.prototype.getHeight = function () {
+            return 30;
+        };
+        DThemeDarkTreeItemTextAndImage.prototype.getWidth = function () {
+            return "100%";
+        };
+        DThemeDarkTreeItemTextAndImage.prototype.getTextAlignHorizontal = function () {
+            return DAlignHorizontal.LEFT;
+        };
+        DThemeDarkTreeItemTextAndImage.prototype.getPaddingLeft = function () {
+            return 0;
+        };
+        DThemeDarkTreeItemTextAndImage.prototype.getPaddingRight = function () {
+            return 0;
+        };
+        DThemeDarkTreeItemTextAndImage.prototype.getCornerMask = function () {
+            return DCornerMask.ALL;
+        };
+        DThemeDarkTreeItemTextAndImage.prototype.getImageSource = function (state) {
+            return null;
+        };
+        return DThemeDarkTreeItemTextAndImage;
+    }(DThemeDarkImage));
+
+    const DTreeItemState = wcardinal.ui.DTreeItemState;
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    DThemeDarkAtlas.add("menu_item_expandable_header_closed", 14, 14, "<g transform=\"scale(1, 0.7)\">" +
+        "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"6 16 10 10 6 4\"></polyline>" +
+        "</g>");
+    DThemeDarkAtlas.add("menu_item_expandable_header_opened", 14, 14, "<g transform=\"scale(0.7, 1)\">" +
+        "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"16 6 10 10 4 6\"></polyline>" +
+        "</g>");
+    var DThemeDarkTreeItemToggleIcon = /** @class */ (function (_super) {
+        __extends(DThemeDarkTreeItemToggleIcon, _super);
+        function DThemeDarkTreeItemToggleIcon() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeDarkTreeItemToggleIcon.prototype.getBackgroundColor = function (state) {
+            return null;
+        };
+        DThemeDarkTreeItemToggleIcon.prototype.getBorderColor = function (state) {
+            return null;
+        };
+        DThemeDarkTreeItemToggleIcon.prototype.getHeight = function () {
+            return 30;
+        };
+        DThemeDarkTreeItemToggleIcon.prototype.getWidth = function () {
+            return 14;
+        };
+        DThemeDarkTreeItemToggleIcon.prototype.getTextAlignHorizontal = function () {
+            return DAlignHorizontal.LEFT;
+        };
+        DThemeDarkTreeItemToggleIcon.prototype.getPaddingLeft = function () {
+            return 0;
+        };
+        DThemeDarkTreeItemToggleIcon.prototype.getPaddingRight = function () {
+            return 0;
+        };
+        DThemeDarkTreeItemToggleIcon.prototype.getCornerMask = function () {
+            return DCornerMask.ALL;
+        };
+        DThemeDarkTreeItemToggleIcon.prototype.getImageSource = function (state) {
+            if (state.is(DTreeItemState.EXPANDED)) {
+                return DThemeDarkAtlas.mappings.menu_item_expandable_header_opened;
+            }
+            else if (state.is(DTreeItemState.COLLAPSED)) {
+                return DThemeDarkAtlas.mappings.menu_item_expandable_header_closed;
+            }
+            else {
+                return null;
+            }
+        };
+        return DThemeDarkTreeItemToggleIcon;
+    }(DThemeDarkImage));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadThemeDarkTree = function () {
+        DThemeDark.set("DTree", DThemeDarkTree);
+        DThemeDark.set("DTreeItem", DThemeDarkTreeItem);
+        DThemeDark.set("DTreeItemToggleIcon", DThemeDarkTreeItemToggleIcon);
+        DThemeDark.set("DTreeItemTextAndImage", DThemeDarkTreeItemTextAndImage);
     };
 
     const DMouseModifier = wcardinal.ui.DMouseModifier;
@@ -6996,10 +7758,12 @@
         loadThemeDarkInputAll();
         loadThemeDarkLayout();
         loadThemeDarkList();
+        loadThemeDarkTree();
         loadThemeDarkMenu();
         loadThemeDarkMenuBar();
         loadThemeDarkMenuSided();
         loadThemeDarkNote();
+        loadThemeDarkPagination();
         loadThemeDarkPane();
         loadThemeDarkPickerColor();
         loadThemeDarkPickerColorGradient();
@@ -7009,7 +7773,6 @@
         loadThemeDarkScrollBar();
         loadThemeDarkSelect();
         loadThemeDarkSlider();
-        loadThemeDarkShapeActionValue();
         loadThemeDarkTable();
         loadThemeDarkText();
         loadThemeDarkView();
@@ -7020,11 +7783,10 @@
      * SPDX-License-Identifier: Apache-2.0
      */
 
-    var dark = ({
+    var dark = {
         __proto__: null,
-        DThemeDarkMenuItemExpandableBody: DThemeDarkMenuItemExpandableBody,
-        loadThemeDarkDialogMessage: loadThemeDarkDialogMessage,
         loadThemeDarkAll: loadThemeDarkAll,
+        loadThemeDarkBase: loadThemeDarkBase,
         loadThemeDark: loadThemeDark,
         loadThemeDarkBoard: loadThemeDarkBoard,
         loadThemeDarkButtonAll: loadThemeDarkButtonAll,
@@ -7056,8 +7818,11 @@
         loadThemeDarkDialogConfirmDiscard: loadThemeDarkDialogConfirmDiscard,
         loadThemeDarkDialogDate: loadThemeDarkDialogDate,
         loadThemeDarkDialogDatetime: loadThemeDarkDialogDatetime,
+        loadThemeDarkDialogInputBoolean: loadThemeDarkDialogInputBoolean,
+        loadThemeDarkDialogInputInteger: loadThemeDarkDialogInputInteger,
+        loadThemeDarkDialogInputReal: loadThemeDarkDialogInputReal,
         loadThemeDarkDialogInputText: loadThemeDarkDialogInputText,
-        loadThemeDarkBase: loadThemeDarkBase,
+        loadThemeDarkDialogMessage: loadThemeDarkDialogMessage,
         loadThemeDarkDialogProcessing: loadThemeDarkDialogProcessing,
         loadThemeDarkDialogSaveAs: loadThemeDarkDialogSaveAs,
         loadThemeDarkDialogSelect: loadThemeDarkDialogSelect,
@@ -7069,16 +7834,19 @@
         loadThemeDarkImage: loadThemeDarkImage,
         loadThemeDarkInputAll: loadThemeDarkInputAll,
         loadThemeDarkInputAndLabel: loadThemeDarkInputAndLabel,
+        loadThemeDarkInputBoolean: loadThemeDarkInputBoolean,
         loadThemeDarkInputInteger: loadThemeDarkInputInteger,
         loadThemeDarkInputLabel: loadThemeDarkInputLabel,
         loadThemeDarkInputReal: loadThemeDarkInputReal,
         loadThemeDarkInputText: loadThemeDarkInputText,
         loadThemeDarkLayout: loadThemeDarkLayout,
         loadThemeDarkList: loadThemeDarkList,
+        loadThemeDarkTree: loadThemeDarkTree,
         loadThemeDarkMenu: loadThemeDarkMenu,
         loadThemeDarkMenuBar: loadThemeDarkMenuBar,
         loadThemeDarkMenuSided: loadThemeDarkMenuSided,
         loadThemeDarkNote: loadThemeDarkNote,
+        loadThemeDarkPagination: loadThemeDarkPagination,
         loadThemeDarkPane: loadThemeDarkPane,
         loadThemeDarkPickerColorGradient: loadThemeDarkPickerColorGradient,
         loadThemeDarkPickerColor: loadThemeDarkPickerColor,
@@ -7088,10 +7856,12 @@
         loadThemeDarkScrollBar: loadThemeDarkScrollBar,
         loadThemeDarkSelect: loadThemeDarkSelect,
         loadThemeDarkShapeActionValue: loadThemeDarkShapeActionValue,
+        loadThemeDarkShape: loadThemeDarkShape,
         loadThemeDarkTable: loadThemeDarkTable,
         loadThemeDarkText: loadThemeDarkText,
         loadThemeDarkView: loadThemeDarkView,
         loadThemeDarkSlider: loadThemeDarkSlider,
+        DThemeDarkAtlas: DThemeDarkAtlas,
         DThemeDarkBase: DThemeDarkBase,
         DThemeDarkBoard: DThemeDarkBoard,
         DThemeDarkButton: DThemeDarkButton,
@@ -7099,6 +7869,7 @@
         DThemeDarkButtonBase: DThemeDarkButtonBase,
         DThemeDarkButtonCheck: DThemeDarkButtonCheck,
         DThemeDarkButtonCheckRight: DThemeDarkButtonCheckRight,
+        DThemeDarkButtonChecks: DThemeDarkButtonChecks,
         DThemeDarkButtonColor: DThemeDarkButtonColor,
         DThemeDarkButtonColorGradient: DThemeDarkButtonColorGradient,
         DThemeDarkButtonDanger: DThemeDarkButtonDanger,
@@ -7141,7 +7912,11 @@
         DThemeDarkDialogConfirmMessage: DThemeDarkDialogConfirmMessage,
         DThemeDarkDialogDate: DThemeDarkDialogDate,
         DThemeDarkDialogDatetime: DThemeDarkDialogDatetime,
+        DThemeDarkDialogInputBoolean: DThemeDarkDialogInputBoolean,
+        DThemeDarkDialogInputInteger: DThemeDarkDialogInputInteger,
+        DThemeDarkDialogInputReal: DThemeDarkDialogInputReal,
         DThemeDarkDialogInputText: DThemeDarkDialogInputText,
+        DThemeDarkDialogInput: DThemeDarkDialogInput,
         DThemeDarkDialogMessage: DThemeDarkDialogMessage,
         DThemeDarkDialogProcessing: DThemeDarkDialogProcessing,
         DThemeDarkDialogProcessingMessage: DThemeDarkDialogProcessingMessage,
@@ -7156,6 +7931,9 @@
         DThemeDarkImage: DThemeDarkImage,
         DThemeDarkImageBase: DThemeDarkImageBase,
         DThemeDarkInputAndLabel: DThemeDarkInputAndLabel,
+        DThemeDarkInputBooleanButtonOff: DThemeDarkInputBooleanButtonOff,
+        DThemeDarkInputBooleanButtonOn: DThemeDarkInputBooleanButtonOn,
+        DThemeDarkInputBoolean: DThemeDarkInputBoolean,
         DThemeDarkInputInteger: DThemeDarkInputInteger,
         DThemeDarkInputLabel: DThemeDarkInputLabel,
         DThemeDarkInputNumber: DThemeDarkInputNumber,
@@ -7171,11 +7949,15 @@
         DThemeDarkList: DThemeDarkList,
         DThemeDarkListItem: DThemeDarkListItem,
         DThemeDarkListItemSeparator: DThemeDarkListItemSeparator,
+        DThemeDarkTree: DThemeDarkTree,
+        DThemeDarkTreeItem: DThemeDarkTreeItem,
+        DThemeDarkTreeItemToggleIcon: DThemeDarkTreeItemToggleIcon,
+        DThemeDarkTreeItemTextAndImage: DThemeDarkTreeItemTextAndImage,
         DThemeDarkMenu: DThemeDarkMenu,
         DThemeDarkMenuBar: DThemeDarkMenuBar,
         DThemeDarkMenuBarItem: DThemeDarkMenuBarItem,
         DThemeDarkMenuItemCheck: DThemeDarkMenuItemCheck,
-        DThemeDarkAtlas: DThemeDarkAtlas,
+        DThemeDarkMenuItemExpandableBody: DThemeDarkMenuItemExpandableBody,
         DThemeDarkMenuItemExpandableHeader: DThemeDarkMenuItemExpandableHeader,
         DThemeDarkMenuItemExpandableItemCheck: DThemeDarkMenuItemExpandableItemCheck,
         DThemeDarkMenuItemExpandableItemLink: DThemeDarkMenuItemExpandableItemLink,
@@ -7206,6 +7988,10 @@
         DThemeDarkMenuSidedItemSpace: DThemeDarkMenuSidedItemSpace,
         DThemeDarkMenuSidedItemText: DThemeDarkMenuSidedItemText,
         DThemeDarkNote: DThemeDarkNote,
+        DThemeDarkPagination: DThemeDarkPagination,
+        DThemeDarkPaginationNavigationButton: DThemeDarkPaginationNavigationButton,
+        DThemeDarkPaginationDynamicButtons: DThemeDarkPaginationDynamicButtons,
+        DThemeDarkPaginationDotsButton: DThemeDarkPaginationDotsButton,
         DThemeDarkPane: DThemeDarkPane,
         DThemeDarkPickerColor: DThemeDarkPickerColor,
         DThemeDarkPickerColorGradient: DThemeDarkPickerColorGradient,
@@ -7259,8 +8045,9 @@
         DThemeDarkTextBase: DThemeDarkTextBase,
         DThemeDarkView: DThemeDarkView,
         DThemeDark: DThemeDark,
-        EThemeDarkShapeActionValue: EThemeDarkShapeActionValue
-    });
+        EThemeDarkShapeActionValue: EThemeDarkShapeActionValue,
+        EThemeDarkShape: EThemeDarkShape
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
