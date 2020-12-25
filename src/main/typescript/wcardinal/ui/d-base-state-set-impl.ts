@@ -600,6 +600,10 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 	}
 
 	toString(): string {
-		return this._local.toString();
+		const values: string[] = [];
+		this._local.forEach(( value: string ): void => {
+			values.push( value );
+		});
+		return `{ revision: ${this._revision}, states: [${values.join( "," )}] }`;
 	}
 }
