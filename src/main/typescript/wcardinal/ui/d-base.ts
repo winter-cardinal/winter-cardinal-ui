@@ -1487,10 +1487,8 @@ export class DBase<
 			if( ! oldState.isFocused ) {
 				this.onFocused();
 			}
-		} else {
-			if( oldState.isFocused ) {
-				this.onBlured();
-			}
+		} else if( oldState.isFocused ) {
+			this.onBlured();
 		}
 	}
 
@@ -1508,8 +1506,18 @@ export class DBase<
 		}
 	}
 
+	protected onChildBlured( blured: DBase ): void {
+		const parent = this.parent;
+		if( parent instanceof DBase ) {
+			parent.onChildBlured( blured );
+		}
+	}
+
 	protected onBlured(): void {
-		//
+		const parent = this.parent;
+		if( parent instanceof DBase ) {
+			parent.onChildBlured( this );
+		}
 	}
 
 	get state(): DBaseStateSet {
