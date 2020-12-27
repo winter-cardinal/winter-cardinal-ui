@@ -139,28 +139,12 @@ export class DTableBodyCellInputTree<
 			const isOpened = !! (supplimental & 0x1);
 			const hasChildren = !! (supplimental & 0x2);
 			const level = (supplimental >> 2);
-			if( hasChildren ) {
-				if( isOpened ) {
-					marker.state.lock()
-						.addAll( DTableCellState.HAS_CHILDREN, DTableCellState.OPENED )
-						.remove( DBaseState.DISABLED )
-						.unlock();
-				} else {
-					marker.state.lock()
-						.add( DTableCellState.HAS_CHILDREN )
-						.removeAll( DBaseState.DISABLED, DTableCellState.OPENED )
-						.unlock();
-				}
-			} else {
-				if( isOpened ) {
-					marker.state.lock()
-						.addAll( DBaseState.DISABLED, DTableCellState.OPENED )
-						.remove( DTableCellState.HAS_CHILDREN )
-						.unlock();
-				} else {
-					marker.state.removeAll( DTableCellState.HAS_CHILDREN, DTableCellState.OPENED );
-				}
-			}
+			const markerState = marker.state;
+			markerState.lock();
+			markerState.set( DTableCellState.HAS_CHILDREN, hasChildren );
+			markerState.set( DBaseState.DISABLED, ! hasChildren );
+			markerState.set( DTableCellState.OPENED, isOpened );
+			markerState.unlock();
 			marker.show();
 			marker.width = this.theme.getLevelPadding( level );
 		} else {
