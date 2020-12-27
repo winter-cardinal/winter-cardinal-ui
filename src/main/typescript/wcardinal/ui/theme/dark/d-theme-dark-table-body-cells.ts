@@ -10,7 +10,6 @@ import { DCornerMask } from "../../d-corner-mask";
 import { DTableCellState } from "../../d-table-cell-state";
 import { UtilRgb } from "../../util/util-rgb";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
-import { DThemeDarkFont } from "./d-theme-dark-font";
 
 export class DThemeDarkTableBodyCells {
 	protected static readonly IMAGE_TINT_COLOR_FOCUSED = UtilRgb.brighten( DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR, 0.1 );

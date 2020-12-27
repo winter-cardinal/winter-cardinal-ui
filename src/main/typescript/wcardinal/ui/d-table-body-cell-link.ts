@@ -13,7 +13,6 @@ import { DTableBodyCell } from "./d-table-body-cell";
 import {
 	DTableBodyCellButton, DTableBodyCellButtonOptions, DThemeTableBodyCellButton
 } from "./d-table-body-cell-button";
-import { DTableCellState } from "./d-table-cell-state";
 import { DTableColumn } from "./d-table-column";
 import { isString } from "./util/is-string";
 
