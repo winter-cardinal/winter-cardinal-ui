@@ -65,19 +65,19 @@ export class DBaseOutlineRenderable implements DRenderable {
 			if( 0 < outlineAlpha ) {
 				const outlineWidth = outline.getWidth( state );
 				const outlineMask = outline.getMask( state );
+				const outlineMesh = this.get( base, theme, cornerRadius, cornerHeight, cornerMask, outlineWidth, outlineMask );
 				const outlineOffset = outline.getOffset( state );
 				const outlineAlign = outline.getAlign( state );
 				const outlineOffsetAccumulative = outlineOffset + outlineAlign * outlineWidth;
-				const outlinePlane = this.get( base, theme, cornerRadius, cornerHeight, cornerMask, outlineWidth, outlineMask );
-				outlinePlane.tint = outlineColor;
-				outlinePlane.alpha = outlineAlpha;
-				outlinePlane.x = -outlineOffsetAccumulative;
-				outlinePlane.y = -outlineOffsetAccumulative;
-				outlinePlane.width = width + outlineOffsetAccumulative * 2;
-				outlinePlane.height = height + outlineOffsetAccumulative * 2;
-				outlinePlane.borderMask = outlineMask;
-				outlinePlane.cornerMask = cornerMask;
-				outlinePlane.visible = true;
+				outlineMesh.tint = outlineColor;
+				outlineMesh.alpha = outlineAlpha;
+				outlineMesh.x = -outlineOffsetAccumulative;
+				outlineMesh.y = -outlineOffsetAccumulative;
+				outlineMesh.width = width + outlineOffsetAccumulative * 2;
+				outlineMesh.height = height + outlineOffsetAccumulative * 2;
+				outlineMesh.borderMask = outlineMask;
+				outlineMesh.cornerMask = cornerMask;
+				outlineMesh.visible = true;
 			} else {
 				this.hide();
 			}

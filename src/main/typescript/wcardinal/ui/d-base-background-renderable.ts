@@ -55,13 +55,13 @@ export class DBaseBackgroundRenderable implements DRenderable {
 		if( backgroundColor != null ) {
 			const backgroundAlpha = background.getAlpha( state );
 			if( 0 < backgroundAlpha ) {
-				const mesh = this.get( base, theme, cornerRadius, cornerHeight, cornerMask );
-				mesh.tint = backgroundColor;
-				mesh.alpha = backgroundAlpha;
-				mesh.width = width;
-				mesh.height = height;
-				mesh.cornerMask = cornerMask;
-				mesh.visible = true;
+				const backgroundMesh = this.get( base, theme, cornerRadius, cornerHeight, cornerMask );
+				backgroundMesh.tint = backgroundColor;
+				backgroundMesh.alpha = backgroundAlpha;
+				backgroundMesh.width = width;
+				backgroundMesh.height = height;
+				backgroundMesh.cornerMask = cornerMask;
+				backgroundMesh.visible = true;
 			} else {
 				this.hide();
 			}

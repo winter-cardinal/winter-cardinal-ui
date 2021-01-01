@@ -64,18 +64,18 @@ export class DBaseBorderRenderable implements DRenderable {
 			if( 0 < borderAlpha ) {
 				const borderWidth = border.getWidth( state );
 				const borderMask = border.getMask( state );
+				const borderMesh = this.get( base, theme, cornerRadius, cornerHeight, cornerMask, borderWidth, borderMask );
 				const borderAlign = border.getAlign( state );
 				const borderOffset = borderAlign * borderWidth;
-				const borderPlane = this.get( base, theme, cornerRadius, cornerHeight, cornerMask, borderWidth, borderMask );
-				borderPlane.tint = borderColor;
-				borderPlane.alpha = borderAlpha;
-				borderPlane.x = -borderOffset;
-				borderPlane.y = -borderOffset;
-				borderPlane.width = width + borderOffset * 2;
-				borderPlane.height = height + borderOffset * 2;
-				borderPlane.borderMask = borderMask;
-				borderPlane.cornerMask = cornerMask;
-				borderPlane.visible = true;
+				borderMesh.tint = borderColor;
+				borderMesh.alpha = borderAlpha;
+				borderMesh.x = -borderOffset;
+				borderMesh.y = -borderOffset;
+				borderMesh.width = width + borderOffset * 2;
+				borderMesh.height = height + borderOffset * 2;
+				borderMesh.borderMask = borderMask;
+				borderMesh.cornerMask = cornerMask;
+				borderMesh.visible = true;
 			} else {
 				this.hide();
 			}
