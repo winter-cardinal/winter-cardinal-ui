@@ -765,11 +765,8 @@ export class DBase<
 		this._befores = [];
 		this._afters = [];
 		this._reflowables = [];
-		const clear = options?.clear;
-		this._clearType = ( clear != null ?
-			( isString( clear ) ? DLayoutClearType[ clear ] : clear ) :
-			theme.getClearType()
-		);
+		const clear = options?.clear ?? theme.getClearType();
+		this._clearType = ( isString( clear ) ? DLayoutClearType[ clear ] : clear );
 		this._padding = new DBasePadding( theme, options, (): void => {
 			this.layout();
 			this.toChildrenDirty();
@@ -841,11 +838,8 @@ export class DBase<
 		});
 
 		// Interactive
-		let interactive = options?.interactive;
-		interactive = ( interactive != null ?
-			( isString( interactive ) ? DBaseInteractive[ interactive ] : interactive ) :
-			theme.getInteractive()
-		);
+		let interactive = options?.interactive ?? theme.getInteractive();
+		interactive = ( isString( interactive ) ? DBaseInteractive[ interactive ] : interactive );
 		this.interactive = ( ( interactive & DBaseInteractive.SELF ) !== 0 );
 		this.interactiveChildren = ( ( interactive & DBaseInteractive.CHILDREN ) !== 0 );
 
