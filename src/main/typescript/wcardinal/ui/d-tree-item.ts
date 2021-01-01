@@ -2,6 +2,7 @@
  * Copyright (C) 2019 Toshiba Corporation
  * SPDX-License-Identifier: Apache-2.0
  */
+
 import { DisplayObject, interaction, Texture } from "pixi.js";
 import { DLayoutHorizontal, DLayoutHorizontalOptions, DThemeLayoutHorizontal } from "./d-layout-horizontal";
 import { DTreeItemRawData } from "./d-tree";
@@ -28,30 +29,19 @@ export interface DThemeTreeItem extends DThemeLayoutHorizontal {
 }
 
 const toText = ( options?: DTreeItemOptions ): string => {
-	if ( options ) {
-		return options.text;
-	}
-	return "";
-};
-
-const isParent = ( options?: DTreeItemOptions ): boolean => {
-	return !! ( options && options.isParent );
-};
-
-const isExpanded = ( options?: DTreeItemOptions ): boolean => {
-	return !! ( options && options.expanded );
+	return options?.text ?? "";
 };
 
 const toImage = ( options?: DTreeItemOptions ): DisplayObject | Texture | null => {
-	return options && options.image ? options.image : null;
+	return options?.image ?? null;
 };
 
 const toYCoordinate = ( options?: DTreeItemOptions ): number => {
-	return options ? options.y : 0;
+	return options?.y ?? 0;
 };
 
 const toRawData = ( options?: DTreeItemOptions ): DTreeItemRawData => {
-	return options ? options.rawData : {
+	return options?.rawData ?? {
 		text: "",
 		children: []
 	};
@@ -61,8 +51,7 @@ const toPaddingLeft = <THEME extends DThemeTreeItem>(
 	theme: DThemeTreeItem,
 	options?: DTreeItemOptions<THEME>
 ): number => {
-	const level = options ? options.level : 0;
-	return theme.getPaddingByLevel( level );
+	return theme.getPaddingByLevel( options?.level ?? 0 );
 };
 
 const toTreeItemTextAndImage = ( options?: DTreeItemOptions ): DTreeItemTextAndImage => {
@@ -88,11 +77,8 @@ export class DTreeItem<
 
 	protected init( options ?: OPTIONS ) {
 		super.init( options );
-		// get isParent option
-		this._isParent = isParent( options );
-		// get isExpand option
-		this._isExpanded = isExpanded( options );
-		// get raw data
+		this._isParent = !! options?.isParent;
+		this._isExpanded = !! options?.expanded;
 		this._rawData = toRawData( options );
 
 		this._icon = new DTreeItemToggleIcon();
@@ -138,30 +124,22 @@ export class DTreeItem<
 		this._rawData = toRawData( options );
 		this._padding.left = toPaddingLeft( this.theme, options );
 		this.position.y = toYCoordinate( options );
-		this._isParent = isParent( options );
-		this._isExpanded = isExpanded( options );
+		this._isParent = !! options.isParent;
+		this._isExpanded = !! options.expanded;
 		this.updateStates( isActive );
 		return this;
 	}
 
-	public updateActiveState( isActive: boolean ) {
-		this.state.isActive = isActive;
-		this._icon.state.set( DTreeItemState.SELECTED, isActive );
-		this._textAndImage.state.set( DTreeItemState.SELECTED, isActive );
-	}
-
 	protected updateStates( isActive: boolean ): void {
-		this.updateActiveState( isActive );
-		const icon = this._icon;
-		if( this._isParent ) {
-			if( this._isExpanded ) {
-				icon.state.set( DTreeItemState.EXPANDED, DTreeItemState.COLLAPSED );
-			} else {
-				icon.state.set( DTreeItemState.COLLAPSED, DTreeItemState.EXPANDED );
-			}
-		} else {
-			icon.state.remove( DTreeItemState.COLLAPSED | DTreeItemState.EXPANDED );
-		}
+		this.state.isActive = isActive;
+
+		const iconState = this._icon.state;
+		const isParent = this._isParent;
+		const isExpanded = this._isExpanded;
+		iconState.lock();
+		iconState.set( DTreeItemState.EXPANDED, isParent && isExpanded );
+		iconState.set( DTreeItemState.COLLAPSED, isParent && ! isExpanded );
+		iconState.unlock();
 	}
 
 	protected getType(): string {

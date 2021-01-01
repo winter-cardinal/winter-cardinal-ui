@@ -59,7 +59,7 @@ export class DDialogProcessing<
 		}
 		const message = this._message;
 		message.text = this._messageText;
-		message.state.remove( DBaseState.SUCCEEDED | DBaseState.FAILED );
+		message.state.removeAll( DBaseState.SUCCEEDED, DBaseState.FAILED );
 		const buttonLayout = this._buttonLayout;
 		if( buttonLayout != null ) {
 			buttonLayout.hide();

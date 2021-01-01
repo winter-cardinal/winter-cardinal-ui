@@ -5,7 +5,6 @@
 
 import { Point, utils } from "pixi.js";
 import { DBaseOnOptions } from "./d-base";
-import { DBaseState } from "./d-base-state";
 import { DChartSelectionPoint } from "./d-chart-selection";
 import { DChartSelectionGridlineContainerOptions } from "./d-chart-selection-gridline-container";
 import { DChartSelectionShapeOptions } from "./d-chart-selection-shape";
@@ -16,7 +15,7 @@ export interface DChartSelectionSubOptions<EMITTER = any> {
 	enable?: boolean;
 	gridline?: DChartSelectionGridlineContainerOptions;
 	marker?: DChartSelectionShapeOptions;
-	state?: DBaseState;
+	state?: string;
 	on?: DBaseOnOptions<EMITTER>;
 	point?: DChartSelectionPoint;
 }

@@ -38,9 +38,9 @@ export class EShapeTextImpl implements EShapeText {
 	readonly padding: EShapeTextOffset;
 	protected _clipping: boolean;
 
-	texture?: Texture;		// Used for rendering and updated when rendered
+	texture?: Texture;			// Used for rendering and updated when rendered
 	atlas?: EShapeTextAtlas;	// Used for rendering and updated when rendered
-	world?: Float32Array;		// Updated when rendered
+	world?: number[];			// Updated when rendered
 
 	constructor(
 		parent: EShapeTextImplParent,

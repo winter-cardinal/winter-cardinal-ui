@@ -1,16 +1,15 @@
 import { DBase } from "../d-base";
-import { DBaseState } from "../d-base-state";
 
 export class UtilStateBlinker {
 	protected _isOn: boolean;
 	protected _targets: Set<DBase>;
-	protected _state: DBaseState;
+	protected _state: string;
 	protected _delay: number;
 	protected _interval: number;
 	protected _timeout: number | null;
 	protected _updateBound: () => void;
 
-	constructor( state: DBaseState, delay: number, interval: number ) {
+	constructor( state: string, delay: number, interval: number ) {
 		this._isOn = true;
 		this._targets = new Set();
 		this._state = state;

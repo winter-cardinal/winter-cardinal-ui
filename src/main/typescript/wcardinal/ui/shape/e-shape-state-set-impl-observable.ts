@@ -1,7 +1,12 @@
-import { DBaseStateSetImpl } from "../d-base-state-set-impl";
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { DBaseStateSetImplObservable } from "../d-base-state-set-impl-observable";
 import { EShapeState } from "./e-shape-state";
 
-export class EShapeStateSetImpl extends DBaseStateSetImpl {
+export class EShapeStateSetImplObservable extends DBaseStateSetImplObservable {
 	get isClicked(): boolean {
 		return this.is( EShapeState.CLICKED );
 	}

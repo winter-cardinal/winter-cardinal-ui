@@ -16,9 +16,8 @@ import { DBaseOutline } from "./d-base-outline";
 import { DBasePadding } from "./d-base-padding";
 import { DBasePoint } from "./d-base-point";
 import { DBaseReflowable } from "./d-base-reflowable";
-import { DBaseState } from "./d-base-state";
 import { DBaseStateSet } from "./d-base-state-set";
-import { DBaseStateSetImpl } from "./d-base-state-set-impl";
+import { DBaseStateSetImplObservable } from "./d-base-state-set-impl-observable";
 import { DBorderStateAware } from "./d-border";
 import { DBorderMask } from "./d-border-mask";
 import { DCoordinatePosition, DCoordinateSize } from "./d-coordinate";
@@ -392,7 +391,7 @@ export interface DBaseOptions<
 	visible?: boolean;
 
 	/** A default state. */
-	state?: (keyof typeof DBaseState) | Array<keyof typeof DBaseState> | DBaseState;
+	state?: string | string[];
 
 	/** An interactivity option. */
 	interactive?: (keyof typeof DBaseInteractive) | DBaseInteractive;
@@ -690,6 +689,7 @@ const toShortcuts = <THEME extends DThemeBase>(
 };
 
 export interface DRenderable {
+	parent?: Container | null;
 	render( renderer: Renderer ): void;
 	updateTransform(): void;
 }
@@ -760,15 +760,13 @@ export class DBase<
 		this._hasDirty = false;
 		this._isChildrenDirty = false;
 		this._shadow = null;
-		this.name = ( options && options.name ) || "";
+		this.name = options?.name ?? "";
 		const theme = this._theme = toTheme( options ) || this.getThemeDefault();
 		this._befores = [];
 		this._afters = [];
 		this._reflowables = [];
-		this._clearType = ( options && options.clear != null ?
-			( isString( options.clear ) ? DLayoutClearType[ options.clear ] : options.clear ) :
-			theme.getClearType()
-		);
+		const clear = options?.clear ?? theme.getClearType();
+		this._clearType = ( isString( clear ) ? DLayoutClearType[ clear ] : clear );
 		this._padding = new DBasePadding( theme, options, (): void => {
 			this.layout();
 			this.toChildrenDirty();
@@ -785,7 +783,7 @@ export class DBase<
 
 		// X
 		const position = transform.position;
-		const x = ( options && options.x != null ? options.x : theme.getX() );
+		const x = options?.x ?? theme.getX();
 		if( isNumber( x ) ) {
 			position.x = x;
 		} else {
@@ -794,7 +792,7 @@ export class DBase<
 		}
 
 		// Y
-		const y = ( options && options.y != null ? options.y : theme.getY() );
+		const y = options?.y ?? theme.getY();
 		if( isNumber( y ) ) {
 			position.y = y;
 		} else {
@@ -803,7 +801,7 @@ export class DBase<
 		}
 
 		// Width
-		const width = ( options && options.width != null ? options.width : theme.getWidth() );
+		const width = options?.width ?? theme.getWidth();
 		if( ! this._auto.width.from( width ) ) {
 			if( isNumber( width ) ) {
 				this._width = width;
@@ -816,7 +814,7 @@ export class DBase<
 		}
 
 		// Height
-		const height = ( options && options.height != null ? options.height : theme.getHeight() );
+		const height = options?.height ?? theme.getHeight();
 		if( ! this._auto.height.from( height ) ) {
 			if( isNumber( height ) ) {
 				this._height = height;
@@ -829,25 +827,24 @@ export class DBase<
 		}
 
 		// Visibility
-		if( options && options.visible != null ) {
-			this.visible = options.visible;
+		const visible = options?.visible;
+		if( visible != null ) {
+			this.visible = visible;
 		}
 
 		// State
-		this._state = new DBaseStateSetImpl(( newState, oldState ): void => {
+		this._state = new DBaseStateSetImplObservable(( newState, oldState ): void => {
 			this.onStateChange( newState, oldState );
 		});
 
 		// Interactive
-		const interactive = ( options && options.interactive != null ?
-			( isString( options.interactive ) ? DBaseInteractive[ options.interactive ] : options.interactive ) :
-			theme.getInteractive()
-		);
+		let interactive = options?.interactive ?? theme.getInteractive();
+		interactive = ( isString( interactive ) ? DBaseInteractive[ interactive ] : interactive );
 		this.interactive = ( ( interactive & DBaseInteractive.SELF ) !== 0 );
 		this.interactiveChildren = ( ( interactive & DBaseInteractive.CHILDREN ) !== 0 );
 
 		// Events
-		const on = options && options.on;
+		const on = options?.on;
 		if( on ) {
 			for( const name in on ) {
 				const handler = on[ name ];
@@ -858,10 +855,10 @@ export class DBase<
 		}
 
 		// Title
-		this._title = ( options && options.title != null ? options.title : theme.getTitle() );
+		this._title = options?.title ?? theme.getTitle();
 
 		// Weight
-		this._weight = ( options && options.weight != null ? options.weight : theme.getWeight() );
+		this._weight = options?.weight ?? theme.getWeight();
 
 		// Reflowable
 		this.initReflowable();
@@ -870,7 +867,10 @@ export class DBase<
 		this._onShadowUpdateBound = (): void => {
 			DApplications.update( this );
 		};
-		const shadow = (options && options.shadow) || theme.getShadow();
+		let shadow = options?.shadow;
+		if( shadow === undefined ) {
+			shadow = theme.getShadow();
+		}
 		if( shadow ) {
 			if( isString( shadow )  ) {
 				switch( shadow ) {
@@ -912,19 +912,16 @@ export class DBase<
 			if( this._isChildrenDirty ) {
 				this.toParentChildrenDirty();
 			}
-			const parent = this.parent;
-			if( parent instanceof DBase ) {
-				this.state.update( parent.state );
+			const newParent = this.parent;
+			if( newParent instanceof DBase ) {
+				this.state.parent = newParent.state;
 			}
 			DApplications.update( this );
 		});
 
 		this.on( "removed", (): void => {
 			this.blur( true );
-			const parent = this.parent;
-			if( parent instanceof DBase ) {
-				this.state.update( parent.state );
-			}
+			this.state.parent = null;
 			DApplications.update( this );
 		});
 
@@ -940,10 +937,7 @@ export class DBase<
 		}
 
 		// Cursor
-		let cursor: string | null | undefined = options && options.cursor;
-		if( cursor == null ) {
-			cursor = theme.getCursor();
-		}
+		const cursor = options?.cursor ?? theme.getCursor();
 		if( cursor != null ) {
 			this.cursor = cursor;
 		}
@@ -952,29 +946,24 @@ export class DBase<
 		this.init( options );
 
 		// State Override
-		if( options && options.state != null ) {
-			const state = options.state;
+		const state = options?.state;
+		if( state != null ) {
 			if( isString( state ) ) {
-				this.state.set( DBaseState[ state ], true );
-			} else if( isNumber( state ) ) {
-				this.state.set( state, true );
+				this.state.add( state );
 			} else {
-				let states = DBaseState.NONE;
-				for( let i = 0, imax = state.length; i < imax; ++i ) {
-					states |= DBaseState[ state[ i ] ];
-				}
-				this.state.set( states, true );
+				this.state.addAll( state );
 			}
 		}
 
 		// Parent
-		if( options && options.parent != null ) {
-			options.parent.addChild( this );
+		const parent = options?.parent;
+		if( parent != null ) {
+			parent.addChild( this );
 		}
 
 		// Children
-		if( options && options.children != null ) {
-			const children = options.children;
+		const children = options?.children;
+		if( children != null ) {
 			for( let i = 0, imax = children.length; i < imax; ++i ) {
 				const child = children[ i ];
 				if( child != null ) {
@@ -988,27 +977,35 @@ export class DBase<
 	}
 
 	addRenderable( renderable: DRenderable, phase: boolean ): void {
-		(renderable as any).parent = this;
 		const list = ( phase ? this._befores : this._afters );
 		list.push( renderable );
+		if( "parent" in renderable ) {
+			renderable.parent = this;
+		}
 	}
 
 	addRenderableAt( renderable: DRenderable, phase: boolean, index: number ): void {
-		(renderable as any).parent = this;
 		const list = ( phase ? this._befores : this._afters );
-		if( 0 <= index && index < list.length ) {
+		if( index === 0 ) {
+			list.unshift( renderable );
+		} else if( 0 < index && index < list.length ) {
 			list.splice( index, 0, renderable );
 		} else {
 			list.push( renderable );
 		}
+		if( "parent" in renderable ) {
+			renderable.parent = this;
+		}
 	}
 
 	removeRenderable( renderable: DRenderable, phase: boolean ): void {
-		(renderable as any).parent = null;
 		const list = ( phase ? this._befores : this._afters );
 		const index = list.indexOf( renderable );
 		if( 0 <= index ) {
 			list.splice( index, 1 );
+			if( "parent" in renderable ) {
+				renderable.parent = null;
+			}
 		}
 	}
 
@@ -1476,7 +1473,7 @@ export class DBase<
 		for( let i = 0, imax = children.length; i < imax; ++i ) {
 			const child = children[ i ];
 			if( child instanceof DBase ) {
-				child.state.update( newState );
+				child.state.parent = newState;
 			}
 		}
 
@@ -1484,10 +1481,8 @@ export class DBase<
 			if( ! oldState.isFocused ) {
 				this.onFocused();
 			}
-		} else {
-			if( oldState.isFocused ) {
-				this.onBlured();
-			}
+		} else if( oldState.isFocused ) {
+			this.onBlured();
 		}
 	}
 
@@ -1505,8 +1500,18 @@ export class DBase<
 		}
 	}
 
+	protected onChildBlured( blured: DBase ): void {
+		const parent = this.parent;
+		if( parent instanceof DBase ) {
+			parent.onChildBlured( blured );
+		}
+	}
+
 	protected onBlured(): void {
-		//
+		const parent = this.parent;
+		if( parent instanceof DBase ) {
+			parent.onChildBlured( this );
+		}
 	}
 
 	get state(): DBaseStateSet {

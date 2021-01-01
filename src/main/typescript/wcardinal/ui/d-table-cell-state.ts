@@ -1,65 +1,54 @@
-import { DBaseState } from "./d-base-state";
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
 /**
  * Cell states.
- *
- * Please not that the bit shift operation returns signed 32-bit integer.
- * Thus, x << y may results in an unexpected value when variables x and y are large.
- * This is why bit shift operations are not used here.
  */
 export const DTableCellState = {
 	/**
 	 * Start cells in rows.
 	 */
-	START: DBaseState.CUSTOM,
+	START: "START",
 
 	/**
 	 * End cells in rows.
 	 */
-	END: DBaseState.CUSTOM * 2,
+	END: "END",
 
 	/**
 	 * Cells of frozen columns.
 	 */
-	FROZEN: DBaseState.CUSTOM * 4,
+	FROZEN: "FROZEN",
 
 	/**
 	 * Cells of a right-most frozen column.
 	 */
-	FROZEN_END: DBaseState.CUSTOM * 8,
+	FROZEN_END: "FROZEN_END",
 
 	/**
 	 * Header cells of columns sorted in the ascending order.
 	 */
-	SORTED_ASCENDING: DBaseState.CUSTOM * 16,
+	SORTED_ASCENDING: "SORTED_ASCENDING",
 
 	/**
 	 * Header cells of columns sorted in the descending order.
 	 */
-	SORTED_DESCENDING: DBaseState.CUSTOM * 32,
-
-	/**
-	 * Cells with a link which is opened in a new window.
-	 */
-	NEW_WINDOW: DBaseState.CUSTOM * 64,
+	SORTED_DESCENDING: "SORTED_DESCENDING",
 
 	/**
 	 * Cells with child cells.
 	 */
-	HAS_CHILDREN: DBaseState.CUSTOM * 128,
+	HAS_CHILDREN: "HAS_CHILDREN",
 
 	/**
 	 * Cells opened.
 	 */
-	OPENED: DBaseState.CUSTOM * 256,
+	OPENED: "OPENED",
 
 	/**
 	 * Cells checkable
 	 */
-	CHECKABLE: DBaseState.CUSTOM * 512,
-
-	/**
-	 * Custom cell events.
-	 */
-	CUSTOM: DBaseState.CUSTOM * 1024
+	CHECKABLE: "CHECKABLE"
 };

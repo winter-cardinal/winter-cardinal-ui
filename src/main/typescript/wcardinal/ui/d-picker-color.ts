@@ -54,8 +54,6 @@ export interface DThemePickerColor extends DThemeBase {
 	getInputMargin(): number;
 	getInputLabelWidth(): number;
 
-	getSampleWidth(): number;
-	getSampleHeight(): number;
 	getSampleCheckerboardTexture(): Texture;
 }
 
@@ -142,7 +140,8 @@ export class DPickerColor<
 		// Main
 		const mainWidth = theme.getMainWidth();
 		const mainHeight = theme.getMainHeight();
-		const mainBaseSprite = this._mainBaseSprite = new Sprite( Texture.WHITE );
+		const mainBaseSprite = new Sprite( Texture.WHITE );
+		this._mainBaseSprite = mainBaseSprite;
 		mainBaseSprite.x = paddingLeft;
 		mainBaseSprite.y = paddingTop;
 		mainBaseSprite.width = mainWidth;
@@ -150,7 +149,8 @@ export class DPickerColor<
 		mainBaseSprite.interactive = true;
 		this.addChild( mainBaseSprite );
 
-		const mainSprite = this._mainSprite = new Sprite( theme.getMainTexture() );
+		const mainSprite = new Sprite( theme.getMainTexture() );
+		this._mainSprite = mainSprite;
 		mainSprite.x = paddingLeft;
 		mainSprite.y = paddingTop;
 		mainSprite.tint = this._base;
@@ -169,7 +169,8 @@ export class DPickerColor<
 		});
 
 		// Base color picker
-		const baseSprite = this._baseSprite = new Sprite( theme.getBaseTexture() );
+		const baseSprite = new Sprite( theme.getBaseTexture() );
+		this._baseSprite = baseSprite;
 		baseSprite.x = paddingLeft;
 		baseSprite.y = mainBaseSprite.y + mainBaseSprite.height + theme.getBaseMargin();
 		baseSprite.interactive = true;
@@ -187,8 +188,8 @@ export class DPickerColor<
 		});
 
 		// Alpha picker
-		const alphaCheckerboardSprite = this._alphaCheckerboardSprite =
-			new Sprite( theme.getAlphaCheckerboardTexture() );
+		const alphaCheckerboardSprite = new Sprite( theme.getAlphaCheckerboardTexture() );
+		this._alphaCheckerboardSprite = alphaCheckerboardSprite;
 		alphaCheckerboardSprite.x = padding.getLeft();
 		alphaCheckerboardSprite.y = baseSprite.y + theme.getBaseHeight() + theme.getBaseMargin();
 		alphaCheckerboardSprite.interactive = false;
@@ -211,7 +212,8 @@ export class DPickerColor<
 		});
 
 		// Pointers
-		const mainPointerSprite = this._mainPointerSprite = new Sprite( theme.getMainPointerTexture() );
+		const mainPointerSprite = new Sprite( theme.getMainPointerTexture() );
+		this._mainPointerSprite = mainPointerSprite;
 		mainPointerSprite.x = paddingLeft;
 		mainPointerSprite.y = paddingTop;
 		mainPointerSprite.anchor.x = 0.5;
@@ -221,7 +223,8 @@ export class DPickerColor<
 		mainPointerSprite.interactive = false;
 		this.addChild( mainPointerSprite );
 
-		const alphaPointerSprite = this._alphaPointerSprite = new Sprite( theme.getAlphaPointerTexture() );
+		const alphaPointerSprite = new Sprite( theme.getAlphaPointerTexture() );
+		this._alphaPointerSprite = alphaPointerSprite;
 		alphaPointerSprite.x = mainWidth;
 		alphaPointerSprite.y = alphaCheckerboardSprite.height * 0.5;
 		alphaPointerSprite.tint = theme.getAlphaPointerColor();
@@ -230,7 +233,8 @@ export class DPickerColor<
 		alphaPointerSprite.interactive = false;
 		alphaCheckerboardSprite.addChild( alphaPointerSprite );
 
-		const basePointerSprite = this._basePointerSprite = new Sprite( theme.getBasePointerTexture() );
+		const basePointerSprite = new Sprite( theme.getBasePointerTexture() );
+		this._basePointerSprite = basePointerSprite;
 		basePointerSprite.x = 0;
 		basePointerSprite.y = baseSprite.height * 0.5;
 		basePointerSprite.tint = theme.getBasePointerColor();
@@ -303,15 +307,16 @@ export class DPickerColor<
 
 		// Input color
 		const inputMargin = theme.getInputMargin();
+		const inputLabelWidth = theme.getInputLabelWidth();
 		const inputY = recentColorY + recentColorHeight + inputMargin;
-		const inputWidth = mainWidth * 0.5;
-		const inputAndLabelColor = this._inputAndLabelColor = new DInputTextAndLabel({
+		const inputWidth = (mainWidth - inputMargin) * 0.5;
+		const inputAndLabelColor = new DInputTextAndLabel({
 			parent: this,
 			x: paddingLeft,
 			y: inputY,
 			width: inputWidth,
 			label: {
-				width: theme.getInputLabelWidth(),
+				width: inputLabelWidth,
 				text: {
 					value: "#"
 				}
@@ -331,14 +336,16 @@ export class DPickerColor<
 				}
 			}
 		});
+		this._inputAndLabelColor = inputAndLabelColor;
+		const inputHeight = inputAndLabelColor.height;
 
-		const inputAndLabelAlpha = this._inputAndLabelAlpha = new DInputRealAndLabel({
+		const inputAndLabelAlpha = new DInputRealAndLabel({
 			parent: this,
 			x: paddingLeft,
-			y: inputY + inputAndLabelColor.height + inputMargin,
+			y: inputY + inputHeight + inputMargin,
 			width: inputWidth,
 			label: {
-				width: theme.getInputLabelWidth(),
+				width: inputLabelWidth,
 				text: {
 					value: "A"
 				}
@@ -357,15 +364,16 @@ export class DPickerColor<
 				}
 			}
 		});
+		this._inputAndLabelAlpha = inputAndLabelAlpha;
 
 		// Samples
-		const sampleWidth = theme.getSampleWidth();
-		const sampleHeight = theme.getSampleHeight();
-		const sampleX = paddingLeft + mainWidth * 0.75 - sampleWidth;
-		const sampleY = inputY + (inputAndLabelColor.height + inputMargin + inputAndLabelAlpha.height - sampleHeight) * 0.5;
+		const sampleWidth = (inputWidth - inputLabelWidth - inputMargin) * 0.5;
+		const sampleHeight = inputHeight + inputMargin + inputHeight;
+		const sampleX = paddingLeft + (mainWidth - inputMargin) * 0.5 + inputMargin;
+		const sampleY = inputY + (inputHeight + inputMargin + inputAndLabelAlpha.height - sampleHeight) * 0.5;
 
-		const sampleCurrentCheckerboardSprite = this._sampleCurrentCheckerboardSprite =
-			new Sprite( theme.getSampleCheckerboardTexture() );
+		const sampleCurrentCheckerboardSprite = new Sprite( theme.getSampleCheckerboardTexture() );
+		this._sampleCurrentCheckerboardSprite = sampleCurrentCheckerboardSprite;
 		sampleCurrentCheckerboardSprite.x = sampleX;
 		sampleCurrentCheckerboardSprite.y = sampleY;
 		sampleCurrentCheckerboardSprite.width = sampleWidth;
@@ -374,7 +382,8 @@ export class DPickerColor<
 		this.addChild( sampleCurrentCheckerboardSprite );
 
 		const current = this._current;
-		const sampleCurrentSprite = this._sampleCurrentSprite = new Sprite( Texture.WHITE );
+		const sampleCurrentSprite = new Sprite( Texture.WHITE );
+		this._sampleCurrentSprite = sampleCurrentSprite;
 		sampleCurrentSprite.x = sampleX;
 		sampleCurrentSprite.y = sampleY;
 		sampleCurrentSprite.tint = current.color;
@@ -389,8 +398,8 @@ export class DPickerColor<
 		});
 		this.addChild( sampleCurrentSprite );
 
-		const sampleNewCheckerboardSprite = this._sampleNewCheckerboardSprite =
-			new Sprite( theme.getSampleCheckerboardTexture() );
+		const sampleNewCheckerboardSprite = new Sprite( theme.getSampleCheckerboardTexture() );
+		this._sampleNewCheckerboardSprite = sampleNewCheckerboardSprite;
 		sampleNewCheckerboardSprite.x = sampleX + sampleWidth;
 		sampleNewCheckerboardSprite.y = sampleY;
 		sampleNewCheckerboardSprite.width = sampleWidth;
@@ -398,7 +407,8 @@ export class DPickerColor<
 		sampleNewCheckerboardSprite.interactive = false;
 		this.addChild( sampleNewCheckerboardSprite );
 
-		const sampleNewSprite = this._sampleNewSprite = new Sprite( Texture.WHITE );
+		const sampleNewSprite = new Sprite( Texture.WHITE );
+		this._sampleNewSprite = sampleNewSprite;
 		sampleNewSprite.x = sampleX + sampleWidth;
 		sampleNewSprite.y = sampleY;
 		sampleNewSprite.tint = this._new.color;

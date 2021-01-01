@@ -4,12 +4,11 @@
  */
 
 import { interaction } from "pixi.js";
-import { DBaseState } from "./d-base-state";
 import { DLink, DLinkChecker, DLinkOptions, DLinkUrlMaker, DThemeLink } from "./d-link";
 import { DLinkMenuItemId } from "./d-link-menu-item-id";
 import { DLinkTarget } from "./d-link-target";
+import { DLinks } from "./d-links";
 import { DMenu, DMenuOptions } from "./d-menu";
-import { DMenuItemLinkState } from "./d-menu-item-link-state";
 import { DMenuItemOptionsUnion } from "./d-menu-item-options-union";
 import { DMenuItemText, DMenuItemTextOptions, DThemeMenuItemText } from "./d-menu-item-text";
 import { isString } from "./util/is-string";
@@ -74,11 +73,8 @@ export class DMenuItemLink<
 	}
 
 	protected init( options?: OPTIONS ): void {
-		if( options && options.target === DLinkTarget.NEW_WINDOW ) {
-			options.state = ( options.state || DBaseState.NONE ) || DMenuItemLinkState.NEW_WINDOW;
-		}
 		this._link = new DLink( this.theme, this.toLinkOptions( options ) );
-		super.init( options );
+		super.init( DLinks.toStateOptions( options?.target, options ) );
 	}
 
 	get url(): string | null | Promise<string | null> {

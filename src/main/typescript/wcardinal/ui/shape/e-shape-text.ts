@@ -73,9 +73,9 @@ export interface EShapeText extends EShapeTextLike {
 	spacing: EShapeTextOffset;
 	padding: EShapeTextOffset;
 
-	texture?: Texture;		// Used for rendering and updated when rendered
+	texture?: Texture;			// Used for rendering and updated when rendered
 	atlas?: EShapeTextAtlas;	// Used for rendering and updated when rendered
-	world?: Float32Array;		// Updated when rendered
+	world?: number[];			// Updated when rendered
 
 	copy( target?: DeepPartial<EShapeTextLike> ): this;
 	set(

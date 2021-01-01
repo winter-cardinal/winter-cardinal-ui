@@ -3,27 +3,22 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export enum DBaseState {
-	NONE			= 0,
-
-	HOVERED			= 1 << 0,
-	ACTIVE			= 1 << 1,
-	FOCUSED			= 1 << 2,
-	UNFOCUSABLE		= 1 << 3,
-	FOCUS_ROOT		= 1 << 4,
-	FOCUS_REVERSE	= 1 << 5,
-	READ_ONLY		= 1 << 6,
-	DISABLED		= 1 << 7,
-	DRAGGING		= 1 << 8,
-	PRESSED			= 1 << 9,
-
-	INVALID			= 1 << 10,
-	SUCCEEDED		= 1 << 11,
-	FAILED			= 1 << 12,
-	WARNED			= 1 << 13,
-
-	CHANGED			= 1 << 14,
-	ALTERNATED		= 1 << 15,
-
-	CUSTOM			= 1 << 16
+export const DBaseState = {
+	HOVERED			: "HOVERED",
+	ACTIVE			: "ACTIVE",
+	FOCUSED			: "FOCUSED",
+	UNFOCUSABLE		: "UNFOCUSABLE",
+	FOCUS_ROOT		: "FOCUS_ROOT",
+	FOCUS_REVERSE	: "FOCUS_REVERSE",
+	READ_ONLY		: "READ_ONLY",
+	DISABLED		: "DISABLED",
+	DRAGGING		: "DRAGGING",
+	PRESSED			: "PRESSED",
+	INVALID			: "INVALID",
+	SUCCEEDED		: "SUCCEEDED",
+	FAILED			: "FAILED",
+	WARNED			: "WARNED",
+	CHANGED			: "CHANGED",
+	ALTERNATED		: "ALTERNATED",
+	NEW_WINDOW		: "NEW_WINDOW"
 }

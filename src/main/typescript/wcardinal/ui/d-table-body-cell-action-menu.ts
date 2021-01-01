@@ -31,7 +31,7 @@ export class DTableBodyCellActionMenu<
 	protected _onSelectedBound: ( selected: unknown ) => void;
 	protected _onClosedBound: () => void;
 
-	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options: OPTIONS ) {
+	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options?: OPTIONS ) {
 		super( options );
 
 		this._rowIndex = -1;

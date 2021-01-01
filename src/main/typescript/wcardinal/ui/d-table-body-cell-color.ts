@@ -46,7 +46,7 @@ export class DTableBodyCellColor<
 	protected _columnIndex: number;
 	protected _columnData: DTableColumn<ROW>;
 
-	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options: OPTIONS ) {
+	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options?: OPTIONS ) {
 		super( options );
 
 		this._rowIndex = -1;

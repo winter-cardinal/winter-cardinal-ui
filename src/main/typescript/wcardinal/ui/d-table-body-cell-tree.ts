@@ -5,9 +5,8 @@
 
 import { interaction } from "pixi.js";
 import { DBasePaddingAdjustable } from "./d-base-padding-adjustable";
-import { DBaseState } from "./d-base-state";
 import { DLink, DThemeLink } from "./d-link";
-import { DLinkTarget } from "./d-link-target";
+import { DLinks } from "./d-links";
 import {
 	DTableBodyCellButton, DTableBodyCellButtonOptions, DThemeTableBodyCellButton
 } from "./d-table-body-cell-button";
@@ -29,17 +28,6 @@ export interface DThemeTableBodyCellTree extends DThemeTableBodyCellButton, DThe
 	getLevelPadding( level: number ): number;
 }
 
-const toOptions = <
-	ROW,
-	THEME extends DThemeTableBodyCellTree = DThemeTableBodyCellTree,
-	OPTIONS extends DTableBodyCellTreeOptions<ROW, THEME> = DTableBodyCellTreeOptions<ROW, THEME>
->( options: OPTIONS ): OPTIONS => {
-	if( options?.link?.target === DLinkTarget.NEW_WINDOW ) {
-		options.state = ( options.state || DBaseState.NONE ) || DTableCellState.NEW_WINDOW;
-	}
-	return options;
-};
-
 export class DTableBodyCellTree<
 	ROW,
 	THEME extends DThemeTableBodyCellTree = DThemeTableBodyCellTree,
@@ -48,8 +36,8 @@ export class DTableBodyCellTree<
 	protected _padding!: DBasePaddingAdjustable;
 	protected _link?: DLink | null;
 
-	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options: OPTIONS ) {
-		super( columnIndex, columnData, toOptions<ROW, THEME, OPTIONS>( options ) );
+	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options?: OPTIONS ) {
+		super( columnIndex, columnData, DLinks.toStateOptions( options?.link?.target, options ) );
 		this._padding = new DBasePaddingAdjustable( this._padding );
 	}
 
@@ -58,7 +46,7 @@ export class DTableBodyCellTree<
 		if( link ) {
 			link.apply( this, ( e ): void => this.onActive( e ) );
 			UtilPointerEvent.onClick( this, ( e: interaction.InteractionEvent ): void => {
-				if( link.enable && this.state.isActionable ) {
+				if( ! link.enable && this.state.isActionable ) {
 					this.onActive( e );
 				}
 			});
@@ -128,28 +116,17 @@ export class DTableBodyCellTree<
 			const isOpened = !! (supplimental & 0x1);
 			const hasChildren = !! (supplimental & 0x2);
 			const level = (supplimental >> 2);
-			if( hasChildren ) {
-				if( isOpened ) {
-					this.state.add( DTableCellState.HAS_CHILDREN | DTableCellState.OPENED );
-				} else {
-					this.state.set( DTableCellState.HAS_CHILDREN, DTableCellState.OPENED );
-				}
-				if( link ) {
-					link.enable = true;
-				}
-			} else {
-				if( isOpened ) {
-					this.state.set( DTableCellState.OPENED, DTableCellState.HAS_CHILDREN );
-				} else {
-					this.state.remove( DTableCellState.HAS_CHILDREN | DTableCellState.OPENED );
-				}
-				if( link ) {
-					link.enable = true;
-				}
+			const state = this.state;
+			state.lock();
+			state.set( DTableCellState.HAS_CHILDREN, hasChildren );
+			state.set( DTableCellState.OPENED, isOpened );
+			state.unlock();
+			if( link ) {
+				link.enable = ! hasChildren;
 			}
 			adjuster.left = this.theme.getLevelPadding( level );
 		} else {
-			this.state.remove( DTableCellState.OPENED | DTableCellState.HAS_CHILDREN );
+			this.state.removeAll( DTableCellState.OPENED, DTableCellState.HAS_CHILDREN );
 			adjuster.left = 0;
 			if( link ) {
 				link.enable = false;

@@ -23,14 +23,14 @@ export class DTableBodyCellButton<
 	THEME extends DThemeTableBodyCellButton = DThemeTableBodyCellButton,
 	OPTIONS extends DTableBodyCellButtonOptions<ROW, THEME> = DTableBodyCellButtonOptions<ROW, THEME>
 > extends DTableBodyCellText<ROW, THEME, OPTIONS> {
-	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options: OPTIONS ) {
+	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options?: OPTIONS ) {
 		super( columnIndex, columnData, options );
 
 		this.buttonMode = true;
 		this.initOnClick( options );
 	}
 
-	protected initOnClick( options: OPTIONS ): void {
+	protected initOnClick( options?: OPTIONS ): void {
 		UtilPointerEvent.onClick( this, ( e: interaction.InteractionEvent ): void => {
 			if( this.state.isActionable ) {
 				this.onActive( e );

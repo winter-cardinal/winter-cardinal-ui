@@ -1,4 +1,7 @@
-import { DBaseState } from "./d-base-state";
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
 /**
  * Tree item states.
@@ -7,15 +10,10 @@ export const DTreeItemState = {
 	/**
 	 * the parent item is expanded
 	 */
-	EXPANDED: DBaseState.CUSTOM,
+	EXPANDED: "EXPANDED",
 
 	/**
 	 * the parent item is collapsed
 	 */
-	COLLAPSED: DBaseState.CUSTOM * 2,
-
-	/**
-	 * the child item is selected
-	 */
-	SELECTED: DBaseState.CUSTOM * 4
+	COLLAPSED: "COLLAPSED"
 };

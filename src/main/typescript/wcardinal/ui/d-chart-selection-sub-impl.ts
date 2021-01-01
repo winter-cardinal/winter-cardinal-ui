@@ -27,21 +27,21 @@ export class DChartSelectionSubImpl extends utils.EventEmitter implements DChart
 	protected _work: Point;
 	protected _gridline: DChartSelectionGridlineContainer;
 	protected _marker: DChartSelectionMarker;
-	protected _state: DBaseState;
+	protected _state: string;
 
 	constructor( options: DChartSelectionSubOptions ) {
 		super();
 
 		this._container = null;
 		this._series = null;
-		this._isEnabled = ( options.enable != null ? options.enable : true );
+		this._isEnabled = ( options.enable ?? true );
 		this._gridline = new DChartSelectionGridlineContainerImpl( options.gridline );
 		this._marker = new DChartSelectionMarker( options.marker );
-		this._state = ( options.state != null ? options.state : DBaseState.HOVERED );
+		this._state = ( options.state ?? DBaseState.HOVERED );
 		this._coordinateX = null;
 		this._coordinateY = null;
 		this._position = new Point();
-		this._point = ( options.point != null ? options.point : DChartSelectionPoint.CLOSER );
+		this._point = ( options.point ?? DChartSelectionPoint.CLOSER );
 		this._work = new Point();
 
 		// Events

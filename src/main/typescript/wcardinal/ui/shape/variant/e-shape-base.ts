@@ -19,7 +19,7 @@ import { EShapePoints } from "../e-shape-points";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeRuntime } from "../e-shape-runtime";
 import { EShapeStateSet } from "../e-shape-state-set";
-import { EShapeStateSetImpl } from "../e-shape-state-set-impl";
+import { EShapeStateSetImplObservable } from "../e-shape-state-set-impl-observable";
 import { EShapeStroke } from "../e-shape-stroke";
 import { EShapeTag } from "../e-shape-tag";
 import { EShapeText } from "../e-shape-text";
@@ -65,7 +65,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	protected _boundsLocal?: Rectangle;
 	protected _boundsLocalTransformId: number;
 
-	protected _state: EShapeStateSet;
+	protected _state?: EShapeStateSet;
 
 	// Hierarchy
 	parent: EShapeContainer | EShape | null;
@@ -104,9 +104,6 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		this._boundsInternalTransformId = NaN;
 		this._boundsLocalTransformId = NaN;
 
-		this._state = new EShapeStateSetImpl(( newState, oldState ): void => {
-			this.onStateChange( newState, oldState );
-		});
 		this.interactive = false;
 
 		//
@@ -239,12 +236,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 	//
 	get visible(): boolean {
-		const parent = this.parent;
-		if( parent instanceof EShapeBase ) {
-			return parent.visible && this._visible;
-		} else {
-			return this._visible;
-		}
+		return this._visible && (this.parent?.visible ?? true);
 	}
 
 	set visible( visible: boolean ) {
@@ -259,10 +251,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 	//
 	toDirty() {
-		const parent = this.parent;
-		if( parent != null ) {
-			parent.toDirty();
-		}
+		this.parent?.toDirty();
 	}
 
 	// Hierarchy
@@ -283,7 +272,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 	detach(): this {
 		const parent = this.parent;
-		if( parent != null ) {
+		if( parent ) {
 			this.parent = null;
 			this.uploaded = undefined;
 			const children = parent.children;
@@ -611,22 +600,26 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 	//
 	protected onStateChange( newState: DBaseStateSet, oldState: DBaseStateSet ): void {
-		const runtime = this.runtime;
-		if( runtime != null ) {
-			runtime.onStateChange( this, newState, oldState );
-		}
+		this.runtime?.onStateChange( this, newState, oldState );
 
 		const children = this.children;
 		for( let i = 0, imax = children.length; i < imax; ++i ) {
 			const child = children[ i ];
 			if( child instanceof EShapeBase ) {
-				child._state.update( newState );
+				child.state.parent = newState;
 			}
 		}
 	}
 
 	get state(): EShapeStateSet {
-		return this._state;
+		let result = this._state;
+		if( result == null ) {
+			result = new EShapeStateSetImplObservable(( newState, oldState ): void => {
+				this.onStateChange( newState, oldState );
+			});
+			this._state = result;
+		}
+		return result;
 	}
 
 	focus(): this {
@@ -654,7 +647,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 	onDblClick( e: MouseEvent ): boolean {
 		const runtime = this.runtime;
-		if( runtime != null ) {
+		if( runtime ) {
 			return runtime.onPointerDblClick( this );
 		}
 		return false;
@@ -662,14 +655,14 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 	onShortcut( e: KeyboardEvent ): void {
 		const runtime = this.runtime;
-		if( runtime != null ) {
+		if( runtime ) {
 			return runtime.onPointerClick( this );
 		}
 	}
 
 	onKeyDown( e: KeyboardEvent ): boolean {
 		const runtime = this.runtime;
-		if( runtime != null ) {
+		if( runtime ) {
 			return runtime.onKeyDown( this, e );
 		}
 		return false;
@@ -677,7 +670,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 	onKeyUp( e: KeyboardEvent ): boolean {
 		const runtime = this.runtime;
-		if( runtime != null ) {
+		if( runtime ) {
 			return runtime.onKeyUp( this, e );
 		}
 		return false;
@@ -686,7 +679,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	//
 	update( time: number ): void {
 		const runtime = this.runtime;
-		if( runtime != null ) {
+		if( runtime ) {
 			runtime.update( this, time );
 		}
 	}
@@ -744,7 +737,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 			}
 		}
 		if( (part & EShapeCopyPart.STATE) !== 0 ) {
-			this.state.copy( source.state );
+			this.state.lock( false ).copy( source.state ).unlock();
 		}
 		return this;
 	}

@@ -170,7 +170,11 @@ export class DMenuSidedSelection extends utils.EventEmitter implements DListItem
 			if( mode === DMenuSidedSelectionMode.SINGLE ) {
 				item.state.isActive = isOn;
 			} else {
-				item.state.set( DBaseState.ACTIVE | DBaseState.READ_ONLY, isOn );
+				if( isOn ) {
+					item.state.addAll( DBaseState.ACTIVE, DBaseState.READ_ONLY );
+				} else {
+					item.state.removeAll( DBaseState.ACTIVE, DBaseState.READ_ONLY );
+				}
 			}
 		}
 	}

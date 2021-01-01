@@ -5,168 +5,230 @@
 
 import { DBaseState } from "./d-base-state";
 import { DBaseStateSet } from "./d-base-state-set";
-import { isNumber } from "./util/is-number";
-
-export type DBaseStateSetImplOnChange = ( newState: DBaseStateSet, oldState: DBaseStateSet ) => void;
+import { isString } from "./util/is-string";
 
 export class DBaseStateSetImpl implements DBaseStateSet {
-	protected _onChange?: DBaseStateSetImplOnChange;
-	protected _onChangeWork?: DBaseStateSetImpl;
+	protected _local: Set<string>;
+	protected _revision: number;
+	protected _parent: DBaseStateSet | null;
+	protected _parentRevision: number;
 
-	protected _local: DBaseState;
-	protected _parentLocal: DBaseState;
-	protected _parentMerged: DBaseState;
-
-	/**
-	 * Merged state is a bit or of the Local state and the parent's merged state.
-	 */
-	protected _merged: DBaseState;
-
-	constructor( onChange?: DBaseStateSetImplOnChange ) {
-		this._local = DBaseState.NONE;
-		this._merged = DBaseState.NONE;
-		this._parentLocal = DBaseState.NONE;
-		this._parentMerged = DBaseState.NONE;
-
-		this._onChange = onChange;
+	constructor() {
+		this._local = new Set<string>();
+		this._revision = 0;
+		this._parent = null;
+		this._parentRevision = -1;
 	}
 
-	is( state: DBaseState ): boolean {
-		return !!(this._local & state);
+	is( state: string ): boolean {
+		return this._local.has( state );
 	}
 
-	in( state: DBaseState ): boolean {
-		return !!(this._merged & state);
+	in( state: string ): boolean {
+		return this.is( state ) || this.under( state );
 	}
 
-	on( state: DBaseState ): boolean {
-		return !!(this._parentLocal & state);
+	on( state: string ): boolean {
+		return this._parent?.is( state ) ?? false;
 	}
 
-	under( state: DBaseState ): boolean {
-		return !!(this._parentMerged & state);
+	under( state: string ): boolean {
+		return this._parent?.in( state ) ?? false;
 	}
 
-	add( state: DBaseState ): this {
-		return this.set( state, true );
+	lock( callOnChange?: boolean ): this {
+		return this;
 	}
 
-	remove( state: DBaseState ): this {
-		return this.set( state, false );
+	unlock(): this {
+		return this;
 	}
 
-	set( state: DBaseState, toOn: boolean ): this;
-	set( on: DBaseState, off: DBaseState ): this;
-	set( stateOrOn: DBaseState, toOnOrOff: boolean | DBaseState ): this {
-		const oldLocal = this._local;
-		const newLocal = ( isNumber( toOnOrOff ) ?
-			( (oldLocal | stateOrOn) & ~toOnOrOff ) :
-			( toOnOrOff ? (oldLocal | stateOrOn) : (oldLocal & ~stateOrOn ) )
+	protected begin(): this {
+		return this;
+	}
+
+	protected end(): this {
+		this._revision += 1;
+		return this;
+	}
+
+	protected checkAdded( added: string ): boolean {
+		return ! this._local.has( added );
+	}
+
+	add( state: string ): this {
+		if( this.checkAdded( state ) ) {
+			this.begin();
+			this._local.add( state );
+			this.end();
+		}
+		return this;
+	}
+
+	protected checkAddeds( states: string[] ) {
+		const local = this._local;
+		for( let i = 0, imax = states.length; i < imax; ++i ) {
+			if( ! local.has( states[ i ] ) ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	addAll( states: string[] ): this;
+	addAll( ...states: string[] ): this;
+	addAll( stateOrStates: string | string[] ): this {
+		const states = ( isString( stateOrStates ) ?
+			arguments as unknown as string[] : stateOrStates
 		);
-		if( oldLocal !== newLocal ) {
-			this._local = newLocal;
-			const parentLocal = this._parentLocal;
-			const parentMerged = this._parentMerged;
-			this.onChange( newLocal, parentLocal, parentMerged, oldLocal, parentLocal, parentMerged );
+		if( this.checkAddeds( states ) ) {
+			this.begin();
+			const local = this._local;
+			for( let i = 0, imax = states.length; i < imax; ++i ) {
+				local.add( states[ i ] );
+			}
+			this.end();
 		}
 		return this;
 	}
 
-	update( parentState: DBaseStateSet ): this {
-		if( parentState instanceof DBaseStateSetImpl ) {
-			const newParentLocal = parentState.local;
-			const newParentMerged = parentState.merged;
-			const oldParentLocal = this._parentLocal;
-			const oldParentMerged = this._parentMerged;
-			if( newParentLocal !== oldParentLocal || newParentMerged !== oldParentMerged ) {
-				this._parentLocal = newParentLocal;
-				this._parentMerged = newParentMerged;
-				const local = this._local;
-				this.onChange( local, newParentLocal, newParentMerged, local, oldParentLocal, oldParentMerged );
+	protected checkRemoved( removed: string ): boolean {
+		return this._local.has( removed );
+	}
+
+	remove( state: string ): this {
+		if( this.checkRemoved( state ) ) {
+			this.begin();
+			this._local.delete( state );
+			this.end();
+		}
+		return this;
+	}
+
+	protected checkRemoveds( states: string[] ) {
+		const local = this._local;
+		for( let i = 0, imax = states.length; i < imax; ++i ) {
+			if( local.has( states[ i ] ) ) {
+				return true;
 			}
 		}
+		return false;
+	}
+
+	removeAll( states: string[] ): this;
+	removeAll( ...states: string[] ): this;
+	removeAll( stateOrStates: string | string[] ): this {
+		const states = ( isString( stateOrStates ) ?
+			arguments as unknown as string[] : stateOrStates
+		);
+		if( this.checkRemoveds( states ) ) {
+			this.begin();
+			const local = this._local;
+			for( let i = 0, imax = states.length; i < imax; ++i ) {
+				local.delete( states[ i ] );
+			}
+			this.end();
+		}
 		return this;
 	}
 
-	copy( state: DBaseStateSet ): this;
-	copy( local: DBaseState, parentLocal: DBaseState, parentMerged: DBaseState, merged: DBaseState ): this;
-	copy(
-		stateOrLocal: DBaseState | DBaseStateSet,
-		parentLocal?: DBaseState,
-		parentMerged?: DBaseState,
-		merged?: DBaseState
-	): this {
-		if( isNumber( stateOrLocal ) ) {
-			this._local = stateOrLocal;
-			this._parentLocal = parentLocal!;
-			this._parentMerged = parentMerged!;
-			this._merged = merged!;
+	set( state: string, isOn: boolean ): this;
+	set( added: string | null, removed: string | null ): this;
+	set( stateOrAdded: string | null, isOnOrRemoved: string | null | boolean ): this {
+		if( isOnOrRemoved === true ) {
+			this.add( stateOrAdded! );
+		} else if( isOnOrRemoved === false ) {
+			this.remove( stateOrAdded! );
 		} else {
-			if( stateOrLocal instanceof DBaseStateSetImpl ) {
-				this._local = stateOrLocal.local;
-				this._parentLocal = stateOrLocal.parentLocal;
-				this._parentMerged = stateOrLocal.parentMerged;
-				this._merged = stateOrLocal.merged;
+			const added = stateOrAdded;
+			const removed = isOnOrRemoved;
+			if( added != null ) {
+				if( removed != null ) {
+					if( this.checkAdded( added ) || this.checkRemoved( removed ) ) {
+						this.begin();
+						this._local.add( added ).delete( removed );
+						this.end();
+					}
+				} else {
+					this.add( added );
+				}
+			} else if( removed != null ) {
+				this.remove( removed );
 			}
 		}
 		return this;
 	}
 
-	protected onChange(
-		newLocal: DBaseState,
-		newParentLocal: DBaseState,
-		newParentMerged: DBaseState,
-		oldLocal: DBaseState,
-		oldParentLocal: DBaseState,
-		oldParentMerged: DBaseState
-	): void {
-		const newMerged = newLocal | newParentMerged;
-		const oldMerged = this._merged;
-		this._merged = newMerged;
-
-		const onChange = this._onChange;
-		if( onChange ) {
-			let oldState = this._onChangeWork;
-			if( oldState == null ) {
-				oldState = new DBaseStateSetImpl();
-				this._onChangeWork = oldState;
+	setAll( states: string[], isOn: boolean ): this;
+	setAll( addeds: string[] | null, removeds: string[] | null ): this;
+	setAll( statesOrAddeds: string[] | null, isOnOrRemoveds: string[] | null | boolean ): this {
+		if( isOnOrRemoveds === true ) {
+			this.addAll( statesOrAddeds! );
+		} else if( isOnOrRemoveds === false ) {
+			this.removeAll( statesOrAddeds! );
+		} else {
+			const addeds = statesOrAddeds;
+			const removeds = isOnOrRemoveds;
+			if( addeds != null ) {
+				if( removeds != null ) {
+					if( this.checkAddeds( addeds ) || this.checkRemoveds( removeds ) ) {
+						this.begin();
+						const local = this._local;
+						for( let i = 0, imax = addeds.length; i < imax; ++i ) {
+							local.add( addeds[ i ] );
+						}
+						for( let i = 0, imax = removeds.length; i < imax; ++i ) {
+							local.delete( removeds[ i ] );
+						}
+						this.end();
+					}
+				} else {
+					this.addAll( addeds );
+				}
+			} else if( removeds != null ) {
+				this.removeAll( removeds );
 			}
-			oldState.copy( oldLocal, oldParentLocal, oldParentMerged, oldMerged );
-
-			onChange( this, oldState );
 		}
+		return this;
 	}
 
-	get local(): DBaseState {
+	copy( other: DBaseStateSet ): this {
+		if( other instanceof DBaseStateSetImpl ) {
+			this.begin();
+			const local = this._local;
+			local.clear();
+			other.local.forEach(( value: string ): void => {
+				local.add( value );
+			});
+			const parent = other.parent;
+			this._parent = parent;
+			this._parentRevision = parent?.revision ?? -1;
+			this.end();
+		}
+		return this;
+	}
+
+	get local(): Set<string> {
 		return this._local;
 	}
 
-	set local( local: DBaseState ) {
-		this._local = local;
+	get revision() {
+		return this._revision;
 	}
 
-	get parentLocal(): DBaseState {
-		return this._parentLocal;
+	get parent(): DBaseStateSet | null {
+		return this._parent;
 	}
 
-	set parentLocal( parentLocal: DBaseState ) {
-		this._parentLocal = parentLocal;
-	}
-
-	get parentMerged(): DBaseState {
-		return this._parentMerged;
-	}
-
-	set parentMerged( parentMerged: DBaseState ) {
-		this._parentMerged = parentMerged;
-	}
-
-	get merged(): DBaseState {
-		return this._merged;
-	}
-
-	set merged( merged: DBaseState ) {
-		this._merged = merged;
+	set parent( parent: DBaseStateSet | null ) {
+		const parentRevision = parent?.revision ?? -1;
+		if( this._parent !== parent || this._parentRevision !== parentRevision ) {
+			this.begin();
+			this._parent = parent;
+			this._parentRevision = parentRevision;
+			this.end();
+		}
 	}
 
 	get isHovered(): boolean {
@@ -290,7 +352,7 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 	}
 
 	get isActionable(): boolean {
-		return ! this.in( DBaseState.DISABLED | DBaseState.READ_ONLY );
+		return ! this.in( DBaseState.DISABLED ) && ! this.in( DBaseState.READ_ONLY );
 	}
 
 	get isDragging(): boolean {
@@ -534,9 +596,10 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 	}
 
 	toString(): string {
-		const local = this._local.toString( 2 );
-		const parentLocal = this._parentLocal.toString( 2 );
-		const parentMerged = this._parentMerged.toString( 2 );
-		return `[${local},${parentLocal},${parentMerged}]`;
+		const values: string[] = [];
+		this._local.forEach(( value: string ): void => {
+			values.push( value );
+		});
+		return `{ revision: ${this._revision}, states: [${values.join( "," )}] }`;
 	}
 }

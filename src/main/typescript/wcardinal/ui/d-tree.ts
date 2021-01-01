@@ -126,11 +126,14 @@ export class DTree<
 				items[ i ].hide();
 			}
 		}
+
+		const selection = this._selection;
 		for ( let i = 0; i < itemOptionsShown.length; i++ ) {
-			items[ i ] = items[ i ].update( itemOptionsShown[ i ],
-				this._selection.contains( itemOptionsShown[ i ].rawData ) );
-			if( items[ i ].isHidden() ) {
-				items[ i ].show();
+			const item = items[ i ];
+			const itemOptions = itemOptionsShown[ i ];
+			item.update( itemOptions, selection.contains( itemOptions.rawData ) );
+			if( item.isHidden() ) {
+				item.show();
 			}
 		}
 	}
@@ -419,37 +422,40 @@ export class DTree<
 		}
 	}
 
-	protected onSelect( item: DTreeItemRawData, e: interaction.InteractionEvent ) {
-		// multi select by "ctr" key + click
-		if( e.data.originalEvent.ctrlKey ) {
-			this._selection.toggle( item );
-		// multi select by "shift" key + click
-		} else if ( e.data.originalEvent.shiftKey ) {
-			const lastSelection = this._selection.get( this._selection.size() - 1 );
-			if( lastSelection ) {
-				this._selection.clear();
-				const selectionY = Number( this._itemOptions.get( item )?.y );
-				const lastSelectionY = Number( this._itemOptions.get ( lastSelection )?.y );
-				const maxY = selectionY < lastSelectionY ?
-					lastSelectionY - this._itemHeight :
-					selectionY;
-				const minY = selectionY < lastSelectionY ?
-					selectionY :
-					lastSelectionY + this._itemHeight;
+	protected onSelect( selectedData: DTreeItemRawData, e: interaction.InteractionEvent ) {
+		const selection = this._selection;
+		const originalEvent = e.data.originalEvent;
+		if( originalEvent.ctrlKey ) {
+			// multi select by "ctr" key + click
+			selection.toggle( selectedData );
+		} else if ( originalEvent.shiftKey ) {
+			// multi select by "shift" key + click
+			const lastSelectedData = selection.get( selection.size() - 1 );
+			if( lastSelectedData ) {
+				const itemOptions = this._itemOptions;
+				const selectedItemOptions = itemOptions.get( selectedData );
+				const lastSelectedItemOptions = itemOptions.get( lastSelectedData );
+				if( selectedItemOptions && lastSelectedItemOptions ) {
+					const selectedItemY = selectedItemOptions.y;
+					const lastSelectedItemY = lastSelectedItemOptions.y;
+					const itemHeight = this._itemHeight;
+					const maxY = selectedItemY < lastSelectedItemY ? lastSelectedItemY - itemHeight : selectedItemY;
+					const minY = selectedItemY < lastSelectedItemY ? selectedItemY : lastSelectedItemY + itemHeight;
 
-				this._itemOptionsShowable.every( ( itemOptions ) => {
-					if( itemOptions.y >= minY && itemOptions.y <= maxY && itemOptions.showable) {
-						this._selection.add( itemOptions.rawData );
-					}
-					return itemOptions.y < maxY;
-				} );
-				this._selection.add( lastSelection );
-
+					selection.clear();
+					this._itemOptionsShowable.forEach(( itemOptionsShowable ): void => {
+						const itemY = itemOptionsShowable.y;
+						if( minY <= itemY && itemY <= maxY && itemOptionsShowable.showable ) {
+							selection.add( itemOptionsShowable.rawData );
+						}
+					});
+					selection.add( lastSelectedData );
+				}
 			}
-		// single select
 		} else {
-			this._selection.clear();
-			this._selection.add( item );
+			// single select
+			selection.clear();
+			selection.add( selectedData );
 		}
 		this.updateActiveState();
 	}
@@ -458,10 +464,12 @@ export class DTree<
 	*
 	**/
 	public updateActiveState() {
+		const selection = this._selection;
 		const items = this._content.children as DTreeItem[];
-		items.forEach( ( item ) => {
-			item.updateActiveState( this._selection.contains( item.getRawData() ) );
-		});
+		for( let i = 0, imax = items.length; i < imax; ++i ) {
+			const item = items[ i ];
+			item.state.isActive = selection.contains( item.getRawData() );
+		}
 	}
 
 	protected getType(): string {

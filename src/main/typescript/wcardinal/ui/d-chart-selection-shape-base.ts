@@ -80,7 +80,7 @@ export abstract class DChartSelectionShapeBase implements DChartSelectionShape {
 	abstract update( container: DChartSeriesContainer, mappedPosition: IPoint ): void;
 
 	protected toTheme( options?: DChartSelectionShapeOptions ): DThemeChartSelectionShape {
-		const theme = ( options && options.theme );
+		const theme = options?.theme;
 		if( isString( theme ) ) {
 			return this.getTheme( theme );
 		} else if( theme != null ) {

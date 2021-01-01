@@ -93,7 +93,7 @@ export class EShapeRuntime {
 
 	onPointerDown( shape: EShape, e?: interaction.InteractionEvent ): void {
 		if( ! shape.state.isDown ) {
-			shape.state.add( EShapeState.DOWN | DBaseState.PRESSED );
+			shape.state.addAll( EShapeState.DOWN, DBaseState.PRESSED );
 
 			// Focus
 			const layer = DApplications.getLayer( shape );
@@ -146,7 +146,7 @@ export class EShapeRuntime {
 			shape.disallowUploadedUpdate();
 			this.onUpdate( shape, time );
 			shape.allowUploadedUpdate();
-			shape.state.remove( EShapeState.CLICKED | EShapeState.DOWN | EShapeState.UP );
+			shape.state.removeAll( EShapeState.CLICKED, EShapeState.DOWN, EShapeState.UP );
 			this.isStateChanged = false;
 			tag.isChanged = false;
 		}
