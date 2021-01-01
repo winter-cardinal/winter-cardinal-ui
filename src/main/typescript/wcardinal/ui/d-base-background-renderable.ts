@@ -8,7 +8,7 @@ import { DBaseBackgroundMesh } from "./d-base-background-mesh";
 import { DBaseStateSet } from "./d-base-state-set";
 import { DCornerMask } from "./d-corner-mask";
 
-export class DBaseReflowablePlaneBackground implements DRenderable {
+export class DBaseBackgroundRenderable implements DRenderable {
 	protected _mesh?: DBaseBackgroundMesh;
 	protected _cornerRadius: number;
 

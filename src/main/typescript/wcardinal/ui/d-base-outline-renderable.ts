@@ -4,13 +4,13 @@
  */
 
 import { DBase, DRenderable, DThemeBase } from "./d-base";
-import { DBaseOutlineMesh } from "./d-base-outline-mesh";
+import { DBaseBorderMesh } from "./d-base-border-mesh";
 import { DBaseStateSet } from "./d-base-state-set";
 import { DBorderMask } from "./d-border-mask";
 import { DCornerMask } from "./d-corner-mask";
 
-export class DBaseReflowablePlaneOutline implements DRenderable {
-	protected _mesh?: DBaseOutlineMesh;
+export class DBaseOutlineRenderable implements DRenderable {
+	protected _mesh?: DBaseBorderMesh;
 	protected _cornerRadius: number;
 	protected _outlineWidth: number;
 
@@ -23,10 +23,10 @@ export class DBaseReflowablePlaneOutline implements DRenderable {
 		base: DBase, theme: DThemeBase,
 		cornerRadius: number, cornerHeight: number, cornerMask: DCornerMask,
 		outlineWidth: number, outlineMask: DBorderMask
-	): DBaseOutlineMesh {
+	): DBaseBorderMesh {
 		let result = this._mesh;
 		if( result == null ) {
-			result = new DBaseOutlineMesh(
+			result = new DBaseBorderMesh(
 				theme.getBorderTexture( cornerRadius, outlineWidth ),
 				cornerHeight,
 				outlineMask,

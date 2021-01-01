@@ -9,7 +9,7 @@ import { DBaseStateSet } from "./d-base-state-set";
 import { DBorderMask } from "./d-border-mask";
 import { DCornerMask } from "./d-corner-mask";
 
-export class DBaseReflowablePlaneBorder implements DRenderable {
+export class DBaseBorderRenderable implements DRenderable {
 	protected _mesh?: DBaseBorderMesh;
 	protected _cornerRadius: number;
 	protected _borderWidth: number;

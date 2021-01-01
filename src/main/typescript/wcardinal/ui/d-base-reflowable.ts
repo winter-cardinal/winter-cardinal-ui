@@ -4,25 +4,25 @@
  */
 
 import { DBase, DReflowable } from "./d-base";
-import { DBaseReflowablePlaneBackground } from "./d-base-reflowable-plane-background";
-import { DBaseReflowablePlaneBorder } from "./d-base-reflowable-plane-border";
-import { DBaseReflowablePlaneOutline } from "./d-base-reflowable-plane-outline";
+import { DBaseBackgroundRenderable } from "./d-base-background-renderable";
+import { DBaseBorderRenderable } from "./d-base-border-renderable";
+import { DBaseOutlineRenderable } from "./d-base-outline-renderable";
 
 export class DBaseReflowable implements DReflowable {
-	protected _background: DBaseReflowablePlaneBackground;
-	protected _border: DBaseReflowablePlaneBorder;
-	protected _outline: DBaseReflowablePlaneOutline;
+	protected _background: DBaseBackgroundRenderable;
+	protected _border: DBaseBorderRenderable;
+	protected _outline: DBaseOutlineRenderable;
 
 	constructor( base: DBase ) {
-		const background = new DBaseReflowablePlaneBackground();
+		const background = new DBaseBackgroundRenderable();
 		this._background = background;
 		base.addRenderable( background, true );
 
-		const border = new DBaseReflowablePlaneBorder();
+		const border = new DBaseBorderRenderable();
 		this._border = border;
 		base.addRenderable( border, false );
 
-		const outline = new DBaseReflowablePlaneOutline();
+		const outline = new DBaseOutlineRenderable();
 		this._outline = outline;
 		base.addRenderable( outline, false );
 
