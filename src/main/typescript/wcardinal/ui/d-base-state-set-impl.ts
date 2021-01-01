@@ -53,14 +53,6 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 		return this;
 	}
 
-	protected copyTo( source: Set<string>, result: Set<string> ): Set<string> {
-		result.clear();
-		source.forEach(( value: string ): void => {
-			result.add( value );
-		});
-		return result;
-	}
-
 	protected checkAdded( added: string ): boolean {
 		return ! this._local.has( added );
 	}
@@ -204,7 +196,11 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 	copy( other: DBaseStateSet ): this {
 		if( other instanceof DBaseStateSetImpl ) {
 			this.begin();
-			this.copyTo( other.local, this._local );
+			const local = this._local;
+			local.clear();
+			other.local.forEach(( value: string ): void => {
+				local.add( value );
+			});
 			const parent = other.parent;
 			this._parent = parent;
 			this._parentRevision = parent?.revision ?? -1;
