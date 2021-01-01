@@ -126,11 +126,14 @@ export class DTree<
 				items[ i ].hide();
 			}
 		}
+
+		const selection = this._selection;
 		for ( let i = 0; i < itemOptionsShown.length; i++ ) {
-			items[ i ] = items[ i ].update( itemOptionsShown[ i ],
-				this._selection.contains( itemOptionsShown[ i ].rawData ) );
-			if( items[ i ].isHidden() ) {
-				items[ i ].show();
+			const item = items[ i ];
+			const itemOptions = itemOptionsShown[ i ];
+			item.update( itemOptions, selection.contains( itemOptions.rawData ) );
+			if( item.isHidden() ) {
+				item.show();
 			}
 		}
 	}
