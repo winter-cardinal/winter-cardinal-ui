@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Application, interaction, Point } from "pixi.js";
+import { Application, Container, interaction, Point } from "pixi.js";
 import { DApplicationLayerLike } from "./d-application-layer-like";
 import { DApplicationLayerOptions } from "./d-application-layer-options";
 import { DApplicationLike } from "./d-application-like";
@@ -53,9 +53,10 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 		super( options.getPixiApplicationOptions() );
 
 		this.application = application;
-		const stageAny = this.stage as any;
-		stageAny.layer = this;
-		stageAny.application = application;
+		const stage = this.stage;
+		(stage as any).layer = this;
+		(stage as any).application = application;
+		stage.interactive = true;
 
 		this._options = options;
 		this._isLocked = true;
@@ -75,10 +76,12 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 		};
 
 		// Init element container
-		this._elementContainer = this.newElementContainer( rootElement, stageAny, isOverlay );
+		const elementContainer = this.newElementContainer();
+		this._elementContainer = elementContainer;
 
 		// Init canvas
-		const viewStyle = this.view.style;
+		const view = this.view;
+		const viewStyle = view.style;
 		viewStyle.position = "absolute";
 		viewStyle.top = "0";
 		viewStyle.left = "0";
@@ -86,6 +89,9 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 		viewStyle.height = "100%";
 		viewStyle.display = "block";
 		viewStyle.outline = "none";
+
+		// Init root element
+		this.initRootElement( rootElement, view, elementContainer, stage, isOverlay );
 
 		// Focus handling
 		let hasFocus = false;
@@ -102,13 +108,13 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 			hasFocus = false;
 			setTimeout( onBlurBound, 0 );
 		}, true );
-		this.view.setAttribute( "tabindex", "0" );
+		view.setAttribute( "tabindex", "0" );
 
-		DControllers.getKeyboardController().init( this.view, this.stage, focusController );
+		DControllers.getKeyboardController().init( view, stage, focusController );
 
 		const interactionManager: interaction.InteractionManager = this.renderer.plugins.interaction;
 		interactionManager.on( UtilPointerEvent.down, ( e: interaction.InteractionEvent ): void => {
-			if( e.target == null || e.target === stageAny ) {
+			if( e.target == null || e.target === stage ) {
 				focusController.clear();
 			}
 		});
@@ -123,7 +129,7 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 		// Mouse wheel handling
 		const wheelGlobal = new Point();
 		const wheelEventUtil = UtilWheelEvent.getInstance();
-		wheelEventUtil.on( this.view, ( e: WheelEvent | Event ): void => {
+		wheelEventUtil.on( view, ( e: WheelEvent | Event ): void => {
 			const wheelEvent = e as WheelEvent;
 			UtilPointerEvent.toGlobal( wheelEvent, interactionManager, wheelGlobal );
 			let current = interactionManager.hitTest( wheelGlobal );
@@ -142,7 +148,7 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 		});
 
 		// Double click handling
-		UtilPointerEvent.onDblClick( this.view, ( e: MouseEvent | TouchEvent ) => {
+		UtilPointerEvent.onDblClick( view, ( e: MouseEvent | TouchEvent ) => {
 			const focused = focusController.get();
 			if( focused != null ) {
 				let current: DFocusable | DFocusableContainer | null = focused;
@@ -156,43 +162,42 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 				}
 			}
 		});
-
-		//
-		this.stage.interactive = true;
 	}
 
-	protected newElementContainer( rootElement: HTMLElement, stageAny: any, isOverlay: boolean ): HTMLDivElement {
-		const elementContainer = document.createElement( "div" );
-		elementContainer.setAttribute( "style",
+	protected newElementContainer(): HTMLElement {
+		const result = document.createElement( "div" );
+		result.setAttribute( "style",
 			"position: absolute; top: 0; left: 0; width: 0; height: 0;" +
 			"margin: 0; padding: 0; outline: none;"
 		);
-		const children = rootElement.children;
-		if( isOverlay ) {
-			if( 3 <= children.length ) {
-				const thirdChild = children[ 2 ];
-				rootElement.insertBefore( this.view, thirdChild );
-				rootElement.insertBefore( elementContainer, thirdChild );
-			} else {
-				rootElement.appendChild( this.view );
-				rootElement.appendChild( elementContainer );
-			}
+		return result;
+	}
 
-			const oldOnChildrenChange = stageAny.onChildrenChange;
-			stageAny.onChildrenChange = (): void => {
-				this.onStageDirty();
-				oldOnChildrenChange.call( stageAny );
-			};
+	protected initRootElement(
+		rootElement: HTMLElement, view: HTMLCanvasElement, elementContainer: HTMLElement,
+		stage: Container, isOverlay: boolean
+	): void {
+		// Insert elements
+		const insertionPosition = ( isOverlay ? 2 : 0 );
+		const children = rootElement.children;
+		if( insertionPosition < children.length ) {
+			const child = children[ insertionPosition ];
+			rootElement.insertBefore( view, child );
+			rootElement.insertBefore( elementContainer, child );
 		} else {
-			if( 0 < children.length ) {
-				const firstChild = children[ 0 ];
-				rootElement.insertBefore( this.view, firstChild );
-				rootElement.insertBefore( elementContainer, firstChild );
-			} else {
-				rootElement.appendChild( this.view );
-				rootElement.appendChild( elementContainer );
-			}
+			rootElement.appendChild( view );
+			rootElement.appendChild( elementContainer );
 		}
+
+		if( isOverlay ) {
+			const oldOnChildrenChange = (stage as any).onChildrenChange;
+			(stage as any).onChildrenChange = (): void => {
+				this.onStageDirty();
+				oldOnChildrenChange.call( stage );
+			};
+		}
+
+		// Init styles
 		const rootElementStyle = rootElement.style;
 		if( rootElement !== document.body ) {
 			const rootElementStylePosition = window.getComputedStyle( rootElement ).position;
@@ -203,7 +208,6 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 		rootElementStyle.margin = "0";
 		rootElementStyle.padding = "0";
 		rootElementStyle.overflow = "hidden";
-		return elementContainer;
 	}
 
 	protected onResize(): void {
@@ -242,7 +246,7 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 		// Update the visibility if this is a overlay layer.
 		if( this._isOverlay ) {
 			if( 0 < this.stage.children.length ) {
-				// There is more than one children,
+				// There are more than one children,
 				// therefore must be visible.
 				if( ! this._isVisible ) {
 					this._isVisible = true;
