@@ -99,17 +99,17 @@ export class DHtmlElement<
 	protected _elementStyle!: DHtmlElementStyle<THEME> | undefined;
 	protected _elementRect!: Rectangle | null;
 	protected _isElementShown!: boolean;
-	protected _onElementFocusedBound!: ( e: FocusEvent ) => void;
+	protected _onElementFocusBound!: ( e: FocusEvent ) => void;
 
 	protected _before!: HTMLDivElement | null;
 	protected _beforeCreator!: DHtmlElementElementCreator<HTMLDivElement> | null;
 	protected _beforeStyle!: DHtmlElementStyleBefore<THEME> | undefined;
-	protected _onBeforeFocusedBound!: ( e: FocusEvent ) => void;
+	protected _onBeforeFocusBound!: ( e: FocusEvent ) => void;
 
 	protected _after!: HTMLDivElement | null;
 	protected _afterCreator!: DHtmlElementElementCreator<HTMLDivElement> | null;
 	protected _afterStyle!: DHtmlElementStyleAfter<THEME> | undefined;
-	protected _onAfterFocusedBound!: ( e: FocusEvent ) => void;
+	protected _onAfterFocusBound!: ( e: FocusEvent ) => void;
 
 	protected _isStarted!: boolean;
 	protected _select!: boolean;
@@ -123,50 +123,46 @@ export class DHtmlElement<
 		this._workPoint = null;
 
 		const theme = this.theme;
-		const clipper = options && options.clipper;
-		const clipperCreator = (clipper && clipper.creator) || theme.getClipperCreator();
+		const clipper = options?.clipper;
+		const clipperCreator = clipper?.creator ?? theme.getClipperCreator();
 		this._clipper = null;
 		this._clipperCreator = clipperCreator;
 		this._clipperRect = null;
 
-		const element = options && options.element;
-		const elementCreator = (element && element.creator) || theme.getElementCreator();
+		const element = options?.element;
+		const elementCreator = element?.creator ?? theme.getElementCreator();
 		this._element = null;
 		this._elementCreator = elementCreator;
-		this._elementStyle = element && element.style;
+		this._elementStyle = element?.style;
 		this._elementRect = null;
 		this._isElementShown = false;
-		this._onElementFocusedBound = ( e: FocusEvent ): void => {
-			this.onElementFocused( e );
+		this._onElementFocusBound = ( e: FocusEvent ): void => {
+			this.onElementFocus( e );
 		};
 
-		const before = options && options.before;
+		const before = options?.before;
 		this._before = null;
-		this._beforeCreator = (before && before.creator) || theme.getBeforeCreator();
-		this._beforeStyle = before && before.style;
-		this._onBeforeFocusedBound = ( e: FocusEvent ): void => {
-			this.onBeforeFocused( e );
+		this._beforeCreator = before?.creator ?? theme.getBeforeCreator();
+		this._beforeStyle = before?.style;
+		this._onBeforeFocusBound = ( e: FocusEvent ): void => {
+			this.onBeforeFocus( e );
 		};
 
-		const after = options && options.after;
+		const after = options?.after;
 		this._after = null;
-		this._afterCreator = (after && after.creator) || theme.getAfterCreator();
-		this._afterStyle = after && after.style;
-		this._onAfterFocusedBound = ( e: FocusEvent ): void => {
-			this.onAfterFocused( e );
+		this._afterCreator = after?.creator ?? theme.getAfterCreator();
+		this._afterStyle = after?.style;
+		this._onAfterFocusBound = ( e: FocusEvent ): void => {
+			this.onAfterFocus( e );
 		};
 
 		this._isStarted = false;
-		this._select = ( options && options.select != null ?
-			options.select : theme.getSelect()
-		);
+		this._select = options?.select ?? theme.getSelect();
 		this._doSelectBound = () => {
 			this.doSelect();
 		};
-		const when = ( options && options.when != null ?
-			( isString( options.when ) ? DHtmlElementWhen[ options.when ] : options.when ) :
-			theme.getWhen()
-		);
+		let when = options?.when ?? theme.getWhen();
+		when = ( isString( when ) ? DHtmlElementWhen[ when ] : when );
 		this._when = when;
 		this._isStartRequested = ( when === DHtmlElementWhen.ALWAYS );
 	}
@@ -183,28 +179,22 @@ export class DHtmlElement<
 		}
 	}
 
-	protected onFocused(): void {
-		super.onFocused();
+	protected onFocus(): void {
+		super.onFocus();
 		if( this._when === DHtmlElementWhen.FOCUSED ) {
 			this.start();
 		} else {
-			const element = this._element;
-			if( element ) {
-				element.focus();
-			}
+			this._element?.focus();
 		}
 	}
 
-	protected onBlured(): void {
-		super.onBlured();
+	protected onBlur(): void {
+		super.onBlur();
 		if( this._when === DHtmlElementWhen.FOCUSED ) {
-			this.onEndByBlured();
+			this.onEndByBlur();
 			this.cancel();
 		} else {
-			const element = this._element;
-			if( element ) {
-				element.blur();
-			}
+			this._element?.blur();
 		}
 	}
 
@@ -413,25 +403,17 @@ export class DHtmlElement<
 	protected onElementAttached(
 		element: ELEMENT, before: HTMLDivElement | null, after: HTMLDivElement | null
 	): void {
-		if( before ) {
-			before.addEventListener( "focus", this._onBeforeFocusedBound );
-		}
-		if( after ) {
-			after.addEventListener( "focus", this._onAfterFocusedBound );
-		}
-		element.addEventListener( "focus", this._onElementFocusedBound, true );
+		before?.addEventListener( "focus", this._onBeforeFocusBound );
+		after?.addEventListener( "focus", this._onAfterFocusBound );
+		element.addEventListener( "focus", this._onElementFocusBound, true );
 	}
 
 	protected onElementDetached(
 		element: ELEMENT, before: HTMLDivElement | null, after: HTMLDivElement | null
 	): void {
-		if( before ) {
-			before.removeEventListener( "focus", this._onBeforeFocusedBound );
-		}
-		if( after ) {
-			after.removeEventListener( "focus", this._onAfterFocusedBound );
-		}
-		element.removeEventListener( "focus", this._onElementFocusedBound, true );
+		before?.removeEventListener( "focus", this._onBeforeFocusBound );
+		after?.removeEventListener( "focus", this._onAfterFocusBound );
+		element.removeEventListener( "focus", this._onElementFocusBound, true );
 	}
 
 	protected getElement( clipper: HTMLDivElement ): ELEMENT | null {
@@ -527,7 +509,7 @@ export class DHtmlElement<
 		}
 	}
 
-	protected onBeforeFocused( e: FocusEvent ): void {
+	protected onBeforeFocus( e: FocusEvent ): void {
 		const layer = DApplications.getLayer( this );
 		if( layer ) {
 			const focusController = layer.getFocusController();
@@ -539,7 +521,7 @@ export class DHtmlElement<
 		}
 	}
 
-	protected onAfterFocused( e: FocusEvent ): void {
+	protected onAfterFocus( e: FocusEvent ): void {
 		const layer = DApplications.getLayer( this );
 		if( layer ) {
 			const focusController = layer.getFocusController();
@@ -551,7 +533,7 @@ export class DHtmlElement<
 		}
 	}
 
-	protected onElementFocused( e: FocusEvent ): void {
+	protected onElementFocus( e: FocusEvent ): void {
 		if( this._when === DHtmlElementWhen.ALWAYS ) {
 			if( ! this.state.isFocused ) {
 				this.focus();
@@ -559,7 +541,7 @@ export class DHtmlElement<
 		}
 	}
 
-	protected onEndByBlured(): void {
+	protected onEndByBlur(): void {
 		this.onEnd();
 	}
 

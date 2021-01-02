@@ -157,10 +157,10 @@ export class DPane<
 
 		//
 		content.on( "move", (): void => {
-			this.onContentChanged();
+			this.onContentChange();
 		});
 		content.on( "resize", (): void => {
-			this.onContentChanged();
+			this.onContentChange();
 		});
 		this.updateScrollBar();
 	}
@@ -246,7 +246,7 @@ export class DPane<
 		this.updateScrollBar();
 	}
 
-	protected onContentChanged(): void {
+	protected onContentChange(): void {
 		this.updateScrollBar();
 	}
 
@@ -349,7 +349,7 @@ export class DPane<
 		return result;
 	}
 
-	protected onChildFocused( focused: DBase ): void {
+	protected onChildFocus( focused: DBase ): void {
 		const point = DPane.WORK_POINT = (DPane.WORK_POINT || new Point());
 
 		// Content rectangle
@@ -423,7 +423,7 @@ export class DPane<
 			}
 		}
 
-		super.onChildFocused( focused );
+		super.onChildFocus( focused );
 	}
 
 	destroy(): void {

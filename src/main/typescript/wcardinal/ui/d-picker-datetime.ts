@@ -99,7 +99,7 @@ export class DPickerDatetime<
 	set page( datePage: Date ) {
 		if( this._datePage.getTime() !== datePage.getTime() ) {
 			this._datePage = datePage;
-			this.onPageChanged();
+			this.onPageChange();
 		}
 	}
 
@@ -112,23 +112,23 @@ export class DPickerDatetime<
 		const work = this._datePage;
 		work.setFullYear( work.getFullYear(), work.getMonth() + 1, 1 );
 		work.setHours( 0, 0, 0, 0 );
-		this.onPageChanged();
+		this.onPageChange();
 	}
 
 	back(): void {
 		const work = this._datePage;
 		work.setFullYear( work.getFullYear(), work.getMonth() - 1, 1 );
 		work.setHours( 0, 0, 0, 0 );
-		this.onPageChanged();
+		this.onPageChange();
 	}
 
-	onNewChanged(): void {
+	onNewChange(): void {
 		this._dateBounds.adjust( this._datePage );
-		super.onNewChanged();
-		this.onPageChanged();
+		super.onNewChange();
+		this.onPageChange();
 	}
 
-	protected onPageChanged(): void {
+	protected onPageChange(): void {
 		const buttons = this._dateButtons;
 		const bounds = this._dateBounds;
 		const datePage = this._datePage;
@@ -300,7 +300,7 @@ export class DPickerDatetime<
 			dateNew.setFullYear( datePage.getFullYear() );
 			dateNew.setMonth( datePage.getMonth() );
 			dateNew.setDate( date );
-			this.onNewChanged();
+			this.onNewChange();
 		}
 	}
 

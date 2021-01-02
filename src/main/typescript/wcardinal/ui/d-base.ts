@@ -743,13 +743,13 @@ export class DBase<
 		// Transform
 		const transform: Transform = this.transform;
 		this._position = new DBasePoint( transform.position, ( newX, newY, oldX, oldY ): void => {
-			this.onPositionChanged( newX, newY, oldX, oldY );
+			this.onMove( newX, newY, oldX, oldY );
 		});
 		this._scale = new DBasePoint( transform.scale, ( newX, newY, oldX, oldY ): void => {
-			this.onScaleChanged( newX, newY, oldX, oldY );
+			this.onScale( newX, newY, oldX, oldY );
 		});
 		this._skew = new DBasePoint( transform.skew, ( newX, newY, oldX, oldY ): void => {
-			this.onSkewChanged( newX, newY, oldX, oldY );
+			this.onSkew( newX, newY, oldX, oldY );
 		});
 
 		//
@@ -1042,8 +1042,14 @@ export class DBase<
 		return this._weight;
 	}
 
-	protected onPositionChanged( newX: number, newY: number, oldX: number, oldY: number ): void {
-		this.moveChildren( newX, newY, oldX, oldY );
+	protected onMove( newX: number, newY: number, oldX: number, oldY: number ): void {
+		const children = this.children;
+		for( let i = 0, imax = children.length; i < imax; ++i ) {
+			const child = children[ i ];
+			if( child instanceof DBase ) {
+				child.onParentMove( newX, newY, oldX, oldY );
+			}
+		}
 		DApplications.update( this );
 		this.emit( "move", newX, newY, oldX, oldY, this );
 	}
@@ -1099,17 +1105,26 @@ export class DBase<
 	onResize( newWidth: number, newHeight: number, oldWidth: number, oldHeight: number ): void {
 		this.toDirty();
 		this.toChildrenDirty();
-		this.resizeChildren();
+
+		const padding = this._padding;
+		const children = this.children;
+		for( let i = 0, imax = children.length; i < imax; ++i ) {
+			const child = children[ i ];
+			if( child instanceof DBase ) {
+				child.onParentResize( newWidth, newHeight, padding );
+			}
+		}
+
 		DApplications.update( this );
 		this.emit( "resize", newWidth, newHeight, oldWidth, oldHeight, this );
 	}
 
-	protected onScaleChanged( newX: number, newY: number, oldX: number, oldY: number ): void {
+	protected onScale( newX: number, newY: number, oldX: number, oldY: number ): void {
 		DApplications.update( this );
 		this.emit( "scale", newX, newY, oldX, oldY, this );
 	}
 
-	protected onSkewChanged( newX: number, newY: number, oldX: number, oldY: number ): void {
+	protected onSkew( newX: number, newY: number, oldX: number, oldY: number ): void {
 		DApplications.update( this );
 		this.emit( "skew", newX, newY, oldX, oldY, this );
 	}
@@ -1473,44 +1488,44 @@ export class DBase<
 		for( let i = 0, imax = children.length; i < imax; ++i ) {
 			const child = children[ i ];
 			if( child instanceof DBase ) {
-				child.state.parent = newState;
+				child.state.onParentChange( newState, oldState );
 			}
 		}
 
 		if( newState.isFocused ) {
 			if( ! oldState.isFocused ) {
-				this.onFocused();
+				this.onFocus();
 			}
 		} else if( oldState.isFocused ) {
-			this.onBlured();
+			this.onBlur();
 		}
 	}
 
-	protected onChildFocused( focused: DBase ): void {
+	protected onChildFocus( focused: DBase ): void {
 		const parent = this.parent;
 		if( parent instanceof DBase ) {
-			parent.onChildFocused( focused );
+			parent.onChildFocus( focused );
 		}
 	}
 
-	protected onFocused(): void {
+	protected onFocus(): void {
 		const parent = this.parent;
 		if( parent instanceof DBase ) {
-			parent.onChildFocused( this );
+			parent.onChildFocus( this );
 		}
 	}
 
-	protected onChildBlured( blured: DBase ): void {
+	protected onChildBlur( blured: DBase ): void {
 		const parent = this.parent;
 		if( parent instanceof DBase ) {
-			parent.onChildBlured( blured );
+			parent.onChildBlur( blured );
 		}
 	}
 
-	protected onBlured(): void {
+	protected onBlur(): void {
 		const parent = this.parent;
 		if( parent instanceof DBase ) {
-			parent.onChildBlured( this );
+			parent.onChildBlur( this );
 		}
 	}
 
@@ -1706,20 +1721,6 @@ export class DBase<
 		this.position.set( newX, newY );
 	}
 
-	resizeChildren(): void {
-		const width = this._width;
-		const height = this._height;
-		const padding = this._padding;
-
-		const children = this.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			const child = children[ i ];
-			if( child instanceof DBase ) {
-				child.onParentResize( width, height, padding );
-			}
-		}
-	}
-
 	/**
 	 * Called when a parent moved.
 	 *
@@ -1730,16 +1731,6 @@ export class DBase<
 	 */
 	protected onParentMove( newX: number, newY: number, oldX: number, oldY: number ): void {
 		// DO NOTHING
-	}
-
-	protected moveChildren( newX: number, newY: number, oldX: number, oldY: number ) {
-		const children = this.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			const child = children[ i ];
-			if( child instanceof DBase ) {
-				child.onParentMove( newX, newY, oldX, oldY );
-			}
-		}
 	}
 
 	// Wheel
