@@ -10,8 +10,8 @@ export interface DApplicationLayerLike extends Application {
 	readonly height: number;
 	readonly padding: DPadding;
 
-	allowUpdate(): void;
-	disallowUpdate(): void;
+	unlock(): void;
+	lock(): void;
 
 	update(): void;
 	render(): void;
@@ -20,5 +20,6 @@ export interface DApplicationLayerLike extends Application {
 
 	getFocusController(): DControllerFocus;
 	getDynamicFontAtlases(): DynamicFontAtlases;
+	getRootElement(): HTMLElement;
 	getElementContainer(): HTMLElement;
 }

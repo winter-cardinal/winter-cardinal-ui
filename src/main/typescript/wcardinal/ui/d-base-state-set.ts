@@ -79,7 +79,6 @@ export interface DBaseStateSet {
 	readonly underAlternated: boolean;
 
 	parent: DBaseStateSet | null;
-	readonly revision: number;
 
 	/**
 	 * Returns true if the given state is on.
@@ -142,6 +141,8 @@ export interface DBaseStateSet {
 	setAll( addeds: string[] | null, removeds: string[] | null ): this;
 
 	copy( state: DBaseStateSet ): this;
+
+	onParentChange( newState: DBaseStateSet, oldState: DBaseStateSet ): void;
 
 	toString(): string;
 }

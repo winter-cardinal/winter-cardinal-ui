@@ -112,8 +112,8 @@ export class DList<
 		}
 	}
 
-	protected onContentChanged(): void {
-		super.onContentChanged();
+	protected onContentChange(): void {
+		super.onContentChange();
 		this.updateChildVisibility();
 	}
 

@@ -9,15 +9,11 @@ import { isString } from "./util/is-string";
 
 export class DBaseStateSetImpl implements DBaseStateSet {
 	protected _local: Set<string>;
-	protected _revision: number;
 	protected _parent: DBaseStateSet | null;
-	protected _parentRevision: number;
 
 	constructor() {
 		this._local = new Set<string>();
-		this._revision = 0;
 		this._parent = null;
-		this._parentRevision = -1;
 	}
 
 	is( state: string ): boolean {
@@ -49,7 +45,6 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 	}
 
 	protected end(): this {
-		this._revision += 1;
 		return this;
 	}
 
@@ -201,9 +196,7 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 			other.local.forEach(( value: string ): void => {
 				local.add( value );
 			});
-			const parent = other.parent;
-			this._parent = parent;
-			this._parentRevision = parent?.revision ?? -1;
+			this._parent = other.parent;
 			this.end();
 		}
 		return this;
@@ -213,22 +206,23 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 		return this._local;
 	}
 
-	get revision() {
-		return this._revision;
-	}
-
 	get parent(): DBaseStateSet | null {
 		return this._parent;
 	}
 
 	set parent( parent: DBaseStateSet | null ) {
-		const parentRevision = parent?.revision ?? -1;
-		if( this._parent !== parent || this._parentRevision !== parentRevision ) {
+		if( this._parent !== parent ) {
 			this.begin();
 			this._parent = parent;
-			this._parentRevision = parentRevision;
 			this.end();
 		}
+	}
+
+	onParentChange( newState: DBaseStateSet, oldState: DBaseStateSet ): void {
+		this._parent = oldState;
+		this.begin();
+		this._parent = newState;
+		this.end();
 	}
 
 	get isHovered(): boolean {
@@ -600,6 +594,6 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 		this._local.forEach(( value: string ): void => {
 			values.push( value );
 		});
-		return `{ revision: ${this._revision}, states: [${values.join( "," )}] }`;
+		return `{${values.join( "," )}}`;
 	}
 }

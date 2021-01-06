@@ -606,7 +606,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		for( let i = 0, imax = children.length; i < imax; ++i ) {
 			const child = children[ i ];
 			if( child instanceof EShapeBase ) {
-				child.state.parent = newState;
+				child.state.onParentChange( newState, oldState );
 			}
 		}
 	}

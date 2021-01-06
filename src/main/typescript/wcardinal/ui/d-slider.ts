@@ -135,7 +135,7 @@ export abstract class DSlider<
 		};
 
 		//
-		this.onValuesChanged();
+		this.onValuesChange();
 	}
 
 	protected newThumb( options?: OPTIONS ): DSliderThumb {
@@ -197,7 +197,7 @@ export abstract class DSlider<
 	protected abstract newTrackSelected( options?: OPTIONS ): DSliderTrack;
 
 	protected abstract onPick( global: Point ): void;
-	protected abstract onValuesChanged(): void;
+	protected abstract onValuesChange(): void;
 	protected abstract moveThumbPosition( thumbCoordinate: number ): void;
 
 	protected getValueMargin(): number {
@@ -287,7 +287,7 @@ export abstract class DSlider<
 
 	onResize( newWidth: number, newHeight: number, oldWidth: number, oldHeight: number ): void {
 		super.onResize( newWidth, newHeight, oldWidth, oldHeight );
-		this.onValuesChanged();
+		this.onValuesChange();
 	}
 
 	/**
@@ -305,7 +305,7 @@ export abstract class DSlider<
 		// Adjust if value is new
 		if( this._value.value !== value ) {
 			this._value.value = value;
-			this.onValuesChanged();
+			this.onValuesChange();
 		}
 	}
 
@@ -326,7 +326,7 @@ export abstract class DSlider<
 			const value = this._value;
 			min.text = min.value = newMin;
 			value.value = Math.max( newMin, value.value );
-			this.onValuesChanged();
+			this.onValuesChange();
 		}
 	}
 
@@ -347,7 +347,7 @@ export abstract class DSlider<
 			const value = this._value;
 			max.text = max.value = newMax;
 			value.value = Math.min( newMax, value.value );
-			this.onValuesChanged();
+			this.onValuesChange();
 		}
 	}
 

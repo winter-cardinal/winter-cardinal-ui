@@ -525,13 +525,13 @@ export class DPickerColor<
 	protected onColorNew( color: number ) {
 		const layer = DApplications.getLayer( this );
 		if( layer ) {
-			layer.disallowUpdate();
+			layer.lock();
 		}
 		this._sampleNewSprite.tint = this._new.color = color;
 		this._inputAndLabelColor.input.value = UtilRgb.toCode( color );
 		this.emit( "newcolorchange", color, this );
 		if( layer ) {
-			layer.allowUpdate();
+			layer.unlock();
 			layer.update();
 		}
 	}
@@ -667,13 +667,13 @@ export class DPickerColor<
 	protected onAlphaNew( alpha: number ): void {
 		const layer = DApplications.getLayer( this );
 		if( layer ) {
-			layer.disallowUpdate();
+			layer.lock();
 		}
 		this._sampleNewSprite.alpha = this._new.alpha = alpha;
 		this._inputAndLabelAlpha.input.value = Number( alpha.toFixed( 2 ) );
 		this.emit( "newalphachange", alpha, this );
 		if( layer ) {
-			layer.allowUpdate();
+			layer.unlock();
 			layer.update();
 		}
 	}

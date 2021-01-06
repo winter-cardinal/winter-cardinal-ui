@@ -96,7 +96,7 @@ export class DPickerTime<
 
 	constructor( options?: OPTIONS ) {
 		super( options );
-		this.onNewChanged();
+		this.onNewChange();
 	}
 
 	protected init( options?: OPTIONS ) {
@@ -110,7 +110,7 @@ export class DPickerTime<
 		this._dateNew = new Date( dateCurrentTime );
 		this._dateBounds = new DPickerTimeBounds(
 			toBoundsOptions( theme, options && options.bounds ),
-			(): void => { this.onNewChanged(); }
+			(): void => { this.onNewChange(); }
 		);
 		const margin = ( options && options.margin != null ?
 			options.margin : theme.getMargin() );
@@ -140,7 +140,7 @@ export class DPickerTime<
 	set new( dateNew: Date ) {
 		if( this._dateNew.getTime() !== dateNew.getTime() ) {
 			this._dateNew = dateNew;
-			this.onNewChanged();
+			this.onNewChange();
 		}
 	}
 
@@ -167,10 +167,10 @@ export class DPickerTime<
 	}
 
 	protected onReset(): void {
-		this.onNewChanged();
+		this.onNewChange();
 	}
 
-	protected onNewChanged(): void {
+	protected onNewChange(): void {
 		const dateNew = this._dateNew;
 		const dateBounds = this._dateBounds;
 		dateBounds.adjust( this._dateNew );
@@ -310,15 +310,15 @@ export class DPickerTime<
 		const max = this._dateBounds.constant.hour.max;
 		const input = new DInputInteger( this.adjustInputOptions( theme, inputOptions, max ) );
 		input.on( "change", ( value: number ): void => {
-			this.onHoursChanged( value );
+			this.onHoursChange( value );
 		});
 		return input;
 	}
 
-	protected onHoursChanged( value: number ): void {
+	protected onHoursChange( value: number ): void {
 		const dateNew = this._dateNew;
 		dateNew.setHours( value );
-		this.onNewChanged();
+		this.onNewChange();
 	}
 
 	protected newInputMinutes( theme: THEME, options?: OPTIONS ): DInputInteger | null {
@@ -326,15 +326,15 @@ export class DPickerTime<
 		const max = this._dateBounds.constant.minute.max;
 		const input = new DInputInteger( this.adjustInputOptions( theme, inputOptions, max ) );
 		input.on( "change", ( value: number ): void => {
-			this.onMinutesChanged( value );
+			this.onMinutesChange( value );
 		});
 		return input;
 	}
 
-	protected onMinutesChanged( value: number ): void {
+	protected onMinutesChange( value: number ): void {
 		const dateNew = this._dateNew;
 		dateNew.setMinutes( value );
-		this.onNewChanged();
+		this.onNewChange();
 	}
 
 	protected newInputSeconds( theme: THEME, options?: OPTIONS ): DInputInteger | null {
@@ -342,12 +342,12 @@ export class DPickerTime<
 		const max = this._dateBounds.constant.second.max;
 		const input = new DInputInteger( this.adjustInputOptions( theme, inputOptions, max ) );
 		input.on( "change", ( value: number ): void => {
-			this.onSecondsChanged( value );
+			this.onSecondsChange( value );
 		});
 		return input;
 	}
 
-	protected onSecondsChanged( value: number ): void {
+	protected onSecondsChange( value: number ): void {
 		this._dateNew.setSeconds( value );
 	}
 

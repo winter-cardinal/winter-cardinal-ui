@@ -68,7 +68,7 @@ export class DSliderHorizontal<
 		this.moveThumbPosition( x );
 	}
 
-	protected onValuesChanged(): void {
+	protected onValuesChange(): void {
 		const min = this._min.value;
 		const max = this._max.value;
 		const value = this._value.value;

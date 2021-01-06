@@ -11,7 +11,6 @@ export type DBaseStateSetImplObservableOnChange = ( newState: DBaseStateSet, old
 export class DBaseStateSetImplObservable extends DBaseStateSetImpl {
 	protected _onChange: DBaseStateSetImplObservableOnChange;
 	protected _isLocked: number;
-	protected _isChanged: boolean;
 	protected _isSaved: boolean;
 	protected _doSave: boolean;
 	protected _saved?: DBaseStateSetImpl;
@@ -20,7 +19,6 @@ export class DBaseStateSetImplObservable extends DBaseStateSetImpl {
 		super();
 		this._onChange = onChange;
 		this._isLocked = 0;
-		this._isChanged = false;
 		this._isSaved = false;
 		this._doSave = true;
 	}
@@ -48,7 +46,6 @@ export class DBaseStateSetImplObservable extends DBaseStateSetImpl {
 	}
 
 	protected begin(): this {
-		this._isChanged = true;
 		if( this._doSave && ! this._isSaved ) {
 			this._isSaved = true;
 			this.saved.copy( this );
@@ -59,10 +56,6 @@ export class DBaseStateSetImplObservable extends DBaseStateSetImpl {
 	protected end(): this {
 		if( this._isLocked <= 0 ) {
 			this._doSave = true;
-			if( this._isChanged ) {
-				this._isChanged = false;
-				this._revision += 1;
-			}
 			if( this._isSaved ) {
 				this._isSaved = false;
 				this._onChange( this, this.saved );
