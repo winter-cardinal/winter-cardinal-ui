@@ -117,7 +117,7 @@ and then in an another terminal
 npm run watch:rollup
 ```
 
-#### Dev server
+#### Development server
 
 ```shell
 npm start
@@ -152,7 +152,6 @@ npm run build:sample:dark
 
 ```shell
 npm run build
-npm run build:sample:index
 npm run build:sample:dark
 npm run build:sample
 ```
