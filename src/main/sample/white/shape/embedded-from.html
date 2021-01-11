@@ -1,0 +1,70 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Embedded shapes from files</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #f2f2f2;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../js/pixi/latest/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+
+		const container = new wcardinal.ui.EShapeContainer();
+		container.position.set( 300, 300 );
+
+		const controller = {
+			piece: {
+				getByName( name ) {
+					return new Promise(( resolve, reject ) => {
+						let path = "../resource/diagram/nested-piece.json";
+						if( name === "piece-id" ) {
+							path = "../../resource/diagram/piece.json";
+						}
+						fetch( path ).then(( response ) => {
+							response.json().then(( json ) => {
+								resolve( json );
+							})
+						})
+						.catch(() => {
+							reject();
+						})
+					});
+				}
+			}
+		};
+		fetch( "../../resource/diagram/nested-pieces.json" ).then(( response ) => {
+			response.json().then(( json ) => {
+				wcardinal.ui.EShapeEmbeddeds.from( json, controller, false ).then(( shape ) => {
+					shape.attach( container );
+					application.update();
+				});
+			});
+		});
+
+		application.stage.addChild( container );
+		application.update();
+	}());
+	</script>
+</body>
+</html>

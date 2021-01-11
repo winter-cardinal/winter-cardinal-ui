@@ -1,0 +1,663 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Basics</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #eeeeee;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.67.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.67.0/wcardinal-ui-theme-white.min.js"></script>
+	<script>
+		( function () {
+			"use strict";
+
+			const application = new wcardinal.ui.DApplication();
+
+			const img_folder = PIXI.Texture.from( "../../resource/tree/folder_black.png" );
+			const img_file = PIXI.Texture.from( "../../resource/tree/file_black.png" );
+
+			let items = []
+			for ( let i = 0; i < 20000; i++ ) {
+				items.push( {
+					text: "item1." + i,
+					image: img_file,
+				} )
+			}
+
+			new wcardinal.ui.DLayoutHorizontal( {
+				parent: application.stage,
+				x: 50,
+				y: 50,
+				width: "auto",
+				height: "auto",
+				children: [
+					new wcardinal.ui.DText( {
+						width: 100,
+						text: {
+							value: "Test Tree"
+						}
+					} ),
+					new wcardinal.ui.DButtonCheck( {
+						width: "auto",
+						text: {
+							value: "Disabled",
+						},
+						on: {
+							active: ( btn ) => {
+								tree.state.isDisabled = true;
+							},
+							inactive: ( btn ) => {
+								tree.state.isDisabled = false;
+							}
+						}
+					} )
+				]
+			} );
+
+			const tree = new wcardinal.ui.DTree( {
+				parent: application.stage,
+				x: 50,
+				y: 100,
+				width: 300,
+				height: 600,
+				value: [ {
+						text: "item0",
+						image: img_folder,
+						children: [ {
+								text: "item0.0",
+								image: img_file,
+							},
+							{
+								text: "item0.1",
+								image: img_file,
+							},
+							{
+								text: "item0.2",
+								image: img_file,
+
+							},
+							{
+								text: "item0.3",
+								image: img_folder,
+								children: [ {
+										text: "item0.3.0",
+										image: img_file,
+									},
+									{
+										text: "item0.3.1",
+										image: img_folder,
+										children: [ {
+												text: "item0.3.1.0",
+												image: img_folder,
+												children: [ {
+														text: "item0.3.1.0.0",
+														image: img_folder,
+														children: [ {
+																text: "item0.3.1.0.0.0",
+																image: img_folder,
+																children: [ {
+																		text: "item0.3.1.0.0.0.0",
+																		image: img_file,
+																	},
+																	{
+																		text: "item0.3.1.0.0.0.1",
+																		image: img_file,
+																	},
+																]
+															},
+															{
+																text: "item0.3.1.0.0.1",
+																image: img_file,
+															},
+														]
+													},
+													{
+														text: "item0.3.1.0.1",
+														image: img_file,
+													},
+												]
+											},
+											{
+												text: "item0.3.1.1",
+												image: img_file,
+											},
+										]
+									},
+								]
+							},
+						]
+					},
+					{
+						text: "item1",
+						image: img_folder,
+						children: items
+					}
+
+				]
+			} );
+
+			const anotherTree = new wcardinal.ui.DTree( {
+				width: 300,
+				height: 600,
+				value: [ {
+					text: "item0.1",
+					image: img_folder,
+					children: [ {
+						text: "item0.1",
+						image: img_folder
+					} ]
+				} ]
+			} );
+
+			let interactedTree = 0;
+
+			// Input text area contain the raw data of selected item
+			const selectedTreeValue = new wcardinal.ui.DInputText( {
+				parent: application.stage,
+				x: 370,
+				y: 100,
+				width: "400",
+				height: "50",
+				text: {
+					align: {
+						horizontal: "CENTER"
+					},
+					value: 'Checked tree: Test Tree'
+				}
+			} );
+			const treeItem = new wcardinal.ui.DInputText( {
+				parent: application.stage,
+				x: 370,
+				y: 160,
+				width: "400",
+				height: "50",
+				text: {
+					align: {
+						horizontal: "CENTER"
+					},
+					value: "Tree item:"
+				}
+			} );
+
+			// Handle when select a item of tree
+			tree.on( "click", () => {
+				let selectedValue = '';
+
+				let i = 0;
+				while ( i < tree.selection.size() ) {
+					selectedValue += tree.selection.get( i ).text
+					selectedValue += ( i === tree.selection.size() - 1 ) ? "" : ","
+					i++;
+				}
+				treeItem.text = `Tree item: ${ selectedValue }`
+			} );
+
+			const resultBox = new wcardinal.ui.DLayoutHorizontal( {
+				height: "50",
+				children: [
+					new wcardinal.ui.DText( {
+						width: "300",
+						height: "auto",
+						text: {
+							value: `Result:`
+						}
+					} )
+				]
+			} );
+
+			// Layout of button for testing API
+			selectedTreeValue;
+			new wcardinal.ui.DButtonSecondary( {
+				parent: application.stage,
+				x: 370,
+				y: 250,
+				width: "200",
+				text: {
+					value: "Another Tree",
+				},
+				on: {
+					active: ( btn ) => {
+						interactedTree = 1;
+						selectedTreeValue.text = 'Checked tree: Another Tree';
+					}
+				}
+			} );
+			new wcardinal.ui.DButtonSecondary( {
+				parent: application.stage,
+				x: 600,
+				y: 250,
+				width: "200",
+				text: {
+					value: "Test Tree",
+				},
+				on: {
+					active: ( btn ) => {
+						interactedTree = 0;
+						selectedTreeValue.text = 'Checked tree: Test Tree';
+					}
+				}
+			} );
+			new wcardinal.ui.DLayoutVertical( {
+				parent: application.stage,
+				x: 370,
+				y: 280,
+				width: "100%-40",
+				height: "100%-40",
+				children: [
+					resultBox,
+					new wcardinal.ui.DLayoutHorizontal( {
+						height: "50",
+						children: [
+							new wcardinal.ui.DText( {
+								width: "auto",
+								height: "auto",
+								text: {
+									value: "API list:"
+								}
+							} )
+						]
+					} ),
+					new wcardinal.ui.DLayoutHorizontal( {
+						height: "40",
+						children: [
+							new wcardinal.ui.DButtonPrimary( {
+								width: "100",
+								text: {
+									value: "Is collapsed"
+								},
+								on: {
+									active: ( btn ) => {
+										let item = tree.selection.get( 0 );
+										if ( treeItem.text === "not existed" ) {
+											item = anotherTree.value[ 0 ].children[ 0 ];
+										}
+										resultBox.children[ 0 ].text =
+											`Result: ${tree.isCollapsed( item )}`;
+									}
+								}
+							} ),
+							new wcardinal.ui.DButtonPrimary( {
+								width: "100",
+								text: {
+									value: "Is expanded"
+								},
+								on: {
+									active: ( btn ) => {
+										let item = tree.selection.get( 0 );
+										if ( treeItem.text === "not existed" ) {
+											item = anotherTree.value[ 0 ].children[ 0 ];
+										}
+										resultBox.children[ 0 ].text =
+											`Result: ${tree.isExpanded( item )}`;
+									}
+								}
+							} )
+						]
+					} ),
+					new wcardinal.ui.DLayoutHorizontal( {
+						height: "40",
+						children: [
+							new wcardinal.ui.DButtonPrimary( {
+								width: "100",
+								height: "30",
+								text: {
+									value: "Expand"
+								},
+								on: {
+									active: ( btn ) => {
+										if ( treeItem.text === "not existed" ) {
+											tree.expand( anotherTree.value[ 0 ].children[ 0 ] );
+										} else {
+											let i = 0;
+											while ( i < tree.selection.size() ) {
+												tree.expand( tree.selection.get( i ) );
+												i++;
+											}
+										}
+									}
+								}
+							} ),
+							new wcardinal.ui.DButtonPrimary( {
+								width: "100",
+								height: "30",
+								text: {
+									value: "Collapse"
+								},
+								on: {
+									active: ( btn ) => {
+										if ( treeItem.text === "not existed" ) {
+											tree.collapse( anotherTree.value[ 0 ].children[ 0 ] );
+										} else {
+											let i = 0;
+											while ( i < tree.selection.size() ) {
+												tree.collapse( tree.selection.get( i ) );
+												i++;
+											}
+										}
+									}
+								}
+							} ),
+							new wcardinal.ui.DButtonPrimary( {
+								width: "100",
+								height: "30",
+								text: {
+									value: "Toggle"
+								},
+								on: {
+									active: ( btn ) => {
+										if ( treeItem.text === "not existed" ) {
+											tree.toggle( anotherTree.value[ 0 ].children[ 0 ] );
+										} else {
+											let i = 0;
+											while ( i < tree.selection.size() ) {
+												tree.toggle( tree.selection.get( i ) );
+												i++;
+											}
+										}
+									}
+								}
+							} ),
+						]
+					} ),
+
+					new wcardinal.ui.DLayoutHorizontal( {
+						height: "40",
+						children: [
+							new wcardinal.ui.DButtonPrimary( {
+								width: "100",
+								text: {
+									value: "Remove"
+								},
+								on: {
+									active: ( btn ) => {
+										if ( treeItem.text === "not existed" ) {
+											tree.remove( anotherTree.value[ 0 ].children[ 0 ] );
+										} else {
+											let i = 0;
+											while ( i < tree.selection.size() ) {
+												tree.remove( tree.selection.get( i ) );
+												i++;
+											}
+										}
+									}
+								}
+							} ),
+							new wcardinal.ui.DButtonPrimary( {
+								width: "100",
+								text: {
+									value: "Add"
+								},
+								on: {
+									active: ( btn ) => {
+										let item = {
+											text: "added item",
+											image: img_folder,
+										}
+										if ( treeItem.text === "error format" ) {
+											item = {
+												abc: "bbb"
+											};
+										}
+
+										if ( interactedTree !== 0 ) {
+											tree.add( item, anotherTree.value[ 0 ].children[ 0 ] );
+										} else {
+											if ( selectedTreeValue.text !== undefined ) {
+												tree.add( item, tree.selection.get( 0 ) );
+											} else {
+												tree.add( item );
+											}
+										}
+									}
+								}
+							} ),
+							new wcardinal.ui.DButtonPrimary( {
+								width: "100",
+								text: {
+									value: "Add before"
+								},
+								on: {
+									active: ( btn ) => {
+										let item = {
+											text: "added item before",
+											image: img_folder,
+										}
+
+										if ( treeItem.text === "error format" ) {
+											item = {
+												abc: "bbb"
+											};
+										}
+
+										if ( interactedTree !== 0 ) {
+											tree.addBefore( item, anotherTree.value[ 0 ].children[ 0 ] );
+										} else {
+											tree.addBefore( item, tree.selection.get( 0 ) );
+										}
+									}
+								}
+							} ),
+							new wcardinal.ui.DButtonPrimary( {
+								width: "100",
+								text: {
+									value: "Add after",
+								},
+								on: {
+									active: ( btn ) => {
+										let item = {
+											text: "added item after",
+											image: img_folder,
+										}
+
+										if ( treeItem.text === "error format" ) {
+											item = {
+												abc: "bbb"
+											};
+										}
+
+										if ( interactedTree !== 0 ) {
+											tree.addAfter( item, anotherTree.value[ 0 ].children[ 0 ] );
+										} else {
+											tree.addAfter( item, tree.selection.get( 0 ) );
+										}
+									}
+								}
+							} ),
+						]
+					} ),
+
+					new wcardinal.ui.DLayoutHorizontal( {
+						height: "40",
+						children: [
+							new wcardinal.ui.DButtonPrimary( {
+								width: "100",
+								text: {
+									value: "Expand all"
+								},
+								on: {
+									active: ( btn ) => {
+										tree.expandAll()
+									}
+								}
+							} ),
+							new wcardinal.ui.DButtonPrimary( {
+								width: "100",
+								text: {
+									value: "Collapse all"
+								},
+								on: {
+									active: ( btn ) => {
+										tree.collapseAll()
+									}
+								}
+							} ),
+						]
+					} ),
+					new wcardinal.ui.DLayoutHorizontal( {
+						height: "40",
+						children: [
+							new wcardinal.ui.DButtonPrimary( {
+								width: "130",
+								text: {
+									value: "Iteratee all item",
+								},
+								on: {
+									active: ( btn ) => {
+										let count = 0;
+										tree.each( ( item ) => {
+											count += 1;
+											console.log( item.text )
+											return item.text != 'item1';
+										} )
+										resultBox.children[ 0 ].text =
+											`Number of iteratee time: ${count}`
+									}
+								}
+							} ),
+							new wcardinal.ui.DButtonPrimary( {
+								width: "130",
+								text: {
+									value: "Clear all"
+								},
+								on: {
+									active: ( btn ) => {
+										tree.clear()
+									}
+								}
+							} ),
+						]
+					} ),
+
+					new wcardinal.ui.DLayoutHorizontal( {
+						height: "40",
+						children: [
+							new wcardinal.ui.DButtonPrimary( {
+								width: "130",
+								text: {
+									value: "Add select",
+								},
+								on: {
+									active: ( btn ) => {
+										let item = tree.value[ 0 ].children[ 3 ].children[ 1 ];
+										if ( treeItem.text === "not existed" ) {
+											item = anotherTree.value[ 0 ].children[ 0 ];
+										}
+										if ( tree.selection.size() > 0 ) {
+											item = tree.selection.get( 0 );
+										}
+										tree.selection.add( item );
+										tree.updateActiveState();
+									}
+								}
+							} ),
+							new wcardinal.ui.DButtonPrimary( {
+								width: "130",
+								text: {
+									value: "Remove select",
+								},
+								on: {
+									active: ( btn ) => {
+										let item = tree.selection.get( 0 );
+										if ( treeItem.text === "not existed" ) {
+											item = anotherTree.value[ 0 ].children[ 0 ];
+										}
+										tree.selection.remove( item );
+										tree.updateActiveState();
+									}
+								}
+							} ),
+							new wcardinal.ui.DButtonPrimary( {
+								width: "130",
+								text: {
+									value: "Toggle select",
+								},
+								on: {
+									active: ( btn ) => {
+										let item = tree.value[ 0 ].children[ 0 ];
+										if ( treeItem.text === "not existed" ) {
+											item = anotherTree.value[ 0 ].children[ 0 ];
+										}
+										if ( tree.selection.size() > 0 ) {
+											item = tree.selection.get( 0 );
+										}
+										tree.selection.toggle( item );
+										tree.updateActiveState();
+									}
+								}
+							} )
+						]
+					} ),
+
+					new wcardinal.ui.DLayoutHorizontal( {
+						height: "40",
+						children: [
+							new wcardinal.ui.DButtonPrimary( {
+								width: "130",
+								text: {
+									value: "Iteratee selecteds",
+								},
+								on: {
+									active: ( btn ) => {
+										let count = 0;
+										tree.selection.each( ( item ) => {
+											console.log( item.text )
+											count += 1;
+											return item.text != 'item1';
+										} )
+										resultBox.children[ 0 ].text =
+											`Number of iteratee selection list: ${count}`;
+									}
+								}
+							} ),
+							new wcardinal.ui.DButtonPrimary( {
+								width: "130",
+								text: {
+									value: "Clear all selected",
+								},
+								on: {
+									active: ( btn ) => {
+										tree.selection.clear()
+										tree.updateActiveState()
+									}
+								}
+							} ),
+							new wcardinal.ui.DButtonPrimary( {
+								width: "130",
+								text: {
+									value: "Selection size",
+								},
+								on: {
+									active: ( btn ) => {
+										resultBox.children[ 0 ].text =
+											`Number of selected items: ${tree.selection.size()}`
+									}
+								}
+							} )
+
+						]
+					} )
+				]
+			} );
+		}() );
+
+	</script>
+</body>
+
+</html>

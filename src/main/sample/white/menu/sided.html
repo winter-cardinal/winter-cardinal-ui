@@ -1,0 +1,210 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Side menu</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #eeeeee;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../js/pixi/latest/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+
+		new wcardinal.ui.DMenuSided({
+			parent: application.stage,
+			x: 100, y: 100,
+			width: 300, height: "100%-200",
+			items: [{
+				text: {
+					value: "A"
+				},
+				shortcut: "Ctrl+O"
+			}, {
+				separator: true
+			}, {
+				text: {
+					value: "B"
+				}
+			}, {
+				url: "./foo",
+				text: {
+					value: "C"
+				}
+			}, {
+				text: {
+					value: "D"
+				},
+				menu: {
+					items: [{
+						text: {
+							value: "D1"
+						},
+						shortcut: "Ctrl+P"
+					}, {
+						separator: true
+					}, {
+						text: {
+							value: "D2"
+						},
+						menu: {
+							align: "LEFT",
+							items: [{
+								text: {
+									value: "D2-1"
+								},
+								shortcut: "Ctrl+Q"
+							}, {
+								separator: true
+							}, {
+								text: {
+									value: "D2-2"
+								}
+							}, {
+								text: {
+									value: "D2-3"
+								}
+							}]
+						}
+					}, {
+						text: {
+							value: "D3"
+						}
+					}]
+				}
+			}, {
+				text: {
+					value: "E"
+				},
+				menu: {
+					items: [{
+						text: {
+							value: "A"
+						},
+						shortcut: "Ctrl+R"
+					}, {
+						separator: true
+					}, {
+						text: {
+							value: "B"
+						},
+						check: true
+					}, {
+						text: {
+							value: "C"
+						},
+						check: false
+					}, {
+						text: {
+							value: "D"
+						},
+						check: false
+					}]
+				}
+			}, {
+				header: {
+					text: {
+						value: "Expandable1"
+					}
+				},
+				items: [{
+					text: {
+						value: "e1-1"
+					}
+				}, {
+					text: {
+						value: "e1-2"
+					}
+				}, {
+					text: {
+						value: "e1-3"
+					}
+				}, {
+					text: {
+						value: "e1-4"
+					}
+				}]
+			}, {
+				header: {
+					text: {
+						value: "Expandable2"
+					}
+				},
+				items: [{
+					text: {
+						value: "e2-1"
+					}
+				}, {
+					text: {
+						value: "e2-2"
+					}
+				}, {
+					text: {
+						value: "e2-3"
+					}
+				}, {
+					text: {
+						value: "e2-4"
+					}
+				}, {
+					text: {
+						value: "e2-5"
+					}
+				}]
+			}, {
+				header: {
+					text: {
+						value: "Expandable3"
+					}
+				},
+				items: [{
+					text: {
+						value: "e3-1"
+					}
+				}, {
+					text: {
+						value: "e3-2"
+					}
+				}, {
+					text: {
+						value: "e3-3"
+					}
+				}, {
+					text: {
+						value: "e3-4"
+					}
+				}, {
+					text: {
+						value: "e3-5"
+					}
+				}]
+			}],
+			on: {
+				select: ( value, item, menu ) => {
+					console.log( item.text, item, menu );
+				}
+			}
+		});
+	}());
+	</script>
+</body>
+</html>

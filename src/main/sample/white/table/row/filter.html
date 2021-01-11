@@ -1,0 +1,80 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Filtering rows</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #f2f2f2;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../../js/pixi/latest/pixi.min.js"></script>
+	<script src="../../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		var application = new wcardinal.ui.DApplication();
+
+		var table = new wcardinal.ui.DTable({
+			width: 500, height: 500,
+			columns: [{
+				label: "Text",
+				type: "TEXT"
+			}],
+			data: [
+				[ "Apple" ],
+				[ "Orange" ],
+				[ "Pineapple" ]
+			]
+		});
+
+		var input = new wcardinal.ui.DInputText({
+			width: 500
+		});
+
+		new wcardinal.ui.DLayoutVertical({
+			parent: application.stage,
+			x: "center", y: "center",
+			width: "auto", height: "auto",
+			children: [
+				input,
+				table
+			]
+		})
+
+		var filter = {
+			word: "",
+			test: function ( row ) {
+				return 0 <= row[ 0 ].indexOf( this.word );
+			}
+		};
+
+		input.on( "input", function ( value ) {
+			filter.word = value.trim();
+			if( 0 < filter.word.length ) {
+				table.data.filter.apply();
+			} else {
+				table.data.filter.unapply();
+			}
+		});
+
+		table.data.filter.set( filter );
+	}());
+	</script>
+</body>
+</html>

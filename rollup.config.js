@@ -9,10 +9,11 @@ import fs from 'fs';
 
 // In/out directories
 const name = 'wcardinal-ui';
-const SOURCE_DIR = 'dist/';
-const OUTPUT_FILE = `dist/${name}`
-const META_INF_DIR = `src/main/resources/META-INF/resources/webjars/${name}/latest/`;
-const PIXI_DIR = 'src/main/resources/META-INF/resources/webjars/pixi/latest/';
+const SOURCE_DIR = 'dist';
+const OUTPUT_FILE = `${SOURCE_DIR}/${name}`;
+const SAMPLE_DIR = `src/main/sample`;
+const SAMPLE_JS_PIXI_DIR = `${SAMPLE_DIR}/js/pixi/latest`;
+const SAMPLE_JS_WCUI_DIR = `${SAMPLE_DIR}/js/wcardinal-ui/latest`;
 
 // License header
 const LICENSE_HEADER_LINES = fs.readFileSync( './LICENSE_HEADER', 'UTF-8' ).split( '\n' );
@@ -127,7 +128,7 @@ const BYPASS_TARGET_DARK = toOsPath( '/wcardinal/ui/theme/dark/' );
 // Rollup settings
 export default ( !process.env.ROLLUP_WATCH ?
 	[{
-		input: `${SOURCE_DIR}${name}.browser.js`,
+		input: `${SOURCE_DIR}/${name}.browser.js`,
 		output: [{
 			name: 'none',
 			file: `${OUTPUT_FILE}.js`,
@@ -147,7 +148,7 @@ export default ( !process.env.ROLLUP_WATCH ?
 			"pixi.js"
 		]
 	},{
-		input: `${SOURCE_DIR}${name}-theme-white.browser.js`,
+		input: `${SOURCE_DIR}/${name}-theme-white.browser.js`,
 		output: [{
 			name: 'none',
 			file: `${OUTPUT_FILE}-theme-white.js`,
@@ -167,7 +168,7 @@ export default ( !process.env.ROLLUP_WATCH ?
 			"pixi.js"
 		]
 	},{
-		input: `${SOURCE_DIR}${name}-theme-dark.browser.js`,
+		input: `${SOURCE_DIR}/${name}-theme-dark.browser.js`,
 		output: [{
 			name: 'none',
 			file: `${OUTPUT_FILE}-theme-dark.js`,
@@ -187,7 +188,7 @@ export default ( !process.env.ROLLUP_WATCH ?
 			"pixi.js"
 		]
 	},{
-		input: `${SOURCE_DIR}${name}.esm.js`,
+		input: `${SOURCE_DIR}/${name}.esm.js`,
 		output: [{
 			file: `${OUTPUT_FILE}.cjs.js`,
 			format: 'cjs',
@@ -201,7 +202,7 @@ export default ( !process.env.ROLLUP_WATCH ?
 			"pixi.js"
 		]
 	},{
-		input: `${SOURCE_DIR}${name}.browser.js`,
+		input: `${SOURCE_DIR}/${name}.browser.js`,
 		output: [{
 			name: 'none',
 			file: `${OUTPUT_FILE}.min.js`,
@@ -226,7 +227,7 @@ export default ( !process.env.ROLLUP_WATCH ?
 			"pixi.js"
 		]
 	},{
-		input: `${SOURCE_DIR}${name}-theme-white.browser.js`,
+		input: `${SOURCE_DIR}/${name}-theme-white.browser.js`,
 		output: [{
 			name: 'none',
 			file: `${OUTPUT_FILE}-theme-white.min.js`,
@@ -251,7 +252,7 @@ export default ( !process.env.ROLLUP_WATCH ?
 			"pixi.js"
 		]
 	},{
-		input: `${SOURCE_DIR}${name}-theme-dark.browser.js`,
+		input: `${SOURCE_DIR}/${name}-theme-dark.browser.js`,
 		output: [{
 			name: 'none',
 			file: `${OUTPUT_FILE}-theme-dark.min.js`,
@@ -273,9 +274,9 @@ export default ( !process.env.ROLLUP_WATCH ?
 			terser( TERSER_OPTIONS ),
 			copy({
 				targets: [
-					{ src: `dist/${name}*.js`, dest: META_INF_DIR },
-					{ src: `dist/${name}*.map`, dest: META_INF_DIR },
-					{ src: 'node_modules/pixi.js/dist/*', dest: PIXI_DIR }
+					{ src: `dist/${name}*.js`, dest: `${SAMPLE_JS_WCUI_DIR}/` },
+					{ src: `dist/${name}*.map`, dest: `${SAMPLE_JS_WCUI_DIR}/` },
+					{ src: 'node_modules/pixi.js/dist/*', dest: `${SAMPLE_JS_PIXI_DIR}/` }
 				],
 				hook: 'writeBundle'
 			})
@@ -285,7 +286,7 @@ export default ( !process.env.ROLLUP_WATCH ?
 		]
 	}] :
 	[{
-		input: `${SOURCE_DIR}${name}.browser.js`,
+		input: `${SOURCE_DIR}/${name}.browser.js`,
 		output: [{
 			name: 'none',
 			file: `${OUTPUT_FILE}.js`,
@@ -302,9 +303,9 @@ export default ( !process.env.ROLLUP_WATCH ?
 			commonjs(),
 			copy({
 				targets: [
-					{ src: `dist/${name}.js`, dest: META_INF_DIR },
-					{ src: `dist/${name}.js`, dest: META_INF_DIR, rename: `${name}.min.js` },
-					{ src: 'node_modules/pixi.js/dist/*', dest: PIXI_DIR }
+					{ src: `dist/${name}.js`, dest: `${SAMPLE_JS_WCUI_DIR}/` },
+					{ src: `dist/${name}.js`, dest: `${SAMPLE_JS_WCUI_DIR}/`, rename: `${name}.min.js` },
+					{ src: 'node_modules/pixi.js/dist/*', dest: `${SAMPLE_JS_PIXI_DIR}/` }
 				],
 				hook: 'writeBundle'
 			})
@@ -313,7 +314,7 @@ export default ( !process.env.ROLLUP_WATCH ?
 			"pixi.js"
 		]
 	},{
-		input: `${SOURCE_DIR}${name}-theme-white.browser.js`,
+		input: `${SOURCE_DIR}/${name}-theme-white.browser.js`,
 		output: [{
 			name: 'none',
 			file: `${OUTPUT_FILE}-theme-white.js`,
@@ -330,8 +331,8 @@ export default ( !process.env.ROLLUP_WATCH ?
 			commonjs(),
 			copy({
 				targets: [
-					{ src: `dist/${name}-theme-white.js`, dest: META_INF_DIR },
-					{ src: `dist/${name}-theme-white.js`, dest: META_INF_DIR, rename: `${name}-theme-white.min.js` }
+					{ src: `dist/${name}-theme-white.js`, dest: `${SAMPLE_JS_WCUI_DIR}/` },
+					{ src: `dist/${name}-theme-white.js`, dest: `${SAMPLE_JS_WCUI_DIR}/`, rename: `${name}-theme-white.min.js` }
 				],
 				hook: 'writeBundle'
 			})
@@ -340,7 +341,7 @@ export default ( !process.env.ROLLUP_WATCH ?
 			"pixi.js"
 		]
 	},{
-		input: `${SOURCE_DIR}${name}-theme-dark.browser.js`,
+		input: `${SOURCE_DIR}/${name}-theme-dark.browser.js`,
 		output: [{
 			name: 'none',
 			file: `${OUTPUT_FILE}-theme-dark.js`,
@@ -357,8 +358,8 @@ export default ( !process.env.ROLLUP_WATCH ?
 			commonjs(),
 			copy({
 				targets: [
-					{ src: `dist/${name}-theme-dark.js`, dest: META_INF_DIR },
-					{ src: `dist/${name}-theme-dark.js`, dest: META_INF_DIR, rename: `${name}-theme-dark.min.js` }
+					{ src: `dist/${name}-theme-dark.js`, dest: `${SAMPLE_JS_WCUI_DIR}/` },
+					{ src: `dist/${name}-theme-dark.js`, dest: `${SAMPLE_JS_WCUI_DIR}/`, rename: `${name}-theme-dark.min.js` }
 				],
 				hook: 'writeBundle'
 			})

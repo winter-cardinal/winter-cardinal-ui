@@ -1,0 +1,121 @@
+<!--
+ Copyright (C) 2020 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Basics</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #eeeeee;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../js/pixi/latest/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+
+		const pagination = new wcardinal.ui.DPagination({
+			parent: application.stage,
+			x: 50,
+			y: 50,
+			width: "100% - 100",
+			total: 15,
+			selected: 0,
+			button: {
+				first: true,
+				last: true,
+				width: 36
+			}
+		})
+
+		const inputSelected = new wcardinal.ui.DInputInteger({
+			weight: 1
+		});
+
+		const inputTotal = new wcardinal.ui.DInputInteger({
+			weight: 1
+		});
+
+		new wcardinal.ui.DLayoutVertical({
+			parent: application.stage,
+			x: 50, y: 100,
+			children: [
+				new wcardinal.ui.DLayoutHorizontal({
+					width: 460,
+					children: [
+						new wcardinal.ui.DButtonPrimary({
+							weight: 1,
+							text: {
+								value: "Set Selected"
+							},
+							on: {
+								active: () => {
+									pagination.selected = inputSelected.value
+								}
+							}
+						}),
+						new wcardinal.ui.DButtonPrimary({
+							weight: 1,
+							text: {
+								value: "Get Selected"
+							},
+							on: {
+								active: () => {
+									inputSelected.value = pagination.selected;
+								}
+							}
+						}),
+						inputSelected
+					]
+				}),
+				new wcardinal.ui.DLayoutHorizontal({
+					width: 460,
+					children: [
+						new wcardinal.ui.DButtonPrimary({
+							weight: 1,
+							text: {
+								value: "Set Total"
+							},
+							on: {
+								active: () => {
+									pagination.total = inputTotal.value
+								}
+							}
+						}),
+						new wcardinal.ui.DButtonPrimary({
+							weight: 1,
+							text: {
+								value: "Get Total"
+							},
+							on: {
+								active: () => {
+									inputTotal.value = pagination.total;
+								}
+							}
+						}),
+						inputTotal
+					]
+				}),
+			]
+		});
+
+	}());
+	</script>
+</body>
+</html>

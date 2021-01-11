@@ -1,0 +1,92 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Spacing</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #2e2e2e;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.67.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.67.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+
+		new wcardinal.ui.DMenuSided({
+			parent: application.stage,
+			x: 100, y: 100,
+			width: 300, height: "100%-200",
+			content: {
+				height: "padding"
+			},
+			items: [{
+				text: {
+					value: "A"
+				}
+			}, {
+				text: {
+					value: "B"
+				}
+			}, {
+				text: {
+					value: "C"
+				}
+			}, {
+				space: true,
+				weight: 1
+			}, {
+				header: {
+					text: {
+						value: "Expandable"
+					}
+				},
+				items: [{
+					text: {
+						value: "E1"
+					}
+				}, {
+					text: {
+						value: "E2"
+					}
+				}, {
+					text: {
+						value: "E3"
+					}
+				}, {
+					text: {
+						value: "E4"
+					}
+				}, {
+					text: {
+						value: "E5"
+					}
+				}]
+			}],
+			on: {
+				select: ( value, item, menu ) => {
+					console.log( item.text, item, menu );
+				}
+			}
+		});
+	}());
+	</script>
+</body>
+</html>

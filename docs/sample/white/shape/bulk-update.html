@@ -1,0 +1,61 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Bulk update</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #f2f2f2;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.67.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.67.0/wcardinal-ui-theme-white.min.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+
+		const container = new wcardinal.ui.EShapeContainer();
+		container.position.set( 50, 50 );
+		for( let ix = 0; ix <= 100; ++ix ) {
+			for( let iy = 0; iy <= 100; ++iy ) {
+				const circle = new wcardinal.ui.EShapeCircle();
+				circle.transform.position.set( ix << 3, iy << 2 );
+				circle.size.set( 1 << 3, 1 << 2 );
+				circle.stroke.enable = false;
+				const dx = ( ix - 50 ) / 50;
+				const dy = ( iy - 50 ) / 50;
+				circle.transform.rotation = Math.atan2( dy, Math.sin( dx * Math.PI ) );
+				circle.fill.color = wcardinal.ui.UtilRgb.fromRgb( 0, 0.5 + 0.5 * Math.random(), 0 );
+				circle.attach( container );
+			}
+		}
+		application.stage.addChild( container );
+
+		application.update();
+		setInterval(() => {
+			const circles = container.children;
+			for( let i = (Math.random() * 7) | 0, imax = circles.length; i < imax; i += 7 ) {
+				circles[ i ].fill.color = wcardinal.ui.UtilRgb.fromRgb( 0, 0.5 + 0.5 * Math.random(), 0 );
+			}
+			application.render();
+		}, 32);
+	}());
+	</script>
+</body>
+</html>

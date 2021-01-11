@@ -84,19 +84,7 @@ loadThemeWhiteAll();
 
 * [API document](https://winter-cardinal.github.io/winter-cardinal-ui/api/)
 * [Cheatsheet](https://winter-cardinal.github.io/winter-cardinal-ui/cheatsheet/all-in-one)
-
-### Samples
-
-* Bsics
-  * [Position keyword](https://winter-cardinal.github.io/winter-cardinal-ui/sample/basics-position-keyword)
-  * [Size keyword](https://winter-cardinal.github.io/winter-cardinal-ui/sample/basics-size-keyword)
-* [Buttons](https://winter-cardinal.github.io/winter-cardinal-ui/sample/button)
-* Select
-  * [Single select](https://winter-cardinal.github.io/winter-cardinal-ui/sample/select)
-  * [Multiple select](https://winter-cardinal.github.io/winter-cardinal-ui/sample/select-multiple)
-  * [Multiple select custom text formatter](https://winter-cardinal.github.io/winter-cardinal-ui/sample/select-multiple-formatter)
-  * [Multiple select with menu items](https://winter-cardinal.github.io/winter-cardinal-ui/sample/select-multiple-menu)
-* [List](https://winter-cardinal.github.io/winter-cardinal-ui/sample/list)
+* Samples ([White theme](https://winter-cardinal.github.io/winter-cardinal-ui/sample/white/), [Dark theme](https://winter-cardinal.github.io/winter-cardinal-ui/sample/dark/))
 
 ### Requirements
 
@@ -129,6 +117,12 @@ and then in an another terminal
 npm run watch:rollup
 ```
 
+#### Dev server
+
+```shell
+npm start
+```
+
 #### API document
 
 ```shell
@@ -138,14 +132,29 @@ npm run build:api
 #### Cheatsheet
 
 ```shell
-./gradlew compileCheatsheet
+npm run build:cheatsheet
 ```
 
-#### Update JS for samples
+#### Sample index page
+
+```shell
+npm run build:sample:index
+```
+
+#### Dark Samples
+
+```shell
+npm run build:sample:index
+npm run build:sample:dark
+```
+
+#### Samples for GitHub pages
 
 ```shell
 npm run build
-./gradlew copyJSToSampleDir
+npm run build:sample:index
+npm run build:sample:dark
+npm run build:sample
 ```
 
 #### Linting
@@ -159,6 +168,11 @@ To fix all the auto-fixable lint errors, do the following:
 ```shell
 npm run lint:fix
 ```
+
+### TODO
+
+* Simplify DTableRow blinking.
+* DTable select / action arguments.
 
 ### License
 

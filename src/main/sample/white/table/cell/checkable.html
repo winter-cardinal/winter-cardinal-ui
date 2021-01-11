@@ -1,0 +1,72 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Checkable cell</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #f2f2f2;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../../js/pixi/latest/pixi.min.js"></script>
+	<script src="../../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		var application = new wcardinal.ui.DApplication();
+
+		new wcardinal.ui.DTable({
+			parent: application.stage,
+			x: "center", y: "center",
+			width: 500, height: 500,
+			columns: [{
+				label: "Multiple",
+				type: "CHECK",
+				editable: true
+			},{
+				label: "Single",
+				type: "CHECK_SINGLE",
+				editable: true
+			},{
+				label: "Multiple",
+				type: "CHECK",
+				editable: true,
+				header: {
+					check: {
+						enable: true
+					}
+				}
+			}],
+			data: {
+				rows: [
+					[ true, false, true ],
+					[ false, true, false ],
+					[ true, false, true ],
+					[ false, false, false ]
+				],
+				on: {
+					change: function ( newValue, oldValue, rowValue, rowIndex, columnIndex, data ) {
+						console.log( newValue, oldValue, rowValue, rowIndex, columnIndex, data );
+					}
+				}
+			}
+		});
+	}());
+	</script>
+</body>
+</html>

@@ -13,11 +13,3 @@
 .phantomjs
 .rpt2_cache
 .idea
-
-/src/test/resources/static/doc
-/src/test/resources/static/wip
-/src/test/resources/META-INF/resources
-/src/main/resources/META-INF/resources
-/src/main/typescript/types
-/src/main/typescript/*.js
-/src/main/typescript/*.js.map
