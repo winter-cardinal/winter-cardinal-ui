@@ -84,7 +84,7 @@ loadThemeWhiteAll();
 
 * [API document](https://winter-cardinal.github.io/winter-cardinal-ui/api/)
 * [Cheatsheet](https://winter-cardinal.github.io/winter-cardinal-ui/cheatsheet/all-in-one)
-* Samples ([White theme](https://winter-cardinal.github.io/winter-cardinal-ui/sample/white/), [Dark theme](https://winter-cardinal.github.io/winter-cardinal-ui/sample/dark/))
+* Samples ( [White theme](https://winter-cardinal.github.io/winter-cardinal-ui/sample/white/), [Dark theme](https://winter-cardinal.github.io/winter-cardinal-ui/sample/dark/) )
 
 ### Requirements
 
