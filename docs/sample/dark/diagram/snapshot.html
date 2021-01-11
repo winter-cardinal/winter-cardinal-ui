@@ -73,7 +73,7 @@
 			]
 		});
 
-		fetch( "./diagram/diagram.text.json" ).then(( response ) => {
+		fetch( "../../resource/diagram/text.json" ).then(( response ) => {
 			response.json().then(( json ) => {
 				diagram.set( json );
 				diagram.view.fit();
