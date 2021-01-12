@@ -5,6 +5,7 @@
 
 import { DBaseState } from "./d-base-state";
 import { DBaseStateSet } from "./d-base-state-set";
+import { isFunction } from "./util/is-function";
 import { isString } from "./util/is-string";
 
 export class DBaseStateSetImpl implements DBaseStateSet {
@@ -113,16 +114,43 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 
 	removeAll( states: string[] ): this;
 	removeAll( ...states: string[] ): this;
-	removeAll( stateOrStates: string | string[] ): this {
-		const states = ( isString( stateOrStates ) ?
-			arguments as unknown as string[] : stateOrStates
-		);
-		if( this.checkRemoveds( states ) ) {
-			this.begin();
-			const local = this._local;
-			for( let i = 0, imax = states.length; i < imax; ++i ) {
-				local.delete( states[ i ] );
+	removeAll( matcher: ( state: string ) => boolean ): this;
+	removeAll( stateOrStatesOrMatcher: string | string[] | (( state: string ) => boolean) ): this {
+		const local = this._local;
+		if( isFunction( stateOrStatesOrMatcher ) ) {
+			let isDirty = false;
+			local.forEach(( state ): void => {
+				if( stateOrStatesOrMatcher( state ) ) {
+					if( ! isDirty ) {
+						isDirty = true;
+						this.begin();
+					}
+					local.delete( state );
+				}
+			});
+			if( isDirty ) {
+				this.end();
 			}
+		} else {
+			const states = ( isString( stateOrStatesOrMatcher ) ?
+				arguments as unknown as string[] : stateOrStatesOrMatcher
+			);
+			if( this.checkRemoveds( states ) ) {
+				this.begin();
+				for( let i = 0, imax = states.length; i < imax; ++i ) {
+					local.delete( states[ i ] );
+				}
+				this.end();
+			}
+		}
+		return this;
+	}
+
+	clear(): this {
+		const local = this._local;
+		if( 0 < local.size ) {
+			this.begin();
+			local.clear();
 			this.end();
 		}
 		return this;

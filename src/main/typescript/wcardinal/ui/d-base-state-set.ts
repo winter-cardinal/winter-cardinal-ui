@@ -135,10 +135,12 @@ export interface DBaseStateSet {
 	remove( state: string ): this;
 	removeAll( states: string[] ): this;
 	removeAll( ...states: string[] ): this;
+	removeAll( matcher: ( state: string ) => boolean ): this;
 	set( state: string, isOn: boolean ): this;
 	set( added: string | null, removed: string | null ): this;
 	setAll( state: string[], isOn: boolean ): this;
 	setAll( addeds: string[] | null, removeds: string[] | null ): this;
+	clear(): this;
 
 	copy( state: DBaseStateSet ): this;
 
