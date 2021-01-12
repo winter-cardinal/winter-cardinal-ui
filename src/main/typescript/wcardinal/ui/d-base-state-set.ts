@@ -3,7 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DBaseStateSetData } from "./d-base-state-set-data";
+import { DBaseStateSetLike } from "./d-base-state-set-like";
+
 export interface DBaseStateSet {
+	parent: DBaseStateSet | null;
+
+	readonly data: DBaseStateSetData;
+
 	isHovered: boolean;
 	readonly inHovered: boolean;
 	readonly onHovered: boolean;
@@ -78,8 +85,6 @@ export interface DBaseStateSet {
 	readonly onAlternated: boolean;
 	readonly underAlternated: boolean;
 
-	parent: DBaseStateSet | null;
-
 	/**
 	 * Returns true if the given state is on.
 	 *
@@ -135,16 +140,19 @@ export interface DBaseStateSet {
 	remove( state: string ): this;
 	removeAll( states: string[] ): this;
 	removeAll( ...states: string[] ): this;
-	removeAll( matcher: ( state: string ) => boolean ): this;
+	removeAll( matcher: ( state: string ) => void | boolean ): this;
 	set( state: string, isOn: boolean ): this;
 	set( added: string | null, removed: string | null ): this;
 	setAll( state: string[], isOn: boolean ): this;
 	setAll( addeds: string[] | null, removeds: string[] | null ): this;
 	clear(): this;
 
+	each( iteratee: ( state: string ) => void ): this;
+	size(): number;
 	copy( state: DBaseStateSet ): this;
 
 	onParentChange( newState: DBaseStateSet, oldState: DBaseStateSet ): void;
 
+	toObject(): DBaseStateSetLike;
 	toString(): string;
 }

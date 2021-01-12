@@ -5,12 +5,16 @@
 
 import { DBaseState } from "./d-base-state";
 import { DBaseStateSet } from "./d-base-state-set";
+import { DBaseStateSetData } from "./d-base-state-set-data";
+import { DBaseStateSetDataImpl } from "./d-base-state-set-data-impl";
+import { DBaseStateSetLike } from "./d-base-state-set-like";
 import { isFunction } from "./util/is-function";
 import { isString } from "./util/is-string";
 
 export class DBaseStateSetImpl implements DBaseStateSet {
 	protected _local: Set<string>;
 	protected _parent: DBaseStateSet | null;
+	protected _data?: DBaseStateSetData;
 
 	constructor() {
 		this._local = new Set<string>();
@@ -114,8 +118,8 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 
 	removeAll( states: string[] ): this;
 	removeAll( ...states: string[] ): this;
-	removeAll( matcher: ( state: string ) => boolean ): this;
-	removeAll( stateOrStatesOrMatcher: string | string[] | (( state: string ) => boolean) ): this {
+	removeAll( matcher: ( state: string ) => void | boolean ): this;
+	removeAll( stateOrStatesOrMatcher: string | string[] | (( state: string ) => void | boolean) ): this {
 		const local = this._local;
 		if( isFunction( stateOrStatesOrMatcher ) ) {
 			let isDirty = false;
@@ -216,6 +220,17 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 		return this;
 	}
 
+	each( iteratee: ( state: string ) => void ): this {
+		this._local.forEach(( state: string ): void => {
+			iteratee( state );
+		});
+		return this;
+	}
+
+	size(): number {
+		return this._local.size;
+	}
+
 	copy( other: DBaseStateSet ): this {
 		if( other instanceof DBaseStateSetImpl ) {
 			this.begin();
@@ -225,6 +240,10 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 				local.add( value );
 			});
 			this._parent = other.parent;
+			const otherData = other._data;
+			if( otherData != null ) {
+				this.data.copy( otherData );
+			}
 			this.end();
 		}
 		return this;
@@ -244,6 +263,15 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 			this._parent = parent;
 			this.end();
 		}
+	}
+
+	get data(): DBaseStateSetData {
+		let result = this._data;
+		if( result == null ) {
+			result = new DBaseStateSetDataImpl();
+			this._data = result;
+		}
+		return result;
 	}
 
 	onParentChange( newState: DBaseStateSet, oldState: DBaseStateSet ): void {
@@ -617,11 +645,18 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 		return this.on( DBaseState.ALTERNATED );
 	}
 
-	toString(): string {
-		const values: string[] = [];
+	toObject(): DBaseStateSetLike {
+		const states: string[] = [];
 		this._local.forEach(( value: string ): void => {
-			values.push( value );
+			states.push( value );
 		});
-		return `{${values.join( "," )}}`;
+		return {
+			local: states,
+			data: this._data?.toArray() ?? []
+		};
+	}
+
+	toString(): string {
+		return JSON.stringify( this.toObject() );
 	}
 }
