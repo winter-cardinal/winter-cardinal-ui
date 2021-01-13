@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { interaction } from "pixi.js";
 import { DBaseState } from "./d-base-state";
 import { DLayoutHorizontal, DThemeLayoutHorizontal } from "./d-layout-horizontal";
 import { DTableBodyCellInputTextOptions } from "./d-table-body-cell-input-text";
@@ -126,6 +127,19 @@ export class DTableBodyCellInputTree<
 
 	get column(): DTableColumn<ROW> {
 		return this._column;
+	}
+
+	onClick?( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
+		this._input.focus();
+	}
+
+	onRowSelect( e: interaction.InteractionEvent, x: number, y: number ): boolean {
+		const marker = this._marker;
+		if( x <= marker.position.x + marker.width ) {
+			marker.onClick( e );
+			return true;
+		}
+		return false;
 	}
 
 	set(

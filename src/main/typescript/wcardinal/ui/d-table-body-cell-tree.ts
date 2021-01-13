@@ -104,8 +104,8 @@ export class DTableBodyCellTree<
 		}
 	}
 
-	onCellClick( e: interaction.InteractionEvent, x: number, y: number ): boolean {
-		if( x < this.padding.getLeft() ) {
+	onRowSelect( e: interaction.InteractionEvent, x: number, y: number ): boolean {
+		if( x <= this.padding.getLeft() ) {
 			const row = this._row;
 			if( row !== undefined ) {
 				this.toggle( row );
