@@ -109,7 +109,7 @@ export class DThemeWhiteBase extends DThemeWhiteFont implements DThemeBase {
 	}
 
 	getCornerRadius(): number {
-		return 2;
+		return 3;
 	}
 
 	getCornerMask(): number {
