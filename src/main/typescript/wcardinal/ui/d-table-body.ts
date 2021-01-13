@@ -320,9 +320,9 @@ export class DTableBody<
 		}
 	}
 
-	protected toRowIndexMapped( y: number ): number {
-		if( 0 <= this.parent.position.y + y ) {
-			return Math.floor( y / this._rowHeight );
+	protected toRowIndexMapped( local: Point ): number {
+		if( 0 <= this.parent.position.y + local.y ) {
+			return Math.floor( local.y / this._rowHeight );
 		}
 		return -1;
 	}
@@ -356,17 +356,14 @@ export class DTableBody<
 			const local = DTableBody.WORK_ON_CLICK;
 			local.copyFrom( e.data.global );
 			this.toLocal( local, undefined, local, false );
-			const rowIndexMapped = this.toRowIndexMapped( local.y );
+			const rowIndexMapped = this.toRowIndexMapped( local );
 			if( 0 <= rowIndexMapped && rowIndexMapped < this._data.mapped.size() ) {
 				// Delegate to the cell at first
 				const row = this.toRow( rowIndexMapped );
 				if( row ) {
 					const cell = this.toCell( row, local );
-					if( cell && cell.onRowSelect ) {
-						const position = cell.position;
-						if( cell.onRowSelect( e, local.x - position.x, local.y - position.y ) ) {
-							return;
-						}
+					if( cell && cell.onRowSelect && cell.onRowSelect( e, local ) ) {
+						return;
 					}
 				}
 
@@ -447,7 +444,7 @@ export class DTableBody<
 		if( this.state.isActionable && data.selection.type !== DTableDataSelectionType.NONE ) {
 			const local = UtilPointerEvent.toGlobal( e, interactionManager, DTableBody.WORK_ON_CLICK );
 			this.toLocal( local, undefined, local, false );
-			const rowIndexMapped = this.toRowIndexMapped( local.y );
+			const rowIndexMapped = this.toRowIndexMapped( local );
 			if( 0 <= rowIndexMapped && rowIndexMapped < data.mapped.size() ) {
 				const row = this.toRow( rowIndexMapped );
 				if( row ) {

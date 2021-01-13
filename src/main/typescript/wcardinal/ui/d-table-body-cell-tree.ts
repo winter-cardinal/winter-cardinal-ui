@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
+import { interaction, Point } from "pixi.js";
 import { DBasePaddingAdjustable } from "./d-base-padding-adjustable";
 import { DLink, DThemeLink } from "./d-link";
 import { DLinks } from "./d-links";
@@ -104,8 +104,8 @@ export class DTableBodyCellTree<
 		}
 	}
 
-	onRowSelect( e: interaction.InteractionEvent, x: number, y: number ): boolean {
-		if( x <= this.padding.getLeft() ) {
+	onRowSelect( e: interaction.InteractionEvent, local: Point ): boolean {
+		if( local.x <= this.position.x + this.padding.getLeft() ) {
 			const row = this._row;
 			if( row !== undefined ) {
 				this.toggle( row );
