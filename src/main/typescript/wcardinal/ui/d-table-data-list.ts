@@ -3,10 +3,11 @@ import { DTableData, DTableDataMapped, DTableDataOptions, DTableDataParent } fro
 import { DTableDataFilter } from "./d-table-data-filter";
 import { DTableDataListFilter } from "./d-table-data-list-filter";
 import { DTableDataListMapped } from "./d-table-data-list-mapped";
-import { DTableDataSelection, DTableDataSelectionOptions } from "./d-table-data-selection";
+import { DTableDataSelection, DTableDataSelectionCreator, DTableDataSelectionOptions } from "./d-table-data-selection";
 import { DTableDataListSelection } from "./d-table-data-list-selection";
 import { DTableDataSorter } from "./d-table-data-sorter";
 import { DTableDataListSorter } from "./d-table-data-list-sorter";
+import { isFunction } from "./util";
 
 export interface DTableDataListOptions<ROW> extends DTableDataOptions<ROW> {
 	rows?: ROW[];
@@ -55,9 +56,11 @@ export class DTableDataList<ROW> extends utils.EventEmitter implements DTableDat
 		}
 	}
 
-	protected toSelection( options?: DTableDataSelection<ROW> | DTableDataSelectionOptions ): DTableDataSelection<ROW> {
+	protected toSelection( options?: DTableDataSelection<ROW> | DTableDataSelectionCreator<ROW> | DTableDataSelectionOptions ): DTableDataSelection<ROW> {
 		if( options instanceof utils.EventEmitter ) {
 			return options;
+		} else if( isFunction( options ) ) {
+			return options( this );
 		}
 		return this.newSelection( options );
 	}
