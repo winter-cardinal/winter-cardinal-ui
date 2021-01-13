@@ -8,22 +8,22 @@ import { DTableDataFilter, DTableDataFilterFunction, DTableDataFilterObject } fr
 import { DTableDataSorter } from "./d-table-data-sorter";
 import { isFunction } from "./util/is-function";
 
-interface DTableDataFilterImplParent<ROW> {
+interface DTableDataListFilterParent<ROW> {
 	readonly sorter: DTableDataSorter<ROW>;
 	readonly rows: ROW[];
 	update(): void;
 }
 
-export class DTableDataFilterImpl<ROW> extends utils.EventEmitter implements DTableDataFilter<ROW> {
+export class DTableDataListFilter<ROW> extends utils.EventEmitter implements DTableDataFilter<ROW> {
 	protected _id: number;
 	protected _idUpdated: number;
 	protected _isApplied: boolean;
 	protected _sorterId: number;
-	protected _parent: DTableDataFilterImplParent<ROW>;
+	protected _parent: DTableDataListFilterParent<ROW>;
 	protected _filter: DTableDataFilterFunction<ROW> | DTableDataFilterObject<ROW> | null;
 	protected _filtered: number[] | null;
 
-	constructor( parent: DTableDataFilterImplParent<ROW> ) {
+	constructor( parent: DTableDataListFilterParent<ROW> ) {
 		super();
 
 		this._id = 0;

@@ -26,20 +26,20 @@ export class DTableBodyCellInputInteger<
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;
-	protected _columnData: DTableColumn<ROW>;
+	protected _column: DTableColumn<ROW>;
 
-	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options?: OPTIONS ) {
+	constructor( columnIndex: number, column: DTableColumn<ROW>, options?: OPTIONS ) {
 		super( options );
 
 		this._rowIndex = -1;
 		this._columnIndex = columnIndex;
-		this._columnData = columnData;
+		this._column = column;
 
 		this.on( "change", ( newValue: unknown, oldValue: unknown ): void => {
 			const row = this._row;
 			if( row !== undefined ) {
 				const rowIndex = this._rowIndex;
-				this._columnData.setter( row, columnIndex, newValue );
+				this._column.setter( row, columnIndex, newValue );
 				this.emit( "cellchange", newValue, oldValue, row, rowIndex, columnIndex, this );
 			}
 		});
@@ -57,6 +57,10 @@ export class DTableBodyCellInputInteger<
 		return this._columnIndex;
 	}
 
+	get column(): DTableColumn<ROW> {
+		return this._column;
+	}
+
 	set(
 		value: unknown, row: ROW, supplimental: unknown,
 		rowIndex: number, columnIndex: number,
@@ -66,9 +70,9 @@ export class DTableBodyCellInputInteger<
 		this._rowIndex = rowIndex;
 		this.text = Number( value );
 
-		const columnData = this._columnData;
-		DTableBodyCells.setReadOnly( this, row, columnIndex, columnData );
-		DTableBodyCells.setRenderable( this, row, columnIndex, columnData );
+		const column = this._column;
+		DTableBodyCells.setReadOnly( this, row, columnIndex, column );
+		DTableBodyCells.setRenderable( this, row, columnIndex, column );
 	}
 
 	unset(): void {

@@ -9,7 +9,7 @@ import {
 	DTableDataOrder, DTableDataSorter
 } from "./d-table-data-sorter";
 
-export class DTableDataSorterTree<NODE> extends utils.EventEmitter implements DTableDataSorter<NODE> {
+export class DTableDataTreeSorter<NODE> extends utils.EventEmitter implements DTableDataSorter<NODE> {
 	constructor() {
 		super();
 	}

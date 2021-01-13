@@ -73,18 +73,18 @@ export class DTableBodyRow<
 
 	protected newCell(
 		columnIndex: number,
-		columnData: DTableColumn<ROW>,
-		columnDataList: Array<DTableColumn<ROW>>,
+		column: DTableColumn<ROW>,
+		columns: Array<DTableColumn<ROW>>,
 		options: OPTIONS
 	): DBase {
-		const cellOptions = this.toCellOptions( columnIndex, columnData, options );
-		if( columnData.editing.enable !== false ) {
-			const cell = this.newCellEditable( columnIndex, columnData, cellOptions );
+		const cellOptions = this.toCellOptions( columnIndex, column, options );
+		if( column.editing.enable !== false ) {
+			const cell = this.newCellEditable( columnIndex, column, cellOptions );
 			cell.on( "cellchange", this._onCellChangeBound );
 			return cell;
 		} else {
-			const cell = this.newCellUnediable( columnIndex, columnData, cellOptions );
-			if( columnData.type === DTableColumnType.TREE ) {
+			const cell = this.newCellUnediable( columnIndex, column, cellOptions );
+			if( column.type === DTableColumnType.TREE ) {
 				cell.on( "cellchange", this._onCellChangeBound );
 			} else {
 				cell.state.isReadOnly = true;
@@ -95,96 +95,96 @@ export class DTableBodyRow<
 
 	protected newCellEditable(
 		columnIndex: number,
-		columnData: DTableColumn<ROW>,
+		column: DTableColumn<ROW>,
 		options: any
 	): DBase {
-		switch( columnData.type ) {
+		switch( column.type ) {
 		case DTableColumnType.INDEX:
-			return new DTableBodyCellIndex( columnIndex, columnData, options );
+			return new DTableBodyCellIndex( columnIndex, column, options );
 		case DTableColumnType.TEXT:
-			return new DTableBodyCellInputText( columnIndex, columnData, options );
+			return new DTableBodyCellInputText( columnIndex, column, options );
 		case DTableColumnType.TREE:
-			return new DTableBodyCellInputTree( columnIndex, columnData, options );
+			return new DTableBodyCellInputTree( columnIndex, column, options );
 		case DTableColumnType.INTEGER:
-			return new DTableBodyCellInputInteger( columnIndex, columnData, options );
+			return new DTableBodyCellInputInteger( columnIndex, column, options );
 		case DTableColumnType.REAL:
-			return new DTableBodyCellInputReal( columnIndex, columnData, options );
+			return new DTableBodyCellInputReal( columnIndex, column, options );
 		case DTableColumnType.CHECK:
 		case DTableColumnType.CHECK_SINGLE:
-			return new DTableBodyCellCheck( columnIndex, columnData, options );
+			return new DTableBodyCellCheck( columnIndex, column, options );
 		case DTableColumnType.COLOR:
-			return new DTableBodyCellColor( columnIndex, columnData, options );
+			return new DTableBodyCellColor( columnIndex, column, options );
 		case DTableColumnType.BUTTON:
-			return new DTableBodyCellButton( columnIndex, columnData, options );
+			return new DTableBodyCellButton( columnIndex, column, options );
 		case DTableColumnType.LINK:
-			return new DTableBodyCellLink( columnIndex, columnData, options );
+			return new DTableBodyCellLink( columnIndex, column, options );
 		case DTableColumnType.SELECT:
-			return this.newCellSelect( columnIndex, columnData, options );
+			return this.newCellSelect( columnIndex, column, options );
 		case DTableColumnType.ACTION:
-			return this.newCellAction( columnIndex, columnData, options );
+			return this.newCellAction( columnIndex, column, options );
 		case DTableColumnType.DATE:
-			return new DTableBodyCellDate( columnIndex, columnData, options );
+			return new DTableBodyCellDate( columnIndex, column, options );
 		case DTableColumnType.DATETIME:
-			return new DTableBodyCellDatetime( columnIndex, columnData, options );
+			return new DTableBodyCellDatetime( columnIndex, column, options );
 		case DTableColumnType.TIME:
-			return new DTableBodyCellTime( columnIndex, columnData, options );
+			return new DTableBodyCellTime( columnIndex, column, options );
 		default:
-			return new DTableBodyCellText( columnIndex, columnData, options );
+			return new DTableBodyCellText( columnIndex, column, options );
 		}
 	}
 
 	protected newCellUnediable(
 		columnIndex: number,
-		columnData: DTableColumn<ROW>,
+		column: DTableColumn<ROW>,
 		options: any
 	): DBase {
-		switch( columnData.type ) {
+		switch( column.type ) {
 		case DTableColumnType.INDEX:
-			return new DTableBodyCellIndex( columnIndex, columnData, options );
+			return new DTableBodyCellIndex( columnIndex, column, options );
 		case DTableColumnType.TEXT:
-			return new DTableBodyCellText( columnIndex, columnData, options );
+			return new DTableBodyCellText( columnIndex, column, options );
 		case DTableColumnType.TREE:
-			return new DTableBodyCellTree( columnIndex, columnData, options );
+			return new DTableBodyCellTree( columnIndex, column, options );
 		case DTableColumnType.INTEGER:
-			return new DTableBodyCellText( columnIndex, columnData, options );
+			return new DTableBodyCellText( columnIndex, column, options );
 		case DTableColumnType.REAL:
-			return new DTableBodyCellText( columnIndex, columnData, options );
+			return new DTableBodyCellText( columnIndex, column, options );
 		case DTableColumnType.CHECK:
 		case DTableColumnType.CHECK_SINGLE:
-			return new DTableBodyCellCheck( columnIndex, columnData, options );
+			return new DTableBodyCellCheck( columnIndex, column, options );
 		case DTableColumnType.COLOR:
-			return new DTableBodyCellColor( columnIndex, columnData, options );
+			return new DTableBodyCellColor( columnIndex, column, options );
 		case DTableColumnType.BUTTON:
-			return new DTableBodyCellButton( columnIndex, columnData, options );
+			return new DTableBodyCellButton( columnIndex, column, options );
 		case DTableColumnType.LINK:
-			return new DTableBodyCellLink( columnIndex, columnData, options );
+			return new DTableBodyCellLink( columnIndex, column, options );
 		case DTableColumnType.SELECT:
-			return this.newCellSelect( columnIndex, columnData, options );
+			return this.newCellSelect( columnIndex, column, options );
 		case DTableColumnType.ACTION:
-			return this.newCellAction( columnIndex, columnData, options );
+			return this.newCellAction( columnIndex, column, options );
 		case DTableColumnType.DATE:
-			return new DTableBodyCellDate( columnIndex, columnData, options );
+			return new DTableBodyCellDate( columnIndex, column, options );
 		case DTableColumnType.DATETIME:
-			return new DTableBodyCellDatetime( columnIndex, columnData, options );
+			return new DTableBodyCellDatetime( columnIndex, column, options );
 		case DTableColumnType.TIME:
-			return new DTableBodyCellTime( columnIndex, columnData, options );
+			return new DTableBodyCellTime( columnIndex, column, options );
 		default:
-			return new DTableBodyCellText( columnIndex, columnData, options );
+			return new DTableBodyCellText( columnIndex, column, options );
 		}
 	}
 
-	protected newCellSelect( columnIndex: number, columnData: DTableColumn<ROW>, options: any ): DBase {
-		const selecting = columnData.selecting;
+	protected newCellSelect( columnIndex: number, column: DTableColumn<ROW>, options: any ): DBase {
+		const selecting = column.selecting;
 		if( selecting.menu != null ) {
-			return new DTableBodyCellSelectMenu( columnIndex, columnData, options );
+			return new DTableBodyCellSelectMenu( columnIndex, column, options );
 		} else if( selecting.multiple != null ) {
-			return new DTableBodyCellSelectMultiple( columnIndex, columnData, options );
+			return new DTableBodyCellSelectMultiple( columnIndex, column, options );
 		} else if( selecting.dialog != null ) {
-			return new DTableBodyCellSelectDialog( columnIndex, columnData, options );
+			return new DTableBodyCellSelectDialog( columnIndex, column, options );
 		} else if( selecting.promise != null ) {
-			return new DTableBodyCellSelectPromise( columnIndex, columnData, options );
+			return new DTableBodyCellSelectPromise( columnIndex, column, options );
 		} else {
-			return new DTableBodyCellText( columnIndex, columnData, options );
+			return new DTableBodyCellText( columnIndex, column, options );
 		}
 	}
 
@@ -203,46 +203,46 @@ export class DTableBodyRow<
 
 	protected toCellOptions(
 		columnIndex: number,
-		columnData: DTableColumn<ROW>,
+		column: DTableColumn<ROW>,
 		options: OPTIONS
 	): DTableBodyCellOptionsUnion<ROW> {
-		let result: any = (columnData.body || options.cell);
+		let result: any = (column.body || options.cell);
 		if( result != null ) {
-			result.weight = columnData.weight;
-			result.width = columnData.width;
+			result.weight = column.weight;
+			result.width = column.width;
 			const text = result.text = result.text || {};
 			const align = text.align = text.align || {};
-			align.horizontal = columnData.align;
-			text.formatter = columnData.formatter;
-			if( columnData.selecting.menu ) {
-				result.menu = columnData.selecting.menu;
+			align.horizontal = column.align;
+			text.formatter = column.formatter;
+			if( column.selecting.menu ) {
+				result.menu = column.selecting.menu;
 			}
-			if( columnData.selecting.multiple ) {
-				result.menu = columnData.selecting.menu;
+			if( column.selecting.multiple ) {
+				result.menu = column.selecting.menu;
 			}
 		} else {
 			result = {
-				weight: columnData.weight,
-				width: columnData.width,
+				weight: column.weight,
+				width: column.width,
 				text: {
-					formatter: columnData.formatter,
+					formatter: column.formatter,
 					align: {
-						horizontal: columnData.align
+						horizontal: column.align
 					}
 				},
-				menu: columnData.selecting.menu || columnData.selecting.multiple
+				menu: column.selecting.menu || column.selecting.multiple
 			};
 		}
 
-		if( columnData.editing.enable !== false ) {
+		if( column.editing.enable !== false ) {
 			const editing = result.editing = result.editing || {};
-			editing.formatter = editing.formatter || columnData.editing.formatter;
-			editing.unformatter = editing.unformatter || columnData.editing.unformatter as any;
-			editing.validator = editing.validator || columnData.editing.validator as any;
+			editing.formatter = editing.formatter || column.editing.formatter;
+			editing.unformatter = editing.unformatter || column.editing.unformatter as any;
+			editing.validator = editing.validator || column.editing.validator as any;
 		}
 
-		if( columnData.link ) {
-			result.link = columnData.link;
+		if( column.link ) {
+			result.link = column.link;
 		}
 
 		return result;

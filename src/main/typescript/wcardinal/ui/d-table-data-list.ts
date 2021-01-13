@@ -1,12 +1,12 @@
 import { utils } from "pixi.js";
 import { DTableData, DTableDataMapped, DTableDataOptions, DTableDataParent } from "./d-table-data";
 import { DTableDataFilter } from "./d-table-data-filter";
-import { DTableDataFilterImpl } from "./d-table-data-filter-impl";
+import { DTableDataListFilter } from "./d-table-data-list-filter";
 import { DTableDataListMapped } from "./d-table-data-list-mapped";
-import { DTableDataSelection } from "./d-table-data-selection";
-import { DTableDataSelectionImpl } from "./d-table-data-selection-impl";
+import { DTableDataSelection, DTableDataSelectionOptions } from "./d-table-data-selection";
+import { DTableDataListSelection } from "./d-table-data-list-selection";
 import { DTableDataSorter } from "./d-table-data-sorter";
-import { DTableDataSorterImpl } from "./d-table-data-sorter-impl";
+import { DTableDataListSorter } from "./d-table-data-list-sorter";
 
 export interface DTableDataListOptions<ROW> extends DTableDataOptions<ROW> {
 	rows?: ROW[];
@@ -15,20 +15,20 @@ export interface DTableDataListOptions<ROW> extends DTableDataOptions<ROW> {
 export class DTableDataList<ROW> extends utils.EventEmitter implements DTableData<ROW> {
 	protected _parent: DTableDataParent | null;
 	protected _rows: ROW[];
-	protected _filter: DTableDataFilterImpl<ROW>;
-	protected _sorter: DTableDataSorterImpl<ROW>;
-	protected _selection: DTableDataSelectionImpl<ROW>;
+	protected _filter: DTableDataListFilter<ROW>;
+	protected _sorter: DTableDataListSorter<ROW>;
+	protected _selection: DTableDataSelection<ROW>;
 	protected _mapped: DTableDataMapped<ROW>;
 
 	constructor( options?: DTableDataListOptions<ROW> ) {
 		super();
 
 		this._parent = null;
+		this._rows = this.toRows( options?.rows );
 		this._mapped = new DTableDataListMapped<ROW>( this );
-		this._rows = this.toRows( options && options.rows );
-		this._selection = new DTableDataSelectionImpl<ROW>( this, options && options.selection );
-		this._filter = new DTableDataFilterImpl<ROW>( this );
-		this._sorter = new DTableDataSorterImpl<ROW>( this );
+		this._selection = this.toSelection( options?.selection );
+		this._filter = new DTableDataListFilter<ROW>( this );
+		this._sorter = new DTableDataListSorter<ROW>( this );
 		if( options ) {
 			// Filter
 			const filter = options.filter;
@@ -53,6 +53,17 @@ export class DTableDataList<ROW> extends utils.EventEmitter implements DTableDat
 				}
 			}
 		}
+	}
+
+	protected toSelection( options?: DTableDataSelection<ROW> | DTableDataSelectionOptions ): DTableDataSelection<ROW> {
+		if( options instanceof utils.EventEmitter ) {
+			return options;
+		}
+		return this.newSelection( options );
+	}
+
+	protected newSelection( options?: DTableDataSelectionOptions ): DTableDataSelection<ROW> {
+		return new DTableDataListSelection( this, options );
 	}
 
 	bind( parent: DTableDataParent ): void {

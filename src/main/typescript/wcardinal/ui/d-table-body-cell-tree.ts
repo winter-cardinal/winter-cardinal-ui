@@ -36,18 +36,20 @@ export class DTableBodyCellTree<
 	protected _padding!: DBasePaddingAdjustable;
 	protected _link?: DLink | null;
 
-	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options?: OPTIONS ) {
-		super( columnIndex, columnData, DLinks.toStateOptions( options?.link?.target, options ) );
+	constructor( columnIndex: number, column: DTableColumn<ROW>, options?: OPTIONS ) {
+		super( columnIndex, column, DLinks.toStateOptions( options?.link?.target, options ) );
 		this._padding = new DBasePaddingAdjustable( this._padding );
 	}
 
 	protected initOnClick( options: OPTIONS ): void {
 		const link = this.link;
 		if( link ) {
-			link.apply( this, ( e ): void => this.onActive( e ) );
+			link.apply( this, ( e: interaction.InteractionEvent ): void => {
+				this.onActivate( e );
+			});
 			UtilPointerEvent.onClick( this, ( e: interaction.InteractionEvent ): void => {
-				if( ! link.enable && this.state.isActionable ) {
-					this.onActive( e );
+				if( ! link.enable ) {
+					this.onClick( e );
 				}
 			});
 		} else {
@@ -72,7 +74,7 @@ export class DTableBodyCellTree<
 		return null;
 	}
 
-	protected onActive( e: KeyboardEvent | interaction.InteractionEvent ): void {
+	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
 		this.emit( "active", this );
 		const row = this._row;
 		if( row !== undefined ) {
@@ -84,18 +86,33 @@ export class DTableBodyCellTree<
 			if( link?.enable ) {
 				link.open( link.inNewWindow( e ) );
 			} else {
-				const parent = this.parent;
-				if( parent ) {
-					const body = parent.parent as any;
-					if( body ) {
-						const data = body.data;
-						if( data && data.toggle ) {
-							data.toggle( row );
-						}
-					}
+				this.toggle( row );
+			}
+		}
+	}
+
+	protected toggle( row: ROW ): void {
+		const parent = this.parent;
+		if( parent ) {
+			const body = parent.parent as any;
+			if( body ) {
+				const data = body.data;
+				if( data && data.toggle ) {
+					data.toggle( row );
 				}
 			}
 		}
+	}
+
+	onCellClick( e: interaction.InteractionEvent, x: number, y: number ): boolean {
+		if( x < this.padding.getLeft() ) {
+			const row = this._row;
+			if( row !== undefined ) {
+				this.toggle( row );
+				return true;
+			}
+		}
+		return false;
 	}
 
 	set(
@@ -107,8 +124,8 @@ export class DTableBodyCellTree<
 		this._rowIndex = rowIndex;
 		this.text = value;
 
-		const columnData = this._columnData;
-		DTableBodyCells.setRenderable( this, row, columnIndex, columnData );
+		const column = this._column;
+		DTableBodyCells.setRenderable( this, row, columnIndex, column );
 
 		const link = this.link;
 		const adjuster = this._padding.adjuster;

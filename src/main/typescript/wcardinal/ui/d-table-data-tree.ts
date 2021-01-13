@@ -1,18 +1,29 @@
+/*
+ * Copyright (C) 2021 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { utils } from "pixi.js";
 import { DTableData, DTableDataMapped, DTableDataOptions, DTableDataParent } from "./d-table-data";
 import { DTableDataFilter } from "./d-table-data-filter";
-import { DTableDataFilterTree } from "./d-table-data-filter-tree";
+import { DTableDataTreeFilter } from "./d-table-data-tree-filter";
 import { DTableDataListMapped } from "./d-table-data-list-mapped";
 import { DTableDataSelection } from "./d-table-data-selection";
-import { DTableDataSelectionImpl } from "./d-table-data-selection-impl";
 import { DTableDataSorter } from "./d-table-data-sorter";
-import { DTableDataSorterTree } from "./d-table-data-sorter-tree";
+import { DTableDataTreeSorter } from "./d-table-data-tree-sorter";
 import { DTableDataTreeItem } from "./d-table-data-tree-item";
+import { DTableDataTreeItemAccessor, DTableDataTreeItemAccessorOptions } from "./d-table-data-tree-item-accessor";
+import { DTableDataTreeSelection, DTableDataTreeSelectionOptions } from "./d-table-data-tree-selection";
+import { DTableDataTreeSelectionImpl } from "./d-table-data-tree-selection-impl";
 
-export interface DTableDataTreeOptions<NODE> extends DTableDataOptions<NODE> {
+export interface DTableDataTreeOptions<NODE> extends DTableDataOptions<NODE>, DTableDataTreeItemAccessorOptions<NODE> {
 	nodes?: NODE[];
+	selection?: DTableDataTreeSelection<NODE> | DTableDataTreeSelectionOptions;
 }
 
+/**
+ * Please note that this data class does not support the sorter.
+ */
 export class DTableDataTree<NODE extends DTableDataTreeItem<NODE, NODE>> extends utils.EventEmitter
 	implements DTableData<NODE> {
 	protected _parent: DTableDataParent | null;
@@ -21,23 +32,26 @@ export class DTableDataTree<NODE extends DTableDataTreeItem<NODE, NODE>> extends
 	protected _isRowsDirty: boolean;
 	protected _supplimentals: number[];
 	protected _flags: WeakMap<NODE, number>;
-	protected _filter: DTableDataFilterTree<NODE>;
-	protected _sorter: DTableDataSorterTree<NODE>;
-	protected _selection: DTableDataSelectionImpl<NODE>;
+	protected _filter: DTableDataTreeFilter<NODE>;
+	protected _sorter: DTableDataTreeSorter<NODE>;
+	protected _selection: DTableDataTreeSelection<NODE>;
 	protected _mapped: DTableDataMapped<NODE>;
+	protected _accessor: DTableDataTreeItemAccessor<NODE>;
 
 	constructor( options?: DTableDataTreeOptions<NODE> ) {
 		super();
 
 		this._parent = null;
+		this._accessor = this.toAccessor( options );
 		this._mapped = new DTableDataListMapped<NODE>( this );
 		this._rows = [];
 		this._isRowsDirty = false;
 		this._supplimentals = [];
 		this._flags = new WeakMap<NODE, number>();
-		this._selection = new DTableDataSelectionImpl<NODE>( this, options && options.selection );
-		this._filter = new DTableDataFilterTree<NODE>( this );
-		this._sorter = new DTableDataSorterTree<NODE>();
+		this._selection = this.toSelection( options?.selection );
+		this._filter = new DTableDataTreeFilter<NODE>( this );
+		this._sorter = new DTableDataTreeSorter<NODE>();
+
 		if( options ) {
 			// Filter
 			const filter = options.filter;
@@ -58,7 +72,22 @@ export class DTableDataTree<NODE extends DTableDataTreeItem<NODE, NODE>> extends
 		}
 
 		// Update rows
-		this.nodes = options && options.nodes;
+		this.nodes = options?.nodes;
+	}
+
+	protected toSelection( options?: DTableDataTreeSelection<NODE> | DTableDataTreeSelectionOptions ): DTableDataTreeSelection<NODE> {
+		if( options instanceof utils.EventEmitter ) {
+			return options;
+		}
+		return this.newSelection( options );
+	}
+
+	protected newSelection( options?: DTableDataTreeSelectionOptions ): DTableDataTreeSelection<NODE> {
+		return new DTableDataTreeSelectionImpl( this, options );
+	}
+
+	protected toAccessor( options?: DTableDataTreeOptions<NODE> ): DTableDataTreeItemAccessor<NODE> {
+		return new DTableDataTreeItemAccessor( options );
 	}
 
 	bind( parent: DTableDataParent ): void {
@@ -72,6 +101,7 @@ export class DTableDataTree<NODE extends DTableDataTreeItem<NODE, NODE>> extends
 	set nodes( nodes: NODE[] | undefined ) {
 		this._nodes = nodes;
 		this._isRowsDirty = true;
+		this._selection.onNodeChange( nodes );
 		this._filter.toDirty();
 		this.update( true );
 	}
@@ -88,12 +118,16 @@ export class DTableDataTree<NODE extends DTableDataTreeItem<NODE, NODE>> extends
 		return this._supplimentals;
 	}
 
+	get accessor(): DTableDataTreeItemAccessor<NODE> {
+		return this._accessor;
+	}
+
 	protected updateRows( nodes: NODE[] | undefined ): void {
 		const rows = this._rows;
 		const supplimentals = this._supplimentals;
 		const flags = this._flags;
 		if( nodes != null ) {
-			const irows = this.updateRows_( nodes, 0, 0, rows, supplimentals, flags );
+			const irows = this.newRows( nodes, 0, 0, rows, supplimentals, flags );
 			if( irows !== rows.length ) {
 				rows.length = irows;
 				supplimentals.length = irows;
@@ -108,7 +142,7 @@ export class DTableDataTree<NODE extends DTableDataTreeItem<NODE, NODE>> extends
 		return (ilevel << 2) | (hasChildren ? 2 : 0) | (isOpened ? 1 : 0);
 	}
 
-	protected updateRows_(
+	protected newRows(
 		nodes: NODE[],
 		irows: number,
 		ilevel: number,
@@ -116,9 +150,10 @@ export class DTableDataTree<NODE extends DTableDataTreeItem<NODE, NODE>> extends
 		supplimentals: number[],
 		flags: WeakMap<NODE, number>
 	): number {
+		const toChildren = this._accessor.toChildren;
 		for( let i = 0, imax = nodes.length; i < imax; ++i ) {
 			const node = nodes[ i ];
-			const children = node.children;
+			const children = toChildren( node );
 			const isOpened = flags.has( node );
 			const supplimental = this.toSupplimental( ilevel, !! (children && 0 < children.length), isOpened );
 			if( irows < rows.length ) {
@@ -131,7 +166,7 @@ export class DTableDataTree<NODE extends DTableDataTreeItem<NODE, NODE>> extends
 			irows += 1;
 
 			if( isOpened && children ) {
-				irows = this.updateRows_( children, irows, ilevel + 1, rows, supplimentals, flags );
+				irows = this.newRows( children, irows, ilevel + 1, rows, supplimentals, flags );
 			}
 		}
 		return irows;
