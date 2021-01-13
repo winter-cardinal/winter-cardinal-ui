@@ -44,14 +44,14 @@ export class DTableBodyCellColor<
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;
-	protected _columnData: DTableColumn<ROW>;
+	protected _column: DTableColumn<ROW>;
 
-	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options?: OPTIONS ) {
+	constructor( columnIndex: number, column: DTableColumn<ROW>, options?: OPTIONS ) {
 		super( options );
 
 		this._rowIndex = -1;
 		this._columnIndex = columnIndex;
-		this._columnData = columnData;
+		this._column = column;
 
 		this.on( "change", ( newValue: DColorAndAlpha, oldValue: DColorAndAlpha ): void => {
 			const row = this._row;
@@ -59,7 +59,7 @@ export class DTableBodyCellColor<
 				const newValueCloned = clone( newValue );
 				const oldValueCloned = clone( oldValue );
 				const rowIndex = this._rowIndex;
-				this._columnData.setter( row, columnIndex, newValueCloned );
+				this._column.setter( row, columnIndex, newValueCloned );
 				this.emit( "cellchange", newValueCloned, oldValueCloned, row, rowIndex, columnIndex, this );
 			}
 		});
@@ -75,6 +75,10 @@ export class DTableBodyCellColor<
 
 	get columnIndex(): number {
 		return this._columnIndex;
+	}
+
+	get column(): DTableColumn<ROW> {
+		return this._column;
 	}
 
 	set(
@@ -112,9 +116,9 @@ export class DTableBodyCellColor<
 			value.alpha = 1;
 		}
 
-		const columnData = this._columnData;
-		DTableBodyCells.setReadOnly( this, row, columnIndex, columnData );
-		DTableBodyCells.setRenderable( this, row, columnIndex, columnData );
+		const column = this._column;
+		DTableBodyCells.setReadOnly( this, row, columnIndex, column );
+		DTableBodyCells.setRenderable( this, row, columnIndex, column );
 	}
 
 	unset(): void {

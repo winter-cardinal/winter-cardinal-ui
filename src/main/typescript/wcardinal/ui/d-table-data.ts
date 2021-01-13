@@ -55,7 +55,7 @@ export interface DTableDataOptions<ROW, EMITTER = any> {
 	/**
 	 * Selection options.
 	 */
-	selection?: DTableDataSelectionOptions;
+	selection?: DTableDataSelection<ROW> | DTableDataSelectionOptions;
 
 	/**
 	 * A filter.

@@ -482,7 +482,7 @@ export class DTable<
 		});
 		if( body.data.selection.type !== DTableDataSelectionType.NONE ) {
 			UtilPointerEvent.onClick( this, ( e: interaction.InteractionEvent ): void => {
-				body.onRowClicked( e );
+				body.onRowClick( e );
 			});
 		}
 		content.state.isFocusReverse = true;

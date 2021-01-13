@@ -27,16 +27,16 @@ export class DTableBodyCellActionMenu<
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;
-	protected _columnData: DTableColumn<ROW>;
+	protected _column: DTableColumn<ROW>;
 	protected _onSelectedBound: ( selected: unknown ) => void;
 	protected _onClosedBound: () => void;
 
-	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options?: OPTIONS ) {
+	constructor( columnIndex: number, column: DTableColumn<ROW>, options?: OPTIONS ) {
 		super( options );
 
 		this._rowIndex = -1;
 		this._columnIndex = columnIndex;
-		this._columnData = columnData;
+		this._column = column;
 
 		this._onSelectedBound = ( selected: unknown ): void => {
 			this.onSelected( selected );
@@ -47,12 +47,12 @@ export class DTableBodyCellActionMenu<
 	}
 
 	protected onSelected( selected: unknown ): void {
-		const columnData = this._columnData;
+		const column = this._column;
 		const row = this._row;
 		if( row !== undefined ) {
 			const rowIndex = this._rowIndex;
 			const columnIndex = this._columnIndex;
-			columnData.setter( row, columnIndex, selected );
+			column.setter( row, columnIndex, selected );
 			this.emit( "cellchange", selected, null, row, rowIndex, columnIndex, this );
 		}
 	}
@@ -82,6 +82,10 @@ export class DTableBodyCellActionMenu<
 		return this._columnIndex;
 	}
 
+	get column(): DTableColumn<ROW> {
+		return this._column;
+	}
+
 	set(
 		value: unknown, row: ROW, supplimental: unknown,
 		rowIndex: number, columnIndex: number,
@@ -91,9 +95,9 @@ export class DTableBodyCellActionMenu<
 		this._rowIndex = rowIndex;
 		this.text = value as any;
 
-		const columnData = this._columnData;
-		DTableBodyCells.setReadOnly( this, row, columnIndex, columnData );
-		DTableBodyCells.setRenderable( this, row, columnIndex, columnData );
+		const column = this._column;
+		DTableBodyCells.setReadOnly( this, row, columnIndex, column );
+		DTableBodyCells.setRenderable( this, row, columnIndex, column );
 	}
 
 	unset(): void {

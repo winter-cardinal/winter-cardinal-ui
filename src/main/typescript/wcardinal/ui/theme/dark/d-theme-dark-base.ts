@@ -108,7 +108,7 @@ export class DThemeDarkBase extends DThemeDarkFont implements DThemeBase {
 	}
 
 	getCornerRadius(): number {
-		return 2;
+		return 3;
 	}
 
 	getCornerMask(): number {

@@ -10,21 +10,21 @@ import {
 } from "./d-table-data-sorter";
 import { isFunction } from "./util/is-function";
 
-export interface DTableDataSorterImplParent<ROW> {
+export interface DTableDataListSorterParent<ROW> {
 	readonly rows: ROW[];
 	update(): void;
 }
 
-export class DTableDataSorterImpl<ROW> extends utils.EventEmitter implements DTableDataSorter<ROW> {
+export class DTableDataListSorter<ROW> extends utils.EventEmitter implements DTableDataSorter<ROW> {
 	protected _id: number;
 	protected _idUpdated: number;
 	protected _isApplied: boolean;
-	protected _parent: DTableDataSorterImplParent<ROW>;
+	protected _parent: DTableDataListSorterParent<ROW>;
 	protected _comparator: DTableDataComparatorFunction<ROW> | DTableDataComparatorObject<ROW> | null;
 	protected _sorted: number[] | null;
 	protected _order: DTableDataOrder;
 
-	constructor( parent: DTableDataSorterImplParent<ROW> ) {
+	constructor( parent: DTableDataListSorterParent<ROW> ) {
 		super();
 
 		this._id = 0;

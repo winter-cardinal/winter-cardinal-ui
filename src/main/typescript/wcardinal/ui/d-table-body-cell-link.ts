@@ -96,12 +96,14 @@ export class DTableBodyCellLink<
 > extends DTableBodyCellButton<ROW, THEME, OPTIONS> {
 	protected _link?: DLink;
 
-	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options: OPTIONS ) {
-		super( columnIndex, columnData, DLinks.toStateOptions( options?.link?.target, options ) );
+	constructor( columnIndex: number, column: DTableColumn<ROW>, options: OPTIONS ) {
+		super( columnIndex, column, DLinks.toStateOptions( options?.link?.target, options ) );
 	}
 
-	protected initOnClick( options: OPTIONS ): void {
-		this.link.apply( this, ( e ) => this.onActive( e ) );
+	protected initOnClick( options?: OPTIONS ): void {
+		this.link.apply( this, ( e: interaction.InteractionEvent ): void => {
+			this.onActivate( e );
+		});
 	}
 
 	get link(): DLink {
@@ -125,13 +127,13 @@ export class DTableBodyCellLink<
 		return "DTableBodyCellLink";
 	}
 
-	protected onActive( e: KeyboardEvent | interaction.InteractionEvent ): void {
+	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
 		this.emit( "active", this );
 		const row = this._row;
 		if( row !== undefined ) {
 			const rowIndex = this._rowIndex;
 			const columnIndex = this._columnIndex;
-			this._columnData.setter( row, columnIndex, null );
+			this._column.setter( row, columnIndex, null );
 			this.emit( "cellchange", null, null, row, rowIndex, columnIndex, this );
 			this.open( this.link.inNewWindow( e ) );
 		}

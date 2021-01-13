@@ -56,31 +56,31 @@ export class DTableCategory<
 
 	protected newCell(
 		columnIndex: number,
-		columnData: DTableCategoryColumn,
-		columnDataList: DTableCategoryColumn[],
+		column: DTableCategoryColumn,
+		columns: DTableCategoryColumn[],
 		options: OPTIONS
 	): DBase {
-		return new DTableCategoryCell( this.toCellOptions( columnIndex, columnData, options ) );
+		return new DTableCategoryCell( this.toCellOptions( columnIndex, column, options ) );
 	}
 
 	protected toCellOptions(
 		columnIndex: number,
-		columnData: DTableCategoryColumn,
+		column: DTableCategoryColumn,
 		options: OPTIONS
 	): DTableCategoryCellOptions {
 		const result = options.cell;
 		if( result ) {
-			result.weight = columnData.weight;
-			result.width = columnData.width;
+			result.weight = column.weight;
+			result.width = column.width;
 			const text = result.text = result.text || {};
-			text.value = text.value || columnData.label;
+			text.value = text.value || column.label;
 			return result;
 		} else {
 			return {
-				weight: columnData.weight,
-				width: columnData.width,
+				weight: column.weight,
+				width: column.width,
 				text: {
-					value: columnData.label
+					value: column.label
 				}
 			};
 		}

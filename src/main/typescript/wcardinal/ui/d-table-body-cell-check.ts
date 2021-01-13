@@ -27,14 +27,14 @@ export class DTableBodyCellCheck<
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;
-	protected _columnData: DTableColumn<ROW>;
+	protected _column: DTableColumn<ROW>;
 
-	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options?: OPTIONS ) {
+	constructor( columnIndex: number, column: DTableColumn<ROW>, options?: OPTIONS ) {
 		super( options );
 
 		this._rowIndex = -1;
 		this._columnIndex = columnIndex;
-		this._columnData = columnData;
+		this._column = column;
 
 		this.on( "active", (): void => {
 			this.onChange( true );
@@ -45,14 +45,14 @@ export class DTableBodyCellCheck<
 		});
 	}
 
-	protected onChangeSingle( rowIndex: number, columnIndex: number, columnData: DTableColumn<ROW> ) {
+	protected onChangeSingle( rowIndex: number, columnIndex: number, column: DTableColumn<ROW> ) {
 		const tableBodyRow = this.parent;
 		if( tableBodyRow ) {
 			const tableBody = tableBodyRow.parent as any;
 			if( tableBody ) {
 				let isChanged = false;
-				const getter = columnData.getter;
-				const setter = columnData.setter;
+				const getter = column.getter;
+				const setter = column.setter;
 				const data = tableBody.data as DTableData<ROW>;
 				data.each(( row: ROW, index: number ): boolean => {
 					if( rowIndex !== index && getter( row, columnIndex ) ) {
@@ -75,11 +75,11 @@ export class DTableBodyCellCheck<
 		if( row !== undefined ) {
 			const rowIndex = this._rowIndex;
 			const columnIndex = this._columnIndex;
-			const columnData = this._columnData;
-			columnData.setter( row, columnIndex, newValue );
+			const column = this._column;
+			column.setter( row, columnIndex, newValue );
 			this.emit( "cellchange", newValue, ! newValue, row, rowIndex, columnIndex, this );
-			if( newValue && columnData.type === DTableColumnType.CHECK_SINGLE ) {
-				this.onChangeSingle( rowIndex, columnIndex, columnData );
+			if( newValue && column.type === DTableColumnType.CHECK_SINGLE ) {
+				this.onChangeSingle( rowIndex, columnIndex, column );
 			}
 		}
 	}
@@ -96,6 +96,10 @@ export class DTableBodyCellCheck<
 		return this._columnIndex;
 	}
 
+	get column(): DTableColumn<ROW> {
+		return this._column;
+	}
+
 	set(
 		value: unknown, row: ROW, supplimental: unknown,
 		rowIndex: number, columnIndex: number,
@@ -105,9 +109,9 @@ export class DTableBodyCellCheck<
 		this._rowIndex = rowIndex;
 		this.state.isActive = !! value;
 
-		const columnData = this._columnData;
-		DTableBodyCells.setReadOnly( this, row, columnIndex, columnData );
-		DTableBodyCells.setRenderable( this, row, columnIndex, columnData );
+		const column = this._column;
+		DTableBodyCells.setReadOnly( this, row, columnIndex, column );
+		DTableBodyCells.setRenderable( this, row, columnIndex, column );
 	}
 
 	unset(): void {

@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { interaction, Point } from "pixi.js";
 import { DBaseState } from "./d-base-state";
 import { DLayoutHorizontal, DThemeLayoutHorizontal } from "./d-layout-horizontal";
 import { DTableBodyCellInputTextOptions } from "./d-table-body-cell-input-text";
@@ -35,17 +36,17 @@ export class DTableBodyCellInputTree<
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;
-	protected _columnData: DTableColumn<ROW>;
+	protected _column: DTableColumn<ROW>;
 
 	protected _marker: DTableBodyCellInputTreeMarker;
 	protected _input: DTableBodyCellInputTreeInput;
 
-	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options?: OPTIONS ) {
+	constructor( columnIndex: number, column: DTableColumn<ROW>, options?: OPTIONS ) {
 		super( toLayoutOptions( options ) );
 
 		this._rowIndex = -1;
 		this._columnIndex = columnIndex;
-		this._columnData = columnData;
+		this._column = column;
 
 		// Marker
 		const marker = this.newMarker( options );
@@ -80,7 +81,7 @@ export class DTableBodyCellInputTree<
 		if( row !== undefined ) {
 			const rowIndex = this._rowIndex;
 			const columnIndex = this._columnIndex;
-			this._columnData.setter( row, columnIndex, newValue );
+			this._column.setter( row, columnIndex, newValue );
 			this.emit( "cellchange", newValue, oldValue, row, rowIndex, columnIndex, this );
 		}
 	}
@@ -124,6 +125,23 @@ export class DTableBodyCellInputTree<
 		return this._columnIndex;
 	}
 
+	get column(): DTableColumn<ROW> {
+		return this._column;
+	}
+
+	onClick?( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
+		this._input.focus();
+	}
+
+	onRowSelect( e: interaction.InteractionEvent, local: Point ): boolean {
+		const marker = this._marker;
+		if( local.x <= this.position.x + marker.position.x + marker.width ) {
+			marker.onClick( e );
+			return true;
+		}
+		return false;
+	}
+
 	set(
 		value: unknown, row: ROW, supplimental: unknown,
 		rowIndex: number, columnIndex: number,
@@ -152,9 +170,9 @@ export class DTableBodyCellInputTree<
 			marker.hide();
 		}
 
-		const columnData = this._columnData;
-		DTableBodyCells.setReadOnly( this._input, row, columnIndex, columnData );
-		DTableBodyCells.setRenderable( this, row, columnIndex, columnData );
+		const column = this._column;
+		DTableBodyCells.setReadOnly( this._input, row, columnIndex, column );
+		DTableBodyCells.setRenderable( this, row, columnIndex, column );
 	}
 
 	unset(): void {

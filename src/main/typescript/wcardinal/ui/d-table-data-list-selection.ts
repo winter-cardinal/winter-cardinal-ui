@@ -12,16 +12,16 @@ const COMPARATOR = ( a: [number, unknown], b: [number, unknown] ): number => {
 	return a[ 0 ] - b[ 0 ];
 };
 
-export interface DTableDataSelectionImplParent<ROW> extends DTableData<ROW> {
+export interface DTableDataListSelectionParent<ROW> extends DTableData<ROW> {
 	update(): void;
 }
 
-export class DTableDataSelectionImpl<ROW> extends utils.EventEmitter implements DTableDataSelection<ROW> {
-	protected _parent: DTableDataSelectionImplParent<ROW>;
+export class DTableDataListSelection<ROW> extends utils.EventEmitter implements DTableDataSelection<ROW> {
+	protected _parent: DTableDataListSelectionParent<ROW>;
 	protected _type: DTableDataSelectionType;
 	protected _indices: Set<number>;
 
-	constructor( parent: DTableDataSelectionImplParent<ROW>, options?: DTableDataSelectionOptions ) {
+	constructor( parent: DTableDataListSelectionParent<ROW>, options?: DTableDataSelectionOptions ) {
 		super();
 
 		this._parent = parent;
@@ -30,10 +30,8 @@ export class DTableDataSelectionImpl<ROW> extends utils.EventEmitter implements 
 	}
 
 	protected toType( options?: DTableDataSelectionOptions ): DTableDataSelectionType {
-		return ( options && options.type != null ?
-			( isString( options.type ) ? DTableDataSelectionType[ options.type ] : options.type ) :
-			DTableDataSelectionType.NONE
-		);
+		const type = options?.type ?? DTableDataSelectionType.NONE;
+		return ( isString( type ) ? DTableDataSelectionType[ type ] : type );
 	}
 
 	get type(): DTableDataSelectionType {

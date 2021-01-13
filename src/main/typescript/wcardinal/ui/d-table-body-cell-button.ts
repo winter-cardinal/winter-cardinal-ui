@@ -23,8 +23,8 @@ export class DTableBodyCellButton<
 	THEME extends DThemeTableBodyCellButton = DThemeTableBodyCellButton,
 	OPTIONS extends DTableBodyCellButtonOptions<ROW, THEME> = DTableBodyCellButtonOptions<ROW, THEME>
 > extends DTableBodyCellText<ROW, THEME, OPTIONS> {
-	constructor( columnIndex: number, columnData: DTableColumn<ROW>, options?: OPTIONS ) {
-		super( columnIndex, columnData, options );
+	constructor( columnIndex: number, column: DTableColumn<ROW>, options?: OPTIONS ) {
+		super( columnIndex, column, options );
 
 		this.buttonMode = true;
 		this.initOnClick( options );
@@ -32,19 +32,23 @@ export class DTableBodyCellButton<
 
 	protected initOnClick( options?: OPTIONS ): void {
 		UtilPointerEvent.onClick( this, ( e: interaction.InteractionEvent ): void => {
-			if( this.state.isActionable ) {
-				this.onActive( e );
-			}
+			this.onClick( e );
 		});
 	}
 
-	protected onActive( e: KeyboardEvent | interaction.InteractionEvent ): void {
+	onClick( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
+		if( this.state.isActionable ) {
+			this.onActivate( e );
+		}
+	}
+
+	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
 		this.emit( "active", this );
 		const row = this._row;
 		if( row !== undefined ) {
 			const rowIndex = this._rowIndex;
 			const columnIndex = this._columnIndex;
-			this._columnData.setter( row, columnIndex, null );
+			this._column.setter( row, columnIndex, null );
 			this.emit( "cellchange", null, null, row, rowIndex, columnIndex, this );
 		}
 	}
@@ -58,7 +62,7 @@ export class DTableBodyCellButton<
 	protected onActivateKeyUp( e: KeyboardEvent ): void {
 		if( this.state.isActionable ) {
 			if( this.state.isPressed ) {
-				this.onActive( e );
+				this.onActivate( e );
 			}
 			this.state.isPressed = false;
 		}

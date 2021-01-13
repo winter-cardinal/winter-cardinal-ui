@@ -7,13 +7,13 @@ import { interaction, Point, Rectangle } from "pixi.js";
 import InteractionEvent = interaction.InteractionEvent;
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
-import { DButtonBase } from "./d-button-base";
 import { DTableBodyRow, DTableBodyRowOptions } from "./d-table-body-row";
-import { DTableColumn } from "./d-table-column";
+import { DTableColumn, DTableColumnType } from "./d-table-column";
 import { DTableData, DTableDataOptions } from "./d-table-data";
 import { DTableDataList, DTableDataListOptions } from "./d-table-data-list";
 import { DTableDataSelection, DTableDataSelectionType } from "./d-table-data-selection";
 import { UtilPointerEvent } from "./util/util-pointer-event";
+import { DTableBodyCell } from "./d-table-body-cell";
 
 export interface DTableBodyOptions<
 	ROW,
@@ -320,76 +320,118 @@ export class DTableBody<
 		}
 	}
 
-	onRowClicked( e: InteractionEvent ): void {
+	protected toRowIndexMapped( local: Point ): number {
+		if( 0 <= this.parent.position.y + local.y ) {
+			return Math.floor( local.y / this._rowHeight );
+		}
+		return -1;
+	}
+
+	protected toRow( rowIndexMapped: number ): DTableBodyRow<ROW> | null {
+		const index = rowIndexMapped - this._rowIndexMappedStart;
+		const rows = this.children as Array<DTableBodyRow<ROW>>;
+		if( 0 <= index && index < rows.length ) {
+			return rows[ index ];
+		}
+		return null;
+	}
+
+	protected toCell( row: DTableBodyRow<ROW>, local: Point ): DTableBodyCell<ROW> | null {
+		const cells = row.children as Array<DTableBodyCell<ROW>>;
+		const cellsLength = cells.length;
+		const columns = this._columns;
+		const columnsLength = columns.length;
+		for( let i = 0, imax = Math.min( cellsLength, columnsLength ); i < imax; ++i ) {
+			const cell = cells[ cellsLength - i - 1 ];
+			const x = local.x - cell.position.x;
+			if( 0 <= x && x <= cell.width ) {
+				return cell;
+			}
+		}
+		return null;
+	}
+
+	onRowClick( e: InteractionEvent ): void {
 		if( this.state.isActionable ) {
 			const local = DTableBody.WORK_ON_CLICK;
 			local.copyFrom( e.data.global );
 			this.toLocal( local, undefined, local, false );
-			if( 0 <= this.parent.position.y + local.y ) {
-				const rowIndexMapped = Math.floor( local.y / this._rowHeight );
-				const data = this._data;
-				const mapped = data.mapped;
-				const selection = data.selection;
-				if( 0 <= rowIndexMapped && rowIndexMapped < mapped.size() ) {
-					const isSingle = ( selection.type === DTableDataSelectionType.SINGLE );
-					const isNotSingle = ! isSingle;
-					const originalEvent = e.data.originalEvent;
-					const ctrlKey = originalEvent.ctrlKey;
-					const shiftKey = originalEvent.shiftKey;
-					const rowIndex = mapped.unmap( rowIndexMapped );
-					if( isSingle || selection.isEmpty() || ! ( isNotSingle && ( ctrlKey || shiftKey ) ) ) {
-						selection.clearAndAdd( rowIndex );
-					} else if( ctrlKey ) {
-						selection.toggle( rowIndex );
-					} else if( shiftKey ) {
-						const lastRowIndex = selection.last;
-						if( lastRowIndex != null ) {
-							const sorter = data.sorter;
-							const filter = data.filter;
-							const rowIndexSorted = sorter.map( rowIndex );
-							const lastRowIndexSorted = sorter.map( lastRowIndex );
-							if( rowIndexSorted != null && lastRowIndexSorted != null ) {
-								let istart = lastRowIndexSorted + 1;
-								let iend = rowIndexSorted + 1;
-								if( rowIndexSorted < lastRowIndexSorted ) {
-									istart = rowIndexSorted;
-									iend = lastRowIndexSorted;
-								}
-								if( istart < iend ) {
-									const rowIndices: number[] = [];
-									const indicesFiltered = filter.indices;
-									const indicesSorted = sorter.indices;
-									if( indicesFiltered ) {
-										if( indicesSorted ) {
-											for( let i = 0, imax = indicesFiltered.length; i < imax; ++i ) {
-												const indexFiltered = indicesFiltered[ i ];
-												if( istart <= indexFiltered && indexFiltered < iend ) {
-													rowIndices.push( indicesSorted[ indexFiltered ] );
-												}
-											}
-										} else {
-											for( let i = 0, imax = indicesFiltered.length; i < imax; ++i ) {
-												const indexFiltered = indicesFiltered[ i ];
-												if( istart <= indexFiltered && indexFiltered < iend ) {
-													rowIndices.push( indexFiltered );
-												}
-											}
-										}
-									} else {
-										if( indicesSorted ) {
-											for( let i = istart; i < iend; ++i ) {
-												rowIndices.push( indicesSorted[ i ] );
-											}
-										} else {
-											for( let i = istart; i < iend; ++i ) {
-												rowIndices.push( i );
-											}
-										}
+			const rowIndexMapped = this.toRowIndexMapped( local );
+			if( 0 <= rowIndexMapped && rowIndexMapped < this._data.mapped.size() ) {
+				// Delegate to the cell at first
+				const row = this.toRow( rowIndexMapped );
+				if( row ) {
+					const cell = this.toCell( row, local );
+					if( cell && cell.onRowSelect && cell.onRowSelect( e, local ) ) {
+						return;
+					}
+				}
+
+				// Fallback to the default
+				this.onRowSelect( e, rowIndexMapped );
+			}
+		}
+	}
+
+	protected onRowSelect( e: InteractionEvent, rowIndexMapped: number ): void {
+		const data = this._data;
+		const selection = data.selection;
+		const isSingle = ( selection.type === DTableDataSelectionType.SINGLE );
+		const isNotSingle = ! isSingle;
+		const rowIndex = data.mapped.unmap( rowIndexMapped );
+		const originalEvent = e.data.originalEvent;
+		const ctrlKey = originalEvent.ctrlKey;
+		const shiftKey = originalEvent.shiftKey;
+		if( isSingle || selection.isEmpty() || ! ( isNotSingle && ( ctrlKey || shiftKey ) ) ) {
+			selection.clearAndAdd( rowIndex );
+		} else if( ctrlKey ) {
+			selection.toggle( rowIndex );
+		} else if( shiftKey ) {
+			const lastRowIndex = selection.last;
+			if( lastRowIndex != null ) {
+				const sorter = data.sorter;
+				const filter = data.filter;
+				const rowIndexSorted = sorter.map( rowIndex );
+				const lastRowIndexSorted = sorter.map( lastRowIndex );
+				if( rowIndexSorted != null && lastRowIndexSorted != null ) {
+					let istart = lastRowIndexSorted + 1;
+					let iend = rowIndexSorted + 1;
+					if( rowIndexSorted < lastRowIndexSorted ) {
+						istart = rowIndexSorted;
+						iend = lastRowIndexSorted;
+					}
+					if( istart < iend ) {
+						const rowIndices: number[] = [];
+						const indicesFiltered = filter.indices;
+						const indicesSorted = sorter.indices;
+						if( indicesFiltered ) {
+							if( indicesSorted ) {
+								for( let i = 0, imax = indicesFiltered.length; i < imax; ++i ) {
+									const indexFiltered = indicesFiltered[ i ];
+									if( istart <= indexFiltered && indexFiltered < iend ) {
+										rowIndices.push( indicesSorted[ indexFiltered ] );
 									}
-									selection.addAll( rowIndices );
+								}
+							} else {
+								for( let i = 0, imax = indicesFiltered.length; i < imax; ++i ) {
+									const indexFiltered = indicesFiltered[ i ];
+									if( istart <= indexFiltered && indexFiltered < iend ) {
+										rowIndices.push( indexFiltered );
+									}
+								}
+							}
+						} else {
+							if( indicesSorted ) {
+								for( let i = istart; i < iend; ++i ) {
+									rowIndices.push( indicesSorted[ i ] );
+								}
+							} else {
+								for( let i = istart; i < iend; ++i ) {
+									rowIndices.push( i );
 								}
 							}
 						}
+						selection.addAll( rowIndices );
 					}
 				}
 			}
@@ -402,32 +444,17 @@ export class DTableBody<
 		if( this.state.isActionable && data.selection.type !== DTableDataSelectionType.NONE ) {
 			const local = UtilPointerEvent.toGlobal( e, interactionManager, DTableBody.WORK_ON_CLICK );
 			this.toLocal( local, undefined, local, false );
-			const x = local.x;
-			const y = local.y;
-			if( 0 <= this.parent.position.y + y ) {
-				const rowIndexMapped = Math.floor( y / this._rowHeight );
-				if( 0 <= rowIndexMapped && rowIndexMapped < data.mapped.size() ) {
-					const index = rowIndexMapped - this._rowIndexMappedStart;
-					const rows = this.children as Array<DTableBodyRow<ROW>>;
-					if( 0 <= index && index < rows.length ) {
-						const row = rows[ index ];
-						const cells = row.children as DBase[];
-						const cellsLength = cells.length;
-						const columns = this._columns;
-						const columnsLength = columns.length;
-						for( let i = 0, imax = Math.min( cellsLength, columnsLength ); i < imax; ++i ) {
-							const cell = cells[ cellsLength - i - 1 ];
-							if( cell.state.isActionable ) {
-								const dx = x - cell.position.x;
-								if( 0 <= dx && dx <= cell.width ) {
-									cell.focus();
-									if( cell instanceof DButtonBase ) {
-										cell.onClick( e );
-									}
-									result = true;
-								}
-							}
+			const rowIndexMapped = this.toRowIndexMapped( local );
+			if( 0 <= rowIndexMapped && rowIndexMapped < data.mapped.size() ) {
+				const row = this.toRow( rowIndexMapped );
+				if( row ) {
+					const cell = this.toCell( row, local );
+					if( cell ) {
+						cell.focus();
+						if( cell.onClick ) {
+							cell.onClick( e );
 						}
+						result = true;
 					}
 				}
 			}

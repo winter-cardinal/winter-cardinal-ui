@@ -160,8 +160,8 @@ export abstract class DTableRow<
 
 	protected abstract newCell(
 		columnIndex: number,
-		columnData: COLUMN,
-		columnDataList: COLUMN[],
+		column: COLUMN,
+		columns: COLUMN[],
 		options: OPTIONS
 	): DBase;
 

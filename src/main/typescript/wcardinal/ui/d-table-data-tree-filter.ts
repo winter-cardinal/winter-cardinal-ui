@@ -6,24 +6,26 @@
 import { utils } from "pixi.js";
 import { DTableDataFilter, DTableDataFilterFunction, DTableDataFilterObject } from "./d-table-data-filter";
 import { DTableDataTreeItem } from "./d-table-data-tree-item";
+import { DTableDataTreeItemAccessor } from "./d-table-data-tree-item-accessor";
 import { isFunction } from "./util/is-function";
 
-interface DTableDataFilterTreeParent<NODE> {
+interface DTableDataTreeFilterParent<NODE> {
 	readonly nodes: NODE[] | undefined;
+	readonly accessor: DTableDataTreeItemAccessor<NODE>;
 	isOpened( node: NODE ): boolean;
 	update(): void;
 }
 
-export class DTableDataFilterTree<NODE extends DTableDataTreeItem<NODE, NODE>>
+export class DTableDataTreeFilter<NODE extends DTableDataTreeItem<NODE, NODE>>
 	extends utils.EventEmitter implements DTableDataFilter<NODE> {
 	protected _id: number;
 	protected _idUpdated: number;
 	protected _isApplied: boolean;
-	protected _parent: DTableDataFilterTreeParent<NODE>;
+	protected _parent: DTableDataTreeFilterParent<NODE>;
 	protected _filter: DTableDataFilterFunction<NODE> | DTableDataFilterObject<NODE> | null;
 	protected _filtered: number[] | null;
 
-	constructor( parent: DTableDataFilterTreeParent<NODE> ) {
+	constructor( parent: DTableDataTreeFilterParent<NODE> ) {
 		super();
 
 		this._id = 0;
@@ -69,16 +71,18 @@ export class DTableDataFilterTree<NODE extends DTableDataTreeItem<NODE, NODE>>
 	}
 
 	protected hasFiltered(
-		parent: DTableDataFilterTreeParent<NODE>,
+		parent: DTableDataTreeFilterParent<NODE>,
 		nodes: NODE[],
 		filter: DTableDataFilterFunction<NODE> | DTableDataFilterObject<NODE>
 	): boolean {
+		const toChildren = this._parent.accessor.toChildren;
 		for( let i = 0, imax = nodes.length; i < imax; ++i ) {
 			const node = nodes[ i ];
 			if( this.isFiltered( node, -1, filter ) ) {
 				return true;
 			}
-			if( node.children != null && 0 < node.children.length && this.hasFiltered( parent, node.children, filter ) ) {
+			const children = toChildren( node );
+			if( children != null && 0 < children.length && this.hasFiltered( parent, children, filter ) ) {
 				return true;
 			}
 		}
@@ -86,48 +90,52 @@ export class DTableDataFilterTree<NODE extends DTableDataTreeItem<NODE, NODE>>
 	}
 
 	protected addAllToFiltered(
-		parent: DTableDataFilterTreeParent<NODE>,
+		parent: DTableDataTreeFilterParent<NODE>,
 		nodes: NODE[],
 		filtered: number[],
 		cursor: [ number ]
 	): void {
+		const toChildren = this._parent.accessor.toChildren;
 		for( let i = 0, imax = nodes.length; i < imax; ++i ) {
 			const node = nodes[ i ];
 			filtered.push( cursor[ 0 ] );
 			cursor[ 0 ] += 1;
-			if( node.children != null && 0 < node.children.length && parent.isOpened( node ) ) {
-				this.addAllToFiltered( parent, node.children, filtered, cursor );
+			const children = toChildren( node );
+			if( children != null && 0 < children.length && parent.isOpened( node ) ) {
+				this.addAllToFiltered( parent, children, filtered, cursor );
 			}
 		}
 	}
 
 	protected newFilteredSub(
-		parent: DTableDataFilterTreeParent<NODE>,
+		parent: DTableDataTreeFilterParent<NODE>,
 		nodes: NODE[],
 		filter: DTableDataFilterFunction<NODE> | DTableDataFilterObject<NODE>,
 		filtered: number[],
 		cursor: [ number ]
 	): boolean {
 		let result = false;
+		const toChildren = this._parent.accessor.toChildren;
 		for( let i = 0, imax = nodes.length; i < imax; ++i ) {
 			const node = nodes[ i ];
 			const index = cursor[ 0 ];
 			cursor[ 0 ] += 1;
 			const isFiltered = this.isFiltered( node, index, filter );
-			if( node.children != null && 0 < node.children.length ) {
+			const children = toChildren( node );
+			if( children != null && 0 < children.length ) {
 				if( parent.isOpened( node ) ) {
 					if( isFiltered ) {
 						filtered.push( index );
 						result = true;
-						this.addAllToFiltered( parent, node.children, filtered, cursor );
+						this.addAllToFiltered( parent, children, filtered, cursor );
 					} else {
 						const position = filtered.length;
-						if( this.newFilteredSub( parent, node.children, filter, filtered, cursor ) ) {
+						if( this.newFilteredSub( parent, children, filter, filtered, cursor ) ) {
 							filtered.splice( position, 0, index );
 							result = true;
 						}
 					}
-				} else if( isFiltered || this.hasFiltered( parent, node.children, filter ) ) {
+				} else if( isFiltered || this.hasFiltered( parent, children, filter ) ) {
 					filtered.push( index );
 					result = true;
 				}
