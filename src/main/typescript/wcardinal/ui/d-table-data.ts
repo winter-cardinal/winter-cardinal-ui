@@ -1,7 +1,7 @@
 import { utils } from "pixi.js";
 import { DBaseOnOptions } from "./d-base";
 import { DTableDataFilter, DTableDataFilterFunction, DTableDataFilterObject } from "./d-table-data-filter";
-import { DTableDataSelection, DTableDataSelectionOptions } from "./d-table-data-selection";
+import { DTableDataSelection, DTableDataSelectionCreator, DTableDataSelectionOptions } from "./d-table-data-selection";
 import { DTableDataComparatorFunction, DTableDataComparatorObject, DTableDataSorter } from "./d-table-data-sorter";
 
 export type DTableDataMappedEachIteratee<ROW> = (
@@ -55,7 +55,7 @@ export interface DTableDataOptions<ROW, EMITTER = any> {
 	/**
 	 * Selection options.
 	 */
-	selection?: DTableDataSelection<ROW> | DTableDataSelectionOptions;
+	selection?: DTableDataSelection<ROW> | DTableDataSelectionCreator<ROW> | DTableDataSelectionOptions;
 
 	/**
 	 * A filter.

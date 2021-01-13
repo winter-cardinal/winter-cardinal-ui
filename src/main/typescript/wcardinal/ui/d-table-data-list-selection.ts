@@ -4,24 +4,19 @@
  */
 
 import { utils } from "pixi.js";
-import { DTableData } from "./d-table-data";
-import { DTableDataSelection, DTableDataSelectionOptions, DTableDataSelectionType } from "./d-table-data-selection";
+import { DTableDataSelection, DTableDataSelectionOptions, DTableDataSelectionParent, DTableDataSelectionType } from "./d-table-data-selection";
 import { isString } from "./util/is-string";
 
 const COMPARATOR = ( a: [number, unknown], b: [number, unknown] ): number => {
 	return a[ 0 ] - b[ 0 ];
 };
 
-export interface DTableDataListSelectionParent<ROW> extends DTableData<ROW> {
-	update(): void;
-}
-
 export class DTableDataListSelection<ROW> extends utils.EventEmitter implements DTableDataSelection<ROW> {
-	protected _parent: DTableDataListSelectionParent<ROW>;
+	protected _parent: DTableDataSelectionParent<ROW>;
 	protected _type: DTableDataSelectionType;
 	protected _indices: Set<number>;
 
-	constructor( parent: DTableDataListSelectionParent<ROW>, options?: DTableDataSelectionOptions ) {
+	constructor( parent: DTableDataSelectionParent<ROW>, options?: DTableDataSelectionOptions ) {
 		super();
 
 		this._parent = parent;

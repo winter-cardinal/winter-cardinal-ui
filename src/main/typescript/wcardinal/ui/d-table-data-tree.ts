@@ -4,21 +4,42 @@
  */
 
 import { utils } from "pixi.js";
-import { DTableData, DTableDataMapped, DTableDataOptions, DTableDataParent } from "./d-table-data";
-import { DTableDataFilter } from "./d-table-data-filter";
+import { DTableData, DTableDataMapped, DTableDataParent } from "./d-table-data";
+import { DTableDataFilter, DTableDataFilterFunction, DTableDataFilterObject } from "./d-table-data-filter";
 import { DTableDataTreeFilter } from "./d-table-data-tree-filter";
 import { DTableDataListMapped } from "./d-table-data-list-mapped";
 import { DTableDataSelection } from "./d-table-data-selection";
-import { DTableDataSorter } from "./d-table-data-sorter";
+import { DTableDataComparatorFunction, DTableDataComparatorObject, DTableDataSorter } from "./d-table-data-sorter";
 import { DTableDataTreeSorter } from "./d-table-data-tree-sorter";
 import { DTableDataTreeItem } from "./d-table-data-tree-item";
 import { DTableDataTreeItemAccessor, DTableDataTreeItemAccessorOptions } from "./d-table-data-tree-item-accessor";
-import { DTableDataTreeSelection, DTableDataTreeSelectionOptions } from "./d-table-data-tree-selection";
+import { DTableDataTreeSelection, DTableDataTreeSelectionCreator, DTableDataTreeSelectionOptions } from "./d-table-data-tree-selection";
 import { DTableDataTreeSelectionImpl } from "./d-table-data-tree-selection-impl";
+import { isFunction } from "./util/is-function";
+import { DBaseOnOptions } from "./d-base";
 
-export interface DTableDataTreeOptions<NODE> extends DTableDataOptions<NODE>, DTableDataTreeItemAccessorOptions<NODE> {
+export interface DTableDataTreeOptions<NODE, EMITTER = any> extends DTableDataTreeItemAccessorOptions<NODE> {
 	nodes?: NODE[];
-	selection?: DTableDataTreeSelection<NODE> | DTableDataTreeSelectionOptions;
+
+	/**
+	 * Selection options.
+	 */
+	selection?: DTableDataTreeSelection<NODE> | DTableDataTreeSelectionCreator<NODE> | DTableDataTreeSelectionOptions;
+
+	/**
+	 * A filter.
+	 */
+	filter?: DTableDataFilterFunction<NODE> | DTableDataFilterObject<NODE>;
+
+	/**
+	 * A comparator.
+	 */
+	comparator?: DTableDataComparatorFunction<NODE> | DTableDataComparatorObject<NODE>;
+
+	/**
+	 * Mappings of event names and event handlers.
+	 */
+	on?: DBaseOnOptions<EMITTER>;
 }
 
 /**
@@ -75,9 +96,13 @@ export class DTableDataTree<NODE extends DTableDataTreeItem<NODE, NODE>> extends
 		this.nodes = options?.nodes;
 	}
 
-	protected toSelection( options?: DTableDataTreeSelection<NODE> | DTableDataTreeSelectionOptions ): DTableDataTreeSelection<NODE> {
+	protected toSelection(
+		options?: DTableDataTreeSelection<NODE> | DTableDataTreeSelectionCreator<NODE> | DTableDataTreeSelectionOptions
+	): DTableDataTreeSelection<NODE> {
 		if( options instanceof utils.EventEmitter ) {
 			return options;
+		} else if( isFunction( options ) ) {
+			return options( this );
 		}
 		return this.newSelection( options );
 	}
