@@ -4,20 +4,13 @@
  */
 
 import { utils } from "pixi.js";
-import { DTableData } from "./d-table-data";
 import { DTableDataSelectionOptions, DTableDataSelectionType } from "./d-table-data-selection";
-import { DTableDataTreeItemAccessor } from "./d-table-data-tree-item-accessor";
-import { DTableDataTreeSelection } from "./d-table-data-tree-selection";
+import { DTableDataTreeSelection, DTableDataTreeSelectionParent } from "./d-table-data-tree-selection";
 import { isString } from "./util";
 
 const COMPARATOR = ( a: [number, unknown], b: [number, unknown] ): number => {
 	return a[ 0 ] - b[ 0 ];
 };
-
-export interface DTableDataTreeSelectionParent<NODE> extends DTableData<NODE> {
-	readonly accessor: DTableDataTreeItemAccessor<NODE>;
-	update(): void;
-}
 
 export class DTableDataTreeSelectionImpl<NODE> extends utils.EventEmitter implements DTableDataTreeSelection<NODE> {
 	protected _parent: DTableDataTreeSelectionParent<NODE>;

@@ -4,6 +4,7 @@
  */
 
 import { utils } from "pixi.js";
+import { DTableData } from "./d-table-data";
 
 export enum DTableDataSelectionType {
 	NONE,
@@ -62,3 +63,9 @@ export interface DTableDataSelection<ROW> extends utils.EventEmitter {
 
 	toMap(): Map<number, ROW>;
 }
+
+export interface DTableDataSelectionParent<ROW> extends DTableData<ROW> {
+	update(): void;
+}
+
+export type DTableDataSelectionCreator<NODE> = ( parent: DTableDataSelectionParent<NODE> ) => DTableDataSelection<NODE>;
