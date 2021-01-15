@@ -1,0 +1,396 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="../../resource/layer-dynamically/bootstrap.min.css">
+	<script src="../../resource/layer-dynamically/jquery.min.js"></script>
+	<script src="../../js/pixi/latest/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
+	<style>
+		.icon-style {
+			height: 10px;
+		}
+		.row {
+			margin-right: 0px;
+			margin-left: 0px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="col-12 row mt-5">
+		<div class="col-1"></div>
+		<!-- Menu-dialog -->
+		<div class="col-3">
+			<div class="modal-content">
+				<div class="modal-header row">
+					<div class="col-12 row">
+						<input type="checkbox" id="checkAll">
+					</div>
+				</div>
+				<div class="col-12 row">
+					<div class="col-5" id="list-control-layer"></div>
+					<div class="col-5">
+						<img class="mt-2" src="../../resource/layer-dynamically/order_img.PNG">
+					</div>
+					<div class="col-2 btn-group-vertical">
+						<button type="button" class="btn btn-secondary mb-1 mt-5" onclick="bringLayerToFront()"
+							name="api-btn">
+							<img class="icon-style" src="../../resource/layer-dynamically/db-chevron-up.svg"
+								alt="bringLayerToFront">
+						</button>
+						<button type="button" class="btn btn-secondary mb-2" onclick="bringLayerForward()"
+							name="api-btn">
+							<img class="icon-style" src="../../resource/layer-dynamically/chevron-up.svg">
+						</button>
+						<button type="button" class="btn btn-secondary mt-3" onclick="sendLayerBackward()"
+							name="api-btn">
+							<img class="icon-style" src="../../resource/layer-dynamically/down-chevron.svg">
+						</button>
+						<button type="button" class="btn btn-secondary mt-1" onclick="sendLayerToBack()"
+							name="api-btn">
+							<img class="icon-style" src="../../resource/layer-dynamically/db-down-chevron.svg">
+						</button>
+					</div>
+				</div>
+				<div class="modal-footer row">
+					<button type="submit" class="btn btn-success" onclick="apply()">Apply</button>
+					<button type="reset" class="btn btn-secondary" onclick="cancel()">Cancel</button>
+				</div>
+			</div>
+		</div>
+		<div class="col-1"></div>
+
+		<!-- Sample area -->
+		<div id="sample-area" class="col-6 border border-secondary rounded" style="height:841px">
+		</div>
+		<div class="col-1"></div>
+	</div>
+
+	<script>
+		// Options when creating elements
+		const optionsCreator = ( background, text ) => {
+			// Set the largest font-size to display
+			// Length of text is 1 => fontSize: 14
+			// Length of text is greater than 1 => fontSize: 9
+			const fontSize = ( `${text}`.length > 1 ) && 9 || 14;
+			return new wcardinal.ui.DButtonPrimary({
+				width: 30,
+				height: 30,
+				x: randomX(),
+				y: randomY(),
+				background: {
+					color: background
+				},
+				border: {
+					width: 4,
+					color: 0x000000
+				},
+				text: {
+					value: text,
+					style: {
+						fontSize: fontSize
+					}
+				},
+				corner: {
+					radius: 50
+				}
+			})
+		};
+
+		// =========================== Sample area =========================
+		const application = new wcardinal.ui.DApplication({
+			root: '#sample-area'
+		});
+		const numberOfLayer = 12;
+		const numberOfElement = 100;
+		let listOfLayer = [];
+		const colors = [ 0x0062cc, 0x9dff6e, 0xffcd00, 0xff00cf, 0x6c757d, 0x20c997, 0x6f42c1, 0x007bff, 0x28a745, 0x17a2b8, 0xfd7e14, 0xdc3545 ];
+
+		// Initialize elements and layers
+		for ( let i = numberOfLayer; i > 0; i-- ) {
+			const childrens = [];
+			for ( let j = 0; j < numberOfElement; j++ ) {
+				childrens.push( optionsCreator( colors[ i - 1 ], i ) );
+			}
+			const mainLayer = new wcardinal.ui.DBase({
+				children: childrens,
+				interactive: false,
+			});
+			listOfLayer.push( mainLayer );
+		}
+
+		// Initialize base containing layers
+		const container = new wcardinal.ui.DBase({
+			parent: application.stage,
+			children: listOfLayer,
+			dynamicLayerEnabled: true
+		});
+
+		// Initialize to save history of user's action
+		let oldListOfLayer = [ ...listOfLayer ];
+		let oldListLayerName = [ 'Layer 1', 'Layer 2', 'Layer 3', 'Layer 4', 'Layer 5', 'Layer 6',
+			'Layer 7', 'Layer 8', 'Layer 9', 'Layer 10', 'Layer 11', 'Layer 12'
+		];
+
+		// Queue to save actions
+		let queueTrace = [];
+
+		$( function () {
+			"use strict";
+			loadListLayerView();
+			init();
+		});
+
+		// Random position ( x,y ) of elements
+		function randomX() {
+			const maxWidth = $("#sample-area").width()-30;
+			return Math.floor( Math.random() * maxWidth );
+		}
+		function randomY() {
+			const maxHeight = $("#sample-area").height()-30;
+			return Math.floor( Math.random() * maxHeight );
+		}
+
+		// Load layers in menu-dialog
+		function loadListLayerView() {
+			const listLayerElement = $( "#list-control-layer" );
+			for ( let i = 0; i < numberOfLayer; i++ ) {
+				const listLayerTemplate = `
+					<div class="row">
+						<input class="mt-2" type="checkbox" id="cbLayer${ i + 1 }" value="${ i + 1 }" name="cbLayerName">
+						<input class="ml-2 w-75 bg-white border-0" type="text" id="layer${ i + 1 }" value="Layer ${ i + 1 }" name="layerName" disabled>
+					</div>
+				`;
+				listLayerElement.append( listLayerTemplate );
+			}
+		}
+
+		// Initialize
+		function init() {
+			for ( const element of listOfLayer ) {
+				element.visible = true;
+			}
+			$("button[ name='api-btn' ]").prop( 'disabled', true );
+			$("input[ type='checkbox' ]").prop( 'checked', true );
+
+			// Setup list of Layer
+			for ( let i = 0; i < numberOfLayer / 2; i++ ) {
+				const temp = listOfLayer[ i ];
+				listOfLayer[ i ] = listOfLayer[ numberOfLayer - 1 - i ];
+				listOfLayer[ numberOfLayer - 1 - i ] = temp;
+			}
+
+			// Clone list of layer
+			oldListOfLayer = [ ...listOfLayer ];
+
+			// Setup checkbox-all
+			const checkAll = $('#checkAll');
+			checkAll.change( function () {
+				$("input[ name='cbLayerName' ]").prop( 'checked', this.checked );
+			});
+			$("input[ name='cbLayerName' ]").click( function () {
+				const sumCheck = $("input[ name='cbLayerName' ]:checked").length;
+				const sum = $("input[name='cbLayerName']").length;
+				if ( sumCheck < sum ) checkAll.prop( 'checked', false );
+				if ( sumCheck == sum ) checkAll.prop( 'checked', true );
+
+				// Status of API buttons
+				$("button[ name='api-btn' ]").prop( 'disabled', sumCheck != 1 );
+			});
+			checkAll.click( function () {
+				// Status of API buttons
+				$("button[ name='api-btn' ]").prop( 'disabled', true );
+			});
+		}
+
+		/**
+		 * Move layer to head of layer list in menu-dialog
+		 * Each time the funciton is executed, it will be saved to the queue
+		 */
+		function bringLayerToFront() {
+			const layerChecked = $("input[ name='cbLayerName' ]:checked");
+			if ( layerChecked.length != 1 ) {
+				return;
+			}
+			const checkboxes = $("input[ name='cbLayerName' ]");
+			const layerNames = $("input[ name='layerName' ]");
+			for ( let i = 0; i < numberOfLayer; i++ ) {
+				if ( checkboxes[ i ].checked ) {
+					layerChecked.prop( 'checked', false );
+					const tmpValue = layerNames[ i ].value;
+					const tmpLayer = listOfLayer[ i ];
+					queueTrace.push( listOfLayer[ i ].bringToFront.bind( listOfLayer[ i ] ) );
+					for ( let j = i - 1; j > -1; j-- ) {
+						layerNames[ j + 1 ].setAttribute( "value", layerNames[ j ].value );
+						listOfLayer[ j + 1 ] = listOfLayer[ j ];
+					}
+					checkboxes[ 0 ].checked = true;
+					layerNames[ 0 ].setAttribute( "value", tmpValue );
+					listOfLayer[ 0 ] = tmpLayer;
+				}
+			}
+		}
+
+		/**
+		 * Move layer above to the one above in menu-dialog
+		 * Each time the funciton is executed, it will be saved to the queue
+		 */
+		function bringLayerForward() {
+			const layerChecked = $("input[ name='cbLayerName' ]:checked");
+			if ( layerChecked.length != 1 ) {
+				return;
+			}
+			const checkboxes = $("input[ name='cbLayerName' ]");
+			const layerNames = $("input[ name='layerName' ]");
+			for ( let i = 0; i < numberOfLayer; i++ ) {
+				if ( checkboxes[i].checked ) {
+					if (i > 0) {
+						layerChecked.prop( 'checked', false );
+						const tmpValue = layerNames[ i ].value;
+						const tmpLayer = listOfLayer[ i ];
+						queueTrace.push(listOfLayer[ i ].bringForward.bind( listOfLayer[ i ] ) );
+						layerNames[ i ].setAttribute("value", layerNames[i - 1].value);
+						layerNames[ i - 1 ].setAttribute("value", tmpValue);
+						checkboxes[ i - 1 ].checked = true;
+						listOfLayer[ i ] = listOfLayer[ i - 1 ];
+						listOfLayer[ i - 1 ] = tmpLayer;
+					}
+				}
+			}
+		}
+
+		/**
+		 * Move layer to the bottom of layer list in menu-dialog
+		 * Each time the funciton is executed, it will be saved to the queue
+		 */
+		function sendLayerToBack() {
+			const layerChecked = $("input[ name='cbLayerName' ]:checked");
+			if ( layerChecked.length != 1 ) {
+				return;
+			}
+			const checkboxes = $("input[ name='cbLayerName' ]");
+			const layerNames = $("input[ name='layerName' ]");
+			for ( let i = 0; i < numberOfLayer; i++ ) {
+				if ( checkboxes[ i ].checked ) {
+					layerChecked.prop( 'checked', false );
+					const tmpValue = layerNames[ i ].value;
+					const tmpLayer = listOfLayer[ i ];
+					queueTrace.push( listOfLayer[ i ].sendToBack.bind( listOfLayer[ i ] ) );
+					for ( let j = i; j < numberOfLayer - 1; j++ ) {
+						layerNames[ j ].setAttribute( "value", layerNames[ j + 1 ].value );
+						listOfLayer[ j ] = listOfLayer[ j + 1 ];
+					}
+					checkboxes[ numberOfLayer - 1 ].checked = true;
+					layerNames[ numberOfLayer - 1 ].setAttribute( "value", tmpValue );
+					listOfLayer[ numberOfLayer - 1 ] = tmpLayer;
+					break;
+				}
+			}
+		}
+
+		/**
+		 * Move the layer to the one below in menu-dialog
+		 * Each time the funciton is executed, it will be saved to the queue
+		 */
+		function sendLayerBackward() {
+			const layerChecked = $("input[ name='cbLayerName' ]:checked");
+			if ( layerChecked.length != 1 ) {
+				return;
+			}
+			const checkboxes = $("input[ name='cbLayerName' ]");
+			const layerNames = $("input[ name='layerName' ]");
+			for ( let i = 0; i < numberOfLayer; i++ ) {
+				if ( checkboxes[i].checked ) {
+					if ( i < numberOfLayer - 1 ) {
+						layerChecked.prop( 'checked', false );
+						const tmpValue = layerNames[ i ].value;
+						const tmpLayer = listOfLayer[ i ];
+						queueTrace.push(listOfLayer[ i ].sendBackward.bind( listOfLayer[ i ] ) );
+						layerNames[ i ].setAttribute("value", layerNames[ i + 1 ].value);
+						layerNames[ i + 1 ].setAttribute("value", tmpValue);
+						checkboxes[ i + 1 ].checked = true;
+						listOfLayer[ i ] = listOfLayer[ i + 1 ];
+						listOfLayer[ i + 1 ] = tmpLayer;
+						break;
+					}
+				}
+			}
+		}
+
+		/**
+		 * Apply changes in menu-dialog
+		 */
+		function apply() {
+			// All layer is hiden
+			for (const layer of listOfLayer) {
+				layer.visible = false;
+			}
+
+			const checkboxes = $("input[ name='cbLayerName' ]");
+			const layerNames = $("input[ name='layerName' ]");
+			// Update position of layers
+			for ( let i = 0; i < numberOfLayer; i++ ) {
+				oldListLayerName[ i ] = layerNames[ i ].value;
+			}
+
+			// Execute the chosen APIs
+			trace();
+
+			//Show layers are checked
+			const sumCheck = $("input[ name='cbLayerName' ]:checked").length;
+			if ( sumCheck > 0 ) {
+				for ( let i = 0; i < numberOfLayer; i++ ) {
+					if ( checkboxes[ i ].checked ) {
+						listOfLayer[ i ].visible = true;
+					}
+				}
+			}
+
+			// Update old list Of layer of
+			oldListOfLayer = [ ...listOfLayer ];
+
+			//Reset actions are executed
+			queueTrace = [];
+
+			application.update();
+		}
+
+		/**
+		 * Cancel changes in menu-dialog
+		 */
+		function cancel() {
+			$("button[ name='api-btn' ]").prop( 'disabled', true );
+			$("input[ name='cbLayerName' ]").prop( 'checked', true );
+			$("#checkAll").prop( 'checked', true );
+			const layerNames = $("input[ name='layerName' ]");
+
+			// Reset list of layer, layer name back to old data
+			listOfLayer = [ ...oldListOfLayer ];
+			for ( let i = 0; i < layerNames.length; i++ ) {
+				layerNames[i].setAttribute( "value", oldListLayerName[ i ] );
+			}
+
+			// when canceled, queueTrace will be empty (User has not execute any action)
+			queueTrace = [];
+		}
+
+		/**
+		 * Execute the saved actions
+		 */
+		function trace() {
+			queueTrace.forEach( commandFunction => {
+				commandFunction();
+				container.updateTransform();
+			});
+		}
+	</script>
+</body>
+
+</html>
