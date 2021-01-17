@@ -11,7 +11,7 @@ import { DThemeListItem } from "../../d-list-item";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkImage } from "./d-theme-dark-image";
 
-export class DThemeDarkListItem extends DThemeDarkImage implements DThemeListItem {
+export class DThemeDarkListItem extends DThemeDarkImage<string> implements DThemeListItem {
 	getBackgroundColor( state: DBaseStateSet ): number | null {
 		if( state.inDisabled ) {
 			return null;

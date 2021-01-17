@@ -11,8 +11,8 @@ import { DThemeWhiteTableBodyCellSelectDialog } from "./d-theme-white-table-body
 
 DThemeWhiteTableBodyCellActions.init();
 
-export class DThemeWhiteTableBodyCellActionDialog extends DThemeWhiteTableBodyCellSelectDialog
-	implements DThemeTableBodyCellActionDialog {
+export class DThemeWhiteTableBodyCellActionDialog<VALUE> extends DThemeWhiteTableBodyCellSelectDialog<VALUE>
+	implements DThemeTableBodyCellActionDialog<VALUE> {
 
 	getImageTintColor( state: DBaseStateSet ): number | null {
 		return DThemeWhiteTableBodyCellActions.getImageTintColor( state );

@@ -6,20 +6,18 @@
 import { DButtonAmbient, DButtonAmbientOptions, DThemeButtonAmbient } from "./d-button-ambient";
 
 export interface DPaginationDotsButtonOptions<
-	VALUE = unknown,
 	THEME extends DThemePaginationDotsButton = DThemePaginationDotsButton
-> extends DButtonAmbientOptions<VALUE, THEME> {
+> extends DButtonAmbientOptions<string, THEME> {
 }
 
-export interface DThemePaginationDotsButton extends DThemeButtonAmbient {
+export interface DThemePaginationDotsButton extends DThemeButtonAmbient<string> {
 
 }
 
 export class DPaginationDotsButton<
-	VALUE = unknown,
 	THEME extends DThemePaginationDotsButton = DThemePaginationDotsButton,
-	OPTIONS extends DPaginationDotsButtonOptions<VALUE, THEME> = DPaginationDotsButtonOptions<VALUE, THEME>
-> extends DButtonAmbient<VALUE, THEME, OPTIONS> {
+	OPTIONS extends DPaginationDotsButtonOptions<THEME> = DPaginationDotsButtonOptions<THEME>
+> extends DButtonAmbient<string, THEME, OPTIONS> {
 
 	protected getType(): string {
 		return "DPaginationDotsButton";

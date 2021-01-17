@@ -8,6 +8,7 @@ import { DBorderMask } from "../../d-border-mask";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
 import { DPickerDates } from "../../d-picker-dates";
+import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DTableBodyCellDate, DThemeTableBodyCellDate } from "../../d-table-body-cell-date";
 import { DThemeWhiteButton } from "./d-theme-white-button";
 import { DThemeWhiteTableBodyCells } from "./d-theme-white-table-body-cells";
@@ -16,7 +17,7 @@ const formatter = ( value: Date ): string => {
 	return DPickerDates.format( value );
 };
 
-export class DThemeWhiteTableBodyCellDate extends DThemeWhiteButton implements DThemeTableBodyCellDate {
+export class DThemeWhiteTableBodyCellDate extends DThemeWhiteButton<Date> implements DThemeTableBodyCellDate {
 	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return DThemeWhiteTableBodyCells.getBackgroundColor( state );
 	}
@@ -57,11 +58,7 @@ export class DThemeWhiteTableBodyCellDate extends DThemeWhiteButton implements D
 		return formatter;
 	}
 
-	getTextValue( state: DBaseStateSet ): Date {
-		return new Date();
-	}
-
-	newTextValue(): Date {
+	newTextValue(): DStateAwareOrValueMightBe<Date> {
 		return new Date();
 	}
 }

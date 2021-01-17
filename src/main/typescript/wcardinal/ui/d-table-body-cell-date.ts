@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseStateSet } from "./d-base-state-set";
 import { DButton, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogDate, DDialogDateOptions } from "./d-dialog-date";
 import { DDialogDates } from "./d-dialog-dates";
@@ -19,10 +18,8 @@ export interface DTableBodyCellDateOptions<
 	dialog?: DDialogDateOptions;
 }
 
-export interface DThemeTableBodyCellDate extends DThemeButton {
-	getTextFormatter(): ( value: Date, caller: DTableBodyCellDate ) => string;
-	getTextValue( state: DBaseStateSet ): Date;
-	newTextValue(): Date;
+export interface DThemeTableBodyCellDate extends DThemeButton<Date> {
+
 }
 
 export class DTableBodyCellDate<
@@ -44,7 +41,7 @@ export class DTableBodyCellDate<
 		this._column = column;
 
 		this.on( "active", (): void => {
-			const currentTime = this._textValueComputed.getTime();
+			const currentTime = this._textValueComputed?.getTime() ?? Date.now();
 			const dialog = this.dialog;
 			dialog.current = new Date( currentTime );
 			dialog.new = new Date( currentTime );
@@ -111,7 +108,9 @@ export class DTableBodyCellDate<
 			}
 		} else if( isNumber( value ) ) {
 			const textValueComputed = this._textValueComputed;
-			if( textValueComputed.getTime() !== value ) {
+			if( textValueComputed === undefined ) {
+				this.text = new Date( value );
+			} else if( textValueComputed.getTime() !== value ) {
 				textValueComputed.setTime( value );
 				this.onTextChange();
 				this.createOrUpdateText();

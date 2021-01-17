@@ -11,7 +11,7 @@ import { DTableColumn } from "./d-table-column";
 export interface DTableBodyCellSelectPromiseOptions<
 	ROW = unknown,
 	VALUE = unknown,
-	THEME extends DThemeTableBodyCellSelectPromise = DThemeTableBodyCellSelectPromise
+	THEME extends DThemeTableBodyCellSelectPromise<VALUE> = DThemeTableBodyCellSelectPromise<VALUE>
 > extends DButtonOptions<VALUE | null, THEME> {
 	/**
 	 * False to stop synchronizing the resolved value and the text.
@@ -19,14 +19,14 @@ export interface DTableBodyCellSelectPromiseOptions<
 	sync?: boolean;
 }
 
-export interface DThemeTableBodyCellSelectPromise extends DThemeButton {
+export interface DThemeTableBodyCellSelectPromise<VALUE> extends DThemeButton<VALUE | null> {
 	isSyncEnabled(): boolean;
 }
 
 export class DTableBodyCellSelectPromise<
 	ROW = unknown,
 	VALUE = unknown,
-	THEME extends DThemeTableBodyCellSelectPromise = DThemeTableBodyCellSelectPromise,
+	THEME extends DThemeTableBodyCellSelectPromise<VALUE> = DThemeTableBodyCellSelectPromise<VALUE>,
 	OPTIONS extends DTableBodyCellSelectPromiseOptions<ROW, VALUE, THEME> =
 		DTableBodyCellSelectPromiseOptions<ROW, VALUE, THEME>
 > extends DButton<VALUE | null, THEME, OPTIONS> implements DTableBodyCell<ROW> {
@@ -93,7 +93,11 @@ export class DTableBodyCellSelectPromise<
 	}
 
 	get value(): VALUE | null {
-		return this._textValueComputed;
+		const textValueComputed = this._textValueComputed;
+		if( textValueComputed !== undefined ) {
+			return textValueComputed;
+		}
+		return null;
 	}
 
 	set value( value: VALUE | null ) {

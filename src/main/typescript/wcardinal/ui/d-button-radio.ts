@@ -7,18 +7,18 @@ import { DButtonBase, DButtonBaseOptions, DThemeButtonBase } from "./d-button-ba
 
 export interface DButtonRadioOptions<
 	VALUE = unknown,
-	THEME extends DThemeButtonRadio = DThemeButtonRadio
+	THEME extends DThemeButtonRadio<VALUE> = DThemeButtonRadio<VALUE>
 > extends DButtonBaseOptions<VALUE, THEME> {
 
 }
 
-export interface DThemeButtonRadio extends DThemeButtonBase {
+export interface DThemeButtonRadio<VALUE> extends DThemeButtonBase<VALUE> {
 
 }
 
 export class DButtonRadio<
 	VALUE = unknown,
-	THEME extends DThemeButtonRadio = DThemeButtonRadio,
+	THEME extends DThemeButtonRadio<VALUE> = DThemeButtonRadio<VALUE>,
 	OPTIONS extends DButtonRadioOptions<VALUE, THEME> = DButtonRadioOptions<VALUE, THEME>
 > extends DButtonBase<VALUE, THEME, OPTIONS> {
 	protected getType(): string {

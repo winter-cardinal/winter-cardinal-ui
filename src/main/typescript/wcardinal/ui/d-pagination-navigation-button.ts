@@ -7,17 +7,17 @@ import { DButtonAmbient, DButtonAmbientOptions, DThemeButtonAmbient } from "./d-
 
 export interface DPaginationNavigationButtonOptions<
 	VALUE = unknown,
-	THEME extends DThemePaginationNavigationButton = DThemePaginationNavigationButton
+	THEME extends DThemePaginationNavigationButton<VALUE> = DThemePaginationNavigationButton<VALUE>
 > extends DButtonAmbientOptions<VALUE, THEME> {
 }
 
-export interface DThemePaginationNavigationButton extends DThemeButtonAmbient {
+export interface DThemePaginationNavigationButton<VALUE> extends DThemeButtonAmbient<VALUE> {
 
 }
 
 export class DPaginationNavigationButton<
 	VALUE = unknown,
-	THEME extends DThemePaginationNavigationButton = DThemePaginationNavigationButton,
+	THEME extends DThemePaginationNavigationButton<VALUE> = DThemePaginationNavigationButton<VALUE>,
 	OPTIONS extends DPaginationNavigationButtonOptions<VALUE, THEME> = DPaginationNavigationButtonOptions<VALUE, THEME>
 > extends DButtonAmbient<VALUE, THEME, OPTIONS> {
 

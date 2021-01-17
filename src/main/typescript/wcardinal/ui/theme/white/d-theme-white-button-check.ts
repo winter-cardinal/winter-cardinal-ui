@@ -27,7 +27,7 @@ DThemeWhiteAtlas.add( "button_check_mark_off", 21, 21,
 	`</g>`
 );
 
-export class DThemeWhiteButtonCheck extends DThemeWhiteButtonAmbient implements DThemeButtonCheck {
+export class DThemeWhiteButtonCheck<VALUE> extends DThemeWhiteButtonAmbient<VALUE> implements DThemeButtonCheck<VALUE> {
 	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
 	}

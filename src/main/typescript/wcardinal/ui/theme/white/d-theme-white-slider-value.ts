@@ -11,7 +11,7 @@ import { DThemeSliderValue } from "../../d-slider-value";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteTextBase } from "./d-theme-white-text-base";
 
-export class DThemeWhiteSliderValue extends DThemeWhiteTextBase implements DThemeSliderValue {
+export class DThemeWhiteSliderValue<VALUE> extends DThemeWhiteTextBase<VALUE> implements DThemeSliderValue<VALUE> {
 	getX(): DCoordinatePosition {
 		return "CENTER";
 	}

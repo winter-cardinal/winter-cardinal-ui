@@ -7,18 +7,18 @@ import { DText, DTextOptions, DThemeText } from "./d-text";
 
 export interface DInputLabelOptions<
 	VALUE = unknown,
-	THEME extends DThemeText = DThemeText
+	THEME extends DThemeText<VALUE> = DThemeText<VALUE>
 > extends DTextOptions<VALUE, THEME> {
 
 }
 
-export interface DThemeInputLabel extends DThemeText {
+export interface DThemeInputLabel<VALUE> extends DThemeText<VALUE> {
 
 }
 
 export class DInputLabel<
 	VALUE = unknown,
-	THEME extends DThemeInputLabel = DThemeInputLabel,
+	THEME extends DThemeInputLabel<VALUE> = DThemeInputLabel<VALUE>,
 	OPTIONS extends DInputLabelOptions<VALUE, THEME> = DInputLabelOptions<VALUE, THEME>
 > extends DText<VALUE, THEME, OPTIONS> {
 	protected getType(): string {

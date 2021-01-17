@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseStateSet } from "./d-base-state-set";
 import { DImageBase, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
 import { DTableBodyCell } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
@@ -15,10 +14,8 @@ export interface DTableBodyCellIndexOptions<
 > extends DImageBaseOptions<number, THEME> {
 }
 
-export interface DThemeTableBodyCellIndex extends DThemeImageBase {
-	getTextFormatter(): ( value: number, caller: DTableBodyCellIndex ) => string;
-	getTextValue( state: DBaseStateSet ): number;
-	newTextValue(): number;
+export interface DThemeTableBodyCellIndex extends DThemeImageBase<number> {
+
 }
 
 export class DTableBodyCellIndex<

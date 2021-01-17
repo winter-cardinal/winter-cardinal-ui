@@ -8,7 +8,7 @@ import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeDialogConfirmMessage } from "../../d-dialog-confirm-message";
 import { DThemeWhiteImage } from "./d-theme-white-image";
 
-export class DThemeWhiteDialogConfirmMessage extends DThemeWhiteImage implements DThemeDialogConfirmMessage {
+export class DThemeWhiteDialogConfirmMessage<VALUE> extends DThemeWhiteImage<VALUE> implements DThemeDialogConfirmMessage<VALUE> {
 	getWidth(): DCoordinateSize {
 		return "padding";
 	}

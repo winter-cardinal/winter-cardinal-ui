@@ -7,12 +7,13 @@ import { DBaseStateSet } from "../../d-base-state-set";
 import { DBorderMask } from "../../d-border-mask";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
+import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeTableBodyCellSelectDialog } from "../../d-table-body-cell-select-dialog";
 import { DThemeDarkButton } from "./d-theme-dark-button";
 import { DThemeDarkTableBodyCells } from "./d-theme-dark-table-body-cells";
 
-export class DThemeDarkTableBodyCellSelectDialog extends DThemeDarkButton
-	implements DThemeTableBodyCellSelectDialog {
+export class DThemeDarkTableBodyCellSelectDialog<VALUE> extends DThemeDarkButton<VALUE | null>
+	implements DThemeTableBodyCellSelectDialog<VALUE> {
 
 	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return DThemeDarkTableBodyCells.getBackgroundColor( state );
@@ -54,11 +55,7 @@ export class DThemeDarkTableBodyCellSelectDialog extends DThemeDarkButton
 		return true;
 	}
 
-	newTextValue(): any {
-		return null;
-	}
-
-	getTextValue( state: DBaseStateSet ): any {
+	newTextValue(): DStateAwareOrValueMightBe<VALUE | null> {
 		return null;
 	}
 }

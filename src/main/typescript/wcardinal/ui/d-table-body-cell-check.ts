@@ -11,19 +11,21 @@ import { DTableData } from "./d-table-data";
 
 export interface DTableBodyCellCheckOptions<
 	ROW = unknown,
-	THEME extends DThemeTableBodyCellCheck = DThemeTableBodyCellCheck
-> extends DButtonCheckOptions<unknown, THEME> {
+	VALUE = unknown,
+	THEME extends DThemeTableBodyCellCheck<VALUE> = DThemeTableBodyCellCheck<VALUE>
+> extends DButtonCheckOptions<VALUE, THEME> {
 }
 
-export interface DThemeTableBodyCellCheck extends DThemeButtonCheck {
+export interface DThemeTableBodyCellCheck<VALUE> extends DThemeButtonCheck<VALUE> {
 
 }
 
 export class DTableBodyCellCheck<
 	ROW = unknown,
-	THEME extends DThemeTableBodyCellCheck = DThemeTableBodyCellCheck,
-	OPTIONS extends DTableBodyCellCheckOptions<ROW, THEME> = DTableBodyCellCheckOptions<ROW, THEME>
-> extends DButtonCheck<unknown, THEME, OPTIONS> implements DTableBodyCell<ROW> {
+	VALUE = unknown,
+	THEME extends DThemeTableBodyCellCheck<VALUE> = DThemeTableBodyCellCheck<VALUE>,
+	OPTIONS extends DTableBodyCellCheckOptions<ROW, VALUE, THEME> = DTableBodyCellCheckOptions<ROW, VALUE, THEME>
+> extends DButtonCheck<VALUE, THEME, OPTIONS> implements DTableBodyCell<ROW> {
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;

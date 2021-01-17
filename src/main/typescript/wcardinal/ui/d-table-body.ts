@@ -8,7 +8,7 @@ import InteractionEvent = interaction.InteractionEvent;
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DTableBodyRow, DTableBodyRowOptions } from "./d-table-body-row";
-import { DTableColumn, DTableColumnType } from "./d-table-column";
+import { DTableColumn } from "./d-table-column";
 import { DTableData, DTableDataOptions } from "./d-table-data";
 import { DTableDataList, DTableDataListOptions } from "./d-table-data-list";
 import { DTableDataSelection, DTableDataSelectionType } from "./d-table-data-selection";

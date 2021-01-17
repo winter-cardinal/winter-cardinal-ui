@@ -12,8 +12,8 @@ import { DThemeTableBodyCellSelectMenu } from "../../d-table-body-cell-select-me
 import { DThemeWhiteSelect } from "./d-theme-white-select";
 import { DThemeWhiteTableBodyCells } from "./d-theme-white-table-body-cells";
 
-export class DThemeWhiteTableBodyCellSelectMenu extends DThemeWhiteSelect
-	implements DThemeTableBodyCellSelectMenu {
+export class DThemeWhiteTableBodyCellSelectMenu<VALUE> extends DThemeWhiteSelect<VALUE>
+	implements DThemeTableBodyCellSelectMenu<VALUE> {
 
 	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return DThemeWhiteTableBodyCells.getBackgroundColor( state );

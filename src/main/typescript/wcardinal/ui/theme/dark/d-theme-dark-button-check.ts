@@ -10,7 +10,7 @@ import { DThemeDarkButtonAmbient } from "./d-theme-dark-button-ambient";
 import { DThemeDarkButtonChecks } from "./d-theme-dark-button-checks";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 
-export class DThemeDarkButtonCheck extends DThemeDarkButtonAmbient implements DThemeButtonCheck {
+export class DThemeDarkButtonCheck<VALUE> extends DThemeDarkButtonAmbient<VALUE> implements DThemeButtonCheck<VALUE> {
 	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
 	}

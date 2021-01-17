@@ -7,7 +7,7 @@ import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeWhiteButtonBase } from "./d-theme-white-button-base";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 
-export class DThemeWhiteButtonPrimary extends DThemeWhiteButtonBase {
+export class DThemeWhiteButtonPrimary<VALUE> extends DThemeWhiteButtonBase<VALUE> {
 	constructor() {
 		super( DThemeWhiteConstants.HIGHLIGHT_COLOR, 0.1, 0.2 );
 	}

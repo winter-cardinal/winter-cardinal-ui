@@ -35,8 +35,8 @@ export class DDialogConfirm<
 	}
 
 	protected toMessage( theme: DThemeDialogConfirm, options?: DDialogConfirmOptions ): DDialogConfirmMessage {
-		if( options && options.message != null ) {
-			const message = options.message;
+		const message = options?.message;
+		if( message != null ) {
 			if( isString( message ) || isFunction( message ) ) {
 				return this.newMessage(
 					this.toMessageOptions( message )

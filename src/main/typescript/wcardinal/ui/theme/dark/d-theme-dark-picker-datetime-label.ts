@@ -8,9 +8,10 @@ import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DFontWeight } from "../../d-font";
 import { DThemePickerDatetimeLabel } from "../../d-picker-datetime-label";
+import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeDarkText } from "./d-theme-dark-text";
 
-export class DThemeDarkPickerDatetimeLabel extends DThemeDarkText implements DThemePickerDatetimeLabel {
+export class DThemeDarkPickerDatetimeLabel extends DThemeDarkText<Date> implements DThemePickerDatetimeLabel {
 	getWidth(): DCoordinateSize {
 		return 30;
 	}
@@ -39,11 +40,7 @@ export class DThemeDarkPickerDatetimeLabel extends DThemeDarkText implements DTh
 		return Math.round( super.getFontSize() * 1.25 );
 	}
 
-	newTextValue(): any {
-		return new Date();
-	}
-
-	getTextValue( state: DBaseStateSet ): any {
+	newTextValue(): DStateAwareOrValueMightBe<Date> {
 		return new Date();
 	}
 }

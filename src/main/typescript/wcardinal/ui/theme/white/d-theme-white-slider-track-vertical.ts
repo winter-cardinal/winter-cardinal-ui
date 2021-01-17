@@ -7,7 +7,7 @@ import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
 import { DThemeSliderTrackVertical } from "../../d-slider-track-vertical";
 import { DThemeWhiteSliderTrack } from "./d-theme-white-slider-track";
 
-export class DThemeWhiteSliderTrackVertical extends DThemeWhiteSliderTrack implements DThemeSliderTrackVertical {
+export class DThemeWhiteSliderTrackVertical<VALUE> extends DThemeWhiteSliderTrack<VALUE> implements DThemeSliderTrackVertical<VALUE> {
 	getX(): DCoordinatePosition {
 		return "CENTER";
 	}

@@ -5,10 +5,11 @@
 
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemePaginationDotsButton } from "../../d-pagination-dots-button";
+import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeWhiteButtonAmbient } from "./d-theme-white-button-ambient";
 
 export class DThemeWhitePaginationDotsButton
-			extends DThemeWhiteButtonAmbient implements DThemePaginationDotsButton {
+	extends DThemeWhiteButtonAmbient<string> implements DThemePaginationDotsButton {
 
 	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return null;
@@ -18,7 +19,7 @@ export class DThemeWhitePaginationDotsButton
 		return null;
 	}
 
-	newTextValue(): any {
+	newTextValue(): DStateAwareOrValueMightBe<string> {
 		return "...";
 	}
 

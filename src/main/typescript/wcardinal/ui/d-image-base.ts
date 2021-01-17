@@ -36,7 +36,7 @@ export interface DImageBaseOnOptions<VALUE, EMITTER> extends Partial<DImageBaseE
  */
 export interface DImageBaseOptions<
 	VALUE = unknown,
-	THEME extends DThemeImageBase = DThemeImageBase,
+	THEME extends DThemeImageBase<VALUE> = DThemeImageBase<VALUE>,
 	EMITTER = any
 > extends DTextBaseOptions<VALUE, THEME, EMITTER> {
 	image?: DImagePieceOptions;
@@ -46,7 +46,7 @@ export interface DImageBaseOptions<
 /**
  * {@link DImageBase} theme.
  */
-export interface DThemeImageBase extends DThemeTextBase, DThemeImagePiece {
+export interface DThemeImageBase<VALUE> extends DThemeTextBase<VALUE>, DThemeImagePiece {
 	getSecondaryImageAlignHorizontal(): DAlignHorizontal;
 	getSecondaryImageAlignVertical(): DAlignVertical;
 	getSecondaryImageAlignWith(): DAlignWith;
@@ -66,11 +66,11 @@ export interface DThemeImageBase extends DThemeTextBase, DThemeImagePiece {
 	getTertiaryImageSource?( state: DBaseStateSet ): Texture | DisplayObject | null;
 }
 
-const hasSecondaryImageSource = ( theme: DThemeImageBase ): theme is DThemeImageBase & DThemeImageBaseSecondary => {
+const hasSecondaryImageSource = <VALUE>( theme: DThemeImageBase<VALUE> ): theme is DThemeImageBase<VALUE> & DThemeImageBaseSecondary => {
 	return !! theme.getSecondaryImageSource;
 };
 
-const hasTertiaryImageSource = ( theme: DThemeImageBase ): theme is DThemeImageBase & DThemeImageBaseTertiary => {
+const hasTertiaryImageSource = <VALUE>( theme: DThemeImageBase<VALUE> ): theme is DThemeImageBase<VALUE> & DThemeImageBaseTertiary => {
 	return !! theme.getTertiaryImageSource;
 };
 
@@ -80,7 +80,7 @@ const hasTertiaryImageSource = ( theme: DThemeImageBase ): theme is DThemeImageB
  */
 export class DImageBase<
 	VALUE = unknown,
-	THEME extends DThemeImageBase = DThemeImageBase,
+	THEME extends DThemeImageBase<VALUE> = DThemeImageBase<VALUE>,
 	OPTIONS extends DImageBaseOptions<VALUE, THEME> = DImageBaseOptions<VALUE, THEME>
 > extends DTextBase<VALUE, THEME, OPTIONS> {
 	protected _images!: DImagePiece[];

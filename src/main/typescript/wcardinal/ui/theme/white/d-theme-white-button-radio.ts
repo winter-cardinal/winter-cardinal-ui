@@ -28,7 +28,7 @@ DThemeWhiteAtlas.add( "button_radio_mark_off", 21, 21,
 	`</g>`
 );
 
-export class DThemeWhiteButtonRadio extends DThemeWhiteButtonAmbient implements DThemeButtonRadio {
+export class DThemeWhiteButtonRadio<VALUE> extends DThemeWhiteButtonAmbient<VALUE> implements DThemeButtonRadio<VALUE> {
 	protected readonly IMAGE_TINT_COLOR_FOCUSED = UtilRgb.darken( DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR, 0.1 );
 
 	getBackgroundColor( state: DBaseStateSet ): number | null {

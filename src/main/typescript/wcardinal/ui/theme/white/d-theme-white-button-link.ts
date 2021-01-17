@@ -11,7 +11,7 @@ import { DThemeWhiteLinks } from "./d-theme-white-links";
 
 DThemeWhiteLinks.init();
 
-export class DThemeWhiteButtonLink extends DThemeWhiteButtonAmbient implements DThemeButtonLink {
+export class DThemeWhiteButtonLink<VALUE> extends DThemeWhiteButtonAmbient<VALUE> implements DThemeButtonLink<VALUE> {
 	getLinkMenuOptions(): DMenuOptions<DLinkMenuItemId> {
 		return DThemeWhiteLinks.getLinkMenuOptions();
 	}

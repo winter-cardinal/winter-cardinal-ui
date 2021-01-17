@@ -4,7 +4,6 @@
  */
 
 import { DApplications } from "./d-applications";
-import { DBaseStateSet } from "./d-base-state-set";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DColorAndAlpha } from "./d-color-and-alpha";
 import { DDialogColor, DDialogColorOptions } from "./d-dialog-color";
@@ -50,10 +49,8 @@ export interface DButtonColorOptions<
 /**
  * {@link DButtonColor} theme.
  */
-export interface DThemeButtonColor extends DThemeButton {
-	getTextFormatter(): ( value: DColorAndAlpha, caller: DButtonColor ) => string;
-	getTextValue( state: DBaseStateSet ): DColorAndAlpha;
-	newTextValue(): DColorAndAlpha;
+export interface DThemeButtonColor extends DThemeButton<DColorAndAlpha> {
+
 }
 
 export class DButtonColor<
@@ -67,7 +64,7 @@ export class DButtonColor<
 	protected init( options?: OPTIONS ) {
 		super.init( options );
 
-		const colorAndAlpha = this._textValueComputed;
+		const colorAndAlpha = this._textValueComputed!;
 		this._value = new DPickerColorAndAlpha( colorAndAlpha, ( color: number ): void => {
 			colorAndAlpha.color = color;
 			this.onColorChange();
@@ -94,7 +91,7 @@ export class DButtonColor<
 	}
 
 	protected toImageTintOptions( tint?: DImagePieceTintOptions ): DImagePieceTintOptions {
-		const color = () => this._textValueComputed.color;
+		const color = () => this._textValueComputed!.color;
 		if( tint ) {
 			return {
 				color: tint.color || color,

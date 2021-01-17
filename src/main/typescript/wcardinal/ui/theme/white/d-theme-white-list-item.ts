@@ -11,7 +11,7 @@ import { DThemeListItem } from "../../d-list-item";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteImage } from "./d-theme-white-image";
 
-export class DThemeWhiteListItem extends DThemeWhiteImage implements DThemeListItem {
+export class DThemeWhiteListItem extends DThemeWhiteImage<string> implements DThemeListItem {
 	getBackgroundColor( state: DBaseStateSet ): number | null {
 		if( state.inDisabled ) {
 			return null;

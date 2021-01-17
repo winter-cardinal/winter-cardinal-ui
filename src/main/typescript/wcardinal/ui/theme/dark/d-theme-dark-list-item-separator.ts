@@ -9,7 +9,7 @@ import { DThemeListItemSeparator } from "../../d-list-item-separator";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkImage } from "./d-theme-dark-image";
 
-export class DThemeDarkListItemSeparator extends DThemeDarkImage implements DThemeListItemSeparator {
+export class DThemeDarkListItemSeparator extends DThemeDarkImage<string> implements DThemeListItemSeparator {
 	getBorderColor( state: DBaseStateSet ): number | null {
 		return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
 	}

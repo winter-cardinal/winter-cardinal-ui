@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { interaction, Text } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DDynamicText } from "./d-dynamic-text";
@@ -13,21 +18,21 @@ export interface DInputEditingOptions<VALUE = unknown> {
 
 export interface DInputOptions<
 	VALUE = unknown,
-	THEME extends DThemeInput = DThemeInput
+	THEME extends DThemeInput<VALUE> = DThemeInput<VALUE>
 > extends DHtmlElementOptions<VALUE, HTMLInputElement, THEME> {
 	description?: string;
 	editing?: DInputEditingOptions<VALUE>;
 }
 
-export interface DThemeInput extends DThemeHtmlElement<HTMLInputElement> {
-	getEditingFormatter(): ( value: any, caller: any ) => string;
-	getEditingUnformatter(): ( text: string, caller: any ) => any;
-	getEditingValidator(): ( value: any, caller: any ) => unknown;
+export interface DThemeInput<VALUE> extends DThemeHtmlElement<VALUE, HTMLInputElement> {
+	getEditingFormatter(): ( value: VALUE, caller: any ) => string;
+	getEditingUnformatter(): ( text: string, caller: any ) => VALUE;
+	getEditingValidator(): ( value: VALUE, caller: any ) => string | null;
 }
 
 export abstract class DInput<
 	VALUE = unknown,
-	THEME extends DThemeInput = DThemeInput,
+	THEME extends DThemeInput<VALUE> = DThemeInput<VALUE>,
 	OPTIONS extends DInputOptions<VALUE, THEME> = DInputOptions<VALUE, THEME>
 > extends DHtmlElement<VALUE, HTMLInputElement, THEME, OPTIONS> {
 	protected _description!: string;
@@ -38,23 +43,19 @@ export abstract class DInput<
 
 	protected _editingFormatter!: ( value: VALUE, caller: any ) => string;
 	protected _editingUnformatter!: ( text: string, caller: any ) => VALUE;
-	protected _editingValidator!: ( value: VALUE, caller: any ) => unknown;
+	protected _editingValidator!: ( value: VALUE, caller: any ) => string | null;
 	protected _editingValidationResult!: unknown;
 
 	protected init( options?: OPTIONS ) {
 		this._editingValidationResult = null;
-		this._editingValidator = ( options && options.editing && options.editing.validator ) ||
-			this.theme.getEditingValidator();
+		this._editingValidator = options?.editing?.validator ?? this.theme.getEditingValidator();
 
 		super.init( options );
 
-		this._description = ( options && options.description ) || "";
+		this._description = options?.description ?? "";
 
-		this._editingFormatter = ( options && options.editing && options.editing.formatter ) ||
-			( options && options.text && options.text.formatter ) ||
-			this.theme.getEditingFormatter();
-		this._editingUnformatter = ( options && options.editing && options.editing.unformatter ) ||
-			this.theme.getEditingUnformatter();
+		this._editingFormatter = options?.editing?.formatter ?? ( options?.text?.formatter ?? this.theme.getEditingFormatter() );
+		this._editingUnformatter = options?.editing?.unformatter ?? this.theme.getEditingUnformatter();
 
 		this._onInputKeyDownBound = ( e: KeyboardEvent ): void => {
 			this.onInputKeyDown( e );
@@ -68,7 +69,7 @@ export abstract class DInput<
 	}
 
 	get value(): VALUE {
-		return this._textValueComputed;
+		return this._textValueComputed!;
 	}
 
 	set value( value: VALUE ) {
@@ -88,16 +89,20 @@ export abstract class DInput<
 		this.validate();
 	}
 
-	validate(): unknown {
-		const result = this._editingValidator( this._textValueComputed, this );
-		if( this._editingValidationResult !== result ) {
-			this._editingValidationResult = result;
-			this.state.isInvalid = ( result != null );
-			if( this.state.isHovered ) {
-				this.applyTitle();
+	validate(): string | null {
+		const textValueComputed = this._textValueComputed;
+		if( textValueComputed !== undefined ) {
+			const result = this._editingValidator( textValueComputed, this );
+			if( this._editingValidationResult !== result ) {
+				this._editingValidationResult = result;
+				this.state.isInvalid = ( result != null );
+				if( this.state.isHovered ) {
+					this.applyTitle();
+				}
 			}
+			return result;
 		}
-		return result;
+		return null;
 	}
 
 	protected applyTitle(): void {
@@ -140,7 +145,10 @@ export abstract class DInput<
 	): void {
 		super.onElementAttached( element, before, after );
 		element.type = this.getInputType();
-		element.value = this._editingFormatter( this._textValueComputed, this );
+		const textValueComputed = this._textValueComputed;
+		element.value = ( textValueComputed !== undefined ?
+			this._editingFormatter( textValueComputed, this ) : ""
+		);
 		element.addEventListener( "keydown", this._onInputKeyDownBound );
 		element.addEventListener( "change", this._onInputChangeBound );
 		element.addEventListener( "input", this._onInputInputBound );

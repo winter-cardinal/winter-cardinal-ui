@@ -5,9 +5,10 @@
 
 import { DBorderMask } from "../../d-border-mask";
 import { DThemeInputBooleanButtonOn } from "../../d-input-boolean-button-on";
+import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeDarkButton } from "./d-theme-dark-button";
 
-export class DThemeDarkInputBooleanButtonOn extends DThemeDarkButton implements DThemeInputBooleanButtonOn {
+export class DThemeDarkInputBooleanButtonOn extends DThemeDarkButton<string> implements DThemeInputBooleanButtonOn {
 	getBorderMask(): DBorderMask {
 		return DBorderMask.LEFT;
 	}
@@ -16,7 +17,7 @@ export class DThemeDarkInputBooleanButtonOn extends DThemeDarkButton implements 
 		return true;
 	}
 
-	newTextValue(): string {
+	newTextValue(): DStateAwareOrValueMightBe<string> {
 		return "ON";
 	}
 }

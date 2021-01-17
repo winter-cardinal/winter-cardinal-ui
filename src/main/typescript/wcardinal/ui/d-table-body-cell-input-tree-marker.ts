@@ -7,18 +7,18 @@ import { DButtonBase, DButtonBaseOptions, DThemeButtonBase } from "./d-button-ba
 
 export interface DTableBodyCellInputTreeMarkerOptions<
 	VALUE = unknown,
-	THEME extends DThemeTableBodyCellInputTreeMarker = DThemeTableBodyCellInputTreeMarker
+	THEME extends DThemeTableBodyCellInputTreeMarker<VALUE> = DThemeTableBodyCellInputTreeMarker<VALUE>
 > extends DButtonBaseOptions<VALUE, THEME> {
 
 }
 
-export interface DThemeTableBodyCellInputTreeMarker extends DThemeButtonBase {
+export interface DThemeTableBodyCellInputTreeMarker<VALUE> extends DThemeButtonBase<VALUE> {
 
 }
 
 export class DTableBodyCellInputTreeMarker<
 	VALUE = unknown,
-	THEME extends DThemeTableBodyCellInputTreeMarker = DThemeTableBodyCellInputTreeMarker,
+	THEME extends DThemeTableBodyCellInputTreeMarker<VALUE> = DThemeTableBodyCellInputTreeMarker<VALUE>,
 	OPTIONS extends DTableBodyCellInputTreeMarkerOptions<VALUE, THEME> = DTableBodyCellInputTreeMarkerOptions<VALUE, THEME>
 > extends DButtonBase<VALUE, THEME, OPTIONS> {
 	protected getType(): string {

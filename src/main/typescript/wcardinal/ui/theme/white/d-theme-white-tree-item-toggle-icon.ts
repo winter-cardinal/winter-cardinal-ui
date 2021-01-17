@@ -25,7 +25,7 @@ DThemeWhiteAtlas.add( "menu_item_expandable_header_opened", 14, 14,
 	`</g>`
 );
 
-export class DThemeWhiteTreeItemToggleIcon extends DThemeWhiteImage implements DThemeTreeItemToggleIcon {
+export class DThemeWhiteTreeItemToggleIcon extends DThemeWhiteImage<string> implements DThemeTreeItemToggleIcon {
 	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return null;
 	}

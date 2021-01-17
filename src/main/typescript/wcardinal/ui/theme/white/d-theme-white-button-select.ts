@@ -4,15 +4,16 @@
  */
 
 import { DButtonSelect, DThemeButtonSelect } from "../../d-button-select";
+import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { toLabel } from "../../util/to-label";
 import { DThemeWhiteButton } from "./d-theme-white-button";
 
-export class DThemeWhiteButtonSelect extends DThemeWhiteButton implements DThemeButtonSelect {
+export class DThemeWhiteButtonSelect<VALUE> extends DThemeWhiteButton<VALUE | null> implements DThemeButtonSelect<VALUE> {
 	getTextFormatter(): ( value: unknown | null, caller: DButtonSelect ) => string {
 		return toLabel;
 	}
 
-	newTextValue(): unknown | null {
+	newTextValue(): DStateAwareOrValueMightBe<VALUE | null> {
 		return null;
 	}
 }

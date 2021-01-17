@@ -34,7 +34,7 @@ DThemeDarkAtlas.add( "sorted_ascending", 24, 24,
 	`</g>`
 );
 
-export class DThemeDarkTableHeaderCell extends DThemeDarkImage implements DThemeTableHeaderCell {
+export class DThemeDarkTableHeaderCell extends DThemeDarkImage<string | null> implements DThemeTableHeaderCell {
 	protected readonly BACKGROUND_COLOR = UtilRgb.brighten( DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.02 );
 	protected readonly BACKGROUND_COLOR_HOVERED = UtilRgb.brighten( this.BACKGROUND_COLOR, 0.08 );
 	protected readonly BACKGROUND_COLOR_PRESSED = UtilRgb.brighten( this.BACKGROUND_COLOR, 0.32 );
@@ -92,10 +92,6 @@ export class DThemeDarkTableHeaderCell extends DThemeDarkImage implements DTheme
 
 	getPaddingRight(): number {
 		return 10;
-	}
-
-	getTextValue( state: DBaseStateSet ): string | null {
-		return null;
 	}
 
 	newTextValue(): DStateAwareOrValueMightBe<string | null> {

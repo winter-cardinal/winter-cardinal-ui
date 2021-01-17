@@ -8,7 +8,6 @@ import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignWith } from "../../d-align-with";
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeDropdownBase } from "../../d-dropdown-base";
-import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
 import { DThemeDarkButtonBase } from "./d-theme-dark-button-base";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
@@ -19,7 +18,7 @@ DThemeDarkAtlas.add( "dropdown_mark", 20, 14,
 	`</g>`
 );
 
-export abstract class DThemeDarkDropdownBase<TEXT_VALUE> extends DThemeDarkButtonBase
+export class DThemeDarkDropdownBase<TEXT_VALUE> extends DThemeDarkButtonBase<TEXT_VALUE>
 	implements DThemeDropdownBase<TEXT_VALUE> {
 
 	constructor() {
@@ -49,7 +48,4 @@ export abstract class DThemeDarkDropdownBase<TEXT_VALUE> extends DThemeDarkButto
 	getSecondaryImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
 		return DThemeDarkAtlas.mappings.dropdown_mark;
 	}
-
-	abstract newTextValue(): DStateAwareOrValueMightBe<TEXT_VALUE>;
-	abstract getTextValue( state: DBaseStateSet ): TEXT_VALUE;
 }
