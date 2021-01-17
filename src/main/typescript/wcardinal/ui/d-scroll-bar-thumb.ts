@@ -12,7 +12,7 @@ export interface DScrollBarThumbOptions extends DBaseOptions<DThemeScrollBarThum
 }
 
 export interface DThemeScrollBarThumb extends DThemeBase {
-	getMinimumSize(): number;
+	getThumbMinimumLength(): number;
 }
 
 export abstract class DScrollBarThumb extends DBase<DThemeScrollBarThumb, DScrollBarThumbOptions> {
@@ -38,8 +38,8 @@ export abstract class DScrollBarThumb extends DBase<DThemeScrollBarThumb, DScrol
 		});
 	}
 
-	getMinimumSize(): number {
-		return this.theme.getMinimumSize();
+	getMinimumLength(): number {
+		return this.theme.getThumbMinimumLength();
 	}
 
 	protected getType(): string {

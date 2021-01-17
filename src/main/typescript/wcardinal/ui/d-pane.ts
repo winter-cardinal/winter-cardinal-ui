@@ -12,26 +12,55 @@ import { DDragMode } from "./d-drag-mode";
 import { DScrollBar, DScrollBarOptions } from "./d-scroll-bar";
 import { DScrollBarHorizontal } from "./d-scroll-bar-horizontal";
 import { DScrollBarVertical } from "./d-scroll-bar-vertical";
-import { isString } from "./util/is-string";
+import { toEnum } from "./util";
 import { UtilDrag } from "./util/util-drag";
 import { UtilWheelEventDeltas } from "./util/util-wheel-event";
 
+/**
+ * {@link DPane} drag options.
+ */
 export interface DPaneDragOptions {
 	mode?: (keyof typeof DDragMode) | DDragMode;
 }
 
-export interface DPaneBarOptions {
+/**
+ * {@link DPane} scroll bar options.
+ */
+export interface DPaneScrollBarOptions {
 	vertical?: DScrollBarOptions;
 	horizontal?: DScrollBarOptions;
 }
 
+export interface DPaneScrollBar {
+	vertical: DScrollBarVertical;
+	horizontal: DScrollBarHorizontal;
+}
+
+/**
+ * {@link DPane} options.
+ */
 export interface DPaneOptions<
 	THEME extends DThemePane = DThemePane,
 	CONTENT_OPTIONS extends DBaseOptions = DContentOptions
 > extends DBaseOptions<THEME> {
+	/**
+	 * True to enable an overflow mask.
+	 */
 	mask?: boolean;
+
+	/**
+	 * Content options or a content.
+	 */
 	content?: CONTENT_OPTIONS | DBase;
-	bar?: DPaneBarOptions;
+
+	/**
+	 * Scroll bar options.
+	 */
+	scrollbar?: DPaneScrollBarOptions;
+
+	/**
+	 * Drag options.
+	 */
 	drag?: DPaneDragOptions;
 }
 
@@ -40,25 +69,6 @@ export interface DThemePane extends DThemeBase {
 	getWheelSpeed(): number;
 	getDragMode(): DDragMode;
 }
-
-// Option parsers
-const isOverflowMaskEnabled = <
-	THEME extends DThemePane,
-	CONTENT_OPTIONS extends DBaseOptions
->( theme: THEME, options?: DPaneOptions<THEME, CONTENT_OPTIONS> ): boolean => {
-	if( options && options.mask != null ) {
-		return options.mask;
-	}
-	return theme.isOverflowMaskEnabled();
-};
-
-const toBarOptionsVertical = ( options?: DPaneOptions ): DScrollBarOptions | undefined => {
-	return options && options.bar && options.bar.vertical;
-};
-
-const toBarOptionsHorizontal = ( options?: DPaneOptions ): DScrollBarOptions | undefined => {
-	return options && options.bar && options.bar.horizontal;
-};
 
 // Class
 export class DPane<
@@ -71,8 +81,7 @@ export class DPane<
 
 	protected _content!: DBase;
 	protected _overflowMask!: DBaseOverflowMask | null;
-	protected _verticalBar?: DScrollBarVertical;
-	protected _horizontalBar?: DScrollBarHorizontal;
+	protected _scrollbar?: DPaneScrollBar;
 	protected _dragUtil?: UtilDrag;
 
 	protected init( options?: OPTIONS ) {
@@ -83,26 +92,39 @@ export class DPane<
 		// Content
 		const theme = this.theme;
 		const content = this._content = this.toContent( options );
-		if( isOverflowMaskEnabled( theme, options ) ) {
+		if( options?.mask ?? theme.isOverflowMaskEnabled() ) {
 			this.mask = this.getOrCreateOverflowMask();
 		}
 		this.addChild( content );
 
 		// Scroll bar
-		this.initScrollBar( content, theme, options );
+		const scrollbar = this.newScrollBar( theme, options?.scrollbar );
+		this._scrollbar = scrollbar;
+		scrollbar.vertical.on( "regionmove", ( start: number ): void => {
+			this.onRegionMoveY( content, start );
+		});
+		scrollbar.horizontal.on( "regionmove", ( start: number ): void => {
+			this.onRegionMoveX( content, start );
+		});
+		this.addChild( scrollbar.vertical );
+		this.addChild( scrollbar.horizontal );
+		content.on( "move", (): void => {
+			this.onContentChange();
+		});
+		content.on( "resize", (): void => {
+			this.onContentChange();
+		});
+		this.updateScrollBar();
 
 		// Drag
 		this.initDrag( content, theme, options );
 	}
 
 	protected initDrag( content: DBase, theme: THEME, options?: OPTIONS ): void {
-		const dragMode = ( options && options.drag && options.drag.mode != null ?
-			( isString( options.drag.mode ) ? DDragMode[ options.drag.mode ] : options.drag.mode ) :
-			theme.getDragMode()
-		);
 		// Edge does not fire the wheel event when scrolling using the 2-fingure scroll gesture on a touchpad.
 		// Instead, it fires touch events. This is why the dragging is enabled regardless of the `UtilPointerEvent.touchable`.
 		// https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/7134034/
+		const dragMode = toEnum( options?.drag?.mode ?? theme.getDragMode(), DDragMode );
 		if( dragMode === DDragMode.ON || dragMode === DDragMode.TOUCH ) {
 			const position = new Point();
 			this._dragUtil = new UtilDrag({
@@ -140,29 +162,11 @@ export class DPane<
 		content.y = - content.height * start;
 	}
 
-	protected initScrollBar( content: DBase, theme: THEME, options?: OPTIONS ): void {
-		// Vertical bar
-		const verticalBar = this._verticalBar = new DScrollBarVertical( toBarOptionsVertical( options ) );
-		verticalBar.on( "regionmove", ( start: number ): void => {
-			this.onRegionMoveY( content, start );
-		});
-		this.addChild( verticalBar );
-
-		// Horizontal bar
-		const horizontalBar = this._horizontalBar = new DScrollBarHorizontal( toBarOptionsHorizontal( options ) );
-		horizontalBar.on( "regionmove", ( start: number ): void => {
-			this.onRegionMoveX( content, start );
-		});
-		this.addChild( horizontalBar );
-
-		//
-		content.on( "move", (): void => {
-			this.onContentChange();
-		});
-		content.on( "resize", (): void => {
-			this.onContentChange();
-		});
-		this.updateScrollBar();
+	protected newScrollBar( theme: THEME, options?: DPaneScrollBarOptions ): DPaneScrollBar {
+		return {
+			vertical: new DScrollBarVertical( options?.vertical ),
+			horizontal: new DScrollBarHorizontal( options?.horizontal )
+		};
 	}
 
 	protected getType(): string {
@@ -174,8 +178,8 @@ export class DPane<
 	}
 
 	protected toContent( options?: OPTIONS ): DBase {
-		if( options && options.content ) {
-			const content = options.content;
+		const content = options?.content;
+		if( content ) {
 			if( content instanceof DBase ) {
 				return content;
 			} else {
@@ -251,12 +255,13 @@ export class DPane<
 	}
 
 	protected updateScrollBar(): void {
-		const verticalBar = this._verticalBar;
-		const horizontalBar = this._horizontalBar;
-		if( verticalBar != null && horizontalBar != null ) {
-			this.updateScrollBarRegions( verticalBar, horizontalBar );
-			this.updateScrollBarVisibilities( verticalBar, horizontalBar );
-			this.updateScrollBarPositions( verticalBar, horizontalBar );
+		const scrollbar = this._scrollbar;
+		if( scrollbar != null ) {
+			const vertical = scrollbar.vertical;
+			const horizontal = scrollbar.horizontal;
+			this.updateScrollBarRegions( vertical, horizontal );
+			this.updateScrollBarVisibilities( vertical, horizontal );
+			this.updateScrollBarPositions( vertical, horizontal );
 		}
 	}
 
@@ -276,39 +281,39 @@ export class DPane<
 		return size * 0.5;
 	}
 
-	protected updateScrollBarPositions( verticalBar: DScrollBarVertical, horizontalBar: DScrollBarHorizontal ): void {
+	protected updateScrollBarPositions( vertical: DScrollBarVertical, horizontal: DScrollBarHorizontal ): void {
 		const width = this.width;
 		const height = this.height;
 
-		const verticalBarWidth = verticalBar.width;
-		const verticalBarOffsetStart = this.getScrollBarOffsetVerticalStart( verticalBarWidth );
-		const verticalBarOffsetEnd = this.getScrollBarOffsetVerticalEnd( verticalBarWidth );
-		verticalBar.position.set( width - verticalBarWidth, verticalBarOffsetStart );
-		verticalBar.height = height - verticalBarOffsetStart - verticalBarOffsetEnd;
+		const verticalWidth = vertical.width;
+		const verticalOffsetStart = this.getScrollBarOffsetVerticalStart( verticalWidth );
+		const verticalOffsetEnd = this.getScrollBarOffsetVerticalEnd( verticalWidth );
+		vertical.position.set( width - verticalWidth, verticalOffsetStart );
+		vertical.height = height - verticalOffsetStart - verticalOffsetEnd;
 
-		const horizontalBarHeight = horizontalBar.height;
-		const horizontalBarOffsetStart = this.getScrollBarOffsetHorizontalStart( horizontalBarHeight );
-		const horizontalBarOffsetEnd = this.getScrollBarOffsetHorizontalEnd( horizontalBarHeight );
-		horizontalBar.position.set( horizontalBarOffsetStart, height - horizontalBarHeight );
-		horizontalBar.width = width - horizontalBarOffsetStart - horizontalBarOffsetEnd;
+		const horizontalHeight = horizontal.height;
+		const horizontalOffsetStart = this.getScrollBarOffsetHorizontalStart( horizontalHeight );
+		const horizontalOffsetEnd = this.getScrollBarOffsetHorizontalEnd( horizontalHeight );
+		horizontal.position.set( horizontalOffsetStart, height - horizontalHeight );
+		horizontal.width = width - horizontalOffsetStart - horizontalOffsetEnd;
 	}
 
-	protected updateScrollBarRegions( verticalBar: DScrollBarVertical, horizontalBar: DScrollBarHorizontal ): void {
+	protected updateScrollBarRegions( vertical: DScrollBarVertical, horizontal: DScrollBarHorizontal ): void {
 		const content = this._content;
 		const x = -content.x;
 		const y = -content.y;
-		horizontalBar.setRegion( x, x + this.width, content.width );
-		verticalBar.setRegion( y, y + this.height, content.height );
+		horizontal.setRegion( x, x + this.width, content.width );
+		vertical.setRegion( y, y + this.height, content.height );
 	}
 
-	protected updateScrollBarVisibilities( verticalBar: DScrollBarVertical, horizontalBar: DScrollBarHorizontal ): void {
-		const isChangedHorizontal = this.updateScrollBarVisibility( horizontalBar );
-		const isChangedVertical = this.updateScrollBarVisibility( verticalBar );
+	protected updateScrollBarVisibilities( vertical: DScrollBarVertical, horizontal: DScrollBarHorizontal ): void {
+		const isChangedHorizontal = this.updateScrollBarVisibility( horizontal );
+		const isChangedVertical = this.updateScrollBarVisibility( vertical );
 		if( isChangedHorizontal || isChangedVertical ) {
 			// Update the overflow mask
 			const overflowMask = this._overflowMask;
 			if( overflowMask != null ) {
-				if( horizontalBar.visible || verticalBar.visible ) {
+				if( horizontal.visible || vertical.visible ) {
 					const content = this._content;
 					if( content.mask !== overflowMask ) {
 						content.mask = overflowMask;
@@ -326,10 +331,10 @@ export class DPane<
 		}
 	}
 
-	protected updateScrollBarVisibility( bar: DScrollBar ): boolean {
-		const isRegionVisible = bar.isRegionVisible();
-		if( bar.visible !== isRegionVisible ) {
-			bar.visible = isRegionVisible;
+	protected updateScrollBarVisibility( scrollbar: DScrollBar ): boolean {
+		const isRegionVisible = scrollbar.isRegionVisible();
+		if( scrollbar.visible !== isRegionVisible ) {
+			scrollbar.visible = isRegionVisible;
 			return true;
 		}
 		return false;
