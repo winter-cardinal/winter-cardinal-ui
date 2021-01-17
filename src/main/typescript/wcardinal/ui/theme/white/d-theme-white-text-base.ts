@@ -32,7 +32,7 @@ export class DThemeWhiteTextBase<VALUE> extends DThemeWhiteBase implements DThem
 		return true;
 	}
 
-	getTextFormatter(): ( value: any, caller: any ) => string {
+	getTextFormatter(): ( value: VALUE, caller: any ) => string {
 		return toString;
 	}
 

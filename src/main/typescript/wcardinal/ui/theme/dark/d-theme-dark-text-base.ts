@@ -32,7 +32,7 @@ export class DThemeDarkTextBase<VALUE> extends DThemeDarkBase implements DThemeT
 		return true;
 	}
 
-	getTextFormatter(): ( value: any, caller: any ) => string {
+	getTextFormatter(): ( value: VALUE, caller: any ) => string {
 		return toString;
 	}
 
