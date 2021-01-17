@@ -24,7 +24,7 @@ export abstract class DScrollBar extends DBase<DThemeScrollBar, DScrollBarOption
 
 		this._start = 0;
 		this._end = 1;
-		const thumb = this._thumb = this.createThumb( options != null ? options.thumb : undefined );
+		const thumb = this._thumb = this.createThumb( options?.thumb );
 		this.addChild( thumb );
 		this.state.isFocusable = false;
 	}

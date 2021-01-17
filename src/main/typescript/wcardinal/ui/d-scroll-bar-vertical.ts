@@ -49,13 +49,13 @@ export class DScrollBarVertical extends DScrollBar {
 		const thumb = this._thumb;
 		const width = this.width;
 		const height = this.height;
-		const thumbMinimumSize = Math.min( height * 0.5, thumb.getMinimumSize() );
-		const space = height - thumbMinimumSize;
+		const thumbMinimumLength = Math.min( height * 0.5, thumb.getMinimumLength() );
+		const space = height - thumbMinimumLength;
 		const barStart = space * this._start;
-		const barSize = space * this._end + thumbMinimumSize - barStart;
+		const barLength = space * this._end + thumbMinimumLength - barStart;
 
 		thumb.position.set( 0, barStart );
-		thumb.resize( width, barSize );
+		thumb.resize( width, barLength );
 
 		super.onRegionChange();
 	}

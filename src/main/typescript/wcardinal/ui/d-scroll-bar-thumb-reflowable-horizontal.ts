@@ -15,18 +15,17 @@ export class DScrollBarThumbReflowableHorizontal extends Graphics implements DRe
 	}
 
 	onReflow( base: DBase, width: number, height: number ): void {
-		const state = base.state;
-
 		this.clear();
-
-		const background = base.background;
-		const backgroundColor = background.getColor( state );
-		const backgroundAlpha = background.getAlpha( state );
-		if( backgroundColor != null ) {
-			const size = 1;
-			this.beginFill( backgroundColor, backgroundAlpha );
+		const state = base.state;
+		const border = base.border;
+		const borderColor = border.getColor( state );
+		if( borderColor != null ) {
+			const borderAlpha = border.getAlpha( state );
+			const borderWidth = border.getWidth( state );
+			const borderAlign = border.getAlign( state );
+			this.beginFill( borderColor, borderAlpha );
 			this.lineStyle( 0, 0, 0, 0 );
-			this.drawRect( 0, height * 0.5 - size, width, size * 2 );
+			this.drawRect( 0, height - borderWidth - borderAlign, width, borderWidth );
 			this.endFill();
 			this.visible = true;
 		} else {
