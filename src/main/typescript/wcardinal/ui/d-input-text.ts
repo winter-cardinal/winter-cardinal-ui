@@ -3,9 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseStateSet } from "./d-base-state-set";
 import { DInput, DInputOptions, DThemeInput } from "./d-input";
-import { DStateAwareOrValueMightBe } from "./d-state-aware";
 
 export interface DInputTextOptions<
 	THEME extends DThemeInputText = DThemeInputText
@@ -13,13 +11,8 @@ export interface DInputTextOptions<
 
 }
 
-export interface DThemeInputText extends DThemeInput {
-	getEditingFormatter(): ( value: string, caller: any ) => string;
-	getEditingUnformatter(): ( text: string, caller: any ) => string;
-	getEditingValidator(): ( value: string, caller: any ) => unknown;
-	getTextFormatter(): ( value: string, caller: any ) => string;
-	getTextValue( state: DBaseStateSet ): string;
-	newTextValue(): DStateAwareOrValueMightBe<string>;
+export interface DThemeInputText extends DThemeInput<string> {
+
 }
 
 export class DInputText<

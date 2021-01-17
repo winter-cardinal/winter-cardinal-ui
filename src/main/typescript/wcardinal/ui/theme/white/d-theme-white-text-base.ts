@@ -6,11 +6,12 @@
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignVertical } from "../../d-align-vertical";
 import { DBaseStateSet } from "../../d-base-state-set";
+import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeTextBase } from "../../d-text-base";
 import { toString } from "../../util/to-string";
 import { DThemeWhiteBase } from "./d-theme-white-base";
 
-export class DThemeWhiteTextBase extends DThemeWhiteBase implements DThemeTextBase {
+export class DThemeWhiteTextBase<VALUE> extends DThemeWhiteBase implements DThemeTextBase<VALUE> {
 	getTextAlignVertical(): DAlignVertical {
 		return DAlignVertical.MIDDLE;
 	}
@@ -31,15 +32,15 @@ export class DThemeWhiteTextBase extends DThemeWhiteBase implements DThemeTextBa
 		return true;
 	}
 
-	newTextValue(): any {
-		return "";
-	}
-
-	getTextValue( state: DBaseStateSet ): any {
-		return "";
-	}
-
-	getTextFormatter(): ( value: any, caller: any ) => string {
+	getTextFormatter(): ( value: VALUE, caller: any ) => string {
 		return toString;
+	}
+
+	getTextValue( state: DBaseStateSet ): VALUE | undefined {
+		return undefined;
+	}
+
+	newTextValue(): DStateAwareOrValueMightBe<VALUE> {
+		return undefined;
 	}
 }

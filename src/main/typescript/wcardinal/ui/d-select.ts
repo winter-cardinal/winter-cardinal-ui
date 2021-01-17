@@ -35,7 +35,7 @@ export interface DSelectOnOptions<VALUE, EMITTER> extends Partial<DSelectEvents<
  */
 export interface DSelectOptions<
 	VALUE = unknown,
-	THEME extends DThemeSelect = DThemeSelect,
+	THEME extends DThemeSelect<VALUE> = DThemeSelect<VALUE>,
 	EMITTER = any
 > extends DDropdownBaseOptions<VALUE, DMenuItem<VALUE> | null, THEME, EMITTER> {
 	/**
@@ -49,7 +49,7 @@ export interface DSelectOptions<
 /**
  * {@link DSelect} theme.
  */
-export interface DThemeSelect extends DThemeDropdownBase<DMenuItem<any> | null> {
+export interface DThemeSelect<VALUE> extends DThemeDropdownBase<DMenuItem<VALUE> | null> {
 
 }
 
@@ -58,7 +58,7 @@ export interface DThemeSelect extends DThemeDropdownBase<DMenuItem<any> | null> 
  */
 export class DSelect<
 	VALUE = unknown,
-	THEME extends DThemeSelect = DThemeSelect,
+	THEME extends DThemeSelect<VALUE> = DThemeSelect<VALUE>,
 	OPTIONS extends DSelectOptions<VALUE, THEME> = DSelectOptions<VALUE, THEME>
 > extends DDropdownBase<VALUE, DMenuItem<VALUE> | null, THEME, OPTIONS> {
 	protected _value!: VALUE | null;
@@ -72,8 +72,8 @@ export class DSelect<
 	protected init( options?: OPTIONS ) {
 		super.init( options );
 
-		this._onSelectedBound = ( value: VALUE, child: DMenuItem<VALUE> ): void => {
-			this.onSelected( value, child, true );
+		this._onSelectedBound = ( itemValue: VALUE, item: DMenuItem<VALUE> ): void => {
+			this.onSelected( itemValue, item, true );
 		};
 		this._onClosedBound = (): void => {
 			this.onClosed();
@@ -81,8 +81,9 @@ export class DSelect<
 
 		// Default value
 		this._value = null;
-		if( options && options.value !== undefined ) {
-			this.value = options.value;
+		const value = options?.value;
+		if( value !== undefined ) {
+			this.value = value;
 		}
 	}
 

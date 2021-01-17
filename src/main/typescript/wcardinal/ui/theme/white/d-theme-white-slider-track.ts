@@ -8,7 +8,7 @@ import { DThemeSliderTrack } from "../../d-slider-track";
 import { DThemeWhiteButton } from "./d-theme-white-button";
 import { DThemeWhiteSliders } from "./d-theme-white-sliders";
 
-export class DThemeWhiteSliderTrack extends DThemeWhiteButton implements DThemeSliderTrack {
+export class DThemeWhiteSliderTrack<VALUE> extends DThemeWhiteButton<VALUE> implements DThemeSliderTrack<VALUE> {
 	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return DThemeWhiteSliders.getBackgroundColor( state );
 	}

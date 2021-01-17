@@ -3,9 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseStateSet } from "./d-base-state-set";
 import { DImage, DImageOptions, DThemeImage } from "./d-image";
-import { DStateAwareOrValueMightBe } from "./d-state-aware";
 
 export interface DTableCategoryCellOptions<
 	THEME extends DThemeTableCategoryCell = DThemeTableCategoryCell
@@ -13,10 +11,8 @@ export interface DTableCategoryCellOptions<
 
 }
 
-export interface DThemeTableCategoryCell extends DThemeImage {
-	getTextFormatter(): ( value: string | null, caller: DTableCategoryCell ) => string;
-	getTextValue( state: DBaseStateSet ): string | null;
-	newTextValue(): DStateAwareOrValueMightBe<string | null>;
+export interface DThemeTableCategoryCell extends DThemeImage<string | null> {
+
 }
 
 export class DTableCategoryCell<

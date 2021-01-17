@@ -7,18 +7,18 @@ import { DButton, DButtonOptions, DThemeButton } from "./d-button";
 
 export interface DSliderTrackOptions<
 	VALUE = unknown,
-	THEME extends DThemeSliderTrack = DThemeSliderTrack
+	THEME extends DThemeSliderTrack<VALUE> = DThemeSliderTrack<VALUE>
 > extends DButtonOptions<VALUE, THEME> {
 
 }
 
-export interface DThemeSliderTrack extends DThemeButton {
+export interface DThemeSliderTrack<VALUE> extends DThemeButton<VALUE> {
 
 }
 
 export class DSliderTrack<
 	VALUE = unknown,
-	THEME extends DThemeSliderTrack = DThemeSliderTrack,
+	THEME extends DThemeSliderTrack<VALUE> = DThemeSliderTrack<VALUE>,
 	OPTIONS extends DSliderTrackOptions<VALUE, THEME> = DSliderTrackOptions<VALUE, THEME>
 > extends DButton<VALUE, THEME, OPTIONS> {
 	protected getType(): string {

@@ -9,7 +9,7 @@ import {
 
 export class DDialogProcessingMessage<
 	VALUE = unknown,
-	THEME extends DThemeDialogConfirmMessage = DThemeDialogConfirmMessage,
+	THEME extends DThemeDialogConfirmMessage<VALUE> = DThemeDialogConfirmMessage<VALUE>,
 	OPTIONS extends DDialogConfirmMessageOptions<VALUE, THEME> = DDialogConfirmMessageOptions<VALUE, THEME>
 > extends DDialogConfirmMessage<VALUE, THEME, OPTIONS> {
 	protected getType(): string {

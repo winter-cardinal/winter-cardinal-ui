@@ -11,7 +11,7 @@ export interface DPickerDatetimeLabelOptions<
 
 }
 
-export interface DThemePickerDatetimeLabel extends DThemeText {
+export interface DThemePickerDatetimeLabel extends DThemeText<Date> {
 
 }
 

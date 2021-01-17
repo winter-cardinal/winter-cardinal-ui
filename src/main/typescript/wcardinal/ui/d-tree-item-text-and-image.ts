@@ -10,7 +10,7 @@ export interface DTreeItemTextAndImageOptions<
 
 }
 
-export interface DThemeTreeItemTextAndImage extends DThemeImage {
+export interface DThemeTreeItemTextAndImage extends DThemeImage<string> {
 
 }
 

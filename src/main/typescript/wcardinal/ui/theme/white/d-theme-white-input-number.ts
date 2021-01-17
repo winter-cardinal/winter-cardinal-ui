@@ -4,12 +4,11 @@
  */
 
 import { DAlignHorizontal } from "../../d-align-horizontal";
-import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeInputNumber } from "../../d-input-number";
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeWhiteInput } from "./d-theme-white-input";
 
-export class DThemeWhiteInputNumber extends DThemeWhiteInput implements DThemeInputNumber {
+export class DThemeWhiteInputNumber extends DThemeWhiteInput<number> implements DThemeInputNumber {
 	getTextAlignHorizontal(): DAlignHorizontal {
 		return DAlignHorizontal.CENTER;
 	}
@@ -27,10 +26,6 @@ export class DThemeWhiteInputNumber extends DThemeWhiteInput implements DThemeIn
 	}
 
 	newTextValue(): DStateAwareOrValueMightBe<number> {
-		return 0;
-	}
-
-	getTextValue( state: DBaseStateSet ): number {
 		return 0;
 	}
 }

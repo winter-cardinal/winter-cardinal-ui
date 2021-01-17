@@ -24,7 +24,7 @@ export interface DButtonOnOptions<VALUE, EMITTER> extends Partial<DButtonEvents<
  */
 export interface DButtonOptions<
 	VALUE = unknown,
-	THEME extends DThemeButton = DThemeButton,
+	THEME extends DThemeButton<VALUE> = DThemeButton<VALUE>,
 	EMITTER = any
 > extends DButtonBaseOptions<VALUE, THEME, EMITTER> {
 	on?: DButtonOnOptions<VALUE, EMITTER>;
@@ -33,7 +33,7 @@ export interface DButtonOptions<
 /**
  * {@link DButton} theme.
  */
-export interface DThemeButton extends DThemeButtonBase {
+export interface DThemeButton<VALUE> extends DThemeButtonBase<VALUE> {
 
 }
 
@@ -42,7 +42,7 @@ export interface DThemeButton extends DThemeButtonBase {
  */
 export class DButton<
 	VALUE = unknown,
-	THEME extends DThemeButton = DThemeButton,
+	THEME extends DThemeButton<VALUE> = DThemeButton<VALUE>,
 	OPTIONS extends DButtonOptions<VALUE, THEME> = DButtonOptions<VALUE, THEME>
 > extends DButtonBase<VALUE, THEME, OPTIONS> {
 	protected getType(): string {

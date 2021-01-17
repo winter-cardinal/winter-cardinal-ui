@@ -11,7 +11,7 @@ import { DCornerMask } from "../../d-corner-mask";
 import { DThemeTreeItemTextAndImage } from "../../d-tree-item-text-and-image";
 import { DThemeDarkImage } from "./d-theme-dark-image";
 
-export class DThemeDarkTreeItemTextAndImage extends DThemeDarkImage implements DThemeTreeItemTextAndImage {
+export class DThemeDarkTreeItemTextAndImage extends DThemeDarkImage<string> implements DThemeTreeItemTextAndImage {
 	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return null;
 	}

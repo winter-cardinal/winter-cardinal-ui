@@ -25,7 +25,7 @@ DThemeDarkAtlas.add( "menu_item_expandable_header_opened", 14, 14,
 	`</g>`
 );
 
-export class DThemeDarkTreeItemToggleIcon extends DThemeDarkImage implements DThemeTreeItemToggleIcon {
+export class DThemeDarkTreeItemToggleIcon extends DThemeDarkImage<string> implements DThemeTreeItemToggleIcon {
 	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return null;
 	}

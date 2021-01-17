@@ -5,7 +5,6 @@
 
 import { Texture } from "pixi.js";
 import { DApplications } from "./d-applications";
-import { DBaseStateSet } from "./d-base-state-set";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DColorGradientObservable } from "./d-color-gradient-observable";
 import { DDialogColorGradient, DDialogColorGradientOptions } from "./d-dialog-color-gradient";
@@ -46,11 +45,8 @@ export interface DButtonColorGradientOptions<
 /**
  * {@link DButtonColorGradient} theme.
  */
-export interface DThemeButtonColorGradient extends DThemeButton {
+export interface DThemeButtonColorGradient extends DThemeButton<DColorGradientObservable> {
 	getViewBaseTexture(): Texture | null;
-	getTextFormatter(): ( value: DColorGradientObservable, caller: DButtonColorGradient ) => string;
-	getTextValue( state: DBaseStateSet ): DColorGradientObservable;
-	newTextValue(): DColorGradientObservable;
 	getCheckerColors(): [ number, number ];
 }
 
@@ -66,8 +62,8 @@ export class DButtonColorGradient<
 	protected init( options?: OPTIONS ) {
 		super.init( options );
 
-		const data = this._textValueComputed;
-		this._dialogOptions = options && options.dialog;
+		const data = this._textValueComputed!;
+		this._dialogOptions = options?.dialog;
 
 		if( options == null || options.image == null || options.image.source === undefined ) {
 			const theme = this.theme;
@@ -119,7 +115,7 @@ export class DButtonColorGradient<
 	}
 
 	get value(): DColorGradientObservable {
-		return this._textValueComputed;
+		return this._textValueComputed!;
 	}
 
 	protected getType(): string {

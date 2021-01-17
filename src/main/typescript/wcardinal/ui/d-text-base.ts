@@ -56,7 +56,7 @@ export interface DTextBaseOnOptions<VALUE, EMITTER> extends Partial<DTextBaseEve
  */
 export interface DTextBaseOptions<
 	VALUE = unknown,
-	THEME extends DThemeTextBase = DThemeTextBase,
+	THEME extends DThemeTextBase<VALUE> = DThemeTextBase<VALUE>,
 	EMITTER = any
 > extends DBaseOptions<THEME, EMITTER> {
 	text?: DTextBaseTextOptions<VALUE>;
@@ -67,14 +67,14 @@ export interface DTextBaseOptions<
 /**
  * {@link DTextBase} theme.
  */
-export interface DThemeTextBase extends DThemeBase {
-	getTextFormatter(): ( value: any, caller: any ) => string;
+export interface DThemeTextBase<VALUE> extends DThemeBase {
+	getTextFormatter(): ( value: VALUE, caller: any ) => string;
 
 	/**
 	 * Returns a new text value.
 	 * Called to initialize a text value if a text value is not given.
 	 */
-	newTextValue(): any;
+	newTextValue(): DStateAwareOrValueMightBe<VALUE>;
 
 	/**
 	 * Returns a text value.
@@ -82,7 +82,7 @@ export interface DThemeTextBase extends DThemeBase {
 	 *
 	 * @param state a state
 	 */
-	getTextValue( state: DBaseStateSet ): any;
+	getTextValue( state: DBaseStateSet ): VALUE | undefined;
 
 	getTextAlignVertical(): DAlignVertical;
 	getTextAlignHorizontal(): DAlignHorizontal;
@@ -95,17 +95,8 @@ export interface DThemeTextBase extends DThemeBase {
 	isTextDynamic(): boolean;
 }
 
-// Option parser
-const toTextValue = <VALUE, THEME extends DThemeTextBase>(
-	theme: DThemeTextBase,
-	options: DTextBaseOptions<VALUE, THEME> | undefined
-): DStateAwareOrValueMightBe<VALUE> => {
-	const value = options?.text?.value;
-	return ( value !== undefined ? value : theme.newTextValue() );
-};
-
-const toTextStyle = <VALUE, THEME extends DThemeTextBase>(
-	theme: DThemeTextBase, options: DTextBaseOptions<VALUE, THEME> | undefined, state: DBaseStateSet
+const toTextStyle = <VALUE, THEME extends DThemeTextBase<VALUE>>(
+	theme: THEME, options: DTextBaseOptions<VALUE, THEME> | undefined, state: DBaseStateSet
 ): DDynamicTextStyleOptions => {
 	const style = options?.text?.style;
 	if( style != null ) {
@@ -138,8 +129,8 @@ const toTextStyle = <VALUE, THEME extends DThemeTextBase>(
 	};
 };
 
-const toTextAlign = <VALUE, THEME extends DThemeTextBase>(
-	theme: DThemeTextBase, options?: DTextBaseOptions<VALUE, THEME>
+const toTextAlign = <VALUE, THEME extends DThemeTextBase<VALUE>>(
+	theme: THEME, options?: DTextBaseOptions<VALUE, THEME>
 ): { vertical: DAlignVertical, horizontal: DAlignHorizontal } => {
 	const align = options?.text?.align;
 	if( align != null ) {
@@ -168,12 +159,12 @@ const toTextAlign = <VALUE, THEME extends DThemeTextBase>(
  */
 export class DTextBase<
 	VALUE = unknown,
-	THEME extends DThemeTextBase = DThemeTextBase,
+	THEME extends DThemeTextBase<VALUE> = DThemeTextBase<VALUE>,
 	OPTIONS extends DTextBaseOptions<VALUE, THEME> = DTextBaseOptions<VALUE, THEME>
 > extends DBase<THEME, OPTIONS> {
 	protected _text?: DDynamicText | Text | null;
-	protected _textValue!: DStateAwareOrValueMightBe<VALUE>;
-	protected _textValueComputed!: VALUE;
+	protected _textValue?: DStateAwareOrValueMightBe<VALUE>;
+	protected _textValueComputed?: VALUE;
 	protected _textColor!: DStateAwareOrValueMightBe<number>;
 	protected _textAlpha!: DStateAwareOrValueMightBe<number>;
 	protected _textStyle!: DDynamicTextStyleOptions;
@@ -190,14 +181,15 @@ export class DTextBase<
 		super.init( options );
 
 		const theme = this.theme;
-		this._textValue = toTextValue( theme, options );
+		this._textValue = ( options?.text?.value ?? theme.newTextValue() );
 		this._textValueComputed = this.computeTextValue();
-		this._textColor = options?.text?.color;
-		this._textAlpha = options?.text?.alpha;
+		const text = options?.text;
+		this._textColor = text?.color;
+		this._textAlpha = text?.alpha;
 		this._textStyle = toTextStyle( theme, options, this.state );
 		this._textAlign = toTextAlign( theme, options );
-		this._textFormatter = ( options?.text?.formatter ?? theme.getTextFormatter() );
-		this._textDynamic = ( options?.text?.dynamic ?? theme.isTextDynamic() );
+		this._textFormatter = ( text?.formatter ?? theme.getTextFormatter() );
+		this._textDynamic = ( text?.dynamic ?? theme.isTextDynamic() );
 		this._isOverflowMaskEnabled = ( options?.mask ?? theme.isOverflowMaskEnabled() );
 		this._overflowMask = null;
 		this.onTextChange();
@@ -219,7 +211,7 @@ export class DTextBase<
 		// DO NOTHING
 	}
 
-	protected computeTextValue(): VALUE {
+	protected computeTextValue(): VALUE | undefined {
 		const textValue = this._textValue;
 		if( textValue !== undefined ) {
 			if( isFunction( textValue ) ) {
@@ -231,28 +223,31 @@ export class DTextBase<
 				return textValue;
 			}
 		}
-		return this.theme.getTextValue( this.state ) as VALUE;
+		return this.theme.getTextValue( this.state );
 	}
 
 	protected createOrUpdateText(): void {
-		const formatted = this._textFormatter( this._textValueComputed, this );
-		const text = this._text;
-		if( text == null ) {
-			if( 0 < formatted.length ) {
-				const newText = this.createText( formatted );
-				this._text = newText;
-				this.addChild( newText );
-				this.updateTextPosition( newText );
-				if( this._isOverflowMaskEnabled ) {
-					newText.mask = this.getOrCreateOverflowMask();
+		const textValueComputed = this._textValueComputed;
+		if( textValueComputed !== undefined ) {
+			const formatted = this._textFormatter( textValueComputed, this );
+			const text = this._text;
+			if( text == null ) {
+				if( 0 < formatted.length ) {
+					const newText = this.createText( formatted );
+					this._text = newText;
+					this.addChild( newText );
+					this.updateTextPosition( newText );
+					if( this._isOverflowMaskEnabled ) {
+						newText.mask = this.getOrCreateOverflowMask();
+					}
+					this.toDirty();
+					DApplications.update( this );
 				}
+			} else {
+				text.text = formatted;
 				this.toDirty();
 				DApplications.update( this );
 			}
-		} else {
-			text.text = formatted;
-			this.toDirty();
-			DApplications.update( this );
 		}
 	}
 

@@ -7,18 +7,18 @@ import { DButton, DButtonOptions, DThemeButton } from "./d-button";
 
 export interface DButtonAmbientOptions<
 	VALUE = unknown,
-	THEME extends DThemeButtonAmbient = DThemeButtonAmbient
+	THEME extends DThemeButtonAmbient<VALUE> = DThemeButtonAmbient<VALUE>
 > extends DButtonOptions<VALUE, THEME> {
 
 }
 
-export interface DThemeButtonAmbient extends DThemeButton {
+export interface DThemeButtonAmbient<VALUE> extends DThemeButton<VALUE> {
 
 }
 
 export class DButtonAmbient<
 	VALUE = unknown,
-	THEME extends DThemeButtonAmbient = DThemeButtonAmbient,
+	THEME extends DThemeButtonAmbient<VALUE> = DThemeButtonAmbient<VALUE>,
 	OPTIONS extends DButtonAmbientOptions<VALUE, THEME> = DButtonAmbientOptions<VALUE, THEME>
 > extends DButton<VALUE, THEME, OPTIONS> {
 	protected getType(): string {

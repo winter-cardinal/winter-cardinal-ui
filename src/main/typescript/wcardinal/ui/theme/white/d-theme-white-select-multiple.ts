@@ -3,14 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseStateSet } from "../../d-base-state-set";
 import { DMenuItem } from "../../d-menu-item";
 import { DThemeSelectMultiple } from "../../d-select-multiple";
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { isString } from "../../util/is-string";
 import { DThemeWhiteDropdownBase } from "./d-theme-white-dropdown-base";
 
-const formatter = ( values: Array<DMenuItem<any>> ): string => {
+const formatter = <VALUE>( values: Array<DMenuItem<VALUE>> ): string => {
 	if( values ) {
 		let result = "";
 		let delimiter = "";
@@ -33,18 +32,14 @@ const formatter = ( values: Array<DMenuItem<any>> ): string => {
 	return "";
 };
 
-export class DThemeWhiteSelectMultiple extends DThemeWhiteDropdownBase<Array<DMenuItem<any>>>
-	implements DThemeSelectMultiple {
+export class DThemeWhiteSelectMultiple<VALUE> extends DThemeWhiteDropdownBase<Array<DMenuItem<VALUE>>>
+	implements DThemeSelectMultiple<VALUE> {
 
-	newTextValue(): DStateAwareOrValueMightBe<Array<DMenuItem<any>>> {
-		return [];
-	}
-
-	getTextValue( state: DBaseStateSet ): Array<DMenuItem<any>> {
-		return [];
-	}
-
-	getTextFormatter(): ( value: any, caller: any ) => string {
+	getTextFormatter(): ( value: Array<DMenuItem<VALUE>>, caller: any ) => string {
 		return formatter;
+	}
+
+	newTextValue(): DStateAwareOrValueMightBe<Array<DMenuItem<VALUE>>> {
+		return [];
 	}
 }

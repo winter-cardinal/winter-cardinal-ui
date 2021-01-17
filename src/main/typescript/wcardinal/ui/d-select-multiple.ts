@@ -46,7 +46,7 @@ export interface DSelectMultipleOnOptions<VALUE, EMITTER> extends Partial<DSelec
  */
 export interface DSelectMultipleOptions<
 	VALUE = unknown,
-	THEME extends DThemeSelectMultiple = DThemeSelectMultiple,
+	THEME extends DThemeSelectMultiple<VALUE> = DThemeSelectMultiple<VALUE>,
 	EMITTER = any
 > extends DDropdownBaseOptions<VALUE, Array<DMenuItem<VALUE>>, THEME, EMITTER> {
 	/**
@@ -60,7 +60,7 @@ export interface DSelectMultipleOptions<
 /**
  * {@link DSelectMultiple} theme.
  */
-export interface DThemeSelectMultiple extends DThemeDropdownBase<Array<DMenuItem<any>>> {
+export interface DThemeSelectMultiple<VALUE> extends DThemeDropdownBase<Array<DMenuItem<VALUE>>> {
 
 }
 
@@ -69,7 +69,7 @@ export interface DThemeSelectMultiple extends DThemeDropdownBase<Array<DMenuItem
  */
 export class DSelectMultiple<
 	VALUE = unknown,
-	THEME extends DThemeSelectMultiple = DThemeSelectMultiple,
+	THEME extends DThemeSelectMultiple<VALUE> = DThemeSelectMultiple<VALUE>,
 	OPTIONS extends DSelectMultipleOptions<VALUE, THEME> = DSelectMultipleOptions<VALUE, THEME>
 > extends DDropdownBase<VALUE, Array<DMenuItem<VALUE>>, THEME, OPTIONS> {
 	protected _values!: VALUE[];

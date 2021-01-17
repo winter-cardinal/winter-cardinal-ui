@@ -6,7 +6,6 @@
 import { interaction, Point } from "pixi.js";
 import { DBaseStateSet } from "./d-base-state-set";
 import { DImage, DImageOptions, DThemeImage } from "./d-image";
-import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { DTableCellState } from "./d-table-cell-state";
 import { DTableColumn } from "./d-table-column";
 import {
@@ -32,10 +31,8 @@ export interface DTableHeaderCellOptions<
 	check?: DTableHeaderCellCheckOptions;
 }
 
-export interface DThemeTableHeaderCell extends DThemeImage {
-	getTextFormatter(): ( value: string | null, caller: DTableHeaderCell<unknown> ) => string;
-	getTextValue( state: DBaseStateSet ): string | null;
-	newTextValue(): DStateAwareOrValueMightBe<string | null>;
+export interface DThemeTableHeaderCell extends DThemeImage<string | null> {
+
 }
 
 export class DTableHeaderCell<

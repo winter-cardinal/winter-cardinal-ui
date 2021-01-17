@@ -11,7 +11,7 @@ import { UtilRgb } from "../../util/util-rgb";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkImageBase } from "./d-theme-dark-image-base";
 
-export class DThemeDarkButtonBase extends DThemeDarkImageBase implements DThemeButtonBase {
+export class DThemeDarkButtonBase<VALUE> extends DThemeDarkImageBase<VALUE> implements DThemeButtonBase<VALUE> {
 	protected readonly BACKGROUND_COLOR: number;
 	protected readonly BACKGROUND_COLOR_HOVERED: number;
 	protected readonly BACKGROUND_COLOR_PRESSED: number;

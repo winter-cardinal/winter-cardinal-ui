@@ -42,7 +42,7 @@ export interface DButtonBaseOnOptions<VALUE, EMITTER> extends Partial<DButtonBas
  */
 export interface DButtonBaseOptions<
 	VALUE = unknown,
-	THEME extends DThemeButtonBase = DThemeButtonBase,
+	THEME extends DThemeButtonBase<VALUE> = DThemeButtonBase<VALUE>,
 	EMITTER = any
 > extends DImageBaseOptions<VALUE, THEME, EMITTER> {
 	/**
@@ -64,22 +64,12 @@ export interface DButtonBaseOptions<
 /**
  * {@link DButtonBase} theme.
  */
-export interface DThemeButtonBase extends DThemeImageBase {
+export interface DThemeButtonBase<VALUE> extends DThemeImageBase<VALUE> {
 	/**
 	 * Returns true to turn a toggle mode on.
 	 */
 	isToggle(): boolean;
 }
-
-// Option parser
-const isToggle = <VALUE, THEME extends DThemeButtonBase>(
-	theme: DThemeButtonBase, options: DButtonBaseOptions<VALUE, THEME> | undefined
-): boolean => {
-	if( options != null && options.toggle != null ) {
-		return options.toggle;
-	}
-	return theme.isToggle();
-};
 
 /**
  * A base class for button classes.
@@ -87,7 +77,7 @@ const isToggle = <VALUE, THEME extends DThemeButtonBase>(
  */
 export class DButtonBase<
 	VALUE = unknown,
-	THEME extends DThemeButtonBase = DThemeButtonBase,
+	THEME extends DThemeButtonBase<VALUE> = DThemeButtonBase<VALUE>,
 	OPTIONS extends DButtonBaseOptions<VALUE, THEME> = DButtonBaseOptions<VALUE, THEME>
 > extends DImageBase<VALUE, THEME, OPTIONS> {
 	protected _isToggle!: boolean;
@@ -96,7 +86,7 @@ export class DButtonBase<
 		super.init( options );
 
 		this.buttonMode = true;
-		this._isToggle = isToggle( this.theme, options );
+		this._isToggle = ( options?.toggle ?? this.theme.isToggle() );
 
 		// Event handlers
 		this.initOnClick( options );
@@ -105,7 +95,7 @@ export class DButtonBase<
 		}
 
 		// Group
-		const group = options && options.group;
+		const group = options?.group;
 		if( group ) {
 			group.add( this );
 		}

@@ -6,7 +6,7 @@
 import { utils } from "pixi.js";
 import { DTableDataSelectionOptions, DTableDataSelectionType } from "./d-table-data-selection";
 import { DTableDataTreeSelection, DTableDataTreeSelectionParent } from "./d-table-data-tree-selection";
-import { isString } from "./util";
+import { toEnum } from "./util/to-enum";
 
 const COMPARATOR = ( a: [number, unknown], b: [number, unknown] ): number => {
 	return a[ 0 ] - b[ 0 ];
@@ -20,14 +20,15 @@ export class DTableDataTreeSelectionImpl<NODE> extends utils.EventEmitter implem
 	constructor( parent: DTableDataTreeSelectionParent<NODE>, options?: DTableDataSelectionOptions ) {
 		super();
 		this._parent = parent;
-		this._type = this.toType( options );
+		this._type = toEnum( options?.type ?? DTableDataSelectionType.NONE, DTableDataSelectionType );
 		this._rows = new Set<NODE>();
 	}
 
 	onNodeChange( nodes?: NODE[] ): void {
 		if( nodes != null ) {
+			const toChildren = this._parent.accessor.toChildren;
 			const oldRows = this._rows;
-			const newRows = this.newRows( nodes, this._parent.accessor.toChildren, oldRows, new Set<NODE>() );
+			const newRows = this.newRows( nodes, toChildren, oldRows, new Set<NODE>() );
 			if( oldRows.size !== newRows.size ) {
 				this._rows = newRows;
 				this.onChange();
@@ -56,11 +57,6 @@ export class DTableDataTreeSelectionImpl<NODE> extends utils.EventEmitter implem
 			}
 		}
 		return result;
-	}
-
-	protected toType( options?: DTableDataSelectionOptions ): DTableDataSelectionType {
-		const type = options?.type ?? DTableDataSelectionType.NONE;
-		return ( isString( type ) ? DTableDataSelectionType[ type ] : type );
 	}
 
 	get indices(): number[] {

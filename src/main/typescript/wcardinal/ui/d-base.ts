@@ -39,6 +39,7 @@ import { UtilKeyboardEvent, UtilKeyboardEventShortcut } from "./util/util-keyboa
 import { UtilPointerEvent } from "./util/util-pointer-event";
 import { UtilWheelEventDeltas } from "./util/util-wheel-event";
 import { DBaseAutoSet } from "./d-base-auto-set";
+import { toEnum } from "./util/to-enum";
 
 /**
  * {@link DBase} padding options.
@@ -765,8 +766,7 @@ export class DBase<
 		this._befores = [];
 		this._afters = [];
 		this._reflowables = [];
-		const clear = options?.clear ?? theme.getClearType();
-		this._clearType = ( isString( clear ) ? DLayoutClearType[ clear ] : clear );
+		this._clearType = toEnum( options?.clear ?? theme.getClearType(), DLayoutClearType );
 		this._padding = new DBasePadding( theme, options, (): void => {
 			this.layout();
 			this.toChildrenDirty();
@@ -838,8 +838,7 @@ export class DBase<
 		});
 
 		// Interactive
-		let interactive = options?.interactive ?? theme.getInteractive();
-		interactive = ( isString( interactive ) ? DBaseInteractive[ interactive ] : interactive );
+		const interactive = toEnum( options?.interactive ?? theme.getInteractive(), DBaseInteractive );
 		this.interactive = ( ( interactive & DBaseInteractive.SELF ) !== 0 );
 		this.interactiveChildren = ( ( interactive & DBaseInteractive.CHILDREN ) !== 0 );
 

@@ -3,46 +3,45 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction, Point, Rectangle, Renderer, Text } from "pixi.js";
+import { interaction, Point, Rectangle, Renderer } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBase } from "./d-base";
 import { DBaseStateSet } from "./d-base-state-set";
-import { DDynamicText } from "./d-dynamic-text";
 import { DHtmlElementWhen } from "./d-html-element-when";
 import { DImageBase, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
 import { DPadding } from "./d-padding";
-import { isString } from "./util/is-string";
+import { toEnum } from "./util/to-enum";
 
 export type DHtmlElementElementCreator<T> = ( parent: HTMLElement ) => T;
 
-export type DHtmlElementStyle<THEME extends DThemeHtmlElement> = (
+export type DHtmlElementStyle<THEME> = (
 	target: HTMLElement,
 	state: DBaseStateSet, theme: THEME, padding: DPadding,
 	elementRect: Rectangle, clipperRect: Rectangle
 ) => void;
 
-export type DHtmlElementStyleBefore<THEME extends DThemeHtmlElement> =
+export type DHtmlElementStyleBefore<THEME> =
 	( target: HTMLElement, theme: THEME ) => void;
 
-export type DHtmlElementStyleAfter<THEME extends DThemeHtmlElement> =
+export type DHtmlElementStyleAfter<THEME> =
 	( target: HTMLElement, theme: THEME ) => void;
 
-export interface DHtmlElementElementOptions<ELEMENT, THEME extends DThemeHtmlElement> {
+export interface DHtmlElementElementOptions<ELEMENT, THEME> {
 	creator?: DHtmlElementElementCreator<ELEMENT>;
 	style?: DHtmlElementStyle<THEME>;
 }
 
-export interface DHtmlElementClipperOptions<THEME extends DThemeHtmlElement> {
+export interface DHtmlElementClipperOptions<THEME> {
 	creator?: DHtmlElementElementCreator<HTMLDivElement>;
 	style?: DHtmlElementStyle<THEME>;
 }
 
-export interface DHtmlElementBeforeOptions<THEME extends DThemeHtmlElement> {
+export interface DHtmlElementBeforeOptions<THEME> {
 	creator?: DHtmlElementElementCreator<HTMLDivElement>;
 	style?: DHtmlElementStyleBefore<THEME>;
 }
 
-export interface DHtmlElementAfterOptions<THEME extends DThemeHtmlElement> {
+export interface DHtmlElementAfterOptions<THEME> {
 	creator?: DHtmlElementElementCreator<HTMLDivElement>;
 	style?: DHtmlElementStyleAfter<THEME>;
 }
@@ -50,7 +49,7 @@ export interface DHtmlElementAfterOptions<THEME extends DThemeHtmlElement> {
 export interface DHtmlElementOptions<
 	VALUE = unknown,
 	ELEMENT extends HTMLElement = HTMLElement,
-	THEME extends DThemeHtmlElement<ELEMENT> = DThemeHtmlElement<ELEMENT>
+	THEME extends DThemeHtmlElement<VALUE, ELEMENT> = DThemeHtmlElement<VALUE, ELEMENT>
 > extends DImageBaseOptions<VALUE, THEME> {
 	element?: DHtmlElementElementOptions<ELEMENT, THEME>;
 	clipper?: DHtmlElementClipperOptions<THEME>;
@@ -61,8 +60,9 @@ export interface DHtmlElementOptions<
 }
 
 export interface DThemeHtmlElement<
+	VALUE,
 	ELEMENT extends HTMLElement = HTMLElement
-> extends DThemeImageBase {
+> extends DThemeImageBase<VALUE> {
 	getElementCreator(): DHtmlElementElementCreator<ELEMENT> | null;
 	setElementStyle(
 		target: ELEMENT, state: DBaseStateSet, padding: DPadding,
@@ -84,7 +84,7 @@ export interface DThemeHtmlElement<
 export class DHtmlElement<
 	VALUE = unknown,
 	ELEMENT extends HTMLElement = HTMLElement,
-	THEME extends DThemeHtmlElement<ELEMENT> = DThemeHtmlElement<ELEMENT>,
+	THEME extends DThemeHtmlElement<VALUE, ELEMENT> = DThemeHtmlElement<VALUE, ELEMENT>,
 	OPTIONS extends DHtmlElementOptions<VALUE, ELEMENT, THEME> = DHtmlElementOptions<VALUE, ELEMENT, THEME>
 > extends DImageBase<VALUE, THEME, OPTIONS> {
 	protected _workPoint!: Point | null;
@@ -161,8 +161,7 @@ export class DHtmlElement<
 		this._doSelectBound = () => {
 			this.doSelect();
 		};
-		let when = options?.when ?? theme.getWhen();
-		when = ( isString( when ) ? DHtmlElementWhen[ when ] : when );
+		const when = toEnum( options?.when ?? theme.getWhen(), DHtmlElementWhen );
 		this._when = when;
 		this._isStartRequested = ( when === DHtmlElementWhen.ALWAYS );
 	}

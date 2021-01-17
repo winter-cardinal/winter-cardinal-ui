@@ -9,20 +9,22 @@ import {
 
 export interface DTableBodyCellActionPromiseOptions<
 	ROW = unknown,
-	THEME extends DThemeTableBodyCellActionPromise = DThemeTableBodyCellActionPromise
-> extends DTableBodyCellSelectPromiseOptions<ROW, unknown, THEME> {
+	VALUE = unknown,
+	THEME extends DThemeTableBodyCellActionPromise<VALUE> = DThemeTableBodyCellActionPromise<VALUE>
+> extends DTableBodyCellSelectPromiseOptions<ROW, VALUE, THEME> {
 
 }
 
-export interface DThemeTableBodyCellActionPromise extends DThemeTableBodyCellSelectPromise {
+export interface DThemeTableBodyCellActionPromise<VALUE> extends DThemeTableBodyCellSelectPromise<VALUE> {
 
 }
 
 export class DTableBodyCellActionPromise<
 	ROW = unknown,
-	THEME extends DThemeTableBodyCellActionPromise = DThemeTableBodyCellActionPromise,
-	OPTIONS extends DTableBodyCellActionPromiseOptions<ROW, THEME> = DTableBodyCellActionPromiseOptions<ROW, THEME>
-> extends DTableBodyCellSelectPromise<ROW, unknown, THEME, OPTIONS> {
+	VALUE = unknown,
+	THEME extends DThemeTableBodyCellActionPromise<VALUE> = DThemeTableBodyCellActionPromise<VALUE>,
+	OPTIONS extends DTableBodyCellActionPromiseOptions<ROW, VALUE, THEME> = DTableBodyCellActionPromiseOptions<ROW, VALUE, THEME>
+> extends DTableBodyCellSelectPromise<ROW, VALUE, THEME, OPTIONS> {
 	protected getType(): string {
 		return "DTableBodyCellActionPromise";
 	}

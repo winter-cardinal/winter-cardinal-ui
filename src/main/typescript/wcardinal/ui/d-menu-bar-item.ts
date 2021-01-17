@@ -11,18 +11,18 @@ import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 
 export interface DMenuBarItemOptions<
 	VALUE = unknown,
-	THEME extends DThemeMenuBarItem = DThemeMenuBarItem
+	THEME extends DThemeMenuBarItem<VALUE> = DThemeMenuBarItem<VALUE>
 > extends DButtonOptions<VALUE, THEME> {
 	menu?: DMenuOptions<VALUE> | DMenu<VALUE>;
 }
 
-export interface DThemeMenuBarItem extends DThemeButton {
+export interface DThemeMenuBarItem<VALUE> extends DThemeButton<VALUE> {
 
 }
 
 export class DMenuBarItem<
 	VALUE = unknown,
-	THEME extends DThemeMenuBarItem = DThemeMenuBarItem,
+	THEME extends DThemeMenuBarItem<VALUE> = DThemeMenuBarItem<VALUE>,
 	OPTIONS extends DMenuBarItemOptions<VALUE, THEME> = DMenuBarItemOptions<VALUE, THEME>
 > extends DButton<VALUE, THEME, OPTIONS> {
 	protected _menu!: DMenu<VALUE>;

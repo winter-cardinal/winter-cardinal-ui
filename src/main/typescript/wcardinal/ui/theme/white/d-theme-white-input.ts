@@ -11,12 +11,12 @@ import { UtilRgb } from "../../util/util-rgb";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteHtmlElement } from "./d-theme-white-html-element";
 
-const editingValidator = (): unknown => {
+const editingValidator = (): string | null => {
 	return null;
 };
 
-const editingUnformatter = ( text: string ): string => {
-	return text;
+const editingUnformatter = <VALUE>( text: string ): VALUE => {
+	return text as any;
 };
 
 const CREATOR_CLASSNAME = "d-theme-white-input";
@@ -59,7 +59,7 @@ const afterCreator = ( parent: HTMLElement ): HTMLDivElement => {
 	return divCreator( parent, CREATOR_CLASSNAME_AFTER );
 };
 
-export class DThemeWhiteInput extends DThemeWhiteHtmlElement<HTMLInputElement> implements DThemeInput {
+export class DThemeWhiteInput<VALUE> extends DThemeWhiteHtmlElement<VALUE, HTMLInputElement> implements DThemeInput<VALUE> {
 	protected readonly BACKGROUND_COLOR = DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD;
 	protected readonly BACKGROUND_COLOR_HOVERED = UtilRgb.darken( this.BACKGROUND_COLOR, 0.017 );
 
@@ -108,15 +108,15 @@ export class DThemeWhiteInput extends DThemeWhiteHtmlElement<HTMLInputElement> i
 		return "text";
 	}
 
-	getEditingFormatter(): ( value: any, caller: any ) => string {
+	getEditingFormatter(): ( value: VALUE, caller: any ) => string {
 		return this.getTextFormatter();
 	}
 
-	getEditingUnformatter(): ( text: string, caller: any ) => any {
+	getEditingUnformatter(): ( text: string, caller: any ) => VALUE {
 		return editingUnformatter;
 	}
 
-	getEditingValidator(): ( value: any, caller: any ) => unknown {
+	getEditingValidator(): ( value: VALUE, caller: any ) => string | null {
 		return editingValidator;
 	}
 

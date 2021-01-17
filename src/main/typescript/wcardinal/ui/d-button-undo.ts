@@ -8,7 +8,7 @@ import { DControllers } from "./d-controllers";
 
 export class DButtonUndo<
 	VALUE = unknown,
-	THEME extends DThemeButton = DThemeButton,
+	THEME extends DThemeButton<VALUE> = DThemeButton<VALUE>,
 	OPTIONS extends DButtonOptions<VALUE, THEME> = DButtonOptions<VALUE, THEME>
 > extends DButton<VALUE, THEME, OPTIONS> {
 	constructor( options?: OPTIONS ) {

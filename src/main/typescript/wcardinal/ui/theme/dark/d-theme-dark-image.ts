@@ -6,6 +6,6 @@
 import { DThemeImage } from "../../d-image";
 import { DThemeDarkImageBase } from "./d-theme-dark-image-base";
 
-export class DThemeDarkImage extends DThemeDarkImageBase implements DThemeImage {
+export class DThemeDarkImage<VALUE> extends DThemeDarkImageBase<VALUE> implements DThemeImage<VALUE> {
 
 }

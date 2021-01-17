@@ -18,8 +18,8 @@ DThemeWhiteAtlas.add( "picker_date_next", 24, 24,
 	`</g>`
 );
 
-export class DThemeWhitePickerDatetimeButtonNext
-	extends DThemeWhiteButtonAmbient implements DThemePickerDatetimeButtonNext {
+export class DThemeWhitePickerDatetimeButtonNext<VALUE>
+	extends DThemeWhiteButtonAmbient<VALUE> implements DThemePickerDatetimeButtonNext<VALUE> {
 	getWidth(): DCoordinateSize {
 		return "auto";
 	}

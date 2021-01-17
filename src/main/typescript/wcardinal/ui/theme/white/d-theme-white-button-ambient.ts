@@ -8,7 +8,7 @@ import { DThemeButtonAmbient } from "../../d-button-ambient";
 import { DThemeWhiteButtonBase } from "./d-theme-white-button-base";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 
-export class DThemeWhiteButtonAmbient extends DThemeWhiteButtonBase implements DThemeButtonAmbient {
+export class DThemeWhiteButtonAmbient<VALUE> extends DThemeWhiteButtonBase<VALUE> implements DThemeButtonAmbient<VALUE> {
 	getBackgroundColor( state: DBaseStateSet ): number | null {
 		if( state.isActive ) {
 			return DThemeWhiteConstants.HIGHLIGHT_COLOR;

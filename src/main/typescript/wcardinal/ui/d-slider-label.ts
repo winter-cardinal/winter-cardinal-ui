@@ -7,18 +7,18 @@ import { DTextBase, DTextBaseOptions, DThemeTextBase } from "./d-text-base";
 
 export interface DSliderLabelOptions<
 	VALUE = unknown,
-	THEME extends DThemeSliderLabel = DThemeSliderLabel
+	THEME extends DThemeSliderLabel<VALUE> = DThemeSliderLabel<VALUE>
 > extends DTextBaseOptions<VALUE, THEME> {
 	value?: number;
 }
 
-export interface DThemeSliderLabel extends DThemeTextBase {
+export interface DThemeSliderLabel<VALUE> extends DThemeTextBase<VALUE> {
 
 }
 
 export class DSliderLabel<
 	VALUE = unknown,
-	THEME extends DThemeSliderLabel = DThemeSliderLabel,
+	THEME extends DThemeSliderLabel<VALUE> = DThemeSliderLabel<VALUE>,
 	OPTIONS extends DSliderLabelOptions<VALUE, THEME> = DSliderLabelOptions<VALUE, THEME>
 > extends DTextBase<VALUE, THEME, OPTIONS> {
 	protected _value!: number;

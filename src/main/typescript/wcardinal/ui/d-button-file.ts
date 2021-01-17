@@ -4,7 +4,7 @@
  */
 
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
-import { isString } from "./util/is-string";
+import { toEnum } from "./util/to-enum";
 import { UtilFileAs, UtilFileEvents, UtilFileOpener } from "./util/util-file-opener";
 
 export import DButtonFileAs = UtilFileAs;
@@ -28,7 +28,7 @@ export interface DButtonFileOnOptions<VALUE, EMITTER> extends Partial<DButtonFil
  */
 export interface DButtonFileOptions<
 	VALUE = unknown,
-	THEME extends DThemeButtonFile = DThemeButtonFile,
+	THEME extends DThemeButtonFile<VALUE> = DThemeButtonFile<VALUE>,
 	EMITTER = any
 > extends DButtonOptions<VALUE, THEME, EMITTER> {
 	/**
@@ -49,7 +49,7 @@ export interface DButtonFileOptions<
 /**
  * {@link DButtonFile} theme.
  */
-export interface DThemeButtonFile extends DThemeButton {
+export interface DThemeButtonFile<VALUE> extends DThemeButton<VALUE> {
 
 }
 
@@ -58,7 +58,7 @@ export interface DThemeButtonFile extends DThemeButton {
  */
 export class DButtonFile<
 	VALUE = unknown,
-	THEME extends DThemeButtonFile = DThemeButtonFile,
+	THEME extends DThemeButtonFile<VALUE> = DThemeButtonFile<VALUE>,
 	OPTIONS extends DButtonFileOptions<VALUE, THEME> = DButtonFileOptions<VALUE, THEME>
 > extends DButton<VALUE, THEME, OPTIONS> {
 	protected _checker!: (() => Promise<unknown> | boolean) | undefined;
@@ -67,11 +67,8 @@ export class DButtonFile<
 	protected init( options?: OPTIONS ): void {
 		super.init( options );
 
-		this._checker = ( options != null && options.checker != null ? options.checker : undefined );
-		const as: DButtonFileAs = ( options != null && options.as != null ?
-			( isString( options.as ) ? DButtonFileAs[ options.as ] : options.as ) :
-			DButtonFileAs.TEXT
-		);
+		this._checker = options?.checker;
+		const as = toEnum( options?.as ?? DButtonFileAs.TEXT, DButtonFileAs );
 		const opener = new UtilFileOpener( as, this );
 		this._opener = opener;
 		this.on( "active", (): void => {

@@ -6,6 +6,7 @@
 import { Texture } from "pixi.js";
 import { DButtonColorGradient, DThemeButtonColorGradient } from "../../d-button-color-gradient";
 import { DColorGradientObservable } from "../../d-color-gradient-observable";
+import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
 import { DThemeDarkButton } from "./d-theme-dark-button";
 
@@ -21,7 +22,7 @@ const formatter = (): string => {
 	return "";
 };
 
-export class DThemeDarkButtonColorGradient extends DThemeDarkButton implements DThemeButtonColorGradient {
+export class DThemeDarkButtonColorGradient extends DThemeDarkButton<DColorGradientObservable> implements DThemeButtonColorGradient {
 	getViewBaseTexture(): Texture | null {
 		return DThemeDarkAtlas.mappings.button_color_gradient_sample;
 	}
@@ -30,7 +31,7 @@ export class DThemeDarkButtonColorGradient extends DThemeDarkButton implements D
 		return formatter;
 	}
 
-	newTextValue(): DColorGradientObservable {
+	newTextValue(): DStateAwareOrValueMightBe<DColorGradientObservable> {
 		return new DColorGradientObservable();
 	}
 

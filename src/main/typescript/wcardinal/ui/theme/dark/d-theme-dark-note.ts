@@ -9,7 +9,7 @@ import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeNote } from "../../d-note";
 import { DThemeDarkText } from "./d-theme-dark-text";
 
-export class DThemeDarkNote extends DThemeDarkText implements DThemeNote {
+export class DThemeDarkNote<VALUE> extends DThemeDarkText<VALUE> implements DThemeNote<VALUE> {
 	getWidth(): DCoordinateSize {
 		return "100%";
 	}

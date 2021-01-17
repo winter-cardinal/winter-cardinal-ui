@@ -11,19 +11,19 @@ import { DTableColumn } from "./d-table-column";
 export interface DTableBodyCellSelectMenuOptions<
 	ROW = unknown,
 	VALUE = unknown,
-	THEME extends DThemeTableBodyCellSelectMenu = DThemeTableBodyCellSelectMenu
+	THEME extends DThemeTableBodyCellSelectMenu<VALUE> = DThemeTableBodyCellSelectMenu<VALUE>
 > extends DSelectOptions<VALUE, THEME> {
 
 }
 
-export interface DThemeTableBodyCellSelectMenu extends DThemeSelect {
+export interface DThemeTableBodyCellSelectMenu<VALUE> extends DThemeSelect<VALUE> {
 
 }
 
 export class DTableBodyCellSelectMenu<
 	ROW = unknown,
 	VALUE = unknown,
-	THEME extends DThemeTableBodyCellSelectMenu = DThemeTableBodyCellSelectMenu,
+	THEME extends DThemeTableBodyCellSelectMenu<VALUE> = DThemeTableBodyCellSelectMenu<VALUE>,
 	OPTIONS extends DTableBodyCellSelectMenuOptions<ROW, VALUE, THEME> = DTableBodyCellSelectMenuOptions<ROW, VALUE, THEME>
 > extends DSelect<VALUE, THEME, OPTIONS> implements DTableBodyCell<ROW> {
 	protected _row?: ROW;

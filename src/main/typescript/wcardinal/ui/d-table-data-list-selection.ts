@@ -5,7 +5,7 @@
 
 import { utils } from "pixi.js";
 import { DTableDataSelection, DTableDataSelectionOptions, DTableDataSelectionParent, DTableDataSelectionType } from "./d-table-data-selection";
-import { isString } from "./util/is-string";
+import { toEnum } from "./util/to-enum";
 
 const COMPARATOR = ( a: [number, unknown], b: [number, unknown] ): number => {
 	return a[ 0 ] - b[ 0 ];
@@ -20,13 +20,8 @@ export class DTableDataListSelection<ROW> extends utils.EventEmitter implements 
 		super();
 
 		this._parent = parent;
-		this._type = this.toType( options );
+		this._type = toEnum( options?.type ?? DTableDataSelectionType.NONE, DTableDataSelectionType );
 		this._indices = new Set<number>();
-	}
-
-	protected toType( options?: DTableDataSelectionOptions ): DTableDataSelectionType {
-		const type = options?.type ?? DTableDataSelectionType.NONE;
-		return ( isString( type ) ? DTableDataSelectionType[ type ] : type );
 	}
 
 	get type(): DTableDataSelectionType {

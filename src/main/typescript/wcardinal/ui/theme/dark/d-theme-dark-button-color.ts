@@ -7,6 +7,7 @@ import { Texture } from "pixi.js";
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DButtonColor, DThemeButtonColor } from "../../d-button-color";
 import { DColorAndAlpha } from "../../d-color-and-alpha";
+import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { UtilRgb } from "../../util/util-rgb";
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
 import { DThemeDarkButton } from "./d-theme-dark-button";
@@ -23,7 +24,7 @@ const formatter = ( colorAndAlpha: DColorAndAlpha ): string => {
 	return `#${UtilRgb.toCode( colorAndAlpha.color )} A${ colorAndAlpha.alpha.toFixed(2) }`;
 };
 
-export class DThemeDarkButtonColor extends DThemeDarkButton implements DThemeButtonColor {
+export class DThemeDarkButtonColor extends DThemeDarkButton<DColorAndAlpha> implements DThemeButtonColor {
 	getImageTintColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
@@ -36,7 +37,7 @@ export class DThemeDarkButtonColor extends DThemeDarkButton implements DThemeBut
 		return formatter;
 	}
 
-	newTextValue(): DColorAndAlpha {
+	newTextValue(): DStateAwareOrValueMightBe<DColorAndAlpha> {
 		return {
 			color: 0xDEDEDE,
 			alpha: 1

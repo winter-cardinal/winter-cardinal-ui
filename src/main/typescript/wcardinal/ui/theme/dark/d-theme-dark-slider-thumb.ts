@@ -16,7 +16,7 @@ DThemeDarkAtlas.add( "slider_thumb", 16, 16,
 	`<circle cx="8" cy="8" r="7.5" stroke="none" fill="#ffffff" />`
 );
 
-export class DThemeDarkSliderThumb extends DThemeDarkButton implements DThemeSliderThumb {
+export class DThemeDarkSliderThumb<VALUE> extends DThemeDarkButton<VALUE> implements DThemeSliderThumb<VALUE> {
 	getX(): DCoordinatePosition {
 		return "CENTER";
 	}

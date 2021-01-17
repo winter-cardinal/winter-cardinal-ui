@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseStateSet } from "./d-base-state-set";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogSelect, DDialogSelectOptions } from "./d-dialog-select";
 
@@ -54,7 +53,7 @@ export interface DButtonSelectOptions<
 	VALUE extends unknown = unknown,
 	DIALOG_VALUE extends unknown = unknown,
 	DIALOG extends DButtonSelectDialog<DIALOG_VALUE> = DButtonSelectDialog<DIALOG_VALUE>,
-	THEME extends DThemeButtonSelect = DThemeButtonSelect,
+	THEME extends DThemeButtonSelect<VALUE> = DThemeButtonSelect<VALUE>,
 	EMITTER = any
 > extends DButtonOptions<VALUE | null, THEME, EMITTER> {
 	/**
@@ -79,10 +78,8 @@ export interface DButtonSelectOptions<
 /**
  * {@link DButtonSelect} theme.
  */
-export interface DThemeButtonSelect extends DThemeButton {
-	getTextFormatter(): ( value: unknown | null, caller: DButtonSelect ) => string;
-	getTextValue( state: DBaseStateSet ): unknown | null;
-	newTextValue(): unknown | null;
+export interface DThemeButtonSelect<VALUE> extends DThemeButton<VALUE | null> {
+
 }
 
 const defaultGetter = ( dialog: DButtonSelectDialog<any> ): any => {
@@ -98,7 +95,7 @@ export class DButtonSelect<
 	VALUE extends unknown = unknown,
 	DIALOG_VALUE extends unknown = unknown,
 	DIALOG extends DButtonSelectDialog<DIALOG_VALUE> = DButtonSelectDialog<DIALOG_VALUE>,
-	THEME extends DThemeButtonSelect = DThemeButtonSelect,
+	THEME extends DThemeButtonSelect<VALUE> = DThemeButtonSelect<VALUE>,
 	OPTIONS extends DButtonSelectOptions<VALUE, DIALOG_VALUE, DIALOG, THEME>
 		= DButtonSelectOptions<VALUE, DIALOG_VALUE, DIALOG, THEME>
 > extends DButton<VALUE | null, THEME, OPTIONS> {
@@ -107,11 +104,11 @@ export class DButtonSelect<
 	protected init( options?: OPTIONS ) {
 		super.init( this.toOptions( options ) );
 
-		const getter: DButtonSelectGetter<VALUE, DIALOG> = (options && options.getter) || defaultGetter;
-		const setter: DButtonSelectSetter<VALUE, DIALOG> = (options && options.setter) || defaultSetter;
+		const getter: DButtonSelectGetter<VALUE, DIALOG> = options?.getter ?? defaultGetter;
+		const setter: DButtonSelectSetter<VALUE, DIALOG> = options?.setter ?? defaultSetter;
 		this.on( "active", (): void => {
 			const dialog = this.dialog;
-			setter( dialog, this._textValueComputed );
+			setter( dialog, this._textValueComputed ?? null );
 			dialog.open().then((): void => {
 				const newValue = getter( dialog );
 				const oldValue = this._textValueComputed;
@@ -173,7 +170,11 @@ export class DButtonSelect<
 	}
 
 	get value(): VALUE | null {
-		return this._textValueComputed;
+		const textValueComputed = this._textValueComputed;
+		if( textValueComputed !== undefined ) {
+			return textValueComputed;
+		}
+		return null;
 	}
 
 	set value( value: VALUE | null ) {

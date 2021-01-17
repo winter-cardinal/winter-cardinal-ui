@@ -3,12 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseStateSet } from "./d-base-state-set";
 import { DButtonBase, DButtonBaseEvents, DButtonBaseOptions, DThemeButtonBase } from "./d-button-base";
 import { DMenu, DMenuOptions, DThemeMenu } from "./d-menu";
-import { DMenuItem } from "./d-menu-item";
-import { DStateAwareOrValueMightBe } from "./d-state-aware";
-import { isString } from "./util/is-string";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 
 /**
@@ -46,10 +42,8 @@ export interface DDropdownBaseOptions<
 /**
  * {@link DDropdownBase} theme.
  */
-export interface DThemeDropdownBase<TEXT_VALUE> extends DThemeButtonBase {
-	getTextFormatter(): ( value: TEXT_VALUE, caller: DDropdownBase ) => string;
-	getTextValue( state: DBaseStateSet ): TEXT_VALUE;
-	newTextValue(): DStateAwareOrValueMightBe<TEXT_VALUE>;
+export interface DThemeDropdownBase<TEXT_VALUE> extends DThemeButtonBase<TEXT_VALUE> {
+
 }
 
 /**
@@ -71,23 +65,8 @@ export class DDropdownBase<
 		});
 	}
 
-	protected toItemText( item: DMenuItem<VALUE> | null ): string | null {
-		if( item ) {
-			const text = item.text;
-			if( isString( text ) ) {
-				return text;
-			} else if( text != null ) {
-				const computed = text( item.state );
-				if( computed != null ) {
-					return computed;
-				}
-			}
-		}
-		return null;
-	}
-
 	protected toMenu( theme: THEME, options?: OPTIONS ): DMenu<VALUE> {
-		const menu = options && options.menu;
+		const menu = options?.menu;
 		return ( menu instanceof DMenu ? menu :
 			new DMenu<VALUE>( this.toMenuOptions( theme, menu ) )
 		);

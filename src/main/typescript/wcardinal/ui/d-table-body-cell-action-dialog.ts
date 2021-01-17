@@ -9,20 +9,22 @@ import {
 
 export interface DTableBodyCellActionDialogOptions<
 	ROW = unknown,
-	THEME extends DThemeTableBodyCellActionDialog = DThemeTableBodyCellActionDialog
-> extends DTableBodyCellSelectDialogOptions<ROW, unknown, THEME> {
+	VALUE = unknown,
+	THEME extends DThemeTableBodyCellActionDialog<VALUE> = DThemeTableBodyCellActionDialog<VALUE>
+> extends DTableBodyCellSelectDialogOptions<ROW, VALUE, THEME> {
 
 }
 
-export interface DThemeTableBodyCellActionDialog extends DThemeTableBodyCellSelectDialog {
+export interface DThemeTableBodyCellActionDialog<VALUE> extends DThemeTableBodyCellSelectDialog<VALUE> {
 
 }
 
 export class DTableBodyCellActionDialog<
 	ROW = unknown,
-	THEME extends DThemeTableBodyCellActionDialog = DThemeTableBodyCellActionDialog,
-	OPTIONS extends DTableBodyCellActionDialogOptions<ROW, THEME> = DTableBodyCellActionDialogOptions<ROW, THEME>
-> extends DTableBodyCellSelectDialog<ROW, unknown, THEME, OPTIONS> {
+	VALUE = unknown,
+	THEME extends DThemeTableBodyCellActionDialog<VALUE> = DThemeTableBodyCellActionDialog<VALUE>,
+	OPTIONS extends DTableBodyCellActionDialogOptions<ROW, VALUE, THEME> = DTableBodyCellActionDialogOptions<ROW, VALUE, THEME>
+> extends DTableBodyCellSelectDialog<ROW, VALUE, THEME, OPTIONS> {
 	protected getType(): string {
 		return "DTableBodyCellActionDialog";
 	}

@@ -7,18 +7,18 @@ import { DButtonBase, DButtonBaseOptions, DThemeButtonBase } from "./d-button-ba
 
 export interface DButtonCheckOptions<
 	VALUE = unknown,
-	THEME extends DThemeButtonCheck = DThemeButtonCheck
+	THEME extends DThemeButtonCheck<VALUE> = DThemeButtonCheck<VALUE>
 > extends DButtonBaseOptions<VALUE, THEME> {
 
 }
 
-export interface DThemeButtonCheck extends DThemeButtonBase {
+export interface DThemeButtonCheck<VALUE> extends DThemeButtonBase<VALUE> {
 
 }
 
 export class DButtonCheck<
 	VALUE = unknown,
-	THEME extends DThemeButtonCheck = DThemeButtonCheck,
+	THEME extends DThemeButtonCheck<VALUE> = DThemeButtonCheck<VALUE>,
 	OPTIONS extends DButtonCheckOptions<VALUE, THEME> = DButtonCheckOptions<VALUE, THEME>
 > extends DButtonBase<VALUE, THEME, OPTIONS> {
 	protected getType(): string {

@@ -10,14 +10,14 @@ export interface DTreeItemToggleIconOptions<
 
 }
 
-export interface DThemeTreeItemToggleIcon extends DThemeImage {
+export interface DThemeTreeItemToggleIcon extends DThemeImage<string> {
 
 }
 
 export class DTreeItemToggleIcon<
 	THEME extends DThemeTreeItemToggleIcon = DThemeTreeItemToggleIcon,
 	OPTIONS extends DTreeItemToggleIconOptions<THEME> = DTreeItemToggleIconOptions<THEME>
-> extends DImage <string, THEME, OPTIONS> {
+> extends DImage<string, THEME, OPTIONS> {
 	protected getType(): string {
 		return "DTreeItemToggleIcon";
 	}

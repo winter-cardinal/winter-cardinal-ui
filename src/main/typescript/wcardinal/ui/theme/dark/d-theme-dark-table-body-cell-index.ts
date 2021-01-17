@@ -7,6 +7,7 @@ import { DBaseStateSet } from "../../d-base-state-set";
 import { DBorderMask } from "../../d-border-mask";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
+import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DTableBodyCellIndex, DThemeTableBodyCellIndex } from "../../d-table-body-cell-index";
 import { DThemeDarkImageBase } from "./d-theme-dark-image-base";
 import { DThemeDarkTableBodyCells } from "./d-theme-dark-table-body-cells";
@@ -15,7 +16,7 @@ const formatter = ( index: unknown ): string => {
 	return String( Number( index ) + 1 );
 };
 
-export class DThemeDarkTableBodyCellIndex extends DThemeDarkImageBase implements DThemeTableBodyCellIndex {
+export class DThemeDarkTableBodyCellIndex extends DThemeDarkImageBase<number> implements DThemeTableBodyCellIndex {
 	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return DThemeDarkTableBodyCells.getBackgroundColor( state );
 	}
@@ -64,11 +65,7 @@ export class DThemeDarkTableBodyCellIndex extends DThemeDarkImageBase implements
 		return formatter;
 	}
 
-	getTextValue( state: DBaseStateSet ): number {
-		return 0;
-	}
-
-	newTextValue(): number {
+	newTextValue(): DStateAwareOrValueMightBe<number> {
 		return 0;
 	}
 }

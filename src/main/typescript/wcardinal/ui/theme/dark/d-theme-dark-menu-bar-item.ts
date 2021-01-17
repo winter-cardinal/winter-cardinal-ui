@@ -11,7 +11,7 @@ import { DThemeMenuBarItem } from "../../d-menu-bar-item";
 import { DThemeDarkButton } from "./d-theme-dark-button";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 
-export class DThemeDarkMenuBarItem extends DThemeDarkButton implements DThemeMenuBarItem {
+export class DThemeDarkMenuBarItem<VALUE> extends DThemeDarkButton<VALUE> implements DThemeMenuBarItem<VALUE> {
 	getBackgroundColor( state: DBaseStateSet ): number | null {
 		if( state.inDisabled ) {
 			return null;

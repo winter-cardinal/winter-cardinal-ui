@@ -3,9 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseStateSet } from "./d-base-state-set";
 import { DInput, DInputOptions, DThemeInput } from "./d-input";
-import { DStateAwareOrValueMightBe } from "./d-state-aware";
 
 export interface DInputNumberOptions<
 	THEME extends DThemeInputNumber = DThemeInputNumber
@@ -15,44 +13,11 @@ export interface DInputNumberOptions<
 	max?: number | null;
 }
 
-export interface DThemeInputNumber extends DThemeInput {
-	getEditingFormatter(): ( value: number, caller: any ) => string;
-	getEditingUnformatter(): ( text: string, caller: any ) => number;
-	getEditingValidator(): ( value: number, caller: any ) => unknown;
-	getTextValue( state: DBaseStateSet ): number;
-	newTextValue(): DStateAwareOrValueMightBe<number>;
+export interface DThemeInputNumber extends DThemeInput<number> {
 	getStep(): number | null;
 	getMin(): number | null;
 	getMax(): number | null;
 }
-
-// Option parser
-const toStep = <THEME extends DThemeInputNumber>(
-	theme: THEME, options?: DInputNumberOptions<THEME>
-): number | null => {
-	if( options != null ) {
-		return ( options.step != null ? options.step : theme.getStep() );
-	}
-	return null;
-};
-
-const toMin = <THEME extends DThemeInputNumber>(
-	theme: THEME, options?: DInputNumberOptions<THEME>
-): number | null => {
-	if( options != null ) {
-		return ( options.min != null ? options.min : theme.getMin() );
-	}
-	return null;
-};
-
-const toMax = <THEME extends DThemeInputNumber>(
-	theme: THEME, options?: DInputNumberOptions<THEME>
-): number | null => {
-	if( options != null ) {
-		return ( options.max != null ? options.max : theme.getMax() );
-	}
-	return null;
-};
 
 export abstract class DInputNumber<
 	THEME extends DThemeInputNumber = DThemeInputNumber,
@@ -65,9 +30,9 @@ export abstract class DInputNumber<
 	protected init( options?: OPTIONS ) {
 		super.init( options );
 		const theme = this.theme;
-		this._step = toStep( theme, options );
-		this._min = toMin( theme, options );
-		this._max = toMax( theme, options );
+		this._step = ( options?.step ?? theme.getStep() );
+		this._min = ( options?.min ?? theme.getMin() );
+		this._max = ( options?.max ?? theme.getMax() );
 	}
 
 	get step(): number | null {

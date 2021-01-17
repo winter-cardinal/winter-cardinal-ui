@@ -7,20 +7,20 @@ import { DTextBase, DTextBaseOptions, DThemeTextBase } from "./d-text-base";
 
 export interface DSliderValueOptions<
 	VALUE = number,
-	THEME extends DThemeSliderValue = DThemeSliderValue
+	THEME extends DThemeSliderValue<VALUE> = DThemeSliderValue<VALUE>
 	> extends DTextBaseOptions<VALUE, THEME> {
 	value?: number;
 	precision?: number;
 	rounder?: ( value: number ) => number;
 }
 
-export interface DThemeSliderValue extends DThemeTextBase {
+export interface DThemeSliderValue<VALUE> extends DThemeTextBase<VALUE> {
 	getPrecision(): number;
 }
 
 export class DSliderValue<
 	VALUE = number,
-	THEME extends DThemeSliderValue = DThemeSliderValue,
+	THEME extends DThemeSliderValue<VALUE> = DThemeSliderValue<VALUE>,
 	OPTIONS extends DSliderValueOptions<VALUE, THEME> = DSliderValueOptions<VALUE, THEME>
 	> extends DTextBase<VALUE, THEME, OPTIONS> {
 	protected _value!: number;

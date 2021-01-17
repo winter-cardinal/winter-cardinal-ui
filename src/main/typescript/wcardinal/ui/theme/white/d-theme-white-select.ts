@@ -3,14 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseStateSet } from "../../d-base-state-set";
 import { DMenuItem } from "../../d-menu-item";
 import { DThemeSelect } from "../../d-select";
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { isString } from "../../util/is-string";
 import { DThemeWhiteDropdownBase } from "./d-theme-white-dropdown-base";
 
-const formatter = ( value: DMenuItem<any> | null ): string => {
+const formatter = <VALUE>( value: DMenuItem<VALUE> | null ): string => {
 	if( value ) {
 		const text = value.text;
 		if( isString( text ) ) {
@@ -25,16 +24,12 @@ const formatter = ( value: DMenuItem<any> | null ): string => {
 	return "";
 };
 
-export class DThemeWhiteSelect extends DThemeWhiteDropdownBase<DMenuItem<any> | null> implements DThemeSelect {
+export class DThemeWhiteSelect<VALUE> extends DThemeWhiteDropdownBase<DMenuItem<VALUE> | null> implements DThemeSelect<VALUE> {
+	getTextFormatter(): ( value: DMenuItem<VALUE> | null, caller: any ) => string {
+		return formatter;
+	}
+
 	newTextValue(): DStateAwareOrValueMightBe<DMenuItem<any> | null> {
 		return null;
-	}
-
-	getTextValue( state: DBaseStateSet ): DMenuItem<any> | null {
-		return null;
-	}
-
-	getTextFormatter(): ( value: any, caller: any ) => string {
-		return formatter;
 	}
 }

@@ -9,18 +9,18 @@ import { DLink, DLinkOptions, DThemeLink } from "./d-link";
 
 export interface DButtonLinkOptions<
 	VALUE = unknown,
-	THEME extends DThemeButtonLink = DThemeButtonLink
+	THEME extends DThemeButtonLink<VALUE> = DThemeButtonLink<VALUE>
 > extends DButtonBaseOptions<VALUE, THEME>, DLinkOptions {
 
 }
 
-export interface DThemeButtonLink extends DThemeButtonBase, DThemeLink {
+export interface DThemeButtonLink<VALUE> extends DThemeButtonBase<VALUE>, DThemeLink {
 
 }
 
 export class DButtonLink<
 	VALUE = unknown,
-	THEME extends DThemeButtonLink = DThemeButtonLink,
+	THEME extends DThemeButtonLink<VALUE> = DThemeButtonLink<VALUE>,
 	OPTIONS extends DButtonLinkOptions<VALUE, THEME> = DButtonLinkOptions<VALUE, THEME>
 > extends DButtonBase<VALUE, THEME, OPTIONS> {
 	protected _link!: DLink;

@@ -5,7 +5,6 @@
 
 import { IPoint, Point } from "pixi.js";
 import { DApplications } from "./d-applications";
-import { DBaseStateSet } from "./d-base-state-set";
 import { DChartCoordinate } from "./d-chart-coordinate";
 import { DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesBase, DChartSeriesBaseOptions } from "./d-chart-series-base";

@@ -7,18 +7,18 @@ import { DButtonAmbient, DButtonAmbientOptions, DThemeButtonAmbient } from "./d-
 
 export interface DPickerDatetimeButtonNextOptions<
 	VALUE = unknown,
-	THEME extends DThemePickerDatetimeButtonNext = DThemePickerDatetimeButtonNext
+	THEME extends DThemePickerDatetimeButtonNext<VALUE> = DThemePickerDatetimeButtonNext<VALUE>
 > extends DButtonAmbientOptions<VALUE, THEME> {
 
 }
 
-export interface DThemePickerDatetimeButtonNext extends DThemeButtonAmbient {
+export interface DThemePickerDatetimeButtonNext<VALUE> extends DThemeButtonAmbient<VALUE> {
 
 }
 
 export class DPickerDatetimeButtonNext<
 	VALUE = unknown,
-	THEME extends DThemePickerDatetimeButtonNext = DThemePickerDatetimeButtonNext,
+	THEME extends DThemePickerDatetimeButtonNext<VALUE> = DThemePickerDatetimeButtonNext<VALUE>,
 	OPTIONS extends DPickerDatetimeButtonNextOptions<VALUE, THEME> = DPickerDatetimeButtonNextOptions<VALUE, THEME>
 > extends DButtonAmbient<VALUE, THEME, OPTIONS> {
 	protected getType(): string {

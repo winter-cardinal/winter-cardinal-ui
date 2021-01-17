@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseStateSet } from "./d-base-state-set";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogDatetime, DDialogDatetimeOptions } from "./d-dialog-datetime";
 import { DDialogDatetimes } from "./d-dialog-datetimes";
@@ -43,10 +42,8 @@ export interface DButtonDatetimeOptions<
 /**
  * {@link DButtonDatetime} theme.
  */
-export interface DThemeButtonDatetime extends DThemeButton {
-	getTextFormatter(): ( value: Date, caller: DButtonDatetime ) => string;
-	getTextValue( state: DBaseStateSet ): Date;
-	newTextValue(): Date;
+export interface DThemeButtonDatetime extends DThemeButton<Date> {
+
 }
 
 export class DButtonDatetime<
@@ -60,7 +57,7 @@ export class DButtonDatetime<
 		super.init( options );
 
 		this.on( "active", (): void => {
-			const currentTime = this._textValueComputed.getTime();
+			const currentTime = this._textValueComputed?.getTime() ?? Date.now();
 			const dialog = this.dialog;
 			dialog.current = new Date( currentTime );
 			dialog.new = new Date( currentTime );
@@ -98,11 +95,16 @@ export class DButtonDatetime<
 	}
 
 	get value(): Date {
-		return this._textValueComputed;
+		const textValueComputed = this._textValueComputed;
+		if( textValueComputed !== undefined ) {
+			return textValueComputed;
+		}
+		return new Date();
 	}
 
 	set value( value: Date ) {
-		if( this._textValueComputed.getTime() !== value.getTime() ) {
+		const textValueComputed = this._textValueComputed;
+		if( textValueComputed === undefined || textValueComputed.getTime() !== value.getTime() ) {
 			this.text = value;
 		}
 	}

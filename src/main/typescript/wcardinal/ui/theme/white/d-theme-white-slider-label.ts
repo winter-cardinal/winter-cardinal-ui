@@ -9,7 +9,7 @@ import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeSliderLabel } from "../../d-slider-label";
 import { DThemeWhiteTextBase } from "./d-theme-white-text-base";
 
-export class DThemeWhiteSliderLabel extends DThemeWhiteTextBase implements DThemeSliderLabel {
+export class DThemeWhiteSliderLabel<VALUE> extends DThemeWhiteTextBase<VALUE> implements DThemeSliderLabel<VALUE> {
 	getHeight(): DCoordinateSize {
 		return 15;
 	}

@@ -11,7 +11,7 @@ import { UtilRgb } from "../../util/util-rgb";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteImageBase } from "./d-theme-white-image-base";
 
-export class DThemeWhiteButtonBase extends DThemeWhiteImageBase implements DThemeButtonBase {
+export class DThemeWhiteButtonBase<VALUE> extends DThemeWhiteImageBase<VALUE> implements DThemeButtonBase<VALUE> {
 	protected readonly BACKGROUND_COLOR: number;
 	protected readonly BACKGROUND_COLOR_HOVERED: number;
 	protected readonly BACKGROUND_COLOR_PRESSED: number;

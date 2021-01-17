@@ -8,7 +8,7 @@ import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeInputLabel } from "../../d-input-label";
 import { DThemeWhiteText } from "./d-theme-white-text";
 
-export class DThemeWhiteInputLabel extends DThemeWhiteText implements DThemeInputLabel {
+export class DThemeWhiteInputLabel<VALUE> extends DThemeWhiteText<VALUE> implements DThemeInputLabel<VALUE> {
 	getTextAlignHorizontal(): DAlignHorizontal {
 		return DAlignHorizontal.RIGHT;
 	}

@@ -30,6 +30,7 @@ export * from "./number-formatter-impl";
 export * from "./number-formatter";
 export * from "./number-formatters";
 export * from "./to-ceiling-index";
+export * from "./to-enum";
 export * from "./to-index-of";
 export * from "./to-label";
 export * from "./to-padded";

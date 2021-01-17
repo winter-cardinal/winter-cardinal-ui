@@ -7,7 +7,6 @@ import { interaction } from "pixi.js";
 import { DBase } from "./d-base";
 import { DBaseStateSet } from "./d-base-state-set";
 import { DImage, DImageOptions, DThemeImage } from "./d-image";
-import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 
 export interface DListItemOptions<
@@ -17,9 +16,8 @@ export interface DListItemOptions<
 	value?: VALUE;
 }
 
-export interface DThemeListItem extends DThemeImage {
-	getTextValue( state: DBaseStateSet ): string;
-	newTextValue(): DStateAwareOrValueMightBe<string>;
+export interface DThemeListItem extends DThemeImage<string> {
+
 }
 
 // Option parser

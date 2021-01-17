@@ -9,18 +9,18 @@ import { UtilPointerEvent } from "./util/util-pointer-event";
 
 export interface DExpandableHeaderOptions<
 	VALUE = unknown,
-	THEME extends DThemeExpandableHeader = DThemeExpandableHeader
+	THEME extends DThemeExpandableHeader<VALUE> = DThemeExpandableHeader<VALUE>
 > extends DImageOptions<VALUE, THEME> {
 
 }
 
-export interface DThemeExpandableHeader extends DThemeImage {
+export interface DThemeExpandableHeader<VALUE> extends DThemeImage<VALUE> {
 
 }
 
 export class DExpandableHeader<
 	VALUE = unknown,
-	THEME extends DThemeExpandableHeader = DThemeExpandableHeader,
+	THEME extends DThemeExpandableHeader<VALUE> = DThemeExpandableHeader<VALUE>,
 	OPTIONS extends DExpandableHeaderOptions<VALUE, THEME> = DExpandableHeaderOptions<VALUE, THEME>
 > extends DImage<VALUE, THEME, OPTIONS> {
 	constructor( options?: OPTIONS ) {

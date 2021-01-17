@@ -22,7 +22,7 @@ DThemeWhiteAtlas.add( "menu_item_expandable_header_opened", 14, 14,
 	`</g>`
 );
 
-export class DThemeWhiteExpandableHeader extends DThemeWhiteImage implements DThemeExpandableHeader {
+export class DThemeWhiteExpandableHeader<VALUE> extends DThemeWhiteImage<VALUE> implements DThemeExpandableHeader<VALUE> {
 	getBackgroundColor( state: DBaseStateSet ): number | null {
 		if( state.inDisabled ) {
 			return null;

@@ -23,7 +23,7 @@ export interface DMenuBarOptions<
 	VALUE = unknown,
 	THEME extends DThemeMenuBar = DThemeMenuBar
 > extends DLayoutHorizontalOptions<THEME> {
-	items?: Array<DMenuBarItemOptions<VALUE, DThemeMenuBarItem> | DMenuBarItemSpaceOptions | DisplayObject>;
+	items?: Array<DMenuBarItemOptions<VALUE, DThemeMenuBarItem<VALUE>> | DMenuBarItemSpaceOptions | DisplayObject>;
 }
 
 export interface DThemeMenuBar extends DThemeLayoutHorizontal {

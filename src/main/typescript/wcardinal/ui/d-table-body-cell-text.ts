@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseStateSet } from "./d-base-state-set";
 import { DImageBase, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
 import { DTableBodyCell } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
@@ -13,16 +12,15 @@ export interface DTableBodyCellTextOptions<ROW, THEME extends DThemeTableBodyCel
 	extends DImageBaseOptions<unknown, THEME> {
 }
 
-export interface DThemeTableBodyCellText extends DThemeImageBase {
-	getTextValue( state: DBaseStateSet ): unknown;
-	newTextValue(): unknown;
+export interface DThemeTableBodyCellText extends DThemeImageBase<unknown> {
+
 }
 
 export class DTableBodyCellText<
 	ROW,
 	THEME extends DThemeTableBodyCellText = DThemeTableBodyCellText,
 	OPTIONS extends DTableBodyCellTextOptions<ROW, THEME> = DTableBodyCellTextOptions<ROW, THEME>
-> extends DImageBase<unknown | null, THEME, OPTIONS> implements DTableBodyCell<ROW> {
+> extends DImageBase<unknown, THEME, OPTIONS> implements DTableBodyCell<ROW> {
 	protected _row?: ROW;
 	protected _rowIndex!: number;
 	protected _columnIndex!: number;

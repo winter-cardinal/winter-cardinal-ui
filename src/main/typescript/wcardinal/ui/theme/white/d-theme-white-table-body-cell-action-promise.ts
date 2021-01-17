@@ -11,8 +11,8 @@ import { DThemeWhiteTableBodyCellSelectPromise } from "./d-theme-white-table-bod
 
 DThemeWhiteTableBodyCellActions.init();
 
-export class DThemeWhiteTableBodyCellActionPromise extends DThemeWhiteTableBodyCellSelectPromise
-	implements DThemeTableBodyCellActionPromise {
+export class DThemeWhiteTableBodyCellActionPromise<VALUE> extends DThemeWhiteTableBodyCellSelectPromise<VALUE>
+	implements DThemeTableBodyCellActionPromise<VALUE> {
 
 	getImageTintColor( state: DBaseStateSet ): number | null {
 		return DThemeWhiteTableBodyCellActions.getImageTintColor( state );
