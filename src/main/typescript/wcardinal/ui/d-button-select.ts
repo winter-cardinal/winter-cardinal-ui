@@ -78,7 +78,7 @@ export interface DButtonSelectOptions<
 /**
  * {@link DButtonSelect} theme.
  */
-export interface DThemeButtonSelect<VALUE> extends DThemeButton<VALUE | null> {
+export interface DThemeButtonSelect<VALUE = unknown> extends DThemeButton<VALUE | null> {
 
 }
 

@@ -18,7 +18,7 @@ DThemeDarkAtlas.add( "dropdown_mark", 20, 14,
 	`</g>`
 );
 
-export class DThemeDarkDropdownBase<TEXT_VALUE> extends DThemeDarkButtonBase<TEXT_VALUE>
+export class DThemeDarkDropdownBase<TEXT_VALUE = unknown> extends DThemeDarkButtonBase<TEXT_VALUE>
 	implements DThemeDropdownBase<TEXT_VALUE> {
 
 	constructor() {

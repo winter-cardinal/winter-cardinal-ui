@@ -16,7 +16,7 @@ export interface DMenuBarItemOptions<
 	menu?: DMenuOptions<VALUE> | DMenu<VALUE>;
 }
 
-export interface DThemeMenuBarItem<VALUE> extends DThemeButton<VALUE> {
+export interface DThemeMenuBarItem<VALUE = unknown> extends DThemeButton<VALUE> {
 
 }
 

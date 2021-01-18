@@ -12,7 +12,7 @@ export interface DDialogConfirmMessageOptions<
 
 }
 
-export interface DThemeDialogConfirmMessage<VALUE> extends DThemeImage<VALUE> {
+export interface DThemeDialogConfirmMessage<VALUE = unknown> extends DThemeImage<VALUE> {
 
 }
 

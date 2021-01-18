@@ -12,7 +12,7 @@ export interface DImageOptions<
 
 }
 
-export interface DThemeImage<VALUE> extends DThemeImageBase<VALUE> {
+export interface DThemeImage<VALUE = unknown> extends DThemeImageBase<VALUE> {
 
 }
 

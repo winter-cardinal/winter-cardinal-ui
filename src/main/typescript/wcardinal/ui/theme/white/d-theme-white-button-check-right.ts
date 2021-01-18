@@ -8,7 +8,9 @@ import { DAlignWith } from "../../d-align-with";
 import { DThemeButtonCheckRight } from "../../d-button-check-right";
 import { DThemeWhiteButtonCheck } from "./d-theme-white-button-check";
 
-export class DThemeWhiteButtonCheckRight<VALUE> extends DThemeWhiteButtonCheck<VALUE> implements DThemeButtonCheckRight<VALUE> {
+export class DThemeWhiteButtonCheckRight<VALUE = unknown> extends DThemeWhiteButtonCheck<VALUE>
+	implements DThemeButtonCheckRight<VALUE> {
+
 	getImageAlignWith(): DAlignWith {
 		return DAlignWith.PADDING;
 	}

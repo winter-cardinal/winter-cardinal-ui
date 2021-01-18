@@ -67,7 +67,7 @@ export interface DTextBaseOptions<
 /**
  * {@link DTextBase} theme.
  */
-export interface DThemeTextBase<VALUE> extends DThemeBase {
+export interface DThemeTextBase<VALUE = unknown> extends DThemeBase {
 	getTextFormatter(): ( value: VALUE, caller: any ) => string;
 
 	/**

@@ -33,7 +33,7 @@ export interface DButtonOptions<
 /**
  * {@link DButton} theme.
  */
-export interface DThemeButton<VALUE> extends DThemeButtonBase<VALUE> {
+export interface DThemeButton<VALUE = unknown> extends DThemeButtonBase<VALUE> {
 
 }
 

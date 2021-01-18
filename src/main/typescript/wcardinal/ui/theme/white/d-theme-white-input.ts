@@ -59,7 +59,9 @@ const afterCreator = ( parent: HTMLElement ): HTMLDivElement => {
 	return divCreator( parent, CREATOR_CLASSNAME_AFTER );
 };
 
-export class DThemeWhiteInput<VALUE> extends DThemeWhiteHtmlElement<VALUE, HTMLInputElement> implements DThemeInput<VALUE> {
+export class DThemeWhiteInput<VALUE = unknown> extends DThemeWhiteHtmlElement<VALUE, HTMLInputElement>
+	implements DThemeInput<VALUE> {
+
 	protected readonly BACKGROUND_COLOR = DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD;
 	protected readonly BACKGROUND_COLOR_HOVERED = UtilRgb.darken( this.BACKGROUND_COLOR, 0.017 );
 

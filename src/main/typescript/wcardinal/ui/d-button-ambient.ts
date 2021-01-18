@@ -12,7 +12,7 @@ export interface DButtonAmbientOptions<
 
 }
 
-export interface DThemeButtonAmbient<VALUE> extends DThemeButton<VALUE> {
+export interface DThemeButtonAmbient<VALUE = unknown> extends DThemeButton<VALUE> {
 
 }
 

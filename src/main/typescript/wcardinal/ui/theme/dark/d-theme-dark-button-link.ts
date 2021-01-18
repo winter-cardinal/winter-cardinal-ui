@@ -11,7 +11,9 @@ import { DThemeDarkLinks } from "./d-theme-dark-links";
 
 DThemeDarkLinks.init();
 
-export class DThemeDarkButtonLink<VALUE> extends DThemeDarkButtonAmbient<VALUE> implements DThemeButtonLink<VALUE> {
+export class DThemeDarkButtonLink<VALUE = unknown> extends DThemeDarkButtonAmbient<VALUE>
+	implements DThemeButtonLink<VALUE> {
+
 	getLinkMenuOptions(): DMenuOptions<DLinkMenuItemId> {
 		return DThemeDarkLinks.getLinkMenuOptions();
 	}

@@ -8,7 +8,9 @@ import { DThemeSliderTrack } from "../../d-slider-track";
 import { DThemeDarkButton } from "./d-theme-dark-button";
 import { DThemeDarkSliders } from "./d-theme-dark-sliders";
 
-export class DThemeDarkSliderTrack<VALUE> extends DThemeDarkButton<VALUE> implements DThemeSliderTrack<VALUE> {
+export class DThemeDarkSliderTrack<VALUE = unknown> extends DThemeDarkButton<VALUE>
+	implements DThemeSliderTrack<VALUE> {
+
 	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return DThemeDarkSliders.getBackgroundColor( state );
 	}

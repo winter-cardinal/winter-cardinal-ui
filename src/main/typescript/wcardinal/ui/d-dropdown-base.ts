@@ -42,7 +42,7 @@ export interface DDropdownBaseOptions<
 /**
  * {@link DDropdownBase} theme.
  */
-export interface DThemeDropdownBase<TEXT_VALUE> extends DThemeButtonBase<TEXT_VALUE> {
+export interface DThemeDropdownBase<TEXT_VALUE = unknown> extends DThemeButtonBase<TEXT_VALUE> {
 
 }
 

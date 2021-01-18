@@ -16,7 +16,7 @@ export interface DTableBodyCellSelectMenuOptions<
 
 }
 
-export interface DThemeTableBodyCellSelectMenu<VALUE> extends DThemeSelect<VALUE> {
+export interface DThemeTableBodyCellSelectMenu<VALUE = unknown> extends DThemeSelect<VALUE> {
 
 }
 

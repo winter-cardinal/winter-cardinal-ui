@@ -11,7 +11,7 @@ import { DThemeDarkTableBodyCellSelectDialog } from "./d-theme-dark-table-body-c
 
 DThemeDarkTableBodyCellActions.init();
 
-export class DThemeDarkTableBodyCellActionDialog<VALUE> extends DThemeDarkTableBodyCellSelectDialog<VALUE>
+export class DThemeDarkTableBodyCellActionDialog<VALUE = unknown> extends DThemeDarkTableBodyCellSelectDialog<VALUE>
 	implements DThemeTableBodyCellActionDialog<VALUE> {
 
 	getImageTintColor( state: DBaseStateSet ): number | null {

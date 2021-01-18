@@ -24,7 +24,7 @@ export interface DInputOptions<
 	editing?: DInputEditingOptions<VALUE>;
 }
 
-export interface DThemeInput<VALUE> extends DThemeHtmlElement<VALUE, HTMLInputElement> {
+export interface DThemeInput<VALUE = unknown> extends DThemeHtmlElement<VALUE, HTMLInputElement> {
 	getEditingFormatter(): ( value: VALUE, caller: any ) => string;
 	getEditingUnformatter(): ( text: string, caller: any ) => VALUE;
 	getEditingValidator(): ( value: VALUE, caller: any ) => string | null;

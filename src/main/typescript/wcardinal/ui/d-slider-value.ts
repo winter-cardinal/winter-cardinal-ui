@@ -14,7 +14,7 @@ export interface DSliderValueOptions<
 	rounder?: ( value: number ) => number;
 }
 
-export interface DThemeSliderValue<VALUE> extends DThemeTextBase<VALUE> {
+export interface DThemeSliderValue<VALUE = unknown> extends DThemeTextBase<VALUE> {
 	getPrecision(): number;
 }
 

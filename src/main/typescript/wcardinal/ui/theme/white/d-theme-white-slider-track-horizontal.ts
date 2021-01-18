@@ -7,8 +7,8 @@ import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
 import { DThemeSliderTrackHorizontal } from "../../d-slider-track-horizontal";
 import { DThemeWhiteSliderTrack } from "./d-theme-white-slider-track";
 
-export class DThemeWhiteSliderTrackHorizontal<VALUE>
-	extends DThemeWhiteSliderTrack<VALUE> implements DThemeSliderTrackHorizontal<VALUE> {
+export class DThemeWhiteSliderTrackHorizontal<VALUE = unknown> extends DThemeWhiteSliderTrack<VALUE>
+	implements DThemeSliderTrackHorizontal<VALUE> {
 
 	getX(): DCoordinatePosition {
 		return 0;

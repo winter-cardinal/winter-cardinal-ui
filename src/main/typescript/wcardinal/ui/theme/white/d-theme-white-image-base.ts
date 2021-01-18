@@ -11,7 +11,9 @@ import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeImageBase } from "../../d-image-base";
 import { DThemeWhiteTextBase } from "./d-theme-white-text-base";
 
-export class DThemeWhiteImageBase<VALUE> extends DThemeWhiteTextBase<VALUE> implements DThemeImageBase<VALUE> {
+export class DThemeWhiteImageBase<VALUE = unknown> extends DThemeWhiteTextBase<VALUE>
+	implements DThemeImageBase<VALUE> {
+
 	getImageAlignHorizontal(): DAlignHorizontal {
 		return DAlignHorizontal.LEFT;
 	}

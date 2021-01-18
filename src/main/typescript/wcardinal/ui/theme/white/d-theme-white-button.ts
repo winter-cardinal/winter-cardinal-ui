@@ -6,6 +6,7 @@
 import { DThemeButton } from "../../d-button";
 import { DThemeWhiteButtonBase } from "./d-theme-white-button-base";
 
-export class DThemeWhiteButton<VALUE> extends DThemeWhiteButtonBase<VALUE> implements DThemeButton<VALUE> {
+export class DThemeWhiteButton<VALUE = unknown> extends DThemeWhiteButtonBase<VALUE>
+	implements DThemeButton<VALUE> {
 
 }

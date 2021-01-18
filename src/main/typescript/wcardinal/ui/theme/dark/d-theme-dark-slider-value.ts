@@ -11,7 +11,9 @@ import { DThemeSliderValue } from "../../d-slider-value";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkTextBase } from "./d-theme-dark-text-base";
 
-export class DThemeDarkSliderValue<VALUE> extends DThemeDarkTextBase<VALUE> implements DThemeSliderValue<VALUE> {
+export class DThemeDarkSliderValue<VALUE = unknown> extends DThemeDarkTextBase<VALUE>
+	implements DThemeSliderValue<VALUE> {
+
 	getX(): DCoordinatePosition {
 		return "CENTER";
 	}

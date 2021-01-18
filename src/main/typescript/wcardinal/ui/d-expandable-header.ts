@@ -14,7 +14,7 @@ export interface DExpandableHeaderOptions<
 
 }
 
-export interface DThemeExpandableHeader<VALUE> extends DThemeImage<VALUE> {
+export interface DThemeExpandableHeader<VALUE = unknown> extends DThemeImage<VALUE> {
 
 }
 

@@ -12,7 +12,7 @@ const divCreator = ( parent: HTMLElement ): HTMLDivElement => {
 };
 
 export class DThemeDarkHtmlElement<
-	VALUE,
+	VALUE = unknown,
 	ELEMENT extends HTMLElement = HTMLElement
 > extends DThemeDarkImageBase<VALUE> implements DThemeHtmlElement<VALUE, ELEMENT> {
 	getElementCreator(): DHtmlElementElementCreator<ELEMENT> | null {

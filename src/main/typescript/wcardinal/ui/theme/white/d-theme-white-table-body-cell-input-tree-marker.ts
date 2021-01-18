@@ -12,7 +12,7 @@ import { DThemeTableBodyCellInputTreeMarker } from "../../d-table-body-cell-inpu
 import { DThemeWhiteButtonBase } from "./d-theme-white-button-base";
 import { DThemeWhiteTableBodyCellTrees } from "./d-theme-white-table-body-cell-trees";
 
-export class DThemeWhiteTableBodyCellInputTreeMarker<VALUE> extends DThemeWhiteButtonBase<VALUE>
+export class DThemeWhiteTableBodyCellInputTreeMarker<VALUE = unknown> extends DThemeWhiteButtonBase<VALUE>
 	implements DThemeTableBodyCellInputTreeMarker<VALUE> {
 
 	getHeight(): DCoordinateSize {

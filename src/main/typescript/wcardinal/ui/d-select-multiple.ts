@@ -60,7 +60,7 @@ export interface DSelectMultipleOptions<
 /**
  * {@link DSelectMultiple} theme.
  */
-export interface DThemeSelectMultiple<VALUE> extends DThemeDropdownBase<Array<DMenuItem<VALUE>>> {
+export interface DThemeSelectMultiple<VALUE = unknown> extends DThemeDropdownBase<Array<DMenuItem<VALUE>>> {
 
 }
 

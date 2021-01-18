@@ -12,7 +12,7 @@ import { DThemeTableBodyCellSelectMultiple } from "../../d-table-body-cell-selec
 import { DThemeWhiteSelectMultiple } from "./d-theme-white-select-multiple";
 import { DThemeWhiteTableBodyCells } from "./d-theme-white-table-body-cells";
 
-export class DThemeWhiteTableBodyCellSelectMultiple<VALUE> extends DThemeWhiteSelectMultiple<VALUE>
+export class DThemeWhiteTableBodyCellSelectMultiple<VALUE = unknown> extends DThemeWhiteSelectMultiple<VALUE>
 	implements DThemeTableBodyCellSelectMultiple<VALUE> {
 
 	getBackgroundColor( state: DBaseStateSet ): number | null {

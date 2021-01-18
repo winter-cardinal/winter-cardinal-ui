@@ -24,7 +24,7 @@ DThemeDarkAtlas.add( "fail_mark", 21, 21,
 	`</g>`
 );
 
-export class DThemeDarkDialogProcessingMessage<VALUE> extends DThemeDarkDialogConfirmMessage<VALUE> {
+export class DThemeDarkDialogProcessingMessage<VALUE = unknown> extends DThemeDarkDialogConfirmMessage<VALUE> {
 	getHeight(): number {
 		return 90;
 	}

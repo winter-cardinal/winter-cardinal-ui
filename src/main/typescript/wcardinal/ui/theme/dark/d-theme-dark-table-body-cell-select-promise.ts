@@ -12,7 +12,7 @@ import { DThemeTableBodyCellSelectPromise } from "../../d-table-body-cell-select
 import { DThemeDarkButton } from "./d-theme-dark-button";
 import { DThemeDarkTableBodyCells } from "./d-theme-dark-table-body-cells";
 
-export class DThemeDarkTableBodyCellSelectPromise<VALUE> extends DThemeDarkButton<VALUE | null>
+export class DThemeDarkTableBodyCellSelectPromise<VALUE = unknown> extends DThemeDarkButton<VALUE | null>
 	implements DThemeTableBodyCellSelectPromise<VALUE> {
 
 	getBackgroundColor( state: DBaseStateSet ): number | null {

@@ -12,7 +12,7 @@ export interface DSliderTrackVerticalOptions<
 
 }
 
-export interface DThemeSliderTrackVertical<VALUE> extends DThemeSliderTrack<VALUE> {
+export interface DThemeSliderTrackVertical<VALUE = unknown> extends DThemeSliderTrack<VALUE> {
 
 }
 
