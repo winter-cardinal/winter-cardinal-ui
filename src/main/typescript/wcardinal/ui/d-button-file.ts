@@ -49,7 +49,7 @@ export interface DButtonFileOptions<
 /**
  * {@link DButtonFile} theme.
  */
-export interface DThemeButtonFile<VALUE> extends DThemeButton<VALUE> {
+export interface DThemeButtonFile<VALUE = unknown> extends DThemeButton<VALUE> {
 
 }
 

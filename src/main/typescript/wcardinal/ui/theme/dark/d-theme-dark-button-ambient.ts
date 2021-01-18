@@ -8,7 +8,9 @@ import { DThemeButtonAmbient } from "../../d-button-ambient";
 import { DThemeDarkButtonBase } from "./d-theme-dark-button-base";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 
-export class DThemeDarkButtonAmbient<VALUE> extends DThemeDarkButtonBase<VALUE> implements DThemeButtonAmbient<VALUE> {
+export class DThemeDarkButtonAmbient<VALUE = unknown> extends DThemeDarkButtonBase<VALUE>
+	implements DThemeButtonAmbient<VALUE> {
+
 	getBackgroundColor( state: DBaseStateSet ): number | null {
 		if( state.isActive ) {
 			return DThemeDarkConstants.HIGHLIGHT_COLOR;

@@ -15,7 +15,7 @@ export interface DTableBodyCellActionPromiseOptions<
 
 }
 
-export interface DThemeTableBodyCellActionPromise<VALUE> extends DThemeTableBodyCellSelectPromise<VALUE> {
+export interface DThemeTableBodyCellActionPromise<VALUE = unknown> extends DThemeTableBodyCellSelectPromise<VALUE> {
 
 }
 

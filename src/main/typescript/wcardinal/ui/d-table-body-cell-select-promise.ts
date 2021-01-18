@@ -19,7 +19,7 @@ export interface DTableBodyCellSelectPromiseOptions<
 	sync?: boolean;
 }
 
-export interface DThemeTableBodyCellSelectPromise<VALUE> extends DThemeButton<VALUE | null> {
+export interface DThemeTableBodyCellSelectPromise<VALUE = unknown> extends DThemeButton<VALUE | null> {
 	isSyncEnabled(): boolean;
 }
 

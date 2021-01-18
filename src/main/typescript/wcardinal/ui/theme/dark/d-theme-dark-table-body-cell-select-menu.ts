@@ -12,7 +12,7 @@ import { DThemeTableBodyCellSelectMenu } from "../../d-table-body-cell-select-me
 import { DThemeDarkSelect } from "./d-theme-dark-select";
 import { DThemeDarkTableBodyCells } from "./d-theme-dark-table-body-cells";
 
-export class DThemeDarkTableBodyCellSelectMenu<VALUE> extends DThemeDarkSelect<VALUE>
+export class DThemeDarkTableBodyCellSelectMenu<VALUE = unknown> extends DThemeDarkSelect<VALUE>
 	implements DThemeTableBodyCellSelectMenu<VALUE> {
 
 	getBackgroundColor( state: DBaseStateSet ): number | null {

@@ -11,7 +11,7 @@ export interface DPaginationNavigationButtonOptions<
 > extends DButtonAmbientOptions<VALUE, THEME> {
 }
 
-export interface DThemePaginationNavigationButton<VALUE> extends DThemeButtonAmbient<VALUE> {
+export interface DThemePaginationNavigationButton<VALUE = unknown> extends DThemeButtonAmbient<VALUE> {
 
 }
 

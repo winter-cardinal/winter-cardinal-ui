@@ -12,7 +12,7 @@ import { DThemeTableBodyCellSelectDialog } from "../../d-table-body-cell-select-
 import { DThemeDarkButton } from "./d-theme-dark-button";
 import { DThemeDarkTableBodyCells } from "./d-theme-dark-table-body-cells";
 
-export class DThemeDarkTableBodyCellSelectDialog<VALUE> extends DThemeDarkButton<VALUE | null>
+export class DThemeDarkTableBodyCellSelectDialog<VALUE = unknown> extends DThemeDarkButton<VALUE | null>
 	implements DThemeTableBodyCellSelectDialog<VALUE> {
 
 	getBackgroundColor( state: DBaseStateSet ): number | null {

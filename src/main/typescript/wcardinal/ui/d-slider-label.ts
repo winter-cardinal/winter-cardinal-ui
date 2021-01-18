@@ -12,7 +12,7 @@ export interface DSliderLabelOptions<
 	value?: number;
 }
 
-export interface DThemeSliderLabel<VALUE> extends DThemeTextBase<VALUE> {
+export interface DThemeSliderLabel<VALUE = unknown> extends DThemeTextBase<VALUE> {
 
 }
 

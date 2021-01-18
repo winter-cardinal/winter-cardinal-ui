@@ -60,7 +60,7 @@ export interface DHtmlElementOptions<
 }
 
 export interface DThemeHtmlElement<
-	VALUE,
+	VALUE = unknown,
 	ELEMENT extends HTMLElement = HTMLElement
 > extends DThemeImageBase<VALUE> {
 	getElementCreator(): DHtmlElementElementCreator<ELEMENT> | null;

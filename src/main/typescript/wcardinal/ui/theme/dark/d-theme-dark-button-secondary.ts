@@ -6,7 +6,7 @@
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeDarkButtonBase } from "./d-theme-dark-button-base";
 
-export class DThemeDarkButtonSecondary<VALUE> extends DThemeDarkButtonBase<VALUE> {
+export class DThemeDarkButtonSecondary<VALUE = unknown> extends DThemeDarkButtonBase<VALUE> {
 	constructor() {
 		super( 0xb894f6, 0.1, 0.2 );
 	}

@@ -18,7 +18,7 @@ DThemeWhiteAtlas.add( "dropdown_mark", 20, 14,
 	`</g>`
 );
 
-export class DThemeWhiteDropdownBase<TEXT_VALUE> extends DThemeWhiteButtonBase<TEXT_VALUE>
+export class DThemeWhiteDropdownBase<TEXT_VALUE = unknown> extends DThemeWhiteButtonBase<TEXT_VALUE>
 	implements DThemeDropdownBase<TEXT_VALUE> {
 
 	constructor() {

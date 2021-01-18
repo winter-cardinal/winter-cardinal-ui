@@ -11,7 +11,7 @@ import { DThemeDarkTableBodyCellSelectPromise } from "./d-theme-dark-table-body-
 
 DThemeDarkTableBodyCellActions.init();
 
-export class DThemeDarkTableBodyCellActionPromise<VALUE> extends DThemeDarkTableBodyCellSelectPromise<VALUE>
+export class DThemeDarkTableBodyCellActionPromise<VALUE = unknown> extends DThemeDarkTableBodyCellSelectPromise<VALUE>
 	implements DThemeTableBodyCellActionPromise<VALUE> {
 
 	getImageTintColor( state: DBaseStateSet ): number | null {

@@ -64,7 +64,7 @@ export interface DButtonBaseOptions<
 /**
  * {@link DButtonBase} theme.
  */
-export interface DThemeButtonBase<VALUE> extends DThemeImageBase<VALUE> {
+export interface DThemeButtonBase<VALUE = unknown> extends DThemeImageBase<VALUE> {
 	/**
 	 * Returns true to turn a toggle mode on.
 	 */

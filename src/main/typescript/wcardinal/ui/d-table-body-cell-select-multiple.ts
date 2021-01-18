@@ -16,7 +16,7 @@ export interface DTableBodyCellSelectMultipleOptions<
 
 }
 
-export interface DThemeTableBodyCellSelectMultiple<VALUE> extends DThemeSelectMultiple<VALUE> {
+export interface DThemeTableBodyCellSelectMultiple<VALUE = unknown> extends DThemeSelectMultiple<VALUE> {
 
 }
 

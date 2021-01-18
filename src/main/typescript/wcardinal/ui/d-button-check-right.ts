@@ -12,7 +12,7 @@ export interface DButtonCheckRightOptions<
 
 }
 
-export interface DThemeButtonCheckRight<VALUE> extends DThemeButtonCheck<VALUE> {
+export interface DThemeButtonCheckRight<VALUE = unknown> extends DThemeButtonCheck<VALUE> {
 
 }
 

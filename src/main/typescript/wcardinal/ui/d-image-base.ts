@@ -46,7 +46,7 @@ export interface DImageBaseOptions<
 /**
  * {@link DImageBase} theme.
  */
-export interface DThemeImageBase<VALUE> extends DThemeTextBase<VALUE>, DThemeImagePiece {
+export interface DThemeImageBase<VALUE = unknown> extends DThemeTextBase<VALUE>, DThemeImagePiece {
 	getSecondaryImageAlignHorizontal(): DAlignHorizontal;
 	getSecondaryImageAlignVertical(): DAlignVertical;
 	getSecondaryImageAlignWith(): DAlignWith;

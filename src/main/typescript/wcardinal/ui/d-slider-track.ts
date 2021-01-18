@@ -12,7 +12,7 @@ export interface DSliderTrackOptions<
 
 }
 
-export interface DThemeSliderTrack<VALUE> extends DThemeButton<VALUE> {
+export interface DThemeSliderTrack<VALUE = unknown> extends DThemeButton<VALUE> {
 
 }
 

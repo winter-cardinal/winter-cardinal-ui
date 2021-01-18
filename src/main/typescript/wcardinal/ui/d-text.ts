@@ -12,7 +12,7 @@ export interface DTextOptions<
 
 }
 
-export interface DThemeText<VALUE> extends DThemeTextBase<VALUE> {
+export interface DThemeText<VALUE = unknown> extends DThemeTextBase<VALUE> {
 
 }
 

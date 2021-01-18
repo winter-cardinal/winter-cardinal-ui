@@ -12,7 +12,7 @@ export interface DSliderThumbOptions<
 
 }
 
-export interface DThemeSliderThumb<VALUE> extends DThemeButton<VALUE> {
+export interface DThemeSliderThumb<VALUE = unknown> extends DThemeButton<VALUE> {
 
 }
 

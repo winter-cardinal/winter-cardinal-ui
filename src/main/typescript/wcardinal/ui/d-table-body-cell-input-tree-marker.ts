@@ -12,7 +12,7 @@ export interface DTableBodyCellInputTreeMarkerOptions<
 
 }
 
-export interface DThemeTableBodyCellInputTreeMarker<VALUE> extends DThemeButtonBase<VALUE> {
+export interface DThemeTableBodyCellInputTreeMarker<VALUE = unknown> extends DThemeButtonBase<VALUE> {
 
 }
 

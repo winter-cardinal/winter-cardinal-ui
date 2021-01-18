@@ -12,7 +12,7 @@ export interface DNoteOptions<
 
 }
 
-export interface DThemeNote<VALUE> extends DThemeText<VALUE> {
+export interface DThemeNote<VALUE = unknown> extends DThemeText<VALUE> {
 
 }
 

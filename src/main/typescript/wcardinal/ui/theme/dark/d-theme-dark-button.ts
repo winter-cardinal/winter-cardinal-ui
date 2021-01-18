@@ -6,6 +6,7 @@
 import { DThemeButton } from "../../d-button";
 import { DThemeDarkButtonBase } from "./d-theme-dark-button-base";
 
-export class DThemeDarkButton<VALUE> extends DThemeDarkButtonBase<VALUE> implements DThemeButton<VALUE> {
+export class DThemeDarkButton<VALUE = unknown> extends DThemeDarkButtonBase<VALUE>
+	implements DThemeButton<VALUE> {
 
 }

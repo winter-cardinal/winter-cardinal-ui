@@ -16,7 +16,7 @@ export interface DTableBodyCellCheckOptions<
 > extends DButtonCheckOptions<VALUE, THEME> {
 }
 
-export interface DThemeTableBodyCellCheck<VALUE> extends DThemeButtonCheck<VALUE> {
+export interface DThemeTableBodyCellCheck<VALUE = unknown> extends DThemeButtonCheck<VALUE> {
 
 }
 

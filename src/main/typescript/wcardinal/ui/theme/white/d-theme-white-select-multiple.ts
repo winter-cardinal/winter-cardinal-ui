@@ -32,7 +32,7 @@ const formatter = <VALUE>( values: Array<DMenuItem<VALUE>> ): string => {
 	return "";
 };
 
-export class DThemeWhiteSelectMultiple<VALUE> extends DThemeWhiteDropdownBase<Array<DMenuItem<VALUE>>>
+export class DThemeWhiteSelectMultiple<VALUE = unknown> extends DThemeWhiteDropdownBase<Array<DMenuItem<VALUE>>>
 	implements DThemeSelectMultiple<VALUE> {
 
 	getTextFormatter(): ( value: Array<DMenuItem<VALUE>>, caller: any ) => string {

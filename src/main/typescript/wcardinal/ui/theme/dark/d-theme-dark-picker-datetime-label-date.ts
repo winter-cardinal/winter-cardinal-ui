@@ -10,7 +10,9 @@ import { DFontWeight } from "../../d-font";
 import { DThemePickerDatetimeLabelDate } from "../../d-picker-datetime-label-date";
 import { DThemeDarkText } from "./d-theme-dark-text";
 
-export class DThemeDarkPickerDatetimeLabelDate<VALUE> extends DThemeDarkText<VALUE> implements DThemePickerDatetimeLabelDate<VALUE> {
+export class DThemeDarkPickerDatetimeLabelDate<VALUE = unknown> extends DThemeDarkText<VALUE>
+	implements DThemePickerDatetimeLabelDate<VALUE> {
+
 	getWidth(): DCoordinateSize {
 		return 30;
 	}

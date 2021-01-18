@@ -19,7 +19,7 @@ export interface DTableBodyCellSelectDialogOptions<
 	sync?: boolean;
 }
 
-export interface DThemeTableBodyCellSelectDialog<VALUE> extends DThemeButton<VALUE | null> {
+export interface DThemeTableBodyCellSelectDialog<VALUE = unknown> extends DThemeButton<VALUE | null> {
 	isSyncEnabled(): boolean;
 }
 

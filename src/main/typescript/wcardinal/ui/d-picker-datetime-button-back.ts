@@ -12,7 +12,7 @@ export interface DPickerDatetimeButtonBackOptions<
 
 }
 
-export interface DThemePickerDatetimeButtonBack<VALUE> extends DThemeButtonAmbient<VALUE> {
+export interface DThemePickerDatetimeButtonBack<VALUE = unknown> extends DThemeButtonAmbient<VALUE> {
 
 }
 

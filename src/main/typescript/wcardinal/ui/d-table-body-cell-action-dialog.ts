@@ -15,7 +15,7 @@ export interface DTableBodyCellActionDialogOptions<
 
 }
 
-export interface DThemeTableBodyCellActionDialog<VALUE> extends DThemeTableBodyCellSelectDialog<VALUE> {
+export interface DThemeTableBodyCellActionDialog<VALUE = unknown> extends DThemeTableBodyCellSelectDialog<VALUE> {
 
 }
 

@@ -11,7 +11,9 @@ import { DThemeTextBase } from "../../d-text-base";
 import { toString } from "../../util/to-string";
 import { DThemeWhiteBase } from "./d-theme-white-base";
 
-export class DThemeWhiteTextBase<VALUE> extends DThemeWhiteBase implements DThemeTextBase<VALUE> {
+export class DThemeWhiteTextBase<VALUE = unknown> extends DThemeWhiteBase
+	implements DThemeTextBase<VALUE> {
+
 	getTextAlignVertical(): DAlignVertical {
 		return DAlignVertical.MIDDLE;
 	}

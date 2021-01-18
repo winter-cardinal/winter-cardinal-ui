@@ -49,7 +49,7 @@ export interface DSelectOptions<
 /**
  * {@link DSelect} theme.
  */
-export interface DThemeSelect<VALUE> extends DThemeDropdownBase<DMenuItem<VALUE> | null> {
+export interface DThemeSelect<VALUE = unknown> extends DThemeDropdownBase<DMenuItem<VALUE> | null> {
 
 }
 

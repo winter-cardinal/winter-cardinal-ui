@@ -12,7 +12,7 @@ export interface DButtonRadioOptions<
 
 }
 
-export interface DThemeButtonRadio<VALUE> extends DThemeButtonBase<VALUE> {
+export interface DThemeButtonRadio<VALUE = unknown> extends DThemeButtonBase<VALUE> {
 
 }
 

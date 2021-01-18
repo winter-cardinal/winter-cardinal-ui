@@ -12,7 +12,7 @@ export interface DInputLabelOptions<
 
 }
 
-export interface DThemeInputLabel<VALUE> extends DThemeText<VALUE> {
+export interface DThemeInputLabel<VALUE = unknown> extends DThemeText<VALUE> {
 
 }
 

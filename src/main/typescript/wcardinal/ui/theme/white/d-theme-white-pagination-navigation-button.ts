@@ -32,7 +32,7 @@ DThemeWhiteAtlas.add( "pagination_navigation_button_go_last", 21, 21,
 		`<polyline fill="none" stroke="#fff" stroke-width="1" points="5 15 11 10 5 5"></polyline>` +
 	`</g>`
 );
-export class DThemeWhitePaginationNavigationButton<VALUE>
-			extends DThemeWhiteButtonAmbient<VALUE> implements DThemePaginationNavigationButton<VALUE> {
+export class DThemeWhitePaginationNavigationButton<VALUE = unknown> extends DThemeWhiteButtonAmbient<VALUE>
+	implements DThemePaginationNavigationButton<VALUE> {
 
 }

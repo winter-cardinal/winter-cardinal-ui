@@ -8,7 +8,9 @@ import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { toLabel } from "../../util/to-label";
 import { DThemeWhiteButton } from "./d-theme-white-button";
 
-export class DThemeWhiteButtonSelect<VALUE> extends DThemeWhiteButton<VALUE | null> implements DThemeButtonSelect<VALUE> {
+export class DThemeWhiteButtonSelect<VALUE = unknown> extends DThemeWhiteButton<VALUE | null>
+	implements DThemeButtonSelect<VALUE> {
+
 	getTextFormatter(): ( value: unknown | null, caller: DButtonSelect ) => string {
 		return toLabel;
 	}

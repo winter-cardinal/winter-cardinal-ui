@@ -14,7 +14,7 @@ export interface DButtonLinkOptions<
 
 }
 
-export interface DThemeButtonLink<VALUE> extends DThemeButtonBase<VALUE>, DThemeLink {
+export interface DThemeButtonLink<VALUE = unknown> extends DThemeButtonBase<VALUE>, DThemeLink {
 
 }
 
