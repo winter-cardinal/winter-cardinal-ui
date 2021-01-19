@@ -75,11 +75,18 @@ export class DListItem<
 	}
 
 	onKeyDown( e: KeyboardEvent ): boolean {
-		if( this.state.isActionable && this.state.isFocused && UtilKeyboardEvent.isActivateKey( e ) ) {
-			this.onSelect( e );
+		if( UtilKeyboardEvent.isActivateKey( e ) ) {
+			this.onKeyDownActivate( e );
 		}
-
 		return super.onKeyDown( e );
+	}
+
+	protected onKeyDownActivate( e: KeyboardEvent ): boolean {
+		if( this.state.isActionable && this.state.isFocused ) {
+			this.onSelect( e );
+			return true;
+		}
+		return false;
 	}
 
 	protected onStateChange( newState: DBaseStateSet, oldState: DBaseStateSet ) {

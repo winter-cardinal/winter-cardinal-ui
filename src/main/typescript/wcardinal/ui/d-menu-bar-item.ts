@@ -79,10 +79,18 @@ export class DMenuBarItem<
 	}
 
 	onKeyDown( e: KeyboardEvent ): boolean {
-		if( this.state.isActionable && this.state.isFocused && UtilKeyboardEvent.isArrowDownKey( e ) ) {
-			this.onActivate( e );
+		if( UtilKeyboardEvent.isArrowDownKey( e ) ) {
+			this.onKeyDownArrowDown( e );
 		}
 		return super.onKeyDown( e );
+	}
+
+	protected onKeyDownArrowDown( e: KeyboardEvent ): boolean {
+		if( this.state.isActionable && this.state.isFocused ) {
+			this.onActivate( e );
+			return true;
+		}
+		return false;
 	}
 
 	protected getType(): string {
