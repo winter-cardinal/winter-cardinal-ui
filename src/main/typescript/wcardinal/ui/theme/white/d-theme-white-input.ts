@@ -106,7 +106,10 @@ export class DThemeWhiteInput<VALUE = unknown> extends DThemeWhiteHtmlElement<VA
 		return 10;
 	}
 
-	getCursor(): string {
+	getCursor( state: DBaseStateSet ): string {
+		if( state.inDisabled ) {
+			return "";
+		}
 		return "text";
 	}
 

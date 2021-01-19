@@ -168,7 +168,7 @@ export class DThemeWhiteBase extends DThemeWhiteFont implements DThemeBase {
 		return new DShadowImpl( DThemeWhiteAtlas.mappings.shadow_weak, 8, 8, 0, 2 );
 	}
 
-	getCursor(): string | null {
-		return null;
+	getCursor( state: DBaseStateSet ): string {
+		return "";
 	}
 }

@@ -441,7 +441,7 @@ export interface DBaseOptions<
 	clear?: (keyof typeof DLayoutClearType) | DLayoutClearType;
 
 	/** A cursor shape. */
-	cursor?: string;
+	cursor?: DStateAwareOrValueMightBe<string>;
 }
 
 /**
@@ -649,7 +649,7 @@ export interface DThemeBase extends DThemeFont {
 	/**
 	 * Returns a cursor.
 	 */
-	getCursor(): string | null;
+	getCursor( state: DBaseStateSet ): string;
 }
 
 const toTheme = <THEME extends DThemeBase>( options?: DBaseOptions<THEME> ): THEME | null => {
@@ -737,6 +737,7 @@ export class DBase<
 	protected _afters: DRenderable[];
 	protected _reflowables: DReflowable[];
 	protected _lastDownPoint?: Point;
+	protected _cursor?: DStateAwareOrValueMightBe<string>;
 
 	constructor( options?: OPTIONS ) {
 		super();
@@ -935,12 +936,6 @@ export class DBase<
 			}
 		}
 
-		// Cursor
-		const cursor = options?.cursor ?? theme.getCursor();
-		if( cursor != null ) {
-			this.cursor = cursor;
-		}
-
 		// Other initialization
 		this.init( options );
 
@@ -948,9 +943,9 @@ export class DBase<
 		const state = options?.state;
 		if( state != null ) {
 			if( isString( state ) ) {
-				this.state.add( state );
+				this._state.add( state );
 			} else {
-				this.state.addAll( state );
+				this._state.addAll( state );
 			}
 		}
 
@@ -971,8 +966,27 @@ export class DBase<
 			}
 		}
 
+		// Cursor
+		const cursor = options?.cursor;
+		this._cursor = cursor;
+		this.cursor = this.toCursor( cursor, this._state );
+
 		// Done
 		this.emit( "init", this );
+	}
+
+	protected toCursor( cursor: DStateAwareOrValueMightBe<string> | undefined, state: DBaseStateSet ): string {
+		if( cursor ) {
+			if( isFunction( cursor ) ) {
+				const result = cursor( state );
+				if( result !== undefined ) {
+					return result;
+				}
+			} else if( cursor !== undefined ) {
+				return cursor;
+			}
+		}
+		return this.theme.getCursor( state );
 	}
 
 	addRenderable( renderable: DRenderable, phase: boolean ): void {
@@ -1498,6 +1512,8 @@ export class DBase<
 		} else if( oldState.isFocused ) {
 			this.onBlur();
 		}
+
+		this.cursor = this.toCursor( this._cursor, newState );
 	}
 
 	protected onChildFocus( focused: DBase ): void {
