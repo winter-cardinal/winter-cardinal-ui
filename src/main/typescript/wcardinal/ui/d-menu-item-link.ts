@@ -77,12 +77,8 @@ export class DMenuItemLink<
 		super.init( DLinks.toStateOptions( options?.target, options ) );
 	}
 
-	get url(): string | null | Promise<string | null> {
-		return this._link.url;
-	}
-
-	get menu(): DMenu<DLinkMenuItemId> {
-		return this._link.menu;
+	get link(): DLink {
+		return this._link;
 	}
 
 	protected initOnClick( options?: OPTIONS ): void {
@@ -95,7 +91,7 @@ export class DMenuItemLink<
 
 	protected onSelect( e: KeyboardEvent | interaction.InteractionEvent ): void {
 		super.onSelect( e );
-		this.open( this._link.inNewWindow( e ) );
+		this._link.open( e );
 	}
 
 	open( inNewWindow: boolean ): void {

@@ -22,8 +22,6 @@ export class DListItemSeparator<
 > extends DListItem<VALUE, THEME, OPTIONS> {
 	protected init( options?: OPTIONS ) {
 		super.init( options );
-		this.interactive = false;
-		this.buttonMode = false;
 		this.state.isFocusable = false;
 	}
 

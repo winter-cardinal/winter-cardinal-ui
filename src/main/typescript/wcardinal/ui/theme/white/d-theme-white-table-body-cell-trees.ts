@@ -5,7 +5,7 @@
 
 import { DisplayObject, Texture } from "pixi.js";
 import { DBaseStateSet } from "../../d-base-state-set";
-import { DTableCellState } from "../../d-table-cell-state";
+import { DTableState } from "../../d-table-state";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteExpandables } from "./d-theme-white-expandables";
 import { DThemeWhiteTableBodyCells } from "./d-theme-white-table-body-cells";
@@ -16,8 +16,8 @@ export class DThemeWhiteTableBodyCellTrees {
 	}
 
 	static getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
-		if( state.is( DTableCellState.HAS_CHILDREN ) ) {
-			if( state.is( DTableCellState.OPENED ) ) {
+		if( state.is( DTableState.HAS_CHILDREN ) ) {
+			if( state.is( DTableState.OPENED ) ) {
 				return DThemeWhiteExpandables.getImageOpened();
 			} else {
 				return DThemeWhiteExpandables.getImageClosed();

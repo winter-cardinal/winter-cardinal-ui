@@ -8,10 +8,12 @@ import InteractionEvent = interaction.InteractionEvent;
 import { DApplicationTarget } from "../d-application-like";
 import { DApplications } from "../d-applications";
 
-export type UtilPointerEventClickHandler = ( e: InteractionEvent ) => void;
+export type UtilPointerEventOnClick = ( e: InteractionEvent ) => void;
+
+export type UtilPointerEventIsLongClickable = ( e: InteractionEvent ) => boolean;
 
 export interface UtilPointerEventClickTarget extends DApplicationTarget {
-	on( name: string, handler: UtilPointerEventClickHandler ): void;
+	on( name: string, handler: UtilPointerEventOnClick ): void;
 }
 
 export class UtilPointerEvent {
@@ -78,9 +80,17 @@ export class UtilPointerEvent {
 		return result;
 	}
 
-	static onClick( target: UtilPointerEventClickTarget, handler: UtilPointerEventClickHandler ): void {
+	protected static isValidDistance( e: InteractionEvent, x: number, y: number ): boolean {
+		const global = e.data.global;
+		const dx = Math.abs( x - global.x );
+		const dy = Math.abs( y - global.y );
+		const threshold = this.CLICK_DISTANCE_THRESHOLD;
+		return ( dx < threshold && dy < threshold );
+	};
+
+	static onClick( target: UtilPointerEventClickTarget, onClick: UtilPointerEventOnClick ): void {
 		if( ! this.touchable ) {
-			target.on( "click", handler );
+			target.on( "click", onClick );
 		} else {
 			let isDowned = false;
 			let downX = 0;
@@ -93,26 +103,19 @@ export class UtilPointerEvent {
 					interactionManagerBound = null;
 				}
 			};
-			const isValidDistance = ( e: InteractionEvent ): boolean => {
-				const global = e.data.global;
-				const dx = Math.abs( downX - global.x );
-				const dy = Math.abs( downY - global.y );
-				const threshold = this.CLICK_DISTANCE_THRESHOLD;
-				return ( dx <= threshold && dy <= threshold );
-			};
 			target.on( "click", ( e: InteractionEvent ): void => {
 				if( isDowned ) {
 					cleanup();
 				}
-				handler( e );
+				onClick( e );
 			});
 			const up = this.up;
 			const onUp = ( e: InteractionEvent ): void => {
 				if( isDowned ) {
 					cleanup();
 					if( this.contains( target, e.target ) ) {
-						if( isValidDistance( e ) ) {
-							handler( e );
+						if( this.isValidDistance( e, downX, downY ) ) {
+							onClick( e );
 						}
 					}
 				}
@@ -143,8 +146,9 @@ export class UtilPointerEvent {
 
 	static onLongClick(
 		target: UtilPointerEventClickTarget,
-		onClick: UtilPointerEventClickHandler,
-		onLongClick: UtilPointerEventClickHandler
+		onClick: UtilPointerEventOnClick,
+		onLongClick: UtilPointerEventOnClick,
+		isLongClickable?: UtilPointerEventIsLongClickable
 	): void {
 		if( ! this.touchable ) {
 			target.on( "click", onClick );
@@ -169,13 +173,6 @@ export class UtilPointerEvent {
 				}
 				cleanupTimeout();
 			};
-			const isValidDistance = ( e: InteractionEvent ): boolean => {
-				const global = e.data.global;
-				const dx = Math.abs( downX - global.x );
-				const dy = Math.abs( downY - global.y );
-				const threshold = this.CLICK_DISTANCE_THRESHOLD;
-				return ( dx < threshold && dy < threshold );
-			};
 			target.on( "click", ( e: InteractionEvent ): void => {
 				if( isDowned ) {
 					cleanup();
@@ -188,7 +185,7 @@ export class UtilPointerEvent {
 				if( isDowned ) {
 					cleanup();
 					if( this.contains( target, e.target ) ) {
-						if( isValidDistance( e ) ) {
+						if( this.isValidDistance( e, downX, downY ) ) {
 							onClick( e );
 						}
 					}
@@ -197,7 +194,7 @@ export class UtilPointerEvent {
 			const onMove = ( e: InteractionEvent ): void => {
 				if( isDowned ) {
 					if( this.contains( target, e.target ) ) {
-						if( ! isValidDistance( e ) ) {
+						if( ! this.isValidDistance( e, downX, downY ) ) {
 							cleanup();
 						}
 					}
@@ -211,7 +208,7 @@ export class UtilPointerEvent {
 					downY = global.y;
 					cleanupTimeout();
 					const oe = e.data.originalEvent;
-					if( "touches" in oe ) {
+					if( ("touches" in oe) && (isLongClickable == null || isLongClickable( e )) ) {
 						timeoutId = window.setTimeout((): void => {
 							if( isDowned ) {
 								cleanup();

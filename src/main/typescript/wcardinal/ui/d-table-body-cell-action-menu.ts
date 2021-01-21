@@ -63,6 +63,10 @@ export class DTableBodyCellActionMenu<
 		menu.off( "close", this._onClosedBound );
 	}
 
+	protected onKeyDownArrowDown( e: KeyboardEvent ): boolean {
+		return false;
+	}
+
 	start(): void {
 		const menu = this.menu;
 		menu.on( "select", this._onSelectedBound );

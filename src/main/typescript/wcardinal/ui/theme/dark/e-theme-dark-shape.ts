@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { EThemeShape } from "../../shape/e-shape-defaults";
 import { EShapeStrokeSide } from "../../shape/e-shape-stroke-side";
 
@@ -49,6 +54,7 @@ export class EThemeDarkShape implements EThemeShape {
 	getTextSize(): number {
 		return 14;
 	}
+
 	getCursor(): string {
 		return "";
 	}

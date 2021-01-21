@@ -12,8 +12,8 @@ import { DTableColumn } from "./d-table-column";
 import { DTableData, DTableDataOptions } from "./d-table-data";
 import { DTableDataList, DTableDataListOptions } from "./d-table-data-list";
 import { DTableDataSelection, DTableDataSelectionType } from "./d-table-data-selection";
-import { UtilPointerEvent } from "./util/util-pointer-event";
 import { DTableBodyCell } from "./d-table-body-cell";
+import { DTableState } from "./d-table-state";
 
 export interface DTableBodyOptions<
 	ROW,
@@ -45,18 +45,24 @@ const toRowOptions = <ROW, DATA extends DTableData<ROW>>(
 		if( result.columns === undefined ) {
 			result.columns = columns;
 		}
-		if( result.interactive == null && selectionType !== DTableDataSelectionType.NONE ) {
-			result.interactive = "SELF";
-		}
 		if( result.frozen == null ) {
 			result.frozen = options.frozen;
+		}
+		if( result.selection === undefined ) {
+			result.selection = {
+				type: selectionType
+			};
+		} else if( result.selection.type === undefined ) {
+			result.selection.type = selectionType;
 		}
 	} else {
 		result = {
 			columns,
 			height: theme.getRowHeight(),
-			interactive: ( selectionType !== DTableDataSelectionType.NONE ? "SELF" : undefined ),
-			frozen: options.frozen
+			frozen: options.frozen,
+			selection: {
+				type: selectionType
+			}
 		};
 	}
 	return result as DTableBodyRowOptions<ROW>;
@@ -104,9 +110,7 @@ export class DTableBody<
 		};
 		super.init( options );
 
-		const data = ( isDTableData( options.data ) ? options.data :
-			new DTableDataList<ROW>( options.data ) as unknown as DATA
-		);
+		const data = this.toData( options.data );
 		this._data = data;
 		data.bind( this );
 		const theme = this.theme;
@@ -120,6 +124,13 @@ export class DTableBody<
 		this._isUpdateRowsCalled = false;
 		this._isUpdateRowsCalledForcibly = false;
 		this._workRows = [];
+	}
+
+	protected toData( options?: DATA | DTableDataListOptions<ROW> ): DATA {
+		if( isDTableData( options ) ) {
+			return options;
+		}
+		return new DTableDataList<ROW>( options ) as any;
 	}
 
 	onResize( newWidth: number, newHeight: number, oldWidth: number, oldHeight: number ): void {
@@ -242,28 +253,56 @@ export class DTableBody<
 		}
 
 		const selection = data.selection;
+		const isRowSelectable = (selection.type !== DTableDataSelectionType.NONE);
 		data.mapped.each(( datum: ROW, supplimental: unknown, index: number, unmappedIndex: number ): void | boolean => {
 			const row = rows[ index - newRowIndexMappedStart ];
+
+			// Position
 			row.position.y = index * rowHeight;
-			if( selection.contains( unmappedIndex ) ) {
-				row.state.set( DBaseState.ACTIVE, DBaseState.DISABLED );
-			} else {
-				row.state.removeAll( DBaseState.ACTIVE, DBaseState.DISABLED );
-			}
+
+			// State
+			const rowState = row.state;
+			rowState.lock();
+			rowState.set( DTableState.SELECTABLE, isRowSelectable );
+			rowState.set( DBaseState.ACTIVE, selection.contains( unmappedIndex ) );
+			rowState.remove( DBaseState.DISABLED );
+			rowState.unlock();
+
+			// Data
 			row.set( datum, supplimental, unmappedIndex, forcibly );
 		}, newRowIndexMappedStart, newRowIndexMappedStart + rowsLength );
 
 		for( let i = 0; newRowIndexMappedStart + i < 0 && i < rowsLength; ++i ) {
 			const row = rows[ i ];
+
+			// Position
 			row.position.y = ( newRowIndexMappedStart + i ) * rowHeight;
-			row.state.set( DBaseState.DISABLED, DBaseState.ACTIVE );
+
+			// State
+			const rowState = row.state;
+			rowState.lock();
+			rowState.add( DBaseState.DISABLED );
+			rowState.removeAll( DTableState.SELECTABLE, DBaseState.ACTIVE );
+			rowState.unlock();
+
+			// Data
 			row.unset();
 		}
 
 		for( let i = rowsLength - 1; dataMappedSize <= newRowIndexMappedStart + i && 0 <= i; --i ) {
 			const row = rows[ i ];
+
+			// Position
 			row.position.y = ( newRowIndexMappedStart + i ) * rowHeight;
-			row.state.set( DBaseState.DISABLED, DBaseState.ACTIVE );
+
+			// State
+			const rowState = row.state;
+			rowState.lock();
+			rowState.add( DBaseState.DISABLED );
+			rowState.removeAll( DTableState.SELECTABLE, DBaseState.ACTIVE );
+			rowState.unlock();
+
+			// Data
 			row.unset();
 		}
 
@@ -314,9 +353,9 @@ export class DTableBody<
 
 		const parent = this.parent;
 		if( parent ) {
-			const shiftY = -parent.transform.position.y;
-			result.y += shiftY;
-			result.height -= shiftY;
+			const dy = -parent.transform.position.y;
+			result.y += dy;
+			result.height -= dy;
 		}
 	}
 
@@ -436,31 +475,6 @@ export class DTableBody<
 				}
 			}
 		}
-	}
-
-	onDblClick( e: MouseEvent | TouchEvent, interactionManager: interaction.InteractionManager ): boolean {
-		let result = false;
-		const data = this._data;
-		if( this.state.isActionable && data.selection.type !== DTableDataSelectionType.NONE ) {
-			const local = UtilPointerEvent.toGlobal( e, interactionManager, DTableBody.WORK_ON_CLICK );
-			this.toLocal( local, undefined, local, false );
-			const rowIndexMapped = this.toRowIndexMapped( local );
-			if( 0 <= rowIndexMapped && rowIndexMapped < data.mapped.size() ) {
-				const row = this.toRow( rowIndexMapped );
-				if( row ) {
-					const cell = this.toCell( row, local );
-					if( cell ) {
-						cell.focus();
-						if( cell.onClick ) {
-							cell.onClick( e );
-						}
-						result = true;
-					}
-				}
-			}
-		}
-		result = super.onDblClick( e, interactionManager ) || result;
-		return result;
 	}
 
 	protected getType(): string {

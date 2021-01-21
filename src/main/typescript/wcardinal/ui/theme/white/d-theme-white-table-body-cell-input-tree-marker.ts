@@ -7,32 +7,67 @@ import { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignWith } from "../../d-align-with";
 import { DBaseStateSet } from "../../d-base-state-set";
-import { DCoordinateSize } from "../../d-coordinate";
+import { DBorderMask } from "../../d-border-mask";
+import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
+import { DCornerMask } from "../../d-corner-mask";
 import { DThemeTableBodyCellInputTreeMarker } from "../../d-table-body-cell-input-tree-marker";
 import { DThemeWhiteButtonBase } from "./d-theme-white-button-base";
 import { DThemeWhiteTableBodyCellTrees } from "./d-theme-white-table-body-cell-trees";
+import { DThemeWhiteTableBodyCells } from "./d-theme-white-table-body-cells";
 
 export class DThemeWhiteTableBodyCellInputTreeMarker<VALUE = unknown> extends DThemeWhiteButtonBase<VALUE>
 	implements DThemeTableBodyCellInputTreeMarker<VALUE> {
 
+	getX(): DCoordinatePosition {
+		return "padding";
+	}
+
+	getY(): DCoordinatePosition {
+		return "padding";
+	}
+
 	getHeight(): DCoordinateSize {
-		return "100%";
+		return DThemeWhiteTableBodyCells.getHeight();
 	}
 
 	getBackgroundColor( state: DBaseStateSet ): number | null {
-		return null;
+		return DThemeWhiteTableBodyCells.getBackgroundColor( state );
+	}
+
+	getBackgroundAlpha( state: DBaseStateSet ): number {
+		return DThemeWhiteTableBodyCells.getBackgroundAlpha( state );
 	}
 
 	getBorderColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 
+	getBorderAlign( state: DBaseStateSet ): number {
+		return DThemeWhiteTableBodyCells.getBorderAlign( state );
+	}
+
+	getBorderMask( state: DBaseStateSet ): DBorderMask {
+		return DThemeWhiteTableBodyCells.getBorderMask( state );
+	}
+
+	getColor( state: DBaseStateSet ): number {
+		return DThemeWhiteTableBodyCells.getColor( state );
+	}
+
+	getAlpha( state: DBaseStateSet ): number {
+		return DThemeWhiteTableBodyCells.getAlpha( state );
+	}
+
+	getCornerMask(): DCornerMask {
+		return DThemeWhiteTableBodyCells.getCornerMask();
+	}
+
 	getOutlineColor( state: DBaseStateSet ): number | null {
 		return null;
 	}
 
-	getCursor(): string {
-		return "pointer";
+	getOutlineAlign( state: DBaseStateSet ): number {
+		return DThemeWhiteTableBodyCells.getOutlineAlign( state );
 	}
 
 	getImageAlignWith(): DAlignWith {

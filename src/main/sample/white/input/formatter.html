@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Boolean input</title>
+	<title>Formatter</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -28,36 +28,23 @@
 	(function(){
 		"use strict";
 
-		const application = new wcardinal.ui.DApplication();
+		var application = new wcardinal.ui.DApplication();
 
-		new wcardinal.ui.DInputBoolean({
+		new wcardinal.ui.DInputReal({
 			parent: application.stage,
-			x: 50, y: 50,
-			on: {
-				change: ( newValue, oldValue, emitter ) => {
-					console.log( newValue, oldValue, emitter );
+			x: "center", y: "center",
+			width: 200,
+			text: {
+				formatter: function ( value ) {
+					return (value * 100).toFixed( 2 );
 				}
-			}
-		});
-
-		new wcardinal.ui.DInputBoolean({
-			parent: application.stage,
-			x: 50, y: 100,
-			value: false,
-			on: {
-				change: ( newValue, oldValue, emitter ) => {
-					console.log( newValue, oldValue, emitter );
-				}
-			}
-		});
-
-		new wcardinal.ui.DInputBoolean({
-			parent: application.stage,
-			x: 50, y: 150,
-			value: true,
-			on: {
-				change: ( newValue, oldValue, emitter ) => {
-					console.log( newValue, oldValue, emitter );
+			},
+			editing: {
+				formatter: function ( value ) {
+					return (value * 100).toFixed( 3 );
+				},
+				unformatter: function ( value ) {
+					return value / 100;
 				}
 			}
 		});

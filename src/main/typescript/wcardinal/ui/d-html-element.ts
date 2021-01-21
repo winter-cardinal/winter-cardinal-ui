@@ -11,6 +11,7 @@ import { DHtmlElementWhen } from "./d-html-element-when";
 import { DImageBase, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
 import { DPadding } from "./d-padding";
 import { toEnum } from "./util/to-enum";
+import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 
 export type DHtmlElementElementCreator<T> = ( parent: HTMLElement ) => T;
 
@@ -172,36 +173,67 @@ export class DHtmlElement<
 
 	protected onDownThis( e: interaction.InteractionEvent ): void {
 		const wasStarted = this._isStarted;
+		switch( this._when ) {
+		case DHtmlElementWhen.CLICKED:
+			this.start();
+			break;
+		case DHtmlElementWhen.FOCUSED:
+			if( this.state.isFocused ) {
+				this.start();
+			}
+			break;
+		}
 		super.onDownThis( e );
 		if( ! wasStarted && this._isStarted ) {
 			e.data.originalEvent.preventDefault();
 		}
 	}
 
+	onDblClick( e: MouseEvent | TouchEvent, interactionManager: interaction.InteractionManager ): boolean {
+		switch( this._when ) {
+		case DHtmlElementWhen.DOUBLE_CLICKED:
+			this.start();
+			break;
+		}
+		return super.onDblClick( e, interactionManager );
+	}
+
 	protected onFocus(): void {
 		super.onFocus();
-		if( this._when === DHtmlElementWhen.FOCUSED ) {
+		switch( this._when ) {
+		case DHtmlElementWhen.FOCUSED:
 			this.start();
-		} else {
+			break;
+		default:
 			this._element?.focus();
+			break;
 		}
 	}
 
 	protected onBlur(): void {
 		super.onBlur();
-		if( this._when === DHtmlElementWhen.FOCUSED ) {
+		switch( this._when ) {
+		case DHtmlElementWhen.CLICKED:
+		case DHtmlElementWhen.DOUBLE_CLICKED:
+		case DHtmlElementWhen.FOCUSED:
 			this.onEndByBlur();
 			this.cancel();
-		} else {
+			break;
+		default:
 			this._element?.blur();
+			break;
 		}
 	}
 
 	protected isStartable(): boolean {
-		if( this._when === DHtmlElementWhen.FOCUSED ) {
+		switch( this._when ) {
+		case DHtmlElementWhen.CLICKED:
+		case DHtmlElementWhen.DOUBLE_CLICKED:
+		case DHtmlElementWhen.FOCUSED:
 			return this.state.isActionable;
+		default:
+			return true;
 		}
-		return true;
 	}
 
 	start(): void {
@@ -366,8 +398,14 @@ export class DHtmlElement<
 			const layer = DApplications.getLayer( this );
 			if( layer ) {
 				const view = layer.view;
-				if( this._when === DHtmlElementWhen.FOCUSED && document.activeElement === this._element ) {
-					view.focus();
+				switch( this._when ) {
+				case DHtmlElementWhen.CLICKED:
+				case DHtmlElementWhen.DOUBLE_CLICKED:
+				case DHtmlElementWhen.FOCUSED:
+					if( document.activeElement === this._element ) {
+						view.focus();
+					}
+					break;
 				}
 
 				const interactionManager = layer.renderer.plugins.interaction;
@@ -579,6 +617,36 @@ export class DHtmlElement<
 				this.cancel();
 			}
 		}
+	}
+
+	protected onActivateKeyDown( e: KeyboardEvent ): void {
+		if( this.state.isActionable ) {
+			this.state.isPressed = true;
+		}
+	}
+
+	protected onActivateKeyUp( e: KeyboardEvent ): void {
+		if( this.state.isActionable ) {
+			if( this.state.isPressed ) {
+				this.start();
+			}
+			this.state.isPressed = false;
+		}
+	}
+
+	onKeyDown( e: KeyboardEvent ): boolean {
+		if( UtilKeyboardEvent.isActivateKey( e ) ) {
+			this.onActivateKeyDown( e );
+		}
+		return super.onKeyDown( e );
+	}
+
+	onKeyUp( e: KeyboardEvent ): boolean {
+		if( UtilKeyboardEvent.isActivateKey( e ) ) {
+			this.onActivateKeyUp( e );
+		}
+
+		return super.onKeyUp( e );
 	}
 
 	protected getType(): string {

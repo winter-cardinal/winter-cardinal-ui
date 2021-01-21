@@ -4,6 +4,7 @@
  */
 
 import { interaction } from "pixi.js";
+import { DButtonBaseWhen } from "./d-button-base-when";
 import { DLink, DLinkChecker, DLinkOptions, DLinkUrlMaker, DThemeLink } from "./d-link";
 import { DLinkMenuItemId } from "./d-link-menu-item-id";
 import { DLinkTarget } from "./d-link-target";
@@ -100,9 +101,11 @@ export class DTableBodyCellLink<
 		super( columnIndex, column, DLinks.toStateOptions( options?.link?.target, options ) );
 	}
 
-	protected initOnClick( options?: OPTIONS ): void {
+	protected initOnClick( when: DButtonBaseWhen, theme: THEME, options?: OPTIONS ): void {
 		this.link.apply( this, ( e: interaction.InteractionEvent ): void => {
-			this.onActivate( e );
+			if( when === DButtonBaseWhen.CLICKED ) {
+				this.onClick( e );
+			}
 		});
 	}
 
@@ -113,14 +116,6 @@ export class DTableBodyCellLink<
 			this._link = result;
 		}
 		return result;
-	}
-
-	get url(): string | null | Promise<string | null> {
-		return this.link.url;
-	}
-
-	get menu(): DMenu<DLinkMenuItemId> {
-		return this.link.menu;
 	}
 
 	protected getType(): string {
@@ -135,7 +130,7 @@ export class DTableBodyCellLink<
 			const columnIndex = this._columnIndex;
 			this._column.setter( row, columnIndex, null );
 			this.emit( "cellchange", null, null, row, rowIndex, columnIndex, this );
-			this.open( this.link.inNewWindow( e ) );
+			this.link.open( e );
 		}
 	}
 

@@ -167,7 +167,7 @@ export class DThemeDarkBase extends DThemeDarkFont implements DThemeBase {
 		return new DShadowImpl( DThemeDarkAtlas.mappings.shadow_weak, 8, 8, 0, 2 );
 	}
 
-	getCursor(): string | null {
-		return null;
+	getCursor( state: DBaseStateSet ): string {
+		return "";
 	}
 }

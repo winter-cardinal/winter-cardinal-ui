@@ -5,9 +5,10 @@
 
 import { interaction } from "pixi.js";
 import { DApplications } from "./d-applications";
-import { DBaseStateSet } from "./d-base-state-set";
+import { DButtonBaseWhen } from "./d-button-base-when";
 import { DButtonGroup } from "./d-button-group";
 import { DImageBase, DImageBaseEvents, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
+import { toEnum } from "./util/to-enum";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
@@ -56,6 +57,11 @@ export interface DButtonBaseOptions<
 	group?: DButtonGroup;
 
 	/**
+	 * An option when to activate a button.
+	 */
+	when?: DButtonBaseWhen | (keyof typeof DButtonBaseWhen);
+
+	/**
 	 * Mappings of event names and handlers.
 	 */
 	on?: DButtonBaseOnOptions<VALUE, EMITTER>;
@@ -69,6 +75,11 @@ export interface DThemeButtonBase<VALUE = unknown> extends DThemeImageBase<VALUE
 	 * Returns true to turn a toggle mode on.
 	 */
 	isToggle(): boolean;
+
+	/**
+	 * Returns when to activate a button.
+	 */
+	getWhen(): DButtonBaseWhen;
 }
 
 /**
@@ -81,18 +92,19 @@ export class DButtonBase<
 	OPTIONS extends DButtonBaseOptions<VALUE, THEME> = DButtonBaseOptions<VALUE, THEME>
 > extends DImageBase<VALUE, THEME, OPTIONS> {
 	protected _isToggle!: boolean;
+	protected _when!: DButtonBaseWhen;
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
 
-		this.buttonMode = true;
-		this._isToggle = ( options?.toggle ?? this.theme.isToggle() );
+		const theme = this.theme;
+		this._isToggle = ( options?.toggle ?? theme.isToggle() );
+		const when = toEnum( options?.when ?? theme.getWhen(), DButtonBaseWhen );
+		this._when = when;
 
 		// Event handlers
-		this.initOnClick( options );
-		if( ! this._isToggle ) {
-			this.initOnPress( options );
-		}
+		this.initOnClick( when, theme, options );
+		this.initOnPress( when, theme, options );
 
 		// Group
 		const group = options?.group;
@@ -110,13 +122,15 @@ export class DButtonBase<
 		return this._isToggle;
 	}
 
-	protected initOnClick( options?: OPTIONS ): void {
+	protected initOnClick( when: DButtonBaseWhen, theme: THEME, options?: OPTIONS ): void {
 		UtilPointerEvent.onClick( this, ( e: interaction.InteractionEvent ): void => {
-			this.onClick( e );
+			if( when === DButtonBaseWhen.CLICKED ) {
+				this.onClick( e );
+			}
 		});
 	}
 
-	protected initOnPress( options?: OPTIONS ): void {
+	protected initOnPress( when: DButtonBaseWhen, theme: THEME, options?: OPTIONS ): void {
 		let interactionManager: interaction.InteractionManager | null = null;
 
 		const onUp = (): void => {
@@ -137,11 +151,6 @@ export class DButtonBase<
 		});
 	}
 
-	protected onStateChange( newState: DBaseStateSet, oldState: DBaseStateSet ): void {
-		super.onStateChange( newState, oldState );
-		this.buttonMode = newState.isActionable;
-	}
-
 	protected getType(): string {
 		return "DButton";
 	}
@@ -155,6 +164,13 @@ export class DButtonBase<
 				this.onActivate( e );
 			}
 		}
+	}
+
+	onDblClick( e: MouseEvent | TouchEvent, interactionManager: interaction.InteractionManager ): boolean {
+		if( this._when === DButtonBaseWhen.DOUBLE_CLICKED ) {
+			this.onClick( e );
+		}
+		return super.onDblClick( e, interactionManager );
 	}
 
 	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {

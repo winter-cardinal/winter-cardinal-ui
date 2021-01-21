@@ -121,10 +121,18 @@ export class DMenuItemMenu<
 	}
 
 	onKeyDown( e: KeyboardEvent ): boolean {
-		if( this.state.isActionable && this.state.isFocused && UtilKeyboardEvent.isArrowRightKey( e ) ) {
-			this.onSelect( e );
+		if( UtilKeyboardEvent.isArrowRightKey( e ) ) {
+			this.onKeyDownArrowRight( e );
 		}
 		return super.onKeyDown( e );
+	}
+
+	protected onKeyDownArrowRight( e: KeyboardEvent ): boolean {
+		if( this.state.isActionable && this.state.isFocused ) {
+			this.onSelect( e );
+			return true;
+		}
+		return false;
 	}
 
 	static isCompatible<VALUE>( options: DMenuItemOptionsUnion<VALUE> ): options is DMenuItemMenuOptions<VALUE> {

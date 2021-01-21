@@ -192,13 +192,6 @@ export abstract class DInput<
 		}
 	}
 
-	protected onDownThis( e: interaction.InteractionEvent ): void {
-		if( this.state.isFocused ) {
-			this.start();
-		}
-		super.onDownThis( e );
-	}
-
 	protected getType(): string {
 		return "DInput";
 	}

@@ -5,6 +5,7 @@
 
 import { interaction } from "pixi.js";
 import { DButtonBase, DButtonBaseOptions, DThemeButtonBase } from "./d-button-base";
+import { DButtonBaseWhen } from "./d-button-base-when";
 import { DLink, DLinkOptions, DThemeLink } from "./d-link";
 
 export interface DButtonLinkOptions<
@@ -25,17 +26,23 @@ export class DButtonLink<
 > extends DButtonBase<VALUE, THEME, OPTIONS> {
 	protected _link!: DLink;
 
-	protected initOnClick( options?: OPTIONS ): void {
-		const link = new DLink( this.theme, options );
+	protected initOnClick( when: DButtonBaseWhen, theme: THEME, options?: OPTIONS ): void {
+		const link = new DLink( theme, options );
 		this._link = link;
 		link.apply( this, ( e: interaction.InteractionEvent ): void => {
-			this.onClick( e );
+			if( when === DButtonBaseWhen.CLICKED ) {
+				this.onClick( e );
+			}
 		});
+	}
+
+	get link(): DLink {
+		return this._link;
 	}
 
 	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
 		super.onActivate( e );
-		this.open( this._link.inNewWindow( e ) );
+		this._link.open( e );
 	}
 
 	open( inNewWindow: boolean ): void {

@@ -6,6 +6,7 @@
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeButtonBase } from "../../d-button-base";
+import { DButtonBaseWhen } from "../../d-button-base-when";
 import { DCoordinateSize } from "../../d-coordinate";
 import { UtilRgb } from "../../util/util-rgb";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
@@ -77,5 +78,16 @@ export class DThemeWhiteButtonBase<VALUE = unknown> extends DThemeWhiteImageBase
 
 	isToggle(): boolean {
 		return false;
+	}
+
+	getWhen(): DButtonBaseWhen {
+		return DButtonBaseWhen.CLICKED;
+	}
+
+	getCursor( state: DBaseStateSet ): string {
+		if( ! state.isActionable ) {
+			return "";
+		}
+		return "pointer";
 	}
 }

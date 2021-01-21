@@ -76,7 +76,6 @@ export class DControllerDefaultFocus implements DControllerFocus {
 				const children = parent.children;
 				const index = children.indexOf( target );
 				if( 0 <= index ) {
-					// Siblings
 					const childrenLength = children.length;
 					if( this.isFocusReverse( parent ) ) {
 						for( let i = index - 1; 0 <= i; --i ) {
@@ -85,12 +84,16 @@ export class DControllerDefaultFocus implements DControllerFocus {
 								return found;
 							}
 						}
-						if( this.isFocusRoot( parent ) ) {
-							for( let i = childrenLength - 1; index <= i; --i ) {
-								const found = this.findNext( children[ i ], true, true );
-								if( found != null ) {
-									return found;
-								}
+						if( ! this.isFocusRoot( parent, root ) ) {
+							const found = this.find( parent, false, false, true, root );
+							if( found != null ) {
+								return found;
+							}
+						}
+						for( let i = childrenLength - 1; index <= i; --i ) {
+							const found = this.findNext( children[ i ], true, true );
+							if( found != null ) {
+								return found;
 							}
 						}
 					} else {
@@ -100,19 +103,18 @@ export class DControllerDefaultFocus implements DControllerFocus {
 								return found;
 							}
 						}
-						if( this.isFocusRoot( parent ) ) {
-							for( let i = 0; i <= index; ++i ) {
-								const found = this.findNext( children[ i ], true, true );
-								if( found != null ) {
-									return found;
-								}
+						if( ! this.isFocusRoot( parent, root ) ) {
+							const found = this.find( parent, false, false, true, root );
+							if( found != null ) {
+								return found;
 							}
 						}
-					}
-
-					// Parent
-					if( parent !== root ) {
-						return this.find( parent, false, false, true, root );
+						for( let i = 0; i <= index; ++i ) {
+							const found = this.findNext( children[ i ], true, true );
+							if( found != null ) {
+								return found;
+							}
+						}
 					}
 				}
 			}
@@ -127,7 +129,6 @@ export class DControllerDefaultFocus implements DControllerFocus {
 				const children = parent.children;
 				const index = children.indexOf( target );
 				if( 0 <= index ) {
-					// Siblings
 					const childrenLength = children.length;
 					if( this.isFocusReverse( parent ) ) {
 						for( let i = index + 1; i < childrenLength; ++i ) {
@@ -136,14 +137,17 @@ export class DControllerDefaultFocus implements DControllerFocus {
 								return found;
 							}
 						}
-						if( this.isFocusRoot( parent ) ) {
-							for( let i = 0; i <= index; ++i ) {
-								const found = this.findPrevious( children[ i ], true, true );
-								if( found != null ) {
-									return found;
-								}
+						if( ! this.isFocusRoot( parent, root ) ) {
+							const found = this.find( parent, true, false, false, root );
+							if( found != null ) {
+								return found;
 							}
-							return parent;
+						}
+						for( let i = 0; i <= index; ++i ) {
+							const found = this.findPrevious( children[ i ], true, true );
+							if( found != null ) {
+								return found;
+							}
 						}
 					} else {
 						for( let i = index - 1; 0 <= i; --i ) {
@@ -152,20 +156,18 @@ export class DControllerDefaultFocus implements DControllerFocus {
 								return found;
 							}
 						}
-						if( this.isFocusRoot( parent ) ) {
-							for( let i = childrenLength - 1; index <= i; --i ) {
-								const found = this.findPrevious( children[ i ], true, true );
-								if( found != null ) {
-									return found;
-								}
+						if( ! this.isFocusRoot( parent, root ) ) {
+							const found = this.find( parent, true, false, false, root );
+							if( found != null ) {
+								return found;
 							}
-							return parent;
 						}
-					}
-
-					// Parent
-					if( parent !== root ) {
-						return this.find( parent, true, false, false, root );
+						for( let i = childrenLength - 1; index <= i; --i ) {
+							const found = this.findPrevious( children[ i ], true, true );
+							if( found != null ) {
+								return found;
+							}
+						}
 					}
 				}
 			}
@@ -204,11 +206,6 @@ export class DControllerDefaultFocus implements DControllerFocus {
 			}
 		}
 
-		// Siblings
-		if( this.isFocusRoot( target ) ) {
-			return target;
-		}
-
 		// Found nothing
 		return null;
 	}
@@ -244,11 +241,6 @@ export class DControllerDefaultFocus implements DControllerFocus {
 			}
 		}
 
-		// Siblings
-		if( this.isFocusRoot( target ) ) {
-			return target;
-		}
-
 		// Found nothing
 		return null;
 	}
@@ -270,7 +262,10 @@ export class DControllerDefaultFocus implements DControllerFocus {
 		);
 	}
 
-	protected isFocusRoot( target: any ): target is DFocusable {
+	protected isFocusRoot( target: any, root: unknown ): target is DFocusable {
+		if( target === root ) {
+			return true;
+		}
 		return (
 			target != null &&
 			("state" in target) &&
