@@ -7,7 +7,7 @@ import { DBaseStateSet } from "../../d-base-state-set";
 import { DBorderMask } from "../../d-border-mask";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
-import { DTableCellState } from "../../d-table-cell-state";
+import { DTableState } from "../../d-table-state";
 import { UtilRgb } from "../../util/util-rgb";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 
@@ -24,7 +24,7 @@ export class DThemeDarkTableBodyCells {
 
 	static getBackgroundColor( state: DBaseStateSet ): number | null {
 		if( state.inDisabled ) {
-			if( state.is( DTableCellState.FROZEN ) ) {
+			if( state.is( DTableState.FROZEN ) ) {
 				return state.onAlternated ?
 					this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
 			} else {
@@ -39,7 +39,7 @@ export class DThemeDarkTableBodyCells {
 		} else if( state.isFocused || (state.onHovered || state.isHovered) ) {
 			return DThemeDarkConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD;
 		} else {
-			if( state.is( DTableCellState.FROZEN ) ) {
+			if( state.is( DTableState.FROZEN ) ) {
 				return state.onAlternated ?
 					this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
 			} else {
@@ -61,7 +61,7 @@ export class DThemeDarkTableBodyCells {
 	}
 
 	static getBorderMask( state: DBaseStateSet ): DBorderMask {
-		if( state.is( DTableCellState.END ) ) {
+		if( state.is( DTableState.END ) ) {
 			return DBorderMask.ALL;
 		} else {
 			return DBorderMask.NOT_RIGHT;

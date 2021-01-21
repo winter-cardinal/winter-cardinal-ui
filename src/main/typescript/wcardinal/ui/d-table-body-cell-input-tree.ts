@@ -4,21 +4,20 @@
  */
 
 import { interaction, Point } from "pixi.js";
+import { DBase, DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
-import { DLayoutHorizontal, DThemeLayoutHorizontal } from "./d-layout-horizontal";
-import { DTableBodyCellInputTextOptions } from "./d-table-body-cell-input-text";
 import { DTableBodyCellInputTreeInput, DTableBodyCellInputTreeInputOptions } from "./d-table-body-cell-input-tree-input";
 import { DTableBodyCellInputTreeMarker } from "./d-table-body-cell-input-tree-marker";
 import { DTableBodyCells } from "./d-table-body-cells";
-import { DTableCellState } from "./d-table-cell-state";
+import { DTableState } from "./d-table-state";
 import { DTableColumn } from "./d-table-column";
 import { isNumber } from "./util/is-number";
 
-export interface DThemeTableBodyCellInputTree extends DThemeLayoutHorizontal {
+export interface DThemeTableBodyCellInputTree extends DThemeBase {
 	getLevelPadding( level: number ): number;
 }
 
-const toLayoutOptions = ( options?: DTableBodyCellInputTextOptions<unknown> ) => {
+const toBaseOptions = ( options?: DTableBodyCellInputTreeInputOptions ) => {
 	if( options != null ) {
 		return {
 			weight: options.weight,
@@ -31,8 +30,8 @@ const toLayoutOptions = ( options?: DTableBodyCellInputTextOptions<unknown> ) =>
 export class DTableBodyCellInputTree<
 	ROW = unknown,
 	THEME extends DThemeTableBodyCellInputTree = DThemeTableBodyCellInputTree,
-	OPTIONS extends DTableBodyCellInputTextOptions<ROW> = DTableBodyCellInputTextOptions<ROW>
-> extends DLayoutHorizontal<THEME> {
+	OPTIONS extends DTableBodyCellInputTreeInputOptions = DTableBodyCellInputTreeInputOptions
+> extends DBase<THEME> {
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;
@@ -42,21 +41,24 @@ export class DTableBodyCellInputTree<
 	protected _input: DTableBodyCellInputTreeInput;
 
 	constructor( columnIndex: number, column: DTableColumn<ROW>, options?: OPTIONS ) {
-		super( toLayoutOptions( options ) );
+		super( toBaseOptions( options ) );
 
 		this._rowIndex = -1;
 		this._columnIndex = columnIndex;
 		this._column = column;
+
+		// Input
+		const input = this.newInput( options );
+		this._input = input;
+		this.addChild( input );
 
 		// Marker
 		const marker = this.newMarker( options );
 		this._marker = marker;
 		this.addChild( marker );
 
-		// Input
-		const input = this.newInput( options );
-		this._input = input;
-		this.addChild( input );
+		this.state.isFocusable = false;
+		this.state.isFocusReverse = true;
 	}
 
 	protected newInput( options?: OPTIONS ): DTableBodyCellInputTreeInput {
@@ -68,6 +70,8 @@ export class DTableBodyCellInputTree<
 			weight: 1,
 			text: options?.text,
 			editing: options?.editing,
+			when: options?.when,
+			cursor: options?.cursor,
 			on: {
 				change: ( newValue: unknown, oldValue: unknown ): void => {
 					this.onInputChange( newValue, oldValue );
@@ -98,7 +102,7 @@ export class DTableBodyCellInputTree<
 	}
 
 	protected onMarkerActive(): void {
-		if( this._marker.state.is( DTableCellState.HAS_CHILDREN ) ) {
+		if( this._marker.state.is( DTableState.HAS_CHILDREN ) ) {
 			const row = this.parent;
 			if( row ) {
 				const body = row.parent as any;
@@ -129,14 +133,8 @@ export class DTableBodyCellInputTree<
 		return this._column;
 	}
 
-	onClick?( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
-		this._input.focus();
-	}
-
 	onRowSelect( e: interaction.InteractionEvent, local: Point ): boolean {
-		const marker = this._marker;
-		if( local.x <= this.position.x + marker.position.x + marker.width ) {
-			marker.onClick( e );
+		if( local.x <= this.position.x + this._input.padding.getLeft() ) {
 			return true;
 		}
 		return false;
@@ -149,8 +147,9 @@ export class DTableBodyCellInputTree<
 	): void {
 		this._row = row;
 		this._rowIndex = rowIndex;
-		this._input.visible = true;
-		this._input.text = String( value );
+		const input = this._input;
+		input.visible = true;
+		input.text = String( value );
 
 		const marker = this._marker;
 		if( isNumber( supplimental ) ) {
@@ -159,14 +158,20 @@ export class DTableBodyCellInputTree<
 			const level = (supplimental >> 2);
 			const markerState = marker.state;
 			markerState.lock();
-			markerState.set( DTableCellState.HAS_CHILDREN, hasChildren );
+			markerState.set( DTableState.HAS_CHILDREN, hasChildren );
 			markerState.set( DBaseState.DISABLED, ! hasChildren );
-			markerState.set( DTableCellState.OPENED, isOpened );
+			markerState.set( DTableState.OPENED, isOpened );
 			markerState.unlock();
-			marker.show();
-			marker.width = this.theme.getLevelPadding( level );
+			const padding = this.theme.getLevelPadding( level );
+			marker.width = padding;
+			if( hasChildren ) {
+				marker.show();
+			} else {
+				marker.hide();
+			}
+			input.padding.adjuster.left = padding;
 		} else {
-			marker.state.removeAll( DTableCellState.OPENED, DTableCellState.HAS_CHILDREN );
+			marker.state.removeAll( DTableState.OPENED, DTableState.HAS_CHILDREN );
 			marker.hide();
 		}
 

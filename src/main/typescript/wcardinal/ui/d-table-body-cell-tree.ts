@@ -5,6 +5,7 @@
 
 import { interaction, Point } from "pixi.js";
 import { DBasePaddingAdjustable } from "./d-base-padding-adjustable";
+import { DButtonBaseWhen } from "./d-button-base-when";
 import { DLink, DThemeLink } from "./d-link";
 import { DLinks } from "./d-links";
 import {
@@ -12,10 +13,9 @@ import {
 } from "./d-table-body-cell-button";
 import { DTableBodyCellLinkLinkOptions, toLinkOptions } from "./d-table-body-cell-link";
 import { DTableBodyCells } from "./d-table-body-cells";
-import { DTableCellState } from "./d-table-cell-state";
+import { DTableState } from "./d-table-state";
 import { DTableColumn } from "./d-table-column";
 import { isNumber } from "./util/is-number";
-import { UtilPointerEvent } from "./util/util-pointer-event";
 
 export interface DTableBodyCellTreeOptions<
 	ROW,
@@ -41,19 +41,16 @@ export class DTableBodyCellTree<
 		this._padding = new DBasePaddingAdjustable( this._padding );
 	}
 
-	protected initOnClick( options: OPTIONS ): void {
+	protected initOnClick( when: DButtonBaseWhen, theme: THEME, options: OPTIONS ): void {
 		const link = this.link;
 		if( link ) {
 			link.apply( this, ( e: interaction.InteractionEvent ): void => {
-				this.onActivate( e );
-			});
-			UtilPointerEvent.onClick( this, ( e: interaction.InteractionEvent ): void => {
-				if( ! link.enable ) {
+				if( when === DButtonBaseWhen.CLICKED ) {
 					this.onClick( e );
 				}
 			});
 		} else {
-			super.initOnClick( options );
+			super.initOnClick( when, theme, options );
 		}
 	}
 
@@ -82,11 +79,10 @@ export class DTableBodyCellTree<
 			const columnIndex = this._columnIndex;
 			this.emit( "cellchange", null, null, row, rowIndex, columnIndex, this );
 
-			const link = this.link;
-			if( link?.enable ) {
-				link.open( link.inNewWindow( e ) );
-			} else {
+			if( this.state.is( DTableState.HAS_CHILDREN ) ) {
 				this.toggle( row );
+			} else {
+				this.link?.open( e );
 			}
 		}
 	}
@@ -135,18 +131,18 @@ export class DTableBodyCellTree<
 			const level = (supplimental >> 2);
 			const state = this.state;
 			state.lock();
-			state.set( DTableCellState.HAS_CHILDREN, hasChildren );
-			state.set( DTableCellState.OPENED, isOpened );
+			state.set( DTableState.HAS_CHILDREN, hasChildren );
+			state.set( DTableState.OPENED, isOpened );
 			state.unlock();
 			if( link ) {
-				link.enable = ! hasChildren;
+				link.menu.enable = ! hasChildren;
 			}
 			adjuster.left = this.theme.getLevelPadding( level );
 		} else {
-			this.state.removeAll( DTableCellState.OPENED, DTableCellState.HAS_CHILDREN );
+			this.state.removeAll( DTableState.OPENED, DTableState.HAS_CHILDREN );
 			adjuster.left = 0;
 			if( link ) {
-				link.enable = false;
+				link.menu.enable = false;
 			}
 		}
 	}

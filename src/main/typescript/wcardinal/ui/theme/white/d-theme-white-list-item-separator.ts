@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeListItemSeparator } from "../../d-list-item-separator";
@@ -32,5 +33,9 @@ export class DThemeWhiteListItemSeparator extends DThemeWhiteImage<string> imple
 
 	getPaddingRight(): number {
 		return 10;
+	}
+
+	getInteractive(): DBaseInteractive {
+		return DBaseInteractive.NONE;
 	}
 }

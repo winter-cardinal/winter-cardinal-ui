@@ -4,9 +4,9 @@
  */
 
 /**
- * Cell states.
+ * {@link DTable} states.
  */
-export const DTableCellState = {
+export const DTableState = {
 	/**
 	 * Start cells in rows.
 	 */
@@ -28,6 +28,11 @@ export const DTableCellState = {
 	FROZEN_END: "FROZEN_END",
 
 	/**
+	 * Header cells of sortable columns.
+	 */
+	SORTABLE: "SORTABLE",
+
+	/**
 	 * Header cells of columns sorted in the ascending order.
 	 */
 	SORTED_ASCENDING: "SORTED_ASCENDING",
@@ -38,17 +43,22 @@ export const DTableCellState = {
 	SORTED_DESCENDING: "SORTED_DESCENDING",
 
 	/**
-	 * Cells with child cells.
+	 * Tree cells with child cells.
 	 */
 	HAS_CHILDREN: "HAS_CHILDREN",
 
 	/**
-	 * Cells opened.
+	 * Tree cells opened.
 	 */
 	OPENED: "OPENED",
 
 	/**
-	 * Cells checkable
+	 * Header cells of checkable columns.
 	 */
-	CHECKABLE: "CHECKABLE"
+	CHECKABLE: "CHECKABLE",
+
+	/**
+	 * Selectable row
+	 */
+	SELECTABLE: "SELECTABLE"
 };

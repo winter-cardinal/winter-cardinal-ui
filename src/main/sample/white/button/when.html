@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Basics</title>
+	<title>When to activate</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -33,55 +33,30 @@
 		new wcardinal.ui.DLayoutVertical({
 			parent: application.stage,
 			x: "center", y: "center",
-			width: 200, height: "auto",
+			width: 200,
 			margin: 32,
 			children: [
-				// Text input
-				new wcardinal.ui.DInputText({
+				new wcardinal.ui.DButton({
 					width: "100%",
+					when: "CLICKED",
 					text: {
-						value: "Apple"
+						value: "Click me"
 					},
 					on: {
-						change: function ( newValue, oldValue, input ) {
-							console.log( newValue, oldValue, input );
+						active: function( button ) {
+							console.log( "active", button );
 						}
 					}
 				}),
-
-				// Integer input
-				new wcardinal.ui.DInputInteger({
+				new wcardinal.ui.DButton({
 					width: "100%",
+					when: "DOUBLE_CLICKED",
 					text: {
-						value: 123
+						value: "Double click me"
 					},
 					on: {
-						change: function ( newValue, oldValue, input ) {
-							console.log( newValue, oldValue, input );
-						}
-					}
-				}),
-
-				// Real input
-				new wcardinal.ui.DInputReal({
-					width: "100%",
-					text: {
-						value: 1.23
-					},
-					on: {
-						change: function ( newValue, oldValue, input ) {
-							console.log( newValue, oldValue, input );
-						}
-					}
-				}),
-
-				// Boolean input
-				new wcardinal.ui.DInputBoolean({
-					width: "100%",
-					value: true,
-					on: {
-						change: function ( newValue, oldValue, input ) {
-							console.log( newValue, oldValue, input );
+						active: function( button ) {
+							console.log( "active", button );
 						}
 					}
 				})

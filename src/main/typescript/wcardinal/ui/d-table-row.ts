@@ -6,7 +6,7 @@
 import { Rectangle } from "pixi.js";
 import { DBase } from "./d-base";
 import { DLayoutHorizontal, DLayoutHorizontalOptions, DThemeLayoutHorizontal } from "./d-layout-horizontal";
-import { DTableCellState } from "./d-table-cell-state";
+import { DTableState } from "./d-table-state";
 
 export interface DTableRowOptions<
 	ROW,
@@ -52,26 +52,28 @@ export abstract class DTableRow<
 		this._reverse = true;
 
 		// Frozen
-		const frozen = this._frozen = options.frozen ?? 0;
+		const frozen = options.frozen ?? 0;
+		this._frozen = frozen;
 
 		// Cells
-		const columns = this._columns = options.columns || [];
+		const columns = options.columns || [];
+		this._columns = columns;
 		const iend = this.toIndexEnd( columns );
 		for( let i = columns.length - 1; 0 <= i; --i ) {
 			const cell = this.newCell( i, columns[ i ], columns, options );
 			const cellState = cell.state;
 			cellState.lock( false );
 			if( i === 0 ) {
-				cellState.add( DTableCellState.START );
+				cellState.add( DTableState.START );
 			}
 			if( i === iend ) {
-				cellState.add( DTableCellState.END );
+				cellState.add( DTableState.END );
 			}
 			if( i < frozen ) {
-				cellState.add( DTableCellState.FROZEN );
+				cellState.add( DTableState.FROZEN );
 			}
 			if( i === frozen - 1 ) {
-				cellState.add( DTableCellState.FROZEN_END );
+				cellState.add( DTableState.FROZEN_END );
 			}
 			cellState.unlock();
 			this.addChild( cell );
@@ -92,23 +94,6 @@ export abstract class DTableRow<
 	protected onRefit(): void {
 		super.onRefit();
 		this.resetFrozenCellPosition();
-	}
-
-	getFocusedChildClippingPositionX( focused: DBase ): number {
-		const frozen = this._frozen;
-		if( 0 < frozen ) {
-			const cells = this.children as DBase[];
-			const cellIndex = cells.indexOf( focused );
-			if( 0 <= cellIndex ) {
-				const cellsLength = cells.length;
-				const columnIndex = cellsLength - 1 - cellIndex;
-				if( frozen <= columnIndex ) {
-					const cell = cells[ cellsLength - frozen ];
-					return cell.position.x + cell.width;
-				}
-			}
-		}
-		return 0;
 	}
 
 	updateFrozenCellPosition( x: number ): void {

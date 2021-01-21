@@ -4,14 +4,16 @@
  */
 
 import { interaction } from "pixi.js";
-import { DBaseStateSet } from "./d-base-state-set";
+import { DButtonBaseWhen } from "./d-button-base-when";
 import { DTableBodyCellText, DTableBodyCellTextOptions, DThemeTableBodyCellText } from "./d-table-body-cell-text";
 import { DTableColumn } from "./d-table-column";
+import { toEnum } from "./util/to-enum";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
 export interface DTableBodyCellButtonOptions<ROW, THEME extends DThemeTableBodyCellButton = DThemeTableBodyCellButton>
 	extends DTableBodyCellTextOptions<ROW, THEME> {
+	when?: DButtonBaseWhen | (keyof typeof DButtonBaseWhen);
 }
 
 export interface DThemeTableBodyCellButton extends DThemeTableBodyCellText {
@@ -23,16 +25,21 @@ export class DTableBodyCellButton<
 	THEME extends DThemeTableBodyCellButton = DThemeTableBodyCellButton,
 	OPTIONS extends DTableBodyCellButtonOptions<ROW, THEME> = DTableBodyCellButtonOptions<ROW, THEME>
 > extends DTableBodyCellText<ROW, THEME, OPTIONS> {
+	protected _when: DButtonBaseWhen;
+
 	constructor( columnIndex: number, column: DTableColumn<ROW>, options?: OPTIONS ) {
 		super( columnIndex, column, options );
 
-		this.buttonMode = true;
-		this.initOnClick( options );
+		const when = toEnum( options?.when ?? DButtonBaseWhen.CLICKED, DButtonBaseWhen );
+		this._when = when;
+		this.initOnClick( when, this.theme, options );
 	}
 
-	protected initOnClick( options?: OPTIONS ): void {
+	protected initOnClick( when: DButtonBaseWhen, theme: THEME, options?: OPTIONS ): void {
 		UtilPointerEvent.onClick( this, ( e: interaction.InteractionEvent ): void => {
-			this.onClick( e );
+			if( when === DButtonBaseWhen.CLICKED ) {
+				this.onClick( e );
+			}
 		});
 	}
 
@@ -40,6 +47,13 @@ export class DTableBodyCellButton<
 		if( this.state.isActionable ) {
 			this.onActivate( e );
 		}
+	}
+
+	onDblClick( e: MouseEvent | TouchEvent, interactionManager: interaction.InteractionManager ): boolean {
+		if( this._when === DButtonBaseWhen.DOUBLE_CLICKED ) {
+			this.onClick( e );
+		}
+		return super.onDblClick( e, interactionManager );
 	}
 
 	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
@@ -82,11 +96,6 @@ export class DTableBodyCellButton<
 		}
 
 		return super.onKeyUp( e );
-	}
-
-	protected onStateChange( newState: DBaseStateSet, oldState: DBaseStateSet ): void {
-		super.onStateChange( newState, oldState );
-		this.buttonMode = newState.isActionable;
 	}
 
 	protected getType(): string {

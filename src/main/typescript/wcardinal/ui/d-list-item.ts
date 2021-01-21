@@ -39,7 +39,6 @@ export class DListItem<
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
-		this.buttonMode = true;
 		this._value = toValue( options );
 	}
 
@@ -87,11 +86,6 @@ export class DListItem<
 			return true;
 		}
 		return false;
-	}
-
-	protected onStateChange( newState: DBaseStateSet, oldState: DBaseStateSet ) {
-		super.onStateChange( newState, oldState );
-		this.buttonMode = newState.isActionable;
 	}
 
 	protected getType(): string {

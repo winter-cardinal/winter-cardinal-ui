@@ -4,9 +4,8 @@
  */
 
 import { interaction, Point } from "pixi.js";
-import { DBaseStateSet } from "./d-base-state-set";
 import { DImage, DImageOptions, DThemeImage } from "./d-image";
-import { DTableCellState } from "./d-table-cell-state";
+import { DTableState } from "./d-table-state";
 import { DTableColumn } from "./d-table-column";
 import {
 	DTableDataComparatorFunction, DTableDataComparatorObject,
@@ -83,13 +82,14 @@ export class DTableHeaderCell<
 			const sortable = column.sorting.enable;
 			const checkable = this._check.isEnabled;
 			if( checkable || sortable ) {
-				this.buttonMode = this.state.isActionable;
 				UtilPointerEvent.onClick( this, ( e: interaction.InteractionEvent ): void => {
 					this.onClick( e );
 				});
-				if( checkable ) {
-					this.state.add( DTableCellState.CHECKABLE );
-				}
+				const state = this.state;
+				state.lock();
+				state.set( DTableState.SORTABLE, sortable );
+				state.set( DTableState.CHECKABLE, checkable );
+				state.unlock();
 			}
 		}
 	}
@@ -130,8 +130,8 @@ export class DTableHeaderCell<
 		if( comparator ) {
 			const sorter = this._sorter;
 			if( sorter ) {
-				const SORTED_ASCENDING = DTableCellState.SORTED_ASCENDING;
-				const SORTED_DESCENDING = DTableCellState.SORTED_DESCENDING;
+				const SORTED_ASCENDING = DTableState.SORTED_ASCENDING;
+				const SORTED_DESCENDING = DTableState.SORTED_DESCENDING;
 				if( sorter.isApplied() && sorter.get() === comparator ) {
 					if( sorter.order === DTableDataOrder.ASCENDING ) {
 						this.state.set( SORTED_ASCENDING, SORTED_DESCENDING );
@@ -216,12 +216,8 @@ export class DTableHeaderCell<
 		return false;
 	}
 
-	get isButton(): boolean {
-		return this.check.isEnabled || this.isSortable;
-	}
-
 	get isToggle(): boolean {
-		return this.check.isEnabled;
+		return this._check.isEnabled;
 	}
 
 	toggle(): void {
@@ -284,13 +280,6 @@ export class DTableHeaderCell<
 		}
 
 		return super.onKeyUp( e );
-	}
-
-	protected onStateChange( newState: DBaseStateSet, oldState: DBaseStateSet ): void {
-		super.onStateChange( newState, oldState );
-		if( this.isButton ) {
-			this.buttonMode = newState.isActionable;
-		}
 	}
 
 	protected getType(): string {

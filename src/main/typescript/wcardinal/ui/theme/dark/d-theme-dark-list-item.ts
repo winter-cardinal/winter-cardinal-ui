@@ -83,4 +83,11 @@ export class DThemeDarkListItem extends DThemeDarkImage<string> implements DThem
 	getCornerMask(): number {
 		return DCornerMask.ALL;
 	}
+
+	getCursor( state: DBaseStateSet ): string {
+		if( ! state.isActionable ) {
+			return "";
+		}
+		return "pointer";
+	}
 }

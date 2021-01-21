@@ -107,7 +107,7 @@ export class DThemeDarkInput<VALUE = unknown> extends DThemeDarkHtmlElement<VALU
 	}
 
 	getCursor( state: DBaseStateSet ): string {
-		if( state.inDisabled ) {
+		if( ! state.isActionable ) {
 			return "";
 		}
 		return "text";

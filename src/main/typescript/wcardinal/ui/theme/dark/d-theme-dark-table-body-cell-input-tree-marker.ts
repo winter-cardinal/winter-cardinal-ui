@@ -32,7 +32,7 @@ export class DThemeDarkTableBodyCellInputTreeMarker<VALUE = unknown> extends DTh
 	}
 
 	getCursor( state: DBaseStateSet ): string {
-		if( state.inDisabled ) {
+		if( ! state.isActionable ) {
 			return "";
 		}
 		return "pointer";

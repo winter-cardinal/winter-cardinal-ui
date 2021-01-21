@@ -49,6 +49,7 @@ export class EThemeWhiteShape implements EThemeShape {
 	getTextSize(): number {
 		return 14;
 	}
+
 	getCursor(): string {
 		return "";
 	}

@@ -49,6 +49,10 @@ export class DTableBodyCellSelectMultiple<
 		});
 	}
 
+	protected onKeyDownArrowDown( e: KeyboardEvent ): boolean {
+		return false;
+	}
+
 	get row(): ROW | undefined {
 		return this._row;
 	}

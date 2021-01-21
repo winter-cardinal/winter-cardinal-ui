@@ -4,6 +4,7 @@
  */
 
 import { DBase } from "./d-base";
+import { DBaseStateSet } from "./d-base-state-set";
 import { DTableBodyCell } from "./d-table-body-cell";
 import { DTableBodyCellActionDialog } from "./d-table-body-cell-action-dialog";
 import { DTableBodyCellActionMenu } from "./d-table-body-cell-action-menu";
@@ -27,7 +28,13 @@ import { DTableBodyCellText } from "./d-table-body-cell-text";
 import { DTableBodyCellTime } from "./d-table-body-cell-time";
 import { DTableBodyCellTree } from "./d-table-body-cell-tree";
 import { DTableBodyCellOptionsUnion, DTableColumn, DTableColumnType } from "./d-table-column";
+import { DTableDataSelectionType } from "./d-table-data-selection";
 import { DTableRow, DTableRowOptions, DThemeTableRow } from "./d-table-row";
+import { DTableState } from "./d-table-state";
+
+export interface DTableBodyRowSelectionOptions {
+	type?: DTableDataSelectionType;
+}
 
 export interface DTableBodyRowOptions<
 	ROW,
@@ -35,6 +42,7 @@ export interface DTableBodyRowOptions<
 > extends DTableRowOptions<ROW, DTableColumn<ROW>, THEME> {
 	height?: number;
 	cell?: DTableBodyCellOptionsUnion<ROW>;
+	selection?: DTableBodyRowSelectionOptions;
 }
 
 export interface DThemeTableBodyRow extends DThemeTableRow {
@@ -207,42 +215,62 @@ export class DTableBodyRow<
 		options: OPTIONS
 	): DTableBodyCellOptionsUnion<ROW> {
 		let result: any = (column.body || options.cell);
+		const columnWeight = column.weight;
+		const columnWidth = column.width;
+		const columnFormatter = column.formatter;
+		const columnAlign = column.align;
+		const columnSelecting = column.selecting;
+		const columnSelectingMenu = columnSelecting.menu || columnSelecting.multiple;
 		if( result != null ) {
-			result.weight = column.weight;
-			result.width = column.width;
-			const text = result.text = result.text || {};
-			const align = text.align = text.align || {};
-			align.horizontal = column.align;
-			text.formatter = column.formatter;
-			if( column.selecting.menu ) {
-				result.menu = column.selecting.menu;
-			}
-			if( column.selecting.multiple ) {
-				result.menu = column.selecting.menu;
-			}
+			result.weight = columnWeight;
+			result.width = columnWidth;
+
+			const text = result.text || {};
+			result.text = text;
+			text.formatter ||= columnFormatter;
+
+			const textAlign = text.align || {};
+			text.align = textAlign;
+			textAlign.horizontal = columnAlign;
+
+			result.menu ||= columnSelectingMenu;
 		} else {
 			result = {
-				weight: column.weight,
-				width: column.width,
+				weight: columnWeight,
+				width: columnWidth,
 				text: {
-					formatter: column.formatter,
+					formatter: columnFormatter,
 					align: {
-						horizontal: column.align
+						horizontal: columnAlign
 					}
 				},
-				menu: column.selecting.menu || column.selecting.multiple
+				menu: columnSelectingMenu
 			};
 		}
 
-		if( column.editing.enable !== false ) {
-			const editing = result.editing = result.editing || {};
-			editing.formatter = editing.formatter || column.editing.formatter;
-			editing.unformatter = editing.unformatter || column.editing.unformatter as any;
-			editing.validator = editing.validator || column.editing.validator as any;
+		const columnEditing = column.editing;
+		if( columnEditing.enable !== false ) {
+			const editing = result.editing || {};
+			result.editing = editing;
+			editing.formatter ||= columnEditing.formatter;
+			editing.unformatter ||= columnEditing.unformatter;
+			editing.validator ||= columnEditing.validator;
 		}
 
-		if( column.link ) {
-			result.link = column.link;
+		const columnLink = column.link;
+		if( columnLink ) {
+			result.link = columnLink;
+		}
+
+		const selectionType = ( options?.selection?.type ?? DTableDataSelectionType.NONE );
+		if( selectionType !== DTableDataSelectionType.NONE ) {
+			result.when = "DOUBLE_CLICKED";
+			result.cursor = ( state: DBaseStateSet ): string | undefined => {
+				if( state.in( DTableState.SELECTABLE ) ) {
+					return "pointer";
+				}
+				return undefined;
+			};
 		}
 
 		return result;

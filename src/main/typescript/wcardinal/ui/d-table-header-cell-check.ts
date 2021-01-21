@@ -22,15 +22,9 @@ export class DTableHeaderCellCheck<ROW> {
 
 	constructor( parent: DTableHeaderCellCheckParent<ROW>, options?: DTableHeaderCellCheckOptions ) {
 		this._parent = parent;
-		if( options ) {
-			this._isEnabled = options.enable ?? false;
-			this._isFilterable = options.filterable ?? true;
-			this._isEmittable = options.emittable ?? true;
-		} else {
-			this._isEnabled = false;
-			this._isFilterable = true;
-			this._isEmittable = true;
-		}
+		this._isEnabled = options?.enable ?? false;
+		this._isFilterable = options?.filterable ?? true;
+		this._isEmittable = options?.emittable ?? true;
 	}
 
 	get isEnabled(): boolean {

@@ -48,6 +48,10 @@ export class DTableBodyCellSelectMenu<
 		});
 	}
 
+	protected onKeyDownArrowDown( e: KeyboardEvent ): boolean {
+		return false;
+	}
+
 	get row(): ROW | undefined {
 		return this._row;
 	}

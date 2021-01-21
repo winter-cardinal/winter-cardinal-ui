@@ -12,7 +12,7 @@ import { DBorderMask } from "../../d-border-mask";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
-import { DTableCellState } from "../../d-table-cell-state";
+import { DTableState } from "../../d-table-state";
 import { DThemeTableHeaderCell } from "../../d-table-header-cell";
 import { UtilRgb } from "../../util/util-rgb";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
@@ -42,14 +42,14 @@ export class DThemeWhiteTableHeaderCell extends DThemeWhiteImage<string | null> 
 
 	getBackgroundColor( state: DBaseStateSet ): number | null {
 		if( state.inDisabled ) {
-			return ( state.is( DTableCellState.FROZEN ) ) ?
+			return ( state.is( DTableState.FROZEN ) ) ?
 				this.BACKGROUND_COLOR : null;
 		} else if( state.isPressed ) {
 			return this.BACKGROUND_COLOR_PRESSED;
 		} else if( state.isFocused || state.isHovered ) {
 			return this.BACKGROUND_COLOR_HOVERED;
 		} else {
-			return ( state.is( DTableCellState.FROZEN ) ) ?
+			return ( state.is( DTableState.FROZEN ) ) ?
 				this.BACKGROUND_COLOR : null;
 		}
 	}
@@ -67,7 +67,7 @@ export class DThemeWhiteTableHeaderCell extends DThemeWhiteImage<string | null> 
 	}
 
 	getBorderMask( state: DBaseStateSet ): DBorderMask {
-		if( state.is( DTableCellState.END ) ) {
+		if( state.is( DTableState.END ) ) {
 			return DBorderMask.ALL;
 		} else {
 			return DBorderMask.NOT_RIGHT;
@@ -99,14 +99,14 @@ export class DThemeWhiteTableHeaderCell extends DThemeWhiteImage<string | null> 
 	}
 
 	getSecondaryImageTintColor( state: DBaseStateSet ): number | null {
-		if( state.is( DTableCellState.CHECKABLE ) ) {
+		if( state.is( DTableState.CHECKABLE ) ) {
 			return DThemeWhiteButtonChecks.getImageTintColor( state );
 		}
 		return super.getSecondaryImageTintColor( state );
 	}
 
 	getSecondaryImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
-		if( state.is( DTableCellState.CHECKABLE ) ) {
+		if( state.is( DTableState.CHECKABLE ) ) {
 			return DThemeWhiteButtonChecks.getImageSource( state );
 		}
 		return null;
@@ -125,9 +125,9 @@ export class DThemeWhiteTableHeaderCell extends DThemeWhiteImage<string | null> 
 	}
 
 	getTertiaryImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
-		if( state.is( DTableCellState.SORTED_ASCENDING ) ) {
+		if( state.is( DTableState.SORTED_ASCENDING ) ) {
 			return DThemeWhiteAtlas.mappings.sorted_ascending;
-		} else if( state.is( DTableCellState.SORTED_DESCENDING ) ) {
+		} else if( state.is( DTableState.SORTED_DESCENDING ) ) {
 			return DThemeWhiteAtlas.mappings.sorted_descending;
 		} else {
 			return null;
@@ -140,5 +140,15 @@ export class DThemeWhiteTableHeaderCell extends DThemeWhiteImage<string | null> 
 
 	getTertiaryImageAlignWith(): DAlignWith {
 		return DAlignWith.PADDING;
+	}
+
+	getCursor( state: DBaseStateSet ): string {
+		if( ! state.isActionable ) {
+			return "";
+		}
+		if( state.is( DTableState.CHECKABLE ) || state.is( DTableState.SORTABLE ) ) {
+			return "pointer";
+		}
+		return "";
 	}
 }

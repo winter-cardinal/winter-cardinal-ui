@@ -6,8 +6,10 @@
 import { interaction, Rectangle } from "pixi.js";
 import { DDialogSelectOptions } from "../ui/d-dialog-select";
 import { DAlignHorizontal } from "./d-align-horizontal";
+import { DApplications } from "./d-applications";
 import { DBase, DBaseOptions } from "./d-base";
 import { DContentOptions } from "./d-content";
+import { DFocusable, DFocusableContainer } from "./d-controller-focus";
 import { DCoordinateSize } from "./d-coordinate";
 import { DDialogSelect } from "./d-dialog-select";
 import { DMenu, DMenuOptions } from "./d-menu";
@@ -28,6 +30,7 @@ import { DTableRow } from "./d-table-row";
 import { isArray } from "./util/is-array";
 import { isString } from "./util/is-string";
 import { toString } from "./util/to-string";
+import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
 export interface DTableOptions<
@@ -432,6 +435,8 @@ export class DTable<
 	protected _categories!: DTableCategory[];
 	protected _header!: DTableHeader<ROW> | null;
 	protected _body!: DTableBody<ROW, DATA>;
+	protected _bodyOffset!: number;
+	protected _frozen!: number;
 
 	constructor( options: OPTIONS ) {
 		super( options );
@@ -443,6 +448,7 @@ export class DTable<
 
 		// Frozen
 		const frozen = toFrozen( columns );
+		this._frozen = frozen;
 
 		// Categories
 		const categories = this.newCategories( options, columns, frozen );
@@ -458,6 +464,7 @@ export class DTable<
 
 		// Body
 		const bodyOffset = headerOffset + ((header && header.height) || 0);
+		this._bodyOffset = bodyOffset;
 		const body = this.newBody( options, columns, frozen, bodyOffset );
 		this._body = body;
 
@@ -837,17 +844,124 @@ export class DTable<
 			result
 		);
 
-		const parent = focused.parent;
-		if( parent instanceof DTableRow ) {
-			const x = contentX + parent.getFocusedChildClippingPositionX( focused );
-			const dx = x - result.x;
+		const cell = this.toCell( focused );
+		if( cell ) {
+			// X
+			const dx = contentX + this.toFrozenCellX( cell ) - result.x;
 			if( 0 < dx ) {
 				result.x += dx;
 				result.width -= dx;
 			}
+
+			// Y
+			if( cell.parent.parent === this._body ) {
+				const dy = this._bodyOffset;
+				result.y += dy;
+				result.height -= dy;
+			}
 		}
 
+
+		// Done
 		return result;
+	}
+
+	protected toFrozenCellX( cell: DBase ): number {
+		const frozen = this._frozen;
+		if( 0 < frozen ) {
+			const cells = cell.parent.children as DBase[];
+			const cellIndex = cells.indexOf( cell );
+			if( 0 <= cellIndex ) {
+				const cellsLength = cells.length;
+				const columnIndex = cellsLength - 1 - cellIndex;
+				if( frozen <= columnIndex ) {
+					const cellFrozen = cells[ cellsLength - frozen ];
+					return cellFrozen.position.x + cellFrozen.width;
+				}
+			}
+		}
+		return 0;
+	}
+
+	onKeyDown( e: KeyboardEvent ): boolean {
+		UtilKeyboardEvent.moveFocusHorizontally( e, this );
+		const isArrowUpKey = UtilKeyboardEvent.isArrowUpKey( e );
+		const isArrowDownKey = UtilKeyboardEvent.isArrowDownKey( e );
+		if( isArrowUpKey || isArrowDownKey ) {
+			this.onKeyDownArrowUpOrDown( e, isArrowDownKey );
+		}
+		return super.onKeyDown( e );
+	}
+
+	protected onKeyDownArrowUpOrDown( e: KeyboardEvent, isDown: boolean ): boolean {
+		const layer = DApplications.getLayer( this );
+		if( layer == null ) {
+			return false;
+		}
+
+		const focusController = layer.getFocusController();
+		const oldFocusable = focusController.get();
+		if( oldFocusable == null ) {
+			return false;
+		}
+
+		const oldCell = this.toCell( oldFocusable );
+		if( oldCell == null ) {
+			return false;
+		}
+
+		const oldRow = oldCell.parent;
+		if( oldRow == null ) {
+			return false;
+		}
+
+		const newRowChild = focusController.find( oldRow, false, false, isDown, this );
+		if( newRowChild == null ) {
+			return false;
+		}
+
+		const newCellSibling = this.toCell( newRowChild );
+		if( newCellSibling == null ) {
+			return false;
+		}
+
+		const newRow = newCellSibling.parent;
+		if( newRow == null ) {
+			return false;
+		}
+
+		const oldCellIndex = oldRow.children.indexOf( oldCell );
+		if( oldCellIndex < 0 ) {
+			return false;
+		}
+
+		const newCell = newRow.children[ oldCellIndex ];
+		if( newCell == null || newCell === oldCell || !("state" in newCell) ) {
+			return false;
+		}
+
+		const newFocusable = focusController.find( newCell, true, true, isDown, this );
+		if( newFocusable == null ) {
+			return false;
+		}
+
+		focusController.focus( newFocusable );
+		return true;
+	}
+
+	protected toCell( focused: DFocusable ): DBase | null {
+		let current: DFocusable | DFocusableContainer | null = focused;
+		while( current != null ) {
+			const parent: DFocusableContainer | null = current.parent;
+			if( parent instanceof DTableRow ) {
+				if( current instanceof DBase ) {
+					return current;
+				}
+				return null;
+			}
+			current = parent;
+		}
+		return null;
 	}
 
 	protected getType(): string {

@@ -83,4 +83,11 @@ export class DThemeWhiteListItem extends DThemeWhiteImage<string> implements DTh
 	getCornerMask(): number {
 		return DCornerMask.ALL;
 	}
+
+	getCursor( state: DBaseStateSet ): string {
+		if( ! state.isActionable ) {
+			return "";
+		}
+		return "pointer";
+	}
 }
