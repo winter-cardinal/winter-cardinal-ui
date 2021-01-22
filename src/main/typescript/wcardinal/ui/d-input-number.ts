@@ -110,24 +110,27 @@ export abstract class DInputNumber<
 	}
 
 	protected initInputStep( input: HTMLInputElement ): void {
-		if( this._step != null ) {
-			input.step = String( this._step );
+		const step = this._step;
+		if( step != null ) {
+			input.step = `${step}`;
 		} else {
-			input.removeAttribute( "step" );
+			input.step = "any";
 		}
 	}
 
 	protected initInputMin( input: HTMLInputElement ): void {
-		if( this._min != null ) {
-			input.min = `${this._min}`;
+		const min = this._min;
+		if( min != null ) {
+			input.min = `${min}`;
 		} else {
 			input.removeAttribute( "min" );
 		}
 	}
 
 	protected initInputMax( input: HTMLInputElement ): void {
-		if( this._max != null ) {
-			input.max = `${this._max}`;
+		const max = this._max;
+		if( max != null ) {
+			input.max = `${max}`;
 		} else {
 			input.removeAttribute( "max" );
 		}

@@ -14,7 +14,7 @@ export class DThemeDarkInputNumber extends DThemeDarkInput<number> implements DT
 	}
 
 	getStep(): number | null {
-		return 1;
+		return null;
 	}
 
 	getMin(): number | null {

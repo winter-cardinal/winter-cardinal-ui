@@ -14,7 +14,7 @@ export class DThemeWhiteInputNumber extends DThemeWhiteInput<number> implements 
 	}
 
 	getStep(): number | null {
-		return 1;
+		return null;
 	}
 
 	getMin(): number | null {
