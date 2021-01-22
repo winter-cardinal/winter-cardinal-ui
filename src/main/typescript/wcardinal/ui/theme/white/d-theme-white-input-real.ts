@@ -12,10 +12,6 @@ const editingUnformatter = ( text: string ): number => {
 };
 
 export class DThemeWhiteInputReal extends DThemeWhiteInputNumber implements DThemeInputReal {
-	getStep(): number | null {
-		return 0.1;
-	}
-
 	getEditingUnformatter(): ( text: string, caller: DInputNumber ) => number {
 		return editingUnformatter;
 	}
