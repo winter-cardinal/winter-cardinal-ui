@@ -54,9 +54,7 @@ export class DDialogColorGradient<
 		return this._picker;
 	}
 
-	protected doResolve(
-		resolve: ( value?: DColorGradient | PromiseLike<DColorGradient> ) => void
-	): void {
+	protected doResolve( resolve: ( value: DColorGradient | PromiseLike<DColorGradient> ) => void ): void {
 		resolve( this.value );
 	}
 

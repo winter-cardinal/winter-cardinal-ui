@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Texture } from "pixi.js";
+import { interaction, Texture } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DColorGradientObservable } from "./d-color-gradient-observable";
@@ -56,53 +56,52 @@ export class DButtonColorGradient<
 > extends DButton<DColorGradientObservable, THEME, OPTIONS> {
 	protected static DIALOG?: DDialogColorGradient;
 	protected _dialog?: DDialogColorGradient;
-	protected _dialogOptions?: DDialogColorGradientOptions;
 	protected _view?: DPickerColorGradientView;
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
 
-		const data = this._textValueComputed!;
-		this._dialogOptions = options?.dialog;
-
-		if( options == null || options.image == null || options.image.source === undefined ) {
+		const source = options?.image?.source;
+		if( source === undefined ) {
 			const theme = this.theme;
 			const texture = theme.getViewBaseTexture();
 			if( texture instanceof Texture ) {
 				const checkers = theme.getCheckerColors();
 				const view = this._view = DPickerColorGradientView.from( 1, 10, checkers, texture );
 				view.setRectangle( 0, 0, 0, texture.width, texture.height );
-				view.setData( 0, data );
+				view.setData( 0, this._textValueComputed! );
 				view.update();
 				this.image = view;
 			}
 		}
+	}
 
-		this.on( "active", (): void => {
-			const dialog = this.dialog;
-			dialog.value.fromObject( data );
-			dialog.open().then((): void => {
-				const newValue = dialog.value;
-				const oldValue = new DColorGradientObservable().fromObject( data );
-				data.fromObject( newValue );
-				const view = this._view;
-				if( view != null ) {
-					view.update();
-				}
-				this.onTextChange();
-				this.createOrUpdateText();
-				DApplications.update( this );
-				this.emit( "change", newValue, oldValue, this );
-			});
+	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
+		super.onActivate( e );
+		const value = this._textValueComputed!;
+		const dialog = this.dialog;
+		dialog.value.fromObject( value );
+		dialog.open().then((): void => {
+			const newValue = dialog.value;
+			const oldValue = new DColorGradientObservable().fromObject( value );
+			value.fromObject( newValue );
+			const view = this._view;
+			if( view != null ) {
+				view.update();
+			}
+			this.onTextChange();
+			this.createOrUpdateText();
+			DApplications.update( this );
+			this.emit( "change", newValue, oldValue, this );
 		});
 	}
 
 	get dialog(): DDialogColorGradient {
 		let dialog = this._dialog;
 		if( dialog == null ) {
-			const dialogOptions = this._dialogOptions;
-			if( dialogOptions != null ) {
-				dialog = new DDialogColorGradient( this._dialogOptions );
+			const options = this._options?.dialog;
+			if( options ) {
+				dialog = new DDialogColorGradient( options );
 			} else {
 				if( DButtonColorGradient.DIALOG == null ) {
 					DButtonColorGradient.DIALOG = new DDialogColorGradient();

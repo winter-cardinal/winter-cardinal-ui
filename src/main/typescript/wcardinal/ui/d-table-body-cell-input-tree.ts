@@ -12,6 +12,7 @@ import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableState } from "./d-table-state";
 import { DTableColumn } from "./d-table-column";
 import { isNumber } from "./util/is-number";
+import { DTableBodyCell, DTableBodyCellOnChange } from "./d-table-body-cell";
 
 export interface DThemeTableBodyCellInputTree extends DThemeBase {
 	getLevelPadding( level: number ): number;
@@ -31,21 +32,23 @@ export class DTableBodyCellInputTree<
 	ROW = unknown,
 	THEME extends DThemeTableBodyCellInputTree = DThemeTableBodyCellInputTree,
 	OPTIONS extends DTableBodyCellInputTreeInputOptions = DTableBodyCellInputTreeInputOptions
-> extends DBase<THEME> {
+> extends DBase<THEME> implements DTableBodyCell<ROW, string> {
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;
-	protected _column: DTableColumn<ROW>;
+	protected _column: DTableColumn<ROW, string>;
+	protected _onChange: DTableBodyCellOnChange<ROW, string>;
 
 	protected _marker: DTableBodyCellInputTreeMarker;
 	protected _input: DTableBodyCellInputTreeInput;
 
-	constructor( columnIndex: number, column: DTableColumn<ROW>, options?: OPTIONS ) {
+	constructor( columnIndex: number, column: DTableColumn<ROW, string>, onChange: DTableBodyCellOnChange<ROW, string>, options?: OPTIONS ) {
 		super( toBaseOptions( options ) );
 
 		this._rowIndex = -1;
 		this._columnIndex = columnIndex;
 		this._column = column;
+		this._onChange = onChange;
 
 		// Input
 		const input = this.newInput( options );
@@ -73,20 +76,21 @@ export class DTableBodyCellInputTree<
 			when: options?.when,
 			cursor: options?.cursor,
 			on: {
-				change: ( newValue: unknown, oldValue: unknown ): void => {
+				change: ( newValue: string, oldValue: string ): void => {
 					this.onInputChange( newValue, oldValue );
 				}
 			}
 		};
 	}
 
-	protected onInputChange( newValue: unknown, oldValue: unknown ): void {
+	protected onInputChange( newValue: string, oldValue: string ): void {
 		const row = this._row;
 		if( row !== undefined ) {
 			const rowIndex = this._rowIndex;
 			const columnIndex = this._columnIndex;
 			this._column.setter( row, columnIndex, newValue );
-			this.emit( "cellchange", newValue, oldValue, row, rowIndex, columnIndex, this );
+			this.emit( "change", newValue, oldValue, this );
+			this._onChange( newValue, oldValue, row, rowIndex, columnIndex, this );
 		}
 	}
 
@@ -94,7 +98,7 @@ export class DTableBodyCellInputTree<
 		return new DTableBodyCellInputTreeMarker({
 			visible: false,
 			on: {
-				active: () => {
+				active: (): void => {
 					this.onMarkerActive();
 				}
 			}
@@ -129,7 +133,7 @@ export class DTableBodyCellInputTree<
 		return this._columnIndex;
 	}
 
-	get column(): DTableColumn<ROW> {
+	get column(): DTableColumn<ROW, string> {
 		return this._column;
 	}
 

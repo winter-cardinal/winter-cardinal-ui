@@ -80,20 +80,18 @@ export class DPane<
 	protected static WORK_RECTANGLE?: Rectangle;
 
 	protected _content!: DBase;
-	protected _overflowMask!: DBaseOverflowMask | null;
+	protected _overflowMask?: DBaseOverflowMask | null;
 	protected _scrollbar?: DPaneScrollBar;
 	protected _dragUtil?: UtilDrag;
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
 
-		this._overflowMask = null;
-
 		// Content
 		const theme = this.theme;
 		const content = this._content = this.toContent( options );
 		if( options?.mask ?? theme.isOverflowMaskEnabled() ) {
-			this.mask = this.getOrCreateOverflowMask();
+			this.mask = this.getOverflowMask();
 		}
 		this.addChild( content );
 
@@ -193,13 +191,15 @@ export class DPane<
 		return new DContent( options );
 	}
 
-	protected getOrCreateOverflowMask(): DBaseOverflowMask {
-		if( this._overflowMask == null ) {
-			this._overflowMask = new DBaseOverflowMask( this );
-			this.addReflowable( this._overflowMask );
+	protected getOverflowMask(): DBaseOverflowMask {
+		let result = this._overflowMask;
+		if( result == null ) {
+			result = new DBaseOverflowMask( this );
+			this._overflowMask = result;
+			this.addReflowable( result );
 			this.toDirty();
 		}
-		return this._overflowMask;
+		return result;
 	}
 
 	onWheel( e: WheelEvent, deltas: UtilWheelEventDeltas, global: Point ): boolean {

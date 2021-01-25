@@ -56,7 +56,7 @@ export class DDialogColor<
 		return this._picker;
 	}
 
-	protected doResolve( resolve: ( value?: DColorAndAlpha | PromiseLike<DColorAndAlpha> ) => void ): void {
+	protected doResolve( resolve: ( value: DColorAndAlpha | PromiseLike<DColorAndAlpha> ) => void ): void {
 		resolve( this.new );
 	}
 

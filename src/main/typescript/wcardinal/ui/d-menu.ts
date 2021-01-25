@@ -13,7 +13,7 @@ import { Closeable, DMenuContext } from "./d-menu-context";
 import { DMenuItem } from "./d-menu-item";
 import { DMenuItemOptionsUnion } from "./d-menu-item-options-union";
 import { DMenus } from "./d-menus";
-import { isString } from "./util/is-string";
+import { toEnum } from "./util/to-enum";
 import { UtilAttach } from "./util/util-attach";
 import { UtilClickOutside } from "./util/util-click-outside";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
@@ -56,22 +56,13 @@ export class DMenu<
 			this.onPrerender();
 		};
 
-		if( options != null ) {
-			this._align = ( options.align != null ?
-				( isString( options.align ) ? DMenuAlign[ options.align ] : options.align ) :
-				DMenuAlign.BOTTOM
-			);
-			this._fit = ( options.fit != null ? options.fit : false );
-			this._sticky = ( options.sticky != null ? options.sticky : false );
-		} else {
-			this._align = DMenuAlign.BOTTOM;
-			this._fit = false;
-			this._sticky = false;
-		}
+		this._align = toEnum( options?.align ?? DMenuAlign.BOTTOM, DMenuAlign );
+		this._fit = ( options?.fit ?? false );
+		this._sticky = ( options?.sticky ?? false );
 		this._sub = false;
 		this._owner = null;
-		this.visible = false;
 		this._context = null;
+		this.visible = false;
 		this.state.isFocusRoot = true;
 
 		// Event handlers
@@ -84,8 +75,9 @@ export class DMenu<
 		});
 
 		// Items
-		if( options && options.items ) {
-			DMenus.newItems( this, options.items, this._sticky );
+		const items = options?.items;
+		if( items ) {
+			DMenus.newItems( this, items, this._sticky );
 		}
 
 		// Overlay

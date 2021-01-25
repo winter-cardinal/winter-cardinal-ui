@@ -5,7 +5,7 @@
 
 import { DButtonColor, DButtonColorOptions, DThemeButtonColor } from "./d-button-color";
 import { DColorAndAlpha } from "./d-color-and-alpha";
-import { DTableBodyCell } from "./d-table-body-cell";
+import { DTableBodyCell, DTableBodyCellOnChange } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
 import { isNumber } from "./util/is-number";
@@ -21,48 +21,35 @@ export interface DThemeTableBodyCellColor extends DThemeButtonColor {
 
 }
 
-const clone = ( value: DColorAndAlpha ): DColorAndAlpha => {
-	return {
-		color: value.color,
-		alpha: value.alpha
-	};
-};
-
-const hasColor = ( value: any ): value is { color: unknown } => {
-	return ( "color" in value );
-};
-
-const hasAlpha = ( value: any ): value is { alpha: unknown } => {
-	return ( "alpha" in value );
-};
-
 export class DTableBodyCellColor<
 	ROW = unknown,
 	THEME extends DThemeTableBodyCellColor = DThemeTableBodyCellColor,
 	OPTIONS extends DTableBodyCellColorOptions<ROW, THEME> = DTableBodyCellColorOptions<ROW, THEME>
-> extends DButtonColor<THEME, OPTIONS> implements DTableBodyCell<ROW> {
+> extends DButtonColor<THEME, OPTIONS> implements DTableBodyCell<ROW, DColorAndAlpha> {
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;
-	protected _column: DTableColumn<ROW>;
+	protected _column: DTableColumn<ROW, DColorAndAlpha>;
+	protected _onChange: DTableBodyCellOnChange<ROW, DColorAndAlpha>;
 
-	constructor( columnIndex: number, column: DTableColumn<ROW>, options?: OPTIONS ) {
+	constructor( columnIndex: number, column: DTableColumn<ROW, DColorAndAlpha>, onChange: DTableBodyCellOnChange<ROW, DColorAndAlpha>, options?: OPTIONS ) {
 		super( options );
 
 		this._rowIndex = -1;
 		this._columnIndex = columnIndex;
 		this._column = column;
+		this._onChange = onChange;
+	}
 
-		this.on( "change", ( newValue: DColorAndAlpha, oldValue: DColorAndAlpha ): void => {
-			const row = this._row;
-			if( row !== undefined ) {
-				const newValueCloned = clone( newValue );
-				const oldValueCloned = clone( oldValue );
-				const rowIndex = this._rowIndex;
-				this._column.setter( row, columnIndex, newValueCloned );
-				this.emit( "cellchange", newValueCloned, oldValueCloned, row, rowIndex, columnIndex, this );
-			}
-		});
+	protected onValueChange( newValue: DColorAndAlpha, oldValue: DColorAndAlpha ): void {
+		const row = this._row;
+		if( row !== undefined ) {
+			const rowIndex = this._rowIndex;
+			const columnIndex = this._columnIndex;
+			this._column.setter( row, columnIndex, newValue );
+			super.onValueChange( newValue, oldValue );
+			this._onChange( newValue, oldValue, row, rowIndex, columnIndex, this );
+		}
 	}
 
 	get row(): ROW | undefined {
@@ -77,7 +64,7 @@ export class DTableBodyCellColor<
 		return this._columnIndex;
 	}
 
-	get column(): DTableColumn<ROW> {
+	get column(): DTableColumn<ROW, DColorAndAlpha> {
 		return this._column;
 	}
 
@@ -94,23 +81,13 @@ export class DTableBodyCellColor<
 			value.alpha = 1;
 		} else if( isString( newValue ) ) {
 			const parsed = Number( newValue );
-			if( parsed === parsed ) {
-				value.color = parsed;
-			} else {
-				value.color = 0xffffff;
-			}
+			value.color = (parsed === parsed ? parsed : 0xffffff);
 			value.alpha = 1;
 		} else if( newValue != null ) {
-			if( hasColor( newValue ) ) {
-				value.color = Number( newValue.color );
-			} else {
-				value.color = 0xffffff;
-			}
-			if( hasAlpha( newValue ) ) {
-				value.alpha = Number( newValue.alpha );
-			} else {
-				value.alpha = 1;
-			}
+			const color = (newValue as any).color;
+			const alpha = (newValue as any).alpha;
+			value.color = (isNumber( color ) ? color : 0xffffff);
+			value.alpha = (isNumber( alpha ) ? alpha : 1);
 		} else {
 			value.color = 0xffffff;
 			value.alpha = 1;

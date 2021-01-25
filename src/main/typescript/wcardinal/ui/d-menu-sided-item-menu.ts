@@ -5,7 +5,6 @@
 
 import { DListItemSelection } from "./d-list-item";
 import { DMenu } from "./d-menu";
-import { Closeable } from "./d-menu-context";
 import { DMenuItem } from "./d-menu-item";
 import { DMenuItemMenu, DMenuItemMenuOptions, DThemeMenuItemMenu } from "./d-menu-item-menu";
 
@@ -18,8 +17,8 @@ export class DMenuSidedItemMenu<
 		// DO NOTHING
 	}
 
-	protected onMenuSelect( value: VALUE, item: DMenuItem<VALUE>, closeable: Closeable ): void {
-		super.onMenuSelect( value, item, closeable );
+	protected onMenuSelect( value: VALUE, item: DMenuItem<VALUE>, menu: DMenu<VALUE> ): void {
+		super.onMenuSelect( value, item, menu );
 		const selection = super.getSelection();
 		if( selection ) {
 			selection.add( item );

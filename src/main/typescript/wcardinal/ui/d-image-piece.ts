@@ -1,15 +1,13 @@
-import { DisplayObject, Point, Rectangle, Sprite, Texture } from "pixi.js";
+import { DisplayObject, Graphics, Rectangle, Sprite, Texture } from "pixi.js";
 import { DAlignHorizontal } from "./d-align-horizontal";
 import { DAlignVertical } from "./d-align-vertical";
 import { DAlignWith } from "./d-align-with";
+import { DApplicationTarget } from "./d-application-like";
+import { DApplications } from "./d-applications";
 import { DBaseStateSet } from "./d-base-state-set";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { isFunction } from "./util/is-function";
-import { isString } from "./util/is-string";
-
-type DImagePieceOnChange = () => void;
-
-type DImagePieceApplyMask = ( target: DisplayObject ) => void;
+import { toEnum } from "./util/to-enum";
 
 export interface DImagePieceTintOptions {
 	color?: DStateAwareOrValueMightBe<number | null>;
@@ -50,10 +48,12 @@ export interface DImagePieceTextAlign {
 	horizontal: DAlignHorizontal;
 }
 
-export interface DImagePieceParent {
+export interface DImagePieceParent extends DApplicationTarget {
 	readonly state: DBaseStateSet;
 	addChild( displayObject: DisplayObject ): void;
 	removeChild( displayObject: DisplayObject ): void;
+	toDirty(): void;
+	getOverflowMask(): Graphics | null;
 }
 
 export interface DThemeImagePiece {
@@ -68,61 +68,27 @@ export interface DThemeImagePiece {
 }
 
 const toImageAlign = ( theme: DThemeImagePiece, options?: DImagePieceOptions ): DImagePieceAlign => {
-	const align = options && options.align;
-	if( align ) {
-		const alignWith: DAlignWith = ( align.with != null ?
-			( isString( align.with ) ? DAlignWith[ align.with ] : align.with ) :
-			theme.getImageAlignWith()
-		);
-		const alignVertical: DAlignVertical = ( align.vertical != null ?
-			( isString( align.vertical ) ? DAlignVertical[ align.vertical ] : align.vertical ) :
-			theme.getImageAlignVertical()
-		);
-		const alignHorizontal: DAlignHorizontal = ( align.horizontal != null ?
-			( isString( align.horizontal ) ? DAlignHorizontal[ align.horizontal ] : align.horizontal ) :
-			theme.getImageAlignHorizontal()
-		);
-		return {
-			with: alignWith,
-			vertical: alignVertical,
-			horizontal: alignHorizontal
-		};
-	}
+	const align = options?.align;
 	return {
-		with: theme.getImageAlignWith(),
-		vertical: theme.getImageAlignVertical(),
-		horizontal: theme.getImageAlignHorizontal()
+		with: toEnum( align?.with ?? theme.getImageAlignWith(), DAlignWith ),
+		vertical: toEnum( align?.vertical ?? theme.getImageAlignVertical(), DAlignVertical ),
+		horizontal: toEnum( align?.horizontal ?? theme.getImageAlignHorizontal(), DAlignHorizontal )
 	};
 };
 
 const toImageMargin = ( theme: DThemeImagePiece, options?: DImagePieceOptions ): DImagePieceMargin => {
-	const margin = options && options.margin;
-	if( margin ) {
-		const vertical = ( margin.vertical != null ?
-			margin.vertical : theme.getImageMarginVertial()
-		);
-		const horizontal = ( margin.horizontal != null ?
-			margin.horizontal : theme.getImageMarginHorizontal()
-		);
-		return {
-			vertical,
-			horizontal
-		};
-	}
+	const margin = options?.margin;
 	return {
-		vertical: theme.getImageMarginVertial(),
-		horizontal: theme.getImageMarginHorizontal()
+		vertical: ( margin?.vertical ?? theme.getImageMarginVertial() ),
+		horizontal: ( margin?.horizontal ?? theme.getImageMarginHorizontal() )
 	};
 };
 
-const toImageTint = ( theme: DThemeImagePiece, options?: DImagePieceOptions ): DImagePieceTintOptions | undefined => {
-	if( options && options.tint != null ) {
-		return options.tint;
-	}
-	return undefined;
-};
-
 export class DImagePiece {
+	protected _parent: DImagePieceParent;
+	protected _theme: DThemeImagePiece;
+	protected _textAlign: DImagePieceTextAlign;
+
 	protected _image: DisplayObject | null;
 	protected _computed: Texture | DisplayObject | null;
 	protected _source: DStateAwareOrValueMightBe<Texture | DisplayObject | null>;
@@ -130,35 +96,30 @@ export class DImagePiece {
 	protected _margin: DImagePieceMargin;
 	protected _tint: DImagePieceTintOptions | undefined;
 	protected _bound: Rectangle;
-	protected _point: Point;
-	protected _onChange: DImagePieceOnChange;
-	protected _applyMask: DImagePieceApplyMask;
-	protected _parent: DImagePieceParent;
-	protected _textAlign: DImagePieceTextAlign;
-	protected _theme: DThemeImagePiece;
+
+	protected _onUpdateBound: () => void;
 
 	constructor(
 		parent: DImagePieceParent,
 		theme: DThemeImagePiece,
-		options: DImagePieceOptions | undefined,
 		textAlign: DImagePieceTextAlign,
-		onChange: DImagePieceOnChange,
-		applyMask: DImagePieceApplyMask
+		options?: DImagePieceOptions
 	) {
-		this._image = null;
-		this._align = toImageAlign( theme, options );
-		this._margin = toImageMargin( theme, options );
-		this._tint = toImageTint( theme, options );
-		this._bound = new Rectangle();
-		this._point = new Point();
-		this._source = ( options && options.source );
-		this._computed = null;
-
 		this._parent = parent;
 		this._theme = theme;
 		this._textAlign = textAlign;
-		this._onChange = onChange;
-		this._applyMask = applyMask;
+
+		this._image = null;
+		this._align = toImageAlign( theme, options );
+		this._margin = toImageMargin( theme, options );
+		this._tint = options?.tint;
+		this._bound = new Rectangle();
+		this._source = options?.source;
+		this._computed = null;
+
+		this._onUpdateBound = () => {
+			this.onUpdate();
+		};
 	}
 
 	get image(): DisplayObject | null {
@@ -184,7 +145,7 @@ export class DImagePiece {
 	set source( source: DStateAwareOrValueMightBe<Texture | DisplayObject | null> ) {
 		if( this._source !== source ) {
 			this._source = source;
-			this._onChange();
+			this.onUpdate();
 		}
 	}
 
@@ -333,12 +294,13 @@ export class DImagePiece {
 
 			const parent = this._parent;
 			const oldImage = this._image;
+			const onUpdateBound = this._onUpdateBound;
 			if( newComputed instanceof Texture ) {
 				if( oldComputed instanceof Texture ) {
-					oldComputed.off( "update", this._onChange );
+					oldComputed.off( "update", onUpdateBound );
 					if( oldImage instanceof Sprite ) {
 						oldImage.texture = newComputed;
-						newComputed.on( "update", this._onChange );
+						newComputed.on( "update", onUpdateBound );
 					}
 				} else {
 					if( oldImage != null ) {
@@ -346,14 +308,17 @@ export class DImagePiece {
 					}
 
 					const newImage = new Sprite( newComputed );
-					this._applyMask( newImage );
-					newComputed.on( "update", this._onChange );
+					const overflowMask = parent.getOverflowMask();
+					if( overflowMask ) {
+						newImage.mask = overflowMask;
+					}
+					newComputed.on( "update", onUpdateBound );
 					parent.addChild( newImage );
 					this._image = newImage;
 				}
 			} else {
 				if( oldComputed instanceof Texture ) {
-					oldComputed.off( "update", this._onChange );
+					oldComputed.off( "update", onUpdateBound );
 					if( oldImage != null ) {
 						parent.removeChild( oldImage );
 						oldImage.destroy();
@@ -363,7 +328,10 @@ export class DImagePiece {
 				}
 
 				if( newComputed != null ) {
-					this._applyMask( newComputed );
+					const overflowMask = parent.getOverflowMask();
+					if( overflowMask ) {
+						newComputed.mask = overflowMask;
+					}
 					parent.addChild( newComputed );
 				}
 				this._image = newComputed;
@@ -383,9 +351,14 @@ export class DImagePiece {
 			this._image = null;
 			const computed = this._computed;
 			if( computed instanceof Texture ) {
-				computed.off( "update", this._onChange, this );
+				computed.off( "update", this._onUpdateBound, this );
 				image.destroy();
 			}
 		}
+	}
+
+	protected onUpdate(): void {
+		this._parent.toDirty();
+		DApplications.update( this._parent );
 	}
 }

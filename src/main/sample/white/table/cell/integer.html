@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Editable cell</title>
+	<title>Integral number cell</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -35,24 +35,24 @@
 			x: "center", y: "center",
 			width: 500, height: 500,
 			columns: [{
-				label: "Text",
-				type: "TEXT",
-				editable: true
+				label: "Non editable",
+				type: "INTEGER"
 			}, {
-				label: "Integer",
+				label: "Editable",
 				type: "INTEGER",
-				editable: true
-			}, {
-				label: "Real",
-				type: "REAL",
 				editable: true
 			}],
 			data: {
 				rows: [
-					[ "Apple", 2000, 0.123 ],
-					[ "Orange", 2001, 0.250 ],
-					[ "Pineapple", 2002, 0.500 ]
-				]
+					[ 2000, 2000 ],
+					[ 2001, 2001 ],
+					[ 2002, 2002 ]
+				],
+				on: {
+					change: function ( newValue, oldValue, rowValue, rowIndex, columnIndex, data ) {
+						console.log( newValue, oldValue, rowValue, rowIndex, columnIndex, data );
+					}
+				}
 			}
 		});
 	}());

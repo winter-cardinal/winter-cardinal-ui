@@ -43,23 +43,23 @@ export class DDialogDate<
 		return this._picker.new;
 	}
 
-	set new( dateNew: Date ) {
-		this._picker.new = dateNew;
+	set new( value: Date ) {
+		this._picker.new = value;
 	}
 
 	get page(): Date {
 		return this._picker.new;
 	}
 
-	set page( datePage: Date ) {
-		this._picker.page = datePage;
+	set page( page: Date ) {
+		this._picker.page = page;
 	}
 
 	get picker(): DPickerDate {
 		return this._picker;
 	}
 
-	protected doResolve( resolve: ( value?: Date | PromiseLike<Date> ) => void ): void {
+	protected doResolve( resolve: ( value: Date | PromiseLike<Date> ) => void ): void {
 		resolve( this.new );
 	}
 

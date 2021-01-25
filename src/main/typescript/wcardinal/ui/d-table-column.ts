@@ -44,84 +44,84 @@ export enum DTableColumnType {
 	TREE
 }
 
-export type DTableGetter<ROW, CELL> = ( row: ROW, columnIndex: number ) => CELL;
-export type DTableSetter<ROW, CELL> = ( row: ROW, columnIndex: number, cell: CELL ) => void;
-export type DTableFormatter<CELL> = ( cell: CELL ) => string;
-export type DTableEditingFormatter<CELL> = ( cell: CELL ) => string;
-export type DTableEditingUnformatter<CELL> = ( formatted: string ) => CELL;
-export type DTableEditingValidator<CELL> = ( cell: CELL ) => string | null;
-export type DTableSelectingGetter<CELL, DIALOG> = ( dialog: DIALOG ) => CELL;
-export type DTableSelectingSetter<CELL, DIALOG> = ( dialog: DIALOG, cell: CELL ) => void;
-export type DTableEditable<ROW> = ( row: ROW, columnIndex: number ) => boolean;
-export type DTableRenderable<ROW> = ( row: ROW, columnIndex: number ) => boolean;
+export type DTableGetter<ROW_VALUE, CELL_VALUE> = ( row: ROW_VALUE, columnIndex: number ) => CELL_VALUE;
+export type DTableSetter<ROW_VALUE, CELL_VALUE> = ( row: ROW_VALUE, columnIndex: number, cell: CELL_VALUE ) => void;
+export type DTableFormatter<CELL_VALUE> = ( cell: CELL_VALUE ) => string;
+export type DTableEditingFormatter<CELL_VALUE> = ( cell: CELL_VALUE ) => string;
+export type DTableEditingUnformatter<CELL_VALUE> = ( formatted: string ) => CELL_VALUE;
+export type DTableEditingValidator<CELL_VALUE> = ( cell: CELL_VALUE ) => string | null;
+export type DTableSelectingGetter<CELL_VALUE, DIALOG> = ( dialog: DIALOG ) => CELL_VALUE;
+export type DTableSelectingSetter<CELL_VALUE, DIALOG> = ( dialog: DIALOG, cell: CELL_VALUE ) => void;
+export type DTableEditable<ROW_VALUE> = ( row: ROW_VALUE, columnIndex: number ) => boolean;
+export type DTableRenderable<ROW_VALUE> = ( row: ROW_VALUE, columnIndex: number ) => boolean;
 
-export type DTableBodyCellOptionsUnion<ROW> = DTableBodyCellTextOptions<ROW> | DTableBodyCellInputTextOptions<ROW> |
-	DTableBodyCellInputIntegerOptions<ROW> | DTableBodyCellInputRealOptions<ROW> | DTableBodyCellIndexOptions<ROW> |
-	DTableBodyCellColorOptions<ROW> | DTableBodyCellCheckOptions<ROW> | DTableBodyCellSelectDialogOptions<ROW> |
-	DTableBodyCellSelectPromiseOptions<ROW> | DTableBodyCellSelectMenuOptions<ROW> | DTableBodyCellDateOptions<ROW> |
-	DTableBodyCellDatetimeOptions<ROW> | DTableBodyCellTimeOptions<ROW> | DTableBodyCellButtonOptions<ROW> |
-	DTableBodyCellLinkOptions<ROW> | DTableBodyCellSelectMultipleOptions<ROW> | DTableBodyCellTreeOptions<ROW>;
+export type DTableBodyCellOptionsUnion<ROW_VALUE> = DTableBodyCellTextOptions<ROW_VALUE> | DTableBodyCellInputTextOptions<ROW_VALUE> |
+	DTableBodyCellInputIntegerOptions<ROW_VALUE> | DTableBodyCellInputRealOptions<ROW_VALUE> | DTableBodyCellIndexOptions<ROW_VALUE> |
+	DTableBodyCellColorOptions<ROW_VALUE> | DTableBodyCellCheckOptions<ROW_VALUE> | DTableBodyCellSelectDialogOptions<ROW_VALUE> |
+	DTableBodyCellSelectPromiseOptions<ROW_VALUE> | DTableBodyCellSelectMenuOptions<ROW_VALUE> | DTableBodyCellDateOptions<ROW_VALUE> |
+	DTableBodyCellDatetimeOptions<ROW_VALUE> | DTableBodyCellTimeOptions<ROW_VALUE> | DTableBodyCellButtonOptions<ROW_VALUE> |
+	DTableBodyCellLinkOptions<ROW_VALUE> | DTableBodyCellSelectMultipleOptions<ROW_VALUE> | DTableBodyCellTreeOptions<ROW_VALUE>;
 
-export interface DTableColumnEditingOptions<ROW, CELL> {
-	enable?: boolean | DTableEditable<ROW> | "auto" | "AUTO";
-	formatter?: DTableEditingFormatter<CELL>;
-	unformatter?: DTableEditingUnformatter<CELL>;
-	validator?: DTableEditingValidator<CELL>;
+export interface DTableColumnEditingOptions<ROW_VALUE, CELL_VALUE> {
+	enable?: boolean | DTableEditable<ROW_VALUE> | "auto" | "AUTO";
+	formatter?: DTableEditingFormatter<CELL_VALUE>;
+	unformatter?: DTableEditingUnformatter<CELL_VALUE>;
+	validator?: DTableEditingValidator<CELL_VALUE>;
 }
 
-export interface DTableColumnEditing<ROW, CELL> {
-	enable: boolean | DTableEditable<ROW>;
-	formatter: DTableEditingFormatter<CELL>;
-	unformatter: DTableEditingUnformatter<CELL>;
-	validator?: DTableEditingValidator<CELL>;
+export interface DTableColumnEditing<ROW_VALUE, CELL_VALUE> {
+	enable: boolean | DTableEditable<ROW_VALUE>;
+	formatter: DTableEditingFormatter<CELL_VALUE>;
+	unformatter: DTableEditingUnformatter<CELL_VALUE>;
+	validator?: DTableEditingValidator<CELL_VALUE>;
 }
 
-export interface DTableColumnSortingOptions<ROW> {
+export interface DTableColumnSortingOptions<ROW_VALUE> {
 	enable?: boolean;
-	comparator?: DTableDataComparatorFunction<ROW> | DTableDataComparatorObject<ROW>;
+	comparator?: DTableDataComparatorFunction<ROW_VALUE> | DTableDataComparatorObject<ROW_VALUE>;
 }
 
-export interface DTableColumnSorting<ROW> {
+export interface DTableColumnSorting<ROW_VALUE> {
 	enable: boolean;
-	comparator?: DTableDataComparatorFunction<ROW> | DTableDataComparatorObject<ROW>;
+	comparator?: DTableDataComparatorFunction<ROW_VALUE> | DTableDataComparatorObject<ROW_VALUE>;
 }
 
-export interface DTableColumnSelectingDialog<VALUE> {
-	readonly value: VALUE;
-	open(): Promise<VALUE>;
+export interface DTableColumnSelectingDialog<DIALOG_VALUE> {
+	readonly value: DIALOG_VALUE;
+	open(): Promise<DIALOG_VALUE>;
 }
 
 export interface DTableColumnSelectingOptions<
-	CELL,
+	CELL_VALUE,
 	DIALOG_VALUE,
 	DIALOG extends DTableColumnSelectingDialog<DIALOG_VALUE>
 > {
-	getter?: DTableSelectingGetter<CELL, DIALOG>;
-	setter?: DTableSelectingSetter<CELL, DIALOG>;
+	getter?: DTableSelectingGetter<CELL_VALUE, DIALOG>;
+	setter?: DTableSelectingSetter<CELL_VALUE, DIALOG>;
 
-	menu?: DMenuOptions<CELL> | DMenu<CELL>;
-	multiple?: DMenuOptions<CELL> | DMenu<CELL>;
+	menu?: DMenuOptions<CELL_VALUE> | DMenu<CELL_VALUE>;
+	multiple?: DMenuOptions<CELL_VALUE> | DMenu<CELL_VALUE>;
 	dialog?: DDialogSelectOptions<DIALOG_VALUE> | DIALOG;
-	promise?: () => Promise<CELL>;
+	promise?: () => Promise<CELL_VALUE>;
 }
 
 export interface DTableColumnSelecting<
-	CELL,
+	CELL_VALUE,
 	DIALOG_VALUE,
 	DIALOG extends DTableColumnSelectingDialog<DIALOG_VALUE>
 > {
-	getter: DTableSelectingGetter<CELL, DIALOG>;
-	setter: DTableSelectingSetter<CELL, DIALOG>;
+	getter: DTableSelectingGetter<CELL_VALUE, DIALOG>;
+	setter: DTableSelectingSetter<CELL_VALUE, DIALOG>;
 
-	menu?: DMenu<CELL>;
-	multiple?: DMenu<CELL>;
+	menu?: DMenu<CELL_VALUE>;
+	multiple?: DMenu<CELL_VALUE>;
 	dialog?: DIALOG;
-	promise?: () => Promise<CELL>;
+	promise?: () => Promise<CELL_VALUE>;
 }
 
 export interface DTableColumnOptions<
-	ROW,
-	CELL = any,
+	ROW_VALUE,
+	CELL_VALUE = any,
 	DIALOG_VALUE = any,
 	DIALOG extends DTableColumnSelectingDialog<DIALOG_VALUE> = any
 > {
@@ -130,11 +130,11 @@ export interface DTableColumnOptions<
 
 	type?: (keyof typeof DTableColumnType) | DTableColumnType;
 	label?: string;
-	getter?: DTableGetter<ROW, CELL>;
-	setter?: DTableSetter<ROW, CELL>;
+	getter?: DTableGetter<ROW_VALUE, CELL_VALUE>;
+	setter?: DTableSetter<ROW_VALUE, CELL_VALUE>;
 	path?: string;
-	default?: CELL;
-	formatter?: DTableFormatter<CELL>;
+	default?: CELL_VALUE;
+	formatter?: DTableFormatter<CELL_VALUE>;
 	align?: (keyof typeof DAlignHorizontal) | DAlignHorizontal;
 
 	/**
@@ -145,7 +145,7 @@ export interface DTableColumnOptions<
 	 * * a function, cells get rendered only when that function returns true.
 	 * * "AUTO", cells get rendered only when the cell data exit.
 	 */
-	renderable?: boolean | DTableRenderable<ROW> | "auto" | "AUTO";
+	renderable?: boolean | DTableRenderable<ROW_VALUE> | "auto" | "AUTO";
 
 	/**
 	 * If the editable is
@@ -155,27 +155,27 @@ export interface DTableColumnOptions<
 	 * * a function, cells are editable only when that function returns true.
 	 * * "AUTO", cells are editable only when the cell data exist.
 	 */
-	editable?: boolean | DTableEditable<ROW> | "auto" | "AUTO";
-	editing?: DTableColumnEditingOptions<ROW, CELL>;
+	editable?: boolean | DTableEditable<ROW_VALUE> | "auto" | "AUTO";
+	editing?: DTableColumnEditingOptions<ROW_VALUE, CELL_VALUE>;
 
 	sortable?: boolean;
-	sorting?: DTableColumnSortingOptions<ROW>;
+	sorting?: DTableColumnSortingOptions<ROW_VALUE>;
 
-	header?: DTableHeaderCellOptions<ROW>;
-	body?: DTableBodyCellOptionsUnion<ROW>;
+	header?: DTableHeaderCellOptions<ROW_VALUE>;
+	body?: DTableBodyCellOptionsUnion<ROW_VALUE>;
 
-	selecting?: DTableColumnSelectingOptions<CELL, DIALOG_VALUE, DIALOG>;
+	selecting?: DTableColumnSelectingOptions<CELL_VALUE, DIALOG_VALUE, DIALOG>;
 
 	category?: string | string[];
 	frozen?: boolean;
 
-	link?: DTableBodyCellLinkLinkOptions<ROW>;
+	link?: DTableBodyCellLinkLinkOptions<ROW_VALUE, CELL_VALUE>;
 }
 
 export interface DTableColumn<
-	ROW,
-	CELL = unknown,
-	DIALOG_VALUE = unknown,
+	ROW_VALUE,
+	CELL_VALUE,
+	DIALOG_VALUE = CELL_VALUE,
 	DIALOG extends DTableColumnSelectingDialog<DIALOG_VALUE> = DTableColumnSelectingDialog<DIALOG_VALUE>
 > {
 	weight: number | undefined;
@@ -183,23 +183,23 @@ export interface DTableColumn<
 
 	type: DTableColumnType;
 	label: string;
-	getter: DTableGetter<ROW, CELL>;
-	setter: DTableSetter<ROW, CELL>;
-	formatter?: DTableFormatter<CELL>;
+	getter: DTableGetter<ROW_VALUE, CELL_VALUE>;
+	setter: DTableSetter<ROW_VALUE, CELL_VALUE>;
+	formatter?: DTableFormatter<CELL_VALUE>;
 	align: DAlignHorizontal;
-	renderable: boolean | DTableRenderable<ROW>;
+	renderable: boolean | DTableRenderable<ROW_VALUE>;
 
-	editing: DTableColumnEditing<ROW, CELL>;
-	sorting: DTableColumnSorting<ROW>;
+	editing: DTableColumnEditing<ROW_VALUE, CELL_VALUE>;
+	sorting: DTableColumnSorting<ROW_VALUE>;
 
-	header?: DTableHeaderCellOptions<ROW>;
-	body?: DTableBodyCellOptionsUnion<ROW>;
+	header?: DTableHeaderCellOptions<ROW_VALUE>;
+	body?: DTableBodyCellOptionsUnion<ROW_VALUE>;
 
-	selecting: DTableColumnSelecting<CELL, DIALOG_VALUE, DIALOG>;
+	selecting: DTableColumnSelecting<CELL_VALUE, DIALOG_VALUE, DIALOG>;
 
 	category?: string | string[];
 	frozen?: boolean;
 	offset: number;
 
-	link?: DTableBodyCellLinkLinkOptions<ROW>;
+	link?: DTableBodyCellLinkLinkOptions<ROW_VALUE, CELL_VALUE>;
 }

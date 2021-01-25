@@ -11,8 +11,8 @@ import { DThemeTableBodyCellCheck } from "../../d-table-body-cell-check";
 import { DThemeDarkButtonCheck } from "./d-theme-dark-button-check";
 import { DThemeDarkTableBodyCells } from "./d-theme-dark-table-body-cells";
 
-export class DThemeDarkTableBodyCellCheck<VALUE = unknown> extends DThemeDarkButtonCheck<VALUE>
-	implements DThemeTableBodyCellCheck<VALUE> {
+export class DThemeDarkTableBodyCellCheck extends DThemeDarkButtonCheck<boolean>
+	implements DThemeTableBodyCellCheck {
 
 	getBackgroundColor( state: DBaseStateSet ): number | null {
 		return DThemeDarkTableBodyCells.getBackgroundColor( state );

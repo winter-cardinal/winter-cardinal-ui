@@ -125,14 +125,16 @@
 							width: "100%",
 							dialog: {
 								controller: {
-									search: () => {
+									search: function ( word ) {
 										return Promise.resolve([{
 											id: "Apple"
 										}, {
 											id: "Orange"
 										}, {
 											id: "Pineapple"
-										}]);
+										}].filter(function( item ) {
+											return word.length <= 0 || 0 <= item.id.indexOf( word )
+										}));
 									}
 								}
 							}

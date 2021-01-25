@@ -35,7 +35,11 @@
 			x: "center", y: "center",
 			width: 500, height: 500,
 			columns: [{
-				label: "Link",
+				label: "Non editable",
+				type: "LINK",
+				link: "../../"
+			}, {
+				label: "Editable",
 				type: "LINK",
 				editable: true,
 				link: {
@@ -45,9 +49,9 @@
 				}
 			}],
 			data: [
-				[ "Apple" ],
-				[ "Orange" ],
-				[ "Pineapple" ]
+				[ "Apple", "Apple" ],
+				[ "Orange", "Orange" ],
+				[ "Pineapple", "Pineapple" ]
 			]
 		});
 	}());

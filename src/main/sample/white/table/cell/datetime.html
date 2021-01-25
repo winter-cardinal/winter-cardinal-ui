@@ -47,10 +47,17 @@
 				type: "TIME",
 				editable: true
 			}],
-			data: [
-				[ Date.now(), Date.now(), Date.now() ],
-				[ 0, 0, 0 ]
-			]
+			data: {
+				rows: [
+					[ Date.now(), Date.now(), Date.now() ],
+					[ 0, 0, 0 ]
+				],
+				on: {
+					change: function ( newValue, oldValue, rowValue, rowIndex, columnIndex, data ) {
+						console.log( newValue, oldValue, rowValue, rowIndex, columnIndex, data );
+					}
+				}
+			}
 		});
 	}());
 	</script>

@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { interaction } from "pixi.js";
 import { DButton, DButtonOptions, DThemeButton } from "./d-button";
-import { DTableBodyCell } from "./d-table-body-cell";
+import { DTableBodyCell, DTableBodyCellOnChange } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
 
@@ -29,53 +30,54 @@ export class DTableBodyCellSelectDialog<
 	THEME extends DThemeTableBodyCellSelectDialog<VALUE> = DThemeTableBodyCellSelectDialog<VALUE>,
 	OPTIONS extends DTableBodyCellSelectDialogOptions<ROW, VALUE, THEME> =
 		DTableBodyCellSelectDialogOptions<ROW, VALUE, THEME>
-> extends DButton<VALUE | null, THEME, OPTIONS> implements DTableBodyCell<ROW> {
+> extends DButton<VALUE | null, THEME, OPTIONS> implements DTableBodyCell<ROW, VALUE | null> {
 	protected _row?: ROW;
-	protected _rowIndex!: number;
-	protected _columnIndex!: number;
-	protected _column!: DTableColumn<ROW>;
+	protected _rowIndex: number;
+	protected _columnIndex: number;
+	protected _column: DTableColumn<ROW, VALUE | null>;
+	protected _onChange: DTableBodyCellOnChange<ROW, VALUE | null>;
+	protected _isSyncEnabled: boolean;
 
-	constructor( columnIndex: number, column: DTableColumn<ROW>, options?: OPTIONS ) {
+	constructor( columnIndex: number, column: DTableColumn<ROW, VALUE | null>, onChange: DTableBodyCellOnChange<ROW, VALUE | null>, options?: OPTIONS ) {
 		super( options );
 
 		this._rowIndex = -1;
 		this._columnIndex = columnIndex;
 		this._column = column;
+		this._onChange = onChange;
+		this._isSyncEnabled = ( options?.sync ?? this.theme.isSyncEnabled() );
+	}
 
-		const isSyncEnabled = this.toSync( this.theme, options );
-		const selecting = column.selecting;
+	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
+		super.onActivate( e );
+		const selecting = this._column.selecting;
 		const dialog = selecting.dialog;
-		if( dialog != null ) {
-			this.on( "active", (): void => {
-				selecting.setter( dialog, this.text );
-				dialog.open().then(() => {
-					const newValue = selecting.getter( dialog );
-					if( isSyncEnabled ) {
-						const oldValue = this.text;
-						if( newValue !== oldValue ) {
-							this.text = newValue as VALUE;
-							this.onCellChange( newValue, oldValue );
-						}
-					} else {
-						this.onCellChange( newValue, null );
+		if( dialog ) {
+			const oldValue = this._textValueComputed ?? null;
+			selecting.setter( dialog, oldValue );
+			dialog.open().then((): void => {
+				const newValue = selecting.getter( dialog );
+				if( this._isSyncEnabled ) {
+					if( newValue !== oldValue ) {
+						this.text = newValue;
+						this.onValueChange( newValue, oldValue );
 					}
-				});
+				} else {
+					this.onValueChange( newValue, null );
+				}
 			});
 		}
 	}
 
-	protected onCellChange( newValue: unknown, oldValue: unknown ): void {
+	protected onValueChange( newValue: VALUE | null, oldValue: VALUE | null ): void {
 		const row = this._row;
 		if( row !== undefined ) {
 			const rowIndex = this._rowIndex;
 			const columnIndex = this._columnIndex;
 			this._column.setter( row, columnIndex, newValue );
-			this.emit( "cellchange", newValue, oldValue, row, rowIndex, columnIndex, this );
+			this.emit( "change", newValue, oldValue, this );
+			this._onChange( newValue, oldValue, row, rowIndex, columnIndex, this );
 		}
-	}
-
-	protected toSync( theme: THEME, options?: OPTIONS ): boolean {
-		return options?.sync ?? theme.isSyncEnabled();
 	}
 
 	get row(): ROW | undefined {
@@ -90,7 +92,7 @@ export class DTableBodyCellSelectDialog<
 		return this._columnIndex;
 	}
 
-	get column(): DTableColumn<ROW> {
+	get column(): DTableColumn<ROW, VALUE | null> {
 		return this._column;
 	}
 
@@ -107,7 +109,7 @@ export class DTableBodyCellSelectDialog<
 	}
 
 	set(
-		value: unknown, row: ROW, supplimental: unknown,
+		value: VALUE | null, row: ROW, supplimental: unknown,
 		rowIndex: number, columnIndex: number,
 		forcibly?: boolean
 	): void {

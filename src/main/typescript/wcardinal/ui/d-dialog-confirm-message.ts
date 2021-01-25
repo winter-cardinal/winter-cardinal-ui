@@ -6,21 +6,19 @@
 import { DImage, DImageOptions, DThemeImage } from "./d-image";
 
 export interface DDialogConfirmMessageOptions<
-	VALUE = unknown,
-	THEME extends DThemeDialogConfirmMessage<VALUE> = DThemeDialogConfirmMessage<VALUE>
-> extends DImageOptions<VALUE, THEME> {
+	THEME extends DThemeDialogConfirmMessage = DThemeDialogConfirmMessage
+> extends DImageOptions<string, THEME> {
 
 }
 
-export interface DThemeDialogConfirmMessage<VALUE = unknown> extends DThemeImage<VALUE> {
+export interface DThemeDialogConfirmMessage extends DThemeImage<string> {
 
 }
 
 export class DDialogConfirmMessage<
-	VALUE = unknown,
-	THEME extends DThemeDialogConfirmMessage<VALUE> = DThemeDialogConfirmMessage<VALUE>,
-	OPTIONS extends DDialogConfirmMessageOptions<VALUE, THEME> = DDialogConfirmMessageOptions<VALUE, THEME>
-> extends DImage<VALUE, THEME, OPTIONS> {
+	THEME extends DThemeDialogConfirmMessage = DThemeDialogConfirmMessage,
+	OPTIONS extends DDialogConfirmMessageOptions<THEME> = DDialogConfirmMessageOptions<THEME>
+> extends DImage<string, THEME, OPTIONS> {
 	constructor( options?: OPTIONS ) {
 		super( options );
 		this.state.isFocusable = false;

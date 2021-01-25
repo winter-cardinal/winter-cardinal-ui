@@ -3,21 +3,35 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBase } from "./d-base";
-import { DTableColumn } from "./d-table-column";
+import { DBaseStateSet } from "./d-base-state-set";
+import { DTableEditable, DTableRenderable } from "./d-table-column";
+
+export interface DTableBodyCellsColumnEditing<ROW> {
+	enable: boolean | DTableEditable<ROW>;
+}
+
+export interface DTableBodyCellsColumn<ROW> {
+	editing: DTableBodyCellsColumnEditing<ROW>;
+	renderable: boolean | DTableRenderable<ROW>;
+}
+
+export interface DTableBodyCellsTarget {
+	renderable: boolean;
+	state: DBaseStateSet;
+}
 
 export class DTableBodyCells {
-	static setReadOnly<ROW>( target: DBase, row: ROW, columnIndex: number, column: DTableColumn<ROW> ): void {
+	static setReadOnly<ROW>( target: DTableBodyCellsTarget, row: ROW, columnIndex: number, column: DTableBodyCellsColumn<ROW> ): void {
 		target.state.isReadOnly = this.toReadOnly( row, columnIndex, column );
 	}
 
-	static setRenderable<ROW>( target: DBase, row: ROW, columnIndex: number, column: DTableColumn<ROW> ): void {
+	static setRenderable<ROW>( target: DTableBodyCellsTarget, row: ROW, columnIndex: number, column: DTableBodyCellsColumn<ROW> ): void {
 		const renderable = this.toRenderable( row, columnIndex, column );
 		target.renderable = renderable;
 		target.state.isDisabled = ! renderable;
 	}
 
-	static toReadOnly<ROW>( row: ROW, columnIndex: number, column: DTableColumn<ROW> ): boolean {
+	static toReadOnly<ROW>( row: ROW, columnIndex: number, column: DTableBodyCellsColumn<ROW> ): boolean {
 		const enable = column.editing.enable;
 		if( enable === true ) {
 			return false;
@@ -27,7 +41,7 @@ export class DTableBodyCells {
 			return ! enable( row, columnIndex );
 		}
 	}
-	static toRenderable<ROW>( row: ROW, columnIndex: number, column: DTableColumn<ROW> ): boolean {
+	static toRenderable<ROW>( row: ROW, columnIndex: number, column: DTableBodyCellsColumn<ROW> ): boolean {
 		const renderable = column.renderable;
 		if( renderable === true ) {
 			return true;

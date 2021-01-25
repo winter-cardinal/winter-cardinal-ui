@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DMenuItem } from "./d-menu-item";
 import { DSelect, DSelectOptions, DThemeSelect } from "./d-select";
-import { DTableBodyCell } from "./d-table-body-cell";
+import { DTableBodyCell, DTableBodyCellOnChange } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
 
@@ -25,27 +26,31 @@ export class DTableBodyCellSelectMenu<
 	VALUE = unknown,
 	THEME extends DThemeTableBodyCellSelectMenu<VALUE> = DThemeTableBodyCellSelectMenu<VALUE>,
 	OPTIONS extends DTableBodyCellSelectMenuOptions<ROW, VALUE, THEME> = DTableBodyCellSelectMenuOptions<ROW, VALUE, THEME>
-> extends DSelect<VALUE, THEME, OPTIONS> implements DTableBodyCell<ROW> {
+> extends DSelect<VALUE, THEME, OPTIONS> implements DTableBodyCell<ROW, VALUE | null> {
 	protected _row?: ROW;
-	protected _rowIndex!: number;
-	protected _columnIndex!: number;
-	protected _column!: DTableColumn<ROW>;
+	protected _rowIndex: number;
+	protected _columnIndex: number;
+	protected _column: DTableColumn<ROW, VALUE | null>;
+	protected _onChange: DTableBodyCellOnChange<ROW, VALUE | null>;
 
-	constructor( columnIndex: number, column: DTableColumn<ROW>, options?: OPTIONS ) {
+	constructor( columnIndex: number, column: DTableColumn<ROW, VALUE | null>, onChange: DTableBodyCellOnChange<ROW, VALUE | null>, options?: OPTIONS ) {
 		super( options );
 
 		this._rowIndex = -1;
 		this._columnIndex = columnIndex;
 		this._column = column;
+		this._onChange = onChange;
+	}
 
-		this.on( "change", ( newValue: unknown, oldValue: unknown ): void => {
-			const row = this._row;
-			if( row !== undefined ) {
-				const rowIndex = this._rowIndex;
-				this._column.setter( row, columnIndex, newValue );
-				this.emit( "cellchange", newValue, oldValue, row, rowIndex, columnIndex, this );
-			}
-		});
+	protected onValueChange( newValue: VALUE | null, oldValue: VALUE | null, item: DMenuItem<VALUE> | null ) {
+		const row = this._row;
+		if( row !== undefined ) {
+			const rowIndex = this._rowIndex;
+			const columnIndex = this._columnIndex;
+			this._column.setter( row, columnIndex, newValue );
+			super.onValueChange( newValue, oldValue, item );
+			this._onChange( newValue, oldValue, row, rowIndex, columnIndex, this );
+		}
 	}
 
 	protected onKeyDownArrowDown( e: KeyboardEvent ): boolean {
@@ -64,7 +69,7 @@ export class DTableBodyCellSelectMenu<
 		return this._columnIndex;
 	}
 
-	get column(): DTableColumn<ROW> {
+	get column(): DTableColumn<ROW, VALUE | null> {
 		return this._column;
 	}
 
@@ -75,7 +80,7 @@ export class DTableBodyCellSelectMenu<
 	): void {
 		this._row = row;
 		this._rowIndex = rowIndex;
-		this.value = value as VALUE;
+		this.value = value as VALUE | null;
 
 		const column = this._column;
 		DTableBodyCells.setReadOnly( this, row, columnIndex, column );

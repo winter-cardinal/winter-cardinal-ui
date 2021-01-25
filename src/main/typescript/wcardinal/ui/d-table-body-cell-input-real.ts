@@ -4,7 +4,7 @@
  */
 
 import { DInputReal, DInputRealOptions, DThemeInputReal } from "./d-input-real";
-import { DTableBodyCell } from "./d-table-body-cell";
+import { DTableBodyCell, DTableBodyCellOnChange } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
 
@@ -22,27 +22,31 @@ export class DTableBodyCellInputReal<
 	ROW = unknown,
 	THEME extends DThemeTableBodyCellInputReal = DThemeTableBodyCellInputReal,
 	OPTIONS extends DTableBodyCellInputRealOptions<ROW, THEME> = DTableBodyCellInputRealOptions<ROW, THEME>
-> extends DInputReal<THEME, OPTIONS> implements DTableBodyCell<ROW> {
+> extends DInputReal<THEME, OPTIONS> implements DTableBodyCell<ROW, number> {
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;
-	protected _column: DTableColumn<ROW>;
+	protected _column: DTableColumn<ROW, number>;
+	protected _onChange: DTableBodyCellOnChange<ROW, number>;
 
-	constructor( columnIndex: number, column: DTableColumn<ROW>, options?: OPTIONS ) {
+	constructor( columnIndex: number, column: DTableColumn<ROW, number>, onChange: DTableBodyCellOnChange<ROW, number>, options?: OPTIONS ) {
 		super( options );
 
 		this._rowIndex = -1;
 		this._columnIndex = columnIndex;
 		this._column = column;
+		this._onChange = onChange;
+	}
 
-		this.on( "change", ( newValue: unknown, oldValue: unknown ): void => {
-			const row = this._row;
-			if( row !== undefined ) {
-				const rowIndex = this._rowIndex;
-				this._column.setter( row, columnIndex, newValue );
-				this.emit( "cellchange", newValue, oldValue, row, rowIndex, columnIndex, this );
-			}
-		});
+	protected onValueChange( newValue: number, oldValue: number ) {
+		const row = this._row;
+		if( row !== undefined ) {
+			const rowIndex = this._rowIndex;
+			const columnIndex = this._columnIndex;
+			this._column.setter( row, columnIndex, newValue );
+			super.onValueChange( newValue, oldValue );
+			this._onChange( newValue, oldValue, row, rowIndex, columnIndex, this );
+		}
 	}
 
 	get row(): ROW | undefined {
@@ -57,7 +61,7 @@ export class DTableBodyCellInputReal<
 		return this._columnIndex;
 	}
 
-	get column(): DTableColumn<ROW> {
+	get column(): DTableColumn<ROW, number> {
 		return this._column;
 	}
 

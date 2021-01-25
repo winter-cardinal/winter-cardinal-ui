@@ -21,7 +21,7 @@ export interface DMenuItemLinkOptions<
 	THEME extends DThemeMenuItemLink = DThemeMenuItemLink
 > extends DMenuItemTextOptions<VALUE, THEME> {
 	url?: string | DMenuItemLinkUrlMaker;
-	target?: DLinkTarget;
+	target?: DLinkTarget | (keyof typeof DLinkTarget);
 	checker?: DMenuItemLinkChecker;
 	menu?: DMenuOptions<DLinkMenuItemId> | DMenu<DLinkMenuItemId>;
 }
@@ -36,10 +36,6 @@ export class DMenuItemLink<
 	OPTIONS extends DMenuItemLinkOptions<VALUE, THEME> = DMenuItemLinkOptions<VALUE, THEME>
 > extends DMenuItemText<VALUE, THEME, OPTIONS> {
 	protected _link!: DLink;
-
-	constructor( options?: OPTIONS ) {
-		super( options );
-	}
 
 	protected toLinkOptions( options?: OPTIONS ): DLinkOptions | undefined {
 		if( options ) {

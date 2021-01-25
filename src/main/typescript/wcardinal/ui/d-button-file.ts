@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { interaction } from "pixi.js";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { toEnum } from "./util/to-enum";
 import { UtilFileAs, UtilFileEvents, UtilFileOpener } from "./util/util-file-opener";
@@ -23,6 +24,8 @@ export interface DButtonFileOnOptions<VALUE, EMITTER> extends Partial<DButtonFil
 	[ key: string ]: Function | undefined;
 }
 
+export type DButtonFileChecker = () => Promise<unknown> | boolean;
+
 /**
  * {@link DButtonFile} options.
  */
@@ -41,7 +44,7 @@ export interface DButtonFileOptions<
 	 * If the checker returns false or the returned promise object is rejected,
 	 * files will not be opened.
 	 */
-	checker?: () => Promise<unknown> | boolean;
+	checker?: DButtonFileChecker;
 
 	on?: DButtonFileOnOptions<VALUE, EMITTER>;
 }
@@ -61,40 +64,61 @@ export class DButtonFile<
 	THEME extends DThemeButtonFile<VALUE> = DThemeButtonFile<VALUE>,
 	OPTIONS extends DButtonFileOptions<VALUE, THEME> = DButtonFileOptions<VALUE, THEME>
 > extends DButton<VALUE, THEME, OPTIONS> {
-	protected _checker!: (() => Promise<unknown> | boolean) | undefined;
-	protected _opener!: UtilFileOpener;
+	protected _checker?: DButtonFileChecker | null;
+	protected _opener?: UtilFileOpener;
 
-	protected init( options?: OPTIONS ): void {
-		super.init( options );
+	protected getChecker(): DButtonFileChecker | null {
+		let result = this._checker;
+		if( result === undefined ) {
+			result = this._options?.checker ?? null;
+			this._checker = result;
+		}
+		return result;
+	}
 
-		this._checker = options?.checker;
-		const as = toEnum( options?.as ?? DButtonFileAs.TEXT, DButtonFileAs );
-		const opener = new UtilFileOpener( as, this );
-		this._opener = opener;
-		this.on( "active", (): void => {
-			const result = this.onOpening();
+	protected getOpener(): UtilFileOpener {
+		let result = this._opener;
+		if( result == null ) {
+			result = this.newOpener();
+			this._opener = result;
+		}
+		return result;
+	}
+
+	protected newOpener(): UtilFileOpener {
+		return new UtilFileOpener(
+			toEnum( this._options?.as ?? DButtonFileAs.TEXT, DButtonFileAs ),
+			this
+		);
+	}
+
+	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
+		super.onActivate( e );
+		this.check((): void => {
+			this.open();
+		});
+	}
+
+	protected check( onResolve: () => void ): void {
+		const checker = this.getChecker();
+		if( checker != null ) {
+			const result = checker();
 			if( result === true ) {
-				opener.open();
+				onResolve();
 			} else if( result === false ) {
 				// DO NOTHING
 			} else {
 				result.then((): void => {
-					opener.open();
+					onResolve();
 				});
 			}
-		});
-	}
-
-	onOpening(): boolean | Promise<unknown> {
-		const checker = this._checker;
-		if( checker != null ) {
-			return checker();
+		} else {
+			onResolve();
 		}
-		return true;
 	}
 
 	open(): void {
-		this._opener.open();
+		this.getOpener().open();
 	}
 
 	protected getType(): string {

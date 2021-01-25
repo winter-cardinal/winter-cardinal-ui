@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { interaction } from "pixi.js";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogDate, DDialogDateOptions } from "./d-dialog-date";
 import { DDialogDates } from "./d-dialog-dates";
@@ -51,34 +52,28 @@ export class DButtonDate<
 	OPTIONS extends DButtonDateOptions<THEME> = DButtonDateOptions<THEME>
 > extends DButton<Date, THEME, OPTIONS> {
 	protected _dialog?: DDialogDate;
-	protected _dialogOptions?: DDialogDateOptions;
 
-	protected init( options?: OPTIONS ) {
-		super.init( options );
-
-		this._dialogOptions = options && options.dialog;
-
-		this.on( "active", (): void => {
-			const currentTime = this._textValueComputed?.getTime() ?? Date.now();
-			const dialog = this.dialog;
-			dialog.current = new Date( currentTime );
-			dialog.new = new Date( currentTime );
-			dialog.page = new Date( currentTime );
-			dialog.open().then((): void => {
-				const dateNew = dialog.new;
-				const dateCurrent = dialog.current;
-				this.text = new Date( dateNew.getTime() );
-				this.emit( "change", dateNew, dateCurrent, this );
-			});
+	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
+		super.onActivate( e );
+		const value = this._textValueComputed?.getTime() ?? Date.now();
+		const dialog = this.dialog;
+		dialog.current = new Date( value );
+		dialog.new = new Date( value );
+		dialog.page = new Date( value );
+		dialog.open().then((): void => {
+			const newValue = dialog.new;
+			const oldValue = dialog.current;
+			this.text = new Date( newValue.getTime() );
+			this.emit( "change", newValue, oldValue, this );
 		});
 	}
 
 	get dialog(): DDialogDate {
 		let dialog = this._dialog;
 		if( dialog == null ) {
-			const dialogOptions = this._dialogOptions;
-			if( dialogOptions != null ) {
-				dialog = new DDialogDate( this._dialogOptions );
+			const options = this._options?.dialog;
+			if( options ) {
+				dialog = new DDialogDate( options );
 			} else {
 				dialog = DDialogDates.getInstance();
 			}
@@ -88,11 +83,7 @@ export class DButtonDate<
 	}
 
 	get value(): Date {
-		const textValueComputed = this._textValueComputed;
-		if( textValueComputed !== undefined ) {
-			return textValueComputed;
-		}
-		return new Date();
+		return this._textValueComputed ?? new Date();
 	}
 
 	set value( value: Date ) {

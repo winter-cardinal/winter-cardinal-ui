@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Custom column width</title>
+	<title>Real number cell</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -28,38 +28,32 @@
 	(function(){
 		"use strict";
 
-		const application = new wcardinal.ui.DApplication();
+		var application = new wcardinal.ui.DApplication();
 
-		// Rows
-		const rows = [];
-		for( let i = 0; i < 15000; ++i ) {
-			rows.push([
-				"A" + i,
-				"B" + i,
-				"C" + i,
-			]);
-		}
-
-		// Table
 		new wcardinal.ui.DTable({
 			parent: application.stage,
-			x: 50, y: 50,
-			width: 600, height: 600,
+			x: "center", y: "center",
+			width: 500, height: 500,
 			columns: [{
-				label: "A",
-				type: "TEXT",
-				width: 250,
+				label: "Non editable",
+				type: "REAL"
+			}, {
+				label: "Editable",
+				type: "REAL",
 				editable: true
-			},{
-				label: "B",
-				type: "TEXT",
-				width: 300
-			},{
-				label: "C",
-				type: "TEXT",
-				width: 350
 			}],
-			data: rows
+			data: {
+				rows: [
+					[ 0.123, 0.123 ],
+					[ 0.250, 0.250 ],
+					[ 0.500, 0.500 ]
+				],
+				on: {
+					change: function ( newValue, oldValue, rowValue, rowIndex, columnIndex, data ) {
+						console.log( newValue, oldValue, rowValue, rowIndex, columnIndex, data );
+					}
+				}
+			}
 		});
 	}());
 	</script>

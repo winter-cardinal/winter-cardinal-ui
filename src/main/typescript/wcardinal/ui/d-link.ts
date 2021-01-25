@@ -11,6 +11,7 @@ import { DLinkTarget } from "./d-link-target";
 import { DMenu, DMenuOptions } from "./d-menu";
 import { isFunction } from "./util/is-function";
 import { isString } from "./util/is-string";
+import { toEnum } from "./util/to-enum";
 import { UtilClipboard } from "./util/util-clipboard";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
@@ -19,7 +20,7 @@ export type DLinkChecker = () => boolean | Promise<boolean>;
 
 export interface DLinkOptions {
 	url?: string | null | DLinkUrlMaker;
-	target?: DLinkTarget;
+	target?: DLinkTarget | (keyof typeof DLinkTarget);
 	checker?: DLinkChecker;
 	menu?: DMenuOptions<DLinkMenuItemId> | DMenu<DLinkMenuItemId>;
 }
@@ -32,7 +33,7 @@ export class DLink {
 	protected static ANCHOR_ELEMENT?: HTMLAnchorElement;
 
 	protected _url: string | null | DLinkUrlMaker;
-	protected _target?: DLinkTarget;
+	protected _target: DLinkTarget;
 	protected _checker?: DLinkChecker;
 	protected _menu: DLinkMenu;
 	protected _theme: DThemeLink;
@@ -40,7 +41,7 @@ export class DLink {
 
 	constructor( theme: DThemeLink, options?: DLinkOptions ) {
 		this._url = options?.url ?? null;
-		this._target = options?.target;
+		this._target = toEnum( options?.target ?? DLinkTarget.AUTO, DLinkTarget );
 		this._checker = options?.checker;
 		this._theme = theme;
 		this._isEnabled = true;
@@ -63,7 +64,7 @@ export class DLink {
 		this._url = url;
 	}
 
-	get target(): DLinkTarget | undefined {
+	get target(): DLinkTarget {
 		return this._target;
 	}
 
@@ -175,15 +176,19 @@ export class DLink {
 	 * @param e An event object.
 	 */
 	inNewWindow( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): boolean {
-		if( this._target === DLinkTarget.NEW_WINDOW ) {
+		switch( this._target ) {
+		case DLinkTarget.NEW_WINDOW:
 			return true;
-		} else if( e != null ) {
-			const oe = ( e instanceof interaction.InteractionEvent ? e.data.originalEvent : e );
-			return (
-				( oe.ctrlKey || oe.shiftKey || oe.altKey || oe.metaKey ) ||
-				( "button" in oe && oe.button !== 0 )
-			);
-		} else {
+		case DLinkTarget.THIS_WINDOW:
+			return false;
+		case DLinkTarget.AUTO:
+			if( e != null ) {
+				const oe = ( e instanceof interaction.InteractionEvent ? e.data.originalEvent : e );
+				return (
+					( oe.ctrlKey || oe.shiftKey || oe.altKey || oe.metaKey ) ||
+					( "button" in oe && oe.button !== 0 )
+				);
+			}
 			return false;
 		}
 	}

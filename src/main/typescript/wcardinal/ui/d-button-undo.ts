@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { interaction } from "pixi.js";
 import { DButton, DButtonOptions, DThemeButton } from "./d-button";
 import { DControllers } from "./d-controllers";
 
@@ -14,14 +15,16 @@ export class DButtonUndo<
 	constructor( options?: OPTIONS ) {
 		super( options );
 
+		const state = this.state;
 		const commandController = DControllers.getCommandController();
-		this.state.isDisabled = ! commandController.isUndoable();
+		state.isDisabled = ! commandController.isUndoable();
 		commandController.on( "change", (): void => {
-			this.state.isDisabled = ! commandController.isUndoable();
+			state.isDisabled = ! commandController.isUndoable();
 		});
+	}
 
-		this.on( "active", (): void => {
-			commandController.undo();
-		});
+	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
+		super.onActivate( e );
+		DControllers.getCommandController().undo();
 	}
 }

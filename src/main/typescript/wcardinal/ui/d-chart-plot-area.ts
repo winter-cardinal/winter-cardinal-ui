@@ -47,7 +47,7 @@ export class DChartPlotArea<
 	protected _isViewDirty!: boolean;
 	protected _isBoundsInContainerDirty!: boolean;
 	protected _boundsInContainer!: Rectangle;
-	protected _overflowMask!: DBaseOverflowMask | null;
+	protected _overflowMask?: DBaseOverflowMask | null;
 	protected _workPoint!: Point;
 	protected _blendStartTime: number;
 	protected _blendDuration: number;
@@ -74,10 +74,10 @@ export class DChartPlotArea<
 			DApplications.update( this );
 		});
 		this._container = container;
-		this._coordinate = new DChartCoordinateContainerImpl( this, options && options.coordinate );
-		const series = new DChartSeriesContainerImpl( this, options && options.series );
+		this._coordinate = new DChartCoordinateContainerImpl( this, options?.coordinate );
+		const series = new DChartSeriesContainerImpl( this, options?.series );
 		this._series = series;
-		const axis = new DChartAxisContainerImpl( this, options && options.axis );
+		const axis = new DChartAxisContainerImpl( this, options?.axis );
 		this._axis = axis;
 		this._isViewDirty = true;
 		this._isBoundsInContainerDirty = true;
@@ -87,7 +87,7 @@ export class DChartPlotArea<
 		this.addChild( container );
 		this.addChild( axis.container );
 
-		this._view = new DViewImpl( this, () => container, options && options.view );
+		this._view = new DViewImpl( this, () => container, options?.view );
 
 		const selection = series.selection;
 		if( selection ) {
@@ -95,10 +95,9 @@ export class DChartPlotArea<
 		}
 
 		// Overflow mask
-		this._overflowMask = null;
-		const mask = options && options.mask;
-		if( mask != null ? mask : this.theme.isOverflowMaskEnabled() ) {
-			container.mask = this.getOrCreateOverflowMask();
+		const mask = options?.mask ?? this.theme.isOverflowMaskEnabled();
+		if( mask ) {
+			container.mask = this.getOverflowMask();
 		}
 	}
 
@@ -108,7 +107,7 @@ export class DChartPlotArea<
 		super.onResize( newWidth, newHeight, oldWidth, oldHeight );
 	}
 
-	protected getOrCreateOverflowMask(): DBaseOverflowMask {
+	protected getOverflowMask(): DBaseOverflowMask {
 		if( this._overflowMask == null ) {
 			this._overflowMask = new DBaseOverflowMask( this );
 			this.addReflowable( this._overflowMask );

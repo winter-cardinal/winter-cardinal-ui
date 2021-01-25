@@ -57,4 +57,8 @@ export class DThemeDarkMenuBarItem<VALUE = unknown> extends DThemeDarkButton<VAL
 	getTextAlignHorizontal(): DAlignHorizontal {
 		return DAlignHorizontal.LEFT;
 	}
+
+	getTextStyleClipping(): boolean {
+		return false;
+	}
 }

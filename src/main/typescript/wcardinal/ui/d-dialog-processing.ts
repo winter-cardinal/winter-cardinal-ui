@@ -7,12 +7,15 @@ import { DBaseState } from "./d-base-state";
 import { DDialogConfirm, DDialogConfirmOptions, DThemeDialogConfirm } from "./d-dialog-confirm";
 import { DDialogConfirmMessage, DDialogConfirmMessageOptions } from "./d-dialog-confirm-message";
 import { DDialogProcessingMessage } from "./d-dialog-processing-message";
+import { DStateAwareOrValueMightBe } from "./d-state-aware";
+
+export interface DDialogProcessingDelayOptions {
+	done?: number;
+	close?: number | null;
+}
 
 export interface DDialogProcessingOptions<THEME extends DThemeDialogProcessing> extends DDialogConfirmOptions<THEME> {
-	delay?: {
-		done?: number;
-		close?: number | null;
-	};
+	delay?: DDialogProcessingDelayOptions;
 }
 
 export interface DThemeDialogProcessing extends DThemeDialogConfirm {
@@ -29,17 +32,18 @@ export class DDialogProcessing<
 	protected _delayDone: number;
 	protected _delayClose: number | null;
 	protected _timeoutId?: number;
-	protected _messageText: unknown;
+	protected _messageText: DStateAwareOrValueMightBe<string>;
 	protected _closeTimeoutId?: number;
 
 	constructor( options?: OPTIONS ) {
 		super( options );
 		this._isDone = true;
 		this._startTime =  0;
-		const delay = options && options.delay;
-		this._delayDone = ( delay && delay.done != null ? delay.done : this.theme.getDoneDelay() );
-		this._delayClose = ( delay && delay.close !== undefined ? delay.close : this.theme.getCloseDelay() );
-		this._messageText = this._message.text;
+		const delay = options?.delay;
+		this._delayDone = ( delay?.done ?? this.theme.getDoneDelay() );
+		const delayClose = delay?.close;
+		this._delayClose = ( delayClose !== undefined ? delayClose : this.theme.getCloseDelay() );
+		this._messageText = this.message.text;
 	}
 
 	protected newMessage( options: DDialogConfirmMessageOptions ): DDialogConfirmMessage {
@@ -57,7 +61,7 @@ export class DDialogProcessing<
 		if( closeTimeoutId != null ) {
 			clearTimeout( closeTimeoutId );
 		}
-		const message = this._message;
+		const message = this.message;
 		message.text = this._messageText;
 		message.state.removeAll( DBaseState.SUCCEEDED, DBaseState.FAILED );
 		const buttonLayout = this._buttonLayout;
@@ -79,9 +83,9 @@ export class DDialogProcessing<
 
 	protected onResolved( message?: string ): void {
 		if( message != null ) {
-			this._message.text = message;
+			this.message.text = message;
 		}
-		this._message.state.set( DBaseState.SUCCEEDED, DBaseState.FAILED );
+		this.message.state.set( DBaseState.SUCCEEDED, DBaseState.FAILED );
 		const delayClose = this._delayClose;
 		if( delayClose != null ) {
 			this.onDone( delayClose );
@@ -97,9 +101,9 @@ export class DDialogProcessing<
 
 	protected onRejected( message?: string ): void {
 		if( message != null ) {
-			this._message.text = message;
+			this.message.text = message;
 		}
-		this._message.state.set( DBaseState.FAILED, DBaseState.SUCCEEDED );
+		this.message.state.set( DBaseState.FAILED, DBaseState.SUCCEEDED );
 		const buttonLayout = this._buttonLayout;
 		if( buttonLayout != null ) {
 			buttonLayout.show();

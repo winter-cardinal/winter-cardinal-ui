@@ -24,7 +24,7 @@ DThemeWhiteAtlas.add( "fail_mark", 21, 21,
 	`</g>`
 );
 
-export class DThemeWhiteDialogProcessingMessage<VALUE = unknown> extends DThemeWhiteDialogConfirmMessage<VALUE> {
+export class DThemeWhiteDialogProcessingMessage extends DThemeWhiteDialogConfirmMessage {
 	getHeight(): number {
 		return 90;
 	}

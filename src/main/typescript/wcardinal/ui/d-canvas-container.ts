@@ -73,8 +73,8 @@ export class DCanvasContainer<
 		= DCanvasContainerOptions<CANVAS, CANVAS_OPTIONS, THEME>
 > extends DBase<THEME, OPTIONS> {
 	protected _canvas!: CANVAS | null;
-	protected _canvasOptions!: CANVAS_OPTIONS | null;
-	protected _overflowMask!: DBaseOverflowMask | null;
+	protected _canvasOptions?: CANVAS_OPTIONS | null;
+	protected _overflowMask?: DBaseOverflowMask | null;
 	protected _view!: DViewImpl;
 
 	protected init( options?: OPTIONS ) {
@@ -82,10 +82,10 @@ export class DCanvasContainer<
 
 		this._canvas = null;
 		const theme = this.theme;
-		this._view = new DViewImpl( this, () => this._canvas, options && options.view );
+		this._view = new DViewImpl( this, () => this._canvas, options?.view );
 
 		// Canvas
-		const canvas = ( options && options.canvas ? options.canvas : null );
+		const canvas = options?.canvas;
 		if( canvas instanceof DBase ) {
 			this._canvasOptions = null;
 			this.canvas = canvas;
@@ -94,9 +94,9 @@ export class DCanvasContainer<
 		}
 
 		// Overflow mask
-		this._overflowMask = null;
-		if( options && options.mask != null ? options.mask : theme.isOverflowMaskEnabled() ) {
-			this.mask = this.getOrCreateOverflowMask();
+		const mask = options?.mask ?? theme.isOverflowMaskEnabled();
+		if( mask ) {
+			this.mask = this.getOverflowMask();
 		}
 	}
 
@@ -132,7 +132,7 @@ export class DCanvasContainer<
 		}
 	}
 
-	protected getOrCreateOverflowMask(): DBaseOverflowMask {
+	protected getOverflowMask(): DBaseOverflowMask {
 		if( this._overflowMask == null ) {
 			this._overflowMask = new DBaseOverflowMask( this );
 			this.addReflowable( this._overflowMask );

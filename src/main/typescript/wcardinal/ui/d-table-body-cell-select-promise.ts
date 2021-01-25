@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { interaction } from "pixi.js";
 import { DButton, DButtonOptions, DThemeButton } from "./d-button";
-import { DTableBodyCell } from "./d-table-body-cell";
+import { DTableBodyCell, DTableBodyCellOnChange } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
 
@@ -29,51 +30,52 @@ export class DTableBodyCellSelectPromise<
 	THEME extends DThemeTableBodyCellSelectPromise<VALUE> = DThemeTableBodyCellSelectPromise<VALUE>,
 	OPTIONS extends DTableBodyCellSelectPromiseOptions<ROW, VALUE, THEME> =
 		DTableBodyCellSelectPromiseOptions<ROW, VALUE, THEME>
-> extends DButton<VALUE | null, THEME, OPTIONS> implements DTableBodyCell<ROW> {
+> extends DButton<VALUE | null, THEME, OPTIONS> implements DTableBodyCell<ROW, VALUE | null> {
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;
-	protected _column: DTableColumn<ROW>;
+	protected _column: DTableColumn<ROW, VALUE | null>;
+	protected _onChange: DTableBodyCellOnChange<ROW, VALUE | null>;
+	protected _isSyncEnabled: boolean;
 
-	constructor( columnIndex: number, column: DTableColumn<ROW>, options?: OPTIONS ) {
+	constructor( columnIndex: number, column: DTableColumn<ROW, VALUE | null>, onChange: DTableBodyCellOnChange<ROW, VALUE | null>, options?: OPTIONS ) {
 		super( options );
 
 		this._rowIndex = -1;
 		this._columnIndex = columnIndex;
 		this._column = column;
+		this._onChange = onChange;
+		this._isSyncEnabled = ( options?.sync ?? this.theme.isSyncEnabled() );
+	}
 
-		const isSyncEnabled = this.toSync( this.theme, options );
-		const selecting = column.selecting;
+	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
+		super.onActivate( e );
+		const selecting = this._column.selecting;
 		const promise = selecting.promise;
-		if( promise != null ) {
-			this.on( "active", (): void => {
-				promise().then(( newValue: unknown ): void => {
-					if( isSyncEnabled ) {
-						const oldValue = this.text;
-						if( newValue !== oldValue ) {
-							this.text = newValue as VALUE;
-							this.onCellChange( newValue, oldValue );
-						}
-					} else {
-						this.onCellChange( newValue, null );
+		if( promise ) {
+			promise().then(( newValue: VALUE | null ): void => {
+				if( this._isSyncEnabled ) {
+					const oldValue = this._textValueComputed ?? null;
+					if( newValue !== oldValue ) {
+						this.text = newValue;
+						this.onValueChange( newValue, oldValue );
 					}
-				});
+				} else {
+					this.onValueChange( newValue, null );
+				}
 			});
 		}
 	}
 
-	protected onCellChange( newValue: unknown, oldValue: unknown ): void {
+	protected onValueChange( newValue: VALUE | null, oldValue: VALUE | null ): void {
 		const row = this._row;
 		if( row !== undefined ) {
 			const rowIndex = this._rowIndex;
 			const columnIndex = this._columnIndex;
 			this._column.setter( row, columnIndex, newValue );
-			this.emit( "cellchange", newValue, oldValue, row, rowIndex, columnIndex, this );
+			this.emit( "change", newValue, oldValue, this );
+			this._onChange( newValue, oldValue, row, rowIndex, columnIndex, this );
 		}
-	}
-
-	protected toSync( theme: THEME, options?: OPTIONS ): boolean {
-		return options?.sync ?? theme.isSyncEnabled();
 	}
 
 	get row(): ROW | undefined {
@@ -88,7 +90,7 @@ export class DTableBodyCellSelectPromise<
 		return this._columnIndex;
 	}
 
-	get column(): DTableColumn<ROW> {
+	get column(): DTableColumn<ROW, VALUE | null> {
 		return this._column;
 	}
 
@@ -105,19 +107,19 @@ export class DTableBodyCellSelectPromise<
 	}
 
 	set(
-		value: unknown, row: ROW, supplimental: unknown,
+		value: VALUE | null, row: ROW, supplimental: unknown,
 		rowIndex: number, columnIndex: number,
 		forcibly?: boolean
 	): void {
 		this._row = row;
 		this._rowIndex = rowIndex;
 		if( forcibly ) {
-			this._textValue = value as VALUE;
-			this._textValueComputed = value as VALUE;
+			this._textValue = value;
+			this._textValueComputed = value;
 			this.onTextChange();
 			this.createOrUpdateText();
 		} else {
-			this.text = value as VALUE;
+			this.text = value;
 		}
 
 		const column = this._column;

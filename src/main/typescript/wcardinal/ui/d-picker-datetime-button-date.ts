@@ -21,16 +21,6 @@ export class DPickerDatetimeButtonDate<
 	THEME extends DThemePickerDatetimeButtonDate<VALUE> = DThemePickerDatetimeButtonDate<VALUE>,
 	OPTIONS extends DPickerDatetimeButtonDateOptions<VALUE, THEME> = DPickerDatetimeButtonDateOptions<VALUE, THEME>
 > extends DButtonAmbient<VALUE, THEME, OPTIONS> {
-	protected onToggleStart(): void {
-		if( ! this.state.isActive ) {
-			this.state.isActive = true;
-		}
-	}
-
-	protected onToggleEnd(): void {
-		this.emit( this.state.isActive ? "active" : "inactive", this );
-	}
-
 	protected getType(): string {
 		return "DPickerDatetimeButtonDate";
 	}

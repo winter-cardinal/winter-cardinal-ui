@@ -29,15 +29,16 @@ export class DTableCategory<
 	THEME extends DThemeTableCategory = DThemeTableCategory,
 	OPTIONS extends DTableCategoryOptions<THEME> = DTableCategoryOptions<THEME>
 > extends DTableRow<unknown, DTableCategoryColumn, THEME, OPTIONS> {
-	protected _offset!: number;
+	protected _offset: number;
 
 	constructor( options: OPTIONS ) {
 		super( options );
-	}
 
-	protected init( options: OPTIONS ) {
-		this._offset = this.transform.position.y = options.offset || 0;
-		super.init( options );
+		const offset = options.offset ?? 0;
+		this._offset = offset;
+		this.transform.position.y = offset;
+
+		this.initCells( options, this._columns, this._frozen );
 	}
 
 	protected onParentMove( newX: number, newY: number, oldX: number, oldY: number ): void {

@@ -15,7 +15,6 @@ export interface DTableRowOptions<
 > extends DLayoutHorizontalOptions<THEME> {
 	columns?: COLUMN[];
 	frozen?: number;
-	even?: boolean;
 }
 
 export interface DThemeTableRow extends DThemeLayoutHorizontal {
@@ -34,30 +33,19 @@ export abstract class DTableRow<
 	THEME extends DThemeTableRow = DThemeTableRow,
 	OPTIONS extends DTableRowOptions<ROW, COLUMN, THEME> = DTableRowOptions<ROW, COLUMN, THEME>
 > extends DLayoutHorizontal<THEME, OPTIONS> {
-	protected _columns!: COLUMN[];
-	protected _frozen!: number;
+	protected _columns: COLUMN[];
+	protected _frozen: number;
 
 	constructor( options: OPTIONS ) {
 		super( options );
-	}
 
-	protected init( options: OPTIONS ): void {
-		super.init( options );
-
-		// State
-		if( !! options.even ) {
-			this.state.isAlternated = true;
-		}
 		this.state.isFocusReverse = true;
 		this._reverse = true;
+		this._frozen = options.frozen ?? 0;
+		this._columns = options.columns ?? [];
+	}
 
-		// Frozen
-		const frozen = options.frozen ?? 0;
-		this._frozen = frozen;
-
-		// Cells
-		const columns = options.columns || [];
-		this._columns = columns;
+	protected initCells( options: OPTIONS, columns: COLUMN[], frozen: number ): void {
 		const iend = this.toIndexEnd( columns );
 		for( let i = columns.length - 1; 0 <= i; --i ) {
 			const cell = this.newCell( i, columns[ i ], columns, options );
