@@ -89,8 +89,18 @@ export class DButtonColor<
 			value.color = dialogNew.color;
 			value.alpha = dialogNew.alpha;
 			this.onColorChange();
-			this.onValueChange( dialogNew, dialogCurrent );
+			this.onValueChange(
+				this.toClone( dialogNew ),
+				this.toClone( dialogCurrent )
+			);
 		});
+	}
+
+	protected toClone( value: DColorAndAlpha ): DColorAndAlpha {
+		return {
+			color: value.color,
+			alpha: value.alpha
+		};
 	}
 
 	protected onValueChange( newValue: DColorAndAlpha, oldValue: DColorAndAlpha ): void {
