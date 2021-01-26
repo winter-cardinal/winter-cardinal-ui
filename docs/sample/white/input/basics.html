@@ -22,43 +22,71 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.67.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.67.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.75.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.75.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
 
-		const application = new wcardinal.ui.DApplication();
+		var application = new wcardinal.ui.DApplication();
 
-		new wcardinal.ui.DInputText({
+		new wcardinal.ui.DLayoutVertical({
 			parent: application.stage,
-			x: 50, y: 50,
-		});
+			x: "center", y: "center",
+			width: 200, height: "auto",
+			margin: 32,
+			children: [
+				// Text input
+				new wcardinal.ui.DInputText({
+					width: "100%",
+					text: {
+						value: "Apple"
+					},
+					on: {
+						change: function ( newValue, oldValue, input ) {
+							console.log( newValue, oldValue, input );
+						}
+					}
+				}),
 
-		new wcardinal.ui.DInputReal({
-			parent: application.stage,
-			x: 50, y: 150,
-			text: {
-				formatter: ( value ) => {
-					return (value * 100).toFixed( 2 );
-				}
-			},
-			editing: {
-				unformatter: ( value ) => {
-					return value / 100;
-				}
-			}
-		});
+				// Integer input
+				new wcardinal.ui.DInputInteger({
+					width: "100%",
+					text: {
+						value: 123
+					},
+					on: {
+						change: function ( newValue, oldValue, input ) {
+							console.log( newValue, oldValue, input );
+						}
+					}
+				}),
 
-		new wcardinal.ui.DInputText({
-			parent: application.stage,
-			x: 50, y: 250,
-			editing: {
-				validator: ( value ) => {
-					return ( value.match( /[0-9]/ ) ? "Error message" : null );
-				}
-			}
-		});
+				// Real input
+				new wcardinal.ui.DInputReal({
+					width: "100%",
+					text: {
+						value: 1.23
+					},
+					on: {
+						change: function ( newValue, oldValue, input ) {
+							console.log( newValue, oldValue, input );
+						}
+					}
+				}),
+
+				// Boolean input
+				new wcardinal.ui.DInputBoolean({
+					width: "100%",
+					value: true,
+					on: {
+						change: function ( newValue, oldValue, input ) {
+							console.log( newValue, oldValue, input );
+						}
+					}
+				})
+			]
+		})
 	}());
 	</script>
 </body>

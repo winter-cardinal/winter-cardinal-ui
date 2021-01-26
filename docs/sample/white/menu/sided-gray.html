@@ -22,188 +22,40 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.67.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.67.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.75.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.75.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
 
-		const application = new wcardinal.ui.DApplication();
+		var application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DMenuSided({
 			parent: application.stage,
-			x: 100, y: 100,
+			x: "center", y: "center",
 			width: 300, height: "100%-200",
 			background: {
 				color: 0xf2f2f2
 			},
 			items: [{
+				value: "APPLE",
 				text: {
-					value: "A"
-				},
-				shortcut: "Ctrl+O"
-			}, {
-				separator: true
-			}, {
-				text: {
-					value: "B"
+					value: "Apple"
 				}
 			}, {
-				url: "./foo",
+				value: "ORANGE",
 				text: {
-					value: "C"
+					value: "Orange"
 				}
 			}, {
+				value: "PINEAPPLE",
 				text: {
-					value: "D"
-				},
-				menu: {
-					items: [{
-						text: {
-							value: "D1"
-						},
-						shortcut: "Ctrl+P"
-					}, {
-						separator: true
-					}, {
-						text: {
-							value: "D2"
-						},
-						menu: {
-							align: "LEFT",
-							items: [{
-								text: {
-									value: "D2-1"
-								},
-								shortcut: "Ctrl+Q"
-							}, {
-								separator: true
-							}, {
-								text: {
-									value: "D2-2"
-								}
-							}, {
-								text: {
-									value: "D2-3"
-								}
-							}]
-						}
-					}, {
-						text: {
-							value: "D3"
-						}
-					}]
+					value: "Pineapple"
 				}
-			}, {
-				text: {
-					value: "E"
-				},
-				menu: {
-					items: [{
-						text: {
-							value: "A"
-						},
-						shortcut: "Ctrl+R"
-					}, {
-						separator: true
-					}, {
-						text: {
-							value: "B"
-						},
-						check: true
-					}, {
-						text: {
-							value: "C"
-						},
-						check: false
-					}, {
-						text: {
-							value: "D"
-						},
-						check: false
-					}]
-				}
-			}, {
-				header: {
-					text: {
-						value: "Expandable1"
-					}
-				},
-				items: [{
-					text: {
-						value: "e1-1"
-					}
-				}, {
-					text: {
-						value: "e1-2"
-					}
-				}, {
-					text: {
-						value: "e1-3"
-					}
-				}, {
-					text: {
-						value: "e1-4"
-					}
-				}]
-			}, {
-				header: {
-					text: {
-						value: "Expandable2"
-					}
-				},
-				items: [{
-					text: {
-						value: "e2-1"
-					}
-				}, {
-					text: {
-						value: "e2-2"
-					}
-				}, {
-					text: {
-						value: "e2-3"
-					}
-				}, {
-					text: {
-						value: "e2-4"
-					}
-				}, {
-					text: {
-						value: "e2-5"
-					}
-				}]
-			}, {
-				header: {
-					text: {
-						value: "Expandable3"
-					}
-				},
-				items: [{
-					text: {
-						value: "e3-1"
-					}
-				}, {
-					text: {
-						value: "e3-2"
-					}
-				}, {
-					text: {
-						value: "e3-3"
-					}
-				}, {
-					text: {
-						value: "e3-4"
-					}
-				}, {
-					text: {
-						value: "e3-5"
-					}
-				}]
 			}],
 			on: {
-				select: ( value, item, menu ) => {
-					console.log( item.text, item, menu );
+				select: function ( value, item, menuSided ) {
+					console.log( item.text, item, menuSided );
 				}
 			}
 		});

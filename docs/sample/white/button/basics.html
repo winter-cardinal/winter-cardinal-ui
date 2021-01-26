@@ -17,8 +17,8 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.67.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.67.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.75.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.75.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -104,7 +104,7 @@
 						}),
 						new wcardinal.ui.DButtonLink({
 							width: "100%",
-							url: "./",
+							url: "../",
 							text: {
 								value: "Link"
 							}
@@ -125,14 +125,16 @@
 							width: "100%",
 							dialog: {
 								controller: {
-									search: () => {
+									search: function ( word ) {
 										return Promise.resolve([{
 											id: "Apple"
 										}, {
 											id: "Orange"
 										}, {
 											id: "Pineapple"
-										}]);
+										}].filter(function( item ) {
+											return word.length <= 0 || 0 <= item.id.indexOf( word )
+										}));
 									}
 								}
 							}
@@ -215,7 +217,7 @@
 						}),
 						new wcardinal.ui.DButtonLink({
 							width: "100%",
-							url: "./",
+							url: "../",
 							text: {
 								value: "Link"
 							}

@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.67.0/wcardinal-ui.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.67.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.75.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.75.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -47,10 +47,17 @@
 				type: "TIME",
 				editable: true
 			}],
-			data: [
-				[ Date.now(), Date.now(), Date.now() ],
-				[ 0, 0, 0 ]
-			]
+			data: {
+				rows: [
+					[ Date.now(), Date.now(), Date.now() ],
+					[ 0, 0, 0 ]
+				],
+				on: {
+					change: function ( newValue, oldValue, rowValue, rowIndex, columnIndex, data ) {
+						console.log( newValue, oldValue, rowValue, rowIndex, columnIndex, data );
+					}
+				}
+			}
 		});
 	}());
 	</script>

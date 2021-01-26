@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>No selection</title>
+	<title>Side menu with no selection</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -22,45 +22,40 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.67.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.67.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.75.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.75.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
 
-		const application = new wcardinal.ui.DApplication();
+		var application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DMenuSided({
 			parent: application.stage,
-			x: 100, y: 100,
+			x: "center", y: "center",
 			width: 300, height: "100%-200",
 			selection: {
 				mode: "NONE"
 			},
 			items: [{
+				value: "APPLE",
 				text: {
-					value: "A"
+					value: "Apple"
 				}
 			}, {
+				value: "ORANGE",
 				text: {
-					value: "B"
+					value: "Orange"
 				}
 			}, {
+				value: "PINEAPPLE",
 				text: {
-					value: "C"
-				}
-			}, {
-				text: {
-					value: "D"
-				}
-			}, {
-				text: {
-					value: "E"
+					value: "Pineapple"
 				}
 			}],
 			on: {
-				select: ( value, item, menu ) => {
-					console.log( item.text, item, menu );
+				select: function ( value, item, menuSided ) {
+					console.log( item.text, item, menuSided );
 				}
 			}
 		});

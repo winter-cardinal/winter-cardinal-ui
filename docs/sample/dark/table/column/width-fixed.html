@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Fixed column width</title>
+	<title>Column width (Fixed)</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -22,44 +22,36 @@
 </head>
 <body>
 	<script src="../../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.67.0/wcardinal-ui.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.67.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.75.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.75.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
 
-		const application = new wcardinal.ui.DApplication();
+		var application = new wcardinal.ui.DApplication();
 
-		// Rows
-		const rows = [];
-		for( let i = 0; i < 15000; ++i ) {
-			rows.push([
-				"A" + i,
-				"B" + i,
-				"C" + i,
-			]);
-		}
-
-		// Table
 		new wcardinal.ui.DTable({
 			parent: application.stage,
-			x: 50, y: 50,
-			width: 600, height: 600,
+			x: "center", y: "center",
+			width: 500, height: 500,
 			columns: [{
-				label: "A",
-				type: "TEXT",
-				width: 100,
-				editable: true
-			},{
-				label: "B",
-				type: "TEXT",
-				width: 100
-			},{
-				label: "C",
+				label: "Text",
 				type: "TEXT",
 				width: 150
+			},{
+				label: "Integer",
+				type: "INTEGER",
+				width: 150
+			},{
+				label: "Real",
+				type: "REAL",
+				width: 150
 			}],
-			data: rows
+			data: [
+				[ "Apple", 2000, 0.123 ],
+				[ "Orange", 2001, 0.250 ],
+				[ "Pineapple", 2002, 0.500 ]
+			]
 		});
 	}());
 	</script>
