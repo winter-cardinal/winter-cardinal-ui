@@ -29,7 +29,6 @@ import { DTableHeader, DTableHeaderOptions } from "./d-table-header";
 import { DTableRow } from "./d-table-row";
 import { isArray } from "./util/is-array";
 import { isString } from "./util/is-string";
-import { toString } from "./util/to-string";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
@@ -112,10 +111,6 @@ const toPathSetter = <ROW, CELL>( path: string[] ): DTableSetter<ROW, CELL> => {
 	}
 };
 
-const defaultEditingUnformatter = <CELL>( formatted: string ): CELL => {
-	return formatted as any;
-};
-
 const toColumnAlign = <ROW, CELL>(
 	options: DTableColumnOptions<ROW, CELL>,
 	type: DTableColumnType
@@ -191,15 +186,13 @@ const toColumnEditing = <ROW, CELL>(
 	if( editing ) {
 		return {
 			enable: toColumnEditingEnable( editing.enable != null ? editing.enable : options.editable, path ),
-			formatter: editing.formatter || toString,
-			unformatter: editing.unformatter || defaultEditingUnformatter,
+			formatter: editing.formatter,
+			unformatter: editing.unformatter,
 			validator: editing.validator
 		};
 	}
 	return {
-		enable: toColumnEditingEnable( options.editable, path ),
-		formatter: toString,
-		unformatter: defaultEditingUnformatter
+		enable: toColumnEditingEnable( options.editable, path )
 	};
 };
 

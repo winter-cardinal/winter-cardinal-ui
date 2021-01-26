@@ -71,8 +71,8 @@ export interface DTableColumnEditingOptions<ROW_VALUE, CELL_VALUE> {
 
 export interface DTableColumnEditing<ROW_VALUE, CELL_VALUE> {
 	enable: boolean | DTableEditable<ROW_VALUE>;
-	formatter: DTableEditingFormatter<CELL_VALUE>;
-	unformatter: DTableEditingUnformatter<CELL_VALUE>;
+	formatter?: DTableEditingFormatter<CELL_VALUE>;
+	unformatter?: DTableEditingUnformatter<CELL_VALUE>;
 	validator?: DTableEditingValidator<CELL_VALUE>;
 }
 
