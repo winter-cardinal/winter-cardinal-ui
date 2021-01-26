@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.67.0/wcardinal-ui.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.67.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.75.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.75.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -48,7 +48,9 @@
 									id: "Orange"
 								},{
 									id: "Pineapple"
-								}]);
+								}].filter(function ( item ){
+									return word.length <= 0 || 0 <= item.id.indexOf( word );
+								}));
 							}
 						}
 					}
@@ -69,20 +71,20 @@
 				selecting: {
 					menu: {
 						items: [{
+							value: "Apple",
 							text: {
 								value: "Apple"
-							},
-							value: "Apple"
+							}
 						}, {
+							value: "Orange",
 							text: {
 								value: "Orange"
-							},
-							value: "Orange"
+							}
 						}, {
+							value: "Pineapple",
 							text: {
 								value: "Pineapple"
-							},
-							value: "Pineapple"
+							}
 						}],
 						fit: true
 					}
@@ -96,7 +98,7 @@
 				],
 				on: {
 					change: function ( result, _, rowValue, rowIndex, columnIndex, data ) {
-						console.log( result, _, rowValue, rowIndex, columnIndex, data );
+						console.log( result, rowValue, rowIndex, columnIndex, data );
 					}
 				}
 			}

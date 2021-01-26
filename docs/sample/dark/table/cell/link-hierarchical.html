@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.67.0/wcardinal-ui.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.67.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.75.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.75.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -35,12 +35,12 @@
 			x: "center", y: "center",
 			width: 500, height: 500,
 			columns: [{
-				label: "Fruit",
+				label: "Hierarchical link",
 				type: "TREE",
 				path: "name",
 				link: {
 					url: function( row, rowIndex, columnIndex, cell ) {
-						return "../../../";
+						return "../../";
 					}
 				}
 			}],

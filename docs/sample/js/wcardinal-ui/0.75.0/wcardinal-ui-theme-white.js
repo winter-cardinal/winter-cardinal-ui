@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.67.0
+ Winter Cardinal UI v0.75.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -248,7 +248,7 @@
             return 0;
         };
         DThemeWhiteBase.prototype.getCornerRadius = function () {
-            return 2;
+            return 3;
         };
         DThemeWhiteBase.prototype.getCornerMask = function () {
             return DCornerMask.NONE;
@@ -292,8 +292,8 @@
         DThemeWhiteBase.prototype.newShadowWeak = function () {
             return new DShadowImpl(DThemeWhiteAtlas.mappings.shadow_weak, 8, 8, 0, 2);
         };
-        DThemeWhiteBase.prototype.getCursor = function () {
-            return null;
+        DThemeWhiteBase.prototype.getCursor = function (state) {
+            return "";
         };
         return DThemeWhiteBase;
     }(DThemeWhiteFont));
@@ -352,6 +352,8 @@
 
     const DAlignHorizontal = wcardinal.ui.DAlignHorizontal;
 
+    const DButtonBaseWhen = wcardinal.ui.DButtonBaseWhen;
+
     const DAlignVertical = wcardinal.ui.DAlignVertical;
 
     const DAlignWith = wcardinal.ui.DAlignWith;
@@ -382,14 +384,14 @@
         DThemeWhiteTextBase.prototype.getTextStyleClipping = function () {
             return true;
         };
-        DThemeWhiteTextBase.prototype.newTextValue = function () {
-            return "";
-        };
-        DThemeWhiteTextBase.prototype.getTextValue = function (state) {
-            return "";
-        };
         DThemeWhiteTextBase.prototype.getTextFormatter = function () {
             return toString;
+        };
+        DThemeWhiteTextBase.prototype.getTextValue = function (state) {
+            return undefined;
+        };
+        DThemeWhiteTextBase.prototype.newTextValue = function () {
+            return undefined;
         };
         return DThemeWhiteTextBase;
     }(DThemeWhiteBase));
@@ -538,6 +540,15 @@
         };
         DThemeWhiteButtonBase.prototype.isToggle = function () {
             return false;
+        };
+        DThemeWhiteButtonBase.prototype.getWhen = function () {
+            return DButtonBaseWhen.CLICKED;
+        };
+        DThemeWhiteButtonBase.prototype.getCursor = function (state) {
+            if (!state.isActionable) {
+                return "";
+            }
+            return "pointer";
         };
         return DThemeWhiteButtonBase;
     }(DThemeWhiteImageBase));
@@ -1608,9 +1619,6 @@
         DThemeWhitePickerDatetimeLabel.prototype.newTextValue = function () {
             return new Date();
         };
-        DThemeWhitePickerDatetimeLabel.prototype.getTextValue = function (state) {
-            return new Date();
-        };
         return DThemeWhitePickerDatetimeLabel;
     }(DThemeWhiteText));
 
@@ -2244,6 +2252,12 @@
         };
         DThemeWhiteListItem.prototype.getCornerMask = function () {
             return DCornerMask.ALL;
+        };
+        DThemeWhiteListItem.prototype.getCursor = function (state) {
+            if (!state.isActionable) {
+                return "";
+            }
+            return "pointer";
         };
         return DThemeWhiteListItem;
     }(DThemeWhiteImage));
@@ -4304,7 +4318,10 @@
         DThemeWhiteInput.prototype.getPaddingRight = function () {
             return 10;
         };
-        DThemeWhiteInput.prototype.getCursor = function () {
+        DThemeWhiteInput.prototype.getCursor = function (state) {
+            if (!state.isActionable) {
+                return "";
+            }
             return "text";
         };
         DThemeWhiteInput.prototype.getEditingFormatter = function () {
@@ -4350,7 +4367,7 @@
             return DAlignHorizontal.CENTER;
         };
         DThemeWhiteInputNumber.prototype.getStep = function () {
-            return 1;
+            return null;
         };
         DThemeWhiteInputNumber.prototype.getMin = function () {
             return null;
@@ -4359,9 +4376,6 @@
             return null;
         };
         DThemeWhiteInputNumber.prototype.newTextValue = function () {
-            return 0;
-        };
-        DThemeWhiteInputNumber.prototype.getTextValue = function (state) {
             return 0;
         };
         return DThemeWhiteInputNumber;
@@ -4434,9 +4448,6 @@
         function DThemeWhiteInputReal() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeWhiteInputReal.prototype.getStep = function () {
-            return 0.1;
-        };
         DThemeWhiteInputReal.prototype.getEditingUnformatter = function () {
             return editingUnformatter$2;
         };
@@ -4461,9 +4472,6 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeWhiteInputText.prototype.newTextValue = function () {
-            return "";
-        };
-        DThemeWhiteInputText.prototype.getTextValue = function (state) {
             return "";
         };
         return DThemeWhiteInputText;
@@ -4557,6 +4565,9 @@
         };
         DThemeWhiteListItemSeparator.prototype.getPaddingRight = function () {
             return 10;
+        };
+        DThemeWhiteListItemSeparator.prototype.getInteractive = function () {
+            return DBaseInteractive.NONE;
         };
         return DThemeWhiteListItemSeparator;
     }(DThemeWhiteImage));
@@ -5097,6 +5108,9 @@
         DThemeWhiteMenuBarItem.prototype.getTextAlignHorizontal = function () {
             return DAlignHorizontal.LEFT;
         };
+        DThemeWhiteMenuBarItem.prototype.getTextStyleClipping = function () {
+            return false;
+        };
         return DThemeWhiteMenuBarItem;
     }(DThemeWhiteButton));
 
@@ -5519,29 +5533,30 @@
             return _this;
         }
         DThemeWhiteScrollBarThumb.prototype.getBackgroundColor = function (state) {
-            if (state.isHovered || state.isDragging) {
-                return DThemeWhiteConstants.HIGHLIGHT_COLOR;
-            }
-            else {
-                return this.COLOR;
-            }
+            return null;
         };
         DThemeWhiteScrollBarThumb.prototype.getBackgroundAlpha = function (state) {
-            if (state.isHovered || state.isDragging) {
+            return 1;
+        };
+        DThemeWhiteScrollBarThumb.prototype.getBorderColor = function (state) {
+            if (state.inDisabled) {
+                return this.COLOR;
+            }
+            return DThemeWhiteConstants.HIGHLIGHT_COLOR;
+        };
+        DThemeWhiteScrollBarThumb.prototype.getBorderAlpha = function (state) {
+            if (!state.inDisabled && (state.isHovered || state.isDragging)) {
                 return 1.0;
             }
             else {
-                return DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
+                return 0.4;
             }
         };
-        DThemeWhiteScrollBarThumb.prototype.getBorderColor = function (state) {
-            return null;
-        };
-        DThemeWhiteScrollBarThumb.prototype.getBorderAlpha = function (state) {
-            return 0;
-        };
         DThemeWhiteScrollBarThumb.prototype.getBorderWidth = function (state) {
-            return 1;
+            return 2;
+        };
+        DThemeWhiteScrollBarThumb.prototype.getBorderAlign = function (state) {
+            return 0;
         };
         DThemeWhiteScrollBarThumb.prototype.getWidth = function () {
             return 13;
@@ -5549,7 +5564,7 @@
         DThemeWhiteScrollBarThumb.prototype.getHeight = function () {
             return 13;
         };
-        DThemeWhiteScrollBarThumb.prototype.getMinimumSize = function () {
+        DThemeWhiteScrollBarThumb.prototype.getThumbMinimumLength = function () {
             return 16;
         };
         return DThemeWhiteScrollBarThumb;
@@ -5633,14 +5648,11 @@
         function DThemeWhiteSelect() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeWhiteSelect.prototype.newTextValue = function () {
-            return null;
-        };
-        DThemeWhiteSelect.prototype.getTextValue = function (state) {
-            return null;
-        };
         DThemeWhiteSelect.prototype.getTextFormatter = function () {
             return formatter$5;
+        };
+        DThemeWhiteSelect.prototype.newTextValue = function () {
+            return null;
         };
         return DThemeWhiteSelect;
     }(DThemeWhiteDropdownBase));
@@ -5677,14 +5689,11 @@
         function DThemeWhiteSelectMultiple() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeWhiteSelectMultiple.prototype.newTextValue = function () {
-            return [];
-        };
-        DThemeWhiteSelectMultiple.prototype.getTextValue = function (state) {
-            return [];
-        };
         DThemeWhiteSelectMultiple.prototype.getTextFormatter = function () {
             return formatter$6;
+        };
+        DThemeWhiteSelectMultiple.prototype.newTextValue = function () {
+            return [];
         };
         return DThemeWhiteSelectMultiple;
     }(DThemeWhiteDropdownBase));
@@ -5699,9 +5708,6 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeWhiteDropdown.prototype.newTextValue = function () {
-            return "";
-        };
-        DThemeWhiteDropdown.prototype.getTextValue = function (state) {
             return "";
         };
         return DThemeWhiteDropdown;
@@ -6067,7 +6073,7 @@
         return DThemeWhiteTableBody;
     }(DThemeWhiteBase));
 
-    const DTableCellState = wcardinal.ui.DTableCellState;
+    const DTableState = wcardinal.ui.DTableState;
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -6078,7 +6084,7 @@
         }
         DThemeWhiteTableBodyCells.getBackgroundColor = function (state) {
             if (state.inDisabled) {
-                if (state.is(DTableCellState.FROZEN)) {
+                if (state.is(DTableState.FROZEN)) {
                     return state.onAlternated ?
                         this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
                 }
@@ -6099,7 +6105,7 @@
                 return DThemeWhiteConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD;
             }
             else {
-                if (state.is(DTableCellState.FROZEN)) {
+                if (state.is(DTableState.FROZEN)) {
                     return state.onAlternated ?
                         this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
                 }
@@ -6118,7 +6124,7 @@
             return 0;
         };
         DThemeWhiteTableBodyCells.getBorderMask = function (state) {
-            if (state.is(DTableCellState.END)) {
+            if (state.is(DTableState.END)) {
                 return DBorderMask.ALL;
             }
             else {
@@ -6225,9 +6231,6 @@
             return true;
         };
         DThemeWhiteTableBodyCellSelectDialog.prototype.newTextValue = function () {
-            return null;
-        };
-        DThemeWhiteTableBodyCellSelectDialog.prototype.getTextValue = function (state) {
             return null;
         };
         return DThemeWhiteTableBodyCellSelectDialog;
@@ -6352,9 +6355,6 @@
         DThemeWhiteTableBodyCellSelectPromise.prototype.newTextValue = function () {
             return null;
         };
-        DThemeWhiteTableBodyCellSelectPromise.prototype.getTextValue = function (state) {
-            return null;
-        };
         return DThemeWhiteTableBodyCellSelectPromise;
     }(DThemeWhiteButton));
 
@@ -6426,10 +6426,7 @@
             return 10;
         };
         DThemeWhiteTableBodyCellText.prototype.newTextValue = function () {
-            return null;
-        };
-        DThemeWhiteTableBodyCellText.prototype.getTextValue = function (state) {
-            return null;
+            return undefined;
         };
         return DThemeWhiteTableBodyCellText;
     }(DThemeWhiteImageBase));
@@ -6443,6 +6440,12 @@
         function DThemeWhiteTableBodyCellButton() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
+        DThemeWhiteTableBodyCellButton.prototype.getCursor = function (state) {
+            if (!state.isActionable) {
+                return "";
+            }
+            return "pointer";
+        };
         return DThemeWhiteTableBodyCellButton;
     }(DThemeWhiteTableBodyCellText));
 
@@ -6569,9 +6572,6 @@
         DThemeWhiteTableBodyCellDate.prototype.getTextFormatter = function () {
             return formatter$7;
         };
-        DThemeWhiteTableBodyCellDate.prototype.getTextValue = function (state) {
-            return new Date();
-        };
         DThemeWhiteTableBodyCellDate.prototype.newTextValue = function () {
             return new Date();
         };
@@ -6619,9 +6619,6 @@
         };
         DThemeWhiteTableBodyCellDatetime.prototype.getTextFormatter = function () {
             return formatter$8;
-        };
-        DThemeWhiteTableBodyCellDatetime.prototype.getTextValue = function (state) {
-            return new Date();
         };
         DThemeWhiteTableBodyCellDatetime.prototype.newTextValue = function () {
             return new Date();
@@ -6676,9 +6673,6 @@
         };
         DThemeWhiteTableBodyCellIndex.prototype.getTextFormatter = function () {
             return formatter$9;
-        };
-        DThemeWhiteTableBodyCellIndex.prototype.getTextValue = function (state) {
-            return 0;
         };
         DThemeWhiteTableBodyCellIndex.prototype.newTextValue = function () {
             return 0;
@@ -6847,8 +6841,8 @@
             DThemeWhiteExpandables.init();
         };
         DThemeWhiteTableBodyCellTrees.getImageSource = function (state) {
-            if (state.is(DTableCellState.HAS_CHILDREN)) {
-                if (state.is(DTableCellState.OPENED)) {
+            if (state.is(DTableState.HAS_CHILDREN)) {
+                if (state.is(DTableState.OPENED)) {
                     return DThemeWhiteExpandables.getImageOpened();
                 }
                 else {
@@ -6876,53 +6870,23 @@
         function DThemeWhiteTableBodyCellInputTree() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeWhiteTableBodyCellInputTree.prototype.getLevelPadding = function (level) {
-            return 24 + level * 20;
-        };
-        DThemeWhiteTableBodyCellInputTree.prototype.getMargin = function () {
-            return 0;
-        };
-        DThemeWhiteTableBodyCellInputTree.prototype.getInteractive = function () {
-            return DBaseInteractive.BOTH;
-        };
-        DThemeWhiteTableBodyCellInputTree.prototype.getBackgroundColor = function (state) {
-            return DThemeWhiteTableBodyCells.getBackgroundColor(state);
-        };
-        DThemeWhiteTableBodyCellInputTree.prototype.getBackgroundAlpha = function (state) {
-            return DThemeWhiteTableBodyCells.getBackgroundAlpha(state);
-        };
-        DThemeWhiteTableBodyCellInputTree.prototype.getBorderColor = function (state) {
-            return DThemeWhiteTableBodyCells.getBorderColor(state);
-        };
-        DThemeWhiteTableBodyCellInputTree.prototype.getBorderAlign = function (state) {
-            return DThemeWhiteTableBodyCells.getBorderAlign(state);
-        };
-        DThemeWhiteTableBodyCellInputTree.prototype.getBorderMask = function (state) {
-            return DThemeWhiteTableBodyCells.getBorderMask(state);
-        };
-        DThemeWhiteTableBodyCellInputTree.prototype.getColor = function (state) {
-            return DThemeWhiteTableBodyCells.getColor(state);
-        };
-        DThemeWhiteTableBodyCellInputTree.prototype.getAlpha = function (state) {
-            return DThemeWhiteTableBodyCells.getAlpha(state);
-        };
         DThemeWhiteTableBodyCellInputTree.prototype.getHeight = function () {
             return DThemeWhiteTableBodyCells.getHeight();
         };
-        DThemeWhiteTableBodyCellInputTree.prototype.getCornerMask = function () {
-            return DThemeWhiteTableBodyCells.getCornerMask();
+        DThemeWhiteTableBodyCellInputTree.prototype.getBackgroundColor = function (state) {
+            return null;
         };
-        DThemeWhiteTableBodyCellInputTree.prototype.getOutlineColor = function (state) {
-            if (state.inDisabled) {
-                return null;
-            }
-            return _super.prototype.getOutlineColor.call(this, state);
+        DThemeWhiteTableBodyCellInputTree.prototype.getBorderColor = function (state) {
+            return null;
         };
-        DThemeWhiteTableBodyCellInputTree.prototype.getOutlineAlign = function (state) {
-            return DThemeWhiteTableBodyCells.getOutlineAlign(state);
+        DThemeWhiteTableBodyCellInputTree.prototype.getLevelPadding = function (level) {
+            return 24 + level * 20;
+        };
+        DThemeWhiteTableBodyCellInputTree.prototype.getInteractive = function () {
+            return DBaseInteractive.CHILDREN;
         };
         return DThemeWhiteTableBodyCellInputTree;
-    }(DThemeWhiteLayoutHorizontal));
+    }(DThemeWhiteBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -6933,17 +6897,47 @@
         function DThemeWhiteTableBodyCellInputTreeInput() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
+        DThemeWhiteTableBodyCellInputTreeInput.prototype.getX = function () {
+            return "padding";
+        };
+        DThemeWhiteTableBodyCellInputTreeInput.prototype.getY = function () {
+            return "padding";
+        };
+        DThemeWhiteTableBodyCellInputTreeInput.prototype.getWidth = function () {
+            return "padding";
+        };
         DThemeWhiteTableBodyCellInputTreeInput.prototype.getHeight = function () {
-            return "100%";
+            return DThemeWhiteTableBodyCells.getHeight();
         };
         DThemeWhiteTableBodyCellInputTreeInput.prototype.getBackgroundColor = function (state) {
-            return null;
+            return DThemeWhiteTableBodyCells.getBackgroundColor(state);
+        };
+        DThemeWhiteTableBodyCellInputTreeInput.prototype.getBackgroundAlpha = function (state) {
+            return DThemeWhiteTableBodyCells.getBackgroundAlpha(state);
         };
         DThemeWhiteTableBodyCellInputTreeInput.prototype.getBorderColor = function (state) {
-            return null;
+            return DThemeWhiteTableBodyCells.getBorderColor(state);
+        };
+        DThemeWhiteTableBodyCellInputTreeInput.prototype.getBorderAlign = function (state) {
+            return DThemeWhiteTableBodyCells.getBorderAlign(state);
+        };
+        DThemeWhiteTableBodyCellInputTreeInput.prototype.getBorderMask = function (state) {
+            return DThemeWhiteTableBodyCells.getBorderMask(state);
+        };
+        DThemeWhiteTableBodyCellInputTreeInput.prototype.getColor = function (state) {
+            return DThemeWhiteTableBodyCells.getColor(state);
+        };
+        DThemeWhiteTableBodyCellInputTreeInput.prototype.getAlpha = function (state) {
+            return DThemeWhiteTableBodyCells.getAlpha(state);
+        };
+        DThemeWhiteTableBodyCellInputTreeInput.prototype.getCornerMask = function () {
+            return DThemeWhiteTableBodyCells.getCornerMask();
         };
         DThemeWhiteTableBodyCellInputTreeInput.prototype.getOutlineColor = function (state) {
             return null;
+        };
+        DThemeWhiteTableBodyCellInputTreeInput.prototype.getOutlineAlign = function (state) {
+            return DThemeWhiteTableBodyCells.getOutlineAlign(state);
         };
         DThemeWhiteTableBodyCellInputTreeInput.prototype.getPaddingLeft = function () {
             return 0;
@@ -6960,20 +6954,44 @@
         function DThemeWhiteTableBodyCellInputTreeMarker() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
+        DThemeWhiteTableBodyCellInputTreeMarker.prototype.getX = function () {
+            return "padding";
+        };
+        DThemeWhiteTableBodyCellInputTreeMarker.prototype.getY = function () {
+            return "padding";
+        };
         DThemeWhiteTableBodyCellInputTreeMarker.prototype.getHeight = function () {
-            return "100%";
+            return DThemeWhiteTableBodyCells.getHeight();
         };
         DThemeWhiteTableBodyCellInputTreeMarker.prototype.getBackgroundColor = function (state) {
-            return null;
+            return DThemeWhiteTableBodyCells.getBackgroundColor(state);
+        };
+        DThemeWhiteTableBodyCellInputTreeMarker.prototype.getBackgroundAlpha = function (state) {
+            return DThemeWhiteTableBodyCells.getBackgroundAlpha(state);
         };
         DThemeWhiteTableBodyCellInputTreeMarker.prototype.getBorderColor = function (state) {
             return null;
         };
+        DThemeWhiteTableBodyCellInputTreeMarker.prototype.getBorderAlign = function (state) {
+            return DThemeWhiteTableBodyCells.getBorderAlign(state);
+        };
+        DThemeWhiteTableBodyCellInputTreeMarker.prototype.getBorderMask = function (state) {
+            return DThemeWhiteTableBodyCells.getBorderMask(state);
+        };
+        DThemeWhiteTableBodyCellInputTreeMarker.prototype.getColor = function (state) {
+            return DThemeWhiteTableBodyCells.getColor(state);
+        };
+        DThemeWhiteTableBodyCellInputTreeMarker.prototype.getAlpha = function (state) {
+            return DThemeWhiteTableBodyCells.getAlpha(state);
+        };
+        DThemeWhiteTableBodyCellInputTreeMarker.prototype.getCornerMask = function () {
+            return DThemeWhiteTableBodyCells.getCornerMask();
+        };
         DThemeWhiteTableBodyCellInputTreeMarker.prototype.getOutlineColor = function (state) {
             return null;
         };
-        DThemeWhiteTableBodyCellInputTreeMarker.prototype.getCursor = function () {
-            return "pointer";
+        DThemeWhiteTableBodyCellInputTreeMarker.prototype.getOutlineAlign = function (state) {
+            return DThemeWhiteTableBodyCells.getOutlineAlign(state);
         };
         DThemeWhiteTableBodyCellInputTreeMarker.prototype.getImageAlignWith = function () {
             return DAlignWith.BORDER;
@@ -7153,9 +7171,6 @@
         DThemeWhiteTableBodyCellTime.prototype.getTextFormatter = function () {
             return formatter$a;
         };
-        DThemeWhiteTableBodyCellTime.prototype.getTextValue = function (state) {
-            return new Date();
-        };
         DThemeWhiteTableBodyCellTime.prototype.newTextValue = function () {
             return new Date();
         };
@@ -7329,7 +7344,7 @@
         }
         DThemeWhiteTableHeaderCell.prototype.getBackgroundColor = function (state) {
             if (state.inDisabled) {
-                return (state.is(DTableCellState.FROZEN)) ?
+                return (state.is(DTableState.FROZEN)) ?
                     this.BACKGROUND_COLOR : null;
             }
             else if (state.isPressed) {
@@ -7339,7 +7354,7 @@
                 return this.BACKGROUND_COLOR_HOVERED;
             }
             else {
-                return (state.is(DTableCellState.FROZEN)) ?
+                return (state.is(DTableState.FROZEN)) ?
                     this.BACKGROUND_COLOR : null;
             }
         };
@@ -7353,7 +7368,7 @@
             return 0;
         };
         DThemeWhiteTableHeaderCell.prototype.getBorderMask = function (state) {
-            if (state.is(DTableCellState.END)) {
+            if (state.is(DTableState.END)) {
                 return DBorderMask.ALL;
             }
             else {
@@ -7375,20 +7390,17 @@
         DThemeWhiteTableHeaderCell.prototype.getPaddingRight = function () {
             return 10;
         };
-        DThemeWhiteTableHeaderCell.prototype.getTextValue = function (state) {
-            return null;
-        };
         DThemeWhiteTableHeaderCell.prototype.newTextValue = function () {
             return null;
         };
         DThemeWhiteTableHeaderCell.prototype.getSecondaryImageTintColor = function (state) {
-            if (state.is(DTableCellState.CHECKABLE)) {
+            if (state.is(DTableState.CHECKABLE)) {
                 return DThemeWhiteButtonChecks.getImageTintColor(state);
             }
             return _super.prototype.getSecondaryImageTintColor.call(this, state);
         };
         DThemeWhiteTableHeaderCell.prototype.getSecondaryImageSource = function (state) {
-            if (state.is(DTableCellState.CHECKABLE)) {
+            if (state.is(DTableState.CHECKABLE)) {
                 return DThemeWhiteButtonChecks.getImageSource(state);
             }
             return null;
@@ -7403,10 +7415,10 @@
             return DAlignWith.TEXT;
         };
         DThemeWhiteTableHeaderCell.prototype.getTertiaryImageSource = function (state) {
-            if (state.is(DTableCellState.SORTED_ASCENDING)) {
+            if (state.is(DTableState.SORTED_ASCENDING)) {
                 return DThemeWhiteAtlas.mappings.sorted_ascending;
             }
-            else if (state.is(DTableCellState.SORTED_DESCENDING)) {
+            else if (state.is(DTableState.SORTED_DESCENDING)) {
                 return DThemeWhiteAtlas.mappings.sorted_descending;
             }
             else {
@@ -7418,6 +7430,15 @@
         };
         DThemeWhiteTableHeaderCell.prototype.getTertiaryImageAlignWith = function () {
             return DAlignWith.PADDING;
+        };
+        DThemeWhiteTableHeaderCell.prototype.getCursor = function (state) {
+            if (!state.isActionable) {
+                return "";
+            }
+            if (state.is(DTableState.CHECKABLE) || state.is(DTableState.SORTABLE)) {
+                return "pointer";
+            }
+            return "";
         };
         return DThemeWhiteTableHeaderCell;
     }(DThemeWhiteImage));

@@ -22,261 +22,44 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.67.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.67.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.75.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.75.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
 
-		const application = new wcardinal.ui.DApplication();
+		var application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DMenuBar({
 			parent: application.stage,
-			x: 100, y: 100,
+			x: "center", y: "center",
+			width: 500,
 			items: [{
-				width: "auto",
 				text: {
-					value: "File"
-				},
-				menu: {
-					sticky: true,
-					items: [{
-						text: {
-							value: "A"
-						},
-						shortcut: "Ctrl+O"
-					}, {
-						separator: true
-					}, {
-						text: {
-							value: "B"
-						}
-					}, {
-						text: {
-							value: "C"
-						}
-					}, {
-						text: {
-							value: "D"
-						},
-						menu: {
-							items: [{
-								text: {
-									value: "D1"
-								},
-								shortcut: "Ctrl+P"
-							}, {
-								separator: true
-							}, {
-								text: {
-									value: "D2"
-								},
-								menu: {
-									align: "LEFT",
-									items: [{
-										text: {
-											value: "D2-1"
-										},
-										shortcut: "Ctrl+Q"
-									}, {
-										separator: true
-									}, {
-										text: {
-											value: "D2-2"
-										}
-									}, {
-										text: {
-											value: "D2-3"
-										}
-									}]
-								}
-							}, {
-								text: {
-									value: "D3"
-								}
-							}]
-						}
-					}]
-				}
-			}, {
-				text: {
-					value: "Edit"
+					value: "Fruit"
 				},
 				menu: {
 					items: [{
+						value: "APPLE",
 						text: {
-							value: "A"
-						},
-						shortcut: "Ctrl+O"
-					}, {
-						separator: true
-					}, {
-						text: {
-							value: "B"
-						},
-						check: true
-					}, {
-						text: {
-							value: "C"
-						},
-						check: false
-					}, {
-						text: {
-							value: "D"
-						},
-						check: false
-					}]
-				}
-			}],
-			on: {
-				select: ( value, item, menu ) => {
-					console.log( "Menu1", item.text, item, menu );
-				}
-			}
-		});
-
-		new wcardinal.ui.DMenuBar({
-			parent: application.stage,
-			x: 100, y: 200,
-			width: 600,
-			items: [{
-				width: "auto",
-				text: {
-					value: "File"
-				},
-				menu: {
-					items: [{
-						text: {
-							value: "A"
-						},
-						shortcut: "Ctrl+O"
-					}, {
-						separator: true
-					}, {
-						text: {
-							value: "B"
+							value: "Apple"
 						}
 					}, {
+						value: "ORANGE",
 						text: {
-							value: "C"
+							value: "Orange"
 						}
 					}, {
+						value: "PINEAPPLE",
 						text: {
-							value: "D"
-						},
-						menu: {
-							items: [{
-								text: {
-									value: "D1"
-								},
-								shortcut: "Ctrl+P"
-							}, {
-								separator: true
-							}, {
-								text: {
-									value: "D2"
-								},
-								menu: {
-									align: "LEFT",
-									items: [{
-										text: {
-											value: "D2-1"
-										},
-										shortcut: "Ctrl+Q"
-									}, {
-										separator: true
-									}, {
-										text: {
-											value: "D2-2"
-										}
-									}, {
-										text: {
-											value: "D2-3"
-										}
-									}]
-								}
-							}, {
-								text: {
-									value: "D3"
-								}
-							}]
-						}
-					}]
-				}
-			}, {
-				text: {
-					value: "Edit"
-				},
-				menu: {
-					items: [{
-						text: {
-							value: "A"
-						},
-						shortcut: "Ctrl+O"
-					}, {
-						separator: true
-					}, {
-						text: {
-							value: "B"
-						}
-					}, {
-						text: {
-							value: "C"
-						}
-					}, {
-						text: {
-							value: "D"
-						}
-					}, {
-						header: {
-							text: {
-								value: "Expandable"
-							}
-						},
-						items: [{
-							text: {
-								value: "B"
-							}
-						}, {
-							text: {
-								value: "C"
-							},
-							check: true
-						}, {
-							separator: true
-						}, {
-							text: {
-								value: "D"
-							}
-						}]
-					}]
-				}
-			}, {
-				weight: 1,
-				space: true
-			}, {
-				text: {
-					value: "Help"
-				},
-				menu: {
-					items: [{
-						text: {
-							value: "A"
-						}
-					}, {
-						text: {
-							value: "B"
-						}
-					}, {
-						text: {
-							value: "C"
+							value: "Pineapple"
 						}
 					}]
 				}
 			}],
 			on: {
-				select: ( value, item, menu ) => {
-					console.log( "Menu2", item.text, item, menu );
+				select: function ( value, item, menuBar ) {
+					console.log( value, item, menuBar );
 				}
 			}
 		});

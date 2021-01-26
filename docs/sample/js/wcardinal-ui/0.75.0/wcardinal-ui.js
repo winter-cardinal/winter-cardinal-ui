@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.67.0
+ Winter Cardinal UI v0.75.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -1648,6 +1648,69 @@
     };
 
     /*
+     * Copyright (C) 2021 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DBaseStateSetDataImpl = /** @class */ (function () {
+        function DBaseStateSetDataImpl() {
+            this._data = new Map();
+        }
+        DBaseStateSetDataImpl.prototype.set = function (key, data) {
+            this._data.set(key, data);
+            return this;
+        };
+        DBaseStateSetDataImpl.prototype.get = function (key) {
+            return this._data.get(key);
+        };
+        DBaseStateSetDataImpl.prototype.delete = function (key) {
+            return this._data.delete(key);
+        };
+        DBaseStateSetDataImpl.prototype.clear = function () {
+            this._data.clear();
+            return this;
+        };
+        DBaseStateSetDataImpl.prototype.each = function (iteratee) {
+            this._data.forEach(function (data, key) {
+                iteratee(data, key);
+            });
+            return this;
+        };
+        DBaseStateSetDataImpl.prototype.size = function () {
+            return this._data.size;
+        };
+        DBaseStateSetDataImpl.prototype.copy = function (other) {
+            if (other instanceof DBaseStateSetDataImpl) {
+                var otherData = other._data;
+                var thisData_1 = this._data;
+                thisData_1.clear();
+                otherData.forEach(function (data, key) {
+                    thisData_1.set(key, data);
+                });
+            }
+            return this;
+        };
+        DBaseStateSetDataImpl.prototype.toArray = function () {
+            var result = [];
+            this._data.forEach(function (data, key) {
+                result.push([data, key]);
+            });
+            return result;
+        };
+        DBaseStateSetDataImpl.prototype.toString = function () {
+            return JSON.stringify(this.toArray());
+        };
+        return DBaseStateSetDataImpl;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var isFunction = function (target) {
+        return (typeof target) === "function";
+    };
+
+    /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
@@ -1744,15 +1807,42 @@
             }
             return false;
         };
-        DBaseStateSetImpl.prototype.removeAll = function (stateOrStates) {
-            var states = (isString(stateOrStates) ?
-                arguments : stateOrStates);
-            if (this.checkRemoveds(states)) {
-                this.begin();
-                var local = this._local;
-                for (var i = 0, imax = states.length; i < imax; ++i) {
-                    local.delete(states[i]);
+        DBaseStateSetImpl.prototype.removeAll = function (stateOrStatesOrMatcher) {
+            var _this = this;
+            var local = this._local;
+            if (isFunction(stateOrStatesOrMatcher)) {
+                var isDirty_1 = false;
+                local.forEach(function (state) {
+                    if (stateOrStatesOrMatcher(state)) {
+                        if (!isDirty_1) {
+                            isDirty_1 = true;
+                            _this.begin();
+                        }
+                        local.delete(state);
+                    }
+                });
+                if (isDirty_1) {
+                    this.end();
                 }
+            }
+            else {
+                var states = (isString(stateOrStatesOrMatcher) ?
+                    arguments : stateOrStatesOrMatcher);
+                if (this.checkRemoveds(states)) {
+                    this.begin();
+                    for (var i = 0, imax = states.length; i < imax; ++i) {
+                        local.delete(states[i]);
+                    }
+                    this.end();
+                }
+            }
+            return this;
+        };
+        DBaseStateSetImpl.prototype.clear = function () {
+            var local = this._local;
+            if (0 < local.size) {
+                this.begin();
+                local.clear();
                 this.end();
             }
             return this;
@@ -1819,6 +1909,15 @@
             }
             return this;
         };
+        DBaseStateSetImpl.prototype.each = function (iteratee) {
+            this._local.forEach(function (state) {
+                iteratee(state);
+            });
+            return this;
+        };
+        DBaseStateSetImpl.prototype.size = function () {
+            return this._local.size;
+        };
         DBaseStateSetImpl.prototype.copy = function (other) {
             if (other instanceof DBaseStateSetImpl) {
                 this.begin();
@@ -1828,6 +1927,10 @@
                     local_1.add(value);
                 });
                 this._parent = other.parent;
+                var otherData = other._data;
+                if (otherData != null) {
+                    this.data.copy(otherData);
+                }
                 this.end();
             }
             return this;
@@ -1849,6 +1952,18 @@
                     this._parent = parent;
                     this.end();
                 }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DBaseStateSetImpl.prototype, "data", {
+            get: function () {
+                var result = this._data;
+                if (result == null) {
+                    result = new DBaseStateSetDataImpl();
+                    this._data = result;
+                }
+                return result;
             },
             enumerable: false,
             configurable: true
@@ -2424,12 +2539,19 @@
             enumerable: false,
             configurable: true
         });
-        DBaseStateSetImpl.prototype.toString = function () {
-            var values = [];
+        DBaseStateSetImpl.prototype.toObject = function () {
+            var _a, _b;
+            var states = [];
             this._local.forEach(function (value) {
-                values.push(value);
+                states.push(value);
             });
-            return "{" + values.join(",") + "}";
+            return {
+                local: states,
+                data: (_b = (_a = this._data) === null || _a === void 0 ? void 0 : _a.toArray()) !== null && _b !== void 0 ? _b : []
+            };
+        };
+        DBaseStateSetImpl.prototype.toString = function () {
+            return JSON.stringify(this.toObject());
         };
         return DBaseStateSetImpl;
     }());
@@ -8421,14 +8543,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var isFunction = function (target) {
-        return (typeof target) === "function";
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var DBaseBackground = /** @class */ (function () {
         function DBaseBackground(theme, options, callback) {
             this._theme = theme;
@@ -10668,10 +10782,17 @@
             }
             return result;
         };
-        UtilPointerEvent.onClick = function (target, handler) {
+        UtilPointerEvent.isValidDistance = function (e, x, y) {
+            var global = e.data.global;
+            var dx = Math.abs(x - global.x);
+            var dy = Math.abs(y - global.y);
+            var threshold = this.CLICK_DISTANCE_THRESHOLD;
+            return (dx < threshold && dy < threshold);
+        };
+        UtilPointerEvent.onClick = function (target, onClick) {
             var _this = this;
             if (!this.touchable) {
-                target.on("click", handler);
+                target.on("click", onClick);
             }
             else {
                 var isDowned_1 = false;
@@ -10685,26 +10806,19 @@
                         interactionManagerBound_1 = null;
                     }
                 };
-                var isValidDistance_1 = function (e) {
-                    var global = e.data.global;
-                    var dx = Math.abs(downX_1 - global.x);
-                    var dy = Math.abs(downY_1 - global.y);
-                    var threshold = _this.CLICK_DISTANCE_THRESHOLD;
-                    return (dx <= threshold && dy <= threshold);
-                };
                 target.on("click", function (e) {
                     if (isDowned_1) {
                         cleanup_1();
                     }
-                    handler(e);
+                    onClick(e);
                 });
                 var up_1 = this.up;
                 var onUp_1 = function (e) {
                     if (isDowned_1) {
                         cleanup_1();
                         if (_this.contains(target, e.target)) {
-                            if (isValidDistance_1(e)) {
-                                handler(e);
+                            if (_this.isValidDistance(e, downX_1, downY_1)) {
+                                onClick(e);
                             }
                         }
                     }
@@ -10733,7 +10847,7 @@
                 });
             }
         };
-        UtilPointerEvent.onLongClick = function (target, onClick, onLongClick) {
+        UtilPointerEvent.onLongClick = function (target, onClick, onLongClick, isLongClickable) {
             var _this = this;
             if (!this.touchable) {
                 target.on("click", onClick);
@@ -10759,13 +10873,6 @@
                     }
                     cleanupTimeout_1();
                 };
-                var isValidDistance_2 = function (e) {
-                    var global = e.data.global;
-                    var dx = Math.abs(downX_2 - global.x);
-                    var dy = Math.abs(downY_2 - global.y);
-                    var threshold = _this.CLICK_DISTANCE_THRESHOLD;
-                    return (dx < threshold && dy < threshold);
-                };
                 target.on("click", function (e) {
                     if (isDowned_2) {
                         cleanup_2();
@@ -10778,7 +10885,7 @@
                     if (isDowned_2) {
                         cleanup_2();
                         if (_this.contains(target, e.target)) {
-                            if (isValidDistance_2(e)) {
+                            if (_this.isValidDistance(e, downX_2, downY_2)) {
                                 onClick(e);
                             }
                         }
@@ -10787,7 +10894,7 @@
                 var onMove_1 = function (e) {
                     if (isDowned_2) {
                         if (_this.contains(target, e.target)) {
-                            if (!isValidDistance_2(e)) {
+                            if (!_this.isValidDistance(e, downX_2, downY_2)) {
                                 cleanup_2();
                             }
                         }
@@ -10801,7 +10908,7 @@
                         downY_2 = global_3.y;
                         cleanupTimeout_1();
                         var oe = e.data.originalEvent;
-                        if ("touches" in oe) {
+                        if (("touches" in oe) && (isLongClickable == null || isLongClickable(e))) {
                             timeoutId_1 = window.setTimeout(function () {
                                 if (isDowned_2) {
                                     cleanup_2();
@@ -10954,6 +11061,10 @@
         return DBaseAutoSet;
     }());
 
+    var toEnum = function (target, te) {
+        return isString(target) ? te[target] : target;
+    };
+
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
@@ -10993,7 +11104,7 @@
     var DBase = /** @class */ (function (_super) {
         __extends(DBase, _super);
         function DBase(options) {
-            var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
+            var _a, _b, _c, _d, _e, _f, _g, _h, _j;
             var _this = _super.call(this) || this;
             // Transform
             var transform = _this.transform;
@@ -11019,8 +11130,7 @@
             _this._befores = [];
             _this._afters = [];
             _this._reflowables = [];
-            var clear = (_b = options === null || options === void 0 ? void 0 : options.clear) !== null && _b !== void 0 ? _b : theme.getClearType();
-            _this._clearType = (isString(clear) ? DLayoutClearType[clear] : clear);
+            _this._clearType = toEnum((_b = options === null || options === void 0 ? void 0 : options.clear) !== null && _b !== void 0 ? _b : theme.getClearType(), DLayoutClearType);
             _this._padding = new DBasePadding(theme, options, function () {
                 _this.layout();
                 _this.toChildrenDirty();
@@ -11091,8 +11201,7 @@
                 _this.onStateChange(newState, oldState);
             });
             // Interactive
-            var interactive = (_g = options === null || options === void 0 ? void 0 : options.interactive) !== null && _g !== void 0 ? _g : theme.getInteractive();
-            interactive = (isString(interactive) ? DBaseInteractive[interactive] : interactive);
+            var interactive = toEnum((_g = options === null || options === void 0 ? void 0 : options.interactive) !== null && _g !== void 0 ? _g : theme.getInteractive(), DBaseInteractive);
             _this.interactive = ((interactive & DBaseInteractive.SELF) !== 0);
             _this.interactiveChildren = ((interactive & DBaseInteractive.CHILDREN) !== 0);
             // Events
@@ -11177,21 +11286,16 @@
                     UtilKeyboardEvent.on(_this, shortcuts[i], onShortcutBound);
                 }
             }
-            // Cursor
-            var cursor = (_k = options === null || options === void 0 ? void 0 : options.cursor) !== null && _k !== void 0 ? _k : theme.getCursor();
-            if (cursor != null) {
-                _this.cursor = cursor;
-            }
             // Other initialization
             _this.init(options);
             // State Override
             var state = options === null || options === void 0 ? void 0 : options.state;
             if (state != null) {
                 if (isString(state)) {
-                    _this.state.add(state);
+                    _this._state.add(state);
                 }
                 else {
-                    _this.state.addAll(state);
+                    _this._state.addAll(state);
                 }
             }
             // Parent
@@ -11209,10 +11313,28 @@
                     }
                 }
             }
+            // Cursor
+            var cursor = options === null || options === void 0 ? void 0 : options.cursor;
+            _this._cursor = cursor;
+            _this.cursor = _this.toCursor(cursor, _this._state);
             // Done
             _this.emit("init", _this);
             return _this;
         }
+        DBase.prototype.toCursor = function (cursor, state) {
+            if (cursor) {
+                if (isFunction(cursor)) {
+                    var result = cursor(state);
+                    if (result !== undefined) {
+                        return result;
+                    }
+                }
+                else if (cursor !== undefined) {
+                    return cursor;
+                }
+            }
+            return this.theme.getCursor(state);
+        };
         DBase.prototype.addRenderable = function (renderable, phase) {
             var list = (phase ? this._befores : this._afters);
             list.push(renderable);
@@ -11733,6 +11855,7 @@
             else if (oldState.isFocused) {
                 this.onBlur();
             }
+            this.cursor = this.toCursor(this._cursor, newState);
         };
         DBase.prototype.onChildFocus = function (focused) {
             var parent = this.parent;
@@ -13263,12 +13386,13 @@
         }
         DCanvasContainer.prototype.init = function (options) {
             var _this = this;
+            var _a;
             _super.prototype.init.call(this, options);
             this._canvas = null;
             var theme = this.theme;
-            this._view = new DViewImpl(this, function () { return _this._canvas; }, options && options.view);
+            this._view = new DViewImpl(this, function () { return _this._canvas; }, options === null || options === void 0 ? void 0 : options.view);
             // Canvas
-            var canvas = (options && options.canvas ? options.canvas : null);
+            var canvas = options === null || options === void 0 ? void 0 : options.canvas;
             if (canvas instanceof DBase) {
                 this._canvasOptions = null;
                 this.canvas = canvas;
@@ -13277,9 +13401,9 @@
                 this._canvasOptions = canvas;
             }
             // Overflow mask
-            this._overflowMask = null;
-            if (options && options.mask != null ? options.mask : theme.isOverflowMaskEnabled()) {
-                this.mask = this.getOrCreateOverflowMask();
+            var mask = (_a = options === null || options === void 0 ? void 0 : options.mask) !== null && _a !== void 0 ? _a : theme.isOverflowMaskEnabled();
+            if (mask) {
+                this.mask = this.getOverflowMask();
             }
         };
         DCanvasContainer.prototype.getType = function () {
@@ -13314,7 +13438,7 @@
             enumerable: false,
             configurable: true
         });
-        DCanvasContainer.prototype.getOrCreateOverflowMask = function () {
+        DCanvasContainer.prototype.getOverflowMask = function () {
             if (this._overflowMask == null) {
                 this._overflowMask = new DBaseOverflowMask(this);
                 this.addReflowable(this._overflowMask);
@@ -14675,6 +14799,21 @@
     }(EShapeActionValueSubtyped));
 
     /*
+     * Copyright (C) 2021 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /**
+     * {@link DButtonBase} option when to activate a button.
+     */
+    var DButtonBaseWhen;
+    (function (DButtonBaseWhen) {
+        /** Activates when clicked */
+        DButtonBaseWhen[DButtonBaseWhen["CLICKED"] = 0] = "CLICKED";
+        /** Activates when double clicked */
+        DButtonBaseWhen[DButtonBaseWhen["DOUBLE_CLICKED"] = 1] = "DOUBLE_CLICKED";
+    })(DButtonBaseWhen || (DButtonBaseWhen = {}));
+
+    /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
@@ -15392,67 +15531,38 @@
     }());
 
     var toImageAlign = function (theme, options) {
-        var align = options && options.align;
-        if (align) {
-            var alignWith = (align.with != null ?
-                (isString(align.with) ? DAlignWith[align.with] : align.with) :
-                theme.getImageAlignWith());
-            var alignVertical = (align.vertical != null ?
-                (isString(align.vertical) ? DAlignVertical[align.vertical] : align.vertical) :
-                theme.getImageAlignVertical());
-            var alignHorizontal = (align.horizontal != null ?
-                (isString(align.horizontal) ? DAlignHorizontal[align.horizontal] : align.horizontal) :
-                theme.getImageAlignHorizontal());
-            return {
-                with: alignWith,
-                vertical: alignVertical,
-                horizontal: alignHorizontal
-            };
-        }
+        var _a, _b, _c;
+        var align = options === null || options === void 0 ? void 0 : options.align;
         return {
-            with: theme.getImageAlignWith(),
-            vertical: theme.getImageAlignVertical(),
-            horizontal: theme.getImageAlignHorizontal()
+            with: toEnum((_a = align === null || align === void 0 ? void 0 : align.with) !== null && _a !== void 0 ? _a : theme.getImageAlignWith(), DAlignWith),
+            vertical: toEnum((_b = align === null || align === void 0 ? void 0 : align.vertical) !== null && _b !== void 0 ? _b : theme.getImageAlignVertical(), DAlignVertical),
+            horizontal: toEnum((_c = align === null || align === void 0 ? void 0 : align.horizontal) !== null && _c !== void 0 ? _c : theme.getImageAlignHorizontal(), DAlignHorizontal)
         };
     };
     var toImageMargin = function (theme, options) {
-        var margin = options && options.margin;
-        if (margin) {
-            var vertical = (margin.vertical != null ?
-                margin.vertical : theme.getImageMarginVertial());
-            var horizontal = (margin.horizontal != null ?
-                margin.horizontal : theme.getImageMarginHorizontal());
-            return {
-                vertical: vertical,
-                horizontal: horizontal
-            };
-        }
+        var _a, _b;
+        var margin = options === null || options === void 0 ? void 0 : options.margin;
         return {
-            vertical: theme.getImageMarginVertial(),
-            horizontal: theme.getImageMarginHorizontal()
+            vertical: ((_a = margin === null || margin === void 0 ? void 0 : margin.vertical) !== null && _a !== void 0 ? _a : theme.getImageMarginVertial()),
+            horizontal: ((_b = margin === null || margin === void 0 ? void 0 : margin.horizontal) !== null && _b !== void 0 ? _b : theme.getImageMarginHorizontal())
         };
     };
-    var toImageTint = function (theme, options) {
-        if (options && options.tint != null) {
-            return options.tint;
-        }
-        return undefined;
-    };
     var DImagePiece = /** @class */ (function () {
-        function DImagePiece(parent, theme, options, textAlign, onChange, applyMask) {
-            this._image = null;
-            this._align = toImageAlign(theme, options);
-            this._margin = toImageMargin(theme, options);
-            this._tint = toImageTint(theme, options);
-            this._bound = new pixi_js.Rectangle();
-            this._point = new pixi_js.Point();
-            this._source = (options && options.source);
-            this._computed = null;
+        function DImagePiece(parent, theme, textAlign, options) {
+            var _this = this;
             this._parent = parent;
             this._theme = theme;
             this._textAlign = textAlign;
-            this._onChange = onChange;
-            this._applyMask = applyMask;
+            this._image = null;
+            this._align = toImageAlign(theme, options);
+            this._margin = toImageMargin(theme, options);
+            this._tint = options === null || options === void 0 ? void 0 : options.tint;
+            this._bound = new pixi_js.Rectangle();
+            this._source = options === null || options === void 0 ? void 0 : options.source;
+            this._computed = null;
+            this._onUpdateBound = function () {
+                _this.onUpdate();
+            };
         }
         Object.defineProperty(DImagePiece.prototype, "image", {
             get: function () {
@@ -15489,7 +15599,7 @@
             set: function (source) {
                 if (this._source !== source) {
                     this._source = source;
-                    this._onChange();
+                    this.onUpdate();
                 }
             },
             enumerable: false,
@@ -15632,12 +15742,13 @@
                 this._computed = newComputed;
                 var parent_1 = this._parent;
                 var oldImage = this._image;
+                var onUpdateBound = this._onUpdateBound;
                 if (newComputed instanceof pixi_js.Texture) {
                     if (oldComputed instanceof pixi_js.Texture) {
-                        oldComputed.off("update", this._onChange);
+                        oldComputed.off("update", onUpdateBound);
                         if (oldImage instanceof pixi_js.Sprite) {
                             oldImage.texture = newComputed;
-                            newComputed.on("update", this._onChange);
+                            newComputed.on("update", onUpdateBound);
                         }
                     }
                     else {
@@ -15645,15 +15756,18 @@
                             parent_1.removeChild(oldImage);
                         }
                         var newImage = new pixi_js.Sprite(newComputed);
-                        this._applyMask(newImage);
-                        newComputed.on("update", this._onChange);
+                        var overflowMask = parent_1.getOverflowMask();
+                        if (overflowMask) {
+                            newImage.mask = overflowMask;
+                        }
+                        newComputed.on("update", onUpdateBound);
                         parent_1.addChild(newImage);
                         this._image = newImage;
                     }
                 }
                 else {
                     if (oldComputed instanceof pixi_js.Texture) {
-                        oldComputed.off("update", this._onChange);
+                        oldComputed.off("update", onUpdateBound);
                         if (oldImage != null) {
                             parent_1.removeChild(oldImage);
                             oldImage.destroy();
@@ -15663,7 +15777,10 @@
                         parent_1.removeChild(oldImage);
                     }
                     if (newComputed != null) {
-                        this._applyMask(newComputed);
+                        var overflowMask = parent_1.getOverflowMask();
+                        if (overflowMask) {
+                            newComputed.mask = overflowMask;
+                        }
                         parent_1.addChild(newComputed);
                     }
                     this._image = newComputed;
@@ -15681,10 +15798,14 @@
                 this._image = null;
                 var computed = this._computed;
                 if (computed instanceof pixi_js.Texture) {
-                    computed.off("update", this._onChange, this);
+                    computed.off("update", this._onUpdateBound, this);
                     image.destroy();
                 }
             }
+        };
+        DImagePiece.prototype.onUpdate = function () {
+            this._parent.toDirty();
+            DApplications.update(this._parent);
         };
         return DImagePiece;
     }());
@@ -15717,12 +15838,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    // Option parser
-    var toTextValue = function (theme, options) {
-        var _a;
-        var value = (_a = options === null || options === void 0 ? void 0 : options.text) === null || _a === void 0 ? void 0 : _a.value;
-        return (value !== undefined ? value : theme.newTextValue());
-    };
     var toTextStyle = function (theme, options, state) {
         var _a, _b, _c, _d, _e, _f, _g, _h;
         var style = (_a = options === null || options === void 0 ? void 0 : options.text) === null || _a === void 0 ? void 0 : _a.style;
@@ -15755,23 +15870,11 @@
         };
     };
     var toTextAlign = function (theme, options) {
-        var _a;
+        var _a, _b, _c;
         var align = (_a = options === null || options === void 0 ? void 0 : options.text) === null || _a === void 0 ? void 0 : _a.align;
-        if (align != null) {
-            var vertical = (align.vertical != null ?
-                (isString(align.vertical) ? DAlignVertical[align.vertical] : align.vertical) :
-                theme.getTextAlignVertical());
-            var horizontal = (align.horizontal != null ?
-                (isString(align.horizontal) ? DAlignHorizontal[align.horizontal] : align.horizontal) :
-                theme.getTextAlignHorizontal());
-            return {
-                vertical: vertical,
-                horizontal: horizontal
-            };
-        }
         return {
-            vertical: theme.getTextAlignVertical(),
-            horizontal: theme.getTextAlignHorizontal()
+            vertical: toEnum((_b = align === null || align === void 0 ? void 0 : align.vertical) !== null && _b !== void 0 ? _b : theme.getTextAlignVertical(), DAlignVertical),
+            horizontal: toEnum((_c = align === null || align === void 0 ? void 0 : align.horizontal) !== null && _c !== void 0 ? _c : theme.getTextAlignHorizontal(), DAlignHorizontal)
         };
     };
     /**
@@ -15784,19 +15887,19 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DTextBase.prototype.init = function (options) {
-            var _a, _b, _c, _d, _e, _f, _g;
+            var _a, _b, _c, _d, _e;
             _super.prototype.init.call(this, options);
             var theme = this.theme;
-            this._textValue = toTextValue(theme, options);
+            this._textValue = ((_b = (_a = options === null || options === void 0 ? void 0 : options.text) === null || _a === void 0 ? void 0 : _a.value) !== null && _b !== void 0 ? _b : theme.newTextValue());
             this._textValueComputed = this.computeTextValue();
-            this._textColor = (_a = options === null || options === void 0 ? void 0 : options.text) === null || _a === void 0 ? void 0 : _a.color;
-            this._textAlpha = (_b = options === null || options === void 0 ? void 0 : options.text) === null || _b === void 0 ? void 0 : _b.alpha;
+            var text = options === null || options === void 0 ? void 0 : options.text;
+            this._textColor = text === null || text === void 0 ? void 0 : text.color;
+            this._textAlpha = text === null || text === void 0 ? void 0 : text.alpha;
             this._textStyle = toTextStyle(theme, options, this.state);
             this._textAlign = toTextAlign(theme, options);
-            this._textFormatter = ((_d = (_c = options === null || options === void 0 ? void 0 : options.text) === null || _c === void 0 ? void 0 : _c.formatter) !== null && _d !== void 0 ? _d : theme.getTextFormatter());
-            this._textDynamic = ((_f = (_e = options === null || options === void 0 ? void 0 : options.text) === null || _e === void 0 ? void 0 : _e.dynamic) !== null && _f !== void 0 ? _f : theme.isTextDynamic());
-            this._isOverflowMaskEnabled = ((_g = options === null || options === void 0 ? void 0 : options.mask) !== null && _g !== void 0 ? _g : theme.isOverflowMaskEnabled());
-            this._overflowMask = null;
+            this._textFormatter = ((_c = text === null || text === void 0 ? void 0 : text.formatter) !== null && _c !== void 0 ? _c : theme.getTextFormatter());
+            this._textDynamic = ((_d = text === null || text === void 0 ? void 0 : text.dynamic) !== null && _d !== void 0 ? _d : theme.isTextDynamic());
+            this._isOverflowMaskEnabled = ((_e = options === null || options === void 0 ? void 0 : options.mask) !== null && _e !== void 0 ? _e : theme.isOverflowMaskEnabled());
             this.onTextChange();
             this.createOrUpdateText();
         };
@@ -15832,25 +15935,29 @@
             return this.theme.getTextValue(this.state);
         };
         DTextBase.prototype.createOrUpdateText = function () {
-            var formatted = this._textFormatter(this._textValueComputed, this);
-            var text = this._text;
-            if (text == null) {
-                if (0 < formatted.length) {
-                    var newText = this.createText(formatted);
-                    this._text = newText;
-                    this.addChild(newText);
-                    this.updateTextPosition(newText);
-                    if (this._isOverflowMaskEnabled) {
-                        newText.mask = this.getOrCreateOverflowMask();
+            var textValueComputed = this._textValueComputed;
+            if (textValueComputed !== undefined) {
+                var formatted = this._textFormatter(textValueComputed, this);
+                var text = this._text;
+                if (text == null) {
+                    if (0 < formatted.length) {
+                        var newText = this.createText(formatted);
+                        this._text = newText;
+                        this.addChild(newText);
+                        this.updateTextPosition(newText);
+                        var overflowMask = this.getOverflowMask();
+                        if (overflowMask) {
+                            newText.mask = overflowMask;
+                        }
+                        this.toDirty();
+                        DApplications.update(this);
                     }
+                }
+                else {
+                    text.text = formatted;
                     this.toDirty();
                     DApplications.update(this);
                 }
-            }
-            else {
-                text.text = formatted;
-                this.toDirty();
-                DApplications.update(this);
             }
         };
         DTextBase.prototype.createText = function (formatted) {
@@ -15864,13 +15971,16 @@
                 return result;
             }
         };
-        DTextBase.prototype.getOrCreateOverflowMask = function () {
-            if (this._overflowMask == null) {
-                this._overflowMask = new DBaseOverflowMaskSimple(this);
-                this.addReflowable(this._overflowMask);
-                this.toDirty();
+        DTextBase.prototype.getOverflowMask = function () {
+            if (this._isOverflowMaskEnabled) {
+                if (this._overflowMask == null) {
+                    this._overflowMask = new DBaseOverflowMaskSimple(this);
+                    this.addReflowable(this._overflowMask);
+                    this.toDirty();
+                }
+                return this._overflowMask;
             }
-            return this._overflowMask;
+            return null;
         };
         DTextBase.prototype.updateTextPosition = function (text) {
             var align = this._textAlign;
@@ -16015,22 +16125,12 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DImageBase.prototype.init = function (options) {
-            var _this = this;
-            this._onChangeBound = function () {
-                _this.toDirty();
-                DApplications.update(_this);
-            };
-            this._applyMaskBound = function (target) {
-                if (_this._isOverflowMaskEnabled) {
-                    target.mask = _this.getOrCreateOverflowMask();
-                }
-            };
             this._images = this.newImages(this.theme, options);
             _super.prototype.init.call(this, options);
         };
         DImageBase.prototype.newImages = function (theme, options) {
             var images = [];
-            images.push(this.newImage(theme, this.toImageOptions(theme, options && options.image)));
+            images.push(this.newImage(theme, this.toImageOptions(theme, options === null || options === void 0 ? void 0 : options.image)));
             if (hasSecondaryImageSource(theme)) {
                 images.push(this.newImage(new DImageBaseThemeWrapperSecondary(theme)));
             }
@@ -16043,7 +16143,7 @@
             return options;
         };
         DImageBase.prototype.newImage = function (theme, options) {
-            return new DImagePiece(this, theme, options, this._textAlign, this._onChangeBound, this._applyMaskBound);
+            return new DImagePiece(this, theme, this._textAlign, options);
         };
         Object.defineProperty(DImageBase.prototype, "image", {
             get: function () {
@@ -16370,13 +16470,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    // Option parser
-    var isToggle = function (theme, options) {
-        if (options != null && options.toggle != null) {
-            return options.toggle;
-        }
-        return theme.isToggle();
-    };
     /**
      * A base class for button classes.
      * See {@link DButtonBaseEvents} for event details.
@@ -16387,16 +16480,17 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DButtonBase.prototype.init = function (options) {
+            var _a, _b;
             _super.prototype.init.call(this, options);
-            this.buttonMode = true;
-            this._isToggle = isToggle(this.theme, options);
+            var theme = this.theme;
+            this._isToggle = ((_a = options === null || options === void 0 ? void 0 : options.toggle) !== null && _a !== void 0 ? _a : theme.isToggle());
+            var when = toEnum((_b = options === null || options === void 0 ? void 0 : options.when) !== null && _b !== void 0 ? _b : theme.getWhen(), DButtonBaseWhen);
+            this._when = when;
             // Event handlers
-            this.initOnClick(options);
-            if (!this._isToggle) {
-                this.initOnPress(options);
-            }
+            this.initOnClick(when, theme, options);
+            this.initOnPress(when, theme, options);
             // Group
-            var group = options && options.group;
+            var group = options === null || options === void 0 ? void 0 : options.group;
             if (group) {
                 group.add(this);
             }
@@ -16408,13 +16502,15 @@
         DButtonBase.prototype.isToggle = function () {
             return this._isToggle;
         };
-        DButtonBase.prototype.initOnClick = function (options) {
+        DButtonBase.prototype.initOnClick = function (when, theme, options) {
             var _this = this;
             UtilPointerEvent.onClick(this, function (e) {
-                _this.onClick(e);
+                if (when === DButtonBaseWhen.CLICKED) {
+                    _this.onClick(e);
+                }
             });
         };
-        DButtonBase.prototype.initOnPress = function (options) {
+        DButtonBase.prototype.initOnPress = function (when, theme, options) {
             var _this = this;
             var interactionManager = null;
             var onUp = function () {
@@ -16433,26 +16529,31 @@
                 }
             });
         };
-        DButtonBase.prototype.onStateChange = function (newState, oldState) {
-            _super.prototype.onStateChange.call(this, newState, oldState);
-            this.buttonMode = newState.isActionable;
-        };
         DButtonBase.prototype.getType = function () {
             return "DButton";
         };
         DButtonBase.prototype.onClick = function (e) {
             if (this.state.isActionable) {
                 if (this.isToggle()) {
-                    this.onToggleStart();
-                    this.onToggleEnd();
+                    this.onToggleStart(e);
+                    this.onToggleEnd(e);
                 }
                 else {
                     this.onActivate(e);
                 }
             }
         };
+        DButtonBase.prototype.onDblClick = function (e, interactionManager) {
+            if (this._when === DButtonBaseWhen.DOUBLE_CLICKED) {
+                this.onClick(e);
+            }
+            return _super.prototype.onDblClick.call(this, e, interactionManager);
+        };
         DButtonBase.prototype.onActivate = function (e) {
             this.emit("active", this);
+        };
+        DButtonBase.prototype.onInactivate = function (e) {
+            this.emit("inactive", this);
         };
         DButtonBase.prototype.toggle = function () {
             if (this.state.isActionable) {
@@ -16462,16 +16563,21 @@
                 }
             }
         };
-        DButtonBase.prototype.onToggleStart = function () {
+        DButtonBase.prototype.onToggleStart = function (e) {
             this.state.isActive = !this.state.isActive;
         };
-        DButtonBase.prototype.onToggleEnd = function () {
-            this.emit(this.state.isActive ? "active" : "inactive", this);
+        DButtonBase.prototype.onToggleEnd = function (e) {
+            if (this.state.isActive) {
+                this.onActivate(e);
+            }
+            else {
+                this.onInactivate(e);
+            }
         };
         DButtonBase.prototype.onActivateKeyDown = function (e) {
             if (this.state.isActionable) {
                 if (this.isToggle()) {
-                    this.onToggleStart();
+                    this.onToggleStart(e);
                 }
                 else {
                     this.state.isPressed = true;
@@ -16481,7 +16587,7 @@
         DButtonBase.prototype.onActivateKeyUp = function (e) {
             if (this.state.isActionable) {
                 if (this.isToggle()) {
-                    this.onToggleEnd();
+                    this.onToggleEnd(e);
                 }
                 else {
                     if (this.state.isPressed) {
@@ -16504,11 +16610,8 @@
             return _super.prototype.onKeyUp.call(this, e);
         };
         DButtonBase.prototype.destroy = function () {
-            // Group
-            var options = this._options;
-            if (options != null && options.group != null) {
-                options.group.remove(this);
-            }
+            var _a, _b;
+            (_b = (_a = this._options) === null || _a === void 0 ? void 0 : _a.group) === null || _b === void 0 ? void 0 : _b.remove(this);
             _super.prototype.destroy.call(this);
         };
         return DButtonBase;
@@ -17630,6 +17733,7 @@
         }
         DDialogCommand.prototype.init = function (options) {
             var _this = this;
+            var _a, _b;
             _super.prototype.init.call(this, options);
             var theme = this.theme;
             var layout = new DLayoutVertical({
@@ -17642,8 +17746,8 @@
             });
             this.onInit(layout, options);
             // Buttons
-            var ok = (options && options.ok || theme.getOk());
-            var cancel = (options && options.cancel || theme.getCancel());
+            var ok = ((_a = options === null || options === void 0 ? void 0 : options.ok) !== null && _a !== void 0 ? _a : theme.getOk());
+            var cancel = ((_b = options === null || options === void 0 ? void 0 : options.cancel) !== null && _b !== void 0 ? _b : theme.getCancel());
             if (ok != null || cancel != null) {
                 var buttonLayout = new DLayoutHorizontal({
                     parent: layout,
@@ -17761,9 +17865,6 @@
                 this.doReject(reject);
             }
             this.emit("cancel", this);
-        };
-        DDialogCommand.prototype.doResolve = function (resolve) {
-            resolve();
         };
         DDialogCommand.prototype.doReject = function (reject) {
             reject();
@@ -18038,6 +18139,10 @@
         return DButtonGroup;
     }(pixi_js.utils.EventEmitter));
 
+    /*
+     * Copyright (C) 2021 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var DInputBooleanButtonOff = /** @class */ (function (_super) {
         __extends(DInputBooleanButtonOff, _super);
         function DInputBooleanButtonOff() {
@@ -18049,6 +18154,10 @@
         return DInputBooleanButtonOff;
     }(DButton));
 
+    /*
+     * Copyright (C) 2021 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var DInputBooleanButtonOn = /** @class */ (function (_super) {
         __extends(DInputBooleanButtonOn, _super);
         function DInputBooleanButtonOn() {
@@ -18251,10 +18360,28 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    /**
+     * {@link DHtmlElement} option when to show a HTML element
+     */
     var DHtmlElementWhen;
     (function (DHtmlElementWhen) {
-        DHtmlElementWhen[DHtmlElementWhen["FOCUSED"] = 0] = "FOCUSED";
-        DHtmlElementWhen[DHtmlElementWhen["ALWAYS"] = 1] = "ALWAYS";
+        /**
+         * Shows a HTML element when clicked.
+         */
+        DHtmlElementWhen[DHtmlElementWhen["CLICKED"] = 0] = "CLICKED";
+        /**
+         * Shows a HTML element when double clicked.
+         */
+        DHtmlElementWhen[DHtmlElementWhen["DOUBLE_CLICKED"] = 1] = "DOUBLE_CLICKED";
+        /**
+         * Shows a HTML element when focused.
+         * And also shows when clicked if focused.
+         */
+        DHtmlElementWhen[DHtmlElementWhen["FOCUSED"] = 2] = "FOCUSED";
+        /**
+         * Always shows a HTML element.
+         */
+        DHtmlElementWhen[DHtmlElementWhen["ALWAYS"] = 3] = "ALWAYS";
     })(DHtmlElementWhen || (DHtmlElementWhen = {}));
 
     /*
@@ -18306,8 +18433,7 @@
             this._doSelectBound = function () {
                 _this.doSelect();
             };
-            var when = (_f = options === null || options === void 0 ? void 0 : options.when) !== null && _f !== void 0 ? _f : theme.getWhen();
-            when = (isString(when) ? DHtmlElementWhen[when] : when);
+            var when = toEnum((_f = options === null || options === void 0 ? void 0 : options.when) !== null && _f !== void 0 ? _f : theme.getWhen(), DHtmlElementWhen);
             this._when = when;
             this._isStartRequested = (when === DHtmlElementWhen.ALWAYS);
         };
@@ -18320,37 +18446,65 @@
         });
         DHtmlElement.prototype.onDownThis = function (e) {
             var wasStarted = this._isStarted;
+            switch (this._when) {
+                case DHtmlElementWhen.CLICKED:
+                    this.start();
+                    break;
+                case DHtmlElementWhen.FOCUSED:
+                    if (this.state.isFocused) {
+                        this.start();
+                    }
+                    break;
+            }
             _super.prototype.onDownThis.call(this, e);
             if (!wasStarted && this._isStarted) {
                 e.data.originalEvent.preventDefault();
             }
         };
+        DHtmlElement.prototype.onDblClick = function (e, interactionManager) {
+            switch (this._when) {
+                case DHtmlElementWhen.DOUBLE_CLICKED:
+                    this.start();
+                    break;
+            }
+            return _super.prototype.onDblClick.call(this, e, interactionManager);
+        };
         DHtmlElement.prototype.onFocus = function () {
             var _a;
             _super.prototype.onFocus.call(this);
-            if (this._when === DHtmlElementWhen.FOCUSED) {
-                this.start();
-            }
-            else {
-                (_a = this._element) === null || _a === void 0 ? void 0 : _a.focus();
+            switch (this._when) {
+                case DHtmlElementWhen.FOCUSED:
+                    this.start();
+                    break;
+                default:
+                    (_a = this._element) === null || _a === void 0 ? void 0 : _a.focus();
+                    break;
             }
         };
         DHtmlElement.prototype.onBlur = function () {
             var _a;
             _super.prototype.onBlur.call(this);
-            if (this._when === DHtmlElementWhen.FOCUSED) {
-                this.onEndByBlur();
-                this.cancel();
-            }
-            else {
-                (_a = this._element) === null || _a === void 0 ? void 0 : _a.blur();
+            switch (this._when) {
+                case DHtmlElementWhen.CLICKED:
+                case DHtmlElementWhen.DOUBLE_CLICKED:
+                case DHtmlElementWhen.FOCUSED:
+                    this.onEndByBlur();
+                    this.cancel();
+                    break;
+                default:
+                    (_a = this._element) === null || _a === void 0 ? void 0 : _a.blur();
+                    break;
             }
         };
         DHtmlElement.prototype.isStartable = function () {
-            if (this._when === DHtmlElementWhen.FOCUSED) {
-                return this.state.isActionable;
+            switch (this._when) {
+                case DHtmlElementWhen.CLICKED:
+                case DHtmlElementWhen.DOUBLE_CLICKED:
+                case DHtmlElementWhen.FOCUSED:
+                    return this.state.isActionable;
+                default:
+                    return true;
             }
-            return true;
         };
         DHtmlElement.prototype.start = function () {
             if (!this._isStarted && this.isStartable()) {
@@ -18489,8 +18643,14 @@
                 var layer = DApplications.getLayer(this);
                 if (layer) {
                     var view = layer.view;
-                    if (this._when === DHtmlElementWhen.FOCUSED && document.activeElement === this._element) {
-                        view.focus();
+                    switch (this._when) {
+                        case DHtmlElementWhen.CLICKED:
+                        case DHtmlElementWhen.DOUBLE_CLICKED:
+                        case DHtmlElementWhen.FOCUSED:
+                            if (document.activeElement === this._element) {
+                                view.focus();
+                            }
+                            break;
                     }
                     var interactionManager = layer.renderer.plugins.interaction;
                     if (this.containsPoint(interactionManager.mouse.global) && !this.state.isHovered) {
@@ -18672,12 +18832,41 @@
                 }
             }
         };
+        DHtmlElement.prototype.onActivateKeyDown = function (e) {
+            if (this.state.isActionable) {
+                this.state.isPressed = true;
+            }
+        };
+        DHtmlElement.prototype.onActivateKeyUp = function (e) {
+            if (this.state.isActionable) {
+                if (this.state.isPressed) {
+                    this.start();
+                }
+                this.state.isPressed = false;
+            }
+        };
+        DHtmlElement.prototype.onKeyDown = function (e) {
+            if (UtilKeyboardEvent.isActivateKey(e)) {
+                this.onActivateKeyDown(e);
+            }
+            return _super.prototype.onKeyDown.call(this, e);
+        };
+        DHtmlElement.prototype.onKeyUp = function (e) {
+            if (UtilKeyboardEvent.isActivateKey(e)) {
+                this.onActivateKeyUp(e);
+            }
+            return _super.prototype.onKeyUp.call(this, e);
+        };
         DHtmlElement.prototype.getType = function () {
             return "DHtmlElement";
         };
         return DHtmlElement;
     }(DImageBase));
 
+    /*
+     * Copyright (C) 2021 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var DInput = /** @class */ (function (_super) {
         __extends(DInput, _super);
         function DInput() {
@@ -18685,16 +18874,13 @@
         }
         DInput.prototype.init = function (options) {
             var _this = this;
+            var _a, _b, _c, _d, _e, _f, _g, _h, _j;
             this._editingValidationResult = null;
-            this._editingValidator = (options && options.editing && options.editing.validator) ||
-                this.theme.getEditingValidator();
+            this._editingValidator = (_b = (_a = options === null || options === void 0 ? void 0 : options.editing) === null || _a === void 0 ? void 0 : _a.validator) !== null && _b !== void 0 ? _b : this.theme.getEditingValidator();
             _super.prototype.init.call(this, options);
-            this._description = (options && options.description) || "";
-            this._editingFormatter = (options && options.editing && options.editing.formatter) ||
-                (options && options.text && options.text.formatter) ||
-                this.theme.getEditingFormatter();
-            this._editingUnformatter = (options && options.editing && options.editing.unformatter) ||
-                this.theme.getEditingUnformatter();
+            this._description = (_c = options === null || options === void 0 ? void 0 : options.description) !== null && _c !== void 0 ? _c : "";
+            this._editingFormatter = (_e = (_d = options === null || options === void 0 ? void 0 : options.editing) === null || _d === void 0 ? void 0 : _d.formatter) !== null && _e !== void 0 ? _e : ((_g = (_f = options === null || options === void 0 ? void 0 : options.text) === null || _f === void 0 ? void 0 : _f.formatter) !== null && _g !== void 0 ? _g : this.theme.getEditingFormatter());
+            this._editingUnformatter = (_j = (_h = options === null || options === void 0 ? void 0 : options.editing) === null || _h === void 0 ? void 0 : _h.unformatter) !== null && _j !== void 0 ? _j : this.theme.getEditingUnformatter();
             this._onInputKeyDownBound = function (e) {
                 _this.onInputKeyDown(e);
             };
@@ -18727,15 +18913,19 @@
             this.validate();
         };
         DInput.prototype.validate = function () {
-            var result = this._editingValidator(this._textValueComputed, this);
-            if (this._editingValidationResult !== result) {
-                this._editingValidationResult = result;
-                this.state.isInvalid = (result != null);
-                if (this.state.isHovered) {
-                    this.applyTitle();
+            var textValueComputed = this._textValueComputed;
+            if (textValueComputed !== undefined) {
+                var result = this._editingValidator(textValueComputed, this);
+                if (this._editingValidationResult !== result) {
+                    this._editingValidationResult = result;
+                    this.state.isInvalid = (result != null);
+                    if (this.state.isHovered) {
+                        this.applyTitle();
+                    }
                 }
+                return result;
             }
-            return result;
+            return null;
         };
         DInput.prototype.applyTitle = function () {
             var editingValidationResult = this._editingValidationResult;
@@ -18770,7 +18960,9 @@
         DInput.prototype.onElementAttached = function (element, before, after) {
             _super.prototype.onElementAttached.call(this, element, before, after);
             element.type = this.getInputType();
-            element.value = this._editingFormatter(this._textValueComputed, this);
+            var textValueComputed = this._textValueComputed;
+            element.value = (textValueComputed !== undefined ?
+                this._editingFormatter(textValueComputed, this) : "");
             element.addEventListener("keydown", this._onInputKeyDownBound);
             element.addEventListener("change", this._onInputChangeBound);
             element.addEventListener("input", this._onInputInputBound);
@@ -18798,21 +18990,18 @@
                     var oldValue = this._textValueComputed;
                     if (oldValue !== newValue) {
                         this.text = newValue;
-                        this.emit("change", newValue, oldValue, this);
+                        this.onValueChange(newValue, oldValue);
                     }
                 }
             }
+        };
+        DInput.prototype.onValueChange = function (newValue, oldValue) {
+            this.emit("change", newValue, oldValue, this);
         };
         DInput.prototype.onInputInput = function (e) {
             if (e.target instanceof HTMLInputElement) {
                 this.emit("input", this.toValue(e.target.value), this);
             }
-        };
-        DInput.prototype.onDownThis = function (e) {
-            if (this.state.isFocused) {
-                this.start();
-            }
-            _super.prototype.onDownThis.call(this, e);
         };
         DInput.prototype.getType = function () {
             return "DInput";
@@ -18824,36 +19013,18 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    // Option parser
-    var toStep = function (theme, options) {
-        if (options != null) {
-            return (options.step != null ? options.step : theme.getStep());
-        }
-        return null;
-    };
-    var toMin = function (theme, options) {
-        if (options != null) {
-            return (options.min != null ? options.min : theme.getMin());
-        }
-        return null;
-    };
-    var toMax = function (theme, options) {
-        if (options != null) {
-            return (options.max != null ? options.max : theme.getMax());
-        }
-        return null;
-    };
     var DInputNumber = /** @class */ (function (_super) {
         __extends(DInputNumber, _super);
         function DInputNumber() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DInputNumber.prototype.init = function (options) {
+            var _a, _b, _c;
             _super.prototype.init.call(this, options);
             var theme = this.theme;
-            this._step = toStep(theme, options);
-            this._min = toMin(theme, options);
-            this._max = toMax(theme, options);
+            this._step = ((_a = options === null || options === void 0 ? void 0 : options.step) !== null && _a !== void 0 ? _a : theme.getStep());
+            this._min = ((_b = options === null || options === void 0 ? void 0 : options.min) !== null && _b !== void 0 ? _b : theme.getMin());
+            this._max = ((_c = options === null || options === void 0 ? void 0 : options.max) !== null && _c !== void 0 ? _c : theme.getMax());
         };
         Object.defineProperty(DInputNumber.prototype, "step", {
             get: function () {
@@ -18932,24 +19103,27 @@
             }
         };
         DInputNumber.prototype.initInputStep = function (input) {
-            if (this._step != null) {
-                input.step = String(this._step);
+            var step = this._step;
+            if (step != null) {
+                input.step = "" + step;
             }
             else {
-                input.removeAttribute("step");
+                input.step = "any";
             }
         };
         DInputNumber.prototype.initInputMin = function (input) {
-            if (this._min != null) {
-                input.min = "" + this._min;
+            var min = this._min;
+            if (min != null) {
+                input.min = "" + min;
             }
             else {
                 input.removeAttribute("min");
             }
         };
         DInputNumber.prototype.initInputMax = function (input) {
-            if (this._max != null) {
-                input.max = "" + this._max;
+            var max = this._max;
+            if (max != null) {
+                input.max = "" + max;
             }
             else {
                 input.removeAttribute("max");
@@ -19318,14 +19492,6 @@
         function DPickerDatetimeButtonDate() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DPickerDatetimeButtonDate.prototype.onToggleStart = function () {
-            if (!this.state.isActive) {
-                this.state.isActive = true;
-            }
-        };
-        DPickerDatetimeButtonDate.prototype.onToggleEnd = function () {
-            this.emit(this.state.isActive ? "active" : "inactive", this);
-        };
         DPickerDatetimeButtonDate.prototype.getType = function () {
             return "DPickerDatetimeButtonDate";
         };
@@ -20410,8 +20576,8 @@
             get: function () {
                 return this._picker.new;
             },
-            set: function (dateNew) {
-                this._picker.new = dateNew;
+            set: function (value) {
+                this._picker.new = value;
             },
             enumerable: false,
             configurable: true
@@ -20420,8 +20586,8 @@
             get: function () {
                 return this._picker.new;
             },
-            set: function (datePage) {
-                this._picker.page = datePage;
+            set: function (page) {
+                this._picker.page = page;
             },
             enumerable: false,
             configurable: true
@@ -20698,8 +20864,8 @@
             get: function () {
                 return this._picker.new;
             },
-            set: function (dateNew) {
-                this._picker.new = dateNew;
+            set: function (value) {
+                this._picker.new = value;
             },
             enumerable: false,
             configurable: true
@@ -20708,8 +20874,8 @@
             get: function () {
                 return this._picker.new;
             },
-            set: function (datePage) {
-                this._picker.page = datePage;
+            set: function (page) {
+                this._picker.page = page;
             },
             enumerable: false,
             configurable: true
@@ -21870,7 +22036,7 @@
     };
 
     var STEP_VALUES = [0, 0, 0];
-    var toStep$1 = function (size, strokeWidth, antialiasWeight, result) {
+    var toStep = function (size, strokeWidth, antialiasWeight, result) {
         var FMIN = 0.00001;
         if (FMIN < strokeWidth) {
             var dpc0 = size - strokeWidth;
@@ -22018,11 +22184,11 @@
         worldSize[1] = toLength(x0, y0, x3, y3);
     };
     var buildCircleStep = function (steps, clippings, voffset, strokeWidth, antialiasWeight, worldSize) {
-        toStep$1(worldSize[0], strokeWidth, antialiasWeight, STEP_VALUES);
+        toStep(worldSize[0], strokeWidth, antialiasWeight, STEP_VALUES);
         var swx = STEP_VALUES[0];
         var px0 = STEP_VALUES[1];
         var px1 = STEP_VALUES[2];
-        toStep$1(worldSize[1], strokeWidth, antialiasWeight, STEP_VALUES);
+        toStep(worldSize[1], strokeWidth, antialiasWeight, STEP_VALUES);
         var swy = STEP_VALUES[0];
         var py0 = STEP_VALUES[1];
         var py1 = STEP_VALUES[2];
@@ -25587,11 +25753,11 @@
         var bri = 1 - br;
         var worldSizeX = worldSize[1];
         var worldSizeY = worldSize[2];
-        toStep$1(worldSizeX, strokeWidth, antialiasWeight, STEP_VALUES);
+        toStep(worldSizeX, strokeWidth, antialiasWeight, STEP_VALUES);
         var swx = STEP_VALUES[0];
         var px0 = STEP_VALUES[1];
         var px1 = STEP_VALUES[2];
-        toStep$1(worldSizeY, strokeWidth, antialiasWeight, STEP_VALUES);
+        toStep(worldSizeY, strokeWidth, antialiasWeight, STEP_VALUES);
         var swy = STEP_VALUES[0];
         var py0 = STEP_VALUES[1];
         var py1 = STEP_VALUES[2];
@@ -29083,15 +29249,15 @@
         ic += 3;
     };
     var buildRectangleRoundedStep = function (steps, voffset, strokeWidth, strokeSide, corner, antialiasWeight, worldSize) {
-        toStep$1(worldSize[0], strokeWidth, antialiasWeight, STEP_VALUES);
+        toStep(worldSize[0], strokeWidth, antialiasWeight, STEP_VALUES);
         var swc = STEP_VALUES[0];
         var pc0 = STEP_VALUES[1];
         var pc1 = STEP_VALUES[2];
-        toStep$1(worldSize[1], strokeWidth, antialiasWeight, STEP_VALUES);
+        toStep(worldSize[1], strokeWidth, antialiasWeight, STEP_VALUES);
         var swx = STEP_VALUES[0];
         var px0 = STEP_VALUES[1];
         var px1 = STEP_VALUES[2];
-        toStep$1(worldSize[2], strokeWidth, antialiasWeight, STEP_VALUES);
+        toStep(worldSize[2], strokeWidth, antialiasWeight, STEP_VALUES);
         var swy = STEP_VALUES[0];
         var py0 = STEP_VALUES[1];
         var py1 = STEP_VALUES[2];
@@ -30614,11 +30780,11 @@
     };
     var buildTriangleRoundedStep = function (steps, clippings, voffset, strokeWidth, radius, antialiasWeight, worldSize) {
         var wsr = worldSize[0];
-        toStep$1(wsr, strokeWidth, antialiasWeight, STEP_VALUES);
+        toStep(wsr, strokeWidth, antialiasWeight, STEP_VALUES);
         var swc = STEP_VALUES[0];
         var pc0 = STEP_VALUES[1];
         var pc1 = STEP_VALUES[2];
-        toStep$1(radius * wsr, strokeWidth, antialiasWeight, STEP_VALUES);
+        toStep(radius * wsr, strokeWidth, antialiasWeight, STEP_VALUES);
         var swr = STEP_VALUES[0];
         var pr0 = STEP_VALUES[1];
         var pr1 = STEP_VALUES[2];
@@ -31259,7 +31425,7 @@
         vertices[iv + 13] = y0;
     };
     var buildTriangleStep = function (steps, clippings, voffset, vcount, strokeWidth, antialiasWeight, worldSize) {
-        toStep$1(worldSize[0], strokeWidth, antialiasWeight, STEP_VALUES);
+        toStep(worldSize[0], strokeWidth, antialiasWeight, STEP_VALUES);
         var swc = STEP_VALUES[0];
         var pc0 = STEP_VALUES[1];
         var pc1 = STEP_VALUES[2];
@@ -31985,7 +32151,6 @@
         }
         DListItem.prototype.init = function (options) {
             _super.prototype.init.call(this, options);
-            this.buttonMode = true;
             this._value = toValue(options);
         };
         Object.defineProperty(DListItem.prototype, "value", {
@@ -32019,14 +32184,17 @@
             }
         };
         DListItem.prototype.onKeyDown = function (e) {
-            if (this.state.isActionable && this.state.isFocused && UtilKeyboardEvent.isActivateKey(e)) {
-                this.onSelect(e);
+            if (UtilKeyboardEvent.isActivateKey(e)) {
+                this.onKeyDownActivate(e);
             }
             return _super.prototype.onKeyDown.call(this, e);
         };
-        DListItem.prototype.onStateChange = function (newState, oldState) {
-            _super.prototype.onStateChange.call(this, newState, oldState);
-            this.buttonMode = newState.isActionable;
+        DListItem.prototype.onKeyDownActivate = function (e) {
+            if (this.state.isActionable && this.state.isFocused) {
+                this.onSelect(e);
+                return true;
+            }
+            return false;
         };
         DListItem.prototype.getType = function () {
             return "DListItem";
@@ -32197,17 +32365,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DLinkTarget;
-    (function (DLinkTarget) {
-        DLinkTarget[DLinkTarget["AUTO"] = 0] = "AUTO";
-        DLinkTarget[DLinkTarget["THIS_WINDOW"] = 1] = "THIS_WINDOW";
-        DLinkTarget[DLinkTarget["NEW_WINDOW"] = 2] = "NEW_WINDOW";
-    })(DLinkTarget || (DLinkTarget = {}));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var DMenus = /** @class */ (function () {
         function DMenus() {
         }
@@ -32267,6 +32424,75 @@
         DMenus.CREATOR_DEFAULT = null;
         return DMenus;
     }());
+
+    /*
+     * Copyright (C) 2021 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DLinkMenu = /** @class */ (function () {
+        function DLinkMenu(parent, options) {
+            this._parent = parent;
+            this._options = options;
+            this._isEnabled = true;
+        }
+        Object.defineProperty(DLinkMenu.prototype, "enable", {
+            get: function () {
+                return this._isEnabled;
+            },
+            set: function (enable) {
+                this._isEnabled = enable;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DLinkMenu.prototype.open = function (target) {
+            this.get().open(target);
+        };
+        DLinkMenu.prototype.get = function () {
+            var _this = this;
+            var result = this._menu;
+            if (result == null) {
+                result = this.toMenu(this._options);
+                this._menu = result;
+                result.on("select", function (value, item, menu) {
+                    _this.onSelect(value, item, menu);
+                });
+            }
+            return result;
+        };
+        DLinkMenu.prototype.toMenu = function (options) {
+            if (options instanceof pixi_js.DisplayObject) {
+                return options;
+            }
+            return this.newMenu(options);
+        };
+        DLinkMenu.prototype.newMenu = function (options) {
+            return DMenus.newMenu(options);
+        };
+        DLinkMenu.prototype.onSelect = function (value, item, menu) {
+            var parent = this._parent;
+            switch (value) {
+                case DLinkMenuItemId.OPEN_LINK_IN_NEW_WINDOW:
+                    parent.open(true);
+                    break;
+                case DLinkMenuItemId.COPY_LINK_ADDRESS:
+                    parent.copy();
+                    break;
+            }
+        };
+        return DLinkMenu;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DLinkTarget;
+    (function (DLinkTarget) {
+        DLinkTarget[DLinkTarget["AUTO"] = 0] = "AUTO";
+        DLinkTarget[DLinkTarget["THIS_WINDOW"] = 1] = "THIS_WINDOW";
+        DLinkTarget[DLinkTarget["NEW_WINDOW"] = 2] = "NEW_WINDOW";
+    })(DLinkTarget || (DLinkTarget = {}));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -32392,14 +32618,13 @@
      */
     var DLink = /** @class */ (function () {
         function DLink(theme, options) {
-            if (options) {
-                this._url = options.url;
-                this._target = options.target;
-                this._checker = options.checker;
-                this._menuOptions = options.menu;
-            }
+            var _a, _b, _c;
+            this._url = (_a = options === null || options === void 0 ? void 0 : options.url) !== null && _a !== void 0 ? _a : null;
+            this._target = toEnum((_b = options === null || options === void 0 ? void 0 : options.target) !== null && _b !== void 0 ? _b : DLinkTarget.AUTO, DLinkTarget);
+            this._checker = options === null || options === void 0 ? void 0 : options.checker;
             this._theme = theme;
             this._isEnabled = true;
+            this._menu = new DLinkMenu(this, (_c = options === null || options === void 0 ? void 0 : options.menu) !== null && _c !== void 0 ? _c : theme.getLinkMenuOptions());
         }
         Object.defineProperty(DLink.prototype, "enable", {
             get: function () {
@@ -32413,16 +32638,10 @@
         });
         Object.defineProperty(DLink.prototype, "url", {
             get: function () {
-                var url = this._url;
-                if (isString(url)) {
-                    return url;
-                }
-                else if (url == null) {
-                    return null;
-                }
-                else {
-                    return url();
-                }
+                return this._url;
+            },
+            set: function (url) {
+                this._url = url;
             },
             enumerable: false,
             configurable: true
@@ -32436,117 +32655,77 @@
         });
         Object.defineProperty(DLink.prototype, "menu", {
             get: function () {
-                var _this = this;
-                var menu = this._menu;
-                if (menu == null) {
-                    var options = this._menuOptions || this._theme.getLinkMenuOptions();
-                    menu = this.toMenu(options);
-                    this._menu = menu;
-                    menu.on("select", function (value, item, closeable) {
-                        _this.onMenuSelect(value, item, closeable);
-                    });
-                }
-                return menu;
+                return this._menu;
             },
             enumerable: false,
             configurable: true
         });
-        DLink.prototype.toMenu = function (options) {
-            if (options instanceof pixi_js.DisplayObject) {
-                return options;
-            }
-            return this.newMenu(options);
-        };
-        DLink.prototype.newMenu = function (options) {
-            return DMenus.newMenu(options);
-        };
-        DLink.prototype.onMenuSelect = function (value, item, closeable) {
-            var _this = this;
-            switch (value) {
-                case DLinkMenuItemId.OPEN_LINK_IN_NEW_WINDOW:
-                    this.open(true);
-                    break;
-                case DLinkMenuItemId.COPY_LINK_ADDRESS:
-                    var url = this.url;
-                    if (url != null) {
-                        if (isString(url)) {
-                            this.copy(url);
-                        }
-                        else {
-                            url.then(function (resolved) {
-                                if (resolved != null) {
-                                    _this.copy(resolved);
-                                }
-                            });
-                        }
-                    }
-                    break;
-            }
-        };
-        DLink.prototype.copy = function (url) {
-            var a = document.createElement("a");
-            a.href = url;
-            UtilClipboard.copy(a.href);
-        };
-        DLink.prototype.apply = function (target, onSelect) {
-            var _this = this;
-            var onClick = function (e) {
-                if (_this.enable && target.state.isActionable) {
-                    onSelect(e);
-                }
-            };
-            var onLongClick = function (e) {
-                if (_this.enable && target.state.isActionable) {
-                    var menu = _this.menu;
-                    if (menu.isHidden()) {
-                        menu.open(target);
-                    }
-                }
-            };
-            if (this._target === DLinkTarget.NEW_WINDOW) {
-                UtilPointerEvent.onClick(target, onClick);
-            }
-            else {
-                UtilPointerEvent.onLongClick(target, onClick, onLongClick);
-            }
-        };
-        DLink.prototype.open = function (inNewWindow) {
-            var _this = this;
-            var url = this.url;
+        DLink.prototype.toStringifiedUrl = function (target, onResolved) {
+            var url = (isFunction(target) ? target() : target);
             if (url != null) {
                 if (isString(url)) {
-                    this.check(url, inNewWindow);
+                    onResolved(url);
                 }
                 else {
                     url.then(function (resolved) {
-                        if (resolved) {
-                            _this.check(resolved, inNewWindow);
+                        if (resolved != null) {
+                            onResolved(resolved);
                         }
                     });
                 }
             }
         };
-        DLink.prototype.check = function (url, inNewWindow) {
+        DLink.prototype.toNormalizedUrl = function (url) {
+            var a = DLink.ANCHOR_ELEMENT || document.createElement("a");
+            DLink.ANCHOR_ELEMENT = a;
+            a.href = url;
+            return a.href;
+        };
+        /**
+         * Copys the URL to the clipboard.
+         */
+        DLink.prototype.copy = function () {
             var _this = this;
+            this.toStringifiedUrl(this._url, function (url) {
+                UtilClipboard.copy(_this.toNormalizedUrl(url));
+            });
+        };
+        DLink.prototype.open = function (x) {
+            var _this = this;
+            this.toStringifiedUrl(this._url, function (url) {
+                var inNewWindow = (x === true || x === false ?
+                    x : _this.inNewWindow(x));
+                _this.check(url, inNewWindow, function () {
+                    _this.exec(url, inNewWindow);
+                });
+            });
+        };
+        DLink.prototype.check = function (url, inNewWindow, onResolved) {
             var checker = this._checker;
             if (checker) {
                 var checked = checker();
                 if (checked === true) {
-                    this.exec(url, inNewWindow);
+                    onResolved();
                 }
                 else if (checked === false) ;
                 else {
                     checked.then(function (resolved) {
                         if (resolved) {
-                            _this.exec(url, inNewWindow);
+                            onResolved();
                         }
                     });
                 }
             }
             else {
-                this.exec(url, inNewWindow);
+                onResolved();
             }
         };
+        /**
+         * Opens the given URL.
+         *
+         * @param url An URL to be opened
+         * @param inNewWindow True to open in a new window.
+         */
         DLink.prototype.exec = function (url, inNewWindow) {
             if (inNewWindow) {
                 var a_1 = document.createElement("a");
@@ -32564,39 +32743,75 @@
                 window.location.href = url;
             }
         };
+        /**
+         * Returns true if the URL need to be opened in a new window.
+         *
+         * @param e An event object.
+         */
         DLink.prototype.inNewWindow = function (e) {
-            if (this._target === DLinkTarget.NEW_WINDOW) {
-                return true;
+            switch (this._target) {
+                case DLinkTarget.NEW_WINDOW:
+                    return true;
+                case DLinkTarget.THIS_WINDOW:
+                    return false;
+                case DLinkTarget.AUTO:
+                    if (e != null) {
+                        var oe = (e instanceof pixi_js.interaction.InteractionEvent ? e.data.originalEvent : e);
+                        return ((oe.ctrlKey || oe.shiftKey || oe.altKey || oe.metaKey) ||
+                            ("button" in oe && oe.button !== 0));
+                    }
+                    return false;
             }
-            else if (e != null) {
-                var oe = (e instanceof pixi_js.interaction.InteractionEvent ? e.data.originalEvent : e);
-                return ((oe.ctrlKey || oe.shiftKey || oe.altKey || oe.metaKey) ||
-                    ("button" in oe && oe.button !== 0));
+        };
+        DLink.prototype.apply = function (base, onSelect) {
+            var _this = this;
+            var onClick = function (e) {
+                if (_this._isEnabled && base.state.isActionable) {
+                    onSelect(e);
+                }
+            };
+            if (this._target === DLinkTarget.NEW_WINDOW) {
+                UtilPointerEvent.onClick(base, onClick);
             }
             else {
-                return false;
+                var menu_1 = this._menu;
+                var onLongClick = function (e) {
+                    if (_this._isEnabled && base.state.isActionable) {
+                        menu_1.open(base);
+                    }
+                };
+                var isLongClickable = function (e) {
+                    return menu_1.enable;
+                };
+                UtilPointerEvent.onLongClick(base, onClick, onLongClick, isLongClickable);
             }
         };
         return DLink;
     }());
 
+    /*
+     * Copyright (C) 2021 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var DLinks = /** @class */ (function () {
         function DLinks() {
         }
         DLinks.toStateOptions = function (target, options) {
-            if (target === DLinkTarget.NEW_WINDOW && options != null) {
-                var state = options.state;
-                if (state == null) {
-                    options.state = DBaseState.NEW_WINDOW;
-                }
-                else if (isString(state)) {
-                    if (state !== DBaseState.NEW_WINDOW) {
-                        options.state = [state, DBaseState.NEW_WINDOW];
+            if (options) {
+                if (target === DLinkTarget.NEW_WINDOW || target === "NEW_WINDOW") {
+                    var state = options.state;
+                    if (state == null) {
+                        options.state = DBaseState.NEW_WINDOW;
                     }
-                }
-                else {
-                    if (state.indexOf(DBaseState.NEW_WINDOW) < 0) {
-                        state.push(DBaseState.NEW_WINDOW);
+                    else if (isString(state)) {
+                        if (state !== DBaseState.NEW_WINDOW) {
+                            options.state = [state, DBaseState.NEW_WINDOW];
+                        }
+                    }
+                    else {
+                        if (state.indexOf(DBaseState.NEW_WINDOW) < 0) {
+                            state.push(DBaseState.NEW_WINDOW);
+                        }
                     }
                 }
             }
@@ -32611,8 +32826,8 @@
      */
     var DMenuItemLink = /** @class */ (function (_super) {
         __extends(DMenuItemLink, _super);
-        function DMenuItemLink(options) {
-            return _super.call(this, options) || this;
+        function DMenuItemLink() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         DMenuItemLink.prototype.toLinkOptions = function (options) {
             if (options) {
@@ -32649,16 +32864,9 @@
             this._link = new DLink(this.theme, this.toLinkOptions(options));
             _super.prototype.init.call(this, DLinks.toStateOptions(options === null || options === void 0 ? void 0 : options.target, options));
         };
-        Object.defineProperty(DMenuItemLink.prototype, "url", {
+        Object.defineProperty(DMenuItemLink.prototype, "link", {
             get: function () {
-                return this._link.url;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DMenuItemLink.prototype, "menu", {
-            get: function () {
-                return this._link.menu;
+                return this._link;
             },
             enumerable: false,
             configurable: true
@@ -32672,7 +32880,7 @@
         };
         DMenuItemLink.prototype.onSelect = function (e) {
             _super.prototype.onSelect.call(this, e);
-            this.open(this._link.inNewWindow(e));
+            this._link.open(e);
         };
         DMenuItemLink.prototype.open = function (inNewWindow) {
             this._link.open(inNewWindow);
@@ -32837,8 +33045,8 @@
      */
     var DMenuItemMenu = /** @class */ (function (_super) {
         __extends(DMenuItemMenu, _super);
-        function DMenuItemMenu(options) {
-            return _super.call(this, options) || this;
+        function DMenuItemMenu() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         DMenuItemMenu.prototype.init = function (options) {
             var _this = this;
@@ -32849,11 +33057,6 @@
                 }
             });
             this.initHover(options);
-            var menu = this.toMenu(options);
-            this._menu = menu;
-            menu.on("select", function (value, item, closeable) {
-                _this.onMenuSelect(value, item, closeable);
-            });
         };
         DMenuItemMenu.prototype.initHover = function (options) {
             var _this = this;
@@ -32864,7 +33067,7 @@
             });
         };
         DMenuItemMenu.prototype.toMenu = function (options) {
-            var menu = options.menu;
+            var menu = options === null || options === void 0 ? void 0 : options.menu;
             if (menu instanceof pixi_js.DisplayObject) {
                 return menu;
             }
@@ -32875,7 +33078,16 @@
         };
         Object.defineProperty(DMenuItemMenu.prototype, "menu", {
             get: function () {
-                return this._menu;
+                var _this = this;
+                var result = this._menu;
+                if (result == null) {
+                    result = this.toMenu(this._options);
+                    result.on("select", function (value, item, menu) {
+                        _this.onMenuSelect(value, item, menu);
+                    });
+                    this._menu = result;
+                }
+                return result;
             },
             enumerable: false,
             configurable: true
@@ -32884,7 +33096,7 @@
             return "DMenuItemMenu";
         };
         DMenuItemMenu.prototype.open = function () {
-            var menu = this._menu;
+            var menu = this.menu;
             if (menu.isHidden()) {
                 this.onOpen(menu);
             }
@@ -32896,10 +33108,10 @@
             }
         };
         DMenuItemMenu.prototype.close = function () {
-            this._menu.close();
+            this.menu.close();
         };
         DMenuItemMenu.prototype.toggle = function () {
-            var menu = this._menu;
+            var menu = this.menu;
             if (menu.isHidden()) {
                 this.onOpen(menu);
             }
@@ -32911,17 +33123,24 @@
             this.open();
             _super.prototype.onSelect.call(this, e);
         };
-        DMenuItemMenu.prototype.onMenuSelect = function (value, item, closeable) {
-            var next = this.getCloseable();
-            if (next != null) {
-                next.emit("select", value, item, closeable);
+        DMenuItemMenu.prototype.onMenuSelect = function (value, item, menu) {
+            var closeable = this.getCloseable();
+            if (closeable != null) {
+                closeable.emit("select", value, item, closeable);
             }
         };
         DMenuItemMenu.prototype.onKeyDown = function (e) {
-            if (this.state.isActionable && this.state.isFocused && UtilKeyboardEvent.isArrowRightKey(e)) {
-                this.onSelect(e);
+            if (UtilKeyboardEvent.isArrowRightKey(e)) {
+                this.onKeyDownArrowRight(e);
             }
             return _super.prototype.onKeyDown.call(this, e);
+        };
+        DMenuItemMenu.prototype.onKeyDownArrowRight = function (e) {
+            if (this.state.isActionable && this.state.isFocused) {
+                this.onSelect(e);
+                return true;
+            }
+            return false;
         };
         DMenuItemMenu.isCompatible = function (options) {
             return "menu" in options;
@@ -32988,8 +33207,6 @@
         }
         DListItemSeparator.prototype.init = function (options) {
             _super.prototype.init.call(this, options);
-            this.interactive = false;
-            this.buttonMode = false;
             this.state.isFocusable = false;
         };
         DListItemSeparator.prototype.initReflowable = function () {
@@ -33448,8 +33665,8 @@
         DMenuSidedItemMenu.prototype.initHover = function (options) {
             // DO NOTHING
         };
-        DMenuSidedItemMenu.prototype.onMenuSelect = function (value, item, closeable) {
-            _super.prototype.onMenuSelect.call(this, value, item, closeable);
+        DMenuSidedItemMenu.prototype.onMenuSelect = function (value, item, menu) {
+            _super.prototype.onMenuSelect.call(this, value, item, menu);
             var selection = _super.prototype.getSelection.call(this);
             if (selection) {
                 selection.add(item);
@@ -37890,7 +38107,6 @@
                     var children = parent_1.children;
                     var index = children.indexOf(target);
                     if (0 <= index) {
-                        // Siblings
                         var childrenLength = children.length;
                         if (this.isFocusReverse(parent_1)) {
                             for (var i = index - 1; 0 <= i; --i) {
@@ -37899,12 +38115,16 @@
                                     return found;
                                 }
                             }
-                            if (this.isFocusRoot(parent_1)) {
-                                for (var i = childrenLength - 1; index <= i; --i) {
-                                    var found = this.findNext(children[i], true, true);
-                                    if (found != null) {
-                                        return found;
-                                    }
+                            if (!this.isFocusRoot(parent_1, root)) {
+                                var found = this.find(parent_1, false, false, true, root);
+                                if (found != null) {
+                                    return found;
+                                }
+                            }
+                            for (var i = childrenLength - 1; index <= i; --i) {
+                                var found = this.findNext(children[i], true, true);
+                                if (found != null) {
+                                    return found;
                                 }
                             }
                         }
@@ -37915,18 +38135,18 @@
                                     return found;
                                 }
                             }
-                            if (this.isFocusRoot(parent_1)) {
-                                for (var i = 0; i <= index; ++i) {
-                                    var found = this.findNext(children[i], true, true);
-                                    if (found != null) {
-                                        return found;
-                                    }
+                            if (!this.isFocusRoot(parent_1, root)) {
+                                var found = this.find(parent_1, false, false, true, root);
+                                if (found != null) {
+                                    return found;
                                 }
                             }
-                        }
-                        // Parent
-                        if (parent_1 !== root) {
-                            return this.find(parent_1, false, false, true, root);
+                            for (var i = 0; i <= index; ++i) {
+                                var found = this.findNext(children[i], true, true);
+                                if (found != null) {
+                                    return found;
+                                }
+                            }
                         }
                     }
                 }
@@ -37941,7 +38161,6 @@
                     var children = parent_2.children;
                     var index = children.indexOf(target);
                     if (0 <= index) {
-                        // Siblings
                         var childrenLength = children.length;
                         if (this.isFocusReverse(parent_2)) {
                             for (var i = index + 1; i < childrenLength; ++i) {
@@ -37950,14 +38169,17 @@
                                     return found;
                                 }
                             }
-                            if (this.isFocusRoot(parent_2)) {
-                                for (var i = 0; i <= index; ++i) {
-                                    var found = this.findPrevious(children[i], true, true);
-                                    if (found != null) {
-                                        return found;
-                                    }
+                            if (!this.isFocusRoot(parent_2, root)) {
+                                var found = this.find(parent_2, true, false, false, root);
+                                if (found != null) {
+                                    return found;
                                 }
-                                return parent_2;
+                            }
+                            for (var i = 0; i <= index; ++i) {
+                                var found = this.findPrevious(children[i], true, true);
+                                if (found != null) {
+                                    return found;
+                                }
                             }
                         }
                         else {
@@ -37967,19 +38189,18 @@
                                     return found;
                                 }
                             }
-                            if (this.isFocusRoot(parent_2)) {
-                                for (var i = childrenLength - 1; index <= i; --i) {
-                                    var found = this.findPrevious(children[i], true, true);
-                                    if (found != null) {
-                                        return found;
-                                    }
+                            if (!this.isFocusRoot(parent_2, root)) {
+                                var found = this.find(parent_2, true, false, false, root);
+                                if (found != null) {
+                                    return found;
                                 }
-                                return parent_2;
                             }
-                        }
-                        // Parent
-                        if (parent_2 !== root) {
-                            return this.find(parent_2, true, false, false, root);
+                            for (var i = childrenLength - 1; index <= i; --i) {
+                                var found = this.findPrevious(children[i], true, true);
+                                if (found != null) {
+                                    return found;
+                                }
+                            }
                         }
                     }
                 }
@@ -38014,10 +38235,6 @@
                     }
                 }
             }
-            // Siblings
-            if (this.isFocusRoot(target)) {
-                return target;
-            }
             // Found nothing
             return null;
         };
@@ -38049,10 +38266,6 @@
                     return target;
                 }
             }
-            // Siblings
-            if (this.isFocusRoot(target)) {
-                return target;
-            }
             // Found nothing
             return null;
         };
@@ -38067,7 +38280,10 @@
             return (target != null &&
                 ("children" in target));
         };
-        DControllerDefaultFocus.prototype.isFocusRoot = function (target) {
+        DControllerDefaultFocus.prototype.isFocusRoot = function (target, root) {
+            if (target === root) {
+                return true;
+            }
             return (target != null &&
                 ("state" in target) &&
                 target.state.isFocusRoot &&
@@ -40700,47 +40916,50 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DButtonColorGradient.prototype.init = function (options) {
-            var _this = this;
+            var _a;
             _super.prototype.init.call(this, options);
-            var data = this._textValueComputed;
-            this._dialogOptions = options && options.dialog;
-            if (options == null || options.image == null || options.image.source === undefined) {
+            var source = (_a = options === null || options === void 0 ? void 0 : options.image) === null || _a === void 0 ? void 0 : _a.source;
+            if (source === undefined) {
                 var theme = this.theme;
                 var texture = theme.getViewBaseTexture();
                 if (texture instanceof pixi_js.Texture) {
                     var checkers = theme.getCheckerColors();
                     var view = this._view = DPickerColorGradientView.from(1, 10, checkers, texture);
                     view.setRectangle(0, 0, 0, texture.width, texture.height);
-                    view.setData(0, data);
+                    view.setData(0, this._textValueComputed);
                     view.update();
                     this.image = view;
                 }
             }
-            this.on("active", function () {
-                var dialog = _this.dialog;
-                dialog.value.fromObject(data);
-                dialog.open().then(function () {
-                    var newValue = dialog.value;
-                    var oldValue = new DColorGradientObservable().fromObject(data);
-                    data.fromObject(newValue);
-                    var view = _this._view;
-                    if (view != null) {
-                        view.update();
-                    }
-                    _this.onTextChange();
-                    _this.createOrUpdateText();
-                    DApplications.update(_this);
-                    _this.emit("change", newValue, oldValue, _this);
-                });
+        };
+        DButtonColorGradient.prototype.onActivate = function (e) {
+            var _this = this;
+            _super.prototype.onActivate.call(this, e);
+            var value = this._textValueComputed;
+            var dialog = this.dialog;
+            dialog.value.fromObject(value);
+            dialog.open().then(function () {
+                var newValue = dialog.value;
+                var oldValue = new DColorGradientObservable().fromObject(value);
+                value.fromObject(newValue);
+                var view = _this._view;
+                if (view != null) {
+                    view.update();
+                }
+                _this.onTextChange();
+                _this.createOrUpdateText();
+                DApplications.update(_this);
+                _this.emit("change", newValue, oldValue, _this);
             });
         };
         Object.defineProperty(DButtonColorGradient.prototype, "dialog", {
             get: function () {
+                var _a;
                 var dialog = this._dialog;
                 if (dialog == null) {
-                    var dialogOptions = this._dialogOptions;
-                    if (dialogOptions != null) {
-                        dialog = new DDialogColorGradient(this._dialogOptions);
+                    var options = (_a = this._options) === null || _a === void 0 ? void 0 : _a.dialog;
+                    if (options) {
+                        dialog = new DDialogColorGradient(options);
                     }
                     else {
                         if (DButtonColorGradient.DIALOG == null) {
@@ -40838,29 +41057,41 @@
         DButtonColor.prototype.init = function (options) {
             var _this = this;
             _super.prototype.init.call(this, options);
-            var colorAndAlpha = this._textValueComputed;
-            this._value = new DPickerColorAndAlpha(colorAndAlpha, function (color) {
-                colorAndAlpha.color = color;
+            var value = this._textValueComputed;
+            this._value = new DPickerColorAndAlpha(value, function (color) {
+                value.color = color;
                 _this.onColorChange();
             }, function (alpha) {
-                colorAndAlpha.alpha = alpha;
+                value.alpha = alpha;
                 _this.updateTextForcibly();
             });
-            this.on("active", function () {
-                var dialog = _this.dialog;
-                dialog.current.color = colorAndAlpha.color;
-                dialog.current.alpha = colorAndAlpha.alpha;
-                dialog.new.color = colorAndAlpha.color;
-                dialog.new.alpha = colorAndAlpha.alpha;
-                dialog.open().then(function () {
-                    var dialogNew = dialog.new;
-                    var dialogCurrent = dialog.current;
-                    colorAndAlpha.color = dialogNew.color;
-                    colorAndAlpha.alpha = dialogNew.alpha;
-                    _this.onColorChange();
-                    _this.emit("change", dialogNew, dialogCurrent, _this);
-                });
+        };
+        DButtonColor.prototype.onActivate = function (e) {
+            var _this = this;
+            _super.prototype.onActivate.call(this, e);
+            var value = this._textValueComputed;
+            var dialog = this.dialog;
+            var dialogCurrent = dialog.current;
+            var dialogNew = dialog.new;
+            dialogCurrent.color = value.color;
+            dialogCurrent.alpha = value.alpha;
+            dialogNew.color = value.color;
+            dialogNew.alpha = value.alpha;
+            dialog.open().then(function () {
+                value.color = dialogNew.color;
+                value.alpha = dialogNew.alpha;
+                _this.onColorChange();
+                _this.onValueChange(_this.toClone(dialogNew), _this.toClone(dialogCurrent));
             });
+        };
+        DButtonColor.prototype.toClone = function (value) {
+            return {
+                color: value.color,
+                alpha: value.alpha
+            };
+        };
+        DButtonColor.prototype.onValueChange = function (newValue, oldValue) {
+            this.emit("change", newValue, oldValue, this);
         };
         DButtonColor.prototype.toImageTintOptions = function (tint) {
             var _this = this;
@@ -40973,31 +41204,30 @@
         function DButtonDate() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DButtonDate.prototype.init = function (options) {
+        DButtonDate.prototype.onActivate = function (e) {
             var _this = this;
-            _super.prototype.init.call(this, options);
-            this._dialogOptions = options && options.dialog;
-            this.on("active", function () {
-                var currentTime = _this._textValueComputed.getTime();
-                var dialog = _this.dialog;
-                dialog.current = new Date(currentTime);
-                dialog.new = new Date(currentTime);
-                dialog.page = new Date(currentTime);
-                dialog.open().then(function () {
-                    var dateNew = dialog.new;
-                    var dateCurrent = dialog.current;
-                    _this.text = new Date(dateNew.getTime());
-                    _this.emit("change", dateNew, dateCurrent, _this);
-                });
+            var _a, _b;
+            _super.prototype.onActivate.call(this, e);
+            var value = (_b = (_a = this._textValueComputed) === null || _a === void 0 ? void 0 : _a.getTime()) !== null && _b !== void 0 ? _b : Date.now();
+            var dialog = this.dialog;
+            dialog.current = new Date(value);
+            dialog.new = new Date(value);
+            dialog.page = new Date(value);
+            dialog.open().then(function () {
+                var newValue = dialog.new;
+                var oldValue = dialog.current;
+                _this.text = new Date(newValue.getTime());
+                _this.emit("change", newValue, oldValue, _this);
             });
         };
         Object.defineProperty(DButtonDate.prototype, "dialog", {
             get: function () {
+                var _a;
                 var dialog = this._dialog;
                 if (dialog == null) {
-                    var dialogOptions = this._dialogOptions;
-                    if (dialogOptions != null) {
-                        dialog = new DDialogDate(this._dialogOptions);
+                    var options = (_a = this._options) === null || _a === void 0 ? void 0 : _a.dialog;
+                    if (options) {
+                        dialog = new DDialogDate(options);
                     }
                     else {
                         dialog = DDialogDates.getInstance();
@@ -41011,10 +41241,12 @@
         });
         Object.defineProperty(DButtonDate.prototype, "value", {
             get: function () {
-                return this._textValueComputed;
+                var _a;
+                return (_a = this._textValueComputed) !== null && _a !== void 0 ? _a : new Date();
             },
             set: function (value) {
-                if (this._textValueComputed.getTime() !== value.getTime()) {
+                var textValueComputed = this._textValueComputed;
+                if (textValueComputed === undefined || textValueComputed.getTime() !== value.getTime()) {
                     this.text = value;
                 }
             },
@@ -41122,21 +41354,20 @@
         function DButtonDatetime() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DButtonDatetime.prototype.init = function (options) {
+        DButtonDatetime.prototype.onActivate = function (e) {
             var _this = this;
-            _super.prototype.init.call(this, options);
-            this.on("active", function () {
-                var currentTime = _this._textValueComputed.getTime();
-                var dialog = _this.dialog;
-                dialog.current = new Date(currentTime);
-                dialog.new = new Date(currentTime);
-                dialog.page = new Date(currentTime);
-                dialog.open().then(function () {
-                    var dateNew = dialog.new;
-                    var dateCurrent = dialog.current;
-                    _this.text = new Date(dateNew.getTime());
-                    _this.emit("change", dateNew, dateCurrent, _this);
-                });
+            var _a, _b;
+            _super.prototype.onActivate.call(this, e);
+            var value = (_b = (_a = this._textValueComputed) === null || _a === void 0 ? void 0 : _a.getTime()) !== null && _b !== void 0 ? _b : Date.now();
+            var dialog = this.dialog;
+            dialog.current = new Date(value);
+            dialog.new = new Date(value);
+            dialog.page = new Date(value);
+            dialog.open().then(function () {
+                var newValue = dialog.new;
+                var oldValue = dialog.current;
+                _this.text = new Date(newValue.getTime());
+                _this.emit("change", newValue, oldValue, _this);
             });
         };
         DButtonDatetime.prototype.getDatetimeMask = function () {
@@ -41154,7 +41385,7 @@
                 var dialog = this._dialog;
                 if (dialog == null) {
                     var options = (_a = this._options) === null || _a === void 0 ? void 0 : _a.dialog;
-                    if (options != null) {
+                    if (options) {
                         dialog = new DDialogDatetime(options);
                     }
                     else {
@@ -41169,10 +41400,12 @@
         });
         Object.defineProperty(DButtonDatetime.prototype, "value", {
             get: function () {
-                return this._textValueComputed;
+                var _a;
+                return (_a = this._textValueComputed) !== null && _a !== void 0 ? _a : new Date();
             },
             set: function (value) {
-                if (this._textValueComputed.getTime() !== value.getTime()) {
+                var textValueComputed = this._textValueComputed;
+                if (textValueComputed === undefined || textValueComputed.getTime() !== value.getTime()) {
                     this.text = value;
                 }
             },
@@ -41198,37 +41431,54 @@
         function DButtonFile() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DButtonFile.prototype.init = function (options) {
+        DButtonFile.prototype.getChecker = function () {
+            var _a, _b;
+            var result = this._checker;
+            if (result === undefined) {
+                result = (_b = (_a = this._options) === null || _a === void 0 ? void 0 : _a.checker) !== null && _b !== void 0 ? _b : null;
+                this._checker = result;
+            }
+            return result;
+        };
+        DButtonFile.prototype.getOpener = function () {
+            var result = this._opener;
+            if (result == null) {
+                result = this.newOpener();
+                this._opener = result;
+            }
+            return result;
+        };
+        DButtonFile.prototype.newOpener = function () {
+            var _a, _b;
+            return new UtilFileOpener(toEnum((_b = (_a = this._options) === null || _a === void 0 ? void 0 : _a.as) !== null && _b !== void 0 ? _b : DButtonFileAs.TEXT, DButtonFileAs), this);
+        };
+        DButtonFile.prototype.onActivate = function (e) {
             var _this = this;
-            _super.prototype.init.call(this, options);
-            this._checker = (options != null && options.checker != null ? options.checker : undefined);
-            var as = (options != null && options.as != null ?
-                (isString(options.as) ? DButtonFileAs[options.as] : options.as) :
-                DButtonFileAs.TEXT);
-            var opener = new UtilFileOpener(as, this);
-            this._opener = opener;
-            this.on("active", function () {
-                var result = _this.onOpening();
+            _super.prototype.onActivate.call(this, e);
+            this.check(function () {
+                _this.open();
+            });
+        };
+        DButtonFile.prototype.check = function (onResolve) {
+            var checker = this.getChecker();
+            if (checker != null) {
+                var result = checker();
                 if (result === true) {
-                    opener.open();
+                    onResolve();
                 }
                 else if (result === false) ;
                 else {
                     result.then(function () {
-                        opener.open();
+                        onResolve();
                     });
                 }
-            });
-        };
-        DButtonFile.prototype.onOpening = function () {
-            var checker = this._checker;
-            if (checker != null) {
-                return checker();
             }
-            return true;
+            else {
+                onResolve();
+            }
         };
         DButtonFile.prototype.open = function () {
-            this._opener.open();
+            this.getOpener().open();
         };
         DButtonFile.prototype.getType = function () {
             return "DButtonFile";
@@ -41245,17 +41495,26 @@
         function DButtonLink() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DButtonLink.prototype.initOnClick = function (options) {
+        DButtonLink.prototype.initOnClick = function (when, theme, options) {
             var _this = this;
-            var link = new DLink(this.theme, options);
+            var link = new DLink(theme, options);
             this._link = link;
             link.apply(this, function (e) {
-                _this.onClick(e);
+                if (when === DButtonBaseWhen.CLICKED) {
+                    _this.onClick(e);
+                }
             });
         };
+        Object.defineProperty(DButtonLink.prototype, "link", {
+            get: function () {
+                return this._link;
+            },
+            enumerable: false,
+            configurable: true
+        });
         DButtonLink.prototype.onActivate = function (e) {
             _super.prototype.onActivate.call(this, e);
-            this.open(this._link.inNewWindow(e));
+            this._link.open(e);
         };
         DButtonLink.prototype.open = function (inNewWindow) {
             this._link.open(inNewWindow);
@@ -41304,16 +41563,18 @@
         __extends(DButtonRedo, _super);
         function DButtonRedo(options) {
             var _this = _super.call(this, options) || this;
+            var state = _this.state;
             var commandController = DControllers.getCommandController();
-            _this.state.isDisabled = !commandController.isRedoable();
+            state.isDisabled = !commandController.isRedoable();
             commandController.on("change", function () {
-                _this.state.isDisabled = !commandController.isRedoable();
-            });
-            _this.on("active", function () {
-                commandController.redo();
+                state.isDisabled = !commandController.isRedoable();
             });
             return _this;
         }
+        DButtonRedo.prototype.onActivate = function (e) {
+            _super.prototype.onActivate.call(this, e);
+            DControllers.getCommandController().redo();
+        };
         return DButtonRedo;
     }(DButton));
 
@@ -41542,7 +41803,7 @@
             _super.prototype.init.call(this, options);
             this._start = 0;
             this._end = 1;
-            var thumb = this._thumb = this.createThumb(options != null ? options.thumb : undefined);
+            var thumb = this._thumb = this.createThumb(options === null || options === void 0 ? void 0 : options.thumb);
             this.addChild(thumb);
             this.state.isFocusable = false;
         };
@@ -41618,8 +41879,8 @@
                 }
             });
         };
-        DScrollBarThumb.prototype.getMinimumSize = function () {
-            return this.theme.getMinimumSize();
+        DScrollBarThumb.prototype.getMinimumLength = function () {
+            return this.theme.getThumbMinimumLength();
         };
         DScrollBarThumb.prototype.getType = function () {
             return "DScrollBarThumb";
@@ -41640,16 +41901,17 @@
             return _this;
         }
         DScrollBarThumbReflowableHorizontal.prototype.onReflow = function (base, width, height) {
-            var state = base.state;
             this.clear();
-            var background = base.background;
-            var backgroundColor = background.getColor(state);
-            var backgroundAlpha = background.getAlpha(state);
-            if (backgroundColor != null) {
-                var size = 1;
-                this.beginFill(backgroundColor, backgroundAlpha);
+            var state = base.state;
+            var border = base.border;
+            var borderColor = border.getColor(state);
+            if (borderColor != null) {
+                var borderAlpha = border.getAlpha(state);
+                var borderWidth = border.getWidth(state);
+                var borderAlign = border.getAlign(state);
+                this.beginFill(borderColor, borderAlpha);
                 this.lineStyle(0, 0, 0, 0);
-                this.drawRect(0, height * 0.5 - size, width, size * 2);
+                this.drawRect(0, height - borderWidth - borderAlign, width, borderWidth);
                 this.endFill();
                 this.visible = true;
             }
@@ -41721,12 +41983,12 @@
             var thumb = this._thumb;
             var width = this.width;
             var height = this.height;
-            var thumbMinimumSize = Math.min(width * 0.5, thumb.getMinimumSize());
-            var space = width - thumbMinimumSize;
+            var thumbMinimumLength = Math.min(width * 0.5, thumb.getMinimumLength());
+            var space = width - thumbMinimumLength;
             var barStart = space * this._start;
-            var barSize = space * this._end + thumbMinimumSize - barStart;
+            var barLength = space * this._end + thumbMinimumLength - barStart;
             thumb.position.set(barStart, 0);
-            thumb.resize(barSize, height);
+            thumb.resize(barLength, height);
             _super.prototype.onRegionChange.call(this);
         };
         return DScrollBarHorizontal;
@@ -41745,16 +42007,17 @@
             return _this;
         }
         DScrollBarThumbReflowableVertical.prototype.onReflow = function (base, width, height) {
-            var state = base.state;
             this.clear();
-            var background = base.background;
-            var backgroundColor = background.getColor(state);
-            var backgroundAlpha = background.getAlpha(state);
-            if (backgroundColor != null) {
-                var size = 1;
-                this.beginFill(backgroundColor, backgroundAlpha);
+            var state = base.state;
+            var border = base.border;
+            var borderColor = border.getColor(state);
+            if (borderColor != null) {
+                var borderAlpha = border.getAlpha(state);
+                var borderWidth = border.getWidth(state);
+                var borderAlign = border.getAlign(state);
+                this.beginFill(borderColor, borderAlpha);
                 this.lineStyle(0, 0, 0, 0);
-                this.drawRect(width * 0.5 - size, 0, size * 2, height);
+                this.drawRect(width - borderWidth - borderAlign, 0, borderWidth, height);
                 this.endFill();
                 this.visible = true;
             }
@@ -41827,12 +42090,12 @@
             var thumb = this._thumb;
             var width = this.width;
             var height = this.height;
-            var thumbMinimumSize = Math.min(height * 0.5, thumb.getMinimumSize());
-            var space = height - thumbMinimumSize;
+            var thumbMinimumLength = Math.min(height * 0.5, thumb.getMinimumLength());
+            var space = height - thumbMinimumLength;
             var barStart = space * this._start;
-            var barSize = space * this._end + thumbMinimumSize - barStart;
+            var barLength = space * this._end + thumbMinimumLength - barStart;
             thumb.position.set(0, barStart);
-            thumb.resize(width, barSize);
+            thumb.resize(width, barLength);
             _super.prototype.onRegionChange.call(this);
         };
         return DScrollBarVertical;
@@ -41842,19 +42105,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    // Option parsers
-    var isOverflowMaskEnabled = function (theme, options) {
-        if (options && options.mask != null) {
-            return options.mask;
-        }
-        return theme.isOverflowMaskEnabled();
-    };
-    var toBarOptionsVertical = function (options) {
-        return options && options.bar && options.bar.vertical;
-    };
-    var toBarOptionsHorizontal = function (options) {
-        return options && options.bar && options.bar.horizontal;
-    };
     // Class
     var DPane = /** @class */ (function (_super) {
         __extends(DPane, _super);
@@ -41862,28 +42112,44 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DPane.prototype.init = function (options) {
+            var _this = this;
+            var _a;
             _super.prototype.init.call(this, options);
-            this._overflowMask = null;
             // Content
             var theme = this.theme;
             var content = this._content = this.toContent(options);
-            if (isOverflowMaskEnabled(theme, options)) {
-                this.mask = this.getOrCreateOverflowMask();
+            if ((_a = options === null || options === void 0 ? void 0 : options.mask) !== null && _a !== void 0 ? _a : theme.isOverflowMaskEnabled()) {
+                this.mask = this.getOverflowMask();
             }
             this.addChild(content);
             // Scroll bar
-            this.initScrollBar(content, theme, options);
+            var scrollbar = this.newScrollBar(theme, options === null || options === void 0 ? void 0 : options.scrollbar);
+            this._scrollbar = scrollbar;
+            scrollbar.vertical.on("regionmove", function (start) {
+                _this.onRegionMoveY(content, start);
+            });
+            scrollbar.horizontal.on("regionmove", function (start) {
+                _this.onRegionMoveX(content, start);
+            });
+            this.addChild(scrollbar.vertical);
+            this.addChild(scrollbar.horizontal);
+            content.on("move", function () {
+                _this.onContentChange();
+            });
+            content.on("resize", function () {
+                _this.onContentChange();
+            });
+            this.updateScrollBar();
             // Drag
             this.initDrag(content, theme, options);
         };
         DPane.prototype.initDrag = function (content, theme, options) {
             var _this = this;
-            var dragMode = (options && options.drag && options.drag.mode != null ?
-                (isString(options.drag.mode) ? DDragMode[options.drag.mode] : options.drag.mode) :
-                theme.getDragMode());
+            var _a, _b;
             // Edge does not fire the wheel event when scrolling using the 2-fingure scroll gesture on a touchpad.
             // Instead, it fires touch events. This is why the dragging is enabled regardless of the `UtilPointerEvent.touchable`.
             // https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/7134034/
+            var dragMode = toEnum((_b = (_a = options === null || options === void 0 ? void 0 : options.drag) === null || _a === void 0 ? void 0 : _a.mode) !== null && _b !== void 0 ? _b : theme.getDragMode(), DDragMode);
             if (dragMode === DDragMode.ON || dragMode === DDragMode.TOUCH) {
                 var position_1 = new pixi_js.Point();
                 this._dragUtil = new UtilDrag({
@@ -41915,28 +42181,11 @@
             }
             content.y = -content.height * start;
         };
-        DPane.prototype.initScrollBar = function (content, theme, options) {
-            var _this = this;
-            // Vertical bar
-            var verticalBar = this._verticalBar = new DScrollBarVertical(toBarOptionsVertical(options));
-            verticalBar.on("regionmove", function (start) {
-                _this.onRegionMoveY(content, start);
-            });
-            this.addChild(verticalBar);
-            // Horizontal bar
-            var horizontalBar = this._horizontalBar = new DScrollBarHorizontal(toBarOptionsHorizontal(options));
-            horizontalBar.on("regionmove", function (start) {
-                _this.onRegionMoveX(content, start);
-            });
-            this.addChild(horizontalBar);
-            //
-            content.on("move", function () {
-                _this.onContentChange();
-            });
-            content.on("resize", function () {
-                _this.onContentChange();
-            });
-            this.updateScrollBar();
+        DPane.prototype.newScrollBar = function (theme, options) {
+            return {
+                vertical: new DScrollBarVertical(options === null || options === void 0 ? void 0 : options.vertical),
+                horizontal: new DScrollBarHorizontal(options === null || options === void 0 ? void 0 : options.horizontal)
+            };
         };
         DPane.prototype.getType = function () {
             return "DPane";
@@ -41949,8 +42198,8 @@
             configurable: true
         });
         DPane.prototype.toContent = function (options) {
-            if (options && options.content) {
-                var content = options.content;
+            var content = options === null || options === void 0 ? void 0 : options.content;
+            if (content) {
                 if (content instanceof DBase) {
                     return content;
                 }
@@ -41963,13 +42212,15 @@
         DPane.prototype.newContent = function (options) {
             return new DContent(options);
         };
-        DPane.prototype.getOrCreateOverflowMask = function () {
-            if (this._overflowMask == null) {
-                this._overflowMask = new DBaseOverflowMask(this);
-                this.addReflowable(this._overflowMask);
+        DPane.prototype.getOverflowMask = function () {
+            var result = this._overflowMask;
+            if (result == null) {
+                result = new DBaseOverflowMask(this);
+                this._overflowMask = result;
+                this.addReflowable(result);
                 this.toDirty();
             }
-            return this._overflowMask;
+            return result;
         };
         DPane.prototype.onWheel = function (e, deltas, global) {
             var content = this._content;
@@ -42016,12 +42267,13 @@
             this.updateScrollBar();
         };
         DPane.prototype.updateScrollBar = function () {
-            var verticalBar = this._verticalBar;
-            var horizontalBar = this._horizontalBar;
-            if (verticalBar != null && horizontalBar != null) {
-                this.updateScrollBarRegions(verticalBar, horizontalBar);
-                this.updateScrollBarVisibilities(verticalBar, horizontalBar);
-                this.updateScrollBarPositions(verticalBar, horizontalBar);
+            var scrollbar = this._scrollbar;
+            if (scrollbar != null) {
+                var vertical = scrollbar.vertical;
+                var horizontal = scrollbar.horizontal;
+                this.updateScrollBarRegions(vertical, horizontal);
+                this.updateScrollBarVisibilities(vertical, horizontal);
+                this.updateScrollBarPositions(vertical, horizontal);
             }
         };
         DPane.prototype.getScrollBarOffsetHorizontalStart = function (size) {
@@ -42036,35 +42288,35 @@
         DPane.prototype.getScrollBarOffsetVerticalEnd = function (size) {
             return size * 0.5;
         };
-        DPane.prototype.updateScrollBarPositions = function (verticalBar, horizontalBar) {
+        DPane.prototype.updateScrollBarPositions = function (vertical, horizontal) {
             var width = this.width;
             var height = this.height;
-            var verticalBarWidth = verticalBar.width;
-            var verticalBarOffsetStart = this.getScrollBarOffsetVerticalStart(verticalBarWidth);
-            var verticalBarOffsetEnd = this.getScrollBarOffsetVerticalEnd(verticalBarWidth);
-            verticalBar.position.set(width - verticalBarWidth, verticalBarOffsetStart);
-            verticalBar.height = height - verticalBarOffsetStart - verticalBarOffsetEnd;
-            var horizontalBarHeight = horizontalBar.height;
-            var horizontalBarOffsetStart = this.getScrollBarOffsetHorizontalStart(horizontalBarHeight);
-            var horizontalBarOffsetEnd = this.getScrollBarOffsetHorizontalEnd(horizontalBarHeight);
-            horizontalBar.position.set(horizontalBarOffsetStart, height - horizontalBarHeight);
-            horizontalBar.width = width - horizontalBarOffsetStart - horizontalBarOffsetEnd;
+            var verticalWidth = vertical.width;
+            var verticalOffsetStart = this.getScrollBarOffsetVerticalStart(verticalWidth);
+            var verticalOffsetEnd = this.getScrollBarOffsetVerticalEnd(verticalWidth);
+            vertical.position.set(width - verticalWidth, verticalOffsetStart);
+            vertical.height = height - verticalOffsetStart - verticalOffsetEnd;
+            var horizontalHeight = horizontal.height;
+            var horizontalOffsetStart = this.getScrollBarOffsetHorizontalStart(horizontalHeight);
+            var horizontalOffsetEnd = this.getScrollBarOffsetHorizontalEnd(horizontalHeight);
+            horizontal.position.set(horizontalOffsetStart, height - horizontalHeight);
+            horizontal.width = width - horizontalOffsetStart - horizontalOffsetEnd;
         };
-        DPane.prototype.updateScrollBarRegions = function (verticalBar, horizontalBar) {
+        DPane.prototype.updateScrollBarRegions = function (vertical, horizontal) {
             var content = this._content;
             var x = -content.x;
             var y = -content.y;
-            horizontalBar.setRegion(x, x + this.width, content.width);
-            verticalBar.setRegion(y, y + this.height, content.height);
+            horizontal.setRegion(x, x + this.width, content.width);
+            vertical.setRegion(y, y + this.height, content.height);
         };
-        DPane.prototype.updateScrollBarVisibilities = function (verticalBar, horizontalBar) {
-            var isChangedHorizontal = this.updateScrollBarVisibility(horizontalBar);
-            var isChangedVertical = this.updateScrollBarVisibility(verticalBar);
+        DPane.prototype.updateScrollBarVisibilities = function (vertical, horizontal) {
+            var isChangedHorizontal = this.updateScrollBarVisibility(horizontal);
+            var isChangedVertical = this.updateScrollBarVisibility(vertical);
             if (isChangedHorizontal || isChangedVertical) {
                 // Update the overflow mask
                 var overflowMask = this._overflowMask;
                 if (overflowMask != null) {
-                    if (horizontalBar.visible || verticalBar.visible) {
+                    if (horizontal.visible || vertical.visible) {
                         var content = this._content;
                         if (content.mask !== overflowMask) {
                             content.mask = overflowMask;
@@ -42081,10 +42333,10 @@
                 DApplications.update(this);
             }
         };
-        DPane.prototype.updateScrollBarVisibility = function (bar) {
-            var isRegionVisible = bar.isRegionVisible();
-            if (bar.visible !== isRegionVisible) {
-                bar.visible = isRegionVisible;
+        DPane.prototype.updateScrollBarVisibility = function (scrollbar) {
+            var isRegionVisible = scrollbar.isRegionVisible();
+            if (scrollbar.visible !== isRegionVisible) {
+                scrollbar.visible = isRegionVisible;
                 return true;
             }
             return false;
@@ -42577,41 +42829,76 @@
     var defaultSetter = function () {
         // DO NOTHING
     };
+    var toOptions = function (options) {
+        var _a, _b, _c;
+        if (options) {
+            // Try to copy text.formatter to dialog.item.text.formatter at first
+            var formatter = (_a = options.text) === null || _a === void 0 ? void 0 : _a.formatter;
+            if (formatter !== undefined) {
+                var dialog = options.dialog;
+                if (!(dialog && "open" in dialog)) {
+                    dialog = dialog || {};
+                    var item = dialog.item = dialog.item || {};
+                    var text = item.text = item.text || {};
+                    if (text.formatter === undefined) {
+                        // Assumes formatter is ( value: DIALOG_VALUE | null, caller: any ) => string.
+                        text.formatter = formatter;
+                    }
+                }
+            }
+            else {
+                // Try to copy dialog.item.text.formatter to text.formatter
+                var dialog = options.dialog;
+                if (!(dialog && "open" in dialog)) {
+                    var dialogFormatter = (_c = (_b = dialog === null || dialog === void 0 ? void 0 : dialog.item) === null || _b === void 0 ? void 0 : _b.text) === null || _c === void 0 ? void 0 : _c.formatter;
+                    if (dialogFormatter !== undefined) {
+                        var text = options.text = options.text || {};
+                        if (text.formatter === undefined) {
+                            // Assumes dialogFormatter is ( value: VALUE | null, caller: any ) => string.
+                            text.formatter = dialogFormatter;
+                        }
+                    }
+                }
+            }
+        }
+        return options;
+    };
     var DButtonSelect = /** @class */ (function (_super) {
         __extends(DButtonSelect, _super);
-        function DButtonSelect() {
-            return _super !== null && _super.apply(this, arguments) || this;
+        function DButtonSelect(options) {
+            var _a, _b;
+            var _this = _super.call(this, toOptions(options)) || this;
+            _this._dialogGetter = (_a = options === null || options === void 0 ? void 0 : options.getter) !== null && _a !== void 0 ? _a : defaultGetter;
+            _this._dialogSetter = (_b = options === null || options === void 0 ? void 0 : options.setter) !== null && _b !== void 0 ? _b : defaultSetter;
+            return _this;
         }
-        DButtonSelect.prototype.init = function (options) {
+        DButtonSelect.prototype.onActivate = function (e) {
             var _this = this;
-            _super.prototype.init.call(this, this.toOptions(options));
-            var getter = (options && options.getter) || defaultGetter;
-            var setter = (options && options.setter) || defaultSetter;
-            this.on("active", function () {
-                var dialog = _this.dialog;
-                setter(dialog, _this._textValueComputed);
-                dialog.open().then(function () {
-                    var newValue = getter(dialog);
-                    var oldValue = _this._textValueComputed;
-                    if (newValue !== oldValue) {
-                        _this.text = newValue;
-                        _this.emit("change", newValue, oldValue, _this);
-                    }
-                });
+            var _a;
+            _super.prototype.onActivate.call(this, e);
+            var dialog = this.dialog;
+            var oldValue = (_a = this._textValueComputed) !== null && _a !== void 0 ? _a : null;
+            this._dialogSetter(dialog, oldValue);
+            dialog.open().then(function () {
+                var newValue = _this._dialogGetter(dialog);
+                if (newValue !== oldValue) {
+                    _this.text = newValue;
+                    _this.emit("change", newValue, oldValue, _this);
+                }
             });
         };
         Object.defineProperty(DButtonSelect.prototype, "dialog", {
             get: function () {
+                var _a;
                 var dialog = this._dialog;
                 if (dialog == null) {
-                    var options = this._options;
-                    var dialogOptions = options && options.dialog;
-                    if (dialogOptions && ("open" in dialogOptions)) {
-                        dialog = dialogOptions;
+                    var options = (_a = this._options) === null || _a === void 0 ? void 0 : _a.dialog;
+                    if (options && ("open" in options)) {
+                        dialog = options;
                     }
                     else {
                         // Assumes DIALOG === DDialogSelect<DIALOG_VALUE>.
-                        dialog = new DDialogSelect(dialogOptions);
+                        dialog = new DDialogSelect(options);
                     }
                     this._dialog = dialog;
                 }
@@ -42620,43 +42907,10 @@
             enumerable: false,
             configurable: true
         });
-        DButtonSelect.prototype.toOptions = function (options) {
-            var _a, _b, _c;
-            if (options) {
-                // Try to copy text.formatter to dialog.item.text.formatter at first
-                var formatter = (_a = options.text) === null || _a === void 0 ? void 0 : _a.formatter;
-                if (formatter !== undefined) {
-                    var dialog = options.dialog;
-                    if (!(dialog && "open" in dialog)) {
-                        dialog = dialog || {};
-                        var item = dialog.item = dialog.item || {};
-                        var text = item.text = item.text || {};
-                        if (text.formatter === undefined) {
-                            // Assumes formatter is ( value: DIALOG_VALUE | null, caller: any ) => string.
-                            text.formatter = formatter;
-                        }
-                    }
-                }
-                else {
-                    // Try to copy dialog.item.text.formatter to text.formatter
-                    var dialog = options.dialog;
-                    if (!(dialog && "open" in dialog)) {
-                        var dialogFormatter = (_c = (_b = dialog === null || dialog === void 0 ? void 0 : dialog.item) === null || _b === void 0 ? void 0 : _b.text) === null || _c === void 0 ? void 0 : _c.formatter;
-                        if (dialogFormatter !== undefined) {
-                            var text = options.text = options.text || {};
-                            if (text.formatter === undefined) {
-                                // Assumes dialogFormatter is ( value: VALUE | null, caller: any ) => string.
-                                text.formatter = dialogFormatter;
-                            }
-                        }
-                    }
-                }
-            }
-            return options;
-        };
         Object.defineProperty(DButtonSelect.prototype, "value", {
             get: function () {
-                return this._textValueComputed;
+                var _a;
+                return (_a = this._textValueComputed) !== null && _a !== void 0 ? _a : null;
             },
             set: function (value) {
                 this.text = value;
@@ -42695,20 +42949,19 @@
         function DButtonTime() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DButtonTime.prototype.init = function (options) {
+        DButtonTime.prototype.onActivate = function (e) {
             var _this = this;
-            _super.prototype.init.call(this, options);
-            this.on("active", function () {
-                var currentTime = _this._textValueComputed.getTime();
-                var dialog = _this.dialog;
-                dialog.current = new Date(currentTime);
-                dialog.new = new Date(currentTime);
-                dialog.open().then(function () {
-                    var dateNew = dialog.new;
-                    var dateCurrent = dialog.current;
-                    _this.text = new Date(dateNew.getTime());
-                    _this.emit("change", dateNew, dateCurrent, _this);
-                });
+            var _a, _b;
+            _super.prototype.onActivate.call(this, e);
+            var value = (_b = (_a = this._textValueComputed) === null || _a === void 0 ? void 0 : _a.getTime()) !== null && _b !== void 0 ? _b : Date.now();
+            var dialog = this.dialog;
+            dialog.current = new Date(value);
+            dialog.new = new Date(value);
+            dialog.open().then(function () {
+                var newValue = dialog.new;
+                var oldValue = dialog.current;
+                _this.text = new Date(newValue.getTime());
+                _this.emit("change", newValue, oldValue, _this);
             });
         };
         DButtonTime.prototype.getDatetimeMask = function () {
@@ -42726,7 +42979,7 @@
                 var dialog = this._dialog;
                 if (dialog == null) {
                     var options = (_a = this._options) === null || _a === void 0 ? void 0 : _a.dialog;
-                    if (options != null) {
+                    if (options) {
                         dialog = new DDialogTime(options);
                     }
                     else {
@@ -42741,10 +42994,12 @@
         });
         Object.defineProperty(DButtonTime.prototype, "value", {
             get: function () {
-                return this._textValueComputed;
+                var _a;
+                return (_a = this._textValueComputed) !== null && _a !== void 0 ? _a : new Date();
             },
             set: function (value) {
-                if (this._textValueComputed.getTime() !== value.getTime()) {
+                var textValueComputed = this._textValueComputed;
+                if (textValueComputed === undefined || textValueComputed.getTime() !== value.getTime()) {
                     this.text = value;
                 }
             },
@@ -42765,16 +43020,18 @@
         __extends(DButtonUndo, _super);
         function DButtonUndo(options) {
             var _this = _super.call(this, options) || this;
+            var state = _this.state;
             var commandController = DControllers.getCommandController();
-            _this.state.isDisabled = !commandController.isUndoable();
+            state.isDisabled = !commandController.isUndoable();
             commandController.on("change", function () {
-                _this.state.isDisabled = !commandController.isUndoable();
-            });
-            _this.on("active", function () {
-                commandController.undo();
+                state.isDisabled = !commandController.isUndoable();
             });
             return _this;
         }
+        DButtonUndo.prototype.onActivate = function (e) {
+            _super.prototype.onActivate.call(this, e);
+            DControllers.getCommandController().undo();
+        };
         return DButtonUndo;
     }(DButton));
 
@@ -45163,6 +45420,7 @@
         }
         DChartPlotArea.prototype.init = function (options) {
             var _this = this;
+            var _a;
             _super.prototype.init.call(this, options);
             var container = new DChartPlotAreaContainer(function () {
                 _this._isViewDirty = true;
@@ -45170,10 +45428,10 @@
                 DApplications.update(_this);
             });
             this._container = container;
-            this._coordinate = new DChartCoordinateContainerImpl(this, options && options.coordinate);
-            var series = new DChartSeriesContainerImpl(this, options && options.series);
+            this._coordinate = new DChartCoordinateContainerImpl(this, options === null || options === void 0 ? void 0 : options.coordinate);
+            var series = new DChartSeriesContainerImpl(this, options === null || options === void 0 ? void 0 : options.series);
             this._series = series;
-            var axis = new DChartAxisContainerImpl(this, options && options.axis);
+            var axis = new DChartAxisContainerImpl(this, options === null || options === void 0 ? void 0 : options.axis);
             this._axis = axis;
             this._isViewDirty = true;
             this._isBoundsInContainerDirty = true;
@@ -45181,16 +45439,15 @@
             this._workPoint = new pixi_js.Point();
             this.addChild(container);
             this.addChild(axis.container);
-            this._view = new DViewImpl(this, function () { return container; }, options && options.view);
+            this._view = new DViewImpl(this, function () { return container; }, options === null || options === void 0 ? void 0 : options.view);
             var selection = series.selection;
             if (selection) {
                 selection.bind(series);
             }
             // Overflow mask
-            this._overflowMask = null;
-            var mask = options && options.mask;
-            if (mask != null ? mask : this.theme.isOverflowMaskEnabled()) {
-                container.mask = this.getOrCreateOverflowMask();
+            var mask = (_a = options === null || options === void 0 ? void 0 : options.mask) !== null && _a !== void 0 ? _a : this.theme.isOverflowMaskEnabled();
+            if (mask) {
+                container.mask = this.getOverflowMask();
             }
         };
         DChartPlotArea.prototype.onResize = function (newWidth, newHeight, oldWidth, oldHeight) {
@@ -45198,7 +45455,7 @@
             this._isBoundsInContainerDirty = true;
             _super.prototype.onResize.call(this, newWidth, newHeight, oldWidth, oldHeight);
         };
-        DChartPlotArea.prototype.getOrCreateOverflowMask = function () {
+        DChartPlotArea.prototype.getOverflowMask = function () {
             if (this._overflowMask == null) {
                 this._overflowMask = new DBaseOverflowMask(this);
                 this.addReflowable(this._overflowMask);
@@ -47223,18 +47480,18 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DChart.prototype.init = function (options) {
+            var _a;
             _super.prototype.init.call(this, options);
-            var plotArea = new DChartPlotArea(this, options && options.plotArea);
+            var plotArea = new DChartPlotArea(this, options === null || options === void 0 ? void 0 : options.plotArea);
             this._plotArea = plotArea;
             this.addChild(plotArea);
             // Overflow mask
-            this._overflowMask = null;
-            var mask = options && options.mask;
-            if (mask != null ? mask : this.theme.isOverflowMaskEnabled()) {
-                plotArea.axis.container.mask = this.getOrCreateOverflowMask();
+            var mask = (_a = options === null || options === void 0 ? void 0 : options.mask) !== null && _a !== void 0 ? _a : this.theme.isOverflowMaskEnabled();
+            if (mask) {
+                plotArea.axis.container.mask = this.getOverflowMask();
             }
         };
-        DChart.prototype.getOrCreateOverflowMask = function () {
+        DChart.prototype.getOverflowMask = function () {
             if (this._overflowMask == null) {
                 this._overflowMask = new DBaseOverflowMask(this);
                 this.addReflowable(this._overflowMask);
@@ -49234,13 +49491,11 @@
         }
         DDialogConfirm.prototype.onInit = function (layout, options) {
             _super.prototype.onInit.call(this, layout, options);
-            var message = this.toMessage(this.theme, options);
-            this._message = message;
-            layout.addChild(message);
+            layout.addChild(this.message);
         };
         DDialogConfirm.prototype.toMessage = function (theme, options) {
-            if (options && options.message != null) {
-                var message = options.message;
+            var message = options === null || options === void 0 ? void 0 : options.message;
+            if (message != null) {
                 if (isString(message) || isFunction(message)) {
                     return this.newMessage(this.toMessageOptions(message));
                 }
@@ -49254,11 +49509,13 @@
             return this.newMessage(this.toMessageOptions(theme.getMessage()));
         };
         DDialogConfirm.prototype.toMessageOptionsMerged = function (options, message) {
-            if (options.text == null) {
-                options.text = {};
+            var text = options.text;
+            if (text == null) {
+                text = {};
+                options.text = text;
             }
-            if (options.text.value === undefined) {
-                options.text.value = message;
+            if (text.value === undefined) {
+                text.value = message;
             }
             return options;
         };
@@ -49274,11 +49531,19 @@
         };
         Object.defineProperty(DDialogConfirm.prototype, "message", {
             get: function () {
-                return this._message;
+                var result = this._message;
+                if (result == null) {
+                    result = this.toMessage(this.theme, this._options);
+                    this._message = result;
+                }
+                return result;
             },
             enumerable: false,
             configurable: true
         });
+        DDialogConfirm.prototype.doResolve = function (resolve) {
+            resolve();
+        };
         DDialogConfirm.prototype.getType = function () {
             return "DDialogConfirm";
         };
@@ -49352,13 +49617,15 @@
     var DDialogProcessing = /** @class */ (function (_super) {
         __extends(DDialogProcessing, _super);
         function DDialogProcessing(options) {
+            var _a;
             var _this = _super.call(this, options) || this;
             _this._isDone = true;
             _this._startTime = 0;
-            var delay = options && options.delay;
-            _this._delayDone = (delay && delay.done != null ? delay.done : _this.theme.getDoneDelay());
-            _this._delayClose = (delay && delay.close !== undefined ? delay.close : _this.theme.getCloseDelay());
-            _this._messageText = _this._message.text;
+            var delay = options === null || options === void 0 ? void 0 : options.delay;
+            _this._delayDone = ((_a = delay === null || delay === void 0 ? void 0 : delay.done) !== null && _a !== void 0 ? _a : _this.theme.getDoneDelay());
+            var delayClose = delay === null || delay === void 0 ? void 0 : delay.close;
+            _this._delayClose = (delayClose !== undefined ? delayClose : _this.theme.getCloseDelay());
+            _this._messageText = _this.message.text;
             return _this;
         }
         DDialogProcessing.prototype.newMessage = function (options) {
@@ -49375,7 +49642,7 @@
             if (closeTimeoutId != null) {
                 clearTimeout(closeTimeoutId);
             }
-            var message = this._message;
+            var message = this.message;
             message.text = this._messageText;
             message.state.removeAll(DBaseState.SUCCEEDED, DBaseState.FAILED);
             var buttonLayout = this._buttonLayout;
@@ -49397,9 +49664,9 @@
         };
         DDialogProcessing.prototype.onResolved = function (message) {
             if (message != null) {
-                this._message.text = message;
+                this.message.text = message;
             }
-            this._message.state.set(DBaseState.SUCCEEDED, DBaseState.FAILED);
+            this.message.state.set(DBaseState.SUCCEEDED, DBaseState.FAILED);
             var delayClose = this._delayClose;
             if (delayClose != null) {
                 this.onDone(delayClose);
@@ -49416,9 +49683,9 @@
         };
         DDialogProcessing.prototype.onRejected = function (message) {
             if (message != null) {
-                this._message.text = message;
+                this.message.text = message;
             }
-            this._message.state.set(DBaseState.FAILED, DBaseState.SUCCEEDED);
+            this.message.state.set(DBaseState.FAILED, DBaseState.SUCCEEDED);
             var buttonLayout = this._buttonLayout;
             if (buttonLayout != null) {
                 buttonLayout.show();
@@ -49545,26 +49812,18 @@
         }
         DMenu.prototype.init = function (options) {
             var _this = this;
+            var _a, _b, _c;
             _super.prototype.init.call(this, options);
             this._onPrerenderBound = function () {
                 _this.onPrerender();
             };
-            if (options != null) {
-                this._align = (options.align != null ?
-                    (isString(options.align) ? DMenuAlign[options.align] : options.align) :
-                    DMenuAlign.BOTTOM);
-                this._fit = (options.fit != null ? options.fit : false);
-                this._sticky = (options.sticky != null ? options.sticky : false);
-            }
-            else {
-                this._align = DMenuAlign.BOTTOM;
-                this._fit = false;
-                this._sticky = false;
-            }
+            this._align = toEnum((_a = options === null || options === void 0 ? void 0 : options.align) !== null && _a !== void 0 ? _a : DMenuAlign.BOTTOM, DMenuAlign);
+            this._fit = ((_b = options === null || options === void 0 ? void 0 : options.fit) !== null && _b !== void 0 ? _b : false);
+            this._sticky = ((_c = options === null || options === void 0 ? void 0 : options.sticky) !== null && _c !== void 0 ? _c : false);
             this._sub = false;
             this._owner = null;
-            this.visible = false;
             this._context = null;
+            this.visible = false;
             this.state.isFocusRoot = true;
             // Event handlers
             UtilClickOutside.apply(this, function () {
@@ -49574,8 +49833,9 @@
                 _this.close();
             });
             // Items
-            if (options && options.items) {
-                DMenus.newItems(this, options.items, this._sticky);
+            var items = options === null || options === void 0 ? void 0 : options.items;
+            if (items) {
+                DMenus.newItems(this, items, this._sticky);
             }
             // Overlay
             this._overlay = new UtilOverlay(options);
@@ -49726,47 +49986,48 @@
     var DDropdownBase = /** @class */ (function (_super) {
         __extends(DDropdownBase, _super);
         function DDropdownBase(options) {
-            var _this = _super.call(this, options) || this;
-            _this.on("active", function () {
-                _this.start();
-            });
-            return _this;
+            return _super.call(this, options) || this;
         }
-        DDropdownBase.prototype.toItemText = function (item) {
-            if (item) {
-                var text = item.text;
-                if (isString(text)) {
-                    return text;
-                }
-                else if (text != null) {
-                    var computed = text(item.state);
-                    if (computed != null) {
-                        return computed;
-                    }
-                }
+        DDropdownBase.prototype.onMenuSelect = function (value, item, menu) {
+            this.emit("select", value, item, this);
+        };
+        DDropdownBase.prototype.onMenuClose = function () {
+            var menu = this.menu;
+            var onMenuSelectBound = this._onMenuSelectBound;
+            if (onMenuSelectBound) {
+                menu.off("select", onMenuSelectBound);
             }
-            return null;
+            var onMenuCloseBound = this._onMenuCloseBound;
+            if (onMenuCloseBound) {
+                menu.off("close", onMenuCloseBound);
+            }
         };
         DDropdownBase.prototype.toMenu = function (theme, options) {
-            var menu = options && options.menu;
-            return (menu instanceof DMenu ? menu :
-                new DMenu(this.toMenuOptions(theme, menu)));
+            var menu = options === null || options === void 0 ? void 0 : options.menu;
+            if (menu instanceof DMenu) {
+                return menu;
+            }
+            return new DMenu(this.toMenuOptions(theme, menu));
         };
         DDropdownBase.prototype.toMenuOptions = function (theme, options) {
-            options = options || {};
-            if (options.fit == null) {
-                options.fit = true;
+            if (options) {
+                if (options.fit == null) {
+                    options.fit = true;
+                }
+                return options;
             }
-            return options;
+            return {
+                fit: true
+            };
         };
         Object.defineProperty(DDropdownBase.prototype, "menu", {
             get: function () {
-                var menu = this._menu;
-                if (menu == null) {
-                    menu = this.toMenu(this.theme, this._options);
-                    this._menu = menu;
+                var result = this._menu;
+                if (result == null) {
+                    result = this.toMenu(this.theme, this._options);
+                    this._menu = result;
                 }
-                return menu;
+                return result;
             },
             enumerable: false,
             configurable: true
@@ -49775,13 +50036,50 @@
             return "DDropdownBase";
         };
         DDropdownBase.prototype.onKeyDown = function (e) {
-            if (this.state.isActionable && this.state.isFocused && UtilKeyboardEvent.isArrowDownKey(e)) {
-                this.onClick(e);
+            if (UtilKeyboardEvent.isArrowDownKey(e)) {
+                this.onKeyDownArrowDown(e);
             }
             return _super.prototype.onKeyDown.call(this, e);
         };
+        DDropdownBase.prototype.onKeyDownArrowDown = function (e) {
+            if (this.state.isActionable && this.state.isFocused) {
+                this.onClick(e);
+                return true;
+            }
+            return false;
+        };
+        DDropdownBase.prototype.onActivate = function (e) {
+            _super.prototype.onActivate.call(this, e);
+            this.start();
+        };
         DDropdownBase.prototype.start = function () {
-            this.menu.open(this);
+            var _this = this;
+            var menu = this.menu;
+            if (menu.isHidden()) {
+                // In the case that the menu is created elsewhere,
+                // the menu might be opened by other UI elements
+                // and the `select` event might be triggered. In
+                // that case, we are not supposed to catct that
+                // `select` event. This is why the `select` event
+                // handler is registered here. Instead of the
+                // initialization time.
+                var onMenuSelectBound = this._onMenuSelectBound;
+                if (onMenuSelectBound == null) {
+                    onMenuSelectBound = function (value, item, m) {
+                        _this.onMenuSelect(value, item, m);
+                    };
+                    this._onMenuSelectBound = onMenuSelectBound;
+                }
+                var onMenuCloseBound = this._onMenuCloseBound;
+                if (onMenuCloseBound == null) {
+                    onMenuCloseBound = function () {
+                        _this.onMenuClose();
+                    };
+                }
+                menu.on("select", onMenuSelectBound);
+                menu.on("close", onMenuCloseBound);
+                menu.open(this);
+            }
         };
         DDropdownBase.prototype.close = function () {
             this.menu.close();
@@ -49812,21 +50110,28 @@
         __extends(DExpandableHeader, _super);
         function DExpandableHeader(options) {
             var _this = _super.call(this, options) || this;
-            _this.on(UtilPointerEvent.down, function () {
+            _this.on(UtilPointerEvent.down, function (e) {
                 if (_this.state.isActionable) {
-                    _this.onSelect();
+                    _this.onSelect(e);
                 }
             });
             return _this;
         }
-        DExpandableHeader.prototype.onSelect = function () {
+        DExpandableHeader.prototype.onSelect = function (e) {
             this.emit("select", this);
         };
         DExpandableHeader.prototype.onKeyDown = function (e) {
-            if (this.state.isActionable && this.state.isFocused && UtilKeyboardEvent.isActivateKey(e)) {
-                this.onSelect();
+            if (UtilKeyboardEvent.isActivateKey(e)) {
+                this.onKeyDownActivate(e);
             }
             return _super.prototype.onKeyDown.call(this, e);
+        };
+        DExpandableHeader.prototype.onKeyDownActivate = function (e) {
+            if (this.state.isActionable && this.state.isFocused) {
+                this.onSelect(e);
+                return true;
+            }
+            return false;
         };
         DExpandableHeader.prototype.getType = function () {
             return "DExpandableHeader";
@@ -50757,14 +51062,6 @@
         function DMenuBarItem() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DMenuBarItem.prototype.init = function (options) {
-            var _this = this;
-            _super.prototype.init.call(this, options);
-            this._menu = this.toMenu(this.theme, options);
-            this._menu.on("select", function (value, item, menu) {
-                _this.onMenuSelect(value, item, menu);
-            });
-        };
         DMenuBarItem.prototype.toMenu = function (theme, options) {
             var menu = options === null || options === void 0 ? void 0 : options.menu;
             if (menu instanceof DMenu) {
@@ -50778,38 +51075,61 @@
             return new DMenu(this.toMenuOptions(theme, options));
         };
         DMenuBarItem.prototype.toMenuOptions = function (theme, options) {
-            options = options || {};
-            if (options.fit == null) {
-                options.fit = false;
+            if (options) {
+                if (options.fit == null) {
+                    options.fit = false;
+                }
+                return options;
             }
-            return options;
+            return {
+                fit: false
+            };
         };
         DMenuBarItem.prototype.onActivate = function (e) {
             _super.prototype.onActivate.call(this, e);
             this.open();
         };
         DMenuBarItem.prototype.open = function () {
-            this._menu.open(this);
+            this.menu.open(this);
         };
         DMenuBarItem.prototype.close = function () {
-            this._menu.close();
+            this.menu.close();
         };
         Object.defineProperty(DMenuBarItem.prototype, "menu", {
             get: function () {
-                return this._menu;
+                var _this = this;
+                var result = this._menu;
+                if (result == null) {
+                    result = this.toMenu(this.theme, this._options);
+                    result.on("select", function (value, item, menu) {
+                        _this.onMenuSelect(value, item, menu);
+                    });
+                    this._menu = result;
+                }
+                return result;
             },
             enumerable: false,
             configurable: true
         });
         DMenuBarItem.prototype.onMenuSelect = function (value, item, menu) {
-            var _a;
-            (_a = this.parent) === null || _a === void 0 ? void 0 : _a.emit("select", value, item, menu);
+            this.emit("select", value, item, this);
+            var parent = this.parent;
+            if (parent) {
+                parent.emit("select", value, item, parent);
+            }
         };
         DMenuBarItem.prototype.onKeyDown = function (e) {
-            if (this.state.isActionable && this.state.isFocused && UtilKeyboardEvent.isArrowDownKey(e)) {
-                this.onActivate(e);
+            if (UtilKeyboardEvent.isArrowDownKey(e)) {
+                this.onKeyDownArrowDown(e);
             }
             return _super.prototype.onKeyDown.call(this, e);
+        };
+        DMenuBarItem.prototype.onKeyDownArrowDown = function (e) {
+            if (this.state.isActionable && this.state.isFocused) {
+                this.onActivate(e);
+                return true;
+            }
+            return false;
         };
         DMenuBarItem.prototype.getType = function () {
             return "DMenuBarItem";
@@ -50830,15 +51150,26 @@
             _super.prototype.init.call(this, options);
             this.state.isFocusRoot = true;
             var items = options === null || options === void 0 ? void 0 : options.items;
-            if (items != null) {
+            if (items) {
                 for (var i = 0, imax = items.length; i < imax; ++i) {
-                    var itemOrItemOptions = items[i];
-                    var item = (itemOrItemOptions instanceof pixi_js.DisplayObject ? itemOrItemOptions :
-                        ("space" in itemOrItemOptions ? new DLayoutSpace(itemOrItemOptions) :
-                            new DMenuBarItem(itemOrItemOptions)));
-                    this.addChild(item);
+                    var item = this.toItem(items[i]);
+                    if (item) {
+                        this.addChild(item);
+                    }
                 }
             }
+        };
+        DMenuBar.prototype.toItem = function (item) {
+            if (item == null) {
+                return null;
+            }
+            else if (item instanceof pixi_js.DisplayObject) {
+                return item;
+            }
+            else if ("space" in item) {
+                return new DLayoutSpace(item);
+            }
+            return new DMenuBarItem(item);
         };
         DMenuBar.prototype.onKeyDown = function (e) {
             UtilKeyboardEvent.moveFocusHorizontally(e, this);
@@ -51482,57 +51813,37 @@
     var DSelectMultiple = /** @class */ (function (_super) {
         __extends(DSelectMultiple, _super);
         function DSelectMultiple(options) {
-            return _super.call(this, options) || this;
+            var _this = _super.call(this, options) || this;
+            // Default values
+            _this._values = [];
+            var values = options === null || options === void 0 ? void 0 : options.values;
+            if (values) {
+                _this.values = values;
+            }
+            return _this;
         }
-        DSelectMultiple.prototype.init = function (options) {
-            var _this = this;
-            _super.prototype.init.call(this, options);
-            this._onSelectedBound = function (value, child) {
-                if (child instanceof DMenuItemCheck) {
-                    var oldValues = _this._values;
-                    var newValues = [];
-                    var newItems = [];
-                    var menu = _this.menu;
-                    if (child.state.isActive) {
-                        _this.updateMenuItems(menu, oldValues, value, undefined, newValues, newItems);
-                    }
-                    else {
-                        _this.updateMenuItems(menu, oldValues, undefined, value, newValues, newItems);
-                    }
-                    _this._values = newValues;
-                    _this.onSelected(newValues, oldValues, newItems, true);
+        DSelectMultiple.prototype.onMenuSelect = function (value, item, menu) {
+            _super.prototype.onMenuSelect.call(this, value, item, menu);
+            if (item instanceof DMenuItemCheck) {
+                var oldValues = this._values;
+                var newValues = [];
+                var newItems = [];
+                if (item.state.isActive) {
+                    this.updateMenuItems(menu, oldValues, value, undefined, newValues, newItems);
                 }
                 else {
-                    _this.emit("menuselect", value, child, _this);
+                    this.updateMenuItems(menu, oldValues, undefined, value, newValues, newItems);
                 }
-            };
-            this._onClosedBound = function () {
-                _this.onClosed();
-            };
-            // Default value
-            this._values = [];
-            if (options && options.values !== undefined) {
-                this.values = options.values;
+                this._values = newValues;
+                this.text = newItems;
+                this.onValueChange(newValues, oldValues, newItems);
             }
         };
-        DSelectMultiple.prototype.onSelected = function (newValues, oldValues, items, emit) {
-            // Chante texts
-            this.text = items;
-            // Event
-            if (emit) {
-                this.emit("change", newValues, oldValues, items, this);
-            }
-        };
-        DSelectMultiple.prototype.onClosed = function () {
-            var menu = this.menu;
-            menu.off("select", this._onSelectedBound);
-            menu.off("close", this._onClosedBound);
+        DSelectMultiple.prototype.onValueChange = function (newValues, oldValues, items) {
+            this.emit("change", newValues, oldValues, items, this);
         };
         DSelectMultiple.prototype.start = function () {
-            var menu = this.menu;
-            menu.on("select", this._onSelectedBound);
-            menu.on("close", this._onClosedBound);
-            this.updateMenuItems(menu, this._values);
+            this.updateMenuItems(this.menu, this._values);
             _super.prototype.start.call(this);
         };
         Object.defineProperty(DSelectMultiple.prototype, "values", {
@@ -51552,7 +51863,7 @@
                     var newItems = [];
                     this.updateMenuItems(this.menu, values, undefined, undefined, newValues, newItems);
                     this._values = newValues;
-                    this.onSelected(newValues, oldValues, newItems, false);
+                    this.text = newItems;
                 }
             },
             enumerable: false,
@@ -51611,46 +51922,26 @@
     var DSelect = /** @class */ (function (_super) {
         __extends(DSelect, _super);
         function DSelect(options) {
-            return _super.call(this, options) || this;
-        }
-        DSelect.prototype.init = function (options) {
-            var _this = this;
-            _super.prototype.init.call(this, options);
-            this._onSelectedBound = function (value, child) {
-                _this.onSelected(value, child, true);
-            };
-            this._onClosedBound = function () {
-                _this.onClosed();
-            };
+            var _this = _super.call(this, options) || this;
             // Default value
-            this._value = null;
-            if (options && options.value !== undefined) {
-                this.value = options.value;
+            _this._value = null;
+            var value = options === null || options === void 0 ? void 0 : options.value;
+            if (value != null) {
+                _this.value = value;
             }
-        };
-        DSelect.prototype.onSelected = function (newValue, item, emit) {
-            if (this._value !== newValue) {
-                // Value
-                var oldValue = this._value;
+            return _this;
+        }
+        DSelect.prototype.onMenuSelect = function (newValue, item, menu) {
+            _super.prototype.onMenuSelect.call(this, newValue, item, menu);
+            var oldValue = this._value;
+            if (oldValue !== newValue) {
                 this._value = newValue;
-                // Text
                 this.text = item;
-                // Event
-                if (emit) {
-                    this.emit("change", newValue, oldValue, item, this);
-                }
+                this.onValueChange(newValue, oldValue, item);
             }
         };
-        DSelect.prototype.onClosed = function () {
-            var menu = this.menu;
-            menu.off("select", this._onSelectedBound);
-            menu.off("close", this._onClosedBound);
-        };
-        DSelect.prototype.start = function () {
-            var menu = this.menu;
-            menu.on("select", this._onSelectedBound);
-            menu.on("close", this._onClosedBound);
-            _super.prototype.start.call(this);
+        DSelect.prototype.onValueChange = function (newValue, oldValue, item) {
+            this.emit("change", newValue, oldValue, item, this);
         };
         DSelect.prototype.findMenuItem = function (menu, value) {
             var children = menu.children;
@@ -51681,12 +51972,10 @@
              * Sets to the specified value.
              */
             set: function (value) {
-                var item = this.findMenuItem(this.menu, value);
-                if (item != null) {
-                    this.onSelected(value, item, false);
-                }
-                else {
-                    this.onSelected(null, null, false);
+                if (this._value !== value) {
+                    var item = this.findMenuItem(this.menu, value);
+                    this._value = value;
+                    this.text = item;
                 }
             },
             enumerable: false,
@@ -52290,16 +52579,16 @@
     var DTableBodyCells = /** @class */ (function () {
         function DTableBodyCells() {
         }
-        DTableBodyCells.setReadOnly = function (target, row, columnIndex, columnData) {
-            target.state.isReadOnly = this.toReadOnly(row, columnIndex, columnData);
+        DTableBodyCells.setReadOnly = function (target, row, columnIndex, column) {
+            target.state.isReadOnly = this.toReadOnly(row, columnIndex, column);
         };
-        DTableBodyCells.setRenderable = function (target, row, columnIndex, columnData) {
-            var renderable = this.toRenderable(row, columnIndex, columnData);
+        DTableBodyCells.setRenderable = function (target, row, columnIndex, column) {
+            var renderable = this.toRenderable(row, columnIndex, column);
             target.renderable = renderable;
             target.state.isDisabled = !renderable;
         };
-        DTableBodyCells.toReadOnly = function (row, columnIndex, columnData) {
-            var enable = columnData.editing.enable;
+        DTableBodyCells.toReadOnly = function (row, columnIndex, column) {
+            var enable = column.editing.enable;
             if (enable === true) {
                 return false;
             }
@@ -52310,8 +52599,8 @@
                 return !enable(row, columnIndex);
             }
         };
-        DTableBodyCells.toRenderable = function (row, columnIndex, columnData) {
-            var renderable = columnData.renderable;
+        DTableBodyCells.toRenderable = function (row, columnIndex, column) {
+            var renderable = column.renderable;
             if (renderable === true) {
                 return true;
             }
@@ -52331,46 +52620,48 @@
      */
     var DTableBodyCellSelectDialog = /** @class */ (function (_super) {
         __extends(DTableBodyCellSelectDialog, _super);
-        function DTableBodyCellSelectDialog(columnIndex, columnData, options) {
+        function DTableBodyCellSelectDialog(columnIndex, column, onChange, options) {
+            var _a;
             var _this = _super.call(this, options) || this;
             _this._rowIndex = -1;
             _this._columnIndex = columnIndex;
-            _this._columnData = columnData;
-            var isSyncEnabled = _this.toSync(_this.theme, options);
-            var selecting = columnData.selecting;
-            var dialog = selecting.dialog;
-            if (dialog != null) {
-                _this.on("active", function () {
-                    selecting.setter(dialog, _this.text);
-                    dialog.open().then(function () {
-                        var newValue = selecting.getter(dialog);
-                        if (isSyncEnabled) {
-                            var oldValue = _this.text;
-                            if (newValue !== oldValue) {
-                                _this.text = newValue;
-                                _this.onCellChange(newValue, oldValue);
-                            }
-                        }
-                        else {
-                            _this.onCellChange(newValue, null);
-                        }
-                    });
-                });
-            }
+            _this._column = column;
+            _this._onChange = onChange;
+            _this._isSyncEnabled = ((_a = options === null || options === void 0 ? void 0 : options.sync) !== null && _a !== void 0 ? _a : _this.theme.isSyncEnabled());
             return _this;
         }
-        DTableBodyCellSelectDialog.prototype.onCellChange = function (newValue, oldValue) {
+        DTableBodyCellSelectDialog.prototype.onActivate = function (e) {
+            var _this = this;
+            var _a;
+            _super.prototype.onActivate.call(this, e);
+            var selecting = this._column.selecting;
+            var dialog = selecting.dialog;
+            if (dialog) {
+                var oldValue_1 = (_a = this._textValueComputed) !== null && _a !== void 0 ? _a : null;
+                selecting.setter(dialog, oldValue_1);
+                dialog.open().then(function () {
+                    var newValue = selecting.getter(dialog);
+                    if (_this._isSyncEnabled) {
+                        if (newValue !== oldValue_1) {
+                            _this.text = newValue;
+                            _this.onValueChange(newValue, oldValue_1);
+                        }
+                    }
+                    else {
+                        _this.onValueChange(newValue, null);
+                    }
+                });
+            }
+        };
+        DTableBodyCellSelectDialog.prototype.onValueChange = function (newValue, oldValue) {
             var row = this._row;
             if (row !== undefined) {
                 var rowIndex = this._rowIndex;
                 var columnIndex = this._columnIndex;
-                this._columnData.setter(row, columnIndex, newValue);
-                this.emit("cellchange", newValue, oldValue, row, rowIndex, columnIndex, this);
+                this._column.setter(row, columnIndex, newValue);
+                this.emit("change", newValue, oldValue, this);
+                this._onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
             }
-        };
-        DTableBodyCellSelectDialog.prototype.toSync = function (theme, options) {
-            var _a;
-            return (_a = options === null || options === void 0 ? void 0 : options.sync) !== null && _a !== void 0 ? _a : theme.isSyncEnabled();
         };
         Object.defineProperty(DTableBodyCellSelectDialog.prototype, "row", {
             get: function () {
@@ -52393,9 +52684,20 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(DTableBodyCellSelectDialog.prototype, "column", {
+            get: function () {
+                return this._column;
+            },
+            enumerable: false,
+            configurable: true
+        });
         Object.defineProperty(DTableBodyCellSelectDialog.prototype, "value", {
             get: function () {
-                return this._textValueComputed;
+                var textValueComputed = this._textValueComputed;
+                if (textValueComputed !== undefined) {
+                    return textValueComputed;
+                }
+                return null;
             },
             set: function (value) {
                 this.text = value;
@@ -52415,9 +52717,9 @@
             else {
                 this.text = value;
             }
-            var columnData = this._columnData;
-            DTableBodyCells.setReadOnly(this, row, columnIndex, columnData);
-            DTableBodyCells.setRenderable(this, row, columnIndex, columnData);
+            var column = this._column;
+            DTableBodyCells.setReadOnly(this, row, columnIndex, column);
+            DTableBodyCells.setRenderable(this, row, columnIndex, column);
         };
         DTableBodyCellSelectDialog.prototype.unset = function () {
             this._row = undefined;
@@ -52450,39 +52752,26 @@
      */
     var DTableBodyCellActionMenu = /** @class */ (function (_super) {
         __extends(DTableBodyCellActionMenu, _super);
-        function DTableBodyCellActionMenu(columnIndex, columnData, options) {
+        function DTableBodyCellActionMenu(columnIndex, column, onChange, options) {
             var _this = _super.call(this, options) || this;
             _this._rowIndex = -1;
             _this._columnIndex = columnIndex;
-            _this._columnData = columnData;
-            _this._onSelectedBound = function (selected) {
-                _this.onSelected(selected);
-            };
-            _this._onClosedBound = function () {
-                _this.onClosed();
-            };
+            _this._column = column;
+            _this._onChange = onChange;
             return _this;
         }
-        DTableBodyCellActionMenu.prototype.onSelected = function (selected) {
-            var columnData = this._columnData;
+        DTableBodyCellActionMenu.prototype.onMenuSelect = function (selected, item, menu) {
             var row = this._row;
             if (row !== undefined) {
                 var rowIndex = this._rowIndex;
                 var columnIndex = this._columnIndex;
-                columnData.setter(row, columnIndex, selected);
-                this.emit("cellchange", selected, null, row, rowIndex, columnIndex, this);
+                this._column.setter(row, columnIndex, selected);
+                _super.prototype.onMenuSelect.call(this, selected, item, menu);
+                this._onChange(selected, null, row, rowIndex, columnIndex, this);
             }
         };
-        DTableBodyCellActionMenu.prototype.onClosed = function () {
-            var menu = this.menu;
-            menu.off("select", this._onSelectedBound);
-            menu.off("close", this._onClosedBound);
-        };
-        DTableBodyCellActionMenu.prototype.start = function () {
-            var menu = this.menu;
-            menu.on("select", this._onSelectedBound);
-            menu.on("close", this._onClosedBound);
-            _super.prototype.start.call(this);
+        DTableBodyCellActionMenu.prototype.onKeyDownArrowDown = function (e) {
+            return false;
         };
         Object.defineProperty(DTableBodyCellActionMenu.prototype, "row", {
             get: function () {
@@ -52505,13 +52794,20 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(DTableBodyCellActionMenu.prototype, "column", {
+            get: function () {
+                return this._column;
+            },
+            enumerable: false,
+            configurable: true
+        });
         DTableBodyCellActionMenu.prototype.set = function (value, row, supplimental, rowIndex, columnIndex, forcibly) {
             this._row = row;
             this._rowIndex = rowIndex;
             this.text = value;
-            var columnData = this._columnData;
-            DTableBodyCells.setReadOnly(this, row, columnIndex, columnData);
-            DTableBodyCells.setRenderable(this, row, columnIndex, columnData);
+            var column = this._column;
+            DTableBodyCells.setReadOnly(this, row, columnIndex, column);
+            DTableBodyCells.setRenderable(this, row, columnIndex, column);
         };
         DTableBodyCellActionMenu.prototype.unset = function () {
             this._row = undefined;
@@ -52529,44 +52825,46 @@
      */
     var DTableBodyCellSelectPromise = /** @class */ (function (_super) {
         __extends(DTableBodyCellSelectPromise, _super);
-        function DTableBodyCellSelectPromise(columnIndex, columnData, options) {
+        function DTableBodyCellSelectPromise(columnIndex, column, onChange, options) {
+            var _a;
             var _this = _super.call(this, options) || this;
             _this._rowIndex = -1;
             _this._columnIndex = columnIndex;
-            _this._columnData = columnData;
-            var isSyncEnabled = _this.toSync(_this.theme, options);
-            var selecting = columnData.selecting;
-            var promise = selecting.promise;
-            if (promise != null) {
-                _this.on("active", function () {
-                    promise().then(function (newValue) {
-                        if (isSyncEnabled) {
-                            var oldValue = _this.text;
-                            if (newValue !== oldValue) {
-                                _this.text = newValue;
-                                _this.onCellChange(newValue, oldValue);
-                            }
-                        }
-                        else {
-                            _this.onCellChange(newValue, null);
-                        }
-                    });
-                });
-            }
+            _this._column = column;
+            _this._onChange = onChange;
+            _this._isSyncEnabled = ((_a = options === null || options === void 0 ? void 0 : options.sync) !== null && _a !== void 0 ? _a : _this.theme.isSyncEnabled());
             return _this;
         }
-        DTableBodyCellSelectPromise.prototype.onCellChange = function (newValue, oldValue) {
+        DTableBodyCellSelectPromise.prototype.onActivate = function (e) {
+            var _this = this;
+            _super.prototype.onActivate.call(this, e);
+            var selecting = this._column.selecting;
+            var promise = selecting.promise;
+            if (promise) {
+                promise().then(function (newValue) {
+                    var _a;
+                    if (_this._isSyncEnabled) {
+                        var oldValue = (_a = _this._textValueComputed) !== null && _a !== void 0 ? _a : null;
+                        if (newValue !== oldValue) {
+                            _this.text = newValue;
+                            _this.onValueChange(newValue, oldValue);
+                        }
+                    }
+                    else {
+                        _this.onValueChange(newValue, null);
+                    }
+                });
+            }
+        };
+        DTableBodyCellSelectPromise.prototype.onValueChange = function (newValue, oldValue) {
             var row = this._row;
             if (row !== undefined) {
                 var rowIndex = this._rowIndex;
                 var columnIndex = this._columnIndex;
-                this._columnData.setter(row, columnIndex, newValue);
-                this.emit("cellchange", newValue, oldValue, row, rowIndex, columnIndex, this);
+                this._column.setter(row, columnIndex, newValue);
+                this.emit("change", newValue, oldValue, this);
+                this._onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
             }
-        };
-        DTableBodyCellSelectPromise.prototype.toSync = function (theme, options) {
-            var _a;
-            return (_a = options === null || options === void 0 ? void 0 : options.sync) !== null && _a !== void 0 ? _a : theme.isSyncEnabled();
         };
         Object.defineProperty(DTableBodyCellSelectPromise.prototype, "row", {
             get: function () {
@@ -52589,9 +52887,20 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(DTableBodyCellSelectPromise.prototype, "column", {
+            get: function () {
+                return this._column;
+            },
+            enumerable: false,
+            configurable: true
+        });
         Object.defineProperty(DTableBodyCellSelectPromise.prototype, "value", {
             get: function () {
-                return this._textValueComputed;
+                var textValueComputed = this._textValueComputed;
+                if (textValueComputed !== undefined) {
+                    return textValueComputed;
+                }
+                return null;
             },
             set: function (value) {
                 this.text = value;
@@ -52611,9 +52920,9 @@
             else {
                 this.text = value;
             }
-            var columnData = this._columnData;
-            DTableBodyCells.setReadOnly(this, row, columnIndex, columnData);
-            DTableBodyCells.setRenderable(this, row, columnIndex, columnData);
+            var column = this._column;
+            DTableBodyCells.setReadOnly(this, row, columnIndex, column);
+            DTableBodyCells.setRenderable(this, row, columnIndex, column);
         };
         DTableBodyCellSelectPromise.prototype.unset = function () {
             this._row = undefined;
@@ -52646,11 +52955,12 @@
      */
     var DTableBodyCellText = /** @class */ (function (_super) {
         __extends(DTableBodyCellText, _super);
-        function DTableBodyCellText(columnIndex, columnData, options) {
+        function DTableBodyCellText(columnIndex, column, onChange, options) {
             var _this = _super.call(this, options) || this;
             _this._rowIndex = -1;
             _this._columnIndex = columnIndex;
-            _this._columnData = columnData;
+            _this._column = column;
+            _this._onChange = onChange;
             return _this;
         }
         Object.defineProperty(DTableBodyCellText.prototype, "row", {
@@ -52674,13 +52984,20 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(DTableBodyCellText.prototype, "column", {
+            get: function () {
+                return this._column;
+            },
+            enumerable: false,
+            configurable: true
+        });
         DTableBodyCellText.prototype.set = function (value, row, supplimental, rowIndex, columnIndex, forcibly) {
             this._row = row;
             this._rowIndex = rowIndex;
             this.text = value;
-            var columnData = this._columnData;
-            DTableBodyCells.setReadOnly(this, row, columnIndex, columnData);
-            DTableBodyCells.setRenderable(this, row, columnIndex, columnData);
+            var column = this._column;
+            DTableBodyCells.setReadOnly(this, row, columnIndex, column);
+            DTableBodyCells.setRenderable(this, row, columnIndex, column);
         };
         DTableBodyCellText.prototype.unset = function () {
             this._row = undefined;
@@ -52698,28 +53015,41 @@
      */
     var DTableBodyCellButton = /** @class */ (function (_super) {
         __extends(DTableBodyCellButton, _super);
-        function DTableBodyCellButton(columnIndex, columnData, options) {
-            var _this = _super.call(this, columnIndex, columnData, options) || this;
-            _this.buttonMode = true;
-            _this.initOnClick(options);
+        function DTableBodyCellButton(columnIndex, column, onChange, options) {
+            var _a;
+            var _this = _super.call(this, columnIndex, column, onChange, options) || this;
+            var when = toEnum((_a = options === null || options === void 0 ? void 0 : options.when) !== null && _a !== void 0 ? _a : DButtonBaseWhen.CLICKED, DButtonBaseWhen);
+            _this._when = when;
+            _this.initOnClick(when, _this.theme, options);
             return _this;
         }
-        DTableBodyCellButton.prototype.initOnClick = function (options) {
+        DTableBodyCellButton.prototype.initOnClick = function (when, theme, options) {
             var _this = this;
             UtilPointerEvent.onClick(this, function (e) {
-                if (_this.state.isActionable) {
-                    _this.onActive(e);
+                if (when === DButtonBaseWhen.CLICKED) {
+                    _this.onClick(e);
                 }
             });
         };
-        DTableBodyCellButton.prototype.onActive = function (e) {
+        DTableBodyCellButton.prototype.onClick = function (e) {
+            if (this.state.isActionable) {
+                this.onActivate(e);
+            }
+        };
+        DTableBodyCellButton.prototype.onDblClick = function (e, interactionManager) {
+            if (this._when === DButtonBaseWhen.DOUBLE_CLICKED) {
+                this.onClick(e);
+            }
+            return _super.prototype.onDblClick.call(this, e, interactionManager);
+        };
+        DTableBodyCellButton.prototype.onActivate = function (e) {
             this.emit("active", this);
             var row = this._row;
             if (row !== undefined) {
                 var rowIndex = this._rowIndex;
                 var columnIndex = this._columnIndex;
-                this._columnData.setter(row, columnIndex, null);
-                this.emit("cellchange", null, null, row, rowIndex, columnIndex, this);
+                this.emit("change", null, null, this);
+                this._onChange(null, null, row, rowIndex, columnIndex, this);
             }
         };
         DTableBodyCellButton.prototype.onActivateKeyDown = function (e) {
@@ -52730,7 +53060,7 @@
         DTableBodyCellButton.prototype.onActivateKeyUp = function (e) {
             if (this.state.isActionable) {
                 if (this.state.isPressed) {
-                    this.onActive(e);
+                    this.onActivate(e);
                 }
                 this.state.isPressed = false;
             }
@@ -52746,10 +53076,6 @@
                 this.onActivateKeyUp(e);
             }
             return _super.prototype.onKeyUp.call(this, e);
-        };
-        DTableBodyCellButton.prototype.onStateChange = function (newState, oldState) {
-            _super.prototype.onStateChange.call(this, newState, oldState);
-            this.buttonMode = newState.isActionable;
         };
         DTableBodyCellButton.prototype.getType = function () {
             return "DTableBodyCellButton";
@@ -52786,34 +53112,52 @@
      */
     var DTableBodyCellCheck = /** @class */ (function (_super) {
         __extends(DTableBodyCellCheck, _super);
-        function DTableBodyCellCheck(columnIndex, columnData, options) {
+        function DTableBodyCellCheck(columnIndex, column, onChange, options) {
             var _this = _super.call(this, options) || this;
             _this._rowIndex = -1;
             _this._columnIndex = columnIndex;
-            _this._columnData = columnData;
-            _this.on("active", function () {
-                _this.onChange(true);
-            });
-            _this.on("inactive", function () {
-                _this.onChange(false);
-            });
+            _this._column = column;
+            _this._onChange = onChange;
             return _this;
         }
-        DTableBodyCellCheck.prototype.onChangeSingle = function (rowIndex, columnIndex, columnData) {
+        DTableBodyCellCheck.prototype.onActivate = function (e) {
+            _super.prototype.onActivate.call(this, e);
+            this.onValueChange(true, false);
+        };
+        DTableBodyCellCheck.prototype.onInactivate = function (e) {
+            _super.prototype.onInactivate.call(this, e);
+            this.onValueChange(false, true);
+        };
+        DTableBodyCellCheck.prototype.onValueChange = function (newValue, oldValue) {
+            var row = this._row;
+            if (row !== undefined) {
+                var rowIndex = this._rowIndex;
+                var columnIndex = this._columnIndex;
+                var column = this._column;
+                column.setter(row, columnIndex, newValue);
+                this.emit("change", newValue, oldValue, this);
+                var onChange = this._onChange;
+                onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
+                if (newValue && column.type === DTableColumnType.CHECK_SINGLE) {
+                    this.onChangeSingle(rowIndex, columnIndex, column, onChange);
+                }
+            }
+        };
+        DTableBodyCellCheck.prototype.onChangeSingle = function (rowIndex, columnIndex, column, onChange) {
             var _this = this;
             var tableBodyRow = this.parent;
             if (tableBodyRow) {
                 var tableBody = tableBodyRow.parent;
                 if (tableBody) {
                     var isChanged_1 = false;
-                    var getter_1 = columnData.getter;
-                    var setter_1 = columnData.setter;
+                    var getter_1 = column.getter;
+                    var setter_1 = column.setter;
                     var data = tableBody.data;
                     data.each(function (row, index) {
                         if (rowIndex !== index && getter_1(row, columnIndex)) {
                             setter_1(row, columnIndex, false);
                             isChanged_1 = true;
-                            _this.emit("cellchange", false, true, row, index, columnIndex, _this);
+                            onChange(false, true, row, index, columnIndex, _this);
                             return false;
                         }
                         return true;
@@ -52821,19 +53165,6 @@
                     if (isChanged_1) {
                         tableBody.update(true);
                     }
-                }
-            }
-        };
-        DTableBodyCellCheck.prototype.onChange = function (newValue) {
-            var row = this._row;
-            if (row !== undefined) {
-                var rowIndex = this._rowIndex;
-                var columnIndex = this._columnIndex;
-                var columnData = this._columnData;
-                columnData.setter(row, columnIndex, newValue);
-                this.emit("cellchange", newValue, !newValue, row, rowIndex, columnIndex, this);
-                if (newValue && columnData.type === DTableColumnType.CHECK_SINGLE) {
-                    this.onChangeSingle(rowIndex, columnIndex, columnData);
                 }
             }
         };
@@ -52858,13 +53189,20 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(DTableBodyCellCheck.prototype, "column", {
+            get: function () {
+                return this._column;
+            },
+            enumerable: false,
+            configurable: true
+        });
         DTableBodyCellCheck.prototype.set = function (value, row, supplimental, rowIndex, columnIndex, forcibly) {
             this._row = row;
             this._rowIndex = rowIndex;
             this.state.isActive = !!value;
-            var columnData = this._columnData;
-            DTableBodyCells.setReadOnly(this, row, columnIndex, columnData);
-            DTableBodyCells.setRenderable(this, row, columnIndex, columnData);
+            var column = this._column;
+            DTableBodyCells.setReadOnly(this, row, columnIndex, column);
+            DTableBodyCells.setRenderable(this, row, columnIndex, column);
         };
         DTableBodyCellCheck.prototype.unset = function () {
             this._row = undefined;
@@ -52880,37 +53218,26 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var clone = function (value) {
-        return {
-            color: value.color,
-            alpha: value.alpha
-        };
-    };
-    var hasColor = function (value) {
-        return ("color" in value);
-    };
-    var hasAlpha = function (value) {
-        return ("alpha" in value);
-    };
     var DTableBodyCellColor = /** @class */ (function (_super) {
         __extends(DTableBodyCellColor, _super);
-        function DTableBodyCellColor(columnIndex, columnData, options) {
+        function DTableBodyCellColor(columnIndex, column, onChange, options) {
             var _this = _super.call(this, options) || this;
             _this._rowIndex = -1;
             _this._columnIndex = columnIndex;
-            _this._columnData = columnData;
-            _this.on("change", function (newValue, oldValue) {
-                var row = _this._row;
-                if (row !== undefined) {
-                    var newValueCloned = clone(newValue);
-                    var oldValueCloned = clone(oldValue);
-                    var rowIndex = _this._rowIndex;
-                    _this._columnData.setter(row, columnIndex, newValueCloned);
-                    _this.emit("cellchange", newValueCloned, oldValueCloned, row, rowIndex, columnIndex, _this);
-                }
-            });
+            _this._column = column;
+            _this._onChange = onChange;
             return _this;
         }
+        DTableBodyCellColor.prototype.onValueChange = function (newValue, oldValue) {
+            var row = this._row;
+            if (row !== undefined) {
+                var rowIndex = this._rowIndex;
+                var columnIndex = this._columnIndex;
+                this._column.setter(row, columnIndex, newValue);
+                _super.prototype.onValueChange.call(this, newValue, oldValue);
+                this._onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
+            }
+        };
         Object.defineProperty(DTableBodyCellColor.prototype, "row", {
             get: function () {
                 return this._row;
@@ -52932,6 +53259,13 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(DTableBodyCellColor.prototype, "column", {
+            get: function () {
+                return this._column;
+            },
+            enumerable: false,
+            configurable: true
+        });
         DTableBodyCellColor.prototype.set = function (newValue, row, supplimental, rowIndex, columnIndex, forcibly) {
             this._row = row;
             this._rowIndex = rowIndex;
@@ -52942,35 +53276,22 @@
             }
             else if (isString(newValue)) {
                 var parsed = Number(newValue);
-                if (parsed === parsed) {
-                    value.color = parsed;
-                }
-                else {
-                    value.color = 0xffffff;
-                }
+                value.color = (parsed === parsed ? parsed : 0xffffff);
                 value.alpha = 1;
             }
             else if (newValue != null) {
-                if (hasColor(newValue)) {
-                    value.color = Number(newValue.color);
-                }
-                else {
-                    value.color = 0xffffff;
-                }
-                if (hasAlpha(newValue)) {
-                    value.alpha = Number(newValue.alpha);
-                }
-                else {
-                    value.alpha = 1;
-                }
+                var color = newValue.color;
+                var alpha = newValue.alpha;
+                value.color = (isNumber(color) ? color : 0xffffff);
+                value.alpha = (isNumber(alpha) ? alpha : 1);
             }
             else {
                 value.color = 0xffffff;
                 value.alpha = 1;
             }
-            var columnData = this._columnData;
-            DTableBodyCells.setReadOnly(this, row, columnIndex, columnData);
-            DTableBodyCells.setRenderable(this, row, columnIndex, columnData);
+            var column = this._column;
+            DTableBodyCells.setReadOnly(this, row, columnIndex, column);
+            DTableBodyCells.setRenderable(this, row, columnIndex, column);
         };
         DTableBodyCellColor.prototype.unset = function () {
             this._row = undefined;
@@ -52988,31 +53309,37 @@
      */
     var DTableBodyCellDate = /** @class */ (function (_super) {
         __extends(DTableBodyCellDate, _super);
-        function DTableBodyCellDate(columnIndex, columnData, options) {
+        function DTableBodyCellDate(columnIndex, column, onChange, options) {
             var _this = _super.call(this, options) || this;
             _this._rowIndex = -1;
             _this._columnIndex = columnIndex;
-            _this._columnData = columnData;
-            _this.on("active", function () {
-                var currentTime = _this._textValueComputed.getTime();
-                var dialog = _this.dialog;
-                dialog.current = new Date(currentTime);
-                dialog.new = new Date(currentTime);
-                dialog.page = new Date(currentTime);
-                dialog.open().then(function () {
-                    var newValue = dialog.new;
-                    var oldValue = dialog.current;
-                    _this.text = new Date(newValue.getTime());
-                    var row = _this._row;
-                    if (row !== undefined) {
-                        var rowIndex = _this._rowIndex;
-                        _this._columnData.setter(row, columnIndex, newValue);
-                        _this.emit("cellchange", newValue, oldValue, row, rowIndex, columnIndex, _this);
-                    }
-                });
-            });
+            _this._column = column;
+            _this._onChange = onChange;
             return _this;
         }
+        DTableBodyCellDate.prototype.onActivate = function (e) {
+            var _this = this;
+            var _a, _b;
+            _super.prototype.onActivate.call(this, e);
+            var value = (_b = (_a = this._textValueComputed) === null || _a === void 0 ? void 0 : _a.getTime()) !== null && _b !== void 0 ? _b : Date.now();
+            var dialog = this.dialog;
+            dialog.current = new Date(value);
+            dialog.new = new Date(value);
+            dialog.page = new Date(value);
+            dialog.open().then(function () {
+                var newValue = dialog.new;
+                var oldValue = dialog.current;
+                _this.text = new Date(newValue.getTime());
+                var row = _this._row;
+                if (row !== undefined) {
+                    var rowIndex = _this._rowIndex;
+                    var columnIndex = _this._columnIndex;
+                    _this._column.setter(row, columnIndex, newValue);
+                    _this.emit("change", newValue, oldValue, _this);
+                    _this._onChange(newValue, oldValue, row, rowIndex, columnIndex, _this);
+                }
+            });
+        };
         Object.defineProperty(DTableBodyCellDate.prototype, "dialog", {
             get: function () {
                 var _a;
@@ -53053,6 +53380,13 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(DTableBodyCellDate.prototype, "column", {
+            get: function () {
+                return this._column;
+            },
+            enumerable: false,
+            configurable: true
+        });
         DTableBodyCellDate.prototype.set = function (value, row, supplimental, rowIndex, columnIndex, forcibly) {
             this._row = row;
             this._rowIndex = rowIndex;
@@ -53069,15 +53403,18 @@
             }
             else if (isNumber(value)) {
                 var textValueComputed = this._textValueComputed;
-                if (textValueComputed.getTime() !== value) {
+                if (textValueComputed === undefined) {
+                    this.text = new Date(value);
+                }
+                else if (textValueComputed.getTime() !== value) {
                     textValueComputed.setTime(value);
                     this.onTextChange();
                     this.createOrUpdateText();
                 }
             }
-            var columnData = this._columnData;
-            DTableBodyCells.setReadOnly(this, row, columnIndex, columnData);
-            DTableBodyCells.setRenderable(this, row, columnIndex, columnData);
+            var column = this._column;
+            DTableBodyCells.setReadOnly(this, row, columnIndex, column);
+            DTableBodyCells.setRenderable(this, row, columnIndex, column);
         };
         DTableBodyCellDate.prototype.unset = function () {
             this._row = undefined;
@@ -53095,31 +53432,37 @@
      */
     var DTableBodyCellDatetime = /** @class */ (function (_super) {
         __extends(DTableBodyCellDatetime, _super);
-        function DTableBodyCellDatetime(columnIndex, columnData, options) {
+        function DTableBodyCellDatetime(columnIndex, column, onChange, options) {
             var _this = _super.call(this, options) || this;
             _this._rowIndex = -1;
             _this._columnIndex = columnIndex;
-            _this._columnData = columnData;
-            _this.on("active", function () {
-                var currentTime = _this._textValueComputed.getTime();
-                var dialog = _this.dialog;
-                dialog.current = new Date(currentTime);
-                dialog.new = new Date(currentTime);
-                dialog.page = new Date(currentTime);
-                dialog.open().then(function () {
-                    var newValue = dialog.new;
-                    var oldValue = dialog.current;
-                    _this.text = new Date(newValue.getTime());
-                    var row = _this._row;
-                    if (row !== undefined) {
-                        var rowIndex = _this._rowIndex;
-                        _this._columnData.setter(row, columnIndex, newValue);
-                        _this.emit("cellchange", newValue, oldValue, row, rowIndex, columnIndex, _this);
-                    }
-                });
-            });
+            _this._column = column;
+            _this._onChange = onChange;
             return _this;
         }
+        DTableBodyCellDatetime.prototype.onActivate = function (e) {
+            var _this = this;
+            var _a, _b;
+            _super.prototype.onActivate.call(this, e);
+            var value = (_b = (_a = this._textValueComputed) === null || _a === void 0 ? void 0 : _a.getTime()) !== null && _b !== void 0 ? _b : Date.now();
+            var dialog = this.dialog;
+            dialog.current = new Date(value);
+            dialog.new = new Date(value);
+            dialog.page = new Date(value);
+            dialog.open().then(function () {
+                var newValue = dialog.new;
+                var oldValue = dialog.current;
+                _this.text = new Date(newValue.getTime());
+                var row = _this._row;
+                if (row !== undefined) {
+                    var rowIndex = _this._rowIndex;
+                    var columnIndex = _this._columnIndex;
+                    _this._column.setter(row, columnIndex, newValue);
+                    _this.emit("change", newValue, oldValue, _this);
+                    _this._onChange(newValue, oldValue, row, rowIndex, columnIndex, _this);
+                }
+            });
+        };
         DTableBodyCellDatetime.prototype.getDatetimeMask = function () {
             var _a, _b;
             var result = this._datetimeMask;
@@ -53135,7 +53478,7 @@
                 var dialog = this._dialog;
                 if (dialog == null) {
                     var options = (_a = this._options) === null || _a === void 0 ? void 0 : _a.dialog;
-                    if (options != null) {
+                    if (options) {
                         dialog = new DDialogDatetime(options);
                     }
                     else {
@@ -53169,6 +53512,13 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(DTableBodyCellDatetime.prototype, "column", {
+            get: function () {
+                return this._column;
+            },
+            enumerable: false,
+            configurable: true
+        });
         DTableBodyCellDatetime.prototype.set = function (value, row, supplimental, rowIndex, columnIndex, forcibly) {
             this._row = row;
             this._rowIndex = rowIndex;
@@ -53185,15 +53535,18 @@
             }
             else if (isNumber(value)) {
                 var textValueComputed = this._textValueComputed;
-                if (textValueComputed.getTime() !== value) {
+                if (textValueComputed === undefined) {
+                    this.text = new Date(value);
+                }
+                else if (textValueComputed.getTime() !== value) {
                     textValueComputed.setTime(value);
                     this.onTextChange();
                     this.createOrUpdateText();
                 }
             }
-            var columnData = this._columnData;
-            DTableBodyCells.setReadOnly(this, row, columnIndex, columnData);
-            DTableBodyCells.setRenderable(this, row, columnIndex, columnData);
+            var column = this._column;
+            DTableBodyCells.setReadOnly(this, row, columnIndex, column);
+            DTableBodyCells.setRenderable(this, row, columnIndex, column);
         };
         DTableBodyCellDatetime.prototype.unset = function () {
             this._row = undefined;
@@ -53211,11 +53564,12 @@
      */
     var DTableBodyCellIndex = /** @class */ (function (_super) {
         __extends(DTableBodyCellIndex, _super);
-        function DTableBodyCellIndex(columnIndex, columnData, options) {
+        function DTableBodyCellIndex(columnIndex, column, onChange, options) {
             var _this = _super.call(this, options) || this;
             _this._rowIndex = -1;
             _this._columnIndex = columnIndex;
-            _this._columnData = columnData;
+            _this._column = column;
+            _this._onChange = onChange;
             return _this;
         }
         Object.defineProperty(DTableBodyCellIndex.prototype, "row", {
@@ -53239,13 +53593,20 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(DTableBodyCellIndex.prototype, "column", {
+            get: function () {
+                return this._column;
+            },
+            enumerable: false,
+            configurable: true
+        });
         DTableBodyCellIndex.prototype.set = function (value, row, supplimental, rowIndex, columnIndex, forcibly) {
             this._row = row;
             this._rowIndex = rowIndex;
             this.text = rowIndex;
-            var columnData = this._columnData;
-            DTableBodyCells.setReadOnly(this, row, columnIndex, columnData);
-            DTableBodyCells.setRenderable(this, row, columnIndex, columnData);
+            var column = this._column;
+            DTableBodyCells.setReadOnly(this, row, columnIndex, column);
+            DTableBodyCells.setRenderable(this, row, columnIndex, column);
         };
         DTableBodyCellIndex.prototype.unset = function () {
             this._row = undefined;
@@ -53263,21 +53624,24 @@
      */
     var DTableBodyCellInputInteger = /** @class */ (function (_super) {
         __extends(DTableBodyCellInputInteger, _super);
-        function DTableBodyCellInputInteger(columnIndex, columnData, options) {
+        function DTableBodyCellInputInteger(columnIndex, column, onChange, options) {
             var _this = _super.call(this, options) || this;
             _this._rowIndex = -1;
             _this._columnIndex = columnIndex;
-            _this._columnData = columnData;
-            _this.on("change", function (newValue, oldValue) {
-                var row = _this._row;
-                if (row !== undefined) {
-                    var rowIndex = _this._rowIndex;
-                    _this._columnData.setter(row, columnIndex, newValue);
-                    _this.emit("cellchange", newValue, oldValue, row, rowIndex, columnIndex, _this);
-                }
-            });
+            _this._column = column;
+            _this._onChange = onChange;
             return _this;
         }
+        DTableBodyCellInputInteger.prototype.onValueChange = function (newValue, oldValue) {
+            var row = this._row;
+            if (row !== undefined) {
+                var rowIndex = this._rowIndex;
+                var columnIndex = this._columnIndex;
+                this._column.setter(row, columnIndex, newValue);
+                _super.prototype.onValueChange.call(this, newValue, oldValue);
+                this._onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
+            }
+        };
         Object.defineProperty(DTableBodyCellInputInteger.prototype, "row", {
             get: function () {
                 return this._row;
@@ -53299,13 +53663,20 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(DTableBodyCellInputInteger.prototype, "column", {
+            get: function () {
+                return this._column;
+            },
+            enumerable: false,
+            configurable: true
+        });
         DTableBodyCellInputInteger.prototype.set = function (value, row, supplimental, rowIndex, columnIndex, forcibly) {
             this._row = row;
             this._rowIndex = rowIndex;
             this.text = Number(value);
-            var columnData = this._columnData;
-            DTableBodyCells.setReadOnly(this, row, columnIndex, columnData);
-            DTableBodyCells.setRenderable(this, row, columnIndex, columnData);
+            var column = this._column;
+            DTableBodyCells.setReadOnly(this, row, columnIndex, column);
+            DTableBodyCells.setRenderable(this, row, columnIndex, column);
         };
         DTableBodyCellInputInteger.prototype.unset = function () {
             this._row = undefined;
@@ -53323,21 +53694,24 @@
      */
     var DTableBodyCellInputReal = /** @class */ (function (_super) {
         __extends(DTableBodyCellInputReal, _super);
-        function DTableBodyCellInputReal(columnIndex, columnData, options) {
+        function DTableBodyCellInputReal(columnIndex, column, onChange, options) {
             var _this = _super.call(this, options) || this;
             _this._rowIndex = -1;
             _this._columnIndex = columnIndex;
-            _this._columnData = columnData;
-            _this.on("change", function (newValue, oldValue) {
-                var row = _this._row;
-                if (row !== undefined) {
-                    var rowIndex = _this._rowIndex;
-                    _this._columnData.setter(row, columnIndex, newValue);
-                    _this.emit("cellchange", newValue, oldValue, row, rowIndex, columnIndex, _this);
-                }
-            });
+            _this._column = column;
+            _this._onChange = onChange;
             return _this;
         }
+        DTableBodyCellInputReal.prototype.onValueChange = function (newValue, oldValue) {
+            var row = this._row;
+            if (row !== undefined) {
+                var rowIndex = this._rowIndex;
+                var columnIndex = this._columnIndex;
+                this._column.setter(row, columnIndex, newValue);
+                _super.prototype.onValueChange.call(this, newValue, oldValue);
+                this._onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
+            }
+        };
         Object.defineProperty(DTableBodyCellInputReal.prototype, "row", {
             get: function () {
                 return this._row;
@@ -53359,13 +53733,20 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(DTableBodyCellInputReal.prototype, "column", {
+            get: function () {
+                return this._column;
+            },
+            enumerable: false,
+            configurable: true
+        });
         DTableBodyCellInputReal.prototype.set = function (value, row, supplimental, rowIndex, columnIndex, forcibly) {
             this._row = row;
             this._rowIndex = rowIndex;
             this.text = Number(value);
-            var columnData = this._columnData;
-            DTableBodyCells.setReadOnly(this, row, columnIndex, columnData);
-            DTableBodyCells.setRenderable(this, row, columnIndex, columnData);
+            var column = this._column;
+            DTableBodyCells.setReadOnly(this, row, columnIndex, column);
+            DTableBodyCells.setRenderable(this, row, columnIndex, column);
         };
         DTableBodyCellInputReal.prototype.unset = function () {
             this._row = undefined;
@@ -53383,21 +53764,24 @@
      */
     var DTableBodyCellInputText = /** @class */ (function (_super) {
         __extends(DTableBodyCellInputText, _super);
-        function DTableBodyCellInputText(columnIndex, columnData, options) {
+        function DTableBodyCellInputText(columnIndex, column, onChange, options) {
             var _this = _super.call(this, options) || this;
             _this._rowIndex = -1;
             _this._columnIndex = columnIndex;
-            _this._columnData = columnData;
-            _this.on("change", function (newValue, oldValue) {
-                var row = _this._row;
-                if (row !== undefined) {
-                    var rowIndex = _this._rowIndex;
-                    _this._columnData.setter(row, columnIndex, newValue);
-                    _this.emit("cellchange", newValue, oldValue, row, rowIndex, columnIndex, _this);
-                }
-            });
+            _this._column = column;
+            _this._onChange = onChange;
             return _this;
         }
+        DTableBodyCellInputText.prototype.onValueChange = function (newValue, oldValue) {
+            var row = this._row;
+            if (row !== undefined) {
+                var rowIndex = this._rowIndex;
+                var columnIndex = this._columnIndex;
+                this._column.setter(row, columnIndex, newValue);
+                _super.prototype.onValueChange.call(this, newValue, oldValue);
+                this._onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
+            }
+        };
         Object.defineProperty(DTableBodyCellInputText.prototype, "row", {
             get: function () {
                 return this._row;
@@ -53419,13 +53803,20 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(DTableBodyCellInputText.prototype, "column", {
+            get: function () {
+                return this._column;
+            },
+            enumerable: false,
+            configurable: true
+        });
         DTableBodyCellInputText.prototype.set = function (value, row, supplimental, rowIndex, columnIndex, forcibly) {
             this._row = row;
             this._rowIndex = rowIndex;
             this.text = String(value);
-            var columnData = this._columnData;
-            DTableBodyCells.setReadOnly(this, row, columnIndex, columnData);
-            DTableBodyCells.setRenderable(this, row, columnIndex, columnData);
+            var column = this._column;
+            DTableBodyCells.setReadOnly(this, row, columnIndex, column);
+            DTableBodyCells.setRenderable(this, row, columnIndex, column);
         };
         DTableBodyCellInputText.prototype.unset = function () {
             this._row = undefined;
@@ -53436,441 +53827,6 @@
         };
         return DTableBodyCellInputText;
     }(DInputText));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DTableBodyCellInputTreeInput = /** @class */ (function (_super) {
-        __extends(DTableBodyCellInputTreeInput, _super);
-        function DTableBodyCellInputTreeInput() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        DTableBodyCellInputTreeInput.prototype.getType = function () {
-            return "DTableBodyCellInputTreeInput";
-        };
-        return DTableBodyCellInputTreeInput;
-    }(DInputText));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DTableBodyCellInputTreeMarker = /** @class */ (function (_super) {
-        __extends(DTableBodyCellInputTreeMarker, _super);
-        function DTableBodyCellInputTreeMarker() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        DTableBodyCellInputTreeMarker.prototype.getType = function () {
-            return "DTableBodyCellInputTreeMarker";
-        };
-        return DTableBodyCellInputTreeMarker;
-    }(DButtonBase));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    /**
-     * Cell states.
-     */
-    var DTableCellState = {
-        /**
-         * Start cells in rows.
-         */
-        START: "START",
-        /**
-         * End cells in rows.
-         */
-        END: "END",
-        /**
-         * Cells of frozen columns.
-         */
-        FROZEN: "FROZEN",
-        /**
-         * Cells of a right-most frozen column.
-         */
-        FROZEN_END: "FROZEN_END",
-        /**
-         * Header cells of columns sorted in the ascending order.
-         */
-        SORTED_ASCENDING: "SORTED_ASCENDING",
-        /**
-         * Header cells of columns sorted in the descending order.
-         */
-        SORTED_DESCENDING: "SORTED_DESCENDING",
-        /**
-         * Cells with child cells.
-         */
-        HAS_CHILDREN: "HAS_CHILDREN",
-        /**
-         * Cells opened.
-         */
-        OPENED: "OPENED",
-        /**
-         * Cells checkable
-         */
-        CHECKABLE: "CHECKABLE"
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var toLayoutOptions = function (options) {
-        if (options != null) {
-            return {
-                weight: options.weight,
-                width: options.width
-            };
-        }
-        return undefined;
-    };
-    var DTableBodyCellInputTree = /** @class */ (function (_super) {
-        __extends(DTableBodyCellInputTree, _super);
-        function DTableBodyCellInputTree(columnIndex, columnData, options) {
-            var _this = _super.call(this, toLayoutOptions(options)) || this;
-            _this._rowIndex = -1;
-            _this._columnIndex = columnIndex;
-            _this._columnData = columnData;
-            // Marker
-            var marker = _this.newMarker(options);
-            _this._marker = marker;
-            _this.addChild(marker);
-            // Input
-            var input = _this.newInput(options);
-            _this._input = input;
-            _this.addChild(input);
-            return _this;
-        }
-        DTableBodyCellInputTree.prototype.newInput = function (options) {
-            return new DTableBodyCellInputTreeInput(this.toInputOptions(options));
-        };
-        DTableBodyCellInputTree.prototype.toInputOptions = function (options) {
-            var _this = this;
-            return {
-                weight: 1,
-                text: options === null || options === void 0 ? void 0 : options.text,
-                editing: options === null || options === void 0 ? void 0 : options.editing,
-                on: {
-                    change: function (newValue, oldValue) {
-                        _this.onInputChange(newValue, oldValue);
-                    }
-                }
-            };
-        };
-        DTableBodyCellInputTree.prototype.onInputChange = function (newValue, oldValue) {
-            var row = this._row;
-            if (row !== undefined) {
-                var rowIndex = this._rowIndex;
-                var columnIndex = this._columnIndex;
-                this._columnData.setter(row, columnIndex, newValue);
-                this.emit("cellchange", newValue, oldValue, row, rowIndex, columnIndex, this);
-            }
-        };
-        DTableBodyCellInputTree.prototype.newMarker = function (options) {
-            var _this = this;
-            return new DTableBodyCellInputTreeMarker({
-                visible: false,
-                on: {
-                    active: function () {
-                        _this.onMarkerActive();
-                    }
-                }
-            });
-        };
-        DTableBodyCellInputTree.prototype.onMarkerActive = function () {
-            if (this._marker.state.is(DTableCellState.HAS_CHILDREN)) {
-                var row = this.parent;
-                if (row) {
-                    var body = row.parent;
-                    if (body) {
-                        var data = body.data;
-                        if (data && data.toggle) {
-                            data.toggle(this._row);
-                            this.emit("cellchange", null, null, this._row, this._rowIndex, this._columnIndex, this);
-                        }
-                    }
-                }
-            }
-        };
-        Object.defineProperty(DTableBodyCellInputTree.prototype, "row", {
-            get: function () {
-                return this._row;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DTableBodyCellInputTree.prototype, "rowIndex", {
-            get: function () {
-                return this._rowIndex;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DTableBodyCellInputTree.prototype, "columnIndex", {
-            get: function () {
-                return this._columnIndex;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DTableBodyCellInputTree.prototype.set = function (value, row, supplimental, rowIndex, columnIndex, forcibly) {
-            this._row = row;
-            this._rowIndex = rowIndex;
-            this._input.visible = true;
-            this._input.text = String(value);
-            var marker = this._marker;
-            if (isNumber(supplimental)) {
-                var isOpened = !!(supplimental & 0x1);
-                var hasChildren = !!(supplimental & 0x2);
-                var level = (supplimental >> 2);
-                var markerState = marker.state;
-                markerState.lock();
-                markerState.set(DTableCellState.HAS_CHILDREN, hasChildren);
-                markerState.set(DBaseState.DISABLED, !hasChildren);
-                markerState.set(DTableCellState.OPENED, isOpened);
-                markerState.unlock();
-                marker.show();
-                marker.width = this.theme.getLevelPadding(level);
-            }
-            else {
-                marker.state.removeAll(DTableCellState.OPENED, DTableCellState.HAS_CHILDREN);
-                marker.hide();
-            }
-            var columnData = this._columnData;
-            DTableBodyCells.setReadOnly(this._input, row, columnIndex, columnData);
-            DTableBodyCells.setRenderable(this, row, columnIndex, columnData);
-        };
-        DTableBodyCellInputTree.prototype.unset = function () {
-            this._row = undefined;
-            this._rowIndex = -1;
-            this._input.visible = false;
-            this._marker.hide();
-        };
-        DTableBodyCellInputTree.prototype.getType = function () {
-            return "DTableBodyCellInputTree";
-        };
-        return DTableBodyCellInputTree;
-    }(DLayoutHorizontal));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var toLinkOptions = function (cell, options) {
-        if (options) {
-            return {
-                url: toUrl(cell, options.url),
-                target: options.target,
-                checker: toChecker$1(cell, options.checker),
-                menu: options.menu
-            };
-        }
-        return undefined;
-    };
-    var toUrl = function (cell, url) {
-        if (isString(url) || url == null) {
-            return url;
-        }
-        else {
-            return function () {
-                var row = cell.row;
-                if (row !== undefined) {
-                    return url(row, cell.rowIndex, cell.columnIndex, cell);
-                }
-                return null;
-            };
-        }
-    };
-    var toChecker$1 = function (cell, checker) {
-        if (checker != null) {
-            return function () {
-                var row = cell.row;
-                if (row !== undefined) {
-                    return checker(row, cell.rowIndex, cell.columnIndex, cell);
-                }
-                return false;
-            };
-        }
-        return undefined;
-    };
-    var DTableBodyCellLink = /** @class */ (function (_super) {
-        __extends(DTableBodyCellLink, _super);
-        function DTableBodyCellLink(columnIndex, columnData, options) {
-            var _a;
-            return _super.call(this, columnIndex, columnData, DLinks.toStateOptions((_a = options === null || options === void 0 ? void 0 : options.link) === null || _a === void 0 ? void 0 : _a.target, options)) || this;
-        }
-        DTableBodyCellLink.prototype.initOnClick = function (options) {
-            var _this = this;
-            this.link.apply(this, function (e) { return _this.onActive(e); });
-        };
-        Object.defineProperty(DTableBodyCellLink.prototype, "link", {
-            get: function () {
-                var _a;
-                var result = this._link;
-                if (result == null) {
-                    result = new DLink(this.theme, toLinkOptions(this, (_a = this._options) === null || _a === void 0 ? void 0 : _a.link));
-                    this._link = result;
-                }
-                return result;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DTableBodyCellLink.prototype, "url", {
-            get: function () {
-                return this.link.url;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DTableBodyCellLink.prototype, "menu", {
-            get: function () {
-                return this.link.menu;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DTableBodyCellLink.prototype.getType = function () {
-            return "DTableBodyCellLink";
-        };
-        DTableBodyCellLink.prototype.onActive = function (e) {
-            this.emit("active", this);
-            var row = this._row;
-            if (row !== undefined) {
-                var rowIndex = this._rowIndex;
-                var columnIndex = this._columnIndex;
-                this._columnData.setter(row, columnIndex, null);
-                this.emit("cellchange", null, null, row, rowIndex, columnIndex, this);
-                this.open(this.link.inNewWindow(e));
-            }
-        };
-        DTableBodyCellLink.prototype.open = function (inNewWindow) {
-            this.link.open(inNewWindow);
-        };
-        return DTableBodyCellLink;
-    }(DTableBodyCellButton));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DTableBodyCellSelectMenu = /** @class */ (function (_super) {
-        __extends(DTableBodyCellSelectMenu, _super);
-        function DTableBodyCellSelectMenu(columnIndex, columnData, options) {
-            var _this = _super.call(this, options) || this;
-            _this._rowIndex = -1;
-            _this._columnIndex = columnIndex;
-            _this._columnData = columnData;
-            _this.on("change", function (newValue, oldValue) {
-                var row = _this._row;
-                if (row !== undefined) {
-                    var rowIndex = _this._rowIndex;
-                    _this._columnData.setter(row, columnIndex, newValue);
-                    _this.emit("cellchange", newValue, oldValue, row, rowIndex, columnIndex, _this);
-                }
-            });
-            return _this;
-        }
-        Object.defineProperty(DTableBodyCellSelectMenu.prototype, "row", {
-            get: function () {
-                return this._row;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DTableBodyCellSelectMenu.prototype, "rowIndex", {
-            get: function () {
-                return this._rowIndex;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DTableBodyCellSelectMenu.prototype, "columnIndex", {
-            get: function () {
-                return this._columnIndex;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DTableBodyCellSelectMenu.prototype.set = function (value, row, supplimental, rowIndex, columnIndex, forcibly) {
-            this._row = row;
-            this._rowIndex = rowIndex;
-            this.value = value;
-            var columnData = this._columnData;
-            DTableBodyCells.setReadOnly(this, row, columnIndex, columnData);
-            DTableBodyCells.setRenderable(this, row, columnIndex, columnData);
-        };
-        DTableBodyCellSelectMenu.prototype.unset = function () {
-            this._row = undefined;
-            this._rowIndex = -1;
-        };
-        DTableBodyCellSelectMenu.prototype.getType = function () {
-            return "DTableBodyCellSelectMenu";
-        };
-        return DTableBodyCellSelectMenu;
-    }(DSelect));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DTableBodyCellSelectMultiple = /** @class */ (function (_super) {
-        __extends(DTableBodyCellSelectMultiple, _super);
-        function DTableBodyCellSelectMultiple(columnIndex, columnData, options) {
-            var _this = _super.call(this, options) || this;
-            _this._rowIndex = -1;
-            _this._columnIndex = columnIndex;
-            _this._columnData = columnData;
-            _this.on("change", function (newValues, oldValues) {
-                var row = _this._row;
-                if (row !== undefined) {
-                    var rowIndex = _this._rowIndex;
-                    _this._columnData.setter(row, columnIndex, newValues);
-                    _this.emit("cellchange", newValues, oldValues, row, rowIndex, columnIndex, _this);
-                }
-            });
-            return _this;
-        }
-        Object.defineProperty(DTableBodyCellSelectMultiple.prototype, "row", {
-            get: function () {
-                return this._row;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DTableBodyCellSelectMultiple.prototype, "rowIndex", {
-            get: function () {
-                return this._rowIndex;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DTableBodyCellSelectMultiple.prototype, "columnIndex", {
-            get: function () {
-                return this._columnIndex;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DTableBodyCellSelectMultiple.prototype.set = function (value, row, supplimental, rowIndex, columnIndex, forcibly) {
-            this._row = row;
-            this._rowIndex = rowIndex;
-            this.values = value;
-            var columnData = this._columnData;
-            DTableBodyCells.setReadOnly(this, row, columnIndex, columnData);
-            DTableBodyCells.setRenderable(this, row, columnIndex, columnData);
-        };
-        DTableBodyCellSelectMultiple.prototype.unset = function () {
-            this._row = undefined;
-            this._rowIndex = -1;
-        };
-        DTableBodyCellSelectMultiple.prototype.getType = function () {
-            return "DTableBodyCellSelectMultiple";
-        };
-        return DTableBodyCellSelectMultiple;
-    }(DSelectMultiple));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -53961,27 +53917,514 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DTableBodyCellTree = /** @class */ (function (_super) {
-        __extends(DTableBodyCellTree, _super);
-        function DTableBodyCellTree(columnIndex, columnData, options) {
-            var _a;
-            var _this = _super.call(this, columnIndex, columnData, DLinks.toStateOptions((_a = options === null || options === void 0 ? void 0 : options.link) === null || _a === void 0 ? void 0 : _a.target, options)) || this;
+    var DTableBodyCellInputTreeInput = /** @class */ (function (_super) {
+        __extends(DTableBodyCellInputTreeInput, _super);
+        function DTableBodyCellInputTreeInput(options) {
+            var _this = _super.call(this, options) || this;
             _this._padding = new DBasePaddingAdjustable(_this._padding);
             return _this;
         }
-        DTableBodyCellTree.prototype.initOnClick = function (options) {
+        Object.defineProperty(DTableBodyCellInputTreeInput.prototype, "padding", {
+            get: function () {
+                return this._padding;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DTableBodyCellInputTreeInput.prototype.getType = function () {
+            return "DTableBodyCellInputTreeInput";
+        };
+        return DTableBodyCellInputTreeInput;
+    }(DInputText));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DTableBodyCellInputTreeMarker = /** @class */ (function (_super) {
+        __extends(DTableBodyCellInputTreeMarker, _super);
+        function DTableBodyCellInputTreeMarker() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DTableBodyCellInputTreeMarker.prototype.getType = function () {
+            return "DTableBodyCellInputTreeMarker";
+        };
+        return DTableBodyCellInputTreeMarker;
+    }(DButtonBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /**
+     * {@link DTable} states.
+     */
+    var DTableState = {
+        /**
+         * Start cells in rows.
+         */
+        START: "START",
+        /**
+         * End cells in rows.
+         */
+        END: "END",
+        /**
+         * Cells of frozen columns.
+         */
+        FROZEN: "FROZEN",
+        /**
+         * Cells of a right-most frozen column.
+         */
+        FROZEN_END: "FROZEN_END",
+        /**
+         * Header cells of sortable columns.
+         */
+        SORTABLE: "SORTABLE",
+        /**
+         * Header cells of columns sorted in the ascending order.
+         */
+        SORTED_ASCENDING: "SORTED_ASCENDING",
+        /**
+         * Header cells of columns sorted in the descending order.
+         */
+        SORTED_DESCENDING: "SORTED_DESCENDING",
+        /**
+         * Tree cells with child cells.
+         */
+        HAS_CHILDREN: "HAS_CHILDREN",
+        /**
+         * Tree cells opened.
+         */
+        OPENED: "OPENED",
+        /**
+         * Header cells of checkable columns.
+         */
+        CHECKABLE: "CHECKABLE",
+        /**
+         * Selectable row
+         */
+        SELECTABLE: "SELECTABLE"
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toBaseOptions = function (options) {
+        if (options != null) {
+            return {
+                weight: options.weight,
+                width: options.width
+            };
+        }
+        return undefined;
+    };
+    var DTableBodyCellInputTree = /** @class */ (function (_super) {
+        __extends(DTableBodyCellInputTree, _super);
+        function DTableBodyCellInputTree(columnIndex, column, onChange, options) {
+            var _this = _super.call(this, toBaseOptions(options)) || this;
+            _this._rowIndex = -1;
+            _this._columnIndex = columnIndex;
+            _this._column = column;
+            _this._onChange = onChange;
+            // Input
+            var input = _this.newInput(options);
+            _this._input = input;
+            _this.addChild(input);
+            // Marker
+            var marker = _this.newMarker(options);
+            _this._marker = marker;
+            _this.addChild(marker);
+            _this.state.isFocusable = false;
+            _this.state.isFocusReverse = true;
+            return _this;
+        }
+        DTableBodyCellInputTree.prototype.newInput = function (options) {
+            return new DTableBodyCellInputTreeInput(this.toInputOptions(options));
+        };
+        DTableBodyCellInputTree.prototype.toInputOptions = function (options) {
+            var _this = this;
+            return {
+                weight: 1,
+                text: options === null || options === void 0 ? void 0 : options.text,
+                editing: options === null || options === void 0 ? void 0 : options.editing,
+                when: options === null || options === void 0 ? void 0 : options.when,
+                cursor: options === null || options === void 0 ? void 0 : options.cursor,
+                on: {
+                    change: function (newValue, oldValue) {
+                        _this.onInputChange(newValue, oldValue);
+                    }
+                }
+            };
+        };
+        DTableBodyCellInputTree.prototype.onInputChange = function (newValue, oldValue) {
+            var row = this._row;
+            if (row !== undefined) {
+                var rowIndex = this._rowIndex;
+                var columnIndex = this._columnIndex;
+                this._column.setter(row, columnIndex, newValue);
+                this.emit("change", newValue, oldValue, this);
+                this._onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
+            }
+        };
+        DTableBodyCellInputTree.prototype.newMarker = function (options) {
+            var _this = this;
+            return new DTableBodyCellInputTreeMarker({
+                visible: false,
+                on: {
+                    active: function () {
+                        _this.onMarkerActive();
+                    }
+                }
+            });
+        };
+        DTableBodyCellInputTree.prototype.onMarkerActive = function () {
+            if (this._marker.state.is(DTableState.HAS_CHILDREN)) {
+                var row = this.parent;
+                if (row) {
+                    var body = row.parent;
+                    if (body) {
+                        var data = body.data;
+                        if (data && data.toggle) {
+                            data.toggle(this._row);
+                            this.emit("cellchange", null, null, this._row, this._rowIndex, this._columnIndex, this);
+                        }
+                    }
+                }
+            }
+        };
+        Object.defineProperty(DTableBodyCellInputTree.prototype, "row", {
+            get: function () {
+                return this._row;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DTableBodyCellInputTree.prototype, "rowIndex", {
+            get: function () {
+                return this._rowIndex;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DTableBodyCellInputTree.prototype, "columnIndex", {
+            get: function () {
+                return this._columnIndex;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DTableBodyCellInputTree.prototype, "column", {
+            get: function () {
+                return this._column;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DTableBodyCellInputTree.prototype.onRowSelect = function (e, local) {
+            if (local.x <= this.position.x + this._input.padding.getLeft()) {
+                return true;
+            }
+            return false;
+        };
+        DTableBodyCellInputTree.prototype.set = function (value, row, supplimental, rowIndex, columnIndex, forcibly) {
+            this._row = row;
+            this._rowIndex = rowIndex;
+            var input = this._input;
+            input.visible = true;
+            input.text = String(value);
+            var marker = this._marker;
+            if (isNumber(supplimental)) {
+                var isOpened = !!(supplimental & 0x1);
+                var hasChildren = !!(supplimental & 0x2);
+                var level = (supplimental >> 2);
+                var markerState = marker.state;
+                markerState.lock();
+                markerState.set(DTableState.HAS_CHILDREN, hasChildren);
+                markerState.set(DBaseState.DISABLED, !hasChildren);
+                markerState.set(DTableState.OPENED, isOpened);
+                markerState.unlock();
+                var padding = this.theme.getLevelPadding(level);
+                marker.width = padding;
+                if (hasChildren) {
+                    marker.show();
+                }
+                else {
+                    marker.hide();
+                }
+                input.padding.adjuster.left = padding;
+            }
+            else {
+                marker.state.removeAll(DTableState.OPENED, DTableState.HAS_CHILDREN);
+                marker.hide();
+            }
+            var column = this._column;
+            DTableBodyCells.setReadOnly(this._input, row, columnIndex, column);
+            DTableBodyCells.setRenderable(this, row, columnIndex, column);
+        };
+        DTableBodyCellInputTree.prototype.unset = function () {
+            this._row = undefined;
+            this._rowIndex = -1;
+            this._input.visible = false;
+            this._marker.hide();
+        };
+        DTableBodyCellInputTree.prototype.getType = function () {
+            return "DTableBodyCellInputTree";
+        };
+        return DTableBodyCellInputTree;
+    }(DBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toLinkOptions = function (cell, options) {
+        if (options) {
+            return {
+                url: toUrl(cell, options.url),
+                target: options.target,
+                checker: toChecker$1(cell, options.checker),
+                menu: options.menu
+            };
+        }
+        return undefined;
+    };
+    var toUrl = function (cell, url) {
+        if (isString(url) || url == null) {
+            return url;
+        }
+        else {
+            return function () {
+                var row = cell.row;
+                if (row !== undefined) {
+                    return url(row, cell.rowIndex, cell.columnIndex, cell);
+                }
+                return null;
+            };
+        }
+    };
+    var toChecker$1 = function (cell, checker) {
+        if (checker != null) {
+            return function () {
+                var row = cell.row;
+                if (row !== undefined) {
+                    return checker(row, cell.rowIndex, cell.columnIndex, cell);
+                }
+                return false;
+            };
+        }
+        return undefined;
+    };
+    var DTableBodyCellLink = /** @class */ (function (_super) {
+        __extends(DTableBodyCellLink, _super);
+        function DTableBodyCellLink(columnIndex, column, onChange, options) {
+            var _a;
+            return _super.call(this, columnIndex, column, onChange, DLinks.toStateOptions((_a = options === null || options === void 0 ? void 0 : options.link) === null || _a === void 0 ? void 0 : _a.target, options)) || this;
+        }
+        DTableBodyCellLink.prototype.initOnClick = function (when, theme, options) {
+            var _this = this;
+            this.link.apply(this, function (e) {
+                if (when === DButtonBaseWhen.CLICKED) {
+                    _this.onClick(e);
+                }
+            });
+        };
+        Object.defineProperty(DTableBodyCellLink.prototype, "link", {
+            get: function () {
+                var _a;
+                var result = this._link;
+                if (result == null) {
+                    result = new DLink(this.theme, toLinkOptions(this, (_a = this._options) === null || _a === void 0 ? void 0 : _a.link));
+                    this._link = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DTableBodyCellLink.prototype.getType = function () {
+            return "DTableBodyCellLink";
+        };
+        DTableBodyCellLink.prototype.onActivate = function (e) {
+            _super.prototype.onActivate.call(this, e);
+            this.link.open(e);
+        };
+        DTableBodyCellLink.prototype.open = function (inNewWindow) {
+            this.link.open(inNewWindow);
+        };
+        return DTableBodyCellLink;
+    }(DTableBodyCellButton));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DTableBodyCellSelectMenu = /** @class */ (function (_super) {
+        __extends(DTableBodyCellSelectMenu, _super);
+        function DTableBodyCellSelectMenu(columnIndex, column, onChange, options) {
+            var _this = _super.call(this, options) || this;
+            _this._rowIndex = -1;
+            _this._columnIndex = columnIndex;
+            _this._column = column;
+            _this._onChange = onChange;
+            return _this;
+        }
+        DTableBodyCellSelectMenu.prototype.onValueChange = function (newValue, oldValue, item) {
+            var row = this._row;
+            if (row !== undefined) {
+                var rowIndex = this._rowIndex;
+                var columnIndex = this._columnIndex;
+                this._column.setter(row, columnIndex, newValue);
+                _super.prototype.onValueChange.call(this, newValue, oldValue, item);
+                this._onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
+            }
+        };
+        DTableBodyCellSelectMenu.prototype.onKeyDownArrowDown = function (e) {
+            return false;
+        };
+        Object.defineProperty(DTableBodyCellSelectMenu.prototype, "row", {
+            get: function () {
+                return this._row;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DTableBodyCellSelectMenu.prototype, "rowIndex", {
+            get: function () {
+                return this._rowIndex;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DTableBodyCellSelectMenu.prototype, "columnIndex", {
+            get: function () {
+                return this._columnIndex;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DTableBodyCellSelectMenu.prototype, "column", {
+            get: function () {
+                return this._column;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DTableBodyCellSelectMenu.prototype.set = function (value, row, supplimental, rowIndex, columnIndex, forcibly) {
+            this._row = row;
+            this._rowIndex = rowIndex;
+            this.value = value;
+            var column = this._column;
+            DTableBodyCells.setReadOnly(this, row, columnIndex, column);
+            DTableBodyCells.setRenderable(this, row, columnIndex, column);
+        };
+        DTableBodyCellSelectMenu.prototype.unset = function () {
+            this._row = undefined;
+            this._rowIndex = -1;
+        };
+        DTableBodyCellSelectMenu.prototype.getType = function () {
+            return "DTableBodyCellSelectMenu";
+        };
+        return DTableBodyCellSelectMenu;
+    }(DSelect));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DTableBodyCellSelectMultiple = /** @class */ (function (_super) {
+        __extends(DTableBodyCellSelectMultiple, _super);
+        function DTableBodyCellSelectMultiple(columnIndex, column, onChange, options) {
+            var _this = _super.call(this, options) || this;
+            _this._rowIndex = -1;
+            _this._columnIndex = columnIndex;
+            _this._column = column;
+            _this._onChange = onChange;
+            return _this;
+        }
+        DTableBodyCellSelectMultiple.prototype.onValueChange = function (newValues, oldValues, items) {
+            var row = this._row;
+            if (row !== undefined) {
+                var rowIndex = this._rowIndex;
+                var columnIndex = this._columnIndex;
+                this._column.setter(row, columnIndex, newValues);
+                _super.prototype.onValueChange.call(this, newValues, oldValues, items);
+                this._onChange(newValues, oldValues, row, rowIndex, columnIndex, this);
+            }
+        };
+        DTableBodyCellSelectMultiple.prototype.onKeyDownArrowDown = function (e) {
+            return false;
+        };
+        Object.defineProperty(DTableBodyCellSelectMultiple.prototype, "row", {
+            get: function () {
+                return this._row;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DTableBodyCellSelectMultiple.prototype, "rowIndex", {
+            get: function () {
+                return this._rowIndex;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DTableBodyCellSelectMultiple.prototype, "columnIndex", {
+            get: function () {
+                return this._columnIndex;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DTableBodyCellSelectMultiple.prototype, "column", {
+            get: function () {
+                return this._column;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DTableBodyCellSelectMultiple.prototype.set = function (value, row, supplimental, rowIndex, columnIndex, forcibly) {
+            this._row = row;
+            this._rowIndex = rowIndex;
+            this.values = value;
+            var column = this._column;
+            DTableBodyCells.setReadOnly(this, row, columnIndex, column);
+            DTableBodyCells.setRenderable(this, row, columnIndex, column);
+        };
+        DTableBodyCellSelectMultiple.prototype.unset = function () {
+            this._row = undefined;
+            this._rowIndex = -1;
+        };
+        DTableBodyCellSelectMultiple.prototype.getType = function () {
+            return "DTableBodyCellSelectMultiple";
+        };
+        return DTableBodyCellSelectMultiple;
+    }(DSelectMultiple));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DTableBodyCellTree = /** @class */ (function (_super) {
+        __extends(DTableBodyCellTree, _super);
+        function DTableBodyCellTree(columnIndex, column, onChange, options) {
+            var _a;
+            var _this = _super.call(this, columnIndex, column, onChange, DLinks.toStateOptions((_a = options === null || options === void 0 ? void 0 : options.link) === null || _a === void 0 ? void 0 : _a.target, options)) || this;
+            _this._padding = new DBasePaddingAdjustable(_this._padding);
+            return _this;
+        }
+        DTableBodyCellTree.prototype.initOnClick = function (when, theme, options) {
             var _this = this;
             var link = this.link;
             if (link) {
-                link.apply(this, function (e) { return _this.onActive(e); });
-                UtilPointerEvent.onClick(this, function (e) {
-                    if (!link.enable && _this.state.isActionable) {
-                        _this.onActive(e);
+                link.apply(this, function (e) {
+                    if (when === DButtonBaseWhen.CLICKED) {
+                        _this.onClick(e);
                     }
                 });
             }
             else {
-                _super.prototype.initOnClick.call(this, options);
+                _super.prototype.initOnClick.call(this, when, theme, options);
             }
         };
         Object.defineProperty(DTableBodyCellTree.prototype, "link", {
@@ -54004,37 +54447,47 @@
             }
             return null;
         };
-        DTableBodyCellTree.prototype.onActive = function (e) {
-            this.emit("active", this);
-            var row = this._row;
-            if (row !== undefined) {
-                var rowIndex = this._rowIndex;
-                var columnIndex = this._columnIndex;
-                this.emit("cellchange", null, null, row, rowIndex, columnIndex, this);
-                var link = this.link;
-                if (link === null || link === void 0 ? void 0 : link.enable) {
-                    link.open(link.inNewWindow(e));
-                }
-                else {
-                    var parent_1 = this.parent;
-                    if (parent_1) {
-                        var body = parent_1.parent;
-                        if (body) {
-                            var data = body.data;
-                            if (data && data.toggle) {
-                                data.toggle(row);
-                            }
-                        }
-                    }
-                }
+        DTableBodyCellTree.prototype.onActivate = function (e) {
+            var _a;
+            _super.prototype.onActivate.call(this, e);
+            if (this.state.is(DTableState.HAS_CHILDREN)) {
+                this.toggle();
             }
+            else {
+                (_a = this.link) === null || _a === void 0 ? void 0 : _a.open(e);
+            }
+        };
+        DTableBodyCellTree.prototype.toggle = function () {
+            var row = this._row;
+            if (row === undefined) {
+                return;
+            }
+            var parent = this.parent;
+            if (parent == null) {
+                return;
+            }
+            var body = parent.parent;
+            if (body == null) {
+                return;
+            }
+            var data = body.data;
+            if (data && data.toggle) {
+                data.toggle(row);
+            }
+        };
+        DTableBodyCellTree.prototype.onRowSelect = function (e, local) {
+            if (local.x <= this.position.x + this.padding.getLeft()) {
+                this.toggle();
+                return true;
+            }
+            return false;
         };
         DTableBodyCellTree.prototype.set = function (value, row, supplimental, rowIndex, columnIndex, forcibly) {
             this._row = row;
             this._rowIndex = rowIndex;
             this.text = value;
-            var columnData = this._columnData;
-            DTableBodyCells.setRenderable(this, row, columnIndex, columnData);
+            var column = this._column;
+            DTableBodyCells.setRenderable(this, row, columnIndex, column);
             var link = this.link;
             var adjuster = this._padding.adjuster;
             if (isNumber(supplimental)) {
@@ -54043,19 +54496,19 @@
                 var level = (supplimental >> 2);
                 var state = this.state;
                 state.lock();
-                state.set(DTableCellState.HAS_CHILDREN, hasChildren);
-                state.set(DTableCellState.OPENED, isOpened);
+                state.set(DTableState.HAS_CHILDREN, hasChildren);
+                state.set(DTableState.OPENED, isOpened);
                 state.unlock();
                 if (link) {
-                    link.enable = !hasChildren;
+                    link.menu.enable = !hasChildren;
                 }
                 adjuster.left = this.theme.getLevelPadding(level);
             }
             else {
-                this.state.removeAll(DTableCellState.OPENED, DTableCellState.HAS_CHILDREN);
+                this.state.removeAll(DTableState.OPENED, DTableState.HAS_CHILDREN);
                 adjuster.left = 0;
                 if (link) {
-                    link.enable = false;
+                    link.menu.enable = false;
                 }
             }
         };
@@ -54071,30 +54524,36 @@
      */
     var DTableBodyCellTime = /** @class */ (function (_super) {
         __extends(DTableBodyCellTime, _super);
-        function DTableBodyCellTime(columnIndex, columnData, options) {
+        function DTableBodyCellTime(columnIndex, column, onChange, options) {
             var _this = _super.call(this, options) || this;
             _this._rowIndex = -1;
             _this._columnIndex = columnIndex;
-            _this._columnData = columnData;
-            _this.on("active", function () {
-                var currentTime = _this._textValueComputed.getTime();
-                var dialog = _this.dialog;
-                dialog.current = new Date(currentTime);
-                dialog.new = new Date(currentTime);
-                dialog.open().then(function () {
-                    var newValue = dialog.new;
-                    var oldValue = dialog.current;
-                    _this.text = new Date(newValue.getTime());
-                    var row = _this._row;
-                    if (row !== undefined) {
-                        var rowIndex = _this._rowIndex;
-                        _this._columnData.setter(row, columnIndex, newValue);
-                        _this.emit("cellchange", newValue, oldValue, row, rowIndex, columnIndex, _this);
-                    }
-                });
-            });
+            _this._column = column;
+            _this._onChange = onChange;
             return _this;
         }
+        DTableBodyCellTime.prototype.onActivate = function (e) {
+            var _this = this;
+            var _a, _b;
+            _super.prototype.onActivate.call(this, e);
+            var value = (_b = (_a = this._textValueComputed) === null || _a === void 0 ? void 0 : _a.getTime()) !== null && _b !== void 0 ? _b : Date.now();
+            var dialog = this.dialog;
+            dialog.current = new Date(value);
+            dialog.new = new Date(value);
+            dialog.open().then(function () {
+                var newValue = dialog.new;
+                var oldValue = dialog.current;
+                _this.text = new Date(newValue.getTime());
+                var row = _this._row;
+                if (row !== undefined) {
+                    var rowIndex = _this._rowIndex;
+                    var columnIndex = _this._columnIndex;
+                    _this._column.setter(row, columnIndex, newValue);
+                    _this.emit("change", newValue, oldValue, _this);
+                    _this._onChange(newValue, oldValue, row, rowIndex, columnIndex, _this);
+                }
+            });
+        };
         DTableBodyCellTime.prototype.getDatetimeMask = function () {
             var _a, _b;
             var result = this._datetimeMask;
@@ -54110,14 +54569,11 @@
                 var dialog = this._dialog;
                 if (dialog == null) {
                     var options = (_a = this._options) === null || _a === void 0 ? void 0 : _a.dialog;
-                    if (options != null) {
+                    if (options) {
                         dialog = new DDialogTime(options);
                     }
                     else {
-                        if (DTableBodyCellTime.DIALOG == null) {
-                            DTableBodyCellTime.DIALOG = new DDialogTime();
-                        }
-                        dialog = DTableBodyCellTime.DIALOG;
+                        dialog = DDialogTimes.getInstance();
                     }
                     this._dialog = dialog;
                 }
@@ -54147,6 +54603,13 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(DTableBodyCellTime.prototype, "column", {
+            get: function () {
+                return this._column;
+            },
+            enumerable: false,
+            configurable: true
+        });
         DTableBodyCellTime.prototype.set = function (value, row, supplimental, rowIndex, columnIndex, forcibly) {
             this._row = row;
             this._rowIndex = rowIndex;
@@ -54163,15 +54626,18 @@
             }
             else if (isNumber(value)) {
                 var textValueComputed = this._textValueComputed;
-                if (textValueComputed.getTime() !== value) {
+                if (textValueComputed == null) {
+                    this.text = new Date(value);
+                }
+                else if (textValueComputed.getTime() !== value) {
                     textValueComputed.setTime(value);
                     this.onTextChange();
                     this.createOrUpdateText();
                 }
             }
-            var columnData = this._columnData;
-            DTableBodyCells.setReadOnly(this, row, columnIndex, columnData);
-            DTableBodyCells.setRenderable(this, row, columnIndex, columnData);
+            var column = this._column;
+            DTableBodyCells.setReadOnly(this, row, columnIndex, column);
+            DTableBodyCells.setRenderable(this, row, columnIndex, column);
         };
         DTableBodyCellTime.prototype.unset = function () {
             this._row = undefined;
@@ -54187,40 +54653,45 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var DTableDataSelectionType;
+    (function (DTableDataSelectionType) {
+        DTableDataSelectionType[DTableDataSelectionType["NONE"] = 0] = "NONE";
+        DTableDataSelectionType[DTableDataSelectionType["SINGLE"] = 1] = "SINGLE";
+        DTableDataSelectionType[DTableDataSelectionType["MULTIPLE"] = 2] = "MULTIPLE";
+    })(DTableDataSelectionType || (DTableDataSelectionType = {}));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var DTableRow = /** @class */ (function (_super) {
         __extends(DTableRow, _super);
         function DTableRow(options) {
-            return _super.call(this, options) || this;
+            var _a, _b;
+            var _this = _super.call(this, options) || this;
+            _this.state.isFocusReverse = true;
+            _this._reverse = true;
+            _this._frozen = (_a = options.frozen) !== null && _a !== void 0 ? _a : 0;
+            _this._columns = (_b = options.columns) !== null && _b !== void 0 ? _b : [];
+            return _this;
         }
-        DTableRow.prototype.init = function (options) {
-            var _a;
-            _super.prototype.init.call(this, options);
-            // State
-            if (!!options.even) {
-                this.state.isAlternated = true;
-            }
-            this.state.isFocusReverse = true;
-            this._reverse = true;
-            // Frozen
-            var frozen = this._frozen = (_a = options.frozen) !== null && _a !== void 0 ? _a : 0;
-            // Cells
-            var columns = this._columns = options.columns || [];
+        DTableRow.prototype.initCells = function (options, columns, frozen) {
             var iend = this.toIndexEnd(columns);
             for (var i = columns.length - 1; 0 <= i; --i) {
                 var cell = this.newCell(i, columns[i], columns, options);
                 var cellState = cell.state;
                 cellState.lock(false);
                 if (i === 0) {
-                    cellState.add(DTableCellState.START);
+                    cellState.add(DTableState.START);
                 }
                 if (i === iend) {
-                    cellState.add(DTableCellState.END);
+                    cellState.add(DTableState.END);
                 }
                 if (i < frozen) {
-                    cellState.add(DTableCellState.FROZEN);
+                    cellState.add(DTableState.FROZEN);
                 }
                 if (i === frozen - 1) {
-                    cellState.add(DTableCellState.FROZEN_END);
+                    cellState.add(DTableState.FROZEN_END);
                 }
                 cellState.unlock();
                 this.addChild(cell);
@@ -54239,22 +54710,6 @@
         DTableRow.prototype.onRefit = function () {
             _super.prototype.onRefit.call(this);
             this.resetFrozenCellPosition();
-        };
-        DTableRow.prototype.getFocusedChildClippingPositionX = function (focused) {
-            var frozen = this._frozen;
-            if (0 < frozen) {
-                var cells = this.children;
-                var cellIndex = cells.indexOf(focused);
-                if (0 <= cellIndex) {
-                    var cellsLength = cells.length;
-                    var columnIndex = cellsLength - 1 - cellIndex;
-                    if (frozen <= columnIndex) {
-                        var cell = cells[cellsLength - frozen];
-                        return cell.position.x + cell.width;
-                    }
-                }
-            }
-            return 0;
         };
         DTableRow.prototype.updateFrozenCellPosition = function (x) {
             var columns = this._columns;
@@ -54307,182 +54762,190 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var isBodyCell = function (target) {
-        return (target != null && "set" in target);
-    };
     var DTableBodyRow = /** @class */ (function (_super) {
         __extends(DTableBodyRow, _super);
-        function DTableBodyRow(options) {
+        function DTableBodyRow(onChange, isEven, options) {
             var _this = _super.call(this, options) || this;
-            _this._value = undefined;
             _this._index = -1;
+            _this._onCellChangeBound = function (newValue, oldValue, row, rowIndex, columnIndex) {
+                _this.emit("change", newValue, oldValue, row, rowIndex, columnIndex, _this);
+                onChange(newValue, oldValue, row, rowIndex, columnIndex, _this);
+            };
+            _this.state.isAlternated = isEven;
+            _this.initCells(options, _this._columns, _this._frozen);
             return _this;
         }
-        DTableBodyRow.prototype.init = function (options) {
-            var _this = this;
-            this._onCellChangeBound = function (newValue, oldValue, row, rowIndex, columnIndex) {
-                _this.emit("rowchange", newValue, oldValue, row, rowIndex, columnIndex, _this);
-            };
-            _super.prototype.init.call(this, options);
-        };
-        DTableBodyRow.prototype.newCell = function (columnIndex, columnData, columnDataList, options) {
-            var cellOptions = this.toCellOptions(columnIndex, columnData, options);
-            if (columnData.editing.enable !== false) {
-                var cell = this.newCellEditable(columnIndex, columnData, cellOptions);
-                cell.on("cellchange", this._onCellChangeBound);
-                return cell;
+        DTableBodyRow.prototype.newCell = function (columnIndex, column, columns, options) {
+            var onChange = this._onCellChangeBound;
+            var cellOptions = this.toCellOptions(columnIndex, column, options);
+            if (column.editing.enable !== false) {
+                return this.newCellEditable(columnIndex, column, onChange, cellOptions);
             }
             else {
-                var cell = this.newCellUnediable(columnIndex, columnData, cellOptions);
-                if (columnData.type === DTableColumnType.TREE) {
-                    cell.on("cellchange", this._onCellChangeBound);
-                }
-                else {
+                var cell = this.newCellUnediable(columnIndex, column, onChange, cellOptions);
+                if (column.type !== DTableColumnType.TREE) {
                     cell.state.isReadOnly = true;
                 }
                 return cell;
             }
         };
-        DTableBodyRow.prototype.newCellEditable = function (columnIndex, columnData, options) {
-            switch (columnData.type) {
+        DTableBodyRow.prototype.newCellEditable = function (columnIndex, column, onChange, options) {
+            switch (column.type) {
                 case DTableColumnType.INDEX:
-                    return new DTableBodyCellIndex(columnIndex, columnData, options);
+                    return new DTableBodyCellIndex(columnIndex, column, onChange, options);
                 case DTableColumnType.TEXT:
-                    return new DTableBodyCellInputText(columnIndex, columnData, options);
+                    return new DTableBodyCellInputText(columnIndex, column, onChange, options);
                 case DTableColumnType.TREE:
-                    return new DTableBodyCellInputTree(columnIndex, columnData, options);
+                    return new DTableBodyCellInputTree(columnIndex, column, onChange, options);
                 case DTableColumnType.INTEGER:
-                    return new DTableBodyCellInputInteger(columnIndex, columnData, options);
+                    return new DTableBodyCellInputInteger(columnIndex, column, onChange, options);
                 case DTableColumnType.REAL:
-                    return new DTableBodyCellInputReal(columnIndex, columnData, options);
+                    return new DTableBodyCellInputReal(columnIndex, column, onChange, options);
                 case DTableColumnType.CHECK:
                 case DTableColumnType.CHECK_SINGLE:
-                    return new DTableBodyCellCheck(columnIndex, columnData, options);
+                    return new DTableBodyCellCheck(columnIndex, column, onChange, options);
                 case DTableColumnType.COLOR:
-                    return new DTableBodyCellColor(columnIndex, columnData, options);
+                    return new DTableBodyCellColor(columnIndex, column, onChange, options);
                 case DTableColumnType.BUTTON:
-                    return new DTableBodyCellButton(columnIndex, columnData, options);
+                    return new DTableBodyCellButton(columnIndex, column, onChange, options);
                 case DTableColumnType.LINK:
-                    return new DTableBodyCellLink(columnIndex, columnData, options);
+                    return new DTableBodyCellLink(columnIndex, column, onChange, options);
                 case DTableColumnType.SELECT:
-                    return this.newCellSelect(columnIndex, columnData, options);
+                    return this.newCellSelect(columnIndex, column, onChange, options);
                 case DTableColumnType.ACTION:
-                    return this.newCellAction(columnIndex, columnData, options);
+                    return this.newCellAction(columnIndex, column, onChange, options);
                 case DTableColumnType.DATE:
-                    return new DTableBodyCellDate(columnIndex, columnData, options);
+                    return new DTableBodyCellDate(columnIndex, column, onChange, options);
                 case DTableColumnType.DATETIME:
-                    return new DTableBodyCellDatetime(columnIndex, columnData, options);
+                    return new DTableBodyCellDatetime(columnIndex, column, onChange, options);
                 case DTableColumnType.TIME:
-                    return new DTableBodyCellTime(columnIndex, columnData, options);
+                    return new DTableBodyCellTime(columnIndex, column, onChange, options);
                 default:
-                    return new DTableBodyCellText(columnIndex, columnData, options);
+                    return new DTableBodyCellText(columnIndex, column, onChange, options);
             }
         };
-        DTableBodyRow.prototype.newCellUnediable = function (columnIndex, columnData, options) {
-            switch (columnData.type) {
+        DTableBodyRow.prototype.newCellUnediable = function (columnIndex, column, onChange, options) {
+            switch (column.type) {
                 case DTableColumnType.INDEX:
-                    return new DTableBodyCellIndex(columnIndex, columnData, options);
+                    return new DTableBodyCellIndex(columnIndex, column, onChange, options);
                 case DTableColumnType.TEXT:
-                    return new DTableBodyCellText(columnIndex, columnData, options);
+                    return new DTableBodyCellText(columnIndex, column, onChange, options);
                 case DTableColumnType.TREE:
-                    return new DTableBodyCellTree(columnIndex, columnData, options);
+                    return new DTableBodyCellTree(columnIndex, column, onChange, options);
                 case DTableColumnType.INTEGER:
-                    return new DTableBodyCellText(columnIndex, columnData, options);
+                    return new DTableBodyCellText(columnIndex, column, onChange, options);
                 case DTableColumnType.REAL:
-                    return new DTableBodyCellText(columnIndex, columnData, options);
+                    return new DTableBodyCellText(columnIndex, column, onChange, options);
                 case DTableColumnType.CHECK:
                 case DTableColumnType.CHECK_SINGLE:
-                    return new DTableBodyCellCheck(columnIndex, columnData, options);
+                    return new DTableBodyCellCheck(columnIndex, column, onChange, options);
                 case DTableColumnType.COLOR:
-                    return new DTableBodyCellColor(columnIndex, columnData, options);
+                    return new DTableBodyCellColor(columnIndex, column, onChange, options);
                 case DTableColumnType.BUTTON:
-                    return new DTableBodyCellButton(columnIndex, columnData, options);
+                    return new DTableBodyCellButton(columnIndex, column, onChange, options);
                 case DTableColumnType.LINK:
-                    return new DTableBodyCellLink(columnIndex, columnData, options);
+                    return new DTableBodyCellLink(columnIndex, column, onChange, options);
                 case DTableColumnType.SELECT:
-                    return this.newCellSelect(columnIndex, columnData, options);
+                    return this.newCellSelect(columnIndex, column, onChange, options);
                 case DTableColumnType.ACTION:
-                    return this.newCellAction(columnIndex, columnData, options);
+                    return this.newCellAction(columnIndex, column, onChange, options);
                 case DTableColumnType.DATE:
-                    return new DTableBodyCellDate(columnIndex, columnData, options);
+                    return new DTableBodyCellDate(columnIndex, column, onChange, options);
                 case DTableColumnType.DATETIME:
-                    return new DTableBodyCellDatetime(columnIndex, columnData, options);
+                    return new DTableBodyCellDatetime(columnIndex, column, onChange, options);
                 case DTableColumnType.TIME:
-                    return new DTableBodyCellTime(columnIndex, columnData, options);
+                    return new DTableBodyCellTime(columnIndex, column, onChange, options);
                 default:
-                    return new DTableBodyCellText(columnIndex, columnData, options);
+                    return new DTableBodyCellText(columnIndex, column, onChange, options);
             }
         };
-        DTableBodyRow.prototype.newCellSelect = function (columnIndex, columnData, options) {
-            var selecting = columnData.selecting;
-            if (selecting.menu != null) {
-                return new DTableBodyCellSelectMenu(columnIndex, columnData, options);
-            }
-            else if (selecting.multiple != null) {
-                return new DTableBodyCellSelectMultiple(columnIndex, columnData, options);
-            }
-            else if (selecting.dialog != null) {
-                return new DTableBodyCellSelectDialog(columnIndex, columnData, options);
-            }
-            else if (selecting.promise != null) {
-                return new DTableBodyCellSelectPromise(columnIndex, columnData, options);
-            }
-            else {
-                return new DTableBodyCellText(columnIndex, columnData, options);
-            }
-        };
-        DTableBodyRow.prototype.newCellAction = function (columnIndex, column, options) {
+        DTableBodyRow.prototype.newCellSelect = function (columnIndex, column, onChange, options) {
             var selecting = column.selecting;
             if (selecting.menu != null) {
-                return new DTableBodyCellActionMenu(columnIndex, column, options);
+                return new DTableBodyCellSelectMenu(columnIndex, column, onChange, options);
+            }
+            else if (selecting.multiple != null) {
+                return new DTableBodyCellSelectMultiple(columnIndex, column, onChange, options);
             }
             else if (selecting.dialog != null) {
-                return new DTableBodyCellActionDialog(columnIndex, column, options);
+                return new DTableBodyCellSelectDialog(columnIndex, column, onChange, options);
             }
             else if (selecting.promise != null) {
-                return new DTableBodyCellActionPromise(columnIndex, column, options);
+                return new DTableBodyCellSelectPromise(columnIndex, column, onChange, options);
             }
             else {
-                return new DTableBodyCellText(columnIndex, column, options);
+                return new DTableBodyCellText(columnIndex, column, onChange, options);
             }
         };
-        DTableBodyRow.prototype.toCellOptions = function (columnIndex, columnData, options) {
-            var result = (columnData.body || options.cell);
+        DTableBodyRow.prototype.newCellAction = function (columnIndex, column, onChange, options) {
+            var selecting = column.selecting;
+            if (selecting.menu != null) {
+                return new DTableBodyCellActionMenu(columnIndex, column, onChange, options);
+            }
+            else if (selecting.dialog != null) {
+                return new DTableBodyCellActionDialog(columnIndex, column, onChange, options);
+            }
+            else if (selecting.promise != null) {
+                return new DTableBodyCellActionPromise(columnIndex, column, onChange, options);
+            }
+            else {
+                return new DTableBodyCellText(columnIndex, column, onChange, options);
+            }
+        };
+        DTableBodyRow.prototype.toCellOptions = function (columnIndex, column, options) {
+            var _a, _b;
+            var result = (column.body || options.cell);
+            var columnWeight = column.weight;
+            var columnWidth = column.width;
+            var columnFormatter = column.formatter;
+            var columnAlign = column.align;
+            var columnSelecting = column.selecting;
+            var columnSelectingMenu = columnSelecting.menu || columnSelecting.multiple;
             if (result != null) {
-                result.weight = columnData.weight;
-                result.width = columnData.width;
-                var text = result.text = result.text || {};
-                var align = text.align = text.align || {};
-                align.horizontal = columnData.align;
-                text.formatter = columnData.formatter;
-                if (columnData.selecting.menu) {
-                    result.menu = columnData.selecting.menu;
-                }
-                if (columnData.selecting.multiple) {
-                    result.menu = columnData.selecting.menu;
-                }
+                result.weight = columnWeight;
+                result.width = columnWidth;
+                var text = result.text || {};
+                result.text = text;
+                text.formatter || (text.formatter = columnFormatter);
+                var textAlign = text.align || {};
+                text.align = textAlign;
+                textAlign.horizontal = columnAlign;
+                result.menu || (result.menu = columnSelectingMenu);
             }
             else {
                 result = {
-                    weight: columnData.weight,
-                    width: columnData.width,
+                    weight: columnWeight,
+                    width: columnWidth,
                     text: {
-                        formatter: columnData.formatter,
+                        formatter: columnFormatter,
                         align: {
-                            horizontal: columnData.align
+                            horizontal: columnAlign
                         }
                     },
-                    menu: columnData.selecting.menu || columnData.selecting.multiple
+                    menu: columnSelectingMenu
                 };
             }
-            if (columnData.editing.enable !== false) {
-                var editing = result.editing = result.editing || {};
-                editing.formatter = editing.formatter || columnData.editing.formatter;
-                editing.unformatter = editing.unformatter || columnData.editing.unformatter;
-                editing.validator = editing.validator || columnData.editing.validator;
+            var columnEditing = column.editing;
+            if (columnEditing.enable !== false) {
+                var editing = result.editing || {};
+                result.editing = editing;
+                editing.formatter || (editing.formatter = columnEditing.formatter);
+                editing.unformatter || (editing.unformatter = columnEditing.unformatter);
+                editing.validator || (editing.validator = columnEditing.validator);
             }
-            if (columnData.link) {
-                result.link = columnData.link;
+            var columnLink = column.link;
+            if (columnLink) {
+                result.link = columnLink;
+            }
+            var selectionType = ((_b = (_a = options === null || options === void 0 ? void 0 : options.selection) === null || _a === void 0 ? void 0 : _a.type) !== null && _b !== void 0 ? _b : DTableDataSelectionType.NONE);
+            if (selectionType !== DTableDataSelectionType.NONE) {
+                result.when = "DOUBLE_CLICKED";
+                result.cursor = function (state) {
+                    if (state.in(DTableState.SELECTABLE)) {
+                        return "pointer";
+                    }
+                    return undefined;
+                };
             }
             return result;
         };
@@ -54515,6 +54978,9 @@
             enumerable: false,
             configurable: true
         });
+        DTableBodyRow.prototype.isCell = function (target) {
+            return (target != null && "set" in target);
+        };
         DTableBodyRow.prototype.set = function (value, supplimental, rowIndex, forcibly) {
             if (forcibly || this._value !== value || this._index !== rowIndex) {
                 this._value = value;
@@ -54527,7 +54993,7 @@
                     var cell = cells[i];
                     var columnIndex = columnsLength - 1 - i;
                     var column = columns[columnIndex];
-                    if (isBodyCell(cell)) {
+                    if (this.isCell(cell)) {
                         cell.set(column.getter(value, columnIndex), value, supplimental, rowIndex, columnIndex, forcibly);
                     }
                 }
@@ -54545,7 +55011,7 @@
                 var cellsLength = cells.length;
                 for (var i = 0; i < cellsLength; ++i) {
                     var cell = cells[i];
-                    if (isBodyCell(cell)) {
+                    if (this.isCell(cell)) {
                         cell.unset();
                     }
                 }
@@ -54572,9 +55038,9 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DTableDataFilterImpl = /** @class */ (function (_super) {
-        __extends(DTableDataFilterImpl, _super);
-        function DTableDataFilterImpl(parent) {
+    var DTableDataListFilter = /** @class */ (function (_super) {
+        __extends(DTableDataListFilter, _super);
+        function DTableDataListFilter(parent) {
             var _this = _super.call(this) || this;
             _this._id = 0;
             _this._idUpdated = -1;
@@ -54585,29 +55051,29 @@
             _this._filtered = null;
             return _this;
         }
-        Object.defineProperty(DTableDataFilterImpl.prototype, "id", {
+        Object.defineProperty(DTableDataListFilter.prototype, "id", {
             get: function () {
                 return this._id;
             },
             enumerable: false,
             configurable: true
         });
-        DTableDataFilterImpl.prototype.apply = function () {
+        DTableDataListFilter.prototype.apply = function () {
             this._isApplied = true;
             this._id += 1;
             this._parent.update();
         };
-        DTableDataFilterImpl.prototype.unapply = function () {
+        DTableDataListFilter.prototype.unapply = function () {
             if (this._isApplied) {
                 this._isApplied = false;
                 this._id += 1;
                 this._parent.update();
             }
         };
-        DTableDataFilterImpl.prototype.isApplied = function () {
+        DTableDataListFilter.prototype.isApplied = function () {
             return this._isApplied;
         };
-        DTableDataFilterImpl.prototype.newFiltered = function () {
+        DTableDataListFilter.prototype.newFiltered = function () {
             var filter = this._filter;
             if (filter != null) {
                 var filtered = [];
@@ -54656,18 +55122,18 @@
                 return null;
             }
         };
-        DTableDataFilterImpl.prototype.get = function () {
+        DTableDataListFilter.prototype.get = function () {
             return this._filter;
         };
-        DTableDataFilterImpl.prototype.set = function (filter) {
+        DTableDataListFilter.prototype.set = function (filter) {
             if (this._filter !== filter) {
                 this._filter = filter;
             }
         };
-        DTableDataFilterImpl.prototype.toDirty = function () {
+        DTableDataListFilter.prototype.toDirty = function () {
             this._id += 1;
         };
-        DTableDataFilterImpl.prototype.update = function () {
+        DTableDataListFilter.prototype.update = function () {
             if (this._id !== this._idUpdated || this._parent.sorter.id !== this._sorterId) {
                 this._idUpdated = this._id;
                 this._sorterId = this._parent.sorter.id;
@@ -54681,7 +55147,7 @@
                 }
             }
         };
-        Object.defineProperty(DTableDataFilterImpl.prototype, "indices", {
+        Object.defineProperty(DTableDataListFilter.prototype, "indices", {
             get: function () {
                 this.update();
                 return this._filtered;
@@ -54689,7 +55155,7 @@
             enumerable: false,
             configurable: true
         });
-        DTableDataFilterImpl.prototype.map = function (sortedIndex) {
+        DTableDataListFilter.prototype.map = function (sortedIndex) {
             var result = sortedIndex;
             var indicesFiltered = this.indices;
             if (indicesFiltered) {
@@ -54703,7 +55169,7 @@
             }
             return result;
         };
-        DTableDataFilterImpl.prototype.unmap = function (index) {
+        DTableDataListFilter.prototype.unmap = function (index) {
             var result = index;
             var indicesFiltered = this.indices;
             if (indicesFiltered) {
@@ -54711,7 +55177,7 @@
             }
             return result;
         };
-        return DTableDataFilterImpl;
+        return DTableDataListFilter;
     }(pixi_js.utils.EventEmitter));
 
     var DTableDataListMapped = /** @class */ (function () {
@@ -54801,46 +55267,31 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DTableDataSelectionType;
-    (function (DTableDataSelectionType) {
-        DTableDataSelectionType[DTableDataSelectionType["NONE"] = 0] = "NONE";
-        DTableDataSelectionType[DTableDataSelectionType["SINGLE"] = 1] = "SINGLE";
-        DTableDataSelectionType[DTableDataSelectionType["MULTIPLE"] = 2] = "MULTIPLE";
-    })(DTableDataSelectionType || (DTableDataSelectionType = {}));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var COMPARATOR = function (a, b) {
         return a[0] - b[0];
     };
-    var DTableDataSelectionImpl = /** @class */ (function (_super) {
-        __extends(DTableDataSelectionImpl, _super);
-        function DTableDataSelectionImpl(parent, options) {
+    var DTableDataListSelection = /** @class */ (function (_super) {
+        __extends(DTableDataListSelection, _super);
+        function DTableDataListSelection(parent, options) {
+            var _a;
             var _this = _super.call(this) || this;
             _this._parent = parent;
-            _this._type = _this.toType(options);
+            _this._type = toEnum((_a = options === null || options === void 0 ? void 0 : options.type) !== null && _a !== void 0 ? _a : DTableDataSelectionType.NONE, DTableDataSelectionType);
             _this._indices = new Set();
             return _this;
         }
-        DTableDataSelectionImpl.prototype.toType = function (options) {
-            return (options && options.type != null ?
-                (isString(options.type) ? DTableDataSelectionType[options.type] : options.type) :
-                DTableDataSelectionType.NONE);
-        };
-        Object.defineProperty(DTableDataSelectionImpl.prototype, "type", {
+        Object.defineProperty(DTableDataListSelection.prototype, "type", {
             get: function () {
                 return this._type;
             },
             enumerable: false,
             configurable: true
         });
-        DTableDataSelectionImpl.prototype.onChange = function () {
+        DTableDataListSelection.prototype.onChange = function () {
             this._parent.update();
             this.emit("change", this);
         };
-        DTableDataSelectionImpl.prototype.toggle = function (rowIndex) {
+        DTableDataListSelection.prototype.toggle = function (rowIndex) {
             var indices = this._indices;
             if (indices.has(rowIndex)) {
                 indices.delete(rowIndex);
@@ -54850,7 +55301,7 @@
             }
             this.onChange();
         };
-        DTableDataSelectionImpl.prototype.add = function (rowIndex) {
+        DTableDataListSelection.prototype.add = function (rowIndex) {
             var indices = this._indices;
             var oldSize = indices.size;
             indices.add(rowIndex);
@@ -54859,7 +55310,7 @@
                 this.onChange();
             }
         };
-        Object.defineProperty(DTableDataSelectionImpl.prototype, "first", {
+        Object.defineProperty(DTableDataListSelection.prototype, "first", {
             get: function () {
                 var indices = this._indices;
                 if (0 < indices.size) {
@@ -54876,7 +55327,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(DTableDataSelectionImpl.prototype, "last", {
+        Object.defineProperty(DTableDataListSelection.prototype, "last", {
             get: function () {
                 var indices = this._indices;
                 if (0 < indices.size) {
@@ -54891,13 +55342,13 @@
             enumerable: false,
             configurable: true
         });
-        DTableDataSelectionImpl.prototype.addTo = function (rowIndex) {
+        DTableDataListSelection.prototype.addTo = function (rowIndex) {
             var lastRowIndex = this.last;
             if (lastRowIndex != null) {
                 this.addRange(lastRowIndex, false, rowIndex, true);
             }
         };
-        DTableDataSelectionImpl.prototype.addRange = function (from, includeFrom, to, includeTo) {
+        DTableDataListSelection.prototype.addRange = function (from, includeFrom, to, includeTo) {
             var indices = this._indices;
             var oldSize = indices.size;
             if (from < to) {
@@ -54915,7 +55366,7 @@
                 this.onChange();
             }
         };
-        DTableDataSelectionImpl.prototype.addAll = function (rowIndices) {
+        DTableDataListSelection.prototype.addAll = function (rowIndices) {
             var indices = this._indices;
             var oldSize = indices.size;
             for (var i = 0, imax = rowIndices.length; i < imax; ++i) {
@@ -54926,22 +55377,22 @@
                 this.onChange();
             }
         };
-        DTableDataSelectionImpl.prototype.contains = function (rowIndex) {
+        DTableDataListSelection.prototype.contains = function (rowIndex) {
             return this._indices.has(rowIndex);
         };
-        DTableDataSelectionImpl.prototype.remove = function (rowIndex) {
+        DTableDataListSelection.prototype.remove = function (rowIndex) {
             if (this._indices.delete(rowIndex)) {
                 this.onChange();
             }
         };
-        DTableDataSelectionImpl.prototype.clear = function () {
+        DTableDataListSelection.prototype.clear = function () {
             var indices = this._indices;
             if (0 < indices.size) {
                 indices.clear();
                 this.onChange();
             }
         };
-        DTableDataSelectionImpl.prototype.clearAndAdd = function (rowIndex) {
+        DTableDataListSelection.prototype.clearAndAdd = function (rowIndex) {
             var indices = this._indices;
             if (!indices.has(rowIndex) || indices.size !== 1) {
                 indices.clear();
@@ -54949,7 +55400,7 @@
                 this.onChange();
             }
         };
-        DTableDataSelectionImpl.prototype.clearAndAddAll = function (rowIndices) {
+        DTableDataListSelection.prototype.clearAndAddAll = function (rowIndices) {
             var indices = this._indices;
             if (0 < indices.size || 0 < rowIndices.length) {
                 indices.clear();
@@ -54959,7 +55410,7 @@
                 this.onChange();
             }
         };
-        DTableDataSelectionImpl.prototype.shift = function (rowIndex, amount) {
+        DTableDataListSelection.prototype.shift = function (rowIndex, amount) {
             var shifted = [];
             var indices = this._indices;
             indices.forEach(function (index) {
@@ -54978,13 +55429,13 @@
                 this.onChange();
             }
         };
-        DTableDataSelectionImpl.prototype.size = function () {
+        DTableDataListSelection.prototype.size = function () {
             return this._indices.size;
         };
-        DTableDataSelectionImpl.prototype.isEmpty = function () {
+        DTableDataListSelection.prototype.isEmpty = function () {
             return this._indices.size === 0;
         };
-        Object.defineProperty(DTableDataSelectionImpl.prototype, "indices", {
+        Object.defineProperty(DTableDataListSelection.prototype, "indices", {
             /**
              * Returns a copy of an index array of selected rows.
              * The order of indices is an insertion order.
@@ -54999,7 +55450,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(DTableDataSelectionImpl.prototype, "rows", {
+        Object.defineProperty(DTableDataListSelection.prototype, "rows", {
             /**
              * Returns a copy of an array of selected row value.
              * The order is an insertion order.
@@ -55019,7 +55470,7 @@
          * Returns an array of the (index, row value) pairs of selected rows.
          * The order of pairs is an insertion order.
          */
-        DTableDataSelectionImpl.prototype.toArray = function () {
+        DTableDataListSelection.prototype.toArray = function () {
             var result = [];
             var parent = this._parent;
             this._indices.forEach(function (index) {
@@ -55030,10 +55481,10 @@
         /**
          * Returns an sorted array of the (index, row value) pairs of selected rows.
          */
-        DTableDataSelectionImpl.prototype.toSortedArray = function () {
+        DTableDataListSelection.prototype.toSortedArray = function () {
             return this.toArray().sort(COMPARATOR);
         };
-        DTableDataSelectionImpl.prototype.toObject = function () {
+        DTableDataListSelection.prototype.toObject = function () {
             var result = {};
             var parent = this._parent;
             this._indices.forEach(function (index) {
@@ -55041,7 +55492,7 @@
             });
             return result;
         };
-        DTableDataSelectionImpl.prototype.toMap = function () {
+        DTableDataListSelection.prototype.toMap = function () {
             var result = new Map();
             var parent = this._parent;
             this._indices.forEach(function (index) {
@@ -55049,7 +55500,7 @@
             });
             return result;
         };
-        return DTableDataSelectionImpl;
+        return DTableDataListSelection;
     }(pixi_js.utils.EventEmitter));
 
     /*
@@ -55069,9 +55520,9 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DTableDataSorterImpl = /** @class */ (function (_super) {
-        __extends(DTableDataSorterImpl, _super);
-        function DTableDataSorterImpl(parent) {
+    var DTableDataListSorter = /** @class */ (function (_super) {
+        __extends(DTableDataListSorter, _super);
+        function DTableDataListSorter(parent) {
             var _this = _super.call(this) || this;
             _this._id = 0;
             _this._idUpdated = -1;
@@ -55082,14 +55533,14 @@
             _this._order = DTableDataOrder.ASCENDING;
             return _this;
         }
-        Object.defineProperty(DTableDataSorterImpl.prototype, "id", {
+        Object.defineProperty(DTableDataListSorter.prototype, "id", {
             get: function () {
                 return this._id;
             },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(DTableDataSorterImpl.prototype, "order", {
+        Object.defineProperty(DTableDataListSorter.prototype, "order", {
             get: function () {
                 return this._order;
             },
@@ -55099,22 +55550,22 @@
             enumerable: false,
             configurable: true
         });
-        DTableDataSorterImpl.prototype.apply = function () {
+        DTableDataListSorter.prototype.apply = function () {
             this._isApplied = true;
             this._id += 1;
             this._parent.update();
         };
-        DTableDataSorterImpl.prototype.unapply = function () {
+        DTableDataListSorter.prototype.unapply = function () {
             if (this._isApplied) {
                 this._isApplied = false;
                 this._id += 1;
                 this._parent.update();
             }
         };
-        DTableDataSorterImpl.prototype.isApplied = function () {
+        DTableDataListSorter.prototype.isApplied = function () {
             return this._isApplied;
         };
-        DTableDataSorterImpl.prototype.newSorted = function () {
+        DTableDataListSorter.prototype.newSorted = function () {
             var comparator = this._comparator;
             if (comparator != null) {
                 var parent_1 = this._parent;
@@ -55130,7 +55581,7 @@
                 return null;
             }
         };
-        DTableDataSorterImpl.prototype.toComparator = function (rows, comparator) {
+        DTableDataListSorter.prototype.toComparator = function (rows, comparator) {
             var order = this._order;
             if (isFunction(comparator)) {
                 if (order === DTableDataOrder.ASCENDING) {
@@ -55157,18 +55608,18 @@
                 }
             }
         };
-        DTableDataSorterImpl.prototype.get = function () {
+        DTableDataListSorter.prototype.get = function () {
             return this._comparator;
         };
-        DTableDataSorterImpl.prototype.set = function (comparator) {
+        DTableDataListSorter.prototype.set = function (comparator) {
             if (this._comparator !== comparator) {
                 this._comparator = comparator;
             }
         };
-        DTableDataSorterImpl.prototype.toDirty = function () {
+        DTableDataListSorter.prototype.toDirty = function () {
             this._id += 1;
         };
-        DTableDataSorterImpl.prototype.update = function () {
+        DTableDataListSorter.prototype.update = function () {
             if (this._id !== this._idUpdated) {
                 this._idUpdated = this._id;
                 if (this._isApplied) {
@@ -55181,7 +55632,7 @@
                 }
             }
         };
-        Object.defineProperty(DTableDataSorterImpl.prototype, "indices", {
+        Object.defineProperty(DTableDataListSorter.prototype, "indices", {
             get: function () {
                 this.update();
                 return this._sorted;
@@ -55189,7 +55640,7 @@
             enumerable: false,
             configurable: true
         });
-        DTableDataSorterImpl.prototype.map = function (unmappedIndex) {
+        DTableDataListSorter.prototype.map = function (unmappedIndex) {
             var result = unmappedIndex;
             var indicesSorted = this.indices;
             if (indicesSorted) {
@@ -55203,7 +55654,7 @@
             }
             return result;
         };
-        DTableDataSorterImpl.prototype.unmap = function (index) {
+        DTableDataListSorter.prototype.unmap = function (index) {
             var result = index;
             var indicesSorted = this.indices;
             if (indicesSorted) {
@@ -55211,7 +55662,7 @@
             }
             return result;
         };
-        return DTableDataSorterImpl;
+        return DTableDataListSorter;
     }(pixi_js.utils.EventEmitter));
 
     var DTableDataList = /** @class */ (function (_super) {
@@ -55219,11 +55670,11 @@
         function DTableDataList(options) {
             var _this = _super.call(this) || this;
             _this._parent = null;
+            _this._rows = _this.toRows(options === null || options === void 0 ? void 0 : options.rows);
             _this._mapped = new DTableDataListMapped(_this);
-            _this._rows = _this.toRows(options && options.rows);
-            _this._selection = new DTableDataSelectionImpl(_this, options && options.selection);
-            _this._filter = new DTableDataFilterImpl(_this);
-            _this._sorter = new DTableDataSorterImpl(_this);
+            _this._selection = _this.toSelection(options === null || options === void 0 ? void 0 : options.selection);
+            _this._filter = new DTableDataListFilter(_this);
+            _this._sorter = new DTableDataListSorter(_this);
             if (options) {
                 // Filter
                 var filter = options.filter;
@@ -55248,6 +55699,18 @@
             }
             return _this;
         }
+        DTableDataList.prototype.toSelection = function (options) {
+            if (options instanceof pixi_js.utils.EventEmitter) {
+                return options;
+            }
+            else if (isFunction(options)) {
+                return options(this);
+            }
+            return this.newSelection(options);
+        };
+        DTableDataList.prototype.newSelection = function (options) {
+            return new DTableDataListSelection(this, options);
+        };
         DTableDataList.prototype.bind = function (parent) {
             this._parent = parent;
         };
@@ -55460,55 +55923,65 @@
             if (result.columns === undefined) {
                 result.columns = columns;
             }
-            if (result.interactive == null && selectionType !== DTableDataSelectionType.NONE) {
-                result.interactive = "SELF";
-            }
             if (result.frozen == null) {
                 result.frozen = options.frozen;
+            }
+            if (result.selection === undefined) {
+                result.selection = {
+                    type: selectionType
+                };
+            }
+            else if (result.selection.type === undefined) {
+                result.selection.type = selectionType;
             }
         }
         else {
             result = {
                 columns: columns,
                 height: theme.getRowHeight(),
-                interactive: (selectionType !== DTableDataSelectionType.NONE ? "SELF" : undefined),
-                frozen: options.frozen
+                frozen: options.frozen,
+                selection: {
+                    type: selectionType
+                }
             };
         }
         return result;
     };
-    var isDTableData = function (target) {
-        return (target != null && "mapped" in target);
-    };
     var DTableBody = /** @class */ (function (_super) {
         __extends(DTableBody, _super);
         function DTableBody(options) {
+            var _a;
             var _this = _super.call(this, options) || this;
             _this.state.isFocusable = false;
+            _this.transform.position.y = (_a = options.offset) !== null && _a !== void 0 ? _a : 0;
+            var data = _this.toData(options.data);
+            _this._data = data;
+            data.bind(_this);
+            var theme = _this.theme;
+            var rowOptions = toRowOptions(theme, options, data.selection.type);
+            _this._rowOptions = rowOptions;
+            _this._rowHeight = (rowOptions.height != null ? rowOptions.height : theme.getRowHeight());
+            _this._columns = rowOptions.columns || [];
+            _this._rowIndexMappedStart = 0;
+            _this._rowIndexMappedEnd = 0;
+            _this._updateRowsCount = 0;
+            _this._isUpdateRowsCalled = false;
+            _this._isUpdateRowsCalledForcibly = false;
+            _this._workRows = [];
+            _this._onRowChangeBound = function (newValue, oldValue, row, rowIndex, columnIndex) {
+                data.emit("change", newValue, oldValue, row, rowIndex, columnIndex, data);
+            };
             _this._data.emit("init", _this._data);
             return _this;
         }
-        DTableBody.prototype.init = function (options) {
-            this.transform.position.y = options.offset || 0;
-            this._onRowChangeBound = function (newValue, oldValue, row, rowIndex, columnIndex) {
-                data.emit("change", newValue, oldValue, row, rowIndex, columnIndex, data);
-            };
-            _super.prototype.init.call(this, options);
-            var data = (isDTableData(options.data) ? options.data :
-                new DTableDataList(options.data));
-            this._data = data;
-            data.bind(this);
-            var theme = this.theme;
-            var rowOptions = toRowOptions(theme, options, data.selection.type);
-            this._rowOptions = rowOptions;
-            this._rowHeight = (rowOptions.height != null ? rowOptions.height : theme.getRowHeight());
-            this._columns = rowOptions.columns || [];
-            this._rowIndexMappedStart = 0;
-            this._rowIndexMappedEnd = 0;
-            this._updateRowsCount = 0;
-            this._isUpdateRowsCalled = false;
-            this._isUpdateRowsCalledForcibly = false;
-            this._workRows = [];
+        DTableBody.prototype.toData = function (options) {
+            if (this.isData(options)) {
+                return options;
+            }
+            return new DTableDataList(options);
+        };
+        DTableBody.prototype.isData = function (target) {
+            return (target != null && "mapped" in target);
         };
         DTableBody.prototype.onResize = function (newWidth, newHeight, oldWidth, oldHeight) {
             _super.prototype.onResize.call(this, newWidth, newHeight, oldWidth, oldHeight);
@@ -55623,27 +56096,45 @@
                 work.length = 0;
             }
             var selection = data.selection;
+            var isRowSelectable = (selection.type !== DTableDataSelectionType.NONE);
             data.mapped.each(function (datum, supplimental, index, unmappedIndex) {
                 var row = rows[index - newRowIndexMappedStart];
+                // Position
                 row.position.y = index * rowHeight;
-                if (selection.contains(unmappedIndex)) {
-                    row.state.set(DBaseState.ACTIVE, DBaseState.DISABLED);
-                }
-                else {
-                    row.state.removeAll(DBaseState.ACTIVE, DBaseState.DISABLED);
-                }
+                // State
+                var rowState = row.state;
+                rowState.lock();
+                rowState.set(DTableState.SELECTABLE, isRowSelectable);
+                rowState.set(DBaseState.ACTIVE, selection.contains(unmappedIndex));
+                rowState.remove(DBaseState.DISABLED);
+                rowState.unlock();
+                // Data
                 row.set(datum, supplimental, unmappedIndex, forcibly);
             }, newRowIndexMappedStart, newRowIndexMappedStart + rowsLength);
             for (var i = 0; newRowIndexMappedStart + i < 0 && i < rowsLength; ++i) {
                 var row = rows[i];
+                // Position
                 row.position.y = (newRowIndexMappedStart + i) * rowHeight;
-                row.state.set(DBaseState.DISABLED, DBaseState.ACTIVE);
+                // State
+                var rowState = row.state;
+                rowState.lock();
+                rowState.add(DBaseState.DISABLED);
+                rowState.removeAll(DTableState.SELECTABLE, DBaseState.ACTIVE);
+                rowState.unlock();
+                // Data
                 row.unset();
             }
             for (var i = rowsLength - 1; dataMappedSize <= newRowIndexMappedStart + i && 0 <= i; --i) {
                 var row = rows[i];
+                // Position
                 row.position.y = (newRowIndexMappedStart + i) * rowHeight;
-                row.state.set(DBaseState.DISABLED, DBaseState.ACTIVE);
+                // State
+                var rowState = row.state;
+                rowState.lock();
+                rowState.add(DBaseState.DISABLED);
+                rowState.removeAll(DTableState.SELECTABLE, DBaseState.ACTIVE);
+                rowState.unlock();
+                // Data
                 row.unset();
             }
             this.lock();
@@ -55664,11 +56155,7 @@
             return row;
         };
         DTableBody.prototype.newRow = function (isEven) {
-            var options = this._rowOptions;
-            options.even = isEven;
-            var result = new DTableBodyRow(options);
-            result.on("rowchange", this._onRowChangeBound);
-            return result;
+            return new DTableBodyRow(this._onRowChangeBound, isEven, this._rowOptions);
         };
         DTableBody.prototype.onParentMove = function (newX, newY, oldX, oldY) {
             _super.prototype.onParentMove.call(this, newX, newY, oldX, oldY);
@@ -55687,129 +56174,127 @@
             _super.prototype.getClippingRect.call(this, target, result);
             var parent = this.parent;
             if (parent) {
-                var shiftY = -parent.transform.position.y;
-                result.y += shiftY;
-                result.height -= shiftY;
+                var dy = -parent.transform.position.y;
+                result.y += dy;
+                result.height -= dy;
             }
         };
-        DTableBody.prototype.onRowClicked = function (e) {
+        DTableBody.prototype.toRowIndexMapped = function (local) {
+            if (0 <= this.parent.position.y + local.y) {
+                return Math.floor(local.y / this._rowHeight);
+            }
+            return -1;
+        };
+        DTableBody.prototype.toRow = function (rowIndexMapped) {
+            var index = rowIndexMapped - this._rowIndexMappedStart;
+            var rows = this.children;
+            if (0 <= index && index < rows.length) {
+                return rows[index];
+            }
+            return null;
+        };
+        DTableBody.prototype.toCell = function (row, local) {
+            var cells = row.children;
+            var cellsLength = cells.length;
+            var columns = this._columns;
+            var columnsLength = columns.length;
+            for (var i = 0, imax = Math.min(cellsLength, columnsLength); i < imax; ++i) {
+                var cell = cells[cellsLength - i - 1];
+                var x = local.x - cell.position.x;
+                if (0 <= x && x <= cell.width) {
+                    return cell;
+                }
+            }
+            return null;
+        };
+        DTableBody.prototype.onRowClick = function (e) {
             if (this.state.isActionable) {
                 var local = DTableBody.WORK_ON_CLICK;
                 local.copyFrom(e.data.global);
                 this.toLocal(local, undefined, local, false);
-                if (0 <= this.parent.position.y + local.y) {
-                    var rowIndexMapped = Math.floor(local.y / this._rowHeight);
-                    var data = this._data;
-                    var mapped = data.mapped;
-                    var selection = data.selection;
-                    if (0 <= rowIndexMapped && rowIndexMapped < mapped.size()) {
-                        var isSingle = (selection.type === DTableDataSelectionType.SINGLE);
-                        var isNotSingle = !isSingle;
-                        var originalEvent = e.data.originalEvent;
-                        var ctrlKey = originalEvent.ctrlKey;
-                        var shiftKey = originalEvent.shiftKey;
-                        var rowIndex = mapped.unmap(rowIndexMapped);
-                        if (isSingle || selection.isEmpty() || !(isNotSingle && (ctrlKey || shiftKey))) {
-                            selection.clearAndAdd(rowIndex);
-                        }
-                        else if (ctrlKey) {
-                            selection.toggle(rowIndex);
-                        }
-                        else if (shiftKey) {
-                            var lastRowIndex = selection.last;
-                            if (lastRowIndex != null) {
-                                var sorter = data.sorter;
-                                var filter = data.filter;
-                                var rowIndexSorted = sorter.map(rowIndex);
-                                var lastRowIndexSorted = sorter.map(lastRowIndex);
-                                if (rowIndexSorted != null && lastRowIndexSorted != null) {
-                                    var istart = lastRowIndexSorted + 1;
-                                    var iend = rowIndexSorted + 1;
-                                    if (rowIndexSorted < lastRowIndexSorted) {
-                                        istart = rowIndexSorted;
-                                        iend = lastRowIndexSorted;
-                                    }
-                                    if (istart < iend) {
-                                        var rowIndices = [];
-                                        var indicesFiltered = filter.indices;
-                                        var indicesSorted = sorter.indices;
-                                        if (indicesFiltered) {
-                                            if (indicesSorted) {
-                                                for (var i = 0, imax = indicesFiltered.length; i < imax; ++i) {
-                                                    var indexFiltered = indicesFiltered[i];
-                                                    if (istart <= indexFiltered && indexFiltered < iend) {
-                                                        rowIndices.push(indicesSorted[indexFiltered]);
-                                                    }
-                                                }
-                                            }
-                                            else {
-                                                for (var i = 0, imax = indicesFiltered.length; i < imax; ++i) {
-                                                    var indexFiltered = indicesFiltered[i];
-                                                    if (istart <= indexFiltered && indexFiltered < iend) {
-                                                        rowIndices.push(indexFiltered);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        else {
-                                            if (indicesSorted) {
-                                                for (var i = istart; i < iend; ++i) {
-                                                    rowIndices.push(indicesSorted[i]);
-                                                }
-                                            }
-                                            else {
-                                                for (var i = istart; i < iend; ++i) {
-                                                    rowIndices.push(i);
-                                                }
-                                            }
-                                        }
-                                        selection.addAll(rowIndices);
-                                    }
-                                }
-                            }
+                var rowIndexMapped = this.toRowIndexMapped(local);
+                if (0 <= rowIndexMapped && rowIndexMapped < this._data.mapped.size()) {
+                    // Delegate to the cell at first
+                    var row = this.toRow(rowIndexMapped);
+                    if (row) {
+                        var cell = this.toCell(row, local);
+                        if (cell && cell.onRowSelect && cell.onRowSelect(e, local)) {
+                            return;
                         }
                     }
+                    // Fallback to the default
+                    this.onRowSelect(e, rowIndexMapped);
                 }
             }
         };
-        DTableBody.prototype.onDblClick = function (e, interactionManager) {
-            var result = false;
+        DTableBody.prototype.onRowSelect = function (e, rowIndexMapped) {
             var data = this._data;
-            if (this.state.isActionable && data.selection.type !== DTableDataSelectionType.NONE) {
-                var local = UtilPointerEvent.toGlobal(e, interactionManager, DTableBody.WORK_ON_CLICK);
-                this.toLocal(local, undefined, local, false);
-                var x = local.x;
-                var y = local.y;
-                if (0 <= this.parent.position.y + y) {
-                    var rowIndexMapped = Math.floor(y / this._rowHeight);
-                    if (0 <= rowIndexMapped && rowIndexMapped < data.mapped.size()) {
-                        var index = rowIndexMapped - this._rowIndexMappedStart;
-                        var rows = this.children;
-                        if (0 <= index && index < rows.length) {
-                            var row = rows[index];
-                            var cells = row.children;
-                            var cellsLength = cells.length;
-                            var columns = this._columns;
-                            var columnsLength = columns.length;
-                            for (var i = 0, imax = Math.min(cellsLength, columnsLength); i < imax; ++i) {
-                                var cell = cells[cellsLength - i - 1];
-                                if (cell.state.isActionable) {
-                                    var dx = x - cell.position.x;
-                                    if (0 <= dx && dx <= cell.width) {
-                                        cell.focus();
-                                        if (cell instanceof DButtonBase) {
-                                            cell.onClick(e);
+            var selection = data.selection;
+            var isSingle = (selection.type === DTableDataSelectionType.SINGLE);
+            var isNotSingle = !isSingle;
+            var rowIndex = data.mapped.unmap(rowIndexMapped);
+            var originalEvent = e.data.originalEvent;
+            var ctrlKey = originalEvent.ctrlKey;
+            var shiftKey = originalEvent.shiftKey;
+            if (isSingle || selection.isEmpty() || !(isNotSingle && (ctrlKey || shiftKey))) {
+                selection.clearAndAdd(rowIndex);
+            }
+            else if (ctrlKey) {
+                selection.toggle(rowIndex);
+            }
+            else if (shiftKey) {
+                var lastRowIndex = selection.last;
+                if (lastRowIndex != null) {
+                    var sorter = data.sorter;
+                    var filter = data.filter;
+                    var rowIndexSorted = sorter.map(rowIndex);
+                    var lastRowIndexSorted = sorter.map(lastRowIndex);
+                    if (rowIndexSorted != null && lastRowIndexSorted != null) {
+                        var istart = lastRowIndexSorted + 1;
+                        var iend = rowIndexSorted + 1;
+                        if (rowIndexSorted < lastRowIndexSorted) {
+                            istart = rowIndexSorted;
+                            iend = lastRowIndexSorted;
+                        }
+                        if (istart < iend) {
+                            var rowIndices = [];
+                            var indicesFiltered = filter.indices;
+                            var indicesSorted = sorter.indices;
+                            if (indicesFiltered) {
+                                if (indicesSorted) {
+                                    for (var i = 0, imax = indicesFiltered.length; i < imax; ++i) {
+                                        var indexFiltered = indicesFiltered[i];
+                                        if (istart <= indexFiltered && indexFiltered < iend) {
+                                            rowIndices.push(indicesSorted[indexFiltered]);
                                         }
-                                        result = true;
+                                    }
+                                }
+                                else {
+                                    for (var i = 0, imax = indicesFiltered.length; i < imax; ++i) {
+                                        var indexFiltered = indicesFiltered[i];
+                                        if (istart <= indexFiltered && indexFiltered < iend) {
+                                            rowIndices.push(indexFiltered);
+                                        }
                                     }
                                 }
                             }
+                            else {
+                                if (indicesSorted) {
+                                    for (var i = istart; i < iend; ++i) {
+                                        rowIndices.push(indicesSorted[i]);
+                                    }
+                                }
+                                else {
+                                    for (var i = istart; i < iend; ++i) {
+                                        rowIndices.push(i);
+                                    }
+                                }
+                            }
+                            selection.addAll(rowIndices);
                         }
                     }
                 }
             }
-            result = _super.prototype.onDblClick.call(this, e, interactionManager) || result;
-            return result;
         };
         DTableBody.prototype.getType = function () {
             return "DTableBody";
@@ -55850,12 +56335,14 @@
     var DTableCategory = /** @class */ (function (_super) {
         __extends(DTableCategory, _super);
         function DTableCategory(options) {
-            return _super.call(this, options) || this;
+            var _a;
+            var _this = _super.call(this, options) || this;
+            var offset = (_a = options.offset) !== null && _a !== void 0 ? _a : 0;
+            _this._offset = offset;
+            _this.transform.position.y = offset;
+            _this.initCells(options, _this._columns, _this._frozen);
+            return _this;
         }
-        DTableCategory.prototype.init = function (options) {
-            this._offset = this.transform.position.y = options.offset || 0;
-            _super.prototype.init.call(this, options);
-        };
         DTableCategory.prototype.onParentMove = function (newX, newY, oldX, oldY) {
             _super.prototype.onParentMove.call(this, newX, newY, oldX, oldY);
             this.transform.position.y = -newY + this._offset;
@@ -55868,24 +56355,24 @@
             }
             return 0;
         };
-        DTableCategory.prototype.newCell = function (columnIndex, columnData, columnDataList, options) {
-            return new DTableCategoryCell(this.toCellOptions(columnIndex, columnData, options));
+        DTableCategory.prototype.newCell = function (columnIndex, column, columns, options) {
+            return new DTableCategoryCell(this.toCellOptions(columnIndex, column, options));
         };
-        DTableCategory.prototype.toCellOptions = function (columnIndex, columnData, options) {
+        DTableCategory.prototype.toCellOptions = function (columnIndex, column, options) {
             var result = options.cell;
             if (result) {
-                result.weight = columnData.weight;
-                result.width = columnData.width;
+                result.weight = column.weight;
+                result.width = column.width;
                 var text = result.text = result.text || {};
-                text.value = text.value || columnData.label;
+                text.value = text.value || column.label;
                 return result;
             }
             else {
                 return {
-                    weight: columnData.weight,
-                    width: columnData.width,
+                    weight: column.weight,
+                    width: column.width,
                     text: {
-                        value: columnData.label
+                        value: column.label
                     }
                 };
             }
@@ -55900,9 +56387,9 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DTableDataFilterTree = /** @class */ (function (_super) {
-        __extends(DTableDataFilterTree, _super);
-        function DTableDataFilterTree(parent) {
+    var DTableDataTreeFilter = /** @class */ (function (_super) {
+        __extends(DTableDataTreeFilter, _super);
+        function DTableDataTreeFilter(parent) {
             var _this = _super.call(this) || this;
             _this._id = 0;
             _this._idUpdated = -1;
@@ -55912,29 +56399,29 @@
             _this._filtered = null;
             return _this;
         }
-        Object.defineProperty(DTableDataFilterTree.prototype, "id", {
+        Object.defineProperty(DTableDataTreeFilter.prototype, "id", {
             get: function () {
                 return this._id;
             },
             enumerable: false,
             configurable: true
         });
-        DTableDataFilterTree.prototype.apply = function () {
+        DTableDataTreeFilter.prototype.apply = function () {
             this._isApplied = true;
             this._id += 1;
             this._parent.update();
         };
-        DTableDataFilterTree.prototype.unapply = function () {
+        DTableDataTreeFilter.prototype.unapply = function () {
             if (this._isApplied) {
                 this._isApplied = false;
                 this._id += 1;
                 this._parent.update();
             }
         };
-        DTableDataFilterTree.prototype.isApplied = function () {
+        DTableDataTreeFilter.prototype.isApplied = function () {
             return this._isApplied;
         };
-        DTableDataFilterTree.prototype.isFiltered = function (node, index, filter) {
+        DTableDataTreeFilter.prototype.isFiltered = function (node, index, filter) {
             if (isFunction(filter)) {
                 return filter(node, index);
             }
@@ -55942,51 +56429,57 @@
                 return filter.test(node, index);
             }
         };
-        DTableDataFilterTree.prototype.hasFiltered = function (parent, nodes, filter) {
+        DTableDataTreeFilter.prototype.hasFiltered = function (parent, nodes, filter) {
+            var toChildren = this._parent.accessor.toChildren;
             for (var i = 0, imax = nodes.length; i < imax; ++i) {
                 var node = nodes[i];
                 if (this.isFiltered(node, -1, filter)) {
                     return true;
                 }
-                if (node.children != null && 0 < node.children.length && this.hasFiltered(parent, node.children, filter)) {
+                var children = toChildren(node);
+                if (children != null && 0 < children.length && this.hasFiltered(parent, children, filter)) {
                     return true;
                 }
             }
             return false;
         };
-        DTableDataFilterTree.prototype.addAllToFiltered = function (parent, nodes, filtered, cursor) {
+        DTableDataTreeFilter.prototype.addAllToFiltered = function (parent, nodes, filtered, cursor) {
+            var toChildren = this._parent.accessor.toChildren;
             for (var i = 0, imax = nodes.length; i < imax; ++i) {
                 var node = nodes[i];
                 filtered.push(cursor[0]);
                 cursor[0] += 1;
-                if (node.children != null && 0 < node.children.length && parent.isOpened(node)) {
-                    this.addAllToFiltered(parent, node.children, filtered, cursor);
+                var children = toChildren(node);
+                if (children != null && 0 < children.length && parent.isOpened(node)) {
+                    this.addAllToFiltered(parent, children, filtered, cursor);
                 }
             }
         };
-        DTableDataFilterTree.prototype.newFilteredSub = function (parent, nodes, filter, filtered, cursor) {
+        DTableDataTreeFilter.prototype.newFilteredSub = function (parent, nodes, filter, filtered, cursor) {
             var result = false;
+            var toChildren = this._parent.accessor.toChildren;
             for (var i = 0, imax = nodes.length; i < imax; ++i) {
                 var node = nodes[i];
                 var index = cursor[0];
                 cursor[0] += 1;
                 var isFiltered = this.isFiltered(node, index, filter);
-                if (node.children != null && 0 < node.children.length) {
+                var children = toChildren(node);
+                if (children != null && 0 < children.length) {
                     if (parent.isOpened(node)) {
                         if (isFiltered) {
                             filtered.push(index);
                             result = true;
-                            this.addAllToFiltered(parent, node.children, filtered, cursor);
+                            this.addAllToFiltered(parent, children, filtered, cursor);
                         }
                         else {
                             var position = filtered.length;
-                            if (this.newFilteredSub(parent, node.children, filter, filtered, cursor)) {
+                            if (this.newFilteredSub(parent, children, filter, filtered, cursor)) {
                                 filtered.splice(position, 0, index);
                                 result = true;
                             }
                         }
                     }
-                    else if (isFiltered || this.hasFiltered(parent, node.children, filter)) {
+                    else if (isFiltered || this.hasFiltered(parent, children, filter)) {
                         filtered.push(index);
                         result = true;
                     }
@@ -55998,7 +56491,7 @@
             }
             return result;
         };
-        DTableDataFilterTree.prototype.newFiltered = function () {
+        DTableDataTreeFilter.prototype.newFiltered = function () {
             var filter = this._filter;
             if (filter != null) {
                 var filtered = [];
@@ -56012,18 +56505,18 @@
             }
             return null;
         };
-        DTableDataFilterTree.prototype.get = function () {
+        DTableDataTreeFilter.prototype.get = function () {
             return this._filter;
         };
-        DTableDataFilterTree.prototype.set = function (filter) {
+        DTableDataTreeFilter.prototype.set = function (filter) {
             if (this._filter !== filter) {
                 this._filter = filter;
             }
         };
-        DTableDataFilterTree.prototype.toDirty = function () {
+        DTableDataTreeFilter.prototype.toDirty = function () {
             this._id += 1;
         };
-        DTableDataFilterTree.prototype.update = function () {
+        DTableDataTreeFilter.prototype.update = function () {
             if (this._id !== this._idUpdated) {
                 this._idUpdated = this._id;
                 if (this._isApplied) {
@@ -56036,7 +56529,7 @@
                 }
             }
         };
-        Object.defineProperty(DTableDataFilterTree.prototype, "indices", {
+        Object.defineProperty(DTableDataTreeFilter.prototype, "indices", {
             get: function () {
                 this.update();
                 return this._filtered;
@@ -56044,7 +56537,7 @@
             enumerable: false,
             configurable: true
         });
-        DTableDataFilterTree.prototype.map = function (sortedIndex) {
+        DTableDataTreeFilter.prototype.map = function (sortedIndex) {
             var result = sortedIndex;
             var indices = this.indices;
             if (indices) {
@@ -56058,7 +56551,7 @@
             }
             return result;
         };
-        DTableDataFilterTree.prototype.unmap = function (index) {
+        DTableDataTreeFilter.prototype.unmap = function (index) {
             var result = index;
             var indices = this.indices;
             if (indices) {
@@ -56066,26 +56559,348 @@
             }
             return result;
         };
-        return DTableDataFilterTree;
+        return DTableDataTreeFilter;
+    }(pixi_js.utils.EventEmitter));
+
+    /*
+     * Copyright (C) 2021 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toParent = function (node) {
+        return node.parent;
+    };
+    var toChildren = function (node) {
+        return node.children;
+    };
+    var DTableDataTreeItemAccessor = /** @class */ (function () {
+        function DTableDataTreeItemAccessor(options) {
+            var _a, _b;
+            this.toParent = (_a = options === null || options === void 0 ? void 0 : options.toParent) !== null && _a !== void 0 ? _a : toParent;
+            this.toChildren = (_b = options === null || options === void 0 ? void 0 : options.toChildren) !== null && _b !== void 0 ? _b : toChildren;
+        }
+        return DTableDataTreeItemAccessor;
+    }());
+
+    /*
+     * Copyright (C) 2021 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var COMPARATOR$1 = function (a, b) {
+        return a[0] - b[0];
+    };
+    var DTableDataTreeSelectionImpl = /** @class */ (function (_super) {
+        __extends(DTableDataTreeSelectionImpl, _super);
+        function DTableDataTreeSelectionImpl(parent, options) {
+            var _a;
+            var _this = _super.call(this) || this;
+            _this._parent = parent;
+            _this._type = toEnum((_a = options === null || options === void 0 ? void 0 : options.type) !== null && _a !== void 0 ? _a : DTableDataSelectionType.NONE, DTableDataSelectionType);
+            _this._rows = new Set();
+            return _this;
+        }
+        DTableDataTreeSelectionImpl.prototype.onNodeChange = function (nodes) {
+            if (nodes != null) {
+                var toChildren = this._parent.accessor.toChildren;
+                var oldRows = this._rows;
+                var newRows = this.newRows(nodes, toChildren, oldRows, new Set());
+                if (oldRows.size !== newRows.size) {
+                    this._rows = newRows;
+                    this.onChange();
+                }
+            }
+            else {
+                var rows = this._rows;
+                if (0 < rows.size) {
+                    rows.clear();
+                    this.onChange();
+                }
+            }
+        };
+        DTableDataTreeSelectionImpl.prototype.newRows = function (nodes, toChildren, rows, result) {
+            for (var i = 0, imax = nodes.length; i < imax; ++i) {
+                var node = nodes[i];
+                if (rows.has(node)) {
+                    result.add(node);
+                }
+                var children = toChildren(node);
+                if (children != null) {
+                    this.newRows(children, toChildren, rows, result);
+                }
+            }
+            return result;
+        };
+        Object.defineProperty(DTableDataTreeSelectionImpl.prototype, "indices", {
+            get: function () {
+                var rows = this._rows;
+                var result = [];
+                this._parent.each(function (row, index) {
+                    if (rows.has(row)) {
+                        result.push(index);
+                    }
+                });
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DTableDataTreeSelectionImpl.prototype, "rows", {
+            get: function () {
+                var result = [];
+                this._rows.forEach(function (row) {
+                    result.push(row);
+                });
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DTableDataTreeSelectionImpl.prototype, "type", {
+            get: function () {
+                return this._type;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DTableDataTreeSelectionImpl.prototype.getFirst = function () {
+            var rows = this._rows;
+            if (0 < rows.size) {
+                var result_1 = null;
+                rows.forEach(function (row) {
+                    if (result_1 == null) {
+                        result_1 = row;
+                    }
+                });
+                return result_1;
+            }
+            return null;
+        };
+        DTableDataTreeSelectionImpl.prototype.getLast = function () {
+            var rows = this._rows;
+            if (0 < rows.size) {
+                var result_2 = null;
+                rows.forEach(function (row) {
+                    result_2 = row;
+                });
+                return result_2;
+            }
+            return null;
+        };
+        DTableDataTreeSelectionImpl.prototype.toIndex = function (target) {
+            var result = null;
+            this._parent.each(function (row, index) {
+                if (target === row) {
+                    result = index;
+                    return false;
+                }
+                return true;
+            });
+            return result;
+        };
+        Object.defineProperty(DTableDataTreeSelectionImpl.prototype, "first", {
+            get: function () {
+                var row = this.getFirst();
+                if (row) {
+                    return this.toIndex(row);
+                }
+                return null;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DTableDataTreeSelectionImpl.prototype, "last", {
+            get: function () {
+                var row = this.getLast();
+                if (row) {
+                    return this.toIndex(row);
+                }
+                return null;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DTableDataTreeSelectionImpl.prototype.onChange = function () {
+            this._parent.update();
+            this.emit("change", this);
+        };
+        DTableDataTreeSelectionImpl.prototype.toggle = function (rowIndex) {
+            var row = this._parent.get(rowIndex);
+            if (row) {
+                var rows = this._rows;
+                if (rows.has(row)) {
+                    rows.delete(row);
+                }
+                else {
+                    rows.add(row);
+                }
+                this.onChange();
+            }
+        };
+        DTableDataTreeSelectionImpl.prototype.add = function (rowIndex) {
+            var row = this._parent.get(rowIndex);
+            if (row) {
+                var rows = this._rows;
+                if (!rows.has(row)) {
+                    rows.add(row);
+                    this.onChange();
+                }
+            }
+        };
+        DTableDataTreeSelectionImpl.prototype.addTo = function (rowIndex) {
+            var lastRowIndex = this.last;
+            if (lastRowIndex != null) {
+                this.addRange(lastRowIndex, false, rowIndex, true);
+            }
+        };
+        DTableDataTreeSelectionImpl.prototype.addRange = function (from, includeFrom, to, includeTo) {
+            var rows = this._rows;
+            var oldSize = rows.size;
+            var parent = this._parent;
+            if (from < to) {
+                parent.each(function (row) {
+                    rows.add(row);
+                }, from + (includeFrom ? 0 : 1), to + (includeTo ? 1 : 0));
+            }
+            else {
+                parent.each(function (row) {
+                    rows.add(row);
+                }, to + (includeTo ? 0 : 1), from + (includeFrom ? 1 : 0));
+            }
+            var newSize = rows.size;
+            if (oldSize !== newSize) {
+                this.onChange();
+            }
+        };
+        DTableDataTreeSelectionImpl.prototype.addAll = function (rowIndices) {
+            if (0 < rowIndices.length) {
+                var rows = this._rows;
+                var parent_1 = this._parent;
+                for (var i = 0, imax = rowIndices.length; i < imax; ++i) {
+                    var row = parent_1.get(rowIndices[i]);
+                    if (row) {
+                        rows.add(row);
+                    }
+                }
+                this.onChange();
+            }
+        };
+        DTableDataTreeSelectionImpl.prototype.contains = function (rowIndex) {
+            var row = this._parent.get(rowIndex);
+            if (row) {
+                return this._rows.has(row);
+            }
+            return false;
+        };
+        DTableDataTreeSelectionImpl.prototype.remove = function (rowIndex) {
+            var row = this._parent.get(rowIndex);
+            if (row) {
+                var rows = this._rows;
+                if (rows.has(row)) {
+                    rows.delete(row);
+                    this.onChange();
+                }
+            }
+        };
+        DTableDataTreeSelectionImpl.prototype.clear = function () {
+            var rows = this._rows;
+            if (0 < rows.size) {
+                rows.clear();
+                this.onChange();
+            }
+        };
+        DTableDataTreeSelectionImpl.prototype.clearAndAdd = function (rowIndex) {
+            var row = this._parent.get(rowIndex);
+            if (row) {
+                var rows = this._rows;
+                if (rows.has(row)) {
+                    if (1 < rows.size) {
+                        rows.clear();
+                        rows.add(row);
+                        this.onChange();
+                    }
+                }
+                else {
+                    rows.clear();
+                    rows.add(row);
+                    this.onChange();
+                }
+            }
+        };
+        DTableDataTreeSelectionImpl.prototype.clearAndAddAll = function (rowIndices) {
+            var rows = this._rows;
+            if (0 < rows.size || 0 < rowIndices.length) {
+                rows.clear();
+                var parent_2 = this._parent;
+                for (var i = 0, imax = rowIndices.length; i < imax; ++i) {
+                    var row = parent_2.get(rowIndices[i]);
+                    if (row) {
+                        rows.add(row);
+                    }
+                }
+                this.onChange();
+            }
+        };
+        DTableDataTreeSelectionImpl.prototype.shift = function (rowIndex, amount) {
+            // DO NOTHING
+        };
+        DTableDataTreeSelectionImpl.prototype.size = function () {
+            return this._rows.size;
+        };
+        DTableDataTreeSelectionImpl.prototype.isEmpty = function () {
+            return this._rows.size <= 0;
+        };
+        DTableDataTreeSelectionImpl.prototype.toArray = function () {
+            var rows = this._rows;
+            var result = [];
+            this._parent.each(function (row, index) {
+                if (rows.has(row)) {
+                    result.push([index, row]);
+                }
+            });
+            return result;
+        };
+        DTableDataTreeSelectionImpl.prototype.toSortedArray = function () {
+            return this.toArray().sort(COMPARATOR$1);
+        };
+        DTableDataTreeSelectionImpl.prototype.toObject = function () {
+            var rows = this._rows;
+            var result = {};
+            this._parent.each(function (row, index) {
+                if (rows.has(row)) {
+                    result[index] = row;
+                }
+            });
+            return result;
+        };
+        DTableDataTreeSelectionImpl.prototype.toMap = function () {
+            var rows = this._rows;
+            var result = new Map();
+            this._parent.each(function (row, index) {
+                if (rows.has(row)) {
+                    result.set(index, row);
+                }
+            });
+            return result;
+        };
+        return DTableDataTreeSelectionImpl;
     }(pixi_js.utils.EventEmitter));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DTableDataSorterTree = /** @class */ (function (_super) {
-        __extends(DTableDataSorterTree, _super);
-        function DTableDataSorterTree() {
+    var DTableDataTreeSorter = /** @class */ (function (_super) {
+        __extends(DTableDataTreeSorter, _super);
+        function DTableDataTreeSorter() {
             return _super.call(this) || this;
         }
-        Object.defineProperty(DTableDataSorterTree.prototype, "id", {
+        Object.defineProperty(DTableDataTreeSorter.prototype, "id", {
             get: function () {
                 return 0;
             },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(DTableDataSorterTree.prototype, "order", {
+        Object.defineProperty(DTableDataTreeSorter.prototype, "order", {
             get: function () {
                 return DTableDataOrder.ASCENDING;
             },
@@ -56095,56 +56910,64 @@
             enumerable: false,
             configurable: true
         });
-        DTableDataSorterTree.prototype.apply = function () {
+        DTableDataTreeSorter.prototype.apply = function () {
             // DO NOTHING
         };
-        DTableDataSorterTree.prototype.unapply = function () {
+        DTableDataTreeSorter.prototype.unapply = function () {
             // DO NOTHING
         };
-        DTableDataSorterTree.prototype.isApplied = function () {
+        DTableDataTreeSorter.prototype.isApplied = function () {
             return false;
         };
-        DTableDataSorterTree.prototype.get = function () {
+        DTableDataTreeSorter.prototype.get = function () {
             return null;
         };
-        DTableDataSorterTree.prototype.set = function (comparator) {
+        DTableDataTreeSorter.prototype.set = function (comparator) {
             // DO NOTHING
         };
-        DTableDataSorterTree.prototype.toDirty = function () {
+        DTableDataTreeSorter.prototype.toDirty = function () {
             // DO NOTHING
         };
-        DTableDataSorterTree.prototype.update = function () {
+        DTableDataTreeSorter.prototype.update = function () {
             // DO NOTHING
         };
-        Object.defineProperty(DTableDataSorterTree.prototype, "indices", {
+        Object.defineProperty(DTableDataTreeSorter.prototype, "indices", {
             get: function () {
                 return null;
             },
             enumerable: false,
             configurable: true
         });
-        DTableDataSorterTree.prototype.map = function (unmappedIndex) {
+        DTableDataTreeSorter.prototype.map = function (unmappedIndex) {
             return unmappedIndex;
         };
-        DTableDataSorterTree.prototype.unmap = function (index) {
+        DTableDataTreeSorter.prototype.unmap = function (index) {
             return index;
         };
-        return DTableDataSorterTree;
+        return DTableDataTreeSorter;
     }(pixi_js.utils.EventEmitter));
 
+    /*
+     * Copyright (C) 2021 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /**
+     * Please note that this data class does not support the sorter.
+     */
     var DTableDataTree = /** @class */ (function (_super) {
         __extends(DTableDataTree, _super);
         function DTableDataTree(options) {
             var _this = _super.call(this) || this;
             _this._parent = null;
+            _this._accessor = _this.toAccessor(options);
             _this._mapped = new DTableDataListMapped(_this);
             _this._rows = [];
             _this._isRowsDirty = false;
             _this._supplimentals = [];
             _this._flags = new WeakMap();
-            _this._selection = new DTableDataSelectionImpl(_this, options && options.selection);
-            _this._filter = new DTableDataFilterTree(_this);
-            _this._sorter = new DTableDataSorterTree();
+            _this._selection = _this.toSelection(options === null || options === void 0 ? void 0 : options.selection);
+            _this._filter = new DTableDataTreeFilter(_this);
+            _this._sorter = new DTableDataTreeSorter();
             if (options) {
                 // Filter
                 var filter = options.filter;
@@ -56163,9 +56986,24 @@
                 }
             }
             // Update rows
-            _this.nodes = options && options.nodes;
+            _this.nodes = options === null || options === void 0 ? void 0 : options.nodes;
             return _this;
         }
+        DTableDataTree.prototype.toSelection = function (options) {
+            if (options instanceof pixi_js.utils.EventEmitter) {
+                return options;
+            }
+            else if (isFunction(options)) {
+                return options(this);
+            }
+            return this.newSelection(options);
+        };
+        DTableDataTree.prototype.newSelection = function (options) {
+            return new DTableDataTreeSelectionImpl(this, options);
+        };
+        DTableDataTree.prototype.toAccessor = function (options) {
+            return new DTableDataTreeItemAccessor(options);
+        };
         DTableDataTree.prototype.bind = function (parent) {
             this._parent = parent;
         };
@@ -56176,6 +57014,7 @@
             set: function (nodes) {
                 this._nodes = nodes;
                 this._isRowsDirty = true;
+                this._selection.onNodeChange(nodes);
                 this._filter.toDirty();
                 this.update(true);
             },
@@ -56200,12 +57039,19 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(DTableDataTree.prototype, "accessor", {
+            get: function () {
+                return this._accessor;
+            },
+            enumerable: false,
+            configurable: true
+        });
         DTableDataTree.prototype.updateRows = function (nodes) {
             var rows = this._rows;
             var supplimentals = this._supplimentals;
             var flags = this._flags;
             if (nodes != null) {
-                var irows = this.updateRows_(nodes, 0, 0, rows, supplimentals, flags);
+                var irows = this.newRows(nodes, 0, 0, rows, supplimentals, flags);
                 if (irows !== rows.length) {
                     rows.length = irows;
                     supplimentals.length = irows;
@@ -56219,10 +57065,11 @@
         DTableDataTree.prototype.toSupplimental = function (ilevel, hasChildren, isOpened) {
             return (ilevel << 2) | (hasChildren ? 2 : 0) | (isOpened ? 1 : 0);
         };
-        DTableDataTree.prototype.updateRows_ = function (nodes, irows, ilevel, rows, supplimentals, flags) {
+        DTableDataTree.prototype.newRows = function (nodes, irows, ilevel, rows, supplimentals, flags) {
+            var toChildren = this._accessor.toChildren;
             for (var i = 0, imax = nodes.length; i < imax; ++i) {
                 var node = nodes[i];
-                var children = node.children;
+                var children = toChildren(node);
                 var isOpened = flags.has(node);
                 var supplimental = this.toSupplimental(ilevel, !!(children && 0 < children.length), isOpened);
                 if (irows < rows.length) {
@@ -56235,7 +57082,7 @@
                 }
                 irows += 1;
                 if (isOpened && children) {
-                    irows = this.updateRows_(children, irows, ilevel + 1, rows, supplimentals, flags);
+                    irows = this.newRows(children, irows, ilevel + 1, rows, supplimentals, flags);
                 }
             }
             return irows;
@@ -56335,16 +57182,9 @@
         function DTableHeaderCellCheck(parent, options) {
             var _a, _b, _c;
             this._parent = parent;
-            if (options) {
-                this._isEnabled = (_a = options.enable) !== null && _a !== void 0 ? _a : false;
-                this._isFilterable = (_b = options.filterable) !== null && _b !== void 0 ? _b : true;
-                this._isEmittable = (_c = options.emittable) !== null && _c !== void 0 ? _c : true;
-            }
-            else {
-                this._isEnabled = false;
-                this._isFilterable = true;
-                this._isEmittable = true;
-            }
+            this._isEnabled = (_a = options === null || options === void 0 ? void 0 : options.enable) !== null && _a !== void 0 ? _a : false;
+            this._isFilterable = (_b = options === null || options === void 0 ? void 0 : options.filterable) !== null && _b !== void 0 ? _b : true;
+            this._isEmittable = (_c = options === null || options === void 0 ? void 0 : options.emittable) !== null && _c !== void 0 ? _c : true;
         }
         Object.defineProperty(DTableHeaderCellCheck.prototype, "isEnabled", {
             get: function () {
@@ -56490,13 +57330,14 @@
                 var sortable = column.sorting.enable;
                 var checkable = this._check.isEnabled;
                 if (checkable || sortable) {
-                    this.buttonMode = this.state.isActionable;
                     UtilPointerEvent.onClick(this, function (e) {
                         _this.onClick(e);
                     });
-                    if (checkable) {
-                        this.state.add(DTableCellState.CHECKABLE);
-                    }
+                    var state = this.state;
+                    state.lock();
+                    state.set(DTableState.SORTABLE, sortable);
+                    state.set(DTableState.CHECKABLE, checkable);
+                    state.unlock();
                 }
             }
         };
@@ -56545,8 +57386,8 @@
             if (comparator) {
                 var sorter = this._sorter;
                 if (sorter) {
-                    var SORTED_ASCENDING = DTableCellState.SORTED_ASCENDING;
-                    var SORTED_DESCENDING = DTableCellState.SORTED_DESCENDING;
+                    var SORTED_ASCENDING = DTableState.SORTED_ASCENDING;
+                    var SORTED_DESCENDING = DTableState.SORTED_DESCENDING;
                     if (sorter.isApplied() && sorter.get() === comparator) {
                         if (sorter.order === DTableDataOrder.ASCENDING) {
                             this.state.set(SORTED_ASCENDING, SORTED_DESCENDING);
@@ -56634,16 +57475,9 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(DTableHeaderCell.prototype, "isButton", {
-            get: function () {
-                return this.check.isEnabled || this.isSortable;
-            },
-            enumerable: false,
-            configurable: true
-        });
         Object.defineProperty(DTableHeaderCell.prototype, "isToggle", {
             get: function () {
-                return this.check.isEnabled;
+                return this._check.isEnabled;
             },
             enumerable: false,
             configurable: true
@@ -56704,12 +57538,6 @@
             }
             return _super.prototype.onKeyUp.call(this, e);
         };
-        DTableHeaderCell.prototype.onStateChange = function (newState, oldState) {
-            _super.prototype.onStateChange.call(this, newState, oldState);
-            if (this.isButton) {
-                this.buttonMode = newState.isActionable;
-            }
-        };
         DTableHeaderCell.prototype.getType = function () {
             return "DTableHeaderCell";
         };
@@ -56733,15 +57561,15 @@
     var DTableHeader = /** @class */ (function (_super) {
         __extends(DTableHeader, _super);
         function DTableHeader(options) {
-            return _super.call(this, options) || this;
+            var _a, _b;
+            var _this = _super.call(this, options) || this;
+            _this._table = (_a = options.table) !== null && _a !== void 0 ? _a : null;
+            var offset = (_b = options.offset) !== null && _b !== void 0 ? _b : 0;
+            _this._offset = offset;
+            _this.transform.position.y = offset;
+            _this.initCells(options, _this._columns, _this._frozen);
+            return _this;
         }
-        DTableHeader.prototype.init = function (options) {
-            var _a;
-            this._table = options.table || null;
-            this._offset = this.transform.position.y = options.offset || 0;
-            this._frozen = (_a = options.frozen) !== null && _a !== void 0 ? _a : 0;
-            _super.prototype.init.call(this, options);
-        };
         Object.defineProperty(DTableHeader.prototype, "table", {
             get: function () {
                 return this._table;
@@ -56761,31 +57589,31 @@
             }
             return 0;
         };
-        DTableHeader.prototype.newCell = function (columnIndex, columnData, columnDataList, options) {
-            return new DTableHeaderCell(this.toCellOptions(columnIndex, columnData, options));
+        DTableHeader.prototype.newCell = function (columnIndex, column, columns, options) {
+            return new DTableHeaderCell(this.toCellOptions(columnIndex, column, options));
         };
-        DTableHeader.prototype.toCellOptions = function (columnIndex, columnData, options) {
-            var result = columnData.header || options.cell;
+        DTableHeader.prototype.toCellOptions = function (columnIndex, column, options) {
+            var result = column.header || options.cell;
             if (result != null) {
                 if (result.weight === undefined) {
-                    result.weight = columnData.weight;
+                    result.weight = column.weight;
                 }
                 if (result.width === undefined) {
-                    result.width = columnData.width;
+                    result.width = column.width;
                 }
                 if (result.text === undefined) {
                     result.text = {
-                        value: columnData.label
+                        value: column.label
                     };
                 }
                 else if (result.text.value === undefined) {
-                    result.text.value = columnData.label;
+                    result.text.value = column.label;
                 }
                 if (result.header === undefined) {
                     result.header = this;
                 }
                 if (result.column === undefined) {
-                    result.column = columnData;
+                    result.column = column;
                 }
                 if (result.columnIndex === undefined) {
                     result.columnIndex = columnIndex;
@@ -56794,13 +57622,13 @@
             }
             else {
                 return {
-                    weight: columnData.weight,
-                    width: columnData.width,
+                    weight: column.weight,
+                    width: column.width,
                     text: {
-                        value: columnData.label
+                        value: column.label
                     },
                     header: this,
-                    column: columnData,
+                    column: column,
                     columnIndex: columnIndex
                 };
             }
@@ -57145,6 +57973,7 @@
             var columns = toColumns(options.columns);
             // Frozen
             var frozen = toFrozen(columns);
+            this._frozen = frozen;
             // Categories
             var categories = this.newCategories(options, columns, frozen);
             this._categories = categories;
@@ -57157,6 +57986,7 @@
             this._header = header;
             // Body
             var bodyOffset = headerOffset + ((header && header.height) || 0);
+            this._bodyOffset = bodyOffset;
             var body = this.newBody(options, columns, frozen, bodyOffset);
             this._body = body;
             // Super
@@ -57179,7 +58009,7 @@
             });
             if (body.data.selection.type !== DTableDataSelectionType.NONE) {
                 UtilPointerEvent.onClick(this, function (e) {
-                    body.onRowClicked(e);
+                    body.onRowClick(e);
                 });
             }
             content.state.isFocusReverse = true;
@@ -57490,16 +58320,107 @@
         };
         DTable.prototype.getFocusedChildClippingRect = function (focused, contentX, contentY, contentWidth, contentHeight, width, height, result) {
             _super.prototype.getFocusedChildClippingRect.call(this, focused, contentX, contentY, contentWidth, contentHeight, width, height, result);
-            var parent = focused.parent;
-            if (parent instanceof DTableRow) {
-                var x = contentX + parent.getFocusedChildClippingPositionX(focused);
-                var dx = x - result.x;
+            var cell = this.toCell(focused);
+            if (cell) {
+                // X
+                var dx = contentX + this.toFrozenCellX(cell) - result.x;
                 if (0 < dx) {
                     result.x += dx;
                     result.width -= dx;
                 }
+                // Y
+                if (cell.parent.parent === this._body) {
+                    var dy = this._bodyOffset;
+                    result.y += dy;
+                    result.height -= dy;
+                }
             }
+            // Done
             return result;
+        };
+        DTable.prototype.toFrozenCellX = function (cell) {
+            var frozen = this._frozen;
+            if (0 < frozen) {
+                var cells = cell.parent.children;
+                var cellIndex = cells.indexOf(cell);
+                if (0 <= cellIndex) {
+                    var cellsLength = cells.length;
+                    var columnIndex = cellsLength - 1 - cellIndex;
+                    if (frozen <= columnIndex) {
+                        var cellFrozen = cells[cellsLength - frozen];
+                        return cellFrozen.position.x + cellFrozen.width;
+                    }
+                }
+            }
+            return 0;
+        };
+        DTable.prototype.onKeyDown = function (e) {
+            UtilKeyboardEvent.moveFocusHorizontally(e, this);
+            var isArrowUpKey = UtilKeyboardEvent.isArrowUpKey(e);
+            var isArrowDownKey = UtilKeyboardEvent.isArrowDownKey(e);
+            if (isArrowUpKey || isArrowDownKey) {
+                this.onKeyDownArrowUpOrDown(e, isArrowDownKey);
+            }
+            return _super.prototype.onKeyDown.call(this, e);
+        };
+        DTable.prototype.onKeyDownArrowUpOrDown = function (e, isDown) {
+            var layer = DApplications.getLayer(this);
+            if (layer == null) {
+                return false;
+            }
+            var focusController = layer.getFocusController();
+            var oldFocusable = focusController.get();
+            if (oldFocusable == null) {
+                return false;
+            }
+            var oldCell = this.toCell(oldFocusable);
+            if (oldCell == null) {
+                return false;
+            }
+            var oldRow = oldCell.parent;
+            if (oldRow == null) {
+                return false;
+            }
+            var newRowChild = focusController.find(oldRow, false, false, isDown, this);
+            if (newRowChild == null) {
+                return false;
+            }
+            var newCellSibling = this.toCell(newRowChild);
+            if (newCellSibling == null) {
+                return false;
+            }
+            var newRow = newCellSibling.parent;
+            if (newRow == null) {
+                return false;
+            }
+            var oldCellIndex = oldRow.children.indexOf(oldCell);
+            if (oldCellIndex < 0) {
+                return false;
+            }
+            var newCell = newRow.children[oldCellIndex];
+            if (newCell == null || newCell === oldCell || !("state" in newCell)) {
+                return false;
+            }
+            var newFocusable = focusController.find(newCell, true, true, isDown, this);
+            if (newFocusable == null) {
+                return false;
+            }
+            focusController.focus(newFocusable);
+            return true;
+        };
+        DTable.prototype.toCell = function (focused) {
+            var current = focused;
+            while (current != null) {
+                var parent_1 = current.parent;
+                if (parent_1 instanceof DTableRow) {
+                    if (current instanceof DBase) {
+                        return current;
+                    }
+                    return null;
+                }
+                current = parent_1;
+            }
+            return null;
         };
         DTable.prototype.getType = function () {
             return "DTable";
@@ -58533,7 +59454,7 @@
         toHitThreshold: toHitThreshold,
         toLength: toLength,
         STEP_VALUES: STEP_VALUES,
-        toStep: toStep$1,
+        toStep: toStep,
         EShapeBufferUnitBuilder: EShapeBufferUnitBuilder,
         EShapeBufferUnit: EShapeBufferUnit,
         EShapeBuffer: EShapeBuffer,
@@ -58605,6 +59526,7 @@
         NumberFormatterImpl: NumberFormatterImpl,
         NumberFormatters: NumberFormatters,
         toCeilingIndex: toCeilingIndex,
+        toEnum: toEnum,
         toIndexOf: toIndexOf,
         toLabel: toLabel,
         toPadded: toPadded,
@@ -58667,6 +59589,7 @@
         DBasePadding: DBasePadding,
         DBasePoint: DBasePoint,
         DBaseReflowable: DBaseReflowable,
+        DBaseStateSetDataImpl: DBaseStateSetDataImpl,
         DBaseStateSetImplObservable: DBaseStateSetImplObservable,
         DBaseStateSetImpl: DBaseStateSetImpl,
         DBaseState: DBaseState,
@@ -58674,6 +59597,7 @@
         DBoard: DBoard,
         get DBorderMask () { return DBorderMask; },
         DButtonAmbient: DButtonAmbient,
+        get DButtonBaseWhen () { return DButtonBaseWhen; },
         DButtonBase: DButtonBase,
         DButtonCheckRight: DButtonCheckRight,
         DButtonCheck: DButtonCheck,
@@ -58978,19 +59902,23 @@
         DTableBody: DTableBody,
         DTableCategoryCell: DTableCategoryCell,
         DTableCategory: DTableCategory,
-        DTableCellState: DTableCellState,
         get DTableColumnType () { return DTableColumnType; },
-        DTableDataFilterImpl: DTableDataFilterImpl,
+        DTableDataListFilter: DTableDataListFilter,
         DTableDataListMapped: DTableDataListMapped,
+        DTableDataListSelection: DTableDataListSelection,
+        DTableDataListSorter: DTableDataListSorter,
         DTableDataList: DTableDataList,
-        DTableDataSelectionImpl: DTableDataSelectionImpl,
         get DTableDataSelectionType () { return DTableDataSelectionType; },
-        DTableDataSorterImpl: DTableDataSorterImpl,
         get DTableDataOrder () { return DTableDataOrder; },
+        DTableDataTreeFilter: DTableDataTreeFilter,
+        DTableDataTreeItemAccessor: DTableDataTreeItemAccessor,
+        DTableDataTreeSelectionImpl: DTableDataTreeSelectionImpl,
+        DTableDataTreeSorter: DTableDataTreeSorter,
         DTableDataTree: DTableDataTree,
         DTableHeaderCell: DTableHeaderCell,
         DTableHeader: DTableHeader,
         DTableRow: DTableRow,
+        DTableState: DTableState,
         DTable: DTable,
         DTextBase: DTextBase,
         DText: DText,

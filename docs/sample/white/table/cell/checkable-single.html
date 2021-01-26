@@ -9,21 +9,21 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Editable cell</title>
+	<title>Checkable cell (Single)</title>
 	<style>
 	html, body {
 		width: 100%;
 		height: 100%;
 		margin: 0;
 		padding: 0;
-		background-color: #2e2e2e;
+		background-color: #f2f2f2;
 	}
 	</style>
 </head>
 <body>
 	<script src="../../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.67.0/wcardinal-ui.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.67.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.75.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.75.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -35,24 +35,25 @@
 			x: "center", y: "center",
 			width: 500, height: 500,
 			columns: [{
-				label: "Text",
-				type: "TEXT",
-				editable: true
-			}, {
-				label: "Integer",
-				type: "INTEGER",
-				editable: true
-			}, {
-				label: "Real",
-				type: "REAL",
+				label: "Non editable",
+				type: "CHECK_SINGLE"
+			},{
+				label: "Editable",
+				type: "CHECK_SINGLE",
 				editable: true
 			}],
 			data: {
 				rows: [
-					[ "Apple", 2000, 0.123 ],
-					[ "Orange", 2001, 0.250 ],
-					[ "Pineapple", 2002, 0.500 ]
-				]
+					[ true, false ],
+					[ false, true ],
+					[ false, false ],
+					[ false, false ]
+				],
+				on: {
+					change: function ( newValue, oldValue, rowValue, rowIndex, columnIndex, data ) {
+						console.log( newValue, oldValue, rowValue, rowIndex, columnIndex, data );
+					}
+				}
 			}
 		});
 	}());

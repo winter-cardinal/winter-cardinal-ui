@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.67.0/wcardinal-ui.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.67.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.75.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.75.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -54,7 +54,9 @@
 								},{
 									id: "Pineapple",
 									label: "Pineapple"
-								}]);
+								}].filter(function( item ) {
+									return word.length <= 0 || 0 <= item.label.indexOf( word )
+								}));
 							}
 						}
 					}
@@ -75,20 +77,20 @@
 				selecting: {
 					menu: {
 						items: [{
+							value: "Apple",
 							text: {
 								value: "Apple"
-							},
-							value: "Apple"
+							}
 						}, {
+							value: "Orange",
 							text: {
 								value: "Orange"
-							},
-							value: "Orange"
+							}
 						}, {
+							value: "Pineapple",
 							text: {
 								value: "Pineapple"
-							},
-							value: "Pineapple"
+							}
 						}],
 						fit: true
 					}
@@ -100,22 +102,22 @@
 				selecting: {
 					multiple: {
 						items: [{
+							value: "Apple",
 							text: {
 								value: "Apple"
 							},
-							value: "Apple",
 							check: true
 						}, {
+							value: "Orange",
 							text: {
 								value: "Orange"
 							},
-							value: "Orange",
 							check: true
 						}, {
+							value: "Pineapple",
 							text: {
 								value: "Pineapple"
 							},
-							value: "Pineapple",
 							check: true
 						}],
 						fit: true
