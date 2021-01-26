@@ -29,7 +29,6 @@ import { DTableHeader, DTableHeaderOptions } from "./d-table-header";
 import { DTableRow } from "./d-table-row";
 import { isArray } from "./util/is-array";
 import { isString } from "./util/is-string";
-import { toString } from "./util/to-string";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
