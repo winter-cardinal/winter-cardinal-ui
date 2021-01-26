@@ -7,7 +7,6 @@ import { DisplayObject } from "pixi.js";
 import { DBase } from "./d-base";
 import { DLinkMenuItemId } from "./d-link-menu-item-id";
 import { DMenu, DMenuOptions } from "./d-menu";
-import { Closeable } from "./d-menu-context";
 import { DMenuItem } from "./d-menu-item";
 import { DMenus } from "./d-menus";
 
@@ -50,9 +49,9 @@ export class DLinkMenu {
 			result.on( "select", (
 				value: DLinkMenuItemId,
 				item: DMenuItem<DLinkMenuItemId>,
-				closeable: Closeable
+				menu: DMenu<DLinkMenuItemId>
 			): void => {
-				this.onSelect( value, item, closeable );
+				this.onSelect( value, item, menu );
 			});
 		}
 		return result;
@@ -72,7 +71,7 @@ export class DLinkMenu {
 	protected onSelect(
 		value: DLinkMenuItemId,
 		item: DMenuItem<DLinkMenuItemId>,
-		closeable: Closeable
+		menu: DMenu<DLinkMenuItemId>
 	): void {
 		const parent = this._parent;
 		switch( value ) {

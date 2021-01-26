@@ -4,34 +4,42 @@
  */
 
 import { DImageBase, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
-import { DTableBodyCell } from "./d-table-body-cell";
+import { DStateAwareOrValue } from "./d-state-aware";
+import { DTableBodyCell, DTableBodyCellOnChange } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
 
-export interface DTableBodyCellTextOptions<ROW, THEME extends DThemeTableBodyCellText = DThemeTableBodyCellText>
-	extends DImageBaseOptions<unknown, THEME> {
+export interface DTableBodyCellTextOptions<
+	ROW,
+	VALUE = unknown,
+	THEME extends DThemeTableBodyCellText<VALUE> = DThemeTableBodyCellText<VALUE>
+> extends DImageBaseOptions<VALUE, THEME> {
+
 }
 
-export interface DThemeTableBodyCellText extends DThemeImageBase<unknown> {
+export interface DThemeTableBodyCellText<VALUE = unknown> extends DThemeImageBase<VALUE> {
 
 }
 
 export class DTableBodyCellText<
 	ROW,
-	THEME extends DThemeTableBodyCellText = DThemeTableBodyCellText,
-	OPTIONS extends DTableBodyCellTextOptions<ROW, THEME> = DTableBodyCellTextOptions<ROW, THEME>
-> extends DImageBase<unknown, THEME, OPTIONS> implements DTableBodyCell<ROW> {
+	VALUE = unknown,
+	THEME extends DThemeTableBodyCellText<VALUE> = DThemeTableBodyCellText<VALUE>,
+	OPTIONS extends DTableBodyCellTextOptions<ROW, VALUE, THEME> = DTableBodyCellTextOptions<ROW, VALUE, THEME>
+> extends DImageBase<VALUE, THEME, OPTIONS> implements DTableBodyCell<ROW, VALUE> {
 	protected _row?: ROW;
-	protected _rowIndex!: number;
-	protected _columnIndex!: number;
-	protected _column!: DTableColumn<ROW>;
+	protected _rowIndex: number;
+	protected _columnIndex: number;
+	protected _column: DTableColumn<ROW, VALUE>;
+	protected _onChange: DTableBodyCellOnChange<ROW, VALUE>;
 
-	constructor( columnIndex: number, column: DTableColumn<ROW>, options?: OPTIONS ) {
+	constructor( columnIndex: number, column: DTableColumn<ROW, VALUE>, onChange: DTableBodyCellOnChange<ROW, VALUE>, options?: OPTIONS ) {
 		super( options );
 
 		this._rowIndex = -1;
 		this._columnIndex = columnIndex;
 		this._column = column;
+		this._onChange = onChange;
 	}
 
 	get row(): ROW | undefined {
@@ -46,7 +54,7 @@ export class DTableBodyCellText<
 		return this._columnIndex;
 	}
 
-	get column(): DTableColumn<ROW> {
+	get column(): DTableColumn<ROW, VALUE> {
 		return this._column;
 	}
 
@@ -57,7 +65,7 @@ export class DTableBodyCellText<
 	): void {
 		this._row = row;
 		this._rowIndex = rowIndex;
-		this.text = value;
+		this.text = value as DStateAwareOrValue<VALUE>;
 
 		const column = this._column;
 		DTableBodyCells.setReadOnly( this, row, columnIndex, column );

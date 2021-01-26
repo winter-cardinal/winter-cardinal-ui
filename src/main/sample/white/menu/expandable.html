@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Select</title>
+	<title>Expand menu</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -28,41 +28,61 @@
 	(function(){
 		"use strict";
 
-		const application = new wcardinal.ui.DApplication();
+		var application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DMenuBar({
 			parent: application.stage,
-			x: 100, y: 100,
+			x: "center", y: "center",
+			width: 500,
 			items: [{
-				width: "auto",
 				text: {
-					value: "Menu"
+					value: "Fruit"
 				},
 				menu: {
+					sticky: true,
 					items: [{
+						value: "APPLE",
 						text: {
-							value: "A"
-						},
-						on: {
-							select: ( item ) => {
-								console.log( "Menu Item A", item );
-							}
+							value: "Apple"
 						}
 					}, {
+						value: "ORANGE",
 						text: {
-							value: "B"
-						},
-						on: {
-							select: ( item ) => {
-								console.log( "Menu Item B", item );
-							}
+							value: "Orange"
 						}
+					}, {
+						value: "PINEAPPLE",
+						text: {
+							value: "Pineapple"
+						},
+					}, {
+						header: {
+							text: {
+								value: "Others"
+							}
+						},
+						items: [{
+							value: "ANOTHER_APPLE",
+							text: {
+								value: "Another Apple"
+							}
+						}, {
+							value: "ANOTHER_ORANGE",
+							text: {
+								value: "Another Orange"
+							}
+						}, {
+							value: "ANOTHER_PINEAPPLE",
+							text: {
+								value: "ANother Pineapple"
+							}
+						}]
 					}]
 				}
 			}],
 			on: {
-				select: ( value, item, menu ) => {
-					console.log( "Menu", item.text, item, menu );
+				select: function ( value, item, menuBar ) {
+					console.log( value, item, menuBar );
 				}
 			}
 		});

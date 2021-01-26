@@ -10,41 +10,43 @@ import { DLinkMenuItemId } from "./d-link-menu-item-id";
 import { DLinkTarget } from "./d-link-target";
 import { DLinks } from "./d-links";
 import { DMenu, DMenuOptions } from "./d-menu";
-import { DTableBodyCell } from "./d-table-body-cell";
+import { DTableBodyCell, DTableBodyCellOnChange } from "./d-table-body-cell";
 import {
 	DTableBodyCellButton, DTableBodyCellButtonOptions, DThemeTableBodyCellButton
 } from "./d-table-body-cell-button";
 import { DTableColumn } from "./d-table-column";
 import { isString } from "./util/is-string";
 
-export type DTableBodyCellLinkUrlMaker<ROW> = (
-	row: ROW, rowIndex: number, columnIndex: number, link: DTableBodyCell<ROW>
+export type DTableBodyCellLinkUrlMaker<ROW, VALUE> = (
+	row: ROW, rowIndex: number, columnIndex: number, link: DTableBodyCell<ROW, VALUE | null>
 ) => string | null | Promise<string | null>;
-export type DTableBodyCellLinkChecker<ROW> = (
-	row: ROW, rowIndex: number, columnIndex: number, link: DTableBodyCell<ROW>
+
+export type DTableBodyCellLinkChecker<ROW, VALUE> = (
+	row: ROW, rowIndex: number, columnIndex: number, link: DTableBodyCell<ROW, VALUE | null>
 ) => boolean | Promise<boolean>;
 
-export interface DTableBodyCellLinkLinkOptions<ROW> {
-	url?: string | DTableBodyCellLinkUrlMaker<ROW>;
-	target?: DLinkTarget;
-	checker?: DTableBodyCellLinkChecker<ROW>;
+export interface DTableBodyCellLinkLinkOptions<ROW, VALUE> {
+	url?: string | DTableBodyCellLinkUrlMaker<ROW, VALUE>;
+	target?: DLinkTarget | (keyof typeof DLinkTarget);
+	checker?: DTableBodyCellLinkChecker<ROW, VALUE>;
 	menu?: DMenuOptions<DLinkMenuItemId> | DMenu<DLinkMenuItemId>;
 }
 
 export interface DTableBodyCellLinkOptions<
 	ROW,
-	THEME extends DThemeTableBodyCellLink = DThemeTableBodyCellLink
-> extends DTableBodyCellButtonOptions<ROW, THEME> {
-	link?: DTableBodyCellLinkLinkOptions<ROW>;
+	VALUE = unknown,
+	THEME extends DThemeTableBodyCellLink<VALUE> = DThemeTableBodyCellLink<VALUE>
+> extends DTableBodyCellButtonOptions<ROW, VALUE, THEME> {
+	link?: DTableBodyCellLinkLinkOptions<ROW, VALUE>;
 }
 
-export interface DThemeTableBodyCellLink extends DThemeTableBodyCellButton, DThemeLink {
+export interface DThemeTableBodyCellLink<VALUE = unknown> extends DThemeTableBodyCellButton<VALUE>, DThemeLink {
 
 }
 
-export const toLinkOptions = <ROW>(
-	cell: DTableBodyCell<ROW>,
-	options?: DTableBodyCellLinkLinkOptions<ROW>
+export const toLinkOptions = <ROW, VALUE>(
+	cell: DTableBodyCell<ROW, VALUE | null>,
+	options?: DTableBodyCellLinkLinkOptions<ROW, VALUE>
 ): DLinkOptions | undefined => {
 	if( options ) {
 		return {
@@ -57,9 +59,9 @@ export const toLinkOptions = <ROW>(
 	return undefined;
 };
 
-export const toUrl = <ROW>(
-	cell: DTableBodyCell<ROW>,
-	url?: string | DTableBodyCellLinkUrlMaker<ROW>
+export const toUrl = <ROW, VALUE>(
+	cell: DTableBodyCell<ROW, VALUE | null>,
+	url?: string | DTableBodyCellLinkUrlMaker<ROW, VALUE>
 ): string | DLinkUrlMaker | undefined => {
 	if( isString( url ) || url == null ) {
 		return url;
@@ -74,9 +76,9 @@ export const toUrl = <ROW>(
 	}
 };
 
-export const toChecker = <ROW>(
-	cell: DTableBodyCell<ROW>,
-	checker?: DTableBodyCellLinkChecker<ROW>
+export const toChecker = <ROW, VALUE>(
+	cell: DTableBodyCell<ROW, VALUE | null>,
+	checker?: DTableBodyCellLinkChecker<ROW, VALUE>
 ): DLinkChecker | undefined => {
 	if( checker != null ) {
 		return (): boolean | Promise<boolean> => {
@@ -92,13 +94,14 @@ export const toChecker = <ROW>(
 
 export class DTableBodyCellLink<
 	ROW,
-	THEME extends DThemeTableBodyCellLink = DThemeTableBodyCellLink,
-	OPTIONS extends DTableBodyCellLinkOptions<ROW, THEME> = DTableBodyCellLinkOptions<ROW, THEME>
-> extends DTableBodyCellButton<ROW, THEME, OPTIONS> {
+	VALUE = unknown,
+	THEME extends DThemeTableBodyCellLink<VALUE> = DThemeTableBodyCellLink<VALUE>,
+	OPTIONS extends DTableBodyCellLinkOptions<ROW, VALUE, THEME> = DTableBodyCellLinkOptions<ROW, VALUE, THEME>
+> extends DTableBodyCellButton<ROW, VALUE, THEME, OPTIONS> {
 	protected _link?: DLink;
 
-	constructor( columnIndex: number, column: DTableColumn<ROW>, options: OPTIONS ) {
-		super( columnIndex, column, DLinks.toStateOptions( options?.link?.target, options ) );
+	constructor( columnIndex: number, column: DTableColumn<ROW, VALUE | null>, onChange: DTableBodyCellOnChange<ROW, VALUE | null>, options: OPTIONS ) {
+		super( columnIndex, column, onChange, DLinks.toStateOptions( options?.link?.target, options ) );
 	}
 
 	protected initOnClick( when: DButtonBaseWhen, theme: THEME, options?: OPTIONS ): void {
@@ -123,15 +126,8 @@ export class DTableBodyCellLink<
 	}
 
 	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
-		this.emit( "active", this );
-		const row = this._row;
-		if( row !== undefined ) {
-			const rowIndex = this._rowIndex;
-			const columnIndex = this._columnIndex;
-			this._column.setter( row, columnIndex, null );
-			this.emit( "cellchange", null, null, row, rowIndex, columnIndex, this );
-			this.link.open( e );
-		}
+		super.onActivate( e );
+		this.link.open( e );
 	}
 
 	open( inNewWindow: boolean ): void {

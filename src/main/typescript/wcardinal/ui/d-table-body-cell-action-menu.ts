@@ -4,14 +4,17 @@
  */
 
 import { DDropdown, DDropdownOptions, DThemeDropdown } from "./d-dropdown";
-import { DTableBodyCell } from "./d-table-body-cell";
+import { DMenu } from "./d-menu";
+import { DMenuItem } from "./d-menu-item";
+import { DTableBodyCell, DTableBodyCellOnChange } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
 
 export interface DTableBodyCellActionMenuOptions<
 	ROW = unknown,
+	VALUE = unknown,
 	THEME extends DThemeTableBodyCellActionMenu = DThemeTableBodyCellActionMenu
-> extends DDropdownOptions<unknown, THEME> {
+> extends DDropdownOptions<VALUE, THEME> {
 
 }
 
@@ -21,57 +24,38 @@ export interface DThemeTableBodyCellActionMenu extends DThemeDropdown {
 
 export class DTableBodyCellActionMenu<
 	ROW = unknown,
+	VALUE = unknown,
 	THEME extends DThemeTableBodyCellActionMenu = DThemeTableBodyCellActionMenu,
-	OPTIONS extends DTableBodyCellActionMenuOptions<ROW, THEME> = DTableBodyCellActionMenuOptions<ROW, THEME>
-> extends DDropdown<unknown, THEME, OPTIONS> implements DTableBodyCell<ROW> {
+	OPTIONS extends DTableBodyCellActionMenuOptions<ROW, VALUE, THEME> = DTableBodyCellActionMenuOptions<ROW, VALUE, THEME>
+> extends DDropdown<VALUE, THEME, OPTIONS> implements DTableBodyCell<ROW, VALUE | null> {
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;
-	protected _column: DTableColumn<ROW>;
-	protected _onSelectedBound: ( selected: unknown ) => void;
-	protected _onClosedBound: () => void;
+	protected _column: DTableColumn<ROW, VALUE | null>;
+	protected _onChange: DTableBodyCellOnChange<ROW, VALUE | null>;
 
-	constructor( columnIndex: number, column: DTableColumn<ROW>, options?: OPTIONS ) {
+	constructor( columnIndex: number, column: DTableColumn<ROW, VALUE | null>, onChange: DTableBodyCellOnChange<ROW, VALUE | null>, options?: OPTIONS ) {
 		super( options );
 
 		this._rowIndex = -1;
 		this._columnIndex = columnIndex;
 		this._column = column;
-
-		this._onSelectedBound = ( selected: unknown ): void => {
-			this.onSelected( selected );
-		};
-		this._onClosedBound = (): void => {
-			this.onClosed();
-		};
+		this._onChange = onChange;
 	}
 
-	protected onSelected( selected: unknown ): void {
-		const column = this._column;
+	protected onMenuSelect( selected: VALUE, item: DMenuItem<VALUE>, menu: DMenu<VALUE> ): void {
 		const row = this._row;
 		if( row !== undefined ) {
 			const rowIndex = this._rowIndex;
 			const columnIndex = this._columnIndex;
-			column.setter( row, columnIndex, selected );
-			this.emit( "cellchange", selected, null, row, rowIndex, columnIndex, this );
+			this._column.setter( row, columnIndex, selected );
+			super.onMenuSelect( selected, item, menu );
+			this._onChange( selected, null, row, rowIndex, columnIndex, this );
 		}
-	}
-
-	protected onClosed(): void {
-		const menu = this.menu;
-		menu.off( "select", this._onSelectedBound );
-		menu.off( "close", this._onClosedBound );
 	}
 
 	protected onKeyDownArrowDown( e: KeyboardEvent ): boolean {
 		return false;
-	}
-
-	start(): void {
-		const menu = this.menu;
-		menu.on( "select", this._onSelectedBound );
-		menu.on( "close", this._onClosedBound );
-		super.start();
 	}
 
 	get row(): ROW | undefined {
@@ -86,7 +70,7 @@ export class DTableBodyCellActionMenu<
 		return this._columnIndex;
 	}
 
-	get column(): DTableColumn<ROW> {
+	get column(): DTableColumn<ROW, VALUE | null> {
 		return this._column;
 	}
 
@@ -97,7 +81,7 @@ export class DTableBodyCellActionMenu<
 	): void {
 		this._row = row;
 		this._rowIndex = rowIndex;
-		this.text = value as any;
+		this.text = value as string | undefined;
 
 		const column = this._column;
 		DTableBodyCells.setReadOnly( this, row, columnIndex, column );

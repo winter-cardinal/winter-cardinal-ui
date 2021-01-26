@@ -3,12 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { interaction } from "pixi.js";
 import { DButton, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogDatetime, DDialogDatetimeOptions } from "./d-dialog-datetime";
 import { DDialogDatetimes } from "./d-dialog-datetimes";
 import { DPickerDatetimeMask } from "./d-picker-datetime-mask";
 import { DPickerDatetimes } from "./d-picker-datetimes";
-import { DTableBodyCell } from "./d-table-body-cell";
+import { DTableBodyCell, DTableBodyCellOnChange } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
 import { isNumber } from "./util/is-number";
@@ -28,39 +29,43 @@ export class DTableBodyCellDatetime<
 	ROW = unknown,
 	THEME extends DThemeTableBodyCellDatetime = DThemeTableBodyCellDatetime,
 	OPTIONS extends DTableBodyCellDatetimeOptions<ROW, THEME> = DTableBodyCellDatetimeOptions<ROW, THEME>
-> extends DButton<Date, THEME, OPTIONS> implements DTableBodyCell<ROW> {
-	protected static DIALOG?: DDialogDatetime;
-	protected _dialog?: DDialogDatetime;
-	protected _datetimeMask?: DPickerDatetimeMask;
+> extends DButton<Date, THEME, OPTIONS> implements DTableBodyCell<ROW, Date> {
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;
-	protected _column: DTableColumn<ROW>;
+	protected _column: DTableColumn<ROW, Date>;
+	protected _onChange: DTableBodyCellOnChange<ROW, Date>;
+	protected _dialog?: DDialogDatetime;
+	protected _datetimeMask?: DPickerDatetimeMask;
 
-	constructor( columnIndex: number, column: DTableColumn<ROW>, options?: OPTIONS ) {
+	constructor( columnIndex: number, column: DTableColumn<ROW, Date>, onChange: DTableBodyCellOnChange<ROW, Date>, options?: OPTIONS ) {
 		super( options );
 
 		this._rowIndex = -1;
 		this._columnIndex = columnIndex;
 		this._column = column;
+		this._onChange = onChange;
+	}
 
-		this.on( "active", (): void => {
-			const currentTime = this._textValueComputed?.getTime() ?? Date.now();
-			const dialog = this.dialog;
-			dialog.current = new Date( currentTime );
-			dialog.new = new Date( currentTime );
-			dialog.page = new Date( currentTime );
-			dialog.open().then((): void => {
-				const newValue = dialog.new;
-				const oldValue = dialog.current;
-				this.text = new Date( newValue.getTime() );
-				const row = this._row;
-				if( row !== undefined ) {
-					const rowIndex = this._rowIndex;
-					this._column.setter( row, columnIndex, newValue );
-					this.emit( "cellchange", newValue, oldValue, row, rowIndex, columnIndex, this );
-				}
-			});
+	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
+		super.onActivate( e );
+		const value = this._textValueComputed?.getTime() ?? Date.now();
+		const dialog = this.dialog;
+		dialog.current = new Date( value );
+		dialog.new = new Date( value );
+		dialog.page = new Date( value );
+		dialog.open().then((): void => {
+			const newValue = dialog.new;
+			const oldValue = dialog.current;
+			this.text = new Date( newValue.getTime() );
+			const row = this._row;
+			if( row !== undefined ) {
+				const rowIndex = this._rowIndex;
+				const columnIndex = this._columnIndex;
+				this._column.setter( row, columnIndex, newValue );
+				this.emit( "change", newValue, oldValue, this );
+				this._onChange( newValue, oldValue, row, rowIndex, columnIndex, this );
+			}
 		});
 	}
 
@@ -77,7 +82,7 @@ export class DTableBodyCellDatetime<
 		let dialog = this._dialog;
 		if( dialog == null ) {
 			const options = this._options?.dialog;
-			if( options != null ) {
+			if( options ) {
 				dialog = new DDialogDatetime( options );
 			} else {
 				dialog = DDialogDatetimes.getInstance();
@@ -99,12 +104,12 @@ export class DTableBodyCellDatetime<
 		return this._columnIndex;
 	}
 
-	get column(): DTableColumn<ROW> {
+	get column(): DTableColumn<ROW, Date> {
 		return this._column;
 	}
 
 	set(
-		value: unknown, row: ROW, supplimental: unknown,
+		value: Date, row: ROW, supplimental: unknown,
 		rowIndex: number, columnIndex: number,
 		forcibly?: boolean
 	): void {

@@ -6,7 +6,6 @@
 import { DisplayObject, interaction } from "pixi.js";
 import { DMenu, DMenuOptions } from "./d-menu";
 import { DMenuAlign } from "./d-menu-align";
-import { Closeable } from "./d-menu-context";
 import { DMenuItem, DMenuItemOptions, DThemeMenuItem } from "./d-menu-item";
 import { DMenuItemOptionsUnion } from "./d-menu-item-options-union";
 import { DMenus } from "./d-menus";
@@ -29,11 +28,7 @@ export class DMenuItemMenu<
 	THEME extends DThemeMenuItemMenu = DThemeMenuItemMenu,
 	OPTIONS extends DMenuItemMenuOptions<VALUE, THEME> = DMenuItemMenuOptions<VALUE, THEME>
 > extends DMenuItem<VALUE, THEME, OPTIONS> {
-	protected _menu!: DMenu<VALUE>;
-
-	constructor( options: OPTIONS ) {
-		super( options );
-	}
+	protected _menu?: DMenu<VALUE>;
 
 	protected init( options: OPTIONS ) {
 		super.init( options );
@@ -45,12 +40,6 @@ export class DMenuItemMenu<
 		});
 
 		this.initHover( options );
-
-		const menu = this.toMenu( options );
-		this._menu = menu;
-		menu.on( "select", ( value: VALUE, item: DMenuItem<VALUE>, closeable: Closeable ): void => {
-			this.onMenuSelect( value, item, closeable );
-		});
 	}
 
 	protected initHover( options: OPTIONS ): void {
@@ -61,20 +50,28 @@ export class DMenuItemMenu<
 		});
 	}
 
-	protected toMenu( options: OPTIONS ): DMenu<VALUE> {
-		const menu = options.menu;
+	protected toMenu( options?: OPTIONS ): DMenu<VALUE> {
+		const menu = options?.menu;
 		if( menu instanceof DisplayObject ) {
 			return menu;
 		}
 		return this.newMenu( menu );
 	}
 
-	protected newMenu( options: DMenuOptions<VALUE> ): DMenu<VALUE> {
+	protected newMenu( options?: DMenuOptions<VALUE> ): DMenu<VALUE> {
 		return DMenus.newMenu( options );
 	}
 
 	get menu(): DMenu<VALUE> {
-		return this._menu;
+		let result = this._menu;
+		if( result == null ) {
+			result = this.toMenu( this._options );
+			result.on( "select", ( value: VALUE, item: DMenuItem<VALUE>, menu: DMenu<VALUE> ): void => {
+				this.onMenuSelect( value, item, menu );
+			});
+			this._menu = result;
+		}
+		return result;
 	}
 
 	protected getType(): string {
@@ -82,7 +79,7 @@ export class DMenuItemMenu<
 	}
 
 	open(): void {
-		const menu = this._menu;
+		const menu = this.menu;
 		if( menu.isHidden() ) {
 			this.onOpen( menu );
 		}
@@ -96,11 +93,11 @@ export class DMenuItemMenu<
 	}
 
 	close(): void {
-		this._menu.close();
+		this.menu.close();
 	}
 
 	toggle(): void {
-		const menu = this._menu;
+		const menu = this.menu;
 		if( menu.isHidden() ) {
 			this.onOpen( menu );
 		} else {
@@ -113,10 +110,10 @@ export class DMenuItemMenu<
 		super.onSelect( e );
 	}
 
-	protected onMenuSelect( value: VALUE, item: DMenuItem<VALUE>, closeable: Closeable ): void {
-		const next = this.getCloseable();
-		if( next != null ) {
-			next.emit( "select", value, item, closeable );
+	protected onMenuSelect( value: VALUE, item: DMenuItem<VALUE>, menu: DMenu<VALUE> ): void {
+		const closeable = this.getCloseable();
+		if( closeable != null ) {
+			closeable.emit( "select", value, item, closeable );
 		}
 	}
 

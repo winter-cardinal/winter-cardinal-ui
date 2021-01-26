@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DMenuItem } from "./d-menu-item";
 import { DSelectMultiple, DSelectMultipleOptions, DThemeSelectMultiple } from "./d-select-multiple";
-import { DTableBodyCell } from "./d-table-body-cell";
+import { DTableBodyCell, DTableBodyCellOnChange } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
 
@@ -26,27 +27,31 @@ export class DTableBodyCellSelectMultiple<
 	THEME extends DThemeTableBodyCellSelectMultiple<VALUE> = DThemeTableBodyCellSelectMultiple<VALUE>,
 	OPTIONS extends DTableBodyCellSelectMultipleOptions<ROW, VALUE, THEME>
 		= DTableBodyCellSelectMultipleOptions<ROW, VALUE, THEME>
-> extends DSelectMultiple<VALUE, THEME, OPTIONS> implements DTableBodyCell<ROW> {
+> extends DSelectMultiple<VALUE, THEME, OPTIONS> implements DTableBodyCell<ROW, VALUE[]> {
 	protected _row?: ROW;
-	protected _rowIndex!: number;
-	protected _columnIndex!: number;
-	protected _column!: DTableColumn<ROW>;
+	protected _rowIndex: number;
+	protected _columnIndex: number;
+	protected _column: DTableColumn<ROW, VALUE[]>;
+	protected _onChange: DTableBodyCellOnChange<ROW, VALUE[]>;
 
-	constructor( columnIndex: number, column: DTableColumn<ROW>, options?: OPTIONS ) {
+	constructor( columnIndex: number, column: DTableColumn<ROW, VALUE[]>, onChange: DTableBodyCellOnChange<ROW, VALUE[]>, options?: OPTIONS ) {
 		super( options );
 
 		this._rowIndex = -1;
 		this._columnIndex = columnIndex;
 		this._column = column;
+		this._onChange = onChange;
+	}
 
-		this.on( "change", ( newValues: unknown, oldValues: unknown ): void => {
-			const row = this._row;
-			if( row !== undefined ) {
-				const rowIndex = this._rowIndex;
-				this._column.setter( row, columnIndex, newValues );
-				this.emit( "cellchange", newValues, oldValues, row, rowIndex, columnIndex, this );
-			}
-		});
+	protected onValueChange( newValues: VALUE[], oldValues: VALUE[], items: Array<DMenuItem<VALUE>> ): void {
+		const row = this._row;
+		if( row !== undefined ) {
+			const rowIndex = this._rowIndex;
+			const columnIndex = this._columnIndex;
+			this._column.setter( row, columnIndex, newValues );
+			super.onValueChange( newValues, oldValues, items );
+			this._onChange( newValues, oldValues, row, rowIndex, columnIndex, this );
+		}
 	}
 
 	protected onKeyDownArrowDown( e: KeyboardEvent ): boolean {
@@ -65,7 +70,7 @@ export class DTableBodyCellSelectMultiple<
 		return this._columnIndex;
 	}
 
-	get column(): DTableColumn<ROW> {
+	get column(): DTableColumn<ROW, VALUE[]> {
 		return this._column;
 	}
 

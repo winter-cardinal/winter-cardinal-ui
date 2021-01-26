@@ -155,7 +155,7 @@ export abstract class DDialogInput<
 		this.input.value = value;
 	}
 
-	protected doResolve( resolve: ( value?: VALUE | PromiseLike<VALUE> ) => void ): void {
+	protected doResolve( resolve: ( value: VALUE | PromiseLike<VALUE> ) => void ): void {
 		resolve( this.value );
 	}
 

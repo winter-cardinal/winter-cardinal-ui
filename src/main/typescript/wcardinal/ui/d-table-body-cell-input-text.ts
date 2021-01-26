@@ -4,7 +4,7 @@
  */
 
 import { DInputText, DInputTextOptions, DThemeInputText } from "./d-input-text";
-import { DTableBodyCell } from "./d-table-body-cell";
+import { DTableBodyCell, DTableBodyCellOnChange } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
 
@@ -22,27 +22,31 @@ export class DTableBodyCellInputText<
 	ROW = unknown,
 	THEME extends DThemeTableBodyCellInputText = DThemeTableBodyCellInputText,
 	OPTIONS extends DTableBodyCellInputTextOptions<ROW, THEME> = DTableBodyCellInputTextOptions<ROW, THEME>
-> extends DInputText<THEME, OPTIONS> implements DTableBodyCell<ROW> {
+> extends DInputText<THEME, OPTIONS> implements DTableBodyCell<ROW, string> {
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;
-	protected _column: DTableColumn<ROW>;
+	protected _column: DTableColumn<ROW, string>;
+	protected _onChange: DTableBodyCellOnChange<ROW, string>;
 
-	constructor( columnIndex: number, column: DTableColumn<ROW>, options?: OPTIONS ) {
+	constructor( columnIndex: number, column: DTableColumn<ROW, string>, onChange: DTableBodyCellOnChange<ROW, string>, options?: OPTIONS ) {
 		super( options );
 
 		this._rowIndex = -1;
 		this._columnIndex = columnIndex;
 		this._column = column;
+		this._onChange = onChange;
+	}
 
-		this.on( "change", ( newValue: unknown, oldValue: unknown ): void => {
-			const row = this._row;
-			if( row !== undefined ) {
-				const rowIndex = this._rowIndex;
-				this._column.setter( row, columnIndex, newValue );
-				this.emit( "cellchange", newValue, oldValue, row, rowIndex, columnIndex, this );
-			}
-		});
+	protected onValueChange( newValue: string, oldValue: string ): void {
+		const row = this._row;
+		if( row !== undefined ) {
+			const rowIndex = this._rowIndex;
+			const columnIndex = this._columnIndex;
+			this._column.setter( row, columnIndex, newValue );
+			super.onValueChange( newValue, oldValue );
+			this._onChange( newValue, oldValue, row, rowIndex, columnIndex, this );
+		}
 	}
 
 	get row(): ROW | undefined {
@@ -57,7 +61,7 @@ export class DTableBodyCellInputText<
 		return this._columnIndex;
 	}
 
-	get column(): DTableColumn<ROW> {
+	get column(): DTableColumn<ROW, string> {
 		return this._column;
 	}
 

@@ -7,7 +7,7 @@ import { interaction, Point, Rectangle } from "pixi.js";
 import InteractionEvent = interaction.InteractionEvent;
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
-import { DTableBodyRow, DTableBodyRowOptions } from "./d-table-body-row";
+import { DTableBodyRow, DTableBodyRowOnChange, DTableBodyRowOptions } from "./d-table-body-row";
 import { DTableColumn } from "./d-table-column";
 import { DTableData, DTableDataOptions } from "./d-table-data";
 import { DTableDataList, DTableDataListOptions } from "./d-table-data-list";
@@ -20,7 +20,7 @@ export interface DTableBodyOptions<
 	DATA extends DTableData<ROW> = DTableDataList<ROW>,
 	THEME extends DThemeTableBody = DThemeTableBody
 > extends DBaseOptions<THEME> {
-	columns?: Array<DTableColumn<ROW>>;
+	columns?: Array<DTableColumn<ROW, unknown>>;
 	row?: DTableBodyRowOptions<ROW>;
 	data?: DTableDataListOptions<ROW> | DATA;
 	offset?: number;
@@ -68,15 +68,6 @@ const toRowOptions = <ROW, DATA extends DTableData<ROW>>(
 	return result as DTableBodyRowOptions<ROW>;
 };
 
-const isDTableData = <ROW>( target?: ROW[] | DTableDataOptions<ROW> | DTableData<ROW> ): target is DTableData<ROW> => {
-	return ( target != null && "mapped" in target );
-};
-
-type OnRowChange<ROW> = (
-	newValue: unknown, oldValue: unknown,
-	row: ROW, rowIndex: number, columnIndex: number
-) => void;
-
 export class DTableBody<
 	ROW,
 	DATA extends DTableData<ROW> = DTableDataList<ROW>,
@@ -84,32 +75,24 @@ export class DTableBody<
 	OPTIONS extends DTableBodyOptions<ROW, DATA, THEME> = DTableBodyOptions<ROW, DATA, THEME>
 > extends DBase<THEME, OPTIONS> {
 	protected static WORK_ON_CLICK = new Point();
-	protected _columns!: Array<DTableColumn<ROW>>;
-	protected _rowHeight!: number;
-	protected _rowIndexMappedStart!: number;
-	protected _rowIndexMappedEnd!: number;
-	protected _rowOptions!: DTableBodyRowOptions<ROW>;
-	protected _updateRowsCount!: number;
-	protected _isUpdateRowsCalled!: boolean;
-	protected _isUpdateRowsCalledForcibly!: boolean;
-	protected _workRows!: Array<DTableBodyRow<ROW>>;
-	protected _onRowChangeBound!: OnRowChange<ROW>;
 
-	protected _data!: DATA;
+	protected _columns: Array<DTableColumn<ROW, unknown>>;
+	protected _rowHeight: number;
+	protected _rowIndexMappedStart: number;
+	protected _rowIndexMappedEnd: number;
+	protected _rowOptions: DTableBodyRowOptions<ROW>;
+	protected _updateRowsCount: number;
+	protected _isUpdateRowsCalled: boolean;
+	protected _isUpdateRowsCalledForcibly: boolean;
+	protected _workRows: Array<DTableBodyRow<ROW>>;
+	protected _onRowChangeBound: DTableBodyRowOnChange<ROW, unknown>;
+	protected _data: DATA;
 
 	constructor( options: OPTIONS ) {
 		super( options );
+
 		this.state.isFocusable = false;
-		this._data.emit( "init", this._data );
-	}
-
-	protected init( options: OPTIONS ) {
-		this.transform.position.y = options.offset || 0;
-		this._onRowChangeBound = ( newValue, oldValue, row, rowIndex, columnIndex ): void => {
-			data.emit( "change", newValue, oldValue, row, rowIndex, columnIndex, data );
-		};
-		super.init( options );
-
+		this.transform.position.y = options.offset ?? 0;
 		const data = this.toData( options.data );
 		this._data = data;
 		data.bind( this );
@@ -124,14 +107,22 @@ export class DTableBody<
 		this._isUpdateRowsCalled = false;
 		this._isUpdateRowsCalledForcibly = false;
 		this._workRows = [];
+		this._onRowChangeBound = ( newValue, oldValue, row, rowIndex, columnIndex ): void => {
+			data.emit( "change", newValue, oldValue, row, rowIndex, columnIndex, data );
+		};
+		this._data.emit( "init", this._data );
 	}
 
 	protected toData( options?: DATA | DTableDataListOptions<ROW> ): DATA {
-		if( isDTableData( options ) ) {
+		if( this.isData( options ) ) {
 			return options;
 		}
 		return new DTableDataList<ROW>( options ) as any;
 	}
+
+	protected isData( target?: ROW[] | DTableDataOptions<ROW> | DTableData<ROW> ): target is DTableData<ROW> {
+		return ( target != null && "mapped" in target );
+	};
 
 	onResize( newWidth: number, newHeight: number, oldWidth: number, oldHeight: number ): void {
 		super.onResize( newWidth, newHeight, oldWidth, oldHeight );
@@ -326,11 +317,7 @@ export class DTableBody<
 	}
 
 	protected newRow( isEven: boolean ): DTableBodyRow<ROW> {
-		const options = this._rowOptions;
-		options.even = isEven;
-		const result = new DTableBodyRow<ROW>( options );
-		result.on( "rowchange", this._onRowChangeBound );
-		return result;
+		return new DTableBodyRow<ROW>( this._onRowChangeBound, isEven, this._rowOptions );
 	}
 
 	protected onParentMove( newX: number, newY: number, oldX: number, oldY: number ): void {
@@ -375,8 +362,8 @@ export class DTableBody<
 		return null;
 	}
 
-	protected toCell( row: DTableBodyRow<ROW>, local: Point ): DTableBodyCell<ROW> | null {
-		const cells = row.children as Array<DTableBodyCell<ROW>>;
+	protected toCell( row: DTableBodyRow<ROW>, local: Point ): DTableBodyCell<ROW, unknown> | null {
+		const cells = row.children as Array<DTableBodyCell<ROW, unknown>>;
 		const cellsLength = cells.length;
 		const columns = this._columns;
 		const columnsLength = columns.length;

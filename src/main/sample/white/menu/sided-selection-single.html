@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Single selection</title>
+	<title>Side menu with single selection</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -28,39 +28,34 @@
 	(function(){
 		"use strict";
 
-		const application = new wcardinal.ui.DApplication();
+		var application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DMenuSided({
 			parent: application.stage,
-			x: 100, y: 100,
+			x: "center", y: "center",
 			width: 300, height: "100%-200",
 			selection: {
 				mode: "SINGLE"
 			},
 			items: [{
+				value: "APPLE",
 				text: {
-					value: "A"
+					value: "Apple"
 				}
 			}, {
+				value: "ORANGE",
 				text: {
-					value: "B"
+					value: "Orange"
 				}
 			}, {
+				value: "PINEAPPLE",
 				text: {
-					value: "C"
-				}
-			}, {
-				text: {
-					value: "D"
-				}
-			}, {
-				text: {
-					value: "E"
+					value: "Pineapple"
 				}
 			}],
 			on: {
-				select: ( value, item, menu ) => {
-					console.log( item.text, item, menu );
+				select: function ( value, item, menuSided ) {
+					console.log( item.text, item, menuSided );
 				}
 			}
 		});

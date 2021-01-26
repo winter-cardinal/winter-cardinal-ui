@@ -5,30 +5,35 @@
 
 import { interaction } from "pixi.js";
 import { DButtonBaseWhen } from "./d-button-base-when";
+import { DTableBodyCellOnChange } from "./d-table-body-cell";
 import { DTableBodyCellText, DTableBodyCellTextOptions, DThemeTableBodyCellText } from "./d-table-body-cell-text";
 import { DTableColumn } from "./d-table-column";
 import { toEnum } from "./util/to-enum";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
-export interface DTableBodyCellButtonOptions<ROW, THEME extends DThemeTableBodyCellButton = DThemeTableBodyCellButton>
-	extends DTableBodyCellTextOptions<ROW, THEME> {
+export interface DTableBodyCellButtonOptions<
+	ROW,
+	VALUE = unknown,
+	THEME extends DThemeTableBodyCellButton<VALUE> = DThemeTableBodyCellButton<VALUE>
+> extends DTableBodyCellTextOptions<ROW, VALUE | null, THEME> {
 	when?: DButtonBaseWhen | (keyof typeof DButtonBaseWhen);
 }
 
-export interface DThemeTableBodyCellButton extends DThemeTableBodyCellText {
+export interface DThemeTableBodyCellButton<VALUE = unknown> extends DThemeTableBodyCellText<VALUE | null> {
 
 }
 
 export class DTableBodyCellButton<
 	ROW,
-	THEME extends DThemeTableBodyCellButton = DThemeTableBodyCellButton,
-	OPTIONS extends DTableBodyCellButtonOptions<ROW, THEME> = DTableBodyCellButtonOptions<ROW, THEME>
-> extends DTableBodyCellText<ROW, THEME, OPTIONS> {
+	VALUE = unknown,
+	THEME extends DThemeTableBodyCellButton<VALUE> = DThemeTableBodyCellButton<VALUE>,
+	OPTIONS extends DTableBodyCellButtonOptions<ROW, VALUE, THEME> = DTableBodyCellButtonOptions<ROW, VALUE, THEME>
+> extends DTableBodyCellText<ROW, VALUE | null, THEME, OPTIONS> {
 	protected _when: DButtonBaseWhen;
 
-	constructor( columnIndex: number, column: DTableColumn<ROW>, options?: OPTIONS ) {
-		super( columnIndex, column, options );
+	constructor( columnIndex: number, column: DTableColumn<ROW, VALUE | null>, onChange: DTableBodyCellOnChange<ROW, VALUE | null>, options?: OPTIONS ) {
+		super( columnIndex, column, onChange, options );
 
 		const when = toEnum( options?.when ?? DButtonBaseWhen.CLICKED, DButtonBaseWhen );
 		this._when = when;
@@ -62,8 +67,8 @@ export class DTableBodyCellButton<
 		if( row !== undefined ) {
 			const rowIndex = this._rowIndex;
 			const columnIndex = this._columnIndex;
-			this._column.setter( row, columnIndex, null );
-			this.emit( "cellchange", null, null, row, rowIndex, columnIndex, this );
+			this.emit( "change", null, null, this );
+			this._onChange( null, null, row, rowIndex, columnIndex, this );
 		}
 	}
 

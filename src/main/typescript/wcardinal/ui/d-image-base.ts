@@ -84,26 +84,15 @@ export class DImageBase<
 	OPTIONS extends DImageBaseOptions<VALUE, THEME> = DImageBaseOptions<VALUE, THEME>
 > extends DTextBase<VALUE, THEME, OPTIONS> {
 	protected _images!: DImagePiece[];
-	protected _onChangeBound!: () => void;
-	protected _applyMaskBound!: ( target: DisplayObject ) => void;
 
 	protected init( options?: OPTIONS ) {
-		this._onChangeBound = (): void => {
-			this.toDirty();
-			DApplications.update( this );
-		};
-		this._applyMaskBound = ( target: DisplayObject ): void => {
-			if( this._isOverflowMaskEnabled ) {
-				target.mask = this.getOrCreateOverflowMask();
-			}
-		};
 		this._images = this.newImages( this.theme, options );
 		super.init( options );
 	}
 
 	protected newImages( theme: THEME, options?: OPTIONS ): DImagePiece[] {
 		const images: DImagePiece[] = [];
-		images.push( this.newImage( theme, this.toImageOptions( theme, options && options.image ) ) );
+		images.push( this.newImage( theme, this.toImageOptions( theme, options?.image ) ) );
 		if( hasSecondaryImageSource( theme ) ) {
 			images.push( this.newImage( new DImageBaseThemeWrapperSecondary( theme ) ) );
 		}
@@ -118,10 +107,7 @@ export class DImageBase<
 	}
 
 	protected newImage( theme: DThemeImagePiece, options?: DImagePieceOptions ) {
-		return new DImagePiece(
-			this, theme, options,
-			this._textAlign, this._onChangeBound, this._applyMaskBound
-		);
+		return new DImagePiece( this, theme, this._textAlign, options );
 	}
 
 	get image(): DStateAwareOrValueMightBe<Texture | DisplayObject | null> {

@@ -25,16 +25,7 @@ export class DMenuBarItem<
 	THEME extends DThemeMenuBarItem<VALUE> = DThemeMenuBarItem<VALUE>,
 	OPTIONS extends DMenuBarItemOptions<VALUE, THEME> = DMenuBarItemOptions<VALUE, THEME>
 > extends DButton<VALUE, THEME, OPTIONS> {
-	protected _menu!: DMenu<VALUE>;
-
-	protected init( options?: OPTIONS ) {
-		super.init( options );
-
-		this._menu = this.toMenu( this.theme, options );
-		this._menu.on( "select", ( value: VALUE, item: DMenuItem<VALUE>, menu: DMenu<VALUE> ): void => {
-			this.onMenuSelect( value, item, menu );
-		});
-	}
+	protected _menu?: DMenu<VALUE>;
 
 	protected toMenu( theme: THEME, options?: OPTIONS ): DMenu<VALUE> {
 		const menu = options?.menu;
@@ -50,11 +41,15 @@ export class DMenuBarItem<
 	}
 
 	protected toMenuOptions( theme: THEME, options?: DMenuOptions<VALUE> ): DMenuOptions<VALUE> | undefined {
-		options = options || {};
-		if( options.fit == null ) {
-			options.fit = false;
+		if( options ) {
+			if( options.fit == null ) {
+				options.fit = false;
+			}
+			return options;
 		}
-		return options;
+		return {
+			fit: false
+		};
 	}
 
 	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
@@ -63,19 +58,31 @@ export class DMenuBarItem<
 	}
 
 	open(): void {
-		this._menu.open( this );
+		this.menu.open( this );
 	}
 
 	close(): void {
-		this._menu.close();
+		this.menu.close();
 	}
 
-	get menu() {
-		return this._menu;
+	get menu(): DMenu<VALUE> {
+		let result = this._menu;
+		if( result == null ) {
+			result = this.toMenu( this.theme, this._options );
+			result.on( "select", ( value: VALUE, item: DMenuItem<VALUE>, menu: DMenu<VALUE> ): void => {
+				this.onMenuSelect( value, item, menu );
+			});
+			this._menu = result;
+		}
+		return result;
 	}
 
 	protected onMenuSelect( value: VALUE, item: DMenuItem<VALUE>, menu: DMenu<VALUE> ): void {
-		this.parent?.emit( "select", value, item, menu );
+		this.emit( "select", value, item, this );
+		const parent = this.parent;
+		if( parent ) {
+			parent.emit( "select", value, item, parent );
+		}
 	}
 
 	onKeyDown( e: KeyboardEvent ): boolean {

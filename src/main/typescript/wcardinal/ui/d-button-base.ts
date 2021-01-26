@@ -158,8 +158,8 @@ export class DButtonBase<
 	onClick( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
 		if( this.state.isActionable ) {
 			if( this.isToggle() ) {
-				this.onToggleStart();
-				this.onToggleEnd();
+				this.onToggleStart( e );
+				this.onToggleEnd( e );
 			} else {
 				this.onActivate( e );
 			}
@@ -177,6 +177,10 @@ export class DButtonBase<
 		this.emit( "active", this );
 	}
 
+	protected onInactivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
+		this.emit( "inactive", this );
+	}
+
 	toggle(): void {
 		if( this.state.isActionable ) {
 			if( this.isToggle() ) {
@@ -186,18 +190,22 @@ export class DButtonBase<
 		}
 	}
 
-	protected onToggleStart(): void {
+	protected onToggleStart( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
 		this.state.isActive = ! this.state.isActive;
 	}
 
-	protected onToggleEnd(): void {
-		this.emit( this.state.isActive ? "active" : "inactive", this );
+	protected onToggleEnd( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
+		if( this.state.isActive ) {
+			this.onActivate( e );
+		} else {
+			this.onInactivate( e );
+		}
 	}
 
 	protected onActivateKeyDown( e: KeyboardEvent ): void {
 		if( this.state.isActionable ) {
 			if( this.isToggle() ) {
-				this.onToggleStart();
+				this.onToggleStart( e );
 			} else {
 				this.state.isPressed = true;
 			}
@@ -207,7 +215,7 @@ export class DButtonBase<
 	protected onActivateKeyUp( e: KeyboardEvent ): void {
 		if( this.state.isActionable ) {
 			if( this.isToggle() ) {
-				this.onToggleEnd();
+				this.onToggleEnd( e );
 			} else {
 				if( this.state.isPressed ) {
 					this.onActivate( e );
@@ -234,12 +242,7 @@ export class DButtonBase<
 	}
 
 	destroy(): void {
-		// Group
-		const options = this._options;
-		if( options != null && options.group != null ) {
-			options.group.remove( this );
-		}
-
+		this._options?.group?.remove( this );
 		super.destroy();
 	}
 }

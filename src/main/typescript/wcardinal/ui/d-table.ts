@@ -504,7 +504,7 @@ export class DTable<
 		body.unlock( true );
 	}
 
-	protected getCategoryCount( columns: Array<DTableColumn<ROW>> ): number {
+	protected getCategoryCount( columns: Array<DTableColumn<ROW, unknown>> ): number {
 		let result = 0;
 		for( let i = 0, imax = columns.length; i < imax; ++i ) {
 			const category = columns[ i ].category;
@@ -611,11 +611,11 @@ export class DTable<
 
 	protected toCategoryColumns(
 		index: number,
-		columns: Array<DTableColumn<ROW>>,
+		columns: Array<DTableColumn<ROW, unknown>>,
 		frozen: number
 	): DTableCategoryColumn[] {
 		const result: DTableCategoryColumn[] = [];
-		let tcolumn: DTableColumn<ROW> | null = null;
+		let tcolumn: DTableColumn<ROW, unknown> | null = null;
 		let ccolumn: DTableCategoryColumn | null = null;
 		for( let i = 0, imax = columns.length; i < imax; ++i ) {
 			const column = columns[ i ];
@@ -651,7 +651,7 @@ export class DTable<
 	protected toCategoryOptions(
 		index: number,
 		options: DTableCategoryOptions | undefined,
-		columns: Array<DTableColumn<ROW>>,
+		columns: Array<DTableColumn<ROW, unknown>>,
 		frozen: number,
 		offset: number
 	): DTableCategoryOptions {
@@ -674,7 +674,7 @@ export class DTable<
 		};
 	}
 
-	protected newCategories( options: OPTIONS, columns: Array<DTableColumn<ROW>>, frozen: number ): DTableCategory[] {
+	protected newCategories( options: OPTIONS, columns: Array<DTableColumn<ROW, unknown>>, frozen: number ): DTableCategory[] {
 		const count = this.getCategoryCount( columns );
 		const result: DTableCategory[] = [];
 		let offset: number = 0;
@@ -727,19 +727,19 @@ export class DTable<
 
 	protected newHeader(
 		options: OPTIONS,
-		columns: Array<DTableColumn<ROW>>,
+		columns: Array<DTableColumn<ROW, unknown>>,
 		frozen: number,
 		offset: number
 	): DTableHeader<ROW> | null {
 		if( this.hasHeader( options ) ) {
-			return new DTableHeader( this.toHeaderOptions( options.header, columns, frozen, offset ) );
+			return new DTableHeader<ROW>( this.toHeaderOptions( options.header, columns, frozen, offset ) );
 		}
 		return null;
 	}
 
 	protected toHeaderOptions(
 		options: DTableHeaderOptions<ROW> | undefined,
-		columns: Array<DTableColumn<ROW>>,
+		columns: Array<DTableColumn<ROW, unknown>>,
 		frozen: number,
 		offset: number
 	): DTableHeaderOptions<ROW> {
@@ -768,7 +768,7 @@ export class DTable<
 
 	protected newBody(
 		options: OPTIONS,
-		columns: Array<DTableColumn<ROW>>,
+		columns: Array<DTableColumn<ROW, unknown>>,
 		frozen: number,
 		offset: number
 	): DTableBody<ROW, DATA> {
@@ -779,7 +779,7 @@ export class DTable<
 
 	protected toBodyOptions(
 		options: DTableBodyOptions<ROW, DATA> | undefined,
-		columns: Array<DTableColumn<ROW>>,
+		columns: Array<DTableColumn<ROW, unknown>>,
 		frozen: number,
 		offset: number,
 		data: ROW[] | DTableDataOptions<ROW> | DATA | undefined

@@ -21,7 +21,7 @@ export interface DTableHeaderTable<ROW> {
 export interface DTableHeaderOptions<
 	ROW,
 	THEME extends DThemeTableHeader = DThemeTableHeader
-> extends DTableRowOptions<ROW, DTableColumn<ROW>, THEME> {
+> extends DTableRowOptions<ROW, DTableColumn<ROW, unknown>, THEME> {
 	table?: DTableHeaderTable<ROW>;
 	offset?: number;
 	cell?: DTableHeaderCellOptions<ROW>;
@@ -35,19 +35,20 @@ export class DTableHeader<
 	ROW,
 	THEME extends DThemeTableHeader = DThemeTableHeader,
 	OPTIONS extends DTableHeaderOptions<ROW, THEME> = DTableHeaderOptions<ROW, THEME>
-> extends DTableRow<ROW, DTableColumn<ROW>, THEME, OPTIONS> {
-	protected _table!: DTableHeaderTable<ROW> | null;
-	protected _offset!: number;
+> extends DTableRow<ROW, DTableColumn<ROW, unknown>, THEME, OPTIONS> {
+	protected _table: DTableHeaderTable<ROW> | null;
+	protected _offset: number;
 
 	constructor( options: OPTIONS ) {
 		super( options );
-	}
 
-	protected init( options: OPTIONS ) {
-		this._table = options.table || null;
-		this._offset = this.transform.position.y = options.offset || 0;
-		this._frozen = options.frozen ?? 0;
-		super.init( options );
+		this._table = options.table ?? null;
+
+		const offset = options.offset ?? 0;
+		this._offset = offset;
+		this.transform.position.y = offset;
+
+		this.initCells( options, this._columns, this._frozen );
 	}
 
 	get table(): DTableHeaderTable<ROW> | null {
@@ -70,8 +71,8 @@ export class DTableHeader<
 
 	protected newCell(
 		columnIndex: number,
-		column: DTableColumn<ROW>,
-		columns: Array<DTableColumn<ROW>>,
+		column: DTableColumn<ROW, unknown>,
+		columns: Array<DTableColumn<ROW, unknown>>,
 		options: OPTIONS
 	): DBase {
 		return new DTableHeaderCell<ROW>( this.toCellOptions( columnIndex, column, options ) );
@@ -79,7 +80,7 @@ export class DTableHeader<
 
 	protected toCellOptions(
 		columnIndex: number,
-		column: DTableColumn<ROW>,
+		column: DTableColumn<ROW, unknown>,
 		options: OPTIONS
 	): DTableHeaderCellOptions<ROW> {
 		const result = column.header || options.cell;

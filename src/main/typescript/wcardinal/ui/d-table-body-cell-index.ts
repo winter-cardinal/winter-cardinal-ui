@@ -4,36 +4,40 @@
  */
 
 import { DImageBase, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
-import { DTableBodyCell } from "./d-table-body-cell";
+import { DTableBodyCell, DTableBodyCellOnChange } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
 
 export interface DTableBodyCellIndexOptions<
 	ROW = unknown,
+	VALUE = unknown,
 	THEME extends DThemeTableBodyCellIndex = DThemeTableBodyCellIndex
 > extends DImageBaseOptions<number, THEME> {
 }
 
-export interface DThemeTableBodyCellIndex extends DThemeImageBase<number> {
+export interface DThemeTableBodyCellIndex<VALUE = unknown> extends DThemeImageBase<number> {
 
 }
 
 export class DTableBodyCellIndex<
 	ROW = unknown,
-	THEME extends DThemeTableBodyCellIndex = DThemeTableBodyCellIndex,
-	OPTIONS extends DTableBodyCellIndexOptions<ROW, THEME> = DTableBodyCellIndexOptions<ROW, THEME>
-> extends DImageBase<number, THEME, OPTIONS> implements DTableBodyCell<ROW> {
+	VALUE = unknown,
+	THEME extends DThemeTableBodyCellIndex<VALUE> = DThemeTableBodyCellIndex<VALUE>,
+	OPTIONS extends DTableBodyCellIndexOptions<ROW, VALUE, THEME> = DTableBodyCellIndexOptions<ROW, VALUE, THEME>
+> extends DImageBase<number, THEME, OPTIONS> implements DTableBodyCell<ROW, VALUE> {
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;
-	protected _column: DTableColumn<ROW>;
+	protected _column: DTableColumn<ROW, VALUE>;
+	protected _onChange: DTableBodyCellOnChange<ROW, VALUE>;
 
-	constructor( columnIndex: number, column: DTableColumn<ROW>, options?: OPTIONS ) {
+	constructor( columnIndex: number, column: DTableColumn<ROW, VALUE>, onChange: DTableBodyCellOnChange<ROW, unknown>, options?: OPTIONS ) {
 		super( options );
 
 		this._rowIndex = -1;
 		this._columnIndex = columnIndex;
 		this._column = column;
+		this._onChange = onChange;
 	}
 
 	get row(): ROW | undefined {
@@ -48,7 +52,7 @@ export class DTableBodyCellIndex<
 		return this._columnIndex;
 	}
 
-	get column(): DTableColumn<ROW> {
+	get column(): DTableColumn<ROW, VALUE> {
 		return this._column;
 	}
 

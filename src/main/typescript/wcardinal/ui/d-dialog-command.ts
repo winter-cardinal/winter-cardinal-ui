@@ -77,13 +77,13 @@ export interface DThemeDialogCommand extends DThemeDialog {
 /**
  * A dialog with "ok" and "cancel" buttons.
  */
-export class DDialogCommand<
+export abstract class DDialogCommand<
 	VALUE = void,
 	THEME extends DThemeDialogCommand = DThemeDialogCommand,
 	OPTIONS extends DDialogCommandOptions<THEME> = DDialogCommandOptions<THEME>
 > extends DDialog<THEME, OPTIONS> {
 	protected _promise: Promise<VALUE> | null = null;
-	protected _resolve: (( value?: VALUE | PromiseLike<VALUE> ) => void) | null = null;
+	protected _resolve: (( value: VALUE | PromiseLike<VALUE> ) => void) | null = null;
 	protected _reject: (( reason?: any ) => void) | null = null;
 	protected _buttonLayout?: DLayoutHorizontal;
 	protected _buttonOk?: DButton;
@@ -105,8 +105,8 @@ export class DDialogCommand<
 		this.onInit( layout, options );
 
 		// Buttons
-		const ok = ( options && options.ok || theme.getOk() );
-		const cancel = ( options && options.cancel || theme.getCancel() );
+		const ok = ( options?.ok ?? theme.getOk() );
+		const cancel = ( options?.cancel ?? theme.getCancel() );
 		if( ok != null || cancel != null ) {
 			const buttonLayout = new DLayoutHorizontal({
 				parent: layout,
@@ -184,7 +184,7 @@ export class DDialogCommand<
 		return this._promise!;
 	}
 
-	protected onOpen() {
+	protected onOpen(): void {
 		super.onOpen();
 
 		if( this._promise == null ) {
@@ -195,7 +195,7 @@ export class DDialogCommand<
 		}
 	}
 
-	protected onClose() {
+	protected onClose(): void {
 		super.onClose();
 
 		const reject = this._reject;
@@ -208,7 +208,7 @@ export class DDialogCommand<
 		}
 	}
 
-	protected onOk() {
+	protected onOk(): void {
 		const resolve = this._resolve;
 		this._promise = null;
 		this._resolve = null;
@@ -223,7 +223,7 @@ export class DDialogCommand<
 		this.emit( "ok", this );
 	}
 
-	protected onCancel() {
+	protected onCancel(): void {
 		const reject = this._reject;
 		this._promise = null;
 		this._resolve = null;
@@ -238,9 +238,7 @@ export class DDialogCommand<
 		this.emit( "cancel", this );
 	}
 
-	protected doResolve( resolve: ( value?: VALUE | PromiseLike<VALUE> ) => void ): void {
-		resolve();
-	}
+	protected abstract doResolve( resolve: ( value: VALUE | PromiseLike<VALUE> ) => void ): void;
 
 	protected doReject( reject: ( reason?: any ) => void ): void {
 		reject();

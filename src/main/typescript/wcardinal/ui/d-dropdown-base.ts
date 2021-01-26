@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { interaction } from "pixi.js";
 import { DButtonBase, DButtonBaseEvents, DButtonBaseOptions, DThemeButtonBase } from "./d-button-base";
 import { DMenu, DMenuOptions, DThemeMenu } from "./d-menu";
+import { DMenuItem } from "./d-menu-item";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 
 /**
@@ -56,37 +58,56 @@ export class DDropdownBase<
 	OPTIONS extends DDropdownBaseOptions<VALUE, TEXT_VALUE, THEME> = DDropdownBaseOptions<VALUE, TEXT_VALUE, THEME>
 > extends DButtonBase<TEXT_VALUE, THEME, OPTIONS> {
 	protected _menu?: DMenu<VALUE>;
+	protected _onMenuSelectBound?: ( selected: VALUE, item: DMenuItem<VALUE>, menu: DMenu<VALUE> ) => void;
+	protected _onMenuCloseBound?: () => void;
 
 	constructor( options?: OPTIONS ) {
 		super( options );
+	}
 
-		this.on( "active", (): void => {
-			this.start();
-		});
+	protected onMenuSelect( value: VALUE, item: DMenuItem<VALUE>, menu: DMenu<VALUE> ): void {
+		this.emit( "select", value, item, this );
+	}
+
+	protected onMenuClose(): void {
+		const menu = this.menu;
+		const onMenuSelectBound = this._onMenuSelectBound;
+		if( onMenuSelectBound ) {
+			menu.off( "select", onMenuSelectBound );
+		}
+		const onMenuCloseBound = this._onMenuCloseBound;
+		if( onMenuCloseBound ) {
+			menu.off( "close", onMenuCloseBound );
+		}
 	}
 
 	protected toMenu( theme: THEME, options?: OPTIONS ): DMenu<VALUE> {
 		const menu = options?.menu;
-		return ( menu instanceof DMenu ? menu :
-			new DMenu<VALUE>( this.toMenuOptions( theme, menu ) )
-		);
+		if( menu instanceof DMenu ) {
+			return menu;
+		}
+		return new DMenu<VALUE>( this.toMenuOptions( theme, menu ) );
 	}
 
 	protected toMenuOptions( theme: THEME, options?: DMenuOptions<VALUE> ): DMenuOptions<VALUE, DThemeMenu> {
-		options = options || {};
-		if( options.fit == null ) {
-			options.fit = true;
+		if( options ) {
+			if( options.fit == null ) {
+				options.fit = true;
+			}
+			return options;
 		}
-		return options;
+		return {
+			fit: true
+		};
 	}
 
 	get menu(): DMenu<VALUE> {
-		let menu = this._menu;
-		if( menu == null ) {
-			menu = this.toMenu( this.theme, this._options );
-			this._menu = menu;
+		let result = this._menu;
+		if( result == null ) {
+			result = this.toMenu( this.theme, this._options );
+			this._menu = result;
 		}
-		return menu;
+		return result;
 	}
 
 	protected getType(): string {
@@ -108,8 +129,38 @@ export class DDropdownBase<
 		return false;
 	}
 
+	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
+		super.onActivate( e );
+		this.start();
+	}
+
 	start(): void {
-		this.menu.open( this );
+		const menu = this.menu;
+		if( menu.isHidden() ) {
+			// In the case that the menu is created elsewhere,
+			// the menu might be opened by other UI elements
+			// and the `select` event might be triggered. In
+			// that case, we are not supposed to catct that
+			// `select` event. This is why the `select` event
+			// handler is registered here. Instead of the
+			// initialization time.
+			let onMenuSelectBound = this._onMenuSelectBound;
+			if( onMenuSelectBound == null ) {
+				onMenuSelectBound = ( value: VALUE, item: DMenuItem<VALUE>, m: DMenu<VALUE> ): void => {
+					this.onMenuSelect( value, item, m );
+				};
+				this._onMenuSelectBound = onMenuSelectBound;
+			}
+			let onMenuCloseBound = this._onMenuCloseBound;
+			if( onMenuCloseBound == null ) {
+				onMenuCloseBound = (): void => {
+					this.onMenuClose();
+				};
+			}
+			menu.on( "select", onMenuSelectBound );
+			menu.on( "close", onMenuCloseBound );
+			menu.open( this );
+		}
 	}
 
 	close(): void {

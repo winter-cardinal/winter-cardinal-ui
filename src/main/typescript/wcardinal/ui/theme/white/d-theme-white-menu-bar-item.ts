@@ -57,4 +57,8 @@ export class DThemeWhiteMenuBarItem<VALUE = unknown> extends DThemeWhiteButton<V
 	getTextAlignHorizontal(): DAlignHorizontal {
 		return DAlignHorizontal.LEFT;
 	}
+
+	getTextStyleClipping(): boolean {
+		return false;
+	}
 }

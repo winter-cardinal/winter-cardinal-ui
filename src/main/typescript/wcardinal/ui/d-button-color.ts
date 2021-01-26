@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { interaction } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DColorAndAlpha } from "./d-color-and-alpha";
@@ -64,30 +65,46 @@ export class DButtonColor<
 	protected init( options?: OPTIONS ) {
 		super.init( options );
 
-		const colorAndAlpha = this._textValueComputed!;
-		this._value = new DPickerColorAndAlpha( colorAndAlpha, ( color: number ): void => {
-			colorAndAlpha.color = color;
+		const value = this._textValueComputed!;
+		this._value = new DPickerColorAndAlpha( value, ( color: number ): void => {
+			value.color = color;
 			this.onColorChange();
 		}, ( alpha: number ): void => {
-			colorAndAlpha.alpha = alpha;
+			value.alpha = alpha;
 			this.updateTextForcibly();
 		});
+	}
 
-		this.on( "active", (): void => {
-			const dialog = this.dialog;
-			dialog.current.color = colorAndAlpha.color;
-			dialog.current.alpha = colorAndAlpha.alpha;
-			dialog.new.color = colorAndAlpha.color;
-			dialog.new.alpha = colorAndAlpha.alpha;
-			dialog.open().then((): void => {
-				const dialogNew = dialog.new;
-				const dialogCurrent = dialog.current;
-				colorAndAlpha.color = dialogNew.color;
-				colorAndAlpha.alpha = dialogNew.alpha;
-				this.onColorChange();
-				this.emit( "change", dialogNew, dialogCurrent, this );
-			});
+	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
+		super.onActivate( e );
+		const value = this._textValueComputed!;
+		const dialog = this.dialog;
+		const dialogCurrent = dialog.current;
+		const dialogNew = dialog.new;
+		dialogCurrent.color = value.color;
+		dialogCurrent.alpha = value.alpha;
+		dialogNew.color = value.color;
+		dialogNew.alpha = value.alpha;
+		dialog.open().then((): void => {
+			value.color = dialogNew.color;
+			value.alpha = dialogNew.alpha;
+			this.onColorChange();
+			this.onValueChange(
+				this.toClone( dialogNew ),
+				this.toClone( dialogCurrent )
+			);
 		});
+	}
+
+	protected toClone( value: DColorAndAlpha ): DColorAndAlpha {
+		return {
+			color: value.color,
+			alpha: value.alpha
+		};
+	}
+
+	protected onValueChange( newValue: DColorAndAlpha, oldValue: DColorAndAlpha ): void {
+		this.emit( "change", newValue, oldValue, this );
 	}
 
 	protected toImageTintOptions( tint?: DImagePieceTintOptions ): DImagePieceTintOptions {

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction, Text } from "pixi.js";
+import { Text } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DDynamicText } from "./d-dynamic-text";
 import { DHtmlElement, DHtmlElementOptions, DThemeHtmlElement } from "./d-html-element";
@@ -172,21 +172,25 @@ export abstract class DInput<
 		}
 	}
 
-	protected onInputChange() {
+	protected onInputChange(): void {
 		if( this._isElementShown ) {
 			const element = this._element;
 			if( element != null ) {
 				const newValue = this.toValue( element.value );
-				const oldValue = this._textValueComputed;
+				const oldValue = this._textValueComputed!;
 				if( oldValue !== newValue ) {
 					this.text = newValue;
-					this.emit( "change", newValue, oldValue, this );
+					this.onValueChange( newValue, oldValue );
 				}
 			}
 		}
 	}
 
-	protected onInputInput( e: Event ) {
+	protected onValueChange( newValue: VALUE, oldValue: VALUE ): void {
+		this.emit( "change", newValue, oldValue, this );
+	}
+
+	protected onInputInput( e: Event ): void {
 		if( e.target instanceof HTMLInputElement ) {
 			this.emit( "input", this.toValue( e.target.value ), this );
 		}

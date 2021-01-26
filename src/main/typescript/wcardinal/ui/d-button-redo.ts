@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { interaction } from "pixi.js";
 import { DButton, DButtonOptions, DThemeButton } from "./d-button";
 import { DControllers } from "./d-controllers";
 
@@ -14,14 +15,16 @@ export class DButtonRedo<
 	constructor( options?: OPTIONS ) {
 		super( options );
 
+		const state = this.state;
 		const commandController = DControllers.getCommandController();
-		this.state.isDisabled = ! commandController.isRedoable();
+		state.isDisabled = ! commandController.isRedoable();
 		commandController.on( "change", (): void => {
-			this.state.isDisabled = ! commandController.isRedoable();
+			state.isDisabled = ! commandController.isRedoable();
 		});
+	}
 
-		this.on( "active", (): void => {
-			commandController.redo();
-		});
+	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
+		super.onActivate( e );
+		DControllers.getCommandController().redo();
 	}
 }

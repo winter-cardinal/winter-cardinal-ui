@@ -311,7 +311,7 @@ export class DDialogSelect<
 		return this._value;
 	}
 
-	protected doResolve( resolve: ( value?: VALUE | null | PromiseLike<VALUE | null> ) => void ): void {
+	protected doResolve( resolve: ( value: VALUE | null | PromiseLike<VALUE | null> ) => void ): void {
 		resolve( this.value );
 	}
 

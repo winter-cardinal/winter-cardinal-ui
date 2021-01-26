@@ -32,28 +32,33 @@
 
 		new wcardinal.ui.DDropdown({
 			parent: application.stage,
-			x: 100, y: 100,
+			x: "center", y: "center",
 			width: 300,
 			text: {
-				value: "Text"
+				value: "Pick a fruit"
 			},
 			menu: {
 				items: [{
-					value: 0,
+					value: "APPLE",
 					text: {
-						value: "A"
+						value: "Apple"
 					}
 				},{
-					value: 1,
+					value: "ORANGE",
 					text: {
-						value: "B"
+						value: "Orange"
 					}
 				},{
-					value: 2,
+					value: "PINEAPPLE",
 					text: {
-						value: "C"
+						value: "Pineapple"
 					}
-				}]
+				}],
+				on: {
+					select: function( value, item, menu ) {
+						console.log( value, item, menu );
+					}
+				}
 			}
 		});
 	}());

@@ -41,7 +41,7 @@ export interface DSelectOptions<
 	/**
 	 * A default value.
 	 */
-	value?: VALUE;
+	value?: VALUE | null;
 
 	on?: DSelectOnOptions<VALUE, EMITTER>;
 }
@@ -61,59 +61,31 @@ export class DSelect<
 	THEME extends DThemeSelect<VALUE> = DThemeSelect<VALUE>,
 	OPTIONS extends DSelectOptions<VALUE, THEME> = DSelectOptions<VALUE, THEME>
 > extends DDropdownBase<VALUE, DMenuItem<VALUE> | null, THEME, OPTIONS> {
-	protected _value!: VALUE | null;
-	protected _onSelectedBound!: ( value: VALUE, child: DMenuItem<VALUE> ) => void;
-	protected _onClosedBound!: () => void;
+	protected _value: VALUE | null;
 
 	constructor( options?: OPTIONS ) {
 		super( options );
-	}
-
-	protected init( options?: OPTIONS ) {
-		super.init( options );
-
-		this._onSelectedBound = ( itemValue: VALUE, item: DMenuItem<VALUE> ): void => {
-			this.onSelected( itemValue, item, true );
-		};
-		this._onClosedBound = (): void => {
-			this.onClosed();
-		};
 
 		// Default value
 		this._value = null;
 		const value = options?.value;
-		if( value !== undefined ) {
+		if( value != null ) {
 			this.value = value;
 		}
 	}
 
-	protected onSelected( newValue: VALUE | null, item: DMenuItem<VALUE> | null, emit: boolean ): void {
-		if( this._value !== newValue ) {
-			// Value
-			const oldValue = this._value;
+	protected onMenuSelect( newValue: VALUE, item: DMenuItem<VALUE>, menu: DMenu<VALUE> ): void {
+		super.onMenuSelect( newValue, item, menu );
+		const oldValue = this._value;
+		if( oldValue !== newValue ) {
 			this._value = newValue;
-
-			// Text
 			this.text = item;
-
-			// Event
-			if( emit ) {
-				this.emit( "change", newValue, oldValue, item,  this );
-			}
+			this.onValueChange( newValue, oldValue, item );
 		}
 	}
 
-	protected onClosed(): void {
-		const menu = this.menu;
-		menu.off( "select", this._onSelectedBound );
-		menu.off( "close", this._onClosedBound );
-	}
-
-	start(): void {
-		const menu = this.menu;
-		menu.on( "select", this._onSelectedBound );
-		menu.on( "close", this._onClosedBound );
-		super.start();
+	protected onValueChange( newValue: VALUE | null, oldValue: VALUE | null, item: DMenuItem<VALUE> | null ) {
+		this.emit( "change", newValue, oldValue, item,  this );
 	}
 
 	protected findMenuItem( menu: DMenu<VALUE>, value: VALUE | null ): DMenuItem<VALUE> | null {
@@ -145,11 +117,10 @@ export class DSelect<
 	 * Sets to the specified value.
 	 */
 	set value( value: VALUE | null ) {
-		const item = this.findMenuItem( this.menu, value );
-		if( item != null ) {
-			this.onSelected( value, item, false );
-		} else {
-			this.onSelected( null, null, false );
+		if( this._value !== value ) {
+			const item = this.findMenuItem( this.menu, value );
+			this._value = value;
+			this.text = item;
 		}
 	}
 

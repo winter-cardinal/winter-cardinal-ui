@@ -44,7 +44,9 @@
 						{ name: "Apple" },
 						{ name: "Orange" },
 						{ name: "Pineapple" }
-					]);
+					].filter(function( item ) {
+						return word.length <= 0 || 0 <= item.name.toUpperCase().indexOf( word );
+					}));
 				}
 			}
 		});

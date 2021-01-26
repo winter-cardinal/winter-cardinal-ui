@@ -25,16 +25,14 @@ export class DDialogConfirm<
 	THEME extends DThemeDialogConfirm = DThemeDialogConfirm,
 	OPTIONS extends DDialogConfirmOptions<THEME> = DDialogConfirmOptions<THEME>
 > extends DDialogCommand<void, THEME, OPTIONS> {
-	protected _message!: DDialogConfirmMessage;
+	protected _message?: DDialogConfirmMessage;
 
 	protected onInit( layout: DLayoutVertical, options?: OPTIONS ) {
 		super.onInit( layout, options );
-		const message = this.toMessage( this.theme, options );
-		this._message = message;
-		layout.addChild( message );
+		layout.addChild( this.message );
 	}
 
-	protected toMessage( theme: DThemeDialogConfirm, options?: DDialogConfirmOptions ): DDialogConfirmMessage {
+	protected toMessage( theme: THEME, options?: OPTIONS ): DDialogConfirmMessage {
 		const message = options?.message;
 		if( message != null ) {
 			if( isString( message ) || isFunction( message ) ) {
@@ -58,11 +56,13 @@ export class DDialogConfirm<
 		options: DDialogConfirmMessageOptions,
 		message: DStateAwareOrValue<string>
 	): DDialogConfirmMessageOptions {
-		if( options.text == null ) {
-			options.text =　{};
+		let text = options.text;
+		if( text == null ) {
+			text = {};
+			options.text =　text;
 		}
-		if( options.text.value === undefined ) {
-			options.text.value = message;
+		if( text.value === undefined ) {
+			text.value = message;
 		}
 		return options;
 	}
@@ -80,7 +80,16 @@ export class DDialogConfirm<
 	}
 
 	get message(): DDialogConfirmMessage {
-		return this._message;
+		let result = this._message;
+		if( result == null ) {
+			result = this.toMessage( this.theme, this._options );
+			this._message = result;
+		}
+		return result;
+	}
+
+	protected doResolve( resolve: ( value: void | PromiseLike<void> ) => void ): void {
+		resolve();
 	}
 
 	protected getType(): string {

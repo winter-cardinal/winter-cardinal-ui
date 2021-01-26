@@ -16,28 +16,32 @@ import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableState } from "./d-table-state";
 import { DTableColumn } from "./d-table-column";
 import { isNumber } from "./util/is-number";
+import { DTableBodyCellOnChange } from "./d-table-body-cell";
+import { DStateAwareOrValue } from "./d-state-aware";
 
 export interface DTableBodyCellTreeOptions<
 	ROW,
-	THEME extends DThemeTableBodyCellTree = DThemeTableBodyCellTree
-> extends DTableBodyCellButtonOptions<ROW, THEME> {
-	link?: DTableBodyCellLinkLinkOptions<ROW>;
+	VALUE = unknown,
+	THEME extends DThemeTableBodyCellTree<VALUE> = DThemeTableBodyCellTree<VALUE>
+> extends DTableBodyCellButtonOptions<ROW, VALUE, THEME> {
+	link?: DTableBodyCellLinkLinkOptions<ROW, VALUE>;
 }
 
-export interface DThemeTableBodyCellTree extends DThemeTableBodyCellButton, DThemeLink {
+export interface DThemeTableBodyCellTree<VALUE = unknown> extends DThemeTableBodyCellButton<VALUE>, DThemeLink {
 	getLevelPadding( level: number ): number;
 }
 
 export class DTableBodyCellTree<
 	ROW,
-	THEME extends DThemeTableBodyCellTree = DThemeTableBodyCellTree,
-	OPTIONS extends DTableBodyCellTreeOptions<ROW, THEME> = DTableBodyCellTreeOptions<ROW, THEME>
-> extends DTableBodyCellButton<ROW, THEME, OPTIONS> {
+	VALUE = unknown,
+	THEME extends DThemeTableBodyCellTree<VALUE> = DThemeTableBodyCellTree<VALUE>,
+	OPTIONS extends DTableBodyCellTreeOptions<ROW, VALUE, THEME> = DTableBodyCellTreeOptions<ROW, VALUE, THEME>
+> extends DTableBodyCellButton<ROW, VALUE, THEME, OPTIONS> {
 	protected _padding!: DBasePaddingAdjustable;
 	protected _link?: DLink | null;
 
-	constructor( columnIndex: number, column: DTableColumn<ROW>, options?: OPTIONS ) {
-		super( columnIndex, column, DLinks.toStateOptions( options?.link?.target, options ) );
+	constructor( columnIndex: number, column: DTableColumn<ROW, VALUE | null>, onChange: DTableBodyCellOnChange<ROW, VALUE | null>, options?: OPTIONS ) {
+		super( columnIndex, column, onChange, DLinks.toStateOptions( options?.link?.target, options ) );
 		this._padding = new DBasePaddingAdjustable( this._padding );
 	}
 
@@ -72,41 +76,37 @@ export class DTableBodyCellTree<
 	}
 
 	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
-		this.emit( "active", this );
-		const row = this._row;
-		if( row !== undefined ) {
-			const rowIndex = this._rowIndex;
-			const columnIndex = this._columnIndex;
-			this.emit( "cellchange", null, null, row, rowIndex, columnIndex, this );
-
-			if( this.state.is( DTableState.HAS_CHILDREN ) ) {
-				this.toggle( row );
-			} else {
-				this.link?.open( e );
-			}
+		super.onActivate( e );
+		if( this.state.is( DTableState.HAS_CHILDREN ) ) {
+			this.toggle();
+		} else {
+			this.link?.open( e );
 		}
 	}
 
-	protected toggle( row: ROW ): void {
+	protected toggle(): void {
+		const row = this._row;
+		if( row === undefined ) {
+			return;
+		}
 		const parent = this.parent;
-		if( parent ) {
-			const body = parent.parent as any;
-			if( body ) {
-				const data = body.data;
-				if( data && data.toggle ) {
-					data.toggle( row );
-				}
-			}
+		if( parent == null ) {
+			return;
+		}
+		const body = parent.parent;
+		if( body == null ) {
+			return;
+		}
+		const data = (body as any).data;
+		if( data && data.toggle ) {
+			data.toggle( row );
 		}
 	}
 
 	onRowSelect( e: interaction.InteractionEvent, local: Point ): boolean {
 		if( local.x <= this.position.x + this.padding.getLeft() ) {
-			const row = this._row;
-			if( row !== undefined ) {
-				this.toggle( row );
-				return true;
-			}
+			this.toggle();
+			return true;
 		}
 		return false;
 	}
@@ -118,7 +118,7 @@ export class DTableBodyCellTree<
 	): void {
 		this._row = row;
 		this._rowIndex = rowIndex;
-		this.text = value;
+		this.text = value as DStateAwareOrValue<VALUE | null>;
 
 		const column = this._column;
 		DTableBodyCells.setRenderable( this, row, columnIndex, column );

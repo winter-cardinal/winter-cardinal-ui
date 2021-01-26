@@ -14,7 +14,7 @@ import { DDynamicText } from "./d-dynamic-text";
 import { DDynamicTextStyleOptions } from "./d-dynamic-text-style";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { isFunction } from "./util/is-function";
-import { isString } from "./util/is-string";
+import { toEnum } from "./util/to-enum";
 
 /**
  * {@link DTextBase} text align options.
@@ -133,23 +133,9 @@ const toTextAlign = <VALUE, THEME extends DThemeTextBase<VALUE>>(
 	theme: THEME, options?: DTextBaseOptions<VALUE, THEME>
 ): { vertical: DAlignVertical, horizontal: DAlignHorizontal } => {
 	const align = options?.text?.align;
-	if( align != null ) {
-		const vertical = ( align.vertical != null ?
-			( isString( align.vertical ) ? DAlignVertical[ align.vertical ] : align.vertical ) :
-			theme.getTextAlignVertical()
-		);
-		const horizontal = ( align.horizontal != null ?
-			( isString( align.horizontal ) ? DAlignHorizontal[ align.horizontal ] : align.horizontal ) :
-			theme.getTextAlignHorizontal()
-		);
-		return {
-			vertical,
-			horizontal
-		};
-	}
 	return {
-		vertical: theme.getTextAlignVertical(),
-		horizontal: theme.getTextAlignHorizontal()
+		vertical: toEnum( align?.vertical ?? theme.getTextAlignVertical(), DAlignVertical ),
+		horizontal: toEnum( align?.horizontal ??  theme.getTextAlignHorizontal(), DAlignHorizontal )
 	};
 };
 
@@ -174,7 +160,7 @@ export class DTextBase<
 	};
 	protected _textFormatter!: ( value: VALUE, caller: any ) => string;
 	protected _isOverflowMaskEnabled!: boolean;
-	protected _overflowMask!: DBaseOverflowMaskSimple | null;
+	protected _overflowMask?: DBaseOverflowMaskSimple | null;
 	protected _textDynamic!: boolean;
 
 	protected init( options?: OPTIONS ): void {
@@ -191,7 +177,6 @@ export class DTextBase<
 		this._textFormatter = ( text?.formatter ?? theme.getTextFormatter() );
 		this._textDynamic = ( text?.dynamic ?? theme.isTextDynamic() );
 		this._isOverflowMaskEnabled = ( options?.mask ?? theme.isOverflowMaskEnabled() );
-		this._overflowMask = null;
 		this.onTextChange();
 		this.createOrUpdateText();
 	}
@@ -237,8 +222,9 @@ export class DTextBase<
 					this._text = newText;
 					this.addChild( newText );
 					this.updateTextPosition( newText );
-					if( this._isOverflowMaskEnabled ) {
-						newText.mask = this.getOrCreateOverflowMask();
+					const overflowMask = this.getOverflowMask();
+					if( overflowMask ) {
+						newText.mask = overflowMask;
 					}
 					this.toDirty();
 					DApplications.update( this );
@@ -262,13 +248,16 @@ export class DTextBase<
 		}
 	}
 
-	protected getOrCreateOverflowMask(): Graphics {
-		if( this._overflowMask == null ) {
-			this._overflowMask = new DBaseOverflowMaskSimple( this );
-			this.addReflowable( this._overflowMask );
-			this.toDirty();
+	getOverflowMask(): Graphics | null {
+		if( this._isOverflowMaskEnabled ) {
+			if( this._overflowMask == null ) {
+				this._overflowMask = new DBaseOverflowMaskSimple( this );
+				this.addReflowable( this._overflowMask );
+				this.toDirty();
+			}
+			return this._overflowMask;
 		}
-		return this._overflowMask;
+		return null;
 	}
 
 	protected updateTextPosition( text: DDynamicText | Text ): void {

@@ -51,7 +51,7 @@ export class DDialogTime<
 		return this._picker;
 	}
 
-	protected doResolve( resolve: ( value?: Date | PromiseLike<Date> ) => void ): void {
+	protected doResolve( resolve: ( value: Date | PromiseLike<Date> ) => void ): void {
 		resolve( this.new );
 	}
 

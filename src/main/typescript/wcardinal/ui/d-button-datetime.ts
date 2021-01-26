@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { interaction } from "pixi.js";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogDatetime, DDialogDatetimeOptions } from "./d-dialog-datetime";
 import { DDialogDatetimes } from "./d-dialog-datetimes";
@@ -53,21 +54,18 @@ export class DButtonDatetime<
 	protected _dialog?: DDialogDatetime;
 	protected _datetimeMask?: DPickerDatetimeMask;
 
-	protected init( options?: OPTIONS ) {
-		super.init( options );
-
-		this.on( "active", (): void => {
-			const currentTime = this._textValueComputed?.getTime() ?? Date.now();
-			const dialog = this.dialog;
-			dialog.current = new Date( currentTime );
-			dialog.new = new Date( currentTime );
-			dialog.page = new Date( currentTime );
-			dialog.open().then((): void => {
-				const dateNew = dialog.new;
-				const dateCurrent = dialog.current;
-				this.text = new Date( dateNew.getTime() );
-				this.emit( "change", dateNew, dateCurrent, this );
-			});
+	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
+		super.onActivate( e );
+		const value = this._textValueComputed?.getTime() ?? Date.now();
+		const dialog = this.dialog;
+		dialog.current = new Date( value );
+		dialog.new = new Date( value );
+		dialog.page = new Date( value );
+		dialog.open().then((): void => {
+			const newValue = dialog.new;
+			const oldValue = dialog.current;
+			this.text = new Date( newValue.getTime() );
+			this.emit( "change", newValue, oldValue, this );
 		});
 	}
 
@@ -84,7 +82,7 @@ export class DButtonDatetime<
 		let dialog = this._dialog;
 		if( dialog == null ) {
 			const options = this._options?.dialog;
-			if( options != null ) {
+			if( options ) {
 				dialog = new DDialogDatetime( options );
 			} else {
 				dialog = DDialogDatetimes.getInstance();
@@ -95,11 +93,7 @@ export class DButtonDatetime<
 	}
 
 	get value(): Date {
-		const textValueComputed = this._textValueComputed;
-		if( textValueComputed !== undefined ) {
-			return textValueComputed;
-		}
-		return new Date();
+		return this._textValueComputed ?? new Date();
 	}
 
 	set value( value: Date ) {

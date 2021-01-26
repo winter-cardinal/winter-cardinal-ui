@@ -3,51 +3,75 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { interaction } from "pixi.js";
 import { DButtonCheck, DButtonCheckOptions, DThemeButtonCheck } from "./d-button-check";
-import { DTableBodyCell } from "./d-table-body-cell";
+import { DTableBodyCell, DTableBodyCellOnChange } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn, DTableColumnType } from "./d-table-column";
 import { DTableData } from "./d-table-data";
 
 export interface DTableBodyCellCheckOptions<
 	ROW = unknown,
-	VALUE = unknown,
-	THEME extends DThemeTableBodyCellCheck<VALUE> = DThemeTableBodyCellCheck<VALUE>
-> extends DButtonCheckOptions<VALUE, THEME> {
+	THEME extends DThemeTableBodyCellCheck = DThemeTableBodyCellCheck
+> extends DButtonCheckOptions<boolean, THEME> {
 }
 
-export interface DThemeTableBodyCellCheck<VALUE = unknown> extends DThemeButtonCheck<VALUE> {
+export interface DThemeTableBodyCellCheck extends DThemeButtonCheck<boolean> {
 
 }
 
 export class DTableBodyCellCheck<
 	ROW = unknown,
-	VALUE = unknown,
-	THEME extends DThemeTableBodyCellCheck<VALUE> = DThemeTableBodyCellCheck<VALUE>,
-	OPTIONS extends DTableBodyCellCheckOptions<ROW, VALUE, THEME> = DTableBodyCellCheckOptions<ROW, VALUE, THEME>
-> extends DButtonCheck<VALUE, THEME, OPTIONS> implements DTableBodyCell<ROW> {
+	THEME extends DThemeTableBodyCellCheck = DThemeTableBodyCellCheck,
+	OPTIONS extends DTableBodyCellCheckOptions<ROW, THEME> = DTableBodyCellCheckOptions<ROW, THEME>
+> extends DButtonCheck<boolean, THEME, OPTIONS> implements DTableBodyCell<ROW, boolean> {
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;
-	protected _column: DTableColumn<ROW>;
+	protected _column: DTableColumn<ROW, boolean>;
+	protected _onChange: DTableBodyCellOnChange<ROW, boolean>;
 
-	constructor( columnIndex: number, column: DTableColumn<ROW>, options?: OPTIONS ) {
+	constructor( columnIndex: number, column: DTableColumn<ROW, boolean>, onChange: DTableBodyCellOnChange<ROW, boolean>, options?: OPTIONS ) {
 		super( options );
 
 		this._rowIndex = -1;
 		this._columnIndex = columnIndex;
 		this._column = column;
-
-		this.on( "active", (): void => {
-			this.onChange( true );
-		});
-
-		this.on( "inactive", (): void => {
-			this.onChange( false );
-		});
+		this._onChange = onChange;
 	}
 
-	protected onChangeSingle( rowIndex: number, columnIndex: number, column: DTableColumn<ROW> ) {
+	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
+		super.onActivate( e );
+		this.onValueChange( true, false );
+	}
+
+	protected onInactivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
+		super.onInactivate( e );
+		this.onValueChange( false, true );
+	}
+
+	protected onValueChange( newValue: boolean, oldValue: boolean ): void {
+		const row = this._row;
+		if( row !== undefined ) {
+			const rowIndex = this._rowIndex;
+			const columnIndex = this._columnIndex;
+			const column = this._column;
+			column.setter( row, columnIndex, newValue );
+			this.emit( "change", newValue, oldValue, this );
+			const onChange = this._onChange;
+			onChange( newValue, oldValue, row, rowIndex, columnIndex, this );
+			if( newValue && column.type === DTableColumnType.CHECK_SINGLE ) {
+				this.onChangeSingle( rowIndex, columnIndex, column, onChange );
+			}
+		}
+	}
+
+	protected onChangeSingle(
+		rowIndex: number,
+		columnIndex: number,
+		column: DTableColumn<ROW, boolean>,
+		onChange: DTableBodyCellOnChange<ROW, boolean>
+	): void {
 		const tableBodyRow = this.parent;
 		if( tableBodyRow ) {
 			const tableBody = tableBodyRow.parent as any;
@@ -60,7 +84,7 @@ export class DTableBodyCellCheck<
 					if( rowIndex !== index && getter( row, columnIndex ) ) {
 						setter( row, columnIndex, false );
 						isChanged = true;
-						this.emit( "cellchange", false, true, row, index, columnIndex, this );
+						onChange( false, true, row, index, columnIndex, this );
 						return false;
 					}
 					return true;
@@ -68,20 +92,6 @@ export class DTableBodyCellCheck<
 				if( isChanged ) {
 					tableBody.update( true );
 				}
-			}
-		}
-	}
-
-	protected onChange( newValue: boolean ): void {
-		const row = this._row;
-		if( row !== undefined ) {
-			const rowIndex = this._rowIndex;
-			const columnIndex = this._columnIndex;
-			const column = this._column;
-			column.setter( row, columnIndex, newValue );
-			this.emit( "cellchange", newValue, ! newValue, row, rowIndex, columnIndex, this );
-			if( newValue && column.type === DTableColumnType.CHECK_SINGLE ) {
-				this.onChangeSingle( rowIndex, columnIndex, column );
 			}
 		}
 	}
@@ -98,7 +108,7 @@ export class DTableBodyCellCheck<
 		return this._columnIndex;
 	}
 
-	get column(): DTableColumn<ROW> {
+	get column(): DTableColumn<ROW, boolean> {
 		return this._column;
 	}
 

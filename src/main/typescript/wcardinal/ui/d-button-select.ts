@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { interaction } from "pixi.js";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogSelect, DDialogSelectOptions } from "./d-dialog-select";
 
@@ -91,6 +92,41 @@ const defaultSetter = (): void => {
 	// DO NOTHING
 };
 
+const toOptions = <
+	OPTIONS extends DButtonSelectOptions<any, any, any, any>
+>( options?: OPTIONS ): OPTIONS | undefined => {
+	if( options ) {
+		// Try to copy text.formatter to dialog.item.text.formatter at first
+		const formatter = options.text?.formatter;
+		if( formatter !== undefined ) {
+			let dialog = options.dialog;
+			if( ! (dialog && "open" in dialog) ) {
+				dialog = dialog || {};
+				const item = dialog.item = dialog.item || {};
+				const text = item.text = item.text || {};
+				if( text.formatter === undefined ) {
+					// Assumes formatter is ( value: DIALOG_VALUE | null, caller: any ) => string.
+					text.formatter = formatter as any;
+				}
+			}
+		} else {
+			// Try to copy dialog.item.text.formatter to text.formatter
+			const dialog = options.dialog;
+			if( ! (dialog && "open" in dialog) ) {
+				const dialogFormatter = dialog?.item?.text?.formatter;
+				if( dialogFormatter !== undefined ) {
+					const text = options.text = options.text || {};
+					if( text.formatter === undefined ) {
+						// Assumes dialogFormatter is ( value: VALUE | null, caller: any ) => string.
+						text.formatter = dialogFormatter as any;
+					}
+				}
+			}
+		}
+	}
+	return options;
+};
+
 export class DButtonSelect<
 	VALUE extends unknown = unknown,
 	DIALOG_VALUE extends unknown = unknown,
@@ -100,81 +136,46 @@ export class DButtonSelect<
 		= DButtonSelectOptions<VALUE, DIALOG_VALUE, DIALOG, THEME>
 > extends DButton<VALUE | null, THEME, OPTIONS> {
 	protected _dialog?: DIALOG;
+	protected _dialogGetter: DButtonSelectGetter<VALUE, DIALOG>;
+	protected _dialogSetter: DButtonSelectSetter<VALUE, DIALOG>;
 
-	protected init( options?: OPTIONS ) {
-		super.init( this.toOptions( options ) );
+	constructor( options?: OPTIONS ) {
+		super( toOptions( options ) );
+		this._dialogGetter = options?.getter ?? defaultGetter;
+		this._dialogSetter = options?.setter ?? defaultSetter;
+	}
 
-		const getter: DButtonSelectGetter<VALUE, DIALOG> = options?.getter ?? defaultGetter;
-		const setter: DButtonSelectSetter<VALUE, DIALOG> = options?.setter ?? defaultSetter;
-		this.on( "active", (): void => {
-			const dialog = this.dialog;
-			setter( dialog, this._textValueComputed ?? null );
-			dialog.open().then((): void => {
-				const newValue = getter( dialog );
-				const oldValue = this._textValueComputed;
-				if( newValue !== oldValue ) {
-					this.text = newValue;
-					this.emit( "change", newValue, oldValue, this );
-				}
-			});
+	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
+		super.onActivate( e );
+		const dialog = this.dialog;
+		const oldValue = this._textValueComputed ?? null;
+		this._dialogSetter( dialog, oldValue );
+		dialog.open().then((): void => {
+			const newValue = this._dialogGetter( dialog );
+			if( newValue !== oldValue ) {
+				this.text = newValue;
+				this.emit( "change", newValue, oldValue, this );
+			}
 		});
 	}
 
 	get dialog(): DIALOG {
 		let dialog = this._dialog;
 		if( dialog == null ) {
-			const options = this._options;
-			const dialogOptions = options && options.dialog;
-			if( dialogOptions && ("open" in dialogOptions) ) {
-				dialog = dialogOptions;
+			const options = this._options?.dialog;
+			if( options && ("open" in options) ) {
+				dialog = options;
 			} else {
 				// Assumes DIALOG === DDialogSelect<DIALOG_VALUE>.
-				dialog = new DDialogSelect<DIALOG_VALUE>( dialogOptions ) as unknown as DIALOG;
+				dialog = new DDialogSelect<DIALOG_VALUE>( options ) as unknown as DIALOG;
 			}
 			this._dialog = dialog;
 		}
 		return dialog;
 	}
 
-	protected toOptions( options?: OPTIONS ): OPTIONS | undefined {
-		if( options ) {
-			// Try to copy text.formatter to dialog.item.text.formatter at first
-			const formatter = options.text?.formatter;
-			if( formatter !== undefined ) {
-				let dialog = options.dialog;
-				if( ! (dialog && "open" in dialog) ) {
-					dialog = dialog || {};
-					const item = dialog.item = dialog.item || {};
-					const text = item.text = item.text || {};
-					if( text.formatter === undefined ) {
-						// Assumes formatter is ( value: DIALOG_VALUE | null, caller: any ) => string.
-						text.formatter = formatter as any;
-					}
-				}
-			} else {
-				// Try to copy dialog.item.text.formatter to text.formatter
-				const dialog = options.dialog;
-				if( ! (dialog && "open" in dialog) ) {
-					const dialogFormatter = dialog?.item?.text?.formatter;
-					if( dialogFormatter !== undefined ) {
-						const text = options.text = options.text || {};
-						if( text.formatter === undefined ) {
-							// Assumes dialogFormatter is ( value: VALUE | null, caller: any ) => string.
-							text.formatter = dialogFormatter as any;
-						}
-					}
-				}
-			}
-		}
-		return options;
-	}
-
 	get value(): VALUE | null {
-		const textValueComputed = this._textValueComputed;
-		if( textValueComputed !== undefined ) {
-			return textValueComputed;
-		}
-		return null;
+		return this._textValueComputed ?? null;
 	}
 
 	set value( value: VALUE | null ) {
