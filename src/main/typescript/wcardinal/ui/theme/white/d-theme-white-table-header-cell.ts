@@ -22,15 +22,15 @@ import { DThemeWhiteImage } from "./d-theme-white-image";
 
 // Material Design icons by Google.
 // Apache license version 2.0.
-DThemeWhiteAtlas.add( "sorted_descending", 24, 24,
+DThemeWhiteAtlas.add( "sorted_descending", 16, 16,
 	`<g transform="scale(0.875,0.875)">` +
-		`<path d="M7 16l5-5 5 5H7z" fill="#fff" />` +
+		`<path d="M3 12l5-5 5 5H3z" fill="#fff"/>` +
 	`</g>`
 );
 
-DThemeWhiteAtlas.add( "sorted_ascending", 24, 24,
+DThemeWhiteAtlas.add( "sorted_ascending", 16, 16,
 	`<g transform="scale(0.875,0.875)">` +
-		`<path d="M7 12l5 5 5-5H7z" fill="#fff" />` +
+		`<path d="M3 8l5 5 5-5H3z" fill="#fff"/>` +
 	`</g>`
 );
 
@@ -139,7 +139,7 @@ export class DThemeWhiteTableHeaderCell extends DThemeWhiteImage<string | null> 
 	}
 
 	getTertiaryImageAlignWith(): DAlignWith {
-		return DAlignWith.PADDING;
+		return DAlignWith.BORDER;
 	}
 
 	getCursor( state: DBaseStateSet ): string {
