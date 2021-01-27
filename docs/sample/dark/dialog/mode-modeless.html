@@ -1,0 +1,54 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Modeless mode</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #2e2e2e;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.76.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.76.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		var application = new wcardinal.ui.DApplication();
+
+		new wcardinal.ui.DDialogInputInteger({
+			parent: application.stage,
+			mode: "MODELESS",
+			on: {
+				ok: function ( value, input ) {
+					console.log( value, input );
+				},
+
+				cancel: function ( reason, input ) {
+					console.log( reason, input );
+				}
+			}
+		})
+
+		// Even for modeless dialogs, we need to open it explicitly.
+		// This is because some dialogs do their initializations when
+		// they are opened.
+		.open();
+	}());
+	</script>
+</body>
+</html>

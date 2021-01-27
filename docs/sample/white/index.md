@@ -44,15 +44,21 @@
 * Dialog
     * [Delete confirm dialog](./dialog/confirm-delete.html)
     * [Discard confirm dialog](./dialog/confirm-discard.html)
+    * [Date dialog](./dialog/date.html)
+    * [Datetime dialog](./dialog/datetime.html)
     * [Boolean input dialog](./dialog/input-boolean.html)
     * [Integral number input dialog](./dialog/input-integer.html)
     * [Real number input dialog](./dialog/input-real.html)
     * [Text input dialog](./dialog/input-text.html)
     * [Message dialog](./dialog/message.html)
+    * [Menu mode](./dialog/mode-menu.html)
+    * [Modeless mode](./dialog/mode-modeless.html)
     * [Processing dialog](./dialog/processing.html)
     * [Select dialog](./dialog/select.html)
-    * [Select dialog formatter](./dialog/select-formatter.html)
-    * [Select dialog predefined items](./dialog/select-predefined.html)
+    * [Select dialog with a selection preservation](./dialog/select-is-equal.html)
+    * [Select dialog with predefined items](./dialog/select-predefined.html)
+    * [Select dialog with custom item labels](./dialog/select-to-label.html)
+    * [Time dialog](./dialog/time.html)
 * Dropdown
     * [Basics](./dropdown/basics.html)
 * Expandable

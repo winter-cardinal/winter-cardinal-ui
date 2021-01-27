@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.75.2
+ Winter Cardinal UI v0.76.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -768,6 +768,8 @@
 
     const DDialogCloseOn = wcardinal.ui.DDialogCloseOn;
 
+    const DDialogMode = wcardinal.ui.DDialogMode;
+
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
@@ -777,8 +779,20 @@
         function DThemeDarkDialog() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
+        DThemeDarkDialog.prototype.getMode = function () {
+            return DDialogMode.MODAL;
+        };
         DThemeDarkDialog.prototype.closeOn = function () {
             return DDialogCloseOn.ESC | DDialogCloseOn.CLICK_OUTSIDE;
+        };
+        DThemeDarkDialog.prototype.isSticky = function () {
+            return false;
+        };
+        DThemeDarkDialog.prototype.getOffsetX = function () {
+            return 5;
+        };
+        DThemeDarkDialog.prototype.getOffsetY = function () {
+            return 5;
         };
         DThemeDarkDialog.prototype.getBackgroundColor = function () {
             return DThemeDarkConstants.BACKGROUND_COLOR;
@@ -893,24 +907,19 @@
         "<rect x=\"0\" y=\"0\" width=\"234\" height=\"156\" fill=\"url(#2rfcfe9874bw)\" />" +
         "</g>");
     var makeCheckerboard = function (width, height) {
-        width = width + width;
         var LIGHT = "#5f5f5f";
         var DARK = "#454545";
         var result = "<g>";
-        for (var iheight = 0; iheight < height; ++iheight) {
-            for (var i = 0; i < width; ++i) {
-                var color = (i % 2 === 0 ? LIGHT : DARK);
-                result += "<rect x=\"" + 9 * i + "\" y=\"" + (18 * iheight + 0) + "\" width=\"9\" height=\"9\" fill=\"" + color + "\" />";
-            }
-            for (var i = 0; i < width; ++i) {
-                var color = (i % 2 === 1 ? LIGHT : DARK);
-                result += "<rect x=\"" + 9 * i + "\" y=\"" + (18 * iheight + 9) + "\" width=\"9\" height=\"9\" fill=\"" + color + "\" />";
+        for (var ih = 0; ih < height; ++ih) {
+            for (var iw = 0; iw < width; ++iw) {
+                var color = ((iw + ih) % 2 === 0 ? LIGHT : DARK);
+                result += "<rect x=\"" + 9 * iw + "\" y=\"" + 9 * ih + "\" width=\"9\" height=\"9\" fill=\"" + color + "\" />";
             }
         }
         result += "</g>";
         return result;
     };
-    DThemeDarkAtlas.add("picker_color_alpha_checkerboard", 234, 18, makeCheckerboard(13, 1));
+    DThemeDarkAtlas.add("picker_color_alpha_checkerboard", 234, 18, makeCheckerboard(26, 2));
     DThemeDarkAtlas.add("picker_color_alpha", 234, 18, "<g>" +
         "<linearGradient id=\"s48afbuh44\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\">" +
         "<stop stop-color=\"#FFFFFF\" stop-opacity=\"0\" offset=\"0\"/>" +
@@ -933,13 +942,13 @@
     DThemeDarkAtlas.add("picker_color_base_pointer", 16.2, 31.8, "<rect x=\"4.5\" y=\"4.5\" width=\"7.2\" height=\"22.8\" stroke=\"#ffffff\" stroke-width=\"2.4\" fill=\"none\" />");
     DThemeDarkAtlas.add("picker_color_pointer", 25.8, 25.8, "<circle cx=\"12.9\" cy=\"12.9\" r=\"4.8\" stroke=\"#5f5f5f\" stroke-width=\"2.4\" fill=\"none\" />" +
         "<circle cx=\"12.9\" cy=\"12.9\" r=\"7.2\" stroke=\"#ffffff\" stroke-width=\"2.4\" fill=\"none\" />");
-    DThemeDarkAtlas.add("picker_color_recent_checkerboard", 18, 18, makeCheckerboard(1, 1));
+    DThemeDarkAtlas.add("picker_color_recent_checkerboard", 18, 18, makeCheckerboard(2, 2));
     DThemeDarkAtlas.add("picker_color_recent_null", 18, 18, "<g>" +
         "<rect x=\"1.2\" y=\"1.2\" width=\"15.6\" height=\"15.6\" stroke=\"#fff\" stroke-width=\"0.8\" fill=\"none\" />" +
         "<line x1=\"16.8\" y1=\"1.2\" x2=\"1.2\" y2=\"16.8\" stroke=\"#fff\" stroke-width=\"0.8\" stroke-linecap=\"round\" />" +
         "<line x1=\"1.2\" y1=\"1.2\" x2=\"16.8\" y2=\"16.8\" stroke=\"#fff\" stroke-width=\"0.8\" stroke-linecap=\"round\" />" +
         "</g>");
-    DThemeDarkAtlas.add("picker_color_sample_checkerboard", 54, 54, makeCheckerboard(3, 3));
+    DThemeDarkAtlas.add("picker_color_sample_checkerboard", 45, 63, makeCheckerboard(5, 7));
     DThemeDarkAtlas.add("picker_color_sample_null", 54, 54, "<g>" +
         "<rect x=\"3.6\" y=\"3.6\" width=\"46.8\" height=\"46.8\" stroke=\"#fff\" stroke-width=\"2.4\" fill=\"none\" />" +
         "<line x1=\"50.4\" y1=\"3.6\" x2=\"3.6\" y2=\"50.4\" stroke=\"#fff\" stroke-width=\"2.4\" stroke-linecap=\"round\" />" +
@@ -2068,6 +2077,9 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var isEqual = function () {
+        return false;
+    };
     var DThemeDarkDialogSelect = /** @class */ (function (_super) {
         __extends(DThemeDarkDialogSelect, _super);
         function DThemeDarkDialogSelect() {
@@ -2079,8 +2091,11 @@
         DThemeDarkDialogSelect.prototype.getCancel = function () {
             return null;
         };
-        DThemeDarkDialogSelect.prototype.getItemTextFormatter = function () {
+        DThemeDarkDialogSelect.prototype.getItemToLabel = function () {
             return toLabel;
+        };
+        DThemeDarkDialogSelect.prototype.getItemIsEqual = function () {
+            return isEqual;
         };
         DThemeDarkDialogSelect.prototype.getNoteNoItemsText = function () {
             return "No Items";
@@ -2161,6 +2176,8 @@
         };
         return DThemeDarkDialogSelectList;
     }(DThemeDarkList));
+
+    const DDialogState = wcardinal.ui.DDialogState;
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -2268,12 +2285,21 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeDarkDialogSelectListItem.prototype.getBackgroundColorActive = function (state) {
+            if (state.in(DDialogState.MODELESS)) {
+                return DThemeDarkConstants.HIGHLIGHT_COLOR;
+            }
             return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
         };
         DThemeDarkDialogSelectListItem.prototype.getBackgroundAlphaActive = function (state) {
+            if (state.in(DDialogState.MODELESS)) {
+                return 1.0;
+            }
             return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
         };
         DThemeDarkDialogSelectListItem.prototype.getColorActive = function (state) {
+            if (state.in(DDialogState.MODELESS)) {
+                return DThemeDarkConstants.ACTIVE_COLOR;
+            }
             return DThemeDarkConstants.COLOR;
         };
         DThemeDarkDialogSelectListItem.prototype.getCornerMask = function () {
@@ -7325,11 +7351,11 @@
      */
     // Material Design icons by Google.
     // Apache license version 2.0.
-    DThemeDarkAtlas.add("sorted_descending", 24, 24, "<g transform=\"scale(0.875,0.875)\">" +
-        "<path d=\"M7 16l5-5 5 5H7z\" fill=\"#fff\" />" +
+    DThemeDarkAtlas.add("sorted_descending", 16, 16, "<g transform=\"scale(0.875,0.875)\">" +
+        "<path d=\"M3 12l5-5 5 5H3z\" fill=\"#fff\"/>" +
         "</g>");
-    DThemeDarkAtlas.add("sorted_ascending", 24, 24, "<g transform=\"scale(0.875,0.875)\">" +
-        "<path d=\"M7 12l5 5 5-5H7z\" fill=\"#fff\" />" +
+    DThemeDarkAtlas.add("sorted_ascending", 16, 16, "<g transform=\"scale(0.875,0.875)\">" +
+        "<path d=\"M3 8l5 5 5-5H3z\" fill=\"#fff\"/>" +
         "</g>");
     var DThemeDarkTableHeaderCell = /** @class */ (function (_super) {
         __extends(DThemeDarkTableHeaderCell, _super);
@@ -7428,7 +7454,7 @@
             return DAlignHorizontal.RIGHT;
         };
         DThemeDarkTableHeaderCell.prototype.getTertiaryImageAlignWith = function () {
-            return DAlignWith.PADDING;
+            return DAlignWith.BORDER;
         };
         DThemeDarkTableHeaderCell.prototype.getCursor = function (state) {
             if (!state.isActionable) {
