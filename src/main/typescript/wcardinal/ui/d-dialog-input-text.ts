@@ -23,7 +23,7 @@ export class DDialogInputText<
 	protected newInput( options?: DInputTextOptions ): DInputText {
 		const result = new DInputText( this.toInputOptions( options ) );
 		result.on( "enter", () => {
-			this.onOk( this.getResolvedValue() );
+			this.ok();
 		});
 		return result;
 	}

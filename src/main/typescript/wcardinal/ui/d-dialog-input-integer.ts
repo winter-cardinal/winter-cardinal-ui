@@ -23,7 +23,7 @@ export class DDialogInputInteger<
 	protected newInput( options?: DInputIntegerOptions ): DInputInteger {
 		const result = new DInputInteger( this.toInputOptions( options ) );
 		result.on( "enter", () => {
-			this.onOk( this.getResolvedValue() );
+			this.ok();
 		});
 		return result;
 	}

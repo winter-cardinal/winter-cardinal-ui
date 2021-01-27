@@ -56,7 +56,7 @@ export type DDialogSelectItemIsEqual<VALUE> = ( a: VALUE, b: VALUE, caller: any 
  * {@link DDialogSelect} item options.
  */
 export interface DDialogSelectItemOptions<VALUE> {
-	toLabel: DDialogSelectItemToLabel<VALUE>;
+	toLabel?: DDialogSelectItemToLabel<VALUE>;
 	isEqual?: DDialogSelectItemIsEqual<VALUE>;
 	predefineds?: VALUE[];
 }
