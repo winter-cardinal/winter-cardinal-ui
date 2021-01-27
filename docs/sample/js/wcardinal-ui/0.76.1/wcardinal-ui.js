@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.76.0
+ Winter Cardinal UI v0.76.1
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -18073,7 +18073,7 @@
                         },
                         on: {
                             active: function () {
-                                _this.onCancel(_this.getRejectReason());
+                                _this.cancel();
                             }
                         }
                     });
@@ -18084,7 +18084,7 @@
                         },
                         on: {
                             active: function () {
-                                _this.onOk(_this.getResolvedValue());
+                                _this.ok();
                             }
                         }
                     });
@@ -18097,7 +18097,7 @@
                         },
                         on: {
                             active: function () {
-                                _this.onOk(_this.getResolvedValue());
+                                _this.ok();
                             }
                         }
                     });
@@ -18110,7 +18110,7 @@
                         },
                         on: {
                             active: function () {
-                                _this.onCancel(_this.getRejectReason());
+                                _this.cancel();
                             }
                         }
                     });
@@ -18124,11 +18124,17 @@
         DDialogCommand.prototype.onInit = function (layout, options) {
             // OVERRIDE THIS
         };
+        DDialogCommand.prototype.ok = function () {
+            this.onOk(this.getResolvedValue());
+        };
         DDialogCommand.prototype.onOk = function (value) {
             if (this._mode !== DDialogMode.MODELESS) {
                 this.doResolve(value);
             }
             this.emit("ok", value, this);
+        };
+        DDialogCommand.prototype.cancel = function () {
+            this.onCancel(this.getRejectReason());
         };
         DDialogCommand.prototype.onCancel = function (reason) {
             if (this._mode !== DDialogMode.MODELESS) {
@@ -19443,7 +19449,7 @@
             var _this = this;
             var result = new DInputInteger(this.toInputOptions(options));
             result.on("enter", function () {
-                _this.onOk(_this.getResolvedValue());
+                _this.ok();
             });
             return result;
         };
@@ -19523,7 +19529,7 @@
             var _this = this;
             var result = new DInputReal(this.toInputOptions(options));
             result.on("enter", function () {
-                _this.onOk(_this.getResolvedValue());
+                _this.ok();
             });
             return result;
         };
@@ -19609,7 +19615,7 @@
             var _this = this;
             var result = new DInputText(this.toInputOptions(options));
             result.on("enter", function () {
-                _this.onOk(_this.getResolvedValue());
+                _this.ok();
             });
             return result;
         };
