@@ -23,7 +23,7 @@ export class DDialogInputReal<
 	protected newInput( options?: DInputRealOptions ): DInputReal {
 		const result = new DInputReal( this.toInputOptions( options ) );
 		result.on( "enter", () => {
-			this.onOk( this.getResolvedValue() );
+			this.ok();
 		});
 		return result;
 	}

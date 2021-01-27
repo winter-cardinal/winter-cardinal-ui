@@ -129,7 +129,7 @@ export abstract class DDialogCommand<
 					},
 					on: {
 						active: (): void => {
-							this.onCancel( this.getRejectReason() );
+							this.cancel();
 						}
 					}
 				});
@@ -140,7 +140,7 @@ export abstract class DDialogCommand<
 					},
 					on: {
 						active: (): void => {
-							this.onOk( this.getResolvedValue() );
+							this.ok();
 						}
 					}
 				});
@@ -152,7 +152,7 @@ export abstract class DDialogCommand<
 					},
 					on: {
 						active: (): void => {
-							this.onOk( this.getResolvedValue() );
+							this.ok();
 						}
 					}
 				});
@@ -164,7 +164,7 @@ export abstract class DDialogCommand<
 					},
 					on: {
 						active: (): void => {
-							this.onCancel( this.getRejectReason() );
+							this.cancel();
 						}
 					}
 				});
@@ -180,11 +180,19 @@ export abstract class DDialogCommand<
 		// OVERRIDE THIS
 	}
 
+	ok(): void {
+		this.onOk( this.getResolvedValue() );
+	}
+
 	protected onOk( value: VALUE | PromiseLike<VALUE> ): void {
 		if( this._mode !== DDialogMode.MODELESS ) {
 			this.doResolve( value );
 		}
 		this.emit( "ok", value, this );
+	}
+
+	cancel(): void {
+		this.onCancel( this.getRejectReason() );
 	}
 
 	protected onCancel( reason: any ): void {
