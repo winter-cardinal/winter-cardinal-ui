@@ -5,9 +5,9 @@
 
 import { interaction } from "pixi.js";
 import { DBase } from "./d-base";
-import { DBaseStateSet } from "./d-base-state-set";
 import { DImage, DImageOptions, DThemeImage } from "./d-image";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
+import { UtilPointerEvent } from "./util/util-pointer-event";
 
 export interface DListItemOptions<
 	VALUE = unknown,
@@ -20,12 +20,6 @@ export interface DThemeListItem extends DThemeImage<string> {
 
 }
 
-// Option parser
-const toValue = <VALUE, THEME extends DThemeListItem>( options?: DListItemOptions<VALUE, THEME> ): VALUE | null => {
-	return ( options != null && options.value != null ?
-		options.value : null );
-};
-
 export interface DListItemSelection {
 	add( item: DBase ): void;
 }
@@ -35,11 +29,24 @@ export class DListItem<
 	THEME extends DThemeListItem = DThemeListItem,
 	OPTIONS extends DListItemOptions<VALUE, THEME> = DListItemOptions<VALUE, THEME>
 > extends DImage<string, THEME, OPTIONS> {
-	protected _value!: VALUE | null;
+	protected _value: VALUE | null;
 
-	protected init( options?: OPTIONS ) {
+	constructor( options?: OPTIONS ) {
+		super( options );
+		this._value = options?.value ?? null;
+	}
+
+	protected init( options?: OPTIONS ): void {
 		super.init( options );
-		this._value = toValue( options );
+		this.initOnClick( options );
+	}
+
+	protected initOnClick( options?: OPTIONS ): void {
+		UtilPointerEvent.onClick( this, ( e: interaction.InteractionEvent ): void => {
+			if( this.state.isActionable ) {
+				this.onSelect( e );
+			}
+		});
 	}
 
 	get value(): VALUE | null {

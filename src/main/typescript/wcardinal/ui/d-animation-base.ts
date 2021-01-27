@@ -27,21 +27,21 @@ export class DAnimationBase<TARGET = unknown> extends utils.EventEmitter impleme
 		super();
 
 		this._id = null;
-		this._target = (options && options.target != null ? options.target : null);
+		this._target = options?.target ?? null;
 		this._startTime = 0;
-		this._duration = ( options != null && options.duration != null ? options.duration : 200 );
+		this._duration = options?.duration ?? 200;
 		this._durationInverse = 1 / Math.max( 1, this._duration );
 		this._reverse = false;
-		this._onTime = ( options != null ? options.onTime : undefined );
+		this._onTime = options?.onTime;
 		this._onTimeBaseBound = () => {
 			this.onTimeBase();
 		};
-		this._onStart = ( options != null ? options.onStart : undefined );
-		this._onEnd = ( options != null ? options.onEnd : undefined );
-		this._timing = ( options != null && options.timing != null ? options.timing : DAnimationTimings.ELASTIC );
+		this._onStart = options?.onStart;
+		this._onEnd = options?.onEnd;
+		this._timing = options?.timing ?? DAnimationTimings.ELASTIC;
 
 		// Events
-		const on = options && options.on;
+		const on = options?.on;
 		if( on ) {
 			for( const name in on ) {
 				const handler = on[ name ];

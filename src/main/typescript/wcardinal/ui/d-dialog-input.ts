@@ -22,9 +22,10 @@ export interface DDialogInputMarginOptions extends Partial<DDialogInputMargin> {
 }
 
 export interface DDialogInputOptions<
-	INPUT_OPTIONS extends DBaseOptions,
-	THEME extends DThemeDialogInput
-> extends DDialogCommandOptions<THEME> {
+	VALUE = void,
+	INPUT_OPTIONS extends DBaseOptions = DBaseOptions,
+	THEME extends DThemeDialogInput = DThemeDialogInput
+> extends DDialogCommandOptions<VALUE, THEME> {
 	label?: string | DTextOptions<string>;
 	input?: INPUT_OPTIONS;
 	margin?: number | DDialogInputMarginOptions;
@@ -41,7 +42,7 @@ export abstract class DDialogInput<
 	INPUT extends DBase & { value: VALUE } = any,
 	INPUT_OPTIONS extends DBaseOptions = DBaseOptions,
 	THEME extends DThemeDialogInput = DThemeDialogInput,
-	OPTIONS extends DDialogInputOptions<INPUT_OPTIONS, THEME> = DDialogInputOptions<INPUT_OPTIONS, THEME>
+	OPTIONS extends DDialogInputOptions<VALUE, INPUT_OPTIONS, THEME> = DDialogInputOptions<VALUE, INPUT_OPTIONS, THEME>
 > extends DDialogCommand<VALUE, THEME, OPTIONS> {
 	protected _label?: DText<string>;
 	protected _input?: INPUT;
@@ -155,8 +156,8 @@ export abstract class DDialogInput<
 		this.input.value = value;
 	}
 
-	protected doResolve( resolve: ( value: VALUE | PromiseLike<VALUE> ) => void ): void {
-		resolve( this.value );
+	protected getResolvedValue(): VALUE | PromiseLike<VALUE> {
+		return this.input.value;
 	}
 
 	protected getType(): string {

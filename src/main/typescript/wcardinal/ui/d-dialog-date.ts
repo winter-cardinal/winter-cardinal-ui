@@ -9,7 +9,7 @@ import { DPickerDate, DPickerDateOptions } from "./d-picker-date";
 
 export interface DDialogDateOptions<
 	THEME extends DThemeDialogDate = DThemeDialogDate
-> extends DDialogCommandOptions<THEME> {
+> extends DDialogCommandOptions<Date, THEME> {
 	picker?: DPickerDateOptions;
 }
 
@@ -21,46 +21,48 @@ export class DDialogDate<
 	THEME extends DThemeDialogDate = DThemeDialogDate,
 	OPTIONS extends DDialogDateOptions<THEME> = DDialogDateOptions<THEME>
 > extends DDialogCommand<Date, THEME, OPTIONS> {
-	protected _picker!: DPickerDate;
+	protected _picker?: DPickerDate;
 
 	protected onInit( layout: DLayoutVertical, options?: OPTIONS ) {
 		super.onInit( layout, options );
-
-		const picker = new DPickerDate( options && options.picker );
-		this._picker = picker;
-		layout.addChild( picker );
+		layout.addChild( this.picker );
 	}
 
 	get current(): Date {
-		return this._picker.current;
+		return this.picker.current;
 	}
 
 	set current( dateCurrent: Date ) {
-		this._picker.current = dateCurrent;
+		this.picker.current = dateCurrent;
 	}
 
 	get new(): Date {
-		return this._picker.new;
+		return this.picker.new;
 	}
 
 	set new( value: Date ) {
-		this._picker.new = value;
+		this.picker.new = value;
 	}
 
 	get page(): Date {
-		return this._picker.new;
+		return this.picker.new;
 	}
 
 	set page( page: Date ) {
-		this._picker.page = page;
+		this.picker.page = page;
 	}
 
 	get picker(): DPickerDate {
-		return this._picker;
+		let result = this._picker;
+		if( result == null ) {
+			result = new DPickerDate( this._options?.picker );
+			this._picker = result;
+		}
+		return result;
 	}
 
-	protected doResolve( resolve: ( value: Date | PromiseLike<Date> ) => void ): void {
-		resolve( this.new );
+	protected getResolvedValue(): Date | PromiseLike<Date> {
+		return this.picker.new;
 	}
 
 	protected getType(): string {

@@ -8,7 +8,7 @@ export class UtilOverlay {
 
 	constructor( options?: { parent?: unknown; } ) {
 		this._layer = null;
-		this._application = ( options == null || options.parent == null ?
+		this._application = ( options?.parent == null ?
 			DApplications.last() : null
 		);
 	}

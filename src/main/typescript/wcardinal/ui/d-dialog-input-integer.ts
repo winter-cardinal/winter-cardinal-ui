@@ -8,7 +8,7 @@ import { DInputInteger, DInputIntegerOptions } from "./d-input-integer";
 
 export interface DDialogInputIntegerOptions<
 	THEME extends DThemeDialogInputInteger
-> extends DDialogInputOptions<DInputIntegerOptions, THEME> {
+> extends DDialogInputOptions<number, DInputIntegerOptions, THEME> {
 
 }
 
@@ -23,17 +23,21 @@ export class DDialogInputInteger<
 	protected newInput( options?: DInputIntegerOptions ): DInputInteger {
 		const result = new DInputInteger( this.toInputOptions( options ) );
 		result.on( "enter", () => {
-			this.onOk();
+			this.onOk( this.getResolvedValue() );
 		});
 		return result;
 	}
 
 	protected toInputOptions( options?: DInputIntegerOptions ): DInputIntegerOptions {
-		const result = options || {};
-		if( result.weight === undefined ) {
-			result.weight = 1;
+		if( options ) {
+			if( options.weight === undefined ) {
+				options.weight = 1;
+			}
+			return options;
 		}
-		return result;
+		return {
+			weight: 1
+		};
 	}
 
 	protected getType(): string {

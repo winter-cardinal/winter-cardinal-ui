@@ -8,9 +8,10 @@ import { DContentOptions } from "./d-content";
 import { DList, DListOptions, DThemeList } from "./d-list";
 
 export interface DDialogSelectListOptions<
+	VALUE = unknown,
 	THEME extends DThemeDialogSelecList = DThemeDialogSelecList,
 	CONTENT_OPTIONS extends DBaseOptions = DContentOptions
-> extends DListOptions<THEME, CONTENT_OPTIONS> {
+> extends DListOptions<VALUE, THEME, CONTENT_OPTIONS> {
 
 }
 
@@ -19,10 +20,11 @@ export interface DThemeDialogSelecList extends DThemeList {
 }
 
 export class DDialogSelectList<
+	VALUE = unknown,
 	THEME extends DThemeDialogSelecList = DThemeDialogSelecList,
 	CONTENT_OPTIONS extends DBaseOptions = DContentOptions,
-	OPTIONS extends DDialogSelectListOptions<THEME, CONTENT_OPTIONS> = DDialogSelectListOptions<THEME, CONTENT_OPTIONS>
-> extends DList<THEME, CONTENT_OPTIONS, OPTIONS> {
+	OPTIONS extends DDialogSelectListOptions<VALUE, THEME, CONTENT_OPTIONS> = DDialogSelectListOptions<VALUE, THEME, CONTENT_OPTIONS>
+> extends DList<VALUE, THEME, CONTENT_OPTIONS, OPTIONS> {
 	constructor( options?: OPTIONS ) {
 		super( options );
 		this.state.isFocusable = false;

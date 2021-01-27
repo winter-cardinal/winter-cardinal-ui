@@ -149,10 +149,9 @@ export class DButtonColor<
 	get dialog(): DDialogColor {
 		let dialog = this._dialog;
 		if( dialog == null ) {
-			const options = this._options;
-			const dialogOptions = options && options.dialog;
-			if( dialogOptions != null ) {
-				dialog = new DDialogColor( dialogOptions );
+			const options = this._options?.dialog;
+			if( options != null ) {
+				dialog = new DDialogColor( options );
 			} else {
 				if( DButtonColor.DIALOG == null ) {
 					DButtonColor.DIALOG = new DDialogColor();

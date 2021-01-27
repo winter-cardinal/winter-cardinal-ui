@@ -48,30 +48,23 @@ export interface DDialogSelectNoteOptions {
 	searching?: DNoteOptions;
 }
 
-/**
- * {@link DDialogSelect} item text formatter options.
- */
-export type DDialogSelectItemTextFormatter<VALUE> = ( result: VALUE, caller: any ) => string;
+export type DDialogSelectItemToLabel<VALUE> = ( result: VALUE, caller: any ) => string;
 
-/**
- * {@link DDialogSelect} item text options.
- */
-export interface DDialogSelectItemTextOptions<VALUE> {
-	formatter?: DDialogSelectItemTextFormatter<VALUE>;
-}
+export type DDialogSelectItemIsEqual<VALUE> = ( a: VALUE, b: VALUE, caller: any ) => boolean;
 
 /**
  * {@link DDialogSelect} item options.
  */
 export interface DDialogSelectItemOptions<VALUE> {
-	text?: DDialogSelectItemTextOptions<VALUE>;
+	toLabel: DDialogSelectItemToLabel<VALUE>;
+	isEqual?: DDialogSelectItemIsEqual<VALUE>;
 	predefineds?: VALUE[];
 }
 
 /**
  * {@link DDialogSelect} events.
  */
-export interface DDialogSelectEvents<VALUE, EMITTER> extends DDialogCommandEvents<EMITTER> {
+export interface DDialogSelectEvents<VALUE, EMITTER> extends DDialogCommandEvents<VALUE, EMITTER> {
 	select( value: VALUE, self: EMITTER ): void;
 }
 
@@ -87,9 +80,9 @@ export interface DDialogSelectOnOptions<VALUE, EMITTER> extends Partial<DDialogS
  */
 export interface DDialogSelectOptions<
 	VALUE,
-	THEME extends DThemeDialogSelect = DThemeDialogSelect,
+	THEME extends DThemeDialogSelect<VALUE> = DThemeDialogSelect<VALUE>,
 	EMITTER = any
-> extends DDialogCommandOptions<THEME> {
+> extends DDialogCommandOptions<VALUE, THEME> {
 	controller?: DDialogSelectController<VALUE>;
 	item?: DDialogSelectItemOptions<VALUE>;
 	note?: DDialogSelectNoteOptions;
@@ -99,29 +92,15 @@ export interface DDialogSelectOptions<
 /**
  * {@link DDialogSelect} theme.
  */
-export interface DThemeDialogSelect extends DThemeDialogCommand {
-	getItemTextFormatter(): DDialogSelectItemTextFormatter<any>;
+export interface DThemeDialogSelect<VALUE = unknown> extends DThemeDialogCommand {
+	getItemToLabel(): DDialogSelectItemToLabel<VALUE>;
+	getItemIsEqual(): DDialogSelectItemIsEqual<VALUE>;
 	getNoteNoItemsText(): string;
 	getNoteSearchingText(): string;
 }
 
 // Helper
-const toItemTextFormatter = <VALUE>(
-	theme: DThemeDialogSelect, options?: DDialogSelectOptions<VALUE, any>
-): DDialogSelectItemTextFormatter<VALUE> => {
-	if( options ) {
-		const item = options.item;
-		if( item ) {
-			const text = item.text;
-			if( text ) {
-				return text.formatter || theme.getItemTextFormatter();
-			}
-		}
-	}
-	return theme.getItemTextFormatter();
-};
-
-const toNoteOptions = ( options: DNoteOptions | undefined, parent: DBase, text: string ): DNoteOptions => {
+const toNoteOptions = ( parent: DBase, text: string, options?: DNoteOptions ): DNoteOptions => {
 	if( options != null ) {
 		if( options.parent == null ) {
 			options.parent = parent;
@@ -143,28 +122,6 @@ const toNoteOptions = ( options: DNoteOptions | undefined, parent: DBase, text: 
 	};
 };
 
-const toNoteNoItemsOptions = (
-	theme: DThemeDialogSelect, options: DDialogSelectOptions<any> | undefined, parent: DBase
-): DNoteOptions => {
-	const note = options && options.note;
-	return toNoteOptions(
-		note && note.noItems,
-		parent,
-		theme.getNoteNoItemsText()
-	);
-};
-
-const toNoteSearchingOptions = (
-	theme: DThemeDialogSelect, options: DDialogSelectOptions<any> | undefined, parent: DBase
-): DNoteOptions => {
-	const note = options && options.note;
-	return toNoteOptions(
-		note && note.noItems,
-		parent,
-		theme.getNoteSearchingText()
-	);
-};
-
 const toSearch = <VALUE>(
 	controller?: DDialogSelectController<VALUE>
 ): DDialogSelectSearch<VALUE> => {
@@ -181,24 +138,28 @@ const toSearch = <VALUE>(
 };
 
 export class DDialogSelect<
-	VALUE extends unknown = unknown,
-	THEME extends DThemeDialogSelect = DThemeDialogSelect,
+	VALUE = unknown,
+	THEME extends DThemeDialogSelect<VALUE> = DThemeDialogSelect<VALUE>,
 	OPTIONS extends DDialogSelectOptions<VALUE, THEME> = DDialogSelectOptions<VALUE, THEME>
 > extends DDialogCommand<VALUE | null, THEME, OPTIONS> {
 	protected _value!: VALUE | null;
 	protected _input!: DInputText;
-	protected _list!: DDialogSelectList;
+	protected _list!: DDialogSelectList<VALUE>;
+	protected _search!: DDialogSelectSearch<VALUE>;
 	protected _noteNoItems!: DNote;
 	protected _noteSearching!: DNote;
-	protected _itemTextFormatter!: DDialogSelectItemTextFormatter<VALUE>;
-	protected _search!: DDialogSelectSearch<VALUE>;
-	protected _predefineds?: VALUE[];
+	protected _itemToLabel!: DDialogSelectItemToLabel<VALUE>;
+	protected _itemIsEqual!: DDialogSelectItemIsEqual<VALUE>;
+	protected _itemPredefineds?: VALUE[];
 
 	protected onInit( layout: DLayoutVertical, options?: OPTIONS ) {
 		this._value = null;
 		const theme = this.theme;
-		this._itemTextFormatter = toItemTextFormatter( theme, options );
-		this._predefineds = options && options.item && options.item.predefineds;
+
+		const item = options?.item;
+		this._itemToLabel = item?.toLabel ?? theme.getItemToLabel();
+		this._itemIsEqual = item?.isEqual ?? theme.getItemIsEqual();
+		this._itemPredefineds = item?.predefineds;
 
 		// Search box
 		this._input = new DInputText({
@@ -207,32 +168,44 @@ export class DDialogSelect<
 		});
 
 		// List
-		const list = this._list = new DDialogSelectList({
+		const list = new DDialogSelectList<VALUE>({
 			parent: layout,
 			width: "padding",
 			selection: {
 				on: {
-					change: ( selection: DListSelection ): void => {
-						const item: DListItem<VALUE> | null = selection.first();
-						if( item != null ) {
-							this._value = item.value;
-							this.onOk();
+					change: ( selection: DListSelection<VALUE> ): void => {
+						const first = selection.first();
+						if( first ) {
+							const newValue = first.value;
+							if( this._value !== newValue ) {
+								this._value = newValue;
+								this.onOk( newValue );
+							}
 						}
 					}
 				}
 			}
 		});
+		this._list = list;
 
 		// Text No Items
-		const noteNoItems = new DNote( toNoteNoItemsOptions( theme, options, list ) );
+		const noteNoItems = new DNote(toNoteOptions(
+			list,
+			theme.getNoteNoItemsText(),
+			options?.note?.noItems
+		));
 		this._noteNoItems = noteNoItems;
 
 		// Text Searching
-		const noteSearching = new DNote( toNoteSearchingOptions( theme, options, list ) );
+		const noteSearching = new DNote(toNoteOptions(
+			list,
+			theme.getNoteSearchingText(),
+			options?.note?.searching
+		));
 		this._noteSearching = noteSearching;
 
 		// Controller binding
-		const search = toSearch( options && options.controller );
+		const search = toSearch( options?.controller );
 		this._search = search;
 		this._input.on( "input", ( value: string ): void => {
 			search.create([ value ]);
@@ -260,10 +233,12 @@ export class DDialogSelect<
 
 	protected onSearched( results: VALUE[] ): void {
 		const list = this._list;
-		const itemTextFormatter = this._itemTextFormatter;
 		const content = list.content;
-		const children = content.children;
-		const predefineds = this._predefineds;
+		const children = content.children as Array<DListItem<VALUE>>;
+		const value = this._value;
+		const toLabel = this._itemToLabel;
+		const isEqual = this._itemIsEqual;
+		const predefineds = this._itemPredefineds;
 
 		// Update the existing children
 		const childrenLength = children.length;
@@ -274,21 +249,16 @@ export class DDialogSelect<
 		for( let i = 0; i < minLength; ++i ) {
 			const child = children[ i ];
 			const result = i < predefinedsLength ? predefineds![ i ] : results[ i - predefinedsLength ];
-			if( child instanceof DListItem ) {
-				child.text = itemTextFormatter( result, this );
-				child.value = result;
-			} else {
-				content.removeChildAt( i );
-				child.destroy();
-				const newChild = this.newItem( result, itemTextFormatter( result, this ) );
-				content.addChildAt( newChild, i );
-			}
+			child.text = toLabel( result, this );
+			child.value = result;
+			child.state.isActive = (value != null ? isEqual( result, value, this ) : false);
 		}
 
 		// Insert new children
 		for( let i = minLength; i < totalLength; ++i ) {
 			const result = i < predefinedsLength ? predefineds![ i ] : results[ i - predefinedsLength ];
-			const newChild = this.newItem( result, itemTextFormatter( result, this ) );
+			const newChild = this.newItem( result, toLabel( result, this ) );
+			newChild.state.isActive = (value != null ? isEqual( result, value, this ) : false);
 			content.addChild( newChild );
 		}
 
@@ -296,6 +266,9 @@ export class DDialogSelect<
 		for( let i = childrenLength - 1; minLength <= i; --i ) {
 			children[ i ].destroy();
 		}
+
+		// Clear selection
+		list.selection.toDirty();
 	}
 
 	protected newItem( result: VALUE, label: string ): DDialogSelectListItem<VALUE> {
@@ -311,25 +284,26 @@ export class DDialogSelect<
 		return this._value;
 	}
 
-	protected doResolve( resolve: ( value: VALUE | null | PromiseLike<VALUE | null> ) => void ): void {
-		resolve( this.value );
+	protected getResolvedValue(): VALUE | null | PromiseLike<VALUE | null> {
+		return this._value;
 	}
 
 	protected getType(): string {
 		return "DDialogSelect";
 	}
 
-	protected onOpen() {
+	protected onOpen(): void {
 		super.onOpen();
 		this._list.selection.clear();
 		this._search.create([ this._input.value ]);
 	}
-	protected onOk() {
-		this.emit( "select", this._value, this );
-		super.onOk();
+
+	protected onOk( value: VALUE | null | PromiseLike<VALUE | null> ): void {
+		this.emit( "select", value, this );
+		super.onOk( value );
 	}
 
-	destroy() {
+	destroy(): void {
 		this._input.destroy();
 		this._noteNoItems.destroy();
 		this._noteSearching.destroy();

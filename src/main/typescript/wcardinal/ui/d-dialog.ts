@@ -9,7 +9,12 @@ import { DAnimationFadeIn } from "./d-animation-fade-in";
 import { DApplications } from "./d-applications";
 import { DBase, DBaseEvents, DBaseOptions, DThemeBase } from "./d-base";
 import { DFocusable } from "./d-controller-focus";
+import { DDialogAlign } from "./d-dialog-align";
 import { DDialogCloseOn } from "./d-dialog-close-on";
+import { DDialogMode } from "./d-dialog-mode";
+import { DDialogState } from "./d-dialog-state";
+import { toEnum } from "./util/to-enum";
+import { UtilAttach } from "./util/util-attach";
 import { UtilClickOutside } from "./util/util-click-outside";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilOverlay } from "./util/util-overlay";
@@ -34,7 +39,7 @@ export interface DDialogEvents<EMITTER> extends DBaseEvents<EMITTER> {
 }
 
 /**
- * {@link DDialog} "on" options.
+ * {@link DDialog} `on` options.
  */
 export interface DDialogOnOptions<EMITTER> extends Partial<DDialogEvents<EMITTER>> {
 	[ key: string ]: Function | undefined;
@@ -51,6 +56,15 @@ export interface DDialogOptions<
 	animation?: DAnimation<DBase>;
 
 	/**
+	 * A dialog mode.
+	 */
+	mode?: DDialogMode | (keyof typeof DDialogMode);
+
+	sticky?: boolean;
+
+	align?: DDialogAlign;
+
+	/**
 	 * Mappings of event names and handlers.
 	 */
 	on?: DDialogOnOptions<EMITTER>;
@@ -60,7 +74,11 @@ export interface DDialogOptions<
  * {@link DDialog} theme.
  */
 export interface DThemeDialog extends DThemeBase {
+	getMode(): DDialogMode;
 	closeOn(): DDialogCloseOn;
+	isSticky(): boolean;
+	getOffsetX(): number;
+	getOffsetY(): number;
 }
 
 /**
@@ -72,42 +90,94 @@ export interface DThemeDialog extends DThemeBase {
  * the one it belongs to at the time when it is created.
  */
 export class DDialog<
+	VALUE = void,
 	THEME extends DThemeDialog = DThemeDialog,
 	OPTIONS extends DDialogOptions<THEME> = DDialogOptions<THEME>
 > extends DBase<THEME, OPTIONS> {
-	protected _animation!: DAnimation<DBase>;
+	protected _promise?: Promise<VALUE>;
+	protected _resolve?: ( value: VALUE | PromiseLike<VALUE> ) => void;
+	protected _reject?: ( reason?: any ) => void;
+
+	protected _animation?: DAnimation<DBase> | null;
 	protected _closeOn!: DDialogCloseOn;
-	protected _focusable!: DFocusable | null;
-	protected _isOpened!: boolean;
+	protected _focusable?: DFocusable | null;
 	protected _overlay!: UtilOverlay;
+	protected _mode!: DDialogMode;
+	protected _sticky!: boolean;
+	protected _onPrerenderBound!: () => void;
+	protected _align!: DDialogAlign;
+	protected _owner?: DBase<any, any> | null;
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
 
-		this.visible = false;
-		this.state.isFocusRoot = true;
-		this._focusable = null;
-		this._isOpened = false;
+		this._onPrerenderBound = (): void => {
+			this.onPrerender();
+		};
 
-		// Animation
-		const animation = this._animation = ( options && options.animation ?
-			options.animation : new DAnimationFadeIn() );
-		animation.target = this;
-		animation.on( "end", ( isReverse: boolean ): void => {
-			this.onAnimationEnd( isReverse );
-		});
+		// Modeless
+		const theme = this.theme;
+		const mode = toEnum( options?.mode ?? theme.getMode(), DDialogMode );
+		this._mode = mode;
 
-		// Close-on
-		const closeOn = this._closeOn = ( options && options.closeOn != null ?
-			options.closeOn : this.theme.closeOn()
-		);
-		if( closeOn & DDialogCloseOn.CLICK_OUTSIDE ) {
-			UtilClickOutside.apply( this, (): void => {
-				this.onCloseOn();
-			});
-		}
+		// Sticky
+		this._sticky = options?.sticky ?? theme.isSticky();
 
+		// Close On
+		const closeOn = options?.closeOn ?? theme.closeOn();
+		this._closeOn = closeOn;
+
+		// Align
+		this._align = toEnum( options?.align ?? DDialogAlign.BOTTOM, DDialogAlign );
+
+		// Overlay
 		this._overlay = new UtilOverlay();
+
+		// Others
+		switch( mode ) {
+		case DDialogMode.MODAL:
+		case DDialogMode.MENU:
+			this.visible = false;
+			const state = this.state;
+			state.lock();
+			state.isFocusRoot = true;
+			state.add( mode === DDialogMode.MODAL ? DDialogState.MODAL : DDialogState.MENU );
+			state.unlock();
+			if( closeOn & DDialogCloseOn.CLICK_OUTSIDE ) {
+				UtilClickOutside.apply( this, (): void => {
+					this.onCloseOn();
+				});
+			}
+			break;
+		case DDialogMode.MODELESS:
+			this.state.add( DDialogState.MODELESS );
+			break;
+		}
+	}
+
+	protected getAnimation(): DAnimation | null {
+		let result = this._animation;
+		if( result === undefined ) {
+			switch( this._mode ) {
+			case DDialogMode.MODAL:
+				result = this._options?.animation ?? new DAnimationFadeIn();
+				break;
+			case DDialogMode.MODELESS:
+				result = null;
+				break;
+			case DDialogMode.MENU:
+				result = this._options?.animation ?? null;
+				break;
+			}
+			if( result ) {
+				result.target = this;
+				result.on( "end", ( isReverse: boolean ): void => {
+					this.onAnimationEnd( isReverse );
+				});
+			}
+			this._animation = result;
+		}
+		return result;
 	}
 
 	protected onAnimationEnd( isReverse: boolean ) {
@@ -127,12 +197,62 @@ export class DDialog<
 		}
 	}
 
-	open(): void {
-		if( ! this._isOpened ) {
-			const layer = this._overlay.pick( this );
-			this._isOpened = true;
-			layer.stage.addChild( this );
+	open( owner?: DBase<any, any> ): Promise<VALUE> {
+		let result = this._promise;
+		if( result == null ) {
+			result = new Promise<VALUE>(( resolve, reject ): void => {
+				this._resolve = resolve;
+				this._reject = reject;
+			});
+			this._promise = result;
+
+			this._owner = owner;
+
+			switch( this._mode ) {
+			case DDialogMode.MODAL: {
+					const layer = this._overlay.pick( this );
+					layer.stage.addChild( this );
+				}
+				break;
+			case DDialogMode.MODELESS:
+				break;
+			case DDialogMode.MENU: {
+					const layer = this._overlay.pick( this );
+					layer.stage.addChild( this );
+
+					// Position & size
+					const renderer = layer.renderer;
+					const onPrerenderBound = this._onPrerenderBound;
+					if( this._sticky ) {
+						renderer.on( "prerender", onPrerenderBound );
+					} else {
+						renderer.once( "prerender", onPrerenderBound );
+					}
+				}
+				break;
+			}
 			this.onOpen();
+		}
+		return result;
+	}
+
+	protected onPrerender(): void {
+		const owner = this._owner;
+		if( owner ) {
+			const bounds = owner.getBounds();
+			if( bounds ) {
+				const layer = this._overlay.picked;
+				if( layer ) {
+					const theme = this.theme;
+					UtilAttach.attach(
+						this,
+						bounds,
+						theme.getOffsetX(), theme.getOffsetY(),
+						layer.width, layer.height,
+						this._align
+					);
+				}
+			}
 		}
 	}
 
@@ -140,49 +260,105 @@ export class DDialog<
 		this.emit( "open", this );
 
 		// Animation
-		this._animation.start();
+		const animation = this.getAnimation();
+		if( animation ) {
+			animation.start();
+		} else if( this._mode === DDialogMode.MENU ) {
+			this.visible = true;
+			this.onAnimationEnd( false );
+		}
 	}
 
 	isOpened(): boolean {
-		return this._isOpened;
+		return this._promise != null;
 	}
 
 	close() {
-		if( this._isOpened ) {
-			this._isOpened = false;
+		this.doReject();
+	}
+
+	protected doResolve( value: VALUE | PromiseLike<VALUE>  ): void {
+		const resolve = this._resolve;
+		if( resolve ) {
+			this._promise = undefined;
+			this._resolve = undefined;
+			this._reject = undefined;
+
 			this.onClose();
+
+			resolve( value );
+		}
+	}
+
+	protected doReject( reason?: any ): void {
+		const reject = this._reject;
+		if( reject ) {
+			this._promise = undefined;
+			this._resolve = undefined;
+			this._reject = undefined;
+
+			this.onClose();
+
+			reject( reason );
 		}
 	}
 
 	protected onClose(): void {
 		// Focus
+		const layer = this._overlay.picked;
 		const focusable = this._focusable;
 		if( focusable != null ) {
 			this._focusable = null;
-			const layer = DApplications.getLayer( this );
 			if( layer ) {
 				layer.getFocusController().focus( focusable );
+			} else {
+				this.blur( true );
 			}
+		} else {
+			this.blur( true );
 		}
 
+		// Remove the prerender event handler
+		switch( this._mode ) {
+		case DDialogMode.MODAL:
+			break;
+		case DDialogMode.MODELESS:
+			break;
+		case DDialogMode.MENU:
+			if( layer ) {
+				layer.renderer.off( "prerender", this._onPrerenderBound );
+			}
+			break;
+		}
+
+		// Forget the owner
+		this._owner = null;
+
 		// Animation
-		this._animation.start( true );
+		const animation = this.getAnimation();
+		if( animation ) {
+			animation.start( true );
+		} else if( this._mode === DDialogMode.MENU ) {
+			this.visible = false;
+			this.onAnimationEnd( true );
+		}
 
 		this.emit( "close", this );
 	}
 
-	protected getType(): string {
-		return "DDialog";
-	}
-
 	onKeyDown( e: KeyboardEvent ): boolean {
-		const closeOn = this._closeOn;
-		if( closeOn & DDialogCloseOn.ESC ) {
-			if( UtilKeyboardEvent.isCancelKey( e ) ) {
-				this.onCloseOn();
+		switch( this._mode ) {
+		case DDialogMode.MODAL:
+		case DDialogMode.MENU:
+			if( this._closeOn & DDialogCloseOn.ESC ) {
+				if( UtilKeyboardEvent.isCancelKey( e ) ) {
+					this.onCloseOn();
+				}
 			}
+			break;
+		case DDialogMode.MODELESS:
+			break;
 		}
-
 		return super.onKeyDown( e );
 	}
 
@@ -191,6 +367,16 @@ export class DDialog<
 	}
 
 	protected containsGlobalPoint( point: Point ): boolean {
-		return true;
+		switch( this._mode ) {
+		case DDialogMode.MODAL:
+		case DDialogMode.MENU:
+			return true;
+		case DDialogMode.MODELESS:
+			return super.containsGlobalPoint( point );
+		}
+	}
+
+	protected getType(): string {
+		return "DDialog";
 	}
 }

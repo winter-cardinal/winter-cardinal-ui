@@ -32,13 +32,6 @@ export class DMenuItemMenu<
 
 	protected init( options: OPTIONS ) {
 		super.init( options );
-
-		UtilPointerEvent.onClick( this, (): void => {
-			if( this.state.isActionable ) {
-				this.open();
-			}
-		});
-
 		this.initHover( options );
 	}
 

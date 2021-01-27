@@ -23,16 +23,6 @@ export class DMenuItemExpandableHeader<
 	THEME extends DThemeMenuItemExpandableHeader = DThemeMenuItemExpandableHeader,
 	OPTIONS extends DMenuItemExpandableHeaderOptions<VALUE, THEME> = DMenuItemExpandableHeaderOptions<VALUE, THEME>
 > extends DListItem<VALUE, THEME, OPTIONS> {
-	protected init( options?: OPTIONS ) {
-		super.init( options );
-
-		this.on( UtilPointerEvent.down, ( e: interaction.InteractionEvent ): void => {
-			if( this.state.isActionable ) {
-				this.onSelect( e );
-			}
-		});
-	}
-
 	protected getSelection(): DListItemSelection | null {
 		return null;
 	}

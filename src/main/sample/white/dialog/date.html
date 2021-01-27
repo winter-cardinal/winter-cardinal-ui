@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Select dialog with predefined items</title>
+	<title>Date dialog</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -30,24 +30,7 @@
 
 		var application = new wcardinal.ui.DApplication();
 
-		var dialog = new wcardinal.ui.DDialogSelect({
-			item: {
-				predefineds: [{
-					name: "Melon"
-				}]
-			},
-			controller: {
-				search: function ( word ) {
-					return Promise.resolve([
-						{ name: "Apple" },
-						{ name: "Orange" },
-						{ name: "Pineapple" }
-					].filter(function( item ) {
-						return word.length <= 0 || 0 <= item.name.indexOf( word );
-					}));
-				}
-			}
-		});
+		var dialog = new wcardinal.ui.DDialogDate();
 
 		new wcardinal.ui.DButton({
 			parent: application.stage,
@@ -58,15 +41,15 @@
 			},
 			on: {
 				active: function () {
-					dialog.open().then(function( value ){
-						console.log( value );
+					dialog.open().then(function ( date ) {
+						console.log( date );
 					})
 					.catch(function() {
 						console.log( "Canceled" );
 					});
 				}
 			}
-		});
+		})
 	}());
 	</script>
 </body>

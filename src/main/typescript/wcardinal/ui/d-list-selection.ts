@@ -5,6 +5,8 @@
 
 import { Container, utils } from "pixi.js";
 import { DBase } from "./d-base";
+import { DListItem } from "./d-list-item";
+import { toEnum } from "./util/to-enum";
 
 export enum DListSelectionMode {
 	NONE,
@@ -34,8 +36,8 @@ export interface DListSelectionOnOptions<EMITTER> extends Partial<DListSelection
 /**
  * {@link DListSelection} options.
  */
-export interface DListSelectionOptions<EMITTER = any> {
-	mode?: DListSelectionMode;
+export interface DListSelectionOptions<VALUE, EMITTER = any> {
+	mode?: DListSelectionMode | (keyof typeof DListSelectionMode);
 
 	/**
 	 * Mappings of event names and handlers.
@@ -43,22 +45,22 @@ export interface DListSelectionOptions<EMITTER = any> {
 	on?: DListSelectionOnOptions<EMITTER>;
 }
 
-export class DListSelection extends utils.EventEmitter {
+export class DListSelection<VALUE = unknown> extends utils.EventEmitter {
 	protected _content: Container;
 	protected _isDirty: boolean;
 	protected _indices: number[];
 	protected _mode: DListSelectionMode;
 
-	constructor( content: Container, options?: DListSelectionOptions ) {
+	constructor( content: Container, options?: DListSelectionOptions<VALUE> ) {
 		super();
 
 		this._content = content;
 		this._isDirty = false;
 		this._indices = [];
-		this._mode = ( options && options.mode != null ? options.mode : DListSelectionMode.SINGLE );
+		this._mode = toEnum( options?.mode ?? DListSelectionMode.SINGLE, DListSelectionMode );
 
 		// Events
-		const on = options && options.on;
+		const on = options?.on;
 		if( on ) {
 			for( const name in on ) {
 				const handler = on[ name ];
@@ -69,17 +71,16 @@ export class DListSelection extends utils.EventEmitter {
 		}
 	}
 
-	toDirty() {
+	toDirty(): void {
 		this._isDirty = true;
 	}
 
-	update() {
+	update(): void {
 		if( this._isDirty ) {
 			this._isDirty = false;
 			const indices = this._indices;
 			indices.length = 0;
-			const content = this._content;
-			const children = content.children;
+			const children = this._content.children;
 			for( let i = 0, imax = children.length; i < imax; ++i ) {
 				const child = children[ i ];
 				if( child instanceof DBase ) {
@@ -91,7 +92,7 @@ export class DListSelection extends utils.EventEmitter {
 		}
 	}
 
-	size() {
+	size(): number {
 		this.update();
 		return this._indices.length;
 	}
@@ -100,16 +101,15 @@ export class DListSelection extends utils.EventEmitter {
 		return this.size() <= 0;
 	}
 
-	first<T>(): T | null {
+	first(): DListItem<VALUE> | null {
 		return this.get( 0 );
 	}
 
-	get<T>( index: number ): T | null {
+	get( index: number ): DListItem<VALUE> | null {
 		this.update();
 		const indices = this._indices;
 		if( 0 <= index && index < indices.length ) {
-			const content = this._content;
-			const child = content.children[ indices[ index ] ];
+			const child = this._content.children[ indices[ index ] ];
 			if( child != null ) {
 				return child as any;
 			}
@@ -130,8 +130,7 @@ export class DListSelection extends utils.EventEmitter {
 		this.update();
 		const indices = this._indices;
 		if( 0 < indices.length ) {
-			const content = this._content;
-			const children = content.children;
+			const children = this._content.children;
 			for( let i = 0, imax = indices.length; i < imax; ++i ) {
 				const child = children[ indices[ i ] ];
 				if( child instanceof DBase ) {
@@ -143,7 +142,7 @@ export class DListSelection extends utils.EventEmitter {
 		}
 	}
 
-	add<T extends DBase<any, any>>( target: T ) {
+	add( target: DListItem<VALUE> ): void {
 		const mode = this._mode;
 		const content = this._content;
 		if( mode === DListSelectionMode.SINGLE ) {
@@ -152,12 +151,10 @@ export class DListSelection extends utils.EventEmitter {
 
 				// Remove the existing
 				const indices = this._indices;
-				const children = content.children;
+				const children = content.children as Array<DListItem<VALUE>>;
 				for( let i = 0, imax = indices.length; i < imax; ++i ) {
 					const child = children[ indices[ i ] ];
-					if( child instanceof DBase ) {
-						child.state.isActive = false;
-					}
+					child.state.isActive = false;
 				}
 				indices.length = 0;
 
@@ -199,7 +196,7 @@ export class DListSelection extends utils.EventEmitter {
 		}
 	}
 
-	remove<T extends DBase<any, any>>( target: T ) {
+	remove( target: DListItem<VALUE> ): void {
 		if( ! target.state.isActive ) {
 			if( this._isDirty ) {
 				target.state.isActive = false;

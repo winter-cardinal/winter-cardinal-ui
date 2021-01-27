@@ -8,7 +8,7 @@ import { DInputText, DInputTextOptions } from "./d-input-text";
 
 export interface DDialogInputTextOptions<
 	THEME extends DThemeDialogInputText
-> extends DDialogInputOptions<DInputTextOptions, THEME> {
+> extends DDialogInputOptions<string, DInputTextOptions, THEME> {
 
 }
 
@@ -23,17 +23,21 @@ export class DDialogInputText<
 	protected newInput( options?: DInputTextOptions ): DInputText {
 		const result = new DInputText( this.toInputOptions( options ) );
 		result.on( "enter", () => {
-			this.onOk();
+			this.onOk( this.getResolvedValue() );
 		});
 		return result;
 	}
 
 	protected toInputOptions( options?: DInputTextOptions ): DInputTextOptions {
-		const result = options || {};
-		if( result.weight === undefined ) {
-			result.weight = 1;
+		if( options ) {
+			if( options.weight === undefined ) {
+				options.weight = 1;
+			}
+			return options;
 		}
-		return result;
+		return {
+			weight: 1
+		};
 	}
 
 	protected getType(): string {

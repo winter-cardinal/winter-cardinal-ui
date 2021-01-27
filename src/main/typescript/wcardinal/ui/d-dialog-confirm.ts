@@ -13,7 +13,7 @@ import { isString } from "./util/is-string";
 
 export interface DDialogConfirmOptions<
 	THEME extends DThemeDialogConfirm = DThemeDialogConfirm
-> extends DDialogCommandOptions<THEME> {
+> extends DDialogCommandOptions<void, THEME> {
 	message?: DStateAwareOrValue<string> | DDialogConfirmMessageOptions | DDialogConfirmMessage;
 }
 
@@ -88,8 +88,8 @@ export class DDialogConfirm<
 		return result;
 	}
 
-	protected doResolve( resolve: ( value: void | PromiseLike<void> ) => void ): void {
-		resolve();
+	protected getResolvedValue(): void | PromiseLike<void> {
+		return undefined;
 	}
 
 	protected getType(): string {
