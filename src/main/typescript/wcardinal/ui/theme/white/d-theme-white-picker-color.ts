@@ -27,26 +27,20 @@ DThemeWhiteAtlas.add( "picker_color_main", 234, 156,
 );
 
 const makeCheckerboard = ( width: number, height: number ): string => {
-	width = width + width;
-
 	const LIGHT = "#bfbfbf";
 	const DARK = "#a5a5a5";
 	let result = "<g>";
-	for( let iheight = 0; iheight < height; ++iheight ) {
-		for( let i = 0; i < width; ++i ) {
-			const color = (i % 2 === 0 ? LIGHT : DARK);
-			result += `<rect x="${9 * i}" y="${18 * iheight + 0}" width="9" height="9" fill="${color}" />`;
-		}
-		for( let i = 0; i < width; ++i ) {
-			const color = (i % 2 === 1 ? LIGHT : DARK);
-			result += `<rect x="${9 * i}" y="${18 * iheight + 9}" width="9" height="9" fill="${color}" />`;
+	for( let ih = 0; ih < height; ++ih ) {
+		for( let iw = 0; iw < width; ++iw ) {
+			const color = ((iw + ih) % 2 === 0 ? LIGHT : DARK);
+			result += `<rect x="${9 * iw}" y="${9 * ih}" width="9" height="9" fill="${color}" />`;
 		}
 	}
 	result += "</g>";
 	return result;
 };
 
-DThemeWhiteAtlas.add( "picker_color_alpha_checkerboard", 234, 18, makeCheckerboard( 13, 1 ) );
+DThemeWhiteAtlas.add( "picker_color_alpha_checkerboard", 234, 18, makeCheckerboard( 26, 2 ) );
 
 DThemeWhiteAtlas.add( "picker_color_alpha", 234, 18,
 	`<g>` +
@@ -82,7 +76,7 @@ DThemeWhiteAtlas.add( "picker_color_pointer", 25.8, 25.8,
 	`<circle cx="12.9" cy="12.9" r="7.2" stroke="#ffffff" stroke-width="2.4" fill="none" />`
 );
 
-DThemeWhiteAtlas.add( "picker_color_recent_checkerboard", 18, 18, makeCheckerboard( 1, 1 ) );
+DThemeWhiteAtlas.add( "picker_color_recent_checkerboard", 18, 18, makeCheckerboard( 2, 2 ) );
 
 DThemeWhiteAtlas.add( "picker_color_recent_null", 18, 18,
 	`<g>` +
@@ -92,7 +86,7 @@ DThemeWhiteAtlas.add( "picker_color_recent_null", 18, 18,
 	`</g>`
 );
 
-DThemeWhiteAtlas.add( "picker_color_sample_checkerboard", 54, 54, makeCheckerboard( 3, 3 ) );
+DThemeWhiteAtlas.add( "picker_color_sample_checkerboard", 45, 63, makeCheckerboard( 5, 7 ) );
 
 DThemeWhiteAtlas.add( "picker_color_sample_null", 54, 54,
 	`<g>` +

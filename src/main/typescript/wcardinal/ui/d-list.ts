@@ -3,20 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DisplayObject, interaction } from "pixi.js";
-import InteractionEvent = interaction.InteractionEvent;
 import { DBase, DBaseOptions } from "./d-base";
 import { DContentOptions } from "./d-content";
 import { DListSelection, DListSelectionOptions } from "./d-list-selection";
 import { DPane, DPaneOptions, DThemePane } from "./d-pane";
-import { UtilPointerEvent } from "./util/util-pointer-event";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 
 export interface DListOptions<
+	VALUE = unknown,
 	THEME extends DThemeList = DThemeList,
 	CONTENT_OPTIONS extends DBaseOptions = DContentOptions
 > extends DPaneOptions<THEME, CONTENT_OPTIONS> {
-	selection?: DListSelectionOptions | DListSelection;
+	selection?: DListSelectionOptions<VALUE> | DListSelection<VALUE>;
 }
 
 export interface DThemeList extends DThemePane {
@@ -24,31 +22,12 @@ export interface DThemeList extends DThemePane {
 }
 
 export class DList<
+	VALUE = unknown,
 	THEME extends DThemeList = DThemeList,
 	CONTENT_OPTIONS extends DBaseOptions = DContentOptions,
-	OPTIONS extends DListOptions<THEME, CONTENT_OPTIONS> = DListOptions<THEME, CONTENT_OPTIONS>
+	OPTIONS extends DListOptions<VALUE, THEME, CONTENT_OPTIONS> = DListOptions<VALUE, THEME, CONTENT_OPTIONS>
 > extends DPane<THEME, CONTENT_OPTIONS, OPTIONS> {
-	protected _selection!: DListSelection;
-
-	protected init( options?: OPTIONS ) {
-		super.init( options );
-
-		const selection = options && options.selection;
-		this._selection = ( selection instanceof DListSelection ?
-			selection : this.newSelection( selection )
-		);
-
-		UtilPointerEvent.onClick( this, ( e: InteractionEvent ): void => {
-			const child: DisplayObject | null = this.findItem( e.target );
-			if( child instanceof DBase && child.state.isActionable ) {
-				this.selection.add( child );
-			}
-		});
-	}
-
-	protected newSelection( options?: DListSelectionOptions ): DListSelection {
-		return new DListSelection( this._content, options );
-	}
+	protected _selection?: DListSelection<VALUE>;
 
 	protected onChildrenDirty(): void {
 		const selection = this._selection;
@@ -58,20 +37,20 @@ export class DList<
 		super.onChildrenDirty();
 	}
 
-	get selection(): DListSelection {
-		return this._selection;
+	get selection(): DListSelection<VALUE> {
+		let result = this._selection;
+		if( result == null ) {
+			const options = this._options?.selection;
+			result = ( options instanceof DListSelection ?
+				options : this.newSelection( options )
+			);
+			this._selection = result;
+		}
+		return result;
 	}
 
-	protected findItem( target: DisplayObject | null ): DisplayObject | null {
-		const content = this._content;
-		let current = target;
-		while( current != null ) {
-			if( current.parent === content ) {
-				return current;
-			}
-			current = current.parent;
-		}
-		return null;
+	protected newSelection( options?: DListSelectionOptions<VALUE> ): DListSelection<VALUE> {
+		return new DListSelection<VALUE>( this._content, options );
 	}
 
 	protected onRefit(): void {

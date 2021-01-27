@@ -11,7 +11,7 @@ import { DPickerColorRecent } from "./d-picker-color-recent";
 
 export interface DDialogColorOptions<
 	THEME extends DThemeDialogColor = DThemeDialogColor
-> extends DDialogCommandOptions<THEME> {
+> extends DDialogCommandOptions<DColorAndAlpha, THEME> {
 	picker?: DPickerColorOptions;
 }
 
@@ -23,41 +23,46 @@ export class DDialogColor<
 	THEME extends DThemeDialogColor = DThemeDialogColor,
 	OPTIONS extends DDialogColorOptions<THEME> = DDialogColorOptions<THEME>
 > extends DDialogCommand<DColorAndAlpha, THEME, OPTIONS> {
-	protected _picker!: DPickerColor;
+	protected _picker?: DPickerColor;
 
 	protected onInit( layout: DLayoutVertical, options?: OPTIONS ) {
 		super.onInit( layout, options );
+		layout.addChild( this.picker );
+	}
 
-		const picker = new DPickerColor( options && options.picker );
-		this._picker = picker;
-		layout.addChild( picker );
+	protected onOk( value: DColorAndAlpha | PromiseLike<DColorAndAlpha> ): void {
+		super.onOk( value );
 
-		this.on( "ok", (): void => {
-			const recent = picker.recent;
-			if( ! recent.contains( picker.new ) ) {
-				recent.add( picker.new );
-			}
-		});
+		const picker = this.picker;
+		const recent = picker.recent;
+		if( ! recent.contains( picker.new ) ) {
+			recent.add( picker.new );
+		}
 	}
 
 	get current(): DColorAndAlpha {
-		return this._picker.current;
+		return this.picker.current;
 	}
 
 	get new(): DColorAndAlpha {
-		return this._picker.new;
+		return this.picker.new;
 	}
 
 	get recent(): DPickerColorRecent {
-		return this._picker.recent;
+		return this.picker.recent;
 	}
 
 	get picker(): DPickerColor {
-		return this._picker;
+		let result = this._picker;
+		if( result == null ) {
+			result = new DPickerColor( this._options?.picker );
+			this._picker = result;
+		}
+		return result;
 	}
 
-	protected doResolve( resolve: ( value: DColorAndAlpha | PromiseLike<DColorAndAlpha> ) => void ): void {
-		resolve( this.new );
+	protected getResolvedValue(): DColorAndAlpha | PromiseLike<DColorAndAlpha> {
+		return this.picker.new;
 	}
 
 	protected getType(): string {

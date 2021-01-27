@@ -7,6 +7,7 @@ import { DButton } from "./d-button";
 import { DButtonPrimary } from "./d-button-primary";
 import { DCoordinatePosition, DCoordinateSize } from "./d-coordinate";
 import { DDialog, DDialogEvents, DDialogOptions, DThemeDialog } from "./d-dialog";
+import { DDialogMode } from "./d-dialog-mode";
 import { DLayoutHorizontal } from "./d-layout-horizontal";
 import { DLayoutSpace } from "./d-layout-space";
 import { DLayoutVertical } from "./d-layout-vertical";
@@ -14,26 +15,28 @@ import { DLayoutVertical } from "./d-layout-vertical";
 /**
  * {@link DDialogCommand} events.
  */
-export interface DDialogCommandEvents<EMITTER> extends DDialogEvents<EMITTER> {
+export interface DDialogCommandEvents<VALUE, EMITTER> extends DDialogEvents<EMITTER> {
 	/**
 	 * Triggered when a dialog is successfully finished.
 	 *
+	 * @param value a value
 	 * @param emitter an emitter
 	 */
-	ok( emitter: EMITTER ): void;
+	ok( value: VALUE, emitter: EMITTER ): void;
 
 	/**
 	 * Triggered when a dialog is canceled.
 	 *
+	 * @param reason a reason why canceled
 	 * @param emitter an emitter
 	 */
-	cancel( emitter: EMITTER ): void;
+	cancel( reason: any, emitter: EMITTER ): void;
 }
 
 /**
  * {@link DDialogCommand} "on" options.
  */
-export interface DDialogCommandOnOptions<EMITTER> extends Partial<DDialogCommandEvents<EMITTER>> {
+export interface DDialogCommandOnOptions<VALUE, EMITTER> extends Partial<DDialogCommandEvents<VALUE, EMITTER>> {
 	[ key: string ]: Function | undefined;
 
 }
@@ -42,6 +45,7 @@ export interface DDialogCommandOnOptions<EMITTER> extends Partial<DDialogCommand
  * {@link DDialogCommand} options.
  */
 export interface DDialogCommandOptions<
+	VALUE = unknown,
 	THEME extends DThemeDialogCommand = DThemeDialogCommand,
 	EMITTER = any
 > extends DDialogOptions<THEME> {
@@ -58,7 +62,7 @@ export interface DDialogCommandOptions<
 	/**
 	 * Mappings of event names and handlers.
 	 */
-	on?: DDialogCommandOnOptions<EMITTER>;
+	on?: DDialogCommandOnOptions<VALUE, EMITTER>;
 }
 
 /**
@@ -80,11 +84,8 @@ export interface DThemeDialogCommand extends DThemeDialog {
 export abstract class DDialogCommand<
 	VALUE = void,
 	THEME extends DThemeDialogCommand = DThemeDialogCommand,
-	OPTIONS extends DDialogCommandOptions<THEME> = DDialogCommandOptions<THEME>
-> extends DDialog<THEME, OPTIONS> {
-	protected _promise: Promise<VALUE> | null = null;
-	protected _resolve: (( value: VALUE | PromiseLike<VALUE> ) => void) | null = null;
-	protected _reject: (( reason?: any ) => void) | null = null;
+	OPTIONS extends DDialogCommandOptions<VALUE, THEME> = DDialogCommandOptions<VALUE, THEME>
+> extends DDialog<VALUE, THEME, OPTIONS> {
 	protected _buttonLayout?: DLayoutHorizontal;
 	protected _buttonOk?: DButton;
 	protected _buttonCancel?: DButton;
@@ -128,7 +129,7 @@ export abstract class DDialogCommand<
 					},
 					on: {
 						active: (): void => {
-							this.onCancel();
+							this.onCancel( this.getRejectReason() );
 						}
 					}
 				});
@@ -139,7 +140,7 @@ export abstract class DDialogCommand<
 					},
 					on: {
 						active: (): void => {
-							this.onOk();
+							this.onOk( this.getResolvedValue() );
 						}
 					}
 				});
@@ -151,7 +152,7 @@ export abstract class DDialogCommand<
 					},
 					on: {
 						active: (): void => {
-							this.onOk();
+							this.onOk( this.getResolvedValue() );
 						}
 					}
 				});
@@ -163,7 +164,7 @@ export abstract class DDialogCommand<
 					},
 					on: {
 						active: (): void => {
-							this.onCancel();
+							this.onCancel( this.getRejectReason() );
 						}
 					}
 				});
@@ -179,69 +180,24 @@ export abstract class DDialogCommand<
 		// OVERRIDE THIS
 	}
 
-	open(): Promise<VALUE> {
-		super.open();
-		return this._promise!;
-	}
-
-	protected onOpen(): void {
-		super.onOpen();
-
-		if( this._promise == null ) {
-			this._promise = new Promise<VALUE>(( resolve, reject ): void => {
-				this._resolve = resolve;
-				this._reject = reject;
-			});
+	protected onOk( value: VALUE | PromiseLike<VALUE> ): void {
+		if( this._mode !== DDialogMode.MODELESS ) {
+			this.doResolve( value );
 		}
+		this.emit( "ok", value, this );
 	}
 
-	protected onClose(): void {
-		super.onClose();
-
-		const reject = this._reject;
-		this._promise = null;
-		this._resolve = null;
-		this._reject = null;
-
-		if( reject != null ) {
-			reject();
+	protected onCancel( reason: any ): void {
+		if( this._mode !== DDialogMode.MODELESS ) {
+			this.doReject( reason );
 		}
+		this.emit( "cancel", reason, this );
 	}
 
-	protected onOk(): void {
-		const resolve = this._resolve;
-		this._promise = null;
-		this._resolve = null;
-		this._reject = null;
+	protected abstract getResolvedValue(): VALUE | PromiseLike<VALUE>;
 
-		this.close();
-
-		if( resolve != null ) {
-			this.doResolve( resolve );
-		}
-
-		this.emit( "ok", this );
-	}
-
-	protected onCancel(): void {
-		const reject = this._reject;
-		this._promise = null;
-		this._resolve = null;
-		this._reject = null;
-
-		this.close();
-
-		if( reject != null ) {
-			this.doReject( reject );
-		}
-
-		this.emit( "cancel", this );
-	}
-
-	protected abstract doResolve( resolve: ( value: VALUE | PromiseLike<VALUE> ) => void ): void;
-
-	protected doReject( reject: ( reason?: any ) => void ): void {
-		reject();
+	protected getRejectReason(): any {
+		return undefined;
 	}
 
 	protected getType(): string {

@@ -3,6 +3,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { UtilAttachAlign } from "./util/util-attach";
-
-export import DMenuAlign = UtilAttachAlign;
+export { UtilAttachAlign as DMenuAlign } from "./util/util-attach";

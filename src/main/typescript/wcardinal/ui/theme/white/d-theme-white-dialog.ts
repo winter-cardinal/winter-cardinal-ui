@@ -8,13 +8,30 @@ import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
 import { DThemeDialog } from "../../d-dialog";
 import { DDialogCloseOn } from "../../d-dialog-close-on";
+import { DDialogMode } from "../../d-dialog-mode";
 import { DShadow } from "../../d-shadow";
 import { DThemeWhiteBase } from "./d-theme-white-base";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 
 export class DThemeWhiteDialog extends DThemeWhiteBase implements DThemeDialog {
+	getMode(): DDialogMode {
+		return DDialogMode.MODAL;
+	}
+
 	closeOn(): DDialogCloseOn {
 		return DDialogCloseOn.ESC | DDialogCloseOn.CLICK_OUTSIDE;
+	}
+
+	isSticky(): boolean {
+		return false;
+	}
+
+	getOffsetX(): number {
+		return 5;
+	}
+
+	getOffsetY(): number {
+		return 5;
 	}
 
 	getBackgroundColor() {

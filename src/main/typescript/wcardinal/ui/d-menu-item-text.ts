@@ -29,22 +29,13 @@ export class DMenuItemText<
 	THEME extends DThemeMenuItemText = DThemeMenuItemText,
 	OPTIONS extends DMenuItemTextOptions<VALUE, THEME> = DMenuItemTextOptions<VALUE, THEME>
 > extends DMenuItem<VALUE, THEME, OPTIONS> {
-	protected _shortcutText!: Text | DDynamicText | null;
-	protected _shortcutMargin!: number;
+	protected _shortcutText?: Text | DDynamicText | null;
+	protected _shortcutMargin?: number;
 
 	protected init( options?: OPTIONS ) {
 		super.init( options );
-		this.initOnClick( options );
 		this.initOnOver( options );
 		this.initShortcuts( options );
-	}
-
-	protected initOnClick( options?: OPTIONS ): void {
-		UtilPointerEvent.onClick( this, ( e: interaction.InteractionEvent ): void => {
-			if( this.state.isActionable ) {
-				this.onSelect( e );
-			}
-		});
 	}
 
 	protected initOnOver( options?: OPTIONS ): void {
@@ -61,7 +52,6 @@ export class DMenuItemText<
 
 	protected initShortcuts( options?: OPTIONS ): void {
 		const shortcuts = this._shortcuts;
-		this._shortcutMargin = this.theme.getShortcutTextMargin();
 		if( shortcuts != null && 0 < shortcuts.length ) {
 			const shortcut = shortcuts[ 0 ];
 			const shortcutTextValue = UtilKeyboardEvent.toString( shortcut );
@@ -70,14 +60,17 @@ export class DMenuItemText<
 		} else {
 			this._shortcutText = null;
 		}
+
+		this._shortcutMargin = this.theme.getShortcutTextMargin();
 	}
 
 	protected updateShortcutText(): void {
 		const text = this._shortcutText;
-		if( text != null ) {
+		const margin = this._shortcutMargin;
+		if( text != null && margin != null ) {
 			const toRounded = this.toRounded;
 			text.position.set(
-				toRounded( this.width - this._shortcutMargin - text.width ),
+				toRounded( this.width - margin - text.width ),
 				toRounded( ( this.height - text.height ) * 0.5 )
 			);
 		}

@@ -37,14 +37,9 @@ export class DAnimationFadeIn<TARGET extends DBase = DBase> extends DAnimationBa
 		super( options );
 
 		// Shifts
-		if( options != null && options.shift != null ) {
-			const shift = options.shift;
-			this._shiftX = (shift.x != null ? shift.x : 0);
-			this._shiftY = (shift.y != null ? shift.y : 15);
-		} else {
-			this._shiftX = 0;
-			this._shiftY = 15;
-		}
+		const shift = options?.shift;
+		this._shiftX = (shift?.x ?? 0);
+		this._shiftY = (shift?.y ?? 15);
 
 		this._onPrerenderBound = () => {
 			this.onPrerender();

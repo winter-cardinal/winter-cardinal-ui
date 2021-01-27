@@ -8,7 +8,7 @@ import { DInputReal, DInputRealOptions } from "./d-input-real";
 
 export interface DDialogInputRealOptions<
 	THEME extends DThemeDialogInputReal
-> extends DDialogInputOptions<DInputRealOptions, THEME> {
+> extends DDialogInputOptions<number, DInputRealOptions, THEME> {
 
 }
 
@@ -23,17 +23,21 @@ export class DDialogInputReal<
 	protected newInput( options?: DInputRealOptions ): DInputReal {
 		const result = new DInputReal( this.toInputOptions( options ) );
 		result.on( "enter", () => {
-			this.onOk();
+			this.onOk( this.getResolvedValue() );
 		});
 		return result;
 	}
 
-	protected toInputOptions( options?: DInputRealOptions ): DInputRealOptions {
-		const result = options || {};
-		if( result.weight === undefined ) {
-			result.weight = 1;
+	protected toInputOptions( options?: DInputRealOptions ): DInputRealOptions | undefined {
+		if( options ) {
+			if( options.weight === undefined ) {
+				options.weight = 1;
+			}
+			return options;
 		}
-		return result;
+		return {
+			weight: 1
+		};
 	}
 
 	protected getType(): string {

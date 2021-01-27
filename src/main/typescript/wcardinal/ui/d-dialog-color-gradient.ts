@@ -12,7 +12,7 @@ import { DPickerColorGradientRecent } from "./d-picker-color-gradient-recent";
 
 export interface DDialogColorGradientOptions<
 	THEME extends DThemeDialogColorGradient = DThemeDialogColorGradient
-> extends DDialogCommandOptions<THEME> {
+> extends DDialogCommandOptions<DColorGradient, THEME> {
 	picker?: DPickerColorGradientOptions;
 }
 
@@ -24,42 +24,47 @@ export class DDialogColorGradient<
 	THEME extends DThemeDialogColorGradient = DThemeDialogColorGradient,
 	OPTIONS extends DDialogColorGradientOptions<THEME> = DDialogColorGradientOptions<THEME>
 > extends DDialogCommand<DColorGradient, THEME, OPTIONS> {
-	protected _picker!: DPickerColorGradient;
+	protected _picker?: DPickerColorGradient;
 
 	protected onInit( layout: DLayoutVertical, options?: OPTIONS ) {
 		super.onInit( layout, options );
+		layout.addChild( this.picker );
+	}
 
-		const picker = new DPickerColorGradient( options && options.picker );
-		this._picker = picker;
-		layout.addChild( picker );
+	protected onOk( value: DColorGradient | PromiseLike<DColorGradient> ): void {
+		super.onOk( value );
 
-		this.on( "ok", (): void => {
-			const data = picker.value;
-			const recent = picker.recent;
-			if( ! recent.contains( data ) ) {
-				recent.add( data.toObject() );
-			}
-		});
+		const picker = this.picker;
+		const data = picker.value;
+		const recent = picker.recent;
+		if( ! recent.contains( data ) ) {
+			recent.add( data.toObject() );
+		}
 	}
 
 	get value(): DColorGradientObservable {
-		return this._picker.value;
+		return this.picker.value;
 	}
 
 	get recent(): DPickerColorGradientRecent {
-		return this._picker.recent;
+		return this.picker.recent;
 	}
 
 	get picker(): DPickerColorGradient {
-		return this._picker;
+		let result = this._picker;
+		if( result == null ) {
+			result = new DPickerColorGradient( this._options?.picker );
+			this._picker = result;
+		}
+		return result;
 	}
 
-	protected doResolve( resolve: ( value: DColorGradient | PromiseLike<DColorGradient> ) => void ): void {
-		resolve( this.value );
+	protected getResolvedValue(): DColorGradient | PromiseLike<DColorGradient> {
+		return this.picker.value;
 	}
 
 	onKeyDown( e: KeyboardEvent ): boolean {
-		this._picker.onKeyDown( e );
+		this.picker.onKeyDown( e );
 		return super.onKeyDown( e );
 	}
 

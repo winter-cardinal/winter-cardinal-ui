@@ -3,11 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DDialogSelectItemTextFormatter, DThemeDialogSelect } from "../../d-dialog-select";
+import { DDialogSelectItemIsEqual, DDialogSelectItemToLabel, DThemeDialogSelect } from "../../d-dialog-select";
 import { toLabel } from "../../util/to-label";
 import { DThemeDarkDialogCommand } from "./d-theme-dark-dialog-command";
 
-export class DThemeDarkDialogSelect extends DThemeDarkDialogCommand implements DThemeDialogSelect {
+const isEqual = () => {
+	return false;
+};
+
+export class DThemeDarkDialogSelect<VALUE> extends DThemeDarkDialogCommand implements DThemeDialogSelect<VALUE> {
 	getOk(): string | null {
 		return null;
 	}
@@ -16,8 +20,12 @@ export class DThemeDarkDialogSelect extends DThemeDarkDialogCommand implements D
 		return null;
 	}
 
-	getItemTextFormatter(): DDialogSelectItemTextFormatter<any> {
+	getItemToLabel(): DDialogSelectItemToLabel<VALUE> {
 		return toLabel;
+	}
+
+	getItemIsEqual(): DDialogSelectItemIsEqual<VALUE> {
+		return isEqual;
 	}
 
 	getNoteNoItemsText(): string {

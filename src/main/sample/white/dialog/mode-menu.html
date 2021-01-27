@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Select dialog with predefined items</title>
+	<title>Menu mode</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -30,26 +30,20 @@
 
 		var application = new wcardinal.ui.DApplication();
 
-		var dialog = new wcardinal.ui.DDialogSelect({
-			item: {
-				predefineds: [{
-					name: "Melon"
-				}]
-			},
-			controller: {
-				search: function ( word ) {
-					return Promise.resolve([
-						{ name: "Apple" },
-						{ name: "Orange" },
-						{ name: "Pineapple" }
-					].filter(function( item ) {
-						return word.length <= 0 || 0 <= item.name.indexOf( word );
-					}));
+		var dialog = new wcardinal.ui.DDialogInputInteger({
+			mode: "MENU",
+			on: {
+				ok: function ( value, input ) {
+					console.log( value, input );
+				},
+
+				cancel: function ( reason, input ) {
+					console.log( reason, input );
 				}
 			}
 		});
 
-		new wcardinal.ui.DButton({
+		const button = new wcardinal.ui.DButton({
 			parent: application.stage,
 			x: "center", y: "center",
 			width: 300,
@@ -58,7 +52,7 @@
 			},
 			on: {
 				active: function () {
-					dialog.open().then(function( value ){
+					dialog.open( button ).then(function( value ){
 						console.log( value );
 					})
 					.catch(function() {

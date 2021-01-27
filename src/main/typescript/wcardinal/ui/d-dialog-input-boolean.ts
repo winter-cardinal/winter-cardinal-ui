@@ -8,7 +8,7 @@ import { DInputBoolean, DInputBooleanOptions } from "./d-input-boolean";
 
 export interface DDialogInputBooleanOptions<
 	THEME extends DThemeDialogInputBoolean
-> extends DDialogInputOptions<DInputBooleanOptions, THEME> {
+> extends DDialogInputOptions<boolean, DInputBooleanOptions, THEME> {
 
 }
 
@@ -25,11 +25,15 @@ export class DDialogInputBoolean<
 	}
 
 	protected toInputOptions( options?: DInputBooleanOptions ): DInputBooleanOptions {
-		const result = options || {};
-		if( result.weight === undefined ) {
-			result.weight = 1;
+		if( options ) {
+			if( options.weight === undefined ) {
+				options.weight = 1;
+			}
+			return options;
 		}
-		return result;
+		return {
+			weight: 1
+		};
 	}
 
 	protected getType(): string {
