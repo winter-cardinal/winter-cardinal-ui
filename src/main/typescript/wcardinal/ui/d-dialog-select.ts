@@ -176,11 +176,9 @@ export class DDialogSelect<
 					change: ( selection: DListSelection<VALUE> ): void => {
 						const first = selection.first();
 						if( first ) {
-							const newValue = first.value;
-							if( this._value !== newValue ) {
-								this._value = newValue;
-								this.onOk( newValue );
-							}
+							const value = first.value;
+							this._value = value;
+							this.onOk( value );
 						}
 					}
 				}

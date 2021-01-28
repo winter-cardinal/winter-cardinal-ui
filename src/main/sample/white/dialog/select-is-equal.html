@@ -48,6 +48,11 @@
 						return word.length <= 0 || 0 <= item.name.indexOf( word );
 					}));
 				}
+			},
+			on: {
+				ok: function ( selected, dialog ) {
+					console.log( selected, dialog );
+				}
 			}
 		})
 		.open();
