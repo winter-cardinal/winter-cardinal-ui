@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EShape } from "../e-shape";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeActionRuntime } from "./e-shape-action-runtime";
@@ -42,7 +41,7 @@ export class EShapeActionValueMisc extends EShapeActionValueSubtyped<EShapeActio
 		this.value = value;
 	}
 
-	toRuntime( shape: EShape ): EShapeActionRuntime {
+	toRuntime(): EShapeActionRuntime {
 		switch( this.subtype ) {
 		case EShapeActionValueMiscType.INPUT_TEXT:
 			return new EShapeActionRuntimeMiscInputText( this );

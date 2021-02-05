@@ -7,7 +7,7 @@ import { DTableDataSelection, DTableDataSelectionCreator, DTableDataSelectionOpt
 import { DTableDataListSelection } from "./d-table-data-list-selection";
 import { DTableDataSorter } from "./d-table-data-sorter";
 import { DTableDataListSorter } from "./d-table-data-list-sorter";
-import { isFunction } from "./util";
+import { isFunction } from "./util/is-function";
 
 export interface DTableDataListOptions<ROW> extends DTableDataOptions<ROW> {
 	rows?: ROW[];

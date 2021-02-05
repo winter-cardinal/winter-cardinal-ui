@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EShape } from "../e-shape";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeActionRuntimeChangeTextNumber } from "./e-shape-action-runtime-change-text-number";
@@ -34,12 +33,12 @@ export class EShapeActionValueChangeText extends EShapeActionValueSubtyped<EShap
 		);
 	}
 
-	toRuntime( shape: EShape ): EShapeActionRuntimeChangeTextText | EShapeActionRuntimeChangeTextNumber {
+	toRuntime(): EShapeActionRuntimeChangeTextText | EShapeActionRuntimeChangeTextNumber {
 		switch( this.subtype ) {
 		case EShapeActionValueChangeTextType.TEXT:
 			return new EShapeActionRuntimeChangeTextText( this );
 		case EShapeActionValueChangeTextType.NUMBER:
-			return new EShapeActionRuntimeChangeTextNumber( this, shape.text.value );
+			return new EShapeActionRuntimeChangeTextNumber( this );
 		}
 	}
 

@@ -8,7 +8,11 @@ import { DInputNumber } from "../../d-input-number";
 import { DThemeWhiteInputNumber } from "./d-theme-white-input-number";
 
 const editingUnformatter = ( text: string ): number => {
-	return parseInt( text, 10 );
+	const result = parseInt( text, 10 );
+	if( result === result ) {
+		return result;
+	}
+	return 0;
 };
 
 export class DThemeWhiteInputInteger extends DThemeWhiteInputNumber implements DThemeInputInteger {

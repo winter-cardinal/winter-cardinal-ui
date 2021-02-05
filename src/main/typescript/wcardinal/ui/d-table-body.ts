@@ -335,7 +335,7 @@ export class DTableBody<
 		}
 	}
 
-	getClippingRect( target: DBase, result: Rectangle ): void {
+	getClippingRect( target: unknown, result: Rectangle ): void {
 		super.getClippingRect( target, result );
 
 		const parent = this.parent;

@@ -1,8 +1,8 @@
-import { Rectangle } from "pixi.js";
+import { Matrix, Rectangle } from "pixi.js";
 import { DBaseStateSet } from "../../d-base-state-set";
-import { DHtmlElementElementCreator, DThemeHtmlElement } from "../../d-html-element";
-import { DHtmlElementWhen } from "../../d-html-element-when";
-import { DPadding } from "../../d-padding";
+import { DThemeHtmlElement } from "../../d-html-element";
+import { UtilHtmlElementCreator, UtilHtmlElementPadding } from "../../util/util-html-element";
+import { UtilHtmlElementWhen } from "../../util/util-html-element-when";
 import { DThemeWhiteImageBase } from "./d-theme-white-image-base";
 
 const divCreator = ( parent: HTMLElement ): HTMLDivElement => {
@@ -15,21 +15,23 @@ export class DThemeWhiteHtmlElement<
 	VALUE = unknown,
 	ELEMENT extends HTMLElement = HTMLElement
 > extends DThemeWhiteImageBase<VALUE> implements DThemeHtmlElement<VALUE, ELEMENT> {
-	getElementCreator(): DHtmlElementElementCreator<ELEMENT> | null {
+	getElementCreator(): UtilHtmlElementCreator<ELEMENT> | null {
 		return null;
 	}
 
 	setElementStyle(
-		target: ELEMENT, state: DBaseStateSet, padding: DPadding,
-		elementRect: Rectangle, clipperRect: Rectangle
+		target: ELEMENT, state: DBaseStateSet, padding: UtilHtmlElementPadding | null,
+		elementRect: Rectangle | null, elementMatrix: Matrix | null,
+		clipperRect: Rectangle | null
 	): void {
 		// Style
-		const style = this.getElementStylePosition( state, elementRect, clipperRect ) +
+		const style = `pointer-events: auto;` +
+			this.getElementStylePosition( state, elementRect, elementMatrix, clipperRect ) +
 			this.getElementStyleMargin( state ) +
 			this.getElementStyleText( state ) +
 			this.getElementStyleBackground( state ) +
 			this.getElementStyleBorder( state ) +
-			this.getElementStylePadding( state, padding, elementRect ) +
+			this.getElementStylePadding( state, padding ) +
 			this.getElementStyleOutline( state );
 		target.setAttribute( "style", style );
 
@@ -56,27 +58,56 @@ export class DThemeWhiteHtmlElement<
 		return `border: none; box-sizing: border-box;`;
 	}
 
-	protected getElementStylePadding( state: DBaseStateSet, padding: DPadding, elementRect: Rectangle ): string {
-		const paddingTop = padding.getTop();
-		const paddingRight = padding.getRight();
-		const paddingBottom = padding.getBottom();
-		const paddingLeft = padding.getLeft();
-		return `padding: ${paddingTop}px ${paddingRight}px ${paddingBottom}px ${paddingLeft}px;`;
+	protected getElementStylePadding( state: DBaseStateSet, padding: UtilHtmlElementPadding | null ): string {
+		if( padding ) {
+			if( "getLeft" in padding ) {
+				return `padding: ${padding.getTop()}px ${padding.getRight()}px ` +
+					`${padding.getBottom()}px ${padding.getLeft()}px;`;
+			} else {
+				return `padding: ${padding.vertical}px ${padding.horizontal}px;`;
+			}
+		}
+		return `padding: 0px;`;
 	}
 
 	protected getElementStyleOutline( state: DBaseStateSet ): string {
 		return `outline: none;`;
 	}
 
+	protected getElementStylePositionPosition( elementRect: Rectangle | null, clipperRect: Rectangle | null ): string {
+		if( elementRect ) {
+			if( clipperRect ) {
+				return `left:${elementRect.x - clipperRect.x}px; top:${elementRect.y - clipperRect.y}px;`;
+			}
+			return `left:${elementRect.x}px; top: ${elementRect.y}px;`;
+		}
+		return `left: 0px; top: 0px;`;
+	}
+
+	protected getElementStylePositionSize( rect: Rectangle | null ): string {
+		if( rect ) {
+			return `width: ${rect.width}px; height: ${rect.height}px;` +
+				`line-height: ${rect.height}px;`;
+		}
+		return "width: 0px; height: 0px;";
+	}
+
+	protected getElementStylePositionTransform( matrix: Matrix | null ) {
+		if( matrix ) {
+			return `transform: matrix(${matrix.a},${matrix.b},${matrix.c},${matrix.d},${matrix.tx},${matrix.ty});`;
+		}
+		return "";
+	}
+
 	protected getElementStylePosition(
-		state: DBaseStateSet, elementRect: Rectangle, clipperRect: Rectangle
+		state: DBaseStateSet,
+		elementRect: Rectangle | null, elementMatrix: Matrix | null,
+		clipperRect: Rectangle | null
 	): string {
 		return `position: absolute;` +
-			`left: ${elementRect.x - clipperRect.x}px;` +
-			`top: ${elementRect.y - clipperRect.y}px;` +
-			`width: ${elementRect.width}px;` +
-			`height: ${elementRect.height}px;` +
-			`line-height: ${elementRect.height}px;`;
+			this.getElementStylePositionPosition( elementRect, clipperRect ) +
+			this.getElementStylePositionSize( elementRect ) +
+			this.getElementStylePositionTransform( elementMatrix );
 	}
 
 	protected getElementStyleText( state: DBaseStateSet ): string {
@@ -89,30 +120,51 @@ export class DThemeWhiteHtmlElement<
 		return "margin: 0;";
 	}
 
-	getClipperCreator(): DHtmlElementElementCreator<HTMLDivElement> | null {
+	getClipperCreator(): UtilHtmlElementCreator<HTMLDivElement> {
 		return divCreator;
 	}
 
 	setClipperStyle(
-		target: HTMLDivElement,  state: DBaseStateSet, padding: DPadding,
-		elementRect: Rectangle, clipperRect: Rectangle
+		target: HTMLDivElement, state: DBaseStateSet, padding: UtilHtmlElementPadding | null,
+		elementRect: Rectangle | null, elementMatrix: Matrix | null,
+		clipperRect: Rectangle | null
 	): void {
-		const style = `overflow: hidden; outline: none;` +
-			`padding: 0; margin: 0; border: none; background-color: transparent;` +
-			this.getClipperStylePosition( state, elementRect, clipperRect );
+		const style = `outline: none; padding: 0; margin: 0; border: none;` +
+			`background-color: transparent; pointer-events: none;` +
+			this.getClipperStyleOverflow( clipperRect ) +
+			this.getClipperStylePosition( clipperRect );
 		target.setAttribute( "style", style );
 	}
 
-	protected getClipperStylePosition( state: DBaseStateSet, elementRect: Rectangle, clipperRect: Rectangle ): string {
-		return `position: absolute;` +
-			`left: ${clipperRect.x}px;` +
-			`top: ${clipperRect.y}px;` +
-			`width: ${clipperRect.width}px;` +
-			`height: ${clipperRect.height}px;` +
-			`line-height: ${elementRect.height}px;`;
+	protected getClipperStyleOverflow( rect: Rectangle | null ): string {
+		if( rect ) {
+			return `overflow: hidden;`;
+		}
+		return "overflow: visible;";
 	}
 
-	getBeforeCreator(): DHtmlElementElementCreator<HTMLDivElement> | null {
+	protected getClipperStylePositionPosition( rect: Rectangle | null ): string {
+		if( rect ) {
+			return `left: ${rect.x}px; top: ${rect.y}px;`;
+		}
+		return `left: 0px; top: 0px;`;
+	}
+
+	protected getClipperStylePositionSize( rect: Rectangle | null ): string {
+		if( rect ) {
+			return `width: ${rect.width}px; height: ${rect.height}px;` +
+				`line-height: ${rect.height}px;`;
+		}
+		return "width: 0px; height: 0px;";
+	}
+
+	protected getClipperStylePosition( rect: Rectangle | null ): string {
+		return `position: absolute;` +
+			this.getClipperStylePositionPosition( rect ) +
+			this.getClipperStylePositionSize( rect );
+	}
+
+	getBeforeCreator(): UtilHtmlElementCreator<HTMLDivElement> {
 		return divCreator;
 	}
 
@@ -124,7 +176,7 @@ export class DThemeWhiteHtmlElement<
 		target.setAttribute( "tabindex", "0" );
 	}
 
-	getAfterCreator(): DHtmlElementElementCreator<HTMLDivElement> | null {
+	getAfterCreator(): UtilHtmlElementCreator<HTMLDivElement> {
 		return divCreator;
 	}
 
@@ -132,8 +184,8 @@ export class DThemeWhiteHtmlElement<
 		this.setBeforeStyle( target );
 	}
 
-	getWhen(): DHtmlElementWhen {
-		return DHtmlElementWhen.FOCUSED;
+	getWhen(): UtilHtmlElementWhen {
+		return UtilHtmlElementWhen.FOCUSED;
 	}
 
 	getSelect(): boolean {

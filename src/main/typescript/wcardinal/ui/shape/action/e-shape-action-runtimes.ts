@@ -28,8 +28,8 @@ interface EShapeActionRuntimeContainer extends DCanvasContainer {
 }
 
 export class EShapeActionRuntimes {
-	private static toContainer( shape: EShape ): EShapeActionRuntimeContainer | null {
-		let current: { parent: any; } = shape;
+	static toContainer( shape?: EShape | null ): EShapeActionRuntimeContainer | null {
+		let current: { parent: any; } | null | undefined = shape;
 		while( current != null ) {
 			if( current instanceof DCanvasContainer ) {
 				return current as EShapeActionRuntimeContainer;

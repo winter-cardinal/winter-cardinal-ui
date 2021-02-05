@@ -4,148 +4,49 @@
  */
 
 import { DInput, DInputOptions, DThemeInput } from "./d-input";
+import { UtilInputNumber, UtilInputNumberOptions, UtilThemeInputNumber } from "./util/util-input-number";
 
 export interface DInputNumberOptions<
 	THEME extends DThemeInputNumber = DThemeInputNumber
-> extends DInputOptions<number, THEME> {
-	step?: number | null;
-	min?: number | null;
-	max?: number | null;
+> extends DInputOptions<number, THEME>, UtilInputNumberOptions {
+
 }
 
-export interface DThemeInputNumber extends DThemeInput<number> {
-	getStep(): number | null;
-	getMin(): number | null;
-	getMax(): number | null;
+export interface DThemeInputNumber extends DThemeInput<number>, UtilThemeInputNumber {
+
 }
 
 export abstract class DInputNumber<
 	THEME extends DThemeInputNumber = DThemeInputNumber,
 	OPTIONS extends DInputNumberOptions<THEME> = DInputNumberOptions<THEME>
-> extends DInput<number, THEME, OPTIONS> {
-	protected _step!: number | null;
-	protected _min!: number | null;
-	protected _max!: number | null;
-
-	protected init( options?: OPTIONS ) {
-		super.init( options );
-		const theme = this.theme;
-		this._step = ( options?.step ?? theme.getStep() );
-		this._min = ( options?.min ?? theme.getMin() );
-		this._max = ( options?.max ?? theme.getMax() );
+> extends DInput<number, THEME, OPTIONS, UtilInputNumber> {
+	protected newUtil(): UtilInputNumber {
+		return new UtilInputNumber(
+			this, this.newOperation(), this.theme, this._options
+		);
 	}
 
 	get step(): number | null {
-		return this._step;
+		return this.getUtil().step;
 	}
 
 	set step( step: number | null ) {
-		if( this._step !== step ) {
-			this._step = step;
-			this.updateInputStep();
-		}
+		this.getUtil().step = step;
 	}
 
 	get min(): number | null {
-		return this._min;
+		return this.getUtil().min;
 	}
 
 	set min( min: number | null ) {
-		if( this._min !== min ) {
-			this._min = min;
-			this.updateInputMin();
-		}
+		this.getUtil().min = min;
 	}
 
 	get max(): number | null {
-		return this._max;
+		return this.getUtil().max;
 	}
 
 	set max( max: number | null ) {
-		if( this._max !== max ) {
-			this._max = max;
-			this.updateInputMax();
-		}
-	}
-
-	protected toValue( valueAsString: string ): number {
-		const result = this._editingUnformatter( valueAsString, this );
-		if( result === result /* NaN Check */ ) {
-			if( this._min != null && result < this._min ) {
-				return this._min;
-			}
-			if( this._max != null && this._max < result ) {
-				return this._max;
-			}
-			return result;
-		}
-		return this.value;
-	}
-
-	protected updateInputStep(): void {
-		if( this._isElementShown ) {
-			const element = this._element;
-			if( element ) {
-				this.initInputStep( element );
-			}
-		}
-	}
-
-	protected updateInputMin(): void {
-		if( this._isElementShown ) {
-			const element = this._element;
-			if( element ) {
-				this.initInputMin( element );
-			}
-		}
-	}
-
-	protected updateInputMax(): void {
-		if( this._isElementShown ) {
-			const element = this._element;
-			if( element ) {
-				this.initInputMax( element );
-			}
-		}
-	}
-
-	protected initInputStep( input: HTMLInputElement ): void {
-		const step = this._step;
-		if( step != null ) {
-			input.step = `${step}`;
-		} else {
-			input.step = "any";
-		}
-	}
-
-	protected initInputMin( input: HTMLInputElement ): void {
-		const min = this._min;
-		if( min != null ) {
-			input.min = `${min}`;
-		} else {
-			input.removeAttribute( "min" );
-		}
-	}
-
-	protected initInputMax( input: HTMLInputElement ): void {
-		const max = this._max;
-		if( max != null ) {
-			input.max = `${max}`;
-		} else {
-			input.removeAttribute( "max" );
-		}
-	}
-
-	protected onElementAttached(
-		element: HTMLInputElement, before: HTMLDivElement | null, after: HTMLDivElement | null
-	): void {
-		super.onElementAttached( element, before, after );
-		this.initInputStep( element );
-		this.initInputMin( element );
-		this.initInputMax( element );
-	}
-
-	protected getInputType(): string {
-		return "number";
+		this.getUtil().max = max;
 	}
 }

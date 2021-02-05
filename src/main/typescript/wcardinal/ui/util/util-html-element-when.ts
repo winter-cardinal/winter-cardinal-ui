@@ -6,7 +6,7 @@
 /**
  * {@link DHtmlElement} option when to show a HTML element
  */
-export enum DHtmlElementWhen {
+export enum UtilHtmlElementWhen {
 	/**
 	 * Shows a HTML element when clicked.
 	 */
