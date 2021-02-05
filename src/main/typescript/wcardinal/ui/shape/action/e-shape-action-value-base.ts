@@ -1,5 +1,9 @@
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { DThemes } from "../../theme/d-themes";
-import { EShape } from "../e-shape";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeActionRuntime } from "./e-shape-action-runtime";
 import { EShapeActionValue, EThemeShapeActionValue } from "./e-shape-action-value";
@@ -25,6 +29,6 @@ export abstract class EShapeActionValueBase implements EShapeActionValue {
 		return DThemes.getInstance().get<EThemeShapeActionValue>( "EShapeActionValue" ).toLabel( this );
 	}
 
-	abstract toRuntime( shape: EShape ): EShapeActionRuntime;
+	abstract toRuntime(): EShapeActionRuntime;
 	abstract serialize( manager: EShapeResourceManagerSerialization ): number;
 }

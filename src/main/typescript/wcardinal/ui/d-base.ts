@@ -1388,6 +1388,7 @@ export class DBase<
 		if( this.visible ) {
 			this.visible = false;
 			this.toParentChildrenDirty();
+			this.blur( true );
 			DApplications.update( this );
 		}
 		return this;
@@ -1933,7 +1934,7 @@ export class DBase<
 	 *
 	 * @param result a clipping rect
 	 */
-	getClippingRect( target: DBase, result: Rectangle ): void {
+	getClippingRect( target: unknown, result: Rectangle ): void {
 		result.x = 0;
 		result.y = 0;
 		result.width = this._width;

@@ -3,25 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DThemeInputText } from "../../d-input-text";
+import { DThemes } from "../../theme/d-themes";
+import { UtilInputText } from "../../util/util-input-text";
+import { EShape } from "../e-shape";
+import { EShapeRuntime } from "../e-shape-runtime";
 import { EShapeActionRuntimeMiscInput } from "./e-shape-action-runtime-misc-input";
-import { EShapeActionRuntimeMiscInputData } from "./e-shape-action-runtime-misc-input-data";
-import { EShapeActionRuntimeMiscInputDataText } from "./e-shape-action-runtime-misc-input-data-text";
 
-export class EShapeActionRuntimeMiscInputText extends EShapeActionRuntimeMiscInput {
-	protected static DATA?: EShapeActionRuntimeMiscInputData;
-
-	protected getData(): EShapeActionRuntimeMiscInputData {
-		if( EShapeActionRuntimeMiscInputText.DATA == null ) {
-			EShapeActionRuntimeMiscInputText.DATA = new EShapeActionRuntimeMiscInputDataText();
-		}
-		return EShapeActionRuntimeMiscInputText.DATA;
-	}
-
-	protected fromValue( value: string ): unknown {
-		return value;
-	}
-
-	protected toValue( value: string ): string {
-		return value;
+export class EShapeActionRuntimeMiscInputText extends EShapeActionRuntimeMiscInput<string, UtilInputText> {
+	protected newUtil( shape: EShape, runtime: EShapeRuntime ): UtilInputText {
+		return new UtilInputText(
+			shape, this.newOperation( shape, runtime ),
+			DThemes.getInstance().get<DThemeInputText>( "DInputText" )
+		);
 	}
 }

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DisplayObject, IPoint, Matrix, Point, Rectangle, Texture, Transform, utils } from "pixi.js";
+import { DisplayObject, IPoint, Matrix, Point, Rectangle, Renderer, Texture, Transform, utils } from "pixi.js";
 import { DApplications } from "../../d-applications";
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
@@ -244,6 +244,10 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 			this._visible = visible;
 			this.updateUploadedRecursively();
 		}
+	}
+
+	get worldVisible(): boolean {
+		return this._visible && (this.parent?.worldVisible ?? true);
 	}
 
 	//
@@ -645,21 +649,6 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		return false;
 	}
 
-	onDblClick( e: MouseEvent ): boolean {
-		const runtime = this.runtime;
-		if( runtime ) {
-			return runtime.onPointerDblClick( this );
-		}
-		return false;
-	}
-
-	onShortcut( e: KeyboardEvent ): void {
-		const runtime = this.runtime;
-		if( runtime ) {
-			return runtime.onPointerClick( this );
-		}
-	}
-
 	onKeyDown( e: KeyboardEvent ): boolean {
 		const runtime = this.runtime;
 		if( runtime ) {
@@ -681,6 +670,13 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		const runtime = this.runtime;
 		if( runtime ) {
 			runtime.update( this, time );
+		}
+	}
+
+	onRender( time: number, renderer: Renderer ): void {
+		const runtime = this.runtime;
+		if( runtime ) {
+			runtime.onRender( this, time, renderer );
 		}
 	}
 

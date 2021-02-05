@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction, Point } from "pixi.js";
+import { interaction, Point, Renderer } from "pixi.js";
 import { DApplications } from "../d-applications";
 import { DBaseState } from "../d-base-state";
 import { DBaseStateSet } from "../d-base-state-set";
@@ -73,27 +73,35 @@ export class EShapeRuntime {
 		this.interactive = false;
 	}
 
-	onPointerClick( shape: EShape, e?: interaction.InteractionEvent ): void {
+	onClick( shape: EShape, e: interaction.InteractionEvent | KeyboardEvent ): void {
 		if( ! shape.state.inDisabled ) {
 			shape.state.isClicked = true;
 		}
 	}
 
-	onPointerDblClick( shape: EShape, e?: MouseEvent | TouchEvent ): boolean {
+	onDblClick( shape: EShape, e: MouseEvent | TouchEvent, interactionManager: interaction.InteractionManager ): boolean {
+		const actions = this.actions;
+		for( let i = 0, imax = actions.length; i < imax; ++i ) {
+			actions[ i ].onDblClick( shape, this, e, interactionManager );
+		}
 		return false;
 	}
 
-	onPointerOver( shape: EShape, e?: interaction.InteractionEvent ): void {
+	onOver( shape: EShape, e: interaction.InteractionEvent ): void {
 		shape.state.isHovered = true;
 	}
 
-	onPointerOut( shape: EShape, e?: interaction.InteractionEvent ): void {
+	onOut( shape: EShape, e: interaction.InteractionEvent ): void {
 		shape.state.isHovered = false;
 	}
 
-	onPointerDown( shape: EShape, e?: interaction.InteractionEvent ): void {
+	onDown( shape: EShape, e: interaction.InteractionEvent | KeyboardEvent ): void {
 		if( ! shape.state.isDown ) {
+			this.onDownThisBefore( shape, e );
+
+			// State
 			shape.state.addAll( EShapeState.DOWN, DBaseState.PRESSED );
+
 
 			// Focus
 			const layer = DApplications.getLayer( shape );
@@ -101,32 +109,48 @@ export class EShapeRuntime {
 				const focusController = layer.getFocusController();
 				focusController.focus( focusController.findParent( shape ) );
 			}
+
+			this.onDownThisAfter( shape, e );
 		}
 	}
 
-	onPointerUp( shape: EShape, e?: interaction.InteractionEvent ): void {
+	protected onDownThisBefore( shape: EShape, e: interaction.InteractionEvent | KeyboardEvent ): void {
+		const actions = this.actions;
+		for( let i = 0, imax = actions.length; i < imax; ++i ) {
+			actions[ i ].onDownThisBefore( shape, this, e );
+		}
+	}
+
+	protected onDownThisAfter( shape: EShape, e: interaction.InteractionEvent | KeyboardEvent ): void {
+		const actions = this.actions;
+		for( let i = 0, imax = actions.length; i < imax; ++i ) {
+			actions[ i ].onDownThisAfter( shape, this, e );
+		}
+	}
+
+	onUp( shape: EShape, e: interaction.InteractionEvent | KeyboardEvent ): void {
 		if( ! shape.state.isUp && shape.state.isPressed ) {
 			shape.state.set( EShapeState.UP, DBaseState.PRESSED );
 
 			// Click
-			this.onPointerClick( shape );
+			this.onClick( shape, e );
 		}
 	}
 
-	onPointerMove( shape: EShape, e?: interaction.InteractionEvent ): void {
+	onMove( shape: EShape, e?: interaction.InteractionEvent ): void {
 		//
 	}
 
 	onKeyDown( shape: EShape, e: KeyboardEvent ): boolean {
 		if( UtilKeyboardEvent.isActivateKey( e ) ) {
-			this.onPointerDown( shape );
+			this.onDown( shape, e );
 		}
 		return false;
 	}
 
 	onKeyUp( shape: EShape, e: KeyboardEvent ): boolean {
 		if( UtilKeyboardEvent.isActivateKey( e ) ) {
-			this.onPointerUp( shape );
+			this.onUp( shape, e );
 		}
 		return false;
 	}
@@ -134,6 +158,28 @@ export class EShapeRuntime {
 	onStateChange( shape: EShape, newState: DBaseStateSet, oldState: DBaseStateSet ): void {
 		this.isStateChanged = true;
 		DApplications.update( shape );
+
+		if( newState.isFocused ) {
+			if( ! oldState.isFocused ) {
+				this.onFocus( shape );
+			}
+		} else if( oldState.isFocused ) {
+			this.onBlur( shape );
+		}
+	}
+
+	onFocus( shape: EShape ): void {
+		const actions = this.actions;
+		for( let i = 0, imax = actions.length; i < imax; ++i ) {
+			actions[ i ].onFocus( shape, this );
+		}
+	}
+
+	onBlur( shape: EShape ): void {
+		const actions = this.actions;
+		for( let i = 0, imax = actions.length; i < imax; ++i ) {
+			actions[ i ].onBlur( shape, this );
+		}
 	}
 
 	update( shape: EShape, time: number ): void {
@@ -152,22 +198,26 @@ export class EShapeRuntime {
 		}
 	}
 
-	protected onUpdate( shape: EShape, time: number ): void {
-		if( 0 < this.actions.length ) {
-			this.executeActions( shape, time );
-			this.resetUnwrittenProperties( shape );
-		}
-	}
-
-	protected executeActions( shape: EShape, time: number ): void {
-		this.written = EShapeRuntimeReset.NONE;
+	onRender( shape: EShape, time: number, renderer: Renderer ): void {
 		const actions = this.actions;
 		for( let i = 0, imax = actions.length; i < imax; ++i ) {
-			actions[ i ].execute( shape, this, time );
+			actions[ i ].onRender( shape, this, time, renderer );
+		}
+		this.update( shape, time );
+	}
+
+	protected onUpdate( shape: EShape, time: number ): void {
+		const actions = this.actions;
+		if( 0 < actions.length ) {
+			this.written = EShapeRuntimeReset.NONE;
+			for( let i = 0, imax = actions.length; i < imax; ++i ) {
+				actions[ i ].execute( shape, this, time );
+			}
+			this.doReset( shape );
 		}
 	}
 
-	protected resetUnwrittenProperties( shape: EShape ): void {
+	protected doReset( shape: EShape ): void {
 		const target = (~this.written) & this.reset;
 		if( target !== EShapeRuntimeReset.NONE ) {
 			if( target & EShapeRuntimeReset.POSITION_X ) {

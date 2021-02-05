@@ -134,9 +134,9 @@ export class DDiagramCanvas<
 
 			// Shortcuts
 			const shortcut = shape.shortcut;
-			if( shortcut != null ) {
+			if( runtime && shortcut != null ) {
 				UtilKeyboardEvent.on( this, shortcut, ( e: KeyboardEvent ): void => {
-					shape.onShortcut( e );
+					runtime.onClick( shape, e );
 				});
 			}
 
@@ -193,7 +193,7 @@ export class DDiagramCanvas<
 			if( found === lastOverShape ) {
 				const runtime = lastOverShape.runtime;
 				if( runtime ) {
-					runtime.onPointerMove( lastOverShape, e );
+					runtime.onMove( lastOverShape, e );
 				}
 			} else {
 				this._lastOverShape = found;
@@ -202,7 +202,7 @@ export class DDiagramCanvas<
 				if( lastOverShape ) {
 					const previousRuntime = lastOverShape.runtime;
 					if( previousRuntime ) {
-						previousRuntime.onPointerOut( lastOverShape, e );
+						previousRuntime.onOut( lastOverShape, e );
 					}
 
 					// Parents
@@ -210,7 +210,7 @@ export class DDiagramCanvas<
 					while( (lastOverParent instanceof EShapeBase) && lastOverParent !== found ) {
 						const parentRuntime = lastOverShape.runtime;
 						if( parentRuntime ) {
-							parentRuntime.onPointerOut( lastOverParent, e );
+							parentRuntime.onOut( lastOverParent, e );
 						}
 						lastOverParent = lastOverParent.parent;
 					}
@@ -219,7 +219,7 @@ export class DDiagramCanvas<
 				// Next
 				const runtime = found.runtime;
 				if( runtime ) {
-					runtime.onPointerOver( found, e );
+					runtime.onOver( found, e );
 				}
 				if( layer ) {
 					layer.view.title = ( found.title || "" );
@@ -230,7 +230,7 @@ export class DDiagramCanvas<
 				while( parent instanceof EShapeBase ) {
 					const parentRuntime = parent.runtime;
 					if( parentRuntime ) {
-						parentRuntime.onPointerOver( parent, e );
+						parentRuntime.onOver( parent, e );
 					}
 					parent = parent.parent;
 				}
@@ -251,7 +251,7 @@ export class DDiagramCanvas<
 			if( lastOverShape ) {
 				const runtime = lastOverShape.runtime;
 				if( runtime ) {
-					runtime.onPointerOut( lastOverShape, e );
+					runtime.onOut( lastOverShape, e );
 				}
 
 				// Parents
@@ -259,7 +259,7 @@ export class DDiagramCanvas<
 				while( lastOverParent instanceof EShapeBase ) {
 					const parentRuntime = lastOverParent.runtime;
 					if( parentRuntime ) {
-						parentRuntime.onPointerOut( lastOverParent, e );
+						parentRuntime.onOut( lastOverParent, e );
 					}
 					lastOverParent = lastOverParent.parent;
 				}
@@ -285,7 +285,7 @@ export class DDiagramCanvas<
 				if( interactive.contains( local ) ) {
 					const runtime = interactive.runtime;
 					if( runtime ) {
-						runtime.onPointerDown( interactive, e );
+						runtime.onDown( interactive, e );
 					}
 					return true;
 				}
@@ -305,7 +305,7 @@ export class DDiagramCanvas<
 				if( interactive.contains( local ) ) {
 					const runtime = interactive.runtime;
 					if( runtime ) {
-						runtime.onPointerUp( interactive, e );
+						runtime.onUp( interactive, e );
 					}
 					return true;
 				}
@@ -327,7 +327,7 @@ export class DDiagramCanvas<
 					while( true ) {
 						const runtime = target.runtime;
 						if( runtime ) {
-							runtime.onPointerClick( target, e );
+							runtime.onClick( target, e );
 						}
 						const parent = target.parent;
 						if( parent instanceof EShapeBase ) {
@@ -356,7 +356,7 @@ export class DDiagramCanvas<
 					while( true ) {
 						const runtime = target.runtime;
 						if( runtime ) {
-							runtime.onPointerDblClick( target, e );
+							runtime.onDblClick( target, e, interactionManager );
 						}
 						const parent = target.parent;
 						if( parent instanceof EShapeBase ) {

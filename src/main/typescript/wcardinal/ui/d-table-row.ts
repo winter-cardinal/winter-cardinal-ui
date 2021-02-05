@@ -112,20 +112,23 @@ export abstract class DTableRow<
 
 	protected abstract getContentPositionX(): number;
 
-	getClippingRect( target: DBase, result: Rectangle ): void {
+	getClippingRect( target: unknown, result: Rectangle ): void {
 		super.getClippingRect( target, result );
 
 		const frozen = this._frozen;
-		if( 0 < frozen && target.parent === this ) {
-			const cells = this.children as DBase[];
-			const cellIndex = cells.indexOf( target );
-			if( 0 <= cellIndex ) {
-				const columnIndex = cells.length - 1 - cellIndex;
-				if( frozen <= columnIndex ) {
-					const previous = cells[ cellIndex + 1 ];
-					const shiftX = previous.position.x + previous.width;
-					result.x += shiftX;
-					result.width -= shiftX;
+		if( 0 < frozen ) {
+			const cell = target as any;
+			if( cell && cell.parent === this ) {
+				const cells = this.children as DBase[];
+				const cellIndex = cells.indexOf( cell );
+				if( 0 <= cellIndex ) {
+					const columnIndex = cells.length - 1 - cellIndex;
+					if( frozen <= columnIndex ) {
+						const previous = cells[ cellIndex + 1 ];
+						const shiftX = previous.position.x + previous.width;
+						result.x += shiftX;
+						result.width -= shiftX;
+					}
 				}
 			}
 		}

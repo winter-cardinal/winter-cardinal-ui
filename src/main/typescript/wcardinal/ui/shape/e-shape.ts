@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DisplayObject, IPoint, Point, Rectangle, Texture, utils } from "pixi.js";
+import { DisplayObject, IPoint, Point, Rectangle, Renderer, Texture, utils } from "pixi.js";
 import { DDiagramSerializedItem } from "../d-diagram-serialized";
 import { EShapeAction } from "./action/e-shape-action";
 import { EShapeContainer } from "./e-shape-container";
@@ -54,6 +54,7 @@ export interface EShape extends utils.EventEmitter {
 	readonly action: EShapeAction;
 	cursor: string;
 	visible: boolean;
+	readonly worldVisible: boolean;
 	interactive: boolean;
 	shortcut?: string;
 	title?: string;
@@ -95,12 +96,11 @@ export interface EShape extends utils.EventEmitter {
 	blur(): this;
 
 	//
-	onDblClick( e: MouseEvent ): void;
-	onShortcut( e: KeyboardEvent ): void;
 	onSizeChange(): void;
 
 	// Action
 	update( time: number ): void;
+	onRender( time: number, renderer: Renderer ): void;
 
 	// Transform
 	updateTransform(): void;

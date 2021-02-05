@@ -14,21 +14,39 @@ import { EShapeActionValueChangeText } from "./e-shape-action-value-change-text"
 
 export class EShapeActionRuntimeChangeTextNumber extends EShapeActionRuntimeConditional {
 	protected number: EShapeActionExpression<number>;
-	protected formatter: NumberFormatter | null;
+	protected formatters: Map<string, NumberFormatter | null>;
 
-	constructor( value: EShapeActionValueChangeText, format: string ) {
+	constructor( value: EShapeActionValueChangeText ) {
 		super( value, EShapeRuntimeReset.TEXT );
 
 		this.number = EShapeActionExpressions.ofNumber( value.value );
+		this.formatters = new Map<string, NumberFormatter | null>();
+	}
 
+	protected getFormatter( shape: EShape, runtime: EShapeRuntime ): NumberFormatter | null {
+		const formatters = this.formatters;
+		const text = runtime.text.value;
+		let result = formatters.get( text );
+		if( result === undefined ) {
+			result = this.newFormatter( text );
+			formatters.set( text, result );
+		}
+		return result;
+	}
+
+	protected newFormatter( format: string ): NumberFormatter | null {
 		format = format.trim();
-		this.formatter = ( 0 < format.length ? NumberFormatters.create( format ) : null );
+		if( 0 < format.length ) {
+			return NumberFormatters.create( format );
+		}
+		return null;
 	}
 
 	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
 		if( this.condition( shape, time ) ) {
 			const value = this.number( shape, time );
-			shape.text.value = ( this.formatter != null ? this.formatter.format( value, 0 ) : String(value) );
+			const formatter = this.getFormatter( shape, runtime );
+			shape.text.value = ( formatter != null ? formatter.format( value, 0 ) : String(value) );
 			runtime.written |= this.reset;
 		}
 	}

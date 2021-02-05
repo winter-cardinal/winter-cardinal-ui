@@ -172,7 +172,7 @@ export class DDiagram<
 				const value = values[ j ];
 				let action: EShapeActionRuntime | undefined | null = actionMap.get( value );
 				if( action == null ) {
-					action = value.toRuntime( shape );
+					action = value.toRuntime();
 					if( action != null ) {
 						if( action instanceof EShapeActionRuntimeOpen ) {
 							if( shape.cursor.length <= 0 ) {
@@ -241,7 +241,7 @@ export class DDiagram<
 	}
 
 	render( renderer: Renderer ): void {
-		this.shape.update();
+		this.shape.onRender( renderer );
 		super.render( renderer );
 	}
 

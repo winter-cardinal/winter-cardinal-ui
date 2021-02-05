@@ -5,8 +5,8 @@
 
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinateSize } from "../../d-coordinate";
-import { DHtmlElementElementCreator } from "../../d-html-element";
 import { DThemeInput } from "../../d-input";
+import { UtilHtmlElementCreator } from "../../util/util-html-element";
 import { UtilRgb } from "../../util/util-rgb";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkHtmlElement } from "./d-theme-dark-html-element";
@@ -125,19 +125,19 @@ export class DThemeDarkInput<VALUE = unknown> extends DThemeDarkHtmlElement<VALU
 		return editingValidator;
 	}
 
-	getElementCreator(): DHtmlElementElementCreator<HTMLInputElement> {
+	getElementCreator(): UtilHtmlElementCreator<HTMLInputElement> {
 		return elementCreator;
 	}
 
-	getClipperCreator(): DHtmlElementElementCreator<HTMLDivElement> {
+	getClipperCreator(): UtilHtmlElementCreator<HTMLDivElement> {
 		return clipperCreator;
 	}
 
-	getBeforeCreator(): DHtmlElementElementCreator<HTMLDivElement> {
+	getBeforeCreator(): UtilHtmlElementCreator<HTMLDivElement> {
 		return beforeCreator;
 	}
 
-	getAfterCreator(): DHtmlElementElementCreator<HTMLDivElement> {
+	getAfterCreator(): UtilHtmlElementCreator<HTMLDivElement> {
 		return afterCreator;
 	}
 

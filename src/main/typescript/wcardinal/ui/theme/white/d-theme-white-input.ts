@@ -5,8 +5,8 @@
 
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinateSize } from "../../d-coordinate";
-import { DHtmlElementElementCreator } from "../../d-html-element";
 import { DThemeInput } from "../../d-input";
+import { UtilHtmlElementCreator } from "../../util/util-html-element";
 import { UtilRgb } from "../../util/util-rgb";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteHtmlElement } from "./d-theme-white-html-element";
@@ -125,19 +125,19 @@ export class DThemeWhiteInput<VALUE = unknown> extends DThemeWhiteHtmlElement<VA
 		return editingValidator;
 	}
 
-	getElementCreator(): DHtmlElementElementCreator<HTMLInputElement> {
+	getElementCreator(): UtilHtmlElementCreator<HTMLInputElement> {
 		return elementCreator;
 	}
 
-	getClipperCreator(): DHtmlElementElementCreator<HTMLDivElement> {
+	getClipperCreator(): UtilHtmlElementCreator<HTMLDivElement> {
 		return clipperCreator;
 	}
 
-	getBeforeCreator(): DHtmlElementElementCreator<HTMLDivElement> {
+	getBeforeCreator(): UtilHtmlElementCreator<HTMLDivElement> {
 		return beforeCreator;
 	}
 
-	getAfterCreator(): DHtmlElementElementCreator<HTMLDivElement> {
+	getAfterCreator(): UtilHtmlElementCreator<HTMLDivElement> {
 		return afterCreator;
 	}
 

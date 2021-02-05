@@ -1,4 +1,9 @@
-import { utils } from "pixi.js";
+/*
+ * Copyright (C) 2021 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { Renderer, utils } from "pixi.js";
 import { DApplicationTarget } from "./d-application-like";
 import { DApplications } from "./d-applications";
 import { DDiagramCanvasIdMap } from "./d-diagram-canvas-id-map";
@@ -48,6 +53,32 @@ export class DDiagramShape extends utils.EventEmitter {
 				for( let i = 0, imax = actionables.length; i < imax; ++i ) {
 					const actionable = actionables[ i ];
 					actionable.update( time );
+					const runtime = actionable.runtime;
+					if( runtime && time < runtime.effect ) {
+						const runtimeEffect = runtime.effect;
+						if( time < runtimeEffect ) {
+							effect = ( effect < 0 ? runtimeEffect : Math.min( effect, runtimeEffect ) );
+						}
+					}
+				}
+				if( 0 <= effect ) {
+					setTimeout( this._updateBound, effect - Date.now() );
+				}
+			}
+		}
+	}
+
+	onRender( renderer: Renderer ): void {
+		const diagram = this._diagram;
+		const canvas = diagram.canvas;
+		if( canvas ) {
+			const actionables = canvas.actionables;
+			if( 0 < actionables.length ) {
+				let effect = -1;
+				const time = Date.now();
+				for( let i = 0, imax = actionables.length; i < imax; ++i ) {
+					const actionable = actionables[ i ];
+					actionable.onRender( time, renderer );
 					const runtime = actionable.runtime;
 					if( runtime && time < runtime.effect ) {
 						const runtimeEffect = runtime.effect;

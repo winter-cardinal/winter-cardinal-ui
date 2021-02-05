@@ -12,7 +12,7 @@ import { DDragMode } from "./d-drag-mode";
 import { DScrollBar, DScrollBarOptions } from "./d-scroll-bar";
 import { DScrollBarHorizontal } from "./d-scroll-bar-horizontal";
 import { DScrollBarVertical } from "./d-scroll-bar-vertical";
-import { toEnum } from "./util";
+import { toEnum } from "./util/to-enum";
 import { UtilDrag } from "./util/util-drag";
 import { UtilWheelEventDeltas } from "./util/util-wheel-event";
 
