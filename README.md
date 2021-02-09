@@ -60,7 +60,7 @@ All the classes are in the `wcardinal.ui`.
 Please note that the `loadAll` and the `loadThemeWhiteALl` is not required in this case.
 Prebuild files `wcardinal-ui.min.js` and `wcardinal-ui-theme-white.min.js` call the `loadAll` and the `loadThemeWhiteAll` for you.
 
-See [sample/cdn](https://winter-cardinal.github.io/winter-cardinal-ui/sample/cdn) for complete example.
+See [sample/cdn](https://winter-cardinal.github.io/winter-cardinal-ui/sample/white/other/cdn.html) for complete example.
 
 ### Tree shaking
 
