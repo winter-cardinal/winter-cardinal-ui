@@ -3,14 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { BaseTexture, Rectangle, resources, SCALE_MODES, Texture } from "pixi.js";
-import { SVGResource } from "../resource/svg-resource";
+import { BaseTexture, Rectangle, SCALE_MODES, Texture } from "pixi.js";
 import { toSvgUrl } from "./to-svg-url";
-
-// PixiJS's SVGResource has a issue on Microsoft Edge.
-// Edge may invoke the HTMLImageElement#onload on an unexpected timing.
-// Thus, PixiJS may lost the `load` event in some situations.
-resources.INSTALLED.push( SVGResource );
 
 export interface UtilSvgAtlasBuilderBuildOptions {
 	force?: boolean;
