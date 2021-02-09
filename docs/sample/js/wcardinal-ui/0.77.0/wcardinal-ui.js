@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.76.1
+ Winter Cardinal UI v0.77.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -3096,6 +3096,14 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(EShapeBase.prototype, "worldVisible", {
+            get: function () {
+                var _a, _b;
+                return this._visible && ((_b = (_a = this.parent) === null || _a === void 0 ? void 0 : _a.worldVisible) !== null && _b !== void 0 ? _b : true);
+            },
+            enumerable: false,
+            configurable: true
+        });
         //
         EShapeBase.prototype.toDirty = function () {
             var _a;
@@ -3469,19 +3477,6 @@
             enumerable: false,
             configurable: true
         });
-        EShapeBase.prototype.onDblClick = function (e) {
-            var runtime = this.runtime;
-            if (runtime) {
-                return runtime.onPointerDblClick(this);
-            }
-            return false;
-        };
-        EShapeBase.prototype.onShortcut = function (e) {
-            var runtime = this.runtime;
-            if (runtime) {
-                return runtime.onPointerClick(this);
-            }
-        };
         EShapeBase.prototype.onKeyDown = function (e) {
             var runtime = this.runtime;
             if (runtime) {
@@ -3501,6 +3496,12 @@
             var runtime = this.runtime;
             if (runtime) {
                 runtime.update(this, time);
+            }
+        };
+        EShapeBase.prototype.onRender = function (time, renderer) {
+            var runtime = this.runtime;
+            if (runtime) {
+                runtime.onRender(this, time, renderer);
             }
         };
         EShapeBase.prototype.updateRecursively = function (time) {
@@ -6643,22 +6644,28 @@
             this.isStateChanged = false;
             this.interactive = false;
         }
-        EShapeRuntime.prototype.onPointerClick = function (shape, e) {
+        EShapeRuntime.prototype.onClick = function (shape, e) {
             if (!shape.state.inDisabled) {
                 shape.state.isClicked = true;
             }
         };
-        EShapeRuntime.prototype.onPointerDblClick = function (shape, e) {
+        EShapeRuntime.prototype.onDblClick = function (shape, e, interactionManager) {
+            var actions = this.actions;
+            for (var i = 0, imax = actions.length; i < imax; ++i) {
+                actions[i].onDblClick(shape, this, e, interactionManager);
+            }
             return false;
         };
-        EShapeRuntime.prototype.onPointerOver = function (shape, e) {
+        EShapeRuntime.prototype.onOver = function (shape, e) {
             shape.state.isHovered = true;
         };
-        EShapeRuntime.prototype.onPointerOut = function (shape, e) {
+        EShapeRuntime.prototype.onOut = function (shape, e) {
             shape.state.isHovered = false;
         };
-        EShapeRuntime.prototype.onPointerDown = function (shape, e) {
+        EShapeRuntime.prototype.onDown = function (shape, e) {
             if (!shape.state.isDown) {
+                this.onDownThisBefore(shape, e);
+                // State
                 shape.state.addAll(EShapeState.DOWN, DBaseState.PRESSED);
                 // Focus
                 var layer = DApplications.getLayer(shape);
@@ -6666,33 +6673,66 @@
                     var focusController = layer.getFocusController();
                     focusController.focus(focusController.findParent(shape));
                 }
+                this.onDownThisAfter(shape, e);
             }
         };
-        EShapeRuntime.prototype.onPointerUp = function (shape, e) {
+        EShapeRuntime.prototype.onDownThisBefore = function (shape, e) {
+            var actions = this.actions;
+            for (var i = 0, imax = actions.length; i < imax; ++i) {
+                actions[i].onDownThisBefore(shape, this, e);
+            }
+        };
+        EShapeRuntime.prototype.onDownThisAfter = function (shape, e) {
+            var actions = this.actions;
+            for (var i = 0, imax = actions.length; i < imax; ++i) {
+                actions[i].onDownThisAfter(shape, this, e);
+            }
+        };
+        EShapeRuntime.prototype.onUp = function (shape, e) {
             if (!shape.state.isUp && shape.state.isPressed) {
                 shape.state.set(EShapeState.UP, DBaseState.PRESSED);
                 // Click
-                this.onPointerClick(shape);
+                this.onClick(shape, e);
             }
         };
-        EShapeRuntime.prototype.onPointerMove = function (shape, e) {
+        EShapeRuntime.prototype.onMove = function (shape, e) {
             //
         };
         EShapeRuntime.prototype.onKeyDown = function (shape, e) {
             if (UtilKeyboardEvent.isActivateKey(e)) {
-                this.onPointerDown(shape);
+                this.onDown(shape, e);
             }
             return false;
         };
         EShapeRuntime.prototype.onKeyUp = function (shape, e) {
             if (UtilKeyboardEvent.isActivateKey(e)) {
-                this.onPointerUp(shape);
+                this.onUp(shape, e);
             }
             return false;
         };
         EShapeRuntime.prototype.onStateChange = function (shape, newState, oldState) {
             this.isStateChanged = true;
             DApplications.update(shape);
+            if (newState.isFocused) {
+                if (!oldState.isFocused) {
+                    this.onFocus(shape);
+                }
+            }
+            else if (oldState.isFocused) {
+                this.onBlur(shape);
+            }
+        };
+        EShapeRuntime.prototype.onFocus = function (shape) {
+            var actions = this.actions;
+            for (var i = 0, imax = actions.length; i < imax; ++i) {
+                actions[i].onFocus(shape, this);
+            }
+        };
+        EShapeRuntime.prototype.onBlur = function (shape) {
+            var actions = this.actions;
+            for (var i = 0, imax = actions.length; i < imax; ++i) {
+                actions[i].onBlur(shape, this);
+            }
         };
         EShapeRuntime.prototype.update = function (shape, time) {
             var tag = shape.tag;
@@ -6709,20 +6749,24 @@
                 tag.isChanged = false;
             }
         };
-        EShapeRuntime.prototype.onUpdate = function (shape, time) {
-            if (0 < this.actions.length) {
-                this.executeActions(shape, time);
-                this.resetUnwrittenProperties(shape);
-            }
-        };
-        EShapeRuntime.prototype.executeActions = function (shape, time) {
-            this.written = EShapeRuntimeReset.NONE;
+        EShapeRuntime.prototype.onRender = function (shape, time, renderer) {
             var actions = this.actions;
             for (var i = 0, imax = actions.length; i < imax; ++i) {
-                actions[i].execute(shape, this, time);
+                actions[i].onRender(shape, this, time, renderer);
+            }
+            this.update(shape, time);
+        };
+        EShapeRuntime.prototype.onUpdate = function (shape, time) {
+            var actions = this.actions;
+            if (0 < actions.length) {
+                this.written = EShapeRuntimeReset.NONE;
+                for (var i = 0, imax = actions.length; i < imax; ++i) {
+                    actions[i].execute(shape, this, time);
+                }
+                this.doReset(shape);
             }
         };
-        EShapeRuntime.prototype.resetUnwrittenProperties = function (shape) {
+        EShapeRuntime.prototype.doReset = function (shape) {
             var target = (~this.written) & this.reset;
             if (target !== EShapeRuntimeReset.NONE) {
                 if (target & EShapeRuntimeReset.POSITION_X) {
@@ -6799,12 +6843,13 @@
     var EShapeActionExpressions = /** @class */ (function () {
         function EShapeActionExpressions() {
         }
-        EShapeActionExpressions.from = function (expression, caster, def, defLiteral, nullable) {
+        EShapeActionExpressions.from = function (expression, caster, def, defLiteral, nullable, parameter) {
             if (expression.trim().length <= 0) {
                 return def;
             }
             try {
-                return Function("shape", "time", "try{" +
+                var body = "" +
+                    "try{" +
                     "with( shape ) {" +
                     "with( state ) {" +
                     (nullable ?
@@ -6815,7 +6860,13 @@
                     "}" +
                     "} catch( e ) {" +
                     ("return " + defLiteral + ";") +
-                    "}");
+                    "}";
+                if (parameter == null) {
+                    return Function("shape", "time", body);
+                }
+                else {
+                    return Function("shape", "time", parameter, body);
+                }
             }
             catch (e) {
                 return def;
@@ -6851,6 +6902,9 @@
         EShapeActionExpressions.ofBooleanOrFalse = function (expression) {
             return this.from(expression, "Boolean", this.FALSE, "false", false);
         };
+        EShapeActionExpressions.ofElementOrNull = function (expression) {
+            return this.from(expression, "", undefined, "null", false, "container");
+        };
         EShapeActionExpressions.NULL = function () { return null; };
         EShapeActionExpressions.ZERO = function () { return 0; };
         EShapeActionExpressions.ONE = function () { return 1; };
@@ -6865,12 +6919,34 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    /**
+     * An action runtime.
+     * Please note that all the action runtimes are shared across shapes.
+     */
     var EShapeActionRuntime = /** @class */ (function () {
         function EShapeActionRuntime(reset) {
             this.reset = reset || EShapeRuntimeReset.NONE;
         }
         EShapeActionRuntime.prototype.execute = function (shape, runtime, time) {
             // OVERRIDE THIS
+        };
+        EShapeActionRuntime.prototype.onFocus = function (shape, runtime) {
+            // DO NOTHING
+        };
+        EShapeActionRuntime.prototype.onBlur = function (shape, runtime) {
+            // DO NOTHING
+        };
+        EShapeActionRuntime.prototype.onDownThisBefore = function (shape, runtime, e) {
+            // DO NOTHING
+        };
+        EShapeActionRuntime.prototype.onDownThisAfter = function (shape, runtime, e) {
+            // DO NOTHING
+        };
+        EShapeActionRuntime.prototype.onDblClick = function (shape, runtime, e, interactionManager) {
+            // DO NOTHING
+        };
+        EShapeActionRuntime.prototype.onRender = function (shape, runtime, time, renderer) {
+            // DO NOTHING
         };
         return EShapeActionRuntime;
     }());
@@ -7061,6 +7137,10 @@
         EShapeActionValueBlinkType[EShapeActionValueBlinkType["COLOR_STROKE"] = 5] = "COLOR_STROKE";
     })(EShapeActionValueBlinkType || (EShapeActionValueBlinkType = {}));
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var EShapeActionValueBase = /** @class */ (function () {
         function EShapeActionValueBase(type, condition) {
             this.type = type;
@@ -8455,17 +8535,34 @@
      */
     var EShapeActionRuntimeChangeTextNumber = /** @class */ (function (_super) {
         __extends(EShapeActionRuntimeChangeTextNumber, _super);
-        function EShapeActionRuntimeChangeTextNumber(value, format) {
+        function EShapeActionRuntimeChangeTextNumber(value) {
             var _this = _super.call(this, value, EShapeRuntimeReset.TEXT) || this;
             _this.number = EShapeActionExpressions.ofNumber(value.value);
-            format = format.trim();
-            _this.formatter = (0 < format.length ? NumberFormatters.create(format) : null);
+            _this.formatters = new Map();
             return _this;
         }
+        EShapeActionRuntimeChangeTextNumber.prototype.getFormatter = function (shape, runtime) {
+            var formatters = this.formatters;
+            var text = runtime.text.value;
+            var result = formatters.get(text);
+            if (result === undefined) {
+                result = this.newFormatter(text);
+                formatters.set(text, result);
+            }
+            return result;
+        };
+        EShapeActionRuntimeChangeTextNumber.prototype.newFormatter = function (format) {
+            format = format.trim();
+            if (0 < format.length) {
+                return NumberFormatters.create(format);
+            }
+            return null;
+        };
         EShapeActionRuntimeChangeTextNumber.prototype.execute = function (shape, runtime, time) {
             if (this.condition(shape, time)) {
                 var value = this.number(shape, time);
-                shape.text.value = (this.formatter != null ? this.formatter.format(value, 0) : String(value));
+                var formatter = this.getFormatter(shape, runtime);
+                shape.text.value = (formatter != null ? formatter.format(value, 0) : String(value));
                 runtime.written |= this.reset;
             }
         };
@@ -8518,12 +8615,12 @@
                 (value instanceof EShapeActionValueChangeText) &&
                 this.value === value.value);
         };
-        EShapeActionValueChangeText.prototype.toRuntime = function (shape) {
+        EShapeActionValueChangeText.prototype.toRuntime = function () {
             switch (this.subtype) {
                 case EShapeActionValueChangeTextType.TEXT:
                     return new EShapeActionRuntimeChangeTextText(this);
                 case EShapeActionValueChangeTextType.NUMBER:
-                    return new EShapeActionRuntimeChangeTextNumber(this, shape.text.value);
+                    return new EShapeActionRuntimeChangeTextNumber(this);
             }
         };
         EShapeActionValueChangeText.prototype.serialize = function (manager) {
@@ -11745,6 +11842,7 @@
             if (this.visible) {
                 this.visible = false;
                 this.toParentChildrenDirty();
+                this.blur(true);
                 DApplications.update(this);
             }
             return this;
@@ -13617,6 +13715,959 @@
         return EShapeActionRuntimeMiscEmitEvent;
     }(EShapeActionRuntimeConditional));
 
+    /*
+     * Copyright (C) 2021 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DHtmlElementState = {
+        NO_POINTER_EVENTS: "NO_POINTER_EVENTS"
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /**
+     * {@link DHtmlElement} option when to show a HTML element
+     */
+    var UtilHtmlElementWhen;
+    (function (UtilHtmlElementWhen) {
+        /**
+         * Shows a HTML element when clicked.
+         */
+        UtilHtmlElementWhen[UtilHtmlElementWhen["CLICKED"] = 0] = "CLICKED";
+        /**
+         * Shows a HTML element when double clicked.
+         */
+        UtilHtmlElementWhen[UtilHtmlElementWhen["DOUBLE_CLICKED"] = 1] = "DOUBLE_CLICKED";
+        /**
+         * Shows a HTML element when focused.
+         * And also shows when clicked if focused.
+         */
+        UtilHtmlElementWhen[UtilHtmlElementWhen["FOCUSED"] = 2] = "FOCUSED";
+        /**
+         * Always shows a HTML element.
+         */
+        UtilHtmlElementWhen[UtilHtmlElementWhen["ALWAYS"] = 3] = "ALWAYS";
+    })(UtilHtmlElementWhen || (UtilHtmlElementWhen = {}));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var UtilHtmlElement = /** @class */ (function () {
+        function UtilHtmlElement(target, operation, theme, options) {
+            var _this = this;
+            this._target = target;
+            this._operation = operation;
+            var data = this.toData(theme, options);
+            this._data = data;
+            this._isElementShown = false;
+            this._onElementFocusBound = function (e) {
+                _this.onElementFocus(e);
+            };
+            this._onBeforeFocusBound = function (e) {
+                _this.onBeforeFocus(e);
+            };
+            this._onAfterFocusBound = function (e) {
+                _this.onAfterFocus(e);
+            };
+            this._isStarted = false;
+            this._wasStarted = false;
+            this._doSelectBound = function () {
+                _this.doSelect();
+            };
+            this._isStartRequested = (this._data.when === UtilHtmlElementWhen.ALWAYS);
+            this._onPostRenderBound = function () {
+                _this.updateElement(_this._rendererBound);
+            };
+        }
+        UtilHtmlElement.prototype.toData = function (theme, options) {
+            var _a, _b;
+            return {
+                element: this.toElementOptions(theme, options === null || options === void 0 ? void 0 : options.element),
+                clipper: this.toClipperOptions(theme, options === null || options === void 0 ? void 0 : options.clipper),
+                before: this.toBeforeOptions(theme, options === null || options === void 0 ? void 0 : options.before),
+                after: this.toAfterOptions(theme, options === null || options === void 0 ? void 0 : options.after),
+                when: toEnum((_a = options === null || options === void 0 ? void 0 : options.when) !== null && _a !== void 0 ? _a : theme.getWhen(), UtilHtmlElementWhen),
+                select: (_b = options === null || options === void 0 ? void 0 : options.select) !== null && _b !== void 0 ? _b : theme.getSelect()
+            };
+        };
+        UtilHtmlElement.prototype.toElementOptions = function (theme, options) {
+            var _a, _b;
+            return {
+                creator: (_a = options === null || options === void 0 ? void 0 : options.creator) !== null && _a !== void 0 ? _a : theme.getElementCreator(),
+                styler: (_b = options === null || options === void 0 ? void 0 : options.styler) !== null && _b !== void 0 ? _b : this.newElementStyler(theme)
+            };
+        };
+        UtilHtmlElement.prototype.newElementStyler = function (theme) {
+            return function (target, state, padding, elementRect, elementMatrix, clipperRect) {
+                return theme.setElementStyle(target, state, padding, elementRect, elementMatrix, clipperRect);
+            };
+        };
+        UtilHtmlElement.prototype.toClipperOptions = function (theme, options) {
+            var _a, _b;
+            return {
+                creator: (_a = options === null || options === void 0 ? void 0 : options.creator) !== null && _a !== void 0 ? _a : theme.getClipperCreator(),
+                styler: (_b = options === null || options === void 0 ? void 0 : options.styler) !== null && _b !== void 0 ? _b : this.newClipperStyler(theme)
+            };
+        };
+        UtilHtmlElement.prototype.newClipperStyler = function (theme) {
+            return function (target, state, padding, elementRect, elementMatrix, clipperRect) {
+                return theme.setClipperStyle(target, state, padding, elementRect, elementMatrix, clipperRect);
+            };
+        };
+        UtilHtmlElement.prototype.toBeforeOptions = function (theme, options) {
+            var _a, _b;
+            return {
+                creator: (_a = options === null || options === void 0 ? void 0 : options.creator) !== null && _a !== void 0 ? _a : theme.getBeforeCreator(),
+                styler: (_b = options === null || options === void 0 ? void 0 : options.styler) !== null && _b !== void 0 ? _b : this.newBeforeStyler(theme)
+            };
+        };
+        UtilHtmlElement.prototype.newBeforeStyler = function (theme) {
+            return function (target) {
+                theme.setBeforeStyle(target);
+            };
+        };
+        UtilHtmlElement.prototype.toAfterOptions = function (theme, options) {
+            var _a, _b;
+            return {
+                creator: (_a = options === null || options === void 0 ? void 0 : options.creator) !== null && _a !== void 0 ? _a : theme.getAfterCreator(),
+                styler: (_b = options === null || options === void 0 ? void 0 : options.styler) !== null && _b !== void 0 ? _b : this.newAfterStyler(theme)
+            };
+        };
+        UtilHtmlElement.prototype.newAfterStyler = function (theme) {
+            return function (target) {
+                theme.setAfterStyle(target);
+            };
+        };
+        Object.defineProperty(UtilHtmlElement.prototype, "element", {
+            get: function () {
+                var _a;
+                return (_a = this._element) !== null && _a !== void 0 ? _a : null;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(UtilHtmlElement.prototype, "when", {
+            get: function () {
+                return this._data.when;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        UtilHtmlElement.prototype.onDownThisBefore = function (e) {
+            this._wasStarted = this._isStarted;
+            switch (this.when) {
+                case UtilHtmlElementWhen.CLICKED:
+                    this.start();
+                    break;
+                case UtilHtmlElementWhen.FOCUSED:
+                    if (this._target.state.isFocused) {
+                        this.start();
+                    }
+                    break;
+            }
+        };
+        UtilHtmlElement.prototype.onDownThisAfter = function (e) {
+            if (!this._wasStarted && this._isStarted) {
+                if ("data" in e) {
+                    e.data.originalEvent.preventDefault();
+                }
+                else {
+                    e.preventDefault();
+                }
+            }
+        };
+        UtilHtmlElement.prototype.onDblClick = function (e, interactionManager) {
+            switch (this.when) {
+                case UtilHtmlElementWhen.DOUBLE_CLICKED:
+                    this.start();
+                    break;
+            }
+        };
+        UtilHtmlElement.prototype.onFocus = function () {
+            var _a;
+            switch (this.when) {
+                case UtilHtmlElementWhen.FOCUSED:
+                    this.start();
+                    break;
+                default:
+                    (_a = this._element) === null || _a === void 0 ? void 0 : _a.focus();
+                    break;
+            }
+        };
+        UtilHtmlElement.prototype.onBlur = function () {
+            var _a;
+            switch (this.when) {
+                case UtilHtmlElementWhen.CLICKED:
+                case UtilHtmlElementWhen.DOUBLE_CLICKED:
+                case UtilHtmlElementWhen.FOCUSED:
+                    this.onEndByBlur();
+                    this.cancel();
+                    break;
+                default:
+                    (_a = this._element) === null || _a === void 0 ? void 0 : _a.blur();
+                    break;
+            }
+        };
+        UtilHtmlElement.prototype.isStartable = function () {
+            switch (this.when) {
+                case UtilHtmlElementWhen.CLICKED:
+                case UtilHtmlElementWhen.DOUBLE_CLICKED:
+                case UtilHtmlElementWhen.FOCUSED:
+                    return this._target.state.isActionable;
+                default:
+                    return true;
+            }
+        };
+        UtilHtmlElement.prototype.start = function () {
+            if (!this._isStarted && this.isStartable()) {
+                this._isStarted = true;
+                if (this._target.worldVisible) {
+                    this.doStart();
+                }
+                else {
+                    this._isStartRequested = true;
+                }
+                DApplications.update(this._target);
+            }
+        };
+        UtilHtmlElement.prototype.isShown = function () {
+            return this._isElementShown;
+        };
+        UtilHtmlElement.prototype.onRender = function (renderer) {
+            if (this._isStartRequested || (!this._isElementShown && this.when === UtilHtmlElementWhen.ALWAYS)) {
+                this._isStartRequested = false;
+                this.doStart(renderer);
+            }
+            if (this._isStarted) {
+                this._isStarted = false;
+            }
+        };
+        UtilHtmlElement.prototype.getElementRect = function (resolution) {
+            var point = (this._point || new pixi_js.Point(0, 0));
+            this._point = point;
+            var result = (this._elementRectResult || new pixi_js.Rectangle());
+            this._elementRectResult = result;
+            return this._operation.getElementRect(resolution, point, result);
+        };
+        UtilHtmlElement.prototype.getElementMatrix = function () {
+            return this._operation.getElementMatrix();
+        };
+        UtilHtmlElement.prototype.getClipperRect = function (resolution) {
+            var point = (this._point || new pixi_js.Point(0, 0));
+            this._point = point;
+            var result = (this._clipperRectResult || new pixi_js.Rectangle());
+            this._clipperRectResult = result;
+            return this._operation.getClipperRect(resolution, point, result);
+        };
+        UtilHtmlElement.prototype.doStart = function (renderer) {
+            var _a, _b;
+            if (!this._isElementShown) {
+                this._isElementShown = true;
+                var rendererBound = this._rendererBound;
+                if (rendererBound != null) {
+                    this._rendererBound = undefined;
+                    rendererBound.off("postrender", this._onPostRenderBound);
+                }
+                var target = this._target;
+                if (renderer == null) {
+                    renderer = (_a = DApplications.getLayer(target)) === null || _a === void 0 ? void 0 : _a.renderer;
+                }
+                if (renderer) {
+                    this._rendererBound = renderer;
+                    renderer.on("postrender", this._onPostRenderBound);
+                }
+                this.onStart();
+                var clipper = this.getClipper();
+                if (clipper) {
+                    var before = this.getBefore(clipper);
+                    var element = this.getElement(clipper);
+                    var after = this.getAfter(clipper);
+                    if (element) {
+                        var resolution = ((_b = renderer === null || renderer === void 0 ? void 0 : renderer.resolution) !== null && _b !== void 0 ? _b : DApplications.getResolution(target));
+                        var elementRect = this.getElementRect(resolution);
+                        var elementMatrix = this.getElementMatrix();
+                        var clipperRect = this.toClipperRectAdjusted(elementRect, elementMatrix, this.getClipperRect(resolution));
+                        var state = target.state;
+                        var padding = this._operation.getPadding();
+                        var options = this._data;
+                        options.clipper.styler(clipper, state, padding, elementRect, elementMatrix, clipperRect);
+                        options.element.styler(element, state, padding, elementRect, elementMatrix, clipperRect);
+                        if (before) {
+                            options.before.styler(before);
+                        }
+                        if (after) {
+                            options.after.styler(after);
+                        }
+                        this.onElementAttached(element, before, after);
+                        // Show HTML elements
+                        clipper.style.display = "";
+                        if (state.isFocused) {
+                            element.focus();
+                        }
+                        clipper.scrollTop = 0;
+                        clipper.scrollLeft = 0;
+                        // Select the element if required.
+                        if (this._data.select) {
+                            setTimeout(this._doSelectBound, 0);
+                        }
+                    }
+                }
+            }
+        };
+        UtilHtmlElement.prototype.onStart = function () {
+            this._operation.onStart();
+        };
+        UtilHtmlElement.prototype.doSelect = function () {
+            var element = this._element;
+            if (element) {
+                if (element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement) {
+                    // The following does not work on mobile devices.
+                    // I think selecting texts on a tap is annoying.
+                    // Therefore, I leave this untouched.
+                    element.select();
+                }
+            }
+        };
+        UtilHtmlElement.prototype.cancel = function () {
+            if (this._isElementShown) {
+                this._isElementShown = false;
+                var rendererBound = this._rendererBound;
+                if (rendererBound != null) {
+                    this._rendererBound = undefined;
+                    rendererBound.off("postrender", this._onPostRenderBound);
+                }
+                this.onCancel();
+                var target = this._target;
+                var layer = DApplications.getLayer(target);
+                if (layer) {
+                    var view = layer.view;
+                    switch (this.when) {
+                        case UtilHtmlElementWhen.CLICKED:
+                        case UtilHtmlElementWhen.DOUBLE_CLICKED:
+                        case UtilHtmlElementWhen.FOCUSED:
+                            if (document.activeElement === this._element) {
+                                view.focus();
+                            }
+                            break;
+                    }
+                    var state = target.state;
+                    var interactionManager = layer.renderer.plugins.interaction;
+                    if (this._operation.containsPoint(interactionManager.mouse.global) && !state.isHovered) {
+                        state.isHovered = true;
+                        view.style.cursor = target.cursor;
+                    }
+                    layer.update();
+                }
+                var element = this._element;
+                if (element != null) {
+                    this.onElementDetached(element, this._before, this._after);
+                }
+                var clipper = this._clipper;
+                if (clipper != null) {
+                    clipper.style.display = "none";
+                }
+            }
+        };
+        UtilHtmlElement.prototype.onCancel = function () {
+            this._operation.onCancel();
+        };
+        UtilHtmlElement.prototype.onElementAttached = function (element, before, after) {
+            before === null || before === void 0 ? void 0 : before.addEventListener("focus", this._onBeforeFocusBound);
+            after === null || after === void 0 ? void 0 : after.addEventListener("focus", this._onAfterFocusBound);
+            element.addEventListener("focus", this._onElementFocusBound, true);
+        };
+        UtilHtmlElement.prototype.onElementDetached = function (element, before, after) {
+            before === null || before === void 0 ? void 0 : before.removeEventListener("focus", this._onBeforeFocusBound);
+            after === null || after === void 0 ? void 0 : after.removeEventListener("focus", this._onAfterFocusBound);
+            element.removeEventListener("focus", this._onElementFocusBound, true);
+        };
+        UtilHtmlElement.prototype.getClipper = function () {
+            var result = this._clipper;
+            if (result == null) {
+                var layer = DApplications.getLayer(this._target);
+                result = (layer ?
+                    this._data.clipper.creator(layer.getElementContainer()) :
+                    null);
+                this._clipper = result;
+            }
+            return result;
+        };
+        UtilHtmlElement.prototype.getElement = function (clipper) {
+            var result = this._element;
+            if (result == null) {
+                result = this._data.element.creator(clipper);
+                this._element = result;
+            }
+            return result;
+        };
+        UtilHtmlElement.prototype.getBefore = function (clipper) {
+            var result = this._before;
+            if (result == null) {
+                result = this._data.before.creator(clipper);
+                this._before = result;
+            }
+            return result;
+        };
+        UtilHtmlElement.prototype.getAfter = function (clipper) {
+            var result = this._after;
+            if (result == null) {
+                result = this._data.after.creator(clipper);
+                this._after = result;
+            }
+            return result;
+        };
+        UtilHtmlElement.prototype.onBeforeFocus = function (e) {
+            var target = this._target;
+            var layer = DApplications.getLayer(target);
+            if (layer) {
+                var focusController = layer.getFocusController();
+                var focusable = focusController.find(target, false, false, false);
+                layer.view.focus();
+                focusController.focus(focusable);
+                e.preventDefault();
+                e.stopImmediatePropagation();
+            }
+        };
+        UtilHtmlElement.prototype.onAfterFocus = function (e) {
+            var target = this._target;
+            var layer = DApplications.getLayer(target);
+            if (layer) {
+                var focusController = layer.getFocusController();
+                var focusable = focusController.find(target, false, false, true);
+                layer.view.focus();
+                focusController.focus(focusable);
+                e.preventDefault();
+                e.stopImmediatePropagation();
+            }
+        };
+        UtilHtmlElement.prototype.onElementFocus = function (e) {
+            if (this.when === UtilHtmlElementWhen.ALWAYS) {
+                var target = this._target;
+                if (!target.state.isFocused) {
+                    target.focus();
+                }
+            }
+        };
+        UtilHtmlElement.prototype.onEndByBlur = function () {
+            this.onEnd();
+        };
+        UtilHtmlElement.prototype.onEnd = function () {
+            this._operation.onEnd();
+        };
+        UtilHtmlElement.prototype.end = function () {
+            this.onEnd();
+            this.cancel();
+        };
+        UtilHtmlElement.prototype.select = function () {
+            if (this._isElementShown && this._data.select) {
+                this.doSelect();
+            }
+            return this;
+        };
+        UtilHtmlElement.prototype.toClipperRectAdjusted = function (elementRect, elementMatrix, clipperRect) {
+            if (clipperRect && elementRect && elementMatrix == null) {
+                var ex0 = elementRect.x;
+                var ey0 = elementRect.y;
+                var ex1 = ex0 + elementRect.width;
+                var ey1 = ey0 + elementRect.height;
+                var cx0 = clipperRect.x;
+                var cy0 = clipperRect.y;
+                var cx1 = cx0 + clipperRect.width;
+                var cy1 = cy0 + clipperRect.height;
+                var ncx0 = Math.min(Math.max(cx0, ex0), cx1);
+                var ncx1 = Math.min(Math.max(cx0, ex1), cx1);
+                var ncy0 = Math.min(Math.max(cy0, ey0), cy1);
+                var ncy1 = Math.min(Math.max(cy0, ey1), cy1);
+                clipperRect.x = ncx0;
+                clipperRect.y = ncy0;
+                clipperRect.width = ncx1 - ncx0;
+                clipperRect.height = ncy1 - ncy0;
+            }
+            return clipperRect;
+        };
+        UtilHtmlElement.prototype.updateElement = function (renderer) {
+            if (this._isElementShown) {
+                var target = this._target;
+                if (target.worldVisible) {
+                    var element = this._element;
+                    var clipper = this._clipper;
+                    if (element && clipper) {
+                        var resolution = renderer.resolution;
+                        var elementRect = this.getElementRect(resolution);
+                        var elementMatrix = this.getElementMatrix();
+                        var clipperRect = this.toClipperRectAdjusted(elementRect, elementMatrix, this.getClipperRect(resolution));
+                        var state = target.state;
+                        var padding = this._operation.getPadding();
+                        var options = this._data;
+                        options.clipper.styler(clipper, state, padding, elementRect, elementMatrix, clipperRect);
+                        options.element.styler(element, state, padding, elementRect, elementMatrix, clipperRect);
+                    }
+                }
+                else {
+                    switch (this.when) {
+                        case UtilHtmlElementWhen.ALWAYS:
+                            var clipper = this._clipper;
+                            if (clipper) {
+                                clipper.style.display = "none";
+                            }
+                            break;
+                        default:
+                            this.cancel();
+                            break;
+                    }
+                }
+            }
+        };
+        UtilHtmlElement.getClipperRect = function (parent, target, resolution, point, result) {
+            var isFirst = true;
+            var x0 = 0;
+            var y0 = 0;
+            var x1 = 0;
+            var y1 = 0;
+            var current = parent;
+            while (current instanceof DBase) {
+                current.getClippingRect(target, result);
+                point.set(result.x, result.y);
+                current.toGlobal(point, point, false);
+                var cx0 = ((point.x * resolution) | 0) / resolution;
+                var cy0 = ((point.y * resolution) | 0) / resolution;
+                point.set(result.x + result.width, result.y + result.height);
+                current.toGlobal(point, point, true);
+                var cx1 = point.x;
+                var cy1 = point.y;
+                var dx0 = Math.min(cx0, cx1);
+                var dy0 = Math.min(cy0, cy1);
+                var dx1 = Math.max(cx0, cx1);
+                var dy1 = Math.max(cy0, cy1);
+                if (isFirst) {
+                    isFirst = false;
+                    x0 = dx0;
+                    y0 = dy0;
+                    x1 = dx1;
+                    y1 = dy1;
+                }
+                else {
+                    x0 = Math.min(Math.max(x0, dx0), dx1);
+                    y0 = Math.min(Math.max(y0, dy0), dy1);
+                    x1 = Math.min(Math.max(x1, dx0), dx1);
+                    y1 = Math.min(Math.max(y1, dy0), dy1);
+                }
+                current = current.parent;
+            }
+            if (isFirst) {
+                return null;
+            }
+            result.x = x0;
+            result.y = y0;
+            result.width = x1 - x0;
+            result.height = y1 - y0;
+            return result;
+        };
+        return UtilHtmlElement;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeActionValueMiscType;
+    (function (EShapeActionValueMiscType) {
+        EShapeActionValueMiscType[EShapeActionValueMiscType["INPUT_TEXT"] = 0] = "INPUT_TEXT";
+        EShapeActionValueMiscType[EShapeActionValueMiscType["INPUT_INTEGER"] = 1] = "INPUT_INTEGER";
+        EShapeActionValueMiscType[EShapeActionValueMiscType["INPUT_REAL"] = 2] = "INPUT_REAL";
+        EShapeActionValueMiscType[EShapeActionValueMiscType["EMIT_EVENT"] = 3] = "EMIT_EVENT";
+        EShapeActionValueMiscType[EShapeActionValueMiscType["WRITE_BOTH"] = 4] = "WRITE_BOTH";
+        EShapeActionValueMiscType[EShapeActionValueMiscType["WRITE_LOCAL"] = 5] = "WRITE_LOCAL";
+        EShapeActionValueMiscType[EShapeActionValueMiscType["WRITE_REMOTE"] = 6] = "WRITE_REMOTE";
+        EShapeActionValueMiscType[EShapeActionValueMiscType["HTML_ELEMENT"] = 7] = "HTML_ELEMENT";
+        EShapeActionValueMiscType[EShapeActionValueMiscType["HTML_ELEMENT_WITHOUT_POINTER_EVENTS"] = 8] = "HTML_ELEMENT_WITHOUT_POINTER_EVENTS";
+    })(EShapeActionValueMiscType || (EShapeActionValueMiscType = {}));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeActionRuntimeMiscHtmlElement = /** @class */ (function (_super) {
+        __extends(EShapeActionRuntimeMiscHtmlElement, _super);
+        function EShapeActionRuntimeMiscHtmlElement(value) {
+            var _this = _super.call(this) || this;
+            _this.condition = EShapeActionExpressions.ofString(value.condition);
+            _this.target = EShapeActionExpressions.ofStringOrNull(value.target);
+            _this.onInputAction = value.onInputAction;
+            _this.elementCreator = EShapeActionExpressions.ofElementOrNull(value.value);
+            _this.noPointerEvent = (value.subtype === EShapeActionValueMiscType.HTML_ELEMENT_WITHOUT_POINTER_EVENTS);
+            _this.utils = new Map();
+            return _this;
+        }
+        EShapeActionRuntimeMiscHtmlElement.prototype.getUtil = function (shape, runtime) {
+            var utils = this.utils;
+            var result = utils.get(shape);
+            if (result == null) {
+                result = this.newUtil(shape, runtime);
+                utils.set(shape, result);
+            }
+            return result;
+        };
+        EShapeActionRuntimeMiscHtmlElement.prototype.newUtil = function (shape, runtime) {
+            if (this.noPointerEvent) {
+                shape.state.add(DHtmlElementState.NO_POINTER_EVENTS);
+            }
+            return new UtilHtmlElement(shape, this.newOperation(shape, runtime), DThemes.getInstance().get("DHtmlElement"), this.newUtilOptions(shape, runtime));
+        };
+        EShapeActionRuntimeMiscHtmlElement.prototype.newOperation = function (shape, runtime) {
+            var _this = this;
+            return {
+                getElementRect: function (resolution, work, result) {
+                    return _this.getElementRect(shape, runtime, resolution, work, result);
+                },
+                getElementMatrix: function () {
+                    return _this.getElementMatrix(shape, runtime);
+                },
+                getClipperRect: function (resolution, work, result) {
+                    return _this.getClipperToRect(shape, runtime, resolution, work, result);
+                },
+                getPadding: function () {
+                    return _this.getPadding(shape, runtime);
+                },
+                containsPoint: function (point) {
+                    return _this.containsPoint(shape, runtime, point);
+                },
+                onStart: function () {
+                    // DO NOTHING
+                },
+                onCancel: function () {
+                    // DO NOTHING
+                },
+                onEnd: function () {
+                    // DO NOTHING
+                }
+            };
+        };
+        EShapeActionRuntimeMiscHtmlElement.prototype.newUtilOptions = function (shape, runtime) {
+            return {
+                element: {
+                    creator: this.newElementCreator(shape, runtime)
+                },
+                when: this.toWhen(shape, runtime)
+            };
+        };
+        EShapeActionRuntimeMiscHtmlElement.prototype.newElementCreator = function (shape, runtime) {
+            var elementCreator = this.elementCreator;
+            if (elementCreator) {
+                return function (container) {
+                    return elementCreator(shape, Date.now(), container);
+                };
+            }
+            return undefined;
+        };
+        EShapeActionRuntimeMiscHtmlElement.prototype.toWhen = function (shape, runtime) {
+            var value = this.condition(shape, Date.now());
+            if (value != null && value in UtilHtmlElementWhen) {
+                return UtilHtmlElementWhen[value];
+            }
+            return undefined;
+        };
+        EShapeActionRuntimeMiscHtmlElement.prototype.containsPoint = function (shape, runtime, point) {
+            if (shape.visible) {
+                var local = EShapeActionRuntimeMiscHtmlElement.WORK || new pixi_js.Point();
+                EShapeActionRuntimeMiscHtmlElement.WORK = local;
+                shape.toLocal(point, undefined, local);
+                return shape.contains(local) != null;
+            }
+            return false;
+        };
+        EShapeActionRuntimeMiscHtmlElement.prototype.getPadding = function (shape, runtime) {
+            return null;
+        };
+        EShapeActionRuntimeMiscHtmlElement.prototype.getElementRect = function (shape, runtime, resolution, point, result) {
+            var pivot = shape.transform.pivot;
+            var size = shape.size;
+            var sizeX = size.x;
+            var sizeY = size.y;
+            result.x = -0.5 * sizeX + pivot.x;
+            result.y = -0.5 * sizeY + pivot.y;
+            result.width = sizeX;
+            result.height = sizeY;
+            return result;
+        };
+        EShapeActionRuntimeMiscHtmlElement.prototype.getElementMatrix = function (shape, runtime) {
+            shape.updateTransform();
+            return shape.transform.worldTransform;
+        };
+        EShapeActionRuntimeMiscHtmlElement.prototype.getClipperToRect = function (shape, runtime, resolution, point, result) {
+            var container = EShapeActionRuntimes.toContainer(shape);
+            return UtilHtmlElement.getClipperRect(container, shape, resolution, point, result);
+        };
+        EShapeActionRuntimeMiscHtmlElement.prototype.onRender = function (shape, runtime, time, renderer) {
+            this.getUtil(shape, runtime).onRender(renderer);
+        };
+        EShapeActionRuntimeMiscHtmlElement.prototype.onFocus = function (shape, runtime) {
+            this.getUtil(shape, runtime).onFocus();
+        };
+        EShapeActionRuntimeMiscHtmlElement.prototype.onBlur = function (shape, runtime) {
+            this.getUtil(shape, runtime).onBlur();
+        };
+        EShapeActionRuntimeMiscHtmlElement.prototype.onDownThisBefore = function (shape, runtime, e) {
+            this.getUtil(shape, runtime).onDownThisBefore(e);
+        };
+        EShapeActionRuntimeMiscHtmlElement.prototype.onDownThisAfter = function (shape, runtime, e) {
+            this.getUtil(shape, runtime).onDownThisAfter(e);
+        };
+        EShapeActionRuntimeMiscHtmlElement.prototype.onDblClick = function (shape, runtime, e, interactionManager) {
+            this.getUtil(shape, runtime).onDblClick(e, interactionManager);
+        };
+        return EShapeActionRuntimeMiscHtmlElement;
+    }(EShapeActionRuntime));
+
+    /*
+     * Copyright (C) 2021 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var UtilInput = /** @class */ (function (_super) {
+        __extends(UtilInput, _super);
+        function UtilInput(target, operation, theme, options) {
+            var _a, _b, _c, _d, _e, _f, _g;
+            var _this = _super.call(this, target, operation, theme, options) || this;
+            _this._operation = operation;
+            _this._onInputKeyDownBound = function (e) {
+                _this.onInputKeyDown(e);
+            };
+            _this._onInputChangeBound = function () {
+                _this.onInputChange();
+            };
+            _this._onInputInputBound = function (e) {
+                _this.onInputInput(e);
+            };
+            _this._description = (_a = options === null || options === void 0 ? void 0 : options.description) !== null && _a !== void 0 ? _a : "";
+            var editing = options === null || options === void 0 ? void 0 : options.editing;
+            _this._editingFormatter = (_b = editing === null || editing === void 0 ? void 0 : editing.formatter) !== null && _b !== void 0 ? _b : ((_e = (_d = (_c = options) === null || _c === void 0 ? void 0 : _c.text) === null || _d === void 0 ? void 0 : _d.formatter) !== null && _e !== void 0 ? _e : theme.getEditingFormatter());
+            _this._editingUnformatter = (_f = editing === null || editing === void 0 ? void 0 : editing.unformatter) !== null && _f !== void 0 ? _f : theme.getEditingUnformatter();
+            _this._editingValidator = (_g = editing === null || editing === void 0 ? void 0 : editing.validator) !== null && _g !== void 0 ? _g : theme.getEditingValidator();
+            return _this;
+        }
+        UtilInput.prototype.onEnd = function () {
+            _super.prototype.onEnd.call(this);
+            this.onInputChange();
+        };
+        UtilInput.prototype.onElementAttached = function (element, before, after) {
+            element.type = this.getInputType();
+            element.value = this.fromValue(this._operation.getValue());
+            element.addEventListener("keydown", this._onInputKeyDownBound);
+            element.addEventListener("change", this._onInputChangeBound);
+            element.addEventListener("input", this._onInputInputBound);
+            _super.prototype.onElementAttached.call(this, element, before, after);
+        };
+        UtilInput.prototype.onElementDetached = function (element, before, after) {
+            _super.prototype.onElementDetached.call(this, element, before, after);
+            element.removeEventListener("keydown", this._onInputKeyDownBound);
+            element.removeEventListener("change", this._onInputChangeBound);
+            element.removeEventListener("input", this._onInputInputBound);
+        };
+        UtilInput.prototype.onInputKeyDown = function (e) {
+            if (UtilKeyboardEvent.isOkKey(e)) {
+                this.end();
+                this._operation.onEnter();
+            }
+            else if (UtilKeyboardEvent.isCancelKey(e)) {
+                this.cancel();
+            }
+        };
+        UtilInput.prototype.onInputChange = function () {
+            if (this.isShown()) {
+                var element = this.element;
+                if (element != null) {
+                    var operation = this._operation;
+                    var newValue = this.toValue(element.value);
+                    var oldValue = operation.getValue();
+                    if (oldValue !== newValue) {
+                        operation.onValueChange(newValue, oldValue);
+                    }
+                }
+            }
+        };
+        UtilInput.prototype.toValue = function (valueAsString) {
+            return this._editingUnformatter(valueAsString, this);
+        };
+        UtilInput.prototype.fromValue = function (value) {
+            if (value !== undefined) {
+                return this._editingFormatter(value, this);
+            }
+            return "";
+        };
+        UtilInput.prototype.onInputInput = function (e) {
+            var target = e.target;
+            if (target instanceof HTMLInputElement) {
+                this._operation.onValueInput(this.toValue(target.value));
+            }
+        };
+        UtilInput.prototype.validate = function () {
+            var value = this._operation.getValue();
+            if (value !== undefined) {
+                var result = this._editingValidator(value, this);
+                if (this._editingValidationResult !== result) {
+                    this._editingValidationResult = result;
+                    var state = this._target.state;
+                    state.isInvalid = (result != null);
+                    if (state.isHovered) {
+                        this._operation.applyTitle();
+                    }
+                }
+                return result;
+            }
+            return null;
+        };
+        UtilInput.prototype.applyTitle = function () {
+            var editingValidationResult = this._editingValidationResult;
+            if (isString(editingValidationResult)) {
+                var layer = DApplications.getLayer(this._target);
+                if (layer) {
+                    layer.view.title = editingValidationResult;
+                }
+                return true;
+            }
+            return false;
+        };
+        return UtilInput;
+    }(UtilHtmlElement));
+
+    /*
+     * Copyright (C) 2021 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var UtilInputNumber = /** @class */ (function (_super) {
+        __extends(UtilInputNumber, _super);
+        function UtilInputNumber(target, operation, theme, options) {
+            var _a, _b, _c;
+            var _this = _super.call(this, target, operation, theme, options) || this;
+            _this._step = (_a = options === null || options === void 0 ? void 0 : options.step) !== null && _a !== void 0 ? _a : theme.getStep();
+            _this._min = (_b = options === null || options === void 0 ? void 0 : options.min) !== null && _b !== void 0 ? _b : theme.getMin();
+            _this._max = (_c = options === null || options === void 0 ? void 0 : options.max) !== null && _c !== void 0 ? _c : theme.getMax();
+            return _this;
+        }
+        Object.defineProperty(UtilInputNumber.prototype, "step", {
+            get: function () {
+                return this._step;
+            },
+            set: function (step) {
+                if (this._step !== step) {
+                    this._step = step;
+                    this.onStepChange();
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(UtilInputNumber.prototype, "min", {
+            get: function () {
+                return this._min;
+            },
+            set: function (min) {
+                if (this._min !== min) {
+                    this._min = min;
+                    this.onMinChange();
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(UtilInputNumber.prototype, "max", {
+            get: function () {
+                return this._max;
+            },
+            set: function (max) {
+                if (this._max !== max) {
+                    this._max = max;
+                    this.onMaxChange();
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        UtilInputNumber.prototype.toValue = function (valueAsString) {
+            var result = _super.prototype.toValue.call(this, valueAsString);
+            if (result === result /* NaN Check */) {
+                if (this._min != null && result < this._min) {
+                    return this._min;
+                }
+                if (this._max != null && this._max < result) {
+                    return this._max;
+                }
+                return result;
+            }
+            return 0;
+        };
+        UtilInputNumber.prototype.fromValue = function (value) {
+            if (value !== undefined) {
+                return this._editingFormatter(value, this);
+            }
+            return "0";
+        };
+        UtilInputNumber.prototype.onStepChange = function () {
+            if (this.isShown()) {
+                var element = this.element;
+                if (element) {
+                    this.updateStep(element);
+                }
+            }
+        };
+        UtilInputNumber.prototype.onMinChange = function () {
+            if (this.isShown()) {
+                var element = this.element;
+                if (element) {
+                    this.updateMin(element);
+                }
+            }
+        };
+        UtilInputNumber.prototype.onMaxChange = function () {
+            if (this.isShown()) {
+                var element = this.element;
+                if (element) {
+                    this.updateMax(element);
+                }
+            }
+        };
+        UtilInputNumber.prototype.updateStep = function (input) {
+            var step = this.step;
+            if (step != null) {
+                input.step = "" + step;
+            }
+            else {
+                input.step = "any";
+            }
+        };
+        UtilInputNumber.prototype.updateMin = function (input) {
+            var min = this.min;
+            if (min != null) {
+                input.min = "" + min;
+            }
+            else {
+                input.removeAttribute("min");
+            }
+        };
+        UtilInputNumber.prototype.updateMax = function (input) {
+            var max = this.max;
+            if (max != null) {
+                input.max = "" + max;
+            }
+            else {
+                input.removeAttribute("max");
+            }
+        };
+        UtilInputNumber.prototype.onElementAttached = function (element, before, after) {
+            _super.prototype.onElementAttached.call(this, element, before, after);
+            this.updateStep(element);
+            this.updateMin(element);
+            this.updateMax(element);
+        };
+        UtilInputNumber.prototype.getInputType = function () {
+            return "number";
+        };
+        return UtilInputNumber;
+    }(UtilInput));
+
     var EShapeActionValueOnInputAction;
     (function (EShapeActionValueOnInputAction) {
         EShapeActionValueOnInputAction[EShapeActionValueOnInputAction["EMIT_EVENT"] = 0] = "EMIT_EVENT";
@@ -13659,887 +14710,66 @@
      */
     var EShapeActionRuntimeMiscInput = /** @class */ (function (_super) {
         __extends(EShapeActionRuntimeMiscInput, _super);
-        function EShapeActionRuntimeMiscInput(value) {
-            var _this = _super.call(this) || this;
-            _this.target = EShapeActionExpressions.ofStringOrNull(value.target);
-            _this.onInputAction = value.onInputAction;
-            return _this;
+        function EShapeActionRuntimeMiscInput() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
-        EShapeActionRuntimeMiscInput.prototype.execute = function (shape, runtime, time) {
+        EShapeActionRuntimeMiscInput.prototype.newOperation = function (shape, runtime) {
             var _this = this;
-            if (!shape.state.inDisabled) {
-                var data_1 = this.getData();
-                if (shape.state.isFocused) {
-                    if (!data_1.isShown(shape)) {
-                        setTimeout(function () {
-                            data_1.show(shape, _this.toValue(shape.text.value), function (_, value) {
-                                shape.text.value = value;
-                                var now = Date.now();
-                                var target = _this.target(shape, now);
-                                if (target != null) {
-                                    EShapeActionValueOnInputActions.execute(shape, _this.onInputAction, target, _this.fromValue(value), now);
-                                }
-                            });
-                        }, 0);
-                    }
+            return {
+                getElementRect: function (resolution, work, result) {
+                    return _this.getElementRect(shape, runtime, resolution, work, result);
+                },
+                getElementMatrix: function () {
+                    return _this.getElementMatrix(shape, runtime);
+                },
+                getClipperRect: function (resolution, work, result) {
+                    return _this.getClipperToRect(shape, runtime, resolution, work, result);
+                },
+                getPadding: function () {
+                    return _this.getPadding(shape, runtime);
+                },
+                containsPoint: function (point) {
+                    return _this.containsPoint(shape, runtime, point);
+                },
+                onStart: function () {
+                    shape.text.enable = false;
+                },
+                onCancel: function () {
+                    shape.text.enable = true;
+                },
+                onEnd: function () {
+                    // DO NOTHING
+                },
+                getValue: function () {
+                    return _this.getUtil(shape, runtime).toValue(shape.text.value);
+                },
+                onValueInput: function (newValue) {
+                    // DO NOTHING
+                },
+                onValueChange: function (newValue, oldValue) {
+                    _this.onValueChange(shape, runtime, newValue, oldValue);
+                },
+                onEnter: function () {
+                    // DO NOTHING
+                },
+                applyTitle: function () {
+                    // DO NOTHING
                 }
-                else {
-                    if (data_1.isShown(shape)) {
-                        data_1.onInputChange();
-                        data_1.hide();
-                    }
-                }
+            };
+        };
+        EShapeActionRuntimeMiscInput.prototype.getPadding = function (shape, runtime) {
+            return shape.text.padding;
+        };
+        EShapeActionRuntimeMiscInput.prototype.onValueChange = function (shape, runtime, newValue, oldValue) {
+            shape.text.value = this.getUtil(shape, runtime).fromValue(newValue);
+            var now = Date.now();
+            var target = this.target(shape, now);
+            if (target != null) {
+                EShapeActionValueOnInputActions.execute(shape, this.onInputAction, target, newValue, now);
             }
         };
         return EShapeActionRuntimeMiscInput;
-    }(EShapeActionRuntime));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var ASCII_CHARACTERS = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DynamicFontAtlasCharacterOrigin = /** @class */ (function () {
-        function DynamicFontAtlasCharacterOrigin(x, y) {
-            this.x = x;
-            this.y = y;
-        }
-        return DynamicFontAtlasCharacterOrigin;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DynamicFontAtlasCharacter = /** @class */ (function () {
-        function DynamicFontAtlasCharacter(advance, width, height, reserved) {
-            this.ref = 1;
-            this.life = 10;
-            this.x = 0;
-            this.y = 0;
-            this.width = width;
-            this.height = height;
-            this.advance = advance;
-            this.origin = new DynamicFontAtlasCharacterOrigin(0, 0);
-            this.reserved = reserved;
-        }
-        return DynamicFontAtlasCharacter;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var VERTEX_SHADER = "\nattribute vec2 aVertexPosition;\nattribute vec2 aTextureCoord;\nvarying mediump vec2 vTextureCoord;\nvoid main(void) {\n\tgl_Position = vec4(aVertexPosition, 0.0, 1.0);\n\tvTextureCoord = aTextureCoord;\n}\n";
-    var FRAGMENT_SHADER = "\nprecision mediump float;\n\nvarying mediump vec2 vTextureCoord;\nuniform sampler2D uSampler;\nuniform vec2 uSize;\n\nfloat calcDistance( float x, float y, float dx, float dy ) {\n\tfloat xd = x + dx;\n\tfloat yd = y + dy;\n\tfloat u = xd / uSize.x;\n\tfloat v = yd / uSize.y;\n\tfloat ul = (xd - 1.0) / uSize.x;\n\tfloat vt = (yd - 1.0) / uSize.y;\n\n\tfloat m = texture2D(uSampler, vec2(u , v )).a;\n\tfloat l = texture2D(uSampler, vec2(ul, v )).a;\n\tfloat t = texture2D(uSampler, vec2(u , vt)).a;\n\n\tfloat xl = mix( xd - 1.0, xd, (0.5 - l) / (m - l) );\n\tfloat yt = mix( yd - 1.0, yd, (0.5 - t) / (m - t) );\n\n\tbool bl = ( min(l, m) < 0.5 && 0.5 <= max(l, m) );\n\tbool bt = ( min(t, m) < 0.5 && 0.5 <= max(t, m) );\n\n\tfloat ll = (bl ? length( vec2( xl - x, yd - y ) ) : 100.0);\n\tfloat lt = (bt ? length( vec2( xd - x, yt - y ) ) : 100.0);\n\n\treturn min( ll, lt );\n}\n\nfloat calcDistancesY( float x, float y, float dx ) {\n\tfloat d = 100.0;\n\tfor( float dy=-6.0; dy<6.5; dy++ ) {\n\t\td = min( d, calcDistance( x, y, dx, dy ) );\n\t}\n\treturn d;\n}\n\nfloat calcDistances( float x, float y ) {\n\tfloat d = 100.0;\n\tfor( float dx=-6.0; dx<6.5; dx++ ) {\n\t\td = min( d, calcDistancesY( x, y, dx ) );\n\t}\n\treturn d;\n}\n\nvoid main(void) {\n\tfloat t = texture2D(uSampler, vTextureCoord).a;\n\tfloat x = vTextureCoord.x * uSize.x;\n\tfloat y = vTextureCoord.y * uSize.y;\n\tfloat d = min( 6.0, calcDistances( x, y ) ) / 12.0;\n\td = clamp( mix( 0.5 - d, 0.5 + d, step( 0.5, t ) ), 0.0, 1.0 );\n\tgl_FragColor = vec4(1.0, 1.0, 1.0, d);\n}\n";
-    var DynamicSDFFontGenerator = /** @class */ (function () {
-        function DynamicSDFFontGenerator() {
-            var _this = this;
-            this._gl = null;
-            this._texture = null;
-            this._shaderProgram = null;
-            this._vertexPositionAttribute = NaN;
-            this._textureCoordAttribute = NaN;
-            this._samplerUniform = NaN;
-            this._sizeUniform = NaN;
-            this._vb = null;
-            this._uvb = null;
-            var canvas = this._canvas = document.createElement("canvas");
-            canvas.width = 64;
-            canvas.height = 64;
-            this._onLostBound = function (e) {
-                e.preventDefault();
-            };
-            this._onRestoreBound = function () {
-                _this.restore();
-            };
-            this._onUnloadBound = function () {
-                _this.destroy();
-            };
-            canvas.addEventListener("webglcontextlost", this._onLostBound, false);
-            canvas.addEventListener("webglcontextrestored", this._onRestoreBound, false);
-            window.addEventListener("unload", this._onUnloadBound, false);
-        }
-        DynamicSDFFontGenerator.prototype.init = function () {
-            var canvas = this._canvas;
-            if (canvas != null && (this._gl == null || this._gl.isContextLost())) {
-                var config = {
-                    alpha: true,
-                    antialias: false,
-                    depth: false,
-                    stencil: false,
-                    premultipliedAlpha: false
-                };
-                var gl = this._gl = (canvas.getContext("webgl", config) ||
-                    canvas.getContext("experimental-webgl", config));
-                if (gl != null) {
-                    gl.clearColor(1.0, 1.0, 1.0, 0.0);
-                    this.makeVertexBuffer();
-                    this.makeUvBuffer();
-                    this.makeShaders();
-                    this._texture = null;
-                }
-            }
-            return this;
-        };
-        DynamicSDFFontGenerator.prototype.restore = function () {
-            this.init();
-        };
-        DynamicSDFFontGenerator.prototype.getCanvas = function () {
-            return this._canvas;
-        };
-        DynamicSDFFontGenerator.prototype.getShader = function (gl, code, type) {
-            var shader = (type ?
-                gl.createShader(gl.FRAGMENT_SHADER) :
-                gl.createShader(gl.VERTEX_SHADER));
-            if (shader != null) {
-                gl.shaderSource(shader, code);
-                gl.compileShader(shader);
-                if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-                    // tslint:disable-next-line: no-console no-unused-expression
-                    console && console.error("Failed to compile the shader: " + gl.getShaderInfoLog(shader));
-                    return null;
-                }
-            }
-            return shader;
-        };
-        DynamicSDFFontGenerator.prototype.makeShaders = function () {
-            var gl = this._gl;
-            if (gl != null && gl.isContextLost() !== true) {
-                var vertexShader = this.getShader(gl, VERTEX_SHADER, false);
-                if (vertexShader != null) {
-                    var fragmentShader = this.getShader(gl, FRAGMENT_SHADER, true);
-                    if (fragmentShader != null) {
-                        var shaderProgram = this._shaderProgram = gl.createProgram();
-                        if (shaderProgram != null) {
-                            gl.attachShader(shaderProgram, vertexShader);
-                            gl.attachShader(shaderProgram, fragmentShader);
-                            gl.linkProgram(shaderProgram);
-                            if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-                                // tslint:disable-next-line: no-console no-unused-expression
-                                console && console.error("Failed to link the program: " + gl.getError());
-                                gl.deleteShader(vertexShader);
-                                gl.deleteShader(fragmentShader);
-                                return null;
-                            }
-                            else {
-                                gl.deleteShader(vertexShader);
-                                gl.deleteShader(fragmentShader);
-                                gl.useProgram(shaderProgram);
-                                this._vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition");
-                                this._textureCoordAttribute = gl.getAttribLocation(shaderProgram, "aTextureCoord");
-                                this._samplerUniform = gl.getUniformLocation(shaderProgram, "uSampler");
-                                this._sizeUniform = gl.getUniformLocation(shaderProgram, "uSize");
-                                gl.useProgram(null);
-                                return shaderProgram;
-                            }
-                        }
-                        else {
-                            gl.deleteShader(vertexShader);
-                            gl.deleteShader(fragmentShader);
-                        }
-                    }
-                    else {
-                        gl.deleteShader(vertexShader);
-                    }
-                }
-            }
-            return null;
-        };
-        DynamicSDFFontGenerator.prototype.destroyShaders = function () {
-            var gl = this._gl;
-            if (gl != null && gl.isContextLost() !== true) {
-                var shaderProgram = this._shaderProgram;
-                if (shaderProgram != null) {
-                    this._shaderProgram = null;
-                    gl.useProgram(null);
-                    gl.deleteProgram(shaderProgram);
-                }
-            }
-        };
-        DynamicSDFFontGenerator.prototype.updateTexture = function (source) {
-            var gl = this._gl;
-            var canvas = this._canvas;
-            if (gl != null && gl.isContextLost() !== true && canvas != null) {
-                var width = source.width;
-                var height = source.height;
-                if (canvas.width !== width || canvas.height !== height) {
-                    canvas.width = width;
-                    canvas.height = height;
-                    gl.viewport(0, 0, width, height);
-                }
-                var texture = this._texture;
-                if (texture == null) {
-                    texture = this._texture = gl.createTexture();
-                    gl.bindTexture(gl.TEXTURE_2D, texture);
-                    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source);
-                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-                    gl.bindTexture(gl.TEXTURE_2D, null);
-                }
-                else {
-                    gl.bindTexture(gl.TEXTURE_2D, texture);
-                    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source);
-                    gl.bindTexture(gl.TEXTURE_2D, null);
-                }
-                return texture;
-            }
-            return null;
-        };
-        DynamicSDFFontGenerator.prototype.destroyTexture = function () {
-            var gl = this._gl;
-            var texture = this._texture;
-            if (gl != null && gl.isContextLost() !== true && texture != null) {
-                this._texture = null;
-                gl.bindTexture(gl.TEXTURE_2D, null);
-                gl.deleteTexture(texture);
-            }
-        };
-        DynamicSDFFontGenerator.prototype.makeVertexBuffer = function () {
-            var gl = this._gl;
-            if (gl != null && gl.isContextLost() !== true) {
-                var vb = this._vb = gl.createBuffer();
-                gl.bindBuffer(gl.ARRAY_BUFFER, vb);
-                var vertices = [
-                    -1.0, +1.0,
-                    +1.0, +1.0,
-                    -1.0, -1.0,
-                    +1.0, -1.0
-                ];
-                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
-                return vb;
-            }
-            return null;
-        };
-        DynamicSDFFontGenerator.prototype.destroyVertexBuffer = function () {
-            var gl = this._gl;
-            var vb = this._vb;
-            if (gl != null && gl.isContextLost() !== true && vb != null) {
-                this._vb = null;
-                gl.bindBuffer(gl.ARRAY_BUFFER, null);
-                gl.deleteBuffer(vb);
-            }
-        };
-        DynamicSDFFontGenerator.prototype.makeUvBuffer = function () {
-            var gl = this._gl;
-            if (gl != null && gl.isContextLost() !== true) {
-                var uvb = this._uvb = gl.createBuffer();
-                gl.bindBuffer(gl.ARRAY_BUFFER, uvb);
-                var uvs = [
-                    0.0, 0.0,
-                    1.0, 0.0,
-                    0.0, 1.0,
-                    1.0, 1.0
-                ];
-                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(uvs), gl.STATIC_DRAW);
-                return uvb;
-            }
-            return null;
-        };
-        DynamicSDFFontGenerator.prototype.destroyUvBuffer = function () {
-            var gl = this._gl;
-            var uvb = this._uvb;
-            if (gl != null && gl.isContextLost() !== true && uvb != null) {
-                this._uvb = null;
-                gl.bindBuffer(gl.ARRAY_BUFFER, null);
-                gl.deleteBuffer(uvb);
-            }
-        };
-        DynamicSDFFontGenerator.prototype.render = function () {
-            var gl = this._gl;
-            var canvas = this._canvas;
-            var shaderProgram = this._shaderProgram;
-            var vb = this._vb;
-            var uvb = this._uvb;
-            var texture = this._texture;
-            if (gl != null && gl.isContextLost() !== true && canvas != null &&
-                shaderProgram != null && vb != null && uvb != null && texture != null) {
-                gl.clear(gl.COLOR_BUFFER_BIT);
-                gl.useProgram(shaderProgram);
-                gl.bindBuffer(gl.ARRAY_BUFFER, vb);
-                var vertexPositionAttribute = this._vertexPositionAttribute;
-                gl.enableVertexAttribArray(vertexPositionAttribute);
-                gl.vertexAttribPointer(vertexPositionAttribute, 2, gl.FLOAT, false, 0, 0);
-                gl.bindBuffer(gl.ARRAY_BUFFER, uvb);
-                var textureCoordAttribute = this._textureCoordAttribute;
-                gl.enableVertexAttribArray(textureCoordAttribute);
-                gl.vertexAttribPointer(textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
-                gl.activeTexture(gl.TEXTURE0);
-                gl.bindTexture(gl.TEXTURE_2D, texture);
-                gl.uniform1i(this._samplerUniform, 0);
-                gl.uniform2f(this._sizeUniform, canvas.width, canvas.height);
-                gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-                gl.bindTexture(gl.TEXTURE_2D, null);
-                gl.bindBuffer(gl.ARRAY_BUFFER, null);
-                gl.useProgram(null);
-            }
-        };
-        DynamicSDFFontGenerator.prototype.read = function (copyCanvas) {
-            var gl = this._gl;
-            var canvas = this._canvas;
-            if (gl != null && gl.isContextLost() !== true && canvas != null) {
-                var width = canvas.width;
-                var height = canvas.height;
-                copyCanvas.width = width;
-                copyCanvas.height = height;
-                var copyContext = copyCanvas.getContext("2d");
-                if (copyContext != null) {
-                    copyContext.drawImage(canvas, 0, 0);
-                }
-            }
-        };
-        DynamicSDFFontGenerator.prototype.destroy = function () {
-            this.destroyVertexBuffer();
-            this.destroyUvBuffer();
-            this.destroyShaders();
-            var canvas = this._canvas;
-            if (canvas != null) {
-                this._canvas = null;
-                canvas.removeEventListener("webglcontextlost", this._onLostBound, false);
-                canvas.removeEventListener("webglcontextrestored", this._onRestoreBound, false);
-                window.removeEventListener("unload", this._onUnloadBound, false);
-            }
-            var gl = this._gl;
-            if (gl != null) {
-                this._gl = null;
-                var WebGLLoseContext = gl.getExtension("WEBGL_lose_context");
-                if (WebGLLoseContext != null) {
-                    WebGLLoseContext.loseContext();
-                }
-            }
-        };
-        DynamicSDFFontGenerator.getInstance = function () {
-            if (DynamicSDFFontGenerator._INSTANCE == null) {
-                DynamicSDFFontGenerator._INSTANCE = new DynamicSDFFontGenerator();
-            }
-            return DynamicSDFFontGenerator._INSTANCE;
-        };
-        DynamicSDFFontGenerator._INSTANCE = null;
-        return DynamicSDFFontGenerator;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DynamicSDFFontAtlas = /** @class */ (function () {
-        function DynamicSDFFontAtlas(fontFamily) {
-            this._id = "font-atlas:" + fontFamily;
-            this._generator = DynamicSDFFontGenerator.getInstance().init();
-            this._canvas = document.createElement("canvas");
-            this._font = {
-                family: DynamicSDFFontAtlas.toFontFamily(fontFamily),
-                size: 32,
-                italic: false
-            };
-            this._characters = {};
-            this._length = 0;
-            this._width = 1;
-            this._height = 1;
-            this._isDirty = true;
-        }
-        Object.defineProperty(DynamicSDFFontAtlas.prototype, "id", {
-            get: function () {
-                return this._id;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DynamicSDFFontAtlas.prototype, "font", {
-            get: function () {
-                return this._font;
-            },
-            set: function (font) {
-                this._font.family = font.family;
-                this._font.size = font.size;
-                this._font.italic = font.italic;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DynamicSDFFontAtlas.prototype, "width", {
-            get: function () {
-                return this._width;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DynamicSDFFontAtlas.prototype, "height", {
-            get: function () {
-                return this._height;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DynamicSDFFontAtlas.prototype, "canvas", {
-            get: function () {
-                return this._canvas;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DynamicSDFFontAtlas.prototype, "generator", {
-            get: function () {
-                return this._generator;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DynamicSDFFontAtlas.prototype, "characters", {
-            get: function () {
-                return this._characters;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DynamicSDFFontAtlas.prototype.begin = function () {
-            this._length = 0;
-            var characters = this._characters;
-            for (var character in characters) {
-                characters[character].ref = 0;
-            }
-        };
-        DynamicSDFFontAtlas.prototype.end = function () {
-            var characters = this._characters;
-            for (var character in characters) {
-                var data = characters[character];
-                if (data.ref <= 0) {
-                    data.life -= 1;
-                    if (data.life <= 0) {
-                        delete characters[character];
-                        this._isDirty = true;
-                    }
-                }
-            }
-        };
-        DynamicSDFFontAtlas.prototype.addAscii = function () {
-            this.add(ASCII_CHARACTERS);
-            this.addChar("...");
-        };
-        DynamicSDFFontAtlas.prototype.addChar = function (character) {
-            var characters = this._characters;
-            if (character !== "\n") {
-                var data = characters[character];
-                if (data != null) {
-                    if (data.ref <= 0) {
-                        this._length += 1;
-                    }
-                    data.ref += 1;
-                }
-                else {
-                    characters[character] = new DynamicFontAtlasCharacter(0, 1, 1, false);
-                    this._length += 1;
-                    this._isDirty = true;
-                }
-            }
-        };
-        DynamicSDFFontAtlas.prototype.add = function (characters) {
-            var iterator = UtilCharacterIterator.from(characters);
-            while (iterator.hasNext()) {
-                this.addChar(iterator.next());
-            }
-        };
-        DynamicSDFFontAtlas.prototype.get = function (character) {
-            return this._characters[character];
-        };
-        DynamicSDFFontAtlas.prototype.update = function () {
-            if (this._isDirty) {
-                var canvas = this._canvas;
-                var generator = this._generator;
-                if (canvas != null && generator != null) {
-                    var context = canvas.getContext("2d");
-                    if (context != null) {
-                        this._isDirty = false;
-                        var font = this._font;
-                        var characters = this._characters;
-                        var characterSize = font.size + 14;
-                        var width = DynamicSDFFontAtlas.toPowerOf2(Math.ceil(Math.sqrt(this._length)) * characterSize);
-                        this._width = width;
-                        var fontStyle = (font.italic ? "italic " : "") + (font.size + "px ") + font.family;
-                        context.font = fontStyle;
-                        context.textAlign = "left";
-                        context.textBaseline = "middle";
-                        context.lineWidth = 0;
-                        context.lineCap = "round";
-                        context.lineJoin = "miter";
-                        context.miterLimit = 0;
-                        context.fillStyle = "#FFFFFF";
-                        var offsetX = 7;
-                        var offsetY = (characterSize >> 1);
-                        var x = 0;
-                        var y = 0;
-                        for (var character in characters) {
-                            var data = characters[character];
-                            var advance = context.measureText(character).width;
-                            var characterWidth = Math.ceil(offsetX + advance + offsetX);
-                            var characterHeight = characterSize;
-                            if (width <= x + characterWidth) {
-                                x = 0;
-                                y += characterSize;
-                            }
-                            data.x = x;
-                            data.y = y;
-                            data.width = characterWidth;
-                            data.height = characterHeight;
-                            data.advance = advance;
-                            data.origin.x = x + offsetX;
-                            data.origin.y = y + offsetY;
-                            x += characterWidth;
-                        }
-                        var height = this._height = y + characterSize;
-                        // Make a input canvas
-                        // Here, we need to reset the context because
-                        // context settings will be lost when we set the width/height.
-                        canvas.width = width;
-                        canvas.height = height;
-                        context.font = fontStyle;
-                        context.textAlign = "left";
-                        context.textBaseline = "middle";
-                        context.lineWidth = 0;
-                        context.lineCap = "round";
-                        context.lineJoin = "miter";
-                        context.miterLimit = 4;
-                        context.fillStyle = "#FFFFFF";
-                        context.clearRect(0, 0, width, height);
-                        for (var character in characters) {
-                            var data = characters[character];
-                            context.fillText(character, data.origin.x, data.origin.y);
-                        }
-                        // Convert to SDF font texture
-                        generator.updateTexture(canvas);
-                        generator.render();
-                        generator.read(canvas);
-                        return true;
-                    }
-                }
-            }
-            return false;
-        };
-        Object.defineProperty(DynamicSDFFontAtlas.prototype, "length", {
-            get: function () {
-                return this._length;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DynamicSDFFontAtlas.prototype.toJson = function () {
-            return {
-                width: this._width,
-                height: this._height,
-                font: this._font,
-                characters: this._characters
-            };
-        };
-        DynamicSDFFontAtlas.prototype.toString = function () {
-            return JSON.stringify(this.toJson());
-        };
-        DynamicSDFFontAtlas.prototype.destroy = function () {
-            var generator = this._generator;
-            if (generator != null) {
-                this._generator = null;
-            }
-            var canvas = this._canvas;
-            if (canvas != null) {
-                this._canvas = null;
-            }
-            var characters = this._characters;
-            for (var character in characters) {
-                delete characters[character];
-            }
-        };
-        DynamicSDFFontAtlas.toFontFamily = function (fontFamily) {
-            return (fontFamily === "auto" ?
-                DynamicSDFFontAtlas.getAutoFontFamily() :
-                fontFamily);
-        };
-        DynamicSDFFontAtlas.toPowerOf2 = function (size) {
-            var result = 32;
-            while (result < size) {
-                result <<= 1;
-            }
-            return result;
-        };
-        DynamicSDFFontAtlas.getAutoFontFamily = function () {
-            if (DynamicSDFFontAtlas.FONT_FAMILY_AUTO == null) {
-                DynamicSDFFontAtlas.FONT_FAMILY_AUTO = DThemes.getInstance().get("DBase").getFontFamilly();
-            }
-            return DynamicSDFFontAtlas.FONT_FAMILY_AUTO;
-        };
-        DynamicSDFFontAtlas.FONT_FAMILY_AUTO = null;
-        return DynamicSDFFontAtlas;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeActionRuntimeMiscInputDataBase = /** @class */ (function () {
-        function EShapeActionRuntimeMiscInputDataBase() {
-            var _this = this;
-            this.input = null;
-            this.shape = null;
-            this.value = "";
-            this.point = new pixi_js.Point();
-            this.rect = new pixi_js.Rectangle();
-            this._onInputKeyDownBound = function (e) {
-                _this.onInputKeyDown(e);
-            };
-            this._onInputBlurBound = function (e) {
-                _this.onInputBlur(e);
-            };
-            this._updateInputBound = function () {
-                _this.updateInput();
-            };
-            this._onInputChangeBound = function () {
-                _this.onInputChange();
-            };
-            this._onInputInputBound = function (e) {
-                _this.onInputInput(e);
-            };
-            this._updateInputBoundRenderer = null;
-        }
-        EShapeActionRuntimeMiscInputDataBase.prototype.getInput = function (layer) {
-            if (this.input == null) {
-                layer.application.getRootElement().appendChild(this.input = this.createInput());
-            }
-            return this.input;
-        };
-        EShapeActionRuntimeMiscInputDataBase.prototype.createInput = function () {
-            var result = document.createElement("input");
-            result.setAttribute("spellcheck", "false");
-            return result;
-        };
-        EShapeActionRuntimeMiscInputDataBase.prototype.initInput = function (shape, input, value) {
-            input.type = this.getInputType();
-            input.value = value;
-            input.addEventListener("keydown", this._onInputKeyDownBound);
-            input.addEventListener("blur", this._onInputBlurBound);
-            input.addEventListener("change", this._onInputChangeBound);
-            input.addEventListener("input", this._onInputInputBound);
-            // Style
-            input.setAttribute("style", this.getInputStyle(shape));
-            // ReadOnly
-            if (shape.state.inReadOnly) {
-                input.setAttribute("readonly", "readonly");
-            }
-            else {
-                input.removeAttribute("readonly");
-            }
-            // Disabled
-            if (shape.state.inDisabled) {
-                input.setAttribute("disabled", "disabled");
-            }
-            else {
-                input.removeAttribute("disabled");
-            }
-        };
-        EShapeActionRuntimeMiscInputDataBase.prototype.getInputStyleBackground = function () {
-            return "background-color: transparent;";
-        };
-        EShapeActionRuntimeMiscInputDataBase.prototype.getInputStyleBorder = function () {
-            return "border: none; box-sizing: border-box;";
-        };
-        EShapeActionRuntimeMiscInputDataBase.prototype.getInputStylePadding = function (shape, scale) {
-            var padding = shape.text.padding;
-            var paddingVertical = 0;
-            var paddingHorizontal = padding.horizontal * scale;
-            return "padding: " + paddingVertical + "px " + paddingHorizontal + "px " + paddingVertical + "px " + paddingHorizontal + "px;";
-        };
-        EShapeActionRuntimeMiscInputDataBase.prototype.getInputStyleOutline = function () {
-            return "outline: none;";
-        };
-        EShapeActionRuntimeMiscInputDataBase.prototype.getInputStylePosition = function (rect, matrix) {
-            return "position: absolute;" +
-                ("left: " + rect.x + "px;") +
-                ("top: " + rect.y + "px;") +
-                ("width: " + rect.width + "px;") +
-                ("height: " + rect.height + "px;") +
-                ("line-height: " + rect.height + "px;") +
-                ("transform: matrix(" + matrix.a + "," + matrix.b + "," + matrix.c + "," + matrix.d + "," + matrix.tx + "," + matrix.ty + ");");
-        };
-        EShapeActionRuntimeMiscInputDataBase.prototype.getInputStyleText = function (shape, rect, scale) {
-            var text = shape.text;
-            return "font-family: " + DynamicSDFFontAtlas.toFontFamily(text.family) + ";" +
-                ("font-size: " + text.size * scale + "px;") +
-                ("font-weight: " + (text.weight === EShapeTextWeight.NORMAL ? "normal" : "bold") + ";") +
-                ("color: #" + text.color.toString(16) + ";");
-        };
-        EShapeActionRuntimeMiscInputDataBase.prototype.getInputStyleMargin = function (shape, rect, scale) {
-            return "margin: 0;";
-        };
-        EShapeActionRuntimeMiscInputDataBase.prototype.getInputStyle = function (shape) {
-            var pivot = shape.transform.pivot;
-            var size = shape.size;
-            var sizeX = size.x;
-            var sizeY = size.y;
-            var rect = this.rect;
-            rect.x = -0.5 * sizeX + pivot.x;
-            rect.y = -0.5 * sizeY + pivot.y;
-            rect.width = sizeX;
-            rect.height = sizeY;
-            shape.updateTransform();
-            var scale = 1.0;
-            var worldTransform = shape.transform.worldTransform;
-            return this.getInputStylePosition(rect, worldTransform) +
-                this.getInputStyleMargin(shape, rect, scale) +
-                this.getInputStyleText(shape, rect, scale) +
-                this.getInputStyleBackground() +
-                this.getInputStyleBorder() +
-                this.getInputStylePadding(shape, scale) +
-                this.getInputStyleOutline();
-        };
-        EShapeActionRuntimeMiscInputDataBase.prototype.onInputKeyDown = function (e) {
-            if (UtilKeyboardEvent.isFocusKey(e)) {
-                var shape = this.shape;
-                if (shape != null) {
-                    this.onInputChange();
-                    this.hide();
-                    var layer = DApplications.getLayer(shape);
-                    if (layer) {
-                        var focusController = layer.getFocusController();
-                        var direction = UtilKeyboardEvent.getFocusDirection(e);
-                        var focusable = focusController.find(shape, false, false, direction);
-                        if (focusable != null) {
-                            layer.view.focus();
-                            e.preventDefault();
-                            focusController.focus(focusable);
-                        }
-                    }
-                }
-            }
-            else if (UtilKeyboardEvent.isOkKey(e)) {
-                this.onInputChange();
-                this.hide();
-            }
-        };
-        EShapeActionRuntimeMiscInputDataBase.prototype.onInputBlur = function (e) {
-            this.onInputChange();
-            this.hide();
-        };
-        EShapeActionRuntimeMiscInputDataBase.prototype.onInputInput = function (e) {
-            if (e.target instanceof HTMLInputElement) {
-                var shape = this.shape;
-                var onInput = this.onInput;
-                if (shape != null && onInput != null) {
-                    onInput(shape, e.target.value);
-                }
-            }
-        };
-        EShapeActionRuntimeMiscInputDataBase.prototype.updateInput = function () {
-            var shape = this.shape;
-            if (shape != null) {
-                if (shape.visible) {
-                    var input = this.input;
-                    if (input != null) {
-                        input.setAttribute("style", this.getInputStyle(shape));
-                    }
-                }
-                else {
-                    this.hide();
-                }
-            }
-        };
-        EShapeActionRuntimeMiscInputDataBase.prototype.isShown = function (shape) {
-            return (this.shape === shape);
-        };
-        EShapeActionRuntimeMiscInputDataBase.prototype.show = function (newShape, value, onChange, onInput) {
-            var oldShape = this.shape;
-            if (oldShape != null && oldShape !== newShape) {
-                this.hide();
-            }
-            if (this.shape == null) {
-                this.shape = newShape;
-                this.value = value;
-                this.onChange = onChange;
-                this.onInput = onInput;
-                var text = newShape.text;
-                if (text != null) {
-                    text.enable = false;
-                }
-                var layer = DApplications.getLayer(newShape);
-                if (layer) {
-                    var input = this.getInput(layer);
-                    if (input) {
-                        this.initInput(newShape, input, value);
-                        var updateInputBound = this._updateInputBound;
-                        var renderer = this._updateInputBoundRenderer;
-                        if (renderer != null) {
-                            renderer.off("postrender", updateInputBound);
-                        }
-                        this._updateInputBoundRenderer = layer.renderer;
-                        layer.renderer.on("postrender", updateInputBound);
-                        input.style.display = "";
-                        input.focus();
-                        input.select();
-                    }
-                    layer.update();
-                }
-            }
-        };
-        EShapeActionRuntimeMiscInputDataBase.prototype.hide = function () {
-            var shape = this.shape;
-            if (shape != null) {
-                this.shape = null;
-                this.value = "";
-                var text = shape.text;
-                if (text != null) {
-                    text.enable = true;
-                }
-                var input = this.input;
-                if (input != null) {
-                    input.removeEventListener("keydown", this._onInputKeyDownBound);
-                    input.removeEventListener("blur", this._onInputBlurBound);
-                    input.removeEventListener("change", this._onInputChangeBound);
-                    input.removeEventListener("input", this._onInputInputBound);
-                    input.style.display = "none";
-                }
-                var renderer = this._updateInputBoundRenderer;
-                if (renderer != null) {
-                    this._updateInputBoundRenderer = null;
-                    renderer.off("postrender", this._updateInputBound);
-                }
-                DApplications.update(shape);
-            }
-        };
-        EShapeActionRuntimeMiscInputDataBase.prototype.onInputChange = function () {
-            var shape = this.shape;
-            var input = this.input;
-            var onChange = this.onChange;
-            if (shape != null && input != null && onChange != null) {
-                var newValue = input.value;
-                if (this.value !== newValue) {
-                    onChange(shape, newValue);
-                }
-            }
-        };
-        return EShapeActionRuntimeMiscInputDataBase;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeActionRuntimeMiscInputDataInteger = /** @class */ (function (_super) {
-        __extends(EShapeActionRuntimeMiscInputDataInteger, _super);
-        function EShapeActionRuntimeMiscInputDataInteger() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        EShapeActionRuntimeMiscInputDataInteger.prototype.getInputType = function () {
-            return "number";
-        };
-        EShapeActionRuntimeMiscInputDataInteger.prototype.initInput = function (shape, input, value) {
-            _super.prototype.initInput.call(this, shape, input, value);
-            input.step = "1";
-        };
-        return EShapeActionRuntimeMiscInputDataInteger;
-    }(EShapeActionRuntimeMiscInputDataBase));
+    }(EShapeActionRuntimeMiscHtmlElement));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -14550,50 +14780,11 @@
         function EShapeActionRuntimeMiscInputInteger() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        EShapeActionRuntimeMiscInputInteger.prototype.getData = function () {
-            if (EShapeActionRuntimeMiscInputInteger.DATA == null) {
-                EShapeActionRuntimeMiscInputInteger.DATA = new EShapeActionRuntimeMiscInputDataInteger();
-            }
-            return EShapeActionRuntimeMiscInputInteger.DATA;
-        };
-        EShapeActionRuntimeMiscInputInteger.prototype.fromValue = function (value) {
-            try {
-                var result = parseInt(value, 10);
-                if (result === result) {
-                    return result;
-                }
-                else {
-                    return 0;
-                }
-            }
-            catch (e) {
-                return 0;
-            }
-        };
-        EShapeActionRuntimeMiscInputInteger.prototype.toValue = function (value) {
-            return String(this.fromValue(value));
+        EShapeActionRuntimeMiscInputInteger.prototype.newUtil = function (shape, runtime) {
+            return new UtilInputNumber(shape, this.newOperation(shape, runtime), DThemes.getInstance().get("DInputInteger"), this.newUtilOptions(shape, runtime));
         };
         return EShapeActionRuntimeMiscInputInteger;
     }(EShapeActionRuntimeMiscInput));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeActionRuntimeMiscInputDataReal = /** @class */ (function (_super) {
-        __extends(EShapeActionRuntimeMiscInputDataReal, _super);
-        function EShapeActionRuntimeMiscInputDataReal() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        EShapeActionRuntimeMiscInputDataReal.prototype.getInputType = function () {
-            return "number";
-        };
-        EShapeActionRuntimeMiscInputDataReal.prototype.initInput = function (shape, input, value) {
-            _super.prototype.initInput.call(this, shape, input, value);
-            input.step = "0.1";
-        };
-        return EShapeActionRuntimeMiscInputDataReal;
-    }(EShapeActionRuntimeMiscInputDataBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -14604,46 +14795,26 @@
         function EShapeActionRuntimeMiscInputReal() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        EShapeActionRuntimeMiscInputReal.prototype.getData = function () {
-            if (EShapeActionRuntimeMiscInputReal.DATA == null) {
-                EShapeActionRuntimeMiscInputReal.DATA = new EShapeActionRuntimeMiscInputDataReal();
-            }
-            return EShapeActionRuntimeMiscInputReal.DATA;
-        };
-        EShapeActionRuntimeMiscInputReal.prototype.fromValue = function (value) {
-            try {
-                var result = parseFloat(value);
-                if (result === result) {
-                    return result;
-                }
-                else {
-                    return 0;
-                }
-            }
-            catch (e) {
-                return 0;
-            }
-        };
-        EShapeActionRuntimeMiscInputReal.prototype.toValue = function (value) {
-            return String(this.fromValue(value));
+        EShapeActionRuntimeMiscInputReal.prototype.newUtil = function (shape, runtime) {
+            return new UtilInputNumber(shape, this.newOperation(shape, runtime), DThemes.getInstance().get("DInputReal"), this.newUtilOptions(shape, runtime));
         };
         return EShapeActionRuntimeMiscInputReal;
     }(EShapeActionRuntimeMiscInput));
 
     /*
-     * Copyright (C) 2019 Toshiba Corporation
+     * Copyright (C) 2021 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeActionRuntimeMiscInputDataText = /** @class */ (function (_super) {
-        __extends(EShapeActionRuntimeMiscInputDataText, _super);
-        function EShapeActionRuntimeMiscInputDataText() {
+    var UtilInputText = /** @class */ (function (_super) {
+        __extends(UtilInputText, _super);
+        function UtilInputText() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        EShapeActionRuntimeMiscInputDataText.prototype.getInputType = function () {
+        UtilInputText.prototype.getInputType = function () {
             return "text";
         };
-        return EShapeActionRuntimeMiscInputDataText;
-    }(EShapeActionRuntimeMiscInputDataBase));
+        return UtilInputText;
+    }(UtilInput));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -14654,17 +14825,8 @@
         function EShapeActionRuntimeMiscInputText() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        EShapeActionRuntimeMiscInputText.prototype.getData = function () {
-            if (EShapeActionRuntimeMiscInputText.DATA == null) {
-                EShapeActionRuntimeMiscInputText.DATA = new EShapeActionRuntimeMiscInputDataText();
-            }
-            return EShapeActionRuntimeMiscInputText.DATA;
-        };
-        EShapeActionRuntimeMiscInputText.prototype.fromValue = function (value) {
-            return value;
-        };
-        EShapeActionRuntimeMiscInputText.prototype.toValue = function (value) {
-            return value;
+        EShapeActionRuntimeMiscInputText.prototype.newUtil = function (shape, runtime) {
+            return new UtilInputText(shape, this.newOperation(shape, runtime), DThemes.getInstance().get("DInputText"), this.newUtilOptions(shape, runtime));
         };
         return EShapeActionRuntimeMiscInputText;
     }(EShapeActionRuntimeMiscInput));
@@ -14742,31 +14904,16 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeActionValueMiscType;
-    (function (EShapeActionValueMiscType) {
-        EShapeActionValueMiscType[EShapeActionValueMiscType["INPUT_TEXT"] = 0] = "INPUT_TEXT";
-        EShapeActionValueMiscType[EShapeActionValueMiscType["INPUT_INTEGER"] = 1] = "INPUT_INTEGER";
-        EShapeActionValueMiscType[EShapeActionValueMiscType["INPUT_REAL"] = 2] = "INPUT_REAL";
-        EShapeActionValueMiscType[EShapeActionValueMiscType["EMIT_EVENT"] = 3] = "EMIT_EVENT";
-        EShapeActionValueMiscType[EShapeActionValueMiscType["WRITE_BOTH"] = 4] = "WRITE_BOTH";
-        EShapeActionValueMiscType[EShapeActionValueMiscType["WRITE_LOCAL"] = 5] = "WRITE_LOCAL";
-        EShapeActionValueMiscType[EShapeActionValueMiscType["WRITE_REMOTE"] = 6] = "WRITE_REMOTE";
-    })(EShapeActionValueMiscType || (EShapeActionValueMiscType = {}));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var EShapeActionValueMisc = /** @class */ (function (_super) {
         __extends(EShapeActionValueMisc, _super);
-        function EShapeActionValueMisc(subtype, condition, target, onInputType, value) {
+        function EShapeActionValueMisc(subtype, condition, target, onInputAction, value) {
             var _this = _super.call(this, EShapeActionValueType.MISC, condition, subtype) || this;
             _this.target = target;
-            _this.onInputAction = onInputType;
+            _this.onInputAction = onInputAction;
             _this.value = value;
             return _this;
         }
-        EShapeActionValueMisc.prototype.toRuntime = function (shape) {
+        EShapeActionValueMisc.prototype.toRuntime = function () {
             switch (this.subtype) {
                 case EShapeActionValueMiscType.INPUT_TEXT:
                     return new EShapeActionRuntimeMiscInputText(this);
@@ -14782,6 +14929,9 @@
                     return new EShapeActionRuntimeMiscWriteLocal(this);
                 case EShapeActionValueMiscType.WRITE_REMOTE:
                     return new EShapeActionRuntimeMiscWriteRemote(this);
+                case EShapeActionValueMiscType.HTML_ELEMENT:
+                case EShapeActionValueMiscType.HTML_ELEMENT_WITHOUT_POINTER_EVENTS:
+                    return new EShapeActionRuntimeMiscHtmlElement(this);
             }
         };
         EShapeActionValueMisc.prototype.serialize = function (manager) {
@@ -14791,9 +14941,10 @@
             return manager.addResource("[" + this.type + "," + conditionId + "," + this.subtype + "," + targetId + "," + this.onInputAction + "," + valueId + "]");
         };
         EShapeActionValueMisc.deserialize = function (serialized, manager) {
-            var condition = EShapeActionValues.toResource(1, serialized, manager.resources);
-            var target = EShapeActionValues.toResource(3, serialized, manager.resources);
-            var value = EShapeActionValues.toResource(5, serialized, manager.resources);
+            var resources = manager.resources;
+            var condition = EShapeActionValues.toResource(1, serialized, resources);
+            var target = EShapeActionValues.toResource(3, serialized, resources);
+            var value = EShapeActionValues.toResource(5, serialized, resources);
             return new EShapeActionValueMisc(serialized[2], condition, target, serialized[4], value);
         };
         return EShapeActionValueMisc;
@@ -18640,477 +18791,114 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    /**
-     * {@link DHtmlElement} option when to show a HTML element
-     */
-    var DHtmlElementWhen;
-    (function (DHtmlElementWhen) {
-        /**
-         * Shows a HTML element when clicked.
-         */
-        DHtmlElementWhen[DHtmlElementWhen["CLICKED"] = 0] = "CLICKED";
-        /**
-         * Shows a HTML element when double clicked.
-         */
-        DHtmlElementWhen[DHtmlElementWhen["DOUBLE_CLICKED"] = 1] = "DOUBLE_CLICKED";
-        /**
-         * Shows a HTML element when focused.
-         * And also shows when clicked if focused.
-         */
-        DHtmlElementWhen[DHtmlElementWhen["FOCUSED"] = 2] = "FOCUSED";
-        /**
-         * Always shows a HTML element.
-         */
-        DHtmlElementWhen[DHtmlElementWhen["ALWAYS"] = 3] = "ALWAYS";
-    })(DHtmlElementWhen || (DHtmlElementWhen = {}));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var DHtmlElement = /** @class */ (function (_super) {
         __extends(DHtmlElement, _super);
         function DHtmlElement() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DHtmlElement.prototype.init = function (options) {
+        DHtmlElement.prototype.getUtil = function () {
+            var result = this._util;
+            if (result == null) {
+                result = this.newUtil();
+                this._util = result;
+            }
+            return result;
+        };
+        DHtmlElement.prototype.newUtil = function () {
+            return new UtilHtmlElement(this, this.newOperation(), this.theme, this._options);
+        };
+        DHtmlElement.prototype.newOperation = function () {
             var _this = this;
-            var _a, _b, _c, _d, _e, _f;
-            _super.prototype.init.call(this, options);
-            this._workPoint = null;
-            var theme = this.theme;
-            var clipper = options === null || options === void 0 ? void 0 : options.clipper;
-            var clipperCreator = (_a = clipper === null || clipper === void 0 ? void 0 : clipper.creator) !== null && _a !== void 0 ? _a : theme.getClipperCreator();
-            this._clipper = null;
-            this._clipperCreator = clipperCreator;
-            this._clipperRect = null;
-            var element = options === null || options === void 0 ? void 0 : options.element;
-            var elementCreator = (_b = element === null || element === void 0 ? void 0 : element.creator) !== null && _b !== void 0 ? _b : theme.getElementCreator();
-            this._element = null;
-            this._elementCreator = elementCreator;
-            this._elementStyle = element === null || element === void 0 ? void 0 : element.style;
-            this._elementRect = null;
-            this._isElementShown = false;
-            this._onElementFocusBound = function (e) {
-                _this.onElementFocus(e);
+            return {
+                getElementRect: function (resolution, work, result) {
+                    return _this.getElementRect(resolution, work, result);
+                },
+                getElementMatrix: function () {
+                    return null;
+                },
+                getClipperRect: function (resolution, work, result) {
+                    return _this.getClipperRect(resolution, work, result);
+                },
+                getPadding: function () {
+                    return _this.padding;
+                },
+                containsPoint: function (point) {
+                    return _this.containsPoint(point);
+                },
+                onStart: function () {
+                    // DO NOTHING
+                },
+                onCancel: function () {
+                    // DO NOTHING
+                },
+                onEnd: function () {
+                    // DO NOTHING
+                }
             };
-            var before = options === null || options === void 0 ? void 0 : options.before;
-            this._before = null;
-            this._beforeCreator = (_c = before === null || before === void 0 ? void 0 : before.creator) !== null && _c !== void 0 ? _c : theme.getBeforeCreator();
-            this._beforeStyle = before === null || before === void 0 ? void 0 : before.style;
-            this._onBeforeFocusBound = function (e) {
-                _this.onBeforeFocus(e);
-            };
-            var after = options === null || options === void 0 ? void 0 : options.after;
-            this._after = null;
-            this._afterCreator = (_d = after === null || after === void 0 ? void 0 : after.creator) !== null && _d !== void 0 ? _d : theme.getAfterCreator();
-            this._afterStyle = after === null || after === void 0 ? void 0 : after.style;
-            this._onAfterFocusBound = function (e) {
-                _this.onAfterFocus(e);
-            };
-            this._isStarted = false;
-            this._select = (_e = options === null || options === void 0 ? void 0 : options.select) !== null && _e !== void 0 ? _e : theme.getSelect();
-            this._doSelectBound = function () {
-                _this.doSelect();
-            };
-            var when = toEnum((_f = options === null || options === void 0 ? void 0 : options.when) !== null && _f !== void 0 ? _f : theme.getWhen(), DHtmlElementWhen);
-            this._when = when;
-            this._isStartRequested = (when === DHtmlElementWhen.ALWAYS);
         };
         Object.defineProperty(DHtmlElement.prototype, "element", {
             get: function () {
-                return this._element;
+                return this.getUtil().element;
             },
             enumerable: false,
             configurable: true
         });
         DHtmlElement.prototype.onDownThis = function (e) {
-            var wasStarted = this._isStarted;
-            switch (this._when) {
-                case DHtmlElementWhen.CLICKED:
-                    this.start();
-                    break;
-                case DHtmlElementWhen.FOCUSED:
-                    if (this.state.isFocused) {
-                        this.start();
-                    }
-                    break;
-            }
+            var util = this.getUtil();
+            util.onDownThisBefore(e);
             _super.prototype.onDownThis.call(this, e);
-            if (!wasStarted && this._isStarted) {
-                e.data.originalEvent.preventDefault();
-            }
+            util.onDownThisAfter(e);
         };
         DHtmlElement.prototype.onDblClick = function (e, interactionManager) {
-            switch (this._when) {
-                case DHtmlElementWhen.DOUBLE_CLICKED:
-                    this.start();
-                    break;
-            }
+            this.getUtil().onDblClick(e, interactionManager);
             return _super.prototype.onDblClick.call(this, e, interactionManager);
         };
         DHtmlElement.prototype.onFocus = function () {
-            var _a;
             _super.prototype.onFocus.call(this);
-            switch (this._when) {
-                case DHtmlElementWhen.FOCUSED:
-                    this.start();
-                    break;
-                default:
-                    (_a = this._element) === null || _a === void 0 ? void 0 : _a.focus();
-                    break;
-            }
+            this.getUtil().onFocus();
         };
         DHtmlElement.prototype.onBlur = function () {
-            var _a;
             _super.prototype.onBlur.call(this);
-            switch (this._when) {
-                case DHtmlElementWhen.CLICKED:
-                case DHtmlElementWhen.DOUBLE_CLICKED:
-                case DHtmlElementWhen.FOCUSED:
-                    this.onEndByBlur();
-                    this.cancel();
-                    break;
-                default:
-                    (_a = this._element) === null || _a === void 0 ? void 0 : _a.blur();
-                    break;
-            }
-        };
-        DHtmlElement.prototype.isStartable = function () {
-            switch (this._when) {
-                case DHtmlElementWhen.CLICKED:
-                case DHtmlElementWhen.DOUBLE_CLICKED:
-                case DHtmlElementWhen.FOCUSED:
-                    return this.state.isActionable;
-                default:
-                    return true;
-            }
+            this.getUtil().onBlur();
         };
         DHtmlElement.prototype.start = function () {
-            if (!this._isStarted && this.isStartable()) {
-                this._isStarted = true;
-                this.doStart();
-                DApplications.update(this);
-            }
+            this.getUtil().start();
         };
         DHtmlElement.prototype.render = function (renderer) {
-            if (this._isStartRequested) {
-                this._isStartRequested = false;
-                this.doStart();
-            }
-            if (this._isStarted) {
-                this._isStarted = false;
-            }
+            this.getUtil().onRender(renderer);
             _super.prototype.render.call(this, renderer);
-            if (this._isElementShown) {
-                this.updateElement(renderer);
-            }
-        };
-        DHtmlElement.prototype.doStart = function (renderer) {
-            if (!this._isElementShown) {
-                this._isElementShown = true;
-                this.onStart();
-                var clipper = this.getClipper();
-                if (clipper) {
-                    var before = this.getBefore(clipper);
-                    var element = this.getElement(clipper);
-                    var after = this.getAfter(clipper);
-                    if (element) {
-                        var resolution = (renderer == null ?
-                            DApplications.getResolution(this) :
-                            renderer.resolution);
-                        var elementRect = this.getElementRect(resolution);
-                        var clipperRect = this.getClipperRect(elementRect, resolution);
-                        var theme = this.theme;
-                        var state = this.state;
-                        var padding = this._padding;
-                        this.setClipperStyle(clipper, state, theme, padding, elementRect, clipperRect);
-                        this.setElementStyle(element, state, theme, padding, elementRect, clipperRect);
-                        if (before) {
-                            this.setBeforeStyle(before, theme);
-                        }
-                        if (after) {
-                            this.setAfterStyle(after, theme);
-                        }
-                        this.onElementAttached(element, before, after);
-                        // Show HTML elements
-                        clipper.style.display = "";
-                        if (this.state.isFocused) {
-                            element.focus();
-                        }
-                        clipper.scrollTop = 0;
-                        clipper.scrollLeft = 0;
-                        // Select the element if required.
-                        if (this._select) {
-                            setTimeout(this._doSelectBound, 0);
-                        }
-                    }
-                }
-            }
-        };
-        DHtmlElement.prototype.doSelect = function () {
-            var element = this._element;
-            if (element) {
-                if (element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement) {
-                    // The following does not work on mobile devices.
-                    // I think selecting texts on a tap is annoying.
-                    // Therefore, I leave this untouched.
-                    element.select();
-                }
-            }
-        };
-        /**
-         * Please note that this method does not update transforms.
-         *
-         * @param elementRect
-         * @param resolution
-         */
-        DHtmlElement.prototype.getClipperRect = function (elementRect, resolution) {
-            var point = this._workPoint = (this._workPoint || new pixi_js.Point(0, 0));
-            var rect = this._clipperRect = (this._clipperRect || new pixi_js.Rectangle());
-            var x0 = elementRect.x;
-            var y0 = elementRect.y;
-            var x1 = x0 + elementRect.width;
-            var y1 = y0 + elementRect.height;
-            var current = this.parent;
-            while (current instanceof DBase) {
-                current.getClippingRect(this, rect);
-                point.set(rect.x, rect.y);
-                current.toGlobal(point, point, false);
-                var x = ((point.x * resolution) | 0) / resolution;
-                var y = ((point.y * resolution) | 0) / resolution;
-                point.set(rect.x + rect.width, rect.y + rect.height);
-                current.toGlobal(point, point, true);
-                var w = point.x - x;
-                var h = point.y - y;
-                x0 = Math.min(Math.max(x0, x), x + w);
-                y0 = Math.min(Math.max(y0, y), y + h);
-                x1 = Math.min(Math.max(x1, x), x + w);
-                y1 = Math.min(Math.max(y1, y), y + h);
-                current = current.parent;
-            }
-            rect.x = x0;
-            rect.y = y0;
-            rect.width = x1 - x0;
-            rect.height = y1 - y0;
-            return rect;
         };
         /**
          * Please note that this method does not update transforms.
          *
          * @param resolution
          */
-        DHtmlElement.prototype.getElementRect = function (resolution) {
-            var point = this._workPoint = (this._workPoint || new pixi_js.Point(0, 0));
-            var rect = this._elementRect = (this._elementRect != null ? this._elementRect : new pixi_js.Rectangle());
+        DHtmlElement.prototype.getElementRect = function (resolution, point, result) {
             point.set(0, 0);
             this.toGlobal(point, point, false);
-            rect.x = point.x;
-            rect.y = point.y;
+            result.x = point.x;
+            result.y = point.y;
             point.set(this.width, this.height);
             this.toGlobal(point, point, true);
-            rect.width = point.x - rect.x;
-            rect.height = point.y - rect.y;
+            result.width = point.x - result.x;
+            result.height = point.y - result.y;
             // Rounds pixels as Pixi.js does
-            rect.x = ((rect.x * resolution) | 0) / resolution;
-            rect.y = ((rect.y * resolution) | 0) / resolution;
-            return rect;
+            result.x = ((result.x * resolution) | 0) / resolution;
+            result.y = ((result.y * resolution) | 0) / resolution;
+            return result;
+        };
+        DHtmlElement.prototype.getClipperRect = function (resolution, point, result) {
+            return UtilHtmlElement.getClipperRect(this.parent, this, resolution, point, result);
         };
         DHtmlElement.prototype.cancel = function () {
-            if (this._isElementShown) {
-                this._isElementShown = false;
-                this.onCancel();
-                var layer = DApplications.getLayer(this);
-                if (layer) {
-                    var view = layer.view;
-                    switch (this._when) {
-                        case DHtmlElementWhen.CLICKED:
-                        case DHtmlElementWhen.DOUBLE_CLICKED:
-                        case DHtmlElementWhen.FOCUSED:
-                            if (document.activeElement === this._element) {
-                                view.focus();
-                            }
-                            break;
-                    }
-                    var interactionManager = layer.renderer.plugins.interaction;
-                    if (this.containsPoint(interactionManager.mouse.global) && !this.state.isHovered) {
-                        this.state.isHovered = true;
-                        view.style.cursor = this.cursor;
-                    }
-                    layer.update();
-                }
-                var element = this._element;
-                if (element != null) {
-                    this.onElementDetached(element, this._before, this._after);
-                }
-                var clipper = this._clipper;
-                if (clipper != null) {
-                    clipper.style.display = "none";
-                }
-            }
-        };
-        DHtmlElement.prototype.onStart = function () {
-            // DO NOTHING
-        };
-        DHtmlElement.prototype.onCancel = function () {
-            // DO NOTHING
-        };
-        DHtmlElement.prototype.onElementAttached = function (element, before, after) {
-            before === null || before === void 0 ? void 0 : before.addEventListener("focus", this._onBeforeFocusBound);
-            after === null || after === void 0 ? void 0 : after.addEventListener("focus", this._onAfterFocusBound);
-            element.addEventListener("focus", this._onElementFocusBound, true);
-        };
-        DHtmlElement.prototype.onElementDetached = function (element, before, after) {
-            before === null || before === void 0 ? void 0 : before.removeEventListener("focus", this._onBeforeFocusBound);
-            after === null || after === void 0 ? void 0 : after.removeEventListener("focus", this._onAfterFocusBound);
-            element.removeEventListener("focus", this._onElementFocusBound, true);
-        };
-        DHtmlElement.prototype.getElement = function (clipper) {
-            var result = this._element;
-            if (result == null) {
-                var creator = this._elementCreator;
-                if (creator) {
-                    result = creator(clipper);
-                    this._element = result;
-                }
-            }
-            return result;
-        };
-        DHtmlElement.prototype.getClipper = function () {
-            var result = this._clipper;
-            if (result == null) {
-                var creator = this._clipperCreator;
-                var layer = DApplications.getLayer(this);
-                if (creator && layer) {
-                    result = creator(layer.getElementContainer());
-                    this._clipper = result;
-                }
-            }
-            return result;
-        };
-        DHtmlElement.prototype.getBefore = function (clipper) {
-            var result = this._before;
-            if (result == null) {
-                var creator = this._beforeCreator;
-                if (creator) {
-                    result = creator(clipper);
-                    this._before = result;
-                }
-            }
-            return result;
-        };
-        DHtmlElement.prototype.getAfter = function (clipper) {
-            var result = this._after;
-            if (result == null) {
-                var creator = this._afterCreator;
-                if (creator) {
-                    result = creator(clipper);
-                    this._after = result;
-                }
-            }
-            return result;
-        };
-        DHtmlElement.prototype.setElementStyle = function (target, state, theme, padding, elementRect, clipperRect) {
-            var style = this._elementStyle;
-            if (style) {
-                return style(target, state, theme, padding, elementRect, clipperRect);
-            }
-            else {
-                return this.theme.setElementStyle(target, state, padding, elementRect, clipperRect);
-            }
-        };
-        DHtmlElement.prototype.setClipperStyle = function (target, state, theme, padding, elementRect, clipperRect) {
-            var style = this._clipperStyle;
-            if (style) {
-                return style(target, state, theme, padding, elementRect, clipperRect);
-            }
-            else {
-                return this.theme.setClipperStyle(target, state, padding, elementRect, clipperRect);
-            }
-        };
-        DHtmlElement.prototype.setBeforeStyle = function (target, theme) {
-            var style = this._beforeStyle;
-            if (style) {
-                return style(target, theme);
-            }
-            else {
-                return this.theme.setBeforeStyle(target);
-            }
-        };
-        DHtmlElement.prototype.setAfterStyle = function (target, theme) {
-            var style = this._afterStyle;
-            if (style) {
-                return style(target, theme);
-            }
-            else {
-                return this.theme.setAfterStyle(target);
-            }
-        };
-        DHtmlElement.prototype.onBeforeFocus = function (e) {
-            var layer = DApplications.getLayer(this);
-            if (layer) {
-                var focusController = layer.getFocusController();
-                var focusable = focusController.find(this, false, false, false);
-                layer.view.focus();
-                focusController.focus(focusable);
-                e.preventDefault();
-                e.stopImmediatePropagation();
-            }
-        };
-        DHtmlElement.prototype.onAfterFocus = function (e) {
-            var layer = DApplications.getLayer(this);
-            if (layer) {
-                var focusController = layer.getFocusController();
-                var focusable = focusController.find(this, false, false, true);
-                layer.view.focus();
-                focusController.focus(focusable);
-                e.preventDefault();
-                e.stopImmediatePropagation();
-            }
-        };
-        DHtmlElement.prototype.onElementFocus = function (e) {
-            if (this._when === DHtmlElementWhen.ALWAYS) {
-                if (!this.state.isFocused) {
-                    this.focus();
-                }
-            }
-        };
-        DHtmlElement.prototype.onEndByBlur = function () {
-            this.onEnd();
-        };
-        DHtmlElement.prototype.onEnd = function () {
-            // DO NOTHING
+            this.getUtil().cancel();
         };
         DHtmlElement.prototype.end = function () {
-            this.onEnd();
-            this.cancel();
+            this.getUtil().end();
         };
         DHtmlElement.prototype.select = function () {
-            if (this._isElementShown && this._select) {
-                this.doSelect();
-            }
+            this.getUtil().select();
             return this;
-        };
-        DHtmlElement.prototype.updateElement = function (renderer) {
-            if (this._isElementShown) {
-                if (this.worldVisible) {
-                    var element = this._element;
-                    var clipper = this._clipper;
-                    if (element && clipper) {
-                        var resolution = renderer.resolution;
-                        var elementRect = this.getElementRect(resolution);
-                        var clipperRect = this.getClipperRect(elementRect, resolution);
-                        var theme = this.theme;
-                        var state = this.state;
-                        var padding = this._padding;
-                        this.setClipperStyle(clipper, state, theme, padding, elementRect, clipperRect);
-                        this.setElementStyle(element, state, theme, padding, elementRect, clipperRect);
-                    }
-                }
-                else {
-                    this.cancel();
-                }
-            }
         };
         DHtmlElement.prototype.onActivateKeyDown = function (e) {
             if (this.state.isActionable) {
@@ -19152,23 +18940,55 @@
         function DInput() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DInput.prototype.init = function (options) {
+        DInput.prototype.newOperation = function () {
             var _this = this;
-            var _a, _b, _c, _d, _e, _f, _g, _h, _j;
-            this._editingValidationResult = null;
-            this._editingValidator = (_b = (_a = options === null || options === void 0 ? void 0 : options.editing) === null || _a === void 0 ? void 0 : _a.validator) !== null && _b !== void 0 ? _b : this.theme.getEditingValidator();
-            _super.prototype.init.call(this, options);
-            this._description = (_c = options === null || options === void 0 ? void 0 : options.description) !== null && _c !== void 0 ? _c : "";
-            this._editingFormatter = (_e = (_d = options === null || options === void 0 ? void 0 : options.editing) === null || _d === void 0 ? void 0 : _d.formatter) !== null && _e !== void 0 ? _e : ((_g = (_f = options === null || options === void 0 ? void 0 : options.text) === null || _f === void 0 ? void 0 : _f.formatter) !== null && _g !== void 0 ? _g : this.theme.getEditingFormatter());
-            this._editingUnformatter = (_j = (_h = options === null || options === void 0 ? void 0 : options.editing) === null || _h === void 0 ? void 0 : _h.unformatter) !== null && _j !== void 0 ? _j : this.theme.getEditingUnformatter();
-            this._onInputKeyDownBound = function (e) {
-                _this.onInputKeyDown(e);
-            };
-            this._onInputChangeBound = function () {
-                _this.onInputChange();
-            };
-            this._onInputInputBound = function (e) {
-                _this.onInputInput(e);
+            return {
+                getElementRect: function (resolution, work, result) {
+                    return _this.getElementRect(resolution, work, result);
+                },
+                getElementMatrix: function () {
+                    return null;
+                },
+                getClipperRect: function (resolution, work, result) {
+                    return _this.getClipperRect(resolution, work, result);
+                },
+                getPadding: function () {
+                    return _this.padding;
+                },
+                containsPoint: function (point) {
+                    return _this.containsPoint(point);
+                },
+                onStart: function () {
+                    var text = _this._text;
+                    if (text != null) {
+                        text.visible = false;
+                    }
+                },
+                onCancel: function () {
+                    var text = _this._text;
+                    if (text != null) {
+                        text.visible = true;
+                    }
+                },
+                onEnd: function () {
+                    // DO NOTHING
+                },
+                getValue: function () {
+                    return _this._textValueComputed;
+                },
+                onValueInput: function (newValue) {
+                    _this.onValueInput(newValue);
+                },
+                onValueChange: function (newValue, oldValue) {
+                    _this.text = newValue;
+                    _this.onValueChange(newValue, oldValue);
+                },
+                onEnter: function () {
+                    _this.onEnter();
+                },
+                applyTitle: function () {
+                    _this.applyTitle();
+                }
             };
         };
         Object.defineProperty(DInput.prototype, "value", {
@@ -19181,106 +19001,25 @@
             enumerable: false,
             configurable: true
         });
-        DInput.prototype.createText = function (formatted) {
-            var result = _super.prototype.createText.call(this, formatted);
-            if (this._isElementShown) {
-                result.visible = false;
-            }
-            return result;
-        };
         DInput.prototype.onTextChange = function () {
             _super.prototype.onTextChange.call(this);
             this.validate();
         };
-        DInput.prototype.validate = function () {
-            var textValueComputed = this._textValueComputed;
-            if (textValueComputed !== undefined) {
-                var result = this._editingValidator(textValueComputed, this);
-                if (this._editingValidationResult !== result) {
-                    this._editingValidationResult = result;
-                    this.state.isInvalid = (result != null);
-                    if (this.state.isHovered) {
-                        this.applyTitle();
-                    }
-                }
-                return result;
-            }
-            return null;
-        };
-        DInput.prototype.applyTitle = function () {
-            var editingValidationResult = this._editingValidationResult;
-            if (isString(editingValidationResult)) {
-                var layer = DApplications.getLayer(this);
-                if (layer) {
-                    layer.view.title = editingValidationResult;
-                }
-            }
-            else {
-                _super.prototype.applyTitle.call(this);
-            }
-        };
-        DInput.prototype.onStart = function () {
-            _super.prototype.onStart.call(this);
-            var text = this._text;
-            if (text != null) {
-                text.visible = false;
-            }
-        };
-        DInput.prototype.onCancel = function () {
-            _super.prototype.onCancel.call(this);
-            var text = this._text;
-            if (text != null) {
-                text.visible = true;
-            }
-        };
-        DInput.prototype.onEnd = function () {
-            _super.prototype.onEnd.call(this);
-            this.onInputChange();
-        };
-        DInput.prototype.onElementAttached = function (element, before, after) {
-            _super.prototype.onElementAttached.call(this, element, before, after);
-            element.type = this.getInputType();
-            var textValueComputed = this._textValueComputed;
-            element.value = (textValueComputed !== undefined ?
-                this._editingFormatter(textValueComputed, this) : "");
-            element.addEventListener("keydown", this._onInputKeyDownBound);
-            element.addEventListener("change", this._onInputChangeBound);
-            element.addEventListener("input", this._onInputInputBound);
-        };
-        DInput.prototype.onElementDetached = function (element, before, after) {
-            _super.prototype.onElementDetached.call(this, element, before, after);
-            element.removeEventListener("keydown", this._onInputKeyDownBound);
-            element.removeEventListener("change", this._onInputChangeBound);
-            element.removeEventListener("input", this._onInputInputBound);
-        };
-        DInput.prototype.onInputKeyDown = function (e) {
-            if (UtilKeyboardEvent.isOkKey(e)) {
-                this.end();
-                this.emit("enter", this);
-            }
-            else if (UtilKeyboardEvent.isCancelKey(e)) {
-                this.cancel();
-            }
-        };
-        DInput.prototype.onInputChange = function () {
-            if (this._isElementShown) {
-                var element = this._element;
-                if (element != null) {
-                    var newValue = this.toValue(element.value);
-                    var oldValue = this._textValueComputed;
-                    if (oldValue !== newValue) {
-                        this.text = newValue;
-                        this.onValueChange(newValue, oldValue);
-                    }
-                }
-            }
-        };
         DInput.prototype.onValueChange = function (newValue, oldValue) {
             this.emit("change", newValue, oldValue, this);
         };
-        DInput.prototype.onInputInput = function (e) {
-            if (e.target instanceof HTMLInputElement) {
-                this.emit("input", this.toValue(e.target.value), this);
+        DInput.prototype.onValueInput = function (newValue) {
+            this.emit("input", newValue, this);
+        };
+        DInput.prototype.onEnter = function () {
+            this.emit("enter", this);
+        };
+        DInput.prototype.validate = function () {
+            return this.getUtil().validate();
+        };
+        DInput.prototype.applyTitle = function () {
+            if (!this.getUtil().applyTitle()) {
+                _super.prototype.applyTitle.call(this);
             }
         };
         DInput.prototype.getType = function () {
@@ -19298,126 +19037,39 @@
         function DInputNumber() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DInputNumber.prototype.init = function (options) {
-            var _a, _b, _c;
-            _super.prototype.init.call(this, options);
-            var theme = this.theme;
-            this._step = ((_a = options === null || options === void 0 ? void 0 : options.step) !== null && _a !== void 0 ? _a : theme.getStep());
-            this._min = ((_b = options === null || options === void 0 ? void 0 : options.min) !== null && _b !== void 0 ? _b : theme.getMin());
-            this._max = ((_c = options === null || options === void 0 ? void 0 : options.max) !== null && _c !== void 0 ? _c : theme.getMax());
+        DInputNumber.prototype.newUtil = function () {
+            return new UtilInputNumber(this, this.newOperation(), this.theme, this._options);
         };
         Object.defineProperty(DInputNumber.prototype, "step", {
             get: function () {
-                return this._step;
+                return this.getUtil().step;
             },
             set: function (step) {
-                if (this._step !== step) {
-                    this._step = step;
-                    this.updateInputStep();
-                }
+                this.getUtil().step = step;
             },
             enumerable: false,
             configurable: true
         });
         Object.defineProperty(DInputNumber.prototype, "min", {
             get: function () {
-                return this._min;
+                return this.getUtil().min;
             },
             set: function (min) {
-                if (this._min !== min) {
-                    this._min = min;
-                    this.updateInputMin();
-                }
+                this.getUtil().min = min;
             },
             enumerable: false,
             configurable: true
         });
         Object.defineProperty(DInputNumber.prototype, "max", {
             get: function () {
-                return this._max;
+                return this.getUtil().max;
             },
             set: function (max) {
-                if (this._max !== max) {
-                    this._max = max;
-                    this.updateInputMax();
-                }
+                this.getUtil().max = max;
             },
             enumerable: false,
             configurable: true
         });
-        DInputNumber.prototype.toValue = function (valueAsString) {
-            var result = this._editingUnformatter(valueAsString, this);
-            if (result === result /* NaN Check */) {
-                if (this._min != null && result < this._min) {
-                    return this._min;
-                }
-                if (this._max != null && this._max < result) {
-                    return this._max;
-                }
-                return result;
-            }
-            return this.value;
-        };
-        DInputNumber.prototype.updateInputStep = function () {
-            if (this._isElementShown) {
-                var element = this._element;
-                if (element) {
-                    this.initInputStep(element);
-                }
-            }
-        };
-        DInputNumber.prototype.updateInputMin = function () {
-            if (this._isElementShown) {
-                var element = this._element;
-                if (element) {
-                    this.initInputMin(element);
-                }
-            }
-        };
-        DInputNumber.prototype.updateInputMax = function () {
-            if (this._isElementShown) {
-                var element = this._element;
-                if (element) {
-                    this.initInputMax(element);
-                }
-            }
-        };
-        DInputNumber.prototype.initInputStep = function (input) {
-            var step = this._step;
-            if (step != null) {
-                input.step = "" + step;
-            }
-            else {
-                input.step = "any";
-            }
-        };
-        DInputNumber.prototype.initInputMin = function (input) {
-            var min = this._min;
-            if (min != null) {
-                input.min = "" + min;
-            }
-            else {
-                input.removeAttribute("min");
-            }
-        };
-        DInputNumber.prototype.initInputMax = function (input) {
-            var max = this._max;
-            if (max != null) {
-                input.max = "" + max;
-            }
-            else {
-                input.removeAttribute("max");
-            }
-        };
-        DInputNumber.prototype.onElementAttached = function (element, before, after) {
-            _super.prototype.onElementAttached.call(this, element, before, after);
-            this.initInputStep(element);
-            this.initInputMin(element);
-            this.initInputMax(element);
-        };
-        DInputNumber.prototype.getInputType = function () {
-            return "number";
-        };
         return DInputNumber;
     }(DInput));
 
@@ -19590,11 +19242,8 @@
         function DInputText() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DInputText.prototype.toValue = function (valueAsString) {
-            return this._editingUnformatter(valueAsString, this);
-        };
-        DInputText.prototype.getInputType = function () {
-            return "text";
+        DInputText.prototype.newUtil = function () {
+            return new UtilInputText(this, this.newOperation(), this.theme, this._options);
         };
         DInputText.prototype.getType = function () {
             return "DInputText";
@@ -34160,6 +33809,300 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var VERTEX_SHADER = "\nattribute vec2 aVertexPosition;\nattribute vec2 aTextureCoord;\nvarying mediump vec2 vTextureCoord;\nvoid main(void) {\n\tgl_Position = vec4(aVertexPosition, 0.0, 1.0);\n\tvTextureCoord = aTextureCoord;\n}\n";
+    var FRAGMENT_SHADER = "\nprecision mediump float;\n\nvarying mediump vec2 vTextureCoord;\nuniform sampler2D uSampler;\nuniform vec2 uSize;\n\nfloat calcDistance( float x, float y, float dx, float dy ) {\n\tfloat xd = x + dx;\n\tfloat yd = y + dy;\n\tfloat u = xd / uSize.x;\n\tfloat v = yd / uSize.y;\n\tfloat ul = (xd - 1.0) / uSize.x;\n\tfloat vt = (yd - 1.0) / uSize.y;\n\n\tfloat m = texture2D(uSampler, vec2(u , v )).a;\n\tfloat l = texture2D(uSampler, vec2(ul, v )).a;\n\tfloat t = texture2D(uSampler, vec2(u , vt)).a;\n\n\tfloat xl = mix( xd - 1.0, xd, (0.5 - l) / (m - l) );\n\tfloat yt = mix( yd - 1.0, yd, (0.5 - t) / (m - t) );\n\n\tbool bl = ( min(l, m) < 0.5 && 0.5 <= max(l, m) );\n\tbool bt = ( min(t, m) < 0.5 && 0.5 <= max(t, m) );\n\n\tfloat ll = (bl ? length( vec2( xl - x, yd - y ) ) : 100.0);\n\tfloat lt = (bt ? length( vec2( xd - x, yt - y ) ) : 100.0);\n\n\treturn min( ll, lt );\n}\n\nfloat calcDistancesY( float x, float y, float dx ) {\n\tfloat d = 100.0;\n\tfor( float dy=-6.0; dy<6.5; dy++ ) {\n\t\td = min( d, calcDistance( x, y, dx, dy ) );\n\t}\n\treturn d;\n}\n\nfloat calcDistances( float x, float y ) {\n\tfloat d = 100.0;\n\tfor( float dx=-6.0; dx<6.5; dx++ ) {\n\t\td = min( d, calcDistancesY( x, y, dx ) );\n\t}\n\treturn d;\n}\n\nvoid main(void) {\n\tfloat t = texture2D(uSampler, vTextureCoord).a;\n\tfloat x = vTextureCoord.x * uSize.x;\n\tfloat y = vTextureCoord.y * uSize.y;\n\tfloat d = min( 6.0, calcDistances( x, y ) ) / 12.0;\n\td = clamp( mix( 0.5 - d, 0.5 + d, step( 0.5, t ) ), 0.0, 1.0 );\n\tgl_FragColor = vec4(1.0, 1.0, 1.0, d);\n}\n";
+    var DynamicSDFFontGenerator = /** @class */ (function () {
+        function DynamicSDFFontGenerator() {
+            var _this = this;
+            this._gl = null;
+            this._texture = null;
+            this._shaderProgram = null;
+            this._vertexPositionAttribute = NaN;
+            this._textureCoordAttribute = NaN;
+            this._samplerUniform = NaN;
+            this._sizeUniform = NaN;
+            this._vb = null;
+            this._uvb = null;
+            var canvas = this._canvas = document.createElement("canvas");
+            canvas.width = 64;
+            canvas.height = 64;
+            this._onLostBound = function (e) {
+                e.preventDefault();
+            };
+            this._onRestoreBound = function () {
+                _this.restore();
+            };
+            this._onUnloadBound = function () {
+                _this.destroy();
+            };
+            canvas.addEventListener("webglcontextlost", this._onLostBound, false);
+            canvas.addEventListener("webglcontextrestored", this._onRestoreBound, false);
+            window.addEventListener("unload", this._onUnloadBound, false);
+        }
+        DynamicSDFFontGenerator.prototype.init = function () {
+            var canvas = this._canvas;
+            if (canvas != null && (this._gl == null || this._gl.isContextLost())) {
+                var config = {
+                    alpha: true,
+                    antialias: false,
+                    depth: false,
+                    stencil: false,
+                    premultipliedAlpha: false
+                };
+                var gl = this._gl = (canvas.getContext("webgl", config) ||
+                    canvas.getContext("experimental-webgl", config));
+                if (gl != null) {
+                    gl.clearColor(1.0, 1.0, 1.0, 0.0);
+                    this.makeVertexBuffer();
+                    this.makeUvBuffer();
+                    this.makeShaders();
+                    this._texture = null;
+                }
+            }
+            return this;
+        };
+        DynamicSDFFontGenerator.prototype.restore = function () {
+            this.init();
+        };
+        DynamicSDFFontGenerator.prototype.getCanvas = function () {
+            return this._canvas;
+        };
+        DynamicSDFFontGenerator.prototype.getShader = function (gl, code, type) {
+            var shader = (type ?
+                gl.createShader(gl.FRAGMENT_SHADER) :
+                gl.createShader(gl.VERTEX_SHADER));
+            if (shader != null) {
+                gl.shaderSource(shader, code);
+                gl.compileShader(shader);
+                if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+                    // tslint:disable-next-line: no-console no-unused-expression
+                    console && console.error("Failed to compile the shader: " + gl.getShaderInfoLog(shader));
+                    return null;
+                }
+            }
+            return shader;
+        };
+        DynamicSDFFontGenerator.prototype.makeShaders = function () {
+            var gl = this._gl;
+            if (gl != null && gl.isContextLost() !== true) {
+                var vertexShader = this.getShader(gl, VERTEX_SHADER, false);
+                if (vertexShader != null) {
+                    var fragmentShader = this.getShader(gl, FRAGMENT_SHADER, true);
+                    if (fragmentShader != null) {
+                        var shaderProgram = this._shaderProgram = gl.createProgram();
+                        if (shaderProgram != null) {
+                            gl.attachShader(shaderProgram, vertexShader);
+                            gl.attachShader(shaderProgram, fragmentShader);
+                            gl.linkProgram(shaderProgram);
+                            if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+                                // tslint:disable-next-line: no-console no-unused-expression
+                                console && console.error("Failed to link the program: " + gl.getError());
+                                gl.deleteShader(vertexShader);
+                                gl.deleteShader(fragmentShader);
+                                return null;
+                            }
+                            else {
+                                gl.deleteShader(vertexShader);
+                                gl.deleteShader(fragmentShader);
+                                gl.useProgram(shaderProgram);
+                                this._vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition");
+                                this._textureCoordAttribute = gl.getAttribLocation(shaderProgram, "aTextureCoord");
+                                this._samplerUniform = gl.getUniformLocation(shaderProgram, "uSampler");
+                                this._sizeUniform = gl.getUniformLocation(shaderProgram, "uSize");
+                                gl.useProgram(null);
+                                return shaderProgram;
+                            }
+                        }
+                        else {
+                            gl.deleteShader(vertexShader);
+                            gl.deleteShader(fragmentShader);
+                        }
+                    }
+                    else {
+                        gl.deleteShader(vertexShader);
+                    }
+                }
+            }
+            return null;
+        };
+        DynamicSDFFontGenerator.prototype.destroyShaders = function () {
+            var gl = this._gl;
+            if (gl != null && gl.isContextLost() !== true) {
+                var shaderProgram = this._shaderProgram;
+                if (shaderProgram != null) {
+                    this._shaderProgram = null;
+                    gl.useProgram(null);
+                    gl.deleteProgram(shaderProgram);
+                }
+            }
+        };
+        DynamicSDFFontGenerator.prototype.updateTexture = function (source) {
+            var gl = this._gl;
+            var canvas = this._canvas;
+            if (gl != null && gl.isContextLost() !== true && canvas != null) {
+                var width = source.width;
+                var height = source.height;
+                if (canvas.width !== width || canvas.height !== height) {
+                    canvas.width = width;
+                    canvas.height = height;
+                    gl.viewport(0, 0, width, height);
+                }
+                var texture = this._texture;
+                if (texture == null) {
+                    texture = this._texture = gl.createTexture();
+                    gl.bindTexture(gl.TEXTURE_2D, texture);
+                    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source);
+                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+                    gl.bindTexture(gl.TEXTURE_2D, null);
+                }
+                else {
+                    gl.bindTexture(gl.TEXTURE_2D, texture);
+                    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source);
+                    gl.bindTexture(gl.TEXTURE_2D, null);
+                }
+                return texture;
+            }
+            return null;
+        };
+        DynamicSDFFontGenerator.prototype.destroyTexture = function () {
+            var gl = this._gl;
+            var texture = this._texture;
+            if (gl != null && gl.isContextLost() !== true && texture != null) {
+                this._texture = null;
+                gl.bindTexture(gl.TEXTURE_2D, null);
+                gl.deleteTexture(texture);
+            }
+        };
+        DynamicSDFFontGenerator.prototype.makeVertexBuffer = function () {
+            var gl = this._gl;
+            if (gl != null && gl.isContextLost() !== true) {
+                var vb = this._vb = gl.createBuffer();
+                gl.bindBuffer(gl.ARRAY_BUFFER, vb);
+                var vertices = [
+                    -1.0, +1.0,
+                    +1.0, +1.0,
+                    -1.0, -1.0,
+                    +1.0, -1.0
+                ];
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+                return vb;
+            }
+            return null;
+        };
+        DynamicSDFFontGenerator.prototype.destroyVertexBuffer = function () {
+            var gl = this._gl;
+            var vb = this._vb;
+            if (gl != null && gl.isContextLost() !== true && vb != null) {
+                this._vb = null;
+                gl.bindBuffer(gl.ARRAY_BUFFER, null);
+                gl.deleteBuffer(vb);
+            }
+        };
+        DynamicSDFFontGenerator.prototype.makeUvBuffer = function () {
+            var gl = this._gl;
+            if (gl != null && gl.isContextLost() !== true) {
+                var uvb = this._uvb = gl.createBuffer();
+                gl.bindBuffer(gl.ARRAY_BUFFER, uvb);
+                var uvs = [
+                    0.0, 0.0,
+                    1.0, 0.0,
+                    0.0, 1.0,
+                    1.0, 1.0
+                ];
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(uvs), gl.STATIC_DRAW);
+                return uvb;
+            }
+            return null;
+        };
+        DynamicSDFFontGenerator.prototype.destroyUvBuffer = function () {
+            var gl = this._gl;
+            var uvb = this._uvb;
+            if (gl != null && gl.isContextLost() !== true && uvb != null) {
+                this._uvb = null;
+                gl.bindBuffer(gl.ARRAY_BUFFER, null);
+                gl.deleteBuffer(uvb);
+            }
+        };
+        DynamicSDFFontGenerator.prototype.render = function () {
+            var gl = this._gl;
+            var canvas = this._canvas;
+            var shaderProgram = this._shaderProgram;
+            var vb = this._vb;
+            var uvb = this._uvb;
+            var texture = this._texture;
+            if (gl != null && gl.isContextLost() !== true && canvas != null &&
+                shaderProgram != null && vb != null && uvb != null && texture != null) {
+                gl.clear(gl.COLOR_BUFFER_BIT);
+                gl.useProgram(shaderProgram);
+                gl.bindBuffer(gl.ARRAY_BUFFER, vb);
+                var vertexPositionAttribute = this._vertexPositionAttribute;
+                gl.enableVertexAttribArray(vertexPositionAttribute);
+                gl.vertexAttribPointer(vertexPositionAttribute, 2, gl.FLOAT, false, 0, 0);
+                gl.bindBuffer(gl.ARRAY_BUFFER, uvb);
+                var textureCoordAttribute = this._textureCoordAttribute;
+                gl.enableVertexAttribArray(textureCoordAttribute);
+                gl.vertexAttribPointer(textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
+                gl.activeTexture(gl.TEXTURE0);
+                gl.bindTexture(gl.TEXTURE_2D, texture);
+                gl.uniform1i(this._samplerUniform, 0);
+                gl.uniform2f(this._sizeUniform, canvas.width, canvas.height);
+                gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+                gl.bindTexture(gl.TEXTURE_2D, null);
+                gl.bindBuffer(gl.ARRAY_BUFFER, null);
+                gl.useProgram(null);
+            }
+        };
+        DynamicSDFFontGenerator.prototype.read = function (copyCanvas) {
+            var gl = this._gl;
+            var canvas = this._canvas;
+            if (gl != null && gl.isContextLost() !== true && canvas != null) {
+                var width = canvas.width;
+                var height = canvas.height;
+                copyCanvas.width = width;
+                copyCanvas.height = height;
+                var copyContext = copyCanvas.getContext("2d");
+                if (copyContext != null) {
+                    copyContext.drawImage(canvas, 0, 0);
+                }
+            }
+        };
+        DynamicSDFFontGenerator.prototype.destroy = function () {
+            this.destroyVertexBuffer();
+            this.destroyUvBuffer();
+            this.destroyShaders();
+            var canvas = this._canvas;
+            if (canvas != null) {
+                this._canvas = null;
+                canvas.removeEventListener("webglcontextlost", this._onLostBound, false);
+                canvas.removeEventListener("webglcontextrestored", this._onRestoreBound, false);
+                window.removeEventListener("unload", this._onUnloadBound, false);
+            }
+            var gl = this._gl;
+            if (gl != null) {
+                this._gl = null;
+                var WebGLLoseContext = gl.getExtension("WEBGL_lose_context");
+                if (WebGLLoseContext != null) {
+                    WebGLLoseContext.loseContext();
+                }
+            }
+        };
+        DynamicSDFFontGenerator.getInstance = function () {
+            if (DynamicSDFFontGenerator._INSTANCE == null) {
+                DynamicSDFFontGenerator._INSTANCE = new DynamicSDFFontGenerator();
+            }
+            return DynamicSDFFontGenerator._INSTANCE;
+        };
+        DynamicSDFFontGenerator._INSTANCE = null;
+        return DynamicSDFFontGenerator;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var createImageSdf = function (dataUrl, convertToSdf) {
         if (convertToSdf) {
             return EShapeImageElements.toImageElement(dataUrl)
@@ -34731,6 +34674,294 @@
         };
         return DynamicAtlasItemFontAtlas;
     }(DynamicAtlasItem));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var ASCII_CHARACTERS = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DynamicFontAtlasCharacterOrigin = /** @class */ (function () {
+        function DynamicFontAtlasCharacterOrigin(x, y) {
+            this.x = x;
+            this.y = y;
+        }
+        return DynamicFontAtlasCharacterOrigin;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DynamicFontAtlasCharacter = /** @class */ (function () {
+        function DynamicFontAtlasCharacter(advance, width, height, reserved) {
+            this.ref = 1;
+            this.life = 10;
+            this.x = 0;
+            this.y = 0;
+            this.width = width;
+            this.height = height;
+            this.advance = advance;
+            this.origin = new DynamicFontAtlasCharacterOrigin(0, 0);
+            this.reserved = reserved;
+        }
+        return DynamicFontAtlasCharacter;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DynamicSDFFontAtlas = /** @class */ (function () {
+        function DynamicSDFFontAtlas(fontFamily) {
+            this._id = "font-atlas:" + fontFamily;
+            this._generator = DynamicSDFFontGenerator.getInstance().init();
+            this._canvas = document.createElement("canvas");
+            this._font = {
+                family: DynamicSDFFontAtlas.toFontFamily(fontFamily),
+                size: 32,
+                italic: false
+            };
+            this._characters = {};
+            this._length = 0;
+            this._width = 1;
+            this._height = 1;
+            this._isDirty = true;
+        }
+        Object.defineProperty(DynamicSDFFontAtlas.prototype, "id", {
+            get: function () {
+                return this._id;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DynamicSDFFontAtlas.prototype, "font", {
+            get: function () {
+                return this._font;
+            },
+            set: function (font) {
+                this._font.family = font.family;
+                this._font.size = font.size;
+                this._font.italic = font.italic;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DynamicSDFFontAtlas.prototype, "width", {
+            get: function () {
+                return this._width;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DynamicSDFFontAtlas.prototype, "height", {
+            get: function () {
+                return this._height;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DynamicSDFFontAtlas.prototype, "canvas", {
+            get: function () {
+                return this._canvas;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DynamicSDFFontAtlas.prototype, "generator", {
+            get: function () {
+                return this._generator;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DynamicSDFFontAtlas.prototype, "characters", {
+            get: function () {
+                return this._characters;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DynamicSDFFontAtlas.prototype.begin = function () {
+            this._length = 0;
+            var characters = this._characters;
+            for (var character in characters) {
+                characters[character].ref = 0;
+            }
+        };
+        DynamicSDFFontAtlas.prototype.end = function () {
+            var characters = this._characters;
+            for (var character in characters) {
+                var data = characters[character];
+                if (data.ref <= 0) {
+                    data.life -= 1;
+                    if (data.life <= 0) {
+                        delete characters[character];
+                        this._isDirty = true;
+                    }
+                }
+            }
+        };
+        DynamicSDFFontAtlas.prototype.addAscii = function () {
+            this.add(ASCII_CHARACTERS);
+            this.addChar("...");
+        };
+        DynamicSDFFontAtlas.prototype.addChar = function (character) {
+            var characters = this._characters;
+            if (character !== "\n") {
+                var data = characters[character];
+                if (data != null) {
+                    if (data.ref <= 0) {
+                        this._length += 1;
+                    }
+                    data.ref += 1;
+                }
+                else {
+                    characters[character] = new DynamicFontAtlasCharacter(0, 1, 1, false);
+                    this._length += 1;
+                    this._isDirty = true;
+                }
+            }
+        };
+        DynamicSDFFontAtlas.prototype.add = function (characters) {
+            var iterator = UtilCharacterIterator.from(characters);
+            while (iterator.hasNext()) {
+                this.addChar(iterator.next());
+            }
+        };
+        DynamicSDFFontAtlas.prototype.get = function (character) {
+            return this._characters[character];
+        };
+        DynamicSDFFontAtlas.prototype.update = function () {
+            if (this._isDirty) {
+                var canvas = this._canvas;
+                var generator = this._generator;
+                if (canvas != null && generator != null) {
+                    var context = canvas.getContext("2d");
+                    if (context != null) {
+                        this._isDirty = false;
+                        var font = this._font;
+                        var characters = this._characters;
+                        var characterSize = font.size + 14;
+                        var width = DynamicSDFFontAtlas.toPowerOf2(Math.ceil(Math.sqrt(this._length)) * characterSize);
+                        this._width = width;
+                        var fontStyle = (font.italic ? "italic " : "") + (font.size + "px ") + font.family;
+                        context.font = fontStyle;
+                        context.textAlign = "left";
+                        context.textBaseline = "middle";
+                        context.lineWidth = 0;
+                        context.lineCap = "round";
+                        context.lineJoin = "miter";
+                        context.miterLimit = 0;
+                        context.fillStyle = "#FFFFFF";
+                        var offsetX = 7;
+                        var offsetY = (characterSize >> 1);
+                        var x = 0;
+                        var y = 0;
+                        for (var character in characters) {
+                            var data = characters[character];
+                            var advance = context.measureText(character).width;
+                            var characterWidth = Math.ceil(offsetX + advance + offsetX);
+                            var characterHeight = characterSize;
+                            if (width <= x + characterWidth) {
+                                x = 0;
+                                y += characterSize;
+                            }
+                            data.x = x;
+                            data.y = y;
+                            data.width = characterWidth;
+                            data.height = characterHeight;
+                            data.advance = advance;
+                            data.origin.x = x + offsetX;
+                            data.origin.y = y + offsetY;
+                            x += characterWidth;
+                        }
+                        var height = this._height = y + characterSize;
+                        // Make a input canvas
+                        // Here, we need to reset the context because
+                        // context settings will be lost when we set the width/height.
+                        canvas.width = width;
+                        canvas.height = height;
+                        context.font = fontStyle;
+                        context.textAlign = "left";
+                        context.textBaseline = "middle";
+                        context.lineWidth = 0;
+                        context.lineCap = "round";
+                        context.lineJoin = "miter";
+                        context.miterLimit = 4;
+                        context.fillStyle = "#FFFFFF";
+                        context.clearRect(0, 0, width, height);
+                        for (var character in characters) {
+                            var data = characters[character];
+                            context.fillText(character, data.origin.x, data.origin.y);
+                        }
+                        // Convert to SDF font texture
+                        generator.updateTexture(canvas);
+                        generator.render();
+                        generator.read(canvas);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        };
+        Object.defineProperty(DynamicSDFFontAtlas.prototype, "length", {
+            get: function () {
+                return this._length;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DynamicSDFFontAtlas.prototype.toJson = function () {
+            return {
+                width: this._width,
+                height: this._height,
+                font: this._font,
+                characters: this._characters
+            };
+        };
+        DynamicSDFFontAtlas.prototype.toString = function () {
+            return JSON.stringify(this.toJson());
+        };
+        DynamicSDFFontAtlas.prototype.destroy = function () {
+            var generator = this._generator;
+            if (generator != null) {
+                this._generator = null;
+            }
+            var canvas = this._canvas;
+            if (canvas != null) {
+                this._canvas = null;
+            }
+            var characters = this._characters;
+            for (var character in characters) {
+                delete characters[character];
+            }
+        };
+        DynamicSDFFontAtlas.toFontFamily = function (fontFamily) {
+            return (fontFamily === "auto" ?
+                DynamicSDFFontAtlas.getAutoFontFamily() :
+                fontFamily);
+        };
+        DynamicSDFFontAtlas.toPowerOf2 = function (size) {
+            var result = 32;
+            while (result < size) {
+                result <<= 1;
+            }
+            return result;
+        };
+        DynamicSDFFontAtlas.getAutoFontFamily = function () {
+            if (DynamicSDFFontAtlas.FONT_FAMILY_AUTO == null) {
+                DynamicSDFFontAtlas.FONT_FAMILY_AUTO = DThemes.getInstance().get("DBase").getFontFamilly();
+            }
+            return DynamicSDFFontAtlas.FONT_FAMILY_AUTO;
+        };
+        DynamicSDFFontAtlas.FONT_FAMILY_AUTO = null;
+        return DynamicSDFFontAtlas;
+    }());
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -36825,70 +37056,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var SVGResource = /** @class */ (function (_super) {
-        __extends(SVGResource, _super);
-        function SVGResource(source, options) {
-            var _this = _super.call(this, new Image()) || this;
-            _this._load = null;
-            _this._width = 0;
-            _this._height = 0;
-            _this.svg = source;
-            pixi_js.resources.BaseImageResource.crossOrigin(_this.source, _this.svg, options && options.crossorigin);
-            if (!options || options.autoLoad !== false) {
-                _this.load();
-            }
-            return _this;
-        }
-        SVGResource.prototype.load = function () {
-            var _this = this;
-            if (this._load) {
-                return this._load;
-            }
-            this._load = new Promise(function (resolve) {
-                var image = _this.source;
-                image.onerror = function (event) {
-                    image.onerror = null;
-                    _this.onError.run(event); // TODO: Fix PixiJS
-                };
-                var ua = navigator.userAgent;
-                // IE and Edge generates wrong images without setTimeout.
-                if (0 <= ua.indexOf("Trident/") || 0 <= ua.indexOf("Edge/")) {
-                    image.onload = function () {
-                        setTimeout(function () {
-                            _this.resize(image.width, image.height);
-                            resolve();
-                        }, 0);
-                    };
-                }
-                else {
-                    image.onload = function () {
-                        _this.resize(image.width, image.height);
-                        resolve();
-                    };
-                }
-                image.src = _this.svg;
-            });
-            return this._load;
-        };
-        SVGResource.test = function (source, extension) {
-            // url file extension is SVG
-            return extension === "svg"
-                // source is SVG data-uri
-                || (typeof source === "string" && source.indexOf("data:image/svg+xml;base64") === 0)
-                // source is SVG inline
-                || (typeof source === "string" && source.indexOf("<svg") === 0);
-        };
-        return SVGResource;
-    }(pixi_js.resources.BaseImageResource));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    // PixiJS's SVGResource has a issue on Microsoft Edge.
-    // Edge may invoke the HTMLImageElement#onload on an unexpected timing.
-    // Thus, PixiJS may lost the `load` event in some situations.
-    pixi_js.resources.INSTALLED.push(SVGResource);
     var UtilSvgAtlasBuilder = /** @class */ (function () {
         function UtilSvgAtlasBuilder(width, ratio, margin) {
             this._width = width;
@@ -42820,11 +42987,9 @@
                         change: function (selection) {
                             var first = selection.first();
                             if (first) {
-                                var newValue = first.value;
-                                if (_this._value !== newValue) {
-                                    _this._value = newValue;
-                                    _this.onOk(newValue);
-                                }
+                                var value = first.value;
+                                _this._value = value;
+                                _this.onOk(value);
                             }
                         }
                     }
@@ -48428,9 +48593,9 @@
                 }
                 // Shortcuts
                 var shortcut = shape.shortcut;
-                if (shortcut != null) {
+                if (runtime && shortcut != null) {
                     UtilKeyboardEvent.on(this_1, shortcut, function (e) {
-                        shape.onShortcut(e);
+                        runtime.onClick(shape, e);
                     });
                 }
                 // Children
@@ -48480,7 +48645,7 @@
                 if (found === lastOverShape) {
                     var runtime = lastOverShape.runtime;
                     if (runtime) {
-                        runtime.onPointerMove(lastOverShape, e);
+                        runtime.onMove(lastOverShape, e);
                     }
                 }
                 else {
@@ -48489,14 +48654,14 @@
                     if (lastOverShape) {
                         var previousRuntime = lastOverShape.runtime;
                         if (previousRuntime) {
-                            previousRuntime.onPointerOut(lastOverShape, e);
+                            previousRuntime.onOut(lastOverShape, e);
                         }
                         // Parents
                         var lastOverParent = lastOverShape.parent;
                         while ((lastOverParent instanceof EShapeBase) && lastOverParent !== found) {
                             var parentRuntime = lastOverShape.runtime;
                             if (parentRuntime) {
-                                parentRuntime.onPointerOut(lastOverParent, e);
+                                parentRuntime.onOut(lastOverParent, e);
                             }
                             lastOverParent = lastOverParent.parent;
                         }
@@ -48504,7 +48669,7 @@
                     // Next
                     var runtime = found.runtime;
                     if (runtime) {
-                        runtime.onPointerOver(found, e);
+                        runtime.onOver(found, e);
                     }
                     if (layer) {
                         layer.view.title = (found.title || "");
@@ -48514,7 +48679,7 @@
                     while (parent_1 instanceof EShapeBase) {
                         var parentRuntime = parent_1.runtime;
                         if (parentRuntime) {
-                            parentRuntime.onPointerOver(parent_1, e);
+                            parentRuntime.onOver(parent_1, e);
                         }
                         parent_1 = parent_1.parent;
                     }
@@ -48534,14 +48699,14 @@
                 if (lastOverShape) {
                     var runtime = lastOverShape.runtime;
                     if (runtime) {
-                        runtime.onPointerOut(lastOverShape, e);
+                        runtime.onOut(lastOverShape, e);
                     }
                     // Parents
                     var lastOverParent = lastOverShape.parent;
                     while (lastOverParent instanceof EShapeBase) {
                         var parentRuntime = lastOverParent.runtime;
                         if (parentRuntime) {
-                            parentRuntime.onPointerOut(lastOverParent, e);
+                            parentRuntime.onOut(lastOverParent, e);
                         }
                         lastOverParent = lastOverParent.parent;
                     }
@@ -48564,7 +48729,7 @@
                     if (interactive.contains(local)) {
                         var runtime = interactive.runtime;
                         if (runtime) {
-                            runtime.onPointerDown(interactive, e);
+                            runtime.onDown(interactive, e);
                         }
                         return true;
                     }
@@ -48583,7 +48748,7 @@
                     if (interactive.contains(local)) {
                         var runtime = interactive.runtime;
                         if (runtime) {
-                            runtime.onPointerUp(interactive, e);
+                            runtime.onUp(interactive, e);
                         }
                         return true;
                     }
@@ -48604,7 +48769,7 @@
                         while (true) {
                             var runtime = target.runtime;
                             if (runtime) {
-                                runtime.onPointerClick(target, e);
+                                runtime.onClick(target, e);
                             }
                             var parent_2 = target.parent;
                             if (parent_2 instanceof EShapeBase) {
@@ -48633,7 +48798,7 @@
                         while (true) {
                             var runtime = target.runtime;
                             if (runtime) {
-                                runtime.onPointerDblClick(target, e);
+                                runtime.onDblClick(target, e, interactionManager);
                             }
                             var parent_3 = target.parent;
                             if (parent_3 instanceof EShapeBase) {
@@ -49130,6 +49295,10 @@
         return DDiagramEditor;
     }(DDiagramBase));
 
+    /*
+     * Copyright (C) 2021 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     /**
      * A shape helper class for diagrams.
      */
@@ -49154,6 +49323,31 @@
                     for (var i = 0, imax = actionables.length; i < imax; ++i) {
                         var actionable = actionables[i];
                         actionable.update(time);
+                        var runtime = actionable.runtime;
+                        if (runtime && time < runtime.effect) {
+                            var runtimeEffect = runtime.effect;
+                            if (time < runtimeEffect) {
+                                effect = (effect < 0 ? runtimeEffect : Math.min(effect, runtimeEffect));
+                            }
+                        }
+                    }
+                    if (0 <= effect) {
+                        setTimeout(this._updateBound, effect - Date.now());
+                    }
+                }
+            }
+        };
+        DDiagramShape.prototype.onRender = function (renderer) {
+            var diagram = this._diagram;
+            var canvas = diagram.canvas;
+            if (canvas) {
+                var actionables = canvas.actionables;
+                if (0 < actionables.length) {
+                    var effect = -1;
+                    var time = Date.now();
+                    for (var i = 0, imax = actionables.length; i < imax; ++i) {
+                        var actionable = actionables[i];
+                        actionable.onRender(time, renderer);
                         var runtime = actionable.runtime;
                         if (runtime && time < runtime.effect) {
                             var runtimeEffect = runtime.effect;
@@ -49517,7 +49711,7 @@
                     var value = values[j];
                     var action = actionMap.get(value);
                     if (action == null) {
-                        action = value.toRuntime(shape);
+                        action = value.toRuntime();
                         if (action != null) {
                             if (action instanceof EShapeActionRuntimeOpen) {
                                 if (shape.cursor.length <= 0) {
@@ -49574,7 +49768,7 @@
             return _super.prototype.onDblClick.call(this, e, interactionManager);
         };
         DDiagram.prototype.render = function (renderer) {
-            this.shape.update();
+            this.shape.onRender(renderer);
             _super.prototype.render.call(this, renderer);
         };
         DDiagram.prototype.getType = function () {
@@ -54865,16 +55059,19 @@
         DTableRow.prototype.getClippingRect = function (target, result) {
             _super.prototype.getClippingRect.call(this, target, result);
             var frozen = this._frozen;
-            if (0 < frozen && target.parent === this) {
-                var cells = this.children;
-                var cellIndex = cells.indexOf(target);
-                if (0 <= cellIndex) {
-                    var columnIndex = cells.length - 1 - cellIndex;
-                    if (frozen <= columnIndex) {
-                        var previous = cells[cellIndex + 1];
-                        var shiftX = previous.position.x + previous.width;
-                        result.x += shiftX;
-                        result.width -= shiftX;
+            if (0 < frozen) {
+                var cell = target;
+                if (cell && cell.parent === this) {
+                    var cells = this.children;
+                    var cellIndex = cells.indexOf(cell);
+                    if (0 <= cellIndex) {
+                        var columnIndex = cells.length - 1 - cellIndex;
+                        if (frozen <= columnIndex) {
+                            var previous = cells[cellIndex + 1];
+                            var shiftX = previous.position.x + previous.width;
+                            result.x += shiftX;
+                            result.width -= shiftX;
+                        }
                     }
                 }
             }
@@ -59274,10 +59471,7 @@
         EShapeActionRuntimeConditional: EShapeActionRuntimeConditional,
         EShapeActionRuntimeEmitEvent: EShapeActionRuntimeEmitEvent,
         EShapeActionRuntimeMiscEmitEvent: EShapeActionRuntimeMiscEmitEvent,
-        EShapeActionRuntimeMiscInputDataBase: EShapeActionRuntimeMiscInputDataBase,
-        EShapeActionRuntimeMiscInputDataInteger: EShapeActionRuntimeMiscInputDataInteger,
-        EShapeActionRuntimeMiscInputDataReal: EShapeActionRuntimeMiscInputDataReal,
-        EShapeActionRuntimeMiscInputDataText: EShapeActionRuntimeMiscInputDataText,
+        EShapeActionRuntimeMiscHtmlElement: EShapeActionRuntimeMiscHtmlElement,
         EShapeActionRuntimeMiscInputInteger: EShapeActionRuntimeMiscInputInteger,
         EShapeActionRuntimeMiscInputReal: EShapeActionRuntimeMiscInputReal,
         EShapeActionRuntimeMiscInputText: EShapeActionRuntimeMiscInputText,
@@ -59670,6 +59864,11 @@
         get UtilFileAs () { return UtilFileAs; },
         UtilFileOpener: UtilFileOpener,
         UtilHsv: UtilHsv,
+        get UtilHtmlElementWhen () { return UtilHtmlElementWhen; },
+        UtilHtmlElement: UtilHtmlElement,
+        UtilInputNumber: UtilInputNumber,
+        UtilInputText: UtilInputText,
+        UtilInput: UtilInput,
         UtilKeyboardEvent: UtilKeyboardEvent,
         UtilName: UtilName,
         UtilOverlay: UtilOverlay,
@@ -59868,7 +60067,7 @@
         DDynamicText: DDynamicText,
         DExpandableHeader: DExpandableHeader,
         DExpandable: DExpandable,
-        get DHtmlElementWhen () { return DHtmlElementWhen; },
+        DHtmlElementState: DHtmlElementState,
         DHtmlElement: DHtmlElement,
         DImageBase: DImageBase,
         DImage: DImage,

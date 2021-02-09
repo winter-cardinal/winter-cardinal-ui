@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.76.1/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.76.1/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.77.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.77.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -47,6 +47,11 @@
 					].filter(function( item ) {
 						return word.length <= 0 || 0 <= item.name.indexOf( word );
 					}));
+				}
+			},
+			on: {
+				ok: function ( selected, dialog ) {
+					console.log( selected, dialog );
 				}
 			}
 		})

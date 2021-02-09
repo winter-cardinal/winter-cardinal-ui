@@ -1,0 +1,110 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Padding</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #eeeeee;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.77.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.77.0/wcardinal-ui-theme-white.min.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		var application = new wcardinal.ui.DApplication();
+
+		var creator = function ( container ) {
+			var result = document.createElement( "input" );
+			result.value = "HTMLInputElement";
+			container.appendChild( result );
+			return result;
+		};
+
+		new wcardinal.ui.DLayoutVertical({
+			parent: application.stage,
+			x: "center", y: "center",
+			width: 200, height: "auto",
+			margin: 32,
+			children: [
+				// The default styler defined in white/dark themes copies
+				// the padding to those of HTML elements.
+				new wcardinal.ui.DHtmlElement({
+					width: "100%", height: 30,
+					when: "CLICKED",
+					background: {
+						color: 0xffffff
+					},
+					element: {
+						creator: creator
+					},
+					padding: 10
+				}),
+
+				new wcardinal.ui.DHtmlElement({
+					width: "100%", height: 30,
+					when: "DOUBLE_CLICKED",
+					background: {
+						color: 0xffffff
+					},
+					element: {
+						creator: creator
+					},
+					padding: {
+						left: 10,
+						top: 10,
+						right: 10,
+						bottom: 10
+					}
+				}),
+
+				new wcardinal.ui.DHtmlElement({
+					width: "100%", height: 30,
+					when: "FOCUSED",
+					background: {
+						color: 0xffffff
+					},
+					element: {
+						creator: creator
+					},
+					padding: 10
+				}),
+
+				new wcardinal.ui.DHtmlElement({
+					width: "100%", height: 30,
+					when: "ALWAYS",
+					background: {
+						color: 0xffffff
+					},
+					element: {
+						creator: creator
+					},
+					padding: {
+						left: 10,
+						top: 10,
+						right: 10,
+						bottom: 10
+					}
+				})
+			]
+		});
+	}());
+	</script>
+</body>
+</html>

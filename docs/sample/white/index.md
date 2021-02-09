@@ -31,6 +31,8 @@
     * [Drag checker](./diagram/drag-checker.html)
     * [Editor mode](./diagram/editor.html)
     * [Emitting events](./diagram/emit-event.html)
+    * [HTML element on top of a shape](./diagram/html-element.html)
+    * [HTML element on top of a shape and suppressing pointer events](./diagram/html-element-without-pointer-events.html)
     * [Inputs and buttons](./diagram/input-and-button.html)
     * [Interactive shapes](./diagram/interactive.html)
     * [Overflow mask](./diagram/mask.html)
@@ -65,6 +67,9 @@
     * [Basics](./expandable/basics.html)
 * Html element
     * [Basics](./html-element/basics.html)
+    * [Padding](./html-element/padding.html)
+    * [Suppressing pointer events](./html-element/pointer-events.html)
+    * [Fully custom style](./html-element/styler.html)
 * Image
     * [Align with border](./image/align-with-border.html)
     * [Align with padding](./image/align-with-padding.html)

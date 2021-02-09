@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.76.1
+ Winter Cardinal UI v0.77.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -4015,11 +4015,16 @@
         DThemeWhite.set("DExpandable", DThemeWhiteExpandable);
     };
 
-    const DHtmlElementWhen = wcardinal.ui.DHtmlElementWhen;
+    const DHtmlElementState = wcardinal.ui.DHtmlElementState;
 
-    var divCreator = function (parent) {
+    const UtilHtmlElementWhen = wcardinal.ui.UtilHtmlElementWhen;
+
+    var nullCreator = function () {
+        return null;
+    };
+    var divCreator = function (container) {
         var result = document.createElement("div");
-        parent.appendChild(result);
+        container.appendChild(result);
         return result;
     };
     var DThemeWhiteHtmlElement = /** @class */ (function (_super) {
@@ -4028,16 +4033,17 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeWhiteHtmlElement.prototype.getElementCreator = function () {
-            return null;
+            return nullCreator;
         };
-        DThemeWhiteHtmlElement.prototype.setElementStyle = function (target, state, padding, elementRect, clipperRect) {
+        DThemeWhiteHtmlElement.prototype.setElementStyle = function (target, state, padding, elementRect, elementMatrix, clipperRect) {
             // Style
-            var style = this.getElementStylePosition(state, elementRect, clipperRect) +
+            var style = this.getElementStylePointerEvent(state) +
+                this.getElementStylePosition(state, elementRect, elementMatrix, clipperRect) +
                 this.getElementStyleMargin(state) +
                 this.getElementStyleText(state) +
                 this.getElementStyleBackground(state) +
                 this.getElementStyleBorder(state) +
-                this.getElementStylePadding(state, padding, elementRect) +
+                this.getElementStylePadding(state, padding) +
                 this.getElementStyleOutline(state);
             target.setAttribute("style", style);
             // ReadOnly
@@ -4055,29 +4061,60 @@
                 target.removeAttribute("disabled");
             }
         };
+        DThemeWhiteHtmlElement.prototype.getElementStylePointerEvent = function (state) {
+            if (!state.is(DHtmlElementState.NO_POINTER_EVENTS)) {
+                return "pointer-events: auto;";
+            }
+            return "";
+        };
         DThemeWhiteHtmlElement.prototype.getElementStyleBackground = function (state) {
             return "background-color: transparent;";
         };
         DThemeWhiteHtmlElement.prototype.getElementStyleBorder = function (state) {
             return "border: none; box-sizing: border-box;";
         };
-        DThemeWhiteHtmlElement.prototype.getElementStylePadding = function (state, padding, elementRect) {
-            var paddingTop = padding.getTop();
-            var paddingRight = padding.getRight();
-            var paddingBottom = padding.getBottom();
-            var paddingLeft = padding.getLeft();
-            return "padding: " + paddingTop + "px " + paddingRight + "px " + paddingBottom + "px " + paddingLeft + "px;";
+        DThemeWhiteHtmlElement.prototype.getElementStylePadding = function (state, padding) {
+            if (padding) {
+                if ("getLeft" in padding) {
+                    return "padding: " + padding.getTop() + "px " + padding.getRight() + "px " +
+                        (padding.getBottom() + "px " + padding.getLeft() + "px;");
+                }
+                else {
+                    return "padding: " + padding.vertical + "px " + padding.horizontal + "px;";
+                }
+            }
+            return "padding: 0px;";
         };
         DThemeWhiteHtmlElement.prototype.getElementStyleOutline = function (state) {
             return "outline: none;";
         };
-        DThemeWhiteHtmlElement.prototype.getElementStylePosition = function (state, elementRect, clipperRect) {
+        DThemeWhiteHtmlElement.prototype.getElementStylePositionPosition = function (elementRect, clipperRect) {
+            if (elementRect) {
+                if (clipperRect) {
+                    return "left:" + (elementRect.x - clipperRect.x) + "px; top:" + (elementRect.y - clipperRect.y) + "px;";
+                }
+                return "left:" + elementRect.x + "px; top: " + elementRect.y + "px;";
+            }
+            return "left: 0px; top: 0px;";
+        };
+        DThemeWhiteHtmlElement.prototype.getElementStylePositionSize = function (rect) {
+            if (rect) {
+                return "width: " + rect.width + "px; height: " + rect.height + "px;" +
+                    ("line-height: " + rect.height + "px;");
+            }
+            return "width: 0px; height: 0px;";
+        };
+        DThemeWhiteHtmlElement.prototype.getElementStylePositionTransform = function (matrix) {
+            if (matrix) {
+                return "transform: matrix(" + matrix.a + "," + matrix.b + "," + matrix.c + "," + matrix.d + "," + matrix.tx + "," + matrix.ty + ");";
+            }
+            return "";
+        };
+        DThemeWhiteHtmlElement.prototype.getElementStylePosition = function (state, elementRect, elementMatrix, clipperRect) {
             return "position: absolute;" +
-                ("left: " + (elementRect.x - clipperRect.x) + "px;") +
-                ("top: " + (elementRect.y - clipperRect.y) + "px;") +
-                ("width: " + elementRect.width + "px;") +
-                ("height: " + elementRect.height + "px;") +
-                ("line-height: " + elementRect.height + "px;");
+                this.getElementStylePositionPosition(elementRect, clipperRect) +
+                this.getElementStylePositionSize(elementRect) +
+                this.getElementStylePositionTransform(elementMatrix);
         };
         DThemeWhiteHtmlElement.prototype.getElementStyleText = function (state) {
             return "font-family: " + this.getFontFamilly() + ";" +
@@ -4090,19 +4127,36 @@
         DThemeWhiteHtmlElement.prototype.getClipperCreator = function () {
             return divCreator;
         };
-        DThemeWhiteHtmlElement.prototype.setClipperStyle = function (target, state, padding, elementRect, clipperRect) {
-            var style = "overflow: hidden; outline: none;" +
-                "padding: 0; margin: 0; border: none; background-color: transparent;" +
-                this.getClipperStylePosition(state, elementRect, clipperRect);
+        DThemeWhiteHtmlElement.prototype.setClipperStyle = function (target, state, padding, elementRect, elementMatrix, clipperRect) {
+            var style = "outline: none; padding: 0; margin: 0; border: none;" +
+                "background-color: transparent; pointer-events: none;" +
+                this.getClipperStyleOverflow(clipperRect) +
+                this.getClipperStylePosition(clipperRect);
             target.setAttribute("style", style);
         };
-        DThemeWhiteHtmlElement.prototype.getClipperStylePosition = function (state, elementRect, clipperRect) {
+        DThemeWhiteHtmlElement.prototype.getClipperStyleOverflow = function (rect) {
+            if (rect) {
+                return "overflow: hidden;";
+            }
+            return "overflow: visible;";
+        };
+        DThemeWhiteHtmlElement.prototype.getClipperStylePositionPosition = function (rect) {
+            if (rect) {
+                return "left: " + rect.x + "px; top: " + rect.y + "px;";
+            }
+            return "left: 0px; top: 0px;";
+        };
+        DThemeWhiteHtmlElement.prototype.getClipperStylePositionSize = function (rect) {
+            if (rect) {
+                return "width: " + rect.width + "px; height: " + rect.height + "px;" +
+                    ("line-height: " + rect.height + "px;");
+            }
+            return "width: 0px; height: 0px;";
+        };
+        DThemeWhiteHtmlElement.prototype.getClipperStylePosition = function (rect) {
             return "position: absolute;" +
-                ("left: " + clipperRect.x + "px;") +
-                ("top: " + clipperRect.y + "px;") +
-                ("width: " + clipperRect.width + "px;") +
-                ("height: " + clipperRect.height + "px;") +
-                ("line-height: " + elementRect.height + "px;");
+                this.getClipperStylePositionPosition(rect) +
+                this.getClipperStylePositionSize(rect);
         };
         DThemeWhiteHtmlElement.prototype.getBeforeCreator = function () {
             return divCreator;
@@ -4121,7 +4175,7 @@
             this.setBeforeStyle(target);
         };
         DThemeWhiteHtmlElement.prototype.getWhen = function () {
-            return DHtmlElementWhen.FOCUSED;
+            return UtilHtmlElementWhen.FOCUSED;
         };
         DThemeWhiteHtmlElement.prototype.getSelect = function () {
             return false;
@@ -4268,38 +4322,38 @@
     };
     var CREATOR_CLASSNAME = "d-theme-white-input";
     var CREATOR_CLASSNAME_ELEMENT = CREATOR_CLASSNAME + "-element";
-    var elementCreator = function (parent) {
-        var found = parent.getElementsByClassName(CREATOR_CLASSNAME_ELEMENT);
+    var elementCreator = function (container) {
+        var found = container.getElementsByClassName(CREATOR_CLASSNAME_ELEMENT);
         if (0 < found.length) {
             return found[0];
         }
         var element = document.createElement("input");
         element.setAttribute("spellcheck", "false");
         element.setAttribute("class", CREATOR_CLASSNAME_ELEMENT);
-        parent.appendChild(element);
+        container.appendChild(element);
         return element;
     };
-    var divCreator$1 = function (parent, classname) {
-        var found = parent.getElementsByClassName(classname);
+    var divCreator$1 = function (container, classname) {
+        var found = container.getElementsByClassName(classname);
         if (0 < found.length) {
             return found[0];
         }
         var result = document.createElement("div");
         result.setAttribute("class", classname);
-        parent.appendChild(result);
+        container.appendChild(result);
         return result;
     };
     var CREATOR_CLASSNAME_CLIPPER = CREATOR_CLASSNAME + "-clipper";
-    var clipperCreator = function (parent) {
-        return divCreator$1(parent, CREATOR_CLASSNAME_CLIPPER);
+    var clipperCreator = function (container) {
+        return divCreator$1(container, CREATOR_CLASSNAME_CLIPPER);
     };
     var CREATOR_CLASSNAME_BEFORE = CREATOR_CLASSNAME + "-before";
-    var beforeCreator = function (parent) {
-        return divCreator$1(parent, CREATOR_CLASSNAME_BEFORE);
+    var beforeCreator = function (container) {
+        return divCreator$1(container, CREATOR_CLASSNAME_BEFORE);
     };
     var CREATOR_CLASSNAME_AFTER = CREATOR_CLASSNAME + "-after";
-    var afterCreator = function (parent) {
-        return divCreator$1(parent, CREATOR_CLASSNAME_AFTER);
+    var afterCreator = function (container) {
+        return divCreator$1(container, CREATOR_CLASSNAME_AFTER);
     };
     var DThemeWhiteInput = /** @class */ (function (_super) {
         __extends(DThemeWhiteInput, _super);
@@ -4412,7 +4466,11 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var editingUnformatter$1 = function (text) {
-        return parseInt(text, 10);
+        var result = parseInt(text, 10);
+        if (result === result) {
+            return result;
+        }
+        return 0;
     };
     var DThemeWhiteInputInteger = /** @class */ (function (_super) {
         __extends(DThemeWhiteInputInteger, _super);
@@ -4467,7 +4525,11 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var editingUnformatter$2 = function (text) {
-        return parseFloat(text);
+        var result = parseFloat(text);
+        if (result === result) {
+            return result;
+        }
+        return 0;
     };
     var DThemeWhiteInputReal = /** @class */ (function (_super) {
         __extends(DThemeWhiteInputReal, _super);
