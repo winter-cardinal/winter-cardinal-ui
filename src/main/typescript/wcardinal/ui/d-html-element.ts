@@ -47,7 +47,7 @@ export class DHtmlElement<
 		) as any;
 	}
 
-	protected newOperation(): UtilHtmlElementOperation {
+	protected newOperation(): UtilHtmlElementOperation<ELEMENT> {
 		return {
 			getElementRect: ( resolution: number, work: Point, result: Rectangle ): Rectangle | null => {
 				return this.getElementRect( resolution, work, result );
@@ -67,6 +67,18 @@ export class DHtmlElement<
 
 			containsPoint: ( point: Point ): boolean => {
 				return this.containsPoint( point );
+			},
+
+			onStart: (): void => {
+				// DO NOTHING
+			},
+
+			onCancel: (): void => {
+				// DO NOTHING
+			},
+
+			onEnd: (): void => {
+				// DO NOTHING
 			}
 		};
 	}

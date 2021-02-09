@@ -1,13 +1,18 @@
 import { Matrix, Rectangle } from "pixi.js";
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeHtmlElement } from "../../d-html-element";
+import { DHtmlElementState } from "../../d-html-element-state";
 import { UtilHtmlElementCreator, UtilHtmlElementPadding } from "../../util/util-html-element";
 import { UtilHtmlElementWhen } from "../../util/util-html-element-when";
 import { DThemeWhiteImageBase } from "./d-theme-white-image-base";
 
-const divCreator = ( parent: HTMLElement ): HTMLDivElement => {
+const nullCreator = () => {
+	return null;
+};
+
+const divCreator = ( container: HTMLElement ): HTMLDivElement => {
 	const result = document.createElement( "div" );
-	parent.appendChild( result );
+	container.appendChild( result );
 	return result;
 };
 
@@ -15,8 +20,8 @@ export class DThemeWhiteHtmlElement<
 	VALUE = unknown,
 	ELEMENT extends HTMLElement = HTMLElement
 > extends DThemeWhiteImageBase<VALUE> implements DThemeHtmlElement<VALUE, ELEMENT> {
-	getElementCreator(): UtilHtmlElementCreator<ELEMENT> | null {
-		return null;
+	getElementCreator(): UtilHtmlElementCreator<ELEMENT> {
+		return nullCreator;
 	}
 
 	setElementStyle(
@@ -25,7 +30,7 @@ export class DThemeWhiteHtmlElement<
 		clipperRect: Rectangle | null
 	): void {
 		// Style
-		const style = `pointer-events: auto;` +
+		const style = this.getElementStylePointerEvent( state ) +
 			this.getElementStylePosition( state, elementRect, elementMatrix, clipperRect ) +
 			this.getElementStyleMargin( state ) +
 			this.getElementStyleText( state ) +
@@ -48,6 +53,13 @@ export class DThemeWhiteHtmlElement<
 		} else {
 			target.removeAttribute( "disabled" );
 		}
+	}
+
+	protected getElementStylePointerEvent( state: DBaseStateSet ): string {
+		if( ! state.is( DHtmlElementState.NO_POINTER_EVENTS )  ) {
+			return `pointer-events: auto;`;
+		}
+		return "";
 	}
 
 	protected getElementStyleBackground( state: DBaseStateSet ): string {

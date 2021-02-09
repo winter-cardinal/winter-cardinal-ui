@@ -47,11 +47,22 @@ export abstract class DInput<
 				return this.containsPoint( point );
 			},
 
-			setTextVisibility: ( visible: boolean ): void => {
+			onStart: (): void => {
 				const text = this._text;
 				if( text != null ) {
-					text.visible = visible;
+					text.visible = false;
 				}
+			},
+
+			onCancel: (): void => {
+				const text = this._text;
+				if( text != null ) {
+					text.visible = true;
+				}
+			},
+
+			onEnd: (): void => {
+				// DO NOTHING
 			},
 
 			getValue: (): VALUE | undefined => {

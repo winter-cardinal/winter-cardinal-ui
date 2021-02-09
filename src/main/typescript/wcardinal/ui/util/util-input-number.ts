@@ -152,7 +152,7 @@ export class UtilInputNumber<
 	}
 
 	protected onElementAttached(
-		element: HTMLInputElement, before: HTMLDivElement | null, after: HTMLDivElement | null
+		element: HTMLInputElement, before?: HTMLDivElement | null, after?: HTMLDivElement | null
 	): void {
 		super.onElementAttached( element, before, after );
 		this.updateStep( element );
