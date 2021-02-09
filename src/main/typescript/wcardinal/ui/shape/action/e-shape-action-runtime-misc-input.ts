@@ -37,8 +37,16 @@ export abstract class EShapeActionRuntimeMiscInput<
 				return this.containsPoint( shape, runtime, point );
 			},
 
-			setTextVisibility: ( visible: boolean ): void => {
-				shape.text.enable = visible;
+			onStart: (): void => {
+				shape.text.enable = false;
+			},
+
+			onCancel: (): void => {
+				shape.text.enable = true;
+			},
+
+			onEnd: (): void => {
+				// DO NOTHING
 			},
 
 			getValue: (): VALUE | undefined => {
@@ -61,6 +69,10 @@ export abstract class EShapeActionRuntimeMiscInput<
 				// DO NOTHING
 			}
 		};
+	}
+
+	protected getPadding( shape: EShape, runtime: EShapeRuntime ): UtilHtmlElementPadding | null {
+		return shape.text.padding;
 	}
 
 	protected onValueChange( shape: EShape, runtime: EShapeRuntime, newValue: VALUE, oldValue: VALUE ): void {

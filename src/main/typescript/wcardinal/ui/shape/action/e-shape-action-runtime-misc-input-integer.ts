@@ -14,7 +14,8 @@ export class EShapeActionRuntimeMiscInputInteger extends EShapeActionRuntimeMisc
 	protected newUtil( shape: EShape, runtime: EShapeRuntime ): UtilInputNumber {
 		return new UtilInputNumber(
 			shape, this.newOperation( shape, runtime ),
-			DThemes.getInstance().get<DThemeInputInteger>( "DInputInteger" )
+			DThemes.getInstance().get<DThemeInputInteger>( "DInputInteger" ),
+			this.newUtilOptions( shape, runtime )
 		);
 	}
 }

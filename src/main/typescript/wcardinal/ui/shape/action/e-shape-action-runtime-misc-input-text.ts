@@ -14,7 +14,8 @@ export class EShapeActionRuntimeMiscInputText extends EShapeActionRuntimeMiscInp
 	protected newUtil( shape: EShape, runtime: EShapeRuntime ): UtilInputText {
 		return new UtilInputText(
 			shape, this.newOperation( shape, runtime ),
-			DThemes.getInstance().get<DThemeInputText>( "DInputText" )
+			DThemes.getInstance().get<DThemeInputText>( "DInputText" ),
+			this.newUtilOptions( shape, runtime )
 		);
 	}
 }

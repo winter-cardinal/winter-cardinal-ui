@@ -12,8 +12,7 @@ export interface UtilInputTarget extends UtilHtmlElementTarget {
 
 }
 
-export interface UtilInputOperation<VALUE> extends UtilHtmlElementOperation {
-	setTextVisibility( visible: boolean ): void;
+export interface UtilInputOperation<VALUE> extends UtilHtmlElementOperation<HTMLInputElement> {
 	getValue(): VALUE | undefined;
 	applyTitle(): void;
 
@@ -80,23 +79,13 @@ export abstract class UtilInput<
 		this._editingValidator = editing?.validator ?? theme.getEditingValidator();
 	}
 
-	protected onStart(): void {
-		super.onStart();
-		this._operation.setTextVisibility( false );
-	}
-
-	protected onCancel(): void {
-		super.onCancel();
-		this._operation.setTextVisibility( true );
-	}
-
 	protected onEnd(): void {
 		super.onEnd();
 		this.onInputChange();
 	}
 
 	protected onElementAttached(
-		element: HTMLInputElement, before: HTMLDivElement | null, after: HTMLDivElement | null
+		element: HTMLInputElement, before?: HTMLDivElement | null, after?: HTMLDivElement | null
 	): void {
 		element.type = this.getInputType();
 		element.value = this.fromValue( this._operation.getValue() );
@@ -107,7 +96,7 @@ export abstract class UtilInput<
 	}
 
 	protected onElementDetached(
-		element: HTMLInputElement, before: HTMLDivElement | null, after: HTMLDivElement | null
+		element: HTMLInputElement, before?: HTMLDivElement | null, after?: HTMLDivElement | null
 	): void {
 		super.onElementDetached( element, before, after );
 		element.removeEventListener( "keydown", this._onInputKeyDownBound );

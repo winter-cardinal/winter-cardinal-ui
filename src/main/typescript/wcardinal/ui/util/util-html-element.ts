@@ -25,7 +25,7 @@ export interface UtilHtmlElementPaddingVH {
 
 export type UtilHtmlElementPadding = UtilHtmlElementPaddingVH | UtilHtmlElementPaddingLTRB;
 
-export type UtilHtmlElementCreator<T extends HTMLElement> = ( parent: HTMLElement ) => T;
+export type UtilHtmlElementCreator<T extends HTMLElement> = ( container: HTMLElement ) => T | null;
 export type UtilHtmlElementStyler<T extends HTMLElement> = (
 	target: T,
 	state: DBaseStateSet, padding: UtilHtmlElementPadding | null,
@@ -39,7 +39,7 @@ export type UtilHtmlElementToRect = ( resolution: number, work: Point, result: R
 export type UtilHtmlElementToMatrix = () => Matrix | null;
 
 export interface UtilHtmlElementElementOptions<ELEMENT extends HTMLElement> {
-	creator?: UtilHtmlElementCreator<ELEMENT> | null;
+	creator?: UtilHtmlElementCreator<ELEMENT>;
 	styler?: UtilHtmlElementStyler<ELEMENT>;
 }
 
@@ -68,7 +68,7 @@ export interface UtilHtmlElementOptions<ELEMENT extends HTMLElement = HTMLElemen
 }
 
 export interface UtilThemeHtmlElement<ELEMENT extends HTMLElement> {
-	getElementCreator(): UtilHtmlElementCreator<ELEMENT> | null;
+	getElementCreator(): UtilHtmlElementCreator<ELEMENT>;
 	setElementStyle(
 		target: ELEMENT, state: DBaseStateSet, padding: UtilHtmlElementPadding | null,
 		elementRect: Rectangle | null, elementMatrix: Matrix | null,
@@ -88,7 +88,7 @@ export interface UtilThemeHtmlElement<ELEMENT extends HTMLElement> {
 }
 
 export interface UtilHtmlElementElementData<ELEMENT extends HTMLElement> {
-	creator: UtilHtmlElementCreator<ELEMENT> | null;
+	creator: UtilHtmlElementCreator<ELEMENT>;
 	styler: UtilHtmlElementStyler<ELEMENT>;
 }
 
@@ -124,18 +124,21 @@ export interface UtilHtmlElementTarget extends DFocusableMightBe {
 	focus(): void;
 }
 
-export interface UtilHtmlElementOperation {
+export interface UtilHtmlElementOperation<ELEMENT extends HTMLElement> {
 	getElementRect( resolution: number, work: Point, result: Rectangle ): Rectangle | null;
 	getElementMatrix(): Matrix | null;
 	getClipperRect( resolution: number, work: Point, result: Rectangle ): Rectangle | null;
 	getPadding(): UtilHtmlElementPadding | null;
 	containsPoint( point: Point ): boolean;
+	onStart(): void;
+	onCancel(): void;
+	onEnd(): void;
 }
 
 export class UtilHtmlElement<
 	ELEMENT extends HTMLElement = HTMLElement,
 	TARGET extends UtilHtmlElementTarget = UtilHtmlElementTarget,
-	OPERATION extends UtilHtmlElementOperation = UtilHtmlElementOperation,
+	OPERATION extends UtilHtmlElementOperation<ELEMENT> = UtilHtmlElementOperation<ELEMENT>,
 	THEME extends UtilThemeHtmlElement<ELEMENT> = UtilThemeHtmlElement<ELEMENT>,
 	OPTIONS extends UtilHtmlElementOptions<ELEMENT> = UtilHtmlElementOptions<ELEMENT>,
 > {
@@ -145,18 +148,18 @@ export class UtilHtmlElement<
 
 	protected _point?: Point;
 
-	protected _clipper: HTMLDivElement | null;
+	protected _clipper?: HTMLDivElement | null;
 	protected _clipperRectResult?: Rectangle;
 
-	protected _element: ELEMENT | null;
+	protected _element?: ELEMENT | null;
 	protected _elementRectResult?: Rectangle;
 	protected _isElementShown: boolean;
 	protected _onElementFocusBound: ( e: FocusEvent ) => void;
 
-	protected _before: HTMLDivElement | null;
+	protected _before?: HTMLDivElement | null;
 	protected _onBeforeFocusBound: ( e: FocusEvent ) => void;
 
-	protected _after: HTMLDivElement | null;
+	protected _after?: HTMLDivElement | null;
 	protected _onAfterFocusBound!: ( e: FocusEvent ) => void;
 
 	protected _isStarted: boolean;
@@ -173,20 +176,15 @@ export class UtilHtmlElement<
 		const data = this.toData( theme, options );
 		this._data = data;
 
-		this._clipper = null;
-
-		this._element = null;
 		this._isElementShown = false;
 		this._onElementFocusBound = ( e: FocusEvent ): void => {
 			this.onElementFocus( e );
 		};
 
-		this._before = null;
 		this._onBeforeFocusBound = ( e: FocusEvent ): void => {
 			this.onBeforeFocus( e );
 		};
 
-		this._after = null;
 		this._onAfterFocusBound = ( e: FocusEvent ): void => {
 			this.onAfterFocus( e );
 		};
@@ -274,7 +272,7 @@ export class UtilHtmlElement<
 	}
 
 	get element(): ELEMENT | null {
-		return this._element;
+		return this._element ?? null;
 	}
 
 	get when(): UtilHtmlElementWhen {
@@ -459,7 +457,7 @@ export class UtilHtmlElement<
 	}
 
 	protected onStart(): void {
-		// DO NOTHING
+		this._operation.onStart();
 	}
 
 	protected doSelect(): void {
@@ -523,11 +521,11 @@ export class UtilHtmlElement<
 	}
 
 	protected onCancel(): void {
-		// DO NOTHING
+		this._operation.onCancel();
 	}
 
 	protected onElementAttached(
-		element: ELEMENT, before: HTMLDivElement | null, after: HTMLDivElement | null
+		element: ELEMENT, before?: HTMLDivElement | null, after?: HTMLDivElement | null
 	): void {
 		before?.addEventListener( "focus", this._onBeforeFocusBound );
 		after?.addEventListener( "focus", this._onAfterFocusBound );
@@ -535,33 +533,31 @@ export class UtilHtmlElement<
 	}
 
 	protected onElementDetached(
-		element: ELEMENT, before: HTMLDivElement | null, after: HTMLDivElement | null
+		element: ELEMENT, before?: HTMLDivElement | null, after?: HTMLDivElement | null
 	): void {
 		before?.removeEventListener( "focus", this._onBeforeFocusBound );
 		after?.removeEventListener( "focus", this._onAfterFocusBound );
 		element.removeEventListener( "focus", this._onElementFocusBound, true );
 	}
 
-	protected getElement( clipper: HTMLDivElement ): ELEMENT | null {
-		let result = this._element;
-		if( result == null ) {
-			const creator = this._data.element.creator;
-			if( creator ) {
-				result = creator( clipper );
-				this._element = result;
-			}
-		}
-		return result;
-	}
-
 	protected getClipper(): HTMLDivElement | null {
 		let result = this._clipper;
 		if( result == null ) {
 			const layer = DApplications.getLayer( this._target );
-			if( layer ) {
-				result = this._data.clipper.creator( layer.getElementContainer() );
-				this._clipper = result;
-			}
+			result = ( layer ?
+				this._data.clipper.creator( layer.getElementContainer() ) :
+				null
+			);
+			this._clipper = result;
+		}
+		return result;
+	}
+
+	protected getElement( clipper: HTMLDivElement ): ELEMENT | null {
+		let result = this._element;
+		if( result == null ) {
+			result = this._data.element.creator( clipper );
+			this._element = result;
 		}
 		return result;
 	}
@@ -624,7 +620,7 @@ export class UtilHtmlElement<
 	}
 
 	protected onEnd(): void {
-		// DO NOTHING
+		this._operation.onEnd();
 	}
 
 	end(): void {

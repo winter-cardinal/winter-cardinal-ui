@@ -7,6 +7,7 @@ import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manage
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeActionRuntime } from "./e-shape-action-runtime";
 import { EShapeActionRuntimeMiscEmitEvent } from "./e-shape-action-runtime-misc-emit-event";
+import { EShapeActionRuntimeMiscHtmlElement } from "./e-shape-action-runtime-misc-html-element";
 import { EShapeActionRuntimeMiscInputInteger } from "./e-shape-action-runtime-misc-input-integer";
 import { EShapeActionRuntimeMiscInputReal } from "./e-shape-action-runtime-misc-input-real";
 import { EShapeActionRuntimeMiscInputText } from "./e-shape-action-runtime-misc-input-text";
@@ -32,12 +33,12 @@ export class EShapeActionValueMisc extends EShapeActionValueSubtyped<EShapeActio
 		subtype: EShapeActionValueMiscType,
 		condition: string,
 		target: string,
-		onInputType: EShapeActionValueOnInputAction,
+		onInputAction: EShapeActionValueOnInputAction,
 		value: string
 	) {
 		super( EShapeActionValueType.MISC, condition, subtype );
 		this.target = target;
-		this.onInputAction = onInputType;
+		this.onInputAction = onInputAction;
 		this.value = value;
 	}
 
@@ -57,6 +58,9 @@ export class EShapeActionValueMisc extends EShapeActionValueSubtyped<EShapeActio
 			return new EShapeActionRuntimeMiscWriteLocal( this );
 		case EShapeActionValueMiscType.WRITE_REMOTE:
 			return new EShapeActionRuntimeMiscWriteRemote( this );
+		case EShapeActionValueMiscType.HTML_ELEMENT:
+		case EShapeActionValueMiscType.HTML_ELEMENT_WITHOUT_POINTER_EVENTS:
+			return new EShapeActionRuntimeMiscHtmlElement( this );
 		}
 	}
 
@@ -73,9 +77,10 @@ export class EShapeActionValueMisc extends EShapeActionValueSubtyped<EShapeActio
 		serialized: EShapeActionValueMiscSerialized,
 		manager: EShapeResourceManagerDeserialization
 	): EShapeActionValueMisc {
-		const condition = EShapeActionValues.toResource( 1, serialized, manager.resources );
-		const target = EShapeActionValues.toResource( 3, serialized, manager.resources );
-		const value = EShapeActionValues.toResource( 5, serialized, manager.resources );
+		const resources = manager.resources;
+		const condition = EShapeActionValues.toResource( 1, serialized, resources );
+		const target = EShapeActionValues.toResource( 3, serialized, resources );
+		const value = EShapeActionValues.toResource( 5, serialized, resources );
 		return new EShapeActionValueMisc( serialized[ 2 ], condition, target, serialized[ 4 ], value );
 	}
 }

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EShapeActionExpression } from "./e-shape-action-expression";
+import { EShapeActionExpression, EShapeActionExpressionWithParameter } from "./e-shape-action-expression";
 
 export class EShapeActionExpressions {
 	static NULL = () => null;
@@ -14,20 +14,24 @@ export class EShapeActionExpressions {
 	static TRUE = () => true;
 	static FALSE = () => false;
 
-	static from<T>(
-		expression: string,
-		caster: string,
-		def: EShapeActionExpression<T>,
-		defLiteral: string,
-		nullable: boolean
-	): EShapeActionExpression<T> {
+	static from<T, DEF>(
+		expression: string, caster: string, def: DEF,
+		defLiteral: string, nullable: boolean
+	): EShapeActionExpression<T> | DEF;
+	static from<T, P, DEF>(
+		expression: string, caster: string, def: DEF,
+		defLiteral: string, nullable: boolean, parameter: string
+	): EShapeActionExpressionWithParameter<T, P> | DEF;
+	static from<T, P>(
+		expression: string, caster: string, def: EShapeActionExpression<T> | EShapeActionExpressionWithParameter<T, P> | undefined,
+		defLiteral: string, nullable: boolean, parameter?: string
+	): EShapeActionExpression<T> | EShapeActionExpressionWithParameter<T, P> | undefined {
 		if( expression.trim().length <= 0 ) {
 			return def;
 		}
 
 		try {
-			return Function(
-				"shape", "time",
+			const body = `` +
 				`try{` +
 					`with( shape ) {` +
 						`with( state ) {` +
@@ -42,23 +46,31 @@ export class EShapeActionExpressions {
 					`}` +
 				`} catch( e ) {` +
 					`return ${defLiteral};` +
-				`}`
-			) as EShapeActionExpression<T>;
+				`}`;
+			if( parameter == null ) {
+				return Function(
+					"shape", "time", body
+				) as EShapeActionExpression<T>;
+			} else {
+				return Function(
+					"shape", "time", parameter, body
+				) as EShapeActionExpressionWithParameter<T, P>;
+			}
 		} catch( e ) {
 			return def;
 		}
 	}
 
 	static ofNumberOrNull( expression: string ): EShapeActionExpression<number | null> {
-		return this.from<number | null>( expression, "Number", this.NULL, "null", true );
+		return this.from( expression, "Number", this.NULL, "null", true );
 	}
 
 	static ofStringOrNull( expression: string ): EShapeActionExpression<string | null> {
-		return this.from<string | null>( expression, "String", this.NULL, "null", true );
+		return this.from( expression, "String", this.NULL, "null", true );
 	}
 
 	static ofUnknown( expression: string ): EShapeActionExpression<unknown> {
-		return this.from<unknown>( expression, "", this.NULL, "null", false );
+		return this.from( expression, "", this.NULL, "null", false );
 	}
 
 	static ofNumber( expression: string ): EShapeActionExpression<number> {
@@ -87,5 +99,9 @@ export class EShapeActionExpressions {
 
 	static ofBooleanOrFalse( expression: string ): EShapeActionExpression<boolean> {
 		return this.from( expression, "Boolean", this.FALSE, "false", false );
+	}
+
+	static ofElementOrNull<ELEMENT extends HTMLElement>( expression: string ): EShapeActionExpressionWithParameter<ELEMENT | null, HTMLElement> | undefined {
+		return this.from( expression, "", undefined, "null", false, "container" );
 	}
 }

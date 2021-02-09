@@ -235,6 +235,7 @@ export * from "./d-dynamic-text";
 export * from "./d-expandable-header";
 export * from "./d-expandable";
 export * from "./d-font";
+export * from "./d-html-element-state";
 export * from "./d-html-element";
 export * from "./d-image-base";
 export * from "./d-image";
