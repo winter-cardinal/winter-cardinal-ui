@@ -57,15 +57,11 @@ export class DDiagramCanvasBase<
 	}
 
 	protected toBackgroundAmbient( theme: THEME, options?: OPTIONS ): boolean {
-		const background = options && options.background;
-		const ambient = background && background.ambient;
-		return ( ambient != null ? ambient : theme.getBackgroundAmbient() );
+		return options?.background?.ambient ?? theme.getBackgroundAmbient();
 	}
 
 	protected toBackgroundColorBase( theme: THEME, options?: OPTIONS ): number | null {
-		const background = options && options.background;
-		const backgroundBase = background && background.base;
-		return ( backgroundBase != null ? backgroundBase : theme.getBackgroundBase() );
+		return options?.background?.base ?? theme.getBackgroundBase();
 	}
 
 	get tile(): DDiagramCanvasTile {
