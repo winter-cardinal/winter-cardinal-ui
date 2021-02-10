@@ -10,11 +10,24 @@ import { ESnapperResult } from "./e-snapper-result";
 export class ESnapperGrid extends utils.EventEmitter {
 	protected _isEnabled: boolean;
 	protected _size: number;
+	protected _isVisible: boolean;
 
 	constructor() {
 		super();
+		this._isVisible = false;
 		this._isEnabled = true;
 		this._size = 10;
+	}
+
+	get visible() {
+		return this._isVisible;
+	}
+
+	set visible( visible: boolean ) {
+		if( this._isVisible !== visible ) {
+			this._isVisible = visible;
+			this.emit( "change", this );
+		}
 	}
 
 	get enable() {
@@ -55,12 +68,19 @@ export class ESnapperGrid extends utils.EventEmitter {
 	serialize(): DDiagramSerializedSnapGrid {
 		return [
 			(this._isEnabled ? 1 : 0),
+			(this._isVisible ? 1 : 0),
 			this._size
 		];
 	}
 
 	deserialize( serialized: DDiagramSerializedSnapGrid ): void {
 		this.enable = ( serialized[ 0 ] !== 0 );
-		this.size = serialized[ 1 ];
+		if( 2 in serialized ) {
+			this.visible = ( serialized[ 1 ] !== 0 );
+			this.size = (serialized as any)[ 2 ];
+		} else {
+			this.visible = false;
+			this.size = serialized[ 1 ];
+		}
 	}
 }
