@@ -371,7 +371,7 @@ export interface DDiagramSerializedSnapTarget {
 /**
  * Serialized grid snap settings without a visibility option.
  */
-export type DDiagramSerializedSnapGridWithoutVisibility = {
+export interface DDiagramSerializedSnapGridWithoutVisibility {
 	/** Snap on grid (0: Off, 1: On) */
 	[ 0 ]: number;
 
@@ -382,7 +382,7 @@ export type DDiagramSerializedSnapGridWithoutVisibility = {
 /**
  * Serialized grid snap settings with a visibility option.
  */
-export type DDiagramSerializedSnapGridWithVisibility = {
+export interface DDiagramSerializedSnapGridWithVisibility {
 	/** Snap on grid (0: Off, 1: On) */
 	[ 0 ]: number;
 
