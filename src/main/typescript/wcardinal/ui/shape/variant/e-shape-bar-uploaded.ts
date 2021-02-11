@@ -128,6 +128,7 @@ export class EShapeBarUploaded extends EShapeTextUploaded {
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
 
+			buffer.updateUvs();
 			buildBarUv(
 				buffer.uvs,
 				this.vertexOffset,
