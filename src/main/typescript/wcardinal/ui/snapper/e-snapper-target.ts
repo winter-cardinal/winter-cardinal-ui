@@ -80,6 +80,7 @@ export class ESnapperTarget extends utils.EventEmitter {
 			const valueA = values[ indexA ];
 			values[ indexA ] = values[ indexB ];
 			values[ indexB ] = valueA;
+			this.emit( "change", this );
 		}
 	}
 
