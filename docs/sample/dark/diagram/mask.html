@@ -22,30 +22,30 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.77.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.77.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.78.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.78.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
 
-		const application = new wcardinal.ui.DApplication();
+		var application = new wcardinal.ui.DApplication();
 
-		const diagram1 = new wcardinal.ui.DDiagram({
+		var diagram1 = new wcardinal.ui.DDiagram({
 			parent: application.stage,
 			x: 0, y: 0,
 			width: "50%", height: "100%",
 			mask: true
 		});
 
-		const diagram2 = new wcardinal.ui.DDiagram({
+		var diagram2 = new wcardinal.ui.DDiagram({
 			parent: application.stage,
 			x: "50%", y: 0,
 			width: "50%", height: "100%",
 			mask: true
 		});
 
-		fetch( "../../resource/diagram/text.json" ).then(( response ) => {
-			response.json().then(( json ) => {
+		fetch( "../../resource/diagram/text.json" ).then(function( response ) {
+			response.json().then(function( json ) {
 				diagram1.set( json );
 				diagram1.view.fit();
 

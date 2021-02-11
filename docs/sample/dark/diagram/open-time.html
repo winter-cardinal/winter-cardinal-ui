@@ -22,26 +22,22 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.77.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.77.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.78.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.78.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
 
-		const application = new wcardinal.ui.DApplication();
+		var application = new wcardinal.ui.DApplication();
 
-		const diagram = new wcardinal.ui.DDiagram({
+		var diagram = new wcardinal.ui.DDiagram({
 			parent: application.stage,
 			x: 0, y: 0,
 			width: "100%", height: "100%"
 		});
 
-		diagram.shape.on( "clicked", ( value, time, shape ) => {
-			console.log( value, time, shape );
-		});
-
-		fetch( "../../resource/diagram/open-time.json" ).then(( response ) => {
-			response.json().then(( json ) => {
+		fetch( "../../resource/diagram/open-time.json" ).then(function( response ) {
+			response.json().then(function( json ) {
 				diagram.set( json );
 				diagram.view.fit();
 			});

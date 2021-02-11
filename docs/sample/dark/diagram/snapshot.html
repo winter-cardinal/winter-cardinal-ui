@@ -22,59 +22,64 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.77.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.77.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.78.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.78.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
 
-		const application = new wcardinal.ui.DApplication();
+		var application = new wcardinal.ui.DApplication();
 
-		const diagram = new wcardinal.ui.DDiagramEditor({
-			parent: application.stage,
+		var diagram = new wcardinal.ui.DDiagram({
 			x: 0, y: 0,
-			width: "100%", height: "100%"
+			width: "padding", weight: 1,
+			background: {
+				ambient: false
+			}
 		});
 
-		new wcardinal.ui.DLayoutHorizontal({
-			parent: application.stage,
-			x: "100%-100s-10", y: "100%-100s-10",
-			width: "auto", height: "auto",
-			children: [
-				new wcardinal.ui.DButton({
-					text: {
-						value: "Snapshot"
-					},
-					title: "Take a snapshot",
-					on: {
-						active: () => {
-							const canvas = diagram.canvas;
-							if( canvas != null ) {
-								const view = diagram.view;
-								const viewPosition = view.position;
-								const viewScale = view.scale;
+		var button = new wcardinal.ui.DButton({
+			width: "padding",
+			text: {
+				value: "Take a snapshot"
+			},
+			on: {
+				active: function() {
+					var canvas = diagram.canvas;
+					if( canvas != null ) {
+						var view = diagram.view;
+						var viewPosition = view.position;
+						var viewScale = view.scale;
 
-								const oldPositionX = viewPosition.x;
-								const oldPositionY = viewPosition.y;
-								const oldScaleX = viewScale.x;
-								const oldScaleY = viewScale.y;
+						var oldPositionX = viewPosition.x;
+						var oldPositionY = viewPosition.y;
+						var oldScaleX = viewScale.x;
+						var oldScaleY = viewScale.y;
 
-								const imageSize = 256;
-								const newScale = imageSize / application.getResolution() / Math.max( canvas.width, canvas.height );
+						var imageSize = 256;
+						var newScale = imageSize / application.getResolution() / Math.max( canvas.width, canvas.height );
 
-								view.transform( 0, 0, newScale, newScale, 0 );
-								wcardinal.ui.UtilExtract.file({ target: canvas, filename: "snapshot.png" });
-								console.log( wcardinal.ui.UtilExtract.base64( { target: canvas } ) );
-								view.transform( oldPositionX, oldPositionY, oldScaleX, oldScaleY, 0 );
-							}
-						}
+						view.transform( 0, 0, newScale, newScale, 0 );
+						wcardinal.ui.UtilExtract.file({ target: canvas, filename: "snapshot.png" });
+						view.transform( oldPositionX, oldPositionY, oldScaleX, oldScaleY, 0 );
 					}
-				})
+				}
+			}
+		})
+
+		new wcardinal.ui.DLayoutVertical({
+			parent: application.stage,
+			x: 0, y: 0,
+			width: "100%", height: "100%",
+			padding: 16,
+			children: [
+				diagram,
+				button
 			]
 		});
 
-		fetch( "../../resource/diagram/text.json" ).then(( response ) => {
-			response.json().then(( json ) => {
+		fetch( "../../resource/diagram/text.json" ).then(function( response ) {
+			response.json().then(function( json ) {
 				diagram.set( json );
 				diagram.view.fit();
 			});

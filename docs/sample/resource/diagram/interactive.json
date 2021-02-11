@@ -1,13 +1,13 @@
 {
 	"version": 1,
-	"name": "Diagram Interactive",
+	"name": "Interactive",
 	"width": 500,
 	"height": 500,
 	"background": {
 		"color": 16777215,
 		"alpha": 0
 	},
-	"resources": ["wait"],
+	"resources": ["pointer"],
 	"layers": [
 		["Default"]
 	],

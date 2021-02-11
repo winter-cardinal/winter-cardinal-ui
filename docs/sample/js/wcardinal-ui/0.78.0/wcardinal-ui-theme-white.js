@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.77.0
+ Winter Cardinal UI v0.78.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -3012,8 +3012,17 @@
         function DThemeWhiteDiagramBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeWhiteDiagramBase.prototype.getBackgroundAmbient = function () {
+        DThemeWhiteDiagramBase.prototype.getCanvasBackgroundColor = function () {
+            return 0xffffff;
+        };
+        DThemeWhiteDiagramBase.prototype.getCanvasBackgroundAlpha = function () {
+            return 1.0;
+        };
+        DThemeWhiteDiagramBase.prototype.isAmbient = function () {
             return true;
+        };
+        DThemeWhiteDiagramBase.prototype.getCanvasShadow = function () {
+            return "WEAK";
         };
         return DThemeWhiteDiagramBase;
     }(DThemeWhiteCanvasContainer));
@@ -3039,7 +3048,7 @@
         function DThemeWhiteDiagramCanvasBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeWhiteDiagramCanvasBase.prototype.getBackgroundAmbient = function () {
+        DThemeWhiteDiagramCanvasBase.prototype.isAmbient = function () {
             return true;
         };
         DThemeWhiteDiagramCanvasBase.prototype.getBackgroundBase = function () {
@@ -3137,6 +3146,8 @@
         loadThemeWhiteShape();
     };
 
+    const EShapePointsStyle = wcardinal.ui.EShapePointsStyle;
+
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
@@ -3146,8 +3157,50 @@
         function DThemeWhiteDiagramCanvasEditor() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeWhiteDiagramCanvasEditor.prototype.getBackgroundAmbient = function () {
+        DThemeWhiteDiagramCanvasEditor.prototype.isAmbient = function () {
             return false;
+        };
+        DThemeWhiteDiagramCanvasEditor.prototype.getSnapGridMajorInterval = function () {
+            return 10;
+        };
+        DThemeWhiteDiagramCanvasEditor.prototype.getSnapGridMajorColor = function () {
+            return 0x1e87f0;
+        };
+        DThemeWhiteDiagramCanvasEditor.prototype.getSnapGridMajorAlpha = function () {
+            return 0.5;
+        };
+        DThemeWhiteDiagramCanvasEditor.prototype.getSnapGridMajorWidth = function () {
+            return 2;
+        };
+        DThemeWhiteDiagramCanvasEditor.prototype.getSnapGridMajorStyle = function () {
+            return EShapePointsStyle.DASHED |
+                EShapePointsStyle.NON_EXPANDING_WIDTH |
+                EShapePointsStyle.NON_SHRINKING_WIDTH |
+                EShapePointsStyle.NON_SCALING_DOT_AND_DASH;
+        };
+        DThemeWhiteDiagramCanvasEditor.prototype.getSnapGridMinorColor = function () {
+            return this.getSnapGridMajorColor();
+        };
+        DThemeWhiteDiagramCanvasEditor.prototype.getSnapGridMinorAlpha = function () {
+            return 0.125;
+        };
+        DThemeWhiteDiagramCanvasEditor.prototype.getSnapGridMinorWidth = function () {
+            return 2;
+        };
+        DThemeWhiteDiagramCanvasEditor.prototype.getSnapGridMinorStyle = function () {
+            return this.getSnapGridMajorStyle();
+        };
+        DThemeWhiteDiagramCanvasEditor.prototype.getSnapTargetColor = function () {
+            return 0xf36f27;
+        };
+        DThemeWhiteDiagramCanvasEditor.prototype.getSnapTargetAlpha = function () {
+            return this.getSnapGridMajorAlpha();
+        };
+        DThemeWhiteDiagramCanvasEditor.prototype.getSnapTargetWidth = function () {
+            return this.getSnapGridMajorWidth();
+        };
+        DThemeWhiteDiagramCanvasEditor.prototype.getSnapTargetStyle = function () {
+            return this.getSnapGridMajorStyle();
         };
         return DThemeWhiteDiagramCanvasEditor;
     }(DThemeWhiteDiagramCanvasBase));
@@ -3161,7 +3214,7 @@
         function DThemeWhiteDiagramEditor() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeWhiteDiagramEditor.prototype.getBackgroundAmbient = function () {
+        DThemeWhiteDiagramEditor.prototype.isAmbient = function () {
             return false;
         };
         DThemeWhiteDiagramEditor.prototype.isThumbnailEnabled = function () {

@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.77.0
+ Winter Cardinal UI v0.78.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -13492,12 +13492,8 @@
             this._view = new DViewImpl(this, function () { return _this._canvas; }, options === null || options === void 0 ? void 0 : options.view);
             // Canvas
             var canvas = options === null || options === void 0 ? void 0 : options.canvas;
-            if (canvas instanceof DBase) {
-                this._canvasOptions = null;
+            if (canvas) {
                 this.canvas = canvas;
-            }
-            else {
-                this._canvasOptions = canvas;
             }
             // Overflow mask
             var mask = (_a = options === null || options === void 0 ? void 0 : options.mask) !== null && _a !== void 0 ? _a : theme.isOverflowMaskEnabled();
@@ -35882,10 +35878,24 @@
         __extends(ESnapperGrid, _super);
         function ESnapperGrid() {
             var _this = _super.call(this) || this;
+            _this._isVisible = false;
             _this._isEnabled = true;
             _this._size = 10;
             return _this;
         }
+        Object.defineProperty(ESnapperGrid.prototype, "visible", {
+            get: function () {
+                return this._isVisible;
+            },
+            set: function (visible) {
+                if (this._isVisible !== visible) {
+                    this._isVisible = visible;
+                    this.emit("change", this);
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
         Object.defineProperty(ESnapperGrid.prototype, "enable", {
             get: function () {
                 return this._isEnabled;
@@ -35926,12 +35936,20 @@
         ESnapperGrid.prototype.serialize = function () {
             return [
                 (this._isEnabled ? 1 : 0),
+                (this._isVisible ? 1 : 0),
                 this._size
             ];
         };
         ESnapperGrid.prototype.deserialize = function (serialized) {
             this.enable = (serialized[0] !== 0);
-            this.size = serialized[1];
+            if (2 in serialized) {
+                this.visible = (serialized[1] !== 0);
+                this.size = serialized[2];
+            }
+            else {
+                this.visible = false;
+                this.size = serialized[1];
+            }
         };
         return ESnapperGrid;
     }(pixi_js.utils.EventEmitter));
@@ -48353,27 +48371,27 @@
         function DDiagramCanvasBase(options) {
             var _this = _super.call(this, options) || this;
             // Background
-            if (!_this.toBackgroundAmbient(_this.theme, options)) {
-                _this._background = new DDiagramCanvasEditorBackground(_this._background, _this.toBackgroundColorBase(_this.theme, options));
+            var theme = _this.theme;
+            if (!_this.isAmbient(theme, options)) {
+                _this._background = new DDiagramCanvasEditorBackground(_this._background, _this.toBackgroundBase(theme, options));
             }
             // Layer
             var layer = new DDiagramLayerContainer();
             _this._layer = layer;
             _this.addChild(layer);
             // Tile
-            var tile = _this._tile = new DDiagramCanvasTile(_this, options && options.tile);
+            var tile = new DDiagramCanvasTile(_this, options === null || options === void 0 ? void 0 : options.tile);
+            _this._tile = tile;
             tile.init();
             return _this;
         }
-        DDiagramCanvasBase.prototype.toBackgroundAmbient = function (theme, options) {
-            var background = options && options.background;
-            var ambient = background && background.ambient;
-            return (ambient != null ? ambient : theme.getBackgroundAmbient());
+        DDiagramCanvasBase.prototype.isAmbient = function (theme, options) {
+            var _a;
+            return (_a = options === null || options === void 0 ? void 0 : options.ambient) !== null && _a !== void 0 ? _a : theme.isAmbient();
         };
-        DDiagramCanvasBase.prototype.toBackgroundColorBase = function (theme, options) {
-            var background = options && options.background;
-            var backgroundBase = background && background.base;
-            return (backgroundBase != null ? backgroundBase : theme.getBackgroundBase());
+        DDiagramCanvasBase.prototype.toBackgroundBase = function (theme, options) {
+            var _a, _b;
+            return (_b = (_a = options === null || options === void 0 ? void 0 : options.background) === null || _a === void 0 ? void 0 : _a.base) !== null && _b !== void 0 ? _b : theme.getBackgroundBase();
         };
         Object.defineProperty(DDiagramCanvasBase.prototype, "tile", {
             get: function () {
@@ -48417,6 +48435,146 @@
     }(DCanvas));
 
     /*
+     * Copyright (C) 2021 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DDiagramCanvasEditorSnap = /** @class */ (function () {
+        function DDiagramCanvasEditorSnap(parent, theme, options) {
+            var _this = this;
+            this._parent = parent;
+            // Controller
+            var controller = options.controller;
+            this._controller = controller;
+            var onChangeBound = function () {
+                _this.onChange();
+            };
+            controller.grid.on("change", onChangeBound);
+            controller.target.on("change", onChangeBound);
+            // Container
+            var container = new EShapeContainer();
+            container.visible = false;
+            this._container = container;
+            parent.addChildAt(container, parent.children.length - 1);
+            // Grid
+            this._grid = this.toGrid(theme, options.grid);
+            // Target
+            this._target = this.toTarget(theme, options.target);
+        }
+        DDiagramCanvasEditorSnap.prototype.toGrid = function (theme, options) {
+            return {
+                major: this.toGridMajor(theme, options === null || options === void 0 ? void 0 : options.major),
+                minor: this.toGridMinor(theme, options === null || options === void 0 ? void 0 : options.minor),
+            };
+        };
+        DDiagramCanvasEditorSnap.prototype.toGridMajor = function (theme, options) {
+            var _a, _b, _c, _d, _e;
+            return {
+                interval: (_a = options === null || options === void 0 ? void 0 : options.interval) !== null && _a !== void 0 ? _a : theme.getSnapGridMajorInterval(),
+                color: (_b = options === null || options === void 0 ? void 0 : options.color) !== null && _b !== void 0 ? _b : theme.getSnapGridMajorColor(),
+                alpha: (_c = options === null || options === void 0 ? void 0 : options.alpha) !== null && _c !== void 0 ? _c : theme.getSnapGridMajorAlpha(),
+                width: (_d = options === null || options === void 0 ? void 0 : options.width) !== null && _d !== void 0 ? _d : theme.getSnapGridMajorWidth(),
+                style: (_e = options === null || options === void 0 ? void 0 : options.style) !== null && _e !== void 0 ? _e : theme.getSnapGridMajorStyle(),
+            };
+        };
+        DDiagramCanvasEditorSnap.prototype.toGridMinor = function (theme, options) {
+            var _a, _b, _c, _d;
+            return {
+                color: (_a = options === null || options === void 0 ? void 0 : options.color) !== null && _a !== void 0 ? _a : theme.getSnapGridMinorColor(),
+                alpha: (_b = options === null || options === void 0 ? void 0 : options.alpha) !== null && _b !== void 0 ? _b : theme.getSnapGridMinorAlpha(),
+                width: (_c = options === null || options === void 0 ? void 0 : options.width) !== null && _c !== void 0 ? _c : theme.getSnapGridMinorWidth(),
+                style: (_d = options === null || options === void 0 ? void 0 : options.style) !== null && _d !== void 0 ? _d : theme.getSnapGridMinorStyle(),
+            };
+        };
+        DDiagramCanvasEditorSnap.prototype.toTarget = function (theme, options) {
+            var _a, _b, _c, _d;
+            return {
+                color: (_a = options === null || options === void 0 ? void 0 : options.color) !== null && _a !== void 0 ? _a : theme.getSnapTargetColor(),
+                alpha: (_b = options === null || options === void 0 ? void 0 : options.alpha) !== null && _b !== void 0 ? _b : theme.getSnapTargetAlpha(),
+                width: (_c = options === null || options === void 0 ? void 0 : options.width) !== null && _c !== void 0 ? _c : theme.getSnapTargetWidth(),
+                style: (_d = options === null || options === void 0 ? void 0 : options.style) !== null && _d !== void 0 ? _d : theme.getSnapTargetStyle(),
+            };
+        };
+        DDiagramCanvasEditorSnap.prototype.onChange = function () {
+            var parent = this._parent;
+            parent.toDirty();
+            DApplications.update(parent);
+        };
+        DDiagramCanvasEditorSnap.prototype.serialize = function () {
+            return this._controller.serialize();
+        };
+        DDiagramCanvasEditorSnap.prototype.onReflow = function () {
+            var parent = this._parent;
+            var container = this._container;
+            var controller = this._controller;
+            var isGridVisible = controller.grid.visible;
+            var isTargetVisible = controller.target.visible;
+            if (isGridVisible || isTargetVisible) {
+                var w = parent.width;
+                var h = parent.height;
+                var wh = 0.5 * w;
+                var hh = 0.5 * h;
+                var TOP = EShapeBarPosition.TOP;
+                var LEFT = EShapeBarPosition.LEFT;
+                var shapes = container.children;
+                var index = 0;
+                // Grid
+                if (isGridVisible) {
+                    var size = controller.grid.size;
+                    var grid = this._grid;
+                    var major = grid.major;
+                    var minor = grid.minor;
+                    var interval = major.interval;
+                    for (var x = size, ix = 1; x < w; x += size, ix += 1, index += 1) {
+                        this.update(container, shapes, index, x, hh, TOP, w, h, ix % interval === 0 ? major : minor);
+                    }
+                    for (var y = size, iy = 1; y < w; y += size, iy += 1, index += 1) {
+                        this.update(container, shapes, index, wh, y, LEFT, w, h, iy % interval === 0 ? major : minor);
+                    }
+                }
+                // Target
+                if (isTargetVisible) {
+                    var values = controller.target.values;
+                    var target = this._target;
+                    for (var i = 0, imax = values.length; i < imax; i += 1, index += 1) {
+                        var value = values[i];
+                        var position = value.position;
+                        if (value.type === ESnapperTargetValueType.VERTICAL) {
+                            this.update(container, shapes, index, position, hh, TOP, w, h, target);
+                        }
+                        else {
+                            this.update(container, shapes, index, wh, position, LEFT, w, h, target);
+                        }
+                    }
+                }
+                for (var i = index, imax = shapes.length; i < imax; ++i) {
+                    shapes[i].visible = false;
+                }
+                container.visible = true;
+            }
+            else {
+                container.visible = false;
+            }
+        };
+        DDiagramCanvasEditorSnap.prototype.update = function (container, shapes, index, x, y, position, w, h, style) {
+            var shape = null;
+            if (index < shapes.length) {
+                shape = shapes[index];
+                shape.points.position = position;
+            }
+            else {
+                shape = new EShapeBar(position, -1, style.width);
+                shape.fill.enable = false;
+                shape.points.style = style.style;
+                shape.attach(container);
+            }
+            shape.transform.position.set(x, y);
+            shape.stroke.set(true, style.color, style.alpha);
+            shape.size.set(w, h);
+        };
+        return DDiagramCanvasEditorSnap;
+    }());
+
+    /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
@@ -48430,20 +48588,15 @@
         __extends(DDiagramCanvasEditor, _super);
         function DDiagramCanvasEditor(options) {
             var _this = _super.call(this, options) || this;
-            var snapper = options.snapper;
-            _this._snapper = snapper;
-            if (snapper) {
-                var snapperGraphics = new pixi_js.Graphics();
-                snapperGraphics.visible = false;
-                _this.addChildAt(snapperGraphics, _this.children.length - 1);
-                _this._snapperGraphics = snapperGraphics;
-                snapper.target.on("change", function () {
-                    _this.toDirty();
-                    DApplications.update(_this);
-                });
-            }
+            _this._snap = _this.toSnap(_this.theme, options.snap);
             return _this;
         }
+        DDiagramCanvasEditor.prototype.toSnap = function (theme, options) {
+            if (options) {
+                return new DDiagramCanvasEditorSnap(this, theme, options);
+            }
+            return null;
+        };
         DDiagramCanvasEditor.prototype.serialize = function (id, thumbnail) {
             var _a;
             var manager = new EShapeResourceManagerSerialization();
@@ -48467,42 +48620,14 @@
                 pieces: manager.pieces,
                 layers: this._layer.serialize(manager, items),
                 items: items,
-                snap: (_a = this._snapper) === null || _a === void 0 ? void 0 : _a.serialize(),
+                snap: (_a = this._snap) === null || _a === void 0 ? void 0 : _a.serialize(),
                 thumbnail: thumbnail === null || thumbnail === void 0 ? void 0 : thumbnail.serialize()
             };
         };
         DDiagramCanvasEditor.prototype.onReflow = function () {
+            var _a;
             _super.prototype.onReflow.call(this);
-            var snapper = this._snapper;
-            var snapperGraphics = this._snapperGraphics;
-            if (snapper && snapperGraphics) {
-                var target = snapper.target;
-                if (target.visible) {
-                    var borderColor = 0x1e87f0;
-                    var borderWidth = 1;
-                    var borderAlpha = 0.5;
-                    var width = this.width + 0.5;
-                    var height = this.height + 0.5;
-                    var values = target.values;
-                    snapperGraphics.clear();
-                    snapperGraphics.lineStyle(0, 0, 0, 0);
-                    snapperGraphics.beginFill(borderColor, borderAlpha);
-                    for (var i = 0, imax = values.length; i < imax; ++i) {
-                        var value = values[i];
-                        if (value.type === ESnapperTargetValueType.VERTICAL) {
-                            snapperGraphics.drawRect(value.position, 0, borderWidth, height);
-                        }
-                        else {
-                            snapperGraphics.drawRect(0, value.position, width, borderWidth);
-                        }
-                    }
-                    snapperGraphics.endFill();
-                    snapperGraphics.visible = true;
-                }
-                else {
-                    snapperGraphics.visible = false;
-                }
-            }
+            (_a = this._snap) === null || _a === void 0 ? void 0 : _a.onReflow();
         };
         DDiagramCanvasEditor.prototype.getType = function () {
             return "DDiagramCanvasEditor";
@@ -48862,11 +48987,12 @@
     var DDiagramBase = /** @class */ (function (_super) {
         __extends(DDiagramBase, _super);
         function DDiagramBase(options) {
+            var _a;
             var _this = _super.call(this, options) || this;
             _this._serialized = null;
             _this._tileFactory = options === null || options === void 0 ? void 0 : options.tile;
             _this._controller = options === null || options === void 0 ? void 0 : options.controller;
-            _this._backgroundAmbient = _this.toBackgroundAmbient(_this.theme, _this._options);
+            _this._isAmbient = ((_a = options === null || options === void 0 ? void 0 : options.ambient) !== null && _a !== void 0 ? _a : _this.theme.isAmbient());
             _this._snapshot = new DDiagramSnapshot(_this);
             return _this;
         }
@@ -48925,87 +49051,41 @@
                 DApplications.update(_this);
                 _this.emit("ready", _this);
             });
-            if (this._backgroundAmbient) {
-                var background = this.toBackground(serialized);
+            if (this._isAmbient) {
+                var background = this.toCanvasBaseBackgroundOptions(serialized, this.theme, false);
                 this.background.color = background.color;
                 this.background.alpha = background.alpha;
             }
         };
-        DDiagramBase.prototype.toCanvasBaseOptions = function (serialized, options) {
-            // Name
-            if (options.name === undefined) {
-                options.name = serialized.name;
-            }
-            // Width
-            if (options.width === undefined) {
-                options.width = serialized.width;
-            }
-            // Height
-            if (options.height === undefined) {
-                options.height = serialized.height;
-            }
-            // Background, border and shadow
-            var background = options.background = options.background || {};
-            var backgroundAmbient = this._backgroundAmbient;
-            var backgroundSerialized = this.toBackground(serialized);
-            if (backgroundAmbient) {
-                if (background.color === undefined) {
-                    background.color = null;
-                }
-                var border = options.border = options.border || {};
-                if (border.color === undefined) {
-                    border.color = null;
-                }
-            }
-            else {
-                if (background.color === undefined) {
-                    background.color = backgroundSerialized.color;
-                }
-                if (background.alpha === undefined) {
-                    background.alpha = backgroundSerialized.alpha;
-                }
-                if (options.shadow === undefined) {
-                    options.shadow = "WEAK";
-                }
-            }
-            if (background.ambient === undefined) {
-                var diagramOptions = this._options;
-                if (diagramOptions) {
-                    var diagramBackgroundOptions = diagramOptions.background;
-                    if (diagramBackgroundOptions && diagramBackgroundOptions.ambient !== undefined) {
-                        background.ambient = backgroundAmbient;
-                    }
-                }
-            }
-            // Tile
-            var tileOptions = options.tile = options.tile || {};
-            if (tileOptions.factory === undefined) {
-                tileOptions.factory = this._tileFactory;
-            }
-            if (tileOptions.mapping === undefined) {
-                tileOptions.mapping = serialized.tile && serialized.tile.mapping;
-            }
-            // Done
-            return options;
+        DDiagramBase.prototype.toCanvasBaseOptions = function (serialized) {
+            var _a;
+            var theme = this.theme;
+            var isAmbient = this._isAmbient;
+            return {
+                name: serialized.name,
+                width: serialized.width,
+                height: serialized.height,
+                background: this.toCanvasBaseBackgroundOptions(serialized, theme, isAmbient),
+                border: isAmbient ? { color: null } : undefined,
+                shadow: isAmbient ? null : theme.getCanvasShadow(),
+                tile: {
+                    factory: this._tileFactory,
+                    mapping: (_a = serialized.tile) === null || _a === void 0 ? void 0 : _a.mapping
+                },
+                ambient: isAmbient
+            };
         };
-        DDiagramBase.prototype.toBackgroundAmbient = function (theme, options) {
-            var background = options && options.background;
-            var ambient = background && background.ambient;
-            return (ambient != null ? ambient : theme.getBackgroundAmbient());
-        };
-        DDiagramBase.prototype.toBackground = function (serialized) {
-            var background = serialized.background;
-            if (background != null) {
-                var color = background.color;
-                var alpha = background.alpha;
+        DDiagramBase.prototype.toCanvasBaseBackgroundOptions = function (serialized, theme, isAmbient) {
+            var _a, _b;
+            if (isAmbient) {
                 return {
-                    color: (color != null ? color : 0xffffff),
-                    alpha: (alpha != null ? alpha : 1.0)
+                    color: null
                 };
             }
+            var background = serialized.background;
             return {
-                color: 0xffffff,
-                alpha: 1.0
+                color: (_a = background === null || background === void 0 ? void 0 : background.color) !== null && _a !== void 0 ? _a : theme.getCanvasBackgroundColor(),
+                alpha: (_b = background === null || background === void 0 ? void 0 : background.alpha) !== null && _b !== void 0 ? _b : theme.getCanvasBackgroundAlpha()
             };
         };
         DDiagramBase.prototype.openByName = function (name) {
@@ -49022,7 +49102,7 @@
         };
         DDiagramBase.prototype.onUnset = function () {
             var canvas = this.canvas;
-            if (canvas != null) {
+            if (canvas) {
                 this.canvas = null;
             }
         };
@@ -49032,7 +49112,7 @@
         Object.defineProperty(DDiagramBase.prototype, "layer", {
             get: function () {
                 var canvas = this.canvas;
-                if (canvas != null) {
+                if (canvas) {
                     return canvas.layer.active;
                 }
                 return null;
@@ -49123,9 +49203,17 @@
             return new DDiagramCanvasEditor(this.toCanvasOptions(serialized));
         };
         DDiagramEditor.prototype.toCanvasOptions = function (serialized) {
-            var options = _super.prototype.toCanvasBaseOptions.call(this, serialized, this._canvasOptions || { snapper: this._snapper });
-            if (options.snapper === undefined) {
-                options.snapper = this._snapper;
+            var options = this.toCanvasBaseOptions(serialized);
+            // Snapper
+            var snapper = this._snapper;
+            var snap = options.snap;
+            if (snap == null) {
+                options.snap = {
+                    controller: snapper
+                };
+            }
+            else if (snap.controller == null) {
+                snap.controller = snapper;
             }
             return options;
         };
@@ -49751,7 +49839,7 @@
             return new DDiagramCanvas(this.toCanvasOptions(serialized));
         };
         DDiagram.prototype.toCanvasOptions = function (serialized) {
-            return _super.prototype.toCanvasBaseOptions.call(this, serialized, this._canvasOptions || {});
+            return this.toCanvasBaseOptions(serialized);
         };
         DDiagram.prototype.onDown = function (e) {
             var canvas = this.canvas;
