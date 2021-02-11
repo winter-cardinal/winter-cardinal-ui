@@ -8,62 +8,62 @@ import { EShapePointsStyle } from "../../shape/e-shape-points-style";
 import { DThemeDarkDiagramCanvasBase } from "./d-theme-dark-diagram-canvas-base";
 
 export class DThemeDarkDiagramCanvasEditor extends DThemeDarkDiagramCanvasBase implements DThemeDiagramCanvasEditor {
-	getBackgroundAmbient(): boolean {
+	isAmbient(): boolean {
 		return false;
 	}
 
-	getSnapperGridMajorInterval(): number {
+	getSnapGridMajorInterval(): number {
 		return 10;
 	}
 
-	getSnapperGridMajorColor(): number {
+	getSnapGridMajorColor(): number {
 		return 0x1e87f0;
 	}
 
-	getSnapperGridMajorAlpha(): number {
+	getSnapGridMajorAlpha(): number {
 		return 0.5;
 	}
 
-	getSnapperGridMajorWidth(): number {
+	getSnapGridMajorWidth(): number {
 		return 2;
 	}
 
-	getSnapperGridMajorStyle(): EShapePointsStyle {
+	getSnapGridMajorStyle(): EShapePointsStyle {
 		return EShapePointsStyle.DASHED |
 			EShapePointsStyle.NON_EXPANDING_WIDTH |
 			EShapePointsStyle.NON_SHRINKING_WIDTH |
 			EShapePointsStyle.NON_SCALING_DOT_AND_DASH;
 	}
 
-	getSnapperGridMinorColor(): number {
-		return this.getSnapperGridMajorColor();
+	getSnapGridMinorColor(): number {
+		return this.getSnapGridMajorColor();
 	}
 
-	getSnapperGridMinorAlpha(): number {
+	getSnapGridMinorAlpha(): number {
 		return 0.125;
 	}
 
-	getSnapperGridMinorWidth(): number {
+	getSnapGridMinorWidth(): number {
 		return 2;
 	}
 
-	getSnapperGridMinorStyle(): EShapePointsStyle {
-		return this.getSnapperGridMajorStyle();
+	getSnapGridMinorStyle(): EShapePointsStyle {
+		return this.getSnapGridMajorStyle();
 	}
 
-	getSnapperTargetColor(): number {
+	getSnapTargetColor(): number {
 		return 0xf36f27;
 	}
 
-	getSnapperTargetAlpha(): number {
-		return this.getSnapperGridMajorAlpha();
+	getSnapTargetAlpha(): number {
+		return this.getSnapGridMajorAlpha();
 	}
 
-	getSnapperTargetWidth(): number {
-		return this.getSnapperGridMajorWidth();
+	getSnapTargetWidth(): number {
+		return this.getSnapGridMajorWidth();
 	}
 
-	getSnapperTargetStyle(): EShapePointsStyle {
-		return this.getSnapperGridMajorStyle();
+	getSnapTargetStyle(): EShapePointsStyle {
+		return this.getSnapGridMajorStyle();
 	}
 }

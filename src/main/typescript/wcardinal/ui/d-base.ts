@@ -319,6 +319,8 @@ export interface DBaseOutlineOptions {
 	mask?: DStateAwareOrValueMightBe<DBorderMask> | (keyof typeof DBorderMask);
 }
 
+export type DBaseShadow = "NONE" | "WEAK" | "DEFAULT" | DShadow;
+
 /**
  * {@link DBase} options.
  */
@@ -435,7 +437,7 @@ export interface DBaseOptions<
 	outline?: DBaseOutlineOptions;
 
 	/** A shadow. */
-	shadow?: "NONE" | "WEAK" | "DEFAULT" | DShadow | null;
+	shadow?: DBaseShadow | null;
 
 	/** A clear type used by {@link DLayoutVertical} and {@link DLayoutHorizontal}. */
 	clear?: (keyof typeof DLayoutClearType) | DLayoutClearType;

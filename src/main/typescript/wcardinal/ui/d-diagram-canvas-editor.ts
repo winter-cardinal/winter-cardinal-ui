@@ -4,19 +4,18 @@
  */
 
 import { DDiagramCanvasBase, DDiagramCanvasBaseOptions, DThemeDiagramCanvasBase } from "./d-diagram-canvas-base";
-import { DDiagramCanvasEditorSnapper, DDiagramCanvasEditorSnapperOptions, DThemeDiagramCanvasEditorSnapper } from "./d-diagram-canvas-editor-snapper";
+import { DDiagramCanvasEditorSnap, DDiagramCanvasEditorSnapOptions, DThemeDiagramCanvasEditorSnap } from "./d-diagram-canvas-editor-snap";
 import { DDiagramSerialized, DDiagramSerializedItem, DDiagramSerializedVersion } from "./d-diagram-serialized";
 import { EShapeResourceManagerSerialization } from "./shape/e-shape-resource-manager-serialization";
-import { ESnapper } from "./snapper/e-snapper";
 import { isNumber } from "./util/is-number";
 
 export interface DDiagramCanvasEditorOptions<
 	THEME extends DThemeDiagramCanvasEditor = DThemeDiagramCanvasEditor
 > extends DDiagramCanvasBaseOptions<THEME> {
-	snapper?: ESnapper | DDiagramCanvasEditorSnapperOptions;
+	snap?: DDiagramCanvasEditorSnapOptions;
 }
 
-export interface DThemeDiagramCanvasEditor extends DThemeDiagramCanvasBase, DThemeDiagramCanvasEditorSnapper {
+export interface DThemeDiagramCanvasEditor extends DThemeDiagramCanvasBase, DThemeDiagramCanvasEditorSnap {
 
 }
 
@@ -28,21 +27,16 @@ export class DDiagramCanvasEditor<
 	THEME extends DThemeDiagramCanvasEditor = DThemeDiagramCanvasEditor,
 	OPTIONS extends DDiagramCanvasEditorOptions<THEME> = DDiagramCanvasEditorOptions<THEME>
 > extends DDiagramCanvasBase<THEME, OPTIONS> {
-	protected _snapper?: DDiagramCanvasEditorSnapper | null;
+	protected _snap?: DDiagramCanvasEditorSnap | null;
 
 	constructor( options: OPTIONS ) {
 		super( options );
-		this._snapper = this.toSnapper( this.theme, options.snapper );
+		this._snap = this.toSnap( this.theme, options.snap );
 	}
 
-	protected toSnapper( theme: THEME, options?: ESnapper | DDiagramCanvasEditorSnapperOptions ): DDiagramCanvasEditorSnapper | null {
+	protected toSnap( theme: THEME, options?: DDiagramCanvasEditorSnapOptions ): DDiagramCanvasEditorSnap | null {
 		if( options ) {
-			if( options instanceof ESnapper ) {
-				return new DDiagramCanvasEditorSnapper( this, theme, {
-					controller: options
-				});
-			}
-			return new DDiagramCanvasEditorSnapper( this, theme, options );
+			return new DDiagramCanvasEditorSnap( this, theme, options );
 		}
 		return null;
 	}
@@ -69,14 +63,14 @@ export class DDiagramCanvasEditor<
 			pieces: manager.pieces,
 			layers: this._layer.serialize( manager, items ),
 			items,
-			snap: this._snapper?.serialize(),
+			snap: this._snap?.serialize(),
 			thumbnail: thumbnail?.serialize()
 		};
 	}
 
 	onReflow(): void {
 		super.onReflow();
-		this._snapper?.onReflow();
+		this._snap?.onReflow();
 	}
 
 	protected getType(): string {

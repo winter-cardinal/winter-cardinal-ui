@@ -28,41 +28,36 @@
 	(function(){
 		"use strict";
 
-		const application = new wcardinal.ui.DApplication();
+		var application = new wcardinal.ui.DApplication();
 
-		const diagram = new wcardinal.ui.DDiagramEditor({
+		var diagram = new wcardinal.ui.DDiagramEditor({
 			parent: application.stage,
 			x: 0, y: 0,
 			width: "100%", height: "100%",
 			controller: {
 				piece: {
-					getByName( name ) {
-						return new Promise(( resolve, reject ) => {
+					getByName: function( name ) {
+						return new Promise(function( resolve, reject ) {
 							let path = "../../resource/diagram/nested-piece.json";
 							if( name === "piece-id" ) {
 								path = "../../resource/diagram/piece.json";
 							}
-							fetch( path ).then(( response ) => {
-								response.json().then(( json ) => {
+							fetch( path ).then(function( response ) {
+								response.json().then(function( json ) {
 									resolve( json );
 								})
 							})
-							.catch(() => {
+							.catch(function() {
 								reject();
 							})
 						});
 					}
 				}
-			},
-			on: {
-				ready: () => {
-					console.log( diagram.serialize() );
-				}
 			}
 		});
 
-		fetch( "../../resource/diagram/nested-pieces.json" ).then(( response ) => {
-			response.json().then(( json ) => {
+		fetch( "../../resource/diagram/nested-pieces.json" ).then(function( response ) {
+			response.json().then(function( json ) {
 				diagram.set( json );
 				diagram.view.fit();
 			});

@@ -33,16 +33,11 @@
 		var diagram = new wcardinal.ui.DDiagramEditor({
 			parent: application.stage,
 			x: 0, y: 0,
-			width: "100%", height: "100%",
-			on: {
-				ready: function () {
-					console.log( diagram.serialize() );
-				}
-			}
+			width: "100%", height: "100%"
 		});
 
-		fetch( "../../resource/diagram/snap.json" ).then(( response ) => {
-			response.json().then(( json ) => {
+		fetch( "../../resource/diagram/snap.json" ).then(function( response ) {
+			response.json().then(function( json ) {
 				diagram.set( json );
 				diagram.view.fit();
 			});

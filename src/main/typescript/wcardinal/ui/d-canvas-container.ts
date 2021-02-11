@@ -51,7 +51,7 @@ export interface DCanvasContainerOptions<
 > extends DBaseOptions<THEME> {
 	mask?: boolean;
 	view?: DViewOptions;
-	canvas?: CANVAS | CANVAS_OPTIONS;
+	canvas?: CANVAS;
 	on?: DCanvasContainerOnOptions<CANVAS, EMITTER>;
 }
 
@@ -73,7 +73,6 @@ export class DCanvasContainer<
 		= DCanvasContainerOptions<CANVAS, CANVAS_OPTIONS, THEME>
 > extends DBase<THEME, OPTIONS> {
 	protected _canvas!: CANVAS | null;
-	protected _canvasOptions?: CANVAS_OPTIONS | null;
 	protected _overflowMask?: DBaseOverflowMask | null;
 	protected _view!: DViewImpl;
 
@@ -86,11 +85,8 @@ export class DCanvasContainer<
 
 		// Canvas
 		const canvas = options?.canvas;
-		if( canvas instanceof DBase ) {
-			this._canvasOptions = null;
+		if( canvas ) {
 			this.canvas = canvas;
-		} else {
-			this._canvasOptions = canvas;
 		}
 
 		// Overflow mask

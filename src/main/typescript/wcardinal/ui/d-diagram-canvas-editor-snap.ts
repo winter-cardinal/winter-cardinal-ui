@@ -13,7 +13,7 @@ import { EShapeBarPosition } from "./shape/variant/e-shape-bar-position";
 import { ESnapper } from "./snapper/e-snapper";
 import { ESnapperTargetValueType } from "./snapper/e-snapper-target-value";
 
-export interface DDiagramCanvasEditorSnapperGridMajorOptions {
+export interface DDiagramCanvasEditorSnapGridMajorOptions {
 	interval?: number;
 	color?: number;
 	alpha?: number;
@@ -21,56 +21,56 @@ export interface DDiagramCanvasEditorSnapperGridMajorOptions {
 	style?: EShapePointsStyle;
 }
 
-export interface DDiagramCanvasEditorSnapperGridMinorOptions {
+export interface DDiagramCanvasEditorSnapGridMinorOptions {
 	color?: number;
 	alpha?: number;
 	width?: number;
 	style?: EShapePointsStyle;
 }
 
-export interface DDiagramCanvasEditorSnapperGridOptions {
-	major?: DDiagramCanvasEditorSnapperGridMajorOptions;
-	minor?: DDiagramCanvasEditorSnapperGridMinorOptions;
+export interface DDiagramCanvasEditorSnapGridOptions {
+	major?: DDiagramCanvasEditorSnapGridMajorOptions;
+	minor?: DDiagramCanvasEditorSnapGridMinorOptions;
 }
 
-export interface DDiagramCanvasEditorSnapperTargetOptions {
+export interface DDiagramCanvasEditorSnapTargetOptions {
 	color?: number;
 	alpha?: number;
 	width?: number;
 	style?: EShapePointsStyle;
 }
 
-export interface DDiagramCanvasEditorSnapperOptions {
+export interface DDiagramCanvasEditorSnapOptions {
 	controller: ESnapper;
-	grid?: DDiagramCanvasEditorSnapperGridOptions;
-	target?: DDiagramCanvasEditorSnapperTargetOptions;
+	grid?: DDiagramCanvasEditorSnapGridOptions;
+	target?: DDiagramCanvasEditorSnapTargetOptions;
 }
 
-export interface DThemeDiagramCanvasEditorSnapper {
-	getSnapperGridMajorInterval(): number;
-	getSnapperGridMajorColor(): number;
-	getSnapperGridMajorAlpha(): number;
-	getSnapperGridMajorWidth(): number;
-	getSnapperGridMajorStyle(): EShapePointsStyle;
+export interface DThemeDiagramCanvasEditorSnap {
+	getSnapGridMajorInterval(): number;
+	getSnapGridMajorColor(): number;
+	getSnapGridMajorAlpha(): number;
+	getSnapGridMajorWidth(): number;
+	getSnapGridMajorStyle(): EShapePointsStyle;
 
-	getSnapperGridMinorColor(): number;
-	getSnapperGridMinorAlpha(): number;
-	getSnapperGridMinorWidth(): number;
-	getSnapperGridMinorStyle(): EShapePointsStyle;
+	getSnapGridMinorColor(): number;
+	getSnapGridMinorAlpha(): number;
+	getSnapGridMinorWidth(): number;
+	getSnapGridMinorStyle(): EShapePointsStyle;
 
-	getSnapperTargetColor(): number;
-	getSnapperTargetAlpha(): number;
-	getSnapperTargetWidth(): number;
-	getSnapperTargetStyle(): EShapePointsStyle;
+	getSnapTargetColor(): number;
+	getSnapTargetAlpha(): number;
+	getSnapTargetWidth(): number;
+	getSnapTargetStyle(): EShapePointsStyle;
 }
 
-export interface DDiagramCanvasEditorSnapperParent extends Container {
+export interface DDiagramCanvasEditorSnapParent extends Container {
 	readonly width: number;
 	readonly height: number;
 	toDirty(): void;
 }
 
-export interface DDiagramCanvasEditorSnapperGridMajor {
+export interface DDiagramCanvasEditorSnapGridMajor {
 	interval: number;
 	color: number;
 	alpha: number;
@@ -78,33 +78,33 @@ export interface DDiagramCanvasEditorSnapperGridMajor {
 	style: EShapePointsStyle;
 }
 
-export interface DDiagramCanvasEditorSnapperGridMinor {
+export interface DDiagramCanvasEditorSnapGridMinor {
 	color: number;
 	alpha: number;
 	width: number;
 	style: EShapePointsStyle;
 }
 
-export interface DDiagramCanvasEditorSnapperGrid {
-	major: DDiagramCanvasEditorSnapperGridMajor;
-	minor: DDiagramCanvasEditorSnapperGridMinor;
+export interface DDiagramCanvasEditorSnapGrid {
+	major: DDiagramCanvasEditorSnapGridMajor;
+	minor: DDiagramCanvasEditorSnapGridMinor;
 }
 
-export interface DDiagramCanvasEditorSnapperTarget {
+export interface DDiagramCanvasEditorSnapTarget {
 	color: number;
 	alpha: number;
 	width: number;
 	style: EShapePointsStyle;
 }
 
-export class DDiagramCanvasEditorSnapper {
-	protected _parent: DDiagramCanvasEditorSnapperParent;
+export class DDiagramCanvasEditorSnap {
+	protected _parent: DDiagramCanvasEditorSnapParent;
 	protected _controller: ESnapper;
 	protected _container: EShapeContainer;
-	protected _grid: DDiagramCanvasEditorSnapperGrid;
-	protected _target: DDiagramCanvasEditorSnapperTarget;
+	protected _grid: DDiagramCanvasEditorSnapGrid;
+	protected _target: DDiagramCanvasEditorSnapTarget;
 
-	constructor( parent: DDiagramCanvasEditorSnapperParent, theme: DThemeDiagramCanvasEditorSnapper, options: DDiagramCanvasEditorSnapperOptions ) {
+	constructor( parent: DDiagramCanvasEditorSnapParent, theme: DThemeDiagramCanvasEditorSnap, options: DDiagramCanvasEditorSnapOptions ) {
 		this._parent = parent;
 
 		// Controller
@@ -129,38 +129,38 @@ export class DDiagramCanvasEditorSnapper {
 		this._target = this.toTarget( theme, options.target );
 	}
 
-	protected toGrid( theme: DThemeDiagramCanvasEditorSnapper, options?: DDiagramCanvasEditorSnapperGridOptions ): DDiagramCanvasEditorSnapperGrid {
+	protected toGrid( theme: DThemeDiagramCanvasEditorSnap, options?: DDiagramCanvasEditorSnapGridOptions ): DDiagramCanvasEditorSnapGrid {
 		return {
 			major: this.toGridMajor( theme, options?.major ),
 			minor: this.toGridMinor( theme, options?.minor ),
 		};
 	}
 
-	protected toGridMajor( theme: DThemeDiagramCanvasEditorSnapper, options?: DDiagramCanvasEditorSnapperGridMajorOptions ): DDiagramCanvasEditorSnapperGridMajor {
+	protected toGridMajor( theme: DThemeDiagramCanvasEditorSnap, options?: DDiagramCanvasEditorSnapGridMajorOptions ): DDiagramCanvasEditorSnapGridMajor {
 		return {
-			interval: options?.interval ?? theme.getSnapperGridMajorInterval(),
-			color: options?.color ?? theme.getSnapperGridMajorColor(),
-			alpha: options?.alpha ?? theme.getSnapperGridMajorAlpha(),
-			width: options?.width ?? theme.getSnapperGridMajorWidth(),
-			style: options?.style ?? theme.getSnapperGridMajorStyle(),
+			interval: options?.interval ?? theme.getSnapGridMajorInterval(),
+			color: options?.color ?? theme.getSnapGridMajorColor(),
+			alpha: options?.alpha ?? theme.getSnapGridMajorAlpha(),
+			width: options?.width ?? theme.getSnapGridMajorWidth(),
+			style: options?.style ?? theme.getSnapGridMajorStyle(),
 		}
 	}
 
-	protected toGridMinor( theme: DThemeDiagramCanvasEditorSnapper, options?: DDiagramCanvasEditorSnapperGridMinorOptions ): DDiagramCanvasEditorSnapperGridMinor {
+	protected toGridMinor( theme: DThemeDiagramCanvasEditorSnap, options?: DDiagramCanvasEditorSnapGridMinorOptions ): DDiagramCanvasEditorSnapGridMinor {
 		return {
-			color: options?.color ?? theme.getSnapperGridMinorColor(),
-			alpha: options?.alpha ?? theme.getSnapperGridMinorAlpha(),
-			width: options?.width ?? theme.getSnapperGridMinorWidth(),
-			style: options?.style ?? theme.getSnapperGridMinorStyle(),
+			color: options?.color ?? theme.getSnapGridMinorColor(),
+			alpha: options?.alpha ?? theme.getSnapGridMinorAlpha(),
+			width: options?.width ?? theme.getSnapGridMinorWidth(),
+			style: options?.style ?? theme.getSnapGridMinorStyle(),
 		}
 	}
 
-	protected toTarget( theme: DThemeDiagramCanvasEditorSnapper, options?: DDiagramCanvasEditorSnapperTargetOptions ): DDiagramCanvasEditorSnapperTarget {
+	protected toTarget( theme: DThemeDiagramCanvasEditorSnap, options?: DDiagramCanvasEditorSnapTargetOptions ): DDiagramCanvasEditorSnapTarget {
 		return {
-			color: options?.color ?? theme.getSnapperTargetColor(),
-			alpha: options?.alpha ?? theme.getSnapperTargetAlpha(),
-			width: options?.width ?? theme.getSnapperTargetWidth(),
-			style: options?.style ?? theme.getSnapperTargetStyle(),
+			color: options?.color ?? theme.getSnapTargetColor(),
+			alpha: options?.alpha ?? theme.getSnapTargetAlpha(),
+			width: options?.width ?? theme.getSnapTargetWidth(),
+			style: options?.style ?? theme.getSnapTargetStyle(),
 		};
 	}
 
@@ -256,7 +256,7 @@ export class DDiagramCanvasEditorSnapper {
 		container: EShapeContainer,
 		shapes: EShapeBar[], index: number,
 		x: number, y: number, position: EShapeBarPosition, w: number, h: number,
-		style: DDiagramCanvasEditorSnapperGridMajor | DDiagramCanvasEditorSnapperGridMinor | DDiagramCanvasEditorSnapperTarget
+		style: DDiagramCanvasEditorSnapGridMajor | DDiagramCanvasEditorSnapGridMinor | DDiagramCanvasEditorSnapTarget
 	): void {
 		let shape = null;
 		if( index < shapes.length ) {
