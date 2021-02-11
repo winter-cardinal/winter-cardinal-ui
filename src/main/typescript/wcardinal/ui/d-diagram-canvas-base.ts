@@ -12,7 +12,6 @@ import { DDiagramLayerContainer } from "./d-diagram-layer-container";
 import { EShape } from "./shape/e-shape";
 
 export interface DDiagramCanvasBackgroundOptions extends DBaseBackgroundOptions {
-	ambient?: boolean;
 	base?: number | null;
 }
 
@@ -21,10 +20,11 @@ export interface DDiagramCanvasBaseOptions<
 > extends DCanvasOptions<THEME> {
 	tile?: DDiagramCanvasTileOptions;
 	background?: DDiagramCanvasBackgroundOptions;
+	ambient?: boolean;
 }
 
 export interface DThemeDiagramCanvasBase extends DThemeCanvas {
-	getBackgroundAmbient(): boolean;
+	isAmbient(): boolean;
 	getBackgroundBase(): number | null;
 }
 
@@ -39,10 +39,11 @@ export class DDiagramCanvasBase<
 		super( options );
 
 		// Background
-		if( ! this.toBackgroundAmbient( this.theme, options ) ) {
+		const theme = this.theme;
+		if( ! this.isAmbient( theme, options ) ) {
 			this._background = new DDiagramCanvasEditorBackground(
 				this._background,
-				this.toBackgroundColorBase( this.theme, options )
+				this.toBackgroundBase( theme, options )
 			);
 		}
 
@@ -52,20 +53,17 @@ export class DDiagramCanvasBase<
 		this.addChild( layer );
 
 		// Tile
-		const tile = this._tile = new DDiagramCanvasTile( this, options && options.tile );
+		const tile = new DDiagramCanvasTile( this, options?.tile );
+		this._tile = tile;
 		tile.init();
 	}
 
-	protected toBackgroundAmbient( theme: THEME, options?: OPTIONS ): boolean {
-		const background = options && options.background;
-		const ambient = background && background.ambient;
-		return ( ambient != null ? ambient : theme.getBackgroundAmbient() );
+	protected isAmbient( theme: THEME, options?: OPTIONS ): boolean {
+		return options?.ambient ?? theme.isAmbient();
 	}
 
-	protected toBackgroundColorBase( theme: THEME, options?: OPTIONS ): number | null {
-		const background = options && options.background;
-		const backgroundBase = background && background.base;
-		return ( backgroundBase != null ? backgroundBase : theme.getBackgroundBase() );
+	protected toBackgroundBase( theme: THEME, options?: OPTIONS ): number | null {
+		return options?.background?.base ?? theme.getBackgroundBase();
 	}
 
 	get tile(): DDiagramCanvasTile {

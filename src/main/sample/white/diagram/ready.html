@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Overflow mask</title>
+	<title>Doing something when a diagram is loaded</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -30,27 +30,23 @@
 
 		var application = new wcardinal.ui.DApplication();
 
-		var diagram1 = new wcardinal.ui.DDiagram({
+		var diagram = new wcardinal.ui.DDiagram({
 			parent: application.stage,
 			x: 0, y: 0,
-			width: "50%", height: "100%",
-			mask: true
-		});
-
-		var diagram2 = new wcardinal.ui.DDiagram({
-			parent: application.stage,
-			x: "50%", y: 0,
-			width: "50%", height: "100%",
-			mask: true
+			width: "100%", height: "100%",
+			on: {
+				ready: function() {
+					// Called immediately after a diagram is loaded and
+					// shapes are all created.
+					console.log( "Ready" );
+				}
+			}
 		});
 
 		fetch( "../../resource/diagram/text.json" ).then(function( response ) {
 			response.json().then(function( json ) {
-				diagram1.set( json );
-				diagram1.view.fit();
-
-				diagram2.set( json );
-				diagram2.view.fit();
+				diagram.set( json );
+				diagram.view.fit();
 			});
 		});
 	}());

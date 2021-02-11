@@ -221,7 +221,7 @@ export class DDiagram<
 	}
 
 	protected toCanvasOptions( serialized: DDiagramSerialized ): DDiagramCanvasOptions {
-		return super.toCanvasBaseOptions( serialized, this._canvasOptions || {} );
+		return this.toCanvasBaseOptions( serialized );
 	}
 
 	protected onDown( e: interaction.InteractionEvent ): void {

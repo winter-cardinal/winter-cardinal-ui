@@ -7,7 +7,7 @@ import { DThemeDiagramEditor } from "../../d-diagram-editor";
 import { DThemeWhiteDiagramBase } from "./d-theme-white-diagram-base";
 
 export class DThemeWhiteDiagramEditor extends DThemeWhiteDiagramBase implements DThemeDiagramEditor {
-	getBackgroundAmbient(): boolean {
+	isAmbient(): boolean {
 		return false;
 	}
 

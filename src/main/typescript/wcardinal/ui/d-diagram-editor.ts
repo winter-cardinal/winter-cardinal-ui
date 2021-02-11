@@ -158,10 +158,19 @@ export class DDiagramEditor<
 	}
 
 	protected toCanvasOptions( serialized: DDiagramSerialized ): DDiagramCanvasEditorOptions {
-		const options = super.toCanvasBaseOptions( serialized, this._canvasOptions || { snapper: this._snapper } );
-		if( options.snapper === undefined ) {
-			options.snapper = this._snapper;
+		const options: DDiagramCanvasEditorOptions = this.toCanvasBaseOptions( serialized );
+
+		// Snapper
+		const snapper = this._snapper;
+		let snap = options.snap;
+		if( snap == null ) {
+			options.snap = {
+				controller: snapper
+			};
+		} else if( snap.controller == null ) {
+			snap.controller = snapper;
 		}
+
 		return options;
 	}
 

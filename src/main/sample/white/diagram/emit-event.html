@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Emitting events</title>
+	<title>Emitting events when a shape is clicked</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -28,20 +28,20 @@
 	(function(){
 		"use strict";
 
-		const application = new wcardinal.ui.DApplication();
+		var application = new wcardinal.ui.DApplication();
 
-		const diagram = new wcardinal.ui.DDiagram({
+		var diagram = new wcardinal.ui.DDiagram({
 			parent: application.stage,
 			x: 0, y: 0,
 			width: "100%", height: "100%"
 		});
 
-		diagram.shape.on( "clicked", () => {
+		diagram.shape.on( "clicked", function() {
 			diagram.tag.set( "B0001", 1 );
 		});
 
-		fetch( "../../resource/diagram/emit-event.json" ).then(( response ) => {
-			response.json().then(( json ) => {
+		fetch( "../../resource/diagram/emit-event.json" ).then(function( response ) {
+			response.json().then(function( json ) {
 				diagram.set( json );
 				diagram.view.fit();
 			});

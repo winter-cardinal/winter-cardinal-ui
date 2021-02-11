@@ -369,15 +369,34 @@ export interface DDiagramSerializedSnapTarget {
 }
 
 /**
- * Serialized grid snap settings.
+ * Serialized grid snap settings without a visibility option.
  */
-export interface DDiagramSerializedSnapGrid {
+export interface DDiagramSerializedSnapGridWithoutVisibility {
 	/** Snap on grid (0: Off, 1: On) */
 	[ 0 ]: number;
 
 	/** A grid size. */
 	[ 1 ]: number;
-}
+};
+
+/**
+ * Serialized grid snap settings with a visibility option.
+ */
+export interface DDiagramSerializedSnapGridWithVisibility {
+	/** Snap on grid (0: Off, 1: On) */
+	[ 0 ]: number;
+
+	/** A visibility (0: Invisible, 1: Visible). */
+	[ 1 ]: number;
+
+	/** A grid size. */
+	[ 2 ]: number;
+};
+
+/**
+ * Serialized grid snap settings with a visibility.
+ */
+export type DDiagramSerializedSnapGrid = DDiagramSerializedSnapGridWithoutVisibility | DDiagramSerializedSnapGridWithVisibility;
 
 /**
  * Serialized snap settings.
