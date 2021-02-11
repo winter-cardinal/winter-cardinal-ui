@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DBaseShadow } from "../../d-base";
 import { DThemeDiagramBase } from "../../d-diagram-base";
-import { DShadow } from "../../d-shadow";
 import { DThemeWhiteCanvasContainer } from "./d-theme-white-canvas-container";
 
 export class DThemeWhiteDiagramBase extends DThemeWhiteCanvasContainer implements DThemeDiagramBase {
@@ -20,7 +20,7 @@ export class DThemeWhiteDiagramBase extends DThemeWhiteCanvasContainer implement
 		return true;
 	}
 
-	getCanvasShadow(): DShadow | null {
-		return this.newShadowWeak();
+	getCanvasShadow(): DBaseShadow | null {
+		return "WEAK";
 	}
 }

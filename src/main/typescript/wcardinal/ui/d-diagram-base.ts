@@ -4,6 +4,7 @@
  */
 
 import { DApplications } from "./d-applications";
+import { DBaseShadow } from "./d-base";
 import {
 	DCanvasContainer, DCanvasContainerEvents, DCanvasContainerOptions, DThemeCanvasContainer
 } from "./d-canvas-container";
@@ -13,7 +14,6 @@ import { DDiagramLayer } from "./d-diagram-layer";
 import { DDiagramSerialized, DDiagramSerializedSimple } from "./d-diagram-serialized";
 import { DDiagramSnapshot } from "./d-diagram-snapshot";
 import { DDiagrams } from "./d-diagrams";
-import { DShadow } from "./d-shadow";
 import { EShape } from "./shape/e-shape";
 import { EShapeResourceManagerDeserialization } from "./shape/e-shape-resource-manager-deserialization";
 import { EShapeEmbeddedDatum } from "./shape/variant/e-shape-embedded-datum";
@@ -80,7 +80,7 @@ export interface DDiagramBaseOptions<
 export interface DThemeDiagramBase extends DThemeCanvasContainer {
 	getCanvasBackgroundColor(): number;
 	getCanvasBackgroundAlpha(): number;
-	getCanvasShadow(): DShadow | null;
+	getCanvasShadow(): DBaseShadow | null;
 	isAmbient(): boolean;
 }
 
