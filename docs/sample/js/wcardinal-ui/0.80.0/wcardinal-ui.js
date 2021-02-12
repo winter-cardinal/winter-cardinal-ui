@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.79.0
+ Winter Cardinal UI v0.80.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -3084,8 +3084,14 @@
         Object.defineProperty(EShapeBase.prototype, "visible", {
             //
             get: function () {
-                var _a, _b;
-                return this._visible && ((_b = (_a = this.parent) === null || _a === void 0 ? void 0 : _a.visible) !== null && _b !== void 0 ? _b : true);
+                if (this._visible) {
+                    var parent_2 = this.parent;
+                    if (parent_2 instanceof EShapeBase) {
+                        return parent_2.visible;
+                    }
+                    return true;
+                }
+                return false;
             },
             set: function (visible) {
                 if (this._visible !== visible) {
@@ -3098,8 +3104,14 @@
         });
         Object.defineProperty(EShapeBase.prototype, "worldVisible", {
             get: function () {
-                var _a, _b;
-                return this._visible && ((_b = (_a = this.parent) === null || _a === void 0 ? void 0 : _a.worldVisible) !== null && _b !== void 0 ? _b : true);
+                if (this._visible) {
+                    var parent_3 = this.parent;
+                    if (parent_3) {
+                        return parent_3.worldVisible;
+                    }
+                    return true;
+                }
+                return false;
             },
             enumerable: false,
             configurable: true
@@ -39045,7 +39057,7 @@
             stage.application = application;
             stage.interactive = true;
             _this._options = options;
-            _this._isLocked = true;
+            _this._isLocked = false;
             _this._isVisible = true;
             var isOverlay = options.isOverlay();
             _this._isOverlay = isOverlay;
@@ -39195,13 +39207,13 @@
             this.update();
         };
         DApplicationLayer.prototype.lock = function () {
-            this._isLocked = false;
-        };
-        DApplicationLayer.prototype.unlock = function () {
             this._isLocked = true;
         };
+        DApplicationLayer.prototype.unlock = function () {
+            this._isLocked = false;
+        };
         DApplicationLayer.prototype.update = function () {
-            if (this._isLocked && this._renderId == null) {
+            if (!this._isLocked && this._renderId == null) {
                 this._renderId = requestAnimationFrame(this._renderBound);
             }
         };
@@ -48463,9 +48475,11 @@
             this._target = this.toTarget(theme, options.target);
         }
         DDiagramCanvasEditorSnap.prototype.toGrid = function (theme, options) {
+            var _a;
             return {
                 major: this.toGridMajor(theme, options === null || options === void 0 ? void 0 : options.major),
                 minor: this.toGridMinor(theme, options === null || options === void 0 ? void 0 : options.minor),
+                size: (_a = options === null || options === void 0 ? void 0 : options.size) !== null && _a !== void 0 ? _a : theme.getSnapGridSize()
             };
         };
         DDiagramCanvasEditorSnap.prototype.toGridMajor = function (theme, options) {
@@ -48521,11 +48535,11 @@
                 var index = 0;
                 // Grid
                 if (isGridVisible) {
-                    var size = controller.grid.size;
                     var grid = this._grid;
                     var major = grid.major;
                     var minor = grid.minor;
                     var interval = major.interval;
+                    var size = grid.size(controller.grid.size, w, h);
                     for (var x = size, ix = 1; x < w; x += size, ix += 1, index += 1) {
                         this.update(container, shapes, index, x, hh, TOP, w, h, ix % interval === 0 ? major : minor);
                     }
@@ -48561,17 +48575,26 @@
             var shape = null;
             if (index < shapes.length) {
                 shape = shapes[index];
+                shape.disallowUploadedUpdate();
                 shape.points.position = position;
+                shape.transform.position.set(x, y);
+                shape.stroke.set(true, style.color, style.alpha);
+                shape.size.set(w, h);
+                shape.visible = true;
+                shape.allowUploadedUpdate();
             }
             else {
                 shape = new EShapeBar(position, -1, style.width);
+                shape.disallowUploadedUpdate();
                 shape.fill.enable = false;
                 shape.points.style = style.style;
+                shape.transform.position.set(x, y);
+                shape.stroke.set(true, style.color, style.alpha);
+                shape.size.set(w, h);
+                shape.visible = true;
+                shape.allowUploadedUpdate();
                 shape.attach(container);
             }
-            shape.transform.position.set(x, y);
-            shape.stroke.set(true, style.color, style.alpha);
-            shape.size.set(w, h);
         };
         return DDiagramCanvasEditorSnap;
     }());

@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.79.0
+ Winter Cardinal UI v0.80.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -3149,6 +3149,19 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var toGridSize = function (grid, width, height) {
+        var canvas = Math.max(width, height);
+        if (0 < grid) {
+            var minimum = canvas / 1000;
+            for (var i = 0; i < 10 && grid < minimum; ++i) {
+                grid *= 10;
+            }
+            if (minimum <= grid) {
+                return grid;
+            }
+        }
+        return canvas;
+    };
     var DThemeDarkDiagramCanvasEditor = /** @class */ (function (_super) {
         __extends(DThemeDarkDiagramCanvasEditor, _super);
         function DThemeDarkDiagramCanvasEditor() {
@@ -3161,7 +3174,7 @@
             return 10;
         };
         DThemeDarkDiagramCanvasEditor.prototype.getSnapGridMajorColor = function () {
-            return 0x1e87f0;
+            return 0x999999;
         };
         DThemeDarkDiagramCanvasEditor.prototype.getSnapGridMajorAlpha = function () {
             return 0.5;
@@ -3182,16 +3195,19 @@
             return 0.125;
         };
         DThemeDarkDiagramCanvasEditor.prototype.getSnapGridMinorWidth = function () {
-            return 2;
+            return this.getSnapGridMajorWidth();
         };
         DThemeDarkDiagramCanvasEditor.prototype.getSnapGridMinorStyle = function () {
             return this.getSnapGridMajorStyle();
         };
+        DThemeDarkDiagramCanvasEditor.prototype.getSnapGridSize = function () {
+            return toGridSize;
+        };
         DThemeDarkDiagramCanvasEditor.prototype.getSnapTargetColor = function () {
-            return 0xf36f27;
+            return DThemeDarkConstants.HIGHLIGHT_COLOR;
         };
         DThemeDarkDiagramCanvasEditor.prototype.getSnapTargetAlpha = function () {
-            return this.getSnapGridMajorAlpha();
+            return 1.0;
         };
         DThemeDarkDiagramCanvasEditor.prototype.getSnapTargetWidth = function () {
             return this.getSnapGridMajorWidth();
