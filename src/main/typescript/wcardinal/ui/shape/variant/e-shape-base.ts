@@ -236,7 +236,14 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 	//
 	get visible(): boolean {
-		return this._visible && (this.parent?.visible ?? true);
+		if( this._visible ) {
+			const parent = this.parent;
+			if( parent instanceof EShapeBase ) {
+				return parent.visible;
+			}
+			return true;
+		}
+		return false;
 	}
 
 	set visible( visible: boolean ) {
@@ -247,7 +254,14 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	}
 
 	get worldVisible(): boolean {
-		return this._visible && (this.parent?.worldVisible ?? true);
+		if( this._visible ) {
+			const parent = this.parent;
+			if( parent ) {
+				return parent.worldVisible;
+			}
+			return true;
+		}
+		return false;
 	}
 
 	//

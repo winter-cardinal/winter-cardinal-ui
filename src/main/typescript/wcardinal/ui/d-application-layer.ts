@@ -59,7 +59,7 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 		stage.interactive = true;
 
 		this._options = options;
-		this._isLocked = true;
+		this._isLocked = false;
 		this._isVisible = true;
 		const isOverlay = options.isOverlay();
 		this._isOverlay = isOverlay;
@@ -229,15 +229,15 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 	}
 
 	lock(): void {
-		this._isLocked = false;
-	}
-
-	unlock(): void {
 		this._isLocked = true;
 	}
 
+	unlock(): void {
+		this._isLocked = false;
+	}
+
 	update(): void {
-		if( this._isLocked && this._renderId == null ) {
+		if( ! this._isLocked && this._renderId == null ) {
 			this._renderId = requestAnimationFrame( this._renderBound );
 		}
 	}
