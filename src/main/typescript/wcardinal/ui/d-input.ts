@@ -48,17 +48,11 @@ export abstract class DInput<
 			},
 
 			onStart: (): void => {
-				const text = this._text;
-				if( text != null ) {
-					text.visible = false;
-				}
+				this.hideText();
 			},
 
 			onCancel: (): void => {
-				const text = this._text;
-				if( text != null ) {
-					text.visible = true;
-				}
+				this.showText();
 			},
 
 			onEnd: (): void => {

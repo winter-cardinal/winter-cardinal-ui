@@ -161,7 +161,8 @@ export class DTextBase<
 	protected _textFormatter!: ( value: VALUE, caller: any ) => string;
 	protected _isOverflowMaskEnabled!: boolean;
 	protected _overflowMask?: DBaseOverflowMaskSimple | null;
-	protected _textDynamic!: boolean;
+	protected _isTextDynamic!: boolean;
+	protected _isTextVisible!: boolean;
 
 	protected init( options?: OPTIONS ): void {
 		super.init( options );
@@ -175,7 +176,8 @@ export class DTextBase<
 		this._textStyle = toTextStyle( theme, options, this.state );
 		this._textAlign = toTextAlign( theme, options );
 		this._textFormatter = ( text?.formatter ?? theme.getTextFormatter() );
-		this._textDynamic = ( text?.dynamic ?? theme.isTextDynamic() );
+		this._isTextDynamic = ( text?.dynamic ?? theme.isTextDynamic() );
+		this._isTextVisible = true;
 		this._isOverflowMaskEnabled = ( options?.mask ?? theme.isOverflowMaskEnabled() );
 		this.onTextChange();
 		this.createOrUpdateText();
@@ -219,6 +221,7 @@ export class DTextBase<
 			if( text == null ) {
 				if( 0 < formatted.length ) {
 					const newText = this.createText( formatted );
+					newText.visible = this._isTextVisible;
 					this._text = newText;
 					this.addChild( newText );
 					this.updateTextPosition( newText );
@@ -238,7 +241,7 @@ export class DTextBase<
 	}
 
 	protected createText( formatted: string ): Text | DDynamicText {
-		if( this._textDynamic ) {
+		if( this._isTextDynamic ) {
 			return new DDynamicText( formatted, this._textStyle );
 		} else {
 			const result = new Text( formatted, this._textStyle );
@@ -342,11 +345,27 @@ export class DTextBase<
 
 	protected updateText(): void {
 		const text = this._text;
-		if( text != null ) {
+		if( text ) {
 			this.updateTextValue();
 			this.updateTextPosition( text );
 			this.updateTextColor( text );
 		}
+	}
+
+	protected showText(): void {
+		const text = this._text;
+		if( text ) {
+			text.visible = true;
+		}
+		this._isTextVisible = true;
+	}
+
+	protected hideText(): void {
+		const text = this._text;
+		if( text ) {
+			text.visible = false;
+		}
+		this._isTextVisible = false;
 	}
 
 	protected onReflow(): void {
@@ -378,14 +397,14 @@ export class DTextBase<
 	destroy(): void {
 		// Text
 		const text = this._text;
-		if( text != null ) {
+		if( text ) {
 			this._text = null;
 			text.destroy();
 		}
 
 		// Overflow mask
 		const overflowMask = this._overflowMask;
-		if( overflowMask != null ) {
+		if( overflowMask ) {
 			this._overflowMask = null;
 			overflowMask.destroy();
 		}
