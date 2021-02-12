@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.80.0
+ Winter Cardinal UI v0.80.1
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -16059,7 +16059,8 @@
             this._textStyle = toTextStyle(theme, options, this.state);
             this._textAlign = toTextAlign(theme, options);
             this._textFormatter = ((_c = text === null || text === void 0 ? void 0 : text.formatter) !== null && _c !== void 0 ? _c : theme.getTextFormatter());
-            this._textDynamic = ((_d = text === null || text === void 0 ? void 0 : text.dynamic) !== null && _d !== void 0 ? _d : theme.isTextDynamic());
+            this._isTextDynamic = ((_d = text === null || text === void 0 ? void 0 : text.dynamic) !== null && _d !== void 0 ? _d : theme.isTextDynamic());
+            this._isTextVisible = true;
             this._isOverflowMaskEnabled = ((_e = options === null || options === void 0 ? void 0 : options.mask) !== null && _e !== void 0 ? _e : theme.isOverflowMaskEnabled());
             this.onTextChange();
             this.createOrUpdateText();
@@ -16103,6 +16104,7 @@
                 if (text == null) {
                     if (0 < formatted.length) {
                         var newText = this.createText(formatted);
+                        newText.visible = this._isTextVisible;
                         this._text = newText;
                         this.addChild(newText);
                         this.updateTextPosition(newText);
@@ -16122,7 +16124,7 @@
             }
         };
         DTextBase.prototype.createText = function (formatted) {
-            if (this._textDynamic) {
+            if (this._isTextDynamic) {
                 return new DDynamicText(formatted, this._textStyle);
             }
             else {
@@ -16219,11 +16221,25 @@
         };
         DTextBase.prototype.updateText = function () {
             var text = this._text;
-            if (text != null) {
+            if (text) {
                 this.updateTextValue();
                 this.updateTextPosition(text);
                 this.updateTextColor(text);
             }
+        };
+        DTextBase.prototype.showText = function () {
+            var text = this._text;
+            if (text) {
+                text.visible = true;
+            }
+            this._isTextVisible = true;
+        };
+        DTextBase.prototype.hideText = function () {
+            var text = this._text;
+            if (text) {
+                text.visible = false;
+            }
+            this._isTextVisible = false;
         };
         DTextBase.prototype.onReflow = function () {
             _super.prototype.onReflow.call(this);
@@ -16251,13 +16267,13 @@
         DTextBase.prototype.destroy = function () {
             // Text
             var text = this._text;
-            if (text != null) {
+            if (text) {
                 this._text = null;
                 text.destroy();
             }
             // Overflow mask
             var overflowMask = this._overflowMask;
-            if (overflowMask != null) {
+            if (overflowMask) {
                 this._overflowMask = null;
                 overflowMask.destroy();
             }
@@ -18968,16 +18984,10 @@
                     return _this.containsPoint(point);
                 },
                 onStart: function () {
-                    var text = _this._text;
-                    if (text != null) {
-                        text.visible = false;
-                    }
+                    _this.hideText();
                 },
                 onCancel: function () {
-                    var text = _this._text;
-                    if (text != null) {
-                        text.visible = true;
-                    }
+                    _this.showText();
                 },
                 onEnd: function () {
                     // DO NOTHING
