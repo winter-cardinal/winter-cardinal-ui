@@ -28,9 +28,12 @@ export interface DDiagramCanvasEditorSnapGridMinorOptions {
 	style?: EShapePointsStyle;
 }
 
+export type DDiagramCanvasEditorSnapGridSize = ( given: number, width: number, height: number ) => number;
+
 export interface DDiagramCanvasEditorSnapGridOptions {
 	major?: DDiagramCanvasEditorSnapGridMajorOptions;
 	minor?: DDiagramCanvasEditorSnapGridMinorOptions;
+	size?: DDiagramCanvasEditorSnapGridSize;
 }
 
 export interface DDiagramCanvasEditorSnapTargetOptions {
@@ -57,6 +60,8 @@ export interface DThemeDiagramCanvasEditorSnap {
 	getSnapGridMinorAlpha(): number;
 	getSnapGridMinorWidth(): number;
 	getSnapGridMinorStyle(): EShapePointsStyle;
+
+	getSnapGridSize(): DDiagramCanvasEditorSnapGridSize;
 
 	getSnapTargetColor(): number;
 	getSnapTargetAlpha(): number;
@@ -88,6 +93,7 @@ export interface DDiagramCanvasEditorSnapGridMinor {
 export interface DDiagramCanvasEditorSnapGrid {
 	major: DDiagramCanvasEditorSnapGridMajor;
 	minor: DDiagramCanvasEditorSnapGridMinor;
+	size: DDiagramCanvasEditorSnapGridSize;
 }
 
 export interface DDiagramCanvasEditorSnapTarget {
@@ -133,6 +139,7 @@ export class DDiagramCanvasEditorSnap {
 		return {
 			major: this.toGridMajor( theme, options?.major ),
 			minor: this.toGridMinor( theme, options?.minor ),
+			size: options?.size ?? theme.getSnapGridSize()
 		};
 	}
 
@@ -194,11 +201,11 @@ export class DDiagramCanvasEditorSnap {
 
 			// Grid
 			if( isGridVisible ) {
-				const size = controller.grid.size;
 				const grid = this._grid;
 				const major = grid.major;
 				const minor = grid.minor;
 				const interval = major.interval;
+				const size = grid.size( controller.grid.size, w, h );
 				for( let x = size, ix = 1; x < w; x += size, ix += 1, index += 1 ) {
 					this.update(
 						container, shapes, index,
@@ -261,15 +268,24 @@ export class DDiagramCanvasEditorSnap {
 		let shape = null;
 		if( index < shapes.length ) {
 			shape = shapes[ index ];
+			shape.disallowUploadedUpdate();
 			shape.points.position = position;
+			shape.transform.position.set( x, y );
+			shape.stroke.set( true, style.color, style.alpha );
+			shape.size.set( w, h );
+			shape.visible = true;
+			shape.allowUploadedUpdate();
 		} else {
 			shape = new EShapeBar( position, -1, style.width );
+			shape.disallowUploadedUpdate();
 			shape.fill.enable = false;
 			shape.points.style = style.style;
+			shape.transform.position.set( x, y );
+			shape.stroke.set( true, style.color, style.alpha );
+			shape.size.set( w, h );
+			shape.visible = true;
+			shape.allowUploadedUpdate();
 			shape.attach( container );
 		}
-		shape.transform.position.set( x, y );
-		shape.stroke.set( true, style.color, style.alpha );
-		shape.size.set( w, h );
 	}
 }

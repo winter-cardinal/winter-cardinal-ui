@@ -4,8 +4,24 @@
  */
 
 import { DThemeDiagramCanvasEditor } from "../../d-diagram-canvas-editor";
+import { DDiagramCanvasEditorSnapGridSize } from "../../d-diagram-canvas-editor-snap";
 import { EShapePointsStyle } from "../../shape/e-shape-points-style";
+import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkDiagramCanvasBase } from "./d-theme-dark-diagram-canvas-base";
+
+const toGridSize = ( grid: number, width: number, height: number ): number => {
+	const canvas = Math.max( width, height );
+	if( 0 < grid ) {
+		const minimum = canvas / 1000;
+		for( let i = 0; i < 10 && grid < minimum; ++i ) {
+			grid *= 10;
+		}
+		if( minimum <= grid ) {
+			return grid;
+		}
+	}
+	return canvas;
+}
 
 export class DThemeDarkDiagramCanvasEditor extends DThemeDarkDiagramCanvasBase implements DThemeDiagramCanvasEditor {
 	isAmbient(): boolean {
@@ -17,7 +33,7 @@ export class DThemeDarkDiagramCanvasEditor extends DThemeDarkDiagramCanvasBase i
 	}
 
 	getSnapGridMajorColor(): number {
-		return 0x1e87f0;
+		return 0x999999;
 	}
 
 	getSnapGridMajorAlpha(): number {
@@ -44,19 +60,23 @@ export class DThemeDarkDiagramCanvasEditor extends DThemeDarkDiagramCanvasBase i
 	}
 
 	getSnapGridMinorWidth(): number {
-		return 2;
+		return this.getSnapGridMajorWidth();
 	}
 
 	getSnapGridMinorStyle(): EShapePointsStyle {
 		return this.getSnapGridMajorStyle();
 	}
 
+	getSnapGridSize(): DDiagramCanvasEditorSnapGridSize {
+		return toGridSize;
+	}
+
 	getSnapTargetColor(): number {
-		return 0xf36f27;
+		return DThemeDarkConstants.HIGHLIGHT_COLOR;
 	}
 
 	getSnapTargetAlpha(): number {
-		return this.getSnapGridMajorAlpha();
+		return 1.0;
 	}
 
 	getSnapTargetWidth(): number {
