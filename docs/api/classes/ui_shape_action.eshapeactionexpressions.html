@@ -81,6 +81,9 @@
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 					<a href="ui_shape_action.eshapeactionexpressions.html#ofbooleanortrue" class="tsd-kind-icon">of<wbr>Boolean<wbr>OrTrue</a>
 				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<a href="ui_shape_action.eshapeactionexpressions.html#ofelementornull" class="tsd-kind-icon">of<wbr>Element<wbr>OrNull</a>
+				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 					<a href="ui_shape_action.eshapeactionexpressions.html#ofnumber" class="tsd-kind-icon">of<wbr>Number</a>
 				</li>
@@ -134,6 +137,7 @@
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ui_shape_action.eshapeactionexpressions.html#ofboolean" class="tsd-kind-icon">of<wbr>Boolean</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ui_shape_action.eshapeactionexpressions.html#ofbooleanorfalse" class="tsd-kind-icon">of<wbr>Boolean<wbr>OrFalse</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ui_shape_action.eshapeactionexpressions.html#ofbooleanortrue" class="tsd-kind-icon">of<wbr>Boolean<wbr>OrTrue</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="ui_shape_action.eshapeactionexpressions.html#ofelementornull" class="tsd-kind-icon">of<wbr>Element<wbr>OrNull</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ui_shape_action.eshapeactionexpressions.html#ofnumber" class="tsd-kind-icon">of<wbr>Number</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ui_shape_action.eshapeactionexpressions.html#ofnumberornull" class="tsd-kind-icon">of<wbr>Number<wbr>OrNull</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ui_shape_action.eshapeactionexpressions.html#ofnumberorone" class="tsd-kind-icon">of<wbr>Number<wbr>OrOne</a></li>
@@ -271,7 +275,8 @@
 				<a name="from" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagStatic">Static</span> from</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-					<li class="tsd-signature tsd-kind-icon">from&lt;T&gt;<span class="tsd-signature-symbol">(</span>expression<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, caster<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, def<span class="tsd-signature-symbol">: </span><a href="../modules/ui_shape_action.html#eshapeactionexpression" class="tsd-signature-type">EShapeActionExpression</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>, defLiteral<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, nullable<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/ui_shape_action.html#eshapeactionexpression" class="tsd-signature-type">EShapeActionExpression</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">from&lt;T, DEF&gt;<span class="tsd-signature-symbol">(</span>expression<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, caster<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, def<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DEF</span>, defLiteral<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, nullable<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/ui_shape_action.html#eshapeactionexpression" class="tsd-signature-type">EShapeActionExpression</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DEF</span></li>
+					<li class="tsd-signature tsd-kind-icon">from&lt;T, P, DEF&gt;<span class="tsd-signature-symbol">(</span>expression<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, caster<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, def<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DEF</span>, defLiteral<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, nullable<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span>, parameter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/ui_shape_action.html#eshapeactionexpressionwithparameter" class="tsd-signature-type">EShapeActionExpressionWithParameter</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DEF</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
@@ -285,6 +290,9 @@
 							<li>
 								<h4>T</h4>
 							</li>
+							<li>
+								<h4>DEF</h4>
+							</li>
 						</ul>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
@@ -295,7 +303,7 @@
 								<h5>caster: <span class="tsd-signature-type">string</span></h5>
 							</li>
 							<li>
-								<h5>def: <a href="../modules/ui_shape_action.html#eshapeactionexpression" class="tsd-signature-type">EShapeActionExpression</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<h5>def: <span class="tsd-signature-type">DEF</span></h5>
 							</li>
 							<li>
 								<h5>defLiteral: <span class="tsd-signature-type">string</span></h5>
@@ -304,7 +312,48 @@
 								<h5>nullable: <span class="tsd-signature-type">boolean</span></h5>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="../modules/ui_shape_action.html#eshapeactionexpression" class="tsd-signature-type">EShapeActionExpression</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<h4 class="tsd-returns-title">Returns <a href="../modules/ui_shape_action.html#eshapeactionexpression" class="tsd-signature-type">EShapeActionExpression</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DEF</span></h4>
+					</li>
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts#L21">src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts:21</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-type-parameters-title">Type parameters</h4>
+						<ul class="tsd-type-parameters">
+							<li>
+								<h4>T</h4>
+							</li>
+							<li>
+								<h4>P</h4>
+							</li>
+							<li>
+								<h4>DEF</h4>
+							</li>
+						</ul>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>expression: <span class="tsd-signature-type">string</span></h5>
+							</li>
+							<li>
+								<h5>caster: <span class="tsd-signature-type">string</span></h5>
+							</li>
+							<li>
+								<h5>def: <span class="tsd-signature-type">DEF</span></h5>
+							</li>
+							<li>
+								<h5>defLiteral: <span class="tsd-signature-type">string</span></h5>
+							</li>
+							<li>
+								<h5>nullable: <span class="tsd-signature-type">boolean</span></h5>
+							</li>
+							<li>
+								<h5>parameter: <span class="tsd-signature-type">string</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="../modules/ui_shape_action.html#eshapeactionexpressionwithparameter" class="tsd-signature-type">EShapeActionExpressionWithParameter</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DEF</span></h4>
 					</li>
 				</ul>
 			</section>
@@ -318,7 +367,7 @@
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts#L80">src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts:80</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts#L92">src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts:92</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -341,7 +390,7 @@
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts#L88">src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts:88</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts#L100">src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts:100</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -364,7 +413,7 @@
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts#L84">src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts:84</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts#L96">src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts:96</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -374,6 +423,35 @@
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <a href="../modules/ui_shape_action.html#eshapeactionexpression" class="tsd-signature-type">EShapeActionExpression</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+				<a name="ofelementornull" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagStatic">Static</span> of<wbr>Element<wbr>OrNull</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<li class="tsd-signature tsd-kind-icon">of<wbr>Element<wbr>OrNull&lt;ELEMENT&gt;<span class="tsd-signature-symbol">(</span>expression<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/ui_shape_action.html#eshapeactionexpressionwithparameter" class="tsd-signature-type">EShapeActionExpressionWithParameter</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ELEMENT</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">HTMLElement</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts#L104">src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts:104</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-type-parameters-title">Type parameters</h4>
+						<ul class="tsd-type-parameters">
+							<li>
+								<h4>ELEMENT<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HTMLElement</span></h4>
+							</li>
+						</ul>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>expression: <span class="tsd-signature-type">string</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="../modules/ui_shape_action.html#eshapeactionexpressionwithparameter" class="tsd-signature-type">EShapeActionExpressionWithParameter</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ELEMENT</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">HTMLElement</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
 					</li>
 				</ul>
 			</section>
@@ -387,7 +465,7 @@
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts#L64">src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts:64</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts#L76">src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts:76</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -410,7 +488,7 @@
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts#L52">src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts:52</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts#L64">src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts:64</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -433,7 +511,7 @@
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts#L68">src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts:68</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts#L80">src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts:80</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -456,7 +534,7 @@
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts#L72">src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts:72</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts#L84">src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts:84</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -479,7 +557,7 @@
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts#L76">src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts:76</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts#L88">src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts:88</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -502,7 +580,7 @@
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts#L56">src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts:56</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts#L68">src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts:68</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -525,7 +603,7 @@
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts#L60">src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts:60</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts#L72">src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts:72</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>

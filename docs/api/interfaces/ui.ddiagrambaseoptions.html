@@ -48,7 +48,10 @@
 		<li class="current tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 			<a href="ui.ddiagrambaseoptions.html" class="tsd-kind-icon">DDiagram<wbr>Base<wbr>Options</a>
 			<ul>
-				<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite">
+				<li class=" tsd-kind-property tsd-parent-kind-interface">
+					<a href="ui.ddiagrambaseoptions.html#ambient" class="tsd-kind-icon">ambient</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a href="ui.ddiagrambaseoptions.html#background" class="tsd-kind-icon">background</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
@@ -202,7 +205,8 @@
 					<section class="tsd-index-section ">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite"><a href="ui.ddiagrambaseoptions.html#background" class="tsd-kind-icon">background</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ui.ddiagrambaseoptions.html#ambient" class="tsd-kind-icon">ambient</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="ui.ddiagrambaseoptions.html#background" class="tsd-kind-icon">background</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="ui.ddiagrambaseoptions.html#border" class="tsd-kind-icon">border</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="ui.ddiagrambaseoptions.html#canvas" class="tsd-kind-icon">canvas</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="ui.ddiagrambaseoptions.html#children" class="tsd-kind-icon">children</a></li>
@@ -238,16 +242,31 @@
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Properties</h2>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite">
-				<a name="background" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagOptional">Optional</span> background</h3>
-				<div class="tsd-signature tsd-kind-icon">background<span class="tsd-signature-symbol">:</span> <a href="ui.ddiagrambasebackgroundoptions.html" class="tsd-signature-type">DDiagramBaseBackgroundOptions</a></div>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<a name="ambient" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> ambient</h3>
+				<div class="tsd-signature tsd-kind-icon">ambient<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
 				<aside class="tsd-sources">
-					<p>Overrides <a href="ui.dbaseoptions.html">DBaseOptions</a>.<a href="ui.dbaseoptions.html#background">background</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-diagram-base.ts#L76">src/main/typescript/wcardinal/ui/d-diagram-base.ts:76</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-diagram-base.ts#L72">src/main/typescript/wcardinal/ui/d-diagram-base.ts:72</a></li>
 					</ul>
 				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+				<a name="background" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> background</h3>
+				<div class="tsd-signature tsd-kind-icon">background<span class="tsd-signature-symbol">:</span> <a href="ui.dbasebackgroundoptions.html" class="tsd-signature-type">DBaseBackgroundOptions</a></div>
+				<aside class="tsd-sources">
+					<p>Inherited from <a href="ui.dbaseoptions.html">DBaseOptions</a>.<a href="ui.dbaseoptions.html#background">background</a></p>
+					<ul>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L431">src/main/typescript/wcardinal/ui/d-base.ts:431</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>A background options.</p>
+					</div>
+				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 				<a name="border" class="tsd-anchor"></a>
@@ -256,7 +275,7 @@
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="ui.dbaseoptions.html">DBaseOptions</a>.<a href="ui.dbaseoptions.html#border">border</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L432">src/main/typescript/wcardinal/ui/d-base.ts:432</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L434">src/main/typescript/wcardinal/ui/d-base.ts:434</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -268,7 +287,7 @@
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 				<a name="canvas" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagOptional">Optional</span> canvas</h3>
-				<div class="tsd-signature tsd-kind-icon">canvas<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">CANVAS</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">CANVAS_OPTIONS</span></div>
+				<div class="tsd-signature tsd-kind-icon">canvas<span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type">CANVAS</a></div>
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="ui.dcanvascontaineroptions.html">DCanvasContainerOptions</a>.<a href="ui.dcanvascontaineroptions.html#canvas">canvas</a></p>
 					<ul>
@@ -283,7 +302,7 @@
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="ui.dbaseoptions.html">DBaseOptions</a>.<a href="ui.dbaseoptions.html#children">children</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L341">src/main/typescript/wcardinal/ui/d-base.ts:341</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L343">src/main/typescript/wcardinal/ui/d-base.ts:343</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -299,7 +318,7 @@
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="ui.dbaseoptions.html">DBaseOptions</a>.<a href="ui.dbaseoptions.html#clear">clear</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L441">src/main/typescript/wcardinal/ui/d-base.ts:441</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L443">src/main/typescript/wcardinal/ui/d-base.ts:443</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -314,7 +333,7 @@
 				<div class="tsd-signature tsd-kind-icon">controller<span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type">CONTROLLER</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-diagram-base.ts#L69">src/main/typescript/wcardinal/ui/d-diagram-base.ts:69</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-diagram-base.ts#L65">src/main/typescript/wcardinal/ui/d-diagram-base.ts:65</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -325,7 +344,7 @@
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="ui.dbaseoptions.html">DBaseOptions</a>.<a href="ui.dbaseoptions.html#corner">corner</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L404">src/main/typescript/wcardinal/ui/d-base.ts:404</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L406">src/main/typescript/wcardinal/ui/d-base.ts:406</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -337,11 +356,11 @@
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 				<a name="cursor" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagOptional">Optional</span> cursor</h3>
-				<div class="tsd-signature tsd-kind-icon">cursor<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+				<div class="tsd-signature tsd-kind-icon">cursor<span class="tsd-signature-symbol">:</span> <a href="../modules/ui.html#dstateawareorvaluemightbe" class="tsd-signature-type">DStateAwareOrValueMightBe</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="ui.dbaseoptions.html">DBaseOptions</a>.<a href="ui.dbaseoptions.html#cursor">cursor</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L444">src/main/typescript/wcardinal/ui/d-base.ts:444</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L446">src/main/typescript/wcardinal/ui/d-base.ts:446</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -357,7 +376,7 @@
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="ui.dbaseoptions.html">DBaseOptions</a>.<a href="ui.dbaseoptions.html#height">height</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L384">src/main/typescript/wcardinal/ui/d-base.ts:384</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L386">src/main/typescript/wcardinal/ui/d-base.ts:386</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -380,7 +399,7 @@
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="ui.dbaseoptions.html">DBaseOptions</a>.<a href="ui.dbaseoptions.html#interactive">interactive</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L398">src/main/typescript/wcardinal/ui/d-base.ts:398</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L400">src/main/typescript/wcardinal/ui/d-base.ts:400</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -407,7 +426,7 @@
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="ui.dbaseoptions.html">DBaseOptions</a>.<a href="ui.dbaseoptions.html#name">name</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L344">src/main/typescript/wcardinal/ui/d-base.ts:344</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L346">src/main/typescript/wcardinal/ui/d-base.ts:346</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -423,7 +442,7 @@
 				<aside class="tsd-sources">
 					<p>Overrides <a href="ui.dcanvascontaineroptions.html">DCanvasContainerOptions</a>.<a href="ui.dcanvascontaineroptions.html#on">on</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-diagram-base.ts#L78">src/main/typescript/wcardinal/ui/d-diagram-base.ts:78</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-diagram-base.ts#L74">src/main/typescript/wcardinal/ui/d-diagram-base.ts:74</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -434,7 +453,7 @@
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="ui.dbaseoptions.html">DBaseOptions</a>.<a href="ui.dbaseoptions.html#outline">outline</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L435">src/main/typescript/wcardinal/ui/d-base.ts:435</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L437">src/main/typescript/wcardinal/ui/d-base.ts:437</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -450,7 +469,7 @@
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="ui.dbaseoptions.html">DBaseOptions</a>.<a href="ui.dbaseoptions.html#padding">padding</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L401">src/main/typescript/wcardinal/ui/d-base.ts:401</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L403">src/main/typescript/wcardinal/ui/d-base.ts:403</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -466,7 +485,7 @@
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="ui.dbaseoptions.html">DBaseOptions</a>.<a href="ui.dbaseoptions.html#parent">parent</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L338">src/main/typescript/wcardinal/ui/d-base.ts:338</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L340">src/main/typescript/wcardinal/ui/d-base.ts:340</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -483,11 +502,11 @@
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 				<a name="shadow" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagOptional">Optional</span> shadow</h3>
-				<div class="tsd-signature tsd-kind-icon">shadow<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"NONE"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"WEAK"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DEFAULT"</span><span class="tsd-signature-symbol"> | </span><a href="ui.dshadow.html" class="tsd-signature-type">DShadow</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
+				<div class="tsd-signature tsd-kind-icon">shadow<span class="tsd-signature-symbol">:</span> <a href="../modules/ui.html#dbaseshadow" class="tsd-signature-type">DBaseShadow</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="ui.dbaseoptions.html">DBaseOptions</a>.<a href="ui.dbaseoptions.html#shadow">shadow</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L438">src/main/typescript/wcardinal/ui/d-base.ts:438</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L440">src/main/typescript/wcardinal/ui/d-base.ts:440</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -503,7 +522,7 @@
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="ui.dbaseoptions.html">DBaseOptions</a>.<a href="ui.dbaseoptions.html#shortcut">shortcut</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L423">src/main/typescript/wcardinal/ui/d-base.ts:423</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L425">src/main/typescript/wcardinal/ui/d-base.ts:425</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -519,7 +538,7 @@
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="ui.dbaseoptions.html">DBaseOptions</a>.<a href="ui.dbaseoptions.html#shortcuts">shortcuts</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L426">src/main/typescript/wcardinal/ui/d-base.ts:426</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L428">src/main/typescript/wcardinal/ui/d-base.ts:428</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -531,11 +550,11 @@
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 				<a name="state" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagOptional">Optional</span> state</h3>
-				<div class="tsd-signature tsd-kind-icon">state<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-symbol">typeof </span><span class="tsd-signature-type">DBaseState</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-symbol">typeof </span><span class="tsd-signature-type">DBaseState</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="../enums/ui.dbasestate.html" class="tsd-signature-type">DBaseState</a></div>
+				<div class="tsd-signature tsd-kind-icon">state<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="ui.dbaseoptions.html">DBaseOptions</a>.<a href="ui.dbaseoptions.html#state">state</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L395">src/main/typescript/wcardinal/ui/d-base.ts:395</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L397">src/main/typescript/wcardinal/ui/d-base.ts:397</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -551,7 +570,7 @@
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="ui.dbaseoptions.html">DBaseOptions</a>.<a href="ui.dbaseoptions.html#theme">theme</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L407">src/main/typescript/wcardinal/ui/d-base.ts:407</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L409">src/main/typescript/wcardinal/ui/d-base.ts:409</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -566,7 +585,7 @@
 				<div class="tsd-signature tsd-kind-icon">tile<span class="tsd-signature-symbol">:</span> <a href="../modules/ui.html#ddiagramcanvastilepyramidfactory" class="tsd-signature-type">DDiagramCanvasTilePyramidFactory</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-diagram-base.ts#L74">src/main/typescript/wcardinal/ui/d-diagram-base.ts:74</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-diagram-base.ts#L70">src/main/typescript/wcardinal/ui/d-diagram-base.ts:70</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -582,7 +601,7 @@
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="ui.dbaseoptions.html">DBaseOptions</a>.<a href="ui.dbaseoptions.html#title">title</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L420">src/main/typescript/wcardinal/ui/d-base.ts:420</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L422">src/main/typescript/wcardinal/ui/d-base.ts:422</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -609,7 +628,7 @@
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="ui.dbaseoptions.html">DBaseOptions</a>.<a href="ui.dbaseoptions.html#visible">visible</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L392">src/main/typescript/wcardinal/ui/d-base.ts:392</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L394">src/main/typescript/wcardinal/ui/d-base.ts:394</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -628,7 +647,7 @@
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="ui.dbaseoptions.html">DBaseOptions</a>.<a href="ui.dbaseoptions.html#weight">weight</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L417">src/main/typescript/wcardinal/ui/d-base.ts:417</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L419">src/main/typescript/wcardinal/ui/d-base.ts:419</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -644,7 +663,7 @@
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="ui.dbaseoptions.html">DBaseOptions</a>.<a href="ui.dbaseoptions.html#width">width</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L374">src/main/typescript/wcardinal/ui/d-base.ts:374</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L376">src/main/typescript/wcardinal/ui/d-base.ts:376</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -667,7 +686,7 @@
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="ui.dbaseoptions.html">DBaseOptions</a>.<a href="ui.dbaseoptions.html#x">x</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L354">src/main/typescript/wcardinal/ui/d-base.ts:354</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L356">src/main/typescript/wcardinal/ui/d-base.ts:356</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -690,7 +709,7 @@
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="ui.dbaseoptions.html">DBaseOptions</a>.<a href="ui.dbaseoptions.html#y">y</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L364">src/main/typescript/wcardinal/ui/d-base.ts:364</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-base.ts#L366">src/main/typescript/wcardinal/ui/d-base.ts:366</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">

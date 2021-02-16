@@ -87,14 +87,8 @@
 				<li class=" tsd-kind-property tsd-parent-kind-interface">
 					<a href="ui.dapplicationlayerlike.html#width" class="tsd-kind-icon">width</a>
 				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-interface">
-					<a href="ui.dapplicationlayerlike.html#allowupdate" class="tsd-kind-icon">allow<wbr>Update</a>
-				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
 					<a href="ui.dapplicationlayerlike.html#destroy-1" class="tsd-kind-icon">destroy</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-interface">
-					<a href="ui.dapplicationlayerlike.html#disallowupdate" class="tsd-kind-icon">disallow<wbr>Update</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-interface">
 					<a href="ui.dapplicationlayerlike.html#getdynamicfontatlases" class="tsd-kind-icon">get<wbr>Dynamic<wbr>Font<wbr>Atlases</a>
@@ -104,6 +98,12 @@
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-interface">
 					<a href="ui.dapplicationlayerlike.html#getfocuscontroller" class="tsd-kind-icon">get<wbr>Focus<wbr>Controller</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-interface">
+					<a href="ui.dapplicationlayerlike.html#getrootelement" class="tsd-kind-icon">get<wbr>Root<wbr>Element</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-interface">
+					<a href="ui.dapplicationlayerlike.html#lock" class="tsd-kind-icon">lock</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-interface">
 					<a href="ui.dapplicationlayerlike.html#refit" class="tsd-kind-icon">refit</a>
@@ -122,6 +122,9 @@
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
 					<a href="ui.dapplicationlayerlike.html#stop" class="tsd-kind-icon">stop</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-interface">
+					<a href="ui.dapplicationlayerlike.html#unlock" class="tsd-kind-icon">unlock</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-interface">
 					<a href="ui.dapplicationlayerlike.html#update" class="tsd-kind-icon">update</a>
@@ -189,18 +192,19 @@
 					<section class="tsd-index-section ">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ui.dapplicationlayerlike.html#allowupdate" class="tsd-kind-icon">allow<wbr>Update</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="ui.dapplicationlayerlike.html#destroy-1" class="tsd-kind-icon">destroy</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ui.dapplicationlayerlike.html#disallowupdate" class="tsd-kind-icon">disallow<wbr>Update</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ui.dapplicationlayerlike.html#getdynamicfontatlases" class="tsd-kind-icon">get<wbr>Dynamic<wbr>Font<wbr>Atlases</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ui.dapplicationlayerlike.html#getelementcontainer" class="tsd-kind-icon">get<wbr>Element<wbr>Container</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ui.dapplicationlayerlike.html#getfocuscontroller" class="tsd-kind-icon">get<wbr>Focus<wbr>Controller</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ui.dapplicationlayerlike.html#getrootelement" class="tsd-kind-icon">get<wbr>Root<wbr>Element</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ui.dapplicationlayerlike.html#lock" class="tsd-kind-icon">lock</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ui.dapplicationlayerlike.html#refit" class="tsd-kind-icon">refit</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ui.dapplicationlayerlike.html#reflow" class="tsd-kind-icon">reflow</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-overwrite"><a href="ui.dapplicationlayerlike.html#render" class="tsd-kind-icon">render</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="ui.dapplicationlayerlike.html#resize" class="tsd-kind-icon">resize</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="ui.dapplicationlayerlike.html#start" class="tsd-kind-icon">start</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="ui.dapplicationlayerlike.html#stop" class="tsd-kind-icon">stop</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ui.dapplicationlayerlike.html#unlock" class="tsd-kind-icon">unlock</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ui.dapplicationlayerlike.html#update" class="tsd-kind-icon">update</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited tsd-is-static"><a href="ui.dapplicationlayerlike.html#registerplugin" class="tsd-kind-icon">register<wbr>Plugin</a></li>
 						</ul>
@@ -516,23 +520,6 @@
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Methods</h2>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-				<a name="allowupdate" class="tsd-anchor"></a>
-				<h3>allow<wbr>Update</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-					<li class="tsd-signature tsd-kind-icon">allow<wbr>Update<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L13">src/main/typescript/wcardinal/ui/d-application-layer-like.ts:13</a></li>
-							</ul>
-						</aside>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-					</li>
-				</ul>
-			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
 				<a name="destroy-1" class="tsd-anchor"></a>
 				<h3>destroy</h3>
@@ -566,23 +553,6 @@
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-				<a name="disallowupdate" class="tsd-anchor"></a>
-				<h3>disallow<wbr>Update</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-					<li class="tsd-signature tsd-kind-icon">disallow<wbr>Update<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L14">src/main/typescript/wcardinal/ui/d-application-layer-like.ts:14</a></li>
-							</ul>
-						</aside>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 				<a name="getdynamicfontatlases" class="tsd-anchor"></a>
 				<h3>get<wbr>Dynamic<wbr>Font<wbr>Atlases</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
@@ -609,7 +579,7 @@
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L23">src/main/typescript/wcardinal/ui/d-application-layer-like.ts:23</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L24">src/main/typescript/wcardinal/ui/d-application-layer-like.ts:24</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">HTMLElement</span></h4>
@@ -630,6 +600,40 @@
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <a href="ui.dcontrollerfocus.html" class="tsd-signature-type">DControllerFocus</a></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+				<a name="getrootelement" class="tsd-anchor"></a>
+				<h3>get<wbr>Root<wbr>Element</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Root<wbr>Element<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HTMLElement</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L23">src/main/typescript/wcardinal/ui/d-application-layer-like.ts:23</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">HTMLElement</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+				<a name="lock" class="tsd-anchor"></a>
+				<h3>lock</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+					<li class="tsd-signature tsd-kind-icon">lock<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L14">src/main/typescript/wcardinal/ui/d-application-layer-like.ts:14</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 					</li>
 				</ul>
 			</section>
@@ -766,6 +770,23 @@
 								</dd>
 							</dl>
 						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+				<a name="unlock" class="tsd-anchor"></a>
+				<h3>unlock</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+					<li class="tsd-signature tsd-kind-icon">unlock<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L13">src/main/typescript/wcardinal/ui/d-application-layer-like.ts:13</a></li>
+							</ul>
+						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 					</li>
 				</ul>

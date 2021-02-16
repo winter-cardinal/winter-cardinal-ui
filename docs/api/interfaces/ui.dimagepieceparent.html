@@ -48,6 +48,9 @@
 		<li class="current tsd-kind-interface tsd-parent-kind-module">
 			<a href="ui.dimagepieceparent.html" class="tsd-kind-icon">DImage<wbr>Piece<wbr>Parent</a>
 			<ul>
+				<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a href="ui.dimagepieceparent.html#parent" class="tsd-kind-icon">parent</a>
+				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-interface">
 					<a href="ui.dimagepieceparent.html#state" class="tsd-kind-icon">state</a>
 				</li>
@@ -55,7 +58,13 @@
 					<a href="ui.dimagepieceparent.html#addchild" class="tsd-kind-icon">add<wbr>Child</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-interface">
+					<a href="ui.dimagepieceparent.html#getoverflowmask" class="tsd-kind-icon">get<wbr>Overflow<wbr>Mask</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-interface">
 					<a href="ui.dimagepieceparent.html#removechild" class="tsd-kind-icon">remove<wbr>Child</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-interface">
+					<a href="ui.dimagepieceparent.html#todirty" class="tsd-kind-icon">to<wbr>Dirty</a>
 				</li>
 			</ul>
 		</li>
@@ -67,7 +76,12 @@
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
 				<li>
-					<span class="target">DImagePieceParent</span>
+					<a href="ui.dapplicationtarget.html" class="tsd-signature-type">DApplicationTarget</a>
+					<ul class="tsd-hierarchy">
+						<li>
+							<span class="target">DImagePieceParent</span>
+						</li>
+					</ul>
 				</li>
 			</ul>
 		</section>
@@ -78,6 +92,7 @@
 					<section class="tsd-index-section ">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
+							<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="ui.dimagepieceparent.html#parent" class="tsd-kind-icon">parent</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ui.dimagepieceparent.html#state" class="tsd-kind-icon">state</a></li>
 						</ul>
 					</section>
@@ -85,7 +100,9 @@
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ui.dimagepieceparent.html#addchild" class="tsd-kind-icon">add<wbr>Child</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ui.dimagepieceparent.html#getoverflowmask" class="tsd-kind-icon">get<wbr>Overflow<wbr>Mask</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ui.dimagepieceparent.html#removechild" class="tsd-kind-icon">remove<wbr>Child</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ui.dimagepieceparent.html#todirty" class="tsd-kind-icon">to<wbr>Dirty</a></li>
 						</ul>
 					</section>
 				</div>
@@ -93,13 +110,24 @@
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Properties</h2>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+				<a name="parent" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> parent</h3>
+				<div class="tsd-signature tsd-kind-icon">parent<span class="tsd-signature-symbol">:</span> <a href="ui.dapplicationtarget.html" class="tsd-signature-type">DApplicationTarget</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
+				<aside class="tsd-sources">
+					<p>Inherited from <a href="ui.dapplicationtarget.html">DApplicationTarget</a>.<a href="ui.dapplicationtarget.html#parent">parent</a></p>
+					<ul>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L5">src/main/typescript/wcardinal/ui/d-application-like.ts:5</a></li>
+					</ul>
+				</aside>
+			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 				<a name="state" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> state</h3>
 				<div class="tsd-signature tsd-kind-icon">state<span class="tsd-signature-symbol">:</span> <a href="ui.dbasestateset.html" class="tsd-signature-type">DBaseStateSet</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L54">src/main/typescript/wcardinal/ui/d-image-piece.ts:54</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L52">src/main/typescript/wcardinal/ui/d-image-piece.ts:52</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -116,7 +144,7 @@
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L55">src/main/typescript/wcardinal/ui/d-image-piece.ts:55</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L53">src/main/typescript/wcardinal/ui/d-image-piece.ts:53</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -130,6 +158,23 @@
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+				<a name="getoverflowmask" class="tsd-anchor"></a>
+				<h3>get<wbr>Overflow<wbr>Mask</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Overflow<wbr>Mask<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Graphics</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L56">src/main/typescript/wcardinal/ui/d-image-piece.ts:56</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Graphics</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 				<a name="removechild" class="tsd-anchor"></a>
 				<h3>remove<wbr>Child</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
@@ -139,7 +184,7 @@
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L56">src/main/typescript/wcardinal/ui/d-image-piece.ts:56</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L54">src/main/typescript/wcardinal/ui/d-image-piece.ts:54</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -148,6 +193,23 @@
 								<h5>displayObject: <span class="tsd-signature-type">DisplayObject</span></h5>
 							</li>
 						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+				<a name="todirty" class="tsd-anchor"></a>
+				<h3>to<wbr>Dirty</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+					<li class="tsd-signature tsd-kind-icon">to<wbr>Dirty<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.23.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L55">src/main/typescript/wcardinal/ui/d-image-piece.ts:55</a></li>
+							</ul>
+						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 					</li>
 				</ul>
