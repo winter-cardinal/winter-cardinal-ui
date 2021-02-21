@@ -674,19 +674,21 @@ export interface DRefitable {
 const toShortcuts = <THEME extends DThemeBase>(
 	options?: DBaseOptions<THEME>
 ): UtilKeyboardEventShortcut[] | undefined => {
-	if( options != null && ( options.shortcuts != null || options.shortcut != null ) ) {
-		const result: UtilKeyboardEventShortcut[] = [];
-		if( options.shortcut != null ) {
-			result.push( UtilKeyboardEvent.toShortcut( options.shortcut ) );
-		}
-
-		if( options.shortcuts != null ) {
-			const shortcuts = options.shortcuts;
-			for( let i = 0, imax = shortcuts.length; i < imax; ++i ) {
-				UtilKeyboardEvent.toShortcut( shortcuts[ i ] );
+	if( options ) {
+		const shortcut = options.shortcut;
+		const shortcuts = options.shortcuts;
+		if( shortcuts != null || shortcut != null ) {
+			const result: UtilKeyboardEventShortcut[] = [];
+			if( shortcut != null ) {
+				result.push( UtilKeyboardEvent.toShortcut( shortcut ) );
 			}
+			if( shortcuts != null ) {
+				for( let i = 0, imax = shortcuts.length; i < imax; ++i ) {
+					UtilKeyboardEvent.toShortcut( shortcuts[ i ] );
+				}
+			}
+			return result;
 		}
-		return result;
 	}
 	return undefined;
 };
@@ -928,7 +930,8 @@ export class DBase<
 		});
 
 		// Shortcut
-		const shortcuts = this._shortcuts = toShortcuts( options );
+		const shortcuts = toShortcuts( options );
+		this._shortcuts = shortcuts;
 		if( shortcuts != null ) {
 			const onShortcutBound = ( e: KeyboardEvent ): void => {
 				this.onShortcut( e );

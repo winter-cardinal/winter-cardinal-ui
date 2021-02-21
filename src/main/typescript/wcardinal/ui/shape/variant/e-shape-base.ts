@@ -725,9 +725,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 			this.text.copy( source.text );
 			this.radius = source.radius;
 			this.corner = source.corner;
-			if (this._image == null) {
-				this._image = source.image;
-			}
+			this.image = source.image;
 		}
 		if( (part & EShapeCopyPart.ACTION) !== 0 ) {
 			this.action.addAll( source.action.values );
