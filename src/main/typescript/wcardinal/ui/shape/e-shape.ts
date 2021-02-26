@@ -7,6 +7,7 @@ import { DisplayObject, IPoint, Point, Rectangle, Renderer, Texture, utils } fro
 import { DDiagramSerializedItem } from "../d-diagram-serialized";
 import { EShapeAction } from "./action/e-shape-action";
 import { EShapeContainer } from "./e-shape-container";
+import { EShapeCopyPart } from "./e-shape-copy-part";
 import { EShapeCorner } from "./e-shape-corner";
 import { EShapeEditor } from "./e-shape-editor";
 import { EShapeFill } from "./e-shape-fill";
@@ -22,19 +23,6 @@ import { EShapeText } from "./e-shape-text";
 import { EShapeTransform } from "./e-shape-transform";
 import { EShapeType } from "./e-shape-type";
 import { EShapeUploaded } from "./e-shape-uploaded";
-
-export enum EShapeCopyPart {
-	NONE = 0,
-	TRANSFORM = 1,
-	SIZE = 2,
-	STYLE = 4,
-	ACTION = 8,
-	POINTS = 16,
-	STATE = 32,
-	IMAGE = 64,
-	TAG = 128,
-	ALL = TRANSFORM | SIZE | STYLE | ACTION | POINTS | STATE | IMAGE | TAG
-}
 
 export interface EShape extends utils.EventEmitter {
 	id: string; // Used to identity a shape by users

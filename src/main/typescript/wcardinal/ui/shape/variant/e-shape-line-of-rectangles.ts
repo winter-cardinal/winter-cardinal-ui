@@ -20,13 +20,9 @@ export class EShapeLineOfRectangles extends EShapeRectangle implements EShapeLin
 	protected _tester: EShapeLineOfAnyPointsHitTester<unknown>;
 	protected _testerBBox: EShapeLineOfAnyPointsHitTester<unknown>;
 
-	constructor( other?: EShapeLineOfRectangles ) {
+	constructor() {
 		super( EShapeType.LINE_OF_RECTANGLES );
-		if( other ) {
-			this.copy( other );
-		} else {
-			this._points = new EShapeLineOfAnyPointsImpl( this );
-		}
+		this._points = new EShapeLineOfAnyPointsImpl( this );
 
 		this._tester = ( x, y, ax, ay, ox, oy, px, py ): boolean => {
 			return this.containsPointAbs( x, y, ax, ay, ox, oy, px, py );
@@ -42,7 +38,7 @@ export class EShapeLineOfRectangles extends EShapeRectangle implements EShapeLin
 	}
 
 	clone(): EShapeLineOfRectangles {
-		return new EShapeLineOfRectangles( this );
+		return new EShapeLineOfRectangles().copy( this );
 	}
 
 	containsAbs( x: number, y: number, ax: number, ay: number ): boolean {

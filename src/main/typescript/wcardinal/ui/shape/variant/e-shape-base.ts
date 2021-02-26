@@ -8,8 +8,9 @@ import { DApplications } from "../../d-applications";
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { EShapeAction } from "../action/e-shape-action";
-import { EShape, EShapeCopyPart } from "../e-shape";
+import { EShape } from "../e-shape";
 import { EShapeContainer } from "../e-shape-container";
+import { EShapeCopyPart } from "../e-shape-copy-part";
 import { EShapeCorner } from "../e-shape-corner";
 import { EShapeEditor } from "../e-shape-editor";
 import { EShapeFill } from "../e-shape-fill";
@@ -743,8 +744,6 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 				const points = this.points;
 				if( points != null ) {
 					points.copy( sourcePoints );
-				} else {
-					this._points = sourcePoints.clone( this );
 				}
 			}
 		}
