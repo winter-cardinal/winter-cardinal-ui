@@ -12,6 +12,7 @@ export * from "./e-shape-buffer";
 export * from "./e-shape-capabilities";
 export * from "./e-shape-capability";
 export * from "./e-shape-container";
+export * from "./e-shape-copy-part";
 export * from "./e-shape-corner";
 export * from "./e-shape-deleter";
 export * from "./e-shape-defaults";

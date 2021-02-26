@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { EShapeCopyPart } from "../e-shape-copy-part";
 import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeType } from "../e-shape-type";
 import { EShapeBarPoints } from "./e-shape-bar-points";
@@ -25,7 +26,8 @@ export class EShapeBar extends EShapeLineBase {
 
 	clone(): EShapeBar {
 		const points = this._points;
-		return new EShapeBar( points.position, points.size, this.stroke.width, points.style ).copy( this );
+		return new EShapeBar( points.position, points.size, this.stroke.width, points.style )
+			.copy( this, EShapeCopyPart.ALL & ~EShapeCopyPart.POINTS );
 	}
 
 	containsAbsBBox( x: number, y: number, ax: number, ay: number ): boolean {

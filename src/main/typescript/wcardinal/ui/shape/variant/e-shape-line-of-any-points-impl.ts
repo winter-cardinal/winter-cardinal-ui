@@ -161,7 +161,7 @@ export class EShapeLineOfAnyPointsImpl implements EShapeLineOfAnyPoints {
 	}
 
 	clone( parent: EShape ): EShapeLineOfAnyPointsImpl {
-		return new EShapeLineOfAnyPointsImpl( parent );
+		return new EShapeLineOfAnyPointsImpl( parent ).copy( this );
 	}
 
 	toPoints( transform: Matrix ): Point[] {

@@ -20,13 +20,9 @@ export class EShapeLineOfCircles extends EShapeCircle implements EShapeLineOfAny
 	protected _tester: EShapeLineOfAnyPointsHitTester<unknown>;
 	protected _testerBBox: EShapeLineOfAnyPointsHitTester<unknown>;
 
-	constructor( other?: EShapeLineOfCircles ) {
+	constructor() {
 		super( EShapeType.LINE_OF_CIRCLES );
-		if( other ) {
-			this.copy( other );
-		} else {
-			this._points = new EShapeLineOfAnyPointsImpl( this );
-		}
+		this._points = new EShapeLineOfAnyPointsImpl( this );
 
 		this._tester = ( x, y, ax, ay, ox, oy, px, py ): boolean => {
 			return this.containsPointAbs( x, y, ax, ay, ox, oy, px, py );
@@ -42,7 +38,7 @@ export class EShapeLineOfCircles extends EShapeCircle implements EShapeLineOfAny
 	}
 
 	clone(): EShapeLineOfCircles {
-		return new EShapeLineOfCircles( this );
+		return new EShapeLineOfCircles().copy( this );
 	}
 
 	containsAbs( x: number, y: number, ax: number, ay: number ): boolean {

@@ -20,13 +20,9 @@ export class EShapeLineOfTriangles extends EShapeTriangle implements EShapeLineO
 	protected _tester: EShapeLineOfAnyPointsHitTester<unknown>;
 	protected _testerBBox: EShapeLineOfAnyPointsHitTester<unknown>;
 
-	constructor( other?: EShapeLineOfTriangles ) {
+	constructor() {
 		super( EShapeType.LINE_OF_TRIANGLES );
-		if( other ) {
-			this.copy( other );
-		} else {
-			this._points = new EShapeLineOfAnyPointsImpl( this );
-		}
+		this._points = new EShapeLineOfAnyPointsImpl( this );
 
 		this._tester = ( x, y, ax, ay, ox, oy, px, py ): boolean => {
 			return this.containsPointAbs( x, y, ax, ay, ox, oy, px, py );
@@ -42,7 +38,7 @@ export class EShapeLineOfTriangles extends EShapeTriangle implements EShapeLineO
 	}
 
 	clone(): EShapeLineOfTriangles {
-		return new EShapeLineOfTriangles( this );
+		return new EShapeLineOfTriangles().copy( this );
 	}
 
 	containsAbs( x: number, y: number, ax: number, ay: number ): boolean {

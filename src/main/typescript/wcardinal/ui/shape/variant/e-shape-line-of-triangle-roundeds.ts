@@ -20,13 +20,9 @@ export class EShapeLineOfTriangleRoundeds extends EShapeTriangleRounded implemen
 	protected _tester: EShapeLineOfAnyPointsHitTester<unknown>;
 	protected _testerBBox: EShapeLineOfAnyPointsHitTester<unknown>;
 
-	constructor( other?: EShapeLineOfTriangleRoundeds ) {
+	constructor() {
 		super( EShapeType.LINE_OF_TRIANGLE_ROUNDEDS );
-		if( other ) {
-			this.copy( other );
-		} else {
-			this._points = new EShapeLineOfAnyPointsImpl( this );
-		}
+		this._points = new EShapeLineOfAnyPointsImpl( this );
 
 		this._tester = ( x, y, ax, ay, ox, oy, px, py ): boolean => {
 			return this.containsPointAbs( x, y, ax, ay, ox, oy, px, py );
@@ -42,7 +38,7 @@ export class EShapeLineOfTriangleRoundeds extends EShapeTriangleRounded implemen
 	}
 
 	clone(): EShapeLineOfTriangleRoundeds {
-		return new EShapeLineOfTriangleRoundeds( this );
+		return new EShapeLineOfTriangleRoundeds().copy( this );
 	}
 
 	containsAbs( x: number, y: number, ax: number, ay: number ): boolean {

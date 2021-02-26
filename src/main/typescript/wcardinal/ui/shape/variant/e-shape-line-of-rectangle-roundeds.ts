@@ -20,13 +20,9 @@ export class EShapeLineOfRectangleRoundeds extends EShapeRectangleRounded implem
 	protected _tester: EShapeLineOfAnyPointsHitTester<unknown>;
 	protected _testerBBox: EShapeLineOfAnyPointsHitTester<unknown>;
 
-	constructor( other?: EShapeLineOfRectangleRoundeds ) {
+	constructor() {
 		super( EShapeType.LINE_OF_RECTANGLE_ROUNDEDS );
-		if( other ) {
-			this.copy( other );
-		} else {
-			this._points = new EShapeLineOfAnyPointsImpl( this );
-		}
+		this._points = new EShapeLineOfAnyPointsImpl( this );
 
 		this._tester = ( x, y, ax, ay, ox, oy, px, py ): boolean => {
 			return this.containsPointAbs( x, y, ax, ay, ox, oy, px, py );
@@ -42,7 +38,7 @@ export class EShapeLineOfRectangleRoundeds extends EShapeRectangleRounded implem
 	}
 
 	clone(): EShapeLineOfRectangleRoundeds {
-		return new EShapeLineOfRectangleRoundeds( this );
+		return new EShapeLineOfRectangleRoundeds().copy( this );
 	}
 
 	containsAbs( x: number, y: number, ax: number, ay: number ): boolean {
