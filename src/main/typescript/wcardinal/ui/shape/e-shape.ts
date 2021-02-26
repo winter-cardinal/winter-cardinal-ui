@@ -31,7 +31,9 @@ export enum EShapeCopyPart {
 	ACTION = 8,
 	POINTS = 16,
 	STATE = 32,
-	ALL = TRANSFORM | SIZE | STYLE | ACTION | POINTS | STATE
+	IMAGE = 64,
+	TAG = 128,
+	ALL = TRANSFORM | SIZE | STYLE | ACTION | POINTS | STATE | IMAGE | TAG
 }
 
 export interface EShape extends utils.EventEmitter {
