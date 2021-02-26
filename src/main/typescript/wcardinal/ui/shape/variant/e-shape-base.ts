@@ -706,7 +706,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	copy( source: EShape, part: EShapeCopyPart = EShapeCopyPart.ALL ): this {
 		this.id = source.id;
 		this.uuid = source.uuid;
-		if( (part & EShapeCopyPart.TRANSFORM) !== 0 ) {
+		if( part & EShapeCopyPart.TRANSFORM ) {
 			const transform = this.transform;
 			const sourceTransform = source.transform;
 			transform.position.copyFrom( sourceTransform.position );
@@ -715,25 +715,29 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 			transform.pivot.copyFrom( sourceTransform.pivot );
 			transform.scale.copyFrom( sourceTransform.scale );
 		}
-		if( (part & EShapeCopyPart.SIZE) !== 0 ) {
+		if( part & EShapeCopyPart.SIZE ) {
 			this.size.copyFrom( source.size );
 		}
-		if( (part & EShapeCopyPart.STYLE) !== 0 ) {
+		if( part & EShapeCopyPart.STYLE ) {
 			this.fill.copy( source.fill );
 			this.stroke.copy( source.stroke );
-			this.tag.copy( source.tag );
 			this.text.copy( source.text );
 			this.radius = source.radius;
 			this.corner = source.corner;
+		}
+		if( part & EShapeCopyPart.TAG ) {
+			this.tag.copy( source.tag );
+		}
+		if( part & EShapeCopyPart.IMAGE ) {
 			this.image = source.image;
 		}
-		if( (part & EShapeCopyPart.ACTION) !== 0 ) {
-			this.action.addAll( source.action.values );
+		if( part & EShapeCopyPart.ACTION ) {
+			this.action.clearAndAddAll( source.action.values );
 			this.interactive = source.interactive;
 			this.cursor = source.cursor;
 			this.shortcut = source.shortcut;
 		}
-		if( (part & EShapeCopyPart.POINTS) !== 0 ) {
+		if( part & EShapeCopyPart.POINTS ) {
 			const sourcePoints = source.points;
 			if( sourcePoints != null ) {
 				const points = this.points;
@@ -744,7 +748,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 				}
 			}
 		}
-		if( (part & EShapeCopyPart.STATE) !== 0 ) {
+		if( part & EShapeCopyPart.STATE ) {
 			this.state.lock( false ).copy( source.state ).unlock();
 		}
 		return this;

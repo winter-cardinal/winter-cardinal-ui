@@ -13,21 +13,34 @@ export class EShapeAction {
 		this.values = [];
 	}
 
-	add( value: EShapeActionValue, index?: number ): void {
+	add( value: EShapeActionValue, index?: number ): this {
 		const values = this.values;
 		if( index != null ) {
 			values.splice( index, 0, value );
 		} else {
 			values.push( value );
 		}
+		return this;
 	}
 
-	addAll( values: EShapeActionValue[] ): void {
-		const sources = values;
-		const destinations = this.values;
-		for( let i = 0, imax = sources.length; i < imax; ++i) {
-			destinations.push( sources[i] );
+	addAll( values: EShapeActionValue[] ): this {
+		const destination = this.values;
+		for( let i = 0, imax = values.length; i < imax; ++i) {
+			destination.push( values[i] );
 		}
+		return this;
+	}
+
+	clearAndAdd( value: EShapeActionValue ): this {
+		this.clear();
+		this.add( value );
+		return this;
+	}
+
+	clearAndAddAll( values: EShapeActionValue[] ): this {
+		this.clear();
+		this.addAll( values );
+		return this;
 	}
 
 	indexOf( target: EShapeActionValue ): number {
@@ -53,34 +66,46 @@ export class EShapeAction {
 	}
 
 	get( index: number ): EShapeActionValue | null {
-		const result = this.values[ index ];
-		if( result != null ) {
+		const values = this.values;
+		if( 0 <= index || index < values.length ) {
+			return values[ index ];
+		}
+		return null;
+	}
+
+	set( index: number, value: EShapeActionValue ): EShapeActionValue | null {
+		const values = this.values;
+		if( 0 <= index || index < values.length ) {
+			const result = values[ index ];
+			values[ index ] = value;
 			return result;
 		}
 		return null;
 	}
 
-	set( index: number, value: EShapeActionValue ): void {
-		this.values[ index ] = value;
+	remove( index: number ): EShapeActionValue | null {
+		const values = this.values;
+		if( 0 <= index || index < values.length ) {
+			return values.splice( index, 1 )[ 0 ];
+		}
+		return null;
 	}
 
-	remove( index: number ): void {
-		this.values.splice( index, 1 );
-	}
-
-	clear(): void {
+	clear(): this {
 		this.values.length = 0;
+		return this;
 	}
 
 	size(): number {
 		return this.values.length;
 	}
 
-	swap( indexA: number, indexB: number ): void {
+	swap( indexA: number, indexB: number ): this {
 		const values = this.values;
 		const tmp = values[ indexB ];
 		values[ indexB ] = values[ indexA ];
 		values[ indexA ] = tmp;
+		return this;
 	}
 
 	serialize( manager: EShapeResourceManagerSerialization ): number[] {
