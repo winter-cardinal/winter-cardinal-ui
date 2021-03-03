@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { UtilHtmlElementWhen } from "../../util/util-html-element-when";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeActionRuntime } from "./e-shape-action-runtime";
 import { EShapeActionValueBlinkType } from "./e-shape-action-value-blink-type";
@@ -34,6 +35,7 @@ export interface EThemeShapeActionValue {
 	toChangeTextTypeLabel( type: EShapeActionValueChangeTextType ): string;
 	toOpenTypeLabel( type: EShapeActionValueOpenType ): string;
 	toMiscTypeLabel( type: EShapeActionValueMiscType ): string;
+	toHtmlElementWhenLabel( when: UtilHtmlElementWhen ): string;
 	toOnInputActionLabel( type: EShapeActionValueOnInputAction ): string;
 }
 

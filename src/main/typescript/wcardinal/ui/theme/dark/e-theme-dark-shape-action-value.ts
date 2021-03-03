@@ -15,6 +15,7 @@ import { EShapeActionValueTransformResizeType } from "../../shape/action/e-shape
 import { EShapeActionValueTransformRotateType } from "../../shape/action/e-shape-action-value-transform-rotate-type";
 import { EShapeActionValueTransformType } from "../../shape/action/e-shape-action-value-transform-type";
 import { EShapeActionValueType } from "../../shape/action/e-shape-action-value-type";
+import { UtilHtmlElementWhen } from "../../util/util-html-element-when";
 
 export class EThemeDarkShapeActionValue implements EThemeShapeActionValue {
 	toLabel( value: EShapeActionValue ): string {
@@ -292,6 +293,20 @@ export class EThemeDarkShapeActionValue implements EThemeShapeActionValue {
 			return "HTML element";
 		case EShapeActionValueMiscType.HTML_ELEMENT_WITHOUT_POINTER_EVENTS:
 			return "HTML element (No pointer events)";
+		}
+		return "Unknown";
+	}
+
+	toHtmlElementWhenLabel( when: UtilHtmlElementWhen ): string {
+		switch( when ) {
+		case UtilHtmlElementWhen.CLICKED:
+			return "Clicked";
+		case UtilHtmlElementWhen.DOUBLE_CLICKED:
+			return "Double clicked";
+		case UtilHtmlElementWhen.FOCUSED:
+			return "Focused";
+		case UtilHtmlElementWhen.ALWAYS:
+			return "Always";
 		}
 		return "Unknown";
 	}
