@@ -4,17 +4,30 @@
  */
 
 import { Matrix, Point, Rectangle } from "pixi.js";
-import { UtilHtmlElementPadding } from "../../util/util-html-element";
+import { UtilHtmlElementCreator, UtilHtmlElementPadding } from "../../util/util-html-element";
 import { UtilInput, UtilInputOperation } from "../../util/util-input";
 import { EShape } from "../e-shape";
 import { EShapeRuntime } from "../e-shape-runtime";
-import { EShapeActionRuntimeMiscHtmlElement } from "./e-shape-action-runtime-misc-html-element";
+import { EShapeActionExpression } from "./e-shape-action-expression";
+import { EShapeActionExpressions } from "./e-shape-action-expressions";
+import { EShapeActionRuntimeMiscHtmlElementBase } from "./e-shape-action-runtime-misc-html-element-base";
+import { EShapeActionValueMisc } from "./e-shape-action-value-misc";
+import { EShapeActionValueOnInputAction } from "./e-shape-action-value-on-input-action";
 import { EShapeActionValueOnInputActions } from "./e-shape-action-value-on-input-actions";
 
 export abstract class EShapeActionRuntimeMiscInput<
 	VALUE = unknown,
 	UTIL extends UtilInput<VALUE> = UtilInput<VALUE>
-> extends EShapeActionRuntimeMiscHtmlElement<HTMLInputElement, UTIL> {
+> extends EShapeActionRuntimeMiscHtmlElementBase<HTMLInputElement, UTIL> {
+	protected readonly target: EShapeActionExpression<string | null>;
+	protected onInputAction: EShapeActionValueOnInputAction;
+
+	constructor( value: EShapeActionValueMisc ) {
+		super( value );
+		this.target = EShapeActionExpressions.ofStringOrNull( value.target );
+		this.onInputAction = value.onInputAction;
+	}
+
 	protected newOperation( shape: EShape, runtime: EShapeRuntime ): UtilInputOperation<VALUE> {
 		return {
 			getElementRect: ( resolution: number, work: Point, result: Rectangle ): Rectangle | null => {
@@ -69,6 +82,10 @@ export abstract class EShapeActionRuntimeMiscInput<
 				// DO NOTHING
 			}
 		};
+	}
+
+	protected newElementCreator( shape: EShape, runtime: EShapeRuntime ): UtilHtmlElementCreator<HTMLInputElement> | undefined {
+		return undefined;
 	}
 
 	protected getPadding( shape: EShape, runtime: EShapeRuntime ): UtilHtmlElementPadding | null {

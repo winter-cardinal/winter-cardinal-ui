@@ -288,6 +288,10 @@ export class EThemeDarkShapeActionValue implements EThemeShapeActionValue {
 			return this.toOnInputActionLabel( EShapeActionValueOnInputAction.WRITE_LOCAL );
 		case EShapeActionValueMiscType.WRITE_REMOTE:
 			return this.toOnInputActionLabel( EShapeActionValueOnInputAction.WRITE_REMOTE );
+		case EShapeActionValueMiscType.HTML_ELEMENT:
+			return "HTML element";
+		case EShapeActionValueMiscType.HTML_ELEMENT_WITHOUT_POINTER_EVENTS:
+			return "HTML element (No pointer events)";
 		}
 		return "Unknown";
 	}
