@@ -1,18 +1,9 @@
 {
 	"name": "Winter Cardinal UI",
-	"mode": "modules",
-	"module": "umd",
 	"theme": "minimal",
-	"target": "ES5",
 	"readme": "none",
-	"ignoreCompilerErrors": "true",
-	"preserveConstEnums": "true",
-	"external-modulemap": ".*\/wcardinal\/([\\w\\-_\/]+)\/",
-	"stripInternal": "false",
-	"exclude": "**/+(wcardinal|bundle|index)*",
-	"externalPattern": "**/internal/**/*",
-	"gitRevision": "v0.23.0",
+	"gitRevision": "v0.83.1",
 	"disableOutputCheck": true,
-	"excludeNotExported": true,
-	"excludePrivate": true
+	"excludePrivate": true,
+	"entryPoints": [ "src/main/typescript/wcardinal-ui.esm.ts" ]
 }

@@ -126,6 +126,8 @@ npm start
 
 #### API document
 
+Update the `gitRevision` in the `typedoc.json` and then do
+
 ```shell
 npm run build:api
 ```
