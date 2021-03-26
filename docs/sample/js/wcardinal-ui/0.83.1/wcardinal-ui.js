@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.80.1
+ Winter Cardinal UI v0.83.1
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -1174,6 +1174,24 @@
     }
 
     /*
+     * Copyright (C) 2021 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeCopyPart;
+    (function (EShapeCopyPart) {
+        EShapeCopyPart[EShapeCopyPart["NONE"] = 0] = "NONE";
+        EShapeCopyPart[EShapeCopyPart["TRANSFORM"] = 1] = "TRANSFORM";
+        EShapeCopyPart[EShapeCopyPart["SIZE"] = 2] = "SIZE";
+        EShapeCopyPart[EShapeCopyPart["STYLE"] = 4] = "STYLE";
+        EShapeCopyPart[EShapeCopyPart["ACTION"] = 8] = "ACTION";
+        EShapeCopyPart[EShapeCopyPart["POINTS"] = 16] = "POINTS";
+        EShapeCopyPart[EShapeCopyPart["STATE"] = 32] = "STATE";
+        EShapeCopyPart[EShapeCopyPart["IMAGE"] = 64] = "IMAGE";
+        EShapeCopyPart[EShapeCopyPart["TAG"] = 128] = "TAG";
+        EShapeCopyPart[EShapeCopyPart["ALL"] = 255] = "ALL";
+    })(EShapeCopyPart || (EShapeCopyPart = {}));
+
+    /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
@@ -1545,13 +1563,24 @@
             else {
                 values.push(value);
             }
+            return this;
         };
         EShapeAction.prototype.addAll = function (values) {
-            var sources = values;
-            var destinations = this.values;
-            for (var i = 0, imax = sources.length; i < imax; ++i) {
-                destinations.push(sources[i]);
+            var destination = this.values;
+            for (var i = 0, imax = values.length; i < imax; ++i) {
+                destination.push(values[i]);
             }
+            return this;
+        };
+        EShapeAction.prototype.clearAndAdd = function (value) {
+            this.clear();
+            this.add(value);
+            return this;
+        };
+        EShapeAction.prototype.clearAndAddAll = function (values) {
+            this.clear();
+            this.addAll(values);
+            return this;
         };
         EShapeAction.prototype.indexOf = function (target) {
             var values = this.values;
@@ -1572,20 +1601,31 @@
             return -1;
         };
         EShapeAction.prototype.get = function (index) {
-            var result = this.values[index];
-            if (result != null) {
-                return result;
+            var values = this.values;
+            if (0 <= index || index < values.length) {
+                return values[index];
             }
             return null;
         };
         EShapeAction.prototype.set = function (index, value) {
-            this.values[index] = value;
+            var values = this.values;
+            if (0 <= index || index < values.length) {
+                var result = values[index];
+                values[index] = value;
+                return result;
+            }
+            return null;
         };
         EShapeAction.prototype.remove = function (index) {
-            this.values.splice(index, 1);
+            var values = this.values;
+            if (0 <= index || index < values.length) {
+                return values.splice(index, 1)[0];
+            }
+            return null;
         };
         EShapeAction.prototype.clear = function () {
             this.values.length = 0;
+            return this;
         };
         EShapeAction.prototype.size = function () {
             return this.values.length;
@@ -1595,6 +1635,7 @@
             var tmp = values[indexB];
             values[indexB] = values[indexA];
             values[indexA] = tmp;
+            return this;
         };
         EShapeAction.prototype.serialize = function (manager) {
             var result = [];
@@ -1606,22 +1647,6 @@
         };
         return EShapeAction;
     }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeCopyPart;
-    (function (EShapeCopyPart) {
-        EShapeCopyPart[EShapeCopyPart["NONE"] = 0] = "NONE";
-        EShapeCopyPart[EShapeCopyPart["TRANSFORM"] = 1] = "TRANSFORM";
-        EShapeCopyPart[EShapeCopyPart["SIZE"] = 2] = "SIZE";
-        EShapeCopyPart[EShapeCopyPart["STYLE"] = 4] = "STYLE";
-        EShapeCopyPart[EShapeCopyPart["ACTION"] = 8] = "ACTION";
-        EShapeCopyPart[EShapeCopyPart["POINTS"] = 16] = "POINTS";
-        EShapeCopyPart[EShapeCopyPart["STATE"] = 32] = "STATE";
-        EShapeCopyPart[EShapeCopyPart["ALL"] = 63] = "ALL";
-    })(EShapeCopyPart || (EShapeCopyPart = {}));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -3527,7 +3552,7 @@
             if (part === void 0) { part = EShapeCopyPart.ALL; }
             this.id = source.id;
             this.uuid = source.uuid;
-            if ((part & EShapeCopyPart.TRANSFORM) !== 0) {
+            if (part & EShapeCopyPart.TRANSFORM) {
                 var transform = this.transform;
                 var sourceTransform = source.transform;
                 transform.position.copyFrom(sourceTransform.position);
@@ -3536,39 +3561,38 @@
                 transform.pivot.copyFrom(sourceTransform.pivot);
                 transform.scale.copyFrom(sourceTransform.scale);
             }
-            if ((part & EShapeCopyPart.SIZE) !== 0) {
+            if (part & EShapeCopyPart.SIZE) {
                 this.size.copyFrom(source.size);
             }
-            if ((part & EShapeCopyPart.STYLE) !== 0) {
+            if (part & EShapeCopyPart.STYLE) {
                 this.fill.copy(source.fill);
                 this.stroke.copy(source.stroke);
-                this.tag.copy(source.tag);
                 this.text.copy(source.text);
                 this.radius = source.radius;
                 this.corner = source.corner;
-                if (this._image == null) {
-                    this._image = source.image;
-                }
             }
-            if ((part & EShapeCopyPart.ACTION) !== 0) {
-                this.action.addAll(source.action.values);
+            if (part & EShapeCopyPart.TAG) {
+                this.tag.copy(source.tag);
+            }
+            if (part & EShapeCopyPart.IMAGE) {
+                this.image = source.image;
+            }
+            if (part & EShapeCopyPart.ACTION) {
+                this.action.clearAndAddAll(source.action.values);
                 this.interactive = source.interactive;
                 this.cursor = source.cursor;
                 this.shortcut = source.shortcut;
             }
-            if ((part & EShapeCopyPart.POINTS) !== 0) {
+            if (part & EShapeCopyPart.POINTS) {
                 var sourcePoints = source.points;
                 if (sourcePoints != null) {
                     var points = this.points;
                     if (points != null) {
                         points.copy(sourcePoints);
                     }
-                    else {
-                        this._points = sourcePoints.clone(this);
-                    }
                 }
             }
-            if ((part & EShapeCopyPart.STATE) !== 0) {
+            if (part & EShapeCopyPart.STATE) {
                 this.state.lock(false).copy(source.state).unlock();
             }
             return this;
@@ -5910,7 +5934,8 @@
         });
         EShapeBar.prototype.clone = function () {
             var points = this._points;
-            return new EShapeBar(points.position, points.size, this.stroke.width, points.style).copy(this);
+            return new EShapeBar(points.position, points.size, this.stroke.width, points.style)
+                .copy(this, EShapeCopyPart.ALL & ~EShapeCopyPart.POINTS);
         };
         EShapeBar.prototype.containsAbsBBox = function (x, y, ax, ay) {
             var size = Math.max(0, this._points.size);
@@ -11192,18 +11217,21 @@
         return null;
     };
     var toShortcuts = function (options) {
-        if (options != null && (options.shortcuts != null || options.shortcut != null)) {
-            var result = [];
-            if (options.shortcut != null) {
-                result.push(UtilKeyboardEvent.toShortcut(options.shortcut));
-            }
-            if (options.shortcuts != null) {
-                var shortcuts = options.shortcuts;
-                for (var i = 0, imax = shortcuts.length; i < imax; ++i) {
-                    UtilKeyboardEvent.toShortcut(shortcuts[i]);
+        if (options) {
+            var shortcut = options.shortcut;
+            var shortcuts = options.shortcuts;
+            if (shortcuts != null || shortcut != null) {
+                var result = [];
+                if (shortcut != null) {
+                    result.push(UtilKeyboardEvent.toShortcut(shortcut));
                 }
+                if (shortcuts != null) {
+                    for (var i = 0, imax = shortcuts.length; i < imax; ++i) {
+                        UtilKeyboardEvent.toShortcut(shortcuts[i]);
+                    }
+                }
+                return result;
             }
-            return result;
         }
         return undefined;
     };
@@ -11387,7 +11415,8 @@
                 DApplications.update(_this);
             });
             // Shortcut
-            var shortcuts = _this._shortcuts = toShortcuts(options);
+            var shortcuts = toShortcuts(options);
+            _this._shortcuts = shortcuts;
             if (shortcuts != null) {
                 var onShortcutBound = function (e) {
                     _this.onShortcut(e);
@@ -14282,36 +14311,15 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeActionValueMiscType;
-    (function (EShapeActionValueMiscType) {
-        EShapeActionValueMiscType[EShapeActionValueMiscType["INPUT_TEXT"] = 0] = "INPUT_TEXT";
-        EShapeActionValueMiscType[EShapeActionValueMiscType["INPUT_INTEGER"] = 1] = "INPUT_INTEGER";
-        EShapeActionValueMiscType[EShapeActionValueMiscType["INPUT_REAL"] = 2] = "INPUT_REAL";
-        EShapeActionValueMiscType[EShapeActionValueMiscType["EMIT_EVENT"] = 3] = "EMIT_EVENT";
-        EShapeActionValueMiscType[EShapeActionValueMiscType["WRITE_BOTH"] = 4] = "WRITE_BOTH";
-        EShapeActionValueMiscType[EShapeActionValueMiscType["WRITE_LOCAL"] = 5] = "WRITE_LOCAL";
-        EShapeActionValueMiscType[EShapeActionValueMiscType["WRITE_REMOTE"] = 6] = "WRITE_REMOTE";
-        EShapeActionValueMiscType[EShapeActionValueMiscType["HTML_ELEMENT"] = 7] = "HTML_ELEMENT";
-        EShapeActionValueMiscType[EShapeActionValueMiscType["HTML_ELEMENT_WITHOUT_POINTER_EVENTS"] = 8] = "HTML_ELEMENT_WITHOUT_POINTER_EVENTS";
-    })(EShapeActionValueMiscType || (EShapeActionValueMiscType = {}));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeActionRuntimeMiscHtmlElement = /** @class */ (function (_super) {
-        __extends(EShapeActionRuntimeMiscHtmlElement, _super);
-        function EShapeActionRuntimeMiscHtmlElement(value) {
+    var EShapeActionRuntimeMiscHtmlElementBase = /** @class */ (function (_super) {
+        __extends(EShapeActionRuntimeMiscHtmlElementBase, _super);
+        function EShapeActionRuntimeMiscHtmlElementBase(value) {
             var _this = _super.call(this) || this;
             _this.condition = EShapeActionExpressions.ofString(value.condition);
-            _this.target = EShapeActionExpressions.ofStringOrNull(value.target);
-            _this.onInputAction = value.onInputAction;
-            _this.elementCreator = EShapeActionExpressions.ofElementOrNull(value.value);
-            _this.noPointerEvent = (value.subtype === EShapeActionValueMiscType.HTML_ELEMENT_WITHOUT_POINTER_EVENTS);
             _this.utils = new Map();
             return _this;
         }
-        EShapeActionRuntimeMiscHtmlElement.prototype.getUtil = function (shape, runtime) {
+        EShapeActionRuntimeMiscHtmlElementBase.prototype.getUtil = function (shape, runtime) {
             var utils = this.utils;
             var result = utils.get(shape);
             if (result == null) {
@@ -14320,13 +14328,10 @@
             }
             return result;
         };
-        EShapeActionRuntimeMiscHtmlElement.prototype.newUtil = function (shape, runtime) {
-            if (this.noPointerEvent) {
-                shape.state.add(DHtmlElementState.NO_POINTER_EVENTS);
-            }
+        EShapeActionRuntimeMiscHtmlElementBase.prototype.newUtil = function (shape, runtime) {
             return new UtilHtmlElement(shape, this.newOperation(shape, runtime), DThemes.getInstance().get("DHtmlElement"), this.newUtilOptions(shape, runtime));
         };
-        EShapeActionRuntimeMiscHtmlElement.prototype.newOperation = function (shape, runtime) {
+        EShapeActionRuntimeMiscHtmlElementBase.prototype.newOperation = function (shape, runtime) {
             var _this = this;
             return {
                 getElementRect: function (resolution, work, result) {
@@ -14355,7 +14360,7 @@
                 }
             };
         };
-        EShapeActionRuntimeMiscHtmlElement.prototype.newUtilOptions = function (shape, runtime) {
+        EShapeActionRuntimeMiscHtmlElementBase.prototype.newUtilOptions = function (shape, runtime) {
             return {
                 element: {
                     creator: this.newElementCreator(shape, runtime)
@@ -14363,35 +14368,26 @@
                 when: this.toWhen(shape, runtime)
             };
         };
-        EShapeActionRuntimeMiscHtmlElement.prototype.newElementCreator = function (shape, runtime) {
-            var elementCreator = this.elementCreator;
-            if (elementCreator) {
-                return function (container) {
-                    return elementCreator(shape, Date.now(), container);
-                };
-            }
-            return undefined;
-        };
-        EShapeActionRuntimeMiscHtmlElement.prototype.toWhen = function (shape, runtime) {
+        EShapeActionRuntimeMiscHtmlElementBase.prototype.toWhen = function (shape, runtime) {
             var value = this.condition(shape, Date.now());
             if (value != null && value in UtilHtmlElementWhen) {
                 return UtilHtmlElementWhen[value];
             }
             return undefined;
         };
-        EShapeActionRuntimeMiscHtmlElement.prototype.containsPoint = function (shape, runtime, point) {
+        EShapeActionRuntimeMiscHtmlElementBase.prototype.containsPoint = function (shape, runtime, point) {
             if (shape.visible) {
-                var local = EShapeActionRuntimeMiscHtmlElement.WORK || new pixi_js.Point();
-                EShapeActionRuntimeMiscHtmlElement.WORK = local;
+                var local = EShapeActionRuntimeMiscHtmlElementBase.WORK || new pixi_js.Point();
+                EShapeActionRuntimeMiscHtmlElementBase.WORK = local;
                 shape.toLocal(point, undefined, local);
                 return shape.contains(local) != null;
             }
             return false;
         };
-        EShapeActionRuntimeMiscHtmlElement.prototype.getPadding = function (shape, runtime) {
+        EShapeActionRuntimeMiscHtmlElementBase.prototype.getPadding = function (shape, runtime) {
             return null;
         };
-        EShapeActionRuntimeMiscHtmlElement.prototype.getElementRect = function (shape, runtime, resolution, point, result) {
+        EShapeActionRuntimeMiscHtmlElementBase.prototype.getElementRect = function (shape, runtime, resolution, point, result) {
             var pivot = shape.transform.pivot;
             var size = shape.size;
             var sizeX = size.x;
@@ -14402,34 +14398,81 @@
             result.height = sizeY;
             return result;
         };
-        EShapeActionRuntimeMiscHtmlElement.prototype.getElementMatrix = function (shape, runtime) {
+        EShapeActionRuntimeMiscHtmlElementBase.prototype.getElementMatrix = function (shape, runtime) {
             shape.updateTransform();
             return shape.transform.worldTransform;
         };
-        EShapeActionRuntimeMiscHtmlElement.prototype.getClipperToRect = function (shape, runtime, resolution, point, result) {
+        EShapeActionRuntimeMiscHtmlElementBase.prototype.getClipperToRect = function (shape, runtime, resolution, point, result) {
             var container = EShapeActionRuntimes.toContainer(shape);
             return UtilHtmlElement.getClipperRect(container, shape, resolution, point, result);
         };
-        EShapeActionRuntimeMiscHtmlElement.prototype.onRender = function (shape, runtime, time, renderer) {
+        EShapeActionRuntimeMiscHtmlElementBase.prototype.onRender = function (shape, runtime, time, renderer) {
             this.getUtil(shape, runtime).onRender(renderer);
         };
-        EShapeActionRuntimeMiscHtmlElement.prototype.onFocus = function (shape, runtime) {
+        EShapeActionRuntimeMiscHtmlElementBase.prototype.onFocus = function (shape, runtime) {
             this.getUtil(shape, runtime).onFocus();
         };
-        EShapeActionRuntimeMiscHtmlElement.prototype.onBlur = function (shape, runtime) {
+        EShapeActionRuntimeMiscHtmlElementBase.prototype.onBlur = function (shape, runtime) {
             this.getUtil(shape, runtime).onBlur();
         };
-        EShapeActionRuntimeMiscHtmlElement.prototype.onDownThisBefore = function (shape, runtime, e) {
+        EShapeActionRuntimeMiscHtmlElementBase.prototype.onDownThisBefore = function (shape, runtime, e) {
             this.getUtil(shape, runtime).onDownThisBefore(e);
         };
-        EShapeActionRuntimeMiscHtmlElement.prototype.onDownThisAfter = function (shape, runtime, e) {
+        EShapeActionRuntimeMiscHtmlElementBase.prototype.onDownThisAfter = function (shape, runtime, e) {
             this.getUtil(shape, runtime).onDownThisAfter(e);
         };
-        EShapeActionRuntimeMiscHtmlElement.prototype.onDblClick = function (shape, runtime, e, interactionManager) {
+        EShapeActionRuntimeMiscHtmlElementBase.prototype.onDblClick = function (shape, runtime, e, interactionManager) {
             this.getUtil(shape, runtime).onDblClick(e, interactionManager);
         };
-        return EShapeActionRuntimeMiscHtmlElement;
+        return EShapeActionRuntimeMiscHtmlElementBase;
     }(EShapeActionRuntime));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeActionValueMiscType;
+    (function (EShapeActionValueMiscType) {
+        EShapeActionValueMiscType[EShapeActionValueMiscType["INPUT_TEXT"] = 0] = "INPUT_TEXT";
+        EShapeActionValueMiscType[EShapeActionValueMiscType["INPUT_INTEGER"] = 1] = "INPUT_INTEGER";
+        EShapeActionValueMiscType[EShapeActionValueMiscType["INPUT_REAL"] = 2] = "INPUT_REAL";
+        EShapeActionValueMiscType[EShapeActionValueMiscType["EMIT_EVENT"] = 3] = "EMIT_EVENT";
+        EShapeActionValueMiscType[EShapeActionValueMiscType["WRITE_BOTH"] = 4] = "WRITE_BOTH";
+        EShapeActionValueMiscType[EShapeActionValueMiscType["WRITE_LOCAL"] = 5] = "WRITE_LOCAL";
+        EShapeActionValueMiscType[EShapeActionValueMiscType["WRITE_REMOTE"] = 6] = "WRITE_REMOTE";
+        EShapeActionValueMiscType[EShapeActionValueMiscType["HTML_ELEMENT"] = 7] = "HTML_ELEMENT";
+        EShapeActionValueMiscType[EShapeActionValueMiscType["HTML_ELEMENT_WITHOUT_POINTER_EVENTS"] = 8] = "HTML_ELEMENT_WITHOUT_POINTER_EVENTS";
+    })(EShapeActionValueMiscType || (EShapeActionValueMiscType = {}));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeActionRuntimeMiscHtmlElement = /** @class */ (function (_super) {
+        __extends(EShapeActionRuntimeMiscHtmlElement, _super);
+        function EShapeActionRuntimeMiscHtmlElement(value) {
+            var _this = _super.call(this, value) || this;
+            _this.elementCreator = EShapeActionExpressions.ofElementOrNull(value.value);
+            _this.noPointerEvent = (value.subtype === EShapeActionValueMiscType.HTML_ELEMENT_WITHOUT_POINTER_EVENTS);
+            return _this;
+        }
+        EShapeActionRuntimeMiscHtmlElement.prototype.newUtil = function (shape, runtime) {
+            if (this.noPointerEvent) {
+                shape.state.add(DHtmlElementState.NO_POINTER_EVENTS);
+            }
+            return _super.prototype.newUtil.call(this, shape, runtime);
+        };
+        EShapeActionRuntimeMiscHtmlElement.prototype.newElementCreator = function (shape, runtime) {
+            var elementCreator = this.elementCreator;
+            if (elementCreator) {
+                return function (container) {
+                    return elementCreator(shape, Date.now(), container);
+                };
+            }
+            return undefined;
+        };
+        return EShapeActionRuntimeMiscHtmlElement;
+    }(EShapeActionRuntimeMiscHtmlElementBase));
 
     /*
      * Copyright (C) 2021 Toshiba Corporation
@@ -14719,8 +14762,11 @@
      */
     var EShapeActionRuntimeMiscInput = /** @class */ (function (_super) {
         __extends(EShapeActionRuntimeMiscInput, _super);
-        function EShapeActionRuntimeMiscInput() {
-            return _super !== null && _super.apply(this, arguments) || this;
+        function EShapeActionRuntimeMiscInput(value) {
+            var _this = _super.call(this, value) || this;
+            _this.target = EShapeActionExpressions.ofStringOrNull(value.target);
+            _this.onInputAction = value.onInputAction;
+            return _this;
         }
         EShapeActionRuntimeMiscInput.prototype.newOperation = function (shape, runtime) {
             var _this = this;
@@ -14766,6 +14812,9 @@
                 }
             };
         };
+        EShapeActionRuntimeMiscInput.prototype.newElementCreator = function (shape, runtime) {
+            return undefined;
+        };
         EShapeActionRuntimeMiscInput.prototype.getPadding = function (shape, runtime) {
             return shape.text.padding;
         };
@@ -14778,7 +14827,7 @@
             }
         };
         return EShapeActionRuntimeMiscInput;
-    }(EShapeActionRuntimeMiscHtmlElement));
+    }(EShapeActionRuntimeMiscHtmlElementBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -25439,292 +25488,263 @@
         EShapeDeserializers[EShapeType.GROUP_SHADOWED] = deserializeGroupShadowed;
     };
 
-    var RECTANGLE_VERTEX_COUNT = 18;
-    var RECTANGLE_INDEX_COUNT = 12;
-    var RECTANGLE_WORLD_SIZE = [0, 0, 0];
+    var RECTANGLE_VERTEX_COUNT = 24;
+    var RECTANGLE_INDEX_COUNT = 16;
+    var RECTANGLE_WORLD_SIZE = [0, 0, 0, 0];
     var RECTANGLE_WORK_POINT = new pixi_js.Point();
     var buildRectangleClipping = function (clippings, voffset, worldSize) {
-        var br = worldSize[0];
-        var bri = 1 - br;
-        var worldSizeX = worldSize[1];
-        var worldSizeY = worldSize[2];
-        if (worldSizeX <= worldSizeY) {
-            buildRectangleClippingVertical(0, 1, 0, bri, clippings, voffset);
-        }
-        else {
-            buildRectangleClippingVertical(1, 0, bri, 0, clippings, voffset);
-        }
-    };
-    var buildRectangleClippingVertical = function (cx, cy, cbx, cby, clippings, voffset) {
-        var ic = voffset * 3;
-        clippings[ic + 0] = cx;
-        clippings[ic + 1] = cy;
-        clippings[ic + 2] = 0;
-        clippings[ic + 3] = cx;
-        clippings[ic + 4] = cy;
-        clippings[ic + 5] = 0;
-        clippings[ic + 6] = cx;
-        clippings[ic + 7] = cy;
-        clippings[ic + 8] = 0;
-        ic += 9;
-        clippings[ic + 0] = cbx;
-        clippings[ic + 1] = cby;
-        clippings[ic + 2] = 0;
-        ic += 3;
-        clippings[ic + 0] = cbx;
-        clippings[ic + 1] = cby;
-        clippings[ic + 2] = 0;
-        ic += 3;
-        clippings[ic + 0] = cx;
-        clippings[ic + 1] = cy;
-        clippings[ic + 2] = 0;
-        clippings[ic + 3] = cx;
-        clippings[ic + 4] = cy;
-        clippings[ic + 5] = 0;
-        clippings[ic + 6] = cx;
-        clippings[ic + 7] = cy;
-        clippings[ic + 8] = 0;
-        ic += 9;
+        var brxi = 1 - worldSize[0];
+        var bryi = 1 - worldSize[1];
+        var ic = voffset * 3 - 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = bryi;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = bryi;
+        clippings[++ic] = 0;
         // --------------------------------
-        clippings[ic + 0] = cy;
-        clippings[ic + 1] = cx;
-        clippings[ic + 2] = 0;
-        clippings[ic + 3] = cy;
-        clippings[ic + 4] = cx;
-        clippings[ic + 5] = 0;
-        clippings[ic + 6] = cy;
-        clippings[ic + 7] = cx;
-        clippings[ic + 8] = 0;
-        clippings[ic + 9] = cy;
-        clippings[ic + 10] = cx;
-        clippings[ic + 11] = 0;
-        ic += 12;
-        clippings[ic + 0] = 0;
-        clippings[ic + 1] = 0;
-        clippings[ic + 2] = 0;
-        ic += 3;
-        clippings[ic + 0] = 0;
-        clippings[ic + 1] = 0;
-        clippings[ic + 2] = 0;
-        ic += 3;
+        clippings[++ic] = 0;
+        clippings[++ic] = bryi;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = bryi;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
         // --------------------------------
-        clippings[ic + 0] = cy;
-        clippings[ic + 1] = cx;
-        clippings[ic + 2] = 0;
-        clippings[ic + 3] = cy;
-        clippings[ic + 4] = cx;
-        clippings[ic + 5] = 0;
-        clippings[ic + 6] = cy;
-        clippings[ic + 7] = cx;
-        clippings[ic + 8] = 0;
-        clippings[ic + 9] = cy;
-        clippings[ic + 10] = cx;
-        clippings[ic + 11] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = brxi;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = brxi;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        // --------------------------------
+        clippings[++ic] = brxi;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = brxi;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
     };
     var buildRectangleIndex = function (indices, voffset, ioffset) {
-        var ii = ioffset * 3;
-        indices[ii + 0] = voffset + 0;
-        indices[ii + 1] = voffset + 1;
-        indices[ii + 2] = voffset + 3;
-        ii += 3;
-        indices[ii + 0] = voffset + 1;
-        indices[ii + 1] = voffset + 2;
-        indices[ii + 2] = voffset + 3;
-        ii += 3;
-        indices[ii + 0] = voffset + 4;
-        indices[ii + 1] = voffset + 6;
-        indices[ii + 2] = voffset + 5;
-        ii += 3;
-        indices[ii + 0] = voffset + 4;
-        indices[ii + 1] = voffset + 7;
-        indices[ii + 2] = voffset + 6;
-        ii += 3;
+        var ii = ioffset * 3 - 1;
+        indices[++ii] = voffset + 0;
+        indices[++ii] = voffset + 1;
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 1;
+        indices[++ii] = voffset + 2;
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 2;
+        indices[++ii] = voffset + 5;
+        indices[++ii] = voffset + 5;
+        indices[++ii] = voffset + 2;
+        indices[++ii] = voffset + 3;
         // --------------------------------
-        indices[ii + 0] = voffset + 8;
-        indices[ii + 1] = voffset + 12;
-        indices[ii + 2] = voffset + 9;
-        ii += 3;
-        indices[ii + 0] = voffset + 9;
-        indices[ii + 1] = voffset + 12;
-        indices[ii + 2] = voffset + 10;
-        ii += 3;
-        indices[ii + 0] = voffset + 10;
-        indices[ii + 1] = voffset + 12;
-        indices[ii + 2] = voffset + 13;
-        ii += 3;
-        indices[ii + 0] = voffset + 10;
-        indices[ii + 1] = voffset + 13;
-        indices[ii + 2] = voffset + 11;
-        ii += 3;
+        indices[++ii] = voffset + 8;
+        indices[++ii] = voffset + 6;
+        indices[++ii] = voffset + 9;
+        indices[++ii] = voffset + 9;
+        indices[++ii] = voffset + 6;
+        indices[++ii] = voffset + 7;
+        indices[++ii] = voffset + 9;
+        indices[++ii] = voffset + 7;
+        indices[++ii] = voffset + 10;
+        indices[++ii] = voffset + 10;
+        indices[++ii] = voffset + 7;
+        indices[++ii] = voffset + 11;
         // --------------------------------
-        indices[ii + 0] = voffset + 14;
-        indices[ii + 1] = voffset + 15;
-        indices[ii + 2] = voffset + 12;
-        ii += 3;
-        indices[ii + 0] = voffset + 12;
-        indices[ii + 1] = voffset + 15;
-        indices[ii + 2] = voffset + 16;
-        ii += 3;
-        indices[ii + 0] = voffset + 16;
-        indices[ii + 1] = voffset + 13;
-        indices[ii + 2] = voffset + 12;
-        ii += 3;
-        indices[ii + 0] = voffset + 13;
-        indices[ii + 1] = voffset + 16;
-        indices[ii + 2] = voffset + 17;
+        indices[++ii] = voffset + 12;
+        indices[++ii] = voffset + 16;
+        indices[++ii] = voffset + 13;
+        indices[++ii] = voffset + 13;
+        indices[++ii] = voffset + 16;
+        indices[++ii] = voffset + 17;
+        indices[++ii] = voffset + 13;
+        indices[++ii] = voffset + 17;
+        indices[++ii] = voffset + 14;
+        indices[++ii] = voffset + 14;
+        indices[++ii] = voffset + 17;
+        indices[++ii] = voffset + 15;
+        // --------------------------------
+        indices[++ii] = voffset + 18;
+        indices[++ii] = voffset + 20;
+        indices[++ii] = voffset + 21;
+        indices[++ii] = voffset + 18;
+        indices[++ii] = voffset + 21;
+        indices[++ii] = voffset + 22;
+        indices[++ii] = voffset + 18;
+        indices[++ii] = voffset + 22;
+        indices[++ii] = voffset + 19;
+        indices[++ii] = voffset + 19;
+        indices[++ii] = voffset + 22;
+        indices[++ii] = voffset + 23;
     };
     var buildRectangleVertex = function (vertices, voffset, originX, originY, sizeX, sizeY, strokeAlign, strokeWidth, internalTransform, worldSize) {
-        // 0               1
+        // b0              b1
         // |-------|-------|
         // |       |       |
         // |-------|-------|
         // |       |       |
         // |-------|-------|
-        //                 2
+        // b3              b2
         var s = strokeAlign * strokeWidth;
         var sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
         var sy = sizeY * 0.5 + (0 <= sizeY ? +s : -s);
         var work = RECTANGLE_WORK_POINT;
         work.set(originX - sx, originY - sy);
         internalTransform.apply(work, work);
-        var bx0 = work.x;
-        var by0 = work.y;
+        var b0x = work.x;
+        var b0y = work.y;
         work.set(originX + sx, originY - sy);
         internalTransform.apply(work, work);
-        var bx1 = work.x;
-        var by1 = work.y;
+        var b1x = work.x;
+        var b1y = work.y;
         work.set(originX + sx, originY + sy);
         internalTransform.apply(work, work);
-        var bx2 = work.x;
-        var by2 = work.y;
-        var bx3 = bx0 + (bx2 - bx1);
-        var by3 = by0 + (by2 - by1);
-        var ax = toLength(bx0, by0, bx1, by1) * 0.5;
-        var ay = toLength(bx1, by1, bx2, by2) * 0.5;
-        worldSize[1] = ax;
-        worldSize[2] = ay;
+        var b2x = work.x;
+        var b2y = work.y;
+        var b3x = b0x + (b2x - b1x);
+        var b3y = b0y + (b2y - b1y);
+        var ax = toLength(b0x, b0y, b1x, b1y) * 0.5;
+        var ay = toLength(b1x, b1y, b2x, b2y) * 0.5;
+        var brx = 1;
+        var bry = 1;
         if (ax <= ay) {
-            var br = ax / ay;
-            worldSize[0] = br;
-            buildRectangleVertexVertical(br, bx0, by0, bx1, by1, bx2, by2, bx3, by3, vertices, voffset);
+            bry = ax / ay;
         }
         else {
-            var br = ay / ax;
-            worldSize[0] = br;
-            buildRectangleVertexVertical(br, bx3, by3, bx0, by0, bx1, by1, bx2, by2, vertices, voffset);
+            brx = ay / ax;
         }
-    };
-    var buildRectangleVertexVertical = function (br, bx0, by0, bx1, by1, bx2, by2, bx3, by3, vertices, voffset, worldSize) {
-        // 0       1       2
-        // |-------|-------|
-        // |       |       |
-        // |-------3-------|
-        // |       |       |
-        // |-------4-------|
-        // |       |       |
-        // |-------|-------|
-        // 5       6       7
-        var x0 = bx0;
-        var y0 = by0;
-        var x1 = (bx0 + bx1) * 0.5;
-        var y1 = (by0 + by1) * 0.5;
-        var x2 = bx1;
-        var y2 = by1;
-        var xc = (bx0 + bx2) * 0.5;
-        var yc = (by0 + by2) * 0.5;
-        var x3 = x1 + br * (xc - x1);
-        var y3 = y1 + br * (yc - y1);
-        var x5 = bx3;
-        var y5 = by3;
-        var x6 = (bx3 + bx2) * 0.5;
-        var y6 = (by3 + by2) * 0.5;
-        var x7 = bx2;
-        var y7 = by2;
-        var x4 = x6 + br * (xc - x6);
-        var y4 = y6 + br * (yc - y6);
-        var iv = voffset << 1;
-        vertices[iv + 0] = x0;
-        vertices[iv + 1] = y0;
-        vertices[iv + 2] = x1;
-        vertices[iv + 3] = y1;
-        vertices[iv + 4] = x2;
-        vertices[iv + 5] = y2;
-        iv += 6;
-        vertices[iv + 0] = x3;
-        vertices[iv + 1] = y3;
-        iv += 2;
-        vertices[iv + 0] = x4;
-        vertices[iv + 1] = y4;
-        iv += 2;
-        vertices[iv + 0] = x5;
-        vertices[iv + 1] = y5;
-        vertices[iv + 2] = x6;
-        vertices[iv + 3] = y6;
-        vertices[iv + 4] = x7;
-        vertices[iv + 5] = y7;
-        iv += 6;
-        // 8               14
-        // |-------|-------|
-        // |       |       |
-        // 9-------12------15
-        // |       |       |
-        // 10------13------16
-        // |       |       |
-        // |-------|-------|
-        // 11              17
-        var xcl = (bx0 + bx3) * 0.5;
-        var ycl = (by0 + by3) * 0.5;
-        var x8 = bx0;
-        var y8 = by0;
-        var x9 = bx0 + br * (xcl - bx0);
-        var y9 = by0 + br * (ycl - by0);
-        var x10 = bx3 + br * (xcl - bx3);
-        var y10 = by3 + br * (ycl - by3);
-        var x11 = bx3;
-        var y11 = by3;
-        var x12 = x3;
-        var y12 = y3;
-        var x13 = x4;
-        var y13 = y4;
-        var xcr = (bx1 + bx2) * 0.5;
-        var ycr = (by1 + by2) * 0.5;
-        var x14 = bx1;
-        var y14 = by1;
-        var x15 = bx1 + br * (xcr - bx1);
-        var y15 = by1 + br * (ycr - by1);
-        var x16 = bx2 + br * (xcr - bx2);
-        var y16 = by2 + br * (ycr - by2);
-        var x17 = bx2;
-        var y17 = by2;
-        vertices[iv + 0] = x8;
-        vertices[iv + 1] = y8;
-        vertices[iv + 2] = x9;
-        vertices[iv + 3] = y9;
-        vertices[iv + 4] = x10;
-        vertices[iv + 5] = y10;
-        vertices[iv + 6] = x11;
-        vertices[iv + 7] = y11;
-        iv += 8;
-        vertices[iv + 0] = x12;
-        vertices[iv + 1] = y12;
-        iv += 2;
-        vertices[iv + 0] = x13;
-        vertices[iv + 1] = y13;
-        iv += 2;
-        vertices[iv + 0] = x14;
-        vertices[iv + 1] = y14;
-        vertices[iv + 2] = x15;
-        vertices[iv + 3] = y15;
-        vertices[iv + 4] = x16;
-        vertices[iv + 5] = y16;
-        vertices[iv + 6] = x17;
-        vertices[iv + 7] = y17;
+        worldSize[0] = brx;
+        worldSize[1] = bry;
+        worldSize[2] = ax;
+        worldSize[3] = ay;
+        // 0      1  2      3
+        // |------|--|------|
+        // |      |  |      |
+        // |------4--5------|
+        // |      |  |      |
+        // |------6--7------|
+        // |      |  |      |
+        // |------|--|------|
+        // 8      9  10     11
+        var d01x = brx * (b1x - b0x) * 0.5;
+        var d01y = brx * (b1y - b0y) * 0.5;
+        var d03x = bry * (b3x - b0x) * 0.5;
+        var d03y = bry * (b3y - b0y) * 0.5;
+        var iv = (voffset << 1) - 1;
+        vertices[++iv] = b0x;
+        vertices[++iv] = b0y;
+        vertices[++iv] = b0x + d01x;
+        vertices[++iv] = b0y + d01y;
+        vertices[++iv] = b1x - d01x;
+        vertices[++iv] = b1y - d01y;
+        vertices[++iv] = b1x;
+        vertices[++iv] = b1y;
+        vertices[++iv] = b0x + d01x + d03x;
+        vertices[++iv] = b0y + d01y + d03y;
+        vertices[++iv] = b1x - d01x + d03x;
+        vertices[++iv] = b1y - d01y + d03y;
+        vertices[++iv] = b3x + d01x - d03x;
+        vertices[++iv] = b3y + d01y - d03y;
+        vertices[++iv] = b2x - d01x - d03x;
+        vertices[++iv] = b2y - d01y - d03y;
+        vertices[++iv] = b3x;
+        vertices[++iv] = b3y;
+        vertices[++iv] = b3x + d01x;
+        vertices[++iv] = b3y + d01y;
+        vertices[++iv] = b2x - d01x;
+        vertices[++iv] = b2y - d01y;
+        vertices[++iv] = b2x;
+        vertices[++iv] = b2y;
+        // 12               20
+        // |------|--|------|
+        // |      |  |      |
+        // 13----16--18-----21
+        // |      |  |      |
+        // 14----17--19-----22
+        // |      |  |      |
+        // |------|--|------|
+        // 15               23
+        vertices[++iv] = b0x;
+        vertices[++iv] = b0y;
+        vertices[++iv] = b0x + d03x;
+        vertices[++iv] = b0y + d03y;
+        vertices[++iv] = b3x - d03x;
+        vertices[++iv] = b3y - d03y;
+        vertices[++iv] = b3x;
+        vertices[++iv] = b3y;
+        vertices[++iv] = b0x + d03x + d01x;
+        vertices[++iv] = b0y + d03y + d01y;
+        vertices[++iv] = b3x - d03x + d01x;
+        vertices[++iv] = b3y - d03y + d01y;
+        vertices[++iv] = b1x + d03x - d01x;
+        vertices[++iv] = b1y + d03y - d01y;
+        vertices[++iv] = b2x - d03x - d01x;
+        vertices[++iv] = b2y - d03y - d01y;
+        vertices[++iv] = b1x;
+        vertices[++iv] = b1y;
+        vertices[++iv] = b1x + d03x;
+        vertices[++iv] = b1y + d03y;
+        vertices[++iv] = b2x - d03x;
+        vertices[++iv] = b2y - d03y;
+        vertices[++iv] = b2x;
+        vertices[++iv] = b2y;
     };
     var buildRectangleStep = function (voffset, steps, strokeWidth, strokeSide, antialiasWeight, worldSize) {
-        var br = worldSize[0];
-        var bri = 1 - br;
-        var worldSizeX = worldSize[1];
-        var worldSizeY = worldSize[2];
+        var brx = worldSize[0];
+        var bry = worldSize[1];
+        var brxi = 1 - brx;
+        var bryi = 1 - bry;
+        var worldSizeX = worldSize[2];
+        var worldSizeY = worldSize[3];
         toStep(worldSizeX, strokeWidth, antialiasWeight, STEP_VALUES);
         var swx = STEP_VALUES[0];
         var px0 = STEP_VALUES[1];
@@ -25757,394 +25777,119 @@
             swl = 1;
             pl0 = px1;
         }
-        var pc0 = 0.5 * (pl0 + pr0);
-        var pm0 = 0.5 * (pt0 + pb0);
-        if (worldSizeX <= worldSizeY) {
-            buildRectangleStepVertical(bri, swx, px0, px1, swy, py0, py1, swt, pt0, swr, pr0, swb, pb0, swl, pl0, pc0, pm0, voffset, steps);
-        }
-        else {
-            buildRectangleStepHorizontal(bri, swx, px0, px1, swy, py0, py1, swt, pt0, swr, pr0, swb, pb0, swl, pl0, pc0, pm0, voffset, steps);
-        }
+        var bwl = brxi * swl;
+        var bwr = brxi * swr;
+        var bwt = bryi * swt;
+        var bwb = bryi * swb;
+        // 0 1 2 3
+        var is = (voffset - 1) * 6;
+        fillRectangleStep(steps, is += 6, swl, swt, pl0, pt0, px1, py1);
+        fillRectangleStep(steps, is += 6, bwl, swt, pl0, pt0, px1, py1);
+        fillRectangleStep(steps, is += 6, bwr, swt, pr0, pt0, px1, py1);
+        fillRectangleStep(steps, is += 6, swr, swt, pr0, pt0, px1, py1);
+        // 4 5
+        fillRectangleStep(steps, is += 6, bwl, bwt, pl0, pt0, px1, py1);
+        fillRectangleStep(steps, is += 6, bwr, bwt, pr0, pt0, px1, py1);
+        // 6 7
+        fillRectangleStep(steps, is += 6, bwl, bwb, pl0, pb0, px1, py1);
+        fillRectangleStep(steps, is += 6, bwr, bwb, pr0, pb0, px1, py1);
+        // 8 9 10 11
+        fillRectangleStep(steps, is += 6, swl, swb, pl0, pb0, px1, py1);
+        fillRectangleStep(steps, is += 6, bwl, swb, pl0, pb0, px1, py1);
+        fillRectangleStep(steps, is += 6, bwr, swb, pr0, pb0, px1, py1);
+        fillRectangleStep(steps, is += 6, swr, swb, pr0, pb0, px1, py1);
+        // ------------------------------
+        // 12 13 14 15
+        fillRectangleStep(steps, is += 6, swl, swt, pl0, pt0, px1, py1);
+        fillRectangleStep(steps, is += 6, swl, bwt, pl0, pt0, px1, py1);
+        fillRectangleStep(steps, is += 6, swl, bwb, pl0, pb0, px1, py1);
+        fillRectangleStep(steps, is += 6, swl, swb, pl0, pb0, px1, py1);
+        // 16 17
+        fillRectangleStep(steps, is += 6, bwl, bwt, pl0, pt0, px1, py1);
+        fillRectangleStep(steps, is += 6, bwl, bwb, pl0, pb0, px1, py1);
+        // 18 19
+        fillRectangleStep(steps, is += 6, bwr, bwt, pr0, pt0, px1, py1);
+        fillRectangleStep(steps, is += 6, bwr, bwb, pr0, pb0, px1, py1);
+        // 20 21 22 23
+        fillRectangleStep(steps, is += 6, swr, swt, pr0, pt0, px1, py1);
+        fillRectangleStep(steps, is += 6, swr, bwt, pr0, pt0, px1, py1);
+        fillRectangleStep(steps, is += 6, swr, bwb, pr0, pb0, px1, py1);
+        fillRectangleStep(steps, is += 6, swr, swb, pr0, pb0, px1, py1);
     };
-    var buildRectangleStepVertical = function (bri, swx, px0, px1, swy, py0, py1, swt, pt0, swr, pr0, swb, pb0, swl, pl0, pc0, pm0, voffset, steps) {
-        var is = voffset * 6;
-        // 0
-        steps[is] = swl;
-        steps[is + 1] = swt;
-        steps[is + 2] = pl0;
-        steps[is + 3] = pt0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // 1
-        steps[is] = 0;
-        steps[is + 1] = swt;
-        steps[is + 2] = pc0;
-        steps[is + 3] = pt0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // 2
-        steps[is] = swr;
-        steps[is + 1] = swt;
-        steps[is + 2] = pr0;
-        steps[is + 3] = pt0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // 3
-        steps[is] = 0;
-        steps[is + 1] = bri * swt;
-        steps[is + 2] = pc0;
-        steps[is + 3] = pt0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // 4
-        steps[is] = 0;
-        steps[is + 1] = bri * swb;
-        steps[is + 2] = pc0;
-        steps[is + 3] = pb0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // 5
-        steps[is] = swl;
-        steps[is + 1] = swb;
-        steps[is + 2] = pl0;
-        steps[is + 3] = pb0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // 6
-        steps[is] = 0;
-        steps[is + 1] = swb;
-        steps[is + 2] = pc0;
-        steps[is + 3] = pb0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // 7
-        steps[is] = swr;
-        steps[is + 1] = swb;
-        steps[is + 2] = pr0;
-        steps[is + 3] = pb0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // ------------------------------
-        // 8
-        steps[is] = swl;
-        steps[is + 1] = swt;
-        steps[is + 2] = pl0;
-        steps[is + 3] = pt0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // 9
-        steps[is] = swl;
-        steps[is + 1] = bri * swt;
-        steps[is + 2] = pl0;
-        steps[is + 3] = pt0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // 10
-        steps[is] = swl;
-        steps[is + 1] = bri * swb;
-        steps[is + 2] = pl0;
-        steps[is + 3] = pb0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // 11
-        steps[is] = swl;
-        steps[is + 1] = swb;
-        steps[is + 2] = pl0;
-        steps[is + 3] = pb0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // ------------------------------
-        // 12
-        steps[is] = 0;
-        steps[is + 1] = bri * swt;
-        steps[is + 2] = pc0;
-        steps[is + 3] = pt0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // 13
-        steps[is] = 0;
-        steps[is + 1] = bri * swb;
-        steps[is + 2] = pc0;
-        steps[is + 3] = pb0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // ------------------------------
-        // 14
-        steps[is] = swr;
-        steps[is + 1] = swt;
-        steps[is + 2] = pr0;
-        steps[is + 3] = pt0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // 15
-        steps[is] = swr;
-        steps[is + 1] = bri * swt;
-        steps[is + 2] = pr0;
-        steps[is + 3] = pt0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // 16
-        steps[is] = swr;
-        steps[is + 1] = bri * swb;
-        steps[is + 2] = pr0;
-        steps[is + 3] = pb0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // 17
-        steps[is] = swr;
-        steps[is + 1] = swb;
-        steps[is + 2] = pr0;
-        steps[is + 3] = pb0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-    };
-    var buildRectangleStepHorizontal = function (bri, swx, px0, px1, swy, py0, py1, swt, pt0, swr, pr0, swb, pb0, swl, pl0, pc0, pm0, voffset, steps) {
-        var is = voffset * 6;
-        // 0
-        steps[is] = swl;
-        steps[is + 1] = swb;
-        steps[is + 2] = pl0;
-        steps[is + 3] = pb0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // 1
-        steps[is] = swl;
-        steps[is + 1] = 0;
-        steps[is + 2] = pl0;
-        steps[is + 3] = pm0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // 2
-        steps[is] = swl;
-        steps[is + 1] = swt;
-        steps[is + 2] = pl0;
-        steps[is + 3] = pt0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // 3
-        steps[is] = bri * swl;
-        steps[is + 1] = 0;
-        steps[is + 2] = pl0;
-        steps[is + 3] = pm0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // 4
-        steps[is] = bri * swr;
-        steps[is + 1] = 0;
-        steps[is + 2] = pr0;
-        steps[is + 3] = pm0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // 5
-        steps[is] = swr;
-        steps[is + 1] = swb;
-        steps[is + 2] = pr0;
-        steps[is + 3] = pb0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // 6
-        steps[is] = swr;
-        steps[is + 1] = 0;
-        steps[is + 2] = pr0;
-        steps[is + 3] = pm0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // 7
-        steps[is] = swr;
-        steps[is + 1] = swt;
-        steps[is + 2] = pr0;
-        steps[is + 3] = pt0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // ------------------------------
-        // 8
-        steps[is] = swl;
-        steps[is + 1] = swb;
-        steps[is + 2] = pl0;
-        steps[is + 3] = pb0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // 9
-        steps[is] = bri * swl;
-        steps[is + 1] = swb;
-        steps[is + 2] = pl0;
-        steps[is + 3] = pb0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // 10
-        steps[is] = bri * swr;
-        steps[is + 1] = swb;
-        steps[is + 2] = pr0;
-        steps[is + 3] = pb0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // 11
-        steps[is] = swr;
-        steps[is + 1] = swb;
-        steps[is + 2] = pr0;
-        steps[is + 3] = pb0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // ------------------------------
-        // 12
-        steps[is] = bri * swl;
-        steps[is + 1] = 0;
-        steps[is + 2] = pl0;
-        steps[is + 3] = pm0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // 13
-        steps[is] = bri * swr;
-        steps[is + 1] = 0;
-        steps[is + 2] = pr0;
-        steps[is + 3] = pm0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // ------------------------------
-        // 14
-        steps[is] = swl;
-        steps[is + 1] = swt;
-        steps[is + 2] = pl0;
-        steps[is + 3] = pt0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // 15
-        steps[is] = bri * swl;
-        steps[is + 1] = swt;
-        steps[is + 2] = pl0;
-        steps[is + 3] = pt0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // 16
-        steps[is] = bri * swr;
-        steps[is + 1] = swt;
-        steps[is + 2] = pr0;
-        steps[is + 3] = pt0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        // 17
-        steps[is] = swr;
-        steps[is + 1] = swt;
-        steps[is + 2] = pr0;
-        steps[is + 3] = pt0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
+    var fillRectangleStep = function (steps, is, v0, v1, v2, v3, v4, v5) {
+        steps[is] = v0;
+        steps[++is] = v1;
+        steps[++is] = v2;
+        steps[++is] = v3;
+        steps[++is] = v4;
+        steps[++is] = v5;
     };
     var buildRectangleUv = function (uvs, voffset, textureUvs, worldSize) {
-        var br = worldSize[0];
-        var bri = 1 - br;
-        var worldSizeX = worldSize[1];
-        var worldSizeY = worldSize[2];
         var x0 = textureUvs.x0;
-        var x1 = textureUvs.x1;
-        var x2 = textureUvs.x2;
-        var x3 = textureUvs.x3;
         var y0 = textureUvs.y0;
         var y1 = textureUvs.y1;
+        var x1 = textureUvs.x1;
         var y2 = textureUvs.y2;
+        var x2 = textureUvs.x2;
         var y3 = textureUvs.y3;
-        if (worldSizeX <= worldSizeY) {
-            buildRectangleUvVertical(bri, x0, x1, x2, x3, y0, y1, y2, y3, uvs, voffset);
-        }
-        else {
-            buildRectangleUvVertical(bri, x3, x0, x1, x2, y3, y0, y1, y2, uvs, voffset);
-        }
-    };
-    var buildRectangleUvVertical = function (bri, x0, x1, x2, x3, y0, y1, y2, y3, uvs, voffset) {
-        var x01 = 0.5 * (x0 + x1);
-        var y01 = 0.5 * (y0 + y1);
-        var x02 = 0.5 * (x0 + x2);
-        var y02 = 0.5 * (y0 + y2);
-        var x23 = 0.5 * (x2 + x3);
-        var y23 = 0.5 * (y2 + y3);
-        var x03 = 0.5 * (x0 + x3);
-        var y03 = 0.5 * (y0 + y3);
-        var x12 = 0.5 * (x1 + x2);
-        var y12 = 0.5 * (y1 + y2);
-        var xbu = x02 + bri * (x01 - x02);
-        var ybu = y02 + bri * (y01 - y02);
-        var xbb = x02 + bri * (x23 - x02);
-        var ybb = y02 + bri * (y23 - y02);
+        var x3 = textureUvs.x3;
+        var brx = worldSize[0];
+        var bry = worldSize[1];
+        var d01x = brx * (x1 - x0) * 0.5;
+        var d01y = brx * (y1 - y0) * 0.5;
+        var d03x = bry * (x3 - x0) * 0.5;
+        var d03y = bry * (y3 - y0) * 0.5;
         // UVs
-        var iuv = voffset << 1;
-        uvs[iuv + 0] = x0;
-        uvs[iuv + 1] = y0;
-        uvs[iuv + 2] = x01;
-        uvs[iuv + 3] = y01;
-        uvs[iuv + 4] = x1;
-        uvs[iuv + 5] = y1;
-        iuv += 6;
-        uvs[iuv + 0] = xbu;
-        uvs[iuv + 1] = ybu;
-        iuv += 2;
-        uvs[iuv + 0] = xbb;
-        uvs[iuv + 1] = ybb;
-        iuv += 2;
-        uvs[iuv + 0] = x3;
-        uvs[iuv + 1] = y3;
-        uvs[iuv + 2] = x23;
-        uvs[iuv + 3] = y23;
-        uvs[iuv + 4] = x2;
-        uvs[iuv + 5] = y2;
-        iuv += 6;
+        var iuv = (voffset << 1) - 1;
+        uvs[++iuv] = x0;
+        uvs[++iuv] = y0;
+        uvs[++iuv] = x0 + d01x;
+        uvs[++iuv] = y0 + d01y;
+        uvs[++iuv] = x1 - d01x;
+        uvs[++iuv] = y1 - d01y;
+        uvs[++iuv] = x1;
+        uvs[++iuv] = y1;
+        uvs[++iuv] = x0 + d01x + d03x;
+        uvs[++iuv] = y0 + d01y + d03y;
+        uvs[++iuv] = x1 - d01x + d03x;
+        uvs[++iuv] = y1 - d01y + d03y;
+        uvs[++iuv] = x3 + d01x - d03x;
+        uvs[++iuv] = y3 + d01y - d03y;
+        uvs[++iuv] = x2 - d01x - d03x;
+        uvs[++iuv] = y2 - d01y - d03y;
+        uvs[++iuv] = x3;
+        uvs[++iuv] = y3;
+        uvs[++iuv] = x3 + d01x;
+        uvs[++iuv] = y3 + d01y;
+        uvs[++iuv] = x2 - d01x;
+        uvs[++iuv] = y2 - d01y;
+        uvs[++iuv] = x2;
+        uvs[++iuv] = y2;
         // ------------------------------
-        uvs[iuv + 0] = x0;
-        uvs[iuv + 1] = y0;
-        uvs[iuv + 2] = x03 + bri * (x0 - x03);
-        uvs[iuv + 3] = y03 + bri * (y0 - y03);
-        uvs[iuv + 4] = x03 + bri * (x3 - x03);
-        uvs[iuv + 5] = y03 + bri * (y3 - y03);
-        uvs[iuv + 6] = x3;
-        uvs[iuv + 7] = y3;
-        iuv += 8;
-        uvs[iuv + 0] = xbu;
-        uvs[iuv + 1] = ybu;
-        iuv += 2;
-        uvs[iuv + 0] = xbb;
-        uvs[iuv + 1] = ybb;
-        iuv += 2;
-        uvs[iuv + 0] = x1;
-        uvs[iuv + 1] = y1;
-        uvs[iuv + 2] = x12 + bri * (x1 - x12);
-        uvs[iuv + 3] = y12 + bri * (y1 - y12);
-        uvs[iuv + 4] = x12 + bri * (x2 - x12);
-        uvs[iuv + 5] = y12 + bri * (y2 - y12);
-        uvs[iuv + 6] = x2;
-        uvs[iuv + 7] = y2;
+        uvs[++iuv] = x0;
+        uvs[++iuv] = y0;
+        uvs[++iuv] = x0 + d03x;
+        uvs[++iuv] = y0 + d03y;
+        uvs[++iuv] = x3 - d03x;
+        uvs[++iuv] = y3 - d03y;
+        uvs[++iuv] = x3;
+        uvs[++iuv] = y3;
+        uvs[++iuv] = x0 + d03x + d01x;
+        uvs[++iuv] = y0 + d03y + d01y;
+        uvs[++iuv] = x3 - d03x + d01x;
+        uvs[++iuv] = y3 - d03y + d01y;
+        uvs[++iuv] = x1 + d03x - d01x;
+        uvs[++iuv] = y1 + d03y - d01y;
+        uvs[++iuv] = x2 - d03x - d01x;
+        uvs[++iuv] = y2 - d03y - d01y;
+        uvs[++iuv] = x1;
+        uvs[++iuv] = y1;
+        uvs[++iuv] = x1 + d03x;
+        uvs[++iuv] = y1 + d03y;
+        uvs[++iuv] = x2 - d03x;
+        uvs[++iuv] = y2 - d03y;
+        uvs[++iuv] = x2;
+        uvs[++iuv] = y2;
     };
 
     /*
@@ -27633,18 +27378,13 @@
      */
     var EShapeLine = /** @class */ (function (_super) {
         __extends(EShapeLine, _super);
-        function EShapeLine(lineOrPoints, segments, width, style) {
+        function EShapeLine(points, segments, width, style) {
             var _this = _super.call(this, EShapeType.LINE) || this;
-            if (lineOrPoints instanceof EShapeLine) {
-                _this.copy(lineOrPoints);
-            }
-            else {
-                _this.fill.enable = false;
-                _this.stroke.set(true, undefined, undefined, width);
-                _this._points = new EShapeLinePoints(_this, lineOrPoints, segments, style);
-                _this.transform.position.copyFrom(_this._points.position);
-                _this.size.copyFrom(_this._points.size);
-            }
+            _this.fill.enable = false;
+            _this.stroke.set(true, undefined, undefined, width);
+            _this._points = new EShapeLinePoints(_this, points, segments, style);
+            _this.transform.position.copyFrom(_this._points.position);
+            _this.size.copyFrom(_this._points.size);
             return _this;
         }
         Object.defineProperty(EShapeLine.prototype, "points", {
@@ -27655,7 +27395,9 @@
             configurable: true
         });
         EShapeLine.prototype.clone = function () {
-            return new EShapeLine(this);
+            var points = this.points;
+            return new EShapeLine(points.values, points.segments, this.stroke.width, points.style)
+                .copy(this, EShapeCopyPart.ALL & ~EShapeCopyPart.POINTS);
         };
         return EShapeLine;
     }(EShapeLineBase));
@@ -28353,7 +28095,7 @@
             this._parent.updateUploaded();
         };
         EShapeLineOfAnyPointsImpl.prototype.clone = function (parent) {
-            return new EShapeLineOfAnyPointsImpl(parent);
+            return new EShapeLineOfAnyPointsImpl(parent).copy(this);
         };
         EShapeLineOfAnyPointsImpl.prototype.toPoints = function (transform) {
             var result = [];
@@ -28620,14 +28362,9 @@
      */
     var EShapeLineOfCircles = /** @class */ (function (_super) {
         __extends(EShapeLineOfCircles, _super);
-        function EShapeLineOfCircles(other) {
+        function EShapeLineOfCircles() {
             var _this = _super.call(this, EShapeType.LINE_OF_CIRCLES) || this;
-            if (other) {
-                _this.copy(other);
-            }
-            else {
-                _this._points = new EShapeLineOfAnyPointsImpl(_this);
-            }
+            _this._points = new EShapeLineOfAnyPointsImpl(_this);
             _this._tester = function (x, y, ax, ay, ox, oy, px, py) {
                 return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py);
             };
@@ -28644,7 +28381,7 @@
             configurable: true
         });
         EShapeLineOfCircles.prototype.clone = function () {
-            return new EShapeLineOfCircles(this);
+            return new EShapeLineOfCircles().copy(this);
         };
         EShapeLineOfCircles.prototype.containsAbs = function (x, y, ax, ay) {
             var threshold = toHitThreshold(this, null);
@@ -30141,14 +29878,9 @@
      */
     var EShapeLineOfRectangleRoundeds = /** @class */ (function (_super) {
         __extends(EShapeLineOfRectangleRoundeds, _super);
-        function EShapeLineOfRectangleRoundeds(other) {
+        function EShapeLineOfRectangleRoundeds() {
             var _this = _super.call(this, EShapeType.LINE_OF_RECTANGLE_ROUNDEDS) || this;
-            if (other) {
-                _this.copy(other);
-            }
-            else {
-                _this._points = new EShapeLineOfAnyPointsImpl(_this);
-            }
+            _this._points = new EShapeLineOfAnyPointsImpl(_this);
             _this._tester = function (x, y, ax, ay, ox, oy, px, py) {
                 return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py);
             };
@@ -30165,7 +29897,7 @@
             configurable: true
         });
         EShapeLineOfRectangleRoundeds.prototype.clone = function () {
-            return new EShapeLineOfRectangleRoundeds(this);
+            return new EShapeLineOfRectangleRoundeds().copy(this);
         };
         EShapeLineOfRectangleRoundeds.prototype.containsAbs = function (x, y, ax, ay) {
             var threshold = toHitThreshold(this, null);
@@ -30379,14 +30111,9 @@
      */
     var EShapeLineOfRectangles = /** @class */ (function (_super) {
         __extends(EShapeLineOfRectangles, _super);
-        function EShapeLineOfRectangles(other) {
+        function EShapeLineOfRectangles() {
             var _this = _super.call(this, EShapeType.LINE_OF_RECTANGLES) || this;
-            if (other) {
-                _this.copy(other);
-            }
-            else {
-                _this._points = new EShapeLineOfAnyPointsImpl(_this);
-            }
+            _this._points = new EShapeLineOfAnyPointsImpl(_this);
             _this._tester = function (x, y, ax, ay, ox, oy, px, py) {
                 return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py);
             };
@@ -30403,7 +30130,7 @@
             configurable: true
         });
         EShapeLineOfRectangles.prototype.clone = function () {
-            return new EShapeLineOfRectangles(this);
+            return new EShapeLineOfRectangles().copy(this);
         };
         EShapeLineOfRectangles.prototype.containsAbs = function (x, y, ax, ay) {
             var threshold = toHitThreshold(this, null);
@@ -31230,14 +30957,9 @@
      */
     var EShapeLineOfTriangleRoundeds = /** @class */ (function (_super) {
         __extends(EShapeLineOfTriangleRoundeds, _super);
-        function EShapeLineOfTriangleRoundeds(other) {
+        function EShapeLineOfTriangleRoundeds() {
             var _this = _super.call(this, EShapeType.LINE_OF_TRIANGLE_ROUNDEDS) || this;
-            if (other) {
-                _this.copy(other);
-            }
-            else {
-                _this._points = new EShapeLineOfAnyPointsImpl(_this);
-            }
+            _this._points = new EShapeLineOfAnyPointsImpl(_this);
             _this._tester = function (x, y, ax, ay, ox, oy, px, py) {
                 return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py);
             };
@@ -31254,7 +30976,7 @@
             configurable: true
         });
         EShapeLineOfTriangleRoundeds.prototype.clone = function () {
-            return new EShapeLineOfTriangleRoundeds(this);
+            return new EShapeLineOfTriangleRoundeds().copy(this);
         };
         EShapeLineOfTriangleRoundeds.prototype.containsAbs = function (x, y, ax, ay) {
             var threshold = toHitThreshold(this, null);
@@ -31585,14 +31307,9 @@
      */
     var EShapeLineOfTriangles = /** @class */ (function (_super) {
         __extends(EShapeLineOfTriangles, _super);
-        function EShapeLineOfTriangles(other) {
+        function EShapeLineOfTriangles() {
             var _this = _super.call(this, EShapeType.LINE_OF_TRIANGLES) || this;
-            if (other) {
-                _this.copy(other);
-            }
-            else {
-                _this._points = new EShapeLineOfAnyPointsImpl(_this);
-            }
+            _this._points = new EShapeLineOfAnyPointsImpl(_this);
             _this._tester = function (x, y, ax, ay, ox, oy, px, py) {
                 return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py);
             };
@@ -31609,7 +31326,7 @@
             configurable: true
         });
         EShapeLineOfTriangles.prototype.clone = function () {
-            return new EShapeLineOfTriangles(this);
+            return new EShapeLineOfTriangles().copy(this);
         };
         EShapeLineOfTriangles.prototype.containsAbs = function (x, y, ax, ay) {
             var threshold = toHitThreshold(this, null);
@@ -33823,6 +33540,54 @@
         loadMenuItemAll();
         loadShapeAll();
     };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeActionValueMiscEmitEvent = /** @class */ (function (_super) {
+        __extends(EShapeActionValueMiscEmitEvent, _super);
+        function EShapeActionValueMiscEmitEvent(condition, target) {
+            return _super.call(this, EShapeActionValueMiscType.EMIT_EVENT, condition, target, EShapeActionValueOnInputAction.EMIT_EVENT, "") || this;
+        }
+        return EShapeActionValueMiscEmitEvent;
+    }(EShapeActionValueMisc));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeActionValueMiscHtmlElement = /** @class */ (function (_super) {
+        __extends(EShapeActionValueMiscHtmlElement, _super);
+        function EShapeActionValueMiscHtmlElement(subtype, when, initializer) {
+            return _super.call(this, subtype, when, "", EShapeActionValueOnInputAction.EMIT_EVENT, initializer) || this;
+        }
+        return EShapeActionValueMiscHtmlElement;
+    }(EShapeActionValueMisc));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeActionValueMiscInput = /** @class */ (function (_super) {
+        __extends(EShapeActionValueMiscInput, _super);
+        function EShapeActionValueMiscInput(subtype, when, target, onInputAction) {
+            return _super.call(this, subtype, when, target, onInputAction, "") || this;
+        }
+        return EShapeActionValueMiscInput;
+    }(EShapeActionValueMisc));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeActionValueMiscWrite = /** @class */ (function (_super) {
+        __extends(EShapeActionValueMiscWrite, _super);
+        function EShapeActionValueMiscWrite(subtype, condition, target, value) {
+            return _super.call(this, subtype, condition, target, EShapeActionValueOnInputAction.EMIT_EVENT, value) || this;
+        }
+        return EShapeActionValueMiscWrite;
+    }(EShapeActionValueMisc));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -59647,7 +59412,11 @@
         EShapeActionValueChangeText: EShapeActionValueChangeText,
         EShapeActionValueDeserializer: EShapeActionValueDeserializer,
         EShapeActionValueEmitEvent: EShapeActionValueEmitEvent,
+        EShapeActionValueMiscEmitEvent: EShapeActionValueMiscEmitEvent,
+        EShapeActionValueMiscHtmlElement: EShapeActionValueMiscHtmlElement,
+        EShapeActionValueMiscInput: EShapeActionValueMiscInput,
         get EShapeActionValueMiscType () { return EShapeActionValueMiscType; },
+        EShapeActionValueMiscWrite: EShapeActionValueMiscWrite,
         EShapeActionValueMisc: EShapeActionValueMisc,
         get EShapeActionValueOnInputAction () { return EShapeActionValueOnInputAction; },
         EShapeActionValueOnInputActions: EShapeActionValueOnInputActions,
@@ -59727,15 +59496,10 @@
         RECTANGLE_INDEX_COUNT: RECTANGLE_INDEX_COUNT,
         RECTANGLE_WORLD_SIZE: RECTANGLE_WORLD_SIZE,
         buildRectangleClipping: buildRectangleClipping,
-        buildRectangleClippingVertical: buildRectangleClippingVertical,
         buildRectangleIndex: buildRectangleIndex,
         buildRectangleVertex: buildRectangleVertex,
-        buildRectangleVertexVertical: buildRectangleVertexVertical,
         buildRectangleStep: buildRectangleStep,
-        buildRectangleStepVertical: buildRectangleStepVertical,
-        buildRectangleStepHorizontal: buildRectangleStepHorizontal,
         buildRectangleUv: buildRectangleUv,
-        buildRectangleUvVertical: buildRectangleUvVertical,
         buildStep: buildStep,
         TEXT_VERTEX_COUNT: TEXT_VERTEX_COUNT,
         TEXT_INDEX_COUNT: TEXT_INDEX_COUNT,
@@ -59900,6 +59664,7 @@
         EShapeCapabilities: EShapeCapabilities,
         get EShapeCapability () { return EShapeCapability; },
         EShapeContainer: EShapeContainer,
+        get EShapeCopyPart () { return EShapeCopyPart; },
         get EShapeCorner () { return EShapeCorner; },
         EShapeDeleter: EShapeDeleter,
         EShapeDefaults: EShapeDefaults,
@@ -59931,7 +59696,6 @@
         get EShapeType () { return EShapeType; },
         EShapeUploadedBase: EShapeUploadedBase,
         EShapeUploadeds: EShapeUploadeds,
-        get EShapeCopyPart () { return EShapeCopyPart; },
         ESnapperGrid: ESnapperGrid,
         ESnapperResultScale: ESnapperResultScale,
         ESnapperResult: ESnapperResult,

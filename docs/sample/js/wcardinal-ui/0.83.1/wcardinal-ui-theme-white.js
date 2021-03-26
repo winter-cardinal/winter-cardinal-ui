@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.80.1
+ Winter Cardinal UI v0.83.1
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -3272,6 +3272,8 @@
 
     const EShapeActionValueType = wcardinal.ui.EShapeActionValueType;
 
+    const UtilHtmlElementWhen = wcardinal.ui.UtilHtmlElementWhen;
+
     var EThemeWhiteShapeActionValue = /** @class */ (function () {
         function EThemeWhiteShapeActionValue() {
         }
@@ -3528,6 +3530,23 @@
                     return this.toOnInputActionLabel(EShapeActionValueOnInputAction.WRITE_LOCAL);
                 case EShapeActionValueMiscType.WRITE_REMOTE:
                     return this.toOnInputActionLabel(EShapeActionValueOnInputAction.WRITE_REMOTE);
+                case EShapeActionValueMiscType.HTML_ELEMENT:
+                    return "HTML element";
+                case EShapeActionValueMiscType.HTML_ELEMENT_WITHOUT_POINTER_EVENTS:
+                    return "HTML element (No pointer events)";
+            }
+            return "Unknown";
+        };
+        EThemeWhiteShapeActionValue.prototype.toHtmlElementWhenLabel = function (when) {
+            switch (when) {
+                case UtilHtmlElementWhen.CLICKED:
+                    return "Clicked";
+                case UtilHtmlElementWhen.DOUBLE_CLICKED:
+                    return "Double clicked";
+                case UtilHtmlElementWhen.FOCUSED:
+                    return "Focused";
+                case UtilHtmlElementWhen.ALWAYS:
+                    return "Always";
             }
             return "Unknown";
         };
@@ -4085,8 +4104,6 @@
     };
 
     const DHtmlElementState = wcardinal.ui.DHtmlElementState;
-
-    const UtilHtmlElementWhen = wcardinal.ui.UtilHtmlElementWhen;
 
     var nullCreator = function () {
         return null;
