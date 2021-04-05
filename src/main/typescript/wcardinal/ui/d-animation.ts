@@ -4,6 +4,7 @@
  */
 
 import { utils } from "pixi.js";
+import { DOnOptions } from "./d-on-options";
 
 /**
  * A function called when an animation starts.
@@ -75,8 +76,9 @@ export interface DAnimationEvents<EMITTER> {
 /**
  * {@link DAnimation} "on" options.
  */
-export interface DAnimationOnOptions<EMITTER> extends Partial<DAnimationEvents<EMITTER>> {
-	[ key: string ]: Function | undefined;
+export interface DAnimationOnOptions<EMITTER>
+	extends Partial<DAnimationEvents<EMITTER>>, DOnOptions {
+
 }
 
 /**
@@ -157,12 +159,12 @@ export interface DAnimation<TARGET = unknown> extends utils.EventEmitter {
 	on<E extends keyof DAnimationEvents<this>>(
 		event: E, handler: DAnimationEvents<this>[ E ], context?: any
 	): this;
-	on( event: string, handler: Function, context?: any ): this;
+	on( event: string, handler: (...args: any[]) => any, context?: any ): this;
 
 	once<E extends keyof DAnimationEvents<this>>(
 		event: E, handler: DAnimationEvents<this>[ E ], context?: any
 	): this;
-	once( event: string, handler: Function, context?: any ): this;
+	once( event: string, handler: (...args: any[]) => any, context?: any ): this;
 
 	emit<E extends keyof DAnimationEvents<this>>(
 		event: E, ...args: Parameters<DAnimationEvents<this>[ E ]>

@@ -26,7 +26,7 @@ export class DSliderValue<
 	protected _value!: number;
 	protected _rounder!: ( value: number ) => number;
 
-	protected init( options?: OPTIONS ) {
+	protected init( options?: OPTIONS ): void {
 
 		super.init( options );
 		this.state.isFocusable = false;
@@ -35,13 +35,13 @@ export class DSliderValue<
 		this._rounder = this.toRounder( options );
 	}
 
-	toRounder( options?: OPTIONS ) {
-		const rounder = options && options.rounder;
+	toRounder( options?: OPTIONS ): ( value: number ) => number {
+		const rounder = options?.rounder;
 		if ( rounder ) {
 			return rounder;
 		}
 
-		const precision = ( options && options.precision ) ? options.precision : this.theme.getPrecision();
+		const precision = options?.precision ?? this.theme.getPrecision();
 		return ( value: number ) => {
 			const base = Math.pow( 10, precision );
 			return Math.round( value * base ) / base;

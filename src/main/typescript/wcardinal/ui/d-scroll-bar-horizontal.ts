@@ -11,7 +11,7 @@ import { DScrollBarThumbHorizontal } from "./d-scroll-bar-thumb-horizontal";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
 export class DScrollBarHorizontal extends DScrollBar {
-	protected init( options?: DScrollBarOptions ) {
+	protected init( options?: DScrollBarOptions ): void {
 		super.init( options );
 
 		this.on( UtilPointerEvent.down, ( e: InteractionEvent ) => {

@@ -198,7 +198,6 @@ export class EShapeLineOfAnyPointsImpl implements EShapeLineOfAnyPoints {
 			istart = rangeResult[ 0 ];
 			iend = rangeResult[ 1 ];
 		}
-		tester = tester;
 		for( let i = istart, imax = Math.min( iend, pointCount ), iv = istart << 1; i < imax; i += 1, iv += 2 ) {
 			const px = pointValues[ iv     ];
 			const py = pointValues[ iv + 1 ];

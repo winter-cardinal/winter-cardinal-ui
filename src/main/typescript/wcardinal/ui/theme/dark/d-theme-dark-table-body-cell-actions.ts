@@ -4,7 +4,7 @@ import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
 import { DThemeDarkTableBodyCells } from "./d-theme-dark-table-body-cells";
 
 export class DThemeDarkTableBodyCellActions {
-	static init() {
+	static init(): void {
 		// Material Design icons by Google.
 		// Apache license version 2.0.
 		DThemeDarkAtlas.add( "action_mark", 21, 21,

@@ -80,7 +80,7 @@ export class DTableHeaderCellCheck<ROW> {
 		return null;
 	}
 
-	public execute( isChecked: boolean ) {
+	public execute( isChecked: boolean ): void {
 		const table = this._parent.header?.table;
 		if( table ) {
 			const iteratee = this.newIteratee( table, isChecked );

@@ -8,7 +8,7 @@ import { DThemeWhiteSelect } from "../d-theme-white-select";
 import { DThemeWhiteSelectMultiple } from "../d-theme-white-select-multiple";
 import { loadThemeWhiteDropdown } from "./load-theme-white-dropdown";
 
-export const loadThemeWhiteSelect = () => {
+export const loadThemeWhiteSelect = (): void => {
 	DThemeWhite.set( "DSelectMultiple", DThemeWhiteSelectMultiple );
 	DThemeWhite.set( "DSelect", DThemeWhiteSelect );
 	loadThemeWhiteDropdown();

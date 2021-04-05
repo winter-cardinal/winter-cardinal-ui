@@ -7,6 +7,7 @@ import { interaction } from "pixi.js";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogDate, DDialogDateOptions } from "./d-dialog-date";
 import { DDialogDates } from "./d-dialog-dates";
+import { DOnOptions } from "./d-on-options";
 
 /**
  * {@link DButtonDate} events.
@@ -25,8 +26,9 @@ export interface DButtonDateEvents<EMITTER> extends DButtonEvents<Date, EMITTER>
 /**
  * {@link DButtonDate} "on" options.
  */
-export interface DButtonDateOnOptions<EMITTER> extends Partial<DButtonDateEvents<EMITTER>> {
-	[ key: string ]: Function | undefined;
+export interface DButtonDateOnOptions<EMITTER>
+	extends Partial<DButtonDateEvents<EMITTER>>, DOnOptions {
+
 }
 
 /**

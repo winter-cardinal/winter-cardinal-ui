@@ -26,7 +26,7 @@ export class DDialogColorGradient<
 > extends DDialogCommand<DColorGradient, THEME, OPTIONS> {
 	protected _picker?: DPickerColorGradient;
 
-	protected onInit( layout: DLayoutVertical, options?: OPTIONS ) {
+	protected onInit( layout: DLayoutVertical, options?: OPTIONS ): void {
 		super.onInit( layout, options );
 		layout.addChild( this.picker );
 	}

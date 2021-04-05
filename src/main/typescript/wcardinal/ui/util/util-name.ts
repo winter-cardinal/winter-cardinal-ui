@@ -6,7 +6,7 @@
 export class UtilName {
 	protected static _mapping: { [ key: string]: number } = {};
 
-	static create( type: string ) {
+	static create( type: string ): string {
 		const mapping = this._mapping;
 		if( type in mapping ) {
 			return `${type} ${++mapping[ type ]}`;

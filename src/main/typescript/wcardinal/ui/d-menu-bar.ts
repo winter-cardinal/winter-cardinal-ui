@@ -34,8 +34,8 @@ export class DMenuBar<
 	VALUE = unknown,
 	THEME extends DThemeMenuBar = DThemeMenuBar,
 	OPTIONS extends DMenuBarOptions<VALUE, THEME> = DMenuBarOptions<VALUE, THEME>
->　extends DLayoutHorizontal<THEME, OPTIONS> {
-	protected init( options?: OPTIONS ) {
+> extends DLayoutHorizontal<THEME, OPTIONS> {
+	protected init( options?: OPTIONS ): void {
 		super.init( options );
 
 		this.state.isFocusRoot = true;

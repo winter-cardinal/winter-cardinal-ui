@@ -6,6 +6,6 @@
 import { DThemeDark } from "../d-theme-dark";
 import { DThemeDarkDialogInputInteger } from "../d-theme-dark-dialog-input-integer";
 
-export const loadThemeDarkDialogInputInteger = () => {
+export const loadThemeDarkDialogInputInteger = (): void => {
 	DThemeDark.set( "DDialogInputInteger", DThemeDarkDialogInputInteger );
 };

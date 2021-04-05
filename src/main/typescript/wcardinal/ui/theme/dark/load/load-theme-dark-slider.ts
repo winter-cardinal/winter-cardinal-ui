@@ -14,7 +14,7 @@ import { DThemeDarkSliderTrackVertical } from "../d-theme-dark-slider-track-vert
 import { DThemeDarkSliderValue } from "../d-theme-dark-slider-value";
 import { DThemeDarkSliderVertical } from "../d-theme-dark-slider-vertical";
 
-export const loadThemeDarkSlider = () => {
+export const loadThemeDarkSlider = (): void => {
 	DThemeDark.set( "DSlider", DThemeDarkSlider );
 	DThemeDark.set( "DSliderValue", DThemeDarkSliderValue );
 	DThemeDark.set( "DSliderLabel", DThemeDarkSliderLabel );

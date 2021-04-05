@@ -19,7 +19,7 @@ export class ESnapperGrid extends utils.EventEmitter {
 		this._size = 10;
 	}
 
-	get visible() {
+	get visible(): boolean {
 		return this._isVisible;
 	}
 
@@ -30,7 +30,7 @@ export class ESnapperGrid extends utils.EventEmitter {
 		}
 	}
 
-	get enable() {
+	get enable(): boolean {
 		return this._isEnabled;
 	}
 

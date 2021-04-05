@@ -9,7 +9,7 @@ import { EShapeUploadeds } from "../e-shape-uploadeds";
 import { createRectangleUploaded } from "../variant/create-rectangle-uploaded";
 import { deserializeImage } from "../variant/deserialize-image";
 
-export const loadShapeImage = () => {
+export const loadShapeImage = (): void => {
 	EShapeUploadeds[ EShapeType.IMAGE ] = createRectangleUploaded;
 	EShapeDeserializers[ EShapeType.IMAGE ] = deserializeImage;
 };

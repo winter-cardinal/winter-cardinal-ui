@@ -8,7 +8,7 @@ import { DThemeWhiteList } from "../d-theme-white-list";
 import { DThemeWhiteListItem } from "../d-theme-white-list-item";
 import { DThemeWhiteListItemSeparator } from "../d-theme-white-list-item-separator";
 
-export const loadThemeWhiteList = () => {
+export const loadThemeWhiteList = (): void => {
 	DThemeWhite.set( "DListItemSeparator", DThemeWhiteListItemSeparator );
 	DThemeWhite.set( "DListItem", DThemeWhiteListItem );
 	DThemeWhite.set( "DList", DThemeWhiteList );

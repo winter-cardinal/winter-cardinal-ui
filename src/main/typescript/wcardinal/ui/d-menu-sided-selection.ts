@@ -8,6 +8,7 @@ import { DBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DListItem, DListItemSelection } from "./d-list-item";
 import { DMenu } from "./d-menu";
+import { DOnOptions } from "./d-on-options";
 import { isString } from "./util/is-string";
 
 export enum DMenuSidedSelectionMode {
@@ -32,8 +33,9 @@ export interface DMenuSidedSelectionEvents<EMITTER> {
 /**
  * {@link DMenuSidedSelection} "on" options.
  */
-export interface DMenuSidedSelectionOnOptions<EMITTER> extends Partial<DMenuSidedSelectionEvents<EMITTER>> {
-	[ key: string ]: Function | undefined;
+export interface DMenuSidedSelectionOnOptions<EMITTER>
+	extends Partial<DMenuSidedSelectionEvents<EMITTER>>, DOnOptions {
+
 }
 
 /**
@@ -78,11 +80,11 @@ export class DMenuSidedSelection extends utils.EventEmitter implements DListItem
 		}
 	}
 
-	toDirty() {
+	toDirty(): void {
 		this._isDirty = true;
 	}
 
-	update() {
+	update(): void {
 		if( this._isDirty ) {
 			this._isDirty = false;
 			this.update_( this._content );

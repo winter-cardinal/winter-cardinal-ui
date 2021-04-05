@@ -22,7 +22,7 @@ import { loadThemeDarkDialogSaveAs } from "./load-theme-dark-dialog-save-as";
 import { loadThemeDarkDialogSelect } from "./load-theme-dark-dialog-select";
 import { loadThemeDarkDialogTime } from "./load-theme-dark-dialog-time";
 
-export const loadThemeDarkDialogAll = () => {
+export const loadThemeDarkDialogAll = (): void => {
 	loadThemeDarkDialogColorGradient();
 	loadThemeDarkDialogColor();
 	loadThemeDarkDialogCommand();

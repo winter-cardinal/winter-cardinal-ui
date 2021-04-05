@@ -6,6 +6,7 @@
 import { interaction, Point } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBase, DBaseEvents, DBaseOptions, DThemeBase } from "./d-base";
+import { DOnOptions } from "./d-on-options";
 import { DBaseOverflowMask } from "./d-base-overflow-mask";
 import { DCanvas } from "./d-canvas";
 import { DView, DViewOptions } from "./d-view";
@@ -36,8 +37,9 @@ export interface DCanvasContainerEvents<CANVAS, EMITTER> extends DBaseEvents<EMI
 /**
  * {@link DCanvasContainer} "on" options.
  */
-export interface DCanvasContainerOnOptions<CANVAS, EMITTER> extends Partial<DCanvasContainerEvents<CANVAS, EMITTER>> {
-	[ key: string ]: Function | undefined;
+export interface DCanvasContainerOnOptions<CANVAS, EMITTER>
+	extends Partial<DCanvasContainerEvents<CANVAS, EMITTER>>, DOnOptions {
+
 }
 
 /**
@@ -76,7 +78,7 @@ export class DCanvasContainer<
 	protected _overflowMask?: DBaseOverflowMask | null;
 	protected _view!: DViewImpl;
 
-	protected init( options?: OPTIONS ) {
+	protected init( options?: OPTIONS ): void {
 		super.init( options );
 
 		this._canvas = null;

@@ -49,7 +49,7 @@ export class DMenu<
 	protected _onPrerenderBound!: () => void;
 	protected _focused?: DFocusable | null;
 
-	protected init( options?: OPTIONS ) {
+	protected init( options?: OPTIONS ): void {
 		super.init( options );
 
 		this._onPrerenderBound = (): void => {

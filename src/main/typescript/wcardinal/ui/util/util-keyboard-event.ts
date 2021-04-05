@@ -274,7 +274,7 @@ export class UtilKeyboardEvent {
 		return false;
 	}
 
-	static moveFocusHorizontally( e: KeyboardEvent, target: DBase, picker?: UtilKeyboardEventLayerPicker ) {
+	static moveFocusHorizontally( e: KeyboardEvent, target: DBase, picker?: UtilKeyboardEventLayerPicker ): boolean {
 		if( target.state.isActionable ) {
 			const isBackward = UtilKeyboardEvent.isArrowLeftKey( e );
 			const isForward = UtilKeyboardEvent.isArrowRightKey( e );

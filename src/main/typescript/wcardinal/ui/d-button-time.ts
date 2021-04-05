@@ -7,6 +7,7 @@ import { interaction } from "pixi.js";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogTime, DDialogTimeOptions } from "./d-dialog-time";
 import { DDialogTimes } from "./d-dialog-times";
+import { DOnOptions } from "./d-on-options";
 import { DPickerDatetimeMask } from "./d-picker-datetime-mask";
 import { DPickerTimes } from "./d-picker-times";
 
@@ -25,8 +26,9 @@ export interface DButtonTimeEvents<EMITTER> extends DButtonEvents<Date, EMITTER>
 /**
  * {@link DButtonTime} "on" options.
  */
-export interface DButtonTimeOnOptions<EMITTER> extends Partial<DButtonTimeEvents<EMITTER>> {
-	[ key: string ]: Function | undefined;
+export interface DButtonTimeOnOptions<EMITTER>
+	extends Partial<DButtonTimeEvents<EMITTER>>, DOnOptions {
+
 }
 
 /**

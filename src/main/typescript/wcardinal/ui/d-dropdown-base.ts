@@ -7,6 +7,7 @@ import { interaction } from "pixi.js";
 import { DButtonBase, DButtonBaseEvents, DButtonBaseOptions, DThemeButtonBase } from "./d-button-base";
 import { DMenu, DMenuOptions, DThemeMenu } from "./d-menu";
 import { DMenuItem } from "./d-menu-item";
+import { DOnOptions } from "./d-on-options";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 
 /**
@@ -20,8 +21,8 @@ export interface DDropdownBaseEvents<VALUE, TEXT_VALUE, EMITTER> extends DButton
  * {@link DDropdownBase} "on" options.
  */
 export interface DDropdownBaseOnOptions<VALUE, TEXT_VALUE, EMITTER>
-	extends Partial<DDropdownBaseEvents<VALUE, TEXT_VALUE, EMITTER>> {
-	[ key: string ]: Function | undefined;
+	extends Partial<DDropdownBaseEvents<VALUE, TEXT_VALUE, EMITTER>>, DOnOptions {
+
 }
 
 /**

@@ -10,7 +10,7 @@ import { loadThemeDarkInputLabel } from "./load-theme-dark-input-label";
 import { loadThemeDarkInputReal } from "./load-theme-dark-input-real";
 import { loadThemeDarkInputText } from "./load-theme-dark-input-text";
 
-export const loadThemeDarkInputAll = () => {
+export const loadThemeDarkInputAll = (): void => {
 	loadThemeDarkInputAndLabel();
 	loadThemeDarkInputBoolean();
 	loadThemeDarkInputInteger();

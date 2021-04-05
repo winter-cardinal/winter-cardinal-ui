@@ -55,7 +55,7 @@ export class DControllerDefaultCommand extends utils.EventEmitter implements DCo
 		this.next();
 	}
 
-	next() {
+	next(): void {
 		if( this._executing == null ) {
 			const waiting = this._waiting;
 			if( 0 < waiting.length ) {
@@ -157,7 +157,7 @@ export class DControllerDefaultCommand extends utils.EventEmitter implements DCo
 		return false;
 	}
 
-	protected onSuccess( command: DCommand ) {
+	protected onSuccess( command: DCommand ): void {
 		this._executing = null;
 		if( isCommandStorable( command ) ) {
 			this._done.push( command );
@@ -169,7 +169,7 @@ export class DControllerDefaultCommand extends utils.EventEmitter implements DCo
 		this.next();
 	}
 
-	protected onFail( command: DCommand ) {
+	protected onFail( command: DCommand ): void {
 		this._executing = null;
 		const waiting = this._waiting;
 		command.destroy();

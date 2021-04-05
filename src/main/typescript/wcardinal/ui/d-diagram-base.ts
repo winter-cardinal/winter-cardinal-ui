@@ -14,6 +14,7 @@ import { DDiagramLayer } from "./d-diagram-layer";
 import { DDiagramSerialized, DDiagramSerializedSimple } from "./d-diagram-serialized";
 import { DDiagramSnapshot } from "./d-diagram-snapshot";
 import { DDiagrams } from "./d-diagrams";
+import { DOnOptions } from "./d-on-options";
 import { EShape } from "./shape/e-shape";
 import { EShapeResourceManagerDeserialization } from "./shape/e-shape-resource-manager-deserialization";
 import { EShapeEmbeddedDatum } from "./shape/variant/e-shape-embedded-datum";
@@ -48,8 +49,9 @@ export interface DDiagramBaseController {
 /**
  * {@link DDiagramBase} "on" options.
  */
-export interface DDiagramBaseOnOptions<CANVAS, EMITTER> extends Partial<DDiagramBaseEvents<CANVAS, EMITTER>> {
-	[ key: string ]: Function | undefined;
+export interface DDiagramBaseOnOptions<CANVAS, EMITTER>
+	extends Partial<DDiagramBaseEvents<CANVAS, EMITTER>>, DOnOptions {
+
 }
 
 /**
@@ -208,7 +210,7 @@ export abstract class DDiagramBase<
 		};
 	}
 
-	openByName( name: string ) {
+	openByName( name: string ): void {
 		const controller = this._controller;
 		if( controller ) {
 			controller.getByName( name ).then(( found ): void => {

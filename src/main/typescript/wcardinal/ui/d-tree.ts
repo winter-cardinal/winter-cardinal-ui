@@ -55,7 +55,7 @@ export class DTree<
 	private _removeItem!: DTreeItemRawData | null;
 	private _addItemOptions!: DTreeAddedItemOptions | null;
 
-	protected init( options ?: OPTIONS ) {
+	protected init( options ?: OPTIONS ): void {
 		super.init( options );
 		this._itemOptions = new WeakMap();
 		this._selection = new DTreeSelection();
@@ -82,7 +82,7 @@ export class DTree<
 		this.update();
 	}
 
-	protected update() {
+	protected update(): void {
 		const content = this._content;
 		const items = content.children as DTreeItem[] ;
 		// calculate content height
@@ -138,7 +138,7 @@ export class DTree<
 		}
 	}
 
-	protected reload( expandAll?: boolean ) {
+	protected reload( expandAll?: boolean ): void {
 		// reset data of tree widget
 		this._itemOptionsShowable.length = 0;
 		this._itemY = 0;
@@ -152,7 +152,7 @@ export class DTree<
 	 *
 	 * @returns raw data.
 	 */
-	get value() {
+	get value(): DTreeItemRawData[] {
 		return this._value;
 	}
 
@@ -162,7 +162,7 @@ export class DTree<
 	 *
 	 * @param item Reference data of item want to toggle in “value” array.
 	 */
-	public toggle( item: DTreeItemRawData ) {
+	public toggle( item: DTreeItemRawData ): void {
 		const itemOptions = this._itemOptions.get( item );
 		if( itemOptions ) {
 			itemOptions.expanded = !itemOptions.expanded;
@@ -175,7 +175,7 @@ export class DTree<
 	 *
 	 * @param item Reference data of item want to expand in “value” array.
 	 */
-	public expand( item: DTreeItemRawData ) {
+	public expand( item: DTreeItemRawData ): void {
 		const itemOptions = this._itemOptions.get( item );
 		if( itemOptions ) {
 			itemOptions.expanded = true;
@@ -188,7 +188,7 @@ export class DTree<
 	 *
 	 * @param item Reference data of item want to collapse in “value” array.
 	 */
-	public collapse( item: DTreeItemRawData ) {
+	public collapse( item: DTreeItemRawData ): void {
 		const itemOptions = this._itemOptions.get( item );
 		if( itemOptions ) {
 			itemOptions.expanded = false;
@@ -199,14 +199,14 @@ export class DTree<
 	/**
 	 * Expand all tree item.
 	 */
-	public expandAll() {
+	public expandAll(): void {
 		this.reload( true );
 	}
 
 	/**
 	 * Collapse all tree item.
 	 */
-	public collapseAll() {
+	public collapseAll(): void {
 		this.reload( false );
 	}
 
@@ -217,9 +217,12 @@ export class DTree<
 	 *
 	 * @returns collapse status of the item.
 	 */
-	public isCollapsed( item: DTreeItemRawData ) {
+	public isCollapsed( item: DTreeItemRawData ): boolean {
 		const itemOptions = this._itemOptions.get( item );
-		return itemOptions && !itemOptions.expanded;
+		if( itemOptions ) {
+			return ! itemOptions.expanded;
+		}
+		return true;
 	}
 
 	/**
@@ -229,15 +232,18 @@ export class DTree<
 	 *
 	 * @returns expand status of the item.
 	 */
-	public isExpanded( item: DTreeItemRawData ) {
+	public isExpanded( item: DTreeItemRawData ): boolean {
 		const itemOptions = this._itemOptions.get( item );
-		return itemOptions && itemOptions.expanded;
+		if( itemOptions ) {
+			return itemOptions.expanded;
+		}
+		return false;
 	}
 
 	/**
 	 * Clear all tree item.
 	 */
-	public clear() {
+	public clear(): void {
 		this._value = [];
 		this.reload();
 	}
@@ -247,7 +253,7 @@ export class DTree<
 	 *
 	 * @param item Reference data of item want to remove in “value” array.
 	 */
-	public remove( item: DTreeItemRawData ) {
+	public remove( item: DTreeItemRawData ): void {
 		this._removeItem = item;
 		this.reload();
 	}
@@ -260,7 +266,7 @@ export class DTree<
 	 * If the parent is undefined, the item will be added at the top level.
 	 * If the parent is not undefined, the item will be inserted as a child of the given parent item.
 	 */
-	public add( item: DTreeItemRawData, parent?: DTreeItemRawData ) {
+	public add( item: DTreeItemRawData, parent?: DTreeItemRawData ): void {
 		if( parent ) {
 			if( parent.children ) {
 				parent.children.push( item );
@@ -279,7 +285,7 @@ export class DTree<
 	 * @param item data of new item want to add to tree.
 	 * @param sibling Reference data of parent item will be using like anchor to add new item.
 	 */
-	public addBefore( item: DTreeItemRawData, sibling: DTreeItemRawData ) {
+	public addBefore( item: DTreeItemRawData, sibling: DTreeItemRawData ): void {
 		this._addItemOptions = {
 			item,
 			sibling,
@@ -294,7 +300,7 @@ export class DTree<
 	 * @param item data of new item want to add to tree.
 	 * @param sibling Reference data of parent item will be using like anchor to add new item.
 	 */
-	public addAfter( item: DTreeItemRawData, sibling: DTreeItemRawData ) {
+	public addAfter( item: DTreeItemRawData, sibling: DTreeItemRawData ): void {
 		this._addItemOptions = {
 			item,
 			sibling,
@@ -309,14 +315,14 @@ export class DTree<
 	 * @param iteratee  boolean function. If the iteratee explicitly returns false, an iteration stops.
 	 * @param item data of browsed item.
 	 */
-	public each( iteratee: (item: DTreeItemRawData) => boolean ): void {
+	public each( iteratee: (item: DTreeItemRawData) => boolean ): void {
 		this.inOrder(this._value, iteratee);
 	}
 
 	/**
 	 * The recursive function performs item browsing in the tree.
 	 */
-	private inOrder(items: DTreeItemRawData[], iteratee: (item: DTreeItemRawData) => boolean) {
+	private inOrder(items: DTreeItemRawData[], iteratee: (item: DTreeItemRawData) => boolean) {
 		for (const item of items) {
 			if(!iteratee (item)) {
 				return;
@@ -330,7 +336,7 @@ export class DTree<
 	 * Get selection object.
 	 * @returns selection.
 	 */
-	get selection() {
+	get selection(): DTreeSelection {
 		return this._selection;
 	}
 
@@ -422,7 +428,7 @@ export class DTree<
 		}
 	}
 
-	protected onSelect( selectedData: DTreeItemRawData, e: interaction.InteractionEvent ) {
+	protected onSelect( selectedData: DTreeItemRawData, e: interaction.InteractionEvent ): void {
 		const selection = this._selection;
 		const originalEvent = e.data.originalEvent;
 		if( originalEvent.ctrlKey ) {
@@ -460,10 +466,10 @@ export class DTree<
 		this.updateActiveState();
 	}
 
-	/* update active state of all shown item.
-	*
-	**/
-	public updateActiveState() {
+	/**
+	 * update active state of all shown item.
+	 */
+	public updateActiveState(): void {
 		const selection = this._selection;
 		const items = this._content.children as DTreeItem[];
 		for( let i = 0, imax = items.length; i < imax; ++i ) {

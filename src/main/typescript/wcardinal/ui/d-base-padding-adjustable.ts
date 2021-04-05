@@ -91,7 +91,16 @@ export class DBasePaddingAdjustable implements DPadding {
 	set( topAndBottom: number, leftAndRight: number ): void;
 	set( top: number, leftAndRight: number, bottom: number ): void;
 	set( top: number, right: number, bottom: number, left: number ): void;
-	set( top: number, right?: number, bottom?: number, left?: number ) {
-		this._target.set( top, right!, bottom!, left! );
+	set( top: number, right?: number, bottom?: number, left?: number ): void {
+		const target = this._target;
+		if( right == null ) {
+			target.set( top );
+		} else if( bottom == null ) {
+			target.set( top, right );
+		} else if( left == null ) {
+			target.set( top, right, bottom );
+		} else {
+			target.set( top, right, bottom, left );
+		}
 	}
 }

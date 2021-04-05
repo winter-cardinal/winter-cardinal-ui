@@ -41,18 +41,19 @@ export abstract class DInputAndLabel<
 
 	constructor( options?: OPTIONS ) {
 		super( options );
-		this.addChild( this._label = new DInputLabel( options != null ? options.label : undefined ) );
-		this.addChild( this._input = this.createInput( options != null ? options.input : undefined ) );
-		if( options != null && options.space != null ) {
-			this.addChild( new DLayoutSpace( options.space ) );
+		this.addChild( this._label = new DInputLabel( options?.label ) );
+		this.addChild( this._input = this.createInput( options?.input ) );
+		const space = options?.space;
+		if( space != null ) {
+			this.addChild( new DLayoutSpace( space ) );
 		}
 	}
 
-	get input() {
+	get input(): INPUT {
 		return this._input;
 	}
 
-	get label() {
+	get label(): DInputLabel {
 		return this._label;
 	}
 

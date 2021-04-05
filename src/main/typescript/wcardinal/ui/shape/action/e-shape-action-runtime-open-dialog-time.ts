@@ -130,7 +130,7 @@ export class EShapeActionRuntimeOpenDialogTime extends EShapeActionRuntimeOpenDi
 		return result;
 	}
 
-	protected newFormatter() {
+	protected newFormatter(): NumberFormatter {
 		return NumberFormatters.create( "%Hm" );
 	}
 }

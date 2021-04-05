@@ -11,6 +11,7 @@ import { DDialogMode } from "./d-dialog-mode";
 import { DLayoutHorizontal } from "./d-layout-horizontal";
 import { DLayoutSpace } from "./d-layout-space";
 import { DLayoutVertical } from "./d-layout-vertical";
+import { DOnOptions } from "./d-on-options";
 
 /**
  * {@link DDialogCommand} events.
@@ -36,8 +37,8 @@ export interface DDialogCommandEvents<VALUE, EMITTER> extends DDialogEvents<EMIT
 /**
  * {@link DDialogCommand} "on" options.
  */
-export interface DDialogCommandOnOptions<VALUE, EMITTER> extends Partial<DDialogCommandEvents<VALUE, EMITTER>> {
-	[ key: string ]: Function | undefined;
+export interface DDialogCommandOnOptions<VALUE, EMITTER>
+	extends Partial<DDialogCommandEvents<VALUE, EMITTER>>, DOnOptions {
 
 }
 
@@ -90,7 +91,7 @@ export abstract class DDialogCommand<
 	protected _buttonOk?: DButton;
 	protected _buttonCancel?: DButton;
 
-	protected init( options?: OPTIONS ) {
+	protected init( options?: OPTIONS ): void {
 		super.init( options );
 
 		const theme = this.theme;
@@ -176,7 +177,7 @@ export abstract class DDialogCommand<
 		}
 	}
 
-	protected onInit( layout: DLayoutVertical, options?: OPTIONS ) {
+	protected onInit( layout: DLayoutVertical, options?: OPTIONS ): void {
 		// OVERRIDE THIS
 	}
 

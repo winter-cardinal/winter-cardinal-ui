@@ -6,6 +6,7 @@
 import { interaction } from "pixi.js";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogSelect, DDialogSelectOptions } from "./d-dialog-select";
+import { DOnOptions } from "./d-on-options";
 
 /**
  * A dialog to select values.
@@ -43,8 +44,9 @@ export interface DButtonSelectEvents<VALUE, EMITTER> extends DButtonEvents<VALUE
 /**
  * {@link DButtonSelect} "on" options.
  */
-export interface DButtonSelectOnOptions<VALUE, EMITTER> extends Partial<DButtonSelectEvents<VALUE, EMITTER>> {
-	[ key: string ]: Function | undefined;
+export interface DButtonSelectOnOptions<VALUE, EMITTER>
+	extends Partial<DButtonSelectEvents<VALUE, EMITTER>>, DOnOptions {
+
 }
 
 /**

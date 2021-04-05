@@ -7,6 +7,7 @@ import { DDropdownBase, DDropdownBaseEvents, DDropdownBaseOptions, DThemeDropdow
 import { DMenu } from "./d-menu";
 import { DMenuItem } from "./d-menu-item";
 import { DMenuItemMenu } from "./d-menu-item-menu";
+import { DOnOptions } from "./d-on-options";
 
 /**
  * {@link DSelect} events.
@@ -26,8 +27,9 @@ export interface DSelectEvents<VALUE, EMITTER> extends DDropdownBaseEvents<VALUE
 /**
  * {@link DSelect} "on" options.
  */
-export interface DSelectOnOptions<VALUE, EMITTER> extends Partial<DSelectEvents<VALUE, EMITTER>> {
-	[ key: string ]: Function | undefined;
+export interface DSelectOnOptions<VALUE, EMITTER>
+	extends Partial<DSelectEvents<VALUE, EMITTER>>, DOnOptions {
+
 }
 
 /**
@@ -84,7 +86,7 @@ export class DSelect<
 		}
 	}
 
-	protected onValueChange( newValue: VALUE | null, oldValue: VALUE | null, item: DMenuItem<VALUE> | null ) {
+	protected onValueChange( newValue: VALUE | null, oldValue: VALUE | null, item: DMenuItem<VALUE> | null ): void {
 		this.emit( "change", newValue, oldValue, item,  this );
 	}
 

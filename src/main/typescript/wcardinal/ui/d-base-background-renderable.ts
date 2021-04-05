@@ -38,7 +38,7 @@ export class DBaseBackgroundRenderable implements DRenderable {
 		return result;
 	}
 
-	protected hide() {
+	protected hide(): void {
 		const mesh = this._mesh;
 		if( mesh != null ) {
 			mesh.visible = false;

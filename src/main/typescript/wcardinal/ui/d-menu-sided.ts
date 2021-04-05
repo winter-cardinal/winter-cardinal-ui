@@ -36,7 +36,7 @@ export class DMenuSided<
 	protected _context!: DMenuContext | null;
 	protected _selection!: DMenuSidedSelection;
 
-	protected init( options?: OPTIONS ) {
+	protected init( options?: OPTIONS ): void {
 		super.init( options );
 
 		const context = new DMenuContext( this );

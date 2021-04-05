@@ -202,16 +202,16 @@ export class UtilHtmlElement<
 
 	protected toData( theme: THEME, options?: OPTIONS ): UtilHtmlElementData<ELEMENT> {
 		return {
-			element: this.toElementOptions( theme, options?.element ),
-			clipper: this.toClipperOptions( theme, options?.clipper ),
-			before: this.toBeforeOptions( theme, options?.before ),
-			after: this.toAfterOptions( theme, options?.after ),
+			element: this.toElementData( theme, options?.element ),
+			clipper: this.toClipperData( theme, options?.clipper ),
+			before: this.toBeforeData( theme, options?.before ),
+			after: this.toAfterData( theme, options?.after ),
 			when: toEnum( options?.when ?? theme.getWhen(), UtilHtmlElementWhen ),
 			select: options?.select ?? theme.getSelect()
 		};
 	}
 
-	protected toElementOptions( theme: THEME, options?: OPTIONS[ "element" ] ) {
+	protected toElementData( theme: THEME, options?: OPTIONS[ "element" ] ): UtilHtmlElementElementData<ELEMENT> {
 		return {
 			creator: options?.creator ?? theme.getElementCreator(),
 			styler: options?.styler ?? this.newElementStyler( theme )
@@ -228,7 +228,7 @@ export class UtilHtmlElement<
 		};
 	}
 
-	protected toClipperOptions( theme: THEME, options?: OPTIONS[ "clipper" ] ) {
+	protected toClipperData( theme: THEME, options?: OPTIONS[ "clipper" ] ): UtilHtmlElementClipperData {
 		return {
 			creator: options?.creator ?? theme.getClipperCreator(),
 			styler: options?.styler ?? this.newClipperStyler( theme )
@@ -245,7 +245,7 @@ export class UtilHtmlElement<
 		};
 	}
 
-	protected toBeforeOptions( theme: THEME, options?: OPTIONS[ "before" ] ) {
+	protected toBeforeData( theme: THEME, options?: OPTIONS[ "before" ] ): UtilHtmlElementBeforeData {
 		return {
 			creator: options?.creator ?? theme.getBeforeCreator(),
 			styler: options?.styler ?? this.newBeforeStyler( theme )
@@ -258,7 +258,7 @@ export class UtilHtmlElement<
 		};
 	}
 
-	protected toAfterOptions( theme: THEME, options?: OPTIONS[ "after" ] ) {
+	protected toAfterData( theme: THEME, options?: OPTIONS[ "after" ] ): UtilHtmlElementAfterData {
 		return {
 			creator: options?.creator ?? theme.getAfterCreator(),
 			styler: options?.styler ?? this.newAfterStyler( theme )
@@ -657,7 +657,7 @@ export class UtilHtmlElement<
 		return clipperRect;
 	}
 
-	protected updateElement( renderer: Renderer ) {
+	protected updateElement( renderer: Renderer ): void {
 		if( this._isElementShown ) {
 			const target = this._target;
 			if( target.worldVisible ) {

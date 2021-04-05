@@ -47,7 +47,7 @@ export class DTableHeaderCell<
 	protected _check!: DTableHeaderCellCheck<ROW>;
 	protected _checkWork?: Point;
 
-	protected init( options?: OPTIONS ) {
+	protected init( options?: OPTIONS ): void {
 		if( options != null ) {
 			this._header = options.header;
 			this._column = options.column;

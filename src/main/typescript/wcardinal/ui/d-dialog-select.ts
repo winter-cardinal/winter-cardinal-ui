@@ -15,6 +15,7 @@ import { DLayoutVertical } from "./d-layout-vertical";
 import { DListItem } from "./d-list-item";
 import { DListSelection } from "./d-list-selection";
 import { DNote, DNoteOptions } from "./d-note";
+import { DOnOptions } from "./d-on-options";
 import { UtilTransition } from "./util/util-transition";
 
 /**
@@ -71,8 +72,9 @@ export interface DDialogSelectEvents<VALUE, EMITTER> extends DDialogCommandEvent
 /**
  * {@link DDialogSelect} "on" options.
  */
-export interface DDialogSelectOnOptions<VALUE, EMITTER> extends Partial<DDialogSelectEvents<VALUE, EMITTER>> {
-	[ key: string ]: Function | undefined;
+export interface DDialogSelectOnOptions<VALUE, EMITTER>
+	extends Partial<DDialogSelectEvents<VALUE, EMITTER>>, DOnOptions {
+
 }
 
 /**
@@ -152,7 +154,7 @@ export class DDialogSelect<
 	protected _itemIsEqual!: DDialogSelectItemIsEqual<VALUE>;
 	protected _itemPredefineds?: VALUE[];
 
-	protected onInit( layout: DLayoutVertical, options?: OPTIONS ) {
+	protected onInit( layout: DLayoutVertical, options?: OPTIONS ): void {
 		this._value = null;
 		const theme = this.theme;
 

@@ -28,7 +28,7 @@ export class DPickerTimes {
 		return result;
 	}
 
-	static toMask( options?: DPickerDatetimeMaskOptions ) {
+	static toMask( options?: DPickerDatetimeMaskOptions ): DPickerDatetimeMask {
 		return DPickerDatetimeMasks.from( "DPickerTime", options );
 	}
 }

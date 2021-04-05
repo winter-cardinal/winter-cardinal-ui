@@ -47,7 +47,7 @@ export abstract class DDialogInput<
 	protected _label?: DText<string>;
 	protected _input?: INPUT;
 
-	protected onInit( layout: DLayoutVertical, options?: OPTIONS ) {
+	protected onInit( layout: DLayoutVertical, options?: OPTIONS ): void {
 		super.onInit( layout, options );
 
 		const theme = this.theme;

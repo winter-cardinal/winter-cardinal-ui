@@ -38,7 +38,7 @@ export class EShapeRectangleRoundedUploaded extends EShapeTextUploaded {
 		this.updateText( buffer, shape );
 	}
 
-	protected updateVertexClippingStepAndUv( buffer: EShapeBuffer, shape: EShape ) {
+	protected updateVertexClippingStepAndUv( buffer: EShapeBuffer, shape: EShape ): void {
 		const size = shape.size;
 		const sizeX = size.x;
 		const sizeY = size.y;

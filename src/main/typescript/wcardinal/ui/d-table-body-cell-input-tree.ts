@@ -94,7 +94,7 @@ export class DTableBodyCellInputTree<
 		}
 	}
 
-	protected newMarker( options?: OPTIONS ) {
+	protected newMarker( options?: OPTIONS ): DTableBodyCellInputTreeMarker {
 		return new DTableBodyCellInputTreeMarker({
 			visible: false,
 			on: {

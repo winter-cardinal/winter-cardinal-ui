@@ -11,7 +11,7 @@ export interface UtilTransitionOptions {
 
 export class UtilTransition {
 	protected _duration: number;
-	protected _current: DBase<any, any> | null;
+	protected _current: DBase | null;
 	protected _lastUpdate: number;
 	protected _updateId: number | null;
 
@@ -22,7 +22,7 @@ export class UtilTransition {
 		this._updateId = null;
 	}
 
-	show( next: DBase<any, any> | null, forcibly?: boolean ): void {
+	show( next: DBase | null, forcibly?: boolean ): void {
 		const updateId = this._updateId;
 		if( updateId != null ) {
 			clearTimeout( updateId );
@@ -44,7 +44,7 @@ export class UtilTransition {
 		}
 	}
 
-	protected update( now: number, next: DBase<any, any> | null ) {
+	protected update( now: number, next: DBase | null ): void {
 		const current = this._current;
 		if( current !== next ) {
 			this._lastUpdate = now;

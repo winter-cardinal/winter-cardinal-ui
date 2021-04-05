@@ -9,6 +9,7 @@ import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button
 import { DColorAndAlpha } from "./d-color-and-alpha";
 import { DDialogColor, DDialogColorOptions } from "./d-dialog-color";
 import { DImagePieceOptions, DImagePieceTintOptions } from "./d-image-piece";
+import { DOnOptions } from "./d-on-options";
 import { DPickerColorAndAlpha } from "./d-picker-color-and-alpha";
 
 /**
@@ -28,8 +29,9 @@ export interface DButtonColorEvents<EMITTER> extends DButtonEvents<DColorAndAlph
 /**
  * {@link DButtonColor} "on" options.
  */
-export interface DButtonColorOnOptions<EMITTER>	extends Partial<DButtonColorEvents<EMITTER>> {
-	[ key: string ]: Function | undefined;
+export interface DButtonColorOnOptions<EMITTER>
+	extends Partial<DButtonColorEvents<EMITTER>>, DOnOptions {
+
 }
 
 /**
@@ -62,7 +64,7 @@ export class DButtonColor<
 	protected _dialog?: DDialogColor;
 	protected _value!: DPickerColorAndAlpha;
 
-	protected init( options?: OPTIONS ) {
+	protected init( options?: OPTIONS ): void {
 		super.init( options );
 
 		const value = this._textValueComputed!;

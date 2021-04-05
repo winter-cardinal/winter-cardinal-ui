@@ -27,7 +27,7 @@ export class DExpandable<
 	protected _header!: DisplayObject;
 	protected _body!: Container;
 
-	protected init( options: OPTIONS ) {
+	protected init( options: OPTIONS ): void {
 		super.init( options );
 
 		// Header

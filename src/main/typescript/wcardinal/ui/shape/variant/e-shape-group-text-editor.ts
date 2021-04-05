@@ -232,7 +232,7 @@ export class EShapeGroupTextEditor implements EShapeText {
 		return -1;
 	}
 
-	deserialize( target: number, manager: EShapeResourceManagerDeserialization ) {
-		//
+	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void {
+		// DO NOTHING
 	}
 }

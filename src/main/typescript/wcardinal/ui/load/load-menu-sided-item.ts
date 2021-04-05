@@ -18,7 +18,7 @@ import { DMenuSidedItemSpace } from "../d-menu-sided-item-space";
 import { DMenuSidedItemText } from "../d-menu-sided-item-text";
 import { DMenuSideds } from "../d-menu-sideds";
 
-export const loadMenuSidedItem = () => {
+export const loadMenuSidedItem = (): void => {
 	DMenuSideds.setItemCreatorDefault(( options: any ): DisplayObject | null => {
 		return new DMenuSidedItemText( options );
 	});

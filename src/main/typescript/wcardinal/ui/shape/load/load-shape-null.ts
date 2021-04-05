@@ -9,7 +9,7 @@ import { EShapeUploadeds } from "../e-shape-uploadeds";
 import { createNullUploaded } from "../variant/create-null-uploaded";
 import { deserializeNull } from "../variant/deserialize-null";
 
-export const loadShapeNull = () => {
+export const loadShapeNull = (): void => {
 	EShapeUploadeds[ EShapeType.NULL ] = createNullUploaded;
 	EShapeDeserializers[ EShapeType.NULL ] = deserializeNull;
 };

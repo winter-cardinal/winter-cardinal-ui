@@ -25,7 +25,7 @@ export class DDialogColor<
 > extends DDialogCommand<DColorAndAlpha, THEME, OPTIONS> {
 	protected _picker?: DPickerColor;
 
-	protected onInit( layout: DLayoutVertical, options?: OPTIONS ) {
+	protected onInit( layout: DLayoutVertical, options?: OPTIONS ): void {
 		super.onInit( layout, options );
 		layout.addChild( this.picker );
 	}

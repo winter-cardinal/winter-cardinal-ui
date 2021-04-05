@@ -39,14 +39,14 @@ export class EShapeActionRuntimes {
 		return null;
 	}
 
-	static open( shape: EShape, target: string ) {
+	static open( shape: EShape, target: string ): void {
 		const container = this.toContainer( shape );
 		if( container ) {
 			container.openByName( target );
 		}
 	}
 
-	static write( shape: EShape, id: string, value: unknown, time: number, remote: boolean ) {
+	static write( shape: EShape, id: string, value: unknown, time: number, remote: boolean ): void {
 		const container = this.toContainer( shape );
 		if( container ) {
 			if( remote ) {

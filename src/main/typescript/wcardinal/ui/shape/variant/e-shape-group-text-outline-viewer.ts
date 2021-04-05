@@ -44,11 +44,11 @@ export class EShapeGroupTextOutlineViewer implements EShapeTextOutline {
 		// DO NOTHING
 	}
 
-	copy( target?: Partial<EShapeTextOutlineLike> ) {
+	copy( target?: Partial<EShapeTextOutlineLike> ): void {
 		// DO NOTHING
 	}
 
-	set( enable?: boolean, color?: number, alpha?: number, width?: number ) {
+	set( enable?: boolean, color?: number, alpha?: number, width?: number ): void {
 		// DO NOTHING
 	}
 

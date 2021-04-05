@@ -75,14 +75,14 @@ export class EShapeGroupTextOutlineEditor implements EShapeTextOutline {
 		}
 	}
 
-	copy( target?: Partial<EShapeTextOutlineLike> ) {
+	copy( target?: Partial<EShapeTextOutlineLike> ): void {
 		const children = this._parent.children;
 		for( let i = 0, imax = children.length; i < imax; ++i ) {
 			children[ i ].text.outline.copy( target );
 		}
 	}
 
-	set( enable?: boolean, color?: number, alpha?: number, width?: number ) {
+	set( enable?: boolean, color?: number, alpha?: number, width?: number ): void {
 		const children = this._parent.children;
 		for( let i = 0, imax = children.length; i < imax; ++i ) {
 			children[ i ].text.outline.set( enable, color, alpha, width );

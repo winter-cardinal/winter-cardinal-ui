@@ -36,7 +36,7 @@ import { loadThemeDarkText } from "./load-theme-dark-text";
 import { loadThemeDarkTree } from "./load-theme-dark-tree";
 import { loadThemeDarkView } from "./load-theme-dark-view";
 
-export const loadThemeDarkAll = () => {
+export const loadThemeDarkAll = (): void => {
 	loadThemeDark();
 	loadThemeDarkBase();
 	loadThemeDarkBoard();

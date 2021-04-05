@@ -16,7 +16,7 @@ export class EShapeRendererIteratorDatum {
 		this.shapes = DUMMY_SHAPES;
 	}
 
-	reset( shapes: EShape[] ) {
+	reset( shapes: EShape[] ): void {
 		this.index = -1;
 		this.shapes = shapes;
 	}

@@ -99,6 +99,7 @@ export class EShapeActionValueDeserializer {
 					case EShapeActionValueChangeColorTarget.BRIGHTNESS:
 						return EShapeActionValueChangeColorBrightness.deserialize( serialized, manager );
 					}
+					break;
 				case EShapeActionValueType.CHANGE_TEXT:
 					return EShapeActionValueChangeText.deserialize( serialized, manager );
 				case EShapeActionValueType.CHANGE_CURSOR:

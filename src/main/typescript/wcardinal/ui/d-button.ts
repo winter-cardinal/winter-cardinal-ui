@@ -4,6 +4,7 @@
  */
 
 import { DButtonBase, DButtonBaseEvents, DButtonBaseOptions, DThemeButtonBase } from "./d-button-base";
+import { DOnOptions } from "./d-on-options";
 
 /**
  * {@link DButton} events.
@@ -15,8 +16,9 @@ export interface DButtonEvents<VALUE, EMITTER> extends DButtonBaseEvents<VALUE, 
 /**
  * {@link DButton} "on" options.
  */
-export interface DButtonOnOptions<VALUE, EMITTER> extends Partial<DButtonEvents<VALUE, EMITTER>> {
-	[ key: string ]: Function | undefined;
+export interface DButtonOnOptions<VALUE, EMITTER>
+	extends Partial<DButtonEvents<VALUE, EMITTER>>, DOnOptions {
+
 }
 
 /**

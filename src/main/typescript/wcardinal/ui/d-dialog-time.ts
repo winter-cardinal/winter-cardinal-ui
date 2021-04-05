@@ -23,7 +23,7 @@ export class DDialogTime<
 > extends DDialogCommand<Date, THEME, OPTIONS> {
 	protected _picker?: DPickerTime;
 
-	protected onInit( layout: DLayoutVertical, options?: OPTIONS ) {
+	protected onInit( layout: DLayoutVertical, options?: OPTIONS ): void {
 		super.onInit( layout, options );
 		layout.addChild( this.picker );
 	}

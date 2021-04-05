@@ -7,7 +7,7 @@ import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteDialogConfirm } from "../d-theme-white-dialog-confirm";
 import { DThemeWhiteDialogConfirmMessage } from "../d-theme-white-dialog-confirm-message";
 
-export const loadThemeWhiteDialogConfirm = () => {
+export const loadThemeWhiteDialogConfirm = (): void => {
 	DThemeWhite.set( "DDialogConfirm", DThemeWhiteDialogConfirm );
 	DThemeWhite.set( "DDialogConfirmMessage", DThemeWhiteDialogConfirmMessage );
 };

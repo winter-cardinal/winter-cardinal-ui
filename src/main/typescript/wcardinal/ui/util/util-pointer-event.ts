@@ -86,7 +86,7 @@ export class UtilPointerEvent {
 		const dy = Math.abs( y - global.y );
 		const threshold = this.CLICK_DISTANCE_THRESHOLD;
 		return ( dx < threshold && dy < threshold );
-	};
+	}
 
 	static onClick( target: UtilPointerEventClickTarget, onClick: UtilPointerEventOnClick ): void {
 		if( ! this.touchable ) {

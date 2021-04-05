@@ -32,7 +32,7 @@ export class DMenuItemText<
 	protected _shortcutText?: Text | DDynamicText | null;
 	protected _shortcutMargin?: number;
 
-	protected init( options?: OPTIONS ) {
+	protected init( options?: OPTIONS ): void {
 		super.init( options );
 		this.initOnOver( options );
 		this.initShortcuts( options );
@@ -105,7 +105,7 @@ export class DMenuItemText<
 		}
 	}
 
-	protected onShortcut( e: KeyboardEvent ) {
+	protected onShortcut( e: KeyboardEvent ): void {
 		super.onShortcut( e );
 		this.onSelect( e );
 	}

@@ -19,14 +19,6 @@ export class DTableCategoryCell<
 	THEME extends DThemeTableCategoryCell = DThemeTableCategoryCell,
 	OPTIONS extends DTableCategoryCellOptions<THEME> = DTableCategoryCellOptions<THEME>
 > extends DImage<string | null, THEME, OPTIONS> {
-	constructor( options: OPTIONS ) {
-		super( options );
-	}
-
-	protected init( options: OPTIONS ) {
-		super.init( options );
-	}
-
 	protected getType(): string {
 		return "DTableCategoryCell";
 	}

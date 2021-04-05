@@ -7,7 +7,7 @@ import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteCanvas } from "../d-theme-white-canvas";
 import { DThemeWhiteCanvasContainer } from "../d-theme-white-canvas-container";
 
-export const loadThemeWhiteCanvasContainer = () => {
+export const loadThemeWhiteCanvasContainer = (): void => {
 	DThemeWhite.set( "DCanvasContainer", DThemeWhiteCanvasContainer );
 	DThemeWhite.set( "DCanvas", DThemeWhiteCanvas );
 };

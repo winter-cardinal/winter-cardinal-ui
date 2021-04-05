@@ -60,14 +60,14 @@ export class EShapeGroupFillEditor implements EShapeFill {
 		}
 	}
 
-	copy( target?: Partial<EShapeFillLike> ) {
+	copy( target?: Partial<EShapeFillLike> ): void {
 		const children = this._parent.children;
 		for( let i = 0, imax = children.length; i < imax; ++i ) {
 			children[ i ].fill.copy( target );
 		}
 	}
 
-	set( enable: boolean, color: number, alpha: number ) {
+	set( enable: boolean, color: number, alpha: number ): void {
 		const children = this._parent.children;
 		for( let i = 0, imax = children.length; i < imax; ++i ) {
 			children[ i ].fill.set( enable, color, alpha );
@@ -94,7 +94,7 @@ export class EShapeGroupFillEditor implements EShapeFill {
 		return -1;
 	}
 
-	deserialize( target: number, manager: EShapeResourceManagerDeserialization ) {
-		//
+	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void {
+		// DO NOTHING
 	}
 }

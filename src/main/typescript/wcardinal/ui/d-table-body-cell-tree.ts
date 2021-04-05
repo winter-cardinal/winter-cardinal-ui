@@ -48,7 +48,7 @@ export class DTableBodyCellTree<
 	protected initOnClick( when: DButtonBaseWhen, theme: THEME, options: OPTIONS ): void {
 		const link = this.link;
 		if( link ) {
-			link.apply( this, ( e: interaction.InteractionEvent ): void => {
+			link.add( this, ( e: interaction.InteractionEvent ): void => {
 				if( when === DButtonBaseWhen.CLICKED ) {
 					this.onClick( e );
 				}

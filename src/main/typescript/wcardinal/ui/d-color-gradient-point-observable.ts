@@ -22,7 +22,7 @@ export class DColorGradientPointObservable implements DColorGradientPoint {
 		this._selected = selected;
 	}
 
-	set( color: number, alpha: number, position: number, selected: boolean ) {
+	set( color: number, alpha: number, position: number, selected: boolean ): void {
 		if( this._color !== color || this._alpha !== alpha || this._position !== position || this._selected !== selected ) {
 			this._color = color;
 			this._alpha = alpha;
@@ -32,7 +32,7 @@ export class DColorGradientPointObservable implements DColorGradientPoint {
 		}
 	}
 
-	get color() {
+	get color(): number {
 		return this._color;
 	}
 
@@ -43,7 +43,7 @@ export class DColorGradientPointObservable implements DColorGradientPoint {
 		}
 	}
 
-	get alpha() {
+	get alpha(): number {
 		return this._alpha;
 	}
 
@@ -54,7 +54,7 @@ export class DColorGradientPointObservable implements DColorGradientPoint {
 		}
 	}
 
-	get position() {
+	get position(): number {
 		return this._position;
 	}
 
@@ -65,7 +65,7 @@ export class DColorGradientPointObservable implements DColorGradientPoint {
 		}
 	}
 
-	get selected() {
+	get selected(): boolean {
 		return this._selected;
 	}
 

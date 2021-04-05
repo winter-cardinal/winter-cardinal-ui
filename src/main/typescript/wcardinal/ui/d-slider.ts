@@ -13,6 +13,7 @@ import { DSliderThumb, DSliderThumbOptions } from "./d-slider-thumb";
 import { DSliderTrack, DSliderTrackOptions } from "./d-slider-track";
 import { DSliderValue, DSliderValueOptions } from "./d-slider-value";
 import { UtilPointerEvent } from "./util/util-pointer-event";
+import { DOnOptions } from "./d-on-options";
 
 /**
  * {@link DSlider} events.
@@ -31,8 +32,9 @@ export interface DSliderEvents<EMITTER> extends DBaseEvents<EMITTER> {
 /**
  * {@link DSlider} "on" options.
  */
-export interface DSliderOnOptions<EMITTER> extends Partial<DSliderEvents<EMITTER>> {
-	[ key: string ]: Function | undefined;
+export interface DSliderOnOptions<EMITTER>
+	extends Partial<DSliderEvents<EMITTER>>, DOnOptions {
+
 }
 
 /**
@@ -80,7 +82,7 @@ export abstract class DSlider<
 	protected _onTrackSelectedUpBound!: ( e: InteractionEvent ) => void;
 	protected _interactionManager?: InteractionManager;
 
-	protected init( options?: OPTIONS ) {
+	protected init( options?: OPTIONS ): void {
 		super.init( options );
 
 		this._ratioValue = 0;

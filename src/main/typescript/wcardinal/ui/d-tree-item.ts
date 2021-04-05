@@ -75,7 +75,7 @@ export class DTreeItem<
 	protected _textAndImage!: DTreeItemTextAndImage;
 	protected _icon!: DTreeItemToggleIcon;
 
-	protected init( options ?: OPTIONS ) {
+	protected init( options ?: OPTIONS ): void {
 		super.init( options );
 		this._isParent = !! options?.isParent;
 		this._isExpanded = !! options?.expanded;
@@ -118,7 +118,7 @@ export class DTreeItem<
 		return this._rawData;
 	}
 
-	public update( options: OPTIONS, isActive: boolean ) {
+	public update( options: OPTIONS, isActive: boolean ): this {
 		this._textAndImage.text = toText( options );
 		this._textAndImage.image = toImage( options );
 		this._rawData = toRawData( options );

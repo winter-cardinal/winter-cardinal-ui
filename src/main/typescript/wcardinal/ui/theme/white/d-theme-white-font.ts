@@ -8,7 +8,7 @@ import { DFontStyle, DFontVariant, DFontWeight, DThemeFont } from "../../d-font"
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 
 export class DThemeWhiteFont implements DThemeFont {
-	getFontFamilly() {
+	getFontFamilly(): string {
 		return `ProximaNova,-apple-system,Meiryo,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif`;
 	}
 

@@ -52,7 +52,7 @@ export class DynamicSDFFontAtlas {
 		this._isDirty = true;
 	}
 
-	get id() {
+	get id(): string {
 		return this._id;
 	}
 
@@ -240,7 +240,7 @@ export class DynamicSDFFontAtlas {
 		return JSON.stringify( this.toJson() );
 	}
 
-	destroy() {
+	destroy(): void {
 		const generator = this._generator;
 		if( generator != null ) {
 			this._generator = null;
@@ -257,7 +257,7 @@ export class DynamicSDFFontAtlas {
 		}
 	}
 
-	static toFontFamily( fontFamily: string ) {
+	static toFontFamily( fontFamily: string ): string {
 		return ( fontFamily === "auto" ?
 			DynamicSDFFontAtlas.getAutoFontFamily() :
 			fontFamily

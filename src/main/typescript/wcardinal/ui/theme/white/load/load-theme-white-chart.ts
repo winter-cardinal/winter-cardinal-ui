@@ -18,7 +18,7 @@ import { DThemeWhiteChartSelectionGridlineX } from "../d-theme-white-chart-selec
 import { DThemeWhiteChartSelectionGridlineY } from "../d-theme-white-chart-selection-gridline-y";
 import { DThemeWhiteChartSelectionMarker } from "../d-theme-white-chart-selection-marker";
 
-export const loadThemeWhiteChart = () => {
+export const loadThemeWhiteChart = (): void => {
 	DThemeWhite.set( "DChart", DThemeWhiteChart );
 	DThemeWhite.set( "DChartAxisX", DThemeWhiteChartAxisX );
 	DThemeWhite.set( "DChartAxisXDatetime", DThemeWhiteChartAxisXDatetime );

@@ -49,10 +49,10 @@ export class EShapeTextImpl implements EShapeText {
 		this._parent = parent;
 		this._enable = true;
 		this._value = value;
-		this._color = color!;
-		this._alpha = alpha!;
-		this._family = family!;
-		this._size = size!;
+		this._color = color;
+		this._alpha = alpha;
+		this._family = family;
+		this._size = size;
 		this._weight = EShapeTextWeight.NORMAL;
 		this.align = new EShapeTextAlignImpl( parent, EShapeTextAlignHorizontal.CENTER, EShapeTextAlignVertical.MIDDLE );
 		this.offset = new EShapeTextOffsetImpl( parent, 0, 0 );
@@ -320,7 +320,7 @@ export class EShapeTextImpl implements EShapeText {
 		return manager.addResource( serialized );
 	}
 
-	deserialize( target: number, manager: EShapeResourceManagerDeserialization ) {
+	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void {
 		const resources = manager.resources;
 		if( 0 <= target && target < resources.length ) {
 			let parsed = manager.getText( target );

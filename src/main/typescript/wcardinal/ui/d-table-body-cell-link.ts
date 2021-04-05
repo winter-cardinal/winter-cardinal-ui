@@ -105,7 +105,7 @@ export class DTableBodyCellLink<
 	}
 
 	protected initOnClick( when: DButtonBaseWhen, theme: THEME, options?: OPTIONS ): void {
-		this.link.apply( this, ( e: interaction.InteractionEvent ): void => {
+		this.link.add( this, ( e: interaction.InteractionEvent ): void => {
 			if( when === DButtonBaseWhen.CLICKED ) {
 				this.onClick( e );
 			}

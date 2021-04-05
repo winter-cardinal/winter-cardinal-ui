@@ -7,7 +7,7 @@ import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteExpandable } from "../d-theme-white-expandable";
 import { DThemeWhiteExpandableHeader } from "../d-theme-white-expandable-header";
 
-export const loadThemeWhiteExpandable = () => {
+export const loadThemeWhiteExpandable = (): void => {
 	DThemeWhite.set( "DExpandableHeader", DThemeWhiteExpandableHeader );
 	DThemeWhite.set( "DExpandable", DThemeWhiteExpandable );
 };

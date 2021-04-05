@@ -32,7 +32,7 @@ import { DThemeDarkMenuSidedItemSeparator } from "../d-theme-dark-menu-sided-ite
 import { DThemeDarkMenuSidedItemSpace } from "../d-theme-dark-menu-sided-item-space";
 import { DThemeDarkMenuSidedItemText } from "../d-theme-dark-menu-sided-item-text";
 
-export const loadThemeDarkMenuSided = () => {
+export const loadThemeDarkMenuSided = (): void => {
 	DThemeDark.set( "DMenuSided", DThemeDarkMenuSided );
 	DThemeDark.set( "DMenuSidedContent", DThemeDarkMenuSidedContent );
 

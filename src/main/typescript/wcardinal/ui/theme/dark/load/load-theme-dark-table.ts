@@ -45,7 +45,7 @@ import { loadThemeDarkInputReal } from "./load-theme-dark-input-real";
 import { loadThemeDarkInputText } from "./load-theme-dark-input-text";
 import { loadThemeDarkMenu } from "./load-theme-dark-menu";
 
-export const loadThemeDarkTable = () => {
+export const loadThemeDarkTable = (): void => {
 	DThemeDark.set( "DTableBodyCellActionDialog", DThemeDarkTableBodyCellActionDialog );
 	DThemeDark.set( "DTableBodyCellActionMenu", DThemeDarkTableBodyCellActionMenu );
 	DThemeDark.set( "DTableBodyCellActionPromise", DThemeDarkTableBodyCellActionPromise );

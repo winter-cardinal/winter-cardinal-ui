@@ -37,7 +37,7 @@ export class DynamicSDFFontAtlases {
 		}
 	}
 
-	add( family: string, targets: string ) {
+	add( family: string, targets: string ): void {
 		const atlas = this._atlases[ family ];
 		if( atlas != null ) {
 			atlas.add( targets );

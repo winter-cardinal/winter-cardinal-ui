@@ -5,6 +5,7 @@
 
 import { utils } from "pixi.js";
 import { DButtonBase } from "./d-button-base";
+import { DOnOptions } from "./d-on-options";
 
 /**
  * {@link DButtonGroup} events.
@@ -21,8 +22,9 @@ export interface DButtonGroupEvents<BUTTON, EMITTER> {
 /**
  * {@link DButtonGroup} "on" options.
  */
-export interface DButtonGroupOnOptions<BUTTON, EMITTER> extends Partial<DButtonGroupEvents<BUTTON, EMITTER>> {
-	[ key: string ]: Function | undefined;
+export interface DButtonGroupOnOptions<BUTTON, EMITTER>
+	extends Partial<DButtonGroupEvents<BUTTON, EMITTER>>, DOnOptions {
+
 }
 
 export interface DButtonGroupOptions<

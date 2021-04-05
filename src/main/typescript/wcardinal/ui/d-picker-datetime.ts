@@ -57,7 +57,7 @@ export class DPickerDatetime<
 	protected _dateDecorator!: DPickerDatetimeDateDecorator;
 	protected _label!: DPickerDatetimeLabel;
 
-	protected init( options?: OPTIONS ) {
+	protected init( options?: OPTIONS ): void {
 		super.init( options );
 		this._datePage = new Date( this._dateCurrent.getTime() );
 	}

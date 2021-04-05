@@ -78,7 +78,7 @@ export class DMenuItemLink<
 	}
 
 	protected initOnClick( options?: OPTIONS ): void {
-		this._link.apply( this, ( e ) => this.onSelect( e ) );
+		this._link.add( this, ( e ) => this.onSelect( e ) );
 	}
 
 	protected getType(): string {
@@ -94,7 +94,7 @@ export class DMenuItemLink<
 		this._link.open( inNewWindow );
 	}
 
-	protected onShortcut( e: KeyboardEvent ) {
+	protected onShortcut( e: KeyboardEvent ): void {
 		super.onShortcut( e );
 		this.onSelect( e );
 	}

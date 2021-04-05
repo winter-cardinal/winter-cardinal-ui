@@ -22,7 +22,7 @@ import { loadThemeWhiteDialogSaveAs } from "./load-theme-white-dialog-save-as";
 import { loadThemeWhiteDialogSelect } from "./load-theme-white-dialog-select";
 import { loadThemeWhiteDialogTime } from "./load-theme-white-dialog-time";
 
-export const loadThemeWhiteDialogAll = () => {
+export const loadThemeWhiteDialogAll = (): void => {
 	loadThemeWhiteDialogColorGradient();
 	loadThemeWhiteDialogColor();
 	loadThemeWhiteDialogCommand();

@@ -106,14 +106,14 @@ export class EShapeGroupStrokeEditor implements EShapeStroke {
 		}
 	}
 
-	copy( target?: Partial<EShapeStrokeLike> ) {
+	copy( target?: Partial<EShapeStrokeLike> ): void {
 		const children = this._parent.children;
 		for( let i = 0, imax = children.length; i < imax; ++i ) {
 			children[ i ].stroke.copy( target );
 		}
 	}
 
-	set( enable: boolean, color: number, alpha: number, width: number, side: EShapeStrokeSide ) {
+	set( enable: boolean, color: number, alpha: number, width: number, side: EShapeStrokeSide ): void {
 		const children = this._parent.children;
 		for( let i = 0, imax = children.length; i < imax; ++i ) {
 			children[ i ].stroke.set( enable, color, alpha, width, side );

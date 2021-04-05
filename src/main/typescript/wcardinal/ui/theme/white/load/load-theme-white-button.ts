@@ -6,6 +6,6 @@
 import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteButton } from "../d-theme-white-button";
 
-export const loadThemeWhiteButton = () => {
+export const loadThemeWhiteButton = (): void => {
 	DThemeWhite.set( "DButton", DThemeWhiteButton );
 };

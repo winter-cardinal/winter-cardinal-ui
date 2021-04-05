@@ -6,6 +6,6 @@
 import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteDialogInputInteger } from "../d-theme-white-dialog-input-integer";
 
-export const loadThemeWhiteDialogInputInteger = () => {
+export const loadThemeWhiteDialogInputInteger = (): void => {
 	DThemeWhite.set( "DDialogInputInteger", DThemeWhiteDialogInputInteger );
 };

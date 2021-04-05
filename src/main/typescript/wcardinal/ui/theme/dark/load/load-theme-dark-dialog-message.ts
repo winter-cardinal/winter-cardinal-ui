@@ -6,6 +6,6 @@
 import { DThemeDark } from "../d-theme-dark";
 import { DThemeDarkDialogMessage } from "../d-theme-dark-dialog-message";
 
-export const loadThemeDarkDialogMessage = () => {
+export const loadThemeDarkDialogMessage = (): void => {
 	DThemeDark.set( "DDialogMessage", DThemeDarkDialogMessage );
 };

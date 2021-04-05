@@ -40,6 +40,7 @@ import { UtilPointerEvent } from "./util/util-pointer-event";
 import { UtilWheelEventDeltas } from "./util/util-wheel-event";
 import { DBaseAutoSet } from "./d-base-auto-set";
 import { toEnum } from "./util/to-enum";
+import { DOnOptions } from "./d-on-options";
 
 /**
  * {@link DBase} padding options.
@@ -220,8 +221,9 @@ export interface DBaseEvents<EMITTER> {
 /**
  * {@link DBase} "on" options.
  */
-export interface DBaseOnOptions<EMITTER> extends Partial<DBaseEvents<EMITTER>> {
-	[ key: string ]: Function | undefined;
+export interface DBaseOnOptions<EMITTER>
+	extends Partial<DBaseEvents<EMITTER>>, DOnOptions {
+
 }
 
 /**
@@ -1169,7 +1171,7 @@ export class DBase<
 		}
 	}
 
-	setX( x: DCoordinatePosition ) {
+	setX( x: DCoordinatePosition ): void {
 		if( isNumber( x ) ) {
 			this.x = x;
 		} else {
@@ -1200,7 +1202,7 @@ export class DBase<
 		}
 	}
 
-	setY( y: DCoordinatePosition ) {
+	setY( y: DCoordinatePosition ): void {
 		if( isNumber( y ) ) {
 			this.y = y;
 		} else {
@@ -1243,7 +1245,7 @@ export class DBase<
 		);
 	}
 
-	setWidth( width: DCoordinateSize ) {
+	setWidth( width: DCoordinateSize ): void {
 		const auto = this._auto.width;
 		const isOn = auto.isOn;
 		const isAuto = auto.from( width );
@@ -1295,7 +1297,7 @@ export class DBase<
 		);
 	}
 
-	setHeight( height: DCoordinateSize ) {
+	setHeight( height: DCoordinateSize ): void {
 		const auto = this._auto.height;
 		const isOn = auto.isOn;
 		const isAuto = auto.from( height );
@@ -1449,19 +1451,19 @@ export class DBase<
 		return this._isChildrenDirty;
 	}
 
-	protected onChildrenDirty() {
+	protected onChildrenDirty(): void {
 		// DO NOTHING
 	}
 
-	isDirty() {
+	isDirty(): boolean {
 		return this._isDirty;
 	}
 
-	hasDirty() {
+	hasDirty(): boolean {
 		return this._hasDirty;
 	}
 
-	protected setFocused( isFocused: boolean ) {
+	protected setFocused( isFocused: boolean ): this {
 		if( this.state.isFocused !== isFocused ) {
 			const layer = DApplications.getLayer( this );
 			if( layer ) {

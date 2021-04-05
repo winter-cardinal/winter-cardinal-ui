@@ -23,7 +23,7 @@ export class DSliderLabel<
 > extends DTextBase<VALUE, THEME, OPTIONS> {
 	protected _value!: number;
 
-	protected init( options?: OPTIONS ) {
+	protected init( options?: OPTIONS ): void {
 		super.init( options );
 		this.state.isFocusable = false;
 

@@ -18,7 +18,7 @@ export interface DThemeScrollBarThumb extends DThemeBase {
 export abstract class DScrollBarThumb extends DBase<DThemeScrollBarThumb, DScrollBarThumbOptions> {
 	protected _dragUtil!: UtilDrag;
 
-	protected init( options?: DScrollBarThumbOptions ) {
+	protected init( options?: DScrollBarThumbOptions ): void {
 		super.init( options );
 		this.state.isFocusable = false;
 

@@ -99,7 +99,7 @@ export class DPickerTime<
 		this.onNewChange();
 	}
 
-	protected init( options?: OPTIONS ) {
+	protected init( options?: OPTIONS ): void {
 		super.init( options );
 
 		this.state.isFocusable = false;

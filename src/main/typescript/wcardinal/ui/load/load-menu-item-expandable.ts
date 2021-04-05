@@ -18,7 +18,7 @@ import { DMenuItemSeparator } from "../d-menu-item-separator";
 import { DMenuItemSpace } from "../d-menu-item-space";
 import { DMenus } from "../d-menus";
 
-export const loadMenuItemExpandable = () => {
+export const loadMenuItemExpandable = (): void => {
 	DMenus.addItemCreator(( options: DMenuItemOptionsUnion<any> ): DisplayObject | null => {
 		if( DMenuItemExpandable.isCompatible( options ) ) {
 			return new DMenuItemExpandable( options );

@@ -11,7 +11,7 @@ import { EShapeUploadeds } from "../e-shape-uploadeds";
 import { createGroupUploaded } from "../variant/create-group-uploaded";
 import { deserializeEmbedded } from "../variant/deserialize-embedded";
 
-export const loadShapeEmbedded = () => {
+export const loadShapeEmbedded = (): void => {
 	EShapeUploadeds[ EShapeType.EMBEDDED ] = createGroupUploaded;
 	EShapeDeserializers[ EShapeType.EMBEDDED ] = deserializeEmbedded;
 	EShapeCapabilities.set( EShapeType.EMBEDDED, EShapeCapability.EMBEDDED );

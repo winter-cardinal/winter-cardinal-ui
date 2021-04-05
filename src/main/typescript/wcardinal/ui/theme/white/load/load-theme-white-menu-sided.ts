@@ -32,7 +32,7 @@ import { DThemeWhiteMenuSidedItemSeparator } from "../d-theme-white-menu-sided-i
 import { DThemeWhiteMenuSidedItemSpace } from "../d-theme-white-menu-sided-item-space";
 import { DThemeWhiteMenuSidedItemText } from "../d-theme-white-menu-sided-item-text";
 
-export const loadThemeWhiteMenuSided = () => {
+export const loadThemeWhiteMenuSided = (): void => {
 	DThemeWhite.set( "DMenuSided", DThemeWhiteMenuSided );
 	DThemeWhite.set( "DMenuSidedContent", DThemeWhiteMenuSidedContent );
 

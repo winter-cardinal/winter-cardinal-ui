@@ -294,9 +294,14 @@ export class EShapeRenderer extends ObjectRenderer {
 			if( textureItem != null ) {
 				shape.texture = textureItem.texture;
 			} else {
-				const newTextureItem = new DynamicAtlasItemImage( shape.image!, baseTexture );
-				shape.texture = newTextureItem.texture;
-				atlas.set( newTextureItem.id, newTextureItem );
+				const image = shape.image;
+				if( image != null ) {
+					const newTextureItem = new DynamicAtlasItemImage( image, baseTexture );
+					shape.texture = newTextureItem.texture;
+					atlas.set( newTextureItem.id, newTextureItem );
+				} else {
+					shape.texture = defaultTexture;
+				}
 			}
 		} else {
 			shape.texture = defaultTexture;
@@ -400,7 +405,7 @@ export class EShapeRenderer extends ObjectRenderer {
 			shader.uniforms.antialiasWeight = antialiasWeight;
 			shader.uniforms.translationMatrix = container.worldTransform.toArray( true );
 			renderer.shader.bind( shader, false );
-			renderer.state!.setBlendMode(utils.correctBlendMode(BLEND_MODES.NORMAL, true));
+			renderer.state.setBlendMode(utils.correctBlendMode(BLEND_MODES.NORMAL, true));
 			const buffersLength = buffers.length;
 			if( 1 < buffersLength ) {
 				for( let i = 0; i < buffersLength; ++i ) {

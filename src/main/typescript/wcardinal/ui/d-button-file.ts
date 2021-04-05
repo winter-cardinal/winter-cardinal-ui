@@ -5,6 +5,7 @@
 
 import { interaction } from "pixi.js";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
+import { DOnOptions } from "./d-on-options";
 import { toEnum } from "./util/to-enum";
 import { UtilFileAs, UtilFileEvents, UtilFileOpener } from "./util/util-file-opener";
 
@@ -20,8 +21,9 @@ export interface DButtonFileEvents<VALUE, EMITTER> extends DButtonEvents<VALUE, 
 /**
  * {@link DButtonFile} "on" options.
  */
-export interface DButtonFileOnOptions<VALUE, EMITTER> extends Partial<DButtonFileEvents<VALUE, EMITTER>> {
-	[ key: string ]: Function | undefined;
+export interface DButtonFileOnOptions<VALUE, EMITTER>
+	extends Partial<DButtonFileEvents<VALUE, EMITTER>>, DOnOptions {
+
 }
 
 export type DButtonFileChecker = () => Promise<unknown> | boolean;

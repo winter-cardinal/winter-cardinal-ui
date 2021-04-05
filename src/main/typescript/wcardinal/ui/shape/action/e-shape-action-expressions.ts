@@ -6,13 +6,13 @@
 import { EShapeActionExpression, EShapeActionExpressionWithParameter } from "./e-shape-action-expression";
 
 export class EShapeActionExpressions {
-	static NULL = () => null;
-	static ZERO = () => 0;
-	static ONE = () => 1;
-	static ONE_HUNDRED = () => 100;
-	static EMPTY = () => "";
-	static TRUE = () => true;
-	static FALSE = () => false;
+	static NULL = (): null => null;
+	static ZERO = (): number => 0;
+	static ONE = (): number => 1;
+	static ONE_HUNDRED = (): number => 100;
+	static EMPTY = (): string => "";
+	static TRUE = (): boolean => true;
+	static FALSE = (): boolean => false;
 
 	static from<T, DEF>(
 		expression: string, caster: string, def: DEF,

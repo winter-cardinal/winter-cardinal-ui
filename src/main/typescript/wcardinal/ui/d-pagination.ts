@@ -48,7 +48,7 @@ export class DPagination<
 	protected _goFirstBtn!: DPaginationNavigationButton;
 	protected _goLastBtn!: DPaginationNavigationButton;
 
-	protected init( options: OPTIONS ) {
+	protected init( options: OPTIONS ): void {
 		super.init( options );
 		this.DEFAULT_SELECTED = 0; // set default selected index page is page 0
 		// get total pages
@@ -91,7 +91,7 @@ export class DPagination<
 	 *
 	 * @returns index of selected page.
 	 */
-	get selected() {
+	get selected(): number {
 		return this._selected;
 	}
 
@@ -115,11 +115,11 @@ export class DPagination<
 	 *
 	 * @returns number of total pages.
 	 */
-	get total() {
+	get total(): number {
 		return this._total;
 	}
 
-	protected initButtons( width: number ) {
+	protected initButtons( width: number ): void {
 		this._previousBtn = new DPaginationNavigationButton({
 			width,
 			image: {
@@ -183,7 +183,7 @@ export class DPagination<
 		this.addChild( this._goLastBtn );
 	}
 
-	protected listenButtonClicked() {
+	protected listenButtonClicked(): void {
 		this._firstPageBtn.on( "active", ( btn: DButton ) => {
 			this.onClickPageButton( btn );
 		});
@@ -211,7 +211,7 @@ export class DPagination<
 		});
 	}
 
-	protected update() {
+	protected update(): void {
 		let startDynamic: number;
 		let endDynamic: number;
 		let dotsLeft: boolean;
@@ -264,7 +264,7 @@ export class DPagination<
 		});
 	}
 
-	protected updateStaticButtons() {
+	protected updateStaticButtons(): void {
 		if( this._total > 0 ) {
 			this._firstPageBtn.show();
 		} else {
@@ -285,11 +285,11 @@ export class DPagination<
 		this._goLastBtn.state.isDisabled = isLast;
 	}
 
-	protected getButtonWidth() {
+	protected getButtonWidth(): number {
 		return this._buttonOptions.width ? this._buttonOptions.width : this.theme.getButtonWidth();
 	}
 
-	protected toNumberVisible() {
+	protected toNumberVisible(): number {
 		let numberNavigationBtn = 2; // 2 buttons always displayed are "next" and "previous" button
 		if( this._buttonOptions.first ) {
 			numberNavigationBtn++;
@@ -306,7 +306,7 @@ export class DPagination<
 		return Math.min( this._total, Math.max( numberVisible, 5 ) );
 	}
 
-	protected onClickPageButton( btn: DButton ) {
+	protected onClickPageButton( btn: DButton ): void {
 		const btnIndex = Number( btn.text ) - 1;
 		if( this._selected !== btnIndex ) {
 			this._selected = btnIndex;

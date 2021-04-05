@@ -6,6 +6,6 @@
 import { DThemeWhite } from "../d-theme-white";
 import { EThemeWhiteShape } from "../e-theme-white-shape";
 
-export const loadThemeWhiteShape = () => {
+export const loadThemeWhiteShape = (): void => {
 	DThemeWhite.set( "EShape", EThemeWhiteShape );
 };

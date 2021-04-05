@@ -7,7 +7,7 @@ import { DThemeDark } from "../d-theme-dark";
 import { DThemeDarkPickerDate } from "../d-theme-dark-picker-date";
 import { loadThemeDarkPickerDatetime } from "./load-theme-dark-picker-datetime";
 
-export const loadThemeDarkPickerDate = () => {
+export const loadThemeDarkPickerDate = (): void => {
 	DThemeDark.set( "DPickerDate", DThemeDarkPickerDate );
 	loadThemeDarkPickerDatetime();
 };

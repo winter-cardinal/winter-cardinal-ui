@@ -435,7 +435,7 @@ export class DTable<
 		super( options );
 	}
 
-	protected init( options: OPTIONS ) {
+	protected init( options: OPTIONS ): void {
 		// Column
 		const columns = toColumns( options.columns );
 

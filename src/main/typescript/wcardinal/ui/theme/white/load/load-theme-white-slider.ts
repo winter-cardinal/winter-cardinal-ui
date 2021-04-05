@@ -14,7 +14,7 @@ import { DThemeWhiteSliderTrackVertical } from "../d-theme-white-slider-track-ve
 import { DThemeWhiteSliderValue } from "../d-theme-white-slider-value";
 import { DThemeWhiteSliderVertical } from "../d-theme-white-slider-vertical";
 
-export const loadThemeWhiteSlider = () => {
+export const loadThemeWhiteSlider = (): void => {
 	DThemeWhite.set( "DSlider", DThemeWhiteSlider );
 	DThemeWhite.set( "DSliderValue", DThemeWhiteSliderValue );
 	DThemeWhite.set( "DSliderLabel", DThemeWhiteSliderLabel );

@@ -4,7 +4,7 @@ import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteTableBodyCells } from "./d-theme-white-table-body-cells";
 
 export class DThemeWhiteTableBodyCellActions {
-	static init() {
+	static init(): void {
 		// Material Design icons by Google.
 		// Apache license version 2.0.
 		DThemeWhiteAtlas.add( "action_mark", 21, 21,

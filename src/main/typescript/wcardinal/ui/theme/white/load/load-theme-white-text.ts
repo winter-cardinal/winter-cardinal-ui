@@ -6,6 +6,6 @@
 import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteText } from "../d-theme-white-text";
 
-export const loadThemeWhiteText = () => {
+export const loadThemeWhiteText = (): void => {
 	DThemeWhite.set( "DText", DThemeWhiteText );
 };

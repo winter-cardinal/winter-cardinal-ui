@@ -16,7 +16,7 @@ export class DBasePoint {
 		this._onChange = onChange;
 	}
 
-	get x() {
+	get x(): number {
 		return this._point.x;
 	}
 
@@ -30,7 +30,7 @@ export class DBasePoint {
 		}
 	}
 
-	get y() {
+	get y(): number {
 		return this._point.y;
 	}
 
@@ -73,6 +73,7 @@ export class DBasePoint {
 	}
 
 	copy(): this {
+		// eslint-disable-next-line prefer-rest-params
 		return this.copyFrom( arguments[ 0 ] );
 	}
 

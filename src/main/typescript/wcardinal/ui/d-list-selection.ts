@@ -6,6 +6,7 @@
 import { Container, utils } from "pixi.js";
 import { DBase } from "./d-base";
 import { DListItem } from "./d-list-item";
+import { DOnOptions } from "./d-on-options";
 import { toEnum } from "./util/to-enum";
 
 export enum DListSelectionMode {
@@ -29,8 +30,9 @@ export interface DListSelectionEvents<EMITTER> {
 /**
  * {@link DListSelection} "on" options.
  */
-export interface DListSelectionOnOptions<EMITTER> extends Partial<DListSelectionEvents<EMITTER>> {
-	[ key: string ]: Function | undefined;
+export interface DListSelectionOnOptions<EMITTER>
+	extends Partial<DListSelectionEvents<EMITTER>>, DOnOptions {
+
 }
 
 /**

@@ -30,7 +30,7 @@ export class DDiagramEditorThumbnail {
 		this._size = options?.size ?? theme.getThumbnailSize();
 	}
 
-	get enable() {
+	get enable(): boolean {
 		return this._isEnabled;
 	}
 

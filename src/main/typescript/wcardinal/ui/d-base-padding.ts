@@ -121,7 +121,7 @@ export class DBasePadding implements DPadding {
 	set( topAndBottom: number, leftAndRight: number ): void;
 	set( top: number, leftAndRight: number, bottom: number ): void;
 	set( top: number, right: number, bottom: number, left: number ): void;
-	set( top: number, right?: number, bottom?: number, left?: number ) {
+	set( top: number, right?: number, bottom?: number, left?: number ): void {
 		if( right == null ) {
 			this.top = top;
 			this.right = top;

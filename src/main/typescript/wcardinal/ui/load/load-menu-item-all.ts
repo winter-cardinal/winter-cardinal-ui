@@ -8,7 +8,7 @@ import { loadMenuItemExpandable } from "./load-menu-item-expandable";
 import { loadMenuSidedItem } from "./load-menu-sided-item";
 import { loadMenuSidedItemExpandable } from "./load-menu-sided-item-expandable";
 
-export const loadMenuItemAll = () => {
+export const loadMenuItemAll = (): void => {
 	loadMenuItem();
 	loadMenuItemExpandable();
 	loadMenuSidedItem();

@@ -73,7 +73,7 @@ export class EShapeTextOutlineImpl implements EShapeTextOutline {
 		}
 	}
 
-	set( enable?: boolean, color?: number, alpha?: number, width?: number ) {
+	set( enable?: boolean, color?: number, alpha?: number, width?: number ): void {
 		let isChanged = false;
 
 		if( enable !== undefined && this._enable !== enable ) {
@@ -119,7 +119,7 @@ export class EShapeTextOutlineImpl implements EShapeTextOutline {
 		return manager.addResource( serialized );
 	}
 
-	deserialize( target: number, manager: EShapeResourceManagerDeserialization ) {
+	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void {
 		const resources = manager.resources;
 		if( 0 <= target && target < resources.length ) {
 			const parsed = manager.getTextOutline( target );

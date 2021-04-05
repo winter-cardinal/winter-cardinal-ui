@@ -61,11 +61,11 @@ export class EShapeGroupStrokeViewer implements EShapeStroke {
 		// DO NOTHING
 	}
 
-	copy( target?: Partial<EShapeStrokeLike> ) {
+	copy( target?: Partial<EShapeStrokeLike> ): void {
 		// DO NOTHING
 	}
 
-	set( enable?: boolean, color?: number, alpha?: number, width?: number, side?: EShapeStrokeSide ) {
+	set( enable?: boolean, color?: number, alpha?: number, width?: number, side?: EShapeStrokeSide ): void {
 		// DO NOTHING
 	}
 

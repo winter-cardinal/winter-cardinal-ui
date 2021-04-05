@@ -13,6 +13,7 @@ import { DDiagramCanvasEditor, DDiagramCanvasEditorOptions } from "./d-diagram-c
 import { DDiagramEditorThumbnail, DDiagramEditorThumbnailOptions, DThemeDiagramEditorThumbnail } from "./d-diagram-editor-thumbnail";
 import { DDiagramSerialized, DDiagramSerializedSimple, DDiagramSerializedVersion } from "./d-diagram-serialized";
 import { DDiagrams } from "./d-diagrams";
+import { DOnOptions } from "./d-on-options";
 import { ESnapper } from "./snapper/e-snapper";
 
 /**
@@ -93,8 +94,9 @@ export interface DDiagramEditorEvents<EMITTER> extends DDiagramBaseEvents<DDiagr
 /**
  * {@link DDiagramEditor} "on" options.
  */
-export interface DDiagramEditorOnOptions<EMITTER> extends Partial<DDiagramEditorEvents<EMITTER>> {
-	[ key: string ]: Function | undefined;
+export interface DDiagramEditorOnOptions<EMITTER>
+	extends Partial<DDiagramEditorEvents<EMITTER>>, DOnOptions {
+
 }
 
 /**
@@ -162,7 +164,7 @@ export class DDiagramEditor<
 
 		// Snapper
 		const snapper = this._snapper;
-		let snap = options.snap;
+		const snap = options.snap;
 		if( snap == null ) {
 			options.snap = {
 				controller: snapper

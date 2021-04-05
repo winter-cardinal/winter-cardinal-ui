@@ -6,6 +6,6 @@
 import { DThemeDark } from "../d-theme-dark";
 import { DThemeDarkView } from "../d-theme-dark-view";
 
-export const loadThemeDarkView = () => {
+export const loadThemeDarkView = (): void => {
 	DThemeDark.set( "DView", DThemeDarkView );
 };

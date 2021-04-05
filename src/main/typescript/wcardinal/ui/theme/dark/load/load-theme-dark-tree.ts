@@ -9,7 +9,7 @@ import { DThemeDarkTreeItem } from "../d-theme-dark-tree-item";
 import { DThemeDarkTreeItemTextAndImage } from "../d-theme-dark-tree-item-text-and-image";
 import { DThemeDarkTreeItemToggleIcon } from "../d-theme-dark-tree-item-toggle-icon";
 
-export const loadThemeDarkTree = () => {
+export const loadThemeDarkTree = (): void => {
 	DThemeDark.set( "DTree", DThemeDarkTree );
 	DThemeDark.set( "DTreeItem", DThemeDarkTreeItem );
 	DThemeDark.set( "DTreeItemToggleIcon", DThemeDarkTreeItemToggleIcon);

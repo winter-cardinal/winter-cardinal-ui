@@ -377,7 +377,7 @@ export interface DDiagramSerializedSnapGridWithoutVisibility {
 
 	/** A grid size. */
 	[ 1 ]: number;
-};
+}
 
 /**
  * Serialized grid snap settings with a visibility option.
@@ -391,7 +391,7 @@ export interface DDiagramSerializedSnapGridWithVisibility {
 
 	/** A grid size. */
 	[ 2 ]: number;
-};
+}
 
 /**
  * Serialized grid snap settings with a visibility.

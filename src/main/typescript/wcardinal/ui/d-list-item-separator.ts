@@ -20,7 +20,7 @@ export class DListItemSeparator<
 	THEME extends DThemeListItemSeparator = DThemeListItemSeparator,
 	OPTIONS extends DListItemSeparatorOptions<VALUE, THEME> = DListItemSeparatorOptions<VALUE, THEME>
 > extends DListItem<VALUE, THEME, OPTIONS> {
-	protected init( options?: OPTIONS ) {
+	protected init( options?: OPTIONS ): void {
 		super.init( options );
 		this.state.isFocusable = false;
 	}

@@ -64,7 +64,7 @@ export class EShapeLineOfRectanglesUploaded extends EShapeLineOfAnyUploaded {
 		}
 	}
 
-	protected updateVertexClippingStepAndUv( buffer: EShapeBuffer, shape: EShape, points: EShapeLineOfAnyPoints ) {
+	protected updateVertexClippingStepAndUv( buffer: EShapeBuffer, shape: EShape, points: EShapeLineOfAnyPoints ): void {
 		const pointId = points.id;
 		const pointOffset = points.offset;
 		const pointOffsetId = pointOffset.id;

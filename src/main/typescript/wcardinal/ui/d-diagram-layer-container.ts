@@ -147,7 +147,7 @@ export class DDiagramLayerContainer extends Container {
 		}
 	}
 
-	destroy() {
+	destroy(): void {
 		if( ! this._destroyed ) {
 			this.clear();
 			super.destroy();

@@ -13,7 +13,7 @@ import { DMenuItemSpace } from "../d-menu-item-space";
 import { DMenuItemText } from "../d-menu-item-text";
 import { DMenus } from "../d-menus";
 
-export const loadMenuItem = () => {
+export const loadMenuItem = (): void => {
 	DMenus.addItemCreator(( options: DMenuItemOptionsUnion<any> ): DisplayObject | null => {
 		if( DMenuItemCheck.isCompatible( options ) ) {
 			return new DMenuItemCheck( options );

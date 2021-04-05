@@ -23,7 +23,7 @@ import { loadShapeRectangleRounded } from "./load-shape-rectangle-rounded";
 import { loadShapeTriangle } from "./load-shape-triangle";
 import { loadShapeTriangleRounded } from "./load-shape-triangle-rounded";
 
-export const loadShapeAll = () => {
+export const loadShapeAll = (): void => {
 	loadShapeBar();
 	loadShapeCircle();
 	loadShapeEmbedded();

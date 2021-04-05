@@ -21,7 +21,7 @@ import { DMenuSidedItemExpandableItemText } from "../d-menu-sided-item-expandabl
 import { DMenuSidedItemExpandables } from "../d-menu-sided-item-expandables";
 import { DMenuSideds } from "../d-menu-sideds";
 
-export const loadMenuSidedItemExpandable = () => {
+export const loadMenuSidedItemExpandable = (): void => {
 	DMenuSideds.addItemCreator(( options: DMenuItemOptionsUnion<any> ): DisplayObject | null => {
 		if( DMenuItemExpandable.isCompatible( options ) ) {
 			return new DMenuSidedItemExpandable( options );

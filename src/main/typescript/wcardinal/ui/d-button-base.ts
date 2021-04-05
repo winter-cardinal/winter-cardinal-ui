@@ -8,6 +8,7 @@ import { DApplications } from "./d-applications";
 import { DButtonBaseWhen } from "./d-button-base-when";
 import { DButtonGroup } from "./d-button-group";
 import { DImageBase, DImageBaseEvents, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
+import { DOnOptions } from "./d-on-options";
 import { toEnum } from "./util/to-enum";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
@@ -34,8 +35,9 @@ export interface DButtonBaseEvents<VALUE, EMITTER> extends DImageBaseEvents<VALU
 /**
  * {@link DButtonBase} "on" options.
  */
-export interface DButtonBaseOnOptions<VALUE, EMITTER> extends Partial<DButtonBaseEvents<VALUE, EMITTER>> {
-	[ key: string ]: Function | undefined;
+export interface DButtonBaseOnOptions<VALUE, EMITTER>
+	extends Partial<DButtonBaseEvents<VALUE, EMITTER>>, DOnOptions {
+
 }
 
 /**
@@ -94,7 +96,7 @@ export class DButtonBase<
 	protected _isToggle!: boolean;
 	protected _when!: DButtonBaseWhen;
 
-	protected init( options?: OPTIONS ) {
+	protected init( options?: OPTIONS ): void {
 		super.init( options );
 
 		const theme = this.theme;

@@ -200,7 +200,7 @@ export class EShapeLineOfCirclesUploaded extends EShapeLineOfAnyUploaded {
 		}
 	}
 
-	protected updateUv( buffer: EShapeBuffer, shape: EShape ) {
+	protected updateUv( buffer: EShapeBuffer, shape: EShape ): void {
 		const texture = this.toTexture( shape );
 		const textureTransformId = this.toTextureTransformId( texture );
 		if( texture !== this.texture || textureTransformId !== this.textureTransformId ) {

@@ -9,7 +9,7 @@ import { DThemeWhitePaginationDotsButton } from "../d-theme-white-pagination-dot
 import { DThemeWhitePaginationDynamicButtons } from "../d-theme-white-pagination-dynamic-buttons";
 import { DThemeWhitePaginationNavigationButton } from "../d-theme-white-pagination-navigation-button";
 
-export const loadThemeWhitePagination = () => {
+export const loadThemeWhitePagination = (): void => {
 	DThemeWhite.set( "DPagination", DThemeWhitePagination );
 	DThemeWhite.set( "DPaginationNavigationButton", DThemeWhitePaginationNavigationButton );
 	DThemeWhite.set( "DPaginationDynamicButtons", DThemeWhitePaginationDynamicButtons );

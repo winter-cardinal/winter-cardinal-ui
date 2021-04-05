@@ -11,7 +11,7 @@ import { EShapeUploadeds } from "../e-shape-uploadeds";
 import { createLineOfRectangleRoundedsUploaded } from "../variant/create-line-of-rectangle-roundeds-uploaded";
 import { deserializeLineOfRectangleRoundeds } from "../variant/deserialize-line-of-rectangle-roundeds";
 
-export const loadShapeLineOfRectangleRoundeds = () => {
+export const loadShapeLineOfRectangleRoundeds = (): void => {
 	EShapeUploadeds[ EShapeType.LINE_OF_RECTANGLE_ROUNDEDS ] = createLineOfRectangleRoundedsUploaded;
 	EShapeDeserializers[ EShapeType.LINE_OF_RECTANGLE_ROUNDEDS ] = deserializeLineOfRectangleRoundeds;
 	EShapeCapabilities.set(

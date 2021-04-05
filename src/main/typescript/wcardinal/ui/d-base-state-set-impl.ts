@@ -66,7 +66,7 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 		return this;
 	}
 
-	protected checkAddeds( states: string[] ) {
+	protected checkAddeds( states: string[] ): boolean {
 		const local = this._local;
 		for( let i = 0, imax = states.length; i < imax; ++i ) {
 			if( ! local.has( states[ i ] ) ) {
@@ -80,6 +80,7 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 	addAll( ...states: string[] ): this;
 	addAll( stateOrStates: string | string[] ): this {
 		const states = ( isString( stateOrStates ) ?
+			// eslint-disable-next-line prefer-rest-params
 			arguments as unknown as string[] : stateOrStates
 		);
 		if( this.checkAddeds( states ) ) {
@@ -106,7 +107,7 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 		return this;
 	}
 
-	protected checkRemoveds( states: string[] ) {
+	protected checkRemoveds( states: string[] ): boolean {
 		const local = this._local;
 		for( let i = 0, imax = states.length; i < imax; ++i ) {
 			if( local.has( states[ i ] ) ) {
@@ -137,6 +138,7 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 			}
 		} else {
 			const states = ( isString( stateOrStatesOrMatcher ) ?
+				// eslint-disable-next-line prefer-rest-params
 				arguments as unknown as string[] : stateOrStatesOrMatcher
 			);
 			if( this.checkRemoveds( states ) ) {
@@ -164,9 +166,13 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 	set( added: string | null, removed: string | null ): this;
 	set( stateOrAdded: string | null, isOnOrRemoved: string | null | boolean ): this {
 		if( isOnOrRemoved === true ) {
-			this.add( stateOrAdded! );
+			if( stateOrAdded != null ) {
+				this.add( stateOrAdded );
+			}
 		} else if( isOnOrRemoved === false ) {
-			this.remove( stateOrAdded! );
+			if( stateOrAdded != null ) {
+				this.remove( stateOrAdded );
+			}
 		} else {
 			const added = stateOrAdded;
 			const removed = isOnOrRemoved;
@@ -191,9 +197,13 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 	setAll( addeds: string[] | null, removeds: string[] | null ): this;
 	setAll( statesOrAddeds: string[] | null, isOnOrRemoveds: string[] | null | boolean ): this {
 		if( isOnOrRemoveds === true ) {
-			this.addAll( statesOrAddeds! );
+			if( statesOrAddeds != null ) {
+				this.addAll( statesOrAddeds );
+			}
 		} else if( isOnOrRemoveds === false ) {
-			this.removeAll( statesOrAddeds! );
+			if( statesOrAddeds != null ) {
+				this.removeAll( statesOrAddeds );
+			}
 		} else {
 			const addeds = statesOrAddeds;
 			const removeds = isOnOrRemoveds;

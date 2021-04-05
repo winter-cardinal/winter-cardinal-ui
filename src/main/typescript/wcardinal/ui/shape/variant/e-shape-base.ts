@@ -269,7 +269,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	abstract clone(): EShape;
 
 	//
-	toDirty() {
+	toDirty(): void {
 		this.parent?.toDirty();
 	}
 
@@ -306,7 +306,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	}
 
 	// Transform
-	updateTransform() {
+	updateTransform(): void {
 		const parent = this.parent;
 		if( parent ) {
 			if( parent.parent ) {

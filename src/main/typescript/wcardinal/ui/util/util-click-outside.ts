@@ -13,7 +13,7 @@ export type UtilClickOutsideOnClick = ( e: InteractionEvent ) => void;
 export class UtilClickOutside {
 	protected static point = new Point();
 
-	static apply( target: DBase<any, any>, onClick: UtilClickOutsideOnClick ) {
+	static apply( target: DBase, onClick: UtilClickOutsideOnClick ): void {
 		target.on( UtilPointerEvent.down, ( e: InteractionEvent ): void => {
 			if( e.target === target ) {
 				const point = this.point;

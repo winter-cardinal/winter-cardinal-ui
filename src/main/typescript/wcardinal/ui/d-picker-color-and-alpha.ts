@@ -20,7 +20,7 @@ export class DPickerColorAndAlpha implements DColorAndAlpha {
 		this._onAlphaChange = onAlphaChange;
 	}
 
-	get color() {
+	get color(): number {
 		return this._colorAndAlpha.color;
 	}
 
@@ -33,7 +33,7 @@ export class DPickerColorAndAlpha implements DColorAndAlpha {
 		}
 	}
 
-	get alpha() {
+	get alpha(): number {
 		return this._colorAndAlpha.alpha;
 	}
 

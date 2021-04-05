@@ -30,7 +30,7 @@ export class DMenuItemMenu<
 > extends DMenuItem<VALUE, THEME, OPTIONS> {
 	protected _menu?: DMenu<VALUE>;
 
-	protected init( options: OPTIONS ) {
+	protected init( options: OPTIONS ): void {
 		super.init( options );
 		this.initHover( options );
 	}

@@ -6,6 +6,6 @@
 import { DThemeDark } from "../d-theme-dark";
 import { EThemeDarkShapeActionValue } from "../e-theme-dark-shape-action-value";
 
-export const loadThemeDarkShapeActionValue = () => {
+export const loadThemeDarkShapeActionValue = (): void => {
 	DThemeDark.set( "EShapeActionValue", EThemeDarkShapeActionValue );
 };

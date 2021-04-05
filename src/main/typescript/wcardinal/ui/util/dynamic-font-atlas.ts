@@ -48,7 +48,7 @@ export class DynamicFontAtlas {
 		this.add_( "...", this._characters, true );
 	}
 
-	get id() {
+	get id(): string {
 		return this._id;
 	}
 
@@ -256,7 +256,7 @@ export class DynamicFontAtlas {
 		return this._length;
 	}
 
-	destroy() {
+	destroy(): void {
 		const canvas = this._canvas;
 		if( canvas != null ) {
 			this._canvas = null;

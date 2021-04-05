@@ -45,7 +45,7 @@ export class EShapeCircleUploaded extends EShapeTextUploaded {
 		this.updateText( buffer, shape );
 	}
 
-	protected updateCircleVertexAndStep( buffer: EShapeBuffer, shape: EShape ) {
+	protected updateCircleVertexAndStep( buffer: EShapeBuffer, shape: EShape ): void {
 		const size = shape.size;
 		const sizeX = size.x;
 		const sizeY = size.y;
@@ -90,7 +90,7 @@ export class EShapeCircleUploaded extends EShapeTextUploaded {
 		}
 	}
 
-	protected updateCircleUv( buffer: EShapeBuffer, shape: EShape ) {
+	protected updateCircleUv( buffer: EShapeBuffer, shape: EShape ): void {
 		const texture = this.toTexture( shape );
 		const textureTransformId = this.toTextureTransformId( texture );
 		if( texture !== this.texture || textureTransformId !== this.textureTransformId ) {

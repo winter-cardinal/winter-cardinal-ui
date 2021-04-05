@@ -11,7 +11,7 @@ import { EShapeUploadeds } from "../e-shape-uploadeds";
 import { createTriangleRoundedUploaded } from "../variant/create-triangle-rounded-uploaded";
 import { deserializeTriangleRounded } from "../variant/deserialize-triangle-rounded";
 
-export const loadShapeTriangleRounded = () => {
+export const loadShapeTriangleRounded = (): void => {
 	EShapeUploadeds[ EShapeType.TRIANGLE_ROUNDED ] = createTriangleRoundedUploaded;
 	EShapeDeserializers[ EShapeType.TRIANGLE_ROUNDED ] = deserializeTriangleRounded;
 	EShapeCapabilities.set(

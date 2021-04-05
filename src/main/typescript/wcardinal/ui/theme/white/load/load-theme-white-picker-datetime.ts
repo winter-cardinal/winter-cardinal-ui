@@ -13,7 +13,7 @@ import { DThemeWhitePickerDatetimeLabelDate } from "../d-theme-white-picker-date
 import { DThemeWhitePickerDatetimeSpace } from "../d-theme-white-picker-datetime-space";
 import { loadThemeWhitePickerTime } from "./load-theme-white-picker-time";
 
-export const loadThemeWhitePickerDatetime = () => {
+export const loadThemeWhitePickerDatetime = (): void => {
 	DThemeWhite.set( "DPickerDatetimeButtonBack", DThemeWhitePickerDatetimeButtonBack );
 	DThemeWhite.set( "DPickerDatetimeButtonDate", DThemeWhitePickerDatetimeButtonDate );
 	DThemeWhite.set( "DPickerDatetimeButtonNext", DThemeWhitePickerDatetimeButtonNext );

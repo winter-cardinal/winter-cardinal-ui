@@ -40,7 +40,7 @@ export class DMapTilePyramids {
 	protected static MAX: number = 18;
 	protected static THROTTLE: number = 333;
 
-	protected static toPlaneOptions( options: DMapTilePyramidsFromOptions ) {
+	protected static toPlaneOptions( options: DMapTilePyramidsFromOptions ): DMapTilePyramidPlaneOptions {
 		const plane = options.plane;
 		if( plane ) {
 			return {

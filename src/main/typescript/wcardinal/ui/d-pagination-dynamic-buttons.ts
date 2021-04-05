@@ -29,7 +29,7 @@ export class DPaginationDynamicButtons<
 	protected _dotsBtnLeft!: DPaginationDotsButton;
 	protected _dotsBtnRight!: DPaginationDotsButton;
 
-	protected init( options: OPTIONS ) {
+	protected init( options: OPTIONS ): void {
 		super.init( options );
 		this._dotsBtnLeft = new DPaginationDotsButton({
 			width: options.button.width,
@@ -43,7 +43,7 @@ export class DPaginationDynamicButtons<
 		this.addChild( this._dotsBtnRight );
 	}
 
-	public update( options: DPaginationDynamicButtonsOptions<THEME> ) {
+	public update( options: DPaginationDynamicButtonsOptions<THEME> ): void {
 		if( options.start == null || options.end == null ) {
 			return;
 		}
@@ -78,12 +78,12 @@ export class DPaginationDynamicButtons<
 		}
 
 		// update visible state of dots buttons
-		if( !!options.button.dotsLeft ) {
+		if( options.button.dotsLeft ) {
 			this._dotsBtnLeft.show();
 		} else {
 			this._dotsBtnLeft.hide();
 		}
-		if( !!options.button.dotsRight ) {
+		if( options.button.dotsRight ) {
 			this._dotsBtnRight.show();
 		} else {
 			this._dotsBtnRight.hide();

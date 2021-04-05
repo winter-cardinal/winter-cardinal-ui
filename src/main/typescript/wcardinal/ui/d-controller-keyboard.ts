@@ -8,7 +8,7 @@ import { DControllerFocus, DFocusable, DFocusableContainer } from "./d-controlle
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 
 export class DControllerKeyboard extends utils.EventEmitter {
-	init( element: HTMLElement, stage: Container, focusController: DControllerFocus ) {
+	init( element: HTMLElement, stage: Container, focusController: DControllerFocus ): void {
 		element.addEventListener( "keydown", ( e: KeyboardEvent ): void => {
 			this.emit( "keydown", e );
 

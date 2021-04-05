@@ -24,7 +24,7 @@ import { DThemeWhiteMenuItemSeparator } from "../d-theme-white-menu-item-separat
 import { DThemeWhiteMenuItemSpace } from "../d-theme-white-menu-item-space";
 import { DThemeWhiteMenuItemText } from "../d-theme-white-menu-item-text";
 
-export const loadThemeWhiteMenu = () => {
+export const loadThemeWhiteMenu = (): void => {
 	DThemeWhite.set( "DMenu", DThemeWhiteMenu );
 
 	DThemeWhite.set( "DMenuItem", DThemeWhiteMenuItem );

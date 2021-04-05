@@ -110,7 +110,7 @@ export class DPickerColor<
 		return this._recent;
 	}
 
-	protected init( options?: OPTIONS ) {
+	protected init( options?: OPTIONS ): void {
 		super.init( options );
 
 		this.state.isFocusable = false;
@@ -453,7 +453,7 @@ export class DPickerColor<
 		}
 	}
 
-	protected toMainHex( b: number, w0: number, w1: number, shift: number ) {
+	protected toMainHex( b: number, w0: number, w1: number, shift: number ): number {
 		return Math.max( 0, Math.min( 255, w0 * 255 + w1 * (( b >> shift ) & 0xff) ) ) << shift;
 	}
 
@@ -469,7 +469,7 @@ export class DPickerColor<
 		return r | g | b;
 	}
 
-	protected onMainPick( global: Point ) {
+	protected onMainPick( global: Point ): void {
 		const point = this._pointerPoint;
 		const padding = this._padding;
 		const paddingLeft = padding.getLeft();
@@ -486,15 +486,15 @@ export class DPickerColor<
 			this._base, x, y, mainWidth, mainHeight ) );
 	}
 
-	protected setColorCurrent( color: number ) {
+	protected setColorCurrent( color: number ): void {
 		this._sampleCurrentSprite.tint = this._current.color = color;
 	}
 
-	protected setAlphaCurrent( alpha: number ) {
+	protected setAlphaCurrent( alpha: number ): void {
 		this._sampleCurrentSprite.alpha = this._current.alpha = alpha;
 	}
 
-	protected setColorNew( color: number ) {
+	protected setColorNew( color: number ): void {
 		const theme = this.theme;
 		const mainWidth = theme.getMainWidth();
 		const mainHeight = theme.getMainHeight();
@@ -522,7 +522,7 @@ export class DPickerColor<
 		this.onColorNew( color );
 	}
 
-	protected onColorNew( color: number ) {
+	protected onColorNew( color: number ): void {
 		const layer = DApplications.getLayer( this );
 		if( layer ) {
 			layer.lock();
@@ -560,7 +560,7 @@ export class DPickerColor<
 		}
 	}
 
-	protected toBaseHex( t: number, shift: number ) {
+	protected toBaseHex( t: number, shift: number ): number {
 		return Math.max( 0, Math.min( 255, t * 6 * 255 ) ) << shift;
 	}
 
@@ -585,7 +585,7 @@ export class DPickerColor<
 		}
 	}
 
-	protected onBasePick( global: Point ) {
+	protected onBasePick( global: Point ): void {
 		const point = this._pointerPoint;
 		const padding = this._padding;
 		const theme = this.theme;
@@ -597,7 +597,7 @@ export class DPickerColor<
 		this.onColorBase( this.toBaseColor( x / mainWidth ) );
 	}
 
-	protected setColorBase( h: number ) {
+	protected setColorBase( h: number ): void {
 		const theme = this.theme;
 		const mainWidth = theme.getMainWidth();
 		const basePointerSprite = this._basePointerSprite;
@@ -605,7 +605,7 @@ export class DPickerColor<
 		this.onColorBase( UtilHsv.toRgb( h, 255, 255 ) );
 	}
 
-	protected onColorBase( color: number ) {
+	protected onColorBase( color: number ): void {
 		this._mainSprite.tint = this._base = color;
 
 		const mainPointerSprite = this._mainPointerSprite;
@@ -646,7 +646,7 @@ export class DPickerColor<
 		}
 	}
 
-	protected onAlphaPick( global: Point ) {
+	protected onAlphaPick( global: Point ): void {
 		const point = this._pointerPoint;
 		const padding = this._padding;
 		const theme = this.theme;

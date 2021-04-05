@@ -6,6 +6,6 @@
 import { DThemeDark } from "../d-theme-dark";
 import { DThemeDarkDialogConfirmDiscard } from "../d-theme-dark-dialog-confirm-discard";
 
-export const loadThemeDarkDialogConfirmDiscard = () => {
+export const loadThemeDarkDialogConfirmDiscard = (): void => {
 	DThemeDark.set( "DDialogConfirmDiscard", DThemeDarkDialogConfirmDiscard );
 };

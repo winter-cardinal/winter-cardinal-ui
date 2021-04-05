@@ -24,7 +24,7 @@ import { DThemeDarkMenuItemSeparator } from "../d-theme-dark-menu-item-separator
 import { DThemeDarkMenuItemSpace } from "../d-theme-dark-menu-item-space";
 import { DThemeDarkMenuItemText } from "../d-theme-dark-menu-item-text";
 
-export const loadThemeDarkMenu = () => {
+export const loadThemeDarkMenu = (): void => {
 	DThemeDark.set( "DMenu", DThemeDarkMenu );
 
 	DThemeDark.set( "DMenuItem", DThemeDarkMenuItem );

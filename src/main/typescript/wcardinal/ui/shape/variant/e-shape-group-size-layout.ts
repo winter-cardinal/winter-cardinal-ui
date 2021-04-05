@@ -51,7 +51,7 @@ export class EShapeGroupSizeLayout implements EShapeLayout {
 	update(
 		shape: EShape, baseX: number, baseY: number,
 		pivotX: number, pivotY: number
-	) {
+	): void {
 		const sx = baseX / this.base.x;
 		const sy = baseY / this.base.y;
 		const childBase = this.shapeBase;

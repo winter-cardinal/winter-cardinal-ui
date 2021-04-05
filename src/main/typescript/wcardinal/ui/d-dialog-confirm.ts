@@ -27,7 +27,7 @@ export class DDialogConfirm<
 > extends DDialogCommand<void, THEME, OPTIONS> {
 	protected _message?: DDialogConfirmMessage;
 
-	protected onInit( layout: DLayoutVertical, options?: OPTIONS ) {
+	protected onInit( layout: DLayoutVertical, options?: OPTIONS ): void {
 		super.onInit( layout, options );
 		layout.addChild( this.message );
 	}
@@ -59,7 +59,7 @@ export class DDialogConfirm<
 		let text = options.text;
 		if( text == null ) {
 			text = {};
-			options.text =　text;
+			options.text = text;
 		}
 		if( text.value === undefined ) {
 			text.value = message;

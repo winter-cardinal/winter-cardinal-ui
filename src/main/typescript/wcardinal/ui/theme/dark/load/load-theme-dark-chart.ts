@@ -18,7 +18,7 @@ import { DThemeDarkChartSelectionGridlineX } from "../d-theme-dark-chart-selecti
 import { DThemeDarkChartSelectionGridlineY } from "../d-theme-dark-chart-selection-gridline-y";
 import { DThemeDarkChartSelectionMarker } from "../d-theme-dark-chart-selection-marker";
 
-export const loadThemeDarkChart = () => {
+export const loadThemeDarkChart = (): void => {
 	DThemeDark.set( "DChart", DThemeDarkChart );
 	DThemeDark.set( "DChartAxisX", DThemeDarkChartAxisX );
 	DThemeDark.set( "DChartAxisXDatetime", DThemeDarkChartAxisXDatetime );

@@ -34,7 +34,7 @@ export class DThemeDarkDialog extends DThemeDarkBase implements DThemeDialog {
 		return 5;
 	}
 
-	getBackgroundColor() {
+	getBackgroundColor(): number {
 		return DThemeDarkConstants.BACKGROUND_COLOR;
 	}
 

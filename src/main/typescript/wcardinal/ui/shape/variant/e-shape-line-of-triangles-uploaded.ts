@@ -74,7 +74,7 @@ export class EShapeLineOfTrianglesUploaded extends EShapeLineOfAnyUploaded {
 		}
 	}
 
-	protected updateVertexStepAndUvs( buffer: EShapeBuffer, shape: EShape, points: EShapeLineOfAnyPoints ) {
+	protected updateVertexStepAndUvs( buffer: EShapeBuffer, shape: EShape, points: EShapeLineOfAnyPoints ): void {
 		const pointId = points.id;
 		const pointOffset = points.offset;
 		const pointOffsetId = pointOffset.id;

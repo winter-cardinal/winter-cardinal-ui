@@ -155,7 +155,7 @@ export class DPickerColorGradientView extends Mesh {
 		}
 	}
 
-	protected setVertices( iv: number, vertices: Float32Array, position: number, rect: Rectangle ) {
+	protected setVertices( iv: number, vertices: Float32Array, position: number, rect: Rectangle ): void {
 		const y = rect.y + rect.height * position;
 		vertices[ iv + 0 ] = rect.x;
 		vertices[ iv + 1 ] = y;
@@ -163,7 +163,7 @@ export class DPickerColorGradientView extends Mesh {
 		vertices[ iv + 3 ] = y;
 	}
 
-	protected setUvs( iv: number, uvs: Float32Array, position: number, textureUvs: TextureUvs ) {
+	protected setUvs( iv: number, uvs: Float32Array, position: number, textureUvs: TextureUvs ): void {
 		const x0 = textureUvs.x0 + (textureUvs.x3 - textureUvs.x0) * position;
 		const y0 = textureUvs.y0 + (textureUvs.y3 - textureUvs.y0) * position;
 		const x1 = textureUvs.x1 + (textureUvs.x2 - textureUvs.x1) * position;
@@ -190,7 +190,7 @@ export class DPickerColorGradientView extends Mesh {
 		return indices;
 	}
 
-	protected _calculateBounds() {
+	protected _calculateBounds(): void {
 		const rect = this._parts[ 0 ].rect;
 		const bounds = this._bounds;
 		const work = this._workPoint;
@@ -287,7 +287,7 @@ export class DPickerColorGradientView extends Mesh {
 		nPointsPerData: number,
 		checkerColors: [ number, number ],
 		texture: Texture = Texture.WHITE
-	) {
+	): DPickerColorGradientView {
 		const vertices = new Float32Array( size * ( nPointsPerData + 2 ) * 2 * 2 );
 		const uvs = new Float32Array( size * ( nPointsPerData + 2 ) * 2 * 2 );
 		const colors = new Float32Array( size * ( nPointsPerData + 2 ) * 2 * 4 );

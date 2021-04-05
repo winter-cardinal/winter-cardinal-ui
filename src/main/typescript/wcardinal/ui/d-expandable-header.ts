@@ -34,7 +34,7 @@ export class DExpandableHeader<
 		});
 	}
 
-	protected onSelect( e: KeyboardEvent | interaction.InteractionEvent ) {
+	protected onSelect( e: KeyboardEvent | interaction.InteractionEvent ): void {
 		this.emit( "select", this );
 	}
 

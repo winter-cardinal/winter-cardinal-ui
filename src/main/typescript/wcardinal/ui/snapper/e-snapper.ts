@@ -112,7 +112,7 @@ export class ESnapper extends utils.EventEmitter {
 		this._isEnabled = true;
 	}
 
-	get enable() {
+	get enable(): boolean {
 		return this._isEnabled;
 	}
 

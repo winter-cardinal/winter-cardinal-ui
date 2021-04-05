@@ -61,7 +61,7 @@ export class DPickerColorGradient<
 	protected _value!: DColorGradientObservable;
 	protected _work!: Point;
 
-	protected init( options?: OPTIONS ) {
+	protected init( options?: OPTIONS ): void {
 		super.init( options );
 
 		this.state.isFocusable = false;
@@ -210,11 +210,11 @@ export class DPickerColorGradient<
 		return this._value;
 	}
 
-	get recent() {
+	get recent(): DPickerColorGradientRecent {
 		return this._recent;
 	}
 
-	protected onRecentClick( recentData: DColorGradient | null ) {
+	protected onRecentClick( recentData: DColorGradient | null ): void {
 		const value = this._value;
 		if( recentData != null ) {
 			value.fromObject( recentData );
@@ -223,7 +223,7 @@ export class DPickerColorGradient<
 		}
 	}
 
-	protected onRecentUpdate() {
+	protected onRecentUpdate(): void {
 		const recent = this._recent;
 		const view = this._view;
 		for( let i = 0, imax = recent.size(); i < imax; ++i ) {
@@ -233,17 +233,17 @@ export class DPickerColorGradient<
 		DApplications.update( this );
 	}
 
-	protected toAnchorPosition( e: InteractionEvent ) {
+	protected toAnchorPosition( e: InteractionEvent ): number {
 		const local = this.toLocal( e.data.global, undefined, this._work );
 		return Math.max( 0, Math.min( 1, (local.y - this.padding.getTop()) / this._picker.height ) );
 	}
 
-	protected onViewDown( e: InteractionEvent ) {
+	protected onViewDown( e: InteractionEvent ): void {
 		this._value.addAt( this.toAnchorPosition( e ) );
 		this.onAnchorDragStart();
 	}
 
-	protected onAnchorDown( e: InteractionEvent ) {
+	protected onAnchorDown( e: InteractionEvent ): void {
 		const target = e.target;
 		if( target instanceof Sprite ) {
 			const value = this._value;
@@ -255,7 +255,7 @@ export class DPickerColorGradient<
 		}
 	}
 
-	protected onAnchorSelect( point: DColorGradientPoint ) {
+	protected onAnchorSelect( point: DColorGradientPoint ): void {
 		const picker = this._picker;
 		picker.current.color = point.color;
 		picker.current.alpha = point.alpha;
@@ -263,7 +263,7 @@ export class DPickerColorGradient<
 		picker.new.alpha = point.alpha;
 	}
 
-	protected onAnchorColorChange( color: number ) {
+	protected onAnchorColorChange( color: number ): void {
 		const value = this._value;
 		if( value != null ) {
 			const selected = value.selected;
@@ -273,7 +273,7 @@ export class DPickerColorGradient<
 		}
 	}
 
-	protected onAnchorAlphaChange( alpha: number ) {
+	protected onAnchorAlphaChange( alpha: number ): void {
 		const value = this._value;
 		if( value != null ) {
 			const selected = value.selected;
@@ -283,7 +283,7 @@ export class DPickerColorGradient<
 		}
 	}
 
-	protected onAnchorDragStart() {
+	protected onAnchorDragStart(): void {
 		const layer = DApplications.getLayer( this );
 		if( layer ) {
 			const stage = layer.stage;
@@ -311,7 +311,7 @@ export class DPickerColorGradient<
 		}
 	}
 
-	protected updateAnchors() {
+	protected updateAnchors(): void {
 		const theme = this.theme;
 		const anchorTexture = theme.getGradientAnchorTexture();
 		const anchorOutlinedTexture = theme.getGradientAnchorOutlinedTexture();

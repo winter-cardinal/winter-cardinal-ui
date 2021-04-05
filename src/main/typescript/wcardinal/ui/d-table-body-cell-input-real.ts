@@ -38,7 +38,7 @@ export class DTableBodyCellInputReal<
 		this._onChange = onChange;
 	}
 
-	protected onValueChange( newValue: number, oldValue: number ) {
+	protected onValueChange( newValue: number, oldValue: number ): void {
 		const row = this._row;
 		if( row !== undefined ) {
 			const rowIndex = this._rowIndex;

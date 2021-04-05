@@ -9,7 +9,7 @@ import { DThemeDarkPaginationDotsButton } from "../d-theme-dark-pagination-dots-
 import { DThemeDarkPaginationDynamicButtons } from "../d-theme-dark-pagination-dynamic-buttons";
 import { DThemeDarkPaginationNavigationButton } from "../d-theme-dark-pagination-navigation-button";
 
-export const loadThemeDarkPagination = () => {
+export const loadThemeDarkPagination = (): void => {
 	DThemeDark.set( "DPagination", DThemeDarkPagination );
 	DThemeDark.set( "DPaginationNavigationButton", DThemeDarkPaginationNavigationButton );
 	DThemeDark.set( "DPaginationDynamicButtons", DThemeDarkPaginationDynamicButtons );

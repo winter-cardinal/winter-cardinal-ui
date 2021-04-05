@@ -36,7 +36,7 @@ import { loadThemeWhiteText } from "./load-theme-white-text";
 import { loadThemeWhiteTree } from "./load-theme-white-tree";
 import { loadThemeWhiteView } from "./load-theme-white-view";
 
-export const loadThemeWhiteAll = () => {
+export const loadThemeWhiteAll = (): void => {
 	loadThemeWhite();
 	loadThemeWhiteBase();
 	loadThemeWhiteBoard();

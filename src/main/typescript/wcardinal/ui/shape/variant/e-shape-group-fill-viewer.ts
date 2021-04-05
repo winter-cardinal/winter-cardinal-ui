@@ -36,11 +36,11 @@ export class EShapeGroupFillViewer implements EShapeFill {
 		// DO NOTHING
 	}
 
-	copy( target?: Partial<EShapeFillLike> ) {
+	copy( target?: Partial<EShapeFillLike> ): void {
 		// DO NOTHING
 	}
 
-	set( enable: boolean, color: number, alpha: number ) {
+	set( enable: boolean, color: number, alpha: number ): void {
 		// DO NOTHING
 	}
 
@@ -60,7 +60,7 @@ export class EShapeGroupFillViewer implements EShapeFill {
 		return -1;
 	}
 
-	deserialize( target: number, manager: EShapeResourceManagerDeserialization ) {
-		//
+	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void {
+		// DO NOTHING
 	}
 }

@@ -10,7 +10,7 @@ import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhitePane } from "./d-theme-white-pane";
 
 export class DThemeWhiteTable extends DThemeWhitePane implements DThemeTable {
-	getBackgroundColor() {
+	getBackgroundColor(): number {
 		return DThemeWhiteConstants.BACKGROUND_COLOR;
 	}
 

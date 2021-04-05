@@ -85,7 +85,7 @@ export class EShapeSearch {
 	 * @param parent a parent
 	 * @returns a found shape
 	 */
-	static toOfParent( shape: EShape, parent: EShape | EShapeContainer ) {
+	static toOfParent( shape: EShape, parent: EShape | EShapeContainer ): EShape {
 		let shapeParent = shape.parent;
 		while( shapeParent !== parent && shapeParent instanceof EShapeBase ) {
 			shape = shapeParent;

@@ -21,7 +21,7 @@ export class DNote<
 	THEME extends DThemeNote<VALUE> = DThemeNote<VALUE>,
 	OPTIONS extends DNoteOptions<VALUE, THEME> = DNoteOptions<VALUE, THEME>
 > extends DText<VALUE, THEME, OPTIONS> {
-	protected init( options?: OPTIONS ) {
+	protected init( options?: OPTIONS ): void {
 		super.init( options );
 		this.visible = false;
 	}

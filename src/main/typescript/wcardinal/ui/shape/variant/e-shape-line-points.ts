@@ -70,7 +70,7 @@ export class EShapeLinePoints implements EShapePoints {
 		this.size = new Point( sx, sy );
 		this.position = new Point( cx, cy );
 		this._id = 0;
-		this._style = style!;
+		this._style = style;
 	}
 
 	get length(): number {

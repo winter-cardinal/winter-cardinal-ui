@@ -193,7 +193,7 @@ export class DLink {
 		}
 	}
 
-	apply( base: DBase, onSelect: ( e: interaction.InteractionEvent ) => void ): void {
+	add( base: DBase, onSelect: ( e: interaction.InteractionEvent ) => void ): void {
 		const onClick = ( e: interaction.InteractionEvent ): void => {
 			if( this._isEnabled && base.state.isActionable ) {
 				onSelect( e );

@@ -163,7 +163,7 @@ export class DTableDataTree<NODE extends DTableDataTreeItem<NODE, NODE>> extends
 		}
 	}
 
-	protected toSupplimental( ilevel: number, hasChildren: boolean, isOpened: boolean ) {
+	protected toSupplimental( ilevel: number, hasChildren: boolean, isOpened: boolean ): number {
 		return (ilevel << 2) | (hasChildren ? 2 : 0) | (isOpened ? 1 : 0);
 	}
 

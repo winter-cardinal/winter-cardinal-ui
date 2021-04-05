@@ -122,7 +122,7 @@ export class DTableBody<
 
 	protected isData( target?: ROW[] | DTableDataOptions<ROW> | DTableData<ROW> ): target is DTableData<ROW> {
 		return ( target != null && "mapped" in target );
-	};
+	}
 
 	onResize( newWidth: number, newHeight: number, oldWidth: number, oldHeight: number ): void {
 		super.onResize( newWidth, newHeight, oldWidth, oldHeight );

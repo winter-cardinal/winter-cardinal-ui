@@ -8,6 +8,7 @@ import { DApplications } from "./d-applications";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DColorGradientObservable } from "./d-color-gradient-observable";
 import { DDialogColorGradient, DDialogColorGradientOptions } from "./d-dialog-color-gradient";
+import { DOnOptions } from "./d-on-options";
 import { DPickerColorGradientView } from "./d-picker-color-gradient-view";
 
 /**
@@ -27,8 +28,9 @@ export interface DButtonColorGradientEvents<EMITTER> extends DButtonEvents<DColo
 /**
  * {@link DButtonColorGradient} "on" options.
  */
-export interface DButtonColorGradientOnOptions<EMITTER> extends Partial<DButtonColorGradientEvents<EMITTER>> {
-	[ key: string ]: Function | undefined;
+export interface DButtonColorGradientOnOptions<EMITTER>
+	extends Partial<DButtonColorGradientEvents<EMITTER>>, DOnOptions {
+
 }
 
 /**
@@ -58,7 +60,7 @@ export class DButtonColorGradient<
 	protected _dialog?: DDialogColorGradient;
 	protected _view?: DPickerColorGradientView;
 
-	protected init( options?: OPTIONS ) {
+	protected init( options?: OPTIONS ): void {
 		super.init( options );
 
 		const source = options?.image?.source;

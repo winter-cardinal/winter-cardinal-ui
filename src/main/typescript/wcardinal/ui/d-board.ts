@@ -17,10 +17,6 @@ export class DBoard<
 	THEME extends DThemeBoard = DThemeBoard,
 	OPTIONS extends DBoardOptions<THEME> = DBoardOptions<THEME>
 > extends DBase<THEME, OPTIONS> {
-	protected init( options?: OPTIONS ) {
-		super.init( options );
-	}
-
 	protected getType(): string {
 		return "DBoard";
 	}

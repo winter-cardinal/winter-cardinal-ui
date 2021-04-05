@@ -29,7 +29,7 @@ export class DButtonLink<
 	protected initOnClick( when: DButtonBaseWhen, theme: THEME, options?: OPTIONS ): void {
 		const link = new DLink( theme, options );
 		this._link = link;
-		link.apply( this, ( e: interaction.InteractionEvent ): void => {
+		link.add( this, ( e: interaction.InteractionEvent ): void => {
 			if( when === DButtonBaseWhen.CLICKED ) {
 				this.onClick( e );
 			}

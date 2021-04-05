@@ -77,7 +77,7 @@ export class DynamicFontAtlases {
 		this._atlases.forEach( updateAll );
 	}
 
-	destroy() {
+	destroy(): void {
 		const atlases = this._atlases;
 		atlases.forEach( destroyAll );
 		atlases.clear();

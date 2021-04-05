@@ -7,13 +7,13 @@ import { DisplayObject, Texture } from "pixi.js";
 import { DAlignHorizontal } from "./d-align-horizontal";
 import { DAlignVertical } from "./d-align-vertical";
 import { DAlignWith } from "./d-align-with";
-import { DApplications } from "./d-applications";
 import { DRefitable } from "./d-base";
 import { DBaseStateSet } from "./d-base-state-set";
 import { DDynamicText } from "./d-dynamic-text";
 import { DImageBaseThemeWrapperSecondary, DThemeImageBaseSecondary } from "./d-image-base-theme-wrapper-secondary";
 import { DImageBaseThemeWrapperTertiary, DThemeImageBaseTertiary } from "./d-image-base-theme-wrapper-tertiary";
 import { DImagePiece, DImagePieceOptions, DThemeImagePiece } from "./d-image-piece";
+import { DOnOptions } from "./d-on-options";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { DTextBase, DTextBaseEvents, DTextBaseOptions, DThemeTextBase } from "./d-text-base";
 
@@ -27,8 +27,9 @@ export interface DImageBaseEvents<VALUE, EMITTER> extends DTextBaseEvents<VALUE,
 /**
  * {@link DImageBase} "on" options.
  */
-export interface DImageBaseOnOptions<VALUE, EMITTER> extends Partial<DImageBaseEvents<VALUE, EMITTER>> {
-	[ key: string ]: Function | undefined;
+export interface DImageBaseOnOptions<VALUE, EMITTER>
+	extends Partial<DImageBaseEvents<VALUE, EMITTER>>, DOnOptions {
+
 }
 
 /**
@@ -85,7 +86,7 @@ export class DImageBase<
 > extends DTextBase<VALUE, THEME, OPTIONS> {
 	protected _images!: DImagePiece[];
 
-	protected init( options?: OPTIONS ) {
+	protected init( options?: OPTIONS ): void {
 		this._images = this.newImages( this.theme, options );
 		super.init( options );
 	}
@@ -106,7 +107,7 @@ export class DImageBase<
 		return options;
 	}
 
-	protected newImage( theme: DThemeImagePiece, options?: DImagePieceOptions ) {
+	protected newImage( theme: DThemeImagePiece, options?: DImagePieceOptions ): DImagePiece {
 		return new DImagePiece( this, theme, this._textAlign, options );
 	}
 

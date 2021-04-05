@@ -35,7 +35,7 @@ export class DMenuItemExpandable<
 	protected _header!: DisplayObject;
 	protected _body!: DisplayObject;
 
-	protected init( options?: OPTIONS ) {
+	protected init( options?: OPTIONS ): void {
 		super.init( options );
 
 		// Header

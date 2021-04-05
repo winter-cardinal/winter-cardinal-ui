@@ -19,7 +19,7 @@ export class DBaseBackgroundMesh extends Mesh {
 	}
 
 	// @ts-ignore
-	get texture() {
+	get texture(): Texture {
 		return this.shader.texture;
 	}
 

@@ -12,6 +12,7 @@ import { DBaseOverflowMaskSimple } from "./d-base-overflow-mask-simple";
 import { DBaseStateSet } from "./d-base-state-set";
 import { DDynamicText } from "./d-dynamic-text";
 import { DDynamicTextStyleOptions } from "./d-dynamic-text-style";
+import { DOnOptions } from "./d-on-options";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { isFunction } from "./util/is-function";
 import { toEnum } from "./util/to-enum";
@@ -47,8 +48,9 @@ export interface DTextBaseEvents<VALUE, EMITTER> extends DBaseEvents<EMITTER> {
 /**
  * {@link DTextBase} "on" options.
  */
-export interface DTextBaseOnOptions<VALUE, EMITTER> extends Partial<DTextBaseEvents<VALUE, EMITTER>> {
-	[ key: string ]: Function | undefined;
+export interface DTextBaseOnOptions<VALUE, EMITTER>
+	extends Partial<DTextBaseEvents<VALUE, EMITTER>>, DOnOptions {
+
 }
 
 /**
@@ -194,7 +196,7 @@ export class DTextBase<
 		return this._textValue;
 	}
 
-	protected onTextChange() {
+	protected onTextChange(): void {
 		// DO NOTHING
 	}
 

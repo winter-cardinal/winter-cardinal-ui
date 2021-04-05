@@ -7,7 +7,7 @@ import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteButtonTime } from "../d-theme-white-button-time";
 import { loadThemeWhiteDialogTime } from "./load-theme-white-dialog-time";
 
-export const loadThemeWhiteButtonTime = () => {
+export const loadThemeWhiteButtonTime = (): void => {
 	DThemeWhite.set( "DButtonTime", DThemeWhiteButtonTime );
 	loadThemeWhiteDialogTime();
 };

@@ -9,7 +9,7 @@ import { EShapeUploadeds } from "../e-shape-uploadeds";
 import { createLineUploaded } from "../variant/create-line-uploaded";
 import { deserializeLine } from "../variant/deserialize-line";
 
-export const loadShapeLine = () => {
+export const loadShapeLine = (): void => {
 	EShapeUploadeds[ EShapeType.LINE ] = createLineUploaded;
 	EShapeDeserializers[ EShapeType.LINE ] = deserializeLine;
 };

@@ -307,7 +307,7 @@ export class DTableBodyRow<
 
 	protected isCell( target: any ): target is DTableBodyCell<unknown, unknown> {
 		return (target != null && "set" in target);
-	};
+	}
 
 	set( value: ROW, supplimental: unknown, rowIndex: number, forcibly?: boolean ): void {
 		if( forcibly || this._value !== value || this._index !== rowIndex ) {

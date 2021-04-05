@@ -13,6 +13,7 @@ import { DDialogAlign } from "./d-dialog-align";
 import { DDialogCloseOn } from "./d-dialog-close-on";
 import { DDialogMode } from "./d-dialog-mode";
 import { DDialogState } from "./d-dialog-state";
+import { DOnOptions } from "./d-on-options";
 import { toEnum } from "./util/to-enum";
 import { UtilAttach } from "./util/util-attach";
 import { UtilClickOutside } from "./util/util-click-outside";
@@ -41,8 +42,9 @@ export interface DDialogEvents<EMITTER> extends DBaseEvents<EMITTER> {
 /**
  * {@link DDialog} `on` options.
  */
-export interface DDialogOnOptions<EMITTER> extends Partial<DDialogEvents<EMITTER>> {
-	[ key: string ]: Function | undefined;
+export interface DDialogOnOptions<EMITTER>
+	extends Partial<DDialogEvents<EMITTER>>, DOnOptions {
+
 }
 
 /**
@@ -108,7 +110,7 @@ export class DDialog<
 	protected _align!: DDialogAlign;
 	protected _owner?: DBase<any, any> | null;
 
-	protected init( options?: OPTIONS ) {
+	protected init( options?: OPTIONS ): void {
 		super.init( options );
 
 		this._onPrerenderBound = (): void => {
@@ -180,7 +182,7 @@ export class DDialog<
 		return result;
 	}
 
-	protected onAnimationEnd( isReverse: boolean ) {
+	protected onAnimationEnd( isReverse: boolean ): void {
 		if( isReverse ) {
 			const parent = this.parent;
 			if( parent ) {
@@ -273,7 +275,7 @@ export class DDialog<
 		return this._promise != null;
 	}
 
-	close() {
+	close(): void {
 		this.doReject();
 	}
 

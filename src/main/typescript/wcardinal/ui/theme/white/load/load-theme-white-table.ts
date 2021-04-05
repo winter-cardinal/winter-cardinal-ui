@@ -45,7 +45,7 @@ import { loadThemeWhiteInputReal } from "./load-theme-white-input-real";
 import { loadThemeWhiteInputText } from "./load-theme-white-input-text";
 import { loadThemeWhiteMenu } from "./load-theme-white-menu";
 
-export const loadThemeWhiteTable = () => {
+export const loadThemeWhiteTable = (): void => {
 	DThemeWhite.set( "DTableBodyCellActionDialog", DThemeWhiteTableBodyCellActionDialog );
 	DThemeWhite.set( "DTableBodyCellActionMenu", DThemeWhiteTableBodyCellActionMenu );
 	DThemeWhite.set( "DTableBodyCellActionPromise", DThemeWhiteTableBodyCellActionPromise );

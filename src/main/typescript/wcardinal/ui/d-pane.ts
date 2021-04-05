@@ -84,7 +84,7 @@ export class DPane<
 	protected _scrollbar?: DPaneScrollBar;
 	protected _dragUtil?: UtilDrag;
 
-	protected init( options?: OPTIONS ) {
+	protected init( options?: OPTIONS ): void {
 		super.init( options );
 
 		// Content
@@ -144,7 +144,7 @@ export class DPane<
 		}
 	}
 
-	protected onRegionMoveX( content: DBase, start: number ) {
+	protected onRegionMoveX( content: DBase, start: number ): void {
 		const dragUtil = this._dragUtil;
 		if( dragUtil != null ) {
 			dragUtil.stop();
@@ -152,7 +152,7 @@ export class DPane<
 		content.x = - content.width * start;
 	}
 
-	protected onRegionMoveY( content: DBase, start: number ) {
+	protected onRegionMoveY( content: DBase, start: number ): void {
 		const dragUtil = this._dragUtil;
 		if( dragUtil != null ) {
 			dragUtil.stop();

@@ -6,7 +6,7 @@ import { UtilHtmlElementCreator, UtilHtmlElementPadding } from "../../util/util-
 import { UtilHtmlElementWhen } from "../../util/util-html-element-when";
 import { DThemeDarkImageBase } from "./d-theme-dark-image-base";
 
-const nullCreator = () => {
+const nullCreator = (): null => {
 	return null;
 };
 
@@ -104,7 +104,7 @@ export class DThemeDarkHtmlElement<
 		return "width: 0px; height: 0px;";
 	}
 
-	protected getElementStylePositionTransform( matrix: Matrix | null ) {
+	protected getElementStylePositionTransform( matrix: Matrix | null ): string {
 		if( matrix ) {
 			return `transform: matrix(${matrix.a},${matrix.b},${matrix.c},${matrix.d},${matrix.tx},${matrix.ty});`;
 		}

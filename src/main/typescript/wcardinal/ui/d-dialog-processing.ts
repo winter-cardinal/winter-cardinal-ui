@@ -50,7 +50,7 @@ export class DDialogProcessing<
 		return new DDialogProcessingMessage( options );
 	}
 
-	protected onOpen() {
+	protected onOpen(): void {
 		this._isDone = false;
 		this._startTime = Date.now();
 		const timeoutId = this._timeoutId;
@@ -71,7 +71,7 @@ export class DDialogProcessing<
 		super.onOpen();
 	}
 
-	protected onDone( delay: number | null ) {
+	protected onDone( delay: number | null ): void {
 		if( delay != null ) {
 			this._closeTimeoutId = window.setTimeout(() => {
 				this.close();

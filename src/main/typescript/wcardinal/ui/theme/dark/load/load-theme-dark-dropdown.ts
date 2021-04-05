@@ -6,6 +6,6 @@
 import { DThemeDark } from "../d-theme-dark";
 import { DThemeDarkDropdown } from "../d-theme-dark-dropdown";
 
-export const loadThemeDarkDropdown = () => {
+export const loadThemeDarkDropdown = (): void => {
 	DThemeDark.set( "DDropdown", DThemeDarkDropdown );
 };

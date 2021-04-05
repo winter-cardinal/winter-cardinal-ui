@@ -148,7 +148,7 @@ export abstract class DLayout<
 		return this._multiplicity;
 	}
 
-	protected getWeightTotal() {
+	protected getWeightTotal(): number {
 		const children = this.children;
 		let result = 0;
 		const multiplicity = this._multiplicity;
@@ -182,7 +182,7 @@ export abstract class DLayout<
 		return result;
 	}
 
-	protected getSpaceLeft( baseSize: number, margin: number ) {
+	protected getSpaceLeft( baseSize: number, margin: number ): number {
 		const children = this.children;
 		const multiplicity = this._multiplicity;
 		const reverse = this._reverse;
@@ -761,7 +761,7 @@ export abstract class DLayout<
 		return DCornerMask.ALL & (~result);
 	}
 
-	addSpace( options?: DLayoutSpaceOptions ) {
+	addSpace( options?: DLayoutSpaceOptions ): DLayoutSpace {
 		return this.addChild( new DLayoutSpace( options ) );
 	}
 

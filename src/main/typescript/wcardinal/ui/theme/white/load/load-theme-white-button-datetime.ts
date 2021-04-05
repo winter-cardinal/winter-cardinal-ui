@@ -7,7 +7,7 @@ import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteButtonDatetime } from "../d-theme-white-button-datetime";
 import { loadThemeWhiteDialogDatetime } from "./load-theme-white-dialog-datetime";
 
-export const loadThemeWhiteButtonDatetime = () => {
+export const loadThemeWhiteButtonDatetime = (): void => {
 	DThemeWhite.set( "DButtonDatetime", DThemeWhiteButtonDatetime );
 	loadThemeWhiteDialogDatetime();
 };

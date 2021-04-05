@@ -27,7 +27,7 @@ export class EShapeGroupSizeViewer implements EShapeGroupSize {
 		this._base = new Point( bx, by );
 	}
 
-	get x() {
+	get x(): number {
 		return this._x;
 	}
 
@@ -38,7 +38,7 @@ export class EShapeGroupSizeViewer implements EShapeGroupSize {
 		}
 	}
 
-	get y() {
+	get y(): number {
 		return this._y;
 	}
 

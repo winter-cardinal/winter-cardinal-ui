@@ -42,7 +42,7 @@ export class DTableBodyCellSelectMenu<
 		this._onChange = onChange;
 	}
 
-	protected onValueChange( newValue: VALUE | null, oldValue: VALUE | null, item: DMenuItem<VALUE> | null ) {
+	protected onValueChange( newValue: VALUE | null, oldValue: VALUE | null, item: DMenuItem<VALUE> | null ): void {
 		const row = this._row;
 		if( row !== undefined ) {
 			const rowIndex = this._rowIndex;

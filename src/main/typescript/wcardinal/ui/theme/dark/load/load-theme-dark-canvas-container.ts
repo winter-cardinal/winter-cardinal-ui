@@ -7,7 +7,7 @@ import { DThemeDark } from "../d-theme-dark";
 import { DThemeDarkCanvas } from "../d-theme-dark-canvas";
 import { DThemeDarkCanvasContainer } from "../d-theme-dark-canvas-container";
 
-export const loadThemeDarkCanvasContainer = () => {
+export const loadThemeDarkCanvasContainer = (): void => {
 	DThemeDark.set( "DCanvasContainer", DThemeDarkCanvasContainer );
 	DThemeDark.set( "DCanvas", DThemeDarkCanvas );
 };

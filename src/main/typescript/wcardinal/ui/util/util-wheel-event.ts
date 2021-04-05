@@ -38,7 +38,7 @@ export class UtilWheelEvent {
 		);
 	}
 
-	on( target: HTMLElement, handler: ( e: WheelEvent | Event ) => void, useCapture: boolean = false ) {
+	on( target: HTMLElement, handler: ( e: WheelEvent | Event ) => void, useCapture: boolean = false ): void {
 		const names = this._names;
 		for( let i = names.length - 1; 0 <= i; --i ) {
 			const name = names[ i ];
@@ -46,7 +46,7 @@ export class UtilWheelEvent {
 		}
 	}
 
-	off( target: HTMLElement, handler: ( e: WheelEvent | Event ) => void, useCapture: boolean = false ) {
+	off( target: HTMLElement, handler: ( e: WheelEvent | Event ) => void, useCapture: boolean = false ): void {
 		const names = this._names;
 		for( let i = names.length - 1; 0 <= i; --i ) {
 			const name = names[ i ];

@@ -16,7 +16,7 @@ export class UtilDragEasingHistory {
 		this.dt = dt;
 	}
 
-	set( dx: number, dy: number, ds: number, dt: number ) {
+	set( dx: number, dy: number, ds: number, dt: number ): void {
 		this.dx = dx;
 		this.dy = dy;
 		this.ds = ds;

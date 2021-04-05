@@ -111,7 +111,7 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 		return false;
 	}
 
-	protected updateText( buffer: EShapeBuffer, shape: EShape ) {
+	protected updateText( buffer: EShapeBuffer, shape: EShape ): void {
 		const vcount = this.textVertexCount;
 		if( 0 < vcount ) {
 			const textAtlas = shape.text.atlas;
@@ -124,12 +124,12 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 		}
 	}
 
-	protected updateColor( buffer: EShapeBuffer, shape: EShape ) {
+	protected updateColor( buffer: EShapeBuffer, shape: EShape ): void {
 		const vertexCount = this.vertexCount - this.textVertexCount;
 		this.updateColorFillAndStroke( buffer, shape, vertexCount );
 	}
 
-	protected updateTextVertex( buffer: EShapeBuffer, shape: EShape, textAtlas: EShapeTextAtlas ) {
+	protected updateTextVertex( buffer: EShapeBuffer, shape: EShape, textAtlas: EShapeTextAtlas ): void {
 		const text = shape.text;
 		const textSize = text.size;
 		const textFamily = text.family;
@@ -228,7 +228,7 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 		}
 	}
 
-	protected updateTextColorFill( buffer: EShapeBuffer, shape: EShape ) {
+	protected updateTextColorFill( buffer: EShapeBuffer, shape: EShape ): void {
 		const text = shape.text;
 		const color = text.color;
 		const alpha = ( shape.visible && text.enable ? text.alpha : 0 );
@@ -246,7 +246,7 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 		}
 	}
 
-	protected updateTextColorStroke( buffer: EShapeBuffer, shape: EShape ) {
+	protected updateTextColorStroke( buffer: EShapeBuffer, shape: EShape ): void {
 		const text = shape.text;
 		const outline = text.outline;
 		const color = outline.color;
@@ -265,7 +265,7 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 		}
 	}
 
-	protected updateTextStep( buffer: EShapeBuffer, shape: EShape ) {
+	protected updateTextStep( buffer: EShapeBuffer, shape: EShape ): void {
 		const text = shape.text;
 		const textOutline = text.outline;
 		const textOutlineWidth = (textOutline.enable ? textOutline.width : 0);
@@ -288,7 +288,7 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 		}
 	}
 
-	buildUnit( builder: EShapeBufferUnitBuilder ) {
+	buildUnit( builder: EShapeBufferUnitBuilder ): void {
 		super.buildUnit( builder );
 
 		if( 0 < this.textVertexCount ) {

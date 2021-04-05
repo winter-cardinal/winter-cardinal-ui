@@ -55,7 +55,7 @@ export class EShapeActionRuntimeOpenDialogDate extends EShapeActionRuntimeOpenDi
 		return result;
 	}
 
-	protected newFormatter() {
+	protected newFormatter(): NumberFormatter {
 		return NumberFormatters.create( "%Y-%M-%D" );
 	}
 }

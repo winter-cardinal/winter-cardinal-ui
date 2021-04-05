@@ -11,7 +11,7 @@ import { DScrollBarThumbVertocal } from "./d-scroll-bar-thumb-vertical";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
 export class DScrollBarVertical extends DScrollBar {
-	protected init( options?: DScrollBarOptions ) {
+	protected init( options?: DScrollBarOptions ): void {
 		super.init( options );
 
 		this.on( UtilPointerEvent.down, ( e: InteractionEvent ): void => {

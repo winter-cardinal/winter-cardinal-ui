@@ -18,7 +18,7 @@ export class DTreeSelection {
 	 *
 	 * @param item Reference data of item want to remove in “value” array.
 	 */
-	public add( item: DTreeItemRawData ) {
+	public add( item: DTreeItemRawData ): void {
 		if( this._selection.indexOf( item ) === -1 ) {
 			this._selection.push( item );
 		}
@@ -30,7 +30,7 @@ export class DTreeSelection {
 	 *
 	 * @param item Reference data of item want to remove in “value” array.
 	 */
-	public remove( item: DTreeItemRawData ) {
+	public remove( item: DTreeItemRawData ): void {
 		const itemIndex = this._selection.indexOf( item );
 		if( itemIndex !== -1 ) {
 			this._selection.splice( itemIndex, 1 );
@@ -44,7 +44,7 @@ export class DTreeSelection {
 	 *
 	 * @param item Reference data of item want to remove in “value” array.
 	 */
-	public toggle( item: DTreeItemRawData ) {
+	public toggle( item: DTreeItemRawData ): void {
 		const itemIndex = this._selection.indexOf( item );
 		if( itemIndex !== -1 ) {
 			this._selection.splice( itemIndex, 1 );
@@ -57,7 +57,7 @@ export class DTreeSelection {
 	 * Un-select all item.
 	 *
 	 */
-	public clear() {
+	public clear(): void {
 		this._selection.length = 0;
 	}
 
@@ -83,7 +83,7 @@ export class DTreeSelection {
 	 *
 	 * @returns selected state of checked item.
 	 */
-	public contains( item: DTreeItemRawData ) {
+	public contains( item: DTreeItemRawData ): boolean {
 		return this._selection.indexOf( item ) !== -1;
 	}
 
@@ -92,7 +92,7 @@ export class DTreeSelection {
 	 *
 	 * @returns number of selected.
 	 */
-	public size() {
+	public size(): number {
 		return this._selection.length;
 	}
 
@@ -102,7 +102,7 @@ export class DTreeSelection {
 	 * @param iteratee  boolean function. If the iteratee explicitly returns false, an iteration stops.
 	 * @param item data of browsed item.
 	 */
-	public each( iteratee: ( item: DTreeItemRawData ) => boolean ) {
+	public each( iteratee: ( item: DTreeItemRawData ) => boolean ): void {
 		for (const item of this._selection) {
 			if( !iteratee( item ) ) {
 				return;

@@ -7,7 +7,7 @@ import { DThemeDark } from "../d-theme-dark";
 import { DThemeDarkButtonColorGradient } from "../d-theme-dark-button-color-gradient";
 import { loadThemeDarkDialogColorGradient } from "./load-theme-dark-dialog-color-gradient";
 
-export const loadThemeDarkButtonColorGradient = () => {
+export const loadThemeDarkButtonColorGradient = (): void => {
 	DThemeDark.set( "DButtonColorGradient", DThemeDarkButtonColorGradient );
 	loadThemeDarkDialogColorGradient();
 };

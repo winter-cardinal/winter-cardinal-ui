@@ -23,7 +23,7 @@ export class DMenuItemCheck<
 	THEME extends DThemeMenuItemCheck = DThemeMenuItemCheck,
 	OPTIONS extends DMenuItemCheckOptions<VALUE, THEME> = DMenuItemCheckOptions<VALUE, THEME>
 > extends DMenuItemText<VALUE, THEME, OPTIONS> {
-	protected init( options?: OPTIONS ) {
+	protected init( options?: OPTIONS ): void {
 		super.init( options );
 		if( options && options.check ) {
 			this.state.isActive = true;

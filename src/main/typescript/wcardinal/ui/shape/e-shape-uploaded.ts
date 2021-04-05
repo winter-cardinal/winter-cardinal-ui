@@ -114,12 +114,12 @@ export abstract class EShapeUploadedBase implements EShapeUploaded {
 		return this.indexCount;
 	}
 
-	protected toTransformLocalId( shape: EShape ) {
+	protected toTransformLocalId( shape: EShape ): number {
 		shape.updateTransform();
 		return shape.transform.getLocalId();
 	}
 
-	protected toTexture( shape: EShape ) {
+	protected toTexture( shape: EShape ): Texture {
 		return shape.texture || Texture.WHITE;
 	}
 
@@ -135,7 +135,7 @@ export abstract class EShapeUploadedBase implements EShapeUploaded {
 		return (texture as any)._uvs;
 	}
 
-	protected updateColorFill( buffer: EShapeBuffer, shape: EShape, vertexCount: number ) {
+	protected updateColorFill( buffer: EShapeBuffer, shape: EShape, vertexCount: number ): void {
 		const fill = shape.fill;
 		const isEnabled = shape.visible && fill.enable;
 		const color = fill.color;
@@ -154,7 +154,7 @@ export abstract class EShapeUploadedBase implements EShapeUploaded {
 		}
 	}
 
-	protected updateColorStroke( buffer: EShapeBuffer, shape: EShape, vertexCount: number ) {
+	protected updateColorStroke( buffer: EShapeBuffer, shape: EShape, vertexCount: number ): void {
 		const stroke = shape.stroke;
 		const isEnabled = shape.visible && stroke.enable && 0 < stroke.width;
 		const color = stroke.color;
@@ -173,12 +173,12 @@ export abstract class EShapeUploadedBase implements EShapeUploaded {
 		}
 	}
 
-	protected updateColorFillAndStroke( buffer: EShapeBuffer, shape: EShape, vertexCount: number ) {
+	protected updateColorFillAndStroke( buffer: EShapeBuffer, shape: EShape, vertexCount: number ): void {
 		this.updateColorFill( buffer, shape, vertexCount );
 		this.updateColorStroke( buffer, shape, vertexCount );
 	}
 
-	buildUnit( builder: EShapeBufferUnitBuilder ) {
+	buildUnit( builder: EShapeBufferUnitBuilder ): void {
 		const texture = this.texture || Texture.WHITE;
 		const baseTexture = texture.baseTexture;
 		if( baseTexture !== builder.baseTexture ) {

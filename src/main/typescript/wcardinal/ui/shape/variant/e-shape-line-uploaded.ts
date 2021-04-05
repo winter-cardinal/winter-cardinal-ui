@@ -144,7 +144,7 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 		}
 	}
 
-	protected updateColorFillAndStroke( buffer: EShapeBuffer, shape: EShape, vertexCount: number ) {
+	protected updateColorFillAndStroke( buffer: EShapeBuffer, shape: EShape, vertexCount: number ): void {
 		this.updateColorStroke( buffer, shape, vertexCount );
 	}
 

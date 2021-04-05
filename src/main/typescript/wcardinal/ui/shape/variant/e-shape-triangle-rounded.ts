@@ -18,7 +18,7 @@ export class EShapeTriangleRounded extends EShapeTriangle {
 		return new EShapeTriangleRounded().copy( this );
 	}
 
-	protected containsCorner_( x: number, y: number, r: number, aw: number ) {
+	protected containsCorner_( x: number, y: number, r: number, aw: number ): boolean {
 		const fill = this.fill;
 		if( fill.enable ) {
 			if( x * x + y * y <= r * r ) {
@@ -37,6 +37,7 @@ export class EShapeTriangleRounded extends EShapeTriangle {
 				}
 			}
 		}
+		return false;
 	}
 
 	protected containsCorner(
@@ -48,7 +49,7 @@ export class EShapeTriangleRounded extends EShapeTriangle {
 		r12: number, r13: number,
 		aw: number,
 		radius: number
-	) {
+	): boolean {
 		const xl = x1 + r12 * ( x2 - x1 ) - x0;
 		const yl = y1 + r12 * ( y2 - y1 ) - y0;
 		const n = Math.sqrt( xl * xl + yl * yl );
@@ -74,9 +75,10 @@ export class EShapeTriangleRounded extends EShapeTriangle {
 				}
 			}
 		}
+		return false;
 	}
 
-	containsAbs( x: number, y: number, ax: number, ay: number ) {
+	containsAbs( x: number, y: number, ax: number, ay: number ): boolean {
 		if( super.containsAbsBBox( x, y, ax, ay ) ) {
 			const a = 2 * ay / ax;
 			if( this.containsAbs_( x, y, a, -ay, +ay ) ) {

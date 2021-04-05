@@ -8,6 +8,7 @@ import { DMenu } from "./d-menu";
 import { DMenuItem } from "./d-menu-item";
 import { DMenuItemCheck } from "./d-menu-item-check";
 import { DMenuItemMenu } from "./d-menu-item-menu";
+import { DOnOptions } from "./d-on-options";
 
 /**
  * {@link DSelectMultiple} events.
@@ -37,8 +38,9 @@ export interface DSelectMultipleEvents<VALUE, EMITTER>
 /**
  * {@link DSelectMultiple} "on" options.
  */
-export interface DSelectMultipleOnOptions<VALUE, EMITTER> extends Partial<DSelectMultipleEvents<VALUE, EMITTER>> {
-	[ key: string ]: Function | undefined;
+export interface DSelectMultipleOnOptions<VALUE, EMITTER>
+	extends Partial<DSelectMultipleEvents<VALUE, EMITTER>>, DOnOptions {
+
 }
 
 /**
