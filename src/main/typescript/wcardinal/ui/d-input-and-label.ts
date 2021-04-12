@@ -26,37 +26,39 @@ export interface DInputAndLabelOptions<
 	space?: DLayoutSpaceOptions;
 }
 
-export interface DThemeInputAndLabel extends DThemeLayoutHorizontal {
-
-}
+export interface DThemeInputAndLabel extends DThemeLayoutHorizontal {}
 
 export abstract class DInputAndLabel<
 	INPUT extends Input,
 	INPUT_OPTIONS extends InputOptions,
 	THEME extends DThemeInputAndLabel = DThemeInputAndLabel,
-	OPTIONS extends DInputAndLabelOptions<INPUT_OPTIONS, THEME> = DInputAndLabelOptions<INPUT_OPTIONS, THEME>
+	OPTIONS extends DInputAndLabelOptions<INPUT_OPTIONS, THEME> = DInputAndLabelOptions<
+		INPUT_OPTIONS,
+		THEME
+	>
 > extends DLayoutHorizontal<THEME, OPTIONS> {
 	protected _input: INPUT;
 	protected _label: DInputLabel;
 
-	constructor( options?: OPTIONS ) {
-		super( options );
-		this.addChild( this._label = new DInputLabel( options != null ? options.label : undefined ) );
-		this.addChild( this._input = this.createInput( options != null ? options.input : undefined ) );
-		if( options != null && options.space != null ) {
-			this.addChild( new DLayoutSpace( options.space ) );
+	constructor(options?: OPTIONS) {
+		super(options);
+		this.addChild((this._label = new DInputLabel(options?.label)));
+		this.addChild((this._input = this.createInput(options?.input)));
+		const space = options?.space;
+		if (space != null) {
+			this.addChild(new DLayoutSpace(space));
 		}
 	}
 
-	get input() {
+	get input(): INPUT {
 		return this._input;
 	}
 
-	get label() {
+	get label(): DInputLabel {
 		return this._label;
 	}
 
-	protected abstract createInput( options?: INPUT_OPTIONS | { weight: number } ): INPUT;
+	protected abstract createInput(options?: INPUT_OPTIONS | { weight: number }): INPUT;
 
 	protected getType(): string {
 		return "DInputAndLabel";

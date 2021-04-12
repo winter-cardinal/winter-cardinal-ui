@@ -13,26 +13,33 @@ import { DTableData } from "./d-table-data";
 export interface DTableBodyCellCheckOptions<
 	ROW = unknown,
 	THEME extends DThemeTableBodyCellCheck = DThemeTableBodyCellCheck
-> extends DButtonCheckOptions<boolean, THEME> {
-}
+> extends DButtonCheckOptions<boolean, THEME> {}
 
-export interface DThemeTableBodyCellCheck extends DThemeButtonCheck<boolean> {
-
-}
+export interface DThemeTableBodyCellCheck extends DThemeButtonCheck<boolean> {}
 
 export class DTableBodyCellCheck<
-	ROW = unknown,
-	THEME extends DThemeTableBodyCellCheck = DThemeTableBodyCellCheck,
-	OPTIONS extends DTableBodyCellCheckOptions<ROW, THEME> = DTableBodyCellCheckOptions<ROW, THEME>
-> extends DButtonCheck<boolean, THEME, OPTIONS> implements DTableBodyCell<ROW, boolean> {
+		ROW = unknown,
+		THEME extends DThemeTableBodyCellCheck = DThemeTableBodyCellCheck,
+		OPTIONS extends DTableBodyCellCheckOptions<ROW, THEME> = DTableBodyCellCheckOptions<
+			ROW,
+			THEME
+		>
+	>
+	extends DButtonCheck<boolean, THEME, OPTIONS>
+	implements DTableBodyCell<ROW, boolean> {
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;
 	protected _column: DTableColumn<ROW, boolean>;
 	protected _onChange: DTableBodyCellOnChange<ROW, boolean>;
 
-	constructor( columnIndex: number, column: DTableColumn<ROW, boolean>, onChange: DTableBodyCellOnChange<ROW, boolean>, options?: OPTIONS ) {
-		super( options );
+	constructor(
+		columnIndex: number,
+		column: DTableColumn<ROW, boolean>,
+		onChange: DTableBodyCellOnChange<ROW, boolean>,
+		options?: OPTIONS
+	) {
+		super(options);
 
 		this._rowIndex = -1;
 		this._columnIndex = columnIndex;
@@ -40,28 +47,32 @@ export class DTableBodyCellCheck<
 		this._onChange = onChange;
 	}
 
-	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
-		super.onActivate( e );
-		this.onValueChange( true, false );
+	protected onActivate(
+		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
+	): void {
+		super.onActivate(e);
+		this.onValueChange(true, false);
 	}
 
-	protected onInactivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
-		super.onInactivate( e );
-		this.onValueChange( false, true );
+	protected onInactivate(
+		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
+	): void {
+		super.onInactivate(e);
+		this.onValueChange(false, true);
 	}
 
-	protected onValueChange( newValue: boolean, oldValue: boolean ): void {
+	protected onValueChange(newValue: boolean, oldValue: boolean): void {
 		const row = this._row;
-		if( row !== undefined ) {
+		if (row !== undefined) {
 			const rowIndex = this._rowIndex;
 			const columnIndex = this._columnIndex;
 			const column = this._column;
-			column.setter( row, columnIndex, newValue );
-			this.emit( "change", newValue, oldValue, this );
+			column.setter(row, columnIndex, newValue);
+			this.emit("change", newValue, oldValue, this);
 			const onChange = this._onChange;
-			onChange( newValue, oldValue, row, rowIndex, columnIndex, this );
-			if( newValue && column.type === DTableColumnType.CHECK_SINGLE ) {
-				this.onChangeSingle( rowIndex, columnIndex, column, onChange );
+			onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
+			if (newValue && column.type === DTableColumnType.CHECK_SINGLE) {
+				this.onChangeSingle(rowIndex, columnIndex, column, onChange);
 			}
 		}
 	}
@@ -73,24 +84,24 @@ export class DTableBodyCellCheck<
 		onChange: DTableBodyCellOnChange<ROW, boolean>
 	): void {
 		const tableBodyRow = this.parent;
-		if( tableBodyRow ) {
+		if (tableBodyRow) {
 			const tableBody = tableBodyRow.parent as any;
-			if( tableBody ) {
+			if (tableBody) {
 				let isChanged = false;
 				const getter = column.getter;
 				const setter = column.setter;
 				const data = tableBody.data as DTableData<ROW>;
-				data.each(( row: ROW, index: number ): boolean => {
-					if( rowIndex !== index && getter( row, columnIndex ) ) {
-						setter( row, columnIndex, false );
+				data.each((row: ROW, index: number): boolean => {
+					if (rowIndex !== index && getter(row, columnIndex)) {
+						setter(row, columnIndex, false);
 						isChanged = true;
-						onChange( false, true, row, index, columnIndex, this );
+						onChange(false, true, row, index, columnIndex, this);
 						return false;
 					}
 					return true;
 				});
-				if( isChanged ) {
-					tableBody.update( true );
+				if (isChanged) {
+					tableBody.update(true);
 				}
 			}
 		}
@@ -113,17 +124,20 @@ export class DTableBodyCellCheck<
 	}
 
 	set(
-		value: unknown, row: ROW, supplimental: unknown,
-		rowIndex: number, columnIndex: number,
+		value: unknown,
+		row: ROW,
+		supplimental: unknown,
+		rowIndex: number,
+		columnIndex: number,
 		forcibly?: boolean
 	): void {
 		this._row = row;
 		this._rowIndex = rowIndex;
-		this.state.isActive = !! value;
+		this.state.isActive = !!value;
 
 		const column = this._column;
-		DTableBodyCells.setReadOnly( this, row, columnIndex, column );
-		DTableBodyCells.setRenderable( this, row, columnIndex, column );
+		DTableBodyCells.setReadOnly(this, row, columnIndex, column);
+		DTableBodyCells.setRenderable(this, row, columnIndex, column);
 	}
 
 	unset(): void {

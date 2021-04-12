@@ -14,20 +14,20 @@ export abstract class EShapeActionRuntimeMiscWrite extends EShapeActionRuntimeCo
 	protected target: EShapeActionExpression<string | null>;
 	protected value: EShapeActionExpression<unknown>;
 
-	constructor( value: EShapeActionValueMisc ) {
-		super( value, EShapeRuntimeReset.NONE );
-		this.target = EShapeActionExpressions.ofStringOrNull( value.target );
-		this.value = EShapeActionExpressions.ofUnknown( value.value );
+	constructor(value: EShapeActionValueMisc) {
+		super(value, EShapeRuntimeReset.NONE);
+		this.target = EShapeActionExpressions.ofStringOrNull(value.target);
+		this.value = EShapeActionExpressions.ofUnknown(value.value);
 	}
 
-	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( this.condition( shape, time ) ) {
-			const target = this.target( shape, time );
-			if( target != null ) {
-				this.write( shape, target, this.value( shape, time ), time );
+	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {
+		if (this.condition(shape, time)) {
+			const target = this.target(shape, time);
+			if (target != null) {
+				this.write(shape, target, this.value(shape, time), time);
 			}
 		}
 	}
 
-	protected abstract write( shape: EShape, target: string, value: unknown, time: number ): void;
+	protected abstract write(shape: EShape, target: string, value: unknown, time: number): void;
 }

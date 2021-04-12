@@ -6,15 +6,17 @@ import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 
 export class DThemeWhiteLinks {
 	static init(): void {
-		DThemeWhiteAtlas.add( "link_mark", 24, 24,
+		/* eslint-disable prettier/prettier */
+		DThemeWhiteAtlas.add("link_mark", 24, 24,
 			`<g>` +
 				`<path fill="none" stroke="#fff" stroke-width="1" ` +
 					`d="M10 6H7c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h8c1.1 0 2-.9 2-2v-3 M19 11V4h-7 M18.75 4.5l-8 8" />` +
 			`</g>`
 		);
+		/* eslint-enable prettier/prettier */
 	}
 
-	static getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
+	static getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
 		return DThemeWhiteAtlas.mappings.link_mark;
 	}
 
@@ -22,17 +24,20 @@ export class DThemeWhiteLinks {
 		return {
 			sticky: true,
 			align: "OVER",
-			items: [{
-				value: DLinkMenuItemId.OPEN_LINK_IN_NEW_WINDOW,
-				text: {
-					value: this.getOpenLinkInNewWindow()
+			items: [
+				{
+					value: DLinkMenuItemId.OPEN_LINK_IN_NEW_WINDOW,
+					text: {
+						value: this.getOpenLinkInNewWindow()
+					}
+				},
+				{
+					value: DLinkMenuItemId.COPY_LINK_ADDRESS,
+					text: {
+						value: this.getCopyLinkAddress()
+					}
 				}
-			}, {
-				value: DLinkMenuItemId.COPY_LINK_ADDRESS,
-				text: {
-					value: this.getCopyLinkAddress()
-				}
-			}]
+			]
 		};
 	}
 

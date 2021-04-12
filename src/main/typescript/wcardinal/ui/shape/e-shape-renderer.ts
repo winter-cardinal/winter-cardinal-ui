@@ -3,7 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { BaseTexture, BLEND_MODES, ObjectRenderer, Renderer, Shader, Texture, utils } from "pixi.js";
+import {
+	BaseTexture,
+	BLEND_MODES,
+	ObjectRenderer,
+	Renderer,
+	Shader,
+	Texture,
+	utils
+} from "pixi.js";
 import { DynamicAtlas } from "../util/dynamic-atlas";
 import { DynamicAtlasItemImage } from "../util/dynamic-atlas-item-image";
 import { DynamicSDFFontAtlases } from "../util/dynamic-sdf-font-atlases";
@@ -263,18 +271,19 @@ export class EShapeRenderer extends ObjectRenderer {
 	protected _iterator: EShapeRendererIterator;
 	protected _bufferSizeMax: number;
 
-	constructor( renderer: Renderer ) {
-		super( renderer );
-		EShapeRenderer.SHADER = EShapeRenderer.SHADER || Shader.from( VERTEX_SHADER, FRAGMENT_SHADER );
+	constructor(renderer: Renderer) {
+		super(renderer);
+		EShapeRenderer.SHADER =
+			EShapeRenderer.SHADER || Shader.from(VERTEX_SHADER, FRAGMENT_SHADER);
 		this._shader = EShapeRenderer.SHADER;
 		this._iterator = new EShapeRendererIterator();
-		this._bufferSizeMax = this.getBufferSizeMax( renderer );
+		this._bufferSizeMax = this.getBufferSizeMax(renderer);
 	}
 
-	protected getBufferSizeMax( renderer: Renderer ): number {
+	protected getBufferSizeMax(renderer: Renderer): number {
 		const context = renderer.context;
 		const extensions = context.extensions as any;
-		if( 1 < context.webGLVersion || !! extensions.uint32ElementIndex ) {
+		if (1 < context.webGLVersion || !!extensions.uint32ElementIndex) {
 			return 1431655765; // 2^32 / 3
 		}
 		return 21845; // 2^16 / 3
@@ -282,21 +291,28 @@ export class EShapeRenderer extends ObjectRenderer {
 
 	updateAtlas(
 		shape: EShape,
-		atlas: DynamicAtlas, fontAtlases: DynamicSDFFontAtlases,
-		defaultTexture: Texture, baseTexture: BaseTexture
+		atlas: DynamicAtlas,
+		fontAtlases: DynamicSDFFontAtlases,
+		defaultTexture: Texture,
+		baseTexture: BaseTexture
 	): void {
 		// Texture
 		// Do not access the shape.image.src here.
 		// It slows down the rendering speed significantly.
 		const imageSrc = shape.imageSrc;
-		if( imageSrc != null ) {
-			const textureItem = atlas.get( imageSrc );
-			if( textureItem != null ) {
+		if (imageSrc != null) {
+			const textureItem = atlas.get(imageSrc);
+			if (textureItem != null) {
 				shape.texture = textureItem.texture;
 			} else {
-				const newTextureItem = new DynamicAtlasItemImage( shape.image!, baseTexture );
-				shape.texture = newTextureItem.texture;
-				atlas.set( newTextureItem.id, newTextureItem );
+				const image = shape.image;
+				if (image != null) {
+					const newTextureItem = new DynamicAtlasItemImage(image, baseTexture);
+					shape.texture = newTextureItem.texture;
+					atlas.set(newTextureItem.id, newTextureItem);
+				} else {
+					shape.texture = defaultTexture;
+				}
 			}
 		} else {
 			shape.texture = defaultTexture;
@@ -305,38 +321,41 @@ export class EShapeRenderer extends ObjectRenderer {
 		// Font texture atlas
 		const text = shape.text;
 		const textValue = text.value;
-		if( 0 < textValue.length ) {
-			fontAtlases.add( text.family, textValue );
+		if (0 < textValue.length) {
+			fontAtlases.add(text.family, textValue);
 		}
 	}
 
 	updateAtlases(
 		shapes: EShape[],
-		atlas: DynamicAtlas, fontAtlases: DynamicSDFFontAtlases,
-		defaultTexture: Texture, baseTexture: BaseTexture
+		atlas: DynamicAtlas,
+		fontAtlases: DynamicSDFFontAtlases,
+		defaultTexture: Texture,
+		baseTexture: BaseTexture
 	): void {
-		for( let i = 0, imax = shapes.length; i < imax; ++i ) {
-			const shape = shapes[ i ];
-			this.updateAtlas( shape, atlas, fontAtlases, defaultTexture, baseTexture );
+		for (let i = 0, imax = shapes.length; i < imax; ++i) {
+			const shape = shapes[i];
+			this.updateAtlas(shape, atlas, fontAtlases, defaultTexture, baseTexture);
 			const children = shape.children;
-			for( let j = 0, jmax = children.length; j < jmax; ++j ) {
-				const child = children[ j ];
-				this.updateAtlas( child, atlas, fontAtlases, defaultTexture, baseTexture );
-				this.updateAtlases( child.children, atlas, fontAtlases, defaultTexture, baseTexture );
+			for (let j = 0, jmax = children.length; j < jmax; ++j) {
+				const child = children[j];
+				this.updateAtlas(child, atlas, fontAtlases, defaultTexture, baseTexture);
+				this.updateAtlases(child.children, atlas, fontAtlases, defaultTexture, baseTexture);
 			}
 		}
 	}
 
 	updateFontAtlas(
 		shape: EShape,
-		atlas: DynamicAtlas, fontAtlases: DynamicSDFFontAtlases,
+		atlas: DynamicAtlas,
+		fontAtlases: DynamicSDFFontAtlases,
 		defaultTexture: Texture
 	): void {
 		const text = shape.text;
-		const fontAtlas = fontAtlases.get( text.family );
-		if( fontAtlas != null ) {
-			const textureItem = atlas.get( fontAtlas.id );
-			if( textureItem != null ) {
+		const fontAtlas = fontAtlases.get(text.family);
+		if (fontAtlas != null) {
+			const textureItem = atlas.get(fontAtlas.id);
+			if (textureItem != null) {
 				text.atlas = fontAtlas;
 				text.texture = textureItem.texture;
 			} else {
@@ -351,102 +370,105 @@ export class EShapeRenderer extends ObjectRenderer {
 
 	updateFontAtlases(
 		shapes: EShape[],
-		atlas: DynamicAtlas, fontAtlases: DynamicSDFFontAtlases,
+		atlas: DynamicAtlas,
+		fontAtlases: DynamicSDFFontAtlases,
 		defaultTexture: Texture
 	): void {
-		for( let i = 0, imax = shapes.length; i < imax; ++i ) {
-			const shape = shapes[ i ];
-			this.updateFontAtlas( shape, atlas, fontAtlases, defaultTexture );
+		for (let i = 0, imax = shapes.length; i < imax; ++i) {
+			const shape = shapes[i];
+			this.updateFontAtlas(shape, atlas, fontAtlases, defaultTexture);
 			const children = shape.children;
-			for( let j = 0, jmax = children.length; j < jmax; ++j ) {
-				const child = children[ j ];
-				this.updateFontAtlas( child, atlas, fontAtlases, defaultTexture );
-				this.updateFontAtlases( child.children, atlas, fontAtlases, defaultTexture );
+			for (let j = 0, jmax = children.length; j < jmax; ++j) {
+				const child = children[j];
+				this.updateFontAtlas(child, atlas, fontAtlases, defaultTexture);
+				this.updateFontAtlases(child.children, atlas, fontAtlases, defaultTexture);
 			}
 		}
 	}
 
-	render_( container: EShapeContainer, shapes: EShape[], isDirty: boolean ): void {
+	render_(container: EShapeContainer, shapes: EShape[], isDirty: boolean): void {
 		const renderer = this.renderer;
 		const shader = this._shader;
 
-		if( shader != null && 0 < shapes.length ) {
+		if (shader != null && 0 < shapes.length) {
 			const resolution = renderer.resolution;
 			const buffers = container.getBuffers();
-			const antialiasWeight = container.getAntialiasWeight( resolution );
+			const antialiasWeight = container.getAntialiasWeight(resolution);
 
 			// Update textures
-			if( isDirty ) {
+			if (isDirty) {
 				// Atlases
-				const atlas = container.getAtlas( resolution );
+				const atlas = container.getAtlas(resolution);
 				const fontAtlases = container.getFontAtlases();
 				atlas.begin();
 				fontAtlases.begin();
 				const defaultTexture = atlas.getDefaultTexture();
 				const baseTexture: BaseTexture = atlas.getBaseTexture();
-				this.updateAtlases( shapes, atlas, fontAtlases, defaultTexture, baseTexture );
+				this.updateAtlases(shapes, atlas, fontAtlases, defaultTexture, baseTexture);
 				fontAtlases.end();
-				fontAtlases.update( atlas );
-				this.updateFontAtlases( shapes, atlas, fontAtlases, defaultTexture );
+				fontAtlases.update(atlas);
+				this.updateFontAtlases(shapes, atlas, fontAtlases, defaultTexture);
 				atlas.end();
 				atlas.repack();
 
 				// Update buffers
-				this.updateBuffers( shapes, buffers, renderer, antialiasWeight );
+				this.updateBuffers(shapes, buffers, renderer, antialiasWeight);
 			}
 
 			// Render buffers
-			shader.uniforms.pixelScale = container.toPixelScale( resolution );
+			shader.uniforms.pixelScale = container.toPixelScale(resolution);
 			shader.uniforms.antialiasWeight = antialiasWeight;
-			shader.uniforms.translationMatrix = container.worldTransform.toArray( true );
-			renderer.shader.bind( shader, false );
-			renderer.state!.setBlendMode(utils.correctBlendMode(BLEND_MODES.NORMAL, true));
+			shader.uniforms.translationMatrix = container.worldTransform.toArray(true);
+			renderer.shader.bind(shader, false);
+			renderer.state.setBlendMode(utils.correctBlendMode(BLEND_MODES.NORMAL, true));
 			const buffersLength = buffers.length;
-			if( 1 < buffersLength ) {
-				for( let i = 0; i < buffersLength; ++i ) {
-					buffers[ i ].upload();
+			if (1 < buffersLength) {
+				for (let i = 0; i < buffersLength; ++i) {
+					buffers[i].upload();
 				}
 			}
-			for( let i = 0; i < buffersLength; ++i ) {
-				buffers[ i ].render( shader );
+			for (let i = 0; i < buffersLength; ++i) {
+				buffers[i].render(shader);
 			}
 		}
 	}
 
 	updateBuffers(
-		shapes: EShape[], buffers: EShapeBuffer[],
-		renderer: Renderer, antialiasWeight: number
+		shapes: EShape[],
+		buffers: EShapeBuffer[],
+		renderer: Renderer,
+		antialiasWeight: number
 	): void {
 		const iterator = this._iterator;
-		iterator.reset( shapes );
+		iterator.reset(shapes);
 
 		let ib = 0;
 		let bufferSize = 0;
 		const bufferSizeBase = 5000;
 		const bufferSizeMax = this._bufferSizeMax;
-		while( iterator.get() != null ) {
+		while (iterator.get() != null) {
 			let buffer: EShapeBuffer | null = null;
 			let noMoreThanOne = false;
-			if( 0 < bufferSize ) {
-				buffer = new EShapeBuffer( bufferSize, renderer );
-				buffers.splice( ib, 0, buffer );
+			if (0 < bufferSize) {
+				buffer = new EShapeBuffer(bufferSize, renderer);
+				buffers.splice(ib, 0, buffer);
 				noMoreThanOne = true;
-			} else if( ib < buffers.length ) {
-				buffer = buffers[ ib ];
+			} else if (ib < buffers.length) {
+				buffer = buffers[ib];
 				noMoreThanOne = false;
 			} else {
-				buffer = new EShapeBuffer( bufferSizeBase, renderer );
-				buffers.push( buffer );
+				buffer = new EShapeBuffer(bufferSizeBase, renderer);
+				buffers.push(buffer);
 				noMoreThanOne = false;
 			}
-			if( buffer.update( iterator, antialiasWeight, noMoreThanOne ) ) {
+			if (buffer.update(iterator, antialiasWeight, noMoreThanOne)) {
 				bufferSize = 0;
 				ib += 1;
 			} else {
 				bufferSize = buffer.indexCountRequested;
-				if( bufferSize <= bufferSizeMax ) {
-					bufferSize = Math.ceil( bufferSize / bufferSizeBase ) * bufferSizeBase;
-					bufferSize = Math.min( bufferSize, bufferSizeMax );
+				if (bufferSize <= bufferSizeMax) {
+					bufferSize = Math.ceil(bufferSize / bufferSizeBase) * bufferSizeBase;
+					bufferSize = Math.min(bufferSize, bufferSizeMax);
 				} else {
 					// No way to render
 					break;
@@ -454,9 +476,9 @@ export class EShapeRenderer extends ObjectRenderer {
 			}
 		}
 
-		if( ib < buffers.length ) {
-			for( let jb = ib, ibmax = buffers.length; jb < ibmax; ++jb ) {
-				buffers[ jb ].destroy();
+		if (ib < buffers.length) {
+			for (let jb = ib, ibmax = buffers.length; jb < ibmax; ++jb) {
+				buffers[jb].destroy();
 			}
 			buffers.length = ib;
 		}

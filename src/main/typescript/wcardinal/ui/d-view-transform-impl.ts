@@ -25,20 +25,20 @@ export class DViewTransformImpl implements DViewTransform {
 	protected _stopper: DViewStopper;
 	protected _duration: number;
 
-	constructor( parent: DBase, toTarget: DViewToTarget, stopper: DViewStopper, duration: number ) {
+	constructor(parent: DBase, toTarget: DViewToTarget, stopper: DViewStopper, duration: number) {
 		this._parent = parent;
 		this._toTarget = toTarget;
 		this._newScaleX = 1;
 		this._newScaleY = 1;
-		this._newX =  0;
+		this._newX = 0;
 		this._newY = 0;
 		this._oldScaleX = 1;
 		this._oldScaleY = 1;
 		this._oldX = 0;
 		this._oldY = 0;
 		this._animation = new DAnimationBase({
-			onTime: ( time: number ): void => {
-				this.onTime( time );
+			onTime: (time: number): void => {
+				this.onTime(time);
 			},
 			duration
 		});
@@ -46,7 +46,7 @@ export class DViewTransformImpl implements DViewTransform {
 		this._duration = duration;
 	}
 
-	protected onTime( time: number ): void {
+	protected onTime(time: number): void {
 		const w0 = 1 - time;
 		const w1 = time;
 
@@ -55,28 +55,31 @@ export class DViewTransformImpl implements DViewTransform {
 		const x = this._oldX * w0 + this._newX * w1;
 		const y = this._oldY * w0 + this._newY * w1;
 
-		const target = this._toTarget( this._parent );
-		if( target != null ) {
-			target.scale.set( scaleX, scaleY );
-			target.position.set( x, y );
+		const target = this._toTarget(this._parent);
+		if (target != null) {
+			target.scale.set(scaleX, scaleY);
+			target.position.set(x, y);
 		}
 	}
 
 	start(
 		target: DViewTarget,
-		x: number, Y: number,
-		scaleX: number, scaleY: number,
-		duration?: number, stop?: boolean
+		x: number,
+		Y: number,
+		scaleX: number,
+		scaleY: number,
+		duration?: number,
+		stop?: boolean
 	): void {
-		if( stop !== false ) {
+		if (stop !== false) {
 			this._stopper.stop();
 		}
-		if( duration == null ) {
+		if (duration == null) {
 			duration = this._duration;
 		}
-		if( duration <= 0 ) {
-			target.scale.set( scaleX, scaleY );
-			target.position.set( x, Y );
+		if (duration <= 0) {
+			target.scale.set(scaleX, scaleY);
+			target.position.set(x, Y);
 		} else {
 			const position = target.position;
 			const scale = target.scale;

@@ -7,4 +7,4 @@ export const DDialogState = {
 	MODAL: "MODAL",
 	MODELESS: "MODELESS",
 	MENU: "MENU"
-}
+};

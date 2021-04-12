@@ -11,14 +11,16 @@ import { DThemeMenuItemMenu } from "../../d-menu-item-menu";
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
 import { DThemeDarkMenuItem } from "./d-theme-dark-menu-item";
 
-DThemeDarkAtlas.add( "menu_item_mark_next", 14, 20,
+/* eslint-disable prettier/prettier */
+DThemeDarkAtlas.add("menu_item_mark_next", 14, 20,
 	`<g>` +
 		`<polyline fill="none" stroke="#fff" stroke-width="1" points="5 16 11 10 5 4"></polyline>` +
 	`</g>`
 );
+/* eslint-enable prettier/prettier */
 
 export class DThemeDarkMenuItemMenu extends DThemeDarkMenuItem implements DThemeMenuItemMenu {
-	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
+	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
 		return DThemeDarkAtlas.mappings.menu_item_mark_next;
 	}
 

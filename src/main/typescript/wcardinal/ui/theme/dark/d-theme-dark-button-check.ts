@@ -10,35 +10,35 @@ import { DThemeDarkButtonAmbient } from "./d-theme-dark-button-ambient";
 import { DThemeDarkButtonChecks } from "./d-theme-dark-button-checks";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 
-export class DThemeDarkButtonCheck<VALUE = unknown> extends DThemeDarkButtonAmbient<VALUE>
+export class DThemeDarkButtonCheck<VALUE = unknown>
+	extends DThemeDarkButtonAmbient<VALUE>
 	implements DThemeButtonCheck<VALUE> {
-
-	getBackgroundColor( state: DBaseStateSet ): number | null {
+	getBackgroundColor(state: DBaseStateSet): number | null {
 		return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
 	}
 
-	getColor( state: DBaseStateSet ): number {
+	getColor(state: DBaseStateSet): number {
 		return DThemeDarkConstants.COLOR;
 	}
 
-	getBackgroundAlpha( state: DBaseStateSet ): number {
-		if( state.inEnabled ) {
-			if( state.isFocused || state.isHovered ) {
+	getBackgroundAlpha(state: DBaseStateSet): number {
+		if (state.inEnabled) {
+			if (state.isFocused || state.isHovered) {
 				return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
 			}
 		}
 		return 0;
 	}
 
-	getImageTintColor( state: DBaseStateSet ): number | null {
-		return DThemeDarkButtonChecks.getImageTintColor( state );
+	getImageTintColor(state: DBaseStateSet): number | null {
+		return DThemeDarkButtonChecks.getImageTintColor(state);
 	}
 
 	isToggle(): boolean {
 		return true;
 	}
 
-	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
-		return DThemeDarkButtonChecks.getImageSource( state );
+	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
+		return DThemeDarkButtonChecks.getImageSource(state);
 	}
 }

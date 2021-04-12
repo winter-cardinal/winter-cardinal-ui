@@ -15,8 +15,8 @@ import { EShapeLineOfTriangles } from "./shape/variant/e-shape-line-of-triangles
 export class DChartSeriesLineOfTriangles extends DChartSeriesLineOfAny {
 	protected _sizeId: number;
 
-	constructor( options?: DChartSeriesLineOfAnyOptions ) {
-		super( options );
+	constructor(options?: DChartSeriesLineOfAnyOptions) {
+		super(options);
 		this._sizeId = 0;
 	}
 
@@ -28,19 +28,21 @@ export class DChartSeriesLineOfTriangles extends DChartSeriesLineOfAny {
 		line: EShapeLineOfAny,
 		xcoordinate: DChartCoordinate,
 		ycoordinate: DChartCoordinate,
-		sx: number, sy: number,
-		cx: number, cy: number,
+		sx: number,
+		sy: number,
+		cx: number,
+		cy: number,
 		values: number[]
 	): void {
 		// Offset
 		const size = this._size;
 		const offset = this._offset;
-		if( size && offset && this._sizeId !== size.y ) {
+		if (size && offset && this._sizeId !== size.y) {
 			this._sizeId = size.y;
 			line.points.offset.y = offset.y - size.y * 0.2;
 		}
 
 		//
-		super.applyLine( line, xcoordinate, ycoordinate, sx, sy, cx, cy, values );
+		super.applyLine(line, xcoordinate, ycoordinate, sx, sy, cx, cy, values);
 	}
 }

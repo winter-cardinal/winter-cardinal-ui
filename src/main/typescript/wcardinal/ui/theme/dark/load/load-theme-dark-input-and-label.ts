@@ -6,6 +6,6 @@
 import { DThemeDark } from "../d-theme-dark";
 import { DThemeDarkInputAndLabel } from "../d-theme-dark-input-and-label";
 
-export const loadThemeDarkInputAndLabel = () => {
-	DThemeDark.set( "DInputAndLabel", DThemeDarkInputAndLabel );
+export const loadThemeDarkInputAndLabel = (): void => {
+	DThemeDark.set("DInputAndLabel", DThemeDarkInputAndLabel);
 };

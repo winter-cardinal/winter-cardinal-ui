@@ -5,15 +5,10 @@
 
 import { DInputNumber, DInputNumberOptions, DThemeInputNumber } from "./d-input-number";
 
-export interface DInputRealOptions<
-	THEME extends DThemeInputReal = DThemeInputReal
-> extends DInputNumberOptions<THEME> {
+export interface DInputRealOptions<THEME extends DThemeInputReal = DThemeInputReal>
+	extends DInputNumberOptions<THEME> {}
 
-}
-
-export interface DThemeInputReal extends DThemeInputNumber {
-
-}
+export interface DThemeInputReal extends DThemeInputNumber {}
 
 export class DInputReal<
 	THEME extends DThemeInputReal = DThemeInputReal,

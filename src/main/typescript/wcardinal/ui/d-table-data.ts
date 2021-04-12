@@ -1,11 +1,18 @@
 import { utils } from "pixi.js";
 import { DBaseOnOptions } from "./d-base";
-import { DTableDataFilter, DTableDataFilterFunction, DTableDataFilterObject } from "./d-table-data-filter";
-import { DTableDataSelection, DTableDataSelectionCreator, DTableDataSelectionOptions } from "./d-table-data-selection";
-import { DTableDataComparatorFunction, DTableDataComparatorObject, DTableDataSorter } from "./d-table-data-sorter";
+import { DTableDataFilter, DTableDataFilterer } from "./d-table-data-filter";
+import {
+	DTableDataSelection,
+	DTableDataSelectionCreator,
+	DTableDataSelectionOptions
+} from "./d-table-data-selection";
+import { DTableDataComparator, DTableDataSorter } from "./d-table-data-sorter";
 
 export type DTableDataMappedEachIteratee<ROW> = (
-	row: ROW, supplimental: unknown, index: number, unmappedIndex: number
+	row: ROW,
+	supplimental: unknown,
+	index: number,
+	unmappedIndex: number
 ) => void | boolean;
 
 export interface DTableDataMapped<ROW> {
@@ -15,7 +22,7 @@ export interface DTableDataMapped<ROW> {
 	 *
 	 * @param unmappedIndex a unmapped index
 	 */
-	map( unmappedIndex: number ): number | null;
+	map(unmappedIndex: number): number | null;
 
 	/**
 	 * Returns an unmapped index of the specified mapped index.
@@ -23,7 +30,7 @@ export interface DTableDataMapped<ROW> {
 	 *
 	 * @param index a mapped index
 	 */
-	unmap( index: number ): number;
+	unmap(index: number): number;
 
 	/**
 	 * Returns a size of rows.
@@ -36,7 +43,7 @@ export interface DTableDataMapped<ROW> {
 	 *
 	 * @param index a mapped index
 	 */
-	get( index: number ): ROW | null;
+	get(index: number): ROW | null;
 
 	/**
 	 * Calls the specified iteratee on each mapped datum of the specified index range.
@@ -46,26 +53,29 @@ export interface DTableDataMapped<ROW> {
 	 * @param ifrom an index to start an iteration
 	 * @param ito an index before which an interation stops
 	 */
-	each( iteratee: DTableDataMappedEachIteratee<ROW>, ifrom?: number, iend?: number ): void;
+	each(iteratee: DTableDataMappedEachIteratee<ROW>, ifrom?: number, iend?: number): void;
 }
 
-export type DTableDataEachIteratee<ROW> = ( row: ROW, index: number ) => void | boolean;
+export type DTableDataEachIteratee<ROW> = (row: ROW, index: number) => void | boolean;
 
 export interface DTableDataOptions<ROW, EMITTER = any> {
 	/**
 	 * Selection options.
 	 */
-	selection?: DTableDataSelection<ROW> | DTableDataSelectionCreator<ROW> | DTableDataSelectionOptions;
+	selection?:
+		| DTableDataSelection<ROW>
+		| DTableDataSelectionCreator<ROW>
+		| DTableDataSelectionOptions;
 
 	/**
 	 * A filter.
 	 */
-	filter?: DTableDataFilterFunction<ROW> | DTableDataFilterObject<ROW>;
+	filter?: DTableDataFilterer<ROW>;
 
 	/**
 	 * A comparator.
 	 */
-	comparator?: DTableDataComparatorFunction<ROW> | DTableDataComparatorObject<ROW>;
+	comparator?: DTableDataComparator<ROW>;
 
 	/**
 	 * Mappings of event names and event handlers.
@@ -75,8 +85,8 @@ export interface DTableDataOptions<ROW, EMITTER = any> {
 
 export interface DTableDataParent {
 	lock(): void;
-	unlock( callIfNeeded: boolean ): void;
-	update( forcibly?: boolean ): void;
+	unlock(callIfNeeded: boolean): void;
+	update(forcibly?: boolean): void;
 }
 
 export interface DTableData<ROW> extends utils.EventEmitter {
@@ -100,7 +110,7 @@ export interface DTableData<ROW> extends utils.EventEmitter {
 	 */
 	readonly mapped: DTableDataMapped<ROW>;
 
-	bind( parent: DTableDataParent ): void;
+	bind(parent: DTableDataParent): void;
 
 	/**
 	 * Returns a size of rows.
@@ -113,7 +123,7 @@ export interface DTableData<ROW> extends utils.EventEmitter {
 	 *
 	 * @param index  an index on rows filters and sorters are not applied
 	 */
-	get( index: number ): ROW | null;
+	get(index: number): ROW | null;
 
 	/**
 	 * Calls the specified iteratee on each datum of the specified index range.
@@ -123,5 +133,5 @@ export interface DTableData<ROW> extends utils.EventEmitter {
 	 * @param ifrom an index to start an iteration
 	 * @param ito an index before which an interation stops
 	 */
-	each( iteratee: DTableDataEachIteratee<ROW>, ifrom?: number, ito?: number ): void;
+	each(iteratee: DTableDataEachIteratee<ROW>, ifrom?: number, ito?: number): void;
 }

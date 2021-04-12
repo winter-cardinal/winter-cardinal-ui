@@ -11,9 +11,9 @@ import { DThemeTableBodyCellInputTreeInput } from "../../d-table-body-cell-input
 import { DThemeWhiteInputText } from "./d-theme-white-input-text";
 import { DThemeWhiteTableBodyCells } from "./d-theme-white-table-body-cells";
 
-export class DThemeWhiteTableBodyCellInputTreeInput extends DThemeWhiteInputText
+export class DThemeWhiteTableBodyCellInputTreeInput
+	extends DThemeWhiteInputText
 	implements DThemeTableBodyCellInputTreeInput {
-
 	getX(): DCoordinatePosition {
 		return "padding";
 	}
@@ -30,44 +30,44 @@ export class DThemeWhiteTableBodyCellInputTreeInput extends DThemeWhiteInputText
 		return DThemeWhiteTableBodyCells.getHeight();
 	}
 
-	getBackgroundColor( state: DBaseStateSet ): number | null {
-		return DThemeWhiteTableBodyCells.getBackgroundColor( state );
+	getBackgroundColor(state: DBaseStateSet): number | null {
+		return DThemeWhiteTableBodyCells.getBackgroundColor(state);
 	}
 
-	getBackgroundAlpha( state: DBaseStateSet ): number {
-		return DThemeWhiteTableBodyCells.getBackgroundAlpha( state );
+	getBackgroundAlpha(state: DBaseStateSet): number {
+		return DThemeWhiteTableBodyCells.getBackgroundAlpha(state);
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
-		return DThemeWhiteTableBodyCells.getBorderColor( state );
+	getBorderColor(state: DBaseStateSet): number | null {
+		return DThemeWhiteTableBodyCells.getBorderColor(state);
 	}
 
-	getBorderAlign( state: DBaseStateSet ): number {
-		return DThemeWhiteTableBodyCells.getBorderAlign( state );
+	getBorderAlign(state: DBaseStateSet): number {
+		return DThemeWhiteTableBodyCells.getBorderAlign(state);
 	}
 
-	getBorderMask( state: DBaseStateSet ): DBorderMask {
-		return DThemeWhiteTableBodyCells.getBorderMask( state );
+	getBorderMask(state: DBaseStateSet): DBorderMask {
+		return DThemeWhiteTableBodyCells.getBorderMask(state);
 	}
 
-	getColor( state: DBaseStateSet ): number {
-		return DThemeWhiteTableBodyCells.getColor( state );
+	getColor(state: DBaseStateSet): number {
+		return DThemeWhiteTableBodyCells.getColor(state);
 	}
 
-	getAlpha( state: DBaseStateSet ): number {
-		return DThemeWhiteTableBodyCells.getAlpha( state );
+	getAlpha(state: DBaseStateSet): number {
+		return DThemeWhiteTableBodyCells.getAlpha(state);
 	}
 
 	getCornerMask(): DCornerMask {
 		return DThemeWhiteTableBodyCells.getCornerMask();
 	}
 
-	getOutlineColor( state: DBaseStateSet ): number | null {
+	getOutlineColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
-	getOutlineAlign( state: DBaseStateSet ): number {
-		return DThemeWhiteTableBodyCells.getOutlineAlign( state );
+	getOutlineAlign(state: DBaseStateSet): number {
+		return DThemeWhiteTableBodyCells.getOutlineAlign(state);
 	}
 
 	getPaddingLeft(): number {

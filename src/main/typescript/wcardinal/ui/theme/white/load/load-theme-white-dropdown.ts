@@ -6,6 +6,6 @@
 import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteDropdown } from "../d-theme-white-dropdown";
 
-export const loadThemeWhiteDropdown = () => {
-	DThemeWhite.set( "DDropdown", DThemeWhiteDropdown );
+export const loadThemeWhiteDropdown = (): void => {
+	DThemeWhite.set("DDropdown", DThemeWhiteDropdown);
 };

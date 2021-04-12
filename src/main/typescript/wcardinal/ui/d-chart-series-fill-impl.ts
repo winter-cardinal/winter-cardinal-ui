@@ -13,9 +13,9 @@ export class DChartSeriesFillImpl implements DChartSeriesFill {
 	color: DChartSeriesScalar<number>;
 	alpha: DChartSeriesScalar<number>;
 
-	constructor( options?: DChartSeriesFillOptions ) {
-		this.enable = DChartSeriesScalars.from( options && options.enable, true );
-		this.color = DChartSeriesScalars.from( options && options.color, DChartColorSet2 );
-		this.alpha = DChartSeriesScalars.from( options && options.alpha, EShapeDefaults.FILL_ALPHA );
+	constructor(options?: DChartSeriesFillOptions) {
+		this.enable = DChartSeriesScalars.from(options?.enable, true);
+		this.color = DChartSeriesScalars.from(options?.color, DChartColorSet2);
+		this.alpha = DChartSeriesScalars.from(options?.alpha, EShapeDefaults.FILL_ALPHA);
 	}
 }

@@ -6,6 +6,6 @@
 import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteBase } from "../d-theme-white-base";
 
-export const loadThemeWhiteBase = () => {
-	DThemeWhite.set( "DBase", DThemeWhiteBase );
+export const loadThemeWhiteBase = (): void => {
+	DThemeWhite.set("DBase", DThemeWhiteBase);
 };

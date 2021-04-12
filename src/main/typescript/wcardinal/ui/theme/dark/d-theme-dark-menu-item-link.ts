@@ -17,16 +17,16 @@ import { DThemeDarkMenuItemText } from "./d-theme-dark-menu-item-text";
 DThemeDarkLinks.init();
 
 export class DThemeDarkMenuItemLink extends DThemeDarkMenuItemText implements DThemeMenuItemLink {
-	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
-		if( state.is( DBaseState.NEW_WINDOW ) ) {
-			return DThemeDarkLinks.getImageSource( state );
+	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
+		if (state.is(DBaseState.NEW_WINDOW)) {
+			return DThemeDarkLinks.getImageSource(state);
 		}
 		return null;
 	}
 
-	getImageTintAlpha( state: DBaseStateSet ): number {
-		if( state.isHovered ) {
-			return super.getImageTintAlpha( state );
+	getImageTintAlpha(state: DBaseStateSet): number {
+		if (state.isHovered) {
+			return super.getImageTintAlpha(state);
 		}
 		return 0;
 	}

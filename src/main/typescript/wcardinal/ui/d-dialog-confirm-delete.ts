@@ -5,15 +5,10 @@
 
 import { DDialogConfirm, DDialogConfirmOptions, DThemeDialogConfirm } from "./d-dialog-confirm";
 
-export interface DDialogConfirmDeleteOptions<
-	THEME extends DThemeDialogConfirm
-> extends DDialogConfirmOptions<THEME> {
+export interface DDialogConfirmDeleteOptions<THEME extends DThemeDialogConfirm>
+	extends DDialogConfirmOptions<THEME> {}
 
-}
-
-export interface DThemeDialogConfirmDelete extends DThemeDialogConfirm {
-
-}
+export interface DThemeDialogConfirmDelete extends DThemeDialogConfirm {}
 
 export class DDialogConfirmDelete<
 	THEME extends DThemeDialogConfirm = DThemeDialogConfirm,

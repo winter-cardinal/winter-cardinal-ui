@@ -6,9 +6,7 @@
 import { DChartAxisBase } from "./d-chart-axis-base";
 import { DChartAxisBaseOptions } from "./d-chart-axis-base-options";
 
-export interface DChartAxisYOptions extends DChartAxisBaseOptions {
-
-}
+export interface DChartAxisYOptions extends DChartAxisBaseOptions {}
 
 /**
  * An Y axis.

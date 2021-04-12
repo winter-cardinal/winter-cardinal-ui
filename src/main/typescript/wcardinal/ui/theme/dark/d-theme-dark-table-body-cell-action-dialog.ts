@@ -11,15 +11,15 @@ import { DThemeDarkTableBodyCellSelectDialog } from "./d-theme-dark-table-body-c
 
 DThemeDarkTableBodyCellActions.init();
 
-export class DThemeDarkTableBodyCellActionDialog<VALUE = unknown> extends DThemeDarkTableBodyCellSelectDialog<VALUE>
+export class DThemeDarkTableBodyCellActionDialog<VALUE = unknown>
+	extends DThemeDarkTableBodyCellSelectDialog<VALUE>
 	implements DThemeTableBodyCellActionDialog<VALUE> {
-
-	getImageTintColor( state: DBaseStateSet ): number | null {
-		return DThemeDarkTableBodyCellActions.getImageTintColor( state );
+	getImageTintColor(state: DBaseStateSet): number | null {
+		return DThemeDarkTableBodyCellActions.getImageTintColor(state);
 	}
 
-	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
-		return DThemeDarkTableBodyCellActions.getImageSource( state );
+	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
+		return DThemeDarkTableBodyCellActions.getImageSource(state);
 	}
 
 	isSyncEnabled(): boolean {

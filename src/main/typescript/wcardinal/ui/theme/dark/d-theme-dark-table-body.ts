@@ -19,7 +19,7 @@ export class DThemeDarkTableBody extends DThemeDarkBase implements DThemeTableBo
 		return DCornerMask.TOP;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 

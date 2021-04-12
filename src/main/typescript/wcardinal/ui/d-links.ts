@@ -13,21 +13,21 @@ export interface DLinksStateOptions {
 
 export class DLinks {
 	static toStateOptions<OPTIONS extends DLinksStateOptions>(
-		target?: DLinkTarget | (keyof typeof DLinkTarget),
+		target?: DLinkTarget | keyof typeof DLinkTarget,
 		options?: OPTIONS
 	): OPTIONS | undefined {
-		if( options ) {
-			if( target === DLinkTarget.NEW_WINDOW || target === "NEW_WINDOW" ) {
+		if (options) {
+			if (target === DLinkTarget.NEW_WINDOW || target === "NEW_WINDOW") {
 				const state = options.state;
-				if( state == null ) {
+				if (state == null) {
 					options.state = DBaseState.NEW_WINDOW;
-				} else if( isString( state ) ) {
-					if( state !== DBaseState.NEW_WINDOW ) {
-						options.state = [ state, DBaseState.NEW_WINDOW ];
+				} else if (isString(state)) {
+					if (state !== DBaseState.NEW_WINDOW) {
+						options.state = [state, DBaseState.NEW_WINDOW];
 					}
 				} else {
-					if( state.indexOf( DBaseState.NEW_WINDOW ) < 0 ) {
-						state.push( DBaseState.NEW_WINDOW );
+					if (state.indexOf(DBaseState.NEW_WINDOW) < 0) {
+						state.push(DBaseState.NEW_WINDOW);
 					}
 				}
 			}

@@ -3,7 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DisplayObject, IPoint, Matrix, Point, Rectangle, Renderer, Texture, Transform, utils } from "pixi.js";
+import {
+	DisplayObject,
+	IPoint,
+	Matrix,
+	Point,
+	Rectangle,
+	Renderer,
+	Texture,
+	Transform,
+	utils
+} from "pixi.js";
 import { DApplications } from "../../d-applications";
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
@@ -87,7 +97,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	// Working space for the renderer
 	uploaded?: EShapeUploaded;
 
-	constructor( type: EShapeType ) {
+	constructor(type: EShapeType) {
 		super();
 		this.id = "";
 		this.uuid = 0;
@@ -118,7 +128,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	}
 
 	protected newTransform(): EShapeTransform {
-		return new EShapeTransformImpl( this );
+		return new EShapeTransformImpl(this);
 	}
 
 	onSizeChange(): void {
@@ -136,9 +146,9 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	}
 
 	protected onTransformChange_(): void {
-		if( this._onTransformChangeLock === 0 ) {
+		if (this._onTransformChangeLock === 0) {
 			const parent = this.parent;
-			if( parent != null ) {
+			if (parent != null) {
 				parent.onChildTransformChange();
 			}
 		} else {
@@ -148,17 +158,17 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 	disallowOnTransformChange(): void {
 		this._onTransformChangeLock += 1;
-		if( this._onTransformChangeLock === 1 ) {
+		if (this._onTransformChangeLock === 1) {
 			this._isOnTransformChanged = false;
 		}
 	}
 
-	allowOnTransformChange( invokeOnTransformChange: boolean ): void {
+	allowOnTransformChange(invokeOnTransformChange: boolean): void {
 		this._onTransformChangeLock -= 1;
-		if( this._onTransformChangeLock === 0 ) {
-			if( this._isOnTransformChanged ) {
+		if (this._onTransformChangeLock === 0) {
+			if (this._isOnTransformChanged) {
 				this._isOnTransformChanged = false;
-				if( invokeOnTransformChange ) {
+				if (invokeOnTransformChange) {
 					this.onTransformChange();
 				}
 			}
@@ -171,7 +181,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 	disallowUploadedUpdate(): void {
 		this._uploadedUpdateLock += 1;
-		if( this._uploadedUpdateLock === 1 ) {
+		if (this._uploadedUpdateLock === 1) {
 			this._isUploadedUpdated = false;
 			this._isUploadedUpdatedRecursively = false;
 		}
@@ -179,12 +189,12 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 	allowUploadedUpdate(): void {
 		this._uploadedUpdateLock -= 1;
-		if( this._uploadedUpdateLock === 0 ) {
-			if( this._isUploadedUpdatedRecursively ) {
+		if (this._uploadedUpdateLock === 0) {
+			if (this._isUploadedUpdatedRecursively) {
 				this._isUploadedUpdatedRecursively = false;
 				this._isUploadedUpdated = false;
 				this.updateUploadedRecursively();
-			} else if( this._isUploadedUpdated ) {
+			} else if (this._isUploadedUpdated) {
 				this._isUploadedUpdated = false;
 				this.updateUploaded();
 			}
@@ -192,11 +202,11 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	}
 
 	updateUploadedRecursively(): void {
-		if( this._uploadedUpdateLock === 0 ) {
+		if (this._uploadedUpdateLock === 0) {
 			this.updateUploaded();
 			const children = this.children;
-			for( let i = 0, imax = children.length; i < imax; ++i ) {
-				children[ i ].updateUploadedRecursively();
+			for (let i = 0, imax = children.length; i < imax; ++i) {
+				children[i].updateUploadedRecursively();
 			}
 		} else {
 			this._isUploadedUpdatedRecursively = true;
@@ -204,10 +214,10 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	}
 
 	updateUploaded(): void {
-		if( this._uploadedUpdateLock === 0 ) {
+		if (this._uploadedUpdateLock === 0) {
 			const uploaded = this.uploaded;
-			if( uploaded != null ) {
-				uploaded.update( this );
+			if (uploaded != null) {
+				uploaded.update(this);
 			}
 		} else {
 			this._isUploadedUpdated = true;
@@ -218,7 +228,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		return this._image;
 	}
 
-	set image( image: HTMLImageElement | undefined ) {
+	set image(image: HTMLImageElement | undefined) {
 		this._image = image;
 	}
 
@@ -229,7 +239,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	//
 	get root(): EShape {
 		let root: EShape = this;
-		while( root.parent instanceof EShapeBase ) {
+		while (root.parent instanceof EShapeBase) {
 			root = root.parent;
 		}
 		return root;
@@ -237,9 +247,9 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 	//
 	get visible(): boolean {
-		if( this._visible ) {
+		if (this._visible) {
 			const parent = this.parent;
-			if( parent instanceof EShapeBase ) {
+			if (parent instanceof EShapeBase) {
 				return parent.visible;
 			}
 			return true;
@@ -247,17 +257,17 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		return false;
 	}
 
-	set visible( visible: boolean ) {
-		if( this._visible !== visible ) {
+	set visible(visible: boolean) {
+		if (this._visible !== visible) {
 			this._visible = visible;
 			this.updateUploadedRecursively();
 		}
 	}
 
 	get worldVisible(): boolean {
-		if( this._visible ) {
+		if (this._visible) {
 			const parent = this.parent;
-			if( parent ) {
+			if (parent) {
 				return parent.worldVisible;
 			}
 			return true;
@@ -269,19 +279,19 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	abstract clone(): EShape;
 
 	//
-	toDirty() {
+	toDirty(): void {
 		this.parent?.toDirty();
 	}
 
 	// Hierarchy
-	attach( parent: EShapeContainer | EShape, at?: number ): this {
+	attach(parent: EShapeContainer | EShape, at?: number): this {
 		this.detach();
 		this.parent = parent;
 		const children = parent.children;
-		if( at != null && 0 <= at && at < children.length ) {
-			children.splice( at, 0, this );
+		if (at != null && 0 <= at && at < children.length) {
+			children.splice(at, 0, this);
 		} else {
-			children.push( this );
+			children.push(this);
 		}
 		this.uploaded = undefined;
 		parent.onChildTransformChange();
@@ -291,13 +301,13 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 	detach(): this {
 		const parent = this.parent;
-		if( parent ) {
+		if (parent) {
 			this.parent = null;
 			this.uploaded = undefined;
 			const children = parent.children;
-			const index = children.indexOf( this );
-			if( 0 <= index ) {
-				children.splice( index, 1 );
+			const index = children.indexOf(this);
+			if (0 <= index) {
+				children.splice(index, 1);
 				parent.onChildTransformChange();
 				parent.toDirty();
 			}
@@ -306,20 +316,20 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	}
 
 	// Transform
-	updateTransform() {
+	updateTransform(): void {
 		const parent = this.parent;
-		if( parent ) {
-			if( parent.parent ) {
+		if (parent) {
+			if (parent.parent) {
 				parent.updateTransform();
 			}
 			this.transform.updateTransform(parent.transform);
 		} else {
-			this.transform.updateTransform((Transform as any).IDENTITY);
+			this.transform.updateTransform(Transform.IDENTITY);
 		}
 	}
 
 	// Serialization
-	serializeChildren( manager: EShapeResourceManagerSerialization ): DDiagramSerializedItem[] {
+	serializeChildren(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem[] {
 		const children = this.children;
 		const childrenSerialized = [];
 		for (let i = 0, imax = children.length; i < imax; ++i) {
@@ -329,24 +339,24 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		return childrenSerialized;
 	}
 
-	serializeImage( manager: EShapeResourceManagerSerialization ): number {
+	serializeImage(manager: EShapeResourceManagerSerialization): number {
 		const image = this._image;
-		return (image != null ? manager.addResource( image.src ) : -1);
+		return image != null ? manager.addResource(image.src) : -1;
 	}
 
-	serializeGradient( manager: EShapeResourceManagerSerialization ): number {
-		return EShapeGradients.toGradientId( this.gradient, manager );
+	serializeGradient(manager: EShapeResourceManagerSerialization): number {
+		return EShapeGradients.toGradientId(this.gradient, manager);
 	}
 
-	serialize( manager: EShapeResourceManagerSerialization ): DDiagramSerializedItem {
+	serialize(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem {
 		const transform = this.transform;
 		const position = transform.position;
 		const pivot = transform.pivot;
 		const size = this.size;
 		const shortcut = this.shortcut;
-		const shortcutId = ( shortcut != null ? manager.addResource( shortcut ) : -1 );
+		const shortcutId = shortcut != null ? manager.addResource(shortcut) : -1;
 		const title = this.title;
-		const titleId = ( title != null ? manager.addResource( title ) : -1 );
+		const titleId = title != null ? manager.addResource(title) : -1;
 		return [
 			this.type,
 			manager.addResource(this.id),
@@ -356,46 +366,46 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 			size.y,
 			transform.rotation,
 			transform.skew.x,
-			this.fill.serialize( manager ),
-			this.stroke.serialize( manager ),
-			manager.addResource( this.cursor.trim() ),
-			this.text.serialize( manager ),
-			this.tag.serialize( manager ),
+			this.fill.serialize(manager),
+			this.stroke.serialize(manager),
+			manager.addResource(this.cursor.trim()),
+			this.text.serialize(manager),
+			this.tag.serialize(manager),
 			this.radius,
 			this.corner,
 			-1,
 			-1,
-			this.action.serialize( manager ),
-			this.serializeImage( manager ),
-			this.serializeGradient( manager ),
-			this.serializeChildren( manager ),
+			this.action.serialize(manager),
+			this.serializeImage(manager),
+			this.serializeGradient(manager),
+			this.serializeChildren(manager),
 			pivot.x,
 			pivot.y,
-			( this.interactive ? 1 : 0 ) | ( this.state.isFocusable ? 0 : 2 ),
+			(this.interactive ? 1 : 0) | (this.state.isFocusable ? 0 : 2),
 			shortcutId,
 			titleId,
 			this.uuid
 		];
 	}
 
-	addUuid( manager: EShapeResourceManagerSerialization ): void {
-		this.uuid = manager.addUuid( this.uuid );
+	addUuid(manager: EShapeResourceManagerSerialization): void {
+		this.uuid = manager.addUuid(this.uuid);
 		const children = this.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].addUuid( manager );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].addUuid(manager);
 		}
 	}
 
-	updateUuid( manager: EShapeResourceManagerSerialization ): void {
-		this.uuid = manager.updateUuid( this.uuid );
+	updateUuid(manager: EShapeResourceManagerSerialization): void {
+		this.uuid = manager.updateUuid(this.uuid);
 		const children = this.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].updateUuid( manager );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].updateUuid(manager);
 		}
 	}
 
 	// Hit test
-	toLocalRect( point: IPoint, result: Rectangle ): Rectangle {
+	toLocalRect(point: IPoint, result: Rectangle): Rectangle {
 		const x = point.x;
 		const y = point.y;
 		const size = this.size;
@@ -406,8 +416,8 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		const dy = y - pivot.y;
 		const stroke = this.stroke;
 		const s = stroke.width * stroke.align;
-		if( 0 <= sx ) {
-			if( 0 <= sy ) {
+		if (0 <= sx) {
+			if (0 <= sy) {
 				result.x = +dx;
 				result.y = +dy;
 				result.width = +sx + s;
@@ -419,7 +429,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 				result.height = -sy + s;
 			}
 		} else {
-			if( 0 <= sy ) {
+			if (0 <= sy) {
 				result.x = -dx;
 				result.y = +dy;
 				result.width = -sx + s;
@@ -434,29 +444,29 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		return result;
 	}
 
-	contains( point: Point ): EShape | null {
-		const rect = this.toLocalRect( point, EShapeBase.WORK_RECT );
-		if( this.containsAbs( rect.x, rect.y, rect.width, rect.height ) ) {
+	contains(point: Point): EShape | null {
+		const rect = this.toLocalRect(point, EShapeBase.WORK_RECT);
+		if (this.containsAbs(rect.x, rect.y, rect.width, rect.height)) {
 			return this;
 		}
 		const x = point.x;
 		const y = point.y;
-		return this.containsText( x, y, point ) || this.containsChildren( x, y, point );
+		return this.containsText(x, y, point) || this.containsChildren(x, y, point);
 	}
 
-	protected containsText( x: number, y: number, work: Point ): EShape | null {
+	protected containsText(x: number, y: number, work: Point): EShape | null {
 		const text = this.text;
 		const textAtlas = text.atlas;
-		if( textAtlas != null ) {
+		if (textAtlas != null) {
 			const textWorld = text.world;
-			if( textWorld != null ) {
-				work.set( x, y );
-				this.transform.internalTransform.apply( work, work );
-				const tx = work.x - textWorld[ 0 ];
-				const ty = work.y - textWorld[ 1 ];
-				const th = textWorld[ 2 ] * tx + textWorld[ 3 ] * ty;
-				const tv = textWorld[ 4 ] * tx + textWorld[ 5 ] * ty;
-				if( 0 <= th && th <= textWorld[ 6 ] && 0 <= tv && tv <= textWorld[ 7 ] ) {
+			if (textWorld != null) {
+				work.set(x, y);
+				this.transform.internalTransform.apply(work, work);
+				const tx = work.x - textWorld[0];
+				const ty = work.y - textWorld[1];
+				const th = textWorld[2] * tx + textWorld[3] * ty;
+				const tv = textWorld[4] * tx + textWorld[5] * ty;
+				if (0 <= th && th <= textWorld[6] && 0 <= tv && tv <= textWorld[7]) {
 					return this;
 				}
 			}
@@ -464,99 +474,102 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		return null;
 	}
 
-	protected containsChildren( x: number, y: number, work: Point ): EShape | null {
+	protected containsChildren(x: number, y: number, work: Point): EShape | null {
 		const children = this.children;
-		for( let i = children.length - 1; 0 <= i; --i ) {
-			const child = children[ i ];
-			work.set( x, y );
+		for (let i = children.length - 1; 0 <= i; --i) {
+			const child = children[i];
+			work.set(x, y);
 			child.updateTransform();
-			child.transform.localTransform.applyInverse( work, work );
-			const childResult = child.contains( work );
-			if( childResult != null ) {
+			child.transform.localTransform.applyInverse(work, work);
+			const childResult = child.contains(work);
+			if (childResult != null) {
 				return childResult;
 			}
 		}
 		return null;
 	}
 
-	containsBBox( point: IPoint ): boolean {
-		const rect = this.toLocalRect( point, EShapeBase.WORK_RECT );
-		return this.containsAbsBBox( rect.x, rect.y, rect.width, rect.height );
+	containsBBox(point: IPoint): boolean {
+		const rect = this.toLocalRect(point, EShapeBase.WORK_RECT);
+		return this.containsAbsBBox(rect.x, rect.y, rect.width, rect.height);
 	}
 
-	containsAbs( x: number, y: number, ax: number, ay: number ): boolean {
-		return this.containsAbsBBox( x, y, ax, ay );
+	containsAbs(x: number, y: number, ax: number, ay: number): boolean {
+		return this.containsAbsBBox(x, y, ax, ay);
 	}
 
-	containsAbsBBox( x: number, y: number, ax: number, ay: number ): boolean {
-		return (-ax <= x && x <= +ax && -ay <= y && y <= +ay);
+	containsAbsBBox(x: number, y: number, ax: number, ay: number): boolean {
+		return -ax <= x && x <= +ax && -ay <= y && y <= +ay;
 	}
 
-	select( point: Point ): boolean {
+	select(point: Point): boolean {
 		return false;
 	}
 
 	//
-	toGlobal( position: IPoint, result: Point, skipUpdate?: boolean ): Point {
-		if( skipUpdate !== true ) {
+	toGlobal(position: IPoint, result: Point, skipUpdate?: boolean): Point {
+		if (skipUpdate !== true) {
 			this.updateTransform();
 		}
-		result.copyFrom( position );
-		this.transform.worldTransform.apply( result, result );
+		result.copyFrom(position);
+		this.transform.worldTransform.apply(result, result);
 		return result;
 	}
 
-	toLocal( position: IPoint, from?: DisplayObject, result?: Point, skipUpdate?: boolean ): Point {
-		if( skipUpdate !== true ) {
+	toLocal(position: IPoint, from?: DisplayObject, result?: Point, skipUpdate?: boolean): Point {
+		if (skipUpdate !== true) {
 			this.updateTransform();
 		}
-		if( result === undefined ) {
+		if (result === undefined) {
 			result = new Point();
 		}
-		result.copyFrom( position );
-		this.transform.worldTransform.applyInverse( result, result );
+		result.copyFrom(position);
+		this.transform.worldTransform.applyInverse(result, result);
 		return result;
 	}
 
-	getBounds( work: Point, skipUpdate: boolean, result: Rectangle ): Rectangle {
-		if( skipUpdate !== true ) {
+	getBounds(work: Point, skipUpdate: boolean, result: Rectangle): Rectangle {
+		if (skipUpdate !== true) {
 			this.updateTransform();
 		}
-		const bounds = this._bounds = ( this._bounds || new Rectangle() );
+		const bounds = this._bounds || new Rectangle();
+		this._bounds = bounds;
 		const worldId = this.transform.getWorldId();
-		if( worldId !== this._boundsTransformId ) {
+		if (worldId !== this._boundsTransformId) {
 			this._boundsTransformId = worldId;
-			this.getBounds_( this.transform.worldTransform, work, bounds );
+			this.getBounds_(this.transform.worldTransform, work, bounds);
 		}
-		result.copyFrom( bounds );
+		result.copyFrom(bounds);
 		return result;
 	}
 
-	getBoundsInternal( work: Point, skipUpdate: boolean, result: Rectangle ): Rectangle {
-		if( skipUpdate !== true ) {
+	getBoundsInternal(work: Point, skipUpdate: boolean, result: Rectangle): Rectangle {
+		if (skipUpdate !== true) {
 			this.updateTransform();
 		}
-		const boundsInternal = this._boundsInternal = ( this._boundsInternal || new Rectangle() );
+		const boundsInternal = this._boundsInternal || new Rectangle();
+		this._boundsInternal = boundsInternal;
 		const currentLocalId = this.transform.getLocalIdCurrent();
-		if( currentLocalId !== this._boundsInternalTransformId ) {
+		if (currentLocalId !== this._boundsInternalTransformId) {
 			this._boundsInternalTransformId = currentLocalId;
-			this.getBounds_( this.transform.internalTransform, work, boundsInternal );
+			this.getBounds_(this.transform.internalTransform, work, boundsInternal);
 		}
-		result.copyFrom( boundsInternal );
+		result.copyFrom(boundsInternal);
 		return result;
 	}
 
-	getBoundsLocal( work: Point, skipUpdate: boolean, result: Rectangle ): Rectangle {
-		if( skipUpdate !== true ) {
+	getBoundsLocal(work: Point, skipUpdate: boolean, result: Rectangle): Rectangle {
+		if (skipUpdate !== true) {
 			this.updateTransform();
 		}
-		const boundsLocal = this._boundsLocal = ( this._boundsLocal || new Rectangle() );
+		const boundsLocal = this._boundsLocal || new Rectangle();
+		this._boundsLocal = boundsLocal;
 		const currentLocalId = this.transform.getLocalIdCurrent();
-		if( currentLocalId !== this._boundsLocalTransformId ) {
+		if (currentLocalId !== this._boundsLocalTransformId) {
 			this._boundsLocalTransformId = currentLocalId;
-			this.getBounds_( this.transform.localTransform, work, boundsLocal );
+			this.getBounds_(this.transform.localTransform, work, boundsLocal);
 		}
-		result.copyFrom( boundsLocal );
+		result.copyFrom(boundsLocal);
 		return result;
 	}
 
@@ -564,7 +577,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		return this.size;
 	}
 
-	protected getBounds_( transform: Matrix, work: Point, result: Rectangle ): Rectangle {
+	protected getBounds_(transform: Matrix, work: Point, result: Rectangle): Rectangle {
 		const pivot = this.transform.pivot;
 		const px = pivot.x;
 		const py = pivot.y;
@@ -597,10 +610,10 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		const x3 = a * x + c * y;
 		const y3 = b * x + d * y;
 
-		const xmin = Math.min( x0, x1, x2, x3 );
-		const ymin = Math.min( y0, y1, y2, y3 );
-		const xmax = Math.max( x0, x1, x2, x3 );
-		const ymax = Math.max( y0, y1, y2, y3 );
+		const xmin = Math.min(x0, x1, x2, x3);
+		const ymin = Math.min(y0, y1, y2, y3);
+		const xmax = Math.max(x0, x1, x2, x3);
+		const ymax = Math.max(y0, y1, y2, y3);
 		result.x = xmin + transform.tx;
 		result.y = ymin + transform.ty;
 		result.width = xmax - xmin;
@@ -611,30 +624,30 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	//
 	destroy(): void {
 		const children = this.children;
-		for( let i = children.length - 1; 0 <= i; --i ) {
-			children[ i ].destroy();
+		for (let i = children.length - 1; 0 <= i; --i) {
+			children[i].destroy();
 		}
 		children.length = 0;
 	}
 
 	//
-	protected onStateChange( newState: DBaseStateSet, oldState: DBaseStateSet ): void {
-		this.runtime?.onStateChange( this, newState, oldState );
+	protected onStateChange(newState: DBaseStateSet, oldState: DBaseStateSet): void {
+		this.runtime?.onStateChange(this, newState, oldState);
 
 		const children = this.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			const child = children[ i ];
-			if( child instanceof EShapeBase ) {
-				child.state.onParentChange( newState, oldState );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			const child = children[i];
+			if (child instanceof EShapeBase) {
+				child.state.onParentChange(newState, oldState);
 			}
 		}
 	}
 
 	get state(): EShapeStateSet {
 		let result = this._state;
-		if( result == null ) {
-			result = new EShapeStateSetImplObservable(( newState, oldState ): void => {
-				this.onStateChange( newState, oldState );
+		if (result == null) {
+			result = new EShapeStateSetImplObservable((newState, oldState): void => {
+				this.onStateChange(newState, oldState);
 			});
 			this._state = result;
 		}
@@ -642,20 +655,20 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	}
 
 	focus(): this {
-		this.setFocused( true );
+		this.setFocused(true);
 		return this;
 	}
 
 	blur(): this {
-		this.setFocused( false );
+		this.setFocused(false);
 		return this;
 	}
 
-	protected setFocused( isFocused: boolean ): void {
-		if( this.state.isFocused !== isFocused ) {
-			const layer = DApplications.getLayer( this );
-			if( layer ) {
-				layer.getFocusController().set( this, isFocused );
+	protected setFocused(isFocused: boolean): void {
+		if (this.state.isFocused !== isFocused) {
+			const layer = DApplications.getLayer(this);
+			if (layer) {
+				layer.getFocusController().set(this, isFocused);
 			}
 		}
 	}
@@ -664,91 +677,91 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		return false;
 	}
 
-	onKeyDown( e: KeyboardEvent ): boolean {
+	onKeyDown(e: KeyboardEvent): boolean {
 		const runtime = this.runtime;
-		if( runtime ) {
-			return runtime.onKeyDown( this, e );
+		if (runtime) {
+			return runtime.onKeyDown(this, e);
 		}
 		return false;
 	}
 
-	onKeyUp( e: KeyboardEvent ): boolean {
+	onKeyUp(e: KeyboardEvent): boolean {
 		const runtime = this.runtime;
-		if( runtime ) {
-			return runtime.onKeyUp( this, e );
+		if (runtime) {
+			return runtime.onKeyUp(this, e);
 		}
 		return false;
 	}
 
 	//
-	update( time: number ): void {
+	update(time: number): void {
 		const runtime = this.runtime;
-		if( runtime ) {
-			runtime.update( this, time );
+		if (runtime) {
+			runtime.update(this, time);
 		}
 	}
 
-	onRender( time: number, renderer: Renderer ): void {
+	onRender(time: number, renderer: Renderer): void {
 		const runtime = this.runtime;
-		if( runtime ) {
-			runtime.onRender( this, time, renderer );
+		if (runtime) {
+			runtime.onRender(this, time, renderer);
 		}
 	}
 
-	updateRecursively( time: number ): void {
-		this.update( time );
+	updateRecursively(time: number): void {
+		this.update(time);
 
 		const children = this.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].update( time );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].update(time);
 		}
 	}
 
-	copy( source: EShape, part: EShapeCopyPart = EShapeCopyPart.ALL ): this {
+	copy(source: EShape, part: EShapeCopyPart = EShapeCopyPart.ALL): this {
 		this.id = source.id;
 		this.uuid = source.uuid;
-		if( part & EShapeCopyPart.TRANSFORM ) {
+		if (part & EShapeCopyPart.TRANSFORM) {
 			const transform = this.transform;
 			const sourceTransform = source.transform;
-			transform.position.copyFrom( sourceTransform.position );
+			transform.position.copyFrom(sourceTransform.position);
 			transform.rotation = sourceTransform.rotation;
-			transform.skew.copyFrom( sourceTransform.skew );
-			transform.pivot.copyFrom( sourceTransform.pivot );
-			transform.scale.copyFrom( sourceTransform.scale );
+			transform.skew.copyFrom(sourceTransform.skew);
+			transform.pivot.copyFrom(sourceTransform.pivot);
+			transform.scale.copyFrom(sourceTransform.scale);
 		}
-		if( part & EShapeCopyPart.SIZE ) {
-			this.size.copyFrom( source.size );
+		if (part & EShapeCopyPart.SIZE) {
+			this.size.copyFrom(source.size);
 		}
-		if( part & EShapeCopyPart.STYLE ) {
-			this.fill.copy( source.fill );
-			this.stroke.copy( source.stroke );
-			this.text.copy( source.text );
+		if (part & EShapeCopyPart.STYLE) {
+			this.fill.copy(source.fill);
+			this.stroke.copy(source.stroke);
+			this.text.copy(source.text);
 			this.radius = source.radius;
 			this.corner = source.corner;
 		}
-		if( part & EShapeCopyPart.TAG ) {
-			this.tag.copy( source.tag );
+		if (part & EShapeCopyPart.TAG) {
+			this.tag.copy(source.tag);
 		}
-		if( part & EShapeCopyPart.IMAGE ) {
+		if (part & EShapeCopyPart.IMAGE) {
 			this.image = source.image;
 		}
-		if( part & EShapeCopyPart.ACTION ) {
-			this.action.clearAndAddAll( source.action.values );
+		if (part & EShapeCopyPart.ACTION) {
+			this.action.clearAndAddAll(source.action.values);
 			this.interactive = source.interactive;
 			this.cursor = source.cursor;
 			this.shortcut = source.shortcut;
 		}
-		if( part & EShapeCopyPart.POINTS ) {
+		if (part & EShapeCopyPart.POINTS) {
 			const sourcePoints = source.points;
-			if( sourcePoints != null ) {
+			if (sourcePoints != null) {
 				const points = this.points;
-				if( points != null ) {
-					points.copy( sourcePoints );
+				if (points != null) {
+					points.copy(sourcePoints);
 				}
 			}
 		}
-		if( part & EShapeCopyPart.STATE ) {
-			this.state.lock( false ).copy( source.state ).unlock();
+		if (part & EShapeCopyPart.STATE) {
+			this.state.lock(false).copy(source.state).unlock();
 		}
 		return this;
 	}

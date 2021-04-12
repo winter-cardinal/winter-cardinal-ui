@@ -12,25 +12,21 @@ import { EShapeActionValueTransformResize } from "./e-shape-action-value-transfo
 export class EShapeActionRuntimeTransformResizeHeightRelative extends EShapeActionRuntimeTransformResize {
 	protected origin: number;
 
-	constructor( value: EShapeActionValueTransformResize ) {
-		super( value, EShapeRuntimeReset.HEIGHT );
+	constructor(value: EShapeActionValueTransformResize) {
+		super(value, EShapeRuntimeReset.HEIGHT);
 		this.origin = value.originY;
 		this.reset |= EShapeRuntimeReset.POSITION;
 	}
 
-	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( this.condition( shape, time ) ) {
-			const sizeRelative = this.size( shape, time );
+	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {
+		if (this.condition(shape, time)) {
+			const sizeRelative = this.size(shape, time);
 			const size = shape.size;
-			const writtenHeight = ( (runtime.written & EShapeRuntimeReset.HEIGHT) !== 0 );
-			const oldSizeY = (writtenHeight ? size.y : runtime.size.y);
-			size.y = EShapeSizes.toNormalized( oldSizeY * sizeRelative );
+			const writtenHeight = !!(runtime.written & EShapeRuntimeReset.HEIGHT);
+			const oldSizeY = writtenHeight ? size.y : runtime.size.y;
+			size.y = EShapeSizes.toNormalized(oldSizeY * sizeRelative);
 			runtime.written |= EShapeRuntimeReset.HEIGHT;
-			this.adjustPosition(
-				shape, runtime,
-				0, oldSizeY - size.y,
-				0.5, this.origin
-			);
+			this.adjustPosition(shape, runtime, 0, oldSizeY - size.y, 0.5, this.origin);
 		}
 	}
 }

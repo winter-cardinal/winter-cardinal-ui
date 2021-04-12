@@ -6,14 +6,22 @@
 import { DApplications } from "./d-applications";
 import { DBaseShadow } from "./d-base";
 import {
-	DCanvasContainer, DCanvasContainerEvents, DCanvasContainerOptions, DThemeCanvasContainer
+	DCanvasContainer,
+	DCanvasContainerEvents,
+	DCanvasContainerOptions,
+	DThemeCanvasContainer
 } from "./d-canvas-container";
-import { DDiagramCanvasBackgroundOptions, DDiagramCanvasBase, DDiagramCanvasBaseOptions } from "./d-diagram-canvas-base";
+import {
+	DDiagramCanvasBackgroundOptions,
+	DDiagramCanvasBase,
+	DDiagramCanvasBaseOptions
+} from "./d-diagram-canvas-base";
 import { DDiagramCanvasTilePyramidFactory } from "./d-diagram-canvas-tile";
 import { DDiagramLayer } from "./d-diagram-layer";
 import { DDiagramSerialized, DDiagramSerializedSimple } from "./d-diagram-serialized";
 import { DDiagramSnapshot } from "./d-diagram-snapshot";
 import { DDiagrams } from "./d-diagrams";
+import { DOnOptions } from "./d-on-options";
 import { EShape } from "./shape/e-shape";
 import { EShapeResourceManagerDeserialization } from "./shape/e-shape-resource-manager-deserialization";
 import { EShapeEmbeddedDatum } from "./shape/variant/e-shape-embedded-datum";
@@ -21,20 +29,21 @@ import { EShapeEmbeddedDatum } from "./shape/variant/e-shape-embedded-datum";
 /**
  * {@link DDiagramBase} events.
  */
-export interface DDiagramBaseEvents<CANVAS, EMITTER> extends DCanvasContainerEvents<CANVAS, EMITTER> {
+export interface DDiagramBaseEvents<CANVAS, EMITTER>
+	extends DCanvasContainerEvents<CANVAS, EMITTER> {
 	/**
 	 * Triggered when all the shape initializations are finished.
 	 *
 	 * @param emitter an emitter
 	 */
-	ready( emitter: EMITTER ): void;
+	ready(emitter: EMITTER): void;
 }
 
 /**
  * {@link DDiagram} piece controller.
  */
 export interface DDiagramBasePieceController {
-	getByName( name: string ): Promise<DDiagramSerializedSimple | DDiagramSerialized>;
+	getByName(name: string): Promise<DDiagramSerializedSimple | DDiagramSerialized>;
 }
 
 /**
@@ -42,15 +51,15 @@ export interface DDiagramBasePieceController {
  */
 export interface DDiagramBaseController {
 	piece: DDiagramBasePieceController;
-	getByName( name: string ): Promise<DDiagramSerializedSimple | DDiagramSerialized>;
+	getByName(name: string): Promise<DDiagramSerializedSimple | DDiagramSerialized>;
 }
 
 /**
  * {@link DDiagramBase} "on" options.
  */
-export interface DDiagramBaseOnOptions<CANVAS, EMITTER> extends Partial<DDiagramBaseEvents<CANVAS, EMITTER>> {
-	[ key: string ]: Function | undefined;
-}
+export interface DDiagramBaseOnOptions<CANVAS, EMITTER>
+	extends Partial<DDiagramBaseEvents<CANVAS, EMITTER>>,
+		DOnOptions {}
 
 /**
  * {@link DDiagramBase} options.
@@ -89,8 +98,12 @@ export abstract class DDiagramBase<
 	CANVAS_OPTIONS extends DDiagramCanvasBaseOptions = DDiagramCanvasBaseOptions,
 	CONTROLLER extends DDiagramBaseController = DDiagramBaseController,
 	THEME extends DThemeDiagramBase = DThemeDiagramBase,
-	OPTIONS extends DDiagramBaseOptions<CANVAS, CANVAS_OPTIONS, CONTROLLER, THEME>
-		= DDiagramBaseOptions<CANVAS, CANVAS_OPTIONS, CONTROLLER, THEME>
+	OPTIONS extends DDiagramBaseOptions<
+		CANVAS,
+		CANVAS_OPTIONS,
+		CONTROLLER,
+		THEME
+	> = DDiagramBaseOptions<CANVAS, CANVAS_OPTIONS, CONTROLLER, THEME>
 > extends DCanvasContainer<CANVAS, CANVAS_OPTIONS, THEME, OPTIONS> {
 	protected _serialized: DDiagramSerialized | null;
 	protected _tileFactory?: DDiagramCanvasTilePyramidFactory;
@@ -98,13 +111,13 @@ export abstract class DDiagramBase<
 	protected _isAmbient: boolean;
 	protected _snapshot: DDiagramSnapshot;
 
-	constructor( options?: OPTIONS ) {
-		super( options );
+	constructor(options?: OPTIONS) {
+		super(options);
 		this._serialized = null;
 		this._tileFactory = options?.tile;
 		this._controller = options?.controller;
-		this._isAmbient = (options?.ambient ?? this.theme.isAmbient());
-		this._snapshot = new DDiagramSnapshot( this );
+		this._isAmbient = options?.ambient ?? this.theme.isAmbient();
+		this._snapshot = new DDiagramSnapshot(this);
 	}
 
 	get snapshot(): DDiagramSnapshot {
@@ -115,33 +128,31 @@ export abstract class DDiagramBase<
 		return this._controller || null;
 	}
 
-	set( serialized: DDiagramSerialized | null ): void {
+	set(serialized: DDiagramSerialized | null): void {
 		const oldSerialized = this._serialized;
-		if( oldSerialized !== serialized ) {
-			if( oldSerialized ) {
+		if (oldSerialized !== serialized) {
+			if (oldSerialized) {
 				this._serialized = null;
 				this.onUnset();
 			}
 
 			this._serialized = serialized;
-			if( serialized ) {
-				this.onSet( serialized );
+			if (serialized) {
+				this.onSet(serialized);
 			}
 		}
 	}
 
-	protected onSet( serialized: DDiagramSerialized ): void {
-		const canvas = this.newCanvas( serialized );
+	protected onSet(serialized: DDiagramSerialized): void {
+		const canvas = this.newCanvas(serialized);
 		const pieces = serialized.pieces;
 		const isEditMode = this.isEditMode();
-		const pieceDataOrPromise = DDiagrams.toPieceData(
-			this._controller, pieces, isEditMode
-		);
-		if( pieceDataOrPromise == null ) {
-			this.newLayer( serialized, canvas, isEditMode );
+		const pieceDataOrPromise = DDiagrams.toPieceData(this._controller, pieces, isEditMode);
+		if (pieceDataOrPromise == null) {
+			this.newLayer(serialized, canvas, isEditMode);
 		} else {
-			pieceDataOrPromise.then(( pieceData ): void => {
-				this.newLayer( serialized, canvas, isEditMode, pieces, pieceData );
+			pieceDataOrPromise.then((pieceData): void => {
+				this.newLayer(serialized, canvas, isEditMode, pieces, pieceData);
 			});
 		}
 		this.canvas = canvas;
@@ -158,31 +169,33 @@ export abstract class DDiagramBase<
 	): void {
 		const layer = canvas.layer;
 		const manager = new EShapeResourceManagerDeserialization(
-			serialized, pieces, pieceData, isEditMode
+			serialized,
+			pieces,
+			pieceData,
+			isEditMode
 		);
-		DDiagrams.newLayer( serialized, layer, manager )
-		.then(( shapes: EShape[] ): void => {
+		DDiagrams.newLayer(serialized, layer, manager).then((shapes: EShape[]): void => {
 			layer.init();
-			this.initialize( shapes );
-			canvas.initialize( shapes );
-			DApplications.update( this );
-			this.emit( "ready", this );
+			this.initialize(shapes);
+			canvas.initialize(shapes);
+			DApplications.update(this);
+			this.emit("ready", this);
 		});
-		if( this._isAmbient ) {
-			const background = this.toCanvasBaseBackgroundOptions( serialized, this.theme, false );
+		if (this._isAmbient) {
+			const background = this.toCanvasBaseBackgroundOptions(serialized, this.theme, false);
 			this.background.color = background.color;
 			this.background.alpha = background.alpha;
 		}
 	}
 
-	protected toCanvasBaseOptions( serialized: DDiagramSerialized ): DDiagramCanvasBaseOptions<any> {
+	protected toCanvasBaseOptions(serialized: DDiagramSerialized): DDiagramCanvasBaseOptions<any> {
 		const theme = this.theme;
 		const isAmbient = this._isAmbient;
 		return {
 			name: serialized.name,
 			width: serialized.width,
 			height: serialized.height,
-			background: this.toCanvasBaseBackgroundOptions( serialized, theme, isAmbient ),
+			background: this.toCanvasBaseBackgroundOptions(serialized, theme, isAmbient),
 			border: isAmbient ? { color: null } : undefined,
 			shadow: isAmbient ? null : theme.getCanvasShadow(),
 			tile: {
@@ -194,9 +207,11 @@ export abstract class DDiagramBase<
 	}
 
 	protected toCanvasBaseBackgroundOptions(
-		serialized: DDiagramSerialized, theme: THEME, isAmbient: boolean
+		serialized: DDiagramSerialized,
+		theme: THEME,
+		isAmbient: boolean
 	): DDiagramCanvasBackgroundOptions {
-		if( isAmbient ) {
+		if (isAmbient) {
 			return {
 				color: null
 			};
@@ -208,24 +223,24 @@ export abstract class DDiagramBase<
 		};
 	}
 
-	openByName( name: string ) {
+	openByName(name: string): void {
 		const controller = this._controller;
-		if( controller ) {
-			controller.getByName( name ).then(( found ): void => {
-				this.set( DDiagrams.toSerialized( found ) );
+		if (controller) {
+			controller.getByName(name).then((found): void => {
+				this.set(DDiagrams.toSerialized(found));
 			});
 		}
 	}
 
-	protected initialize( shapes: EShape[] ): void {
+	protected initialize(shapes: EShape[]): void {
 		// DO NOTHING
 	}
 
-	protected abstract newCanvas( serialized: DDiagramSerialized ): CANVAS;
+	protected abstract newCanvas(serialized: DDiagramSerialized): CANVAS;
 
 	protected onUnset(): void {
 		const canvas = this.canvas;
-		if( canvas ) {
+		if (canvas) {
 			this.canvas = null;
 		}
 	}
@@ -236,7 +251,7 @@ export abstract class DDiagramBase<
 
 	get layer(): DDiagramLayer | null {
 		const canvas = this.canvas;
-		if( canvas ) {
+		if (canvas) {
 			return canvas.layer.active;
 		}
 		return null;

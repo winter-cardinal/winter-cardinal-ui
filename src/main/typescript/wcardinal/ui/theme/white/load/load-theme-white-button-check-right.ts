@@ -6,6 +6,6 @@
 import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteButtonCheckRight } from "../d-theme-white-button-check-right";
 
-export const loadThemeWhiteButtonCheckRight = () => {
-	DThemeWhite.set( "DButtonCheckRight", DThemeWhiteButtonCheckRight );
+export const loadThemeWhiteButtonCheckRight = (): void => {
+	DThemeWhite.set("DButtonCheckRight", DThemeWhiteButtonCheckRight);
 };

@@ -11,7 +11,10 @@ import { DBaseOverflowMask } from "./d-base-overflow-mask";
 import { DChart } from "./d-chart";
 import { DChartAxisContainer, DChartAxisContainerOptions } from "./d-chart-axis-container";
 import { DChartAxisContainerImpl } from "./d-chart-axis-container-impl";
-import { DChartCoordinateContainer, DChartCoordinateContainerOptions } from "./d-chart-coordinate-container";
+import {
+	DChartCoordinateContainer,
+	DChartCoordinateContainerOptions
+} from "./d-chart-coordinate-container";
 import { DChartCoordinateContainerImpl } from "./d-chart-coordinate-container-impl";
 import { DChartPlotAreaContainer } from "./d-chart-plot-area-container";
 import { DChartSeriesContainer, DChartSeriesContainerOptions } from "./d-chart-series-container";
@@ -20,9 +23,8 @@ import { DView, DViewOptions } from "./d-view";
 import { DViewImpl } from "./d-view-impl";
 import { UtilWheelEventDeltas } from "./util/util-wheel-event";
 
-export interface DChartPlotAreaOptions<
-	THEME extends DThemeChartPlotArea = DThemeChartPlotArea
-> extends DBaseOptions<THEME> {
+export interface DChartPlotAreaOptions<THEME extends DThemeChartPlotArea = DThemeChartPlotArea>
+	extends DBaseOptions<THEME> {
 	mask?: boolean;
 	coordinate?: DChartCoordinateContainerOptions;
 	series?: DChartSeriesContainerOptions;
@@ -54,8 +56,8 @@ export class DChartPlotArea<
 	protected _blendTimeout: number | null;
 	protected _onBlendBound: () => void;
 
-	constructor( chart: DChart, options?: OPTIONS ) {
-		super( options );
+	constructor(chart: DChart, options?: OPTIONS) {
+		super(options);
 		this._chart = chart;
 		this._blendStartTime = 0;
 		this._blendDuration = 1000;
@@ -65,52 +67,52 @@ export class DChartPlotArea<
 		};
 	}
 
-	protected init( options?: OPTIONS ): void {
-		super.init( options );
+	protected init(options?: OPTIONS): void {
+		super.init(options);
 
-		const container = new DChartPlotAreaContainer( (): void => {
+		const container = new DChartPlotAreaContainer((): void => {
 			this._isViewDirty = true;
 			this._isBoundsInContainerDirty = true;
-			DApplications.update( this );
+			DApplications.update(this);
 		});
 		this._container = container;
-		this._coordinate = new DChartCoordinateContainerImpl( this, options?.coordinate );
-		const series = new DChartSeriesContainerImpl( this, options?.series );
+		this._coordinate = new DChartCoordinateContainerImpl(this, options?.coordinate);
+		const series = new DChartSeriesContainerImpl(this, options?.series);
 		this._series = series;
-		const axis = new DChartAxisContainerImpl( this, options?.axis );
+		const axis = new DChartAxisContainerImpl(this, options?.axis);
 		this._axis = axis;
 		this._isViewDirty = true;
 		this._isBoundsInContainerDirty = true;
 		this._boundsInContainer = new Rectangle();
 		this._workPoint = new Point();
 
-		this.addChild( container );
-		this.addChild( axis.container );
+		this.addChild(container);
+		this.addChild(axis.container);
 
-		this._view = new DViewImpl( this, () => container, options?.view );
+		this._view = new DViewImpl(this, () => container, options?.view);
 
 		const selection = series.selection;
-		if( selection ) {
-			selection.bind( series );
+		if (selection) {
+			selection.bind(series);
 		}
 
 		// Overflow mask
 		const mask = options?.mask ?? this.theme.isOverflowMaskEnabled();
-		if( mask ) {
+		if (mask) {
 			container.mask = this.getOverflowMask();
 		}
 	}
 
-	onResize( newWidth: number, newHeight: number, oldWidth: number, oldHeight: number ): void {
+	onResize(newWidth: number, newHeight: number, oldWidth: number, oldHeight: number): void {
 		this._isViewDirty = true;
 		this._isBoundsInContainerDirty = true;
-		super.onResize( newWidth, newHeight, oldWidth, oldHeight );
+		super.onResize(newWidth, newHeight, oldWidth, oldHeight);
 	}
 
 	protected getOverflowMask(): DBaseOverflowMask {
-		if( this._overflowMask == null ) {
-			this._overflowMask = new DBaseOverflowMask( this );
-			this.addReflowable( this._overflowMask );
+		if (this._overflowMask == null) {
+			this._overflowMask = new DBaseOverflowMask(this);
+			this.addReflowable(this._overflowMask);
 			this.toDirty();
 		}
 		return this._overflowMask;
@@ -140,35 +142,38 @@ export class DChartPlotArea<
 		return this._view;
 	}
 
-	onWheel( e: WheelEvent, deltas: UtilWheelEventDeltas, global: Point ): boolean {
-		const vresult = this._view.onWheel( e, deltas, global );
-		const sresult = super.onWheel( e, deltas, global );
+	onWheel(e: WheelEvent, deltas: UtilWheelEventDeltas, global: Point): boolean {
+		const vresult = this._view.onWheel(e, deltas, global);
+		const sresult = super.onWheel(e, deltas, global);
 		return vresult || sresult;
 	}
 
-	onDblClick( e: MouseEvent | TouchEvent, interactionManager: interaction.InteractionManager ): boolean {
-		const vresult = this._view.onDblClick( e, interactionManager );
-		const sresult = super.onDblClick( e, interactionManager );
+	onDblClick(
+		e: MouseEvent | TouchEvent,
+		interactionManager: interaction.InteractionManager
+	): boolean {
+		const vresult = this._view.onDblClick(e, interactionManager);
+		const sresult = super.onDblClick(e, interactionManager);
 		return vresult || sresult;
 	}
 
-	protected onDown( e: interaction.InteractionEvent ): void {
-		this._view.onDown( e );
-		super.onDown( e );
+	protected onDown(e: interaction.InteractionEvent): void {
+		this._view.onDown(e);
+		super.onDown(e);
 	}
 
-	render( renderer: Renderer ): void {
-		if( this._isViewDirty ) {
+	render(renderer: Renderer): void {
+		if (this._isViewDirty) {
 			this._isViewDirty = false;
 
 			this._axis.update();
 
 			const selection = this._series.selection;
-			if( selection ) {
+			if (selection) {
 				selection.update();
 			}
 		}
-		super.render( renderer );
+		super.render(renderer);
 	}
 
 	destroy(): void {
@@ -183,7 +188,7 @@ export class DChartPlotArea<
 
 	getBoundsInContainer(): Rectangle {
 		const result = this._boundsInContainer;
-		if( this._isBoundsInContainerDirty ) {
+		if (this._isBoundsInContainerDirty) {
 			this._isBoundsInContainerDirty = false;
 
 			const container = this.container;
@@ -192,36 +197,42 @@ export class DChartPlotArea<
 
 			const work = this._workPoint;
 
-			work.set( 0, 0 );
-			transform.applyInverse( work, work );
+			work.set(0, 0);
+			transform.applyInverse(work, work);
 			result.x = work.x;
 			result.y = work.y;
 
-			work.set( this.width, this.height );
-			transform.applyInverse( work, work );
+			work.set(this.width, this.height);
+			transform.applyInverse(work, work);
 			result.width = work.x - result.x;
 			result.height = work.y - result.y;
 		}
 		return result;
 	}
 
-	fit( duration?: number, domainFrom?: number, domainTo?: number, rangeFrom?: number, rangeTo?: number ): this {
+	fit(
+		duration?: number,
+		domainFrom?: number,
+		domainTo?: number,
+		rangeFrom?: number,
+		rangeTo?: number
+	): this {
 		const coordinate = this._coordinate;
 		const axis = this._axis;
 		const series = this._series;
-		if( duration != null && duration <= 0 ) {
-			coordinate.fit( domainFrom, domainTo, rangeFrom, rangeTo );
+		if (duration != null && duration <= 0) {
+			coordinate.fit(domainFrom, domainTo, rangeFrom, rangeTo);
 			axis.update();
 			series.update();
 		} else {
 			this._blendDuration = duration != null ? duration : 200;
 			this._blendStartTime = Date.now();
-			coordinate.mark( domainFrom, domainTo, rangeFrom, rangeTo );
+			coordinate.mark(domainFrom, domainTo, rangeFrom, rangeTo);
 			const blendTimeout = this._blendTimeout;
-			if( blendTimeout != null ) {
-				window.clearTimeout( blendTimeout );
+			if (blendTimeout != null) {
+				window.clearTimeout(blendTimeout);
 			}
-			this._blendTimeout = window.setTimeout( this._onBlendBound, 0 );
+			this._blendTimeout = window.setTimeout(this._onBlendBound, 0);
 		}
 		return this;
 	}
@@ -229,13 +240,13 @@ export class DChartPlotArea<
 	protected onBlend(): void {
 		const now = Date.now();
 		let ratio = (now - this._blendStartTime) / this._blendDuration;
-		if( ratio < 1 ) {
-			this._blendTimeout = window.setTimeout( this._onBlendBound, 0 );
+		if (ratio < 1) {
+			this._blendTimeout = window.setTimeout(this._onBlendBound, 0);
 		} else {
 			this._blendTimeout = null;
 			ratio = 1;
 		}
-		this._coordinate.blend( DAnimationTimings.ELASTIC( ratio ) );
+		this._coordinate.blend(DAnimationTimings.ELASTIC(ratio));
 		this._axis.update();
 		this._series.update();
 	}

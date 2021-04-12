@@ -6,6 +6,6 @@
 import { DThemeDark } from "../d-theme-dark";
 import { DThemeDarkBase } from "../d-theme-dark-base";
 
-export const loadThemeDarkBase = () => {
-	DThemeDark.set( "DBase", DThemeDarkBase );
+export const loadThemeDarkBase = (): void => {
+	DThemeDark.set("DBase", DThemeDarkBase);
 };

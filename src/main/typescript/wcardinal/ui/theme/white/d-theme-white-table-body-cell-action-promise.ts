@@ -11,15 +11,15 @@ import { DThemeWhiteTableBodyCellSelectPromise } from "./d-theme-white-table-bod
 
 DThemeWhiteTableBodyCellActions.init();
 
-export class DThemeWhiteTableBodyCellActionPromise<VALUE = unknown> extends DThemeWhiteTableBodyCellSelectPromise<VALUE>
+export class DThemeWhiteTableBodyCellActionPromise<VALUE = unknown>
+	extends DThemeWhiteTableBodyCellSelectPromise<VALUE>
 	implements DThemeTableBodyCellActionPromise<VALUE> {
-
-	getImageTintColor( state: DBaseStateSet ): number | null {
-		return DThemeWhiteTableBodyCellActions.getImageTintColor( state );
+	getImageTintColor(state: DBaseStateSet): number | null {
+		return DThemeWhiteTableBodyCellActions.getImageTintColor(state);
 	}
 
-	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
-		return DThemeWhiteTableBodyCellActions.getImageSource( state );
+	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
+		return DThemeWhiteTableBodyCellActions.getImageSource(state);
 	}
 
 	isSyncEnabled(): boolean {

@@ -14,7 +14,7 @@ export class DThemeDarkCanvas extends DThemeDarkBase implements DThemeCanvas {
 		return 0x484848;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 

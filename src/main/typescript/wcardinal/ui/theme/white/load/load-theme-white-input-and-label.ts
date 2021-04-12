@@ -6,6 +6,6 @@
 import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteInputAndLabel } from "../d-theme-white-input-and-label";
 
-export const loadThemeWhiteInputAndLabel = () => {
-	DThemeWhite.set( "DInputAndLabel", DThemeWhiteInputAndLabel );
+export const loadThemeWhiteInputAndLabel = (): void => {
+	DThemeWhite.set("DInputAndLabel", DThemeWhiteInputAndLabel);
 };

@@ -8,13 +8,9 @@ import { DText, DTextOptions, DThemeText } from "./d-text";
 export interface DInputLabelOptions<
 	VALUE = unknown,
 	THEME extends DThemeText<VALUE> = DThemeText<VALUE>
-> extends DTextOptions<VALUE, THEME> {
+> extends DTextOptions<VALUE, THEME> {}
 
-}
-
-export interface DThemeInputLabel<VALUE = unknown> extends DThemeText<VALUE> {
-
-}
+export interface DThemeInputLabel<VALUE = unknown> extends DThemeText<VALUE> {}
 
 export class DInputLabel<
 	VALUE = unknown,

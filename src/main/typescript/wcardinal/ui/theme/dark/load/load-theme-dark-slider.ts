@@ -14,14 +14,14 @@ import { DThemeDarkSliderTrackVertical } from "../d-theme-dark-slider-track-vert
 import { DThemeDarkSliderValue } from "../d-theme-dark-slider-value";
 import { DThemeDarkSliderVertical } from "../d-theme-dark-slider-vertical";
 
-export const loadThemeDarkSlider = () => {
-	DThemeDark.set( "DSlider", DThemeDarkSlider );
-	DThemeDark.set( "DSliderValue", DThemeDarkSliderValue );
-	DThemeDark.set( "DSliderLabel", DThemeDarkSliderLabel );
-	DThemeDark.set( "DSliderThumb", DThemeDarkSliderThumb );
-	DThemeDark.set( "DSliderVertical", DThemeDarkSliderVertical );
-	DThemeDark.set( "DSliderHorizontal", DThemeDarkSliderHorizontal );
-	DThemeDark.set( "DSliderTrack", DThemeDarkSliderTrack );
-	DThemeDark.set( "DSliderTrackVertical", DThemeDarkSliderTrackVertical );
-	DThemeDark.set( "DSliderTrackHorizontal", DThemeDarkSliderTrackHorizontal );
+export const loadThemeDarkSlider = (): void => {
+	DThemeDark.set("DSlider", DThemeDarkSlider);
+	DThemeDark.set("DSliderValue", DThemeDarkSliderValue);
+	DThemeDark.set("DSliderLabel", DThemeDarkSliderLabel);
+	DThemeDark.set("DSliderThumb", DThemeDarkSliderThumb);
+	DThemeDark.set("DSliderVertical", DThemeDarkSliderVertical);
+	DThemeDark.set("DSliderHorizontal", DThemeDarkSliderHorizontal);
+	DThemeDark.set("DSliderTrack", DThemeDarkSliderTrack);
+	DThemeDark.set("DSliderTrackVertical", DThemeDarkSliderTrackVertical);
+	DThemeDark.set("DSliderTrackHorizontal", DThemeDarkSliderTrackHorizontal);
 };

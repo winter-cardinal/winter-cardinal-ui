@@ -6,6 +6,7 @@
 import { interaction, Point } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBase, DBaseEvents, DBaseOptions, DThemeBase } from "./d-base";
+import { DOnOptions } from "./d-on-options";
 import { DBaseOverflowMask } from "./d-base-overflow-mask";
 import { DCanvas } from "./d-canvas";
 import { DView, DViewOptions } from "./d-view";
@@ -22,7 +23,7 @@ export interface DCanvasContainerEvents<CANVAS, EMITTER> extends DBaseEvents<EMI
 	 * @param canvas a removed canvas
 	 * @param emitter an emitter
 	 */
-	unset( canvas: CANVAS, emitter: EMITTER ): void;
+	unset(canvas: CANVAS, emitter: EMITTER): void;
 
 	/**
 	 * Triggered when a canvas is set.
@@ -30,15 +31,15 @@ export interface DCanvasContainerEvents<CANVAS, EMITTER> extends DBaseEvents<EMI
 	 * @param canvas a new canvas
 	 * @param emitter an emitter
 	 */
-	set( canvas: CANVAS, emitter: EMITTER ): void;
+	set(canvas: CANVAS, emitter: EMITTER): void;
 }
 
 /**
  * {@link DCanvasContainer} "on" options.
  */
-export interface DCanvasContainerOnOptions<CANVAS, EMITTER> extends Partial<DCanvasContainerEvents<CANVAS, EMITTER>> {
-	[ key: string ]: Function | undefined;
-}
+export interface DCanvasContainerOnOptions<CANVAS, EMITTER>
+	extends Partial<DCanvasContainerEvents<CANVAS, EMITTER>>,
+		DOnOptions {}
 
 /**
  * {@link DCanvasContainer} options.
@@ -69,29 +70,32 @@ export class DCanvasContainer<
 	CANVAS extends DBase = DCanvas,
 	CANVAS_OPTIONS extends DBaseOptions = DBaseOptions,
 	THEME extends DThemeCanvasContainer = DThemeCanvasContainer,
-	OPTIONS extends DCanvasContainerOptions<CANVAS, CANVAS_OPTIONS, THEME>
-		= DCanvasContainerOptions<CANVAS, CANVAS_OPTIONS, THEME>
+	OPTIONS extends DCanvasContainerOptions<
+		CANVAS,
+		CANVAS_OPTIONS,
+		THEME
+	> = DCanvasContainerOptions<CANVAS, CANVAS_OPTIONS, THEME>
 > extends DBase<THEME, OPTIONS> {
 	protected _canvas!: CANVAS | null;
 	protected _overflowMask?: DBaseOverflowMask | null;
 	protected _view!: DViewImpl;
 
-	protected init( options?: OPTIONS ) {
-		super.init( options );
+	protected init(options?: OPTIONS): void {
+		super.init(options);
 
 		this._canvas = null;
 		const theme = this.theme;
-		this._view = new DViewImpl( this, () => this._canvas, options?.view );
+		this._view = new DViewImpl(this, () => this._canvas, options?.view);
 
 		// Canvas
 		const canvas = options?.canvas;
-		if( canvas ) {
+		if (canvas) {
 			this.canvas = canvas;
 		}
 
 		// Overflow mask
 		const mask = options?.mask ?? theme.isOverflowMaskEnabled();
-		if( mask ) {
+		if (mask) {
 			this.mask = this.getOverflowMask();
 		}
 	}
@@ -100,49 +104,54 @@ export class DCanvasContainer<
 		return "DCanvasContainer";
 	}
 
-	onResize( newWidth: number, newHeight: number, oldWidth: number, oldHeight: number ): void {
-		super.onResize( newWidth, newHeight, oldWidth, oldHeight );
-		this.updateContentSize( newWidth, newHeight, oldWidth, oldHeight );
+	onResize(newWidth: number, newHeight: number, oldWidth: number, oldHeight: number): void {
+		super.onResize(newWidth, newHeight, oldWidth, oldHeight);
+		this.updateContentSize(newWidth, newHeight, oldWidth, oldHeight);
 	}
 
 	get canvas(): CANVAS | null {
 		return this._canvas;
 	}
 
-	set canvas( canvas: CANVAS | null ) {
+	set canvas(canvas: CANVAS | null) {
 		const previous = this._canvas;
-		if( previous != null ) {
+		if (previous != null) {
 			this._canvas = null;
-			this.removeChild( previous );
-			this.emit( "unset", previous, this );
+			this.removeChild(previous);
+			this.emit("unset", previous, this);
 			previous.destroy();
 		}
 
 		this._canvas = canvas;
-		if( canvas != null ) {
-			this.addChild( canvas );
-			this._view.reset( 0 );
-			this.emit( "set", canvas, this );
+		if (canvas != null) {
+			this.addChild(canvas);
+			this._view.reset(0);
+			this.emit("set", canvas, this);
 		} else {
-			DApplications.update( this );
+			DApplications.update(this);
 		}
 	}
 
 	protected getOverflowMask(): DBaseOverflowMask {
-		if( this._overflowMask == null ) {
-			this._overflowMask = new DBaseOverflowMask( this );
-			this.addReflowable( this._overflowMask );
+		if (this._overflowMask == null) {
+			this._overflowMask = new DBaseOverflowMask(this);
+			this.addReflowable(this._overflowMask);
 			this.toDirty();
 		}
 		return this._overflowMask;
 	}
 
-	protected updateContentSize( newWidth: number, newHeight: number, oldWidth: number, oldHeight: number ): void {
+	protected updateContentSize(
+		newWidth: number,
+		newHeight: number,
+		oldWidth: number,
+		oldHeight: number
+	): void {
 		const canvas = this._canvas;
-		if( canvas != null ) {
+		if (canvas != null) {
 			const canvasX = canvas.x + (newWidth - oldWidth) * 0.5;
 			const canvasY = canvas.y + (newHeight - oldHeight) * 0.5;
-			canvas.position.set( canvasX, canvasY );
+			canvas.position.set(canvasX, canvasY);
 		}
 	}
 
@@ -150,27 +159,30 @@ export class DCanvasContainer<
 		return this._view;
 	}
 
-	onWheel( e: WheelEvent, deltas: UtilWheelEventDeltas, global: Point ): boolean {
-		const vresult = this._view.onWheel( e, deltas, global );
-		const sresult = super.onWheel( e, deltas, global );
+	onWheel(e: WheelEvent, deltas: UtilWheelEventDeltas, global: Point): boolean {
+		const vresult = this._view.onWheel(e, deltas, global);
+		const sresult = super.onWheel(e, deltas, global);
 		return vresult || sresult;
 	}
 
-	onDblClick( e: MouseEvent | TouchEvent, interactionManager: interaction.InteractionManager ): boolean {
-		const vresult = this._view.onDblClick( e, interactionManager );
-		const sresult = super.onDblClick( e, interactionManager );
+	onDblClick(
+		e: MouseEvent | TouchEvent,
+		interactionManager: interaction.InteractionManager
+	): boolean {
+		const vresult = this._view.onDblClick(e, interactionManager);
+		const sresult = super.onDblClick(e, interactionManager);
 		return vresult || sresult;
 	}
 
-	protected onDown( e: interaction.InteractionEvent ): void {
-		this._view.onDown( e );
-		super.onDown( e );
+	protected onDown(e: interaction.InteractionEvent): void {
+		this._view.onDown(e);
+		super.onDown(e);
 	}
 
 	destroy(): void {
 		// Overflow mask
 		const overflowMask = this._overflowMask;
-		if( overflowMask != null ) {
+		if (overflowMask != null) {
 			this._overflowMask = null;
 			overflowMask.destroy();
 		}

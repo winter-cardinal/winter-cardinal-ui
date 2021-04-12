@@ -10,15 +10,12 @@ import { DInputBooleanButtonOn } from "./d-input-boolean-button-on";
 import { DLayoutOptions } from "./d-layout";
 import { DLayoutHorizontal, DThemeLayoutHorizontal } from "./d-layout-horizontal";
 
-export interface DInputBooleanOptions<
-	THEME extends DThemeInputBoolean = DThemeInputBoolean
-> extends DLayoutOptions<THEME> {
+export interface DInputBooleanOptions<THEME extends DThemeInputBoolean = DThemeInputBoolean>
+	extends DLayoutOptions<THEME> {
 	value?: boolean;
 }
 
-export interface DThemeInputBoolean extends DThemeLayoutHorizontal {
-
-}
+export interface DThemeInputBoolean extends DThemeLayoutHorizontal {}
 
 export class DInputBoolean<
 	THEME extends DThemeInputBoolean = DThemeInputBoolean,
@@ -28,24 +25,25 @@ export class DInputBoolean<
 	protected _buttonOn?: DInputBooleanButtonOn;
 	protected _buttonOff?: DInputBooleanButtonOff;
 
-	constructor( options?: OPTIONS ) {
-		super( options );
-		this.addChild( this.getButtonOff() );
-		this.addChild( this.getButtonOn() );
+	constructor(options?: OPTIONS) {
+		super(options);
+		this.addChild(this.getButtonOff());
+		this.addChild(this.getButtonOn());
 
-		if( options && options.value != null ) {
-			this.value = options.value;
+		const value = options?.value;
+		if (value != null) {
+			this.value = value;
 		}
 
-		this.getButtonGroup().on( "active", (): void => {
+		this.getButtonGroup().on("active", (): void => {
 			const newValue = this.value;
-			this.emit( "change", newValue, ! newValue, this );
+			this.emit("change", newValue, !newValue, this);
 		});
 	}
 
 	protected getButtonGroup(): DButtonGroup {
 		let result = this._buttonGroup;
-		if( result == null ) {
+		if (result == null) {
 			result = this.newButtonGroup();
 			this._buttonGroup = result;
 		}
@@ -58,7 +56,7 @@ export class DInputBoolean<
 
 	protected getButtonOn(): DInputBooleanButtonOn {
 		let result = this._buttonOn;
-		if( result == null ) {
+		if (result == null) {
 			result = this.newButtonOn();
 			this._buttonOn = result;
 		}
@@ -74,7 +72,7 @@ export class DInputBoolean<
 
 	protected getButtonOff(): DInputBooleanButtonOff {
 		let result = this._buttonOff;
-		if( result == null ) {
+		if (result == null) {
 			result = this.newButtonOff();
 			this._buttonOff = result;
 		}
@@ -93,9 +91,9 @@ export class DInputBoolean<
 		return this.getButtonOn().state.isActive;
 	}
 
-	set value( value: boolean ) {
-		if( this.value !== value ) {
-			if( value ) {
+	set value(value: boolean) {
+		if (this.value !== value) {
+			if (value) {
 				this.getButtonOn().onClick();
 			} else {
 				this.getButtonOff().onClick();

@@ -12,7 +12,9 @@ import { DThemeWhiteListItem } from "./d-theme-white-list-item";
 
 DThemeWhiteExpandables.init();
 
-export class DThemeWhiteMenuItemExpandableHeader extends DThemeWhiteListItem implements DThemeMenuItemExpandableHeader {
+export class DThemeWhiteMenuItemExpandableHeader
+	extends DThemeWhiteListItem
+	implements DThemeMenuItemExpandableHeader {
 	getPaddingLeft(): number {
 		return this.getPaddingRight();
 	}
@@ -21,8 +23,8 @@ export class DThemeWhiteMenuItemExpandableHeader extends DThemeWhiteListItem imp
 		return 26;
 	}
 
-	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
-		if( state.inActive ) {
+	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
+		if (state.inActive) {
 			return DThemeWhiteExpandables.getImageOpened();
 		}
 		return DThemeWhiteExpandables.getImageClosed();

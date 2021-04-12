@@ -13,30 +13,33 @@ export class EShapeActionRuntimeTransformResizeSizeRelative extends EShapeAction
 	protected originX: number;
 	protected originY: number;
 
-	constructor( value: EShapeActionValueTransformResize ) {
-		super( value, EShapeRuntimeReset.SIZE );
+	constructor(value: EShapeActionValueTransformResize) {
+		super(value, EShapeRuntimeReset.SIZE);
 		this.originX = value.originX;
 		this.originY = value.originY;
 		this.reset |= EShapeRuntimeReset.POSITION;
 	}
 
-	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( this.condition( shape, time ) ) {
-			const sizeRelative = this.size( shape, time );
+	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {
+		if (this.condition(shape, time)) {
+			const sizeRelative = this.size(shape, time);
 			const size = shape.size;
-			const writtenWidth = ( (runtime.written & EShapeRuntimeReset.WIDTH) !== 0 );
-			const writtenHeight = ( (runtime.written & EShapeRuntimeReset.HEIGHT) !== 0 );
-			const oldSizeX = (writtenWidth ? size.x : runtime.size.x);
-			const oldSizeY = (writtenHeight ? size.y : runtime.size.y);
+			const writtenWidth = !!(runtime.written & EShapeRuntimeReset.WIDTH);
+			const writtenHeight = !!(runtime.written & EShapeRuntimeReset.HEIGHT);
+			const oldSizeX = writtenWidth ? size.x : runtime.size.x;
+			const oldSizeY = writtenHeight ? size.y : runtime.size.y;
 			size.set(
-				EShapeSizes.toNormalized( oldSizeX * sizeRelative ),
-				EShapeSizes.toNormalized( oldSizeY * sizeRelative )
+				EShapeSizes.toNormalized(oldSizeX * sizeRelative),
+				EShapeSizes.toNormalized(oldSizeY * sizeRelative)
 			);
 			runtime.written |= EShapeRuntimeReset.SIZE;
 			this.adjustPosition(
-				shape, runtime,
-				oldSizeX - size.x, oldSizeY - size.y,
-				this.originX, this.originY
+				shape,
+				runtime,
+				oldSizeX - size.x,
+				oldSizeY - size.y,
+				this.originX,
+				this.originY
 			);
 		}
 	}

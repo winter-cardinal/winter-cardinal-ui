@@ -6,6 +6,6 @@
 import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteDialogConfirmDelete } from "../d-theme-white-dialog-confirm-delete";
 
-export const loadThemeWhiteDialogConfirmDelete = () => {
-	DThemeWhite.set( "DDialogConfirmDelete", DThemeWhiteDialogConfirmDelete );
+export const loadThemeWhiteDialogConfirmDelete = (): void => {
+	DThemeWhite.set("DDialogConfirmDelete", DThemeWhiteDialogConfirmDelete);
 };

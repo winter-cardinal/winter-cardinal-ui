@@ -91,7 +91,7 @@ export interface DBaseStateSet {
 	 * @param state a state
 	 * @return true if the given state is on
 	 */
-	is( state: string ): boolean;
+	is(state: string): boolean;
 
 	/**
 	 * Returns true if the given state is on or if one of the parents has the given state.
@@ -99,7 +99,7 @@ export interface DBaseStateSet {
 	 * @param state a state
 	 * @return true if the given state is on or if one of the parents has the given state.
 	 */
-	in( state: string ): boolean;
+	in(state: string): boolean;
 
 	/**
 	 * Returns true if the direct parent has the given state.
@@ -107,7 +107,7 @@ export interface DBaseStateSet {
 	 * @param state a state
 	 * @return true if the direct parent has the given state.
 	 */
-	on( state: string ): boolean;
+	on(state: string): boolean;
 
 	/**
 	 * Returns true if one of the parents has the given state.
@@ -115,7 +115,7 @@ export interface DBaseStateSet {
 	 * @param state a state
 	 * @return true if one of the parents has the given state.
 	 */
-	under( state: string ): boolean;
+	under(state: string): boolean;
 
 	/**
 	 * Locks this state set.
@@ -124,7 +124,7 @@ export interface DBaseStateSet {
 	 * @param callOnChange false to stop calling the change event handler when unlocked
 	 * @return this
 	 */
-	lock( callOnChange?: boolean ): this;
+	lock(callOnChange?: boolean): this;
 
 	/**
 	 * Unlocks this state set and calls the change event handler if this state set has changed.
@@ -134,24 +134,24 @@ export interface DBaseStateSet {
 	 */
 	unlock(): this;
 
-	add( state: string ): this;
-	addAll( states: string[] ): this;
-	addAll( ...states: string[] ): this;
-	remove( state: string ): this;
-	removeAll( states: string[] ): this;
-	removeAll( ...states: string[] ): this;
-	removeAll( matcher: ( state: string ) => void | boolean ): this;
-	set( state: string, isOn: boolean ): this;
-	set( added: string | null, removed: string | null ): this;
-	setAll( state: string[], isOn: boolean ): this;
-	setAll( addeds: string[] | null, removeds: string[] | null ): this;
+	add(state: string): this;
+	addAll(states: string[]): this;
+	addAll(...states: string[]): this;
+	remove(state: string): this;
+	removeAll(states: string[]): this;
+	removeAll(...states: string[]): this;
+	removeAll(matcher: (state: string) => void | boolean): this;
+	set(state: string, isOn: boolean): this;
+	set(added: string | null, removed: string | null): this;
+	setAll(state: string[], isOn: boolean): this;
+	setAll(addeds: string[] | null, removeds: string[] | null): this;
 	clear(): this;
 
-	each( iteratee: ( state: string ) => void ): this;
+	each(iteratee: (state: string) => void): this;
 	size(): number;
-	copy( state: DBaseStateSet ): this;
+	copy(state: DBaseStateSet): this;
 
-	onParentChange( newState: DBaseStateSet, oldState: DBaseStateSet ): void;
+	onParentChange(newState: DBaseStateSet, oldState: DBaseStateSet): void;
 
 	toObject(): DBaseStateSetLike;
 	toString(): string;

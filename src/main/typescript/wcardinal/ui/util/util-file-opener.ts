@@ -15,7 +15,7 @@ export enum UtilFileAs {
 }
 
 export interface UtilFileFacade {
-	emit( name: string, ...args: any[] ): void;
+	emit(name: string, ...args: any[]): void;
 }
 
 /**
@@ -25,7 +25,11 @@ export interface UtilFileFacade {
  * @param file an opened file
  * @param emitter an emitter
  */
-export type UtilFileOnOpen<RESULT, EMITTER> = ( result: RESULT, file: File, emitter: EMITTER ) => void;
+export type UtilFileOnOpen<RESULT, EMITTER> = (
+	result: RESULT,
+	file: File,
+	emitter: EMITTER
+) => void;
 
 /**
  * {@link UtilFileOpener} events.
@@ -34,7 +38,10 @@ export interface UtilFileEvents<EMITTER> {
 	/**
 	 * Triggered when a file is opened.
 	 */
-	open: UtilFileOnOpen<string, EMITTER> | UtilFileOnOpen<ArrayBuffer, EMITTER> | UtilFileOnOpen<File, EMITTER>;
+	open:
+		| UtilFileOnOpen<string, EMITTER>
+		| UtilFileOnOpen<ArrayBuffer, EMITTER>
+		| UtilFileOnOpen<File, EMITTER>;
 
 	/**
 	 * Triggered when an operation is aborted.
@@ -42,14 +49,14 @@ export interface UtilFileEvents<EMITTER> {
 	 * @param e an event object
 	 * @param emitter an emitter
 	 */
-	abort( e: ProgressEvent, emitter: EMITTER ): void;
+	abort(e: ProgressEvent, emitter: EMITTER): void;
 
 	/**
 	 * Triggered when an operation is canceled.
 	 *
 	 * @param emitter an emitter
 	 */
-	cancel( emitter: EMITTER ): void;
+	cancel(emitter: EMITTER): void;
 }
 
 /**
@@ -60,7 +67,7 @@ export class UtilFileOpener {
 	protected _as: UtilFileAs;
 	protected _facade: UtilFileFacade;
 
-	constructor( as: UtilFileAs, facade: UtilFileFacade ) {
+	constructor(as: UtilFileAs, facade: UtilFileFacade) {
 		this._input = null;
 		this._as = as;
 		this._facade = facade;
@@ -68,7 +75,7 @@ export class UtilFileOpener {
 
 	open(): void {
 		const input = this.getOrCreateInput();
-		if( input != null ) {
+		if (input != null) {
 			input.click();
 		} else {
 			this.onCancel();
@@ -76,54 +83,55 @@ export class UtilFileOpener {
 	}
 
 	protected getOrCreateInput(): HTMLInputElement | null {
-		if( "FileReader" in window && this._input == null ) {
-			const input = this._input = document.createElement( "input" );
-			input.setAttribute( "type", "file" );
-			input.setAttribute( "style", "display:none" );
-			input.addEventListener( "change", ( e: Event ): void => {
-				this.onInputChange( input );
+		if ("FileReader" in window && this._input == null) {
+			const input = document.createElement("input");
+			this._input = input;
+			input.setAttribute("type", "file");
+			input.setAttribute("style", "display:none");
+			input.addEventListener("change", (e: Event): void => {
+				this.onInputChange(input);
 				input.value = "";
 				e.stopImmediatePropagation();
 				e.preventDefault();
 			});
-			document.body.appendChild( input );
+			document.body.appendChild(input);
 		}
 		return this._input;
 	}
 
-	protected onInputChange( input: HTMLInputElement ): void {
+	protected onInputChange(input: HTMLInputElement): void {
 		const files = input.files;
-		if( files != null && 0 < files.length ) {
-			const file = files[ 0 ];
-			if( this._as === UtilFileAs.FILE ) {
-				this.onOpen( file, file );
+		if (files != null && 0 < files.length) {
+			const file = files[0];
+			if (this._as === UtilFileAs.FILE) {
+				this.onOpen(file, file);
 			} else {
 				const fileReader = new FileReader();
-				fileReader.onload = ( e: ProgressEvent ) => {
-					if( e.target != null ) {
+				fileReader.onload = (e: ProgressEvent) => {
+					if (e.target != null) {
 						const target = e.target as any;
-						this.onOpen( target.result, file );
+						this.onOpen(target.result, file);
 					}
 				};
-				fileReader.onabort = ( e: ProgressEvent ) => {
-					this.onAboart( e );
+				fileReader.onabort = (e: ProgressEvent) => {
+					this.onAboart(e);
 				};
-				switch( this._as ) {
-				case UtilFileAs.TEXT:
-					fileReader.readAsText( file );
-					break;
-				case UtilFileAs.DATA_URL:
-					fileReader.readAsDataURL( file );
-					break;
-				case UtilFileAs.BINARY_STRING:
-					fileReader.readAsBinaryString( file );
-					break;
-				case UtilFileAs.ARRAY_BUTTER:
-					fileReader.readAsArrayBuffer( file );
-					break;
-				default:
-					fileReader.readAsText( file );
-					break;
+				switch (this._as) {
+					case UtilFileAs.TEXT:
+						fileReader.readAsText(file);
+						break;
+					case UtilFileAs.DATA_URL:
+						fileReader.readAsDataURL(file);
+						break;
+					case UtilFileAs.BINARY_STRING:
+						fileReader.readAsBinaryString(file);
+						break;
+					case UtilFileAs.ARRAY_BUTTER:
+						fileReader.readAsArrayBuffer(file);
+						break;
+					default:
+						fileReader.readAsText(file);
+						break;
 				}
 			}
 		} else {
@@ -131,18 +139,18 @@ export class UtilFileOpener {
 		}
 	}
 
-	protected onOpen( result: string | ArrayBuffer | File, file: File ): void {
+	protected onOpen(result: string | ArrayBuffer | File, file: File): void {
 		const facade = this._facade;
-		facade.emit( "open", result, file, facade );
+		facade.emit("open", result, file, facade);
 	}
 
-	protected onAboart( e: ProgressEvent ): void {
+	protected onAboart(e: ProgressEvent): void {
 		const facade = this._facade;
-		facade.emit( "abort", e, facade );
+		facade.emit("abort", e, facade);
 	}
 
 	protected onCancel(): void {
 		const facade = this._facade;
-		facade.emit( "cancel", facade );
+		facade.emit("cancel", facade);
 	}
 }

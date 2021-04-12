@@ -5,6 +5,4 @@
 
 import { DThemeDarkChartAxisBase } from "./d-theme-dark-chart-axis-base";
 
-export class DThemeDarkChartAxisX extends DThemeDarkChartAxisBase {
-
-}
+export class DThemeDarkChartAxisX extends DThemeDarkChartAxisBase {}

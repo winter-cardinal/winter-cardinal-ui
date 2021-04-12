@@ -56,9 +56,9 @@ export interface EShape extends utils.EventEmitter {
 	layout?: EShapeLayout;
 
 	// Working space
-	index: number;		// A work space for sorting.
+	index: number; // A work space for sorting.
 	selected: boolean;
-	reference: number;	// Count of references from commands
+	reference: number; // Count of references from commands
 
 	// Working space for the viewer
 	runtime?: EShapeRuntime;
@@ -74,10 +74,10 @@ export interface EShape extends utils.EventEmitter {
 
 	//
 	toDirty(): void;
-	attach( parent: EShapeContainer | EShape, at?: number ): this;
+	attach(parent: EShapeContainer | EShape, at?: number): this;
 	detach(): this;
-	copy( source: EShape ): this;
-	copy( source: EShape, part: EShapeCopyPart ): this;
+	copy(source: EShape): this;
+	copy(source: EShape, part: EShapeCopyPart): this;
 	clone(): EShape;
 	destroy(): void;
 
@@ -89,13 +89,13 @@ export interface EShape extends utils.EventEmitter {
 	onSizeChange(): void;
 
 	// Action
-	update( time: number ): void;
-	onRender( time: number, renderer: Renderer ): void;
+	update(time: number): void;
+	onRender(time: number, renderer: Renderer): void;
 
 	// Transform
 	updateTransform(): void;
 	disallowOnTransformChange(): void;
-	allowOnTransformChange( invokeOnTransformChange: boolean ): void;
+	allowOnTransformChange(invokeOnTransformChange: boolean): void;
 	onTransformChange(): void;
 	onChildTransformChange(): void;
 
@@ -106,20 +106,20 @@ export interface EShape extends utils.EventEmitter {
 	updateUploadedRecursively(): void;
 
 	// Serialization
-	serialize( manager: EShapeResourceManagerSerialization ): DDiagramSerializedItem;
-	addUuid( manager: EShapeResourceManagerSerialization ): void;
-	updateUuid( manager: EShapeResourceManagerSerialization ): void;
+	serialize(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem;
+	addUuid(manager: EShapeResourceManagerSerialization): void;
+	updateUuid(manager: EShapeResourceManagerSerialization): void;
 
 	// Hit test
-	contains( point: Point ): EShape | null;
-	containsBBox( point: Point ): boolean;
-	containsAbs( x: number, y: number, ax: number, ay: number ): boolean;
-	containsAbsBBox( x: number, y: number, ax: number, ay: number ): boolean;
+	contains(point: Point): EShape | null;
+	containsBBox(point: Point): boolean;
+	containsAbs(x: number, y: number, ax: number, ay: number): boolean;
+	containsAbsBBox(x: number, y: number, ax: number, ay: number): boolean;
 
 	// Coordinate
-	toGlobal( position: IPoint, result: Point, skipUpdate?: boolean ): Point;
-	toLocal( position: IPoint, from?: DisplayObject, result?: Point, skipUpdate?: boolean ): Point;
-	getBounds( work: Point, skipUpdate: boolean, result: Rectangle ): Rectangle;
-	getBoundsInternal( work: Point, skipUpdate: boolean, result: Rectangle ): Rectangle;
-	getBoundsLocal( work: Point, skipUpdate: boolean, result: Rectangle ): Rectangle;
+	toGlobal(position: IPoint, result: Point, skipUpdate?: boolean): Point;
+	toLocal(position: IPoint, from?: DisplayObject, result?: Point, skipUpdate?: boolean): Point;
+	getBounds(work: Point, skipUpdate: boolean, result: Rectangle): Rectangle;
+	getBoundsInternal(work: Point, skipUpdate: boolean, result: Rectangle): Rectangle;
+	getBoundsLocal(work: Point, skipUpdate: boolean, result: Rectangle): Rectangle;
 }

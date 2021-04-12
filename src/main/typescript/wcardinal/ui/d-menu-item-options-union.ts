@@ -11,6 +11,11 @@ import { DMenuItemSeparatorOptions } from "./d-menu-item-separator";
 import { DMenuItemSpaceOptions } from "./d-menu-item-space";
 import { DMenuItemTextOptions } from "./d-menu-item-text";
 
-export type DMenuItemOptionsUnion<VALUE> = DMenuItemTextOptions<VALUE> |
-	DMenuItemCheckOptions<VALUE> | DMenuItemMenuOptions<VALUE> | DMenuItemSeparatorOptions<VALUE> |
-	DMenuItemExpandableOptions<VALUE> | DMenuItemLinkOptions<VALUE> | DMenuItemSpaceOptions;
+export type DMenuItemOptionsUnion<VALUE> =
+	| DMenuItemTextOptions<VALUE>
+	| DMenuItemCheckOptions<VALUE>
+	| DMenuItemMenuOptions<VALUE>
+	| DMenuItemSeparatorOptions<VALUE>
+	| DMenuItemExpandableOptions<VALUE>
+	| DMenuItemLinkOptions<VALUE>
+	| DMenuItemSpaceOptions;

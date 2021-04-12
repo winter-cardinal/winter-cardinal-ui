@@ -12,15 +12,17 @@ import { DThemePickerDatetimeButtonBack } from "../../d-picker-datetime-button-b
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteButtonAmbient } from "./d-theme-white-button-ambient";
 
-DThemeWhiteAtlas.add( "picker_date_back", 24, 24,
+/* eslint-disable prettier/prettier */
+DThemeWhiteAtlas.add("picker_date_back", 24, 24,
 	`<g>` +
 		`<path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="#fff" />` +
 	`</g>`
 );
+/* eslint-enable prettier/prettier */
 
-export class DThemeWhitePickerDatetimeButtonBack<VALUE = unknown> extends DThemeWhiteButtonAmbient<VALUE>
+export class DThemeWhitePickerDatetimeButtonBack<VALUE = unknown>
+	extends DThemeWhiteButtonAmbient<VALUE>
 	implements DThemePickerDatetimeButtonBack<VALUE> {
-
 	getWidth(): DCoordinateSize {
 		return "auto";
 	}
@@ -37,11 +39,11 @@ export class DThemeWhitePickerDatetimeButtonBack<VALUE = unknown> extends DTheme
 		return DAlignHorizontal.LEFT;
 	}
 
-	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
+	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
 		return DThemeWhiteAtlas.mappings.picker_date_back;
 	}
 
-	getAlpha( state: DBaseStateSet ): number {
-		return super.getAlpha( state ) * 0.9;
+	getAlpha(state: DBaseStateSet): number {
+		return super.getAlpha(state) * 0.9;
 	}
 }

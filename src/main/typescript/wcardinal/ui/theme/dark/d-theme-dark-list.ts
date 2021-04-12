@@ -8,11 +8,11 @@ import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkPane } from "./d-theme-dark-pane";
 
 export class DThemeDarkList extends DThemeDarkPane {
-	getBackgroundColor( state: DBaseStateSet ): number | null {
+	getBackgroundColor(state: DBaseStateSet): number | null {
 		return DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
 	}
 
-	getBorderAlign( state: DBaseStateSet ): number {
+	getBorderAlign(state: DBaseStateSet): number {
 		return 1;
 	}
 }

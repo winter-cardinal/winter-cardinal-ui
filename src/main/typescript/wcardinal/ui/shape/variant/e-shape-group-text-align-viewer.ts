@@ -18,7 +18,7 @@ export class EShapeGroupTextAlignViewer implements EShapeTextAlign {
 		return EShapeTextAlignHorizontal.CENTER;
 	}
 
-	set horizontal( horizontal: EShapeTextAlignHorizontal ) {
+	set horizontal(horizontal: EShapeTextAlignHorizontal) {
 		// DO NOTHING
 	}
 
@@ -26,15 +26,15 @@ export class EShapeGroupTextAlignViewer implements EShapeTextAlign {
 		return EShapeTextAlignVertical.MIDDLE;
 	}
 
-	set vertical( vertical: EShapeTextAlignVertical ) {
+	set vertical(vertical: EShapeTextAlignVertical) {
 		// DO NOTHING
 	}
 
-	copy( target?: Partial<EShapeTextAlignLike> ): void {
+	copy(target?: Partial<EShapeTextAlignLike>): void {
 		// DO NOTHING
 	}
 
-	set( horizontal?: EShapeTextAlignHorizontal, vertical?: EShapeTextAlignVertical ): void {
+	set(horizontal?: EShapeTextAlignHorizontal, vertical?: EShapeTextAlignVertical): void {
 		// DO NOTHING
 	}
 
@@ -45,11 +45,11 @@ export class EShapeGroupTextAlignViewer implements EShapeTextAlign {
 		};
 	}
 
-	serialize( manager: EShapeResourceManagerSerialization ): number {
+	serialize(manager: EShapeResourceManagerSerialization): number {
 		return -1;
 	}
 
-	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void {
+	deserialize(target: number, manager: EShapeResourceManagerDeserialization): void {
 		// DO NOTHING
 	}
 }

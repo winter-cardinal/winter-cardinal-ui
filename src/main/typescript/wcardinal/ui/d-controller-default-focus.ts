@@ -3,20 +3,25 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DControllerFocus, DFocusable, DFocusableContainer, DFocusableMightBe } from "./d-controller-focus";
+import {
+	DControllerFocus,
+	DFocusable,
+	DFocusableContainer,
+	DFocusableMightBe
+} from "./d-controller-focus";
 
 export class DControllerDefaultFocus implements DControllerFocus {
 	private _focused: DFocusable | null = null;
 
-	focus( focusable: DFocusable | null ): DFocusable | null {
+	focus(focusable: DFocusable | null): DFocusable | null {
 		const previous = this._focused;
-		if( previous !== focusable ) {
-			if( previous != null ) {
+		if (previous !== focusable) {
+			if (previous != null) {
 				previous.state.isFocused = false;
 			}
 
 			this._focused = focusable;
-			if( this.isFocusable( focusable ) ) {
+			if (this.isFocusable(focusable)) {
 				focusable.state.isFocused = true;
 			}
 			return previous;
@@ -24,8 +29,8 @@ export class DControllerDefaultFocus implements DControllerFocus {
 		return null;
 	}
 
-	blur( focusable: DFocusable | null ): DFocusable | null {
-		if( focusable != null && this._focused === focusable ) {
+	blur(focusable: DFocusable | null): DFocusable | null {
+		if (focusable != null && this._focused === focusable) {
 			this._focused = null;
 			focusable.state.isFocused = false;
 			return focusable;
@@ -34,14 +39,14 @@ export class DControllerDefaultFocus implements DControllerFocus {
 	}
 
 	clear(): DFocusable | null {
-		return this.focus( null );
+		return this.focus(null);
 	}
 
-	set( focusable: DFocusable | null, isFocused: boolean ): DFocusable | null {
-		if( isFocused ) {
-			return this.focus( focusable );
+	set(focusable: DFocusable | null, isFocused: boolean): DFocusable | null {
+		if (isFocused) {
+			return this.focus(focusable);
 		} else {
-			return this.blur( focusable );
+			return this.blur(focusable);
 		}
 	}
 
@@ -49,10 +54,10 @@ export class DControllerDefaultFocus implements DControllerFocus {
 		return this._focused;
 	}
 
-	findParent( mightBeFocusable: DFocusableMightBe | null ): DFocusable | null {
+	findParent(mightBeFocusable: DFocusableMightBe | null): DFocusable | null {
 		let current: DFocusableMightBe | DFocusableContainer | null = mightBeFocusable;
-		while( current != null ) {
-			if( this.isFocusable( current ) ) {
+		while (current != null) {
+			if (this.isFocusable(current)) {
 				return current;
 			} else {
 				current = current.parent;
@@ -62,56 +67,59 @@ export class DControllerDefaultFocus implements DControllerFocus {
 	}
 
 	find(
-		target: DFocusableMightBe, includesTarget: boolean, includesTargetChildren: boolean,
-		direction: boolean, root?: unknown
+		target: DFocusableMightBe,
+		includesTarget: boolean,
+		includesTargetChildren: boolean,
+		direction: boolean,
+		root?: unknown
 	): DFocusable | null {
-		if( direction ) {
-			const result = this.findNext( target, includesTarget, includesTargetChildren );
-			if( result != null ) {
+		if (direction) {
+			const result = this.findNext(target, includesTarget, includesTargetChildren);
+			if (result != null) {
 				return result;
 			}
 
 			const parent = target.parent;
-			if( parent != null ) {
+			if (parent != null) {
 				const children = parent.children;
-				const index = children.indexOf( target );
-				if( 0 <= index ) {
+				const index = children.indexOf(target);
+				if (0 <= index) {
 					const childrenLength = children.length;
-					if( this.isFocusReverse( parent ) ) {
-						for( let i = index - 1; 0 <= i; --i ) {
-							const found = this.findNext( children[ i ], true, true );
-							if( found != null ) {
+					if (this.isFocusReverse(parent)) {
+						for (let i = index - 1; 0 <= i; --i) {
+							const found = this.findNext(children[i], true, true);
+							if (found != null) {
 								return found;
 							}
 						}
-						if( ! this.isFocusRoot( parent, root ) ) {
-							const found = this.find( parent, false, false, true, root );
-							if( found != null ) {
+						if (!this.isFocusRoot(parent, root)) {
+							const found = this.find(parent, false, false, true, root);
+							if (found != null) {
 								return found;
 							}
 						}
-						for( let i = childrenLength - 1; index <= i; --i ) {
-							const found = this.findNext( children[ i ], true, true );
-							if( found != null ) {
+						for (let i = childrenLength - 1; index <= i; --i) {
+							const found = this.findNext(children[i], true, true);
+							if (found != null) {
 								return found;
 							}
 						}
 					} else {
-						for( let i = index + 1; i < childrenLength; ++i ) {
-							const found = this.findNext( children[ i ], true, true );
-							if( found != null ) {
+						for (let i = index + 1; i < childrenLength; ++i) {
+							const found = this.findNext(children[i], true, true);
+							if (found != null) {
 								return found;
 							}
 						}
-						if( ! this.isFocusRoot( parent, root ) ) {
-							const found = this.find( parent, false, false, true, root );
-							if( found != null ) {
+						if (!this.isFocusRoot(parent, root)) {
+							const found = this.find(parent, false, false, true, root);
+							if (found != null) {
 								return found;
 							}
 						}
-						for( let i = 0; i <= index; ++i ) {
-							const found = this.findNext( children[ i ], true, true );
-							if( found != null ) {
+						for (let i = 0; i <= index; ++i) {
+							const found = this.findNext(children[i], true, true);
+							if (found != null) {
 								return found;
 							}
 						}
@@ -119,52 +127,52 @@ export class DControllerDefaultFocus implements DControllerFocus {
 				}
 			}
 		} else {
-			const result = this.findPrevious( target, includesTarget, includesTargetChildren );
-			if( result != null ) {
+			const result = this.findPrevious(target, includesTarget, includesTargetChildren);
+			if (result != null) {
 				return result;
 			}
 
 			const parent = target.parent;
-			if( parent != null ) {
+			if (parent != null) {
 				const children = parent.children;
-				const index = children.indexOf( target );
-				if( 0 <= index ) {
+				const index = children.indexOf(target);
+				if (0 <= index) {
 					const childrenLength = children.length;
-					if( this.isFocusReverse( parent ) ) {
-						for( let i = index + 1; i < childrenLength; ++i ) {
-							const found = this.findPrevious( children[ i ], true, true );
-							if( found != null ) {
+					if (this.isFocusReverse(parent)) {
+						for (let i = index + 1; i < childrenLength; ++i) {
+							const found = this.findPrevious(children[i], true, true);
+							if (found != null) {
 								return found;
 							}
 						}
-						if( ! this.isFocusRoot( parent, root ) ) {
-							const found = this.find( parent, true, false, false, root );
-							if( found != null ) {
+						if (!this.isFocusRoot(parent, root)) {
+							const found = this.find(parent, true, false, false, root);
+							if (found != null) {
 								return found;
 							}
 						}
-						for( let i = 0; i <= index; ++i ) {
-							const found = this.findPrevious( children[ i ], true, true );
-							if( found != null ) {
+						for (let i = 0; i <= index; ++i) {
+							const found = this.findPrevious(children[i], true, true);
+							if (found != null) {
 								return found;
 							}
 						}
 					} else {
-						for( let i = index - 1; 0 <= i; --i ) {
-							const found = this.findPrevious( children[ i ], true, true );
-							if( found != null ) {
+						for (let i = index - 1; 0 <= i; --i) {
+							const found = this.findPrevious(children[i], true, true);
+							if (found != null) {
 								return found;
 							}
 						}
-						if( ! this.isFocusRoot( parent, root ) ) {
-							const found = this.find( parent, true, false, false, root );
-							if( found != null ) {
+						if (!this.isFocusRoot(parent, root)) {
+							const found = this.find(parent, true, false, false, root);
+							if (found != null) {
 								return found;
 							}
 						}
-						for( let i = childrenLength - 1; index <= i; --i ) {
-							const found = this.findPrevious( children[ i ], true, true );
-							if( found != null ) {
+						for (let i = childrenLength - 1; index <= i; --i) {
+							const found = this.findPrevious(children[i], true, true);
+							if (found != null) {
 								return found;
 							}
 						}
@@ -176,30 +184,32 @@ export class DControllerDefaultFocus implements DControllerFocus {
 	}
 
 	protected findNext(
-		target: DFocusableMightBe, includesTarget: boolean, includesTargetChildren: boolean
+		target: DFocusableMightBe,
+		includesTarget: boolean,
+		includesTargetChildren: boolean
 	): DFocusable | null {
 		// Target itself
-		if( includesTarget ) {
-			if( this.isFocusable( target ) ) {
+		if (includesTarget) {
+			if (this.isFocusable(target)) {
 				return target;
 			}
 		}
 
 		// Target children
-		if( includesTargetChildren && this.isFocusableContainer( target ) && target.visible ) {
+		if (includesTargetChildren && this.isFocusableContainer(target) && target.visible) {
 			const children = target.children;
 			const childrenLength = children.length;
-			if( this.isFocusReverse( target ) ) {
-				for( let i = childrenLength - 1; 0 <= i; --i ) {
-					const found = this.findNext( children[ i ], true, true );
-					if( found != null ) {
+			if (this.isFocusReverse(target)) {
+				for (let i = childrenLength - 1; 0 <= i; --i) {
+					const found = this.findNext(children[i], true, true);
+					if (found != null) {
 						return found;
 					}
 				}
 			} else {
-				for( let i = 0; i < childrenLength; ++i ) {
-					const found = this.findNext( children[ i ], true, true );
-					if( found != null ) {
+				for (let i = 0; i < childrenLength; ++i) {
+					const found = this.findNext(children[i], true, true);
+					if (found != null) {
 						return found;
 					}
 				}
@@ -211,23 +221,25 @@ export class DControllerDefaultFocus implements DControllerFocus {
 	}
 
 	protected findPrevious(
-		target: DFocusableMightBe, includesTarget: boolean, includesTargetChildren: boolean
+		target: DFocusableMightBe,
+		includesTarget: boolean,
+		includesTargetChildren: boolean
 	): DFocusable | null {
 		// Target children
-		if( includesTargetChildren && this.isFocusableContainer( target ) && target.visible ) {
+		if (includesTargetChildren && this.isFocusableContainer(target) && target.visible) {
 			const children = target.children;
 			const childrenLength = children.length;
-			if( this.isFocusReverse( target ) ) {
-				for( let i = 0; i < childrenLength; ++i ) {
-					const found = this.findPrevious( children[ i ], true, true );
-					if( found != null ) {
+			if (this.isFocusReverse(target)) {
+				for (let i = 0; i < childrenLength; ++i) {
+					const found = this.findPrevious(children[i], true, true);
+					if (found != null) {
 						return found;
 					}
 				}
 			} else {
-				for( let i = childrenLength - 1; 0 <= i; --i ) {
-					const found = this.findPrevious( children[ i ], true, true );
-					if( found != null ) {
+				for (let i = childrenLength - 1; 0 <= i; --i) {
+					const found = this.findPrevious(children[i], true, true);
+					if (found != null) {
 						return found;
 					}
 				}
@@ -235,8 +247,8 @@ export class DControllerDefaultFocus implements DControllerFocus {
 		}
 
 		// Target itself
-		if( includesTarget ) {
-			if( this.isFocusable( target ) ) {
+		if (includesTarget) {
+			if (this.isFocusable(target)) {
 				return target;
 			}
 		}
@@ -245,40 +257,28 @@ export class DControllerDefaultFocus implements DControllerFocus {
 		return null;
 	}
 
-	protected isFocusable( target: any ): target is DFocusable {
+	protected isFocusable(target: any): target is DFocusable {
 		return (
 			target != null &&
-			("state" in target) &&
+			"state" in target &&
 			target.state.inEnabled &&
 			target.state.isFocusable &&
 			target.visible
 		);
 	}
 
-	protected isFocusableContainer( target: any ): target is DFocusableContainer {
-		return (
-			target != null &&
-			("children" in target)
-		);
+	protected isFocusableContainer(target: any): target is DFocusableContainer {
+		return target != null && "children" in target;
 	}
 
-	protected isFocusRoot( target: any, root: unknown ): target is DFocusable {
-		if( target === root ) {
+	protected isFocusRoot(target: any, root: unknown): target is DFocusable {
+		if (target === root) {
 			return true;
 		}
-		return (
-			target != null &&
-			("state" in target) &&
-			target.state.isFocusRoot &&
-			target.visible
-		);
+		return target != null && "state" in target && target.state.isFocusRoot && target.visible;
 	}
 
-	protected isFocusReverse( target: any ): boolean {
-		return (
-			target != null &&
-			("state" in target) &&
-			target.state.isFocusReverse
-		);
+	protected isFocusReverse(target: any): boolean {
+		return target != null && "state" in target && target.state.isFocusReverse;
 	}
 }

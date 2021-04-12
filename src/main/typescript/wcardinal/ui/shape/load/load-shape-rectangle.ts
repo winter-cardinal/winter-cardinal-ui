@@ -11,9 +11,9 @@ import { EShapeUploadeds } from "../e-shape-uploadeds";
 import { createRectangleUploaded } from "../variant/create-rectangle-uploaded";
 import { deserializeRectangle } from "../variant/deserialize-rectangle";
 
-export const loadShapeRectangle = () => {
-	EShapeUploadeds[ EShapeType.RECTANGLE ] = createRectangleUploaded;
-	EShapeDeserializers[ EShapeType.RECTANGLE ] = deserializeRectangle;
+export const loadShapeRectangle = (): void => {
+	EShapeUploadeds[EShapeType.RECTANGLE] = createRectangleUploaded;
+	EShapeDeserializers[EShapeType.RECTANGLE] = deserializeRectangle;
 	EShapeCapabilities.set(
 		EShapeType.RECTANGLE,
 		EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE

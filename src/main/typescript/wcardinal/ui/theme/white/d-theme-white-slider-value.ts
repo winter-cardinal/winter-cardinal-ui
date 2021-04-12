@@ -11,9 +11,9 @@ import { DThemeSliderValue } from "../../d-slider-value";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteTextBase } from "./d-theme-white-text-base";
 
-export class DThemeWhiteSliderValue<VALUE = unknown> extends DThemeWhiteTextBase<VALUE>
+export class DThemeWhiteSliderValue<VALUE = unknown>
+	extends DThemeWhiteTextBase<VALUE>
 	implements DThemeSliderValue<VALUE> {
-
 	getX(): DCoordinatePosition {
 		return "CENTER";
 	}
@@ -30,18 +30,18 @@ export class DThemeWhiteSliderValue<VALUE = unknown> extends DThemeWhiteTextBase
 		return 20;
 	}
 
-	getBackgroundColor( state: DBaseStateSet ): number | null {
-		if ( state.inDisabled ) {
-			return 0xAAAAAA;
+	getBackgroundColor(state: DBaseStateSet): number | null {
+		if (state.inDisabled) {
+			return 0xaaaaaa;
 		}
 		return DThemeWhiteConstants.HIGHLIGHT_COLOR;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
-	getColor( state: DBaseStateSet ): number {
+	getColor(state: DBaseStateSet): number {
 		return DThemeWhiteConstants.ACTIVE_COLOR;
 	}
 

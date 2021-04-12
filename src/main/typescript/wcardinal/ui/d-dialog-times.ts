@@ -8,7 +8,7 @@ import { DDialogTime } from "./d-dialog-time";
 export class DDialogTimes {
 	protected static INSTANCE?: DDialogTime;
 	static getInstance(): DDialogTime {
-		if( DDialogTimes.INSTANCE == null ) {
+		if (DDialogTimes.INSTANCE == null) {
 			DDialogTimes.INSTANCE = new DDialogTime();
 		}
 		return DDialogTimes.INSTANCE;

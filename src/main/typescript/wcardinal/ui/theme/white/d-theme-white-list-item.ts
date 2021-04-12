@@ -12,51 +12,51 @@ import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteImage } from "./d-theme-white-image";
 
 export class DThemeWhiteListItem extends DThemeWhiteImage<string> implements DThemeListItem {
-	getBackgroundColor( state: DBaseStateSet ): number | null {
-		if( state.inDisabled ) {
+	getBackgroundColor(state: DBaseStateSet): number | null {
+		if (state.inDisabled) {
 			return null;
-		} else if( state.isActive ) {
-			return this.getBackgroundColorActive( state );
-		} else if( state.isFocused || state.isHovered ) {
+		} else if (state.isActive) {
+			return this.getBackgroundColorActive(state);
+		} else if (state.isFocused || state.isHovered) {
 			return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
 		} else {
 			return null;
 		}
 	}
 
-	protected getBackgroundColorActive( state: DBaseStateSet ): number | null {
+	protected getBackgroundColorActive(state: DBaseStateSet): number | null {
 		return DThemeWhiteConstants.HIGHLIGHT_COLOR;
 	}
 
-	getBackgroundAlpha( state: DBaseStateSet ): number {
-		if( state.inDisabled ) {
+	getBackgroundAlpha(state: DBaseStateSet): number {
+		if (state.inDisabled) {
 			return DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
-		} else if( state.isActive ) {
-			return this.getBackgroundAlphaActive( state );
+		} else if (state.isActive) {
+			return this.getBackgroundAlphaActive(state);
 		} else {
 			return DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
 		}
 	}
 
-	protected getBackgroundAlphaActive( state: DBaseStateSet ): number {
+	protected getBackgroundAlphaActive(state: DBaseStateSet): number {
 		return DThemeWhiteConstants.HIGHLIGHT_ALPHA;
 	}
 
-	getColor( state: DBaseStateSet ): number {
-		if( state.inDisabled ) {
+	getColor(state: DBaseStateSet): number {
+		if (state.inDisabled) {
 			return DThemeWhiteConstants.COLOR;
-		} else if( state.isActive ) {
-			return this.getColorActive( state );
+		} else if (state.isActive) {
+			return this.getColorActive(state);
 		} else {
 			return DThemeWhiteConstants.COLOR;
 		}
 	}
 
-	protected getColorActive( state: DBaseStateSet ): number {
+	protected getColorActive(state: DBaseStateSet): number {
 		return DThemeWhiteConstants.COLOR;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
@@ -84,8 +84,8 @@ export class DThemeWhiteListItem extends DThemeWhiteImage<string> implements DTh
 		return DCornerMask.ALL;
 	}
 
-	getCursor( state: DBaseStateSet ): string {
-		if( ! state.isActionable ) {
+	getCursor(state: DBaseStateSet): string {
+		if (!state.isActionable) {
 			return "";
 		}
 		return "pointer";

@@ -10,13 +10,13 @@ import { DCornerMask } from "../../d-corner-mask";
 import { DThemeDarkBase } from "./d-theme-dark-base";
 
 export class DThemeDarkBoard extends DThemeDarkBase implements DThemeBoard {
-	COLOR = 0x2C2C2C;
+	COLOR = 0x2c2c2c;
 
 	getBackgroundColor(): number | null {
 		return this.COLOR;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 

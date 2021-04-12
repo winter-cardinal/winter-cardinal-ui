@@ -11,6 +11,6 @@ export interface EShapeGroupSizeParent {
 	readonly transform: EShapeTransform;
 	updateTransform(): void;
 	disallowOnTransformChange(): void;
-	allowOnTransformChange( invokeOnTransformChange: boolean ): void;
+	allowOnTransformChange(invokeOnTransformChange: boolean): void;
 	onSizeChange(): void;
 }

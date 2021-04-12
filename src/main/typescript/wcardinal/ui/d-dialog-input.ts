@@ -17,9 +17,7 @@ export interface DDialogInputMargin {
 	vertical: number;
 }
 
-export interface DDialogInputMarginOptions extends Partial<DDialogInputMargin> {
-
-}
+export interface DDialogInputMarginOptions extends Partial<DDialogInputMargin> {}
 
 export interface DDialogInputOptions<
 	VALUE = void,
@@ -42,36 +40,39 @@ export abstract class DDialogInput<
 	INPUT extends DBase & { value: VALUE } = any,
 	INPUT_OPTIONS extends DBaseOptions = DBaseOptions,
 	THEME extends DThemeDialogInput = DThemeDialogInput,
-	OPTIONS extends DDialogInputOptions<VALUE, INPUT_OPTIONS, THEME> = DDialogInputOptions<VALUE, INPUT_OPTIONS, THEME>
+	OPTIONS extends DDialogInputOptions<VALUE, INPUT_OPTIONS, THEME> = DDialogInputOptions<
+		VALUE,
+		INPUT_OPTIONS,
+		THEME
+	>
 > extends DDialogCommand<VALUE, THEME, OPTIONS> {
 	protected _label?: DText<string>;
 	protected _input?: INPUT;
 
-	protected onInit( layout: DLayoutVertical, options?: OPTIONS ) {
-		super.onInit( layout, options );
+	protected onInit(layout: DLayoutVertical, options?: OPTIONS): void {
+		super.onInit(layout, options);
 
 		const theme = this.theme;
-		const margin = this.toMargin( theme, options );
+		const margin = this.toMargin(theme, options);
 		const marginHorizontal = margin.horizontal;
 		const marginVertical = margin.vertical;
-		const labelOptions = this.toLabelOptions( theme, options );
-		if( labelOptions ) {
-			this._label = new DText<string>( labelOptions );
+		const labelOptions = this.toLabelOptions(theme, options);
+		if (labelOptions) {
+			this._label = new DText<string>(labelOptions);
 			new DLayoutHorizontal({
 				parent: layout,
-				width: "padding", height: "auto",
+				width: "padding",
+				height: "auto",
 				margin: 0,
-				children: [
-					new DLayoutSpace({ width: marginHorizontal }),
-					this._label
-				]
+				children: [new DLayoutSpace({ width: marginHorizontal }), this._label]
 			});
 		}
 		new DLayoutHorizontal({
 			parent: layout,
-			width: "padding", height: "auto",
+			width: "padding",
+			height: "auto",
 			margin: 0,
-			padding: ( labelOptions ? { top: marginVertical } : undefined ),
+			padding: labelOptions ? { top: marginVertical } : undefined,
 			children: [
 				new DLayoutSpace({ width: marginHorizontal }),
 				this.input,
@@ -80,10 +81,10 @@ export abstract class DDialogInput<
 		});
 	}
 
-	protected toMargin( theme: THEME, options?: OPTIONS ): Required<DDialogInputMarginOptions> {
-		const margin = options && options.margin;
-		if( margin != null ) {
-			if( isNumber( margin ) ) {
+	protected toMargin(theme: THEME, options?: OPTIONS): Required<DDialogInputMarginOptions> {
+		const margin = options?.margin;
+		if (margin != null) {
+			if (isNumber(margin)) {
 				return {
 					horizontal: margin,
 					vertical: margin
@@ -92,8 +93,8 @@ export abstract class DDialogInput<
 				const horizontal = margin.horizontal;
 				const vertical = margin.vertical;
 				return {
-					horizontal: ( horizontal != null ? horizontal : theme.getMarginHorizontal() ),
-					vertical: ( vertical != null ? vertical : theme.getMarginVertical() )
+					horizontal: horizontal ?? theme.getMarginHorizontal(),
+					vertical: vertical ?? theme.getMarginVertical()
 				};
 			}
 		}
@@ -103,13 +104,16 @@ export abstract class DDialogInput<
 		};
 	}
 
-	protected toLabelOptions( theme: THEME, options: OPTIONS | undefined ): DTextOptions<string> | null {
-		const label = options && options.label ;
-		if( label == null ) {
+	protected toLabelOptions(
+		theme: THEME,
+		options: OPTIONS | undefined
+	): DTextOptions<string> | null {
+		const label = options?.label;
+		if (label == null) {
 			return null;
 		}
 
-		if( isString( label ) ) {
+		if (isString(label)) {
 			return {
 				weight: 1,
 				text: {
@@ -118,13 +122,14 @@ export abstract class DDialogInput<
 			};
 		} else {
 			// Text
-			const text = label.text = label.text || {};
-			if( text.value === undefined ) {
+			const text = label.text || {};
+			label.text = text;
+			if (text.value === undefined) {
 				text.value = theme.getLabel();
 			}
 
 			// Margin
-			if( label.width === undefined && label.weight === undefined ) {
+			if (label.width === undefined && label.weight === undefined) {
 				label.weight = 1;
 			}
 
@@ -136,13 +141,13 @@ export abstract class DDialogInput<
 		return this._label;
 	}
 
-	protected abstract newInput( options?: INPUT_OPTIONS ): INPUT;
+	protected abstract newInput(options?: INPUT_OPTIONS): INPUT;
 
 	get input(): INPUT {
 		let result = this._input;
-		if( result == null ) {
+		if (result == null) {
 			const options = this._options;
-			result = this.newInput( options && options.input );
+			result = this.newInput(options?.input);
 			this._input = result;
 		}
 		return result;
@@ -152,7 +157,7 @@ export abstract class DDialogInput<
 		return this.input.value;
 	}
 
-	set value( value: VALUE ) {
+	set value(value: VALUE) {
 		this.input.value = value;
 	}
 

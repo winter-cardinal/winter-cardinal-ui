@@ -11,7 +11,7 @@ import { DShadow } from "../../d-shadow";
 import { DThemeWhiteLayoutVertical } from "./d-theme-white-layout-vertical";
 
 export class DThemeWhiteMenu extends DThemeWhiteLayoutVertical implements DThemeMenu {
-	getBackgroundColor( state: DBaseStateSet ): number | null {
+	getBackgroundColor(state: DBaseStateSet): number | null {
 		return 0xffffff;
 	}
 

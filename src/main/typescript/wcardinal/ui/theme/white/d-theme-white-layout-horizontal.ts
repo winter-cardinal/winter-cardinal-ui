@@ -8,7 +8,9 @@ import { DLayoutDirection } from "../../d-layout-direction";
 import { DThemeLayoutHorizontal } from "../../d-layout-horizontal";
 import { DThemeWhiteLayout } from "./d-theme-white-layout";
 
-export class DThemeWhiteLayoutHorizontal extends DThemeWhiteLayout implements DThemeLayoutHorizontal {
+export class DThemeWhiteLayoutHorizontal
+	extends DThemeWhiteLayout
+	implements DThemeLayoutHorizontal {
 	getDirection(): DLayoutDirection {
 		return DLayoutDirection.HORIZONTAL;
 	}

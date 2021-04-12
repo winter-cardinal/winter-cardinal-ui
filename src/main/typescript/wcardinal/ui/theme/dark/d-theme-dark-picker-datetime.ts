@@ -4,8 +4,10 @@
  */
 
 import {
-	DPickerDatetimeDateDecorator, DPickerDatetimeDayLabels,
-	DPickerDatetimeLabelFormatter, DThemePickerDatetime
+	DPickerDatetimeDateDecorator,
+	DPickerDatetimeDayLabels,
+	DPickerDatetimeLabelFormatter,
+	DThemePickerDatetime
 } from "../../d-picker-datetime";
 import { DPickerDatetimeButtonBackOptions } from "../../d-picker-datetime-button-back";
 import { DPickerDatetimeButtonNextOptions } from "../../d-picker-datetime-button-next";
@@ -27,21 +29,15 @@ const MONTH_LABELS = [
 	"December"
 ];
 
-const DAY_LABELS: DPickerDatetimeDayLabels = [
-	"Su",
-	"Mo",
-	"Tu",
-	"We",
-	"Th",
-	"Fr",
-	"Sa"
-];
+const DAY_LABELS: DPickerDatetimeDayLabels = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
-const defaultLabelFormatter = ( date: Date ): string => {
-	return `${MONTH_LABELS[ date.getMonth() ]} ${date.getFullYear()}`;
+const defaultLabelFormatter = (date: Date): string => {
+	return `${MONTH_LABELS[date.getMonth()]} ${date.getFullYear()}`;
 };
 
-const defaultDateDecorator = (): void => { /* DO NOTHING*/ };
+const defaultDateDecorator = (): void => {
+	/* DO NOTHING*/
+};
 
 export class DThemeDarkPickerDatetime extends DThemeDarkPickerTime implements DThemePickerDatetime {
 	getDayLabels(): DPickerDatetimeDayLabels {

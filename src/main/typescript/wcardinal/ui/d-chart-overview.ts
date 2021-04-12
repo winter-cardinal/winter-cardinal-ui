@@ -5,21 +5,15 @@
 
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 
-export interface DChartOverviewOptions<THEME extends DThemeChartOverview> extends DBaseOptions<THEME> {
+export interface DChartOverviewOptions<THEME extends DThemeChartOverview>
+	extends DBaseOptions<THEME> {}
 
-}
-
-export interface DThemeChartOverview extends DThemeBase {
-}
+export interface DThemeChartOverview extends DThemeBase {}
 
 export class DChartOverview<
 	THEME extends DThemeChartOverview = DThemeChartOverview,
 	OPTIONS extends DChartOverviewOptions<THEME> = DChartOverviewOptions<THEME>
 > extends DBase<THEME, OPTIONS> {
-	protected init( options?: OPTIONS ): void {
-		super.init( options );
-	}
-
 	protected getType(): string {
 		return "DChartOverview";
 	}

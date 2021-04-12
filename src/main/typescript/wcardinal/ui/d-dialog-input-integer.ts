@@ -6,31 +6,26 @@
 import { DDialogInput, DDialogInputOptions, DThemeDialogInput } from "./d-dialog-input";
 import { DInputInteger, DInputIntegerOptions } from "./d-input-integer";
 
-export interface DDialogInputIntegerOptions<
-	THEME extends DThemeDialogInputInteger
-> extends DDialogInputOptions<number, DInputIntegerOptions, THEME> {
+export interface DDialogInputIntegerOptions<THEME extends DThemeDialogInputInteger>
+	extends DDialogInputOptions<number, DInputIntegerOptions, THEME> {}
 
-}
-
-export interface DThemeDialogInputInteger extends DThemeDialogInput {
-
-}
+export interface DThemeDialogInputInteger extends DThemeDialogInput {}
 
 export class DDialogInputInteger<
 	THEME extends DThemeDialogInputInteger = DThemeDialogInputInteger,
 	OPTIONS extends DDialogInputIntegerOptions<THEME> = DDialogInputIntegerOptions<THEME>
 > extends DDialogInput<number, DInputInteger, DInputIntegerOptions, THEME, OPTIONS> {
-	protected newInput( options?: DInputIntegerOptions ): DInputInteger {
-		const result = new DInputInteger( this.toInputOptions( options ) );
-		result.on( "enter", () => {
+	protected newInput(options?: DInputIntegerOptions): DInputInteger {
+		const result = new DInputInteger(this.toInputOptions(options));
+		result.on("enter", () => {
 			this.ok();
 		});
 		return result;
 	}
 
-	protected toInputOptions( options?: DInputIntegerOptions ): DInputIntegerOptions {
-		if( options ) {
-			if( options.weight === undefined ) {
+	protected toInputOptions(options?: DInputIntegerOptions): DInputIntegerOptions {
+		if (options) {
+			if (options.weight === undefined) {
 				options.weight = 1;
 			}
 			return options;

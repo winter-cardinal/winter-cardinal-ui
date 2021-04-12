@@ -15,8 +15,13 @@ export class FormatNodesdt implements FormatNode {
 	protected mi: FormatNode;
 
 	constructor(
-		Y: FormatNode, M: FormatNode, D: FormatNode,
-		H: FormatNode, m: FormatNode, s: FormatNode, mi: FormatNode
+		Y: FormatNode,
+		M: FormatNode,
+		D: FormatNode,
+		H: FormatNode,
+		m: FormatNode,
+		s: FormatNode,
+		mi: FormatNode
 	) {
 		this.Y = Y;
 		this.M = M;
@@ -27,7 +32,7 @@ export class FormatNodesdt implements FormatNode {
 		this.mi = mi;
 	}
 
-	format( target: number, step: number, date: Date ): string {
+	format(target: number, step: number, date: Date): string {
 		if (step < 1000) {
 			return `${this.s.format(target, step, date)}.${this.mi.format(target, step, date)}`;
 		} else if (step < 60000) {

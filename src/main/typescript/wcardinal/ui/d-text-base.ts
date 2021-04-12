@@ -12,6 +12,7 @@ import { DBaseOverflowMaskSimple } from "./d-base-overflow-mask-simple";
 import { DBaseStateSet } from "./d-base-state-set";
 import { DDynamicText } from "./d-dynamic-text";
 import { DDynamicTextStyleOptions } from "./d-dynamic-text-style";
+import { DOnOptions } from "./d-on-options";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { isFunction } from "./util/is-function";
 import { toEnum } from "./util/to-enum";
@@ -20,8 +21,8 @@ import { toEnum } from "./util/to-enum";
  * {@link DTextBase} text align options.
  */
 export interface DTextBaseTextAlignOptions {
-	vertical?: (keyof typeof DAlignVertical) | DAlignVertical;
-	horizontal?: (keyof typeof DAlignHorizontal) | DAlignHorizontal;
+	vertical?: keyof typeof DAlignVertical | DAlignVertical;
+	horizontal?: keyof typeof DAlignHorizontal | DAlignHorizontal;
 }
 
 /**
@@ -33,23 +34,21 @@ export interface DTextBaseTextOptions<VALUE = unknown> {
 	alpha?: DStateAwareOrValueMightBe<number>;
 	style?: DDynamicTextStyleOptions;
 	align?: DTextBaseTextAlignOptions;
-	formatter?: ( value: VALUE, caller: any ) => string;
+	formatter?: (value: VALUE, caller: any) => string;
 	dynamic?: boolean;
 }
 
 /**
  * {@link DTextBase} events.
  */
-export interface DTextBaseEvents<VALUE, EMITTER> extends DBaseEvents<EMITTER> {
-
-}
+export interface DTextBaseEvents<VALUE, EMITTER> extends DBaseEvents<EMITTER> {}
 
 /**
  * {@link DTextBase} "on" options.
  */
-export interface DTextBaseOnOptions<VALUE, EMITTER> extends Partial<DTextBaseEvents<VALUE, EMITTER>> {
-	[ key: string ]: Function | undefined;
-}
+export interface DTextBaseOnOptions<VALUE, EMITTER>
+	extends Partial<DTextBaseEvents<VALUE, EMITTER>>,
+		DOnOptions {}
 
 /**
  * {@link DTextBase} options.
@@ -68,7 +67,7 @@ export interface DTextBaseOptions<
  * {@link DTextBase} theme.
  */
 export interface DThemeTextBase<VALUE = unknown> extends DThemeBase {
-	getTextFormatter(): ( value: VALUE, caller: any ) => string;
+	getTextFormatter(): (value: VALUE, caller: any) => string;
 
 	/**
 	 * Returns a new text value.
@@ -82,7 +81,7 @@ export interface DThemeTextBase<VALUE = unknown> extends DThemeBase {
 	 *
 	 * @param state a state
 	 */
-	getTextValue( state: DBaseStateSet ): VALUE | undefined;
+	getTextValue(state: DBaseStateSet): VALUE | undefined;
 
 	getTextAlignVertical(): DAlignVertical;
 	getTextAlignHorizontal(): DAlignHorizontal;
@@ -96,11 +95,13 @@ export interface DThemeTextBase<VALUE = unknown> extends DThemeBase {
 }
 
 const toTextStyle = <VALUE, THEME extends DThemeTextBase<VALUE>>(
-	theme: THEME, options: DTextBaseOptions<VALUE, THEME> | undefined, state: DBaseStateSet
+	theme: THEME,
+	options: DTextBaseOptions<VALUE, THEME> | undefined,
+	state: DBaseStateSet
 ): DDynamicTextStyleOptions => {
 	const style = options?.text?.style;
-	if( style != null ) {
-		const fill = style.fill ?? theme.getColor( state );
+	if (style != null) {
+		const fill = style.fill ?? theme.getColor(state);
 		const fontSize = style.fontSize ?? theme.getFontSize();
 		const fontFamily = style.fontFamily ?? theme.getFontFamilly();
 		const fontWeight = style.fontWeight ?? theme.getFontWeight();
@@ -119,7 +120,7 @@ const toTextStyle = <VALUE, THEME extends DThemeTextBase<VALUE>>(
 	}
 
 	return {
-		fill: theme.getColor( state ),
+		fill: theme.getColor(state),
 		fontSize: theme.getFontSize(),
 		fontFamily: theme.getFontFamilly(),
 		fontWeight: theme.getFontWeight(),
@@ -130,12 +131,13 @@ const toTextStyle = <VALUE, THEME extends DThemeTextBase<VALUE>>(
 };
 
 const toTextAlign = <VALUE, THEME extends DThemeTextBase<VALUE>>(
-	theme: THEME, options?: DTextBaseOptions<VALUE, THEME>
-): { vertical: DAlignVertical, horizontal: DAlignHorizontal } => {
+	theme: THEME,
+	options?: DTextBaseOptions<VALUE, THEME>
+): { vertical: DAlignVertical; horizontal: DAlignHorizontal } => {
 	const align = options?.text?.align;
 	return {
-		vertical: toEnum( align?.vertical ?? theme.getTextAlignVertical(), DAlignVertical ),
-		horizontal: toEnum( align?.horizontal ??  theme.getTextAlignHorizontal(), DAlignHorizontal )
+		vertical: toEnum(align?.vertical ?? theme.getTextAlignVertical(), DAlignVertical),
+		horizontal: toEnum(align?.horizontal ?? theme.getTextAlignHorizontal(), DAlignHorizontal)
 	};
 };
 
@@ -155,36 +157,36 @@ export class DTextBase<
 	protected _textAlpha!: DStateAwareOrValueMightBe<number>;
 	protected _textStyle!: DDynamicTextStyleOptions;
 	protected _textAlign!: {
-		vertical: DAlignVertical,
-		horizontal: DAlignHorizontal
+		vertical: DAlignVertical;
+		horizontal: DAlignHorizontal;
 	};
-	protected _textFormatter!: ( value: VALUE, caller: any ) => string;
+	protected _textFormatter!: (value: VALUE, caller: any) => string;
 	protected _isOverflowMaskEnabled!: boolean;
 	protected _overflowMask?: DBaseOverflowMaskSimple | null;
 	protected _isTextDynamic!: boolean;
 	protected _isTextVisible!: boolean;
 
-	protected init( options?: OPTIONS ): void {
-		super.init( options );
+	protected init(options?: OPTIONS): void {
+		super.init(options);
 
 		const theme = this.theme;
-		this._textValue = ( options?.text?.value ?? theme.newTextValue() );
+		this._textValue = options?.text?.value ?? theme.newTextValue();
 		this._textValueComputed = this.computeTextValue();
 		const text = options?.text;
 		this._textColor = text?.color;
 		this._textAlpha = text?.alpha;
-		this._textStyle = toTextStyle( theme, options, this.state );
-		this._textAlign = toTextAlign( theme, options );
-		this._textFormatter = ( text?.formatter ?? theme.getTextFormatter() );
-		this._isTextDynamic = ( text?.dynamic ?? theme.isTextDynamic() );
+		this._textStyle = toTextStyle(theme, options, this.state);
+		this._textAlign = toTextAlign(theme, options);
+		this._textFormatter = text?.formatter ?? theme.getTextFormatter();
+		this._isTextDynamic = text?.dynamic ?? theme.isTextDynamic();
 		this._isTextVisible = true;
-		this._isOverflowMaskEnabled = ( options?.mask ?? theme.isOverflowMaskEnabled() );
+		this._isOverflowMaskEnabled = options?.mask ?? theme.isOverflowMaskEnabled();
 		this.onTextChange();
 		this.createOrUpdateText();
 	}
 
-	set text( text: DStateAwareOrValueMightBe<VALUE> ) {
-		if( this._textValue !== text ) {
+	set text(text: DStateAwareOrValueMightBe<VALUE>) {
+		if (this._textValue !== text) {
 			this._textValue = text;
 			this.updateTextValue();
 		}
@@ -194,68 +196,68 @@ export class DTextBase<
 		return this._textValue;
 	}
 
-	protected onTextChange() {
+	protected onTextChange(): void {
 		// DO NOTHING
 	}
 
 	protected computeTextValue(): VALUE | undefined {
 		const textValue = this._textValue;
-		if( textValue !== undefined ) {
-			if( isFunction( textValue ) ) {
-				const result = textValue( this.state );
-				if( result !== undefined ) {
+		if (textValue !== undefined) {
+			if (isFunction(textValue)) {
+				const result = textValue(this.state);
+				if (result !== undefined) {
 					return result;
 				}
 			} else {
 				return textValue;
 			}
 		}
-		return this.theme.getTextValue( this.state );
+		return this.theme.getTextValue(this.state);
 	}
 
 	protected createOrUpdateText(): void {
 		const textValueComputed = this._textValueComputed;
-		if( textValueComputed !== undefined ) {
-			const formatted = this._textFormatter( textValueComputed, this );
+		if (textValueComputed !== undefined) {
+			const formatted = this._textFormatter(textValueComputed, this);
 			const text = this._text;
-			if( text == null ) {
-				if( 0 < formatted.length ) {
-					const newText = this.createText( formatted );
+			if (text == null) {
+				if (0 < formatted.length) {
+					const newText = this.createText(formatted);
 					newText.visible = this._isTextVisible;
 					this._text = newText;
-					this.addChild( newText );
-					this.updateTextPosition( newText );
+					this.addChild(newText);
+					this.updateTextPosition(newText);
 					const overflowMask = this.getOverflowMask();
-					if( overflowMask ) {
+					if (overflowMask) {
 						newText.mask = overflowMask;
 					}
 					this.toDirty();
-					DApplications.update( this );
+					DApplications.update(this);
 				}
 			} else {
 				text.text = formatted;
 				this.toDirty();
-				DApplications.update( this );
+				DApplications.update(this);
 			}
 		}
 	}
 
-	protected createText( formatted: string ): Text | DDynamicText {
-		if( this._isTextDynamic ) {
-			return new DDynamicText( formatted, this._textStyle );
+	protected createText(formatted: string): Text | DDynamicText {
+		if (this._isTextDynamic) {
+			return new DDynamicText(formatted, this._textStyle);
 		} else {
-			const result = new Text( formatted, this._textStyle );
+			const result = new Text(formatted, this._textStyle);
 			result.texture.baseTexture.scaleMode = SCALE_MODES.NEAREST;
-			result.resolution = DApplications.getResolution( this );
+			result.resolution = DApplications.getResolution(this);
 			return result;
 		}
 	}
 
 	getOverflowMask(): Graphics | null {
-		if( this._isOverflowMaskEnabled ) {
-			if( this._overflowMask == null ) {
-				this._overflowMask = new DBaseOverflowMaskSimple( this );
-				this.addReflowable( this._overflowMask );
+		if (this._isOverflowMaskEnabled) {
+			if (this._overflowMask == null) {
+				this._overflowMask = new DBaseOverflowMaskSimple(this);
+				this.addReflowable(this._overflowMask);
 				this.toDirty();
 			}
 			return this._overflowMask;
@@ -263,80 +265,80 @@ export class DTextBase<
 		return null;
 	}
 
-	protected updateTextPosition( text: DDynamicText | Text ): void {
+	protected updateTextPosition(text: DDynamicText | Text): void {
 		const align = this._textAlign;
 		const padding = this._padding;
 		const toRounded = this.toRounded;
 
-		switch( align.horizontal ) {
-		case DAlignHorizontal.LEFT:
-			text.x = toRounded( padding.getLeft() );
-			break;
-		case DAlignHorizontal.CENTER:
-			text.x = toRounded( ( this.width - text.width ) * 0.5 );
-			break;
-		case DAlignHorizontal.RIGHT:
-			text.x = toRounded( this.width - text.width - padding.getRight() );
-			break;
+		switch (align.horizontal) {
+			case DAlignHorizontal.LEFT:
+				text.x = toRounded(padding.getLeft());
+				break;
+			case DAlignHorizontal.CENTER:
+				text.x = toRounded((this.width - text.width) * 0.5);
+				break;
+			case DAlignHorizontal.RIGHT:
+				text.x = toRounded(this.width - text.width - padding.getRight());
+				break;
 		}
 
-		switch( align.vertical ) {
-		case DAlignVertical.TOP:
-			text.y = toRounded( padding.getTop() );
-			break;
-		case DAlignVertical.MIDDLE:
-			text.y = toRounded( ( this.height - text.height ) * 0.5 );
-			break;
-		case DAlignVertical.BOTTOM:
-			text.y = toRounded( this.height - text.height - padding.getBottom() );
-			break;
+		switch (align.vertical) {
+			case DAlignVertical.TOP:
+				text.y = toRounded(padding.getTop());
+				break;
+			case DAlignVertical.MIDDLE:
+				text.y = toRounded((this.height - text.height) * 0.5);
+				break;
+			case DAlignVertical.BOTTOM:
+				text.y = toRounded(this.height - text.height - padding.getBottom());
+				break;
 		}
 	}
 
-	protected toRounded( this: unknown, value: number ): number {
-		return Math.round( value );
+	protected toRounded(this: unknown, value: number): number {
+		return Math.round(value);
 	}
 
-	protected getTextColor( theme: THEME, state: DBaseStateSet ): number {
+	protected getTextColor(theme: THEME, state: DBaseStateSet): number {
 		const color = this._textColor;
-		if( color !== undefined ) {
-			if( isFunction( color ) ) {
-				const result = color( state );
-				if( result !== undefined ) {
+		if (color !== undefined) {
+			if (isFunction(color)) {
+				const result = color(state);
+				if (result !== undefined) {
 					return result;
 				}
 			} else {
 				return color;
 			}
 		}
-		return theme.getColor( state );
+		return theme.getColor(state);
 	}
 
-	protected getTextAlpha( theme: THEME, state: DBaseStateSet ): number {
+	protected getTextAlpha(theme: THEME, state: DBaseStateSet): number {
 		const alpha = this._textAlpha;
-		if( alpha !== undefined ) {
-			if( isFunction( alpha ) ) {
-				const result = alpha( state );
-				if( result !== undefined ) {
+		if (alpha !== undefined) {
+			if (isFunction(alpha)) {
+				const result = alpha(state);
+				if (result !== undefined) {
 					return result;
 				}
 			} else {
 				return alpha;
 			}
 		}
-		return theme.getAlpha( state );
+		return theme.getAlpha(state);
 	}
 
-	protected updateTextColor( text: DDynamicText | Text ): void {
+	protected updateTextColor(text: DDynamicText | Text): void {
 		const theme = this.theme;
 		const state = this.state;
-		text.style.fill = this.getTextColor( theme, state );
-		text.alpha = this.getTextAlpha( theme, state );
+		text.style.fill = this.getTextColor(theme, state);
+		text.alpha = this.getTextAlpha(theme, state);
 	}
 
 	protected updateTextValue(): void {
 		const newTextValueComputed = this.computeTextValue();
-		if( this._textValueComputed !== newTextValueComputed ) {
+		if (this._textValueComputed !== newTextValueComputed) {
 			this._textValueComputed = newTextValueComputed;
 			this.onTextChange();
 			this.createOrUpdateText();
@@ -345,16 +347,16 @@ export class DTextBase<
 
 	protected updateText(): void {
 		const text = this._text;
-		if( text ) {
+		if (text) {
 			this.updateTextValue();
-			this.updateTextPosition( text );
-			this.updateTextColor( text );
+			this.updateTextPosition(text);
+			this.updateTextColor(text);
 		}
 	}
 
 	protected showText(): void {
 		const text = this._text;
-		if( text ) {
+		if (text) {
 			text.visible = true;
 		}
 		this._isTextVisible = true;
@@ -362,7 +364,7 @@ export class DTextBase<
 
 	protected hideText(): void {
 		const text = this._text;
-		if( text ) {
+		if (text) {
 			text.visible = false;
 		}
 		this._isTextVisible = false;
@@ -373,16 +375,15 @@ export class DTextBase<
 		this.updateText();
 	}
 
-	protected isRefitable( target: any ): target is DRefitable {
-		return super.isRefitable( target ) ||
-			(target != null && target === this._text);
+	protected isRefitable(target: any): target is DRefitable {
+		return super.isRefitable(target) || (target != null && target === this._text);
 	}
 
 	protected applyTitle(): void {
 		const text = this._text;
-		if( this._title.length <= 0 && text && ("clipped" in text) && text.clipped ) {
-			const layer = DApplications.getLayer( this );
-			if( layer ) {
+		if (this._title.length <= 0 && text && "clipped" in text && text.clipped) {
+			const layer = DApplications.getLayer(this);
+			if (layer) {
 				layer.view.title = text.text;
 			}
 		} else {
@@ -397,14 +398,14 @@ export class DTextBase<
 	destroy(): void {
 		// Text
 		const text = this._text;
-		if( text ) {
+		if (text) {
 			this._text = null;
 			text.destroy();
 		}
 
 		// Overflow mask
 		const overflowMask = this._overflowMask;
-		if( overflowMask ) {
+		if (overflowMask) {
 			this._overflowMask = null;
 			overflowMask.destroy();
 		}

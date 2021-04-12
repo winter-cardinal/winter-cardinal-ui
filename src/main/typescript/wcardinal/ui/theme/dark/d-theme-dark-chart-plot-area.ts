@@ -41,7 +41,7 @@ export class DThemeDarkChartPlotArea extends DThemeDarkBase implements DThemeCha
 		return 10;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 

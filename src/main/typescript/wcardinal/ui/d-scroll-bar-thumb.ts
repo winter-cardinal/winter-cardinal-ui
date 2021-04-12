@@ -7,9 +7,7 @@ import { Point } from "pixi.js";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { UtilDrag } from "./util/util-drag";
 
-export interface DScrollBarThumbOptions extends DBaseOptions<DThemeScrollBarThumb> {
-
-}
+export interface DScrollBarThumbOptions extends DBaseOptions<DThemeScrollBarThumb> {}
 
 export interface DThemeScrollBarThumb extends DThemeBase {
 	getThumbMinimumLength(): number;
@@ -18,8 +16,8 @@ export interface DThemeScrollBarThumb extends DThemeBase {
 export abstract class DScrollBarThumb extends DBase<DThemeScrollBarThumb, DScrollBarThumbOptions> {
 	protected _dragUtil!: UtilDrag;
 
-	protected init( options?: DScrollBarThumbOptions ) {
-		super.init( options );
+	protected init(options?: DScrollBarThumbOptions): void {
+		super.init(options);
 		this.state.isFocusable = false;
 
 		const position = new Point();
@@ -28,11 +26,11 @@ export abstract class DScrollBarThumb extends DBase<DThemeScrollBarThumb, DScrol
 			easing: false,
 			on: {
 				start: (): void => {
-					position.copyFrom( this.position );
+					position.copyFrom(this.position);
 				},
-				move: ( dx: number, dy: number ): void => {
-					position.set( position.x + dx, position.y + dy );
-					this.onDragMove( position.x, position.y );
+				move: (dx: number, dy: number): void => {
+					position.set(position.x + dx, position.y + dy);
+					this.onDragMove(position.x, position.y);
 				}
 			}
 		});
@@ -46,5 +44,5 @@ export abstract class DScrollBarThumb extends DBase<DThemeScrollBarThumb, DScrol
 		return "DScrollBarThumb";
 	}
 
-	protected abstract onDragMove( dx: number, dy: number ): void;
+	protected abstract onDragMove(dx: number, dy: number): void;
 }

@@ -8,19 +8,13 @@ import { DDropdownBase, DDropdownBaseOptions, DThemeDropdownBase } from "./d-dro
 /**
  * Dropdown options.
  */
-export interface DDropdownOptions<
-	VALUE = unknown,
-	THEME extends DThemeDropdown = DThemeDropdown
-> extends DDropdownBaseOptions<VALUE, string, THEME> {
-
-}
+export interface DDropdownOptions<VALUE = unknown, THEME extends DThemeDropdown = DThemeDropdown>
+	extends DDropdownBaseOptions<VALUE, string, THEME> {}
 
 /**
  * A dropdown theme.
  */
-export interface DThemeDropdown extends DThemeDropdownBase<string> {
-
-}
+export interface DThemeDropdown extends DThemeDropdownBase<string> {}
 
 export class DDropdown<
 	VALUE = unknown,

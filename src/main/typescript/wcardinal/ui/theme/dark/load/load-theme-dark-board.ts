@@ -6,6 +6,6 @@
 import { DThemeDark } from "../d-theme-dark";
 import { DThemeDarkBoard } from "../d-theme-dark-board";
 
-export const loadThemeDarkBoard = () => {
-	DThemeDark.set( "DBoard", DThemeDarkBoard );
+export const loadThemeDarkBoard = (): void => {
+	DThemeDark.set("DBoard", DThemeDarkBoard);
 };

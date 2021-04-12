@@ -10,12 +10,12 @@ import { DControllers } from "./d-controllers";
 export class DCommandSaveAs implements DCommand {
 	protected _name: string;
 
-	constructor( name: string ) {
+	constructor(name: string) {
 		this._name = name;
 	}
 
 	execute(): Promise<unknown> | boolean {
-		return DControllers.getDocumentController().saveAs( this._name );
+		return DControllers.getDocumentController().saveAs(this._name);
 	}
 
 	redo(): Promise<unknown> | boolean {

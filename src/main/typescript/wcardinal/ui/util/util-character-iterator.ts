@@ -1,3 +1,7 @@
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
 export class UtilCharacterIterator {
 	protected static _instance: UtilCharacterIterator | null = null;
@@ -13,11 +17,11 @@ export class UtilCharacterIterator {
 		return this._position;
 	}
 
-	set position( position: number ) {
+	set position(position: number) {
 		this._position = position;
 	}
 
-	init( target: string ): void {
+	init(target: string): void {
 		this._target = target;
 		this._position = 0;
 	}
@@ -26,34 +30,34 @@ export class UtilCharacterIterator {
 		return this._position < this._target.length;
 	}
 
-	protected findNextBreak( target: string, istart: number ): number {
+	protected findNextBreak(target: string, istart: number): number {
 		const iend = target.length;
-		for( let i = istart; i < iend; ++i ) {
-			const code = target.charCodeAt( i );
-			if( ! this.isLowSurrogate( code ) && ! this.isVariationSelector( code ) ) {
+		for (let i = istart; i < iend; ++i) {
+			const code = target.charCodeAt(i);
+			if (!this.isLowSurrogate(code) && !this.isVariationSelector(code)) {
 				return i;
 			}
 		}
 		return iend;
 	}
 
-	protected isHighSurrogate( code: number ): boolean {
-		return ( 0xd800 <= code && code <= 0xdbff );
+	protected isHighSurrogate(code: number): boolean {
+		return 0xd800 <= code && code <= 0xdbff;
 	}
 
-	protected isLowSurrogate( code: number ): boolean {
-		return ( 0xdc00 <= code && code <= 0xdfff );
+	protected isLowSurrogate(code: number): boolean {
+		return 0xdc00 <= code && code <= 0xdfff;
 	}
 
-	protected isVariationSelector( code: number ): boolean {
-		return ( 0xfe00 <= code && code <= 0xfe0f );
+	protected isVariationSelector(code: number): boolean {
+		return 0xfe00 <= code && code <= 0xfe0f;
 	}
 
 	next(): string {
 		const target = this._target;
 		const position = this._position;
-		const nextBreak = this.findNextBreak( target, position + 1 );
-		const result = target.substring( position, nextBreak );
+		const nextBreak = this.findNextBreak(target, position + 1);
+		const result = target.substring(position, nextBreak);
 		this._position = nextBreak;
 		return result;
 	}
@@ -65,23 +69,23 @@ export class UtilCharacterIterator {
 	 * @param except
 	 * @return true if the position is advanced
 	 */
-	advance( except?: string ): boolean {
+	advance(except?: string): boolean {
 		const target = this._target;
 		const position = this._position;
-		const nextBreak = this.findNextBreak( target, position + 1 );
-		if( target.substring( position, nextBreak ) !== except ) {
+		const nextBreak = this.findNextBreak(target, position + 1);
+		if (target.substring(position, nextBreak) !== except) {
 			this._position = nextBreak;
 			return true;
 		}
 		return false;
 	}
 
-	static from( target: string ): UtilCharacterIterator {
-		if( UtilCharacterIterator._instance == null ) {
+	static from(target: string): UtilCharacterIterator {
+		if (UtilCharacterIterator._instance == null) {
 			UtilCharacterIterator._instance = new UtilCharacterIterator();
 		}
 		const instance = UtilCharacterIterator._instance;
-		instance.init( target );
+		instance.init(target);
 		return instance;
 	}
 }

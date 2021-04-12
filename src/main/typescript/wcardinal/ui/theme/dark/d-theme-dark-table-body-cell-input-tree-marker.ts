@@ -15,9 +15,9 @@ import { DThemeDarkButtonBase } from "./d-theme-dark-button-base";
 import { DThemeDarkTableBodyCellTrees } from "./d-theme-dark-table-body-cell-trees";
 import { DThemeDarkTableBodyCells } from "./d-theme-dark-table-body-cells";
 
-export class DThemeDarkTableBodyCellInputTreeMarker<VALUE = unknown> extends DThemeDarkButtonBase<VALUE>
+export class DThemeDarkTableBodyCellInputTreeMarker<VALUE = unknown>
+	extends DThemeDarkButtonBase<VALUE>
 	implements DThemeTableBodyCellInputTreeMarker<VALUE> {
-
 	getX(): DCoordinatePosition {
 		return "padding";
 	}
@@ -30,44 +30,44 @@ export class DThemeDarkTableBodyCellInputTreeMarker<VALUE = unknown> extends DTh
 		return DThemeDarkTableBodyCells.getHeight();
 	}
 
-	getBackgroundColor( state: DBaseStateSet ): number | null {
-		return DThemeDarkTableBodyCells.getBackgroundColor( state );
+	getBackgroundColor(state: DBaseStateSet): number | null {
+		return DThemeDarkTableBodyCells.getBackgroundColor(state);
 	}
 
-	getBackgroundAlpha( state: DBaseStateSet ): number {
-		return DThemeDarkTableBodyCells.getBackgroundAlpha( state );
+	getBackgroundAlpha(state: DBaseStateSet): number {
+		return DThemeDarkTableBodyCells.getBackgroundAlpha(state);
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
-	getBorderAlign( state: DBaseStateSet ): number {
-		return DThemeDarkTableBodyCells.getBorderAlign( state );
+	getBorderAlign(state: DBaseStateSet): number {
+		return DThemeDarkTableBodyCells.getBorderAlign(state);
 	}
 
-	getBorderMask( state: DBaseStateSet ): DBorderMask {
-		return DThemeDarkTableBodyCells.getBorderMask( state );
+	getBorderMask(state: DBaseStateSet): DBorderMask {
+		return DThemeDarkTableBodyCells.getBorderMask(state);
 	}
 
-	getColor( state: DBaseStateSet ): number {
-		return DThemeDarkTableBodyCells.getColor( state );
+	getColor(state: DBaseStateSet): number {
+		return DThemeDarkTableBodyCells.getColor(state);
 	}
 
-	getAlpha( state: DBaseStateSet ): number {
-		return DThemeDarkTableBodyCells.getAlpha( state );
+	getAlpha(state: DBaseStateSet): number {
+		return DThemeDarkTableBodyCells.getAlpha(state);
 	}
 
 	getCornerMask(): DCornerMask {
 		return DThemeDarkTableBodyCells.getCornerMask();
 	}
 
-	getOutlineColor( state: DBaseStateSet ): number | null {
+	getOutlineColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
-	getOutlineAlign( state: DBaseStateSet ): number {
-		return DThemeDarkTableBodyCells.getOutlineAlign( state );
+	getOutlineAlign(state: DBaseStateSet): number {
+		return DThemeDarkTableBodyCells.getOutlineAlign(state);
 	}
 
 	getImageAlignWith(): DAlignWith {
@@ -78,15 +78,15 @@ export class DThemeDarkTableBodyCellInputTreeMarker<VALUE = unknown> extends DTh
 		return DAlignHorizontal.RIGHT;
 	}
 
-	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
-		return DThemeDarkTableBodyCellTrees.getImageSource( state );
+	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
+		return DThemeDarkTableBodyCellTrees.getImageSource(state);
 	}
 
-	getImageTintColor( state: DBaseStateSet ): number | null {
-		return DThemeDarkTableBodyCellTrees.getImageTintColor( state );
+	getImageTintColor(state: DBaseStateSet): number | null {
+		return DThemeDarkTableBodyCellTrees.getImageTintColor(state);
 	}
 
-	getImageTintAlpha( state: DBaseStateSet ): number {
-		return DThemeDarkTableBodyCellTrees.getImageTintAlpha( state );
+	getImageTintAlpha(state: DBaseStateSet): number {
+		return DThemeDarkTableBodyCellTrees.getImageTintAlpha(state);
 	}
 }

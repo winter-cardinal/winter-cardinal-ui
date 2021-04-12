@@ -15,64 +15,53 @@ import { EShapeActionValueChangeColorBrightness } from "./e-shape-action-value-c
 export class EShapeActionRuntimeChangeColorBrightness extends EShapeActionRuntimeChangeColorBase {
 	protected readonly brightness: EShapeActionExpression<number | null>;
 
-	constructor( value: EShapeActionValueChangeColorBrightness ) {
-		super( value );
-		this.brightness = EShapeActionExpressions.ofNumberOrNull( value.brightness );
+	constructor(value: EShapeActionValueChangeColorBrightness) {
+		super(value);
+		this.brightness = EShapeActionExpressions.ofNumberOrNull(value.brightness);
 	}
 
-	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( this.condition( shape, time ) ) {
-			const brightness = this.brightness( shape, time );
-			this.set( shape, runtime, time, brightness );
+	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {
+		if (this.condition(shape, time)) {
+			const brightness = this.brightness(shape, time);
+			this.set(shape, runtime, time, brightness);
 		}
 	}
 
-	protected set( shape: EShape, runtime: EShapeRuntime, time: number, brightness: number | null ): void {
+	protected set(
+		shape: EShape,
+		runtime: EShapeRuntime,
+		time: number,
+		brightness: number | null
+	): void {
 		const reset = this.reset;
-		if( brightness != null ) {
+		if (brightness != null) {
 			const toAdjusted = this.toAdjusted;
 
-			if( reset & EShapeRuntimeReset.COLOR_FILL ) {
-				const base = EShapeActionBases.toBaseFill( shape, runtime );
-				shape.fill.set(
-					undefined,
-					toAdjusted( base.color, brightness ),
-					base.alpha
-				);
+			if (reset & EShapeRuntimeReset.COLOR_FILL) {
+				const base = EShapeActionBases.toBaseFill(shape, runtime);
+				shape.fill.set(undefined, toAdjusted(base.color, brightness), base.alpha);
 			}
-			if( reset & EShapeRuntimeReset.COLOR_STROKE ) {
-				const base = EShapeActionBases.toBaseStroke( shape, runtime );
-				shape.stroke.set(
-					undefined,
-					toAdjusted( base.color, brightness ),
-					base.alpha
-				);
+			if (reset & EShapeRuntimeReset.COLOR_STROKE) {
+				const base = EShapeActionBases.toBaseStroke(shape, runtime);
+				shape.stroke.set(undefined, toAdjusted(base.color, brightness), base.alpha);
 			}
-			if( reset & EShapeRuntimeReset.COLOR_TEXT ) {
-				const base = EShapeActionBases.toBaseText( shape, runtime );
-				shape.text.set(
-					undefined,
-					toAdjusted( base.color, brightness ),
-					base.alpha
-				);
+			if (reset & EShapeRuntimeReset.COLOR_TEXT) {
+				const base = EShapeActionBases.toBaseText(shape, runtime);
+				shape.text.set(undefined, toAdjusted(base.color, brightness), base.alpha);
 			}
-			if( reset & EShapeRuntimeReset.COLOR_TEXT_OUTLINE ) {
-				const base = EShapeActionBases.toBaseTextOutline( shape, runtime );
-				shape.text.outline.set(
-					undefined,
-					toAdjusted( base.color, brightness ),
-					base.alpha
-				);
+			if (reset & EShapeRuntimeReset.COLOR_TEXT_OUTLINE) {
+				const base = EShapeActionBases.toBaseTextOutline(shape, runtime);
+				shape.text.outline.set(undefined, toAdjusted(base.color, brightness), base.alpha);
 			}
 			runtime.written |= reset;
 		}
 	}
 
-	protected toAdjusted( color: number, brightness: number ): number {
-		if( 0 <= brightness ) {
-			return UtilRgb.brighten( color, +brightness );
+	protected toAdjusted(color: number, brightness: number): number {
+		if (0 <= brightness) {
+			return UtilRgb.brighten(color, +brightness);
 		} else {
-			return UtilRgb.darken( color, -brightness );
+			return UtilRgb.darken(color, -brightness);
 		}
 	}
 }

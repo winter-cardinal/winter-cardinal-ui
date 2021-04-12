@@ -11,15 +11,15 @@ export interface DThemeImageBaseSecondary {
 	getSecondaryImageAlignWith(): DAlignWith;
 	getSecondaryImageMarginHorizontal(): number;
 	getSecondaryImageMarginVertial(): number;
-	getSecondaryImageTintColor( state: DBaseStateSet ): number | null;
-	getSecondaryImageTintAlpha( state: DBaseStateSet ): number;
-	getSecondaryImageSource( state: DBaseStateSet ): Texture | DisplayObject | null;
+	getSecondaryImageTintColor(state: DBaseStateSet): number | null;
+	getSecondaryImageTintAlpha(state: DBaseStateSet): number;
+	getSecondaryImageSource(state: DBaseStateSet): Texture | DisplayObject | null;
 }
 
 export class DImageBaseThemeWrapperSecondary implements DThemeImagePiece {
 	protected _theme: DThemeImageBaseSecondary;
 
-	constructor( theme: DThemeImageBaseSecondary ) {
+	constructor(theme: DThemeImageBaseSecondary) {
 		this._theme = theme;
 	}
 
@@ -43,15 +43,15 @@ export class DImageBaseThemeWrapperSecondary implements DThemeImagePiece {
 		return this._theme.getSecondaryImageMarginVertial();
 	}
 
-	getImageTintColor( state: DBaseStateSet ): number | null {
-		return this._theme.getSecondaryImageTintColor( state );
+	getImageTintColor(state: DBaseStateSet): number | null {
+		return this._theme.getSecondaryImageTintColor(state);
 	}
 
-	getImageTintAlpha( state: DBaseStateSet ): number {
-		return this._theme.getSecondaryImageTintAlpha( state );
+	getImageTintAlpha(state: DBaseStateSet): number {
+		return this._theme.getSecondaryImageTintAlpha(state);
 	}
 
-	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
-		return this._theme.getSecondaryImageSource( state );
+	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
+		return this._theme.getSecondaryImageSource(state);
 	}
 }

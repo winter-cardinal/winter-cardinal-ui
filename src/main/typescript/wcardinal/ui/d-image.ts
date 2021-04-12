@@ -8,13 +8,9 @@ import { DImageBase, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
 export interface DImageOptions<
 	VALUE = unknown,
 	THEME extends DThemeImage<VALUE> = DThemeImage<VALUE>
-> extends DImageBaseOptions<VALUE, THEME> {
+> extends DImageBaseOptions<VALUE, THEME> {}
 
-}
-
-export interface DThemeImage<VALUE = unknown> extends DThemeImageBase<VALUE> {
-
-}
+export interface DThemeImage<VALUE = unknown> extends DThemeImageBase<VALUE> {}
 
 export class DImage<
 	VALUE = unknown,

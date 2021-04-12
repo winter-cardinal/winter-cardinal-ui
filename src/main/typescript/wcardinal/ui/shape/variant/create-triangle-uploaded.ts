@@ -10,23 +10,28 @@ import { TRIANGLE_INDEX_COUNT, TRIANGLE_VERTEX_COUNT } from "./build-triangle";
 import { EShapeTriangleUploaded } from "./e-shape-triangle-uploaded";
 
 export const createTriangleUploaded = (
-	buffer: EShapeBuffer, shape: EShape,
-	voffset: number, ioffset: number,
+	buffer: EShapeBuffer,
+	shape: EShape,
+	voffset: number,
+	ioffset: number,
 	antialiasWeight: number
 ): EShapeTriangleUploaded | null => {
-	const tcount = toTextBufferCount( shape );
+	const tcount = toTextBufferCount(shape);
 	const tvcount = tcount * TEXT_VERTEX_COUNT;
 	const ticount = tcount * TEXT_INDEX_COUNT;
 	const vcount = TRIANGLE_VERTEX_COUNT + tvcount;
 	const icount = TRIANGLE_INDEX_COUNT + ticount;
-	if( buffer.check( voffset, ioffset, vcount, icount ) ) {
+	if (buffer.check(voffset, ioffset, vcount, icount)) {
 		return new EShapeTriangleUploaded(
 			buffer,
-			voffset, ioffset,
-			tvcount, ticount,
-			vcount, icount,
+			voffset,
+			ioffset,
+			tvcount,
+			ticount,
+			vcount,
+			icount,
 			antialiasWeight
-		).init( shape );
+		).init(shape);
 	}
 	return null;
 };

@@ -7,7 +7,7 @@ import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteButtonColor } from "../d-theme-white-button-color";
 import { loadThemeWhiteDialogColor } from "./load-theme-white-dialog-color";
 
-export const loadThemeWhiteButtonColor = () => {
-	DThemeWhite.set( "DButtonColor", DThemeWhiteButtonColor );
+export const loadThemeWhiteButtonColor = (): void => {
+	DThemeWhite.set("DButtonColor", DThemeWhiteButtonColor);
 	loadThemeWhiteDialogColor();
 };

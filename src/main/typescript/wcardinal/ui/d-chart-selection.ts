@@ -15,10 +15,10 @@ export enum DChartSelectionPoint {
 	INTERSECTION
 }
 
-export type DChartSelectionStyle = ( shape: EShape, series: DChartSeries ) => void;
+export type DChartSelectionStyle = (shape: EShape, series: DChartSeries) => void;
 
 export interface DChartSelection extends utils.EventEmitter {
-	bind( container: DChartSeriesContainer ): void;
+	bind(container: DChartSeriesContainer): void;
 	unbind(): void;
 	update(): void;
 }

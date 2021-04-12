@@ -9,7 +9,8 @@ import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manage
 import { EShapeRectangleRounded } from "./e-shape-rectangle-rounded";
 
 export const deserializeRectangleRounded = (
-	item: DDiagramSerializedItem, manager: EShapeResourceManagerDeserialization
+	item: DDiagramSerializedItem,
+	manager: EShapeResourceManagerDeserialization
 ): Promise<EShapeRectangleRounded> | EShapeRectangleRounded => {
-	return EShapeDeserializer.deserialize( item, manager, new EShapeRectangleRounded() );
+	return EShapeDeserializer.deserialize(item, manager, new EShapeRectangleRounded());
 };

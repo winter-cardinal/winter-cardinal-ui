@@ -69,16 +69,14 @@ export class DApplication implements DApplicationLike {
 	protected _resolution: number;
 	protected _isOverlayEnabled: boolean;
 
-	constructor( options?: DApplicationOptions ) {
-		DApplications.add( this );
+	constructor(options?: DApplicationOptions) {
+		DApplications.add(this);
 
 		// Root
-		this._root = this.toRootElement( options );
+		this._root = this.toRootElement(options);
 
 		// Resolution
-		const resolution = ( options && options.resolution != null ?
-			options.resolution : (window.devicePixelRatio || 1)
-		);
+		const resolution = options?.resolution ?? window.devicePixelRatio ?? 1;
 		this._resolution = resolution;
 
 		// Remove the accessibility plugin
@@ -88,11 +86,12 @@ export class DApplication implements DApplicationLike {
 		this._options = options;
 
 		// Base layer
-		const base = this._base = this.newLayerBase( options );
+		const base = this.newLayerBase(options);
+		this._base = base;
 
 		// Overlay layer
-		this._isOverlayEnabled = !! ( options && options.overlay );
-		if( ! this._isOverlayEnabled ) {
+		this._isOverlayEnabled = !!options?.overlay;
+		if (!this._isOverlayEnabled) {
 			this._overlay = base;
 		}
 	}
@@ -109,12 +108,12 @@ export class DApplication implements DApplicationLike {
 		return this._resolution;
 	}
 
-	protected toRootElement( options?: DApplicationOptions ): HTMLElement {
-		const root = options && options.root;
-		if( root != null ) {
-			if( isString( root ) ) {
-				const found = document.querySelector<HTMLElement>( root );
-				if( found ) {
+	protected toRootElement(options?: DApplicationOptions): HTMLElement {
+		const root = options?.root;
+		if (root != null) {
+			if (isString(root)) {
+				const found = document.querySelector<HTMLElement>(root);
+				if (found) {
 					return found;
 				}
 			} else {
@@ -124,10 +123,10 @@ export class DApplication implements DApplicationLike {
 		return document.body;
 	}
 
-	protected toLayerBaseOptions( options?: DApplicationOptions ): DApplicationLayerOptions {
+	protected toLayerBaseOptions(options?: DApplicationOptions): DApplicationLayerOptions {
 		const root = this._root;
 		const resolution = this._resolution;
-		if( options ) {
+		if (options) {
 			return new DApplicationLayerOptions({
 				root,
 				padding: options.padding,
@@ -146,18 +145,18 @@ export class DApplication implements DApplicationLike {
 		});
 	}
 
-	protected newLayerBase( options?: DApplicationOptions ): DApplicationLayer {
-		return new DApplicationLayer( this, this.toLayerBaseOptions( options ) );
+	protected newLayerBase(options?: DApplicationOptions): DApplicationLayer {
+		return new DApplicationLayer(this, this.toLayerBaseOptions(options));
 	}
 
 	getLayerBase(): DApplicationLayer {
-		return  this._base;
+		return this._base;
 	}
 
-	protected toLayerOverlayOptions( options?: DApplicationOptions ): DApplicationLayerOptions {
+	protected toLayerOverlayOptions(options?: DApplicationOptions): DApplicationLayerOptions {
 		const root = this._root;
 		const resolution = this._resolution;
-		if( options ) {
+		if (options) {
 			return new DApplicationLayerOptions({
 				root,
 				padding: options.padding,
@@ -178,14 +177,14 @@ export class DApplication implements DApplicationLike {
 		});
 	}
 
-	protected newLayerOverlay( options?: DApplicationOptions ): DApplicationLayer {
-		return new DApplicationLayer( this, this.toLayerOverlayOptions( options ) );
+	protected newLayerOverlay(options?: DApplicationOptions): DApplicationLayer {
+		return new DApplicationLayer(this, this.toLayerOverlayOptions(options));
 	}
 
 	getLayerOverlay(): DApplicationLayer {
-		if( this._isOverlayEnabled ) {
-			if( this._overlay == null ) {
-				this._overlay = this.newLayerOverlay( this._options );
+		if (this._isOverlayEnabled) {
+			if (this._overlay == null) {
+				this._overlay = this.newLayerOverlay(this._options);
 			}
 			return this._overlay;
 		} else {
@@ -194,12 +193,12 @@ export class DApplication implements DApplicationLike {
 	}
 
 	update(): void {
-		if( this._isOverlayEnabled ) {
+		if (this._isOverlayEnabled) {
 			const base = this._base;
 			base.update();
 
 			const overlay = this._overlay;
-			if( overlay ) {
+			if (overlay) {
 				overlay.update();
 			}
 		} else {
@@ -208,12 +207,12 @@ export class DApplication implements DApplicationLike {
 	}
 
 	render(): void {
-		if( this._isOverlayEnabled ) {
+		if (this._isOverlayEnabled) {
 			const base = this._base;
 			base.render();
 
 			const overlay = this._overlay;
-			if( overlay ) {
+			if (overlay) {
 				overlay.render();
 			}
 		} else {

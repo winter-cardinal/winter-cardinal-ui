@@ -3,26 +3,23 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DDropdownBase, DDropdownBaseEvents, DDropdownBaseOptions, DThemeDropdownBase } from "./d-dropdown-base";
+import {
+	DDropdownBase,
+	DDropdownBaseEvents,
+	DDropdownBaseOptions,
+	DThemeDropdownBase
+} from "./d-dropdown-base";
 import { DMenu } from "./d-menu";
 import { DMenuItem } from "./d-menu-item";
 import { DMenuItemCheck } from "./d-menu-item-check";
 import { DMenuItemMenu } from "./d-menu-item-menu";
+import { DOnOptions } from "./d-on-options";
 
 /**
  * {@link DSelectMultiple} events.
  */
 export interface DSelectMultipleEvents<VALUE, EMITTER>
 	extends DDropdownBaseEvents<VALUE, DMenuItem<VALUE> | null, EMITTER> {
-	/**
-	 * Triggered when a menu item is selected.
-	 *
-	 * @param value a value of a selected menu item
-	 * @param item a selected menu item
-	 * @param emitter an emitter
-	 */
-	menuselect( value: VALUE, item: DMenuItem<VALUE>, emitter: EMITTER ): void;
-
 	/**
 	 * Triggered when the selection is changed.
 	 *
@@ -31,15 +28,20 @@ export interface DSelectMultipleEvents<VALUE, EMITTER>
 	 * @param items selected items
 	 * @param emitter an emitter
 	 */
-	change( newValues: VALUE[], oldValues: VALUE[], items: Array<DMenuItem<VALUE>>, emitter: EMITTER ): void;
+	change(
+		newValues: VALUE[],
+		oldValues: VALUE[],
+		items: Array<DMenuItem<VALUE>>,
+		emitter: EMITTER
+	): void;
 }
 
 /**
  * {@link DSelectMultiple} "on" options.
  */
-export interface DSelectMultipleOnOptions<VALUE, EMITTER> extends Partial<DSelectMultipleEvents<VALUE, EMITTER>> {
-	[ key: string ]: Function | undefined;
-}
+export interface DSelectMultipleOnOptions<VALUE, EMITTER>
+	extends Partial<DSelectMultipleEvents<VALUE, EMITTER>>,
+		DOnOptions {}
 
 /**
  * {@link DSelectMultiple} options.
@@ -60,9 +62,8 @@ export interface DSelectMultipleOptions<
 /**
  * {@link DSelectMultiple} theme.
  */
-export interface DThemeSelectMultiple<VALUE = unknown> extends DThemeDropdownBase<Array<DMenuItem<VALUE>>> {
-
-}
+export interface DThemeSelectMultiple<VALUE = unknown>
+	extends DThemeDropdownBase<Array<DMenuItem<VALUE>>> {}
 
 /**
  * A multi-value selector class.
@@ -74,40 +75,44 @@ export class DSelectMultiple<
 > extends DDropdownBase<VALUE, Array<DMenuItem<VALUE>>, THEME, OPTIONS> {
 	protected _values: VALUE[];
 
-	constructor( options?: OPTIONS ) {
-		super( options );
+	constructor(options?: OPTIONS) {
+		super(options);
 
 		// Default values
 		this._values = [];
 		const values = options?.values;
-		if( values ) {
+		if (values) {
 			this.values = values;
 		}
 	}
 
-	protected onMenuSelect( value: VALUE, item: DMenuItem<VALUE>, menu: DMenu<VALUE> ): void {
-		super.onMenuSelect( value, item, menu );
-		if( item instanceof DMenuItemCheck ) {
+	protected onMenuSelect(value: VALUE, item: DMenuItem<VALUE>, menu: DMenu<VALUE>): void {
+		super.onMenuSelect(value, item, menu);
+		if (item instanceof DMenuItemCheck) {
 			const oldValues = this._values;
 			const newValues: VALUE[] = [];
 			const newItems: Array<DMenuItem<VALUE>> = [];
-			if( item.state.isActive ) {
-				this.updateMenuItems( menu, oldValues, value, undefined, newValues, newItems );
+			if (item.state.isActive) {
+				this.updateMenuItems(menu, oldValues, value, undefined, newValues, newItems);
 			} else {
-				this.updateMenuItems( menu, oldValues, undefined, value, newValues, newItems );
+				this.updateMenuItems(menu, oldValues, undefined, value, newValues, newItems);
 			}
 			this._values = newValues;
 			this.text = newItems;
-			this.onValueChange( newValues, oldValues, newItems );
+			this.onValueChange(newValues, oldValues, newItems);
 		}
 	}
 
-	protected onValueChange( newValues: VALUE[], oldValues: VALUE[], items: Array<DMenuItem<VALUE>> ): void {
-		this.emit( "change", newValues, oldValues, items, this );
+	protected onValueChange(
+		newValues: VALUE[],
+		oldValues: VALUE[],
+		items: Array<DMenuItem<VALUE>>
+	): void {
+		this.emit("change", newValues, oldValues, items, this);
 	}
 
 	start(): void {
-		this.updateMenuItems( this.menu, this._values );
+		this.updateMenuItems(this.menu, this._values);
 		super.start();
 	}
 
@@ -121,21 +126,21 @@ export class DSelectMultiple<
 	/**
 	 * Sets to the specified value.
 	 */
-	set values( values: VALUE[] ) {
+	set values(values: VALUE[]) {
 		const oldValues = this._values;
-		if( ! this.isSameValues( values, oldValues ) ) {
+		if (!this.isSameValues(values, oldValues)) {
 			const newValues: VALUE[] = [];
 			const newItems: Array<DMenuItem<VALUE>> = [];
-			this.updateMenuItems( this.menu, values, undefined, undefined, newValues, newItems );
+			this.updateMenuItems(this.menu, values, undefined, undefined, newValues, newItems);
 			this._values = newValues;
 			this.text = newItems;
 		}
 	}
 
-	protected isSameValues( a: VALUE[], b: VALUE[] ): boolean {
-		if( a.length === b.length ) {
-			for( let i = 0, imax = a.length; i < imax; ++i ) {
-				if( b.indexOf( a[ i ] ) < 0 ) {
+	protected isSameValues(a: VALUE[], b: VALUE[]): boolean {
+		if (a.length === b.length) {
+			for (let i = 0, imax = a.length; i < imax; ++i) {
+				if (b.indexOf(a[i]) < 0) {
 					return false;
 				}
 			}
@@ -152,20 +157,30 @@ export class DSelectMultiple<
 		newItems?: Array<DMenuItem<VALUE>>
 	): void {
 		const children = menu.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			const child = children[ i ];
-			if( child instanceof DMenuItemMenu ) {
-				this.updateMenuItems( child.menu, oldValues, addedValue, removedValue, newValues, newItems );
-			} else if( child instanceof DMenuItemCheck ) {
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			const child = children[i];
+			if (child instanceof DMenuItemMenu) {
+				this.updateMenuItems(
+					child.menu,
+					oldValues,
+					addedValue,
+					removedValue,
+					newValues,
+					newItems
+				);
+			} else if (child instanceof DMenuItemCheck) {
 				const childValue = child.value;
-				if( removedValue !== undefined && removedValue === childValue ) {
+				if (removedValue !== undefined && removedValue === childValue) {
 					child.state.isActive = false;
-				} else if( ( addedValue !== undefined && child.value === addedValue ) || 0 <= oldValues.indexOf( child.value ) ) {
-					if( newValues ) {
-						newValues.push( child.value );
+				} else if (
+					(addedValue !== undefined && child.value === addedValue) ||
+					0 <= oldValues.indexOf(child.value)
+				) {
+					if (newValues) {
+						newValues.push(child.value);
 					}
-					if( newItems ) {
-						newItems.push( child );
+					if (newItems) {
+						newItems.push(child);
 					}
 					child.state.isActive = true;
 				} else {

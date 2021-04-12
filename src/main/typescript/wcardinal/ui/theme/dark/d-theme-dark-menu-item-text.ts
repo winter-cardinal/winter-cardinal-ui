@@ -12,11 +12,11 @@ export class DThemeDarkMenuItemText extends DThemeDarkMenuItem implements DTheme
 		return this.getPaddingRight();
 	}
 
-	getShortcutColor( state: DBaseStateSet ): number {
-		return this.getColor( state );
+	getShortcutColor(state: DBaseStateSet): number {
+		return this.getColor(state);
 	}
 
-	getShortcutAlpha( state: DBaseStateSet ): number {
-		return this.getAlpha( state ) * 0.5;
+	getShortcutAlpha(state: DBaseStateSet): number {
+		return this.getAlpha(state) * 0.5;
 	}
 }

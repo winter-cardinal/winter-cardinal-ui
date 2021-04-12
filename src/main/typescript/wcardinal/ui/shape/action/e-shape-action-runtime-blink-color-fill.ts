@@ -12,14 +12,14 @@ export class EShapeActionRuntimeBlinkColorFill extends EShapeActionRuntimeBlink 
 	protected color: number;
 	protected alpha: number;
 
-	constructor( value: EShapeActionValueBlink ) {
-		super( value, EShapeRuntimeReset.COLOR_FILL );
+	constructor(value: EShapeActionValueBlink) {
+		super(value, EShapeRuntimeReset.COLOR_FILL);
 		this.color = value.color;
 		this.alpha = value.alpha;
 	}
 
-	protected toOn( shape: EShape, runtime: EShapeRuntime ): void {
-		shape.fill.set( undefined, this.color, this.alpha );
+	protected toOn(shape: EShape, runtime: EShapeRuntime): void {
+		shape.fill.set(undefined, this.color, this.alpha);
 		runtime.written |= this.reset;
 	}
 }

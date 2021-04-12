@@ -10,11 +10,11 @@ import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhitePane } from "./d-theme-white-pane";
 
 export class DThemeWhiteMenuSided extends DThemeWhitePane implements DThemeMenuSided {
-	getBackgroundColor( state: DBaseStateSet ): number | null {
+	getBackgroundColor(state: DBaseStateSet): number | null {
 		return DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 

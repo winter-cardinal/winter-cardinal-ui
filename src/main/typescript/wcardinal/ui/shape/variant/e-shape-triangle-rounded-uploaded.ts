@@ -6,65 +6,67 @@
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
 import {
-	buildTriangleRoundedClipping, buildTriangleRoundedIndex, buildTriangleRoundedStep,
-	buildTriangleRoundedUv, buildTriangleRoundedVertex, TRIANGLE_ROUNDED_WORLD_SIZE
+	buildTriangleRoundedClipping,
+	buildTriangleRoundedIndex,
+	buildTriangleRoundedStep,
+	buildTriangleRoundedUv,
+	buildTriangleRoundedVertex,
+	TRIANGLE_ROUNDED_WORLD_SIZE
 } from "./build-triangle-rounded";
 import { EShapeTextUploaded } from "./e-shape-text-uploaded";
 
 export class EShapeTriangleRoundedUploaded extends EShapeTextUploaded {
-	init( shape: EShape ): this {
-		super.init( shape );
+	init(shape: EShape): this {
+		super.init(shape);
 
 		// Indices
 		const buffer = this.buffer;
 		buffer.updateIndices();
-		buildTriangleRoundedIndex(
-			buffer.indices,
-			this.vertexOffset,
-			this.indexOffset
-		);
+		buildTriangleRoundedIndex(buffer.indices, this.vertexOffset, this.indexOffset);
 
 		// Text
 		this.initText();
 
-		this.update( shape );
+		this.update(shape);
 		return this;
 	}
 
-	update( shape: EShape ): void {
+	update(shape: EShape): void {
 		const buffer = this.buffer;
-		this.updateVertexClippingStepAndUv( buffer, shape );
-		this.updateColor( buffer, shape );
-		this.updateText( buffer, shape );
+		this.updateVertexClippingStepAndUv(buffer, shape);
+		this.updateColor(buffer, shape);
+		this.updateText(buffer, shape);
 	}
 
-	protected updateVertexClippingStepAndUv( buffer: EShapeBuffer, shape: EShape ): void {
+	protected updateVertexClippingStepAndUv(buffer: EShapeBuffer, shape: EShape): void {
 		const size = shape.size;
 		const sizeX = size.x;
 		const sizeY = size.y;
-		const isSizeChanged = ( sizeX !== this.sizeX || sizeY !== this.sizeY );
+		const isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
 
 		const radius = shape.radius;
-		const isRadiusChanged = ( radius !== this.radius );
+		const isRadiusChanged = radius !== this.radius;
 
-		const transformLocalId = this.toTransformLocalId( shape );
-		const isTransformChanged = ( this.transformLocalId !== transformLocalId );
+		const transformLocalId = this.toTransformLocalId(shape);
+		const isTransformChanged = this.transformLocalId !== transformLocalId;
 
 		const stroke = shape.stroke;
-		const strokeWidth = (stroke.enable ? stroke.width : 0);
+		const strokeWidth = stroke.enable ? stroke.width : 0;
 		const strokeAlign = stroke.align;
-		const isStrokeChanged = ( this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth );
+		const isStrokeChanged =
+			this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth;
 
 		const corner = shape.corner;
-		const isCornerChanged = ( corner !== this.corner );
+		const isCornerChanged = corner !== this.corner;
 
-		const texture = this.toTexture( shape );
-		const textureTransformId = this.toTextureTransformId( texture );
-		const isTextureChanged = ( texture !== this.texture || textureTransformId !== this.textureTransformId );
+		const texture = this.toTexture(shape);
+		const textureTransformId = this.toTextureTransformId(texture);
+		const isTextureChanged =
+			texture !== this.texture || textureTransformId !== this.textureTransformId;
 
 		const isVertexChanged = isSizeChanged || isRadiusChanged || isStrokeChanged;
 
-		if( isVertexChanged || isTransformChanged || isCornerChanged || isTextureChanged ) {
+		if (isVertexChanged || isTransformChanged || isCornerChanged || isTextureChanged) {
 			this.sizeX = sizeX;
 			this.sizeY = sizeY;
 			this.radius = radius;
@@ -75,7 +77,7 @@ export class EShapeTriangleRoundedUploaded extends EShapeTextUploaded {
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
 
-			if( isSizeChanged || isTransformChanged || isStrokeChanged ) {
+			if (isSizeChanged || isTransformChanged || isStrokeChanged) {
 				// Invalidate the text layout to update the text layout.
 				this.textSpacingHorizontal = NaN;
 			}
@@ -97,17 +99,12 @@ export class EShapeTriangleRoundedUploaded extends EShapeTextUploaded {
 				TRIANGLE_ROUNDED_WORLD_SIZE
 			);
 
-			if( isRadiusChanged || isCornerChanged ) {
+			if (isRadiusChanged || isCornerChanged) {
 				buffer.updateClippings();
-				buildTriangleRoundedClipping(
-					buffer.clippings,
-					voffset,
-					corner,
-					radius
-				);
+				buildTriangleRoundedClipping(buffer.clippings, voffset, corner, radius);
 			}
 
-			if( isVertexChanged || isTransformChanged || isCornerChanged ) {
+			if (isVertexChanged || isTransformChanged || isCornerChanged) {
 				buffer.updateSteps();
 				buildTriangleRoundedStep(
 					buffer.steps,
@@ -120,12 +117,12 @@ export class EShapeTriangleRoundedUploaded extends EShapeTextUploaded {
 				);
 			}
 
-			if( isVertexChanged || isTextureChanged ) {
+			if (isVertexChanged || isTextureChanged) {
 				buffer.updateUvs();
 				buildTriangleRoundedUv(
 					buffer.uvs,
 					voffset,
-					this.toTextureUvs( texture ),
+					this.toTextureUvs(texture),
 					radius,
 					TRIANGLE_ROUNDED_WORLD_SIZE
 				);

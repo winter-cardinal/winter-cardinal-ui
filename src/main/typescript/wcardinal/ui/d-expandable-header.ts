@@ -11,43 +11,39 @@ import { UtilPointerEvent } from "./util/util-pointer-event";
 export interface DExpandableHeaderOptions<
 	VALUE = unknown,
 	THEME extends DThemeExpandableHeader<VALUE> = DThemeExpandableHeader<VALUE>
-> extends DImageOptions<VALUE, THEME> {
+> extends DImageOptions<VALUE, THEME> {}
 
-}
-
-export interface DThemeExpandableHeader<VALUE = unknown> extends DThemeImage<VALUE> {
-
-}
+export interface DThemeExpandableHeader<VALUE = unknown> extends DThemeImage<VALUE> {}
 
 export class DExpandableHeader<
 	VALUE = unknown,
 	THEME extends DThemeExpandableHeader<VALUE> = DThemeExpandableHeader<VALUE>,
 	OPTIONS extends DExpandableHeaderOptions<VALUE, THEME> = DExpandableHeaderOptions<VALUE, THEME>
 > extends DImage<VALUE, THEME, OPTIONS> {
-	constructor( options?: OPTIONS ) {
-		super( options );
+	constructor(options?: OPTIONS) {
+		super(options);
 
-		this.on( UtilPointerEvent.down, ( e: interaction.InteractionEvent ): void => {
-			if( this.state.isActionable ) {
-				this.onSelect( e );
+		this.on(UtilPointerEvent.down, (e: interaction.InteractionEvent): void => {
+			if (this.state.isActionable) {
+				this.onSelect(e);
 			}
 		});
 	}
 
-	protected onSelect( e: KeyboardEvent | interaction.InteractionEvent ) {
-		this.emit( "select", this );
+	protected onSelect(e: KeyboardEvent | interaction.InteractionEvent): void {
+		this.emit("select", this);
 	}
 
-	onKeyDown( e: KeyboardEvent ): boolean {
-		if( UtilKeyboardEvent.isActivateKey( e ) ) {
-			this.onKeyDownActivate( e );
+	onKeyDown(e: KeyboardEvent): boolean {
+		if (UtilKeyboardEvent.isActivateKey(e)) {
+			this.onKeyDownActivate(e);
 		}
-		return super.onKeyDown( e );
+		return super.onKeyDown(e);
 	}
 
-	protected onKeyDownActivate( e: KeyboardEvent ): boolean {
-		if( this.state.isActionable && this.state.isFocused ) {
-			this.onSelect( e );
+	protected onKeyDownActivate(e: KeyboardEvent): boolean {
+		if (this.state.isActionable && this.state.isFocused) {
+			this.onSelect(e);
 			return true;
 		}
 		return false;

@@ -5,6 +5,4 @@
 
 import { DThemeWhiteButtonBase } from "./d-theme-white-button-base";
 
-export class DThemeWhiteButtonSecondary<VALUE = unknown> extends DThemeWhiteButtonBase<VALUE> {
-
-}
+export class DThemeWhiteButtonSecondary<VALUE = unknown> extends DThemeWhiteButtonBase<VALUE> {}

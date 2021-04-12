@@ -10,66 +10,67 @@ import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeBase } from "./e-shape-base";
 import {
-	EShapeLineBasePoints, EShapeLineBasePointsHitTester, EShapeLineBasePointsTestRange,
+	EShapeLineBasePoints,
+	EShapeLineBasePointsHitTester,
+	EShapeLineBasePointsTestRange,
 	EShapeLineBasePointsToHitThreshold
 } from "./e-shape-line-base-points";
 import { EShapePrimitive } from "./e-shape-primitive";
 
 export abstract class EShapeLineBase extends EShapePrimitive {
-	protected static WORK_RANGE: [ number, number ] = [ 0, 0 ];
+	protected static WORK_RANGE: [number, number] = [0, 0];
 	protected declare _points: EShapeLineBasePoints;
 	abstract clone(): EShapeLineBase;
 
-	serialize( manager: EShapeResourceManagerSerialization ): DDiagramSerializedItem {
-		const result = super.serialize( manager );
-		result[ 15 ] = this._points.serialize( manager );
+	serialize(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem {
+		const result = super.serialize(manager);
+		result[15] = this._points.serialize(manager);
 		return result;
 	}
 
 	protected getPixelScale(): number {
 		const container = this.root.parent as any;
-		if( container != null && container.getPixelScale != null ) {
+		if (container != null && container.getPixelScale != null) {
 			return container.getPixelScale();
 		}
 		return 1.0;
 	}
 
-	protected getStrokeWidthScale( points: EShapePoints ): number {
+	protected getStrokeWidthScale(points: EShapePoints): number {
 		const style = points.style;
-		if( style & EShapePointsStyle.NON_EXPANDING_WIDTH ) {
-			if( style & EShapePointsStyle.NON_SHRINKING_WIDTH ) {
+		if (style & EShapePointsStyle.NON_EXPANDING_WIDTH) {
+			if (style & EShapePointsStyle.NON_SHRINKING_WIDTH) {
 				return this.getPixelScale();
 			} else {
-				return Math.min( 1.0, this.getPixelScale() );
+				return Math.min(1.0, this.getPixelScale());
 			}
 		} else {
-			if( style & EShapePointsStyle.NON_SHRINKING_WIDTH ) {
-				return Math.max( 1.0, this.getPixelScale() );
+			if (style & EShapePointsStyle.NON_SHRINKING_WIDTH) {
+				return Math.max(1.0, this.getPixelScale());
 			} else {
 				return 1.0;
 			}
 		}
 	}
 
-	protected toHitThreshold(
-		toThreshold: EShapeLineBasePointsToHitThreshold | null
-	): number {
+	protected toHitThreshold(toThreshold: EShapeLineBasePointsToHitThreshold | null): number {
 		const stroke = this.stroke;
-		const strokeWidth = ( stroke.enable ? stroke.width : 0 );
-		const strokeScale = this.getStrokeWidthScale( this._points );
-		return ( toThreshold ?
-			toThreshold( strokeWidth, strokeScale ) :
-			strokeWidth * strokeScale * 0.5
-		);
+		const strokeWidth = stroke.enable ? stroke.width : 0;
+		const strokeScale = this.getStrokeWidthScale(this._points);
+		return toThreshold
+			? toThreshold(strokeWidth, strokeScale)
+			: strokeWidth * strokeScale * 0.5;
 	}
 
-	containsAbs( x: number, y: number, ax: number, ay: number ): boolean {
+	containsAbs(x: number, y: number, ax: number, ay: number): boolean {
 		const points = this._points;
-		const threshold = this.toHitThreshold( null );
-		if( this.containsAbsBBox( x, y, ax + threshold, ay + threshold ) ) {
+		const threshold = this.toHitThreshold(null);
+		if (this.containsAbsBBox(x, y, ax + threshold, ay + threshold)) {
 			return points.calcHitPointAbs(
-				x, y,
-				ax, ay,
+				x,
+				y,
+				ax,
+				ay,
 				threshold,
 				null,
 				this.calcHitPointAbsHitTester,
@@ -87,12 +88,14 @@ export abstract class EShapeLineBase extends EShapePrimitive {
 		result: RESULT
 	): boolean {
 		const points = this._points;
-		const threshold = this.toHitThreshold( toHitThreshold );
-		const rect = this.toLocalRect( point, EShapeBase.WORK_RECT );
-		if( this.containsAbsBBox( rect.x, rect.y, rect.width + threshold, rect.height + threshold ) ) {
+		const threshold = this.toHitThreshold(toHitThreshold);
+		const rect = this.toLocalRect(point, EShapeBase.WORK_RECT);
+		if (this.containsAbsBBox(rect.x, rect.y, rect.width + threshold, rect.height + threshold)) {
 			return points.calcHitPointAbs(
-				rect.x, rect.y,
-				rect.width, rect.height,
+				rect.x,
+				rect.y,
+				rect.width,
+				rect.height,
 				threshold,
 				range,
 				tester,
@@ -104,9 +107,12 @@ export abstract class EShapeLineBase extends EShapePrimitive {
 
 	protected calcHitPointAbsHitTester(
 		this: unknown,
-		x: number, y: number,
-		p0x: number, p0y: number,
-		p1x: number, p1y: number,
+		x: number,
+		y: number,
+		p0x: number,
+		p0y: number,
+		p1x: number,
+		p1y: number,
 		index: number,
 		threshold: number,
 		result: unknown
@@ -129,10 +135,10 @@ export abstract class EShapeLineBase extends EShapePrimitive {
 		const a = d0x * d0x + d0y * d0y;
 		const b = d0x * d1x + d0y * d1y;
 		const c = d1x * d1x + d1y * d1y;
-		if( 0.0001 < a ) {
-			const t = Math.max( 0, Math.min( 1, b / a ) );
+		if (0.0001 < a) {
+			const t = Math.max(0, Math.min(1, b / a));
 			const d = a * t * t - 2 * b * t + c;
-			if( d < threshold * threshold ) {
+			if (d < threshold * threshold) {
 				return true;
 			}
 		}

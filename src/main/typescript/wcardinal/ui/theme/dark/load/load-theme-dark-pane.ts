@@ -8,8 +8,8 @@ import { DThemeDarkContent } from "../d-theme-dark-content";
 import { DThemeDarkPane } from "../d-theme-dark-pane";
 import { loadThemeDarkScrollBar } from "./load-theme-dark-scroll-bar";
 
-export const loadThemeDarkPane = () => {
-	DThemeDark.set( "DPane", DThemeDarkPane );
-	DThemeDark.set( "DContent", DThemeDarkContent );
+export const loadThemeDarkPane = (): void => {
+	DThemeDark.set("DPane", DThemeDarkPane);
+	DThemeDark.set("DContent", DThemeDarkContent);
 	loadThemeDarkScrollBar();
 };

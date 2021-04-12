@@ -10,11 +10,11 @@ import { DThemeScrollBar } from "../../d-scroll-bar";
 import { DThemeDarkBase } from "./d-theme-dark-base";
 
 export class DThemeDarkScrollBar extends DThemeDarkBase implements DThemeScrollBar {
-	getBackgroundColor( state: DBaseStateSet ): number | null {
+	getBackgroundColor(state: DBaseStateSet): number | null {
 		return 0xffffff;
 	}
 
-	getBackgroundAlpha( state: DBaseStateSet ): number {
+	getBackgroundAlpha(state: DBaseStateSet): number {
 		return 0;
 	}
 

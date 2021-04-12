@@ -12,44 +12,48 @@ import { UtilRgb } from "../../util/util-rgb";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteImageBase } from "./d-theme-white-image-base";
 
-export class DThemeWhiteButtonBase<VALUE = unknown> extends DThemeWhiteImageBase<VALUE>
+export class DThemeWhiteButtonBase<VALUE = unknown>
+	extends DThemeWhiteImageBase<VALUE>
 	implements DThemeButtonBase<VALUE> {
-
 	protected readonly BACKGROUND_COLOR: number;
 	protected readonly BACKGROUND_COLOR_HOVERED: number;
 	protected readonly BACKGROUND_COLOR_PRESSED: number;
 
-	constructor( backgroundColor: number = 0xffffff, hover: number = 0.017, pressed: number = 0.034 ) {
+	constructor(
+		backgroundColor: number = 0xffffff,
+		hover: number = 0.017,
+		pressed: number = 0.034
+	) {
 		super();
 		this.BACKGROUND_COLOR = backgroundColor;
-		this.BACKGROUND_COLOR_HOVERED = UtilRgb.darken( this.BACKGROUND_COLOR, hover );
-		this.BACKGROUND_COLOR_PRESSED = UtilRgb.darken( this.BACKGROUND_COLOR, pressed );
+		this.BACKGROUND_COLOR_HOVERED = UtilRgb.darken(this.BACKGROUND_COLOR, hover);
+		this.BACKGROUND_COLOR_PRESSED = UtilRgb.darken(this.BACKGROUND_COLOR, pressed);
 	}
 
-	getBackgroundColor( state: DBaseStateSet ): number | null {
-		if( state.inDisabled ) {
+	getBackgroundColor(state: DBaseStateSet): number | null {
+		if (state.inDisabled) {
 			return null;
-		} else if( state.isActive ) {
+		} else if (state.isActive) {
 			return DThemeWhiteConstants.HIGHLIGHT_COLOR;
-		} else if( state.isPressed ) {
+		} else if (state.isPressed) {
 			return this.BACKGROUND_COLOR_PRESSED;
-		} else if( state.isFocused || state.isHovered ) {
+		} else if (state.isFocused || state.isHovered) {
 			return this.BACKGROUND_COLOR_HOVERED;
 		} else {
 			return this.BACKGROUND_COLOR;
 		}
 	}
 
-	getColor( state: DBaseStateSet ): number {
-		if( state.inDisabled || ! state.isActive ) {
-			return super.getColor( state );
+	getColor(state: DBaseStateSet): number {
+		if (state.inDisabled || !state.isActive) {
+			return super.getColor(state);
 		} else {
 			return DThemeWhiteConstants.ACTIVE_COLOR;
 		}
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
-		if( state.inDisabled || ! state.isActive ) {
+	getBorderColor(state: DBaseStateSet): number | null {
+		if (state.inDisabled || !state.isActive) {
 			return DThemeWhiteConstants.BORDER_COLOR;
 		} else {
 			return null;
@@ -84,8 +88,8 @@ export class DThemeWhiteButtonBase<VALUE = unknown> extends DThemeWhiteImageBase
 		return DButtonBaseWhen.CLICKED;
 	}
 
-	getCursor( state: DBaseStateSet ): string {
-		if( ! state.isActionable ) {
+	getCursor(state: DBaseStateSet): string {
+		if (!state.isActionable) {
 			return "";
 		}
 		return "pointer";

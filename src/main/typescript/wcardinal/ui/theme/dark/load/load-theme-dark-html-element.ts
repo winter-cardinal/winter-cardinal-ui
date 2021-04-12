@@ -6,6 +6,6 @@
 import { DThemeDark } from "../d-theme-dark";
 import { DThemeDarkHtmlElement } from "../d-theme-dark-html-element";
 
-export const loadThemeDarkHtmlElement = () => {
-	DThemeDark.set( "DHtmlElement", DThemeDarkHtmlElement );
+export const loadThemeDarkHtmlElement = (): void => {
+	DThemeDark.set("DHtmlElement", DThemeDarkHtmlElement);
 };

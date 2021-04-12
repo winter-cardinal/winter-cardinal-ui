@@ -9,15 +9,15 @@ import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteListItem } from "./d-theme-white-list-item";
 
 export class DThemeWhiteMenuItem extends DThemeWhiteListItem implements DThemeMenuItem {
-	protected getBackgroundColorActive( state: DBaseStateSet ): number | null {
+	protected getBackgroundColorActive(state: DBaseStateSet): number | null {
 		return DThemeWhiteConstants.HIGHLIGHT_COLOR;
 	}
 
-	protected getBackgroundAlphaActive( state: DBaseStateSet ): number {
+	protected getBackgroundAlphaActive(state: DBaseStateSet): number {
 		return 1.0;
 	}
 
-	protected getColorActive( state: DBaseStateSet ): number {
+	protected getColorActive(state: DBaseStateSet): number {
 		return DThemeWhiteConstants.ACTIVE_COLOR;
 	}
 

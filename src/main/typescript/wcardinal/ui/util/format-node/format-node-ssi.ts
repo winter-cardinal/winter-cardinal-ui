@@ -6,7 +6,7 @@
 import { FormatNodefsi } from "./format-node-fsi";
 
 export class FormatNodessi extends FormatNodefsi {
-	protected toAbs( target: number, step: number, date: Date ): number {
+	protected toAbs(target: number, step: number, date: Date): number {
 		return Math.abs(step);
 	}
 }

@@ -9,19 +9,19 @@ import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { isString } from "../../util/is-string";
 import { DThemeDarkDropdownBase } from "./d-theme-dark-dropdown-base";
 
-const formatter = <VALUE>( values: Array<DMenuItem<VALUE>> ): string => {
-	if( values ) {
+const formatter = <VALUE>(values: Array<DMenuItem<VALUE>>): string => {
+	if (values) {
 		let result = "";
 		let delimiter = "";
-		for( let i = 0, imax = values.length; i < imax; ++i ) {
-			const value = values[ i ];
+		for (let i = 0, imax = values.length; i < imax; ++i) {
+			const value = values[i];
 			const text = value.text;
-			if( isString( text ) ) {
+			if (isString(text)) {
 				result += delimiter + text;
 				delimiter = ", ";
-			} else if( text != null ) {
-				const computed = text( value.state );
-				if( computed != null ) {
+			} else if (text != null) {
+				const computed = text(value.state);
+				if (computed != null) {
 					result += delimiter + computed;
 					delimiter = ", ";
 				}
@@ -32,10 +32,10 @@ const formatter = <VALUE>( values: Array<DMenuItem<VALUE>> ): string => {
 	return "";
 };
 
-export class DThemeDarkSelectMultiple<VALUE = unknown> extends DThemeDarkDropdownBase<Array<DMenuItem<VALUE>>>
+export class DThemeDarkSelectMultiple<VALUE = unknown>
+	extends DThemeDarkDropdownBase<Array<DMenuItem<VALUE>>>
 	implements DThemeSelectMultiple<VALUE> {
-
-	getTextFormatter(): ( value: Array<DMenuItem<VALUE>>, caller: any ) => string {
+	getTextFormatter(): (value: Array<DMenuItem<VALUE>>, caller: any) => string {
 		return formatter;
 	}
 

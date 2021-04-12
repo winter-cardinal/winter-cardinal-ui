@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import {
 	DChartSeriesLinearParameters,
 	DChartSeriesLinearParametersOptions
@@ -11,7 +16,7 @@ export class DChartSeriesExpressionParametersImpl implements DChartSeriesLinearP
 	protected _x0: number;
 	protected _y0: number;
 
-	constructor( a: number, b: number, x0: number, y0: number ) {
+	constructor(a: number, b: number, x0: number, y0: number) {
 		this._id = 0;
 		this._idUpdated = NaN;
 		this._a = a;
@@ -24,8 +29,8 @@ export class DChartSeriesExpressionParametersImpl implements DChartSeriesLinearP
 		return this._a;
 	}
 
-	set a( a: number ) {
-		if( this._a !== a ) {
+	set a(a: number) {
+		if (this._a !== a) {
 			this._id += 1;
 			this._a = a;
 		}
@@ -35,8 +40,8 @@ export class DChartSeriesExpressionParametersImpl implements DChartSeriesLinearP
 		return this._b;
 	}
 
-	set b( b: number ) {
-		if( this._b !== b ) {
+	set b(b: number) {
+		if (this._b !== b) {
 			this._id += 1;
 			this._b = b;
 		}
@@ -46,8 +51,8 @@ export class DChartSeriesExpressionParametersImpl implements DChartSeriesLinearP
 		return this._x0;
 	}
 
-	set x0( x0: number ) {
-		if( this._x0 !== x0 ) {
+	set x0(x0: number) {
+		if (this._x0 !== x0) {
 			this._id += 1;
 			this._x0 = x0;
 		}
@@ -57,8 +62,8 @@ export class DChartSeriesExpressionParametersImpl implements DChartSeriesLinearP
 		return this._y0;
 	}
 
-	set y0( y0: number ) {
-		if( this._y0 !== y0 ) {
+	set y0(y0: number) {
+		if (this._y0 !== y0) {
 			this._id += 1;
 			this._y0 = y0;
 		}
@@ -76,20 +81,14 @@ export class DChartSeriesExpressionParametersImpl implements DChartSeriesLinearP
 		this._idUpdated = this._id;
 	}
 
-	static from( options?: DChartSeriesLinearParametersOptions ): DChartSeriesExpressionParametersImpl {
-		if( options ) {
-			return new DChartSeriesExpressionParametersImpl(
-				( options.a != null ? options.a : 1 ),
-				( options.b != null ? options.b : 1 ),
-				( options.x0 != null ? options.x0 : 0 ),
-				( options.y0 != null ? options.y0 : 0 )
-			);
-		}
+	static from(
+		options?: DChartSeriesLinearParametersOptions
+	): DChartSeriesExpressionParametersImpl {
 		return new DChartSeriesExpressionParametersImpl(
-			1,
-			1,
-			0,
-			0
+			options?.a ?? 1,
+			options?.b ?? 1,
+			options?.x0 ?? 0,
+			options?.y0 ?? 0
 		);
 	}
 }

@@ -10,10 +10,11 @@ import { EShapeBar } from "./e-shape-bar";
 import { EShapeBarPosition } from "./e-shape-bar-position";
 
 export const deserializeBar = (
-	item: DDiagramSerializedItem, manager: EShapeResourceManagerDeserialization
+	item: DDiagramSerializedItem,
+	manager: EShapeResourceManagerDeserialization
 ): Promise<EShapeBar> | EShapeBar => {
-	const shape = new EShapeBar( EShapeBarPosition.RIGHT );
-	const result = EShapeDeserializer.deserialize( item, manager, shape );
-	shape.points.deserialize( item[ 15 ], manager );
+	const shape = new EShapeBar(EShapeBarPosition.RIGHT);
+	const result = EShapeDeserializer.deserialize(item, manager, shape);
+	shape.points.deserialize(item[15], manager);
 	return result;
 };

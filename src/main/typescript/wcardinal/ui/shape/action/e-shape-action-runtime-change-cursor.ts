@@ -13,15 +13,15 @@ import { EShapeActionValueChangeCursor } from "./e-shape-action-value-change-cur
 export class EShapeActionRuntimeChangeCursor extends EShapeActionRuntimeConditional {
 	protected name: EShapeActionExpression<string | null>;
 
-	constructor( value: EShapeActionValueChangeCursor ) {
-		super( value, EShapeRuntimeReset.CURSOR );
-		this.name = EShapeActionExpressions.ofStringOrNull( value.name );
+	constructor(value: EShapeActionValueChangeCursor) {
+		super(value, EShapeRuntimeReset.CURSOR);
+		this.name = EShapeActionExpressions.ofStringOrNull(value.name);
 	}
 
-	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( this.condition( shape, time ) ) {
-			const name = this.name( shape, time );
-			if( name != null ) {
+	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {
+		if (this.condition(shape, time)) {
+			const name = this.name(shape, time);
+			if (name != null) {
 				shape.cursor = name;
 				runtime.written |= this.reset;
 			}

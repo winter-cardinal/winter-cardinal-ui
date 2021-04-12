@@ -8,28 +8,28 @@ import { EShapeBuffer } from "../e-shape-buffer";
 import { EShapeTextUploaded } from "./e-shape-text-uploaded";
 
 export class EShapeLabelUploaded extends EShapeTextUploaded {
-	init( shape: EShape ): this {
-		super.init( shape );
+	init(shape: EShape): this {
+		super.init(shape);
 		this.initText();
-		this.update( shape );
+		this.update(shape);
 		return this;
 	}
 
-	update( shape: EShape ): void {
+	update(shape: EShape): void {
 		const buffer = this.buffer;
-		this.updateLabelVertex( buffer, shape );
-		this.updateLabelUv( buffer, shape );
-		this.updateText( buffer, shape );
+		this.updateLabelVertex(buffer, shape);
+		this.updateLabelUv(buffer, shape);
+		this.updateText(buffer, shape);
 	}
 
-	updateLabelVertex( buffer: EShapeBuffer, shape: EShape ): void {
+	updateLabelVertex(buffer: EShapeBuffer, shape: EShape): void {
 		const size = shape.size;
 		const sizeX = size.x;
 		const sizeY = size.y;
-		const isSizeChanged = ( sizeX !== this.sizeX || sizeY !== this.sizeY );
-		const transformLocalId = this.toTransformLocalId( shape );
-		const isTransformChanged = ( this.transformLocalId !== transformLocalId );
-		if( isSizeChanged || isTransformChanged ) {
+		const isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
+		const transformLocalId = this.toTransformLocalId(shape);
+		const isTransformChanged = this.transformLocalId !== transformLocalId;
+		if (isSizeChanged || isTransformChanged) {
 			this.sizeX = sizeX;
 			this.sizeY = sizeY;
 			this.transformLocalId = transformLocalId;
@@ -39,7 +39,7 @@ export class EShapeLabelUploaded extends EShapeTextUploaded {
 		}
 	}
 
-	updateLabelUv( buffer: EShapeBuffer, shape: EShape ): void {
-		this.texture = this.toTexture( shape );
+	updateLabelUv(buffer: EShapeBuffer, shape: EShape): void {
+		this.texture = this.toTexture(shape);
 	}
 }

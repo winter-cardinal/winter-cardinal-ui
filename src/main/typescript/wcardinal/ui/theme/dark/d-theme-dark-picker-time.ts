@@ -8,7 +8,6 @@ import { DCoordinateSize } from "../../d-coordinate";
 import { DInputIntegerOptions } from "../../d-input-integer";
 import { DPickerDatetimeMask } from "../../d-picker-datetime-mask";
 import { DThemePickerTime } from "../../d-picker-time";
-import { DPickerTimeBoundDate } from "../../d-picker-time-bound";
 import { DThemeDarkBase } from "./d-theme-dark-base";
 
 export class DThemeDarkPickerTime extends DThemeDarkBase implements DThemePickerTime {
@@ -53,7 +52,7 @@ export class DThemeDarkPickerTime extends DThemeDarkBase implements DThemePicker
 		return "auto";
 	}
 
-	getLowerBound(): DPickerTimeBoundDate {
+	getLowerBound(): Date | null {
 		return null;
 	}
 
@@ -61,7 +60,7 @@ export class DThemeDarkPickerTime extends DThemeDarkBase implements DThemePicker
 		return false;
 	}
 
-	getUpperBound(): DPickerTimeBoundDate {
+	getUpperBound(): Date | null {
 		return null;
 	}
 

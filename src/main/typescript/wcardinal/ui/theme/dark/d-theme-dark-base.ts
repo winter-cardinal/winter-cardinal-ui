@@ -18,9 +18,10 @@ import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkFont } from "./d-theme-dark-font";
 
-const newShadow = ( id: string, radius: number, opacity: number ): void => {
+const newShadow = (id: string, radius: number, opacity: number): void => {
 	const d = radius * 2;
-	DThemeDarkAtlas.add( id, d, d,
+	/* eslint-disable prettier/prettier */
+	DThemeDarkAtlas.add(id, d, d,
 		`<g>` +
 			`<defs>` +
 				`<radialGradient id="${id}_filter">` +
@@ -31,9 +32,10 @@ const newShadow = ( id: string, radius: number, opacity: number ): void => {
 			`<rect x="0" y="0" width="${d}" height="${d}" fill="url(#${id}_filter)"/>` +
 		`</g>`
 	);
+	/* eslint-enable prettier/prettier */
 };
-newShadow( "shadow_weak", 8, 0.5 );
-newShadow( "shadow", 12, 0.5 );
+newShadow("shadow_weak", 8, 0.5);
+newShadow("shadow", 12, 0.5);
 
 export class DThemeDarkBase extends DThemeDarkFont implements DThemeBase {
 	getX(): DCoordinatePosition {
@@ -52,43 +54,43 @@ export class DThemeDarkBase extends DThemeDarkFont implements DThemeBase {
 		return 100;
 	}
 
-	getBackgroundColor( state: DBaseStateSet ): number | null {
+	getBackgroundColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
-	getBackgroundAlpha( state: DBaseStateSet ): number {
+	getBackgroundAlpha(state: DBaseStateSet): number {
 		return 1;
 	}
 
-	getBackgroundTexture( radius: number ): Texture {
-		return UtilTexturePlane.getInstance().getBackground( radius );
+	getBackgroundTexture(radius: number): Texture {
+		return UtilTexturePlane.getInstance().getBackground(radius);
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
-		if( state.isFocused ) {
+	getBorderColor(state: DBaseStateSet): number | null {
+		if (state.isFocused) {
 			return DThemeDarkConstants.HIGHLIGHT_COLOR;
 		}
 		return null;
 	}
 
-	getBorderAlpha( state: DBaseStateSet ): number {
+	getBorderAlpha(state: DBaseStateSet): number {
 		return 1;
 	}
 
-	getBorderWidth( state: DBaseStateSet ): number {
+	getBorderWidth(state: DBaseStateSet): number {
 		return 1;
 	}
 
-	getBorderAlign( state: DBaseStateSet ): number {
+	getBorderAlign(state: DBaseStateSet): number {
 		return 0.5;
 	}
 
-	getBorderMask( state: DBaseStateSet ): number {
+	getBorderMask(state: DBaseStateSet): number {
 		return DBorderMask.NONE;
 	}
 
-	getBorderTexture( radius: number, width: number ): Texture {
-		return UtilTexturePlane.getInstance().getBorder( radius, width );
+	getBorderTexture(radius: number, width: number): Texture {
+		return UtilTexturePlane.getInstance().getBorder(radius, width);
 	}
 
 	getPaddingLeft(): number {
@@ -115,27 +117,27 @@ export class DThemeDarkBase extends DThemeDarkFont implements DThemeBase {
 		return DCornerMask.NONE;
 	}
 
-	getOutlineColor( state: DBaseStateSet ): number | null {
+	getOutlineColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
-	getOutlineAlpha( state: DBaseStateSet ): number {
+	getOutlineAlpha(state: DBaseStateSet): number {
 		return 1;
 	}
 
-	getOutlineWidth( state: DBaseStateSet ): number {
+	getOutlineWidth(state: DBaseStateSet): number {
 		return 1;
 	}
 
-	getOutlineOffset( state: DBaseStateSet ): number {
+	getOutlineOffset(state: DBaseStateSet): number {
 		return 1;
 	}
 
-	getOutlineAlign( state: DBaseStateSet ): number {
+	getOutlineAlign(state: DBaseStateSet): number {
 		return 1;
 	}
 
-	getOutlineMask( state: DBaseStateSet ): DBorderMask {
+	getOutlineMask(state: DBaseStateSet): DBorderMask {
 		return DBorderMask.NONE;
 	}
 
@@ -160,14 +162,14 @@ export class DThemeDarkBase extends DThemeDarkFont implements DThemeBase {
 	}
 
 	newShadow(): DShadow | null {
-		return new DShadowImpl( DThemeDarkAtlas.mappings.shadow, 12, 12, 0, 3 );
+		return new DShadowImpl(DThemeDarkAtlas.mappings.shadow, 12, 12, 0, 3);
 	}
 
 	newShadowWeak(): DShadow | null {
-		return new DShadowImpl( DThemeDarkAtlas.mappings.shadow_weak, 8, 8, 0, 2 );
+		return new DShadowImpl(DThemeDarkAtlas.mappings.shadow_weak, 8, 8, 0, 2);
 	}
 
-	getCursor( state: DBaseStateSet ): string {
+	getCursor(state: DBaseStateSet): string {
 		return "";
 	}
 }

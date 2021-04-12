@@ -1,5 +1,9 @@
 import { DDiagramBaseController } from "../../d-diagram-base";
-import { DDiagramSerialized, DDiagramSerializedItem, DDiagramSerializedSimple } from "../../d-diagram-serialized";
+import {
+	DDiagramSerialized,
+	DDiagramSerializedItem,
+	DDiagramSerializedSimple
+} from "../../d-diagram-serialized";
 import { DDiagrams } from "../../d-diagrams";
 import { EShapeDeserializer } from "../e-shape-deserializer";
 import { EShapeLayerContainer } from "../e-shape-layer-container";
@@ -14,14 +18,14 @@ export class EShapeEmbeddeds {
 		controller: DDiagramBaseController | null | undefined,
 		isEditMode: boolean
 	): Promise<EShapeEmbedded> {
-		const serialized = DDiagrams.toSerialized( serializedOrSimple );
+		const serialized = DDiagrams.toSerialized(serializedOrSimple);
 		const pieces = serialized.pieces;
-		const pieceDataOrPromise = DDiagrams.toPieceData( controller, pieces, isEditMode );
-		if( pieceDataOrPromise == null ) {
-			return this.from_( serialized, isEditMode );
+		const pieceDataOrPromise = DDiagrams.toPieceData(controller, pieces, isEditMode);
+		if (pieceDataOrPromise == null) {
+			return this.from_(serialized, isEditMode);
 		} else {
-			return pieceDataOrPromise.then(( pieceData ) => {
-				return this.from_( serialized, isEditMode, pieces, pieceData );
+			return pieceDataOrPromise.then((pieceData) => {
+				return this.from_(serialized, isEditMode, pieces, pieceData);
 			});
 		}
 	}
@@ -34,49 +38,57 @@ export class EShapeEmbeddeds {
 	): Promise<EShapeEmbedded> {
 		const width = serialized.width;
 		const height = serialized.height;
-		const container = new EShapeEmbeddedLayerContainer(
-			width, height, isEditMode
-		);
+		const container = new EShapeEmbeddedLayerContainer(width, height, isEditMode);
 		const manager = new EShapeResourceManagerDeserialization(
-			serialized, pieces, pieceData, isEditMode
+			serialized,
+			pieces,
+			pieceData,
+			isEditMode
 		);
-		return DDiagrams.newLayer( serialized, container, manager ).then(() => {
-			return this.create( serialized.name, width, height, container, manager );
+		return DDiagrams.newLayer(serialized, container, manager).then(() => {
+			return this.create(serialized.name, width, height, container, manager);
 		});
 	}
 
 	static deserialize(
-		name: string, width: number, height: number, layer: EShapeLayerContainer,
-		manager: EShapeResourceManagerDeserialization, item: DDiagramSerializedItem
+		name: string,
+		width: number,
+		height: number,
+		layer: EShapeLayerContainer,
+		manager: EShapeResourceManagerDeserialization,
+		item: DDiagramSerializedItem
 	): Promise<EShapeEmbedded> | EShapeEmbedded {
-		const shape = new EShapeEmbedded( name, manager.isEditMode );
-		const result = EShapeDeserializer.deserialize( item, manager, shape );
+		const shape = new EShapeEmbedded(name, manager.isEditMode);
+		const result = EShapeDeserializer.deserialize(item, manager, shape);
 		const shapeSize = shape.size;
 		const sizeX = shapeSize.x;
 		const sizeY = shapeSize.y;
-		shape.size.set( width, height );
-		this.init( shape, layer );
-		shape.size.set( sizeX, sizeY );
+		shape.size.set(width, height);
+		this.init(shape, layer);
+		shape.size.set(sizeX, sizeY);
 		return result;
 	}
 
 	static create(
-		name: string, width: number, height: number, layer: EShapeLayerContainer,
+		name: string,
+		width: number,
+		height: number,
+		layer: EShapeLayerContainer,
 		manager: EShapeResourceManagerDeserialization
 	): EShapeEmbedded {
-		const shape = new EShapeEmbedded( name, manager.isEditMode );
-		shape.size.set( width, height );
-		this.init( shape, layer );
+		const shape = new EShapeEmbedded(name, manager.isEditMode);
+		shape.size.set(width, height);
+		this.init(shape, layer);
 		return shape;
 	}
 
-	static init( shape: EShapeEmbedded, layer: EShapeLayerContainer ): void {
+	static init(shape: EShapeEmbedded, layer: EShapeLayerContainer): void {
 		const layers = layer.children;
 		const children = shape.children;
-		for( let i = 0, imax = layers.length; i < imax; ++i ) {
-			const clone = layers[ i ].clone();
+		for (let i = 0, imax = layers.length; i < imax; ++i) {
+			const clone = layers[i].clone();
 			clone.parent = shape;
-			children.push( clone );
+			children.push(clone);
 		}
 		shape.onChildTransformChange();
 		shape.toDirty();

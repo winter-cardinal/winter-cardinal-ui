@@ -6,7 +6,9 @@
 import { DThemeInputBoolean } from "../../d-input-boolean";
 import { DThemeDarkLayoutHorizontal } from "./d-theme-dark-layout-horizontal";
 
-export class DThemeDarkInputBoolean extends DThemeDarkLayoutHorizontal implements DThemeInputBoolean {
+export class DThemeDarkInputBoolean
+	extends DThemeDarkLayoutHorizontal
+	implements DThemeInputBoolean {
 	getCornerAdjust(): boolean {
 		return true;
 	}

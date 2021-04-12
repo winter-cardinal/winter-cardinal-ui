@@ -14,14 +14,12 @@ import { UtilPointerEvent } from "./util/util-pointer-event";
 export interface DMenuItemTextOptions<
 	VALUE = unknown,
 	THEME extends DThemeMenuItemText = DThemeMenuItemText
-> extends DMenuItemOptions<VALUE, THEME> {
-
-}
+> extends DMenuItemOptions<VALUE, THEME> {}
 
 export interface DThemeMenuItemText extends DThemeMenuItem {
 	getShortcutTextMargin(): number;
-	getShortcutColor( state: DBaseStateSet ): number;
-	getShortcutAlpha( state: DBaseStateSet ): number;
+	getShortcutColor(state: DBaseStateSet): number;
+	getShortcutAlpha(state: DBaseStateSet): number;
 }
 
 export class DMenuItemText<
@@ -32,31 +30,31 @@ export class DMenuItemText<
 	protected _shortcutText?: Text | DDynamicText | null;
 	protected _shortcutMargin?: number;
 
-	protected init( options?: OPTIONS ) {
-		super.init( options );
-		this.initOnOver( options );
-		this.initShortcuts( options );
+	protected init(options?: OPTIONS): void {
+		super.init(options);
+		this.initOnOver(options);
+		this.initShortcuts(options);
 	}
 
-	protected initOnOver( options?: OPTIONS ): void {
-		this.on( UtilPointerEvent.over, (): void => {
+	protected initOnOver(options?: OPTIONS): void {
+		this.on(UtilPointerEvent.over, (): void => {
 			const context = this.getContext();
-			if( context != null ) {
+			if (context != null) {
 				const parent = this.parent;
-				if( parent instanceof DBase ) {
-					context.trim( this.getCloseable() );
+				if (parent instanceof DBase) {
+					context.trim(this.getCloseable());
 				}
 			}
 		});
 	}
 
-	protected initShortcuts( options?: OPTIONS ): void {
+	protected initShortcuts(options?: OPTIONS): void {
 		const shortcuts = this._shortcuts;
-		if( shortcuts != null && 0 < shortcuts.length ) {
-			const shortcut = shortcuts[ 0 ];
-			const shortcutTextValue = UtilKeyboardEvent.toString( shortcut );
-			this._shortcutText = this.createText( shortcutTextValue );
-			this.addRenderable( this._shortcutText, true );
+		if (shortcuts != null && 0 < shortcuts.length) {
+			const shortcut = shortcuts[0];
+			const shortcutTextValue = UtilKeyboardEvent.toString(shortcut);
+			this._shortcutText = this.createText(shortcutTextValue);
+			this.addRenderable(this._shortcutText, true);
 		} else {
 			this._shortcutText = null;
 		}
@@ -67,24 +65,24 @@ export class DMenuItemText<
 	protected updateShortcutText(): void {
 		const text = this._shortcutText;
 		const margin = this._shortcutMargin;
-		if( text != null && margin != null ) {
+		if (text != null && margin != null) {
 			const toRounded = this.toRounded;
 			text.position.set(
-				toRounded( this.width - margin - text.width ),
-				toRounded( ( this.height - text.height ) * 0.5 )
+				toRounded(this.width - margin - text.width),
+				toRounded((this.height - text.height) * 0.5)
 			);
 		}
 	}
 
-	protected updateTextColor( text: DDynamicText | Text ): void {
-		super.updateTextColor( text );
+	protected updateTextColor(text: DDynamicText | Text): void {
+		super.updateTextColor(text);
 
 		const shortcutText = this._shortcutText;
-		if( shortcutText != null ) {
+		if (shortcutText != null) {
 			const theme = this.theme;
 			const state = this.state;
-			shortcutText.style.fill = theme.getShortcutColor( state );
-			shortcutText.alpha = theme.getShortcutAlpha( state );
+			shortcutText.style.fill = theme.getShortcutColor(state);
+			shortcutText.alpha = theme.getShortcutAlpha(state);
 		}
 	}
 
@@ -97,16 +95,16 @@ export class DMenuItemText<
 		return "DMenuItemText";
 	}
 
-	protected onSelect( e: KeyboardEvent | interaction.InteractionEvent ): void {
-		super.onSelect( e );
+	protected onSelect(e: KeyboardEvent | interaction.InteractionEvent): void {
+		super.onSelect(e);
 		const closeable = this.getCloseable();
-		if( closeable != null ) {
-			closeable.emit( "select", this.value, this, closeable );
+		if (closeable != null) {
+			closeable.emit("select", this.value, this, closeable);
 		}
 	}
 
-	protected onShortcut( e: KeyboardEvent ) {
-		super.onShortcut( e );
-		this.onSelect( e );
+	protected onShortcut(e: KeyboardEvent): void {
+		super.onShortcut(e);
+		this.onSelect(e);
 	}
 }

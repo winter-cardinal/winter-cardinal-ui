@@ -12,37 +12,39 @@ import { DTableBodyCellIndex, DThemeTableBodyCellIndex } from "../../d-table-bod
 import { DThemeWhiteImageBase } from "./d-theme-white-image-base";
 import { DThemeWhiteTableBodyCells } from "./d-theme-white-table-body-cells";
 
-const formatter = ( index: unknown ): string => {
-	return String( Number( index ) + 1 );
+const formatter = (index: unknown): string => {
+	return String(Number(index) + 1);
 };
 
-export class DThemeWhiteTableBodyCellIndex extends DThemeWhiteImageBase<number> implements DThemeTableBodyCellIndex {
-	getBackgroundColor( state: DBaseStateSet ): number | null {
-		return DThemeWhiteTableBodyCells.getBackgroundColor( state );
+export class DThemeWhiteTableBodyCellIndex
+	extends DThemeWhiteImageBase<number>
+	implements DThemeTableBodyCellIndex {
+	getBackgroundColor(state: DBaseStateSet): number | null {
+		return DThemeWhiteTableBodyCells.getBackgroundColor(state);
 	}
 
-	getBackgroundAlpha( state: DBaseStateSet ): number {
-		return DThemeWhiteTableBodyCells.getBackgroundAlpha( state );
+	getBackgroundAlpha(state: DBaseStateSet): number {
+		return DThemeWhiteTableBodyCells.getBackgroundAlpha(state);
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
-		return DThemeWhiteTableBodyCells.getBorderColor( state );
+	getBorderColor(state: DBaseStateSet): number | null {
+		return DThemeWhiteTableBodyCells.getBorderColor(state);
 	}
 
-	getBorderAlign( state: DBaseStateSet ): number {
-		return DThemeWhiteTableBodyCells.getBorderAlign( state );
+	getBorderAlign(state: DBaseStateSet): number {
+		return DThemeWhiteTableBodyCells.getBorderAlign(state);
 	}
 
-	getBorderMask( state: DBaseStateSet ): DBorderMask {
-		return DThemeWhiteTableBodyCells.getBorderMask( state );
+	getBorderMask(state: DBaseStateSet): DBorderMask {
+		return DThemeWhiteTableBodyCells.getBorderMask(state);
 	}
 
-	getColor( state: DBaseStateSet ): number {
-		return DThemeWhiteTableBodyCells.getColor( state );
+	getColor(state: DBaseStateSet): number {
+		return DThemeWhiteTableBodyCells.getColor(state);
 	}
 
-	getAlpha( state: DBaseStateSet ): number {
-		return DThemeWhiteTableBodyCells.getAlpha( state );
+	getAlpha(state: DBaseStateSet): number {
+		return DThemeWhiteTableBodyCells.getAlpha(state);
 	}
 
 	getHeight(): DCoordinateSize {
@@ -61,7 +63,7 @@ export class DThemeWhiteTableBodyCellIndex extends DThemeWhiteImageBase<number> 
 		return 10;
 	}
 
-	getTextFormatter(): ( value: number, caller: DTableBodyCellIndex ) => string {
+	getTextFormatter(): (value: number, caller: DTableBodyCellIndex) => string {
 		return formatter;
 	}
 

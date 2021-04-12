@@ -6,6 +6,6 @@
 import { DThemes } from "../../d-themes";
 import { DThemeWhite } from "../d-theme-white";
 
-export const loadThemeWhite = () => {
-	DThemes.setDefaultThemeClass( DThemeWhite );
+export const loadThemeWhite = (): void => {
+	DThemes.setDefaultThemeClass(DThemeWhite);
 };

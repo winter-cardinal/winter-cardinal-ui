@@ -12,13 +12,15 @@ import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteButton } from "./d-theme-white-button";
 import { DThemeWhiteSliders } from "./d-theme-white-sliders";
 
-DThemeWhiteAtlas.add( "slider_thumb", 16, 16,
+/* eslint-disable prettier/prettier */
+DThemeWhiteAtlas.add("slider_thumb", 16, 16,
 	`<circle cx="8" cy="8" r="7.5" stroke="none" fill="#ffffff" />`
 );
+/* eslint-enable prettier/prettier */
 
-export class DThemeWhiteSliderThumb<VALUE = unknown> extends DThemeWhiteButton<VALUE>
+export class DThemeWhiteSliderThumb<VALUE = unknown>
+	extends DThemeWhiteButton<VALUE>
 	implements DThemeSliderThumb<VALUE> {
-
 	getX(): DCoordinatePosition {
 		return "CENTER";
 	}
@@ -35,23 +37,23 @@ export class DThemeWhiteSliderThumb<VALUE = unknown> extends DThemeWhiteButton<V
 		return 16;
 	}
 
-	getBackgroundColor( state: DBaseStateSet ): number | null {
+	getBackgroundColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
-	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
+	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
 		return DThemeWhiteAtlas.mappings.slider_thumb;
 	}
 
-	getImageTintColor( state: DBaseStateSet ): number | null {
-		return DThemeWhiteSliders.getBackgroundColor( state, true );
+	getImageTintColor(state: DBaseStateSet): number | null {
+		return DThemeWhiteSliders.getBackgroundColor(state, true);
 	}
 
-	getImageTintAlpha( state: DBaseStateSet ): number {
+	getImageTintAlpha(state: DBaseStateSet): number {
 		return 1;
 	}
 

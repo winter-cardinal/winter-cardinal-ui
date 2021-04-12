@@ -5,17 +5,12 @@
 
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 
-export interface DPickerTimeRangeOptions<THEME extends DThemePickerTimeRange> extends DBaseOptions<THEME> {
+export interface DPickerTimeRangeOptions<THEME extends DThemePickerTimeRange>
+	extends DBaseOptions<THEME> {}
 
-}
-
-export interface DThemePickerTimeRange extends DThemeBase {
-
-}
+export interface DThemePickerTimeRange extends DThemeBase {}
 
 export class DPickerTimeRange<
 	THEME extends DThemePickerTimeRange = DThemePickerTimeRange,
 	OPTIONS extends DPickerTimeRangeOptions<THEME> = DPickerTimeRangeOptions<THEME>
-> extends DBase<THEME, OPTIONS> {
-
-}
+> extends DBase<THEME, OPTIONS> {}

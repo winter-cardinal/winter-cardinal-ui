@@ -10,11 +10,11 @@ import { DLayoutDirection } from "../../d-layout-direction";
 import { DThemeDarkBase } from "./d-theme-dark-base";
 
 export class DThemeDarkLayout extends DThemeDarkBase implements DThemeLayout {
-	getBackgroundColor( state: DBaseStateSet ): number | null {
+	getBackgroundColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 

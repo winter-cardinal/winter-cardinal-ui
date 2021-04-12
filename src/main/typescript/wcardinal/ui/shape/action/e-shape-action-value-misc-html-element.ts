@@ -9,10 +9,12 @@ import { EShapeActionValueOnInputAction } from "./e-shape-action-value-on-input-
 
 export class EShapeActionValueMiscHtmlElement extends EShapeActionValueMisc {
 	constructor(
-		subtype: EShapeActionValueMiscType.HTML_ELEMENT | EShapeActionValueMiscType.HTML_ELEMENT_WITHOUT_POINTER_EVENTS,
+		subtype:
+			| EShapeActionValueMiscType.HTML_ELEMENT
+			| EShapeActionValueMiscType.HTML_ELEMENT_WITHOUT_POINTER_EVENTS,
 		when: string,
 		initializer: string
 	) {
-		super( subtype, when, "", EShapeActionValueOnInputAction.EMIT_EVENT, initializer );
+		super(subtype, when, "", EShapeActionValueOnInputAction.EMIT_EVENT, initializer);
 	}
 }

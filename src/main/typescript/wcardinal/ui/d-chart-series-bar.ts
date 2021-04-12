@@ -7,7 +7,9 @@ import { DChartCoordinate } from "./d-chart-coordinate";
 import { DChartRegion } from "./d-chart-region";
 import { DChartSeriesContainer } from "./d-chart-series-container";
 import {
-	DChartSeriesLineOfAny, DChartSeriesLineOfAnyOptions, DChartSeriesLineOfAnyRegion
+	DChartSeriesLineOfAny,
+	DChartSeriesLineOfAnyOptions,
+	DChartSeriesLineOfAnyRegion
 } from "./d-chart-series-line-of-any";
 import { DChartSeriesPaddingComputed } from "./d-chart-series-padding-computed";
 import { DChartSeriesPointComputedOptions } from "./d-chart-series-point-computed";
@@ -35,8 +37,8 @@ export class DChartSeriesBar extends DChartSeriesLineOfAny {
 	protected _padding?: DChartSeriesPaddingComputed;
 	protected _isSizeAutomatic: boolean;
 
-	constructor( options?: DChartSeriesBarOptions ) {
-		super( options );
+	constructor(options?: DChartSeriesBarOptions) {
+		super(options);
 		this._barCount = -1;
 		this._barIndex = -1;
 		this._xcoordinateId = -1;
@@ -44,12 +46,12 @@ export class DChartSeriesBar extends DChartSeriesLineOfAny {
 		this._isSizeAutomatic = (options && options.size && options.size.auto) !== false;
 	}
 
-	bind( container: DChartSeriesContainer, index: number ): void {
+	bind(container: DChartSeriesContainer, index: number): void {
 		this._barCount = -1;
 		this._barIndex = -1;
 		this._xcoordinateId = -1;
 		this._xcoordinateTransformId = -1;
-		super.bind( container, index );
+		super.bind(container, index);
 	}
 
 	protected initLine(
@@ -58,8 +60,8 @@ export class DChartSeriesBar extends DChartSeriesLineOfAny {
 		container: DChartSeriesContainer,
 		index: number
 	): void {
-		super.initLine( line, options, container, index );
-		this._padding = container.newPadding( index, options && options.padding );
+		super.initLine(line, options, container, index);
+		this._padding = container.newPadding(index, options && options.padding);
 	}
 
 	protected newLineOfAny(): EShapeLineOfAny {
@@ -71,36 +73,32 @@ export class DChartSeriesBar extends DChartSeriesLineOfAny {
 	}
 
 	protected adjustLineRegion(
-		xmin: number, xmax: number,
-		ymin: number, ymax: number,
+		xmin: number,
+		xmax: number,
+		ymin: number,
+		ymax: number,
 		result: DChartSeriesLineOfAnyRegion
 	): DChartSeriesLineOfAnyRegion {
-		return super.adjustLineRegion(
-			xmin,
-			xmax,
-			Math.min( 0, ymin ),
-			Math.max( 0, ymax ),
-			result
-		);
+		return super.adjustLineRegion(xmin, xmax, Math.min(0, ymin), Math.max(0, ymax), result);
 	}
 
 	protected updateBarCountAndIndex(): boolean {
-		if( this._barIndex < 0 || this._barCount < 0 ) {
+		if (this._barIndex < 0 || this._barCount < 0) {
 			let barIndex = 0;
 			let barCount = 0;
 			const container = this._container;
-			if( container ) {
-				for( let i = 0, imax = container.size(); i < imax; ++i ) {
-					const series = container.get( i );
-					if( series === this ) {
+			if (container) {
+				for (let i = 0, imax = container.size(); i < imax; ++i) {
+					const series = container.get(i);
+					if (series === this) {
 						barIndex = barCount;
 					}
-					if( series instanceof DChartSeriesBar ) {
+					if (series instanceof DChartSeriesBar) {
 						barCount += 1;
 					}
 				}
 			}
-			barCount = Math.max( 1, barCount );
+			barCount = Math.max(1, barCount);
 			this._barCount = barCount;
 			this._barIndex = barIndex;
 			return true;
@@ -112,97 +110,105 @@ export class DChartSeriesBar extends DChartSeriesLineOfAny {
 		line: EShapeLineOfAny,
 		xcoordinate: DChartCoordinate,
 		ycoordinate: DChartCoordinate,
-		sx: number, sy: number,
-		cx: number, cy: number,
+		sx: number,
+		sy: number,
+		cx: number,
+		cy: number,
 		values: number[]
 	): void {
+		const linePoints = line.points;
+		const linePointsOffset = linePoints.offset;
+		const linePointsSize = linePoints.size;
+
 		// Offset
 		const size = this._size;
 		const offset = this._offset;
 		const padding = this._padding;
-		if( size && offset && padding ) {
+		if (size && offset && padding) {
 			const xcoordinateId = xcoordinate.id;
 			const xcoordinateTransformId = xcoordinate.transform.id;
-			if( this.updateBarCountAndIndex() || this._xcoordinateId !== xcoordinateId ||
-				this._xcoordinateTransformId !== xcoordinateTransformId ) {
+			if (
+				this.updateBarCountAndIndex() ||
+				this._xcoordinateId !== xcoordinateId ||
+				this._xcoordinateTransformId !== xcoordinateTransformId
+			) {
 				const barCount = this._barCount;
 				const barIndex = this._barIndex;
 				this._xcoordinateId = xcoordinateId;
 				this._xcoordinateTransformId = xcoordinateTransformId;
 
-				const totalBandWidth = Math.abs(
-					xcoordinate.transform.map( xcoordinate.map( 0 ) ) -
-					xcoordinate.transform.map( xcoordinate.map( size.x ) )
-				) * ( 1 - padding.outer );
-				if( barCount <= 1 ) {
-					line.points.offset.x = offset.x;
-					line.points.size.x = totalBandWidth;
+				const x0 = xcoordinate.transform.map(xcoordinate.map(0));
+				const x1 = xcoordinate.transform.map(xcoordinate.map(size.x));
+				const totalBandWidth = Math.abs(x0 - x1) * (1 - padding.outer);
+				if (barCount <= 1) {
+					linePointsOffset.x = offset.x;
+					linePointsSize.x = totalBandWidth;
 				} else {
-					const totalBarWidth = totalBandWidth * ( 1 - padding.inner );
+					const totalBarWidth = totalBandWidth * (1 - padding.inner);
 					const totalPaddingInner = totalBandWidth - totalBarWidth;
 					const barWidth = totalBarWidth / barCount;
-					const barPadding = totalPaddingInner / ( barCount - 1 );
+					const barPadding = totalPaddingInner / (barCount - 1);
 					const barX = barWidth * (barIndex + 0.5) + barIndex * barPadding;
-					line.points.offset.x = offset.x + barX - totalBandWidth * 0.5;
-					line.points.size.x = barWidth;
+					linePointsOffset.x = offset.x + barX - totalBandWidth * 0.5;
+					linePointsSize.x = barWidth;
 				}
 			}
 		}
 
 		// Sizes & Offsets
-		let sizes = line.points.size.y;
-		if( ! isArray( sizes ) ) {
+		let sizes = linePointsSize.y;
+		if (!isArray(sizes)) {
 			sizes = [];
 		}
 		const sizesLength = sizes.length;
 
-		let offsets = line.points.offset.y;
-		if( ! isArray( offsets ) ) {
+		let offsets = linePointsOffset.y;
+		if (!isArray(offsets)) {
 			offsets = [];
 		}
 		const offsetsLength = offsets.length;
 
 		let isize = 0;
-		const y0 = ycoordinate.transform.map( ycoordinate.map( 0 ) ) - cy;
-		for( let i = 0, imax = values.length; i < imax; i += 2, isize += 1 ) {
-			const distance = values[ i + 1 ] - y0;
+		const y0 = ycoordinate.transform.map(ycoordinate.map(0)) - cy;
+		for (let i = 0, imax = values.length; i < imax; i += 2, isize += 1) {
+			const distance = values[i + 1] - y0;
 
-			const s = Math.abs( distance );
-			if( isize < sizesLength ) {
-				sizes[ isize ] = s;
+			const s = Math.abs(distance);
+			if (isize < sizesLength) {
+				sizes[isize] = s;
 			} else {
-				sizes.push( s );
+				sizes.push(s);
 			}
 
 			const o = -0.5 * distance;
-			if( isize < offsetsLength ) {
-				offsets[ isize ] = o;
+			if (isize < offsetsLength) {
+				offsets[isize] = o;
 			} else {
-				offsets.push( o );
+				offsets.push(o);
 			}
 		}
-		if( sizes.length !== isize ) {
+		if (sizes.length !== isize) {
 			sizes.length = isize;
 		}
-		if( offsets.length !== isize ) {
+		if (offsets.length !== isize) {
 			offsets.length = isize;
 		}
 
-		line.points.size.y = sizes;
-		line.points.offset.y = offsets;
+		linePointsOffset.y = offsets;
+		linePointsSize.y = sizes;
 
 		// Others
-		super.applyLine( line, xcoordinate, ycoordinate, sx, sy, cx, cy, values );
+		super.applyLine(line, xcoordinate, ycoordinate, sx, sy, cx, cy, values);
 	}
 
-	protected calcSizeX( def: number ): number {
+	protected calcSizeX(def: number): number {
 		const points = this._points;
-		if( 2 < points.length ) {
+		if (2 < points.length) {
 			const pointsLength = points.length;
-			let x0: number | null = points[ pointsLength - 2 ];
-			for( let i = pointsLength - 4; 0 <= i; i -= 2 ) {
-				const x1 = points[ i ];
-				if( x0 != null && x1 != null ) {
+			let x0: number | null = points[pointsLength - 2];
+			for (let i = pointsLength - 4; 0 <= i; i -= 2) {
+				const x1 = points[i];
+				if (x0 != null && x1 != null) {
 					return Math.abs(x0 - x1);
 				} else {
 					x0 = x1;
@@ -212,19 +218,23 @@ export class DChartSeriesBar extends DChartSeriesLineOfAny {
 		return def;
 	}
 
-	protected calcRegion( points: Array<number | null>, domain: DChartRegion, range: DChartRegion ): void {
-		super.calcRegion( points, domain, range );
+	protected calcRegion(
+		points: Array<number | null>,
+		domain: DChartRegion,
+		range: DChartRegion
+	): void {
+		super.calcRegion(points, domain, range);
 
 		const size = this._size;
-		if( size ) {
+		if (size) {
 			let sx = size.x;
-			if( this._isSizeAutomatic ) {
-				sx = this.calcSizeX( sx );
+			if (this._isSizeAutomatic) {
+				sx = this.calcSizeX(sx);
 				size.x = sx;
 			}
 			const sxh = sx * 0.5;
-			domain.set( domain.from - sxh, domain.to + sxh );
+			domain.set(domain.from - sxh, domain.to + sxh);
 		}
-		range.add( 0, 0 );
+		range.add(0, 0);
 	}
 }

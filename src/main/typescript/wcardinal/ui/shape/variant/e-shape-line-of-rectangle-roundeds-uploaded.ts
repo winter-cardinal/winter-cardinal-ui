@@ -7,8 +7,13 @@ import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
 import { buildNullClipping, buildNullStep, buildNullUv, buildNullVertex } from "./build-null";
 import {
-	buildRectangleRoundedClipping, buildRectangleRoundedIndex, buildRectangleRoundedStep, buildRectangleRoundedUv,
-	buildRectangleRoundedVertex, RECTANGLE_ROUNDED_INDEX_COUNT, RECTANGLE_ROUNDED_VERTEX_COUNT,
+	buildRectangleRoundedClipping,
+	buildRectangleRoundedIndex,
+	buildRectangleRoundedStep,
+	buildRectangleRoundedUv,
+	buildRectangleRoundedVertex,
+	RECTANGLE_ROUNDED_INDEX_COUNT,
+	RECTANGLE_ROUNDED_VERTEX_COUNT,
 	RECTANGLE_ROUNDED_WORLD_SIZE
 } from "./build-rectangle-rounded";
 import { copyClipping } from "./copy-clipping";
@@ -21,8 +26,8 @@ import { EShapeLineOfAnyPointsImpl } from "./e-shape-line-of-any-points-impl";
 import { EShapeLineOfAnyUploaded } from "./e-shape-line-of-any-uploaded";
 
 export class EShapeLineOfRectangleRoundedsUploaded extends EShapeLineOfAnyUploaded {
-	init( shape: EShape ): this {
-		super.init( shape );
+	init(shape: EShape): this {
+		super.init(shape);
 
 		// Indices
 		const buffer = this.buffer;
@@ -31,12 +36,8 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeLineOfAnyUpload
 		const voffset = this.vertexOffset;
 		const ioffset = this.indexOffset;
 		const pointCountReserved = this.pointCountReserved;
-		if( 0 < pointCountReserved ) {
-			buildRectangleRoundedIndex(
-				indices,
-				voffset,
-				ioffset
-			);
+		if (0 < pointCountReserved) {
+			buildRectangleRoundedIndex(indices, voffset, ioffset);
 			copyIndex(
 				indices,
 				RECTANGLE_ROUNDED_VERTEX_COUNT,
@@ -49,18 +50,18 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeLineOfAnyUpload
 		// Text
 		this.initText();
 
-		this.update( shape );
+		this.update(shape);
 		return this;
 	}
 
-	update( shape: EShape ): void {
+	update(shape: EShape): void {
 		const buffer = this.buffer;
 		const points = shape.points;
-		if( points instanceof EShapeLineOfAnyPointsImpl ) {
-			this.updateVertexClippingStepAndUv( buffer, shape, points );
-			this.updateLineOfAnyColorFill( buffer, shape, points, RECTANGLE_ROUNDED_VERTEX_COUNT );
-			this.updateLineOfAnyColorStroke( buffer, shape, points, RECTANGLE_ROUNDED_VERTEX_COUNT );
-			this.updateText( buffer, shape );
+		if (points instanceof EShapeLineOfAnyPointsImpl) {
+			this.updateVertexClippingStepAndUv(buffer, shape, points);
+			this.updateLineOfAnyColorFill(buffer, shape, points, RECTANGLE_ROUNDED_VERTEX_COUNT);
+			this.updateLineOfAnyColorStroke(buffer, shape, points, RECTANGLE_ROUNDED_VERTEX_COUNT);
+			this.updateText(buffer, shape);
 		}
 	}
 
@@ -72,38 +73,43 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeLineOfAnyUpload
 		const pointId = points.id;
 		const pointOffset = points.offset;
 		const pointOffsetId = pointOffset.id;
-		const isPointChanged = ( pointId !== this.pointId || pointOffsetId !== this.pointOffsetId );
+		const isPointChanged = pointId !== this.pointId || pointOffsetId !== this.pointOffsetId;
 
 		const pointSize = points.size;
 		const pointSizeId = pointSize.id;
-		const isPointSizeChanged = ( pointSizeId !== this.pointSizeId );
+		const isPointSizeChanged = pointSizeId !== this.pointSizeId;
 
 		const size = shape.size;
 		const sizeX = size.x;
 		const sizeY = size.y;
 		const radius = shape.radius;
-		const isSizeChanged = ( sizeX !== this.sizeX || sizeY !== this.sizeY || radius !== this.radius );
+		const isSizeChanged =
+			sizeX !== this.sizeX || sizeY !== this.sizeY || radius !== this.radius;
 
-		const transformLocalId = this.toTransformLocalId( shape );
-		const isTransformChanged = ( this.transformLocalId !== transformLocalId );
+		const transformLocalId = this.toTransformLocalId(shape);
+		const isTransformChanged = this.transformLocalId !== transformLocalId;
 
 		const stroke = shape.stroke;
-		const strokeWidth = (stroke.enable ? stroke.width : 0);
+		const strokeWidth = stroke.enable ? stroke.width : 0;
 		const strokeAlign = stroke.align;
 		const strokeSide = stroke.side;
-		const isStrokeChanged = ( this.strokeAlign !== strokeAlign ||
-			this.strokeWidth !== strokeWidth || this.strokeSide !== strokeSide );
+		const isStrokeChanged =
+			this.strokeAlign !== strokeAlign ||
+			this.strokeWidth !== strokeWidth ||
+			this.strokeSide !== strokeSide;
 
 		const corner = shape.corner;
-		const isCornerChanged = ( corner !== this.corner );
+		const isCornerChanged = corner !== this.corner;
 
-		const texture = this.toTexture( shape );
-		const textureTransformId = this.toTextureTransformId( texture );
-		const isTextureChanged = ( texture !== this.texture || textureTransformId !== this.textureTransformId );
+		const texture = this.toTexture(shape);
+		const textureTransformId = this.toTextureTransformId(texture);
+		const isTextureChanged =
+			texture !== this.texture || textureTransformId !== this.textureTransformId;
 
-		const isVertexChanged = isPointChanged || isPointSizeChanged || isSizeChanged || isStrokeChanged;
+		const isVertexChanged =
+			isPointChanged || isPointSizeChanged || isSizeChanged || isStrokeChanged;
 
-		if( isVertexChanged || isTransformChanged || isCornerChanged || isTextureChanged ) {
+		if (isVertexChanged || isTransformChanged || isCornerChanged || isTextureChanged) {
 			this.pointId = pointId;
 			this.pointCount = points.length;
 			this.pointOffsetId = pointOffsetId;
@@ -119,20 +125,20 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeLineOfAnyUpload
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
 
-			if( isSizeChanged || isTransformChanged || isStrokeChanged ) {
+			if (isSizeChanged || isTransformChanged || isStrokeChanged) {
 				// Invalidate the text layout to update the text layout.
 				this.textSpacingHorizontal = NaN;
 			}
 
 			// Buffer
 			buffer.updateVertices();
-			if( isVertexChanged || isTransformChanged ) {
+			if (isVertexChanged || isTransformChanged) {
 				buffer.updateSteps();
 			}
-			if( isVertexChanged || isCornerChanged ) {
+			if (isVertexChanged || isCornerChanged) {
 				buffer.updateClippings();
 			}
-			if( isVertexChanged || isTextureChanged ) {
+			if (isVertexChanged || isTextureChanged) {
 				buffer.updateUvs();
 			}
 			const pointCount = this.pointCount;
@@ -143,103 +149,98 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeLineOfAnyUpload
 			const steps = buffer.steps;
 			const uvs = buffer.uvs;
 			const internalTransform = shape.transform.internalTransform;
-			const textureUvs = this.toTextureUvs( texture );
+			const textureUvs = this.toTextureUvs(texture);
 			const antialiasWeight = this.antialiasWeight;
-			if( 0 < pointCount && pointSize.isStaticX() && pointSize.isStaticY() ) {
-				const pointSizeX = pointSize.getX( 0 );
-				const pointSizeY = pointSize.getY( 0 );
+			if (0 < pointCount && pointSize.isStaticX() && pointSize.isStaticY()) {
+				const pointSizeX = pointSize.getX(0);
+				const pointSizeY = pointSize.getY(0);
 
 				// Vertices
 				buildRectangleRoundedVertex(
-					vertices, voffset,
-					0, 0,
-					pointSizeX, pointSizeY,
-					strokeAlign, strokeWidth, radius,
+					vertices,
+					voffset,
+					0,
+					0,
+					pointSizeX,
+					pointSizeY,
+					strokeAlign,
+					strokeWidth,
+					radius,
 					internalTransform,
 					RECTANGLE_ROUNDED_WORLD_SIZE
 				);
 				copyVertex(
 					vertices,
 					internalTransform,
-					voffset, RECTANGLE_ROUNDED_VERTEX_COUNT,
-					pointCount, pointsValues,
+					voffset,
+					RECTANGLE_ROUNDED_VERTEX_COUNT,
+					pointCount,
+					pointsValues,
 					pointOffset
 				);
 
 				// Steps
-				if( isVertexChanged || isTransformChanged ) {
+				if (isVertexChanged || isTransformChanged) {
 					buildRectangleRoundedStep(
 						steps,
 						voffset,
-						strokeWidth, strokeSide,
+						strokeWidth,
+						strokeSide,
 						corner,
 						antialiasWeight,
 						RECTANGLE_ROUNDED_WORLD_SIZE
 					);
-					copyStep(
-						steps,
-						voffset, RECTANGLE_ROUNDED_VERTEX_COUNT,
-						pointCount
-					);
+					copyStep(steps, voffset, RECTANGLE_ROUNDED_VERTEX_COUNT, pointCount);
 				}
 
 				// Clippings
-				if( isVertexChanged || isCornerChanged ) {
+				if (isVertexChanged || isCornerChanged) {
 					buildRectangleRoundedClipping(
 						clippings,
 						voffset,
 						corner,
 						RECTANGLE_ROUNDED_WORLD_SIZE
 					);
-					copyClipping(
-						clippings,
-						voffset,
-						RECTANGLE_ROUNDED_VERTEX_COUNT,
-						pointCount
-					);
+					copyClipping(clippings, voffset, RECTANGLE_ROUNDED_VERTEX_COUNT, pointCount);
 				}
 
 				// UVs
-				if( isVertexChanged || isTextureChanged ) {
-					buildRectangleRoundedUv(
-						uvs,
-						voffset,
-						textureUvs,
-						RECTANGLE_ROUNDED_WORLD_SIZE
-					);
-					copyUvs(
-						uvs,
-						voffset,
-						RECTANGLE_ROUNDED_VERTEX_COUNT,
-						pointCount
-					);
+				if (isVertexChanged || isTextureChanged) {
+					buildRectangleRoundedUv(uvs, voffset, textureUvs, RECTANGLE_ROUNDED_WORLD_SIZE);
+					copyUvs(uvs, voffset, RECTANGLE_ROUNDED_VERTEX_COUNT, pointCount);
 				}
 			} else {
-				for( let i = 0; i < pointCount; ++i ) {
+				for (let i = 0; i < pointCount; ++i) {
 					const ip = i << 1;
-					const px = pointsValues[ ip     ] + pointOffset.getX( i );
-					const py = pointsValues[ ip + 1 ] + pointOffset.getY( i );
-					const pointSizeX = pointSize.getX( i );
-					const pointSizeY = pointSize.getY( i );
+					const px = pointsValues[ip] + pointOffset.getX(i);
+					const py = pointsValues[ip + 1] + pointOffset.getY(i);
+					const pointSizeX = pointSize.getX(i);
+					const pointSizeY = pointSize.getY(i);
 
 					const iv = voffset + i * RECTANGLE_ROUNDED_VERTEX_COUNT;
 
 					// Vertices
 					buildRectangleRoundedVertex(
-						vertices, iv,
-						px, py,
-						pointSizeX, pointSizeY,
-						strokeAlign, strokeWidth, radius,
+						vertices,
+						iv,
+						px,
+						py,
+						pointSizeX,
+						pointSizeY,
+						strokeAlign,
+						strokeWidth,
+						radius,
 						internalTransform,
 						RECTANGLE_ROUNDED_WORLD_SIZE
 					);
 
 					// Steps
-					if( isVertexChanged || isTransformChanged ) {
+					if (isVertexChanged || isTransformChanged) {
 						buildRectangleRoundedStep(
 							steps,
 							iv,
-							strokeWidth, strokeSide,
+							strokeWidth,
+							strokeSide,
 							corner,
 							antialiasWeight,
 							RECTANGLE_ROUNDED_WORLD_SIZE
@@ -247,7 +248,7 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeLineOfAnyUpload
 					}
 
 					// Clippings
-					if( isVertexChanged || isCornerChanged ) {
+					if (isVertexChanged || isCornerChanged) {
 						buildRectangleRoundedClipping(
 							clippings,
 							iv,
@@ -257,13 +258,8 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeLineOfAnyUpload
 					}
 
 					// UVs
-					if( isVertexChanged || isTextureChanged ) {
-						buildRectangleRoundedUv(
-							uvs,
-							iv,
-							textureUvs,
-							RECTANGLE_ROUNDED_WORLD_SIZE
-						);
+					if (isVertexChanged || isTextureChanged) {
+						buildRectangleRoundedUv(uvs, iv, textureUvs, RECTANGLE_ROUNDED_WORLD_SIZE);
 					}
 				}
 			}
@@ -271,27 +267,12 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeLineOfAnyUpload
 			// Fill the rest
 			const pointCountReserved = this.pointCountReserved;
 			const voffsetReserved = voffset + pointCount * RECTANGLE_ROUNDED_VERTEX_COUNT;
-			const vcountReserved = RECTANGLE_ROUNDED_VERTEX_COUNT * (pointCountReserved - pointCount);
-			buildNullVertex(
-				vertices,
-				voffsetReserved,
-				vcountReserved
-			);
-			buildNullStep(
-				steps,
-				voffsetReserved,
-				vcountReserved
-			);
-			buildNullClipping(
-				clippings,
-				voffsetReserved,
-				vcountReserved
-			);
-			buildNullUv(
-				uvs,
-				voffsetReserved,
-				vcountReserved
-			);
+			const vcountReserved =
+				RECTANGLE_ROUNDED_VERTEX_COUNT * (pointCountReserved - pointCount);
+			buildNullVertex(vertices, voffsetReserved, vcountReserved);
+			buildNullStep(steps, voffsetReserved, vcountReserved);
+			buildNullClipping(clippings, voffsetReserved, vcountReserved);
+			buildNullUv(uvs, voffsetReserved, vcountReserved);
 		}
 	}
 }

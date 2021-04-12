@@ -20,17 +20,23 @@ export interface DTableBodyCellSelectPromiseOptions<
 	sync?: boolean;
 }
 
-export interface DThemeTableBodyCellSelectPromise<VALUE = unknown> extends DThemeButton<VALUE | null> {
+export interface DThemeTableBodyCellSelectPromise<VALUE = unknown>
+	extends DThemeButton<VALUE | null> {
 	isSyncEnabled(): boolean;
 }
 
 export class DTableBodyCellSelectPromise<
-	ROW = unknown,
-	VALUE = unknown,
-	THEME extends DThemeTableBodyCellSelectPromise<VALUE> = DThemeTableBodyCellSelectPromise<VALUE>,
-	OPTIONS extends DTableBodyCellSelectPromiseOptions<ROW, VALUE, THEME> =
-		DTableBodyCellSelectPromiseOptions<ROW, VALUE, THEME>
-> extends DButton<VALUE | null, THEME, OPTIONS> implements DTableBodyCell<ROW, VALUE | null> {
+		ROW = unknown,
+		VALUE = unknown,
+		THEME extends DThemeTableBodyCellSelectPromise<VALUE> = DThemeTableBodyCellSelectPromise<VALUE>,
+		OPTIONS extends DTableBodyCellSelectPromiseOptions<
+			ROW,
+			VALUE,
+			THEME
+		> = DTableBodyCellSelectPromiseOptions<ROW, VALUE, THEME>
+	>
+	extends DButton<VALUE | null, THEME, OPTIONS>
+	implements DTableBodyCell<ROW, VALUE | null> {
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;
@@ -38,43 +44,50 @@ export class DTableBodyCellSelectPromise<
 	protected _onChange: DTableBodyCellOnChange<ROW, VALUE | null>;
 	protected _isSyncEnabled: boolean;
 
-	constructor( columnIndex: number, column: DTableColumn<ROW, VALUE | null>, onChange: DTableBodyCellOnChange<ROW, VALUE | null>, options?: OPTIONS ) {
-		super( options );
+	constructor(
+		columnIndex: number,
+		column: DTableColumn<ROW, VALUE | null>,
+		onChange: DTableBodyCellOnChange<ROW, VALUE | null>,
+		options?: OPTIONS
+	) {
+		super(options);
 
 		this._rowIndex = -1;
 		this._columnIndex = columnIndex;
 		this._column = column;
 		this._onChange = onChange;
-		this._isSyncEnabled = ( options?.sync ?? this.theme.isSyncEnabled() );
+		this._isSyncEnabled = options?.sync ?? this.theme.isSyncEnabled();
 	}
 
-	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
-		super.onActivate( e );
+	protected onActivate(
+		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
+	): void {
+		super.onActivate(e);
 		const selecting = this._column.selecting;
 		const promise = selecting.promise;
-		if( promise ) {
-			promise().then(( newValue: VALUE | null ): void => {
-				if( this._isSyncEnabled ) {
+		if (promise) {
+			promise().then((newValue: VALUE | null): void => {
+				if (this._isSyncEnabled) {
 					const oldValue = this._textValueComputed ?? null;
-					if( newValue !== oldValue ) {
+					if (newValue !== oldValue) {
 						this.text = newValue;
-						this.onValueChange( newValue, oldValue );
+						this.onValueChange(newValue, oldValue);
 					}
 				} else {
-					this.onValueChange( newValue, null );
+					this.onValueChange(newValue, null);
 				}
 			});
 		}
 	}
 
-	protected onValueChange( newValue: VALUE | null, oldValue: VALUE | null ): void {
+	protected onValueChange(newValue: VALUE | null, oldValue: VALUE | null): void {
 		const row = this._row;
-		if( row !== undefined ) {
+		if (row !== undefined) {
 			const rowIndex = this._rowIndex;
 			const columnIndex = this._columnIndex;
-			this._column.setter( row, columnIndex, newValue );
-			this.emit( "change", newValue, oldValue, this );
-			this._onChange( newValue, oldValue, row, rowIndex, columnIndex, this );
+			this._column.setter(row, columnIndex, newValue);
+			this.emit("change", newValue, oldValue, this);
+			this._onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
 		}
 	}
 
@@ -96,24 +109,27 @@ export class DTableBodyCellSelectPromise<
 
 	get value(): VALUE | null {
 		const textValueComputed = this._textValueComputed;
-		if( textValueComputed !== undefined ) {
+		if (textValueComputed !== undefined) {
 			return textValueComputed;
 		}
 		return null;
 	}
 
-	set value( value: VALUE | null ) {
+	set value(value: VALUE | null) {
 		this.text = value;
 	}
 
 	set(
-		value: VALUE | null, row: ROW, supplimental: unknown,
-		rowIndex: number, columnIndex: number,
+		value: VALUE | null,
+		row: ROW,
+		supplimental: unknown,
+		rowIndex: number,
+		columnIndex: number,
 		forcibly?: boolean
 	): void {
 		this._row = row;
 		this._rowIndex = rowIndex;
-		if( forcibly ) {
+		if (forcibly) {
 			this._textValue = value;
 			this._textValueComputed = value;
 			this.onTextChange();
@@ -123,8 +139,8 @@ export class DTableBodyCellSelectPromise<
 		}
 
 		const column = this._column;
-		DTableBodyCells.setReadOnly( this, row, columnIndex, column );
-		DTableBodyCells.setRenderable( this, row, columnIndex, column );
+		DTableBodyCells.setReadOnly(this, row, columnIndex, column);
+		DTableBodyCells.setRenderable(this, row, columnIndex, column);
 	}
 
 	unset(): void {

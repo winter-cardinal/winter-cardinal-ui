@@ -6,13 +6,9 @@ import { DImage, DImageOptions, DThemeImage } from "./d-image";
 
 export interface DTreeItemTextAndImageOptions<
 	THEME extends DThemeTreeItemTextAndImage = DThemeTreeItemTextAndImage
-> extends DImageOptions <string, THEME> {
+> extends DImageOptions<string, THEME> {}
 
-}
-
-export interface DThemeTreeItemTextAndImage extends DThemeImage<string> {
-
-}
+export interface DThemeTreeItemTextAndImage extends DThemeImage<string> {}
 
 export class DTreeItemTextAndImage<
 	THEME extends DThemeTreeItemTextAndImage = DThemeTreeItemTextAndImage,

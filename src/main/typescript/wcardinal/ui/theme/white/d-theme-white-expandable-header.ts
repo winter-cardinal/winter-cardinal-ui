@@ -10,34 +10,36 @@ import { DThemeExpandableHeader } from "../../d-expandable-header";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteImage } from "./d-theme-white-image";
 
-DThemeWhiteAtlas.add( "menu_item_expandable_header_closed", 14, 14,
+/* eslint-disable prettier/prettier */
+DThemeWhiteAtlas.add("menu_item_expandable_header_closed", 14, 14,
 	`<g transform="scale(1, 0.7)">` +
 		`<polyline fill="none" stroke="#fff" stroke-width="1" points="6 16 10 10 6 4"></polyline>` +
 	`</g>`
 );
 
-DThemeWhiteAtlas.add( "menu_item_expandable_header_opened", 14, 14,
+DThemeWhiteAtlas.add("menu_item_expandable_header_opened", 14, 14,
 	`<g transform="scale(0.7, 1)">` +
 		`<polyline fill="none" stroke="#fff" stroke-width="1" points="16 6 10 10 4 6"></polyline>` +
 	`</g>`
 );
+/* eslint-enable prettier/prettier */
 
-export class DThemeWhiteExpandableHeader<VALUE = unknown> extends DThemeWhiteImage<VALUE>
+export class DThemeWhiteExpandableHeader<VALUE = unknown>
+	extends DThemeWhiteImage<VALUE>
 	implements DThemeExpandableHeader<VALUE> {
-
-	getBackgroundColor( state: DBaseStateSet ): number | null {
-		if( state.inDisabled ) {
+	getBackgroundColor(state: DBaseStateSet): number | null {
+		if (state.inDisabled) {
 			return null;
-		} else if( state.isFocused || state.isHovered ) {
+		} else if (state.isFocused || state.isHovered) {
 			return 0xf8f8f8;
-		} else if( state.inActive ) {
+		} else if (state.inActive) {
 			return 0xf8f8f8;
 		} else {
 			return null;
 		}
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 

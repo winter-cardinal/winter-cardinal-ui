@@ -10,24 +10,16 @@ import { EShapeActionRuntimeBlink } from "./e-shape-action-runtime-blink";
 import { EShapeActionValueBlink } from "./e-shape-action-value-blink";
 
 export class EShapeActionRuntimeBlinkOpacity extends EShapeActionRuntimeBlink {
-	constructor( value: EShapeActionValueBlink ) {
-		super( value, EShapeRuntimeReset.COLOR_FILL_AND_STROKE );
+	constructor(value: EShapeActionValueBlink) {
+		super(value, EShapeRuntimeReset.COLOR_FILL_AND_STROKE);
 	}
 
-	protected toOn( shape: EShape, runtime: EShapeRuntime ): void {
-		const fill = EShapeActionBases.toBaseFill( shape, runtime );
-		shape.fill.set(
-			undefined,
-			fill.color,
-			fill.alpha * 0.5
-		);
+	protected toOn(shape: EShape, runtime: EShapeRuntime): void {
+		const fill = EShapeActionBases.toBaseFill(shape, runtime);
+		shape.fill.set(undefined, fill.color, fill.alpha * 0.5);
 
-		const stroke = EShapeActionBases.toBaseStroke( shape, runtime );
-		shape.stroke.set(
-			undefined,
-			stroke.color,
-			stroke.alpha * 0.5
-		);
+		const stroke = EShapeActionBases.toBaseStroke(shape, runtime);
+		shape.stroke.set(undefined, stroke.color, stroke.alpha * 0.5);
 
 		runtime.written |= this.reset;
 	}

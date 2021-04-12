@@ -11,56 +11,56 @@ export interface UtilTransitionOptions {
 
 export class UtilTransition {
 	protected _duration: number;
-	protected _current: DBase<any, any> | null;
+	protected _current: DBase | null;
 	protected _lastUpdate: number;
 	protected _updateId: number | null;
 
-	constructor( options?: UtilTransitionOptions ) {
-		this._duration = ( options != null && options.duration != null ? options.duration : 300 );
+	constructor(options?: UtilTransitionOptions) {
+		this._duration = options?.duration ?? 300;
 		this._current = null;
 		this._lastUpdate = 0;
 		this._updateId = null;
 	}
 
-	show( next: DBase<any, any> | null, forcibly?: boolean ): void {
+	show(next: DBase | null, forcibly?: boolean): void {
 		const updateId = this._updateId;
-		if( updateId != null ) {
-			clearTimeout( updateId );
+		if (updateId != null) {
+			clearTimeout(updateId);
 		}
 
 		const current = this._current;
-		if( next !== current ) {
+		if (next !== current) {
 			const duration = this._duration;
 			const lastUpdate = this._lastUpdate;
 			const now = Date.now();
-			const remaining = (lastUpdate + duration) - now;
-			if( forcibly === true || remaining <= 0 ) {
-				this.update( now, next );
+			const remaining = lastUpdate + duration - now;
+			if (forcibly === true || remaining <= 0) {
+				this.update(now, next);
 			} else {
 				this._updateId = window.setTimeout(() => {
-					this.update( Date.now(), next );
-				}, remaining );
+					this.update(Date.now(), next);
+				}, remaining);
 			}
 		}
 	}
 
-	protected update( now: number, next: DBase<any, any> | null ) {
+	protected update(now: number, next: DBase | null): void {
 		const current = this._current;
-		if( current !== next ) {
+		if (current !== next) {
 			this._lastUpdate = now;
 
-			if( current !== null ) {
+			if (current !== null) {
 				current.hide();
 			}
 
 			this._current = next;
-			if( next != null ) {
+			if (next != null) {
 				next.show();
 			}
 		}
 	}
 
 	hide(): void {
-		this.show( null );
+		this.show(null);
 	}
 }

@@ -1,2 +1,6 @@
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-export type NumberFormatterFunction = ( target: number, step: number ) => string;
+export type NumberFormatterFunction = (target: number, step: number) => string;

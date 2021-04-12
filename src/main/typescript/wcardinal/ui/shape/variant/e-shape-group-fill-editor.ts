@@ -11,77 +11,77 @@ import { EShapeGroupPropertyParent } from "./e-shape-group-property-parent";
 export class EShapeGroupFillEditor implements EShapeFill {
 	protected _parent: EShapeGroupPropertyParent;
 
-	constructor( parent: EShapeGroupPropertyParent ) {
+	constructor(parent: EShapeGroupPropertyParent) {
 		this._parent = parent;
 	}
 
 	get enable(): boolean {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].fill.enable;
+		if (0 < children.length) {
+			return children[children.length - 1].fill.enable;
 		}
 		return true;
 	}
 
-	set enable( enable: boolean ) {
+	set enable(enable: boolean) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].fill.enable = enable;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].fill.enable = enable;
 		}
 	}
 
 	get color(): number {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].fill.color;
+		if (0 < children.length) {
+			return children[children.length - 1].fill.color;
 		}
 		return 0xffffff;
 	}
 
-	set color( color: number ) {
+	set color(color: number) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].fill.color = color;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].fill.color = color;
 		}
 	}
 
 	get alpha(): number {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].fill.alpha;
+		if (0 < children.length) {
+			return children[children.length - 1].fill.alpha;
 		}
 		return 1.0;
 	}
 
-	set alpha( alpha: number ) {
+	set alpha(alpha: number) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].fill.alpha = alpha;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].fill.alpha = alpha;
 		}
 	}
 
-	copy( target?: Partial<EShapeFillLike> ) {
+	copy(target?: Partial<EShapeFillLike>): void {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].fill.copy( target );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].fill.copy(target);
 		}
 	}
 
-	set( enable: boolean, color: number, alpha: number ) {
+	set(enable: boolean, color: number, alpha: number): void {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].fill.set( enable, color, alpha );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].fill.set(enable, color, alpha);
 		}
 	}
 
 	clone(): EShapeGroupFillEditor {
-		return new EShapeGroupFillEditor( this._parent );
+		return new EShapeGroupFillEditor(this._parent);
 	}
 
 	toObject(): EShapeFillLike {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].fill.toObject();
+		if (0 < children.length) {
+			return children[children.length - 1].fill.toObject();
 		}
 		return {
 			enable: true,
@@ -90,11 +90,11 @@ export class EShapeGroupFillEditor implements EShapeFill {
 		};
 	}
 
-	serialize( manager: EShapeResourceManagerSerialization ): number {
+	serialize(manager: EShapeResourceManagerSerialization): number {
 		return -1;
 	}
 
-	deserialize( target: number, manager: EShapeResourceManagerDeserialization ) {
-		//
+	deserialize(target: number, manager: EShapeResourceManagerDeserialization): void {
+		// DO NOTHING
 	}
 }

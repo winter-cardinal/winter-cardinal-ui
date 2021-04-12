@@ -8,7 +8,7 @@ import { DFontStyle, DFontVariant, DFontWeight, DThemeFont } from "../../d-font"
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 
 export class DThemeWhiteFont implements DThemeFont {
-	getFontFamilly() {
+	getFontFamilly(): string {
 		return `ProximaNova,-apple-system,Meiryo,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif`;
 	}
 
@@ -16,7 +16,7 @@ export class DThemeWhiteFont implements DThemeFont {
 		return 14;
 	}
 
-	getColor( state: DBaseStateSet ): number {
+	getColor(state: DBaseStateSet): number {
 		return DThemeWhiteConstants.COLOR;
 	}
 
@@ -32,8 +32,8 @@ export class DThemeWhiteFont implements DThemeFont {
 		return "normal";
 	}
 
-	getAlpha( state: DBaseStateSet ): number {
-		if( state.inDisabled ) {
+	getAlpha(state: DBaseStateSet): number {
+		if (state.inDisabled) {
 			return 0.5;
 		}
 		return 1.0;

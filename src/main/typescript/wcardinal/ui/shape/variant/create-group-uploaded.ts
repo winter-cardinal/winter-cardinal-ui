@@ -8,11 +8,10 @@ import { EShapeBuffer } from "../e-shape-buffer";
 import { EShapeGroupUploaded } from "./e-shape-group-uploaded";
 
 export const createGroupUploaded = (
-	buffer: EShapeBuffer, shape: EShape,
-	voffset: number, ioffset: number
+	buffer: EShapeBuffer,
+	shape: EShape,
+	voffset: number,
+	ioffset: number
 ): EShapeGroupUploaded | null => {
-	return new EShapeGroupUploaded(
-		buffer,
-		voffset, ioffset
-	).init( shape );
+	return new EShapeGroupUploaded(buffer, voffset, ioffset).init(shape);
 };

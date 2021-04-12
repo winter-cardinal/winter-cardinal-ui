@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+/* eslint-disable prettier/prettier */
+
 export enum EShapeCapability {
 	NONE			= 0,
 

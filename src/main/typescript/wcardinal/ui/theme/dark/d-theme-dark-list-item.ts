@@ -12,51 +12,51 @@ import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkImage } from "./d-theme-dark-image";
 
 export class DThemeDarkListItem extends DThemeDarkImage<string> implements DThemeListItem {
-	getBackgroundColor( state: DBaseStateSet ): number | null {
-		if( state.inDisabled ) {
+	getBackgroundColor(state: DBaseStateSet): number | null {
+		if (state.inDisabled) {
 			return null;
-		} else if( state.isActive ) {
-			return this.getBackgroundColorActive( state );
-		} else if( state.isFocused || state.isHovered ) {
+		} else if (state.isActive) {
+			return this.getBackgroundColorActive(state);
+		} else if (state.isFocused || state.isHovered) {
 			return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
 		} else {
 			return null;
 		}
 	}
 
-	protected getBackgroundColorActive( state: DBaseStateSet ): number | null {
+	protected getBackgroundColorActive(state: DBaseStateSet): number | null {
 		return DThemeDarkConstants.HIGHLIGHT_COLOR;
 	}
 
-	getBackgroundAlpha( state: DBaseStateSet ): number {
-		if( state.inDisabled ) {
+	getBackgroundAlpha(state: DBaseStateSet): number {
+		if (state.inDisabled) {
 			return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
-		} else if( state.isActive ) {
-			return this.getBackgroundAlphaActive( state );
+		} else if (state.isActive) {
+			return this.getBackgroundAlphaActive(state);
 		} else {
 			return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
 		}
 	}
 
-	protected getBackgroundAlphaActive( state: DBaseStateSet ): number {
+	protected getBackgroundAlphaActive(state: DBaseStateSet): number {
 		return DThemeDarkConstants.HIGHLIGHT_ALPHA;
 	}
 
-	getColor( state: DBaseStateSet ): number {
-		if( state.inDisabled ) {
-			return super.getColor( state );
-		} else if( state.isActive ) {
-			return this.getColorActive( state );
+	getColor(state: DBaseStateSet): number {
+		if (state.inDisabled) {
+			return super.getColor(state);
+		} else if (state.isActive) {
+			return this.getColorActive(state);
 		} else {
-			return super.getColor( state );
+			return super.getColor(state);
 		}
 	}
 
-	protected getColorActive( state: DBaseStateSet ): number {
+	protected getColorActive(state: DBaseStateSet): number {
 		return DThemeDarkConstants.COLOR;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
@@ -84,8 +84,8 @@ export class DThemeDarkListItem extends DThemeDarkImage<string> implements DThem
 		return DCornerMask.ALL;
 	}
 
-	getCursor( state: DBaseStateSet ): string {
-		if( ! state.isActionable ) {
+	getCursor(state: DBaseStateSet): string {
+		if (!state.isActionable) {
 			return "";
 		}
 		return "pointer";

@@ -9,7 +9,7 @@ import { EShapeUploadeds } from "../e-shape-uploadeds";
 import { createLineOfCirclesUploaded } from "../variant/create-line-of-circles-uploaded";
 import { deserializeLineOfCircles } from "../variant/deserialize-line-of-circles";
 
-export const loadShapeLineOfCircles = () => {
-	EShapeUploadeds[ EShapeType.LINE_OF_CIRCLES ] = createLineOfCirclesUploaded;
-	EShapeDeserializers[ EShapeType.LINE_OF_CIRCLES ] = deserializeLineOfCircles;
+export const loadShapeLineOfCircles = (): void => {
+	EShapeUploadeds[EShapeType.LINE_OF_CIRCLES] = createLineOfCirclesUploaded;
+	EShapeDeserializers[EShapeType.LINE_OF_CIRCLES] = deserializeLineOfCircles;
 };

@@ -8,15 +8,15 @@ import { DCommandFlag } from "./d-command-flag";
 
 export class DCommandRedo implements DCommand {
 	execute(): Promise<void> | boolean {
-		throw new Error( "Not supported" );
+		throw new Error("Not supported");
 	}
 
 	redo(): Promise<void> | boolean {
-		throw new Error( "Not supported" );
+		throw new Error("Not supported");
 	}
 
 	undo(): Promise<void> | boolean {
-		throw new Error( "Not supported" );
+		throw new Error("Not supported");
 	}
 
 	destroy(): void {

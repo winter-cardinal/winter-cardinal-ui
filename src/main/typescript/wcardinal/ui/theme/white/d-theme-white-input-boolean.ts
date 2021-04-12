@@ -6,7 +6,9 @@
 import { DThemeInputBoolean } from "../../d-input-boolean";
 import { DThemeWhiteLayoutHorizontal } from "./d-theme-white-layout-horizontal";
 
-export class DThemeWhiteInputBoolean extends DThemeWhiteLayoutHorizontal implements DThemeInputBoolean {
+export class DThemeWhiteInputBoolean
+	extends DThemeWhiteLayoutHorizontal
+	implements DThemeInputBoolean {
 	getCornerAdjust(): boolean {
 		return true;
 	}

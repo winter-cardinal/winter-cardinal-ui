@@ -12,27 +12,35 @@ export interface DTableBodyCellIndexOptions<
 	ROW = unknown,
 	VALUE = unknown,
 	THEME extends DThemeTableBodyCellIndex = DThemeTableBodyCellIndex
-> extends DImageBaseOptions<number, THEME> {
-}
+> extends DImageBaseOptions<number, THEME> {}
 
-export interface DThemeTableBodyCellIndex<VALUE = unknown> extends DThemeImageBase<number> {
-
-}
+export interface DThemeTableBodyCellIndex<VALUE = unknown> extends DThemeImageBase<number> {}
 
 export class DTableBodyCellIndex<
-	ROW = unknown,
-	VALUE = unknown,
-	THEME extends DThemeTableBodyCellIndex<VALUE> = DThemeTableBodyCellIndex<VALUE>,
-	OPTIONS extends DTableBodyCellIndexOptions<ROW, VALUE, THEME> = DTableBodyCellIndexOptions<ROW, VALUE, THEME>
-> extends DImageBase<number, THEME, OPTIONS> implements DTableBodyCell<ROW, VALUE> {
+		ROW = unknown,
+		VALUE = unknown,
+		THEME extends DThemeTableBodyCellIndex<VALUE> = DThemeTableBodyCellIndex<VALUE>,
+		OPTIONS extends DTableBodyCellIndexOptions<ROW, VALUE, THEME> = DTableBodyCellIndexOptions<
+			ROW,
+			VALUE,
+			THEME
+		>
+	>
+	extends DImageBase<number, THEME, OPTIONS>
+	implements DTableBodyCell<ROW, VALUE> {
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;
 	protected _column: DTableColumn<ROW, VALUE>;
 	protected _onChange: DTableBodyCellOnChange<ROW, VALUE>;
 
-	constructor( columnIndex: number, column: DTableColumn<ROW, VALUE>, onChange: DTableBodyCellOnChange<ROW, unknown>, options?: OPTIONS ) {
-		super( options );
+	constructor(
+		columnIndex: number,
+		column: DTableColumn<ROW, VALUE>,
+		onChange: DTableBodyCellOnChange<ROW, unknown>,
+		options?: OPTIONS
+	) {
+		super(options);
 
 		this._rowIndex = -1;
 		this._columnIndex = columnIndex;
@@ -57,8 +65,11 @@ export class DTableBodyCellIndex<
 	}
 
 	set(
-		value: unknown, row: ROW, supplimental: unknown,
-		rowIndex: number, columnIndex: number,
+		value: unknown,
+		row: ROW,
+		supplimental: unknown,
+		rowIndex: number,
+		columnIndex: number,
 		forcibly?: boolean
 	): void {
 		this._row = row;
@@ -66,8 +77,8 @@ export class DTableBodyCellIndex<
 		this.text = rowIndex;
 
 		const column = this._column;
-		DTableBodyCells.setReadOnly( this, row, columnIndex, column );
-		DTableBodyCells.setRenderable( this, row, columnIndex, column );
+		DTableBodyCells.setReadOnly(this, row, columnIndex, column);
+		DTableBodyCells.setRenderable(this, row, columnIndex, column);
 	}
 
 	unset(): void {

@@ -19,9 +19,12 @@ export interface DViewTransform {
 	 */
 	start(
 		target: DBase,
-		x: number, y: number,
-		scaleX: number, scaleY: number,
-		duration?: number, stop?: boolean
+		x: number,
+		y: number,
+		scaleX: number,
+		scaleY: number,
+		duration?: number,
+		stop?: boolean
 	): void;
 
 	/**

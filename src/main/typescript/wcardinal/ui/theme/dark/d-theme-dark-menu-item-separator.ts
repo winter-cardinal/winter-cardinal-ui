@@ -6,6 +6,6 @@
 import { DThemeMenuItemSeparator } from "../../d-menu-item-separator";
 import { DThemeDarkListItemSeparator } from "./d-theme-dark-list-item-separator";
 
-export class DThemeDarkMenuItemSeparator extends DThemeDarkListItemSeparator implements DThemeMenuItemSeparator {
-
-}
+export class DThemeDarkMenuItemSeparator
+	extends DThemeDarkListItemSeparator
+	implements DThemeMenuItemSeparator {}

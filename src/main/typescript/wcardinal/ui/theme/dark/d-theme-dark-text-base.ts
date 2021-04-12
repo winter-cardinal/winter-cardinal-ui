@@ -11,9 +11,9 @@ import { DThemeTextBase } from "../../d-text-base";
 import { toString } from "../../util/to-string";
 import { DThemeDarkBase } from "./d-theme-dark-base";
 
-export class DThemeDarkTextBase<VALUE = unknown> extends DThemeDarkBase
+export class DThemeDarkTextBase<VALUE = unknown>
+	extends DThemeDarkBase
 	implements DThemeTextBase<VALUE> {
-
 	getTextAlignVertical(): DAlignVertical {
 		return DAlignVertical.MIDDLE;
 	}
@@ -34,11 +34,11 @@ export class DThemeDarkTextBase<VALUE = unknown> extends DThemeDarkBase
 		return true;
 	}
 
-	getTextFormatter(): ( value: VALUE, caller: any ) => string {
+	getTextFormatter(): (value: VALUE, caller: any) => string {
 		return toString;
 	}
 
-	getTextValue( state: DBaseStateSet ): VALUE | undefined {
+	getTextValue(state: DBaseStateSet): VALUE | undefined {
 		return undefined;
 	}
 

@@ -4,10 +4,7 @@
  */
 
 import { utils } from "pixi.js";
-import {
-	DTableDataComparatorFunction, DTableDataComparatorObject,
-	DTableDataOrder, DTableDataSorter
-} from "./d-table-data-sorter";
+import { DTableDataComparator, DTableDataOrder, DTableDataSorter } from "./d-table-data-sorter";
 import { isFunction } from "./util/is-function";
 
 export interface DTableDataListSorterParent<ROW> {
@@ -20,11 +17,11 @@ export class DTableDataListSorter<ROW> extends utils.EventEmitter implements DTa
 	protected _idUpdated: number;
 	protected _isApplied: boolean;
 	protected _parent: DTableDataListSorterParent<ROW>;
-	protected _comparator: DTableDataComparatorFunction<ROW> | DTableDataComparatorObject<ROW> | null;
+	protected _comparator: DTableDataComparator<ROW> | null;
 	protected _sorted: number[] | null;
 	protected _order: DTableDataOrder;
 
-	constructor( parent: DTableDataListSorterParent<ROW> ) {
+	constructor(parent: DTableDataListSorterParent<ROW>) {
 		super();
 
 		this._id = 0;
@@ -44,7 +41,7 @@ export class DTableDataListSorter<ROW> extends utils.EventEmitter implements DTa
 		return this._order;
 	}
 
-	set order( order: DTableDataOrder ) {
+	set order(order: DTableDataOrder) {
 		this._order = order;
 	}
 
@@ -55,7 +52,7 @@ export class DTableDataListSorter<ROW> extends utils.EventEmitter implements DTa
 	}
 
 	unapply(): void {
-		if( this._isApplied ) {
+		if (this._isApplied) {
 			this._isApplied = false;
 			this._id += 1;
 			this._parent.update();
@@ -68,14 +65,14 @@ export class DTableDataListSorter<ROW> extends utils.EventEmitter implements DTa
 
 	protected newSorted(): number[] | null {
 		const comparator = this._comparator;
-		if( comparator != null ) {
+		if (comparator != null) {
 			const parent = this._parent;
 			const sorted: number[] = [];
 			const rows: ROW[] = parent.rows;
-			for( let i = 0, imax = rows.length; i < imax; ++i ) {
-				sorted.push( i );
+			for (let i = 0, imax = rows.length; i < imax; ++i) {
+				sorted.push(i);
 			}
-			sorted.sort( this.toComparator( rows, comparator ) );
+			sorted.sort(this.toComparator(rows, comparator));
 			return sorted;
 		} else {
 			return null;
@@ -84,50 +81,38 @@ export class DTableDataListSorter<ROW> extends utils.EventEmitter implements DTa
 
 	protected toComparator(
 		rows: ROW[],
-		comparator: DTableDataComparatorFunction<ROW> | DTableDataComparatorObject<ROW>
-	): ( indexA: number, indexB: number) => number {
+		comparator: DTableDataComparator<ROW>
+	): (indexA: number, indexB: number) => number {
 		const order = this._order;
-		if( isFunction( comparator ) ) {
-			if( order === DTableDataOrder.ASCENDING ) {
-				return ( indexA: number, indexB: number ): number => {
-					return comparator(
-						rows[ indexA ], rows[ indexB ],
-						indexA, indexB
-					);
+		if (isFunction(comparator)) {
+			if (order === DTableDataOrder.ASCENDING) {
+				return (indexA: number, indexB: number): number => {
+					return comparator(rows[indexA], rows[indexB], indexA, indexB);
 				};
 			} else {
-				return ( indexA: number, indexB: number ): number => {
-					return comparator(
-						rows[ indexB ], rows[ indexA ],
-						indexB, indexA
-					);
+				return (indexA: number, indexB: number): number => {
+					return comparator(rows[indexB], rows[indexA], indexB, indexA);
 				};
 			}
 		} else {
-			if( order === DTableDataOrder.ASCENDING ) {
-				return ( indexA: number, indexB: number ): number => {
-					return comparator.compare(
-						rows[ indexA ], rows[ indexB ],
-						indexA, indexB
-					);
+			if (order === DTableDataOrder.ASCENDING) {
+				return (indexA: number, indexB: number): number => {
+					return comparator.compare(rows[indexA], rows[indexB], indexA, indexB);
 				};
 			} else {
-				return ( indexA: number, indexB: number ): number => {
-					return comparator.compare(
-						rows[ indexB ], rows[ indexA ],
-						indexB, indexA
-					);
+				return (indexA: number, indexB: number): number => {
+					return comparator.compare(rows[indexB], rows[indexA], indexB, indexA);
 				};
 			}
 		}
 	}
 
-	get(): DTableDataComparatorFunction<ROW> | DTableDataComparatorObject<ROW> | null {
+	get(): DTableDataComparator<ROW> | null {
 		return this._comparator;
 	}
 
-	set( comparator: DTableDataComparatorFunction<ROW> | DTableDataComparatorObject<ROW> | null ): void {
-		if( this._comparator !== comparator ) {
+	set(comparator: DTableDataComparator<ROW> | null): void {
+		if (this._comparator !== comparator) {
 			this._comparator = comparator;
 		}
 	}
@@ -137,14 +122,14 @@ export class DTableDataListSorter<ROW> extends utils.EventEmitter implements DTa
 	}
 
 	update(): void {
-		if( this._id !== this._idUpdated ) {
+		if (this._id !== this._idUpdated) {
 			this._idUpdated = this._id;
-			if( this._isApplied ) {
+			if (this._isApplied) {
 				this._sorted = this.newSorted();
-				this.emit( "change", this );
-			} else if( this._sorted != null ) {
+				this.emit("change", this);
+			} else if (this._sorted != null) {
 				this._sorted = null;
-				this.emit( "change", this );
+				this.emit("change", this);
 			}
 		}
 	}
@@ -154,13 +139,13 @@ export class DTableDataListSorter<ROW> extends utils.EventEmitter implements DTa
 		return this._sorted;
 	}
 
-	map( unmappedIndex: number ): number | null {
+	map(unmappedIndex: number): number | null {
 		let result = unmappedIndex;
 
 		const indicesSorted = this.indices;
-		if( indicesSorted ) {
-			const index = indicesSorted.indexOf( result );
-			if( 0 <= index ) {
+		if (indicesSorted) {
+			const index = indicesSorted.indexOf(result);
+			if (0 <= index) {
 				result = index;
 			} else {
 				return null;
@@ -170,12 +155,12 @@ export class DTableDataListSorter<ROW> extends utils.EventEmitter implements DTa
 		return result;
 	}
 
-	unmap( index: number ): number {
+	unmap(index: number): number {
 		let result = index;
 
 		const indicesSorted = this.indices;
-		if( indicesSorted ) {
-			result = indicesSorted[ result ];
+		if (indicesSorted) {
+			result = indicesSorted[result];
 		}
 
 		return result;

@@ -7,7 +7,7 @@ import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteScrollBar } from "../d-theme-white-scroll-bar";
 import { DThemeWhiteScrollBarThumb } from "../d-theme-white-scroll-bar-thumb";
 
-export const loadThemeWhiteScrollBar = () => {
-	DThemeWhite.set( "DScrollBar", DThemeWhiteScrollBar );
-	DThemeWhite.set( "DScrollBarThumb", DThemeWhiteScrollBarThumb );
+export const loadThemeWhiteScrollBar = (): void => {
+	DThemeWhite.set("DScrollBar", DThemeWhiteScrollBar);
+	DThemeWhite.set("DScrollBarThumb", DThemeWhiteScrollBarThumb);
 };

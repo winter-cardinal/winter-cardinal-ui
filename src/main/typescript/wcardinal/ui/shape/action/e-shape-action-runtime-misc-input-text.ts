@@ -10,12 +10,16 @@ import { EShape } from "../e-shape";
 import { EShapeRuntime } from "../e-shape-runtime";
 import { EShapeActionRuntimeMiscInput } from "./e-shape-action-runtime-misc-input";
 
-export class EShapeActionRuntimeMiscInputText extends EShapeActionRuntimeMiscInput<string, UtilInputText> {
-	protected newUtil( shape: EShape, runtime: EShapeRuntime ): UtilInputText {
+export class EShapeActionRuntimeMiscInputText extends EShapeActionRuntimeMiscInput<
+	string,
+	UtilInputText
+> {
+	protected newUtil(shape: EShape, runtime: EShapeRuntime): UtilInputText {
 		return new UtilInputText(
-			shape, this.newOperation( shape, runtime ),
-			DThemes.getInstance().get<DThemeInputText>( "DInputText" ),
-			this.newUtilOptions( shape, runtime )
+			shape,
+			this.newOperation(shape, runtime),
+			DThemes.getInstance().get<DThemeInputText>("DInputText"),
+			this.newUtilOptions(shape, runtime)
 		);
 	}
 }

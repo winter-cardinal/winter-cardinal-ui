@@ -14,12 +14,12 @@ export class ESnapperTargetValue {
 	type: ESnapperTargetValueType;
 	position: number;
 
-	constructor( type: ESnapperTargetValueType, position: number ) {
+	constructor(type: ESnapperTargetValueType, position: number) {
 		this.type = type;
 		this.position = position;
 	}
 
 	serialize(): DDiagramSerializedSnapTargetValue {
-		return [ this.type, this.position ];
+		return [this.type, this.position];
 	}
 }

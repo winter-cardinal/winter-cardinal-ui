@@ -31,10 +31,10 @@ export class EShapeDefaults {
 
 	static get THEME(): EThemeShape {
 		const theme = this._THEME;
-		if( theme != null ) {
+		if (theme != null) {
 			return theme;
 		}
-		const newTheme: EThemeShape = DThemes.getInstance().get( "EShape" );
+		const newTheme: EThemeShape = DThemes.getInstance().get("EShape");
 		this._THEME = newTheme;
 		return newTheme;
 	}

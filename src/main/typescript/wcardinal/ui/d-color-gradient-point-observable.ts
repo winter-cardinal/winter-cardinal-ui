@@ -5,7 +5,7 @@
 
 import { DColorGradientPoint } from "./d-color-gradient";
 
-type Callback = ( target: DColorGradientPointObservable ) => void;
+type Callback = (target: DColorGradientPointObservable) => void;
 
 export class DColorGradientPointObservable implements DColorGradientPoint {
 	protected _color: number;
@@ -14,7 +14,13 @@ export class DColorGradientPointObservable implements DColorGradientPoint {
 	protected _callback: Callback;
 	protected _selected: boolean;
 
-	constructor( color: number, alpha: number, position: number, selected: boolean, callback: Callback ) {
+	constructor(
+		color: number,
+		alpha: number,
+		position: number,
+		selected: boolean,
+		callback: Callback
+	) {
 		this._color = color;
 		this._alpha = alpha;
 		this._position = position;
@@ -22,57 +28,62 @@ export class DColorGradientPointObservable implements DColorGradientPoint {
 		this._selected = selected;
 	}
 
-	set( color: number, alpha: number, position: number, selected: boolean ) {
-		if( this._color !== color || this._alpha !== alpha || this._position !== position || this._selected !== selected ) {
+	set(color: number, alpha: number, position: number, selected: boolean): void {
+		if (
+			this._color !== color ||
+			this._alpha !== alpha ||
+			this._position !== position ||
+			this._selected !== selected
+		) {
 			this._color = color;
 			this._alpha = alpha;
 			this._position = position;
 			this._selected = selected;
-			this._callback( this );
+			this._callback(this);
 		}
 	}
 
-	get color() {
+	get color(): number {
 		return this._color;
 	}
 
-	set color( color: number ) {
-		if( this._color !== color ) {
+	set color(color: number) {
+		if (this._color !== color) {
 			this._color = color;
-			this._callback( this );
+			this._callback(this);
 		}
 	}
 
-	get alpha() {
+	get alpha(): number {
 		return this._alpha;
 	}
 
-	set alpha( alpha: number ) {
-		if( this._alpha !== alpha ) {
+	set alpha(alpha: number) {
+		if (this._alpha !== alpha) {
 			this._alpha = alpha;
-			this._callback( this );
+			this._callback(this);
 		}
 	}
 
-	get position() {
+	get position(): number {
 		return this._position;
 	}
 
-	set position( position: number ) {
-		if( this._position !== position ) {
+	set position(position: number) {
+		if (this._position !== position) {
 			this._position = position;
-			this._callback( this );
+			this._callback(this);
 		}
 	}
 
-	get selected() {
+	get selected(): boolean {
 		return this._selected;
 	}
 
-	set selected( selected: boolean ) {
-		if( this._selected !== selected ) {
+	set selected(selected: boolean) {
+		if (this._selected !== selected) {
 			this._selected = selected;
-			this._callback( this );
+			this._callback(this);
 		}
 	}
 

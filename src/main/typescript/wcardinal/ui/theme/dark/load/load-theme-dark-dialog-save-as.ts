@@ -6,6 +6,6 @@
 import { DThemeDark } from "../d-theme-dark";
 import { DThemeDarkDialogSaveAs } from "../d-theme-dark-dialog-save-as";
 
-export const loadThemeDarkDialogSaveAs = () => {
-	DThemeDark.set( "DDialogSaveAs", DThemeDarkDialogSaveAs );
+export const loadThemeDarkDialogSaveAs = (): void => {
+	DThemeDark.set("DDialogSaveAs", DThemeDarkDialogSaveAs);
 };

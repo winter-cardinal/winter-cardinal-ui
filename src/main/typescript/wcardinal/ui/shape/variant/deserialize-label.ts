@@ -9,7 +9,8 @@ import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manage
 import { EShapeLabel } from "./e-shape-label";
 
 export const deserializeLabel = (
-	item: DDiagramSerializedItem, manager: EShapeResourceManagerDeserialization
+	item: DDiagramSerializedItem,
+	manager: EShapeResourceManagerDeserialization
 ): Promise<EShapeLabel> | EShapeLabel => {
-	return EShapeDeserializer.deserialize( item, manager, new EShapeLabel() );
+	return EShapeDeserializer.deserialize(item, manager, new EShapeLabel());
 };

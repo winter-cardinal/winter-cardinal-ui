@@ -11,15 +11,15 @@ export interface DThemeImageBaseTertiary {
 	getTertiaryImageAlignWith(): DAlignWith;
 	getTertiaryImageMarginHorizontal(): number;
 	getTertiaryImageMarginVertial(): number;
-	getTertiaryImageTintColor( state: DBaseStateSet ): number | null;
-	getTertiaryImageTintAlpha( state: DBaseStateSet ): number;
-	getTertiaryImageSource( state: DBaseStateSet ): Texture | DisplayObject | null;
+	getTertiaryImageTintColor(state: DBaseStateSet): number | null;
+	getTertiaryImageTintAlpha(state: DBaseStateSet): number;
+	getTertiaryImageSource(state: DBaseStateSet): Texture | DisplayObject | null;
 }
 
 export class DImageBaseThemeWrapperTertiary implements DThemeImagePiece {
 	protected _theme: DThemeImageBaseTertiary;
 
-	constructor( theme: DThemeImageBaseTertiary ) {
+	constructor(theme: DThemeImageBaseTertiary) {
 		this._theme = theme;
 	}
 
@@ -43,15 +43,15 @@ export class DImageBaseThemeWrapperTertiary implements DThemeImagePiece {
 		return this._theme.getTertiaryImageMarginVertial();
 	}
 
-	getImageTintColor( state: DBaseStateSet ): number | null {
-		return this._theme.getTertiaryImageTintColor( state );
+	getImageTintColor(state: DBaseStateSet): number | null {
+		return this._theme.getTertiaryImageTintColor(state);
 	}
 
-	getImageTintAlpha( state: DBaseStateSet ): number {
-		return this._theme.getTertiaryImageTintAlpha( state );
+	getImageTintAlpha(state: DBaseStateSet): number {
+		return this._theme.getTertiaryImageTintAlpha(state);
 	}
 
-	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
-		return this._theme.getTertiaryImageSource( state );
+	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
+		return this._theme.getTertiaryImageSource(state);
 	}
 }

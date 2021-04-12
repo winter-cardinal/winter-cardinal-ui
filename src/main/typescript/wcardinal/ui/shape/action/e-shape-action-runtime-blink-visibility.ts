@@ -9,16 +9,16 @@ import { EShapeActionRuntimeBlink } from "./e-shape-action-runtime-blink";
 import { EShapeActionValueBlink } from "./e-shape-action-value-blink";
 
 export class EShapeActionRuntimeBlinkVisibility extends EShapeActionRuntimeBlink {
-	constructor( value: EShapeActionValueBlink ) {
-		super( value, EShapeRuntimeReset.VISIBILITY );
+	constructor(value: EShapeActionValueBlink) {
+		super(value, EShapeRuntimeReset.VISIBILITY);
 	}
 
-	protected toOn( shape: EShape, runtime: EShapeRuntime ): void {
+	protected toOn(shape: EShape, runtime: EShapeRuntime): void {
 		shape.visible = true;
 		runtime.written |= this.reset;
 	}
 
-	protected toOff( shape: EShape, runtime: EShapeRuntime ): void {
+	protected toOff(shape: EShape, runtime: EShapeRuntime): void {
 		shape.visible = false;
 		runtime.written |= this.reset;
 	}

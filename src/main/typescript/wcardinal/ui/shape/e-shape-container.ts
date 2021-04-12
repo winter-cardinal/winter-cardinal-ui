@@ -55,15 +55,15 @@ export class EShapeContainer extends DisplayObject {
 	}
 
 	toDirty(): number {
-		return this._childrenId += 1;
+		return (this._childrenId += 1);
 	}
 
 	isDirty(): boolean {
 		return this._childrenIdRendered < this._childrenId;
 	}
 
-	render( renderer: Renderer ): void {
-		if( !this.visible || this.worldAlpha <= 0 || !this.renderable ) {
+	render(renderer: Renderer): void {
+		if (!this.visible || this.worldAlpha <= 0 || !this.renderable) {
 			return;
 		}
 
@@ -74,22 +74,22 @@ export class EShapeContainer extends DisplayObject {
 		const children = this.children;
 
 		let shapeRenderer: EShapeRenderer | null = this._shapeRenderer;
-		if( shapeRenderer == null ) {
-			shapeRenderer = this._shapeRenderer = new EShapeRenderer( renderer );
+		if (shapeRenderer == null) {
+			shapeRenderer = this._shapeRenderer = new EShapeRenderer(renderer);
 		}
-		renderer.batch.setObjectRenderer( shapeRenderer );
+		renderer.batch.setObjectRenderer(shapeRenderer);
 
 		const mask = this.mask;
-		if( mask ) {
-			renderer.mask.push( this, mask );
-			shapeRenderer.render_( this, children, isChildrenDirty );
-			renderer.mask.pop( this );
+		if (mask) {
+			renderer.mask.push(this, mask);
+			shapeRenderer.render_(this, children, isChildrenDirty);
+			renderer.mask.pop(this);
 		} else {
-			shapeRenderer.render_( this, children, isChildrenDirty );
+			shapeRenderer.render_(this, children, isChildrenDirty);
 		}
 	}
 
-	containsPoint( point: Point ): boolean {
+	containsPoint(point: Point): boolean {
 		return false;
 	}
 
@@ -97,10 +97,10 @@ export class EShapeContainer extends DisplayObject {
 		return this._fontAtlases;
 	}
 
-	getAtlas( resolution: number ): DynamicAtlas {
+	getAtlas(resolution: number): DynamicAtlas {
 		let atlas = this._atlas;
-		if( atlas == null ) {
-			atlas = new DynamicAtlas( resolution );
+		if (atlas == null) {
+			atlas = new DynamicAtlas(resolution);
 			this._atlas = atlas;
 		}
 		return atlas;
@@ -110,17 +110,17 @@ export class EShapeContainer extends DisplayObject {
 		return this._buffers;
 	}
 
-	toPixelScale( resolution: number ): number {
+	toPixelScale(resolution: number): number {
 		this.updateTransform();
 		const transform = this.transform;
 		const worldID = (transform as any)._worldID;
-		if( worldID !== this._pixelScaleId ) {
+		if (worldID !== this._pixelScaleId) {
 			this._pixelScaleId = worldID;
 			const worldTransform = transform.worldTransform;
 			const a = worldTransform.a;
 			const b = worldTransform.b;
-			const scale = Math.sqrt( a * a + b * b );
-			this._pixelScale = 1 / ( resolution * scale );
+			const scale = Math.sqrt(a * a + b * b);
+			this._pixelScale = 1 / (resolution * scale);
 		}
 		return this._pixelScale;
 	}
@@ -129,20 +129,20 @@ export class EShapeContainer extends DisplayObject {
 		return this._pixelScale;
 	}
 
-	getAntialiasWeight( resolution: number ): number {
+	getAntialiasWeight(resolution: number): number {
 		return 1.25 / resolution;
 	}
 
-	hitTest( global: IPoint, handler?: ( shape: EShape ) => boolean ): EShape | null {
+	hitTest(global: IPoint, handler?: (shape: EShape) => boolean): EShape | null {
 		const work = this._work;
 		const children = this.children;
-		for( let i = children.length - 1; 0 <= i; --i ) {
-			const child = children[ i ];
-			if( child.visible ) {
-				const childLocal = child.toLocal( global, undefined, work );
-				const childResult = child.contains( childLocal );
-				if( childResult != null ) {
-					if( handler == null || handler( childResult ) ) {
+		for (let i = children.length - 1; 0 <= i; --i) {
+			const child = children[i];
+			if (child.visible) {
+				const childLocal = child.toLocal(global, undefined, work);
+				const childResult = child.contains(childLocal);
+				if (childResult != null) {
+					if (handler == null || handler(childResult)) {
 						return childResult;
 					}
 				}
@@ -152,15 +152,15 @@ export class EShapeContainer extends DisplayObject {
 		return null;
 	}
 
-	hitTestBBox( global: IPoint, handler?: ( shape: EShape ) => boolean ): EShape | null {
+	hitTestBBox(global: IPoint, handler?: (shape: EShape) => boolean): EShape | null {
 		const work = this._work;
 		const children = this.children;
-		for( let i = children.length - 1; 0 <= i; --i ) {
-			const child = children[ i ];
-			if( child.visible ) {
-				const childLocal = child.toLocal( global, undefined, work );
-				if( child.containsBBox( childLocal ) ) {
-					if( handler == null || handler( child ) ) {
+		for (let i = children.length - 1; 0 <= i; --i) {
+			const child = children[i];
+			if (child.visible) {
+				const childLocal = child.toLocal(global, undefined, work);
+				if (child.containsBBox(childLocal)) {
+					if (handler == null || handler(child)) {
 						return child;
 					}
 				}
@@ -173,17 +173,17 @@ export class EShapeContainer extends DisplayObject {
 	destroy(): void {
 		// Buffer
 		const buffers = this._buffers;
-		if( buffers != null ) {
-			for( let i = 0, imax = buffers.length; i < imax; ++i ) {
-				buffers[ i ].destroy();
+		if (buffers != null) {
+			for (let i = 0, imax = buffers.length; i < imax; ++i) {
+				buffers[i].destroy();
 			}
 		}
 		this._buffers.length = 0;
 
 		// Shapes
 		const children = this.children;
-		for( let i = children.length - 1; 0 <= i; --i ) {
-			children[ i ].destroy();
+		for (let i = children.length - 1; 0 <= i; --i) {
+			children[i].destroy();
 		}
 		children.length = 0;
 

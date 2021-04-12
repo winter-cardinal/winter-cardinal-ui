@@ -13,15 +13,15 @@ export class DBaseAuto {
 	}
 
 	get isOff(): boolean {
-		return ! this._isOn;
+		return !this._isOn;
 	}
 
 	get isOn(): boolean {
 		return this._isOn;
 	}
 
-	toCoordinate( def: DCoordinateSize ): DCoordinateSize {
-		return ( this._isOn ? "auto" : def );
+	toCoordinate(def: DCoordinateSize): DCoordinateSize {
+		return this._isOn ? "auto" : def;
 	}
 
 	/**
@@ -30,8 +30,8 @@ export class DBaseAuto {
 	 * @param size a size
 	 * @returns True if the given size is "auto".
 	 */
-	from( size: DCoordinateSize ): boolean {
-		if( size === "auto" || size === "AUTO" ) {
+	from(size: DCoordinateSize): boolean {
+		if (size === "auto" || size === "AUTO") {
 			this._isOn = true;
 			return true;
 		}

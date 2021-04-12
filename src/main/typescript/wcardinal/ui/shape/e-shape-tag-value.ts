@@ -36,13 +36,13 @@ export interface EShapeTagValue extends EShapeTagValueLike {
 	range: EShapeTagValueRange;
 	parent?: EShapeTagValueParent;
 
-	formatter?: ( value: unknown ) => unknown;
+	formatter?: (value: unknown) => unknown;
 
 	clear(): void;
-	remove( index: number ): void;
-	removeAll( indices: number[] ): void;
-	copy( target: EShapeTagValue ): void;
-	isEquals( target: EShapeTagValue ): boolean;
-	serialize( manager: EShapeResourceManagerSerialization ): number;
-	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void;
+	remove(index: number): void;
+	removeAll(indices: number[]): void;
+	copy(target: EShapeTagValue): void;
+	isEquals(target: EShapeTagValue): boolean;
+	serialize(manager: EShapeResourceManagerSerialization): number;
+	deserialize(target: number, manager: EShapeResourceManagerDeserialization): void;
 }

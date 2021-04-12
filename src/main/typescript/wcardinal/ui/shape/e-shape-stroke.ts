@@ -17,10 +17,17 @@ export interface EShapeStrokeLike {
 }
 
 export interface EShapeStroke extends EShapeStrokeLike {
-	copy( target?: Partial<EShapeStrokeLike> ): void;
-	set( enable?: boolean, color?: number, alpha?: number, width?: number, align?: number, side?: EShapeStrokeSide ): void;
+	copy(target?: Partial<EShapeStrokeLike>): void;
+	set(
+		enable?: boolean,
+		color?: number,
+		alpha?: number,
+		width?: number,
+		align?: number,
+		side?: EShapeStrokeSide
+	): void;
 	clone(): EShapeStroke;
 	toObject(): EShapeStrokeLike;
-	serialize( manager: EShapeResourceManagerSerialization ): number;
-	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void;
+	serialize(manager: EShapeResourceManagerSerialization): number;
+	deserialize(target: number, manager: EShapeResourceManagerDeserialization): void;
 }

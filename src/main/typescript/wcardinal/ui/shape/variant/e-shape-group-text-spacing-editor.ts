@@ -11,58 +11,58 @@ import { EShapeGroupPropertyParent } from "./e-shape-group-property-parent";
 export class EShapeGroupTextSpacingEditor {
 	protected _parent: EShapeGroupPropertyParent;
 
-	constructor( parent: EShapeGroupPropertyParent ) {
+	constructor(parent: EShapeGroupPropertyParent) {
 		this._parent = parent;
 	}
 
 	get horizontal(): number {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].text.spacing.horizontal;
+		if (0 < children.length) {
+			return children[children.length - 1].text.spacing.horizontal;
 		}
 		return 0;
 	}
 
-	set horizontal( horizontal: number ) {
+	set horizontal(horizontal: number) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.spacing.horizontal = horizontal;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.spacing.horizontal = horizontal;
 		}
 	}
 
 	get vertical(): number {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].text.spacing.vertical;
+		if (0 < children.length) {
+			return children[children.length - 1].text.spacing.vertical;
 		}
 		return 0;
 	}
 
-	set vertical( vertical: number ) {
+	set vertical(vertical: number) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.spacing.vertical = vertical;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.spacing.vertical = vertical;
 		}
 	}
 
-	copy( target: EShapeTextOffsetLike ): void {
+	copy(target: EShapeTextOffsetLike): void {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.spacing.copy( target );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.spacing.copy(target);
 		}
 	}
 
-	set( horizontal: number, vertical: number ): void {
+	set(horizontal: number, vertical: number): void {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.spacing.set( horizontal, vertical );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.spacing.set(horizontal, vertical);
 		}
 	}
 
 	toObject(): EShapeTextOffsetLike {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].text.spacing.toObject();
+		if (0 < children.length) {
+			return children[children.length - 1].text.spacing.toObject();
 		}
 		return {
 			horizontal: 0,
@@ -70,11 +70,11 @@ export class EShapeGroupTextSpacingEditor {
 		};
 	}
 
-	serialize( manager: EShapeResourceManagerSerialization ): number {
+	serialize(manager: EShapeResourceManagerSerialization): number {
 		return -1;
 	}
 
-	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void {
+	deserialize(target: number, manager: EShapeResourceManagerDeserialization): void {
 		// DO NOTHING
 	}
 }

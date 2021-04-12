@@ -18,43 +18,51 @@ import { DMenuItemSeparator } from "../d-menu-item-separator";
 import { DMenuItemSpace } from "../d-menu-item-space";
 import { DMenus } from "../d-menus";
 
-export const loadMenuItemExpandable = () => {
-	DMenus.addItemCreator(( options: DMenuItemOptionsUnion<any> ): DisplayObject | null => {
-		if( DMenuItemExpandable.isCompatible( options ) ) {
-			return new DMenuItemExpandable( options );
+export const loadMenuItemExpandable = (): void => {
+	DMenus.addItemCreator((options: DMenuItemOptionsUnion<any>): DisplayObject | null => {
+		if (DMenuItemExpandable.isCompatible(options)) {
+			return new DMenuItemExpandable(options);
 		}
 		return null;
 	});
 
-	DMenuItemExpandables.addItemCreator(( options: DMenuItemOptionsUnion<any> ): DisplayObject | null => {
-		if( DMenuItemCheck.isCompatible( options ) ) {
-			return new DMenuItemExpandableItemCheck( options );
+	DMenuItemExpandables.addItemCreator(
+		(options: DMenuItemOptionsUnion<any>): DisplayObject | null => {
+			if (DMenuItemCheck.isCompatible(options)) {
+				return new DMenuItemExpandableItemCheck(options);
+			}
+			return null;
 		}
-		return null;
-	});
+	);
 
-	DMenuItemExpandables.addItemCreator(( options: DMenuItemOptionsUnion<any> ): DisplayObject | null => {
-		if( DMenuItemLink.isCompatible( options ) ) {
-			return new DMenuItemExpandableItemLink( options );
+	DMenuItemExpandables.addItemCreator(
+		(options: DMenuItemOptionsUnion<any>): DisplayObject | null => {
+			if (DMenuItemLink.isCompatible(options)) {
+				return new DMenuItemExpandableItemLink(options);
+			}
+			return null;
 		}
-		return null;
-	});
+	);
 
-	DMenuItemExpandables.addItemCreator(( options: DMenuItemOptionsUnion<any> ): DisplayObject | null => {
-		if( DMenuItemSeparator.isCompatible( options ) ) {
-			return new DMenuItemExpandableItemSeparator( options );
+	DMenuItemExpandables.addItemCreator(
+		(options: DMenuItemOptionsUnion<any>): DisplayObject | null => {
+			if (DMenuItemSeparator.isCompatible(options)) {
+				return new DMenuItemExpandableItemSeparator(options);
+			}
+			return null;
 		}
-		return null;
-	});
+	);
 
-	DMenuItemExpandables.addItemCreator(( options: DMenuItemOptionsUnion<any> ): DisplayObject | null => {
-		if( DMenuItemSpace.isCompatible( options ) ) {
-			return new DMenuItemExpandableItemSpace( options );
+	DMenuItemExpandables.addItemCreator(
+		(options: DMenuItemOptionsUnion<any>): DisplayObject | null => {
+			if (DMenuItemSpace.isCompatible(options)) {
+				return new DMenuItemExpandableItemSpace(options);
+			}
+			return null;
 		}
-		return null;
-	});
+	);
 
-	DMenuItemExpandables.setItemCreatorDefault(( options: any ): DisplayObject | null => {
-		return new DMenuItemExpandableItemText( options );
+	DMenuItemExpandables.setItemCreatorDefault((options: any): DisplayObject | null => {
+		return new DMenuItemExpandableItemText(options);
 	});
 };

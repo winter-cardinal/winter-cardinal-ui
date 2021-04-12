@@ -8,17 +8,19 @@ import { DThemeDialogProcessing } from "../../d-dialog-processing";
 import { DStateAwareOrValue } from "../../d-state-aware";
 import { DThemeDarkDialogConfirm } from "./d-theme-dark-dialog-confirm";
 
-const message = ( state: DBaseStateSet ): string => {
-	if( state.isSucceeded ) {
+const message = (state: DBaseStateSet): string => {
+	if (state.isSucceeded) {
 		return "Processed successfully";
 	}
-	if( state.isFailed ) {
+	if (state.isFailed) {
 		return "Failed to process the request";
 	}
 	return "Processing...";
 };
 
-export class DThemeDarkDialogProcessing extends DThemeDarkDialogConfirm implements DThemeDialogProcessing {
+export class DThemeDarkDialogProcessing
+	extends DThemeDarkDialogConfirm
+	implements DThemeDialogProcessing {
 	getOk(): string | null {
 		return "OK";
 	}

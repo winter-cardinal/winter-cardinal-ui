@@ -15,19 +15,23 @@ export class DBaseOutlineRenderable implements DRenderable {
 	protected _outlineWidth: number;
 
 	constructor() {
-		this. _cornerRadius = 0;
-		this. _outlineWidth = 0;
+		this._cornerRadius = 0;
+		this._outlineWidth = 0;
 	}
 
 	protected get(
-		base: DBase, theme: DThemeBase,
-		cornerRadius: number, cornerHeight: number, cornerMask: DCornerMask,
-		outlineWidth: number, outlineMask: DBorderMask
+		base: DBase,
+		theme: DThemeBase,
+		cornerRadius: number,
+		cornerHeight: number,
+		cornerMask: DCornerMask,
+		outlineWidth: number,
+		outlineMask: DBorderMask
 	): DBaseBorderMesh {
 		let result = this._mesh;
-		if( result == null ) {
+		if (result == null) {
 			result = new DBaseBorderMesh(
-				theme.getBorderTexture( cornerRadius, outlineWidth ),
+				theme.getBorderTexture(cornerRadius, outlineWidth),
 				cornerHeight,
 				outlineMask,
 				cornerMask
@@ -37,37 +41,50 @@ export class DBaseOutlineRenderable implements DRenderable {
 			this._cornerRadius = cornerRadius;
 			this._outlineWidth = outlineWidth;
 		}
-		if( this._cornerRadius !== cornerRadius || this._outlineWidth !== outlineWidth ) {
+		if (this._cornerRadius !== cornerRadius || this._outlineWidth !== outlineWidth) {
 			this._cornerRadius = cornerRadius;
 			this._outlineWidth = outlineWidth;
-			result.texture = theme.getBorderTexture( cornerRadius, outlineWidth );
+			result.texture = theme.getBorderTexture(cornerRadius, outlineWidth);
 			result.borderSize = cornerHeight;
 		}
 		return result;
 	}
 
-	protected hide() {
+	protected hide(): void {
 		const mesh = this._mesh;
-		if( mesh != null ) {
+		if (mesh != null) {
 			mesh.visible = false;
 		}
 	}
 
 	onReflow(
-		base: DBase, width: number, height: number,
-		theme: DThemeBase, state: DBaseStateSet,
-		cornerRadius: number, cornerHeight: number, cornerMask: DCornerMask
+		base: DBase,
+		width: number,
+		height: number,
+		theme: DThemeBase,
+		state: DBaseStateSet,
+		cornerRadius: number,
+		cornerHeight: number,
+		cornerMask: DCornerMask
 	): void {
 		const outline = base.outline;
-		const outlineColor = outline.getColor( state );
-		if( outlineColor != null ) {
-			const outlineAlpha = outline.getAlpha( state );
-			if( 0 < outlineAlpha ) {
-				const outlineWidth = outline.getWidth( state );
-				const outlineMask = outline.getMask( state );
-				const outlineMesh = this.get( base, theme, cornerRadius, cornerHeight, cornerMask, outlineWidth, outlineMask );
-				const outlineOffset = outline.getOffset( state );
-				const outlineAlign = outline.getAlign( state );
+		const outlineColor = outline.getColor(state);
+		if (outlineColor != null) {
+			const outlineAlpha = outline.getAlpha(state);
+			if (0 < outlineAlpha) {
+				const outlineWidth = outline.getWidth(state);
+				const outlineMask = outline.getMask(state);
+				const outlineMesh = this.get(
+					base,
+					theme,
+					cornerRadius,
+					cornerHeight,
+					cornerMask,
+					outlineWidth,
+					outlineMask
+				);
+				const outlineOffset = outline.getOffset(state);
+				const outlineAlign = outline.getAlign(state);
 				const outlineOffsetAccumulative = outlineOffset + outlineAlign * outlineWidth;
 				outlineMesh.tint = outlineColor;
 				outlineMesh.alpha = outlineAlpha;
@@ -86,8 +103,8 @@ export class DBaseOutlineRenderable implements DRenderable {
 		}
 	}
 
-	render( renderer: PIXI.Renderer ): void {
-		this._mesh?.render( renderer );
+	render(renderer: PIXI.Renderer): void {
+		this._mesh?.render(renderer);
 	}
 
 	updateTransform(): void {

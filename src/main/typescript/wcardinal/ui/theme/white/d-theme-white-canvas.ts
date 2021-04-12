@@ -14,7 +14,7 @@ export class DThemeWhiteCanvas extends DThemeWhiteBase implements DThemeCanvas {
 		return 0xffffff;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 

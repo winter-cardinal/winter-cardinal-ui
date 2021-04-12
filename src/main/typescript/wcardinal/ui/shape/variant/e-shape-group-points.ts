@@ -13,15 +13,15 @@ import { EShapeGroupPropertyParent } from "./e-shape-group-property-parent";
 export class EShapeGroupPoints implements EShapePoints {
 	protected _parent: EShapeGroupPropertyParent;
 
-	constructor( parent: EShapeGroupPropertyParent ) {
+	constructor(parent: EShapeGroupPropertyParent) {
 		this._parent = parent;
 	}
 
 	get length(): number {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			const points = children[ children.length - 1 ].points;
-			if( points != null ) {
+		if (0 < children.length) {
+			const points = children[children.length - 1].points;
+			if (points != null) {
 				return points.length;
 			}
 		}
@@ -30,9 +30,9 @@ export class EShapeGroupPoints implements EShapePoints {
 
 	get id(): number {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			const points = children[ children.length - 1 ].points;
-			if( points != null ) {
+		if (0 < children.length) {
+			const points = children[children.length - 1].points;
+			if (points != null) {
 				return points.id;
 			}
 		}
@@ -41,20 +41,20 @@ export class EShapeGroupPoints implements EShapePoints {
 
 	get values(): number[] {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			const points = children[ children.length - 1 ].points;
-			if( points != null ) {
+		if (0 < children.length) {
+			const points = children[children.length - 1].points;
+			if (points != null) {
 				return points.values;
 			}
 		}
 		return [];
 	}
 
-	set values( values: number[] ) {
+	set values(values: number[]) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			const points = children[ i ].points;
-			if( points != null ) {
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			const points = children[i].points;
+			if (points != null) {
 				points.values = values;
 			}
 		}
@@ -62,20 +62,20 @@ export class EShapeGroupPoints implements EShapePoints {
 
 	get segments(): number[] {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			const points = children[ children.length - 1 ].points;
-			if( points != null ) {
+		if (0 < children.length) {
+			const points = children[children.length - 1].points;
+			if (points != null) {
 				return points.segments;
 			}
 		}
 		return [];
 	}
 
-	set segments( segments: number[] ) {
+	set segments(segments: number[]) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			const points = children[ i ].points;
-			if( points != null ) {
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			const points = children[i].points;
+			if (points != null) {
 				points.segments = segments;
 			}
 		}
@@ -83,68 +83,68 @@ export class EShapeGroupPoints implements EShapePoints {
 
 	get style(): EShapePointsStyle {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			const points = children[ children.length - 1 ].points;
-			if( points != null ) {
+		if (0 < children.length) {
+			const points = children[children.length - 1].points;
+			if (points != null) {
 				return points.style;
 			}
 		}
 		return EShapePointsStyle.NONE;
 	}
 
-	set style( style: EShapePointsStyle ) {
+	set style(style: EShapePointsStyle) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			const points = children[ i ].points;
-			if( points != null ) {
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			const points = children[i].points;
+			if (points != null) {
 				points.style = style;
 			}
 		}
 	}
 
-	copy( source: EShapePoints ): this {
+	copy(source: EShapePoints): this {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			const points = children[ i ].points;
-			if( points != null ) {
-				points.copy( source );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			const points = children[i].points;
+			if (points != null) {
+				points.copy(source);
 			}
 		}
 		return this;
 	}
 
-	set( values?: number[], segments?: number[], style?: EShapePointsStyle ): this {
+	set(values?: number[], segments?: number[], style?: EShapePointsStyle): this {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			const points = children[ i ].points;
-			if( points != null ) {
-				points.set( values, segments, style );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			const points = children[i].points;
+			if (points != null) {
+				points.set(values, segments, style);
 			}
 		}
 		return this;
 	}
 
-	clone( parent: EShape ): EShapeGroupPoints {
-		return new EShapeGroupPoints( parent );
+	clone(parent: EShape): EShapeGroupPoints {
+		return new EShapeGroupPoints(parent);
 	}
 
-	toPoints( transform: Matrix ): Point[] {
+	toPoints(transform: Matrix): Point[] {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			const points = children[ i ].points;
-			if( points != null ) {
-				return points.toPoints( transform );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			const points = children[i].points;
+			if (points != null) {
+				return points.toPoints(transform);
 			}
 		}
 		return [];
 	}
 
-	serialize( manager: EShapeResourceManagerSerialization ): number {
+	serialize(manager: EShapeResourceManagerSerialization): number {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			const points = children[ i ].points;
-			if( points != null ) {
-				return points.serialize( manager );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			const points = children[i].points;
+			if (points != null) {
+				return points.serialize(manager);
 			}
 		}
 		return -1;

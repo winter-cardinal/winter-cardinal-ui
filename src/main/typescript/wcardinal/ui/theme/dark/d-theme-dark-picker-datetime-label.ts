@@ -11,7 +11,9 @@ import { DThemePickerDatetimeLabel } from "../../d-picker-datetime-label";
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeDarkText } from "./d-theme-dark-text";
 
-export class DThemeDarkPickerDatetimeLabel extends DThemeDarkText<Date> implements DThemePickerDatetimeLabel {
+export class DThemeDarkPickerDatetimeLabel
+	extends DThemeDarkText<Date>
+	implements DThemePickerDatetimeLabel {
 	getWidth(): DCoordinateSize {
 		return 30;
 	}
@@ -28,8 +30,8 @@ export class DThemeDarkPickerDatetimeLabel extends DThemeDarkText<Date> implemen
 		return DAlignHorizontal.CENTER;
 	}
 
-	getAlpha( state: DBaseStateSet ): number {
-		return super.getAlpha( state ) * 0.9;
+	getAlpha(state: DBaseStateSet): number {
+		return super.getAlpha(state) * 0.9;
 	}
 
 	getFontWeight(): DFontWeight {
@@ -37,7 +39,7 @@ export class DThemeDarkPickerDatetimeLabel extends DThemeDarkText<Date> implemen
 	}
 
 	getFontSize(): number {
-		return Math.round( super.getFontSize() * 1.25 );
+		return Math.round(super.getFontSize() * 1.25);
 	}
 
 	newTextValue(): DStateAwareOrValueMightBe<Date> {

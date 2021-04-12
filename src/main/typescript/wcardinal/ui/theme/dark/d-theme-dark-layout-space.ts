@@ -11,11 +11,11 @@ import { DThemeLayoutSpace } from "../../d-layout-space";
 import { DThemeDarkBase } from "./d-theme-dark-base";
 
 export class DThemeDarkLayoutSpace extends DThemeDarkBase implements DThemeLayoutSpace {
-	getBackgroundColor( state: DBaseStateSet ): number | null {
+	getBackgroundColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 

@@ -9,11 +9,14 @@ import { EShapeActionValueOnInputAction } from "./e-shape-action-value-on-input-
 
 export class EShapeActionValueMiscWrite extends EShapeActionValueMisc {
 	constructor(
-		subtype: EShapeActionValueMiscType.WRITE_BOTH | EShapeActionValueMiscType.WRITE_LOCAL | EShapeActionValueMiscType.WRITE_REMOTE,
+		subtype:
+			| EShapeActionValueMiscType.WRITE_BOTH
+			| EShapeActionValueMiscType.WRITE_LOCAL
+			| EShapeActionValueMiscType.WRITE_REMOTE,
 		condition: string,
 		target: string,
 		value: string
 	) {
-		super( subtype, condition, target, EShapeActionValueOnInputAction.EMIT_EVENT, value );
+		super(subtype, condition, target, EShapeActionValueOnInputAction.EMIT_EVENT, value);
 	}
 }

@@ -9,6 +9,7 @@ import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button
 import { DColorAndAlpha } from "./d-color-and-alpha";
 import { DDialogColor, DDialogColorOptions } from "./d-dialog-color";
 import { DImagePieceOptions, DImagePieceTintOptions } from "./d-image-piece";
+import { DOnOptions } from "./d-on-options";
 import { DPickerColorAndAlpha } from "./d-picker-color-and-alpha";
 
 /**
@@ -22,15 +23,15 @@ export interface DButtonColorEvents<EMITTER> extends DButtonEvents<DColorAndAlph
 	 * @param oldValue a previously selected value
 	 * @param emitter an emitter
 	 */
-	change( newValue: DColorAndAlpha, oldValue: DColorAndAlpha, emitter: EMITTER ): void;
+	change(newValue: DColorAndAlpha, oldValue: DColorAndAlpha, emitter: EMITTER): void;
 }
 
 /**
  * {@link DButtonColor} "on" options.
  */
-export interface DButtonColorOnOptions<EMITTER>	extends Partial<DButtonColorEvents<EMITTER>> {
-	[ key: string ]: Function | undefined;
-}
+export interface DButtonColorOnOptions<EMITTER>
+	extends Partial<DButtonColorEvents<EMITTER>>,
+		DOnOptions {}
 
 /**
  * {@link DButtonColor} options.
@@ -50,9 +51,7 @@ export interface DButtonColorOptions<
 /**
  * {@link DButtonColor} theme.
  */
-export interface DThemeButtonColor extends DThemeButton<DColorAndAlpha> {
-
-}
+export interface DThemeButtonColor extends DThemeButton<DColorAndAlpha> {}
 
 export class DButtonColor<
 	THEME extends DThemeButtonColor = DThemeButtonColor,
@@ -62,21 +61,27 @@ export class DButtonColor<
 	protected _dialog?: DDialogColor;
 	protected _value!: DPickerColorAndAlpha;
 
-	protected init( options?: OPTIONS ) {
-		super.init( options );
+	protected init(options?: OPTIONS): void {
+		super.init(options);
 
 		const value = this._textValueComputed!;
-		this._value = new DPickerColorAndAlpha( value, ( color: number ): void => {
-			value.color = color;
-			this.onColorChange();
-		}, ( alpha: number ): void => {
-			value.alpha = alpha;
-			this.updateTextForcibly();
-		});
+		this._value = new DPickerColorAndAlpha(
+			value,
+			(color: number): void => {
+				value.color = color;
+				this.onColorChange();
+			},
+			(alpha: number): void => {
+				value.alpha = alpha;
+				this.updateTextForcibly();
+			}
+		);
 	}
 
-	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
-		super.onActivate( e );
+	protected onActivate(
+		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
+	): void {
+		super.onActivate(e);
 		const value = this._textValueComputed!;
 		const dialog = this.dialog;
 		const dialogCurrent = dialog.current;
@@ -89,27 +94,24 @@ export class DButtonColor<
 			value.color = dialogNew.color;
 			value.alpha = dialogNew.alpha;
 			this.onColorChange();
-			this.onValueChange(
-				this.toClone( dialogNew ),
-				this.toClone( dialogCurrent )
-			);
+			this.onValueChange(this.toClone(dialogNew), this.toClone(dialogCurrent));
 		});
 	}
 
-	protected toClone( value: DColorAndAlpha ): DColorAndAlpha {
+	protected toClone(value: DColorAndAlpha): DColorAndAlpha {
 		return {
 			color: value.color,
 			alpha: value.alpha
 		};
 	}
 
-	protected onValueChange( newValue: DColorAndAlpha, oldValue: DColorAndAlpha ): void {
-		this.emit( "change", newValue, oldValue, this );
+	protected onValueChange(newValue: DColorAndAlpha, oldValue: DColorAndAlpha): void {
+		this.emit("change", newValue, oldValue, this);
 	}
 
-	protected toImageTintOptions( tint?: DImagePieceTintOptions ): DImagePieceTintOptions {
+	protected toImageTintOptions(tint?: DImagePieceTintOptions): DImagePieceTintOptions {
 		const color = () => this._textValueComputed!.color;
-		if( tint ) {
+		if (tint) {
 			return {
 				color: tint.color || color,
 				alpha: tint.alpha
@@ -120,11 +122,14 @@ export class DButtonColor<
 		};
 	}
 
-	protected toImageOptions( theme: THEME, options?: DImagePieceOptions ): DImagePieceOptions | undefined {
-		if( options ) {
+	protected toImageOptions(
+		theme: THEME,
+		options?: DImagePieceOptions
+	): DImagePieceOptions | undefined {
+		if (options) {
 			return {
 				source: options.source,
-				tint: this.toImageTintOptions( options.tint ),
+				tint: this.toImageTintOptions(options.tint),
 				align: options.align,
 				margin: options.margin
 			};
@@ -135,8 +140,8 @@ export class DButtonColor<
 	}
 
 	protected onColorChange(): void {
-		if( this._images[ 0 ].updateTint() ) {
-			DApplications.update( this );
+		if (this._images[0].updateTint()) {
+			DApplications.update(this);
 		}
 		this.updateTextForcibly();
 	}
@@ -148,12 +153,12 @@ export class DButtonColor<
 
 	get dialog(): DDialogColor {
 		let dialog = this._dialog;
-		if( dialog == null ) {
+		if (dialog == null) {
 			const options = this._options?.dialog;
-			if( options != null ) {
-				dialog = new DDialogColor( options );
+			if (options) {
+				dialog = new DDialogColor(options);
 			} else {
-				if( DButtonColor.DIALOG == null ) {
+				if (DButtonColor.DIALOG == null) {
 					DButtonColor.DIALOG = new DDialogColor();
 				}
 				dialog = DButtonColor.DIALOG;

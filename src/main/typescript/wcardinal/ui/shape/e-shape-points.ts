@@ -15,9 +15,9 @@ export interface EShapePoints {
 	segments: number[];
 	style: EShapePointsStyle;
 
-	set( values?: number[], segments?: number[], style?: EShapePointsStyle ): this;
-	copy( source: EShapePoints ): this;
-	clone( parent: EShape ): EShapePoints;
-	toPoints( transform: Matrix ): Point[];
-	serialize( manager: EShapeResourceManagerSerialization ): number;
+	set(values?: number[], segments?: number[], style?: EShapePointsStyle): this;
+	copy(source: EShapePoints): this;
+	clone(parent: EShape): EShapePoints;
+	toPoints(transform: Matrix): Point[];
+	serialize(manager: EShapeResourceManagerSerialization): number;
 }

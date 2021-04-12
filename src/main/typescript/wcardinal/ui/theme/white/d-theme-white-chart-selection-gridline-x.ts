@@ -5,6 +5,4 @@
 
 import { DThemeWhiteChartSelectionGridline } from "./d-theme-white-chart-selection-gridline";
 
-export class DThemeWhiteChartSelectionGridlineX extends DThemeWhiteChartSelectionGridline {
-
-}
+export class DThemeWhiteChartSelectionGridlineX extends DThemeWhiteChartSelectionGridline {}

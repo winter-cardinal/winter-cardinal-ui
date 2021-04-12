@@ -8,7 +8,9 @@ import { DThemeInputBooleanButtonOff } from "../../d-input-boolean-button-off";
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeWhiteButton } from "./d-theme-white-button";
 
-export class DThemeWhiteInputBooleanButtonOff extends DThemeWhiteButton<string> implements DThemeInputBooleanButtonOff {
+export class DThemeWhiteInputBooleanButtonOff
+	extends DThemeWhiteButton<string>
+	implements DThemeInputBooleanButtonOff {
 	getBorderMask(): DBorderMask {
 		return DBorderMask.RIGHT;
 	}

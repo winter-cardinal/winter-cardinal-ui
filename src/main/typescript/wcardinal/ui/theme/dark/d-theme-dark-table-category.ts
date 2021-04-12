@@ -6,6 +6,4 @@
 import { DThemeTableCategory } from "../../d-table-category";
 import { DThemeDarkTableHeader } from "./d-theme-dark-table-header";
 
-export class DThemeDarkTableCategory extends DThemeDarkTableHeader implements DThemeTableCategory {
-
-}
+export class DThemeDarkTableCategory extends DThemeDarkTableHeader implements DThemeTableCategory {}

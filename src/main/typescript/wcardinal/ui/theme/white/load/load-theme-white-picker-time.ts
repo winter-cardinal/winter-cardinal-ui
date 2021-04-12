@@ -6,6 +6,6 @@
 import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhitePickerTime } from "../d-theme-white-picker-time";
 
-export const loadThemeWhitePickerTime = () => {
-	DThemeWhite.set( "DPickerTime", DThemeWhitePickerTime );
+export const loadThemeWhitePickerTime = (): void => {
+	DThemeWhite.set("DPickerTime", DThemeWhitePickerTime);
 };

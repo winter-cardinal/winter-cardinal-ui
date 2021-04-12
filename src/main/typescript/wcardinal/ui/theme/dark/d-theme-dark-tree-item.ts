@@ -13,23 +13,23 @@ import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkLayoutHorizontal } from "./d-theme-dark-layout-horizontal";
 
 export class DThemeDarkTreeItem extends DThemeDarkLayoutHorizontal implements DThemeTreeItem {
-	getBackgroundColor( state: DBaseStateSet ): number | null {
-		if( state.inDisabled ) {
+	getBackgroundColor(state: DBaseStateSet): number | null {
+		if (state.inDisabled) {
 			return null;
-		} else if( state.isActive ) {
+		} else if (state.isActive) {
 			return DThemeDarkConstants.HIGHLIGHT_COLOR;
-		} else if( state.isFocused || state.isHovered ) {
+		} else if (state.isFocused || state.isHovered) {
 			return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
 		} else {
 			return null;
 		}
 	}
 
-	getBackgroundAlpha( state: DBaseStateSet ): number {
+	getBackgroundAlpha(state: DBaseStateSet): number {
 		return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
@@ -61,7 +61,7 @@ export class DThemeDarkTreeItem extends DThemeDarkLayoutHorizontal implements DT
 		return DBaseInteractive.BOTH;
 	}
 
-	getPaddingByLevel( level: number ): number {
+	getPaddingByLevel(level: number): number {
 		return level * 15;
 	}
 }

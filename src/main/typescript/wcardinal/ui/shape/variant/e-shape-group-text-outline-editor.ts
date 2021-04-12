@@ -11,92 +11,92 @@ import { EShapeGroupPropertyParent } from "./e-shape-group-property-parent";
 export class EShapeGroupTextOutlineEditor implements EShapeTextOutline {
 	protected _parent: EShapeGroupPropertyParent;
 
-	constructor( parent: EShapeGroupPropertyParent ) {
+	constructor(parent: EShapeGroupPropertyParent) {
 		this._parent = parent;
 	}
 
 	get enable(): boolean {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].text.outline.enable;
+		if (0 < children.length) {
+			return children[children.length - 1].text.outline.enable;
 		}
 		return false;
 	}
 
-	set enable( enable: boolean ) {
+	set enable(enable: boolean) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.outline.enable = enable;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.outline.enable = enable;
 		}
 	}
 
 	get color(): number {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].text.outline.color;
+		if (0 < children.length) {
+			return children[children.length - 1].text.outline.color;
 		}
 		return 0xffffff;
 	}
 
-	set color( color: number ) {
+	set color(color: number) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.outline.color = color;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.outline.color = color;
 		}
 	}
 
 	get alpha(): number {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].text.outline.alpha;
+		if (0 < children.length) {
+			return children[children.length - 1].text.outline.alpha;
 		}
 		return 1.0;
 	}
 
-	set alpha( alpha: number ) {
+	set alpha(alpha: number) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.outline.alpha = alpha;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.outline.alpha = alpha;
 		}
 	}
 
 	get width(): number {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].text.outline.width;
+		if (0 < children.length) {
+			return children[children.length - 1].text.outline.width;
 		}
 		return 1.0;
 	}
 
-	set width( width: number ) {
+	set width(width: number) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.outline.width = width;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.outline.width = width;
 		}
 	}
 
-	copy( target?: Partial<EShapeTextOutlineLike> ) {
+	copy(target?: Partial<EShapeTextOutlineLike>): void {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.outline.copy( target );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.outline.copy(target);
 		}
 	}
 
-	set( enable?: boolean, color?: number, alpha?: number, width?: number ) {
+	set(enable?: boolean, color?: number, alpha?: number, width?: number): void {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.outline.set( enable, color, alpha, width );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.outline.set(enable, color, alpha, width);
 		}
 	}
 
 	clone(): EShapeGroupTextOutlineEditor {
-		return new EShapeGroupTextOutlineEditor( this._parent );
+		return new EShapeGroupTextOutlineEditor(this._parent);
 	}
 
 	toObject(): EShapeTextOutlineLike {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].text.outline.toObject();
+		if (0 < children.length) {
+			return children[children.length - 1].text.outline.toObject();
 		}
 		return {
 			enable: false,
@@ -106,11 +106,11 @@ export class EShapeGroupTextOutlineEditor implements EShapeTextOutline {
 		};
 	}
 
-	serialize( manager: EShapeResourceManagerSerialization ): number {
+	serialize(manager: EShapeResourceManagerSerialization): number {
 		return -1;
 	}
 
-	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void {
+	deserialize(target: number, manager: EShapeResourceManagerDeserialization): void {
 		//
 	}
 }

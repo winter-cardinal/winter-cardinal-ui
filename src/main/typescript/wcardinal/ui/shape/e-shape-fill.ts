@@ -13,10 +13,10 @@ export interface EShapeFillLike {
 }
 
 export interface EShapeFill extends EShapeFillLike {
-	copy( target?: Partial<EShapeFillLike> ): void;
-	set( enable?: boolean, color?: number, alpha?: number ): void;
+	copy(target?: Partial<EShapeFillLike>): void;
+	set(enable?: boolean, color?: number, alpha?: number): void;
 	clone(): EShapeFill;
 	toObject(): EShapeFillLike;
-	serialize( manager: EShapeResourceManagerSerialization ): number;
-	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void;
+	serialize(manager: EShapeResourceManagerSerialization): number;
+	deserialize(target: number, manager: EShapeResourceManagerDeserialization): void;
 }

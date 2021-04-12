@@ -8,7 +8,8 @@ import { DThemePaginationDynamicButtons } from "../../d-pagination-dynamic-butto
 import { DThemeWhiteLayoutHorizontal } from "./d-theme-white-layout-horizontal";
 
 export class DThemeWhitePaginationDynamicButtons
-	extends DThemeWhiteLayoutHorizontal implements DThemePaginationDynamicButtons {
+	extends DThemeWhiteLayoutHorizontal
+	implements DThemePaginationDynamicButtons {
 	getWidth(): DCoordinateSize {
 		return "auto";
 	}

@@ -6,6 +6,6 @@
 import { DThemeDark } from "../d-theme-dark";
 import { DThemeDarkButton } from "../d-theme-dark-button";
 
-export const loadThemeDarkButton = () => {
-	DThemeDark.set( "DButton", DThemeDarkButton );
+export const loadThemeDarkButton = (): void => {
+	DThemeDark.set("DButton", DThemeDarkButton);
 };

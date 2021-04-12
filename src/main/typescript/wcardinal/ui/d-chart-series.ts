@@ -35,7 +35,7 @@ export class DChartSeriesHitResult {
 		this.distance = 0;
 	}
 
-	copyFrom( other: DChartSeriesHitResult ): this {
+	copyFrom(other: DChartSeriesHitResult): this {
 		this.shape = other.shape;
 		this.x = other.x;
 		this.y = other.y;
@@ -59,7 +59,7 @@ export interface DChartSeries {
 	readonly index: number;
 	readonly state: DBaseStateSet;
 
-	bind( container: DChartSeriesContainer, index: number ): void;
+	bind(container: DChartSeriesContainer, index: number): void;
 	unbind(): void;
 
 	toDirty(): void;
@@ -67,6 +67,6 @@ export interface DChartSeries {
 	update(): void;
 	destroy(): void;
 
-	hitTest( global: IPoint ): boolean;
-	calcHitPoint( global: IPoint, result: DChartSeriesHitResult ): boolean;
+	hitTest(global: IPoint): boolean;
+	calcHitPoint(global: IPoint, result: DChartSeriesHitResult): boolean;
 }

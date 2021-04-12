@@ -8,8 +8,8 @@ import { DThemeDarkDiagram } from "../d-theme-dark-diagram";
 import { DThemeDarkDiagramCanvas } from "../d-theme-dark-diagram-canvas";
 import { loadThemeDarkShape } from "./load-theme-dark-shape";
 
-export const loadThemeDarkDiagram = () => {
-	DThemeDark.set( "DDiagram", DThemeDarkDiagram );
-	DThemeDark.set( "DDiagramCanvas", DThemeDarkDiagramCanvas );
+export const loadThemeDarkDiagram = (): void => {
+	DThemeDark.set("DDiagram", DThemeDarkDiagram);
+	DThemeDark.set("DDiagramCanvas", DThemeDarkDiagramCanvas);
 	loadThemeDarkShape();
 };

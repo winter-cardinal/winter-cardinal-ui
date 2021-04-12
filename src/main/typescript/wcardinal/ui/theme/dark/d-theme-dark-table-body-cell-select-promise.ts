@@ -12,35 +12,35 @@ import { DThemeTableBodyCellSelectPromise } from "../../d-table-body-cell-select
 import { DThemeDarkButton } from "./d-theme-dark-button";
 import { DThemeDarkTableBodyCells } from "./d-theme-dark-table-body-cells";
 
-export class DThemeDarkTableBodyCellSelectPromise<VALUE = unknown> extends DThemeDarkButton<VALUE | null>
+export class DThemeDarkTableBodyCellSelectPromise<VALUE = unknown>
+	extends DThemeDarkButton<VALUE | null>
 	implements DThemeTableBodyCellSelectPromise<VALUE> {
-
-	getBackgroundColor( state: DBaseStateSet ): number | null {
-		return DThemeDarkTableBodyCells.getBackgroundColor( state );
+	getBackgroundColor(state: DBaseStateSet): number | null {
+		return DThemeDarkTableBodyCells.getBackgroundColor(state);
 	}
 
-	getBackgroundAlpha( state: DBaseStateSet ): number {
-		return DThemeDarkTableBodyCells.getBackgroundAlpha( state );
+	getBackgroundAlpha(state: DBaseStateSet): number {
+		return DThemeDarkTableBodyCells.getBackgroundAlpha(state);
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
-		return DThemeDarkTableBodyCells.getBorderColor( state );
+	getBorderColor(state: DBaseStateSet): number | null {
+		return DThemeDarkTableBodyCells.getBorderColor(state);
 	}
 
-	getBorderAlign( state: DBaseStateSet ): number {
-		return DThemeDarkTableBodyCells.getBorderAlign( state );
+	getBorderAlign(state: DBaseStateSet): number {
+		return DThemeDarkTableBodyCells.getBorderAlign(state);
 	}
 
-	getBorderMask( state: DBaseStateSet ): DBorderMask {
-		return DThemeDarkTableBodyCells.getBorderMask( state );
+	getBorderMask(state: DBaseStateSet): DBorderMask {
+		return DThemeDarkTableBodyCells.getBorderMask(state);
 	}
 
-	getColor( state: DBaseStateSet ): number {
-		return DThemeDarkTableBodyCells.getColor( state );
+	getColor(state: DBaseStateSet): number {
+		return DThemeDarkTableBodyCells.getColor(state);
 	}
 
-	getAlpha( state: DBaseStateSet ): number {
-		return DThemeDarkTableBodyCells.getAlpha( state );
+	getAlpha(state: DBaseStateSet): number {
+		return DThemeDarkTableBodyCells.getAlpha(state);
 	}
 
 	getHeight(): DCoordinateSize {

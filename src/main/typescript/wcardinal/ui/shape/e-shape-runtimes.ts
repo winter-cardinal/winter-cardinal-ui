@@ -7,5 +7,5 @@ import { EShape } from "./e-shape";
 import { EShapeRuntime } from "./e-shape-runtime";
 
 export const EShapeRuntimes: {
-	[ type: number ]: (new ( shape: EShape ) => EShapeRuntime) | undefined
+	[type: number]: (new (shape: EShape) => EShapeRuntime) | undefined;
 } = {};

@@ -20,29 +20,29 @@ export class EShapeGroupSizeViewer implements EShapeGroupSize {
 	protected _parent: EShapeGroupSizeViewerParent;
 	protected _base: Point;
 
-	constructor( parent: EShapeGroupSizeViewerParent, x: number, y: number, bx: number, by: number ) {
+	constructor(parent: EShapeGroupSizeViewerParent, x: number, y: number, bx: number, by: number) {
 		this._parent = parent;
 		this._x = x;
 		this._y = y;
-		this._base = new Point( bx, by );
+		this._base = new Point(bx, by);
 	}
 
-	get x() {
+	get x(): number {
 		return this._x;
 	}
 
-	set x( x: number ) {
-		if( this._x !== x ) {
+	set x(x: number) {
+		if (this._x !== x) {
 			this._x = x;
 			this.onChange();
 		}
 	}
 
-	get y() {
+	get y(): number {
 		return this._y;
 	}
 
-	set y( y: number ) {
+	set y(y: number) {
 		if (this._y !== y) {
 			this._y = y;
 			this.onChange();
@@ -54,36 +54,36 @@ export class EShapeGroupSizeViewer implements EShapeGroupSize {
 	}
 
 	init(): void {
-		this._base.copyFrom( this );
+		this._base.copyFrom(this);
 		this.onChange();
 	}
 
 	clone(): EShapeGroupSizeViewer {
 		const base = this._base;
-		return new EShapeGroupSizeViewer( this._parent, this._x, this._y, base.x, base.y );
+		return new EShapeGroupSizeViewer(this._parent, this._x, this._y, base.x, base.y);
 	}
 
-	set( x?: number, y?: number ): this {
+	set(x?: number, y?: number): this {
 		let isChanged = false;
-		if( x != null && this._x !== x ) {
+		if (x != null && this._x !== x) {
 			this._x = x;
 			isChanged = true;
 		}
-		if( y != null && this._y !== y) {
+		if (y != null && this._y !== y) {
 			this._y = y;
 			isChanged = true;
 		}
-		if( isChanged ) {
+		if (isChanged) {
 			this.onChange();
 		}
 		return this;
 	}
 
-	copyFrom( p: IPoint ): this {
-		if( p instanceof EShapeGroupSizeViewer ) {
-			this._base.copyFrom( p.base );
+	copyFrom(p: IPoint): this {
+		if (p instanceof EShapeGroupSizeViewer) {
+			this._base.copyFrom(p.base);
 		}
-		if( this._x !== p.x || this._y !== p.y ) {
+		if (this._x !== p.x || this._y !== p.y) {
 			this._x = p.x;
 			this._y = p.y;
 			this.onChange();
@@ -91,16 +91,16 @@ export class EShapeGroupSizeViewer implements EShapeGroupSize {
 		return this;
 	}
 
-	copyTo( p: IPoint ): IPoint {
-		if( p instanceof EShapeGroupSizeViewer ) {
-			this._base.copyTo( p.base );
+	copyTo(p: IPoint): IPoint {
+		if (p instanceof EShapeGroupSizeViewer) {
+			this._base.copyTo(p.base);
 		}
 		p.set(this._x, this._y);
 		return p;
 	}
 
-	equals( p: IPoint ): boolean {
-		return (p.x === this._x) && (p.y === this._y);
+	equals(p: IPoint): boolean {
+		return p.x === this._x && p.y === this._y;
 	}
 
 	fit(): void {
@@ -109,9 +109,6 @@ export class EShapeGroupSizeViewer implements EShapeGroupSize {
 
 	protected onChange(): void {
 		const base = this._base;
-		this._parent.transform.scale.set(
-			this._x / base.x,
-			this._y / base.y
-		);
+		this._parent.transform.scale.set(this._x / base.x, this._y / base.y);
 	}
 }

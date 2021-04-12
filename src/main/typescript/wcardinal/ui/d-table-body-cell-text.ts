@@ -13,28 +13,35 @@ export interface DTableBodyCellTextOptions<
 	ROW,
 	VALUE = unknown,
 	THEME extends DThemeTableBodyCellText<VALUE> = DThemeTableBodyCellText<VALUE>
-> extends DImageBaseOptions<VALUE, THEME> {
+> extends DImageBaseOptions<VALUE, THEME> {}
 
-}
-
-export interface DThemeTableBodyCellText<VALUE = unknown> extends DThemeImageBase<VALUE> {
-
-}
+export interface DThemeTableBodyCellText<VALUE = unknown> extends DThemeImageBase<VALUE> {}
 
 export class DTableBodyCellText<
-	ROW,
-	VALUE = unknown,
-	THEME extends DThemeTableBodyCellText<VALUE> = DThemeTableBodyCellText<VALUE>,
-	OPTIONS extends DTableBodyCellTextOptions<ROW, VALUE, THEME> = DTableBodyCellTextOptions<ROW, VALUE, THEME>
-> extends DImageBase<VALUE, THEME, OPTIONS> implements DTableBodyCell<ROW, VALUE> {
+		ROW,
+		VALUE = unknown,
+		THEME extends DThemeTableBodyCellText<VALUE> = DThemeTableBodyCellText<VALUE>,
+		OPTIONS extends DTableBodyCellTextOptions<ROW, VALUE, THEME> = DTableBodyCellTextOptions<
+			ROW,
+			VALUE,
+			THEME
+		>
+	>
+	extends DImageBase<VALUE, THEME, OPTIONS>
+	implements DTableBodyCell<ROW, VALUE> {
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;
 	protected _column: DTableColumn<ROW, VALUE>;
 	protected _onChange: DTableBodyCellOnChange<ROW, VALUE>;
 
-	constructor( columnIndex: number, column: DTableColumn<ROW, VALUE>, onChange: DTableBodyCellOnChange<ROW, VALUE>, options?: OPTIONS ) {
-		super( options );
+	constructor(
+		columnIndex: number,
+		column: DTableColumn<ROW, VALUE>,
+		onChange: DTableBodyCellOnChange<ROW, VALUE>,
+		options?: OPTIONS
+	) {
+		super(options);
 
 		this._rowIndex = -1;
 		this._columnIndex = columnIndex;
@@ -59,8 +66,11 @@ export class DTableBodyCellText<
 	}
 
 	set(
-		value: unknown, row: ROW, supplimental: unknown,
-		rowIndex: number, columnIndex: number,
+		value: unknown,
+		row: ROW,
+		supplimental: unknown,
+		rowIndex: number,
+		columnIndex: number,
 		forcibly?: boolean
 	): void {
 		this._row = row;
@@ -68,8 +78,8 @@ export class DTableBodyCellText<
 		this.text = value as DStateAwareOrValue<VALUE>;
 
 		const column = this._column;
-		DTableBodyCells.setReadOnly( this, row, columnIndex, column );
-		DTableBodyCells.setRenderable( this, row, columnIndex, column );
+		DTableBodyCells.setReadOnly(this, row, columnIndex, column);
+		DTableBodyCells.setRenderable(this, row, columnIndex, column);
 	}
 
 	unset(): void {

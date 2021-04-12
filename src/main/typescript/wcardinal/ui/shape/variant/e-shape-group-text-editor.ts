@@ -25,190 +25,195 @@ export class EShapeGroupTextEditor implements EShapeText {
 	spacing: EShapeGroupTextSpacingEditor;
 	padding: EShapeGroupTextPaddingEditor;
 
-	constructor( parent: EShapeGroupPropertyParent ) {
+	constructor(parent: EShapeGroupPropertyParent) {
 		this._parent = parent;
 
-		this.align = new EShapeGroupTextAlignEditor( parent );
-		this.offset = new EShapeGroupTextOffsetEditor( parent );
-		this.outline = new EShapeGroupTextOutlineEditor( parent );
-		this.spacing = new EShapeGroupTextSpacingEditor( parent );
-		this.padding = new EShapeGroupTextPaddingEditor( parent );
+		this.align = new EShapeGroupTextAlignEditor(parent);
+		this.offset = new EShapeGroupTextOffsetEditor(parent);
+		this.outline = new EShapeGroupTextOutlineEditor(parent);
+		this.spacing = new EShapeGroupTextSpacingEditor(parent);
+		this.padding = new EShapeGroupTextPaddingEditor(parent);
 	}
 
 	get enable(): boolean {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].text.enable;
+		if (0 < children.length) {
+			return children[children.length - 1].text.enable;
 		}
 		return true;
 	}
 
-	set enable( enable: boolean ) {
+	set enable(enable: boolean) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.enable = enable;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.enable = enable;
 		}
 	}
 
 	get value(): string {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].text.value;
+		if (0 < children.length) {
+			return children[children.length - 1].text.value;
 		}
 		return "";
 	}
 
-	set value( value: string ) {
+	set value(value: string) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.value = value;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.value = value;
 		}
 	}
 
 	get color(): number {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].text.color;
+		if (0 < children.length) {
+			return children[children.length - 1].text.color;
 		}
 		return 0x000000;
 	}
 
-	set color( color: number ) {
+	set color(color: number) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.color = color;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.color = color;
 		}
 	}
 
 	get alpha(): number {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].text.alpha;
+		if (0 < children.length) {
+			return children[children.length - 1].text.alpha;
 		}
 		return 1.0;
 	}
 
-	set alpha( alpha: number ) {
+	set alpha(alpha: number) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.alpha = alpha;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.alpha = alpha;
 		}
 	}
 
 	get family(): string {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].text.family;
+		if (0 < children.length) {
+			return children[children.length - 1].text.family;
 		}
 		return "auto";
 	}
 
-	set family( family: string ) {
+	set family(family: string) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.family = family;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.family = family;
 		}
 	}
 
 	get size(): number {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].text.size;
+		if (0 < children.length) {
+			return children[children.length - 1].text.size;
 		}
 		return 24;
 	}
 
-	set size( size: number ) {
+	set size(size: number) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.size = size;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.size = size;
 		}
 	}
 
 	get weight(): EShapeTextWeight {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].text.weight;
+		if (0 < children.length) {
+			return children[children.length - 1].text.weight;
 		}
 		return EShapeTextWeight.NORMAL;
 	}
 
-	set weight( weight: EShapeTextWeight ) {
+	set weight(weight: EShapeTextWeight) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.weight = weight;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.weight = weight;
 		}
 	}
 
 	get style(): EShapeTextStyle {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].text.style;
+		if (0 < children.length) {
+			return children[children.length - 1].text.style;
 		}
 		return EShapeTextStyle.NORMAL;
 	}
 
-	set style( style: EShapeTextStyle ) {
+	set style(style: EShapeTextStyle) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.style = style;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.style = style;
 		}
 	}
 
 	get direction(): number {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].text.direction;
+		if (0 < children.length) {
+			return children[children.length - 1].text.direction;
 		}
 		return 0;
 	}
 
-	set direction( direction: number ) {
+	set direction(direction: number) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.direction = direction;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.direction = direction;
 		}
 	}
 
 	get clipping(): boolean {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].text.clipping;
+		if (0 < children.length) {
+			return children[children.length - 1].text.clipping;
 		}
 		return false;
 	}
 
-	set clipping( clipping: boolean ) {
+	set clipping(clipping: boolean) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.clipping = clipping;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.clipping = clipping;
 		}
 	}
 
-	copy( target?: DeepPartial<EShapeTextLike> ): this {
+	copy(target?: DeepPartial<EShapeTextLike>): this {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.copy( target );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.copy(target);
 		}
 		return this;
 	}
 
 	set(
-		value?: string, color?: number, alpha?: number,
-		family?: string, size?: number, weight?: EShapeTextWeight,
-		style?: EShapeTextStyle, direction?: EShapeTextDirection
+		value?: string,
+		color?: number,
+		alpha?: number,
+		family?: string,
+		size?: number,
+		weight?: EShapeTextWeight,
+		style?: EShapeTextStyle,
+		direction?: EShapeTextDirection
 	): this {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.set( value, color, alpha, family, size, weight, style, direction );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.set(value, color, alpha, family, size, weight, style, direction);
 		}
 		return this;
 	}
 
 	toObject(): EShapeTextLike {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].text.toObject();
+		if (0 < children.length) {
+			return children[children.length - 1].text.toObject();
 		}
 		return {
 			value: "",
@@ -228,11 +233,11 @@ export class EShapeGroupTextEditor implements EShapeText {
 		};
 	}
 
-	serialize( manager: EShapeResourceManagerSerialization ): number {
+	serialize(manager: EShapeResourceManagerSerialization): number {
 		return -1;
 	}
 
-	deserialize( target: number, manager: EShapeResourceManagerDeserialization ) {
-		//
+	deserialize(target: number, manager: EShapeResourceManagerDeserialization): void {
+		// DO NOTHING
 	}
 }

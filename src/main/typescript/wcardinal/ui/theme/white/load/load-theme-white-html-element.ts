@@ -6,6 +6,6 @@
 import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteHtmlElement } from "../d-theme-white-html-element";
 
-export const loadThemeWhiteHtmlElement = () => {
-	DThemeWhite.set( "DHtmlElement", DThemeWhiteHtmlElement );
+export const loadThemeWhiteHtmlElement = (): void => {
+	DThemeWhite.set("DHtmlElement", DThemeWhiteHtmlElement);
 };

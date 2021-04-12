@@ -12,17 +12,19 @@ import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
 import { DThemeDarkButtonBase } from "./d-theme-dark-button-base";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 
-DThemeDarkAtlas.add( "dropdown_mark", 20, 14,
+/* eslint-disable prettier/prettier */
+DThemeDarkAtlas.add("dropdown_mark", 20, 14,
 	`<g>` +
 		`<polyline fill="none" stroke="#fff" stroke-width="1" points="16 5 10 11 4 5"></polyline>` +
 	`</g>`
 );
+/* eslint-enable prettier/prettier */
 
-export class DThemeDarkDropdownBase<TEXT_VALUE = unknown> extends DThemeDarkButtonBase<TEXT_VALUE>
+export class DThemeDarkDropdownBase<TEXT_VALUE = unknown>
+	extends DThemeDarkButtonBase<TEXT_VALUE>
 	implements DThemeDropdownBase<TEXT_VALUE> {
-
 	constructor() {
-		super( DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD );
+		super(DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD);
 	}
 
 	getSecondaryImageAlignHorizontal(): DAlignHorizontal {
@@ -45,7 +47,7 @@ export class DThemeDarkDropdownBase<TEXT_VALUE = unknown> extends DThemeDarkButt
 		return 25;
 	}
 
-	getSecondaryImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
+	getSecondaryImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
 		return DThemeDarkAtlas.mappings.dropdown_mark;
 	}
 }

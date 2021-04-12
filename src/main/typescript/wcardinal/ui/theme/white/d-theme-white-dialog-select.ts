@@ -3,7 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DDialogSelectItemIsEqual, DDialogSelectItemToLabel, DThemeDialogSelect } from "../../d-dialog-select";
+import {
+	DDialogSelectItemIsEqual,
+	DDialogSelectItemToLabel,
+	DThemeDialogSelect
+} from "../../d-dialog-select";
 import { toLabel } from "../../util/to-label";
 import { DThemeWhiteDialogCommand } from "./d-theme-white-dialog-command";
 
@@ -11,7 +15,9 @@ const isEqual = () => {
 	return false;
 };
 
-export class DThemeWhiteDialogSelect<VALUE> extends DThemeWhiteDialogCommand implements DThemeDialogSelect<VALUE> {
+export class DThemeWhiteDialogSelect<VALUE>
+	extends DThemeWhiteDialogCommand
+	implements DThemeDialogSelect<VALUE> {
 	getOk(): string | null {
 		return null;
 	}

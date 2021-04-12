@@ -10,32 +10,28 @@ export class DChartRegionImpl implements DChartRegion {
 	from: number;
 	to: number;
 
-	constructor( from: number, to: number ) {
+	constructor(from: number, to: number) {
 		this.from = from;
 		this.to = to;
 	}
 
-	set( from?: number, to?: number ): this {
-		if( from != null ) {
+	set(from?: number, to?: number): this {
+		if (from != null) {
 			this.from = from;
 		}
-		if( to != null ) {
+		if (to != null) {
 			this.to = to;
 		}
 		return this;
 	}
 
-	add( from: number, to: number ): this {
-		if( ! isNaN( from ) ) {
-			this.from = ( isNaN( this.from ) ?
-				from : Math.min( this.from, from )
-			);
+	add(from: number, to: number): this {
+		if (!isNaN(from)) {
+			this.from = isNaN(this.from) ? from : Math.min(this.from, from);
 		}
 
-		if( ! isNaN( to ) ) {
-			this.to = ( isNaN( this.to ) ?
-				to : Math.max( this.to, to )
-			);
+		if (!isNaN(to)) {
+			this.to = isNaN(this.to) ? to : Math.max(this.to, to);
 		}
 
 		return this;

@@ -19,11 +19,11 @@ export interface DOutlineLike {
 
 export interface DOutline extends DOutlineLike {
 	getTheme(): DThemeBase;
-	setTheme( theme: DThemeBase ): void;
-	getColor( state: DBaseStateSet ): number | null;
-	getAlpha( state: DBaseStateSet ): number;
-	getWidth( state: DBaseStateSet ): number;
-	getOffset( state: DBaseStateSet ): number;
-	getAlign( state: DBaseStateSet ): number;
-	getMask( state: DBaseStateSet ): DBorderMask;
+	setTheme(theme: DThemeBase): void;
+	getColor(state: DBaseStateSet): number | null;
+	getAlpha(state: DBaseStateSet): number;
+	getWidth(state: DBaseStateSet): number;
+	getOffset(state: DBaseStateSet): number;
+	getAlign(state: DBaseStateSet): number;
+	getMask(state: DBaseStateSet): DBorderMask;
 }

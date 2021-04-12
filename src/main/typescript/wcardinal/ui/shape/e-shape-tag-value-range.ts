@@ -26,11 +26,11 @@ export interface EShapeTagValueRangeParent {
 export interface EShapeTagValueRange extends EShapeTagValueRangeLike {
 	parent?: EShapeTagValueRangeParent;
 
-	set( from?: number | null, to?: number | null ): boolean;
-	normalize( value: number ): number;
-	isEquals( target: EShapeTagValueRangeLike ): boolean;
-	copy( target: EShapeTagValueRangeLike ): void;
+	set(from?: number | null, to?: number | null): boolean;
+	normalize(value: number): number;
+	isEquals(target: EShapeTagValueRangeLike): boolean;
+	copy(target: EShapeTagValueRangeLike): void;
 	toObject(): EShapeTagValueRangeLike;
-	serialize( manager: EShapeResourceManagerSerialization ): number;
-	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void;
+	serialize(manager: EShapeResourceManagerSerialization): number;
+	deserialize(target: number, manager: EShapeResourceManagerDeserialization): void;
 }

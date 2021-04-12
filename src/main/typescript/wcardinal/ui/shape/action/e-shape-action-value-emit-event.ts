@@ -12,41 +12,43 @@ import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 export type EShapeActionValueEmitEventSerialized = [
-	EShapeActionValueType.EMIT_EVENT, number, number
+	EShapeActionValueType.EMIT_EVENT,
+	number,
+	number
 ];
 
 export class EShapeActionValueEmitEvent extends EShapeActionValueBase {
 	readonly name: string;
 
-	constructor( condition: string, name: string ) {
-		super( EShapeActionValueType.EMIT_EVENT, condition );
+	constructor(condition: string, name: string) {
+		super(EShapeActionValueType.EMIT_EVENT, condition);
 		this.name = name;
 	}
 
-	isEquals( value: EShapeActionValue ): boolean {
+	isEquals(value: EShapeActionValue): boolean {
 		return (
-			super.isEquals( value ) &&
-			(value instanceof EShapeActionValueEmitEvent) &&
+			super.isEquals(value) &&
+			value instanceof EShapeActionValueEmitEvent &&
 			this.name === value.name
 		);
 	}
 
 	toRuntime(): EShapeActionRuntimeEmitEvent {
-		return new EShapeActionRuntimeEmitEvent( this );
+		return new EShapeActionRuntimeEmitEvent(this);
 	}
 
-	serialize( manager: EShapeResourceManagerSerialization ): number {
+	serialize(manager: EShapeResourceManagerSerialization): number {
 		const conditionId = manager.addResource(this.condition);
 		const nameId = manager.addResource(this.name);
-		return manager.addResource( `[${this.type},${conditionId},${nameId}]` );
+		return manager.addResource(`[${this.type},${conditionId},${nameId}]`);
 	}
 
 	static deserialize(
 		serialized: EShapeActionValueEmitEventSerialized,
 		manager: EShapeResourceManagerDeserialization
 	): EShapeActionValueEmitEvent {
-		const condition = EShapeActionValues.toResource( 1, serialized, manager.resources );
-		const name = EShapeActionValues.toResource( 2, serialized, manager.resources );
-		return new EShapeActionValueEmitEvent( condition, name );
+		const condition = EShapeActionValues.toResource(1, serialized, manager.resources);
+		const name = EShapeActionValues.toResource(2, serialized, manager.resources);
+		return new EShapeActionValueEmitEvent(condition, name);
 	}
 }

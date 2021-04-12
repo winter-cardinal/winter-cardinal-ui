@@ -6,60 +6,58 @@
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
 import {
-	buildCircleClipping, buildCircleIndex, buildCircleStep, buildCircleUv,
-	buildCircleVertex, CIRCLE_WORLD_SIZE
+	buildCircleClipping,
+	buildCircleIndex,
+	buildCircleStep,
+	buildCircleUv,
+	buildCircleVertex,
+	CIRCLE_WORLD_SIZE
 } from "./build-circle";
 import { EShapeTextUploaded } from "./e-shape-text-uploaded";
 
 export class EShapeCircleUploaded extends EShapeTextUploaded {
-	init( shape: EShape ): this {
-		super.init( shape );
+	init(shape: EShape): this {
+		super.init(shape);
 
 		// Clippings & indices
 		const buffer = this.buffer;
 		buffer.updateClippings();
 		buffer.updateIndices();
 		const voffset = this.vertexOffset;
-		buildCircleClipping(
-			buffer.clippings,
-			voffset
-		);
-		buildCircleIndex(
-			buffer.indices,
-			voffset,
-			this.indexOffset
-		);
+		buildCircleClipping(buffer.clippings, voffset);
+		buildCircleIndex(buffer.indices, voffset, this.indexOffset);
 
 		// Text
 		this.initText();
 
-		this.update( shape );
+		this.update(shape);
 		return this;
 	}
 
-	update( shape: EShape ): void {
+	update(shape: EShape): void {
 		const buffer = this.buffer;
-		this.updateCircleVertexAndStep( buffer, shape );
-		this.updateColor( buffer, shape );
-		this.updateCircleUv( buffer, shape );
-		this.updateText( buffer, shape );
+		this.updateCircleVertexAndStep(buffer, shape);
+		this.updateColor(buffer, shape);
+		this.updateCircleUv(buffer, shape);
+		this.updateText(buffer, shape);
 	}
 
-	protected updateCircleVertexAndStep( buffer: EShapeBuffer, shape: EShape ) {
+	protected updateCircleVertexAndStep(buffer: EShapeBuffer, shape: EShape): void {
 		const size = shape.size;
 		const sizeX = size.x;
 		const sizeY = size.y;
-		const isSizeChanged = ( sizeX !== this.sizeX || sizeY !== this.sizeY );
+		const isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
 
-		const transformLocalId = this.toTransformLocalId( shape );
-		const isTransformChanged = ( this.transformLocalId !== transformLocalId );
+		const transformLocalId = this.toTransformLocalId(shape);
+		const isTransformChanged = this.transformLocalId !== transformLocalId;
 
 		const stroke = shape.stroke;
-		const strokeWidth = (stroke.enable ? stroke.width : 0);
+		const strokeWidth = stroke.enable ? stroke.width : 0;
 		const strokeAlign = stroke.align;
-		const isStrokeChanged = ( this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth );
+		const isStrokeChanged =
+			this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth;
 
-		if( isSizeChanged || isTransformChanged || isStrokeChanged ) {
+		if (isSizeChanged || isTransformChanged || isStrokeChanged) {
 			this.sizeX = sizeX;
 			this.sizeY = sizeY;
 			this.transformLocalId = transformLocalId;
@@ -73,15 +71,20 @@ export class EShapeCircleUploaded extends EShapeTextUploaded {
 			buffer.updateVertices();
 			buffer.updateSteps();
 			buildCircleVertex(
-				buffer.vertices, this.vertexOffset,
-				0, 0,
-				sizeX, sizeY,
-				strokeAlign, strokeWidth,
+				buffer.vertices,
+				this.vertexOffset,
+				0,
+				0,
+				sizeX,
+				sizeY,
+				strokeAlign,
+				strokeWidth,
 				shape.transform.internalTransform,
 				CIRCLE_WORLD_SIZE
 			);
 			buildCircleStep(
-				buffer.steps, buffer.clippings,
+				buffer.steps,
+				buffer.clippings,
 				this.vertexOffset,
 				strokeWidth,
 				this.antialiasWeight,
@@ -90,20 +93,16 @@ export class EShapeCircleUploaded extends EShapeTextUploaded {
 		}
 	}
 
-	protected updateCircleUv( buffer: EShapeBuffer, shape: EShape ) {
-		const texture = this.toTexture( shape );
-		const textureTransformId = this.toTextureTransformId( texture );
-		if( texture !== this.texture || textureTransformId !== this.textureTransformId ) {
+	protected updateCircleUv(buffer: EShapeBuffer, shape: EShape): void {
+		const texture = this.toTexture(shape);
+		const textureTransformId = this.toTextureTransformId(texture);
+		if (texture !== this.texture || textureTransformId !== this.textureTransformId) {
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
 
 			buffer.updateUvs();
-			const textureUvs = this.toTextureUvs( texture );
-			buildCircleUv(
-				buffer.uvs,
-				this.vertexOffset,
-				textureUvs
-			);
+			const textureUvs = this.toTextureUvs(texture);
+			buildCircleUv(buffer.uvs, this.vertexOffset, textureUvs);
 		}
 	}
 }

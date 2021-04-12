@@ -8,7 +8,8 @@ import { EShape } from "./e-shape";
 import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
 
 type Deserializer = (
-	item: DDiagramSerializedItem, manager: EShapeResourceManagerDeserialization
+	item: DDiagramSerializedItem,
+	manager: EShapeResourceManagerDeserialization
 ) => Promise<EShape> | EShape | null;
 
-export const EShapeDeserializers: { [ type: number ]: Deserializer | undefined } = {};
+export const EShapeDeserializers: { [type: number]: Deserializer | undefined } = {};

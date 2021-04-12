@@ -9,7 +9,8 @@ import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manage
 import { EShapeNull } from "./e-shape-null";
 
 export const deserializeNull = (
-	item: DDiagramSerializedItem, manager: EShapeResourceManagerDeserialization
+	item: DDiagramSerializedItem,
+	manager: EShapeResourceManagerDeserialization
 ): Promise<EShapeNull> | EShapeNull => {
-	return EShapeDeserializer.deserialize( item, manager, new EShapeNull() );
+	return EShapeDeserializer.deserialize(item, manager, new EShapeNull());
 };

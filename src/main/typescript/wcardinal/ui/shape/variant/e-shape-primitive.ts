@@ -31,8 +31,8 @@ export abstract class EShapePrimitive extends EShapeBase {
 	readonly tag: EShapeTag;
 	cursor: string;
 
-	constructor( type: EShapeType ) {
-		super( type );
+	constructor(type: EShapeType) {
+		super(type);
 		this.size = this.newSize();
 		this.fill = this.newFill();
 		this.stroke = this.newStroke();
@@ -45,7 +45,9 @@ export abstract class EShapePrimitive extends EShapeBase {
 
 	protected newSize(): IPoint {
 		return new ObservablePoint(
-			() => { this.onSizeChange(); },
+			() => {
+				this.onSizeChange();
+			},
 			undefined,
 			EShapeDefaults.SIZE_X,
 			EShapeDefaults.SIZE_Y
@@ -53,16 +55,13 @@ export abstract class EShapePrimitive extends EShapeBase {
 	}
 
 	protected newFill(): EShapeFill {
-		return new EShapeFillImpl(
-			this, true,
-			EShapeDefaults.FILL_COLOR,
-			EShapeDefaults.FILL_ALPHA
-		);
+		return new EShapeFillImpl(this, true, EShapeDefaults.FILL_COLOR, EShapeDefaults.FILL_ALPHA);
 	}
 
 	protected newStroke(): EShapeStroke {
 		return new EShapeStrokeImpl(
-			this, true,
+			this,
+			true,
 			EShapeDefaults.STROKE_COLOR,
 			EShapeDefaults.STROKE_ALPHA,
 			EShapeDefaults.STROKE_WIDTH,
@@ -88,8 +87,8 @@ export abstract class EShapePrimitive extends EShapeBase {
 		return this._corner;
 	}
 
-	set corner( corner: number ) {
-		if( this._corner !== corner ) {
+	set corner(corner: number) {
+		if (this._corner !== corner) {
 			this._corner = corner;
 			this.updateUploaded();
 		}
@@ -99,8 +98,8 @@ export abstract class EShapePrimitive extends EShapeBase {
 		return this._radius;
 	}
 
-	set radius( radius: number ) {
-		if( this._radius !== radius ) {
+	set radius(radius: number) {
+		if (this._radius !== radius) {
 			this._radius = radius;
 			this.updateUploaded();
 		}
@@ -110,9 +109,9 @@ export abstract class EShapePrimitive extends EShapeBase {
 		return this._image;
 	}
 
-	set image( image: HTMLImageElement | undefined ) {
-		if( this._image !== image ) {
-			if( image != null ) {
+	set image(image: HTMLImageElement | undefined) {
+		if (this._image !== image) {
+			if (image != null) {
 				this._image = image;
 				this.imageSrc = image.src;
 			} else {
@@ -120,7 +119,7 @@ export abstract class EShapePrimitive extends EShapeBase {
 				this.imageSrc = undefined;
 			}
 			const parent = this.parent;
-			if( parent != null ) {
+			if (parent != null) {
 				parent.toDirty();
 			}
 		}

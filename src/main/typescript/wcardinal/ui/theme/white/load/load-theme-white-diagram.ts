@@ -8,8 +8,8 @@ import { DThemeWhiteDiagram } from "../d-theme-white-diagram";
 import { DThemeWhiteDiagramCanvas } from "../d-theme-white-diagram-canvas";
 import { loadThemeWhiteShape } from "./load-theme-white-shape";
 
-export const loadThemeWhiteDiagram = () => {
-	DThemeWhite.set( "DDiagram", DThemeWhiteDiagram );
-	DThemeWhite.set( "DDiagramCanvas", DThemeWhiteDiagramCanvas );
+export const loadThemeWhiteDiagram = (): void => {
+	DThemeWhite.set("DDiagram", DThemeWhiteDiagram);
+	DThemeWhite.set("DDiagramCanvas", DThemeWhiteDiagramCanvas);
 	loadThemeWhiteShape();
 };

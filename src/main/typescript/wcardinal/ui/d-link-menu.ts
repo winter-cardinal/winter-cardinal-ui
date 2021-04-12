@@ -14,7 +14,7 @@ export type DLinkMenuOptions = DMenuOptions<DLinkMenuItemId> | DMenu<DLinkMenuIt
 
 export interface DLinkMenuParent {
 	copy(): void;
-	open( inNewWindow: boolean ): void;
+	open(inNewWindow: boolean): void;
 }
 
 export class DLinkMenu {
@@ -23,7 +23,7 @@ export class DLinkMenu {
 	protected _options: DMenuOptions<DLinkMenuItemId> | DMenu<DLinkMenuItemId>;
 	protected _isEnabled: boolean;
 
-	constructor( parent: DLinkMenuParent, options: DLinkMenuOptions ) {
+	constructor(parent: DLinkMenuParent, options: DLinkMenuOptions) {
 		this._parent = parent;
 		this._options = options;
 		this._isEnabled = true;
@@ -33,39 +33,44 @@ export class DLinkMenu {
 		return this._isEnabled;
 	}
 
-	set enable( enable: boolean ) {
+	set enable(enable: boolean) {
 		this._isEnabled = enable;
 	}
 
-	open( target: DBase ): void {
-		this.get().open( target );
+	open(target: DBase): void {
+		this.get().open(target);
 	}
 
 	get(): DMenu<DLinkMenuItemId> {
 		let result = this._menu;
-		if( result == null ) {
-			result = this.toMenu( this._options );
+		if (result == null) {
+			result = this.toMenu(this._options);
 			this._menu = result;
-			result.on( "select", (
-				value: DLinkMenuItemId,
-				item: DMenuItem<DLinkMenuItemId>,
-				menu: DMenu<DLinkMenuItemId>
-			): void => {
-				this.onSelect( value, item, menu );
-			});
+			result.on(
+				"select",
+				(
+					value: DLinkMenuItemId,
+					item: DMenuItem<DLinkMenuItemId>,
+					menu: DMenu<DLinkMenuItemId>
+				): void => {
+					this.onSelect(value, item, menu);
+				}
+			);
 		}
 		return result;
 	}
 
-	protected toMenu( options: DMenuOptions<DLinkMenuItemId> | DMenu<DLinkMenuItemId> ): DMenu<DLinkMenuItemId> {
-		if( options instanceof DisplayObject ) {
+	protected toMenu(
+		options: DMenuOptions<DLinkMenuItemId> | DMenu<DLinkMenuItemId>
+	): DMenu<DLinkMenuItemId> {
+		if (options instanceof DisplayObject) {
 			return options;
 		}
-		return this.newMenu( options );
+		return this.newMenu(options);
 	}
 
-	protected newMenu( options: DMenuOptions<DLinkMenuItemId> ): DMenu<DLinkMenuItemId> {
-		return DMenus.newMenu( options );
+	protected newMenu(options: DMenuOptions<DLinkMenuItemId>): DMenu<DLinkMenuItemId> {
+		return DMenus.newMenu(options);
 	}
 
 	protected onSelect(
@@ -74,13 +79,13 @@ export class DLinkMenu {
 		menu: DMenu<DLinkMenuItemId>
 	): void {
 		const parent = this._parent;
-		switch( value ) {
-		case DLinkMenuItemId.OPEN_LINK_IN_NEW_WINDOW:
-			parent.open( true );
-			break;
-		case DLinkMenuItemId.COPY_LINK_ADDRESS:
-			parent.copy();
-			break;
+		switch (value) {
+			case DLinkMenuItemId.OPEN_LINK_IN_NEW_WINDOW:
+				parent.open(true);
+				break;
+			case DLinkMenuItemId.COPY_LINK_ADDRESS:
+				parent.copy();
+				break;
 		}
 	}
 }

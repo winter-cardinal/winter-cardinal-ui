@@ -5,6 +5,4 @@
 
 import { DThemeWhiteChartAxisBase } from "./d-theme-white-chart-axis-base";
 
-export class DThemeWhiteChartAxisX extends DThemeWhiteChartAxisBase {
-
-}
+export class DThemeWhiteChartAxisX extends DThemeWhiteChartAxisBase {}

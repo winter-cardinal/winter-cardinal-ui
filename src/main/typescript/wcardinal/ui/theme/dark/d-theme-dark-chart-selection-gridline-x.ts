@@ -5,6 +5,4 @@
 
 import { DThemeDarkChartSelectionGridline } from "./d-theme-dark-chart-selection-gridline";
 
-export class DThemeDarkChartSelectionGridlineX extends DThemeDarkChartSelectionGridline {
-
-}
+export class DThemeDarkChartSelectionGridlineX extends DThemeDarkChartSelectionGridline {}

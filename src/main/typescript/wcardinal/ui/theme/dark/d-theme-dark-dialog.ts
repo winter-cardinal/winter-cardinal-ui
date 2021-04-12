@@ -34,11 +34,11 @@ export class DThemeDarkDialog extends DThemeDarkBase implements DThemeDialog {
 		return 5;
 	}
 
-	getBackgroundColor() {
+	getBackgroundColor(): number {
 		return DThemeDarkConstants.BACKGROUND_COLOR;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return 0x393939;
 	}
 

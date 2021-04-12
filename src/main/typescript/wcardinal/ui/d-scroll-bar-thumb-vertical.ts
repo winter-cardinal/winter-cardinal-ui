@@ -7,11 +7,11 @@ import { DScrollBarThumb } from "./d-scroll-bar-thumb";
 import { DScrollBarThumbReflowableVertical } from "./d-scroll-bar-thumb-reflowable-vertical";
 
 export class DScrollBarThumbVertocal extends DScrollBarThumb {
-	protected onDragMove( dx: number, dy: number ) {
-		this.emit( "regionmove", dy, this );
+	protected onDragMove(dx: number, dy: number): void {
+		this.emit("regionmove", dy, this);
 	}
 
 	protected initReflowable(): void {
-		new DScrollBarThumbReflowableVertical( this );
+		new DScrollBarThumbReflowableVertical(this);
 	}
 }

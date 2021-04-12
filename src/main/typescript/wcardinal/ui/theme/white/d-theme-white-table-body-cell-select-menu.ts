@@ -12,35 +12,35 @@ import { DThemeTableBodyCellSelectMenu } from "../../d-table-body-cell-select-me
 import { DThemeWhiteSelect } from "./d-theme-white-select";
 import { DThemeWhiteTableBodyCells } from "./d-theme-white-table-body-cells";
 
-export class DThemeWhiteTableBodyCellSelectMenu<VALUE = unknown> extends DThemeWhiteSelect<VALUE>
+export class DThemeWhiteTableBodyCellSelectMenu<VALUE = unknown>
+	extends DThemeWhiteSelect<VALUE>
 	implements DThemeTableBodyCellSelectMenu<VALUE> {
-
-	getBackgroundColor( state: DBaseStateSet ): number | null {
-		return DThemeWhiteTableBodyCells.getBackgroundColor( state );
+	getBackgroundColor(state: DBaseStateSet): number | null {
+		return DThemeWhiteTableBodyCells.getBackgroundColor(state);
 	}
 
-	getBackgroundAlpha( state: DBaseStateSet ): number {
-		return DThemeWhiteTableBodyCells.getBackgroundAlpha( state );
+	getBackgroundAlpha(state: DBaseStateSet): number {
+		return DThemeWhiteTableBodyCells.getBackgroundAlpha(state);
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
-		return DThemeWhiteTableBodyCells.getBorderColor( state );
+	getBorderColor(state: DBaseStateSet): number | null {
+		return DThemeWhiteTableBodyCells.getBorderColor(state);
 	}
 
-	getBorderAlign( state: DBaseStateSet ): number {
-		return DThemeWhiteTableBodyCells.getBorderAlign( state );
+	getBorderAlign(state: DBaseStateSet): number {
+		return DThemeWhiteTableBodyCells.getBorderAlign(state);
 	}
 
-	getBorderMask( state: DBaseStateSet ): DBorderMask {
-		return DThemeWhiteTableBodyCells.getBorderMask( state );
+	getBorderMask(state: DBaseStateSet): DBorderMask {
+		return DThemeWhiteTableBodyCells.getBorderMask(state);
 	}
 
-	getColor( state: DBaseStateSet ): number {
-		return DThemeWhiteTableBodyCells.getColor( state );
+	getColor(state: DBaseStateSet): number {
+		return DThemeWhiteTableBodyCells.getColor(state);
 	}
 
-	getAlpha( state: DBaseStateSet ): number {
-		return DThemeWhiteTableBodyCells.getAlpha( state );
+	getAlpha(state: DBaseStateSet): number {
+		return DThemeWhiteTableBodyCells.getAlpha(state);
 	}
 
 	getHeight(): DCoordinateSize {
@@ -51,7 +51,7 @@ export class DThemeWhiteTableBodyCellSelectMenu<VALUE = unknown> extends DThemeW
 		return DThemeWhiteTableBodyCells.getCornerMask();
 	}
 
-	getSecondaryImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
+	getSecondaryImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
 		return null;
 	}
 

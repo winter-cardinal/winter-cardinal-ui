@@ -6,6 +6,6 @@
 import { DThemeDark } from "../d-theme-dark";
 import { DThemeDarkPickerTime } from "../d-theme-dark-picker-time";
 
-export const loadThemeDarkPickerTime = () => {
-	DThemeDark.set( "DPickerTime", DThemeDarkPickerTime );
+export const loadThemeDarkPickerTime = (): void => {
+	DThemeDark.set("DPickerTime", DThemeDarkPickerTime);
 };

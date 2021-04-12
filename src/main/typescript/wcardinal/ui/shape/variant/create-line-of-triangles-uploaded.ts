@@ -10,14 +10,19 @@ import { createLineOfAnyUploaded } from "./create-line-of-any-uploaded";
 import { EShapeLineOfTrianglesUploaded } from "./e-shape-line-of-triangles-uploaded";
 
 export const createLineOfTrianglesUploaded = (
-	buffer: EShapeBuffer, shape: EShape,
-	voffset: number, ioffset: number,
+	buffer: EShapeBuffer,
+	shape: EShape,
+	voffset: number,
+	ioffset: number,
 	antialiasWeight: number
 ): EShapeLineOfTrianglesUploaded | null => {
 	return createLineOfAnyUploaded(
-		buffer, shape,
-		voffset, TRIANGLE_VERTEX_COUNT,
-		ioffset, TRIANGLE_INDEX_COUNT,
+		buffer,
+		shape,
+		voffset,
+		TRIANGLE_VERTEX_COUNT,
+		ioffset,
+		TRIANGLE_INDEX_COUNT,
 		antialiasWeight,
 		EShapeLineOfTrianglesUploaded
 	);

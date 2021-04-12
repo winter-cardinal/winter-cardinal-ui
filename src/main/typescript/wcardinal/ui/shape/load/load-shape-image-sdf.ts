@@ -9,7 +9,7 @@ import { EShapeUploadeds } from "../e-shape-uploadeds";
 import { createImageSdfUploaded } from "../variant/create-image-sdf-uploaded";
 import { deserializeImageSdf } from "../variant/deserialize-image-sdf";
 
-export const loadShapeImageSdf = () => {
-	EShapeUploadeds[ EShapeType.IMAGE_SDF ] = createImageSdfUploaded;
-	EShapeDeserializers[ EShapeType.IMAGE_SDF ] = deserializeImageSdf;
+export const loadShapeImageSdf = (): void => {
+	EShapeUploadeds[EShapeType.IMAGE_SDF] = createImageSdfUploaded;
+	EShapeDeserializers[EShapeType.IMAGE_SDF] = deserializeImageSdf;
 };

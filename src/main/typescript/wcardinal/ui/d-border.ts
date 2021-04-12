@@ -18,10 +18,10 @@ export interface DBorder {
 
 export interface DBorderStateAware extends DBorder {
 	getTheme(): DThemeBase;
-	setTheme( theme: DThemeBase ): void;
-	getColor( state: DBaseStateSet ): number | null;
-	getAlpha( state: DBaseStateSet ): number;
-	getWidth( state: DBaseStateSet ): number;
-	getAlign( state: DBaseStateSet ): number;
-	getMask( state: DBaseStateSet ): DBorderMask;
+	setTheme(theme: DThemeBase): void;
+	getColor(state: DBaseStateSet): number | null;
+	getAlpha(state: DBaseStateSet): number;
+	getWidth(state: DBaseStateSet): number;
+	getAlign(state: DBaseStateSet): number;
+	getMask(state: DBaseStateSet): DBorderMask;
 }

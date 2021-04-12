@@ -15,7 +15,7 @@ export class DThemeDarkMenuBar extends DThemeDarkLayoutHorizontal implements DTh
 		return DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 

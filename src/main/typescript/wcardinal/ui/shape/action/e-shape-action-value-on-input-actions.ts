@@ -11,23 +11,25 @@ export class EShapeActionValueOnInputActions {
 	static execute<VALUE>(
 		shape: EShape,
 		action: EShapeActionValueOnInputAction,
-		target: string, value: VALUE, time: number
+		target: string,
+		value: VALUE,
+		time: number
 	): void {
-		switch( action ) {
-		case EShapeActionValueOnInputAction.EMIT_EVENT:
-			shape.emit( target, shape, value );
-			EShapeActionRuntimes.emit( shape, target, value, time );
-			break;
-		case EShapeActionValueOnInputAction.WRITE_LOCAL:
-			EShapeActionRuntimes.write( shape, target, value, time, false );
-			break;
-		case EShapeActionValueOnInputAction.WRITE_REMOTE:
-			EShapeActionRuntimes.write( shape, target, value, time, true );
-			break;
-		case EShapeActionValueOnInputAction.WRITE_BOTH:
-			EShapeActionRuntimes.write( shape, target, value, time, false );
-			EShapeActionRuntimes.write( shape, target, value, time, true );
-			break;
+		switch (action) {
+			case EShapeActionValueOnInputAction.EMIT_EVENT:
+				shape.emit(target, shape, value);
+				EShapeActionRuntimes.emit(shape, target, value, time);
+				break;
+			case EShapeActionValueOnInputAction.WRITE_LOCAL:
+				EShapeActionRuntimes.write(shape, target, value, time, false);
+				break;
+			case EShapeActionValueOnInputAction.WRITE_REMOTE:
+				EShapeActionRuntimes.write(shape, target, value, time, true);
+				break;
+			case EShapeActionValueOnInputAction.WRITE_BOTH:
+				EShapeActionRuntimes.write(shape, target, value, time, false);
+				EShapeActionRuntimes.write(shape, target, value, time, true);
+				break;
 		}
 	}
 }

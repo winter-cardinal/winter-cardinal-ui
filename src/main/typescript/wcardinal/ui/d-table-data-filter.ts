@@ -8,14 +8,19 @@ import { utils } from "pixi.js";
 /**
  * A filter function.
  */
-export type DTableDataFilterFunction<ROW> = ( row: ROW, index: number ) => boolean;
+export type DTableDataFilterFunction<ROW> = (row: ROW, index: number) => boolean;
 
 /**
  * A filter object.
  */
 export interface DTableDataFilterObject<ROW> {
-	test( row: ROW, index: number ): boolean;
+	test(row: ROW, index: number): boolean;
 }
+
+/**
+ * A filterer.
+ */
+export type DTableDataFilterer<ROW> = DTableDataFilterFunction<ROW> | DTableDataFilterObject<ROW>;
 
 /**
  * Table data filter.
@@ -47,21 +52,21 @@ export interface DTableDataFilter<ROW> extends utils.EventEmitter {
 	/**
 	 * Returns a current filter.
 	 */
-	get(): DTableDataFilterFunction<ROW> | DTableDataFilterObject<ROW> | null;
+	get(): DTableDataFilterer<ROW> | null;
 
 	/**
 	 * Sets to the given filter.
 	 *
 	 * @param filter A filter
 	 */
-	set( filter: DTableDataFilterFunction<ROW> | DTableDataFilterObject<ROW> | null ): void;
+	set(filter: DTableDataFilterer<ROW> | null): void;
 
 	/**
 	 * Returns a mapped index of the specified sorted index.
 	 *
 	 * @param sortedIndex an sorted index
 	 */
-	map( sortedIndex: number ): number | null;
+	map(sortedIndex: number): number | null;
 
 	/**
 	 * Returns an sorted index of the specified mapped index.
@@ -69,5 +74,5 @@ export interface DTableDataFilter<ROW> extends utils.EventEmitter {
 	 *
 	 * @param index a mapped index
 	 */
-	unmap( index: number ): number;
+	unmap(index: number): number;
 }

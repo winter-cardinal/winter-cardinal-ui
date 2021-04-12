@@ -25,7 +25,7 @@ export class EShapeTransformImpl extends Transform implements EShapeTransform {
 	protected _parent: EShapeTransformParent;
 	internalTransform: Matrix;
 
-	constructor( parent: EShapeTransformParent ) {
+	constructor(parent: EShapeTransformParent) {
 		super();
 		this.internalTransform = new Matrix();
 		this._parent = parent;
@@ -57,24 +57,24 @@ export class EShapeTransformImpl extends Transform implements EShapeTransform {
 		return this._worldID;
 	}
 
-	updateTransform( parentTransform: Transform ): void {
+	updateTransform(parentTransform: Transform): void {
 		const oldLocalId = this._currentLocalID;
 		const oldWorldId = this._worldID;
-		super.updateTransform( parentTransform );
+		super.updateTransform(parentTransform);
 		const newLocalId = this._currentLocalID;
 		const newWorldId = this._worldID;
-		if( oldLocalId !== newLocalId ) {
+		if (oldLocalId !== newLocalId) {
 			const localTransform = this.localTransform;
 			const internalTransform = this.internalTransform;
-			localTransform.copyTo( internalTransform );
-			if( parentTransform instanceof EShapeTransformImpl ) {
-				internalTransform.prepend( parentTransform.internalTransform );
+			localTransform.copyTo(internalTransform);
+			if (parentTransform instanceof EShapeTransformImpl) {
+				internalTransform.prepend(parentTransform.internalTransform);
 			}
-		} else if( oldWorldId !== newWorldId ) {
+		} else if (oldWorldId !== newWorldId) {
 			const localTransform = this.localTransform;
 			const internalTransform = this.internalTransform;
-			if( parentTransform instanceof EShapeTransformImpl ) {
-				localTransform.copyTo( internalTransform ).prepend( parentTransform.internalTransform );
+			if (parentTransform instanceof EShapeTransformImpl) {
+				localTransform.copyTo(internalTransform).prepend(parentTransform.internalTransform);
 				this._currentLocalID += 1;
 				this._localID = this._currentLocalID;
 			}

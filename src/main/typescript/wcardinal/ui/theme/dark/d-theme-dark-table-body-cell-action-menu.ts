@@ -15,35 +15,35 @@ import { DThemeDarkTableBodyCells } from "./d-theme-dark-table-body-cells";
 
 DThemeDarkTableBodyCellActions.init();
 
-export class DThemeDarkTableBodyCellActionMenu extends DThemeDarkDropdown
+export class DThemeDarkTableBodyCellActionMenu
+	extends DThemeDarkDropdown
 	implements DThemeTableBodyCellActionMenu {
-
-	getBackgroundColor( state: DBaseStateSet ): number | null {
-		return DThemeDarkTableBodyCells.getBackgroundColor( state );
+	getBackgroundColor(state: DBaseStateSet): number | null {
+		return DThemeDarkTableBodyCells.getBackgroundColor(state);
 	}
 
-	getBackgroundAlpha( state: DBaseStateSet ): number {
-		return DThemeDarkTableBodyCells.getBackgroundAlpha( state );
+	getBackgroundAlpha(state: DBaseStateSet): number {
+		return DThemeDarkTableBodyCells.getBackgroundAlpha(state);
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
-		return DThemeDarkTableBodyCells.getBorderColor( state );
+	getBorderColor(state: DBaseStateSet): number | null {
+		return DThemeDarkTableBodyCells.getBorderColor(state);
 	}
 
-	getBorderAlign( state: DBaseStateSet ): number {
-		return DThemeDarkTableBodyCells.getBorderAlign( state );
+	getBorderAlign(state: DBaseStateSet): number {
+		return DThemeDarkTableBodyCells.getBorderAlign(state);
 	}
 
-	getBorderMask( state: DBaseStateSet ): DBorderMask {
-		return DThemeDarkTableBodyCells.getBorderMask( state );
+	getBorderMask(state: DBaseStateSet): DBorderMask {
+		return DThemeDarkTableBodyCells.getBorderMask(state);
 	}
 
-	getColor( state: DBaseStateSet ): number {
-		return DThemeDarkTableBodyCells.getColor( state );
+	getColor(state: DBaseStateSet): number {
+		return DThemeDarkTableBodyCells.getColor(state);
 	}
 
-	getAlpha( state: DBaseStateSet ): number {
-		return DThemeDarkTableBodyCells.getAlpha( state );
+	getAlpha(state: DBaseStateSet): number {
+		return DThemeDarkTableBodyCells.getAlpha(state);
 	}
 
 	getHeight(): DCoordinateSize {
@@ -54,7 +54,7 @@ export class DThemeDarkTableBodyCellActionMenu extends DThemeDarkDropdown
 		return DThemeDarkTableBodyCells.getCornerMask();
 	}
 
-	getSecondaryImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
+	getSecondaryImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
 		return null;
 	}
 
@@ -66,11 +66,11 @@ export class DThemeDarkTableBodyCellActionMenu extends DThemeDarkDropdown
 		return 10;
 	}
 
-	getImageTintColor( state: DBaseStateSet ): number | null {
-		return DThemeDarkTableBodyCellActions.getImageTintColor( state );
+	getImageTintColor(state: DBaseStateSet): number | null {
+		return DThemeDarkTableBodyCellActions.getImageTintColor(state);
 	}
 
-	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
-		return DThemeDarkTableBodyCellActions.getImageSource( state );
+	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
+		return DThemeDarkTableBodyCellActions.getImageSource(state);
 	}
 }

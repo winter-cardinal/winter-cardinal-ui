@@ -8,12 +8,14 @@ import { DCoordinateSize } from "../../d-coordinate";
 import { DThemePickerDatetimeSpace } from "../../d-picker-datetime-space";
 import { DThemeWhiteBase } from "./d-theme-white-base";
 
-export class DThemeWhitePickerDatetimeSpace extends DThemeWhiteBase implements DThemePickerDatetimeSpace {
-	getBackgroundColor( state: DBaseStateSet ): number | null {
+export class DThemeWhitePickerDatetimeSpace
+	extends DThemeWhiteBase
+	implements DThemePickerDatetimeSpace {
+	getBackgroundColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 

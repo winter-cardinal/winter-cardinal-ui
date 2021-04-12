@@ -9,9 +9,9 @@ import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeNote } from "../../d-note";
 import { DThemeWhiteText } from "./d-theme-white-text";
 
-export class DThemeWhiteNote<VALUE = unknown> extends DThemeWhiteText<VALUE>
+export class DThemeWhiteNote<VALUE = unknown>
+	extends DThemeWhiteText<VALUE>
 	implements DThemeNote<VALUE> {
-
 	getWidth(): DCoordinateSize {
 		return "100%";
 	}

@@ -17,11 +17,11 @@ export class DBaseBackground implements DBackgroundStateAware {
 	protected _alpha?: DStateAwareOrValueMightBe<number>;
 	protected _callback: Callback | undefined;
 
-	constructor( theme: DThemeBase, options?: DBaseOptions<any>, callback?: Callback ) {
+	constructor(theme: DThemeBase, options?: DBaseOptions<any>, callback?: Callback) {
 		this._theme = theme;
 		this._callback = callback;
-		if( options != null && options.background != null ) {
-			const background = options.background;
+		const background = options?.background;
+		if (background) {
 			this._color = background.color;
 			this._alpha = background.alpha;
 		}
@@ -31,57 +31,57 @@ export class DBaseBackground implements DBackgroundStateAware {
 		return this._theme;
 	}
 
-	setTheme( theme: DThemeBase ): void {
+	setTheme(theme: DThemeBase): void {
 		this._theme = theme;
 	}
 
-	getColor( state: DBaseStateSet ): number | null {
+	getColor(state: DBaseStateSet): number | null {
 		const color = this._color;
-		if( color !== undefined ) {
-			if( isFunction( color ) ) {
-				const result = color( state );
-				if( result !== undefined ) {
+		if (color !== undefined) {
+			if (isFunction(color)) {
+				const result = color(state);
+				if (result !== undefined) {
 					return result;
 				}
 			} else {
 				return color;
 			}
 		}
-		return this._theme.getBackgroundColor( state );
+		return this._theme.getBackgroundColor(state);
 	}
 
 	get color(): DStateAwareOrValueMightBe<number | null> {
 		return this._color;
 	}
 
-	set color( color: DStateAwareOrValueMightBe<number | null> ) {
-		if( this._color !== color ) {
+	set color(color: DStateAwareOrValueMightBe<number | null>) {
+		if (this._color !== color) {
 			this._color = color;
 			this.onChange();
 		}
 	}
 
-	getAlpha( state: DBaseStateSet ): number {
+	getAlpha(state: DBaseStateSet): number {
 		const alpha = this._alpha;
-		if( alpha !== undefined ) {
-			if( isFunction( alpha ) ) {
-				const result = alpha( state );
-				if( result !== undefined ) {
+		if (alpha !== undefined) {
+			if (isFunction(alpha)) {
+				const result = alpha(state);
+				if (result !== undefined) {
 					return result;
 				}
 			} else {
 				return alpha;
 			}
 		}
-		return this._theme.getBackgroundAlpha( state );
+		return this._theme.getBackgroundAlpha(state);
 	}
 
 	get alpha(): DStateAwareOrValueMightBe<number> {
 		return this._alpha;
 	}
 
-	set alpha( alpha: DStateAwareOrValueMightBe<number> ) {
-		if( this._alpha !== alpha ) {
+	set alpha(alpha: DStateAwareOrValueMightBe<number>) {
+		if (this._alpha !== alpha) {
 			this._alpha = alpha;
 			this.onChange();
 		}
@@ -89,7 +89,7 @@ export class DBaseBackground implements DBackgroundStateAware {
 
 	protected onChange(): void {
 		const callback = this._callback;
-		if( callback != null ) {
+		if (callback != null) {
 			callback();
 		}
 	}

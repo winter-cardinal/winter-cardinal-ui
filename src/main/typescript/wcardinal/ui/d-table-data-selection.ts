@@ -13,7 +13,7 @@ export enum DTableDataSelectionType {
 }
 
 export interface DTableDataSelectionOptions {
-	type?: (keyof typeof DTableDataSelectionType) | DTableDataSelectionType;
+	type?: keyof typeof DTableDataSelectionType | DTableDataSelectionType;
 }
 
 export interface DTableDataSelection<ROW> extends utils.EventEmitter {
@@ -34,17 +34,17 @@ export interface DTableDataSelection<ROW> extends utils.EventEmitter {
 	readonly first: number | null;
 	readonly last: number | null;
 
-	toggle( rowIndex: number ): void;
-	add( rowIndex: number ): void;
-	addTo( rowIndex: number ): void;
-	addRange( from: number, includeFrom: boolean, to: number, includeTo: boolean ): void;
-	addAll( rowIndices: number[] ): void;
-	contains( rowIndex: number ): boolean;
-	remove( rowIndex: number ): void;
+	toggle(rowIndex: number): void;
+	add(rowIndex: number): void;
+	addTo(rowIndex: number): void;
+	addRange(from: number, includeFrom: boolean, to: number, includeTo: boolean): void;
+	addAll(rowIndices: number[]): void;
+	contains(rowIndex: number): boolean;
+	remove(rowIndex: number): void;
 	clear(): void;
-	clearAndAdd( rowIndex: number ): void;
-	clearAndAddAll( rowIndices: number[] ): void;
-	shift( rowIndex: number, amount: number ): void;
+	clearAndAdd(rowIndex: number): void;
+	clearAndAddAll(rowIndices: number[]): void;
+	shift(rowIndex: number, amount: number): void;
 	size(): number;
 	isEmpty(): boolean;
 
@@ -52,14 +52,14 @@ export interface DTableDataSelection<ROW> extends utils.EventEmitter {
 	 * Returns an array of the (index, row value) pairs of selected rows.
 	 * The order of pairs is an insertion order.
 	 */
-	toArray(): Array<[ number, ROW ]>;
+	toArray(): Array<[number, ROW]>;
 
 	/**
 	 * Returns an sorted array of the (index, row value) pairs of selected rows.
 	 */
-	toSortedArray(): Array<[ number, ROW ]>;
+	toSortedArray(): Array<[number, ROW]>;
 
-	toObject(): {[index: number]: ROW};
+	toObject(): { [index: number]: ROW };
 
 	toMap(): Map<number, ROW>;
 }
@@ -68,4 +68,6 @@ export interface DTableDataSelectionParent<ROW> extends DTableData<ROW> {
 	update(): void;
 }
 
-export type DTableDataSelectionCreator<NODE> = ( parent: DTableDataSelectionParent<NODE> ) => DTableDataSelection<NODE>;
+export type DTableDataSelectionCreator<NODE> = (
+	parent: DTableDataSelectionParent<NODE>
+) => DTableDataSelection<NODE>;

@@ -11,19 +11,20 @@ import { EShapeTextLike } from "../e-shape-text";
 import { EShapeTextOutlineLike } from "../e-shape-text-outline";
 
 export class EShapeActionBases {
-	static toBaseFill( shape: EShape, runtime: EShapeRuntime ): EShapeFillLike {
-		return ( runtime.written & EShapeRuntimeReset.COLOR_FILL ? shape : runtime ).fill;
+	static toBaseFill(shape: EShape, runtime: EShapeRuntime): EShapeFillLike {
+		return (runtime.written & EShapeRuntimeReset.COLOR_FILL ? shape : runtime).fill;
 	}
 
-	static toBaseStroke( shape: EShape, runtime: EShapeRuntime ): EShapeStrokeLike {
-		return ( runtime.written & EShapeRuntimeReset.COLOR_STROKE ? shape : runtime ).stroke;
+	static toBaseStroke(shape: EShape, runtime: EShapeRuntime): EShapeStrokeLike {
+		return (runtime.written & EShapeRuntimeReset.COLOR_STROKE ? shape : runtime).stroke;
 	}
 
-	static toBaseText( shape: EShape, runtime: EShapeRuntime ): EShapeTextLike {
-		return ( runtime.written & EShapeRuntimeReset.COLOR_TEXT ? shape : runtime ).text;
+	static toBaseText(shape: EShape, runtime: EShapeRuntime): EShapeTextLike {
+		return (runtime.written & EShapeRuntimeReset.COLOR_TEXT ? shape : runtime).text;
 	}
 
-	static toBaseTextOutline( shape: EShape, runtime: EShapeRuntime ): EShapeTextOutlineLike {
-		return ( runtime.written & EShapeRuntimeReset.COLOR_TEXT_OUTLINE ? shape : runtime ).text.outline;
+	static toBaseTextOutline(shape: EShape, runtime: EShapeRuntime): EShapeTextOutlineLike {
+		return (runtime.written & EShapeRuntimeReset.COLOR_TEXT_OUTLINE ? shape : runtime).text
+			.outline;
 	}
 }

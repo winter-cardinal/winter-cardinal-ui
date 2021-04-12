@@ -19,14 +19,14 @@ export interface DChartSelectionShapeOptions {
 }
 
 export interface DThemeChartSelectionShape {
-	isEnabled( state: DBaseStateSet ): boolean;
-	newShape( state: DBaseStateSet ): EShape;
+	isEnabled(state: DBaseStateSet): boolean;
+	newShape(state: DBaseStateSet): EShape;
 }
 
 export interface DChartSelectionShape {
-	bind( container: DChartSeriesContainer ): void;
+	bind(container: DChartSeriesContainer): void;
 	unbind(): void;
-	set( container: DChartSeriesContainer, mappedPosition: IPoint, series: DChartSeries ): void;
+	set(container: DChartSeriesContainer, mappedPosition: IPoint, series: DChartSeries): void;
 	unset(): void;
-	update( container: DChartSeriesContainer, mappedPosition: IPoint ): void;
+	update(container: DChartSeriesContainer, mappedPosition: IPoint): void;
 }

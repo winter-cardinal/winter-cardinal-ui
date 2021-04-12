@@ -12,9 +12,9 @@ import { EShapeBase } from "./variant/e-shape-base";
  * {@link EShape} search utility.
  */
 export class EShapeSearch {
-	static COMPARATOR_INDEX = ( a: EShape, b: EShape ): number => {
+	static COMPARATOR_INDEX = (a: EShape, b: EShape): number => {
 		return a.index - b.index;
-	}
+	};
 
 	/**
 	 * Returns indices of the given shapes.
@@ -22,10 +22,10 @@ export class EShapeSearch {
 	 * @param shapes shapes
 	 * @return indices
 	 */
-	static toIndices( shapes: EShape[] ): number[] {
+	static toIndices(shapes: EShape[]): number[] {
 		const result = [];
-		for( let i = 0, imax = shapes.length; i < imax; ++i ) {
-			result.push( shapes[ i ].index );
+		for (let i = 0, imax = shapes.length; i < imax; ++i) {
+			result.push(shapes[i].index);
 		}
 		return result;
 	}
@@ -36,10 +36,10 @@ export class EShapeSearch {
 	 * @param shape a shape
 	 * @return a depth
 	 */
-	static toDepth( shape: EShape ): number {
+	static toDepth(shape: EShape): number {
 		let result = 0;
 		let parent = shape.parent;
-		while( parent instanceof EShapeBase ) {
+		while (parent instanceof EShapeBase) {
 			result += 1;
 			parent = parent.parent;
 		}
@@ -53,13 +53,13 @@ export class EShapeSearch {
 	 * @param shapeB a shape
 	 * @return a found shape
 	 */
-	static toSharedParent( shapeA: EShape, shapeB: EShape ): EShape | EShapeContainer {
-		const depthA = this.toDepth( shapeA );
-		const depthB = this.toDepth( shapeB );
-		if( depthA < depthB ) {
+	static toSharedParent(shapeA: EShape, shapeB: EShape): EShape | EShapeContainer {
+		const depthA = this.toDepth(shapeA);
+		const depthB = this.toDepth(shapeB);
+		if (depthA < depthB) {
 			let parent = shapeA.parent;
-			while( parent instanceof EShapeBase ) {
-				if( this.isParent( shapeB, parent ) ) {
+			while (parent instanceof EShapeBase) {
+				if (this.isParent(shapeB, parent)) {
 					return parent;
 				}
 				parent = parent.parent;
@@ -67,8 +67,8 @@ export class EShapeSearch {
 			return parent!;
 		} else {
 			let parent = shapeB.parent;
-			while( parent instanceof EShapeBase ) {
-				if( this.isParent( shapeA, parent ) ) {
+			while (parent instanceof EShapeBase) {
+				if (this.isParent(shapeA, parent)) {
 					return parent;
 				}
 				parent = parent.parent;
@@ -85,9 +85,9 @@ export class EShapeSearch {
 	 * @param parent a parent
 	 * @returns a found shape
 	 */
-	static toOfParent( shape: EShape, parent: EShape | EShapeContainer ) {
+	static toOfParent(shape: EShape, parent: EShape | EShapeContainer): EShape {
 		let shapeParent = shape.parent;
-		while( shapeParent !== parent && shapeParent instanceof EShapeBase ) {
+		while (shapeParent !== parent && shapeParent instanceof EShapeBase) {
 			shape = shapeParent;
 			shapeParent = shapeParent.parent;
 		}
@@ -101,10 +101,10 @@ export class EShapeSearch {
 	 * @param target a check target
 	 * @return true if the given target is on the path to the given shape
 	 */
-	static isParent( shape: EShape, target: EShape | null ): boolean {
+	static isParent(shape: EShape, target: EShape | null): boolean {
 		let parent = shape.parent;
-		while( parent instanceof EShapeBase ) {
-			if( parent === target ) {
+		while (parent instanceof EShapeBase) {
+			if (parent === target) {
 				return true;
 			}
 			parent = parent.parent;
@@ -119,10 +119,10 @@ export class EShapeSearch {
 	 * @param shape a shape
 	 * @return a found selected shape or null
 	 */
-	static toSelected( shape: EShape ): EShape | null {
+	static toSelected(shape: EShape): EShape | null {
 		let target: EShape | EShapeContainer | null = shape;
-		while( target instanceof EShapeBase ) {
-			if( target.selected ) {
+		while (target instanceof EShapeBase) {
+			if (target.selected) {
 				return target;
 			}
 			target = target.parent;
@@ -130,16 +130,20 @@ export class EShapeSearch {
 		return null;
 	}
 
-	static findChildById( shape: { children: EShape[] }, id: string, recursively?: boolean ): EShape | null {
+	static findChildById(
+		shape: { children: EShape[] },
+		id: string,
+		recursively?: boolean
+	): EShape | null {
 		const children = shape.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			const child = children[ i ];
-			if( child.id === id ) {
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			const child = children[i];
+			if (child.id === id) {
 				return child;
 			}
-			if( recursively === true ) {
-				const result = EShapeSearch.findChildById( child, id, recursively );
-				if( result != null ) {
+			if (recursively === true) {
+				const result = EShapeSearch.findChildById(child, id, recursively);
+				if (result != null) {
 					return result;
 				}
 			}
@@ -147,16 +151,20 @@ export class EShapeSearch {
 		return null;
 	}
 
-	static findChildByType( shape: { children: EShape[] }, type: EShapeType, recursively?: boolean ): EShape | null {
+	static findChildByType(
+		shape: { children: EShape[] },
+		type: EShapeType,
+		recursively?: boolean
+	): EShape | null {
 		const children = shape.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			const child = children[ i ];
-			if( child.type === type ) {
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			const child = children[i];
+			if (child.type === type) {
 				return child;
 			}
-			if( recursively === true ) {
-				const result = EShapeSearch.findChildByType( child, type, recursively );
-				if( result != null ) {
+			if (recursively === true) {
+				const result = EShapeSearch.findChildByType(child, type, recursively);
+				if (result != null) {
 					return result;
 				}
 			}
@@ -165,17 +173,19 @@ export class EShapeSearch {
 	}
 
 	static findChild(
-		shape: { children: EShape[] }, matcher: ( shape: EShape ) => boolean, recursively?: boolean
+		shape: { children: EShape[] },
+		matcher: (shape: EShape) => boolean,
+		recursively?: boolean
 	): EShape | null {
 		const children = shape.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			const child = children[ i ];
-			if( matcher( child ) ) {
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			const child = children[i];
+			if (matcher(child)) {
 				return child;
 			}
-			if( recursively === true ) {
-				const result = EShapeSearch.findChild( child, matcher, recursively );
-				if( result != null ) {
+			if (recursively === true) {
+				const result = EShapeSearch.findChild(child, matcher, recursively);
+				if (result != null) {
 					return result;
 				}
 			}
@@ -184,34 +194,40 @@ export class EShapeSearch {
 	}
 
 	static findChildrenByType(
-		shape: { children: EShape[] }, type: EShapeType, recursively?: boolean, result?: EShape[]
+		shape: { children: EShape[] },
+		type: EShapeType,
+		recursively?: boolean,
+		result?: EShape[]
 	): EShape[] {
 		result = result || [];
 		const children = shape.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			const child = children[ i ];
-			if( child.type === type ) {
-				result.push( child );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			const child = children[i];
+			if (child.type === type) {
+				result.push(child);
 			}
-			if( recursively === true ) {
-				EShapeSearch.findChildrenByType( child, type, recursively, result );
+			if (recursively === true) {
+				EShapeSearch.findChildrenByType(child, type, recursively, result);
 			}
 		}
 		return result;
 	}
 
 	static findChildren(
-		shape: { children: EShape[] }, matcher: ( shape: EShape ) => boolean, recursively?: boolean, result?: EShape[]
+		shape: { children: EShape[] },
+		matcher: (shape: EShape) => boolean,
+		recursively?: boolean,
+		result?: EShape[]
 	): EShape[] {
 		result = result || [];
 		const children = shape.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			const child = children[ i ];
-			if( matcher( child ) ) {
-				result.push( child );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			const child = children[i];
+			if (matcher(child)) {
+				result.push(child);
 			}
-			if( recursively === true ) {
-				EShapeSearch.findChildren( child, matcher, recursively, result );
+			if (recursively === true) {
+				EShapeSearch.findChildren(child, matcher, recursively, result);
 			}
 		}
 		return result;

@@ -6,6 +6,6 @@
 import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteNote } from "../d-theme-white-note";
 
-export const loadThemeWhiteNote = () => {
-	DThemeWhite.set( "DNote", DThemeWhiteNote );
+export const loadThemeWhiteNote = (): void => {
+	DThemeWhite.set("DNote", DThemeWhiteNote);
 };

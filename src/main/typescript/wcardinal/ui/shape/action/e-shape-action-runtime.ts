@@ -14,35 +14,48 @@ import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
 export class EShapeActionRuntime {
 	reset: EShapeRuntimeReset;
 
-	constructor( reset?: EShapeRuntimeReset ) {
+	constructor(reset?: EShapeRuntimeReset) {
 		this.reset = reset || EShapeRuntimeReset.NONE;
 	}
 
-	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
+	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {
 		// OVERRIDE THIS
 	}
 
-	onFocus( shape: EShape, runtime: EShapeRuntime ): void {
+	onFocus(shape: EShape, runtime: EShapeRuntime): void {
 		// DO NOTHING
 	}
 
-	onBlur( shape: EShape, runtime: EShapeRuntime ): void {
+	onBlur(shape: EShape, runtime: EShapeRuntime): void {
 		// DO NOTHING
 	}
 
-	onDownThisBefore( shape: EShape, runtime: EShapeRuntime, e: interaction.InteractionEvent | KeyboardEvent ): void {
+	onDownThisBefore(
+		shape: EShape,
+		runtime: EShapeRuntime,
+		e: interaction.InteractionEvent | KeyboardEvent
+	): void {
 		// DO NOTHING
 	}
 
-	onDownThisAfter( shape: EShape, runtime: EShapeRuntime, e: interaction.InteractionEvent | KeyboardEvent ): void {
+	onDownThisAfter(
+		shape: EShape,
+		runtime: EShapeRuntime,
+		e: interaction.InteractionEvent | KeyboardEvent
+	): void {
 		// DO NOTHING
 	}
 
-	onDblClick( shape: EShape, runtime: EShapeRuntime, e: MouseEvent | TouchEvent, interactionManager: interaction.InteractionManager ): void {
+	onDblClick(
+		shape: EShape,
+		runtime: EShapeRuntime,
+		e: MouseEvent | TouchEvent,
+		interactionManager: interaction.InteractionManager
+	): void {
 		// DO NOTHING
 	}
 
-	onRender( shape: EShape, runtime: EShapeRuntime, time: number, renderer: Renderer ): void {
+	onRender(shape: EShape, runtime: EShapeRuntime, time: number, renderer: Renderer): void {
 		// DO NOTHING
 	}
 }

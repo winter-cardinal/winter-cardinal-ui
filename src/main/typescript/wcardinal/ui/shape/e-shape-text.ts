@@ -46,13 +46,13 @@ export interface EShapeTextAtlasCharacter {
 	height: number;
 	advance: number;
 	origin: {
-		x: number,
-		y: number
+		x: number;
+		y: number;
 	};
 }
 
 export interface EShapeTextAtlasCharacters {
-	[ character: string ]: EShapeTextAtlasCharacter;
+	[character: string]: EShapeTextAtlasCharacter;
 }
 
 export interface EShapeTextAtlas {
@@ -73,18 +73,23 @@ export interface EShapeText extends EShapeTextLike {
 	spacing: EShapeTextOffset;
 	padding: EShapeTextOffset;
 
-	texture?: Texture;			// Used for rendering and updated when rendered
-	atlas?: EShapeTextAtlas;	// Used for rendering and updated when rendered
-	world?: number[];			// Updated when rendered
+	texture?: Texture; // Used for rendering and updated when rendered
+	atlas?: EShapeTextAtlas; // Used for rendering and updated when rendered
+	world?: number[]; // Updated when rendered
 
-	copy( target?: DeepPartial<EShapeTextLike> ): this;
+	copy(target?: DeepPartial<EShapeTextLike>): this;
 	set(
-		value?: string, color?: number, alpha?: number,
-		family?: string, size?: number, weight?: EShapeTextWeight,
-		style?: EShapeTextStyle, direction?: EShapeTextDirection,
+		value?: string,
+		color?: number,
+		alpha?: number,
+		family?: string,
+		size?: number,
+		weight?: EShapeTextWeight,
+		style?: EShapeTextStyle,
+		direction?: EShapeTextDirection,
 		clipping?: boolean
 	): this;
 	toObject(): EShapeTextLike;
-	serialize( manager: EShapeResourceManagerSerialization ): number;
-	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void;
+	serialize(manager: EShapeResourceManagerSerialization): number;
+	deserialize(target: number, manager: EShapeResourceManagerDeserialization): void;
 }

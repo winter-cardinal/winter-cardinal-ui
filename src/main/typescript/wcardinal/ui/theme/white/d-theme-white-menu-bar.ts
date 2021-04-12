@@ -14,7 +14,7 @@ export class DThemeWhiteMenuBar extends DThemeWhiteLayoutHorizontal implements D
 		return 0xfdfdfd;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 

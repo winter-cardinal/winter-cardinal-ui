@@ -14,48 +14,49 @@ import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 export type EShapeActionValueChangeTextSerialized = [
-	EShapeActionValueType.CHANGE_TEXT, number, EShapeActionValueChangeTextType, number
+	EShapeActionValueType.CHANGE_TEXT,
+	number,
+	EShapeActionValueChangeTextType,
+	number
 ];
 
 export class EShapeActionValueChangeText extends EShapeActionValueSubtyped<EShapeActionValueChangeTextType> {
 	readonly value: string;
 
-	constructor( subtype: EShapeActionValueChangeTextType, condition: string, value: string ) {
-		super( EShapeActionValueType.CHANGE_TEXT, condition, subtype );
+	constructor(subtype: EShapeActionValueChangeTextType, condition: string, value: string) {
+		super(EShapeActionValueType.CHANGE_TEXT, condition, subtype);
 		this.value = value;
 	}
 
-	isEquals( value: EShapeActionValue ): boolean {
+	isEquals(value: EShapeActionValue): boolean {
 		return (
-			super.isEquals( value ) &&
-			(value instanceof EShapeActionValueChangeText) &&
+			super.isEquals(value) &&
+			value instanceof EShapeActionValueChangeText &&
 			this.value === value.value
 		);
 	}
 
 	toRuntime(): EShapeActionRuntimeChangeTextText | EShapeActionRuntimeChangeTextNumber {
-		switch( this.subtype ) {
-		case EShapeActionValueChangeTextType.TEXT:
-			return new EShapeActionRuntimeChangeTextText( this );
-		case EShapeActionValueChangeTextType.NUMBER:
-			return new EShapeActionRuntimeChangeTextNumber( this );
+		switch (this.subtype) {
+			case EShapeActionValueChangeTextType.TEXT:
+				return new EShapeActionRuntimeChangeTextText(this);
+			case EShapeActionValueChangeTextType.NUMBER:
+				return new EShapeActionRuntimeChangeTextNumber(this);
 		}
 	}
 
-	serialize( manager: EShapeResourceManagerSerialization ): number {
+	serialize(manager: EShapeResourceManagerSerialization): number {
 		const conditionId = manager.addResource(this.condition);
 		const valueId = manager.addResource(this.value);
-		return manager.addResource(
-			`[${this.type},${conditionId},${this.subtype},${valueId}]`
-		);
+		return manager.addResource(`[${this.type},${conditionId},${this.subtype},${valueId}]`);
 	}
 
 	static deserialize(
 		serialized: EShapeActionValueChangeTextSerialized,
 		manager: EShapeResourceManagerDeserialization
 	): EShapeActionValueChangeText {
-		const condition = EShapeActionValues.toResource( 1, serialized, manager.resources );
-		const value = EShapeActionValues.toResource( 3, serialized, manager.resources );
-		return new EShapeActionValueChangeText( serialized[ 2 ], condition, value );
+		const condition = EShapeActionValues.toResource(1, serialized, manager.resources);
+		const value = EShapeActionValues.toResource(3, serialized, manager.resources);
+		return new EShapeActionValueChangeText(serialized[2], condition, value);
 	}
 }

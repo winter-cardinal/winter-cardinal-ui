@@ -21,29 +21,29 @@ export class DThemeWhiteChartAxisBase implements DThemeChartAxisBase {
 		return 75;
 	}
 
-	getLabelAlignHorizontal( position: DChartAxisPosition ): EShapeTextAlignHorizontal {
-		switch( position ) {
-		case DChartAxisPosition.TOP:
-			return EShapeTextAlignHorizontal.CENTER;
-		case DChartAxisPosition.BOTTOM:
-			return EShapeTextAlignHorizontal.CENTER;
-		case DChartAxisPosition.LEFT:
-			return EShapeTextAlignHorizontal.OUTSIDE_LEFT;
-		case DChartAxisPosition.RIGHT:
-			return EShapeTextAlignHorizontal.OUTSIDE_RIGHT;
+	getLabelAlignHorizontal(position: DChartAxisPosition): EShapeTextAlignHorizontal {
+		switch (position) {
+			case DChartAxisPosition.TOP:
+				return EShapeTextAlignHorizontal.CENTER;
+			case DChartAxisPosition.BOTTOM:
+				return EShapeTextAlignHorizontal.CENTER;
+			case DChartAxisPosition.LEFT:
+				return EShapeTextAlignHorizontal.OUTSIDE_LEFT;
+			case DChartAxisPosition.RIGHT:
+				return EShapeTextAlignHorizontal.OUTSIDE_RIGHT;
 		}
 	}
 
-	getLabelAlignVertical( position: DChartAxisPosition ): EShapeTextAlignVertical {
-		switch( position ) {
-		case DChartAxisPosition.TOP:
-			return EShapeTextAlignVertical.OUTSIDE_TOP;
-		case DChartAxisPosition.BOTTOM:
-			return EShapeTextAlignVertical.OUTSIDE_BOTTOM;
-		case DChartAxisPosition.LEFT:
-			return EShapeTextAlignVertical.MIDDLE;
-		case DChartAxisPosition.RIGHT:
-			return EShapeTextAlignVertical.MIDDLE;
+	getLabelAlignVertical(position: DChartAxisPosition): EShapeTextAlignVertical {
+		switch (position) {
+			case DChartAxisPosition.TOP:
+				return EShapeTextAlignVertical.OUTSIDE_TOP;
+			case DChartAxisPosition.BOTTOM:
+				return EShapeTextAlignVertical.OUTSIDE_BOTTOM;
+			case DChartAxisPosition.LEFT:
+				return EShapeTextAlignVertical.MIDDLE;
+			case DChartAxisPosition.RIGHT:
+				return EShapeTextAlignVertical.MIDDLE;
 		}
 	}
 
@@ -111,29 +111,29 @@ export class DThemeWhiteChartAxisBase implements DThemeChartAxisBase {
 		return undefined;
 	}
 
-	getMajorTickTextAlignHorizontal( position: DChartAxisPosition ): EShapeTextAlignHorizontal {
-		switch( position ) {
-		case DChartAxisPosition.TOP:
-			return EShapeTextAlignHorizontal.CENTER;
-		case DChartAxisPosition.BOTTOM:
-			return EShapeTextAlignHorizontal.CENTER;
-		case DChartAxisPosition.LEFT:
-			return EShapeTextAlignHorizontal.OUTSIDE_LEFT;
-		case DChartAxisPosition.RIGHT:
-			return EShapeTextAlignHorizontal.OUTSIDE_RIGHT;
+	getMajorTickTextAlignHorizontal(position: DChartAxisPosition): EShapeTextAlignHorizontal {
+		switch (position) {
+			case DChartAxisPosition.TOP:
+				return EShapeTextAlignHorizontal.CENTER;
+			case DChartAxisPosition.BOTTOM:
+				return EShapeTextAlignHorizontal.CENTER;
+			case DChartAxisPosition.LEFT:
+				return EShapeTextAlignHorizontal.OUTSIDE_LEFT;
+			case DChartAxisPosition.RIGHT:
+				return EShapeTextAlignHorizontal.OUTSIDE_RIGHT;
 		}
 	}
 
-	getMajorTickTextAlignVertical( position: DChartAxisPosition ): EShapeTextAlignVertical {
-		switch( position ) {
-		case DChartAxisPosition.TOP:
-			return EShapeTextAlignVertical.OUTSIDE_TOP;
-		case DChartAxisPosition.BOTTOM:
-			return EShapeTextAlignVertical.OUTSIDE_BOTTOM;
-		case DChartAxisPosition.LEFT:
-			return EShapeTextAlignVertical.MIDDLE;
-		case DChartAxisPosition.RIGHT:
-			return EShapeTextAlignVertical.MIDDLE;
+	getMajorTickTextAlignVertical(position: DChartAxisPosition): EShapeTextAlignVertical {
+		switch (position) {
+			case DChartAxisPosition.TOP:
+				return EShapeTextAlignVertical.OUTSIDE_TOP;
+			case DChartAxisPosition.BOTTOM:
+				return EShapeTextAlignVertical.OUTSIDE_BOTTOM;
+			case DChartAxisPosition.LEFT:
+				return EShapeTextAlignVertical.MIDDLE;
+			case DChartAxisPosition.RIGHT:
+				return EShapeTextAlignVertical.MIDDLE;
 		}
 	}
 

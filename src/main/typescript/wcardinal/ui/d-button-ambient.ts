@@ -8,13 +8,9 @@ import { DButton, DButtonOptions, DThemeButton } from "./d-button";
 export interface DButtonAmbientOptions<
 	VALUE = unknown,
 	THEME extends DThemeButtonAmbient<VALUE> = DThemeButtonAmbient<VALUE>
-> extends DButtonOptions<VALUE, THEME> {
+> extends DButtonOptions<VALUE, THEME> {}
 
-}
-
-export interface DThemeButtonAmbient<VALUE = unknown> extends DThemeButton<VALUE> {
-
-}
+export interface DThemeButtonAmbient<VALUE = unknown> extends DThemeButton<VALUE> {}
 
 export class DButtonAmbient<
 	VALUE = unknown,

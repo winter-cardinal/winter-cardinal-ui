@@ -15,7 +15,13 @@ export class EShapeTextOutlineImpl implements EShapeTextOutline {
 	protected _alpha: number;
 	protected _width: number;
 
-	constructor( parent: EShapeTextOutlineImplParent, enable: boolean, color: number, alpha: number, width: number ) {
+	constructor(
+		parent: EShapeTextOutlineImplParent,
+		enable: boolean,
+		color: number,
+		alpha: number,
+		width: number
+	) {
 		this._parent = parent;
 		this._enable = enable;
 		this._color = color;
@@ -27,8 +33,8 @@ export class EShapeTextOutlineImpl implements EShapeTextOutline {
 		return this._enable;
 	}
 
-	set enable( enable: boolean ) {
-		if( this._enable !== enable ) {
+	set enable(enable: boolean) {
+		if (this._enable !== enable) {
 			this._enable = enable;
 			this._parent.updateUploaded();
 		}
@@ -38,8 +44,8 @@ export class EShapeTextOutlineImpl implements EShapeTextOutline {
 		return this._color;
 	}
 
-	set color( color: number ) {
-		if( this._color !== color ) {
+	set color(color: number) {
+		if (this._color !== color) {
 			this._color = color;
 			this._parent.updateUploaded();
 		}
@@ -49,8 +55,8 @@ export class EShapeTextOutlineImpl implements EShapeTextOutline {
 		return this._alpha;
 	}
 
-	set alpha( alpha: number ) {
-		if( this._alpha !== alpha ) {
+	set alpha(alpha: number) {
+		if (this._alpha !== alpha) {
 			this._alpha = alpha;
 			this._parent.updateUploaded();
 		}
@@ -60,49 +66,55 @@ export class EShapeTextOutlineImpl implements EShapeTextOutline {
 		return this._width;
 	}
 
-	set width( width: number ) {
-		if( this._width !== width ) {
+	set width(width: number) {
+		if (this._width !== width) {
 			this._width = width;
 			this._parent.updateUploaded();
 		}
 	}
 
-	copy( target?: Partial<EShapeTextOutlineLike> ): void {
-		if( target ) {
-			this.set( target.enable, target.color, target.alpha, target.width );
+	copy(target?: Partial<EShapeTextOutlineLike>): void {
+		if (target) {
+			this.set(target.enable, target.color, target.alpha, target.width);
 		}
 	}
 
-	set( enable?: boolean, color?: number, alpha?: number, width?: number ) {
+	set(enable?: boolean, color?: number, alpha?: number, width?: number): void {
 		let isChanged = false;
 
-		if( enable !== undefined && this._enable !== enable ) {
+		if (enable !== undefined && this._enable !== enable) {
 			this._enable = enable;
 			isChanged = true;
 		}
 
-		if( color !== undefined && this._color !== color ) {
+		if (color !== undefined && this._color !== color) {
 			this._color = color;
 			isChanged = true;
 		}
 
-		if( alpha !== undefined && this._alpha !== alpha ) {
+		if (alpha !== undefined && this._alpha !== alpha) {
 			this._alpha = alpha;
 			isChanged = true;
 		}
 
-		if( width !== undefined && this._width !== width ) {
+		if (width !== undefined && this._width !== width) {
 			this._width = width;
 			isChanged = true;
 		}
 
-		if( isChanged ) {
+		if (isChanged) {
 			this._parent.updateUploaded();
 		}
 	}
 
 	clone(): EShapeTextOutline {
-		return new EShapeTextOutlineImpl( this._parent, this._enable, this._color, this._alpha, this._width );
+		return new EShapeTextOutlineImpl(
+			this._parent,
+			this._enable,
+			this._color,
+			this._alpha,
+			this._width
+		);
 	}
 
 	toObject(): EShapeTextOutlineLike {
@@ -114,31 +126,21 @@ export class EShapeTextOutlineImpl implements EShapeTextOutline {
 		};
 	}
 
-	serialize( manager: EShapeResourceManagerSerialization ): number {
+	serialize(manager: EShapeResourceManagerSerialization): number {
 		const serialized = `[${this._enable ? 1 : 0},${this._color},${this._alpha},${this._width}]`;
-		return manager.addResource( serialized );
+		return manager.addResource(serialized);
 	}
 
-	deserialize( target: number, manager: EShapeResourceManagerDeserialization ) {
+	deserialize(target: number, manager: EShapeResourceManagerDeserialization): void {
 		const resources = manager.resources;
-		if( 0 <= target && target < resources.length ) {
-			const parsed = manager.getTextOutline( target );
-			if( parsed != null ) {
-				this.set(
-					parsed[ 0 ] !== 0,
-					parsed[ 1 ],
-					parsed[ 2 ],
-					parsed[ 3 ]
-				);
+		if (0 <= target && target < resources.length) {
+			const parsed = manager.getTextOutline(target);
+			if (parsed != null) {
+				this.set(!!parsed[0], parsed[1], parsed[2], parsed[3]);
 			} else {
-				const deserialized = JSON.parse( resources[ target ] );
-				manager.setTextOutline( target, deserialized );
-				this.set(
-					deserialized[ 0 ] !== 0,
-					deserialized[ 1 ],
-					deserialized[ 2 ],
-					deserialized[ 3 ]
-				);
+				const deserialized = JSON.parse(resources[target]);
+				manager.setTextOutline(target, deserialized);
+				this.set(!!deserialized[0], deserialized[1], deserialized[2], deserialized[3]);
 			}
 		}
 	}

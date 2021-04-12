@@ -5,6 +5,4 @@
 
 import { DThemeWhiteMenuItemLink } from "./d-theme-white-menu-item-link";
 
-export class DThemeWhiteMenuSidedItemLink extends DThemeWhiteMenuItemLink {
-
-}
+export class DThemeWhiteMenuSidedItemLink extends DThemeWhiteMenuItemLink {}

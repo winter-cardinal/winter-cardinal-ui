@@ -8,20 +8,16 @@ import { DLayoutVerticalOptions, DThemeLayoutVertical } from "./d-layout-vertica
 
 export interface DMenuSidedContentOptions<
 	THEME extends DThemeMenuSidedContent = DThemeMenuSidedContent
-> extends DLayoutVerticalOptions<THEME> {
+> extends DLayoutVerticalOptions<THEME> {}
 
-}
-
-export interface DThemeMenuSidedContent extends DThemeLayoutVertical {
-
-}
+export interface DThemeMenuSidedContent extends DThemeLayoutVertical {}
 
 export class DMenuSidedContent<
 	THEME extends DThemeMenuSidedContent = DThemeMenuSidedContent,
 	OPTIONS extends DMenuSidedContentOptions<THEME> = DMenuSidedContentOptions<THEME>
 > extends DLayoutHorizontal<THEME, OPTIONS> {
-	protected init( options?: OPTIONS ) {
-		super.init( options );
+	protected init(options?: OPTIONS): void {
+		super.init(options);
 		this.state.isFocusable = false;
 	}
 

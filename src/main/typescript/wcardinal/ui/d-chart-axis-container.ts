@@ -16,11 +16,11 @@ export interface DChartAxisContainer {
 	readonly container: EShapeContainer;
 	readonly plotArea: DChartPlotArea;
 
-	add( axis: DChartAxis ): void;
-	get( position: DChartAxisPosition, index: number ): DChartAxis | null;
-	indexOf( axis: DChartAxis ): number;
-	clear( position: DChartAxisPosition ): this;
-	size( position: DChartAxisPosition ): number;
+	add(axis: DChartAxis): void;
+	get(position: DChartAxisPosition, index: number): DChartAxis | null;
+	indexOf(axis: DChartAxis): number;
+	clear(position: DChartAxisPosition): this;
+	size(position: DChartAxisPosition): number;
 	update(): void;
 	destroy(): void;
 }

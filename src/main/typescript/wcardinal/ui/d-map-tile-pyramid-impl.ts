@@ -32,13 +32,16 @@ export class DMapTilePyramidImpl extends utils.EventEmitter implements DMapTileP
 	protected _fitThrottledBound: () => void;
 	protected _fitThrottle: number;
 
-	constructor( options: DMapTilePyramidOptions ) {
+	constructor(options: DMapTilePyramidOptions) {
 		super();
-		const canvas = this._canvas = options.canvas;
+		const canvas = options.canvas;
+		this._canvas = canvas;
 		this._builder = options.builder;
-		const mappingLonLat = this._mapping = options.mapping;
-		const coordinate = this._coordinate = options.coordinate;
-		this._mappingInternal = this.toMapping( canvas, mappingLonLat, coordinate );
+		const mapping = options.mapping;
+		this._mapping = mapping;
+		const coordinate = options.coordinate;
+		this._coordinate = coordinate;
+		this._mappingInternal = this.toMapping(canvas, mapping, coordinate);
 		this._z = NaN;
 		this._tz = NaN;
 		this._minZ = options.plane.min;
@@ -52,12 +55,13 @@ export class DMapTilePyramidImpl extends utils.EventEmitter implements DMapTileP
 			this.fit();
 		};
 		this._fitThrottle = options.plane.throttle;
-		const fitThrottledBound = this._fitThrottledBound = (): void => {
+		const fitThrottledBound = (): void => {
 			this.fitThrottled();
 		};
-		canvas.on( "scale", fitThrottledBound );
-		canvas.on( "move", fitThrottledBound );
-		canvas.addRenderable( this, true );
+		this._fitThrottledBound = fitThrottledBound;
+		canvas.on("scale", fitThrottledBound);
+		canvas.on("move", fitThrottledBound);
+		canvas.addRenderable(this, true);
 	}
 
 	get coordinate(): DMapCoordinate {
@@ -65,22 +69,26 @@ export class DMapTilePyramidImpl extends utils.EventEmitter implements DMapTileP
 	}
 
 	protected fitThrottled(): void {
-		if( this._fitBoundTimeout == null ) {
-			this._fitBoundTimeout = window.setTimeout( this._fitBound, this._fitThrottle );
+		if (this._fitBoundTimeout == null) {
+			this._fitBoundTimeout = window.setTimeout(this._fitBound, this._fitThrottle);
 		}
 	}
 
-	protected toMapping( canvas: DBase, mapping: DMapTileMapping, coordinate: DMapCoordinate ): DMapTileMappingInternal {
+	protected toMapping(
+		canvas: DBase,
+		mapping: DMapTileMapping,
+		coordinate: DMapCoordinate
+	): DMapTileMappingInternal {
 		const work = DMapTilePyramidImpl.WORK_LONLAT;
 		const tileSize = coordinate.getTileSize();
 
-		work.set( mapping.from.lon, mapping.from.lat );
-		coordinate.lonLatToPixels( work, 0, tileSize, work );
+		work.set(mapping.from.lon, mapping.from.lat);
+		coordinate.lonLatToPixels(work, 0, tileSize, work);
 		const x0 = work.x;
 		const y0 = work.y;
 
-		work.set( mapping.to.lon, mapping.to.lat );
-		coordinate.lonLatToPixels( work, 0, tileSize, work );
+		work.set(mapping.to.lon, mapping.to.lat);
+		coordinate.lonLatToPixels(work, 0, tileSize, work);
 		const x1 = work.x;
 		const y1 = work.y;
 
@@ -88,21 +96,21 @@ export class DMapTilePyramidImpl extends utils.EventEmitter implements DMapTileP
 		const dy = Math.abs(y1 - y0);
 		const dmin = 0.0000001;
 		let scale = 1;
-		if( dmin < dx ) {
-			if( dmin < dy ) {
-				scale = Math.max( canvas.width / dx, canvas.height / dy );
+		if (dmin < dx) {
+			if (dmin < dy) {
+				scale = Math.max(canvas.width / dx, canvas.height / dy);
 			} else {
 				scale = canvas.width / dx;
 			}
 		} else {
-			if( dmin < dy ) {
+			if (dmin < dy) {
 				scale = canvas.height / dy;
 			}
 		}
 		return {
 			scale,
-			x: 0.5 * (x1 + x0) / tileSize,
-			y: 0.5 * (y1 + y0) / tileSize
+			x: (0.5 * (x1 + x0)) / tileSize,
+			y: (0.5 * (y1 + y0)) / tileSize
 		};
 	}
 
@@ -110,11 +118,11 @@ export class DMapTilePyramidImpl extends utils.EventEmitter implements DMapTileP
 		return this._mapping;
 	}
 
-	set mapping( mapping: DMapTileMapping ) {
+	set mapping(mapping: DMapTileMapping) {
 		const oldMapping = this._mappingInternal;
-		const newMapping = this.toMapping( this._canvas, mapping, this._coordinate );
+		const newMapping = this.toMapping(this._canvas, mapping, this._coordinate);
 		const threshold = 0.0000001;
-		if(
+		if (
 			threshold < Math.abs(oldMapping.scale - newMapping.scale) ||
 			threshold < Math.abs(oldMapping.x - newMapping.x) ||
 			threshold < Math.abs(oldMapping.y - newMapping.y)
@@ -122,19 +130,19 @@ export class DMapTilePyramidImpl extends utils.EventEmitter implements DMapTileP
 			this._mappingInternal = newMapping;
 
 			const planes = this._planes;
-			for( let i = 0, imax = planes.length; i < imax; ++i ) {
-				const plane = planes[ i ];
-				if( plane ) {
+			for (let i = 0, imax = planes.length; i < imax; ++i) {
+				const plane = planes[i];
+				if (plane) {
 					plane.mapping = newMapping;
 				}
 			}
-			DApplications.update( this._canvas );
+			DApplications.update(this._canvas);
 
 			this._fitThrottledBound();
 		}
 	}
 
-	protected newPlane( tz: number ): DMapTilePlane {
+	protected newPlane(tz: number): DMapTilePlane {
 		return new DMapTilePlane(
 			this._canvas,
 			this._builder,
@@ -145,62 +153,62 @@ export class DMapTilePyramidImpl extends utils.EventEmitter implements DMapTileP
 		);
 	}
 
-	render( renderer: Renderer ): void {
+	render(renderer: Renderer): void {
 		const tz = this._tz;
 		const planes = this._planes;
-		for( let i = 0; i < tz; ++i ) {
-			const plane = planes[ i ];
-			if( plane != null ) {
-				plane.render( renderer );
+		for (let i = 0; i < tz; ++i) {
+			const plane = planes[i];
+			if (plane != null) {
+				plane.render(renderer);
 			}
 		}
 
-		for( let i = planes.length - 1; tz < i; --i ) {
-			const plane = planes[ i ];
-			if( plane != null ) {
-				plane.render( renderer );
+		for (let i = planes.length - 1; tz < i; --i) {
+			const plane = planes[i];
+			if (plane != null) {
+				plane.render(renderer);
 			}
 		}
 
-		const planeTz = planes[ tz ];
-		if( planeTz != null ) {
-			planeTz.render( renderer );
+		const planeTz = planes[tz];
+		if (planeTz != null) {
+			planeTz.render(renderer);
 		}
 	}
 
-	protected toTileZ( tz: number ): number {
-		return Math.min( this._maxZ, Math.max( this._minZ, Math.floor( tz ) ) );
+	protected toTileZ(tz: number): number {
+		return Math.min(this._maxZ, Math.max(this._minZ, Math.floor(tz)));
 	}
 
 	updateTransform(): void {
 		// DO NOTHING
 	}
 
-	protected toZ( scale: number ): number {
-		return Math.log( this._mappingInternal.scale * scale ) / Math.log( 2 );
+	protected toZ(scale: number): number {
+		return Math.log(this._mappingInternal.scale * scale) / Math.log(2);
 	}
 
-	move( scale: number, lon0: number, lat0: number, lon1: number, lat1: number ): this {
+	move(scale: number, lon0: number, lat0: number, lon1: number, lat1: number): this {
 		const planes = this._planes;
-		const z = this.toZ( scale );
-		if( this._z !== z ) {
+		const z = this.toZ(scale);
+		if (this._z !== z) {
 			this._z = z;
 
-			const tz = this.toTileZ( z );
-			if( this._tz !== tz ) {
+			const tz = this.toTileZ(z);
+			if (this._tz !== tz) {
 				this._tz = tz;
 
-				let newPlane = planes[ tz ];
-				if( newPlane == null ) {
-					newPlane = this.newPlane( tz );
-					planes[ tz ] = newPlane;
+				let newPlane = planes[tz];
+				if (newPlane == null) {
+					newPlane = this.newPlane(tz);
+					planes[tz] = newPlane;
 				}
 			}
 		}
 
-		const plane = planes[ this._tz ];
-		if( plane != null ) {
-			plane.move( lon0, lat0, lon1, lat1 );
+		const plane = planes[this._tz];
+		if (plane != null) {
+			plane.move(lon0, lat0, lon1, lat1);
 		}
 
 		return this;
@@ -208,9 +216,9 @@ export class DMapTilePyramidImpl extends utils.EventEmitter implements DMapTileP
 
 	fit(): this {
 		const canvas = this._canvas;
-		if( canvas != null ) {
+		if (canvas != null) {
 			const container = canvas.parent;
-			if( container != null ) {
+			if (container != null) {
 				const scale = canvas.scale;
 				const scaleX = scale.x;
 				const scaleY = scale.y;
@@ -225,39 +233,39 @@ export class DMapTilePyramidImpl extends utils.EventEmitter implements DMapTileP
 				const y1 = y0 + container.height / scaleY;
 
 				const work = DMapTilePyramidImpl.WORK_LONLAT;
-				work.set( x0, y0 );
-				coordinate.pixelsToLonLat( work, 0, tileSize, work );
+				work.set(x0, y0);
+				coordinate.pixelsToLonLat(work, 0, tileSize, work);
 				const lon0 = work.x;
 				const lat0 = work.y;
 
-				work.set( x1, y1 );
-				coordinate.pixelsToLonLat( work, 0, tileSize, work );
+				work.set(x1, y1);
+				coordinate.pixelsToLonLat(work, 0, tileSize, work);
 				const lon1 = work.x;
 				const lat1 = work.y;
 
-				this.move( scaleX, lon0, lat0, lon1, lat1 );
+				this.move(scaleX, lon0, lat0, lon1, lat1);
 			}
 		}
 
 		return this;
 	}
 
-	protected destroyPlanesBefore( tz: number, planes: Array<DMapTilePlane | undefined> ): void {
-		for( let i = 0; i < tz; ++i ) {
-			const plane = planes[ i ];
-			if( plane ) {
+	protected destroyPlanesBefore(tz: number, planes: Array<DMapTilePlane | undefined>): void {
+		for (let i = 0; i < tz; ++i) {
+			const plane = planes[i];
+			if (plane) {
 				plane.destroy();
-				planes[ i ] = undefined;
+				planes[i] = undefined;
 			}
 		}
 	}
 
-	protected destroyPlanesAfter( tz: number, planes: Array<DMapTilePlane | undefined> ): void {
-		for( let i = tz + 1, imax = planes.length; i < imax; ++i ) {
-			const plane = planes[ i ];
-			if( plane ) {
+	protected destroyPlanesAfter(tz: number, planes: Array<DMapTilePlane | undefined>): void {
+		for (let i = tz + 1, imax = planes.length; i < imax; ++i) {
+			const plane = planes[i];
+			if (plane) {
 				plane.destroy();
-				planes[ i ] = undefined;
+				planes[i] = undefined;
 			}
 		}
 	}
@@ -265,26 +273,26 @@ export class DMapTilePyramidImpl extends utils.EventEmitter implements DMapTileP
 	protected cleanup(): void {
 		const tz = this._tz;
 		const planes = this._planes;
-		const planeTz = planes[ tz ];
-		if( planeTz && planeTz.loaded ) {
-			this.destroyPlanesBefore( tz, planes );
-			this.destroyPlanesAfter( tz, planes );
+		const planeTz = planes[tz];
+		if (planeTz && planeTz.loaded) {
+			this.destroyPlanesBefore(tz, planes);
+			this.destroyPlanesAfter(tz, planes);
 			return;
 		}
 
-		for( let i = tz + 1, imax = planes.length; i < imax; ++i ) {
-			const plane = planes[ i ];
-			if( plane && plane.loaded ) {
-				this.destroyPlanesBefore( tz, planes );
-				this.destroyPlanesAfter( i, planes );
+		for (let i = tz + 1, imax = planes.length; i < imax; ++i) {
+			const plane = planes[i];
+			if (plane && plane.loaded) {
+				this.destroyPlanesBefore(tz, planes);
+				this.destroyPlanesAfter(i, planes);
 				return;
 			}
 		}
 
-		for( let i = tz - 1; 0 <= i; --i ) {
-			const plane = planes[ i ];
-			if( plane && plane.loaded ) {
-				this.destroyPlanesBefore( i, planes );
+		for (let i = tz - 1; 0 <= i; --i) {
+			const plane = planes[i];
+			if (plane && plane.loaded) {
+				this.destroyPlanesBefore(i, planes);
 				return;
 			}
 		}
@@ -292,24 +300,24 @@ export class DMapTilePyramidImpl extends utils.EventEmitter implements DMapTileP
 
 	protected onLoaded(): void {
 		this.cleanup();
-		DApplications.update( this._canvas );
+		DApplications.update(this._canvas);
 	}
 
 	destroy(): this {
 		const planes = this._planes;
-		for( let i = 0, imax = planes.length; i < imax; ++i ) {
-			const plane = planes[ i ];
-			if( plane ) {
+		for (let i = 0, imax = planes.length; i < imax; ++i) {
+			const plane = planes[i];
+			if (plane) {
 				plane.destroy();
-				planes[ i ] = undefined;
+				planes[i] = undefined;
 			}
 		}
 
 		const canvas = this._canvas;
 		const fitThrottledBound = this._fitThrottledBound;
-		canvas.off( "scale", fitThrottledBound );
-		canvas.off( "move", fitThrottledBound );
-		canvas.removeRenderable( this, true );
+		canvas.off("scale", fitThrottledBound);
+		canvas.off("move", fitThrottledBound);
+		canvas.removeRenderable(this, true);
 
 		return this;
 	}

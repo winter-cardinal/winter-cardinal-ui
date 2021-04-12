@@ -10,13 +10,13 @@ import { DBaseStateSetDataLike } from "./d-base-state-set-data-like";
  * The changes to this storage do not emit state change events.
  */
 export interface DBaseStateSetData {
-	set( key: string, data: unknown ): this;
-	get( key: string ): undefined | unknown;
-	delete( key: string ): boolean;
+	set(key: string, data: unknown): this;
+	get(key: string): undefined | unknown;
+	delete(key: string): boolean;
 	clear(): this;
-	each( iteratee: ( data: unknown, key: unknown ) => void ): this;
+	each(iteratee: (data: unknown, key: string) => void): this;
 	size(): number;
-	copy( other: DBaseStateSetData ): this;
+	copy(other: DBaseStateSetData): this;
 	toArray(): DBaseStateSetDataLike;
 	toString(): string;
 }

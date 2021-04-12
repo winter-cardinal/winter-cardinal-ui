@@ -13,28 +13,35 @@ export interface DTableBodyCellSelectMenuOptions<
 	ROW = unknown,
 	VALUE = unknown,
 	THEME extends DThemeTableBodyCellSelectMenu<VALUE> = DThemeTableBodyCellSelectMenu<VALUE>
-> extends DSelectOptions<VALUE, THEME> {
+> extends DSelectOptions<VALUE, THEME> {}
 
-}
-
-export interface DThemeTableBodyCellSelectMenu<VALUE = unknown> extends DThemeSelect<VALUE> {
-
-}
+export interface DThemeTableBodyCellSelectMenu<VALUE = unknown> extends DThemeSelect<VALUE> {}
 
 export class DTableBodyCellSelectMenu<
-	ROW = unknown,
-	VALUE = unknown,
-	THEME extends DThemeTableBodyCellSelectMenu<VALUE> = DThemeTableBodyCellSelectMenu<VALUE>,
-	OPTIONS extends DTableBodyCellSelectMenuOptions<ROW, VALUE, THEME> = DTableBodyCellSelectMenuOptions<ROW, VALUE, THEME>
-> extends DSelect<VALUE, THEME, OPTIONS> implements DTableBodyCell<ROW, VALUE | null> {
+		ROW = unknown,
+		VALUE = unknown,
+		THEME extends DThemeTableBodyCellSelectMenu<VALUE> = DThemeTableBodyCellSelectMenu<VALUE>,
+		OPTIONS extends DTableBodyCellSelectMenuOptions<
+			ROW,
+			VALUE,
+			THEME
+		> = DTableBodyCellSelectMenuOptions<ROW, VALUE, THEME>
+	>
+	extends DSelect<VALUE, THEME, OPTIONS>
+	implements DTableBodyCell<ROW, VALUE | null> {
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;
 	protected _column: DTableColumn<ROW, VALUE | null>;
 	protected _onChange: DTableBodyCellOnChange<ROW, VALUE | null>;
 
-	constructor( columnIndex: number, column: DTableColumn<ROW, VALUE | null>, onChange: DTableBodyCellOnChange<ROW, VALUE | null>, options?: OPTIONS ) {
-		super( options );
+	constructor(
+		columnIndex: number,
+		column: DTableColumn<ROW, VALUE | null>,
+		onChange: DTableBodyCellOnChange<ROW, VALUE | null>,
+		options?: OPTIONS
+	) {
+		super(options);
 
 		this._rowIndex = -1;
 		this._columnIndex = columnIndex;
@@ -42,18 +49,22 @@ export class DTableBodyCellSelectMenu<
 		this._onChange = onChange;
 	}
 
-	protected onValueChange( newValue: VALUE | null, oldValue: VALUE | null, item: DMenuItem<VALUE> | null ) {
+	protected onValueChange(
+		newValue: VALUE | null,
+		oldValue: VALUE | null,
+		item: DMenuItem<VALUE> | null
+	): void {
 		const row = this._row;
-		if( row !== undefined ) {
+		if (row !== undefined) {
 			const rowIndex = this._rowIndex;
 			const columnIndex = this._columnIndex;
-			this._column.setter( row, columnIndex, newValue );
-			super.onValueChange( newValue, oldValue, item );
-			this._onChange( newValue, oldValue, row, rowIndex, columnIndex, this );
+			this._column.setter(row, columnIndex, newValue);
+			super.onValueChange(newValue, oldValue, item);
+			this._onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
 		}
 	}
 
-	protected onKeyDownArrowDown( e: KeyboardEvent ): boolean {
+	protected onKeyDownArrowDown(e: KeyboardEvent): boolean {
 		return false;
 	}
 
@@ -74,8 +85,11 @@ export class DTableBodyCellSelectMenu<
 	}
 
 	set(
-		value: unknown, row: ROW, supplimental: unknown,
-		rowIndex: number, columnIndex: number,
+		value: unknown,
+		row: ROW,
+		supplimental: unknown,
+		rowIndex: number,
+		columnIndex: number,
 		forcibly?: boolean
 	): void {
 		this._row = row;
@@ -83,8 +97,8 @@ export class DTableBodyCellSelectMenu<
 		this.value = value as VALUE | null;
 
 		const column = this._column;
-		DTableBodyCells.setReadOnly( this, row, columnIndex, column );
-		DTableBodyCells.setRenderable( this, row, columnIndex, column );
+		DTableBodyCells.setReadOnly(this, row, columnIndex, column);
+		DTableBodyCells.setRenderable(this, row, columnIndex, column);
 	}
 
 	unset(): void {

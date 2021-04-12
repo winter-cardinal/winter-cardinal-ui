@@ -5,7 +5,11 @@
 
 import { interaction, Renderer } from "pixi.js";
 import {
-	DDiagramBase, DDiagramBaseController, DDiagramBaseOptions, DDiagramBasePieceController, DThemeDiagramBase
+	DDiagramBase,
+	DDiagramBaseController,
+	DDiagramBaseOptions,
+	DDiagramBasePieceController,
+	DThemeDiagramBase
 } from "./d-diagram-base";
 import { DDiagramCanvas, DDiagramCanvasOptions } from "./d-diagram-canvas";
 import { DDiagramSerialized } from "./d-diagram-serialized";
@@ -23,33 +27,31 @@ import { UtilPointerEvent } from "./util/util-pointer-event";
 /**
  * {@link DDiagram} piece controller.
  */
-export interface DDiagramPieceController extends DDiagramBasePieceController {
-
-}
+export interface DDiagramPieceController extends DDiagramBasePieceController {}
 
 /**
  * {@link DDiagram} controller.
  */
-export interface DDiagramController extends DDiagramBaseController {
-
-}
+export interface DDiagramController extends DDiagramBaseController {}
 
 /**
  * {@link DDiagram} options.
  */
-export interface DDiagramOptions<
-	THEME extends DThemeDiagram = DThemeDiagram,
-	EMITTER = any
-> extends DDiagramBaseOptions<DDiagramCanvas, DDiagramCanvasOptions, DDiagramController, THEME, EMITTER> {
+export interface DDiagramOptions<THEME extends DThemeDiagram = DThemeDiagram, EMITTER = any>
+	extends DDiagramBaseOptions<
+		DDiagramCanvas,
+		DDiagramCanvasOptions,
+		DDiagramController,
+		THEME,
+		EMITTER
+	> {
 	tag?: DDiagramTagOptions;
 }
 
 /**
  * {@link DDiagram} theme.
  */
-export interface DThemeDiagram extends DThemeDiagramBase {
-
-}
+export interface DThemeDiagram extends DThemeDiagramBase {}
 
 export class DDiagram<
 	THEME extends DThemeDiagram = DThemeDiagram,
@@ -58,77 +60,85 @@ export class DDiagram<
 	tag: DDiagramTag;
 	shape: DDiagramShape;
 
-	constructor( options?: OPTIONS ) {
-		super( options );
+	constructor(options?: OPTIONS) {
+		super(options);
 
 		// Hover handling
-		this.on( UtilPointerEvent.move, ( e: interaction.InteractionEvent ): void => {
-			if( UtilPointerEvent.contains( this, e.target ) ) {
+		this.on(UtilPointerEvent.move, (e: interaction.InteractionEvent): void => {
+			if (UtilPointerEvent.contains(this, e.target)) {
 				const canvas = this.canvas;
-				if( canvas ) {
-					canvas.onShapeMove( e );
+				if (canvas) {
+					canvas.onShapeMove(e);
 				}
 			}
 		});
 
 		// Pointer down / up handling
-		this.on( UtilPointerEvent.up, ( e: interaction.InteractionEvent ): void => {
-			if( UtilPointerEvent.contains( this, e.target ) ) {
+		this.on(UtilPointerEvent.up, (e: interaction.InteractionEvent): void => {
+			if (UtilPointerEvent.contains(this, e.target)) {
 				const canvas = this.canvas;
-				if( canvas ) {
-					canvas.onShapeUp( e );
+				if (canvas) {
+					canvas.onShapeUp(e);
 				}
 			}
 		});
 
 		// Click handling
-		this.on( "click", ( e: interaction.InteractionEvent ): void => {
-			if( UtilPointerEvent.contains( this, e.target ) ) {
+		this.on("click", (e: interaction.InteractionEvent): void => {
+			if (UtilPointerEvent.contains(this, e.target)) {
 				const canvas = this.canvas;
-				if( canvas ) {
-					canvas.onShapeClick( e );
+				if (canvas) {
+					canvas.onShapeClick(e);
 				}
 			}
 		});
 
 		//
-		this.tag = new DDiagramTag( this, options && options.tag );
-		this.shape = new DDiagramShape( this );
+		this.tag = new DDiagramTag(this, options && options.tag);
+		this.shape = new DDiagramShape(this);
 	}
 
-	protected initialize( shapes: EShape[] ): void {
-		this.initializeShapes( shapes, null, this.tag.mapper );
+	protected initialize(shapes: EShape[]): void {
+		this.initializeShapes(shapes, null, this.tag.mapper);
 	}
 
-	protected initializeShapes( shapes: EShape[], tagShape: EShape | null, tagMapper: DDiagramTagMapper | null ): void {
-		const formatterMap: { [format: string]: ( value: unknown ) => unknown } = {};
+	protected initializeShapes(
+		shapes: EShape[],
+		tagShape: EShape | null,
+		tagMapper: DDiagramTagMapper | null
+	): void {
+		const formatterMap: { [format: string]: (value: unknown) => unknown } = {};
 		const initialMap: { [initial: string]: unknown | undefined } = {};
-		const actionMap: Map<EShapeActionValue, EShapeActionRuntime> = new Map<EShapeActionValue, EShapeActionRuntime>();
+		const actionMap: Map<EShapeActionValue, EShapeActionRuntime> = new Map<
+			EShapeActionValue,
+			EShapeActionRuntime
+		>();
 
-		for( let i = 0, imax = shapes.length; i < imax; ++i ) {
-			const shape = shapes[ i ];
-			const runtimeConstructor = EShapeRuntimes[ shape.type ] || EShapeRuntime;
-			const runtime = shape.runtime = new (runtimeConstructor)( shape );
+		for (let i = 0, imax = shapes.length; i < imax; ++i) {
+			const shape = shapes[i];
+			const runtimeConstructor = EShapeRuntimes[shape.type] || EShapeRuntime;
+			const runtime = (shape.runtime = new runtimeConstructor(shape));
 
 			// Tag
 			const tag = shape.tag;
-			for( let j = 0, jmax = tag.size(); j < jmax; ++j ) {
-				const value = tag.get( j );
-				if( value ) {
+			for (let j = 0, jmax = tag.size(); j < jmax; ++j) {
+				const value = tag.get(j);
+				if (value) {
 					// Mapping
-					if( tagMapper ) {
-						tagMapper( value, tagShape || shape );
+					if (tagMapper) {
+						tagMapper(value, tagShape || shape);
 					}
 
 					// Format
 					const tagFormat = value.format;
 					const tagInitial = value.initial;
-					if( tagFormat in formatterMap ) {
-						value.formatter = formatterMap[ tagFormat ];
-					} else if( 0 < tagFormat.length ) {
+					if (tagFormat in formatterMap) {
+						value.formatter = formatterMap[tagFormat];
+					} else if (0 < tagFormat.length) {
 						try {
 							const formatter = Function(
 								"value",
+								/* eslint-disable prettier/prettier */
 								`try {` +
 									`return (${tagFormat});` +
 								`} catch( e1 ) {` +
@@ -138,27 +148,30 @@ export class DDiagram<
 										`return 0;` +
 									`}` +
 								`}`
+								/* eslint-enable prettier/prettier */
 							) as any;
-							formatterMap[ tagFormat ] = formatter;
+							formatterMap[tagFormat] = formatter;
 							value.formatter = formatter;
-						} catch( e ) {
+						} catch (e) {
 							//
 						}
 					}
 
 					// Initial
-					if( tagInitial in initialMap ) {
-						value.value = initialMap[ tagInitial ];
-					} else if( 0 < tagInitial.length ) {
+					if (tagInitial in initialMap) {
+						value.value = initialMap[tagInitial];
+					} else if (0 < tagInitial.length) {
 						try {
-							value.value = initialMap[ tagInitial ] = (Function(
+							value.value = initialMap[tagInitial] = Function(
+								/* eslint-disable prettier/prettier */
 								`try {` +
 									`return (${tagInitial});` +
 								`} catch( e ) {` +
 									`return 0;` +
 								`}`
-							)());
-						} catch( e ) {
+								/* eslint-enable prettier/prettier */
+							)();
+						} catch (e) {
 							//
 						}
 					}
@@ -168,45 +181,41 @@ export class DDiagram<
 			// Initialize runtime actions
 			const values = shape.action.values;
 			const actions = runtime.actions;
-			for( let j = 0, jmax = values.length; j < jmax; ++j ) {
-				const value = values[ j ];
-				let action: EShapeActionRuntime | undefined | null = actionMap.get( value );
-				if( action == null ) {
+			for (let j = 0, jmax = values.length; j < jmax; ++j) {
+				const value = values[j];
+				let action: EShapeActionRuntime | undefined | null = actionMap.get(value);
+				if (action == null) {
 					action = value.toRuntime();
-					if( action != null ) {
-						if( action instanceof EShapeActionRuntimeOpen ) {
-							if( shape.cursor.length <= 0 ) {
+					if (action != null) {
+						if (action instanceof EShapeActionRuntimeOpen) {
+							if (shape.cursor.length <= 0) {
 								shape.cursor = "pointer";
 							}
 						}
 
-						actionMap.set( value, action );
-						actions.push( action );
+						actionMap.set(value, action);
+						actions.push(action);
 						runtime.reset |= action.reset;
 					}
 				} else {
-					actions.push( action );
+					actions.push(action);
 					runtime.reset |= action.reset;
 				}
 			}
 
 			// Children
 			const children = shape.children;
-			if( 0 < children.length ) {
-				this.initializeShapes(
-					children,
-					this.toTagShape( tagShape, shape ),
-					tagMapper
-				);
+			if (0 < children.length) {
+				this.initializeShapes(children, this.toTagShape(tagShape, shape), tagMapper);
 			}
 		}
 	}
 
-	protected toTagShape( tagShape: EShape | null, shape: EShape ): EShape | null {
-		if( tagShape != null ) {
+	protected toTagShape(tagShape: EShape | null, shape: EShape): EShape | null {
+		if (tagShape != null) {
 			return tagShape;
 		}
-		if( shape.type === EShapeType.EMBEDDED ) {
+		if (shape.type === EShapeType.EMBEDDED) {
 			return shape;
 		}
 		return null;
@@ -216,33 +225,36 @@ export class DDiagram<
 		return false;
 	}
 
-	protected newCanvas( serialized: DDiagramSerialized ): DDiagramCanvas {
-		return new DDiagramCanvas( this.toCanvasOptions( serialized ) );
+	protected newCanvas(serialized: DDiagramSerialized): DDiagramCanvas {
+		return new DDiagramCanvas(this.toCanvasOptions(serialized));
 	}
 
-	protected toCanvasOptions( serialized: DDiagramSerialized ): DDiagramCanvasOptions {
-		return this.toCanvasBaseOptions( serialized );
+	protected toCanvasOptions(serialized: DDiagramSerialized): DDiagramCanvasOptions {
+		return this.toCanvasBaseOptions(serialized);
 	}
 
-	protected onDown( e: interaction.InteractionEvent ): void {
+	protected onDown(e: interaction.InteractionEvent): void {
 		const canvas = this.canvas;
-		if( canvas && canvas.onShapeDown( e ) ) {
+		if (canvas && canvas.onShapeDown(e)) {
 			return;
 		}
-		super.onDown( e );
+		super.onDown(e);
 	}
 
-	onDblClick( e: MouseEvent | TouchEvent, interactionManager: interaction.InteractionManager ): boolean {
+	onDblClick(
+		e: MouseEvent | TouchEvent,
+		interactionManager: interaction.InteractionManager
+	): boolean {
 		const canvas = this.canvas;
-		if( canvas && canvas.onShapeDblClick( e, interactionManager ) ) {
+		if (canvas && canvas.onShapeDblClick(e, interactionManager)) {
 			return true;
 		}
-		return super.onDblClick( e, interactionManager );
+		return super.onDblClick(e, interactionManager);
 	}
 
-	render( renderer: Renderer ): void {
-		this.shape.onRender( renderer );
-		super.render( renderer );
+	render(renderer: Renderer): void {
+		this.shape.onRender(renderer);
+		super.render(renderer);
 	}
 
 	protected getType(): string {

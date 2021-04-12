@@ -4,7 +4,10 @@
  */
 
 import { DChartSeriesStroke } from "./d-chart-series-stroke";
-import { DChartSeriesStrokeComputed, DChartSeriesStrokeComputedOptions } from "./d-chart-series-stroke-computed";
+import {
+	DChartSeriesStrokeComputed,
+	DChartSeriesStrokeComputedOptions
+} from "./d-chart-series-stroke-computed";
 import { EShapePointsStyle } from "./shape/e-shape-points-style";
 import { EShapePointsStyles } from "./shape/e-shape-points-styles";
 import { EShapeStrokeSide } from "./shape/e-shape-stroke-side";
@@ -19,8 +22,13 @@ export class DChartSeriesStrokeComputedImpl implements DChartSeriesStrokeCompute
 	style: EShapePointsStyle;
 
 	constructor(
-		enable: boolean, color: number, alpha: number, width: number,
-		align: number, side: EShapeStrokeSide, style: EShapePointsStyle
+		enable: boolean,
+		color: number,
+		alpha: number,
+		width: number,
+		align: number,
+		side: EShapeStrokeSide,
+		style: EShapePointsStyle
 	) {
 		this.enable = enable;
 		this.color = color;
@@ -32,29 +40,18 @@ export class DChartSeriesStrokeComputedImpl implements DChartSeriesStrokeCompute
 	}
 
 	static from(
-		base: DChartSeriesStroke, index: number,
+		base: DChartSeriesStroke,
+		index: number,
 		stroke?: DChartSeriesStrokeComputedOptions
 	): DChartSeriesStrokeComputed {
-		if( stroke ) {
-			return new DChartSeriesStrokeComputedImpl(
-				( stroke.enable != null ? stroke.enable : base.enable( index ) ),
-				( stroke.color != null ? stroke.color : base.color( index ) ),
-				( stroke.alpha != null ? stroke.alpha : base.alpha( index ) ),
-				( stroke.width != null ? stroke.width : base.width( index ) ),
-				( stroke.align != null ? stroke.align : base.align( index ) ),
-				( stroke.side != null ? stroke.side : base.side( index ) ),
-				EShapePointsStyles.from( stroke.style != null ? stroke.style : base.style( index ) )
-			);
-		} else {
-			return new DChartSeriesStrokeComputedImpl(
-				base.enable( index ),
-				base.color( index ),
-				base.alpha( index ),
-				base.width( index ),
-				base.align( index ),
-				base.side( index ),
-				EShapePointsStyles.from( base.style( index ) )
-			);
-		}
+		return new DChartSeriesStrokeComputedImpl(
+			stroke?.enable ?? base.enable(index),
+			stroke?.color ?? base.color(index),
+			stroke?.alpha ?? base.alpha(index),
+			stroke?.width ?? base.width(index),
+			stroke?.align ?? base.align(index),
+			stroke?.side ?? base.side(index),
+			EShapePointsStyles.from(stroke?.style ?? base.style(index))
+		);
 	}
 }

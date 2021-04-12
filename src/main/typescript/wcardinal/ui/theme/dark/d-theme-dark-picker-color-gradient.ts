@@ -11,7 +11,9 @@ import { DThemePickerColorGradient } from "../../d-picker-color-gradient";
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
 import { DThemeDarkBase } from "./d-theme-dark-base";
 
-export class DThemeDarkPickerColorGradient extends DThemeDarkBase implements DThemePickerColorGradient {
+export class DThemeDarkPickerColorGradient
+	extends DThemeDarkBase
+	implements DThemePickerColorGradient {
 	getGradientPointsWidth(): number {
 		return 30;
 	}
@@ -60,15 +62,15 @@ export class DThemeDarkPickerColorGradient extends DThemeDarkBase implements DTh
 		return [];
 	}
 
-	getGradientCheckerColors(): [ number, number ] {
-		return [ 0.37255, 0.27 ];
+	getGradientCheckerColors(): [number, number] {
+		return [0.37255, 0.27];
 	}
 
-	getBackgroundColor( state: DBaseStateSet ): number | null {
+	getBackgroundColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 

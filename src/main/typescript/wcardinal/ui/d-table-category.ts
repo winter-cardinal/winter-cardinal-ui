@@ -14,16 +14,13 @@ export interface DTableCategoryColumn {
 	offset: number;
 }
 
-export interface DTableCategoryOptions<
-	THEME extends DThemeTableCategory = DThemeTableCategory
-> extends DTableRowOptions<unknown, DTableCategoryColumn, THEME> {
+export interface DTableCategoryOptions<THEME extends DThemeTableCategory = DThemeTableCategory>
+	extends DTableRowOptions<unknown, DTableCategoryColumn, THEME> {
 	offset?: number;
 	cell?: DTableCategoryCellOptions;
 }
 
-export interface DThemeTableCategory extends DThemeTableRow {
-
-}
+export interface DThemeTableCategory extends DThemeTableRow {}
 
 export class DTableCategory<
 	THEME extends DThemeTableCategory = DThemeTableCategory,
@@ -31,25 +28,25 @@ export class DTableCategory<
 > extends DTableRow<unknown, DTableCategoryColumn, THEME, OPTIONS> {
 	protected _offset: number;
 
-	constructor( options: OPTIONS ) {
-		super( options );
+	constructor(options: OPTIONS) {
+		super(options);
 
 		const offset = options.offset ?? 0;
 		this._offset = offset;
 		this.transform.position.y = offset;
 
-		this.initCells( options, this._columns, this._frozen );
+		this.initCells(options, this._columns, this._frozen);
 	}
 
-	protected onParentMove( newX: number, newY: number, oldX: number, oldY: number ): void {
-		super.onParentMove( newX, newY, oldX, oldY );
+	protected onParentMove(newX: number, newY: number, oldX: number, oldY: number): void {
+		super.onParentMove(newX, newY, oldX, oldY);
 		this.transform.position.y = -newY + this._offset;
-		this.updateFrozenCellPosition( newX );
+		this.updateFrozenCellPosition(newX);
 	}
 
 	protected getContentPositionX(): number {
 		const content = this.parent;
-		if( content ) {
+		if (content) {
 			return content.position.x;
 		}
 		return 0;
@@ -61,7 +58,7 @@ export class DTableCategory<
 		columns: DTableCategoryColumn[],
 		options: OPTIONS
 	): DBase {
-		return new DTableCategoryCell( this.toCellOptions( columnIndex, column, options ) );
+		return new DTableCategoryCell(this.toCellOptions(columnIndex, column, options));
 	}
 
 	protected toCellOptions(
@@ -70,10 +67,11 @@ export class DTableCategory<
 		options: OPTIONS
 	): DTableCategoryCellOptions {
 		const result = options.cell;
-		if( result ) {
+		if (result) {
 			result.weight = column.weight;
 			result.width = column.width;
-			const text = result.text = result.text || {};
+			const text = result.text || {};
+			result.text = text;
 			text.value = text.value || column.label;
 			return result;
 		} else {

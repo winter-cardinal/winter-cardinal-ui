@@ -13,37 +13,39 @@ import { DTableBodyCellDate, DThemeTableBodyCellDate } from "../../d-table-body-
 import { DThemeDarkButton } from "./d-theme-dark-button";
 import { DThemeDarkTableBodyCells } from "./d-theme-dark-table-body-cells";
 
-const formatter = ( value: Date ): string => {
-	return DPickerDates.format( value );
+const formatter = (value: Date): string => {
+	return DPickerDates.format(value);
 };
 
-export class DThemeDarkTableBodyCellDate extends DThemeDarkButton<Date> implements DThemeTableBodyCellDate {
-	getBackgroundColor( state: DBaseStateSet ): number | null {
-		return DThemeDarkTableBodyCells.getBackgroundColor( state );
+export class DThemeDarkTableBodyCellDate
+	extends DThemeDarkButton<Date>
+	implements DThemeTableBodyCellDate {
+	getBackgroundColor(state: DBaseStateSet): number | null {
+		return DThemeDarkTableBodyCells.getBackgroundColor(state);
 	}
 
-	getBackgroundAlpha( state: DBaseStateSet ): number {
-		return DThemeDarkTableBodyCells.getBackgroundAlpha( state );
+	getBackgroundAlpha(state: DBaseStateSet): number {
+		return DThemeDarkTableBodyCells.getBackgroundAlpha(state);
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
-		return DThemeDarkTableBodyCells.getBorderColor( state );
+	getBorderColor(state: DBaseStateSet): number | null {
+		return DThemeDarkTableBodyCells.getBorderColor(state);
 	}
 
-	getBorderAlign( state: DBaseStateSet ): number {
-		return DThemeDarkTableBodyCells.getBorderAlign( state );
+	getBorderAlign(state: DBaseStateSet): number {
+		return DThemeDarkTableBodyCells.getBorderAlign(state);
 	}
 
-	getBorderMask( state: DBaseStateSet ): DBorderMask {
-		return DThemeDarkTableBodyCells.getBorderMask( state );
+	getBorderMask(state: DBaseStateSet): DBorderMask {
+		return DThemeDarkTableBodyCells.getBorderMask(state);
 	}
 
-	getColor( state: DBaseStateSet ): number {
-		return DThemeDarkTableBodyCells.getColor( state);
+	getColor(state: DBaseStateSet): number {
+		return DThemeDarkTableBodyCells.getColor(state);
 	}
 
-	getAlpha( state: DBaseStateSet ): number {
-		return DThemeDarkTableBodyCells.getAlpha( state );
+	getAlpha(state: DBaseStateSet): number {
+		return DThemeDarkTableBodyCells.getAlpha(state);
 	}
 
 	getHeight(): DCoordinateSize {
@@ -54,7 +56,7 @@ export class DThemeDarkTableBodyCellDate extends DThemeDarkButton<Date> implemen
 		return DThemeDarkTableBodyCells.getCornerMask();
 	}
 
-	getTextFormatter(): ( value: Date, caller: DTableBodyCellDate ) => string {
+	getTextFormatter(): (value: Date, caller: DTableBodyCellDate) => string {
 		return formatter;
 	}
 

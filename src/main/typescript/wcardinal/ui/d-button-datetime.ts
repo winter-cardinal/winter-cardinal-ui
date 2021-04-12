@@ -7,6 +7,7 @@ import { interaction } from "pixi.js";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogDatetime, DDialogDatetimeOptions } from "./d-dialog-datetime";
 import { DDialogDatetimes } from "./d-dialog-datetimes";
+import { DOnOptions } from "./d-on-options";
 import { DPickerDatetimeMask } from "./d-picker-datetime-mask";
 import { DPickerDatetimes } from "./d-picker-datetimes";
 
@@ -19,15 +20,15 @@ export interface DButtonDatetimeEvents<EMITTER> extends DButtonEvents<Date, EMIT
 	 *
 	 * @param emitter an emitter
 	 */
-	change( newValue: Date, oldValue: Date, emitter: EMITTER ): void;
+	change(newValue: Date, oldValue: Date, emitter: EMITTER): void;
 }
 
 /**
  * {@link DButtonDatetime} "on" options.
  */
-export interface DButtonDatetimeOnOptions<EMITTER> extends Partial<DButtonDatetimeEvents<EMITTER>> {
-	[ key: string ]: Function | undefined;
-}
+export interface DButtonDatetimeOnOptions<EMITTER>
+	extends Partial<DButtonDatetimeEvents<EMITTER>>,
+		DOnOptions {}
 
 /**
  * {@link DButtonDatetime} options.
@@ -43,9 +44,7 @@ export interface DButtonDatetimeOptions<
 /**
  * {@link DButtonDatetime} theme.
  */
-export interface DThemeButtonDatetime extends DThemeButton<Date> {
-
-}
+export interface DThemeButtonDatetime extends DThemeButton<Date> {}
 
 export class DButtonDatetime<
 	THEME extends DThemeButtonDatetime = DThemeButtonDatetime,
@@ -54,25 +53,27 @@ export class DButtonDatetime<
 	protected _dialog?: DDialogDatetime;
 	protected _datetimeMask?: DPickerDatetimeMask;
 
-	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
-		super.onActivate( e );
+	protected onActivate(
+		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
+	): void {
+		super.onActivate(e);
 		const value = this._textValueComputed?.getTime() ?? Date.now();
 		const dialog = this.dialog;
-		dialog.current = new Date( value );
-		dialog.new = new Date( value );
-		dialog.page = new Date( value );
+		dialog.current = new Date(value);
+		dialog.new = new Date(value);
+		dialog.page = new Date(value);
 		dialog.open().then((): void => {
 			const newValue = dialog.new;
 			const oldValue = dialog.current;
-			this.text = new Date( newValue.getTime() );
-			this.emit( "change", newValue, oldValue, this );
+			this.text = new Date(newValue.getTime());
+			this.emit("change", newValue, oldValue, this);
 		});
 	}
 
 	getDatetimeMask(): DPickerDatetimeMask {
 		let result = this._datetimeMask;
-		if( result == null ) {
-			result = DPickerDatetimes.toMask( this._options?.dialog?.picker );
+		if (result == null) {
+			result = DPickerDatetimes.toMask(this._options?.dialog?.picker);
 			this._datetimeMask = result;
 		}
 		return result;
@@ -80,10 +81,10 @@ export class DButtonDatetime<
 
 	get dialog(): DDialogDatetime {
 		let dialog = this._dialog;
-		if( dialog == null ) {
+		if (dialog == null) {
 			const options = this._options?.dialog;
-			if( options ) {
-				dialog = new DDialogDatetime( options );
+			if (options) {
+				dialog = new DDialogDatetime(options);
 			} else {
 				dialog = DDialogDatetimes.getInstance();
 			}
@@ -96,9 +97,9 @@ export class DButtonDatetime<
 		return this._textValueComputed ?? new Date();
 	}
 
-	set value( value: Date ) {
+	set value(value: Date) {
 		const textValueComputed = this._textValueComputed;
-		if( textValueComputed === undefined || textValueComputed.getTime() !== value.getTime() ) {
+		if (textValueComputed === undefined || textValueComputed.getTime() !== value.getTime()) {
 			this.text = value;
 		}
 	}

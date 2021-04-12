@@ -6,6 +6,6 @@
 import { DThemeMenuItemSeparator } from "../../d-menu-item-separator";
 import { DThemeWhiteListItemSeparator } from "./d-theme-white-list-item-separator";
 
-export class DThemeWhiteMenuItemSeparator extends DThemeWhiteListItemSeparator implements DThemeMenuItemSeparator {
-
-}
+export class DThemeWhiteMenuItemSeparator
+	extends DThemeWhiteListItemSeparator
+	implements DThemeMenuItemSeparator {}

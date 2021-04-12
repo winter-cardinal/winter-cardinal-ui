@@ -9,19 +9,24 @@ import { EShapeEmbedded } from "./e-shape-embedded";
 import { EShapeEmbeddeds } from "./e-shape-embeddeds";
 
 export const deserializeEmbedded = (
-	item: DDiagramSerializedItem, manager: EShapeResourceManagerDeserialization
+	item: DDiagramSerializedItem,
+	manager: EShapeResourceManagerDeserialization
 ): Promise<EShapeEmbedded> | EShapeEmbedded | null => {
 	const pieces = manager.pieces;
-	const pieceId = item[ 15 ];
-	if( pieces && 0 <= pieceId && pieceId < pieces.length ) {
+	const pieceId = item[15];
+	if (pieces && 0 <= pieceId && pieceId < pieces.length) {
 		const pieceData = manager.pieceData;
-		if( pieceData ) {
-			const piece = pieces[ pieceId ];
-			const pieceDatum = pieceData.get( piece );
-			if( pieceDatum ) {
+		if (pieceData) {
+			const piece = pieces[pieceId];
+			const pieceDatum = pieceData.get(piece);
+			if (pieceDatum) {
 				return EShapeEmbeddeds.deserialize(
-					piece, pieceDatum.width, pieceDatum.height,
-					pieceDatum.layer, manager, item
+					piece,
+					pieceDatum.width,
+					pieceDatum.height,
+					pieceDatum.layer,
+					manager,
+					item
 				);
 			}
 		}

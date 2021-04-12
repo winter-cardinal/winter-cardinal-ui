@@ -15,5 +15,5 @@ export interface EShapeGroupSize {
 	copyFrom(p: IPoint): this;
 	copyTo(p: IPoint): IPoint;
 	equals(p: IPoint): boolean;
-	set( x?: number, y?: number ): this;
+	set(x?: number, y?: number): this;
 }

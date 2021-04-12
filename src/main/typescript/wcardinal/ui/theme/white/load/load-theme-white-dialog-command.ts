@@ -6,6 +6,6 @@
 import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteDialogCommand } from "../d-theme-white-dialog-command";
 
-export const loadThemeWhiteDialogCommand = () => {
-	DThemeWhite.set( "DDialogCommand", DThemeWhiteDialogCommand );
+export const loadThemeWhiteDialogCommand = (): void => {
+	DThemeWhite.set("DDialogCommand", DThemeWhiteDialogCommand);
 };

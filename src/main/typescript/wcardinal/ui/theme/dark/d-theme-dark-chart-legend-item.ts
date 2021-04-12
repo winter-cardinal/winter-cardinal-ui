@@ -6,6 +6,4 @@
 import { DThemeChartLegendItem } from "../../d-chart-legend-item";
 import { DThemeDarkBase } from "./d-theme-dark-base";
 
-export class DThemeDarkChartLegendItem extends DThemeDarkBase implements DThemeChartLegendItem {
-
-}
+export class DThemeDarkChartLegendItem extends DThemeDarkBase implements DThemeChartLegendItem {}

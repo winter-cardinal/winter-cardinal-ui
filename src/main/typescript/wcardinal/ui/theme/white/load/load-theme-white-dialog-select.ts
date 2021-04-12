@@ -8,8 +8,8 @@ import { DThemeWhiteDialogSelect } from "../d-theme-white-dialog-select";
 import { DThemeWhiteDialogSelectList } from "../d-theme-white-dialog-select-list";
 import { DThemeWhiteDialogSelectListItem } from "../d-theme-white-dialog-select-list-item";
 
-export const loadThemeWhiteDialogSelect = () => {
-	DThemeWhite.set( "DDialogSelect", DThemeWhiteDialogSelect );
-	DThemeWhite.set( "DDialogSelectList", DThemeWhiteDialogSelectList );
-	DThemeWhite.set( "DDialogSelectListItem", DThemeWhiteDialogSelectListItem );
+export const loadThemeWhiteDialogSelect = (): void => {
+	DThemeWhite.set("DDialogSelect", DThemeWhiteDialogSelect);
+	DThemeWhite.set("DDialogSelectList", DThemeWhiteDialogSelectList);
+	DThemeWhite.set("DDialogSelectListItem", DThemeWhiteDialogSelectListItem);
 };

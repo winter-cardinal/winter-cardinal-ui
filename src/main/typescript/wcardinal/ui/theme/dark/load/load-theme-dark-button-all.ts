@@ -21,7 +21,7 @@ import { loadThemeDarkButtonSecondary } from "./load-theme-dark-button-secondary
 import { loadThemeDarkButtonSelect } from "./load-theme-dark-button-select";
 import { loadThemeDarkButtonTime } from "./load-theme-dark-button-time";
 
-export const loadThemeDarkButtonAll = () => {
+export const loadThemeDarkButtonAll = (): void => {
 	loadThemeDarkButtonAmbient();
 	loadThemeDarkButtonCheck();
 	loadThemeDarkButtonCheckRight();

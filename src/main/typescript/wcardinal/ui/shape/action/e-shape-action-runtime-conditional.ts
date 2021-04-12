@@ -12,8 +12,8 @@ import { EShapeActionValue } from "./e-shape-action-value";
 export class EShapeActionRuntimeConditional extends EShapeActionRuntime {
 	protected readonly condition: EShapeActionExpression<boolean>;
 
-	constructor( value: EShapeActionValue, reset: EShapeRuntimeReset ) {
-		super( reset );
-		this.condition = EShapeActionExpressions.ofBoolean( value.condition );
+	constructor(value: EShapeActionValue, reset: EShapeRuntimeReset) {
+		super(reset);
+		this.condition = EShapeActionExpressions.ofBoolean(value.condition);
 	}
 }

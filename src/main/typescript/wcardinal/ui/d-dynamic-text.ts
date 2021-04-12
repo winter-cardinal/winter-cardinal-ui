@@ -25,10 +25,10 @@ export class DDynamicText extends Mesh {
 
 	readonly geometry!: DDynamicTextGeometry;
 
-	constructor( text: string, options?: DDynamicTextStyleOptions ) {
-		super( new DDynamicTextGeometry(), new MeshMaterial( Texture.EMPTY ) );
+	constructor(text: string, options?: DDynamicTextStyleOptions) {
+		super(new DDynamicTextGeometry(), new MeshMaterial(Texture.EMPTY));
 
-		this._style = new DDynamicTextStyle( options, (): void => {
+		this._style = new DDynamicTextStyle(options, (): void => {
 			this._isDirty = true;
 			this._isGeometryDirty = true;
 			this._atlas = null;
@@ -47,10 +47,10 @@ export class DDynamicText extends Mesh {
 	}
 
 	protected update_(): void {
-		const layer = DApplications.getLayer( this );
-		if( layer ) {
+		const layer = DApplications.getLayer(this);
+		if (layer) {
 			const style = this._style;
-			if( this._isDirty ) {
+			if (this._isDirty) {
 				this._isDirty = false;
 
 				const text = this._text;
@@ -64,9 +64,9 @@ export class DDynamicText extends Mesh {
 				style.approve();
 
 				const atlases = layer.getDynamicFontAtlases();
-				if( text !== textApproved || fontId !== fontIdApproved || fill !== fillApproved ) {
-					atlases.add( fontId, fontSize, fill, text );
-					atlases.remove( fontIdApproved, fillApproved, textApproved );
+				if (text !== textApproved || fontId !== fontIdApproved || fill !== fillApproved) {
+					atlases.add(fontId, fontSize, fill, text);
+					atlases.remove(fontIdApproved, fillApproved, textApproved);
 				}
 			}
 		}
@@ -76,8 +76,8 @@ export class DDynamicText extends Mesh {
 		return this._text;
 	}
 
-	set text( text: string ) {
-		if( this._text !== text ) {
+	set text(text: string) {
+		if (this._text !== text) {
 			this._text = text;
 			this._isDirty = true;
 			this._isGeometryDirty = true;
@@ -88,30 +88,30 @@ export class DDynamicText extends Mesh {
 	// @ts-ignore
 	get width(): number {
 		this.update();
-		return Math.abs( this.scale.x ) * this.geometry.width;
+		return Math.abs(this.scale.x) * this.geometry.width;
 	}
 
-	set width( width: number ) {
+	set width(width: number) {
 		this.update();
 		const geometryWidth = this.geometry.width;
-		if( +1e-4 < geometryWidth ) {
+		if (+1e-4 < geometryWidth) {
 			const newScale = width / geometryWidth;
-			this.scale.x = ( 0 <= this.scale.x ? +newScale : -newScale );
+			this.scale.x = 0 <= this.scale.x ? +newScale : -newScale;
 		}
 	}
 
 	// @ts-ignore
 	get height(): number {
 		this.update();
-		return Math.abs( this.scale.y ) * this.geometry.height;
+		return Math.abs(this.scale.y) * this.geometry.height;
 	}
 
-	set height( height: number ) {
+	set height(height: number) {
 		this.update();
 		const geometryHeight = this.geometry.height;
-		if( +1e-4 < geometryHeight ) {
+		if (+1e-4 < geometryHeight) {
 			const newScale = height / geometryHeight;
-			this.scale.y = ( 0 <= this.scale.y ? +newScale : -newScale );
+			this.scale.y = 0 <= this.scale.y ? +newScale : -newScale;
 		}
 	}
 
@@ -127,12 +127,12 @@ export class DDynamicText extends Mesh {
 		this.update_();
 
 		let atlas = this._atlas;
-		if( atlas == null ) {
-			const layer = DApplications.getLayer( this );
-			if( layer ) {
+		if (atlas == null) {
+			const layer = DApplications.getLayer(this);
+			if (layer) {
 				const style = this._style;
-				atlas = layer.getDynamicFontAtlases().get( style.fontId, style.fill );
-				if( atlas != null ) {
+				atlas = layer.getDynamicFontAtlases().get(style.fontId, style.fill);
+				if (atlas != null) {
 					this._atlasRevisionUpdated = atlas.getRevisionUpdate();
 					this._atlas = atlas;
 					this.texture = atlas.texture;
@@ -141,7 +141,7 @@ export class DDynamicText extends Mesh {
 			}
 		} else {
 			const revisionUpdate = atlas.getRevisionUpdate();
-			if( revisionUpdate !== this._atlasRevisionUpdated ) {
+			if (revisionUpdate !== this._atlasRevisionUpdated) {
 				this._atlasRevisionUpdated = revisionUpdate;
 				this._isGeometryDirty = true;
 			}
@@ -149,28 +149,33 @@ export class DDynamicText extends Mesh {
 
 		const clippingWidth = this._clippingWidth;
 		const newClippingWidth = this.getClippingWidth();
-		if( clippingWidth !== newClippingWidth ) {
+		if (clippingWidth !== newClippingWidth) {
 			this._clippingWidth = newClippingWidth;
 			this._isGeometryDirty = true;
 		}
 
-		if( this._isGeometryDirty ) {
+		if (this._isGeometryDirty) {
 			this._isGeometryDirty = false;
-			this.geometry.update( this._text, atlas, newClippingWidth );
+			this.geometry.update(this._text, atlas, newClippingWidth);
 		}
 	}
 
 	protected getClippingWidth(): number | undefined {
-		if( this._style.clipping ) {
+		if (this._style.clipping) {
 			const parent = this.parent;
-			if( parent instanceof DBase ) {
-				return parent.width - parent.padding.getLeft() - parent.padding.getRight() - this._clippingWidthDelta;
+			if (parent instanceof DBase) {
+				return (
+					parent.width -
+					parent.padding.getLeft() -
+					parent.padding.getRight() -
+					this._clippingWidthDelta
+				);
 			}
 		}
 		return undefined;
 	}
 
-	setClippingWidthDelta( width: number ): void {
+	setClippingWidthDelta(width: number): void {
 		this._clippingWidthDelta = width;
 	}
 
@@ -179,8 +184,8 @@ export class DDynamicText extends Mesh {
 		super._calculateBounds();
 	}
 
-	_render( renderer?: Renderer ): void {
+	_render(renderer?: Renderer): void {
 		this.update();
-		(super._render as any)( renderer );
+		(super._render as any)(renderer);
 	}
 }

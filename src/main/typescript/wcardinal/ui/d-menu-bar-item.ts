@@ -16,9 +16,7 @@ export interface DMenuBarItemOptions<
 	menu?: DMenuOptions<VALUE> | DMenu<VALUE>;
 }
 
-export interface DThemeMenuBarItem<VALUE = unknown> extends DThemeButton<VALUE> {
-
-}
+export interface DThemeMenuBarItem<VALUE = unknown> extends DThemeButton<VALUE> {}
 
 export class DMenuBarItem<
 	VALUE = unknown,
@@ -27,22 +25,25 @@ export class DMenuBarItem<
 > extends DButton<VALUE, THEME, OPTIONS> {
 	protected _menu?: DMenu<VALUE>;
 
-	protected toMenu( theme: THEME, options?: OPTIONS ): DMenu<VALUE> {
+	protected toMenu(theme: THEME, options?: OPTIONS): DMenu<VALUE> {
 		const menu = options?.menu;
-		if( menu instanceof DMenu ) {
+		if (menu instanceof DMenu) {
 			return menu;
 		} else {
-			return new DMenu( this.toMenuOptions( theme, menu ) );
+			return new DMenu(this.toMenuOptions(theme, menu));
 		}
 	}
 
-	protected newMenu( theme: THEME, options?: DMenuOptions<VALUE> ): DMenu<VALUE> {
-		return new DMenu<VALUE>( this.toMenuOptions( theme, options ) );
+	protected newMenu(theme: THEME, options?: DMenuOptions<VALUE>): DMenu<VALUE> {
+		return new DMenu<VALUE>(this.toMenuOptions(theme, options));
 	}
 
-	protected toMenuOptions( theme: THEME, options?: DMenuOptions<VALUE> ): DMenuOptions<VALUE> | undefined {
-		if( options ) {
-			if( options.fit == null ) {
+	protected toMenuOptions(
+		theme: THEME,
+		options?: DMenuOptions<VALUE>
+	): DMenuOptions<VALUE> | undefined {
+		if (options) {
+			if (options.fit == null) {
 				options.fit = false;
 			}
 			return options;
@@ -52,13 +53,15 @@ export class DMenuBarItem<
 		};
 	}
 
-	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
-		super.onActivate( e );
+	protected onActivate(
+		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
+	): void {
+		super.onActivate(e);
 		this.open();
 	}
 
 	open(): void {
-		this.menu.open( this );
+		this.menu.open(this);
 	}
 
 	close(): void {
@@ -67,34 +70,37 @@ export class DMenuBarItem<
 
 	get menu(): DMenu<VALUE> {
 		let result = this._menu;
-		if( result == null ) {
-			result = this.toMenu( this.theme, this._options );
-			result.on( "select", ( value: VALUE, item: DMenuItem<VALUE>, menu: DMenu<VALUE> ): void => {
-				this.onMenuSelect( value, item, menu );
-			});
+		if (result == null) {
+			result = this.toMenu(this.theme, this._options);
+			result.on(
+				"select",
+				(value: VALUE, item: DMenuItem<VALUE>, menu: DMenu<VALUE>): void => {
+					this.onMenuSelect(value, item, menu);
+				}
+			);
 			this._menu = result;
 		}
 		return result;
 	}
 
-	protected onMenuSelect( value: VALUE, item: DMenuItem<VALUE>, menu: DMenu<VALUE> ): void {
-		this.emit( "select", value, item, this );
+	protected onMenuSelect(value: VALUE, item: DMenuItem<VALUE>, menu: DMenu<VALUE>): void {
+		this.emit("select", value, item, this);
 		const parent = this.parent;
-		if( parent ) {
-			parent.emit( "select", value, item, parent );
+		if (parent) {
+			parent.emit("select", value, item, parent);
 		}
 	}
 
-	onKeyDown( e: KeyboardEvent ): boolean {
-		if( UtilKeyboardEvent.isArrowDownKey( e ) ) {
-			this.onKeyDownArrowDown( e );
+	onKeyDown(e: KeyboardEvent): boolean {
+		if (UtilKeyboardEvent.isArrowDownKey(e)) {
+			this.onKeyDownArrowDown(e);
 		}
-		return super.onKeyDown( e );
+		return super.onKeyDown(e);
 	}
 
-	protected onKeyDownArrowDown( e: KeyboardEvent ): boolean {
-		if( this.state.isActionable && this.state.isFocused ) {
-			this.onActivate( e );
+	protected onKeyDownArrowDown(e: KeyboardEvent): boolean {
+		if (this.state.isActionable && this.state.isFocused) {
+			this.onActivate(e);
 			return true;
 		}
 		return false;

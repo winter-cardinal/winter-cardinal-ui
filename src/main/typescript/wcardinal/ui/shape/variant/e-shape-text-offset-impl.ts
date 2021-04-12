@@ -13,7 +13,7 @@ export class EShapeTextOffsetImpl implements EShapeTextOffset {
 	protected _horizontal: number;
 	protected _vertical: number;
 
-	constructor( parent: EShapeTextOffsetImplParent, horizontal: number, vertical: number ) {
+	constructor(parent: EShapeTextOffsetImplParent, horizontal: number, vertical: number) {
 		this._parent = parent;
 		this._horizontal = horizontal;
 		this._vertical = vertical;
@@ -23,8 +23,8 @@ export class EShapeTextOffsetImpl implements EShapeTextOffset {
 		return this._horizontal;
 	}
 
-	set horizontal( horizontal: number ) {
-		if( this._horizontal !== horizontal ) {
+	set horizontal(horizontal: number) {
+		if (this._horizontal !== horizontal) {
 			this._horizontal = horizontal;
 			this._parent.updateUploaded();
 		}
@@ -34,33 +34,33 @@ export class EShapeTextOffsetImpl implements EShapeTextOffset {
 		return this._vertical;
 	}
 
-	set vertical( vertical: number ) {
-		if( this._vertical !== vertical ) {
+	set vertical(vertical: number) {
+		if (this._vertical !== vertical) {
 			this._vertical = vertical;
 			this._parent.updateUploaded();
 		}
 	}
 
-	copy( target?: Partial<EShapeTextOffsetLike> ): void {
-		if( target ) {
-			this.set( target.horizontal, target.vertical );
+	copy(target?: Partial<EShapeTextOffsetLike>): void {
+		if (target) {
+			this.set(target.horizontal, target.vertical);
 		}
 	}
 
-	set( horizontal?: number, vertical?: number ): void {
+	set(horizontal?: number, vertical?: number): void {
 		let isChanged = false;
 
-		if( horizontal != null && this._horizontal !== horizontal ) {
+		if (horizontal != null && this._horizontal !== horizontal) {
 			this._horizontal = horizontal;
 			isChanged = true;
 		}
 
-		if( vertical != null && this._vertical !== vertical ) {
+		if (vertical != null && this._vertical !== vertical) {
 			this._vertical = vertical;
 			isChanged = true;
 		}
 
-		if( isChanged ) {
+		if (isChanged) {
 			this._parent.updateUploaded();
 		}
 	}
@@ -72,26 +72,20 @@ export class EShapeTextOffsetImpl implements EShapeTextOffset {
 		};
 	}
 
-	serialize( manager: EShapeResourceManagerSerialization ): number {
-		return manager.addResource( `[${this._horizontal},${this._vertical}]` );
+	serialize(manager: EShapeResourceManagerSerialization): number {
+		return manager.addResource(`[${this._horizontal},${this._vertical}]`);
 	}
 
-	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void {
+	deserialize(target: number, manager: EShapeResourceManagerDeserialization): void {
 		const resources = manager.resources;
-		if( 0 <= target && target < resources.length ) {
-			const parsed = manager.getMargin( target );
-			if( parsed != null ) {
-				this.set(
-					parsed[ 0 ],
-					parsed[ 1 ]
-				);
+		if (0 <= target && target < resources.length) {
+			const parsed = manager.getMargin(target);
+			if (parsed != null) {
+				this.set(parsed[0], parsed[1]);
 			} else {
-				const deserialized = JSON.parse( resources[ target ] );
-				manager.setMargin( target, deserialized );
-				this.set(
-					deserialized[ 0 ],
-					deserialized[ 1 ]
-				);
+				const deserialized = JSON.parse(resources[target]);
+				manager.setMargin(target, deserialized);
+				this.set(deserialized[0], deserialized[1]);
 			}
 		}
 	}

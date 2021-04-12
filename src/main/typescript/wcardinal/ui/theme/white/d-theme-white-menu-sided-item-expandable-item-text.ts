@@ -5,6 +5,4 @@
 
 import { DThemeWhiteMenuItemExpandableItemText } from "./d-theme-white-menu-item-expandable-item-text";
 
-export class DThemeWhiteMenuSidedItemExpandableItemText extends DThemeWhiteMenuItemExpandableItemText {
-
-}
+export class DThemeWhiteMenuSidedItemExpandableItemText extends DThemeWhiteMenuItemExpandableItemText {}

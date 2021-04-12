@@ -13,21 +13,21 @@ export class EShapeActionRuntimeOpenDialogBoolean extends EShapeActionRuntimeOpe
 	protected static DIALOG?: DDialogInputBoolean;
 	protected initial: EShapeActionExpression<boolean>;
 
-	constructor( value: EShapeActionValueOpen ) {
-		super( value );
-		this.initial = EShapeActionExpressions.ofBooleanOrFalse( value.initial );
+	constructor(value: EShapeActionValueOpen) {
+		super(value);
+		this.initial = EShapeActionExpressions.ofBooleanOrFalse(value.initial);
 	}
 
-	protected open( target: string, initial: boolean ): Promise<boolean> {
+	protected open(target: string, initial: boolean): Promise<boolean> {
 		let dialog = EShapeActionRuntimeOpenDialogBoolean.DIALOG;
-		if( dialog == null ) {
+		if (dialog == null) {
 			dialog = new DDialogInputBoolean({
 				label: target
 			});
 			EShapeActionRuntimeOpenDialogBoolean.DIALOG = dialog;
 		} else {
 			const label = dialog.label;
-			if( label ) {
+			if (label) {
 				label.text = target;
 			}
 		}

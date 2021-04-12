@@ -10,10 +10,19 @@ import { DChartRegion } from "./d-chart-region";
 import { DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesBase, DChartSeriesBaseOptions } from "./d-chart-series-base";
 import { DChartSeriesContainer } from "./d-chart-series-container";
-import { DChartSeriesFillComputed, DChartSeriesFillComputedOptions } from "./d-chart-series-fill-computed";
+import {
+	DChartSeriesFillComputed,
+	DChartSeriesFillComputedOptions
+} from "./d-chart-series-fill-computed";
 import { DChartSeriesPaddingComputedOptions } from "./d-chart-series-padding-computed";
-import { DChartSeriesPointComputed, DChartSeriesPointComputedOptions } from "./d-chart-series-point-computed";
-import { DChartSeriesStrokeComputed, DChartSeriesStrokeComputedOptions } from "./d-chart-series-stroke-computed";
+import {
+	DChartSeriesPointComputed,
+	DChartSeriesPointComputedOptions
+} from "./d-chart-series-point-computed";
+import {
+	DChartSeriesStrokeComputed,
+	DChartSeriesStrokeComputedOptions
+} from "./d-chart-series-stroke-computed";
 import { EShapeLineOfAny } from "./shape/variant/e-shape-line-of-any";
 import { EShapeLineOfCircles } from "./shape/variant/e-shape-line-of-circles";
 import { toCeilingIndex } from "./util/to-ceiling-index";
@@ -56,8 +65,8 @@ export abstract class DChartSeriesLineOfAny extends DChartSeriesBase {
 	protected _size?: DChartSeriesPointComputed;
 	protected _offset?: DChartSeriesPointComputed;
 
-	constructor( options?: DChartSeriesLineOfAnyOptions ) {
-		super( options );
+	constructor(options?: DChartSeriesLineOfAnyOptions) {
+		super(options);
 		this._line = null;
 		this._options = options;
 		this._points = (options && options.points) || [];
@@ -73,16 +82,16 @@ export abstract class DChartSeriesLineOfAny extends DChartSeriesBase {
 		return 0;
 	}
 
-	bind( container: DChartSeriesContainer, index: number ): void {
+	bind(container: DChartSeriesContainer, index: number): void {
 		let line = this._line;
-		if( ! line ) {
+		if (!line) {
 			line = this._line = this.newLineOfAny();
 			const options = this._options;
-			this.initLine( line, options, container, index );
+			this.initLine(line, options, container, index);
 		}
-		line.attach( container.plotArea.container, index );
+		line.attach(container.plotArea.container, index);
 		this._pointIdUpdated = NaN;
-		super.bind( container, index );
+		super.bind(container, index);
 	}
 
 	protected initLine(
@@ -91,30 +100,35 @@ export abstract class DChartSeriesLineOfAny extends DChartSeriesBase {
 		container: DChartSeriesContainer,
 		index: number
 	): void {
-		const fill = container.newFill( index, options && options.fill );
+		const fill = container.newFill(index, options?.fill);
 		this._fill = fill;
-		line.fill.copy( fill );
+		line.fill.copy(fill);
 
-		const stroke = container.newStroke( index, options && options.stroke );
+		const stroke = container.newStroke(index, options?.stroke);
 		this._stroke = stroke;
-		line.stroke.copy( stroke );
+		line.stroke.copy(stroke);
 
 		const sizeDefault = this.getSizeDefault();
-		const size = container.newSize( index, options && options.size, sizeDefault, sizeDefault );
+		const size = container.newSize(index, options?.size, sizeDefault, sizeDefault);
 		this._size = size;
-		line.points.size.set( size.x, size.y );
+		line.points.size.set(size.x, size.y);
 
 		const offsetDefault = this.getOffsetDefault();
-		const offset = container.newOffset( index, options && options.offset, offsetDefault, offsetDefault );
+		const offset = container.newOffset(
+			index,
+			options && options.offset,
+			offsetDefault,
+			offsetDefault
+		);
 		this._offset = offset;
-		line.points.offset.set( offset.x, offset.y );
+		line.points.offset.set(offset.x, offset.y);
 	}
 
 	protected abstract newLineOfAny(): EShapeLineOfAny;
 
 	unbind(): void {
 		const line = this._line;
-		if( line ) {
+		if (line) {
 			line.detach();
 		}
 		super.unbind();
@@ -128,7 +142,7 @@ export abstract class DChartSeriesLineOfAny extends DChartSeriesBase {
 		return this._points;
 	}
 
-	set points( points: Array<number | null> ) {
+	set points(points: Array<number | null>) {
 		this._points = points;
 		this._pointId += 1;
 	}
@@ -139,22 +153,21 @@ export abstract class DChartSeriesLineOfAny extends DChartSeriesBase {
 
 	update(): void {
 		const line = this._line;
-		if( line ) {
+		if (line) {
 			const coordinate = this._coordinate;
 			const coordinateX = coordinate.x;
 			const coordinateY = coordinate.y;
-			if( coordinateX && coordinateY ) {
+			if (coordinateX && coordinateY) {
 				const pointId = this._pointId;
-				const isPointChanged = ( pointId !== this._pointIdUpdated );
-				const isCoordinateChanged = coordinate.isDirty( coordinateX, coordinateY );
-				const isCoordinateTransformChanged = coordinate.isTransformDirty( coordinateX, coordinateY );
-				if( isPointChanged || isCoordinateChanged || isCoordinateTransformChanged ) {
+				const isPointChanged = pointId !== this._pointIdUpdated;
+				const isCoordinateChanged = coordinate.isDirty(coordinateX, coordinateY);
+				const isCoordinateTransformChanged = coordinate.isTransformDirty(
+					coordinateX,
+					coordinateY
+				);
+				if (isPointChanged || isCoordinateChanged || isCoordinateTransformChanged) {
 					this._pointIdUpdated = pointId;
-					this.updateLine(
-						line,
-						coordinateX,
-						coordinateY
-					);
+					this.updateLine(line, coordinateX, coordinateY);
 				}
 			}
 		}
@@ -173,76 +186,78 @@ export abstract class DChartSeriesLineOfAny extends DChartSeriesBase {
 		let xmax = NaN;
 		let ymin = NaN;
 		let ymax = NaN;
-		for( let i = 0, imax = points.length; i < imax; i += 2 ) {
-			const x = points[ i ];
-			const y = points[ i + 1 ];
-			if( x != null && y != null ) {
-				if( ivalues < valuesLength ) {
-					values[ ivalues ] = x;
-					values[ ivalues + 1 ] = y;
+		for (let i = 0, imax = points.length; i < imax; i += 2) {
+			const x = points[i];
+			const y = points[i + 1];
+			if (x != null && y != null) {
+				if (ivalues < valuesLength) {
+					values[ivalues] = x;
+					values[ivalues + 1] = y;
 				} else {
-					values.push( x, y );
+					values.push(x, y);
 				}
 				ivalues += 2;
-				if( xmin !== xmin ) {
+				if (xmin !== xmin) {
 					xmin = x;
 					xmax = x;
 					ymin = y;
 					ymax = y;
 				} else {
-					xmin = Math.min( xmin, x );
-					xmax = Math.max( xmax, x );
-					ymin = Math.min( ymin, y );
-					ymax = Math.max( ymax, y );
+					xmin = Math.min(xmin, x);
+					xmax = Math.max(xmax, x);
+					ymin = Math.min(ymin, y);
+					ymax = Math.max(ymax, y);
 				}
 			}
 		}
-		if( values.length !== ivalues ) {
+		if (values.length !== ivalues) {
 			values.length = ivalues;
 		}
 
-		xcoordinate.mapAll( values, 0, ivalues, 2, 0 );
-		ycoordinate.mapAll( values, 0, ivalues, 2, 1 );
-		xcoordinate.transform.mapAll( values, 0, ivalues, 2, 0 );
-		ycoordinate.transform.mapAll( values, 0, ivalues, 2, 1 );
+		xcoordinate.mapAll(values, 0, ivalues, 2, 0);
+		ycoordinate.mapAll(values, 0, ivalues, 2, 1);
+		xcoordinate.transform.mapAll(values, 0, ivalues, 2, 0);
+		ycoordinate.transform.mapAll(values, 0, ivalues, 2, 1);
 
-		if( xmin !== xmin ) {
+		if (xmin !== xmin) {
 			xmin = 0;
 			xmax = 0;
 			ymin = 0;
 			ymax = 0;
 		}
-		const region = this.adjustLineRegion(
-			xmin, xmax,
-			ymin, ymax,
-			DChartSeriesLineOfAny.WORK_REGION || {
-				xmin: 0, xmax: 0,
-				ymin: 0, ymax: 0
-			}
-		);
-		xmin = xcoordinate.transform.map( xcoordinate.map( region.xmin ) );
-		xmax = xcoordinate.transform.map( xcoordinate.map( region.xmax ) );
-		ymin = ycoordinate.transform.map( ycoordinate.map( region.ymin ) );
-		ymax = ycoordinate.transform.map( ycoordinate.map( region.ymax ) );
+		const region = DChartSeriesLineOfAny.WORK_REGION || {
+			xmin: 0,
+			xmax: 0,
+			ymin: 0,
+			ymax: 0
+		};
+		DChartSeriesLineOfAny.WORK_REGION = region;
+		this.adjustLineRegion(xmin, xmax, ymin, ymax, region);
+		xmin = xcoordinate.transform.map(xcoordinate.map(region.xmin));
+		xmax = xcoordinate.transform.map(xcoordinate.map(region.xmax));
+		ymin = ycoordinate.transform.map(ycoordinate.map(region.ymin));
+		ymax = ycoordinate.transform.map(ycoordinate.map(region.ymax));
 
-		const sx = Math.abs( xmax - xmin );
-		const sy = Math.abs( ymax - ymin );
-		const cx = ( xmin + xmax ) * 0.5;
-		const cy = ( ymin + ymax ) * 0.5;
-		for( let i = 0, imax = values.length; i < imax; i += 2 ) {
-			values[ i + 0 ] -= cx;
-			values[ i + 1 ] -= cy;
+		const sx = Math.abs(xmax - xmin);
+		const sy = Math.abs(ymax - ymin);
+		const cx = (xmin + xmax) * 0.5;
+		const cy = (ymin + ymax) * 0.5;
+		for (let i = 0, imax = values.length; i < imax; i += 2) {
+			values[i + 0] -= cx;
+			values[i + 1] -= cy;
 		}
 
 		line.disallowUploadedUpdate();
-		this.applyLine( line, xcoordinate, ycoordinate, sx, sy, cx, cy, values );
+		this.applyLine(line, xcoordinate, ycoordinate, sx, sy, cx, cy, values);
 		line.allowUploadedUpdate();
-		DApplications.update( line );
+		DApplications.update(line);
 	}
 
 	protected adjustLineRegion(
-		xmin: number, xmax: number,
-		ymin: number, ymax: number,
+		xmin: number,
+		xmax: number,
+		ymin: number,
+		ymax: number,
 		result: DChartSeriesLineOfAnyRegion
 	): DChartSeriesLineOfAnyRegion {
 		result.xmin = xmin;
@@ -256,44 +271,50 @@ export abstract class DChartSeriesLineOfAny extends DChartSeriesBase {
 		line: EShapeLineOfAny,
 		xcoordinate: DChartCoordinate,
 		ycoordinate: DChartCoordinate,
-		sx: number, sy: number,
-		cx: number, cy: number,
+		sx: number,
+		sy: number,
+		cx: number,
+		cy: number,
 		values: number[]
 	): void {
-		line.points.set( values );
-		line.size.set( sx, sy );
-		line.transform.position.set( cx, cy );
+		line.points.set(values);
+		line.size.set(sx, sy);
+		line.transform.position.set(cx, cy);
 	}
 
 	protected updateRegion(): void {
 		const pointId = this._pointId;
-		if( this._regionPointId !== pointId ) {
+		if (this._regionPointId !== pointId) {
 			this._regionPointId = pointId;
 			const points = this._points;
 			const domain = this._domain;
 			const range = this._range;
 			domain.clear();
 			range.clear();
-			this.calcRegion( points, domain, range );
+			this.calcRegion(points, domain, range);
 		}
 	}
 
-	protected calcRegion( points: Array<number | null>, domain: DChartRegion, range: DChartRegion ): void {
-		for( let i = 0, imax = points.length; i < imax; i += 2 ) {
-			const xraw = points[ i ];
-			if( xraw != null ) {
-				domain.add( xraw, xraw );
+	protected calcRegion(
+		points: Array<number | null>,
+		domain: DChartRegion,
+		range: DChartRegion
+	): void {
+		for (let i = 0, imax = points.length; i < imax; i += 2) {
+			const xraw = points[i];
+			if (xraw != null) {
+				domain.add(xraw, xraw);
 			}
-			const yraw = points[ i + 1 ];
-			if( yraw != null ) {
-				range.add( yraw, yraw );
+			const yraw = points[i + 1];
+			if (yraw != null) {
+				range.add(yraw, yraw);
 			}
 		}
 	}
 
 	destroy(): void {
 		const line = this._line;
-		if( line ) {
+		if (line) {
 			this._line = null;
 			line.detach();
 			line.destroy();
@@ -305,61 +326,74 @@ export abstract class DChartSeriesLineOfAny extends DChartSeriesBase {
 		super.destroy();
 	}
 
-	hitTest( global: IPoint ): boolean {
+	hitTest(global: IPoint): boolean {
 		const line = this._line;
-		if( line ) {
+		if (line) {
 			const work = DChartSeriesLineOfAny.WORK;
-			const local = line.toLocal( global, undefined, work );
-			return line.contains( local ) != null;
+			const local = line.toLocal(global, undefined, work);
+			return line.contains(local) != null;
 		}
 		return false;
 	}
 
-	calcHitPoint( global: IPoint, result: DChartSeriesHitResult ): boolean {
+	calcHitPoint(global: IPoint, result: DChartSeriesHitResult): boolean {
 		const line = this._line;
-		if( line ) {
+		if (line) {
 			const work = DChartSeriesLineOfAny.WORK;
-			const local = line.toLocal( global, undefined, work );
+			const local = line.toLocal(global, undefined, work);
 			result.shape = line;
-			return line.calcHitPoint( local, null, this.calcHitPointTestRange, this.calcHitPointHitTester, result );
+			return line.calcHitPoint(
+				local,
+				null,
+				this.calcHitPointTestRange,
+				this.calcHitPointHitTester,
+				result
+			);
 		}
 		return false;
 	}
 
 	calcHitPointTestRange(
 		this: unknown,
-		x: number, y: number,
-		ax: number, ay: number,
-		ox: number, oy: number,
+		x: number,
+		y: number,
+		ax: number,
+		ay: number,
+		ox: number,
+		oy: number,
 		threshold: number,
 		values: number[],
-		result: [ number, number ]
-	): [ number, number ] {
-		const to = toCeilingIndex( values, x + ax + ox, 2, 0 );
+		result: [number, number]
+	): [number, number] {
+		const to = toCeilingIndex(values, x + ax + ox, 2, 0);
 		let from = 0;
-		for( let i = to - 1, iv = i << 1; 0 <= i; i -= 1, iv -= 2 ) {
-			if( values[ iv ] <= x - ax ) {
+		for (let i = to - 1, iv = i << 1; 0 <= i; i -= 1, iv -= 2) {
+			if (values[iv] <= x - ax) {
 				from = i;
 				break;
 			}
 		}
-		result[ 0 ] = from;
-		result[ 1 ] = from !== to ? to : Math.min( values.length << 1, to + 1 );
+		result[0] = from;
+		result[1] = from !== to ? to : Math.min(values.length << 1, to + 1);
 		return result;
 	}
 
 	calcHitPointHitTester(
 		this: unknown,
-		x: number, y: number,
-		ax: number, ay: number,
-		ox: number, oy: number,
-		px: number, py: number,
+		x: number,
+		y: number,
+		ax: number,
+		ay: number,
+		ox: number,
+		oy: number,
+		px: number,
+		py: number,
 		index: number,
 		threshold: number,
 		result: DChartSeriesHitResult
 	): boolean {
 		const shape = result.shape as EShapeLineOfCircles;
-		if( shape.containsPointAbs( x, y, ax, ay, ox, oy, px, py ) ) {
+		if (shape.containsPointAbs(x, y, ax, ay, ox, oy, px, py)) {
 			const transform = shape.transform;
 			const position = transform.position;
 			const scale = transform.scale;
@@ -369,7 +403,7 @@ export abstract class DChartSeriesLineOfAny extends DChartSeriesBase {
 			result.index = index;
 			const dx = x - (px + ox);
 			const dy = y - (py + oy);
-			result.distance = Math.sqrt( dx * dx + dy * dy );
+			result.distance = Math.sqrt(dx * dx + dy * dy);
 			return true;
 		}
 		return false;

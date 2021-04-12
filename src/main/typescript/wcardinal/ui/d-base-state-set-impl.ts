@@ -21,23 +21,23 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 		this._parent = null;
 	}
 
-	is( state: string ): boolean {
-		return this._local.has( state );
+	is(state: string): boolean {
+		return this._local.has(state);
 	}
 
-	in( state: string ): boolean {
-		return this.is( state ) || this.under( state );
+	in(state: string): boolean {
+		return this.is(state) || this.under(state);
 	}
 
-	on( state: string ): boolean {
-		return this._parent?.is( state ) ?? false;
+	on(state: string): boolean {
+		return this._parent?.is(state) ?? false;
 	}
 
-	under( state: string ): boolean {
-		return this._parent?.in( state ) ?? false;
+	under(state: string): boolean {
+		return this._parent?.in(state) ?? false;
 	}
 
-	lock( callOnChange?: boolean ): this {
+	lock(callOnChange?: boolean): this {
 		return this;
 	}
 
@@ -53,96 +53,98 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 		return this;
 	}
 
-	protected checkAdded( added: string ): boolean {
-		return ! this._local.has( added );
+	protected checkAdded(added: string): boolean {
+		return !this._local.has(added);
 	}
 
-	add( state: string ): this {
-		if( this.checkAdded( state ) ) {
+	add(state: string): this {
+		if (this.checkAdded(state)) {
 			this.begin();
-			this._local.add( state );
+			this._local.add(state);
 			this.end();
 		}
 		return this;
 	}
 
-	protected checkAddeds( states: string[] ) {
+	protected checkAddeds(states: string[]): boolean {
 		const local = this._local;
-		for( let i = 0, imax = states.length; i < imax; ++i ) {
-			if( ! local.has( states[ i ] ) ) {
+		for (let i = 0, imax = states.length; i < imax; ++i) {
+			if (!local.has(states[i])) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	addAll( states: string[] ): this;
-	addAll( ...states: string[] ): this;
-	addAll( stateOrStates: string | string[] ): this {
-		const states = ( isString( stateOrStates ) ?
-			arguments as unknown as string[] : stateOrStates
-		);
-		if( this.checkAddeds( states ) ) {
+	addAll(states: string[]): this;
+	addAll(...states: string[]): this;
+	addAll(stateOrStates: string | string[]): this {
+		const states = isString(stateOrStates)
+			? ((arguments as any) as string[]) // eslint-disable-line prefer-rest-params
+			: stateOrStates;
+		if (this.checkAddeds(states)) {
 			this.begin();
 			const local = this._local;
-			for( let i = 0, imax = states.length; i < imax; ++i ) {
-				local.add( states[ i ] );
+			for (let i = 0, imax = states.length; i < imax; ++i) {
+				local.add(states[i]);
 			}
 			this.end();
 		}
 		return this;
 	}
 
-	protected checkRemoved( removed: string ): boolean {
-		return this._local.has( removed );
+	protected checkRemoved(removed: string): boolean {
+		return this._local.has(removed);
 	}
 
-	remove( state: string ): this {
-		if( this.checkRemoved( state ) ) {
+	remove(state: string): this {
+		if (this.checkRemoved(state)) {
 			this.begin();
-			this._local.delete( state );
+			this._local.delete(state);
 			this.end();
 		}
 		return this;
 	}
 
-	protected checkRemoveds( states: string[] ) {
+	protected checkRemoveds(states: string[]): boolean {
 		const local = this._local;
-		for( let i = 0, imax = states.length; i < imax; ++i ) {
-			if( local.has( states[ i ] ) ) {
+		for (let i = 0, imax = states.length; i < imax; ++i) {
+			if (local.has(states[i])) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	removeAll( states: string[] ): this;
-	removeAll( ...states: string[] ): this;
-	removeAll( matcher: ( state: string ) => void | boolean ): this;
-	removeAll( stateOrStatesOrMatcher: string | string[] | (( state: string ) => void | boolean) ): this {
+	removeAll(states: string[]): this;
+	removeAll(...states: string[]): this;
+	removeAll(matcher: (state: string) => void | boolean): this;
+	removeAll(
+		stateOrStatesOrMatcher: string | string[] | ((state: string) => void | boolean)
+	): this {
 		const local = this._local;
-		if( isFunction( stateOrStatesOrMatcher ) ) {
+		if (isFunction(stateOrStatesOrMatcher)) {
 			let isDirty = false;
-			local.forEach(( state ): void => {
-				if( stateOrStatesOrMatcher( state ) ) {
-					if( ! isDirty ) {
+			local.forEach((state): void => {
+				if (stateOrStatesOrMatcher(state)) {
+					if (!isDirty) {
 						isDirty = true;
 						this.begin();
 					}
-					local.delete( state );
+					local.delete(state);
 				}
 			});
-			if( isDirty ) {
+			if (isDirty) {
 				this.end();
 			}
 		} else {
-			const states = ( isString( stateOrStatesOrMatcher ) ?
-				arguments as unknown as string[] : stateOrStatesOrMatcher
-			);
-			if( this.checkRemoveds( states ) ) {
+			const states = isString(stateOrStatesOrMatcher)
+				? ((arguments as any) as string[]) // eslint-disable-line prefer-rest-params
+				: stateOrStatesOrMatcher;
+			if (this.checkRemoveds(states)) {
 				this.begin();
-				for( let i = 0, imax = states.length; i < imax; ++i ) {
-					local.delete( states[ i ] );
+				for (let i = 0, imax = states.length; i < imax; ++i) {
+					local.delete(states[i]);
 				}
 				this.end();
 			}
@@ -152,7 +154,7 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 
 	clear(): this {
 		const local = this._local;
-		if( 0 < local.size ) {
+		if (0 < local.size) {
 			this.begin();
 			local.clear();
 			this.end();
@@ -160,69 +162,77 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 		return this;
 	}
 
-	set( state: string, isOn: boolean ): this;
-	set( added: string | null, removed: string | null ): this;
-	set( stateOrAdded: string | null, isOnOrRemoved: string | null | boolean ): this {
-		if( isOnOrRemoved === true ) {
-			this.add( stateOrAdded! );
-		} else if( isOnOrRemoved === false ) {
-			this.remove( stateOrAdded! );
+	set(state: string, isOn: boolean): this;
+	set(added: string | null, removed: string | null): this;
+	set(stateOrAdded: string | null, isOnOrRemoved: string | null | boolean): this {
+		if (isOnOrRemoved === true) {
+			if (stateOrAdded != null) {
+				this.add(stateOrAdded);
+			}
+		} else if (isOnOrRemoved === false) {
+			if (stateOrAdded != null) {
+				this.remove(stateOrAdded);
+			}
 		} else {
 			const added = stateOrAdded;
 			const removed = isOnOrRemoved;
-			if( added != null ) {
-				if( removed != null ) {
-					if( this.checkAdded( added ) || this.checkRemoved( removed ) ) {
+			if (added != null) {
+				if (removed != null) {
+					if (this.checkAdded(added) || this.checkRemoved(removed)) {
 						this.begin();
-						this._local.add( added ).delete( removed );
+						this._local.add(added).delete(removed);
 						this.end();
 					}
 				} else {
-					this.add( added );
+					this.add(added);
 				}
-			} else if( removed != null ) {
-				this.remove( removed );
+			} else if (removed != null) {
+				this.remove(removed);
 			}
 		}
 		return this;
 	}
 
-	setAll( states: string[], isOn: boolean ): this;
-	setAll( addeds: string[] | null, removeds: string[] | null ): this;
-	setAll( statesOrAddeds: string[] | null, isOnOrRemoveds: string[] | null | boolean ): this {
-		if( isOnOrRemoveds === true ) {
-			this.addAll( statesOrAddeds! );
-		} else if( isOnOrRemoveds === false ) {
-			this.removeAll( statesOrAddeds! );
+	setAll(states: string[], isOn: boolean): this;
+	setAll(addeds: string[] | null, removeds: string[] | null): this;
+	setAll(statesOrAddeds: string[] | null, isOnOrRemoveds: string[] | null | boolean): this {
+		if (isOnOrRemoveds === true) {
+			if (statesOrAddeds != null) {
+				this.addAll(statesOrAddeds);
+			}
+		} else if (isOnOrRemoveds === false) {
+			if (statesOrAddeds != null) {
+				this.removeAll(statesOrAddeds);
+			}
 		} else {
 			const addeds = statesOrAddeds;
 			const removeds = isOnOrRemoveds;
-			if( addeds != null ) {
-				if( removeds != null ) {
-					if( this.checkAddeds( addeds ) || this.checkRemoveds( removeds ) ) {
+			if (addeds != null) {
+				if (removeds != null) {
+					if (this.checkAddeds(addeds) || this.checkRemoveds(removeds)) {
 						this.begin();
 						const local = this._local;
-						for( let i = 0, imax = addeds.length; i < imax; ++i ) {
-							local.add( addeds[ i ] );
+						for (let i = 0, imax = addeds.length; i < imax; ++i) {
+							local.add(addeds[i]);
 						}
-						for( let i = 0, imax = removeds.length; i < imax; ++i ) {
-							local.delete( removeds[ i ] );
+						for (let i = 0, imax = removeds.length; i < imax; ++i) {
+							local.delete(removeds[i]);
 						}
 						this.end();
 					}
 				} else {
-					this.addAll( addeds );
+					this.addAll(addeds);
 				}
-			} else if( removeds != null ) {
-				this.removeAll( removeds );
+			} else if (removeds != null) {
+				this.removeAll(removeds);
 			}
 		}
 		return this;
 	}
 
-	each( iteratee: ( state: string ) => void ): this {
-		this._local.forEach(( state: string ): void => {
-			iteratee( state );
+	each(iteratee: (state: string) => void): this {
+		this._local.forEach((state: string): void => {
+			iteratee(state);
 		});
 		return this;
 	}
@@ -231,18 +241,18 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 		return this._local.size;
 	}
 
-	copy( other: DBaseStateSet ): this {
-		if( other instanceof DBaseStateSetImpl ) {
+	copy(other: DBaseStateSet): this {
+		if (other instanceof DBaseStateSetImpl) {
 			this.begin();
 			const local = this._local;
 			local.clear();
-			other.local.forEach(( value: string ): void => {
-				local.add( value );
+			other.local.forEach((value: string): void => {
+				local.add(value);
 			});
 			this._parent = other.parent;
 			const otherData = other._data;
-			if( otherData != null ) {
-				this.data.copy( otherData );
+			if (otherData != null) {
+				this.data.copy(otherData);
 			}
 			this.end();
 		}
@@ -257,8 +267,8 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 		return this._parent;
 	}
 
-	set parent( parent: DBaseStateSet | null ) {
-		if( this._parent !== parent ) {
+	set parent(parent: DBaseStateSet | null) {
+		if (this._parent !== parent) {
 			this.begin();
 			this._parent = parent;
 			this.end();
@@ -267,14 +277,14 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 
 	get data(): DBaseStateSetData {
 		let result = this._data;
-		if( result == null ) {
+		if (result == null) {
 			result = new DBaseStateSetDataImpl();
 			this._data = result;
 		}
 		return result;
 	}
 
-	onParentChange( newState: DBaseStateSet, oldState: DBaseStateSet ): void {
+	onParentChange(newState: DBaseStateSet, oldState: DBaseStateSet): void {
 		this._parent = oldState;
 		this.begin();
 		this._parent = newState;
@@ -282,373 +292,373 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 	}
 
 	get isHovered(): boolean {
-		return this.is( DBaseState.HOVERED );
+		return this.is(DBaseState.HOVERED);
 	}
 
-	set isHovered( isHovered: boolean ) {
-		this.set( DBaseState.HOVERED, isHovered );
+	set isHovered(isHovered: boolean) {
+		this.set(DBaseState.HOVERED, isHovered);
 	}
 
 	get inHovered(): boolean {
-		return this.in( DBaseState.HOVERED );
+		return this.in(DBaseState.HOVERED);
 	}
 
 	get onHovered(): boolean {
-		return this.on( DBaseState.HOVERED );
+		return this.on(DBaseState.HOVERED);
 	}
 
 	get underHovered(): boolean {
-		return this.under( DBaseState.HOVERED );
+		return this.under(DBaseState.HOVERED);
 	}
 
 	get isActive(): boolean {
-		return this.is( DBaseState.ACTIVE );
+		return this.is(DBaseState.ACTIVE);
 	}
 
-	set isActive( isActive: boolean ) {
-		this.set( DBaseState.ACTIVE, isActive );
+	set isActive(isActive: boolean) {
+		this.set(DBaseState.ACTIVE, isActive);
 	}
 
 	get inActive(): boolean {
-		return this.in( DBaseState.ACTIVE );
+		return this.in(DBaseState.ACTIVE);
 	}
 
 	get onActive(): boolean {
-		return this.on( DBaseState.ACTIVE );
+		return this.on(DBaseState.ACTIVE);
 	}
 
 	get underActive(): boolean {
-		return this.under( DBaseState.ACTIVE );
+		return this.under(DBaseState.ACTIVE);
 	}
 
 	get isPressed(): boolean {
-		return this.is( DBaseState.PRESSED );
+		return this.is(DBaseState.PRESSED);
 	}
 
-	set isPressed( isPressed: boolean ) {
-		this.set( DBaseState.PRESSED, isPressed );
+	set isPressed(isPressed: boolean) {
+		this.set(DBaseState.PRESSED, isPressed);
 	}
 
 	get inPressed(): boolean {
-		return this.in( DBaseState.PRESSED );
+		return this.in(DBaseState.PRESSED);
 	}
 
 	get onPressed(): boolean {
-		return this.on( DBaseState.PRESSED );
+		return this.on(DBaseState.PRESSED);
 	}
 
 	get underPressed(): boolean {
-		return this.under( DBaseState.PRESSED );
+		return this.under(DBaseState.PRESSED);
 	}
 
 	get isReadOnly(): boolean {
-		return this.is( DBaseState.READ_ONLY );
+		return this.is(DBaseState.READ_ONLY);
 	}
 
-	set isReadOnly( isReadOnly: boolean ) {
-		this.set( DBaseState.READ_ONLY, isReadOnly );
+	set isReadOnly(isReadOnly: boolean) {
+		this.set(DBaseState.READ_ONLY, isReadOnly);
 	}
 
 	get inReadOnly(): boolean {
-		return this.in( DBaseState.READ_ONLY );
+		return this.in(DBaseState.READ_ONLY);
 	}
 
 	get onReadOnly(): boolean {
-		return this.on( DBaseState.READ_ONLY );
+		return this.on(DBaseState.READ_ONLY);
 	}
 
 	get underReadOnly(): boolean {
-		return this.under( DBaseState.READ_ONLY );
+		return this.under(DBaseState.READ_ONLY);
 	}
 
 	get isEnabled(): boolean {
-		return ! this.is( DBaseState.DISABLED );
+		return !this.is(DBaseState.DISABLED);
 	}
 
-	set isEnabled( isEnabled: boolean ) {
-		this.set( DBaseState.DISABLED, ! isEnabled );
+	set isEnabled(isEnabled: boolean) {
+		this.set(DBaseState.DISABLED, !isEnabled);
 	}
 
 	get inEnabled(): boolean {
-		return ! this.in( DBaseState.DISABLED );
+		return !this.in(DBaseState.DISABLED);
 	}
 
 	get onEnabled(): boolean {
-		return ! this.on( DBaseState.DISABLED );
+		return !this.on(DBaseState.DISABLED);
 	}
 
 	get underEnabled(): boolean {
-		return ! this.under( DBaseState.DISABLED );
+		return !this.under(DBaseState.DISABLED);
 	}
 
 	get isDisabled(): boolean {
-		return this.is( DBaseState.DISABLED );
+		return this.is(DBaseState.DISABLED);
 	}
 
-	set isDisabled( isDisabled: boolean ) {
-		this.set( DBaseState.DISABLED, isDisabled );
+	set isDisabled(isDisabled: boolean) {
+		this.set(DBaseState.DISABLED, isDisabled);
 	}
 
 	get inDisabled(): boolean {
-		return this.in( DBaseState.DISABLED );
+		return this.in(DBaseState.DISABLED);
 	}
 
 	get onDisabled(): boolean {
-		return this.on( DBaseState.DISABLED );
+		return this.on(DBaseState.DISABLED);
 	}
 
 	get underDisabled(): boolean {
-		return this.under( DBaseState.DISABLED );
+		return this.under(DBaseState.DISABLED);
 	}
 
 	get isActionable(): boolean {
-		return ! this.in( DBaseState.DISABLED ) && ! this.in( DBaseState.READ_ONLY );
+		return !this.in(DBaseState.DISABLED) && !this.in(DBaseState.READ_ONLY);
 	}
 
 	get isDragging(): boolean {
-		return this.is( DBaseState.DRAGGING );
+		return this.is(DBaseState.DRAGGING);
 	}
 
-	set isDragging( isDragging: boolean ) {
-		this.set( DBaseState.DRAGGING, isDragging );
+	set isDragging(isDragging: boolean) {
+		this.set(DBaseState.DRAGGING, isDragging);
 	}
 
 	get inDragging(): boolean {
-		return this.in( DBaseState.DRAGGING );
+		return this.in(DBaseState.DRAGGING);
 	}
 
 	get onDragging(): boolean {
-		return this.on( DBaseState.DRAGGING );
+		return this.on(DBaseState.DRAGGING);
 	}
 
 	get underDragging(): boolean {
-		return this.under( DBaseState.DRAGGING );
+		return this.under(DBaseState.DRAGGING);
 	}
 
 	get isFocused(): boolean {
-		return this.is( DBaseState.FOCUSED );
+		return this.is(DBaseState.FOCUSED);
 	}
 
-	set isFocused( isFocused: boolean ) {
-		this.set( DBaseState.FOCUSED, isFocused );
+	set isFocused(isFocused: boolean) {
+		this.set(DBaseState.FOCUSED, isFocused);
 	}
 
 	get inFocused(): boolean {
-		return this.in( DBaseState.FOCUSED );
+		return this.in(DBaseState.FOCUSED);
 	}
 
 	get onFocused(): boolean {
-		return this.on( DBaseState.FOCUSED );
+		return this.on(DBaseState.FOCUSED);
 	}
 
 	get underFocused(): boolean {
-		return this.under( DBaseState.FOCUSED );
+		return this.under(DBaseState.FOCUSED);
 	}
 
 	get isFocusRoot(): boolean {
-		return this.is( DBaseState.FOCUS_ROOT );
+		return this.is(DBaseState.FOCUS_ROOT);
 	}
 
-	set isFocusRoot( isFocusRoot: boolean ) {
-		this.set( DBaseState.FOCUS_ROOT, isFocusRoot );
+	set isFocusRoot(isFocusRoot: boolean) {
+		this.set(DBaseState.FOCUS_ROOT, isFocusRoot);
 	}
 
 	get inFocusRoot(): boolean {
-		return this.in( DBaseState.FOCUS_ROOT );
+		return this.in(DBaseState.FOCUS_ROOT);
 	}
 
 	get onFocusRoot(): boolean {
-		return this.on( DBaseState.FOCUS_ROOT );
+		return this.on(DBaseState.FOCUS_ROOT);
 	}
 
 	get underFocusRoot(): boolean {
-		return this.under( DBaseState.FOCUS_ROOT );
+		return this.under(DBaseState.FOCUS_ROOT);
 	}
 
 	get isFocusReverse(): boolean {
-		return this.is( DBaseState.FOCUS_REVERSE );
+		return this.is(DBaseState.FOCUS_REVERSE);
 	}
 
-	set isFocusReverse( isFocusReverse: boolean ) {
-		this.set( DBaseState.FOCUS_REVERSE, isFocusReverse );
+	set isFocusReverse(isFocusReverse: boolean) {
+		this.set(DBaseState.FOCUS_REVERSE, isFocusReverse);
 	}
 
 	get inFocusReverse(): boolean {
-		return this.in( DBaseState.FOCUS_REVERSE );
+		return this.in(DBaseState.FOCUS_REVERSE);
 	}
 
 	get onFocusReverse(): boolean {
-		return this.on( DBaseState.FOCUS_REVERSE );
+		return this.on(DBaseState.FOCUS_REVERSE);
 	}
 
 	get underFocusReverse(): boolean {
-		return this.under( DBaseState.FOCUS_REVERSE );
+		return this.under(DBaseState.FOCUS_REVERSE);
 	}
 
 	get isFocusable(): boolean {
-		return ! this.is( DBaseState.UNFOCUSABLE );
+		return !this.is(DBaseState.UNFOCUSABLE);
 	}
 
-	set isFocusable( isFocusable: boolean ) {
-		this.set( DBaseState.UNFOCUSABLE, ! isFocusable );
+	set isFocusable(isFocusable: boolean) {
+		this.set(DBaseState.UNFOCUSABLE, !isFocusable);
 	}
 
 	get inFocusable(): boolean {
-		return ! this.in( DBaseState.UNFOCUSABLE );
+		return !this.in(DBaseState.UNFOCUSABLE);
 	}
 
 	get onFocusable(): boolean {
-		return ! this.on( DBaseState.UNFOCUSABLE );
+		return !this.on(DBaseState.UNFOCUSABLE);
 	}
 
 	get underFocusable(): boolean {
-		return ! this.under( DBaseState.UNFOCUSABLE );
+		return !this.under(DBaseState.UNFOCUSABLE);
 	}
 
 	get isUnfocusable(): boolean {
-		return this.is( DBaseState.UNFOCUSABLE );
+		return this.is(DBaseState.UNFOCUSABLE);
 	}
 
-	set isUnfocusable( unfocusable: boolean ) {
-		this.set( DBaseState.UNFOCUSABLE, unfocusable );
+	set isUnfocusable(unfocusable: boolean) {
+		this.set(DBaseState.UNFOCUSABLE, unfocusable);
 	}
 
 	get inUnfocusable(): boolean {
-		return this.in( DBaseState.UNFOCUSABLE );
+		return this.in(DBaseState.UNFOCUSABLE);
 	}
 
 	get onUnfocusable(): boolean {
-		return this.on( DBaseState.UNFOCUSABLE );
+		return this.on(DBaseState.UNFOCUSABLE);
 	}
 
 	get underUnfocusable(): boolean {
-		return this.under( DBaseState.UNFOCUSABLE );
+		return this.under(DBaseState.UNFOCUSABLE);
 	}
 
 	get isInvalid(): boolean {
-		return this.is( DBaseState.INVALID );
+		return this.is(DBaseState.INVALID);
 	}
 
-	set isInvalid( invalid: boolean ) {
-		this.set( DBaseState.INVALID, invalid );
+	set isInvalid(invalid: boolean) {
+		this.set(DBaseState.INVALID, invalid);
 	}
 
 	get inInvalid(): boolean {
-		return this.in( DBaseState.INVALID );
+		return this.in(DBaseState.INVALID);
 	}
 
 	get onInvalid(): boolean {
-		return this.on( DBaseState.INVALID );
+		return this.on(DBaseState.INVALID);
 	}
 
 	get underInvalid(): boolean {
-		return this.on( DBaseState.INVALID );
+		return this.on(DBaseState.INVALID);
 	}
 
 	get isSucceeded(): boolean {
-		return this.is( DBaseState.SUCCEEDED );
+		return this.is(DBaseState.SUCCEEDED);
 	}
 
-	set isSucceeded( succeeded: boolean ) {
-		this.set( DBaseState.SUCCEEDED, succeeded );
+	set isSucceeded(succeeded: boolean) {
+		this.set(DBaseState.SUCCEEDED, succeeded);
 	}
 
 	get inSucceeded(): boolean {
-		return this.in( DBaseState.SUCCEEDED );
+		return this.in(DBaseState.SUCCEEDED);
 	}
 
 	get onSucceeded(): boolean {
-		return this.on( DBaseState.SUCCEEDED );
+		return this.on(DBaseState.SUCCEEDED);
 	}
 
 	get underSucceeded(): boolean {
-		return this.under( DBaseState.SUCCEEDED );
+		return this.under(DBaseState.SUCCEEDED);
 	}
 
 	get isFailed(): boolean {
-		return this.is( DBaseState.FAILED );
+		return this.is(DBaseState.FAILED);
 	}
 
-	set isFailed( failed: boolean ) {
-		this.set( DBaseState.FAILED, failed );
+	set isFailed(failed: boolean) {
+		this.set(DBaseState.FAILED, failed);
 	}
 
 	get inFailed(): boolean {
-		return this.in( DBaseState.FAILED );
+		return this.in(DBaseState.FAILED);
 	}
 
 	get onFailed(): boolean {
-		return this.on( DBaseState.FAILED );
+		return this.on(DBaseState.FAILED);
 	}
 
 	get underFailed(): boolean {
-		return this.under( DBaseState.FAILED );
+		return this.under(DBaseState.FAILED);
 	}
 
 	get isWarned(): boolean {
-		return this.is( DBaseState.WARNED );
+		return this.is(DBaseState.WARNED);
 	}
 
-	set isWarned( isWarned: boolean ) {
-		this.set( DBaseState.WARNED, isWarned );
+	set isWarned(isWarned: boolean) {
+		this.set(DBaseState.WARNED, isWarned);
 	}
 
 	get inWarned(): boolean {
-		return this.in( DBaseState.WARNED );
+		return this.in(DBaseState.WARNED);
 	}
 
 	get onWarned(): boolean {
-		return this.on( DBaseState.WARNED );
+		return this.on(DBaseState.WARNED);
 	}
 
 	get underWarned(): boolean {
-		return this.on( DBaseState.WARNED );
+		return this.on(DBaseState.WARNED);
 	}
 
 	get isChanged(): boolean {
-		return this.is( DBaseState.CHANGED );
+		return this.is(DBaseState.CHANGED);
 	}
 
-	set isChanged( isChanged: boolean ) {
-		this.set( DBaseState.CHANGED, isChanged );
+	set isChanged(isChanged: boolean) {
+		this.set(DBaseState.CHANGED, isChanged);
 	}
 
 	get inChanged(): boolean {
-		return this.in( DBaseState.CHANGED );
+		return this.in(DBaseState.CHANGED);
 	}
 
 	get onChanged(): boolean {
-		return this.on( DBaseState.CHANGED );
+		return this.on(DBaseState.CHANGED);
 	}
 
 	get underChanged(): boolean {
-		return this.on( DBaseState.CHANGED );
+		return this.on(DBaseState.CHANGED);
 	}
 
 	get isAlternated(): boolean {
-		return this.is( DBaseState.ALTERNATED );
+		return this.is(DBaseState.ALTERNATED);
 	}
 
-	set isAlternated( isAlternated: boolean ) {
-		this.set( DBaseState.ALTERNATED, isAlternated );
+	set isAlternated(isAlternated: boolean) {
+		this.set(DBaseState.ALTERNATED, isAlternated);
 	}
 
 	get inAlternated(): boolean {
-		return this.in( DBaseState.ALTERNATED );
+		return this.in(DBaseState.ALTERNATED);
 	}
 
 	get onAlternated(): boolean {
-		return this.on( DBaseState.ALTERNATED );
+		return this.on(DBaseState.ALTERNATED);
 	}
 
 	get underAlternated(): boolean {
-		return this.on( DBaseState.ALTERNATED );
+		return this.on(DBaseState.ALTERNATED);
 	}
 
 	toObject(): DBaseStateSetLike {
 		const states: string[] = [];
-		this._local.forEach(( value: string ): void => {
-			states.push( value );
+		this._local.forEach((value: string): void => {
+			states.push(value);
 		});
 		return {
 			local: states,
@@ -657,6 +667,6 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 	}
 
 	toString(): string {
-		return JSON.stringify( this.toObject() );
+		return JSON.stringify(this.toObject());
 	}
 }

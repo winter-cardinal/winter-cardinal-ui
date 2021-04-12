@@ -11,39 +11,39 @@ import { DThemeTableBodyCellCheck } from "../../d-table-body-cell-check";
 import { DThemeWhiteButtonCheck } from "./d-theme-white-button-check";
 import { DThemeWhiteTableBodyCells } from "./d-theme-white-table-body-cells";
 
-export class DThemeWhiteTableBodyCellCheck extends DThemeWhiteButtonCheck<boolean>
+export class DThemeWhiteTableBodyCellCheck
+	extends DThemeWhiteButtonCheck<boolean>
 	implements DThemeTableBodyCellCheck {
-
-	getBackgroundColor( state: DBaseStateSet ): number | null {
-		return DThemeWhiteTableBodyCells.getBackgroundColor( state );
+	getBackgroundColor(state: DBaseStateSet): number | null {
+		return DThemeWhiteTableBodyCells.getBackgroundColor(state);
 	}
 
-	getBackgroundAlpha( state: DBaseStateSet ): number {
-		return DThemeWhiteTableBodyCells.getBackgroundAlpha( state );
+	getBackgroundAlpha(state: DBaseStateSet): number {
+		return DThemeWhiteTableBodyCells.getBackgroundAlpha(state);
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
-		return DThemeWhiteTableBodyCells.getBorderColor( state );
+	getBorderColor(state: DBaseStateSet): number | null {
+		return DThemeWhiteTableBodyCells.getBorderColor(state);
 	}
 
-	getBorderAlign( state: DBaseStateSet ): number {
-		return DThemeWhiteTableBodyCells.getBorderAlign( state );
+	getBorderAlign(state: DBaseStateSet): number {
+		return DThemeWhiteTableBodyCells.getBorderAlign(state);
 	}
 
-	getBorderMask( state: DBaseStateSet ): DBorderMask {
-		return DThemeWhiteTableBodyCells.getBorderMask( state );
+	getBorderMask(state: DBaseStateSet): DBorderMask {
+		return DThemeWhiteTableBodyCells.getBorderMask(state);
 	}
 
-	getColor( state: DBaseStateSet ): number {
-		return DThemeWhiteTableBodyCells.getColor( state );
+	getColor(state: DBaseStateSet): number {
+		return DThemeWhiteTableBodyCells.getColor(state);
 	}
 
-	getAlpha( state: DBaseStateSet ): number {
-		return DThemeWhiteTableBodyCells.getAlpha( state );
+	getAlpha(state: DBaseStateSet): number {
+		return DThemeWhiteTableBodyCells.getAlpha(state);
 	}
 
-	getImageTintColor( state: DBaseStateSet ): number | null {
-		return DThemeWhiteTableBodyCells.getImageTintColor( state );
+	getImageTintColor(state: DBaseStateSet): number | null {
+		return DThemeWhiteTableBodyCells.getImageTintColor(state);
 	}
 
 	getHeight(): DCoordinateSize {

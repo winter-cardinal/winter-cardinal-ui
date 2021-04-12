@@ -3,30 +3,28 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export type DPickerTimeBoundDate = Date | null;
-
 export interface DPickerTimeBoundOptions {
-	date?: DPickerTimeBoundDate;
+	date?: Date | null;
 	inclusive?: boolean;
 }
 
 export class DPickerTimeBound {
-	protected _date: DPickerTimeBoundDate;
+	protected _date: Date | null;
 	protected _inclusive: boolean;
 	protected _onChange: () => void;
 
-	constructor( options: DPickerTimeBoundOptions | undefined, onChange: () => void ) {
-		this._date = ( options && options.date !== undefined ? options.date : null );
-		this._inclusive = ( options && options.inclusive !== undefined ? options.inclusive : false );
+	constructor(options: DPickerTimeBoundOptions | undefined, onChange: () => void) {
+		this._date = options?.date ?? null;
+		this._inclusive = options?.inclusive ?? false;
 		this._onChange = onChange;
 	}
 
-	get date(): DPickerTimeBoundDate {
+	get date(): Date | null {
 		return this._date;
 	}
 
-	set date( date: DPickerTimeBoundDate ) {
-		if( this._date !== date ) {
+	set date(date: Date | null) {
+		if (this._date !== date) {
 			this._date = date;
 			this._onChange();
 		}
@@ -36,8 +34,8 @@ export class DPickerTimeBound {
 		return this._inclusive;
 	}
 
-	set inclusive( inclusive: boolean ) {
-		if( this._inclusive !== inclusive ) {
+	set inclusive(inclusive: boolean) {
+		if (this._inclusive !== inclusive) {
 			this._inclusive = inclusive;
 			this._onChange();
 		}

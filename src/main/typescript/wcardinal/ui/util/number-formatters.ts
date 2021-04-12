@@ -16,7 +16,7 @@ export class NumberFormatters {
 	 *
 	 * @return A created number formatter
 	 */
-	static create( format: string ): NumberFormatter {
-		return new NumberFormatterImpl( format );
+	static create(format: string): NumberFormatter {
+		return new NumberFormatterImpl(format);
 	}
 }

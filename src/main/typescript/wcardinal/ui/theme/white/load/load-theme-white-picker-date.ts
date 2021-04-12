@@ -7,7 +7,7 @@ import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhitePickerDate } from "../d-theme-white-picker-date";
 import { loadThemeWhitePickerDatetime } from "./load-theme-white-picker-datetime";
 
-export const loadThemeWhitePickerDate = () => {
-	DThemeWhite.set( "DPickerDate", DThemeWhitePickerDate );
+export const loadThemeWhitePickerDate = (): void => {
+	DThemeWhite.set("DPickerDate", DThemeWhitePickerDate);
 	loadThemeWhitePickerDatetime();
 };

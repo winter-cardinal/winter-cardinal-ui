@@ -6,8 +6,12 @@
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
 import {
-	buildImageSdfClipping, buildImageSdfIndex, buildImageSdfStep,
-	buildImageSdfUv, buildImageSdfVertex, IMAGE_SDF_WORLD_SIZE
+	buildImageSdfClipping,
+	buildImageSdfIndex,
+	buildImageSdfStep,
+	buildImageSdfUv,
+	buildImageSdfVertex,
+	IMAGE_SDF_WORLD_SIZE
 } from "./build-image-sdf";
 import { EShapeTextUploaded } from "./e-shape-text-uploaded";
 
@@ -17,70 +21,68 @@ export class EShapeImageSdfUploaded extends EShapeTextUploaded {
 
 	constructor(
 		buffer: EShapeBuffer,
-		voffset: number, ioffset: number,
-		tvcount: number, ticount: number,
-		vcount: number, icount: number,
+		voffset: number,
+		ioffset: number,
+		tvcount: number,
+		ticount: number,
+		vcount: number,
+		icount: number,
 		antialiasWeight: number
 	) {
-		super( buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight );
+		super(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight);
 
 		this.textureWidth = -1;
 		this.textureHeight = -1;
 	}
 
-	init( shape: EShape ): this {
-		super.init( shape );
+	init(shape: EShape): this {
+		super.init(shape);
 
 		// Clippings & indices
 		const buffer = this.buffer;
 		const voffset = this.vertexOffset;
 		buffer.updateClippings();
 		buffer.updateIndices();
-		buildImageSdfClipping(
-			buffer.clippings,
-			voffset
-		);
-		buildImageSdfIndex(
-			buffer.indices,
-			voffset,
-			this.indexOffset
-		);
+		buildImageSdfClipping(buffer.clippings, voffset);
+		buildImageSdfIndex(buffer.indices, voffset, this.indexOffset);
 
 		// Text
 		this.initText();
 
-		this.update( shape );
+		this.update(shape);
 		return this;
 	}
 
-	update( shape: EShape ): void {
+	update(shape: EShape): void {
 		const buffer = this.buffer;
-		this.updateVertexAndStep( buffer, shape );
-		this.updateColor( buffer, shape );
-		this.updateUv( buffer, shape );
-		this.updateText( buffer, shape );
+		this.updateVertexAndStep(buffer, shape);
+		this.updateColor(buffer, shape);
+		this.updateUv(buffer, shape);
+		this.updateText(buffer, shape);
 	}
 
-	protected updateVertexAndStep( buffer: EShapeBuffer, shape: EShape ): void {
+	protected updateVertexAndStep(buffer: EShapeBuffer, shape: EShape): void {
 		const size = shape.size;
 		const sizeX = size.x;
 		const sizeY = size.y;
-		const isSizeChanged = ( sizeX !== this.sizeX || sizeY !== this.sizeY );
+		const isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
 
-		const transformLocalId = this.toTransformLocalId( shape );
-		const isTransformChanged = ( this.transformLocalId !== transformLocalId );
+		const transformLocalId = this.toTransformLocalId(shape);
+		const isTransformChanged = this.transformLocalId !== transformLocalId;
 
 		const stroke = shape.stroke;
-		const strokeWidth = (stroke.enable ? stroke.width : 0);
+		const strokeWidth = stroke.enable ? stroke.width : 0;
 		const strokeAlign = stroke.align;
-		const isStrokeChanged = ( this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth );
+		const isStrokeChanged =
+			this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth;
 
-		const texture = this.toTexture( shape );
+		const texture = this.toTexture(shape);
 		const textureWidth = texture.width * texture.resolution;
 		const textureHeight = texture.height * texture.resolution;
-		const isTextureSizeChanged = ( this.textureWidth !== textureWidth || this.textureHeight !== textureHeight );
+		const isTextureSizeChanged =
+			this.textureWidth !== textureWidth || this.textureHeight !== textureHeight;
 
-		if( isSizeChanged || isTransformChanged || isStrokeChanged || isTextureSizeChanged ) {
+		if (isSizeChanged || isTransformChanged || isStrokeChanged || isTextureSizeChanged) {
 			this.sizeX = sizeX;
 			this.sizeY = sizeY;
 			this.transformLocalId = transformLocalId;
@@ -97,8 +99,10 @@ export class EShapeImageSdfUploaded extends EShapeTextUploaded {
 			buildImageSdfVertex(
 				buffer.vertices,
 				this.vertexOffset,
-				0, 0,
-				sizeX, sizeY,
+				0,
+				0,
+				sizeX,
+				sizeY,
 				shape.transform.internalTransform,
 				IMAGE_SDF_WORLD_SIZE
 			);
@@ -118,19 +122,15 @@ export class EShapeImageSdfUploaded extends EShapeTextUploaded {
 		}
 	}
 
-	protected updateUv( buffer: EShapeBuffer, shape: EShape ): void {
-		const texture = this.toTexture( shape );
-		const textureTransformId = this.toTextureTransformId( texture );
-		if( texture !== this.texture || textureTransformId !== this.textureTransformId ) {
+	protected updateUv(buffer: EShapeBuffer, shape: EShape): void {
+		const texture = this.toTexture(shape);
+		const textureTransformId = this.toTextureTransformId(texture);
+		if (texture !== this.texture || textureTransformId !== this.textureTransformId) {
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
 
 			buffer.updateUvs();
-			buildImageSdfUv(
-				buffer.uvs,
-				this.vertexOffset,
-				this.toTextureUvs( texture )
-			);
+			buildImageSdfUv(buffer.uvs, this.vertexOffset, this.toTextureUvs(texture));
 		}
 	}
 }

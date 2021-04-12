@@ -9,8 +9,8 @@ import { UtilDragCheckerOptions } from "./util/util-drag";
 import { UtilDragEasingOptions } from "./util/util-drag-easing";
 
 export interface DViewDragOptions extends UtilDragEasingOptions {
-	mode?: (keyof typeof DDragMode) | DDragMode;
-	modifier?: (keyof typeof DMouseModifier) | DMouseModifier;
+	mode?: keyof typeof DDragMode | DDragMode;
+	modifier?: keyof typeof DMouseModifier | DMouseModifier;
 	checker?: UtilDragCheckerOptions;
 }
 

@@ -8,7 +8,7 @@ import { DBaseStateSet } from "./d-base-state-set";
 /**
  * A {@link DBaseState}-aware function returning R.
  */
-export type DStateAware<R> = ( state: DBaseStateSet ) => R;
+export type DStateAware<R> = (state: DBaseStateSet) => R;
 
 /**
  * R or a {@link DBaseState}-aware function returning R.

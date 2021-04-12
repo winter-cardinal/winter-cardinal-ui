@@ -15,35 +15,35 @@ import { DThemeWhiteTableBodyCells } from "./d-theme-white-table-body-cells";
 
 DThemeWhiteTableBodyCellActions.init();
 
-export class DThemeWhiteTableBodyCellActionMenu extends DThemeWhiteDropdown
+export class DThemeWhiteTableBodyCellActionMenu
+	extends DThemeWhiteDropdown
 	implements DThemeTableBodyCellActionMenu {
-
-	getBackgroundColor( state: DBaseStateSet ): number | null {
-		return DThemeWhiteTableBodyCells.getBackgroundColor( state );
+	getBackgroundColor(state: DBaseStateSet): number | null {
+		return DThemeWhiteTableBodyCells.getBackgroundColor(state);
 	}
 
-	getBackgroundAlpha( state: DBaseStateSet ): number {
-		return DThemeWhiteTableBodyCells.getBackgroundAlpha( state );
+	getBackgroundAlpha(state: DBaseStateSet): number {
+		return DThemeWhiteTableBodyCells.getBackgroundAlpha(state);
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
-		return DThemeWhiteTableBodyCells.getBorderColor( state );
+	getBorderColor(state: DBaseStateSet): number | null {
+		return DThemeWhiteTableBodyCells.getBorderColor(state);
 	}
 
-	getBorderAlign( state: DBaseStateSet ): number {
-		return DThemeWhiteTableBodyCells.getBorderAlign( state );
+	getBorderAlign(state: DBaseStateSet): number {
+		return DThemeWhiteTableBodyCells.getBorderAlign(state);
 	}
 
-	getBorderMask( state: DBaseStateSet ): DBorderMask {
-		return DThemeWhiteTableBodyCells.getBorderMask( state );
+	getBorderMask(state: DBaseStateSet): DBorderMask {
+		return DThemeWhiteTableBodyCells.getBorderMask(state);
 	}
 
-	getColor( state: DBaseStateSet ): number {
-		return DThemeWhiteTableBodyCells.getColor( state );
+	getColor(state: DBaseStateSet): number {
+		return DThemeWhiteTableBodyCells.getColor(state);
 	}
 
-	getAlpha( state: DBaseStateSet ): number {
-		return DThemeWhiteTableBodyCells.getAlpha( state );
+	getAlpha(state: DBaseStateSet): number {
+		return DThemeWhiteTableBodyCells.getAlpha(state);
 	}
 
 	getHeight(): DCoordinateSize {
@@ -54,7 +54,7 @@ export class DThemeWhiteTableBodyCellActionMenu extends DThemeWhiteDropdown
 		return DThemeWhiteTableBodyCells.getCornerMask();
 	}
 
-	getSecondaryImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
+	getSecondaryImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
 		return null;
 	}
 
@@ -66,11 +66,11 @@ export class DThemeWhiteTableBodyCellActionMenu extends DThemeWhiteDropdown
 		return 10;
 	}
 
-	getImageTintColor( state: DBaseStateSet ): number | null {
-		return DThemeWhiteTableBodyCellActions.getImageTintColor( state );
+	getImageTintColor(state: DBaseStateSet): number | null {
+		return DThemeWhiteTableBodyCellActions.getImageTintColor(state);
 	}
 
-	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
-		return DThemeWhiteTableBodyCellActions.getImageSource( state );
+	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
+		return DThemeWhiteTableBodyCellActions.getImageSource(state);
 	}
 }

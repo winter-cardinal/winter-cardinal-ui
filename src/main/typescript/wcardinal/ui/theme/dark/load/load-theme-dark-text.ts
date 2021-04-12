@@ -6,6 +6,6 @@
 import { DThemeDark } from "../d-theme-dark";
 import { DThemeDarkText } from "../d-theme-dark-text";
 
-export const loadThemeDarkText = () => {
-	DThemeDark.set( "DText", DThemeDarkText );
+export const loadThemeDarkText = (): void => {
+	DThemeDark.set("DText", DThemeDarkText);
 };

@@ -9,22 +9,25 @@ import { EShapeActionRuntimeTransformMove } from "./e-shape-action-runtime-trans
 import { EShapeActionValueTransformMove } from "./e-shape-action-value-transform-move";
 
 export class EShapeActionRuntimeTransformMoveLeftOrRight extends EShapeActionRuntimeTransformMove {
-	constructor( value: EShapeActionValueTransformMove ) {
-		super( value, EShapeRuntimeReset.POSITION );
+	constructor(value: EShapeActionValueTransformMove) {
+		super(value, EShapeRuntimeReset.POSITION);
 	}
 
-	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( this.condition( shape, time ) ) {
-			const amount = this.amount( shape, time );
+	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {
+		if (this.condition(shape, time)) {
+			const amount = this.amount(shape, time);
 			const transform = shape.transform;
 			const position = transform.position;
-			const writtenPositionX = ( (runtime.written & EShapeRuntimeReset.POSITION_X) !== 0 );
-			const writtenPositionY = ( (runtime.written & EShapeRuntimeReset.POSITION_Y) !== 0 );
-			const oldPositionX = ( writtenPositionX ? position.x : runtime.x );
-			const oldPositionY = ( writtenPositionY ? position.y : runtime.y );
+			const writtenPositionX = !!(runtime.written & EShapeRuntimeReset.POSITION_X);
+			const writtenPositionY = !!(runtime.written & EShapeRuntimeReset.POSITION_Y);
+			const oldPositionX = writtenPositionX ? position.x : runtime.x;
+			const oldPositionY = writtenPositionY ? position.y : runtime.y;
 			shape.updateTransform();
-			const localTransform = shape.transform.localTransform;
-			position.set( oldPositionX + localTransform.a * amount, oldPositionY + localTransform.b * amount );
+			const localTransform = transform.localTransform;
+			position.set(
+				oldPositionX + localTransform.a * amount,
+				oldPositionY + localTransform.b * amount
+			);
 			runtime.written |= this.reset;
 		}
 	}

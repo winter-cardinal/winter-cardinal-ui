@@ -39,12 +39,12 @@ export class DDynamicTextStyle {
 	protected _clipping: boolean;
 	protected _onChange: () => void;
 
-	constructor( options: DDynamicTextStyleOptions | undefined, onChange: () => void ) {
+	constructor(options: DDynamicTextStyleOptions | undefined, onChange: () => void) {
 		this._id = 0;
 		this._idApproved = -1;
 
 		const defaultOptions = this.getDefaultOptions();
-		if( options ) {
+		if (options) {
 			this._align = options.align ?? defaultOptions.align;
 			this._fontFamily = options.fontFamily ?? defaultOptions.fontFamily;
 			this._fontSize = options.fontSize ?? defaultOptions.fontSize;
@@ -74,8 +74,8 @@ export class DDynamicTextStyle {
 
 	protected getDefaultOptions(): Required<DDynamicTextStyleOptions> {
 		let result = DDynamicTextStyle.DEFAULT_OPTIONS;
-		if( result == null ) {
-			const theme = DThemes.getInstance().get( "DBase" ) as DThemeFont;
+		if (result == null) {
+			const theme = DThemes.getInstance().get("DBase") as DThemeFont;
 			result = {
 				align: "left",
 				fontFamily: theme.getFontFamilly(),
@@ -83,7 +83,7 @@ export class DDynamicTextStyle {
 				fontStyle: "normal",
 				fontVariant: "normal",
 				fontWeight: "normal",
-				fill: theme.getColor( new DBaseStateSetImpl() ),
+				fill: theme.getColor(new DBaseStateSetImpl()),
 				clipping: true
 			};
 			DDynamicTextStyle.DEFAULT_OPTIONS = result;
@@ -112,8 +112,8 @@ export class DDynamicTextStyle {
 		return this._fill;
 	}
 
-	set fill( fill: number ) {
-		if( this._fill !== fill ) {
+	set fill(fill: number) {
+		if (this._fill !== fill) {
 			this._fill = fill;
 			this.onChange();
 		}
@@ -139,8 +139,8 @@ export class DDynamicTextStyle {
 		return this._fontFamily;
 	}
 
-	set fontFamily( fontFamily: string ) {
-		if( this._fontFamily !== fontFamily ) {
+	set fontFamily(fontFamily: string) {
+		if (this._fontFamily !== fontFamily) {
 			this._fontFamily = fontFamily;
 			this.onChange();
 		}
@@ -150,8 +150,8 @@ export class DDynamicTextStyle {
 		return this._fontSize;
 	}
 
-	set fontSize( fontSize: number ) {
-		if( this._fontSize !== fontSize ) {
+	set fontSize(fontSize: number) {
+		if (this._fontSize !== fontSize) {
 			this._fontSize = fontSize;
 			this.onChange();
 		}
@@ -161,8 +161,8 @@ export class DDynamicTextStyle {
 		return this._fontStyle;
 	}
 
-	set fontStyle( fontStyle: DFontStyle ) {
-		if( this._fontStyle !== fontStyle ) {
+	set fontStyle(fontStyle: DFontStyle) {
+		if (this._fontStyle !== fontStyle) {
 			this._fontStyle = fontStyle;
 			this.onChange();
 		}
@@ -172,8 +172,8 @@ export class DDynamicTextStyle {
 		return this._fontVariant;
 	}
 
-	set fontVariant( fontVariant: DFontVariant ) {
-		if( this._fontVariant !== fontVariant ) {
+	set fontVariant(fontVariant: DFontVariant) {
+		if (this._fontVariant !== fontVariant) {
 			this._fontVariant = fontVariant;
 			this.onChange();
 		}
@@ -183,15 +183,15 @@ export class DDynamicTextStyle {
 		return this._fontWeight;
 	}
 
-	set fontWeight( fontWeight: DFontWeight ) {
-		if( this._fontWeight !== fontWeight ) {
+	set fontWeight(fontWeight: DFontWeight) {
+		if (this._fontWeight !== fontWeight) {
 			this._fontWeight = fontWeight;
 			this.onChange();
 		}
 	}
 
 	protected update(): void {
-		if( this._fontIdId !== this._id ) {
+		if (this._fontIdId !== this._id) {
 			this._fontIdId = this._id;
 			this._fontId = this.newFontId();
 		}
@@ -205,8 +205,8 @@ export class DDynamicTextStyle {
 		return this._clipping;
 	}
 
-	set clipping( clipping: boolean ) {
-		if( this._clipping !== clipping ) {
+	set clipping(clipping: boolean) {
+		if (this._clipping !== clipping) {
 			this._clipping = clipping;
 			this.onChange();
 		}

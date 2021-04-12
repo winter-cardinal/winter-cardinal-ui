@@ -16,37 +16,37 @@ export class EShapeActionRuntimeChangeTextNumber extends EShapeActionRuntimeCond
 	protected number: EShapeActionExpression<number>;
 	protected formatters: Map<string, NumberFormatter | null>;
 
-	constructor( value: EShapeActionValueChangeText ) {
-		super( value, EShapeRuntimeReset.TEXT );
+	constructor(value: EShapeActionValueChangeText) {
+		super(value, EShapeRuntimeReset.TEXT);
 
-		this.number = EShapeActionExpressions.ofNumber( value.value );
+		this.number = EShapeActionExpressions.ofNumber(value.value);
 		this.formatters = new Map<string, NumberFormatter | null>();
 	}
 
-	protected getFormatter( shape: EShape, runtime: EShapeRuntime ): NumberFormatter | null {
+	protected getFormatter(shape: EShape, runtime: EShapeRuntime): NumberFormatter | null {
 		const formatters = this.formatters;
 		const text = runtime.text.value;
-		let result = formatters.get( text );
-		if( result === undefined ) {
-			result = this.newFormatter( text );
-			formatters.set( text, result );
+		let result = formatters.get(text);
+		if (result === undefined) {
+			result = this.newFormatter(text);
+			formatters.set(text, result);
 		}
 		return result;
 	}
 
-	protected newFormatter( format: string ): NumberFormatter | null {
+	protected newFormatter(format: string): NumberFormatter | null {
 		format = format.trim();
-		if( 0 < format.length ) {
-			return NumberFormatters.create( format );
+		if (0 < format.length) {
+			return NumberFormatters.create(format);
 		}
 		return null;
 	}
 
-	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( this.condition( shape, time ) ) {
-			const value = this.number( shape, time );
-			const formatter = this.getFormatter( shape, runtime );
-			shape.text.value = ( formatter != null ? formatter.format( value, 0 ) : String(value) );
+	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {
+		if (this.condition(shape, time)) {
+			const value = this.number(shape, time);
+			const formatter = this.getFormatter(shape, runtime);
+			shape.text.value = formatter != null ? formatter.format(value, 0) : String(value);
 			runtime.written |= this.reset;
 		}
 	}

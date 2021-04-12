@@ -10,7 +10,7 @@ import { DThemeTableRow } from "../../d-table-row";
 import { DThemeWhiteLayoutHorizontal } from "./d-theme-white-layout-horizontal";
 
 export class DThemeWhiteTableRow extends DThemeWhiteLayoutHorizontal implements DThemeTableRow {
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 

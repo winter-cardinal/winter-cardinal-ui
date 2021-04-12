@@ -18,7 +18,7 @@ export interface DChartCoordinate {
 	readonly id: number;
 	readonly transform: DChartCoordinateTransform;
 
-	bind( container: DChartCoordinateContainerSub, direction: DChartCoordinateDirection ): void;
+	bind(container: DChartCoordinateContainerSub, direction: DChartCoordinateDirection): void;
 	unbind(): void;
 
 	/**
@@ -28,18 +28,18 @@ export interface DChartCoordinate {
 	 * @param from a lower end of the range
 	 * @param to an upper end of the range
 	 */
-	fit( from?: number, to?: number ): void;
+	fit(from?: number, to?: number): void;
 
-	mark( from?: number, to?: number ): void;
+	mark(from?: number, to?: number): void;
 
-	blend( ratio: number ): void;
+	blend(ratio: number): void;
 
 	/**
 	 * Transforms the given raw value to the untransformed value.
 	 *
 	 * @param value a raw value
 	 */
-	map( value: number ): number;
+	map(value: number): number;
 
 	/**
 	 * Transforms the given raw values to untransformed values.
@@ -52,14 +52,14 @@ export interface DChartCoordinate {
 	 * @param stride a stride of indices
 	 * @param offset an offset of indices
 	 */
-	mapAll( values: number[], ifrom: number, iend: number, stride: number, offset: number ): void;
+	mapAll(values: number[], ifrom: number, iend: number, stride: number, offset: number): void;
 
 	/**
 	 * Transforms the given untransformed value to the raw value.
 	 *
 	 * @param value an untransformed value
 	 */
-	unmap( value: number ): number;
+	unmap(value: number): number;
 
 	/**
 	 * Transforms the given untransformed values to raw values.
@@ -72,7 +72,7 @@ export interface DChartCoordinate {
 	 * @param stride a stride of indices
 	 * @param offset an offset of indices
 	 */
-	unmapAll( values: number[], ifrom: number, iend: number, stride: number, offset: number ): void;
+	unmapAll(values: number[], ifrom: number, iend: number, stride: number, offset: number): void;
 
 	/**
 	 * Returns major / minor tick positions.

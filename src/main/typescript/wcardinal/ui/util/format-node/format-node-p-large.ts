@@ -6,7 +6,7 @@
 import { FormatNode } from "./format-node";
 
 export class FormatNodeP implements FormatNode {
-	format( target: number, step: number, date: Date ): string {
+	format(target: number, step: number, date: Date): string {
 		return `${(target * 100) | 0}%`;
 	}
 }

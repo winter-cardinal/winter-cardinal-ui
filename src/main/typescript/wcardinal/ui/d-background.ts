@@ -14,7 +14,7 @@ export interface DBackground {
 
 export interface DBackgroundStateAware extends DBackground {
 	getTheme(): DThemeBase;
-	setTheme( theme: DThemeBase ): void;
-	getColor( state: DBaseStateSet ): number | null;
-	getAlpha( state: DBaseStateSet ): number;
+	setTheme(theme: DThemeBase): void;
+	getColor(state: DBaseStateSet): number | null;
+	getAlpha(state: DBaseStateSet): number;
 }

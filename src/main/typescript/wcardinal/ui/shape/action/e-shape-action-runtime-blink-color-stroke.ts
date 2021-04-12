@@ -12,14 +12,14 @@ export class EShapeActionRuntimeBlinkColorStroke extends EShapeActionRuntimeBlin
 	protected color: number;
 	protected alpha: number;
 
-	constructor( value: EShapeActionValueBlink ) {
-		super( value, EShapeRuntimeReset.COLOR_STROKE );
+	constructor(value: EShapeActionValueBlink) {
+		super(value, EShapeRuntimeReset.COLOR_STROKE);
 		this.color = value.color;
 		this.alpha = value.alpha;
 	}
 
-	protected toOn( shape: EShape, runtime: EShapeRuntime ): void {
-		shape.stroke.set( undefined, this.color, this.alpha );
+	protected toOn(shape: EShape, runtime: EShapeRuntime): void {
+		shape.stroke.set(undefined, this.color, this.alpha);
 		runtime.written |= this.reset;
 	}
 }

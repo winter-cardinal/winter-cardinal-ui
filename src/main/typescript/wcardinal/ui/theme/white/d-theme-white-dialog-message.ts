@@ -6,7 +6,9 @@
 import { DThemeDialogMessage } from "../../d-dialog-message";
 import { DThemeWhiteDialogConfirm } from "./d-theme-white-dialog-confirm";
 
-export class DThemeWhiteDialogMessage extends DThemeWhiteDialogConfirm implements DThemeDialogMessage {
+export class DThemeWhiteDialogMessage
+	extends DThemeWhiteDialogConfirm
+	implements DThemeDialogMessage {
 	getOk(): string | null {
 		return "OK";
 	}

@@ -6,7 +6,9 @@
 import { DThemeDiagramEditor } from "../../d-diagram-editor";
 import { DThemeWhiteDiagramBase } from "./d-theme-white-diagram-base";
 
-export class DThemeWhiteDiagramEditor extends DThemeWhiteDiagramBase implements DThemeDiagramEditor {
+export class DThemeWhiteDiagramEditor
+	extends DThemeWhiteDiagramBase
+	implements DThemeDiagramEditor {
 	isAmbient(): boolean {
 		return false;
 	}

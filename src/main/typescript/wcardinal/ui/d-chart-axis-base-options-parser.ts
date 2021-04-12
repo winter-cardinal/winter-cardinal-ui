@@ -4,9 +4,12 @@
  */
 
 import {
-	DChartAxisBaseOptions, DChartAxisBaseTickContainerOptions,
-	DChartAxisBaseTickMajorGridlineOptions, DChartAxisBaseTickMajorOptions,
-	DChartAxisBaseTickMajorTextOptions, DThemeChartAxisBase
+	DChartAxisBaseOptions,
+	DChartAxisBaseTickContainerOptions,
+	DChartAxisBaseTickMajorGridlineOptions,
+	DChartAxisBaseTickMajorOptions,
+	DChartAxisBaseTickMajorTextOptions,
+	DThemeChartAxisBase
 } from "./d-chart-axis-base-options";
 import { DChartAxisPosition } from "./d-chart-axis-position";
 import { DChartAxisTickPosition } from "./d-chart-axis-tick-position";
@@ -75,13 +78,13 @@ export class DChartAxisBaseOptionParser {
 	protected _padding: number;
 	protected _bar: DChartAxisBaseBar;
 
-	constructor( theme: DThemeChartAxisBase, options?: DChartAxisBaseOptions ) {
-		this._coordinateIndex = ( options && options.coordinate != null ? options.coordinate : 0 );
-		this._position = this.toPosition( theme, options );
-		this._tick = this.toTickContainer( theme, options );
-		this._label = this.toLabel( theme, options );
-		this._padding = ( options && options.padding != null ? options.padding : theme.getPadding() );
-		this._bar = this.toBar( theme, options );
+	constructor(theme: DThemeChartAxisBase, options?: DChartAxisBaseOptions) {
+		this._coordinateIndex = options?.coordinate ?? 0;
+		this._position = this.toPosition(theme, options);
+		this._tick = this.toTickContainer(theme, options);
+		this._label = this.toLabel(theme, options);
+		this._padding = options?.padding ?? theme.getPadding();
+		this._bar = this.toBar(theme, options);
 	}
 
 	get coordinateIndex(): number {
@@ -112,10 +115,10 @@ export class DChartAxisBaseOptionParser {
 		theme: DThemeChartAxisBase,
 		options?: DChartAxisBaseOptions
 	): DChartAxisPosition {
-		const position = options && options.position;
-		if( isString( position ) ) {
-			return DChartAxisPosition[ position ];
-		} else if( position != null ) {
+		const position = options?.position;
+		if (isString(position)) {
+			return DChartAxisPosition[position];
+		} else if (position != null) {
 			return position;
 		}
 		return theme.getPosition();
@@ -126,8 +129,8 @@ export class DChartAxisBaseOptionParser {
 		options?: DChartAxisBaseOptions
 	): DChartAxisBaseBar {
 		return {
-			style: options && options.style != null ? options.style : theme.getStyle(),
-			stroke: this.toBarStroke( theme, options && options.stroke ),
+			style: options?.style ?? theme.getStyle(),
+			stroke: this.toBarStroke(theme, options?.stroke),
 			shape: undefined
 		};
 	}
@@ -136,11 +139,11 @@ export class DChartAxisBaseOptionParser {
 		theme: DThemeChartAxisBase,
 		options?: DChartAxisBaseOptions
 	): DChartAxisBaseTickContainer {
-		const tick = options && options.tick;
+		const tick = options?.tick;
 		return {
-			enable: ( tick && tick.enable != null ? tick.enable : theme.getTickEnable() ),
-			major: this.toTickMajor( theme, tick ),
-			minor: this.toMinorTick( theme, tick )
+			enable: tick?.enable ?? theme.getTickEnable(),
+			major: this.toTickMajor(theme, tick),
+			minor: this.toMinorTick(theme, tick)
 		};
 	}
 
@@ -148,26 +151,24 @@ export class DChartAxisBaseOptionParser {
 		theme: DThemeChartAxisBase,
 		options?: DChartAxisBaseTickContainerOptions
 	): DChartAxisBaseTickMajor {
-		const major: DChartAxisBaseTickMajorOptions | undefined = options && options.major;
-		const position = ( major && major.position != null ? major.position :
-			( options && options.position != null ? options.position : theme.getMajorTickPosition() )
+		const major = options?.major;
+		const position = major?.position ?? options?.position ?? theme.getMajorTickPosition();
+		const optionsStyle = options?.style;
+		const style = EShapePointsStyles.from(
+			major?.style ?? optionsStyle ?? theme.getMajorTickStyle()
 		);
-		const optionsStyle = options && options.style;
-		const style = EShapePointsStyles.from( major && major.style != null ? major.style :
-			( optionsStyle != null ? optionsStyle : theme.getMajorTickStyle() )
-		);
-		const optionsStroke = options && options.stroke;
-		const stroke = this.toTickMajorStroke( theme, major && major.stroke, optionsStroke );
+		const optionsStroke = options?.stroke;
+		const stroke = this.toTickMajorStroke(theme, major?.stroke, optionsStroke);
 		return {
-			count: ( major && major.count != null ? major.count : theme.getMajorTickCount() ),
-			size: ( major && major.size != null ? major.size : theme.getMajorTickSize() ),
-			position: this.toTickPosition( position ),
+			count: major?.count ?? theme.getMajorTickCount(),
+			size: major?.size ?? theme.getMajorTickSize(),
+			position: this.toTickPosition(position),
 			style,
 			stroke,
-			text: this.toMajorTickText( theme, major && major.text ),
-			formatter: this.toMajorTickFormatter( theme, major ),
+			text: this.toMajorTickText(theme, major?.text),
+			formatter: this.toMajorTickFormatter(theme, major),
 			shapes: undefined,
-			gridline: this.toTickMajorGridline( theme, major && major.gridline, optionsStyle, optionsStroke )
+			gridline: this.toTickMajorGridline(theme, major?.gridline, optionsStyle, optionsStroke)
 		};
 	}
 
@@ -177,13 +178,13 @@ export class DChartAxisBaseOptionParser {
 		optionsStyle: EShapePointsStyleOption | undefined,
 		optionsStroke: Partial<EShapeStrokeLike> | undefined
 	): DChartAxisBaseGridline {
-		const style = EShapePointsStyles.from( options && options.style != null ? options.style :
-			( optionsStyle != null ? optionsStyle : theme.getMajorTickGridlineStyle() )
+		const style = EShapePointsStyles.from(
+			options?.style ?? optionsStyle ?? theme.getMajorTickGridlineStyle()
 		);
 		return {
-			enable: options && options.enable != null ? options.enable : theme.getMajorTickGridlineEnable(),
+			enable: options?.enable ?? theme.getMajorTickGridlineEnable(),
 			style,
-			stroke: this.toTickMajorGridlineStroke( theme, options && options.stroke, optionsStroke ),
+			stroke: this.toTickMajorGridlineStroke(theme, options?.stroke, optionsStroke),
 			shapes: undefined
 		};
 	}
@@ -192,31 +193,31 @@ export class DChartAxisBaseOptionParser {
 		tickPosition: DChartAxisTickPosition | keyof typeof DChartAxisTickPosition
 	): EShapeBarPosition {
 		const position = this._position;
-		if( tickPosition === DChartAxisTickPosition.OUTSIDE || tickPosition === "OUTSIDE" ) {
-			switch( position ) {
-			case DChartAxisPosition.TOP:
-				return EShapeBarPosition.BOTTOM;
-			case DChartAxisPosition.BOTTOM:
-				return EShapeBarPosition.TOP;
-			case DChartAxisPosition.LEFT:
-				return EShapeBarPosition.RIGHT;
-			case DChartAxisPosition.RIGHT:
-				return EShapeBarPosition.LEFT;
-			default:
-				return EShapeBarPosition.TOP;
+		if (tickPosition === DChartAxisTickPosition.OUTSIDE || tickPosition === "OUTSIDE") {
+			switch (position) {
+				case DChartAxisPosition.TOP:
+					return EShapeBarPosition.BOTTOM;
+				case DChartAxisPosition.BOTTOM:
+					return EShapeBarPosition.TOP;
+				case DChartAxisPosition.LEFT:
+					return EShapeBarPosition.RIGHT;
+				case DChartAxisPosition.RIGHT:
+					return EShapeBarPosition.LEFT;
+				default:
+					return EShapeBarPosition.TOP;
 			}
 		} else {
-			switch( position ) {
-			case DChartAxisPosition.TOP:
-				return EShapeBarPosition.TOP;
-			case DChartAxisPosition.BOTTOM:
-				return EShapeBarPosition.BOTTOM;
-			case DChartAxisPosition.LEFT:
-				return EShapeBarPosition.LEFT;
-			case DChartAxisPosition.RIGHT:
-				return EShapeBarPosition.RIGHT;
-			default:
-				return EShapeBarPosition.TOP;
+			switch (position) {
+				case DChartAxisPosition.TOP:
+					return EShapeBarPosition.TOP;
+				case DChartAxisPosition.BOTTOM:
+					return EShapeBarPosition.BOTTOM;
+				case DChartAxisPosition.LEFT:
+					return EShapeBarPosition.LEFT;
+				case DChartAxisPosition.RIGHT:
+					return EShapeBarPosition.RIGHT;
+				default:
+					return EShapeBarPosition.TOP;
 			}
 		}
 	}
@@ -225,19 +226,17 @@ export class DChartAxisBaseOptionParser {
 		theme: DThemeChartAxisBase,
 		options?: DChartAxisBaseTickContainerOptions
 	): DChartAxisBaseTickMinor {
-		const minor: DChartAxisBaseTickMajorOptions | undefined = options && options.major;
-		const position = ( minor && minor.position != null ? minor.position :
-			( options && options.position != null ? options.position : theme.getMinorTickPosition() )
-		);
-		const style = EShapePointsStyles.from( minor && minor.style != null ? minor.style :
-			( options && options.style != null ? options.style : theme.getMinorTickStyle() )
+		const minor = options?.major;
+		const position = minor?.position ?? options?.position ?? theme.getMinorTickPosition();
+		const style = EShapePointsStyles.from(
+			minor?.style ?? options?.style ?? theme.getMinorTickStyle()
 		);
 		return {
-			count: ( minor && minor.count != null ? minor.count : theme.getMinorTickCount() ),
-			size: ( minor && minor.size != null ? minor.size : theme.getMinorTickSize() ),
-			position: this.toTickPosition( position ),
+			count: minor?.count ?? theme.getMinorTickCount(),
+			size: minor?.size ?? theme.getMinorTickSize(),
+			position: this.toTickPosition(position),
 			style,
-			stroke: this.toTickMinorStroke( theme, minor && minor.stroke, options && options.stroke ),
+			stroke: this.toTickMinorStroke(theme, minor?.stroke, options?.stroke),
 			shapes: undefined
 		};
 	}
@@ -247,7 +246,8 @@ export class DChartAxisBaseOptionParser {
 		options?: Partial<EShapeStrokeLike>
 	): Partial<EShapeStrokeLike> {
 		return this.toStroke(
-			options, undefined,
+			options,
+			undefined,
 			theme.getStrokeEnable(),
 			theme.getStrokeColor(),
 			theme.getStrokeAlpha(),
@@ -263,7 +263,8 @@ export class DChartAxisBaseOptionParser {
 		optionsB?: Partial<EShapeStrokeLike>
 	): Partial<EShapeStrokeLike> {
 		return this.toStroke(
-			optionsA, optionsB,
+			optionsA,
+			optionsB,
 			theme.getMajorTickStrokeEnable(),
 			theme.getMajorTickStrokeColor(),
 			theme.getMajorTickStrokeAlpha(),
@@ -279,7 +280,8 @@ export class DChartAxisBaseOptionParser {
 		optionsB?: Partial<EShapeStrokeLike>
 	): Partial<EShapeStrokeLike> {
 		return this.toStroke(
-			optionsA, optionsB,
+			optionsA,
+			optionsB,
 			theme.getMajorTickGridlineStrokeEnable(),
 			theme.getMajorTickGridlineStrokeColor(),
 			theme.getMajorTickGridlineStrokeAlpha(),
@@ -295,7 +297,8 @@ export class DChartAxisBaseOptionParser {
 		optionsB?: Partial<EShapeStrokeLike>
 	): Partial<EShapeStrokeLike> {
 		return this.toStroke(
-			optionsA, optionsB,
+			optionsA,
+			optionsB,
 			theme.getMinorTickStrokeEnable(),
 			theme.getMinorTickStrokeColor(),
 			theme.getMinorTickStrokeAlpha(),
@@ -315,46 +318,34 @@ export class DChartAxisBaseOptionParser {
 		align: number | undefined,
 		side: EShapeStrokeSide | undefined
 	): Partial<EShapeStrokeLike> {
-		if( optionsA ) {
-			if( optionsB ) {
+		if (optionsA) {
+			if (optionsB) {
 				return {
-					enable: ( optionsA.enable != null ? optionsA.enable :
-						( optionsB.enable != null ? optionsB.enable : enable )
-					),
-					color: ( optionsA.color != null ? optionsA.color :
-						( optionsB.color != null ? optionsB.color : color )
-					),
-					alpha: ( optionsA.alpha != null ? optionsA.alpha :
-						( optionsB.alpha != null ? optionsB.alpha : alpha )
-					),
-					width: ( optionsA.width != null ? optionsA.width :
-						( optionsB.width != null ? optionsB.width : width )
-					),
-					align: ( optionsA.align != null ? optionsA.align :
-						( optionsB.align != null ? optionsB.align : align )
-					),
-					side: ( optionsA.side != null ? optionsA.side :
-						( optionsB.side != null ? optionsB.side : side )
-					)
+					enable: optionsA.enable ?? optionsB.enable ?? enable,
+					color: optionsA.color ?? optionsB.color ?? color,
+					alpha: optionsA.alpha ?? optionsB.alpha ?? alpha,
+					width: optionsA.width ?? optionsB.width ?? width,
+					align: optionsA.align ?? optionsB.align ?? align,
+					side: optionsA.side ?? optionsB.side ?? side
 				};
 			} else {
 				return {
-					enable: ( optionsA.enable != null ? optionsA.enable : enable ),
-					color: ( optionsA.color != null ? optionsA.color : color ),
-					alpha: ( optionsA.alpha != null ? optionsA.alpha : alpha ),
-					width: ( optionsA.width != null ? optionsA.width : width ),
-					align: ( optionsA.align != null ? optionsA.align : align ),
-					side: ( optionsA.side != null ? optionsA.side : side )
+					enable: optionsA.enable ?? enable,
+					color: optionsA.color ?? color,
+					alpha: optionsA.alpha ?? alpha,
+					width: optionsA.width ?? width,
+					align: optionsA.align ?? align,
+					side: optionsA.side ?? side
 				};
 			}
-		} else if( optionsB ) {
+		} else if (optionsB) {
 			return {
-				enable: ( optionsB.enable != null ? optionsB.enable : enable ),
-				color: ( optionsB.color != null ? optionsB.color : color ),
-				alpha: ( optionsB.alpha != null ? optionsB.alpha : alpha ),
-				width: ( optionsB.width != null ? optionsB.width : width ),
-				align: ( optionsB.align != null ? optionsB.align : align ),
-				side: ( optionsB.side != null ? optionsB.side : side )
+				enable: optionsB.enable ?? enable,
+				color: optionsB.color ?? color,
+				alpha: optionsB.alpha ?? alpha,
+				width: optionsB.width ?? width,
+				align: optionsB.align ?? align,
+				side: optionsB.side ?? side
 			};
 		} else {
 			return {
@@ -372,23 +363,21 @@ export class DChartAxisBaseOptionParser {
 		theme: DThemeChartAxisBase,
 		options?: DChartAxisBaseTickMajorOptions
 	): NumberFormatter {
-		const text = options && options.text;
-		if( text ) {
+		const text = options?.text;
+		if (text) {
 			const format = text.format;
-			if( format != null ) {
-				return NumberFormatters.create( format );
+			if (format != null) {
+				return NumberFormatters.create(format);
 			} else {
 				const formatter = text.formatter;
-				if( formatter ) {
+				if (formatter) {
 					return {
 						format: formatter
 					};
 				}
 			}
 		}
-		return NumberFormatters.create(
-			theme.getMajorTickTextFormat()
-		);
+		return NumberFormatters.create(theme.getMajorTickTextFormat());
 	}
 
 	protected toMajorTickText(
@@ -398,18 +387,18 @@ export class DChartAxisBaseOptionParser {
 		options = options || {};
 		return {
 			format: options.format,
-			color: this.toMajorTickTextColor( theme, options.color ),
+			color: this.toMajorTickTextColor(theme, options.color),
 			alpha: options.alpha,
 			family: options.family,
 			size: options.size,
 			weight: options.weight,
-			align: this.toMajorTickTextAlign( theme, options.align ),
-			offset: this.toMajorTickTextOffset( theme, options.offset ),
+			align: this.toMajorTickTextAlign(theme, options.align),
+			offset: this.toMajorTickTextOffset(theme, options.offset),
 			style: options.style,
-			outline: this.toMajorTickTextOutline( theme, options.outline ),
-			spacing: this.toMajorTickTextSpacing( theme, options.spacing ),
-			direction: this.toTickMajorTextDirection( theme, options.direction ),
-			padding: this.toMajorTickTextPadding( theme, options.padding ),
+			outline: this.toMajorTickTextOutline(theme, options.outline),
+			spacing: this.toMajorTickTextSpacing(theme, options.spacing),
+			direction: this.toTickMajorTextDirection(theme, options.direction),
+			padding: this.toMajorTickTextPadding(theme, options.padding),
 			clipping: options.clipping
 		};
 	}
@@ -418,7 +407,7 @@ export class DChartAxisBaseOptionParser {
 		theme: DThemeChartAxisBase,
 		options?: Partial<EShapeTextOutlineLike>
 	): Partial<EShapeTextOutlineLike> | undefined {
-		if( options ) {
+		if (options) {
 			return {
 				enable: options.enable,
 				color: options.color,
@@ -433,19 +422,9 @@ export class DChartAxisBaseOptionParser {
 		options?: Partial<EShapeTextAlignLike>
 	): Partial<EShapeTextAlignLike> | undefined {
 		const position = this._position;
-		if( options ) {
-			return {
-				horizontal: ( options.horizontal != null ? options.horizontal :
-					theme.getMajorTickTextAlignHorizontal( position )
-				),
-				vertical: ( options.vertical != null ? options.vertical :
-					theme.getMajorTickTextAlignVertical( position )
-				)
-			};
-		}
 		return {
-			horizontal: theme.getMajorTickTextAlignHorizontal( position ),
-			vertical: theme.getMajorTickTextAlignVertical( position )
+			horizontal: options?.horizontal ?? theme.getMajorTickTextAlignHorizontal(position),
+			vertical: options?.vertical ?? theme.getMajorTickTextAlignVertical(position)
 		};
 	}
 
@@ -453,7 +432,7 @@ export class DChartAxisBaseOptionParser {
 		theme: DThemeChartAxisBase,
 		options?: Partial<EShapeTextOffsetLike>
 	): Partial<EShapeTextOffsetLike> | undefined {
-		if( options ) {
+		if (options) {
 			return {
 				horizontal: options.horizontal,
 				vertical: options.vertical
@@ -465,7 +444,7 @@ export class DChartAxisBaseOptionParser {
 		theme: DThemeChartAxisBase,
 		options?: Partial<EShapeTextOffsetLike>
 	): Partial<EShapeTextOffsetLike> | undefined {
-		if( options ) {
+		if (options) {
 			return {
 				horizontal: options.horizontal,
 				vertical: options.vertical
@@ -478,12 +457,8 @@ export class DChartAxisBaseOptionParser {
 		options?: Partial<EShapeTextOffsetLike>
 	): Partial<EShapeTextOffsetLike> {
 		return {
-			horizontal: ( options && options.horizontal != null ?
-				options.horizontal : theme.getMajorTickTextPaddingHorizontal()
-			),
-			vertical: ( options && options.vertical != null ?
-				options.vertical : theme.getMajorTickTextPaddingVertical()
-			)
+			horizontal: options?.horizontal ?? theme.getMajorTickTextPaddingHorizontal(),
+			vertical: options?.vertical ?? theme.getMajorTickTextPaddingVertical()
 		};
 	}
 
@@ -491,22 +466,22 @@ export class DChartAxisBaseOptionParser {
 		theme: DThemeChartAxisBase,
 		options?: EShapeTextDirection
 	): EShapeTextDirection {
-		return ( options != null ? options : theme.getMajorTickTextDirection() );
+		return options ?? theme.getMajorTickTextDirection();
 	}
 
 	protected toMajorTickTextColor(
 		theme: DThemeChartAxisBase,
 		options?: number
 	): number | undefined {
-		return ( options != null ? options : theme.getMajorTickTextColor() );
+		return options ?? theme.getMajorTickTextColor();
 	}
 
 	protected toLabel(
 		theme: DThemeChartAxisBase,
 		options?: DChartAxisBaseOptions
 	): DeepPartial<EShapeTextLike> | undefined {
-		const label = options && options.label;
-		if( label ) {
+		const label = options?.label;
+		if (label) {
 			return {
 				value: label.value,
 				color: this.toLabelColor(theme, label.color),
@@ -514,13 +489,13 @@ export class DChartAxisBaseOptionParser {
 				family: label.family,
 				size: label.size,
 				weight: label.weight,
-				align: this.toLabelAlign( theme, label.align ),
-				offset: this.toLabelOffset( theme, label.offset ),
+				align: this.toLabelAlign(theme, label.align),
+				offset: this.toLabelOffset(theme, label.offset),
 				style: label.style,
-				outline: this.toLabelOutline( theme, label.outline ),
-				spacing: this.toLabelSpacing( theme, label.spacing ),
-				direction: this.toLabelDirection( theme, label.direction ),
-				padding: this.toLabelPadding( theme, label.padding ),
+				outline: this.toLabelOutline(theme, label.outline),
+				spacing: this.toLabelSpacing(theme, label.spacing),
+				direction: this.toLabelDirection(theme, label.direction),
+				padding: this.toLabelPadding(theme, label.padding),
 				clipping: label.clipping
 			};
 		}
@@ -530,7 +505,7 @@ export class DChartAxisBaseOptionParser {
 		theme: DThemeChartAxisBase,
 		options?: Partial<EShapeTextOutlineLike>
 	): Partial<EShapeTextOutlineLike> | undefined {
-		if( options ) {
+		if (options) {
 			return {
 				enable: options.enable,
 				color: options.color,
@@ -545,19 +520,9 @@ export class DChartAxisBaseOptionParser {
 		options?: Partial<EShapeTextAlignLike>
 	): Partial<EShapeTextAlignLike> | undefined {
 		const position = this._position;
-		if( options ) {
-			return {
-				horizontal: ( options.horizontal != null ?
-					options.horizontal : theme.getLabelAlignHorizontal( position )
-				),
-				vertical: ( options.vertical != null ?
-					options.vertical : theme.getLabelAlignVertical( position )
-				)
-			};
-		}
 		return {
-			horizontal: theme.getLabelAlignHorizontal( position ),
-			vertical: theme.getLabelAlignVertical( position )
+			horizontal: options?.horizontal ?? theme.getLabelAlignHorizontal(position),
+			vertical: options?.vertical ?? theme.getLabelAlignVertical(position)
 		};
 	}
 
@@ -565,7 +530,7 @@ export class DChartAxisBaseOptionParser {
 		theme: DThemeChartAxisBase,
 		options?: Partial<EShapeTextOffsetLike>
 	): Partial<EShapeTextOffsetLike> | undefined {
-		if( options ) {
+		if (options) {
 			return {
 				horizontal: options.horizontal,
 				vertical: options.vertical
@@ -577,7 +542,7 @@ export class DChartAxisBaseOptionParser {
 		theme: DThemeChartAxisBase,
 		options?: Partial<EShapeTextOffsetLike>
 	): Partial<EShapeTextOffsetLike> | undefined {
-		if( options ) {
+		if (options) {
 			return {
 				horizontal: options.horizontal,
 				vertical: options.vertical
@@ -590,12 +555,8 @@ export class DChartAxisBaseOptionParser {
 		options?: Partial<EShapeTextOffsetLike>
 	): Partial<EShapeTextOffsetLike> {
 		return {
-			horizontal: ( options && options.horizontal != null ?
-				options.horizontal : theme.getLabelPaddingHorizontal()
-			),
-			vertical: ( options && options.vertical != null ?
-				options.vertical : theme.getLabelPaddingVertical()
-			)
+			horizontal: options?.horizontal ?? theme.getLabelPaddingHorizontal(),
+			vertical: options?.vertical ?? theme.getLabelPaddingVertical()
 		};
 	}
 
@@ -603,13 +564,10 @@ export class DChartAxisBaseOptionParser {
 		theme: DThemeChartAxisBase,
 		options?: EShapeTextDirection
 	): EShapeTextDirection {
-		return ( options != null ? options : theme.getLabelDirection() );
+		return options ?? theme.getLabelDirection();
 	}
 
-	protected toLabelColor(
-		theme: DThemeChartAxisBase,
-		options?: number
-	): number | undefined {
-		return ( options != null ? options : theme.getLabelColor() );
+	protected toLabelColor(theme: DThemeChartAxisBase, options?: number): number | undefined {
+		return options ?? theme.getLabelColor();
 	}
 }

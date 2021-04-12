@@ -12,20 +12,25 @@ export class DBaseBorderMesh extends Mesh {
 	geometry!: DBaseBorderMeshGeometry;
 	shader!: MeshMaterial;
 
-	constructor( texture: Texture, borderSize: number, borderMask: DBorderMask, cornerMask: DCornerMask ) {
+	constructor(
+		texture: Texture,
+		borderSize: number,
+		borderMask: DBorderMask,
+		cornerMask: DCornerMask
+	) {
 		super(
-			new DBaseBorderMeshGeometry( texture, 100, 100, borderSize, borderMask, cornerMask ),
-			new MeshMaterial( texture )
+			new DBaseBorderMeshGeometry(texture, 100, 100, borderSize, borderMask, cornerMask),
+			new MeshMaterial(texture)
 		);
 	}
 
 	// @ts-ignore
-	get texture() {
+	get texture(): Texture {
 		return this.shader.texture;
 	}
 
-	set texture( texture: Texture ) {
-		if( this.shader.texture !== texture ) {
+	set texture(texture: Texture) {
+		if (this.shader.texture !== texture) {
 			this.shader.texture = texture;
 			this.geometry.texture = texture;
 		}
@@ -36,7 +41,7 @@ export class DBaseBorderMesh extends Mesh {
 		return this.geometry.width;
 	}
 
-	set width( width: number ) {
+	set width(width: number) {
 		this.geometry.width = width;
 	}
 
@@ -45,7 +50,7 @@ export class DBaseBorderMesh extends Mesh {
 		return this.geometry.height;
 	}
 
-	set height( height: number ) {
+	set height(height: number) {
 		this.geometry.height = height;
 	}
 
@@ -53,7 +58,7 @@ export class DBaseBorderMesh extends Mesh {
 		return this.geometry.borderSize;
 	}
 
-	set borderSize( borderSize: number ) {
+	set borderSize(borderSize: number) {
 		this.geometry.borderSize = borderSize;
 	}
 
@@ -61,7 +66,7 @@ export class DBaseBorderMesh extends Mesh {
 		return this.geometry.borderMask;
 	}
 
-	set borderMask( borderMask: DBorderMask ) {
+	set borderMask(borderMask: DBorderMask) {
 		this.geometry.borderMask = borderMask;
 	}
 
@@ -69,13 +74,13 @@ export class DBaseBorderMesh extends Mesh {
 		return this.geometry.cornerMask;
 	}
 
-	set cornerMask( cornerMask: DCornerMask ) {
+	set cornerMask(cornerMask: DCornerMask) {
 		this.geometry.cornerMask = cornerMask;
 	}
 
-	protected _render( renderer: Renderer ): void {
+	protected _render(renderer: Renderer): void {
 		this.geometry.update();
-		super._render( renderer );
+		super._render(renderer);
 	}
 
 	update(): void {

@@ -19,11 +19,9 @@ import { UtilClickOutside } from "./util/util-click-outside";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilOverlay } from "./util/util-overlay";
 
-export interface DMenuOptions<
-	VALUE = unknown,
-	THEME extends DThemeMenu = DThemeMenu
-> extends DLayoutVerticalOptions<THEME> {
-	align?: (keyof typeof DMenuAlign) | DMenuAlign;
+export interface DMenuOptions<VALUE = unknown, THEME extends DThemeMenu = DThemeMenu>
+	extends DLayoutVerticalOptions<THEME> {
+	align?: keyof typeof DMenuAlign | DMenuAlign;
 	fit?: boolean;
 	sticky?: boolean;
 	items?: Array<DMenuItemOptionsUnion<VALUE> | DisplayObject | null | undefined>;
@@ -49,16 +47,16 @@ export class DMenu<
 	protected _onPrerenderBound!: () => void;
 	protected _focused?: DFocusable | null;
 
-	protected init( options?: OPTIONS ) {
-		super.init( options );
+	protected init(options?: OPTIONS): void {
+		super.init(options);
 
 		this._onPrerenderBound = (): void => {
 			this.onPrerender();
 		};
 
-		this._align = toEnum( options?.align ?? DMenuAlign.BOTTOM, DMenuAlign );
-		this._fit = ( options?.fit ?? false );
-		this._sticky = ( options?.sticky ?? false );
+		this._align = toEnum(options?.align ?? DMenuAlign.BOTTOM, DMenuAlign);
+		this._fit = options?.fit ?? false;
+		this._sticky = options?.sticky ?? false;
 		this._sub = false;
 		this._owner = null;
 		this._context = null;
@@ -66,29 +64,29 @@ export class DMenu<
 		this.state.isFocusRoot = true;
 
 		// Event handlers
-		UtilClickOutside.apply( this, (): void => {
+		UtilClickOutside.apply(this, (): void => {
 			this.close();
 		});
 
-		this.on( "select", (): void => {
+		this.on("select", (): void => {
 			this.close();
 		});
 
 		// Items
 		const items = options?.items;
-		if( items ) {
-			DMenus.newItems( this, items, this._sticky );
+		if (items) {
+			DMenus.newItems(this, items, this._sticky);
 		}
 
 		// Overlay
-		this._overlay = new UtilOverlay( options );
+		this._overlay = new UtilOverlay(options);
 	}
 
-	findItem( value: VALUE ): DMenuItem<VALUE> | null {
+	findItem(value: VALUE): DMenuItem<VALUE> | null {
 		const children = this.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			const child = children[ i ];
-			if( child instanceof DMenuItem && child.value === value ) {
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			const child = children[i];
+			if (child instanceof DMenuItem && child.value === value) {
 				return child;
 			}
 		}
@@ -107,46 +105,50 @@ export class DMenu<
 		return this;
 	}
 
-	open( owner: DBase<any, any>, closeable?: Closeable | null, context?: DMenuContext | null ): this {
-		if( this.isHidden() ) {
-			const layer = this._overlay.pick( this );
+	open(
+		owner: DBase<any, any>,
+		closeable?: Closeable | null,
+		context?: DMenuContext | null
+	): this {
+		if (this.isHidden()) {
+			const layer = this._overlay.pick(this);
 			this._owner = owner;
 
 			// States
 			const children = this.children;
-			for( let i = 0, imax = children.length; i < imax; ++i ) {
-				const child = children[ i ];
-				if( child instanceof DBase ) {
-					child.state.removeAll( DBaseState.FOCUSED, DBaseState.HOVERED );
+			for (let i = 0, imax = children.length; i < imax; ++i) {
+				const child = children[i];
+				if (child instanceof DBase) {
+					child.state.removeAll(DBaseState.FOCUSED, DBaseState.HOVERED);
 				}
 			}
 
 			// Position & size
 			const renderer = layer.renderer;
 			const onPrerenderBound = this._onPrerenderBound;
-			if( this._sticky ) {
-				renderer.on( "prerender", onPrerenderBound );
+			if (this._sticky) {
+				renderer.on("prerender", onPrerenderBound);
 			} else {
-				renderer.once( "prerender", onPrerenderBound );
+				renderer.once("prerender", onPrerenderBound);
 			}
-			if( this._fit ) {
+			if (this._fit) {
 				const bounds = owner.getBounds();
-				if( bounds != null ) {
+				if (bounds != null) {
 					this.width = bounds.width;
 				}
 			}
 
 			// Target
-			this._sub = (context != null);
-			context = context || new DMenuContext( owner );
-			if( closeable != null ) {
-				context.trim( closeable );
+			this._sub = context != null;
+			context = context || new DMenuContext(owner);
+			if (closeable != null) {
+				context.trim(closeable);
 			}
-			context.add( this );
+			context.add(this);
 			this._context = context;
 
 			// Stage
-			layer.stage.addChild( this );
+			layer.stage.addChild(this);
 
 			// Focus
 			this._focused = layer.getFocusController().get();
@@ -156,27 +158,29 @@ export class DMenu<
 			super.show();
 
 			// Event
-			this.emit( "open", this );
+			this.emit("open", this);
 		}
 		return this;
 	}
 
 	protected onPrerender(): void {
 		const owner = this._owner;
-		if( owner ) {
+		if (owner) {
 			const bounds = owner.getBounds();
-			if( bounds ) {
-				if( this._fit ) {
+			if (bounds) {
+				if (this._fit) {
 					this.width = bounds.width;
 				}
 				const layer = this._overlay.picked;
-				if( layer ) {
+				if (layer) {
 					const theme = this.theme;
 					UtilAttach.attach(
 						this,
 						bounds,
-						theme.getOffsetX(), theme.getOffsetY(),
-						layer.width, layer.height,
+						theme.getOffsetX(),
+						theme.getOffsetY(),
+						layer.width,
+						layer.height,
 						this._align
 					);
 				}
@@ -185,17 +189,17 @@ export class DMenu<
 	}
 
 	close(): this {
-		if( this.isShown() ) {
+		if (this.isShown()) {
 			// Remove from the context
 			const context = this._context;
-			if( context ) {
-				context.remove( this );
+			if (context) {
+				context.remove(this);
 			}
 
 			// Remove the prerender event handler
 			const layer = this._overlay.picked;
-			if( layer ) {
-				layer.renderer.off( "prerender", this._onPrerenderBound );
+			if (layer) {
+				layer.renderer.off("prerender", this._onPrerenderBound);
 			}
 
 			// Forget the owner
@@ -203,15 +207,15 @@ export class DMenu<
 
 			// Restore the focus
 			const focused = this._focused;
-			if( focused != null ) {
+			if (focused != null) {
 				this._focused = null;
-				if( layer ) {
-					layer.getFocusController().focus( focused );
+				if (layer) {
+					layer.getFocusController().focus(focused);
 				} else {
-					this.blur( true );
+					this.blur(true);
 				}
 			} else {
-				this.blur( true );
+				this.blur(true);
 			}
 
 			// Visibility
@@ -219,27 +223,30 @@ export class DMenu<
 
 			// Remove from the tree
 			const parent = this.parent;
-			if( parent ) {
-				parent.removeChild( this );
+			if (parent) {
+				parent.removeChild(this);
 			}
 
 			// Emit the event
-			this.emit( "close", this );
+			this.emit("close", this);
 		}
 		return this;
 	}
 
-	onKeyDown( e: KeyboardEvent ): boolean {
-		UtilKeyboardEvent.moveFocusVertically( e, this, this._overlay );
-		if( this.state.isActionable && (UtilKeyboardEvent.isArrowLeftKey( e ) || UtilKeyboardEvent.isCancelKey( e )) ) {
+	onKeyDown(e: KeyboardEvent): boolean {
+		UtilKeyboardEvent.moveFocusVertically(e, this, this._overlay);
+		if (
+			this.state.isActionable &&
+			(UtilKeyboardEvent.isArrowLeftKey(e) || UtilKeyboardEvent.isCancelKey(e))
+		) {
 			this.close();
 		}
-		return super.onKeyDown( e );
+		return super.onKeyDown(e);
 	}
 
-	protected containsGlobalPoint( point: Point ): boolean {
-		return ! this._sub;
+	protected containsGlobalPoint(point: Point): boolean {
+		return !this._sub;
 	}
 }
 
-DMenus.setMenuCreator( ( options?: DMenuOptions<any> ) => new DMenu<any>( options ) );
+DMenus.setMenuCreator((options?: DMenuOptions<any>) => new DMenu<any>(options));

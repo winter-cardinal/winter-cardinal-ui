@@ -21,15 +21,18 @@ export interface DTableBodyCellTimeOptions<
 	dialog?: DDialogTimeOptions;
 }
 
-export interface DThemeTableBodyCellTime extends DThemeButton<Date> {
-
-}
+export interface DThemeTableBodyCellTime extends DThemeButton<Date> {}
 
 export class DTableBodyCellTime<
-	ROW = unknown,
-	THEME extends DThemeTableBodyCellTime = DThemeTableBodyCellTime,
-	OPTIONS extends DTableBodyCellTimeOptions<ROW, THEME> = DTableBodyCellTimeOptions<ROW, THEME>
-> extends DButton<Date, THEME, OPTIONS> implements DTableBodyCell<ROW, Date> {
+		ROW = unknown,
+		THEME extends DThemeTableBodyCellTime = DThemeTableBodyCellTime,
+		OPTIONS extends DTableBodyCellTimeOptions<ROW, THEME> = DTableBodyCellTimeOptions<
+			ROW,
+			THEME
+		>
+	>
+	extends DButton<Date, THEME, OPTIONS>
+	implements DTableBodyCell<ROW, Date> {
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;
@@ -38,8 +41,13 @@ export class DTableBodyCellTime<
 	protected _dialog?: DDialogTime;
 	protected _datetimeMask?: DPickerDatetimeMask;
 
-	constructor( columnIndex: number, column: DTableColumn<ROW, Date>, onChange: DTableBodyCellOnChange<ROW, Date>, options?: OPTIONS ) {
-		super( options );
+	constructor(
+		columnIndex: number,
+		column: DTableColumn<ROW, Date>,
+		onChange: DTableBodyCellOnChange<ROW, Date>,
+		options?: OPTIONS
+	) {
+		super(options);
 
 		this._rowIndex = -1;
 		this._columnIndex = columnIndex;
@@ -47,31 +55,33 @@ export class DTableBodyCellTime<
 		this._onChange = onChange;
 	}
 
-	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
-		super.onActivate( e );
+	protected onActivate(
+		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
+	): void {
+		super.onActivate(e);
 		const value = this._textValueComputed?.getTime() ?? Date.now();
 		const dialog = this.dialog;
-		dialog.current = new Date( value );
-		dialog.new = new Date( value );
+		dialog.current = new Date(value);
+		dialog.new = new Date(value);
 		dialog.open().then((): void => {
 			const newValue = dialog.new;
 			const oldValue = dialog.current;
-			this.text = new Date( newValue.getTime() );
+			this.text = new Date(newValue.getTime());
 			const row = this._row;
-			if( row !== undefined ) {
+			if (row !== undefined) {
 				const rowIndex = this._rowIndex;
 				const columnIndex = this._columnIndex;
-				this._column.setter( row, columnIndex, newValue );
-				this.emit( "change", newValue, oldValue, this );
-				this._onChange( newValue, oldValue, row, rowIndex, columnIndex, this );
+				this._column.setter(row, columnIndex, newValue);
+				this.emit("change", newValue, oldValue, this);
+				this._onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
 			}
 		});
 	}
 
 	getDatetimeMask(): DPickerDatetimeMask {
 		let result = this._datetimeMask;
-		if( result == null ) {
-			result = DPickerTimes.toMask( this._options?.dialog?.picker );
+		if (result == null) {
+			result = DPickerTimes.toMask(this._options?.dialog?.picker);
 			this._datetimeMask = result;
 		}
 		return result;
@@ -79,10 +89,10 @@ export class DTableBodyCellTime<
 
 	get dialog(): DDialogTime {
 		let dialog = this._dialog;
-		if( dialog == null ) {
+		if (dialog == null) {
 			const options = this._options?.dialog;
-			if( options ) {
-				dialog = new DDialogTime( options );
+			if (options) {
+				dialog = new DDialogTime(options);
 			} else {
 				dialog = DDialogTimes.getInstance();
 			}
@@ -108,14 +118,17 @@ export class DTableBodyCellTime<
 	}
 
 	set(
-		value: Date, row: ROW, supplimental: unknown,
-		rowIndex: number, columnIndex: number,
+		value: Date,
+		row: ROW,
+		supplimental: unknown,
+		rowIndex: number,
+		columnIndex: number,
 		forcibly?: boolean
 	): void {
 		this._row = row;
 		this._rowIndex = rowIndex;
-		if( value instanceof Date ) {
-			if( forcibly ) {
+		if (value instanceof Date) {
+			if (forcibly) {
 				this._textValue = value;
 				this._textValueComputed = value;
 				this.onTextChange();
@@ -123,20 +136,20 @@ export class DTableBodyCellTime<
 			} else {
 				this.text = value;
 			}
-		} else if( isNumber( value ) ) {
+		} else if (isNumber(value)) {
 			const textValueComputed = this._textValueComputed;
-			if( textValueComputed == null ) {
-				this.text = new Date( value );
-			} else if( textValueComputed.getTime() !== value ) {
-				textValueComputed.setTime( value );
+			if (textValueComputed == null) {
+				this.text = new Date(value);
+			} else if (textValueComputed.getTime() !== value) {
+				textValueComputed.setTime(value);
 				this.onTextChange();
 				this.createOrUpdateText();
 			}
 		}
 
 		const column = this._column;
-		DTableBodyCells.setReadOnly( this, row, columnIndex, column );
-		DTableBodyCells.setRenderable( this, row, columnIndex, column );
+		DTableBodyCells.setReadOnly(this, row, columnIndex, column);
+		DTableBodyCells.setRenderable(this, row, columnIndex, column);
 	}
 
 	unset(): void {

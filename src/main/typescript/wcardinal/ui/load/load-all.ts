@@ -6,7 +6,7 @@
 import { loadShapeAll } from "../shape/load/load-shape-all";
 import { loadMenuItemAll } from "./load-menu-item-all";
 
-export const loadAll = () => {
+export const loadAll = (): void => {
 	loadMenuItemAll();
 	loadShapeAll();
 };

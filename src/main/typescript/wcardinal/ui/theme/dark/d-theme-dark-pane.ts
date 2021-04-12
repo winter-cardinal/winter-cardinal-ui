@@ -15,7 +15,7 @@ export class DThemeDarkPane extends DThemeDarkBase implements DThemePane {
 		return true;
 	}
 
-	getBackgroundColor( state: DBaseStateSet ): number | null {
+	getBackgroundColor(state: DBaseStateSet): number | null {
 		return DThemeDarkConstants.BACKGROUND_COLOR;
 	}
 

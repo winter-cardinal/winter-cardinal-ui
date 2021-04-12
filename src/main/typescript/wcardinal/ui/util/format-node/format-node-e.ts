@@ -6,7 +6,7 @@
 import { FormatNodePrecision } from "./format-node-precision";
 
 export class FormatNodee extends FormatNodePrecision {
-	format( target: number, step: number, date: Date ): string {
+	format(target: number, step: number, date: Date): string {
 		return target.toExponential(this.precision);
 	}
 }

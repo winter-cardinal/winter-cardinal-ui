@@ -9,7 +9,7 @@ import { EShapeUploadeds } from "../e-shape-uploadeds";
 import { createGroupUploaded } from "../variant/create-group-uploaded";
 import { deserializeGroup } from "../variant/deserialize-group";
 
-export const loadShapeGroup = () => {
-	EShapeUploadeds[ EShapeType.GROUP ] = createGroupUploaded;
-	EShapeDeserializers[ EShapeType.GROUP ] = deserializeGroup;
+export const loadShapeGroup = (): void => {
+	EShapeUploadeds[EShapeType.GROUP] = createGroupUploaded;
+	EShapeDeserializers[EShapeType.GROUP] = deserializeGroup;
 };

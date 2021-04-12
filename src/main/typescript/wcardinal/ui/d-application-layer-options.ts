@@ -48,40 +48,29 @@ export class DApplicationLayerOptions {
 	private _padding: DPadding;
 	private _overlay: boolean;
 
-	constructor( options: DApplicationLayerOptionsOptions ) {
+	constructor(options: DApplicationLayerOptionsOptions) {
 		// Root
-		const root = this._root = options.root;
+		const root = options.root;
+		this._root = root;
 
 		// Overlay mode or not
 		this._overlay = options.overlay;
 
 		// Padding
-		const padding = options && options.padding;
-		if( isNumber( padding ) ) {
-			this._padding = new DApplicationPadding( padding, padding, padding, padding );
-		} else if( padding != null ) {
-			this._padding = new DApplicationPadding(
-				padding.top || 0,
-				padding.right || 0,
-				padding.bottom || 0,
-				padding.left || 0
-			);
-		} else {
-			this._padding = new DApplicationPadding( 6, 6, 6, 6 );
-		}
+		this._padding = new DApplicationPadding(options?.padding);
 
 		// Width & height
 		let width = 100;
 		let height = 100;
-		if( options ) {
-			if( options.width != null ) {
+		if (options) {
+			if (options.width != null) {
 				width = options.width;
-				if( options.height != null ) {
+				if (options.height != null) {
 					height = options.height;
 				} else {
 					height = root.getBoundingClientRect().height;
 				}
-			} else if( options.height != null ) {
+			} else if (options.height != null) {
 				width = root.getBoundingClientRect().width;
 				height = options.height;
 			} else {
@@ -96,12 +85,12 @@ export class DApplicationLayerOptions {
 		}
 
 		// Background color
-		const background = options && options.background;
+		const background = options?.background;
 		let backgroundColor = 0;
 		let transparent = true;
-		if( background != null ) {
+		if (background != null) {
 			const color = background.color;
-			if( color != null ) {
+			if (color != null) {
 				backgroundColor = color;
 				transparent = false;
 			}
@@ -111,7 +100,7 @@ export class DApplicationLayerOptions {
 		const resolution = options.resolution;
 
 		// Antialias
-		const antialias = ( options && options.antialias != null ? options.antialias : false );
+		const antialias = options?.antialias ?? false;
 
 		// Pixi
 		this._pixi = {
@@ -141,10 +130,10 @@ export class DApplicationLayerOptions {
 	 * @param root new root element
 	 * @param updateWidthAndHeight false to preserve the canvas width / height
 	 */
-	setRootElement( root: HTMLElement, updateWidthAndHeight?: boolean ): this {
-		if( this._root !== root ) {
+	setRootElement(root: HTMLElement, updateWidthAndHeight?: boolean): this {
+		if (this._root !== root) {
 			this._root = root;
-			if( updateWidthAndHeight !== false ) {
+			if (updateWidthAndHeight !== false) {
 				const bbox = root.getBoundingClientRect();
 				const pixi = this._pixi;
 				pixi.width = bbox.width;
@@ -166,7 +155,7 @@ export class DApplicationLayerOptions {
 	 *
 	 * @param width new canvas width
 	 */
-	setWidth( width: number ): this {
+	setWidth(width: number): this {
 		this._pixi.width = width;
 		return this;
 	}
@@ -183,7 +172,7 @@ export class DApplicationLayerOptions {
 	 *
 	 * @param height new canvas height
 	 */
-	setHeight( height: number ): this {
+	setHeight(height: number): this {
 		this._pixi.height = height;
 		return this;
 	}
@@ -204,7 +193,7 @@ export class DApplicationLayerOptions {
 	 * @param right new right padding
 	 * @param bottom new bottom padding
 	 */
-	setPadding( left: number, top: number, right: number, bottom: number ): this {
+	setPadding(left: number, top: number, right: number, bottom: number): this {
 		const padding = this._padding;
 		padding.left = left;
 		padding.top = top;
@@ -225,7 +214,7 @@ export class DApplicationLayerOptions {
 	 *
 	 * @param color new background color
 	 */
-	setBackgroundColor( color: number ): this {
+	setBackgroundColor(color: number): this {
 		this._pixi.backgroundColor = color;
 		return this;
 	}
@@ -243,7 +232,7 @@ export class DApplicationLayerOptions {
 	 *
 	 * @param antialias new antialias setting
 	 */
-	setAntialias( antialias: boolean ): this {
+	setAntialias(antialias: boolean): this {
 		this._pixi.antialias = antialias;
 		return this;
 	}

@@ -13,22 +13,19 @@ export abstract class EShapeActionValueBase implements EShapeActionValue {
 	readonly type: EShapeActionValueType;
 	readonly condition: string;
 
-	constructor( type: EShapeActionValueType, condition: string ) {
+	constructor(type: EShapeActionValueType, condition: string) {
 		this.type = type;
 		this.condition = condition;
 	}
 
-	isEquals( value: EShapeActionValue ): boolean {
-		return (
-			this.type === value.type &&
-			this.condition === value.condition
-		);
+	isEquals(value: EShapeActionValue): boolean {
+		return this.type === value.type && this.condition === value.condition;
 	}
 
 	toLabel(): string {
-		return DThemes.getInstance().get<EThemeShapeActionValue>( "EShapeActionValue" ).toLabel( this );
+		return DThemes.getInstance().get<EThemeShapeActionValue>("EShapeActionValue").toLabel(this);
 	}
 
 	abstract toRuntime(): EShapeActionRuntime;
-	abstract serialize( manager: EShapeResourceManagerSerialization ): number;
+	abstract serialize(manager: EShapeResourceManagerSerialization): number;
 }

@@ -20,24 +20,28 @@ export class EShapeActionRuntimeMiscHtmlElement<
 	protected elementCreator?: EShapeActionExpressionWithParameter<ELEMENT | null, HTMLElement>;
 	protected noPointerEvent: boolean;
 
-	constructor( value: EShapeActionValueMisc ) {
-		super( value );
-		this.elementCreator = EShapeActionExpressions.ofElementOrNull( value.value );
-		this.noPointerEvent = ( value.subtype === EShapeActionValueMiscType.HTML_ELEMENT_WITHOUT_POINTER_EVENTS );
+	constructor(value: EShapeActionValueMisc) {
+		super(value);
+		this.elementCreator = EShapeActionExpressions.ofElementOrNull(value.value);
+		this.noPointerEvent =
+			value.subtype === EShapeActionValueMiscType.HTML_ELEMENT_WITHOUT_POINTER_EVENTS;
 	}
 
-	protected newUtil( shape: EShape, runtime: EShapeRuntime ): UTIL {
-		if( this.noPointerEvent ) {
-			shape.state.add( DHtmlElementState.NO_POINTER_EVENTS );
+	protected newUtil(shape: EShape, runtime: EShapeRuntime): UTIL {
+		if (this.noPointerEvent) {
+			shape.state.add(DHtmlElementState.NO_POINTER_EVENTS);
 		}
-		return super.newUtil( shape, runtime );
+		return super.newUtil(shape, runtime);
 	}
 
-	protected newElementCreator( shape: EShape, runtime: EShapeRuntime ): UtilHtmlElementCreator<ELEMENT> | undefined {
+	protected newElementCreator(
+		shape: EShape,
+		runtime: EShapeRuntime
+	): UtilHtmlElementCreator<ELEMENT> | undefined {
 		const elementCreator = this.elementCreator;
-		if( elementCreator ) {
-			return ( container: HTMLElement ): ELEMENT | null => {
-				return elementCreator( shape, Date.now(), container );
+		if (elementCreator) {
+			return (container: HTMLElement): ELEMENT | null => {
+				return elementCreator(shape, Date.now(), container);
 			};
 		}
 		return undefined;

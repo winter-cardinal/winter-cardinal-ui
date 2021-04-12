@@ -8,8 +8,8 @@ import { DThemeWhiteContent } from "../d-theme-white-content";
 import { DThemeWhitePane } from "../d-theme-white-pane";
 import { loadThemeWhiteScrollBar } from "./load-theme-white-scroll-bar";
 
-export const loadThemeWhitePane = () => {
-	DThemeWhite.set( "DPane", DThemeWhitePane );
-	DThemeWhite.set( "DContent", DThemeWhiteContent );
+export const loadThemeWhitePane = (): void => {
+	DThemeWhite.set("DPane", DThemeWhitePane);
+	DThemeWhite.set("DContent", DThemeWhiteContent);
 	loadThemeWhiteScrollBar();
 };

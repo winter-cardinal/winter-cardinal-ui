@@ -21,10 +21,10 @@ export class DDiagramLayerContainer extends Container {
 	}
 
 	init(): void {
-		if( this._active == null ) {
+		if (this._active == null) {
 			const children = this.children;
-			if( 0 < children.length ) {
-				this._active = children[ 0 ];
+			if (0 < children.length) {
+				this._active = children[0];
 			}
 		}
 	}
@@ -33,16 +33,16 @@ export class DDiagramLayerContainer extends Container {
 		return this._active;
 	}
 
-	set active( layer: DDiagramLayer | null ) {
-		if( this._active !== layer && (layer == null || 0 <= this.children.indexOf( layer )) ) {
+	set active(layer: DDiagramLayer | null) {
+		if (this._active !== layer && (layer == null || 0 <= this.children.indexOf(layer))) {
 			this._active = layer;
-			this.emit( "change", this );
+			this.emit("change", this);
 		}
 	}
 
-	create( name: string, activate?: boolean ): DDiagramLayer {
-		const result = new DDiagramLayer( name );
-		this.attach( result, activate );
+	create(name: string, activate?: boolean): DDiagramLayer {
+		const result = new DDiagramLayer(name);
+		this.attach(result, activate);
 		return result;
 	}
 
@@ -52,22 +52,22 @@ export class DDiagramLayerContainer extends Container {
 	 * @param layer
 	 * @param activate
 	 */
-	attach( layer: DDiagramLayer, activate?: boolean ): void {
-		this.addChild( layer );
-		if( activate === true ) {
+	attach(layer: DDiagramLayer, activate?: boolean): void {
+		this.addChild(layer);
+		if (activate === true) {
 			this._active = layer;
 		}
-		this.emit( "change", this );
-		DApplications.update( this );
+		this.emit("change", this);
+		DApplications.update(this);
 	}
 
-	attachAt( layer: DDiagramLayer, index: number, activate?: boolean ): void {
-		this.addChildAt( layer, index );
-		if( activate === true ) {
+	attachAt(layer: DDiagramLayer, index: number, activate?: boolean): void {
+		this.addChildAt(layer, index);
+		if (activate === true) {
 			this._active = layer;
 		}
-		this.emit( "change", this );
-		DApplications.update( this );
+		this.emit("change", this);
+		DApplications.update(this);
 	}
 
 	/**
@@ -76,17 +76,17 @@ export class DDiagramLayerContainer extends Container {
 	 *
 	 * @param layer
 	 */
-	detach( layer: DDiagramLayer, active: DDiagramLayer | null ): void {
+	detach(layer: DDiagramLayer, active: DDiagramLayer | null): void {
 		const children = this.children;
-		const index = children.indexOf( layer );
-		if( 0 <= index ) {
+		const index = children.indexOf(layer);
+		if (0 <= index) {
 			this._active = active;
 
-			children.splice( index, 1 );
+			children.splice(index, 1);
 			(layer as any).parent = undefined;
 
-			this.emit( "change", this );
-			DApplications.update( this );
+			this.emit("change", this);
+			DApplications.update(this);
 		}
 	}
 
@@ -97,19 +97,19 @@ export class DDiagramLayerContainer extends Container {
 	 * @param layer
 	 * @param activateNext
 	 */
-	delete( layer: DDiagramLayer, activateNext?: boolean ): number {
+	delete(layer: DDiagramLayer, activateNext?: boolean): number {
 		const children = this.children;
-		const index = children.indexOf( layer );
-		if( 0 <= index ) {
-			children.splice( index, 1 );
+		const index = children.indexOf(layer);
+		if (0 <= index) {
+			children.splice(index, 1);
 			(layer as any).parent = undefined;
 
-			if( this._active === layer ) {
-				if( activateNext === true ) {
-					if( index < children.length ) {
-						this._active = children[ index ];
-					} else if( 0 < children.length ) {
-						this._active = children[ index - 1 ];
+			if (this._active === layer) {
+				if (activateNext === true) {
+					if (index < children.length) {
+						this._active = children[index];
+					} else if (0 < children.length) {
+						this._active = children[index - 1];
 					} else {
 						this._active = null;
 					}
@@ -118,15 +118,15 @@ export class DDiagramLayerContainer extends Container {
 				}
 			}
 
-			this.emit( "change", this );
-			DApplications.update( this );
+			this.emit("change", this);
+			DApplications.update(this);
 		}
 		return index;
 	}
 
-	get( index: number ): DDiagramLayer | null {
-		const child = this.children[ index ];
-		if( child != null ) {
+	get(index: number): DDiagramLayer | null {
+		const child = this.children[index];
+		if (child != null) {
 			return child;
 		}
 		return null;
@@ -134,21 +134,21 @@ export class DDiagramLayerContainer extends Container {
 
 	clear(): void {
 		const children = this.children;
-		if( 0 < children.length ) {
-			for( let i = children.length - 1; 0 <= i; --i ) {
-				const child = children[ i ];
+		if (0 < children.length) {
+			for (let i = children.length - 1; 0 <= i; --i) {
+				const child = children[i];
 				(child as any).parent = null;
 				child.destroy();
 			}
 			children.length = 0;
 
-			this.emit( "change", this );
-			DApplications.update( this );
+			this.emit("change", this);
+			DApplications.update(this);
 		}
 	}
 
-	destroy() {
-		if( ! this._destroyed ) {
+	destroy(): void {
+		if (!this._destroyed) {
 			this.clear();
 			super.destroy();
 		}
@@ -159,18 +159,19 @@ export class DDiagramLayerContainer extends Container {
 	}
 
 	serialize(
-		manager: EShapeResourceManagerSerialization, items: DDiagramSerializedItem[]
+		manager: EShapeResourceManagerSerialization,
+		items: DDiagramSerializedItem[]
 	): DDiagramSerializedLayer[] {
 		const result: DDiagramSerializedLayer[] = [];
 		const children = this.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].addUuid( manager );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].addUuid(manager);
 		}
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].updateUuid( manager );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].updateUuid(manager);
 		}
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			result.push( children[ i ].serialize( i, manager, items ) );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			result.push(children[i].serialize(i, manager, items));
 		}
 		return result;
 	}

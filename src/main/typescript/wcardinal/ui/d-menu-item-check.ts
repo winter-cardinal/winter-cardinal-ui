@@ -14,18 +14,16 @@ export interface DMenuItemCheckOptions<
 	check: boolean;
 }
 
-export interface DThemeMenuItemCheck extends DThemeMenuItemText {
-
-}
+export interface DThemeMenuItemCheck extends DThemeMenuItemText {}
 
 export class DMenuItemCheck<
 	VALUE = unknown,
 	THEME extends DThemeMenuItemCheck = DThemeMenuItemCheck,
 	OPTIONS extends DMenuItemCheckOptions<VALUE, THEME> = DMenuItemCheckOptions<VALUE, THEME>
 > extends DMenuItemText<VALUE, THEME, OPTIONS> {
-	protected init( options?: OPTIONS ) {
-		super.init( options );
-		if( options && options.check ) {
+	protected init(options?: OPTIONS): void {
+		super.init(options);
+		if (options?.check) {
 			this.state.isActive = true;
 		}
 	}
@@ -34,12 +32,14 @@ export class DMenuItemCheck<
 		return "DMenuItemCheck";
 	}
 
-	protected onSelect( e: KeyboardEvent | interaction.InteractionEvent ): void {
-		this.state.isActive = ! this.state.isActive;
-		super.onSelect( e );
+	protected onSelect(e: KeyboardEvent | interaction.InteractionEvent): void {
+		this.state.isActive = !this.state.isActive;
+		super.onSelect(e);
 	}
 
-	static isCompatible<VALUE>( options: DMenuItemOptionsUnion<VALUE> ): options is DMenuItemCheckOptions<VALUE> {
+	static isCompatible<VALUE>(
+		options: DMenuItemOptionsUnion<VALUE>
+	): options is DMenuItemCheckOptions<VALUE> {
 		return "check" in options;
 	}
 }

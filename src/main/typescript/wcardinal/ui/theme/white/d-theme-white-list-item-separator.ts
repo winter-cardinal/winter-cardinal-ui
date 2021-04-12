@@ -10,12 +10,14 @@ import { DThemeListItemSeparator } from "../../d-list-item-separator";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteImage } from "./d-theme-white-image";
 
-export class DThemeWhiteListItemSeparator extends DThemeWhiteImage<string> implements DThemeListItemSeparator {
-	getBorderColor( state: DBaseStateSet ): number | null {
+export class DThemeWhiteListItemSeparator
+	extends DThemeWhiteImage<string>
+	implements DThemeListItemSeparator {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
 	}
 
-	getBorderAlpha( state: DBaseStateSet ): number {
+	getBorderAlpha(state: DBaseStateSet): number {
 		return DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
 	}
 

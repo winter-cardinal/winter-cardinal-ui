@@ -6,6 +6,6 @@
 import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteDialogInputBoolean } from "../d-theme-white-dialog-input-boolean";
 
-export const loadThemeWhiteDialogInputBoolean = () => {
-	DThemeWhite.set( "DDialogInputBoolean", DThemeWhiteDialogInputBoolean );
+export const loadThemeWhiteDialogInputBoolean = (): void => {
+	DThemeWhite.set("DDialogInputBoolean", DThemeWhiteDialogInputBoolean);
 };

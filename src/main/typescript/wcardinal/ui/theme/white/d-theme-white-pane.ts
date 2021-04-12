@@ -15,7 +15,7 @@ export class DThemeWhitePane extends DThemeWhiteBase implements DThemePane {
 		return true;
 	}
 
-	getBackgroundColor( state: DBaseStateSet ): number | null {
+	getBackgroundColor(state: DBaseStateSet): number | null {
 		return DThemeWhiteConstants.BACKGROUND_COLOR;
 	}
 

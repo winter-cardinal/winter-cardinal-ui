@@ -16,13 +16,13 @@ export class DControllers {
 
 	// Keyboard
 	static getKeyboardController(): DControllerKeyboard {
-		if( this.KEYBOARD == null ) {
+		if (this.KEYBOARD == null) {
 			this.KEYBOARD = new DControllerKeyboard();
 		}
 		return this.KEYBOARD;
 	}
 
-	static setKeyboardController( instance: DControllerKeyboard ): DControllerKeyboard | null {
+	static setKeyboardController(instance: DControllerKeyboard): DControllerKeyboard | null {
 		const result = this.KEYBOARD;
 		this.KEYBOARD = instance;
 		return result;
@@ -30,13 +30,13 @@ export class DControllers {
 
 	// Command
 	static getCommandController(): DControllerCommand {
-		if( this.COMMAND == null ) {
+		if (this.COMMAND == null) {
 			this.COMMAND = new DControllerDefaultCommand();
 		}
 		return this.COMMAND;
 	}
 
-	static setCommandController( instance: DControllerCommand ): DControllerCommand | null {
+	static setCommandController(instance: DControllerCommand): DControllerCommand | null {
 		const result = this.COMMAND;
 		this.COMMAND = instance;
 		return result;
@@ -44,8 +44,8 @@ export class DControllers {
 
 	// Document
 	static getDocumentController<DOCUMENT extends DDocument>(): DControllerDocument<DOCUMENT> {
-		if( this.DOCUMENT == null ) {
-			throw new Error( "Not supported" );
+		if (this.DOCUMENT == null) {
+			throw new Error("Not supported");
 		}
 		return this.DOCUMENT;
 	}

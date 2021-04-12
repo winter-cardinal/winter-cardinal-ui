@@ -9,16 +9,16 @@ import { DPickerDatetimeMaskOptions, DPickerDatetimeMasks } from "./d-picker-dat
 import { DPickerTimes } from "./d-picker-times";
 
 export class DPickerDatetimes {
-	static format( date: Date, mask: DPickerDatetimeMask ): string {
-		const hms = DPickerTimes.format( date, mask );
-		if( 0 < hms.length ) {
-			return `${DPickerDates.format( date )} ${hms}`;
+	static format(date: Date, mask: DPickerDatetimeMask): string {
+		const hms = DPickerTimes.format(date, mask);
+		if (0 < hms.length) {
+			return `${DPickerDates.format(date)} ${hms}`;
 		} else {
-			return `${DPickerDates.format( date )}`;
+			return `${DPickerDates.format(date)}`;
 		}
 	}
 
-	static toMask( options?: DPickerDatetimeMaskOptions ) {
-		return DPickerDatetimeMasks.from( "DPickerDatetime", options );
+	static toMask(options?: DPickerDatetimeMaskOptions): DPickerDatetimeMask {
+		return DPickerDatetimeMasks.from("DPickerDatetime", options);
 	}
 }

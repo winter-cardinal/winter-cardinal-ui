@@ -11,16 +11,20 @@ import { DLayoutHorizontal } from "./d-layout-horizontal";
 import { DLayoutVertical } from "./d-layout-vertical";
 import { DPickerDatetimeMask } from "./d-picker-datetime-mask";
 import { DPickerDatetimeMasks } from "./d-picker-datetime-masks";
-import { DPickerTimeBoundDate, DPickerTimeBoundOptions } from "./d-picker-time-bound";
+import { DPickerTimeBoundOptions } from "./d-picker-time-bound";
 import { DPickerTimeBounds, DPickerTimeBoundsOptions } from "./d-picker-time-bounds";
 import { DText } from "./d-text";
 
-export interface DPickerTimeOptions<THEME extends DThemePickerTime = DThemePickerTime> extends DBaseOptions<THEME> {
+export interface DPickerTimeOptions<THEME extends DThemePickerTime = DThemePickerTime>
+	extends DBaseOptions<THEME> {
 	margin?: number;
 	hours?: DInputIntegerOptions;
 	minutes?: DInputIntegerOptions;
 	seconds?: DInputIntegerOptions;
-	mask?: keyof typeof DPickerDatetimeMask | Array<keyof typeof DPickerDatetimeMask> | DPickerDatetimeMask;
+	mask?:
+		| keyof typeof DPickerDatetimeMask
+		| Array<keyof typeof DPickerDatetimeMask>
+		| DPickerDatetimeMask;
 	bounds?: DPickerTimeBoundsOptions;
 }
 
@@ -30,26 +34,28 @@ export interface DThemePickerTime extends DThemeBase {
 	getMinutesOptions(): DInputIntegerOptions;
 	getSecondsOptions(): DInputIntegerOptions;
 	getMask(): DPickerDatetimeMask;
-	getLowerBound(): DPickerTimeBoundDate;
+	getLowerBound(): Date | null;
 	isLowerBoundInclusive(): boolean;
-	getUpperBound(): DPickerTimeBoundDate;
+	getUpperBound(): Date | null;
 	isUpperBoundInclusive(): boolean;
 }
 
 const toBoundOptions = (
 	options: DPickerTimeBoundOptions | undefined,
-	date: DPickerTimeBoundDate,
-	inclusive: boolean
+	defaultDate: Date | null,
+	defaultInclusive: boolean
 ): DPickerTimeBoundOptions => {
-	if( options ) {
+	if (options) {
+		const date = options.date;
+		const inclusive = options.inclusive;
 		return {
-			date: ( options.date !== undefined ? options.date : date ),
-			inclusive: ( options.inclusive !== undefined ? options.inclusive : inclusive )
+			date: date !== undefined ? date : defaultDate,
+			inclusive: inclusive !== undefined ? inclusive : defaultInclusive
 		};
 	}
 	return {
-		date,
-		inclusive
+		date: defaultDate,
+		inclusive: defaultInclusive
 	};
 };
 
@@ -57,7 +63,7 @@ const toBoundsOptions = (
 	theme: DThemePickerTime,
 	options: DPickerTimeBoundsOptions | undefined
 ): DPickerTimeBoundsOptions => {
-	if( options ) {
+	if (options) {
 		return {
 			lower: toBoundOptions(
 				options.lower,
@@ -94,32 +100,35 @@ export class DPickerTime<
 	protected _inputMinutes!: DInputInteger | null;
 	protected _inputSeconds!: DInputInteger | null;
 
-	constructor( options?: OPTIONS ) {
-		super( options );
+	constructor(options?: OPTIONS) {
+		super(options);
 		this.onNewChange();
 	}
 
-	protected init( options?: OPTIONS ) {
-		super.init( options );
+	protected init(options?: OPTIONS): void {
+		super.init(options);
 
 		this.state.isFocusable = false;
 
 		const theme = this.theme;
 		this._dateCurrent = new Date();
 		const dateCurrentTime = this._dateCurrent.getTime();
-		this._dateNew = new Date( dateCurrentTime );
+		this._dateNew = new Date(dateCurrentTime);
 		this._dateBounds = new DPickerTimeBounds(
-			toBoundsOptions( theme, options && options.bounds ),
-			(): void => { this.onNewChange(); }
+			toBoundsOptions(theme, options?.bounds),
+			(): void => {
+				this.onNewChange();
+			}
 		);
-		const margin = ( options && options.margin != null ?
-			options.margin : theme.getMargin() );
+		const margin = options?.margin ?? theme.getMargin();
 		new DLayoutVertical({
 			parent: this,
-			x: "padding", y: "padding",
-			width: "auto", height: "auto",
+			x: "padding",
+			y: "padding",
+			width: "auto",
+			height: "auto",
 			margin,
-			children: this.newChildren( theme, options, margin )
+			children: this.newChildren(theme, options, margin)
 		});
 	}
 
@@ -127,8 +136,8 @@ export class DPickerTime<
 		return this._dateCurrent;
 	}
 
-	set current( dateCurrent: Date ) {
-		if( this._dateCurrent.getTime() !== dateCurrent.getTime() ) {
+	set current(dateCurrent: Date) {
+		if (this._dateCurrent.getTime() !== dateCurrent.getTime()) {
 			this._dateCurrent = dateCurrent;
 		}
 	}
@@ -137,8 +146,8 @@ export class DPickerTime<
 		return this._dateNew;
 	}
 
-	set new( dateNew: Date ) {
-		if( this._dateNew.getTime() !== dateNew.getTime() ) {
+	set new(dateNew: Date) {
+		if (this._dateNew.getTime() !== dateNew.getTime()) {
 			this._dateNew = dateNew;
 			this.onNewChange();
 		}
@@ -162,7 +171,7 @@ export class DPickerTime<
 
 	reset(): void {
 		const currentTime = this._dateCurrent.getTime();
-		this._dateNew.setTime( currentTime );
+		this._dateNew.setTime(currentTime);
 		this.onReset();
 	}
 
@@ -173,46 +182,48 @@ export class DPickerTime<
 	protected onNewChange(): void {
 		const dateNew = this._dateNew;
 		const dateBounds = this._dateBounds;
-		dateBounds.adjust( this._dateNew );
+		dateBounds.adjust(this._dateNew);
 
 		const inputHours = this._inputHours;
-		if( inputHours ) {
+		if (inputHours) {
 			const hours = dateBounds.hours;
 			inputHours.value = dateNew.getHours();
-			inputHours.min = hours.min( dateNew );
-			inputHours.max = hours.max( dateNew );
+			inputHours.min = hours.min(dateNew);
+			inputHours.max = hours.max(dateNew);
 		}
 
 		const inputMinutes = this._inputMinutes;
-		if( inputMinutes ) {
+		if (inputMinutes) {
 			const minutes = dateBounds.minutes;
 			inputMinutes.value = dateNew.getMinutes();
-			inputMinutes.min = minutes.min( dateNew );
-			inputMinutes.max = minutes.max( dateNew );
+			inputMinutes.min = minutes.min(dateNew);
+			inputMinutes.max = minutes.max(dateNew);
 		}
 
 		const inputSeconds = this._inputSeconds;
-		if( inputSeconds ) {
+		if (inputSeconds) {
 			const seconds = dateBounds.seconds;
 			inputSeconds.value = dateNew.getSeconds();
-			inputSeconds.min = seconds.min( dateNew );
-			inputSeconds.max = seconds.max( dateNew );
+			inputSeconds.min = seconds.min(dateNew);
+			inputSeconds.max = seconds.max(dateNew);
 		}
 	}
 
-	protected newChildren( theme: THEME, options: OPTIONS | undefined, margin: number ): Array<DisplayObject | null> {
-		const mask = DPickerDatetimeMasks.from( theme, options );
+	protected newChildren(
+		theme: THEME,
+		options: OPTIONS | undefined,
+		margin: number
+	): Array<DisplayObject | null> {
+		const mask = DPickerDatetimeMasks.from(theme, options);
 		this._dateBounds.mask = mask;
-		this._inputHours = ( (mask & DPickerDatetimeMask.HOURS) ? this.newInputHours( theme, options ) : null );
-		this._inputMinutes = ( (mask & DPickerDatetimeMask.MINUTES) ? this.newInputMinutes( theme, options ) : null );
-		this._inputSeconds = ( (mask & DPickerDatetimeMask.SECONDS) ? this.newInputSeconds( theme, options ) : null );
+		this._inputHours =
+			mask & DPickerDatetimeMask.HOURS ? this.newInputHours(theme, options) : null;
+		this._inputMinutes =
+			mask & DPickerDatetimeMask.MINUTES ? this.newInputMinutes(theme, options) : null;
+		this._inputSeconds =
+			mask & DPickerDatetimeMask.SECONDS ? this.newInputSeconds(theme, options) : null;
 		return [
-			this.newTimeLayout(
-				this._inputHours,
-				this._inputMinutes,
-				this._inputSeconds,
-				margin
-			)
+			this.newTimeLayout(this._inputHours, this._inputMinutes, this._inputSeconds, margin)
 		];
 	}
 
@@ -222,8 +233,8 @@ export class DPickerTime<
 		seconds: DInputInteger | null,
 		margin: number
 	): DLayoutHorizontal | null {
-		const children = this.newTimeLayoutChildren( hours, minutes, seconds );
-		if( 0 < children.length ) {
+		const children = this.newTimeLayoutChildren(hours, minutes, seconds);
+		if (0 < children.length) {
 			return new DLayoutHorizontal({
 				width: this.getTimeLayoutWidth(),
 				height: this.getTimeLayoutHeight(),
@@ -248,20 +259,20 @@ export class DPickerTime<
 		seconds: DInputInteger | null
 	): Array<DisplayObject | null> {
 		const result = [];
-		if( hours != null ) {
-			result.push( hours );
+		if (hours != null) {
+			result.push(hours);
 		}
-		if( minutes != null ) {
-			if( 0 < result.length ) {
-				result.push( this.newMinuteSeparator() );
+		if (minutes != null) {
+			if (0 < result.length) {
+				result.push(this.newMinuteSeparator());
 			}
-			result.push( minutes );
+			result.push(minutes);
 		}
-		if( seconds != null ) {
-			if( 0 < result.length ) {
-				result.push( this.newSecondSeparator() );
+		if (seconds != null) {
+			if (0 < result.length) {
+				result.push(this.newSecondSeparator());
 			}
-			result.push( seconds );
+			result.push(seconds);
 		}
 		return result;
 	}
@@ -292,63 +303,67 @@ export class DPickerTime<
 		return ":";
 	}
 
-	protected adjustInputOptions( theme: THEME, options: DInputIntegerOptions, max: number ): DInputIntegerOptions {
-		if( options.step == null ) {
+	protected adjustInputOptions(
+		theme: THEME,
+		options: DInputIntegerOptions,
+		max: number
+	): DInputIntegerOptions {
+		if (options.step == null) {
 			options.step = 1;
 		}
-		if( options.min == null ) {
+		if (options.min == null) {
 			options.min = 0;
 		}
-		if( options.max == null ) {
+		if (options.max == null) {
 			options.max = max;
 		}
 		return options;
 	}
 
-	protected newInputHours( theme: THEME, options?: OPTIONS ): DInputInteger | null {
-		const inputOptions = ( options && options.hours ) || theme.getHoursOptions();
+	protected newInputHours(theme: THEME, options?: OPTIONS): DInputInteger | null {
+		const inputOptions = options?.hours ?? theme.getHoursOptions();
 		const max = this._dateBounds.constant.hour.max;
-		const input = new DInputInteger( this.adjustInputOptions( theme, inputOptions, max ) );
-		input.on( "change", ( value: number ): void => {
-			this.onHoursChange( value );
+		const input = new DInputInteger(this.adjustInputOptions(theme, inputOptions, max));
+		input.on("change", (value: number): void => {
+			this.onHoursChange(value);
 		});
 		return input;
 	}
 
-	protected onHoursChange( value: number ): void {
+	protected onHoursChange(value: number): void {
 		const dateNew = this._dateNew;
-		dateNew.setHours( value );
+		dateNew.setHours(value);
 		this.onNewChange();
 	}
 
-	protected newInputMinutes( theme: THEME, options?: OPTIONS ): DInputInteger | null {
-		const inputOptions = ( options && options.minutes ) || theme.getMinutesOptions();
+	protected newInputMinutes(theme: THEME, options?: OPTIONS): DInputInteger | null {
+		const inputOptions = options?.minutes || theme.getMinutesOptions();
 		const max = this._dateBounds.constant.minute.max;
-		const input = new DInputInteger( this.adjustInputOptions( theme, inputOptions, max ) );
-		input.on( "change", ( value: number ): void => {
-			this.onMinutesChange( value );
+		const input = new DInputInteger(this.adjustInputOptions(theme, inputOptions, max));
+		input.on("change", (value: number): void => {
+			this.onMinutesChange(value);
 		});
 		return input;
 	}
 
-	protected onMinutesChange( value: number ): void {
+	protected onMinutesChange(value: number): void {
 		const dateNew = this._dateNew;
-		dateNew.setMinutes( value );
+		dateNew.setMinutes(value);
 		this.onNewChange();
 	}
 
-	protected newInputSeconds( theme: THEME, options?: OPTIONS ): DInputInteger | null {
-		const inputOptions = ( options && options.seconds ) || theme.getSecondsOptions();
+	protected newInputSeconds(theme: THEME, options?: OPTIONS): DInputInteger | null {
+		const inputOptions = options?.seconds || theme.getSecondsOptions();
 		const max = this._dateBounds.constant.second.max;
-		const input = new DInputInteger( this.adjustInputOptions( theme, inputOptions, max ) );
-		input.on( "change", ( value: number ): void => {
-			this.onSecondsChange( value );
+		const input = new DInputInteger(this.adjustInputOptions(theme, inputOptions, max));
+		input.on("change", (value: number): void => {
+			this.onSecondsChange(value);
 		});
 		return input;
 	}
 
-	protected onSecondsChange( value: number ): void {
-		this._dateNew.setSeconds( value );
+	protected onSecondsChange(value: number): void {
+		this._dateNew.setSeconds(value);
 	}
 
 	protected getType(): string {

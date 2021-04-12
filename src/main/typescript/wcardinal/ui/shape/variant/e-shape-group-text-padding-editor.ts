@@ -11,58 +11,58 @@ import { EShapeGroupPropertyParent } from "./e-shape-group-property-parent";
 export class EShapeGroupTextPaddingEditor {
 	protected _parent: EShapeGroupPropertyParent;
 
-	constructor( parent: EShapeGroupPropertyParent ) {
+	constructor(parent: EShapeGroupPropertyParent) {
 		this._parent = parent;
 	}
 
 	get horizontal(): number {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].text.padding.horizontal;
+		if (0 < children.length) {
+			return children[children.length - 1].text.padding.horizontal;
 		}
 		return 0;
 	}
 
-	set horizontal( horizontal: number ) {
+	set horizontal(horizontal: number) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.padding.horizontal = horizontal;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.padding.horizontal = horizontal;
 		}
 	}
 
 	get vertical(): number {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].text.padding.vertical;
+		if (0 < children.length) {
+			return children[children.length - 1].text.padding.vertical;
 		}
 		return 0;
 	}
 
-	set vertical( vertical: number ) {
+	set vertical(vertical: number) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.padding.vertical = vertical;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.padding.vertical = vertical;
 		}
 	}
 
-	copy( target: EShapeTextOffsetLike ): void {
+	copy(target: EShapeTextOffsetLike): void {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.padding.copy( target );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.padding.copy(target);
 		}
 	}
 
-	set( horizontal: number, vertical: number ): void {
+	set(horizontal: number, vertical: number): void {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.padding.set( horizontal, vertical );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.padding.set(horizontal, vertical);
 		}
 	}
 
 	toObject(): EShapeTextOffsetLike {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].text.padding.toObject();
+		if (0 < children.length) {
+			return children[children.length - 1].text.padding.toObject();
 		}
 		return {
 			horizontal: 0,
@@ -70,11 +70,11 @@ export class EShapeGroupTextPaddingEditor {
 		};
 	}
 
-	serialize( manager: EShapeResourceManagerSerialization ): number {
+	serialize(manager: EShapeResourceManagerSerialization): number {
 		return -1;
 	}
 
-	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void {
+	deserialize(target: number, manager: EShapeResourceManagerDeserialization): void {
 		// DO NOTHING
 	}
 }

@@ -6,8 +6,10 @@
 import { EShapeImageElements } from "../e-shape-image-elements";
 import { EShapeImage } from "./e-shape-image";
 
-export const createImage = ( dataUrl: string ): Promise<EShapeImage> => {
-	return EShapeImageElements.toImageElement( dataUrl ).then(( imageElement: HTMLImageElement ): EShapeImage => {
-		return new EShapeImage( imageElement );
-	});
+export const createImage = (dataUrl: string): Promise<EShapeImage> => {
+	return EShapeImageElements.toImageElement(dataUrl).then(
+		(imageElement: HTMLImageElement): EShapeImage => {
+			return new EShapeImage(imageElement);
+		}
+	);
 };

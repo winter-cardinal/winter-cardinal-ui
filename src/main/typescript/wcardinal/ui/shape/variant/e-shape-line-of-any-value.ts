@@ -3,4 +3,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export type EShapeLineOfAnyValue = null | number | number[] | (( index: number ) => number);
+export type EShapeLineOfAnyValue = null | number | number[] | ((index: number) => number);

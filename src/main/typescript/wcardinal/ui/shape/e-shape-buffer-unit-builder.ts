@@ -22,19 +22,19 @@ export class EShapeBufferUnitBuilder {
 		this.baseTexture = null;
 	}
 
-	push( texture: Texture, indexOffset: number ): void {
-		if( this.index < this.units.length ) {
-			const unit = this.units[ this.index ];
+	push(texture: Texture, indexOffset: number): void {
+		if (this.index < this.units.length) {
+			const unit = this.units[this.index];
 			unit.texture = texture;
 			unit.indexOffset = indexOffset;
 		} else {
-			this.units.push( new EShapeBufferUnit( texture, indexOffset ) );
+			this.units.push(new EShapeBufferUnit(texture, indexOffset));
 		}
 		this.index += 1;
 	}
 
 	end(): void {
-		if( this.units.length !== this.index ) {
+		if (this.units.length !== this.index) {
 			this.units.length = this.index;
 		}
 	}

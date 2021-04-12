@@ -4,23 +4,30 @@
  */
 
 import { utils } from "pixi.js";
-import { DTableDataSelection, DTableDataSelectionOptions, DTableDataSelectionParent, DTableDataSelectionType } from "./d-table-data-selection";
+import {
+	DTableDataSelection,
+	DTableDataSelectionOptions,
+	DTableDataSelectionParent,
+	DTableDataSelectionType
+} from "./d-table-data-selection";
 import { toEnum } from "./util/to-enum";
 
-const COMPARATOR = ( a: [number, unknown], b: [number, unknown] ): number => {
-	return a[ 0 ] - b[ 0 ];
+const COMPARATOR = (a: [number, unknown], b: [number, unknown]): number => {
+	return a[0] - b[0];
 };
 
-export class DTableDataListSelection<ROW> extends utils.EventEmitter implements DTableDataSelection<ROW> {
+export class DTableDataListSelection<ROW>
+	extends utils.EventEmitter
+	implements DTableDataSelection<ROW> {
 	protected _parent: DTableDataSelectionParent<ROW>;
 	protected _type: DTableDataSelectionType;
 	protected _indices: Set<number>;
 
-	constructor( parent: DTableDataSelectionParent<ROW>, options?: DTableDataSelectionOptions ) {
+	constructor(parent: DTableDataSelectionParent<ROW>, options?: DTableDataSelectionOptions) {
 		super();
 
 		this._parent = parent;
-		this._type = toEnum( options?.type ?? DTableDataSelectionType.NONE, DTableDataSelectionType );
+		this._type = toEnum(options?.type ?? DTableDataSelectionType.NONE, DTableDataSelectionType);
 		this._indices = new Set<number>();
 	}
 
@@ -30,35 +37,35 @@ export class DTableDataListSelection<ROW> extends utils.EventEmitter implements 
 
 	protected onChange(): void {
 		this._parent.update();
-		this.emit( "change", this );
+		this.emit("change", this);
 	}
 
-	toggle( rowIndex: number ): void {
+	toggle(rowIndex: number): void {
 		const indices = this._indices;
-		if( indices.has( rowIndex ) ) {
-			indices.delete( rowIndex );
+		if (indices.has(rowIndex)) {
+			indices.delete(rowIndex);
 		} else {
-			indices.add( rowIndex );
+			indices.add(rowIndex);
 		}
 		this.onChange();
 	}
 
-	add( rowIndex: number ): void {
+	add(rowIndex: number): void {
 		const indices = this._indices;
 		const oldSize = indices.size;
-		indices.add( rowIndex );
+		indices.add(rowIndex);
 		const newSize = indices.size;
-		if( oldSize !== newSize ) {
+		if (oldSize !== newSize) {
 			this.onChange();
 		}
 	}
 
 	get first(): number | null {
 		const indices = this._indices;
-		if( 0 < indices.size ) {
+		if (0 < indices.size) {
 			let result: number = NaN;
-			indices.forEach(( index: number ): void => {
-				if( result !== result ) {
+			indices.forEach((index: number): void => {
+				if (result !== result) {
 					result = index;
 				}
 			});
@@ -69,9 +76,9 @@ export class DTableDataListSelection<ROW> extends utils.EventEmitter implements 
 
 	get last(): number | null {
 		const indices = this._indices;
-		if( 0 < indices.size ) {
+		if (0 < indices.size) {
 			let result: number = 0;
-			indices.forEach(( index: number ): void => {
+			indices.forEach((index: number): void => {
 				result = index;
 			});
 			return result;
@@ -79,96 +86,100 @@ export class DTableDataListSelection<ROW> extends utils.EventEmitter implements 
 		return null;
 	}
 
-	addTo( rowIndex: number ): void {
+	addTo(rowIndex: number): void {
 		const lastRowIndex = this.last;
-		if( lastRowIndex != null ) {
-			this.addRange( lastRowIndex, false, rowIndex, true );
+		if (lastRowIndex != null) {
+			this.addRange(lastRowIndex, false, rowIndex, true);
 		}
 	}
 
-	addRange( from: number, includeFrom: boolean, to: number, includeTo: boolean ): void {
+	addRange(from: number, includeFrom: boolean, to: number, includeTo: boolean): void {
 		const indices = this._indices;
 		const oldSize = indices.size;
-		if( from < to ) {
-			for( let i = from + (includeFrom ? 0 : 1), imax = to + (includeTo ? 1 : 0); i < imax; ++i ) {
-				indices.add( i );
+		if (from < to) {
+			const ifrom = from + (includeFrom ? 0 : 1);
+			const ito = to + (includeTo ? 1 : 0);
+			for (let i = ifrom; i < ito; ++i) {
+				indices.add(i);
 			}
 		} else {
-			for( let i = to + (includeTo ? 0 : 1), imax = from + (includeFrom ? 1 : 0); i < imax; ++i ) {
-				indices.add( i );
+			const ifrom = to + (includeTo ? 0 : 1);
+			const ito = from + (includeFrom ? 1 : 0);
+			for (let i = ifrom; i < ito; ++i) {
+				indices.add(i);
 			}
 		}
 		const newSize = indices.size;
-		if( oldSize !== newSize ) {
+		if (oldSize !== newSize) {
 			this.onChange();
 		}
 	}
 
-	addAll( rowIndices: number[] ): void {
+	addAll(rowIndices: number[]): void {
 		const indices = this._indices;
 		const oldSize = indices.size;
-		for( let i = 0, imax = rowIndices.length; i < imax; ++i ) {
-			indices.add( rowIndices[ i ] );
+		for (let i = 0, imax = rowIndices.length; i < imax; ++i) {
+			indices.add(rowIndices[i]);
 		}
 		const newSize = indices.size;
-		if( oldSize !== newSize ) {
+		if (oldSize !== newSize) {
 			this.onChange();
 		}
 	}
 
-	contains( rowIndex: number ): boolean {
-		return this._indices.has( rowIndex );
+	contains(rowIndex: number): boolean {
+		return this._indices.has(rowIndex);
 	}
 
-	remove( rowIndex: number ): void {
-		if( this._indices.delete( rowIndex ) ) {
+	remove(rowIndex: number): void {
+		if (this._indices.delete(rowIndex)) {
 			this.onChange();
 		}
 	}
 
 	clear(): void {
 		const indices = this._indices;
-		if( 0 < indices.size ) {
+		if (0 < indices.size) {
 			indices.clear();
 			this.onChange();
 		}
 	}
 
-	clearAndAdd( rowIndex: number ): void {
+	clearAndAdd(rowIndex: number): void {
 		const indices = this._indices;
-		if( ! indices.has( rowIndex ) || indices.size !== 1 ) {
+		if (!indices.has(rowIndex) || indices.size !== 1) {
 			indices.clear();
-			indices.add( rowIndex );
+			indices.add(rowIndex);
 			this.onChange();
 		}
 	}
 
-	clearAndAddAll( rowIndices: number[] ): void {
+	clearAndAddAll(rowIndices: number[]): void {
 		const indices = this._indices;
-		if( 0 < indices.size || 0 < rowIndices.length ) {
+		if (0 < indices.size || 0 < rowIndices.length) {
 			indices.clear();
-			for( let i = 0, imax = rowIndices.length; i < imax; ++i ) {
-				indices.add( rowIndices[ i ] );
+			for (let i = 0, imax = rowIndices.length; i < imax; ++i) {
+				indices.add(rowIndices[i]);
 			}
 			this.onChange();
 		}
 	}
 
-	shift( rowIndex: number, amount: number ): void {
+	shift(rowIndex: number, amount: number): void {
 		const shifted: number[] = [];
 		const indices = this._indices;
-		indices.forEach(( index: number ): void => {
-			if( rowIndex <= index ) {
-				shifted.push( index );
+		indices.forEach((index: number): void => {
+			if (rowIndex <= index) {
+				shifted.push(index);
 			}
 		});
 		const shiftedLength = shifted.length;
-		if( 0 < shiftedLength ) {
-			for( let i = 0, imax = shifted.length; i < imax; ++i ) {
-				indices.delete( shifted[ i ] );
+		if (0 < shiftedLength) {
+			for (let i = 0, imax = shifted.length; i < imax; ++i) {
+				indices.delete(shifted[i]);
 			}
-			for( let i = 0, imax = shifted.length; i < imax; ++i ) {
-				indices.add( shifted[ i ] + amount );
+			for (let i = 0, imax = shifted.length; i < imax; ++i) {
+				indices.add(shifted[i] + amount);
 			}
 			this.onChange();
 		}
@@ -188,8 +199,8 @@ export class DTableDataListSelection<ROW> extends utils.EventEmitter implements 
 	 */
 	get indices(): number[] {
 		const result: number[] = [];
-		this._indices.forEach(( index: number ): void => {
-			result.push( index );
+		this._indices.forEach((index: number): void => {
+			result.push(index);
 		});
 		return result;
 	}
@@ -201,8 +212,8 @@ export class DTableDataListSelection<ROW> extends utils.EventEmitter implements 
 	get rows(): ROW[] {
 		const result: ROW[] = [];
 		const parent = this._parent;
-		this._indices.forEach(( index: number ): void => {
-			result.push( parent.get( index )! );
+		this._indices.forEach((index: number): void => {
+			result.push(parent.get(index)!);
 		});
 		return result;
 	}
@@ -211,11 +222,11 @@ export class DTableDataListSelection<ROW> extends utils.EventEmitter implements 
 	 * Returns an array of the (index, row value) pairs of selected rows.
 	 * The order of pairs is an insertion order.
 	 */
-	toArray(): Array<[ number, ROW ]> {
-		const result: Array<[ number, ROW ]> = [];
+	toArray(): Array<[number, ROW]> {
+		const result: Array<[number, ROW]> = [];
 		const parent = this._parent;
-		this._indices.forEach(( index: number ): void => {
-			result.push([ index, parent.get( index )! ]);
+		this._indices.forEach((index: number): void => {
+			result.push([index, parent.get(index)!]);
 		});
 		return result;
 	}
@@ -223,15 +234,15 @@ export class DTableDataListSelection<ROW> extends utils.EventEmitter implements 
 	/**
 	 * Returns an sorted array of the (index, row value) pairs of selected rows.
 	 */
-	toSortedArray(): Array<[ number, ROW ]> {
-		return this.toArray().sort( COMPARATOR );
+	toSortedArray(): Array<[number, ROW]> {
+		return this.toArray().sort(COMPARATOR);
 	}
 
-	toObject(): {[index: number]: ROW} {
-		const result: {[index: number]: ROW} = {};
+	toObject(): { [index: number]: ROW } {
+		const result: { [index: number]: ROW } = {};
 		const parent = this._parent;
-		this._indices.forEach(( index: number ): void => {
-			result[ index ] = parent.get( index )!;
+		this._indices.forEach((index: number): void => {
+			result[index] = parent.get(index)!;
 		});
 		return result;
 	}
@@ -239,8 +250,8 @@ export class DTableDataListSelection<ROW> extends utils.EventEmitter implements 
 	toMap(): Map<number, ROW> {
 		const result: Map<number, ROW> = new Map<number, ROW>();
 		const parent = this._parent;
-		this._indices.forEach(( index: number ): void => {
-			result.set( index, parent.get( index )! );
+		this._indices.forEach((index: number): void => {
+			result.set(index, parent.get(index)!);
 		});
 		return result;
 	}

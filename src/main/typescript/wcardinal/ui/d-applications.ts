@@ -10,118 +10,118 @@ import { DApplicationLike, DApplicationTarget } from "./d-application-like";
 export class DApplications {
 	protected static INSTANCES: DApplicationLike[] = [];
 
-	static add( instance: DApplicationLike ): void {
+	static add(instance: DApplicationLike): void {
 		const instances = DApplications.INSTANCES;
-		instances.push( instance );
+		instances.push(instance);
 	}
 
 	static first(): DApplicationLike {
 		const instances = DApplications.INSTANCES;
-		if( 0 < instances.length ) {
-			return instances[ 0 ];
+		if (0 < instances.length) {
+			return instances[0];
 		}
-		throw new Error( "No application found." );
+		throw new Error("No application found.");
 	}
 
 	static last(): DApplicationLike {
 		const instances = DApplications.INSTANCES;
-		if( 0 < instances.length ) {
-			return instances[ instances.length - 1 ];
+		if (0 < instances.length) {
+			return instances[instances.length - 1];
 		}
-		throw new Error( "No application found." );
+		throw new Error("No application found.");
 	}
 
-	static get( index: number ): DApplicationLike | null {
+	static get(index: number): DApplicationLike | null {
 		const instances = DApplications.INSTANCES;
-		if( 0 <= index && index < instances.length ) {
-			return instances[ index ];
+		if (0 <= index && index < instances.length) {
+			return instances[index];
 		}
 		return null;
 	}
 
-	static indexOf( instance: DApplicationLike ): number {
-		return DApplications.INSTANCES.indexOf( instance );
+	static indexOf(instance: DApplicationLike): number {
+		return DApplications.INSTANCES.indexOf(instance);
 	}
 
 	static size(): number {
 		return DApplications.INSTANCES.length;
 	}
 
-	protected static getStage( target: DApplicationTarget ): DApplicationLayerStageLike | null {
+	protected static getStage(target: DApplicationTarget): DApplicationLayerStageLike | null {
 		let stage: any = target;
-		while( stage.parent ) {
+		while (stage.parent) {
 			stage = stage.parent;
 		}
-		if( ("application" in stage) && ("layer" in stage) ) {
+		if ("application" in stage && "layer" in stage) {
 			return stage as DApplicationLayerStageLike;
 		}
 		return null;
 	}
 
-	static find( target: DApplicationTarget ): DApplicationLike | null {
-		const stage = this.getStage( target );
-		if( stage ) {
+	static find(target: DApplicationTarget): DApplicationLike | null {
+		const stage = this.getStage(target);
+		if (stage) {
 			return stage.layer.application;
 		}
 		return null;
 	}
 
-	static getLayerBase( target: DApplicationTarget ): DApplicationLayerLike | null {
-		const stage = this.getStage( target );
-		if( stage ) {
+	static getLayerBase(target: DApplicationTarget): DApplicationLayerLike | null {
+		const stage = this.getStage(target);
+		if (stage) {
 			return stage.layer.application.getLayerBase();
 		}
 		return null;
 	}
 
-	static getLayerOverlay( target: DApplicationTarget ): DApplicationLayerLike | null {
-		const stage = this.getStage( target );
-		if( stage ) {
+	static getLayerOverlay(target: DApplicationTarget): DApplicationLayerLike | null {
+		const stage = this.getStage(target);
+		if (stage) {
 			return stage.layer.application.getLayerOverlay();
 		}
 		return null;
 	}
 
-	static getLayer( target: DApplicationTarget ): DApplicationLayerLike | null {
-		const stage = this.getStage( target );
-		if( stage ) {
+	static getLayer(target: DApplicationTarget): DApplicationLayerLike | null {
+		const stage = this.getStage(target);
+		if (stage) {
 			return stage.layer;
 		}
 		return null;
 	}
 
-	static getResolution( target: DApplicationTarget ): number {
-		const layer = this.getLayer( target );
-		if( layer ) {
+	static getResolution(target: DApplicationTarget): number {
+		const layer = this.getLayer(target);
+		if (layer) {
 			return layer.renderer.resolution;
 		}
-		return (window.devicePixelRatio ?? 1);
+		return window.devicePixelRatio ?? 1;
 	}
 
-	static update( target?: DApplicationTarget ): void {
-		if( target ) {
-			const stage = this.getStage( target );
-			if( stage ) {
+	static update(target?: DApplicationTarget): void {
+		if (target) {
+			const stage = this.getStage(target);
+			if (stage) {
 				stage.layer.update();
 			}
 		} else {
 			const instances = DApplications.INSTANCES;
-			for( let i = 0, imax = instances.length; i < imax; ++i ) {
-				instances[ i ].update();
+			for (let i = 0, imax = instances.length; i < imax; ++i) {
+				instances[i].update();
 			}
 		}
 	}
 
-	static render( target?: DApplicationTarget ): void {
-		if( target ) {
-			const stage = this.getStage( target );
-			if( stage ) {
+	static render(target?: DApplicationTarget): void {
+		if (target) {
+			const stage = this.getStage(target);
+			if (stage) {
 				stage.layer.render();
 			}
 		} else {
 			const instances = DApplications.INSTANCES;
-			for( let i = 0, imax = instances.length; i < imax; ++i ) {
-				instances[ i ].render();
+			for (let i = 0, imax = instances.length; i < imax; ++i) {
+				instances[i].render();
 			}
 		}
 	}

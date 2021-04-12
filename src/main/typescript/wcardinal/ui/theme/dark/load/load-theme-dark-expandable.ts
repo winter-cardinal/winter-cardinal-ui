@@ -7,7 +7,7 @@ import { DThemeDark } from "../d-theme-dark";
 import { DThemeDarkExpandable } from "../d-theme-dark-expandable";
 import { DThemeDarkExpandableHeader } from "../d-theme-dark-expandable-header";
 
-export const loadThemeDarkExpandable = () => {
-	DThemeDark.set( "DExpandableHeader", DThemeDarkExpandableHeader );
-	DThemeDark.set( "DExpandable", DThemeDarkExpandable );
+export const loadThemeDarkExpandable = (): void => {
+	DThemeDark.set("DExpandableHeader", DThemeDarkExpandableHeader);
+	DThemeDark.set("DExpandable", DThemeDarkExpandable);
 };

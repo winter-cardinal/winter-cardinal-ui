@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Application, Container, interaction, Point } from "pixi.js";
+import { Application, interaction, Point } from "pixi.js";
 import { DApplicationLayerLike } from "./d-application-layer-like";
 import { DApplicationLayerOptions } from "./d-application-layer-options";
 import { DApplicationLike } from "./d-application-like";
@@ -17,18 +17,21 @@ import { UtilPointerEvent } from "./util/util-pointer-event";
 import { UtilWheelEvent, UtilWheelEventDeltas } from "./util/util-wheel-event";
 
 interface DblClickable {
-	onDblClick( e: MouseEvent | TouchEvent, interactionManager: interaction.InteractionManager ): boolean;
+	onDblClick(
+		e: MouseEvent | TouchEvent,
+		interactionManager: interaction.InteractionManager
+	): boolean;
 }
 
-const isDblClickable = ( target: any ): target is DblClickable => {
+const isDblClickable = (target: any): target is DblClickable => {
 	return target != null && target.onDblClick != null;
 };
 
 interface Wheelable {
-	onWheel( e: WheelEvent, deltas: UtilWheelEventDeltas, global: Point ): boolean;
+	onWheel(e: WheelEvent, deltas: UtilWheelEventDeltas, global: Point): boolean;
 }
 
-const isWheelable = ( target: any ): target is Wheelable => {
+const isWheelable = (target: any): target is Wheelable => {
 	return target != null && target.onWheel != null;
 };
 
@@ -49,159 +52,97 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 
 	readonly application: DApplicationLike;
 
-	constructor( application: DApplicationLike, options: DApplicationLayerOptions ) {
-		super( options.getPixiApplicationOptions() );
-
-		this.application = application;
-		const stage = this.stage;
-		(stage as any).layer = this;
-		(stage as any).application = application;
-		stage.interactive = true;
+	constructor(application: DApplicationLike, options: DApplicationLayerOptions) {
+		super(options.getPixiApplicationOptions());
 
 		this._options = options;
 		this._isLocked = false;
 		this._isVisible = true;
-		const isOverlay = options.isOverlay();
-		this._isOverlay = isOverlay;
+		this._isOverlay = options.isOverlay();
 		this._padding = options.getPadding();
-		const rootElement = options.getRootElement();
-		this._rootElement = rootElement;
+		this._rootElement = options.getRootElement();
 		this._refitLimit = 5;
 		this._reflowLimit = 5;
+		this._elementContainer = this.newElementContainer();
+
+		this.application = application;
 
 		this._renderBound = (): void => {
-			if( this._renderId != null ) {
+			if (this._renderId != null) {
 				this.render();
 			}
 		};
 
-		// Init element container
-		const elementContainer = this.newElementContainer();
-		this._elementContainer = elementContainer;
-
-		// Init canvas
-		const view = this.view;
-		const viewStyle = view.style;
-		viewStyle.position = "absolute";
-		viewStyle.top = "0";
-		viewStyle.left = "0";
-		viewStyle.width = "100%";
-		viewStyle.height = "100%";
-		viewStyle.display = "block";
-		viewStyle.outline = "none";
-
-		// Init root element
-		this.initRootElement( rootElement, view, elementContainer, stage, isOverlay );
-
-		// Focus handling
-		let hasFocus = false;
-		const focusController = this.getFocusController();
-		const onBlurBound = (): void => {
-			if( ! hasFocus ) {
-				focusController.clear();
-			}
-		};
-		rootElement.addEventListener( "focus", ( e ): void => {
-			hasFocus = true;
-		}, true );
-		rootElement.addEventListener( "blur", ( e ): void => {
-			hasFocus = false;
-			setTimeout( onBlurBound, 0 );
-		}, true );
-		view.setAttribute( "tabindex", "0" );
-
-		DControllers.getKeyboardController().init( view, stage, focusController );
-
-		const interactionManager: interaction.InteractionManager = this.renderer.plugins.interaction;
-		interactionManager.on( UtilPointerEvent.down, ( e: interaction.InteractionEvent ): void => {
-			if( e.target == null || e.target === stage ) {
-				focusController.clear();
-			}
-		});
-
-		// Resize handling
-		const onResizeBound = (): void => {
-			this.onResize();
-		};
-		window.addEventListener( "resize", onResizeBound );
-		window.addEventListener( "orientationchange", onResizeBound );
-
-		// Mouse wheel handling
-		const wheelGlobal = new Point();
-		const wheelEventUtil = UtilWheelEvent.getInstance();
-		wheelEventUtil.on( view, ( e: WheelEvent | Event ): void => {
-			const wheelEvent = e as WheelEvent;
-			UtilPointerEvent.toGlobal( wheelEvent, interactionManager, wheelGlobal );
-			let current = interactionManager.hitTest( wheelGlobal );
-			const deltas = wheelEventUtil.normalize( e );
-			if( deltas != null ) {
-				while( current != null ) {
-					if( isWheelable( current ) ) {
-						if( current.onWheel( wheelEvent, deltas, wheelGlobal ) ) {
-							wheelEvent.preventDefault();
-							break;
-						}
-					}
-					current = current.parent;
-				}
-			}
-		});
-
-		// Double click handling
-		UtilPointerEvent.onDblClick( view, ( e: MouseEvent | TouchEvent ) => {
-			const focused = focusController.get();
-			if( focused != null ) {
-				let current: DFocusable | DFocusableContainer | null = focused;
-				while( current != null ) {
-					if( isDblClickable( current ) ) {
-						if( current.onDblClick( e, interactionManager ) ) {
-							break;
-						}
-					}
-					current = current.parent;
-				}
-			}
-		});
+		this.initStage();
+		this.initView();
+		this.initRootElement();
+		this.initFocusHandling();
+		this.initResizeHandling();
+		this.initWheelHandling();
+		this.initDoubleClickHandling();
 	}
 
 	protected newElementContainer(): HTMLElement {
-		const result = document.createElement( "div" );
-		result.setAttribute( "style",
+		const result = document.createElement("div");
+		result.setAttribute(
+			"style",
 			"position: absolute; top: 0; left: 0; width: 0; height: 0;" +
-			"margin: 0; padding: 0; outline: none;"
+				"margin: 0; padding: 0; outline: none;"
 		);
 		return result;
 	}
 
-	protected initRootElement(
-		rootElement: HTMLElement, view: HTMLCanvasElement, elementContainer: HTMLElement,
-		stage: Container, isOverlay: boolean
-	): void {
+	protected initStage(): void {
+		const stage = this.stage;
+		(stage as any).layer = this;
+		(stage as any).application = this.application;
+		stage.interactive = true;
+	}
+
+	protected initView(): void {
+		const view = this.view;
+		const style = view.style;
+		style.position = "absolute";
+		style.top = "0";
+		style.left = "0";
+		style.width = "100%";
+		style.height = "100%";
+		style.display = "block";
+		style.outline = "none";
+	}
+
+	protected initRootElement(): void {
+		const view = this.view;
+		const isOverlay = this._isOverlay;
+		const rootElement = this._rootElement;
+		const elementContainer = this._elementContainer;
+
 		// Insert elements
-		const insertionPosition = ( isOverlay ? 2 : 0 );
+		const insertionPosition = isOverlay ? 2 : 0;
 		const children = rootElement.children;
-		if( insertionPosition < children.length ) {
-			const child = children[ insertionPosition ];
-			rootElement.insertBefore( view, child );
-			rootElement.insertBefore( elementContainer, child );
+		if (insertionPosition < children.length) {
+			const child = children[insertionPosition];
+			rootElement.insertBefore(view, child);
+			rootElement.insertBefore(elementContainer, child);
 		} else {
-			rootElement.appendChild( view );
-			rootElement.appendChild( elementContainer );
+			rootElement.appendChild(view);
+			rootElement.appendChild(elementContainer);
 		}
 
-		if( isOverlay ) {
+		if (isOverlay) {
+			const stage = this.stage;
 			const oldOnChildrenChange = (stage as any).onChildrenChange;
 			(stage as any).onChildrenChange = (): void => {
 				this.onStageDirty();
-				oldOnChildrenChange.call( stage );
+				oldOnChildrenChange.call(stage);
 			};
 		}
 
 		// Init styles
 		const rootElementStyle = rootElement.style;
-		if( rootElement !== document.body ) {
-			const rootElementStylePosition = window.getComputedStyle( rootElement ).position;
-			if( rootElementStylePosition === "static" ) {
+		if (rootElement !== document.body) {
+			const rootElementStylePosition = window.getComputedStyle(rootElement).position;
+			if (rootElementStylePosition === "static") {
 				rootElementStyle.position = "relative";
 			}
 		}
@@ -210,22 +151,105 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 		rootElementStyle.overflow = "hidden";
 	}
 
+	protected initFocusHandling(): void {
+		const view = this.view;
+		const stage = this.stage;
+		const rootElement = this._rootElement;
+		const focusController = this.getFocusController();
+
+		let hasFocus = false;
+		const onFocus = (): void => {
+			hasFocus = true;
+		};
+		const onBlured = (): void => {
+			if (!hasFocus) {
+				focusController.clear();
+			}
+		};
+		const onBlur = (): void => {
+			hasFocus = false;
+			setTimeout(onBlured, 0);
+		};
+		rootElement.addEventListener("focus", onFocus, true);
+		rootElement.addEventListener("blur", onBlur, true);
+		view.setAttribute("tabindex", "0");
+
+		DControllers.getKeyboardController().init(view, stage, focusController);
+
+		const interactionManager = this.renderer.plugins.interaction;
+		interactionManager.on(UtilPointerEvent.down, (e: interaction.InteractionEvent): void => {
+			if (e.target == null || e.target === stage) {
+				focusController.clear();
+			}
+		});
+	}
+
+	protected initResizeHandling(): void {
+		const onResizeBound = (): void => {
+			this.onResize();
+		};
+		window.addEventListener("resize", onResizeBound);
+		window.addEventListener("orientationchange", onResizeBound);
+	}
+
 	protected onResize(): void {
 		const bbox = this._rootElement.getBoundingClientRect();
 		const bboxWidth = bbox.width;
 		const bboxHeight = bbox.height;
-		this.renderer.resize( bboxWidth, bboxHeight );
+		this.renderer.resize(bboxWidth, bboxHeight);
 
 		const padding = this._padding;
 		const children = this.stage.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			const child = children[ i ];
-			if( child instanceof DBase ) {
-				child.onParentResize( bboxWidth, bboxHeight, padding );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			const child = children[i];
+			if (child instanceof DBase) {
+				child.onParentResize(bboxWidth, bboxHeight, padding);
 			}
 		}
 
 		this.update();
+	}
+
+	protected initWheelHandling(): void {
+		const global = new Point();
+		const util = UtilWheelEvent.getInstance();
+		const interactionManager = this.renderer.plugins.interaction;
+		util.on(this.view, (e: WheelEvent | Event): void => {
+			const wheelEvent = e as WheelEvent;
+			UtilPointerEvent.toGlobal(wheelEvent, interactionManager, global);
+			let current = interactionManager.hitTest(global);
+			const deltas = util.normalize(e);
+			if (deltas != null) {
+				while (current != null) {
+					if (isWheelable(current)) {
+						if (current.onWheel(wheelEvent, deltas, global)) {
+							wheelEvent.preventDefault();
+							break;
+						}
+					}
+					current = current.parent;
+				}
+			}
+		});
+	}
+
+	protected initDoubleClickHandling(): void {
+		const focusController = this.getFocusController();
+		const interactionManager = this.renderer.plugins.interaction;
+		UtilPointerEvent.onDblClick(this.view, (e: MouseEvent | TouchEvent): void => {
+			const focused = focusController.get();
+			if (focused != null) {
+				let current: DFocusable | DFocusableContainer | null = focused;
+				while (current != null) {
+					if (isDblClickable(current)) {
+						if (current.onDblClick(e, interactionManager)) {
+							break;
+						}
+					}
+					current = current.parent;
+				}
+			}
+		});
 	}
 
 	lock(): void {
@@ -237,25 +261,25 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 	}
 
 	update(): void {
-		if( ! this._isLocked && this._renderId == null ) {
-			this._renderId = requestAnimationFrame( this._renderBound );
+		if (!this._isLocked && this._renderId == null) {
+			this._renderId = requestAnimationFrame(this._renderBound);
 		}
 	}
 
 	protected onStageDirty(): void {
 		// Update the visibility if this is a overlay layer.
-		if( this._isOverlay ) {
-			if( 0 < this.stage.children.length ) {
+		if (this._isOverlay) {
+			if (0 < this.stage.children.length) {
 				// There are more than one children,
 				// therefore must be visible.
-				if( ! this._isVisible ) {
+				if (!this._isVisible) {
 					this._isVisible = true;
 					this.view.style.display = "block";
 				}
 			} else {
 				// There is no child,
 				// therefore must not be visible.
-				if( this._isVisible ) {
+				if (this._isVisible) {
 					this._isVisible = false;
 					this.view.style.display = "none";
 				}
@@ -296,18 +320,18 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 
 	refit(): void {
 		const children = this.stage.children;
-		for( let ilimit = 0, limit = this._refitLimit; ilimit < limit; ++ilimit ) {
+		for (let ilimit = 0, limit = this._refitLimit; ilimit < limit; ++ilimit) {
 			let isChildrenDirty = false;
-			for( let i = 0, imax = children.length; i < imax; ++i ) {
-				const child = children[ i ];
-				if( child instanceof DBase ) {
+			for (let i = 0, imax = children.length; i < imax; ++i) {
+				const child = children[i];
+				if (child instanceof DBase) {
 					child.refit();
 					isChildrenDirty = isChildrenDirty || child.isChildrenDirty();
 				}
 			}
 
 			// If DBases are changed during the `refit` process, need to refit again.
-			if( ! isChildrenDirty ) {
+			if (!isChildrenDirty) {
 				break;
 			}
 		}
@@ -315,25 +339,25 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 
 	reflow(): void {
 		const children = this.stage.children;
-		for( let ilimit = 0, limit = this._refitLimit; ilimit < limit; ++ilimit ) {
+		for (let ilimit = 0, limit = this._refitLimit; ilimit < limit; ++ilimit) {
 			let isDirty = false;
-			for( let i = 0, imax = children.length; i < imax; ++i ) {
-				const child = children[ i ];
-				if( child instanceof DBase ) {
+			for (let i = 0, imax = children.length; i < imax; ++i) {
+				const child = children[i];
+				if (child instanceof DBase) {
 					child.reflow();
 					isDirty = isDirty || child.isDirty() || child.hasDirty();
 				}
 			}
 
 			// If DBases are changed during the `reflow` process, need to reflow again.
-			if( ! isDirty ) {
+			if (!isDirty) {
 				break;
 			}
 		}
 	}
 
 	getFocusController(): DControllerFocus {
-		if( this._focus == null ) {
+		if (this._focus == null) {
 			this._focus = new DControllerDefaultFocus();
 		}
 		return this._focus;
@@ -348,8 +372,8 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 	}
 
 	getDynamicFontAtlases(): DynamicFontAtlases {
-		if( this._dynamicFontAtlases == null ) {
-			this._dynamicFontAtlases = new DynamicFontAtlases( this );
+		if (this._dynamicFontAtlases == null) {
+			this._dynamicFontAtlases = new DynamicFontAtlases(this);
 		}
 		return this._dynamicFontAtlases;
 	}

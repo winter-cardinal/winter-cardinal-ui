@@ -21,30 +21,30 @@ import { EShapeActionValueTransformType } from "./e-shape-action-value-transform
 import { EShapeActionValueType } from "./e-shape-action-value-type";
 
 export interface EThemeShapeActionValue {
-	toLabel( target: EShapeActionValue ): string;
-	toTypeLabel( type: EShapeActionValueType ): string;
-	toConditionLabel( condition: string ): string;
-	toBlinkTypeLabel( type: EShapeActionValueBlinkType ): string;
-	toShowHideTypeLabel( type: EShapeActionValueShowHideType ): string;
-	toTransformTypeLabel( type: EShapeActionValueTransformType ): string;
-	toTransformRotateTypeLabel( type: EShapeActionValueTransformRotateType ): string;
-	toTransformMoveTypeLabel( type: EShapeActionValueTransformMoveType ): string;
-	toTransformResizeTypeLabel( type: EShapeActionValueTransformResizeType ): string;
-	toChangeColorTypeLabel( type: EShapeActionValueChangeColorType ): string;
-	toChangeColorTargetLabel( type: EShapeActionValueChangeColorTarget ): string;
-	toChangeTextTypeLabel( type: EShapeActionValueChangeTextType ): string;
-	toOpenTypeLabel( type: EShapeActionValueOpenType ): string;
-	toMiscTypeLabel( type: EShapeActionValueMiscType ): string;
-	toHtmlElementWhenLabel( when: UtilHtmlElementWhen ): string;
-	toOnInputActionLabel( type: EShapeActionValueOnInputAction ): string;
+	toLabel(target: EShapeActionValue): string;
+	toTypeLabel(type: EShapeActionValueType): string;
+	toConditionLabel(condition: string): string;
+	toBlinkTypeLabel(type: EShapeActionValueBlinkType): string;
+	toShowHideTypeLabel(type: EShapeActionValueShowHideType): string;
+	toTransformTypeLabel(type: EShapeActionValueTransformType): string;
+	toTransformRotateTypeLabel(type: EShapeActionValueTransformRotateType): string;
+	toTransformMoveTypeLabel(type: EShapeActionValueTransformMoveType): string;
+	toTransformResizeTypeLabel(type: EShapeActionValueTransformResizeType): string;
+	toChangeColorTypeLabel(type: EShapeActionValueChangeColorType): string;
+	toChangeColorTargetLabel(type: EShapeActionValueChangeColorTarget): string;
+	toChangeTextTypeLabel(type: EShapeActionValueChangeTextType): string;
+	toOpenTypeLabel(type: EShapeActionValueOpenType): string;
+	toMiscTypeLabel(type: EShapeActionValueMiscType): string;
+	toHtmlElementWhenLabel(when: UtilHtmlElementWhen): string;
+	toOnInputActionLabel(type: EShapeActionValueOnInputAction): string;
 }
 
 export interface EShapeActionValue {
 	readonly type: EShapeActionValueType;
 	readonly condition: string;
 
-	isEquals( value: EShapeActionValue ): boolean;
+	isEquals(value: EShapeActionValue): boolean;
 	toRuntime(): EShapeActionRuntime;
 	toLabel(): string;
-	serialize( manager: EShapeResourceManagerSerialization ): number;
+	serialize(manager: EShapeResourceManagerSerialization): number;
 }

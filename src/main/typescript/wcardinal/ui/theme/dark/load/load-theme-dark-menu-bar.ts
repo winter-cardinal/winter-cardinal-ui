@@ -8,8 +8,8 @@ import { DThemeDarkMenuBar } from "../d-theme-dark-menu-bar";
 import { DThemeDarkMenuBarItem } from "../d-theme-dark-menu-bar-item";
 import { loadThemeDarkMenu } from "./load-theme-dark-menu";
 
-export const loadThemeDarkMenuBar = () => {
-	DThemeDark.set( "DMenuBarItem", DThemeDarkMenuBarItem );
-	DThemeDark.set( "DMenuBar", DThemeDarkMenuBar );
+export const loadThemeDarkMenuBar = (): void => {
+	DThemeDark.set("DMenuBarItem", DThemeDarkMenuBarItem);
+	DThemeDark.set("DMenuBar", DThemeDarkMenuBar);
 	loadThemeDarkMenu();
 };

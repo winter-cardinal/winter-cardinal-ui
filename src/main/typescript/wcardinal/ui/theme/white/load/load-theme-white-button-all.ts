@@ -21,7 +21,7 @@ import { loadThemeWhiteButtonSecondary } from "./load-theme-white-button-seconda
 import { loadThemeWhiteButtonSelect } from "./load-theme-white-button-select";
 import { loadThemeWhiteButtonTime } from "./load-theme-white-button-time";
 
-export const loadThemeWhiteButtonAll = () => {
+export const loadThemeWhiteButtonAll = (): void => {
 	loadThemeWhiteButtonAmbient();
 	loadThemeWhiteButtonCheckRight();
 	loadThemeWhiteButtonCheck();

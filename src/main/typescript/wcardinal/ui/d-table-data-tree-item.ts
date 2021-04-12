@@ -3,6 +3,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export interface DTableDataTreeItem<PARENT, CHILD> {
-
-}
+export interface DTableDataTreeItem<PARENT, CHILD> {}

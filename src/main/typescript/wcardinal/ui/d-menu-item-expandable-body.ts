@@ -7,23 +7,14 @@ import { DLayoutVertical, DLayoutVerticalOptions, DThemeLayoutVertical } from ".
 
 export interface DMenuItemExpandableBodyOptions<
 	THEME extends DThemeMenuItemExpandableBody = DThemeMenuItemExpandableBody
-> extends DLayoutVerticalOptions<THEME> {
+> extends DLayoutVerticalOptions<THEME> {}
 
-}
-
-export interface DThemeMenuItemExpandableBody extends DThemeLayoutVertical {
-
-}
+export interface DThemeMenuItemExpandableBody extends DThemeLayoutVertical {}
 
 export class DMenuItemExpandableBody<
 	THEME extends DThemeMenuItemExpandableBody = DThemeMenuItemExpandableBody,
 	OPTIONS extends DMenuItemExpandableBodyOptions<THEME> = DMenuItemExpandableBodyOptions<THEME>
 > extends DLayoutVertical<THEME, OPTIONS> {
-
-	constructor( options?: OPTIONS ) {
-		super( options );
-	}
-
 	protected getType(): string {
 		return "DMenuItemExpandableBody";
 	}

@@ -5,6 +5,4 @@
 
 import { DThemeDarkMenuItemSeparator } from "./d-theme-dark-menu-item-separator";
 
-export class DThemeDarkMenuSidedItemSeparator extends DThemeDarkMenuItemSeparator {
-
-}
+export class DThemeDarkMenuSidedItemSeparator extends DThemeDarkMenuItemSeparator {}

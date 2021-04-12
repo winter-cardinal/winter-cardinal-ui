@@ -14,26 +14,30 @@ import { DThemeWhiteButton } from "./d-theme-white-button";
 
 // Material Design icons by Google.
 // Apache license version 2.0.
-DThemeWhiteAtlas.add( "button_color_sample", 21, 21,
+/* eslint-disable prettier/prettier */
+DThemeWhiteAtlas.add("button_color_sample", 21, 21,
 	`<g transform="scale(0.875,0.875)">` +
 		`<path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" fill="#fff"/>` +
 	`</g>`
 );
+/* eslint-enable prettier/prettier */
 
-const formatter = ( colorAndAlpha: DColorAndAlpha ): string => {
-	return `#${UtilRgb.toCode( colorAndAlpha.color )} A${ colorAndAlpha.alpha.toFixed(2) }`;
+const formatter = (colorAndAlpha: DColorAndAlpha): string => {
+	return `#${UtilRgb.toCode(colorAndAlpha.color)} A${colorAndAlpha.alpha.toFixed(2)}`;
 };
 
-export class DThemeWhiteButtonColor extends DThemeWhiteButton<DColorAndAlpha> implements DThemeButtonColor {
-	getImageTintColor( state: DBaseStateSet ): number | null {
+export class DThemeWhiteButtonColor
+	extends DThemeWhiteButton<DColorAndAlpha>
+	implements DThemeButtonColor {
+	getImageTintColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
-	getImageSource( state: DBaseStateSet ): Texture {
+	getImageSource(state: DBaseStateSet): Texture {
 		return DThemeWhiteAtlas.mappings.button_color_sample;
 	}
 
-	getTextFormatter(): ( value: DColorAndAlpha, caller: DButtonColor ) => string {
+	getTextFormatter(): (value: DColorAndAlpha, caller: DButtonColor) => string {
 		return formatter;
 	}
 
