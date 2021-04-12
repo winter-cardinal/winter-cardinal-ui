@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.83.1
+ Winter Cardinal UI v0.84.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -72,6 +72,10 @@
         EShapePointsStyle[EShapePointsStyle["NON_SOLID_MASK"] = 1008] = "NON_SOLID_MASK";
     })(EShapePointsStyle || (EShapePointsStyle = {}));
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var toDash = function (length, strokeWidth, style, result) {
         result.set(2 * length, 0);
         if (style & EShapePointsStyle.NON_SOLID_MASK) {
@@ -97,10 +101,14 @@
         return result;
     };
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var toScaleInvariant = function (style) {
-        var nonExpandingWidth = (style & EShapePointsStyle.NON_EXPANDING_WIDTH ? 1 : 0);
-        var nonShrinkingWidth = (style & EShapePointsStyle.NON_SHRINKING_WIDTH ? 2 : 0);
-        var nonScalingDotAndDash = (style & EShapePointsStyle.NON_SCALING_DOT_AND_DASH ? 4 : 0);
+        var nonExpandingWidth = style & EShapePointsStyle.NON_EXPANDING_WIDTH ? 1 : 0;
+        var nonShrinkingWidth = style & EShapePointsStyle.NON_SHRINKING_WIDTH ? 2 : 0;
+        var nonScalingDotAndDash = style & EShapePointsStyle.NON_SCALING_DOT_AND_DASH ? 4 : 0;
         if (style & EShapePointsStyle.NON_SOLID_MASK) {
             return nonExpandingWidth | nonShrinkingWidth | nonScalingDotAndDash;
         }
@@ -242,6 +250,10 @@
         uvs[iuv + 7] = textureUvs.y2;
     };
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var UtilCharacterIterator = /** @class */ (function () {
         function UtilCharacterIterator() {
             this._target = "";
@@ -275,13 +287,13 @@
             return iend;
         };
         UtilCharacterIterator.prototype.isHighSurrogate = function (code) {
-            return (0xd800 <= code && code <= 0xdbff);
+            return 0xd800 <= code && code <= 0xdbff;
         };
         UtilCharacterIterator.prototype.isLowSurrogate = function (code) {
-            return (0xdc00 <= code && code <= 0xdfff);
+            return 0xdc00 <= code && code <= 0xdfff;
         };
         UtilCharacterIterator.prototype.isVariationSelector = function (code) {
-            return (0xfe00 <= code && code <= 0xfe0f);
+            return 0xfe00 <= code && code <= 0xfe0f;
         };
         UtilCharacterIterator.prototype.next = function () {
             var target = this._target;
@@ -372,6 +384,10 @@
         EShapeTextDirection[EShapeTextDirection["BOTTOM_TO_TOP"] = 2] = "BOTTOM_TO_TOP";
     })(EShapeTextDirection || (EShapeTextDirection = {}));
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var toLength = function (p0x, p0y, p1x, p1y) {
         var dx01 = p1x - p0x;
         var dy01 = p1y - p0y;
@@ -394,7 +410,7 @@
         }
     };
     var buildTextIndex = function (indices, voffset, ioffset, icount) {
-        for (var i = 0, ii = ioffset * 3, imax = (icount >> 1); i < imax; i += 1, ii += 6) {
+        for (var i = 0, ii = ioffset * 3, imax = icount >> 1; i < imax; i += 1, ii += 6) {
             var j = voffset + (i << 2);
             indices[ii + 0] = j + 0;
             indices[ii + 1] = j + 1;
@@ -409,7 +425,7 @@
             var scaleBase = (0.4 / TEXT_SDF_WINDOW) * antialiasWeight;
             var scale = scaleBase * (textAtlas.font.size / textSize);
             var outlineWidth = textOutlineWidth * 0.4;
-            var weight = (textWeight === EShapeTextWeight.NORMAL ? 0.0 : 0.05);
+            var weight = textWeight === EShapeTextWeight.NORMAL ? 0.0 : 0.05;
             for (var i = voffset * 6, imax = i + vcount * 6; i < imax; i += 6) {
                 steps[i + 0] = scale;
                 steps[i + 1] = outlineWidth;
@@ -435,220 +451,206 @@
             case EShapeTextAlignHorizontal.LEFT:
                 switch (valign) {
                     case EShapeTextAlignVertical.TOP:
-                        result.x = x0
-                            + hnx * (hoffset + hpadding)
-                            + vnx * (voffset + vpadding);
-                        result.y = y0
-                            + hny * (hoffset + hpadding)
-                            + vny * (voffset + vpadding);
+                        result.x = x0 + hnx * (hoffset + hpadding) + vnx * (voffset + vpadding);
+                        result.y = y0 + hny * (hoffset + hpadding) + vny * (voffset + vpadding);
                         break;
                     case EShapeTextAlignVertical.MIDDLE:
-                        result.x = 0.5 * (x0 + x3)
-                            + hnx * (hoffset + hpadding)
-                            + vnx * (voffset - 0.5 * height);
-                        result.y = 0.5 * (y0 + y3)
-                            + hny * (hoffset + hpadding)
-                            + vny * (voffset - 0.5 * height);
+                        result.x =
+                            0.5 * (x0 + x3) +
+                                hnx * (hoffset + hpadding) +
+                                vnx * (voffset - 0.5 * height);
+                        result.y =
+                            0.5 * (y0 + y3) +
+                                hny * (hoffset + hpadding) +
+                                vny * (voffset - 0.5 * height);
                         break;
                     case EShapeTextAlignVertical.BOTTOM:
-                        result.x = x3
-                            + hnx * (hoffset + hpadding)
-                            + vnx * (voffset - vpadding - height);
-                        result.y = y3
-                            + hny * (hoffset + hpadding)
-                            + vny * (voffset - vpadding - height);
+                        result.x =
+                            x3 + hnx * (hoffset + hpadding) + vnx * (voffset - vpadding - height);
+                        result.y =
+                            y3 + hny * (hoffset + hpadding) + vny * (voffset - vpadding - height);
                         break;
                     case EShapeTextAlignVertical.OUTSIDE_TOP:
-                        result.x = x0
-                            + hnx * (hoffset + hpadding)
-                            + vnx * (voffset - vpadding - height);
-                        result.y = y0
-                            + hny * (hoffset + hpadding)
-                            + vny * (voffset - vpadding - height);
+                        result.x =
+                            x0 + hnx * (hoffset + hpadding) + vnx * (voffset - vpadding - height);
+                        result.y =
+                            y0 + hny * (hoffset + hpadding) + vny * (voffset - vpadding - height);
                         break;
                     case EShapeTextAlignVertical.OUTSIDE_BOTTOM:
-                        result.x = x3
-                            + hnx * (hoffset + hpadding)
-                            + vnx * (voffset + vpadding);
-                        result.y = y3
-                            + hny * (hoffset + hpadding)
-                            + vny * (voffset + vpadding);
+                        result.x = x3 + hnx * (hoffset + hpadding) + vnx * (voffset + vpadding);
+                        result.y = y3 + hny * (hoffset + hpadding) + vny * (voffset + vpadding);
                         break;
                 }
                 break;
             case EShapeTextAlignHorizontal.CENTER:
                 switch (valign) {
                     case EShapeTextAlignVertical.TOP:
-                        result.x = 0.5 * (x0 + x1)
-                            + hnx * (hoffset - 0.5 * width)
-                            + vnx * (voffset + vpadding);
-                        result.y = 0.5 * (y0 + y1)
-                            + hny * (hoffset - 0.5 * width)
-                            + vny * (voffset + vpadding);
+                        result.x =
+                            0.5 * (x0 + x1) +
+                                hnx * (hoffset - 0.5 * width) +
+                                vnx * (voffset + vpadding);
+                        result.y =
+                            0.5 * (y0 + y1) +
+                                hny * (hoffset - 0.5 * width) +
+                                vny * (voffset + vpadding);
                         break;
                     case EShapeTextAlignVertical.MIDDLE:
-                        result.x = 0.5 * (x0 + x2)
-                            + hnx * (hoffset - 0.5 * width)
-                            + vnx * (voffset - 0.5 * height);
-                        result.y = 0.5 * (y0 + y2)
-                            + hny * (hoffset - 0.5 * width)
-                            + vny * (voffset - 0.5 * height);
+                        result.x =
+                            0.5 * (x0 + x2) +
+                                hnx * (hoffset - 0.5 * width) +
+                                vnx * (voffset - 0.5 * height);
+                        result.y =
+                            0.5 * (y0 + y2) +
+                                hny * (hoffset - 0.5 * width) +
+                                vny * (voffset - 0.5 * height);
                         break;
                     case EShapeTextAlignVertical.BOTTOM:
-                        result.x = 0.5 * (x3 + x2)
-                            + hnx * (hoffset - 0.5 * width)
-                            + vnx * (voffset - vpadding - height);
-                        result.y = 0.5 * (y3 + y2)
-                            + hny * (hoffset - 0.5 * width)
-                            + vny * (voffset - vpadding - height);
+                        result.x =
+                            0.5 * (x3 + x2) +
+                                hnx * (hoffset - 0.5 * width) +
+                                vnx * (voffset - vpadding - height);
+                        result.y =
+                            0.5 * (y3 + y2) +
+                                hny * (hoffset - 0.5 * width) +
+                                vny * (voffset - vpadding - height);
                         break;
                     case EShapeTextAlignVertical.OUTSIDE_TOP:
-                        result.x = 0.5 * (x0 + x1)
-                            + hnx * (hoffset - 0.5 * width)
-                            + vnx * (voffset - vpadding - height);
-                        result.y = 0.5 * (y0 + y1)
-                            + hny * (hoffset - 0.5 * width)
-                            + vny * (voffset - vpadding - height);
+                        result.x =
+                            0.5 * (x0 + x1) +
+                                hnx * (hoffset - 0.5 * width) +
+                                vnx * (voffset - vpadding - height);
+                        result.y =
+                            0.5 * (y0 + y1) +
+                                hny * (hoffset - 0.5 * width) +
+                                vny * (voffset - vpadding - height);
                         break;
                     case EShapeTextAlignVertical.OUTSIDE_BOTTOM:
-                        result.x = 0.5 * (x3 + x2)
-                            + hnx * (hoffset - 0.5 * width)
-                            + vnx * (voffset + vpadding);
-                        result.y = 0.5 * (y3 + y2)
-                            + hny * (hoffset - 0.5 * width)
-                            + vny * (voffset + vpadding);
+                        result.x =
+                            0.5 * (x3 + x2) +
+                                hnx * (hoffset - 0.5 * width) +
+                                vnx * (voffset + vpadding);
+                        result.y =
+                            0.5 * (y3 + y2) +
+                                hny * (hoffset - 0.5 * width) +
+                                vny * (voffset + vpadding);
                         break;
                 }
                 break;
             case EShapeTextAlignHorizontal.RIGHT:
                 switch (valign) {
                     case EShapeTextAlignVertical.TOP:
-                        result.x = x1
-                            + hnx * (hoffset - hpadding - width)
-                            + vnx * (voffset + vpadding);
-                        result.y = y1
-                            + hny * (hoffset - hpadding - width)
-                            + vny * (voffset + vpadding);
+                        result.x = x1 + hnx * (hoffset - hpadding - width) + vnx * (voffset + vpadding);
+                        result.y = y1 + hny * (hoffset - hpadding - width) + vny * (voffset + vpadding);
                         break;
                     case EShapeTextAlignVertical.MIDDLE:
-                        result.x = 0.5 * (x1 + x2)
-                            + hnx * (hoffset - hpadding - width)
-                            + vnx * (voffset - 0.5 * height);
-                        result.y = 0.5 * (y1 + y2)
-                            + hny * (hoffset - hpadding - width)
-                            + vny * (voffset - 0.5 * height);
+                        result.x =
+                            0.5 * (x1 + x2) +
+                                hnx * (hoffset - hpadding - width) +
+                                vnx * (voffset - 0.5 * height);
+                        result.y =
+                            0.5 * (y1 + y2) +
+                                hny * (hoffset - hpadding - width) +
+                                vny * (voffset - 0.5 * height);
                         break;
                     case EShapeTextAlignVertical.BOTTOM:
-                        result.x = x2
-                            + hnx * (hoffset - hpadding - width)
-                            + vnx * (voffset - vpadding - height);
-                        result.y = y2
-                            + hny * (hoffset - hpadding - width)
-                            + vny * (voffset - vpadding - height);
+                        result.x =
+                            x2 +
+                                hnx * (hoffset - hpadding - width) +
+                                vnx * (voffset - vpadding - height);
+                        result.y =
+                            y2 +
+                                hny * (hoffset - hpadding - width) +
+                                vny * (voffset - vpadding - height);
                         break;
                     case EShapeTextAlignVertical.OUTSIDE_TOP:
-                        result.x = x1
-                            + hnx * (hoffset - hpadding - width)
-                            + vnx * (voffset - vpadding - height);
-                        result.y = y1
-                            + hny * (hoffset - hpadding - width)
-                            + vny * (voffset - vpadding - height);
+                        result.x =
+                            x1 +
+                                hnx * (hoffset - hpadding - width) +
+                                vnx * (voffset - vpadding - height);
+                        result.y =
+                            y1 +
+                                hny * (hoffset - hpadding - width) +
+                                vny * (voffset - vpadding - height);
                         break;
                     case EShapeTextAlignVertical.OUTSIDE_BOTTOM:
-                        result.x = x2
-                            + hnx * (hoffset - hpadding - width)
-                            + vnx * (voffset + vpadding);
-                        result.y = y2
-                            + hny * (hoffset - hpadding - width)
-                            + vny * (voffset + vpadding);
+                        result.x = x2 + hnx * (hoffset - hpadding - width) + vnx * (voffset + vpadding);
+                        result.y = y2 + hny * (hoffset - hpadding - width) + vny * (voffset + vpadding);
                         break;
                 }
                 break;
             case EShapeTextAlignHorizontal.OUTSIDE_LEFT:
                 switch (valign) {
                     case EShapeTextAlignVertical.TOP:
-                        result.x = x0
-                            + hnx * (hoffset - hpadding - width)
-                            + vnx * (voffset + vpadding);
-                        result.y = y0
-                            + hny * (hoffset - hpadding - width)
-                            + vny * (voffset + vpadding);
+                        result.x = x0 + hnx * (hoffset - hpadding - width) + vnx * (voffset + vpadding);
+                        result.y = y0 + hny * (hoffset - hpadding - width) + vny * (voffset + vpadding);
                         break;
                     case EShapeTextAlignVertical.MIDDLE:
-                        result.x = 0.5 * (x0 + x3)
-                            + hnx * (hoffset - hpadding - width)
-                            + vnx * (voffset - 0.5 * height);
-                        result.y = 0.5 * (y0 + y3)
-                            + hny * (hoffset - hpadding - width)
-                            + vny * (voffset - 0.5 * height);
+                        result.x =
+                            0.5 * (x0 + x3) +
+                                hnx * (hoffset - hpadding - width) +
+                                vnx * (voffset - 0.5 * height);
+                        result.y =
+                            0.5 * (y0 + y3) +
+                                hny * (hoffset - hpadding - width) +
+                                vny * (voffset - 0.5 * height);
                         break;
                     case EShapeTextAlignVertical.BOTTOM:
-                        result.x = x3
-                            + hnx * (hoffset - hpadding - width)
-                            + vnx * (voffset - vpadding - height);
-                        result.y = y3
-                            + hny * (hoffset - hpadding - width)
-                            + vny * (voffset - vpadding - height);
+                        result.x =
+                            x3 +
+                                hnx * (hoffset - hpadding - width) +
+                                vnx * (voffset - vpadding - height);
+                        result.y =
+                            y3 +
+                                hny * (hoffset - hpadding - width) +
+                                vny * (voffset - vpadding - height);
                         break;
                     case EShapeTextAlignVertical.OUTSIDE_TOP:
-                        result.x = x0
-                            + hnx * (hoffset - hpadding - width)
-                            + vnx * (voffset - vpadding - height);
-                        result.y = y0
-                            + hny * (hoffset - hpadding - width)
-                            + vny * (voffset - vpadding - height);
+                        result.x =
+                            x0 +
+                                hnx * (hoffset - hpadding - width) +
+                                vnx * (voffset - vpadding - height);
+                        result.y =
+                            y0 +
+                                hny * (hoffset - hpadding - width) +
+                                vny * (voffset - vpadding - height);
                         break;
                     case EShapeTextAlignVertical.OUTSIDE_BOTTOM:
-                        result.x = x3
-                            + hnx * (hoffset - hpadding - width)
-                            + vnx * (voffset + vpadding);
-                        result.y = y3
-                            + hny * (hoffset - hpadding - width)
-                            + vny * (voffset + vpadding);
+                        result.x = x3 + hnx * (hoffset - hpadding - width) + vnx * (voffset + vpadding);
+                        result.y = y3 + hny * (hoffset - hpadding - width) + vny * (voffset + vpadding);
                         break;
                 }
                 break;
             case EShapeTextAlignHorizontal.OUTSIDE_RIGHT:
                 switch (valign) {
                     case EShapeTextAlignVertical.TOP:
-                        result.x = x1
-                            + hnx * (hoffset + hpadding)
-                            + vnx * (voffset + vpadding);
-                        result.y = y1
-                            + hny * (hoffset + hpadding)
-                            + vny * (voffset + vpadding);
+                        result.x = x1 + hnx * (hoffset + hpadding) + vnx * (voffset + vpadding);
+                        result.y = y1 + hny * (hoffset + hpadding) + vny * (voffset + vpadding);
                         break;
                     case EShapeTextAlignVertical.MIDDLE:
-                        result.x = 0.5 * (x1 + x2)
-                            + hnx * (hoffset + hpadding)
-                            + vnx * (voffset - 0.5 * height);
-                        result.y = 0.5 * (y1 + y2)
-                            + hny * (hoffset + hpadding)
-                            + vny * (voffset - 0.5 * height);
+                        result.x =
+                            0.5 * (x1 + x2) +
+                                hnx * (hoffset + hpadding) +
+                                vnx * (voffset - 0.5 * height);
+                        result.y =
+                            0.5 * (y1 + y2) +
+                                hny * (hoffset + hpadding) +
+                                vny * (voffset - 0.5 * height);
                         break;
                     case EShapeTextAlignVertical.BOTTOM:
-                        result.x = x2
-                            + hnx * (hoffset + hpadding)
-                            + vnx * (voffset - vpadding - height);
-                        result.y = y2
-                            + hny * (hoffset + hpadding)
-                            + vny * (voffset - vpadding - height);
+                        result.x =
+                            x2 + hnx * (hoffset + hpadding) + vnx * (voffset - vpadding - height);
+                        result.y =
+                            y2 + hny * (hoffset + hpadding) + vny * (voffset - vpadding - height);
                         break;
                     case EShapeTextAlignVertical.OUTSIDE_TOP:
-                        result.x = x1
-                            + hnx * (hoffset + hpadding)
-                            + vnx * (voffset - vpadding - height);
-                        result.y = y1
-                            + hny * (hoffset + hpadding)
-                            + vny * (voffset - vpadding - height);
+                        result.x =
+                            x1 + hnx * (hoffset + hpadding) + vnx * (voffset - vpadding - height);
+                        result.y =
+                            y1 + hny * (hoffset + hpadding) + vny * (voffset - vpadding - height);
                         break;
                     case EShapeTextAlignVertical.OUTSIDE_BOTTOM:
-                        result.x = x2
-                            + hnx * (hoffset + hpadding)
-                            + vnx * (voffset + vpadding);
-                        result.y = y2
-                            + hny * (hoffset + hpadding)
-                            + vny * (voffset + vpadding);
+                        result.x = x2 + hnx * (hoffset + hpadding) + vnx * (voffset + vpadding);
+                        result.y = y2 + hny * (hoffset + hpadding) + vny * (voffset + vpadding);
                         break;
                 }
                 break;
@@ -906,10 +908,10 @@
         var uvy0 = textureUvs.y0;
         var uvy1 = textureUvs.y1;
         var uvy3 = textureUvs.y3;
-        var duvx01 = (uvx1 - uvx0);
-        var duvy01 = (uvy1 - uvy0);
-        var duvx03 = (uvx3 - uvx0);
-        var duvy03 = (uvy3 - uvy0);
+        var duvx01 = uvx1 - uvx0;
+        var duvy01 = uvy1 - uvy0;
+        var duvx03 = uvx3 - uvx0;
+        var duvy03 = uvy3 - uvy0;
         // Vertices & UVs
         var lhx = lineHeight * vnx;
         var lhy = lineHeight * vny;
@@ -918,7 +920,7 @@
         var offsetY = (heightChar - textSize) * 0.5;
         var oyx = offsetY * vnx;
         var oyy = offsetY * vny;
-        var offsetItalic = (textStyle === EShapeTextStyle.NORMAL ? 0 : textSize * 0.25);
+        var offsetItalic = textStyle === EShapeTextStyle.NORMAL ? 0 : textSize * 0.25;
         var bx0 = tx0 - oyx + offsetItalic * snx;
         var by0 = ty0 - oyy + offsetItalic * sny;
         var bx3 = tx0 + oyx + textSize * vnx;
@@ -952,7 +954,8 @@
                     if (lineWidthMaximum < (lineWidth + advance) * scale) {
                         var dots = textAtlasCharacters["..."];
                         if (dots) {
-                            if (1 < lineCount && lineWidthMaximum < (lineWidth + dots.advance) * scale) {
+                            if (1 < lineCount &&
+                                lineWidthMaximum < (lineWidth + dots.advance) * scale) {
                                 lineWidth = lineWidthPrevious;
                                 iv -= 8;
                                 lineCount -= 1;
@@ -1243,8 +1246,10 @@
             var parentSizeY = parentSize.y;
             var position = this._position;
             var size = this._size;
-            if (this._updatedSize !== size || this._updatedParentSizeX !== parentSizeX ||
-                this._updatedParentSizeY !== parentSizeY || this._updatedPosition !== position) {
+            if (this._updatedSize !== size ||
+                this._updatedParentSizeX !== parentSizeX ||
+                this._updatedParentSizeY !== parentSizeY ||
+                this._updatedPosition !== position) {
                 this._id += 1;
                 this._updatedSize = size;
                 this._updatedParentSizeX = parentSizeX;
@@ -1363,11 +1368,11 @@
                 var x0 = newValues[0];
                 if (x0 === 0) {
                     var y0 = newValues[1];
-                    newPosition = (y0 <= 0 ? EShapeBarPosition.TOP : EShapeBarPosition.BOTTOM);
+                    newPosition = y0 <= 0 ? EShapeBarPosition.TOP : EShapeBarPosition.BOTTOM;
                     newSize = Math.abs(newValues[3] - y0);
                 }
                 else {
-                    newPosition = (x0 <= 0 ? EShapeBarPosition.LEFT : EShapeBarPosition.RIGHT);
+                    newPosition = x0 <= 0 ? EShapeBarPosition.LEFT : EShapeBarPosition.RIGHT;
                     newSize = Math.abs(newValues[2] - x0);
                 }
             }
@@ -1474,7 +1479,7 @@
             while (stage.parent) {
                 stage = stage.parent;
             }
-            if (("application" in stage) && ("layer" in stage)) {
+            if ("application" in stage && "layer" in stage) {
                 return stage;
             }
             return null;
@@ -1513,7 +1518,7 @@
             if (layer) {
                 return layer.renderer.resolution;
             }
-            return ((_a = window.devicePixelRatio) !== null && _a !== void 0 ? _a : 1);
+            return (_a = window.devicePixelRatio) !== null && _a !== void 0 ? _a : 1;
         };
         DApplications.update = function (target) {
             if (target) {
@@ -1731,8 +1736,9 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    // eslint-disable-next-line @typescript-eslint/ban-types
     var isFunction = function (target) {
-        return (typeof target) === "function";
+        return typeof target === "function";
     };
 
     /*
@@ -1740,8 +1746,7 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var isString = function (target) {
-        return (typeof target === "string") ||
-            (Object.prototype.toString.call(target) === "[object String]");
+        return (typeof target === "string" || Object.prototype.toString.call(target) === "[object String]");
     };
 
     /*
@@ -1800,8 +1805,9 @@
             return false;
         };
         DBaseStateSetImpl.prototype.addAll = function (stateOrStates) {
-            var states = (isString(stateOrStates) ?
-                arguments : stateOrStates);
+            var states = isString(stateOrStates)
+                ? arguments // eslint-disable-line prefer-rest-params
+                : stateOrStates;
             if (this.checkAddeds(states)) {
                 this.begin();
                 var local = this._local;
@@ -1851,8 +1857,9 @@
                 }
             }
             else {
-                var states = (isString(stateOrStatesOrMatcher) ?
-                    arguments : stateOrStatesOrMatcher);
+                var states = isString(stateOrStatesOrMatcher)
+                    ? arguments // eslint-disable-line prefer-rest-params
+                    : stateOrStatesOrMatcher;
                 if (this.checkRemoveds(states)) {
                     this.begin();
                     for (var i = 0, imax = states.length; i < imax; ++i) {
@@ -1874,10 +1881,14 @@
         };
         DBaseStateSetImpl.prototype.set = function (stateOrAdded, isOnOrRemoved) {
             if (isOnOrRemoved === true) {
-                this.add(stateOrAdded);
+                if (stateOrAdded != null) {
+                    this.add(stateOrAdded);
+                }
             }
             else if (isOnOrRemoved === false) {
-                this.remove(stateOrAdded);
+                if (stateOrAdded != null) {
+                    this.remove(stateOrAdded);
+                }
             }
             else {
                 var added = stateOrAdded;
@@ -1902,10 +1913,14 @@
         };
         DBaseStateSetImpl.prototype.setAll = function (statesOrAddeds, isOnOrRemoveds) {
             if (isOnOrRemoveds === true) {
-                this.addAll(statesOrAddeds);
+                if (statesOrAddeds != null) {
+                    this.addAll(statesOrAddeds);
+                }
             }
             else if (isOnOrRemoveds === false) {
-                this.removeAll(statesOrAddeds);
+                if (statesOrAddeds != null) {
+                    this.removeAll(statesOrAddeds);
+                }
             }
             else {
                 var addeds = statesOrAddeds;
@@ -2816,6 +2831,14 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var toSvgUrl = function (svg) {
+        return "data:image/svg+xml;base64," + btoa(svg);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var toPadded = function (str, length, c) {
         var strLength = str.length;
         if (length < strLength) {
@@ -2852,12 +2875,12 @@
             return ((r * 0xff) << 16) + ((g * 0xff) << 8) + ((b * 0xff) | 0);
         };
         UtilRgb.blend = function (colorA, colorB, t) {
-            var ar = ((colorA >> 16) & 0xff);
-            var ag = ((colorA >> 8) & 0xff);
-            var ab = ((colorA | 0) & 0xff);
-            var br = ((colorB >> 16) & 0xff);
-            var bg = ((colorB >> 8) & 0xff);
-            var bb = ((colorB | 0) & 0xff);
+            var ar = (colorA >> 16) & 0xff;
+            var ag = (colorA >> 8) & 0xff;
+            var ab = (colorA | 0) & 0xff;
+            var br = (colorB >> 16) & 0xff;
+            var bg = (colorB >> 8) & 0xff;
+            var bb = (colorB | 0) & 0xff;
             var w1 = Math.max(0, Math.min(1, t));
             var w0 = 1 - w1;
             var cr = Math.max(0, Math.min(0xff, ar * w0 + br * w1));
@@ -2940,17 +2963,21 @@
                 var offset = point.position * 100;
                 stops += "<stop offset=\"" + offset + "%\" stop-color=\"#" + color + "\" stop-opacity=\"" + alpha + "\" />";
             }
-            var radian = direction * Math.PI / 180;
+            var radian = (direction * Math.PI) / 180;
             var dx = 0.5 * Math.cos(radian);
             var dy = -0.5 * Math.sin(radian);
-            var url = "data:image/svg+xml;base64," + btoa("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\">" +
+            var url = toSvgUrl(
+            /* eslint-disable prettier/prettier */
+            "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\">" +
                 "<defs>" +
                 ("<linearGradient id=\"o2glkm3aeu2oio\" x1=\"" + (0.5 - dx) + "\" x2=\"" + (0.5 + dx) + "\" y1=\"" + (0.5 - dy) + "\" y2=\"" + (0.5 + dy) + "\">") +
                 stops +
                 "</linearGradient>" +
                 "</defs>" +
                 "<rect x=\"0\" y=\"0\" width=\"32\" height=\"32\" stroke=\"none\" fill=\"url(#o2glkm3aeu2oio)\" />" +
-                "</svg>");
+                "</svg>"
+            /* eslint-enable prettier/prettier */
+            );
             return url;
         };
         return EShapeGradients;
@@ -3202,7 +3229,7 @@
         };
         EShapeBase.prototype.serializeImage = function (manager) {
             var image = this._image;
-            return (image != null ? manager.addResource(image.src) : -1);
+            return image != null ? manager.addResource(image.src) : -1;
         };
         EShapeBase.prototype.serializeGradient = function (manager) {
             return EShapeGradients.toGradientId(this.gradient, manager);
@@ -3213,9 +3240,9 @@
             var pivot = transform.pivot;
             var size = this.size;
             var shortcut = this.shortcut;
-            var shortcutId = (shortcut != null ? manager.addResource(shortcut) : -1);
+            var shortcutId = shortcut != null ? manager.addResource(shortcut) : -1;
             var title = this.title;
-            var titleId = (title != null ? manager.addResource(title) : -1);
+            var titleId = title != null ? manager.addResource(title) : -1;
             return [
                 this.type,
                 manager.addResource(this.id),
@@ -3352,7 +3379,7 @@
             return this.containsAbsBBox(x, y, ax, ay);
         };
         EShapeBase.prototype.containsAbsBBox = function (x, y, ax, ay) {
-            return (-ax <= x && x <= +ax && -ay <= y && y <= +ay);
+            return -ax <= x && x <= +ax && -ay <= y && y <= +ay;
         };
         EShapeBase.prototype.select = function (point) {
             return false;
@@ -3381,7 +3408,8 @@
             if (skipUpdate !== true) {
                 this.updateTransform();
             }
-            var bounds = this._bounds = (this._bounds || new pixi_js.Rectangle());
+            var bounds = this._bounds || new pixi_js.Rectangle();
+            this._bounds = bounds;
             var worldId = this.transform.getWorldId();
             if (worldId !== this._boundsTransformId) {
                 this._boundsTransformId = worldId;
@@ -3394,7 +3422,8 @@
             if (skipUpdate !== true) {
                 this.updateTransform();
             }
-            var boundsInternal = this._boundsInternal = (this._boundsInternal || new pixi_js.Rectangle());
+            var boundsInternal = this._boundsInternal || new pixi_js.Rectangle();
+            this._boundsInternal = boundsInternal;
             var currentLocalId = this.transform.getLocalIdCurrent();
             if (currentLocalId !== this._boundsInternalTransformId) {
                 this._boundsInternalTransformId = currentLocalId;
@@ -3407,7 +3436,8 @@
             if (skipUpdate !== true) {
                 this.updateTransform();
             }
-            var boundsLocal = this._boundsLocal = (this._boundsLocal || new pixi_js.Rectangle());
+            var boundsLocal = this._boundsLocal || new pixi_js.Rectangle();
+            this._boundsLocal = boundsLocal;
             var currentLocalId = this.transform.getLocalIdCurrent();
             if (currentLocalId !== this._boundsLocalTransformId) {
                 this._boundsLocalTransformId = currentLocalId;
@@ -3886,12 +3916,12 @@
             if (0 <= target && target < resources.length) {
                 var parsed = manager.getFill(target);
                 if (parsed != null) {
-                    this.set(parsed[0] !== 0, parsed[1], parsed[2]);
+                    this.set(!!parsed[0], parsed[1], parsed[2]);
                 }
                 else {
                     var deserialized = JSON.parse(resources[target]);
                     manager.setFill(target, deserialized);
-                    this.set(deserialized[0] !== 0, deserialized[1], deserialized[2]);
+                    this.set(!!deserialized[0], deserialized[1], deserialized[2]);
                 }
             }
         };
@@ -4048,12 +4078,12 @@
             if (0 <= target && target < resources.length) {
                 var parsed = manager.getStroke(target);
                 if (parsed != null) {
-                    this.set(parsed[0] !== 0, parsed[1], parsed[2], parsed[3], parsed[4], parsed[5]);
+                    this.set(!!parsed[0], parsed[1], parsed[2], parsed[3], parsed[4], parsed[5]);
                 }
                 else {
                     var deserialized = JSON.parse(resources[target]);
                     manager.setStroke(target, deserialized);
-                    this.set(deserialized[0] !== 0, deserialized[1], deserialized[2], deserialized[3], deserialized[4], deserialized[5]);
+                    this.set(!!deserialized[0], deserialized[1], deserialized[2], deserialized[3], deserialized[4], deserialized[5]);
                 }
             }
         };
@@ -4144,7 +4174,7 @@
             var result = false;
             if (from !== undefined && to !== undefined) {
                 if (from !== null && to !== null) {
-                    var type = (this._type | EShapeTagValueRangeType.FROM) | EShapeTagValueRangeType.TO;
+                    var type = this._type | EShapeTagValueRangeType.FROM | EShapeTagValueRangeType.TO;
                     if (this._type !== type || this._from !== from || this._to !== to) {
                         this._type = type;
                         this._from = from;
@@ -4153,7 +4183,7 @@
                     }
                 }
                 else if (from !== null) {
-                    var type = (this._type | EShapeTagValueRangeType.FROM) & (~EShapeTagValueRangeType.TO);
+                    var type = (this._type | EShapeTagValueRangeType.FROM) & ~EShapeTagValueRangeType.TO;
                     if (this._type !== type || this._from !== from) {
                         this._type = type;
                         this._from = from;
@@ -4161,7 +4191,7 @@
                     }
                 }
                 else if (to !== null) {
-                    var type = (this._type | EShapeTagValueRangeType.TO) & (~EShapeTagValueRangeType.FROM);
+                    var type = (this._type | EShapeTagValueRangeType.TO) & ~EShapeTagValueRangeType.FROM;
                     if (this._type !== type || this._from !== from) {
                         this._type = type;
                         this._to = to;
@@ -4169,7 +4199,7 @@
                     }
                 }
                 else {
-                    var type = this._type & (~(EShapeTagValueRangeType.TO | EShapeTagValueRangeType.FROM));
+                    var type = this._type & ~(EShapeTagValueRangeType.TO | EShapeTagValueRangeType.FROM);
                     if (this._type !== type) {
                         this._type = type;
                         result = true;
@@ -4186,7 +4216,7 @@
                     }
                 }
                 else {
-                    var type = this._type & (~EShapeTagValueRangeType.FROM);
+                    var type = this._type & ~EShapeTagValueRangeType.FROM;
                     if (this._type !== type) {
                         this._type = type;
                         result = true;
@@ -4203,7 +4233,7 @@
                     }
                 }
                 else {
-                    var type = this._type & (~EShapeTagValueRangeType.TO);
+                    var type = this._type & ~EShapeTagValueRangeType.TO;
                     if (this._type !== type) {
                         this._type = type;
                         result = true;
@@ -4235,9 +4265,7 @@
             }
         };
         EShapeTagValueRangeImpl.prototype.isEquals = function (target) {
-            return (this._type === target.type &&
-                this._from === target.from &&
-                this._to === target.to);
+            return this._type === target.type && this._from === target.from && this._to === target.to;
         };
         EShapeTagValueRangeImpl.prototype.copy = function (target) {
             return this.copy_(target.type, target.from, target.to);
@@ -5433,12 +5461,12 @@
             if (0 <= target && target < resources.length) {
                 var parsed = manager.getTextOutline(target);
                 if (parsed != null) {
-                    this.set(parsed[0] !== 0, parsed[1], parsed[2], parsed[3]);
+                    this.set(!!parsed[0], parsed[1], parsed[2], parsed[3]);
                 }
                 else {
                     var deserialized = JSON.parse(resources[target]);
                     manager.setTextOutline(target, deserialized);
-                    this.set(deserialized[0] !== 0, deserialized[1], deserialized[2], deserialized[3]);
+                    this.set(!!deserialized[0], deserialized[1], deserialized[2], deserialized[3]);
                 }
             }
         };
@@ -5702,15 +5730,16 @@
             };
         };
         EShapeTextImpl.prototype.serialize = function (manager) {
-            var alignSerialized = this.align.serialize(manager);
-            var offsetSerialized = this.offset.serialize(manager);
-            var outlineSerialized = this.outline.serialize(manager);
-            var spacingSerialized = this.spacing.serialize(manager);
-            var paddingSerialized = this.padding.serialize(manager);
-            var serialized = "[" + manager.addResource(this._value) + "," + this._color + "," + this._alpha + "," +
-                (manager.addResource(this._family) + "," + this._size + "," + this._weight + "," + alignSerialized + ",") +
-                (offsetSerialized + "," + this._style + "," + outlineSerialized + "," + spacingSerialized + ",") +
-                (this._direction + "," + paddingSerialized + "," + (this._clipping ? 1 : 0) + "]");
+            var valueId = manager.addResource(this._value);
+            var familyId = manager.addResource(this._family);
+            var alignId = this.align.serialize(manager);
+            var offsetId = this.offset.serialize(manager);
+            var outlineId = this.outline.serialize(manager);
+            var spacingId = this.spacing.serialize(manager);
+            var paddingId = this.padding.serialize(manager);
+            var serialized = "[" + valueId + "," + this._color + "," + this._alpha + "," + familyId + "," + this._size + "," +
+                (this._weight + "," + alignId + "," + offsetId + "," + this._style + "," + outlineId + ",") +
+                (spacingId + "," + this._direction + "," + paddingId + "," + (this._clipping ? 1 : 0) + "]");
             return manager.addResource(serialized);
         };
         EShapeTextImpl.prototype.deserialize = function (target, manager) {
@@ -5721,7 +5750,7 @@
                     parsed = JSON.parse(resources[target]);
                     manager.setText(target, parsed);
                 }
-                this.set(resources[parsed[0]] || "", parsed[1], parsed[2], resources[parsed[3]] || "auto", parsed[4], parsed[5], parsed[8], parsed[11], (parsed[13] !== 0));
+                this.set(resources[parsed[0]] || "", parsed[1], parsed[2], resources[parsed[3]] || "auto", parsed[4], parsed[5], parsed[8], parsed[11], !!parsed[13]);
                 this.align.deserialize(parsed[6], manager);
                 this.offset.deserialize(parsed[7], manager);
                 this.outline.deserialize(parsed[9], manager);
@@ -5752,7 +5781,9 @@
         }
         EShapePrimitive.prototype.newSize = function () {
             var _this = this;
-            return new pixi_js.ObservablePoint(function () { _this.onSizeChange(); }, undefined, EShapeDefaults.SIZE_X, EShapeDefaults.SIZE_Y);
+            return new pixi_js.ObservablePoint(function () {
+                _this.onSizeChange();
+            }, undefined, EShapeDefaults.SIZE_X, EShapeDefaults.SIZE_Y);
         };
         EShapePrimitive.prototype.newFill = function () {
             return new EShapeFillImpl(this, true, EShapeDefaults.FILL_COLOR, EShapeDefaults.FILL_ALPHA);
@@ -5857,11 +5888,11 @@
         };
         EShapeLineBase.prototype.toHitThreshold = function (toThreshold) {
             var stroke = this.stroke;
-            var strokeWidth = (stroke.enable ? stroke.width : 0);
+            var strokeWidth = stroke.enable ? stroke.width : 0;
             var strokeScale = this.getStrokeWidthScale(this._points);
-            return (toThreshold ?
-                toThreshold(strokeWidth, strokeScale) :
-                strokeWidth * strokeScale * 0.5);
+            return toThreshold
+                ? toThreshold(strokeWidth, strokeScale)
+                : strokeWidth * strokeScale * 0.5;
         };
         EShapeLineBase.prototype.containsAbs = function (x, y, ax, ay) {
             var points = this._points;
@@ -5934,8 +5965,7 @@
         });
         EShapeBar.prototype.clone = function () {
             var points = this._points;
-            return new EShapeBar(points.position, points.size, this.stroke.width, points.style)
-                .copy(this, EShapeCopyPart.ALL & ~EShapeCopyPart.POINTS);
+            return new EShapeBar(points.position, points.size, this.stroke.width, points.style).copy(this, EShapeCopyPart.ALL & ~EShapeCopyPart.POINTS);
         };
         EShapeBar.prototype.containsAbsBBox = function (x, y, ax, ay) {
             var size = Math.max(0, this._points.size);
@@ -5945,9 +5975,9 @@
     }(EShapeLineBase));
 
     var buildColor = function (color, alpha, voffset, vcount, colors) {
-        var r = ((color >> 16) & 0xFF) / 255.0 * alpha;
-        var g = ((color >> 8) & 0xFF) / 255.0 * alpha;
-        var b = ((color >> 0) & 0xFF) / 255.0 * alpha;
+        var r = (((color >> 16) & 0xff) / 255.0) * alpha;
+        var g = (((color >> 8) & 0xff) / 255.0) * alpha;
+        var b = (((color >> 0) & 0xff) / 255.0) * alpha;
         var a = alpha;
         var ic = voffset << 2;
         for (var i = 0; i < vcount; ++i) {
@@ -6029,7 +6059,7 @@
             var fill = shape.fill;
             var isEnabled = shape.visible && fill.enable;
             var color = fill.color;
-            var alpha = (isEnabled ? fill.alpha : 0);
+            var alpha = isEnabled ? fill.alpha : 0;
             if (color !== this.colorFill || alpha !== this.alphaFill) {
                 this.colorFill = color;
                 this.alphaFill = alpha;
@@ -6041,7 +6071,7 @@
             var stroke = shape.stroke;
             var isEnabled = shape.visible && stroke.enable && 0 < stroke.width;
             var color = stroke.color;
-            var alpha = (isEnabled ? stroke.alpha : 0);
+            var alpha = isEnabled ? stroke.alpha : 0;
             if (color !== this.colorStroke || alpha !== this.alphaStroke) {
                 this.colorStroke = color;
                 this.alphaStroke = alpha;
@@ -6116,7 +6146,7 @@
         };
         EShapeTextUploaded.prototype.isCompatible = function (shape) {
             if (_super.prototype.isCompatible.call(this, shape)) {
-                return (toTextBufferCount(shape) * TEXT_VERTEX_COUNT === this.textVertexCount);
+                return toTextBufferCount(shape) * TEXT_VERTEX_COUNT === this.textVertexCount;
             }
             return false;
         };
@@ -6154,24 +6184,30 @@
             var textClipping = text.clipping;
             var textTexture = text.texture || pixi_js.Texture.WHITE;
             var textTextureTransformId = this.toTextureTransformId(textTexture);
-            var isCharChanged = (textValue !== this.textValue || textFamily !== this.textFamily);
-            var isCharSizeChanged = (textSize !== this.textSize);
-            var isCharStyleChanged = (textStyle !== this.textStyle);
-            var isCharAlignChanged = (textAlignHorizontal !== this.textAlignHorizontal ||
-                textAlignVertical !== this.textAlignVertical);
-            var isCharOffsetChanged = (textOffsetHorizontal !== this.textOffsetHorizontal ||
-                textOffsetVertical !== this.textOffsetVertical);
-            var isCharSpacingChanged = (textSpacingHorizontal !== this.textSpacingHorizontal ||
+            var isCharChanged = textValue !== this.textValue || textFamily !== this.textFamily;
+            var isCharSizeChanged = textSize !== this.textSize;
+            var isCharStyleChanged = textStyle !== this.textStyle;
+            var isCharAlignChanged = textAlignHorizontal !== this.textAlignHorizontal ||
+                textAlignVertical !== this.textAlignVertical;
+            var isCharOffsetChanged = textOffsetHorizontal !== this.textOffsetHorizontal ||
+                textOffsetVertical !== this.textOffsetVertical;
+            var isCharSpacingChanged = textSpacingHorizontal !== this.textSpacingHorizontal ||
                 textSpacingVertical !== this.textSpacingVertical ||
                 textPaddingHorizontal !== this.textPaddingHorizontal ||
-                textPaddingVertical !== this.textPaddingVertical);
-            var isCharDirectionChanged = (textDirection !== this.textDirection);
-            var isClippingChanged = (this.textClipping !== textClipping);
-            var isTextureChanged = (textTexture !== this.textTexture ||
-                textTextureTransformId !== this.textTextureTransformId);
-            if (isCharChanged || isCharSizeChanged || isCharStyleChanged ||
-                isCharAlignChanged || isCharOffsetChanged || isCharSpacingChanged ||
-                isCharDirectionChanged || isClippingChanged || isTextureChanged) {
+                textPaddingVertical !== this.textPaddingVertical;
+            var isCharDirectionChanged = textDirection !== this.textDirection;
+            var isClippingChanged = this.textClipping !== textClipping;
+            var isTextureChanged = textTexture !== this.textTexture ||
+                textTextureTransformId !== this.textTextureTransformId;
+            if (isCharChanged ||
+                isCharSizeChanged ||
+                isCharStyleChanged ||
+                isCharAlignChanged ||
+                isCharOffsetChanged ||
+                isCharSpacingChanged ||
+                isCharDirectionChanged ||
+                isClippingChanged ||
+                isTextureChanged) {
                 this.textSize = textSize;
                 this.textFamily = textFamily;
                 this.textValue = textValue;
@@ -6207,7 +6243,7 @@
         EShapeTextUploaded.prototype.updateTextColorFill = function (buffer, shape) {
             var text = shape.text;
             var color = text.color;
-            var alpha = (shape.visible && text.enable ? text.alpha : 0);
+            var alpha = shape.visible && text.enable ? text.alpha : 0;
             if (color !== this.textColor || alpha !== this.textAlpha) {
                 this.textColor = color;
                 this.textAlpha = alpha;
@@ -6219,7 +6255,7 @@
             var text = shape.text;
             var outline = text.outline;
             var color = outline.color;
-            var alpha = (shape.visible && text.enable ? outline.alpha : 0);
+            var alpha = shape.visible && text.enable ? outline.alpha : 0;
             if (color !== this.textOutlineColor || alpha !== this.textOutlineAlpha) {
                 this.textOutlineColor = color;
                 this.textOutlineAlpha = alpha;
@@ -6230,7 +6266,7 @@
         EShapeTextUploaded.prototype.updateTextStep = function (buffer, shape) {
             var text = shape.text;
             var textOutline = text.outline;
-            var textOutlineWidth = (textOutline.enable ? textOutline.width : 0);
+            var textOutlineWidth = textOutline.enable ? textOutline.width : 0;
             var textWeight = text.weight;
             if (textWeight !== this.textWeight || textOutlineWidth !== this.textOutlineWidth) {
                 this.textWeight = textWeight;
@@ -6293,18 +6329,22 @@
                 var size = shape.size;
                 var sizeX = size.x;
                 var sizeY = size.y;
-                var isSizeChanged = (sizeX !== this.sizeX || sizeY !== this.sizeY);
+                var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
                 var stroke = shape.stroke;
-                var strokeWidth = (stroke.enable ? stroke.width : 0);
-                var isStrokeWidthChanged = (strokeWidth !== this.strokeWidth);
+                var strokeWidth = stroke.enable ? stroke.width : 0;
+                var isStrokeWidthChanged = strokeWidth !== this.strokeWidth;
                 var transformLocalId = this.toTransformLocalId(shape);
-                var isTransformChanged = (this.transformLocalId !== transformLocalId);
+                var isTransformChanged = this.transformLocalId !== transformLocalId;
                 var points = shape.points;
                 var pointsId = points.id;
-                var isPointsIdChanged = (pointsId !== this.pointsId);
+                var isPointsIdChanged = pointsId !== this.pointsId;
                 var pointsStyle = points.style;
-                var isPointsStyleChanged = (pointsStyle !== this.pointsStyle);
-                if (isSizeChanged || isTransformChanged || isStrokeWidthChanged || isPointsIdChanged || isPointsStyleChanged) {
+                var isPointsStyleChanged = pointsStyle !== this.pointsStyle;
+                if (isSizeChanged ||
+                    isTransformChanged ||
+                    isStrokeWidthChanged ||
+                    isPointsIdChanged ||
+                    isPointsStyleChanged) {
                     this.sizeX = sizeX;
                     this.sizeY = sizeY;
                     this.strokeWidth = strokeWidth;
@@ -6358,17 +6398,17 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var isArray = Array.isArray || (function (target) {
-        return Object.prototype.toString.call(target) === "[object Array]";
-    });
+    var isArray = Array.isArray ||
+        (function (target) {
+            return Object.prototype.toString.call(target) === "[object Array]";
+        });
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
     var isNumber = function (target) {
-        return (typeof target === "number") ||
-            (Object.prototype.toString.call(target) === "[object Number]");
+        return (typeof target === "number" || Object.prototype.toString.call(target) === "[object Number]");
     };
 
     /*
@@ -6493,49 +6533,49 @@
         function UtilKeyboardEvent() {
         }
         UtilKeyboardEvent.isActivateKey = function (e) {
-            return (e.key === "Space" || e.key === "Enter" || e.which === 32 || e.which === 13);
+            return e.key === "Space" || e.key === "Enter" || e.which === 32 || e.which === 13;
         };
         UtilKeyboardEvent.isArrowUpKey = function (e) {
-            return (e.key === "ArrowUp" || e.which === 38);
+            return e.key === "ArrowUp" || e.which === 38;
         };
         UtilKeyboardEvent.isArrowDownKey = function (e) {
-            return (e.key === "ArrowDown" || e.which === 40);
+            return e.key === "ArrowDown" || e.which === 40;
         };
         UtilKeyboardEvent.isArrowLeftKey = function (e) {
-            return (e.key === "ArrowLeft" || e.which === 37);
+            return e.key === "ArrowLeft" || e.which === 37;
         };
         UtilKeyboardEvent.isArrowRightKey = function (e) {
-            return (e.key === "ArrowRight" || e.which === 39);
+            return e.key === "ArrowRight" || e.which === 39;
         };
         UtilKeyboardEvent.isCancelKey = function (e) {
-            return (e.key === "Esc" || e.which === 27);
+            return e.key === "Esc" || e.which === 27;
         };
         UtilKeyboardEvent.isFocusKey = function (e) {
-            return (e.key === "Tab" || e.which === 9);
+            return e.key === "Tab" || e.which === 9;
         };
         UtilKeyboardEvent.isUndoKey = function (e) {
-            return (e.ctrlKey && (e.key === "z" || e.which === 90));
+            return e.ctrlKey && (e.key === "z" || e.which === 90);
         };
         UtilKeyboardEvent.isRedoKey = function (e) {
-            return (e.ctrlKey && (e.key === "y" || e.which === 89));
+            return e.ctrlKey && (e.key === "y" || e.which === 89);
         };
         UtilKeyboardEvent.isSaveKey = function (e) {
-            return (e.ctrlKey && !e.shiftKey && (e.key === "s" || e.which === 83));
+            return e.ctrlKey && !e.shiftKey && (e.key === "s" || e.which === 83);
         };
         UtilKeyboardEvent.isSaveAsKey = function (e) {
-            return (e.ctrlKey && e.shiftKey && (e.key === "S" || e.which === 83));
+            return e.ctrlKey && e.shiftKey && (e.key === "S" || e.which === 83);
         };
         UtilKeyboardEvent.isDeleteKey = function (e) {
-            return (e.key === "Delete" || e.which === 46);
+            return e.key === "Delete" || e.which === 46;
         };
         UtilKeyboardEvent.isSelectAllKey = function (e) {
-            return (e.ctrlKey && !e.shiftKey && (e.key === "a" || e.which === 65));
+            return e.ctrlKey && !e.shiftKey && (e.key === "a" || e.which === 65);
         };
         UtilKeyboardEvent.isOkKey = function (e) {
-            return (e.key === "Enter" || e.which === 13);
+            return e.key === "Enter" || e.which === 13;
         };
         UtilKeyboardEvent.getFocusDirection = function (e) {
-            return (e.shiftKey !== true);
+            return e.shiftKey !== true;
         };
         UtilKeyboardEvent.toShortcut = function (expressionOrShortcut) {
             if (!isString(expressionOrShortcut)) {
@@ -6585,7 +6625,8 @@
         UtilKeyboardEvent.on = function (target, expressionOrShortcut, handler) {
             var shortcut = this.toShortcut(expressionOrShortcut);
             document.body.addEventListener("keydown", function (e) {
-                if (e.altKey === shortcut.alt && e.ctrlKey === shortcut.ctrl &&
+                if (e.altKey === shortcut.alt &&
+                    e.ctrlKey === shortcut.ctrl &&
                     e.shiftKey === shortcut.shift &&
                     (e.key === shortcut.key || e.which === shortcut.which)) {
                     if (target.state.isActionable) {
@@ -6622,7 +6663,7 @@
         };
         UtilKeyboardEvent.moveFocus = function (direction, target, picker) {
             var _a;
-            var layer = ((_a = picker === null || picker === void 0 ? void 0 : picker.picked) !== null && _a !== void 0 ? _a : DApplications.getLayer(target));
+            var layer = (_a = picker === null || picker === void 0 ? void 0 : picker.picked) !== null && _a !== void 0 ? _a : DApplications.getLayer(target);
             if (layer) {
                 var focusController = layer.getFocusController();
                 var focused = focusController.get();
@@ -6669,7 +6710,8 @@
             var position = transform.position;
             this.x = position.x;
             this.y = position.y;
-            this.size = new pixi_js.Point(shape.size.x, shape.size.y);
+            var size = shape.size;
+            this.size = new pixi_js.Point(size.x, size.y);
             this.rotation = transform.rotation;
             this.actions = [];
             this.fill = shape.fill.toObject();
@@ -6774,7 +6816,7 @@
         };
         EShapeRuntime.prototype.update = function (shape, time) {
             var tag = shape.tag;
-            var isEffectTimeUp = (this.effect <= time);
+            var isEffectTimeUp = this.effect <= time;
             if (tag.isChanged || this.isStateChanged || isEffectTimeUp) {
                 if (isEffectTimeUp) {
                     this.effect = NaN;
@@ -6805,7 +6847,7 @@
             }
         };
         EShapeRuntime.prototype.doReset = function (shape) {
-            var target = (~this.written) & this.reset;
+            var target = ~this.written & this.reset;
             if (target !== EShapeRuntimeReset.NONE) {
                 if (target & EShapeRuntimeReset.POSITION_X) {
                     shape.transform.position.x = this.x;
@@ -6869,7 +6911,8 @@
             return (runtime.written & EShapeRuntimeReset.COLOR_TEXT ? shape : runtime).text;
         };
         EShapeActionBases.toBaseTextOutline = function (shape, runtime) {
-            return (runtime.written & EShapeRuntimeReset.COLOR_TEXT_OUTLINE ? shape : runtime).text.outline;
+            return (runtime.written & EShapeRuntimeReset.COLOR_TEXT_OUTLINE ? shape : runtime).text
+                .outline;
         };
         return EShapeActionBases;
     }());
@@ -6886,6 +6929,7 @@
                 return def;
             }
             try {
+                /* eslint-disable prettier/prettier */
                 var body = "" +
                     "try{" +
                     "with( shape ) {" +
@@ -6899,6 +6943,7 @@
                     "} catch( e ) {" +
                     ("return " + defLiteral + ";") +
                     "}";
+                /* eslint-enable prettier/prettier */
                 if (parameter == null) {
                     return Function("shape", "time", body);
                 }
@@ -6929,7 +6974,7 @@
             return this.from(expression, "Number", this.ONE_HUNDRED, "100", false);
         };
         EShapeActionExpressions.ofString = function (expression) {
-            return this.from(expression, "String", this.EMPTY, "\"\"", false);
+            return this.from(expression, "String", this.EMPTY, '""', false);
         };
         EShapeActionExpressions.ofBoolean = function (expression) {
             return this.from(expression, "Boolean", this.TRUE, "true", false);
@@ -7017,8 +7062,8 @@
         EShapeActionRuntimeBlink.prototype.execute = function (shape, runtime, time) {
             if (this.condition(shape, time)) {
                 var interval = this.interval;
-                var dinterval = (interval << 1);
-                var elapsed = (time % dinterval);
+                var dinterval = interval << 1;
+                var elapsed = time % dinterval;
                 if (elapsed < interval) {
                     this.toOff(shape, runtime);
                     runtime.effect = time + (interval - elapsed);
@@ -7185,8 +7230,7 @@
             this.condition = condition;
         }
         EShapeActionValueBase.prototype.isEquals = function (value) {
-            return (this.type === value.type &&
-                this.condition === value.condition);
+            return this.type === value.type && this.condition === value.condition;
         };
         EShapeActionValueBase.prototype.toLabel = function () {
             return DThemes.getInstance().get("EShapeActionValue").toLabel(this);
@@ -7194,6 +7238,10 @@
         return EShapeActionValueBase;
     }());
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var EShapeActionValueSubtyped = /** @class */ (function (_super) {
         __extends(EShapeActionValueSubtyped, _super);
         function EShapeActionValueSubtyped(type, condition, subtype) {
@@ -7203,7 +7251,7 @@
         }
         EShapeActionValueSubtyped.prototype.isEquals = function (value) {
             return (_super.prototype.isEquals.call(this, value) &&
-                (value instanceof EShapeActionValueSubtyped) &&
+                value instanceof EShapeActionValueSubtyped &&
                 this.subtype === value.subtype);
         };
         return EShapeActionValueSubtyped;
@@ -7261,7 +7309,7 @@
         }
         EShapeActionValueBlink.prototype.isEquals = function (value) {
             return (_super.prototype.isEquals.call(this, value) &&
-                (value instanceof EShapeActionValueBlink) &&
+                value instanceof EShapeActionValueBlink &&
                 this.interval === value.interval &&
                 this.color === value.color &&
                 this.alpha === value.alpha);
@@ -7585,7 +7633,7 @@
         }
         EShapeActionValueChangeColor.prototype.isEquals = function (value) {
             return (_super.prototype.isEquals.call(this, value) &&
-                (value instanceof EShapeActionValueChangeColor) &&
+                value instanceof EShapeActionValueChangeColor &&
                 this.target === value.target &&
                 this.color === value.color &&
                 this.alpha === value.alpha &&
@@ -7672,7 +7720,7 @@
         }
         EShapeActionValueChangeColorBrightness.prototype.isEquals = function (value) {
             return (_super.prototype.isEquals.call(this, value) &&
-                (value instanceof EShapeActionValueChangeColorBrightness) &&
+                value instanceof EShapeActionValueChangeColorBrightness &&
                 this.brightness === value.brightness);
         };
         EShapeActionValueChangeColorBrightness.prototype.toRuntime = function () {
@@ -7732,7 +7780,7 @@
         }
         EShapeActionValueChangeColorCode.prototype.isEquals = function (value) {
             return (_super.prototype.isEquals.call(this, value) &&
-                (value instanceof EShapeActionValueChangeColorCode) &&
+                value instanceof EShapeActionValueChangeColorCode &&
                 this.color === value.color &&
                 this.alpha === value.alpha &&
                 this.blend === value.blend);
@@ -7795,7 +7843,7 @@
         }
         EShapeActionValueChangeCursor.prototype.isEquals = function (value) {
             return (_super.prototype.isEquals.call(this, value) &&
-                (value instanceof EShapeActionValueChangeCursor) &&
+                value instanceof EShapeActionValueChangeCursor &&
                 this.name === value.name);
         };
         EShapeActionValueChangeCursor.prototype.toRuntime = function () {
@@ -7822,7 +7870,7 @@
         function FormatNodeA() {
         }
         FormatNodeA.prototype.format = function (target, step, date) {
-            return (date.getHours() < 12 ? "AM" : "PM");
+            return date.getHours() < 12 ? "AM" : "PM";
         };
         return FormatNodeA;
     }());
@@ -7835,7 +7883,7 @@
         function FormatNodea() {
         }
         FormatNodea.prototype.format = function (target, step, date) {
-            return (date.getHours() < 12 ? "am" : "pm");
+            return date.getHours() < 12 ? "am" : "pm";
         };
         return FormatNodea;
     }());
@@ -7924,54 +7972,54 @@
         FormatNodefsi.prototype.format = function (target, step, date) {
             var abs = this.toAbs(target, step, date);
             if (abs < 1e-24) {
-                return this.format_(target, 1e+00, "");
+                return this.format_(target, 1, "");
             }
             else if (abs < 1e-21) {
-                return this.format_(target, 1e+24, "y");
+                return this.format_(target, 1e24, "y");
             }
             else if (abs < 1e-18) {
-                return this.format_(target, 1e+21, "z");
+                return this.format_(target, 1e21, "z");
             }
             else if (abs < 1e-15) {
-                return this.format_(target, 1e+18, "a");
+                return this.format_(target, 1e18, "a");
             }
             else if (abs < 1e-12) {
-                return this.format_(target, 1e+15, "f");
+                return this.format_(target, 1e15, "f");
             }
-            else if (abs < 1e-09) {
-                return this.format_(target, 1e+12, "p");
+            else if (abs < 1e-9) {
+                return this.format_(target, 1e12, "p");
             }
-            else if (abs < 1e-06) {
-                return this.format_(target, 1e+09, "n");
+            else if (abs < 1e-6) {
+                return this.format_(target, 1e9, "n");
             }
-            else if (abs < 1e-03) {
-                return this.format_(target, 1e+06, "μ");
+            else if (abs < 1e-3) {
+                return this.format_(target, 1e6, "μ");
             }
-            else if (abs < 1e+00) {
-                return this.format_(target, 1e+03, "m");
+            else if (abs < 1) {
+                return this.format_(target, 1e3, "m");
             }
-            else if (abs < 1e+03) {
-                return this.format_(target, 1e+00, "");
+            else if (abs < 1e3) {
+                return this.format_(target, 1, "");
             }
-            else if (abs < 1e+06) {
-                return this.format_(target, 1e-03, "k");
+            else if (abs < 1e6) {
+                return this.format_(target, 1e-3, "k");
             }
-            else if (abs < 1e+09) {
-                return this.format_(target, 1e-06, "M");
+            else if (abs < 1e9) {
+                return this.format_(target, 1e-6, "M");
             }
-            else if (abs < 1e+12) {
-                return this.format_(target, 1e-09, "G");
+            else if (abs < 1e12) {
+                return this.format_(target, 1e-9, "G");
             }
-            else if (abs < 1e+15) {
+            else if (abs < 1e15) {
                 return this.format_(target, 1e-12, "T");
             }
-            else if (abs < 1e+18) {
+            else if (abs < 1e18) {
                 return this.format_(target, 1e-15, "P");
             }
-            else if (abs < 1e+21) {
+            else if (abs < 1e21) {
                 return this.format_(target, 1e-18, "E");
             }
-            else if (abs < 1e+24) {
+            else if (abs < 1e24) {
                 return this.format_(target, 1e-21, "Z");
             }
             else {
@@ -8293,7 +8341,7 @@
         }
         FormatNodez.prototype.format = function (target, step, date) {
             var z = date.getTimezoneOffset();
-            var tzs = (z <= 0 ? "+" : "-");
+            var tzs = z <= 0 ? "+" : "-";
             var tzh = toPadded(String(Math.floor(Math.abs(z) / 60)), 2, "0");
             var tzm = toPadded(String(Math.floor(Math.abs(z) % 60)), 2, "0");
             return "" + tzs + tzh + ":" + tzm;
@@ -8331,7 +8379,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    // tslint:disable-next-line: max-line-length
     var REGEXP = /%(0|_|-|\+|\()?(\.\d+)?(Y(?:MD?)?|y(?:MD?)?|MD?|D|H(?:ms?)?|h(?:ms?)?|m(?:i|s)?|a|A|s(?:s?i|dt)?|z|%|f(?:si)?|e|g|d|r(?:d|p)|p|P|RP)/g;
     /**
      * A NumberFormatter implementation class.
@@ -8600,7 +8647,7 @@
             if (this.condition(shape, time)) {
                 var value = this.number(shape, time);
                 var formatter = this.getFormatter(shape, runtime);
-                shape.text.value = (formatter != null ? formatter.format(value, 0) : String(value));
+                shape.text.value = formatter != null ? formatter.format(value, 0) : String(value);
                 runtime.written |= this.reset;
             }
         };
@@ -8650,7 +8697,7 @@
         }
         EShapeActionValueChangeText.prototype.isEquals = function (value) {
             return (_super.prototype.isEquals.call(this, value) &&
-                (value instanceof EShapeActionValueChangeText) &&
+                value instanceof EShapeActionValueChangeText &&
                 this.value === value.value);
         };
         EShapeActionValueChangeText.prototype.toRuntime = function () {
@@ -8682,8 +8729,8 @@
         function DBaseBackground(theme, options, callback) {
             this._theme = theme;
             this._callback = callback;
-            if (options != null && options.background != null) {
-                var background = options.background;
+            var background = options === null || options === void 0 ? void 0 : options.background;
+            if (background) {
                 this._color = background.color;
                 this._alpha = background.alpha;
             }
@@ -8791,17 +8838,25 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var toEnum = function (target, te) {
+        return isString(target) ? te[target] : target;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var DBaseBorder = /** @class */ (function () {
         function DBaseBorder(theme, options, callback) {
             this._theme = theme;
             this._callback = callback;
-            if (options != null && options.border != null) {
-                var border = options.border;
+            var border = options === null || options === void 0 ? void 0 : options.border;
+            if (border) {
                 this._color = border.color;
                 this._alpha = border.alpha;
                 this._width = border.width;
                 this._align = border.align;
-                this._mask = (isString(border.mask) ? DBorderMask[border.mask] : border.mask);
+                this._mask = toEnum(border.mask, DBorderMask);
             }
         }
         DBaseBorder.prototype.getTheme = function () {
@@ -8985,15 +9040,15 @@
         function DBaseCorner(theme, options, callback) {
             this._theme = theme;
             this._callback = callback;
-            if (options != null && options.corner != null) {
-                var corner = options.corner;
+            var corner = options === null || options === void 0 ? void 0 : options.corner;
+            if (corner) {
                 if (isNumber(corner)) {
                     this._radius = corner;
                     this._mask = undefined;
                 }
                 else {
                     this._radius = corner.radius;
-                    this._mask = (isString(corner.mask) ? DCornerMask[corner.mask] : corner.mask);
+                    this._mask = toEnum(corner.mask, DCornerMask);
                 }
             }
         }
@@ -9004,8 +9059,8 @@
             this._theme = theme;
         };
         DBaseCorner.prototype.getRadius = function () {
-            var radius = this._radius;
-            return (radius !== undefined ? radius : this._theme.getCornerRadius());
+            var _a;
+            return (_a = this._radius) !== null && _a !== void 0 ? _a : this._theme.getCornerRadius();
         };
         Object.defineProperty(DBaseCorner.prototype, "radius", {
             get: function () {
@@ -9024,8 +9079,8 @@
             configurable: true
         });
         DBaseCorner.prototype.getMask = function () {
-            var mask = this._mask;
-            return (mask !== undefined ? mask : this._theme.getCornerMask());
+            var _a;
+            return (_a = this._mask) !== null && _a !== void 0 ? _a : this._theme.getCornerMask();
         };
         Object.defineProperty(DBaseCorner.prototype, "mask", {
             get: function () {
@@ -9100,14 +9155,14 @@
         function DBaseOutline(theme, options, callback) {
             this._theme = theme;
             this._callback = callback;
-            if (options != null && options.outline != null) {
-                var outline = options.outline;
+            var outline = options === null || options === void 0 ? void 0 : options.outline;
+            if (outline) {
                 this._color = outline.color;
                 this._alpha = outline.alpha;
                 this._width = outline.width;
                 this._offset = outline.offset;
                 this._align = outline.align;
-                this._mask = (isString(outline.mask) ? DBorderMask[outline.mask] : outline.mask);
+                this._mask = toEnum(outline.mask, DBorderMask);
             }
         }
         DBaseOutline.prototype.getTheme = function () {
@@ -9313,8 +9368,8 @@
         function DBasePadding(theme, options, callback) {
             this._theme = theme;
             this._callback = callback;
-            if (options != null && options.padding != null) {
-                var padding = options.padding;
+            var padding = options === null || options === void 0 ? void 0 : options.padding;
+            if (padding) {
                 if (isNumber(padding)) {
                     this._left = padding;
                     this._top = padding;
@@ -9336,8 +9391,8 @@
             this._theme = theme;
         };
         DBasePadding.prototype.getLeft = function () {
-            var left = this._left;
-            return left !== undefined ? left : this._theme.getPaddingLeft();
+            var _a;
+            return (_a = this._left) !== null && _a !== void 0 ? _a : this._theme.getPaddingLeft();
         };
         Object.defineProperty(DBasePadding.prototype, "left", {
             get: function () {
@@ -9355,8 +9410,8 @@
             configurable: true
         });
         DBasePadding.prototype.getTop = function () {
-            var top = this._top;
-            return top !== undefined ? top : this._theme.getPaddingTop();
+            var _a;
+            return (_a = this._top) !== null && _a !== void 0 ? _a : this._theme.getPaddingTop();
         };
         Object.defineProperty(DBasePadding.prototype, "top", {
             get: function () {
@@ -9374,8 +9429,8 @@
             configurable: true
         });
         DBasePadding.prototype.getRight = function () {
-            var right = this._right;
-            return right !== undefined ? right : this._theme.getPaddingRight();
+            var _a;
+            return (_a = this._right) !== null && _a !== void 0 ? _a : this._theme.getPaddingRight();
         };
         Object.defineProperty(DBasePadding.prototype, "right", {
             get: function () {
@@ -9393,8 +9448,8 @@
             configurable: true
         });
         DBasePadding.prototype.getBottom = function () {
-            var bottom = this._bottom;
-            return bottom !== undefined ? bottom : this._theme.getPaddingBottom();
+            var _a;
+            return (_a = this._bottom) !== null && _a !== void 0 ? _a : this._theme.getPaddingBottom();
         };
         Object.defineProperty(DBasePadding.prototype, "bottom", {
             get: function () {
@@ -9510,11 +9565,11 @@
             return target.copyFrom(this._point);
         };
         DBasePoint.prototype.copy = function () {
+            // eslint-disable-next-line prefer-rest-params
             return this.copyFrom(arguments[0]);
         };
         DBasePoint.prototype.clone = function (onChange) {
-            onChange = onChange || this._onChange;
-            return new DBasePoint(this._point, onChange);
+            return new DBasePoint(this._point, onChange || this._onChange);
         };
         DBasePoint.prototype.equals = function (p) {
             return this._point.equals(p);
@@ -10452,14 +10507,14 @@
         "(": 0 /* OPEN */,
         ")": 1 /* CLOSE */,
         ",": 13 /* COMMA */,
-        "min": 11 /* MIN */,
-        "max": 12 /* MAX */
+        min: 11 /* MIN */,
+        max: 12 /* MAX */
     };
     var TOKEN_MAPPING_LITERAL = {
         "%": 14 /* PARENT */,
-        "s": 15 /* SELF */,
-        "p": 16 /* PADDING */,
-        "c": 17 /* CURRENT */
+        s: 15 /* SELF */,
+        p: 16 /* PADDING */,
+        c: 17 /* CURRENT */
     };
     /**
      * Parser and evaluator of the scalar expressions like `100% - 50s`.
@@ -10598,7 +10653,7 @@
                     if (i <= 0 || isNumber(nodes[i - 1])) {
                         if (i + 1 < imax && !isNumber(nodes[i + 1])) {
                             var operand = nodes.splice(i + 1, 1)[0];
-                            var type = (node === 3 /* ADD_OR_PLUS */ ? 5 /* PLUS */ : 6 /* MINUS */);
+                            var type = node === 3 /* ADD_OR_PLUS */ ? 5 /* PLUS */ : 6 /* MINUS */;
                             nodes[i] = [type, operand];
                             imax = nodes.length;
                             this.toUnaryNode(operand);
@@ -10608,7 +10663,7 @@
                         }
                     }
                     else {
-                        var type = (node === 3 /* ADD_OR_PLUS */ ? 7 /* ADD */ : 8 /* SUB */);
+                        var type = node === 3 /* ADD_OR_PLUS */ ? 7 /* ADD */ : 8 /* SUB */;
                         nodes[i] = type;
                     }
                 }
@@ -10620,14 +10675,18 @@
         };
         DScalarExpression.prototype.toArithmeticNode = function (node, operatorA, operatorB) {
             if (!isNumber(node)) {
-                if (node[0] === 2 /* PARENSESIS */ || node[0] === 11 /* MIN */ || node[0] === 12 /* MAX */) {
+                if (node[0] === 2 /* PARENSESIS */ ||
+                    node[0] === 11 /* MIN */ ||
+                    node[0] === 12 /* MAX */) {
                     this.toArithmetic(node[1], operatorA, operatorB);
                 }
                 else if (node[0] === 5 /* PLUS */ || node[0] === 6 /* MINUS */) {
                     this.toArithmeticNode(node[1], operatorA, operatorB);
                 }
-                else if (node[0] === 7 /* ADD */ || node[0] === 8 /* SUB */ ||
-                    node[0] === 9 /* MUL */ || node[0] === 10 /* DIV */) {
+                else if (node[0] === 7 /* ADD */ ||
+                    node[0] === 8 /* SUB */ ||
+                    node[0] === 9 /* MUL */ ||
+                    node[0] === 10 /* DIV */) {
                     this.toArithmeticNode(node[1], operatorA, operatorB);
                     this.toArithmeticNode(node[2], operatorA, operatorB);
                 }
@@ -10700,17 +10759,17 @@
                     return -this.evaluate(node[1], parent, self, padding, current);
                 // Four arithmetic operators
                 case 7 /* ADD */:
-                    return this.evaluate(node[1], parent, self, padding, current) +
-                        this.evaluate(node[2], parent, self, padding, current);
+                    return (this.evaluate(node[1], parent, self, padding, current) +
+                        this.evaluate(node[2], parent, self, padding, current));
                 case 8 /* SUB */:
-                    return this.evaluate(node[1], parent, self, padding, current) -
-                        this.evaluate(node[2], parent, self, padding, current);
+                    return (this.evaluate(node[1], parent, self, padding, current) -
+                        this.evaluate(node[2], parent, self, padding, current));
                 case 9 /* MUL */:
-                    return this.evaluate(node[1], parent, self, padding, current) *
-                        this.evaluate(node[2], parent, self, padding, current);
+                    return (this.evaluate(node[1], parent, self, padding, current) *
+                        this.evaluate(node[2], parent, self, padding, current));
                 case 10 /* DIV */:
-                    return this.evaluate(node[1], parent, self, padding, current) /
-                        this.evaluate(node[2], parent, self, padding, current);
+                    return (this.evaluate(node[1], parent, self, padding, current) /
+                        this.evaluate(node[2], parent, self, padding, current));
                 // Functions
                 case 11 /* MIN */:
                     if (0 < node[1].length) {
@@ -10833,7 +10892,7 @@
         }
         Object.defineProperty(UtilPointerEvent, "touchable", {
             get: function () {
-                return ("ontouchstart" in document);
+                return "ontouchstart" in document;
             },
             enumerable: false,
             configurable: true
@@ -10922,7 +10981,7 @@
             var dx = Math.abs(x - global.x);
             var dy = Math.abs(y - global.y);
             var threshold = this.CLICK_DISTANCE_THRESHOLD;
-            return (dx < threshold && dy < threshold);
+            return dx < threshold && dy < threshold;
         };
         UtilPointerEvent.onClick = function (target, onClick) {
             var _this = this;
@@ -11043,7 +11102,7 @@
                         downY_2 = global_3.y;
                         cleanupTimeout_1();
                         var oe = e.data.originalEvent;
-                        if (("touches" in oe) && (isLongClickable == null || isLongClickable(e))) {
+                        if ("touches" in oe && (isLongClickable == null || isLongClickable(e))) {
                             timeoutId_1 = window.setTimeout(function () {
                                 if (isDowned_2) {
                                     cleanup_2();
@@ -11165,7 +11224,7 @@
             configurable: true
         });
         DBaseAuto.prototype.toCoordinate = function (def) {
-            return (this._isOn ? "auto" : def);
+            return this._isOn ? "auto" : def;
         };
         /**
          * Update the auto settings by the given size.
@@ -11196,25 +11255,18 @@
         return DBaseAutoSet;
     }());
 
-    var toEnum = function (target, te) {
-        return isString(target) ? te[target] : target;
-    };
-
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
     var toTheme = function (options) {
-        if (options != null && options.theme != null) {
-            var theme = options.theme;
+        var theme = options === null || options === void 0 ? void 0 : options.theme;
+        if (theme) {
             if (isString(theme)) {
                 return DThemes.getInstance().get(theme);
             }
-            else {
-                return theme;
-            }
+            return theme;
         }
-        return null;
     };
     var toShortcuts = function (options) {
         if (options) {
@@ -11257,14 +11309,15 @@
             });
             //
             _this._options = options;
-            var scalarSet = _this._scalarSet = {};
+            var scalarSet = (_this._scalarSet = {});
             _this._auto = new DBaseAutoSet();
             _this._isDirty = true;
             _this._hasDirty = false;
             _this._isChildrenDirty = false;
             _this._shadow = null;
             _this.name = (_a = options === null || options === void 0 ? void 0 : options.name) !== null && _a !== void 0 ? _a : "";
-            var theme = _this._theme = toTheme(options) || _this.getThemeDefault();
+            var theme = toTheme(options) || _this.getThemeDefault();
+            _this._theme = theme;
             _this._befores = [];
             _this._afters = [];
             _this._reflowables = [];
@@ -11340,8 +11393,8 @@
             });
             // Interactive
             var interactive = toEnum((_g = options === null || options === void 0 ? void 0 : options.interactive) !== null && _g !== void 0 ? _g : theme.getInteractive(), DBaseInteractive);
-            _this.interactive = ((interactive & DBaseInteractive.SELF) !== 0);
-            _this.interactiveChildren = ((interactive & DBaseInteractive.CHILDREN) !== 0);
+            _this.interactive = !!(interactive & DBaseInteractive.SELF);
+            _this.interactiveChildren = !!(interactive & DBaseInteractive.CHILDREN);
             // Events
             var on = options === null || options === void 0 ? void 0 : options.on;
             if (on) {
@@ -11475,14 +11528,14 @@
             return this.theme.getCursor(state);
         };
         DBase.prototype.addRenderable = function (renderable, phase) {
-            var list = (phase ? this._befores : this._afters);
+            var list = phase ? this._befores : this._afters;
             list.push(renderable);
             if ("parent" in renderable) {
                 renderable.parent = this;
             }
         };
         DBase.prototype.addRenderableAt = function (renderable, phase, index) {
-            var list = (phase ? this._befores : this._afters);
+            var list = phase ? this._befores : this._afters;
             if (index === 0) {
                 list.unshift(renderable);
             }
@@ -11497,7 +11550,7 @@
             }
         };
         DBase.prototype.removeRenderable = function (renderable, phase) {
-            var list = (phase ? this._befores : this._afters);
+            var list = phase ? this._befores : this._afters;
             var index = list.indexOf(renderable);
             if (0 <= index) {
                 list.splice(index, 1);
@@ -12110,12 +12163,10 @@
             return target instanceof DBase;
         };
         DBase.prototype.hasRefitableHeight = function (target) {
-            return this.isRefitable(target) &&
-                !(target instanceof DBase && isFunction(target.getHeight()));
+            return (this.isRefitable(target) && !(target instanceof DBase && isFunction(target.getHeight())));
         };
         DBase.prototype.hasRefitableWidth = function (target) {
-            return this.isRefitable(target) &&
-                !(target instanceof DBase && isFunction(target.getWidth()));
+            return (this.isRefitable(target) && !(target instanceof DBase && isFunction(target.getWidth())));
         };
         DBase.prototype.reflow = function () {
             if (this._isDirty) {
@@ -12196,14 +12247,20 @@
             // Width & height
             var paddingWidth = parentPadding.getLeft() + parentPadding.getRight();
             var paddingHeight = parentPadding.getTop() + parentPadding.getBottom();
-            var newWidth = (scalarSet.width != null ?
-                scalarSet.width(parentWidth, width, paddingWidth, width) : width);
-            var newHeight = (scalarSet.height != null ?
-                scalarSet.height(parentHeight, height, paddingHeight, height) : height);
+            var newWidth = scalarSet.width != null
+                ? scalarSet.width(parentWidth, width, paddingWidth, width)
+                : width;
+            var newHeight = scalarSet.height != null
+                ? scalarSet.height(parentHeight, height, paddingHeight, height)
+                : height;
             this.resize(newWidth, newHeight);
             // X & Y
-            var newX = (scalarSet.x != null ? scalarSet.x(parentWidth, this._width, parentPadding.getLeft(), x) : x);
-            var newY = (scalarSet.y != null ? scalarSet.y(parentHeight, this._height, parentPadding.getTop(), y) : y);
+            var newX = scalarSet.x != null
+                ? scalarSet.x(parentWidth, this._width, parentPadding.getLeft(), x)
+                : x;
+            var newY = scalarSet.y != null
+                ? scalarSet.y(parentHeight, this._height, parentPadding.getTop(), y)
+                : y;
             this.position.set(newX, newY);
         };
         /**
@@ -12242,7 +12299,7 @@
                 while (parent_5 != null && !(parent_5 instanceof DBase)) {
                     parent_5 = parent_5.parent;
                 }
-                return (parent_5 === this);
+                return parent_5 === this;
             }
             return false;
         };
@@ -12359,14 +12416,18 @@
             _super.prototype._calculateBounds.call(this);
         };
         DBase.prototype.containsPoint = function (point) {
-            return this.containsGlobalPoint(point) || this.containsLocalPoint(this.worldTransform.applyInverse(point, DBase.WORK_CONTAINS_POINT));
+            return (this.containsGlobalPoint(point) ||
+                this.containsLocalPoint(this.worldTransform.applyInverse(point, DBase.WORK_CONTAINS_POINT)));
         };
         DBase.prototype.containsGlobalPoint = function (point) {
             return false;
         };
         DBase.prototype.containsLocalPoint = function (point) {
-            return (0 <= point.x && point.x <= this._width &&
-                0 <= point.y && point.y <= this._height);
+            var x = point.x;
+            var y = point.y;
+            var w = this._width;
+            var h = this._height;
+            return 0 <= x && x <= w && 0 <= y && y <= h;
         };
         /**
          * Returns a clipping rect.
@@ -12426,12 +12487,12 @@
             var corner = base.corner;
             var cornerRadius = Math.max(0, corner.getRadius() - 0.5);
             var cornerMask = corner.getMask();
-            var tl = (cornerMask & DCornerMask.TOP_LEFT ? 0 : cornerRadius);
-            var tr = (cornerMask & DCornerMask.TOP_RIGHT ? 0 : cornerRadius);
-            var bl = (cornerMask & DCornerMask.BOTTOM_LEFT ? 0 : cornerRadius);
-            var br = (cornerMask & DCornerMask.BOTTOM_RIGHT ? 0 : cornerRadius);
+            var tl = cornerMask & DCornerMask.TOP_LEFT ? 0 : cornerRadius;
+            var tr = cornerMask & DCornerMask.TOP_RIGHT ? 0 : cornerRadius;
+            var bl = cornerMask & DCornerMask.BOTTOM_LEFT ? 0 : cornerRadius;
+            var br = cornerMask & DCornerMask.BOTTOM_RIGHT ? 0 : cornerRadius;
             this.clear();
-            this.beginFill(0xFFFFFF, 1);
+            this.beginFill(0xffffff, 1);
             this.lineStyle(0, 0, 0, 0, false);
             if (tl <= 0 && tr <= 0 && bl <= 0 && br <= 0) {
                 this.drawRect(x, y, width, height);
@@ -12491,10 +12552,10 @@
         function DMouseModifiers() {
         }
         DMouseModifiers.from = function (e) {
-            var oe = ("data" in e ? e.data.originalEvent : e);
-            return (oe.ctrlKey ? DMouseModifier.CTRL : DMouseModifier.NONE) |
+            var oe = "data" in e ? e.data.originalEvent : e;
+            return ((oe.ctrlKey ? DMouseModifier.CTRL : DMouseModifier.NONE) |
                 (oe.altKey ? DMouseModifier.ALT : DMouseModifier.NONE) |
-                (oe.shiftKey ? DMouseModifier.SHIFT : DMouseModifier.NONE);
+                (oe.shiftKey ? DMouseModifier.SHIFT : DMouseModifier.NONE));
         };
         DMouseModifiers.match = function (e, modifier) {
             if (modifier & DMouseModifier.OR) {
@@ -12627,7 +12688,7 @@
             this.emit("end", isReverse, this);
         };
         DAnimationBase.prototype.isStarted = function () {
-            return (this._id != null);
+            return this._id != null;
         };
         DAnimationBase.prototype.isReverse = function () {
             return this._reverse;
@@ -12731,8 +12792,8 @@
                     this._durationScale = duration;
                 }
                 else {
-                    this._durationPosition = (duration.position != null ? duration.position : 1);
-                    this._durationScale = (duration.scale != null ? duration.scale : 1);
+                    this._durationPosition = duration.position != null ? duration.position : 1;
+                    this._durationScale = duration.scale != null ? duration.scale : 1;
                 }
             }
             else {
@@ -12758,7 +12819,8 @@
             var newHistoryEnd = (oldHistoryEnd + 1) % capacity;
             this._historyEnd = newHistoryEnd;
             var oldHistoryBegin = this._historyBegin;
-            if (newHistoryEnd < oldHistoryEnd || (0 <= oldHistoryEnd && oldHistoryEnd < oldHistoryBegin)) {
+            if (newHistoryEnd < oldHistoryEnd ||
+                (0 <= oldHistoryEnd && oldHistoryEnd < oldHistoryBegin)) {
                 this._historyBegin = (oldHistoryBegin + 1) % capacity;
             }
             this._histories[newHistoryEnd].set(dx, dy, ds, dt);
@@ -12864,34 +12926,30 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var toEasingOptions = function (options) {
-        return (options == null || options === true ?
-            undefined : options);
+        return options == null || options === true ? undefined : options;
     };
     var toChecker = function (options) {
-        var checker = options && options.checker;
+        var _a, _b;
+        var checker = options.checker;
         var defaultChecker = DMouseModifiers.match;
-        if (checker) {
-            return {
-                start: checker.start || defaultChecker,
-                move: checker.move || defaultChecker
-            };
-        }
         return {
-            start: defaultChecker,
-            move: defaultChecker
+            start: (_a = checker === null || checker === void 0 ? void 0 : checker.start) !== null && _a !== void 0 ? _a : defaultChecker,
+            move: (_b = checker === null || checker === void 0 ? void 0 : checker.move) !== null && _b !== void 0 ? _b : defaultChecker
         };
     };
     var UtilDrag = /** @class */ (function () {
         function UtilDrag(options) {
             var _this = this;
-            var target = this._target = options.target;
+            var _a;
+            var target = options.target;
+            this._target = target;
             var on = options.on;
             if (on) {
                 this._onStart = on.start;
                 this._onMove = on.move;
                 this._onEnd = on.end;
             }
-            this._modifier = (options && options.modifier) || DMouseModifier.NONE;
+            this._modifier = (_a = options === null || options === void 0 ? void 0 : options.modifier) !== null && _a !== void 0 ? _a : DMouseModifier.NONE;
             this._checker = toChecker(options);
             this._interactionManager = null;
             this._center = new pixi_js.Point();
@@ -13025,7 +13083,7 @@
                     var dx = center.x - centerX;
                     var dy = center.y - centerY;
                     var dt = newTime - oldTime;
-                    var ds = (UtilDrag.EPSILON < oldScale ? newScale / oldScale : 1);
+                    var ds = UtilDrag.EPSILON < oldScale ? newScale / oldScale : 1;
                     // Easing util
                     var easing = this._easing;
                     if (easing) {
@@ -13099,21 +13157,17 @@
     var DViewDragImpl = /** @class */ (function () {
         function DViewDragImpl(parent, toTarget, stopper, theme, options) {
             var _this = this;
+            var _a, _b, _c;
             this._parent = parent;
             this._toTarget = toTarget;
             this._stopper = stopper;
-            var mode = (options && options.mode != null ?
-                (isString(options.mode) ? DDragMode[options.mode] : options.mode) :
-                theme.getDragMode());
-            var modifier = (options && options.modifier != null ?
-                (isString(options.modifier) ? DMouseModifier[options.modifier] : options.modifier) :
-                theme.getDragModifier());
-            var duration = (options && options.duration != null ?
-                options.duration : {
+            var mode = toEnum((_a = options === null || options === void 0 ? void 0 : options.mode) !== null && _a !== void 0 ? _a : theme.getDragMode(), DDragMode);
+            var modifier = toEnum((_b = options === null || options === void 0 ? void 0 : options.modifier) !== null && _b !== void 0 ? _b : theme.getDragModifier(), DMouseModifier);
+            var duration = (_c = options === null || options === void 0 ? void 0 : options.duration) !== null && _c !== void 0 ? _c : {
                 position: theme.getDragDurationPosition(),
                 scale: theme.getDragDurationScale()
-            });
-            var bind = (mode === DDragMode.TOUCH);
+            };
+            var bind = mode === DDragMode.TOUCH;
             this._bind = bind;
             if (mode === DDragMode.ON || mode === DDragMode.TOUCH) {
                 this._dragUtil = new UtilDrag({
@@ -13245,54 +13299,40 @@
      */
     var DViewImpl = /** @class */ (function () {
         function DViewImpl(parent, toTarget, options) {
+            var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s;
             this._parent = parent;
             this._toTarget = toTarget;
             this._workRect = new pixi_js.Rectangle();
             // Theme
             var theme = this.toTheme(options) || this.getThemeDefault();
             // Zoom
-            var zoom = options && options.zoom;
+            var zoom = options === null || options === void 0 ? void 0 : options.zoom;
             this._zoomPoint = new pixi_js.Point();
-            this._zoomMin = zoom && zoom.min != null ? zoom.min : theme.getZoomMin();
-            this._zoomMax = zoom && zoom.max != null ? zoom.max : theme.getZoomMax();
-            this._zoomKeepRatio = zoom && zoom.keepRatio != null ? zoom.keepRatio : theme.getZoomKeepRatio();
+            this._zoomMin = (_a = zoom === null || zoom === void 0 ? void 0 : zoom.min) !== null && _a !== void 0 ? _a : theme.getZoomMin();
+            this._zoomMax = (_b = zoom === null || zoom === void 0 ? void 0 : zoom.max) !== null && _b !== void 0 ? _b : theme.getZoomMax();
+            this._zoomKeepRatio = (_c = zoom === null || zoom === void 0 ? void 0 : zoom.keepRatio) !== null && _c !== void 0 ? _c : theme.getZoomKeepRatio();
             // Zoom: Wheel
-            var wheelZoom = zoom && zoom.wheel;
-            this._isWheelZoomEnabled = (wheelZoom && wheelZoom.enable != null ?
-                wheelZoom.enable : theme.isWheelZoomEnabled());
-            this._wheelZoomSpeed = (wheelZoom && wheelZoom.speed != null ?
-                wheelZoom.speed : theme.getWheelZoomSpeed());
-            this._wheelZoomModifier = (wheelZoom && wheelZoom.modifier != null ?
-                (isString(wheelZoom.modifier) ?
-                    DMouseModifier[wheelZoom.modifier] : wheelZoom.modifier) :
-                theme.getWheelZoomModifier());
-            this._wheelZoomChecker = (wheelZoom && wheelZoom.checker) || DMouseModifiers.match;
+            var wheelZoom = zoom === null || zoom === void 0 ? void 0 : zoom.wheel;
+            this._isWheelZoomEnabled = (_d = wheelZoom === null || wheelZoom === void 0 ? void 0 : wheelZoom.enable) !== null && _d !== void 0 ? _d : theme.isWheelZoomEnabled();
+            this._wheelZoomSpeed = (_e = wheelZoom === null || wheelZoom === void 0 ? void 0 : wheelZoom.speed) !== null && _e !== void 0 ? _e : theme.getWheelZoomSpeed();
+            this._wheelZoomModifier = toEnum((_f = wheelZoom === null || wheelZoom === void 0 ? void 0 : wheelZoom.modifier) !== null && _f !== void 0 ? _f : theme.getWheelZoomModifier(), DMouseModifier);
+            this._wheelZoomChecker = (_g = wheelZoom === null || wheelZoom === void 0 ? void 0 : wheelZoom.checker) !== null && _g !== void 0 ? _g : DMouseModifiers.match;
             // Zoom: Dbl click
-            var dblClickZoom = zoom && zoom.dblclick;
-            this._isDblClickZoomEnabled = (dblClickZoom && dblClickZoom.enable != null ?
-                dblClickZoom.enable : theme.isDblClickZoomEnabled());
-            this._dblClickZoomSpeed = (dblClickZoom && dblClickZoom.amount != null ?
-                dblClickZoom.amount : theme.getDblClickZoomSpeed());
-            this._dblClickZoomModifier = (dblClickZoom && dblClickZoom.modifier != null ?
-                (isString(dblClickZoom.modifier) ?
-                    DMouseModifier[dblClickZoom.modifier] : dblClickZoom.modifier) :
-                theme.getDblClickZoomModifier());
-            this._dblClickZoomChecker = (dblClickZoom && dblClickZoom.checker) || DMouseModifiers.match;
-            this._dblclickZoomDuration = (dblClickZoom && dblClickZoom.duration != null ?
-                dblClickZoom.duration : theme.getDblClickZoomDuration());
+            var dblClickZoom = zoom === null || zoom === void 0 ? void 0 : zoom.dblclick;
+            this._isDblClickZoomEnabled = (_h = dblClickZoom === null || dblClickZoom === void 0 ? void 0 : dblClickZoom.enable) !== null && _h !== void 0 ? _h : theme.isDblClickZoomEnabled();
+            this._dblClickZoomSpeed = (_j = dblClickZoom === null || dblClickZoom === void 0 ? void 0 : dblClickZoom.amount) !== null && _j !== void 0 ? _j : theme.getDblClickZoomSpeed();
+            this._dblClickZoomModifier = toEnum((_k = dblClickZoom === null || dblClickZoom === void 0 ? void 0 : dblClickZoom.modifier) !== null && _k !== void 0 ? _k : theme.getDblClickZoomModifier(), DMouseModifier);
+            this._dblClickZoomChecker = (_l = dblClickZoom === null || dblClickZoom === void 0 ? void 0 : dblClickZoom.checker) !== null && _l !== void 0 ? _l : DMouseModifiers.match;
+            this._dblclickZoomDuration = (_m = dblClickZoom === null || dblClickZoom === void 0 ? void 0 : dblClickZoom.duration) !== null && _m !== void 0 ? _m : theme.getDblClickZoomDuration();
             // Translation: Wheel
-            var wheelTranslation = options && options.translation && options.translation.wheel;
-            this._isWheelTranslationEnabled = (wheelTranslation && wheelTranslation.enable != null ?
-                wheelTranslation.enable : theme.isWheelTranslationEnabled());
-            this._wheelTranslationSpeed = (wheelTranslation && wheelTranslation.speed != null ?
-                wheelTranslation.speed : theme.getWheelTranslationSpeed());
-            this._wheelTranslationModifier = (wheelTranslation && wheelTranslation.modifier != null ?
-                (isString(wheelTranslation.modifier) ?
-                    DMouseModifier[wheelTranslation.modifier] : wheelTranslation.modifier) :
-                theme.getWheelTranslationModifier());
-            this._wheelTranslationChecker = (wheelTranslation && wheelTranslation.checker) || DMouseModifiers.match;
+            var wheelTranslation = (_o = options === null || options === void 0 ? void 0 : options.translation) === null || _o === void 0 ? void 0 : _o.wheel;
+            this._isWheelTranslationEnabled =
+                (_p = wheelTranslation === null || wheelTranslation === void 0 ? void 0 : wheelTranslation.enable) !== null && _p !== void 0 ? _p : theme.isWheelTranslationEnabled();
+            this._wheelTranslationSpeed = (_q = wheelTranslation === null || wheelTranslation === void 0 ? void 0 : wheelTranslation.speed) !== null && _q !== void 0 ? _q : theme.getWheelTranslationSpeed();
+            this._wheelTranslationModifier = toEnum((_r = wheelTranslation === null || wheelTranslation === void 0 ? void 0 : wheelTranslation.modifier) !== null && _r !== void 0 ? _r : theme.getWheelTranslationModifier(), DMouseModifier);
+            this._wheelTranslationChecker = (_s = wheelTranslation === null || wheelTranslation === void 0 ? void 0 : wheelTranslation.checker) !== null && _s !== void 0 ? _s : DMouseModifiers.match;
             // Drag
-            this._drag = new DViewDragImpl(parent, toTarget, this, theme, options && options.drag);
+            this._drag = new DViewDragImpl(parent, toTarget, this, theme, options === null || options === void 0 ? void 0 : options.drag);
             // Transform
             this._transform = new DViewTransformImpl(parent, toTarget, this, this._dblclickZoomDuration);
         }
@@ -13712,7 +13752,7 @@
         }
         EShapeActionValueEmitEvent.prototype.isEquals = function (value) {
             return (_super.prototype.isEquals.call(this, value) &&
-                (value instanceof EShapeActionValueEmitEvent) &&
+                value instanceof EShapeActionValueEmitEvent &&
                 this.name === value.name);
         };
         EShapeActionValueEmitEvent.prototype.toRuntime = function () {
@@ -13815,7 +13855,7 @@
             this._doSelectBound = function () {
                 _this.doSelect();
             };
-            this._isStartRequested = (this._data.when === UtilHtmlElementWhen.ALWAYS);
+            this._isStartRequested = this._data.when === UtilHtmlElementWhen.ALWAYS;
             this._onPostRenderBound = function () {
                 _this.updateElement(_this._rendererBound);
             };
@@ -13823,15 +13863,15 @@
         UtilHtmlElement.prototype.toData = function (theme, options) {
             var _a, _b;
             return {
-                element: this.toElementOptions(theme, options === null || options === void 0 ? void 0 : options.element),
-                clipper: this.toClipperOptions(theme, options === null || options === void 0 ? void 0 : options.clipper),
-                before: this.toBeforeOptions(theme, options === null || options === void 0 ? void 0 : options.before),
-                after: this.toAfterOptions(theme, options === null || options === void 0 ? void 0 : options.after),
+                element: this.toElementData(theme, options === null || options === void 0 ? void 0 : options.element),
+                clipper: this.toClipperData(theme, options === null || options === void 0 ? void 0 : options.clipper),
+                before: this.toBeforeData(theme, options === null || options === void 0 ? void 0 : options.before),
+                after: this.toAfterData(theme, options === null || options === void 0 ? void 0 : options.after),
                 when: toEnum((_a = options === null || options === void 0 ? void 0 : options.when) !== null && _a !== void 0 ? _a : theme.getWhen(), UtilHtmlElementWhen),
                 select: (_b = options === null || options === void 0 ? void 0 : options.select) !== null && _b !== void 0 ? _b : theme.getSelect()
             };
         };
-        UtilHtmlElement.prototype.toElementOptions = function (theme, options) {
+        UtilHtmlElement.prototype.toElementData = function (theme, options) {
             var _a, _b;
             return {
                 creator: (_a = options === null || options === void 0 ? void 0 : options.creator) !== null && _a !== void 0 ? _a : theme.getElementCreator(),
@@ -13843,7 +13883,7 @@
                 return theme.setElementStyle(target, state, padding, elementRect, elementMatrix, clipperRect);
             };
         };
-        UtilHtmlElement.prototype.toClipperOptions = function (theme, options) {
+        UtilHtmlElement.prototype.toClipperData = function (theme, options) {
             var _a, _b;
             return {
                 creator: (_a = options === null || options === void 0 ? void 0 : options.creator) !== null && _a !== void 0 ? _a : theme.getClipperCreator(),
@@ -13855,7 +13895,7 @@
                 return theme.setClipperStyle(target, state, padding, elementRect, elementMatrix, clipperRect);
             };
         };
-        UtilHtmlElement.prototype.toBeforeOptions = function (theme, options) {
+        UtilHtmlElement.prototype.toBeforeData = function (theme, options) {
             var _a, _b;
             return {
                 creator: (_a = options === null || options === void 0 ? void 0 : options.creator) !== null && _a !== void 0 ? _a : theme.getBeforeCreator(),
@@ -13867,7 +13907,7 @@
                 theme.setBeforeStyle(target);
             };
         };
-        UtilHtmlElement.prototype.toAfterOptions = function (theme, options) {
+        UtilHtmlElement.prototype.toAfterData = function (theme, options) {
             var _a, _b;
             return {
                 creator: (_a = options === null || options === void 0 ? void 0 : options.creator) !== null && _a !== void 0 ? _a : theme.getAfterCreator(),
@@ -13975,7 +14015,8 @@
             return this._isElementShown;
         };
         UtilHtmlElement.prototype.onRender = function (renderer) {
-            if (this._isStartRequested || (!this._isElementShown && this.when === UtilHtmlElementWhen.ALWAYS)) {
+            if (this._isStartRequested ||
+                (!this._isElementShown && this.when === UtilHtmlElementWhen.ALWAYS)) {
                 this._isStartRequested = false;
                 this.doStart(renderer);
             }
@@ -13984,9 +14025,9 @@
             }
         };
         UtilHtmlElement.prototype.getElementRect = function (resolution) {
-            var point = (this._point || new pixi_js.Point(0, 0));
+            var point = this._point || new pixi_js.Point(0, 0);
             this._point = point;
-            var result = (this._elementRectResult || new pixi_js.Rectangle());
+            var result = this._elementRectResult || new pixi_js.Rectangle();
             this._elementRectResult = result;
             return this._operation.getElementRect(resolution, point, result);
         };
@@ -13994,9 +14035,9 @@
             return this._operation.getElementMatrix();
         };
         UtilHtmlElement.prototype.getClipperRect = function (resolution) {
-            var point = (this._point || new pixi_js.Point(0, 0));
+            var point = this._point || new pixi_js.Point(0, 0);
             this._point = point;
-            var result = (this._clipperRectResult || new pixi_js.Rectangle());
+            var result = this._clipperRectResult || new pixi_js.Rectangle();
             this._clipperRectResult = result;
             return this._operation.getClipperRect(resolution, point, result);
         };
@@ -14024,7 +14065,7 @@
                     var element = this.getElement(clipper);
                     var after = this.getAfter(clipper);
                     if (element) {
-                        var resolution = ((_b = renderer === null || renderer === void 0 ? void 0 : renderer.resolution) !== null && _b !== void 0 ? _b : DApplications.getResolution(target));
+                        var resolution = (_b = renderer === null || renderer === void 0 ? void 0 : renderer.resolution) !== null && _b !== void 0 ? _b : DApplications.getResolution(target);
                         var elementRect = this.getElementRect(resolution);
                         var elementMatrix = this.getElementMatrix();
                         var clipperRect = this.toClipperRectAdjusted(elementRect, elementMatrix, this.getClipperRect(resolution));
@@ -14093,7 +14134,8 @@
                     }
                     var state = target.state;
                     var interactionManager = layer.renderer.plugins.interaction;
-                    if (this._operation.containsPoint(interactionManager.mouse.global) && !state.isHovered) {
+                    if (this._operation.containsPoint(interactionManager.mouse.global) &&
+                        !state.isHovered) {
                         state.isHovered = true;
                         view.style.cursor = target.cursor;
                     }
@@ -14126,9 +14168,7 @@
             var result = this._clipper;
             if (result == null) {
                 var layer = DApplications.getLayer(this._target);
-                result = (layer ?
-                    this._data.clipper.creator(layer.getElementContainer()) :
-                    null);
+                result = layer ? this._data.clipper.creator(layer.getElementContainer()) : null;
                 this._clipper = result;
             }
             return result;
@@ -14453,7 +14493,8 @@
         function EShapeActionRuntimeMiscHtmlElement(value) {
             var _this = _super.call(this, value) || this;
             _this.elementCreator = EShapeActionExpressions.ofElementOrNull(value.value);
-            _this.noPointerEvent = (value.subtype === EShapeActionValueMiscType.HTML_ELEMENT_WITHOUT_POINTER_EVENTS);
+            _this.noPointerEvent =
+                value.subtype === EShapeActionValueMiscType.HTML_ELEMENT_WITHOUT_POINTER_EVENTS;
             return _this;
         }
         EShapeActionRuntimeMiscHtmlElement.prototype.newUtil = function (shape, runtime) {
@@ -14495,7 +14536,8 @@
             };
             _this._description = (_a = options === null || options === void 0 ? void 0 : options.description) !== null && _a !== void 0 ? _a : "";
             var editing = options === null || options === void 0 ? void 0 : options.editing;
-            _this._editingFormatter = (_b = editing === null || editing === void 0 ? void 0 : editing.formatter) !== null && _b !== void 0 ? _b : ((_e = (_d = (_c = options) === null || _c === void 0 ? void 0 : _c.text) === null || _d === void 0 ? void 0 : _d.formatter) !== null && _e !== void 0 ? _e : theme.getEditingFormatter());
+            _this._editingFormatter =
+                (_e = (_b = editing === null || editing === void 0 ? void 0 : editing.formatter) !== null && _b !== void 0 ? _b : (_d = (_c = options) === null || _c === void 0 ? void 0 : _c.text) === null || _d === void 0 ? void 0 : _d.formatter) !== null && _e !== void 0 ? _e : theme.getEditingFormatter();
             _this._editingUnformatter = (_f = editing === null || editing === void 0 ? void 0 : editing.unformatter) !== null && _f !== void 0 ? _f : theme.getEditingUnformatter();
             _this._editingValidator = (_g = editing === null || editing === void 0 ? void 0 : editing.validator) !== null && _g !== void 0 ? _g : theme.getEditingValidator();
             return _this;
@@ -14562,7 +14604,7 @@
                 if (this._editingValidationResult !== result) {
                     this._editingValidationResult = result;
                     var state = this._target.state;
-                    state.isInvalid = (result != null);
+                    state.isInvalid = result != null;
                     if (state.isHovered) {
                         this._operation.applyTitle();
                     }
@@ -14641,11 +14683,13 @@
         UtilInputNumber.prototype.toValue = function (valueAsString) {
             var result = _super.prototype.toValue.call(this, valueAsString);
             if (result === result /* NaN Check */) {
-                if (this._min != null && result < this._min) {
-                    return this._min;
+                var min = this._min;
+                if (min != null && result < min) {
+                    return min;
                 }
-                if (this._max != null && this._max < result) {
-                    return this._max;
+                var max = this._max;
+                if (max != null && max < result) {
+                    return max;
                 }
                 return result;
             }
@@ -14720,6 +14764,10 @@
         return UtilInputNumber;
     }(UtilInput));
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var EShapeActionValueOnInputAction;
     (function (EShapeActionValueOnInputAction) {
         EShapeActionValueOnInputAction[EShapeActionValueOnInputAction["EMIT_EVENT"] = 0] = "EMIT_EVENT";
@@ -15131,7 +15179,8 @@
         function DDynamicTextMeasure() {
         }
         DDynamicTextMeasure.measure = function (text, atlas, clippingWidth) {
-            var result = DDynamicTextMeasure.RESULT = DDynamicTextMeasure.RESULT || new DDynamicTextMeasureResult();
+            var result = DDynamicTextMeasure.RESULT || new DDynamicTextMeasureResult();
+            DDynamicTextMeasure.RESULT = result;
             result.start();
             if (atlas != null) {
                 var iterator = UtilCharacterIterator.from(text);
@@ -15215,7 +15264,12 @@
                 var characters = result.characters;
                 for (var i = 0; i < count; ++i) {
                     var character = characters[i];
-                    this.writeCharacter(vertices, uvs, indices, i, character.x, character.y, character.character, atlas.width, atlas.height);
+                    var cx = character.x;
+                    var cy = character.y;
+                    var cc = character.character;
+                    var w = atlas.width;
+                    var h = atlas.height;
+                    this.writeCharacter(vertices, uvs, indices, i, cx, cy, cc, w, h);
                 }
                 for (var i = count, imax = vertices.length >> 3; i < imax; ++i) {
                     this.writeCharacterEmpty(vertices, uvs, indices, i);
@@ -15584,7 +15638,7 @@
                 var geometryWidth = this.geometry.width;
                 if (+1e-4 < geometryWidth) {
                     var newScale = width / geometryWidth;
-                    this.scale.x = (0 <= this.scale.x ? +newScale : -newScale);
+                    this.scale.x = 0 <= this.scale.x ? +newScale : -newScale;
                 }
             },
             enumerable: false,
@@ -15601,7 +15655,7 @@
                 var geometryHeight = this.geometry.height;
                 if (+1e-4 < geometryHeight) {
                     var newScale = height / geometryHeight;
-                    this.scale.y = (0 <= this.scale.y ? +newScale : -newScale);
+                    this.scale.y = 0 <= this.scale.y ? +newScale : -newScale;
                 }
             },
             enumerable: false,
@@ -15659,7 +15713,10 @@
             if (this._style.clipping) {
                 var parent_1 = this.parent;
                 if (parent_1 instanceof DBase) {
-                    return parent_1.width - parent_1.padding.getLeft() - parent_1.padding.getRight() - this._clippingWidthDelta;
+                    return (parent_1.width -
+                        parent_1.padding.getLeft() -
+                        parent_1.padding.getRight() -
+                        this._clippingWidthDelta);
                 }
             }
             return undefined;
@@ -15753,8 +15810,8 @@
         var _a, _b;
         var margin = options === null || options === void 0 ? void 0 : options.margin;
         return {
-            vertical: ((_a = margin === null || margin === void 0 ? void 0 : margin.vertical) !== null && _a !== void 0 ? _a : theme.getImageMarginVertial()),
-            horizontal: ((_b = margin === null || margin === void 0 ? void 0 : margin.horizontal) !== null && _b !== void 0 ? _b : theme.getImageMarginHorizontal())
+            vertical: (_a = margin === null || margin === void 0 ? void 0 : margin.vertical) !== null && _a !== void 0 ? _a : theme.getImageMarginVertial(),
+            horizontal: (_b = margin === null || margin === void 0 ? void 0 : margin.horizontal) !== null && _b !== void 0 ? _b : theme.getImageMarginHorizontal()
         };
     };
     var DImagePiece = /** @class */ (function () {
@@ -15873,7 +15930,7 @@
             }
         };
         DImagePiece.prototype.isTintAware = function (target) {
-            return (target != null && "tint" in target);
+            return target != null && "tint" in target;
         };
         DImagePiece.prototype.toTintColor = function (theme, state) {
             var tint = this._tint;
@@ -16000,7 +16057,7 @@
             return false;
         };
         DImagePiece.prototype.isRefitable = function (target) {
-            return (target != null && target === this._image);
+            return target != null && target === this._image;
         };
         DImagePiece.prototype.destroy = function () {
             var image = this._image;
@@ -16037,7 +16094,7 @@
         };
         DBaseOverflowMaskSimple.prototype.onReflow = function (base, width, height) {
             this.clear();
-            this.beginFill(0xFFFFFF, 1);
+            this.beginFill(0xffffff, 1);
             this.drawRect(0, 0, width, height);
             this.endFill();
         };
@@ -16100,17 +16157,17 @@
             var _a, _b, _c, _d, _e;
             _super.prototype.init.call(this, options);
             var theme = this.theme;
-            this._textValue = ((_b = (_a = options === null || options === void 0 ? void 0 : options.text) === null || _a === void 0 ? void 0 : _a.value) !== null && _b !== void 0 ? _b : theme.newTextValue());
+            this._textValue = (_b = (_a = options === null || options === void 0 ? void 0 : options.text) === null || _a === void 0 ? void 0 : _a.value) !== null && _b !== void 0 ? _b : theme.newTextValue();
             this._textValueComputed = this.computeTextValue();
             var text = options === null || options === void 0 ? void 0 : options.text;
             this._textColor = text === null || text === void 0 ? void 0 : text.color;
             this._textAlpha = text === null || text === void 0 ? void 0 : text.alpha;
             this._textStyle = toTextStyle(theme, options, this.state);
             this._textAlign = toTextAlign(theme, options);
-            this._textFormatter = ((_c = text === null || text === void 0 ? void 0 : text.formatter) !== null && _c !== void 0 ? _c : theme.getTextFormatter());
-            this._isTextDynamic = ((_d = text === null || text === void 0 ? void 0 : text.dynamic) !== null && _d !== void 0 ? _d : theme.isTextDynamic());
+            this._textFormatter = (_c = text === null || text === void 0 ? void 0 : text.formatter) !== null && _c !== void 0 ? _c : theme.getTextFormatter();
+            this._isTextDynamic = (_d = text === null || text === void 0 ? void 0 : text.dynamic) !== null && _d !== void 0 ? _d : theme.isTextDynamic();
             this._isTextVisible = true;
-            this._isOverflowMaskEnabled = ((_e = options === null || options === void 0 ? void 0 : options.mask) !== null && _e !== void 0 ? _e : theme.isOverflowMaskEnabled());
+            this._isOverflowMaskEnabled = (_e = options === null || options === void 0 ? void 0 : options.mask) !== null && _e !== void 0 ? _e : theme.isOverflowMaskEnabled();
             this.onTextChange();
             this.createOrUpdateText();
         };
@@ -16295,12 +16352,11 @@
             this.updateText();
         };
         DTextBase.prototype.isRefitable = function (target) {
-            return _super.prototype.isRefitable.call(this, target) ||
-                (target != null && target === this._text);
+            return _super.prototype.isRefitable.call(this, target) || (target != null && target === this._text);
         };
         DTextBase.prototype.applyTitle = function () {
             var text = this._text;
-            if (this._title.length <= 0 && text && ("clipped" in text) && text.clipped) {
+            if (this._title.length <= 0 && text && "clipped" in text && text.clipped) {
                 var layer = DApplications.getLayer(this);
                 if (layer) {
                     layer.view.title = text.text;
@@ -16709,7 +16765,7 @@
             var _a, _b;
             _super.prototype.init.call(this, options);
             var theme = this.theme;
-            this._isToggle = ((_a = options === null || options === void 0 ? void 0 : options.toggle) !== null && _a !== void 0 ? _a : theme.isToggle());
+            this._isToggle = (_a = options === null || options === void 0 ? void 0 : options.toggle) !== null && _a !== void 0 ? _a : theme.isToggle();
             var when = toEnum((_b = options === null || options === void 0 ? void 0 : options.when) !== null && _b !== void 0 ? _b : theme.getWhen(), DButtonBaseWhen);
             this._when = when;
             // Event handlers
@@ -16893,8 +16949,8 @@
             _this._layer = null;
             // Shifts
             var shift = options === null || options === void 0 ? void 0 : options.shift;
-            _this._shiftX = ((_a = shift === null || shift === void 0 ? void 0 : shift.x) !== null && _a !== void 0 ? _a : 0);
-            _this._shiftY = ((_b = shift === null || shift === void 0 ? void 0 : shift.y) !== null && _b !== void 0 ? _b : 15);
+            _this._shiftX = (_a = shift === null || shift === void 0 ? void 0 : shift.x) !== null && _a !== void 0 ? _a : 0;
+            _this._shiftY = (_b = shift === null || shift === void 0 ? void 0 : shift.y) !== null && _b !== void 0 ? _b : 15;
             _this._onPrerenderBound = function () {
                 _this.onPrerender();
             };
@@ -16927,7 +16983,7 @@
             }
         };
         DAnimationFadeIn.prototype.onStart = function (isReverse) {
-            var target = this._storedTarget = this._target;
+            var target = (this._storedTarget = this._target);
             if (target != null) {
                 this._storedTime = 0;
                 this.removeEventListeners();
@@ -17192,8 +17248,7 @@
     var UtilOverlay = /** @class */ (function () {
         function UtilOverlay(options) {
             this._layer = null;
-            this._application = ((options === null || options === void 0 ? void 0 : options.parent) == null ?
-                DApplications.last() : null);
+            this._application = (options === null || options === void 0 ? void 0 : options.parent) == null ? DApplications.last() : null;
         }
         Object.defineProperty(UtilOverlay.prototype, "picked", {
             get: function () {
@@ -17536,6 +17591,7 @@
         return theme.getMultiplicity();
     };
     var toMargin = function (theme, options) {
+        var _a, _b;
         var margin = options === null || options === void 0 ? void 0 : options.margin;
         if (margin != null) {
             if (isNumber(margin)) {
@@ -17547,8 +17603,8 @@
             else {
                 var themeMargin = theme.getMargin();
                 return {
-                    horizontal: (margin.horizontal != null ? margin.horizontal : themeMargin),
-                    vertical: (margin.vertical != null ? margin.vertical : themeMargin)
+                    horizontal: (_a = margin.horizontal) !== null && _a !== void 0 ? _a : themeMargin,
+                    vertical: (_b = margin.vertical) !== null && _b !== void 0 ? _b : themeMargin
                 };
             }
         }
@@ -17627,7 +17683,7 @@
                     var child = children[reverse ? imax - 1 - (i + j) : i + j];
                     if (isVisible(child)) {
                         var clearType = child.getClearType();
-                        if (j !== 0 && (clearType & DLayoutClearType.BEFORE)) {
+                        if (j !== 0 && clearType & DLayoutClearType.BEFORE) {
                             break;
                         }
                         else {
@@ -17665,7 +17721,7 @@
                         var child = children[reverse ? imax - 1 - (i + j) : i + j];
                         if (isVisible(child)) {
                             var clearType = child.getClearType();
-                            if (j !== 0 && (clearType & DLayoutClearType.BEFORE)) {
+                            if (j !== 0 && clearType & DLayoutClearType.BEFORE) {
                                 break;
                             }
                             else {
@@ -17704,7 +17760,7 @@
                         var child = children[reverse ? imax - 1 - (i + j) : i + j];
                         if (isVisible(child)) {
                             var clearType = child.getClearType();
-                            if (j !== 0 && (clearType & DLayoutClearType.BEFORE)) {
+                            if (j !== 0 && clearType & DLayoutClearType.BEFORE) {
                                 break;
                             }
                             else {
@@ -17734,7 +17790,7 @@
             }
         };
         DLayout.prototype.calcSpaceLeft = function (isOn, size, padding, margin) {
-            return (isOn ? 0 : this.getSpaceLeft(size - padding, margin));
+            return isOn ? 0 : this.getSpaceLeft(size - padding, margin);
         };
         DLayout.prototype.onRefit = function () {
             var children = this.children;
@@ -17753,7 +17809,8 @@
             var cornerAdjustWork = null;
             if (this._cornerAdjust) {
                 var requiredSize = 4 + (children.length << 1);
-                if (DLayout.CORNER_ADJUST_WORK == null || DLayout.CORNER_ADJUST_WORK.length < requiredSize) {
+                if (DLayout.CORNER_ADJUST_WORK == null ||
+                    DLayout.CORNER_ADJUST_WORK.length < requiredSize) {
                     DLayout.CORNER_ADJUST_WORK = new Float32Array(requiredSize);
                 }
                 cornerAdjustWork = DLayout.CORNER_ADJUST_WORK;
@@ -17776,7 +17833,7 @@
                             var child = children[reverse ? imax - 1 - (i + j) : i + j];
                             if (isVisible(child)) {
                                 var clearType = child.getClearType();
-                                if (j !== 0 && (clearType & DLayoutClearType.BEFORE)) {
+                                if (j !== 0 && clearType & DLayoutClearType.BEFORE) {
                                     break;
                                 }
                                 else {
@@ -17856,7 +17913,7 @@
                             var child = children[reverse ? imax - 1 - (i + j) : i + j];
                             if (isVisible(child)) {
                                 var clearType = child.getClearType();
-                                if (j !== 0 && (clearType & DLayoutClearType.BEFORE)) {
+                                if (j !== 0 && clearType & DLayoutClearType.BEFORE) {
                                     break;
                                 }
                                 else {
@@ -17942,7 +17999,7 @@
                             var child = children[reverse ? imax - 1 - (i + j) : i + j];
                             if (isVisible(child)) {
                                 var clearType = child.getClearType();
-                                if (j !== 0 && (clearType & DLayoutClearType.BEFORE)) {
+                                if (j !== 0 && clearType & DLayoutClearType.BEFORE) {
                                     break;
                                 }
                                 else {
@@ -18022,7 +18079,7 @@
                             var child = children[reverse ? imax - 1 - (i + j) : i + j];
                             if (isVisible(child)) {
                                 var clearType = child.getClearType();
-                                if (j !== 0 && (clearType & DLayoutClearType.BEFORE)) {
+                                if (j !== 0 && clearType & DLayoutClearType.BEFORE) {
                                     break;
                                 }
                                 else {
@@ -18190,7 +18247,7 @@
             if (i2 < i1 && i1 + 1 === n) {
                 result |= DCornerMask.BOTTOM_RIGHT;
             }
-            return DCornerMask.ALL & (~result);
+            return DCornerMask.ALL & ~result;
         };
         DLayout.prototype.toCornerMaskRow = function (i0, i1, i2, n) {
             var result = DCornerMask.NONE;
@@ -18206,7 +18263,7 @@
             if (i2 < i1 && i1 + 1 === n) {
                 result |= DCornerMask.BOTTOM_RIGHT;
             }
-            return DCornerMask.ALL & (~result);
+            return DCornerMask.ALL & ~result;
         };
         DLayout.prototype.addSpace = function (options) {
             return this.addChild(new DLayoutSpace(options));
@@ -18275,12 +18332,13 @@
             });
             this.onInit(layout, options);
             // Buttons
-            var ok = ((_a = options === null || options === void 0 ? void 0 : options.ok) !== null && _a !== void 0 ? _a : theme.getOk());
-            var cancel = ((_b = options === null || options === void 0 ? void 0 : options.cancel) !== null && _b !== void 0 ? _b : theme.getCancel());
+            var ok = (_a = options === null || options === void 0 ? void 0 : options.ok) !== null && _a !== void 0 ? _a : theme.getOk();
+            var cancel = (_b = options === null || options === void 0 ? void 0 : options.cancel) !== null && _b !== void 0 ? _b : theme.getCancel();
             if (ok != null || cancel != null) {
                 var buttonLayout = new DLayoutHorizontal({
                     parent: layout,
-                    width: "padding", height: "auto",
+                    width: "padding",
+                    height: "auto",
                     padding: {
                         top: Math.max(0, this.padding.getTop() - layout.margin.vertical)
                     }
@@ -18415,19 +18473,18 @@
                 this._label = new DText(labelOptions);
                 new DLayoutHorizontal({
                     parent: layout,
-                    width: "padding", height: "auto",
+                    width: "padding",
+                    height: "auto",
                     margin: 0,
-                    children: [
-                        new DLayoutSpace({ width: marginHorizontal }),
-                        this._label
-                    ]
+                    children: [new DLayoutSpace({ width: marginHorizontal }), this._label]
                 });
             }
             new DLayoutHorizontal({
                 parent: layout,
-                width: "padding", height: "auto",
+                width: "padding",
+                height: "auto",
                 margin: 0,
-                padding: (labelOptions ? { top: marginVertical } : undefined),
+                padding: labelOptions ? { top: marginVertical } : undefined,
                 children: [
                     new DLayoutSpace({ width: marginHorizontal }),
                     this.input,
@@ -18436,7 +18493,7 @@
             });
         };
         DDialogInput.prototype.toMargin = function (theme, options) {
-            var margin = options && options.margin;
+            var margin = options === null || options === void 0 ? void 0 : options.margin;
             if (margin != null) {
                 if (isNumber(margin)) {
                     return {
@@ -18448,8 +18505,8 @@
                     var horizontal = margin.horizontal;
                     var vertical = margin.vertical;
                     return {
-                        horizontal: (horizontal != null ? horizontal : theme.getMarginHorizontal()),
-                        vertical: (vertical != null ? vertical : theme.getMarginVertical())
+                        horizontal: horizontal !== null && horizontal !== void 0 ? horizontal : theme.getMarginHorizontal(),
+                        vertical: vertical !== null && vertical !== void 0 ? vertical : theme.getMarginVertical()
                     };
                 }
             }
@@ -18459,7 +18516,7 @@
             };
         };
         DDialogInput.prototype.toLabelOptions = function (theme, options) {
-            var label = options && options.label;
+            var label = options === null || options === void 0 ? void 0 : options.label;
             if (label == null) {
                 return null;
             }
@@ -18473,7 +18530,8 @@
             }
             else {
                 // Text
-                var text = label.text = label.text || {};
+                var text = label.text || {};
+                label.text = text;
                 if (text.value === undefined) {
                     text.value = theme.getLabel();
                 }
@@ -18496,7 +18554,7 @@
                 var result = this._input;
                 if (result == null) {
                     var options = this._options;
-                    result = this.newInput(options && options.input);
+                    result = this.newInput(options === null || options === void 0 ? void 0 : options.input);
                     this._input = result;
                 }
                 return result;
@@ -18537,14 +18595,12 @@
                 _this.active = button;
             };
             // Events
-            if (options != null) {
-                var on = options.on;
-                if (on != null) {
-                    for (var name_1 in on) {
-                        var handler = on[name_1];
-                        if (handler) {
-                            _this.on(name_1, handler);
-                        }
+            var on = options === null || options === void 0 ? void 0 : options.on;
+            if (on != null) {
+                for (var name_1 in on) {
+                    var handler = on[name_1];
+                    if (handler) {
+                        _this.on(name_1, handler);
                     }
                 }
             }
@@ -18602,7 +18658,7 @@
         DButtonGroup.prototype.contains = function (button) {
             var buttons = this._buttons;
             var index = buttons.indexOf(button);
-            return (0 <= index);
+            return 0 <= index;
         };
         DButtonGroup.prototype.clear = function () {
             this._buttons.length = 0;
@@ -18680,8 +18736,9 @@
             var _this = _super.call(this, options) || this;
             _this.addChild(_this.getButtonOff());
             _this.addChild(_this.getButtonOn());
-            if (options && options.value != null) {
-                _this.value = options.value;
+            var value = options === null || options === void 0 ? void 0 : options.value;
+            if (value != null) {
+                _this.value = value;
             }
             _this.getButtonGroup().on("active", function () {
                 var newValue = _this.value;
@@ -19627,8 +19684,9 @@
      */
     var DPickerTimeBound = /** @class */ (function () {
         function DPickerTimeBound(options, onChange) {
-            this._date = (options && options.date !== undefined ? options.date : null);
-            this._inclusive = (options && options.inclusive !== undefined ? options.inclusive : false);
+            var _a, _b;
+            this._date = (_a = options === null || options === void 0 ? void 0 : options.date) !== null && _a !== void 0 ? _a : null;
+            this._inclusive = (_b = options === null || options === void 0 ? void 0 : options.inclusive) !== null && _b !== void 0 ? _b : false;
             this._onChange = onChange;
         }
         Object.defineProperty(DPickerTimeBound.prototype, "date", {
@@ -19995,38 +20053,38 @@
                 var ay = a.getFullYear();
                 var by = b.getFullYear();
                 if (ay !== by) {
-                    return (ay < by ? -1 : +1);
+                    return ay < by ? -1 : +1;
                 }
                 var am = a.getMonth();
                 var bm = b.getMonth();
                 if (am !== bm) {
-                    return (am < bm ? -1 : +1);
+                    return am < bm ? -1 : +1;
                 }
                 var ad = a.getDate();
                 var bd = b.getDate();
                 if (ad !== bd) {
-                    return (ad < bd ? -1 : +1);
+                    return ad < bd ? -1 : +1;
                 }
             }
             if (mask & DPickerDatetimeMask.HOURS) {
                 var ah = a.getHours();
                 var bh = b.getHours();
                 if (ah !== bh) {
-                    return (ah < bh ? -1 : +1);
+                    return ah < bh ? -1 : +1;
                 }
             }
             if (mask & DPickerDatetimeMask.MINUTES) {
                 var am = a.getMinutes();
                 var bm = b.getMinutes();
                 if (am !== bm) {
-                    return (am < bm ? -1 : +1);
+                    return am < bm ? -1 : +1;
                 }
             }
             if (mask & DPickerDatetimeMask.SECONDS) {
                 var ad = a.getSeconds();
                 var bd = b.getSeconds();
                 if (ad !== bd) {
-                    return (ad < bd ? -1 : +1);
+                    return ad < bd ? -1 : +1;
                 }
             }
             return 0;
@@ -20038,10 +20096,10 @@
             if (lowerDate != null) {
                 var result = this.compare(lowerDate, date);
                 if (lower.inclusive) {
-                    return (result <= 0 ? 0 : -1);
+                    return result <= 0 ? 0 : -1;
                 }
                 else {
-                    return (result < 0 ? 0 : -1);
+                    return result < 0 ? 0 : -1;
                 }
             }
             // Upper bound
@@ -20050,10 +20108,10 @@
             if (upperDate != null) {
                 var result = this.compare(date, upperDate);
                 if (upper.inclusive) {
-                    return (result <= 0 ? 0 : +1);
+                    return result <= 0 ? 0 : +1;
                 }
                 else {
-                    return (result < 0 ? 0 : +1);
+                    return result < 0 ? 0 : +1;
                 }
             }
             return 0;
@@ -20068,16 +20126,18 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var toBoundOptions = function (options, date, inclusive) {
+    var toBoundOptions = function (options, defaultDate, defaultInclusive) {
         if (options) {
+            var date = options.date;
+            var inclusive = options.inclusive;
             return {
-                date: (options.date !== undefined ? options.date : date),
-                inclusive: (options.inclusive !== undefined ? options.inclusive : inclusive)
+                date: date !== undefined ? date : defaultDate,
+                inclusive: inclusive !== undefined ? inclusive : defaultInclusive
             };
         }
         return {
-            date: date,
-            inclusive: inclusive
+            date: defaultDate,
+            inclusive: defaultInclusive
         };
     };
     var toBoundsOptions = function (theme, options) {
@@ -20107,19 +20167,23 @@
         }
         DPickerTime.prototype.init = function (options) {
             var _this = this;
+            var _a;
             _super.prototype.init.call(this, options);
             this.state.isFocusable = false;
             var theme = this.theme;
             this._dateCurrent = new Date();
             var dateCurrentTime = this._dateCurrent.getTime();
             this._dateNew = new Date(dateCurrentTime);
-            this._dateBounds = new DPickerTimeBounds(toBoundsOptions(theme, options && options.bounds), function () { _this.onNewChange(); });
-            var margin = (options && options.margin != null ?
-                options.margin : theme.getMargin());
+            this._dateBounds = new DPickerTimeBounds(toBoundsOptions(theme, options === null || options === void 0 ? void 0 : options.bounds), function () {
+                _this.onNewChange();
+            });
+            var margin = (_a = options === null || options === void 0 ? void 0 : options.margin) !== null && _a !== void 0 ? _a : theme.getMargin();
             new DLayoutVertical({
                 parent: this,
-                x: "padding", y: "padding",
-                width: "auto", height: "auto",
+                x: "padding",
+                y: "padding",
+                width: "auto",
+                height: "auto",
                 margin: margin,
                 children: this.newChildren(theme, options, margin)
             });
@@ -20202,9 +20266,12 @@
         DPickerTime.prototype.newChildren = function (theme, options, margin) {
             var mask = DPickerDatetimeMasks.from(theme, options);
             this._dateBounds.mask = mask;
-            this._inputHours = ((mask & DPickerDatetimeMask.HOURS) ? this.newInputHours(theme, options) : null);
-            this._inputMinutes = ((mask & DPickerDatetimeMask.MINUTES) ? this.newInputMinutes(theme, options) : null);
-            this._inputSeconds = ((mask & DPickerDatetimeMask.SECONDS) ? this.newInputSeconds(theme, options) : null);
+            this._inputHours =
+                mask & DPickerDatetimeMask.HOURS ? this.newInputHours(theme, options) : null;
+            this._inputMinutes =
+                mask & DPickerDatetimeMask.MINUTES ? this.newInputMinutes(theme, options) : null;
+            this._inputSeconds =
+                mask & DPickerDatetimeMask.SECONDS ? this.newInputSeconds(theme, options) : null;
             return [
                 this.newTimeLayout(this._inputHours, this._inputMinutes, this._inputSeconds, margin)
             ];
@@ -20282,7 +20349,8 @@
         };
         DPickerTime.prototype.newInputHours = function (theme, options) {
             var _this = this;
-            var inputOptions = (options && options.hours) || theme.getHoursOptions();
+            var _a;
+            var inputOptions = (_a = options === null || options === void 0 ? void 0 : options.hours) !== null && _a !== void 0 ? _a : theme.getHoursOptions();
             var max = this._dateBounds.constant.hour.max;
             var input = new DInputInteger(this.adjustInputOptions(theme, inputOptions, max));
             input.on("change", function (value) {
@@ -20297,7 +20365,7 @@
         };
         DPickerTime.prototype.newInputMinutes = function (theme, options) {
             var _this = this;
-            var inputOptions = (options && options.minutes) || theme.getMinutesOptions();
+            var inputOptions = (options === null || options === void 0 ? void 0 : options.minutes) || theme.getMinutesOptions();
             var max = this._dateBounds.constant.minute.max;
             var input = new DInputInteger(this.adjustInputOptions(theme, inputOptions, max));
             input.on("change", function (value) {
@@ -20312,7 +20380,7 @@
         };
         DPickerTime.prototype.newInputSeconds = function (theme, options) {
             var _this = this;
-            var inputOptions = (options && options.seconds) || theme.getSecondsOptions();
+            var inputOptions = (options === null || options === void 0 ? void 0 : options.seconds) || theme.getSecondsOptions();
             var max = this._dateBounds.constant.second.max;
             var input = new DInputInteger(this.adjustInputOptions(theme, inputOptions, max));
             input.on("change", function (value) {
@@ -20343,24 +20411,27 @@
             this._datePage = new Date(this._dateCurrent.getTime());
         };
         DPickerDatetime.prototype.newChildren = function (theme, options, margin) {
+            var _a, _b;
             this._dateButtons = this.newDateButtons(theme, options);
-            this._dateDecorator = (options && options.date && options.date.decorator) ||
-                theme.getDateDecorator();
+            this._dateDecorator = (_b = (_a = options === null || options === void 0 ? void 0 : options.date) === null || _a === void 0 ? void 0 : _a.decorator) !== null && _b !== void 0 ? _b : theme.getDateDecorator();
             this._label = this.newLabel(theme, options);
             var result = _super.prototype.newChildren.call(this, theme, options, margin);
             result.unshift(new DLayoutHorizontal({
-                width: "100%", height: "auto",
+                width: "100%",
+                height: "auto",
                 children: [
                     this.newBackButton(theme, options),
                     this._label,
                     this.newNextButton(theme, options)
                 ]
             }), new DLayoutHorizontal({
-                width: "auto", height: "auto",
+                width: "auto",
+                height: "auto",
                 margin: margin,
                 children: this.newDateLabels(theme, options)
             }), new DLayoutVertical({
-                width: "auto", height: "auto",
+                width: "auto",
+                height: "auto",
                 margin: margin,
                 column: 7,
                 children: this._dateButtons
@@ -20422,8 +20493,9 @@
             var dateDecorator = this._dateDecorator;
             tmp.setFullYear(tmp.getFullYear(), tmp.getMonth() + 1, 0);
             var dateCount = tmp.getDate();
-            var dateNewDate = (dateNew.getFullYear() === tmp.getFullYear() &&
-                dateNew.getMonth() === tmp.getMonth() ? dateNew.getDate() : 0);
+            var dateNewDate = dateNew.getFullYear() === tmp.getFullYear() && dateNew.getMonth() === tmp.getMonth()
+                ? dateNew.getDate()
+                : 0;
             for (var i = 0; i < dateCount; ++i) {
                 tmp.setDate(i + 1);
                 var button = buttons[i + 7];
@@ -20458,8 +20530,8 @@
             if (result.padding === undefined) {
                 result.padding = 0;
             }
-            var labelText = result.text = result.text || {};
-            var labelTextAlign = labelText.align = labelText.align || {};
+            var labelText = (result.text = result.text || {});
+            var labelTextAlign = (labelText.align = labelText.align || {});
             if (labelTextAlign.horizontal === undefined) {
                 labelTextAlign.horizontal = "CENTER";
             }
@@ -20473,8 +20545,10 @@
         };
         DPickerDatetime.prototype.newBackButton = function (theme, options) {
             var _this = this;
-            var buttonOptions = (options && options.back !== undefined ?
-                options.back : theme.getBackButtonOptions());
+            var buttonOptions = options === null || options === void 0 ? void 0 : options.back;
+            if (buttonOptions === undefined) {
+                buttonOptions = theme.getBackButtonOptions();
+            }
             if (buttonOptions != null) {
                 var button = new DPickerDatetimeButtonBack(buttonOptions);
                 button.on("active", function () {
@@ -20486,8 +20560,10 @@
         };
         DPickerDatetime.prototype.newNextButton = function (theme, options) {
             var _this = this;
-            var buttonOptions = (options && options.next !== undefined ?
-                options.next : theme.getNextButtonOptions());
+            var buttonOptions = options === null || options === void 0 ? void 0 : options.next;
+            if (buttonOptions === undefined) {
+                buttonOptions = theme.getNextButtonOptions();
+            }
             if (buttonOptions != null) {
                 var button = new DPickerDatetimeButtonNext(buttonOptions);
                 button.on("active", function () {
@@ -20980,7 +21056,7 @@
         }
         EShapeActionValueOpen.prototype.isEquals = function (value) {
             return (_super.prototype.isEquals.call(this, value) &&
-                (value instanceof EShapeActionValueOpen) &&
+                value instanceof EShapeActionValueOpen &&
                 this.target === value.target);
         };
         EShapeActionValueOpen.prototype.toRuntime = function () {
@@ -21040,7 +21116,7 @@
         __extends(EShapeActionRuntimeShowHide, _super);
         function EShapeActionRuntimeShowHide(value) {
             var _this = _super.call(this, value, EShapeRuntimeReset.VISIBILITY) || this;
-            _this.visibility = (value.subtype === EShapeActionValueShowHideType.SHOW);
+            _this.visibility = value.subtype === EShapeActionValueShowHideType.SHOW;
             return _this;
         }
         EShapeActionRuntimeShowHide.prototype.execute = function (shape, runtime, time) {
@@ -21141,12 +21217,12 @@
                 var amount = this.amount(shape, time);
                 var transform = shape.transform;
                 var position = transform.position;
-                var writtenPositionX = ((runtime.written & EShapeRuntimeReset.POSITION_X) !== 0);
-                var writtenPositionY = ((runtime.written & EShapeRuntimeReset.POSITION_Y) !== 0);
-                var oldPositionX = (writtenPositionX ? position.x : runtime.x);
-                var oldPositionY = (writtenPositionY ? position.y : runtime.y);
+                var writtenPositionX = !!(runtime.written & EShapeRuntimeReset.POSITION_X);
+                var writtenPositionY = !!(runtime.written & EShapeRuntimeReset.POSITION_Y);
+                var oldPositionX = writtenPositionX ? position.x : runtime.x;
+                var oldPositionY = writtenPositionY ? position.y : runtime.y;
                 shape.updateTransform();
-                var localTransform = shape.transform.localTransform;
+                var localTransform = transform.localTransform;
                 position.set(oldPositionX - localTransform.c * amount, oldPositionY - localTransform.d * amount);
                 runtime.written |= this.reset;
             }
@@ -21168,12 +21244,12 @@
                 var amount = this.amount(shape, time);
                 var transform = shape.transform;
                 var position = transform.position;
-                var writtenPositionX = ((runtime.written & EShapeRuntimeReset.POSITION_X) !== 0);
-                var writtenPositionY = ((runtime.written & EShapeRuntimeReset.POSITION_Y) !== 0);
-                var oldPositionX = (writtenPositionX ? position.x : runtime.x);
-                var oldPositionY = (writtenPositionY ? position.y : runtime.y);
+                var writtenPositionX = !!(runtime.written & EShapeRuntimeReset.POSITION_X);
+                var writtenPositionY = !!(runtime.written & EShapeRuntimeReset.POSITION_Y);
+                var oldPositionX = writtenPositionX ? position.x : runtime.x;
+                var oldPositionY = writtenPositionY ? position.y : runtime.y;
                 shape.updateTransform();
-                var localTransform = shape.transform.localTransform;
+                var localTransform = transform.localTransform;
                 position.set(oldPositionX + localTransform.a * amount, oldPositionY + localTransform.b * amount);
                 runtime.written |= this.reset;
             }
@@ -21193,9 +21269,9 @@
         EShapeActionRuntimeTransformMoveRelativeX.prototype.execute = function (shape, runtime, time) {
             if (this.condition(shape, time)) {
                 var amount = this.amount(shape, time);
-                var writtenPositionX = ((runtime.written & EShapeRuntimeReset.POSITION_X) !== 0);
+                var writtenPositionX = !!(runtime.written & EShapeRuntimeReset.POSITION_X);
                 var position = shape.transform.position;
-                var oldPositionX = (writtenPositionX ? position.x : runtime.x);
+                var oldPositionX = writtenPositionX ? position.x : runtime.x;
                 position.x = oldPositionX + amount;
                 runtime.written |= this.reset;
             }
@@ -21215,9 +21291,9 @@
         EShapeActionRuntimeTransformMoveRelativeY.prototype.execute = function (shape, runtime, time) {
             if (this.condition(shape, time)) {
                 var amount = this.amount(shape, time);
-                var writtenPositionY = ((runtime.written & EShapeRuntimeReset.POSITION_Y) !== 0);
+                var writtenPositionY = !!(runtime.written & EShapeRuntimeReset.POSITION_Y);
                 var position = shape.transform.position;
-                var oldPositionY = (writtenPositionY ? position.y : runtime.y);
+                var oldPositionY = writtenPositionY ? position.y : runtime.y;
                 position.y = oldPositionY + amount;
                 runtime.written |= this.reset;
             }
@@ -21225,6 +21301,10 @@
         return EShapeActionRuntimeTransformMoveRelativeY;
     }(EShapeActionRuntimeTransformMove));
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var EShapeActionValueOpetyped = /** @class */ (function (_super) {
         __extends(EShapeActionValueOpetyped, _super);
         function EShapeActionValueOpetyped(type, condition, subtype, opetype) {
@@ -21234,7 +21314,7 @@
         }
         EShapeActionValueOpetyped.prototype.isEquals = function (value) {
             return (_super.prototype.isEquals.call(this, value) &&
-                (value instanceof EShapeActionValueOpetyped) &&
+                value instanceof EShapeActionValueOpetyped &&
                 this.opetype === value.opetype);
         };
         return EShapeActionValueOpetyped;
@@ -21278,7 +21358,7 @@
         }
         EShapeActionValueTransformMove.prototype.isEquals = function (value) {
             return (_super.prototype.isEquals.call(this, value) &&
-                (value instanceof EShapeActionValueTransformMove) &&
+                value instanceof EShapeActionValueTransformMove &&
                 this.amount === value.amount);
         };
         EShapeActionValueTransformMove.prototype.toRuntime = function () {
@@ -21323,7 +21403,7 @@
         EShapeSizes.toNormalized = function (size) {
             var THRESHOLD = 0.001;
             if (Math.abs(size) < THRESHOLD) {
-                return (size < 0 ? -THRESHOLD : +THRESHOLD);
+                return size < 0 ? -THRESHOLD : +THRESHOLD;
             }
             return EShapeSizes.toRounded(size);
         };
@@ -21428,10 +21508,10 @@
             var transform = shape.transform;
             var position = transform.position;
             var localTransform = transform.localTransform;
-            var writtenPositionX = ((runtime.written & EShapeRuntimeReset.POSITION_X) !== 0);
-            var writtenPositionY = ((runtime.written & EShapeRuntimeReset.POSITION_Y) !== 0);
-            var oldPositionX = (writtenPositionX ? position.x : runtime.x);
-            var oldPositionY = (writtenPositionY ? position.y : runtime.y);
+            var writtenPositionX = !!(runtime.written & EShapeRuntimeReset.POSITION_X);
+            var writtenPositionY = !!(runtime.written & EShapeRuntimeReset.POSITION_Y);
+            var oldPositionX = writtenPositionX ? position.x : runtime.x;
+            var oldPositionY = writtenPositionY ? position.y : runtime.y;
             runtime.written |= EShapeRuntimeReset.POSITION;
             position.set(oldPositionX + dx * localTransform.a + dy * localTransform.c, oldPositionY + dx * localTransform.b + dy * localTransform.d);
         };
@@ -21454,8 +21534,8 @@
             if (this.condition(shape, time)) {
                 var sizeAbsolute = this.size(shape, time);
                 var size = shape.size;
-                var writtenHeight = ((runtime.written & EShapeRuntimeReset.HEIGHT) !== 0);
-                var oldSizeY = (writtenHeight ? size.y : runtime.size.y);
+                var writtenHeight = !!(runtime.written & EShapeRuntimeReset.HEIGHT);
+                var oldSizeY = writtenHeight ? size.y : runtime.size.y;
                 size.y = EShapeSizes.toNormalized(sizeAbsolute);
                 runtime.written |= EShapeRuntimeReset.HEIGHT;
                 this.adjustPosition(shape, runtime, 0, oldSizeY - size.y, 0.5, this.origin);
@@ -21480,8 +21560,8 @@
             if (this.condition(shape, time)) {
                 var sizeRelative = this.size(shape, time);
                 var size = shape.size;
-                var writtenHeight = ((runtime.written & EShapeRuntimeReset.HEIGHT) !== 0);
-                var oldSizeY = (writtenHeight ? size.y : runtime.size.y);
+                var writtenHeight = !!(runtime.written & EShapeRuntimeReset.HEIGHT);
+                var oldSizeY = writtenHeight ? size.y : runtime.size.y;
                 size.y = EShapeSizes.toNormalized(oldSizeY * sizeRelative);
                 runtime.written |= EShapeRuntimeReset.HEIGHT;
                 this.adjustPosition(shape, runtime, 0, oldSizeY - size.y, 0.5, this.origin);
@@ -21507,10 +21587,10 @@
             if (this.condition(shape, time)) {
                 var sizeAbsolute = EShapeSizes.toNormalized(this.size(shape, time));
                 var size = shape.size;
-                var writtenWidth = ((runtime.written & EShapeRuntimeReset.WIDTH) !== 0);
-                var writtenHeight = ((runtime.written & EShapeRuntimeReset.HEIGHT) !== 0);
-                var oldSizeX = (writtenWidth ? size.x : runtime.size.x);
-                var oldSizeY = (writtenHeight ? size.y : runtime.size.y);
+                var writtenWidth = !!(runtime.written & EShapeRuntimeReset.WIDTH);
+                var writtenHeight = !!(runtime.written & EShapeRuntimeReset.HEIGHT);
+                var oldSizeX = writtenWidth ? size.x : runtime.size.x;
+                var oldSizeY = writtenHeight ? size.y : runtime.size.y;
                 size.set(sizeAbsolute, sizeAbsolute);
                 runtime.written |= EShapeRuntimeReset.SIZE;
                 this.adjustPosition(shape, runtime, oldSizeX - size.x, oldSizeY - size.y, this.originX, this.originY);
@@ -21536,10 +21616,10 @@
             if (this.condition(shape, time)) {
                 var sizeRelative = this.size(shape, time);
                 var size = shape.size;
-                var writtenWidth = ((runtime.written & EShapeRuntimeReset.WIDTH) !== 0);
-                var writtenHeight = ((runtime.written & EShapeRuntimeReset.HEIGHT) !== 0);
-                var oldSizeX = (writtenWidth ? size.x : runtime.size.x);
-                var oldSizeY = (writtenHeight ? size.y : runtime.size.y);
+                var writtenWidth = !!(runtime.written & EShapeRuntimeReset.WIDTH);
+                var writtenHeight = !!(runtime.written & EShapeRuntimeReset.HEIGHT);
+                var oldSizeX = writtenWidth ? size.x : runtime.size.x;
+                var oldSizeY = writtenHeight ? size.y : runtime.size.y;
                 size.set(EShapeSizes.toNormalized(oldSizeX * sizeRelative), EShapeSizes.toNormalized(oldSizeY * sizeRelative));
                 runtime.written |= EShapeRuntimeReset.SIZE;
                 this.adjustPosition(shape, runtime, oldSizeX - size.x, oldSizeY - size.y, this.originX, this.originY);
@@ -21564,8 +21644,8 @@
             if (this.condition(shape, time)) {
                 var sizeAbsolute = this.size(shape, time);
                 var size = shape.size;
-                var writtenWidth = ((runtime.written & EShapeRuntimeReset.WIDTH) !== 0);
-                var oldSizeX = (writtenWidth ? size.x : runtime.size.x);
+                var writtenWidth = !!(runtime.written & EShapeRuntimeReset.WIDTH);
+                var oldSizeX = writtenWidth ? size.x : runtime.size.x;
                 size.x = EShapeSizes.toNormalized(sizeAbsolute);
                 runtime.written |= EShapeRuntimeReset.WIDTH;
                 this.adjustPosition(shape, runtime, oldSizeX - size.x, 0, this.origin, 0.5);
@@ -21590,8 +21670,8 @@
             if (this.condition(shape, time)) {
                 var sizeRelative = this.size(shape, time);
                 var size = shape.size;
-                var writtenWidth = ((runtime.written & EShapeRuntimeReset.WIDTH) !== 0);
-                var oldSizeX = (writtenWidth ? size.x : runtime.size.x);
+                var writtenWidth = !!(runtime.written & EShapeRuntimeReset.WIDTH);
+                var oldSizeX = writtenWidth ? size.x : runtime.size.x;
                 size.x = EShapeSizes.toNormalized(oldSizeX * sizeRelative);
                 runtime.written |= EShapeRuntimeReset.WIDTH;
                 this.adjustPosition(shape, runtime, oldSizeX - size.x, 0, this.origin, 0.5);
@@ -21615,7 +21695,7 @@
         }
         EShapeActionValueTransformResize.prototype.isEquals = function (value) {
             return (_super.prototype.isEquals.call(this, value) &&
-                (value instanceof EShapeActionValueTransformResize) &&
+                value instanceof EShapeActionValueTransformResize &&
                 this.originX === value.originX &&
                 this.originY === value.originY &&
                 this.amount === value.amount);
@@ -21663,17 +21743,17 @@
             return _this;
         }
         EShapeActionRuntimeTransformRotate.prototype.adjustPosition = function (shape, runtime, oldRotation, newRotation, originX, originY) {
-            var writtenWidth = ((runtime.written & EShapeRuntimeReset.WIDTH) !== 0);
-            var writtenHeight = ((runtime.written & EShapeRuntimeReset.HEIGHT) !== 0);
+            var writtenWidth = !!(runtime.written & EShapeRuntimeReset.WIDTH);
+            var writtenHeight = !!(runtime.written & EShapeRuntimeReset.HEIGHT);
             var dx = (-0.5 + originX) * (writtenWidth ? shape.size.x : runtime.size.x);
             var dy = (-0.5 + originY) * (writtenHeight ? shape.size.y : runtime.size.y);
             var s = Math.sin(oldRotation) - Math.sin(newRotation);
             var c = Math.cos(oldRotation) - Math.cos(newRotation);
             var position = shape.transform.position;
-            var writtenPositionX = ((runtime.written & EShapeRuntimeReset.POSITION_X) !== 0);
-            var writtenPositionY = ((runtime.written & EShapeRuntimeReset.POSITION_Y) !== 0);
-            var oldPositionX = (writtenPositionX ? position.x : runtime.x);
-            var oldPositionY = (writtenPositionY ? position.y : runtime.y);
+            var writtenPositionX = !!(runtime.written & EShapeRuntimeReset.POSITION_X);
+            var writtenPositionY = !!(runtime.written & EShapeRuntimeReset.POSITION_Y);
+            var oldPositionX = writtenPositionX ? position.x : runtime.x;
+            var oldPositionY = writtenPositionY ? position.y : runtime.y;
             runtime.written |= EShapeRuntimeReset.POSITION;
             position.set(oldPositionX + dx * c - dy * s, oldPositionY + dx * s + dy * c);
         };
@@ -21695,8 +21775,8 @@
             if (this.condition(shape, time)) {
                 var amount = this.amount(shape, time);
                 var transform = shape.transform;
-                var writtenRotation = ((runtime.written & EShapeRuntimeReset.ROTATION) !== 0);
-                var oldRotation = (writtenRotation ? transform.rotation : runtime.rotation);
+                var writtenRotation = !!(runtime.written & EShapeRuntimeReset.ROTATION);
+                var oldRotation = writtenRotation ? transform.rotation : runtime.rotation;
                 transform.rotation = amount;
                 runtime.written |= EShapeRuntimeReset.ROTATION;
                 this.adjustPosition(shape, runtime, oldRotation, amount, this.originX, this.originY);
@@ -21720,8 +21800,8 @@
             if (this.condition(shape, time)) {
                 var amount = this.amount(shape, time);
                 var transform = shape.transform;
-                var writtenRotation = ((runtime.written & EShapeRuntimeReset.ROTATION) !== 0);
-                var oldRotation = (writtenRotation ? transform.rotation : runtime.rotation);
+                var writtenRotation = !!(runtime.written & EShapeRuntimeReset.ROTATION);
+                var oldRotation = writtenRotation ? transform.rotation : runtime.rotation;
                 transform.rotation = oldRotation + amount;
                 runtime.written |= EShapeRuntimeReset.ROTATION;
                 this.adjustPosition(shape, runtime, oldRotation, transform.rotation, this.originX, this.originY);
@@ -21755,7 +21835,7 @@
         }
         EShapeActionValueTransformRotate.prototype.isEquals = function (value) {
             return (_super.prototype.isEquals.call(this, value) &&
-                (value instanceof EShapeActionValueTransformRotate) &&
+                value instanceof EShapeActionValueTransformRotate &&
                 this.originX === value.originX &&
                 this.originY === value.originY &&
                 this.amount === value.amount);
@@ -21834,6 +21914,7 @@
                                 case EShapeActionValueChangeColorTarget.BRIGHTNESS:
                                     return EShapeActionValueChangeColorBrightness.deserialize(serialized, manager);
                             }
+                            break;
                         case EShapeActionValueType.CHANGE_TEXT:
                             return EShapeActionValueChangeText.deserialize(serialized, manager);
                         case EShapeActionValueType.CHANGE_CURSOR:
@@ -21912,10 +21993,11 @@
         };
         EShapeDeserializer.deserialize = function (item, manager, result) {
             result.id = manager.resources[item[1]] || "";
-            result.transform.position.set(item[2], item[3]);
-            result.transform.rotation = item[6];
-            result.transform.skew.set(item[7], item[7]);
-            result.transform.pivot.set(item[21], item[22]);
+            var transform = result.transform;
+            transform.position.set(item[2], item[3]);
+            transform.rotation = item[6];
+            transform.skew.set(item[7], item[7]);
+            transform.pivot.set(item[21], item[22]);
             result.size.set(EShapeSizes.toNormalized(item[4]), EShapeSizes.toNormalized(item[5]));
             result.fill.deserialize(item[8], manager);
             result.stroke.deserialize(item[9], manager);
@@ -21926,9 +22008,9 @@
             result.corner = item[14];
             result.interactive = !!(item[23] & 1);
             result.state.isFocusable = !(item[23] & 2);
-            result.shortcut = (0 <= item[24] ? manager.resources[item[24]] : undefined);
-            result.title = (0 <= item[25] ? manager.resources[item[25]] : undefined);
-            result.uuid = (item[26] != null ? item[26] : 0);
+            result.shortcut = 0 <= item[24] ? manager.resources[item[24]] : undefined;
+            result.title = 0 <= item[25] ? manager.resources[item[25]] : undefined;
+            result.uuid = item[26] != null ? item[26] : 0;
             // Children
             var childrenPromise = null;
             var childrenSerialized = item[20];
@@ -22056,6 +22138,10 @@
         }
     };
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var STEP_VALUES = [0, 0, 0];
     var toStep = function (size, strokeWidth, antialiasWeight, result) {
         var FMIN = 0.00001;
@@ -22280,13 +22366,13 @@
             var size = shape.size;
             var sizeX = size.x;
             var sizeY = size.y;
-            var isSizeChanged = (sizeX !== this.sizeX || sizeY !== this.sizeY);
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
             var transformLocalId = this.toTransformLocalId(shape);
-            var isTransformChanged = (this.transformLocalId !== transformLocalId);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
-            var strokeWidth = (stroke.enable ? stroke.width : 0);
+            var strokeWidth = stroke.enable ? stroke.width : 0;
             var strokeAlign = stroke.align;
-            var isStrokeChanged = (this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth);
+            var isStrokeChanged = this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth;
             if (isSizeChanged || isTransformChanged || isStrokeChanged) {
                 this.sizeX = sizeX;
                 this.sizeY = sizeY;
@@ -22403,6 +22489,7 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    /* eslint-disable prettier/prettier */
     var EShapeCapability;
     (function (EShapeCapability) {
         EShapeCapability[EShapeCapability["NONE"] = 0] = "NONE";
@@ -22660,7 +22747,7 @@
             return -1;
         };
         EShapeGroupFillViewer.prototype.deserialize = function (target, manager) {
-            //
+            // DO NOTHING
         };
         return EShapeGroupFillViewer;
     }());
@@ -22688,12 +22775,15 @@
         function EShapeTransforms() {
         }
         EShapeTransforms.prepare = function (shape) {
-            var editor = shape.editor = (shape.editor || new EShapeEditor());
+            var editor = shape.editor || new EShapeEditor();
+            shape.editor = editor;
             // Ttransform
             shape.updateTransform();
             var parent = shape.parent;
             if (parent instanceof EShapeBase) {
-                parent.transform.internalTransform.copyTo(editor.internalTransformParentInverse).invert();
+                parent.transform.internalTransform
+                    .copyTo(editor.internalTransformParentInverse)
+                    .invert();
             }
             else {
                 editor.internalTransformParentInverse.identity();
@@ -22713,8 +22803,10 @@
             var editor = shape.editor;
             if (editor != null) {
                 var newLocalTransform = editor.localTransform;
-                editor.internalTransformParentInverse.copyTo(newLocalTransform)
-                    .append(transform).append(editor.internalTransform);
+                editor.internalTransformParentInverse
+                    .copyTo(newLocalTransform)
+                    .append(transform)
+                    .append(editor.internalTransform);
                 if (keepSize) {
                     this.applyLocal(shape, newLocalTransform);
                 }
@@ -22798,7 +22890,8 @@
             var sy = baseY / this.base.y;
             var childBase = this.shapeBase;
             var transform = EShapeGroupSizeLayout.WORK_TRANSFORM;
-            transform.identity()
+            transform
+                .identity()
                 .append(this.transform)
                 .translate(-pivotX, -pivotY)
                 .scale(sx, sy)
@@ -23116,7 +23209,7 @@
             return p;
         };
         EShapeGroupSizeViewer.prototype.equals = function (p) {
-            return (p.x === this._x) && (p.y === this._y);
+            return p.x === this._x && p.y === this._y;
         };
         EShapeGroupSizeViewer.prototype.fit = function () {
             // DO NOTHING
@@ -23853,8 +23946,8 @@
                 version: serialized.version,
                 id: serialized.id,
                 name: serialized.name,
-                tags: (tags != null ? JSON.stringify(tags) : undefined),
-                pieces: (pieces != null ? JSON.stringify(pieces) : undefined),
+                tags: tags != null ? JSON.stringify(tags) : undefined,
+                pieces: pieces != null ? JSON.stringify(pieces) : undefined,
                 thumbnail: serialized.thumbnail,
                 data: JSON.stringify({
                     width: serialized.width,
@@ -23933,8 +24026,7 @@
                         }
                         else {
                             controller.piece.getByName(piece).then(function (found) {
-                                _this.toPieceDataSub(controller, piece, found, isEditMode, newMappings_1)
-                                    .then(onFinished, onFinished);
+                                _this.toPieceDataSub(controller, piece, found, isEditMode, newMappings_1).then(onFinished, onFinished);
                             }, onFinished);
                         }
                     };
@@ -24592,7 +24684,7 @@
             return -1;
         };
         EShapeGroupTextEditor.prototype.deserialize = function (target, manager) {
-            //
+            // DO NOTHING
         };
         return EShapeGroupTextEditor;
     }());
@@ -24835,7 +24927,7 @@
             return -1;
         };
         EShapeGroupFillEditor.prototype.deserialize = function (target, manager) {
-            //
+            // DO NOTHING
         };
         return EShapeGroupFillEditor;
     }());
@@ -25783,38 +25875,38 @@
         var bwb = bryi * swb;
         // 0 1 2 3
         var is = (voffset - 1) * 6;
-        fillRectangleStep(steps, is += 6, swl, swt, pl0, pt0, px1, py1);
-        fillRectangleStep(steps, is += 6, bwl, swt, pl0, pt0, px1, py1);
-        fillRectangleStep(steps, is += 6, bwr, swt, pr0, pt0, px1, py1);
-        fillRectangleStep(steps, is += 6, swr, swt, pr0, pt0, px1, py1);
+        fillRectangleStep(steps, (is += 6), swl, swt, pl0, pt0, px1, py1);
+        fillRectangleStep(steps, (is += 6), bwl, swt, pl0, pt0, px1, py1);
+        fillRectangleStep(steps, (is += 6), bwr, swt, pr0, pt0, px1, py1);
+        fillRectangleStep(steps, (is += 6), swr, swt, pr0, pt0, px1, py1);
         // 4 5
-        fillRectangleStep(steps, is += 6, bwl, bwt, pl0, pt0, px1, py1);
-        fillRectangleStep(steps, is += 6, bwr, bwt, pr0, pt0, px1, py1);
+        fillRectangleStep(steps, (is += 6), bwl, bwt, pl0, pt0, px1, py1);
+        fillRectangleStep(steps, (is += 6), bwr, bwt, pr0, pt0, px1, py1);
         // 6 7
-        fillRectangleStep(steps, is += 6, bwl, bwb, pl0, pb0, px1, py1);
-        fillRectangleStep(steps, is += 6, bwr, bwb, pr0, pb0, px1, py1);
+        fillRectangleStep(steps, (is += 6), bwl, bwb, pl0, pb0, px1, py1);
+        fillRectangleStep(steps, (is += 6), bwr, bwb, pr0, pb0, px1, py1);
         // 8 9 10 11
-        fillRectangleStep(steps, is += 6, swl, swb, pl0, pb0, px1, py1);
-        fillRectangleStep(steps, is += 6, bwl, swb, pl0, pb0, px1, py1);
-        fillRectangleStep(steps, is += 6, bwr, swb, pr0, pb0, px1, py1);
-        fillRectangleStep(steps, is += 6, swr, swb, pr0, pb0, px1, py1);
+        fillRectangleStep(steps, (is += 6), swl, swb, pl0, pb0, px1, py1);
+        fillRectangleStep(steps, (is += 6), bwl, swb, pl0, pb0, px1, py1);
+        fillRectangleStep(steps, (is += 6), bwr, swb, pr0, pb0, px1, py1);
+        fillRectangleStep(steps, (is += 6), swr, swb, pr0, pb0, px1, py1);
         // ------------------------------
         // 12 13 14 15
-        fillRectangleStep(steps, is += 6, swl, swt, pl0, pt0, px1, py1);
-        fillRectangleStep(steps, is += 6, swl, bwt, pl0, pt0, px1, py1);
-        fillRectangleStep(steps, is += 6, swl, bwb, pl0, pb0, px1, py1);
-        fillRectangleStep(steps, is += 6, swl, swb, pl0, pb0, px1, py1);
+        fillRectangleStep(steps, (is += 6), swl, swt, pl0, pt0, px1, py1);
+        fillRectangleStep(steps, (is += 6), swl, bwt, pl0, pt0, px1, py1);
+        fillRectangleStep(steps, (is += 6), swl, bwb, pl0, pb0, px1, py1);
+        fillRectangleStep(steps, (is += 6), swl, swb, pl0, pb0, px1, py1);
         // 16 17
-        fillRectangleStep(steps, is += 6, bwl, bwt, pl0, pt0, px1, py1);
-        fillRectangleStep(steps, is += 6, bwl, bwb, pl0, pb0, px1, py1);
+        fillRectangleStep(steps, (is += 6), bwl, bwt, pl0, pt0, px1, py1);
+        fillRectangleStep(steps, (is += 6), bwl, bwb, pl0, pb0, px1, py1);
         // 18 19
-        fillRectangleStep(steps, is += 6, bwr, bwt, pr0, pt0, px1, py1);
-        fillRectangleStep(steps, is += 6, bwr, bwb, pr0, pb0, px1, py1);
+        fillRectangleStep(steps, (is += 6), bwr, bwt, pr0, pt0, px1, py1);
+        fillRectangleStep(steps, (is += 6), bwr, bwb, pr0, pb0, px1, py1);
         // 20 21 22 23
-        fillRectangleStep(steps, is += 6, swr, swt, pr0, pt0, px1, py1);
-        fillRectangleStep(steps, is += 6, swr, bwt, pr0, pt0, px1, py1);
-        fillRectangleStep(steps, is += 6, swr, bwb, pr0, pb0, px1, py1);
-        fillRectangleStep(steps, is += 6, swr, swb, pr0, pb0, px1, py1);
+        fillRectangleStep(steps, (is += 6), swr, swt, pr0, pt0, px1, py1);
+        fillRectangleStep(steps, (is += 6), swr, bwt, pr0, pt0, px1, py1);
+        fillRectangleStep(steps, (is += 6), swr, bwb, pr0, pb0, px1, py1);
+        fillRectangleStep(steps, (is += 6), swr, swb, pr0, pb0, px1, py1);
     };
     var fillRectangleStep = function (steps, is, v0, v1, v2, v3, v4, v5) {
         steps[is] = v0;
@@ -25922,18 +26014,19 @@
             var size = shape.size;
             var sizeX = size.x;
             var sizeY = size.y;
-            var isSizeChanged = (sizeX !== this.sizeX || sizeY !== this.sizeY);
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
             var transformLocalId = this.toTransformLocalId(shape);
-            var isTransformChanged = (this.transformLocalId !== transformLocalId);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
-            var strokeWidth = (stroke.enable ? stroke.width : 0);
+            var strokeWidth = stroke.enable ? stroke.width : 0;
             var strokeAlign = stroke.align;
             var strokeSide = stroke.side;
-            var isStrokeChanged = (this.strokeAlign !== strokeAlign ||
-                this.strokeWidth !== strokeWidth || this.strokeSide !== strokeSide);
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeSide !== strokeSide;
             var texture = this.toTexture(shape);
             var textureTransformId = this.toTextureTransformId(texture);
-            var isTextureChanged = (texture !== this.texture || textureTransformId !== this.textureTransformId);
+            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
             var isVertexChanged = isSizeChanged || isStrokeChanged;
             if (isVertexChanged || isTransformChanged || isTextureChanged) {
                 this.sizeX = sizeX;
@@ -26021,32 +26114,32 @@
                             else {
                                 if (x <= -wx) {
                                     if (y <= -wy) {
-                                        return (strokeSide & EShapeStrokeSide.TOP_OR_LEFT) !== 0;
+                                        return !!(strokeSide & EShapeStrokeSide.TOP_OR_LEFT);
                                     }
                                     else if (+wy <= y) {
-                                        return (strokeSide & EShapeStrokeSide.BOTTOM_OR_LEFT) !== 0;
+                                        return !!(strokeSide & EShapeStrokeSide.BOTTOM_OR_LEFT);
                                     }
                                     else {
-                                        return (strokeSide & EShapeStrokeSide.LEFT) !== 0;
+                                        return !!(strokeSide & EShapeStrokeSide.LEFT);
                                     }
                                 }
                                 else if (+wx <= x) {
                                     if (y <= -wy) {
-                                        return (strokeSide & EShapeStrokeSide.TOP_OR_RIGHT) !== 0;
+                                        return !!(strokeSide & EShapeStrokeSide.TOP_OR_RIGHT);
                                     }
                                     else if (+wy <= y) {
-                                        return (strokeSide & EShapeStrokeSide.BOTTOM_OR_RIGHT) !== 0;
+                                        return !!(strokeSide & EShapeStrokeSide.BOTTOM_OR_RIGHT);
                                     }
                                     else {
-                                        return (strokeSide & EShapeStrokeSide.RIGHT) !== 0;
+                                        return !!(strokeSide & EShapeStrokeSide.RIGHT);
                                     }
                                 }
                                 else {
                                     if (y <= -wy) {
-                                        return (strokeSide & EShapeStrokeSide.TOP) !== 0;
+                                        return !!(strokeSide & EShapeStrokeSide.TOP);
                                     }
                                     else if (+wy <= y) {
-                                        return (strokeSide & EShapeStrokeSide.BOTTOM) !== 0;
+                                        return !!(strokeSide & EShapeStrokeSide.BOTTOM);
                                     }
                                     else {
                                         return false;
@@ -26341,17 +26434,17 @@
             var size = shape.size;
             var sizeX = size.x;
             var sizeY = size.y;
-            var isSizeChanged = (sizeX !== this.sizeX || sizeY !== this.sizeY);
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
             var transformLocalId = this.toTransformLocalId(shape);
-            var isTransformChanged = (this.transformLocalId !== transformLocalId);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
-            var strokeWidth = (stroke.enable ? stroke.width : 0);
+            var strokeWidth = stroke.enable ? stroke.width : 0;
             var strokeAlign = stroke.align;
-            var isStrokeChanged = (this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth);
+            var isStrokeChanged = this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth;
             var texture = this.toTexture(shape);
             var textureWidth = texture.width * texture.resolution;
             var textureHeight = texture.height * texture.resolution;
-            var isTextureSizeChanged = (this.textureWidth !== textureWidth || this.textureHeight !== textureHeight);
+            var isTextureSizeChanged = this.textureWidth !== textureWidth || this.textureHeight !== textureHeight;
             if (isSizeChanged || isTransformChanged || isStrokeChanged || isTextureSizeChanged) {
                 this.sizeX = sizeX;
                 this.sizeY = sizeY;
@@ -26457,9 +26550,9 @@
             var size = shape.size;
             var sizeX = size.x;
             var sizeY = size.y;
-            var isSizeChanged = (sizeX !== this.sizeX || sizeY !== this.sizeY);
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
             var transformLocalId = this.toTransformLocalId(shape);
-            var isTransformChanged = (this.transformLocalId !== transformLocalId);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
             if (isSizeChanged || isTransformChanged) {
                 this.sizeX = sizeX;
                 this.sizeY = sizeY;
@@ -26549,7 +26642,7 @@
     var LINE_FMIN = 0.00001;
     var LINE_WORK_POINT = new pixi_js.Point();
     var toLineVertexCount = function (pointCount) {
-        return (Math.ceil(pointCount / 12) * 12) * 4 + 2;
+        return Math.ceil(pointCount / 12) * 12 * 4 + 2;
     };
     var buildLineClipping = function (clippings, voffset, vcount, pointCount, pointsClosed) {
         var ic = voffset * 3;
@@ -26565,7 +26658,7 @@
                 ic += 6;
             }
             // Middle
-            for (var i = (pointsClosed ? 0 : 1), imax = pointCount - i; i < imax; ++i) {
+            for (var i = pointsClosed ? 0 : 1, imax = pointCount - i; i < imax; ++i) {
                 clippings[ic + 0] = 1;
                 clippings[ic + 1] = 0;
                 clippings[ic + 2] = 3;
@@ -26636,7 +26729,7 @@
                 icf += 8;
             }
             // UV: Middle
-            for (var i = (pointsClosed ? 0 : 1), imax = pointCount - i; i < imax; ++i) {
+            for (var i = pointsClosed ? 0 : 1, imax = pointCount - i; i < imax; ++i) {
                 r = colorFills[icf] * lengthInverse;
                 uvs[iuv + 0] = x0 + r * dx01;
                 uvs[iuv + 1] = y0 + r * dy01;
@@ -26661,7 +26754,7 @@
             iuv += 4;
         }
         // Fill the rest
-        for (var iuvmax = ((voffset + vcount) << 1); iuv < iuvmax; iuv += 2) {
+        for (var iuvmax = (voffset + vcount) << 1; iuv < iuvmax; iuv += 2) {
             uvs[iuv + 0] = 0;
             uvs[iuv + 1] = 0;
         }
@@ -26701,14 +26794,14 @@
             var pv1 = pointValues[1];
             var pfirstx = a * pv0 + c * pv1 + tx;
             var pfirsty = b * pv0 + d * pv1 + ty;
-            var psegfirst = (0 <= toIndexOf(pointSegments, 0));
+            var psegfirst = 0 <= toIndexOf(pointSegments, 0);
             // Last point
             var lastIndex = (pointCount - 1) << 1;
             var pvl0 = pointValues[lastIndex + 0];
             var pvl1 = pointValues[lastIndex + 1];
             var plastx = a * pvl0 + c * pvl1 + tx;
             var plasty = b * pvl0 + d * pvl1 + ty;
-            var pseglast = (0 <= toIndexOf(pointSegments, pointCount - 1));
+            var pseglast = 0 <= toIndexOf(pointSegments, pointCount - 1);
             // Second point
             var psecondx = plastx;
             var psecondy = plasty;
@@ -26718,7 +26811,7 @@
                 var pv3 = pointValues[3];
                 psecondx = a * pv2 + c * pv3 + tx;
                 psecondy = b * pv2 + d * pv3 + ty;
-                psegsecond = (0 <= toIndexOf(pointSegments, 1));
+                psegsecond = 0 <= toIndexOf(pointSegments, 1);
             }
             // First segment
             if (pointsClosed) {
@@ -26763,7 +26856,7 @@
                 icf += 8;
             }
             // Middle segments
-            for (var i = (pointsClosed ? 0 : 1), imax = pointCount - i; i < imax; ++i) {
+            for (var i = pointsClosed ? 0 : 1, imax = pointCount - i; i < imax; ++i) {
                 pprevx = px;
                 pprevy = py;
                 px = pnextx;
@@ -26785,7 +26878,7 @@
                     var pvn1 = pointValues[nextIndex + 1];
                     pnextx = a * pvn0 + c * pvn1 + tx;
                     pnexty = b * pvn0 + d * pvn1 + ty;
-                    psegnext = (0 <= toIndexOf(pointSegments, i + 1));
+                    psegnext = 0 <= toIndexOf(pointSegments, i + 1);
                 }
                 else {
                     pnextx = pfirstx;
@@ -26955,7 +27048,7 @@
             }
         }
         // Fill the rest
-        for (var ivmax = ((voffset + vcount) << 1); iv < ivmax; iv += 2, is += 6, icf += 4) {
+        for (var ivmax = (voffset + vcount) << 1; iv < ivmax; iv += 2, is += 6, icf += 4) {
             vertices[iv + 0] = px;
             vertices[iv + 1] = py;
             steps[is + 0] = 0;
@@ -27018,7 +27111,7 @@
             var points = shape.points;
             if (points) {
                 var pointCount = points.length;
-                var pointsClosed = (!!(points.style & EShapePointsStyle.CLOSED));
+                var pointsClosed = !!(points.style & EShapePointsStyle.CLOSED);
                 if (this.pointCount !== pointCount || this.pointsClosed !== pointsClosed) {
                     this.pointCount = pointCount;
                     this.pointsClosed = pointsClosed;
@@ -27033,12 +27126,12 @@
             var points = shape.points;
             if (points) {
                 var pointId = points.id;
-                var isPointChanged = (pointId !== this.pointId);
+                var isPointChanged = pointId !== this.pointId;
                 var stroke = shape.stroke;
-                var strokeWidth = (stroke.enable ? stroke.width : 0);
-                var isStrokeWidthChanged = (strokeWidth !== this.strokeWidth);
+                var strokeWidth = stroke.enable ? stroke.width : 0;
+                var isStrokeWidthChanged = strokeWidth !== this.strokeWidth;
                 var transformLocalId = this.toTransformLocalId(shape);
-                var isTransformChanged = (this.transformLocalId !== transformLocalId);
+                var isTransformChanged = this.transformLocalId !== transformLocalId;
                 if (isPointChanged || isTransformChanged || isStrokeWidthChanged) {
                     this.pointId = pointId;
                     this.strokeWidth = strokeWidth;
@@ -27081,7 +27174,7 @@
      */
     var createLineUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
         var points = shape.points;
-        var pointCount = (points ? points.length : 0);
+        var pointCount = points ? points.length : 0;
         var tcount = toTextBufferCount(shape);
         var tvcount = tcount * TEXT_VERTEX_COUNT;
         var ticount = tcount * TEXT_INDEX_COUNT;
@@ -27158,8 +27251,8 @@
                 var hasSizeBaseX = threshold < Math.abs(sizeBase.x);
                 var hasSizeBaseY = threshold < Math.abs(sizeBase.y);
                 if (hasSizeBaseX || hasSizeBaseY) {
-                    var scaleX = (hasSizeBaseX ? ssx / sizeBase.x : 1);
-                    var scaleY = (hasSizeBaseY ? ssy / sizeBase.y : 1);
+                    var scaleX = hasSizeBaseX ? ssx / sizeBase.x : 1;
+                    var scaleY = hasSizeBaseY ? ssy / sizeBase.y : 1;
                     var values = this._values;
                     var valuesBase = this._valuesBase;
                     if (valuesBase == null) {
@@ -27337,12 +27430,14 @@
                 var istart = 0;
                 var iend = pointCount;
                 if (range) {
-                    var rangeResult = range(x, y, threshold, pointValues, EShapeLinePoints.WORK_RANGE);
-                    istart = rangeResult[0];
-                    iend = rangeResult[1];
+                    var work = EShapeLinePoints.WORK_RANGE;
+                    range(x, y, threshold, pointValues, work);
+                    istart = work[0];
+                    iend = work[1];
                 }
-                for (var i = istart, imax = Math.min(iend, pointCount - 1), iv = 2 * istart; i < imax; i += 1, iv += 2) {
+                for (var i = istart, imax = Math.min(iend, pointCount - 1); i < imax; ++i) {
                     if (toIndexOf(pointSegments, i + 1) < 0) {
+                        var iv = i << 1;
                         var p0x = pointValues[iv + 0];
                         var p0y = pointValues[iv + 1];
                         var p1x = pointValues[iv + 2];
@@ -27352,7 +27447,7 @@
                         }
                     }
                 }
-                if (2 < pointCount && pointCount <= iend && (this.style & EShapePointsStyle.CLOSED)) {
+                if (2 < pointCount && pointCount <= iend && this.style & EShapePointsStyle.CLOSED) {
                     if (toIndexOf(pointSegments, 0) < 0) {
                         var i = pointCount - 1;
                         var iv = i << 1;
@@ -27396,8 +27491,9 @@
         });
         EShapeLine.prototype.clone = function () {
             var points = this.points;
-            return new EShapeLine(points.values, points.segments, this.stroke.width, points.style)
-                .copy(this, EShapeCopyPart.ALL & ~EShapeCopyPart.POINTS);
+            var result = new EShapeLine(points.values, points.segments, this.stroke.width, points.style);
+            result.copy(this, EShapeCopyPart.ALL & ~EShapeCopyPart.POINTS);
+            return result;
         };
         return EShapeLine;
     }(EShapeLineBase));
@@ -27431,7 +27527,7 @@
     };
 
     var toLineOfAnyPointCount = function (pointCount) {
-        return (Math.ceil(pointCount / 12) * 12);
+        return Math.ceil(pointCount / 12) * 12;
     };
     var buildLineOfAnyColor = function (voffset, vcountPerPoint, point, pointCount, colors, isEnabled, colorDef, alphaDef) {
         if (isEnabled) {
@@ -27534,6 +27630,10 @@
         }
     };
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var copyClipping = function (clippings, voffset, vcountPerPoint, pointCount) {
         var iv = voffset + vcountPerPoint;
         for (var i = 1; i < pointCount; ++i) {
@@ -27550,6 +27650,10 @@
         }
     };
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var copyIndex = function (indices, vcountPerPoint, ioffset, icountPerPoint, pointCount) {
         var idiv = vcountPerPoint;
         var ii = ioffset + icountPerPoint;
@@ -27568,6 +27672,10 @@
         }
     };
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var copyStep = function (steps, voffset, vcountPerPoint, pointCount) {
         var iss0 = voffset * 6;
         var isd = (voffset + vcountPerPoint) * 6;
@@ -27586,6 +27694,10 @@
         }
     };
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var copyUvs = function (uvs, voffset, vcountPerPoint, pointCount) {
         var iv = voffset + vcountPerPoint;
         for (var i = 1; i < pointCount; ++i) {
@@ -27601,6 +27713,10 @@
         }
     };
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var copyVertex = function (vertices, internalTransform, voffset, vcountPerPoint, pointCount, pointsValues, pointOffset) {
         var a = internalTransform.a;
         var b = internalTransform.b;
@@ -27648,10 +27764,18 @@
         }
     };
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var isStatic = function (value) {
         return isNumber(value) || value == null;
     };
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var toComputed = function (index, value, def) {
         if (isNumber(value)) {
             return value;
@@ -28119,12 +28243,13 @@
             if (range) {
                 var s = size.getLimit() * 0.5;
                 var o = offset.getLimit();
-                var rangeResult = range(x, y, s, s, o, o, threshold, pointValues, EShapeLineOfAnyPointsImpl.WORK_RANGE);
-                istart = rangeResult[0];
-                iend = rangeResult[1];
+                var work = EShapeLineOfAnyPointsImpl.WORK_RANGE;
+                range(x, y, s, s, o, o, threshold, pointValues, work);
+                istart = work[0];
+                iend = work[1];
             }
-            tester = tester;
-            for (var i = istart, imax = Math.min(iend, pointCount), iv = istart << 1; i < imax; i += 1, iv += 2) {
+            for (var i = istart, imax = Math.min(iend, pointCount); i < imax; ++i) {
+                var iv = i << 1;
                 var px = pointValues[iv];
                 var py = pointValues[iv + 1];
                 var sx = size.getX(i) * 0.5;
@@ -28169,12 +28294,12 @@
         EShapeLineOfAnyUploaded.prototype.updateLineOfAnyColorFill = function (buffer, shape, points, vcountPerPoint) {
             var pointFill = points.fill;
             var pointFillId = pointFill.id;
-            var isPointFillChanged = (pointFillId !== this.pointFillId);
+            var isPointFillChanged = pointFillId !== this.pointFillId;
             var fill = shape.fill;
             var isFillEnabled = shape.visible && fill.enable;
             var colorFill = fill.color;
-            var alphaFill = (isFillEnabled ? fill.alpha : 0);
-            var isFillChanged = (colorFill !== this.colorFill || alphaFill !== this.alphaFill);
+            var alphaFill = isFillEnabled ? fill.alpha : 0;
+            var isFillChanged = colorFill !== this.colorFill || alphaFill !== this.alphaFill;
             if (isPointFillChanged || isFillChanged) {
                 this.colorFill = colorFill;
                 this.alphaFill = alphaFill;
@@ -28186,12 +28311,12 @@
         EShapeLineOfAnyUploaded.prototype.updateLineOfAnyColorStroke = function (buffer, shape, points, vcountPerPoint) {
             var pointStroke = points.stroke;
             var pointStrokeId = pointStroke.id;
-            var isPointStrokeChanged = (pointStrokeId !== this.pointStrokeId);
+            var isPointStrokeChanged = pointStrokeId !== this.pointStrokeId;
             var stroke = shape.stroke;
             var isStrokeEnabled = shape.visible && stroke.enable;
             var colorStroke = stroke.color;
-            var alphaStroke = (isStrokeEnabled ? stroke.alpha : 0);
-            var isStrokeChanged = (colorStroke !== this.colorStroke || alphaStroke !== this.alphaStroke);
+            var alphaStroke = isStrokeEnabled ? stroke.alpha : 0;
+            var isStrokeChanged = colorStroke !== this.colorStroke || alphaStroke !== this.alphaStroke;
             if (isPointStrokeChanged || isStrokeChanged) {
                 this.colorStroke = colorStroke;
                 this.alphaStroke = alphaStroke;
@@ -28249,21 +28374,25 @@
             var pointId = points.id;
             var pointOffset = points.offset;
             var pointOffsetId = pointOffset.id;
-            var isPointChanged = (pointId !== this.pointId || pointOffsetId !== this.pointOffsetId);
+            var isPointChanged = pointId !== this.pointId || pointOffsetId !== this.pointOffsetId;
             var pointSize = points.size;
             var pointSizeId = pointSize.id;
-            var isPointSizeChanged = (pointSizeId !== this.pointSizeId);
+            var isPointSizeChanged = pointSizeId !== this.pointSizeId;
             var size = shape.size;
             var sizeX = size.x;
             var sizeY = size.y;
-            var isSizeChanged = (sizeX !== this.sizeX || sizeY !== this.sizeY);
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
             var transformLocalId = this.toTransformLocalId(shape);
-            var isTransformChanged = (this.transformLocalId !== transformLocalId);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
-            var strokeWidth = (stroke.enable ? stroke.width : 0);
+            var strokeWidth = stroke.enable ? stroke.width : 0;
             var strokeAlign = stroke.align;
-            var isStrokeChanged = (this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth);
-            if (isPointChanged || isPointSizeChanged || isSizeChanged || isTransformChanged || isStrokeChanged) {
+            var isStrokeChanged = this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth;
+            if (isPointChanged ||
+                isPointSizeChanged ||
+                isSizeChanged ||
+                isTransformChanged ||
+                isStrokeChanged) {
                 this.pointId = pointId;
                 this.pointCount = points.length;
                 this.pointOffsetId = pointOffsetId;
@@ -28351,9 +28480,7 @@
     var toHitThreshold = function (target, toThreshold) {
         var stroke = target.stroke;
         var size = target.points.size.getLimit() + (stroke.enable ? stroke.width * stroke.align : 0);
-        return (toThreshold ?
-            toThreshold(size, 1) :
-            size * 0.5);
+        return toThreshold ? toThreshold(size, 1) : size * 0.5;
     };
 
     /*
@@ -29418,8 +29545,8 @@
         var y4 = 0.5 * (y0 + y1);
         var x5 = 0.5 * (x3 + x2);
         var y5 = 0.5 * (y3 + y2);
-        var ruvx = 0.5 * worldSize[0] / worldSize[1];
-        var ruvy = 0.5 * worldSize[0] / worldSize[2];
+        var ruvx = (0.5 * worldSize[0]) / worldSize[1];
+        var ruvy = (0.5 * worldSize[0]) / worldSize[2];
         var d0x = ruvx * (x1 - x0);
         var d0y = ruvx * (y1 - y0);
         var d1x = ruvy * (x3 - x0);
@@ -29560,28 +29687,29 @@
             var pointId = points.id;
             var pointOffset = points.offset;
             var pointOffsetId = pointOffset.id;
-            var isPointChanged = (pointId !== this.pointId || pointOffsetId !== this.pointOffsetId);
+            var isPointChanged = pointId !== this.pointId || pointOffsetId !== this.pointOffsetId;
             var pointSize = points.size;
             var pointSizeId = pointSize.id;
-            var isPointSizeChanged = (pointSizeId !== this.pointSizeId);
+            var isPointSizeChanged = pointSizeId !== this.pointSizeId;
             var size = shape.size;
             var sizeX = size.x;
             var sizeY = size.y;
             var radius = shape.radius;
-            var isSizeChanged = (sizeX !== this.sizeX || sizeY !== this.sizeY || radius !== this.radius);
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY || radius !== this.radius;
             var transformLocalId = this.toTransformLocalId(shape);
-            var isTransformChanged = (this.transformLocalId !== transformLocalId);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
-            var strokeWidth = (stroke.enable ? stroke.width : 0);
+            var strokeWidth = stroke.enable ? stroke.width : 0;
             var strokeAlign = stroke.align;
             var strokeSide = stroke.side;
-            var isStrokeChanged = (this.strokeAlign !== strokeAlign ||
-                this.strokeWidth !== strokeWidth || this.strokeSide !== strokeSide);
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeSide !== strokeSide;
             var corner = shape.corner;
-            var isCornerChanged = (corner !== this.corner);
+            var isCornerChanged = corner !== this.corner;
             var texture = this.toTexture(shape);
             var textureTransformId = this.toTextureTransformId(texture);
-            var isTextureChanged = (texture !== this.texture || textureTransformId !== this.textureTransformId);
+            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
             var isVertexChanged = isPointChanged || isPointSizeChanged || isSizeChanged || isStrokeChanged;
             if (isVertexChanged || isTransformChanged || isCornerChanged || isTextureChanged) {
                 this.pointId = pointId;
@@ -29707,7 +29835,7 @@
             var bx0 = -ax + r;
             if (x <= bx0) {
                 var by0 = -ay + r;
-                if (y <= by0 && (corner & EShapeCorner.TOP_LEFT)) {
+                if (y <= by0 && corner & EShapeCorner.TOP_LEFT) {
                     // Top-left corner
                     var dx = x - bx0;
                     var dy = y - by0;
@@ -29715,7 +29843,7 @@
                 }
                 else {
                     var by1 = +ay - r;
-                    if (by1 <= y && (corner & EShapeCorner.BOTTOM_LEFT)) {
+                    if (by1 <= y && corner & EShapeCorner.BOTTOM_LEFT) {
                         // Bottom-left corner
                         var dx = x - bx0;
                         var dy = y - by1;
@@ -29731,7 +29859,7 @@
                 var bx1 = +ax - r;
                 if (bx1 <= x) {
                     var by0 = -ay + r;
-                    if (y <= by0 && (corner & EShapeCorner.TOP_RIGHT)) {
+                    if (y <= by0 && corner & EShapeCorner.TOP_RIGHT) {
                         // Top-right corner
                         var dx = x - bx1;
                         var dy = y - by0;
@@ -29739,7 +29867,7 @@
                     }
                     else {
                         var by1 = +ay - r;
-                        if (by1 <= y && (corner & EShapeCorner.BOTTOM_RIGHT)) {
+                        if (by1 <= y && corner & EShapeCorner.BOTTOM_RIGHT) {
                             // Bottom-right corner
                             var dx = x - bx1;
                             var dy = y - by1;
@@ -29760,7 +29888,7 @@
             if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
                 var fill = this.fill;
                 var stroke = this.stroke;
-                var strokeWidth = (stroke.enable ? stroke.width : 0);
+                var strokeWidth = stroke.enable ? stroke.width : 0;
                 if (fill.enable || 0 < strokeWidth) {
                     var r = this.radius * Math.min(ax, ay);
                     var corner = this.corner;
@@ -29779,9 +29907,9 @@
                                 }
                                 else {
                                     if (x <= -wx + wr) {
-                                        var hasLeftSide = (strokeSide & EShapeStrokeSide.LEFT) !== 0;
+                                        var hasLeftSide = !!(strokeSide & EShapeStrokeSide.LEFT);
                                         if (y <= -wy + wr) {
-                                            var hasTopSide = (strokeSide & EShapeStrokeSide.TOP);
+                                            var hasTopSide = !!(strokeSide & EShapeStrokeSide.TOP);
                                             if (hasTopSide && hasLeftSide) {
                                                 return true;
                                             }
@@ -29796,7 +29924,7 @@
                                             }
                                         }
                                         else if (+wy - wr <= y) {
-                                            var hasBottomSide = (strokeSide & EShapeStrokeSide.BOTTOM);
+                                            var hasBottomSide = !!(strokeSide & EShapeStrokeSide.BOTTOM);
                                             if (hasBottomSide && hasLeftSide) {
                                                 return true;
                                             }
@@ -29815,9 +29943,9 @@
                                         }
                                     }
                                     else if (+wx - wr <= x) {
-                                        var hasRightSide = (strokeSide & EShapeStrokeSide.RIGHT) !== 0;
+                                        var hasRightSide = !!(strokeSide & EShapeStrokeSide.RIGHT);
                                         if (y <= -wy + wr) {
-                                            var hasTopSide = (strokeSide & EShapeStrokeSide.TOP);
+                                            var hasTopSide = !!(strokeSide & EShapeStrokeSide.TOP);
                                             if (hasTopSide && hasRightSide) {
                                                 return true;
                                             }
@@ -29832,7 +29960,7 @@
                                             }
                                         }
                                         else if (+wy - wr <= y) {
-                                            var hasBottomSide = (strokeSide & EShapeStrokeSide.BOTTOM);
+                                            var hasBottomSide = !!(strokeSide & EShapeStrokeSide.BOTTOM);
                                             if (hasBottomSide && hasRightSide) {
                                                 return true;
                                             }
@@ -29852,10 +29980,10 @@
                                     }
                                     else {
                                         if (y <= -wy + wr) {
-                                            return (strokeSide & EShapeStrokeSide.TOP) !== 0;
+                                            return !!(strokeSide & EShapeStrokeSide.TOP);
                                         }
                                         else if (+wy - wr <= y) {
-                                            return (strokeSide & EShapeStrokeSide.BOTTOM) !== 0;
+                                            return !!(strokeSide & EShapeStrokeSide.BOTTOM);
                                         }
                                         else {
                                             return false;
@@ -29982,25 +30110,26 @@
             var pointId = points.id;
             var pointOffset = points.offset;
             var pointOffsetId = pointOffset.id;
-            var isPointChanged = (pointId !== this.pointId || pointOffsetId !== this.pointOffsetId);
+            var isPointChanged = pointId !== this.pointId || pointOffsetId !== this.pointOffsetId;
             var pointSize = points.size;
             var pointSizeId = pointSize.id;
-            var isPointSizeChanged = (pointSizeId !== this.pointSizeId);
+            var isPointSizeChanged = pointSizeId !== this.pointSizeId;
             var size = shape.size;
             var sizeX = size.x;
             var sizeY = size.y;
-            var isSizeChanged = (sizeX !== this.sizeX || sizeY !== this.sizeY);
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
             var transformLocalId = this.toTransformLocalId(shape);
-            var isTransformChanged = (this.transformLocalId !== transformLocalId);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
-            var strokeWidth = (stroke.enable ? stroke.width : 0);
+            var strokeWidth = stroke.enable ? stroke.width : 0;
             var strokeAlign = stroke.align;
             var strokeSide = stroke.side;
-            var isStrokeChanged = (this.strokeAlign !== strokeAlign ||
-                this.strokeWidth !== strokeWidth || this.strokeSide !== strokeSide);
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeSide !== strokeSide;
             var texture = this.toTexture(shape);
             var textureTransformId = this.toTextureTransformId(texture);
-            var isTextureChanged = (texture !== this.texture || textureTransformId !== this.textureTransformId);
+            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
             var isVertexChanged = isPointChanged || isPointSizeChanged || isSizeChanged || isStrokeChanged;
             if (isVertexChanged || isTransformChanged || isTextureChanged) {
                 this.pointId = pointId;
@@ -30176,7 +30305,13 @@
 
     var TRIANGLE_ROUNDED_VERTEX_COUNT = 22;
     var TRIANGLE_ROUNDED_INDEX_COUNT = 15;
-    var TRIANGLE_ROUNDED_WORLD_SIZE = [0, 0, 0, 0, 0];
+    var TRIANGLE_ROUNDED_WORLD_SIZE = [
+        0,
+        0,
+        0,
+        0,
+        0
+    ];
     var TRIANGLE_ROUNDED_WORK_POINT = new pixi_js.Point();
     var buildTriangleRoundedIndex = function (indices, voffset, ioffset) {
         // Top corner
@@ -30238,9 +30373,9 @@
         var sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
         var sy = sizeY * 0.5 + (0 <= sizeY ? +s : -s);
         var sz = Math.sqrt(sx * sx + 4 * sy * sy);
-        var sw = 2 * sx * sy / (sx + sz);
+        var sw = (2 * sx * sy) / (sx + sz);
         var ry = (sw * radius) / (2 * sy);
-        var rz = (0.5 * (sz - sw) * radius) / (sz);
+        var rz = (0.5 * (sz - sw) * radius) / sz;
         var rx = (ry * sz) / (2 * sx);
         var work = TRIANGLE_ROUNDED_WORK_POINT;
         work.set(originX, originY - sy);
@@ -30294,7 +30429,7 @@
         worldSize[1] = rx;
         worldSize[2] = ry;
         worldSize[3] = rz;
-        worldSize[4] = 1 - 0.5 * sw / sy;
+        worldSize[4] = 1 - (0.5 * sw) / sy;
         // Vertices
         // Top corner
         var iv = voffset * 2;
@@ -30638,28 +30773,32 @@
             var pointId = points.id;
             var pointOffset = points.offset;
             var pointOffsetId = pointOffset.id;
-            var isPointChanged = (pointId !== this.pointId || pointOffsetId !== this.pointOffsetId);
+            var isPointChanged = pointId !== this.pointId || pointOffsetId !== this.pointOffsetId;
             var pointSize = points.size;
             var pointSizeId = pointSize.id;
-            var isPointSizeChanged = (pointSizeId !== this.pointSizeId);
+            var isPointSizeChanged = pointSizeId !== this.pointSizeId;
             var size = shape.size;
             var sizeX = size.x;
             var sizeY = size.y;
-            var isSizeChanged = (sizeX !== this.sizeX || sizeY !== this.sizeY);
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
             var radius = shape.radius;
-            var isRadiusChanged = (radius !== this.radius);
+            var isRadiusChanged = radius !== this.radius;
             var transformLocalId = this.toTransformLocalId(shape);
-            var isTransformChanged = (this.transformLocalId !== transformLocalId);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
-            var strokeWidth = (stroke.enable ? stroke.width : 0);
+            var strokeWidth = stroke.enable ? stroke.width : 0;
             var strokeAlign = stroke.align;
-            var isStrokeChanged = (this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth);
+            var isStrokeChanged = this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth;
             var corner = shape.corner;
-            var isCornerChanged = (this.corner !== corner);
+            var isCornerChanged = this.corner !== corner;
             var texture = this.toTexture(shape);
             var textureTransformId = this.toTextureTransformId(texture);
-            var isTextureChanged = (texture !== this.texture || textureTransformId !== this.textureTransformId);
-            var isVertexChanged = isPointChanged || isPointSizeChanged || isSizeChanged || isRadiusChanged || isStrokeChanged;
+            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
+            var isVertexChanged = isPointChanged ||
+                isPointSizeChanged ||
+                isSizeChanged ||
+                isRadiusChanged ||
+                isStrokeChanged;
             if (isVertexChanged || isTransformChanged || isCornerChanged || isTextureChanged) {
                 this.pointId = pointId;
                 this.pointCount = points.length;
@@ -30784,11 +30923,11 @@
             // y = + a * x + ay1
             // y = - a * x + ay1
             // y = ay2;
-            return (+a * x + ay1 - y <= 0 && -a * x + ay1 - y <= 0 && y <= ay2);
+            return +a * x + ay1 - y <= 0 && -a * x + ay1 - y <= 0 && y <= ay2;
         };
         EShapeTriangle.prototype.containsAbs = function (x, y, ax, ay) {
             if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
-                var a = 2 * ay / ax;
+                var a = (2 * ay) / ax;
                 var fill = this.fill;
                 if (fill.enable) {
                     if (this.containsAbs_(x, y, a, -ay, +ay)) {
@@ -30801,9 +30940,9 @@
                     if (stroke.enable && 0 < strokeWidth) {
                         if (this.containsAbs_(x, y, a, -ay, +ay)) {
                             var az = Math.sqrt(ax * ax + 4 * ay * ay);
-                            var aw = 2 * ax * ay / (ax + az);
+                            var aw = (2 * ax * ay) / (ax + az);
                             var cy = ay - aw;
-                            var ay1 = cy + (-ay - cy) * Math.max(0.0, aw - strokeWidth) / aw;
+                            var ay1 = cy + ((-ay - cy) * Math.max(0.0, aw - strokeWidth)) / aw;
                             var ay2 = ay - strokeWidth;
                             if (!this.containsAbs_(x, y, a, ay1, ay2)) {
                                 return true;
@@ -30851,6 +30990,7 @@
                     }
                 }
             }
+            return false;
         };
         EShapeTriangleRounded.prototype.containsCorner = function (x, y, x0, y0, x1, y1, x2, y2, x3, y3, r12, r13, aw, radius) {
             var xl = x1 + r12 * (x2 - x1) - x0;
@@ -30876,13 +31016,14 @@
                     }
                 }
             }
+            return false;
         };
         EShapeTriangleRounded.prototype.containsAbs = function (x, y, ax, ay) {
             if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
-                var a = 2 * ay / ax;
+                var a = (2 * ay) / ax;
                 if (this.containsAbs_(x, y, a, -ay, +ay)) {
                     var az = Math.sqrt(ax * ax + 4 * ay * ay);
-                    var aw = 2 * ax * ay / (ax + az);
+                    var aw = (2 * ax * ay) / (ax + az);
                     var radius = this.radius;
                     var x0 = 0;
                     var y0 = ay - aw;
@@ -30902,14 +31043,14 @@
                     var c1 = +a * x + y10 - y <= 0;
                     var c2 = y <= y11;
                     var corner = this.corner;
-                    if (!c0 && !c1 && (corner & EShapeCorner.TOP)) {
+                    if (!c0 && !c1 && corner & EShapeCorner.TOP) {
                         // Top corner
-                        var rz = (0.5 * (az - aw) * radius) / (az);
+                        var rz = (0.5 * (az - aw) * radius) / az;
                         if (this.containsCorner(x, y, x10, y10, x1, y1, x7, y7, x4, y4, rz, rz, aw, radius)) {
                             return true;
                         }
                     }
-                    else if (!c0 && !c2 && (corner & EShapeCorner.BOTTOM_LEFT)) {
+                    else if (!c0 && !c2 && corner & EShapeCorner.BOTTOM_LEFT) {
                         // Bottom-left corner
                         var ry = (aw * radius) / (2 * ay);
                         var rx = (ry * az) / (2 * ax);
@@ -30917,7 +31058,7 @@
                             return true;
                         }
                     }
-                    else if (!c1 && !c2 && (corner & EShapeCorner.BOTTOM_RIGHT)) {
+                    else if (!c1 && !c2 && corner & EShapeCorner.BOTTOM_RIGHT) {
                         // Bottom-right corner
                         var ry = (aw * radius) / (2 * ay);
                         var rx = (ry * az) / (2 * ax);
@@ -30936,7 +31077,7 @@
                             var strokeWidth = stroke.width;
                             if (stroke.enable && 0 < strokeWidth) {
                                 var cy = ay - aw;
-                                var ay1 = cy + (-ay - cy) * Math.max(0.0, aw - strokeWidth) / aw;
+                                var ay1 = cy + ((-ay - cy) * Math.max(0.0, aw - strokeWidth)) / aw;
                                 var ay2 = ay - strokeWidth;
                                 if (!this.containsAbs_(x, y, a, ay1, ay2)) {
                                     return true;
@@ -31073,7 +31214,7 @@
         var sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
         var sy = sizeY * 0.5 + (0 <= sizeY ? +s : -s);
         var sz = Math.sqrt(sx * sx + 4 * sy * sy);
-        var sw = 2 * sx * sy / (sx + sz);
+        var sw = (2 * sx * sy) / (sx + sz);
         var work = TRIANGLE_WORK_POINT;
         work.set(originX, originY - sy);
         internalTransform.apply(work, work);
@@ -31136,7 +31277,7 @@
         var y3 = textureUvs.y3;
         var x4 = 0.5 * (x0 + x1);
         var y4 = 0.5 * (y0 + y1);
-        var c = 1 - 0.5 * worldSize[0] / worldSize[2];
+        var c = 1 - (0.5 * worldSize[0]) / worldSize[2];
         var x5 = x4 + c * (x3 - x0);
         var y5 = y4 + c * (y3 - y0);
         var iuv = voffset << 1;
@@ -31200,23 +31341,23 @@
             var pointId = points.id;
             var pointOffset = points.offset;
             var pointOffsetId = pointOffset.id;
-            var isPointChanged = (pointId !== this.pointId || pointOffsetId !== this.pointOffsetId);
+            var isPointChanged = pointId !== this.pointId || pointOffsetId !== this.pointOffsetId;
             var pointSize = points.size;
             var pointSizeId = pointSize.id;
-            var isPointSizeChanged = (pointSizeId !== this.pointSizeId);
+            var isPointSizeChanged = pointSizeId !== this.pointSizeId;
             var size = shape.size;
             var sizeX = size.x;
             var sizeY = size.y;
-            var isSizeChanged = (sizeX !== this.sizeX || sizeY !== this.sizeY);
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
             var transformLocalId = this.toTransformLocalId(shape);
-            var isTransformChanged = (this.transformLocalId !== transformLocalId);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
-            var strokeWidth = (stroke.enable ? stroke.width : 0);
+            var strokeWidth = stroke.enable ? stroke.width : 0;
             var strokeAlign = stroke.align;
-            var isStrokeChanged = (this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth);
+            var isStrokeChanged = this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth;
             var texture = this.toTexture(shape);
             var textureTransformId = this.toTextureTransformId(texture);
-            var isTextureChanged = (texture !== this.texture || textureTransformId !== this.textureTransformId);
+            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
             var isVertexChanged = isPointChanged || isPointSizeChanged || isSizeChanged || isStrokeChanged;
             if (isVertexChanged || isTransformChanged || isTextureChanged) {
                 this.pointId = pointId;
@@ -31479,20 +31620,21 @@
             var sizeX = size.x;
             var sizeY = size.y;
             var radius = shape.radius;
-            var isSizeChanged = (sizeX !== this.sizeX || sizeY !== this.sizeY || radius !== this.radius);
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY || radius !== this.radius;
             var transformLocalId = this.toTransformLocalId(shape);
-            var isTransformChanged = (this.transformLocalId !== transformLocalId);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
-            var strokeWidth = (stroke.enable ? stroke.width : 0);
+            var strokeWidth = stroke.enable ? stroke.width : 0;
             var strokeAlign = stroke.align;
             var strokeSide = stroke.side;
-            var isStrokeChanged = (this.strokeAlign !== strokeAlign ||
-                this.strokeWidth !== strokeWidth || this.strokeSide !== strokeSide);
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeSide !== strokeSide;
             var corner = shape.corner;
-            var isCornerChanged = (corner !== this.corner);
+            var isCornerChanged = corner !== this.corner;
             var texture = this.toTexture(shape);
             var textureTransformId = this.toTextureTransformId(texture);
-            var isTextureChanged = (texture !== this.texture || textureTransformId !== this.textureTransformId);
+            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
             var isVertexChanged = isSizeChanged || isStrokeChanged;
             if (isVertexChanged || isTransformChanged || isCornerChanged || isTextureChanged) {
                 this.sizeX = sizeX;
@@ -31598,16 +31740,16 @@
             var size = shape.size;
             var sizeX = size.x;
             var sizeY = size.y;
-            var isSizeChanged = (sizeX !== this.sizeX || sizeY !== this.sizeY);
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
             var transformLocalId = this.toTransformLocalId(shape);
-            var isTransformChanged = (this.transformLocalId !== transformLocalId);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
-            var strokeWidth = (stroke.enable ? stroke.width : 0);
+            var strokeWidth = stroke.enable ? stroke.width : 0;
             var strokeAlign = stroke.align;
-            var isStrokeChanged = (this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth);
+            var isStrokeChanged = this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth;
             var texture = this.toTexture(shape);
             var textureTransformId = this.toTextureTransformId(texture);
-            var isTextureChanged = (texture !== this.texture || textureTransformId !== this.textureTransformId);
+            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
             var isVertexChanged = isSizeChanged || isStrokeChanged;
             if (isVertexChanged || isTransformChanged || isTextureChanged) {
                 this.sizeX = sizeX;
@@ -31700,20 +31842,20 @@
             var size = shape.size;
             var sizeX = size.x;
             var sizeY = size.y;
-            var isSizeChanged = (sizeX !== this.sizeX || sizeY !== this.sizeY);
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
             var radius = shape.radius;
-            var isRadiusChanged = (radius !== this.radius);
+            var isRadiusChanged = radius !== this.radius;
             var transformLocalId = this.toTransformLocalId(shape);
-            var isTransformChanged = (this.transformLocalId !== transformLocalId);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
-            var strokeWidth = (stroke.enable ? stroke.width : 0);
+            var strokeWidth = stroke.enable ? stroke.width : 0;
             var strokeAlign = stroke.align;
-            var isStrokeChanged = (this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth);
+            var isStrokeChanged = this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth;
             var corner = shape.corner;
-            var isCornerChanged = (corner !== this.corner);
+            var isCornerChanged = corner !== this.corner;
             var texture = this.toTexture(shape);
             var textureTransformId = this.toTextureTransformId(texture);
-            var isTextureChanged = (texture !== this.texture || textureTransformId !== this.textureTransformId);
+            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
             var isVertexChanged = isSizeChanged || isRadiusChanged || isStrokeChanged;
             if (isVertexChanged || isTransformChanged || isCornerChanged || isTextureChanged) {
                 this.sizeX = sizeX;
@@ -31859,7 +32001,7 @@
             configurable: true
         });
         DListItem.prototype.hasSelection = function (target) {
-            return (target && target.selection && target.selection.add);
+            return target && target.selection && target.selection.add;
         };
         DListItem.prototype.getSelection = function () {
             var parent = this.parent;
@@ -32021,7 +32163,7 @@
         }
         DMenuItemCheck.prototype.init = function (options) {
             _super.prototype.init.call(this, options);
-            if (options && options.check) {
+            if (options === null || options === void 0 ? void 0 : options.check) {
                 this.state.isActive = true;
             }
         };
@@ -32210,7 +32352,7 @@
                 if (e.target === div) {
                     var clipboardData = toClipboardData(e);
                     clipboardData.setData("text/plain", text);
-                    result = (clipboardData.getData("text/plain") === text);
+                    result = clipboardData.getData("text/plain") === text;
                     e.preventDefault();
                 }
             };
@@ -32231,7 +32373,7 @@
         div.setAttribute("style", "-webkit-user-select: text !important");
         var span = document.createElement("span");
         span.innerText = text;
-        var root = (div.attachShadow ? div.attachShadow({ mode: "open" }) : div);
+        var root = div.attachShadow ? div.attachShadow({ mode: "open" }) : div;
         root.appendChild(span);
         document.body.appendChild(div);
         var result = false;
@@ -32303,6 +32445,7 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var InteractionEvent = pixi_js.interaction.InteractionEvent;
     var DLink = /** @class */ (function () {
         function DLink(theme, options) {
             var _a, _b, _c;
@@ -32348,7 +32491,7 @@
             configurable: true
         });
         DLink.prototype.toStringifiedUrl = function (target, onResolved) {
-            var url = (isFunction(target) ? target() : target);
+            var url = isFunction(target) ? target() : target;
             if (url != null) {
                 if (isString(url)) {
                     onResolved(url);
@@ -32380,8 +32523,7 @@
         DLink.prototype.open = function (x) {
             var _this = this;
             this.toStringifiedUrl(this._url, function (url) {
-                var inNewWindow = (x === true || x === false ?
-                    x : _this.inNewWindow(x));
+                var inNewWindow = x === true || x === false ? x : _this.inNewWindow(x);
                 _this.check(url, inNewWindow, function () {
                     _this.exec(url, inNewWindow);
                 });
@@ -32443,14 +32585,17 @@
                     return false;
                 case DLinkTarget.AUTO:
                     if (e != null) {
-                        var oe = (e instanceof pixi_js.interaction.InteractionEvent ? e.data.originalEvent : e);
-                        return ((oe.ctrlKey || oe.shiftKey || oe.altKey || oe.metaKey) ||
+                        var oe = e instanceof InteractionEvent ? e.data.originalEvent : e;
+                        return (oe.ctrlKey ||
+                            oe.shiftKey ||
+                            oe.altKey ||
+                            oe.metaKey ||
                             ("button" in oe && oe.button !== 0));
                     }
                     return false;
             }
         };
-        DLink.prototype.apply = function (base, onSelect) {
+        DLink.prototype.add = function (base, onSelect) {
             var _this = this;
             var onClick = function (e) {
                 if (_this._isEnabled && base.state.isActionable) {
@@ -32560,7 +32705,7 @@
         });
         DMenuItemLink.prototype.initOnClick = function (options) {
             var _this = this;
-            this._link.apply(this, function (e) { return _this.onSelect(e); });
+            this._link.add(this, function (e) { return _this.onSelect(e); });
         };
         DMenuItemLink.prototype.getType = function () {
             return "DMenuItemLink";
@@ -32837,8 +32982,8 @@
      */
     var DMenuItemExpandableBody = /** @class */ (function (_super) {
         __extends(DMenuItemExpandableBody, _super);
-        function DMenuItemExpandableBody(options) {
-            return _super.call(this, options) || this;
+        function DMenuItemExpandableBody() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         DMenuItemExpandableBody.prototype.getType = function () {
             return "DMenuItemExpandableBody";
@@ -32878,8 +33023,8 @@
             this.CREATOR_DEFAULT = creator;
         };
         DMenuItemExpandables.newItem = function (options, sticky) {
-            return DMenus.newItemOf(this.CREATORS, this.CREATOR_DEFAULT, options, sticky) ||
-                DMenus.newItem(options, sticky);
+            return (DMenus.newItemOf(this.CREATORS, this.CREATOR_DEFAULT, options, sticky) ||
+                DMenus.newItem(options, sticky));
         };
         DMenuItemExpandables.newItems = function (parent, items, sticky) {
             DMenus.newItemsOf(this, parent, items, sticky);
@@ -32900,6 +33045,7 @@
         }
         DMenuItemExpandable.prototype.init = function (options) {
             var _this = this;
+            var _a;
             _super.prototype.init.call(this, options);
             // Header
             var theme = this.theme;
@@ -32912,7 +33058,7 @@
             // Body
             var body = this.toBody(theme, options);
             this._body = body;
-            var sticky = (options && options.sticky != null ? options.sticky : false);
+            var sticky = (_a = options === null || options === void 0 ? void 0 : options.sticky) !== null && _a !== void 0 ? _a : false;
             this.newItems(body, sticky, theme, options);
             this.addChild(body);
             //
@@ -32924,8 +33070,9 @@
             }
         };
         DMenuItemExpandable.prototype.newItems = function (body, sticky, theme, options) {
-            if (options != null && options.items != null) {
-                DMenuItemExpandables.newItems(body, options.items, sticky);
+            var items = options === null || options === void 0 ? void 0 : options.items;
+            if (items != null) {
+                DMenuItemExpandables.newItems(body, items, sticky);
             }
         };
         DMenuItemExpandable.prototype.toHeader = function (theme, options) {
@@ -32943,12 +33090,13 @@
             return new DMenuItemExpandableHeader(options);
         };
         DMenuItemExpandable.prototype.toBody = function (theme, options) {
-            if (options && options.body) {
-                if (options.body instanceof pixi_js.DisplayObject) {
-                    return options.body;
+            var body = options === null || options === void 0 ? void 0 : options.body;
+            if (body) {
+                if (body instanceof pixi_js.DisplayObject) {
+                    return body;
                 }
                 else {
-                    return this.newBody(theme, options.body);
+                    return this.newBody(theme, body);
                 }
             }
             return this.newBody(theme);
@@ -33271,8 +33419,8 @@
             this.CREATOR_DEFAULT = creator;
         };
         DMenuSideds.newItem = function (options, sticky) {
-            return DMenus.newItemOf(this.CREATORS, this.CREATOR_DEFAULT, options, sticky) ||
-                DMenus.newItem(options, sticky);
+            return (DMenus.newItemOf(this.CREATORS, this.CREATOR_DEFAULT, options, sticky) ||
+                DMenus.newItem(options, sticky));
         };
         DMenuSideds.newItems = function (parent, items, sticky) {
             DMenus.newItemsOf(this, parent, items, sticky);
@@ -33336,8 +33484,8 @@
             this.CREATOR_DEFAULT = creator;
         };
         DMenuSidedItemExpandables.newItem = function (options, sticky) {
-            return DMenus.newItemOf(this.CREATORS, this.CREATOR_DEFAULT, options, sticky) ||
-                DMenuSideds.newItem(options, sticky);
+            return (DMenus.newItemOf(this.CREATORS, this.CREATOR_DEFAULT, options, sticky) ||
+                DMenuSideds.newItem(options, sticky));
         };
         DMenuSidedItemExpandables.newItems = function (parent, items, sticky) {
             DMenus.newItemsOf(this, parent, items, sticky);
@@ -33607,7 +33755,7 @@
             this._sizeUniform = NaN;
             this._vb = null;
             this._uvb = null;
-            var canvas = this._canvas = document.createElement("canvas");
+            var canvas = (this._canvas = document.createElement("canvas"));
             canvas.width = 64;
             canvas.height = 64;
             this._onLostBound = function (e) {
@@ -33633,8 +33781,9 @@
                     stencil: false,
                     premultipliedAlpha: false
                 };
-                var gl = this._gl = (canvas.getContext("webgl", config) ||
-                    canvas.getContext("experimental-webgl", config));
+                var gl = canvas.getContext("webgl", config) ||
+                    canvas.getContext("experimental-webgl", config);
+                this._gl = gl;
                 if (gl != null) {
                     gl.clearColor(1.0, 1.0, 1.0, 0.0);
                     this.makeVertexBuffer();
@@ -33652,15 +33801,15 @@
             return this._canvas;
         };
         DynamicSDFFontGenerator.prototype.getShader = function (gl, code, type) {
-            var shader = (type ?
-                gl.createShader(gl.FRAGMENT_SHADER) :
-                gl.createShader(gl.VERTEX_SHADER));
+            var shader = type
+                ? gl.createShader(gl.FRAGMENT_SHADER)
+                : gl.createShader(gl.VERTEX_SHADER);
             if (shader != null) {
                 gl.shaderSource(shader, code);
                 gl.compileShader(shader);
                 if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-                    // tslint:disable-next-line: no-console no-unused-expression
-                    console && console.error("Failed to compile the shader: " + gl.getShaderInfoLog(shader));
+                    console &&
+                        console.error("Failed to compile the shader: " + gl.getShaderInfoLog(shader));
                     return null;
                 }
             }
@@ -33673,14 +33822,14 @@
                 if (vertexShader != null) {
                     var fragmentShader = this.getShader(gl, FRAGMENT_SHADER, true);
                     if (fragmentShader != null) {
-                        var shaderProgram = this._shaderProgram = gl.createProgram();
+                        var shaderProgram = (this._shaderProgram = gl.createProgram());
                         if (shaderProgram != null) {
                             gl.attachShader(shaderProgram, vertexShader);
                             gl.attachShader(shaderProgram, fragmentShader);
                             gl.linkProgram(shaderProgram);
                             if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-                                // tslint:disable-next-line: no-console no-unused-expression
-                                console && console.error("Failed to link the program: " + gl.getError());
+                                console &&
+                                    console.error("Failed to link the program: " + gl.getError());
                                 gl.deleteShader(vertexShader);
                                 gl.deleteShader(fragmentShader);
                                 return null;
@@ -33763,14 +33912,9 @@
         DynamicSDFFontGenerator.prototype.makeVertexBuffer = function () {
             var gl = this._gl;
             if (gl != null && gl.isContextLost() !== true) {
-                var vb = this._vb = gl.createBuffer();
+                var vb = (this._vb = gl.createBuffer());
                 gl.bindBuffer(gl.ARRAY_BUFFER, vb);
-                var vertices = [
-                    -1.0, +1.0,
-                    +1.0, +1.0,
-                    -1.0, -1.0,
-                    +1.0, -1.0
-                ];
+                var vertices = [-1.0, +1.0, +1.0, +1.0, -1.0, -1.0, +1.0, -1.0];
                 gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
                 return vb;
             }
@@ -33788,14 +33932,9 @@
         DynamicSDFFontGenerator.prototype.makeUvBuffer = function () {
             var gl = this._gl;
             if (gl != null && gl.isContextLost() !== true) {
-                var uvb = this._uvb = gl.createBuffer();
+                var uvb = (this._uvb = gl.createBuffer());
                 gl.bindBuffer(gl.ARRAY_BUFFER, uvb);
-                var uvs = [
-                    0.0, 0.0,
-                    1.0, 0.0,
-                    0.0, 1.0,
-                    1.0, 1.0
-                ];
+                var uvs = [0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0];
                 gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(uvs), gl.STATIC_DRAW);
                 return uvb;
             }
@@ -33817,8 +33956,13 @@
             var vb = this._vb;
             var uvb = this._uvb;
             var texture = this._texture;
-            if (gl != null && gl.isContextLost() !== true && canvas != null &&
-                shaderProgram != null && vb != null && uvb != null && texture != null) {
+            if (gl != null &&
+                gl.isContextLost() !== true &&
+                canvas != null &&
+                shaderProgram != null &&
+                vb != null &&
+                uvb != null &&
+                texture != null) {
                 gl.clear(gl.COLOR_BUFFER_BIT);
                 gl.useProgram(shaderProgram);
                 gl.bindBuffer(gl.ARRAY_BUFFER, vb);
@@ -33889,8 +34033,7 @@
      */
     var createImageSdf = function (dataUrl, convertToSdf) {
         if (convertToSdf) {
-            return EShapeImageElements.toImageElement(dataUrl)
-                .then(function (imageElement) {
+            return EShapeImageElements.toImageElement(dataUrl).then(function (imageElement) {
                 var generator = DynamicSDFFontGenerator.getInstance().init();
                 generator.updateTexture(imageElement);
                 generator.render();
@@ -33900,8 +34043,7 @@
             });
         }
         else {
-            return EShapeImageElements.toImageElement(dataUrl)
-                .then(function (imageElement) {
+            return EShapeImageElements.toImageElement(dataUrl).then(function (imageElement) {
                 return new EShapeImageSdf(imageElement);
             });
         }
@@ -34006,8 +34148,8 @@
             this._colorStrokeBuffer = null;
             this.uvs = new Float32Array(nvertices * 2);
             this._uvBuffer = null;
-            var isIndicesShort = (nvertices <= 65535);
-            this.indices = (isIndicesShort ? new Uint16Array(nindices) : new Uint32Array(nindices));
+            var isIndicesShort = nvertices <= 65535;
+            this.indices = isIndicesShort ? new Uint16Array(nindices) : new Uint32Array(nindices);
             this._indexCapacity = ntriangles;
             this._indexCount = 0;
             this.indexCountRequested = 0;
@@ -34252,12 +34394,12 @@
     var MAXIMUM_TEXTURE_SIZE = 4096;
     var DynamicAtlas = /** @class */ (function () {
         function DynamicAtlas(resolution) {
-            var canvas = this._canvas = document.createElement("canvas");
+            var canvas = (this._canvas = document.createElement("canvas"));
             canvas.width = canvas.height = 256;
-            var baseTexture = this._baseTexture = pixi_js.BaseTexture.from(canvas, {
+            var baseTexture = (this._baseTexture = pixi_js.BaseTexture.from(canvas, {
                 mipmap: pixi_js.MIPMAP_MODES.OFF,
                 resolution: resolution
-            });
+            }));
             this._idToDatum = {};
             this._sortedData = [];
             this._predefined = {
@@ -34643,7 +34785,7 @@
                         context.miterLimit = 0;
                         context.fillStyle = "#FFFFFF";
                         var offsetX = 7;
-                        var offsetY = (characterSize >> 1);
+                        var offsetY = characterSize >> 1;
                         var x = 0;
                         var y = 0;
                         for (var character in characters) {
@@ -34664,7 +34806,7 @@
                             data.origin.y = y + offsetY;
                             x += characterWidth;
                         }
-                        var height = this._height = y + characterSize;
+                        var height = (this._height = y + characterSize);
                         // Make a input canvas
                         // Here, we need to reset the context because
                         // context settings will be lost when we set the width/height.
@@ -34726,9 +34868,7 @@
             }
         };
         DynamicSDFFontAtlas.toFontFamily = function (fontFamily) {
-            return (fontFamily === "auto" ?
-                DynamicSDFFontAtlas.getAutoFontFamily() :
-                fontFamily);
+            return fontFamily === "auto" ? DynamicSDFFontAtlas.getAutoFontFamily() : fontFamily;
         };
         DynamicSDFFontAtlas.toPowerOf2 = function (size) {
             var result = 32;
@@ -34871,7 +35011,8 @@
             this.shapes = shapes;
         };
         EShapeRendererIteratorDatum.prototype.next = function () {
-            var index = this.index = this.index + 1;
+            var index = this.index + 1;
+            this.index = index;
             var shapes = this.shapes;
             if (index < shapes.length) {
                 return shapes[index];
@@ -34894,7 +35035,8 @@
         }
         EShapeRendererIterator.prototype.reset = function (shapes) {
             this._index = 0;
-            var current = this._datum = this._data[0];
+            var current = this._data[0];
+            this._datum = current;
             current.reset(shapes);
             this._current = null;
             return this.next();
@@ -34909,7 +35051,7 @@
                 this._current = shape;
                 var children = shape.children;
                 if (0 < children.length) {
-                    var datumIndex = this._index = this._index + 1;
+                    var datumIndex = (this._index = this._index + 1);
                     var data = this._data;
                     if (datumIndex < data.length) {
                         var newDatum = data[datumIndex];
@@ -34926,7 +35068,7 @@
                 return shape;
             }
             else {
-                var datumIndex = this._index = this._index - 1;
+                var datumIndex = (this._index = this._index - 1);
                 var data = this._data;
                 if (0 <= datumIndex) {
                     this._datum = data[datumIndex];
@@ -34952,7 +35094,8 @@
         __extends(EShapeRenderer, _super);
         function EShapeRenderer(renderer) {
             var _this = _super.call(this, renderer) || this;
-            EShapeRenderer.SHADER = EShapeRenderer.SHADER || pixi_js.Shader.from(VERTEX_SHADER$1, FRAGMENT_SHADER$1);
+            EShapeRenderer.SHADER =
+                EShapeRenderer.SHADER || pixi_js.Shader.from(VERTEX_SHADER$1, FRAGMENT_SHADER$1);
             _this._shader = EShapeRenderer.SHADER;
             _this._iterator = new EShapeRendererIterator();
             _this._bufferSizeMax = _this.getBufferSizeMax(renderer);
@@ -34977,9 +35120,15 @@
                     shape.texture = textureItem.texture;
                 }
                 else {
-                    var newTextureItem = new DynamicAtlasItemImage(shape.image, baseTexture);
-                    shape.texture = newTextureItem.texture;
-                    atlas.set(newTextureItem.id, newTextureItem);
+                    var image = shape.image;
+                    if (image != null) {
+                        var newTextureItem = new DynamicAtlasItemImage(image, baseTexture);
+                        shape.texture = newTextureItem.texture;
+                        atlas.set(newTextureItem.id, newTextureItem);
+                    }
+                    else {
+                        shape.texture = defaultTexture;
+                    }
                 }
             }
             else {
@@ -35155,7 +35304,7 @@
             // DO NOTHING
         };
         EShapeContainer.prototype.toDirty = function () {
-            return this._childrenId += 1;
+            return (this._childrenId += 1);
         };
         EShapeContainer.prototype.isDirty = function () {
             return this._childrenIdRendered < this._childrenId;
@@ -35722,16 +35871,12 @@
             this.emit("change", this);
         };
         ESnapperGrid.prototype.serialize = function () {
-            return [
-                (this._isEnabled ? 1 : 0),
-                (this._isVisible ? 1 : 0),
-                this._size
-            ];
+            return [this._isEnabled ? 1 : 0, this._isVisible ? 1 : 0, this._size];
         };
         ESnapperGrid.prototype.deserialize = function (serialized) {
-            this.enable = (serialized[0] !== 0);
+            this.enable = !!serialized[0];
             if (2 in serialized) {
-                this.visible = (serialized[1] !== 0);
+                this.visible = !!serialized[1];
                 this.size = serialized[2];
             }
             else {
@@ -35767,7 +35912,7 @@
         ESnapperResult.prototype.reset = function (value, scale) {
             this.distance = NaN;
             this.result = value;
-            this.threshold = (0.0001 < scale ? 10 / scale : 10);
+            this.threshold = 0.0001 < scale ? 10 / scale : 10;
         };
         ESnapperResult.prototype.set = function (value, snapped) {
             var newDistance = Math.abs(snapped - value);
@@ -35909,17 +36054,13 @@
             for (var i = 0, imax = values.length; i < imax; ++i) {
                 targets.push(values[i].serialize());
             }
-            return [
-                (this._isEnabled ? 1 : 0),
-                (this._isVisible ? 1 : 0),
-                targets
-            ];
+            return [this._isEnabled ? 1 : 0, this._isVisible ? 1 : 0, targets];
         };
         ESnapperTarget.prototype.deserialize = function (serialized) {
             // Availability
-            this._isEnabled = (serialized[0] !== 0);
+            this._isEnabled = !!serialized[0];
             // Visibility
-            this._isVisible = (serialized[1] !== 0);
+            this._isVisible = !!serialized[1];
             // Values
             var sources = serialized[2];
             var values = this.values;
@@ -35962,14 +36103,8 @@
                 new pixi_js.Point(),
                 new pixi_js.Point() // Center
             ];
-            _this._normals = [
-                new pixi_js.Point(),
-                new pixi_js.Point()
-            ];
-            _this._lengths = [
-                1,
-                1
-            ];
+            _this._normals = [new pixi_js.Point(), new pixi_js.Point()];
+            _this._lengths = [1, 1];
             _this._workScale = new pixi_js.Point();
             _this._workSnapResultX = new ESnapperResult();
             _this._workSnapResultY = new ESnapperResult();
@@ -36050,8 +36185,8 @@
             this.grid.snap(px, x);
             this.grid.snap(py, y);
             //
-            result.x = (isNaN(x.distance) ? NaN : x.result);
-            result.y = (isNaN(y.distance) ? NaN : y.result);
+            result.x = isNaN(x.distance) ? NaN : x.result;
+            result.y = isNaN(y.distance) ? NaN : y.result;
             return result;
         };
         ESnapper.prototype.toSnapped = function (point, result) {
@@ -36096,8 +36231,8 @@
                     }
                 }
             }
-            result.x = (isNaN(x) ? dx : x);
-            result.y = (isNaN(y) ? dy : y);
+            result.x = isNaN(x) ? dx : x;
+            result.y = isNaN(y) ? dy : y;
             return result;
         };
         ESnapper.prototype.prepareForRotate = function (modifier) {
@@ -36107,10 +36242,10 @@
             return 5;
         };
         ESnapper.prototype.toRadian = function (value) {
-            return value / 180 * Math.PI;
+            return (value / 180) * Math.PI;
         };
         ESnapper.prototype.toDegree = function (value) {
-            return value / Math.PI * 180;
+            return (value / Math.PI) * 180;
         };
         ESnapper.prototype.toRotationSnapped = function (baseRotation, deltaRotation) {
             if (this._isEnabled) {
@@ -36123,10 +36258,12 @@
                 }
                 else {
                     if (90 - gridSize <= newRotationDegreeResidual) {
-                        return this.toRadian(newRotationDegree + (90 - newRotationDegreeResidual)) - baseRotation;
+                        return (this.toRadian(newRotationDegree + (90 - newRotationDegreeResidual)) -
+                            baseRotation);
                     }
                     else if (newRotationDegreeResidual <= -90 + gridSize) {
-                        return this.toRadian(newRotationDegree - (90 + newRotationDegreeResidual)) - baseRotation;
+                        return (this.toRadian(newRotationDegree - (90 + newRotationDegreeResidual)) -
+                            baseRotation);
                     }
                     else {
                         return deltaRotation;
@@ -36365,14 +36502,10 @@
             this.grid.reset();
         };
         ESnapper.prototype.serialize = function () {
-            return [
-                (this._isEnabled ? 1 : 0),
-                this.target.serialize(),
-                this.grid.serialize()
-            ];
+            return [this._isEnabled ? 1 : 0, this.target.serialize(), this.grid.serialize()];
         };
         ESnapper.prototype.deserialize = function (serialized) {
-            this.enable = (serialized[0] !== 0);
+            this.enable = !!serialized[0];
             this.target.deserialize(serialized[1]);
             this.grid.deserialize(serialized[2]);
         };
@@ -36524,7 +36657,7 @@
             }
         };
         DynamicFontAtlas.prototype.cleanup_ = function () {
-            if ((this._length >> 1) <= this._unrefCount) {
+            if (this._length >> 1 <= this._unrefCount) {
                 var characters = this._characters;
                 for (var character in characters) {
                     if (characters[character].ref <= 0) {
@@ -36598,7 +36731,7 @@
                     var font = this._font;
                     var fontHeight = font.height;
                     var characters = this._characters;
-                    var width = this._width = this.toPowerOf2(Math.ceil(Math.sqrt(this._length)) * fontHeight);
+                    var width = (this._width = this.toPowerOf2(Math.ceil(Math.sqrt(this._length)) * fontHeight));
                     var offsetX = PADDING;
                     var offsetY = Math.round((fontHeight - (font.ascent + font.descent)) * 0.5 + font.ascent);
                     var x = 0;
@@ -36615,7 +36748,7 @@
                         character.origin.y = y + offsetY;
                         x += character.width;
                     }
-                    var height = this._height = y + fontHeight;
+                    var height = (this._height = y + fontHeight);
                     // Make a input canvas
                     // Here, we need to reset the context because
                     // context settings will be lost when we set the width/height.
@@ -36768,11 +36901,12 @@
             }
         }
         Lazy.prototype.get = function () {
-            var instance = this.instance;
-            if (instance == null) {
-                instance = this.instance = new (this.newInstance)(this.options);
+            var result = this.instance;
+            if (result == null) {
+                result = new this.newInstance(this.options);
+                this.instance = result;
             }
-            return instance;
+            return result;
         };
         return Lazy;
     }());
@@ -36838,15 +36972,7 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var toString = function (value) {
-        return (value != null ? String(value) : "");
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var toSvgUrl = function (svg) {
-        return "data:image/svg+xml;base64," + btoa(svg);
+        return value != null ? String(value) : "";
     };
 
     /*
@@ -36932,7 +37058,7 @@
             var _a, _b, _c;
             var built = this._built;
             if (built == null || (options === null || options === void 0 ? void 0 : options.force)) {
-                var resolution = ((_a = options === null || options === void 0 ? void 0 : options.resolution) !== null && _a !== void 0 ? _a : ((_b = window.devicePixelRatio) !== null && _b !== void 0 ? _b : 1));
+                var resolution = (_b = (_a = options === null || options === void 0 ? void 0 : options.resolution) !== null && _a !== void 0 ? _a : window.devicePixelRatio) !== null && _b !== void 0 ? _b : 1;
                 var width = this._width;
                 var height = Math.pow(2, Math.ceil(Math.log(this._nextY + this._height) / Math.LN2));
                 var realWidth = width * resolution;
@@ -36943,7 +37069,7 @@
                 var attrViewBox = "viewBox=\"0 0 " + width * ratio + " " + height * ratio + "\"";
                 var attrXmlns = "xmlns=\"http://www.w3.org/2000/svg\"";
                 var url = toSvgUrl("<svg " + attrWidth + " " + attrHeight + " " + attrViewBox + " " + attrXmlns + ">" + this._svg + "</svg>");
-                var scaleMode = ((_c = options === null || options === void 0 ? void 0 : options.scaling) !== null && _c !== void 0 ? _c : pixi_js.SCALE_MODES.NEAREST);
+                var scaleMode = (_c = options === null || options === void 0 ? void 0 : options.scaling) !== null && _c !== void 0 ? _c : pixi_js.SCALE_MODES.NEAREST;
                 var baseTexture = pixi_js.BaseTexture.from(url, {
                     resolution: resolution,
                     scaleMode: scaleMode
@@ -37066,7 +37192,9 @@
          * @param insertBom false to stop the BOM insertion
          */
         UtilFileDownloader.download = function (filename, contents, insertBom) {
-            var blob = new Blob((insertBom !== false ? ["\ufeff", contents] : [contents]), { type: "text/plain" });
+            var blob = new Blob(insertBom !== false ? ["\ufeff", contents] : [contents], {
+                type: "text/plain"
+            });
             if (window.navigator.msSaveBlob) {
                 window.navigator.msSaveBlob(blob, filename);
             }
@@ -37081,66 +37209,59 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var toSkipUpdateTransform = function (options) {
-        return options.transform && options.transform.update;
-    };
     var toResolution = function (options) {
+        var _a;
         var target = options.target;
-        if (options.resolution != null) {
-            if (isNumber(options.resolution)) {
-                return options.resolution;
+        var resolution = options.resolution;
+        if (resolution != null) {
+            if (isNumber(resolution)) {
+                return resolution;
             }
             else {
                 var scale = target.transform.scale;
                 var size = Math.max(target.width * scale.x, target.height * scale.y);
-                return Math.min(1, options.resolution.size / size);
+                return Math.min(1, resolution.size / size);
             }
         }
         else {
-            return window.devicePixelRatio || 1;
+            return (_a = window.devicePixelRatio) !== null && _a !== void 0 ? _a : 1;
         }
     };
-    var toIgnorePremultipliedAlpha = function (options) {
-        return (options.alpha && options.alpha.premultiplied && options.alpha.premultiplied.ignore);
-    };
     var toScale = function (pixels, options) {
-        if (options.scale != null) {
-            if (isNumber(options.scale)) {
-                return options.scale;
+        var scale = options.scale;
+        if (scale != null) {
+            if (isNumber(scale)) {
+                return scale;
             }
             else {
-                var size = options.scale.size;
+                var size = scale.size;
                 return Math.min(1, size / pixels.width, size / pixels.height);
             }
         }
     };
     var toRenderer = function (options) {
-        if (options.renderer) {
-            return options.renderer;
+        var renderer = options.renderer;
+        if (renderer) {
+            return renderer;
         }
-        else if (options.application) {
-            return options.application.getLayerBase().renderer;
+        var application = options.application;
+        if (application) {
+            return application.getLayerBase().renderer;
         }
-        else if (options.layer) {
-            return options.layer.renderer;
+        var layer = options.layer || DApplications.getLayer(options.target);
+        if (layer) {
+            return layer.renderer;
         }
-        else {
-            var layer = DApplications.getLayer(options.target);
-            if (layer) {
-                return layer.renderer;
-            }
-            else {
-                throw new Error("No renderer / application / layer found.");
-            }
-        }
+        throw new Error("No renderer / application / layer found.");
     };
     var UtilExtract = /** @class */ (function () {
         function UtilExtract() {
         }
         UtilExtract.texture = function (options) {
+            var _a;
             var target = options.target;
             var resolution = toResolution(options);
-            var skipUpdateTransform = toSkipUpdateTransform(options);
+            var skipUpdateTransform = (_a = options.transform) === null || _a === void 0 ? void 0 : _a.update;
             return UtilExtractor.toTexture(target, resolution, options.clear, skipUpdateTransform);
         };
         UtilExtract.pixels = function (options) {
@@ -37156,8 +37277,9 @@
             }
         };
         UtilExtract.canvas = function (options) {
+            var _a, _b;
             var pixels = this.pixels(options);
-            var ignorePremutipliedAlpha = toIgnorePremultipliedAlpha(options);
+            var ignorePremutipliedAlpha = (_b = (_a = options.alpha) === null || _a === void 0 ? void 0 : _a.premultiplied) === null || _b === void 0 ? void 0 : _b.ignore;
             var scale = toScale(pixels, options);
             return UtilExtractor.toCanvas(pixels, scale, ignorePremutipliedAlpha);
         };
@@ -37214,7 +37336,8 @@
         UtilFileOpener.prototype.getOrCreateInput = function () {
             var _this = this;
             if ("FileReader" in window && this._input == null) {
-                var input_1 = this._input = document.createElement("input");
+                var input_1 = document.createElement("input");
+                this._input = input_1;
                 input_1.setAttribute("type", "file");
                 input_1.setAttribute("style", "display:none");
                 input_1.addEventListener("change", function (e) {
@@ -37312,13 +37435,13 @@
             var h = 0;
             if (0 < length) {
                 if (r === max) {
-                    h = 60 * (g - b) / length;
+                    h = (60 * (g - b)) / length;
                 }
                 else if (g === max) {
-                    h = 60 * (b - r) / length + 120;
+                    h = (60 * (b - r)) / length + 120;
                 }
                 else if (b === max) {
-                    h = 60 * (r - g) / length + 240;
+                    h = (60 * (r - g)) / length + 240;
                 }
                 if (h < 0) {
                     h += 360;
@@ -37398,24 +37521,13 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var UtilPromise = /** @class */ (function () {
-        function UtilPromise() {
-        }
-        UtilPromise.IDENTITY = function () { };
-        return UtilPromise;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var UtilRgba = /** @class */ (function () {
         function UtilRgba() {
         }
         UtilRgba.toCode = function (color, alpha) {
             var r = (color >> 16) & 0xff;
             var g = (color >> 8) & 0xff;
-            var b = (color & 0xff);
+            var b = color & 0xff;
             return "rgba(" + r + "," + g + "," + b + "," + alpha + ")";
         };
         return UtilRgba;
@@ -37508,10 +37620,10 @@
             };
         }
         UtilTexturePlane.prototype.toCornerTl = function (offset, size, tl) {
-            return (0 < tl ? "A" + tl + " " + tl + " 0 0 1 " + (offset + tl) + " " + offset : "");
+            return 0 < tl ? "A" + tl + " " + tl + " 0 0 1 " + (offset + tl) + " " + offset : "";
         };
         UtilTexturePlane.prototype.toCornerBr = function (offset, size, br) {
-            return (0 < br ? "A" + br + " " + br + " 0 0 1 " + (offset + size - br) + " " + (offset + size) : "");
+            return 0 < br ? "A" + br + " " + br + " 0 0 1 " + (offset + size - br) + " " + (offset + size) : "";
         };
         UtilTexturePlane.prototype.make = function (radius, offset, attr) {
             var realRadius = Math.max(0, radius - offset);
@@ -37528,7 +37640,8 @@
             return this.toSvg(realSize, attr, d);
         };
         UtilTexturePlane.prototype.toSvg = function (realSize, attr, d) {
-            var resolution = (window.devicePixelRatio || 1);
+            var _a;
+            var resolution = (_a = window.devicePixelRatio) !== null && _a !== void 0 ? _a : 1;
             var widthAttr = "width=\"" + realSize * resolution + "\"";
             var heightAttr = "height=\"" + realSize * resolution + "\"";
             var viewBoxAttr = "viewBox=\"0 0 " + realSize + " " + realSize + "\"";
@@ -37586,30 +37699,10 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var UtilTexture = /** @class */ (function () {
-        function UtilTexture() {
-        }
-        UtilTexture.fromImage = function (url, resolution, onLoad) {
-            var texture = pixi_js.Texture.from(url, {
-                resolution: resolution
-            });
-            if (!texture.baseTexture.valid) {
-                texture.once("update", onLoad);
-            }
-            else {
-                onLoad(texture);
-            }
-        };
-        return UtilTexture;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var UtilTransition = /** @class */ (function () {
         function UtilTransition(options) {
-            this._duration = (options != null && options.duration != null ? options.duration : 300);
+            var _a;
+            this._duration = (_a = options === null || options === void 0 ? void 0 : options.duration) !== null && _a !== void 0 ? _a : 300;
             this._current = null;
             this._lastUpdate = 0;
             this._updateId = null;
@@ -37625,7 +37718,7 @@
                 var duration = this._duration;
                 var lastUpdate = this._lastUpdate;
                 var now = Date.now();
-                var remaining = (lastUpdate + duration) - now;
+                var remaining = lastUpdate + duration - now;
                 if (forcibly === true || remaining <= 0) {
                     this.update(now, next);
                 }
@@ -37660,27 +37753,38 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     /*!
-    * jQuery Mousewheel 3.1.13
-    *
-    * Copyright jQuery Foundation and other contributors
-    * Released under the MIT license
-    * http://jquery.org/license
-    *
-    * See also https://github.com/mapbox/mapbox-gl-js/blob/001c7b9/js/ui/handler/scroll_zoom.js
-    * and https://github.com/openlayers/openlayers/blob/v5.2.0/src/ol/interaction/MouseWheelZoom.js#L51
-    */
+     * jQuery Mousewheel 3.1.13
+     *
+     * Copyright jQuery Foundation and other contributors
+     * Released under the MIT license
+     * http://jquery.org/license
+     *
+     * See also https://github.com/mapbox/mapbox-gl-js/blob/001c7b9/js/ui/handler/scroll_zoom.js
+     * and https://github.com/openlayers/openlayers/blob/v5.2.0/src/ol/interaction/MouseWheelZoom.js#L51
+     */
     var UtilWheelEvent = /** @class */ (function () {
         function UtilWheelEvent() {
             this._lowest = null;
             this._timestamp = 0;
             this._lineHeight = null;
             this._pageHeight = null;
-            this._names = ("onwheel" in document || 9 <= document.documentMode ?
-                ["wheel"] : ["mousewheel", "DOMMouseScroll", "MozMousePixelScroll"]);
         }
+        UtilWheelEvent.prototype.getNames = function () {
+            var result = this._names;
+            if (result == null) {
+                if ("onwheel" in document || 9 <= document.documentMode) {
+                    result = ["wheel"];
+                }
+                else {
+                    result = ["mousewheel", "DOMMouseScroll", "MozMousePixelScroll"];
+                }
+                this._names = result;
+            }
+            return result;
+        };
         UtilWheelEvent.prototype.on = function (target, handler, useCapture) {
             if (useCapture === void 0) { useCapture = false; }
-            var names = this._names;
+            var names = this.getNames();
             for (var i = names.length - 1; 0 <= i; --i) {
                 var name_1 = names[i];
                 target.addEventListener(name_1, handler, useCapture);
@@ -37688,7 +37792,7 @@
         };
         UtilWheelEvent.prototype.off = function (target, handler, useCapture) {
             if (useCapture === void 0) { useCapture = false; }
-            var names = this._names;
+            var names = this.getNames();
             for (var i = names.length - 1; 0 <= i; --i) {
                 var name_2 = names[i];
                 target.removeEventListener(name_2, handler, useCapture);
@@ -37750,7 +37854,7 @@
             }
             this._timestamp = now;
             //
-            var shouldAdjust = (e.type === "mousewheel" && delta % 120 === 0);
+            var shouldAdjust = e.type === "mousewheel" && delta % 120 === 0;
             if (!this._lowest || delta < this._lowest) {
                 this._lowest = delta;
                 // Adjust older deltas if necessary
@@ -37773,7 +37877,7 @@
             // Mode
             var mode = e.deltaMode || 0;
             if (mode !== 0) {
-                var scale = (mode === 1 ? this.getLineHeight() : this.getPageHeight());
+                var scale = mode === 1 ? this.getLineHeight() : this.getPageHeight();
                 delta *= scale;
                 deltaX *= scale;
                 deltaY *= scale;
@@ -37802,13 +37906,14 @@
     var DAnimationEmpty = /** @class */ (function (_super) {
         __extends(DAnimationEmpty, _super);
         function DAnimationEmpty(options) {
+            var _a;
             var _this = _super.call(this) || this;
-            _this._target = (options && options.target != null ? options.target : null);
+            _this._target = (_a = options === null || options === void 0 ? void 0 : options.target) !== null && _a !== void 0 ? _a : null;
             _this._reverse = false;
             _this._isStarted = false;
-            _this._onTime = options && options.onTime;
-            _this._onStart = options && options.onStart;
-            _this._onEnd = options && options.onEnd;
+            _this._onTime = options === null || options === void 0 ? void 0 : options.onTime;
+            _this._onStart = options === null || options === void 0 ? void 0 : options.onStart;
+            _this._onEnd = options === null || options === void 0 ? void 0 : options.onEnd;
             return _this;
         }
         Object.defineProperty(DAnimationEmpty.prototype, "target", {
@@ -37889,7 +37994,7 @@
                 this._isStarted = false;
                 // OnTime
                 var reverse = this._reverse;
-                var time = (reverse ? 0 : 1);
+                var time = reverse ? 0 : 1;
                 this.onTime(time, reverse, 0);
                 // OnEnd
                 this.onEnd(reverse);
@@ -37903,11 +38008,26 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var DApplicationPadding = /** @class */ (function () {
-        function DApplicationPadding(top, right, bottom, left) {
-            this.left = left;
-            this.top = top;
-            this.right = right;
-            this.bottom = bottom;
+        function DApplicationPadding(padding) {
+            var _a, _b, _c, _d;
+            if (isNumber(padding)) {
+                this.top = padding;
+                this.right = padding;
+                this.bottom = padding;
+                this.left = padding;
+            }
+            else if (padding != null) {
+                this.top = (_a = padding.top) !== null && _a !== void 0 ? _a : 6;
+                this.right = (_b = padding.right) !== null && _b !== void 0 ? _b : 6;
+                this.bottom = (_c = padding.bottom) !== null && _c !== void 0 ? _c : 6;
+                this.left = (_d = padding.left) !== null && _d !== void 0 ? _d : 6;
+            }
+            else {
+                this.top = 6;
+                this.right = 6;
+                this.bottom = 6;
+                this.left = 6;
+            }
         }
         DApplicationPadding.prototype.getTheme = function () {
             throw new Error("Not supported");
@@ -37965,21 +38085,14 @@
      */
     var DApplicationLayerOptions = /** @class */ (function () {
         function DApplicationLayerOptions(options) {
+            var _a;
             // Root
-            var root = this._root = options.root;
+            var root = options.root;
+            this._root = root;
             // Overlay mode or not
             this._overlay = options.overlay;
             // Padding
-            var padding = options && options.padding;
-            if (isNumber(padding)) {
-                this._padding = new DApplicationPadding(padding, padding, padding, padding);
-            }
-            else if (padding != null) {
-                this._padding = new DApplicationPadding(padding.top || 0, padding.right || 0, padding.bottom || 0, padding.left || 0);
-            }
-            else {
-                this._padding = new DApplicationPadding(6, 6, 6, 6);
-            }
+            this._padding = new DApplicationPadding(options === null || options === void 0 ? void 0 : options.padding);
             // Width & height
             var width = 100;
             var height = 100;
@@ -38009,7 +38122,7 @@
                 height = bbox.height;
             }
             // Background color
-            var background = options && options.background;
+            var background = options === null || options === void 0 ? void 0 : options.background;
             var backgroundColor = 0;
             var transparent = true;
             if (background != null) {
@@ -38022,7 +38135,7 @@
             // Resolution
             var resolution = options.resolution;
             // Antialias
-            var antialias = (options && options.antialias != null ? options.antialias : false);
+            var antialias = (_a = options === null || options === void 0 ? void 0 : options.antialias) !== null && _a !== void 0 ? _a : false;
             // Pixi
             this._pixi = {
                 width: width,
@@ -38388,28 +38501,22 @@
         };
         DControllerDefaultFocus.prototype.isFocusable = function (target) {
             return (target != null &&
-                ("state" in target) &&
+                "state" in target &&
                 target.state.inEnabled &&
                 target.state.isFocusable &&
                 target.visible);
         };
         DControllerDefaultFocus.prototype.isFocusableContainer = function (target) {
-            return (target != null &&
-                ("children" in target));
+            return target != null && "children" in target;
         };
         DControllerDefaultFocus.prototype.isFocusRoot = function (target, root) {
             if (target === root) {
                 return true;
             }
-            return (target != null &&
-                ("state" in target) &&
-                target.state.isFocusRoot &&
-                target.visible);
+            return target != null && "state" in target && target.state.isFocusRoot && target.visible;
         };
         DControllerDefaultFocus.prototype.isFocusReverse = function (target) {
-            return (target != null &&
-                ("state" in target) &&
-                target.state.isFocusReverse);
+            return target != null && "state" in target && target.state.isFocusReverse;
         };
         return DControllerDefaultFocus;
     }());
@@ -38511,10 +38618,10 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var isCommandStorable = function (command) {
-        return (command.getFlag() & DCommandFlag.UNSTORABLE) === 0;
+        return !(command.getFlag() & DCommandFlag.UNSTORABLE);
     };
     var isCommandClear = function (command) {
-        return (command.getFlag() & DCommandFlag.CLEAR) !== 0;
+        return !!(command.getFlag() & DCommandFlag.CLEAR);
     };
     var DControllerDefaultCommand = /** @class */ (function (_super) {
         __extends(DControllerDefaultCommand, _super);
@@ -38601,7 +38708,7 @@
                             var isClear = isCommandClear(command_1);
                             var isStorable = isCommandStorable(command_1);
                             if (isClear || isStorable) {
-                                var size = (isClear ? this._done.length : this._position);
+                                var size = isClear ? this._done.length : this._position;
                                 if (0 < size) {
                                     this.remove(size);
                                     this._position = 0;
@@ -38694,10 +38801,10 @@
             }
         };
         DControllerDefaultCommand.prototype.isRedoable = function () {
-            return (0 < this._position && this._executing == null);
+            return 0 < this._position && this._executing == null;
         };
         DControllerDefaultCommand.prototype.isUndoable = function () {
-            return (this._position < this._done.length && this._executing == null);
+            return this._position < this._done.length && this._executing == null;
         };
         return DControllerDefaultCommand;
     }(pixi_js.utils.EventEmitter));
@@ -38729,9 +38836,9 @@
                 }
                 if (UtilKeyboardEvent.isFocusKey(e)) {
                     var direction = UtilKeyboardEvent.getFocusDirection(e);
-                    var next = (focused != null ?
-                        focusController.find(focused, false, focused.state.isFocusRoot || direction, direction) :
-                        focusController.find(stage, false, true, direction));
+                    var next = focused != null
+                        ? focusController.find(focused, false, focused.state.isFocusRoot || direction, direction)
+                        : focusController.find(stage, false, true, direction);
                     if (next != null) {
                         focusController.focus(next);
                         e.preventDefault();
@@ -38826,105 +38933,28 @@
             var _this = _super.call(this, options.getPixiApplicationOptions()) || this;
             _this._renderId = null;
             _this._dynamicFontAtlases = null;
-            _this.application = application;
-            var stage = _this.stage;
-            stage.layer = _this;
-            stage.application = application;
-            stage.interactive = true;
             _this._options = options;
             _this._isLocked = false;
             _this._isVisible = true;
-            var isOverlay = options.isOverlay();
-            _this._isOverlay = isOverlay;
+            _this._isOverlay = options.isOverlay();
             _this._padding = options.getPadding();
-            var rootElement = options.getRootElement();
-            _this._rootElement = rootElement;
+            _this._rootElement = options.getRootElement();
             _this._refitLimit = 5;
             _this._reflowLimit = 5;
+            _this._elementContainer = _this.newElementContainer();
+            _this.application = application;
             _this._renderBound = function () {
                 if (_this._renderId != null) {
                     _this.render();
                 }
             };
-            // Init element container
-            var elementContainer = _this.newElementContainer();
-            _this._elementContainer = elementContainer;
-            // Init canvas
-            var view = _this.view;
-            var viewStyle = view.style;
-            viewStyle.position = "absolute";
-            viewStyle.top = "0";
-            viewStyle.left = "0";
-            viewStyle.width = "100%";
-            viewStyle.height = "100%";
-            viewStyle.display = "block";
-            viewStyle.outline = "none";
-            // Init root element
-            _this.initRootElement(rootElement, view, elementContainer, stage, isOverlay);
-            // Focus handling
-            var hasFocus = false;
-            var focusController = _this.getFocusController();
-            var onBlurBound = function () {
-                if (!hasFocus) {
-                    focusController.clear();
-                }
-            };
-            rootElement.addEventListener("focus", function (e) {
-                hasFocus = true;
-            }, true);
-            rootElement.addEventListener("blur", function (e) {
-                hasFocus = false;
-                setTimeout(onBlurBound, 0);
-            }, true);
-            view.setAttribute("tabindex", "0");
-            DControllers.getKeyboardController().init(view, stage, focusController);
-            var interactionManager = _this.renderer.plugins.interaction;
-            interactionManager.on(UtilPointerEvent.down, function (e) {
-                if (e.target == null || e.target === stage) {
-                    focusController.clear();
-                }
-            });
-            // Resize handling
-            var onResizeBound = function () {
-                _this.onResize();
-            };
-            window.addEventListener("resize", onResizeBound);
-            window.addEventListener("orientationchange", onResizeBound);
-            // Mouse wheel handling
-            var wheelGlobal = new pixi_js.Point();
-            var wheelEventUtil = UtilWheelEvent.getInstance();
-            wheelEventUtil.on(view, function (e) {
-                var wheelEvent = e;
-                UtilPointerEvent.toGlobal(wheelEvent, interactionManager, wheelGlobal);
-                var current = interactionManager.hitTest(wheelGlobal);
-                var deltas = wheelEventUtil.normalize(e);
-                if (deltas != null) {
-                    while (current != null) {
-                        if (isWheelable(current)) {
-                            if (current.onWheel(wheelEvent, deltas, wheelGlobal)) {
-                                wheelEvent.preventDefault();
-                                break;
-                            }
-                        }
-                        current = current.parent;
-                    }
-                }
-            });
-            // Double click handling
-            UtilPointerEvent.onDblClick(view, function (e) {
-                var focused = focusController.get();
-                if (focused != null) {
-                    var current = focused;
-                    while (current != null) {
-                        if (isDblClickable(current)) {
-                            if (current.onDblClick(e, interactionManager)) {
-                                break;
-                            }
-                        }
-                        current = current.parent;
-                    }
-                }
-            });
+            _this.initStage();
+            _this.initView();
+            _this.initRootElement();
+            _this.initFocusHandling();
+            _this.initResizeHandling();
+            _this.initWheelHandling();
+            _this.initDoubleClickHandling();
             return _this;
         }
         DApplicationLayer.prototype.newElementContainer = function () {
@@ -38933,10 +38963,31 @@
                 "margin: 0; padding: 0; outline: none;");
             return result;
         };
-        DApplicationLayer.prototype.initRootElement = function (rootElement, view, elementContainer, stage, isOverlay) {
+        DApplicationLayer.prototype.initStage = function () {
+            var stage = this.stage;
+            stage.layer = this;
+            stage.application = this.application;
+            stage.interactive = true;
+        };
+        DApplicationLayer.prototype.initView = function () {
+            var view = this.view;
+            var style = view.style;
+            style.position = "absolute";
+            style.top = "0";
+            style.left = "0";
+            style.width = "100%";
+            style.height = "100%";
+            style.display = "block";
+            style.outline = "none";
+        };
+        DApplicationLayer.prototype.initRootElement = function () {
             var _this = this;
+            var view = this.view;
+            var isOverlay = this._isOverlay;
+            var rootElement = this._rootElement;
+            var elementContainer = this._elementContainer;
             // Insert elements
-            var insertionPosition = (isOverlay ? 2 : 0);
+            var insertionPosition = isOverlay ? 2 : 0;
             var children = rootElement.children;
             if (insertionPosition < children.length) {
                 var child = children[insertionPosition];
@@ -38948,10 +38999,11 @@
                 rootElement.appendChild(elementContainer);
             }
             if (isOverlay) {
-                var oldOnChildrenChange_1 = stage.onChildrenChange;
-                stage.onChildrenChange = function () {
+                var stage_1 = this.stage;
+                var oldOnChildrenChange_1 = stage_1.onChildrenChange;
+                stage_1.onChildrenChange = function () {
                     _this.onStageDirty();
-                    oldOnChildrenChange_1.call(stage);
+                    oldOnChildrenChange_1.call(stage_1);
                 };
             }
             // Init styles
@@ -38965,6 +39017,43 @@
             rootElementStyle.margin = "0";
             rootElementStyle.padding = "0";
             rootElementStyle.overflow = "hidden";
+        };
+        DApplicationLayer.prototype.initFocusHandling = function () {
+            var view = this.view;
+            var stage = this.stage;
+            var rootElement = this._rootElement;
+            var focusController = this.getFocusController();
+            var hasFocus = false;
+            var onFocus = function () {
+                hasFocus = true;
+            };
+            var onBlured = function () {
+                if (!hasFocus) {
+                    focusController.clear();
+                }
+            };
+            var onBlur = function () {
+                hasFocus = false;
+                setTimeout(onBlured, 0);
+            };
+            rootElement.addEventListener("focus", onFocus, true);
+            rootElement.addEventListener("blur", onBlur, true);
+            view.setAttribute("tabindex", "0");
+            DControllers.getKeyboardController().init(view, stage, focusController);
+            var interactionManager = this.renderer.plugins.interaction;
+            interactionManager.on(UtilPointerEvent.down, function (e) {
+                if (e.target == null || e.target === stage) {
+                    focusController.clear();
+                }
+            });
+        };
+        DApplicationLayer.prototype.initResizeHandling = function () {
+            var _this = this;
+            var onResizeBound = function () {
+                _this.onResize();
+            };
+            window.addEventListener("resize", onResizeBound);
+            window.addEventListener("orientationchange", onResizeBound);
         };
         DApplicationLayer.prototype.onResize = function () {
             var bbox = this._rootElement.getBoundingClientRect();
@@ -38980,6 +39069,46 @@
                 }
             }
             this.update();
+        };
+        DApplicationLayer.prototype.initWheelHandling = function () {
+            var global = new pixi_js.Point();
+            var util = UtilWheelEvent.getInstance();
+            var interactionManager = this.renderer.plugins.interaction;
+            util.on(this.view, function (e) {
+                var wheelEvent = e;
+                UtilPointerEvent.toGlobal(wheelEvent, interactionManager, global);
+                var current = interactionManager.hitTest(global);
+                var deltas = util.normalize(e);
+                if (deltas != null) {
+                    while (current != null) {
+                        if (isWheelable(current)) {
+                            if (current.onWheel(wheelEvent, deltas, global)) {
+                                wheelEvent.preventDefault();
+                                break;
+                            }
+                        }
+                        current = current.parent;
+                    }
+                }
+            });
+        };
+        DApplicationLayer.prototype.initDoubleClickHandling = function () {
+            var focusController = this.getFocusController();
+            var interactionManager = this.renderer.plugins.interaction;
+            UtilPointerEvent.onDblClick(this.view, function (e) {
+                var focused = focusController.get();
+                if (focused != null) {
+                    var current = focused;
+                    while (current != null) {
+                        if (isDblClickable(current)) {
+                            if (current.onDblClick(e, interactionManager)) {
+                                break;
+                            }
+                        }
+                        current = current.parent;
+                    }
+                }
+            });
         };
         DApplicationLayer.prototype.lock = function () {
             this._isLocked = true;
@@ -39107,21 +39236,22 @@
 
     var DApplication = /** @class */ (function () {
         function DApplication(options) {
+            var _a, _b;
             DApplications.add(this);
             // Root
             this._root = this.toRootElement(options);
             // Resolution
-            var resolution = (options && options.resolution != null ?
-                options.resolution : (window.devicePixelRatio || 1));
+            var resolution = (_b = (_a = options === null || options === void 0 ? void 0 : options.resolution) !== null && _a !== void 0 ? _a : window.devicePixelRatio) !== null && _b !== void 0 ? _b : 1;
             this._resolution = resolution;
             // Remove the accessibility plugin
             delete pixi_js.Renderer.__plugins.accessibility;
             // Options
             this._options = options;
             // Base layer
-            var base = this._base = this.newLayerBase(options);
+            var base = this.newLayerBase(options);
+            this._base = base;
             // Overlay layer
-            this._isOverlayEnabled = !!(options && options.overlay);
+            this._isOverlayEnabled = !!(options === null || options === void 0 ? void 0 : options.overlay);
             if (!this._isOverlayEnabled) {
                 this._overlay = base;
             }
@@ -39140,7 +39270,7 @@
             return this._resolution;
         };
         DApplication.prototype.toRootElement = function (options) {
-            var root = options && options.root;
+            var root = options === null || options === void 0 ? void 0 : options.root;
             if (root != null) {
                 if (isString(root)) {
                     var found = document.querySelector(root);
@@ -39251,14 +39381,108 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var DBasePaddingAdjustable = /** @class */ (function () {
+        function DBasePaddingAdjustable(target) {
+            this._target = target;
+            this._adjuster = {
+                left: 0,
+                top: 0,
+                right: 0,
+                bottom: 0
+            };
+        }
+        Object.defineProperty(DBasePaddingAdjustable.prototype, "adjuster", {
+            get: function () {
+                return this._adjuster;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DBasePaddingAdjustable.prototype.getTheme = function () {
+            return this._target.getTheme();
+        };
+        DBasePaddingAdjustable.prototype.setTheme = function (theme) {
+            this._target.setTheme(theme);
+        };
+        DBasePaddingAdjustable.prototype.getLeft = function () {
+            return this._target.getLeft() + this._adjuster.left;
+        };
+        Object.defineProperty(DBasePaddingAdjustable.prototype, "left", {
+            get: function () {
+                return this._target.left;
+            },
+            set: function (left) {
+                this._target.left = left;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DBasePaddingAdjustable.prototype.getTop = function () {
+            return this._target.getTop() + this._adjuster.top;
+        };
+        Object.defineProperty(DBasePaddingAdjustable.prototype, "top", {
+            get: function () {
+                return this._target.top;
+            },
+            set: function (top) {
+                this._target.top = top;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DBasePaddingAdjustable.prototype.getRight = function () {
+            return this._target.getRight() + this._adjuster.right;
+        };
+        Object.defineProperty(DBasePaddingAdjustable.prototype, "right", {
+            get: function () {
+                return this._target.right;
+            },
+            set: function (right) {
+                this._target.right = right;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DBasePaddingAdjustable.prototype.getBottom = function () {
+            return this._target.getBottom() + this._adjuster.bottom;
+        };
+        Object.defineProperty(DBasePaddingAdjustable.prototype, "bottom", {
+            get: function () {
+                return this._target.bottom;
+            },
+            set: function (bottom) {
+                this._target.bottom = bottom;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DBasePaddingAdjustable.prototype.set = function (top, right, bottom, left) {
+            var target = this._target;
+            if (right == null) {
+                target.set(top);
+            }
+            else if (bottom == null) {
+                target.set(top, right);
+            }
+            else if (left == null) {
+                target.set(top, right, bottom);
+            }
+            else {
+                target.set(top, right, bottom, left);
+            }
+        };
+        return DBasePaddingAdjustable;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var DBoard = /** @class */ (function (_super) {
         __extends(DBoard, _super);
         function DBoard() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DBoard.prototype.init = function (options) {
-            _super.prototype.init.call(this, options);
-        };
         DBoard.prototype.getType = function () {
             return "DBoard";
         };
@@ -39308,7 +39532,10 @@
             this._selected = selected;
         }
         DColorGradientPointObservable.prototype.set = function (color, alpha, position, selected) {
-            if (this._color !== color || this._alpha !== alpha || this._position !== position || this._selected !== selected) {
+            if (this._color !== color ||
+                this._alpha !== alpha ||
+                this._position !== position ||
+                this._selected !== selected) {
                 this._color = color;
                 this._alpha = alpha;
                 this._position = position;
@@ -39389,11 +39616,12 @@
         __extends(DColorGradientObservable, _super);
         function DColorGradientObservable() {
             var _this = _super.call(this) || this;
-            _this._onChangeBound = function (target) {
+            var onChangeBound = function (target) {
                 _this.onChange(target);
             };
-            var first = new DColorGradientPointObservable(0xffffff, 1, 0, false, _this._onChangeBound);
-            var second = new DColorGradientPointObservable(0x808080, 1, 1, true, _this._onChangeBound);
+            _this._onChangeBound = onChangeBound;
+            var first = new DColorGradientPointObservable(0xffffff, 1, 0, false, onChangeBound);
+            var second = new DColorGradientPointObservable(0x808080, 1, 1, true, onChangeBound);
             _this._points = [first, second];
             _this._direction = -90;
             _this._selected = second;
@@ -39401,7 +39629,7 @@
             return _this;
         }
         DColorGradientObservable.prototype.onChange = function (target) {
-            var isSelectionChanged = (target.selected && this._selected !== target);
+            var isSelectionChanged = target.selected && this._selected !== target;
             if (isSelectionChanged) {
                 var selected = this._selected;
                 if (selected != null) {
@@ -39497,9 +39725,10 @@
             }
         };
         DColorGradientObservable.prototype.add = function (color, alpha, position, selected) {
-            var result = new DColorGradientPointObservable(color, alpha, position, selected, this._onChangeBound);
+            var onChangeBound = this._onChangeBound;
+            var result = new DColorGradientPointObservable(color, alpha, position, selected, onChangeBound);
             this._points.push(result);
-            this._onChangeBound(result);
+            onChangeBound(result);
             return result;
         };
         DColorGradientObservable.prototype.remove = function (point) {
@@ -39508,7 +39737,7 @@
                 for (var i = 0, imax = points.length; i < imax; ++i) {
                     if (points[i] === point) {
                         points.splice(i, 1);
-                        var isSelectionChanged = (this._selected === point);
+                        var isSelectionChanged = this._selected === point;
                         if (isSelectionChanged) {
                             if (i + 1 < imax) {
                                 this._selected = points[i];
@@ -39532,10 +39761,11 @@
             this._direction = -90;
             var points = this._points;
             var oldSelected = this._selected;
-            var index = (oldSelected ? points.indexOf(oldSelected) : -1);
+            var index = oldSelected ? points.indexOf(oldSelected) : -1;
             points.length = 0;
-            points.push(new DColorGradientPointObservable(0xffffff, 0, 0, false, this._onChangeBound));
-            points.push(new DColorGradientPointObservable(0xffffff, 0, 1, false, this._onChangeBound));
+            var onChangeBound = this._onChangeBound;
+            points.push(new DColorGradientPointObservable(0xffffff, 0, 0, false, onChangeBound));
+            points.push(new DColorGradientPointObservable(0xffffff, 0, 1, false, onChangeBound));
             if (0 <= index && index < points.length) {
                 var point = points[index];
                 point._selected = true;
@@ -39574,11 +39804,12 @@
             this._direction = data.direction;
             var points = this._points;
             var oldSelected = this._selected;
-            var index = (oldSelected ? points.indexOf(oldSelected) : -1);
+            var index = oldSelected ? points.indexOf(oldSelected) : -1;
             points.length = 0;
+            var onChangeBound = this._onChangeBound;
             for (var i = 0, imax = data.points.length; i < imax; ++i) {
                 var pointLike = data.points[i];
-                var point = new DColorGradientPointObservable(pointLike.color, pointLike.alpha, pointLike.position, false, this._onChangeBound);
+                var point = new DColorGradientPointObservable(pointLike.color, pointLike.alpha, pointLike.position, false, onChangeBound);
                 points.push(point);
             }
             points.sort(POINT_SORTER);
@@ -39630,10 +39861,11 @@
         __extends(DInputAndLabel, _super);
         function DInputAndLabel(options) {
             var _this = _super.call(this, options) || this;
-            _this.addChild(_this._label = new DInputLabel(options != null ? options.label : undefined));
-            _this.addChild(_this._input = _this.createInput(options != null ? options.input : undefined));
-            if (options != null && options.space != null) {
-                _this.addChild(new DLayoutSpace(options.space));
+            _this.addChild((_this._label = new DInputLabel(options === null || options === void 0 ? void 0 : options.label)));
+            _this.addChild((_this._input = _this.createInput(options === null || options === void 0 ? void 0 : options.input)));
+            var space = options === null || options === void 0 ? void 0 : options.space;
+            if (space != null) {
+                _this.addChild(new DLayoutSpace(space));
             }
             return _this;
         }
@@ -39962,7 +40194,7 @@
             if (DPickerColor.RECENT_COLORS == null) {
                 DPickerColor.RECENT_COLORS = new DPickerColorRecent(theme.getRecents().slice(0), recentColorCount);
             }
-            var recent = this._recent = DPickerColor.RECENT_COLORS;
+            var recent = (this._recent = DPickerColor.RECENT_COLORS);
             recent.on("change", function () {
                 _this.onRecentChange();
             });
@@ -40117,7 +40349,12 @@
             }
             // Height
             if (options == null || options.height == null) {
-                this.height = inputY + inputAndLabelColor.height + inputMargin + inputAndLabelAlpha.height + paddingBottom;
+                this.height =
+                    inputY +
+                        inputAndLabelColor.height +
+                        inputMargin +
+                        inputAndLabelAlpha.height +
+                        paddingBottom;
             }
         };
         DPickerColor.prototype.onMainDown = function (e) {
@@ -40190,7 +40427,7 @@
             var ns = Math.max(0, Math.min(1, hsv[1] / 255));
             var nv = Math.max(0, Math.min(1, 1 - hsv[2] / 255));
             var mainPointerSprite = this._mainPointerSprite;
-            mainPointerSprite.tint = (nv < 0.45 ? theme.getMainPointerColor() : 0xffffff);
+            mainPointerSprite.tint = nv < 0.45 ? theme.getMainPointerColor() : 0xffffff;
             mainPointerSprite.position.set(padding.getLeft() + ns * mainWidth, padding.getTop() + nv * mainHeight);
             // New color
             this.onColorNew(color);
@@ -40662,7 +40899,10 @@
                 .addAttribute("aPosition", new pixi_js.Buffer(vertices, false, false), 2)
                 .addAttribute("aUv", new pixi_js.Buffer(uvs, false, false), 2)
                 .addAttribute("aColor", new pixi_js.Buffer(colors, false, false), 4);
-            var shader = pixi_js.Shader.from(VERTEX_SHADER$2, FRAGMENT_SHADER$2, { uSampler: texture, uCheckerColors: checkerColors });
+            var shader = pixi_js.Shader.from(VERTEX_SHADER$2, FRAGMENT_SHADER$2, {
+                uSampler: texture,
+                uCheckerColors: checkerColors
+            });
             return new DPickerColorGradientView(nPointsPerData, vertices, uvs, colors, indices, parts, geometry, shader);
         };
         return DPickerColorGradientView;
@@ -40691,10 +40931,11 @@
             // Picker
             var gradientPointsWidth = theme.getGradientPointsWidth();
             var gradientPointsMargin = theme.getGradientPointsMargin();
-            var picker = this._picker = new DPickerColor({
+            var picker = new DPickerColor({
                 x: paddingLeft + gradientPointsWidth + gradientPointsMargin,
                 y: paddingTop
             });
+            this._picker = picker;
             picker.on("newcolorchange", function (color) {
                 _this.onAnchorColorChange(color);
             });
@@ -40703,7 +40944,7 @@
             });
             this.addChild(picker);
             // Points view
-            var view = this._view = DPickerColorGradientView.from(17, 10, theme.getGradientCheckerColors());
+            var view = (this._view = DPickerColorGradientView.from(17, 10, theme.getGradientCheckerColors()));
             view.setRectangle(0, paddingLeft, paddingTop, gradientPointsWidth, picker.height);
             this.addChild(view);
             view.on(UtilPointerEvent.down, function (e) {
@@ -40779,7 +41020,8 @@
                 }
             });
             // Points
-            var data = this._value = new DColorGradientObservable();
+            var data = new DColorGradientObservable();
+            this._value = data;
             data.on("change", function () {
                 _this.updateAnchors();
                 view.update();
@@ -40800,9 +41042,15 @@
             }
             // Width
             if (options == null || options.width == null) {
-                this.width = paddingLeft + gradientPointsWidth + gradientPointsMargin +
-                    picker.width + inputDirectionMargin + (recentColumn - 1) * recentMargin +
-                    recentColumn * recentWidth + paddingRight;
+                this.width =
+                    paddingLeft +
+                        gradientPointsWidth +
+                        gradientPointsMargin +
+                        picker.width +
+                        inputDirectionMargin +
+                        (recentColumn - 1) * recentMargin +
+                        recentColumn * recentWidth +
+                        paddingRight;
             }
             // Height
             if (options == null || options.height == null) {
@@ -40942,7 +41190,7 @@
                 var anchor = anchors[i];
                 anchor.tint = point.color;
                 anchor.position.set(right, y + height * point.position);
-                anchor.texture = (point.selected ? anchorOutlinedTexture : anchorTexture);
+                anchor.texture = point.selected ? anchorOutlinedTexture : anchorTexture;
             }
             DApplications.update(this);
         };
@@ -41047,7 +41295,8 @@
                 var texture = theme.getViewBaseTexture();
                 if (texture instanceof pixi_js.Texture) {
                     var checkers = theme.getCheckerColors();
-                    var view = this._view = DPickerColorGradientView.from(1, 10, checkers, texture);
+                    var view = DPickerColorGradientView.from(1, 10, checkers, texture);
+                    this._view = view;
                     view.setRectangle(0, 0, 0, texture.width, texture.height);
                     view.setData(0, this._textValueComputed);
                     view.update();
@@ -41264,7 +41513,7 @@
                 var dialog = this._dialog;
                 if (dialog == null) {
                     var options = (_a = this._options) === null || _a === void 0 ? void 0 : _a.dialog;
-                    if (options != null) {
+                    if (options) {
                         dialog = new DDialogColor(options);
                     }
                     else {
@@ -41628,7 +41877,7 @@
             var _this = this;
             var link = new DLink(theme, options);
             this._link = link;
-            link.apply(this, function (e) {
+            link.add(this, function (e) {
                 if (when === DButtonBaseWhen.CLICKED) {
                     _this.onClick(e);
                 }
@@ -41928,7 +42177,7 @@
             _super.prototype.init.call(this, options);
             this._start = 0;
             this._end = 1;
-            var thumb = this._thumb = this.createThumb(options === null || options === void 0 ? void 0 : options.thumb);
+            var thumb = (this._thumb = this.createThumb(options === null || options === void 0 ? void 0 : options.thumb));
             this.addChild(thumb);
             this.state.isFocusable = false;
         };
@@ -42242,7 +42491,8 @@
             _super.prototype.init.call(this, options);
             // Content
             var theme = this.theme;
-            var content = this._content = this.toContent(options);
+            var content = this.toContent(options);
+            this._content = content;
             if ((_a = options === null || options === void 0 ? void 0 : options.mask) !== null && _a !== void 0 ? _a : theme.isOverflowMaskEnabled()) {
                 this.mask = this.getOverflowMask();
             }
@@ -42474,7 +42724,8 @@
             return result;
         };
         DPane.prototype.onChildFocus = function (focused) {
-            var point = DPane.WORK_POINT = (DPane.WORK_POINT || new pixi_js.Point());
+            var point = DPane.WORK_POINT || new pixi_js.Point();
+            DPane.WORK_POINT = point;
             // Content rectangle
             var content = this._content;
             var contentX = content.x;
@@ -42493,7 +42744,8 @@
             var y1 = contentY + Math.min(contentHeight, Math.max(0, point.y));
             var width = this.width;
             var height = this.height;
-            var clippingRect = DPane.WORK_RECTANGLE = (DPane.WORK_RECTANGLE || new pixi_js.Rectangle());
+            var clippingRect = DPane.WORK_RECTANGLE || new pixi_js.Rectangle();
+            DPane.WORK_RECTANGLE = clippingRect;
             this.getFocusedChildClippingRect(focused, contentX, contentY, contentWidth, contentHeight, width, height, clippingRect);
             var clippingRectX = clippingRect.x;
             var clippingRectY = clippingRect.y;
@@ -42574,8 +42826,7 @@
                 var result = this._selection;
                 if (result == null) {
                     var options = (_a = this._options) === null || _a === void 0 ? void 0 : _a.selection;
-                    result = (options instanceof DListSelection ?
-                        options : this.newSelection(options));
+                    result = options instanceof DListSelection ? options : this.newSelection(options);
                     this._selection = result;
                 }
                 return result;
@@ -42617,7 +42868,7 @@
                 var item = items[i];
                 if (item instanceof DBase) {
                     var itemY = item.y;
-                    item.visible = (from <= itemY + item.height && itemY <= to);
+                    item.visible = from <= itemY + item.height && itemY <= to;
                 }
             }
         };
@@ -42667,6 +42918,10 @@
         return DDialogSelectListItem;
     }(DListItem));
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var DDialogSelectSearh = /** @class */ (function (_super) {
         __extends(DDialogSelectSearh, _super);
         function DDialogSelectSearh(search) {
@@ -42854,13 +43109,13 @@
                 var result = i < predefinedsLength ? predefineds[i] : results[i - predefinedsLength];
                 child.text = toLabel(result, this);
                 child.value = result;
-                child.state.isActive = (value != null ? isEqual(result, value, this) : false);
+                child.state.isActive = value != null ? isEqual(result, value, this) : false;
             }
             // Insert new children
             for (var i = minLength; i < totalLength; ++i) {
                 var result = i < predefinedsLength ? predefineds[i] : results[i - predefinedsLength];
                 var newChild = this.newItem(result, toLabel(result, this));
-                newChild.state.isActive = (value != null ? isEqual(result, value, this) : false);
+                newChild.state.isActive = value != null ? isEqual(result, value, this) : false;
                 content.addChild(newChild);
             }
             // Remove unused children
@@ -42930,8 +43185,8 @@
                 var dialog = options.dialog;
                 if (!(dialog && "open" in dialog)) {
                     dialog = dialog || {};
-                    var item = dialog.item = dialog.item || {};
-                    var text = item.text = item.text || {};
+                    var item = (dialog.item = dialog.item || {});
+                    var text = (item.text = item.text || {});
                     if (text.formatter === undefined) {
                         // Assumes formatter is ( value: DIALOG_VALUE | null, caller: any ) => string.
                         text.formatter = formatter;
@@ -42944,7 +43199,8 @@
                 if (!(dialog && "open" in dialog)) {
                     var dialogFormatter = (_c = (_b = dialog === null || dialog === void 0 ? void 0 : dialog.item) === null || _b === void 0 ? void 0 : _b.text) === null || _c === void 0 ? void 0 : _c.formatter;
                     if (dialogFormatter !== undefined) {
-                        var text = options.text = options.text || {};
+                        var text = options.text || {};
+                        options.text = text;
                         if (text.formatter === undefined) {
                             // Assumes dialogFormatter is ( value: VALUE | null, caller: any ) => string.
                             text.formatter = dialogFormatter;
@@ -42985,7 +43241,7 @@
                 var dialog = this._dialog;
                 if (dialog == null) {
                     var options = (_a = this._options) === null || _a === void 0 ? void 0 : _a.dialog;
-                    if (options && ("open" in options)) {
+                    if (options && "open" in options) {
                         dialog = options;
                     }
                     else {
@@ -43194,11 +43450,12 @@
      */
     var DChartAxisBaseOptionParser = /** @class */ (function () {
         function DChartAxisBaseOptionParser(theme, options) {
-            this._coordinateIndex = (options && options.coordinate != null ? options.coordinate : 0);
+            var _a, _b;
+            this._coordinateIndex = (_a = options === null || options === void 0 ? void 0 : options.coordinate) !== null && _a !== void 0 ? _a : 0;
             this._position = this.toPosition(theme, options);
             this._tick = this.toTickContainer(theme, options);
             this._label = this.toLabel(theme, options);
-            this._padding = (options && options.padding != null ? options.padding : theme.getPadding());
+            this._padding = (_b = options === null || options === void 0 ? void 0 : options.padding) !== null && _b !== void 0 ? _b : theme.getPadding();
             this._bar = this.toBar(theme, options);
         }
         Object.defineProperty(DChartAxisBaseOptionParser.prototype, "coordinateIndex", {
@@ -43244,7 +43501,7 @@
             configurable: true
         });
         DChartAxisBaseOptionParser.prototype.toPosition = function (theme, options) {
-            var position = options && options.position;
+            var position = options === null || options === void 0 ? void 0 : options.position;
             if (isString(position)) {
                 return DChartAxisPosition[position];
             }
@@ -43254,48 +43511,49 @@
             return theme.getPosition();
         };
         DChartAxisBaseOptionParser.prototype.toBar = function (theme, options) {
+            var _a;
             return {
-                style: options && options.style != null ? options.style : theme.getStyle(),
-                stroke: this.toBarStroke(theme, options && options.stroke),
+                style: (_a = options === null || options === void 0 ? void 0 : options.style) !== null && _a !== void 0 ? _a : theme.getStyle(),
+                stroke: this.toBarStroke(theme, options === null || options === void 0 ? void 0 : options.stroke),
                 shape: undefined
             };
         };
         DChartAxisBaseOptionParser.prototype.toTickContainer = function (theme, options) {
-            var tick = options && options.tick;
+            var _a;
+            var tick = options === null || options === void 0 ? void 0 : options.tick;
             return {
-                enable: (tick && tick.enable != null ? tick.enable : theme.getTickEnable()),
+                enable: (_a = tick === null || tick === void 0 ? void 0 : tick.enable) !== null && _a !== void 0 ? _a : theme.getTickEnable(),
                 major: this.toTickMajor(theme, tick),
                 minor: this.toMinorTick(theme, tick)
             };
         };
         DChartAxisBaseOptionParser.prototype.toTickMajor = function (theme, options) {
-            var major = options && options.major;
-            var position = (major && major.position != null ? major.position :
-                (options && options.position != null ? options.position : theme.getMajorTickPosition()));
-            var optionsStyle = options && options.style;
-            var style = EShapePointsStyles.from(major && major.style != null ? major.style :
-                (optionsStyle != null ? optionsStyle : theme.getMajorTickStyle()));
-            var optionsStroke = options && options.stroke;
-            var stroke = this.toTickMajorStroke(theme, major && major.stroke, optionsStroke);
+            var _a, _b, _c, _d, _e, _f;
+            var major = options === null || options === void 0 ? void 0 : options.major;
+            var position = (_b = (_a = major === null || major === void 0 ? void 0 : major.position) !== null && _a !== void 0 ? _a : options === null || options === void 0 ? void 0 : options.position) !== null && _b !== void 0 ? _b : theme.getMajorTickPosition();
+            var optionsStyle = options === null || options === void 0 ? void 0 : options.style;
+            var style = EShapePointsStyles.from((_d = (_c = major === null || major === void 0 ? void 0 : major.style) !== null && _c !== void 0 ? _c : optionsStyle) !== null && _d !== void 0 ? _d : theme.getMajorTickStyle());
+            var optionsStroke = options === null || options === void 0 ? void 0 : options.stroke;
+            var stroke = this.toTickMajorStroke(theme, major === null || major === void 0 ? void 0 : major.stroke, optionsStroke);
             return {
-                count: (major && major.count != null ? major.count : theme.getMajorTickCount()),
-                size: (major && major.size != null ? major.size : theme.getMajorTickSize()),
+                count: (_e = major === null || major === void 0 ? void 0 : major.count) !== null && _e !== void 0 ? _e : theme.getMajorTickCount(),
+                size: (_f = major === null || major === void 0 ? void 0 : major.size) !== null && _f !== void 0 ? _f : theme.getMajorTickSize(),
                 position: this.toTickPosition(position),
                 style: style,
                 stroke: stroke,
-                text: this.toMajorTickText(theme, major && major.text),
+                text: this.toMajorTickText(theme, major === null || major === void 0 ? void 0 : major.text),
                 formatter: this.toMajorTickFormatter(theme, major),
                 shapes: undefined,
-                gridline: this.toTickMajorGridline(theme, major && major.gridline, optionsStyle, optionsStroke)
+                gridline: this.toTickMajorGridline(theme, major === null || major === void 0 ? void 0 : major.gridline, optionsStyle, optionsStroke)
             };
         };
         DChartAxisBaseOptionParser.prototype.toTickMajorGridline = function (theme, options, optionsStyle, optionsStroke) {
-            var style = EShapePointsStyles.from(options && options.style != null ? options.style :
-                (optionsStyle != null ? optionsStyle : theme.getMajorTickGridlineStyle()));
+            var _a, _b, _c;
+            var style = EShapePointsStyles.from((_b = (_a = options === null || options === void 0 ? void 0 : options.style) !== null && _a !== void 0 ? _a : optionsStyle) !== null && _b !== void 0 ? _b : theme.getMajorTickGridlineStyle());
             return {
-                enable: options && options.enable != null ? options.enable : theme.getMajorTickGridlineEnable(),
+                enable: (_c = options === null || options === void 0 ? void 0 : options.enable) !== null && _c !== void 0 ? _c : theme.getMajorTickGridlineEnable(),
                 style: style,
-                stroke: this.toTickMajorGridlineStroke(theme, options && options.stroke, optionsStroke),
+                stroke: this.toTickMajorGridlineStroke(theme, options === null || options === void 0 ? void 0 : options.stroke, optionsStroke),
                 shapes: undefined
             };
         };
@@ -43331,17 +43589,16 @@
             }
         };
         DChartAxisBaseOptionParser.prototype.toMinorTick = function (theme, options) {
-            var minor = options && options.major;
-            var position = (minor && minor.position != null ? minor.position :
-                (options && options.position != null ? options.position : theme.getMinorTickPosition()));
-            var style = EShapePointsStyles.from(minor && minor.style != null ? minor.style :
-                (options && options.style != null ? options.style : theme.getMinorTickStyle()));
+            var _a, _b, _c, _d, _e, _f;
+            var minor = options === null || options === void 0 ? void 0 : options.major;
+            var position = (_b = (_a = minor === null || minor === void 0 ? void 0 : minor.position) !== null && _a !== void 0 ? _a : options === null || options === void 0 ? void 0 : options.position) !== null && _b !== void 0 ? _b : theme.getMinorTickPosition();
+            var style = EShapePointsStyles.from((_d = (_c = minor === null || minor === void 0 ? void 0 : minor.style) !== null && _c !== void 0 ? _c : options === null || options === void 0 ? void 0 : options.style) !== null && _d !== void 0 ? _d : theme.getMinorTickStyle());
             return {
-                count: (minor && minor.count != null ? minor.count : theme.getMinorTickCount()),
-                size: (minor && minor.size != null ? minor.size : theme.getMinorTickSize()),
+                count: (_e = minor === null || minor === void 0 ? void 0 : minor.count) !== null && _e !== void 0 ? _e : theme.getMinorTickCount(),
+                size: (_f = minor === null || minor === void 0 ? void 0 : minor.size) !== null && _f !== void 0 ? _f : theme.getMinorTickSize(),
                 position: this.toTickPosition(position),
                 style: style,
-                stroke: this.toTickMinorStroke(theme, minor && minor.stroke, options && options.stroke),
+                stroke: this.toTickMinorStroke(theme, minor === null || minor === void 0 ? void 0 : minor.stroke, options === null || options === void 0 ? void 0 : options.stroke),
                 shapes: undefined
             };
         };
@@ -43358,42 +43615,37 @@
             return this.toStroke(optionsA, optionsB, theme.getMinorTickStrokeEnable(), theme.getMinorTickStrokeColor(), theme.getMinorTickStrokeAlpha(), theme.getMinorTickStrokeWidth(), theme.getMinorTickStrokeAlign(), theme.getMinorTickStrokeSide());
         };
         DChartAxisBaseOptionParser.prototype.toStroke = function (optionsA, optionsB, enable, color, alpha, width, align, side) {
+            var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z;
             if (optionsA) {
                 if (optionsB) {
                     return {
-                        enable: (optionsA.enable != null ? optionsA.enable :
-                            (optionsB.enable != null ? optionsB.enable : enable)),
-                        color: (optionsA.color != null ? optionsA.color :
-                            (optionsB.color != null ? optionsB.color : color)),
-                        alpha: (optionsA.alpha != null ? optionsA.alpha :
-                            (optionsB.alpha != null ? optionsB.alpha : alpha)),
-                        width: (optionsA.width != null ? optionsA.width :
-                            (optionsB.width != null ? optionsB.width : width)),
-                        align: (optionsA.align != null ? optionsA.align :
-                            (optionsB.align != null ? optionsB.align : align)),
-                        side: (optionsA.side != null ? optionsA.side :
-                            (optionsB.side != null ? optionsB.side : side))
+                        enable: (_b = (_a = optionsA.enable) !== null && _a !== void 0 ? _a : optionsB.enable) !== null && _b !== void 0 ? _b : enable,
+                        color: (_d = (_c = optionsA.color) !== null && _c !== void 0 ? _c : optionsB.color) !== null && _d !== void 0 ? _d : color,
+                        alpha: (_f = (_e = optionsA.alpha) !== null && _e !== void 0 ? _e : optionsB.alpha) !== null && _f !== void 0 ? _f : alpha,
+                        width: (_h = (_g = optionsA.width) !== null && _g !== void 0 ? _g : optionsB.width) !== null && _h !== void 0 ? _h : width,
+                        align: (_k = (_j = optionsA.align) !== null && _j !== void 0 ? _j : optionsB.align) !== null && _k !== void 0 ? _k : align,
+                        side: (_m = (_l = optionsA.side) !== null && _l !== void 0 ? _l : optionsB.side) !== null && _m !== void 0 ? _m : side
                     };
                 }
                 else {
                     return {
-                        enable: (optionsA.enable != null ? optionsA.enable : enable),
-                        color: (optionsA.color != null ? optionsA.color : color),
-                        alpha: (optionsA.alpha != null ? optionsA.alpha : alpha),
-                        width: (optionsA.width != null ? optionsA.width : width),
-                        align: (optionsA.align != null ? optionsA.align : align),
-                        side: (optionsA.side != null ? optionsA.side : side)
+                        enable: (_o = optionsA.enable) !== null && _o !== void 0 ? _o : enable,
+                        color: (_p = optionsA.color) !== null && _p !== void 0 ? _p : color,
+                        alpha: (_q = optionsA.alpha) !== null && _q !== void 0 ? _q : alpha,
+                        width: (_r = optionsA.width) !== null && _r !== void 0 ? _r : width,
+                        align: (_s = optionsA.align) !== null && _s !== void 0 ? _s : align,
+                        side: (_t = optionsA.side) !== null && _t !== void 0 ? _t : side
                     };
                 }
             }
             else if (optionsB) {
                 return {
-                    enable: (optionsB.enable != null ? optionsB.enable : enable),
-                    color: (optionsB.color != null ? optionsB.color : color),
-                    alpha: (optionsB.alpha != null ? optionsB.alpha : alpha),
-                    width: (optionsB.width != null ? optionsB.width : width),
-                    align: (optionsB.align != null ? optionsB.align : align),
-                    side: (optionsB.side != null ? optionsB.side : side)
+                    enable: (_u = optionsB.enable) !== null && _u !== void 0 ? _u : enable,
+                    color: (_v = optionsB.color) !== null && _v !== void 0 ? _v : color,
+                    alpha: (_w = optionsB.alpha) !== null && _w !== void 0 ? _w : alpha,
+                    width: (_x = optionsB.width) !== null && _x !== void 0 ? _x : width,
+                    align: (_y = optionsB.align) !== null && _y !== void 0 ? _y : align,
+                    side: (_z = optionsB.side) !== null && _z !== void 0 ? _z : side
                 };
             }
             else {
@@ -43408,7 +43660,7 @@
             }
         };
         DChartAxisBaseOptionParser.prototype.toMajorTickFormatter = function (theme, options) {
-            var text = options && options.text;
+            var text = options === null || options === void 0 ? void 0 : options.text;
             if (text) {
                 var format = text.format;
                 if (format != null) {
@@ -43455,18 +43707,11 @@
             }
         };
         DChartAxisBaseOptionParser.prototype.toMajorTickTextAlign = function (theme, options) {
+            var _a, _b;
             var position = this._position;
-            if (options) {
-                return {
-                    horizontal: (options.horizontal != null ? options.horizontal :
-                        theme.getMajorTickTextAlignHorizontal(position)),
-                    vertical: (options.vertical != null ? options.vertical :
-                        theme.getMajorTickTextAlignVertical(position))
-                };
-            }
             return {
-                horizontal: theme.getMajorTickTextAlignHorizontal(position),
-                vertical: theme.getMajorTickTextAlignVertical(position)
+                horizontal: (_a = options === null || options === void 0 ? void 0 : options.horizontal) !== null && _a !== void 0 ? _a : theme.getMajorTickTextAlignHorizontal(position),
+                vertical: (_b = options === null || options === void 0 ? void 0 : options.vertical) !== null && _b !== void 0 ? _b : theme.getMajorTickTextAlignVertical(position)
             };
         };
         DChartAxisBaseOptionParser.prototype.toMajorTickTextOffset = function (theme, options) {
@@ -43486,21 +43731,20 @@
             }
         };
         DChartAxisBaseOptionParser.prototype.toMajorTickTextPadding = function (theme, options) {
+            var _a, _b;
             return {
-                horizontal: (options && options.horizontal != null ?
-                    options.horizontal : theme.getMajorTickTextPaddingHorizontal()),
-                vertical: (options && options.vertical != null ?
-                    options.vertical : theme.getMajorTickTextPaddingVertical())
+                horizontal: (_a = options === null || options === void 0 ? void 0 : options.horizontal) !== null && _a !== void 0 ? _a : theme.getMajorTickTextPaddingHorizontal(),
+                vertical: (_b = options === null || options === void 0 ? void 0 : options.vertical) !== null && _b !== void 0 ? _b : theme.getMajorTickTextPaddingVertical()
             };
         };
         DChartAxisBaseOptionParser.prototype.toTickMajorTextDirection = function (theme, options) {
-            return (options != null ? options : theme.getMajorTickTextDirection());
+            return options !== null && options !== void 0 ? options : theme.getMajorTickTextDirection();
         };
         DChartAxisBaseOptionParser.prototype.toMajorTickTextColor = function (theme, options) {
-            return (options != null ? options : theme.getMajorTickTextColor());
+            return options !== null && options !== void 0 ? options : theme.getMajorTickTextColor();
         };
         DChartAxisBaseOptionParser.prototype.toLabel = function (theme, options) {
-            var label = options && options.label;
+            var label = options === null || options === void 0 ? void 0 : options.label;
             if (label) {
                 return {
                     value: label.value,
@@ -43531,18 +43775,11 @@
             }
         };
         DChartAxisBaseOptionParser.prototype.toLabelAlign = function (theme, options) {
+            var _a, _b;
             var position = this._position;
-            if (options) {
-                return {
-                    horizontal: (options.horizontal != null ?
-                        options.horizontal : theme.getLabelAlignHorizontal(position)),
-                    vertical: (options.vertical != null ?
-                        options.vertical : theme.getLabelAlignVertical(position))
-                };
-            }
             return {
-                horizontal: theme.getLabelAlignHorizontal(position),
-                vertical: theme.getLabelAlignVertical(position)
+                horizontal: (_a = options === null || options === void 0 ? void 0 : options.horizontal) !== null && _a !== void 0 ? _a : theme.getLabelAlignHorizontal(position),
+                vertical: (_b = options === null || options === void 0 ? void 0 : options.vertical) !== null && _b !== void 0 ? _b : theme.getLabelAlignVertical(position)
             };
         };
         DChartAxisBaseOptionParser.prototype.toLabelOffset = function (theme, options) {
@@ -43562,18 +43799,17 @@
             }
         };
         DChartAxisBaseOptionParser.prototype.toLabelPadding = function (theme, options) {
+            var _a, _b;
             return {
-                horizontal: (options && options.horizontal != null ?
-                    options.horizontal : theme.getLabelPaddingHorizontal()),
-                vertical: (options && options.vertical != null ?
-                    options.vertical : theme.getLabelPaddingVertical())
+                horizontal: (_a = options === null || options === void 0 ? void 0 : options.horizontal) !== null && _a !== void 0 ? _a : theme.getLabelPaddingHorizontal(),
+                vertical: (_b = options === null || options === void 0 ? void 0 : options.vertical) !== null && _b !== void 0 ? _b : theme.getLabelPaddingVertical()
             };
         };
         DChartAxisBaseOptionParser.prototype.toLabelDirection = function (theme, options) {
-            return (options != null ? options : theme.getLabelDirection());
+            return options !== null && options !== void 0 ? options : theme.getLabelDirection();
         };
         DChartAxisBaseOptionParser.prototype.toLabelColor = function (theme, options) {
-            return (options != null ? options : theme.getLabelColor());
+            return options !== null && options !== void 0 ? options : theme.getLabelColor();
         };
         return DChartAxisBaseOptionParser;
     }());
@@ -43595,8 +43831,10 @@
             this._tick = tick;
             this._label = parser.label;
             this._bar = parser.bar;
-            this._majorTicks = new Float64Array(tick.major.count * 3);
-            this._minorTicks = new Float64Array((tick.major.count + 1) * tick.minor.count * 3);
+            var tickMajorCount = tick.major.count;
+            var tickMinorCount = tick.minor.count;
+            this._majorTicks = new Float64Array(tickMajorCount * 3);
+            this._minorTicks = new Float64Array((tickMajorCount + 1) * tickMinorCount * 3);
         }
         Object.defineProperty(DChartAxisBase.prototype, "position", {
             get: function () {
@@ -43607,32 +43845,34 @@
         });
         DChartAxisBase.prototype.updateBar = function (container) {
             var bar = this._bar;
-            var barShape = bar.shape;
-            if (barShape) {
+            var shape = bar.shape;
+            if (shape) {
                 var plotArea = container.plotArea;
                 var plotAreaWidth = plotArea.width;
                 var plotAreaHeight = plotArea.height;
                 var padding = this._padding * this._index;
-                barShape.disallowUploadedUpdate();
+                shape.disallowUploadedUpdate();
+                var position = shape.transform.position;
+                var size = shape.size;
                 switch (this._position) {
                     case DChartAxisPosition.TOP:
-                        barShape.transform.position.set(plotAreaWidth * 0.5, 0 - padding);
-                        barShape.size.set(plotAreaWidth, 0);
+                        position.set(plotAreaWidth * 0.5, 0 - padding);
+                        size.set(plotAreaWidth, 0);
                         break;
                     case DChartAxisPosition.BOTTOM:
-                        barShape.transform.position.set(plotAreaWidth * 0.5, plotAreaHeight + padding);
-                        barShape.size.set(plotAreaWidth, 0);
+                        position.set(plotAreaWidth * 0.5, plotAreaHeight + padding);
+                        size.set(plotAreaWidth, 0);
                         break;
                     case DChartAxisPosition.LEFT:
-                        barShape.transform.position.set(0 - padding, plotAreaHeight * 0.5);
-                        barShape.size.set(0, plotAreaHeight);
+                        position.set(0 - padding, plotAreaHeight * 0.5);
+                        size.set(0, plotAreaHeight);
                         break;
                     case DChartAxisPosition.RIGHT:
-                        barShape.transform.position.set(plotAreaWidth + padding, plotAreaHeight * 0.5);
-                        barShape.size.set(0, plotAreaHeight);
+                        position.set(plotAreaWidth + padding, plotAreaHeight * 0.5);
+                        size.set(0, plotAreaHeight);
                         break;
                 }
-                barShape.allowUploadedUpdate();
+                shape.allowUploadedUpdate();
             }
         };
         DChartAxisBase.prototype.updateTicksX = function (domainMin, domainMax, coordinate, majorShapes, minorShapes, gridlineShapes, shapePositionY, transform, plotAreaHeight) {
@@ -43808,8 +44048,9 @@
             var barShape = bar.shape;
             if (!barShape) {
                 var position = this._position;
-                var barPosition = (position === DChartAxisPosition.LEFT || position === DChartAxisPosition.RIGHT ?
-                    EShapeBarPosition.TOP : EShapeBarPosition.LEFT);
+                var barPosition = position === DChartAxisPosition.LEFT || position === DChartAxisPosition.RIGHT
+                    ? EShapeBarPosition.TOP
+                    : EShapeBarPosition.LEFT;
                 barShape = new EShapeBar(barPosition, undefined, undefined, bar.style);
                 barShape.stroke.copy(bar.stroke);
                 barShape.text.copy(this._label);
@@ -43825,8 +44066,9 @@
                 gridlineShapes = [];
                 gridline.shapes = gridlineShapes;
                 var position = this._position;
-                var gridlinePosition = (position === DChartAxisPosition.LEFT || position === DChartAxisPosition.RIGHT ?
-                    EShapeBarPosition.LEFT : EShapeBarPosition.TOP);
+                var gridlinePosition = position === DChartAxisPosition.LEFT || position === DChartAxisPosition.RIGHT
+                    ? EShapeBarPosition.LEFT
+                    : EShapeBarPosition.TOP;
                 var gridlineCount = tickMajor.count;
                 var gridlineStyle = gridline.style;
                 for (var i = 0; i < gridlineCount; ++i) {
@@ -44119,12 +44361,7 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DCHART_COLOR_SET_1 = [
-        0x10b7e3,
-        0xfe5420,
-        0xf0c312,
-        0x1c5d71
-    ];
+    var DCHART_COLOR_SET_1 = [0x10b7e3, 0xfe5420, 0xf0c312, 0x1c5d71];
     var DCHART_COLOR_SET_2 = [
         DCHART_COLOR_SET_1[0],
         UtilRgb.brighten(DCHART_COLOR_SET_1[0], 0.4),
@@ -44259,8 +44496,10 @@
     var DChartCoordinateContainerImpl = /** @class */ (function () {
         function DChartCoordinateContainerImpl(plotArea, options) {
             this._plotArea = plotArea;
-            var x = this._x = new DChartCoordinateContainerSubImpl(this, DChartCoordinateDirection.X);
-            var y = this._y = new DChartCoordinateContainerSubImpl(this, DChartCoordinateDirection.Y);
+            var x = new DChartCoordinateContainerSubImpl(this, DChartCoordinateDirection.X);
+            this._x = x;
+            var y = new DChartCoordinateContainerSubImpl(this, DChartCoordinateDirection.Y);
+            this._y = y;
             if (options) {
                 var cxs = options.x;
                 if (cxs) {
@@ -44487,7 +44726,7 @@
             }
             if (isChanged) {
                 this._id += 1;
-                this._iscale = (this._theme.isZero(this._scale) ? 0 : 1 / this._scale);
+                this._iscale = this._theme.isZero(this._scale) ? 0 : 1 / this._scale;
                 this._itranslate = -this._translate * this._iscale;
             }
         };
@@ -44558,12 +44797,10 @@
         };
         DChartRegionImpl.prototype.add = function (from, to) {
             if (!isNaN(from)) {
-                this.from = (isNaN(this.from) ?
-                    from : Math.min(this.from, from));
+                this.from = isNaN(this.from) ? from : Math.min(this.from, from);
             }
             if (!isNaN(to)) {
-                this.to = (isNaN(this.to) ?
-                    to : Math.max(this.to, to));
+                this.to = isNaN(this.to) ? to : Math.max(this.to, to);
             }
             return this;
         };
@@ -44654,13 +44891,13 @@
             if (!(isNaN(regionFrom) || isNaN(regionTo))) {
                 // Scale
                 var newScale = 1;
-                var regionSize = (regionTo - regionFrom);
+                var regionSize = regionTo - regionFrom;
                 if (!this._theme.isZero(regionSize)) {
-                    var pixelSize = (pixelTo - pixelFrom);
+                    var pixelSize = pixelTo - pixelFrom;
                     newScale = pixelSize / regionSize;
                 }
                 else {
-                    newScale = (pixelTo < pixelFrom ? -1 : 1);
+                    newScale = pixelTo < pixelFrom ? -1 : 1;
                 }
                 // Translation
                 var newTranslation = pixelFrom - regionFrom * newScale;
@@ -44781,7 +45018,8 @@
             for (var i = idomainStartMapped; i <= idomainEndMapped; ++i) {
                 var majorPositionMapped = i * majorStepMapped;
                 if (imajor < majorCount) {
-                    if (domainMinMapped <= majorPositionMapped && majorPositionMapped <= domainMaxMapped) {
+                    if (domainMinMapped <= majorPositionMapped &&
+                        majorPositionMapped <= domainMaxMapped) {
                         var majorPosition = coordinate.unmap(majorPositionMapped);
                         var majorProjectedPosition = transform.map(majorPositionMapped);
                         var majorStep = coordinate.unmap(majorPositionMapped - 1);
@@ -44795,7 +45033,8 @@
                 for (var j = 0; j < minorCountPerMajor; j += 1) {
                     if (iminor < minorCount) {
                         var minorPositionMapped = majorPositionMapped + (j + 1) * minorStepMapped;
-                        if (domainMinMapped <= minorPositionMapped && minorPositionMapped <= domainMaxMapped) {
+                        if (domainMinMapped <= minorPositionMapped &&
+                            minorPositionMapped <= domainMaxMapped) {
                             var minorPosition = coordinate.unmap(minorPositionMapped);
                             var minorProjectedPosition = transform.map(minorPositionMapped);
                             var minorStep = coordinate.unmap(minorPositionMapped - 1);
@@ -44903,13 +45142,13 @@
                 var newScale = 1;
                 var regionFromMapped = this.map(regionFrom);
                 var regionToMapped = this.map(regionTo);
-                var regionSizeMapped = (regionToMapped - regionFromMapped);
+                var regionSizeMapped = regionToMapped - regionFromMapped;
                 if (!this._theme.isZero(regionSizeMapped)) {
-                    var pixelSize = (pixelTo - pixelFrom);
+                    var pixelSize = pixelTo - pixelFrom;
                     newScale = pixelSize / regionSizeMapped;
                 }
                 else {
-                    newScale = (pixelTo < pixelFrom ? -1 : 1);
+                    newScale = pixelTo < pixelFrom ? -1 : 1;
                 }
                 // Translation
                 var newTranslation = pixelFrom - regionFromMapped * newScale;
@@ -44973,9 +45212,6 @@
         function DChartLegendItem() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DChartLegendItem.prototype.init = function (options) {
-            _super.prototype.init.call(this, options);
-        };
         DChartLegendItem.prototype.getType = function () {
             return "DChartLegendItem";
         };
@@ -44991,9 +45227,6 @@
         function DChartLegend() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DChartLegend.prototype.init = function (options) {
-            _super.prototype.init.call(this, options);
-        };
         DChartLegend.prototype.getType = function () {
             return "DChartLegend";
         };
@@ -45009,9 +45242,6 @@
         function DChartOverview() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DChartOverview.prototype.init = function (options) {
-            _super.prototype.init.call(this, options);
-        };
         DChartOverview.prototype.getType = function () {
             return "DChartOverview";
         };
@@ -45139,12 +45369,8 @@
             this.alpha = alpha;
         }
         DChartSeriesFillComputedImpl.from = function (base, index, fill) {
-            if (fill) {
-                return new DChartSeriesFillComputedImpl((fill.enable != null ? fill.enable : base.enable(index)), (fill.color != null ? fill.color : base.color(index)), (fill.alpha != null ? fill.alpha : base.alpha(index)));
-            }
-            else {
-                return new DChartSeriesFillComputedImpl(base.enable(index), base.color(index), base.alpha(index));
-            }
+            var _a, _b, _c;
+            return new DChartSeriesFillComputedImpl((_a = fill === null || fill === void 0 ? void 0 : fill.enable) !== null && _a !== void 0 ? _a : base.enable(index), (_b = fill === null || fill === void 0 ? void 0 : fill.color) !== null && _b !== void 0 ? _b : base.color(index), (_c = fill === null || fill === void 0 ? void 0 : fill.alpha) !== null && _c !== void 0 ? _c : base.alpha(index));
         };
         return DChartSeriesFillComputedImpl;
     }());
@@ -45185,9 +45411,9 @@
      */
     var DChartSeriesFillImpl = /** @class */ (function () {
         function DChartSeriesFillImpl(options) {
-            this.enable = DChartSeriesScalars.from(options && options.enable, true);
-            this.color = DChartSeriesScalars.from(options && options.color, DChartColorSet2);
-            this.alpha = DChartSeriesScalars.from(options && options.alpha, EShapeDefaults.FILL_ALPHA);
+            this.enable = DChartSeriesScalars.from(options === null || options === void 0 ? void 0 : options.enable, true);
+            this.color = DChartSeriesScalars.from(options === null || options === void 0 ? void 0 : options.color, DChartColorSet2);
+            this.alpha = DChartSeriesScalars.from(options === null || options === void 0 ? void 0 : options.alpha, EShapeDefaults.FILL_ALPHA);
         }
         return DChartSeriesFillImpl;
     }());
@@ -45202,12 +45428,8 @@
             this.inner = inner;
         }
         DChartSeriesPaddingComputedImpl.from = function (base, index, point) {
-            if (point) {
-                return new DChartSeriesPaddingComputedImpl((point.outer != null ? point.outer : base.outer(index)), (point.inner != null ? point.inner : base.inner(index)));
-            }
-            else {
-                return new DChartSeriesPaddingComputedImpl(base.outer(index), base.inner(index));
-            }
+            var _a, _b;
+            return new DChartSeriesPaddingComputedImpl((_a = point === null || point === void 0 ? void 0 : point.outer) !== null && _a !== void 0 ? _a : base.outer(index), (_b = point === null || point === void 0 ? void 0 : point.inner) !== null && _b !== void 0 ? _b : base.inner(index));
         };
         return DChartSeriesPaddingComputedImpl;
     }());
@@ -45218,8 +45440,8 @@
      */
     var DChartSeriesPaddingImpl = /** @class */ (function () {
         function DChartSeriesPaddingImpl(options) {
-            this.outer = DChartSeriesScalars.from(options && options.outer, 0.2);
-            this.inner = DChartSeriesScalars.from(options && options.inner, 0.1);
+            this.outer = DChartSeriesScalars.from(options === null || options === void 0 ? void 0 : options.outer, 0.2);
+            this.inner = DChartSeriesScalars.from(options === null || options === void 0 ? void 0 : options.inner, 0.1);
         }
         return DChartSeriesPaddingImpl;
     }());
@@ -45234,12 +45456,8 @@
             this.y = y;
         }
         DChartSeriesPointComputedImpl.from = function (base, index, point, x, y) {
-            if (point) {
-                return new DChartSeriesPointComputedImpl((point.x != null ? point.x : (base.x != null ? base.x(index) : x)), (point.y != null ? point.y : (base.y != null ? base.y(index) : y)));
-            }
-            else {
-                return new DChartSeriesPointComputedImpl(base.x != null ? base.x(index) : x, base.y != null ? base.y(index) : y);
-            }
+            var _a, _b;
+            return new DChartSeriesPointComputedImpl((_a = point === null || point === void 0 ? void 0 : point.x) !== null && _a !== void 0 ? _a : (base.x != null ? base.x(index) : x), (_b = point === null || point === void 0 ? void 0 : point.y) !== null && _b !== void 0 ? _b : (base.y != null ? base.y(index) : y));
         };
         return DChartSeriesPointComputedImpl;
     }());
@@ -45277,12 +45495,8 @@
             this.style = style;
         }
         DChartSeriesStrokeComputedImpl.from = function (base, index, stroke) {
-            if (stroke) {
-                return new DChartSeriesStrokeComputedImpl((stroke.enable != null ? stroke.enable : base.enable(index)), (stroke.color != null ? stroke.color : base.color(index)), (stroke.alpha != null ? stroke.alpha : base.alpha(index)), (stroke.width != null ? stroke.width : base.width(index)), (stroke.align != null ? stroke.align : base.align(index)), (stroke.side != null ? stroke.side : base.side(index)), EShapePointsStyles.from(stroke.style != null ? stroke.style : base.style(index)));
-            }
-            else {
-                return new DChartSeriesStrokeComputedImpl(base.enable(index), base.color(index), base.alpha(index), base.width(index), base.align(index), base.side(index), EShapePointsStyles.from(base.style(index)));
-            }
+            var _a, _b, _c, _d, _e, _f, _g;
+            return new DChartSeriesStrokeComputedImpl((_a = stroke === null || stroke === void 0 ? void 0 : stroke.enable) !== null && _a !== void 0 ? _a : base.enable(index), (_b = stroke === null || stroke === void 0 ? void 0 : stroke.color) !== null && _b !== void 0 ? _b : base.color(index), (_c = stroke === null || stroke === void 0 ? void 0 : stroke.alpha) !== null && _c !== void 0 ? _c : base.alpha(index), (_d = stroke === null || stroke === void 0 ? void 0 : stroke.width) !== null && _d !== void 0 ? _d : base.width(index), (_e = stroke === null || stroke === void 0 ? void 0 : stroke.align) !== null && _e !== void 0 ? _e : base.align(index), (_f = stroke === null || stroke === void 0 ? void 0 : stroke.side) !== null && _f !== void 0 ? _f : base.side(index), EShapePointsStyles.from((_g = stroke === null || stroke === void 0 ? void 0 : stroke.style) !== null && _g !== void 0 ? _g : base.style(index)));
         };
         return DChartSeriesStrokeComputedImpl;
     }());
@@ -45293,13 +45507,13 @@
      */
     var DChartSeriesStrokeImpl = /** @class */ (function () {
         function DChartSeriesStrokeImpl(options) {
-            this.enable = DChartSeriesScalars.from(options && options.enable, true);
-            this.color = DChartSeriesScalars.from(options && options.color, DChartColorSet2);
-            this.alpha = DChartSeriesScalars.from(options && options.alpha, EShapeDefaults.STROKE_ALPHA);
-            this.width = DChartSeriesScalars.from(options && options.width, EShapeDefaults.STROKE_WIDTH);
-            this.align = DChartSeriesScalars.from(options && options.width, EShapeDefaults.STROKE_ALIGN);
-            this.side = DChartSeriesScalars.from(options && options.side, EShapeStrokeSide.ALL);
-            this.style = DChartSeriesScalars.from(options && options.style, EShapePointsStyle.NON_EXPANDING_WIDTH |
+            this.enable = DChartSeriesScalars.from(options === null || options === void 0 ? void 0 : options.enable, true);
+            this.color = DChartSeriesScalars.from(options === null || options === void 0 ? void 0 : options.color, DChartColorSet2);
+            this.alpha = DChartSeriesScalars.from(options === null || options === void 0 ? void 0 : options.alpha, EShapeDefaults.STROKE_ALPHA);
+            this.width = DChartSeriesScalars.from(options === null || options === void 0 ? void 0 : options.width, EShapeDefaults.STROKE_WIDTH);
+            this.align = DChartSeriesScalars.from(options === null || options === void 0 ? void 0 : options.width, EShapeDefaults.STROKE_ALIGN);
+            this.side = DChartSeriesScalars.from(options === null || options === void 0 ? void 0 : options.side, EShapeStrokeSide.ALL);
+            this.style = DChartSeriesScalars.from(options === null || options === void 0 ? void 0 : options.style, EShapePointsStyle.NON_EXPANDING_WIDTH |
                 EShapePointsStyle.NON_SHRINKING_WIDTH |
                 EShapePointsStyle.NON_SCALING_DOT_AND_DASH);
         }
@@ -45312,15 +45526,16 @@
      */
     var DChartSeriesContainerImpl = /** @class */ (function () {
         function DChartSeriesContainerImpl(plotArea, options) {
+            var _a;
             this._plotArea = plotArea;
             this._domain = new DChartRegionImpl(NaN, NaN);
             this._range = new DChartRegionImpl(NaN, NaN);
-            this._selection = (options && options.selection) || null;
-            this._fill = new DChartSeriesFillImpl(options && options.fill);
-            this._stroke = new DChartSeriesStrokeImpl(options && options.stroke);
-            this._size = new DChartSeriesPointImpl(options && options.size);
-            this._offset = new DChartSeriesPointImpl(options && options.offset);
-            this._padding = new DChartSeriesPaddingImpl(options && options.padding);
+            this._selection = (_a = options === null || options === void 0 ? void 0 : options.selection) !== null && _a !== void 0 ? _a : null;
+            this._fill = new DChartSeriesFillImpl(options === null || options === void 0 ? void 0 : options.fill);
+            this._stroke = new DChartSeriesStrokeImpl(options === null || options === void 0 ? void 0 : options.stroke);
+            this._size = new DChartSeriesPointImpl(options === null || options === void 0 ? void 0 : options.size);
+            this._offset = new DChartSeriesPointImpl(options === null || options === void 0 ? void 0 : options.offset);
+            this._padding = new DChartSeriesPaddingImpl(options === null || options === void 0 ? void 0 : options.padding);
             this._list = [];
             var list = options && options.list;
             if (list) {
@@ -45739,13 +45954,11 @@
         DChartRegionImplObservable.prototype.add = function (from, to) {
             var newFrom;
             if (!isNaN(from)) {
-                newFrom = (isNaN(this.from) ?
-                    from : Math.min(this.from, from));
+                newFrom = isNaN(this.from) ? from : Math.min(this.from, from);
             }
             var newTo;
             if (!isNaN(to)) {
-                newTo = (isNaN(this.to) ?
-                    to : Math.max(this.to, to));
+                newTo = isNaN(this.to) ? to : Math.max(this.to, to);
             }
             return this.set(newFrom, newTo);
         };
@@ -45759,11 +45972,519 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var DChartSelectionShapeBase = /** @class */ (function () {
+        function DChartSelectionShapeBase(options) {
+            var _a, _b, _c;
+            var theme = this.toTheme(options);
+            this._theme = theme;
+            var state = new DBaseStateSetImpl().add((_a = options === null || options === void 0 ? void 0 : options.state) !== null && _a !== void 0 ? _a : DBaseState.HOVERED);
+            this._state = state;
+            this._isEnabled = (_b = options === null || options === void 0 ? void 0 : options.enable) !== null && _b !== void 0 ? _b : theme.isEnabled(state);
+            this._shape = options === null || options === void 0 ? void 0 : options.shape;
+            this._style = (_c = options === null || options === void 0 ? void 0 : options.style) !== null && _c !== void 0 ? _c : this.setStyle;
+        }
+        DChartSelectionShapeBase.prototype.bind = function (container) {
+            if (this._isEnabled) {
+                var shape = this._shape || this.newShape(this._theme);
+                this._shape = shape;
+                shape.attach(container.plotArea.axis.container);
+                shape.visible = false;
+            }
+        };
+        DChartSelectionShapeBase.prototype.unbind = function () {
+            var shape = this._shape;
+            if (shape) {
+                shape.detach();
+            }
+        };
+        DChartSelectionShapeBase.prototype.newShape = function (theme) {
+            return theme.newShape(this._state);
+        };
+        DChartSelectionShapeBase.prototype.set = function (container, mappedPosition, series) {
+            this.update(container, mappedPosition);
+            var shape = this._shape;
+            if (shape) {
+                this._style(shape, series);
+            }
+        };
+        DChartSelectionShapeBase.prototype.setStyle = function (shape, series) {
+            var seriesShape = series.shape;
+            if (seriesShape) {
+                shape.stroke.color = seriesShape.stroke.color;
+            }
+        };
+        DChartSelectionShapeBase.prototype.unset = function () {
+            var shape = this._shape;
+            if (shape) {
+                shape.visible = false;
+            }
+        };
+        DChartSelectionShapeBase.prototype.toTheme = function (options) {
+            var theme = options === null || options === void 0 ? void 0 : options.theme;
+            if (isString(theme)) {
+                return this.getTheme(theme);
+            }
+            else if (theme != null) {
+                return theme;
+            }
+            else {
+                return this.getTheme(this.getType());
+            }
+        };
+        DChartSelectionShapeBase.prototype.getTheme = function (type) {
+            return DThemes.getInstance().get(type);
+        };
+        return DChartSelectionShapeBase;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DChartSelectionGridlineX = /** @class */ (function (_super) {
+        __extends(DChartSelectionGridlineX, _super);
+        function DChartSelectionGridlineX() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DChartSelectionGridlineX.prototype.update = function (container, mappedPosition) {
+            var shape = this._shape;
+            if (shape) {
+                var mappedX = mappedPosition.x;
+                var height = container.plotArea.height;
+                shape.transform.position.set(mappedX, height * 0.5);
+                shape.size.set(0, height);
+                shape.visible = this.isVisible(container, mappedX);
+            }
+        };
+        DChartSelectionGridlineX.prototype.isVisible = function (container, mappedX) {
+            return 0 <= mappedX && mappedX <= container.plotArea.width;
+        };
+        DChartSelectionGridlineX.prototype.getType = function () {
+            return "DChartSelectionGridlineX";
+        };
+        return DChartSelectionGridlineX;
+    }(DChartSelectionShapeBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DChartSelectionGridlineY = /** @class */ (function (_super) {
+        __extends(DChartSelectionGridlineY, _super);
+        function DChartSelectionGridlineY() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DChartSelectionGridlineY.prototype.update = function (container, mappedPosition) {
+            var shape = this._shape;
+            if (shape) {
+                var mappedY = mappedPosition.y;
+                var width = container.plotArea.width;
+                shape.transform.position.set(width * 0.5, mappedY);
+                shape.size.set(width, 0);
+                shape.visible = this.isVisible(container, mappedY);
+            }
+        };
+        DChartSelectionGridlineY.prototype.isVisible = function (container, mappedY) {
+            return 0 <= mappedY && mappedY <= container.plotArea.height;
+        };
+        DChartSelectionGridlineY.prototype.getType = function () {
+            return "DChartSelectionGridlineY";
+        };
+        return DChartSelectionGridlineY;
+    }(DChartSelectionShapeBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DChartSelectionGridlineContainerImpl = /** @class */ (function () {
+        function DChartSelectionGridlineContainerImpl(options) {
+            this._x = new DChartSelectionGridlineX(options === null || options === void 0 ? void 0 : options.x);
+            this._y = new DChartSelectionGridlineY(options === null || options === void 0 ? void 0 : options.y);
+        }
+        Object.defineProperty(DChartSelectionGridlineContainerImpl.prototype, "x", {
+            get: function () {
+                return this._x;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DChartSelectionGridlineContainerImpl.prototype, "y", {
+            get: function () {
+                return this._y;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DChartSelectionGridlineContainerImpl.prototype.bind = function (container) {
+            this._x.bind(container);
+            this._y.bind(container);
+        };
+        DChartSelectionGridlineContainerImpl.prototype.unbind = function () {
+            this._x.unbind();
+            this._y.unbind();
+        };
+        DChartSelectionGridlineContainerImpl.prototype.set = function (container, mappedPosition, series) {
+            this._x.set(container, mappedPosition, series);
+            this._y.set(container, mappedPosition, series);
+        };
+        DChartSelectionGridlineContainerImpl.prototype.unset = function () {
+            this._x.unset();
+            this._y.unset();
+        };
+        DChartSelectionGridlineContainerImpl.prototype.update = function (container, mappedPosition) {
+            this._x.update(container, mappedPosition);
+            this._y.update(container, mappedPosition);
+        };
+        return DChartSelectionGridlineContainerImpl;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DChartSelectionMarker = /** @class */ (function (_super) {
+        __extends(DChartSelectionMarker, _super);
+        function DChartSelectionMarker() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DChartSelectionMarker.prototype.update = function (container, mappedPosition) {
+            var shape = this._shape;
+            if (shape) {
+                shape.transform.position.copyFrom(mappedPosition);
+                shape.visible = this.isVisible(container, mappedPosition);
+            }
+        };
+        DChartSelectionMarker.prototype.isVisible = function (container, mappedPosition) {
+            var x = mappedPosition.x;
+            var y = mappedPosition.y;
+            var plotArea = container.plotArea;
+            return 0 <= x && x <= plotArea.width && 0 <= y && y <= plotArea.height;
+        };
+        DChartSelectionMarker.prototype.getType = function () {
+            return "DChartSelectionMarker";
+        };
+        return DChartSelectionMarker;
+    }(DChartSelectionShapeBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DChartSelectionPoint;
+    (function (DChartSelectionPoint) {
+        DChartSelectionPoint[DChartSelectionPoint["PREVIOUS"] = 0] = "PREVIOUS";
+        DChartSelectionPoint[DChartSelectionPoint["NEXT"] = 1] = "NEXT";
+        DChartSelectionPoint[DChartSelectionPoint["CLOSER"] = 2] = "CLOSER";
+        DChartSelectionPoint[DChartSelectionPoint["INTERSECTION"] = 3] = "INTERSECTION";
+    })(DChartSelectionPoint || (DChartSelectionPoint = {}));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DChartSelectionSubImpl = /** @class */ (function (_super) {
+        __extends(DChartSelectionSubImpl, _super);
+        function DChartSelectionSubImpl(options) {
+            var _a, _b, _c;
+            var _this = _super.call(this) || this;
+            _this._container = null;
+            _this._series = null;
+            _this._isEnabled = (_a = options.enable) !== null && _a !== void 0 ? _a : true;
+            _this._gridline = new DChartSelectionGridlineContainerImpl(options.gridline);
+            _this._marker = new DChartSelectionMarker(options.marker);
+            _this._state = (_b = options.state) !== null && _b !== void 0 ? _b : DBaseState.HOVERED;
+            _this._coordinateX = null;
+            _this._coordinateY = null;
+            _this._position = new pixi_js.Point();
+            _this._point = (_c = options.point) !== null && _c !== void 0 ? _c : DChartSelectionPoint.CLOSER;
+            _this._work = new pixi_js.Point();
+            // Events
+            var on = options.on;
+            if (on) {
+                for (var name_1 in on) {
+                    var handler = on[name_1];
+                    if (handler) {
+                        _this.on(name_1, handler);
+                    }
+                }
+            }
+            return _this;
+        }
+        DChartSelectionSubImpl.prototype.bind = function (container) {
+            if (this._isEnabled) {
+                this._container = container;
+                this._gridline.bind(container);
+                this._marker.bind(container);
+            }
+        };
+        DChartSelectionSubImpl.prototype.unbind = function () {
+            this._marker.unbind();
+            this._gridline.unbind();
+            this._container = null;
+            this._coordinateX = null;
+            this._coordinateY = null;
+        };
+        Object.defineProperty(DChartSelectionSubImpl.prototype, "series", {
+            get: function () {
+                return this._series;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DChartSelectionSubImpl.prototype, "position", {
+            get: function () {
+                return this._position;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DChartSelectionSubImpl.prototype, "gridline", {
+            get: function () {
+                return this._gridline;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DChartSelectionSubImpl.prototype, "marker", {
+            get: function () {
+                return this._marker;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DChartSelectionSubImpl.prototype.set = function (series, result) {
+            var container = this._container;
+            var coordinateX = (this._coordinateX = series.coordinate.x);
+            var coordinateY = (this._coordinateY = series.coordinate.y);
+            if (container && coordinateX && coordinateY) {
+                var transform = container.plotArea.container.localTransform;
+                var position = this._position;
+                var work = this._work;
+                if (result instanceof DChartSeriesHitResult) {
+                    var x = result.x;
+                    var y = result.y;
+                    switch (this._point) {
+                        case DChartSelectionPoint.PREVIOUS:
+                            x = result.p0x;
+                            y = result.p0y;
+                            break;
+                        case DChartSelectionPoint.NEXT:
+                            x = result.p1x;
+                            y = result.p1y;
+                            break;
+                        case DChartSelectionPoint.CLOSER:
+                            if (Math.abs(result.p0x - result.x) < Math.abs(result.p1x - result.x)) {
+                                x = result.p0x;
+                                y = result.p0y;
+                            }
+                            else {
+                                x = result.p1x;
+                                y = result.p1y;
+                            }
+                    }
+                    work.set(x, y);
+                    transform.apply(work, work);
+                    position.set(coordinateX.unmap(coordinateX.transform.unmap(x)), coordinateY.unmap(coordinateY.transform.unmap(y)));
+                }
+                else {
+                    position.copyFrom(result.position);
+                    work.set(coordinateX.transform.map(coordinateX.map(position.x)), coordinateY.transform.map(coordinateY.map(position.y)));
+                    transform.apply(work, work);
+                }
+                this._gridline.set(container, work, series);
+                this._marker.set(container, work, series);
+                DApplications.update(container.plotArea);
+            }
+            var oldSeries = this._series;
+            if (oldSeries !== series) {
+                var state = this._state;
+                if (oldSeries) {
+                    oldSeries.state.remove(state);
+                }
+                this._series = series;
+                series.state.add(state);
+            }
+            this.emit("change", this);
+        };
+        DChartSelectionSubImpl.prototype.setStyle = function (shape, series) {
+            var seriesShape = series.shape;
+            if (seriesShape) {
+                shape.stroke.color = seriesShape.stroke.color;
+            }
+        };
+        DChartSelectionSubImpl.prototype.unset = function () {
+            var series = this._series;
+            if (series) {
+                this._series = null;
+                this._coordinateX = null;
+                this._coordinateY = null;
+                series.state.remove(this._state);
+                this._gridline.unset();
+                this._marker.unset();
+                this.emit("change", this);
+            }
+        };
+        DChartSelectionSubImpl.prototype.update = function () {
+            var container = this._container;
+            var coordinateX = this._coordinateX;
+            var coordinateY = this._coordinateY;
+            if (container && coordinateX && coordinateY) {
+                var position = this._position;
+                var work = this._work;
+                work.set(coordinateX.transform.map(coordinateX.map(position.x)), coordinateY.transform.map(coordinateY.map(position.y)));
+                container.plotArea.container.localTransform.apply(work, work);
+                this._gridline.update(container, work);
+                this._marker.update(container, work);
+            }
+        };
+        return DChartSelectionSubImpl;
+    }(pixi_js.utils.EventEmitter));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DChartSelectionSimple = /** @class */ (function (_super) {
+        __extends(DChartSelectionSimple, _super);
+        function DChartSelectionSimple(options) {
+            var _a;
+            var _this = _super.call(this) || this;
+            _this._container = null;
+            var point = toEnum((_a = options === null || options === void 0 ? void 0 : options.point) !== null && _a !== void 0 ? _a : DChartSelectionPoint.CLOSER, DChartSelectionPoint);
+            _this._selected = _this.newSelected(point, options === null || options === void 0 ? void 0 : options.selected);
+            _this._hovered = _this.newHovered(point, options === null || options === void 0 ? void 0 : options.hovered);
+            // Events
+            var on = options === null || options === void 0 ? void 0 : options.on;
+            if (on != null) {
+                for (var name_1 in on) {
+                    var handler = on[name_1];
+                    if (handler) {
+                        _this.on(name_1, handler);
+                    }
+                }
+            }
+            //
+            _this._onMoveBound = function (e) {
+                _this.onMove(e);
+            };
+            _this._onClickBound = function (e) {
+                _this.onClick(e);
+            };
+            return _this;
+        }
+        DChartSelectionSimple.prototype.newSelected = function (point, options) {
+            return new DChartSelectionSubImpl(this.toSubOptions(point, options, DBaseState.ACTIVE));
+        };
+        DChartSelectionSimple.prototype.newHovered = function (point, options) {
+            return new DChartSelectionSubImpl(this.toSubOptions(point, options, DBaseState.HOVERED));
+        };
+        DChartSelectionSimple.prototype.toSubOptions = function (point, options, state) {
+            options = options || {};
+            if (options.point == null) {
+                options.point = point;
+            }
+            if (options.state == null) {
+                options.state = state;
+            }
+            var gridline = options.gridline || {};
+            var gridlineX = gridline.x || {};
+            if (gridlineX.state == null) {
+                gridlineX.state = state;
+            }
+            var gridlineY = gridline.y || {};
+            if (gridlineY.state == null) {
+                gridlineY.state = state;
+            }
+            var marker = options.marker || {};
+            if (marker.state == null) {
+                marker.state = state;
+            }
+            return options;
+        };
+        DChartSelectionSimple.prototype.onClick = function (e) {
+            var container = this._container;
+            if (container && e.target === container.plotArea) {
+                var hovered = this._hovered;
+                var series = hovered.series;
+                var selected = this._selected;
+                if (series) {
+                    selected.set(series, hovered);
+                }
+                else {
+                    selected.unset();
+                }
+            }
+        };
+        DChartSelectionSimple.prototype.onMove = function (e) {
+            var container = this._container;
+            if (container) {
+                var hovered = this._hovered;
+                if (e.target === container.plotArea) {
+                    var result = DChartSelectionSimple.WORK_SELECT;
+                    var series = container.calcHitPoint(e.data.global, result);
+                    if (series) {
+                        hovered.set(series, result);
+                    }
+                    else {
+                        hovered.unset();
+                    }
+                }
+                else {
+                    hovered.unset();
+                }
+            }
+        };
+        DChartSelectionSimple.prototype.bind = function (container) {
+            this._container = container;
+            this._selected.bind(container);
+            this._hovered.bind(container);
+            var plotArea = container.plotArea;
+            plotArea.on(UtilPointerEvent.move, this._onMoveBound);
+            UtilPointerEvent.onClick(plotArea, this._onClickBound);
+        };
+        DChartSelectionSimple.prototype.unbind = function () {
+            var container = this._container;
+            this._container = null;
+            if (container) {
+                var plotArea = container.plotArea;
+                plotArea.off(UtilPointerEvent.move, this._onMoveBound);
+            }
+            this._selected.unbind();
+            this._hovered.unbind();
+        };
+        Object.defineProperty(DChartSelectionSimple.prototype, "selected", {
+            get: function () {
+                return this._selected;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DChartSelectionSimple.prototype, "hovered", {
+            get: function () {
+                return this._hovered;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DChartSelectionSimple.prototype.update = function () {
+            this._selected.update();
+            this._hovered.update();
+        };
+        DChartSelectionSimple.WORK_SELECT = new DChartSeriesHitResult();
+        return DChartSelectionSimple;
+    }(pixi_js.utils.EventEmitter));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var DChartSeriesBaseCoordinateContainer = /** @class */ (function () {
         function DChartSeriesBaseCoordinateContainer(parent, options) {
+            var _a, _b;
             this._parent = parent;
-            this._coordinateIndexX = (options && options.x != null ? options.x : 0);
-            this._coordinateIndexY = (options && options.y != null ? options.y : 0);
+            this._coordinateIndexX = (_a = options === null || options === void 0 ? void 0 : options.x) !== null && _a !== void 0 ? _a : 0;
+            this._coordinateIndexY = (_b = options === null || options === void 0 ? void 0 : options.y) !== null && _b !== void 0 ? _b : 0;
             this._coordinateIdUpdatedX = NaN;
             this._coordinateIdUpdatedY = NaN;
             this._coordinateTransformIdUpdatedX = NaN;
@@ -45794,20 +46515,20 @@
         DChartSeriesBaseCoordinateContainer.prototype.isDirty = function (coordinateX, coordinateY) {
             var coordinateIdX = coordinateX.id;
             var coordinateIdY = coordinateY.id;
-            var isCoordinateXChanged = (coordinateIdX !== this._coordinateIdUpdatedX);
-            var isCoordinateYChanged = (coordinateIdY !== this._coordinateIdUpdatedY);
+            var isCoordinateXChanged = coordinateIdX !== this._coordinateIdUpdatedX;
+            var isCoordinateYChanged = coordinateIdY !== this._coordinateIdUpdatedY;
             this._coordinateIdUpdatedX = coordinateIdX;
             this._coordinateIdUpdatedY = coordinateIdY;
-            return (isCoordinateXChanged || isCoordinateYChanged);
+            return isCoordinateXChanged || isCoordinateYChanged;
         };
         DChartSeriesBaseCoordinateContainer.prototype.isTransformDirty = function (coordinateX, coordinateY) {
             var coordinateTransformIdX = coordinateX.transform.id;
             var coordinateTransformIdY = coordinateY.transform.id;
-            var isCoordinateTransformXChanged = (coordinateTransformIdX !== this._coordinateTransformIdUpdatedX);
-            var isCoordinateTransformYChanged = (coordinateTransformIdY !== this._coordinateTransformIdUpdatedY);
+            var isCoordinateTransformXChanged = coordinateTransformIdX !== this._coordinateTransformIdUpdatedX;
+            var isCoordinateTransformYChanged = coordinateTransformIdY !== this._coordinateTransformIdUpdatedY;
             this._coordinateTransformIdUpdatedX = coordinateTransformIdX;
             this._coordinateTransformIdUpdatedY = coordinateTransformIdY;
-            return (isCoordinateTransformXChanged || isCoordinateTransformYChanged);
+            return isCoordinateTransformXChanged || isCoordinateTransformYChanged;
         };
         DChartSeriesBaseCoordinateContainer.prototype.reset = function () {
             this._coordinateIdUpdatedX = NaN;
@@ -45839,14 +46560,12 @@
                 _this.onStateChange(newState, oldState);
             });
             // Events
-            if (options) {
-                var on = options.on;
-                if (on != null) {
-                    for (var name_1 in on) {
-                        var handler = on[name_1];
-                        if (handler) {
-                            _this.on(name_1, handler);
-                        }
+            var on = options === null || options === void 0 ? void 0 : options.on;
+            if (on != null) {
+                for (var name_1 in on) {
+                    var handler = on[name_1];
+                    if (handler) {
+                        _this.on(name_1, handler);
                     }
                 }
             }
@@ -45965,14 +46684,14 @@
             _super.prototype.bind.call(this, container, index);
         };
         DChartSeriesLineOfAny.prototype.initLine = function (line, options, container, index) {
-            var fill = container.newFill(index, options && options.fill);
+            var fill = container.newFill(index, options === null || options === void 0 ? void 0 : options.fill);
             this._fill = fill;
             line.fill.copy(fill);
-            var stroke = container.newStroke(index, options && options.stroke);
+            var stroke = container.newStroke(index, options === null || options === void 0 ? void 0 : options.stroke);
             this._stroke = stroke;
             line.stroke.copy(stroke);
             var sizeDefault = this.getSizeDefault();
-            var size = container.newSize(index, options && options.size, sizeDefault, sizeDefault);
+            var size = container.newSize(index, options === null || options === void 0 ? void 0 : options.size, sizeDefault, sizeDefault);
             this._size = size;
             line.points.size.set(size.x, size.y);
             var offsetDefault = this.getOffsetDefault();
@@ -46016,7 +46735,7 @@
                 var coordinateY = coordinate.y;
                 if (coordinateX && coordinateY) {
                     var pointId = this._pointId;
-                    var isPointChanged = (pointId !== this._pointIdUpdated);
+                    var isPointChanged = pointId !== this._pointIdUpdated;
                     var isCoordinateChanged = coordinate.isDirty(coordinateX, coordinateY);
                     var isCoordinateTransformChanged = coordinate.isTransformDirty(coordinateX, coordinateY);
                     if (isPointChanged || isCoordinateChanged || isCoordinateTransformChanged) {
@@ -46074,10 +46793,14 @@
                 ymin = 0;
                 ymax = 0;
             }
-            var region = this.adjustLineRegion(xmin, xmax, ymin, ymax, DChartSeriesLineOfAny.WORK_REGION || {
-                xmin: 0, xmax: 0,
-                ymin: 0, ymax: 0
-            });
+            var region = DChartSeriesLineOfAny.WORK_REGION || {
+                xmin: 0,
+                xmax: 0,
+                ymin: 0,
+                ymax: 0
+            };
+            DChartSeriesLineOfAny.WORK_REGION = region;
+            this.adjustLineRegion(xmin, xmax, ymin, ymax, region);
             xmin = xcoordinate.transform.map(xcoordinate.map(region.xmin));
             xmax = xcoordinate.transform.map(xcoordinate.map(region.xmax));
             ymin = ycoordinate.transform.map(ycoordinate.map(region.ymin));
@@ -46259,6 +46982,9 @@
             return false;
         };
         DChartSeriesBar.prototype.applyLine = function (line, xcoordinate, ycoordinate, sx, sy, cx, cy, values) {
+            var linePoints = line.points;
+            var linePointsOffset = linePoints.offset;
+            var linePointsSize = linePoints.size;
             // Offset
             var size = this._size;
             var offset = this._offset;
@@ -46266,17 +46992,19 @@
             if (size && offset && padding) {
                 var xcoordinateId = xcoordinate.id;
                 var xcoordinateTransformId = xcoordinate.transform.id;
-                if (this.updateBarCountAndIndex() || this._xcoordinateId !== xcoordinateId ||
+                if (this.updateBarCountAndIndex() ||
+                    this._xcoordinateId !== xcoordinateId ||
                     this._xcoordinateTransformId !== xcoordinateTransformId) {
                     var barCount = this._barCount;
                     var barIndex = this._barIndex;
                     this._xcoordinateId = xcoordinateId;
                     this._xcoordinateTransformId = xcoordinateTransformId;
-                    var totalBandWidth = Math.abs(xcoordinate.transform.map(xcoordinate.map(0)) -
-                        xcoordinate.transform.map(xcoordinate.map(size.x))) * (1 - padding.outer);
+                    var x0 = xcoordinate.transform.map(xcoordinate.map(0));
+                    var x1 = xcoordinate.transform.map(xcoordinate.map(size.x));
+                    var totalBandWidth = Math.abs(x0 - x1) * (1 - padding.outer);
                     if (barCount <= 1) {
-                        line.points.offset.x = offset.x;
-                        line.points.size.x = totalBandWidth;
+                        linePointsOffset.x = offset.x;
+                        linePointsSize.x = totalBandWidth;
                     }
                     else {
                         var totalBarWidth = totalBandWidth * (1 - padding.inner);
@@ -46284,18 +47012,18 @@
                         var barWidth = totalBarWidth / barCount;
                         var barPadding = totalPaddingInner / (barCount - 1);
                         var barX = barWidth * (barIndex + 0.5) + barIndex * barPadding;
-                        line.points.offset.x = offset.x + barX - totalBandWidth * 0.5;
-                        line.points.size.x = barWidth;
+                        linePointsOffset.x = offset.x + barX - totalBandWidth * 0.5;
+                        linePointsSize.x = barWidth;
                     }
                 }
             }
             // Sizes & Offsets
-            var sizes = line.points.size.y;
+            var sizes = linePointsSize.y;
             if (!isArray(sizes)) {
                 sizes = [];
             }
             var sizesLength = sizes.length;
-            var offsets = line.points.offset.y;
+            var offsets = linePointsOffset.y;
             if (!isArray(offsets)) {
                 offsets = [];
             }
@@ -46325,8 +47053,8 @@
             if (offsets.length !== isize) {
                 offsets.length = isize;
             }
-            line.points.size.y = sizes;
-            line.points.offset.y = offsets;
+            linePointsOffset.y = offsets;
+            linePointsSize.y = sizes;
             // Others
             _super.prototype.applyLine.call(this, line, xcoordinate, ycoordinate, sx, sy, cx, cy, values);
         };
@@ -46497,9 +47225,11 @@
             var _a;
             var line = this._line;
             if (!line) {
-                var stroke = this._stroke = container.newStroke(index, (_a = this._options) === null || _a === void 0 ? void 0 : _a.stroke);
-                line = this._line = new EShapeLine([], [], stroke.width, stroke.style);
+                var stroke = container.newStroke(index, (_a = this._options) === null || _a === void 0 ? void 0 : _a.stroke);
+                this._stroke = stroke;
+                line = new EShapeLine([], [], stroke.width, stroke.style);
                 line.stroke.copy(stroke);
+                this._line = line;
             }
             line.attach(container.plotArea.container, index);
             this._pointIdUpdated = NaN;
@@ -46541,7 +47271,7 @@
                 var coordinateY = coordinate.y;
                 if (coordinateX && coordinateY) {
                     var pointId = this._pointId;
-                    var isPointChanged = (pointId !== this._pointIdUpdated);
+                    var isPointChanged = pointId !== this._pointIdUpdated;
                     var isCoordinateChanged = coordinate.isDirty(coordinateX, coordinateY);
                     var isCoordinateTransformChanged = coordinate.isTransformDirty(coordinateX, coordinateY);
                     if (isPointChanged || isCoordinateChanged || isCoordinateTransformChanged) {
@@ -46735,6 +47465,10 @@
         return DChartSeriesLine;
     }(DChartSeriesBase));
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var DChartSeriesExpressionParametersImpl = /** @class */ (function () {
         function DChartSeriesExpressionParametersImpl(a, b, x0, y0) {
             this._id = 0;
@@ -46806,10 +47540,8 @@
             this._idUpdated = this._id;
         };
         DChartSeriesExpressionParametersImpl.from = function (options) {
-            if (options) {
-                return new DChartSeriesExpressionParametersImpl((options.a != null ? options.a : 1), (options.b != null ? options.b : 1), (options.x0 != null ? options.x0 : 0), (options.y0 != null ? options.y0 : 0));
-            }
-            return new DChartSeriesExpressionParametersImpl(1, 1, 0, 0);
+            var _c, _d, _e, _f;
+            return new DChartSeriesExpressionParametersImpl((_c = options === null || options === void 0 ? void 0 : options.a) !== null && _c !== void 0 ? _c : 1, (_d = options === null || options === void 0 ? void 0 : options.b) !== null && _d !== void 0 ? _d : 1, (_e = options === null || options === void 0 ? void 0 : options.x0) !== null && _e !== void 0 ? _e : 0, (_f = options === null || options === void 0 ? void 0 : options.y0) !== null && _f !== void 0 ? _f : 0);
         };
         return DChartSeriesExpressionParametersImpl;
     }());
@@ -46836,10 +47568,12 @@
             var _a;
             var line = this._line;
             if (!line) {
-                var stroke = this._stroke = container.newStroke(index, (_a = this._options) === null || _a === void 0 ? void 0 : _a.stroke);
-                line = this._line = new EShapeLine([], [], stroke.width, stroke.style);
+                var stroke = container.newStroke(index, (_a = this._options) === null || _a === void 0 ? void 0 : _a.stroke);
+                this._stroke = stroke;
+                line = new EShapeLine([], [], stroke.width, stroke.style);
                 line.stroke.color = stroke.color;
                 line.stroke.alpha = stroke.alpha;
+                this._line = line;
             }
             line.attach(container.plotArea.container, index);
             this._parameters.toDirty();
@@ -46886,9 +47620,12 @@
                     var isParametersChanged = parameters.isDirty();
                     var isCoordinateChanged = coordinate.isDirty(coordinateX, coordinateY);
                     var isCoordinateTransformChanged = coordinate.isTransformDirty(coordinateX, coordinateY);
-                    var isPlotAreaSizeChagned = (plotAreaWidth !== this._plotAreaSizeXUpdated ||
-                        plotAreaHeight !== this._plotAreaSizeYUpdated);
-                    if (isParametersChanged || isCoordinateChanged || isCoordinateTransformChanged || isPlotAreaSizeChagned) {
+                    var isPlotAreaSizeChagned = plotAreaWidth !== this._plotAreaSizeXUpdated ||
+                        plotAreaHeight !== this._plotAreaSizeYUpdated;
+                    if (isParametersChanged ||
+                        isCoordinateChanged ||
+                        isCoordinateTransformChanged ||
+                        isPlotAreaSizeChagned) {
                         parameters.toClean();
                         this._plotAreaSizeXUpdated = plotAreaWidth;
                         this._plotAreaSizeYUpdated = plotAreaHeight;
@@ -46920,8 +47657,8 @@
                 if (threshold < aabs) {
                     var yfrom = ycoordinate.unmap(ycoordinate.transform.unmap(0));
                     var yto = ycoordinate.unmap(ycoordinate.transform.unmap(plotAreaSizeY));
-                    var xfrom1 = b * (yfrom - y0) / a + x0;
-                    var xto1 = b * (yto - y0) / a + x0;
+                    var xfrom1 = (b * (yfrom - y0)) / a + x0;
+                    var xto1 = (b * (yto - y0)) / a + x0;
                     var p2x = Math.min(xfrom1, xto1);
                     var p3x = Math.max(xfrom1, xto1);
                     if (p0x < p2x) {
@@ -46942,8 +47679,8 @@
                 if (threshold < babs) {
                     var xfrom = xcoordinate.unmap(xcoordinate.transform.unmap(0));
                     var xto = xcoordinate.unmap(xcoordinate.transform.unmap(plotAreaSizeX));
-                    var yfrom1 = a * (xfrom - x0) / b + y0;
-                    var yto1 = a * (xto - x0) / b + y0;
+                    var yfrom1 = (a * (xfrom - x0)) / b + y0;
+                    var yto1 = (a * (xto - x0)) / b + y0;
                     var p2y = Math.min(yfrom1, yto1);
                     var p3y = Math.max(yfrom1, yto1);
                     if (p0y < p2y) {
@@ -46978,7 +47715,7 @@
                 values[2] = p1x;
                 values[3] = p1y;
             }
-            if (segments.length !== 0) {
+            if (0 < segments.length) {
                 segments.length = 0;
             }
             line.disallowUploadedUpdate();
@@ -47052,515 +47789,6 @@
         DChartSeriesLinear.WORK = new pixi_js.Point();
         return DChartSeriesLinear;
     }(DChartSeriesBase));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DChartSelectionShapeBase = /** @class */ (function () {
-        function DChartSelectionShapeBase(options) {
-            var _a, _b, _c;
-            var theme = this.toTheme(options);
-            this._theme = theme;
-            var state = new DBaseStateSetImpl().add((_a = options === null || options === void 0 ? void 0 : options.state) !== null && _a !== void 0 ? _a : DBaseState.HOVERED);
-            this._state = state;
-            this._isEnabled = ((_b = options === null || options === void 0 ? void 0 : options.enable) !== null && _b !== void 0 ? _b : theme.isEnabled(state));
-            this._shape = options === null || options === void 0 ? void 0 : options.shape;
-            this._style = (_c = options === null || options === void 0 ? void 0 : options.style) !== null && _c !== void 0 ? _c : this.setStyle;
-        }
-        DChartSelectionShapeBase.prototype.bind = function (container) {
-            if (this._isEnabled) {
-                var shape = this._shape = (this._shape || this.newShape(this._theme));
-                shape.attach(container.plotArea.axis.container);
-                shape.visible = false;
-            }
-        };
-        DChartSelectionShapeBase.prototype.unbind = function () {
-            var shape = this._shape;
-            if (shape) {
-                shape.detach();
-            }
-        };
-        DChartSelectionShapeBase.prototype.newShape = function (theme) {
-            return theme.newShape(this._state);
-        };
-        DChartSelectionShapeBase.prototype.set = function (container, mappedPosition, series) {
-            this.update(container, mappedPosition);
-            var shape = this._shape;
-            if (shape) {
-                this._style(shape, series);
-            }
-        };
-        DChartSelectionShapeBase.prototype.setStyle = function (shape, series) {
-            var seriesShape = series.shape;
-            if (seriesShape) {
-                shape.stroke.color = seriesShape.stroke.color;
-            }
-        };
-        DChartSelectionShapeBase.prototype.unset = function () {
-            var shape = this._shape;
-            if (shape) {
-                shape.visible = false;
-            }
-        };
-        DChartSelectionShapeBase.prototype.toTheme = function (options) {
-            var theme = options === null || options === void 0 ? void 0 : options.theme;
-            if (isString(theme)) {
-                return this.getTheme(theme);
-            }
-            else if (theme != null) {
-                return theme;
-            }
-            else {
-                return this.getTheme(this.getType());
-            }
-        };
-        DChartSelectionShapeBase.prototype.getTheme = function (type) {
-            return DThemes.getInstance().get(type);
-        };
-        return DChartSelectionShapeBase;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DChartSelectionGridlineX = /** @class */ (function (_super) {
-        __extends(DChartSelectionGridlineX, _super);
-        function DChartSelectionGridlineX() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        DChartSelectionGridlineX.prototype.update = function (container, mappedPosition) {
-            var shape = this._shape;
-            if (shape) {
-                var mappedX = mappedPosition.x;
-                var height = container.plotArea.height;
-                shape.transform.position.set(mappedX, height * 0.5);
-                shape.size.set(0, height);
-                shape.visible = this.isVisible(container, mappedX);
-            }
-        };
-        DChartSelectionGridlineX.prototype.isVisible = function (container, mappedX) {
-            return (0 <= mappedX && mappedX <= container.plotArea.width);
-        };
-        DChartSelectionGridlineX.prototype.getType = function () {
-            return "DChartSelectionGridlineX";
-        };
-        return DChartSelectionGridlineX;
-    }(DChartSelectionShapeBase));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DChartSelectionGridlineY = /** @class */ (function (_super) {
-        __extends(DChartSelectionGridlineY, _super);
-        function DChartSelectionGridlineY() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        DChartSelectionGridlineY.prototype.update = function (container, mappedPosition) {
-            var shape = this._shape;
-            if (shape) {
-                var mappedY = mappedPosition.y;
-                var width = container.plotArea.width;
-                shape.transform.position.set(width * 0.5, mappedY);
-                shape.size.set(width, 0);
-                shape.visible = this.isVisible(container, mappedY);
-            }
-        };
-        DChartSelectionGridlineY.prototype.isVisible = function (container, mappedY) {
-            return (0 <= mappedY && mappedY <= container.plotArea.height);
-        };
-        DChartSelectionGridlineY.prototype.getType = function () {
-            return "DChartSelectionGridlineY";
-        };
-        return DChartSelectionGridlineY;
-    }(DChartSelectionShapeBase));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DChartSelectionGridlineContainerImpl = /** @class */ (function () {
-        function DChartSelectionGridlineContainerImpl(options) {
-            this._x = new DChartSelectionGridlineX(options && options.x);
-            this._y = new DChartSelectionGridlineY(options && options.y);
-        }
-        Object.defineProperty(DChartSelectionGridlineContainerImpl.prototype, "x", {
-            get: function () {
-                return this._x;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DChartSelectionGridlineContainerImpl.prototype, "y", {
-            get: function () {
-                return this._y;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DChartSelectionGridlineContainerImpl.prototype.bind = function (container) {
-            this._x.bind(container);
-            this._y.bind(container);
-        };
-        DChartSelectionGridlineContainerImpl.prototype.unbind = function () {
-            this._x.unbind();
-            this._y.unbind();
-        };
-        DChartSelectionGridlineContainerImpl.prototype.set = function (container, mappedPosition, series) {
-            this._x.set(container, mappedPosition, series);
-            this._y.set(container, mappedPosition, series);
-        };
-        DChartSelectionGridlineContainerImpl.prototype.unset = function () {
-            this._x.unset();
-            this._y.unset();
-        };
-        DChartSelectionGridlineContainerImpl.prototype.update = function (container, mappedPosition) {
-            this._x.update(container, mappedPosition);
-            this._y.update(container, mappedPosition);
-        };
-        return DChartSelectionGridlineContainerImpl;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DChartSelectionMarker = /** @class */ (function (_super) {
-        __extends(DChartSelectionMarker, _super);
-        function DChartSelectionMarker() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        DChartSelectionMarker.prototype.update = function (container, mappedPosition) {
-            var shape = this._shape;
-            if (shape) {
-                shape.transform.position.copyFrom(mappedPosition);
-                shape.visible = this.isVisible(container, mappedPosition);
-            }
-        };
-        DChartSelectionMarker.prototype.isVisible = function (container, mappedPosition) {
-            var x = mappedPosition.x;
-            var y = mappedPosition.y;
-            var plotArea = container.plotArea;
-            return (0 <= x && x <= plotArea.width && 0 <= y && y <= plotArea.height);
-        };
-        DChartSelectionMarker.prototype.getType = function () {
-            return "DChartSelectionMarker";
-        };
-        return DChartSelectionMarker;
-    }(DChartSelectionShapeBase));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DChartSelectionPoint;
-    (function (DChartSelectionPoint) {
-        DChartSelectionPoint[DChartSelectionPoint["PREVIOUS"] = 0] = "PREVIOUS";
-        DChartSelectionPoint[DChartSelectionPoint["NEXT"] = 1] = "NEXT";
-        DChartSelectionPoint[DChartSelectionPoint["CLOSER"] = 2] = "CLOSER";
-        DChartSelectionPoint[DChartSelectionPoint["INTERSECTION"] = 3] = "INTERSECTION";
-    })(DChartSelectionPoint || (DChartSelectionPoint = {}));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DChartSelectionSubImpl = /** @class */ (function (_super) {
-        __extends(DChartSelectionSubImpl, _super);
-        function DChartSelectionSubImpl(options) {
-            var _a, _b, _c;
-            var _this = _super.call(this) || this;
-            _this._container = null;
-            _this._series = null;
-            _this._isEnabled = ((_a = options.enable) !== null && _a !== void 0 ? _a : true);
-            _this._gridline = new DChartSelectionGridlineContainerImpl(options.gridline);
-            _this._marker = new DChartSelectionMarker(options.marker);
-            _this._state = ((_b = options.state) !== null && _b !== void 0 ? _b : DBaseState.HOVERED);
-            _this._coordinateX = null;
-            _this._coordinateY = null;
-            _this._position = new pixi_js.Point();
-            _this._point = ((_c = options.point) !== null && _c !== void 0 ? _c : DChartSelectionPoint.CLOSER);
-            _this._work = new pixi_js.Point();
-            // Events
-            var on = options.on;
-            if (on) {
-                for (var name_1 in on) {
-                    var handler = on[name_1];
-                    if (handler) {
-                        _this.on(name_1, handler);
-                    }
-                }
-            }
-            return _this;
-        }
-        DChartSelectionSubImpl.prototype.bind = function (container) {
-            if (this._isEnabled) {
-                this._container = container;
-                this._gridline.bind(container);
-                this._marker.bind(container);
-            }
-        };
-        DChartSelectionSubImpl.prototype.unbind = function () {
-            this._marker.unbind();
-            this._gridline.unbind();
-            this._container = null;
-            this._coordinateX = null;
-            this._coordinateY = null;
-        };
-        Object.defineProperty(DChartSelectionSubImpl.prototype, "series", {
-            get: function () {
-                return this._series;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DChartSelectionSubImpl.prototype, "position", {
-            get: function () {
-                return this._position;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DChartSelectionSubImpl.prototype, "gridline", {
-            get: function () {
-                return this._gridline;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DChartSelectionSubImpl.prototype, "marker", {
-            get: function () {
-                return this._marker;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DChartSelectionSubImpl.prototype.set = function (series, result) {
-            var container = this._container;
-            var coordinateX = this._coordinateX = series.coordinate.x;
-            var coordinateY = this._coordinateY = series.coordinate.y;
-            if (container && coordinateX && coordinateY) {
-                var transform = container.plotArea.container.localTransform;
-                var position = this._position;
-                var work = this._work;
-                if (result instanceof DChartSeriesHitResult) {
-                    var x = result.x;
-                    var y = result.y;
-                    switch (this._point) {
-                        case DChartSelectionPoint.PREVIOUS:
-                            x = result.p0x;
-                            y = result.p0y;
-                            break;
-                        case DChartSelectionPoint.NEXT:
-                            x = result.p1x;
-                            y = result.p1y;
-                            break;
-                        case DChartSelectionPoint.CLOSER:
-                            if (Math.abs(result.p0x - result.x) < Math.abs(result.p1x - result.x)) {
-                                x = result.p0x;
-                                y = result.p0y;
-                            }
-                            else {
-                                x = result.p1x;
-                                y = result.p1y;
-                            }
-                    }
-                    work.set(x, y);
-                    transform.apply(work, work);
-                    position.set(coordinateX.unmap(coordinateX.transform.unmap(x)), coordinateY.unmap(coordinateY.transform.unmap(y)));
-                }
-                else {
-                    position.copyFrom(result.position);
-                    work.set(coordinateX.transform.map(coordinateX.map(position.x)), coordinateY.transform.map(coordinateY.map(position.y)));
-                    transform.apply(work, work);
-                }
-                this._gridline.set(container, work, series);
-                this._marker.set(container, work, series);
-                DApplications.update(container.plotArea);
-            }
-            var oldSeries = this._series;
-            if (oldSeries !== series) {
-                var state = this._state;
-                if (oldSeries) {
-                    oldSeries.state.remove(state);
-                }
-                this._series = series;
-                series.state.add(state);
-            }
-            this.emit("change", this);
-        };
-        DChartSelectionSubImpl.prototype.setStyle = function (shape, series) {
-            var seriesShape = series.shape;
-            if (seriesShape) {
-                shape.stroke.color = seriesShape.stroke.color;
-            }
-        };
-        DChartSelectionSubImpl.prototype.unset = function () {
-            var series = this._series;
-            if (series) {
-                this._series = null;
-                this._coordinateX = null;
-                this._coordinateY = null;
-                series.state.remove(this._state);
-                this._gridline.unset();
-                this._marker.unset();
-                this.emit("change", this);
-            }
-        };
-        DChartSelectionSubImpl.prototype.update = function () {
-            var container = this._container;
-            var coordinateX = this._coordinateX;
-            var coordinateY = this._coordinateY;
-            if (container && coordinateX && coordinateY) {
-                var position = this._position;
-                var work = this._work;
-                work.set(coordinateX.transform.map(coordinateX.map(position.x)), coordinateY.transform.map(coordinateY.map(position.y)));
-                container.plotArea.container.localTransform.apply(work, work);
-                this._gridline.update(container, work);
-                this._marker.update(container, work);
-            }
-        };
-        return DChartSelectionSubImpl;
-    }(pixi_js.utils.EventEmitter));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DChartSelectionSimple = /** @class */ (function (_super) {
-        __extends(DChartSelectionSimple, _super);
-        function DChartSelectionSimple(options) {
-            var _this = _super.call(this) || this;
-            _this._container = null;
-            var point = (options && options.point != null ?
-                (isString(options.point) ? DChartSelectionPoint[options.point] : options.point) :
-                DChartSelectionPoint.CLOSER);
-            _this._selected = _this.newSelected(point, options && options.selected);
-            _this._hovered = _this.newHovered(point, options && options.hovered);
-            // Events
-            if (options) {
-                var on = options.on;
-                if (on != null) {
-                    for (var name_1 in on) {
-                        var handler = on[name_1];
-                        if (handler) {
-                            _this.on(name_1, handler);
-                        }
-                    }
-                }
-            }
-            //
-            _this._onMoveBound = function (e) {
-                _this.onMove(e);
-            };
-            _this._onClickBound = function (e) {
-                _this.onClick(e);
-            };
-            return _this;
-        }
-        DChartSelectionSimple.prototype.newSelected = function (point, options) {
-            return new DChartSelectionSubImpl(this.toSubOptions(point, options, DBaseState.ACTIVE));
-        };
-        DChartSelectionSimple.prototype.newHovered = function (point, options) {
-            return new DChartSelectionSubImpl(this.toSubOptions(point, options, DBaseState.HOVERED));
-        };
-        DChartSelectionSimple.prototype.toSubOptions = function (point, options, state) {
-            options = options || {};
-            if (options.point == null) {
-                options.point = point;
-            }
-            if (options.state == null) {
-                options.state = state;
-            }
-            var gridline = options.gridline || {};
-            var gridlineX = gridline.x || {};
-            if (gridlineX.state == null) {
-                gridlineX.state = state;
-            }
-            var gridlineY = gridline.y || {};
-            if (gridlineY.state == null) {
-                gridlineY.state = state;
-            }
-            var marker = options.marker || {};
-            if (marker.state == null) {
-                marker.state = state;
-            }
-            return options;
-        };
-        DChartSelectionSimple.prototype.onClick = function (e) {
-            var container = this._container;
-            if (container && e.target === container.plotArea) {
-                var hovered = this._hovered;
-                var series = hovered.series;
-                var selected = this._selected;
-                if (series) {
-                    selected.set(series, hovered);
-                }
-                else {
-                    selected.unset();
-                }
-            }
-        };
-        DChartSelectionSimple.prototype.onMove = function (e) {
-            var container = this._container;
-            if (container) {
-                var hovered = this._hovered;
-                if (e.target === container.plotArea) {
-                    var result = DChartSelectionSimple.WORK_SELECT;
-                    var series = container.calcHitPoint(e.data.global, result);
-                    if (series) {
-                        hovered.set(series, result);
-                    }
-                    else {
-                        hovered.unset();
-                    }
-                }
-                else {
-                    hovered.unset();
-                }
-            }
-        };
-        DChartSelectionSimple.prototype.bind = function (container) {
-            this._container = container;
-            this._selected.bind(container);
-            this._hovered.bind(container);
-            var plotArea = container.plotArea;
-            plotArea.on(UtilPointerEvent.move, this._onMoveBound);
-            UtilPointerEvent.onClick(plotArea, this._onClickBound);
-        };
-        DChartSelectionSimple.prototype.unbind = function () {
-            var container = this._container;
-            this._container = null;
-            if (container) {
-                var plotArea = container.plotArea;
-                plotArea.off(UtilPointerEvent.move, this._onMoveBound);
-            }
-            this._selected.unbind();
-            this._hovered.unbind();
-        };
-        Object.defineProperty(DChartSelectionSimple.prototype, "selected", {
-            get: function () {
-                return this._selected;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DChartSelectionSimple.prototype, "hovered", {
-            get: function () {
-                return this._hovered;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DChartSelectionSimple.prototype.update = function () {
-            this._selected.update();
-            this._hovered.update();
-        };
-        DChartSelectionSimple.WORK_SELECT = new DChartSeriesHitResult();
-        return DChartSelectionSimple;
-    }(pixi_js.utils.EventEmitter));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -47708,6 +47936,186 @@
         return DCommandSave;
     }());
 
+    var DDiagramSnapshot = /** @class */ (function () {
+        function DDiagramSnapshot(parent) {
+            this._parent = parent;
+        }
+        DDiagramSnapshot.prototype.createAsUrl = function (size) {
+            return this.create(size, function (canvas) {
+                return UtilExtract.base64({ target: canvas });
+            });
+        };
+        DDiagramSnapshot.prototype.createAsFile = function (size, filename) {
+            this.create(size, function (canvas) {
+                return UtilExtract.file({ target: canvas, filename: filename });
+            });
+        };
+        DDiagramSnapshot.prototype.create = function (size, extractor) {
+            var parent = this._parent;
+            var canvas = parent.canvas;
+            if (canvas) {
+                var view = parent.view;
+                var viewPosition = view.position;
+                var viewScale = view.scale;
+                var oldPositionX = viewPosition.x;
+                var oldPositionY = viewPosition.y;
+                var oldScaleX = viewScale.x;
+                var oldScaleY = viewScale.y;
+                var newScale = size / DApplications.getResolution(canvas) / Math.max(canvas.width, canvas.height);
+                view.transform(0, 0, newScale, newScale, 0);
+                var result = extractor(canvas);
+                view.transform(oldPositionX, oldPositionY, oldScaleX, oldScaleY, 0);
+                return result;
+            }
+        };
+        return DDiagramSnapshot;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DDiagramBase = /** @class */ (function (_super) {
+        __extends(DDiagramBase, _super);
+        function DDiagramBase(options) {
+            var _a;
+            var _this = _super.call(this, options) || this;
+            _this._serialized = null;
+            _this._tileFactory = options === null || options === void 0 ? void 0 : options.tile;
+            _this._controller = options === null || options === void 0 ? void 0 : options.controller;
+            _this._isAmbient = (_a = options === null || options === void 0 ? void 0 : options.ambient) !== null && _a !== void 0 ? _a : _this.theme.isAmbient();
+            _this._snapshot = new DDiagramSnapshot(_this);
+            return _this;
+        }
+        Object.defineProperty(DDiagramBase.prototype, "snapshot", {
+            get: function () {
+                return this._snapshot;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDiagramBase.prototype, "controller", {
+            get: function () {
+                return this._controller || null;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDiagramBase.prototype.set = function (serialized) {
+            var oldSerialized = this._serialized;
+            if (oldSerialized !== serialized) {
+                if (oldSerialized) {
+                    this._serialized = null;
+                    this.onUnset();
+                }
+                this._serialized = serialized;
+                if (serialized) {
+                    this.onSet(serialized);
+                }
+            }
+        };
+        DDiagramBase.prototype.onSet = function (serialized) {
+            var _this = this;
+            var canvas = this.newCanvas(serialized);
+            var pieces = serialized.pieces;
+            var isEditMode = this.isEditMode();
+            var pieceDataOrPromise = DDiagrams.toPieceData(this._controller, pieces, isEditMode);
+            if (pieceDataOrPromise == null) {
+                this.newLayer(serialized, canvas, isEditMode);
+            }
+            else {
+                pieceDataOrPromise.then(function (pieceData) {
+                    _this.newLayer(serialized, canvas, isEditMode, pieces, pieceData);
+                });
+            }
+            this.canvas = canvas;
+        };
+        DDiagramBase.prototype.newLayer = function (serialized, canvas, isEditMode, pieces, pieceData) {
+            var _this = this;
+            var layer = canvas.layer;
+            var manager = new EShapeResourceManagerDeserialization(serialized, pieces, pieceData, isEditMode);
+            DDiagrams.newLayer(serialized, layer, manager).then(function (shapes) {
+                layer.init();
+                _this.initialize(shapes);
+                canvas.initialize(shapes);
+                DApplications.update(_this);
+                _this.emit("ready", _this);
+            });
+            if (this._isAmbient) {
+                var background = this.toCanvasBaseBackgroundOptions(serialized, this.theme, false);
+                this.background.color = background.color;
+                this.background.alpha = background.alpha;
+            }
+        };
+        DDiagramBase.prototype.toCanvasBaseOptions = function (serialized) {
+            var _a;
+            var theme = this.theme;
+            var isAmbient = this._isAmbient;
+            return {
+                name: serialized.name,
+                width: serialized.width,
+                height: serialized.height,
+                background: this.toCanvasBaseBackgroundOptions(serialized, theme, isAmbient),
+                border: isAmbient ? { color: null } : undefined,
+                shadow: isAmbient ? null : theme.getCanvasShadow(),
+                tile: {
+                    factory: this._tileFactory,
+                    mapping: (_a = serialized.tile) === null || _a === void 0 ? void 0 : _a.mapping
+                },
+                ambient: isAmbient
+            };
+        };
+        DDiagramBase.prototype.toCanvasBaseBackgroundOptions = function (serialized, theme, isAmbient) {
+            var _a, _b;
+            if (isAmbient) {
+                return {
+                    color: null
+                };
+            }
+            var background = serialized.background;
+            return {
+                color: (_a = background === null || background === void 0 ? void 0 : background.color) !== null && _a !== void 0 ? _a : theme.getCanvasBackgroundColor(),
+                alpha: (_b = background === null || background === void 0 ? void 0 : background.alpha) !== null && _b !== void 0 ? _b : theme.getCanvasBackgroundAlpha()
+            };
+        };
+        DDiagramBase.prototype.openByName = function (name) {
+            var _this = this;
+            var controller = this._controller;
+            if (controller) {
+                controller.getByName(name).then(function (found) {
+                    _this.set(DDiagrams.toSerialized(found));
+                });
+            }
+        };
+        DDiagramBase.prototype.initialize = function (shapes) {
+            // DO NOTHING
+        };
+        DDiagramBase.prototype.onUnset = function () {
+            var canvas = this.canvas;
+            if (canvas) {
+                this.canvas = null;
+            }
+        };
+        DDiagramBase.prototype.get = function () {
+            return this._serialized;
+        };
+        Object.defineProperty(DDiagramBase.prototype, "layer", {
+            get: function () {
+                var canvas = this.canvas;
+                if (canvas) {
+                    return canvas.layer.active;
+                }
+                return null;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDiagramBase.prototype.getType = function () {
+            return "DDiagramBase";
+        };
+        return DDiagramBase;
+    }(DCanvasContainer));
+
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
@@ -47823,8 +48231,10 @@
             }
             else if (mappingOrEnable != null) {
                 this._enable = mappingOrEnable.enable;
-                this._from = new DDiagramCanvasTileMappingPointImpl(cb, null, mappingOrEnable.from.lon, mappingOrEnable.from.lat);
-                this._to = new DDiagramCanvasTileMappingPointImpl(cb, null, mappingOrEnable.to.lon, mappingOrEnable.to.lat);
+                var from = mappingOrEnable.from;
+                var to = mappingOrEnable.to;
+                this._from = new DDiagramCanvasTileMappingPointImpl(cb, null, from.lon, from.lat);
+                this._to = new DDiagramCanvasTileMappingPointImpl(cb, null, to.lon, to.lat);
             }
             else {
                 this._enable = false;
@@ -47877,10 +48287,10 @@
         function DDiagramCanvasTile(canvas, options) {
             var _this = this;
             this._canvas = canvas;
-            this._factory = options && options.factory;
+            this._factory = options === null || options === void 0 ? void 0 : options.factory;
             this._mapping = new DDiagramCanvasTileMappingImpl(function () {
                 _this.onMappingChange();
-            }, options && options.mapping);
+            }, options === null || options === void 0 ? void 0 : options.mapping);
         }
         DDiagramCanvasTile.prototype.init = function () {
             this.onMappingChange();
@@ -47974,9 +48384,7 @@
                 item[16] = layer;
                 items.push(item);
             }
-            return [
-                this.name || ""
-            ];
+            return [this.name || ""];
         };
         DDiagramLayer.prototype.addUuid = function (manager) {
             var children = this.children;
@@ -48264,7 +48672,7 @@
                 color: (_b = options === null || options === void 0 ? void 0 : options.color) !== null && _b !== void 0 ? _b : theme.getSnapGridMajorColor(),
                 alpha: (_c = options === null || options === void 0 ? void 0 : options.alpha) !== null && _c !== void 0 ? _c : theme.getSnapGridMajorAlpha(),
                 width: (_d = options === null || options === void 0 ? void 0 : options.width) !== null && _d !== void 0 ? _d : theme.getSnapGridMajorWidth(),
-                style: (_e = options === null || options === void 0 ? void 0 : options.style) !== null && _e !== void 0 ? _e : theme.getSnapGridMajorStyle(),
+                style: (_e = options === null || options === void 0 ? void 0 : options.style) !== null && _e !== void 0 ? _e : theme.getSnapGridMajorStyle()
             };
         };
         DDiagramCanvasEditorSnap.prototype.toGridMinor = function (theme, options) {
@@ -48273,7 +48681,7 @@
                 color: (_a = options === null || options === void 0 ? void 0 : options.color) !== null && _a !== void 0 ? _a : theme.getSnapGridMinorColor(),
                 alpha: (_b = options === null || options === void 0 ? void 0 : options.alpha) !== null && _b !== void 0 ? _b : theme.getSnapGridMinorAlpha(),
                 width: (_c = options === null || options === void 0 ? void 0 : options.width) !== null && _c !== void 0 ? _c : theme.getSnapGridMinorWidth(),
-                style: (_d = options === null || options === void 0 ? void 0 : options.style) !== null && _d !== void 0 ? _d : theme.getSnapGridMinorStyle(),
+                style: (_d = options === null || options === void 0 ? void 0 : options.style) !== null && _d !== void 0 ? _d : theme.getSnapGridMinorStyle()
             };
         };
         DDiagramCanvasEditorSnap.prototype.toTarget = function (theme, options) {
@@ -48282,7 +48690,7 @@
                 color: (_a = options === null || options === void 0 ? void 0 : options.color) !== null && _a !== void 0 ? _a : theme.getSnapTargetColor(),
                 alpha: (_b = options === null || options === void 0 ? void 0 : options.alpha) !== null && _b !== void 0 ? _b : theme.getSnapTargetAlpha(),
                 width: (_c = options === null || options === void 0 ? void 0 : options.width) !== null && _c !== void 0 ? _c : theme.getSnapTargetWidth(),
-                style: (_d = options === null || options === void 0 ? void 0 : options.style) !== null && _d !== void 0 ? _d : theme.getSnapTargetStyle(),
+                style: (_d = options === null || options === void 0 ? void 0 : options.style) !== null && _d !== void 0 ? _d : theme.getSnapTargetStyle()
             };
         };
         DDiagramCanvasEditorSnap.prototype.onChange = function () {
@@ -48316,10 +48724,12 @@
                     var interval = major.interval;
                     var size = grid.size(controller.grid.size, w, h);
                     for (var x = size, ix = 1; x < w; x += size, ix += 1, index += 1) {
-                        this.update(container, shapes, index, x, hh, TOP, w, h, ix % interval === 0 ? major : minor);
+                        var style = ix % interval === 0 ? major : minor;
+                        this.update(container, shapes, index, x, hh, TOP, w, h, style);
                     }
                     for (var y = size, iy = 1; y < w; y += size, iy += 1, index += 1) {
-                        this.update(container, shapes, index, wh, y, LEFT, w, h, iy % interval === 0 ? major : minor);
+                        var style = iy % interval === 0 ? major : minor;
+                        this.update(container, shapes, index, wh, y, LEFT, w, h, style);
                     }
                 }
                 // Target
@@ -48509,7 +48919,7 @@
                 }
                 // Interactives
                 var runtime = shape.runtime;
-                if (shape.interactive || (0 < shape.cursor.length) || (runtime && runtime.interactive)) {
+                if (shape.interactive || 0 < shape.cursor.length || (runtime && runtime.interactive)) {
                     interactives.push(shape);
                 }
                 // Actionables
@@ -48583,7 +48993,7 @@
                         }
                         // Parents
                         var lastOverParent = lastOverShape.parent;
-                        while ((lastOverParent instanceof EShapeBase) && lastOverParent !== found) {
+                        while (lastOverParent instanceof EShapeBase && lastOverParent !== found) {
                             var parentRuntime = lastOverShape.runtime;
                             if (parentRuntime) {
                                 parentRuntime.onOut(lastOverParent, e);
@@ -48597,7 +49007,7 @@
                         runtime.onOver(found, e);
                     }
                     if (layer) {
-                        layer.view.title = (found.title || "");
+                        layer.view.title = found.title || "";
                     }
                     // Parents
                     var parent_1 = found.parent;
@@ -48745,187 +49155,10 @@
         return DDiagramCanvas;
     }(DDiagramCanvasBase));
 
-    var DDiagramSnapshot = /** @class */ (function () {
-        function DDiagramSnapshot(parent) {
-            this._parent = parent;
-        }
-        DDiagramSnapshot.prototype.createAsUrl = function (size) {
-            return this.create(size, function (canvas) {
-                return UtilExtract.base64({ target: canvas });
-            });
-        };
-        DDiagramSnapshot.prototype.createAsFile = function (size, filename) {
-            this.create(size, function (canvas) {
-                return UtilExtract.file({ target: canvas, filename: filename });
-            });
-        };
-        DDiagramSnapshot.prototype.create = function (size, extractor) {
-            var parent = this._parent;
-            var canvas = parent.canvas;
-            if (canvas) {
-                var view = parent.view;
-                var viewPosition = view.position;
-                var viewScale = view.scale;
-                var oldPositionX = viewPosition.x;
-                var oldPositionY = viewPosition.y;
-                var oldScaleX = viewScale.x;
-                var oldScaleY = viewScale.y;
-                var newScale = size / DApplications.getResolution(canvas) / Math.max(canvas.width, canvas.height);
-                view.transform(0, 0, newScale, newScale, 0);
-                var result = extractor(canvas);
-                view.transform(oldPositionX, oldPositionY, oldScaleX, oldScaleY, 0);
-                return result;
-            }
-        };
-        return DDiagramSnapshot;
-    }());
-
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DDiagramBase = /** @class */ (function (_super) {
-        __extends(DDiagramBase, _super);
-        function DDiagramBase(options) {
-            var _a;
-            var _this = _super.call(this, options) || this;
-            _this._serialized = null;
-            _this._tileFactory = options === null || options === void 0 ? void 0 : options.tile;
-            _this._controller = options === null || options === void 0 ? void 0 : options.controller;
-            _this._isAmbient = ((_a = options === null || options === void 0 ? void 0 : options.ambient) !== null && _a !== void 0 ? _a : _this.theme.isAmbient());
-            _this._snapshot = new DDiagramSnapshot(_this);
-            return _this;
-        }
-        Object.defineProperty(DDiagramBase.prototype, "snapshot", {
-            get: function () {
-                return this._snapshot;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DDiagramBase.prototype, "controller", {
-            get: function () {
-                return this._controller || null;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DDiagramBase.prototype.set = function (serialized) {
-            var oldSerialized = this._serialized;
-            if (oldSerialized !== serialized) {
-                if (oldSerialized) {
-                    this._serialized = null;
-                    this.onUnset();
-                }
-                this._serialized = serialized;
-                if (serialized) {
-                    this.onSet(serialized);
-                }
-            }
-        };
-        DDiagramBase.prototype.onSet = function (serialized) {
-            var _this = this;
-            var canvas = this.newCanvas(serialized);
-            var pieces = serialized.pieces;
-            var isEditMode = this.isEditMode();
-            var pieceDataOrPromise = DDiagrams.toPieceData(this._controller, pieces, isEditMode);
-            if (pieceDataOrPromise == null) {
-                this.newLayer(serialized, canvas, isEditMode);
-            }
-            else {
-                pieceDataOrPromise.then(function (pieceData) {
-                    _this.newLayer(serialized, canvas, isEditMode, pieces, pieceData);
-                });
-            }
-            this.canvas = canvas;
-        };
-        DDiagramBase.prototype.newLayer = function (serialized, canvas, isEditMode, pieces, pieceData) {
-            var _this = this;
-            var layer = canvas.layer;
-            var manager = new EShapeResourceManagerDeserialization(serialized, pieces, pieceData, isEditMode);
-            DDiagrams.newLayer(serialized, layer, manager)
-                .then(function (shapes) {
-                layer.init();
-                _this.initialize(shapes);
-                canvas.initialize(shapes);
-                DApplications.update(_this);
-                _this.emit("ready", _this);
-            });
-            if (this._isAmbient) {
-                var background = this.toCanvasBaseBackgroundOptions(serialized, this.theme, false);
-                this.background.color = background.color;
-                this.background.alpha = background.alpha;
-            }
-        };
-        DDiagramBase.prototype.toCanvasBaseOptions = function (serialized) {
-            var _a;
-            var theme = this.theme;
-            var isAmbient = this._isAmbient;
-            return {
-                name: serialized.name,
-                width: serialized.width,
-                height: serialized.height,
-                background: this.toCanvasBaseBackgroundOptions(serialized, theme, isAmbient),
-                border: isAmbient ? { color: null } : undefined,
-                shadow: isAmbient ? null : theme.getCanvasShadow(),
-                tile: {
-                    factory: this._tileFactory,
-                    mapping: (_a = serialized.tile) === null || _a === void 0 ? void 0 : _a.mapping
-                },
-                ambient: isAmbient
-            };
-        };
-        DDiagramBase.prototype.toCanvasBaseBackgroundOptions = function (serialized, theme, isAmbient) {
-            var _a, _b;
-            if (isAmbient) {
-                return {
-                    color: null
-                };
-            }
-            var background = serialized.background;
-            return {
-                color: (_a = background === null || background === void 0 ? void 0 : background.color) !== null && _a !== void 0 ? _a : theme.getCanvasBackgroundColor(),
-                alpha: (_b = background === null || background === void 0 ? void 0 : background.alpha) !== null && _b !== void 0 ? _b : theme.getCanvasBackgroundAlpha()
-            };
-        };
-        DDiagramBase.prototype.openByName = function (name) {
-            var _this = this;
-            var controller = this._controller;
-            if (controller) {
-                controller.getByName(name).then(function (found) {
-                    _this.set(DDiagrams.toSerialized(found));
-                });
-            }
-        };
-        DDiagramBase.prototype.initialize = function (shapes) {
-            // DO NOTHING
-        };
-        DDiagramBase.prototype.onUnset = function () {
-            var canvas = this.canvas;
-            if (canvas) {
-                this.canvas = null;
-            }
-        };
-        DDiagramBase.prototype.get = function () {
-            return this._serialized;
-        };
-        Object.defineProperty(DDiagramBase.prototype, "layer", {
-            get: function () {
-                var canvas = this.canvas;
-                if (canvas) {
-                    return canvas.layer.active;
-                }
-                return null;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DDiagramBase.prototype.getType = function () {
-            return "DDiagramBase";
-        };
-        return DDiagramBase;
-    }(DCanvasContainer));
-
     var DDiagramEditorThumbnail = /** @class */ (function () {
         function DDiagramEditorThumbnail(snapshot, theme, options) {
             var _a, _b;
@@ -49033,8 +49266,7 @@
                 if (controller) {
                     var simple = DDiagrams.toSimple(serialized);
                     this.emit("saving", simple, this);
-                    return controller.save(simple)
-                        .then(function (newId) {
+                    return controller.save(simple).then(function (newId) {
                         _this._isChanged = false;
                         serialized.id = newId;
                         _this._serialized = serialized;
@@ -49062,8 +49294,7 @@
                     serialized.name = name;
                     var simple = DDiagrams.toSimple(serialized);
                     this.emit("saving", simple, this);
-                    return controller.save(simple)
-                        .then(function (newId) {
+                    return controller.save(simple).then(function (newId) {
                         _this._isChanged = false;
                         serialized.id = newId;
                         _this._serialized = serialized;
@@ -49092,8 +49323,7 @@
                 var controller = this._controller;
                 if (controller) {
                     this.emit("deleting", this);
-                    return controller.delete(serialized.id)
-                        .then(function () {
+                    return controller.delete(serialized.id).then(function () {
                         _this.set(null);
                         _this.emit("deleted", _this);
                     }, function (reason) {
@@ -49146,8 +49376,7 @@
             var controller = this._controller;
             if (controller) {
                 this.emit("opening", this);
-                return controller.get(id)
-                    .then(function (serialized) {
+                return controller.get(id).then(function (serialized) {
                     _this.set(DDiagrams.toSerialized(serialized));
                     _this.emit("opened", null, _this);
                 }, function (reason) {
@@ -49215,7 +49444,7 @@
                         if (runtime && time < runtime.effect) {
                             var runtimeEffect = runtime.effect;
                             if (time < runtimeEffect) {
-                                effect = (effect < 0 ? runtimeEffect : Math.min(effect, runtimeEffect));
+                                effect = effect < 0 ? runtimeEffect : Math.min(effect, runtimeEffect);
                             }
                         }
                     }
@@ -49240,7 +49469,7 @@
                         if (runtime && time < runtime.effect) {
                             var runtimeEffect = runtime.effect;
                             if (time < runtimeEffect) {
-                                effect = (effect < 0 ? runtimeEffect : Math.min(effect, runtimeEffect));
+                                effect = effect < 0 ? runtimeEffect : Math.min(effect, runtimeEffect);
                             }
                         }
                     }
@@ -49251,13 +49480,13 @@
             }
         };
         DDiagramShape.prototype.get = function (id) {
-            var canvas = this._diagram.canvas;
-            var shapes = (canvas && canvas.ids[id]);
-            return (shapes && 0 < shapes.length ? shapes[0] : null);
+            var _a;
+            var shapes = (_a = this._diagram.canvas) === null || _a === void 0 ? void 0 : _a.ids[id];
+            return shapes && 0 < shapes.length ? shapes[0] : null;
         };
         DDiagramShape.prototype.getAll = function (id) {
-            var canvas = this._diagram.canvas;
-            return (canvas && canvas.ids[id]) || [];
+            var _a;
+            return ((_a = this._diagram.canvas) === null || _a === void 0 ? void 0 : _a.ids[id]) || [];
         };
         DDiagramShape.prototype.each = function (callback, reverse) {
             if (reverse === void 0) { reverse = false; }
@@ -49540,7 +49769,7 @@
             for (var i = 0, imax = shapes.length; i < imax; ++i) {
                 var shape = shapes[i];
                 var runtimeConstructor = EShapeRuntimes[shape.type] || EShapeRuntime;
-                var runtime = shape.runtime = new (runtimeConstructor)(shape);
+                var runtime = (shape.runtime = new runtimeConstructor(shape));
                 // Tag
                 var tag = shape.tag;
                 for (var j = 0, jmax = tag.size(); j < jmax; ++j) {
@@ -49558,7 +49787,9 @@
                         }
                         else if (0 < tagFormat.length) {
                             try {
-                                var formatter = Function("value", "try {" +
+                                var formatter = Function("value", 
+                                /* eslint-disable prettier/prettier */
+                                "try {" +
                                     ("return (" + tagFormat + ");") +
                                     "} catch( e1 ) {" +
                                     "try {" +
@@ -49566,7 +49797,9 @@
                                     "} catch( e2 ) {" +
                                     "return 0;" +
                                     "}" +
-                                    "}");
+                                    "}"
+                                /* eslint-enable prettier/prettier */
+                                );
                                 formatterMap[tagFormat] = formatter;
                                 value.formatter = formatter;
                             }
@@ -49580,11 +49813,15 @@
                         }
                         else if (0 < tagInitial.length) {
                             try {
-                                value.value = initialMap[tagInitial] = (Function("try {" +
+                                value.value = initialMap[tagInitial] = Function(
+                                /* eslint-disable prettier/prettier */
+                                "try {" +
                                     ("return (" + tagInitial + ");") +
                                     "} catch( e ) {" +
                                     "return 0;" +
-                                    "}")());
+                                    "}"
+                                /* eslint-enable prettier/prettier */
+                                )();
                             }
                             catch (e) {
                                 //
@@ -49824,9 +50061,9 @@
             _this._isDone = true;
             _this._startTime = 0;
             var delay = options === null || options === void 0 ? void 0 : options.delay;
-            _this._delayDone = ((_a = delay === null || delay === void 0 ? void 0 : delay.done) !== null && _a !== void 0 ? _a : _this.theme.getDoneDelay());
+            _this._delayDone = (_a = delay === null || delay === void 0 ? void 0 : delay.done) !== null && _a !== void 0 ? _a : _this.theme.getDoneDelay();
             var delayClose = delay === null || delay === void 0 ? void 0 : delay.close;
-            _this._delayClose = (delayClose !== undefined ? delayClose : _this.theme.getCloseDelay());
+            _this._delayClose = delayClose !== undefined ? delayClose : _this.theme.getCloseDelay();
             _this._messageText = _this.message.text;
             return _this;
         }
@@ -50027,8 +50264,8 @@
                 _this.onPrerender();
             };
             this._align = toEnum((_a = options === null || options === void 0 ? void 0 : options.align) !== null && _a !== void 0 ? _a : UtilAttachAlign.BOTTOM, UtilAttachAlign);
-            this._fit = ((_b = options === null || options === void 0 ? void 0 : options.fit) !== null && _b !== void 0 ? _b : false);
-            this._sticky = ((_c = options === null || options === void 0 ? void 0 : options.sticky) !== null && _c !== void 0 ? _c : false);
+            this._fit = (_b = options === null || options === void 0 ? void 0 : options.fit) !== null && _b !== void 0 ? _b : false;
+            this._sticky = (_c = options === null || options === void 0 ? void 0 : options.sticky) !== null && _c !== void 0 ? _c : false;
             this._sub = false;
             this._owner = null;
             this._context = null;
@@ -50096,7 +50333,7 @@
                     }
                 }
                 // Target
-                this._sub = (context != null);
+                this._sub = context != null;
                 context = context || new DMenuContext(owner);
                 if (closeable != null) {
                     context.trim(closeable);
@@ -50173,7 +50410,8 @@
         };
         DMenu.prototype.onKeyDown = function (e) {
             UtilKeyboardEvent.moveFocusVertically(e, this, this._overlay);
-            if (this.state.isActionable && (UtilKeyboardEvent.isArrowLeftKey(e) || UtilKeyboardEvent.isCancelKey(e))) {
+            if (this.state.isActionable &&
+                (UtilKeyboardEvent.isArrowLeftKey(e) || UtilKeyboardEvent.isCancelKey(e))) {
                 this.close();
             }
             return _super.prototype.onKeyDown.call(this, e);
@@ -50483,8 +50721,8 @@
          */
         DMapCoordinateEPSG3857.prototype.lonLatToMeters = function (lonlat, meters) {
             var C = DMapCoordinateEPSG3857.CIRCUMFERENCE_HALF;
-            meters.x = lonlat.x * C / 180;
-            meters.y = Math.log(Math.tan((90 + lonlat.y) * Math.PI / 360)) * C / Math.PI;
+            meters.x = (lonlat.x * C) / 180;
+            meters.y = (Math.log(Math.tan(((90 + lonlat.y) * Math.PI) / 360)) * C) / Math.PI;
             return meters;
         };
         /**
@@ -50495,8 +50733,8 @@
          */
         DMapCoordinateEPSG3857.prototype.metersToLonLat = function (meters, lonlat) {
             var C = DMapCoordinateEPSG3857.CIRCUMFERENCE_HALF;
-            lonlat.x = meters.x / C * 180;
-            lonlat.y = Math.atan(Math.exp(meters.y * Math.PI / C)) * 360 / Math.PI - 90;
+            lonlat.x = (meters.x / C) * 180;
+            lonlat.y = (Math.atan(Math.exp((meters.y * Math.PI) / C)) * 360) / Math.PI - 90;
             return lonlat;
         };
         /**
@@ -50579,7 +50817,7 @@
             return (2 * DMapCoordinateEPSG3857.CIRCUMFERENCE_HALF) / (tileSize << tz);
         };
         DMapCoordinateEPSG3857.prototype.toTileCount = function (tz) {
-            return (1 << tz);
+            return 1 << tz;
         };
         DMapCoordinateEPSG3857.prototype.toTileCode = function (tz, tx, ty) {
             return (tx << tz) + ty;
@@ -50957,11 +51195,14 @@
         __extends(DMapTilePyramidImpl, _super);
         function DMapTilePyramidImpl(options) {
             var _this = _super.call(this) || this;
-            var canvas = _this._canvas = options.canvas;
+            var canvas = options.canvas;
+            _this._canvas = canvas;
             _this._builder = options.builder;
-            var mappingLonLat = _this._mapping = options.mapping;
-            var coordinate = _this._coordinate = options.coordinate;
-            _this._mappingInternal = _this.toMapping(canvas, mappingLonLat, coordinate);
+            var mapping = options.mapping;
+            _this._mapping = mapping;
+            var coordinate = options.coordinate;
+            _this._coordinate = coordinate;
+            _this._mappingInternal = _this.toMapping(canvas, mapping, coordinate);
             _this._z = NaN;
             _this._tz = NaN;
             _this._minZ = options.plane.min;
@@ -50975,9 +51216,10 @@
                 _this.fit();
             };
             _this._fitThrottle = options.plane.throttle;
-            var fitThrottledBound = _this._fitThrottledBound = function () {
+            var fitThrottledBound = function () {
                 _this.fitThrottled();
             };
+            _this._fitThrottledBound = fitThrottledBound;
             canvas.on("scale", fitThrottledBound);
             canvas.on("move", fitThrottledBound);
             canvas.addRenderable(_this, true);
@@ -51025,8 +51267,8 @@
             }
             return {
                 scale: scale,
-                x: 0.5 * (x1 + x0) / tileSize,
-                y: 0.5 * (y1 + y0) / tileSize
+                x: (0.5 * (x1 + x0)) / tileSize,
+                y: (0.5 * (y1 + y0)) / tileSize
             };
         };
         Object.defineProperty(DMapTilePyramidImpl.prototype, "mapping", {
@@ -51231,21 +51473,13 @@
         function DMapTilePyramids() {
         }
         DMapTilePyramids.toPlaneOptions = function (options) {
+            var _a, _b, _c;
             var plane = options.plane;
-            if (plane) {
-                return {
-                    min: (plane.min != null ? plane.min : this.MIN),
-                    max: (plane.max != null ? plane.max : this.MAX),
-                    throttle: (plane.throttle != null ? plane.throttle : this.THROTTLE)
-                };
-            }
-            else {
-                return {
-                    min: this.MIN,
-                    max: this.MAX,
-                    throttle: this.THROTTLE
-                };
-            }
+            return {
+                min: (_a = plane === null || plane === void 0 ? void 0 : plane.min) !== null && _a !== void 0 ? _a : this.MIN,
+                max: (_b = plane === null || plane === void 0 ? void 0 : plane.max) !== null && _b !== void 0 ? _b : this.MAX,
+                throttle: (_c = plane === null || plane === void 0 ? void 0 : plane.throttle) !== null && _c !== void 0 ? _c : this.THROTTLE
+            };
         };
         DMapTilePyramids.from = function (options) {
             return new DMapTilePyramidImpl({
@@ -51427,16 +51661,15 @@
     var DMenuSidedSelection = /** @class */ (function (_super) {
         __extends(DMenuSidedSelection, _super);
         function DMenuSidedSelection(content, options) {
+            var _a, _b;
             var _this = _super.call(this) || this;
             _this._content = content;
             _this._item = null;
             _this._isDirty = true;
-            _this._mode = (options && options.mode != null ?
-                (isString(options.mode) ? DMenuSidedSelectionMode[options.mode] : options.mode) :
-                DMenuSidedSelectionMode.DEFAULT);
-            _this._filter = (options && options.filter) || _this.getFilterDefault();
+            _this._mode = toEnum((_a = options === null || options === void 0 ? void 0 : options.mode) !== null && _a !== void 0 ? _a : DMenuSidedSelectionMode.DEFAULT, DMenuSidedSelectionMode);
+            _this._filter = (_b = options === null || options === void 0 ? void 0 : options.filter) !== null && _b !== void 0 ? _b : _this.getFilterDefault();
             // Events
-            var on = options && options.on;
+            var on = options === null || options === void 0 ? void 0 : options.on;
             if (on) {
                 for (var name_1 in on) {
                     var handler = on[name_1];
@@ -51489,7 +51722,7 @@
             return this._item;
         };
         DMenuSidedSelection.prototype.size = function () {
-            return (this._item ? 1 : 0);
+            return this._item ? 1 : 0;
         };
         DMenuSidedSelection.prototype.isEmpty = function () {
             return this._item == null;
@@ -51547,18 +51780,23 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DMenuSided.prototype.init = function (options) {
+            var _a;
             _super.prototype.init.call(this, options);
             var context = new DMenuContext(this);
             this._context = context;
             context.add(this);
-            var items = options && options.items;
+            var items = options === null || options === void 0 ? void 0 : options.items;
             if (items != null) {
-                var sticky = (options && options.sticky != null ? options.sticky : false);
+                var sticky = (_a = options === null || options === void 0 ? void 0 : options.sticky) !== null && _a !== void 0 ? _a : false;
                 this.newItems(items, sticky);
             }
-            var selection = options && options.selection;
-            this._selection = (selection instanceof DMenuSidedSelection ?
-                selection : this.newSelection(selection));
+            var selection = options === null || options === void 0 ? void 0 : options.selection;
+            if (selection instanceof DMenuSidedSelection) {
+                this._selection = selection;
+            }
+            else {
+                this._selection = this.newSelection(selection);
+            }
         };
         DMenuSided.prototype.newSelection = function (options) {
             return new DMenuSidedSelection(this._content, options);
@@ -51683,19 +51921,19 @@
             for (var i = 0; i < btnsCount; i++) {
                 var btn = pageButtons[i];
                 btn.text = options.start + i + 1;
-                btn.state.isActive = (options.start + i === options.selected);
+                btn.state.isActive = options.start + i === options.selected;
                 if (btn.isHidden()) {
                     btn.show();
                 }
             }
             // update visible state of dots buttons
-            if (!!options.button.dotsLeft) {
+            if (options.button.dotsLeft) {
                 this._dotsBtnLeft.show();
             }
             else {
                 this._dotsBtnLeft.hide();
             }
-            if (!!options.button.dotsRight) {
+            if (options.button.dotsRight) {
                 this._dotsBtnRight.show();
             }
             else {
@@ -51734,17 +51972,19 @@
         }
         DPagination.prototype.init = function (options) {
             var _this = this;
+            var _a;
             _super.prototype.init.call(this, options);
             this.DEFAULT_SELECTED = 0; // set default selected index page is page 0
             // get total pages
             this._total = options.total;
             // get selected page
-            this._selected = options.selected ? options.selected : this.DEFAULT_SELECTED;
+            this._selected = (_a = options.selected) !== null && _a !== void 0 ? _a : this.DEFAULT_SELECTED;
             // get button options
+            var button = options.button;
             this._buttonOptions = {
-                first: !!(options.button && options.button.first),
-                last: !!(options.button && options.button.last),
-                width: options.button && options.button.width
+                first: !!(button === null || button === void 0 ? void 0 : button.first),
+                last: !!(button === null || button === void 0 ? void 0 : button.last),
+                width: button === null || button === void 0 ? void 0 : button.width
             };
             this.initButtons(this.getButtonWidth());
             this.listenButtonClicked();
@@ -51807,7 +52047,8 @@
             this._previousBtn = new DPaginationNavigationButton({
                 width: width,
                 image: {
-                    source: DThemes.getInstance().getAtlas().mappings.pagination_navigation_button_previous
+                    source: DThemes.getInstance().getAtlas().mappings
+                        .pagination_navigation_button_previous
                 }
             });
             this._nextBtn = new DPaginationNavigationButton({
@@ -51819,14 +52060,16 @@
             this._goFirstBtn = new DPaginationNavigationButton({
                 width: width,
                 image: {
-                    source: DThemes.getInstance().getAtlas().mappings.pagination_navigation_button_go_first
+                    source: DThemes.getInstance().getAtlas().mappings
+                        .pagination_navigation_button_go_first
                 },
                 visible: this._buttonOptions.first
             });
             this._goLastBtn = new DPaginationNavigationButton({
                 width: width,
                 image: {
-                    source: DThemes.getInstance().getAtlas().mappings.pagination_navigation_button_go_last
+                    source: DThemes.getInstance().getAtlas().mappings
+                        .pagination_navigation_button_go_last
                 },
                 visible: this._buttonOptions.last
             });
@@ -51900,7 +52143,7 @@
                 numberButtonsInRight = this._numberPageButtonVisible - numberButtonsInLeft - 1;
             }
             else if (this._selected + numberButtonsCenterToEnd > this._total - 1) {
-                numberButtonsInRight = (this._total - 1) - this.selected;
+                numberButtonsInRight = this._total - 1 - this.selected;
                 numberButtonsInLeft = this._numberPageButtonVisible - numberButtonsInRight - 1;
             }
             else {
@@ -52100,7 +52343,8 @@
                     if (removedValue !== undefined && removedValue === childValue) {
                         child.state.isActive = false;
                     }
-                    else if ((addedValue !== undefined && child.value === addedValue) || 0 <= oldValues.indexOf(child.value)) {
+                    else if ((addedValue !== undefined && child.value === addedValue) ||
+                        0 <= oldValues.indexOf(child.value)) {
                         if (newValues) {
                             newValues.push(child.value);
                         }
@@ -52239,9 +52483,10 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DSliderLabel.prototype.init = function (options) {
+            var _a;
             _super.prototype.init.call(this, options);
             this.state.isFocusable = false;
-            this._value = options && options.value || 0;
+            this._value = (_a = options === null || options === void 0 ? void 0 : options.value) !== null && _a !== void 0 ? _a : 0;
         };
         Object.defineProperty(DSliderLabel.prototype, "value", {
             get: function () {
@@ -52284,17 +52529,19 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DSliderValue.prototype.init = function (options) {
+            var _a;
             _super.prototype.init.call(this, options);
             this.state.isFocusable = false;
-            this._value = options && options.value || 0;
+            this._value = (_a = options === null || options === void 0 ? void 0 : options.value) !== null && _a !== void 0 ? _a : 0;
             this._rounder = this.toRounder(options);
         };
         DSliderValue.prototype.toRounder = function (options) {
-            var rounder = options && options.rounder;
+            var _a;
+            var rounder = options === null || options === void 0 ? void 0 : options.rounder;
             if (rounder) {
                 return rounder;
             }
-            var precision = (options && options.precision) ? options.precision : this.theme.getPrecision();
+            var precision = (_a = options === null || options === void 0 ? void 0 : options.precision) !== null && _a !== void 0 ? _a : this.theme.getPrecision();
             return function (value) {
                 var base = Math.pow(10, precision);
                 return Math.round(value * base) / base;
@@ -52384,17 +52631,18 @@
             this.onValuesChange();
         };
         DSlider.prototype.newThumb = function (options) {
-            return new DSliderThumb(options && options.thumb);
+            return new DSliderThumb(options === null || options === void 0 ? void 0 : options.thumb);
         };
         DSlider.prototype.newValue = function (options) {
-            return new DSliderValue(this.toValueOptions(options && options.value));
+            return new DSliderValue(this.toValueOptions(options === null || options === void 0 ? void 0 : options.value));
         };
         DSlider.prototype.toValueOptions = function (options) {
             options = options || {};
             if (options.value == null) {
                 options.value = 0;
             }
-            var text = options.text = options.text || {};
+            var text = options.text || {};
+            options.text = text;
             if (text.value == null) {
                 text.value = options.value;
             }
@@ -52404,28 +52652,30 @@
             return options;
         };
         DSlider.prototype.newLabelMin = function (options) {
-            return new DSliderLabel(this.toLabelMinOptions(options && options.min));
+            return new DSliderLabel(this.toLabelMinOptions(options === null || options === void 0 ? void 0 : options.min));
         };
         DSlider.prototype.toLabelMinOptions = function (options) {
             options = options || {};
             if (options.value == null) {
                 options.value = 0;
             }
-            var text = options.text = options.text || {};
+            var text = options.text || {};
+            options.text = text;
             if (text.value == null) {
                 text.value = "" + options.value;
             }
             return options;
         };
         DSlider.prototype.newLabelMax = function (options) {
-            return new DSliderLabel(this.toLabelMaxOptions(options && options.max));
+            return new DSliderLabel(this.toLabelMaxOptions(options === null || options === void 0 ? void 0 : options.max));
         };
         DSlider.prototype.toLabelMaxOptions = function (options) {
             options = options || {};
             if (options.value == null) {
                 options.value = 1;
             }
-            var text = options.text = options.text || {};
+            var text = options.text || {};
+            options.text = text;
             if (text.value == null) {
                 text.value = "" + options.value;
             }
@@ -52624,10 +52874,10 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DSliderHorizontal.prototype.newTrack = function (options) {
-            return new DSliderTrackHorizontal(options && options.track);
+            return new DSliderTrackHorizontal(options === null || options === void 0 ? void 0 : options.track);
         };
         DSliderHorizontal.prototype.newTrackSelected = function (options) {
-            return new DSliderTrackHorizontal(options && options.track);
+            return new DSliderTrackHorizontal(options === null || options === void 0 ? void 0 : options.track);
         };
         DSliderHorizontal.prototype.toValueOptions = function (options) {
             var _this = this;
@@ -52714,10 +52964,10 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DSliderVertical.prototype.newTrack = function (options) {
-            return new DSliderTrackVertical(options && options.track);
+            return new DSliderTrackVertical(options === null || options === void 0 ? void 0 : options.track);
         };
         DSliderVertical.prototype.newTrackSelected = function (options) {
-            return new DSliderTrackVertical(options && options.track);
+            return new DSliderTrackVertical(options === null || options === void 0 ? void 0 : options.track);
         };
         DSliderVertical.prototype.toLabelMinOptions = function (options) {
             options = _super.prototype.toLabelMinOptions.call(this, options);
@@ -52727,8 +52977,10 @@
             if (options.y == null) {
                 options.y = function (p, s) { return p - s * 0.5; };
             }
-            var text = options.text = options.text || {};
-            var textAlign = text.align = text.align || {};
+            var text = options.text || {};
+            options.text = text;
+            var textAlign = text.align || {};
+            text.align = textAlign;
             if (textAlign.horizontal == null) {
                 textAlign.horizontal = DAlignHorizontal.RIGHT;
             }
@@ -52742,8 +52994,10 @@
             if (options.y == null) {
                 options.y = function (p, s) { return -s * 0.5; };
             }
-            var text = options.text = options.text || {};
-            var textAlign = text.align = text.align || {};
+            var text = options.text || {};
+            options.text = text;
+            var textAlign = text.align || {};
+            text.align = textAlign;
             if (textAlign.horizontal == null) {
                 textAlign.horizontal = DAlignHorizontal.RIGHT;
             }
@@ -52836,7 +53090,7 @@
             _this._columnIndex = columnIndex;
             _this._column = column;
             _this._onChange = onChange;
-            _this._isSyncEnabled = ((_a = options === null || options === void 0 ? void 0 : options.sync) !== null && _a !== void 0 ? _a : _this.theme.isSyncEnabled());
+            _this._isSyncEnabled = (_a = options === null || options === void 0 ? void 0 : options.sync) !== null && _a !== void 0 ? _a : _this.theme.isSyncEnabled();
             return _this;
         }
         DTableBodyCellSelectDialog.prototype.onActivate = function (e) {
@@ -53041,7 +53295,7 @@
             _this._columnIndex = columnIndex;
             _this._column = column;
             _this._onChange = onChange;
-            _this._isSyncEnabled = ((_a = options === null || options === void 0 ? void 0 : options.sync) !== null && _a !== void 0 ? _a : _this.theme.isSyncEnabled());
+            _this._isSyncEnabled = (_a = options === null || options === void 0 ? void 0 : options.sync) !== null && _a !== void 0 ? _a : _this.theme.isSyncEnabled();
             return _this;
         }
         DTableBodyCellSelectPromise.prototype.onActivate = function (e) {
@@ -53485,14 +53739,14 @@
             }
             else if (isString(newValue)) {
                 var parsed = Number(newValue);
-                value.color = (parsed === parsed ? parsed : 0xffffff);
+                value.color = parsed === parsed ? parsed : 0xffffff;
                 value.alpha = 1;
             }
             else if (newValue != null) {
                 var color = newValue.color;
                 var alpha = newValue.alpha;
-                value.color = (isNumber(color) ? color : 0xffffff);
-                value.alpha = (isNumber(alpha) ? alpha : 1);
+                value.color = isNumber(color) ? color : 0xffffff;
+                value.alpha = isNumber(alpha) ? alpha : 1;
             }
             else {
                 value.color = 0xffffff;
@@ -54041,91 +54295,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DBasePaddingAdjustable = /** @class */ (function () {
-        function DBasePaddingAdjustable(target) {
-            this._target = target;
-            this._adjuster = {
-                left: 0,
-                top: 0,
-                right: 0,
-                bottom: 0
-            };
-        }
-        Object.defineProperty(DBasePaddingAdjustable.prototype, "adjuster", {
-            get: function () {
-                return this._adjuster;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DBasePaddingAdjustable.prototype.getTheme = function () {
-            return this._target.getTheme();
-        };
-        DBasePaddingAdjustable.prototype.setTheme = function (theme) {
-            this._target.setTheme(theme);
-        };
-        DBasePaddingAdjustable.prototype.getLeft = function () {
-            return this._target.getLeft() + this._adjuster.left;
-        };
-        Object.defineProperty(DBasePaddingAdjustable.prototype, "left", {
-            get: function () {
-                return this._target.left;
-            },
-            set: function (left) {
-                this._target.left = left;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DBasePaddingAdjustable.prototype.getTop = function () {
-            return this._target.getTop() + this._adjuster.top;
-        };
-        Object.defineProperty(DBasePaddingAdjustable.prototype, "top", {
-            get: function () {
-                return this._target.top;
-            },
-            set: function (top) {
-                this._target.top = top;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DBasePaddingAdjustable.prototype.getRight = function () {
-            return this._target.getRight() + this._adjuster.right;
-        };
-        Object.defineProperty(DBasePaddingAdjustable.prototype, "right", {
-            get: function () {
-                return this._target.right;
-            },
-            set: function (right) {
-                this._target.right = right;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DBasePaddingAdjustable.prototype.getBottom = function () {
-            return this._target.getBottom() + this._adjuster.bottom;
-        };
-        Object.defineProperty(DBasePaddingAdjustable.prototype, "bottom", {
-            get: function () {
-                return this._target.bottom;
-            },
-            set: function (bottom) {
-                this._target.bottom = bottom;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DBasePaddingAdjustable.prototype.set = function (top, right, bottom, left) {
-            this._target.set(top, right, bottom, left);
-        };
-        return DBasePaddingAdjustable;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var DTableBodyCellInputTreeInput = /** @class */ (function (_super) {
         __extends(DTableBodyCellInputTreeInput, _super);
         function DTableBodyCellInputTreeInput(options) {
@@ -54346,7 +54515,7 @@
             if (isNumber(supplimental)) {
                 var isOpened = !!(supplimental & 0x1);
                 var hasChildren = !!(supplimental & 0x2);
-                var level = (supplimental >> 2);
+                var level = supplimental >> 2;
                 var markerState = marker.state;
                 markerState.lock();
                 markerState.set(DTableState.HAS_CHILDREN, hasChildren);
@@ -54432,7 +54601,7 @@
         }
         DTableBodyCellLink.prototype.initOnClick = function (when, theme, options) {
             var _this = this;
-            this.link.apply(this, function (e) {
+            this.link.add(this, function (e) {
                 if (when === DButtonBaseWhen.CLICKED) {
                     _this.onClick(e);
                 }
@@ -54614,123 +54783,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DTableBodyCellTree = /** @class */ (function (_super) {
-        __extends(DTableBodyCellTree, _super);
-        function DTableBodyCellTree(columnIndex, column, onChange, options) {
-            var _a;
-            var _this = _super.call(this, columnIndex, column, onChange, DLinks.toStateOptions((_a = options === null || options === void 0 ? void 0 : options.link) === null || _a === void 0 ? void 0 : _a.target, options)) || this;
-            _this._padding = new DBasePaddingAdjustable(_this._padding);
-            return _this;
-        }
-        DTableBodyCellTree.prototype.initOnClick = function (when, theme, options) {
-            var _this = this;
-            var link = this.link;
-            if (link) {
-                link.apply(this, function (e) {
-                    if (when === DButtonBaseWhen.CLICKED) {
-                        _this.onClick(e);
-                    }
-                });
-            }
-            else {
-                _super.prototype.initOnClick.call(this, when, theme, options);
-            }
-        };
-        Object.defineProperty(DTableBodyCellTree.prototype, "link", {
-            get: function () {
-                var result = this._link;
-                if (result === undefined) {
-                    result = this.newLink();
-                    this._link = result;
-                }
-                return result;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DTableBodyCellTree.prototype.newLink = function () {
-            var _a;
-            var options = (_a = this._options) === null || _a === void 0 ? void 0 : _a.link;
-            if (options) {
-                return new DLink(this.theme, toLinkOptions(this, options));
-            }
-            return null;
-        };
-        DTableBodyCellTree.prototype.onActivate = function (e) {
-            var _a;
-            _super.prototype.onActivate.call(this, e);
-            if (this.state.is(DTableState.HAS_CHILDREN)) {
-                this.toggle();
-            }
-            else {
-                (_a = this.link) === null || _a === void 0 ? void 0 : _a.open(e);
-            }
-        };
-        DTableBodyCellTree.prototype.toggle = function () {
-            var row = this._row;
-            if (row === undefined) {
-                return;
-            }
-            var parent = this.parent;
-            if (parent == null) {
-                return;
-            }
-            var body = parent.parent;
-            if (body == null) {
-                return;
-            }
-            var data = body.data;
-            if (data && data.toggle) {
-                data.toggle(row);
-            }
-        };
-        DTableBodyCellTree.prototype.onRowSelect = function (e, local) {
-            if (local.x <= this.position.x + this.padding.getLeft()) {
-                this.toggle();
-                return true;
-            }
-            return false;
-        };
-        DTableBodyCellTree.prototype.set = function (value, row, supplimental, rowIndex, columnIndex, forcibly) {
-            this._row = row;
-            this._rowIndex = rowIndex;
-            this.text = value;
-            var column = this._column;
-            DTableBodyCells.setRenderable(this, row, columnIndex, column);
-            var link = this.link;
-            var adjuster = this._padding.adjuster;
-            if (isNumber(supplimental)) {
-                var isOpened = !!(supplimental & 0x1);
-                var hasChildren = !!(supplimental & 0x2);
-                var level = (supplimental >> 2);
-                var state = this.state;
-                state.lock();
-                state.set(DTableState.HAS_CHILDREN, hasChildren);
-                state.set(DTableState.OPENED, isOpened);
-                state.unlock();
-                if (link) {
-                    link.menu.enable = !hasChildren;
-                }
-                adjuster.left = this.theme.getLevelPadding(level);
-            }
-            else {
-                this.state.removeAll(DTableState.OPENED, DTableState.HAS_CHILDREN);
-                adjuster.left = 0;
-                if (link) {
-                    link.menu.enable = false;
-                }
-            }
-        };
-        DTableBodyCellTree.prototype.getType = function () {
-            return "DTableBodyCellTree";
-        };
-        return DTableBodyCellTree;
-    }(DTableBodyCellButton));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var DTableBodyCellTime = /** @class */ (function (_super) {
         __extends(DTableBodyCellTime, _super);
         function DTableBodyCellTime(columnIndex, column, onChange, options) {
@@ -54857,6 +54909,123 @@
         };
         return DTableBodyCellTime;
     }(DButton));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DTableBodyCellTree = /** @class */ (function (_super) {
+        __extends(DTableBodyCellTree, _super);
+        function DTableBodyCellTree(columnIndex, column, onChange, options) {
+            var _a;
+            var _this = _super.call(this, columnIndex, column, onChange, DLinks.toStateOptions((_a = options === null || options === void 0 ? void 0 : options.link) === null || _a === void 0 ? void 0 : _a.target, options)) || this;
+            _this._padding = new DBasePaddingAdjustable(_this._padding);
+            return _this;
+        }
+        DTableBodyCellTree.prototype.initOnClick = function (when, theme, options) {
+            var _this = this;
+            var link = this.link;
+            if (link) {
+                link.add(this, function (e) {
+                    if (when === DButtonBaseWhen.CLICKED) {
+                        _this.onClick(e);
+                    }
+                });
+            }
+            else {
+                _super.prototype.initOnClick.call(this, when, theme, options);
+            }
+        };
+        Object.defineProperty(DTableBodyCellTree.prototype, "link", {
+            get: function () {
+                var result = this._link;
+                if (result === undefined) {
+                    result = this.newLink();
+                    this._link = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DTableBodyCellTree.prototype.newLink = function () {
+            var _a;
+            var options = (_a = this._options) === null || _a === void 0 ? void 0 : _a.link;
+            if (options) {
+                return new DLink(this.theme, toLinkOptions(this, options));
+            }
+            return null;
+        };
+        DTableBodyCellTree.prototype.onActivate = function (e) {
+            var _a;
+            _super.prototype.onActivate.call(this, e);
+            if (this.state.is(DTableState.HAS_CHILDREN)) {
+                this.toggle();
+            }
+            else {
+                (_a = this.link) === null || _a === void 0 ? void 0 : _a.open(e);
+            }
+        };
+        DTableBodyCellTree.prototype.toggle = function () {
+            var row = this._row;
+            if (row === undefined) {
+                return;
+            }
+            var parent = this.parent;
+            if (parent == null) {
+                return;
+            }
+            var body = parent.parent;
+            if (body == null) {
+                return;
+            }
+            var data = body.data;
+            if (data && data.toggle) {
+                data.toggle(row);
+            }
+        };
+        DTableBodyCellTree.prototype.onRowSelect = function (e, local) {
+            if (local.x <= this.position.x + this.padding.getLeft()) {
+                this.toggle();
+                return true;
+            }
+            return false;
+        };
+        DTableBodyCellTree.prototype.set = function (value, row, supplimental, rowIndex, columnIndex, forcibly) {
+            this._row = row;
+            this._rowIndex = rowIndex;
+            this.text = value;
+            var column = this._column;
+            DTableBodyCells.setRenderable(this, row, columnIndex, column);
+            var link = this.link;
+            var adjuster = this._padding.adjuster;
+            if (isNumber(supplimental)) {
+                var isOpened = !!(supplimental & 0x1);
+                var hasChildren = !!(supplimental & 0x2);
+                var level = supplimental >> 2;
+                var state = this.state;
+                state.lock();
+                state.set(DTableState.HAS_CHILDREN, hasChildren);
+                state.set(DTableState.OPENED, isOpened);
+                state.unlock();
+                if (link) {
+                    link.menu.enable = !hasChildren;
+                }
+                adjuster.left = this.theme.getLevelPadding(level);
+            }
+            else {
+                this.state.removeAll(DTableState.OPENED, DTableState.HAS_CHILDREN);
+                adjuster.left = 0;
+                if (link) {
+                    link.menu.enable = false;
+                }
+            }
+        };
+        DTableBodyCellTree.prototype.getType = function () {
+            return "DTableBodyCellTree";
+        };
+        return DTableBodyCellTree;
+    }(DTableBodyCellButton));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -55106,7 +55275,7 @@
         };
         DTableBodyRow.prototype.toCellOptions = function (columnIndex, column, options) {
             var _a, _b;
-            var result = (column.body || options.cell);
+            var result = column.body || options.cell;
             var columnWeight = column.weight;
             var columnWidth = column.width;
             var columnFormatter = column.formatter;
@@ -55149,7 +55318,7 @@
             if (columnLink) {
                 result.link = columnLink;
             }
-            var selectionType = ((_b = (_a = options === null || options === void 0 ? void 0 : options.selection) === null || _a === void 0 ? void 0 : _a.type) !== null && _b !== void 0 ? _b : DTableDataSelectionType.NONE);
+            var selectionType = (_b = (_a = options === null || options === void 0 ? void 0 : options.selection) === null || _a === void 0 ? void 0 : _a.type) !== null && _b !== void 0 ? _b : DTableDataSelectionType.NONE;
             if (selectionType !== DTableDataSelectionType.NONE) {
                 result.when = "DOUBLE_CLICKED";
                 result.cursor = function (state) {
@@ -55191,7 +55360,7 @@
             configurable: true
         });
         DTableBodyRow.prototype.isCell = function (target) {
-            return (target != null && "set" in target);
+            return target != null && "set" in target;
         };
         DTableBodyRow.prototype.set = function (value, supplimental, rowIndex, forcibly) {
             if (forcibly || this._value !== value || this._index !== rowIndex) {
@@ -55411,7 +55580,7 @@
         DTableDataListMapped.prototype.size = function () {
             var parent = this._parent;
             var indicesFiltered = parent.filter.indices;
-            return (indicesFiltered != null ? indicesFiltered.length : parent.size());
+            return indicesFiltered != null ? indicesFiltered.length : parent.size();
         };
         DTableDataListMapped.prototype.get = function (index) {
             var parent = this._parent;
@@ -55423,15 +55592,15 @@
             var supplimentals = parent.supplimentals;
             var indicesFiltered = parent.filter.indices;
             var indicesSorted = parent.sorter.indices;
-            ifrom = (ifrom != null ? Math.max(0, ifrom) : 0);
+            ifrom = ifrom != null ? Math.max(0, ifrom) : 0;
             if (indicesFiltered) {
                 var size = indicesFiltered.length;
-                ito = (ito != null ? Math.min(size, ito) : size);
+                ito = ito != null ? Math.min(size, ito) : size;
                 if (indicesSorted) {
                     for (var i = ifrom; i < ito; ++i) {
                         var unmappedIndex = indicesSorted[indicesFiltered[i]];
                         var row = rows[unmappedIndex];
-                        var supplimental = (supplimentals ? supplimentals[unmappedIndex] : null);
+                        var supplimental = supplimentals ? supplimentals[unmappedIndex] : null;
                         if (iteratee(row, supplimental, i, unmappedIndex) === false) {
                             break;
                         }
@@ -55441,7 +55610,7 @@
                     for (var i = ifrom; i < ito; ++i) {
                         var unmappedIndex = indicesFiltered[i];
                         var row = rows[unmappedIndex];
-                        var supplimental = (supplimentals ? supplimentals[unmappedIndex] : null);
+                        var supplimental = supplimentals ? supplimentals[unmappedIndex] : null;
                         if (iteratee(row, supplimental, i, unmappedIndex) === false) {
                             break;
                         }
@@ -55450,12 +55619,12 @@
             }
             else {
                 var size = rows.length;
-                ito = (ito != null ? Math.min(size, ito) : size);
+                ito = ito != null ? Math.min(size, ito) : size;
                 if (indicesSorted) {
                     for (var i = ifrom; i < ito; ++i) {
                         var unmappedIndex = indicesSorted[i];
                         var row = rows[unmappedIndex];
-                        var supplimental = (supplimentals ? supplimentals[unmappedIndex] : null);
+                        var supplimental = supplimentals ? supplimentals[unmappedIndex] : null;
                         if (iteratee(row, supplimental, i, unmappedIndex) === false) {
                             break;
                         }
@@ -55464,7 +55633,7 @@
                 else {
                     for (var i = ifrom; i < ito; ++i) {
                         var row = rows[i];
-                        var supplimental = (supplimentals ? supplimentals[i] : null);
+                        var supplimental = supplimentals ? supplimentals[i] : null;
                         if (iteratee(row, supplimental, i, i) === false) {
                             break;
                         }
@@ -55564,12 +55733,16 @@
             var indices = this._indices;
             var oldSize = indices.size;
             if (from < to) {
-                for (var i = from + (includeFrom ? 0 : 1), imax = to + (includeTo ? 1 : 0); i < imax; ++i) {
+                var ifrom = from + (includeFrom ? 0 : 1);
+                var ito = to + (includeTo ? 1 : 0);
+                for (var i = ifrom; i < ito; ++i) {
                     indices.add(i);
                 }
             }
             else {
-                for (var i = to + (includeTo ? 0 : 1), imax = from + (includeFrom ? 1 : 0); i < imax; ++i) {
+                var ifrom = to + (includeTo ? 0 : 1);
+                var ito = from + (includeFrom ? 1 : 0);
+                for (var i = ifrom; i < ito; ++i) {
                     indices.add(i);
                 }
             }
@@ -56081,8 +56254,8 @@
         };
         DTableDataList.prototype.each = function (iteratee, ifrom, ito) {
             var rows = this._rows;
-            ifrom = (ifrom != null ? Math.max(0, ifrom) : 0);
-            ito = (ito != null ? Math.min(rows.length, ito) : rows.length);
+            ifrom = ifrom != null ? Math.max(0, ifrom) : 0;
+            ito = ito != null ? Math.min(rows.length, ito) : rows.length;
             for (var i = ifrom; i < ito; ++i) {
                 var row = rows[i];
                 if (iteratee(row, i) === false) {
@@ -56172,7 +56345,7 @@
             var theme = _this.theme;
             var rowOptions = toRowOptions(theme, options, data.selection.type);
             _this._rowOptions = rowOptions;
-            _this._rowHeight = (rowOptions.height != null ? rowOptions.height : theme.getRowHeight());
+            _this._rowHeight = rowOptions.height != null ? rowOptions.height : theme.getRowHeight();
             _this._columns = rowOptions.columns || [];
             _this._rowIndexMappedStart = 0;
             _this._rowIndexMappedEnd = 0;
@@ -56193,7 +56366,7 @@
             return new DTableDataList(options);
         };
         DTableBody.prototype.isData = function (target) {
-            return (target != null && "mapped" in target);
+            return target != null && "mapped" in target;
         };
         DTableBody.prototype.onResize = function (newWidth, newHeight, oldWidth, oldHeight) {
             _super.prototype.onResize.call(this, newWidth, newHeight, oldWidth, oldHeight);
@@ -56263,7 +56436,7 @@
             if (oldRowCount < newRowCount) {
                 for (var i = oldRowCount; i < newRowCount; ++i) {
                     var oldRowIndexMapped = oldRowIndexMappedStart + i;
-                    var newRow = this.newRow((oldRowIndexMapped % 2) === 0);
+                    var newRow = this.newRow(oldRowIndexMapped % 2 === 0);
                     this.addChild(newRow);
                 }
                 oldRowCount = newRowCount;
@@ -56308,7 +56481,7 @@
                 work.length = 0;
             }
             var selection = data.selection;
-            var isRowSelectable = (selection.type !== DTableDataSelectionType.NONE);
+            var isRowSelectable = selection.type !== DTableDataSelectionType.NONE;
             data.mapped.each(function (datum, supplimental, index, unmappedIndex) {
                 var row = rows[index - newRowIndexMappedStart];
                 // Position
@@ -56442,7 +56615,7 @@
         DTableBody.prototype.onRowSelect = function (e, rowIndexMapped) {
             var data = this._data;
             var selection = data.selection;
-            var isSingle = (selection.type === DTableDataSelectionType.SINGLE);
+            var isSingle = selection.type === DTableDataSelectionType.SINGLE;
             var isNotSingle = !isSingle;
             var rowIndex = data.mapped.unmap(rowIndexMapped);
             var originalEvent = e.data.originalEvent;
@@ -56528,12 +56701,9 @@
      */
     var DTableCategoryCell = /** @class */ (function (_super) {
         __extends(DTableCategoryCell, _super);
-        function DTableCategoryCell(options) {
-            return _super.call(this, options) || this;
+        function DTableCategoryCell() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
-        DTableCategoryCell.prototype.init = function (options) {
-            _super.prototype.init.call(this, options);
-        };
         DTableCategoryCell.prototype.getType = function () {
             return "DTableCategoryCell";
         };
@@ -56575,7 +56745,8 @@
             if (result) {
                 result.weight = column.weight;
                 result.width = column.width;
-                var text = result.text = result.text || {};
+                var text = result.text || {};
+                result.text = text;
                 text.value = text.value || column.label;
                 return result;
             }
@@ -56649,7 +56820,9 @@
                     return true;
                 }
                 var children = toChildren(node);
-                if (children != null && 0 < children.length && this.hasFiltered(parent, children, filter)) {
+                if (children != null &&
+                    0 < children.length &&
+                    this.hasFiltered(parent, children, filter)) {
                     return true;
                 }
             }
@@ -57350,8 +57523,8 @@
         };
         DTableDataTree.prototype.each = function (iteratee, ifrom, ito) {
             var rows = this.rows;
-            ifrom = (ifrom != null ? Math.max(0, ifrom) : 0);
-            ito = (ito != null ? Math.min(rows.length, ito) : rows.length);
+            ifrom = ifrom != null ? Math.max(0, ifrom) : 0;
+            ito = ito != null ? Math.min(rows.length, ito) : rows.length;
             for (var i = ifrom; i < ito; ++i) {
                 var row = rows[i];
                 if (iteratee(row, i) === false) {
@@ -57564,9 +57737,11 @@
                         if (table) {
                             sorter = table.data.sorter;
                             this._sorter = sorter;
-                            this._onSorterChangeBound = this._onSorterChangeBound || (function () {
-                                _this.onSorterChange();
-                            });
+                            this._onSorterChangeBound =
+                                this._onSorterChangeBound ||
+                                    (function () {
+                                        _this.onSorterChange();
+                                    });
                             sorter.on("change", this._onSorterChangeBound);
                         }
                         else {
@@ -57615,7 +57790,7 @@
             }
         };
         DTableHeaderCell.prototype.toClickPosition = function (e) {
-            var checkWork = (this._checkWork || new pixi_js.Point());
+            var checkWork = this._checkWork || new pixi_js.Point();
             this._checkWork = checkWork;
             return e.data.getLocalPosition(this, checkWork).x;
         };
@@ -57627,7 +57802,7 @@
                         var position = this.toClickPosition(e);
                         var bound = image.bound;
                         var margin = image.margin.horizontal;
-                        return (bound.left - margin <= position && position <= bound.right + margin);
+                        return bound.left - margin <= position && position <= bound.right + margin;
                     }
                 }
                 else {
@@ -57916,12 +58091,13 @@
         }
     };
     var toColumnAlign = function (options, type) {
-        if (options.align != null) {
-            if (isString(options.align)) {
-                return DAlignHorizontal[options.align];
+        var align = options.align;
+        if (align != null) {
+            if (isString(align)) {
+                return DAlignHorizontal[align];
             }
             else {
-                return options.align;
+                return align;
             }
         }
         switch (type) {
@@ -57979,53 +58155,51 @@
         }
     };
     var toColumnEditing = function (options, path) {
+        var _a;
         var editing = options.editing;
+        var editable = options.editable;
         if (editing) {
             return {
-                enable: toColumnEditingEnable(editing.enable != null ? editing.enable : options.editable, path),
+                enable: toColumnEditingEnable((_a = editing.enable) !== null && _a !== void 0 ? _a : editable, path),
                 formatter: editing.formatter,
                 unformatter: editing.unformatter,
                 validator: editing.validator
             };
         }
         return {
-            enable: toColumnEditingEnable(options.editable, path)
+            enable: toColumnEditingEnable(editable, path)
         };
     };
     var toComparator = function (getter, index) {
         return function (rowA, rowB) {
             var valueA = getter(rowA, index);
             var valueB = getter(rowB, index);
-            return (valueA < valueB ? -1 : (valueB < valueA ? +1 : 0));
+            return valueA < valueB ? -1 : valueB < valueA ? +1 : 0;
         };
     };
     var toColumnSorting = function (getter, index, options) {
         var sorting = options.sorting;
+        var sortable = options.sortable;
         if (sorting) {
-            var enable = sorting.enable === true || options.sortable === true;
-            if (enable) {
+            if (sorting.enable || sortable) {
                 return {
-                    enable: enable,
+                    enable: true,
                     comparator: sorting.comparator || toComparator(getter, index)
                 };
             }
-            else {
-                return {
-                    enable: enable
-                };
-            }
+            return {
+                enable: false
+            };
         }
-        if (options.sortable === true) {
+        if (sortable) {
             return {
                 enable: true,
                 comparator: toComparator(getter, index)
             };
         }
-        else {
-            return {
-                enable: false
-            };
-        }
+        return {
+            enable: false
+        };
     };
     var toColumnMenu = function (options) {
         if (options == null) {
@@ -58122,13 +58296,18 @@
         return true;
     };
     var toColumn = function (index, options) {
-        var weight = (options.weight != null ? options.weight :
-            (options.width != null ? undefined : +1));
-        var width = (weight != null ? undefined :
-            (options.width != null ? options.width : 100));
-        var type = (options.type != null ?
-            (isString(options.type) ? DTableColumnType[options.type] : options.type) :
-            DTableColumnType.TEXT);
+        var _a;
+        var weight = options.weight;
+        var width = options.width;
+        if (weight != null) {
+            if (width != null) {
+                width = undefined;
+            }
+        }
+        else if (width == null) {
+            weight = 1;
+        }
+        var type = toEnum((_a = options.type) !== null && _a !== void 0 ? _a : DTableColumnType.TEXT, DTableColumnType);
         var align = toColumnAlign(options, type);
         var label = options.label || "";
         var path = toColumnPath(options);
@@ -58172,8 +58351,8 @@
     };
     var DTable = /** @class */ (function (_super) {
         __extends(DTable, _super);
-        function DTable(options) {
-            return _super.call(this, options) || this;
+        function DTable() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         DTable.prototype.init = function (options) {
             // Column
@@ -58192,7 +58371,7 @@
             var header = this.newHeader(options, columns, frozen, headerOffset);
             this._header = header;
             // Body
-            var bodyOffset = headerOffset + ((header && header.height) || 0);
+            var bodyOffset = headerOffset + ((header === null || header === void 0 ? void 0 : header.height) || 0);
             this._bodyOffset = bodyOffset;
             var body = this.newBody(options, columns, frozen, bodyOffset);
             this._body = body;
@@ -58350,7 +58529,10 @@
             var ccolumn = null;
             for (var i = 0, imax = columns.length; i < imax; ++i) {
                 var column = columns[i];
-                if (i !== frozen && ccolumn && tcolumn && this.isSameCategory(index, tcolumn.category, column.category)) {
+                if (i !== frozen &&
+                    ccolumn &&
+                    tcolumn &&
+                    this.isSameCategory(index, tcolumn.category, column.category)) {
                     if (ccolumn.weight != null && column.weight != null) {
                         ccolumn.weight += column.weight;
                     }
@@ -58720,8 +58902,11 @@
         return (_a = options === null || options === void 0 ? void 0 : options.y) !== null && _a !== void 0 ? _a : 0;
     };
     var toRawData = function (options) {
-        var _a;
-        return (_a = options === null || options === void 0 ? void 0 : options.rawData) !== null && _a !== void 0 ? _a : {
+        var result = options === null || options === void 0 ? void 0 : options.rawData;
+        if (result != null) {
+            return result;
+        }
+        return {
             text: "",
             children: []
         };
@@ -58953,12 +59138,12 @@
             content.height = this._itemOptionsShowable.length * this._itemHeight;
             var contentY = content.position.y;
             var height = this.height;
-            var itemIndexMappedStart = (0 - contentY) / this._itemHeight - 2 < 0 ?
-                0 :
-                Math.floor((0 - contentY) / this._itemHeight) - 2;
-            var itemIndexMappedEnd = (height - contentY) / this._itemHeight + 2 < this._itemOptionsShowable.length - 1 ?
-                Math.floor((height - contentY) / this._itemHeight) + 2 :
-                this._itemOptionsShowable.length;
+            var itemIndexMappedStart = (0 - contentY) / this._itemHeight - 2 < 0
+                ? 0
+                : Math.floor((0 - contentY) / this._itemHeight) - 2;
+            var itemIndexMappedEnd = (height - contentY) / this._itemHeight + 2 < this._itemOptionsShowable.length - 1
+                ? Math.floor((height - contentY) / this._itemHeight) + 2
+                : this._itemOptionsShowable.length;
             // get items options are shown in Dpane content frame
             var itemOptionsShown = this._itemOptionsShowable.slice(itemIndexMappedStart, itemIndexMappedEnd);
             if (items.length < itemOptionsShown.length) {
@@ -59078,7 +59263,10 @@
          */
         DTree.prototype.isCollapsed = function (item) {
             var itemOptions = this._itemOptions.get(item);
-            return itemOptions && !itemOptions.expanded;
+            if (itemOptions) {
+                return !itemOptions.expanded;
+            }
+            return true;
         };
         /**
          * Check if an item is expanded.
@@ -59089,7 +59277,10 @@
          */
         DTree.prototype.isExpanded = function (item) {
             var itemOptions = this._itemOptions.get(item);
-            return itemOptions && itemOptions.expanded;
+            if (itemOptions) {
+                return itemOptions.expanded;
+            }
+            return false;
         };
         /**
          * Clear all tree item.
@@ -59218,7 +59409,7 @@
                         continue;
                     }
                 }
-                var isParent = item.children && (item.children.length > 0);
+                var isParent = item.children && item.children.length > 0;
                 var text = item.text ? item.text : "";
                 var itemImage = item.image ? item.image : null;
                 var isItemExisted = false;
@@ -59255,9 +59446,7 @@
                 2. the parent item is show and expand
                 */
                 if (parentItemOptions == null ||
-                    (parentItemOptions &&
-                        parentItemOptions.expanded &&
-                        parentItemOptions.showable)) {
+                    (parentItemOptions && parentItemOptions.expanded && parentItemOptions.showable)) {
                     itemOptions.showable = true;
                     this._itemOptionsShowable.push(itemOptions);
                     this._itemY += this._itemHeight;
@@ -59291,8 +59480,12 @@
                         var selectedItemY = selectedItemOptions.y;
                         var lastSelectedItemY = lastSelectedItemOptions.y;
                         var itemHeight = this._itemHeight;
-                        var maxY_1 = selectedItemY < lastSelectedItemY ? lastSelectedItemY - itemHeight : selectedItemY;
-                        var minY_1 = selectedItemY < lastSelectedItemY ? selectedItemY : lastSelectedItemY + itemHeight;
+                        var maxY_1 = selectedItemY < lastSelectedItemY
+                            ? lastSelectedItemY - itemHeight
+                            : selectedItemY;
+                        var minY_1 = selectedItemY < lastSelectedItemY
+                            ? selectedItemY
+                            : lastSelectedItemY + itemHeight;
                         selection.clear();
                         this._itemOptionsShowable.forEach(function (itemOptionsShowable) {
                             var itemY = itemOptionsShowable.y;
@@ -59311,9 +59504,9 @@
             }
             this.updateActiveState();
         };
-        /* update active state of all shown item.
-        *
-        **/
+        /**
+         * update active state of all shown item.
+         */
         DTree.prototype.updateActiveState = function () {
             var selection = this._selection;
             var items = this._content.children;
@@ -59760,12 +59953,10 @@
         UtilName: UtilName,
         UtilOverlay: UtilOverlay,
         UtilPointerEvent: UtilPointerEvent,
-        UtilPromise: UtilPromise,
         UtilRgb: UtilRgb,
         UtilRgba: UtilRgba,
         UtilStateBlinker: UtilStateBlinker,
         UtilTexturePlane: UtilTexturePlane,
-        UtilTexture: UtilTexture,
         UtilTransition: UtilTransition,
         UtilWheelEvent: UtilWheelEvent,
         get DAlignHorizontal () { return DAlignHorizontal; },
@@ -59794,6 +59985,9 @@
         get DBaseInteractive () { return DBaseInteractive; },
         DBaseOutlineRenderable: DBaseOutlineRenderable,
         DBaseOutline: DBaseOutline,
+        DBaseOverflowMaskSimple: DBaseOverflowMaskSimple,
+        DBaseOverflowMask: DBaseOverflowMask,
+        DBasePaddingAdjustable: DBasePaddingAdjustable,
         DBasePadding: DBasePadding,
         DBasePoint: DBasePoint,
         DBaseReflowable: DBaseReflowable,
@@ -59846,13 +60040,23 @@
         DChartCoordinateLogTick: DChartCoordinateLogTick,
         DChartCoordinateLog: DChartCoordinateLog,
         DChartCoordinateTransformImpl: DChartCoordinateTransformImpl,
+        DChartCoordinateTransformMarkImpl: DChartCoordinateTransformMarkImpl,
         get DChartCoordinateDirection () { return DChartCoordinateDirection; },
         DChartLegendItem: DChartLegendItem,
         DChartLegend: DChartLegend,
         DChartOverview: DChartOverview,
+        DChartPlotAreaContainer: DChartPlotAreaContainer,
         DChartPlotArea: DChartPlotArea,
         DChartRegionImplObservable: DChartRegionImplObservable,
         DChartRegionImpl: DChartRegionImpl,
+        DChartSelectionGridlineContainerImpl: DChartSelectionGridlineContainerImpl,
+        DChartSelectionGridlineX: DChartSelectionGridlineX,
+        DChartSelectionGridlineY: DChartSelectionGridlineY,
+        DChartSelectionMarker: DChartSelectionMarker,
+        DChartSelectionShapeBase: DChartSelectionShapeBase,
+        DChartSelectionSimple: DChartSelectionSimple,
+        DChartSelectionSubImpl: DChartSelectionSubImpl,
+        get DChartSelectionPoint () { return DChartSelectionPoint; },
         DChartSeriesBar: DChartSeriesBar,
         DChartSeriesBaseCoordinateContainer: DChartSeriesBaseCoordinateContainer,
         DChartSeriesBase: DChartSeriesBase,
@@ -59873,14 +60077,7 @@
         DChartSeriesPointComputedImpl: DChartSeriesPointComputedImpl,
         DChartSeriesPointImpl: DChartSeriesPointImpl,
         DChartSeriesScalars: DChartSeriesScalars,
-        DChartSelectionGridlineContainerImpl: DChartSelectionGridlineContainerImpl,
-        DChartSelectionGridlineX: DChartSelectionGridlineX,
-        DChartSelectionGridlineY: DChartSelectionGridlineY,
-        DChartSelectionMarker: DChartSelectionMarker,
-        DChartSelectionShapeBase: DChartSelectionShapeBase,
-        DChartSelectionSimple: DChartSelectionSimple,
-        DChartSelectionSubImpl: DChartSelectionSubImpl,
-        get DChartSelectionPoint () { return DChartSelectionPoint; },
+        DChartSeriesStrokeComputedImpl: DChartSeriesStrokeComputedImpl,
         DChartSeriesStrokeImpl: DChartSeriesStrokeImpl,
         DChartSeriesHitResult: DChartSeriesHitResult,
         DChart: DChart,
@@ -59900,17 +60097,23 @@
         DControllerKeyboard: DControllerKeyboard,
         DControllers: DControllers,
         get DCornerMask () { return DCornerMask; },
+        DDiagramBase: DDiagramBase,
         DDiagramCanvasBase: DDiagramCanvasBase,
+        DDiagramCanvasEditorBackground: DDiagramCanvasEditorBackground,
+        DDiagramCanvasEditorSnap: DDiagramCanvasEditorSnap,
         DDiagramCanvasEditor: DDiagramCanvasEditor,
         DDiagramCanvasTileMappingImpl: DDiagramCanvasTileMappingImpl,
         DDiagramCanvasTileMappingPointImpl: DDiagramCanvasTileMappingPointImpl,
         DDiagramCanvasTile: DDiagramCanvasTile,
         DDiagramCanvas: DDiagramCanvas,
+        DDiagramEditorThumbnail: DDiagramEditorThumbnail,
         DDiagramEditor: DDiagramEditor,
         DDiagramLayerContainer: DDiagramLayerContainer,
         DDiagramLayer: DDiagramLayer,
         DDiagramSerializedVersion: DDiagramSerializedVersion,
         DDiagramShape: DDiagramShape,
+        DDiagramSnapshot: DDiagramSnapshot,
+        DDiagramTagRemote: DDiagramTagRemote,
         DDiagramTag: DDiagramTag,
         DDiagram: DDiagram,
         DDiagrams: DDiagrams,
@@ -59927,11 +60130,11 @@
         DDialogDates: DDialogDates,
         DDialogDatetime: DDialogDatetime,
         DDialogDatetimes: DDialogDatetimes,
-        DDialogInput: DDialogInput,
         DDialogInputBoolean: DDialogInputBoolean,
         DDialogInputInteger: DDialogInputInteger,
         DDialogInputReal: DDialogInputReal,
         DDialogInputText: DDialogInputText,
+        DDialogInput: DDialogInput,
         DDialogMessage: DDialogMessage,
         get DDialogMode () { return DDialogMode; },
         DDialogProcessingMessage: DDialogProcessingMessage,
@@ -59939,24 +60142,29 @@
         DDialogSaveAs: DDialogSaveAs,
         DDialogSelectListItem: DDialogSelectListItem,
         DDialogSelectList: DDialogSelectList,
+        DDialogSelectSearh: DDialogSelectSearh,
         DDialogSelect: DDialogSelect,
         DDialogState: DDialogState,
         DDialogTime: DDialogTime,
         DDialogTimes: DDialogTimes,
         DDialog: DDialog,
-        DDropdown: DDropdown,
         get DDragMode () { return DDragMode; },
+        DDropdownBase: DDropdownBase,
+        DDropdown: DDropdown,
         DDynamicTextGeometry: DDynamicTextGeometry,
-        DDynamicTextStyle: DDynamicTextStyle,
         DDynamicTextMeasureResultCharacter: DDynamicTextMeasureResultCharacter,
         DDynamicTextMeasureResult: DDynamicTextMeasureResult,
         DDynamicTextMeasure: DDynamicTextMeasure,
+        DDynamicTextStyle: DDynamicTextStyle,
         DDynamicText: DDynamicText,
         DExpandableHeader: DExpandableHeader,
         DExpandable: DExpandable,
         DHtmlElementState: DHtmlElementState,
         DHtmlElement: DHtmlElement,
+        DImageBaseThemeWrapperSecondary: DImageBaseThemeWrapperSecondary,
+        DImageBaseThemeWrapperTertiary: DImageBaseThemeWrapperTertiary,
         DImageBase: DImageBase,
+        DImagePiece: DImagePiece,
         DImage: DImage,
         DInputAndLabel: DInputAndLabel,
         DInputBooleanButtonOff: DInputBooleanButtonOff,
@@ -59978,6 +60186,7 @@
         DLayoutVertical: DLayoutVertical,
         DLayout: DLayout,
         get DLinkMenuItemId () { return DLinkMenuItemId; },
+        DLinkMenu: DLinkMenu,
         get DLinkTarget () { return DLinkTarget; },
         DLink: DLink,
         DLinks: DLinks,
@@ -60017,6 +60226,7 @@
         DMenuItemSpace: DMenuItemSpace,
         DMenuItemText: DMenuItemText,
         DMenuItem: DMenuItem,
+        DMenuSidedContent: DMenuSidedContent,
         DMenuSidedItemCheck: DMenuSidedItemCheck,
         DMenuSidedItemExpandableItemCheck: DMenuSidedItemExpandableItemCheck,
         DMenuSidedItemExpandableItemLink: DMenuSidedItemExpandableItemLink,
@@ -60031,6 +60241,8 @@
         DMenuSidedItemSeparator: DMenuSidedItemSeparator,
         DMenuSidedItemSpace: DMenuSidedItemSpace,
         DMenuSidedItemText: DMenuSidedItemText,
+        get DMenuSidedSelectionMode () { return DMenuSidedSelectionMode; },
+        DMenuSidedSelection: DMenuSidedSelection,
         DMenuSided: DMenuSided,
         DMenuSideds: DMenuSideds,
         DMenu: DMenu,
@@ -60039,10 +60251,10 @@
         DMouseModifiers: DMouseModifiers,
         DNote: DNote,
         DNotification: DNotification,
-        DPagination: DPagination,
-        DPaginationNavigationButton: DPaginationNavigationButton,
-        DPaginationDynamicButtons: DPaginationDynamicButtons,
         DPaginationDotsButton: DPaginationDotsButton,
+        DPaginationDynamicButtons: DPaginationDynamicButtons,
+        DPaginationNavigationButton: DPaginationNavigationButton,
+        DPagination: DPagination,
         DPane: DPane,
         DPickerColorAndAlpha: DPickerColorAndAlpha,
         DPickerColorGradientRecent: DPickerColorGradientRecent,
@@ -60058,15 +60270,17 @@
         DPickerDatetimeLabelDate: DPickerDatetimeLabelDate,
         DPickerDatetimeLabel: DPickerDatetimeLabel,
         get DPickerDatetimeMask () { return DPickerDatetimeMask; },
+        DPickerDatetimeMasks: DPickerDatetimeMasks,
+        DPickerDatetimeRange: DPickerDatetimeRange,
         DPickerDatetimeSpace: DPickerDatetimeSpace,
         DPickerDatetime: DPickerDatetime,
         DPickerDatetimes: DPickerDatetimes,
-        DPickerDatetimeRange: DPickerDatetimeRange,
-        DPickerTimeRange: DPickerTimeRange,
         DPickerTimeBoundHours: DPickerTimeBoundHours,
         DPickerTimeBoundMinutes: DPickerTimeBoundMinutes,
         DPickerTimeBoundSeconds: DPickerTimeBoundSeconds,
+        DPickerTimeBound: DPickerTimeBound,
         DPickerTimeBounds: DPickerTimeBounds,
+        DPickerTimeRange: DPickerTimeRange,
         DPickerTime: DPickerTime,
         DPickerTimes: DPickerTimes,
         DScalarExpression: DScalarExpression,
@@ -60083,7 +60297,14 @@
         DSelect: DSelect,
         DShadowImpl: DShadowImpl,
         DSliderHorizontal: DSliderHorizontal,
+        DSliderLabel: DSliderLabel,
+        DSliderThumb: DSliderThumb,
+        DSliderTrackHorizontal: DSliderTrackHorizontal,
+        DSliderTrackVertical: DSliderTrackVertical,
+        DSliderTrack: DSliderTrack,
+        DSliderValue: DSliderValue,
         DSliderVertical: DSliderVertical,
+        DSlider: DSlider,
         DTableBodyCellActionDialog: DTableBodyCellActionDialog,
         DTableBodyCellActionMenu: DTableBodyCellActionMenu,
         DTableBodyCellActionPromise: DTableBodyCellActionPromise,
@@ -60108,7 +60329,9 @@
         DTableBodyCellSelectMultiple: DTableBodyCellSelectMultiple,
         DTableBodyCellSelectPromise: DTableBodyCellSelectPromise,
         DTableBodyCellText: DTableBodyCellText,
+        DTableBodyCellTime: DTableBodyCellTime,
         DTableBodyCellTree: DTableBodyCellTree,
+        DTableBodyCells: DTableBodyCells,
         DTableBodyRow: DTableBodyRow,
         DTableBody: DTableBody,
         DTableCategoryCell: DTableCategoryCell,
@@ -60126,6 +60349,7 @@
         DTableDataTreeSelectionImpl: DTableDataTreeSelectionImpl,
         DTableDataTreeSorter: DTableDataTreeSorter,
         DTableDataTree: DTableDataTree,
+        DTableHeaderCellCheck: DTableHeaderCellCheck,
         DTableHeaderCell: DTableHeaderCell,
         DTableHeader: DTableHeader,
         DTableRow: DTableRow,
@@ -60133,11 +60357,13 @@
         DTable: DTable,
         DTextBase: DTextBase,
         DText: DText,
+        DTreeItemState: DTreeItemState,
+        DTreeItemTextAndImage: DTreeItemTextAndImage,
+        DTreeItemToggleIcon: DTreeItemToggleIcon,
+        DTreeItem: DTreeItem,
+        DTreeSelection: DTreeSelection,
         get DTreeAddedItemPosition () { return DTreeAddedItemPosition; },
         DTree: DTree,
-        DTreeItem: DTreeItem,
-        DTreeItemTextAndImage: DTreeItemTextAndImage,
-        DTreeItemState: DTreeItemState,
         DViewDragImpl: DViewDragImpl,
         DViewImpl: DViewImpl,
         DViewTransformImpl: DViewTransformImpl

@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.83.1
+ Winter Cardinal UI v0.84.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -174,6 +174,7 @@
      */
     var newShadow = function (id, radius, opacity) {
         var d = radius * 2;
+        /* eslint-disable prettier/prettier */
         DThemeWhiteAtlas.add(id, d, d, "<g>" +
             "<defs>" +
             ("<radialGradient id=\"" + id + "_filter\">") +
@@ -183,6 +184,7 @@
             "</defs>" +
             ("<rect x=\"0\" y=\"0\" width=\"" + d + "\" height=\"" + d + "\" fill=\"url(#" + id + "_filter)\"/>") +
             "</g>");
+        /* eslint-enable prettier/prettier */
     };
     newShadow("shadow_weak", 8, 0.15);
     newShadow("shadow", 12, 0.15);
@@ -620,6 +622,7 @@
 
     // Material Design icons by Google.
     // Apache license version 2.0.
+    /* eslint-disable prettier/prettier */
     DThemeWhiteAtlas.add("button_check_mark_on", 21, 21, "<g transform=\"scale(0.875,0.875)\">" +
         "<path d=\"M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89" +
         "-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z\" fill=\"#fff\" />" +
@@ -628,6 +631,7 @@
         "<path d=\"M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z\" " +
         "fill=\"#fff\" />" +
         "</g>");
+    /* eslint-enable prettier/prettier */
     var DThemeWhiteButtonChecks = /** @class */ (function () {
         function DThemeWhiteButtonChecks() {
         }
@@ -662,6 +666,7 @@
      */
     // Material Design icons by Google.
     // Apache license version 2.0.
+    /* eslint-disable prettier/prettier */
     DThemeWhiteAtlas.add("button_check_mark_on", 21, 21, "<g transform=\"scale(0.875,0.875)\">" +
         "<path d=\"M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89" +
         "-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z\" fill=\"#fff\" />" +
@@ -670,6 +675,7 @@
         "<path d=\"M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z\" " +
         "fill=\"#fff\" />" +
         "</g>");
+    /* eslint-prettier prettier/prettier */
     var DThemeWhiteButtonCheck = /** @class */ (function (_super) {
         __extends(DThemeWhiteButtonCheck, _super);
         function DThemeWhiteButtonCheck() {
@@ -747,9 +753,11 @@
      */
     // Material Design icons by Google.
     // Apache license version 2.0.
+    /* eslint-disable prettier/prettier */
     DThemeWhiteAtlas.add("button_color_sample", 21, 21, "<g transform=\"scale(0.875,0.875)\">" +
         "<path d=\"M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z\" fill=\"#fff\"/>" +
         "</g>");
+    /* eslint-enable prettier/prettier */
     var formatter = function (colorAndAlpha) {
         return "#" + UtilRgb.toCode(colorAndAlpha.color) + " A" + colorAndAlpha.alpha.toFixed(2);
     };
@@ -904,6 +912,20 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var makeCheckerboard = function (width, height) {
+        var LIGHT = "#bfbfbf";
+        var DARK = "#a5a5a5";
+        var result = "<g>";
+        for (var ih = 0; ih < height; ++ih) {
+            for (var iw = 0; iw < width; ++iw) {
+                var color = (iw + ih) % 2 === 0 ? LIGHT : DARK;
+                result += "<rect x=\"" + 9 * iw + "\" y=\"" + 9 * ih + "\" width=\"9\" height=\"9\" fill=\"" + color + "\" />";
+            }
+        }
+        result += "</g>";
+        return result;
+    };
+    /* eslint-disable prettier/prettier */
     DThemeWhiteAtlas.add("picker_color_main", 234, 156, "<g>" +
         "<linearGradient id=\"fs7w3iusfdnb\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\">" +
         "<stop stop-color=\"#FFFFFF\" stop-opacity=\"0\" offset=\"0\"/>" +
@@ -916,19 +938,6 @@
         "<rect x=\"0\" y=\"0\" width=\"234\" height=\"156\" fill=\"url(#fs7w3iusfdnb)\" />" +
         "<rect x=\"0\" y=\"0\" width=\"234\" height=\"156\" fill=\"url(#2rfcfe9874bw)\" />" +
         "</g>");
-    var makeCheckerboard = function (width, height) {
-        var LIGHT = "#bfbfbf";
-        var DARK = "#a5a5a5";
-        var result = "<g>";
-        for (var ih = 0; ih < height; ++ih) {
-            for (var iw = 0; iw < width; ++iw) {
-                var color = ((iw + ih) % 2 === 0 ? LIGHT : DARK);
-                result += "<rect x=\"" + 9 * iw + "\" y=\"" + 9 * ih + "\" width=\"9\" height=\"9\" fill=\"" + color + "\" />";
-            }
-        }
-        result += "</g>";
-        return result;
-    };
     DThemeWhiteAtlas.add("picker_color_alpha_checkerboard", 234, 18, makeCheckerboard(26, 2));
     DThemeWhiteAtlas.add("picker_color_alpha", 234, 18, "<g>" +
         "<linearGradient id=\"s48afbuh44\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\">" +
@@ -971,6 +980,7 @@
     DThemeWhiteAtlas.add("picker_color_direction", 12, 30, "<path d=\"M0.6 25.8 L 12.0375 5.9895\" stroke=\"#5f5f5f\" stroke-width=\"1.2\" fill=\"none\" />" +
         "<path d=\"M8.5125 25.8 A 8.475 8.475 0 0 0 4.275 18.4605\" stroke=\"#5f5f5f\" stroke-width=\"1.2\" fill=\"none\" />" +
         "<rect x=\"0.6\" y=\"24.6\" width=\"11.4375\" height=\"1.2\" rx=\"0.6\" ry=\"0.6\" stroke=\"none\" fill=\"#5f5f5f\" />");
+    /* eslint-enable prettier/prettier */
     var DThemeWhitePickerColor = /** @class */ (function (_super) {
         __extends(DThemeWhitePickerColor, _super);
         function DThemeWhitePickerColor() {
@@ -1115,9 +1125,11 @@
      */
     // Material Design icons by Google.
     // Apache license version 2.0.
+    /* eslint-disable prettier/prettier */
     DThemeWhiteAtlas.add("button_color_gradient_sample", 21, 21, "<g transform=\"scale(0.875,0.875)\">" +
         "<path d=\"M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z\" fill=\"#fff\"/>" +
         "</g>");
+    /* eslint-enable prettier/prettier */
     var formatter$1 = function () {
         return "";
     };
@@ -1426,19 +1438,13 @@
         "November",
         "December"
     ];
-    var DAY_LABELS = [
-        "Su",
-        "Mo",
-        "Tu",
-        "We",
-        "Th",
-        "Fr",
-        "Sa"
-    ];
+    var DAY_LABELS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
     var defaultLabelFormatter = function (date) {
         return MONTH_LABELS[date.getMonth()] + " " + date.getFullYear();
     };
-    var defaultDateDecorator = function () { };
+    var defaultDateDecorator = function () {
+        /* DO NOTHING*/
+    };
     var DThemeWhitePickerDatetime = /** @class */ (function (_super) {
         __extends(DThemeWhitePickerDatetime, _super);
         function DThemeWhitePickerDatetime() {
@@ -1491,9 +1497,11 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    /* eslint-disable prettier/prettier */
     DThemeWhiteAtlas.add("picker_date_back", 24, 24, "<g>" +
         "<path d=\"M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z\" fill=\"#fff\" />" +
         "</g>");
+    /* eslint-enable prettier/prettier */
     var DThemeWhitePickerDatetimeButtonBack = /** @class */ (function (_super) {
         __extends(DThemeWhitePickerDatetimeButtonBack, _super);
         function DThemeWhitePickerDatetimeButtonBack() {
@@ -1551,9 +1559,11 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    /* eslint-disable prettier/prettier */
     DThemeWhiteAtlas.add("picker_date_next", 24, 24, "<g>" +
         "<path d=\"M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z\" fill=\"#fff\" />" +
         "</g>");
+    /* eslint-enable prettier/prettier */
     var DThemeWhitePickerDatetimeButtonNext = /** @class */ (function (_super) {
         __extends(DThemeWhitePickerDatetimeButtonNext, _super);
         function DThemeWhitePickerDatetimeButtonNext() {
@@ -1826,10 +1836,12 @@
         function DThemeWhiteLinks() {
         }
         DThemeWhiteLinks.init = function () {
+            /* eslint-disable prettier/prettier */
             DThemeWhiteAtlas.add("link_mark", 24, 24, "<g>" +
                 "<path fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" " +
                 "d=\"M10 6H7c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h8c1.1 0 2-.9 2-2v-3 M19 11V4h-7 M18.75 4.5l-8 8\" />" +
                 "</g>");
+            /* eslint-enable prettier/prettier */
         };
         DThemeWhiteLinks.getImageSource = function (state) {
             return DThemeWhiteAtlas.mappings.link_mark;
@@ -1838,17 +1850,20 @@
             return {
                 sticky: true,
                 align: "OVER",
-                items: [{
+                items: [
+                    {
                         value: DLinkMenuItemId.OPEN_LINK_IN_NEW_WINDOW,
                         text: {
                             value: this.getOpenLinkInNewWindow()
                         }
-                    }, {
+                    },
+                    {
                         value: DLinkMenuItemId.COPY_LINK_ADDRESS,
                         text: {
                             value: this.getCopyLinkAddress()
                         }
-                    }]
+                    }
+                ]
             };
         };
         DThemeWhiteLinks.getOpenLinkInNewWindow = function () {
@@ -1940,6 +1955,7 @@
      */
     // Material Design icons by Google.
     // Apache license version 2.0.
+    /* eslint-disable prettier/prettier */
     DThemeWhiteAtlas.add("button_radio_mark_on", 21, 21, "<g transform=\"scale(0.875,0.875)\">" +
         "<path d=\"M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48" +
         " 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8" +
@@ -1949,6 +1965,7 @@
         "<path d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42" +
         " 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z\" fill=\"#fff\" />" +
         "</g>");
+    /* eslint-enable prettier/prettier */
     var DThemeWhiteButtonRadio = /** @class */ (function (_super) {
         __extends(DThemeWhiteButtonRadio, _super);
         function DThemeWhiteButtonRadio() {
@@ -3186,10 +3203,10 @@
             return 2;
         };
         DThemeWhiteDiagramCanvasEditor.prototype.getSnapGridMajorStyle = function () {
-            return EShapePointsStyle.DASHED |
+            return (EShapePointsStyle.DASHED |
                 EShapePointsStyle.NON_EXPANDING_WIDTH |
                 EShapePointsStyle.NON_SHRINKING_WIDTH |
-                EShapePointsStyle.NON_SCALING_DOT_AND_DASH;
+                EShapePointsStyle.NON_SCALING_DOT_AND_DASH);
         };
         DThemeWhiteDiagramCanvasEditor.prototype.getSnapGridMinorColor = function () {
             return this.getSnapGridMajorColor();
@@ -3685,8 +3702,8 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeWhiteDialogConfirmDiscard.prototype.getMessage = function () {
-            return "Your changes have not been saved.\n" +
-                "Do you want to discard the changes and continue?";
+            return ("Your changes have not been saved.\n" +
+                "Do you want to discard the changes and continue?");
         };
         return DThemeWhiteDialogConfirmDiscard;
     }(DThemeWhiteDialogConfirm));
@@ -3870,6 +3887,7 @@
      */
     // Material Design icons by Google.
     // Apache license version 2.0.
+    /* eslint-disable prettier/prettier */
     DThemeWhiteAtlas.add("success_mark", 21, 21, "<g transform=\"scale(0.875,0.875)\">" +
         "<path d=\"M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z\" fill=\"#fff\" />" +
         "</g>");
@@ -3878,6 +3896,7 @@
         " 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8" +
         "-3.58 8-8 8z\" fill=\"#fff\" />" +
         "</g>");
+    /* eslint-enable prettier/prettier */
     var DThemeWhiteDialogProcessingMessage = /** @class */ (function (_super) {
         __extends(DThemeWhiteDialogProcessingMessage, _super);
         function DThemeWhiteDialogProcessingMessage() {
@@ -4048,12 +4067,14 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    /* eslint-disable prettier/prettier */
     DThemeWhiteAtlas.add("menu_item_expandable_header_closed", 14, 14, "<g transform=\"scale(1, 0.7)\">" +
         "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"6 16 10 10 6 4\"></polyline>" +
         "</g>");
     DThemeWhiteAtlas.add("menu_item_expandable_header_opened", 14, 14, "<g transform=\"scale(0.7, 1)\">" +
         "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"16 6 10 10 4 6\"></polyline>" +
         "</g>");
+    /* eslint-enable prettier/prettier */
     var DThemeWhiteExpandableHeader = /** @class */ (function (_super) {
         __extends(DThemeWhiteExpandableHeader, _super);
         function DThemeWhiteExpandableHeader() {
@@ -4162,8 +4183,8 @@
         DThemeWhiteHtmlElement.prototype.getElementStylePadding = function (state, padding) {
             if (padding) {
                 if ("getLeft" in padding) {
-                    return "padding: " + padding.getTop() + "px " + padding.getRight() + "px " +
-                        (padding.getBottom() + "px " + padding.getLeft() + "px;");
+                    return ("padding: " + padding.getTop() + "px " + padding.getRight() + "px " +
+                        (padding.getBottom() + "px " + padding.getLeft() + "px;"));
                 }
                 else {
                     return "padding: " + padding.vertical + "px " + padding.horizontal + "px;";
@@ -4177,7 +4198,9 @@
         DThemeWhiteHtmlElement.prototype.getElementStylePositionPosition = function (elementRect, clipperRect) {
             if (elementRect) {
                 if (clipperRect) {
-                    return "left:" + (elementRect.x - clipperRect.x) + "px; top:" + (elementRect.y - clipperRect.y) + "px;";
+                    var left = elementRect.x - clipperRect.x;
+                    var top_1 = elementRect.y - clipperRect.y;
+                    return "left:" + left + "px; top:" + top_1 + "px;";
                 }
                 return "left:" + elementRect.x + "px; top: " + elementRect.y + "px;";
             }
@@ -4185,8 +4208,8 @@
         };
         DThemeWhiteHtmlElement.prototype.getElementStylePositionSize = function (rect) {
             if (rect) {
-                return "width: " + rect.width + "px; height: " + rect.height + "px;" +
-                    ("line-height: " + rect.height + "px;");
+                return ("width: " + rect.width + "px; height: " + rect.height + "px;" +
+                    ("line-height: " + rect.height + "px;"));
             }
             return "width: 0px; height: 0px;";
         };
@@ -4197,15 +4220,15 @@
             return "";
         };
         DThemeWhiteHtmlElement.prototype.getElementStylePosition = function (state, elementRect, elementMatrix, clipperRect) {
-            return "position: absolute;" +
+            return ("position: absolute;" +
                 this.getElementStylePositionPosition(elementRect, clipperRect) +
                 this.getElementStylePositionSize(elementRect) +
-                this.getElementStylePositionTransform(elementMatrix);
+                this.getElementStylePositionTransform(elementMatrix));
         };
         DThemeWhiteHtmlElement.prototype.getElementStyleText = function (state) {
-            return "font-family: " + this.getFontFamilly() + ";" +
+            return ("font-family: " + this.getFontFamilly() + ";" +
                 ("font-size: " + this.getFontSize() + "px;") +
-                ("color: #" + this.getColor(state).toString(16) + ";");
+                ("color: #" + this.getColor(state).toString(16) + ";"));
         };
         DThemeWhiteHtmlElement.prototype.getElementStyleMargin = function (state) {
             return "margin: 0;";
@@ -4234,15 +4257,15 @@
         };
         DThemeWhiteHtmlElement.prototype.getClipperStylePositionSize = function (rect) {
             if (rect) {
-                return "width: " + rect.width + "px; height: " + rect.height + "px;" +
-                    ("line-height: " + rect.height + "px;");
+                return ("width: " + rect.width + "px; height: " + rect.height + "px;" +
+                    ("line-height: " + rect.height + "px;"));
             }
             return "width: 0px; height: 0px;";
         };
         DThemeWhiteHtmlElement.prototype.getClipperStylePosition = function (rect) {
-            return "position: absolute;" +
+            return ("position: absolute;" +
                 this.getClipperStylePositionPosition(rect) +
-                this.getClipperStylePositionSize(rect);
+                this.getClipperStylePositionSize(rect));
         };
         DThemeWhiteHtmlElement.prototype.getBeforeCreator = function () {
             return divCreator;
@@ -4850,10 +4873,12 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    /* eslint-disable prettier/prettier */
     DThemeWhiteAtlas.add("menu_item_mark_check_active", 14, 14, "<g>" +
         "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"1 6.5 5 11 13 2.5\"></polyline>" +
         "</g>");
     DThemeWhiteAtlas.add("menu_item_mark_check_inactive", 14, 14, "<g></g>");
+    /* eslint-enable prettier/prettier */
     var DThemeWhiteMenuItemCheck = /** @class */ (function (_super) {
         __extends(DThemeWhiteMenuItemCheck, _super);
         function DThemeWhiteMenuItemCheck() {
@@ -4951,12 +4976,14 @@
         function DThemeWhiteExpandables() {
         }
         DThemeWhiteExpandables.init = function () {
+            /* eslint-disable prettier/prettier */
             DThemeWhiteAtlas.add("expandable_closed", 14, 14, "<g transform=\"scale(1, 0.7)\">" +
                 "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"6 16 10 10 6 4\"></polyline>" +
                 "</g>");
             DThemeWhiteAtlas.add("expandable_opened", 14, 14, "<g transform=\"scale(0.7, 1)\">" +
                 "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"16 6 10 10 4 6\"></polyline>" +
                 "</g>");
+            /* eslint-enable prettier/prettier */
         };
         DThemeWhiteExpandables.getImageOpened = function () {
             return DThemeWhiteAtlas.mappings.expandable_opened;
@@ -5071,9 +5098,11 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    /* eslint-disable prettier/prettier */
     DThemeWhiteAtlas.add("menu_item_mark_next", 14, 20, "<g>" +
         "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"5 16 11 10 5 4\"></polyline>" +
         "</g>");
+    /* eslint-enable prettier/prettier */
     var DThemeWhiteMenuItemMenu = /** @class */ (function (_super) {
         __extends(DThemeWhiteMenuItemMenu, _super);
         function DThemeWhiteMenuItemMenu() {
@@ -5614,6 +5643,7 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    /* eslint-disable prettier/prettier */
     DThemeWhiteAtlas.add("pagination_navigation_button_previous", 21, 21, "<g>" +
         "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"13 15 7 10 13 5\"></polyline>" +
         "</g>");
@@ -5628,6 +5658,7 @@
         "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"9 15 15 10 9 5\"></polyline>" +
         "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"5 15 11 10 5 5\"></polyline>" +
         "</g>");
+    /* eslint-enable prettier/prettier */
     var DThemeWhitePaginationNavigationButton = /** @class */ (function (_super) {
         __extends(DThemeWhitePaginationNavigationButton, _super);
         function DThemeWhitePaginationNavigationButton() {
@@ -5769,9 +5800,11 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    /* eslint-disable prettier/prettier */
     DThemeWhiteAtlas.add("dropdown_mark", 20, 14, "<g>" +
         "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"16 5 10 11 4 5\"></polyline>" +
         "</g>");
+    /* eslint-enable prettier/prettier */
     var DThemeWhiteDropdownBase = /** @class */ (function (_super) {
         __extends(DThemeWhiteDropdownBase, _super);
         function DThemeWhiteDropdownBase() {
@@ -6012,7 +6045,9 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    /* eslint-disable prettier/prettier */
     DThemeWhiteAtlas.add("slider_thumb", 16, 16, "<circle cx=\"8\" cy=\"8\" r=\"7.5\" stroke=\"none\" fill=\"#ffffff\" />");
+    /* eslint-enable prettier/prettier */
     var DThemeWhiteSliderThumb = /** @class */ (function (_super) {
         __extends(DThemeWhiteSliderThumb, _super);
         function DThemeWhiteSliderThumb() {
@@ -6140,7 +6175,7 @@
         };
         DThemeWhiteSliderValue.prototype.getBackgroundColor = function (state) {
             if (state.inDisabled) {
-                return 0xAAAAAA;
+                return 0xaaaaaa;
             }
             return DThemeWhiteConstants.HIGHLIGHT_COLOR;
         };
@@ -6259,8 +6294,7 @@
         DThemeWhiteTableBodyCells.getBackgroundColor = function (state) {
             if (state.inDisabled) {
                 if (state.is(DTableState.FROZEN)) {
-                    return state.onAlternated ?
-                        this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
+                    return state.onAlternated ? this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
                 }
                 else {
                     return null;
@@ -6275,13 +6309,12 @@
             else if (state.isFocused && (state.onHovered || state.isHovered)) {
                 return this.WEAK_STRONG_HIGHLIGHT_COLOR;
             }
-            else if (state.isFocused || (state.onHovered || state.isHovered)) {
+            else if (state.isFocused || state.onHovered || state.isHovered) {
                 return DThemeWhiteConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD;
             }
             else {
                 if (state.is(DTableState.FROZEN)) {
-                    return state.onAlternated ?
-                        this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
+                    return state.onAlternated ? this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
                 }
                 else {
                     return null;
@@ -6350,11 +6383,13 @@
         DThemeWhiteTableBodyCellActions.init = function () {
             // Material Design icons by Google.
             // Apache license version 2.0.
+            /* eslint-disable prettier/prettier */
             DThemeWhiteAtlas.add("action_mark", 21, 21, "<g transform=\"scale(0.875,0.875)\">" +
                 "<path d=\"M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83" +
                 " 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm" +
                 "-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z\" fill=\"#fff\"/>" +
                 "</g>");
+            /* eslint-enable prettier/prettier */
         };
         DThemeWhiteTableBodyCellActions.getImageSource = function (state) {
             return DThemeWhiteAtlas.mappings.action_mark;
@@ -7424,8 +7459,7 @@
         }
         DThemeWhiteTableBodyRow.prototype.getBackgroundColor = function (state) {
             if (state.inDisabled) {
-                return state.isAlternated ?
-                    this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
+                return state.isAlternated ? this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
             }
             else if (state.isActive) {
                 return DThemeWhiteConstants.HIGHLIGHT_BLENDED_ON_BOARD;
@@ -7434,8 +7468,7 @@
                 return DThemeWhiteConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD;
             }
             else {
-                return state.isAlternated ?
-                    this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
+                return state.isAlternated ? this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
             }
         };
         DThemeWhiteTableBodyRow.prototype.getWidth = function () {
@@ -7500,12 +7533,14 @@
      */
     // Material Design icons by Google.
     // Apache license version 2.0.
+    /* eslint-disable prettier/prettier */
     DThemeWhiteAtlas.add("sorted_descending", 16, 16, "<g transform=\"scale(0.875,0.875)\">" +
         "<path d=\"M3 12l5-5 5 5H3z\" fill=\"#fff\"/>" +
         "</g>");
     DThemeWhiteAtlas.add("sorted_ascending", 16, 16, "<g transform=\"scale(0.875,0.875)\">" +
         "<path d=\"M3 8l5 5 5-5H3z\" fill=\"#fff\"/>" +
         "</g>");
+    /* eslint-enable prettier/prettier */
     var DThemeWhiteTableHeaderCell = /** @class */ (function (_super) {
         __extends(DThemeWhiteTableHeaderCell, _super);
         function DThemeWhiteTableHeaderCell() {
@@ -7518,8 +7553,7 @@
         }
         DThemeWhiteTableHeaderCell.prototype.getBackgroundColor = function (state) {
             if (state.inDisabled) {
-                return (state.is(DTableState.FROZEN)) ?
-                    this.BACKGROUND_COLOR : null;
+                return state.is(DTableState.FROZEN) ? this.BACKGROUND_COLOR : null;
             }
             else if (state.isPressed) {
                 return this.BACKGROUND_COLOR_PRESSED;
@@ -7528,8 +7562,7 @@
                 return this.BACKGROUND_COLOR_HOVERED;
             }
             else {
-                return (state.is(DTableState.FROZEN)) ?
-                    this.BACKGROUND_COLOR : null;
+                return state.is(DTableState.FROZEN) ? this.BACKGROUND_COLOR : null;
             }
         };
         DThemeWhiteTableHeaderCell.prototype.getBackgroundAlpha = function (state) {
@@ -7797,12 +7830,14 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    /* eslint-disable prettier/prettier */
     DThemeWhiteAtlas.add("menu_item_expandable_header_closed", 14, 14, "<g transform=\"scale(1, 0.7)\">" +
         "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"6 16 10 10 6 4\"></polyline>" +
         "</g>");
     DThemeWhiteAtlas.add("menu_item_expandable_header_opened", 14, 14, "<g transform=\"scale(0.7, 1)\">" +
         "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"16 6 10 10 4 6\"></polyline>" +
         "</g>");
+    /* eslint-enable prettier/prettier */
     var DThemeWhiteTreeItemToggleIcon = /** @class */ (function (_super) {
         __extends(DThemeWhiteTreeItemToggleIcon, _super);
         function DThemeWhiteTreeItemToggleIcon() {
@@ -8243,7 +8278,7 @@
     loadThemeWhiteAll();
     var global = window;
     global.wcardinal = global.wcardinal || {};
-    var dest = global.wcardinal.ui = global.wcardinal.ui || {};
+    var dest = (global.wcardinal.ui = global.wcardinal.ui || {});
     var src = white;
     for (var name_1 in src) {
         dest[name_1] = src[name_1];
