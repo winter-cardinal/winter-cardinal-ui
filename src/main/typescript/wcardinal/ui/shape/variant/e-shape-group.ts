@@ -34,11 +34,11 @@ export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent
 	protected _isEditMode: boolean;
 	protected _points?: EShapePoints;
 
-	constructor( isEditMode: boolean, type = EShapeType.GROUP ) {
-		super( type );
+	constructor(isEditMode: boolean, type = EShapeType.GROUP) {
+		super(type);
 		this._isEditMode = isEditMode;
 		this.tag = new EShapeTagImpl();
-		this.size = this.newGroupSize( isEditMode );
+		this.size = this.newGroupSize(isEditMode);
 		this.fill = this.newGroupFill();
 		this.stroke = this.newGroupStroke();
 		this.text = this.newGroupText();
@@ -49,13 +49,13 @@ export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent
 		return this._isEditMode;
 	}
 
-	protected newGroupSize( isEditMode: boolean ): EShapeGroupSize {
+	protected newGroupSize(isEditMode: boolean): EShapeGroupSize {
 		const sizeX = EShapeDefaults.SIZE_X;
 		const sizeY = EShapeDefaults.SIZE_Y;
-		if( isEditMode ) {
-			return new EShapeGroupSizeEditor( this, sizeX, sizeY, this.isGroupSizeFittable() );
+		if (isEditMode) {
+			return new EShapeGroupSizeEditor(this, sizeX, sizeY, this.isGroupSizeFittable());
 		} else {
-			return new EShapeGroupSizeViewer( this, sizeX, sizeY, sizeX, sizeY );
+			return new EShapeGroupSizeViewer(this, sizeX, sizeY, sizeX, sizeY);
 		}
 	}
 
@@ -64,24 +64,24 @@ export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent
 	}
 
 	protected newGroupFill(): EShapeFill {
-		return new EShapeGroupFillEditor( this );
+		return new EShapeGroupFillEditor(this);
 	}
 
 	protected newGroupStroke(): EShapeStroke {
-		return new EShapeGroupStrokeEditor( this );
+		return new EShapeGroupStrokeEditor(this);
 	}
 
 	protected newGroupText(): EShapeText {
-		return new EShapeGroupTextEditor( this );
+		return new EShapeGroupTextEditor(this);
 	}
 
 	protected newGroupPoints(): EShapePoints | undefined {
-		return new EShapeGroupPoints( this );
+		return new EShapeGroupPoints(this);
 	}
 
 	protected getBoundsSize(): IPoint {
 		const size = this.size;
-		if( size instanceof EShapeGroupSizeViewer ) {
+		if (size instanceof EShapeGroupSizeViewer) {
 			return size.base;
 		} else {
 			return size;
@@ -95,107 +95,107 @@ export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent
 
 	get corner(): EShapeCorner {
 		const children = this.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].corner;
+		if (0 < children.length) {
+			return children[children.length - 1].corner;
 		}
 		return EShapeCorner.ALL;
 	}
 
-	set corner( corner: EShapeCorner ) {
+	set corner(corner: EShapeCorner) {
 		const children = this.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].corner = corner;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].corner = corner;
 		}
 	}
 
 	get cursor(): string {
 		const children = this.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].cursor;
+		if (0 < children.length) {
+			return children[children.length - 1].cursor;
 		}
 		return "";
 	}
 
-	set cursor( cursor: string ) {
+	set cursor(cursor: string) {
 		const children = this.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].cursor = cursor;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].cursor = cursor;
 		}
 	}
 
 	get gradient(): EShapeGradientLike | undefined {
 		const children = this.children;
-		for( let i = children.length - 1; 0 <= i; --i ) {
-			const gradient = children[ i ].gradient;
-			if( gradient != null ) {
+		for (let i = children.length - 1; 0 <= i; --i) {
+			const gradient = children[i].gradient;
+			if (gradient != null) {
 				return gradient;
 			}
 		}
 		return undefined;
 	}
 
-	set gradient( gradient: EShapeGradientLike | undefined ) {
+	set gradient(gradient: EShapeGradientLike | undefined) {
 		const children = this.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].gradient = gradient;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].gradient = gradient;
 		}
 	}
 
 	get radius(): number {
 		const children = this.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].radius;
+		if (0 < children.length) {
+			return children[children.length - 1].radius;
 		}
 		return 0.5;
 	}
 
-	set radius( radius: number ) {
+	set radius(radius: number) {
 		const children = this.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].radius = radius;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].radius = radius;
 		}
 	}
 
 	get image(): HTMLImageElement | undefined {
 		const children = this.children;
-		for( let i = children.length - 1; 0 <= i; --i ) {
-			const image = children[ i ].image;
-			if( image != null ) {
+		for (let i = children.length - 1; 0 <= i; --i) {
+			const image = children[i].image;
+			if (image != null) {
 				return image;
 			}
 		}
 		return undefined;
 	}
 
-	set image( image: HTMLImageElement | undefined ) {
+	set image(image: HTMLImageElement | undefined) {
 		const children = this.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].image = image;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].image = image;
 		}
 	}
 
 	get points(): EShapePoints | undefined {
 		const children = this.children;
-		for( let i = children.length - 1; 0 <= i; --i ) {
-			const points = children[ i ].points;
-			if( points != null ) {
+		for (let i = children.length - 1; 0 <= i; --i) {
+			const points = children[i].points;
+			if (points != null) {
 				return this._points;
 			}
 		}
 		return undefined;
 	}
 
-	set points( points: EShapePoints | undefined ) {
+	set points(points: EShapePoints | undefined) {
 		// DO NOTHING
 	}
 
 	clone(): EShapeGroup {
-		const result = this.newClone().copy( this );
+		const result = this.newClone().copy(this);
 		const children = this.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			const clone = children[ i ].clone();
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			const clone = children[i].clone();
 			clone.parent = result;
-			result.children.push( clone );
+			result.children.push(clone);
 		}
 		result.onChildTransformChange();
 		result.toDirty();
@@ -204,10 +204,10 @@ export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent
 
 	protected newClone(): EShapeGroup {
 		const constructor = this.constructor as typeof EShapeGroup;
-		return new constructor( this._isEditMode, this.type );
+		return new constructor(this._isEditMode, this.type);
 	}
 
-	containsAbs( x: number, y: number, ax: number, ay: number ): boolean {
+	containsAbs(x: number, y: number, ax: number, ay: number): boolean {
 		return false;
 	}
 }

@@ -4,12 +4,17 @@
  */
 
 import { DButton } from "./d-button";
-import { DLayoutHorizontal, DLayoutHorizontalOptions, DThemeLayoutHorizontal } from "./d-layout-horizontal";
+import {
+	DLayoutHorizontal,
+	DLayoutHorizontalOptions,
+	DThemeLayoutHorizontal
+} from "./d-layout-horizontal";
 import { DPaginationDynamicButtons } from "./d-pagination-dynamic-buttons";
 import { DPaginationNavigationButton } from "./d-pagination-navigation-button";
 import { DThemes } from "./theme/d-themes";
 
-export interface DPaginationOptions<THEME extends DThemePagination> extends DLayoutHorizontalOptions<THEME> {
+export interface DPaginationOptions<THEME extends DThemePagination>
+	extends DLayoutHorizontalOptions<THEME> {
 	total: number;
 	selected?: number;
 	button?: {
@@ -48,28 +53,28 @@ export class DPagination<
 	protected _goFirstBtn!: DPaginationNavigationButton;
 	protected _goLastBtn!: DPaginationNavigationButton;
 
-	protected init( options: OPTIONS ): void {
-		super.init( options );
+	protected init(options: OPTIONS): void {
+		super.init(options);
 		this.DEFAULT_SELECTED = 0; // set default selected index page is page 0
 		// get total pages
 		this._total = options.total;
 		// get selected page
-		this._selected = options.selected ? options.selected : this.DEFAULT_SELECTED;
+		this._selected = options.selected ?? this.DEFAULT_SELECTED;
 		// get button options
+		const button = options.button;
 		this._buttonOptions = {
-			first: !! ( options.button && options.button.first ),
-			last: !! ( options.button && options.button.last ),
-			width: options.button && options.button.width
+			first: !!button?.first,
+			last: !!button?.last,
+			width: button?.width
 		};
 
-		this.initButtons( this.getButtonWidth() );
+		this.initButtons(this.getButtonWidth());
 		this.listenButtonClicked();
 
-		this.on( "resize",  (): void => {
+		this.on("resize", (): void => {
 			this._numberPageButtonVisible = this.toNumberVisible();
 			this.update();
 		});
-
 	}
 
 	/**
@@ -77,13 +82,12 @@ export class DPagination<
 	 *
 	 * @param selected page's index want to select.
 	 */
-	set selected( selected: number ) {
-		if( selected < 0 || selected >= this._total || !Number.isInteger( selected ) ) {
+	set selected(selected: number) {
+		if (selected < 0 || selected >= this._total || !Number.isInteger(selected)) {
 			selected = this.DEFAULT_SELECTED;
 		}
 		this._selected = selected;
 		this.update();
-
 	}
 
 	/**
@@ -100,8 +104,8 @@ export class DPagination<
 	 *
 	 * @param total number of page want to present in pagination.
 	 */
-	set total( total: number ) {
-		if( total >= 0 && Number.isInteger( total ) ) {
+	set total(total: number) {
+		if (total >= 0 && Number.isInteger(total)) {
 			this._total = total;
 			this._numberPageButtonVisible = this.toNumberVisible();
 			this.selected = this._selected;
@@ -119,12 +123,12 @@ export class DPagination<
 		return this._total;
 	}
 
-	protected initButtons( width: number ): void {
+	protected initButtons(width: number): void {
 		this._previousBtn = new DPaginationNavigationButton({
 			width,
 			image: {
-				source: DThemes.getInstance().getAtlas().mappings.pagination_navigation_button_previous
-
+				source: DThemes.getInstance().getAtlas().mappings
+					.pagination_navigation_button_previous
 			}
 		});
 
@@ -132,15 +136,14 @@ export class DPagination<
 			width,
 			image: {
 				source: DThemes.getInstance().getAtlas().mappings.pagination_navigation_button_next
-
 			}
 		});
 
 		this._goFirstBtn = new DPaginationNavigationButton({
 			width,
 			image: {
-				source: DThemes.getInstance().getAtlas().mappings.pagination_navigation_button_go_first
-
+				source: DThemes.getInstance().getAtlas().mappings
+					.pagination_navigation_button_go_first
 			},
 			visible: this._buttonOptions.first
 		});
@@ -148,8 +151,8 @@ export class DPagination<
 		this._goLastBtn = new DPaginationNavigationButton({
 			width,
 			image: {
-				source: DThemes.getInstance().getAtlas().mappings.pagination_navigation_button_go_last
-
+				source: DThemes.getInstance().getAtlas().mappings
+					.pagination_navigation_button_go_last
 			},
 			visible: this._buttonOptions.last
 		});
@@ -174,38 +177,38 @@ export class DPagination<
 			}
 		});
 
-		this.addChild( this._goFirstBtn );
-		this.addChild( this._previousBtn );
-		this.addChild( this._firstPageBtn );
-		this.addChild( this._dynamicPageBtns );
-		this.addChild( this._lastPageBtn );
-		this.addChild( this._nextBtn );
-		this.addChild( this._goLastBtn );
+		this.addChild(this._goFirstBtn);
+		this.addChild(this._previousBtn);
+		this.addChild(this._firstPageBtn);
+		this.addChild(this._dynamicPageBtns);
+		this.addChild(this._lastPageBtn);
+		this.addChild(this._nextBtn);
+		this.addChild(this._goLastBtn);
 	}
 
 	protected listenButtonClicked(): void {
-		this._firstPageBtn.on( "active", ( btn: DButton ) => {
-			this.onClickPageButton( btn );
+		this._firstPageBtn.on("active", (btn: DButton) => {
+			this.onClickPageButton(btn);
 		});
-		this._lastPageBtn.on( "active", ( btn: DButton ) => {
-			this.onClickPageButton( btn );
+		this._lastPageBtn.on("active", (btn: DButton) => {
+			this.onClickPageButton(btn);
 		});
-		this._dynamicPageBtns.on( "active", ( btn: DButton ) => {
-			this.onClickPageButton( btn );
+		this._dynamicPageBtns.on("active", (btn: DButton) => {
+			this.onClickPageButton(btn);
 		});
-		this._goFirstBtn.on( "active", (btn: DButton) => {
+		this._goFirstBtn.on("active", (btn: DButton) => {
 			this.selected = this.DEFAULT_SELECTED;
 		});
-		this._goLastBtn.on( "active", (btn: DButton) => {
+		this._goLastBtn.on("active", (btn: DButton) => {
 			this.selected = this._total - 1;
 		});
-		this._nextBtn.on( "active", (btn: DButton) => {
-			if( this.selected !== this._total + 1 ) {
+		this._nextBtn.on("active", (btn: DButton) => {
+			if (this.selected !== this._total + 1) {
 				this.selected = this._selected + 1;
 			}
 		});
-		this._previousBtn.on( "active", (btn: DButton) => {
-			if( this._selected !== 0 ) {
+		this._previousBtn.on("active", (btn: DButton) => {
+			if (this._selected !== 0) {
 				this.selected = this._selected - 1;
 			}
 		});
@@ -222,29 +225,29 @@ export class DPagination<
 		this.updateStaticButtons();
 		// Number displayed buttons from first button to selected button when select center button of all buttons.
 		// Not including selected button.
-		const numberButtonsFirstToCenter = Math.ceil( ( this._numberPageButtonVisible  - 1 ) * 0.5 );
-		const numberButtonsCenterToEnd = Math.floor( ( this._numberPageButtonVisible  - 1 ) * 0.5 );
+		const numberButtonsFirstToCenter = Math.ceil((this._numberPageButtonVisible - 1) * 0.5);
+		const numberButtonsCenterToEnd = Math.floor((this._numberPageButtonVisible - 1) * 0.5);
 
-		if( this._selected < numberButtonsFirstToCenter ) {
-			numberButtonsInLeft =  this._selected;
+		if (this._selected < numberButtonsFirstToCenter) {
+			numberButtonsInLeft = this._selected;
 			numberButtonsInRight = this._numberPageButtonVisible - numberButtonsInLeft - 1;
-		} else if ( this._selected + numberButtonsCenterToEnd > this._total - 1 ) {
-			numberButtonsInRight = ( this._total - 1 ) - this.selected;
+		} else if (this._selected + numberButtonsCenterToEnd > this._total - 1) {
+			numberButtonsInRight = this._total - 1 - this.selected;
 			numberButtonsInLeft = this._numberPageButtonVisible - numberButtonsInRight - 1;
 		} else {
 			numberButtonsInLeft = numberButtonsFirstToCenter;
 			numberButtonsInRight = numberButtonsCenterToEnd;
 		}
 
-		if( this._selected <= numberButtonsInLeft ) {
-			startDynamic  = 1;
+		if (this._selected <= numberButtonsInLeft) {
+			startDynamic = 1;
 			dotsLeft = false;
 		} else {
 			startDynamic = this._selected - numberButtonsInLeft + 2;
 			dotsLeft = true;
 		}
 
-		if( this._selected + numberButtonsInRight >= this._total - 1 ) {
+		if (this._selected + numberButtonsInRight >= this._total - 1) {
 			endDynamic = this._total - 2;
 			dotsRight = false;
 		} else {
@@ -265,12 +268,12 @@ export class DPagination<
 	}
 
 	protected updateStaticButtons(): void {
-		if( this._total > 0 ) {
+		if (this._total > 0) {
 			this._firstPageBtn.show();
 		} else {
 			this._firstPageBtn.hide();
 		}
-		if( this._total > 1 ) {
+		if (this._total > 1) {
 			this._lastPageBtn.show();
 		} else {
 			this._lastPageBtn.hide();
@@ -291,24 +294,27 @@ export class DPagination<
 
 	protected toNumberVisible(): number {
 		let numberNavigationBtn = 2; // 2 buttons always displayed are "next" and "previous" button
-		if( this._buttonOptions.first ) {
+		if (this._buttonOptions.first) {
 			numberNavigationBtn++;
 		}
-		if( this._buttonOptions.last ) {
+		if (this._buttonOptions.last) {
 			numberNavigationBtn++;
 		}
-		const widthOfNavigationBtns = numberNavigationBtn * ( this.getButtonWidth() + this._margin.horizontal * 2 );
-		const widthOfPageBtns = this.width -  widthOfNavigationBtns;
-		const numberVisible = Math.floor( widthOfPageBtns / ( this.getButtonWidth() + this._margin.horizontal * 2 ) );
+		const widthOfNavigationBtns =
+			numberNavigationBtn * (this.getButtonWidth() + this._margin.horizontal * 2);
+		const widthOfPageBtns = this.width - widthOfNavigationBtns;
+		const numberVisible = Math.floor(
+			widthOfPageBtns / (this.getButtonWidth() + this._margin.horizontal * 2)
+		);
 		/* set numberVisible is 5, if it less than 5
 			 If total pages less than numberVisible, set numberVisible equal total pages
 		**/
-		return Math.min( this._total, Math.max( numberVisible, 5 ) );
+		return Math.min(this._total, Math.max(numberVisible, 5));
 	}
 
-	protected onClickPageButton( btn: DButton ): void {
-		const btnIndex = Number( btn.text ) - 1;
-		if( this._selected !== btnIndex ) {
+	protected onClickPageButton(btn: DButton): void {
+		const btnIndex = Number(btn.text) - 1;
+		if (this._selected !== btnIndex) {
 			this._selected = btnIndex;
 			this.update();
 		}

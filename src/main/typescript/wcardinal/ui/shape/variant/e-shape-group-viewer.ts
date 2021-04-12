@@ -26,11 +26,11 @@ export abstract class EShapeGroupViewer extends EShapeBase {
 
 	protected _isEditMode: boolean;
 
-	constructor( isEditMode: boolean, type: EShapeType ) {
-		super( type );
+	constructor(isEditMode: boolean, type: EShapeType) {
+		super(type);
 		this._isEditMode = isEditMode;
 		this.tag = this.newTag();
-		this.size = this.newGroupSize( isEditMode );
+		this.size = this.newGroupSize(isEditMode);
 		this.fill = this.newGroupFill();
 		this.stroke = this.newGroupStroke();
 		this.text = this.newGroupText();
@@ -40,13 +40,13 @@ export abstract class EShapeGroupViewer extends EShapeBase {
 		return this._isEditMode;
 	}
 
-	protected newGroupSize( isEditMode: boolean ): EShapeGroupSize {
+	protected newGroupSize(isEditMode: boolean): EShapeGroupSize {
 		const sizeX = EShapeDefaults.SIZE_X;
 		const sizeY = EShapeDefaults.SIZE_Y;
-		if( isEditMode ) {
-			return new EShapeGroupSizeEditor( this, sizeX, sizeY, this.isGroupSizeFittable() );
+		if (isEditMode) {
+			return new EShapeGroupSizeEditor(this, sizeX, sizeY, this.isGroupSizeFittable());
 		} else {
-			return new EShapeGroupSizeViewer( this, sizeX, sizeY, sizeX, sizeY );
+			return new EShapeGroupSizeViewer(this, sizeX, sizeY, sizeX, sizeY);
 		}
 	}
 
@@ -72,7 +72,7 @@ export abstract class EShapeGroupViewer extends EShapeBase {
 
 	protected getBoundsSize(): IPoint {
 		const size = this.size;
-		if( size instanceof EShapeGroupSizeViewer ) {
+		if (size instanceof EShapeGroupSizeViewer) {
 			return size.base;
 		} else {
 			return size;
@@ -88,7 +88,7 @@ export abstract class EShapeGroupViewer extends EShapeBase {
 		return EShapeCorner.NONE;
 	}
 
-	set corner( corner: EShapeCorner ) {
+	set corner(corner: EShapeCorner) {
 		// DO NOTHING
 	}
 
@@ -96,7 +96,7 @@ export abstract class EShapeGroupViewer extends EShapeBase {
 		return "";
 	}
 
-	set cursor( cursor: string ) {
+	set cursor(cursor: string) {
 		// DO NOTHING
 	}
 
@@ -104,7 +104,7 @@ export abstract class EShapeGroupViewer extends EShapeBase {
 		return undefined;
 	}
 
-	set gradient( gradient: EShapeGradientLike | undefined ) {
+	set gradient(gradient: EShapeGradientLike | undefined) {
 		// DO NOTHING
 	}
 
@@ -112,7 +112,7 @@ export abstract class EShapeGroupViewer extends EShapeBase {
 		return 0;
 	}
 
-	set radius( radius: number ) {
+	set radius(radius: number) {
 		// DO NOTHING
 	}
 
@@ -120,7 +120,7 @@ export abstract class EShapeGroupViewer extends EShapeBase {
 		return undefined;
 	}
 
-	set image( image: HTMLImageElement | undefined ) {
+	set image(image: HTMLImageElement | undefined) {
 		// DO NOTHING
 	}
 
@@ -128,13 +128,13 @@ export abstract class EShapeGroupViewer extends EShapeBase {
 		return undefined;
 	}
 
-	set points( points: EShapePoints | undefined ) {
+	set points(points: EShapePoints | undefined) {
 		// DO NOTHING
 	}
 
 	abstract clone(): EShapeGroupViewer;
 
-	containsAbs( x: number, y: number, ax: number, ay: number ): boolean {
+	containsAbs(x: number, y: number, ax: number, ay: number): boolean {
 		return false;
 	}
 }

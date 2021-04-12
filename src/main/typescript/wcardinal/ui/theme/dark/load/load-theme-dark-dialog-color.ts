@@ -8,6 +8,6 @@ import { DThemeDarkDialogColor } from "../d-theme-dark-dialog-color";
 import { loadThemeDarkPickerColor } from "./load-theme-dark-picker-color";
 
 export const loadThemeDarkDialogColor = (): void => {
-	DThemeDark.set( "DDialogColor", DThemeDarkDialogColor );
+	DThemeDark.set("DDialogColor", DThemeDarkDialogColor);
 	loadThemeDarkPickerColor();
 };

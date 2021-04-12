@@ -7,5 +7,5 @@ import { DThemeDark } from "../d-theme-dark";
 import { DThemeDarkInputAndLabel } from "../d-theme-dark-input-and-label";
 
 export const loadThemeDarkInputAndLabel = (): void => {
-	DThemeDark.set( "DInputAndLabel", DThemeDarkInputAndLabel );
+	DThemeDark.set("DInputAndLabel", DThemeDarkInputAndLabel);
 };

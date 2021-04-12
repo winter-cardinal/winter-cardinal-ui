@@ -19,9 +19,7 @@ import { UtilPointerEvent } from "./util/util-pointer-event";
 
 export interface DPickerColorGradientOptions<
 	THEME extends DThemePickerColorGradient = DThemePickerColorGradient
-> extends DBaseOptions<THEME> {
-
-}
+> extends DBaseOptions<THEME> {}
 
 export interface DThemePickerColorGradient extends DThemeBase {
 	getGradientPointsWidth(): number;
@@ -40,7 +38,7 @@ export interface DThemePickerColorGradient extends DThemeBase {
 	getGradientRecentCount(): number;
 	getGradientRecents(): DColorGradient[];
 
-	getGradientCheckerColors(): [ number, number ];
+	getGradientCheckerColors(): [number, number];
 }
 
 export class DPickerColorGradient<
@@ -54,15 +52,15 @@ export class DPickerColorGradient<
 	protected _anchors!: Sprite[];
 	protected _recent!: DPickerColorGradientRecent;
 
-	protected _onAnchorDownBound!: ( e: InteractionEvent ) => void;
-	protected _onAnchorMoveBound!: ( e: InteractionEvent ) => void;
-	protected _onAnchorUpBound!: ( e: InteractionEvent ) => void;
+	protected _onAnchorDownBound!: (e: InteractionEvent) => void;
+	protected _onAnchorMoveBound!: (e: InteractionEvent) => void;
+	protected _onAnchorUpBound!: (e: InteractionEvent) => void;
 
 	protected _value!: DColorGradientObservable;
 	protected _work!: Point;
 
-	protected init( options?: OPTIONS ): void {
-		super.init( options );
+	protected init(options?: OPTIONS): void {
+		super.init(options);
 
 		this.state.isFocusable = false;
 
@@ -77,37 +75,42 @@ export class DPickerColorGradient<
 		// Picker
 		const gradientPointsWidth = theme.getGradientPointsWidth();
 		const gradientPointsMargin = theme.getGradientPointsMargin();
-		const picker = this._picker = new DPickerColor({
+		const picker = new DPickerColor({
 			x: paddingLeft + gradientPointsWidth + gradientPointsMargin,
 			y: paddingTop
 		});
-		picker.on( "newcolorchange", ( color: number ): void => {
-			this.onAnchorColorChange( color );
+		this._picker = picker;
+		picker.on("newcolorchange", (color: number): void => {
+			this.onAnchorColorChange(color);
 		});
-		picker.on( "newalphachange", ( alpha: number ): void => {
-			this.onAnchorAlphaChange( alpha );
+		picker.on("newalphachange", (alpha: number): void => {
+			this.onAnchorAlphaChange(alpha);
 		});
-		this.addChild( picker );
+		this.addChild(picker);
 
 		// Points view
-		const view = this._view = DPickerColorGradientView.from( 17, 10, theme.getGradientCheckerColors() );
-		view.setRectangle( 0, paddingLeft, paddingTop, gradientPointsWidth, picker.height );
-		this.addChild( view );
-		view.on( UtilPointerEvent.down, ( e: InteractionEvent ): void => {
-			if( view.getLastHitIndex() === 0 ) {
-				this.onViewDown( e );
+		const view = (this._view = DPickerColorGradientView.from(
+			17,
+			10,
+			theme.getGradientCheckerColors()
+		));
+		view.setRectangle(0, paddingLeft, paddingTop, gradientPointsWidth, picker.height);
+		this.addChild(view);
+		view.on(UtilPointerEvent.down, (e: InteractionEvent): void => {
+			if (view.getLastHitIndex() === 0) {
+				this.onViewDown(e);
 			}
 		});
 
 		// Anchor
-		this._onAnchorDownBound = ( e: InteractionEvent ): void => {
-			this.onAnchorDown( e );
+		this._onAnchorDownBound = (e: InteractionEvent): void => {
+			this.onAnchorDown(e);
 		};
-		this._onAnchorMoveBound = ( e: InteractionEvent ): void => {
-			this.onAnchorMove( e );
+		this._onAnchorMoveBound = (e: InteractionEvent): void => {
+			this.onAnchorMove(e);
 		};
-		this._onAnchorUpBound = ( e: InteractionEvent ): void => {
-			this.onAnchorUp( e );
+		this._onAnchorUpBound = (e: InteractionEvent): void => {
+			this.onAnchorUp(e);
 		};
 		this._anchors = [];
 
@@ -134,7 +137,7 @@ export class DPickerColorGradient<
 				}
 			},
 			on: {
-				change: ( value: number ) => {
+				change: (value: number) => {
 					(this._value as any)._direction = value;
 				}
 			}
@@ -147,7 +150,7 @@ export class DPickerColorGradient<
 		const recentWidthAndMargin = recentWidth + recentMargin;
 		const x0 = inputLeft;
 		const y0 = inputDirection.y + inputDirection.height + inputDirectionMargin;
-		if( DPickerColorGradient.RECENT_COLOR_GRADIENT == null ) {
+		if (DPickerColorGradient.RECENT_COLOR_GRADIENT == null) {
 			DPickerColorGradient.RECENT_COLOR_GRADIENT = new DPickerColorGradientRecent(
 				theme.getGradientRecents(),
 				theme.getGradientRecentCount()
@@ -155,53 +158,60 @@ export class DPickerColorGradient<
 		}
 		this._recent = DPickerColorGradient.RECENT_COLOR_GRADIENT;
 		const recent = this._recent;
-		for( let i = 0, imax = recent.getCapacity(); i < imax; ++i ) {
+		for (let i = 0, imax = recent.getCapacity(); i < imax; ++i) {
 			const ix = i % recentColumn;
 			const x = x0 + ix * recentWidthAndMargin;
 			const iy = (i / recentColumn) | 0;
 			const y = y0 + iy * recentWidthAndMargin;
-			view.setRectangle( 1 + i, x, y, recentWidth, recentWidth );
+			view.setRectangle(1 + i, x, y, recentWidth, recentWidth);
 		}
-		recent.on( "change", (): void => {
+		recent.on("change", (): void => {
 			this.onRecentUpdate();
 		});
-		UtilPointerEvent.onClick( view, ( e: InteractionEvent ): void => {
+		UtilPointerEvent.onClick(view, (e: InteractionEvent): void => {
 			const lastHitIndex = view.getLastHitIndex();
-			if( 1 <= lastHitIndex ) {
-				this.onRecentClick( view.getData( lastHitIndex ) );
+			if (1 <= lastHitIndex) {
+				this.onRecentClick(view.getData(lastHitIndex));
 			}
 		});
 
 		// Points
-		const data = this._value = new DColorGradientObservable();
-		data.on( "change", (): void => {
+		const data = new DColorGradientObservable();
+		this._value = data;
+		data.on("change", (): void => {
 			this.updateAnchors();
 			view.update();
 		});
-		data.on( "selectionchange", ( point: DColorGradientPoint ): void => {
-			this.onAnchorSelect( point );
+		data.on("selectionchange", (point: DColorGradientPoint): void => {
+			this.onAnchorSelect(point);
 		});
-		data.on( "directionchange", ( value: number ): void => {
+		data.on("directionchange", (value: number): void => {
 			inputDirection.value = value;
 		});
-		view.setData( 0, data );
+		view.setData(0, data);
 		view.update();
 		inputDirection.value = data.direction;
 		this.updateAnchors();
 		const selected = data.selected;
-		if( selected != null ) {
-			this.onAnchorSelect( selected );
+		if (selected != null) {
+			this.onAnchorSelect(selected);
 		}
 
 		// Width
-		if( options == null || options.width == null ) {
-			this.width = paddingLeft + gradientPointsWidth + gradientPointsMargin +
-				picker.width + inputDirectionMargin + (recentColumn - 1) * recentMargin +
-				recentColumn * recentWidth + paddingRight;
+		if (options == null || options.width == null) {
+			this.width =
+				paddingLeft +
+				gradientPointsWidth +
+				gradientPointsMargin +
+				picker.width +
+				inputDirectionMargin +
+				(recentColumn - 1) * recentMargin +
+				recentColumn * recentWidth +
+				paddingRight;
 		}
 
 		// Height
-		if( options == null || options.height == null ) {
+		if (options == null || options.height == null) {
 			this.height = paddingTop + picker.height + paddingBottom;
 		}
 	}
@@ -214,10 +224,10 @@ export class DPickerColorGradient<
 		return this._recent;
 	}
 
-	protected onRecentClick( recentData: DColorGradient | null ): void {
+	protected onRecentClick(recentData: DColorGradient | null): void {
 		const value = this._value;
-		if( recentData != null ) {
-			value.fromObject( recentData );
+		if (recentData != null) {
+			value.fromObject(recentData);
 		} else {
 			value.reset();
 		}
@@ -226,36 +236,36 @@ export class DPickerColorGradient<
 	protected onRecentUpdate(): void {
 		const recent = this._recent;
 		const view = this._view;
-		for( let i = 0, imax = recent.size(); i < imax; ++i ) {
-			view.setData( 1 + i, recent.get( i ) );
+		for (let i = 0, imax = recent.size(); i < imax; ++i) {
+			view.setData(1 + i, recent.get(i));
 		}
 		view.update();
-		DApplications.update( this );
+		DApplications.update(this);
 	}
 
-	protected toAnchorPosition( e: InteractionEvent ): number {
-		const local = this.toLocal( e.data.global, undefined, this._work );
-		return Math.max( 0, Math.min( 1, (local.y - this.padding.getTop()) / this._picker.height ) );
+	protected toAnchorPosition(e: InteractionEvent): number {
+		const local = this.toLocal(e.data.global, undefined, this._work);
+		return Math.max(0, Math.min(1, (local.y - this.padding.getTop()) / this._picker.height));
 	}
 
-	protected onViewDown( e: InteractionEvent ): void {
-		this._value.addAt( this.toAnchorPosition( e ) );
+	protected onViewDown(e: InteractionEvent): void {
+		this._value.addAt(this.toAnchorPosition(e));
 		this.onAnchorDragStart();
 	}
 
-	protected onAnchorDown( e: InteractionEvent ): void {
+	protected onAnchorDown(e: InteractionEvent): void {
 		const target = e.target;
-		if( target instanceof Sprite ) {
+		if (target instanceof Sprite) {
 			const value = this._value;
-			const index = this._anchors.indexOf( target );
-			if( 0 <= index && index < value.points.length ) {
-				value.points[ index ].selected = true;
+			const index = this._anchors.indexOf(target);
+			if (0 <= index && index < value.points.length) {
+				value.points[index].selected = true;
 				this.onAnchorDragStart();
 			}
 		}
 	}
 
-	protected onAnchorSelect( point: DColorGradientPoint ): void {
+	protected onAnchorSelect(point: DColorGradientPoint): void {
 		const picker = this._picker;
 		picker.current.color = point.color;
 		picker.current.alpha = point.alpha;
@@ -263,51 +273,51 @@ export class DPickerColorGradient<
 		picker.new.alpha = point.alpha;
 	}
 
-	protected onAnchorColorChange( color: number ): void {
+	protected onAnchorColorChange(color: number): void {
 		const value = this._value;
-		if( value != null ) {
+		if (value != null) {
 			const selected = value.selected;
-			if( selected != null ) {
+			if (selected != null) {
 				selected.color = color;
 			}
 		}
 	}
 
-	protected onAnchorAlphaChange( alpha: number ): void {
+	protected onAnchorAlphaChange(alpha: number): void {
 		const value = this._value;
-		if( value != null ) {
+		if (value != null) {
 			const selected = value.selected;
-			if( selected != null ) {
+			if (selected != null) {
 				selected.alpha = alpha;
 			}
 		}
 	}
 
 	protected onAnchorDragStart(): void {
-		const layer = DApplications.getLayer( this );
-		if( layer ) {
+		const layer = DApplications.getLayer(this);
+		if (layer) {
 			const stage = layer.stage;
-			stage.on( UtilPointerEvent.move, this._onAnchorMoveBound );
-			stage.on( UtilPointerEvent.up, this._onAnchorUpBound );
+			stage.on(UtilPointerEvent.move, this._onAnchorMoveBound);
+			stage.on(UtilPointerEvent.up, this._onAnchorUpBound);
 		}
 	}
 
-	protected onAnchorMove( e: InteractionEvent ): void {
+	protected onAnchorMove(e: InteractionEvent): void {
 		const value = this._value;
-		if( value != null ) {
+		if (value != null) {
 			const selected = value.selected;
-			if( selected != null ) {
-				selected.position = this.toAnchorPosition( e );
+			if (selected != null) {
+				selected.position = this.toAnchorPosition(e);
 			}
 		}
 	}
 
-	protected onAnchorUp( e: InteractionEvent ): void {
-		const layer = DApplications.getLayer( this );
-		if( layer ) {
+	protected onAnchorUp(e: InteractionEvent): void {
+		const layer = DApplications.getLayer(this);
+		if (layer) {
 			const stage = layer.stage;
-			stage.off( UtilPointerEvent.move, this._onAnchorMoveBound );
-			stage.off( UtilPointerEvent.up, this._onAnchorUpBound );
+			stage.off(UtilPointerEvent.move, this._onAnchorMoveBound);
+			stage.off(UtilPointerEvent.up, this._onAnchorUpBound);
 		}
 	}
 
@@ -322,19 +332,19 @@ export class DPickerColorGradient<
 
 		const anchors = this._anchors;
 		const anchorSize = anchors.length;
-		for( let i = anchorSize; i < pointSize; ++i ) {
-			const newAnchor = new Sprite( anchorTexture );
-			newAnchor.anchor.set( 0.5, 0.5 );
+		for (let i = anchorSize; i < pointSize; ++i) {
+			const newAnchor = new Sprite(anchorTexture);
+			newAnchor.anchor.set(0.5, 0.5);
 			newAnchor.cursor = "pointer";
 			newAnchor.interactive = true;
-			newAnchor.on( UtilPointerEvent.down, this._onAnchorDownBound );
-			anchors.push( newAnchor );
-			this.addChild( newAnchor );
+			newAnchor.on(UtilPointerEvent.down, this._onAnchorDownBound);
+			anchors.push(newAnchor);
+			this.addChild(newAnchor);
 		}
 
-		for( let i = anchorSize - 1; pointSize <= i; --i ) {
-			const oldAnchor = anchors[ i ];
-			oldAnchor.off( UtilPointerEvent.down, this._onAnchorDownBound );
+		for (let i = anchorSize - 1; pointSize <= i; --i) {
+			const oldAnchor = anchors[i];
+			oldAnchor.off(UtilPointerEvent.down, this._onAnchorDownBound);
 			oldAnchor.destroy();
 		}
 		anchors.length = pointSize;
@@ -342,33 +352,30 @@ export class DPickerColorGradient<
 		const y = this.padding.getTop();
 		const right = this.padding.getLeft() + gradientPointsWidth;
 		const height = this._picker.height;
-		for( let i = 0; i < pointSize; ++i ) {
-			const point = value.points[ i ];
-			const anchor = anchors[ i ];
+		for (let i = 0; i < pointSize; ++i) {
+			const point = value.points[i];
+			const anchor = anchors[i];
 			anchor.tint = point.color;
-			anchor.position.set(
-				right,
-				y + height * point.position
-			);
-			anchor.texture = (point.selected ? anchorOutlinedTexture : anchorTexture);
+			anchor.position.set(right, y + height * point.position);
+			anchor.texture = point.selected ? anchorOutlinedTexture : anchorTexture;
 		}
 
-		DApplications.update( this );
+		DApplications.update(this);
 	}
 
-	onKeyDown( e: KeyboardEvent ): boolean {
-		if( UtilKeyboardEvent.isDeleteKey( e ) ) {
+	onKeyDown(e: KeyboardEvent): boolean {
+		if (UtilKeyboardEvent.isDeleteKey(e)) {
 			const value = this._value;
-			if( value != null ) {
+			if (value != null) {
 				const selected = value.selected;
-				if( selected != null ) {
-					value.remove( selected );
-					super.onKeyDown( e );
+				if (selected != null) {
+					value.remove(selected);
+					super.onKeyDown(e);
 					return true;
 				}
 			}
 		}
-		return super.onKeyDown( e );
+		return super.onKeyDown(e);
 	}
 
 	protected getType(): string {

@@ -21,7 +21,12 @@ import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 export type EShapeActionValueMiscSerialized = [
-	EShapeActionValueType.MISC, number, EShapeActionValueMiscType, number, EShapeActionValueOnInputAction, number
+	EShapeActionValueType.MISC,
+	number,
+	EShapeActionValueMiscType,
+	number,
+	EShapeActionValueOnInputAction,
+	number
 ];
 
 export class EShapeActionValueMisc extends EShapeActionValueSubtyped<EShapeActionValueMiscType> {
@@ -36,35 +41,35 @@ export class EShapeActionValueMisc extends EShapeActionValueSubtyped<EShapeActio
 		onInputAction: EShapeActionValueOnInputAction,
 		value: string
 	) {
-		super( EShapeActionValueType.MISC, condition, subtype );
+		super(EShapeActionValueType.MISC, condition, subtype);
 		this.target = target;
 		this.onInputAction = onInputAction;
 		this.value = value;
 	}
 
 	toRuntime(): EShapeActionRuntime {
-		switch( this.subtype ) {
-		case EShapeActionValueMiscType.INPUT_TEXT:
-			return new EShapeActionRuntimeMiscInputText( this );
-		case EShapeActionValueMiscType.INPUT_INTEGER:
-			return new EShapeActionRuntimeMiscInputInteger( this );
-		case EShapeActionValueMiscType.INPUT_REAL:
-			return new EShapeActionRuntimeMiscInputReal( this );
-		case EShapeActionValueMiscType.EMIT_EVENT:
-			return new EShapeActionRuntimeMiscEmitEvent( this );
-		case EShapeActionValueMiscType.WRITE_BOTH:
-			return new EShapeActionRuntimeMiscWriteBoth( this );
-		case EShapeActionValueMiscType.WRITE_LOCAL:
-			return new EShapeActionRuntimeMiscWriteLocal( this );
-		case EShapeActionValueMiscType.WRITE_REMOTE:
-			return new EShapeActionRuntimeMiscWriteRemote( this );
-		case EShapeActionValueMiscType.HTML_ELEMENT:
-		case EShapeActionValueMiscType.HTML_ELEMENT_WITHOUT_POINTER_EVENTS:
-			return new EShapeActionRuntimeMiscHtmlElement( this );
+		switch (this.subtype) {
+			case EShapeActionValueMiscType.INPUT_TEXT:
+				return new EShapeActionRuntimeMiscInputText(this);
+			case EShapeActionValueMiscType.INPUT_INTEGER:
+				return new EShapeActionRuntimeMiscInputInteger(this);
+			case EShapeActionValueMiscType.INPUT_REAL:
+				return new EShapeActionRuntimeMiscInputReal(this);
+			case EShapeActionValueMiscType.EMIT_EVENT:
+				return new EShapeActionRuntimeMiscEmitEvent(this);
+			case EShapeActionValueMiscType.WRITE_BOTH:
+				return new EShapeActionRuntimeMiscWriteBoth(this);
+			case EShapeActionValueMiscType.WRITE_LOCAL:
+				return new EShapeActionRuntimeMiscWriteLocal(this);
+			case EShapeActionValueMiscType.WRITE_REMOTE:
+				return new EShapeActionRuntimeMiscWriteRemote(this);
+			case EShapeActionValueMiscType.HTML_ELEMENT:
+			case EShapeActionValueMiscType.HTML_ELEMENT_WITHOUT_POINTER_EVENTS:
+				return new EShapeActionRuntimeMiscHtmlElement(this);
 		}
 	}
 
-	serialize( manager: EShapeResourceManagerSerialization ): number {
+	serialize(manager: EShapeResourceManagerSerialization): number {
 		const conditionId = manager.addResource(this.condition);
 		const targetId = manager.addResource(this.target);
 		const valueId = manager.addResource(this.value);
@@ -78,9 +83,9 @@ export class EShapeActionValueMisc extends EShapeActionValueSubtyped<EShapeActio
 		manager: EShapeResourceManagerDeserialization
 	): EShapeActionValueMisc {
 		const resources = manager.resources;
-		const condition = EShapeActionValues.toResource( 1, serialized, resources );
-		const target = EShapeActionValues.toResource( 3, serialized, resources );
-		const value = EShapeActionValues.toResource( 5, serialized, resources );
-		return new EShapeActionValueMisc( serialized[ 2 ], condition, target, serialized[ 4 ], value );
+		const condition = EShapeActionValues.toResource(1, serialized, resources);
+		const target = EShapeActionValues.toResource(3, serialized, resources);
+		const value = EShapeActionValues.toResource(5, serialized, resources);
+		return new EShapeActionValueMisc(serialized[2], condition, target, serialized[4], value);
 	}
 }

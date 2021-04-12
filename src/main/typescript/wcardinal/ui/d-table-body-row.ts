@@ -36,22 +36,22 @@ export interface DTableBodyRowSelectionOptions {
 	type?: DTableDataSelectionType;
 }
 
-export interface DTableBodyRowOptions<
-	ROW,
-	THEME extends DThemeTableBodyRow = DThemeTableBodyRow
-> extends DTableRowOptions<ROW, DTableColumn<ROW, unknown>, THEME> {
+export interface DTableBodyRowOptions<ROW, THEME extends DThemeTableBodyRow = DThemeTableBodyRow>
+	extends DTableRowOptions<ROW, DTableColumn<ROW, unknown>, THEME> {
 	height?: number;
 	cell?: DTableBodyCellOptionsUnion<ROW>;
 	selection?: DTableBodyRowSelectionOptions;
 }
 
-export interface DThemeTableBodyRow extends DThemeTableRow {
-
-}
+export interface DThemeTableBodyRow extends DThemeTableRow {}
 
 export type DTableBodyRowOnChange<ROW, VALUE, EMITTER = any> = (
-	newValue: VALUE, oldValue: VALUE,
-	row: ROW, rowIndex: number, columnIndex: number, emitter: EMITTER
+	newValue: VALUE,
+	oldValue: VALUE,
+	row: ROW,
+	rowIndex: number,
+	columnIndex: number,
+	emitter: EMITTER
 ) => void;
 
 export class DTableBodyRow<
@@ -63,16 +63,16 @@ export class DTableBodyRow<
 	protected _index: number;
 	protected _onCellChangeBound: DTableBodyCellOnChange<ROW, unknown>;
 
-	constructor( onChange: DTableBodyRowOnChange<ROW, unknown>, isEven: boolean, options: OPTIONS ) {
-		super( options );
+	constructor(onChange: DTableBodyRowOnChange<ROW, unknown>, isEven: boolean, options: OPTIONS) {
+		super(options);
 
 		this._index = -1;
-		this._onCellChangeBound = ( newValue, oldValue, row, rowIndex, columnIndex ): void => {
-			this.emit( "change", newValue, oldValue, row, rowIndex, columnIndex, this );
-			onChange( newValue, oldValue, row, rowIndex, columnIndex, this );
+		this._onCellChangeBound = (newValue, oldValue, row, rowIndex, columnIndex): void => {
+			this.emit("change", newValue, oldValue, row, rowIndex, columnIndex, this);
+			onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
 		};
 		this.state.isAlternated = isEven;
-		this.initCells( options, this._columns, this._frozen );
+		this.initCells(options, this._columns, this._frozen);
 	}
 
 	protected newCell(
@@ -82,12 +82,12 @@ export class DTableBodyRow<
 		options: OPTIONS
 	): DBase {
 		const onChange = this._onCellChangeBound;
-		const cellOptions = this.toCellOptions( columnIndex, column, options );
-		if( column.editing.enable !== false ) {
-			return this.newCellEditable( columnIndex, column, onChange, cellOptions );
+		const cellOptions = this.toCellOptions(columnIndex, column, options);
+		if (column.editing.enable !== false) {
+			return this.newCellEditable(columnIndex, column, onChange, cellOptions);
 		} else {
-			const cell = this.newCellUnediable( columnIndex, column, onChange, cellOptions );
-			if( column.type !== DTableColumnType.TREE ) {
+			const cell = this.newCellUnediable(columnIndex, column, onChange, cellOptions);
+			if (column.type !== DTableColumnType.TREE) {
 				cell.state.isReadOnly = true;
 			}
 			return cell;
@@ -100,38 +100,38 @@ export class DTableBodyRow<
 		onChange: DTableBodyCellOnChange<ROW, unknown>,
 		options: any
 	): DBase {
-		switch( column.type ) {
-		case DTableColumnType.INDEX:
-			return new DTableBodyCellIndex( columnIndex, column, onChange, options );
-		case DTableColumnType.TEXT:
-			return new DTableBodyCellInputText( columnIndex, column, onChange, options );
-		case DTableColumnType.TREE:
-			return new DTableBodyCellInputTree( columnIndex, column, onChange, options );
-		case DTableColumnType.INTEGER:
-			return new DTableBodyCellInputInteger( columnIndex, column, onChange, options );
-		case DTableColumnType.REAL:
-			return new DTableBodyCellInputReal( columnIndex, column, onChange, options );
-		case DTableColumnType.CHECK:
-		case DTableColumnType.CHECK_SINGLE:
-			return new DTableBodyCellCheck( columnIndex, column, onChange, options );
-		case DTableColumnType.COLOR:
-			return new DTableBodyCellColor( columnIndex, column, onChange, options );
-		case DTableColumnType.BUTTON:
-			return new DTableBodyCellButton( columnIndex, column, onChange, options );
-		case DTableColumnType.LINK:
-			return new DTableBodyCellLink( columnIndex, column, onChange, options );
-		case DTableColumnType.SELECT:
-			return this.newCellSelect( columnIndex, column, onChange, options );
-		case DTableColumnType.ACTION:
-			return this.newCellAction( columnIndex, column, onChange, options );
-		case DTableColumnType.DATE:
-			return new DTableBodyCellDate( columnIndex, column, onChange, options );
-		case DTableColumnType.DATETIME:
-			return new DTableBodyCellDatetime( columnIndex, column, onChange, options );
-		case DTableColumnType.TIME:
-			return new DTableBodyCellTime( columnIndex, column, onChange, options );
-		default:
-			return new DTableBodyCellText( columnIndex, column, onChange, options );
+		switch (column.type) {
+			case DTableColumnType.INDEX:
+				return new DTableBodyCellIndex(columnIndex, column, onChange, options);
+			case DTableColumnType.TEXT:
+				return new DTableBodyCellInputText(columnIndex, column, onChange, options);
+			case DTableColumnType.TREE:
+				return new DTableBodyCellInputTree(columnIndex, column, onChange, options);
+			case DTableColumnType.INTEGER:
+				return new DTableBodyCellInputInteger(columnIndex, column, onChange, options);
+			case DTableColumnType.REAL:
+				return new DTableBodyCellInputReal(columnIndex, column, onChange, options);
+			case DTableColumnType.CHECK:
+			case DTableColumnType.CHECK_SINGLE:
+				return new DTableBodyCellCheck(columnIndex, column, onChange, options);
+			case DTableColumnType.COLOR:
+				return new DTableBodyCellColor(columnIndex, column, onChange, options);
+			case DTableColumnType.BUTTON:
+				return new DTableBodyCellButton(columnIndex, column, onChange, options);
+			case DTableColumnType.LINK:
+				return new DTableBodyCellLink(columnIndex, column, onChange, options);
+			case DTableColumnType.SELECT:
+				return this.newCellSelect(columnIndex, column, onChange, options);
+			case DTableColumnType.ACTION:
+				return this.newCellAction(columnIndex, column, onChange, options);
+			case DTableColumnType.DATE:
+				return new DTableBodyCellDate(columnIndex, column, onChange, options);
+			case DTableColumnType.DATETIME:
+				return new DTableBodyCellDatetime(columnIndex, column, onChange, options);
+			case DTableColumnType.TIME:
+				return new DTableBodyCellTime(columnIndex, column, onChange, options);
+			default:
+				return new DTableBodyCellText(columnIndex, column, onChange, options);
 		}
 	}
 
@@ -141,38 +141,38 @@ export class DTableBodyRow<
 		onChange: DTableBodyCellOnChange<ROW, unknown>,
 		options: any
 	): DBase {
-		switch( column.type ) {
-		case DTableColumnType.INDEX:
-			return new DTableBodyCellIndex( columnIndex, column, onChange, options );
-		case DTableColumnType.TEXT:
-			return new DTableBodyCellText( columnIndex, column, onChange, options );
-		case DTableColumnType.TREE:
-			return new DTableBodyCellTree( columnIndex, column, onChange, options );
-		case DTableColumnType.INTEGER:
-			return new DTableBodyCellText( columnIndex, column, onChange, options );
-		case DTableColumnType.REAL:
-			return new DTableBodyCellText( columnIndex, column, onChange, options );
-		case DTableColumnType.CHECK:
-		case DTableColumnType.CHECK_SINGLE:
-			return new DTableBodyCellCheck( columnIndex, column, onChange, options );
-		case DTableColumnType.COLOR:
-			return new DTableBodyCellColor( columnIndex, column, onChange, options );
-		case DTableColumnType.BUTTON:
-			return new DTableBodyCellButton( columnIndex, column, onChange, options );
-		case DTableColumnType.LINK:
-			return new DTableBodyCellLink( columnIndex, column, onChange, options );
-		case DTableColumnType.SELECT:
-			return this.newCellSelect( columnIndex, column, onChange, options );
-		case DTableColumnType.ACTION:
-			return this.newCellAction( columnIndex, column, onChange, options );
-		case DTableColumnType.DATE:
-			return new DTableBodyCellDate( columnIndex, column, onChange, options );
-		case DTableColumnType.DATETIME:
-			return new DTableBodyCellDatetime( columnIndex, column, onChange, options );
-		case DTableColumnType.TIME:
-			return new DTableBodyCellTime( columnIndex, column, onChange, options );
-		default:
-			return new DTableBodyCellText( columnIndex, column, onChange, options );
+		switch (column.type) {
+			case DTableColumnType.INDEX:
+				return new DTableBodyCellIndex(columnIndex, column, onChange, options);
+			case DTableColumnType.TEXT:
+				return new DTableBodyCellText(columnIndex, column, onChange, options);
+			case DTableColumnType.TREE:
+				return new DTableBodyCellTree(columnIndex, column, onChange, options);
+			case DTableColumnType.INTEGER:
+				return new DTableBodyCellText(columnIndex, column, onChange, options);
+			case DTableColumnType.REAL:
+				return new DTableBodyCellText(columnIndex, column, onChange, options);
+			case DTableColumnType.CHECK:
+			case DTableColumnType.CHECK_SINGLE:
+				return new DTableBodyCellCheck(columnIndex, column, onChange, options);
+			case DTableColumnType.COLOR:
+				return new DTableBodyCellColor(columnIndex, column, onChange, options);
+			case DTableColumnType.BUTTON:
+				return new DTableBodyCellButton(columnIndex, column, onChange, options);
+			case DTableColumnType.LINK:
+				return new DTableBodyCellLink(columnIndex, column, onChange, options);
+			case DTableColumnType.SELECT:
+				return this.newCellSelect(columnIndex, column, onChange, options);
+			case DTableColumnType.ACTION:
+				return this.newCellAction(columnIndex, column, onChange, options);
+			case DTableColumnType.DATE:
+				return new DTableBodyCellDate(columnIndex, column, onChange, options);
+			case DTableColumnType.DATETIME:
+				return new DTableBodyCellDatetime(columnIndex, column, onChange, options);
+			case DTableColumnType.TIME:
+				return new DTableBodyCellTime(columnIndex, column, onChange, options);
+			default:
+				return new DTableBodyCellText(columnIndex, column, onChange, options);
 		}
 	}
 
@@ -183,16 +183,16 @@ export class DTableBodyRow<
 		options: any
 	): DBase {
 		const selecting = column.selecting;
-		if( selecting.menu != null ) {
-			return new DTableBodyCellSelectMenu( columnIndex, column, onChange, options );
-		} else if( selecting.multiple != null ) {
-			return new DTableBodyCellSelectMultiple( columnIndex, column, onChange, options );
-		} else if( selecting.dialog != null ) {
-			return new DTableBodyCellSelectDialog( columnIndex, column, onChange, options );
-		} else if( selecting.promise != null ) {
-			return new DTableBodyCellSelectPromise( columnIndex, column, onChange, options );
+		if (selecting.menu != null) {
+			return new DTableBodyCellSelectMenu(columnIndex, column, onChange, options);
+		} else if (selecting.multiple != null) {
+			return new DTableBodyCellSelectMultiple(columnIndex, column, onChange, options);
+		} else if (selecting.dialog != null) {
+			return new DTableBodyCellSelectDialog(columnIndex, column, onChange, options);
+		} else if (selecting.promise != null) {
+			return new DTableBodyCellSelectPromise(columnIndex, column, onChange, options);
 		} else {
-			return new DTableBodyCellText( columnIndex, column, onChange, options );
+			return new DTableBodyCellText(columnIndex, column, onChange, options);
 		}
 	}
 
@@ -203,14 +203,14 @@ export class DTableBodyRow<
 		options: any
 	): DBase {
 		const selecting = column.selecting;
-		if( selecting.menu != null ) {
-			return new DTableBodyCellActionMenu( columnIndex, column, onChange, options );
-		} else if( selecting.dialog != null ) {
-			return new DTableBodyCellActionDialog( columnIndex, column, onChange, options );
-		} else if( selecting.promise != null ) {
-			return new DTableBodyCellActionPromise( columnIndex, column, onChange, options );
+		if (selecting.menu != null) {
+			return new DTableBodyCellActionMenu(columnIndex, column, onChange, options);
+		} else if (selecting.dialog != null) {
+			return new DTableBodyCellActionDialog(columnIndex, column, onChange, options);
+		} else if (selecting.promise != null) {
+			return new DTableBodyCellActionPromise(columnIndex, column, onChange, options);
 		} else {
-			return new DTableBodyCellText( columnIndex, column, onChange, options );
+			return new DTableBodyCellText(columnIndex, column, onChange, options);
 		}
 	}
 
@@ -219,14 +219,14 @@ export class DTableBodyRow<
 		column: DTableColumn<ROW, unknown>,
 		options: OPTIONS
 	): DTableBodyCellOptionsUnion<ROW> {
-		let result: any = (column.body || options.cell);
+		let result: any = column.body || options.cell;
 		const columnWeight = column.weight;
 		const columnWidth = column.width;
 		const columnFormatter = column.formatter;
 		const columnAlign = column.align;
 		const columnSelecting = column.selecting;
 		const columnSelectingMenu = columnSelecting.menu || columnSelecting.multiple;
-		if( result != null ) {
+		if (result != null) {
 			result.weight = columnWeight;
 			result.width = columnWidth;
 
@@ -254,7 +254,7 @@ export class DTableBodyRow<
 		}
 
 		const columnEditing = column.editing;
-		if( columnEditing.enable !== false ) {
+		if (columnEditing.enable !== false) {
 			const editing = result.editing || {};
 			result.editing = editing;
 			editing.formatter ||= columnEditing.formatter;
@@ -263,15 +263,15 @@ export class DTableBodyRow<
 		}
 
 		const columnLink = column.link;
-		if( columnLink ) {
+		if (columnLink) {
 			result.link = columnLink;
 		}
 
-		const selectionType = ( options?.selection?.type ?? DTableDataSelectionType.NONE );
-		if( selectionType !== DTableDataSelectionType.NONE ) {
+		const selectionType = options?.selection?.type ?? DTableDataSelectionType.NONE;
+		if (selectionType !== DTableDataSelectionType.NONE) {
 			result.when = "DOUBLE_CLICKED";
-			result.cursor = ( state: DBaseStateSet ): string | undefined => {
-				if( state.in( DTableState.SELECTABLE ) ) {
+			result.cursor = (state: DBaseStateSet): string | undefined => {
+				if (state.in(DTableState.SELECTABLE)) {
 					return "pointer";
 				}
 				return undefined;
@@ -305,12 +305,12 @@ export class DTableBodyRow<
 		return this._index;
 	}
 
-	protected isCell( target: any ): target is DTableBodyCell<unknown, unknown> {
-		return (target != null && "set" in target);
+	protected isCell(target: any): target is DTableBodyCell<unknown, unknown> {
+		return target != null && "set" in target;
 	}
 
-	set( value: ROW, supplimental: unknown, rowIndex: number, forcibly?: boolean ): void {
-		if( forcibly || this._value !== value || this._index !== rowIndex ) {
+	set(value: ROW, supplimental: unknown, rowIndex: number, forcibly?: boolean): void {
+		if (forcibly || this._value !== value || this._index !== rowIndex) {
 			this._value = value;
 			this._index = rowIndex;
 
@@ -318,33 +318,40 @@ export class DTableBodyRow<
 			const cellsLength = cells.length;
 			const columns = this._columns;
 			const columnsLength = columns.length;
-			for( let i = 0; i < cellsLength; ++i ) {
-				const cell = cells[ i ];
+			for (let i = 0; i < cellsLength; ++i) {
+				const cell = cells[i];
 				const columnIndex = columnsLength - 1 - i;
-				const column = columns[ columnIndex ];
-				if( this.isCell( cell ) ) {
-					cell.set( column.getter( value, columnIndex ), value, supplimental, rowIndex, columnIndex, forcibly );
+				const column = columns[columnIndex];
+				if (this.isCell(cell)) {
+					cell.set(
+						column.getter(value, columnIndex),
+						value,
+						supplimental,
+						rowIndex,
+						columnIndex,
+						forcibly
+					);
 				}
 			}
 
-			this.onSet( value, rowIndex );
+			this.onSet(value, rowIndex);
 		}
 	}
 
-	protected onSet( value: ROW, rowIndex: number ): void {
-		this.emit( "set", value, rowIndex, this );
+	protected onSet(value: ROW, rowIndex: number): void {
+		this.emit("set", value, rowIndex, this);
 	}
 
 	unset(): void {
-		if( this._value !== undefined ) {
+		if (this._value !== undefined) {
 			this._value = undefined;
 			this._index = -1;
 
 			const cells = this.children;
 			const cellsLength = cells.length;
-			for( let i = 0; i < cellsLength; ++i ) {
-				const cell = cells[ i ];
-				if( this.isCell( cell ) ) {
+			for (let i = 0; i < cellsLength; ++i) {
+				const cell = cells[i];
+				if (this.isCell(cell)) {
 					cell.unset();
 				}
 			}
@@ -354,14 +361,14 @@ export class DTableBodyRow<
 	}
 
 	protected onUnset(): void {
-		this.emit( "unset", this );
+		this.emit("unset", this);
 	}
 
 	protected getContentPositionX(): number {
 		const parent = this.parent;
-		if( parent ) {
+		if (parent) {
 			const content = parent.parent;
-			if( content ) {
+			if (content) {
 				return content.position.x;
 			}
 		}

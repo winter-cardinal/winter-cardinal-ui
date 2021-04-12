@@ -16,33 +16,33 @@ export class EShapeActionRuntimeChangeColor extends EShapeActionRuntimeChangeCol
 	protected readonly alpha: number | null;
 	protected readonly blend: EShapeActionExpression<number | null>;
 
-	constructor( value: EShapeActionValueChangeColor ) {
-		super( value );
+	constructor(value: EShapeActionValueChangeColor) {
+		super(value);
 
-		switch( value.target ) {
-		case EShapeActionValueChangeColorTarget.COLOR:
-			this.color = value.color;
-			this.alpha = null;
-			break;
-		case EShapeActionValueChangeColorTarget.ALPHA:
-			this.color = null;
-			this.alpha = value.alpha;
-			break;
-		default:
-			this.color = value.color;
-			this.alpha = value.alpha;
-			break;
+		switch (value.target) {
+			case EShapeActionValueChangeColorTarget.COLOR:
+				this.color = value.color;
+				this.alpha = null;
+				break;
+			case EShapeActionValueChangeColorTarget.ALPHA:
+				this.color = null;
+				this.alpha = value.alpha;
+				break;
+			default:
+				this.color = value.color;
+				this.alpha = value.alpha;
+				break;
 		}
 
-		this.blend = EShapeActionExpressions.ofNumberOrNull( value.blend );
+		this.blend = EShapeActionExpressions.ofNumberOrNull(value.blend);
 	}
 
-	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( this.condition( shape, time ) ) {
+	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {
+		if (this.condition(shape, time)) {
 			const color = this.color;
 			const alpha = this.alpha;
-			const blend = this.blend( shape, time );
-			this.set( shape, runtime, time, color, alpha, blend );
+			const blend = this.blend(shape, time);
+			this.set(shape, runtime, time, color, alpha, blend);
 		}
 	}
 }

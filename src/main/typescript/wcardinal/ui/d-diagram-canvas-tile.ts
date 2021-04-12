@@ -11,7 +11,9 @@ import { DMapTilePyramid } from "./d-map-tile-pyramid";
 /**
  * A tile pyramid factory.
  */
-export type DDiagramCanvasTilePyramidFactory = ( canvas: DDiagramCanvasBase<any, any> ) => DMapTilePyramid;
+export type DDiagramCanvasTilePyramidFactory = (
+	canvas: DDiagramCanvasBase<any, any>
+) => DMapTilePyramid;
 
 export interface DDiagramCanvasTileOptions {
 	factory?: DDiagramCanvasTilePyramidFactory;
@@ -19,17 +21,17 @@ export interface DDiagramCanvasTileOptions {
 }
 
 export class DDiagramCanvasTile {
-	protected _canvas: DDiagramCanvasBase<any, any>;
+	protected _canvas: DDiagramCanvasBase;
 	protected _pyramid?: DMapTilePyramid;
 	protected _factory?: DDiagramCanvasTilePyramidFactory;
 	protected _mapping: DDiagramCanvasTileMappingImpl;
 
-	constructor( canvas: DDiagramCanvasBase<any, any>, options?: DDiagramCanvasTileOptions ) {
+	constructor(canvas: DDiagramCanvasBase, options?: DDiagramCanvasTileOptions) {
 		this._canvas = canvas;
-		this._factory = options && options.factory;
+		this._factory = options?.factory;
 		this._mapping = new DDiagramCanvasTileMappingImpl((): void => {
 			this.onMappingChange();
-		}, options && options.mapping );
+		}, options?.mapping);
 	}
 
 	init(): void {
@@ -38,18 +40,18 @@ export class DDiagramCanvasTile {
 
 	protected onMappingChange(): void {
 		const factory = this._factory;
-		if( factory ) {
+		if (factory) {
 			const mapping = this._mapping;
-			if( mapping.enable ) {
+			if (mapping.enable) {
 				const pyramid = this._pyramid;
-				if( pyramid ) {
+				if (pyramid) {
 					pyramid.mapping = mapping;
 				} else {
-					this._pyramid = factory( this._canvas ).fit();
+					this._pyramid = factory(this._canvas).fit();
 				}
 			} else {
 				const pyramid = this._pyramid;
-				if( pyramid ) {
+				if (pyramid) {
 					this._pyramid = undefined;
 					pyramid.destroy();
 				}
@@ -77,7 +79,7 @@ export class DDiagramCanvasTile {
 
 	destroy(): void {
 		const pyramid = this._pyramid;
-		if( pyramid != null ) {
+		if (pyramid != null) {
 			this._pyramid = undefined;
 			pyramid.destroy();
 		}

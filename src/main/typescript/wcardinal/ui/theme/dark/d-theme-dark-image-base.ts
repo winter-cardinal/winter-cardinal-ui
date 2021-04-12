@@ -11,9 +11,9 @@ import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeImageBase } from "../../d-image-base";
 import { DThemeDarkTextBase } from "./d-theme-dark-text-base";
 
-export class DThemeDarkImageBase<VALUE = unknown> extends DThemeDarkTextBase<VALUE>
+export class DThemeDarkImageBase<VALUE = unknown>
+	extends DThemeDarkTextBase<VALUE>
 	implements DThemeImageBase<VALUE> {
-
 	getImageAlignHorizontal(): DAlignHorizontal {
 		return DAlignHorizontal.LEFT;
 	}
@@ -34,15 +34,15 @@ export class DThemeDarkImageBase<VALUE = unknown> extends DThemeDarkTextBase<VAL
 		return 5;
 	}
 
-	getImageTintColor( state: DBaseStateSet ): number | null {
-		return this.getColor( state );
+	getImageTintColor(state: DBaseStateSet): number | null {
+		return this.getColor(state);
 	}
 
-	getImageTintAlpha( state: DBaseStateSet ): number {
-		return this.getAlpha( state );
+	getImageTintAlpha(state: DBaseStateSet): number {
+		return this.getAlpha(state);
 	}
 
-	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
+	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
 		return null;
 	}
 
@@ -66,12 +66,12 @@ export class DThemeDarkImageBase<VALUE = unknown> extends DThemeDarkTextBase<VAL
 		return this.getImageMarginVertial();
 	}
 
-	getSecondaryImageTintColor( state: DBaseStateSet ): number | null {
-		return this.getImageTintColor( state );
+	getSecondaryImageTintColor(state: DBaseStateSet): number | null {
+		return this.getImageTintColor(state);
 	}
 
-	getSecondaryImageTintAlpha( state: DBaseStateSet ): number {
-		return this.getImageTintAlpha( state );
+	getSecondaryImageTintAlpha(state: DBaseStateSet): number {
+		return this.getImageTintAlpha(state);
 	}
 
 	getTertiaryImageAlignHorizontal(): DAlignHorizontal {
@@ -94,11 +94,11 @@ export class DThemeDarkImageBase<VALUE = unknown> extends DThemeDarkTextBase<VAL
 		return this.getImageMarginVertial();
 	}
 
-	getTertiaryImageTintColor( state: DBaseStateSet ): number | null {
-		return this.getImageTintColor( state );
+	getTertiaryImageTintColor(state: DBaseStateSet): number | null {
+		return this.getImageTintColor(state);
 	}
 
-	getTertiaryImageTintAlpha( state: DBaseStateSet ): number {
-		return this.getImageTintAlpha( state );
+	getTertiaryImageTintAlpha(state: DBaseStateSet): number {
+		return this.getImageTintAlpha(state);
 	}
 }

@@ -7,5 +7,5 @@ import { DThemeDark } from "../d-theme-dark";
 import { DThemeDarkDialogInputBoolean } from "../d-theme-dark-dialog-input-boolean";
 
 export const loadThemeDarkDialogInputBoolean = (): void => {
-	DThemeDark.set( "DDialogInputBoolean", DThemeDarkDialogInputBoolean );
+	DThemeDark.set("DDialogInputBoolean", DThemeDarkDialogInputBoolean);
 };

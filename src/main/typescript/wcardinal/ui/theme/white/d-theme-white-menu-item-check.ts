@@ -11,35 +11,37 @@ import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteMenuItemText } from "./d-theme-white-menu-item-text";
 
-DThemeWhiteAtlas.add( "menu_item_mark_check_active", 14, 14,
+/* eslint-disable prettier/prettier */
+DThemeWhiteAtlas.add("menu_item_mark_check_active", 14, 14,
 	`<g>` +
 		`<polyline fill="none" stroke="#fff" stroke-width="1" points="1 6.5 5 11 13 2.5"></polyline>` +
 	`</g>`
 );
 
-DThemeWhiteAtlas.add( "menu_item_mark_check_inactive", 14, 14,
-	`<g></g>`
-);
+DThemeWhiteAtlas.add("menu_item_mark_check_inactive", 14, 14, `<g></g>`);
+/* eslint-enable prettier/prettier */
 
-export class DThemeWhiteMenuItemCheck extends DThemeWhiteMenuItemText implements DThemeMenuItemCheck {
-	protected getBackgroundColorActive( state: DBaseStateSet ): number | null {
-		if( state.isFocused || state.isHovered ) {
+export class DThemeWhiteMenuItemCheck
+	extends DThemeWhiteMenuItemText
+	implements DThemeMenuItemCheck {
+	protected getBackgroundColorActive(state: DBaseStateSet): number | null {
+		if (state.isFocused || state.isHovered) {
 			return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
 		} else {
 			return null;
 		}
 	}
 
-	protected getBackgroundAlphaActive( state: DBaseStateSet ): number {
+	protected getBackgroundAlphaActive(state: DBaseStateSet): number {
 		return DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
 	}
 
-	protected getColorActive( state: DBaseStateSet ): number {
+	protected getColorActive(state: DBaseStateSet): number {
 		return DThemeWhiteConstants.COLOR;
 	}
 
-	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
-		if( state.isActive ) {
+	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
+		if (state.isActive) {
 			return DThemeWhiteAtlas.mappings.menu_item_mark_check_active;
 		} else {
 			return DThemeWhiteAtlas.mappings.menu_item_mark_check_inactive;

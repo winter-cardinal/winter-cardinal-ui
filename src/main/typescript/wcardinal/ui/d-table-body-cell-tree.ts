@@ -9,7 +9,9 @@ import { DButtonBaseWhen } from "./d-button-base-when";
 import { DLink, DThemeLink } from "./d-link";
 import { DLinks } from "./d-links";
 import {
-	DTableBodyCellButton, DTableBodyCellButtonOptions, DThemeTableBodyCellButton
+	DTableBodyCellButton,
+	DTableBodyCellButtonOptions,
+	DThemeTableBodyCellButton
 } from "./d-table-body-cell-button";
 import { DTableBodyCellLinkLinkOptions, toLinkOptions } from "./d-table-body-cell-link";
 import { DTableBodyCells } from "./d-table-body-cells";
@@ -27,40 +29,51 @@ export interface DTableBodyCellTreeOptions<
 	link?: DTableBodyCellLinkLinkOptions<ROW, VALUE>;
 }
 
-export interface DThemeTableBodyCellTree<VALUE = unknown> extends DThemeTableBodyCellButton<VALUE>, DThemeLink {
-	getLevelPadding( level: number ): number;
+export interface DThemeTableBodyCellTree<VALUE = unknown>
+	extends DThemeTableBodyCellButton<VALUE>,
+		DThemeLink {
+	getLevelPadding(level: number): number;
 }
 
 export class DTableBodyCellTree<
 	ROW,
 	VALUE = unknown,
 	THEME extends DThemeTableBodyCellTree<VALUE> = DThemeTableBodyCellTree<VALUE>,
-	OPTIONS extends DTableBodyCellTreeOptions<ROW, VALUE, THEME> = DTableBodyCellTreeOptions<ROW, VALUE, THEME>
+	OPTIONS extends DTableBodyCellTreeOptions<ROW, VALUE, THEME> = DTableBodyCellTreeOptions<
+		ROW,
+		VALUE,
+		THEME
+	>
 > extends DTableBodyCellButton<ROW, VALUE, THEME, OPTIONS> {
 	protected _padding!: DBasePaddingAdjustable;
 	protected _link?: DLink | null;
 
-	constructor( columnIndex: number, column: DTableColumn<ROW, VALUE | null>, onChange: DTableBodyCellOnChange<ROW, VALUE | null>, options?: OPTIONS ) {
-		super( columnIndex, column, onChange, DLinks.toStateOptions( options?.link?.target, options ) );
-		this._padding = new DBasePaddingAdjustable( this._padding );
+	constructor(
+		columnIndex: number,
+		column: DTableColumn<ROW, VALUE | null>,
+		onChange: DTableBodyCellOnChange<ROW, VALUE | null>,
+		options?: OPTIONS
+	) {
+		super(columnIndex, column, onChange, DLinks.toStateOptions(options?.link?.target, options));
+		this._padding = new DBasePaddingAdjustable(this._padding);
 	}
 
-	protected initOnClick( when: DButtonBaseWhen, theme: THEME, options: OPTIONS ): void {
+	protected initOnClick(when: DButtonBaseWhen, theme: THEME, options: OPTIONS): void {
 		const link = this.link;
-		if( link ) {
-			link.add( this, ( e: interaction.InteractionEvent ): void => {
-				if( when === DButtonBaseWhen.CLICKED ) {
-					this.onClick( e );
+		if (link) {
+			link.add(this, (e: interaction.InteractionEvent): void => {
+				if (when === DButtonBaseWhen.CLICKED) {
+					this.onClick(e);
 				}
 			});
 		} else {
-			super.initOnClick( when, theme, options );
+			super.initOnClick(when, theme, options);
 		}
 	}
 
 	get link(): DLink | null {
 		let result = this._link;
-		if( result === undefined ) {
+		if (result === undefined) {
 			result = this.newLink();
 			this._link = result;
 		}
@@ -69,42 +82,44 @@ export class DTableBodyCellTree<
 
 	protected newLink(): DLink | null {
 		const options = this._options?.link;
-		if( options ) {
-			return new DLink( this.theme, toLinkOptions( this, options ) );
+		if (options) {
+			return new DLink(this.theme, toLinkOptions(this, options));
 		}
 		return null;
 	}
 
-	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
-		super.onActivate( e );
-		if( this.state.is( DTableState.HAS_CHILDREN ) ) {
+	protected onActivate(
+		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
+	): void {
+		super.onActivate(e);
+		if (this.state.is(DTableState.HAS_CHILDREN)) {
 			this.toggle();
 		} else {
-			this.link?.open( e );
+			this.link?.open(e);
 		}
 	}
 
 	protected toggle(): void {
 		const row = this._row;
-		if( row === undefined ) {
+		if (row === undefined) {
 			return;
 		}
 		const parent = this.parent;
-		if( parent == null ) {
+		if (parent == null) {
 			return;
 		}
 		const body = parent.parent;
-		if( body == null ) {
+		if (body == null) {
 			return;
 		}
 		const data = (body as any).data;
-		if( data && data.toggle ) {
-			data.toggle( row );
+		if (data && data.toggle) {
+			data.toggle(row);
 		}
 	}
 
-	onRowSelect( e: interaction.InteractionEvent, local: Point ): boolean {
-		if( local.x <= this.position.x + this.padding.getLeft() ) {
+	onRowSelect(e: interaction.InteractionEvent, local: Point): boolean {
+		if (local.x <= this.position.x + this.padding.getLeft()) {
 			this.toggle();
 			return true;
 		}
@@ -112,8 +127,11 @@ export class DTableBodyCellTree<
 	}
 
 	set(
-		value: unknown, row: ROW, supplimental: unknown,
-		rowIndex: number, columnIndex: number,
+		value: unknown,
+		row: ROW,
+		supplimental: unknown,
+		rowIndex: number,
+		columnIndex: number,
 		forcibly?: boolean
 	): void {
 		this._row = row;
@@ -121,27 +139,27 @@ export class DTableBodyCellTree<
 		this.text = value as DStateAwareOrValue<VALUE | null>;
 
 		const column = this._column;
-		DTableBodyCells.setRenderable( this, row, columnIndex, column );
+		DTableBodyCells.setRenderable(this, row, columnIndex, column);
 
 		const link = this.link;
 		const adjuster = this._padding.adjuster;
-		if( isNumber( supplimental ) ) {
-			const isOpened = !! (supplimental & 0x1);
-			const hasChildren = !! (supplimental & 0x2);
-			const level = (supplimental >> 2);
+		if (isNumber(supplimental)) {
+			const isOpened = !!(supplimental & 0x1);
+			const hasChildren = !!(supplimental & 0x2);
+			const level = supplimental >> 2;
 			const state = this.state;
 			state.lock();
-			state.set( DTableState.HAS_CHILDREN, hasChildren );
-			state.set( DTableState.OPENED, isOpened );
+			state.set(DTableState.HAS_CHILDREN, hasChildren);
+			state.set(DTableState.OPENED, isOpened);
 			state.unlock();
-			if( link ) {
-				link.menu.enable = ! hasChildren;
+			if (link) {
+				link.menu.enable = !hasChildren;
 			}
-			adjuster.left = this.theme.getLevelPadding( level );
+			adjuster.left = this.theme.getLevelPadding(level);
 		} else {
-			this.state.removeAll( DTableState.OPENED, DTableState.HAS_CHILDREN );
+			this.state.removeAll(DTableState.OPENED, DTableState.HAS_CHILDREN);
 			adjuster.left = 0;
-			if( link ) {
+			if (link) {
 				link.menu.enable = false;
 			}
 		}

@@ -14,12 +14,12 @@ export class DynamicFontAtlasFont {
 	ascent: number;
 	descent: number;
 
-	constructor( fontId: string, size: number, color: number, padding: number ) {
+	constructor(fontId: string, size: number, color: number, padding: number) {
 		this.id = fontId;
 		this.size = size;
-		this.color = utils.hex2string( color );
+		this.color = utils.hex2string(color);
 		this.height = size + padding * 2;
-		const metrics = TextMetrics.measureFont( fontId );
+		const metrics = TextMetrics.measureFont(fontId);
 		this.ascent = metrics.ascent;
 		this.descent = metrics.descent;
 	}

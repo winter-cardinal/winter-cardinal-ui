@@ -7,5 +7,5 @@ import { DThemeDark } from "../d-theme-dark";
 import { EThemeDarkShape } from "../e-theme-dark-shape";
 
 export const loadThemeDarkShape = (): void => {
-	DThemeDark.set( "EShape", EThemeDarkShape );
+	DThemeDark.set("EShape", EThemeDarkShape);
 };

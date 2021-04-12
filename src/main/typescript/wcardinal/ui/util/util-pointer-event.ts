@@ -8,12 +8,12 @@ import InteractionEvent = interaction.InteractionEvent;
 import { DApplicationTarget } from "../d-application-like";
 import { DApplications } from "../d-applications";
 
-export type UtilPointerEventOnClick = ( e: InteractionEvent ) => void;
+export type UtilPointerEventOnClick = (e: InteractionEvent) => void;
 
-export type UtilPointerEventIsLongClickable = ( e: InteractionEvent ) => boolean;
+export type UtilPointerEventIsLongClickable = (e: InteractionEvent) => boolean;
 
 export interface UtilPointerEventClickTarget extends DApplicationTarget {
-	on( name: string, handler: UtilPointerEventOnClick ): void;
+	on(name: string, handler: UtilPointerEventOnClick): void;
 }
 
 export class UtilPointerEvent {
@@ -22,7 +22,7 @@ export class UtilPointerEvent {
 	static LONG_CLICK_THRESHOLD: number = 750;
 
 	static get touchable(): boolean {
-		return ( "ontouchstart" in document );
+		return "ontouchstart" in document;
 	}
 
 	static get tap(): string {
@@ -66,31 +66,31 @@ export class UtilPointerEvent {
 		interactionManager: interaction.InteractionManager,
 		result: Point
 	): Point {
-		if( "touches" in e ) {
+		if ("touches" in e) {
 			const touches = e.changedTouches;
-			const touch = touches[ touches.length - 1 ];
-			if( touch != null ) {
-				interactionManager.mapPositionToPoint( result, touch.clientX, touch.clientY );
+			const touch = touches[touches.length - 1];
+			if (touch != null) {
+				interactionManager.mapPositionToPoint(result, touch.clientX, touch.clientY);
 			} else {
-				interactionManager.mapPositionToPoint( result, 0, 0 );
+				interactionManager.mapPositionToPoint(result, 0, 0);
 			}
 		} else {
-			interactionManager.mapPositionToPoint( result, e.clientX, e.clientY );
+			interactionManager.mapPositionToPoint(result, e.clientX, e.clientY);
 		}
 		return result;
 	}
 
-	protected static isValidDistance( e: InteractionEvent, x: number, y: number ): boolean {
+	protected static isValidDistance(e: InteractionEvent, x: number, y: number): boolean {
 		const global = e.data.global;
-		const dx = Math.abs( x - global.x );
-		const dy = Math.abs( y - global.y );
+		const dx = Math.abs(x - global.x);
+		const dy = Math.abs(y - global.y);
 		const threshold = this.CLICK_DISTANCE_THRESHOLD;
-		return ( dx < threshold && dy < threshold );
+		return dx < threshold && dy < threshold;
 	}
 
-	static onClick( target: UtilPointerEventClickTarget, onClick: UtilPointerEventOnClick ): void {
-		if( ! this.touchable ) {
-			target.on( "click", onClick );
+	static onClick(target: UtilPointerEventClickTarget, onClick: UtilPointerEventOnClick): void {
+		if (!this.touchable) {
+			target.on("click", onClick);
 		} else {
 			let isDowned = false;
 			let downX = 0;
@@ -98,30 +98,30 @@ export class UtilPointerEvent {
 			let interactionManagerBound: interaction.InteractionManager | null = null;
 			const cleanup = (): void => {
 				isDowned = false;
-				if( interactionManagerBound ) {
-					interactionManagerBound.off( up, onUp );
+				if (interactionManagerBound) {
+					interactionManagerBound.off(up, onUp);
 					interactionManagerBound = null;
 				}
 			};
-			target.on( "click", ( e: InteractionEvent ): void => {
-				if( isDowned ) {
+			target.on("click", (e: InteractionEvent): void => {
+				if (isDowned) {
 					cleanup();
 				}
-				onClick( e );
+				onClick(e);
 			});
 			const up = this.up;
-			const onUp = ( e: InteractionEvent ): void => {
-				if( isDowned ) {
+			const onUp = (e: InteractionEvent): void => {
+				if (isDowned) {
 					cleanup();
-					if( this.contains( target, e.target ) ) {
-						if( this.isValidDistance( e, downX, downY ) ) {
-							onClick( e );
+					if (this.contains(target, e.target)) {
+						if (this.isValidDistance(e, downX, downY)) {
+							onClick(e);
 						}
 					}
 				}
 			};
-			target.on( this.down, ( e: InteractionEvent ): void => {
-				if( isDowned ) {
+			target.on(this.down, (e: InteractionEvent): void => {
+				if (isDowned) {
 					const global = e.data.global;
 					downX = global.x;
 					downY = global.y;
@@ -130,14 +130,14 @@ export class UtilPointerEvent {
 					const global = e.data.global;
 					downX = global.x;
 					downY = global.y;
-					if( interactionManagerBound ) {
-						interactionManagerBound.off( up, onUp );
+					if (interactionManagerBound) {
+						interactionManagerBound.off(up, onUp);
 						interactionManagerBound = null;
 					}
-					const layer = DApplications.getLayer( target );
-					if( layer ) {
+					const layer = DApplications.getLayer(target);
+					if (layer) {
 						interactionManagerBound = layer.renderer.plugins.interaction;
-						interactionManagerBound.once( up, onUp );
+						interactionManagerBound.once(up, onUp);
 					}
 				}
 			});
@@ -150,8 +150,8 @@ export class UtilPointerEvent {
 		onLongClick: UtilPointerEventOnClick,
 		isLongClickable?: UtilPointerEventIsLongClickable
 	): void {
-		if( ! this.touchable ) {
-			target.on( "click", onClick );
+		if (!this.touchable) {
+			target.on("click", onClick);
 		} else {
 			let isDowned = false;
 			let downX = 0;
@@ -159,104 +159,104 @@ export class UtilPointerEvent {
 			let timeoutId: number | null = null;
 			let interactionManagerBound: interaction.InteractionManager | null = null;
 			const cleanupTimeout = (): void => {
-				if( timeoutId != null ) {
-					clearTimeout( timeoutId );
+				if (timeoutId != null) {
+					clearTimeout(timeoutId);
 					timeoutId = null;
 				}
 			};
 			const cleanup = (): void => {
 				isDowned = false;
-				if( interactionManagerBound ) {
-					interactionManagerBound.off( up, onUp );
-					interactionManagerBound.off( move, onMove );
+				if (interactionManagerBound) {
+					interactionManagerBound.off(up, onUp);
+					interactionManagerBound.off(move, onMove);
 					interactionManagerBound = null;
 				}
 				cleanupTimeout();
 			};
-			target.on( "click", ( e: InteractionEvent ): void => {
-				if( isDowned ) {
+			target.on("click", (e: InteractionEvent): void => {
+				if (isDowned) {
 					cleanup();
 				}
-				onClick( e );
+				onClick(e);
 			});
 			const up = this.up;
 			const move = this.move;
-			const onUp = ( e: InteractionEvent ): void => {
-				if( isDowned ) {
+			const onUp = (e: InteractionEvent): void => {
+				if (isDowned) {
 					cleanup();
-					if( this.contains( target, e.target ) ) {
-						if( this.isValidDistance( e, downX, downY ) ) {
-							onClick( e );
+					if (this.contains(target, e.target)) {
+						if (this.isValidDistance(e, downX, downY)) {
+							onClick(e);
 						}
 					}
 				}
 			};
-			const onMove = ( e: InteractionEvent ): void => {
-				if( isDowned ) {
-					if( this.contains( target, e.target ) ) {
-						if( ! this.isValidDistance( e, downX, downY ) ) {
+			const onMove = (e: InteractionEvent): void => {
+				if (isDowned) {
+					if (this.contains(target, e.target)) {
+						if (!this.isValidDistance(e, downX, downY)) {
 							cleanup();
 						}
 					}
 				}
 			};
-			target.on( this.down, ( e: InteractionEvent ): void => {
-				if( ! isDowned ) {
+			target.on(this.down, (e: InteractionEvent): void => {
+				if (!isDowned) {
 					isDowned = true;
 					const global = e.data.global;
 					downX = global.x;
 					downY = global.y;
 					cleanupTimeout();
 					const oe = e.data.originalEvent;
-					if( ("touches" in oe) && (isLongClickable == null || isLongClickable( e )) ) {
+					if ("touches" in oe && (isLongClickable == null || isLongClickable(e))) {
 						timeoutId = window.setTimeout((): void => {
-							if( isDowned ) {
+							if (isDowned) {
 								cleanup();
-								onLongClick( e );
+								onLongClick(e);
 							}
-						}, this.LONG_CLICK_THRESHOLD );
+						}, this.LONG_CLICK_THRESHOLD);
 					}
-					if( interactionManagerBound ) {
-						interactionManagerBound.off( up, onUp );
-						interactionManagerBound.off( move, onMove );
+					if (interactionManagerBound) {
+						interactionManagerBound.off(up, onUp);
+						interactionManagerBound.off(move, onMove);
 						interactionManagerBound = null;
 					}
-					const layer = DApplications.getLayer( target );
-					if( layer ) {
+					const layer = DApplications.getLayer(target);
+					if (layer) {
 						interactionManagerBound = layer.renderer.plugins.interaction;
-						interactionManagerBound.once( up, onUp );
-						interactionManagerBound.on( move, onMove );
+						interactionManagerBound.once(up, onUp);
+						interactionManagerBound.on(move, onMove);
 					}
 				}
 			});
 		}
 	}
 
-	static onDblClick( target: HTMLElement, handler: ( e: MouseEvent | TouchEvent ) => void ): void {
-		if( ! this.touchable ) {
-			target.addEventListener( "dblclick", handler );
+	static onDblClick(target: HTMLElement, handler: (e: MouseEvent | TouchEvent) => void): void {
+		if (!this.touchable) {
+			target.addEventListener("dblclick", handler);
 		} else {
 			let isDowned = 0;
 			let downX = 0;
 			let downY = 0;
 			let clickTime = 0;
 
-			target.addEventListener( "dblclick", handler );
+			target.addEventListener("dblclick", handler);
 
-			target.addEventListener( "touchend", ( e: TouchEvent ): void => {
-				if( isDowned === 1 || isDowned === 3 ) {
+			target.addEventListener("touchend", (e: TouchEvent): void => {
+				if (isDowned === 1 || isDowned === 3) {
 					const touches = e.changedTouches;
-					const touch: Touch | null = touches[ touches.length - 1 ];
-					if( touch != null ) {
+					const touch: Touch | null = touches[touches.length - 1];
+					if (touch != null) {
 						const dx = downX - touch.clientX;
 						const dy = downY - touch.clientY;
-						if( Math.abs( dx ) + Math.abs( dy ) < this.CLICK_DISTANCE_THRESHOLD ) {
+						if (Math.abs(dx) + Math.abs(dy) < this.CLICK_DISTANCE_THRESHOLD) {
 							isDowned += 1;
-							if( isDowned === 4 ) {
+							if (isDowned === 4) {
 								isDowned = 0;
 								const elapsedTime = e.timeStamp - clickTime;
-								if( elapsedTime < this.DBLCLICK_INTERVAL_THRESHOLD ) {
-									handler( e );
+								if (elapsedTime < this.DBLCLICK_INTERVAL_THRESHOLD) {
+									handler(e);
 								} else {
 									clickTime = e.timeStamp;
 									isDowned = 2;
@@ -271,18 +271,18 @@ export class UtilPointerEvent {
 				isDowned = 0;
 			});
 
-			target.addEventListener( "touchstart", ( e: TouchEvent ): void => {
-				if( isDowned === 0 ) {
-					const touch: Touch | null = e.touches.item( e.touches.length - 1 );
-					if( touch != null ) {
+			target.addEventListener("touchstart", (e: TouchEvent): void => {
+				if (isDowned === 0) {
+					const touch: Touch | null = e.touches.item(e.touches.length - 1);
+					if (touch != null) {
 						isDowned = 1;
 						downX = touch.clientX;
 						downY = touch.clientY;
 						return;
 					}
-				} else if( isDowned === 2 ) {
-					const touch: Touch | null = e.touches.item( e.touches.length - 1 );
-					if( touch != null ) {
+				} else if (isDowned === 2) {
+					const touch: Touch | null = e.touches.item(e.touches.length - 1);
+					if (touch != null) {
 						isDowned = 3;
 						downX = touch.clientX;
 						downY = touch.clientY;
@@ -294,9 +294,9 @@ export class UtilPointerEvent {
 		}
 	}
 
-	static contains( target: unknown, targetOrChild: DisplayObject | null ): boolean {
+	static contains(target: unknown, targetOrChild: DisplayObject | null): boolean {
 		let current = targetOrChild;
-		while( current != null && current !== target ) {
+		while (current != null && current !== target) {
 			current = current.parent;
 		}
 		return current === target;

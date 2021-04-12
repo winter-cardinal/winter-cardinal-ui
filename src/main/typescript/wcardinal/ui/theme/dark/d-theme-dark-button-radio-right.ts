@@ -8,9 +8,9 @@ import { DAlignWith } from "../../d-align-with";
 import { DThemeButtonRadioRight } from "../../d-button-radio-right";
 import { DThemeDarkButtonRadio } from "./d-theme-dark-button-radio";
 
-export class DThemeDarkButtonRadioRight<VALUE = unknown> extends DThemeDarkButtonRadio<VALUE>
+export class DThemeDarkButtonRadioRight<VALUE = unknown>
+	extends DThemeDarkButtonRadio<VALUE>
 	implements DThemeButtonRadioRight<VALUE> {
-
 	getImageAlignWith(): DAlignWith {
 		return DAlignWith.PADDING;
 	}

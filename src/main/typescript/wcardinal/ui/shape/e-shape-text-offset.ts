@@ -12,9 +12,9 @@ export interface EShapeTextOffsetLike {
 }
 
 export interface EShapeTextOffset extends EShapeTextOffsetLike {
-	copy( target?: Partial<EShapeTextOffsetLike> ): void;
-	set( horizontal?: number, vertical?: number ): void;
+	copy(target?: Partial<EShapeTextOffsetLike>): void;
+	set(horizontal?: number, vertical?: number): void;
 	toObject(): EShapeTextOffsetLike;
-	serialize( manager: EShapeResourceManagerSerialization ): number;
-	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void;
+	serialize(manager: EShapeResourceManagerSerialization): number;
+	deserialize(target: number, manager: EShapeResourceManagerDeserialization): void;
 }

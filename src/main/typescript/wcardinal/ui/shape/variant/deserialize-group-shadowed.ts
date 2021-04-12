@@ -9,10 +9,11 @@ import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manage
 import { EShapeGroupShadowed } from "./e-shape-group-shadowed";
 
 export const deserializeGroupShadowed = (
-	item: DDiagramSerializedItem, manager: EShapeResourceManagerDeserialization
+	item: DDiagramSerializedItem,
+	manager: EShapeResourceManagerDeserialization
 ): Promise<EShapeGroupShadowed> | EShapeGroupShadowed => {
-	const shape = new EShapeGroupShadowed( manager.isEditMode );
-	const result = EShapeDeserializer.deserialize( item, manager, shape );
+	const shape = new EShapeGroupShadowed(manager.isEditMode);
+	const result = EShapeDeserializer.deserialize(item, manager, shape);
 	shape.size.init();
 	return result;
 };

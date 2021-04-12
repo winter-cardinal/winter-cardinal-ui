@@ -16,9 +16,7 @@ export interface DDialogColorGradientOptions<
 	picker?: DPickerColorGradientOptions;
 }
 
-export interface DThemeDialogColorGradient extends DThemeDialogCommand {
-
-}
+export interface DThemeDialogColorGradient extends DThemeDialogCommand {}
 
 export class DDialogColorGradient<
 	THEME extends DThemeDialogColorGradient = DThemeDialogColorGradient,
@@ -26,19 +24,19 @@ export class DDialogColorGradient<
 > extends DDialogCommand<DColorGradient, THEME, OPTIONS> {
 	protected _picker?: DPickerColorGradient;
 
-	protected onInit( layout: DLayoutVertical, options?: OPTIONS ): void {
-		super.onInit( layout, options );
-		layout.addChild( this.picker );
+	protected onInit(layout: DLayoutVertical, options?: OPTIONS): void {
+		super.onInit(layout, options);
+		layout.addChild(this.picker);
 	}
 
-	protected onOk( value: DColorGradient | PromiseLike<DColorGradient> ): void {
-		super.onOk( value );
+	protected onOk(value: DColorGradient | PromiseLike<DColorGradient>): void {
+		super.onOk(value);
 
 		const picker = this.picker;
 		const data = picker.value;
 		const recent = picker.recent;
-		if( ! recent.contains( data ) ) {
-			recent.add( data.toObject() );
+		if (!recent.contains(data)) {
+			recent.add(data.toObject());
 		}
 	}
 
@@ -52,8 +50,8 @@ export class DDialogColorGradient<
 
 	get picker(): DPickerColorGradient {
 		let result = this._picker;
-		if( result == null ) {
-			result = new DPickerColorGradient( this._options?.picker );
+		if (result == null) {
+			result = new DPickerColorGradient(this._options?.picker);
 			this._picker = result;
 		}
 		return result;
@@ -63,9 +61,9 @@ export class DDialogColorGradient<
 		return this.picker.value;
 	}
 
-	onKeyDown( e: KeyboardEvent ): boolean {
-		this.picker.onKeyDown( e );
-		return super.onKeyDown( e );
+	onKeyDown(e: KeyboardEvent): boolean {
+		this.picker.onKeyDown(e);
+		return super.onKeyDown(e);
 	}
 
 	protected getType(): string {

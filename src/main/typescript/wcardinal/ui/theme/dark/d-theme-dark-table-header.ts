@@ -12,26 +12,32 @@ import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkTableRow } from "./d-theme-dark-table-row";
 
 export class DThemeDarkTableHeader extends DThemeDarkTableRow implements DThemeTableHeader {
-	protected readonly BACKGROUND_COLOR = UtilRgb.brighten( DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.02 );
-	protected readonly BORDER_COLOR = UtilRgb.darken( DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.05 );
+	protected readonly BACKGROUND_COLOR = UtilRgb.brighten(
+		DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD,
+		0.02
+	);
+	protected readonly BORDER_COLOR = UtilRgb.darken(
+		DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD,
+		0.05
+	);
 
-	getBackgroundColor( state: DBaseStateSet ): number | null {
-		if( state.inDisabled ) {
+	getBackgroundColor(state: DBaseStateSet): number | null {
+		if (state.inDisabled) {
 			return null;
 		} else {
 			return this.BACKGROUND_COLOR;
 		}
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return this.BORDER_COLOR;
 	}
 
-	getBorderAlign( state: DBaseStateSet ): number {
+	getBorderAlign(state: DBaseStateSet): number {
 		return 0;
 	}
 
-	getBorderMask( state: DBaseStateSet ): DBorderMask {
+	getBorderMask(state: DBaseStateSet): DBorderMask {
 		return DBorderMask.NOT_BOTTOM;
 	}
 

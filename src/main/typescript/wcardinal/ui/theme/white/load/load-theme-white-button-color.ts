@@ -8,6 +8,6 @@ import { DThemeWhiteButtonColor } from "../d-theme-white-button-color";
 import { loadThemeWhiteDialogColor } from "./load-theme-white-dialog-color";
 
 export const loadThemeWhiteButtonColor = (): void => {
-	DThemeWhite.set( "DButtonColor", DThemeWhiteButtonColor );
+	DThemeWhite.set("DButtonColor", DThemeWhiteButtonColor);
 	loadThemeWhiteDialogColor();
 };

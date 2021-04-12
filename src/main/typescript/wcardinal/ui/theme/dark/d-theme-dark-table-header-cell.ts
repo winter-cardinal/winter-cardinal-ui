@@ -22,52 +22,60 @@ import { DThemeDarkImage } from "./d-theme-dark-image";
 
 // Material Design icons by Google.
 // Apache license version 2.0.
-DThemeDarkAtlas.add( "sorted_descending", 16, 16,
+/* eslint-disable prettier/prettier */
+DThemeDarkAtlas.add("sorted_descending", 16, 16,
 	`<g transform="scale(0.875,0.875)">` +
 		`<path d="M3 12l5-5 5 5H3z" fill="#fff"/>` +
 	`</g>`
 );
 
-DThemeDarkAtlas.add( "sorted_ascending", 16, 16,
+DThemeDarkAtlas.add("sorted_ascending", 16, 16,
 	`<g transform="scale(0.875,0.875)">` +
 		`<path d="M3 8l5 5 5-5H3z" fill="#fff"/>` +
 	`</g>`
 );
+/* eslint-enable prettier/prettier */
 
-export class DThemeDarkTableHeaderCell extends DThemeDarkImage<string | null> implements DThemeTableHeaderCell {
-	protected readonly BACKGROUND_COLOR = UtilRgb.brighten( DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.02 );
-	protected readonly BACKGROUND_COLOR_HOVERED = UtilRgb.brighten( this.BACKGROUND_COLOR, 0.08 );
-	protected readonly BACKGROUND_COLOR_PRESSED = UtilRgb.brighten( this.BACKGROUND_COLOR, 0.32 );
-	protected readonly BORDER_COLOR = UtilRgb.darken( DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.05 );
+export class DThemeDarkTableHeaderCell
+	extends DThemeDarkImage<string | null>
+	implements DThemeTableHeaderCell {
+	protected readonly BACKGROUND_COLOR = UtilRgb.brighten(
+		DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD,
+		0.02
+	);
+	protected readonly BACKGROUND_COLOR_HOVERED = UtilRgb.brighten(this.BACKGROUND_COLOR, 0.08);
+	protected readonly BACKGROUND_COLOR_PRESSED = UtilRgb.brighten(this.BACKGROUND_COLOR, 0.32);
+	protected readonly BORDER_COLOR = UtilRgb.darken(
+		DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD,
+		0.05
+	);
 
-	getBackgroundColor( state: DBaseStateSet ): number | null {
-		if( state.inDisabled ) {
-			return ( state.is( DTableState.FROZEN ) ) ?
-				this.BACKGROUND_COLOR : null;
-		} else if( state.isPressed ) {
+	getBackgroundColor(state: DBaseStateSet): number | null {
+		if (state.inDisabled) {
+			return state.is(DTableState.FROZEN) ? this.BACKGROUND_COLOR : null;
+		} else if (state.isPressed) {
 			return this.BACKGROUND_COLOR_PRESSED;
-		} else if( state.isFocused || state.isHovered ) {
+		} else if (state.isFocused || state.isHovered) {
 			return this.BACKGROUND_COLOR_HOVERED;
 		} else {
-			return ( state.is( DTableState.FROZEN ) ) ?
-				this.BACKGROUND_COLOR : null;
+			return state.is(DTableState.FROZEN) ? this.BACKGROUND_COLOR : null;
 		}
 	}
 
-	getBackgroundAlpha( state: DBaseStateSet ): number {
+	getBackgroundAlpha(state: DBaseStateSet): number {
 		return 1;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return this.BORDER_COLOR;
 	}
 
-	getBorderAlign( state: DBaseStateSet ): number {
+	getBorderAlign(state: DBaseStateSet): number {
 		return 0;
 	}
 
-	getBorderMask( state: DBaseStateSet ): DBorderMask {
-		if( state.is( DTableState.END ) ) {
+	getBorderMask(state: DBaseStateSet): DBorderMask {
+		if (state.is(DTableState.END)) {
 			return DBorderMask.ALL;
 		} else {
 			return DBorderMask.NOT_RIGHT;
@@ -98,16 +106,16 @@ export class DThemeDarkTableHeaderCell extends DThemeDarkImage<string | null> im
 		return null;
 	}
 
-	getSecondaryImageTintColor( state: DBaseStateSet ): number | null {
-		if( state.is( DTableState.CHECKABLE ) ) {
-			return DThemeDarkButtonChecks.getImageTintColor( state );
+	getSecondaryImageTintColor(state: DBaseStateSet): number | null {
+		if (state.is(DTableState.CHECKABLE)) {
+			return DThemeDarkButtonChecks.getImageTintColor(state);
 		}
-		return super.getSecondaryImageTintColor( state );
+		return super.getSecondaryImageTintColor(state);
 	}
 
-	getSecondaryImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
-		if( state.is( DTableState.CHECKABLE ) ) {
-			return DThemeDarkButtonChecks.getImageSource( state );
+	getSecondaryImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
+		if (state.is(DTableState.CHECKABLE)) {
+			return DThemeDarkButtonChecks.getImageSource(state);
 		}
 		return null;
 	}
@@ -124,10 +132,10 @@ export class DThemeDarkTableHeaderCell extends DThemeDarkImage<string | null> im
 		return DAlignWith.TEXT;
 	}
 
-	getTertiaryImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
-		if( state.is( DTableState.SORTED_ASCENDING ) ) {
+	getTertiaryImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
+		if (state.is(DTableState.SORTED_ASCENDING)) {
 			return DThemeDarkAtlas.mappings.sorted_ascending;
-		} else if( state.is( DTableState.SORTED_DESCENDING ) ) {
+		} else if (state.is(DTableState.SORTED_DESCENDING)) {
 			return DThemeDarkAtlas.mappings.sorted_descending;
 		} else {
 			return null;
@@ -142,11 +150,11 @@ export class DThemeDarkTableHeaderCell extends DThemeDarkImage<string | null> im
 		return DAlignWith.BORDER;
 	}
 
-	getCursor( state: DBaseStateSet ): string {
-		if( ! state.isActionable ) {
+	getCursor(state: DBaseStateSet): string {
+		if (!state.isActionable) {
 			return "";
 		}
-		if( state.is( DTableState.CHECKABLE ) || state.is( DTableState.SORTABLE ) ) {
+		if (state.is(DTableState.CHECKABLE) || state.is(DTableState.SORTABLE)) {
 			return "pointer";
 		}
 		return "";

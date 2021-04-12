@@ -8,13 +8,9 @@ import { DButton, DButtonOptions, DThemeButton } from "./d-button";
 export interface DSliderThumbOptions<
 	VALUE = unknown,
 	THEME extends DThemeSliderThumb<VALUE> = DThemeSliderThumb<VALUE>
-> extends DButtonOptions<VALUE, THEME> {
+> extends DButtonOptions<VALUE, THEME> {}
 
-}
-
-export interface DThemeSliderThumb<VALUE = unknown> extends DThemeButton<VALUE> {
-
-}
+export interface DThemeSliderThumb<VALUE = unknown> extends DThemeButton<VALUE> {}
 
 export class DSliderThumb<
 	VALUE = unknown,

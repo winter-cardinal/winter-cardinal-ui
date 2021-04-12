@@ -7,5 +7,5 @@ import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteDialogInputReal } from "../d-theme-white-dialog-input-real";
 
 export const loadThemeWhiteDialogInputReal = (): void => {
-	DThemeWhite.set( "DDialogInputReal", DThemeWhiteDialogInputReal );
+	DThemeWhite.set("DDialogInputReal", DThemeWhiteDialogInputReal);
 };

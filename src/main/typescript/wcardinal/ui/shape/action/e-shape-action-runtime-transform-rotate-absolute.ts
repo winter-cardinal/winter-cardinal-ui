@@ -9,24 +9,20 @@ import { EShapeActionRuntimeTransformRotate } from "./e-shape-action-runtime-tra
 import { EShapeActionValueTransformRotate } from "./e-shape-action-value-transform-rotate";
 
 export class EShapeActionRuntimeTransformRotateAbsolute extends EShapeActionRuntimeTransformRotate {
-	constructor( value: EShapeActionValueTransformRotate ) {
-		super( value, EShapeRuntimeReset.ROTATION );
+	constructor(value: EShapeActionValueTransformRotate) {
+		super(value, EShapeRuntimeReset.ROTATION);
 		this.reset |= EShapeRuntimeReset.POSITION;
 	}
 
-	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( this.condition( shape, time ) ) {
-			const amount = this.amount( shape, time );
+	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {
+		if (this.condition(shape, time)) {
+			const amount = this.amount(shape, time);
 			const transform = shape.transform;
-			const writtenRotation = ( (runtime.written & EShapeRuntimeReset.ROTATION) !== 0 );
-			const oldRotation = (writtenRotation ? transform.rotation : runtime.rotation);
+			const writtenRotation = !!(runtime.written & EShapeRuntimeReset.ROTATION);
+			const oldRotation = writtenRotation ? transform.rotation : runtime.rotation;
 			transform.rotation = amount;
 			runtime.written |= EShapeRuntimeReset.ROTATION;
-			this.adjustPosition(
-				shape, runtime,
-				oldRotation, amount,
-				this.originX, this.originY
-			);
+			this.adjustPosition(shape, runtime, oldRotation, amount, this.originX, this.originY);
 		}
 	}
 }

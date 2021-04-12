@@ -3,7 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Container, DisplayObject, interaction, Point, Rectangle, Renderer, Texture, Transform } from "pixi.js";
+import {
+	Container,
+	DisplayObject,
+	interaction,
+	Point,
+	Rectangle,
+	Renderer,
+	Texture,
+	Transform
+} from "pixi.js";
 import InteractionEvent = interaction.InteractionEvent;
 import InteractionManager = interaction.InteractionManager;
 import { DApplications } from "./d-applications";
@@ -67,7 +76,7 @@ export interface DBaseCornerOptions {
 	radius?: number;
 
 	/** Masked corners get unrounded. */
-	mask?: (keyof typeof DCornerMask) | DCornerMask;
+	mask?: keyof typeof DCornerMask | DCornerMask;
 }
 
 /**
@@ -81,21 +90,21 @@ export interface DBaseEvents<EMITTER> {
 	 *
 	 * @param emitter an emitter
 	 */
-	init( emitter: EMITTER ): void;
+	init(emitter: EMITTER): void;
 
 	/**
 	 * Triggered when added to a container.
 	 *
 	 * @param container a container added to
 	 */
-	added( container: Container ): void;
+	added(container: Container): void;
 
 	/**
 	 * Triggered when removed from a container.
 	 *
 	 * @param container a container removed from
 	 */
-	removed( container: Container ): void;
+	removed(container: Container): void;
 
 	/**
 	 * Triggered when moved.
@@ -106,7 +115,7 @@ export interface DBaseEvents<EMITTER> {
 	 * @param oldY an old y
 	 * @param emitter an emitter
 	 */
-	move( newX: number, newY: number, oldX: number, oldY: number, emitter: EMITTER ): void;
+	move(newX: number, newY: number, oldX: number, oldY: number, emitter: EMITTER): void;
 
 	/**
 	 * Triggered when resized.
@@ -117,7 +126,13 @@ export interface DBaseEvents<EMITTER> {
 	 * @param oldHeight an old height
 	 * @param emitter an emitter
 	 */
-	resize( newWidth: number, newHeight: number, oldWidth: number, oldHeight: number, emitter: EMITTER ): void;
+	resize(
+		newWidth: number,
+		newHeight: number,
+		oldWidth: number,
+		oldHeight: number,
+		emitter: EMITTER
+	): void;
 
 	/**
 	 * Triggered when scaled.
@@ -128,7 +143,7 @@ export interface DBaseEvents<EMITTER> {
 	 * @param oldY an old y
 	 * @param emitter an emitter
 	 */
-	scale( newX: number, newY: number, oldX: number, oldY: number, emitter: EMITTER ): void;
+	scale(newX: number, newY: number, oldX: number, oldY: number, emitter: EMITTER): void;
 
 	/**
 	 * Triggered when skewed.
@@ -139,7 +154,7 @@ export interface DBaseEvents<EMITTER> {
 	 * @param oldY an old y
 	 * @param emitter an emitter
 	 */
-	skew( newX: number, newY: number, oldX: number, oldY: number, emitter: EMITTER ): void;
+	skew(newX: number, newY: number, oldX: number, oldY: number, emitter: EMITTER): void;
 
 	/**
 	 * Triggered when a state is changed.
@@ -148,7 +163,7 @@ export interface DBaseEvents<EMITTER> {
 	 * @param oldState an old state
 	 * @param emitter an emitter
 	 */
-	statechange( newState: DBaseStateSet, oldState: DBaseStateSet, emitter: EMITTER ): void;
+	statechange(newState: DBaseStateSet, oldState: DBaseStateSet, emitter: EMITTER): void;
 
 	/**
 	 * Triggered when a wheel moves.
@@ -158,7 +173,7 @@ export interface DBaseEvents<EMITTER> {
 	 * @param global a point wheel moved
 	 * @param emitter an emitter
 	 */
-	wheel( e: WheelEvent, deltas: UtilWheelEventDeltas, global: Point, emitter: EMITTER ): void;
+	wheel(e: WheelEvent, deltas: UtilWheelEventDeltas, global: Point, emitter: EMITTER): void;
 
 	/**
 	 * Triggered when a key gets down.
@@ -166,7 +181,7 @@ export interface DBaseEvents<EMITTER> {
 	 * @param e a keyboard event
 	 * @param emitter an emitter
 	 */
-	keydown( e: KeyboardEvent, emitter: EMITTER ): void;
+	keydown(e: KeyboardEvent, emitter: EMITTER): void;
 
 	/**
 	 * Triggered when a key gets up.
@@ -174,7 +189,7 @@ export interface DBaseEvents<EMITTER> {
 	 * @param e a keyboard event
 	 * @param emitter an emitter
 	 */
-	keyup( e: KeyboardEvent, emitter: EMITTER ): void;
+	keyup(e: KeyboardEvent, emitter: EMITTER): void;
 
 	/**
 	 * Triggered when a pointer gets on an emitter.
@@ -182,7 +197,7 @@ export interface DBaseEvents<EMITTER> {
 	 * @param e an interaction event.
 	 * @param emitter an emitter
 	 */
-	over( e: InteractionEvent, emitter: EMITTER ): void;
+	over(e: InteractionEvent, emitter: EMITTER): void;
 
 	/**
 	 * Triggered when a pointer gets out of an emitter.
@@ -190,7 +205,7 @@ export interface DBaseEvents<EMITTER> {
 	 * @param e an interaction event
 	 * @param emitter an emitter
 	 */
-	out( e: InteractionEvent, emitter: EMITTER ): void;
+	out(e: InteractionEvent, emitter: EMITTER): void;
 
 	/**
 	 * Triggered when a pointer gets down on an emitter.
@@ -198,7 +213,7 @@ export interface DBaseEvents<EMITTER> {
 	 * @param e an interaction event.
 	 * @param emitter an emitter
 	 */
-	down( e: InteractionEvent, emitter: EMITTER ): void;
+	down(e: InteractionEvent, emitter: EMITTER): void;
 
 	/**
 	 * Triggered when a pointer gets up on an emitter.
@@ -206,7 +221,7 @@ export interface DBaseEvents<EMITTER> {
 	 * @param e an interaction event
 	 * @param emitter an emitter
 	 */
-	up( e: InteractionEvent, emitter: EMITTER ): void;
+	up(e: InteractionEvent, emitter: EMITTER): void;
 
 	/**
 	 * Triggered when an emitter is double clicked.
@@ -215,16 +230,17 @@ export interface DBaseEvents<EMITTER> {
 	 * @param interactionManager an interaction manager
 	 * @param emitter an emitter
 	 */
-	dblclick( e: MouseEvent | TouchEvent, interactionManager: InteractionManager, emitter: EMITTER ): void;
+	dblclick(
+		e: MouseEvent | TouchEvent,
+		interactionManager: InteractionManager,
+		emitter: EMITTER
+	): void;
 }
 
 /**
  * {@link DBase} "on" options.
  */
-export interface DBaseOnOptions<EMITTER>
-	extends Partial<DBaseEvents<EMITTER>>, DOnOptions {
-
-}
+export interface DBaseOnOptions<EMITTER> extends Partial<DBaseEvents<EMITTER>>, DOnOptions {}
 
 /**
  * {@link DBase} background options.
@@ -276,7 +292,7 @@ export interface DBaseBorderOptions {
 	align?: DStateAwareOrValueMightBe<number>;
 
 	/** Masked borders get removed. */
-	mask?: DStateAwareOrValueMightBe<DBorderMask> | (keyof typeof DBorderMask);
+	mask?: DStateAwareOrValueMightBe<DBorderMask> | keyof typeof DBorderMask;
 }
 
 /**
@@ -318,7 +334,7 @@ export interface DBaseOutlineOptions {
 	align?: DStateAwareOrValueMightBe<number>;
 
 	/** Masked outlines get removed. */
-	mask?: DStateAwareOrValueMightBe<DBorderMask> | (keyof typeof DBorderMask);
+	mask?: DStateAwareOrValueMightBe<DBorderMask> | keyof typeof DBorderMask;
 }
 
 export type DBaseShadow = "NONE" | "WEAK" | "DEFAULT" | DShadow;
@@ -326,10 +342,7 @@ export type DBaseShadow = "NONE" | "WEAK" | "DEFAULT" | DShadow;
 /**
  * {@link DBase} options.
  */
-export interface DBaseOptions<
-	THEME extends DThemeBase = DThemeBase,
-	EMITTER = any
-> {
+export interface DBaseOptions<THEME extends DThemeBase = DThemeBase, EMITTER = any> {
 	/**
 	 * A parent.
 	 *
@@ -399,7 +412,7 @@ export interface DBaseOptions<
 	state?: string | string[];
 
 	/** An interactivity option. */
-	interactive?: (keyof typeof DBaseInteractive) | DBaseInteractive;
+	interactive?: keyof typeof DBaseInteractive | DBaseInteractive;
 
 	/** A padding options. */
 	padding?: number | DBasePaddingOptions;
@@ -442,7 +455,7 @@ export interface DBaseOptions<
 	shadow?: DBaseShadow | null;
 
 	/** A clear type used by {@link DLayoutVertical} and {@link DLayoutHorizontal}. */
-	clear?: (keyof typeof DLayoutClearType) | DLayoutClearType;
+	clear?: keyof typeof DLayoutClearType | DLayoutClearType;
 
 	/** A cursor shape. */
 	cursor?: DStateAwareOrValueMightBe<string>;
@@ -478,21 +491,21 @@ export interface DThemeBase extends DThemeFont {
 	 *
 	 * @param state a state
 	 */
-	getBackgroundColor( state: DBaseStateSet ): number | null;
+	getBackgroundColor(state: DBaseStateSet): number | null;
 
 	/**
 	 * Returns a background alpha.
 	 *
 	 * @param state a state
 	 */
-	getBackgroundAlpha( state: DBaseStateSet ): number;
+	getBackgroundAlpha(state: DBaseStateSet): number;
 
 	/**
 	 * Returns a background texture of the given radius.
 	 *
 	 * @param radius a corner radius
 	 */
-	getBackgroundTexture( radius: number ): Texture;
+	getBackgroundTexture(radius: number): Texture;
 
 	/**
 	 * Returns a border color.
@@ -500,35 +513,35 @@ export interface DThemeBase extends DThemeFont {
 	 *
 	 * @param state a state
 	 */
-	getBorderColor( state: DBaseStateSet ): number | null;
+	getBorderColor(state: DBaseStateSet): number | null;
 
 	/**
 	 * Returns a border alpha.
 	 *
 	 * @param state a state
 	 */
-	getBorderAlpha( state: DBaseStateSet ): number;
+	getBorderAlpha(state: DBaseStateSet): number;
 
 	/**
 	 * Returns a border width.
 	 *
 	 * @param state a state
 	 */
-	getBorderWidth( state: DBaseStateSet ): number;
+	getBorderWidth(state: DBaseStateSet): number;
 
 	/**
 	 * Returns a border align.
 	 *
 	 * @param state a state
 	 */
-	getBorderAlign( state: DBaseStateSet ): number;
+	getBorderAlign(state: DBaseStateSet): number;
 
 	/**
 	 * Returns a border mask.
 	 *
 	 * @param state a mask
 	 */
-	getBorderMask( state: DBaseStateSet ): DBorderMask;
+	getBorderMask(state: DBaseStateSet): DBorderMask;
 
 	/**
 	 * Returns a border texture of the given radius and width.
@@ -536,7 +549,7 @@ export interface DThemeBase extends DThemeFont {
 	 * @param radius a corner radius
 	 * @param width a border width
 	 */
-	getBorderTexture( radius: number, width: number ): Texture;
+	getBorderTexture(radius: number, width: number): Texture;
 
 	/**
 	 * Returns a left padding.
@@ -574,42 +587,42 @@ export interface DThemeBase extends DThemeFont {
 	 *
 	 * @param state a state
 	 */
-	getOutlineColor( state: DBaseStateSet ): number | null;
+	getOutlineColor(state: DBaseStateSet): number | null;
 
 	/**
 	 * Returns an outline alpha.
 	 *
 	 * @param state a state
 	 */
-	getOutlineAlpha( state: DBaseStateSet ): number;
+	getOutlineAlpha(state: DBaseStateSet): number;
 
 	/**
 	 * Returns an outline width.
 	 *
 	 * @param state a state
 	 */
-	getOutlineWidth( state: DBaseStateSet ): number;
+	getOutlineWidth(state: DBaseStateSet): number;
 
 	/**
 	 * Returns an outline offset.
 	 *
 	 * @param state a state
 	 */
-	getOutlineOffset( state: DBaseStateSet ): number;
+	getOutlineOffset(state: DBaseStateSet): number;
 
 	/**
 	 * Returns an outline align.
 	 *
 	 * @param state a state
 	 */
-	getOutlineAlign( state: DBaseStateSet ): number;
+	getOutlineAlign(state: DBaseStateSet): number;
 
 	/**
 	 * Returns an outline mask.
 	 *
 	 * @param state a state
 	 */
-	getOutlineMask( state: DBaseStateSet ): DBorderMask;
+	getOutlineMask(state: DBaseStateSet): DBorderMask;
 
 	/**
 	 * Returns a shadow.
@@ -653,19 +666,17 @@ export interface DThemeBase extends DThemeFont {
 	/**
 	 * Returns a cursor.
 	 */
-	getCursor( state: DBaseStateSet ): string;
+	getCursor(state: DBaseStateSet): string;
 }
 
-const toTheme = <THEME extends DThemeBase>( options?: DBaseOptions<THEME> ): THEME | null => {
-	if( options != null && options.theme != null ) {
-		const theme = options.theme;
-		if( isString( theme ) ) {
-			return DThemes.getInstance().get( theme );
-		} else {
-			return theme;
+const toTheme = <THEME extends DThemeBase>(options?: DBaseOptions<THEME>): THEME | undefined => {
+	const theme = options?.theme;
+	if (theme) {
+		if (isString(theme)) {
+			return DThemes.getInstance().get(theme);
 		}
+		return theme;
 	}
-	return null;
 };
 
 export interface DRefitable {
@@ -676,17 +687,17 @@ export interface DRefitable {
 const toShortcuts = <THEME extends DThemeBase>(
 	options?: DBaseOptions<THEME>
 ): UtilKeyboardEventShortcut[] | undefined => {
-	if( options ) {
+	if (options) {
 		const shortcut = options.shortcut;
 		const shortcuts = options.shortcuts;
-		if( shortcuts != null || shortcut != null ) {
+		if (shortcuts != null || shortcut != null) {
 			const result: UtilKeyboardEventShortcut[] = [];
-			if( shortcut != null ) {
-				result.push( UtilKeyboardEvent.toShortcut( shortcut ) );
+			if (shortcut != null) {
+				result.push(UtilKeyboardEvent.toShortcut(shortcut));
 			}
-			if( shortcuts != null ) {
-				for( let i = 0, imax = shortcuts.length; i < imax; ++i ) {
-					UtilKeyboardEvent.toShortcut( shortcuts[ i ] );
+			if (shortcuts != null) {
+				for (let i = 0, imax = shortcuts.length; i < imax; ++i) {
+					UtilKeyboardEvent.toShortcut(shortcuts[i]);
 				}
 			}
 			return result;
@@ -697,12 +708,12 @@ const toShortcuts = <THEME extends DThemeBase>(
 
 export interface DRenderable {
 	parent?: Container | null;
-	render( renderer: Renderer ): void;
+	render(renderer: Renderer): void;
 	updateTransform(): void;
 }
 
 export interface DReflowable {
-	onReflow( base: DBase, width: number, height: number ): void;
+	onReflow(base: DBase, width: number, height: number): void;
 }
 
 /**
@@ -745,76 +756,77 @@ export class DBase<
 	protected _lastDownPoint?: Point;
 	protected _cursor?: DStateAwareOrValueMightBe<string>;
 
-	constructor( options?: OPTIONS ) {
+	constructor(options?: OPTIONS) {
 		super();
 
 		// Transform
 		const transform: Transform = this.transform;
-		this._position = new DBasePoint( transform.position, ( newX, newY, oldX, oldY ): void => {
-			this.onMove( newX, newY, oldX, oldY );
+		this._position = new DBasePoint(transform.position, (newX, newY, oldX, oldY): void => {
+			this.onMove(newX, newY, oldX, oldY);
 		});
-		this._scale = new DBasePoint( transform.scale, ( newX, newY, oldX, oldY ): void => {
-			this.onScale( newX, newY, oldX, oldY );
+		this._scale = new DBasePoint(transform.scale, (newX, newY, oldX, oldY): void => {
+			this.onScale(newX, newY, oldX, oldY);
 		});
-		this._skew = new DBasePoint( transform.skew, ( newX, newY, oldX, oldY ): void => {
-			this.onSkew( newX, newY, oldX, oldY );
+		this._skew = new DBasePoint(transform.skew, (newX, newY, oldX, oldY): void => {
+			this.onSkew(newX, newY, oldX, oldY);
 		});
 
 		//
 		this._options = options;
-		const scalarSet: DScalarSet = this._scalarSet = {};
+		const scalarSet: DScalarSet = (this._scalarSet = {});
 		this._auto = new DBaseAutoSet();
 		this._isDirty = true;
 		this._hasDirty = false;
 		this._isChildrenDirty = false;
 		this._shadow = null;
 		this.name = options?.name ?? "";
-		const theme = this._theme = toTheme( options ) || this.getThemeDefault();
+		const theme = toTheme(options) || this.getThemeDefault();
+		this._theme = theme;
 		this._befores = [];
 		this._afters = [];
 		this._reflowables = [];
-		this._clearType = toEnum( options?.clear ?? theme.getClearType(), DLayoutClearType );
-		this._padding = new DBasePadding( theme, options, (): void => {
+		this._clearType = toEnum(options?.clear ?? theme.getClearType(), DLayoutClearType);
+		this._padding = new DBasePadding(theme, options, (): void => {
 			this.layout();
 			this.toChildrenDirty();
-			DApplications.update( this );
+			DApplications.update(this);
 		});
 		const toDirtyAndUpdate = (): void => {
 			this.toDirty();
-			DApplications.update( this );
+			DApplications.update(this);
 		};
-		this._background = new DBaseBackground( theme, options, toDirtyAndUpdate );
-		this._border = new DBaseBorder( theme, options, toDirtyAndUpdate );
-		this._outline = new DBaseOutline( theme, options, toDirtyAndUpdate );
-		this._corner = new DBaseCorner( theme, options, toDirtyAndUpdate );
+		this._background = new DBaseBackground(theme, options, toDirtyAndUpdate);
+		this._border = new DBaseBorder(theme, options, toDirtyAndUpdate);
+		this._outline = new DBaseOutline(theme, options, toDirtyAndUpdate);
+		this._corner = new DBaseCorner(theme, options, toDirtyAndUpdate);
 
 		// X
 		const position = transform.position;
 		const x = options?.x ?? theme.getX();
-		if( isNumber( x ) ) {
+		if (isNumber(x)) {
 			position.x = x;
 		} else {
 			position.x = 0;
-			scalarSet.x = DScalarFunctions.position( x );
+			scalarSet.x = DScalarFunctions.position(x);
 		}
 
 		// Y
 		const y = options?.y ?? theme.getY();
-		if( isNumber( y ) ) {
+		if (isNumber(y)) {
 			position.y = y;
 		} else {
 			position.y = 0;
-			scalarSet.y = DScalarFunctions.position( y );
+			scalarSet.y = DScalarFunctions.position(y);
 		}
 
 		// Width
 		const width = options?.width ?? theme.getWidth();
-		if( ! this._auto.width.from( width ) ) {
-			if( isNumber( width ) ) {
+		if (!this._auto.width.from(width)) {
+			if (isNumber(width)) {
 				this._width = width;
 			} else {
 				this._width = 100;
-				scalarSet.width = DScalarFunctions.size( width );
+				scalarSet.width = DScalarFunctions.size(width);
 			}
 		} else {
 			this._width = 100;
@@ -822,12 +834,12 @@ export class DBase<
 
 		// Height
 		const height = options?.height ?? theme.getHeight();
-		if( ! this._auto.height.from( height ) ) {
-			if( isNumber( height ) ) {
+		if (!this._auto.height.from(height)) {
+			if (isNumber(height)) {
 				this._height = height;
 			} else {
 				this._height = 100;
-				scalarSet.height = DScalarFunctions.size( height );
+				scalarSet.height = DScalarFunctions.size(height);
 			}
 		} else {
 			this._height = 100;
@@ -835,27 +847,30 @@ export class DBase<
 
 		// Visibility
 		const visible = options?.visible;
-		if( visible != null ) {
+		if (visible != null) {
 			this.visible = visible;
 		}
 
 		// State
-		this._state = new DBaseStateSetImplObservable(( newState, oldState ): void => {
-			this.onStateChange( newState, oldState );
+		this._state = new DBaseStateSetImplObservable((newState, oldState): void => {
+			this.onStateChange(newState, oldState);
 		});
 
 		// Interactive
-		const interactive = toEnum( options?.interactive ?? theme.getInteractive(), DBaseInteractive );
-		this.interactive = ( ( interactive & DBaseInteractive.SELF ) !== 0 );
-		this.interactiveChildren = ( ( interactive & DBaseInteractive.CHILDREN ) !== 0 );
+		const interactive = toEnum(
+			options?.interactive ?? theme.getInteractive(),
+			DBaseInteractive
+		);
+		this.interactive = !!(interactive & DBaseInteractive.SELF);
+		this.interactiveChildren = !!(interactive & DBaseInteractive.CHILDREN);
 
 		// Events
 		const on = options?.on;
-		if( on ) {
-			for( const name in on ) {
-				const handler = on[ name ];
-				if( handler ) {
-					this.on( name, handler );
+		if (on) {
+			for (const name in on) {
+				const handler = on[name];
+				if (handler) {
+					this.on(name, handler);
 				}
 			}
 		}
@@ -871,21 +886,21 @@ export class DBase<
 
 		// Shadow
 		this._onShadowUpdateBound = (): void => {
-			DApplications.update( this );
+			DApplications.update(this);
 		};
 		let shadow = options?.shadow;
-		if( shadow === undefined ) {
+		if (shadow === undefined) {
 			shadow = theme.getShadow();
 		}
-		if( shadow ) {
-			if( isString( shadow )  ) {
-				switch( shadow ) {
-				case "WEAK":
-					this.shadow = theme.newShadowWeak();
-					break;
-				case "DEFAULT":
-					this.shadow = theme.newShadow();
-					break;
+		if (shadow) {
+			if (isString(shadow)) {
+				switch (shadow) {
+					case "WEAK":
+						this.shadow = theme.newShadowWeak();
+						break;
+					case "DEFAULT":
+						this.shadow = theme.newShadow();
+						break;
 				}
 			} else {
 				this.shadow = shadow;
@@ -893,82 +908,82 @@ export class DBase<
 		}
 
 		// Event handlers
-		this.on( UtilPointerEvent.over, ( e: InteractionEvent ): void => {
-			this.onOver( e );
+		this.on(UtilPointerEvent.over, (e: InteractionEvent): void => {
+			this.onOver(e);
 		});
 
-		this.on( UtilPointerEvent.out, ( e: InteractionEvent ): void => {
-			this.onOut( e );
+		this.on(UtilPointerEvent.out, (e: InteractionEvent): void => {
+			this.onOut(e);
 		});
 
-		this.on( UtilPointerEvent.down, ( e: InteractionEvent ): void => {
-			this.onDown( e );
+		this.on(UtilPointerEvent.down, (e: InteractionEvent): void => {
+			this.onDown(e);
 		});
 
-		this.on( UtilPointerEvent.up, ( e: InteractionEvent ): void => {
-			this.onUp( e );
+		this.on(UtilPointerEvent.up, (e: InteractionEvent): void => {
+			this.onUp(e);
 		});
 
 		// Children change detection
-		this.on( "added", (): void => {
+		this.on("added", (): void => {
 			this.layout();
-			if( this.isDirty() || this.hasDirty() ) {
+			if (this.isDirty() || this.hasDirty()) {
 				this.toParentHasDirty();
 			}
-			if( this._isChildrenDirty ) {
+			if (this._isChildrenDirty) {
 				this.toParentChildrenDirty();
 			}
 			const newParent = this.parent;
-			if( newParent instanceof DBase ) {
+			if (newParent instanceof DBase) {
 				this.state.parent = newParent.state;
 			}
-			DApplications.update( this );
+			DApplications.update(this);
 		});
 
-		this.on( "removed", (): void => {
-			this.blur( true );
+		this.on("removed", (): void => {
+			this.blur(true);
 			this.state.parent = null;
-			DApplications.update( this );
+			DApplications.update(this);
 		});
 
 		// Shortcut
-		const shortcuts = toShortcuts( options );
+		const shortcuts = toShortcuts(options);
 		this._shortcuts = shortcuts;
-		if( shortcuts != null ) {
-			const onShortcutBound = ( e: KeyboardEvent ): void => {
-				this.onShortcut( e );
+		if (shortcuts != null) {
+			const onShortcutBound = (e: KeyboardEvent): void => {
+				this.onShortcut(e);
 			};
-			for( let i = 0, imax = shortcuts.length; i < imax; ++i ) {
-				UtilKeyboardEvent.on( this, shortcuts[ i ], onShortcutBound );
+			for (let i = 0, imax = shortcuts.length; i < imax; ++i) {
+				UtilKeyboardEvent.on(this, shortcuts[i], onShortcutBound);
 			}
 		}
 
 		// Other initialization
-		this.init( options );
+		this.init(options);
 
 		// State Override
 		const state = options?.state;
-		if( state != null ) {
-			if( isString( state ) ) {
-				this._state.add( state );
+		if (state != null) {
+			if (isString(state)) {
+				this._state.add(state);
 			} else {
-				this._state.addAll( state );
+				this._state.addAll(state);
 			}
 		}
 
 		// Parent
 		const parent = options?.parent;
-		if( parent != null ) {
-			parent.addChild( this );
+		if (parent != null) {
+			parent.addChild(this);
 		}
 
 		// Children
 		const children = options?.children;
-		if( children != null ) {
-			for( let i = 0, imax = children.length; i < imax; ++i ) {
-				const child = children[ i ];
-				if( child != null ) {
-					this.addChild( child );
+		if (children != null) {
+			for (let i = 0, imax = children.length; i < imax; ++i) {
+				const child = children[i];
+				if (child != null) {
+					this.addChild(child);
 				}
 			}
 		}
@@ -976,73 +991,76 @@ export class DBase<
 		// Cursor
 		const cursor = options?.cursor;
 		this._cursor = cursor;
-		this.cursor = this.toCursor( cursor, this._state );
+		this.cursor = this.toCursor(cursor, this._state);
 
 		// Done
-		this.emit( "init", this );
+		this.emit("init", this);
 	}
 
-	protected toCursor( cursor: DStateAwareOrValueMightBe<string> | undefined, state: DBaseStateSet ): string {
-		if( cursor ) {
-			if( isFunction( cursor ) ) {
-				const result = cursor( state );
-				if( result !== undefined ) {
+	protected toCursor(
+		cursor: DStateAwareOrValueMightBe<string> | undefined,
+		state: DBaseStateSet
+	): string {
+		if (cursor) {
+			if (isFunction(cursor)) {
+				const result = cursor(state);
+				if (result !== undefined) {
 					return result;
 				}
-			} else if( cursor !== undefined ) {
+			} else if (cursor !== undefined) {
 				return cursor;
 			}
 		}
-		return this.theme.getCursor( state );
+		return this.theme.getCursor(state);
 	}
 
-	addRenderable( renderable: DRenderable, phase: boolean ): void {
-		const list = ( phase ? this._befores : this._afters );
-		list.push( renderable );
-		if( "parent" in renderable ) {
+	addRenderable(renderable: DRenderable, phase: boolean): void {
+		const list = phase ? this._befores : this._afters;
+		list.push(renderable);
+		if ("parent" in renderable) {
 			renderable.parent = this;
 		}
 	}
 
-	addRenderableAt( renderable: DRenderable, phase: boolean, index: number ): void {
-		const list = ( phase ? this._befores : this._afters );
-		if( index === 0 ) {
-			list.unshift( renderable );
-		} else if( 0 < index && index < list.length ) {
-			list.splice( index, 0, renderable );
+	addRenderableAt(renderable: DRenderable, phase: boolean, index: number): void {
+		const list = phase ? this._befores : this._afters;
+		if (index === 0) {
+			list.unshift(renderable);
+		} else if (0 < index && index < list.length) {
+			list.splice(index, 0, renderable);
 		} else {
-			list.push( renderable );
+			list.push(renderable);
 		}
-		if( "parent" in renderable ) {
+		if ("parent" in renderable) {
 			renderable.parent = this;
 		}
 	}
 
-	removeRenderable( renderable: DRenderable, phase: boolean ): void {
-		const list = ( phase ? this._befores : this._afters );
-		const index = list.indexOf( renderable );
-		if( 0 <= index ) {
-			list.splice( index, 1 );
-			if( "parent" in renderable ) {
+	removeRenderable(renderable: DRenderable, phase: boolean): void {
+		const list = phase ? this._befores : this._afters;
+		const index = list.indexOf(renderable);
+		if (0 <= index) {
+			list.splice(index, 1);
+			if ("parent" in renderable) {
 				renderable.parent = null;
 			}
 		}
 	}
 
-	addReflowable( reflowable: DReflowable ): void {
-		this._reflowables.push( reflowable );
+	addReflowable(reflowable: DReflowable): void {
+		this._reflowables.push(reflowable);
 	}
 
-	removeReflowable( reflowable: DReflowable ): void {
+	removeReflowable(reflowable: DReflowable): void {
 		const reflowables = this._reflowables;
-		const index = reflowables.indexOf( reflowable );
-		if( 0 <= index ) {
-			reflowables.splice( index, 1 );
+		const index = reflowables.indexOf(reflowable);
+		if (0 <= index) {
+			reflowables.splice(index, 1);
 		}
 	}
 
 	protected initReflowable(): void {
-		new DBaseReflowable( this );
+		new DBaseReflowable(this);
 	}
 
 	protected onChildrenChange(): void {
@@ -1050,11 +1068,11 @@ export class DBase<
 		super.onChildrenChange();
 	}
 
-	protected onShortcut( e: KeyboardEvent ): void {
+	protected onShortcut(e: KeyboardEvent): void {
 		// DO NOTHING
 	}
 
-	protected init( options?: OPTIONS ): void {
+	protected init(options?: OPTIONS): void {
 		// OTHER INITIALIZATIONS BEFORE `parent.addChild( this )`
 	}
 
@@ -1062,55 +1080,60 @@ export class DBase<
 		return this._weight;
 	}
 
-	protected onMove( newX: number, newY: number, oldX: number, oldY: number ): void {
+	protected onMove(newX: number, newY: number, oldX: number, oldY: number): void {
 		const children = this.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			const child = children[ i ];
-			if( child instanceof DBase ) {
-				child.onParentMove( newX, newY, oldX, oldY );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			const child = children[i];
+			if (child instanceof DBase) {
+				child.onParentMove(newX, newY, oldX, oldY);
 			}
 		}
-		DApplications.update( this );
-		this.emit( "move", newX, newY, oldX, oldY, this );
+		DApplications.update(this);
+		this.emit("move", newX, newY, oldX, oldY, this);
 	}
 
-	resize( width: number, height: number ): boolean {
+	resize(width: number, height: number): boolean {
 		const oldWidth = this._width;
 		const oldHeight = this._height;
 		const widthResized = oldWidth !== width;
 		const heightResized = oldHeight !== height;
 
-		if( widthResized ) {
+		if (widthResized) {
 			this._width = width;
 		}
 
-		if( heightResized ) {
+		if (heightResized) {
 			this._height = height;
 		}
 
 		const resized = widthResized || heightResized;
-		if( resized ) {
-			this.onResize( width, height, oldWidth, oldHeight );
+		if (resized) {
+			this.onResize(width, height, oldWidth, oldHeight);
 		}
 
-		if( widthResized ) {
+		if (widthResized) {
 			const scalarSet = this._scalarSet;
-			if( scalarSet.x != null ) {
+			if (scalarSet.x != null) {
 				const position = this.transform.position;
 				const parent = this.getParentOfSize();
-				if( parent ) {
-					this.x = scalarSet.x( parent.width, width, parent.padding.getLeft(), position.x );
+				if (parent) {
+					this.x = scalarSet.x(parent.width, width, parent.padding.getLeft(), position.x);
 				}
 			}
 		}
 
-		if( heightResized ) {
+		if (heightResized) {
 			const scalarSet = this._scalarSet;
-			if( scalarSet.y != null ) {
+			if (scalarSet.y != null) {
 				const position = this.transform.position;
 				const parent = this.getParentOfSize();
-				if( parent ) {
-					this.y = scalarSet.y( parent.height, height, parent.padding.getTop(), position.y );
+				if (parent) {
+					this.y = scalarSet.y(
+						parent.height,
+						height,
+						parent.padding.getTop(),
+						position.y
+					);
 				}
 			}
 		}
@@ -1122,31 +1145,31 @@ export class DBase<
 		return this._clearType;
 	}
 
-	onResize( newWidth: number, newHeight: number, oldWidth: number, oldHeight: number ): void {
+	onResize(newWidth: number, newHeight: number, oldWidth: number, oldHeight: number): void {
 		this.toDirty();
 		this.toChildrenDirty();
 
 		const padding = this._padding;
 		const children = this.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			const child = children[ i ];
-			if( child instanceof DBase ) {
-				child.onParentResize( newWidth, newHeight, padding );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			const child = children[i];
+			if (child instanceof DBase) {
+				child.onParentResize(newWidth, newHeight, padding);
 			}
 		}
 
-		DApplications.update( this );
-		this.emit( "resize", newWidth, newHeight, oldWidth, oldHeight, this );
+		DApplications.update(this);
+		this.emit("resize", newWidth, newHeight, oldWidth, oldHeight, this);
 	}
 
-	protected onScale( newX: number, newY: number, oldX: number, oldY: number ): void {
-		DApplications.update( this );
-		this.emit( "scale", newX, newY, oldX, oldY, this );
+	protected onScale(newX: number, newY: number, oldX: number, oldY: number): void {
+		DApplications.update(this);
+		this.emit("scale", newX, newY, oldX, oldY, this);
 	}
 
-	protected onSkew( newX: number, newY: number, oldX: number, oldY: number ): void {
-		DApplications.update( this );
-		this.emit( "skew", newX, newY, oldX, oldY, this );
+	protected onSkew(newX: number, newY: number, oldX: number, oldY: number): void {
+		DApplications.update(this);
+		this.emit("skew", newX, newY, oldX, oldY, this);
 	}
 
 	get type(): string {
@@ -1158,26 +1181,26 @@ export class DBase<
 		return this._position.x;
 	}
 
-	set x( x: number ) {
+	set x(x: number) {
 		this._position.x = x;
 	}
 
 	getX(): DCoordinatePosition {
 		const scalarSet = this._scalarSet;
-		if( scalarSet.x != null ) {
+		if (scalarSet.x != null) {
 			return scalarSet.x;
 		} else {
 			return this.x;
 		}
 	}
 
-	setX( x: DCoordinatePosition ): void {
-		if( isNumber( x ) ) {
+	setX(x: DCoordinatePosition): void {
+		if (isNumber(x)) {
 			this.x = x;
 		} else {
 			const scalarSet = this._scalarSet;
-			const scalar = DScalarFunctions.position( x );
-			if( scalarSet.x !== scalar ) {
+			const scalar = DScalarFunctions.position(x);
+			if (scalarSet.x !== scalar) {
 				scalarSet.x = scalar;
 				this.layout();
 			}
@@ -1189,26 +1212,26 @@ export class DBase<
 		return this._position.y;
 	}
 
-	set y( y: number ) {
+	set y(y: number) {
 		this._position.y = y;
 	}
 
 	getY(): DCoordinatePosition {
 		const scalarSet = this._scalarSet;
-		if( scalarSet.y != null ) {
+		if (scalarSet.y != null) {
 			return scalarSet.y;
 		} else {
 			return this.y;
 		}
 	}
 
-	setY( y: DCoordinatePosition ): void {
-		if( isNumber( y ) ) {
+	setY(y: DCoordinatePosition): void {
+		if (isNumber(y)) {
 			this.y = y;
 		} else {
 			const scalarSet = this._scalarSet;
-			const scalar = DScalarFunctions.position( y );
-			if( scalarSet.y !== scalar ) {
+			const scalar = DScalarFunctions.position(y);
+			if (scalarSet.y !== scalar) {
 				scalarSet.y = scalar;
 				this.layout();
 			}
@@ -1220,46 +1243,44 @@ export class DBase<
 		return this._width;
 	}
 
-	set width( width: number ) {
+	set width(width: number) {
 		const oldWidth = this._width;
-		if( oldWidth !== width ) {
+		if (oldWidth !== width) {
 			this._width = width;
 			const height = this._height;
-			this.onResize( width, height, oldWidth, height );
+			this.onResize(width, height, oldWidth, height);
 
 			// Layout
 			const scalarSet = this._scalarSet;
-			if( scalarSet.x != null ) {
+			if (scalarSet.x != null) {
 				const position = this.transform.position;
 				const parent = this.getParentOfSize();
-				if( parent ) {
-					this.x = scalarSet.x( parent.width, width, parent.padding.getLeft(), position.x );
+				if (parent) {
+					this.x = scalarSet.x(parent.width, width, parent.padding.getLeft(), position.x);
 				}
 			}
 		}
 	}
 
 	getWidth(): DCoordinateSize {
-		return this._auto.width.toCoordinate(
-			this._scalarSet.width || this._width
-		);
+		return this._auto.width.toCoordinate(this._scalarSet.width || this._width);
 	}
 
-	setWidth( width: DCoordinateSize ): void {
+	setWidth(width: DCoordinateSize): void {
 		const auto = this._auto.width;
 		const isOn = auto.isOn;
-		const isAuto = auto.from( width );
-		if( auto.isOn !== isOn ) {
+		const isAuto = auto.from(width);
+		if (auto.isOn !== isOn) {
 			this.toChildrenDirty();
-			DApplications.update( this );
+			DApplications.update(this);
 		}
-		if( ! isAuto ){
-			if( isNumber( width ) ) {
+		if (!isAuto) {
+			if (isNumber(width)) {
 				this.width = width;
 			} else {
 				const scalarSet = this._scalarSet;
-				const scalar = DScalarFunctions.size( width );
-				if( scalarSet.width !== scalar ) {
+				const scalar = DScalarFunctions.size(width);
+				if (scalarSet.width !== scalar) {
 					scalarSet.width = scalar;
 					this.layout();
 				}
@@ -1272,46 +1293,49 @@ export class DBase<
 		return this._height;
 	}
 
-	set height( height: number ) {
+	set height(height: number) {
 		const oldHeight = this._height;
-		if( oldHeight !== height ) {
+		if (oldHeight !== height) {
 			this._height = height;
 			const width = this._width;
-			this.onResize( width, height, width, oldHeight );
+			this.onResize(width, height, width, oldHeight);
 
 			// Layout
 			const scalarSet = this._scalarSet;
-			if( scalarSet.y != null ) {
+			if (scalarSet.y != null) {
 				const position = this.transform.position;
 				const parent = this.getParentOfSize();
-				if( parent ) {
-					this.y = scalarSet.y( parent.height, height, parent.padding.getTop(), position.y );
+				if (parent) {
+					this.y = scalarSet.y(
+						parent.height,
+						height,
+						parent.padding.getTop(),
+						position.y
+					);
 				}
 			}
 		}
 	}
 
 	getHeight(): DCoordinateSize {
-		return this._auto.height.toCoordinate(
-			this._scalarSet.height || this._height
-		);
+		return this._auto.height.toCoordinate(this._scalarSet.height || this._height);
 	}
 
-	setHeight( height: DCoordinateSize ): void {
+	setHeight(height: DCoordinateSize): void {
 		const auto = this._auto.height;
 		const isOn = auto.isOn;
-		const isAuto = auto.from( height );
-		if( auto.isOn !== isOn ) {
+		const isAuto = auto.from(height);
+		if (auto.isOn !== isOn) {
 			this.toChildrenDirty();
-			DApplications.update( this );
+			DApplications.update(this);
 		}
-		if( ! isAuto ) {
-			if( isNumber( height ) ) {
+		if (!isAuto) {
+			if (isNumber(height)) {
 				this.height = height;
 			} else {
 				const scalarSet = this._scalarSet;
-				const scalar = DScalarFunctions.size( height );
-				if( scalarSet.height !== scalar ) {
+				const scalar = DScalarFunctions.size(height);
+				if (scalarSet.height !== scalar) {
 					scalarSet.height = scalar;
 					this.layout();
 				}
@@ -1362,27 +1386,27 @@ export class DBase<
 		return this._title;
 	}
 
-	set title( title: string ) {
-		if( this._title !== title ) {
+	set title(title: string) {
+		if (this._title !== title) {
 			this._title = title;
-			if( this.state.isHovered ) {
+			if (this.state.isHovered) {
 				this.applyTitle();
 			}
 		}
 	}
 
 	protected applyTitle(): void {
-		const layer = DApplications.getLayer( this );
-		if( layer ) {
+		const layer = DApplications.getLayer(this);
+		if (layer) {
 			layer.view.title = this._title;
 		}
 	}
 
 	show(): this {
-		if( ! this.visible ) {
+		if (!this.visible) {
 			this.visible = true;
 			this.toParentChildrenDirty();
-			DApplications.update( this );
+			DApplications.update(this);
 		}
 		return this;
 	}
@@ -1392,21 +1416,21 @@ export class DBase<
 	}
 
 	hide(): this {
-		if( this.visible ) {
+		if (this.visible) {
 			this.visible = false;
 			this.toParentChildrenDirty();
-			this.blur( true );
-			DApplications.update( this );
+			this.blur(true);
+			DApplications.update(this);
 		}
 		return this;
 	}
 
 	isHidden(): boolean {
-		return ! this.visible;
+		return !this.visible;
 	}
 
 	toDirty(): boolean {
-		if( ! this._isDirty ) {
+		if (!this._isDirty) {
 			this._isDirty = true;
 			this.toParentHasDirty();
 			return true;
@@ -1415,7 +1439,7 @@ export class DBase<
 	}
 
 	toHasDirty(): boolean {
-		if( ! this._hasDirty ) {
+		if (!this._hasDirty) {
 			this._hasDirty = true;
 			this.toParentHasDirty();
 			return true;
@@ -1425,13 +1449,13 @@ export class DBase<
 
 	toParentHasDirty(): void {
 		const parent = this.parent;
-		if( parent instanceof DBase ) {
+		if (parent instanceof DBase) {
 			parent.toHasDirty();
 		}
 	}
 
 	toChildrenDirty(): boolean {
-		if( ! this._isChildrenDirty ) {
+		if (!this._isChildrenDirty) {
 			this._isChildrenDirty = true;
 			this.onChildrenDirty();
 			this.toParentChildrenDirty();
@@ -1442,7 +1466,7 @@ export class DBase<
 
 	toParentChildrenDirty(): void {
 		const parent = this.parent;
-		if( parent instanceof DBase ) {
+		if (parent instanceof DBase) {
 			parent.toChildrenDirty();
 		}
 	}
@@ -1463,31 +1487,31 @@ export class DBase<
 		return this._hasDirty;
 	}
 
-	protected setFocused( isFocused: boolean ): this {
-		if( this.state.isFocused !== isFocused ) {
-			const layer = DApplications.getLayer( this );
-			if( layer ) {
-				layer.getFocusController().set( this, isFocused );
+	protected setFocused(isFocused: boolean): this {
+		if (this.state.isFocused !== isFocused) {
+			const layer = DApplications.getLayer(this);
+			if (layer) {
+				layer.getFocusController().set(this, isFocused);
 			}
 		}
 		return this;
 	}
 
 	focus(): this {
-		return this.setFocused( true );
+		return this.setFocused(true);
 	}
 
-	blur( recursively?: boolean ): this {
-		if( recursively ) {
-			const layer = DApplications.getLayer( this );
-			if( layer ) {
+	blur(recursively?: boolean): this {
+		if (recursively) {
+			const layer = DApplications.getLayer(this);
+			if (layer) {
 				const focusController = layer.getFocusController();
 				const focused = focusController.get();
-				if( focused instanceof DBase ) {
+				if (focused instanceof DBase) {
 					let current: Container = focused;
-					while( current ) {
-						if( current === this ) {
-							focused.setFocused( false );
+					while (current) {
+						if (current === this) {
+							focused.setFocused(false);
 							break;
 						}
 						current = current.parent;
@@ -1495,60 +1519,60 @@ export class DBase<
 				}
 			}
 		} else {
-			this.setFocused( false );
+			this.setFocused(false);
 		}
 		return this;
 	}
 
-	protected onStateChange( newState: DBaseStateSet, oldState: DBaseStateSet ): void {
+	protected onStateChange(newState: DBaseStateSet, oldState: DBaseStateSet): void {
 		this.toDirty();
-		DApplications.update( this );
-		this.emit( "statechange", newState, oldState, this );
+		DApplications.update(this);
+		this.emit("statechange", newState, oldState, this);
 
 		const children = this.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			const child = children[ i ];
-			if( child instanceof DBase ) {
-				child.state.onParentChange( newState, oldState );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			const child = children[i];
+			if (child instanceof DBase) {
+				child.state.onParentChange(newState, oldState);
 			}
 		}
 
-		if( newState.isFocused ) {
-			if( ! oldState.isFocused ) {
+		if (newState.isFocused) {
+			if (!oldState.isFocused) {
 				this.onFocus();
 			}
-		} else if( oldState.isFocused ) {
+		} else if (oldState.isFocused) {
 			this.onBlur();
 		}
 
-		this.cursor = this.toCursor( this._cursor, newState );
+		this.cursor = this.toCursor(this._cursor, newState);
 	}
 
-	protected onChildFocus( focused: DBase ): void {
+	protected onChildFocus(focused: DBase): void {
 		const parent = this.parent;
-		if( parent instanceof DBase ) {
-			parent.onChildFocus( focused );
+		if (parent instanceof DBase) {
+			parent.onChildFocus(focused);
 		}
 	}
 
 	protected onFocus(): void {
 		const parent = this.parent;
-		if( parent instanceof DBase ) {
-			parent.onChildFocus( this );
+		if (parent instanceof DBase) {
+			parent.onChildFocus(this);
 		}
 	}
 
-	protected onChildBlur( blured: DBase ): void {
+	protected onChildBlur(blured: DBase): void {
 		const parent = this.parent;
-		if( parent instanceof DBase ) {
-			parent.onChildBlur( blured );
+		if (parent instanceof DBase) {
+			parent.onChildBlur(blured);
 		}
 	}
 
 	protected onBlur(): void {
 		const parent = this.parent;
-		if( parent instanceof DBase ) {
-			parent.onChildBlur( this );
+		if (parent instanceof DBase) {
+			parent.onChildBlur(this);
 		}
 	}
 
@@ -1560,28 +1584,28 @@ export class DBase<
 		return this._theme;
 	}
 
-	set theme( theme: THEME ) {
+	set theme(theme: THEME) {
 		const result = this._theme;
-		if( result !== theme ) {
+		if (result !== theme) {
 			this._theme = theme;
-			this._padding.setTheme( theme );
-			this._background.setTheme( theme );
-			this._border.setTheme( theme );
-			this._outline.setTheme( theme );
-			this._corner.setTheme( theme );
+			this._padding.setTheme(theme);
+			this._background.setTheme(theme);
+			this._border.setTheme(theme);
+			this._outline.setTheme(theme);
+			this._corner.setTheme(theme);
 			this.toDirty();
-			DApplications.update( this );
+			DApplications.update(this);
 		}
 	}
 
 	refit(): void {
-		if( this._isChildrenDirty ) {
+		if (this._isChildrenDirty) {
 			this._isChildrenDirty = false;
 
 			const children = this.children;
-			for( let i = 0, imax = children.length; i < imax; ++i ) {
-				const child = children[ i ];
-				if( child instanceof DBase ) {
+			for (let i = 0, imax = children.length; i < imax; ++i) {
+				const child = children[i];
+				if (child instanceof DBase) {
 					child.refit();
 				}
 			}
@@ -1594,71 +1618,73 @@ export class DBase<
 		const auto = this._auto;
 		const isWidthAuto = auto.width.isOn;
 		const isHeightAuto = auto.height.isOn;
-		if( isWidthAuto && isHeightAuto ) {
+		if (isWidthAuto && isHeightAuto) {
 			let width = 0;
 			let height = 0;
 			const children = this.children;
-			for( let i = 0, imax = children.length; i < imax; ++i ) {
-				const child = children[ i ];
-				if( child.visible ) {
-					if( this.hasRefitableWidth( child ) ) {
-						width = Math.max( width, child.x + child.width );
+			for (let i = 0, imax = children.length; i < imax; ++i) {
+				const child = children[i];
+				if (child.visible) {
+					if (this.hasRefitableWidth(child)) {
+						width = Math.max(width, child.x + child.width);
 					}
-					if( this.hasRefitableHeight( child ) ) {
-						height = Math.max( height, child.y + child.height );
+					if (this.hasRefitableHeight(child)) {
+						height = Math.max(height, child.y + child.height);
 					}
 				}
 			}
 			const padding = this.padding;
-			this.resize( width + padding.getRight(), height + padding.getBottom() );
-		} else if( isWidthAuto ) {
+			this.resize(width + padding.getRight(), height + padding.getBottom());
+		} else if (isWidthAuto) {
 			let width = 0;
 			const children = this.children;
-			for( let i = 0, imax = children.length; i < imax; ++i ) {
-				const child = children[ i ];
-				if( child.visible && this.hasRefitableWidth( child ) ) {
-					width = Math.max( width, child.x + child.width );
+			for (let i = 0, imax = children.length; i < imax; ++i) {
+				const child = children[i];
+				if (child.visible && this.hasRefitableWidth(child)) {
+					width = Math.max(width, child.x + child.width);
 				}
 			}
 			this.width = width + this.padding.getRight();
-		} else if( isHeightAuto ) {
+		} else if (isHeightAuto) {
 			let height = 0;
 			const children = this.children;
-			for( let i = 0, imax = children.length; i < imax; ++i ) {
-				const child = children[ i ];
-				if( child.visible && this.hasRefitableHeight( child ) ) {
-					height = Math.max( height, child.y + child.height );
+			for (let i = 0, imax = children.length; i < imax; ++i) {
+				const child = children[i];
+				if (child.visible && this.hasRefitableHeight(child)) {
+					height = Math.max(height, child.y + child.height);
 				}
 			}
 			this.height = height + this.padding.getBottom();
 		}
 	}
 
-	protected isRefitable( target: any ): target is DRefitable {
+	protected isRefitable(target: any): target is DRefitable {
 		return target instanceof DBase;
 	}
 
-	protected hasRefitableHeight( target: any ): target is DRefitable {
-		return this.isRefitable( target ) &&
-			! ( target instanceof DBase && isFunction( target.getHeight() ) );
+	protected hasRefitableHeight(target: any): target is DRefitable {
+		return (
+			this.isRefitable(target) && !(target instanceof DBase && isFunction(target.getHeight()))
+		);
 	}
 
-	protected hasRefitableWidth( target: any ): target is DBase<any, any> {
-		return this.isRefitable( target ) &&
-			! ( target instanceof DBase && isFunction( target.getWidth() ) );
+	protected hasRefitableWidth(target: any): target is DBase<any, any> {
+		return (
+			this.isRefitable(target) && !(target instanceof DBase && isFunction(target.getWidth()))
+		);
 	}
 
 	reflow(): void {
-		if( this._isDirty ) {
+		if (this._isDirty) {
 			this.onReflow();
 			this._isDirty = false;
 		}
 
-		if( this._hasDirty ) {
+		if (this._hasDirty) {
 			const children = this.children;
-			for( let i = 0, imax = children.length; i < imax; ++i ) {
-				const child = children[ i ];
-				if( child instanceof DBase ) {
+			for (let i = 0, imax = children.length; i < imax; ++i) {
+				const child = children[i];
+				if (child instanceof DBase) {
 					child.reflow();
 				}
 			}
@@ -1670,8 +1696,8 @@ export class DBase<
 		const width = this._width;
 		const height = this._height;
 		const reflowables = this._reflowables;
-		for( let i = 0, imax = reflowables.length; i < imax; ++i ) {
-			reflowables[ i ].onReflow( this, width, height );
+		for (let i = 0, imax = reflowables.length; i < imax; ++i) {
+			reflowables[i].onReflow(this, width, height);
 		}
 	}
 
@@ -1679,39 +1705,39 @@ export class DBase<
 		return this._shadow;
 	}
 
-	set shadow( shadow: DShadow | null ) {
+	set shadow(shadow: DShadow | null) {
 		const previous = this._shadow;
-		if( previous !== shadow ) {
-			if( previous != null ) {
-				previous.off( "update", this._onShadowUpdateBound );
-				this.removeReflowable( previous );
-				this.removeRenderable( previous, true );
+		if (previous !== shadow) {
+			if (previous != null) {
+				previous.off("update", this._onShadowUpdateBound);
+				this.removeReflowable(previous);
+				this.removeRenderable(previous, true);
 			}
 
 			this._shadow = shadow;
-			if( shadow != null ) {
-				shadow.on( "update", this._onShadowUpdateBound );
-				this.addReflowable( shadow );
-				this.addRenderableAt( shadow, true, 0 );
+			if (shadow != null) {
+				shadow.on("update", this._onShadowUpdateBound);
+				this.addReflowable(shadow);
+				this.addRenderableAt(shadow, true, 0);
 			}
 
-			DApplications.update( this );
+			DApplications.update(this);
 		}
 	}
 
 	layout(): void {
 		const parent = this.getParentOfSize();
-		if( parent ) {
-			this.onParentResize( parent.width, parent.height, parent.padding );
+		if (parent) {
+			this.onParentResize(parent.width, parent.height, parent.padding);
 		}
 	}
 
-	protected getParentOfSize(): { width: number, height: number, padding: DPadding } | null {
+	protected getParentOfSize(): { width: number; height: number; padding: DPadding } | null {
 		const parent = this.parent;
-		if( parent instanceof DBase ) {
+		if (parent instanceof DBase) {
 			return parent;
 		} else {
-			return DApplications.getLayer( this );
+			return DApplications.getLayer(this);
 		}
 	}
 
@@ -1721,7 +1747,7 @@ export class DBase<
 	 * @param parentWidth a parent's local width
 	 * @param parentHeight a parent's local height
 	 */
-	onParentResize( parentWidth: number, parentHeight: number, parentPadding: DPadding ): void {
+	onParentResize(parentWidth: number, parentHeight: number, parentPadding: DPadding): void {
 		const scalarSet = this._scalarSet;
 		const position = this.transform.position;
 		const x = position.x;
@@ -1732,16 +1758,26 @@ export class DBase<
 		// Width & height
 		const paddingWidth = parentPadding.getLeft() + parentPadding.getRight();
 		const paddingHeight = parentPadding.getTop() + parentPadding.getBottom();
-		const newWidth = ( scalarSet.width != null ?
-			scalarSet.width( parentWidth, width, paddingWidth, width ) : width );
-		const newHeight = ( scalarSet.height != null ?
-			scalarSet.height( parentHeight, height, paddingHeight, height ) : height );
-		this.resize( newWidth, newHeight );
+		const newWidth =
+			scalarSet.width != null
+				? scalarSet.width(parentWidth, width, paddingWidth, width)
+				: width;
+		const newHeight =
+			scalarSet.height != null
+				? scalarSet.height(parentHeight, height, paddingHeight, height)
+				: height;
+		this.resize(newWidth, newHeight);
 
 		// X & Y
-		const newX = ( scalarSet.x != null ? scalarSet.x( parentWidth, this._width, parentPadding.getLeft(), x ) : x );
-		const newY = ( scalarSet.y != null ? scalarSet.y( parentHeight, this._height, parentPadding.getTop(), y ) : y );
-		this.position.set( newX, newY );
+		const newX =
+			scalarSet.x != null
+				? scalarSet.x(parentWidth, this._width, parentPadding.getLeft(), x)
+				: x;
+		const newY =
+			scalarSet.y != null
+				? scalarSet.y(parentHeight, this._height, parentPadding.getTop(), y)
+				: y;
+		this.position.set(newX, newY);
 	}
 
 	/**
@@ -1752,77 +1788,77 @@ export class DBase<
 	 * @param oldX an old parent's local x position
 	 * @param oldY an old parent's local y position
 	 */
-	protected onParentMove( newX: number, newY: number, oldX: number, oldY: number ): void {
+	protected onParentMove(newX: number, newY: number, oldX: number, oldY: number): void {
 		// DO NOTHING
 	}
 
 	// Wheel
-	onWheel( e: WheelEvent, deltas: UtilWheelEventDeltas, global: Point ): boolean {
-		this.emit( "wheel", e, deltas, global, this );
+	onWheel(e: WheelEvent, deltas: UtilWheelEventDeltas, global: Point): boolean {
+		this.emit("wheel", e, deltas, global, this);
 		return false;
 	}
 
 	// Keydown
-	onKeyDown( e: KeyboardEvent ): boolean {
-		this.emit( "keydown", e, this );
+	onKeyDown(e: KeyboardEvent): boolean {
+		this.emit("keydown", e, this);
 		return false;
 	}
 
-	onKeyUp( e: KeyboardEvent ): boolean {
-		this.emit( "keyup", e, this );
+	onKeyUp(e: KeyboardEvent): boolean {
+		this.emit("keyup", e, this);
 		return false;
 	}
 
 	// Down
-	protected isEventTarget( e: InteractionEvent ): boolean {
+	protected isEventTarget(e: InteractionEvent): boolean {
 		const target = e.target;
-		if( target === this ) {
+		if (target === this) {
 			return true;
-		} else if( !( target instanceof DBase ) ) {
+		} else if (!(target instanceof DBase)) {
 			let parent = target.parent;
-			while( parent != null && ! ( parent instanceof DBase ) ) {
+			while (parent != null && !(parent instanceof DBase)) {
 				parent = parent.parent;
 			}
-			return ( parent === this );
+			return parent === this;
 		}
 		return false;
 	}
 
-	protected onDown( e: InteractionEvent ): void {
-		if( this.isEventTarget( e ) ) {
-			this.onDownThis( e );
+	protected onDown(e: InteractionEvent): void {
+		if (this.isEventTarget(e)) {
+			this.onDownThis(e);
 		}
-		this.emit( "down", e, this );
+		this.emit("down", e, this);
 	}
 
-	protected onDownThis( e: InteractionEvent ): void {
+	protected onDownThis(e: InteractionEvent): void {
 		const oe = e.data.originalEvent;
-		if( "touches" in oe ) {
+		if ("touches" in oe) {
 			const lastDownPoint = this._lastDownPoint || new Point();
 			this._lastDownPoint = lastDownPoint;
-			lastDownPoint.copyFrom( e.data.global );
+			lastDownPoint.copyFrom(e.data.global);
 		} else {
 			this.focusOnClosest();
 		}
 	}
 
-	protected onUp( e: InteractionEvent ): void {
-		if( this.isEventTarget( e ) ) {
-			this.onUpThis( e );
+	protected onUp(e: InteractionEvent): void {
+		if (this.isEventTarget(e)) {
+			this.onUpThis(e);
 		}
-		this.emit( "up", e, this );
+		this.emit("up", e, this);
 	}
 
-	protected onUpThis( e: InteractionEvent ): void {
+	protected onUpThis(e: InteractionEvent): void {
 		const oe = e.data.originalEvent;
-		if( "touches" in oe ) {
+		if ("touches" in oe) {
 			const lastDownPoint = this._lastDownPoint;
-			if( lastDownPoint ) {
+			if (lastDownPoint) {
 				const global = e.data.global;
-				const dx = Math.abs( global.x - lastDownPoint.x );
-				const dy = Math.abs( global.y - lastDownPoint.y );
+				const dx = Math.abs(global.x - lastDownPoint.x);
+				const dy = Math.abs(global.y - lastDownPoint.y);
 				const threshold = UtilPointerEvent.CLICK_DISTANCE_THRESHOLD;
-				if( dx < threshold && dy < threshold ) {
+				if (dx < threshold && dy < threshold) {
 					this.focusOnClosest();
 				}
 			}
@@ -1830,72 +1866,72 @@ export class DBase<
 	}
 
 	protected focusOnClosest(): void {
-		const layer = DApplications.getLayer( this );
-		if( layer ) {
+		const layer = DApplications.getLayer(this);
+		if (layer) {
 			const focusController = layer.getFocusController();
-			focusController.focus( focusController.findParent( this ) );
+			focusController.focus(focusController.findParent(this));
 		}
 	}
 
 	// Over
-	protected onOver( e: InteractionEvent ): void {
+	protected onOver(e: InteractionEvent): void {
 		// Update the hover state
 		this.state.isHovered = true;
 
 		// Update the title
-		if( e.target === this ) {
+		if (e.target === this) {
 			this.applyTitle();
 		}
 
 		// Event
-		this.emit( "over", e, this );
+		this.emit("over", e, this);
 	}
 
 	// Out
-	protected onOut( e: InteractionEvent ): void {
+	protected onOut(e: InteractionEvent): void {
 		// Update the hover state
 		this.state.isHovered = false;
 
 		// Event
-		this.emit( "out", e, this );
+		this.emit("out", e, this);
 	}
 
 	// Double click
-	onDblClick( e: MouseEvent | TouchEvent, interactionManager: InteractionManager ): boolean {
-		this.emit( "dblclick", e, interactionManager, this );
+	onDblClick(e: MouseEvent | TouchEvent, interactionManager: InteractionManager): boolean {
+		this.emit("dblclick", e, interactionManager, this);
 		return false;
 	}
 
 	//
-	render( renderer: Renderer ): void {
-		if( this.visible && 0 < this.worldAlpha && this.renderable ) {
-			this.renderBefore( renderer );
-			super.render( renderer );
-			this.renderAfter( renderer );
+	render(renderer: Renderer): void {
+		if (this.visible && 0 < this.worldAlpha && this.renderable) {
+			this.renderBefore(renderer);
+			super.render(renderer);
+			this.renderAfter(renderer);
 		}
 	}
 
-	protected renderBefore( renderer: Renderer ): void {
+	protected renderBefore(renderer: Renderer): void {
 		const befores = this._befores;
-		for( let i = 0, imax = befores.length; i < imax; ++i ) {
-			const before = befores[ i ];
+		for (let i = 0, imax = befores.length; i < imax; ++i) {
+			const before = befores[i];
 			before.updateTransform();
-			before.render( renderer );
+			before.render(renderer);
 		}
 	}
 
-	protected renderAfter( renderer: Renderer ): void {
+	protected renderAfter(renderer: Renderer): void {
 		const afters = this._afters;
-		for( let i = 0, imax = afters.length; i < imax; ++i ) {
-			const after = afters[ i ];
+		for (let i = 0, imax = afters.length; i < imax; ++i) {
+			const after = afters[i];
 			after.updateTransform();
-			after.render( renderer );
+			after.render(renderer);
 		}
 	}
 
 	//
 	protected getThemeDefault(): THEME {
-		return DThemes.getInstance().get( this.getType() );
+		return DThemes.getInstance().get(this.getType());
 	}
 
 	protected getType(): string {
@@ -1908,32 +1944,36 @@ export class DBase<
 		const bounds = this._bounds;
 
 		const work = DBase.WORK_CONTAINS_POINT;
-		work.set( 0, 0 );
-		worldTransform.apply( work, work );
-		bounds.addPoint( work );
+		work.set(0, 0);
+		worldTransform.apply(work, work);
+		bounds.addPoint(work);
 
-		work.set( this._width, this._height );
-		worldTransform.apply( work, work );
-		bounds.addPoint( work );
+		work.set(this._width, this._height);
+		worldTransform.apply(work, work);
+		bounds.addPoint(work);
 
 		super._calculateBounds();
 	}
 
-	containsPoint( point: Point ): boolean {
-		return this.containsGlobalPoint( point ) || this.containsLocalPoint(
-			this.worldTransform.applyInverse( point, DBase.WORK_CONTAINS_POINT )
+	containsPoint(point: Point): boolean {
+		return (
+			this.containsGlobalPoint(point) ||
+			this.containsLocalPoint(
+				this.worldTransform.applyInverse(point, DBase.WORK_CONTAINS_POINT)
+			)
 		);
 	}
 
-	protected containsGlobalPoint( point: Point ): boolean {
+	protected containsGlobalPoint(point: Point): boolean {
 		return false;
 	}
 
-	protected containsLocalPoint( point: Point ): boolean {
-		return (
-			0 <= point.x && point.x <= this._width &&
-			0 <= point.y && point.y <= this._height
-		);
+	protected containsLocalPoint(point: Point): boolean {
+		const x = point.x;
+		const y = point.y;
+		const w = this._width;
+		const h = this._height;
+		return 0 <= x && x <= w && 0 <= y && y <= h;
 	}
 
 	/**
@@ -1941,7 +1981,7 @@ export class DBase<
 	 *
 	 * @param result a clipping rect
 	 */
-	getClippingRect( target: unknown, result: Rectangle ): void {
+	getClippingRect(target: unknown, result: Rectangle): void {
 		result.x = 0;
 		result.y = 0;
 		result.width = this._width;
@@ -1958,15 +1998,15 @@ export class DBase<
 
 		// Shadow
 		const shadow = this._shadow;
-		if( shadow ) {
+		if (shadow) {
 			this._shadow = null;
 			shadow.destroy();
 		}
 
 		// Children
 		const children = this.children;
-		for( let i = children.length - 1; 0 <= i; --i ) {
-			children[ i ].destroy();
+		for (let i = children.length - 1; 0 <= i; --i) {
+			children[i].destroy();
 		}
 		children.length = 0;
 

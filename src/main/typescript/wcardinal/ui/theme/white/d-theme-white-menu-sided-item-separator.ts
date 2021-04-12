@@ -5,6 +5,4 @@
 
 import { DThemeWhiteMenuItemSeparator } from "./d-theme-white-menu-item-separator";
 
-export class DThemeWhiteMenuSidedItemSeparator extends DThemeWhiteMenuItemSeparator {
-
-}
+export class DThemeWhiteMenuSidedItemSeparator extends DThemeWhiteMenuItemSeparator {}

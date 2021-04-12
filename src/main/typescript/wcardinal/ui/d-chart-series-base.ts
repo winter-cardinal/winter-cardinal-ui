@@ -13,7 +13,10 @@ import { DChartRegionImpl } from "./d-chart-region-impl";
 import { DChartSeries, DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesBaseCoordinateContainer } from "./d-chart-series-base-coordinate-container";
 import { DChartSeriesContainer } from "./d-chart-series-container";
-import { DChartSeriesCoordinateContainer, DChartSeriesCoordinateOptions } from "./d-chart-series-coordinate";
+import {
+	DChartSeriesCoordinateContainer,
+	DChartSeriesCoordinateOptions
+} from "./d-chart-series-coordinate";
 import { EShape } from "./shape/e-shape";
 
 /**
@@ -41,40 +44,38 @@ export abstract class DChartSeriesBase extends utils.EventEmitter implements DCh
 
 	abstract readonly shape: EShape | null;
 
-	constructor( options?: DChartSeriesBaseOptions ) {
+	constructor(options?: DChartSeriesBaseOptions) {
 		super();
 
-		this._coordinate = new DChartSeriesBaseCoordinateContainer( this, options?.coordinate );
+		this._coordinate = new DChartSeriesBaseCoordinateContainer(this, options?.coordinate);
 		this._index = 0;
-		this._domain = new DChartRegionImpl( NaN, NaN );
-		this._range = new DChartRegionImpl( NaN, NaN );
+		this._domain = new DChartRegionImpl(NaN, NaN);
+		this._range = new DChartRegionImpl(NaN, NaN);
 		this._regionPointId = NaN;
 
-		this._state = new DBaseStateSetImplObservable(( newState, oldState ): void => {
-			this.onStateChange( newState, oldState );
+		this._state = new DBaseStateSetImplObservable((newState, oldState): void => {
+			this.onStateChange(newState, oldState);
 		});
 
 		// Events
-		if( options ) {
-			const on = options.on;
-			if( on != null ) {
-				for( const name in on ) {
-					const handler = on[ name ];
-					if( handler ) {
-						this.on( name, handler );
-					}
+		const on = options?.on;
+		if (on != null) {
+			for (const name in on) {
+				const handler = on[name];
+				if (handler) {
+					this.on(name, handler);
 				}
 			}
 		}
 	}
 
-	bind( container: DChartSeriesContainer, index: number ): void {
+	bind(container: DChartSeriesContainer, index: number): void {
 		this._container = container;
 		this._coordinate.reset();
 		this._index = index;
 
 		const chart = container.plotArea.chart;
-		if( chart ) {
+		if (chart) {
 			this._state.parent = chart.state;
 		}
 	}
@@ -119,18 +120,18 @@ export abstract class DChartSeriesBase extends utils.EventEmitter implements DCh
 		this._coordinate.destroy();
 	}
 
-	hitTest( global: IPoint ): boolean {
+	hitTest(global: IPoint): boolean {
 		return false;
 	}
 
-	calcHitPoint( global: IPoint, result: DChartSeriesHitResult ): boolean {
+	calcHitPoint(global: IPoint, result: DChartSeriesHitResult): boolean {
 		return false;
 	}
 
-	protected onStateChange( newState: DBaseStateSet, oldState: DBaseStateSet ): void {
+	protected onStateChange(newState: DBaseStateSet, oldState: DBaseStateSet): void {
 		this.toDirty();
 		const chart = this._container?.plotArea.chart;
-		DApplications.update( chart );
-		this.emit( "statechange", newState, oldState, this );
+		DApplications.update(chart);
+		this.emit("statechange", newState, oldState, this);
 	}
 }

@@ -5,7 +5,8 @@
 
 import { IPoint } from "pixi.js";
 import {
-	DChartSelectionGridlineContainer, DChartSelectionGridlineContainerOptions
+	DChartSelectionGridlineContainer,
+	DChartSelectionGridlineContainerOptions
 } from "./d-chart-selection-gridline-container";
 import { DChartSelectionGridlineX } from "./d-chart-selection-gridline-x";
 import { DChartSelectionGridlineY } from "./d-chart-selection-gridline-y";
@@ -17,9 +18,9 @@ export class DChartSelectionGridlineContainerImpl implements DChartSelectionGrid
 	protected _x: DChartSelectionShape;
 	protected _y: DChartSelectionShape;
 
-	constructor( options?: DChartSelectionGridlineContainerOptions ) {
-		this._x = new DChartSelectionGridlineX( options && options.x );
-		this._y = new DChartSelectionGridlineY( options && options.y );
+	constructor(options?: DChartSelectionGridlineContainerOptions) {
+		this._x = new DChartSelectionGridlineX(options?.x);
+		this._y = new DChartSelectionGridlineY(options?.y);
 	}
 
 	get x(): DChartSelectionShape {
@@ -30,9 +31,9 @@ export class DChartSelectionGridlineContainerImpl implements DChartSelectionGrid
 		return this._y;
 	}
 
-	bind( container: DChartSeriesContainer ): void {
-		this._x.bind( container );
-		this._y.bind( container );
+	bind(container: DChartSeriesContainer): void {
+		this._x.bind(container);
+		this._y.bind(container);
 	}
 
 	unbind(): void {
@@ -40,9 +41,9 @@ export class DChartSelectionGridlineContainerImpl implements DChartSelectionGrid
 		this._y.unbind();
 	}
 
-	set( container: DChartSeriesContainer, mappedPosition: IPoint, series: DChartSeries ): void {
-		this._x.set( container, mappedPosition, series );
-		this._y.set( container, mappedPosition, series );
+	set(container: DChartSeriesContainer, mappedPosition: IPoint, series: DChartSeries): void {
+		this._x.set(container, mappedPosition, series);
+		this._y.set(container, mappedPosition, series);
 	}
 
 	unset(): void {
@@ -50,8 +51,8 @@ export class DChartSelectionGridlineContainerImpl implements DChartSelectionGrid
 		this._y.unset();
 	}
 
-	update( container: DChartSeriesContainer, mappedPosition: IPoint ): void {
-		this._x.update( container, mappedPosition );
-		this._y.update( container, mappedPosition );
+	update(container: DChartSeriesContainer, mappedPosition: IPoint): void {
+		this._x.update(container, mappedPosition);
+		this._y.update(container, mappedPosition);
 	}
 }

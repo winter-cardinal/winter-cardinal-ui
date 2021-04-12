@@ -8,6 +8,6 @@ import { DThemeDarkPickerColorGradient } from "../d-theme-dark-picker-color-grad
 import { loadThemeDarkPickerColor } from "./load-theme-dark-picker-color";
 
 export const loadThemeDarkPickerColorGradient = (): void => {
-	DThemeDark.set( "DPickerColorGradient", DThemeDarkPickerColorGradient );
+	DThemeDark.set("DPickerColorGradient", DThemeDarkPickerColorGradient);
 	loadThemeDarkPickerColor();
 };

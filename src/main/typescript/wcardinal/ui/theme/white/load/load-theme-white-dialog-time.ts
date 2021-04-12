@@ -8,6 +8,6 @@ import { DThemeWhiteDialogTime } from "../d-theme-white-dialog-time";
 import { loadThemeWhitePickerTime } from "./load-theme-white-picker-time";
 
 export const loadThemeWhiteDialogTime = (): void => {
-	DThemeWhite.set( "DDialogTime", DThemeWhiteDialogTime );
+	DThemeWhite.set("DDialogTime", DThemeWhiteDialogTime);
 	loadThemeWhitePickerTime();
 };

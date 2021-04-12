@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export const toPadded = ( str: string, length: number, c: string ): string => {
+export const toPadded = (str: string, length: number, c: string): string => {
 	const strLength = str.length;
-	if( length < strLength ) {
+	if (length < strLength) {
 		return str;
 	}
 	let padding = "";
-	for( let i = 0, imax = length - strLength; i < imax; ++i ) {
+	for (let i = 0, imax = length - strLength; i < imax; ++i) {
 		padding += c;
 	}
 	return padding + str;

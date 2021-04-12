@@ -6,6 +6,6 @@
 import { DThemeDiagramCanvas } from "../../d-diagram-canvas";
 import { DThemeWhiteDiagramCanvasBase } from "./d-theme-white-diagram-canvas-base";
 
-export class DThemeWhiteDiagramCanvas extends DThemeWhiteDiagramCanvasBase implements DThemeDiagramCanvas {
-
-}
+export class DThemeWhiteDiagramCanvas
+	extends DThemeWhiteDiagramCanvasBase
+	implements DThemeDiagramCanvas {}

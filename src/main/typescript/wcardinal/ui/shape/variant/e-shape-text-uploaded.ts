@@ -11,8 +11,12 @@ import { EShapeTextAtlas } from "../e-shape-text";
 import { EShapeUploadedBase } from "../e-shape-uploaded";
 import { buildColor } from "./build-color";
 import {
-	buildTextClipping, buildTextIndex, buildTextStep, buildTextVertex,
-	TEXT_VERTEX_COUNT, toTextBufferCount
+	buildTextClipping,
+	buildTextIndex,
+	buildTextStep,
+	buildTextVertex,
+	TEXT_VERTEX_COUNT,
+	toTextBufferCount
 } from "./build-text";
 
 export abstract class EShapeTextUploaded extends EShapeUploadedBase {
@@ -45,12 +49,15 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 
 	constructor(
 		buffer: EShapeBuffer,
-		voffset: number, ioffset: number,
-		tvcount: number, ticount: number,
-		vcount: number, icount: number,
+		voffset: number,
+		ioffset: number,
+		tvcount: number,
+		ticount: number,
+		vcount: number,
+		icount: number,
 		antialiasWeight: number
 	) {
-		super( buffer, voffset, ioffset, vcount, icount, antialiasWeight );
+		super(buffer, voffset, ioffset, vcount, icount, antialiasWeight);
 
 		this.textSize = NaN;
 		this.textFamily = "auto";
@@ -82,54 +89,49 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 
 	initText(): void {
 		const vcount = this.textVertexCount;
-		if( 0 < vcount ) {
+		if (0 < vcount) {
 			// Clippings
 			const buffer = this.buffer;
 			const voffset = this.textVertexOffset;
 			buffer.updateClippings();
-			buildTextClipping(
-				buffer.clippings,
-				voffset,
-				vcount
-			);
+			buildTextClipping(buffer.clippings, voffset, vcount);
 
 			// Indices
 			buffer.updateIndices();
-			buildTextIndex(
-				buffer.indices,
-				voffset,
-				this.textIndexOffset,
-				this.textIndexCount
-			);
+			buildTextIndex(buffer.indices, voffset, this.textIndexOffset, this.textIndexCount);
 		}
 	}
 
-	isCompatible( shape: EShape ): boolean {
-		if( super.isCompatible( shape ) ) {
-			return ( toTextBufferCount( shape ) * TEXT_VERTEX_COUNT === this.textVertexCount );
+	isCompatible(shape: EShape): boolean {
+		if (super.isCompatible(shape)) {
+			return toTextBufferCount(shape) * TEXT_VERTEX_COUNT === this.textVertexCount;
 		}
 		return false;
 	}
 
-	protected updateText( buffer: EShapeBuffer, shape: EShape ): void {
+	protected updateText(buffer: EShapeBuffer, shape: EShape): void {
 		const vcount = this.textVertexCount;
-		if( 0 < vcount ) {
+		if (0 < vcount) {
 			const textAtlas = shape.text.atlas;
-			if( textAtlas != null ) {
-				this.updateTextVertex( buffer, shape, textAtlas );
-				this.updateTextColorFill( buffer, shape );
-				this.updateTextColorStroke( buffer, shape );
-				this.updateTextStep( buffer, shape );
+			if (textAtlas != null) {
+				this.updateTextVertex(buffer, shape, textAtlas);
+				this.updateTextColorFill(buffer, shape);
+				this.updateTextColorStroke(buffer, shape);
+				this.updateTextStep(buffer, shape);
 			}
 		}
 	}
 
-	protected updateColor( buffer: EShapeBuffer, shape: EShape ): void {
+	protected updateColor(buffer: EShapeBuffer, shape: EShape): void {
 		const vertexCount = this.vertexCount - this.textVertexCount;
-		this.updateColorFillAndStroke( buffer, shape, vertexCount );
+		this.updateColorFillAndStroke(buffer, shape, vertexCount);
 	}
 
-	protected updateTextVertex( buffer: EShapeBuffer, shape: EShape, textAtlas: EShapeTextAtlas ): void {
+	protected updateTextVertex(
+		buffer: EShapeBuffer,
+		shape: EShape,
+		textAtlas: EShapeTextAtlas
+	): void {
 		const text = shape.text;
 		const textSize = text.size;
 		const textFamily = text.family;
@@ -146,27 +148,39 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 		const textPaddingVertical = text.padding.vertical;
 		const textClipping = text.clipping;
 		const textTexture = text.texture || Texture.WHITE;
-		const textTextureTransformId = this.toTextureTransformId( textTexture );
+		const textTextureTransformId = this.toTextureTransformId(textTexture);
 
-		const isCharChanged = (textValue !== this.textValue || textFamily !== this.textFamily);
-		const isCharSizeChanged = (textSize !== this.textSize);
-		const isCharStyleChanged = (textStyle !== this.textStyle);
-		const isCharAlignChanged = (textAlignHorizontal !== this.textAlignHorizontal ||
-			textAlignVertical !== this.textAlignVertical);
-		const isCharOffsetChanged = (textOffsetHorizontal !== this.textOffsetHorizontal ||
-			textOffsetVertical !== this.textOffsetVertical);
-		const isCharSpacingChanged = (textSpacingHorizontal !== this.textSpacingHorizontal ||
+		const isCharChanged = textValue !== this.textValue || textFamily !== this.textFamily;
+		const isCharSizeChanged = textSize !== this.textSize;
+		const isCharStyleChanged = textStyle !== this.textStyle;
+		const isCharAlignChanged =
+			textAlignHorizontal !== this.textAlignHorizontal ||
+			textAlignVertical !== this.textAlignVertical;
+		const isCharOffsetChanged =
+			textOffsetHorizontal !== this.textOffsetHorizontal ||
+			textOffsetVertical !== this.textOffsetVertical;
+		const isCharSpacingChanged =
+			textSpacingHorizontal !== this.textSpacingHorizontal ||
 			textSpacingVertical !== this.textSpacingVertical ||
 			textPaddingHorizontal !== this.textPaddingHorizontal ||
-			textPaddingVertical !== this.textPaddingVertical);
-		const isCharDirectionChanged = (textDirection !== this.textDirection);
-		const isClippingChanged = ( this.textClipping !== textClipping );
-		const isTextureChanged = ( textTexture !== this.textTexture ||
-			textTextureTransformId !== this.textTextureTransformId );
+			textPaddingVertical !== this.textPaddingVertical;
+		const isCharDirectionChanged = textDirection !== this.textDirection;
+		const isClippingChanged = this.textClipping !== textClipping;
+		const isTextureChanged =
+			textTexture !== this.textTexture ||
+			textTextureTransformId !== this.textTextureTransformId;
 
-		if( isCharChanged || isCharSizeChanged || isCharStyleChanged ||
-			isCharAlignChanged || isCharOffsetChanged || isCharSpacingChanged ||
-			isCharDirectionChanged || isClippingChanged || isTextureChanged ) {
+		if (
+			isCharChanged ||
+			isCharSizeChanged ||
+			isCharStyleChanged ||
+			isCharAlignChanged ||
+			isCharOffsetChanged ||
+			isCharSpacingChanged ||
+			isCharDirectionChanged ||
+			isClippingChanged ||
+			isTextureChanged
+		) {
 			this.textSize = textSize;
 			this.textFamily = textFamily;
 			this.textValue = textValue;
@@ -184,7 +198,7 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 			this.textTexture = textTexture;
 			this.textTextureTransformId = textTextureTransformId;
 
-			if( isCharSizeChanged ) {
+			if (isCharSizeChanged) {
 				// Invalidate the text weight to update the text steps.
 				this.textWeight = NaN;
 			}
@@ -194,8 +208,8 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 			buffer.updateUvs();
 			const shapeSize = shape.size;
 			let textWorld = text.world;
-			if( textWorld == null ) {
-				textWorld = [ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ];
+			if (textWorld == null) {
+				textWorld = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
 				text.world = textWorld;
 			}
 			buildTextVertex(
@@ -222,23 +236,24 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 				textPaddingVertical,
 				textClipping,
 				textWorld,
-				this.toTextureUvs( textTexture ),
+				this.toTextureUvs(textTexture),
 				shape.transform.internalTransform
 			);
 		}
 	}
 
-	protected updateTextColorFill( buffer: EShapeBuffer, shape: EShape ): void {
+	protected updateTextColorFill(buffer: EShapeBuffer, shape: EShape): void {
 		const text = shape.text;
 		const color = text.color;
-		const alpha = ( shape.visible && text.enable ? text.alpha : 0 );
-		if( color !== this.textColor || alpha !== this.textAlpha ) {
+		const alpha = shape.visible && text.enable ? text.alpha : 0;
+		if (color !== this.textColor || alpha !== this.textAlpha) {
 			this.textColor = color;
 			this.textAlpha = alpha;
 			buffer.updateColorFills();
 
 			buildColor(
-				color, alpha,
+				color,
+				alpha,
 				this.textVertexOffset,
 				this.textVertexCount,
 				buffer.colorFills
@@ -246,18 +261,19 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 		}
 	}
 
-	protected updateTextColorStroke( buffer: EShapeBuffer, shape: EShape ): void {
+	protected updateTextColorStroke(buffer: EShapeBuffer, shape: EShape): void {
 		const text = shape.text;
 		const outline = text.outline;
 		const color = outline.color;
-		const alpha = ( shape.visible && text.enable ? outline.alpha : 0 );
-		if( color !== this.textOutlineColor || alpha !== this.textOutlineAlpha ) {
+		const alpha = shape.visible && text.enable ? outline.alpha : 0;
+		if (color !== this.textOutlineColor || alpha !== this.textOutlineAlpha) {
 			this.textOutlineColor = color;
 			this.textOutlineAlpha = alpha;
 			buffer.updateColorStrokes();
 
 			buildColor(
-				color, alpha,
+				color,
+				alpha,
 				this.textVertexOffset,
 				this.textVertexCount,
 				buffer.colorStrokes
@@ -265,12 +281,12 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 		}
 	}
 
-	protected updateTextStep( buffer: EShapeBuffer, shape: EShape ): void {
+	protected updateTextStep(buffer: EShapeBuffer, shape: EShape): void {
 		const text = shape.text;
 		const textOutline = text.outline;
-		const textOutlineWidth = (textOutline.enable ? textOutline.width : 0);
+		const textOutlineWidth = textOutline.enable ? textOutline.width : 0;
 		const textWeight = text.weight;
-		if( textWeight !== this.textWeight || textOutlineWidth !== this.textOutlineWidth ) {
+		if (textWeight !== this.textWeight || textOutlineWidth !== this.textOutlineWidth) {
 			this.textWeight = textWeight;
 			this.textOutlineWidth = textOutlineWidth;
 
@@ -288,15 +304,15 @@ export abstract class EShapeTextUploaded extends EShapeUploadedBase {
 		}
 	}
 
-	buildUnit( builder: EShapeBufferUnitBuilder ): void {
-		super.buildUnit( builder );
+	buildUnit(builder: EShapeBufferUnitBuilder): void {
+		super.buildUnit(builder);
 
-		if( 0 < this.textVertexCount ) {
+		if (0 < this.textVertexCount) {
 			const textTexture = this.textTexture || Texture.WHITE;
 			const textBaseTexture = textTexture.baseTexture;
-			if( textBaseTexture !== builder.baseTexture ) {
+			if (textBaseTexture !== builder.baseTexture) {
 				builder.baseTexture = textBaseTexture;
-				builder.push( textTexture, this.textIndexOffset );
+				builder.push(textTexture, this.textIndexOffset);
 			}
 		}
 	}

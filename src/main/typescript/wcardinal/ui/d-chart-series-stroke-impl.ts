@@ -20,17 +20,18 @@ export class DChartSeriesStrokeImpl implements DChartSeriesStroke {
 	side: DChartSeriesScalar<EShapeStrokeSide>;
 	style: DChartSeriesScalar<EShapePointsStyleOption>;
 
-	constructor( options?: DChartSeriesStrokeOptions ) {
-		this.enable = DChartSeriesScalars.from( options && options.enable, true );
-		this.color = DChartSeriesScalars.from( options && options.color, DChartColorSet2 );
-		this.alpha = DChartSeriesScalars.from( options && options.alpha, EShapeDefaults.STROKE_ALPHA );
-		this.width = DChartSeriesScalars.from( options && options.width, EShapeDefaults.STROKE_WIDTH );
-		this.align = DChartSeriesScalars.from( options && options.width, EShapeDefaults.STROKE_ALIGN );
-		this.side = DChartSeriesScalars.from( options && options.side, EShapeStrokeSide.ALL );
-		this.style = DChartSeriesScalars.from( options && options.style,
+	constructor(options?: DChartSeriesStrokeOptions) {
+		this.enable = DChartSeriesScalars.from(options?.enable, true);
+		this.color = DChartSeriesScalars.from(options?.color, DChartColorSet2);
+		this.alpha = DChartSeriesScalars.from(options?.alpha, EShapeDefaults.STROKE_ALPHA);
+		this.width = DChartSeriesScalars.from(options?.width, EShapeDefaults.STROKE_WIDTH);
+		this.align = DChartSeriesScalars.from(options?.width, EShapeDefaults.STROKE_ALIGN);
+		this.side = DChartSeriesScalars.from(options?.side, EShapeStrokeSide.ALL);
+		this.style = DChartSeriesScalars.from(
+			options?.style,
 			EShapePointsStyle.NON_EXPANDING_WIDTH |
-			EShapePointsStyle.NON_SHRINKING_WIDTH |
-			EShapePointsStyle.NON_SCALING_DOT_AND_DASH
+				EShapePointsStyle.NON_SHRINKING_WIDTH |
+				EShapePointsStyle.NON_SCALING_DOT_AND_DASH
 		);
 	}
 }

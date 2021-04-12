@@ -13,58 +13,58 @@ import { EShapeGroupPropertyParent } from "./e-shape-group-property-parent";
 export class EShapeGroupTextAlignEditor implements EShapeTextAlign {
 	protected _parent: EShapeGroupPropertyParent;
 
-	constructor( parent: EShapeGroupPropertyParent ) {
+	constructor(parent: EShapeGroupPropertyParent) {
 		this._parent = parent;
 	}
 
 	get horizontal(): EShapeTextAlignHorizontal {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].text.align.horizontal;
+		if (0 < children.length) {
+			return children[children.length - 1].text.align.horizontal;
 		}
 		return EShapeTextAlignHorizontal.CENTER;
 	}
 
-	set horizontal( horizontal: EShapeTextAlignHorizontal ) {
+	set horizontal(horizontal: EShapeTextAlignHorizontal) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.align.horizontal = horizontal;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.align.horizontal = horizontal;
 		}
 	}
 
 	get vertical(): EShapeTextAlignVertical {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].text.align.vertical;
+		if (0 < children.length) {
+			return children[children.length - 1].text.align.vertical;
 		}
 		return EShapeTextAlignVertical.MIDDLE;
 	}
 
-	set vertical( vertical: EShapeTextAlignVertical ) {
+	set vertical(vertical: EShapeTextAlignVertical) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.align.vertical = vertical;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.align.vertical = vertical;
 		}
 	}
 
-	copy( target?: Partial<EShapeTextAlignLike> ): void {
+	copy(target?: Partial<EShapeTextAlignLike>): void {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.align.copy( target );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.align.copy(target);
 		}
 	}
 
-	set( horizontal?: EShapeTextAlignHorizontal, vertical?: EShapeTextAlignVertical ): void {
+	set(horizontal?: EShapeTextAlignHorizontal, vertical?: EShapeTextAlignVertical): void {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].text.align.set( horizontal, vertical );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].text.align.set(horizontal, vertical);
 		}
 	}
 
 	toObject(): EShapeTextAlignLike {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].text.align.toObject();
+		if (0 < children.length) {
+			return children[children.length - 1].text.align.toObject();
 		}
 		return {
 			horizontal: EShapeTextAlignHorizontal.CENTER,
@@ -72,11 +72,11 @@ export class EShapeGroupTextAlignEditor implements EShapeTextAlign {
 		};
 	}
 
-	serialize( manager: EShapeResourceManagerSerialization ): number {
+	serialize(manager: EShapeResourceManagerSerialization): number {
 		return -1;
 	}
 
-	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void {
+	deserialize(target: number, manager: EShapeResourceManagerDeserialization): void {
 		// DO NOTHING
 	}
 }

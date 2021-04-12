@@ -48,8 +48,9 @@ export interface DChartAxisBaseTickMajorGridlineOptions {
 	stroke?: Partial<EShapeStrokeLike>;
 }
 
-export type DChartAxisTickPositionOption
-	= DChartAxisTickPosition | keyof typeof DChartAxisTickPosition;
+export type DChartAxisTickPositionOption =
+	| DChartAxisTickPosition
+	| keyof typeof DChartAxisTickPosition;
 
 export interface DChartAxisBaseTickMajorOptions {
 	count?: number;
@@ -92,8 +93,8 @@ export interface DThemeChartAxisBase {
 	getPosition(): DChartAxisPosition;
 	getPadding(): number;
 
-	getLabelAlignHorizontal( position: DChartAxisPosition ): EShapeTextAlignHorizontal;
-	getLabelAlignVertical( position: DChartAxisPosition ): EShapeTextAlignVertical;
+	getLabelAlignHorizontal(position: DChartAxisPosition): EShapeTextAlignHorizontal;
+	getLabelAlignVertical(position: DChartAxisPosition): EShapeTextAlignVertical;
 	getLabelPaddingHorizontal(): number;
 	getLabelPaddingVertical(): number;
 	getLabelDirection(): EShapeTextDirection;
@@ -114,8 +115,8 @@ export interface DThemeChartAxisBase {
 	getMajorTickSize(): number;
 	getMajorTickPosition(): DChartAxisTickPosition;
 	getMajorTickStyle(): EShapePointsStyle | undefined;
-	getMajorTickTextAlignHorizontal( position: DChartAxisPosition ): EShapeTextAlignHorizontal;
-	getMajorTickTextAlignVertical( position: DChartAxisPosition ): EShapeTextAlignVertical;
+	getMajorTickTextAlignHorizontal(position: DChartAxisPosition): EShapeTextAlignHorizontal;
+	getMajorTickTextAlignVertical(position: DChartAxisPosition): EShapeTextAlignVertical;
 	getMajorTickTextDirection(): EShapeTextDirection;
 	getMajorTickTextFormat(): string;
 	getMajorTickTextColor(): number | undefined;

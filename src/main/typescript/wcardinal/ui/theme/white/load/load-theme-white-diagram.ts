@@ -9,7 +9,7 @@ import { DThemeWhiteDiagramCanvas } from "../d-theme-white-diagram-canvas";
 import { loadThemeWhiteShape } from "./load-theme-white-shape";
 
 export const loadThemeWhiteDiagram = (): void => {
-	DThemeWhite.set( "DDiagram", DThemeWhiteDiagram );
-	DThemeWhite.set( "DDiagramCanvas", DThemeWhiteDiagramCanvas );
+	DThemeWhite.set("DDiagram", DThemeWhiteDiagram);
+	DThemeWhite.set("DDiagramCanvas", DThemeWhiteDiagramCanvas);
 	loadThemeWhiteShape();
 };

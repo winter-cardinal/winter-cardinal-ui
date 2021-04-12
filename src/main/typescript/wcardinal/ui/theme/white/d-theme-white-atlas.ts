@@ -5,4 +5,4 @@
 
 import { UtilSvgAtlasBuilder } from "../../util/util-svg-atlas-builder";
 
-export const DThemeWhiteAtlas = new UtilSvgAtlasBuilder( 256, 1, 3 );
+export const DThemeWhiteAtlas = new UtilSvgAtlasBuilder(256, 1, 3);

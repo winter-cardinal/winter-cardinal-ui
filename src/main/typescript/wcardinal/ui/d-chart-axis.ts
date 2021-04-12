@@ -12,7 +12,7 @@ export interface DChartAxisOptions {
 
 export interface DChartAxis {
 	readonly position: DChartAxisPosition;
-	bind( container: DChartAxisContainer, index: number ): void;
+	bind(container: DChartAxisContainer, index: number): void;
 	unbind(): void;
 	update(): void;
 	destroy(): void;

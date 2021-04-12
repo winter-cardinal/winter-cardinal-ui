@@ -10,8 +10,8 @@ import { DThemeWhitePaginationDynamicButtons } from "../d-theme-white-pagination
 import { DThemeWhitePaginationNavigationButton } from "../d-theme-white-pagination-navigation-button";
 
 export const loadThemeWhitePagination = (): void => {
-	DThemeWhite.set( "DPagination", DThemeWhitePagination );
-	DThemeWhite.set( "DPaginationNavigationButton", DThemeWhitePaginationNavigationButton );
-	DThemeWhite.set( "DPaginationDynamicButtons", DThemeWhitePaginationDynamicButtons );
-	DThemeWhite.set( "DPaginationDotsButton", DThemeWhitePaginationDotsButton );
+	DThemeWhite.set("DPagination", DThemeWhitePagination);
+	DThemeWhite.set("DPaginationNavigationButton", DThemeWhitePaginationNavigationButton);
+	DThemeWhite.set("DPaginationDynamicButtons", DThemeWhitePaginationDynamicButtons);
+	DThemeWhite.set("DPaginationDotsButton", DThemeWhitePaginationDotsButton);
 };

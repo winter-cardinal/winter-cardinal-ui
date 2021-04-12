@@ -15,7 +15,7 @@ export class DThemeWhiteBoard extends DThemeWhiteBase implements DThemeBoard {
 		return DThemeWhiteConstants.BACKGROUND_COLOR;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 

@@ -14,9 +14,15 @@ import { DScalarFunction } from "./d-scalar-function";
  * * A function returning a position ({@link DScalarFunction})
  * * An object returning a position value ({@link DScalar})
  */
-export type DCoordinatePosition = number | string |
-	"center" | "padding" | "CENTER" | "PADDING" |
-	DScalarFunction | DScalar;
+export type DCoordinatePosition =
+	| number
+	| string
+	| "center"
+	| "padding"
+	| "CENTER"
+	| "PADDING"
+	| DScalarFunction
+	| DScalar;
 
 /**
  * One of the followings:
@@ -28,6 +34,13 @@ export type DCoordinatePosition = number | string |
  */
 export type DCoordinateSize = "auto" | "AUTO" | DCoordinateSizeNoAuto;
 
-export type DCoordinateSizeNoAuto = number | string |
-	"100%" | "maximized" | "padding" | "MAXIMIZED" | "PADDING" |
-	DScalarFunction | DScalar;
+export type DCoordinateSizeNoAuto =
+	| number
+	| string
+	| "100%"
+	| "maximized"
+	| "padding"
+	| "MAXIMIZED"
+	| "PADDING"
+	| DScalarFunction
+	| DScalar;

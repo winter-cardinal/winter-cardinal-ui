@@ -16,7 +16,7 @@ export class EShapeGroupTextOutlineViewer implements EShapeTextOutline {
 		return false;
 	}
 
-	set enable( enable: boolean ) {
+	set enable(enable: boolean) {
 		// DO NOTHING
 	}
 
@@ -24,7 +24,7 @@ export class EShapeGroupTextOutlineViewer implements EShapeTextOutline {
 		return 0xffffff;
 	}
 
-	set color( color: number ) {
+	set color(color: number) {
 		// DO NOTHING
 	}
 
@@ -32,7 +32,7 @@ export class EShapeGroupTextOutlineViewer implements EShapeTextOutline {
 		return 1.0;
 	}
 
-	set alpha( alpha: number ) {
+	set alpha(alpha: number) {
 		// DO NOTHING
 	}
 
@@ -40,15 +40,15 @@ export class EShapeGroupTextOutlineViewer implements EShapeTextOutline {
 		return 1.0;
 	}
 
-	set width( width: number ) {
+	set width(width: number) {
 		// DO NOTHING
 	}
 
-	copy( target?: Partial<EShapeTextOutlineLike> ): void {
+	copy(target?: Partial<EShapeTextOutlineLike>): void {
 		// DO NOTHING
 	}
 
-	set( enable?: boolean, color?: number, alpha?: number, width?: number ): void {
+	set(enable?: boolean, color?: number, alpha?: number, width?: number): void {
 		// DO NOTHING
 	}
 
@@ -65,11 +65,11 @@ export class EShapeGroupTextOutlineViewer implements EShapeTextOutline {
 		};
 	}
 
-	serialize( manager: EShapeResourceManagerSerialization ): number {
+	serialize(manager: EShapeResourceManagerSerialization): number {
 		return -1;
 	}
 
-	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void {
+	deserialize(target: number, manager: EShapeResourceManagerDeserialization): void {
 		//
 	}
 }

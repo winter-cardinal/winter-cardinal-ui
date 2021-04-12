@@ -6,12 +6,14 @@
 import { ObservablePoint } from "pixi.js";
 import { DMapTileMappingPoint } from "./d-map-tile-mapping";
 
-export class DDiagramCanvasTileMappingPointImpl extends ObservablePoint implements DMapTileMappingPoint {
+export class DDiagramCanvasTileMappingPointImpl
+	extends ObservablePoint
+	implements DMapTileMappingPoint {
 	get lon(): number {
 		return this.x;
 	}
 
-	set lon( lon: number ) {
+	set lon(lon: number) {
 		this.x = lon;
 	}
 
@@ -19,11 +21,11 @@ export class DDiagramCanvasTileMappingPointImpl extends ObservablePoint implemen
 		return this.y;
 	}
 
-	set lat( lat: number ) {
+	set lat(lat: number) {
 		this.y = lat;
 	}
 
-	toObject(): { lon: number, lat: number } {
+	toObject(): { lon: number; lat: number } {
 		return {
 			lon: this.x,
 			lat: this.y

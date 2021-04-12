@@ -12,8 +12,8 @@ import { EShapeActionValueTransformMove } from "./e-shape-action-value-transform
 export class EShapeActionRuntimeTransformMove extends EShapeActionRuntimeConditional {
 	protected readonly amount: EShapeActionExpression<number>;
 
-	constructor( value: EShapeActionValueTransformMove, reset: EShapeRuntimeReset ) {
-		super( value, reset );
-		this.amount = EShapeActionExpressions.ofNumber( value.amount );
+	constructor(value: EShapeActionValueTransformMove, reset: EShapeRuntimeReset) {
+		super(value, reset);
+		this.amount = EShapeActionExpressions.ofNumber(value.amount);
 	}
 }

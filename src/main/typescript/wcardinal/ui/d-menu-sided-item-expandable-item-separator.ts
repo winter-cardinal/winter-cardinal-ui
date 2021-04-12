@@ -9,7 +9,10 @@ import { DMenuItemSeparatorOptions, DThemeMenuItemSeparator } from "./d-menu-ite
 export class DMenuSidedItemExpandableItemSeparator<
 	VALUE = unknown,
 	THEME extends DThemeMenuItemSeparator = DThemeMenuItemSeparator,
-	OPTIONS extends DMenuItemSeparatorOptions<VALUE, THEME> = DMenuItemSeparatorOptions<VALUE, THEME>
+	OPTIONS extends DMenuItemSeparatorOptions<VALUE, THEME> = DMenuItemSeparatorOptions<
+		VALUE,
+		THEME
+	>
 > extends DMenuItemExpandableItemSeparator<VALUE, THEME, OPTIONS> {
 	protected getType(): string {
 		return "DMenuSidedItemSeparator";

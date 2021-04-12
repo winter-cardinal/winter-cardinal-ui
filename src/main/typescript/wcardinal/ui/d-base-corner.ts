@@ -7,7 +7,7 @@ import { DBaseOptions, DThemeBase } from "./d-base";
 import { DCorner } from "./d-corner";
 import { DCornerMask } from "./d-corner-mask";
 import { isNumber } from "./util/is-number";
-import { isString } from "./util/is-string";
+import { toEnum } from "./util/to-enum";
 
 type Callback = () => void;
 
@@ -17,17 +17,17 @@ export class DBaseCorner implements DCorner {
 	protected _mask?: DCornerMask;
 	protected _callback: Callback | undefined;
 
-	constructor( theme: DThemeBase, options?: DBaseOptions<any>, callback?: () => void ) {
+	constructor(theme: DThemeBase, options?: DBaseOptions<any>, callback?: () => void) {
 		this._theme = theme;
 		this._callback = callback;
-		if( options != null && options.corner != null ) {
-			const corner = options.corner;
-			if( isNumber( corner ) ) {
+		const corner = options?.corner;
+		if (corner) {
+			if (isNumber(corner)) {
 				this._radius = corner;
 				this._mask = undefined;
 			} else {
 				this._radius = corner.radius;
-				this._mask = ( isString( corner.mask ) ? DCornerMask[ corner.mask ] : corner.mask );
+				this._mask = toEnum(corner.mask, DCornerMask);
 			}
 		}
 	}
@@ -36,63 +36,61 @@ export class DBaseCorner implements DCorner {
 		return this._theme;
 	}
 
-	setTheme( theme: DThemeBase ): void {
+	setTheme(theme: DThemeBase): void {
 		this._theme = theme;
 	}
 
 	getRadius(): number {
-		const radius = this._radius;
-		return ( radius !== undefined ? radius : this._theme.getCornerRadius() );
+		return this._radius ?? this._theme.getCornerRadius();
 	}
 
 	get radius(): number | undefined {
 		return this._radius;
 	}
 
-	set radius( radius: number | undefined ) {
-		if( this._radius !== radius ) {
+	set radius(radius: number | undefined) {
+		if (this._radius !== radius) {
 			this._radius = radius;
 			const callback = this._callback;
-			if( callback != null ) {
+			if (callback != null) {
 				callback();
 			}
 		}
 	}
 
 	getMask(): DCornerMask {
-		const mask = this._mask;
-		return ( mask !== undefined ? mask : this._theme.getCornerMask() );
+		return this._mask ?? this._theme.getCornerMask();
 	}
 
 	get mask(): DCornerMask | undefined {
 		return this._mask;
 	}
 
-	set mask( mask: DCornerMask | undefined ) {
-		if( this._mask !== mask ) {
+	set mask(mask: DCornerMask | undefined) {
+		if (this._mask !== mask) {
 			this._mask = mask;
 			const callback = this._callback;
-			if( callback != null ) {
+			if (callback != null) {
 				callback();
 			}
 		}
 	}
 
-	set( radius?: number, mask?: DCornerMask ): void {
+	set(radius?: number, mask?: DCornerMask): void {
 		let isChanged = false;
 
-		if( this._radius !== radius ) {
+		if (this._radius !== radius) {
 			this._radius = radius;
 			isChanged = true;
 		}
 
-		if( this._mask !== mask ) {
+		if (this._mask !== mask) {
 			this._mask = mask;
 			isChanged = true;
 		}
 
 		const callback = this._callback;
-		if( isChanged && callback != null ) {
+		if (isChanged && callback != null) {
 			callback();
 		}
 	}

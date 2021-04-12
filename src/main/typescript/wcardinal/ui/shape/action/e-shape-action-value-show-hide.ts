@@ -12,28 +12,30 @@ import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 export type EShapeActionValueShowHideSerialized = [
-	EShapeActionValueType.SHOW_HIDE, number, EShapeActionValueShowHideType
+	EShapeActionValueType.SHOW_HIDE,
+	number,
+	EShapeActionValueShowHideType
 ];
 
 export class EShapeActionValueShowHide extends EShapeActionValueSubtyped<EShapeActionValueShowHideType> {
-	constructor( subtype: EShapeActionValueShowHideType, condition: string ) {
-		super( EShapeActionValueType.SHOW_HIDE, condition, subtype );
+	constructor(subtype: EShapeActionValueShowHideType, condition: string) {
+		super(EShapeActionValueType.SHOW_HIDE, condition, subtype);
 	}
 
 	toRuntime(): EShapeActionRuntimeShowHide {
-		return new EShapeActionRuntimeShowHide( this );
+		return new EShapeActionRuntimeShowHide(this);
 	}
 
-	serialize( manager: EShapeResourceManagerSerialization ): number {
+	serialize(manager: EShapeResourceManagerSerialization): number {
 		const conditionId = manager.addResource(this.condition);
-		return manager.addResource( `[${this.type},${conditionId},${this.subtype}]` );
+		return manager.addResource(`[${this.type},${conditionId},${this.subtype}]`);
 	}
 
 	static deserialize(
 		serialized: EShapeActionValueShowHideSerialized,
 		manager: EShapeResourceManagerDeserialization
 	): EShapeActionValueShowHide {
-		const condition = EShapeActionValues.toResource( 1, serialized, manager.resources );
-		return new EShapeActionValueShowHide( serialized[ 2 ], condition );
+		const condition = EShapeActionValues.toResource(1, serialized, manager.resources);
+		return new EShapeActionValueShowHide(serialized[2], condition);
 	}
 }

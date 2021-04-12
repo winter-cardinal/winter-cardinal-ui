@@ -10,6 +10,6 @@ import { createBarUploaded } from "../variant/create-bar-uploaded";
 import { deserializeBar } from "../variant/deserialize-bar";
 
 export const loadShapeBar = (): void => {
-	EShapeUploadeds[ EShapeType.BAR ] = createBarUploaded;
-	EShapeDeserializers[ EShapeType.BAR ] = deserializeBar;
+	EShapeUploadeds[EShapeType.BAR] = createBarUploaded;
+	EShapeDeserializers[EShapeType.BAR] = deserializeBar;
 };

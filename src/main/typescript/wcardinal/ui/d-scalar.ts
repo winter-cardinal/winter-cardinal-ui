@@ -16,5 +16,5 @@ export interface DScalar {
 	 * @param current a current value
 	 * @return a calculated scalar value
 	 */
-	calculate( parent: number, self: number, padding: number, current: number ): number;
+	calculate(parent: number, self: number, padding: number, current: number): number;
 }

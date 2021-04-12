@@ -17,39 +17,39 @@ export interface DPickerTimeBoundHoursParent {
 export class DPickerTimeBoundHours {
 	protected _parent: DPickerTimeBoundHoursParent;
 
-	constructor( parent: DPickerTimeBoundHoursParent ) {
+	constructor(parent: DPickerTimeBoundHoursParent) {
 		this._parent = parent;
 	}
 
-	min( date: Date ): number {
+	min(date: Date): number {
 		const parent = this._parent;
 		const lower = parent.lower;
 		const lowerDate = lower.date;
 		const constant = parent.constant;
-		if( lowerDate != null ) {
+		if (lowerDate != null) {
 			const mask = parent.mask;
-			if( mask & DPickerDatetimeMask.DATE ) {
-				if( lowerDate.getFullYear() < date.getFullYear() ) {
+			if (mask & DPickerDatetimeMask.DATE) {
+				if (lowerDate.getFullYear() < date.getFullYear()) {
 					return constant.hour.min;
 				}
-				if( lowerDate.getMonth() < date.getMonth() ) {
+				if (lowerDate.getMonth() < date.getMonth()) {
 					return constant.hour.min;
 				}
-				if( lowerDate.getDate() < date.getDate() ) {
+				if (lowerDate.getDate() < date.getDate()) {
 					return constant.hour.min;
 				}
 			}
 			const lowerDateHours = lowerDate.getHours();
-			if( lower.inclusive ) {
+			if (lower.inclusive) {
 				return lowerDateHours;
 			} else {
-				if( mask & DPickerDatetimeMask.SECONDS ) {
-					if( lowerDate.getSeconds() < constant.second.max ) {
+				if (mask & DPickerDatetimeMask.SECONDS) {
+					if (lowerDate.getSeconds() < constant.second.max) {
 						return lowerDateHours;
 					}
 				}
-				if( mask & DPickerDatetimeMask.MINUTES ) {
-					if( lowerDate.getMinutes() < constant.minute.max ) {
+				if (mask & DPickerDatetimeMask.MINUTES) {
+					if (lowerDate.getMinutes() < constant.minute.max) {
 						return lowerDateHours;
 					}
 				}
@@ -59,35 +59,35 @@ export class DPickerTimeBoundHours {
 		return constant.hour.min;
 	}
 
-	max( date: Date ): number {
+	max(date: Date): number {
 		const parent = this._parent;
 		const upper = parent.upper;
 		const upperDate = upper.date;
 		const constant = parent.constant;
-		if( upperDate != null ) {
+		if (upperDate != null) {
 			const mask = parent.mask;
-			if( mask & DPickerDatetimeMask.DATE ) {
-				if( date.getFullYear() < upperDate.getFullYear() ) {
+			if (mask & DPickerDatetimeMask.DATE) {
+				if (date.getFullYear() < upperDate.getFullYear()) {
 					return constant.hour.max;
 				}
-				if( date.getMonth() < upperDate.getMonth() ) {
+				if (date.getMonth() < upperDate.getMonth()) {
 					return constant.hour.max;
 				}
-				if( date.getDate() < upperDate.getDate() ) {
+				if (date.getDate() < upperDate.getDate()) {
 					return constant.hour.max;
 				}
 			}
 			const upperDateHours = upperDate.getHours();
-			if( upper.inclusive ) {
+			if (upper.inclusive) {
 				return upperDateHours;
 			} else {
-				if( mask & DPickerDatetimeMask.SECONDS ) {
-					if( constant.second.min < upperDate.getSeconds() ) {
+				if (mask & DPickerDatetimeMask.SECONDS) {
+					if (constant.second.min < upperDate.getSeconds()) {
 						return upperDateHours;
 					}
 				}
-				if( mask & DPickerDatetimeMask.MINUTES ) {
-					if( constant.minute.min < upperDate.getMinutes() ) {
+				if (mask & DPickerDatetimeMask.MINUTES) {
+					if (constant.minute.min < upperDate.getMinutes()) {
 						return upperDateHours;
 					}
 				}

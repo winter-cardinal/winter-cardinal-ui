@@ -16,16 +16,17 @@ export class EShapeRendererIteratorDatum {
 		this.shapes = DUMMY_SHAPES;
 	}
 
-	reset( shapes: EShape[] ): void {
+	reset(shapes: EShape[]): void {
 		this.index = -1;
 		this.shapes = shapes;
 	}
 
 	next(): EShape | null {
-		const index = this.index = this.index + 1;
+		const index = this.index + 1;
+		this.index = index;
 		const shapes = this.shapes;
-		if( index < shapes.length ) {
-			return shapes[ index ];
+		if (index < shapes.length) {
+			return shapes[index];
 		}
 		return null;
 	}

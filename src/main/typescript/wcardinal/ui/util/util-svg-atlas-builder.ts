@@ -17,15 +17,15 @@ export class UtilSvgAtlasBuilder {
 	protected _ratio: number;
 	protected _margin: number;
 
-	protected _frames: { [ name: string ]: Rectangle };
+	protected _frames: { [name: string]: Rectangle };
 	protected _svg: string;
 	protected _nextX: number;
 	protected _nextY: number;
 	protected _height: number;
 
-	protected _built?: { [ name: string ]: Texture };
+	protected _built?: { [name: string]: Texture };
 
-	constructor( width: number, ratio: number, margin: number ) {
+	constructor(width: number, ratio: number, margin: number) {
 		this._width = width;
 		this._ratio = ratio;
 		this._margin = margin;
@@ -49,25 +49,25 @@ export class UtilSvgAtlasBuilder {
 		return this._margin;
 	}
 
-	add( name: string, width: number, height: number, path: string ): boolean {
+	add(name: string, width: number, height: number, path: string): boolean {
 		const frames = this._frames;
-		if( ! ( name in frames ) ) {
+		if (!(name in frames)) {
 			// Position
 			const margin = this._margin;
 			let x = this._nextX;
 			let y = this._nextY;
-			if( this._width <= x + width ) {
+			if (this._width <= x + width) {
 				x = 0;
 				y = this._nextY + this._height + margin;
 				this._height = height;
 				this._nextY = y;
 			} else {
-				this._height = Math.max( this._height, height );
+				this._height = Math.max(this._height, height);
 			}
 			this._nextX = x + width + margin;
 
 			// Frame
-			frames[ name ] = new Rectangle( x, y, width, height );
+			frames[name] = new Rectangle(x, y, width, height);
 
 			// Svg
 			const ratio = this._ratio;
@@ -77,16 +77,16 @@ export class UtilSvgAtlasBuilder {
 		return false;
 	}
 
-	get mappings(): { [ name: string ]: Texture } {
+	get mappings(): { [name: string]: Texture } {
 		return this.build();
 	}
 
-	build( options?: UtilSvgAtlasBuilderBuildOptions ): { [ name: string ]: Texture } {
+	build(options?: UtilSvgAtlasBuilderBuildOptions): { [name: string]: Texture } {
 		let built = this._built;
-		if( built == null || (options?.force) ) {
-			const resolution = ( options?.resolution ?? (window.devicePixelRatio ?? 1) );
+		if (built == null || options?.force) {
+			const resolution = options?.resolution ?? window.devicePixelRatio ?? 1;
 			const width = this._width;
-			const height = Math.pow( 2, Math.ceil( Math.log( this._nextY + this._height ) / Math.LN2 ) );
+			const height = Math.pow(2, Math.ceil(Math.log(this._nextY + this._height) / Math.LN2));
 			const realWidth = width * resolution;
 			const realHeight = height * resolution;
 			const ratio = this._ratio;
@@ -94,16 +94,18 @@ export class UtilSvgAtlasBuilder {
 			const attrHeight = `height="${realHeight}"`;
 			const attrViewBox = `viewBox="0 0 ${width * ratio} ${height * ratio}"`;
 			const attrXmlns = `xmlns="http://www.w3.org/2000/svg"`;
-			const url = toSvgUrl( `<svg ${attrWidth} ${attrHeight} ${attrViewBox} ${attrXmlns}>${this._svg}</svg>` );
-			const scaleMode = (options?.scaling ?? SCALE_MODES.NEAREST);
-			const baseTexture = BaseTexture.from( url, {
+			const url = toSvgUrl(
+				`<svg ${attrWidth} ${attrHeight} ${attrViewBox} ${attrXmlns}>${this._svg}</svg>`
+			);
+			const scaleMode = options?.scaling ?? SCALE_MODES.NEAREST;
+			const baseTexture = BaseTexture.from(url, {
 				resolution,
 				scaleMode
 			});
 			const frames = this._frames;
 			built = this._built = {};
-			for( const name in frames ) {
-				built[ name ] = new Texture( baseTexture, frames[ name ] );
+			for (const name in frames) {
+				built[name] = new Texture(baseTexture, frames[name]);
 			}
 		}
 		return built;

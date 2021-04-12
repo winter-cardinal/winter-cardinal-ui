@@ -8,11 +8,11 @@ import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhitePane } from "./d-theme-white-pane";
 
 export class DThemeWhiteList extends DThemeWhitePane {
-	getBackgroundColor( state: DBaseStateSet ): number | null {
+	getBackgroundColor(state: DBaseStateSet): number | null {
 		return DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD;
 	}
 
-	getBorderAlign( state: DBaseStateSet ): number {
+	getBorderAlign(state: DBaseStateSet): number {
 		return 1;
 	}
 }

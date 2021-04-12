@@ -12,15 +12,17 @@ import { DThemePickerDatetimeButtonNext } from "../../d-picker-datetime-button-n
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
 import { DThemeDarkButtonAmbient } from "./d-theme-dark-button-ambient";
 
-DThemeDarkAtlas.add( "picker_date_next", 24, 24,
+/* eslint-disable prettier/prettier */
+DThemeDarkAtlas.add("picker_date_next", 24, 24,
 	`<g>` +
 		`<path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="#fff" />` +
 	`</g>`
 );
+/* eslint-enable prettier/prettier */
 
-export class DThemeDarkPickerDatetimeButtonNext<VALUE = unknown> extends DThemeDarkButtonAmbient<VALUE>
+export class DThemeDarkPickerDatetimeButtonNext<VALUE = unknown>
+	extends DThemeDarkButtonAmbient<VALUE>
 	implements DThemePickerDatetimeButtonNext<VALUE> {
-
 	getWidth(): DCoordinateSize {
 		return "auto";
 	}
@@ -37,11 +39,11 @@ export class DThemeDarkPickerDatetimeButtonNext<VALUE = unknown> extends DThemeD
 		return DAlignHorizontal.LEFT;
 	}
 
-	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
+	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
 		return DThemeDarkAtlas.mappings.picker_date_next;
 	}
 
-	getAlpha( state: DBaseStateSet ): number {
-		return super.getAlpha( state ) * 0.9;
+	getAlpha(state: DBaseStateSet): number {
+		return super.getAlpha(state) * 0.9;
 	}
 }

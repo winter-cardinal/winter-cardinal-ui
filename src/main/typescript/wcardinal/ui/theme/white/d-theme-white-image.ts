@@ -6,7 +6,6 @@
 import { DThemeImage } from "../../d-image";
 import { DThemeWhiteImageBase } from "./d-theme-white-image-base";
 
-export class DThemeWhiteImage<VALUE = unknown> extends DThemeWhiteImageBase<VALUE>
-	implements DThemeImage<VALUE> {
-
-}
+export class DThemeWhiteImage<VALUE = unknown>
+	extends DThemeWhiteImageBase<VALUE>
+	implements DThemeImage<VALUE> {}

@@ -10,8 +10,8 @@ import { DThemeDarkTreeItemTextAndImage } from "../d-theme-dark-tree-item-text-a
 import { DThemeDarkTreeItemToggleIcon } from "../d-theme-dark-tree-item-toggle-icon";
 
 export const loadThemeDarkTree = (): void => {
-	DThemeDark.set( "DTree", DThemeDarkTree );
-	DThemeDark.set( "DTreeItem", DThemeDarkTreeItem );
-	DThemeDark.set( "DTreeItemToggleIcon", DThemeDarkTreeItemToggleIcon);
-	DThemeDark.set( "DTreeItemTextAndImage", DThemeDarkTreeItemTextAndImage);
+	DThemeDark.set("DTree", DThemeDarkTree);
+	DThemeDark.set("DTreeItem", DThemeDarkTreeItem);
+	DThemeDark.set("DTreeItemToggleIcon", DThemeDarkTreeItemToggleIcon);
+	DThemeDark.set("DTreeItemTextAndImage", DThemeDarkTreeItemTextAndImage);
 };

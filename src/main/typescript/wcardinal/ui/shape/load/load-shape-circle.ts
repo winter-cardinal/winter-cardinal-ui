@@ -10,6 +10,6 @@ import { createCircle } from "../variant/create-circle-uploaded";
 import { deserializeCircle } from "../variant/deserialize-circle";
 
 export const loadShapeCircle = (): void => {
-	EShapeUploadeds[ EShapeType.CIRCLE ] = createCircle;
-	EShapeDeserializers[ EShapeType.CIRCLE ] = deserializeCircle;
+	EShapeUploadeds[EShapeType.CIRCLE] = createCircle;
+	EShapeDeserializers[EShapeType.CIRCLE] = deserializeCircle;
 };

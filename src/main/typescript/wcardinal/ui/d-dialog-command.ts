@@ -23,7 +23,7 @@ export interface DDialogCommandEvents<VALUE, EMITTER> extends DDialogEvents<EMIT
 	 * @param value a value
 	 * @param emitter an emitter
 	 */
-	ok( value: VALUE, emitter: EMITTER ): void;
+	ok(value: VALUE, emitter: EMITTER): void;
 
 	/**
 	 * Triggered when a dialog is canceled.
@@ -31,16 +31,15 @@ export interface DDialogCommandEvents<VALUE, EMITTER> extends DDialogEvents<EMIT
 	 * @param reason a reason why canceled
 	 * @param emitter an emitter
 	 */
-	cancel( reason: any, emitter: EMITTER ): void;
+	cancel(reason: any, emitter: EMITTER): void;
 }
 
 /**
  * {@link DDialogCommand} "on" options.
  */
 export interface DDialogCommandOnOptions<VALUE, EMITTER>
-	extends Partial<DDialogCommandEvents<VALUE, EMITTER>>, DOnOptions {
-
-}
+	extends Partial<DDialogCommandEvents<VALUE, EMITTER>>,
+		DOnOptions {}
 
 /**
  * {@link DDialogCommand} options.
@@ -91,8 +90,8 @@ export abstract class DDialogCommand<
 	protected _buttonOk?: DButton;
 	protected _buttonCancel?: DButton;
 
-	protected init( options?: OPTIONS ): void {
-		super.init( options );
+	protected init(options?: OPTIONS): void {
+		super.init(options);
 
 		const theme = this.theme;
 		const layout = new DLayoutVertical({
@@ -104,17 +103,18 @@ export abstract class DDialogCommand<
 			margin: theme.getLayoutMargin()
 		});
 
-		this.onInit( layout, options );
+		this.onInit(layout, options);
 
 		// Buttons
-		const ok = ( options?.ok ?? theme.getOk() );
-		const cancel = ( options?.cancel ?? theme.getCancel() );
-		if( ok != null || cancel != null ) {
+		const ok = options?.ok ?? theme.getOk();
+		const cancel = options?.cancel ?? theme.getCancel();
+		if (ok != null || cancel != null) {
 			const buttonLayout = new DLayoutHorizontal({
 				parent: layout,
-				width: "padding", height: "auto",
+				width: "padding",
+				height: "auto",
 				padding: {
-					top: Math.max( 0, this.padding.getTop() - layout.margin.vertical )
+					top: Math.max(0, this.padding.getTop() - layout.margin.vertical)
 				}
 			});
 			this._buttonLayout = buttonLayout;
@@ -122,7 +122,7 @@ export abstract class DDialogCommand<
 				parent: buttonLayout,
 				weight: 1
 			});
-			if( ok != null && cancel != null ) {
+			if (ok != null && cancel != null) {
 				this._buttonCancel = new DButtonPrimary({
 					parent: buttonLayout,
 					text: {
@@ -145,7 +145,7 @@ export abstract class DDialogCommand<
 						}
 					}
 				});
-			} else if( ok != null ) {
+			} else if (ok != null) {
 				this._buttonOk = new DButtonPrimary({
 					parent: buttonLayout,
 					text: {
@@ -157,7 +157,7 @@ export abstract class DDialogCommand<
 						}
 					}
 				});
-			} else if( cancel != null ) {
+			} else if (cancel != null) {
 				this._buttonCancel = new DButtonPrimary({
 					parent: buttonLayout,
 					text: {
@@ -177,30 +177,30 @@ export abstract class DDialogCommand<
 		}
 	}
 
-	protected onInit( layout: DLayoutVertical, options?: OPTIONS ): void {
+	protected onInit(layout: DLayoutVertical, options?: OPTIONS): void {
 		// OVERRIDE THIS
 	}
 
 	ok(): void {
-		this.onOk( this.getResolvedValue() );
+		this.onOk(this.getResolvedValue());
 	}
 
-	protected onOk( value: VALUE | PromiseLike<VALUE> ): void {
-		if( this._mode !== DDialogMode.MODELESS ) {
-			this.doResolve( value );
+	protected onOk(value: VALUE | PromiseLike<VALUE>): void {
+		if (this._mode !== DDialogMode.MODELESS) {
+			this.doResolve(value);
 		}
-		this.emit( "ok", value, this );
+		this.emit("ok", value, this);
 	}
 
 	cancel(): void {
-		this.onCancel( this.getRejectReason() );
+		this.onCancel(this.getRejectReason());
 	}
 
-	protected onCancel( reason: any ): void {
-		if( this._mode !== DDialogMode.MODELESS ) {
-			this.doReject( reason );
+	protected onCancel(reason: any): void {
+		if (this._mode !== DDialogMode.MODELESS) {
+			this.doReject(reason);
 		}
-		this.emit( "cancel", reason, this );
+		this.emit("cancel", reason, this);
 	}
 
 	protected abstract getResolvedValue(): VALUE | PromiseLike<VALUE>;

@@ -9,14 +9,14 @@ import { EShapeActionRuntimeOpen } from "./e-shape-action-runtime-open";
 import { EShapeActionValueOpen } from "./e-shape-action-value-open";
 
 export class EShapeActionRuntimeOpenPageInplace extends EShapeActionRuntimeOpen {
-	constructor( value: EShapeActionValueOpen ) {
-		super( value, EShapeRuntimeReset.NONE );
+	constructor(value: EShapeActionValueOpen) {
+		super(value, EShapeRuntimeReset.NONE);
 	}
 
-	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( this.condition( shape, time ) ) {
-			const target = this.target( shape, time );
-			if( target != null ) {
+	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {
+		if (this.condition(shape, time)) {
+			const target = this.target(shape, time);
+			if (target != null) {
 				window.location.href = target;
 			}
 		}

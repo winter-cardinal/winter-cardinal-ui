@@ -9,7 +9,7 @@ import { DThemeDarkPane } from "../d-theme-dark-pane";
 import { loadThemeDarkScrollBar } from "./load-theme-dark-scroll-bar";
 
 export const loadThemeDarkPane = (): void => {
-	DThemeDark.set( "DPane", DThemeDarkPane );
-	DThemeDark.set( "DContent", DThemeDarkContent );
+	DThemeDark.set("DPane", DThemeDarkPane);
+	DThemeDark.set("DContent", DThemeDarkContent);
 	loadThemeDarkScrollBar();
 };

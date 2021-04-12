@@ -12,8 +12,8 @@ import { createLineOfRectangleRoundedsUploaded } from "../variant/create-line-of
 import { deserializeLineOfRectangleRoundeds } from "../variant/deserialize-line-of-rectangle-roundeds";
 
 export const loadShapeLineOfRectangleRoundeds = (): void => {
-	EShapeUploadeds[ EShapeType.LINE_OF_RECTANGLE_ROUNDEDS ] = createLineOfRectangleRoundedsUploaded;
-	EShapeDeserializers[ EShapeType.LINE_OF_RECTANGLE_ROUNDEDS ] = deserializeLineOfRectangleRoundeds;
+	EShapeUploadeds[EShapeType.LINE_OF_RECTANGLE_ROUNDEDS] = createLineOfRectangleRoundedsUploaded;
+	EShapeDeserializers[EShapeType.LINE_OF_RECTANGLE_ROUNDEDS] = deserializeLineOfRectangleRoundeds;
 	EShapeCapabilities.set(
 		EShapeType.LINE_OF_RECTANGLE_ROUNDEDS,
 		EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE | EShapeCapability.BORDER_RADIUS

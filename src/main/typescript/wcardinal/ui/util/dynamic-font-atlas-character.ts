@@ -16,7 +16,7 @@ export class DynamicFontAtlasCharacter {
 	origin: DynamicFontAtlasCharacterOrigin;
 	reserved: boolean;
 
-	constructor( advance: number, width: number, height: number, reserved: boolean ) {
+	constructor(advance: number, width: number, height: number, reserved: boolean) {
 		this.ref = 1;
 		this.life = 10;
 		this.x = 0;
@@ -24,7 +24,7 @@ export class DynamicFontAtlasCharacter {
 		this.width = width;
 		this.height = height;
 		this.advance = advance;
-		this.origin = new DynamicFontAtlasCharacterOrigin( 0, 0 );
+		this.origin = new DynamicFontAtlasCharacterOrigin(0, 0);
 		this.reserved = reserved;
 	}
 }

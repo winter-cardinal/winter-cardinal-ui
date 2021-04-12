@@ -6,13 +6,9 @@ import { DImage, DImageOptions, DThemeImage } from "./d-image";
 
 export interface DTreeItemToggleIconOptions<
 	THEME extends DThemeTreeItemToggleIcon = DThemeTreeItemToggleIcon
-> extends DImageOptions<string, THEME> {
+> extends DImageOptions<string, THEME> {}
 
-}
-
-export interface DThemeTreeItemToggleIcon extends DThemeImage<string> {
-
-}
+export interface DThemeTreeItemToggleIcon extends DThemeImage<string> {}
 
 export class DTreeItemToggleIcon<
 	THEME extends DThemeTreeItemToggleIcon = DThemeTreeItemToggleIcon,

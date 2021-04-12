@@ -6,6 +6,6 @@
 import { DThemeDialogInputInteger } from "../../d-dialog-input-integer";
 import { DThemeWhiteDialogInput } from "./d-theme-white-dialog-input";
 
-export class DThemeWhiteDialogInputInteger extends DThemeWhiteDialogInput implements DThemeDialogInputInteger {
-
-}
+export class DThemeWhiteDialogInputInteger
+	extends DThemeWhiteDialogInput
+	implements DThemeDialogInputInteger {}

@@ -8,7 +8,9 @@ import { DThemeWhiteDialogConfirm } from "./d-theme-white-dialog-confirm";
 
 export class DThemeWhiteDialogConfirmDiscard extends DThemeWhiteDialogConfirm {
 	getMessage(): DStateAwareOrValue<string> {
-		return "Your changes have not been saved.\n" +
-			"Do you want to discard the changes and continue?";
+		return (
+			"Your changes have not been saved.\n" +
+			"Do you want to discard the changes and continue?"
+		);
 	}
 }

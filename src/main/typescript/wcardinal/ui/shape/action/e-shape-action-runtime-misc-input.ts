@@ -22,32 +22,40 @@ export abstract class EShapeActionRuntimeMiscInput<
 	protected readonly target: EShapeActionExpression<string | null>;
 	protected onInputAction: EShapeActionValueOnInputAction;
 
-	constructor( value: EShapeActionValueMisc ) {
-		super( value );
-		this.target = EShapeActionExpressions.ofStringOrNull( value.target );
+	constructor(value: EShapeActionValueMisc) {
+		super(value);
+		this.target = EShapeActionExpressions.ofStringOrNull(value.target);
 		this.onInputAction = value.onInputAction;
 	}
 
-	protected newOperation( shape: EShape, runtime: EShapeRuntime ): UtilInputOperation<VALUE> {
+	protected newOperation(shape: EShape, runtime: EShapeRuntime): UtilInputOperation<VALUE> {
 		return {
-			getElementRect: ( resolution: number, work: Point, result: Rectangle ): Rectangle | null => {
-				return this.getElementRect( shape, runtime, resolution, work, result );
+			getElementRect: (
+				resolution: number,
+				work: Point,
+				result: Rectangle
+			): Rectangle | null => {
+				return this.getElementRect(shape, runtime, resolution, work, result);
 			},
 
 			getElementMatrix: (): Matrix | null => {
-				return this.getElementMatrix( shape, runtime );
+				return this.getElementMatrix(shape, runtime);
 			},
 
-			getClipperRect: ( resolution: number, work: Point, result: Rectangle ): Rectangle | null => {
-				return this.getClipperToRect( shape, runtime, resolution, work, result );
+			getClipperRect: (
+				resolution: number,
+				work: Point,
+				result: Rectangle
+			): Rectangle | null => {
+				return this.getClipperToRect(shape, runtime, resolution, work, result);
 			},
 
 			getPadding: (): UtilHtmlElementPadding | null => {
-				return this.getPadding( shape, runtime );
+				return this.getPadding(shape, runtime);
 			},
 
-			containsPoint: ( point: Point ): boolean => {
-				return this.containsPoint( shape, runtime, point );
+			containsPoint: (point: Point): boolean => {
+				return this.containsPoint(shape, runtime, point);
 			},
 
 			onStart: (): void => {
@@ -63,15 +71,15 @@ export abstract class EShapeActionRuntimeMiscInput<
 			},
 
 			getValue: (): VALUE | undefined => {
-				return this.getUtil( shape, runtime ).toValue( shape.text.value );
+				return this.getUtil(shape, runtime).toValue(shape.text.value);
 			},
 
-			onValueInput: ( newValue: VALUE ): void => {
+			onValueInput: (newValue: VALUE): void => {
 				// DO NOTHING
 			},
 
-			onValueChange: ( newValue: VALUE, oldValue: VALUE ): void => {
-				this.onValueChange( shape, runtime, newValue, oldValue );
+			onValueChange: (newValue: VALUE, oldValue: VALUE): void => {
+				this.onValueChange(shape, runtime, newValue, oldValue);
 			},
 
 			onEnter: (): void => {
@@ -84,21 +92,33 @@ export abstract class EShapeActionRuntimeMiscInput<
 		};
 	}
 
-	protected newElementCreator( shape: EShape, runtime: EShapeRuntime ): UtilHtmlElementCreator<HTMLInputElement> | undefined {
+	protected newElementCreator(
+		shape: EShape,
+		runtime: EShapeRuntime
+	): UtilHtmlElementCreator<HTMLInputElement> | undefined {
 		return undefined;
 	}
 
-	protected getPadding( shape: EShape, runtime: EShapeRuntime ): UtilHtmlElementPadding | null {
+	protected getPadding(shape: EShape, runtime: EShapeRuntime): UtilHtmlElementPadding | null {
 		return shape.text.padding;
 	}
 
-	protected onValueChange( shape: EShape, runtime: EShapeRuntime, newValue: VALUE, oldValue: VALUE ): void {
-		shape.text.value = this.getUtil( shape, runtime ).fromValue( newValue );
+	protected onValueChange(
+		shape: EShape,
+		runtime: EShapeRuntime,
+		newValue: VALUE,
+		oldValue: VALUE
+	): void {
+		shape.text.value = this.getUtil(shape, runtime).fromValue(newValue);
 		const now = Date.now();
-		const target = this.target( shape, now );
-		if( target != null ) {
+		const target = this.target(shape, now);
+		if (target != null) {
 			EShapeActionValueOnInputActions.execute(
-				shape, this.onInputAction, target, newValue, now
+				shape,
+				this.onInputAction,
+				target,
+				newValue,
+				now
 			);
 		}
 	}

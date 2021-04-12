@@ -10,18 +10,17 @@ import { UtilPointerEvent } from "./util/util-pointer-event";
 export interface DMenuItemExpandableHeaderOptions<
 	VALUE = unknown,
 	THEME extends DThemeMenuItemExpandableHeader = DThemeMenuItemExpandableHeader
-> extends DListItemOptions<VALUE, THEME> {
+> extends DListItemOptions<VALUE, THEME> {}
 
-}
-
-export interface DThemeMenuItemExpandableHeader extends DThemeListItem {
-
-}
+export interface DThemeMenuItemExpandableHeader extends DThemeListItem {}
 
 export class DMenuItemExpandableHeader<
 	VALUE = unknown,
 	THEME extends DThemeMenuItemExpandableHeader = DThemeMenuItemExpandableHeader,
-	OPTIONS extends DMenuItemExpandableHeaderOptions<VALUE, THEME> = DMenuItemExpandableHeaderOptions<VALUE, THEME>
+	OPTIONS extends DMenuItemExpandableHeaderOptions<
+		VALUE,
+		THEME
+	> = DMenuItemExpandableHeaderOptions<VALUE, THEME>
 > extends DListItem<VALUE, THEME, OPTIONS> {
 	protected getSelection(): DListItemSelection | null {
 		return null;

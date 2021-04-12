@@ -13,7 +13,7 @@ export class DThemeDarkContent extends DThemeDarkBase {
 		return "100%";
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 

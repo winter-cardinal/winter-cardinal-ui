@@ -12,17 +12,19 @@ import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteButtonBase } from "./d-theme-white-button-base";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 
-DThemeWhiteAtlas.add( "dropdown_mark", 20, 14,
+/* eslint-disable prettier/prettier */
+DThemeWhiteAtlas.add("dropdown_mark", 20, 14,
 	`<g>` +
 		`<polyline fill="none" stroke="#fff" stroke-width="1" points="16 5 10 11 4 5"></polyline>` +
 	`</g>`
 );
+/* eslint-enable prettier/prettier */
 
-export class DThemeWhiteDropdownBase<TEXT_VALUE = unknown> extends DThemeWhiteButtonBase<TEXT_VALUE>
+export class DThemeWhiteDropdownBase<TEXT_VALUE = unknown>
+	extends DThemeWhiteButtonBase<TEXT_VALUE>
 	implements DThemeDropdownBase<TEXT_VALUE> {
-
 	constructor() {
-		super( DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD );
+		super(DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD);
 	}
 
 	getSecondaryImageAlignHorizontal(): DAlignHorizontal {
@@ -45,7 +47,7 @@ export class DThemeWhiteDropdownBase<TEXT_VALUE = unknown> extends DThemeWhiteBu
 		return 25;
 	}
 
-	getSecondaryImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
+	getSecondaryImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
 		return DThemeWhiteAtlas.mappings.dropdown_mark;
 	}
 }

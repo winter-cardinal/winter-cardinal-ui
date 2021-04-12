@@ -11,22 +11,22 @@ import { DThemeMenuBarItem } from "../../d-menu-bar-item";
 import { DThemeWhiteButton } from "./d-theme-white-button";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 
-export class DThemeWhiteMenuBarItem<VALUE = unknown> extends DThemeWhiteButton<VALUE>
+export class DThemeWhiteMenuBarItem<VALUE = unknown>
+	extends DThemeWhiteButton<VALUE>
 	implements DThemeMenuBarItem<VALUE> {
-
-	getBackgroundColor( state: DBaseStateSet ): number | null {
-		if( state.inDisabled ) {
+	getBackgroundColor(state: DBaseStateSet): number | null {
+		if (state.inDisabled) {
 			return null;
-		} else if( state.isActive ) {
+		} else if (state.isActive) {
 			return DThemeWhiteConstants.HIGHLIGHT_COLOR;
-		} else if( state.isFocused || state.isHovered ) {
+		} else if (state.isFocused || state.isHovered) {
 			return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
 		} else {
 			return null;
 		}
 	}
 
-	getBackgroundAlpha( state: DBaseStateSet ): number {
+	getBackgroundAlpha(state: DBaseStateSet): number {
 		return DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
 	}
 

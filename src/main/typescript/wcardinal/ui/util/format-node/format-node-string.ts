@@ -12,7 +12,7 @@ export class FormatNodeString implements FormatNode {
 		this.str = str;
 	}
 
-	format( target: number, step: number, date: Date ): string {
+	format(target: number, step: number, date: Date): string {
 		return this.str;
 	}
 }

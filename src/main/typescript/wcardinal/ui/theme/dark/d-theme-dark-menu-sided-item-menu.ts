@@ -5,6 +5,4 @@
 
 import { DThemeDarkMenuItemMenu } from "./d-theme-dark-menu-item-menu";
 
-export class DThemeDarkMenuSidedItemMenu extends DThemeDarkMenuItemMenu {
-
-}
+export class DThemeDarkMenuSidedItemMenu extends DThemeDarkMenuItemMenu {}

@@ -13,23 +13,23 @@ export class DBaseReflowable implements DReflowable {
 	protected _border: DBaseBorderRenderable;
 	protected _outline: DBaseOutlineRenderable;
 
-	constructor( base: DBase ) {
+	constructor(base: DBase) {
 		const background = new DBaseBackgroundRenderable();
 		this._background = background;
-		base.addRenderable( background, true );
+		base.addRenderable(background, true);
 
 		const border = new DBaseBorderRenderable();
 		this._border = border;
-		base.addRenderable( border, false );
+		base.addRenderable(border, false);
 
 		const outline = new DBaseOutlineRenderable();
 		this._outline = outline;
-		base.addRenderable( outline, false );
+		base.addRenderable(outline, false);
 
-		base.addReflowable( this );
+		base.addReflowable(this);
 	}
 
-	onReflow( base: DBase, width: number, height: number ): void {
+	onReflow(base: DBase, width: number, height: number): void {
 		const theme = base.theme;
 		const state = base.state;
 		const corner = base.corner;
@@ -37,16 +37,34 @@ export class DBaseReflowable implements DReflowable {
 		const cornerHeight = cornerRadius + 1;
 		const cornerMask = corner.getMask();
 		this._background.onReflow(
-			base, width, height, theme, state,
-			cornerRadius, cornerHeight, cornerMask
+			base,
+			width,
+			height,
+			theme,
+			state,
+			cornerRadius,
+			cornerHeight,
+			cornerMask
 		);
 		this._border.onReflow(
-			base, width, height, theme, state,
-			cornerRadius, cornerHeight, cornerMask
+			base,
+			width,
+			height,
+			theme,
+			state,
+			cornerRadius,
+			cornerHeight,
+			cornerMask
 		);
 		this._outline.onReflow(
-			base, width, height, theme, state,
-			cornerRadius, cornerHeight, cornerMask
+			base,
+			width,
+			height,
+			theme,
+			state,
+			cornerRadius,
+			cornerHeight,
+			cornerMask
 		);
 	}
 }

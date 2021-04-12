@@ -5,6 +5,4 @@
 
 import { DThemeDarkMenuItemCheck } from "./d-theme-dark-menu-item-check";
 
-export class DThemeDarkMenuSidedItemCheck extends DThemeDarkMenuItemCheck {
-
-}
+export class DThemeDarkMenuSidedItemCheck extends DThemeDarkMenuItemCheck {}

@@ -7,5 +7,5 @@ import { DThemes } from "../../d-themes";
 import { DThemeDark } from "../d-theme-dark";
 
 export const loadThemeDark = (): void => {
-	DThemes.setDefaultThemeClass( DThemeDark );
+	DThemes.setDefaultThemeClass(DThemeDark);
 };

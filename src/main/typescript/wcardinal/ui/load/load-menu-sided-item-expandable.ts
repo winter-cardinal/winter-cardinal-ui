@@ -22,51 +22,61 @@ import { DMenuSidedItemExpandables } from "../d-menu-sided-item-expandables";
 import { DMenuSideds } from "../d-menu-sideds";
 
 export const loadMenuSidedItemExpandable = (): void => {
-	DMenuSideds.addItemCreator(( options: DMenuItemOptionsUnion<any> ): DisplayObject | null => {
-		if( DMenuItemExpandable.isCompatible( options ) ) {
-			return new DMenuSidedItemExpandable( options );
+	DMenuSideds.addItemCreator((options: DMenuItemOptionsUnion<any>): DisplayObject | null => {
+		if (DMenuItemExpandable.isCompatible(options)) {
+			return new DMenuSidedItemExpandable(options);
 		}
 		return null;
 	});
 
-	DMenuSidedItemExpandables.addItemCreator(( options: DMenuItemOptionsUnion<any> ): DisplayObject | null => {
-		if( DMenuItemCheck.isCompatible( options ) ) {
-			return new DMenuSidedItemExpandableItemCheck( options );
+	DMenuSidedItemExpandables.addItemCreator(
+		(options: DMenuItemOptionsUnion<any>): DisplayObject | null => {
+			if (DMenuItemCheck.isCompatible(options)) {
+				return new DMenuSidedItemExpandableItemCheck(options);
+			}
+			return null;
 		}
-		return null;
-	});
+	);
 
-	DMenuSidedItemExpandables.addItemCreator(( options: DMenuItemOptionsUnion<any> ): DisplayObject | null => {
-		if( DMenuItemLink.isCompatible( options ) ) {
-			return new DMenuSidedItemExpandableItemLink( options );
+	DMenuSidedItemExpandables.addItemCreator(
+		(options: DMenuItemOptionsUnion<any>): DisplayObject | null => {
+			if (DMenuItemLink.isCompatible(options)) {
+				return new DMenuSidedItemExpandableItemLink(options);
+			}
+			return null;
 		}
-		return null;
-	});
+	);
 
-	DMenuSidedItemExpandables.addItemCreator((
-		options: DMenuItemOptionsUnion<any>, sticky: boolean
-	): DisplayObject | null => {
-		if( DMenuItemMenu.isCompatible( options ) ) {
-			return new DMenuSidedItemExpandableItemMenu( DMenuItemMenu.toSubMenuOptions( options, sticky ) );
+	DMenuSidedItemExpandables.addItemCreator(
+		(options: DMenuItemOptionsUnion<any>, sticky: boolean): DisplayObject | null => {
+			if (DMenuItemMenu.isCompatible(options)) {
+				return new DMenuSidedItemExpandableItemMenu(
+					DMenuItemMenu.toSubMenuOptions(options, sticky)
+				);
+			}
+			return null;
 		}
-		return null;
-	});
+	);
 
-	DMenuSidedItemExpandables.addItemCreator(( options: DMenuItemOptionsUnion<any> ): DisplayObject | null => {
-		if( DMenuItemSeparator.isCompatible( options ) ) {
-			return new DMenuSidedItemExpandableItemSeparator( options );
+	DMenuSidedItemExpandables.addItemCreator(
+		(options: DMenuItemOptionsUnion<any>): DisplayObject | null => {
+			if (DMenuItemSeparator.isCompatible(options)) {
+				return new DMenuSidedItemExpandableItemSeparator(options);
+			}
+			return null;
 		}
-		return null;
-	});
+	);
 
-	DMenuSidedItemExpandables.addItemCreator(( options: DMenuItemOptionsUnion<any> ): DisplayObject | null => {
-		if( DMenuItemSpace.isCompatible( options ) ) {
-			return new DMenuSidedItemExpandableItemSpace( options );
+	DMenuSidedItemExpandables.addItemCreator(
+		(options: DMenuItemOptionsUnion<any>): DisplayObject | null => {
+			if (DMenuItemSpace.isCompatible(options)) {
+				return new DMenuSidedItemExpandableItemSpace(options);
+			}
+			return null;
 		}
-		return null;
-	});
+	);
 
-	DMenuSidedItemExpandables.setItemCreatorDefault(( options: any ): DisplayObject | null => {
-		return new DMenuSidedItemExpandableItemText( options );
+	DMenuSidedItemExpandables.setItemCreatorDefault((options: any): DisplayObject | null => {
+		return new DMenuSidedItemExpandableItemText(options);
 	});
 };

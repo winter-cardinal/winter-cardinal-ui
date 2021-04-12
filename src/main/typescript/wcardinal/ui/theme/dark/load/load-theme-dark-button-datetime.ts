@@ -8,6 +8,6 @@ import { DThemeDarkButtonDatetime } from "../d-theme-dark-button-datetime";
 import { loadThemeDarkDialogDatetime } from "./load-theme-dark-dialog-datetime";
 
 export const loadThemeDarkButtonDatetime = (): void => {
-	DThemeDark.set( "DButtonDatetime", DThemeDarkButtonDatetime );
+	DThemeDark.set("DButtonDatetime", DThemeDarkButtonDatetime);
 	loadThemeDarkDialogDatetime();
 };

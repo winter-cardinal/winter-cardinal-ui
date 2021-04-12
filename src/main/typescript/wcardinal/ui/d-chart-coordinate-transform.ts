@@ -8,7 +8,7 @@ export interface DThemeChartCoordinateTransform {
 	 *
 	 * @param value a value to be checked
 	 */
-	isZero( value: number ): boolean;
+	isZero(value: number): boolean;
 }
 
 export interface DChartCoordinateTransform {
@@ -27,11 +27,11 @@ export interface DChartCoordinateTransform {
 	 */
 	scale: number;
 
-	set( translate?: number, scale?: number ): void;
+	set(translate?: number, scale?: number): void;
 
-	blend( ratio: number, target: DChartCoordinateTransformMark ): void;
+	blend(ratio: number, target: DChartCoordinateTransformMark): void;
 
-	bind( container: DChartCoordinateContainerSub, direction: DChartCoordinateDirection ): void;
+	bind(container: DChartCoordinateContainerSub, direction: DChartCoordinateDirection): void;
 	unbind(): void;
 
 	/**
@@ -39,7 +39,7 @@ export interface DChartCoordinateTransform {
 	 *
 	 * @param value an untransformed value
 	 */
-	map( value: number ): number;
+	map(value: number): number;
 
 	/**
 	 * Transforms the given untransformed values to transformed values.
@@ -52,14 +52,14 @@ export interface DChartCoordinateTransform {
 	 * @param stride a stride of indices
 	 * @param offset an offset of indices
 	 */
-	mapAll( values: number[], ifrom: number, iend: number, stride: number, offset: number ): void;
+	mapAll(values: number[], ifrom: number, iend: number, stride: number, offset: number): void;
 
 	/**
 	 * Transforms the given transformed value to an untransformed value.
 	 *
 	 * @param value a transformed value
 	 */
-	unmap( value: number ): number;
+	unmap(value: number): number;
 
 	/**
 	 * Transformed the given transformed values to untransformed values.
@@ -72,5 +72,5 @@ export interface DChartCoordinateTransform {
 	 * @param stride a stride of indices
 	 * @param offset an offset of indices
 	 */
-	unmapAll( values: number[], ifrom: number, iend: number, stride: number, offset: number ): void;
+	unmapAll(values: number[], ifrom: number, iend: number, stride: number, offset: number): void;
 }

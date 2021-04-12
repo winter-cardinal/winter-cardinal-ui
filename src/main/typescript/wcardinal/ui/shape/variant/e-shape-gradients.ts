@@ -3,42 +3,43 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { toSvgUrl } from "../../util/to-svg-url";
 import { UtilRgb } from "../../util/util-rgb";
 import { EShapeGradientLike, EShapeGradientPointLike } from "../e-shape-gradient";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 
 export class EShapeGradients {
-	static serializeGradient( gradient: EShapeGradientLike ): string {
+	static serializeGradient(gradient: EShapeGradientLike): string {
 		const points = gradient.points;
 		let result = `[${gradient.direction}`;
-		for( let i = 0, imax = points.length, j = 1; i < imax; i += 1, j += 3 ) {
-			const point = points[ i ];
+		for (let i = 0, imax = points.length, j = 1; i < imax; i += 1, j += 3) {
+			const point = points[i];
 			result += `,${point.color},${point.alpha},${point.position}`;
 		}
 		result += "]";
 		return result;
 	}
 
-	static parseGradient( target: string ): number[] | null {
+	static parseGradient(target: string): number[] | null {
 		try {
-			return JSON.parse( target ) as number[];
-		} catch( e ) {
+			return JSON.parse(target) as number[];
+		} catch (e) {
 			return null;
 		}
 	}
 
-	static deserializeGradient( target: string ): EShapeGradientLike | undefined {
-		const parsed = this.parseGradient( target );
-		if( parsed == null || parsed.length < 7 ) {
+	static deserializeGradient(target: string): EShapeGradientLike | undefined {
+		const parsed = this.parseGradient(target);
+		if (parsed == null || parsed.length < 7) {
 			return undefined;
 		} else {
-			const direction = parsed[ 0 ];
+			const direction = parsed[0];
 			const points: EShapeGradientPointLike[] = [];
-			for( let i = 1, imax = parsed.length; i < imax; i += 3 ) {
+			for (let i = 1, imax = parsed.length; i < imax; i += 3) {
 				points.push({
-					color: parsed[ i + 0 ],
-					alpha: parsed[ i + 1 ],
-					position: parsed[ i + 2 ]
+					color: parsed[i + 0],
+					alpha: parsed[i + 1],
+					position: parsed[i + 2]
 				});
 			}
 			return {
@@ -48,34 +49,38 @@ export class EShapeGradients {
 		}
 	}
 
-	static toGradientId( gradient: EShapeGradientLike | undefined, manager: EShapeResourceManagerSerialization ): number {
-		if( gradient != null ) {
-			if( gradient.serialized == null ) {
-				gradient.serialized = this.serializeGradient( gradient );
+	static toGradientId(
+		gradient: EShapeGradientLike | undefined,
+		manager: EShapeResourceManagerSerialization
+	): number {
+		if (gradient != null) {
+			if (gradient.serialized == null) {
+				gradient.serialized = this.serializeGradient(gradient);
 			}
-			return manager.addResource( gradient.serialized );
+			return manager.addResource(gradient.serialized);
 		}
 		return -1;
 	}
 
-	static toGradientImageUrl( gradient: EShapeGradientLike ): string {
+	static toGradientImageUrl(gradient: EShapeGradientLike): string {
 		const direction = gradient.direction;
 		const points = gradient.points;
 
 		let stops = "";
-		for( let i = 0, imax = points.length; i < imax; ++i ) {
-			const point = points[ i ];
-			const color = UtilRgb.toCode( point.color );
+		for (let i = 0, imax = points.length; i < imax; ++i) {
+			const point = points[i];
+			const color = UtilRgb.toCode(point.color);
 			const alpha = point.alpha;
 			const offset = point.position * 100;
 			stops += `<stop offset="${offset}%" stop-color="#${color}" stop-opacity="${alpha}" />`;
 		}
 
-		const radian = direction * Math.PI / 180;
-		const dx = 0.5 * Math.cos( radian );
-		const dy = -0.5 * Math.sin( radian );
+		const radian = (direction * Math.PI) / 180;
+		const dx = 0.5 * Math.cos(radian);
+		const dy = -0.5 * Math.sin(radian);
 
-		const url = "data:image/svg+xml;base64," + btoa(
+		const url = toSvgUrl(
+			/* eslint-disable prettier/prettier */
 			`<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">` +
 				`<defs>` +
 					`<linearGradient id="o2glkm3aeu2oio" x1="${0.5 - dx}" x2="${0.5 + dx}" y1="${0.5 - dy}" y2="${0.5 + dy}">` +
@@ -84,6 +89,7 @@ export class EShapeGradients {
 				`</defs>` +
 				`<rect x="0" y="0" width="32" height="32" stroke="none" fill="url(#o2glkm3aeu2oio)" />` +
 			`</svg>`
+			/* eslint-enable prettier/prettier */
 		);
 
 		return url;

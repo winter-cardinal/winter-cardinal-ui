@@ -6,6 +6,4 @@
 import { DThemeChartOverview } from "../../d-chart-overview";
 import { DThemeDarkBase } from "./d-theme-dark-base";
 
-export class DThemeDarkChartOverview extends DThemeDarkBase implements DThemeChartOverview {
-
-}
+export class DThemeDarkChartOverview extends DThemeDarkBase implements DThemeChartOverview {}

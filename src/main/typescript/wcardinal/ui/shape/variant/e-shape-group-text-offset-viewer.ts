@@ -16,7 +16,7 @@ export class EShapeGroupTextOffsetViewer implements EShapeTextOffset {
 		return 0;
 	}
 
-	set horizontal( horizontal: number ) {
+	set horizontal(horizontal: number) {
 		// DO NOTHING
 	}
 
@@ -24,15 +24,15 @@ export class EShapeGroupTextOffsetViewer implements EShapeTextOffset {
 		return 0;
 	}
 
-	set vertical( vertical: number ) {
+	set vertical(vertical: number) {
 		// DO NOTHING
 	}
 
-	copy( target?: Partial<EShapeTextOffsetLike> ): void {
+	copy(target?: Partial<EShapeTextOffsetLike>): void {
 		// DO NOTHING
 	}
 
-	set( horizontal?: number, vertical?: number ): void {
+	set(horizontal?: number, vertical?: number): void {
 		// DO NOTHING
 	}
 
@@ -43,11 +43,11 @@ export class EShapeGroupTextOffsetViewer implements EShapeTextOffset {
 		};
 	}
 
-	serialize( manager: EShapeResourceManagerSerialization ): number {
+	serialize(manager: EShapeResourceManagerSerialization): number {
 		return -1;
 	}
 
-	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void {
+	deserialize(target: number, manager: EShapeResourceManagerDeserialization): void {
 		// DO NOTHING
 	}
 }

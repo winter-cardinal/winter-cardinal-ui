@@ -7,5 +7,5 @@ import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteImage } from "../d-theme-white-image";
 
 export const loadThemeWhiteImage = (): void => {
-	DThemeWhite.set( "DImage", DThemeWhiteImage );
+	DThemeWhite.set("DImage", DThemeWhiteImage);
 };

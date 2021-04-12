@@ -26,24 +26,19 @@ export interface DSliderEvents<EMITTER> extends DBaseEvents<EMITTER> {
 	 * @param oldValue an old value
 	 * @param emitter an emitter
 	 */
-	change( newValue: number, oldValue: number, emitter: EMITTER ): void;
+	change(newValue: number, oldValue: number, emitter: EMITTER): void;
 }
 
 /**
  * {@link DSlider} "on" options.
  */
-export interface DSliderOnOptions<EMITTER>
-	extends Partial<DSliderEvents<EMITTER>>, DOnOptions {
-
-}
+export interface DSliderOnOptions<EMITTER> extends Partial<DSliderEvents<EMITTER>>, DOnOptions {}
 
 /**
  * {@link DSlider} options.
  */
-export interface DSliderOptions<
-	THEME extends DThemeSlider = DThemeSlider,
-	EMITTER = any
-> extends DBaseOptions<THEME, EMITTER> {
+export interface DSliderOptions<THEME extends DThemeSlider = DThemeSlider, EMITTER = any>
+	extends DBaseOptions<THEME, EMITTER> {
 	min?: DSliderLabelOptions;
 	max?: DSliderLabelOptions;
 	value?: DSliderValueOptions;
@@ -55,9 +50,7 @@ export interface DSliderOptions<
 /**
  * {@link DSlider} theme.
  */
-export interface DThemeSlider extends DThemeBase {
-
-}
+export interface DThemeSlider extends DThemeBase {}
 
 /**
  * A slider class.
@@ -76,63 +69,63 @@ export abstract class DSlider<
 	protected _ratioValue!: number;
 	protected _min!: DSliderLabel;
 	protected _max!: DSliderLabel;
-	protected _onThumbMoveBound!: ( e: InteractionEvent ) => void;
-	protected _onThumbUpBound!: ( e: InteractionEvent ) => void;
-	protected _onTrackUpBound!: ( e: InteractionEvent ) => void;
-	protected _onTrackSelectedUpBound!: ( e: InteractionEvent ) => void;
+	protected _onThumbMoveBound!: (e: InteractionEvent) => void;
+	protected _onThumbUpBound!: (e: InteractionEvent) => void;
+	protected _onTrackUpBound!: (e: InteractionEvent) => void;
+	protected _onTrackSelectedUpBound!: (e: InteractionEvent) => void;
 	protected _interactionManager?: InteractionManager;
 
-	protected init( options?: OPTIONS ): void {
-		super.init( options );
+	protected init(options?: OPTIONS): void {
+		super.init(options);
 
 		this._ratioValue = 0;
 
-		this._track = this.newTrack( options );
-		this.addChild( this._track );
-		this._trackSelected = this.newTrackSelected( options );
+		this._track = this.newTrack(options);
+		this.addChild(this._track);
+		this._trackSelected = this.newTrackSelected(options);
 		this._trackSelected.state.isActive = true;
-		this.addChild( this._trackSelected );
-		this._thumb = this.newThumb( options );
-		this.addChild( this._thumb );
-		this._min = this.newLabelMin( options );
-		this.addChild( this._min );
-		this._max = this.newLabelMax( options );
-		this.addChild( this._max );
-		this._value = this.newValue( options );
-		this.addChild( this._value );
+		this.addChild(this._trackSelected);
+		this._thumb = this.newThumb(options);
+		this.addChild(this._thumb);
+		this._min = this.newLabelMin(options);
+		this.addChild(this._min);
+		this._max = this.newLabelMax(options);
+		this.addChild(this._max);
+		this._value = this.newValue(options);
+		this.addChild(this._value);
 
 		// Event listeners
-		this._track.on( UtilPointerEvent.down, ( e: InteractionEvent) => {
+		this._track.on(UtilPointerEvent.down, (e: InteractionEvent) => {
 			this._value.visible = this.state.inEnabled;
-			this.onTrackDown( e.data.global );
+			this.onTrackDown(e.data.global);
 		});
 
-		this._trackSelected.on( UtilPointerEvent.down, ( e: InteractionEvent) => {
+		this._trackSelected.on(UtilPointerEvent.down, (e: InteractionEvent) => {
 			this._value.visible = this.state.inEnabled;
-			this.onTrackSelectedDown( e.data.global );
+			this.onTrackSelectedDown(e.data.global);
 		});
 
-		this._onTrackUpBound = ( e: InteractionEvent ): void => {
-			this.onTrackUpBound( e );
+		this._onTrackUpBound = (e: InteractionEvent): void => {
+			this.onTrackUpBound(e);
 			this._value.visible = false;
 		};
 
-		this._onTrackSelectedUpBound = ( e: InteractionEvent ): void => {
-			this.onTrackSelectedUpBound( e );
+		this._onTrackSelectedUpBound = (e: InteractionEvent): void => {
+			this.onTrackSelectedUpBound(e);
 			this._value.visible = false;
 		};
 
-		this._thumb.on( UtilPointerEvent.down, ( e: InteractionEvent ) => {
+		this._thumb.on(UtilPointerEvent.down, (e: InteractionEvent) => {
 			this._value.visible = true;
-			this.onThumbDown( e );
+			this.onThumbDown(e);
 		});
 
-		this._onThumbMoveBound = ( e: InteractionEvent ): void => {
-			this.onThumbMove( e );
+		this._onThumbMoveBound = (e: InteractionEvent): void => {
+			this.onThumbMove(e);
 		};
 
-		this._onThumbUpBound = ( e: InteractionEvent ): void => {
-			this.onThumbUp( e );
+		this._onThumbUpBound = (e: InteractionEvent): void => {
+			this.onThumbUp(e);
 			this._value.visible = false;
 		};
 
@@ -140,137 +133,140 @@ export abstract class DSlider<
 		this.onValuesChange();
 	}
 
-	protected newThumb( options?: OPTIONS ): DSliderThumb {
-		return new DSliderThumb( options && options.thumb );
+	protected newThumb(options?: OPTIONS): DSliderThumb {
+		return new DSliderThumb(options?.thumb);
 	}
 
-	protected newValue( options?: OPTIONS ): DSliderValue {
-		return new DSliderValue( this.toValueOptions( options && options.value ) );
+	protected newValue(options?: OPTIONS): DSliderValue {
+		return new DSliderValue(this.toValueOptions(options?.value));
 	}
 
-	protected toValueOptions( options?: DSliderValueOptions ): DSliderValueOptions {
+	protected toValueOptions(options?: DSliderValueOptions): DSliderValueOptions {
 		options = options || {};
-		if( options.value == null ) {
+		if (options.value == null) {
 			options.value = 0;
 		}
-		const text = options.text = options.text || {};
-		if( text.value == null ) {
+		const text = options.text || {};
+		options.text = text;
+		if (text.value == null) {
 			text.value = options.value;
 		}
-		if( options.visible == null ) {
+		if (options.visible == null) {
 			options.visible = false;
 		}
 		return options;
 	}
 
-	protected newLabelMin( options?: OPTIONS ): DSliderLabel {
-		return new DSliderLabel( this.toLabelMinOptions( options && options.min ) );
+	protected newLabelMin(options?: OPTIONS): DSliderLabel {
+		return new DSliderLabel(this.toLabelMinOptions(options?.min));
 	}
 
-	protected toLabelMinOptions( options?: DSliderLabelOptions ): DSliderLabelOptions {
+	protected toLabelMinOptions(options?: DSliderLabelOptions): DSliderLabelOptions {
 		options = options || {};
-		if( options.value == null ) {
+		if (options.value == null) {
 			options.value = 0;
 		}
-		const text = options.text = options.text || {};
-		if( text.value == null ) {
+		const text = options.text || {};
+		options.text = text;
+		if (text.value == null) {
 			text.value = `${options.value}`;
 		}
 		return options;
 	}
 
-	protected newLabelMax( options?: OPTIONS ): DSliderLabel {
-		return new DSliderLabel( this.toLabelMaxOptions( options && options.max ) );
+	protected newLabelMax(options?: OPTIONS): DSliderLabel {
+		return new DSliderLabel(this.toLabelMaxOptions(options?.max));
 	}
 
-	protected toLabelMaxOptions( options?: DSliderLabelOptions ): DSliderLabelOptions {
+	protected toLabelMaxOptions(options?: DSliderLabelOptions): DSliderLabelOptions {
 		options = options || {};
-		if( options.value == null ) {
+		if (options.value == null) {
 			options.value = 1;
 		}
-		const text = options.text = options.text || {};
-		if( text.value == null ) {
+		const text = options.text || {};
+		options.text = text;
+		if (text.value == null) {
 			text.value = `${options.value}`;
 		}
 		return options;
 	}
 
-	protected abstract newTrack( options?: OPTIONS ): DSliderTrack;
-	protected abstract newTrackSelected( options?: OPTIONS ): DSliderTrack;
+	protected abstract newTrack(options?: OPTIONS): DSliderTrack;
+	protected abstract newTrackSelected(options?: OPTIONS): DSliderTrack;
 
-	protected abstract onPick( global: Point ): void;
+	protected abstract onPick(global: Point): void;
 	protected abstract onValuesChange(): void;
-	protected abstract moveThumbPosition( thumbCoordinate: number ): void;
+	protected abstract moveThumbPosition(thumbCoordinate: number): void;
 
 	protected getValueMargin(): number {
 		return 14;
 	}
 
-	protected onTrackDown( global: Point ): void {
-		if( this.state.inDisabled ) {
+	protected onTrackDown(global: Point): void {
+		if (this.state.inDisabled) {
 			return;
 		}
-		const layer = DApplications.getLayer( this );
-		if( layer ) {
+		const layer = DApplications.getLayer(this);
+		if (layer) {
 			const interactionManager = layer.renderer.plugins.interaction;
 			this._interactionManager = interactionManager;
-			interactionManager.on( UtilPointerEvent.up, this._onTrackUpBound );
+			interactionManager.on(UtilPointerEvent.up, this._onTrackUpBound);
 		}
-		this.onPick( global );
+		this.onPick(global);
 	}
 
-	protected onTrackSelectedDown( global: Point ): void {
-		if( this.state.inDisabled ) {
+	protected onTrackSelectedDown(global: Point): void {
+		if (this.state.inDisabled) {
 			return;
 		}
-		const layer = DApplications.getLayer( this );
-		if( layer ) {
+		const layer = DApplications.getLayer(this);
+		if (layer) {
 			const interactionManager = layer.renderer.plugins.interaction;
 			this._interactionManager = interactionManager;
-			interactionManager.on( UtilPointerEvent.up, this._onTrackSelectedUpBound );
+			interactionManager.on(UtilPointerEvent.up, this._onTrackSelectedUpBound);
 		}
-		this.onPick( global );
+		this.onPick(global);
 	}
 
-	protected onTrackUpBound( e: InteractionEvent ): void {
+	protected onTrackUpBound(e: InteractionEvent): void {
 		const interactionManager = this._interactionManager;
-		if( interactionManager ) {
+		if (interactionManager) {
 			this._interactionManager = undefined;
-			interactionManager.off( UtilPointerEvent.up, this._onTrackUpBound );
+			interactionManager.off(UtilPointerEvent.up, this._onTrackUpBound);
 		}
 	}
 
-	protected onTrackSelectedUpBound( e: InteractionEvent ): void {
+	protected onTrackSelectedUpBound(e: InteractionEvent): void {
 		const interactionManager = this._interactionManager;
-		if( interactionManager ) {
+		if (interactionManager) {
 			this._interactionManager = undefined;
-			interactionManager.off( UtilPointerEvent.up, this._onTrackSelectedUpBound );
+			interactionManager.off(UtilPointerEvent.up, this._onTrackSelectedUpBound);
 		}
 	}
 
-	protected onThumbMove( e: InteractionEvent ): void {
-		if( this.state.inDisabled ) {
+	protected onThumbMove(e: InteractionEvent): void {
+		if (this.state.inDisabled) {
 			return;
 		}
-		this.onPick( e.data.global );
+		this.onPick(e.data.global);
 	}
 
-	protected onThumbDown( e: InteractionEvent ): void {
-		const layer = DApplications.getLayer( this );
-		if( layer ) {
+	protected onThumbDown(e: InteractionEvent): void {
+		const layer = DApplications.getLayer(this);
+		if (layer) {
 			const interactionManager = layer.renderer.plugins.interaction;
 			this._interactionManager = interactionManager;
-			interactionManager.on( UtilPointerEvent.move, this._onThumbMoveBound );
-			interactionManager.on( UtilPointerEvent.up, this._onThumbUpBound );
+			interactionManager.on(UtilPointerEvent.move, this._onThumbMoveBound);
+			interactionManager.on(UtilPointerEvent.up, this._onThumbUpBound);
 		}
 	}
 
-	protected onThumbUp( e: InteractionEvent ): void {
+	protected onThumbUp(e: InteractionEvent): void {
 		const interactionManager = this._interactionManager;
-		if( interactionManager ) {
+		if (interactionManager) {
 			this._interactionManager = undefined;
-			interactionManager.off( UtilPointerEvent.move, this._onThumbMoveBound );
-			interactionManager.off( UtilPointerEvent.up, this._onThumbUpBound );
+			interactionManager.off(UtilPointerEvent.move, this._onThumbMoveBound);
+			interactionManager.off(UtilPointerEvent.up, this._onThumbUpBound);
 		}
 	}
 
@@ -278,17 +274,17 @@ export abstract class DSlider<
 		const min = this._min.value;
 		const max = this._max.value;
 		const value = this._value;
-		const newValue = value.rounder( min + this._ratioValue * ( max - min ) );
+		const newValue = value.rounder(min + this._ratioValue * (max - min));
 		const oldValue = value.value;
-		if( newValue !== oldValue ) {
+		if (newValue !== oldValue) {
 			value.value = newValue;
 			value.text = value.value;
-			this.emit( "change", newValue, oldValue, this );
+			this.emit("change", newValue, oldValue, this);
 		}
 	}
 
-	onResize( newWidth: number, newHeight: number, oldWidth: number, oldHeight: number ): void {
-		super.onResize( newWidth, newHeight, oldWidth, oldHeight );
+	onResize(newWidth: number, newHeight: number, oldWidth: number, oldHeight: number): void {
+		super.onResize(newWidth, newHeight, oldWidth, oldHeight);
 		this.onValuesChange();
 	}
 
@@ -302,10 +298,10 @@ export abstract class DSlider<
 	/**
 	 * Sets a current value.
 	 */
-	set value( value: number ) {
-		value = Math.max( this._min.value, Math.min( this._max.value, value ) );
+	set value(value: number) {
+		value = Math.max(this._min.value, Math.min(this._max.value, value));
 		// Adjust if value is new
-		if( this._value.value !== value ) {
+		if (this._value.value !== value) {
 			this._value.value = value;
 			this.onValuesChange();
 		}
@@ -321,13 +317,13 @@ export abstract class DSlider<
 	/**
 	 * Sets a minimum value.
 	 */
-	set min( newMin: number ) {
+	set min(newMin: number) {
 		const min = this._min;
-		newMin = Math.min( this._max.value, newMin );
-		if( min.value !== newMin ) {
+		newMin = Math.min(this._max.value, newMin);
+		if (min.value !== newMin) {
 			const value = this._value;
 			min.text = min.value = newMin;
-			value.value = Math.max( newMin, value.value );
+			value.value = Math.max(newMin, value.value);
 			this.onValuesChange();
 		}
 	}
@@ -342,13 +338,13 @@ export abstract class DSlider<
 	/**
 	 * Sets a maximum value.
 	 */
-	set max( newMax: number ) {
+	set max(newMax: number) {
 		const max = this._max;
-		newMax = Math.max( this._min.value, newMax );
-		if( max.value !== newMax ) {
+		newMax = Math.max(this._min.value, newMax);
+		if (max.value !== newMax) {
 			const value = this._value;
 			max.text = max.value = newMax;
-			value.value = Math.min( newMax, value.value );
+			value.value = Math.min(newMax, value.value);
 			this.onValuesChange();
 		}
 	}

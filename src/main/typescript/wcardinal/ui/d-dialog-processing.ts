@@ -14,7 +14,8 @@ export interface DDialogProcessingDelayOptions {
 	close?: number | null;
 }
 
-export interface DDialogProcessingOptions<THEME extends DThemeDialogProcessing> extends DDialogConfirmOptions<THEME> {
+export interface DDialogProcessingOptions<THEME extends DThemeDialogProcessing>
+	extends DDialogConfirmOptions<THEME> {
 	delay?: DDialogProcessingDelayOptions;
 }
 
@@ -35,63 +36,63 @@ export class DDialogProcessing<
 	protected _messageText: DStateAwareOrValueMightBe<string>;
 	protected _closeTimeoutId?: number;
 
-	constructor( options?: OPTIONS ) {
-		super( options );
+	constructor(options?: OPTIONS) {
+		super(options);
 		this._isDone = true;
-		this._startTime =  0;
+		this._startTime = 0;
 		const delay = options?.delay;
-		this._delayDone = ( delay?.done ?? this.theme.getDoneDelay() );
+		this._delayDone = delay?.done ?? this.theme.getDoneDelay();
 		const delayClose = delay?.close;
-		this._delayClose = ( delayClose !== undefined ? delayClose : this.theme.getCloseDelay() );
+		this._delayClose = delayClose !== undefined ? delayClose : this.theme.getCloseDelay();
 		this._messageText = this.message.text;
 	}
 
-	protected newMessage( options: DDialogConfirmMessageOptions ): DDialogConfirmMessage {
-		return new DDialogProcessingMessage( options );
+	protected newMessage(options: DDialogConfirmMessageOptions): DDialogConfirmMessage {
+		return new DDialogProcessingMessage(options);
 	}
 
 	protected onOpen(): void {
 		this._isDone = false;
 		this._startTime = Date.now();
 		const timeoutId = this._timeoutId;
-		if( timeoutId != null ) {
-			clearTimeout( timeoutId );
+		if (timeoutId != null) {
+			clearTimeout(timeoutId);
 		}
 		const closeTimeoutId = this._closeTimeoutId;
-		if( closeTimeoutId != null ) {
-			clearTimeout( closeTimeoutId );
+		if (closeTimeoutId != null) {
+			clearTimeout(closeTimeoutId);
 		}
 		const message = this.message;
 		message.text = this._messageText;
-		message.state.removeAll( DBaseState.SUCCEEDED, DBaseState.FAILED );
+		message.state.removeAll(DBaseState.SUCCEEDED, DBaseState.FAILED);
 		const buttonLayout = this._buttonLayout;
-		if( buttonLayout != null ) {
+		if (buttonLayout != null) {
 			buttonLayout.hide();
 		}
 		super.onOpen();
 	}
 
-	protected onDone( delay: number | null ): void {
-		if( delay != null ) {
+	protected onDone(delay: number | null): void {
+		if (delay != null) {
 			this._closeTimeoutId = window.setTimeout(() => {
 				this.close();
-			}, delay );
+			}, delay);
 		} else {
 			this.close();
 		}
 	}
 
-	protected onResolved( message?: string ): void {
-		if( message != null ) {
+	protected onResolved(message?: string): void {
+		if (message != null) {
 			this.message.text = message;
 		}
-		this.message.state.set( DBaseState.SUCCEEDED, DBaseState.FAILED );
+		this.message.state.set(DBaseState.SUCCEEDED, DBaseState.FAILED);
 		const delayClose = this._delayClose;
-		if( delayClose != null ) {
-			this.onDone( delayClose );
+		if (delayClose != null) {
+			this.onDone(delayClose);
 		} else {
 			const buttonLayout = this._buttonLayout;
-			if( buttonLayout != null ) {
+			if (buttonLayout != null) {
 				buttonLayout.show();
 			} else {
 				this.close();
@@ -99,53 +100,53 @@ export class DDialogProcessing<
 		}
 	}
 
-	protected onRejected( message?: string ): void {
-		if( message != null ) {
+	protected onRejected(message?: string): void {
+		if (message != null) {
 			this.message.text = message;
 		}
-		this.message.state.set( DBaseState.FAILED, DBaseState.SUCCEEDED );
+		this.message.state.set(DBaseState.FAILED, DBaseState.SUCCEEDED);
 		const buttonLayout = this._buttonLayout;
-		if( buttonLayout != null ) {
+		if (buttonLayout != null) {
 			buttonLayout.show();
 		} else {
-			this.onDone( this._delayClose );
+			this.onDone(this._delayClose);
 		}
 	}
 
-	resolve( message?: string ): void {
-		if( ! this._isDone ) {
+	resolve(message?: string): void {
+		if (!this._isDone) {
 			this._isDone = true;
 			const elapsedTime = Date.now() - this._startTime;
 			const delay = this._delayDone - elapsedTime;
-			if( 0 < delay ) {
+			if (0 < delay) {
 				this._timeoutId = window.setTimeout((): void => {
 					this._timeoutId = undefined;
-					this.onResolved( message );
-				}, delay );
+					this.onResolved(message);
+				}, delay);
 			} else {
-				this.onResolved( message );
+				this.onResolved(message);
 			}
 		}
 	}
 
-	reject( message?: string ): void {
-		if( ! this._isDone ) {
+	reject(message?: string): void {
+		if (!this._isDone) {
 			this._isDone = true;
 			const elapsedTime = Date.now() - this._startTime;
 			const delay = this._delayDone - elapsedTime;
-			if( 0 < delay ) {
+			if (0 < delay) {
 				this._timeoutId = window.setTimeout((): void => {
 					this._timeoutId = undefined;
-					this.onRejected( message );
-				}, delay );
+					this.onRejected(message);
+				}, delay);
 			} else {
-				this.onRejected( message );
+				this.onRejected(message);
 			}
 		}
 	}
 
 	protected onCloseOn(): void {
-		if( this._isDone ) {
+		if (this._isDone) {
 			super.onCloseOn();
 		}
 	}

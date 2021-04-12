@@ -9,7 +9,8 @@ import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manage
 import { EShapeImage } from "./e-shape-image";
 
 export const deserializeImage = (
-	item: DDiagramSerializedItem, manager: EShapeResourceManagerDeserialization
+	item: DDiagramSerializedItem,
+	manager: EShapeResourceManagerDeserialization
 ): Promise<EShapeImage> | EShapeImage => {
-	return EShapeDeserializer.deserialize( item, manager, new EShapeImage() );
+	return EShapeDeserializer.deserialize(item, manager, new EShapeImage());
 };

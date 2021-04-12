@@ -7,5 +7,5 @@ import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteDialogSaveAs } from "../d-theme-white-dialog-save-as";
 
 export const loadThemeWhiteDialogSaveAs = (): void => {
-	DThemeWhite.set( "DDialogSaveAs", DThemeWhiteDialogSaveAs );
+	DThemeWhite.set("DDialogSaveAs", DThemeWhiteDialogSaveAs);
 };

@@ -14,7 +14,7 @@ export class DInputIntegerAndLabel<
 	THEME extends DThemeInputAndLabel = DThemeInputAndLabel,
 	OPTIONS extends DInputIntegerAndLabelOptions<THEME> = DInputIntegerAndLabelOptions<THEME>
 > extends DInputAndLabel<DInputInteger, DInputIntegerOptions, THEME, OPTIONS> {
-	protected createInput( options?: DInputIntegerOptions<DThemeInputInteger> ): DInputInteger {
-		return new DInputInteger( options );
+	protected createInput(options?: DInputIntegerOptions<DThemeInputInteger>): DInputInteger {
+		return new DInputInteger(options);
 	}
 }

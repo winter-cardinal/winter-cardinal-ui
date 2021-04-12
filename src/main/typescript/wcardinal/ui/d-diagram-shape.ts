@@ -34,99 +34,97 @@ export class DDiagramShape extends utils.EventEmitter {
 	protected _diagram: DDiagramShapeDiagram;
 	protected _updateBound: () => void;
 
-	constructor( diagram: DDiagramShapeDiagram ) {
+	constructor(diagram: DDiagramShapeDiagram) {
 		super();
 		this._diagram = diagram;
 		this._updateBound = (): void => {
-			DApplications.update( diagram );
+			DApplications.update(diagram);
 		};
 	}
 
 	update(): void {
 		const diagram = this._diagram;
 		const canvas = diagram.canvas;
-		if( canvas ) {
+		if (canvas) {
 			const actionables = canvas.actionables;
-			if( 0 < actionables.length ) {
+			if (0 < actionables.length) {
 				let effect = -1;
 				const time = Date.now();
-				for( let i = 0, imax = actionables.length; i < imax; ++i ) {
-					const actionable = actionables[ i ];
-					actionable.update( time );
+				for (let i = 0, imax = actionables.length; i < imax; ++i) {
+					const actionable = actionables[i];
+					actionable.update(time);
 					const runtime = actionable.runtime;
-					if( runtime && time < runtime.effect ) {
+					if (runtime && time < runtime.effect) {
 						const runtimeEffect = runtime.effect;
-						if( time < runtimeEffect ) {
-							effect = ( effect < 0 ? runtimeEffect : Math.min( effect, runtimeEffect ) );
+						if (time < runtimeEffect) {
+							effect = effect < 0 ? runtimeEffect : Math.min(effect, runtimeEffect);
 						}
 					}
 				}
-				if( 0 <= effect ) {
-					setTimeout( this._updateBound, effect - Date.now() );
+				if (0 <= effect) {
+					setTimeout(this._updateBound, effect - Date.now());
 				}
 			}
 		}
 	}
 
-	onRender( renderer: Renderer ): void {
+	onRender(renderer: Renderer): void {
 		const diagram = this._diagram;
 		const canvas = diagram.canvas;
-		if( canvas ) {
+		if (canvas) {
 			const actionables = canvas.actionables;
-			if( 0 < actionables.length ) {
+			if (0 < actionables.length) {
 				let effect = -1;
 				const time = Date.now();
-				for( let i = 0, imax = actionables.length; i < imax; ++i ) {
-					const actionable = actionables[ i ];
-					actionable.onRender( time, renderer );
+				for (let i = 0, imax = actionables.length; i < imax; ++i) {
+					const actionable = actionables[i];
+					actionable.onRender(time, renderer);
 					const runtime = actionable.runtime;
-					if( runtime && time < runtime.effect ) {
+					if (runtime && time < runtime.effect) {
 						const runtimeEffect = runtime.effect;
-						if( time < runtimeEffect ) {
-							effect = ( effect < 0 ? runtimeEffect : Math.min( effect, runtimeEffect ) );
+						if (time < runtimeEffect) {
+							effect = effect < 0 ? runtimeEffect : Math.min(effect, runtimeEffect);
 						}
 					}
 				}
-				if( 0 <= effect ) {
-					setTimeout( this._updateBound, effect - Date.now() );
+				if (0 <= effect) {
+					setTimeout(this._updateBound, effect - Date.now());
 				}
 			}
 		}
 	}
 
-	get( id: string ): EShape | null {
-		const canvas = this._diagram.canvas;
-		const shapes = ( canvas && canvas.ids[ id ] );
-		return ( shapes && 0 < shapes.length ? shapes[ 0 ] : null );
+	get(id: string): EShape | null {
+		const shapes = this._diagram.canvas?.ids[id];
+		return shapes && 0 < shapes.length ? shapes[0] : null;
 	}
 
-	getAll( id: string ): EShape[] {
-		const canvas = this._diagram.canvas;
-		return ( canvas && canvas.ids[ id ] ) || [];
+	getAll(id: string): EShape[] {
+		return this._diagram.canvas?.ids[id] || [];
 	}
 
-	each( callback: ( shape: EShape ) => (boolean | void), reverse = false ): EShape | null {
+	each(callback: (shape: EShape) => boolean | void, reverse = false): EShape | null {
 		const canvas = this._diagram.canvas;
-		if( canvas != null ) {
+		if (canvas != null) {
 			const layers = canvas.layer.children;
-			if( ! reverse ) {
-				for( let i = 0, imax = layers.length; i < imax; ++i ) {
-					const layer = layers[ i ];
+			if (!reverse) {
+				for (let i = 0, imax = layers.length; i < imax; ++i) {
+					const layer = layers[i];
 					const children = layer.children;
-					for( let j = 0, jmax = children.length; j < jmax; ++j ) {
-						const child = children[ j ];
-						if( callback( child ) === false ) {
+					for (let j = 0, jmax = children.length; j < jmax; ++j) {
+						const child = children[j];
+						if (callback(child) === false) {
 							return child;
 						}
 					}
 				}
 			} else {
-				for( let i = layers.length - 1; 0 <= i; --i ) {
-					const layer = layers[ i ];
+				for (let i = layers.length - 1; 0 <= i; --i) {
+					const layer = layers[i];
 					const children = layer.children;
-					for( let j = children.length - 1; 0 <= j; --j ) {
-						const child = children[ j ];
-						if( callback( child ) === false ) {
+					for (let j = children.length - 1; 0 <= j; --j) {
+						const child = children[j];
+						if (callback(child) === false) {
 							return child;
 						}
 					}

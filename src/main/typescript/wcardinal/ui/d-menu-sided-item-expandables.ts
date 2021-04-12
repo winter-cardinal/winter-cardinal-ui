@@ -12,17 +12,22 @@ export class DMenuSidedItemExpandables {
 	protected static CREATORS: DMenuItemCreator[] = [];
 	protected static CREATOR_DEFAULT: DMenuItemCreator | null = null;
 
-	static addItemCreator( creator: DMenuItemCreator ): void {
-		this.CREATORS.push( creator );
+	static addItemCreator(creator: DMenuItemCreator): void {
+		this.CREATORS.push(creator);
 	}
 
-	static setItemCreatorDefault( creator: DMenuItemCreator ): void {
+	static setItemCreatorDefault(creator: DMenuItemCreator): void {
 		this.CREATOR_DEFAULT = creator;
 	}
 
-	static newItem<VALUE>( options: DMenuItemOptionsUnion<VALUE>, sticky: boolean ): DisplayObject | null {
-		return DMenus.newItemOf( this.CREATORS, this.CREATOR_DEFAULT, options, sticky ) ||
-			DMenuSideds.newItem( options, sticky );
+	static newItem<VALUE>(
+		options: DMenuItemOptionsUnion<VALUE>,
+		sticky: boolean
+	): DisplayObject | null {
+		return (
+			DMenus.newItemOf(this.CREATORS, this.CREATOR_DEFAULT, options, sticky) ||
+			DMenuSideds.newItem(options, sticky)
+		);
 	}
 
 	static newItems<VALUE>(
@@ -30,6 +35,6 @@ export class DMenuSidedItemExpandables {
 		items: Array<DMenuItemOptionsUnion<VALUE> | DisplayObject>,
 		sticky: boolean
 	): void {
-		DMenus.newItemsOf( this, parent, items, sticky );
+		DMenus.newItemsOf(this, parent, items, sticky);
 	}
 }

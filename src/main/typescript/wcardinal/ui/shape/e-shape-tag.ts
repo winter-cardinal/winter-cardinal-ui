@@ -25,15 +25,15 @@ export interface EShapeTag {
 	times: number[];
 	capacity: number;
 
-	add( value: EShapeTagValue, index?: number ): void;
-	set( index: number, value: EShapeTagValue ): EShapeTagValue | null;
-	indexOf( target: EShapeTagValue ): number;
-	get( index: number ): EShapeTagValue | null;
-	remove( index: number ): void;
+	add(value: EShapeTagValue, index?: number): void;
+	set(index: number, value: EShapeTagValue): EShapeTagValue | null;
+	indexOf(target: EShapeTagValue): number;
+	get(index: number): EShapeTagValue | null;
+	remove(index: number): void;
 	size(): number;
-	swap( indexA: number, indexB: number ): void;
+	swap(indexA: number, indexB: number): void;
 
-	copy( target: EShapeTag ): this;
-	serialize( manager: EShapeResourceManagerSerialization ): number;
-	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void;
+	copy(target: EShapeTag): this;
+	serialize(manager: EShapeResourceManagerSerialization): number;
+	deserialize(target: number, manager: EShapeResourceManagerDeserialization): void;
 }

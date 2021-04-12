@@ -12,8 +12,8 @@ import { EShapeActionValueOpen } from "./e-shape-action-value-open";
 export class EShapeActionRuntimeOpen extends EShapeActionRuntimeConditional {
 	protected readonly target: EShapeActionExpression<string | null>;
 
-	constructor( value: EShapeActionValueOpen, reset: EShapeRuntimeReset ) {
-		super( value, reset );
-		this.target = EShapeActionExpressions.ofStringOrNull( value.target );
+	constructor(value: EShapeActionValueOpen, reset: EShapeRuntimeReset) {
+		super(value, reset);
+		this.target = EShapeActionExpressions.ofStringOrNull(value.target);
 	}
 }

@@ -13,8 +13,15 @@ export class DDiagramCanvasTileMappingImpl implements DDiagramCanvasTileMapping 
 	protected _to: DDiagramCanvasTileMappingPointImpl;
 	protected _cb: () => void;
 
-	constructor( cb: () => void, mapping?: DDiagramCanvasTileMapping );
-	constructor( cb: () => void, enable: boolean, lon0: number, lat0: number, lon1: number, lat1: number );
+	constructor(cb: () => void, mapping?: DDiagramCanvasTileMapping);
+	constructor(
+		cb: () => void,
+		enable: boolean,
+		lon0: number,
+		lat0: number,
+		lon1: number,
+		lat1: number
+	);
 	constructor(
 		cb: () => void,
 		mappingOrEnable?: DDiagramCanvasTileMapping | boolean,
@@ -24,18 +31,20 @@ export class DDiagramCanvasTileMappingImpl implements DDiagramCanvasTileMapping 
 		lat1?: number
 	) {
 		this._cb = cb;
-		if( mappingOrEnable === true || mappingOrEnable === false ) {
+		if (mappingOrEnable === true || mappingOrEnable === false) {
 			this._enable = mappingOrEnable;
-			this._from = new DDiagramCanvasTileMappingPointImpl( cb, null, lon0, lat0 );
-			this._to = new DDiagramCanvasTileMappingPointImpl( cb, null, lon1, lat1 );
-		} else if( mappingOrEnable != null ) {
+			this._from = new DDiagramCanvasTileMappingPointImpl(cb, null, lon0, lat0);
+			this._to = new DDiagramCanvasTileMappingPointImpl(cb, null, lon1, lat1);
+		} else if (mappingOrEnable != null) {
 			this._enable = mappingOrEnable.enable;
-			this._from = new DDiagramCanvasTileMappingPointImpl( cb, null, mappingOrEnable.from.lon, mappingOrEnable.from.lat );
-			this._to = new DDiagramCanvasTileMappingPointImpl( cb, null, mappingOrEnable.to.lon, mappingOrEnable.to.lat );
+			const from = mappingOrEnable.from;
+			const to = mappingOrEnable.to;
+			this._from = new DDiagramCanvasTileMappingPointImpl(cb, null, from.lon, from.lat);
+			this._to = new DDiagramCanvasTileMappingPointImpl(cb, null, to.lon, to.lat);
 		} else {
 			this._enable = false;
-			this._from = new DDiagramCanvasTileMappingPointImpl( cb, null, -180, +85.05112877980659 );
-			this._to = new DDiagramCanvasTileMappingPointImpl( cb, null, +180, -85.05112877980659 );
+			this._from = new DDiagramCanvasTileMappingPointImpl(cb, null, -180, +85.05112877980659);
+			this._to = new DDiagramCanvasTileMappingPointImpl(cb, null, +180, -85.05112877980659);
 		}
 	}
 
@@ -43,8 +52,8 @@ export class DDiagramCanvasTileMappingImpl implements DDiagramCanvasTileMapping 
 		return this._enable;
 	}
 
-	set enable( enable: boolean ) {
-		if( this._enable !== enable ) {
+	set enable(enable: boolean) {
+		if (this._enable !== enable) {
 			this._enable = enable;
 			this._cb();
 		}

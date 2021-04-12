@@ -9,7 +9,8 @@ import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manage
 import { EShapeLineOfCircles } from "./e-shape-line-of-circles";
 
 export const deserializeLineOfCircles = (
-	item: DDiagramSerializedItem, manager: EShapeResourceManagerDeserialization
+	item: DDiagramSerializedItem,
+	manager: EShapeResourceManagerDeserialization
 ): Promise<EShapeLineOfCircles> | EShapeLineOfCircles => {
-	return EShapeDeserializer.deserialize( item, manager, new EShapeLineOfCircles() );
+	return EShapeDeserializer.deserialize(item, manager, new EShapeLineOfCircles());
 };

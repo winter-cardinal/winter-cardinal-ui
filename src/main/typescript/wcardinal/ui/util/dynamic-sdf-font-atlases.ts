@@ -8,7 +8,7 @@ import { DynamicAtlasItemFontAtlas } from "./dynamic-atlas-item-font-atlas";
 import { DynamicSDFFontAtlas } from "./dynamic-sdf-font-atlas";
 
 export class DynamicSDFFontAtlases {
-	protected _atlases: { [ family: string ]: DynamicSDFFontAtlas };
+	protected _atlases: { [family: string]: DynamicSDFFontAtlas };
 
 	constructor() {
 		this._atlases = {};
@@ -16,55 +16,55 @@ export class DynamicSDFFontAtlases {
 
 	begin(): void {
 		const atlases = this._atlases;
-		for( const family in atlases ) {
-			const atlas = atlases[ family ];
+		for (const family in atlases) {
+			const atlas = atlases[family];
 			atlas.begin();
 		}
 	}
 
 	end(): void {
 		const atlases = this._atlases;
-		for( const family in atlases ) {
-			const atlas = atlases[ family ];
-			if( 0 < atlas.length ) {
+		for (const family in atlases) {
+			const atlas = atlases[family];
+			if (0 < atlas.length) {
 				atlas.addAscii();
 			}
 			atlas.end();
-			if( atlas.length <= 0 ) {
+			if (atlas.length <= 0) {
 				atlas.destroy();
-				delete atlases[ family ];
+				delete atlases[family];
 			}
 		}
 	}
 
-	add( family: string, targets: string ): void {
-		const atlas = this._atlases[ family ];
-		if( atlas != null ) {
-			atlas.add( targets );
+	add(family: string, targets: string): void {
+		const atlas = this._atlases[family];
+		if (atlas != null) {
+			atlas.add(targets);
 		} else {
-			const newAtlas = new DynamicSDFFontAtlas( family );
-			newAtlas.add( targets );
-			this._atlases[ family ] = newAtlas;
+			const newAtlas = new DynamicSDFFontAtlas(family);
+			newAtlas.add(targets);
+			this._atlases[family] = newAtlas;
 		}
 	}
 
-	get( family: string ): DynamicSDFFontAtlas | null {
-		const atlas = this._atlases[ family ];
-		if( atlas != null ) {
+	get(family: string): DynamicSDFFontAtlas | null {
+		const atlas = this._atlases[family];
+		if (atlas != null) {
 			return atlas;
 		}
 		return null;
 	}
 
-	update( baseAtlas: DynamicAtlas ): void {
+	update(baseAtlas: DynamicAtlas): void {
 		const atlases = this._atlases;
 		const baseTexture = baseAtlas.getBaseTexture();
-		for( const family in atlases ) {
-			const atlas = atlases[ family ];
-			if( atlas.update() ) {
+		for (const family in atlases) {
+			const atlas = atlases[family];
+			if (atlas.update()) {
 				const atlasId = atlas.id;
-				const item = baseAtlas.get( atlasId );
-				if( item != null ) {
+				const item = baseAtlas.get(atlasId);
+				if (item != null) {
 					const width = atlas.width;
 					const height = atlas.height;
 					const resolution = baseTexture.resolution;
@@ -74,10 +74,7 @@ export class DynamicSDFFontAtlases {
 					item.height = height / resolution;
 					baseAtlas.toDirty();
 				} else {
-					baseAtlas.set(
-						atlasId,
-						new DynamicAtlasItemFontAtlas( atlas, baseTexture )
-					);
+					baseAtlas.set(atlasId, new DynamicAtlasItemFontAtlas(atlas, baseTexture));
 				}
 			}
 		}
@@ -85,8 +82,8 @@ export class DynamicSDFFontAtlases {
 
 	destroy(): void {
 		const atlases = this._atlases;
-		for( const family in atlases ) {
-			const atlas = atlases[ family ];
+		for (const family in atlases) {
+			const atlas = atlases[family];
 			atlas.destroy();
 		}
 		this._atlases = {};

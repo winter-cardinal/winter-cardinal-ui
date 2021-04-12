@@ -10,14 +10,17 @@ import { EShapeSizes } from "./e-shape-sizes";
 import { EShapeBase } from "./variant/e-shape-base";
 
 export class EShapeTransforms {
-	static prepare( shape: EShape ): void {
-		const editor = shape.editor = (shape.editor || new EShapeEditor());
+	static prepare(shape: EShape): void {
+		const editor = shape.editor || new EShapeEditor();
+		shape.editor = editor;
 
 		// Ttransform
 		shape.updateTransform();
 		const parent = shape.parent;
-		if( parent instanceof EShapeBase ) {
-			parent.transform.internalTransform.copyTo(editor.internalTransformParentInverse).invert();
+		if (parent instanceof EShapeBase) {
+			parent.transform.internalTransform
+				.copyTo(editor.internalTransformParentInverse)
+				.invert();
 		} else {
 			editor.internalTransformParentInverse.identity();
 		}
@@ -27,32 +30,34 @@ export class EShapeTransforms {
 		editor.rotation = shape.transform.rotation;
 
 		// Size
-		editor.size.copyFrom( shape.size );
+		editor.size.copyFrom(shape.size);
 
 		//
 		shape.disallowOnTransformChange();
 	}
 
-	static finalize( shape: EShape ): void {
-		shape.allowOnTransformChange( true );
+	static finalize(shape: EShape): void {
+		shape.allowOnTransformChange(true);
 	}
 
-	static apply( shape: EShape, transform: Matrix, keepSize: boolean ): void {
+	static apply(shape: EShape, transform: Matrix, keepSize: boolean): void {
 		const editor = shape.editor;
-		if( editor != null ) {
+		if (editor != null) {
 			const newLocalTransform = editor.localTransform;
-			editor.internalTransformParentInverse.copyTo(newLocalTransform)
-				.append(transform).append(editor.internalTransform);
-			if( keepSize ) {
-				this.applyLocal( shape, newLocalTransform );
+			editor.internalTransformParentInverse
+				.copyTo(newLocalTransform)
+				.append(transform)
+				.append(editor.internalTransform);
+			if (keepSize) {
+				this.applyLocal(shape, newLocalTransform);
 			} else {
 				const size = editor.size;
-				this.applyLocal( shape, newLocalTransform, size.x, size.y );
+				this.applyLocal(shape, newLocalTransform, size.x, size.y);
 			}
 		}
 	}
 
-	static applyLocal( shape: EShape, localTransform: Matrix, bx?: number, by?: number ): void {
+	static applyLocal(shape: EShape, localTransform: Matrix, bx?: number, by?: number): void {
 		shape.disallowUploadedUpdate();
 
 		// Reconstruct the position, the rotation and the size
@@ -83,19 +88,13 @@ export class EShapeTransforms {
 		const pivot = transform.pivot;
 		const px = pivot.x;
 		const py = pivot.y;
-		transform.position.set(
-			tx + (a * px + c * py),
-			ty + (b * px + d * py)
-		);
+		transform.position.set(tx + (a * px + c * py), ty + (b * px + d * py));
 
 		// Scale
-		if( bx != null && by != null ) {
-			const sx = Math.sqrt( a * a + b * b );
-			const sy = Math.sqrt( c * c + d * d );
-			shape.size.set(
-				EShapeSizes.toNormalized( bx * sx ),
-				EShapeSizes.toNormalized( by * sy )
-			);
+		if (bx != null && by != null) {
+			const sx = Math.sqrt(a * a + b * b);
+			const sy = Math.sqrt(c * c + d * d);
+			shape.size.set(EShapeSizes.toNormalized(bx * sx), EShapeSizes.toNormalized(by * sy));
 		}
 
 		//

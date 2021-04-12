@@ -24,7 +24,12 @@ import { EShapeActionRuntimeOpenDialogTime } from "./e-shape-action-runtime-open
 import { EShapeActionRuntimeOpenDialogDate } from "./e-shape-action-runtime-open-dialog-date";
 
 export type EShapeActionValueOpenSerialized = [
-	EShapeActionValueType.OPEN, number, EShapeActionValueOpenType, number, EShapeActionValueOnInputAction, number
+	EShapeActionValueType.OPEN,
+	number,
+	EShapeActionValueOpenType,
+	number,
+	EShapeActionValueOnInputAction,
+	number
 ];
 
 export class EShapeActionValueOpen extends EShapeActionValueSubtyped<EShapeActionValueOpenType> {
@@ -39,46 +44,46 @@ export class EShapeActionValueOpen extends EShapeActionValueSubtyped<EShapeActio
 		onInputAction: EShapeActionValueOnInputAction,
 		initial: string
 	) {
-		super( EShapeActionValueType.OPEN, condition, subtype );
+		super(EShapeActionValueType.OPEN, condition, subtype);
 		this.target = target;
 		this.onInputAction = onInputAction;
 		this.initial = initial;
 	}
 
-	isEquals( value: EShapeActionValue ): boolean {
+	isEquals(value: EShapeActionValue): boolean {
 		return (
-			super.isEquals( value ) &&
-			(value instanceof EShapeActionValueOpen) &&
+			super.isEquals(value) &&
+			value instanceof EShapeActionValueOpen &&
 			this.target === value.target
 		);
 	}
 
 	toRuntime(): EShapeActionRuntimeOpen {
-		switch( this.subtype ) {
-		case EShapeActionValueOpenType.DIAGRAM:
-			return new EShapeActionRuntimeOpenDiagram( this );
-		case EShapeActionValueOpenType.PAGE:
-			return new EShapeActionRuntimeOpenPage( this );
-		case EShapeActionValueOpenType.PAGE_INPLACE:
-			return new EShapeActionRuntimeOpenPageInplace( this );
-		case EShapeActionValueOpenType.DIALOG_TEXT:
-			return new EShapeActionRuntimeOpenDialogText( this );
-		case EShapeActionValueOpenType.DIALOG_INTEGER:
-			return new EShapeActionRuntimeOpenDialogInteger( this );
-		case EShapeActionValueOpenType.DIALOG_REAL:
-			return new EShapeActionRuntimeOpenDialogReal( this );
-		case EShapeActionValueOpenType.DIALOG_BOOLEAN:
-			return new EShapeActionRuntimeOpenDialogBoolean( this );
-		case EShapeActionValueOpenType.DIALOG_DATE:
-			return new EShapeActionRuntimeOpenDialogDate( this );
-		case EShapeActionValueOpenType.DIALOG_TIME:
-			return new EShapeActionRuntimeOpenDialogTime( this );
-		case EShapeActionValueOpenType.DIALOG_DATETIME:
-			return new EShapeActionRuntimeOpenDialogDatetime( this );
+		switch (this.subtype) {
+			case EShapeActionValueOpenType.DIAGRAM:
+				return new EShapeActionRuntimeOpenDiagram(this);
+			case EShapeActionValueOpenType.PAGE:
+				return new EShapeActionRuntimeOpenPage(this);
+			case EShapeActionValueOpenType.PAGE_INPLACE:
+				return new EShapeActionRuntimeOpenPageInplace(this);
+			case EShapeActionValueOpenType.DIALOG_TEXT:
+				return new EShapeActionRuntimeOpenDialogText(this);
+			case EShapeActionValueOpenType.DIALOG_INTEGER:
+				return new EShapeActionRuntimeOpenDialogInteger(this);
+			case EShapeActionValueOpenType.DIALOG_REAL:
+				return new EShapeActionRuntimeOpenDialogReal(this);
+			case EShapeActionValueOpenType.DIALOG_BOOLEAN:
+				return new EShapeActionRuntimeOpenDialogBoolean(this);
+			case EShapeActionValueOpenType.DIALOG_DATE:
+				return new EShapeActionRuntimeOpenDialogDate(this);
+			case EShapeActionValueOpenType.DIALOG_TIME:
+				return new EShapeActionRuntimeOpenDialogTime(this);
+			case EShapeActionValueOpenType.DIALOG_DATETIME:
+				return new EShapeActionRuntimeOpenDialogDatetime(this);
 		}
 	}
 
-	serialize( manager: EShapeResourceManagerSerialization ): number {
+	serialize(manager: EShapeResourceManagerSerialization): number {
 		const conditionId = manager.addResource(this.condition);
 		const targetId = manager.addResource(this.target);
 		const initialId = manager.addResource(this.initial);
@@ -91,9 +96,9 @@ export class EShapeActionValueOpen extends EShapeActionValueSubtyped<EShapeActio
 		serialized: EShapeActionValueOpenSerialized,
 		manager: EShapeResourceManagerDeserialization
 	): EShapeActionValueOpen {
-		const condition = EShapeActionValues.toResource( 1, serialized, manager.resources );
-		const target = EShapeActionValues.toResource( 3, serialized, manager.resources );
-		const initial = EShapeActionValues.toResource( 5, serialized, manager.resources );
-		return new EShapeActionValueOpen( serialized[ 2 ], condition, target, serialized[ 4 ], initial );
+		const condition = EShapeActionValues.toResource(1, serialized, manager.resources);
+		const target = EShapeActionValues.toResource(3, serialized, manager.resources);
+		const initial = EShapeActionValues.toResource(5, serialized, manager.resources);
+		return new EShapeActionValueOpen(serialized[2], condition, target, serialized[4], initial);
 	}
 }

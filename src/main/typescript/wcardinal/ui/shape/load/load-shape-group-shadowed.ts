@@ -10,6 +10,6 @@ import { createGroupUploaded } from "../variant/create-group-uploaded";
 import { deserializeGroupShadowed } from "../variant/deserialize-group-shadowed";
 
 export const loadShapeGroupShadowed = (): void => {
-	EShapeUploadeds[ EShapeType.GROUP_SHADOWED ] = createGroupUploaded;
-	EShapeDeserializers[ EShapeType.GROUP_SHADOWED ] = deserializeGroupShadowed;
+	EShapeUploadeds[EShapeType.GROUP_SHADOWED] = createGroupUploaded;
+	EShapeDeserializers[EShapeType.GROUP_SHADOWED] = deserializeGroupShadowed;
 };

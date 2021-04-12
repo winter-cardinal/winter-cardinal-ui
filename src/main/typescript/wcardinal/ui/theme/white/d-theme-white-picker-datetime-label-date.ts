@@ -10,9 +10,9 @@ import { DFontWeight } from "../../d-font";
 import { DThemePickerDatetimeLabelDate } from "../../d-picker-datetime-label-date";
 import { DThemeWhiteText } from "./d-theme-white-text";
 
-export class DThemeWhitePickerDatetimeLabelDate<VALUE = unknown> extends DThemeWhiteText<VALUE>
+export class DThemeWhitePickerDatetimeLabelDate<VALUE = unknown>
+	extends DThemeWhiteText<VALUE>
 	implements DThemePickerDatetimeLabelDate<VALUE> {
-
 	getWidth(): DCoordinateSize {
 		return 30;
 	}
@@ -29,8 +29,8 @@ export class DThemeWhitePickerDatetimeLabelDate<VALUE = unknown> extends DThemeW
 		return DAlignHorizontal.CENTER;
 	}
 
-	getAlpha( state: DBaseStateSet ): number {
-		return super.getAlpha( state ) * 0.9;
+	getAlpha(state: DBaseStateSet): number {
+		return super.getAlpha(state) * 0.9;
 	}
 
 	getFontWeight(): DFontWeight {

@@ -13,22 +13,22 @@ import { DThemeWhiteTableBodyCells } from "./d-theme-white-table-body-cells";
 
 DThemeWhiteTableBodyCellTrees.init();
 
-export class DThemeWhiteTableBodyCellInputTree extends DThemeWhiteBase
+export class DThemeWhiteTableBodyCellInputTree
+	extends DThemeWhiteBase
 	implements DThemeTableBodyCellInputTree {
-
 	getHeight(): DCoordinateSize {
 		return DThemeWhiteTableBodyCells.getHeight();
 	}
 
-	getBackgroundColor( state: DBaseStateSet ): number | null {
+	getBackgroundColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
-	getLevelPadding( level: number ): number {
+	getLevelPadding(level: number): number {
 		return 24 + level * 20;
 	}
 

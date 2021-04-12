@@ -10,8 +10,8 @@ import { loadThemeDarkShape } from "./load-theme-dark-shape";
 import { loadThemeDarkShapeActionValue } from "./load-theme-dark-shape-action-value";
 
 export const loadThemeDarkDiagramEditor = (): void => {
-	DThemeDark.set( "DDiagramEditor", DThemeDarkDiagramEditor );
-	DThemeDark.set( "DDiagramCanvasEditor", DThemeDarkDiagramCanvasEditor );
+	DThemeDark.set("DDiagramEditor", DThemeDarkDiagramEditor);
+	DThemeDark.set("DDiagramCanvasEditor", DThemeDarkDiagramCanvasEditor);
 	loadThemeDarkShapeActionValue();
 	loadThemeDarkShape();
 };

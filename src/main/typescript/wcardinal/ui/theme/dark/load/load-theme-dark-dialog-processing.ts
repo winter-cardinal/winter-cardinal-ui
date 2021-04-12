@@ -8,6 +8,6 @@ import { DThemeDarkDialogProcessing } from "../d-theme-dark-dialog-processing";
 import { DThemeDarkDialogProcessingMessage } from "../d-theme-dark-dialog-processing-message";
 
 export const loadThemeDarkDialogProcessing = (): void => {
-	DThemeDark.set( "DDialogProcessing", DThemeDarkDialogProcessing );
-	DThemeDark.set( "DDialogProcessingMessage", DThemeDarkDialogProcessingMessage );
+	DThemeDark.set("DDialogProcessing", DThemeDarkDialogProcessing);
+	DThemeDark.set("DDialogProcessingMessage", DThemeDarkDialogProcessingMessage);
 };

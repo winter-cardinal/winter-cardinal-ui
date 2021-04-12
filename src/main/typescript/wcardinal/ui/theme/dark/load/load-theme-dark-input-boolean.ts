@@ -9,7 +9,7 @@ import { DThemeDarkInputBooleanButtonOff } from "../d-theme-dark-input-boolean-b
 import { DThemeDarkInputBooleanButtonOn } from "../d-theme-dark-input-boolean-button-on";
 
 export const loadThemeDarkInputBoolean = (): void => {
-	DThemeDark.set( "DInputBoolean", DThemeDarkInputBoolean );
-	DThemeDark.set( "DInputBooleanButtonOn", DThemeDarkInputBooleanButtonOn );
-	DThemeDark.set( "DInputBooleanButtonOff", DThemeDarkInputBooleanButtonOff );
+	DThemeDark.set("DInputBoolean", DThemeDarkInputBoolean);
+	DThemeDark.set("DInputBooleanButtonOn", DThemeDarkInputBooleanButtonOn);
+	DThemeDark.set("DInputBooleanButtonOff", DThemeDarkInputBooleanButtonOff);
 };

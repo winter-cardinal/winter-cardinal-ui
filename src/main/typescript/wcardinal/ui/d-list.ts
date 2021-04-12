@@ -17,21 +17,23 @@ export interface DListOptions<
 	selection?: DListSelectionOptions<VALUE> | DListSelection<VALUE>;
 }
 
-export interface DThemeList extends DThemePane {
-
-}
+export interface DThemeList extends DThemePane {}
 
 export class DList<
 	VALUE = unknown,
 	THEME extends DThemeList = DThemeList,
 	CONTENT_OPTIONS extends DBaseOptions = DContentOptions,
-	OPTIONS extends DListOptions<VALUE, THEME, CONTENT_OPTIONS> = DListOptions<VALUE, THEME, CONTENT_OPTIONS>
+	OPTIONS extends DListOptions<VALUE, THEME, CONTENT_OPTIONS> = DListOptions<
+		VALUE,
+		THEME,
+		CONTENT_OPTIONS
+	>
 > extends DPane<THEME, CONTENT_OPTIONS, OPTIONS> {
 	protected _selection?: DListSelection<VALUE>;
 
 	protected onChildrenDirty(): void {
 		const selection = this._selection;
-		if( selection != null ) {
+		if (selection != null) {
 			selection.toDirty();
 		}
 		super.onChildrenDirty();
@@ -39,18 +41,16 @@ export class DList<
 
 	get selection(): DListSelection<VALUE> {
 		let result = this._selection;
-		if( result == null ) {
+		if (result == null) {
 			const options = this._options?.selection;
-			result = ( options instanceof DListSelection ?
-				options : this.newSelection( options )
-			);
+			result = options instanceof DListSelection ? options : this.newSelection(options);
 			this._selection = result;
 		}
 		return result;
 	}
 
-	protected newSelection( options?: DListSelectionOptions<VALUE> ): DListSelection<VALUE> {
-		return new DListSelection<VALUE>( this._content, options );
+	protected newSelection(options?: DListSelectionOptions<VALUE>): DListSelection<VALUE> {
+		return new DListSelection<VALUE>(this._content, options);
 	}
 
 	protected onRefit(): void {
@@ -63,15 +63,15 @@ export class DList<
 		const content = this._content;
 		const items = content.children;
 		let y = 0;
-		for( let i = 0, imax = items.length; i < imax; ++i ) {
-			const item = items[ i ];
-			if( item instanceof DBase ) {
+		for (let i = 0, imax = items.length; i < imax; ++i) {
+			const item = items[i];
+			if (item instanceof DBase) {
 				item.y = y;
 				y += item.height;
 			}
 		}
-		const scrollLimit = Math.min( 0, -y + this.height );
-		if( content.y < scrollLimit ) {
+		const scrollLimit = Math.min(0, -y + this.height);
+		if (content.y < scrollLimit) {
 			content.y = scrollLimit;
 		}
 		content.height = y;
@@ -82,11 +82,11 @@ export class DList<
 		const items = content.children;
 		const from = -content.y;
 		const to = from + this.height;
-		for( let i = 0, imax = items.length; i < imax; ++i ) {
-			const item = items[ i ];
-			if( item instanceof DBase ) {
+		for (let i = 0, imax = items.length; i < imax; ++i) {
+			const item = items[i];
+			if (item instanceof DBase) {
 				const itemY = item.y;
-				item.visible = ( from <= itemY + item.height && itemY <= to );
+				item.visible = from <= itemY + item.height && itemY <= to;
 			}
 		}
 	}
@@ -96,9 +96,9 @@ export class DList<
 		this.updateChildVisibility();
 	}
 
-	onKeyDown( e: KeyboardEvent ): boolean {
-		UtilKeyboardEvent.moveFocusVertically( e, this );
-		return super.onKeyDown( e );
+	onKeyDown(e: KeyboardEvent): boolean {
+		UtilKeyboardEvent.moveFocusVertically(e, this);
+		return super.onKeyDown(e);
 	}
 
 	protected getType(): string {

@@ -17,21 +17,23 @@ export abstract class DynamicAtlasItem {
 
 	constructor(
 		id: string,
-		width: number, height: number, strokeWidth: number,
+		width: number,
+		height: number,
+		strokeWidth: number,
 		baseTexture: BaseTexture
 	) {
 		this.id = id;
 		this.ref = 0;
 		const resolution = baseTexture.resolution;
-		this.frame = new Rectangle( 0, 0, width * resolution, height * resolution );
-		this.texture = new Texture( baseTexture, new Rectangle( 0, 0, 1, 1 ) );
+		this.frame = new Rectangle(0, 0, width * resolution, height * resolution);
+		this.texture = new Texture(baseTexture, new Rectangle(0, 0, 1, 1));
 
 		this.width = width;
 		this.height = height;
 		this.strokeWidth = strokeWidth;
 	}
 
-	abstract render( context: CanvasRenderingContext2D ): void;
+	abstract render(context: CanvasRenderingContext2D): void;
 
 	applyFrame(): void {
 		const resolutionInverse = 1 / this.texture.baseTexture.resolution;
@@ -40,7 +42,7 @@ export abstract class DynamicAtlasItem {
 		this.texture.frame.width = this.width;
 		this.texture.frame.height = this.height;
 		this.texture.updateUvs();
-		this.texture.emit( "update", this );
+		this.texture.emit("update", this);
 	}
 
 	destroy(): void {

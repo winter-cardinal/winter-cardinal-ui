@@ -8,10 +8,10 @@ import { DTextBase, DTextBaseOptions, DThemeTextBase } from "./d-text-base";
 export interface DSliderValueOptions<
 	VALUE = number,
 	THEME extends DThemeSliderValue<VALUE> = DThemeSliderValue<VALUE>
-	> extends DTextBaseOptions<VALUE, THEME> {
+> extends DTextBaseOptions<VALUE, THEME> {
 	value?: number;
 	precision?: number;
-	rounder?: ( value: number ) => number;
+	rounder?: (value: number) => number;
 }
 
 export interface DThemeSliderValue<VALUE = unknown> extends DThemeTextBase<VALUE> {
@@ -22,33 +22,32 @@ export class DSliderValue<
 	VALUE = number,
 	THEME extends DThemeSliderValue<VALUE> = DThemeSliderValue<VALUE>,
 	OPTIONS extends DSliderValueOptions<VALUE, THEME> = DSliderValueOptions<VALUE, THEME>
-	> extends DTextBase<VALUE, THEME, OPTIONS> {
+> extends DTextBase<VALUE, THEME, OPTIONS> {
 	protected _value!: number;
-	protected _rounder!: ( value: number ) => number;
+	protected _rounder!: (value: number) => number;
 
-	protected init( options?: OPTIONS ): void {
-
-		super.init( options );
+	protected init(options?: OPTIONS): void {
+		super.init(options);
 		this.state.isFocusable = false;
 
-		this._value = options && options.value || 0;
-		this._rounder = this.toRounder( options );
+		this._value = options?.value ?? 0;
+		this._rounder = this.toRounder(options);
 	}
 
-	toRounder( options?: OPTIONS ): ( value: number ) => number {
+	toRounder(options?: OPTIONS): (value: number) => number {
 		const rounder = options?.rounder;
-		if ( rounder ) {
+		if (rounder) {
 			return rounder;
 		}
 
 		const precision = options?.precision ?? this.theme.getPrecision();
-		return ( value: number ) => {
-			const base = Math.pow( 10, precision );
-			return Math.round( value * base ) / base;
+		return (value: number) => {
+			const base = Math.pow(10, precision);
+			return Math.round(value * base) / base;
 		};
 	}
 
-	set value( value: number ) {
+	set value(value: number) {
 		this._value = value;
 	}
 
@@ -56,7 +55,7 @@ export class DSliderValue<
 		return this._value;
 	}
 
-	get rounder(): ( value: number ) => number {
+	get rounder(): (value: number) => number {
 		return this._rounder;
 	}
 

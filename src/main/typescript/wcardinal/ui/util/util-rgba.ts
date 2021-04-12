@@ -4,10 +4,10 @@
  */
 
 export class UtilRgba {
-	static toCode( color: number, alpha: number ): string {
-		const r = ( color >> 16 ) & 0xff;
-		const g = ( color >> 8 ) & 0xff;
-		const b = ( color & 0xff );
+	static toCode(color: number, alpha: number): string {
+		const r = (color >> 16) & 0xff;
+		const g = (color >> 8) & 0xff;
+		const b = color & 0xff;
 		return `rgba(${r},${g},${b},${alpha})`;
 	}
 }

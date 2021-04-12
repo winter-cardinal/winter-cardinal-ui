@@ -19,17 +19,17 @@ import { DThemeWhiteChartSelectionGridlineY } from "../d-theme-white-chart-selec
 import { DThemeWhiteChartSelectionMarker } from "../d-theme-white-chart-selection-marker";
 
 export const loadThemeWhiteChart = (): void => {
-	DThemeWhite.set( "DChart", DThemeWhiteChart );
-	DThemeWhite.set( "DChartAxisX", DThemeWhiteChartAxisX );
-	DThemeWhite.set( "DChartAxisXDatetime", DThemeWhiteChartAxisXDatetime );
-	DThemeWhite.set( "DChartAxisY", DThemeWhiteChartAxisY );
-	DThemeWhite.set( "DChartCoordinateLinear", DThemeWhiteChartCoordinateLinear );
-	DThemeWhite.set( "DChartCoordinateLog", DThemeWhiteChartCoordinateLog );
-	DThemeWhite.set( "DChartLegend", DThemeWhiteChartLegend );
-	DThemeWhite.set( "DChartLegendItem", DThemeWhiteChartLegendItem );
-	DThemeWhite.set( "DChartOverview", DThemeWhiteChartOverview );
-	DThemeWhite.set( "DChartPlotArea", DThemeWhiteChartPlotArea );
-	DThemeWhite.set( "DChartSelectionGridlineX", DThemeWhiteChartSelectionGridlineX );
-	DThemeWhite.set( "DChartSelectionGridlineY", DThemeWhiteChartSelectionGridlineY );
-	DThemeWhite.set( "DChartSelectionMarker", DThemeWhiteChartSelectionMarker );
+	DThemeWhite.set("DChart", DThemeWhiteChart);
+	DThemeWhite.set("DChartAxisX", DThemeWhiteChartAxisX);
+	DThemeWhite.set("DChartAxisXDatetime", DThemeWhiteChartAxisXDatetime);
+	DThemeWhite.set("DChartAxisY", DThemeWhiteChartAxisY);
+	DThemeWhite.set("DChartCoordinateLinear", DThemeWhiteChartCoordinateLinear);
+	DThemeWhite.set("DChartCoordinateLog", DThemeWhiteChartCoordinateLog);
+	DThemeWhite.set("DChartLegend", DThemeWhiteChartLegend);
+	DThemeWhite.set("DChartLegendItem", DThemeWhiteChartLegendItem);
+	DThemeWhite.set("DChartOverview", DThemeWhiteChartOverview);
+	DThemeWhite.set("DChartPlotArea", DThemeWhiteChartPlotArea);
+	DThemeWhite.set("DChartSelectionGridlineX", DThemeWhiteChartSelectionGridlineX);
+	DThemeWhite.set("DChartSelectionGridlineY", DThemeWhiteChartSelectionGridlineY);
+	DThemeWhite.set("DChartSelectionMarker", DThemeWhiteChartSelectionMarker);
 };

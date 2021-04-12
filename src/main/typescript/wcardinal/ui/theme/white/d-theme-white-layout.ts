@@ -10,11 +10,11 @@ import { DLayoutDirection } from "../../d-layout-direction";
 import { DThemeWhiteBase } from "./d-theme-white-base";
 
 export class DThemeWhiteLayout extends DThemeWhiteBase implements DThemeLayout {
-	getBackgroundColor( state: DBaseStateSet ): number | null {
+	getBackgroundColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 

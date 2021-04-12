@@ -9,14 +9,14 @@ import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { isString } from "../../util/is-string";
 import { DThemeWhiteDropdownBase } from "./d-theme-white-dropdown-base";
 
-const formatter = <VALUE>( value: DMenuItem<VALUE> | null ): string => {
-	if( value ) {
+const formatter = <VALUE>(value: DMenuItem<VALUE> | null): string => {
+	if (value) {
 		const text = value.text;
-		if( isString( text ) ) {
+		if (isString(text)) {
 			return text;
-		} else if( text != null ) {
-			const computed = text( value.state );
-			if( computed != null ) {
+		} else if (text != null) {
+			const computed = text(value.state);
+			if (computed != null) {
 				return computed;
 			}
 		}
@@ -24,10 +24,10 @@ const formatter = <VALUE>( value: DMenuItem<VALUE> | null ): string => {
 	return "";
 };
 
-export class DThemeWhiteSelect<VALUE = unknown> extends DThemeWhiteDropdownBase<DMenuItem<VALUE> | null>
+export class DThemeWhiteSelect<VALUE = unknown>
+	extends DThemeWhiteDropdownBase<DMenuItem<VALUE> | null>
 	implements DThemeSelect<VALUE> {
-
-	getTextFormatter(): ( value: DMenuItem<VALUE> | null, caller: any ) => string {
+	getTextFormatter(): (value: DMenuItem<VALUE> | null, caller: any) => string {
 		return formatter;
 	}
 

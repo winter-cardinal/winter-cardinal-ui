@@ -16,31 +16,45 @@ import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 export type EShapeActionValueTransformRotateSerialized = [
-	EShapeActionValueType.TRANSFORM, number, EShapeActionValueTransformType.ROTATE,
+	EShapeActionValueType.TRANSFORM,
+	number,
+	EShapeActionValueTransformType.ROTATE,
 	EShapeActionValueTransformRotateType,
-	number, number, number
+	number,
+	number,
+	number
 ];
 
-export class EShapeActionValueTransformRotate
-	extends EShapeActionValueOpetyped<EShapeActionValueTransformType, EShapeActionValueTransformRotateType> {
+export class EShapeActionValueTransformRotate extends EShapeActionValueOpetyped<
+	EShapeActionValueTransformType,
+	EShapeActionValueTransformRotateType
+> {
 	readonly originX: number;
 	readonly originY: number;
 	readonly amount: string;
 
 	constructor(
-		opetype: EShapeActionValueTransformRotateType, condition: string,
-		originX: number, originY: number, amount: string
+		opetype: EShapeActionValueTransformRotateType,
+		condition: string,
+		originX: number,
+		originY: number,
+		amount: string
 	) {
-		super( EShapeActionValueType.TRANSFORM, condition, EShapeActionValueTransformType.ROTATE, opetype );
+		super(
+			EShapeActionValueType.TRANSFORM,
+			condition,
+			EShapeActionValueTransformType.ROTATE,
+			opetype
+		);
 		this.originX = originX;
 		this.originY = originY;
 		this.amount = amount;
 	}
 
-	isEquals( value: EShapeActionValue ): boolean {
+	isEquals(value: EShapeActionValue): boolean {
 		return (
-			super.isEquals( value ) &&
-			(value instanceof EShapeActionValueTransformRotate) &&
+			super.isEquals(value) &&
+			value instanceof EShapeActionValueTransformRotate &&
 			this.originX === value.originX &&
 			this.originY === value.originY &&
 			this.amount === value.amount
@@ -48,17 +62,17 @@ export class EShapeActionValueTransformRotate
 	}
 
 	toRuntime(): EShapeActionRuntimeTransformRotate {
-		switch( this.opetype ) {
-		case EShapeActionValueTransformRotateType.ABSOLUTE:
-			return new EShapeActionRuntimeTransformRotateAbsolute( this );
-		case EShapeActionValueTransformRotateType.RELATIVE:
-			return new EShapeActionRuntimeTransformRotateRelative( this );
+		switch (this.opetype) {
+			case EShapeActionValueTransformRotateType.ABSOLUTE:
+				return new EShapeActionRuntimeTransformRotateAbsolute(this);
+			case EShapeActionValueTransformRotateType.RELATIVE:
+				return new EShapeActionRuntimeTransformRotateRelative(this);
 		}
 	}
 
-	serialize( manager: EShapeResourceManagerSerialization ): number {
-		const conditionId = manager.addResource( this.condition );
-		const amountId = manager.addResource( this.amount );
+	serialize(manager: EShapeResourceManagerSerialization): number {
+		const conditionId = manager.addResource(this.condition);
+		const amountId = manager.addResource(this.amount);
 		return manager.addResource(
 			`[${this.type},${conditionId},${this.subtype},${this.opetype},${this.originX},${this.originY},${amountId}]`
 		);
@@ -68,11 +82,14 @@ export class EShapeActionValueTransformRotate
 		serialized: EShapeActionValueTransformRotateSerialized,
 		manager: EShapeResourceManagerDeserialization
 	): EShapeActionValueTransformRotate {
-		const condition = EShapeActionValues.toResource( 1, serialized, manager.resources );
-		const amount = EShapeActionValues.toResource( 6, serialized, manager.resources );
+		const condition = EShapeActionValues.toResource(1, serialized, manager.resources);
+		const amount = EShapeActionValues.toResource(6, serialized, manager.resources);
 		return new EShapeActionValueTransformRotate(
-			serialized[ 3 ], condition,
-			serialized[ 4 ], serialized[ 5 ], amount
+			serialized[3],
+			condition,
+			serialized[4],
+			serialized[5],
+			amount
 		);
 	}
 }

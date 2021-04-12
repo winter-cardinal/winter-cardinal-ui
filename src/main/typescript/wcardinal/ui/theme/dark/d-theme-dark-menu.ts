@@ -12,7 +12,7 @@ import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkLayoutVertical } from "./d-theme-dark-layout-vertical";
 
 export class DThemeDarkMenu extends DThemeDarkLayoutVertical implements DThemeMenu {
-	getBackgroundColor( state: DBaseStateSet ): number | null {
+	getBackgroundColor(state: DBaseStateSet): number | null {
 		return DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
 	}
 

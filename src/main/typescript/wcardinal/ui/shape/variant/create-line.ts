@@ -12,14 +12,14 @@ export const createLine = (
 	strokeWidth: number,
 	style: EShapePointsStyle
 ): EShapeLine => {
-	return new EShapeLine( points, segments, strokeWidth, style );
+	return new EShapeLine(points, segments, strokeWidth, style);
 };
 
-export const toLineStrokeWidth = ( index: number, resources: string[] ): number => {
-	if( 0 <= index && index < resources.length  ) {
+export const toLineStrokeWidth = (index: number, resources: string[]): number => {
+	if (0 <= index && index < resources.length) {
 		try {
-			return JSON.parse( resources[ index ] )[ 3 ];
-		} catch( e ) {
+			return JSON.parse(resources[index])[3];
+		} catch (e) {
 			//
 		}
 	}

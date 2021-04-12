@@ -8,6 +8,6 @@ import { DThemeWhiteButtonSelect } from "../d-theme-white-button-select";
 import { loadThemeWhiteDialogSelect } from "./load-theme-white-dialog-select";
 
 export const loadThemeWhiteButtonSelect = (): void => {
-	DThemeWhite.set( "DButtonSelect", DThemeWhiteButtonSelect );
+	DThemeWhite.set("DButtonSelect", DThemeWhiteButtonSelect);
 	loadThemeWhiteDialogSelect();
 };

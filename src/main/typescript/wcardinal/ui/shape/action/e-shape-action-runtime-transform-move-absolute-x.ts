@@ -9,13 +9,13 @@ import { EShapeActionRuntimeTransformMove } from "./e-shape-action-runtime-trans
 import { EShapeActionValueTransformMove } from "./e-shape-action-value-transform-move";
 
 export class EShapeActionRuntimeTransformMoveAbsoluteX extends EShapeActionRuntimeTransformMove {
-	constructor( value: EShapeActionValueTransformMove ) {
-		super( value, EShapeRuntimeReset.POSITION_X );
+	constructor(value: EShapeActionValueTransformMove) {
+		super(value, EShapeRuntimeReset.POSITION_X);
 	}
 
-	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( this.condition( shape, time ) ) {
-			const amount = this.amount( shape, time );
+	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {
+		if (this.condition(shape, time)) {
+			const amount = this.amount(shape, time);
 			shape.transform.position.x = amount;
 			runtime.written |= this.reset;
 		}

@@ -33,7 +33,7 @@ export class EShapeGroupTextViewer implements EShapeText {
 		return true;
 	}
 
-	set enable( enable: boolean ) {
+	set enable(enable: boolean) {
 		// DO NOTHING
 	}
 
@@ -41,7 +41,7 @@ export class EShapeGroupTextViewer implements EShapeText {
 		return "";
 	}
 
-	set value( value: string ) {
+	set value(value: string) {
 		// DO NOTHING
 	}
 
@@ -49,7 +49,7 @@ export class EShapeGroupTextViewer implements EShapeText {
 		return 0x000000;
 	}
 
-	set color( color: number ) {
+	set color(color: number) {
 		// DO NOTHING
 	}
 
@@ -57,7 +57,7 @@ export class EShapeGroupTextViewer implements EShapeText {
 		return 1.0;
 	}
 
-	set alpha( alpha: number ) {
+	set alpha(alpha: number) {
 		// DO NOTHING
 	}
 
@@ -65,7 +65,7 @@ export class EShapeGroupTextViewer implements EShapeText {
 		return "auto";
 	}
 
-	set family( family: string ) {
+	set family(family: string) {
 		// DO NOTHING
 	}
 
@@ -73,7 +73,7 @@ export class EShapeGroupTextViewer implements EShapeText {
 		return 24;
 	}
 
-	set size( size: number ) {
+	set size(size: number) {
 		// DO NOTHING
 	}
 
@@ -81,7 +81,7 @@ export class EShapeGroupTextViewer implements EShapeText {
 		return EShapeTextWeight.NORMAL;
 	}
 
-	set weight( weight: EShapeTextWeight ) {
+	set weight(weight: EShapeTextWeight) {
 		// DO NOTHING
 	}
 
@@ -89,7 +89,7 @@ export class EShapeGroupTextViewer implements EShapeText {
 		return EShapeTextStyle.NORMAL;
 	}
 
-	set style( style: EShapeTextStyle ) {
+	set style(style: EShapeTextStyle) {
 		// DO NOTHING
 	}
 
@@ -97,7 +97,7 @@ export class EShapeGroupTextViewer implements EShapeText {
 		return EShapeTextDirection.LEFT_TO_RIGHT;
 	}
 
-	set direction( direction: number ) {
+	set direction(direction: number) {
 		// DO NOTHING
 	}
 
@@ -105,18 +105,23 @@ export class EShapeGroupTextViewer implements EShapeText {
 		return false;
 	}
 
-	set clipping( clipping: boolean ) {
+	set clipping(clipping: boolean) {
 		// DO NOTHING
 	}
 
-	copy( target?: DeepPartial<EShapeTextLike> ): this {
+	copy(target?: DeepPartial<EShapeTextLike>): this {
 		return this;
 	}
 
 	set(
-		value?: string, color?: number, alpha?: number,
-		family?: string, size?: number, weight?: EShapeTextWeight,
-		style?: EShapeTextStyle, direction?: EShapeTextDirection,
+		value?: string,
+		color?: number,
+		alpha?: number,
+		family?: string,
+		size?: number,
+		weight?: EShapeTextWeight,
+		style?: EShapeTextStyle,
+		direction?: EShapeTextDirection,
 		clipping?: boolean
 	): this {
 		return this;
@@ -141,11 +146,11 @@ export class EShapeGroupTextViewer implements EShapeText {
 		};
 	}
 
-	serialize( manager: EShapeResourceManagerSerialization ): number {
+	serialize(manager: EShapeResourceManagerSerialization): number {
 		return -1;
 	}
 
-	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void {
+	deserialize(target: number, manager: EShapeResourceManagerDeserialization): void {
 		//
 	}
 }

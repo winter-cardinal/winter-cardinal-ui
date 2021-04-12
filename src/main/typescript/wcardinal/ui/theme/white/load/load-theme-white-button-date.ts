@@ -8,6 +8,6 @@ import { DThemeWhiteButtonDate } from "../d-theme-white-button-date";
 import { loadThemeWhiteDialogDate } from "./load-theme-white-dialog-date";
 
 export const loadThemeWhiteButtonDate = (): void => {
-	DThemeWhite.set( "DButtonDate", DThemeWhiteButtonDate );
+	DThemeWhite.set("DButtonDate", DThemeWhiteButtonDate);
 	loadThemeWhiteDialogDate();
 };

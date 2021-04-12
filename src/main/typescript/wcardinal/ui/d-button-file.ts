@@ -14,17 +14,16 @@ export import DButtonFileAs = UtilFileAs;
 /**
  * {@link DButtonFile} events.
  */
-export interface DButtonFileEvents<VALUE, EMITTER> extends DButtonEvents<VALUE, EMITTER>, UtilFileEvents<EMITTER> {
-
-}
+export interface DButtonFileEvents<VALUE, EMITTER>
+	extends DButtonEvents<VALUE, EMITTER>,
+		UtilFileEvents<EMITTER> {}
 
 /**
  * {@link DButtonFile} "on" options.
  */
 export interface DButtonFileOnOptions<VALUE, EMITTER>
-	extends Partial<DButtonFileEvents<VALUE, EMITTER>>, DOnOptions {
-
-}
+	extends Partial<DButtonFileEvents<VALUE, EMITTER>>,
+		DOnOptions {}
 
 export type DButtonFileChecker = () => Promise<unknown> | boolean;
 
@@ -39,7 +38,7 @@ export interface DButtonFileOptions<
 	/**
 	 * An output format.
 	 */
-	as?: (keyof typeof UtilFileAs) | UtilFileAs;
+	as?: keyof typeof UtilFileAs | UtilFileAs;
 
 	/**
 	 * A checker called before opening a file.
@@ -54,9 +53,7 @@ export interface DButtonFileOptions<
 /**
  * {@link DButtonFile} theme.
  */
-export interface DThemeButtonFile<VALUE = unknown> extends DThemeButton<VALUE> {
-
-}
+export interface DThemeButtonFile<VALUE = unknown> extends DThemeButton<VALUE> {}
 
 /**
  * A file selector.
@@ -71,7 +68,7 @@ export class DButtonFile<
 
 	protected getChecker(): DButtonFileChecker | null {
 		let result = this._checker;
-		if( result === undefined ) {
+		if (result === undefined) {
 			result = this._options?.checker ?? null;
 			this._checker = result;
 		}
@@ -80,7 +77,7 @@ export class DButtonFile<
 
 	protected getOpener(): UtilFileOpener {
 		let result = this._opener;
-		if( result == null ) {
+		if (result == null) {
 			result = this.newOpener();
 			this._opener = result;
 		}
@@ -89,25 +86,27 @@ export class DButtonFile<
 
 	protected newOpener(): UtilFileOpener {
 		return new UtilFileOpener(
-			toEnum( this._options?.as ?? DButtonFileAs.TEXT, DButtonFileAs ),
+			toEnum(this._options?.as ?? DButtonFileAs.TEXT, DButtonFileAs),
 			this
 		);
 	}
 
-	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
-		super.onActivate( e );
+	protected onActivate(
+		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
+	): void {
+		super.onActivate(e);
 		this.check((): void => {
 			this.open();
 		});
 	}
 
-	protected check( onResolve: () => void ): void {
+	protected check(onResolve: () => void): void {
 		const checker = this.getChecker();
-		if( checker != null ) {
+		if (checker != null) {
 			const result = checker();
-			if( result === true ) {
+			if (result === true) {
 				onResolve();
-			} else if( result === false ) {
+			} else if (result === false) {
 				// DO NOTHING
 			} else {
 				result.then((): void => {

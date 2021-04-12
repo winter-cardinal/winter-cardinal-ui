@@ -12,122 +12,128 @@ import { EShapeGroupPropertyParent } from "./e-shape-group-property-parent";
 export class EShapeGroupStrokeEditor implements EShapeStroke {
 	protected _parent: EShapeGroupPropertyParent;
 
-	constructor( parent: EShapeGroupPropertyParent ) {
+	constructor(parent: EShapeGroupPropertyParent) {
 		this._parent = parent;
 	}
 
 	get enable(): boolean {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].stroke.enable;
+		if (0 < children.length) {
+			return children[children.length - 1].stroke.enable;
 		}
 		return false;
 	}
 
-	set enable( enable: boolean ) {
+	set enable(enable: boolean) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].stroke.enable = enable;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].stroke.enable = enable;
 		}
 	}
 
 	get color(): number {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].stroke.color;
+		if (0 < children.length) {
+			return children[children.length - 1].stroke.color;
 		}
 		return 0xffffff;
 	}
 
-	set color( color: number ) {
+	set color(color: number) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].stroke.color = color;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].stroke.color = color;
 		}
 	}
 
 	get alpha(): number {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].stroke.alpha;
+		if (0 < children.length) {
+			return children[children.length - 1].stroke.alpha;
 		}
 		return 1.0;
 	}
 
-	set alpha( alpha: number ) {
+	set alpha(alpha: number) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].stroke.alpha = alpha;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].stroke.alpha = alpha;
 		}
 	}
 
 	get width(): number {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].stroke.width;
+		if (0 < children.length) {
+			return children[children.length - 1].stroke.width;
 		}
 		return 1.0;
 	}
 
-	set width( width: number ) {
+	set width(width: number) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].stroke.width = width;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].stroke.width = width;
 		}
 	}
 
 	get align(): number {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].stroke.align;
+		if (0 < children.length) {
+			return children[children.length - 1].stroke.align;
 		}
 		return 1.0;
 	}
 
-	set align( align: number ) {
+	set align(align: number) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].stroke.align = align;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].stroke.align = align;
 		}
 	}
 
 	get side(): EShapeStrokeSide {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].stroke.side;
+		if (0 < children.length) {
+			return children[children.length - 1].stroke.side;
 		}
 		return 1.0;
 	}
 
-	set side( side: EShapeStrokeSide ) {
+	set side(side: EShapeStrokeSide) {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].stroke.side = side;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].stroke.side = side;
 		}
 	}
 
-	copy( target?: Partial<EShapeStrokeLike> ): void {
+	copy(target?: Partial<EShapeStrokeLike>): void {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].stroke.copy( target );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].stroke.copy(target);
 		}
 	}
 
-	set( enable: boolean, color: number, alpha: number, width: number, side: EShapeStrokeSide ): void {
+	set(
+		enable: boolean,
+		color: number,
+		alpha: number,
+		width: number,
+		side: EShapeStrokeSide
+	): void {
 		const children = this._parent.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].stroke.set( enable, color, alpha, width, side );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].stroke.set(enable, color, alpha, width, side);
 		}
 	}
 
 	clone(): EShapeGroupStrokeEditor {
-		return new EShapeGroupStrokeEditor( this._parent );
+		return new EShapeGroupStrokeEditor(this._parent);
 	}
 
 	toObject(): EShapeStrokeLike {
 		const children = this._parent.children;
-		if( 0 < children.length ) {
-			return children[ children.length - 1 ].stroke.toObject();
+		if (0 < children.length) {
+			return children[children.length - 1].stroke.toObject();
 		}
 		return {
 			enable: false,
@@ -139,11 +145,11 @@ export class EShapeGroupStrokeEditor implements EShapeStroke {
 		};
 	}
 
-	serialize( manager: EShapeResourceManagerSerialization ): number {
+	serialize(manager: EShapeResourceManagerSerialization): number {
 		return -1;
 	}
 
-	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void {
+	deserialize(target: number, manager: EShapeResourceManagerDeserialization): void {
 		//
 	}
 }

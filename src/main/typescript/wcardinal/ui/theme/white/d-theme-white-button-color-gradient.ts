@@ -12,22 +12,26 @@ import { DThemeWhiteButton } from "./d-theme-white-button";
 
 // Material Design icons by Google.
 // Apache license version 2.0.
-DThemeWhiteAtlas.add( "button_color_gradient_sample", 21, 21,
+/* eslint-disable prettier/prettier */
+DThemeWhiteAtlas.add("button_color_gradient_sample", 21, 21,
 	`<g transform="scale(0.875,0.875)">` +
 		`<path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" fill="#fff"/>` +
 	`</g>`
 );
+/* eslint-enable prettier/prettier */
 
 const formatter = (): string => {
 	return "";
 };
 
-export class DThemeWhiteButtonColorGradient extends DThemeWhiteButton<DColorGradientObservable> implements DThemeButtonColorGradient {
+export class DThemeWhiteButtonColorGradient
+	extends DThemeWhiteButton<DColorGradientObservable>
+	implements DThemeButtonColorGradient {
 	getViewBaseTexture(): Texture | null {
 		return DThemeWhiteAtlas.mappings.button_color_gradient_sample;
 	}
 
-	getTextFormatter(): ( value: DColorGradientObservable, caller: DButtonColorGradient ) => string {
+	getTextFormatter(): (value: DColorGradientObservable, caller: DButtonColorGradient) => string {
 		return formatter;
 	}
 
@@ -35,7 +39,7 @@ export class DThemeWhiteButtonColorGradient extends DThemeWhiteButton<DColorGrad
 		return new DColorGradientObservable();
 	}
 
-	getCheckerColors(): [ number, number ] {
-		return [ 0.75, 0.65 ];
+	getCheckerColors(): [number, number] {
+		return [0.75, 0.65];
 	}
 }

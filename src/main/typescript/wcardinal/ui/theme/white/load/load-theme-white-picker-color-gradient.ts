@@ -8,6 +8,6 @@ import { DThemeWhitePickerColorGradient } from "../d-theme-white-picker-color-gr
 import { loadThemeWhitePickerColor } from "./load-theme-white-picker-color";
 
 export const loadThemeWhitePickerColorGradient = (): void => {
-	DThemeWhite.set( "DPickerColorGradient", DThemeWhitePickerColorGradient );
+	DThemeWhite.set("DPickerColorGradient", DThemeWhitePickerColorGradient);
 	loadThemeWhitePickerColor();
 };

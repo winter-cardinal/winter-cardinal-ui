@@ -9,9 +9,9 @@ import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeSliderLabel } from "../../d-slider-label";
 import { DThemeDarkTextBase } from "./d-theme-dark-text-base";
 
-export class DThemeDarkSliderLabel<VALUE = unknown> extends DThemeDarkTextBase<VALUE>
+export class DThemeDarkSliderLabel<VALUE = unknown>
+	extends DThemeDarkTextBase<VALUE>
 	implements DThemeSliderLabel<VALUE> {
-
 	getHeight(): DCoordinateSize {
 		return 15;
 	}

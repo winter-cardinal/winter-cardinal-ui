@@ -8,6 +8,6 @@ import { DThemeWhitePickerDate } from "../d-theme-white-picker-date";
 import { loadThemeWhitePickerDatetime } from "./load-theme-white-picker-datetime";
 
 export const loadThemeWhitePickerDate = (): void => {
-	DThemeWhite.set( "DPickerDate", DThemeWhitePickerDate );
+	DThemeWhite.set("DPickerDate", DThemeWhitePickerDate);
 	loadThemeWhitePickerDatetime();
 };

@@ -10,15 +10,15 @@ import { EShapeActionRuntimes } from "./e-shape-action-runtimes";
 import { EShapeActionValueOpen } from "./e-shape-action-value-open";
 
 export class EShapeActionRuntimeOpenDiagram extends EShapeActionRuntimeOpen {
-	constructor( value: EShapeActionValueOpen ) {
-		super( value, EShapeRuntimeReset.NONE );
+	constructor(value: EShapeActionValueOpen) {
+		super(value, EShapeRuntimeReset.NONE);
 	}
 
-	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( this.condition( shape, time ) ) {
-			const target = this.target( shape, time );
-			if( target != null ) {
-				EShapeActionRuntimes.open( shape, target );
+	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {
+		if (this.condition(shape, time)) {
+			const target = this.target(shape, time);
+			if (target != null) {
+				EShapeActionRuntimes.open(shape, target);
 			}
 		}
 	}

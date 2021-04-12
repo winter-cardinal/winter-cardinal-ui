@@ -13,7 +13,9 @@
 	],
 	"extends": [
 		"eslint:recommended",
-		"plugin:@typescript-eslint/recommended"
+		"plugin:@typescript-eslint/recommended",
+		"prettier",
+		"plugin:prettier/recommended"
 	],
 	"rules": {
 		"@typescript-eslint/no-inferrable-types": "off",

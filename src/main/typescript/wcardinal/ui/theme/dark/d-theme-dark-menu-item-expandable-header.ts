@@ -12,7 +12,9 @@ import { DThemeDarkListItem } from "./d-theme-dark-list-item";
 
 DThemeDarkExpandables.init();
 
-export class DThemeDarkMenuItemExpandableHeader extends DThemeDarkListItem implements DThemeMenuItemExpandableHeader {
+export class DThemeDarkMenuItemExpandableHeader
+	extends DThemeDarkListItem
+	implements DThemeMenuItemExpandableHeader {
 	getPaddingLeft(): number {
 		return this.getPaddingRight();
 	}
@@ -21,8 +23,8 @@ export class DThemeDarkMenuItemExpandableHeader extends DThemeDarkListItem imple
 		return 26;
 	}
 
-	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
-		if( state.inActive ) {
+	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
+		if (state.inActive) {
 			return DThemeDarkExpandables.getImageOpened();
 		}
 		return DThemeDarkExpandables.getImageClosed();

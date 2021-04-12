@@ -4,7 +4,9 @@
  */
 
 import {
-	DDialogConfirmMessage, DDialogConfirmMessageOptions, DThemeDialogConfirmMessage
+	DDialogConfirmMessage,
+	DDialogConfirmMessageOptions,
+	DThemeDialogConfirmMessage
 } from "./d-dialog-confirm-message";
 
 export class DDialogProcessingMessage<

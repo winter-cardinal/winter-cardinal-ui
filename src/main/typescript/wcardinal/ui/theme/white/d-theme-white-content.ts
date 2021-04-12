@@ -13,7 +13,7 @@ export class DThemeWhiteContent extends DThemeWhiteBase {
 		return "100%";
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 

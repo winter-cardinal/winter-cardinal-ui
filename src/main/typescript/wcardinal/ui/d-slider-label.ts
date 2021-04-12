@@ -12,9 +12,7 @@ export interface DSliderLabelOptions<
 	value?: number;
 }
 
-export interface DThemeSliderLabel<VALUE = unknown> extends DThemeTextBase<VALUE> {
-
-}
+export interface DThemeSliderLabel<VALUE = unknown> extends DThemeTextBase<VALUE> {}
 
 export class DSliderLabel<
 	VALUE = unknown,
@@ -23,14 +21,14 @@ export class DSliderLabel<
 > extends DTextBase<VALUE, THEME, OPTIONS> {
 	protected _value!: number;
 
-	protected init( options?: OPTIONS ): void {
-		super.init( options );
+	protected init(options?: OPTIONS): void {
+		super.init(options);
 		this.state.isFocusable = false;
 
-		this._value = options && options.value || 0;
+		this._value = options?.value ?? 0;
 	}
 
-	set value( value: number ) {
+	set value(value: number) {
 		this._value = value;
 	}
 

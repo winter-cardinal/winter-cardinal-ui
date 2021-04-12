@@ -12,19 +12,20 @@ import { DThemeWhiteTableRow } from "./d-theme-white-table-row";
 
 export class DThemeWhiteTableBodyRow extends DThemeWhiteTableRow implements DThemeTableBodyRow {
 	protected readonly BACKGROUND_COLOR_EVEN = DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD;
-	protected readonly BACKGROUND_COLOR_ODD = UtilRgb.darken( DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD, 0.01 );
+	protected readonly BACKGROUND_COLOR_ODD = UtilRgb.darken(
+		DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD,
+		0.01
+	);
 
-	getBackgroundColor( state: DBaseStateSet ): number | null {
-		if( state.inDisabled ) {
-			return state.isAlternated ?
-				this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
-		} else if( state.isActive ) {
+	getBackgroundColor(state: DBaseStateSet): number | null {
+		if (state.inDisabled) {
+			return state.isAlternated ? this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
+		} else if (state.isActive) {
 			return DThemeWhiteConstants.HIGHLIGHT_BLENDED_ON_BOARD;
-		} else if( state.isFocused || state.isHovered ) {
+		} else if (state.isFocused || state.isHovered) {
 			return DThemeWhiteConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD;
 		} else {
-			return state.isAlternated ?
-				this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
+			return state.isAlternated ? this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
 		}
 	}
 

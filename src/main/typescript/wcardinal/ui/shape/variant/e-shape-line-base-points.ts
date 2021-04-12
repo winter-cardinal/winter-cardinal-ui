@@ -6,16 +6,20 @@ export type EShapeLineBasePointsToHitThreshold = (
 ) => number;
 
 export type EShapeLineBasePointsTestRange = (
-	x: number, y: number,
+	x: number,
+	y: number,
 	threshold: number,
 	values: number[],
-	result: [ number, number ]
-) => [ number, number ];
+	result: [number, number]
+) => [number, number];
 
 export type EShapeLineBasePointsHitTester<RESULT> = (
-	x: number, y: number,
-	p0x: number, p0y: number,
-	p1x: number, p1y: number,
+	x: number,
+	y: number,
+	p0x: number,
+	p0y: number,
+	p1x: number,
+	p1y: number,
 	index: number,
 	threshold: number,
 	result: RESULT
@@ -23,8 +27,10 @@ export type EShapeLineBasePointsHitTester<RESULT> = (
 
 export interface EShapeLineBasePoints extends EShapePoints {
 	calcHitPointAbs<RESULT>(
-		x: number, y: number,
-		ax: number, ay: number,
+		x: number,
+		y: number,
+		ax: number,
+		ay: number,
 		threshold: number,
 		range: EShapeLineBasePointsTestRange | null,
 		tester: EShapeLineBasePointsHitTester<RESULT>,

@@ -19,11 +19,11 @@ export interface DFocusable extends DFocusableMightBe {
 }
 
 export interface DControllerFocus {
-	focus( focusable: DFocusable | null ): DFocusable | null;
-	blur( focusable: DFocusable ): DFocusable | null;
+	focus(focusable: DFocusable | null): DFocusable | null;
+	blur(focusable: DFocusable): DFocusable | null;
 	clear(): DFocusable | null;
 
-	set( focusable: DFocusable | null, isFocused: boolean ): DFocusable | null;
+	set(focusable: DFocusable | null, isFocused: boolean): DFocusable | null;
 	get(): DFocusable | null;
 
 	/**
@@ -41,8 +41,11 @@ export interface DControllerFocus {
 	 * @param root a root of a search
 	 */
 	find(
-		target: DFocusableMightBe, includesTarget: boolean, includesTargetChildren: boolean,
-		direction: boolean, root?: unknown
+		target: DFocusableMightBe,
+		includesTarget: boolean,
+		includesTargetChildren: boolean,
+		direction: boolean,
+		root?: unknown
 	): DFocusable | null;
 
 	/**
@@ -51,5 +54,5 @@ export interface DControllerFocus {
 	 *
 	 * @param mightBeFocusable the node a search starts from
 	 */
-	findParent( mightBeFocusable: DFocusableMightBe | null ): DFocusable | null;
+	findParent(mightBeFocusable: DFocusableMightBe | null): DFocusable | null;
 }

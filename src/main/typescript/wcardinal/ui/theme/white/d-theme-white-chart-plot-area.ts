@@ -41,7 +41,7 @@ export class DThemeWhiteChartPlotArea extends DThemeWhiteBase implements DThemeC
 		return 10;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 

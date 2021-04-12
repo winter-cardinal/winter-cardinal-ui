@@ -16,8 +16,10 @@ import { DThemeWhiteTableBodyCellTrees } from "./d-theme-white-table-body-cell-t
 DThemeWhiteLinks.init();
 DThemeWhiteTableBodyCellTrees.init();
 
-export class DThemeWhiteTableBodyCellTree extends DThemeWhiteTableBodyCellButton implements DThemeTableBodyCellTree {
-	getLevelPadding( level: number ): number {
+export class DThemeWhiteTableBodyCellTree
+	extends DThemeWhiteTableBodyCellButton
+	implements DThemeTableBodyCellTree {
+	getLevelPadding(level: number): number {
 		return 24 + level * 20 - this.getPaddingLeft();
 	}
 
@@ -29,16 +31,16 @@ export class DThemeWhiteTableBodyCellTree extends DThemeWhiteTableBodyCellButton
 		return -19;
 	}
 
-	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
-		return DThemeWhiteTableBodyCellTrees.getImageSource( state );
+	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
+		return DThemeWhiteTableBodyCellTrees.getImageSource(state);
 	}
 
-	getImageTintColor( state: DBaseStateSet ): number | null {
-		return DThemeWhiteTableBodyCellTrees.getImageTintColor( state );
+	getImageTintColor(state: DBaseStateSet): number | null {
+		return DThemeWhiteTableBodyCellTrees.getImageTintColor(state);
 	}
 
-	getImageTintAlpha( state: DBaseStateSet ): number {
-		return DThemeWhiteTableBodyCellTrees.getImageTintAlpha( state );
+	getImageTintAlpha(state: DBaseStateSet): number {
+		return DThemeWhiteTableBodyCellTrees.getImageTintAlpha(state);
 	}
 
 	getLinkMenuOptions(): DMenuOptions<DLinkMenuItemId> {

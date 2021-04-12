@@ -7,5 +7,5 @@ import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhitePickerColor } from "../d-theme-white-picker-color";
 
 export const loadThemeWhitePickerColor = (): void => {
-	DThemeWhite.set( "DPickerColor", DThemeWhitePickerColor );
+	DThemeWhite.set("DPickerColor", DThemeWhitePickerColor);
 };

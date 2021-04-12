@@ -12,7 +12,7 @@ import { DOnOptions } from "./d-on-options";
  * @param isReverse true if an animation is playing in reverse
  * @param animation an instance
  */
-export type DAnimationOnStart<TARGET> = ( isReverse: boolean, animation: DAnimation<TARGET> ) => void;
+export type DAnimationOnStart<TARGET> = (isReverse: boolean, animation: DAnimation<TARGET>) => void;
 
 /**
  * A function called constantly when an animation is on a run.
@@ -23,7 +23,10 @@ export type DAnimationOnStart<TARGET> = ( isReverse: boolean, animation: DAnimat
  * @param animation an instance
  */
 export type DAnimationOnTime<TARGET> = (
-	time: number, isReverse: boolean, elapsedTime: number, animation: DAnimation<TARGET>
+	time: number,
+	isReverse: boolean,
+	elapsedTime: number,
+	animation: DAnimation<TARGET>
 ) => void;
 
 /**
@@ -32,7 +35,7 @@ export type DAnimationOnTime<TARGET> = (
  * @param isReverse true if an animation is playing in reverse
  * @param animation an instance
  */
-export type DAnimationOnEnd<TARGET> = ( isReverse: boolean, animation: DAnimation<TARGET> ) => void;
+export type DAnimationOnEnd<TARGET> = (isReverse: boolean, animation: DAnimation<TARGET>) => void;
 
 /**
  * An easing function.
@@ -40,7 +43,7 @@ export type DAnimationOnEnd<TARGET> = ( isReverse: boolean, animation: DAnimatio
  * @param time a normalized elapsed time
  * @param animation an instance
  */
-export type DAnimationTiming<TARGET> = ( time: number, animation: DAnimation<TARGET> ) => number;
+export type DAnimationTiming<TARGET> = (time: number, animation: DAnimation<TARGET>) => number;
 
 /**
  * {@link DAnimation} events.
@@ -52,7 +55,7 @@ export interface DAnimationEvents<EMITTER> {
 	 * @param isReverse true if an animation is playing in reverse
 	 * @param emitter an emitter
 	 */
-	start( isReverse: boolean, emitter: EMITTER ): void;
+	start(isReverse: boolean, emitter: EMITTER): void;
 
 	/**
 	 * Triggered constantly when an animation is on a run.
@@ -62,7 +65,7 @@ export interface DAnimationEvents<EMITTER> {
 	 * @param elapsedTime an elapsed time since an animation has started
 	 * @param emitter an emitter
 	 */
-	time( time: number, isReverse: boolean, elapsedTime: number, emitter: EMITTER ): void;
+	time(time: number, isReverse: boolean, elapsedTime: number, emitter: EMITTER): void;
 
 	/**
 	 * Triggered when an animation stops.
@@ -70,16 +73,15 @@ export interface DAnimationEvents<EMITTER> {
 	 * @param isReverse true if an animation is playing in reverse
 	 * @param emitter an emitter
 	 */
-	end( isReverse: boolean, emitter: EMITTER ): void;
+	end(isReverse: boolean, emitter: EMITTER): void;
 }
 
 /**
  * {@link DAnimation} "on" options.
  */
 export interface DAnimationOnOptions<EMITTER>
-	extends Partial<DAnimationEvents<EMITTER>>, DOnOptions {
-
-}
+	extends Partial<DAnimationEvents<EMITTER>>,
+		DOnOptions {}
 
 /**
  * {@link DAnimation} options.
@@ -134,7 +136,7 @@ export interface DAnimation<TARGET = unknown> extends utils.EventEmitter {
 	 *
 	 * @param reverse true to play in reverse.
 	 */
-	start( reverse?: boolean ): void;
+	start(reverse?: boolean): void;
 
 	/**
 	 * Returns true if an animation is playing.
@@ -157,17 +159,22 @@ export interface DAnimation<TARGET = unknown> extends utils.EventEmitter {
 	end(): void;
 
 	on<E extends keyof DAnimationEvents<this>>(
-		event: E, handler: DAnimationEvents<this>[ E ], context?: any
+		event: E,
+		handler: DAnimationEvents<this>[E],
+		context?: any
 	): this;
-	on( event: string, handler: (...args: any[]) => any, context?: any ): this;
+	on(event: string, handler: (...args: any[]) => any, context?: any): this;
 
 	once<E extends keyof DAnimationEvents<this>>(
-		event: E, handler: DAnimationEvents<this>[ E ], context?: any
+		event: E,
+		handler: DAnimationEvents<this>[E],
+		context?: any
 	): this;
-	once( event: string, handler: (...args: any[]) => any, context?: any ): this;
+	once(event: string, handler: (...args: any[]) => any, context?: any): this;
 
 	emit<E extends keyof DAnimationEvents<this>>(
-		event: E, ...args: Parameters<DAnimationEvents<this>[ E ]>
+		event: E,
+		...args: Parameters<DAnimationEvents<this>[E]>
 	): boolean;
-	emit( event: string, ...args: any ): boolean;
+	emit(event: string, ...args: any): boolean;
 }

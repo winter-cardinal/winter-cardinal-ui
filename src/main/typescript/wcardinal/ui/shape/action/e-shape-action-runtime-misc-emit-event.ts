@@ -14,16 +14,16 @@ import { EShapeActionValueMisc } from "./e-shape-action-value-misc";
 export class EShapeActionRuntimeMiscEmitEvent extends EShapeActionRuntimeConditional {
 	protected target: EShapeActionExpression<string | null>;
 
-	constructor( value: EShapeActionValueMisc ) {
-		super( value, EShapeRuntimeReset.NONE );
-		this.target = EShapeActionExpressions.ofStringOrNull( value.target );
+	constructor(value: EShapeActionValueMisc) {
+		super(value, EShapeRuntimeReset.NONE);
+		this.target = EShapeActionExpressions.ofStringOrNull(value.target);
 	}
 
-	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( this.condition( shape, time ) ) {
-			const target = this.target( shape, time );
-			if( target != null ) {
-				EShapeActionRuntimes.emit( shape, target );
+	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {
+		if (this.condition(shape, time)) {
+			const target = this.target(shape, time);
+			if (target != null) {
+				EShapeActionRuntimes.emit(shape, target);
 			}
 		}
 	}

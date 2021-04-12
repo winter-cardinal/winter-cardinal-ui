@@ -27,7 +27,7 @@ export class EShapeLineOfAnyPointsPointImpl implements EShapeLineOfAnyPointsPoin
 	protected _limitId: number;
 	protected _limitParentLength: number;
 
-	constructor( parent: EShapeLineOfAnyPointsPointImplParent, defX: number, defY: number ) {
+	constructor(parent: EShapeLineOfAnyPointsPointImplParent, defX: number, defY: number) {
 		this._parent = parent;
 		this._id = 0;
 		this._x = null;
@@ -48,56 +48,56 @@ export class EShapeLineOfAnyPointsPointImpl implements EShapeLineOfAnyPointsPoin
 		return this._x;
 	}
 
-	set x( x: EShapeLineOfAnyValue ) {
-		this.set( x, undefined );
+	set x(x: EShapeLineOfAnyValue) {
+		this.set(x, undefined);
 	}
 
 	get y(): EShapeLineOfAnyValue {
 		return this._y;
 	}
 
-	set y( y: EShapeLineOfAnyValue ) {
-		this.set( undefined, y );
+	set y(y: EShapeLineOfAnyValue) {
+		this.set(undefined, y);
 	}
 
 	get limit(): number | null {
 		return this._limit;
 	}
 
-	set limit( limit: number | null ) {
+	set limit(limit: number | null) {
 		this._limit = limit;
 	}
 
-	set( x?: EShapeLineOfAnyValue, y?: EShapeLineOfAnyValue ): void {
+	set(x?: EShapeLineOfAnyValue, y?: EShapeLineOfAnyValue): void {
 		let isChanged = false;
 
-		if( x !== undefined && this._x !== x ) {
+		if (x !== undefined && this._x !== x) {
 			isChanged = true;
 			this._x = x;
 		}
 
-		if( y !== undefined && this._y !== y ) {
+		if (y !== undefined && this._y !== y) {
 			isChanged = true;
 			this._y = y;
 		}
 
-		if( isChanged ) {
+		if (isChanged) {
 			this._id += 1;
 			this._parent.updateUploaded();
 		}
 	}
 
-	getX( index: number ): number {
-		return toComputed( index, this._x, this._defX );
+	getX(index: number): number {
+		return toComputed(index, this._x, this._defX);
 	}
 
-	getY( index: number ): number {
-		return toComputed( index, this._y, this._defY );
+	getY(index: number): number {
+		return toComputed(index, this._y, this._defY);
 	}
 
 	getLimit(): number {
 		const limit = this._limit;
-		if( limit != null ) {
+		if (limit != null) {
 			return limit;
 		}
 		this.updateLimitComputed();
@@ -108,49 +108,49 @@ export class EShapeLineOfAnyPointsPointImpl implements EShapeLineOfAnyPointsPoin
 		const limitId = this._id;
 		const parent = this._parent;
 		const limitParentLength = parent.length;
-		if( this._limitId !== limitId || this._limitParentLength !== limitParentLength ) {
+		if (this._limitId !== limitId || this._limitParentLength !== limitParentLength) {
 			this._limitId = limitId;
 			this._limitParentLength = limitParentLength;
 			this._limitComputed = Math.max(
-				this.calcLimit( this._x, limitParentLength, this._defX ),
-				this.calcLimit( this._y, limitParentLength, this._defY )
+				this.calcLimit(this._x, limitParentLength, this._defX),
+				this.calcLimit(this._y, limitParentLength, this._defY)
 			);
 		}
 	}
 
-	protected calcLimit( value: EShapeLineOfAnyValue, parentLenght: number, def: number ): number {
-		if( isNumber( value ) ) {
-			return Math.abs( value );
-		} else if( isFunction( value ) ) {
-			if( 0 < parentLenght ) {
-				let result = Math.abs( value( 0 ) );
-				for( let i = 1; i < parentLenght; ++i ) {
-					result = Math.max( result, Math.abs( value( i ) ) );
+	protected calcLimit(value: EShapeLineOfAnyValue, parentLenght: number, def: number): number {
+		if (isNumber(value)) {
+			return Math.abs(value);
+		} else if (isFunction(value)) {
+			if (0 < parentLenght) {
+				let result = Math.abs(value(0));
+				for (let i = 1; i < parentLenght; ++i) {
+					result = Math.max(result, Math.abs(value(i)));
 				}
 				return result;
 			}
 			return 0;
-		} else if( value != null ) {
+		} else if (value != null) {
 			const l = value.length;
-			if( 0 < l ) {
-				let result = value[ 0 ];
-				for( let i = 1; i < l; ++i ) {
-					result = Math.max( result, Math.abs( value[ i ] ) );
+			if (0 < l) {
+				let result = value[0];
+				for (let i = 1; i < l; ++i) {
+					result = Math.max(result, Math.abs(value[i]));
 				}
 				return result;
 			}
 			return 0;
 		} else {
-			return Math.abs( def );
+			return Math.abs(def);
 		}
 	}
 
 	isStaticX(): boolean {
-		return isStatic( this._x );
+		return isStatic(this._x);
 	}
 
 	isStaticY(): boolean {
-		return isStatic( this._y );
+		return isStatic(this._y);
 	}
 
 	toDirty(): void {

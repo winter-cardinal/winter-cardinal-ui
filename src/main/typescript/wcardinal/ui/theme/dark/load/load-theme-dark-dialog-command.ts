@@ -7,5 +7,5 @@ import { DThemeDark } from "../d-theme-dark";
 import { DThemeDarkDialogCommand } from "../d-theme-dark-dialog-command";
 
 export const loadThemeDarkDialogCommand = (): void => {
-	DThemeDark.set( "DDialogCommand", DThemeDarkDialogCommand );
+	DThemeDark.set("DDialogCommand", DThemeDarkDialogCommand);
 };

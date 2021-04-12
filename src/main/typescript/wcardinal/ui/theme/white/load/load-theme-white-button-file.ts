@@ -7,5 +7,5 @@ import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteButtonFile } from "../d-theme-white-button-file";
 
 export const loadThemeWhiteButtonFile = (): void => {
-	DThemeWhite.set( "DButtonFile", DThemeWhiteButtonFile );
+	DThemeWhite.set("DButtonFile", DThemeWhiteButtonFile);
 };

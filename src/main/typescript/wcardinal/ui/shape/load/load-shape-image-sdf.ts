@@ -10,6 +10,6 @@ import { createImageSdfUploaded } from "../variant/create-image-sdf-uploaded";
 import { deserializeImageSdf } from "../variant/deserialize-image-sdf";
 
 export const loadShapeImageSdf = (): void => {
-	EShapeUploadeds[ EShapeType.IMAGE_SDF ] = createImageSdfUploaded;
-	EShapeDeserializers[ EShapeType.IMAGE_SDF ] = deserializeImageSdf;
+	EShapeUploadeds[EShapeType.IMAGE_SDF] = createImageSdfUploaded;
+	EShapeDeserializers[EShapeType.IMAGE_SDF] = deserializeImageSdf;
 };

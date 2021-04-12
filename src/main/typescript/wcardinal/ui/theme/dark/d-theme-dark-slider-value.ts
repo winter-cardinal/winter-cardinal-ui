@@ -11,9 +11,9 @@ import { DThemeSliderValue } from "../../d-slider-value";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkTextBase } from "./d-theme-dark-text-base";
 
-export class DThemeDarkSliderValue<VALUE = unknown> extends DThemeDarkTextBase<VALUE>
+export class DThemeDarkSliderValue<VALUE = unknown>
+	extends DThemeDarkTextBase<VALUE>
 	implements DThemeSliderValue<VALUE> {
-
 	getX(): DCoordinatePosition {
 		return "CENTER";
 	}
@@ -30,23 +30,23 @@ export class DThemeDarkSliderValue<VALUE = unknown> extends DThemeDarkTextBase<V
 		return 20;
 	}
 
-	getBackgroundColor( state: DBaseStateSet ): number | null {
-		if ( state.inDisabled ) {
+	getBackgroundColor(state: DBaseStateSet): number | null {
+		if (state.inDisabled) {
 			return 0x646464;
 		}
 		return DThemeDarkConstants.HIGHLIGHT_COLOR;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
-	getColor( state: DBaseStateSet ): number {
+	getColor(state: DBaseStateSet): number {
 		return DThemeDarkConstants.ACTIVE_COLOR;
 	}
 
-	getAlpha( state: DBaseStateSet ): number {
-		if ( state.inDisabled ) {
+	getAlpha(state: DBaseStateSet): number {
+		if (state.inDisabled) {
 			return 0.38;
 		}
 		return 1;

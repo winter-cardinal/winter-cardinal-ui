@@ -7,13 +7,9 @@ import { DText, DTextOptions, DThemeText } from "./d-text";
 
 export interface DPickerDatetimeLabelOptions<
 	THEME extends DThemePickerDatetimeLabel = DThemePickerDatetimeLabel
-> extends DTextOptions<Date, THEME> {
+> extends DTextOptions<Date, THEME> {}
 
-}
-
-export interface DThemePickerDatetimeLabel extends DThemeText<Date> {
-
-}
+export interface DThemePickerDatetimeLabel extends DThemeText<Date> {}
 
 export class DPickerDatetimeLabel<
 	THEME extends DThemePickerDatetimeLabel = DThemePickerDatetimeLabel,

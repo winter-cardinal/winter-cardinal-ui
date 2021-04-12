@@ -10,12 +10,16 @@ import { EShape } from "../e-shape";
 import { EShapeRuntime } from "../e-shape-runtime";
 import { EShapeActionRuntimeMiscInput } from "./e-shape-action-runtime-misc-input";
 
-export class EShapeActionRuntimeMiscInputInteger extends EShapeActionRuntimeMiscInput<number, UtilInputNumber> {
-	protected newUtil( shape: EShape, runtime: EShapeRuntime ): UtilInputNumber {
+export class EShapeActionRuntimeMiscInputInteger extends EShapeActionRuntimeMiscInput<
+	number,
+	UtilInputNumber
+> {
+	protected newUtil(shape: EShape, runtime: EShapeRuntime): UtilInputNumber {
 		return new UtilInputNumber(
-			shape, this.newOperation( shape, runtime ),
-			DThemes.getInstance().get<DThemeInputInteger>( "DInputInteger" ),
-			this.newUtilOptions( shape, runtime )
+			shape,
+			this.newOperation(shape, runtime),
+			DThemes.getInstance().get<DThemeInputInteger>("DInputInteger"),
+			this.newUtilOptions(shape, runtime)
 		);
 	}
 }

@@ -8,9 +8,9 @@ import { DCoordinateSize } from "../../d-coordinate";
 import { DThemePickerDatetimeButtonDate } from "../../d-picker-datetime-button-date";
 import { DThemeDarkButtonAmbient } from "./d-theme-dark-button-ambient";
 
-export class DThemeDarkPickerDatetimeButtonDate<VALUE = unknown> extends DThemeDarkButtonAmbient<VALUE>
+export class DThemeDarkPickerDatetimeButtonDate<VALUE = unknown>
+	extends DThemeDarkButtonAmbient<VALUE>
 	implements DThemePickerDatetimeButtonDate<VALUE> {
-
 	getTextAlignHorizontal(): DAlignHorizontal {
 		return DAlignHorizontal.CENTER;
 	}

@@ -8,7 +8,7 @@ import { EShapeActionRuntimeMiscWrite } from "./e-shape-action-runtime-misc-writ
 import { EShapeActionRuntimes } from "./e-shape-action-runtimes";
 
 export class EShapeActionRuntimeMiscWriteRemote extends EShapeActionRuntimeMiscWrite {
-	protected write( shape: EShape, target: string, value: unknown, time: number ): void {
-		EShapeActionRuntimes.write( shape, target, value, time, true );
+	protected write(shape: EShape, target: string, value: unknown, time: number): void {
+		EShapeActionRuntimes.write(shape, target, value, time, true);
 	}
 }

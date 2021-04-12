@@ -8,6 +8,6 @@ import { DThemeWhiteButtonColorGradient } from "../d-theme-white-button-color-gr
 import { loadThemeWhiteDialogColorGradient } from "./load-theme-white-dialog-color-gradient";
 
 export const loadThemeWhiteButtonColorGradient = (): void => {
-	DThemeWhite.set( "DButtonColorGradient", DThemeWhiteButtonColorGradient );
+	DThemeWhite.set("DButtonColorGradient", DThemeWhiteButtonColorGradient);
 	loadThemeWhiteDialogColorGradient();
 };

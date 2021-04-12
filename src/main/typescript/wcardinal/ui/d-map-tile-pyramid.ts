@@ -26,7 +26,7 @@ export interface DMapTilePyramidOptions {
 export interface DMapTilePyramid extends utils.EventEmitter {
 	readonly coordinate: DMapCoordinate;
 	mapping: DMapTileMapping;
-	move( z: number, lon0: number, lat0: number, lon1: number, lat1: number ): this;
+	move(z: number, lon0: number, lat0: number, lon1: number, lat1: number): this;
 	fit(): this;
 	destroy(): this;
 }

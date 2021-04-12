@@ -7,9 +7,9 @@ import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeText } from "../../d-text";
 import { DThemeWhiteTextBase } from "./d-theme-white-text-base";
 
-export class DThemeWhiteText<VALUE = unknown> extends DThemeWhiteTextBase<VALUE>
+export class DThemeWhiteText<VALUE = unknown>
+	extends DThemeWhiteTextBase<VALUE>
 	implements DThemeText<VALUE> {
-
 	getHeight(): DCoordinateSize {
 		return this.getLineHeight();
 	}

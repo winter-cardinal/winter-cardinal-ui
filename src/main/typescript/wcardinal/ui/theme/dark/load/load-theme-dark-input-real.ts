@@ -7,5 +7,5 @@ import { DThemeDark } from "../d-theme-dark";
 import { DThemeDarkInputReal } from "../d-theme-dark-input-real";
 
 export const loadThemeDarkInputReal = (): void => {
-	DThemeDark.set( "DInputReal", DThemeDarkInputReal );
+	DThemeDark.set("DInputReal", DThemeDarkInputReal);
 };

@@ -13,21 +13,21 @@ export class EShapeActionRuntimeOpenDialogInteger extends EShapeActionRuntimeOpe
 	protected static DIALOG?: DDialogInputInteger;
 	protected initial: EShapeActionExpression<number>;
 
-	constructor( value: EShapeActionValueOpen ) {
-		super( value );
-		this.initial = EShapeActionExpressions.ofNumber( value.initial );
+	constructor(value: EShapeActionValueOpen) {
+		super(value);
+		this.initial = EShapeActionExpressions.ofNumber(value.initial);
 	}
 
-	protected open( target: string, initial: number ): Promise<number> {
+	protected open(target: string, initial: number): Promise<number> {
 		let dialog = EShapeActionRuntimeOpenDialogInteger.DIALOG;
-		if( dialog == null ) {
+		if (dialog == null) {
 			dialog = new DDialogInputInteger({
 				label: target
 			});
 			EShapeActionRuntimeOpenDialogInteger.DIALOG = dialog;
 		} else {
 			const label = dialog.label;
-			if( label ) {
+			if (label) {
 				label.text = target;
 			}
 		}

@@ -10,7 +10,7 @@ export class DMapCoordinates {
 	protected static _default?: DMapCoordinate;
 
 	static get DEFAULT(): DMapCoordinate {
-		if( this._default == null ) {
+		if (this._default == null) {
 			this._default = new DMapCoordinateEPSG3857();
 		}
 		return this._default;

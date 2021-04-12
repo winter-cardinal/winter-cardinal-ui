@@ -11,12 +11,14 @@ import { DCornerMask } from "../../d-corner-mask";
 import { DThemeTreeItemTextAndImage } from "../../d-tree-item-text-and-image";
 import { DThemeDarkImage } from "./d-theme-dark-image";
 
-export class DThemeDarkTreeItemTextAndImage extends DThemeDarkImage<string> implements DThemeTreeItemTextAndImage {
-	getBackgroundColor( state: DBaseStateSet ): number | null {
+export class DThemeDarkTreeItemTextAndImage
+	extends DThemeDarkImage<string>
+	implements DThemeTreeItemTextAndImage {
+	getBackgroundColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
@@ -44,7 +46,7 @@ export class DThemeDarkTreeItemTextAndImage extends DThemeDarkImage<string> impl
 		return DCornerMask.ALL;
 	}
 
-	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
+	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
 		return null;
 	}
 }

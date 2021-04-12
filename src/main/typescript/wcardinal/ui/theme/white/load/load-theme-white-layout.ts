@@ -10,8 +10,8 @@ import { DThemeWhiteLayoutSpace } from "../d-theme-white-layout-space";
 import { DThemeWhiteLayoutVertical } from "../d-theme-white-layout-vertical";
 
 export const loadThemeWhiteLayout = (): void => {
-	DThemeWhite.set( "DLayout", DThemeWhiteLayout );
-	DThemeWhite.set( "DLayoutHorizontal", DThemeWhiteLayoutHorizontal );
-	DThemeWhite.set( "DLayoutSpace", DThemeWhiteLayoutSpace );
-	DThemeWhite.set( "DLayoutVertical", DThemeWhiteLayoutVertical );
+	DThemeWhite.set("DLayout", DThemeWhiteLayout);
+	DThemeWhite.set("DLayoutHorizontal", DThemeWhiteLayoutHorizontal);
+	DThemeWhite.set("DLayoutSpace", DThemeWhiteLayoutSpace);
+	DThemeWhite.set("DLayoutVertical", DThemeWhiteLayoutVertical);
 };

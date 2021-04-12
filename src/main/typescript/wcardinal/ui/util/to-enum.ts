@@ -1,5 +1,10 @@
-import { isString } from "./is-string"
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-export const toEnum = <TE>( target: keyof TE | TE[ keyof TE ], te: TE ): TE[ keyof TE ] => {
-	return isString( target ) ? (te as any)[ target ] : target;
-}
+import { isString } from "./is-string";
+
+export const toEnum = <T, TE>(target: T, te: TE): Exclude<T, keyof TE> => {
+	return isString(target) ? (te as any)[target] : target;
+};

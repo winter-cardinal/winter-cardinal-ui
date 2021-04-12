@@ -8,18 +8,17 @@ import { DSliderTrack, DSliderTrackOptions, DThemeSliderTrack } from "./d-slider
 export interface DSliderTrackHorizontalOptions<
 	VALUE = unknown,
 	THEME extends DThemeSliderTrackHorizontal<VALUE> = DThemeSliderTrackHorizontal<VALUE>
-> extends DSliderTrackOptions<VALUE, THEME> {
+> extends DSliderTrackOptions<VALUE, THEME> {}
 
-}
-
-export interface DThemeSliderTrackHorizontal<VALUE = unknown> extends DThemeSliderTrack<VALUE> {
-
-}
+export interface DThemeSliderTrackHorizontal<VALUE = unknown> extends DThemeSliderTrack<VALUE> {}
 
 export class DSliderTrackHorizontal<
 	VALUE = unknown,
 	THEME extends DThemeSliderTrackHorizontal<VALUE> = DThemeSliderTrackHorizontal<VALUE>,
-	OPTIONS extends DSliderTrackHorizontalOptions<VALUE, THEME> = DSliderTrackHorizontalOptions<VALUE, THEME>
+	OPTIONS extends DSliderTrackHorizontalOptions<VALUE, THEME> = DSliderTrackHorizontalOptions<
+		VALUE,
+		THEME
+	>
 > extends DSliderTrack<VALUE, THEME, OPTIONS> {
 	protected getType(): string {
 		return "DSliderTrackHorizontal";

@@ -6,6 +6,6 @@
 import { DThemeDialogInputText } from "../../d-dialog-input-text";
 import { DThemeDarkDialogInput } from "./d-theme-dark-dialog-input";
 
-export class DThemeDarkDialogInputText extends DThemeDarkDialogInput implements DThemeDialogInputText {
-
-}
+export class DThemeDarkDialogInputText
+	extends DThemeDarkDialogInput
+	implements DThemeDialogInputText {}

@@ -10,8 +10,8 @@ import { loadThemeWhiteShape } from "./load-theme-white-shape";
 import { loadThemeWhiteShapeActionValue } from "./load-theme-white-shape-action-value";
 
 export const loadThemeWhiteDiagramEditor = (): void => {
-	DThemeWhite.set( "DDiagramEditor", DThemeWhiteDiagramEditor );
-	DThemeWhite.set( "DDiagramCanvasEditor", DThemeWhiteDiagramCanvasEditor );
+	DThemeWhite.set("DDiagramEditor", DThemeWhiteDiagramEditor);
+	DThemeWhite.set("DDiagramCanvasEditor", DThemeWhiteDiagramCanvasEditor);
 	loadThemeWhiteShapeActionValue();
 	loadThemeWhiteShape();
 };

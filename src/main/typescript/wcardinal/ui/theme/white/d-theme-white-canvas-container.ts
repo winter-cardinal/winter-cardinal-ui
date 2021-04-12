@@ -10,11 +10,11 @@ import { DCornerMask } from "../../d-corner-mask";
 import { DThemeWhiteBase } from "./d-theme-white-base";
 
 export class DThemeWhiteCanvasContainer extends DThemeWhiteBase implements DThemeCanvasContainer {
-	getBackgroundColor( state: DBaseStateSet ): number | null {
+	getBackgroundColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 

@@ -35,34 +35,34 @@ export class DDiagramCanvasBase<
 	protected _layer: DDiagramLayerContainer;
 	protected _tile: DDiagramCanvasTile;
 
-	constructor( options?: OPTIONS ) {
-		super( options );
+	constructor(options?: OPTIONS) {
+		super(options);
 
 		// Background
 		const theme = this.theme;
-		if( ! this.isAmbient( theme, options ) ) {
+		if (!this.isAmbient(theme, options)) {
 			this._background = new DDiagramCanvasEditorBackground(
 				this._background,
-				this.toBackgroundBase( theme, options )
+				this.toBackgroundBase(theme, options)
 			);
 		}
 
 		// Layer
 		const layer = new DDiagramLayerContainer();
 		this._layer = layer;
-		this.addChild( layer );
+		this.addChild(layer);
 
 		// Tile
-		const tile = new DDiagramCanvasTile( this, options?.tile );
+		const tile = new DDiagramCanvasTile(this, options?.tile);
 		this._tile = tile;
 		tile.init();
 	}
 
-	protected isAmbient( theme: THEME, options?: OPTIONS ): boolean {
+	protected isAmbient(theme: THEME, options?: OPTIONS): boolean {
 		return options?.ambient ?? theme.isAmbient();
 	}
 
-	protected toBackgroundBase( theme: THEME, options?: OPTIONS ): number | null {
+	protected toBackgroundBase(theme: THEME, options?: OPTIONS): number | null {
 		return options?.background?.base ?? theme.getBackgroundBase();
 	}
 
@@ -74,24 +74,24 @@ export class DDiagramCanvasBase<
 		return this._layer;
 	}
 
-	initialize( shapes: EShape[] ): void {
+	initialize(shapes: EShape[]): void {
 		// DO NOTHING
 	}
 
 	destroy(): void {
-		if( ! this._destroyed ) {
+		if (!this._destroyed) {
 			this._tile.destroy();
 			this._layer.destroy();
 			super.destroy();
 		}
 	}
 
-	hitTest( global: IPoint, handler?: ( shape: EShape ) => boolean ): EShape | null {
+	hitTest(global: IPoint, handler?: (shape: EShape) => boolean): EShape | null {
 		const layers = this._layer.children;
-		for( let i = layers.length - 1; 0 <= i; --i ) {
-			const layer = layers[ i ];
-			const shape = layer.hitTest( global, handler );
-			if( shape != null ) {
+		for (let i = layers.length - 1; 0 <= i; --i) {
+			const layer = layers[i];
+			const shape = layer.hitTest(global, handler);
+			if (shape != null) {
 				return shape;
 			}
 		}

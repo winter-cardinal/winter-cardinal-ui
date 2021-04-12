@@ -3,23 +3,21 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { UtilInput, UtilInputOperation, UtilInputOptions, UtilInputTarget, UtilThemeInput } from "./util-input";
+import {
+	UtilInput,
+	UtilInputOperation,
+	UtilInputOptions,
+	UtilInputTarget,
+	UtilThemeInput
+} from "./util-input";
 
-export interface UtilInputTextTarget extends UtilInputTarget {
+export interface UtilInputTextTarget extends UtilInputTarget {}
 
-}
+export interface UtilInputTextOperation extends UtilInputOperation<string> {}
 
-export interface UtilInputTextOperation extends UtilInputOperation<string> {
+export interface UtilInputTextOptions extends UtilInputOptions<string> {}
 
-}
-
-export interface UtilInputTextOptions extends UtilInputOptions<string> {
-
-}
-
-export interface UtilThemeInputText extends UtilThemeInput<string> {
-
-}
+export interface UtilThemeInputText extends UtilThemeInput<string> {}
 
 export class UtilInputText<
 	TARGET extends UtilInputTextTarget = UtilInputTextTarget,

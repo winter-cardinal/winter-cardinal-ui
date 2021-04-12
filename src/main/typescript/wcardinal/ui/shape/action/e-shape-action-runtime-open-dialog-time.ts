@@ -14,82 +14,85 @@ import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeOpenDialog } from "./e-shape-action-runtime-open-dialog";
 import { EShapeActionValueOpen } from "./e-shape-action-value-open";
 
-export class EShapeActionRuntimeOpenDialogTime extends EShapeActionRuntimeOpenDialog<string, unknown> {
+export class EShapeActionRuntimeOpenDialogTime extends EShapeActionRuntimeOpenDialog<
+	string,
+	unknown
+> {
 	protected static DIALOG?: DDialogTime;
 	protected static PATTERN?: RegExp;
 	protected static FORMATTER?: NumberFormatter;
 
 	protected initial: EShapeActionExpression<unknown>;
 
-	constructor( value: EShapeActionValueOpen ) {
-		super( value );
-		this.initial = EShapeActionExpressions.ofUnknown( value.initial );
+	constructor(value: EShapeActionValueOpen) {
+		super(value);
+		this.initial = EShapeActionExpressions.ofUnknown(value.initial);
 	}
 
-	protected open( target: string, initial: unknown ): Promise<string> {
+	protected open(target: string, initial: unknown): Promise<string> {
 		let dialog = EShapeActionRuntimeOpenDialogTime.DIALOG;
-		if( dialog == null ) {
+		if (dialog == null) {
 			dialog = new DDialogTime();
 			EShapeActionRuntimeOpenDialogTime.DIALOG = dialog;
 		}
-		dialog.new = dialog.current = this.toDate( initial );
-		return dialog.open().then(( value ) => {
-			return this.getFormatter().format( value.getTime(), 0 );
+		dialog.new = dialog.current = this.toDate(initial);
+		return dialog.open().then((value) => {
+			return this.getFormatter().format(value.getTime(), 0);
 		});
 	}
 
-	protected toDate( value: unknown ): Date {
-		if( isNumber( value ) ) {
-			return new Date( value );
-		} else if( isString( value ) ) {
+	protected toDate(value: unknown): Date {
+		if (isNumber(value)) {
+			return new Date(value);
+		} else if (isString(value)) {
 			const result = new Date();
 			const pattern = this.getPattern();
-			const matched = pattern.exec( value );
-			if( matched != null ) {
-				const hours = this.toHours( matched[ 1 ] );
-				if( hours != null ) {
-					result.setHours( hours );
+			const matched = pattern.exec(value);
+			if (matched != null) {
+				const hours = this.toHours(matched[1]);
+				if (hours != null) {
+					result.setHours(hours);
 				}
-				const minutes = this.toMinutes( matched[ 2 ] );
-				if( minutes != null ) {
-					result.setMinutes( minutes );
+				const minutes = this.toMinutes(matched[2]);
+				if (minutes != null) {
+					result.setMinutes(minutes);
 				}
-				const seconds = this.toSeconds( matched[ 3 ] );
-				if( seconds != null ) {
-					result.setSeconds( seconds );
+				const seconds = this.toSeconds(matched[3]);
+				if (seconds != null) {
+					result.setSeconds(seconds);
 				}
-				const milliseconds = this.toMilliseconds( matched[ 4 ] );
-				if( milliseconds != null ) {
-					result.setMilliseconds( milliseconds );
+				const milliseconds = this.toMilliseconds(matched[4]);
+				if (milliseconds != null) {
+					result.setMilliseconds(milliseconds);
 				}
 			}
 			return result;
-		} else if( value instanceof Date ) {
+		} else if (value instanceof Date) {
 			return value;
 		} else {
 			return new Date();
 		}
 	}
 
-	protected toHours( value: string ): number | null {
-		return this.toNumber( value, 0, 23 );
+	protected toHours(value: string): number | null {
+		return this.toNumber(value, 0, 23);
 	}
 
-	protected toMinutes( value: string ): number | null {
-		return this.toNumber( value, 0, 59 );
+	protected toMinutes(value: string): number | null {
+		return this.toNumber(value, 0, 59);
 	}
 
-	protected toSeconds( value: string ): number | null {
-		return this.toNumber( value, 0, 59 );
+	protected toSeconds(value: string): number | null {
+		return this.toNumber(value, 0, 59);
 	}
 
-	protected toMilliseconds( value: string ): number | null {
-		const result = this.toNumber( value, 0, 999 );
-		if( result != null ) {
+	protected toMilliseconds(value: string): number | null {
+		const result = this.toNumber(value, 0, 999);
+		if (result != null) {
 			const length = value.length;
-			if( length === 1 ) {
+			if (length === 1) {
 				return result * 100;
-			} else if( length === 2 ) {
+			} else if (length === 2) {
 				return result * 10;
 			} else {
 				return result;
@@ -98,11 +101,11 @@ export class EShapeActionRuntimeOpenDialogTime extends EShapeActionRuntimeOpenDi
 		return result;
 	}
 
-	protected toNumber( value: string, min: number, max: number ): number | null {
-		if( value != null ) {
+	protected toNumber(value: string, min: number, max: number): number | null {
+		if (value != null) {
 			const num = +value;
-			if( ! isNaN( num ) ) {
-				return Math.min( max, Math.max( min, num ) );
+			if (!isNaN(num)) {
+				return Math.min(max, Math.max(min, num));
 			}
 		}
 		return null;
@@ -110,7 +113,7 @@ export class EShapeActionRuntimeOpenDialogTime extends EShapeActionRuntimeOpenDi
 
 	protected getPattern(): RegExp {
 		let result = EShapeActionRuntimeOpenDialogTime.PATTERN;
-		if( result == null ) {
+		if (result == null) {
 			result = this.newPattern();
 			EShapeActionRuntimeOpenDialogTime.PATTERN = result;
 		}
@@ -123,7 +126,7 @@ export class EShapeActionRuntimeOpenDialogTime extends EShapeActionRuntimeOpenDi
 
 	protected getFormatter(): NumberFormatter {
 		let result = EShapeActionRuntimeOpenDialogTime.FORMATTER;
-		if( result == null ) {
+		if (result == null) {
 			result = this.newFormatter();
 			EShapeActionRuntimeOpenDialogTime.FORMATTER = result;
 		}
@@ -131,6 +134,6 @@ export class EShapeActionRuntimeOpenDialogTime extends EShapeActionRuntimeOpenDi
 	}
 
 	protected newFormatter(): NumberFormatter {
-		return NumberFormatters.create( "%Hm" );
+		return NumberFormatters.create("%Hm");
 	}
 }

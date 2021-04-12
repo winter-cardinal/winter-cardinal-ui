@@ -10,6 +10,6 @@ import { createLineOfTrianglesUploaded } from "../variant/create-line-of-triangl
 import { deserializeLineOfTriangles } from "../variant/deserialize-line-of-triangles";
 
 export const loadShapeLineOfTriangles = (): void => {
-	EShapeUploadeds[ EShapeType.LINE_OF_TRIANGLES ] = createLineOfTrianglesUploaded;
-	EShapeDeserializers[ EShapeType.LINE_OF_TRIANGLES ] = deserializeLineOfTriangles;
+	EShapeUploadeds[EShapeType.LINE_OF_TRIANGLES] = createLineOfTrianglesUploaded;
+	EShapeDeserializers[EShapeType.LINE_OF_TRIANGLES] = deserializeLineOfTriangles;
 };

@@ -5,21 +5,20 @@
 
 import { Rectangle } from "pixi.js";
 import { DBase } from "./d-base";
-import { DLayoutHorizontal, DLayoutHorizontalOptions, DThemeLayoutHorizontal } from "./d-layout-horizontal";
+import {
+	DLayoutHorizontal,
+	DLayoutHorizontalOptions,
+	DThemeLayoutHorizontal
+} from "./d-layout-horizontal";
 import { DTableState } from "./d-table-state";
 
-export interface DTableRowOptions<
-	ROW,
-	COLUMN,
-	THEME extends DThemeTableRow = DThemeTableRow
-> extends DLayoutHorizontalOptions<THEME> {
+export interface DTableRowOptions<ROW, COLUMN, THEME extends DThemeTableRow = DThemeTableRow>
+	extends DLayoutHorizontalOptions<THEME> {
 	columns?: COLUMN[];
 	frozen?: number;
 }
 
-export interface DThemeTableRow extends DThemeLayoutHorizontal {
-
-}
+export interface DThemeTableRow extends DThemeLayoutHorizontal {}
 
 export interface DTableRowColumn {
 	weight?: number;
@@ -36,8 +35,8 @@ export abstract class DTableRow<
 	protected _columns: COLUMN[];
 	protected _frozen: number;
 
-	constructor( options: OPTIONS ) {
-		super( options );
+	constructor(options: OPTIONS) {
+		super(options);
 
 		this.state.isFocusReverse = true;
 		this._reverse = true;
@@ -45,34 +44,34 @@ export abstract class DTableRow<
 		this._columns = options.columns ?? [];
 	}
 
-	protected initCells( options: OPTIONS, columns: COLUMN[], frozen: number ): void {
-		const iend = this.toIndexEnd( columns );
-		for( let i = columns.length - 1; 0 <= i; --i ) {
-			const cell = this.newCell( i, columns[ i ], columns, options );
+	protected initCells(options: OPTIONS, columns: COLUMN[], frozen: number): void {
+		const iend = this.toIndexEnd(columns);
+		for (let i = columns.length - 1; 0 <= i; --i) {
+			const cell = this.newCell(i, columns[i], columns, options);
 			const cellState = cell.state;
-			cellState.lock( false );
-			if( i === 0 ) {
-				cellState.add( DTableState.START );
+			cellState.lock(false);
+			if (i === 0) {
+				cellState.add(DTableState.START);
 			}
-			if( i === iend ) {
-				cellState.add( DTableState.END );
+			if (i === iend) {
+				cellState.add(DTableState.END);
 			}
-			if( i < frozen ) {
-				cellState.add( DTableState.FROZEN );
+			if (i < frozen) {
+				cellState.add(DTableState.FROZEN);
 			}
-			if( i === frozen - 1 ) {
-				cellState.add( DTableState.FROZEN_END );
+			if (i === frozen - 1) {
+				cellState.add(DTableState.FROZEN_END);
 			}
 			cellState.unlock();
-			this.addChild( cell );
+			this.addChild(cell);
 		}
 	}
 
-	protected toIndexEnd( columns: COLUMN[] ): number {
+	protected toIndexEnd(columns: COLUMN[]): number {
 		const imax = columns.length;
-		for( let i = 0; i < imax; ++i ) {
-			const column = columns[ i ];
-			if( column.weight !== undefined ) {
+		for (let i = 0; i < imax; ++i) {
+			const column = columns[i];
+			if (column.weight !== undefined) {
 				return imax - 1;
 			}
 		}
@@ -84,14 +83,14 @@ export abstract class DTableRow<
 		this.resetFrozenCellPosition();
 	}
 
-	updateFrozenCellPosition( x: number ): void {
+	updateFrozenCellPosition(x: number): void {
 		const columns = this._columns;
 		const cells = this.children;
 		const cellsLength = cells.length;
 		const frozen = this._frozen;
-		for( let i = 0; i < frozen; ++i ) {
-			const column = columns[ i ];
-			const cell = cells[ cellsLength - 1 - i ];
+		for (let i = 0; i < frozen; ++i) {
+			const column = columns[i];
+			const cell = cells[cellsLength - 1 - i];
 			cell.position.x = -x + column.offset;
 		}
 	}
@@ -102,9 +101,9 @@ export abstract class DTableRow<
 		const cellsLength = cells.length;
 		const frozen = this._frozen;
 		const x = this.getContentPositionX();
-		for( let i = 0; i < frozen; ++i ) {
-			const column = columns[ i ];
-			const cell = cells[ cellsLength - 1 - i ];
+		for (let i = 0; i < frozen; ++i) {
+			const column = columns[i];
+			const cell = cells[cellsLength - 1 - i];
 			column.offset = cell.position.x;
 			cell.position.x = -x + column.offset;
 		}
@@ -112,19 +111,19 @@ export abstract class DTableRow<
 
 	protected abstract getContentPositionX(): number;
 
-	getClippingRect( target: unknown, result: Rectangle ): void {
-		super.getClippingRect( target, result );
+	getClippingRect(target: unknown, result: Rectangle): void {
+		super.getClippingRect(target, result);
 
 		const frozen = this._frozen;
-		if( 0 < frozen ) {
+		if (0 < frozen) {
 			const cell = target as any;
-			if( cell && cell.parent === this ) {
+			if (cell && cell.parent === this) {
 				const cells = this.children as DBase[];
-				const cellIndex = cells.indexOf( cell );
-				if( 0 <= cellIndex ) {
+				const cellIndex = cells.indexOf(cell);
+				if (0 <= cellIndex) {
 					const columnIndex = cells.length - 1 - cellIndex;
-					if( frozen <= columnIndex ) {
-						const previous = cells[ cellIndex + 1 ];
+					if (frozen <= columnIndex) {
+						const previous = cells[cellIndex + 1];
 						const shiftX = previous.position.x + previous.width;
 						result.x += shiftX;
 						result.width -= shiftX;

@@ -8,15 +8,26 @@ import { utils } from "pixi.js";
 /**
  * A row comparator function.
  */
-export type DTableDataComparatorFunction<ROW> =
-	( rowA: ROW, rowB: ROW, indexA: number, indexB: number ) => number;
+export type DTableDataComparatorFunction<ROW> = (
+	rowA: ROW,
+	rowB: ROW,
+	indexA: number,
+	indexB: number
+) => number;
 
 /**
  * A row comparator object.
  */
 export interface DTableDataComparatorObject<ROW> {
-	compare( rowA: ROW, rowB: ROW, indexA: number, indexB: number ): number;
+	compare(rowA: ROW, rowB: ROW, indexA: number, indexB: number): number;
 }
+
+/**
+ * A row comparator.
+ */
+export type DTableDataComparator<ROW> =
+	| DTableDataComparatorFunction<ROW>
+	| DTableDataComparatorObject<ROW>;
 
 /**
  * A sort order.
@@ -61,26 +72,26 @@ export interface DTableDataSorter<ROW> extends utils.EventEmitter {
 	/**
 	 * Returns a current comparator.
 	 */
-	get(): DTableDataComparatorFunction<ROW> | DTableDataComparatorObject<ROW> | null;
+	get(): DTableDataComparator<ROW> | null;
 
 	/**
 	 * Sets to the given comparator.
 	 *
 	 * @param comparator A comparator
 	 */
-	set( comparator: DTableDataComparatorFunction<ROW> | DTableDataComparatorObject<ROW> | null ): void;
+	set(comparator: DTableDataComparator<ROW> | null): void;
 
 	/**
 	 * Returns a sorted index of the specified unmapped index.
 	 *
 	 * @param unmappedIndex an unmapped index
 	 */
-	map( unmappedIndex: number ): number | null;
+	map(unmappedIndex: number): number | null;
 
 	/**
 	 * Returns an unmapped index of the specified sorted index.
 	 *
 	 * @param index a mapped index
 	 */
-	unmap( index: number ): number;
+	unmap(index: number): number;
 }

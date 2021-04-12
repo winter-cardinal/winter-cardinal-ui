@@ -20,14 +20,18 @@ export class DBaseBorderRenderable implements DRenderable {
 	}
 
 	protected get(
-		base: DBase, theme: DThemeBase,
-		cornerRadius: number, cornerHeight: number, cornerMask: DCornerMask,
-		borderWidth: number, borderMask: DBorderMask
+		base: DBase,
+		theme: DThemeBase,
+		cornerRadius: number,
+		cornerHeight: number,
+		cornerMask: DCornerMask,
+		borderWidth: number,
+		borderMask: DBorderMask
 	): DBaseBorderMesh {
 		let result = this._mesh;
-		if( result == null ) {
+		if (result == null) {
 			result = new DBaseBorderMesh(
-				theme.getBorderTexture( cornerRadius, borderWidth ),
+				theme.getBorderTexture(cornerRadius, borderWidth),
 				cornerHeight,
 				borderMask,
 				cornerMask
@@ -36,10 +40,10 @@ export class DBaseBorderRenderable implements DRenderable {
 			this._mesh = result;
 			this._cornerRadius = cornerRadius;
 		}
-		if( this._cornerRadius !== cornerRadius || this._borderWidth !== borderWidth ) {
+		if (this._cornerRadius !== cornerRadius || this._borderWidth !== borderWidth) {
 			this._cornerRadius = cornerRadius;
 			this._borderWidth = borderWidth;
-			result.texture = theme.getBorderTexture( cornerRadius, borderWidth );
+			result.texture = theme.getBorderTexture(cornerRadius, borderWidth);
 			result.borderSize = cornerHeight;
 		}
 		return result;
@@ -47,25 +51,38 @@ export class DBaseBorderRenderable implements DRenderable {
 
 	protected hide(): void {
 		const mesh = this._mesh;
-		if( mesh != null ) {
+		if (mesh != null) {
 			mesh.visible = false;
 		}
 	}
 
 	onReflow(
-		base: DBase, width: number, height: number,
-		theme: DThemeBase, state: DBaseStateSet,
-		cornerRadius: number, cornerHeight: number, cornerMask: DCornerMask
+		base: DBase,
+		width: number,
+		height: number,
+		theme: DThemeBase,
+		state: DBaseStateSet,
+		cornerRadius: number,
+		cornerHeight: number,
+		cornerMask: DCornerMask
 	): void {
 		const border = base.border;
-		const borderColor = border.getColor( state );
-		if( borderColor != null ) {
-			const borderAlpha = border.getAlpha( state );
-			if( 0 < borderAlpha ) {
-				const borderWidth = border.getWidth( state );
-				const borderMask = border.getMask( state );
-				const borderMesh = this.get( base, theme, cornerRadius, cornerHeight, cornerMask, borderWidth, borderMask );
-				const borderAlign = border.getAlign( state );
+		const borderColor = border.getColor(state);
+		if (borderColor != null) {
+			const borderAlpha = border.getAlpha(state);
+			if (0 < borderAlpha) {
+				const borderWidth = border.getWidth(state);
+				const borderMask = border.getMask(state);
+				const borderMesh = this.get(
+					base,
+					theme,
+					cornerRadius,
+					cornerHeight,
+					cornerMask,
+					borderWidth,
+					borderMask
+				);
+				const borderAlign = border.getAlign(state);
 				const borderOffset = borderAlign * borderWidth;
 				borderMesh.tint = borderColor;
 				borderMesh.alpha = borderAlpha;
@@ -84,8 +101,8 @@ export class DBaseBorderRenderable implements DRenderable {
 		}
 	}
 
-	render( renderer: PIXI.Renderer ): void {
-		this._mesh?.render( renderer );
+	render(renderer: PIXI.Renderer): void {
+		this._mesh?.render(renderer);
 	}
 
 	updateTransform(): void {

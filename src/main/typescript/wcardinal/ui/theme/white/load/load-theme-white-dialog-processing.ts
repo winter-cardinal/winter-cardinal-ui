@@ -8,6 +8,6 @@ import { DThemeWhiteDialogProcessing } from "../d-theme-white-dialog-processing"
 import { DThemeWhiteDialogProcessingMessage } from "../d-theme-white-dialog-processing-message";
 
 export const loadThemeWhiteDialogProcessing = (): void => {
-	DThemeWhite.set( "DDialogProcessing", DThemeWhiteDialogProcessing );
-	DThemeWhite.set( "DDialogProcessingMessage", DThemeWhiteDialogProcessingMessage );
+	DThemeWhite.set("DDialogProcessing", DThemeWhiteDialogProcessing);
+	DThemeWhite.set("DDialogProcessingMessage", DThemeWhiteDialogProcessingMessage);
 };

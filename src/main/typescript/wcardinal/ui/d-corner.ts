@@ -12,9 +12,9 @@ export interface DCornerLike {
 }
 
 export interface DCorner extends DCornerLike {
-	set( radius: number, mask: DCornerMask ): void;
+	set(radius: number, mask: DCornerMask): void;
 	getTheme(): DThemeBase;
-	setTheme( theme: DThemeBase ): void;
+	setTheme(theme: DThemeBase): void;
 	getRadius(): number;
 	getMask(): DCornerMask;
 }

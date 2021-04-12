@@ -10,14 +10,19 @@ import { createLineOfAnyUploaded } from "./create-line-of-any-uploaded";
 import { EShapeLineOfCirclesUploaded } from "./e-shape-line-of-circles-uploaded";
 
 export const createLineOfCirclesUploaded = (
-	buffer: EShapeBuffer, shape: EShape,
-	voffset: number, ioffset: number,
+	buffer: EShapeBuffer,
+	shape: EShape,
+	voffset: number,
+	ioffset: number,
 	antialiasWeight: number
 ): EShapeLineOfCirclesUploaded | null => {
 	return createLineOfAnyUploaded(
-		buffer, shape,
-		voffset, CIRCLE_VERTEX_COUNT,
-		ioffset, CIRCLE_INDEX_COUNT,
+		buffer,
+		shape,
+		voffset,
+		CIRCLE_VERTEX_COUNT,
+		ioffset,
+		CIRCLE_INDEX_COUNT,
 		antialiasWeight,
 		EShapeLineOfCirclesUploaded
 	);

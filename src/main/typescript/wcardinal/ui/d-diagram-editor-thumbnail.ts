@@ -1,3 +1,7 @@
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
 /**
  * {@link DDiagramEditorThumbnail} options.
@@ -16,7 +20,7 @@ export interface DThemeDiagramEditorThumbnail {
 }
 
 export interface DDiagramEditorThumbnailSnapshot {
-	createAsUrl( size: number ): string | undefined;
+	createAsUrl(size: number): string | undefined;
 }
 
 export class DDiagramEditorThumbnail {
@@ -24,7 +28,11 @@ export class DDiagramEditorThumbnail {
 	protected _isEnabled: boolean;
 	protected _size: number;
 
-	constructor( snapshot: DDiagramEditorThumbnailSnapshot, theme: DThemeDiagramEditorThumbnail, options: DDiagramEditorThumbnailOptions | undefined ) {
+	constructor(
+		snapshot: DDiagramEditorThumbnailSnapshot,
+		theme: DThemeDiagramEditorThumbnail,
+		options?: DDiagramEditorThumbnailOptions
+	) {
 		this._snapshot = snapshot;
 		this._isEnabled = options?.enable ?? theme.isThumbnailEnabled();
 		this._size = options?.size ?? theme.getThumbnailSize();
@@ -34,7 +42,7 @@ export class DDiagramEditorThumbnail {
 		return this._isEnabled;
 	}
 
-	set enable( enable: boolean ) {
+	set enable(enable: boolean) {
 		this._isEnabled = enable;
 	}
 
@@ -42,13 +50,13 @@ export class DDiagramEditorThumbnail {
 		return this._size;
 	}
 
-	set size( size: number ) {
+	set size(size: number) {
 		this._size = size;
 	}
 
 	serialize(): string | undefined {
-		if( this._isEnabled ) {
-			return this._snapshot.createAsUrl( this._size );
+		if (this._isEnabled) {
+			return this._snapshot.createAsUrl(this._size);
 		}
 	}
 }

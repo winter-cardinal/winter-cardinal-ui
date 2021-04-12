@@ -20,13 +20,16 @@ export abstract class EShapeLineOfAnyUploaded extends EShapeTextUploaded {
 
 	constructor(
 		buffer: EShapeBuffer,
-		voffset: number, ioffset: number,
-		tvcount: number, ticount: number,
-		vcount: number, icount: number,
+		voffset: number,
+		ioffset: number,
+		tvcount: number,
+		ticount: number,
+		vcount: number,
+		icount: number,
 		antialiasWeight: number,
 		pointCountReserved: number
 	) {
-		super( buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight );
+		super(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight);
 		this.pointId = -1;
 		this.pointCount = 0;
 		this.pointCountReserved = pointCountReserved;
@@ -36,30 +39,32 @@ export abstract class EShapeLineOfAnyUploaded extends EShapeTextUploaded {
 		this.pointStrokeId = -1;
 	}
 
-	isCompatible( shape: EShape ): boolean {
-		if( super.isCompatible( shape ) ) {
+	isCompatible(shape: EShape): boolean {
+		if (super.isCompatible(shape)) {
 			const points = shape.points;
-			const pointCount = toLineOfAnyPointCount( points ? points.length : 0 );
+			const pointCount = toLineOfAnyPointCount(points ? points.length : 0);
 			return pointCount === this.pointCountReserved;
 		}
 		return false;
 	}
 
 	protected updateLineOfAnyColorFill(
-		buffer: EShapeBuffer, shape: EShape,
-		points: EShapeLineOfAnyPoints, vcountPerPoint: number
+		buffer: EShapeBuffer,
+		shape: EShape,
+		points: EShapeLineOfAnyPoints,
+		vcountPerPoint: number
 	): void {
 		const pointFill = points.fill;
 		const pointFillId = pointFill.id;
-		const isPointFillChanged = ( pointFillId !== this.pointFillId );
+		const isPointFillChanged = pointFillId !== this.pointFillId;
 
 		const fill = shape.fill;
 		const isFillEnabled = shape.visible && fill.enable;
 		const colorFill = fill.color;
-		const alphaFill = (isFillEnabled ? fill.alpha : 0);
-		const isFillChanged = ( colorFill !== this.colorFill || alphaFill !== this.alphaFill );
+		const alphaFill = isFillEnabled ? fill.alpha : 0;
+		const isFillChanged = colorFill !== this.colorFill || alphaFill !== this.alphaFill;
 
-		if( isPointFillChanged || isFillChanged ) {
+		if (isPointFillChanged || isFillChanged) {
 			this.colorFill = colorFill;
 			this.alphaFill = alphaFill;
 			this.pointFillId = pointFillId;
@@ -78,20 +83,23 @@ export abstract class EShapeLineOfAnyUploaded extends EShapeTextUploaded {
 	}
 
 	protected updateLineOfAnyColorStroke(
-		buffer: EShapeBuffer, shape: EShape,
-		points: EShapeLineOfAnyPoints, vcountPerPoint: number
+		buffer: EShapeBuffer,
+		shape: EShape,
+		points: EShapeLineOfAnyPoints,
+		vcountPerPoint: number
 	): void {
 		const pointStroke = points.stroke;
 		const pointStrokeId = pointStroke.id;
-		const isPointStrokeChanged = ( pointStrokeId !== this.pointStrokeId );
+		const isPointStrokeChanged = pointStrokeId !== this.pointStrokeId;
 
 		const stroke = shape.stroke;
 		const isStrokeEnabled = shape.visible && stroke.enable;
 		const colorStroke = stroke.color;
-		const alphaStroke = (isStrokeEnabled ? stroke.alpha : 0);
-		const isStrokeChanged = ( colorStroke !== this.colorStroke || alphaStroke !== this.alphaStroke );
+		const alphaStroke = isStrokeEnabled ? stroke.alpha : 0;
+		const isStrokeChanged =
+			colorStroke !== this.colorStroke || alphaStroke !== this.alphaStroke;
 
-		if( isPointStrokeChanged || isStrokeChanged ) {
+		if (isPointStrokeChanged || isStrokeChanged) {
 			this.colorStroke = colorStroke;
 			this.alphaStroke = alphaStroke;
 			this.pointStrokeId = pointStrokeId;

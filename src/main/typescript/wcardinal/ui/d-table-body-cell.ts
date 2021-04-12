@@ -8,8 +8,12 @@ import { DBase } from "./d-base";
 import { DTableColumn } from "./d-table-column";
 
 export type DTableBodyCellOnChange<ROW, VALUE, EMITTER = any> = (
-	newValue: VALUE, oldValue: VALUE,
-	row: ROW, rowIndex: number, columnIndex: number, emitter: EMITTER
+	newValue: VALUE,
+	oldValue: VALUE,
+	row: ROW,
+	rowIndex: number,
+	columnIndex: number,
+	emitter: EMITTER
 ) => void;
 
 export interface DTableBodyCell<ROW, VALUE> extends DBase {
@@ -40,8 +44,11 @@ export interface DTableBodyCell<ROW, VALUE> extends DBase {
 	readonly column: DTableColumn<ROW, VALUE>;
 
 	set(
-		value: unknown, row: ROW, supplimental: unknown,
-		rowIndex: number, columnIndex: number,
+		value: unknown,
+		row: ROW,
+		supplimental: unknown,
+		rowIndex: number,
+		columnIndex: number,
 		forcibly?: boolean
 	): void;
 	unset(): void;
@@ -55,5 +62,5 @@ export interface DTableBodyCell<ROW, VALUE> extends DBase {
 	 * @param local
 	 * @return true to prevent the row selection
 	 */
-	onRowSelect?( e: interaction.InteractionEvent, local: Point ): boolean;
+	onRowSelect?(e: interaction.InteractionEvent, local: Point): boolean;
 }

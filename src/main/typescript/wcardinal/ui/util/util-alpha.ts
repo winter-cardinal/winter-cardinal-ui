@@ -4,8 +4,8 @@
  */
 
 export class UtilAlpha {
-	static blend( alphaA: number, alphaB: number, t: number ): number {
-		const w = Math.max( 0, Math.min( 1, t ) );
-		return Math.max( 0, Math.min( 1, alphaA * (1 - w) + alphaB * w ) );
+	static blend(alphaA: number, alphaB: number, t: number): number {
+		const w = Math.max(0, Math.min(1, t));
+		return Math.max(0, Math.min(1, alphaA * (1 - w) + alphaB * w));
 	}
 }

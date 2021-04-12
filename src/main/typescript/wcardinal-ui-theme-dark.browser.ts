@@ -9,9 +9,9 @@ dark.loadThemeDarkAll();
 
 const global = window as any;
 global.wcardinal = global.wcardinal || {};
-const dest = global.wcardinal.ui = global.wcardinal.ui || {};
+const dest = (global.wcardinal.ui = global.wcardinal.ui || {});
 
 const src = dark as any;
-for( const name in src ) {
-	dest[ name ] = src[ name ];
+for (const name in src) {
+	dest[name] = src[name];
 }

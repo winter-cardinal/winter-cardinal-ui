@@ -19,9 +19,7 @@ export interface DMenuItemMenuOptions<
 	menu: DMenuOptions<VALUE> | DMenu<VALUE>;
 }
 
-export interface DThemeMenuItemMenu extends DThemeMenuItem {
-
-}
+export interface DThemeMenuItemMenu extends DThemeMenuItem {}
 
 export class DMenuItemMenu<
 	VALUE = unknown,
@@ -30,38 +28,41 @@ export class DMenuItemMenu<
 > extends DMenuItem<VALUE, THEME, OPTIONS> {
 	protected _menu?: DMenu<VALUE>;
 
-	protected init( options: OPTIONS ): void {
-		super.init( options );
-		this.initHover( options );
+	protected init(options: OPTIONS): void {
+		super.init(options);
+		this.initHover(options);
 	}
 
-	protected initHover( options: OPTIONS ): void {
-		this.on( UtilPointerEvent.over, (): void => {
-			if( this.state.isActionable ) {
+	protected initHover(options: OPTIONS): void {
+		this.on(UtilPointerEvent.over, (): void => {
+			if (this.state.isActionable) {
 				this.open();
 			}
 		});
 	}
 
-	protected toMenu( options?: OPTIONS ): DMenu<VALUE> {
+	protected toMenu(options?: OPTIONS): DMenu<VALUE> {
 		const menu = options?.menu;
-		if( menu instanceof DisplayObject ) {
+		if (menu instanceof DisplayObject) {
 			return menu;
 		}
-		return this.newMenu( menu );
+		return this.newMenu(menu);
 	}
 
-	protected newMenu( options?: DMenuOptions<VALUE> ): DMenu<VALUE> {
-		return DMenus.newMenu( options );
+	protected newMenu(options?: DMenuOptions<VALUE>): DMenu<VALUE> {
+		return DMenus.newMenu(options);
 	}
 
 	get menu(): DMenu<VALUE> {
 		let result = this._menu;
-		if( result == null ) {
-			result = this.toMenu( this._options );
-			result.on( "select", ( value: VALUE, item: DMenuItem<VALUE>, menu: DMenu<VALUE> ): void => {
-				this.onMenuSelect( value, item, menu );
-			});
+		if (result == null) {
+			result = this.toMenu(this._options);
+			result.on(
+				"select",
+				(value: VALUE, item: DMenuItem<VALUE>, menu: DMenu<VALUE>): void => {
+					this.onMenuSelect(value, item, menu);
+				}
+			);
 			this._menu = result;
 		}
 		return result;
@@ -73,15 +74,15 @@ export class DMenuItemMenu<
 
 	open(): void {
 		const menu = this.menu;
-		if( menu.isHidden() ) {
-			this.onOpen( menu );
+		if (menu.isHidden()) {
+			this.onOpen(menu);
 		}
 	}
 
-	protected onOpen( menu: DMenu<VALUE> ): void {
+	protected onOpen(menu: DMenu<VALUE>): void {
 		const context = this.getContext();
-		if( context != null ) {
-			menu.open( this, this.getCloseable(), context );
+		if (context != null) {
+			menu.open(this, this.getCloseable(), context);
 		}
 	}
 
@@ -91,51 +92,56 @@ export class DMenuItemMenu<
 
 	toggle(): void {
 		const menu = this.menu;
-		if( menu.isHidden() ) {
-			this.onOpen( menu );
+		if (menu.isHidden()) {
+			this.onOpen(menu);
 		} else {
 			menu.close();
 		}
 	}
 
-	protected onSelect( e: KeyboardEvent | interaction.InteractionEvent ): void {
+	protected onSelect(e: KeyboardEvent | interaction.InteractionEvent): void {
 		this.open();
-		super.onSelect( e );
+		super.onSelect(e);
 	}
 
-	protected onMenuSelect( value: VALUE, item: DMenuItem<VALUE>, menu: DMenu<VALUE> ): void {
+	protected onMenuSelect(value: VALUE, item: DMenuItem<VALUE>, menu: DMenu<VALUE>): void {
 		const closeable = this.getCloseable();
-		if( closeable != null ) {
-			closeable.emit( "select", value, item, closeable );
+		if (closeable != null) {
+			closeable.emit("select", value, item, closeable);
 		}
 	}
 
-	onKeyDown( e: KeyboardEvent ): boolean {
-		if( UtilKeyboardEvent.isArrowRightKey( e ) ) {
-			this.onKeyDownArrowRight( e );
+	onKeyDown(e: KeyboardEvent): boolean {
+		if (UtilKeyboardEvent.isArrowRightKey(e)) {
+			this.onKeyDownArrowRight(e);
 		}
-		return super.onKeyDown( e );
+		return super.onKeyDown(e);
 	}
 
-	protected onKeyDownArrowRight( e: KeyboardEvent ): boolean {
-		if( this.state.isActionable && this.state.isFocused ) {
-			this.onSelect( e );
+	protected onKeyDownArrowRight(e: KeyboardEvent): boolean {
+		if (this.state.isActionable && this.state.isFocused) {
+			this.onSelect(e);
 			return true;
 		}
 		return false;
 	}
 
-	static isCompatible<VALUE>( options: DMenuItemOptionsUnion<VALUE> ): options is DMenuItemMenuOptions<VALUE> {
+	static isCompatible<VALUE>(
+		options: DMenuItemOptionsUnion<VALUE>
+	): options is DMenuItemMenuOptions<VALUE> {
 		return "menu" in options;
 	}
 
-	static toSubMenuOptions<VALUE>( options: DMenuItemMenuOptions<VALUE>, sticky: boolean ): DMenuItemMenuOptions<VALUE> {
+	static toSubMenuOptions<VALUE>(
+		options: DMenuItemMenuOptions<VALUE>,
+		sticky: boolean
+	): DMenuItemMenuOptions<VALUE> {
 		const menu = options.menu;
-		if( ! (menu instanceof DisplayObject) ) {
-			if( menu.sticky == null ) {
+		if (!(menu instanceof DisplayObject)) {
+			if (menu.sticky == null) {
 				menu.sticky = sticky;
 			}
-			if( menu.align == null ) {
+			if (menu.align == null) {
 				menu.align = DMenuAlign.RIGHT;
 			}
 		}

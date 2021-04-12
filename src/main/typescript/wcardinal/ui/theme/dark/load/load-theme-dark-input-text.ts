@@ -7,5 +7,5 @@ import { DThemeDark } from "../d-theme-dark";
 import { DThemeDarkInputText } from "../d-theme-dark-input-text";
 
 export const loadThemeDarkInputText = (): void => {
-	DThemeDark.set( "DInputText", DThemeDarkInputText );
+	DThemeDark.set("DInputText", DThemeDarkInputText);
 };

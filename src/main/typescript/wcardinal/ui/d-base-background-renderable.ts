@@ -17,22 +17,26 @@ export class DBaseBackgroundRenderable implements DRenderable {
 	}
 
 	protected get(
-		base: DBase, theme: DThemeBase,
-		cornerRadius: number, cornerHeight: number, cornerMask: DCornerMask
+		base: DBase,
+		theme: DThemeBase,
+		cornerRadius: number,
+		cornerHeight: number,
+		cornerMask: DCornerMask
 	): DBaseBackgroundMesh {
 		let result = this._mesh;
-		if( result == null ) {
+		if (result == null) {
 			result = new DBaseBackgroundMesh(
-				theme.getBackgroundTexture( cornerRadius ),
-				cornerHeight, cornerMask
+				theme.getBackgroundTexture(cornerRadius),
+				cornerHeight,
+				cornerMask
 			);
 			(result as any).parent = base;
 			this._mesh = result;
 			this._cornerRadius = cornerRadius;
 		}
-		if( this._cornerRadius !== cornerRadius ) {
+		if (this._cornerRadius !== cornerRadius) {
 			this._cornerRadius = cornerRadius;
-			result.texture = theme.getBackgroundTexture( cornerRadius );
+			result.texture = theme.getBackgroundTexture(cornerRadius);
 			result.borderSize = cornerHeight;
 		}
 		return result;
@@ -40,22 +44,33 @@ export class DBaseBackgroundRenderable implements DRenderable {
 
 	protected hide(): void {
 		const mesh = this._mesh;
-		if( mesh != null ) {
+		if (mesh != null) {
 			mesh.visible = false;
 		}
 	}
 
 	onReflow(
-		base: DBase, width: number, height: number,
-		theme: DThemeBase, state: DBaseStateSet,
-		cornerRadius: number, cornerHeight: number, cornerMask: DCornerMask
+		base: DBase,
+		width: number,
+		height: number,
+		theme: DThemeBase,
+		state: DBaseStateSet,
+		cornerRadius: number,
+		cornerHeight: number,
+		cornerMask: DCornerMask
 	): void {
 		const background = base.background;
-		const backgroundColor = background.getColor( state );
-		if( backgroundColor != null ) {
-			const backgroundAlpha = background.getAlpha( state );
-			if( 0 < backgroundAlpha ) {
-				const backgroundMesh = this.get( base, theme, cornerRadius, cornerHeight, cornerMask );
+		const backgroundColor = background.getColor(state);
+		if (backgroundColor != null) {
+			const backgroundAlpha = background.getAlpha(state);
+			if (0 < backgroundAlpha) {
+				const backgroundMesh = this.get(
+					base,
+					theme,
+					cornerRadius,
+					cornerHeight,
+					cornerMask
+				);
 				backgroundMesh.tint = backgroundColor;
 				backgroundMesh.alpha = backgroundAlpha;
 				backgroundMesh.width = width;
@@ -70,8 +85,8 @@ export class DBaseBackgroundRenderable implements DRenderable {
 		}
 	}
 
-	render( renderer: PIXI.Renderer ): void {
-		this._mesh?.render( renderer );
+	render(renderer: PIXI.Renderer): void {
+		this._mesh?.render(renderer);
 	}
 
 	updateTransform(): void {

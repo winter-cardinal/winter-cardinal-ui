@@ -3,23 +3,25 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DButtonBase, DButtonBaseEvents, DButtonBaseOptions, DThemeButtonBase } from "./d-button-base";
+import {
+	DButtonBase,
+	DButtonBaseEvents,
+	DButtonBaseOptions,
+	DThemeButtonBase
+} from "./d-button-base";
 import { DOnOptions } from "./d-on-options";
 
 /**
  * {@link DButton} events.
  */
-export interface DButtonEvents<VALUE, EMITTER> extends DButtonBaseEvents<VALUE, EMITTER> {
-
-}
+export interface DButtonEvents<VALUE, EMITTER> extends DButtonBaseEvents<VALUE, EMITTER> {}
 
 /**
  * {@link DButton} "on" options.
  */
 export interface DButtonOnOptions<VALUE, EMITTER>
-	extends Partial<DButtonEvents<VALUE, EMITTER>>, DOnOptions {
-
-}
+	extends Partial<DButtonEvents<VALUE, EMITTER>>,
+		DOnOptions {}
 
 /**
  * {@link DButton} options.
@@ -35,9 +37,7 @@ export interface DButtonOptions<
 /**
  * {@link DButton} theme.
  */
-export interface DThemeButton<VALUE = unknown> extends DThemeButtonBase<VALUE> {
-
-}
+export interface DThemeButton<VALUE = unknown> extends DThemeButtonBase<VALUE> {}
 
 /**
  * A button class.

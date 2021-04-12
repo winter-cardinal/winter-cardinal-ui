@@ -6,8 +6,8 @@ import { EShapeGroupViewer } from "./e-shape-group-viewer";
 export class EShapeEmbeddedLayer extends EShapeGroupViewer {
 	protected _name: string;
 
-	constructor( name: string, isEditMode: boolean, type = EShapeType.LAYER ) {
-		super( isEditMode, type );
+	constructor(name: string, isEditMode: boolean, type = EShapeType.LAYER) {
+		super(isEditMode, type);
 		this._name = name;
 	}
 
@@ -16,12 +16,12 @@ export class EShapeEmbeddedLayer extends EShapeGroupViewer {
 	}
 
 	clone(): EShapeEmbeddedLayer {
-		const result = this.newClone().copy( this );
+		const result = this.newClone().copy(this);
 		const children = this.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			const clone = children[ i ].clone();
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			const clone = children[i].clone();
 			clone.parent = result;
-			result.children.push( clone );
+			result.children.push(clone);
 		}
 		result.onChildTransformChange();
 		result.toDirty();
@@ -31,18 +31,18 @@ export class EShapeEmbeddedLayer extends EShapeGroupViewer {
 
 	protected newClone(): EShapeEmbeddedLayer {
 		const constructor = this.constructor as typeof EShapeEmbeddedLayer;
-		return new constructor(  this._name, this._isEditMode, this.type );
+		return new constructor(this._name, this._isEditMode, this.type);
 	}
 
-	serializeChildren( manager: EShapeResourceManagerSerialization ): DDiagramSerializedItem[] {
+	serializeChildren(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem[] {
 		return [];
 	}
 
-	serializeImage( manager: EShapeResourceManagerSerialization ): number {
+	serializeImage(manager: EShapeResourceManagerSerialization): number {
 		return -1;
 	}
 
-	serializeGradient( manager: EShapeResourceManagerSerialization ): number {
+	serializeGradient(manager: EShapeResourceManagerSerialization): number {
 		return -1;
 	}
 }

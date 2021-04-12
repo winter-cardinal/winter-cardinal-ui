@@ -4,12 +4,11 @@
  */
 
 import { utils } from "pixi.js";
-import {
-	DTableDataComparatorFunction, DTableDataComparatorObject,
-	DTableDataOrder, DTableDataSorter
-} from "./d-table-data-sorter";
+import { DTableDataComparator, DTableDataOrder, DTableDataSorter } from "./d-table-data-sorter";
 
-export class DTableDataTreeSorter<NODE> extends utils.EventEmitter implements DTableDataSorter<NODE> {
+export class DTableDataTreeSorter<NODE>
+	extends utils.EventEmitter
+	implements DTableDataSorter<NODE> {
 	constructor() {
 		super();
 	}
@@ -22,7 +21,7 @@ export class DTableDataTreeSorter<NODE> extends utils.EventEmitter implements DT
 		return DTableDataOrder.ASCENDING;
 	}
 
-	set order( order: DTableDataOrder ) {
+	set order(order: DTableDataOrder) {
 		// DO NOTHING
 	}
 
@@ -38,11 +37,11 @@ export class DTableDataTreeSorter<NODE> extends utils.EventEmitter implements DT
 		return false;
 	}
 
-	get(): DTableDataComparatorFunction<NODE> | DTableDataComparatorObject<NODE> | null {
+	get(): DTableDataComparator<NODE> | null {
 		return null;
 	}
 
-	set( comparator: DTableDataComparatorFunction<NODE> | DTableDataComparatorObject<NODE> | null ): void {
+	set(comparator: DTableDataComparator<NODE> | null): void {
 		// DO NOTHING
 	}
 
@@ -58,11 +57,11 @@ export class DTableDataTreeSorter<NODE> extends utils.EventEmitter implements DT
 		return null;
 	}
 
-	map( unmappedIndex: number ): number | null {
+	map(unmappedIndex: number): number | null {
 		return unmappedIndex;
 	}
 
-	unmap( index: number ): number {
+	unmap(index: number): number {
 		return index;
 	}
 }

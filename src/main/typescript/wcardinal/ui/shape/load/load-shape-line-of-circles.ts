@@ -10,6 +10,6 @@ import { createLineOfCirclesUploaded } from "../variant/create-line-of-circles-u
 import { deserializeLineOfCircles } from "../variant/deserialize-line-of-circles";
 
 export const loadShapeLineOfCircles = (): void => {
-	EShapeUploadeds[ EShapeType.LINE_OF_CIRCLES ] = createLineOfCirclesUploaded;
-	EShapeDeserializers[ EShapeType.LINE_OF_CIRCLES ] = deserializeLineOfCircles;
+	EShapeUploadeds[EShapeType.LINE_OF_CIRCLES] = createLineOfCirclesUploaded;
+	EShapeDeserializers[EShapeType.LINE_OF_CIRCLES] = deserializeLineOfCircles;
 };

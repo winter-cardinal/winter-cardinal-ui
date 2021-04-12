@@ -7,5 +7,5 @@ import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteView } from "../d-theme-white-view";
 
 export const loadThemeWhiteView = (): void => {
-	DThemeWhite.set( "DView", DThemeWhiteView );
+	DThemeWhite.set("DView", DThemeWhiteView);
 };

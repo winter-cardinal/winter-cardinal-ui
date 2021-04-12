@@ -3,7 +3,7 @@ export interface DChartCoordinateTransformMark {
 	oldScale: number;
 	newTranslate: number;
 	newScale: number;
-	set( translate?: number, scale?: number ): void;
+	set(translate?: number, scale?: number): void;
 }
 
 export class DChartCoordinateTransformMarkImpl implements DChartCoordinateTransformMark {
@@ -19,12 +19,12 @@ export class DChartCoordinateTransformMarkImpl implements DChartCoordinateTransf
 		this.newScale = 1;
 	}
 
-	set( translate?: number | undefined, scale?: number | undefined ): void {
-		if( translate != null ) {
+	set(translate?: number | undefined, scale?: number | undefined): void {
+		if (translate != null) {
 			this.newTranslate = translate;
 		}
 
-		if( scale != null ) {
+		if (scale != null) {
 			this.newScale = scale;
 		}
 	}

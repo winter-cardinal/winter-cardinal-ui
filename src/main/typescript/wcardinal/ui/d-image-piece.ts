@@ -15,9 +15,9 @@ export interface DImagePieceTintOptions {
 }
 
 export interface DImagePieceAlignOptions {
-	with?: (keyof typeof DAlignWith) | DAlignWith;
-	vertical?: (keyof typeof DAlignVertical) | DAlignVertical;
-	horizontal?: (keyof typeof DAlignHorizontal) | DAlignHorizontal;
+	with?: keyof typeof DAlignWith | DAlignWith;
+	vertical?: keyof typeof DAlignVertical | DAlignVertical;
+	horizontal?: keyof typeof DAlignHorizontal | DAlignHorizontal;
 }
 
 export interface DImagePieceMarginOptions {
@@ -50,8 +50,8 @@ export interface DImagePieceTextAlign {
 
 export interface DImagePieceParent extends DApplicationTarget {
 	readonly state: DBaseStateSet;
-	addChild( displayObject: DisplayObject ): void;
-	removeChild( displayObject: DisplayObject ): void;
+	addChild(displayObject: DisplayObject): void;
+	removeChild(displayObject: DisplayObject): void;
 	toDirty(): void;
 	getOverflowMask(): Graphics | null;
 }
@@ -62,25 +62,28 @@ export interface DThemeImagePiece {
 	getImageAlignWith(): DAlignWith;
 	getImageMarginHorizontal(): number;
 	getImageMarginVertial(): number;
-	getImageTintColor( state: DBaseStateSet ): number | null;
-	getImageTintAlpha( state: DBaseStateSet ): number;
-	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null;
+	getImageTintColor(state: DBaseStateSet): number | null;
+	getImageTintAlpha(state: DBaseStateSet): number;
+	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null;
 }
 
-const toImageAlign = ( theme: DThemeImagePiece, options?: DImagePieceOptions ): DImagePieceAlign => {
+const toImageAlign = (theme: DThemeImagePiece, options?: DImagePieceOptions): DImagePieceAlign => {
 	const align = options?.align;
 	return {
-		with: toEnum( align?.with ?? theme.getImageAlignWith(), DAlignWith ),
-		vertical: toEnum( align?.vertical ?? theme.getImageAlignVertical(), DAlignVertical ),
-		horizontal: toEnum( align?.horizontal ?? theme.getImageAlignHorizontal(), DAlignHorizontal )
+		with: toEnum(align?.with ?? theme.getImageAlignWith(), DAlignWith),
+		vertical: toEnum(align?.vertical ?? theme.getImageAlignVertical(), DAlignVertical),
+		horizontal: toEnum(align?.horizontal ?? theme.getImageAlignHorizontal(), DAlignHorizontal)
 	};
 };
 
-const toImageMargin = ( theme: DThemeImagePiece, options?: DImagePieceOptions ): DImagePieceMargin => {
+const toImageMargin = (
+	theme: DThemeImagePiece,
+	options?: DImagePieceOptions
+): DImagePieceMargin => {
 	const margin = options?.margin;
 	return {
-		vertical: ( margin?.vertical ?? theme.getImageMarginVertial() ),
-		horizontal: ( margin?.horizontal ?? theme.getImageMarginHorizontal() )
+		vertical: margin?.vertical ?? theme.getImageMarginVertial(),
+		horizontal: margin?.horizontal ?? theme.getImageMarginHorizontal()
 	};
 };
 
@@ -110,8 +113,8 @@ export class DImagePiece {
 		this._textAlign = textAlign;
 
 		this._image = null;
-		this._align = toImageAlign( theme, options );
-		this._margin = toImageMargin( theme, options );
+		this._align = toImageAlign(theme, options);
+		this._margin = toImageMargin(theme, options);
 		this._tint = options?.tint;
 		this._bound = new Rectangle();
 		this._source = options?.source;
@@ -142,8 +145,8 @@ export class DImagePiece {
 		return this._source;
 	}
 
-	set source( source: DStateAwareOrValueMightBe<Texture | DisplayObject | null> ) {
-		if( this._source !== source ) {
+	set source(source: DStateAwareOrValueMightBe<Texture | DisplayObject | null>) {
+		if (this._source !== source) {
 			this._source = source;
 			this.onUpdate();
 		}
@@ -151,29 +154,29 @@ export class DImagePiece {
 
 	protected computeSource(): Texture | DisplayObject | null {
 		const source = this._source;
-		if( source !== undefined ) {
-			if( isFunction( source ) ) {
-				const result = source( this._parent.state );
-				if( result !== undefined ) {
+		if (source !== undefined) {
+			if (isFunction(source)) {
+				const result = source(this._parent.state);
+				if (result !== undefined) {
 					return result;
 				}
 			} else {
 				return source;
 			}
 		}
-		return this._theme.getImageSource( this._parent.state );
+		return this._theme.getImageSource(this._parent.state);
 	}
 
-	onStateChange( newState: DBaseStateSet, oldState: DBaseStateSet ): void {
+	onStateChange(newState: DBaseStateSet, oldState: DBaseStateSet): void {
 		this.updateTint();
 	}
 
 	updateBound(): void {
 		const bound = this._bound;
 		const image = this._image;
-		if( image != null ) {
+		if (image != null) {
 			image.updateTransform();
-			image.getLocalBounds( bound );
+			image.getLocalBounds(bound);
 			const bl = bound.left;
 			const bt = bound.top;
 			const br = bound.right;
@@ -194,10 +197,10 @@ export class DImagePiece {
 			const x3 = a * bl + c * bb;
 			const y3 = b * bl + d * bb;
 
-			const xmin = Math.min( x0, x1, x2, x3 );
-			const xmax = Math.max( x0, x1, x2, x3 );
-			const ymin = Math.min( y0, y1, y2, y3 );
-			const ymax = Math.max( y0, y1, y2, y3 );
+			const xmin = Math.min(x0, x1, x2, x3);
+			const xmax = Math.max(x0, x1, x2, x3);
+			const ymin = Math.min(y0, y1, y2, y3);
+			const ymax = Math.max(y0, y1, y2, y3);
 
 			bound.x = xmin + localTransform.tx;
 			bound.y = ymin + localTransform.ty;
@@ -211,18 +214,20 @@ export class DImagePiece {
 		}
 	}
 
-	protected isTintAware( target: DisplayObject | null ): target is DisplayObject & { tint: number } {
-		return ( target != null && "tint" in target );
+	protected isTintAware(
+		target: DisplayObject | null
+	): target is DisplayObject & { tint: number } {
+		return target != null && "tint" in target;
 	}
 
-	protected toTintColor( theme: DThemeImagePiece, state: DBaseStateSet ): number | null {
+	protected toTintColor(theme: DThemeImagePiece, state: DBaseStateSet): number | null {
 		const tint = this._tint;
-		if( tint ) {
+		if (tint) {
 			const color = tint.color;
-			if( color !== undefined ) {
-				if( isFunction( color ) ) {
-					const result = color( state );
-					if( result !== undefined ) {
+			if (color !== undefined) {
+				if (isFunction(color)) {
+					const result = color(state);
+					if (result !== undefined) {
 						return result;
 					}
 				} else {
@@ -230,17 +235,17 @@ export class DImagePiece {
 				}
 			}
 		}
-		return theme.getImageTintColor( state );
+		return theme.getImageTintColor(state);
 	}
 
-	protected toTintAlpha( theme: DThemeImagePiece, state: DBaseStateSet ): number {
+	protected toTintAlpha(theme: DThemeImagePiece, state: DBaseStateSet): number {
 		const tint = this._tint;
-		if( tint ) {
+		if (tint) {
 			const alpha = tint.alpha;
-			if( alpha !== undefined ) {
-				if( isFunction( alpha ) ) {
-					const result = alpha( state );
-					if( result !== undefined ) {
+			if (alpha !== undefined) {
+				if (isFunction(alpha)) {
+					const result = alpha(state);
+					if (result !== undefined) {
 						return result;
 					}
 				} else {
@@ -248,7 +253,7 @@ export class DImagePiece {
 				}
 			}
 		}
-		return theme.getImageTintAlpha( state );
+		return theme.getImageTintAlpha(state);
 	}
 
 	/**
@@ -258,19 +263,19 @@ export class DImagePiece {
 	 */
 	updateTint(): boolean {
 		const image = this._image;
-		if( image ) {
-			if( this.isTintAware( image ) ) {
+		if (image) {
+			if (this.isTintAware(image)) {
 				const theme = this._theme;
 				const state = this._parent.state;
-				const color = this.toTintColor( theme, state );
-				if( color != null ) {
+				const color = this.toTintColor(theme, state);
+				if (color != null) {
 					let result = false;
-					if( image.tint !== color ) {
+					if (image.tint !== color) {
 						image.tint = color;
 						result = true;
 					}
-					const alpha = this.toTintAlpha( theme, state );
-					if( image.alpha !== alpha ) {
+					const alpha = this.toTintAlpha(theme, state);
+					if (image.alpha !== alpha) {
 						image.alpha = alpha;
 						result = true;
 					}
@@ -289,50 +294,50 @@ export class DImagePiece {
 	updateSource(): boolean {
 		const newComputed = this.computeSource();
 		const oldComputed = this._computed;
-		if( newComputed !== oldComputed ) {
+		if (newComputed !== oldComputed) {
 			this._computed = newComputed;
 
 			const parent = this._parent;
 			const oldImage = this._image;
 			const onUpdateBound = this._onUpdateBound;
-			if( newComputed instanceof Texture ) {
-				if( oldComputed instanceof Texture ) {
-					oldComputed.off( "update", onUpdateBound );
-					if( oldImage instanceof Sprite ) {
+			if (newComputed instanceof Texture) {
+				if (oldComputed instanceof Texture) {
+					oldComputed.off("update", onUpdateBound);
+					if (oldImage instanceof Sprite) {
 						oldImage.texture = newComputed;
-						newComputed.on( "update", onUpdateBound );
+						newComputed.on("update", onUpdateBound);
 					}
 				} else {
-					if( oldImage != null ) {
-						parent.removeChild( oldImage );
+					if (oldImage != null) {
+						parent.removeChild(oldImage);
 					}
 
-					const newImage = new Sprite( newComputed );
+					const newImage = new Sprite(newComputed);
 					const overflowMask = parent.getOverflowMask();
-					if( overflowMask ) {
+					if (overflowMask) {
 						newImage.mask = overflowMask;
 					}
-					newComputed.on( "update", onUpdateBound );
-					parent.addChild( newImage );
+					newComputed.on("update", onUpdateBound);
+					parent.addChild(newImage);
 					this._image = newImage;
 				}
 			} else {
-				if( oldComputed instanceof Texture ) {
-					oldComputed.off( "update", onUpdateBound );
-					if( oldImage != null ) {
-						parent.removeChild( oldImage );
+				if (oldComputed instanceof Texture) {
+					oldComputed.off("update", onUpdateBound);
+					if (oldImage != null) {
+						parent.removeChild(oldImage);
 						oldImage.destroy();
 					}
-				} else if( oldImage != null ) {
-					parent.removeChild( oldImage );
+				} else if (oldImage != null) {
+					parent.removeChild(oldImage);
 				}
 
-				if( newComputed != null ) {
+				if (newComputed != null) {
 					const overflowMask = parent.getOverflowMask();
-					if( overflowMask ) {
+					if (overflowMask) {
 						newComputed.mask = overflowMask;
 					}
-					parent.addChild( newComputed );
+					parent.addChild(newComputed);
 				}
 				this._image = newComputed;
 			}
@@ -341,17 +346,17 @@ export class DImagePiece {
 		return false;
 	}
 
-	isRefitable( target: any ): boolean {
-		return ( target != null && target === this._image );
+	isRefitable(target: any): boolean {
+		return target != null && target === this._image;
 	}
 
 	destroy(): void {
 		const image = this._image;
-		if( image ) {
+		if (image) {
 			this._image = null;
 			const computed = this._computed;
-			if( computed instanceof Texture ) {
-				computed.off( "update", this._onUpdateBound, this );
+			if (computed instanceof Texture) {
+				computed.off("update", this._onUpdateBound, this);
 				image.destroy();
 			}
 		}
@@ -359,6 +364,6 @@ export class DImagePiece {
 
 	protected onUpdate(): void {
 		this._parent.toDirty();
-		DApplications.update( this._parent );
+		DApplications.update(this._parent);
 	}
 }

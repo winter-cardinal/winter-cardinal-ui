@@ -20,13 +20,13 @@ export const DDiagramSerializedVersion: number = 1;
  */
 export interface DDiagramSerializedTagRange {
 	/** A type. */
-	[ 0 ]: number;
+	[0]: number;
 
 	/** A lower bound. */
-	[ 1 ]: number;
+	[1]: number;
 
 	/** An upper bound. */
-	[ 2 ]: number;
+	[2]: number;
 }
 
 /**
@@ -37,35 +37,35 @@ export interface DDiagramSerializedTagValue {
 	 * A resource index number of an ID.
 	 * Stored at DDiagramSerialized#resources.
 	 */
-	[ 0 ]: number;
+	[0]: number;
 
 	/**
 	 * A resource index number of an initial value expression.
 	 * Stored at DDiagramSerialized#resources.
 	 */
-	[ 1 ]: number;
+	[1]: number;
 
 	/**
 	 * A resource index number of a format expression.
 	 * Stored at DDiagramSerialized#resources.
 	 */
-	[ 2 ]: number;
+	[2]: number;
 
 	/**
 	 * A resource index number of a serialized range, JSON.stringify(DDiagramSerializedTagRange).
 	 * Stored at DDiagramSerialized#resources.
 	 */
-	[ 3 ]: number;
+	[3]: number;
 
 	/**
 	 * A capacity.
 	 */
-	[ 4 ]: number;
+	[4]: number;
 
 	/**
 	 * A order.
 	 */
-	[ 5 ]: EShapeTagValueOrder;
+	[5]: EShapeTagValueOrder;
 }
 
 /**
@@ -73,13 +73,13 @@ export interface DDiagramSerializedTagValue {
  */
 export interface DDiagramSerializedFill {
 	/** 0: Enabled, 1: Disabled */
-	[ 0 ]: number;
+	[0]: number;
 
 	/** A color. */
-	[ 1 ]: number;
+	[1]: number;
 
 	/** An alpha. */
-	[ 2 ]: number;
+	[2]: number;
 }
 
 /**
@@ -87,22 +87,22 @@ export interface DDiagramSerializedFill {
  */
 export interface DDiagramSerializedStroke {
 	/** 0: Enabled, 1: Disabled */
-	[ 0 ]: number;
+	[0]: number;
 
 	/** A color. */
-	[ 1 ]: number;
+	[1]: number;
 
 	/** An alpha. */
-	[ 2 ]: number;
+	[2]: number;
 
 	/** A width. */
-	[ 3 ]: number;
+	[3]: number;
 
 	/** An align. */
-	[ 4 ]: number;
+	[4]: number;
 
 	/** A side. */
-	[ 5 ]: EShapeStrokeSide;
+	[5]: EShapeStrokeSide;
 }
 
 /**
@@ -110,16 +110,16 @@ export interface DDiagramSerializedStroke {
  */
 export interface DDiagramSerializedTextOutline {
 	/** 0: Enabled, 1: Diabled */
-	[ 0 ]: number;
+	[0]: number;
 
 	/** A color. */
-	[ 1 ]: number;
+	[1]: number;
 
 	/** An alpha. */
-	[ 2 ]: number;
+	[2]: number;
 
 	/** A width. */
-	[ 3 ]: number;
+	[3]: number;
 }
 
 /**
@@ -127,10 +127,10 @@ export interface DDiagramSerializedTextOutline {
  */
 export interface DDiagramSerializedTextAlign {
 	/** A horizontal align. */
-	[ 0 ]: EShapeTextAlignHorizontal;
+	[0]: EShapeTextAlignHorizontal;
 
 	/** A vertical align. */
-	[ 1 ]: EShapeTextAlignVertical;
+	[1]: EShapeTextAlignVertical;
 }
 
 /**
@@ -138,10 +138,10 @@ export interface DDiagramSerializedTextAlign {
  */
 export interface DDiagramSerializedTextOffset {
 	/** A horizontal offset. */
-	[ 0 ]: number;
+	[0]: number;
 
 	/** A vertical offset. */
-	[ 1 ]: number;
+	[1]: number;
 }
 
 /**
@@ -149,10 +149,10 @@ export interface DDiagramSerializedTextOffset {
  */
 export interface DDiagramSerializedTextSpacing {
 	/** A horizontal spacing. */
-	[ 0 ]: number;
+	[0]: number;
 
 	/** A vertical spacing. */
-	[ 1 ]: number;
+	[1]: number;
 }
 
 /**
@@ -160,10 +160,10 @@ export interface DDiagramSerializedTextSpacing {
  */
 export interface DDiagramSerializedTextPadding {
 	/** A horizontal padding. */
-	[ 0 ]: number;
+	[0]: number;
 
 	/** A vertical padding. */
-	[ 1 ]: number;
+	[1]: number;
 }
 
 /**
@@ -171,61 +171,61 @@ export interface DDiagramSerializedTextPadding {
  */
 export interface DDiagramSerializedText {
 	/** A resource index number of a value. */
-	[ 0 ]: number;
+	[0]: number;
 
 	/** A color. */
-	[ 1 ]: number;
+	[1]: number;
 
 	/** An alpha. */
-	[ 2 ]: number;
+	[2]: number;
 
 	/** A resource index number of a font family. */
-	[ 3 ]: number;
+	[3]: number;
 
 	/** A size. */
-	[ 4 ]: number;
+	[4]: number;
 
 	/** A weight. */
-	[ 5 ]: EShapeTextWeight;
+	[5]: EShapeTextWeight;
 
 	/**
 	 * A resource index number of a stringified serialized align,
 	 * JSON.stringify(DDiagramSerializedTextAlign).
 	 */
-	[ 6 ]: number;
+	[6]: number;
 
 	/**
 	 * A resource index number of a stringified serialized offset,
 	 * JSON.stringify(DDiagramSerializedTextOffset).
 	 */
-	[ 7 ]: number;
+	[7]: number;
 
 	/** A style. */
-	[ 8 ]: EShapeTextStyle;
+	[8]: EShapeTextStyle;
 
 	/**
 	 * A resource index number of a stringified serialized outline,
 	 * JSON.stringify(DDiagramSerializedTextOutline).
 	 */
-	[ 9 ]: number;
+	[9]: number;
 
 	/**
 	 * A resource index number of a stringified serialized spacing,
 	 * JSON.stringify(DDiagramSerializedTextSpacing).
 	 */
-	[ 10 ]: number;
+	[10]: number;
 
 	/** A direction. */
-	[ 11 ]: EShapeTextDirection;
+	[11]: EShapeTextDirection;
 
 	/**
 	 * A resource index number of a stringified serialized padding,
 	 * JSON.stringify(DDiagramSerializedTextPadding).
 	 */
-	[ 12 ]: number;
+	[12]: number;
 
 	/** A clipping. (0: Off, 1: On) */
-	[ 13 ]: number;
+	[13]: number;
 }
 
 /**
@@ -233,73 +233,73 @@ export interface DDiagramSerializedText {
  */
 export interface DDiagramSerializedItem {
 	/** A type. */
-	[ 0 ]: EShapeType;
+	[0]: EShapeType;
 
 	/** A resource index number of a ID. */
-	[ 1 ]: number;
+	[1]: number;
 
 	/** A X-coordinate position. */
-	[ 2 ]: number;
+	[2]: number;
 
 	/** A Y-coordinate position. */
-	[ 3 ]: number;
+	[3]: number;
 
 	/** A width. */
-	[ 4 ]: number;
+	[4]: number;
 
 	/** A height. */
-	[ 5 ]: number;
+	[5]: number;
 
 	/** A rotation. */
-	[ 6 ]: number;
+	[6]: number;
 
 	/** A skew. */
-	[ 7 ]: number;
+	[7]: number;
 
 	/**
 	 * A resource index number of a stringified serialized fill,
 	 * JSON.stringify(DDiagramSerializedFill).
 	 */
-	[ 8 ]: number;
+	[8]: number;
 
 	/**
 	 * A resource index number of a stringified serialized stroke,
 	 * JSON.stringify(DDiagramSerializedStroke).
 	 */
-	[ 9 ]: number;
+	[9]: number;
 
 	/** A resource index number of a cursor. */
-	[ 10 ]: number;
+	[10]: number;
 
 	/**
 	 * A resource index number of a stringified serialized text,
 	 * JSON.stringify(DDiagramSerializedText).
 	 */
-	[ 11 ]: number;
+	[11]: number;
 
 	/**
 	 * A resource index number of stringified serialized tags,
 	 * JSON.stringify(DDiagramSerializedTagValue[]).
 	 */
-	[ 12 ]: number;
+	[12]: number;
 
 	/** A radius. */
-	[ 13 ]: number;
+	[13]: number;
 
 	/** A corner. */
-	[ 14 ]: EShapeCorner;
+	[14]: EShapeCorner;
 
 	/** A resource index number of a shape-specific resource. */
-	[ 15 ]: number;
+	[15]: number;
 
 	/** A layer index number. */
-	[ 16 ]: number;
+	[16]: number;
 
 	/** Actions */
-	[ 17 ]: number[];
+	[17]: number[];
 
 	/** A resource index number of an image. */
-	[ 18 ]: number;
+	[18]: number;
 
 	/**
 	 * A resource index number of a stringified serialized gradient.
@@ -311,28 +311,28 @@ export interface DDiagramSerializedItem {
 	 * * The number at an index number 1 + 3 * n + 1 is a alpha of a n-th point.
 	 * * The number at an index number 1 + 3 * n + 2 is a position of a n-th point whose range is [0, 1].
 	 */
-	[ 19 ]: number;
+	[19]: number;
 
 	/** A children. */
-	[ 20 ]: DDiagramSerializedItem[];
+	[20]: DDiagramSerializedItem[];
 
 	/** A X pivot. */
-	[ 21 ]: number;
+	[21]: number;
 
 	/** A Y pivot. */
-	[ 22 ]: number;
+	[22]: number;
 
 	/** (interactive ? 1 : 0) | (unfocusable ? 2 : 0) */
-	[ 23 ]: number;
+	[23]: number;
 
 	/** A resource index number of a shortcut. */
-	[ 24 ]: number;
+	[24]: number;
 
 	/** A resource index number of a title. */
-	[ 25 ]: number;
+	[25]: number;
 
 	/** UUID */
-	[ 26 ]: number;
+	[26]: number;
 }
 
 /**
@@ -340,7 +340,7 @@ export interface DDiagramSerializedItem {
  */
 export interface DDiagramSerializedLayer {
 	/** A name. */
-	[ 0 ]: string;
+	[0]: string;
 }
 
 /**
@@ -348,10 +348,10 @@ export interface DDiagramSerializedLayer {
  */
 export interface DDiagramSerializedSnapTargetValue {
 	/** A type (0: Horizontal, 1: Vertical). */
-	[ 0 ]: number;
+	[0]: number;
 
 	/** A position. */
-	[ 1 ]: number;
+	[1]: number;
 }
 
 /**
@@ -359,13 +359,13 @@ export interface DDiagramSerializedSnapTargetValue {
  */
 export interface DDiagramSerializedSnapTarget {
 	/** Snap on guide (0: Off, 1: On) */
-	[ 0 ]: number;
+	[0]: number;
 
 	/** A visibility (0: Invisible, 1: Visible). */
-	[ 1 ]: number;
+	[1]: number;
 
 	/** Snap targets. */
-	[ 2 ]: DDiagramSerializedSnapTargetValue[];
+	[2]: DDiagramSerializedSnapTargetValue[];
 }
 
 /**
@@ -373,10 +373,10 @@ export interface DDiagramSerializedSnapTarget {
  */
 export interface DDiagramSerializedSnapGridWithoutVisibility {
 	/** Snap on grid (0: Off, 1: On) */
-	[ 0 ]: number;
+	[0]: number;
 
 	/** A grid size. */
-	[ 1 ]: number;
+	[1]: number;
 }
 
 /**
@@ -384,32 +384,34 @@ export interface DDiagramSerializedSnapGridWithoutVisibility {
  */
 export interface DDiagramSerializedSnapGridWithVisibility {
 	/** Snap on grid (0: Off, 1: On) */
-	[ 0 ]: number;
+	[0]: number;
 
 	/** A visibility (0: Invisible, 1: Visible). */
-	[ 1 ]: number;
+	[1]: number;
 
 	/** A grid size. */
-	[ 2 ]: number;
+	[2]: number;
 }
 
 /**
  * Serialized grid snap settings with a visibility.
  */
-export type DDiagramSerializedSnapGrid = DDiagramSerializedSnapGridWithoutVisibility | DDiagramSerializedSnapGridWithVisibility;
+export type DDiagramSerializedSnapGrid =
+	| DDiagramSerializedSnapGridWithoutVisibility
+	| DDiagramSerializedSnapGridWithVisibility;
 
 /**
  * Serialized snap settings.
  */
 export interface DDiagramSerializedSnap {
 	/** Snap (0: Off, 1: On). */
-	[ 0 ]: number;
+	[0]: number;
 
 	/** Snap on targets */
-	[ 1 ]: DDiagramSerializedSnapTarget;
+	[1]: DDiagramSerializedSnapTarget;
 
 	/** Snap on grid */
-	[ 2 ]: DDiagramSerializedSnapGrid;
+	[2]: DDiagramSerializedSnapGrid;
 }
 
 /**
@@ -430,7 +432,7 @@ export interface DDiagramSerializedTile {
 /**
  * A serialized diagram.
  */
-export interface DDiagramSerialized  {
+export interface DDiagramSerialized {
 	version: number;
 	id?: number;
 	name: string;

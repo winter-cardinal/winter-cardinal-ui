@@ -14,8 +14,10 @@ export interface DChartSeriesStrokeOptions {
 	width?: number | number[] | DChartSeriesScalar<number>;
 	align?: number | number[] | DChartSeriesScalar<number>;
 	side: EShapeStrokeSide | EShapeStrokeSide[] | DChartSeriesScalar<EShapeStrokeSide>;
-	style?: EShapePointsStyleOption | EShapePointsStyleOption[] |
-		DChartSeriesScalar<EShapePointsStyleOption>;
+	style?:
+		| EShapePointsStyleOption
+		| EShapePointsStyleOption[]
+		| DChartSeriesScalar<EShapePointsStyleOption>;
 }
 
 export interface DChartSeriesStroke {

@@ -9,7 +9,7 @@ import { DThemeWhiteInputBooleanButtonOff } from "../d-theme-white-input-boolean
 import { DThemeWhiteInputBooleanButtonOn } from "../d-theme-white-input-boolean-button-on";
 
 export const loadThemeWhiteInputBoolean = (): void => {
-	DThemeWhite.set( "DInputBoolean", DThemeWhiteInputBoolean );
-	DThemeWhite.set( "DInputBooleanButtonOn", DThemeWhiteInputBooleanButtonOn );
-	DThemeWhite.set( "DInputBooleanButtonOff", DThemeWhiteInputBooleanButtonOff );
+	DThemeWhite.set("DInputBoolean", DThemeWhiteInputBoolean);
+	DThemeWhite.set("DInputBooleanButtonOn", DThemeWhiteInputBooleanButtonOn);
+	DThemeWhite.set("DInputBooleanButtonOff", DThemeWhiteInputBooleanButtonOff);
 };

@@ -12,8 +12,8 @@ export class DMenuSidedItemExpandableItemMenu<
 	THEME extends DThemeMenuItemMenu = DThemeMenuItemMenu,
 	OPTIONS extends DMenuItemMenuOptions<VALUE, THEME> = DMenuItemMenuOptions<VALUE, THEME>
 > extends DMenuItemExpandableItemMenu<VALUE, THEME, OPTIONS> {
-	protected onOpen( menu: DMenu<VALUE> ): void {
-		menu.open( this, this );
+	protected onOpen(menu: DMenu<VALUE>): void {
+		menu.open(this, this);
 	}
 
 	protected getType(): string {

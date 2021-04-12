@@ -18,7 +18,7 @@ export interface DDiagramTagDiagram {
  * @param tag a tag
  * @returns a mapped tag
  */
-export type DDiagramTagMapper = ( tag: EShapeTagValue, shape: EShape ) => void;
+export type DDiagramTagMapper = (tag: EShapeTagValue, shape: EShape) => void;
 
 export interface DDiagramTagOptions {
 	/**
@@ -40,10 +40,10 @@ export class DDiagramTag {
 	protected _mapper: DDiagramTagMapper | null;
 	protected _remote: DDiagramTagRemote;
 
-	constructor( diagram: DDiagramTagDiagram, options?: DDiagramTagOptions ) {
+	constructor(diagram: DDiagramTagDiagram, options?: DDiagramTagOptions) {
 		this._diagram = diagram;
 		this._mapper = (options && options.mapper) || null;
-		this._remote = new DDiagramTagRemote( options && options.remote );
+		this._remote = new DDiagramTagRemote(options && options.remote);
 	}
 
 	update(): void {
@@ -54,7 +54,7 @@ export class DDiagramTag {
 		return this._mapper;
 	}
 
-	set mapper( mapper: DDiagramTagMapper | null ) {
+	set mapper(mapper: DDiagramTagMapper | null) {
 		this._mapper = mapper;
 	}
 
@@ -64,18 +64,18 @@ export class DDiagramTag {
 
 	getIds(): string[] {
 		const canvas = this._diagram.canvas;
-		if( canvas != null ) {
-			return Object.keys( canvas.tags );
+		if (canvas != null) {
+			return Object.keys(canvas.tags);
 		}
 		return [];
 	}
 
-	each( callback: ( tagId: string ) => (boolean | void) ): string | null {
+	each(callback: (tagId: string) => boolean | void): string | null {
 		const canvas = this._diagram.canvas;
-		if( canvas != null ) {
+		if (canvas != null) {
 			const tags = canvas.tags;
-			for( const id in tags ) {
-				if( callback( id ) === false ) {
+			for (const id in tags) {
+				if (callback(id) === false) {
 					return id;
 				}
 			}
@@ -83,20 +83,20 @@ export class DDiagramTag {
 		return null;
 	}
 
-	set( id: string, value: unknown, time?: number, from?: number | null, to?: number | null ): void {
+	set(id: string, value: unknown, time?: number, from?: number | null, to?: number | null): void {
 		const canvas = this._diagram.canvas;
-		if( canvas != null ) {
-			const tagValues = canvas.tags[ id ];
-			if( tagValues != null ) {
-				for( let i = 0, imax = tagValues.length; i < imax; ++i ) {
-					const tagValue = tagValues[ i ];
+		if (canvas != null) {
+			const tagValues = canvas.tags[id];
+			if (tagValues != null) {
+				for (let i = 0, imax = tagValues.length; i < imax; ++i) {
+					const tagValue = tagValues[i];
 					const range = tagValue.range;
 
 					// Range
-					range.set( from, to );
+					range.set(from, to);
 
 					// Time
-					if( time !== undefined ) {
+					if (time !== undefined) {
 						tagValue.time = time;
 					}
 
@@ -107,32 +107,38 @@ export class DDiagramTag {
 		}
 	}
 
-	clear( id: string ): void {
+	clear(id: string): void {
 		const canvas = this._diagram.canvas;
-		if( canvas != null ) {
-			const tagValues = canvas.tags[ id ];
-			if( tagValues != null ) {
-				for( let i = 0, imax = tagValues.length; i < imax; ++i ) {
-					tagValues[ i ].clear();
+		if (canvas != null) {
+			const tagValues = canvas.tags[id];
+			if (tagValues != null) {
+				for (let i = 0, imax = tagValues.length; i < imax; ++i) {
+					tagValues[i].clear();
 				}
 			}
 		}
 	}
 
-	setAll( id: string, values: unknown[], times?: number[], from?: number | null, to?: number | null ): void {
+	setAll(
+		id: string,
+		values: unknown[],
+		times?: number[],
+		from?: number | null,
+		to?: number | null
+	): void {
 		const canvas = this._diagram.canvas;
-		if( canvas != null ) {
-			const tagValues = canvas.tags[ id ];
-			if( tagValues != null ) {
-				for( let i = 0, imax = tagValues.length; i < imax; ++i ) {
-					const tagValue = tagValues[ i ];
+		if (canvas != null) {
+			const tagValues = canvas.tags[id];
+			if (tagValues != null) {
+				for (let i = 0, imax = tagValues.length; i < imax; ++i) {
+					const tagValue = tagValues[i];
 					const range = tagValue.range;
 
 					// Range
-					range.set( from, to );
+					range.set(from, to);
 
 					// Time
-					if( times !== undefined ) {
+					if (times !== undefined) {
 						tagValue.times = times;
 					}
 
@@ -143,15 +149,15 @@ export class DDiagramTag {
 		}
 	}
 
-	setValue( id: string, value: unknown, time?: number ): void {
+	setValue(id: string, value: unknown, time?: number): void {
 		const canvas = this._diagram.canvas;
-		if( canvas != null ) {
-			const tagValues = canvas.tags[ id ];
-			if( tagValues != null ) {
-				for( let i = 0, imax = tagValues.length; i < imax; ++i ) {
-					const tagValue = tagValues[ i ];
+		if (canvas != null) {
+			const tagValues = canvas.tags[id];
+			if (tagValues != null) {
+				for (let i = 0, imax = tagValues.length; i < imax; ++i) {
+					const tagValue = tagValues[i];
 
-					if( time !== undefined ) {
+					if (time !== undefined) {
 						tagValue.time = time;
 					}
 
@@ -161,15 +167,15 @@ export class DDiagramTag {
 		}
 	}
 
-	setValues( id: string, values: unknown[], times?: number[] ): void {
+	setValues(id: string, values: unknown[], times?: number[]): void {
 		const canvas = this._diagram.canvas;
-		if( canvas != null ) {
-			const tagValues = canvas.tags[ id ];
-			if( tagValues != null ) {
-				for( let i = 0, imax = tagValues.length; i < imax; ++i ) {
-					const tagValue = tagValues[ i ];
+		if (canvas != null) {
+			const tagValues = canvas.tags[id];
+			if (tagValues != null) {
+				for (let i = 0, imax = tagValues.length; i < imax; ++i) {
+					const tagValue = tagValues[i];
 
-					if( times !== undefined ) {
+					if (times !== undefined) {
 						tagValue.times = times;
 					}
 
@@ -179,47 +185,47 @@ export class DDiagramTag {
 		}
 	}
 
-	setTime( id: string, time: number ): void {
+	setTime(id: string, time: number): void {
 		const canvas = this._diagram.canvas;
-		if( canvas != null ) {
-			const tagValues = canvas.tags[ id ];
-			if( tagValues != null ) {
-				for( let i = 0, imax = tagValues.length; i < imax; ++i ) {
-					tagValues[ i ].time = time;
+		if (canvas != null) {
+			const tagValues = canvas.tags[id];
+			if (tagValues != null) {
+				for (let i = 0, imax = tagValues.length; i < imax; ++i) {
+					tagValues[i].time = time;
 				}
 			}
 		}
 	}
 
-	setTimes( id: string, times: number[] ): void {
+	setTimes(id: string, times: number[]): void {
 		const canvas = this._diagram.canvas;
-		if( canvas != null ) {
-			const tagValues = canvas.tags[ id ];
-			if( tagValues != null ) {
-				for( let i = 0, imax = tagValues.length; i < imax; ++i ) {
-					tagValues[ i ].times = times;
+		if (canvas != null) {
+			const tagValues = canvas.tags[id];
+			if (tagValues != null) {
+				for (let i = 0, imax = tagValues.length; i < imax; ++i) {
+					tagValues[i].times = times;
 				}
 			}
 		}
 	}
 
-	setRange( id: string, from?: number | null, to?: number | null ): void {
+	setRange(id: string, from?: number | null, to?: number | null): void {
 		const canvas = this._diagram.canvas;
-		if( canvas != null ) {
-			const tagValues = canvas.tags[ id ];
-			if( tagValues != null ) {
-				for( let i = 0, imax = tagValues.length; i < imax; ++i ) {
-					const range = tagValues[ i ].range;
-					if( from !== undefined ) {
-						if( from !== null ) {
+		if (canvas != null) {
+			const tagValues = canvas.tags[id];
+			if (tagValues != null) {
+				for (let i = 0, imax = tagValues.length; i < imax; ++i) {
+					const range = tagValues[i].range;
+					if (from !== undefined) {
+						if (from !== null) {
 							range.type |= EShapeTagValueRangeType.FROM;
 							range.from = from;
 						} else {
 							range.type &= ~EShapeTagValueRangeType.FROM;
 						}
 					}
-					if( to !== undefined ) {
-						if( to !== null ) {
+					if (to !== undefined) {
+						if (to !== null) {
 							range.type |= EShapeTagValueRangeType.TO;
 							range.to = to;
 						} else {

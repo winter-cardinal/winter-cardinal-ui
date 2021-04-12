@@ -13,49 +13,51 @@ import { DThemeWhiteConstants } from "./d-theme-white-constants";
 
 // Material Design icons by Google.
 // Apache license version 2.0.
-DThemeWhiteAtlas.add( "button_check_mark_on", 21, 21,
+/* eslint-disable prettier/prettier */
+DThemeWhiteAtlas.add("button_check_mark_on", 21, 21,
 	`<g transform="scale(0.875,0.875)">` +
 		`<path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89` +
 			`-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="#fff" />` +
 	`</g>`
 );
 
-DThemeWhiteAtlas.add( "button_check_mark_off", 21, 21,
+DThemeWhiteAtlas.add("button_check_mark_off", 21, 21,
 	`<g transform="scale(0.875,0.875)">` +
 		`<path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" ` +
 			`fill="#fff" />` +
 	`</g>`
 );
+/* eslint-prettier prettier/prettier */
 
-export class DThemeWhiteButtonCheck<VALUE = unknown> extends DThemeWhiteButtonAmbient<VALUE>
+export class DThemeWhiteButtonCheck<VALUE = unknown>
+	extends DThemeWhiteButtonAmbient<VALUE>
 	implements DThemeButtonCheck<VALUE> {
-
-	getBackgroundColor( state: DBaseStateSet ): number | null {
+	getBackgroundColor(state: DBaseStateSet): number | null {
 		return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
 	}
 
-	getColor( state: DBaseStateSet ): number {
+	getColor(state: DBaseStateSet): number {
 		return DThemeWhiteConstants.COLOR;
 	}
 
-	getBackgroundAlpha( state: DBaseStateSet ): number {
-		if( state.inEnabled ) {
-			if( state.isFocused || state.isHovered ) {
+	getBackgroundAlpha(state: DBaseStateSet): number {
+		if (state.inEnabled) {
+			if (state.isFocused || state.isHovered) {
 				return DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
 			}
 		}
 		return 0;
 	}
 
-	getImageTintColor( state: DBaseStateSet ): number | null {
-		return DThemeWhiteButtonChecks.getImageTintColor( state );
+	getImageTintColor(state: DBaseStateSet): number | null {
+		return DThemeWhiteButtonChecks.getImageTintColor(state);
 	}
 
 	isToggle(): boolean {
 		return true;
 	}
 
-	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
-		return DThemeWhiteButtonChecks.getImageSource( state );
+	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
+		return DThemeWhiteButtonChecks.getImageSource(state);
 	}
 }

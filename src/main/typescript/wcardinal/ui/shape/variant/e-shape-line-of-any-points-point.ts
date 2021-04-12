@@ -11,10 +11,10 @@ export interface EShapeLineOfAnyPointsPoint {
 	y: EShapeLineOfAnyValue;
 	limit: number | null;
 
-	set( x?: EShapeLineOfAnyValue, y?: EShapeLineOfAnyValue ): void;
+	set(x?: EShapeLineOfAnyValue, y?: EShapeLineOfAnyValue): void;
 
-	getX( index: number ): number;
-	getY( index: number ): number;
+	getX(index: number): number;
+	getY(index: number): number;
 	getLimit(): number;
 
 	isStaticX(): boolean;

@@ -10,12 +10,12 @@ import { EShapeBar } from "../../shape/variant/e-shape-bar";
 import { EShapeBarPosition } from "../../shape/variant/e-shape-bar-position";
 
 export class DThemeDarkChartSelectionGridline implements DThemeChartSelectionShape {
-	isEnabled( state: DBaseStateSet ): boolean {
+	isEnabled(state: DBaseStateSet): boolean {
 		return true;
 	}
 
-	newShape( state: DBaseStateSet ): EShape {
-		const result = new EShapeBar( EShapeBarPosition.TOP );
+	newShape(state: DBaseStateSet): EShape {
+		const result = new EShapeBar(EShapeBarPosition.TOP);
 		result.stroke.alpha = 0.5;
 		return result;
 	}

@@ -7,15 +7,12 @@ import { DDialogCommand, DDialogCommandOptions, DThemeDialogCommand } from "./d-
 import { DLayoutVertical } from "./d-layout-vertical";
 import { DPickerTime, DPickerTimeOptions } from "./d-picker-time";
 
-export interface DDialogTimeOptions<
-	THEME extends DThemeDialogTime = DThemeDialogTime
-> extends DDialogCommandOptions<Date, THEME> {
+export interface DDialogTimeOptions<THEME extends DThemeDialogTime = DThemeDialogTime>
+	extends DDialogCommandOptions<Date, THEME> {
 	picker?: DPickerTimeOptions;
 }
 
-export interface DThemeDialogTime extends DThemeDialogCommand {
-
-}
+export interface DThemeDialogTime extends DThemeDialogCommand {}
 
 export class DDialogTime<
 	THEME extends DThemeDialogTime = DThemeDialogTime,
@@ -23,16 +20,16 @@ export class DDialogTime<
 > extends DDialogCommand<Date, THEME, OPTIONS> {
 	protected _picker?: DPickerTime;
 
-	protected onInit( layout: DLayoutVertical, options?: OPTIONS ): void {
-		super.onInit( layout, options );
-		layout.addChild( this.picker );
+	protected onInit(layout: DLayoutVertical, options?: OPTIONS): void {
+		super.onInit(layout, options);
+		layout.addChild(this.picker);
 	}
 
 	get current(): Date {
 		return this.picker.current;
 	}
 
-	set current( dateCurrent: Date ) {
+	set current(dateCurrent: Date) {
 		this.picker.current = dateCurrent;
 	}
 
@@ -40,14 +37,14 @@ export class DDialogTime<
 		return this.picker.new;
 	}
 
-	set new( dateNew: Date ) {
+	set new(dateNew: Date) {
 		this.picker.new = dateNew;
 	}
 
 	get picker(): DPickerTime {
 		let result = this._picker;
-		if( result == null ) {
-			result = new DPickerTime( this._options?.picker );
+		if (result == null) {
+			result = new DPickerTime(this._options?.picker);
 			this._picker = result;
 		}
 		return result;

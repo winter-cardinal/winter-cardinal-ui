@@ -8,13 +8,9 @@ import { DButtonCheck, DButtonCheckOptions, DThemeButtonCheck } from "./d-button
 export interface DButtonCheckRightOptions<
 	VALUE = unknown,
 	THEME extends DThemeButtonCheckRight<VALUE> = DThemeButtonCheckRight<VALUE>
-> extends DButtonCheckOptions<VALUE, THEME> {
+> extends DButtonCheckOptions<VALUE, THEME> {}
 
-}
-
-export interface DThemeButtonCheckRight<VALUE = unknown> extends DThemeButtonCheck<VALUE> {
-
-}
+export interface DThemeButtonCheckRight<VALUE = unknown> extends DThemeButtonCheck<VALUE> {}
 
 export class DButtonCheckRight<
 	VALUE = unknown,

@@ -9,18 +9,17 @@ import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeWhiteButtonAmbient } from "./d-theme-white-button-ambient";
 
 export class DThemeWhitePaginationDotsButton
-	extends DThemeWhiteButtonAmbient<string> implements DThemePaginationDotsButton {
-
-	getBackgroundColor( state: DBaseStateSet ): number | null {
+	extends DThemeWhiteButtonAmbient<string>
+	implements DThemePaginationDotsButton {
+	getBackgroundColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
 	newTextValue(): DStateAwareOrValueMightBe<string> {
 		return "...";
 	}
-
 }

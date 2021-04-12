@@ -7,7 +7,9 @@ import { DBaseShadow } from "../../d-base";
 import { DThemeDiagramBase } from "../../d-diagram-base";
 import { DThemeWhiteCanvasContainer } from "./d-theme-white-canvas-container";
 
-export class DThemeWhiteDiagramBase extends DThemeWhiteCanvasContainer implements DThemeDiagramBase {
+export class DThemeWhiteDiagramBase
+	extends DThemeWhiteCanvasContainer
+	implements DThemeDiagramBase {
 	getCanvasBackgroundColor(): number {
 		return 0xffffff;
 	}

@@ -7,5 +7,5 @@ import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteDialogConfirmDiscard } from "../d-theme-white-dialog-confirm-discard";
 
 export const loadThemeWhiteDialogConfirmDiscard = (): void => {
-	DThemeWhite.set( "DDialogConfirmDiscard", DThemeWhiteDialogConfirmDiscard );
+	DThemeWhite.set("DDialogConfirmDiscard", DThemeWhiteDialogConfirmDiscard);
 };

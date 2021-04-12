@@ -34,15 +34,19 @@ export interface UtilExtractPixelsOptions extends UtilExtractTextureOptions {
 	layer?: DApplicationLayerLike;
 }
 
+export interface UtilExtractCanvasScaleOptions {
+	size: number;
+}
+
+export interface UtilExtractCanvasAlphaOptions {
+	premultiplied?: {
+		ignore?: boolean;
+	};
+}
+
 export interface UtilExtractCanvasOptions extends UtilExtractPixelsOptions {
-	scale?: number | {
-		size: number;
-	};
-	alpha?: {
-		premultiplied?: {
-			ignore?: boolean;
-		}
-	};
+	scale?: number | UtilExtractCanvasScaleOptions;
+	alpha?: UtilExtractCanvasAlphaOptions;
 }
 
 export interface UtilExtractBase64Options extends UtilExtractCanvasOptions {
@@ -54,96 +58,92 @@ export interface UtilExtractFileOptions extends UtilExtractBase64Options {
 	filename: string;
 }
 
-const toSkipUpdateTransform = ( options: UtilExtractTextureOptions ): boolean | undefined => {
-	return options.transform && options.transform.update;
-};
-
-const toResolution = ( options: UtilExtractTextureOptions ): number => {
+const toResolution = (options: UtilExtractTextureOptions): number => {
 	const target = options.target;
-	if( options.resolution != null ) {
-		if( isNumber( options.resolution ) ) {
-			return options.resolution;
+	const resolution = options.resolution;
+	if (resolution != null) {
+		if (isNumber(resolution)) {
+			return resolution;
 		} else {
 			const scale = target.transform.scale;
-			const size = Math.max( target.width * scale.x, target.height * scale.y );
-			return Math.min( 1, options.resolution.size / size );
+			const size = Math.max(target.width * scale.x, target.height * scale.y);
+			return Math.min(1, resolution.size / size);
 		}
 	} else {
-		return window.devicePixelRatio || 1;
+		return window.devicePixelRatio ?? 1;
 	}
 };
 
-const toIgnorePremultipliedAlpha = ( options: UtilExtractCanvasOptions ): boolean | undefined => {
-	return ( options.alpha && options.alpha.premultiplied && options.alpha.premultiplied.ignore );
-};
-
-const toScale = ( pixels: UtilExtractorPixels, options: UtilExtractCanvasOptions ): number | undefined => {
-	if( options.scale != null ) {
-		if( isNumber( options.scale ) ) {
-			return options.scale;
+const toScale = (
+	pixels: UtilExtractorPixels,
+	options: UtilExtractCanvasOptions
+): number | undefined => {
+	const scale = options.scale;
+	if (scale != null) {
+		if (isNumber(scale)) {
+			return scale;
 		} else {
-			const size = options.scale.size;
-			return Math.min( 1, size / pixels.width, size / pixels.height );
+			const size = scale.size;
+			return Math.min(1, size / pixels.width, size / pixels.height);
 		}
 	}
 };
 
-const toRenderer = ( options: UtilExtractPixelsOptions ): Renderer => {
-	if( options.renderer ) {
-		return options.renderer;
-	} else if( options.application ) {
-		return options.application.getLayerBase().renderer;
-	} else if( options.layer ) {
-		return options.layer.renderer;
-	} else {
-		const layer = DApplications.getLayer( options.target );
-		if( layer ) {
-			return layer.renderer;
-		} else {
-			throw new Error( "No renderer / application / layer found." );
-		}
+const toRenderer = (options: UtilExtractPixelsOptions): Renderer => {
+	const renderer = options.renderer;
+	if (renderer) {
+		return renderer;
 	}
+	const application = options.application;
+	if (application) {
+		return application.getLayerBase().renderer;
+	}
+	const layer = options.layer || DApplications.getLayer(options.target);
+	if (layer) {
+		return layer.renderer;
+	}
+	throw new Error("No renderer / application / layer found.");
 };
 
 export class UtilExtract {
-	static texture( options: UtilExtractTextureOptions ): RenderTexture {
+	static texture(options: UtilExtractTextureOptions): RenderTexture {
 		const target = options.target;
-		const resolution = toResolution( options );
-		const skipUpdateTransform = toSkipUpdateTransform( options );
-		return UtilExtractor.toTexture( target, resolution, options.clear, skipUpdateTransform );
+		const resolution = toResolution(options);
+		const skipUpdateTransform = options.transform?.update;
+		return UtilExtractor.toTexture(target, resolution, options.clear, skipUpdateTransform);
 	}
 
-	static pixels( options: UtilExtractPixelsOptions ): UtilExtractorPixels {
-		const renderer = toRenderer( options );
-		const texture = this.texture( options );
+	static pixels(options: UtilExtractPixelsOptions): UtilExtractorPixels {
+		const renderer = toRenderer(options);
+		const texture = this.texture(options);
 		try {
-			return UtilExtractor.toPixels( texture, renderer );
+			return UtilExtractor.toPixels(texture, renderer);
 		} finally {
-			if( texture ) {
+			if (texture) {
 				texture.destroy();
 			}
 		}
 	}
 
-	static canvas( options: UtilExtractCanvasOptions ): utils.CanvasRenderTarget {
-		const pixels = this.pixels( options );
-		const ignorePremutipliedAlpha = toIgnorePremultipliedAlpha( options );
-		const scale = toScale( pixels, options );
-		return UtilExtractor.toCanvas( pixels, scale, ignorePremutipliedAlpha );
+	static canvas(options: UtilExtractCanvasOptions): utils.CanvasRenderTarget {
+		const pixels = this.pixels(options);
+		const ignorePremutipliedAlpha = options.alpha?.premultiplied?.ignore;
+		const scale = toScale(pixels, options);
+		return UtilExtractor.toCanvas(pixels, scale, ignorePremutipliedAlpha);
 	}
 
-	static base64( options: UtilExtractBase64Options ): string {
-		const canvas = this.canvas( options );
+	static base64(options: UtilExtractBase64Options): string {
+		const canvas = this.canvas(options);
 		try {
-			return UtilExtractor.toBase64( canvas.canvas, options.format, options.quality );
+			return UtilExtractor.toBase64(canvas.canvas, options.format, options.quality);
 		} finally {
-			if( canvas ) {
+			if (canvas) {
 				canvas.destroy();
 			}
 		}
 	}
 
-	static file( options: UtilExtractFileOptions ): void {
-		UtilFileDownloader.downloadUrl( options.filename, this.base64( options ) );
+	static file(options: UtilExtractFileOptions): void {
+		UtilFileDownloader.downloadUrl(options.filename, this.base64(options));
 	}
 }

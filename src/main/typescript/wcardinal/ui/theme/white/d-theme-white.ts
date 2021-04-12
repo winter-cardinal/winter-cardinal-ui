@@ -8,11 +8,11 @@ import { DTheme } from "../d-theme";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 
 interface CLASSES {
-	[ type: string ]: new () => any;
+	[type: string]: new () => any;
 }
 
 interface INSTANCES {
-	[ type: string ]: DTheme;
+	[type: string]: DTheme;
 }
 
 export class DThemeWhite implements DTheme {
@@ -23,17 +23,17 @@ export class DThemeWhite implements DTheme {
 		this._instances = {};
 	}
 
-	get<THEME>( type: string ): THEME {
-		let instance = this._instances[ type ] as any;
-		if( instance != null ) {
+	get<THEME>(type: string): THEME {
+		let instance = this._instances[type] as any;
+		if (instance != null) {
 			return instance;
 		} else {
-			const klass = DThemeWhite._classes[ type ];
-			if( klass != null ) {
-				instance = this._instances[ type ] = new klass();
+			const klass = DThemeWhite._classes[type];
+			if (klass != null) {
+				instance = this._instances[type] = new klass();
 				return instance;
 			} else {
-				throw new Error( `No theme for the type '${type}'` );
+				throw new Error(`No theme for the type '${type}'`);
 			}
 		}
 	}
@@ -42,7 +42,7 @@ export class DThemeWhite implements DTheme {
 		return DThemeWhiteAtlas;
 	}
 
-	static set<THEME>( type: string, themeClass: new () => THEME ): void {
-		this._classes[ type ] = themeClass;
+	static set<THEME>(type: string, themeClass: new () => THEME): void {
+		this._classes[type] = themeClass;
 	}
 }

@@ -88,5 +88,5 @@ export interface NumberFormatter {
 	 * @param target A format target
 	 * @param step A step of numbers
 	 */
-	format( target: number, step: number ): string;
+	format(target: number, step: number): string;
 }

@@ -11,13 +11,13 @@ import { DChartSelectionSub, DChartSelectionSubOptions } from "./d-chart-selecti
 import { DChartSelectionSubImpl } from "./d-chart-selection-sub-impl";
 import { DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesContainer } from "./d-chart-series-container";
-import { isString } from "./util/is-string";
+import { toEnum } from "./util/to-enum";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
 export interface DChartSelectionSimpleOptions<EMITTER = any> {
 	selected?: DChartSelectionSubOptions;
 	hovered?: DChartSelectionSubOptions;
-	point?: DChartSelectionPoint | (keyof typeof DChartSelectionPoint);
+	point?: DChartSelectionPoint | keyof typeof DChartSelectionPoint;
 	on?: DBaseOnOptions<EMITTER>;
 }
 
@@ -28,41 +28,35 @@ export class DChartSelectionSimple extends utils.EventEmitter implements DChartS
 	protected _selected: DChartSelectionSub;
 	protected _hovered: DChartSelectionSub;
 
-	protected _onClickBound!: ( e: interaction.InteractionEvent ) => void;
-	protected _onMoveBound!: ( e: interaction.InteractionEvent ) => void;
+	protected _onClickBound!: (e: interaction.InteractionEvent) => void;
+	protected _onMoveBound!: (e: interaction.InteractionEvent) => void;
 
-	constructor( options?: DChartSelectionSimpleOptions ) {
+	constructor(options?: DChartSelectionSimpleOptions) {
 		super();
 
 		this._container = null;
-		const point = ( options && options.point != null ?
-			( isString( options.point ) ? DChartSelectionPoint[ options.point ] : options.point ) :
-			DChartSelectionPoint.CLOSER
-		);
-
-		this._selected = this.newSelected( point, options && options.selected );
-		this._hovered = this.newHovered( point, options && options.hovered );
+		const point = toEnum(options?.point ?? DChartSelectionPoint.CLOSER, DChartSelectionPoint);
+		this._selected = this.newSelected(point, options?.selected);
+		this._hovered = this.newHovered(point, options?.hovered);
 
 		// Events
-		if( options ) {
-			const on = options.on;
-			if( on != null ) {
-				for( const name in on ) {
-					const handler = on[ name ];
-					if( handler ) {
-						this.on( name, handler );
-					}
+		const on = options?.on;
+		if (on != null) {
+			for (const name in on) {
+				const handler = on[name];
+				if (handler) {
+					this.on(name, handler);
 				}
 			}
 		}
 
 		//
-		this._onMoveBound = ( e: interaction.InteractionEvent ): void => {
-			this.onMove( e );
+		this._onMoveBound = (e: interaction.InteractionEvent): void => {
+			this.onMove(e);
 		};
 
-		this._onClickBound = ( e: interaction.InteractionEvent ): void => {
-			this.onClick( e );
+		this._onClickBound = (e: interaction.InteractionEvent): void => {
+			this.onClick(e);
 		};
 	}
 
@@ -70,26 +64,14 @@ export class DChartSelectionSimple extends utils.EventEmitter implements DChartS
 		point: DChartSelectionPoint,
 		options?: DChartSelectionSubOptions
 	): DChartSelectionSub {
-		return new DChartSelectionSubImpl(
-			this.toSubOptions(
-				point,
-				options,
-				DBaseState.ACTIVE
-			)
-		);
+		return new DChartSelectionSubImpl(this.toSubOptions(point, options, DBaseState.ACTIVE));
 	}
 
 	protected newHovered(
 		point: DChartSelectionPoint,
 		options?: DChartSelectionSubOptions
 	): DChartSelectionSub {
-		return new DChartSelectionSubImpl(
-			this.toSubOptions(
-				point,
-				options,
-				DBaseState.HOVERED
-			)
-		);
+		return new DChartSelectionSubImpl(this.toSubOptions(point, options, DBaseState.HOVERED));
 	}
 
 	protected toSubOptions(
@@ -99,56 +81,56 @@ export class DChartSelectionSimple extends utils.EventEmitter implements DChartS
 	): DChartSelectionSubOptions {
 		options = options || {};
 
-		if( options.point == null ) {
+		if (options.point == null) {
 			options.point = point;
 		}
 
-		if( options.state == null ) {
+		if (options.state == null) {
 			options.state = state;
 		}
 
 		const gridline = options.gridline || {};
 		const gridlineX = gridline.x || {};
-		if( gridlineX.state == null ) {
+		if (gridlineX.state == null) {
 			gridlineX.state = state;
 		}
 
 		const gridlineY = gridline.y || {};
-		if( gridlineY.state == null ) {
+		if (gridlineY.state == null) {
 			gridlineY.state = state;
 		}
 
 		const marker = options.marker || {};
-		if( marker.state == null ) {
+		if (marker.state == null) {
 			marker.state = state;
 		}
 
 		return options;
 	}
 
-	protected onClick( e: interaction.InteractionEvent ): void {
+	protected onClick(e: interaction.InteractionEvent): void {
 		const container = this._container;
-		if( container && e.target === container.plotArea ) {
+		if (container && e.target === container.plotArea) {
 			const hovered = this._hovered;
 			const series = hovered.series;
 			const selected = this._selected;
-			if( series ) {
-				selected.set( series, hovered );
+			if (series) {
+				selected.set(series, hovered);
 			} else {
 				selected.unset();
 			}
 		}
 	}
 
-	protected onMove( e: interaction.InteractionEvent ): void {
+	protected onMove(e: interaction.InteractionEvent): void {
 		const container = this._container;
-		if( container ) {
+		if (container) {
 			const hovered = this._hovered;
-			if( e.target === container.plotArea ) {
+			if (e.target === container.plotArea) {
 				const result = DChartSelectionSimple.WORK_SELECT;
-				const series = container.calcHitPoint( e.data.global, result );
-				if( series ) {
-					hovered.set( series, result );
+				const series = container.calcHitPoint(e.data.global, result);
+				if (series) {
+					hovered.set(series, result);
 				} else {
 					hovered.unset();
 				}
@@ -158,21 +140,21 @@ export class DChartSelectionSimple extends utils.EventEmitter implements DChartS
 		}
 	}
 
-	bind( container: DChartSeriesContainer ): void {
+	bind(container: DChartSeriesContainer): void {
 		this._container = container;
-		this._selected.bind( container );
-		this._hovered.bind( container );
+		this._selected.bind(container);
+		this._hovered.bind(container);
 		const plotArea = container.plotArea;
-		plotArea.on( UtilPointerEvent.move, this._onMoveBound );
-		UtilPointerEvent.onClick( plotArea, this._onClickBound );
+		plotArea.on(UtilPointerEvent.move, this._onMoveBound);
+		UtilPointerEvent.onClick(plotArea, this._onClickBound);
 	}
 
 	unbind(): void {
 		const container = this._container;
 		this._container = null;
-		if( container ) {
+		if (container) {
 			const plotArea = container.plotArea;
-			plotArea.off( UtilPointerEvent.move, this._onMoveBound );
+			plotArea.off(UtilPointerEvent.move, this._onMoveBound);
 		}
 
 		this._selected.unbind();

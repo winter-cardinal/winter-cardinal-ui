@@ -7,5 +7,5 @@ import { DThemeDark } from "../d-theme-dark";
 import { DThemeDarkButtonRadio } from "../d-theme-dark-button-radio";
 
 export const loadThemeDarkButtonRadio = (): void => {
-	DThemeDark.set( "DButtonRadio", DThemeDarkButtonRadio );
+	DThemeDark.set("DButtonRadio", DThemeDarkButtonRadio);
 };

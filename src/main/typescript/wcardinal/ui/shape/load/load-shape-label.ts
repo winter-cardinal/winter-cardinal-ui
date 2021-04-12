@@ -10,6 +10,6 @@ import { createLabelUploaded } from "../variant/create-label-uploaded";
 import { deserializeLabel } from "../variant/deserialize-label";
 
 export const loadShapeLabel = (): void => {
-	EShapeUploadeds[ EShapeType.LABEL ] = createLabelUploaded;
-	EShapeDeserializers[ EShapeType.LABEL ] = deserializeLabel;
+	EShapeUploadeds[EShapeType.LABEL] = createLabelUploaded;
+	EShapeDeserializers[EShapeType.LABEL] = deserializeLabel;
 };

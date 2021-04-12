@@ -4,7 +4,10 @@
  */
 
 import { DChartCoordinateDirection } from "./d-chart-coordinate";
-import { DChartCoordinateContainer, DChartCoordinateContainerOptions } from "./d-chart-coordinate-container";
+import {
+	DChartCoordinateContainer,
+	DChartCoordinateContainerOptions
+} from "./d-chart-coordinate-container";
 import { DChartCoordinateContainerSub } from "./d-chart-coordinate-container-sub";
 import { DChartCoordinateContainerSubImpl } from "./d-chart-coordinate-container-sub-impl";
 import { DChartPlotArea } from "./d-chart-plot-area";
@@ -15,29 +18,31 @@ export class DChartCoordinateContainerImpl implements DChartCoordinateContainer 
 	protected _y: DChartCoordinateContainerSub;
 	protected _plotArea: DChartPlotArea;
 
-	constructor( plotArea: DChartPlotArea, options?: DChartCoordinateContainerOptions ) {
+	constructor(plotArea: DChartPlotArea, options?: DChartCoordinateContainerOptions) {
 		this._plotArea = plotArea;
-		const x = this._x = new DChartCoordinateContainerSubImpl( this, DChartCoordinateDirection.X );
-		const y = this._y = new DChartCoordinateContainerSubImpl( this, DChartCoordinateDirection.Y );
-		if( options ) {
+		const x = new DChartCoordinateContainerSubImpl(this, DChartCoordinateDirection.X);
+		this._x = x;
+		const y = new DChartCoordinateContainerSubImpl(this, DChartCoordinateDirection.Y);
+		this._y = y;
+		if (options) {
 			const cxs = options.x;
-			if( cxs ) {
-				if( isArray( cxs ) ) {
-					for( let i = 0, imax = cxs.length; i < imax; ++i ) {
-						x.add( cxs[ i ] );
+			if (cxs) {
+				if (isArray(cxs)) {
+					for (let i = 0, imax = cxs.length; i < imax; ++i) {
+						x.add(cxs[i]);
 					}
 				} else {
-					x.add( cxs );
+					x.add(cxs);
 				}
 			}
 			const cys = options.y;
-			if( cys ) {
-				if( isArray( cys ) ) {
-					for( let i = 0, imax = cys.length; i < imax; ++i ) {
-						y.add( cys[ i ] );
+			if (cys) {
+				if (isArray(cys)) {
+					for (let i = 0, imax = cys.length; i < imax; ++i) {
+						y.add(cys[i]);
 					}
 				} else {
-					y.add( cys );
+					y.add(cys);
 				}
 			}
 		}
@@ -55,21 +60,21 @@ export class DChartCoordinateContainerImpl implements DChartCoordinateContainer 
 		return this._plotArea;
 	}
 
-	fit( domainFrom?: number, domainTo?: number, rangeFrom?: number, rangeTo?: number ): this {
-		this._x.fit( domainFrom, domainTo );
-		this._y.fit( rangeFrom, rangeTo );
+	fit(domainFrom?: number, domainTo?: number, rangeFrom?: number, rangeTo?: number): this {
+		this._x.fit(domainFrom, domainTo);
+		this._y.fit(rangeFrom, rangeTo);
 		return this;
 	}
 
-	mark( domainFrom?: number, domainTo?: number, rangeFrom?: number, rangeTo?: number ): this {
-		this._x.mark( domainFrom, domainTo );
-		this._y.mark( rangeFrom, rangeTo );
+	mark(domainFrom?: number, domainTo?: number, rangeFrom?: number, rangeTo?: number): this {
+		this._x.mark(domainFrom, domainTo);
+		this._y.mark(rangeFrom, rangeTo);
 		return this;
 	}
 
-	blend( ratio: number ): this {
-		this._x.blend( ratio );
-		this._y.blend( ratio );
+	blend(ratio: number): this {
+		this._x.blend(ratio);
+		this._y.blend(ratio);
 		return this;
 	}
 }

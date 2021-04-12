@@ -9,7 +9,7 @@ import { DThemeDarkDialogSelectList } from "../d-theme-dark-dialog-select-list";
 import { DThemeDarkDialogSelectListItem } from "../d-theme-dark-dialog-select-list-item";
 
 export const loadThemeDarkDialogSelect = (): void => {
-	DThemeDark.set( "DDialogSelect", DThemeDarkDialogSelect );
-	DThemeDark.set( "DDialogSelectList", DThemeDarkDialogSelectList );
-	DThemeDark.set( "DDialogSelectListItem", DThemeDarkDialogSelectListItem );
+	DThemeDark.set("DDialogSelect", DThemeDarkDialogSelect);
+	DThemeDark.set("DDialogSelectList", DThemeDarkDialogSelectList);
+	DThemeDark.set("DDialogSelectListItem", DThemeDarkDialogSelectListItem);
 };

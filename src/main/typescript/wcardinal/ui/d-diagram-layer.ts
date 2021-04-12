@@ -10,7 +10,7 @@ import { EShapeResourceManagerSerialization } from "./shape/e-shape-resource-man
 export class DDiagramLayer extends EShapeContainer {
 	reference: number;
 
-	constructor( name: string ) {
+	constructor(name: string) {
 		super();
 		this.name = name;
 		this.interactive = false;
@@ -18,10 +18,10 @@ export class DDiagramLayer extends EShapeContainer {
 	}
 
 	destroy(): void {
-		if( ! this._destroyed ) {
+		if (!this._destroyed) {
 			const children = this.children;
-			for( let i = children.length - 1; 0 <= i; --i ) {
-				children[ i ].destroy();
+			for (let i = children.length - 1; 0 <= i; --i) {
+				children[i].destroy();
 			}
 			children.length = 0;
 			super.destroy();
@@ -29,32 +29,32 @@ export class DDiagramLayer extends EShapeContainer {
 	}
 
 	serialize(
-		layer: number, manager: EShapeResourceManagerSerialization, items: DDiagramSerializedItem[]
+		layer: number,
+		manager: EShapeResourceManagerSerialization,
+		items: DDiagramSerializedItem[]
 	): DDiagramSerializedLayer {
 		const children = this.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			const shape = children[ i ];
-			const item = shape.serialize( manager );
-			item[ 16 ] = layer;
-			items.push( item );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			const shape = children[i];
+			const item = shape.serialize(manager);
+			item[16] = layer;
+			items.push(item);
 		}
 
-		return [
-			this.name || ""
-		];
+		return [this.name || ""];
 	}
 
-	addUuid( manager: EShapeResourceManagerSerialization ): void {
+	addUuid(manager: EShapeResourceManagerSerialization): void {
 		const children = this.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].addUuid( manager );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].addUuid(manager);
 		}
 	}
 
-	updateUuid( manager: EShapeResourceManagerSerialization ): void {
+	updateUuid(manager: EShapeResourceManagerSerialization): void {
 		const children = this.children;
-		for( let i = 0, imax = children.length; i < imax; ++i ) {
-			children[ i ].updateUuid( manager );
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].updateUuid(manager);
 		}
 	}
 }

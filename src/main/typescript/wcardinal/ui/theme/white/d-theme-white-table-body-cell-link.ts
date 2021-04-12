@@ -14,15 +14,15 @@ import { DThemeWhiteTableBodyCells } from "./d-theme-white-table-body-cells";
 
 DThemeWhiteLinks.init();
 
-export class DThemeWhiteTableBodyCellLink extends DThemeWhiteTableBodyCellButton
+export class DThemeWhiteTableBodyCellLink
+	extends DThemeWhiteTableBodyCellButton
 	implements DThemeTableBodyCellLink {
-
-	getImageTintColor( state: DBaseStateSet ): number | null {
-		return DThemeWhiteTableBodyCells.getImageTintColor( state, true );
+	getImageTintColor(state: DBaseStateSet): number | null {
+		return DThemeWhiteTableBodyCells.getImageTintColor(state, true);
 	}
 
-	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
-		return DThemeWhiteLinks.getImageSource( state );
+	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
+		return DThemeWhiteLinks.getImageSource(state);
 	}
 
 	getLinkMenuOptions(): DMenuOptions<DLinkMenuItemId> {

@@ -14,15 +14,15 @@ export class DChartAxisContainerImpl implements DChartAxisContainer {
 	protected _container: EShapeContainer;
 	protected _list: Map<DChartAxisPosition, DChartAxis[]>;
 
-	constructor( plotArea: DChartPlotArea, options?: DChartAxisContainerOptions ) {
+	constructor(plotArea: DChartPlotArea, options?: DChartAxisContainerOptions) {
 		this._plotArea = plotArea;
 		this._container = new EShapeContainer();
 
 		this._list = new Map<DChartAxisPosition, DChartAxis[]>();
 		const list = options && options.list;
-		if( list ) {
-			for( let i = 0, imax = list.length; i < imax; ++i ) {
-				this.add( list[ i ] );
+		if (list) {
+			for (let i = 0, imax = list.length; i < imax; ++i) {
+				this.add(list[i]);
 			}
 		}
 	}
@@ -35,70 +35,70 @@ export class DChartAxisContainerImpl implements DChartAxisContainer {
 		return this._plotArea;
 	}
 
-	add( axis: DChartAxis ): void {
+	add(axis: DChartAxis): void {
 		const list = this._list;
-		let axes = list.get( axis.position );
-		if( axes == null ) {
+		let axes = list.get(axis.position);
+		if (axes == null) {
 			axes = [];
-			list.set( axis.position, axes );
+			list.set(axis.position, axes);
 		}
-		axes.push( axis );
-		axis.bind( this, axes.length - 1 );
+		axes.push(axis);
+		axis.bind(this, axes.length - 1);
 	}
 
-	get( position: DChartAxisPosition, index: number ): DChartAxis | null {
+	get(position: DChartAxisPosition, index: number): DChartAxis | null {
 		const list = this._list;
-		const axes = list.get( position );
-		if( axes ) {
-			if( 0 <= index && index < axes.length ) {
-				return axes[ index ];
+		const axes = list.get(position);
+		if (axes) {
+			if (0 <= index && index < axes.length) {
+				return axes[index];
 			}
 		}
 		return null;
 	}
 
-	indexOf( axis: DChartAxis ): number {
+	indexOf(axis: DChartAxis): number {
 		const list = this._list;
-		const axes = list.get( axis.position );
-		if( axes ) {
-			return axes.indexOf( axis );
+		const axes = list.get(axis.position);
+		if (axes) {
+			return axes.indexOf(axis);
 		}
 		return -1;
 	}
 
-	clear( position: DChartAxisPosition ): this {
+	clear(position: DChartAxisPosition): this {
 		const list = this._list;
-		const axes = list.get( position );
-		if( axes ) {
-			for( let i = 0, imax = axes.length; i < imax; ++i ) {
-				axes[ i ].destroy();
+		const axes = list.get(position);
+		if (axes) {
+			for (let i = 0, imax = axes.length; i < imax; ++i) {
+				axes[i].destroy();
 			}
 			axes.length = 0;
 		}
 		return this;
 	}
 
-	size( position: DChartAxisPosition ): number {
+	size(position: DChartAxisPosition): number {
 		const list = this._list;
-		const axes = list.get( position );
-		if( axes ) {
+		const axes = list.get(position);
+		if (axes) {
 			return axes.length;
 		}
 		return 0;
 	}
 
 	update(): void {
-		this._list.forEach(( axes: DChartAxis[] ): void => {
-			for( let i = 0, imax = axes.length; i < imax; ++i ) {
-				axes[ i ].update();
+		this._list.forEach((axes: DChartAxis[]): void => {
+			for (let i = 0, imax = axes.length; i < imax; ++i) {
+				axes[i].update();
 			}
 		});
 	}
 
 	destroy(): void {
-		this._list.forEach(( axes: DChartAxis[] ): void => {
-			for( let i = 0, imax = axes.length; i < imax; ++i ) {
-				axes[ i ].destroy();
+		this._list.forEach((axes: DChartAxis[]): void => {
+			for (let i = 0, imax = axes.length; i < imax; ++i) {
+				axes[i].destroy();
 			}
 			axes.length = 0;
 		});

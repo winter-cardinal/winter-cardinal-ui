@@ -13,12 +13,12 @@ export interface DPaddingLike {
 }
 
 export interface DPadding extends DPaddingLike {
-	set( padding: number ): void;
-	set( topAndBottom: number, leftAndRight: number ): void;
-	set( top: number, leftAndRight: number, bottom: number ): void;
-	set( top: number, right: number, bottom: number, left: number ): void;
+	set(padding: number): void;
+	set(topAndBottom: number, leftAndRight: number): void;
+	set(top: number, leftAndRight: number, bottom: number): void;
+	set(top: number, right: number, bottom: number, left: number): void;
 	getTheme(): DThemeBase;
-	setTheme( theme: DThemeBase ): void;
+	setTheme(theme: DThemeBase): void;
 	getLeft(): number;
 	getTop(): number;
 	getRight(): number;

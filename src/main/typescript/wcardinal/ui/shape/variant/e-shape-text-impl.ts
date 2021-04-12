@@ -8,7 +8,13 @@ import { DDiagramSerializedText } from "../../d-diagram-serialized";
 import { DeepPartial } from "../../util/deep-partial";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
-import { EShapeText, EShapeTextAtlas, EShapeTextLike, EShapeTextStyle, EShapeTextWeight } from "../e-shape-text";
+import {
+	EShapeText,
+	EShapeTextAtlas,
+	EShapeTextLike,
+	EShapeTextStyle,
+	EShapeTextWeight
+} from "../e-shape-text";
 import { EShapeTextAlign } from "../e-shape-text-align";
 import { EShapeTextAlignHorizontal } from "../e-shape-text-align-horizontal";
 import { EShapeTextAlignVertical } from "../e-shape-text-align-vertical";
@@ -38,13 +44,17 @@ export class EShapeTextImpl implements EShapeText {
 	readonly padding: EShapeTextOffset;
 	protected _clipping: boolean;
 
-	texture?: Texture;			// Used for rendering and updated when rendered
-	atlas?: EShapeTextAtlas;	// Used for rendering and updated when rendered
-	world?: number[];			// Updated when rendered
+	texture?: Texture; // Used for rendering and updated when rendered
+	atlas?: EShapeTextAtlas; // Used for rendering and updated when rendered
+	world?: number[]; // Updated when rendered
 
 	constructor(
 		parent: EShapeTextImplParent,
-		value: string, color: number, alpha: number, family: string, size: number
+		value: string,
+		color: number,
+		alpha: number,
+		family: string,
+		size: number
 	) {
 		this._parent = parent;
 		this._enable = true;
@@ -54,13 +64,17 @@ export class EShapeTextImpl implements EShapeText {
 		this._family = family;
 		this._size = size;
 		this._weight = EShapeTextWeight.NORMAL;
-		this.align = new EShapeTextAlignImpl( parent, EShapeTextAlignHorizontal.CENTER, EShapeTextAlignVertical.MIDDLE );
-		this.offset = new EShapeTextOffsetImpl( parent, 0, 0 );
+		this.align = new EShapeTextAlignImpl(
+			parent,
+			EShapeTextAlignHorizontal.CENTER,
+			EShapeTextAlignVertical.MIDDLE
+		);
+		this.offset = new EShapeTextOffsetImpl(parent, 0, 0);
 		this._style = EShapeTextStyle.NORMAL;
-		this.spacing = new EShapeTextOffsetImpl( parent, 0, 0 );
-		this.outline = new EShapeTextOutlineImpl( parent, false, 0xffffff, 1.0, 0.5 );
+		this.spacing = new EShapeTextOffsetImpl(parent, 0, 0);
+		this.outline = new EShapeTextOutlineImpl(parent, false, 0xffffff, 1.0, 0.5);
 		this._direction = EShapeTextDirection.LEFT_TO_RIGHT;
-		this.padding = new EShapeTextOffsetImpl( parent, 10, 10 );
+		this.padding = new EShapeTextOffsetImpl(parent, 10, 10);
 		this._clipping = false;
 	}
 
@@ -68,8 +82,8 @@ export class EShapeTextImpl implements EShapeText {
 		return this._enable;
 	}
 
-	set enable( enable: boolean ) {
-		if( this._enable !== enable ) {
+	set enable(enable: boolean) {
+		if (this._enable !== enable) {
 			this._enable = enable;
 			this._parent.updateUploaded();
 		}
@@ -79,14 +93,14 @@ export class EShapeTextImpl implements EShapeText {
 		return this._value;
 	}
 
-	set value( value: string ) {
-		if( this._value !== value ) {
+	set value(value: string) {
+		if (this._value !== value) {
 			this._value = value;
 
 			// Compatibility check
 			const parent = this._parent;
 			const uploaded = parent.uploaded;
-			if( uploaded == null || ! uploaded.isCompatible( parent ) ) {
+			if (uploaded == null || !uploaded.isCompatible(parent)) {
 				this.atlas = undefined;
 				parent.toDirty();
 				return;
@@ -95,10 +109,10 @@ export class EShapeTextImpl implements EShapeText {
 			// Character code check
 			const atlas = this.atlas;
 			const characters = atlas && atlas.characters;
-			if( characters != null ) {
-				for( let i = 0, imax = value.length; i < imax; ++i ) {
-					const char = value[ i ];
-					if( ! (char in characters) ) {
+			if (characters != null) {
+				for (let i = 0, imax = value.length; i < imax; ++i) {
+					const char = value[i];
+					if (!(char in characters)) {
 						this.atlas = undefined;
 						parent.toDirty();
 						return;
@@ -119,8 +133,8 @@ export class EShapeTextImpl implements EShapeText {
 		return this._family;
 	}
 
-	set family( family: string ) {
-		if( this._family !== family ) {
+	set family(family: string) {
+		if (this._family !== family) {
 			this._family = family;
 			this._parent.toDirty();
 		}
@@ -130,8 +144,8 @@ export class EShapeTextImpl implements EShapeText {
 		return this._color;
 	}
 
-	set color( color: number ) {
-		if( this._color !== color ) {
+	set color(color: number) {
+		if (this._color !== color) {
 			this._color = color;
 			this._parent.updateUploaded();
 		}
@@ -141,8 +155,8 @@ export class EShapeTextImpl implements EShapeText {
 		return this._alpha;
 	}
 
-	set alpha( alpha: number ) {
-		if( this._alpha !== alpha ) {
+	set alpha(alpha: number) {
+		if (this._alpha !== alpha) {
 			this._alpha = alpha;
 			this._parent.updateUploaded();
 		}
@@ -152,8 +166,8 @@ export class EShapeTextImpl implements EShapeText {
 		return this._size;
 	}
 
-	set size( size: number ) {
-		if( this._size !== size ) {
+	set size(size: number) {
+		if (this._size !== size) {
 			this._size = size;
 			this._parent.updateUploaded();
 		}
@@ -163,8 +177,8 @@ export class EShapeTextImpl implements EShapeText {
 		return this._weight;
 	}
 
-	set weight( weight: EShapeTextWeight ) {
-		if( this._weight !== weight ) {
+	set weight(weight: EShapeTextWeight) {
+		if (this._weight !== weight) {
 			this._weight = weight;
 			this._parent.updateUploaded();
 		}
@@ -174,8 +188,8 @@ export class EShapeTextImpl implements EShapeText {
 		return this._style;
 	}
 
-	set style( style: EShapeTextStyle ) {
-		if( this._style !== style ) {
+	set style(style: EShapeTextStyle) {
+		if (this._style !== style) {
 			this._style = style;
 			this._parent.updateUploaded();
 		}
@@ -185,8 +199,8 @@ export class EShapeTextImpl implements EShapeText {
 		return this._direction;
 	}
 
-	set direction( direction: EShapeTextDirection ) {
-		if( this._direction !== direction ) {
+	set direction(direction: EShapeTextDirection) {
+		if (this._direction !== direction) {
 			this._direction = direction;
 			this._parent.updateUploaded();
 		}
@@ -196,15 +210,15 @@ export class EShapeTextImpl implements EShapeText {
 		return this._clipping;
 	}
 
-	set clipping( clipping: boolean ) {
-		if( this._clipping !== clipping ) {
+	set clipping(clipping: boolean) {
+		if (this._clipping !== clipping) {
 			this._clipping = clipping;
 			this._parent.updateUploaded();
 		}
 	}
 
-	copy( target?: DeepPartial<EShapeTextLike> ): this {
-		if( target ) {
+	copy(target?: DeepPartial<EShapeTextLike>): this {
+		if (target) {
 			this.set(
 				target.value,
 				target.color,
@@ -216,72 +230,77 @@ export class EShapeTextImpl implements EShapeText {
 				target.direction,
 				target.clipping
 			);
-			this.align.copy( target.align );
-			this.offset.copy( target.offset );
-			this.outline.copy( target.outline );
-			this.spacing.copy( target.spacing );
-			this.padding.copy( target.padding );
+			this.align.copy(target.align);
+			this.offset.copy(target.offset);
+			this.outline.copy(target.outline);
+			this.spacing.copy(target.spacing);
+			this.padding.copy(target.padding);
 		}
 		return this;
 	}
 
 	set(
-		value?: string, color?: number, alpha?: number,
-		family?: string, size?: number, weight?: EShapeTextWeight,
-		style?: EShapeTextStyle, direction?: EShapeTextDirection,
+		value?: string,
+		color?: number,
+		alpha?: number,
+		family?: string,
+		size?: number,
+		weight?: EShapeTextWeight,
+		style?: EShapeTextStyle,
+		direction?: EShapeTextDirection,
 		clipping?: boolean
 	): this {
 		let isChangedDirty = false;
 		let isChangedUploaded = false;
 
-		if( value != null && this._value !== value ) {
+		if (value != null && this._value !== value) {
 			this._value = value;
 			isChangedDirty = true;
 		}
 
-		if( color != null && this._color !== color ) {
+		if (color != null && this._color !== color) {
 			this._color = color;
 			isChangedUploaded = true;
 		}
 
-		if( alpha != null && this._alpha !== alpha ) {
+		if (alpha != null && this._alpha !== alpha) {
 			this._alpha = alpha;
 			isChangedUploaded = true;
 		}
 
-		if( family != null && this._family !== family ) {
+		if (family != null && this._family !== family) {
 			this._family = family;
 			isChangedDirty = true;
 		}
 
-		if( size != null && this._size !== size ) {
+		if (size != null && this._size !== size) {
 			this._size = size;
 			isChangedUploaded = true;
 		}
 
-		if( weight != null && this._weight !== weight ) {
+		if (weight != null && this._weight !== weight) {
 			this._weight = weight;
 			isChangedUploaded = true;
 		}
 
-		if( style != null && this._style !== style ) {
+		if (style != null && this._style !== style) {
 			this._style = style;
 			isChangedUploaded = true;
 		}
 
-		if( direction != null && this._direction !== direction ) {
+		if (direction != null && this._direction !== direction) {
 			this._direction = direction;
 			isChangedUploaded = true;
 		}
 
-		if( clipping != null && this._clipping !== clipping ) {
+		if (clipping != null && this._clipping !== clipping) {
 			this._clipping = clipping;
 			isChangedUploaded = true;
 		}
 
-		if( isChangedDirty ) {
+		if (isChangedDirty) {
 			this._parent.toDirty();
-		} else if( isChangedUploaded ) {
+		} else if (isChangedUploaded) {
 			this._parent.updateUploaded();
 		}
 
@@ -307,43 +326,45 @@ export class EShapeTextImpl implements EShapeText {
 		};
 	}
 
-	serialize( manager: EShapeResourceManagerSerialization ): number {
-		const alignSerialized = this.align.serialize( manager );
-		const offsetSerialized = this.offset.serialize( manager );
-		const outlineSerialized = this.outline.serialize( manager );
-		const spacingSerialized = this.spacing.serialize( manager );
-		const paddingSerialized = this.padding.serialize( manager );
-		const serialized = `[${manager.addResource( this._value )},${this._color},${this._alpha},` +
-			`${manager.addResource( this._family )},${this._size},${this._weight},${alignSerialized},` +
-			`${offsetSerialized},${this._style},${outlineSerialized},${spacingSerialized},` +
-			`${this._direction},${paddingSerialized},${this._clipping ? 1 : 0 }]`;
-		return manager.addResource( serialized );
+	serialize(manager: EShapeResourceManagerSerialization): number {
+		const valueId = manager.addResource(this._value);
+		const familyId = manager.addResource(this._family);
+		const alignId = this.align.serialize(manager);
+		const offsetId = this.offset.serialize(manager);
+		const outlineId = this.outline.serialize(manager);
+		const spacingId = this.spacing.serialize(manager);
+		const paddingId = this.padding.serialize(manager);
+		const serialized =
+			`[${valueId},${this._color},${this._alpha},${familyId},${this._size},` +
+			`${this._weight},${alignId},${offsetId},${this._style},${outlineId},` +
+			`${spacingId},${this._direction},${paddingId},${this._clipping ? 1 : 0}]`;
+		return manager.addResource(serialized);
 	}
 
-	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void {
+	deserialize(target: number, manager: EShapeResourceManagerDeserialization): void {
 		const resources = manager.resources;
-		if( 0 <= target && target < resources.length ) {
-			let parsed = manager.getText( target );
-			if( parsed == null ) {
-				parsed = JSON.parse( resources[ target ] ) as DDiagramSerializedText;
-				manager.setText( target, parsed );
+		if (0 <= target && target < resources.length) {
+			let parsed = manager.getText(target);
+			if (parsed == null) {
+				parsed = JSON.parse(resources[target]) as DDiagramSerializedText;
+				manager.setText(target, parsed);
 			}
 			this.set(
-				resources[ parsed[ 0 ] ] || "",
-				parsed[ 1 ],
-				parsed[ 2 ],
-				resources[ parsed[ 3 ] ] || "auto",
-				parsed[ 4 ],
-				parsed[ 5 ],
-				parsed[ 8 ],
-				parsed[ 11 ],
-				( parsed[ 13 ] !== 0 )
+				resources[parsed[0]] || "",
+				parsed[1],
+				parsed[2],
+				resources[parsed[3]] || "auto",
+				parsed[4],
+				parsed[5],
+				parsed[8],
+				parsed[11],
+				!!parsed[13]
 			);
-			this.align.deserialize( parsed[ 6 ], manager );
-			this.offset.deserialize( parsed[ 7 ], manager );
-			this.outline.deserialize( parsed[ 9 ], manager );
-			this.spacing.deserialize( parsed[ 10 ], manager );
-			this.padding.deserialize( parsed[ 12 ], manager );
+			this.align.deserialize(parsed[6], manager);
+			this.offset.deserialize(parsed[7], manager);
+			this.outline.deserialize(parsed[9], manager);
+			this.spacing.deserialize(parsed[10], manager);
+			this.padding.deserialize(parsed[12], manager);
 		}
 	}
 }

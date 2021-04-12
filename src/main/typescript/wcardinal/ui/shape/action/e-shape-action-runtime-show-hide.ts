@@ -12,13 +12,13 @@ import { EShapeActionValueShowHideType } from "./e-shape-action-value-show-hide-
 export class EShapeActionRuntimeShowHide extends EShapeActionRuntimeConditional {
 	visibility: boolean;
 
-	constructor( value: EShapeActionValueShowHide ) {
-		super( value, EShapeRuntimeReset.VISIBILITY );
-		this.visibility = ( value.subtype === EShapeActionValueShowHideType.SHOW );
+	constructor(value: EShapeActionValueShowHide) {
+		super(value, EShapeRuntimeReset.VISIBILITY);
+		this.visibility = value.subtype === EShapeActionValueShowHideType.SHOW;
 	}
 
-	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( this.condition( shape, time ) ) {
+	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {
+		if (this.condition(shape, time)) {
 			shape.visible = this.visibility;
 			runtime.written |= this.reset;
 		}

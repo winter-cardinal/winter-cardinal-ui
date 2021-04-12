@@ -15,9 +15,9 @@ export class DThemeWhiteTableBodyCellTrees {
 		DThemeWhiteExpandables.init();
 	}
 
-	static getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
-		if( state.is( DTableState.HAS_CHILDREN ) ) {
-			if( state.is( DTableState.OPENED ) ) {
+	static getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
+		if (state.is(DTableState.HAS_CHILDREN)) {
+			if (state.is(DTableState.OPENED)) {
 				return DThemeWhiteExpandables.getImageOpened();
 			} else {
 				return DThemeWhiteExpandables.getImageClosed();
@@ -26,11 +26,11 @@ export class DThemeWhiteTableBodyCellTrees {
 		return null;
 	}
 
-	static 	getImageTintColor( state: DBaseStateSet ): number | null {
+	static getImageTintColor(state: DBaseStateSet): number | null {
 		return DThemeWhiteConstants.COLOR;
 	}
 
-	static getImageTintAlpha( state: DBaseStateSet ): number {
-		return DThemeWhiteTableBodyCells.getAlpha( state ) * 0.5;
+	static getImageTintAlpha(state: DBaseStateSet): number {
+		return DThemeWhiteTableBodyCells.getAlpha(state) * 0.5;
 	}
 }

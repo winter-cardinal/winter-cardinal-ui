@@ -8,13 +8,9 @@ import { DButton, DButtonOptions, DThemeButton } from "./d-button";
 export interface DInputBooleanButtonOnOptions<
 	THEME extends DThemeInputBooleanButtonOn = DThemeInputBooleanButtonOn,
 	EMITTER = any
-> extends DButtonOptions<string, THEME, EMITTER> {
+> extends DButtonOptions<string, THEME, EMITTER> {}
 
-}
-
-export interface DThemeInputBooleanButtonOn extends DThemeButton<string> {
-
-}
+export interface DThemeInputBooleanButtonOn extends DThemeButton<string> {}
 
 export class DInputBooleanButtonOn<
 	THEME extends DThemeInputBooleanButtonOn = DThemeInputBooleanButtonOn,

@@ -12,7 +12,7 @@ export class FormatNodePlus implements FormatNode {
 		this.node = node;
 	}
 
-	format( target: number, step: number, date: Date ): string {
+	format(target: number, step: number, date: Date): string {
 		const result = this.node.format(target, step, date);
 		if (0 < result.length && result[0] !== "-") {
 			return `+${result}`;

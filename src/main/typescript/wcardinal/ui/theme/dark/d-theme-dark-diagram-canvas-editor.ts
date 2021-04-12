@@ -9,21 +9,23 @@ import { EShapePointsStyle } from "../../shape/e-shape-points-style";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkDiagramCanvasBase } from "./d-theme-dark-diagram-canvas-base";
 
-const toGridSize = ( grid: number, width: number, height: number ): number => {
-	const canvas = Math.max( width, height );
-	if( 0 < grid ) {
+const toGridSize = (grid: number, width: number, height: number): number => {
+	const canvas = Math.max(width, height);
+	if (0 < grid) {
 		const minimum = canvas / 1000;
-		for( let i = 0; i < 10 && grid < minimum; ++i ) {
+		for (let i = 0; i < 10 && grid < minimum; ++i) {
 			grid *= 10;
 		}
-		if( minimum <= grid ) {
+		if (minimum <= grid) {
 			return grid;
 		}
 	}
 	return canvas;
-}
+};
 
-export class DThemeDarkDiagramCanvasEditor extends DThemeDarkDiagramCanvasBase implements DThemeDiagramCanvasEditor {
+export class DThemeDarkDiagramCanvasEditor
+	extends DThemeDarkDiagramCanvasBase
+	implements DThemeDiagramCanvasEditor {
 	isAmbient(): boolean {
 		return false;
 	}
@@ -45,10 +47,12 @@ export class DThemeDarkDiagramCanvasEditor extends DThemeDarkDiagramCanvasBase i
 	}
 
 	getSnapGridMajorStyle(): EShapePointsStyle {
-		return EShapePointsStyle.DASHED |
+		return (
+			EShapePointsStyle.DASHED |
 			EShapePointsStyle.NON_EXPANDING_WIDTH |
 			EShapePointsStyle.NON_SHRINKING_WIDTH |
-			EShapePointsStyle.NON_SCALING_DOT_AND_DASH;
+			EShapePointsStyle.NON_SCALING_DOT_AND_DASH
+		);
 	}
 
 	getSnapGridMinorColor(): number {

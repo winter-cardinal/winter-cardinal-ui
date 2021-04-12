@@ -3,7 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Buffer, Geometry, Mesh, Point, Rectangle, Shader, Texture, TextureUvs, utils } from "pixi.js";
+import {
+	Buffer,
+	Geometry,
+	Mesh,
+	Point,
+	Rectangle,
+	Shader,
+	Texture,
+	TextureUvs,
+	utils
+} from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DColorGradient } from "./d-color-gradient";
 
@@ -41,7 +51,7 @@ void main(void) {
 	gl_FragColor = texture * vec4( mix( vec3( c ), vColor.xyz, vColor.a ), 1.0 );
 }`;
 
-type Parts = Array<{ data: DColorGradient | null, rect: Rectangle }>;
+type Parts = Array<{ data: DColorGradient | null; rect: Rectangle }>;
 
 export class DPickerColorGradientView extends Mesh {
 	protected _nPointsPerData: number;
@@ -58,10 +68,15 @@ export class DPickerColorGradientView extends Mesh {
 
 	protected constructor(
 		nPointsPerData: number,
-		vertices: Float32Array, uvs: Float32Array, colors: Float32Array, indices: Uint16Array,
-		parts: Parts, geometry: Geometry, shader: Shader
+		vertices: Float32Array,
+		uvs: Float32Array,
+		colors: Float32Array,
+		indices: Uint16Array,
+		parts: Parts,
+		geometry: Geometry,
+		shader: Shader
 	) {
-		super( geometry, shader );
+		super(geometry, shader);
 
 		this.interactive = true;
 		this.interactiveChildren = false;
@@ -73,29 +88,29 @@ export class DPickerColorGradientView extends Mesh {
 		this._colors = colors;
 		this._indices = indices;
 		this._lastHitIndex = -1;
-		this._workColor = [ 0, 0, 0 ];
+		this._workColor = [0, 0, 0];
 		this._workPoint = new Point();
 		this._parts = parts;
 
-		shader.uniforms.uSampler.on( "update", (): void => {
+		shader.uniforms.uSampler.on("update", (): void => {
 			this.update();
-			DApplications.update( this );
+			DApplications.update(this);
 		});
 		this.update();
 	}
 
-	getRectangle( index: number ): Rectangle | null {
+	getRectangle(index: number): Rectangle | null {
 		const parts = this._parts;
-		if( 0 <= index && index < parts.length ) {
-			return parts[ index ].rect;
+		if (0 <= index && index < parts.length) {
+			return parts[index].rect;
 		}
 		return null;
 	}
 
-	setRectangle( index: number, x: number, y: number, width: number, height: number ): void {
+	setRectangle(index: number, x: number, y: number, width: number, height: number): void {
 		const parts = this._parts;
-		if( 0 <= index && index < parts.length ) {
-			const rect = parts[ index ].rect;
+		if (0 <= index && index < parts.length) {
+			const rect = parts[index].rect;
 			rect.x = x;
 			rect.y = y;
 			rect.width = width;
@@ -103,18 +118,18 @@ export class DPickerColorGradientView extends Mesh {
 		}
 	}
 
-	getData( index: number ): DColorGradient | null {
+	getData(index: number): DColorGradient | null {
 		const parts = this._parts;
-		if( 0 <= index && index < parts.length ) {
-			return parts[ index ].data;
+		if (0 <= index && index < parts.length) {
+			return parts[index].data;
 		}
 		return null;
 	}
 
-	setData( index: number, data: DColorGradient | null ): void {
+	setData(index: number, data: DColorGradient | null): void {
 		const parts = this._parts;
-		if( 0 <= index && index < parts.length ) {
-			parts[ index ].data = data;
+		if (0 <= index && index < parts.length) {
+			parts[index].data = data;
 		}
 	}
 
@@ -122,67 +137,77 @@ export class DPickerColorGradientView extends Mesh {
 		return this._lastHitIndex;
 	}
 
-	private setColors( ic: number, colors: Float32Array, rgb: number[], alpha: number ) {
-		colors[ ic + 0 ] = rgb[ 0 ];
-		colors[ ic + 1 ] = rgb[ 1 ];
-		colors[ ic + 2 ] = rgb[ 2 ];
-		colors[ ic + 3 ] = alpha;
-		colors[ ic + 4 ] = rgb[ 0 ];
-		colors[ ic + 5 ] = rgb[ 1 ];
-		colors[ ic + 6 ] = rgb[ 2 ];
-		colors[ ic + 7 ] = alpha;
+	private setColors(ic: number, colors: Float32Array, rgb: number[], alpha: number) {
+		colors[ic + 0] = rgb[0];
+		colors[ic + 1] = rgb[1];
+		colors[ic + 2] = rgb[2];
+		colors[ic + 3] = alpha;
+		colors[ic + 4] = rgb[0];
+		colors[ic + 5] = rgb[1];
+		colors[ic + 6] = rgb[2];
+		colors[ic + 7] = alpha;
 	}
 
-	private setColorsHex( ic: number, colors: Float32Array, color: number, alpha: number ) {
-		const rgb = utils.hex2rgb( color, this._workColor );
-		this.setColors( ic, colors, rgb, alpha );
+	private setColorsHex(ic: number, colors: Float32Array, color: number, alpha: number) {
+		const rgb = utils.hex2rgb(color, this._workColor);
+		this.setColors(ic, colors, rgb, alpha);
 	}
 
-	private setColorsWhite( ic: number, colors: Float32Array ) {
+	private setColorsWhite(ic: number, colors: Float32Array) {
 		const rgb = this._workColor;
-		rgb[ 0 ] = 1;
-		rgb[ 1 ] = 1;
-		rgb[ 2 ] = 1;
-		this.setColors( ic, colors, rgb, 0 );
+		rgb[0] = 1;
+		rgb[1] = 1;
+		rgb[2] = 1;
+		this.setColors(ic, colors, rgb, 0);
 	}
 
-	private setColorsPoint( ic: number, data: DColorGradient, index: number, colors: Float32Array ) {
-		const point = data.points[ index ];
-		if( point != null ) {
-			this.setColorsHex( ic, colors, point.color, point.alpha );
+	private setColorsPoint(ic: number, data: DColorGradient, index: number, colors: Float32Array) {
+		const point = data.points[index];
+		if (point != null) {
+			this.setColorsHex(ic, colors, point.color, point.alpha);
 		} else {
-			this.setColorsWhite( ic, colors );
+			this.setColorsWhite(ic, colors);
 		}
 	}
 
-	protected setVertices( iv: number, vertices: Float32Array, position: number, rect: Rectangle ): void {
+	protected setVertices(
+		iv: number,
+		vertices: Float32Array,
+		position: number,
+		rect: Rectangle
+	): void {
 		const y = rect.y + rect.height * position;
-		vertices[ iv + 0 ] = rect.x;
-		vertices[ iv + 1 ] = y;
-		vertices[ iv + 2 ] = rect.x + rect.width;
-		vertices[ iv + 3 ] = y;
+		vertices[iv + 0] = rect.x;
+		vertices[iv + 1] = y;
+		vertices[iv + 2] = rect.x + rect.width;
+		vertices[iv + 3] = y;
 	}
 
-	protected setUvs( iv: number, uvs: Float32Array, position: number, textureUvs: TextureUvs ): void {
+	protected setUvs(
+		iv: number,
+		uvs: Float32Array,
+		position: number,
+		textureUvs: TextureUvs
+	): void {
 		const x0 = textureUvs.x0 + (textureUvs.x3 - textureUvs.x0) * position;
 		const y0 = textureUvs.y0 + (textureUvs.y3 - textureUvs.y0) * position;
 		const x1 = textureUvs.x1 + (textureUvs.x2 - textureUvs.x1) * position;
 		const y1 = textureUvs.y1 + (textureUvs.y2 - textureUvs.y1) * position;
-		uvs[ iv + 0 ] = x0;
-		uvs[ iv + 1 ] = y0;
-		uvs[ iv + 2 ] = x1;
-		uvs[ iv + 3 ] = y1;
+		uvs[iv + 0] = x0;
+		uvs[iv + 1] = y0;
+		uvs[iv + 2] = x1;
+		uvs[iv + 3] = y1;
 	}
 
-	private newIndices( ii: number, iv: number, size: number, indices: Uint16Array ): Uint16Array {
-		for( let i = 0; i < size; ++i ) {
-			indices[ ii + 0 ] = iv + 0;
-			indices[ ii + 1 ] = iv + 1;
-			indices[ ii + 2 ] = iv + 2;
+	private newIndices(ii: number, iv: number, size: number, indices: Uint16Array): Uint16Array {
+		for (let i = 0; i < size; ++i) {
+			indices[ii + 0] = iv + 0;
+			indices[ii + 1] = iv + 1;
+			indices[ii + 2] = iv + 2;
 
-			indices[ ii + 3 ] = iv + 2;
-			indices[ ii + 4 ] = iv + 1;
-			indices[ ii + 5 ] = iv + 3;
+			indices[ii + 3] = iv + 2;
+			indices[ii + 4] = iv + 1;
+			indices[ii + 5] = iv + 3;
 
 			ii += 6;
 			iv += 2;
@@ -191,13 +216,13 @@ export class DPickerColorGradientView extends Mesh {
 	}
 
 	protected _calculateBounds(): void {
-		const rect = this._parts[ 0 ].rect;
+		const rect = this._parts[0].rect;
 		const bounds = this._bounds;
 		const work = this._workPoint;
-		work.set( rect.x, rect.y );
-		bounds.addPoint( work );
-		work.set( rect.x + rect.width, rect.y + rect.height );
-		bounds.addPoint( work );
+		work.set(rect.x, rect.y);
+		bounds.addPoint(work);
+		work.set(rect.x + rect.width, rect.y + rect.height);
+		bounds.addPoint(work);
 	}
 
 	update(): void {
@@ -207,7 +232,7 @@ export class DPickerColorGradientView extends Mesh {
 		const indices = this._indices;
 
 		const texture = this.shader.uniforms.uSampler;
-		if( texture._uvs == null ) {
+		if (texture._uvs == null) {
 			texture.updateUvs();
 		}
 		const textureUvs: TextureUvs = texture._uvs;
@@ -218,43 +243,43 @@ export class DPickerColorGradientView extends Mesh {
 		let ii = 0;
 
 		const parts = this._parts;
-		for( let i = 0, imax = parts.length; i < imax; ++i ) {
-			const data = parts[ i ].data;
-			const rect = parts[ i ].rect;
-			if( data == null ) {
-				this.setVertices( iv, vertices, 0, rect );
-				this.setUvs( iv, uvs, 0, textureUvs );
-				this.setColorsWhite( ic, colors );
-				this.setVertices( iv + 4, vertices, 1, rect );
-				this.setUvs( iv, uvs, 1, textureUvs );
-				this.setColorsWhite( ic + 8, colors );
-				this.newIndices( ii, nv, 1, indices );
+		for (let i = 0, imax = parts.length; i < imax; ++i) {
+			const data = parts[i].data;
+			const rect = parts[i].rect;
+			if (data == null) {
+				this.setVertices(iv, vertices, 0, rect);
+				this.setUvs(iv, uvs, 0, textureUvs);
+				this.setColorsWhite(ic, colors);
+				this.setVertices(iv + 4, vertices, 1, rect);
+				this.setUvs(iv, uvs, 1, textureUvs);
+				this.setColorsWhite(ic + 8, colors);
+				this.newIndices(ii, nv, 1, indices);
 				iv += 4 * 2;
 				ic += 4 * 4;
 				nv += 4;
 				ii += 6;
 			} else {
-				this.setVertices( iv, vertices, 0, rect );
-				this.setUvs( iv, uvs, 0, textureUvs );
-				this.setColorsPoint( ic, data, 0, colors );
+				this.setVertices(iv, vertices, 0, rect);
+				this.setUvs(iv, uvs, 0, textureUvs);
+				this.setColorsPoint(ic, data, 0, colors);
 				iv += 2 * 2;
 				ic += 2 * 4;
 				const pointSize = data.points.length;
-				for( let j = 0, jmax = Math.min( pointSize, this._nPointsPerData ); j < jmax; ++j ) {
-					const point = data.points[ j ];
-					this.setVertices( iv, vertices, point.position, rect );
-					this.setUvs( iv, uvs, point.position, textureUvs );
-					this.setColorsHex( ic, colors, point.color, point.alpha );
+				for (let j = 0, jmax = Math.min(pointSize, this._nPointsPerData); j < jmax; ++j) {
+					const point = data.points[j];
+					this.setVertices(iv, vertices, point.position, rect);
+					this.setUvs(iv, uvs, point.position, textureUvs);
+					this.setColorsHex(ic, colors, point.color, point.alpha);
 					iv += 2 * 2;
 					ic += 2 * 4;
 				}
-				this.setVertices( iv, vertices, 1, rect );
-				this.setUvs( iv, uvs, 1, textureUvs );
-				this.setColorsPoint( ic, data, pointSize - 1, colors );
+				this.setVertices(iv, vertices, 1, rect);
+				this.setUvs(iv, uvs, 1, textureUvs);
+				this.setColorsPoint(ic, data, pointSize - 1, colors);
 				iv += 2 * 2;
 				ic += 2 * 4;
 
-				this.newIndices( ii, nv, pointSize + 1, indices );
+				this.newIndices(ii, nv, pointSize + 1, indices);
 				ii += (pointSize + 1) * 6;
 				nv += (pointSize + 2) * 2;
 			}
@@ -263,18 +288,18 @@ export class DPickerColorGradientView extends Mesh {
 		this.size = ii;
 
 		const geometry = this.geometry;
-		geometry.getBuffer( "aPosition" ).update();
-		geometry.getBuffer( "aUv" ).update();
-		geometry.getBuffer( "aColor" ).update();
+		geometry.getBuffer("aPosition").update();
+		geometry.getBuffer("aUv").update();
+		geometry.getBuffer("aColor").update();
 		geometry.getIndex().update();
 	}
 
-	containsPoint( point: Point ): boolean {
-		const local = this.toLocal( point, undefined, this._workPoint );
+	containsPoint(point: Point): boolean {
+		const local = this.toLocal(point, undefined, this._workPoint);
 		const parts = this._parts;
-		for( let i = 0, imax = parts.length; i < imax; ++i ) {
-			const rect = parts[ i ].rect;
-			if( rect.contains( local.x, local.y ) ) {
+		for (let i = 0, imax = parts.length; i < imax; ++i) {
+			const rect = parts[i].rect;
+			if (rect.contains(local.x, local.y)) {
 				this._lastHitIndex = i;
 				return true;
 			}
@@ -285,16 +310,16 @@ export class DPickerColorGradientView extends Mesh {
 	static from(
 		size: number,
 		nPointsPerData: number,
-		checkerColors: [ number, number ],
+		checkerColors: [number, number],
 		texture: Texture = Texture.WHITE
 	): DPickerColorGradientView {
-		const vertices = new Float32Array( size * ( nPointsPerData + 2 ) * 2 * 2 );
-		const uvs = new Float32Array( size * ( nPointsPerData + 2 ) * 2 * 2 );
-		const colors = new Float32Array( size * ( nPointsPerData + 2 ) * 2 * 4 );
-		const indices = new Uint16Array( size * ( nPointsPerData + 1 ) * 6 );
+		const vertices = new Float32Array(size * (nPointsPerData + 2) * 2 * 2);
+		const uvs = new Float32Array(size * (nPointsPerData + 2) * 2 * 2);
+		const colors = new Float32Array(size * (nPointsPerData + 2) * 2 * 4);
+		const indices = new Uint16Array(size * (nPointsPerData + 1) * 6);
 
 		const parts: Parts = [];
-		for( let i = 0; i < size; ++i ) {
+		for (let i = 0; i < size; ++i) {
 			parts.push({
 				data: null,
 				rect: new Rectangle()
@@ -302,16 +327,24 @@ export class DPickerColorGradientView extends Mesh {
 		}
 
 		const geometry = new Geometry()
-			.addIndex( new Buffer( indices, false, true ) )
-			.addAttribute( "aPosition", new Buffer( vertices, false, false ), 2 )
-			.addAttribute( "aUv", new Buffer( uvs, false, false ), 2 )
-			.addAttribute( "aColor", new Buffer( colors, false, false ), 4 );
-		const shader = Shader.from( VERTEX_SHADER, FRAGMENT_SHADER, { uSampler: texture, uCheckerColors: checkerColors } );
+			.addIndex(new Buffer(indices, false, true))
+			.addAttribute("aPosition", new Buffer(vertices, false, false), 2)
+			.addAttribute("aUv", new Buffer(uvs, false, false), 2)
+			.addAttribute("aColor", new Buffer(colors, false, false), 4);
+		const shader = Shader.from(VERTEX_SHADER, FRAGMENT_SHADER, {
+			uSampler: texture,
+			uCheckerColors: checkerColors
+		});
 
 		return new DPickerColorGradientView(
 			nPointsPerData,
-			vertices, uvs, colors, indices,
-			parts, geometry, shader
+			vertices,
+			uvs,
+			colors,
+			indices,
+			parts,
+			geometry,
+			shader
 		);
 	}
 }

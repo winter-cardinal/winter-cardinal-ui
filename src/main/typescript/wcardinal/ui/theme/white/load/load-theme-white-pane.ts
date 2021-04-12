@@ -9,7 +9,7 @@ import { DThemeWhitePane } from "../d-theme-white-pane";
 import { loadThemeWhiteScrollBar } from "./load-theme-white-scroll-bar";
 
 export const loadThemeWhitePane = (): void => {
-	DThemeWhite.set( "DPane", DThemeWhitePane );
-	DThemeWhite.set( "DContent", DThemeWhiteContent );
+	DThemeWhite.set("DPane", DThemeWhitePane);
+	DThemeWhite.set("DContent", DThemeWhiteContent);
 	loadThemeWhiteScrollBar();
 };

@@ -10,15 +10,25 @@ import { DChartRegion } from "./d-chart-region";
 import { DChartSelection } from "./d-chart-selection";
 import { DChartSeries, DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesFillOptions } from "./d-chart-series-fill";
-import { DChartSeriesFillComputed, DChartSeriesFillComputedOptions } from "./d-chart-series-fill-computed";
+import {
+	DChartSeriesFillComputed,
+	DChartSeriesFillComputedOptions
+} from "./d-chart-series-fill-computed";
 import { DChartSeriesPaddingOptions } from "./d-chart-series-padding";
 import {
-	DChartSeriesPaddingComputed, DChartSeriesPaddingComputedOptions
+	DChartSeriesPaddingComputed,
+	DChartSeriesPaddingComputedOptions
 } from "./d-chart-series-padding-computed";
 import { DChartSeriesPointOptions } from "./d-chart-series-point";
-import { DChartSeriesPointComputed, DChartSeriesPointComputedOptions } from "./d-chart-series-point-computed";
+import {
+	DChartSeriesPointComputed,
+	DChartSeriesPointComputedOptions
+} from "./d-chart-series-point-computed";
 import { DChartSeriesStrokeOptions } from "./d-chart-series-stroke";
-import { DChartSeriesStrokeComputed, DChartSeriesStrokeComputedOptions } from "./d-chart-series-stroke-computed";
+import {
+	DChartSeriesStrokeComputed,
+	DChartSeriesStrokeComputedOptions
+} from "./d-chart-series-stroke-computed";
 
 export interface DChartSeriesContainerOptions {
 	list: DChartSeries[];
@@ -49,12 +59,14 @@ export interface DChartSeriesContainer {
 	newSize(
 		index: number,
 		options: DChartSeriesPointComputedOptions | undefined,
-		x: number, y: number
+		x: number,
+		y: number
 	): DChartSeriesPointComputed;
 	newOffset(
 		index: number,
 		options: DChartSeriesPointComputedOptions | undefined,
-		x: number, y: number
+		x: number,
+		y: number
 	): DChartSeriesPointComputed;
 	newPadding(
 		index: number,
@@ -62,16 +74,16 @@ export interface DChartSeriesContainer {
 	): DChartSeriesPaddingComputed;
 
 	update(): void;
-	add( series: DChartSeries ): void;
-	get( index: number ): DChartSeries | null;
+	add(series: DChartSeries): void;
+	get(index: number): DChartSeries | null;
 	clear(): this;
 	size(): number;
 	destroy(): void;
-	indexOf( series: DChartSeries ): number;
+	indexOf(series: DChartSeries): number;
 
-	getDomain( coordinate: DChartCoordinate, result: DChartRegion ): DChartRegion;
-	getRange( coordinate: DChartCoordinate, result: DChartRegion ): DChartRegion;
+	getDomain(coordinate: DChartCoordinate, result: DChartRegion): DChartRegion;
+	getRange(coordinate: DChartCoordinate, result: DChartRegion): DChartRegion;
 
-	hitTest( global: IPoint ): DChartSeries | null;
-	calcHitPoint( global: IPoint, result: DChartSeriesHitResult ): DChartSeries | null;
+	hitTest(global: IPoint): DChartSeries | null;
+	calcHitPoint(global: IPoint, result: DChartSeriesHitResult): DChartSeries | null;
 }

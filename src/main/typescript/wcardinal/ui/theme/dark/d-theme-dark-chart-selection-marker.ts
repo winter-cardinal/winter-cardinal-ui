@@ -9,16 +9,16 @@ import { EShape } from "../../shape/e-shape";
 import { EShapeCircle } from "../../shape/variant/e-shape-circle";
 
 export class DThemeDarkChartSelectionMarker implements DThemeChartSelectionShape {
-	isEnabled( state: DBaseStateSet ): boolean {
+	isEnabled(state: DBaseStateSet): boolean {
 		return false;
 	}
 
-	newShape( state: DBaseStateSet ): EShape {
+	newShape(state: DBaseStateSet): EShape {
 		const result = new EShapeCircle();
-		if( state.isHovered ) {
-			result.size.set( 14, 14 );
+		if (state.isHovered) {
+			result.size.set(14, 14);
 		} else {
-			result.size.set( 20, 20 );
+			result.size.set(20, 20);
 		}
 		return result;
 	}

@@ -33,13 +33,13 @@ export class DAnimationFadeIn<TARGET extends DBase = DBase> extends DAnimationBa
 	protected _onPrerenderBound: () => void;
 	protected _onPostrenderBound: () => void;
 
-	constructor( options?: DAnimationFadeInOptions<TARGET> ) {
-		super( options );
+	constructor(options?: DAnimationFadeInOptions<TARGET>) {
+		super(options);
 
 		// Shifts
 		const shift = options?.shift;
-		this._shiftX = (shift?.x ?? 0);
-		this._shiftY = (shift?.y ?? 15);
+		this._shiftX = shift?.x ?? 0;
+		this._shiftY = shift?.y ?? 15;
 
 		this._onPrerenderBound = () => {
 			this.onPrerender();
@@ -56,68 +56,68 @@ export class DAnimationFadeIn<TARGET extends DBase = DBase> extends DAnimationBa
 		super.stop();
 	}
 
-	protected addEventListeners( target: TARGET ): void {
-		const layer = DApplications.getLayer( target );
-		if( layer ) {
+	protected addEventListeners(target: TARGET): void {
+		const layer = DApplications.getLayer(target);
+		if (layer) {
 			this._layer = layer;
 			const renderer = layer.renderer;
-			renderer.on( "prerender", this._onPrerenderBound );
-			renderer.on( "postrender", this._onPostrenderBound );
+			renderer.on("prerender", this._onPrerenderBound);
+			renderer.on("postrender", this._onPostrenderBound);
 		}
 	}
 
 	protected removeEventListeners(): void {
 		const layer = this._layer;
-		if( layer ) {
+		if (layer) {
 			this._layer = null;
 			const renderer = layer.renderer;
-			renderer.off( "prerender", this._onPrerenderBound );
-			renderer.off( "postrender", this._onPostrenderBound );
+			renderer.off("prerender", this._onPrerenderBound);
+			renderer.off("postrender", this._onPostrenderBound);
 		}
 	}
 
-	protected onStart( isReverse: boolean ): void {
-		const target = this._storedTarget = this._target;
-		if( target != null ) {
+	protected onStart(isReverse: boolean): void {
+		const target = (this._storedTarget = this._target);
+		if (target != null) {
 			this._storedTime = 0;
 			this.removeEventListeners();
-			this.addEventListeners( target );
-			if( ! isReverse ) {
+			this.addEventListeners(target);
+			if (!isReverse) {
 				target.visible = true;
 			}
-			super.onStart( isReverse );
+			super.onStart(isReverse);
 		}
 	}
 
-	protected onTime( time: number, isReverse: boolean, elapsedTime: number ): void {
+	protected onTime(time: number, isReverse: boolean, elapsedTime: number): void {
 		const target = this._storedTarget;
-		if( target != null ) {
+		if (target != null) {
 			const layer = this._layer;
-			if( layer ) {
+			if (layer) {
 				this._storedTime = time;
-				super.onTime( time, isReverse, elapsedTime );
+				super.onTime(time, isReverse, elapsedTime);
 				layer.update();
 			} else {
 				this._storedTime = time;
-				super.onTime( time, isReverse, elapsedTime );
+				super.onTime(time, isReverse, elapsedTime);
 			}
 		}
 	}
 
-	protected onEnd( isReverse: boolean ): void {
+	protected onEnd(isReverse: boolean): void {
 		const target = this._storedTarget;
-		if( target != null ) {
+		if (target != null) {
 			this.removeEventListeners();
-			if( isReverse ) {
+			if (isReverse) {
 				target.visible = false;
 			}
-			super.onEnd( isReverse );
+			super.onEnd(isReverse);
 		}
 	}
 
 	protected onPrerender(): void {
 		const target = this._storedTarget;
-		if( target != null ) {
+		if (target != null) {
 			const storedTime = this._storedTime;
 
 			// Position
@@ -125,8 +125,8 @@ export class DAnimationFadeIn<TARGET extends DBase = DBase> extends DAnimationBa
 			this._storedX = position.x;
 			this._storedY = position.y;
 			position.set(
-				position.x - this._shiftX * ( 1 - storedTime ),
-				position.y - this._shiftY * ( 1 - storedTime )
+				position.x - this._shiftX * (1 - storedTime),
+				position.y - this._shiftY * (1 - storedTime)
 			);
 
 			// Alpha
@@ -137,13 +137,10 @@ export class DAnimationFadeIn<TARGET extends DBase = DBase> extends DAnimationBa
 
 	protected onPostrender(): void {
 		const target = this._storedTarget;
-		if( target != null ) {
+		if (target != null) {
 			// Position
 			const position = target.unsafe.position;
-			position.set(
-				this._storedX,
-				this._storedY
-			);
+			position.set(this._storedX, this._storedY);
 
 			// Alpha
 			target.alpha = this._storedAlpha;

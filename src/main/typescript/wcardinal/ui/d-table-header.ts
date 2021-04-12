@@ -10,7 +10,7 @@ import { DTableHeaderCell, DTableHeaderCellOptions } from "./d-table-header-cell
 import { DTableRow, DTableRowOptions, DThemeTableRow } from "./d-table-row";
 
 export interface DTableHeaderTableBody {
-	update( forcibly?: boolean ): void;
+	update(forcibly?: boolean): void;
 }
 
 export interface DTableHeaderTable<ROW> {
@@ -18,18 +18,14 @@ export interface DTableHeaderTable<ROW> {
 	readonly body: DTableHeaderTableBody;
 }
 
-export interface DTableHeaderOptions<
-	ROW,
-	THEME extends DThemeTableHeader = DThemeTableHeader
-> extends DTableRowOptions<ROW, DTableColumn<ROW, unknown>, THEME> {
+export interface DTableHeaderOptions<ROW, THEME extends DThemeTableHeader = DThemeTableHeader>
+	extends DTableRowOptions<ROW, DTableColumn<ROW, unknown>, THEME> {
 	table?: DTableHeaderTable<ROW>;
 	offset?: number;
 	cell?: DTableHeaderCellOptions<ROW>;
 }
 
-export interface DThemeTableHeader extends DThemeTableRow {
-
-}
+export interface DThemeTableHeader extends DThemeTableRow {}
 
 export class DTableHeader<
 	ROW,
@@ -39,8 +35,8 @@ export class DTableHeader<
 	protected _table: DTableHeaderTable<ROW> | null;
 	protected _offset: number;
 
-	constructor( options: OPTIONS ) {
-		super( options );
+	constructor(options: OPTIONS) {
+		super(options);
 
 		this._table = options.table ?? null;
 
@@ -48,22 +44,22 @@ export class DTableHeader<
 		this._offset = offset;
 		this.transform.position.y = offset;
 
-		this.initCells( options, this._columns, this._frozen );
+		this.initCells(options, this._columns, this._frozen);
 	}
 
 	get table(): DTableHeaderTable<ROW> | null {
 		return this._table;
 	}
 
-	protected onParentMove( newX: number, newY: number, oldX: number, oldY: number ): void {
-		super.onParentMove( newX, newY, oldX, oldY );
+	protected onParentMove(newX: number, newY: number, oldX: number, oldY: number): void {
+		super.onParentMove(newX, newY, oldX, oldY);
 		this.transform.position.y = -newY + this._offset;
-		this.updateFrozenCellPosition( newX );
+		this.updateFrozenCellPosition(newX);
 	}
 
 	protected getContentPositionX(): number {
 		const content = this.parent;
-		if( content ) {
+		if (content) {
 			return content.position.x;
 		}
 		return 0;
@@ -75,7 +71,7 @@ export class DTableHeader<
 		columns: Array<DTableColumn<ROW, unknown>>,
 		options: OPTIONS
 	): DBase {
-		return new DTableHeaderCell<ROW>( this.toCellOptions( columnIndex, column, options ) );
+		return new DTableHeaderCell<ROW>(this.toCellOptions(columnIndex, column, options));
 	}
 
 	protected toCellOptions(
@@ -84,27 +80,27 @@ export class DTableHeader<
 		options: OPTIONS
 	): DTableHeaderCellOptions<ROW> {
 		const result = column.header || options.cell;
-		if( result != null ) {
-			if( result.weight === undefined ) {
+		if (result != null) {
+			if (result.weight === undefined) {
 				result.weight = column.weight;
 			}
-			if( result.width === undefined ) {
+			if (result.width === undefined) {
 				result.width = column.width;
 			}
-			if( result.text === undefined ) {
+			if (result.text === undefined) {
 				result.text = {
 					value: column.label
 				};
-			} else if( result.text.value === undefined ) {
+			} else if (result.text.value === undefined) {
 				result.text.value = column.label;
 			}
-			if( result.header === undefined ) {
+			if (result.header === undefined) {
 				result.header = this;
 			}
-			if( result.column === undefined ) {
+			if (result.column === undefined) {
 				result.column = column;
 			}
-			if( result.columnIndex === undefined ) {
+			if (result.columnIndex === undefined) {
 				result.columnIndex = columnIndex;
 			}
 			return result;

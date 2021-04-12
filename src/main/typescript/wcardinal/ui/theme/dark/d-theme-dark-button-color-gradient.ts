@@ -12,22 +12,26 @@ import { DThemeDarkButton } from "./d-theme-dark-button";
 
 // Material Design icons by Google.
 // Apache license version 2.0.
-DThemeDarkAtlas.add( "button_color_gradient_sample", 21, 21,
+/* eslint-disable prettier/prettier */
+DThemeDarkAtlas.add("button_color_gradient_sample", 21, 21,
 	`<g transform="scale(0.875,0.875)">` +
 		`<path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" fill="#fff"/>` +
 	`</g>`
 );
+/* eslint-enable prettier/prettier */
 
 const formatter = (): string => {
 	return "";
 };
 
-export class DThemeDarkButtonColorGradient extends DThemeDarkButton<DColorGradientObservable> implements DThemeButtonColorGradient {
+export class DThemeDarkButtonColorGradient
+	extends DThemeDarkButton<DColorGradientObservable>
+	implements DThemeButtonColorGradient {
 	getViewBaseTexture(): Texture | null {
 		return DThemeDarkAtlas.mappings.button_color_gradient_sample;
 	}
 
-	getTextFormatter(): ( value: DColorGradientObservable, caller: DButtonColorGradient ) => string {
+	getTextFormatter(): (value: DColorGradientObservable, caller: DButtonColorGradient) => string {
 		return formatter;
 	}
 
@@ -35,7 +39,7 @@ export class DThemeDarkButtonColorGradient extends DThemeDarkButton<DColorGradie
 		return new DColorGradientObservable();
 	}
 
-	getCheckerColors(): [ number, number ] {
-		return [ 0x37255, 0.27 ];
+	getCheckerColors(): [number, number] {
+		return [0x37255, 0.27];
 	}
 }

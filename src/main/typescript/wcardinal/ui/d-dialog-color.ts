@@ -9,15 +9,12 @@ import { DLayoutVertical } from "./d-layout-vertical";
 import { DPickerColor, DPickerColorOptions } from "./d-picker-color";
 import { DPickerColorRecent } from "./d-picker-color-recent";
 
-export interface DDialogColorOptions<
-	THEME extends DThemeDialogColor = DThemeDialogColor
-> extends DDialogCommandOptions<DColorAndAlpha, THEME> {
+export interface DDialogColorOptions<THEME extends DThemeDialogColor = DThemeDialogColor>
+	extends DDialogCommandOptions<DColorAndAlpha, THEME> {
 	picker?: DPickerColorOptions;
 }
 
-export interface DThemeDialogColor extends DThemeDialogCommand {
-
-}
+export interface DThemeDialogColor extends DThemeDialogCommand {}
 
 export class DDialogColor<
 	THEME extends DThemeDialogColor = DThemeDialogColor,
@@ -25,18 +22,18 @@ export class DDialogColor<
 > extends DDialogCommand<DColorAndAlpha, THEME, OPTIONS> {
 	protected _picker?: DPickerColor;
 
-	protected onInit( layout: DLayoutVertical, options?: OPTIONS ): void {
-		super.onInit( layout, options );
-		layout.addChild( this.picker );
+	protected onInit(layout: DLayoutVertical, options?: OPTIONS): void {
+		super.onInit(layout, options);
+		layout.addChild(this.picker);
 	}
 
-	protected onOk( value: DColorAndAlpha | PromiseLike<DColorAndAlpha> ): void {
-		super.onOk( value );
+	protected onOk(value: DColorAndAlpha | PromiseLike<DColorAndAlpha>): void {
+		super.onOk(value);
 
 		const picker = this.picker;
 		const recent = picker.recent;
-		if( ! recent.contains( picker.new ) ) {
-			recent.add( picker.new );
+		if (!recent.contains(picker.new)) {
+			recent.add(picker.new);
 		}
 	}
 
@@ -54,8 +51,8 @@ export class DDialogColor<
 
 	get picker(): DPickerColor {
 		let result = this._picker;
-		if( result == null ) {
-			result = new DPickerColor( this._options?.picker );
+		if (result == null) {
+			result = new DPickerColor(this._options?.picker);
 			this._picker = result;
 		}
 		return result;

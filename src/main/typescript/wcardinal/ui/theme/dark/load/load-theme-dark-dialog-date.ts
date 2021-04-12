@@ -8,6 +8,6 @@ import { DThemeDarkDialogDate } from "../d-theme-dark-dialog-date";
 import { loadThemeDarkPickerDate } from "./load-theme-dark-picker-date";
 
 export const loadThemeDarkDialogDate = (): void => {
-	DThemeDark.set( "DDialogDate", DThemeDarkDialogDate );
+	DThemeDark.set("DDialogDate", DThemeDarkDialogDate);
 	loadThemeDarkPickerDate();
 };

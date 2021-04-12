@@ -17,7 +17,7 @@ export class EShapeGroupStrokeViewer implements EShapeStroke {
 		return false;
 	}
 
-	set enable( enable: boolean ) {
+	set enable(enable: boolean) {
 		// DO NOTHING
 	}
 
@@ -25,7 +25,7 @@ export class EShapeGroupStrokeViewer implements EShapeStroke {
 		return 0xffffff;
 	}
 
-	set color( color: number ) {
+	set color(color: number) {
 		// DO NOTHING
 	}
 
@@ -33,7 +33,7 @@ export class EShapeGroupStrokeViewer implements EShapeStroke {
 		return 1.0;
 	}
 
-	set alpha( alpha: number ) {
+	set alpha(alpha: number) {
 		// DO NOTHING
 	}
 
@@ -41,7 +41,7 @@ export class EShapeGroupStrokeViewer implements EShapeStroke {
 		return 1.0;
 	}
 
-	set width( width: number ) {
+	set width(width: number) {
 		// DO NOTHING
 	}
 
@@ -49,7 +49,7 @@ export class EShapeGroupStrokeViewer implements EShapeStroke {
 		return 0.0;
 	}
 
-	set align( width: number ) {
+	set align(width: number) {
 		// DO NOTHING
 	}
 
@@ -57,15 +57,21 @@ export class EShapeGroupStrokeViewer implements EShapeStroke {
 		return EShapeStrokeSide.NONE;
 	}
 
-	set side( side: EShapeStrokeSide ) {
+	set side(side: EShapeStrokeSide) {
 		// DO NOTHING
 	}
 
-	copy( target?: Partial<EShapeStrokeLike> ): void {
+	copy(target?: Partial<EShapeStrokeLike>): void {
 		// DO NOTHING
 	}
 
-	set( enable?: boolean, color?: number, alpha?: number, width?: number, side?: EShapeStrokeSide ): void {
+	set(
+		enable?: boolean,
+		color?: number,
+		alpha?: number,
+		width?: number,
+		side?: EShapeStrokeSide
+	): void {
 		// DO NOTHING
 	}
 
@@ -84,11 +90,11 @@ export class EShapeGroupStrokeViewer implements EShapeStroke {
 		};
 	}
 
-	serialize( manager: EShapeResourceManagerSerialization ): number {
+	serialize(manager: EShapeResourceManagerSerialization): number {
 		return -1;
 	}
 
-	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void {
+	deserialize(target: number, manager: EShapeResourceManagerDeserialization): void {
 		//
 	}
 }

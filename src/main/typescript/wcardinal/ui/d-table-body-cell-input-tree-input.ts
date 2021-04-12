@@ -8,13 +8,9 @@ import { DInputText, DInputTextOptions, DThemeInputText } from "./d-input-text";
 
 export interface DTableBodyCellInputTreeInputOptions<
 	THEME extends DThemeTableBodyCellInputTreeInput = DThemeTableBodyCellInputTreeInput
-> extends DInputTextOptions<THEME> {
+> extends DInputTextOptions<THEME> {}
 
-}
-
-export interface DThemeTableBodyCellInputTreeInput extends DThemeInputText {
-
-}
+export interface DThemeTableBodyCellInputTreeInput extends DThemeInputText {}
 
 export class DTableBodyCellInputTreeInput<
 	THEME extends DThemeTableBodyCellInputTreeInput = DThemeTableBodyCellInputTreeInput,
@@ -22,9 +18,9 @@ export class DTableBodyCellInputTreeInput<
 > extends DInputText<THEME, OPTIONS> {
 	protected _padding!: DBasePaddingAdjustable;
 
-	constructor( options?: OPTIONS ) {
-		super( options );
-		this._padding = new DBasePaddingAdjustable( this._padding );
+	constructor(options?: OPTIONS) {
+		super(options);
+		this._padding = new DBasePaddingAdjustable(this._padding);
 	}
 
 	get padding(): DBasePaddingAdjustable {

@@ -5,13 +5,10 @@
 
 import { DLayout, DLayoutOptions, DThemeLayout } from "./d-layout";
 
-export interface DLayoutHorizontalOptions<THEME extends DThemeLayoutHorizontal> extends DLayoutOptions<THEME> {
+export interface DLayoutHorizontalOptions<THEME extends DThemeLayoutHorizontal>
+	extends DLayoutOptions<THEME> {}
 
-}
-
-export interface DThemeLayoutHorizontal extends DThemeLayout {
-
-}
+export interface DThemeLayoutHorizontal extends DThemeLayout {}
 
 export class DLayoutHorizontal<
 	THEME extends DThemeLayoutHorizontal = DThemeLayoutHorizontal,

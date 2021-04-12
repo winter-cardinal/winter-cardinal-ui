@@ -7,5 +7,5 @@ import { DThemeDark } from "../d-theme-dark";
 import { DThemeDarkBoard } from "../d-theme-dark-board";
 
 export const loadThemeDarkBoard = (): void => {
-	DThemeDark.set( "DBoard", DThemeDarkBoard );
+	DThemeDark.set("DBoard", DThemeDarkBoard);
 };

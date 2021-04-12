@@ -7,5 +7,5 @@ import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteButtonSecondary } from "../d-theme-white-button-secondary";
 
 export const loadThemeWhiteButtonSecondary = (): void => {
-	DThemeWhite.set( "DButtonSecondary", DThemeWhiteButtonSecondary );
+	DThemeWhite.set("DButtonSecondary", DThemeWhiteButtonSecondary);
 };

@@ -8,6 +8,6 @@ import { DThemeWhiteDialogColorGradient } from "../d-theme-white-dialog-color-gr
 import { loadThemeWhitePickerColorGradient } from "./load-theme-white-picker-color-gradient";
 
 export const loadThemeWhiteDialogColorGradient = (): void => {
-	DThemeWhite.set( "DDialogColorGradient", DThemeWhiteDialogColorGradient );
+	DThemeWhite.set("DDialogColorGradient", DThemeWhiteDialogColorGradient);
 	loadThemeWhitePickerColorGradient();
 };

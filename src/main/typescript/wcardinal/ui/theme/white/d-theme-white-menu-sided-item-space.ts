@@ -5,6 +5,4 @@
 
 import { DThemeWhiteMenuItemSpace } from "./d-theme-white-menu-item-space";
 
-export class DThemeWhiteMenuSidedItemSpace extends DThemeWhiteMenuItemSpace {
-
-}
+export class DThemeWhiteMenuSidedItemSpace extends DThemeWhiteMenuItemSpace {}

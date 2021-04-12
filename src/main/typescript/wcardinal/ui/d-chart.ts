@@ -5,7 +5,7 @@
 
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseOverflowMask } from "./d-base-overflow-mask";
-import { DChartPlotArea, DChartPlotAreaOptions} from "./d-chart-plot-area";
+import { DChartPlotArea, DChartPlotAreaOptions } from "./d-chart-plot-area";
 
 export interface DChartOptions<THEME extends DThemeChart> extends DBaseOptions<THEME> {
 	plotArea: DChartPlotAreaOptions;
@@ -23,24 +23,24 @@ export class DChart<
 	protected _plotArea!: DChartPlotArea;
 	protected _overflowMask?: DBaseOverflowMask | null;
 
-	protected init( options?: OPTIONS ): void {
-		super.init( options );
+	protected init(options?: OPTIONS): void {
+		super.init(options);
 
-		const plotArea = new DChartPlotArea( this, options?.plotArea );
+		const plotArea = new DChartPlotArea(this, options?.plotArea);
 		this._plotArea = plotArea;
-		this.addChild( plotArea );
+		this.addChild(plotArea);
 
 		// Overflow mask
 		const mask = options?.mask ?? this.theme.isOverflowMaskEnabled();
-		if( mask ) {
+		if (mask) {
 			plotArea.axis.container.mask = this.getOverflowMask();
 		}
 	}
 
 	protected getOverflowMask(): DBaseOverflowMask {
-		if( this._overflowMask == null ) {
-			this._overflowMask = new DBaseOverflowMask( this );
-			this.addReflowable( this._overflowMask );
+		if (this._overflowMask == null) {
+			this._overflowMask = new DBaseOverflowMask(this);
+			this.addReflowable(this._overflowMask);
 			this.toDirty();
 		}
 		return this._overflowMask;
@@ -55,7 +55,7 @@ export class DChart<
 	}
 
 	destroy(): void {
-		if( ! this._destroyed ) {
+		if (!this._destroyed) {
 			this._plotArea.destroy();
 			super.destroy();
 		}

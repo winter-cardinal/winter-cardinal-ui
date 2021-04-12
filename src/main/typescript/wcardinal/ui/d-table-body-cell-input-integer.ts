@@ -11,26 +11,33 @@ import { DTableColumn } from "./d-table-column";
 export interface DTableBodyCellInputIntegerOptions<
 	ROW = unknown,
 	THEME extends DThemeTableBodyCellInputInteger = DThemeTableBodyCellInputInteger
-> extends DInputIntegerOptions<THEME> {
-}
+> extends DInputIntegerOptions<THEME> {}
 
-export interface DThemeTableBodyCellInputInteger extends DThemeInputInteger {
-
-}
+export interface DThemeTableBodyCellInputInteger extends DThemeInputInteger {}
 
 export class DTableBodyCellInputInteger<
-	ROW = unknown,
-	THEME extends DThemeTableBodyCellInputInteger = DThemeTableBodyCellInputInteger,
-	OPTIONS extends DTableBodyCellInputIntegerOptions<ROW, THEME> = DTableBodyCellInputIntegerOptions<ROW, THEME>
-> extends DInputInteger<THEME, OPTIONS> implements DTableBodyCell<ROW, number> {
+		ROW = unknown,
+		THEME extends DThemeTableBodyCellInputInteger = DThemeTableBodyCellInputInteger,
+		OPTIONS extends DTableBodyCellInputIntegerOptions<
+			ROW,
+			THEME
+		> = DTableBodyCellInputIntegerOptions<ROW, THEME>
+	>
+	extends DInputInteger<THEME, OPTIONS>
+	implements DTableBodyCell<ROW, number> {
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;
 	protected _column: DTableColumn<ROW, number>;
 	protected _onChange: DTableBodyCellOnChange<ROW, number>;
 
-	constructor( columnIndex: number, column: DTableColumn<ROW, number>, onChange: DTableBodyCellOnChange<ROW, number>, options?: OPTIONS ) {
-		super( options );
+	constructor(
+		columnIndex: number,
+		column: DTableColumn<ROW, number>,
+		onChange: DTableBodyCellOnChange<ROW, number>,
+		options?: OPTIONS
+	) {
+		super(options);
 
 		this._rowIndex = -1;
 		this._columnIndex = columnIndex;
@@ -38,14 +45,14 @@ export class DTableBodyCellInputInteger<
 		this._onChange = onChange;
 	}
 
-	protected onValueChange( newValue: number, oldValue: number ): void {
+	protected onValueChange(newValue: number, oldValue: number): void {
 		const row = this._row;
-		if( row !== undefined ) {
+		if (row !== undefined) {
 			const rowIndex = this._rowIndex;
 			const columnIndex = this._columnIndex;
-			this._column.setter( row, columnIndex, newValue );
-			super.onValueChange( newValue, oldValue );
-			this._onChange( newValue, oldValue, row, rowIndex, columnIndex, this );
+			this._column.setter(row, columnIndex, newValue);
+			super.onValueChange(newValue, oldValue);
+			this._onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
 		}
 	}
 
@@ -66,17 +73,20 @@ export class DTableBodyCellInputInteger<
 	}
 
 	set(
-		value: unknown, row: ROW, supplimental: unknown,
-		rowIndex: number, columnIndex: number,
+		value: unknown,
+		row: ROW,
+		supplimental: unknown,
+		rowIndex: number,
+		columnIndex: number,
 		forcibly?: boolean
 	): void {
 		this._row = row;
 		this._rowIndex = rowIndex;
-		this.text = Number( value );
+		this.text = Number(value);
 
 		const column = this._column;
-		DTableBodyCells.setReadOnly( this, row, columnIndex, column );
-		DTableBodyCells.setRenderable( this, row, columnIndex, column );
+		DTableBodyCells.setReadOnly(this, row, columnIndex, column);
+		DTableBodyCells.setRenderable(this, row, columnIndex, column);
 	}
 
 	unset(): void {

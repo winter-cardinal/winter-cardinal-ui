@@ -17,7 +17,7 @@ export class DBasePaddingAdjustable implements DPadding {
 	protected _target: DPadding;
 	protected _adjuster: DBasePaddingAdjuster;
 
-	constructor( target: DPadding ) {
+	constructor(target: DPadding) {
 		this._target = target;
 		this._adjuster = {
 			left: 0,
@@ -35,8 +35,8 @@ export class DBasePaddingAdjustable implements DPadding {
 		return this._target.getTheme();
 	}
 
-	setTheme( theme: DThemeBase ): void {
-		this._target.setTheme( theme );
+	setTheme(theme: DThemeBase): void {
+		this._target.setTheme(theme);
 	}
 
 	getLeft(): number {
@@ -47,7 +47,7 @@ export class DBasePaddingAdjustable implements DPadding {
 		return this._target.left;
 	}
 
-	set left( left: number | undefined ) {
+	set left(left: number | undefined) {
 		this._target.left = left;
 	}
 
@@ -59,7 +59,7 @@ export class DBasePaddingAdjustable implements DPadding {
 		return this._target.top;
 	}
 
-	set top( top: number | undefined ) {
+	set top(top: number | undefined) {
 		this._target.top = top;
 	}
 
@@ -71,7 +71,7 @@ export class DBasePaddingAdjustable implements DPadding {
 		return this._target.right;
 	}
 
-	set right( right: number | undefined ) {
+	set right(right: number | undefined) {
 		this._target.right = right;
 	}
 
@@ -83,24 +83,24 @@ export class DBasePaddingAdjustable implements DPadding {
 		return this._target.bottom;
 	}
 
-	set bottom( bottom: number | undefined ) {
+	set bottom(bottom: number | undefined) {
 		this._target.bottom = bottom;
 	}
 
-	set( padding: number ): void;
-	set( topAndBottom: number, leftAndRight: number ): void;
-	set( top: number, leftAndRight: number, bottom: number ): void;
-	set( top: number, right: number, bottom: number, left: number ): void;
-	set( top: number, right?: number, bottom?: number, left?: number ): void {
+	set(padding: number): void;
+	set(topAndBottom: number, leftAndRight: number): void;
+	set(top: number, leftAndRight: number, bottom: number): void;
+	set(top: number, right: number, bottom: number, left: number): void;
+	set(top: number, right?: number, bottom?: number, left?: number): void {
 		const target = this._target;
-		if( right == null ) {
-			target.set( top );
-		} else if( bottom == null ) {
-			target.set( top, right );
-		} else if( left == null ) {
-			target.set( top, right, bottom );
+		if (right == null) {
+			target.set(top);
+		} else if (bottom == null) {
+			target.set(top, right);
+		} else if (left == null) {
+			target.set(top, right, bottom);
 		} else {
-			target.set( top, right, bottom, left );
+			target.set(top, right, bottom, left);
 		}
 	}
 }

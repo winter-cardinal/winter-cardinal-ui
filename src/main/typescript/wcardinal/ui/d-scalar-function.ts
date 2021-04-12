@@ -12,4 +12,9 @@
  * @param current a current value
  * @return a scalar value
  */
-export type DScalarFunction = ( parent: number, self: number, padding: number, current: number ) => number;
+export type DScalarFunction = (
+	parent: number,
+	self: number,
+	padding: number,
+	current: number
+) => number;

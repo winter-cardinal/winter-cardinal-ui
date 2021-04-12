@@ -8,6 +8,6 @@ import { DThemeDarkDialogTime } from "../d-theme-dark-dialog-time";
 import { loadThemeDarkPickerTime } from "./load-theme-dark-picker-time";
 
 export const loadThemeDarkDialogTime = (): void => {
-	DThemeDark.set( "DDialogTime", DThemeDarkDialogTime );
+	DThemeDark.set("DDialogTime", DThemeDarkDialogTime);
 	loadThemeDarkPickerTime();
 };

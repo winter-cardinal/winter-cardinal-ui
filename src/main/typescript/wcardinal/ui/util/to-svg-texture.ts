@@ -6,8 +6,8 @@
 import { Texture } from "pixi.js";
 import { toSvgUrl } from "./to-svg-url";
 
-export const toSvgTexture = ( svg: string, resolution: number ): Texture => {
-	return Texture.from( toSvgUrl( svg ), {
+export const toSvgTexture = (svg: string, resolution: number): Texture => {
+	return Texture.from(toSvgUrl(svg), {
 		resolution
 	});
 };

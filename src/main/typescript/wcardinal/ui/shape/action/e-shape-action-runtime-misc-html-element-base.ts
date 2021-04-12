@@ -5,7 +5,13 @@
 
 import { interaction, Matrix, Point, Rectangle, Renderer } from "pixi.js";
 import { DThemes } from "../../theme/d-themes";
-import { UtilHtmlElement, UtilHtmlElementCreator, UtilHtmlElementOperation, UtilHtmlElementOptions, UtilHtmlElementPadding } from "../../util/util-html-element";
+import {
+	UtilHtmlElement,
+	UtilHtmlElementCreator,
+	UtilHtmlElementOperation,
+	UtilHtmlElementOptions,
+	UtilHtmlElementPadding
+} from "../../util/util-html-element";
 import { UtilHtmlElementWhen } from "../../util/util-html-element-when";
 import { EShape } from "../e-shape";
 import { EShapeRuntime } from "../e-shape-runtime";
@@ -23,50 +29,62 @@ export abstract class EShapeActionRuntimeMiscHtmlElementBase<
 	protected readonly condition: EShapeActionExpression<string | null>;
 	protected utils: Map<EShape, UTIL>;
 
-	constructor( value: EShapeActionValueMisc ) {
+	constructor(value: EShapeActionValueMisc) {
 		super();
-		this.condition = EShapeActionExpressions.ofString( value.condition );
+		this.condition = EShapeActionExpressions.ofString(value.condition);
 		this.utils = new Map<EShape, UTIL>();
 	}
 
-	protected getUtil( shape: EShape, runtime: EShapeRuntime ): UTIL {
+	protected getUtil(shape: EShape, runtime: EShapeRuntime): UTIL {
 		const utils = this.utils;
-		let result = utils.get( shape );
-		if( result == null ) {
-			result = this.newUtil( shape, runtime );
-			utils.set( shape, result );
+		let result = utils.get(shape);
+		if (result == null) {
+			result = this.newUtil(shape, runtime);
+			utils.set(shape, result);
 		}
 		return result;
 	}
 
-	protected newUtil( shape: EShape, runtime: EShapeRuntime ): UTIL {
+	protected newUtil(shape: EShape, runtime: EShapeRuntime): UTIL {
 		return new UtilHtmlElement<ELEMENT>(
-			shape, this.newOperation( shape, runtime ),
-			DThemes.getInstance().get( "DHtmlElement" ),
-			this.newUtilOptions( shape, runtime )
+			shape,
+			this.newOperation(shape, runtime),
+			DThemes.getInstance().get("DHtmlElement"),
+			this.newUtilOptions(shape, runtime)
 		) as any;
 	}
 
-	protected newOperation( shape: EShape, runtime: EShapeRuntime ): UtilHtmlElementOperation<ELEMENT> {
+	protected newOperation(
+		shape: EShape,
+		runtime: EShapeRuntime
+	): UtilHtmlElementOperation<ELEMENT> {
 		return {
-			getElementRect: ( resolution: number, work: Point, result: Rectangle ): Rectangle | null => {
-				return this.getElementRect( shape, runtime, resolution, work, result );
+			getElementRect: (
+				resolution: number,
+				work: Point,
+				result: Rectangle
+			): Rectangle | null => {
+				return this.getElementRect(shape, runtime, resolution, work, result);
 			},
 
 			getElementMatrix: (): Matrix | null => {
-				return this.getElementMatrix( shape, runtime );
+				return this.getElementMatrix(shape, runtime);
 			},
 
-			getClipperRect: ( resolution: number, work: Point, result: Rectangle ): Rectangle | null => {
-				return this.getClipperToRect( shape, runtime, resolution, work, result );
+			getClipperRect: (
+				resolution: number,
+				work: Point,
+				result: Rectangle
+			): Rectangle | null => {
+				return this.getClipperToRect(shape, runtime, resolution, work, result);
 			},
 
 			getPadding: (): UtilHtmlElementPadding | null => {
-				return this.getPadding( shape, runtime );
+				return this.getPadding(shape, runtime);
 			},
 
-			containsPoint: ( point: Point ): boolean => {
-				return this.containsPoint( shape, runtime, point );
+			containsPoint: (point: Point): boolean => {
+				return this.containsPoint(shape, runtime, point);
 			},
 
 			onStart: (): void => {
@@ -83,40 +101,52 @@ export abstract class EShapeActionRuntimeMiscHtmlElementBase<
 		};
 	}
 
-	protected newUtilOptions( shape: EShape, runtime: EShapeRuntime ): UtilHtmlElementOptions<ELEMENT> {
+	protected newUtilOptions(
+		shape: EShape,
+		runtime: EShapeRuntime
+	): UtilHtmlElementOptions<ELEMENT> {
 		return {
 			element: {
-				creator: this.newElementCreator( shape, runtime )
+				creator: this.newElementCreator(shape, runtime)
 			},
-			when: this.toWhen( shape, runtime )
+			when: this.toWhen(shape, runtime)
 		};
 	}
 
-	protected abstract newElementCreator( shape: EShape, runtime: EShapeRuntime ): UtilHtmlElementCreator<ELEMENT> | undefined;
+	protected abstract newElementCreator(
+		shape: EShape,
+		runtime: EShapeRuntime
+	): UtilHtmlElementCreator<ELEMENT> | undefined;
 
-	protected toWhen( shape: EShape, runtime: EShapeRuntime ): UtilHtmlElementWhen | undefined {
-		const value = this.condition( shape, Date.now() );
-		if( value != null && value in UtilHtmlElementWhen ) {
-			return UtilHtmlElementWhen[ value as (keyof typeof UtilHtmlElementWhen) ];
+	protected toWhen(shape: EShape, runtime: EShapeRuntime): UtilHtmlElementWhen | undefined {
+		const value = this.condition(shape, Date.now());
+		if (value != null && value in UtilHtmlElementWhen) {
+			return UtilHtmlElementWhen[value as keyof typeof UtilHtmlElementWhen];
 		}
 		return undefined;
 	}
 
-	protected containsPoint( shape: EShape, runtime: EShapeRuntime, point: Point ): boolean {
-		if( shape.visible ) {
+	protected containsPoint(shape: EShape, runtime: EShapeRuntime, point: Point): boolean {
+		if (shape.visible) {
 			const local = EShapeActionRuntimeMiscHtmlElementBase.WORK || new Point();
 			EShapeActionRuntimeMiscHtmlElementBase.WORK = local;
-			shape.toLocal( point, undefined, local );
-			return shape.contains( local ) != null;
+			shape.toLocal(point, undefined, local);
+			return shape.contains(local) != null;
 		}
 		return false;
 	}
 
-	protected getPadding( shape: EShape, runtime: EShapeRuntime ): UtilHtmlElementPadding | null {
+	protected getPadding(shape: EShape, runtime: EShapeRuntime): UtilHtmlElementPadding | null {
 		return null;
 	}
 
-	protected getElementRect( shape: EShape, runtime: EShapeRuntime, resolution: number, point: Point, result: Rectangle ): Rectangle | null {
+	protected getElementRect(
+		shape: EShape,
+		runtime: EShapeRuntime,
+		resolution: number,
+		point: Point,
+		result: Rectangle
+	): Rectangle | null {
 		const pivot = shape.transform.pivot;
 		const size = shape.size;
 		const sizeX = size.x;
@@ -128,37 +158,56 @@ export abstract class EShapeActionRuntimeMiscHtmlElementBase<
 		return result;
 	}
 
-	protected getElementMatrix( shape: EShape, runtime: EShapeRuntime ): Matrix | null {
+	protected getElementMatrix(shape: EShape, runtime: EShapeRuntime): Matrix | null {
 		shape.updateTransform();
 		return shape.transform.worldTransform;
 	}
 
-	protected getClipperToRect( shape: EShape, runtime: EShapeRuntime, resolution: number, point: Point, result: Rectangle ): Rectangle | null {
-		const container = EShapeActionRuntimes.toContainer( shape );
-		return UtilHtmlElement.getClipperRect( container, shape, resolution, point, result );
+	protected getClipperToRect(
+		shape: EShape,
+		runtime: EShapeRuntime,
+		resolution: number,
+		point: Point,
+		result: Rectangle
+	): Rectangle | null {
+		const container = EShapeActionRuntimes.toContainer(shape);
+		return UtilHtmlElement.getClipperRect(container, shape, resolution, point, result);
 	}
 
-	onRender( shape: EShape, runtime: EShapeRuntime, time: number, renderer: Renderer ): void {
-		this.getUtil( shape, runtime ).onRender( renderer );
+	onRender(shape: EShape, runtime: EShapeRuntime, time: number, renderer: Renderer): void {
+		this.getUtil(shape, runtime).onRender(renderer);
 	}
 
-	onFocus( shape: EShape, runtime: EShapeRuntime ): void {
-		this.getUtil( shape, runtime ).onFocus();
+	onFocus(shape: EShape, runtime: EShapeRuntime): void {
+		this.getUtil(shape, runtime).onFocus();
 	}
 
-	onBlur( shape: EShape, runtime: EShapeRuntime ): void {
-		this.getUtil( shape, runtime ).onBlur();
+	onBlur(shape: EShape, runtime: EShapeRuntime): void {
+		this.getUtil(shape, runtime).onBlur();
 	}
 
-	onDownThisBefore( shape: EShape, runtime: EShapeRuntime, e: interaction.InteractionEvent | KeyboardEvent ): void {
-		this.getUtil( shape, runtime ).onDownThisBefore( e );
+	onDownThisBefore(
+		shape: EShape,
+		runtime: EShapeRuntime,
+		e: interaction.InteractionEvent | KeyboardEvent
+	): void {
+		this.getUtil(shape, runtime).onDownThisBefore(e);
 	}
 
-	onDownThisAfter( shape: EShape, runtime: EShapeRuntime, e: interaction.InteractionEvent | KeyboardEvent ): void {
-		this.getUtil( shape, runtime ).onDownThisAfter( e );
+	onDownThisAfter(
+		shape: EShape,
+		runtime: EShapeRuntime,
+		e: interaction.InteractionEvent | KeyboardEvent
+	): void {
+		this.getUtil(shape, runtime).onDownThisAfter(e);
 	}
 
-	onDblClick( shape: EShape, runtime: EShapeRuntime, e: MouseEvent | TouchEvent, interactionManager: interaction.InteractionManager ): void {
-		this.getUtil( shape, runtime ).onDblClick( e, interactionManager );
+	onDblClick(
+		shape: EShape,
+		runtime: EShapeRuntime,
+		e: MouseEvent | TouchEvent,
+		interactionManager: interaction.InteractionManager
+	): void {
+		this.getUtil(shape, runtime).onDblClick(e, interactionManager);
 	}
 }

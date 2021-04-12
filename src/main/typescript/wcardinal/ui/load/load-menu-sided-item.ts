@@ -19,41 +19,43 @@ import { DMenuSidedItemText } from "../d-menu-sided-item-text";
 import { DMenuSideds } from "../d-menu-sideds";
 
 export const loadMenuSidedItem = (): void => {
-	DMenuSideds.setItemCreatorDefault(( options: any ): DisplayObject | null => {
-		return new DMenuSidedItemText( options );
+	DMenuSideds.setItemCreatorDefault((options: any): DisplayObject | null => {
+		return new DMenuSidedItemText(options);
 	});
 
-	DMenuSideds.addItemCreator(( options: DMenuItemOptionsUnion<any> ): DisplayObject | null => {
-		if( DMenuItemSpace.isCompatible( options ) ) {
-			return new DMenuSidedItemSpace( options );
+	DMenuSideds.addItemCreator((options: DMenuItemOptionsUnion<any>): DisplayObject | null => {
+		if (DMenuItemSpace.isCompatible(options)) {
+			return new DMenuSidedItemSpace(options);
 		}
 		return null;
 	});
 
-	DMenuSideds.addItemCreator(( options: DMenuItemOptionsUnion<any> ): DisplayObject | null => {
-		if( DMenuItemSeparator.isCompatible( options ) ) {
-			return new DMenuSidedItemSeparator( options );
+	DMenuSideds.addItemCreator((options: DMenuItemOptionsUnion<any>): DisplayObject | null => {
+		if (DMenuItemSeparator.isCompatible(options)) {
+			return new DMenuSidedItemSeparator(options);
 		}
 		return null;
 	});
 
-	DMenuSideds.addItemCreator(( options: DMenuItemOptionsUnion<any>, sticky: boolean ): DisplayObject | null => {
-		if( DMenuItemMenu.isCompatible( options ) ) {
-			return new DMenuSidedItemMenu( DMenuItemMenu.toSubMenuOptions( options, sticky ) );
+	DMenuSideds.addItemCreator(
+		(options: DMenuItemOptionsUnion<any>, sticky: boolean): DisplayObject | null => {
+			if (DMenuItemMenu.isCompatible(options)) {
+				return new DMenuSidedItemMenu(DMenuItemMenu.toSubMenuOptions(options, sticky));
+			}
+			return null;
+		}
+	);
+
+	DMenuSideds.addItemCreator((options: DMenuItemOptionsUnion<any>): DisplayObject | null => {
+		if (DMenuItemLink.isCompatible(options)) {
+			return new DMenuSidedItemLink(options);
 		}
 		return null;
 	});
 
-	DMenuSideds.addItemCreator(( options: DMenuItemOptionsUnion<any> ): DisplayObject | null => {
-		if( DMenuItemLink.isCompatible( options ) ) {
-			return new DMenuSidedItemLink( options );
-		}
-		return null;
-	});
-
-	DMenuSideds.addItemCreator(( options: DMenuItemOptionsUnion<any> ): DisplayObject | null => {
-		if( DMenuItemCheck.isCompatible( options ) ) {
-			return new DMenuSidedItemCheck( options );
+	DMenuSideds.addItemCreator((options: DMenuItemOptionsUnion<any>): DisplayObject | null => {
+		if (DMenuItemCheck.isCompatible(options)) {
+			return new DMenuSidedItemCheck(options);
 		}
 		return null;
 	});

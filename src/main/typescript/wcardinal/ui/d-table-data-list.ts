@@ -3,7 +3,11 @@ import { DTableData, DTableDataMapped, DTableDataOptions, DTableDataParent } fro
 import { DTableDataFilter } from "./d-table-data-filter";
 import { DTableDataListFilter } from "./d-table-data-list-filter";
 import { DTableDataListMapped } from "./d-table-data-list-mapped";
-import { DTableDataSelection, DTableDataSelectionCreator, DTableDataSelectionOptions } from "./d-table-data-selection";
+import {
+	DTableDataSelection,
+	DTableDataSelectionCreator,
+	DTableDataSelectionOptions
+} from "./d-table-data-selection";
 import { DTableDataListSelection } from "./d-table-data-list-selection";
 import { DTableDataSorter } from "./d-table-data-sorter";
 import { DTableDataListSorter } from "./d-table-data-list-sorter";
@@ -21,63 +25,68 @@ export class DTableDataList<ROW> extends utils.EventEmitter implements DTableDat
 	protected _selection: DTableDataSelection<ROW>;
 	protected _mapped: DTableDataMapped<ROW>;
 
-	constructor( options?: DTableDataListOptions<ROW> ) {
+	constructor(options?: DTableDataListOptions<ROW>) {
 		super();
 
 		this._parent = null;
-		this._rows = this.toRows( options?.rows );
-		this._mapped = new DTableDataListMapped<ROW>( this );
-		this._selection = this.toSelection( options?.selection );
-		this._filter = new DTableDataListFilter<ROW>( this );
-		this._sorter = new DTableDataListSorter<ROW>( this );
-		if( options ) {
+		this._rows = this.toRows(options?.rows);
+		this._mapped = new DTableDataListMapped<ROW>(this);
+		this._selection = this.toSelection(options?.selection);
+		this._filter = new DTableDataListFilter<ROW>(this);
+		this._sorter = new DTableDataListSorter<ROW>(this);
+		if (options) {
 			// Filter
 			const filter = options.filter;
-			if( filter ) {
-				this._filter.set( filter );
+			if (filter) {
+				this._filter.set(filter);
 			}
 
 			// Comparator
 			const comparator = options.comparator;
-			if( comparator ) {
-				this._sorter.set( comparator );
+			if (comparator) {
+				this._sorter.set(comparator);
 			}
 
 			// Events
 			const on = options.on;
-			if( on ) {
-				for( const name in on ) {
-					const handler = on[ name ];
-					if( handler ) {
-						this.on( name, handler );
+			if (on) {
+				for (const name in on) {
+					const handler = on[name];
+					if (handler) {
+						this.on(name, handler);
 					}
 				}
 			}
 		}
 	}
 
-	protected toSelection( options?: DTableDataSelection<ROW> | DTableDataSelectionCreator<ROW> | DTableDataSelectionOptions ): DTableDataSelection<ROW> {
-		if( options instanceof utils.EventEmitter ) {
+	protected toSelection(
+		options?:
+			| DTableDataSelection<ROW>
+			| DTableDataSelectionCreator<ROW>
+			| DTableDataSelectionOptions
+	): DTableDataSelection<ROW> {
+		if (options instanceof utils.EventEmitter) {
 			return options;
-		} else if( isFunction( options ) ) {
-			return options( this );
+		} else if (isFunction(options)) {
+			return options(this);
 		}
-		return this.newSelection( options );
+		return this.newSelection(options);
 	}
 
-	protected newSelection( options?: DTableDataSelectionOptions ): DTableDataSelection<ROW> {
-		return new DTableDataListSelection( this, options );
+	protected newSelection(options?: DTableDataSelectionOptions): DTableDataSelection<ROW> {
+		return new DTableDataListSelection(this, options);
 	}
 
-	bind( parent: DTableDataParent ): void {
+	bind(parent: DTableDataParent): void {
 		this._parent = parent;
 	}
 
-	protected toRows( row?: ROW[] ): ROW[] {
+	protected toRows(row?: ROW[]): ROW[] {
 		const result: ROW[] = [];
-		if( row != null ) {
-			for( let i = 0, imax = row.length; i < imax; ++i ) {
-				result.push( row[ i ] );
+		if (row != null) {
+			for (let i = 0, imax = row.length; i < imax; ++i) {
+				result.push(row[i]);
 			}
 		}
 		return result;
@@ -89,22 +98,22 @@ export class DTableDataList<ROW> extends utils.EventEmitter implements DTableDat
 
 	update(): void {
 		const parent = this._parent;
-		if( parent ) {
+		if (parent) {
 			parent.update();
 		}
 	}
 
 	lock(): void {
 		const parent = this._parent;
-		if( parent ) {
+		if (parent) {
 			parent.lock();
 		}
 	}
 
 	unlock(): void {
 		const parent = this._parent;
-		if( parent ) {
-			parent.unlock( false );
+		if (parent) {
+			parent.unlock(false);
 			parent.update();
 		}
 	}
@@ -115,7 +124,7 @@ export class DTableDataList<ROW> extends utils.EventEmitter implements DTableDat
 
 	clear(): void {
 		const rows = this._rows;
-		if( 0 < rows.length ) {
+		if (0 < rows.length) {
 			rows.length = 0;
 			this.lock();
 			this._selection.clear();
@@ -125,10 +134,10 @@ export class DTableDataList<ROW> extends utils.EventEmitter implements DTableDat
 		}
 	}
 
-	clearAndAdd( row: ROW ): void {
+	clearAndAdd(row: ROW): void {
 		const rows = this._rows;
 		rows.length = 0;
-		rows.push( row );
+		rows.push(row);
 		this.lock();
 		this._selection.clear();
 		this._sorter.toDirty();
@@ -136,11 +145,11 @@ export class DTableDataList<ROW> extends utils.EventEmitter implements DTableDat
 		this.unlock();
 	}
 
-	clearAndAddAll( newRows: ROW[] ): void {
+	clearAndAddAll(newRows: ROW[]): void {
 		const rows = this._rows;
 		rows.length = 0;
-		for( let i = 0, imax = newRows.length; i < imax; ++i ) {
-			rows.push( newRows[ i ] );
+		for (let i = 0, imax = newRows.length; i < imax; ++i) {
+			rows.push(newRows[i]);
 		}
 		this.lock();
 		this._selection.clear();
@@ -149,68 +158,68 @@ export class DTableDataList<ROW> extends utils.EventEmitter implements DTableDat
 		this.unlock();
 	}
 
-	add( row: ROW, index?: number ): void {
+	add(row: ROW, index?: number): void {
 		const rows = this._rows;
 		const selection = this._selection;
 		const sorter = this._sorter;
 		const filter = this._filter;
-		if( index == null ) {
-			rows.push( row );
+		if (index == null) {
+			rows.push(row);
 			this.lock();
 			sorter.toDirty();
 			filter.toDirty();
 			this.unlock();
-		} else if( 0 <= index && index < rows.length ) {
-			rows.splice( index, 0, row );
+		} else if (0 <= index && index < rows.length) {
+			rows.splice(index, 0, row);
 			this.lock();
-			selection.shift( index, 1 );
+			selection.shift(index, 1);
 			sorter.toDirty();
 			filter.toDirty();
 			this.unlock();
 		}
 	}
 
-	addAll( newRows: ROW[], index?: number ): void {
+	addAll(newRows: ROW[], index?: number): void {
 		const rows = this._rows;
 		const rowsLength = rows.length;
 		const selection = this._selection;
 		const sorter = this._sorter;
 		const filter = this._filter;
-		if( index == null ) {
+		if (index == null) {
 			const newRowsLength = newRows.length;
-			for( let i = 0, imax = newRowsLength; i < imax; ++i ) {
-				rows.push( newRows[ i ] );
+			for (let i = 0, imax = newRowsLength; i < imax; ++i) {
+				rows.push(newRows[i]);
 			}
 			this.lock();
 			sorter.toDirty();
 			filter.toDirty();
 			this.unlock();
-		} else if( 0 <= index && index < rowsLength ) {
+		} else if (0 <= index && index < rowsLength) {
 			const newRowsLength = newRows.length;
-			for( let i = 0; i < newRowsLength; ++i ) {
-				rows.splice( index + i, 0, newRows[ i ] );
+			for (let i = 0; i < newRowsLength; ++i) {
+				rows.splice(index + i, 0, newRows[i]);
 			}
 			this.lock();
-			selection.shift( index, newRowsLength );
+			selection.shift(index, newRowsLength);
 			sorter.toDirty();
 			filter.toDirty();
 			this.unlock();
 		}
 	}
 
-	get( index: number ): ROW | null {
+	get(index: number): ROW | null {
 		const rows = this._rows;
-		if( 0 <= index && index < rows.length ) {
-			return rows[ index ];
+		if (0 <= index && index < rows.length) {
+			return rows[index];
 		}
 		return null;
 	}
 
-	set( index: number, row: ROW ): ROW | null {
+	set(index: number, row: ROW): ROW | null {
 		const rows = this._rows;
-		if( 0 <= index && index < rows.length ) {
-			const result = rows[ index ];
-			rows[ index ] = row;
+		if (0 <= index && index < rows.length) {
+			const result = rows[index];
+			rows[index] = row;
 			this.lock();
 			this._sorter.toDirty();
 			this._filter.toDirty();
@@ -220,12 +229,12 @@ export class DTableDataList<ROW> extends utils.EventEmitter implements DTableDat
 		return null;
 	}
 
-	remove( index: number ): ROW | null {
+	remove(index: number): ROW | null {
 		const rows = this._rows;
-		if( 0 <= index && index < rows.length ) {
-			const result = rows.splice( index, 1 )[ 0 ];
+		if (0 <= index && index < rows.length) {
+			const result = rows.splice(index, 1)[0];
 			this.lock();
-			this._selection.remove( index );
+			this._selection.remove(index);
 			this._sorter.toDirty();
 			this._filter.toDirty();
 			this.unlock();
@@ -234,13 +243,17 @@ export class DTableDataList<ROW> extends utils.EventEmitter implements DTableDat
 		return null;
 	}
 
-	each( iteratee: ( row: ROW, index: number ) => boolean | void, ifrom?: number, ito?: number ): void {
+	each(
+		iteratee: (row: ROW, index: number) => boolean | void,
+		ifrom?: number,
+		ito?: number
+	): void {
 		const rows = this._rows;
-		ifrom = ( ifrom != null ? Math.max( 0, ifrom ) : 0 );
-		ito = ( ito != null ? Math.min( rows.length, ito ) : rows.length );
-		for( let i = ifrom; i < ito; ++i ) {
-			const row = rows[ i ];
-			if( iteratee( row, i ) === false ) {
+		ifrom = ifrom != null ? Math.max(0, ifrom) : 0;
+		ito = ito != null ? Math.min(rows.length, ito) : rows.length;
+		for (let i = ifrom; i < ito; ++i) {
+			const row = rows[i];
+			if (iteratee(row, i) === false) {
 				break;
 			}
 		}

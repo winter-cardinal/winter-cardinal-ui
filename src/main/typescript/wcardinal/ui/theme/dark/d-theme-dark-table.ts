@@ -14,7 +14,7 @@ export class DThemeDarkTable extends DThemeDarkPane implements DThemeTable {
 		return DThemeDarkConstants.BACKGROUND_COLOR;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 

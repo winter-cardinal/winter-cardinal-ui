@@ -10,10 +10,10 @@ export interface EShapeLineOfAnyPointsFill {
 	color: EShapeLineOfAnyValue;
 	alpha: EShapeLineOfAnyValue;
 
-	set( color?: EShapeLineOfAnyValue, alpha?: EShapeLineOfAnyValue ): void;
+	set(color?: EShapeLineOfAnyValue, alpha?: EShapeLineOfAnyValue): void;
 
-	getColor( index: number, def: number ): number;
-	getAlpha( index: number, def: number ): number;
+	getColor(index: number, def: number): number;
+	getAlpha(index: number, def: number): number;
 
 	isStaticColor(): boolean;
 	isStaticAlpha(): boolean;

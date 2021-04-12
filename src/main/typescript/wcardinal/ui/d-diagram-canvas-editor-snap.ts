@@ -28,7 +28,11 @@ export interface DDiagramCanvasEditorSnapGridMinorOptions {
 	style?: EShapePointsStyle;
 }
 
-export type DDiagramCanvasEditorSnapGridSize = ( given: number, width: number, height: number ) => number;
+export type DDiagramCanvasEditorSnapGridSize = (
+	given: number,
+	width: number,
+	height: number
+) => number;
 
 export interface DDiagramCanvasEditorSnapGridOptions {
 	major?: DDiagramCanvasEditorSnapGridMajorOptions;
@@ -110,7 +114,11 @@ export class DDiagramCanvasEditorSnap {
 	protected _grid: DDiagramCanvasEditorSnapGrid;
 	protected _target: DDiagramCanvasEditorSnapTarget;
 
-	constructor( parent: DDiagramCanvasEditorSnapParent, theme: DThemeDiagramCanvasEditorSnap, options: DDiagramCanvasEditorSnapOptions ) {
+	constructor(
+		parent: DDiagramCanvasEditorSnapParent,
+		theme: DThemeDiagramCanvasEditorSnap,
+		options: DDiagramCanvasEditorSnapOptions
+	) {
 		this._parent = parent;
 
 		// Controller
@@ -119,62 +127,74 @@ export class DDiagramCanvasEditorSnap {
 		const onChangeBound = (): void => {
 			this.onChange();
 		};
-		controller.grid.on( "change", onChangeBound );
-		controller.target.on( "change", onChangeBound );
+		controller.grid.on("change", onChangeBound);
+		controller.target.on("change", onChangeBound);
 
 		// Container
 		const container = new EShapeContainer();
 		container.visible = false;
 		this._container = container;
-		parent.addChildAt( container, parent.children.length - 1 );
+		parent.addChildAt(container, parent.children.length - 1);
 
 		// Grid
-		this._grid = this.toGrid( theme, options.grid );
+		this._grid = this.toGrid(theme, options.grid);
 
 		// Target
-		this._target = this.toTarget( theme, options.target );
+		this._target = this.toTarget(theme, options.target);
 	}
 
-	protected toGrid( theme: DThemeDiagramCanvasEditorSnap, options?: DDiagramCanvasEditorSnapGridOptions ): DDiagramCanvasEditorSnapGrid {
+	protected toGrid(
+		theme: DThemeDiagramCanvasEditorSnap,
+		options?: DDiagramCanvasEditorSnapGridOptions
+	): DDiagramCanvasEditorSnapGrid {
 		return {
-			major: this.toGridMajor( theme, options?.major ),
-			minor: this.toGridMinor( theme, options?.minor ),
+			major: this.toGridMajor(theme, options?.major),
+			minor: this.toGridMinor(theme, options?.minor),
 			size: options?.size ?? theme.getSnapGridSize()
 		};
 	}
 
-	protected toGridMajor( theme: DThemeDiagramCanvasEditorSnap, options?: DDiagramCanvasEditorSnapGridMajorOptions ): DDiagramCanvasEditorSnapGridMajor {
+	protected toGridMajor(
+		theme: DThemeDiagramCanvasEditorSnap,
+		options?: DDiagramCanvasEditorSnapGridMajorOptions
+	): DDiagramCanvasEditorSnapGridMajor {
 		return {
 			interval: options?.interval ?? theme.getSnapGridMajorInterval(),
 			color: options?.color ?? theme.getSnapGridMajorColor(),
 			alpha: options?.alpha ?? theme.getSnapGridMajorAlpha(),
 			width: options?.width ?? theme.getSnapGridMajorWidth(),
-			style: options?.style ?? theme.getSnapGridMajorStyle(),
-		}
+			style: options?.style ?? theme.getSnapGridMajorStyle()
+		};
 	}
 
-	protected toGridMinor( theme: DThemeDiagramCanvasEditorSnap, options?: DDiagramCanvasEditorSnapGridMinorOptions ): DDiagramCanvasEditorSnapGridMinor {
+	protected toGridMinor(
+		theme: DThemeDiagramCanvasEditorSnap,
+		options?: DDiagramCanvasEditorSnapGridMinorOptions
+	): DDiagramCanvasEditorSnapGridMinor {
 		return {
 			color: options?.color ?? theme.getSnapGridMinorColor(),
 			alpha: options?.alpha ?? theme.getSnapGridMinorAlpha(),
 			width: options?.width ?? theme.getSnapGridMinorWidth(),
-			style: options?.style ?? theme.getSnapGridMinorStyle(),
-		}
+			style: options?.style ?? theme.getSnapGridMinorStyle()
+		};
 	}
 
-	protected toTarget( theme: DThemeDiagramCanvasEditorSnap, options?: DDiagramCanvasEditorSnapTargetOptions ): DDiagramCanvasEditorSnapTarget {
+	protected toTarget(
+		theme: DThemeDiagramCanvasEditorSnap,
+		options?: DDiagramCanvasEditorSnapTargetOptions
+	): DDiagramCanvasEditorSnapTarget {
 		return {
 			color: options?.color ?? theme.getSnapTargetColor(),
 			alpha: options?.alpha ?? theme.getSnapTargetAlpha(),
 			width: options?.width ?? theme.getSnapTargetWidth(),
-			style: options?.style ?? theme.getSnapTargetStyle(),
+			style: options?.style ?? theme.getSnapTargetStyle()
 		};
 	}
 
 	protected onChange(): void {
 		const parent = this._parent;
 		parent.toDirty();
-		DApplications.update( parent );
+		DApplications.update(parent);
 	}
 
 	serialize(): DDiagramSerializedSnap {
@@ -188,7 +208,7 @@ export class DDiagramCanvasEditorSnap {
 
 		const isGridVisible = controller.grid.visible;
 		const isTargetVisible = controller.target.visible;
-		if( isGridVisible || isTargetVisible ) {
+		if (isGridVisible || isTargetVisible) {
 			const w = parent.width;
 			const h = parent.height;
 			const wh = 0.5 * w;
@@ -200,57 +220,39 @@ export class DDiagramCanvasEditorSnap {
 			let index = 0;
 
 			// Grid
-			if( isGridVisible ) {
+			if (isGridVisible) {
 				const grid = this._grid;
 				const major = grid.major;
 				const minor = grid.minor;
 				const interval = major.interval;
-				const size = grid.size( controller.grid.size, w, h );
-				for( let x = size, ix = 1; x < w; x += size, ix += 1, index += 1 ) {
-					this.update(
-						container, shapes, index,
-						x, hh, TOP,
-						w, h,
-						ix % interval === 0 ? major : minor
-					);
+				const size = grid.size(controller.grid.size, w, h);
+				for (let x = size, ix = 1; x < w; x += size, ix += 1, index += 1) {
+					const style = ix % interval === 0 ? major : minor;
+					this.update(container, shapes, index, x, hh, TOP, w, h, style);
 				}
-				for( let y = size, iy = 1; y < w; y += size, iy += 1, index += 1 ) {
-					this.update(
-						container, shapes, index,
-						wh, y, LEFT,
-						w, h,
-						iy % interval === 0 ? major : minor
-					);
+				for (let y = size, iy = 1; y < w; y += size, iy += 1, index += 1) {
+					const style = iy % interval === 0 ? major : minor;
+					this.update(container, shapes, index, wh, y, LEFT, w, h, style);
 				}
 			}
 
 			// Target
-			if( isTargetVisible ) {
+			if (isTargetVisible) {
 				const values = controller.target.values;
 				const target = this._target;
-				for( let i = 0, imax = values.length; i < imax; i += 1, index += 1 ) {
-					const value = values[ i ];
+				for (let i = 0, imax = values.length; i < imax; i += 1, index += 1) {
+					const value = values[i];
 					const position = value.position;
-					if( value.type === ESnapperTargetValueType.VERTICAL ) {
-						this.update(
-							container, shapes, index,
-							position, hh, TOP,
-							w, h,
-							target
-						);
+					if (value.type === ESnapperTargetValueType.VERTICAL) {
+						this.update(container, shapes, index, position, hh, TOP, w, h, target);
 					} else {
-						this.update(
-							container, shapes, index,
-							wh, position, LEFT,
-							w, h,
-							target
-						);
+						this.update(container, shapes, index, wh, position, LEFT, w, h, target);
 					}
 				}
 			}
 
-			for( let i = index, imax = shapes.length; i < imax; ++i ) {
-				shapes[ i ].visible = false;
+			for (let i = index, imax = shapes.length; i < imax; ++i) {
+				shapes[i].visible = false;
 			}
 
 			container.visible = true;
@@ -261,31 +263,39 @@ export class DDiagramCanvasEditorSnap {
 
 	protected update(
 		container: EShapeContainer,
-		shapes: EShapeBar[], index: number,
-		x: number, y: number, position: EShapeBarPosition, w: number, h: number,
-		style: DDiagramCanvasEditorSnapGridMajor | DDiagramCanvasEditorSnapGridMinor | DDiagramCanvasEditorSnapTarget
+		shapes: EShapeBar[],
+		index: number,
+		x: number,
+		y: number,
+		position: EShapeBarPosition,
+		w: number,
+		h: number,
+		style:
+			| DDiagramCanvasEditorSnapGridMajor
+			| DDiagramCanvasEditorSnapGridMinor
+			| DDiagramCanvasEditorSnapTarget
 	): void {
 		let shape = null;
-		if( index < shapes.length ) {
-			shape = shapes[ index ];
+		if (index < shapes.length) {
+			shape = shapes[index];
 			shape.disallowUploadedUpdate();
 			shape.points.position = position;
-			shape.transform.position.set( x, y );
-			shape.stroke.set( true, style.color, style.alpha );
-			shape.size.set( w, h );
+			shape.transform.position.set(x, y);
+			shape.stroke.set(true, style.color, style.alpha);
+			shape.size.set(w, h);
 			shape.visible = true;
 			shape.allowUploadedUpdate();
 		} else {
-			shape = new EShapeBar( position, -1, style.width );
+			shape = new EShapeBar(position, -1, style.width);
 			shape.disallowUploadedUpdate();
 			shape.fill.enable = false;
 			shape.points.style = style.style;
-			shape.transform.position.set( x, y );
-			shape.stroke.set( true, style.color, style.alpha );
-			shape.size.set( w, h );
+			shape.transform.position.set(x, y);
+			shape.stroke.set(true, style.color, style.alpha);
+			shape.size.set(w, h);
 			shape.visible = true;
 			shape.allowUploadedUpdate();
-			shape.attach( container );
+			shape.attach(container);
 		}
 	}
 }

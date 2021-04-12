@@ -11,10 +11,10 @@ export class DBaseBackgroundMesh extends Mesh {
 	geometry!: DBaseBackgroundMeshGeometry;
 	shader!: MeshMaterial;
 
-	constructor( texture: Texture, borderSize: number, cornerMask: DCornerMask ) {
+	constructor(texture: Texture, borderSize: number, cornerMask: DCornerMask) {
 		super(
-			new DBaseBackgroundMeshGeometry( texture, 100, 100, borderSize, cornerMask ),
-			new MeshMaterial( texture )
+			new DBaseBackgroundMeshGeometry(texture, 100, 100, borderSize, cornerMask),
+			new MeshMaterial(texture)
 		);
 	}
 
@@ -23,8 +23,8 @@ export class DBaseBackgroundMesh extends Mesh {
 		return this.shader.texture;
 	}
 
-	set texture( texture: Texture ) {
-		if( this.shader.texture !== texture ) {
+	set texture(texture: Texture) {
+		if (this.shader.texture !== texture) {
 			this.shader.texture = texture;
 			this.geometry.texture = texture;
 		}
@@ -35,7 +35,7 @@ export class DBaseBackgroundMesh extends Mesh {
 		return this.geometry.width;
 	}
 
-	set width( width: number ) {
+	set width(width: number) {
 		this.geometry.width = width;
 	}
 
@@ -44,7 +44,7 @@ export class DBaseBackgroundMesh extends Mesh {
 		return this.geometry.height;
 	}
 
-	set height( height: number ) {
+	set height(height: number) {
 		this.geometry.height = height;
 	}
 
@@ -52,7 +52,7 @@ export class DBaseBackgroundMesh extends Mesh {
 		return this.geometry.cornerMask;
 	}
 
-	set borderSize( borderSize: number ) {
+	set borderSize(borderSize: number) {
 		this.geometry.borderSize = borderSize;
 	}
 
@@ -60,13 +60,13 @@ export class DBaseBackgroundMesh extends Mesh {
 		return this.geometry.cornerMask;
 	}
 
-	set cornerMask( cornerMask: DCornerMask ) {
+	set cornerMask(cornerMask: DCornerMask) {
 		this.geometry.cornerMask = cornerMask;
 	}
 
-	protected _render( renderer: Renderer ): void {
+	protected _render(renderer: Renderer): void {
 		this.geometry.update();
-		super._render( renderer );
+		super._render(renderer);
 	}
 
 	update(): void {

@@ -7,5 +7,5 @@ import { DThemeDark } from "../d-theme-dark";
 import { DThemeDarkButtonCheckRight } from "../d-theme-dark-button-check-right";
 
 export const loadThemeDarkButtonCheckRight = (): void => {
-	DThemeDark.set( "DButtonCheckRight", DThemeDarkButtonCheckRight );
+	DThemeDark.set("DButtonCheckRight", DThemeDarkButtonCheckRight);
 };

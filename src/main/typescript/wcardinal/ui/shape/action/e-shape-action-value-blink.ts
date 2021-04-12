@@ -19,9 +19,12 @@ import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 export type EShapeActionValueBlinkSerialized = [
-	EShapeActionValueType.BLINK, number,
+	EShapeActionValueType.BLINK,
+	number,
 	EShapeActionValueBlinkType.COLOR_FILL | EShapeActionValueBlinkType.COLOR_STROKE,
-	number, number, number
+	number,
+	number,
+	number
 ];
 
 export class EShapeActionValueBlink extends EShapeActionValueSubtyped<EShapeActionValueBlinkType> {
@@ -29,17 +32,23 @@ export class EShapeActionValueBlink extends EShapeActionValueSubtyped<EShapeActi
 	readonly color: number;
 	readonly alpha: number;
 
-	constructor( subtype: EShapeActionValueBlinkType, condition: string, interval: number, color: number, alpha: number ) {
-		super( EShapeActionValueType.BLINK, condition, subtype );
+	constructor(
+		subtype: EShapeActionValueBlinkType,
+		condition: string,
+		interval: number,
+		color: number,
+		alpha: number
+	) {
+		super(EShapeActionValueType.BLINK, condition, subtype);
 		this.interval = interval;
 		this.color = color;
 		this.alpha = alpha;
 	}
 
-	isEquals( value: EShapeActionValue ): boolean {
+	isEquals(value: EShapeActionValue): boolean {
 		return (
-			super.isEquals( value ) &&
-			(value instanceof EShapeActionValueBlink) &&
+			super.isEquals(value) &&
+			value instanceof EShapeActionValueBlink &&
 			this.interval === value.interval &&
 			this.color === value.color &&
 			this.alpha === value.alpha
@@ -47,23 +56,23 @@ export class EShapeActionValueBlink extends EShapeActionValueSubtyped<EShapeActi
 	}
 
 	toRuntime(): EShapeActionRuntimeBlink {
-		switch( this.subtype ) {
-		case EShapeActionValueBlinkType.BRIGHTEN:
-			return new EShapeActionRuntimeBlinkBrighten( this );
-		case EShapeActionValueBlinkType.COLOR_FILL:
-			return new EShapeActionRuntimeBlinkColorFill( this );
-		case EShapeActionValueBlinkType.COLOR_STROKE:
-			return new EShapeActionRuntimeBlinkColorStroke( this );
-		case EShapeActionValueBlinkType.DARKEN:
-			return new EShapeActionRuntimeBlinkDarken( this );
-		case EShapeActionValueBlinkType.OPACITY:
-			return new EShapeActionRuntimeBlinkOpacity( this );
-		case EShapeActionValueBlinkType.VISIBILITY:
-			return new EShapeActionRuntimeBlinkVisibility( this );
+		switch (this.subtype) {
+			case EShapeActionValueBlinkType.BRIGHTEN:
+				return new EShapeActionRuntimeBlinkBrighten(this);
+			case EShapeActionValueBlinkType.COLOR_FILL:
+				return new EShapeActionRuntimeBlinkColorFill(this);
+			case EShapeActionValueBlinkType.COLOR_STROKE:
+				return new EShapeActionRuntimeBlinkColorStroke(this);
+			case EShapeActionValueBlinkType.DARKEN:
+				return new EShapeActionRuntimeBlinkDarken(this);
+			case EShapeActionValueBlinkType.OPACITY:
+				return new EShapeActionRuntimeBlinkOpacity(this);
+			case EShapeActionValueBlinkType.VISIBILITY:
+				return new EShapeActionRuntimeBlinkVisibility(this);
 		}
 	}
 
-	serialize( manager: EShapeResourceManagerSerialization ): number {
+	serialize(manager: EShapeResourceManagerSerialization): number {
 		const conditionId = manager.addResource(this.condition);
 		return manager.addResource(
 			`[${this.type},${conditionId},${this.subtype},${this.interval},${this.color},${this.alpha}]`
@@ -74,10 +83,13 @@ export class EShapeActionValueBlink extends EShapeActionValueSubtyped<EShapeActi
 		serialized: EShapeActionValueBlinkSerialized,
 		manager: EShapeResourceManagerDeserialization
 	): EShapeActionValueBlink {
-		const condition = EShapeActionValues.toResource( 1, serialized, manager.resources );
+		const condition = EShapeActionValues.toResource(1, serialized, manager.resources);
 		return new EShapeActionValueBlink(
-			serialized[ 2 ], condition, serialized[ 3 ],
-			serialized[ 4 ], serialized[ 5 ]
+			serialized[2],
+			condition,
+			serialized[3],
+			serialized[4],
+			serialized[5]
 		);
 	}
 }

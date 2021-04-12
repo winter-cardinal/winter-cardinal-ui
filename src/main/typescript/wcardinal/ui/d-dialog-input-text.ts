@@ -6,31 +6,26 @@
 import { DDialogInput, DDialogInputOptions, DThemeDialogInput } from "./d-dialog-input";
 import { DInputText, DInputTextOptions } from "./d-input-text";
 
-export interface DDialogInputTextOptions<
-	THEME extends DThemeDialogInputText
-> extends DDialogInputOptions<string, DInputTextOptions, THEME> {
+export interface DDialogInputTextOptions<THEME extends DThemeDialogInputText>
+	extends DDialogInputOptions<string, DInputTextOptions, THEME> {}
 
-}
-
-export interface DThemeDialogInputText extends DThemeDialogInput {
-
-}
+export interface DThemeDialogInputText extends DThemeDialogInput {}
 
 export class DDialogInputText<
 	THEME extends DThemeDialogInputText = DThemeDialogInputText,
 	OPTIONS extends DDialogInputTextOptions<THEME> = DDialogInputTextOptions<THEME>
 > extends DDialogInput<string, DInputText, DInputTextOptions, THEME, OPTIONS> {
-	protected newInput( options?: DInputTextOptions ): DInputText {
-		const result = new DInputText( this.toInputOptions( options ) );
-		result.on( "enter", () => {
+	protected newInput(options?: DInputTextOptions): DInputText {
+		const result = new DInputText(this.toInputOptions(options));
+		result.on("enter", () => {
 			this.ok();
 		});
 		return result;
 	}
 
-	protected toInputOptions( options?: DInputTextOptions ): DInputTextOptions {
-		if( options ) {
-			if( options.weight === undefined ) {
+	protected toInputOptions(options?: DInputTextOptions): DInputTextOptions {
+		if (options) {
+			if (options.weight === undefined) {
 				options.weight = 1;
 			}
 			return options;

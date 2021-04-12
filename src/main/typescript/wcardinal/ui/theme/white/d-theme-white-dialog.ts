@@ -38,7 +38,7 @@ export class DThemeWhiteDialog extends DThemeWhiteBase implements DThemeDialog {
 		return DThemeWhiteConstants.BACKGROUND_COLOR;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return 0xfafafa;
 	}
 

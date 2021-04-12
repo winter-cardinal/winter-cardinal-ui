@@ -8,12 +8,14 @@ import { DPickerDatetimes } from "../../d-picker-datetimes";
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeDarkButton } from "./d-theme-dark-button";
 
-const formatter = ( value: Date, caller: DButtonDatetime ): string => {
-	return DPickerDatetimes.format( value, caller.getDatetimeMask() );
+const formatter = (value: Date, caller: DButtonDatetime): string => {
+	return DPickerDatetimes.format(value, caller.getDatetimeMask());
 };
 
-export class DThemeDarkButtonDatetime extends DThemeDarkButton<Date> implements DThemeButtonDatetime {
-	getTextFormatter(): ( value: Date, caller: DButtonDatetime ) => string {
+export class DThemeDarkButtonDatetime
+	extends DThemeDarkButton<Date>
+	implements DThemeButtonDatetime {
+	getTextFormatter(): (value: Date, caller: DButtonDatetime) => string {
 		return formatter;
 	}
 

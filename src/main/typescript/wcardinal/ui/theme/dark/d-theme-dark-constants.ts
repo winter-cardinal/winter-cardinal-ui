@@ -11,7 +11,7 @@ export class DThemeDarkConstants {
 
 	static BORDER_COLOR = 0x4a4a4a;
 
-	static BACKGROUND_COLOR = 0x2E2E2E;
+	static BACKGROUND_COLOR = 0x2e2e2e;
 	static BACKGROUND_COLOR_ON_BOARD = 0x1f1f1f;
 
 	static HIGHLIGHT_COLOR = 0x2297f3;

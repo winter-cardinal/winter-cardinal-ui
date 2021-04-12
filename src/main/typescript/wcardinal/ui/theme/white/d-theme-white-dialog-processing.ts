@@ -8,17 +8,19 @@ import { DThemeDialogProcessing } from "../../d-dialog-processing";
 import { DStateAwareOrValue } from "../../d-state-aware";
 import { DThemeWhiteDialogConfirm } from "./d-theme-white-dialog-confirm";
 
-const message = ( state: DBaseStateSet ): string => {
-	if( state.isSucceeded ) {
+const message = (state: DBaseStateSet): string => {
+	if (state.isSucceeded) {
 		return "Processed successfully";
-	} else if( state.isFailed ) {
+	} else if (state.isFailed) {
 		return "Failed to process the request";
 	} else {
 		return "Processing...";
 	}
 };
 
-export class DThemeWhiteDialogProcessing extends DThemeWhiteDialogConfirm implements DThemeDialogProcessing {
+export class DThemeWhiteDialogProcessing
+	extends DThemeWhiteDialogConfirm
+	implements DThemeDialogProcessing {
 	getOk(): string | null {
 		return "OK";
 	}

@@ -9,11 +9,11 @@ import { DThemeCanvasContainer } from "../../d-canvas-container";
 import { DThemeDarkBase } from "./d-theme-dark-base";
 
 export class DThemeDarkCanvasContainer extends DThemeDarkBase implements DThemeCanvasContainer {
-	getBackgroundColor( state: DBaseStateSet ): number | null {
+	getBackgroundColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 

@@ -16,7 +16,7 @@ export class EShapeGroupFillViewer implements EShapeFill {
 		return true;
 	}
 
-	set enable( enable: boolean ) {
+	set enable(enable: boolean) {
 		// DO NOTHING
 	}
 
@@ -24,7 +24,7 @@ export class EShapeGroupFillViewer implements EShapeFill {
 		return 0xffffff;
 	}
 
-	set color( color: number ) {
+	set color(color: number) {
 		// DO NOTHING
 	}
 
@@ -32,15 +32,15 @@ export class EShapeGroupFillViewer implements EShapeFill {
 		return 1.0;
 	}
 
-	set alpha( alpha: number ) {
+	set alpha(alpha: number) {
 		// DO NOTHING
 	}
 
-	copy( target?: Partial<EShapeFillLike> ): void {
+	copy(target?: Partial<EShapeFillLike>): void {
 		// DO NOTHING
 	}
 
-	set( enable: boolean, color: number, alpha: number ): void {
+	set(enable: boolean, color: number, alpha: number): void {
 		// DO NOTHING
 	}
 
@@ -56,11 +56,11 @@ export class EShapeGroupFillViewer implements EShapeFill {
 		};
 	}
 
-	serialize( manager: EShapeResourceManagerSerialization ): number {
+	serialize(manager: EShapeResourceManagerSerialization): number {
 		return -1;
 	}
 
-	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void {
+	deserialize(target: number, manager: EShapeResourceManagerDeserialization): void {
 		// DO NOTHING
 	}
 }

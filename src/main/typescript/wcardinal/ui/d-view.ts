@@ -10,7 +10,9 @@ import { DThemeViewDrag, DViewDrag, DViewDragOptions } from "./d-view-drag";
 import { DViewTargetPoint } from "./d-view-to-target";
 
 export type DViewChecker = (
-	e: WheelEvent | MouseEvent | TouchEvent, modifier: DMouseModifier, target: DBase
+	e: WheelEvent | MouseEvent | TouchEvent,
+	modifier: DMouseModifier,
+	target: DBase
 ) => boolean;
 
 /**
@@ -24,7 +26,7 @@ export interface DViewZoomWheelOptions {
 	speed?: number;
 
 	/** Mouse modifiers */
-	modifier?: (keyof typeof DMouseModifier) | DMouseModifier;
+	modifier?: keyof typeof DMouseModifier | DMouseModifier;
 
 	/**
 	 * Wheel zoom checker.
@@ -44,7 +46,7 @@ export interface DViewZoomDblClickOptions {
 	amount?: number;
 
 	/** Mouse modifiers */
-	modifier?: (keyof typeof DMouseModifier) | DMouseModifier;
+	modifier?: keyof typeof DMouseModifier | DMouseModifier;
 
 	/**
 	 * Double click zoom checker.
@@ -87,7 +89,7 @@ export interface DViewTranslationWheelOptions {
 	speed?: number;
 
 	/** Mouse modifiers */
-	modifier?: (keyof typeof DMouseModifier) | DMouseModifier;
+	modifier?: keyof typeof DMouseModifier | DMouseModifier;
 
 	/**
 	 * Wheel translation checker.
@@ -156,7 +158,7 @@ export interface DView {
 	 * @param duration an animation duration
 	 * @param stop false to keep a previous animation
 	 */
-	reset( duration?: number, stop?: boolean ): void;
+	reset(duration?: number, stop?: boolean): void;
 
 	/**
 	 * Fits into a screen.
@@ -164,7 +166,7 @@ export interface DView {
 	 * @param duration an animation duration
 	 * @param stop false to keep a previous animation
 	 */
-	fit( duration?: number, stop?: boolean ): void;
+	fit(duration?: number, stop?: boolean): void;
 
 	/**
 	 * Zooms in at the current position.
@@ -172,7 +174,7 @@ export interface DView {
 	 * @param duration an animation duration
 	 * @param stop false to keep a previous animation
 	 */
-	zoomIn( duration?: number, stop?: boolean ): void;
+	zoomIn(duration?: number, stop?: boolean): void;
 
 	/**
 	 * Zooms out at the current position.
@@ -180,7 +182,7 @@ export interface DView {
 	 * @param duration an animation duration
 	 * @param stop false to keep a previous animation
 	 */
-	zoomOut( duration?: number, stop?: boolean ): void;
+	zoomOut(duration?: number, stop?: boolean): void;
 
 	/**
 	 * Zooms into the spcecified position.
@@ -192,7 +194,14 @@ export interface DView {
 	 * @param duration an duration
 	 * @param stop false to keep a previous animation
 	 */
-	zoomAt( x: number, y: number, scaleX: number, scaleY: number, duration?: number, stop?: boolean ): void;
+	zoomAt(
+		x: number,
+		y: number,
+		scaleX: number,
+		scaleY: number,
+		duration?: number,
+		stop?: boolean
+	): void;
 
 	/**
 	 * Zooms into the specified global position.
@@ -204,7 +213,14 @@ export interface DView {
 	 * @param duration an animation duration
 	 * @param stop false to keep a previous animation
 	 */
-	zoomAtGlobal( x: number, y: number, scaleX: number, scaleY: number, duration?: number, stop?: boolean ): void;
+	zoomAtGlobal(
+		x: number,
+		y: number,
+		scaleX: number,
+		scaleY: number,
+		duration?: number,
+		stop?: boolean
+	): void;
 
 	/**
 	 * Zooms in / out at the current position.
@@ -214,7 +230,7 @@ export interface DView {
 	 * @param duration an animation duration
 	 * @param stop false to keep a previous animation
 	 */
-	zoom( scaleX: number, scaleY: number, duration?: number, stop?: boolean ): void;
+	zoom(scaleX: number, scaleY: number, duration?: number, stop?: boolean): void;
 
 	/**
 	 * Moves to the spacified position.
@@ -224,7 +240,7 @@ export interface DView {
 	 * @param duration an animation duration
 	 * @param stop false to keep a previous animation
 	 */
-	moveTo( x: number, y: number, duration?: number, stop?: boolean ): void;
+	moveTo(x: number, y: number, duration?: number, stop?: boolean): void;
 
 	/**
 	 * Sets to the specified position and scale.
@@ -236,8 +252,15 @@ export interface DView {
 	 * @param duration an animation duration
 	 * @param stop false to keep a previous animation
 	 */
-	transform( x: number, y: number, scaleX: number, scaleY: number, duration?: number, stop?: boolean ): void;
+	transform(
+		x: number,
+		y: number,
+		scaleX: number,
+		scaleY: number,
+		duration?: number,
+		stop?: boolean
+	): void;
 
-	toLocal( global: IPoint, local: IPoint, skipUpdate?: boolean ): IPoint;
-	toGlobal( local: IPoint, global: IPoint, skipUpdate?: boolean ): IPoint;
+	toLocal(global: IPoint, local: IPoint, skipUpdate?: boolean): IPoint;
+	toGlobal(local: IPoint, global: IPoint, skipUpdate?: boolean): IPoint;
 }

@@ -20,16 +20,15 @@ export interface DButtonDateEvents<EMITTER> extends DButtonEvents<Date, EMITTER>
 	 * @param oldValue a previously selected value
 	 * @param emitter an emitter
 	 */
-	change( newValue: Date, oldValue: Date, emitter: EMITTER ): void;
+	change(newValue: Date, oldValue: Date, emitter: EMITTER): void;
 }
 
 /**
  * {@link DButtonDate} "on" options.
  */
 export interface DButtonDateOnOptions<EMITTER>
-	extends Partial<DButtonDateEvents<EMITTER>>, DOnOptions {
-
-}
+	extends Partial<DButtonDateEvents<EMITTER>>,
+		DOnOptions {}
 
 /**
  * {@link DButtonDate} options.
@@ -45,9 +44,7 @@ export interface DButtonDateOptions<
 /**
  * {@link DButtonDate} theme.
  */
-export interface DThemeButtonDate extends DThemeButton<Date> {
-
-}
+export interface DThemeButtonDate extends DThemeButton<Date> {}
 
 export class DButtonDate<
 	THEME extends DThemeButtonDate = DThemeButtonDate,
@@ -55,27 +52,29 @@ export class DButtonDate<
 > extends DButton<Date, THEME, OPTIONS> {
 	protected _dialog?: DDialogDate;
 
-	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
-		super.onActivate( e );
+	protected onActivate(
+		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
+	): void {
+		super.onActivate(e);
 		const value = this._textValueComputed?.getTime() ?? Date.now();
 		const dialog = this.dialog;
-		dialog.current = new Date( value );
-		dialog.new = new Date( value );
-		dialog.page = new Date( value );
+		dialog.current = new Date(value);
+		dialog.new = new Date(value);
+		dialog.page = new Date(value);
 		dialog.open().then((): void => {
 			const newValue = dialog.new;
 			const oldValue = dialog.current;
-			this.text = new Date( newValue.getTime() );
-			this.emit( "change", newValue, oldValue, this );
+			this.text = new Date(newValue.getTime());
+			this.emit("change", newValue, oldValue, this);
 		});
 	}
 
 	get dialog(): DDialogDate {
 		let dialog = this._dialog;
-		if( dialog == null ) {
+		if (dialog == null) {
 			const options = this._options?.dialog;
-			if( options ) {
-				dialog = new DDialogDate( options );
+			if (options) {
+				dialog = new DDialogDate(options);
 			} else {
 				dialog = DDialogDates.getInstance();
 			}
@@ -88,9 +87,9 @@ export class DButtonDate<
 		return this._textValueComputed ?? new Date();
 	}
 
-	set value( value: Date ) {
+	set value(value: Date) {
 		const textValueComputed = this._textValueComputed;
-		if( textValueComputed === undefined || textValueComputed.getTime() !== value.getTime() ) {
+		if (textValueComputed === undefined || textValueComputed.getTime() !== value.getTime()) {
 			this.text = value;
 		}
 	}

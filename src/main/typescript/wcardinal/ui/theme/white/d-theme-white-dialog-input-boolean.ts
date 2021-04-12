@@ -6,6 +6,6 @@
 import { DThemeDialogInputBoolean } from "../../d-dialog-input-boolean";
 import { DThemeWhiteDialogInput } from "./d-theme-white-dialog-input";
 
-export class DThemeWhiteDialogInputBoolean extends DThemeWhiteDialogInput implements DThemeDialogInputBoolean {
-
-}
+export class DThemeWhiteDialogInputBoolean
+	extends DThemeWhiteDialogInput
+	implements DThemeDialogInputBoolean {}

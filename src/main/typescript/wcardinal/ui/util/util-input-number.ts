@@ -3,15 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { UtilInput, UtilInputOperation, UtilInputOptions, UtilInputTarget, UtilThemeInput } from "./util-input";
+import {
+	UtilInput,
+	UtilInputOperation,
+	UtilInputOptions,
+	UtilInputTarget,
+	UtilThemeInput
+} from "./util-input";
 
-export interface UtilInputNumberTarget extends UtilInputTarget {
+export interface UtilInputNumberTarget extends UtilInputTarget {}
 
-}
-
-export interface UtilInputNumberOperation extends UtilInputOperation<number> {
-
-}
+export interface UtilInputNumberOperation extends UtilInputOperation<number> {}
 
 export interface UtilInputNumberOptions extends UtilInputOptions<number> {
 	step?: number | null;
@@ -35,8 +37,8 @@ export class UtilInputNumber<
 	protected _min: number | null;
 	protected _max: number | null;
 
-	constructor( target: TARGET, operation: OPERATION, theme: THEME, options?: OPTIONS ) {
-		super( target, operation, theme, options );
+	constructor(target: TARGET, operation: OPERATION, theme: THEME, options?: OPTIONS) {
+		super(target, operation, theme, options);
 
 		this._step = options?.step ?? theme.getStep();
 		this._min = options?.min ?? theme.getMin();
@@ -47,8 +49,8 @@ export class UtilInputNumber<
 		return this._step;
 	}
 
-	set step( step: number | null ) {
-		if( this._step !== step ) {
+	set step(step: number | null) {
+		if (this._step !== step) {
 			this._step = step;
 			this.onStepChange();
 		}
@@ -58,8 +60,8 @@ export class UtilInputNumber<
 		return this._min;
 	}
 
-	set min( min: number | null ) {
-		if( this._min !== min ) {
+	set min(min: number | null) {
+		if (this._min !== min) {
 			this._min = min;
 			this.onMinChange();
 		}
@@ -69,95 +71,99 @@ export class UtilInputNumber<
 		return this._max;
 	}
 
-	set max( max: number | null ) {
-		if( this._max !== max ) {
+	set max(max: number | null) {
+		if (this._max !== max) {
 			this._max = max;
 			this.onMaxChange();
 		}
 	}
 
-	toValue( valueAsString: string ): number {
-		const result = super.toValue( valueAsString );
-		if( result === result /* NaN Check */ ) {
-			if( this._min != null && result < this._min ) {
-				return this._min;
+	toValue(valueAsString: string): number {
+		const result = super.toValue(valueAsString);
+		if (result === result /* NaN Check */) {
+			const min = this._min;
+			if (min != null && result < min) {
+				return min;
 			}
-			if( this._max != null && this._max < result ) {
-				return this._max;
+			const max = this._max;
+			if (max != null && max < result) {
+				return max;
 			}
 			return result;
 		}
 		return 0;
 	}
 
-	fromValue( value: number | undefined ): string {
-		if( value !== undefined ) {
-			return this._editingFormatter( value, this );
+	fromValue(value: number | undefined): string {
+		if (value !== undefined) {
+			return this._editingFormatter(value, this);
 		}
 		return "0";
 	}
 
 	protected onStepChange(): void {
-		if( this.isShown() ) {
+		if (this.isShown()) {
 			const element = this.element;
-			if( element ) {
-				this.updateStep( element );
+			if (element) {
+				this.updateStep(element);
 			}
 		}
 	}
 
 	protected onMinChange(): void {
-		if( this.isShown() ) {
+		if (this.isShown()) {
 			const element = this.element;
-			if( element ) {
-				this.updateMin( element );
+			if (element) {
+				this.updateMin(element);
 			}
 		}
 	}
 
 	protected onMaxChange(): void {
-		if( this.isShown() ) {
+		if (this.isShown()) {
 			const element = this.element;
-			if( element ) {
-				this.updateMax( element );
+			if (element) {
+				this.updateMax(element);
 			}
 		}
 	}
 
-	protected updateStep( input: HTMLInputElement ): void {
+	protected updateStep(input: HTMLInputElement): void {
 		const step = this.step;
-		if( step != null ) {
+		if (step != null) {
 			input.step = `${step}`;
 		} else {
 			input.step = "any";
 		}
 	}
 
-	protected updateMin( input: HTMLInputElement ): void {
+	protected updateMin(input: HTMLInputElement): void {
 		const min = this.min;
-		if( min != null ) {
+		if (min != null) {
 			input.min = `${min}`;
 		} else {
-			input.removeAttribute( "min" );
+			input.removeAttribute("min");
 		}
 	}
 
-	protected updateMax( input: HTMLInputElement ): void {
+	protected updateMax(input: HTMLInputElement): void {
 		const max = this.max;
-		if( max != null ) {
+		if (max != null) {
 			input.max = `${max}`;
 		} else {
-			input.removeAttribute( "max" );
+			input.removeAttribute("max");
 		}
 	}
 
 	protected onElementAttached(
-		element: HTMLInputElement, before?: HTMLDivElement | null, after?: HTMLDivElement | null
+		element: HTMLInputElement,
+		before?: HTMLDivElement | null,
+		after?: HTMLDivElement | null
 	): void {
-		super.onElementAttached( element, before, after );
-		this.updateStep( element );
-		this.updateMin( element );
-		this.updateMax( element );
+		super.onElementAttached(element, before, after);
+		this.updateStep(element);
+		this.updateMin(element);
+		this.updateMax(element);
 	}
 
 	protected getInputType(): string {

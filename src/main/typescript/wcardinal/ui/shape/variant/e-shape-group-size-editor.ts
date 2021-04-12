@@ -19,10 +19,10 @@ export class EShapeGroupSizeEditor implements EShapeGroupSize {
 	protected _workRectForFit: Rectangle = new Rectangle();
 	protected _isFittable: boolean;
 
-	constructor( parent: EShapeGroupSizeParent, x: number, y: number, isFittable: boolean ) {
+	constructor(parent: EShapeGroupSizeParent, x: number, y: number, isFittable: boolean) {
 		this._parent = parent;
 		this._layouts = [];
-		this._size = new Point( x, y );
+		this._size = new Point(x, y);
 		this._isFittable = isFittable;
 	}
 
@@ -34,12 +34,12 @@ export class EShapeGroupSizeEditor implements EShapeGroupSize {
 		return this._size.x;
 	}
 
-	set x( x: number ) {
+	set x(x: number) {
 		const size = this._size;
-		if( size.x !== x ) {
+		if (size.x !== x) {
 			const ox = size.x;
 			size.x = x;
-			this.onChange( ox, size.y );
+			this.onChange(ox, size.y);
 		}
 	}
 
@@ -47,67 +47,67 @@ export class EShapeGroupSizeEditor implements EShapeGroupSize {
 		return this._size.y;
 	}
 
-	set y( y: number ) {
+	set y(y: number) {
 		const size = this._size;
-		if( size.y !== y ) {
+		if (size.y !== y) {
 			const oy = size.y;
 			size.y = y;
-			this.onChange( size.x, oy );
+			this.onChange(size.x, oy);
 		}
 	}
 
-	set( x?: number, y?: number ): this {
+	set(x?: number, y?: number): this {
 		let isChanged = false;
 		const size = this._size;
 		const ox = size.x;
 		const oy = size.y;
-		if( x != null && ox !== x ) {
+		if (x != null && ox !== x) {
 			isChanged = true;
 			size.x = x;
 		}
-		if( y != null && oy !== y ) {
+		if (y != null && oy !== y) {
 			isChanged = true;
 			size.y = y;
 		}
-		if( isChanged ) {
-			this.onChange( ox, oy );
+		if (isChanged) {
+			this.onChange(ox, oy);
 		}
 		return this;
 	}
 
 	clone(): EShapeGroupSizeEditor {
 		const size = this._size;
-		return new EShapeGroupSizeEditor( this._parent, size.x, size.y, this._isFittable );
+		return new EShapeGroupSizeEditor(this._parent, size.x, size.y, this._isFittable);
 	}
 
 	copy(): void {
 		// DO NOTHING
 	}
 
-	copyFrom( point: IPoint ): this {
+	copyFrom(point: IPoint): this {
 		const x = point.x;
 		const y = point.y;
 		const size = this._size;
 		const ox = size.x;
 		const oy = size.y;
-		if( ox !== x || oy !== y ) {
+		if (ox !== x || oy !== y) {
 			size.x = x;
 			size.y = y;
-			this.onChange( ox, oy );
+			this.onChange(ox, oy);
 		}
 		return this;
 	}
 
-	copyTo( point: IPoint ): IPoint {
-		return this._size.copyTo( point );
+	copyTo(point: IPoint): IPoint {
+		return this._size.copyTo(point);
 	}
 
-	equals( point: IPoint ): boolean {
-		return this._size.equals( point );
+	equals(point: IPoint): boolean {
+		return this._size.equals(point);
 	}
 
 	fit(): void {
-		if( this._isFittable ) {
+		if (this._isFittable) {
 			this.doFit();
 		}
 	}
@@ -117,11 +117,11 @@ export class EShapeGroupSizeEditor implements EShapeGroupSize {
 		parent.disallowOnTransformChange();
 
 		// Calculate the rect
-		const rect = this.calcRect( this._workRectForFit );
+		const rect = this.calcRect(this._workRectForFit);
 
 		// Set size
 		const size = this._size;
-		size.set( rect.width, rect.height );
+		size.set(rect.width, rect.height);
 
 		// Position & Pivot
 		// rx := rect.x
@@ -163,35 +163,35 @@ export class EShapeGroupSizeEditor implements EShapeGroupSize {
 			position.x + (a * x + c * y) - (a * pivot.x + c * pivot.y),
 			position.y + (b * x + d * y) - (b * pivot.x + d * pivot.y)
 		);
-		pivot.set( x, y );
+		pivot.set(x, y);
 
 		// Reset the data
-		this.reset( parent.children, this._layouts, size );
+		this.reset(parent.children, this._layouts, size);
 
 		//
-		parent.allowOnTransformChange( true );
+		parent.allowOnTransformChange(true);
 	}
 
-	protected reset( children: EShape[], layouts: EShapeLayout[], size: IPoint ): void {
-		for( let i = 0, imax = Math.min( layouts.length, children.length ); i < imax; ++i ) {
-			const child = children[ i ];
-			const layout = layouts[ i ];
-			if( layout.isCompatible( child ) ) {
-				layout.reset( child, size.x, size.y );
+	protected reset(children: EShape[], layouts: EShapeLayout[], size: IPoint): void {
+		for (let i = 0, imax = Math.min(layouts.length, children.length); i < imax; ++i) {
+			const child = children[i];
+			const layout = layouts[i];
+			if (layout.isCompatible(child)) {
+				layout.reset(child, size.x, size.y);
 			} else {
 				layouts.length = i;
 				break;
 			}
 		}
-		if( children.length < layouts.length ) {
+		if (children.length < layouts.length) {
 			layouts.length = children.length;
 		}
 	}
 
-	calcRect( result: Rectangle ): Rectangle {
+	calcRect(result: Rectangle): Rectangle {
 		const parent = this._parent;
 		const children = parent.children;
-		if( children.length <= 0 ) {
+		if (children.length <= 0) {
 			result.x = 0;
 			result.y = 0;
 			result.width = 0;
@@ -199,53 +199,56 @@ export class EShapeGroupSizeEditor implements EShapeGroupSize {
 		} else {
 			const workPoint = this._workPoint;
 			const workRect = this._workRectForCalcRect;
-			children[ 0 ].getBoundsLocal( workPoint, false, result );
-			for( let i = 1, imax = children.length; i < imax; ++i ) {
-				const child = children[ i ];
-				child.getBoundsLocal( workPoint, false, workRect );
-				result.enlarge( workRect );
+			children[0].getBoundsLocal(workPoint, false, result);
+			for (let i = 1, imax = children.length; i < imax; ++i) {
+				const child = children[i];
+				child.getBoundsLocal(workPoint, false, workRect);
+				result.enlarge(workRect);
 			}
 		}
 		return result;
 	}
 
-	protected onChange( ox: number, oy: number ): void {
+	protected onChange(ox: number, oy: number): void {
 		const parent = this._parent;
 		const size = this._size;
 		const pivot = parent.transform.pivot;
-		this.onChange_( parent.children, this._layouts, size.x, size.y, pivot.x, pivot.y, ox, oy );
+		this.onChange_(parent.children, this._layouts, size.x, size.y, pivot.x, pivot.y, ox, oy);
 		parent.onSizeChange();
 	}
 
 	protected onChange_(
 		children: EShape[],
 		layouts: EShapeLayout[],
-		sx: number, sy: number,
-		px: number, py: number,
-		ox: number, oy: number
+		sx: number,
+		sy: number,
+		px: number,
+		py: number,
+		ox: number,
+		oy: number
 	): void {
-		for( let i = 0, imax = Math.min( layouts.length, children.length ); i < imax; ++i ) {
-			const child = children[ i ];
-			const layout = layouts[ i ];
-			if( layout.isCompatible( child ) ) {
-				layout.update( child, sx, sy, px, py );
+		for (let i = 0, imax = Math.min(layouts.length, children.length); i < imax; ++i) {
+			const child = children[i];
+			const layout = layouts[i];
+			if (layout.isCompatible(child)) {
+				layout.update(child, sx, sy, px, py);
 			} else {
 				layouts.length = i;
 				break;
 			}
 		}
-		for( let i = layouts.length, imax = children.length; i < imax; ++i ) {
-			const child = children[ i ];
-			const layout = this.newLayout( child, ox, oy );
-			layout.update( child, sx, sy, px, py );
-			layouts.push( layout );
+		for (let i = layouts.length, imax = children.length; i < imax; ++i) {
+			const child = children[i];
+			const layout = this.newLayout(child, ox, oy);
+			layout.update(child, sx, sy, px, py);
+			layouts.push(layout);
 		}
-		if( layouts.length !== children.length ) {
+		if (layouts.length !== children.length) {
 			layouts.length = children.length;
 		}
 	}
 
-	protected newLayout( shape: EShape, ox: number, oy: number ): EShapeLayout {
-		return shape.layout || new EShapeGroupSizeLayout( shape, ox, oy );
+	protected newLayout(shape: EShape, ox: number, oy: number): EShapeLayout {
+		return shape.layout || new EShapeGroupSizeLayout(shape, ox, oy);
 	}
 }

@@ -11,14 +11,14 @@ import { EShapeCorner } from "./e-shape-corner";
 import { buildColor } from "./variant/build-color";
 
 export interface EShapeUploaded {
-	update( shape: EShape ): void;
-	isCompatible( shape: EShape ): boolean;
+	update(shape: EShape): void;
+	isCompatible(shape: EShape): boolean;
 	getBuffer(): EShapeBuffer;
 	getVertexOffset(): number;
 	getVertexCount(): number;
 	getIndexOffset(): number;
 	getIndexCount(): number;
-	buildUnit( builder: EShapeBufferUnitBuilder ): void;
+	buildUnit(builder: EShapeBufferUnitBuilder): void;
 }
 
 export abstract class EShapeUploadedBase implements EShapeUploaded {
@@ -51,8 +51,10 @@ export abstract class EShapeUploadedBase implements EShapeUploaded {
 
 	constructor(
 		buffer: EShapeBuffer,
-		voffset: number, ioffset: number,
-		vcount: number, icount: number,
+		voffset: number,
+		ioffset: number,
+		vcount: number,
+		icount: number,
 		antialiasWeight: number
 	) {
 		this.buffer = buffer;
@@ -83,14 +85,14 @@ export abstract class EShapeUploadedBase implements EShapeUploaded {
 		this.antialiasWeight = antialiasWeight;
 	}
 
-	init( shape: EShape ): this {
+	init(shape: EShape): this {
 		shape.uploaded = this;
 		return this;
 	}
 
-	abstract update( shape: EShape ): void;
+	abstract update(shape: EShape): void;
 
-	isCompatible( shape: EShape ): boolean {
+	isCompatible(shape: EShape): boolean {
 		return true;
 	}
 
@@ -114,77 +116,71 @@ export abstract class EShapeUploadedBase implements EShapeUploaded {
 		return this.indexCount;
 	}
 
-	protected toTransformLocalId( shape: EShape ): number {
+	protected toTransformLocalId(shape: EShape): number {
 		shape.updateTransform();
 		return shape.transform.getLocalId();
 	}
 
-	protected toTexture( shape: EShape ): Texture {
+	protected toTexture(shape: EShape): Texture {
 		return shape.texture || Texture.WHITE;
 	}
 
-	protected toTextureTransformId( texture: Texture ): number {
+	protected toTextureTransformId(texture: Texture): number {
 		const textureAny = texture as any;
-		if( textureAny._uvs == null ) {
+		if (textureAny._uvs == null) {
 			texture.updateUvs();
 		}
 		return textureAny._updateID;
 	}
 
-	protected toTextureUvs( texture: Texture ): TextureUvs {
+	protected toTextureUvs(texture: Texture): TextureUvs {
 		return (texture as any)._uvs;
 	}
 
-	protected updateColorFill( buffer: EShapeBuffer, shape: EShape, vertexCount: number ): void {
+	protected updateColorFill(buffer: EShapeBuffer, shape: EShape, vertexCount: number): void {
 		const fill = shape.fill;
 		const isEnabled = shape.visible && fill.enable;
 		const color = fill.color;
-		const alpha = (isEnabled ? fill.alpha : 0);
-		if( color !== this.colorFill || alpha !== this.alphaFill ) {
+		const alpha = isEnabled ? fill.alpha : 0;
+		if (color !== this.colorFill || alpha !== this.alphaFill) {
 			this.colorFill = color;
 			this.alphaFill = alpha;
 			buffer.updateColorFills();
 
-			buildColor(
-				color, alpha,
-				this.vertexOffset,
-				vertexCount,
-				buffer.colorFills
-			);
+			buildColor(color, alpha, this.vertexOffset, vertexCount, buffer.colorFills);
 		}
 	}
 
-	protected updateColorStroke( buffer: EShapeBuffer, shape: EShape, vertexCount: number ): void {
+	protected updateColorStroke(buffer: EShapeBuffer, shape: EShape, vertexCount: number): void {
 		const stroke = shape.stroke;
 		const isEnabled = shape.visible && stroke.enable && 0 < stroke.width;
 		const color = stroke.color;
-		const alpha = (isEnabled ? stroke.alpha : 0);
-		if( color !== this.colorStroke || alpha !== this.alphaStroke ) {
+		const alpha = isEnabled ? stroke.alpha : 0;
+		if (color !== this.colorStroke || alpha !== this.alphaStroke) {
 			this.colorStroke = color;
 			this.alphaStroke = alpha;
 			buffer.updateColorStrokes();
 
-			buildColor(
-				color, alpha,
-				this.vertexOffset,
-				vertexCount,
-				buffer.colorStrokes
-			);
+			buildColor(color, alpha, this.vertexOffset, vertexCount, buffer.colorStrokes);
 		}
 	}
 
-	protected updateColorFillAndStroke( buffer: EShapeBuffer, shape: EShape, vertexCount: number ): void {
-		this.updateColorFill( buffer, shape, vertexCount );
-		this.updateColorStroke( buffer, shape, vertexCount );
+	protected updateColorFillAndStroke(
+		buffer: EShapeBuffer,
+		shape: EShape,
+		vertexCount: number
+	): void {
+		this.updateColorFill(buffer, shape, vertexCount);
+		this.updateColorStroke(buffer, shape, vertexCount);
 	}
 
-	buildUnit( builder: EShapeBufferUnitBuilder ): void {
+	buildUnit(builder: EShapeBufferUnitBuilder): void {
 		const texture = this.texture || Texture.WHITE;
 		const baseTexture = texture.baseTexture;
-		if( baseTexture !== builder.baseTexture ) {
+		if (baseTexture !== builder.baseTexture) {
 			builder.baseTexture = baseTexture;
 			const indexOffset = this.indexOffset;
-			builder.push( texture, indexOffset );
+			builder.push(texture, indexOffset);
 		}
 	}
 }

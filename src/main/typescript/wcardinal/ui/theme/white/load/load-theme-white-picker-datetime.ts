@@ -14,12 +14,12 @@ import { DThemeWhitePickerDatetimeSpace } from "../d-theme-white-picker-datetime
 import { loadThemeWhitePickerTime } from "./load-theme-white-picker-time";
 
 export const loadThemeWhitePickerDatetime = (): void => {
-	DThemeWhite.set( "DPickerDatetimeButtonBack", DThemeWhitePickerDatetimeButtonBack );
-	DThemeWhite.set( "DPickerDatetimeButtonDate", DThemeWhitePickerDatetimeButtonDate );
-	DThemeWhite.set( "DPickerDatetimeButtonNext", DThemeWhitePickerDatetimeButtonNext );
-	DThemeWhite.set( "DPickerDatetimeLabelDate", DThemeWhitePickerDatetimeLabelDate );
-	DThemeWhite.set( "DPickerDatetimeLabel", DThemeWhitePickerDatetimeLabel );
-	DThemeWhite.set( "DPickerDatetimeSpace", DThemeWhitePickerDatetimeSpace );
-	DThemeWhite.set( "DPickerDatetime", DThemeWhitePickerDatetime );
+	DThemeWhite.set("DPickerDatetimeButtonBack", DThemeWhitePickerDatetimeButtonBack);
+	DThemeWhite.set("DPickerDatetimeButtonDate", DThemeWhitePickerDatetimeButtonDate);
+	DThemeWhite.set("DPickerDatetimeButtonNext", DThemeWhitePickerDatetimeButtonNext);
+	DThemeWhite.set("DPickerDatetimeLabelDate", DThemeWhitePickerDatetimeLabelDate);
+	DThemeWhite.set("DPickerDatetimeLabel", DThemeWhitePickerDatetimeLabel);
+	DThemeWhite.set("DPickerDatetimeSpace", DThemeWhitePickerDatetimeSpace);
+	DThemeWhite.set("DPickerDatetime", DThemeWhitePickerDatetime);
 	loadThemeWhitePickerTime();
 };

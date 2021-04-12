@@ -5,6 +5,4 @@
 
 import { DThemeWhiteMenuItemCheck } from "./d-theme-white-menu-item-check";
 
-export class DThemeWhiteMenuSidedItemCheck extends DThemeWhiteMenuItemCheck {
-
-}
+export class DThemeWhiteMenuSidedItemCheck extends DThemeWhiteMenuItemCheck {}

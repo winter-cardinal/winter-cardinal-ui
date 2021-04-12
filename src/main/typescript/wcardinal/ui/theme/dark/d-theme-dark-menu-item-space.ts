@@ -6,6 +6,4 @@
 import { DThemeMenuItemSpace } from "../../d-menu-item-space";
 import { DThemeDarkLayoutSpace } from "./d-theme-dark-layout-space";
 
-export class DThemeDarkMenuItemSpace extends DThemeDarkLayoutSpace implements DThemeMenuItemSpace {
-
-}
+export class DThemeDarkMenuItemSpace extends DThemeDarkLayoutSpace implements DThemeMenuItemSpace {}

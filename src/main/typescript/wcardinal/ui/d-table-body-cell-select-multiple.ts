@@ -13,29 +13,36 @@ export interface DTableBodyCellSelectMultipleOptions<
 	ROW = unknown,
 	VALUE = unknown,
 	THEME extends DThemeTableBodyCellSelectMultiple<VALUE> = DThemeTableBodyCellSelectMultiple<VALUE>
-> extends DSelectMultipleOptions<VALUE, THEME> {
+> extends DSelectMultipleOptions<VALUE, THEME> {}
 
-}
-
-export interface DThemeTableBodyCellSelectMultiple<VALUE = unknown> extends DThemeSelectMultiple<VALUE> {
-
-}
+export interface DThemeTableBodyCellSelectMultiple<VALUE = unknown>
+	extends DThemeSelectMultiple<VALUE> {}
 
 export class DTableBodyCellSelectMultiple<
-	ROW = unknown,
-	VALUE = unknown,
-	THEME extends DThemeTableBodyCellSelectMultiple<VALUE> = DThemeTableBodyCellSelectMultiple<VALUE>,
-	OPTIONS extends DTableBodyCellSelectMultipleOptions<ROW, VALUE, THEME>
-		= DTableBodyCellSelectMultipleOptions<ROW, VALUE, THEME>
-> extends DSelectMultiple<VALUE, THEME, OPTIONS> implements DTableBodyCell<ROW, VALUE[]> {
+		ROW = unknown,
+		VALUE = unknown,
+		THEME extends DThemeTableBodyCellSelectMultiple<VALUE> = DThemeTableBodyCellSelectMultiple<VALUE>,
+		OPTIONS extends DTableBodyCellSelectMultipleOptions<
+			ROW,
+			VALUE,
+			THEME
+		> = DTableBodyCellSelectMultipleOptions<ROW, VALUE, THEME>
+	>
+	extends DSelectMultiple<VALUE, THEME, OPTIONS>
+	implements DTableBodyCell<ROW, VALUE[]> {
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;
 	protected _column: DTableColumn<ROW, VALUE[]>;
 	protected _onChange: DTableBodyCellOnChange<ROW, VALUE[]>;
 
-	constructor( columnIndex: number, column: DTableColumn<ROW, VALUE[]>, onChange: DTableBodyCellOnChange<ROW, VALUE[]>, options?: OPTIONS ) {
-		super( options );
+	constructor(
+		columnIndex: number,
+		column: DTableColumn<ROW, VALUE[]>,
+		onChange: DTableBodyCellOnChange<ROW, VALUE[]>,
+		options?: OPTIONS
+	) {
+		super(options);
 
 		this._rowIndex = -1;
 		this._columnIndex = columnIndex;
@@ -43,18 +50,22 @@ export class DTableBodyCellSelectMultiple<
 		this._onChange = onChange;
 	}
 
-	protected onValueChange( newValues: VALUE[], oldValues: VALUE[], items: Array<DMenuItem<VALUE>> ): void {
+	protected onValueChange(
+		newValues: VALUE[],
+		oldValues: VALUE[],
+		items: Array<DMenuItem<VALUE>>
+	): void {
 		const row = this._row;
-		if( row !== undefined ) {
+		if (row !== undefined) {
 			const rowIndex = this._rowIndex;
 			const columnIndex = this._columnIndex;
-			this._column.setter( row, columnIndex, newValues );
-			super.onValueChange( newValues, oldValues, items );
-			this._onChange( newValues, oldValues, row, rowIndex, columnIndex, this );
+			this._column.setter(row, columnIndex, newValues);
+			super.onValueChange(newValues, oldValues, items);
+			this._onChange(newValues, oldValues, row, rowIndex, columnIndex, this);
 		}
 	}
 
-	protected onKeyDownArrowDown( e: KeyboardEvent ): boolean {
+	protected onKeyDownArrowDown(e: KeyboardEvent): boolean {
 		return false;
 	}
 
@@ -75,8 +86,11 @@ export class DTableBodyCellSelectMultiple<
 	}
 
 	set(
-		value: unknown, row: ROW, supplimental: unknown,
-		rowIndex: number, columnIndex: number,
+		value: unknown,
+		row: ROW,
+		supplimental: unknown,
+		rowIndex: number,
+		columnIndex: number,
 		forcibly?: boolean
 	): void {
 		this._row = row;
@@ -84,8 +98,8 @@ export class DTableBodyCellSelectMultiple<
 		this.values = value as VALUE[];
 
 		const column = this._column;
-		DTableBodyCells.setReadOnly( this, row, columnIndex, column );
-		DTableBodyCells.setRenderable( this, row, columnIndex, column );
+		DTableBodyCells.setReadOnly(this, row, columnIndex, column);
+		DTableBodyCells.setRenderable(this, row, columnIndex, column);
 	}
 
 	unset(): void {

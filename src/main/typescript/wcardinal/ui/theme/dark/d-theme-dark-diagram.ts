@@ -6,6 +6,4 @@
 import { DThemeDiagram } from "../../d-diagram";
 import { DThemeDarkDiagramBase } from "./d-theme-dark-diagram-base";
 
-export class DThemeDarkDiagram extends DThemeDarkDiagramBase implements DThemeDiagram {
-
-}
+export class DThemeDarkDiagram extends DThemeDarkDiagramBase implements DThemeDiagram {}

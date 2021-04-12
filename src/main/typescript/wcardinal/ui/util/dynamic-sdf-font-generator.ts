@@ -98,10 +98,10 @@ export class DynamicSDFFontGenerator {
 		this._vb = null;
 		this._uvb = null;
 
-		const canvas = this._canvas = document.createElement( "canvas" );
+		const canvas = (this._canvas = document.createElement("canvas"));
 		canvas.width = 64;
 		canvas.height = 64;
-		this._onLostBound = ( e: Event ): void => {
+		this._onLostBound = (e: Event): void => {
 			e.preventDefault();
 		};
 		this._onRestoreBound = (): void => {
@@ -110,14 +110,14 @@ export class DynamicSDFFontGenerator {
 		this._onUnloadBound = (): void => {
 			this.destroy();
 		};
-		canvas.addEventListener( "webglcontextlost", this._onLostBound, false);
-		canvas.addEventListener( "webglcontextrestored", this._onRestoreBound, false);
-		window.addEventListener( "unload", this._onUnloadBound, false );
+		canvas.addEventListener("webglcontextlost", this._onLostBound, false);
+		canvas.addEventListener("webglcontextrestored", this._onRestoreBound, false);
+		window.addEventListener("unload", this._onUnloadBound, false);
 	}
 
 	init(): this {
 		const canvas = this._canvas;
-		if( canvas != null && (this._gl == null || this._gl.isContextLost()) ) {
+		if (canvas != null && (this._gl == null || this._gl.isContextLost())) {
 			const config: WebGLContextAttributes = {
 				alpha: true,
 				antialias: false,
@@ -125,11 +125,11 @@ export class DynamicSDFFontGenerator {
 				stencil: false,
 				premultipliedAlpha: false
 			};
-			const gl = this._gl = (
-				canvas.getContext( "webgl", config ) ||
-				canvas.getContext( "experimental-webgl", config ) as WebGLRenderingContext | null
-			);
-			if( gl != null ) {
+			const gl =
+				canvas.getContext("webgl", config) ||
+				(canvas.getContext("experimental-webgl", config) as WebGLRenderingContext | null);
+			this._gl = gl;
+			if (gl != null) {
 				gl.clearColor(1.0, 1.0, 1.0, 0.0);
 				this.makeVertexBuffer();
 				this.makeUvBuffer();
@@ -148,17 +148,16 @@ export class DynamicSDFFontGenerator {
 		return this._canvas;
 	}
 
-	getShader( gl: WebGLRenderingContext, code: string, type: boolean ): WebGLShader | null {
-		const shader = ( type ?
-			gl.createShader( gl.FRAGMENT_SHADER ) :
-			gl.createShader( gl.VERTEX_SHADER )
-		);
-		if( shader != null ) {
-			gl.shaderSource( shader, code );
-			gl.compileShader( shader );
-			if( ! gl.getShaderParameter( shader, gl.COMPILE_STATUS ) ) {
-				// tslint:disable-next-line: no-console no-unused-expression
-				console && console.error( `Failed to compile the shader: ${gl.getShaderInfoLog(shader)}` );
+	getShader(gl: WebGLRenderingContext, code: string, type: boolean): WebGLShader | null {
+		const shader = type
+			? gl.createShader(gl.FRAGMENT_SHADER)
+			: gl.createShader(gl.VERTEX_SHADER);
+		if (shader != null) {
+			gl.shaderSource(shader, code);
+			gl.compileShader(shader);
+			if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+				console &&
+					console.error(`Failed to compile the shader: ${gl.getShaderInfoLog(shader)}`);
 				return null;
 			}
 		}
@@ -167,40 +166,46 @@ export class DynamicSDFFontGenerator {
 
 	makeShaders(): WebGLShader | null {
 		const gl = this._gl;
-		if( gl != null && gl.isContextLost() !== true ) {
-			const vertexShader = this.getShader( gl, VERTEX_SHADER, false );
-			if( vertexShader != null ) {
-				const fragmentShader = this.getShader( gl, FRAGMENT_SHADER, true );
-				if( fragmentShader != null ) {
-					const shaderProgram = this._shaderProgram = gl.createProgram();
-					if( shaderProgram != null ) {
-						gl.attachShader( shaderProgram, vertexShader );
-						gl.attachShader( shaderProgram, fragmentShader );
-						gl.linkProgram( shaderProgram );
-						if( ! gl.getProgramParameter(shaderProgram, gl.LINK_STATUS) ) {
-							// tslint:disable-next-line: no-console no-unused-expression
-							console && console.error( `Failed to link the program: ${gl.getError()}` );
-							gl.deleteShader( vertexShader );
-							gl.deleteShader( fragmentShader );
+		if (gl != null && gl.isContextLost() !== true) {
+			const vertexShader = this.getShader(gl, VERTEX_SHADER, false);
+			if (vertexShader != null) {
+				const fragmentShader = this.getShader(gl, FRAGMENT_SHADER, true);
+				if (fragmentShader != null) {
+					const shaderProgram = (this._shaderProgram = gl.createProgram());
+					if (shaderProgram != null) {
+						gl.attachShader(shaderProgram, vertexShader);
+						gl.attachShader(shaderProgram, fragmentShader);
+						gl.linkProgram(shaderProgram);
+						if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+							console &&
+								console.error(`Failed to link the program: ${gl.getError()}`);
+							gl.deleteShader(vertexShader);
+							gl.deleteShader(fragmentShader);
 							return null;
 						} else {
-							gl.deleteShader( vertexShader );
-							gl.deleteShader( fragmentShader );
+							gl.deleteShader(vertexShader);
+							gl.deleteShader(fragmentShader);
 
-							gl.useProgram( shaderProgram );
-							this._vertexPositionAttribute = gl.getAttribLocation( shaderProgram, "aVertexPosition" );
-							this._textureCoordAttribute = gl.getAttribLocation( shaderProgram, "aTextureCoord" );
-							this._samplerUniform = gl.getUniformLocation( shaderProgram, "uSampler" );
-							this._sizeUniform = gl.getUniformLocation( shaderProgram, "uSize" );
-							gl.useProgram( null );
+							gl.useProgram(shaderProgram);
+							this._vertexPositionAttribute = gl.getAttribLocation(
+								shaderProgram,
+								"aVertexPosition"
+							);
+							this._textureCoordAttribute = gl.getAttribLocation(
+								shaderProgram,
+								"aTextureCoord"
+							);
+							this._samplerUniform = gl.getUniformLocation(shaderProgram, "uSampler");
+							this._sizeUniform = gl.getUniformLocation(shaderProgram, "uSize");
+							gl.useProgram(null);
 							return shaderProgram;
 						}
 					} else {
-						gl.deleteShader( vertexShader );
-						gl.deleteShader( fragmentShader );
+						gl.deleteShader(vertexShader);
+						gl.deleteShader(fragmentShader);
 					}
 				} else {
-					gl.deleteShader( vertexShader );
+					gl.deleteShader(vertexShader);
 				}
 			}
 		}
@@ -209,42 +214,42 @@ export class DynamicSDFFontGenerator {
 
 	destroyShaders(): void {
 		const gl = this._gl;
-		if( gl != null && gl.isContextLost() !== true ) {
+		if (gl != null && gl.isContextLost() !== true) {
 			const shaderProgram = this._shaderProgram;
-			if( shaderProgram != null ) {
+			if (shaderProgram != null) {
 				this._shaderProgram = null;
-				gl.useProgram( null );
-				gl.deleteProgram( shaderProgram );
+				gl.useProgram(null);
+				gl.deleteProgram(shaderProgram);
 			}
 		}
 	}
 
-	updateTexture( source: TexImageSource ): WebGLTexture | null {
+	updateTexture(source: TexImageSource): WebGLTexture | null {
 		const gl = this._gl;
 		const canvas = this._canvas;
-		if( gl != null && gl.isContextLost() !== true && canvas != null ) {
+		if (gl != null && gl.isContextLost() !== true && canvas != null) {
 			const width = source.width;
 			const height = source.height;
-			if( canvas.width !== width || canvas.height !== height ) {
+			if (canvas.width !== width || canvas.height !== height) {
 				canvas.width = width;
 				canvas.height = height;
-				gl.viewport( 0, 0, width, height );
+				gl.viewport(0, 0, width, height);
 			}
 
 			let texture = this._texture;
-			if( texture == null ) {
+			if (texture == null) {
 				texture = this._texture = gl.createTexture();
-				gl.bindTexture( gl.TEXTURE_2D, texture );
-				gl.texImage2D( gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source );
-				gl.texParameteri( gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE );
-				gl.texParameteri( gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE );
-				gl.texParameteri( gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST );
-				gl.texParameteri( gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST );
-				gl.bindTexture( gl.TEXTURE_2D, null );
+				gl.bindTexture(gl.TEXTURE_2D, texture);
+				gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source);
+				gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+				gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+				gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+				gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+				gl.bindTexture(gl.TEXTURE_2D, null);
 			} else {
-				gl.bindTexture( gl.TEXTURE_2D, texture );
-				gl.texImage2D( gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source );
-				gl.bindTexture( gl.TEXTURE_2D, null );
+				gl.bindTexture(gl.TEXTURE_2D, texture);
+				gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source);
+				gl.bindTexture(gl.TEXTURE_2D, null);
 			}
 			return texture;
 		}
@@ -254,27 +259,22 @@ export class DynamicSDFFontGenerator {
 	destroyTexture(): void {
 		const gl = this._gl;
 		const texture = this._texture;
-		if( gl != null && gl.isContextLost() !== true && texture != null ) {
+		if (gl != null && gl.isContextLost() !== true && texture != null) {
 			this._texture = null;
-			gl.bindTexture( gl.TEXTURE_2D, null );
-			gl.deleteTexture( texture );
+			gl.bindTexture(gl.TEXTURE_2D, null);
+			gl.deleteTexture(texture);
 		}
 	}
 
 	makeVertexBuffer(): WebGLBuffer | null {
 		const gl = this._gl;
-		if( gl != null && gl.isContextLost() !== true ) {
-			const vb = this._vb = gl.createBuffer();
-			gl.bindBuffer( gl.ARRAY_BUFFER, vb );
+		if (gl != null && gl.isContextLost() !== true) {
+			const vb = (this._vb = gl.createBuffer());
+			gl.bindBuffer(gl.ARRAY_BUFFER, vb);
 
-			const vertices = [
-				-1.0, +1.0,
-				+1.0, +1.0,
-				-1.0, -1.0,
-				+1.0, -1.0
-			];
+			const vertices = [-1.0, +1.0, +1.0, +1.0, -1.0, -1.0, +1.0, -1.0];
 
-			gl.bufferData( gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW );
+			gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
 			return vb;
 		}
 		return null;
@@ -283,27 +283,22 @@ export class DynamicSDFFontGenerator {
 	destroyVertexBuffer(): void {
 		const gl = this._gl;
 		const vb = this._vb;
-		if( gl != null && gl.isContextLost() !== true && vb != null ) {
+		if (gl != null && gl.isContextLost() !== true && vb != null) {
 			this._vb = null;
-			gl.bindBuffer( gl.ARRAY_BUFFER, null );
-			gl.deleteBuffer( vb );
+			gl.bindBuffer(gl.ARRAY_BUFFER, null);
+			gl.deleteBuffer(vb);
 		}
 	}
 
 	makeUvBuffer(): WebGLBuffer | null {
 		const gl = this._gl;
-		if( gl != null && gl.isContextLost() !== true ) {
-			const uvb = this._uvb = gl.createBuffer();
-			gl.bindBuffer( gl.ARRAY_BUFFER, uvb );
+		if (gl != null && gl.isContextLost() !== true) {
+			const uvb = (this._uvb = gl.createBuffer());
+			gl.bindBuffer(gl.ARRAY_BUFFER, uvb);
 
-			const uvs = [
-				0.0,  0.0,
-				1.0,  0.0,
-				0.0,  1.0,
-				1.0,  1.0
-			];
+			const uvs = [0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0];
 
-			gl.bufferData( gl.ARRAY_BUFFER, new Float32Array(uvs), gl.STATIC_DRAW );
+			gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(uvs), gl.STATIC_DRAW);
 			return uvb;
 		}
 		return null;
@@ -312,10 +307,10 @@ export class DynamicSDFFontGenerator {
 	destroyUvBuffer(): void {
 		const gl = this._gl;
 		const uvb = this._uvb;
-		if( gl != null && gl.isContextLost() !== true && uvb != null ) {
+		if (gl != null && gl.isContextLost() !== true && uvb != null) {
 			this._uvb = null;
-			gl.bindBuffer( gl.ARRAY_BUFFER, null );
-			gl.deleteBuffer( uvb );
+			gl.bindBuffer(gl.ARRAY_BUFFER, null);
+			gl.deleteBuffer(uvb);
 		}
 	}
 
@@ -326,46 +321,53 @@ export class DynamicSDFFontGenerator {
 		const vb = this._vb;
 		const uvb = this._uvb;
 		const texture = this._texture;
-		if( gl != null && gl.isContextLost() !== true && canvas != null &&
-			shaderProgram != null && vb != null && uvb != null && texture != null ) {
-			gl.clear( gl.COLOR_BUFFER_BIT );
+		if (
+			gl != null &&
+			gl.isContextLost() !== true &&
+			canvas != null &&
+			shaderProgram != null &&
+			vb != null &&
+			uvb != null &&
+			texture != null
+		) {
+			gl.clear(gl.COLOR_BUFFER_BIT);
 
-			gl.useProgram( shaderProgram );
+			gl.useProgram(shaderProgram);
 
-			gl.bindBuffer( gl.ARRAY_BUFFER, vb );
+			gl.bindBuffer(gl.ARRAY_BUFFER, vb);
 			const vertexPositionAttribute = this._vertexPositionAttribute;
-			gl.enableVertexAttribArray( vertexPositionAttribute );
-			gl.vertexAttribPointer( vertexPositionAttribute, 2, gl.FLOAT, false, 0, 0 );
+			gl.enableVertexAttribArray(vertexPositionAttribute);
+			gl.vertexAttribPointer(vertexPositionAttribute, 2, gl.FLOAT, false, 0, 0);
 
-			gl.bindBuffer( gl.ARRAY_BUFFER, uvb );
+			gl.bindBuffer(gl.ARRAY_BUFFER, uvb);
 			const textureCoordAttribute = this._textureCoordAttribute;
-			gl.enableVertexAttribArray( textureCoordAttribute );
-			gl.vertexAttribPointer( textureCoordAttribute, 2, gl.FLOAT, false, 0, 0 );
+			gl.enableVertexAttribArray(textureCoordAttribute);
+			gl.vertexAttribPointer(textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
 
-			gl.activeTexture( gl.TEXTURE0 );
-			gl.bindTexture( gl.TEXTURE_2D, texture );
-			gl.uniform1i( this._samplerUniform, 0 );
-			gl.uniform2f( this._sizeUniform, canvas.width, canvas.height );
+			gl.activeTexture(gl.TEXTURE0);
+			gl.bindTexture(gl.TEXTURE_2D, texture);
+			gl.uniform1i(this._samplerUniform, 0);
+			gl.uniform2f(this._sizeUniform, canvas.width, canvas.height);
 
-			gl.drawArrays( gl.TRIANGLE_STRIP, 0, 4 );
+			gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 
-			gl.bindTexture( gl.TEXTURE_2D, null );
-			gl.bindBuffer( gl.ARRAY_BUFFER, null );
-			gl.useProgram( null );
+			gl.bindTexture(gl.TEXTURE_2D, null);
+			gl.bindBuffer(gl.ARRAY_BUFFER, null);
+			gl.useProgram(null);
 		}
 	}
 
-	read( copyCanvas: HTMLCanvasElement ): void {
+	read(copyCanvas: HTMLCanvasElement): void {
 		const gl = this._gl;
 		const canvas = this._canvas;
-		if( gl != null && gl.isContextLost() !== true && canvas != null ) {
+		if (gl != null && gl.isContextLost() !== true && canvas != null) {
 			const width = canvas.width;
 			const height = canvas.height;
 			copyCanvas.width = width;
 			copyCanvas.height = height;
-			const copyContext = copyCanvas.getContext( "2d" );
-			if( copyContext != null ) {
-				copyContext.drawImage( canvas, 0, 0 );
+			const copyContext = copyCanvas.getContext("2d");
+			if (copyContext != null) {
+				copyContext.drawImage(canvas, 0, 0);
 			}
 		}
 	}
@@ -376,25 +378,25 @@ export class DynamicSDFFontGenerator {
 		this.destroyShaders();
 
 		const canvas = this._canvas;
-		if( canvas != null ) {
+		if (canvas != null) {
 			this._canvas = null;
-			canvas.removeEventListener( "webglcontextlost", this._onLostBound, false);
-			canvas.removeEventListener( "webglcontextrestored", this._onRestoreBound, false);
-			window.removeEventListener( "unload", this._onUnloadBound, false );
+			canvas.removeEventListener("webglcontextlost", this._onLostBound, false);
+			canvas.removeEventListener("webglcontextrestored", this._onRestoreBound, false);
+			window.removeEventListener("unload", this._onUnloadBound, false);
 		}
 
 		const gl = this._gl;
-		if( gl != null ) {
+		if (gl != null) {
 			this._gl = null;
-			const WebGLLoseContext = gl.getExtension( "WEBGL_lose_context" );
-			if( WebGLLoseContext != null ) {
+			const WebGLLoseContext = gl.getExtension("WEBGL_lose_context");
+			if (WebGLLoseContext != null) {
 				WebGLLoseContext.loseContext();
 			}
 		}
 	}
 
 	static getInstance(): DynamicSDFFontGenerator {
-		if( DynamicSDFFontGenerator._INSTANCE == null ) {
+		if (DynamicSDFFontGenerator._INSTANCE == null) {
 			DynamicSDFFontGenerator._INSTANCE = new DynamicSDFFontGenerator();
 		}
 		return DynamicSDFFontGenerator._INSTANCE;

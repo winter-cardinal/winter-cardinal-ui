@@ -10,8 +10,8 @@ import { EShapeBarPosition } from "../../shape/variant/e-shape-bar-position";
 import { DThemeWhiteChartSelectionGridline } from "./d-theme-white-chart-selection-gridline";
 
 export class DThemeWhiteChartSelectionGridlineY extends DThemeWhiteChartSelectionGridline {
-	newShape( state: DBaseStateSet ): EShape {
-		const result = new EShapeBar( EShapeBarPosition.LEFT );
+	newShape(state: DBaseStateSet): EShape {
+		const result = new EShapeBar(EShapeBarPosition.LEFT);
 		result.stroke.alpha = 0.5;
 		return result;
 	}

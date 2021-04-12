@@ -12,13 +12,13 @@ import { EShapeLinePoints } from "./e-shape-line-points";
 export class EShapeLine extends EShapeLineBase {
 	protected declare _points: EShapeLinePoints;
 
-	constructor( points: number[], segments: number[], width: number, style: EShapePointsStyle ) {
-		super( EShapeType.LINE );
+	constructor(points: number[], segments: number[], width: number, style: EShapePointsStyle) {
+		super(EShapeType.LINE);
 		this.fill.enable = false;
-		this.stroke.set( true, undefined, undefined, width );
-		this._points = new EShapeLinePoints( this, points, segments, style );
-		this.transform.position.copyFrom( this._points.position );
-		this.size.copyFrom( this._points.size );
+		this.stroke.set(true, undefined, undefined, width);
+		this._points = new EShapeLinePoints(this, points, segments, style);
+		this.transform.position.copyFrom(this._points.position);
+		this.size.copyFrom(this._points.size);
 	}
 
 	get points(): EShapeLinePoints {
@@ -27,7 +27,13 @@ export class EShapeLine extends EShapeLineBase {
 
 	clone(): EShapeLine {
 		const points = this.points;
-		return new EShapeLine( points.values, points.segments, this.stroke.width, points.style )
-			.copy( this, EShapeCopyPart.ALL & ~EShapeCopyPart.POINTS );
+		const result = new EShapeLine(
+			points.values,
+			points.segments,
+			this.stroke.width,
+			points.style
+		);
+		result.copy(this, EShapeCopyPart.ALL & ~EShapeCopyPart.POINTS);
+		return result;
 	}
 }

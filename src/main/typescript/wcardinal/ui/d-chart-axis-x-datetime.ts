@@ -5,9 +5,7 @@
 
 import { DChartAxisX, DChartAxisXOptions } from "./d-chart-axis-x";
 
-export interface DChartAxisXDatetimeOptions extends DChartAxisXOptions {
-
-}
+export interface DChartAxisXDatetimeOptions extends DChartAxisXOptions {}
 
 /**
  * An X axis for datetimes.

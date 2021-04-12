@@ -9,16 +9,16 @@ import { EShapeActionRuntimeTransformMove } from "./e-shape-action-runtime-trans
 import { EShapeActionValueTransformMove } from "./e-shape-action-value-transform-move";
 
 export class EShapeActionRuntimeTransformMoveRelativeX extends EShapeActionRuntimeTransformMove {
-	constructor( value: EShapeActionValueTransformMove ) {
-		super( value, EShapeRuntimeReset.POSITION_X );
+	constructor(value: EShapeActionValueTransformMove) {
+		super(value, EShapeRuntimeReset.POSITION_X);
 	}
 
-	execute( shape: EShape, runtime: EShapeRuntime, time: number ): void {
-		if( this.condition( shape, time ) ) {
-			const amount = this.amount( shape, time );
-			const writtenPositionX = ( (runtime.written & EShapeRuntimeReset.POSITION_X) !== 0 );
+	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {
+		if (this.condition(shape, time)) {
+			const amount = this.amount(shape, time);
+			const writtenPositionX = !!(runtime.written & EShapeRuntimeReset.POSITION_X);
 			const position = shape.transform.position;
-			const oldPositionX = ( writtenPositionX ? position.x : runtime.x );
+			const oldPositionX = writtenPositionX ? position.x : runtime.x;
 			position.x = oldPositionX + amount;
 			runtime.written |= this.reset;
 		}

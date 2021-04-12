@@ -6,7 +6,7 @@
 import { FormatNode } from "./format-node";
 
 export class FormatNodemi implements FormatNode {
-	format( target: number, step: number, date: Date ): string {
+	format(target: number, step: number, date: Date): string {
 		return String(date.getMilliseconds());
 	}
 }

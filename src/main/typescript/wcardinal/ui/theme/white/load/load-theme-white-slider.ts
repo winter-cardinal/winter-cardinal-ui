@@ -15,13 +15,13 @@ import { DThemeWhiteSliderValue } from "../d-theme-white-slider-value";
 import { DThemeWhiteSliderVertical } from "../d-theme-white-slider-vertical";
 
 export const loadThemeWhiteSlider = (): void => {
-	DThemeWhite.set( "DSlider", DThemeWhiteSlider );
-	DThemeWhite.set( "DSliderValue", DThemeWhiteSliderValue );
-	DThemeWhite.set( "DSliderLabel", DThemeWhiteSliderLabel );
-	DThemeWhite.set( "DSliderThumb", DThemeWhiteSliderThumb );
-	DThemeWhite.set( "DSliderVertical", DThemeWhiteSliderVertical );
-	DThemeWhite.set( "DSliderHorizontal", DThemeWhiteSliderHorizontal );
-	DThemeWhite.set( "DSliderTrack", DThemeWhiteSliderTrack );
-	DThemeWhite.set( "DSliderTrackVertical", DThemeWhiteSliderTrackVertical );
-	DThemeWhite.set( "DSliderTrackHorizontal", DThemeWhiteSliderTrackHorizontal );
+	DThemeWhite.set("DSlider", DThemeWhiteSlider);
+	DThemeWhite.set("DSliderValue", DThemeWhiteSliderValue);
+	DThemeWhite.set("DSliderLabel", DThemeWhiteSliderLabel);
+	DThemeWhite.set("DSliderThumb", DThemeWhiteSliderThumb);
+	DThemeWhite.set("DSliderVertical", DThemeWhiteSliderVertical);
+	DThemeWhite.set("DSliderHorizontal", DThemeWhiteSliderHorizontal);
+	DThemeWhite.set("DSliderTrack", DThemeWhiteSliderTrack);
+	DThemeWhite.set("DSliderTrackVertical", DThemeWhiteSliderTrackVertical);
+	DThemeWhite.set("DSliderTrackHorizontal", DThemeWhiteSliderTrackHorizontal);
 };

@@ -13,11 +13,11 @@ export class DChartPlotAreaContainer extends EShapeContainer implements DViewTar
 	protected _scale: DBasePoint;
 	protected _workRect: Rectangle;
 
-	constructor( onChange: () => void ) {
+	constructor(onChange: () => void) {
 		super();
 		const transform: Transform = this.transform;
-		this._position = new DBasePoint( transform.position, onChange );
-		this._scale = new DBasePoint( transform.scale, onChange );
+		this._position = new DBasePoint(transform.position, onChange);
+		this._scale = new DBasePoint(transform.scale, onChange);
 		this._workRect = new Rectangle();
 	}
 
@@ -31,9 +31,9 @@ export class DChartPlotAreaContainer extends EShapeContainer implements DViewTar
 		return this._scale;
 	}
 
-	getBounds( skipUpdate?: boolean, rect?: Rectangle ): Rectangle {
+	getBounds(skipUpdate?: boolean, rect?: Rectangle): Rectangle {
 		(this as any)._lastBoundsID = -1;
-		return super.getBounds( skipUpdate, rect );
+		return super.getBounds(skipUpdate, rect);
 	}
 
 	calculateBounds(): void {
@@ -47,23 +47,23 @@ export class DChartPlotAreaContainer extends EShapeContainer implements DViewTar
 		let ymin = 0;
 		let ymax = 0;
 		const children = this.children;
-		if( 0 < children.length ) {
+		if (0 < children.length) {
 			let isFirst = true;
-			for( let i = 0, imax = children.length; i < imax; ++i ) {
-				const child = children[ i ];
-				if( child.visible ) {
-					child.getBoundsInternal( work, false, rect );
-					if( isFirst ) {
+			for (let i = 0, imax = children.length; i < imax; ++i) {
+				const child = children[i];
+				if (child.visible) {
+					child.getBoundsInternal(work, false, rect);
+					if (isFirst) {
 						isFirst = false;
 						xmin = rect.x;
 						ymin = rect.y;
 						xmax = rect.x + rect.width;
 						ymax = rect.y + rect.height;
 					} else {
-						xmin = Math.min( xmin, rect.x );
-						ymin = Math.min( ymin, rect.y );
-						xmax = Math.max( xmax, rect.x + rect.width );
-						ymax = Math.max( ymax, rect.y + rect.height );
+						xmin = Math.min(xmin, rect.x);
+						ymin = Math.min(ymin, rect.y);
+						xmax = Math.max(xmax, rect.x + rect.width);
+						ymax = Math.max(ymax, rect.y + rect.height);
 					}
 				}
 			}
@@ -71,12 +71,12 @@ export class DChartPlotAreaContainer extends EShapeContainer implements DViewTar
 
 		bounds.clear();
 
-		work.set( xmin, ymin );
-		worldTransform.apply( work, work );
-		bounds.addPoint( work );
+		work.set(xmin, ymin);
+		worldTransform.apply(work, work);
+		bounds.addPoint(work);
 
-		work.set( xmax, ymax );
-		worldTransform.apply( work, work );
-		bounds.addPoint( work );
+		work.set(xmax, ymax);
+		worldTransform.apply(work, work);
+		bounds.addPoint(work);
 	}
 }

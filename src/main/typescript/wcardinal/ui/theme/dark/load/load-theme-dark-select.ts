@@ -9,7 +9,7 @@ import { DThemeDarkSelectMultiple } from "../d-theme-dark-select-multiple";
 import { loadThemeDarkDropdown } from "./load-theme-dark-dropdown";
 
 export const loadThemeDarkSelect = (): void => {
-	DThemeDark.set( "DSelectMultiple", DThemeDarkSelectMultiple );
-	DThemeDark.set( "DSelect", DThemeDarkSelect );
+	DThemeDark.set("DSelectMultiple", DThemeDarkSelectMultiple);
+	DThemeDark.set("DSelect", DThemeDarkSelect);
 	loadThemeDarkDropdown();
 };

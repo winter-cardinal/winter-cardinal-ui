@@ -7,5 +7,5 @@ import { DThemeDark } from "../d-theme-dark";
 import { DThemeDarkInputInteger } from "../d-theme-dark-input-integer";
 
 export const loadThemeDarkInputInteger = (): void => {
-	DThemeDark.set( "DInputInteger", DThemeDarkInputInteger );
+	DThemeDark.set("DInputInteger", DThemeDarkInputInteger);
 };

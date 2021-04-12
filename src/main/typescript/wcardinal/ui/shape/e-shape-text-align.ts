@@ -14,9 +14,9 @@ export interface EShapeTextAlignLike {
 }
 
 export interface EShapeTextAlign extends EShapeTextAlignLike {
-	copy( target?: Partial<EShapeTextAlignLike> ): void;
-	set( horizontal?: EShapeTextAlignHorizontal, vertical?: EShapeTextAlignVertical ): void;
+	copy(target?: Partial<EShapeTextAlignLike>): void;
+	set(horizontal?: EShapeTextAlignHorizontal, vertical?: EShapeTextAlignVertical): void;
 	toObject(): EShapeTextAlignLike;
-	serialize( manager: EShapeResourceManagerSerialization ): number;
-	deserialize( target: number, manager: EShapeResourceManagerDeserialization ): void;
+	serialize(manager: EShapeResourceManagerSerialization): number;
+	deserialize(target: number, manager: EShapeResourceManagerDeserialization): void;
 }

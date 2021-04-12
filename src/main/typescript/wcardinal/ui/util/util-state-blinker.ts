@@ -9,7 +9,7 @@ export class UtilStateBlinker {
 	protected _timeout: number | null;
 	protected _updateBound: () => void;
 
-	constructor( state: string, delay: number, interval: number ) {
+	constructor(state: string, delay: number, interval: number) {
 		this._isOn = true;
 		this._targets = new Set();
 		this._state = state;
@@ -20,43 +20,43 @@ export class UtilStateBlinker {
 		const updateBound = (): void => {
 			this.advance();
 			this.update();
-			this._timeout = window.setTimeout( updateBound, interval );
+			this._timeout = window.setTimeout(updateBound, interval);
 		};
 		this._updateBound = updateBound;
 	}
 
 	start(): this {
-		if( this._timeout == null ) {
-			this._timeout = window.setTimeout( this._updateBound, this._delay );
+		if (this._timeout == null) {
+			this._timeout = window.setTimeout(this._updateBound, this._delay);
 		}
 		return this;
 	}
 
 	stop(): this {
 		const timeout = this._timeout;
-		if( timeout != null ) {
+		if (timeout != null) {
 			this._timeout = null;
-			clearTimeout( timeout );
+			clearTimeout(timeout);
 		}
 		return this;
 	}
 
-	add( target: DBase ): this {
-		this._targets.add( target );
-		target.state.set( this._state, this.isOn() );
+	add(target: DBase): this {
+		this._targets.add(target);
+		target.state.set(this._state, this.isOn());
 		return this;
 	}
 
-	remove( target: DBase ): boolean {
-		if( this._targets.delete( target ) ) {
-			target.state.remove( this._state );
+	remove(target: DBase): boolean {
+		if (this._targets.delete(target)) {
+			target.state.remove(this._state);
 			return true;
 		}
 		return false;
 	}
 
-	contains( target: DBase ): boolean {
-		return this._targets.has( target );
+	contains(target: DBase): boolean {
+		return this._targets.has(target);
 	}
 
 	clear(): this {
@@ -69,19 +69,19 @@ export class UtilStateBlinker {
 	}
 
 	isOff(): boolean {
-		return ! this._isOn;
+		return !this._isOn;
 	}
 
 	advance(): this {
-		this._isOn = ! this._isOn;
+		this._isOn = !this._isOn;
 		return this;
 	}
 
 	update(): this {
 		const isOn = this.isOn();
 		const state = this._state;
-		this._targets.forEach(( target: DBase ): void => {
-			target.state.set( state, isOn );
+		this._targets.forEach((target: DBase): void => {
+			target.state.set(state, isOn);
 		});
 		return this;
 	}

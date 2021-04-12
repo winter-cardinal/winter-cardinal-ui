@@ -14,7 +14,8 @@ import { DPickerColorGradientView } from "./d-picker-color-gradient-view";
 /**
  * {@link DButtonColorGradient} events.
  */
-export interface DButtonColorGradientEvents<EMITTER> extends DButtonEvents<DColorGradientObservable, EMITTER> {
+export interface DButtonColorGradientEvents<EMITTER>
+	extends DButtonEvents<DColorGradientObservable, EMITTER> {
 	/**
 	 * Triggered when a selection is changed.
 	 *
@@ -22,16 +23,19 @@ export interface DButtonColorGradientEvents<EMITTER> extends DButtonEvents<DColo
 	 * @param oldValue a previously selected value
 	 * @param emitter an emitter
 	 */
-	change( newValue: DColorGradientObservable, oldValue: DColorGradientObservable, emitter: EMITTER ): void;
+	change(
+		newValue: DColorGradientObservable,
+		oldValue: DColorGradientObservable,
+		emitter: EMITTER
+	): void;
 }
 
 /**
  * {@link DButtonColorGradient} "on" options.
  */
 export interface DButtonColorGradientOnOptions<EMITTER>
-	extends Partial<DButtonColorGradientEvents<EMITTER>>, DOnOptions {
-
-}
+	extends Partial<DButtonColorGradientEvents<EMITTER>>,
+		DOnOptions {}
 
 /**
  * {@link DButtonColorGradient} options.
@@ -49,7 +53,7 @@ export interface DButtonColorGradientOptions<
  */
 export interface DThemeButtonColorGradient extends DThemeButton<DColorGradientObservable> {
 	getViewBaseTexture(): Texture | null;
-	getCheckerColors(): [ number, number ];
+	getCheckerColors(): [number, number];
 }
 
 export class DButtonColorGradient<
@@ -60,52 +64,55 @@ export class DButtonColorGradient<
 	protected _dialog?: DDialogColorGradient;
 	protected _view?: DPickerColorGradientView;
 
-	protected init( options?: OPTIONS ): void {
-		super.init( options );
+	protected init(options?: OPTIONS): void {
+		super.init(options);
 
 		const source = options?.image?.source;
-		if( source === undefined ) {
+		if (source === undefined) {
 			const theme = this.theme;
 			const texture = theme.getViewBaseTexture();
-			if( texture instanceof Texture ) {
+			if (texture instanceof Texture) {
 				const checkers = theme.getCheckerColors();
-				const view = this._view = DPickerColorGradientView.from( 1, 10, checkers, texture );
-				view.setRectangle( 0, 0, 0, texture.width, texture.height );
-				view.setData( 0, this._textValueComputed! );
+				const view = DPickerColorGradientView.from(1, 10, checkers, texture);
+				this._view = view;
+				view.setRectangle(0, 0, 0, texture.width, texture.height);
+				view.setData(0, this._textValueComputed!);
 				view.update();
 				this.image = view;
 			}
 		}
 	}
 
-	protected onActivate( e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent ): void {
-		super.onActivate( e );
+	protected onActivate(
+		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
+	): void {
+		super.onActivate(e);
 		const value = this._textValueComputed!;
 		const dialog = this.dialog;
-		dialog.value.fromObject( value );
+		dialog.value.fromObject(value);
 		dialog.open().then((): void => {
 			const newValue = dialog.value;
-			const oldValue = new DColorGradientObservable().fromObject( value );
-			value.fromObject( newValue );
+			const oldValue = new DColorGradientObservable().fromObject(value);
+			value.fromObject(newValue);
 			const view = this._view;
-			if( view != null ) {
+			if (view != null) {
 				view.update();
 			}
 			this.onTextChange();
 			this.createOrUpdateText();
-			DApplications.update( this );
-			this.emit( "change", newValue, oldValue, this );
+			DApplications.update(this);
+			this.emit("change", newValue, oldValue, this);
 		});
 	}
 
 	get dialog(): DDialogColorGradient {
 		let dialog = this._dialog;
-		if( dialog == null ) {
+		if (dialog == null) {
 			const options = this._options?.dialog;
-			if( options ) {
-				dialog = new DDialogColorGradient( options );
+			if (options) {
+				dialog = new DDialogColorGradient(options);
 			} else {
-				if( DButtonColorGradient.DIALOG == null ) {
+				if (DButtonColorGradient.DIALOG == null) {
 					DButtonColorGradient.DIALOG = new DDialogColorGradient();
 				}
 				dialog = DButtonColorGradient.DIALOG;

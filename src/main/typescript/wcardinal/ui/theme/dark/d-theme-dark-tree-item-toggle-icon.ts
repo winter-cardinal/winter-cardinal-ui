@@ -13,24 +13,28 @@ import { DThemeTreeItemToggleIcon } from "../../d-tree-item-toggle-icon";
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
 import { DThemeDarkImage } from "./d-theme-dark-image";
 
-DThemeDarkAtlas.add( "menu_item_expandable_header_closed", 14, 14,
+/* eslint-disable prettier/prettier */
+DThemeDarkAtlas.add("menu_item_expandable_header_closed", 14, 14,
 	`<g transform="scale(1, 0.7)">` +
 		`<polyline fill="none" stroke="#fff" stroke-width="1" points="6 16 10 10 6 4"></polyline>` +
 	`</g>`
 );
 
-DThemeDarkAtlas.add( "menu_item_expandable_header_opened", 14, 14,
+DThemeDarkAtlas.add("menu_item_expandable_header_opened", 14, 14,
 	`<g transform="scale(0.7, 1)">` +
 		`<polyline fill="none" stroke="#fff" stroke-width="1" points="16 6 10 10 4 6"></polyline>` +
 	`</g>`
 );
+/* eslint-enable prettier/prettier */
 
-export class DThemeDarkTreeItemToggleIcon extends DThemeDarkImage<string> implements DThemeTreeItemToggleIcon {
-	getBackgroundColor( state: DBaseStateSet ): number | null {
+export class DThemeDarkTreeItemToggleIcon
+	extends DThemeDarkImage<string>
+	implements DThemeTreeItemToggleIcon {
+	getBackgroundColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
@@ -58,10 +62,10 @@ export class DThemeDarkTreeItemToggleIcon extends DThemeDarkImage<string> implem
 		return DCornerMask.ALL;
 	}
 
-	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
-		if( state.is( DTreeItemState.EXPANDED ) ) {
+	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
+		if (state.is(DTreeItemState.EXPANDED)) {
 			return DThemeDarkAtlas.mappings.menu_item_expandable_header_opened;
-		} else if( state.is( DTreeItemState.COLLAPSED ) ) {
+		} else if (state.is(DTreeItemState.COLLAPSED)) {
 			return DThemeDarkAtlas.mappings.menu_item_expandable_header_closed;
 		} else {
 			return null;

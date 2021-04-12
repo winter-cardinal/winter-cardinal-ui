@@ -7,11 +7,11 @@ import { EShapeType } from "../e-shape-type";
 import { EShapePrimitive } from "./e-shape-primitive";
 
 export class EShapeNull extends EShapePrimitive {
-	constructor( type: EShapeType = EShapeType.NULL ) {
-		super( type );
+	constructor(type: EShapeType = EShapeType.NULL) {
+		super(type);
 	}
 
 	clone(): EShapeNull {
-		return new EShapeNull().copy( this );
+		return new EShapeNull().copy(this);
 	}
 }

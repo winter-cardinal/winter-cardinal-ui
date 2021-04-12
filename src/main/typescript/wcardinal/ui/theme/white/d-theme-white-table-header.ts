@@ -12,26 +12,32 @@ import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteTableRow } from "./d-theme-white-table-row";
 
 export class DThemeWhiteTableHeader extends DThemeWhiteTableRow implements DThemeTableHeader {
-	protected readonly BACKGROUND_COLOR = UtilRgb.darken( DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD, 0.02 );
-	protected readonly BORDER_COLOR = UtilRgb.darken( DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD, 0.055 );
+	protected readonly BACKGROUND_COLOR = UtilRgb.darken(
+		DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD,
+		0.02
+	);
+	protected readonly BORDER_COLOR = UtilRgb.darken(
+		DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD,
+		0.055
+	);
 
-	getBackgroundColor( state: DBaseStateSet ): number | null {
-		if( state.inDisabled ) {
+	getBackgroundColor(state: DBaseStateSet): number | null {
+		if (state.inDisabled) {
 			return null;
 		} else {
 			return this.BACKGROUND_COLOR;
 		}
 	}
 
-	getBorderColor( state: DBaseStateSet ): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return this.BORDER_COLOR;
 	}
 
-	getBorderAlign( state: DBaseStateSet ): number {
+	getBorderAlign(state: DBaseStateSet): number {
 		return 0;
 	}
 
-	getBorderMask( state: DBaseStateSet ): DBorderMask {
+	getBorderMask(state: DBaseStateSet): DBorderMask {
 		return DBorderMask.NOT_BOTTOM;
 	}
 

@@ -14,15 +14,15 @@ import { DThemeDarkTableBodyCells } from "./d-theme-dark-table-body-cells";
 
 DThemeDarkLinks.init();
 
-export class DThemeDarkTableBodyCellLink extends DThemeDarkTableBodyCellButton
+export class DThemeDarkTableBodyCellLink
+	extends DThemeDarkTableBodyCellButton
 	implements DThemeTableBodyCellLink {
-
-	getImageTintColor( state: DBaseStateSet ): number | null {
-		return DThemeDarkTableBodyCells.getImageTintColor( state, true );
+	getImageTintColor(state: DBaseStateSet): number | null {
+		return DThemeDarkTableBodyCells.getImageTintColor(state, true);
 	}
 
-	getImageSource( state: DBaseStateSet ): Texture | DisplayObject | null {
-		return DThemeDarkLinks.getImageSource( state );
+	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
+		return DThemeDarkLinks.getImageSource(state);
 	}
 
 	getLinkMenuOptions(): DMenuOptions<DLinkMenuItemId> {
