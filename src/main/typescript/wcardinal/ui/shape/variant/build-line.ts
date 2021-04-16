@@ -1,5 +1,6 @@
 import { Matrix, Point, TextureUvs } from "pixi.js";
 import { toIndexOf } from "../../util/to-index-of";
+import { EShapePoints } from "../e-shape-points";
 import { EShapePointsStyle } from "../e-shape-points-style";
 import { toDash } from "./to-dash";
 import { toLength } from "./to-length";
@@ -7,6 +8,13 @@ import { toScaleInvariant } from "./to-scale-invariant";
 
 const LINE_FMIN: number = 0.00001;
 const LINE_WORK_POINT: Point = new Point();
+
+export const toPointsCount = (points?: EShapePoints): number => {
+	if (points) {
+		return points.formatted.length;
+	}
+	return 0;
+};
 
 export const toLineVertexCount = (pointCount: number): number => {
 	return Math.ceil(pointCount / 12) * 12 * 4 + 2;

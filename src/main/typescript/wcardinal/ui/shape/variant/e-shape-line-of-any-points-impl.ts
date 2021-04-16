@@ -6,7 +6,7 @@
 import { Matrix, Point } from "pixi.js";
 import { EShape } from "../e-shape";
 import { EShapeDefaults } from "../e-shape-defaults";
-import { EShapePoints } from "../e-shape-points";
+import { EShapePoints, EShapePointsFormatter } from "../e-shape-points";
 import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import {
@@ -96,6 +96,18 @@ export class EShapeLineOfAnyPointsImpl implements EShapeLineOfAnyPoints {
 
 	get stroke(): EShapeLineOfAnyPointsStroke {
 		return this._stroke;
+	}
+
+	get formatter(): EShapePointsFormatter | null {
+		return null;
+	}
+
+	set formatter(formatter: EShapePointsFormatter | null) {
+		// DO NOTHING
+	}
+
+	get formatted(): this {
+		return this;
 	}
 
 	copy(source: EShapePoints): this {
@@ -192,8 +204,9 @@ export class EShapeLineOfAnyPointsImpl implements EShapeLineOfAnyPoints {
 		tester: EShapeLineOfAnyPointsHitTester<RESULT>,
 		result: RESULT
 	): boolean {
-		const pointCount = this.length;
-		const pointValues = this._values;
+		const formatted = this.formatted;
+		const pointCount = formatted.length;
+		const pointValues = formatted.values;
 		const size = this._size;
 		const offset = this._offset;
 		let istart = 0;

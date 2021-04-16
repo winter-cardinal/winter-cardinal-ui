@@ -5,7 +5,7 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
-import { toLineVertexCount } from "./build-line";
+import { toLineVertexCount, toPointsCount } from "./build-line";
 import { TEXT_INDEX_COUNT, TEXT_VERTEX_COUNT, toTextBufferCount } from "./build-text";
 import { EShapeLineUploaded } from "./e-shape-line-uploaded";
 
@@ -17,7 +17,7 @@ export const createLineUploaded = (
 	antialiasWeight: number
 ): EShapeLineUploaded | null => {
 	const points = shape.points;
-	const pointCount = points ? points.length : 0;
+	const pointCount = toPointsCount(points);
 	const tcount = toTextBufferCount(shape);
 	const tvcount = tcount * TEXT_VERTEX_COUNT;
 	const ticount = tcount * TEXT_INDEX_COUNT;

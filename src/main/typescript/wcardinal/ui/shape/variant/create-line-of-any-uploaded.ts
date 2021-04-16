@@ -5,6 +5,7 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
+import { toPointsCount } from "./build-line";
 import { toLineOfAnyPointCount } from "./build-line-of-any";
 import { TEXT_INDEX_COUNT, TEXT_VERTEX_COUNT, toTextBufferCount } from "./build-text";
 
@@ -38,7 +39,7 @@ export const createLineOfAnyUploaded = <T extends Initializable>(
 	const tvcount = tcount * TEXT_VERTEX_COUNT;
 	const ticount = tcount * TEXT_INDEX_COUNT;
 	const points = shape.points;
-	const pointCount = toLineOfAnyPointCount(points ? points.length : 0);
+	const pointCount = toLineOfAnyPointCount(toPointsCount(points));
 	const vcount = pointCount * vcountPerPoint + tvcount;
 	const icount = pointCount * icountPerPoint + ticount;
 	if (buffer.check(voffset, ioffset, vcount, icount)) {

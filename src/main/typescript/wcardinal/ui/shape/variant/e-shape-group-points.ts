@@ -5,7 +5,7 @@
 
 import { Matrix, Point } from "pixi.js";
 import { EShape } from "../e-shape";
-import { EShapePoints } from "../e-shape-points";
+import { EShapePoints, EShapePointsFormatted, EShapePointsFormatter } from "../e-shape-points";
 import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeGroupPropertyParent } from "./e-shape-group-property-parent";
@@ -100,6 +100,38 @@ export class EShapeGroupPoints implements EShapePoints {
 				points.style = style;
 			}
 		}
+	}
+
+	get formatter(): EShapePointsFormatter | null {
+		const children = this._parent.children;
+		if (0 < children.length) {
+			const points = children[children.length - 1].points;
+			if (points != null) {
+				return points.formatter;
+			}
+		}
+		return null;
+	}
+
+	set formatter(formatter: EShapePointsFormatter | null) {
+		const children = this._parent.children;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			const points = children[i].points;
+			if (points != null) {
+				points.formatter = formatter;
+			}
+		}
+	}
+
+	get formatted(): EShapePointsFormatted {
+		const children = this._parent.children;
+		if (0 < children.length) {
+			const points = children[children.length - 1].points;
+			if (points != null) {
+				return points.formatted;
+			}
+		}
+		return this;
 	}
 
 	copy(source: EShapePoints): this {

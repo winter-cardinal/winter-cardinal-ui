@@ -106,7 +106,8 @@ export class EShapeLineOfCirclesUploaded extends EShapeLineOfAnyUploaded {
 			isStrokeChanged
 		) {
 			this.pointId = pointId;
-			this.pointCount = points.length;
+			const formatted = points.formatted;
+			this.pointCount = formatted.length;
 			this.pointOffsetId = pointOffsetId;
 			this.pointSizeId = pointSizeId;
 			this.sizeX = sizeX;
@@ -124,7 +125,7 @@ export class EShapeLineOfCirclesUploaded extends EShapeLineOfAnyUploaded {
 			buffer.updateVertices();
 			buffer.updateSteps();
 			const pointCount = this.pointCount;
-			const pointsValues = points.values;
+			const pointsValues = formatted.values;
 			const voffset = this.vertexOffset;
 			const vertices = buffer.vertices;
 			const steps = buffer.steps;
