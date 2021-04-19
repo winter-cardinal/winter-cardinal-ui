@@ -11,7 +11,8 @@ import {
 	buildLineIndex,
 	buildLineUv,
 	buildLineVertexStepAndColorFill,
-	toLineVertexCount
+	toLineVertexCount,
+	toPointsCount
 } from "./build-line";
 import { EShapeTextUploaded } from "./e-shape-text-uploaded";
 
@@ -62,8 +63,7 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 
 	isCompatible(shape: EShape): boolean {
 		if (super.isCompatible(shape)) {
-			const points = shape.points;
-			const vcount = toLineVertexCount(points ? points.length : 0);
+			const vcount = toLineVertexCount(toPointsCount(shape.points));
 			return vcount === this.vertexCount - this.textVertexCount;
 		}
 		return false;
@@ -81,8 +81,9 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 	protected updateLineClipping(buffer: EShapeBuffer, shape: EShape): void {
 		const points = shape.points;
 		if (points) {
-			const pointCount = points.length;
-			const pointsClosed = !!(points.style & EShapePointsStyle.CLOSED);
+			const formatted = points.formatted;
+			const pointCount = formatted.length;
+			const pointsClosed = !!(formatted.style & EShapePointsStyle.CLOSED);
 			if (this.pointCount !== pointCount || this.pointsClosed !== pointsClosed) {
 				this.pointCount = pointCount;
 				this.pointsClosed = pointsClosed;
@@ -132,6 +133,7 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 				buffer.updateVertices();
 				buffer.updateSteps();
 				buffer.updateColorFills();
+				const formatted = points.formatted;
 				this.length = buildLineVertexStepAndColorFill(
 					buffer.vertices,
 					buffer.steps,
@@ -140,9 +142,9 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 					this.vertexCount - this.textVertexCount,
 					this.pointCount,
 					this.pointsClosed,
-					points.values,
-					points.segments,
-					points.style,
+					formatted.values,
+					formatted.segments,
+					formatted.style,
 					strokeWidth,
 					shape.transform.internalTransform
 				);

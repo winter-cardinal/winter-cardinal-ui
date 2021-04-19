@@ -106,7 +106,8 @@ export class EShapeLineOfRectanglesUploaded extends EShapeLineOfAnyUploaded {
 
 		if (isVertexChanged || isTransformChanged || isTextureChanged) {
 			this.pointId = pointId;
-			this.pointCount = points.length;
+			const formatted = points.formatted;
+			this.pointCount = formatted.length;
 			this.pointOffsetId = pointOffsetId;
 			this.pointSizeId = pointSizeId;
 			this.transformLocalId = transformLocalId;
@@ -133,7 +134,7 @@ export class EShapeLineOfRectanglesUploaded extends EShapeLineOfAnyUploaded {
 				buffer.updateUvs();
 			}
 			const pointCount = this.pointCount;
-			const pointsValues = points.values;
+			const pointsValues = formatted.values;
 			const voffset = this.vertexOffset;
 			const vertices = buffer.vertices;
 			const clippings = buffer.clippings;

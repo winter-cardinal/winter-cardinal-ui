@@ -6,13 +6,15 @@
 import { Matrix, Point } from "pixi.js";
 import { toIndexOf } from "../../util/to-index-of";
 import { EShape } from "../e-shape";
-import { EShapePoints } from "../e-shape-points";
+import { EShapePoints, EShapePointsFormatted, EShapePointsFormatter } from "../e-shape-points";
 import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import {
 	EShapeLineBasePointsHitTester,
 	EShapeLineBasePointsTestRange
 } from "./e-shape-line-base-points";
+import { eShapePointsFormatterCurve } from "../e-shape-points-formatter-curve";
+import { eShapePointsFormatterStraight } from "../e-shape-points-formatter-straight";
 
 export class EShapeLinePoints implements EShapePoints {
 	protected static WORK_RANGE: [number, number] = [0, 0];
@@ -27,6 +29,9 @@ export class EShapeLinePoints implements EShapePoints {
 	readonly size: Point;
 	protected _id: number;
 	protected _style: EShapePointsStyle;
+	protected _formattedId: number;
+	protected _formatter: EShapePointsFormatter | null;
+	protected _formatted: EShapePointsFormatted;
 
 	constructor(parent: EShape, points: number[], segments: number[], style: EShapePointsStyle) {
 		// Calculate the center
@@ -69,6 +74,9 @@ export class EShapeLinePoints implements EShapePoints {
 		this.position = new Point(cx, cy);
 		this._id = 0;
 		this._style = style;
+		this._formattedId = -1;
+		this._formatter = null;
+		this._formatted = this;
 	}
 
 	get length(): number {
@@ -146,6 +154,51 @@ export class EShapeLinePoints implements EShapePoints {
 
 	set style(style: EShapePointsStyle) {
 		this.set(undefined, undefined, style);
+	}
+
+	get formatter(): EShapePointsFormatter | null {
+		return this._formatter;
+	}
+
+	set formatter(formatter: EShapePointsFormatter | null) {
+		if (this._formatter !== formatter) {
+			this._formattedId = -1;
+			this._formatter = formatter;
+		}
+	}
+
+	get formatted(): EShapePointsFormatted {
+		const id = this._id;
+		let result = this._formatted;
+		if (this._formattedId !== id) {
+			this._formattedId = id;
+			let formatter = this._formatter;
+			if (formatter == null) {
+				const style = this._style;
+				if (style & EShapePointsStyle.TYPE_MASK) {
+					if (style & EShapePointsStyle.STRAIGHT) {
+						formatter = eShapePointsFormatterStraight;
+					} else {
+						formatter = eShapePointsFormatterCurve;
+					}
+				}
+			}
+			if (formatter != null) {
+				if (result === this) {
+					result = {
+						length: 0,
+						values: [],
+						segments: [],
+						style: EShapePointsStyle.NONE
+					};
+				}
+				formatter(this, result);
+			} else {
+				result = this;
+			}
+			this._formatted = result;
+		}
+		return result;
 	}
 
 	copy(source: EShapePoints): this {
@@ -272,38 +325,40 @@ export class EShapeLinePoints implements EShapePoints {
 		tester: EShapeLineBasePointsHitTester<RESULT>,
 		result: RESULT
 	): boolean {
-		const pointCount = this.length;
-		if (2 <= pointCount) {
-			const pointValues = this._values;
-			const pointSegments = this._segments;
+		const formatted = this.formatted;
+		const length = formatted.length;
+		if (2 <= length) {
+			const values = formatted.values;
+			const segments = formatted.segments;
+			const style = formatted.style;
 			let istart = 0;
-			let iend = pointCount;
+			let iend = length;
 			if (range) {
 				const work = EShapeLinePoints.WORK_RANGE;
-				range(x, y, threshold, pointValues, work);
+				range(x, y, threshold, values, work);
 				istart = work[0];
 				iend = work[1];
 			}
-			for (let i = istart, imax = Math.min(iend, pointCount - 1); i < imax; ++i) {
-				if (toIndexOf(pointSegments, i + 1) < 0) {
+			for (let i = istart, imax = Math.min(iend, length - 1); i < imax; ++i) {
+				if (toIndexOf(segments, i + 1) < 0) {
 					const iv = i << 1;
-					const p0x = pointValues[iv + 0];
-					const p0y = pointValues[iv + 1];
-					const p1x = pointValues[iv + 2];
-					const p1y = pointValues[iv + 3];
+					const p0x = values[iv + 0];
+					const p0y = values[iv + 1];
+					const p1x = values[iv + 2];
+					const p1y = values[iv + 3];
 					if (tester(x, y, p0x, p0y, p1x, p1y, i, threshold, result)) {
 						return true;
 					}
 				}
 			}
-			if (2 < pointCount && pointCount <= iend && this.style & EShapePointsStyle.CLOSED) {
-				if (toIndexOf(pointSegments, 0) < 0) {
-					const i = pointCount - 1;
+			if (2 < length && length <= iend && style & EShapePointsStyle.CLOSED) {
+				if (toIndexOf(segments, 0) < 0) {
+					const i = length - 1;
 					const iv = i << 1;
-					const p0x = pointValues[iv + 0];
-					const p0y = pointValues[iv + 1];
-					const p1x = pointValues[0];
-					const p1y = pointValues[1];
+					const p0x = values[iv + 0];
+					const p0y = values[iv + 1];
+					const p1x = values[0];
+					const p1y = values[1];
 					if (tester(x, y, p0x, p0y, p1x, p1y, i, threshold, result)) {
 						return true;
 					}

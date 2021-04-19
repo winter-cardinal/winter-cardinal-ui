@@ -5,7 +5,7 @@
 
 import { Matrix, Point } from "pixi.js";
 import { EShape } from "../e-shape";
-import { EShapePoints } from "../e-shape-points";
+import { EShapePoints, EShapePointsFormatter } from "../e-shape-points";
 import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
@@ -169,6 +169,18 @@ export class EShapeBarPoints implements EShapeLineBasePoints {
 
 	set style(style: EShapePointsStyle) {
 		this.moveTo(undefined, undefined, style);
+	}
+
+	get formatter(): EShapePointsFormatter | null {
+		return null;
+	}
+
+	set formatter(formatter: EShapePointsFormatter | null) {
+		// DO NOTHING
+	}
+
+	get formatted(): this {
+		return this;
 	}
 
 	copy(source: EShapePoints): this {

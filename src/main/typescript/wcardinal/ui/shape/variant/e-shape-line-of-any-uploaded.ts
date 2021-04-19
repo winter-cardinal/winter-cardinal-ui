@@ -5,6 +5,7 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
+import { toPointsCount } from "./build-line";
 import { buildLineOfAnyColor, toLineOfAnyPointCount } from "./build-line-of-any";
 import { EShapeLineOfAnyPoints } from "./e-shape-line-of-any-points";
 import { EShapeTextUploaded } from "./e-shape-text-uploaded";
@@ -41,8 +42,7 @@ export abstract class EShapeLineOfAnyUploaded extends EShapeTextUploaded {
 
 	isCompatible(shape: EShape): boolean {
 		if (super.isCompatible(shape)) {
-			const points = shape.points;
-			const pointCount = toLineOfAnyPointCount(points ? points.length : 0);
+			const pointCount = toLineOfAnyPointCount(toPointsCount(shape.points));
 			return pointCount === this.pointCountReserved;
 		}
 		return false;

@@ -112,7 +112,8 @@ export class EShapeLineOfTriangleRoundedsUploaded extends EShapeLineOfAnyUploade
 
 		if (isVertexChanged || isTransformChanged || isCornerChanged || isTextureChanged) {
 			this.pointId = pointId;
-			this.pointCount = points.length;
+			const formatted = points.formatted;
+			this.pointCount = formatted.length;
 			this.pointOffsetId = pointOffsetId;
 			this.pointSizeId = pointSizeId;
 			this.sizeX = sizeX;
@@ -142,7 +143,7 @@ export class EShapeLineOfTriangleRoundedsUploaded extends EShapeLineOfAnyUploade
 				buffer.updateUvs();
 			}
 			const pointCount = this.pointCount;
-			const pointsValues = points.values;
+			const pointsValues = formatted.values;
 			const voffset = this.vertexOffset;
 			const vertices = buffer.vertices;
 			const clippings = buffer.clippings;
