@@ -28,74 +28,66 @@
 	(function(){
 		"use strict";
 
-		const application = new wcardinal.ui.DApplication();
+		var newLine = function(x, y, points, segments, container) {
+			var style = wcardinal.ui.EShapePointsStyle.CLOSED | wcardinal.ui.EShapePointsStyle.CURVE;
+			var result = new wcardinal.ui.EShapeLine(points, segments, 3, style);
+			result.transform.position.set(x, y);
+			result.attach( container );
+			return result;
+		};
 
-		const container = new wcardinal.ui.EShapeContainer();
-		container.position.set( 50, 50 );
+		var newPoints = function( radius ) {
+			var result = [];
+			for (var i = 0; i <= 4; ++i) {
+				var angle = (2 - i) * Math.PI / 4;
+				result.push(
+					Math.cos(angle) * radius,
+					Math.sin(angle) * radius
+				);
+			}
+			return result;
+		};
 
-		const radius = 60;
-		const padding = 10;
-		const points = [];
-		for( let i = 0; i <= 4; ++i ) {
-			const angle = (2 - i) * Math.PI / 4;
-			points.push(
-				Math.cos( angle ) * radius,
-				Math.sin( angle ) * radius
-			);
-		}
-		const width = 3;
-		const style = wcardinal.ui.EShapePointsStyle.CLOSED | wcardinal.ui.EShapePointsStyle.CURVE;
+		var application = new wcardinal.ui.DApplication();
+		var container = new wcardinal.ui.EShapeContainer();
 
-		let x = padding;
-		let y = radius * 0.5 + padding;
-		const line = new wcardinal.ui.EShapeLine(points, [], width, style);
-		line.stroke.color = 0x000000;
-		line.stroke.enable = true;
-		line.transform.position.set( x, y );
-		line.attach( container );
+		var radius = 60;
+		var padding = 10;
+		var x = padding;
+		var y = radius * 0.5 + padding;
+		var points = newPoints(radius);
 
-		// One
-		for( let i = 0; i <= 4; ++i ) {
-			x += radius + padding;
-			const line1 = new wcardinal.ui.EShapeLine(points, [ i ], width, style);
-			line1.stroke.color = 0xff0000;
-			line1.stroke.enable = true;
-			line1.transform.position.set( x, y );
-			line1.attach( container );
-		}
+		// Zero segment
+		newLine(x, y, points, [], container);
 
-		// Two
+		// One segment
 		x = padding;
 		y += radius * 2 + padding;
-		for( let i = 0; i <= 3; ++i ) {
-			for( let j = i + 1; j <= 4; ++j ) {
-				x += radius + padding;
-				const line2 = new wcardinal.ui.EShapeLine(points, [ i, j ], width, style);
-				line2.stroke.color = 0x0000ff;
-				line2.stroke.enable = true;
-				line2.transform.position.set( x, y );
-				line2.attach( container );
+		for (var i = 0; i <= 4; i += 1, x += radius + padding) {
+			newLine(x, y, points, [i], container);
+		}
+
+		// Two segments
+		x = padding;
+		y += radius * 2 + padding;
+		for (var i = 0; i <= 3; ++i) {
+			for (var j = i + 1; j <= 4; j += 1, x += radius + padding) {
+				newLine(x, y, points, [i, j], container);
 			}
 		}
 
-		// Three
+		// Three segments
 		x = padding;
 		y += radius * 2 + padding;
-		for( let i = 0; i <= 4; ++i ) {
-			x += radius + padding;
-			const segments = []
-			for( let j = 0; j <= 4; ++j ) {
-				if( j !== i ) {
-					segments.push( j );
+		for (var i = 0; i <= 2; i += 1) {
+			for (var j = i + 1; j <= 3; j += 1) {
+				for(var k = j + 1; k <= 4; k += 1, x += radius + padding) {
+					newLine(x, y, points, [i, j, k], container);
 				}
 			}
-			const line3 = new wcardinal.ui.EShapeLine(points, segments, width, style);
-			line3.stroke.color = 0x008800;
-			line3.stroke.enable = true;
-			line3.transform.position.set( x, y );
-			line3.attach( container );
 		}
 
+		container.position.set( 50, 50 );
 		application.stage.addChild( container );
 		application.update();
 	}());
