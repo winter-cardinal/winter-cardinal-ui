@@ -4,7 +4,8 @@
  */
 
 import { toIndexOf } from "../util/to-index-of";
-import { EShapePointsFormatterResult, EShapePointsFormatterSource } from "./e-shape-points";
+import { EShapePointsFormatterResult } from "./e-shape-points-formatter-result";
+import { EShapePointsFormatterSource } from "./e-shape-points-formatter-source";
 import { EShapePointsStyle } from "./e-shape-points-style";
 
 const acopy = (source: number[], result: number[]): number[] => {

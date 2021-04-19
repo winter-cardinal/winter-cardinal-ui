@@ -6,16 +6,15 @@
 import { Matrix, Point } from "pixi.js";
 import { EShape } from "../e-shape";
 import { EShapeDefaults } from "../e-shape-defaults";
-import { EShapePoints, EShapePointsFormatter } from "../e-shape-points";
+import { EShapePoints } from "../e-shape-points";
+import { EShapePointsFormatter } from "../e-shape-points-formatter";
 import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
-import {
-	EShapeLineOfAnyPoints,
-	EShapeLineOfAnyPointsHitTester,
-	EShapeLineOfAnyPointsTestRange
-} from "./e-shape-line-of-any-points";
+import { EShapeLineOfAnyPoints } from "./e-shape-line-of-any-points";
 import { EShapeLineOfAnyPointsFill } from "./e-shape-line-of-any-points-fill";
 import { EShapeLineOfAnyPointsFillImpl } from "./e-shape-line-of-any-points-fill-impl";
+import { EShapeLineOfAnyPointsHitTester } from "./e-shape-line-of-any-points-hit-tester";
+import { EShapeLineOfAnyPointsHitTesterToRange } from "./e-shape-line-of-any-points-hit-tester-to-range";
 import { EShapeLineOfAnyPointsPoint } from "./e-shape-line-of-any-points-point";
 import { EShapeLineOfAnyPointsPointImpl } from "./e-shape-line-of-any-points-point-impl";
 import { EShapeLineOfAnyPointsStroke } from "./e-shape-line-of-any-points-stroke";
@@ -200,7 +199,7 @@ export class EShapeLineOfAnyPointsImpl implements EShapeLineOfAnyPoints {
 		x: number,
 		y: number,
 		threshold: number,
-		range: EShapeLineOfAnyPointsTestRange | null,
+		toRange: EShapeLineOfAnyPointsHitTesterToRange | null,
 		tester: EShapeLineOfAnyPointsHitTester<RESULT>,
 		result: RESULT
 	): boolean {
@@ -211,11 +210,11 @@ export class EShapeLineOfAnyPointsImpl implements EShapeLineOfAnyPoints {
 		const offset = this._offset;
 		let istart = 0;
 		let iend = pointCount;
-		if (range) {
+		if (toRange) {
 			const s = size.getLimit() * 0.5;
 			const o = offset.getLimit();
 			const work = EShapeLineOfAnyPointsImpl.WORK_RANGE;
-			range(x, y, s, s, o, o, threshold, pointValues, work);
+			toRange(x, y, s, s, o, o, threshold, pointValues, work);
 			istart = work[0];
 			iend = work[1];
 		}

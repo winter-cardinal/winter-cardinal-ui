@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+export * from "./build-bar";
 export * from "./build-circle";
 export * from "./build-color";
 export * from "./build-image-sdf";
@@ -107,10 +108,16 @@ export * from "./e-shape-image-sdf";
 export * from "./e-shape-image";
 export * from "./e-shape-label-uploaded";
 export * from "./e-shape-label";
+export * from "./e-shape-line-base-points-hit-tester-to-range";
+export * from "./e-shape-line-base-points-hit-tester-to-threshold";
+export * from "./e-shape-line-base-points-hit-tester";
 export * from "./e-shape-line-base-points";
 export * from "./e-shape-line-base";
 export * from "./e-shape-line-of-any-points-fill-impl";
 export * from "./e-shape-line-of-any-points-fill";
+export * from "./e-shape-line-of-any-points-hit-tester-to-range";
+export * from "./e-shape-line-of-any-points-hit-tester-to-threshold";
+export * from "./e-shape-line-of-any-points-hit-tester";
 export * from "./e-shape-line-of-any-points-impl";
 export * from "./e-shape-line-of-any-points-point-impl";
 export * from "./e-shape-line-of-any-points-point";
@@ -160,6 +167,8 @@ export * from "./e-shape-triangle-uploaded";
 export * from "./e-shape-triangle";
 export * from "./is-static";
 export * from "./to-computed";
+export * from "./to-dash";
 export * from "./to-hit-threshold";
 export * from "./to-length";
+export * from "./to-scale-invariant";
 export * from "./to-step";

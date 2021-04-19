@@ -5,16 +5,15 @@
 
 import { Matrix, Point } from "pixi.js";
 import { EShape } from "../e-shape";
-import { EShapePoints, EShapePointsFormatter } from "../e-shape-points";
+import { EShapePoints } from "../e-shape-points";
+import { EShapePointsFormatter } from "../e-shape-points-formatter";
 import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeBarPosition } from "./e-shape-bar-position";
-import {
-	EShapeLineBasePoints,
-	EShapeLineBasePointsHitTester,
-	EShapeLineBasePointsTestRange
-} from "./e-shape-line-base-points";
+import { EShapeLineBasePoints } from "./e-shape-line-base-points";
+import { EShapeLineBasePointsHitTester } from "./e-shape-line-base-points-hit-tester";
+import { EShapeLineBasePointsHitTesterToRange } from "./e-shape-line-base-points-hit-tester-to-range";
 
 export class EShapeBarPoints implements EShapeLineBasePoints {
 	protected _parent: EShape;
@@ -265,7 +264,7 @@ export class EShapeBarPoints implements EShapeLineBasePoints {
 		ax: number,
 		ay: number,
 		threshold: number,
-		range: EShapeLineBasePointsTestRange | null,
+		toRange: EShapeLineBasePointsHitTesterToRange | null,
 		tester: EShapeLineBasePointsHitTester<RESULT>,
 		result: RESULT
 	): boolean {

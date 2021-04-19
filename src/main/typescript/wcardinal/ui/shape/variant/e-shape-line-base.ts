@@ -9,12 +9,10 @@ import { EShapePoints } from "../e-shape-points";
 import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeBase } from "./e-shape-base";
-import {
-	EShapeLineBasePoints,
-	EShapeLineBasePointsHitTester,
-	EShapeLineBasePointsTestRange,
-	EShapeLineBasePointsToHitThreshold
-} from "./e-shape-line-base-points";
+import { EShapeLineBasePoints } from "./e-shape-line-base-points";
+import { EShapeLineBasePointsHitTester } from "./e-shape-line-base-points-hit-tester";
+import { EShapeLineBasePointsHitTesterToRange } from "./e-shape-line-base-points-hit-tester-to-range";
+import { EShapeLineBasePointsHitTesterToThreshold } from "./e-shape-line-base-points-hit-tester-to-threshold";
 import { EShapePrimitive } from "./e-shape-primitive";
 
 export abstract class EShapeLineBase extends EShapePrimitive {
@@ -53,7 +51,7 @@ export abstract class EShapeLineBase extends EShapePrimitive {
 		}
 	}
 
-	protected toHitThreshold(toThreshold: EShapeLineBasePointsToHitThreshold | null): number {
+	protected toHitThreshold(toThreshold: EShapeLineBasePointsHitTesterToThreshold | null): number {
 		const stroke = this.stroke;
 		const strokeWidth = stroke.enable ? stroke.width : 0;
 		const strokeScale = this.getStrokeWidthScale(this._points);
@@ -82,13 +80,13 @@ export abstract class EShapeLineBase extends EShapePrimitive {
 
 	calcHitPoint<RESULT>(
 		point: IPoint,
-		toHitThreshold: EShapeLineBasePointsToHitThreshold | null,
-		range: EShapeLineBasePointsTestRange | null,
+		toThreshold: EShapeLineBasePointsHitTesterToThreshold | null,
+		toRange: EShapeLineBasePointsHitTesterToRange | null,
 		tester: EShapeLineBasePointsHitTester<RESULT>,
 		result: RESULT
 	): boolean {
 		const points = this._points;
-		const threshold = this.toHitThreshold(toHitThreshold);
+		const threshold = this.toHitThreshold(toThreshold);
 		const rect = this.toLocalRect(point, EShapeBase.WORK_RECT);
 		if (this.containsAbsBBox(rect.x, rect.y, rect.width + threshold, rect.height + threshold)) {
 			return points.calcHitPointAbs(
@@ -97,7 +95,7 @@ export abstract class EShapeLineBase extends EShapePrimitive {
 				rect.width,
 				rect.height,
 				threshold,
-				range,
+				toRange,
 				tester,
 				result
 			);

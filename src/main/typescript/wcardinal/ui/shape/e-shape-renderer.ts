@@ -93,16 +93,16 @@ vec2 toPosition3456( in float type, in vec2 p, in vec2 pprev, in vec2 pnext, in 
 	vec2 pbevel = p + offsetSize * n;
 
 	//
+	/*
 	vec2 presult = (
 		0.0 <= miterAngle0 || miterAngle1 < 0.0 || miterSide < 0.0 ?
 		pbevel : pmiter
 	);
-	/*
+	*/
 	vec2 presult = (
-		miterAngle0 < 0.0 && 0.0 <= miterAngle1 && miterLength < 50.0 ?
+		miterAngle0 < 0.0 && 0.0 <= miterAngle1 && miterLength < 6.0 ?
 		pmiter : pbevel
 	);
-	*/
 	vec2 ni = ( type == 4.0 || type == 6.0 ? n1i : n0i );
 	shift = dot( ni, p - presult );
 	return toTransformedPosition( presult );
@@ -251,10 +251,9 @@ void main(void) {
 	float lt = vColorStroke.w;
 	float ld = 0.5 * pixelScale;
 	float lm = mod( l, lp0 + lp1 );
-	float ls0 = smoothstep( 0.0, 0.0 + ld, lm );
-	float ls1 = smoothstep( lp0, lp0 + ld, lm );
-	float ls2 = ( 0.0 <= lt ? 1.0 - smoothstep( lt - ld, lt, l ) : 1.0 );
-	vec4 color3456 = color01 * ( ls0 - ls1 ) * ls2;
+	float ls0 = ( 0.0 < lp1 ? smoothstep( 0.0, ld, lm ) - smoothstep( lp0, lp0 + ld, lm ) : 1.0 );
+	float ls1 = ( 0.0 <= lt ? smoothstep( 0.0, ld, l ) - smoothstep( lt - ld, lt, l ) : 1.0 );
+	vec4 color3456 = color01 * ls0 * ls1;
 
 	vec2 a0 = vAntialias.xy;
 	vec2 a1 = vAntialias.zw;

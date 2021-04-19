@@ -5,12 +5,10 @@
 
 import { IPoint } from "pixi.js";
 import { EShape } from "../e-shape";
-import {
-	EShapeLineOfAnyPoints,
-	EShapeLineOfAnyPointsHitTester,
-	EShapeLineOfAnyPointsTestRange,
-	EShapeLineOfAnyPointsToHitThreshold
-} from "./e-shape-line-of-any-points";
+import { EShapeLineOfAnyPoints } from "./e-shape-line-of-any-points";
+import { EShapeLineOfAnyPointsHitTester } from "./e-shape-line-of-any-points-hit-tester";
+import { EShapeLineOfAnyPointsHitTesterToRange } from "./e-shape-line-of-any-points-hit-tester-to-range";
+import { EShapeLineOfAnyPointsHitTesterToThreshold } from "./e-shape-line-of-any-points-hit-tester-to-threshold";
 
 export interface EShapeLineOfAny extends EShape {
 	readonly points: EShapeLineOfAnyPoints;
@@ -36,8 +34,8 @@ export interface EShapeLineOfAny extends EShape {
 	): boolean;
 	calcHitPoint<RESULT>(
 		point: IPoint,
-		toThreshold: EShapeLineOfAnyPointsToHitThreshold | null,
-		range: EShapeLineOfAnyPointsTestRange | null,
+		toThreshold: EShapeLineOfAnyPointsHitTesterToThreshold | null,
+		toRange: EShapeLineOfAnyPointsHitTesterToRange | null,
 		tester: EShapeLineOfAnyPointsHitTester<RESULT> | null,
 		result: RESULT
 	): boolean;

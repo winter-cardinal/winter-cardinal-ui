@@ -5,7 +5,9 @@
 
 import { Matrix, Point } from "pixi.js";
 import { EShape } from "../e-shape";
-import { EShapePoints, EShapePointsFormatted, EShapePointsFormatter } from "../e-shape-points";
+import { EShapePoints } from "../e-shape-points";
+import { EShapePointsFormatted } from "../e-shape-points-formatted";
+import { EShapePointsFormatter } from "../e-shape-points-formatter";
 import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeGroupPropertyParent } from "./e-shape-group-property-parent";

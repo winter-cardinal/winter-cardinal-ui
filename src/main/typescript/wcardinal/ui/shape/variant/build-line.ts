@@ -214,6 +214,7 @@ export const buildLineVertexStepAndColorFill = (
 		let psegnext = false;
 		let icfprev = icf;
 		let loffset = 0;
+		const ipvoffset = 0 < pointSegments.length ? pointSegments[0] : 0;
 
 		//
 		const a = internalTransform.a;
@@ -224,30 +225,35 @@ export const buildLineVertexStepAndColorFill = (
 		const ty = internalTransform.ty;
 
 		// First point
-		const pv0 = pointValues[0];
-		const pv1 = pointValues[1];
+		let ipv = ipvoffset % pointCount;
+		let ipvs = ipv << 1;
+		const pv0 = pointValues[ipvs];
+		const pv1 = pointValues[ipvs + 1];
 		const pfirstx = a * pv0 + c * pv1 + tx;
 		const pfirsty = b * pv0 + d * pv1 + ty;
-		const psegfirst = 0 <= toIndexOf(pointSegments, 0);
+		const psegfirst = 0 <= toIndexOf(pointSegments, ipv);
 
 		// Last point
-		const lastIndex = (pointCount - 1) << 1;
-		const pvl0 = pointValues[lastIndex + 0];
-		const pvl1 = pointValues[lastIndex + 1];
+		ipv = (ipvoffset + pointCount - 1) % pointCount;
+		ipvs = ipv << 1;
+		const pvl0 = pointValues[ipvs];
+		const pvl1 = pointValues[ipvs + 1];
 		const plastx = a * pvl0 + c * pvl1 + tx;
 		const plasty = b * pvl0 + d * pvl1 + ty;
-		const pseglast = 0 <= toIndexOf(pointSegments, pointCount - 1);
+		const pseglast = 0 <= toIndexOf(pointSegments, ipv);
 
 		// Second point
 		let psecondx = plastx;
 		let psecondy = plasty;
 		let psegsecond = pseglast;
 		if (2 < pointCount) {
-			const pv2 = pointValues[2];
-			const pv3 = pointValues[3];
+			ipv = (ipvoffset + 1) % pointCount;
+			ipvs = ipv << 1;
+			const pv2 = pointValues[ipvs];
+			const pv3 = pointValues[ipvs + 1];
 			psecondx = a * pv2 + c * pv3 + tx;
 			psecondy = b * pv2 + d * pv3 + ty;
-			psegsecond = 0 <= toIndexOf(pointSegments, 1);
+			psegsecond = 0 <= toIndexOf(pointSegments, ipv);
 		}
 
 		// First segment
@@ -309,12 +315,13 @@ export const buildLineVertexStepAndColorFill = (
 				pnexty = psecondy;
 				psegnext = psegsecond;
 			} else if (i < pointCount - 1) {
-				const nextIndex = (i + 1) << 1;
-				const pvn0 = pointValues[nextIndex + 0];
-				const pvn1 = pointValues[nextIndex + 1];
+				ipv = (ipvoffset + i + 1) % pointCount;
+				ipvs = ipv << 1;
+				const pvn0 = pointValues[ipvs];
+				const pvn1 = pointValues[ipvs + 1];
 				pnextx = a * pvn0 + c * pvn1 + tx;
 				pnexty = b * pvn0 + d * pvn1 + ty;
-				psegnext = 0 <= toIndexOf(pointSegments, i + 1);
+				psegnext = 0 <= toIndexOf(pointSegments, ipv);
 			} else {
 				pnextx = pfirstx;
 				pnexty = pfirsty;

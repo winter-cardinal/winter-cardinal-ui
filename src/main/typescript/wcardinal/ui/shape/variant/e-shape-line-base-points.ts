@@ -1,29 +1,11 @@
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { EShapePoints } from "../e-shape-points";
-
-export type EShapeLineBasePointsToHitThreshold = (
-	strokeWidth: number,
-	strokeScale: number
-) => number;
-
-export type EShapeLineBasePointsTestRange = (
-	x: number,
-	y: number,
-	threshold: number,
-	values: number[],
-	result: [number, number]
-) => [number, number];
-
-export type EShapeLineBasePointsHitTester<RESULT> = (
-	x: number,
-	y: number,
-	p0x: number,
-	p0y: number,
-	p1x: number,
-	p1y: number,
-	index: number,
-	threshold: number,
-	result: RESULT
-) => boolean;
+import { EShapeLineBasePointsHitTester } from "./e-shape-line-base-points-hit-tester";
+import { EShapeLineBasePointsHitTesterToRange } from "./e-shape-line-base-points-hit-tester-to-range";
 
 export interface EShapeLineBasePoints extends EShapePoints {
 	calcHitPointAbs<RESULT>(
@@ -32,7 +14,7 @@ export interface EShapeLineBasePoints extends EShapePoints {
 		ax: number,
 		ay: number,
 		threshold: number,
-		range: EShapeLineBasePointsTestRange | null,
+		toRange: EShapeLineBasePointsHitTesterToRange | null,
 		tester: EShapeLineBasePointsHitTester<RESULT>,
 		result: RESULT
 	): boolean;
