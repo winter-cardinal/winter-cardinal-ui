@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.84.0
+ Winter Cardinal UI v0.85.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -67,8 +67,11 @@
         EShapePointsStyle[EShapePointsStyle["DASHED"] = 128] = "DASHED";
         EShapePointsStyle[EShapePointsStyle["DASHED_DENSELY"] = 256] = "DASHED_DENSELY";
         EShapePointsStyle[EShapePointsStyle["DASHED_LOOSELY"] = 512] = "DASHED_LOOSELY";
+        EShapePointsStyle[EShapePointsStyle["STRAIGHT"] = 1024] = "STRAIGHT";
+        EShapePointsStyle[EShapePointsStyle["CURVE"] = 2048] = "CURVE";
         EShapePointsStyle[EShapePointsStyle["DOTTED_MASK"] = 112] = "DOTTED_MASK";
         EShapePointsStyle[EShapePointsStyle["DASHED_MASK"] = 896] = "DASHED_MASK";
+        EShapePointsStyle[EShapePointsStyle["TYPE_MASK"] = 3072] = "TYPE_MASK";
         EShapePointsStyle[EShapePointsStyle["NON_SOLID_MASK"] = 1008] = "NON_SOLID_MASK";
     })(EShapePointsStyle || (EShapePointsStyle = {}));
 
@@ -1349,6 +1352,23 @@
             },
             set: function (style) {
                 this.moveTo(undefined, undefined, style);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeBarPoints.prototype, "formatter", {
+            get: function () {
+                return null;
+            },
+            set: function (formatter) {
+                // DO NOTHING
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeBarPoints.prototype, "formatted", {
+            get: function () {
+                return this;
             },
             enumerable: false,
             configurable: true
@@ -25037,6 +25057,43 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(EShapeGroupPoints.prototype, "formatter", {
+            get: function () {
+                var children = this._parent.children;
+                if (0 < children.length) {
+                    var points = children[children.length - 1].points;
+                    if (points != null) {
+                        return points.formatter;
+                    }
+                }
+                return null;
+            },
+            set: function (formatter) {
+                var children = this._parent.children;
+                for (var i = 0, imax = children.length; i < imax; ++i) {
+                    var points = children[i].points;
+                    if (points != null) {
+                        points.formatter = formatter;
+                    }
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeGroupPoints.prototype, "formatted", {
+            get: function () {
+                var children = this._parent.children;
+                if (0 < children.length) {
+                    var points = children[children.length - 1].points;
+                    if (points != null) {
+                        return points.formatted;
+                    }
+                }
+                return this;
+            },
+            enumerable: false,
+            configurable: true
+        });
         EShapeGroupPoints.prototype.copy = function (source) {
             var children = this._parent.children;
             for (var i = 0, imax = children.length; i < imax; ++i) {
@@ -26641,6 +26698,12 @@
 
     var LINE_FMIN = 0.00001;
     var LINE_WORK_POINT = new pixi_js.Point();
+    var toPointsCount = function (points) {
+        if (points) {
+            return points.formatted.length;
+        }
+        return 0;
+    };
     var toLineVertexCount = function (pointCount) {
         return Math.ceil(pointCount / 12) * 12 * 4 + 2;
     };
@@ -27093,8 +27156,7 @@
         };
         EShapeLineUploaded.prototype.isCompatible = function (shape) {
             if (_super.prototype.isCompatible.call(this, shape)) {
-                var points = shape.points;
-                var vcount = toLineVertexCount(points ? points.length : 0);
+                var vcount = toLineVertexCount(toPointsCount(shape.points));
                 return vcount === this.vertexCount - this.textVertexCount;
             }
             return false;
@@ -27110,8 +27172,9 @@
         EShapeLineUploaded.prototype.updateLineClipping = function (buffer, shape) {
             var points = shape.points;
             if (points) {
-                var pointCount = points.length;
-                var pointsClosed = !!(points.style & EShapePointsStyle.CLOSED);
+                var formatted = points.formatted;
+                var pointCount = formatted.length;
+                var pointsClosed = !!(formatted.style & EShapePointsStyle.CLOSED);
                 if (this.pointCount !== pointCount || this.pointsClosed !== pointsClosed) {
                     this.pointCount = pointCount;
                     this.pointsClosed = pointsClosed;
@@ -27147,7 +27210,8 @@
                     buffer.updateVertices();
                     buffer.updateSteps();
                     buffer.updateColorFills();
-                    this.length = buildLineVertexStepAndColorFill(buffer.vertices, buffer.steps, buffer.colorFills, this.vertexOffset, this.vertexCount - this.textVertexCount, this.pointCount, this.pointsClosed, points.values, points.segments, points.style, strokeWidth, shape.transform.internalTransform);
+                    var formatted = points.formatted;
+                    this.length = buildLineVertexStepAndColorFill(buffer.vertices, buffer.steps, buffer.colorFills, this.vertexOffset, this.vertexCount - this.textVertexCount, this.pointCount, this.pointsClosed, formatted.values, formatted.segments, formatted.style, strokeWidth, shape.transform.internalTransform);
                 }
             }
         };
@@ -27174,7 +27238,7 @@
      */
     var createLineUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
         var points = shape.points;
-        var pointCount = points ? points.length : 0;
+        var pointCount = toPointsCount(points);
         var tcount = toTextBufferCount(shape);
         var tvcount = tcount * TEXT_VERTEX_COUNT;
         var ticount = tcount * TEXT_INDEX_COUNT;
@@ -27184,6 +27248,499 @@
             return new EShapeLineUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight).init(shape);
         }
         return null;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var PID = Math.PI * 2;
+    var PIH = Math.PI * 0.5;
+    var vdot = function (x0, y0, x1, y1) {
+        return x0 * x1 + y0 * y1;
+    };
+    var vlen = function (x0, y0) {
+        return Math.sqrt(vdot(x0, y0, x0, y0));
+    };
+    var vcross = function (x0, y0, x1, y1) {
+        return x0 * y1 - y0 * x1;
+    };
+    var pnew = function () {
+        return {
+            center: [0, 0],
+            axis1: [0, 0],
+            axis2: [0, 0],
+            angle: [0, 0, 0]
+        };
+    };
+    var pset = function (cx, cy, a1x, a1y, a2x, a2y, angle1, angle2, angle3, result) {
+        var c = result.center;
+        c[0] = cx;
+        c[1] = cy;
+        var a1 = result.axis1;
+        a1[0] = a1x;
+        a1[1] = a1y;
+        var a2 = result.axis2;
+        a2[0] = a2x;
+        a2[1] = a2y;
+        var a = result.angle;
+        a[0] = angle1;
+        a[1] = angle2;
+        a[2] = angle3;
+        return result;
+    };
+    var pcopy = function (source, result) {
+        var c = source.center;
+        var a1 = source.axis1;
+        var a2 = source.axis2;
+        var a = source.angle;
+        return pset(c[0], c[1], a1[0], a1[1], a2[0], a2[1], a[0], a[1], a[2], result);
+    };
+    var acopy = function (source, result) {
+        var sourceLength = source.length;
+        for (var i = 0; i < sourceLength; ++i) {
+            result[i] = source[i];
+        }
+        if (result.length !== sourceLength) {
+            result.length = sourceLength;
+        }
+        return result;
+    };
+    /**
+     * An utility class for spline curves based on the work of Cem Yuksel.
+     * Pleaase refer to the paper `A class of C2 interpolating splines`.
+     * http://www.cemyuksel.com/research/interpolating_splines/
+     */
+    var UtilCurve = /** @class */ (function () {
+        function UtilCurve() {
+        }
+        UtilCurve.set = function (center1, angle10, angle11, axis11, axis12, center2, angle20, angle21, axis21, axis22, nsegment, isAdaptive, isEdge, result, resultIndex) {
+            var a = Math.max(Math.abs(angle10 - angle11), Math.abs(angle20 - angle21));
+            var n = isAdaptive ? Math.max(1, Math.round(nsegment * (a / PIH))) : nsegment;
+            var imax = isEdge ? n + 1 : n;
+            for (var i = 0; i < imax; ++i) {
+                var t = i / n;
+                var w0 = 1 - t;
+                var w1 = t;
+                var t1 = w0 * angle10 + w1 * angle11;
+                var c1 = Math.cos(t1);
+                var s1 = Math.sin(t1);
+                var x1 = center1[0] + c1 * axis11[0] + s1 * axis12[0];
+                var y1 = center1[1] + c1 * axis11[1] + s1 * axis12[1];
+                var t2 = w0 * angle20 + w1 * angle21;
+                var c2 = Math.cos(t2);
+                var s2 = Math.sin(t2);
+                var x2 = center2[0] + c2 * axis21[0] + s2 * axis22[0];
+                var y2 = center2[1] + c2 * axis21[1] + s2 * axis22[1];
+                var t3 = PIH * t;
+                var c3 = Math.cos(t3);
+                var s3 = Math.sin(t3);
+                var cc3 = c3 * c3;
+                var ss3 = s3 * s3;
+                var x3 = cc3 * x1 + ss3 * x2;
+                var y3 = cc3 * y1 + ss3 * y2;
+                result[++resultIndex] = x3;
+                result[++resultIndex] = y3;
+            }
+            return resultIndex;
+        };
+        /**
+         * Calculate an interpolated points of the given control points.
+         *
+         * @param length A number of control points.
+         * @param values An array of control points.
+         * @param toParameter An interpolation method.
+         * @param isClosed True if the line is closed.
+         * @param nsegment The number of segments per 90 degree if isAdaptive is true.
+         * If isAdaptive is false, the number of segments is fixed to the given number
+         * regardless of arc angles.
+         * @param isAdaptive True to adjust the number of segments adaptively.
+         * @returns An interpolated points of the given control points.
+         */
+        UtilCurve.interpolate = function (length, values, segments, toParameter, isClosed, nsegment, isAdaptive, result) {
+            var rvalues = result.values;
+            var rsegments = result.segments;
+            if (length <= 2) {
+                return {
+                    values: acopy(values, rvalues),
+                    segments: acopy(segments, rsegments)
+                };
+            }
+            var c0 = this.WORK_P0 || pnew();
+            var c1 = this.WORK_P1 || pnew();
+            var c2 = this.WORK_P2 || pnew();
+            this.WORK_P0 = c0;
+            this.WORK_P1 = c1;
+            this.WORK_P2 = c2;
+            var rvaluesCount = -1;
+            var rsegmentCount = -1;
+            if (isClosed) {
+                toParameter(0, length, values, c0);
+                pcopy(c0, c1);
+                for (var i = 1; i < length; ++i) {
+                    toParameter(i, length, values, c2);
+                    if (0 <= toIndexOf(segments, i)) {
+                        var index = (i - 1) << 1;
+                        rvalues[++rvaluesCount] = values[index + 0];
+                        rvalues[++rvaluesCount] = values[index + 1];
+                        rsegments[++rsegmentCount] = (rvaluesCount + 1) >> 1;
+                    }
+                    else {
+                        rvaluesCount = this.set(c1.center, c1.angle[1], c1.angle[2], c1.axis1, c1.axis2, c2.center, c2.angle[0], c2.angle[1], c2.axis1, c2.axis2, nsegment, isAdaptive, false, rvalues, rvaluesCount);
+                    }
+                    var c3 = c1;
+                    c1 = c2;
+                    c2 = c3;
+                }
+                if (0 <= toIndexOf(segments, 0)) {
+                    var index = (length - 1) << 1;
+                    rvalues[++rvaluesCount] = values[index + 0];
+                    rvalues[++rvaluesCount] = values[index + 1];
+                    rsegments.unshift(0);
+                    rsegmentCount += 1;
+                }
+                else {
+                    rvaluesCount = this.set(c1.center, c1.angle[1], c1.angle[2], c1.axis1, c1.axis2, c0.center, c0.angle[0], c0.angle[1], c0.axis1, c0.axis2, nsegment, isAdaptive, false, rvalues, rvaluesCount);
+                }
+            }
+            else {
+                toParameter(1, length, values, c0);
+                if (0 <= toIndexOf(segments, 1)) {
+                    rvalues[++rvaluesCount] = values[0];
+                    rvalues[++rvaluesCount] = values[1];
+                    rsegments[++rsegmentCount] = 1;
+                }
+                else {
+                    rvaluesCount = this.set(c0.center, c0.angle[0], c0.angle[1], c0.axis1, c0.axis2, c0.center, c0.angle[0], c0.angle[1], c0.axis1, c0.axis2, nsegment, isAdaptive, false, rvalues, rvaluesCount);
+                }
+                pcopy(c0, c1);
+                for (var i = 2, imax = length - 1; i < imax; ++i) {
+                    toParameter(i, length, values, c2);
+                    if (0 <= toIndexOf(segments, i)) {
+                        var index = (i - 1) << 1;
+                        rvalues[++rvaluesCount] = values[index + 0];
+                        rvalues[++rvaluesCount] = values[index + 1];
+                        rsegments[++rsegmentCount] = (rvaluesCount + 1) >> 1;
+                    }
+                    else {
+                        rvaluesCount = this.set(c1.center, c1.angle[1], c1.angle[2], c1.axis1, c1.axis2, c2.center, c2.angle[0], c2.angle[1], c2.axis1, c2.axis2, nsegment, isAdaptive, false, rvalues, rvaluesCount);
+                    }
+                    var c3 = c1;
+                    c1 = c2;
+                    c2 = c3;
+                }
+                if (0 <= toIndexOf(segments, length - 1)) {
+                    var index = (length - 2) << 1;
+                    rvalues[++rvaluesCount] = values[index + 0];
+                    rvalues[++rvaluesCount] = values[index + 1];
+                    rsegments[++rsegmentCount] = (rvaluesCount + 1) >> 1;
+                }
+                else {
+                    rvaluesCount = this.set(c1.center, c1.angle[1], c1.angle[2], c1.axis1, c1.axis2, c1.center, c1.angle[1], c1.angle[2], c1.axis1, c1.axis2, nsegment, isAdaptive, true, rvalues, rvaluesCount);
+                }
+            }
+            rvaluesCount += 1;
+            if (rvalues.length !== rvaluesCount) {
+                rvalues.length = rvaluesCount;
+            }
+            rsegmentCount += 1;
+            if (rsegments.length !== rsegmentCount) {
+                rsegments.length = rsegmentCount;
+            }
+            return result;
+        };
+        UtilCurve.toCircle = function (index, length, values, result) {
+            var index0 = 0 < index ? index - 1 : length - 1;
+            var index1 = index;
+            var index2 = index < length - 1 ? index + 1 : 0;
+            var i0 = index0 << 1;
+            var i1 = index1 << 1;
+            var i2 = index2 << 1;
+            var x0 = values[i0 + 0];
+            var y0 = values[i0 + 1];
+            var x1 = values[i1 + 0];
+            var y1 = values[i1 + 1];
+            var x2 = values[i2 + 0];
+            var y2 = values[i2 + 1];
+            var d01x = x1 - x0;
+            var d01y = y1 - y0;
+            var d12x = x2 - x1;
+            var d12y = y2 - y1;
+            var m1x = x0 + d01x * 0.5;
+            var m1y = y0 + d01y * 0.5;
+            var m2x = x1 + d12x * 0.5;
+            var m2y = y1 + d12y * 0.5;
+            var n1x = -d01y;
+            var n1y = +d01x;
+            var n2x = -d12y;
+            var n2y = +d12x;
+            var det = vcross(n1x, n1y, n2x, n2y);
+            var threshold = 0.001;
+            if (Math.abs(det) < threshold) {
+                if (0 <= vdot(d01x, d01y, d12x, d12y) || length <= 2) {
+                    var a = 0.01;
+                    var s_1 = Math.sin(a);
+                    var l1 = vlen(d01x, d01y);
+                    var l2 = vlen(d12x, d12y);
+                    return pset(x1, y1, 0, 0, d12x / s_1, d12y / s_1, (-a * l1) / l2, 0, a, result);
+                }
+                else {
+                    det = threshold;
+                }
+            }
+            var s = (n2y * (m2x - m1x) + n2x * (m1y - m2y)) / det;
+            var cx = m1x + s * n1x;
+            var cy = m1y + s * n1y;
+            var a1x = x1 - cx;
+            var a1y = y1 - cy;
+            var a2x = -a1y;
+            var a2y = +a1x;
+            var dc2x = x2 - cx;
+            var dc2y = y2 - cy;
+            var a2 = Math.atan2(vdot(a2x, a2y, dc2x, dc2y), vdot(a1x, a1y, dc2x, dc2y));
+            var dc0x = x0 - cx;
+            var dc0y = y0 - cy;
+            var a1 = Math.atan2(vdot(a2x, a2y, dc0x, dc0y), vdot(a1x, a1y, dc0x, dc0y));
+            if (0 < a1 * a2) {
+                if (Math.abs(a1) < Math.abs(a2)) {
+                    if (0 < a2) {
+                        a2 -= PID;
+                    }
+                    else {
+                        a2 += PID;
+                    }
+                }
+                if (Math.abs(a2) < Math.abs(a1)) {
+                    if (0 < a1) {
+                        a1 -= PID;
+                    }
+                    else {
+                        a1 += PID;
+                    }
+                }
+            }
+            return pset(cx, cy, a1x, a1y, a2x, a2y, a1, 0, a2, result);
+        };
+        UtilCurve.toEllipse = function (index, length, values, result) {
+            var index0 = 0 < index ? index - 1 : length - 1;
+            var index1 = index;
+            var index2 = index < length - 1 ? index + 1 : 0;
+            var i0 = index0 << 1;
+            var i1 = index1 << 1;
+            var i2 = index2 << 1;
+            var x0 = values[i0 + 0];
+            var y0 = values[i0 + 1];
+            var x1 = values[i1 + 0];
+            var y1 = values[i1 + 1];
+            var x2 = values[i2 + 0];
+            var y2 = values[i2 + 1];
+            var d10x = x0 - x1;
+            var d10y = y0 - y1;
+            var d12x = x2 - x1;
+            var d12y = y2 - y1;
+            if (length <= 2) {
+                var a_1 = 0.01;
+                var s = Math.sin(a_1);
+                return pset(x1, y1, 0, 0, d12x / s, d12y / s, -a_1, 0, a_1, result);
+            }
+            var l0 = vlen(d10x, d10y);
+            var l2 = vlen(d12x, d12y);
+            var cos = vdot(d10x, d10y, d12x, d12y) / (l0 * l2);
+            var amax = Math.acos(cos);
+            var acurrent = amax * 0.5;
+            var adelta = amax * 0.25;
+            var a = 0;
+            var b = 0;
+            var c = 0;
+            var d = 0;
+            var lmax = Math.max(l0, l2);
+            var lmin = Math.min(l0, l2);
+            for (var i = 0; i < 16; ++i) {
+                var a0 = acurrent * 0.5;
+                var a1 = amax - a0;
+                a = lmax * Math.sin(a0);
+                b = lmax * Math.cos(a0);
+                c = lmin * Math.sin(a1);
+                d = lmin * Math.cos(a1);
+                var v = (1 - d / b) * (1 - d / b) + (c * c) / (a * a);
+                if (1 < v) {
+                    acurrent += adelta;
+                }
+                else {
+                    acurrent -= adelta;
+                }
+                adelta *= 0.5;
+            }
+            var beta = Math.asin(Math.min(c / a, 1));
+            if (l0 < l2) {
+                var e3x = d12x / l2;
+                var e3y = d12y / l2;
+                var n3x = void 0, n3y = void 0;
+                if (0 < vcross(d10x, d10y, d12x, d12y)) {
+                    n3x = +e3y;
+                    n3y = -e3x;
+                }
+                else {
+                    n3x = -e3y;
+                    n3y = +e3x;
+                }
+                var we = -(b * b) / l2;
+                var wn = -(b * a) / l2;
+                var a1x = we * e3x + wn * n3x;
+                var a1y = we * e3y + wn * n3y;
+                var cx = x1 - a1x;
+                var cy = y1 - a1y;
+                var a2x = x2 - cx;
+                var a2y = y2 - cy;
+                return pset(cx, cy, a1x, a1y, a2x, a2y, -beta, 0, PIH, result);
+            }
+            else {
+                var e0x = d10x / l0;
+                var e0y = d10y / l0;
+                var n3x = void 0, n3y = void 0;
+                if (vcross(d10x, d10y, d12x, d12y) < 0) {
+                    n3x = +e0y;
+                    n3y = -e0x;
+                }
+                else {
+                    n3x = -e0y;
+                    n3y = +e0x;
+                }
+                var we = -(b * b) / l0;
+                var wn = -(b * a) / l0;
+                var a1x = we * e0x + wn * n3x;
+                var a1y = we * e0y + wn * n3y;
+                var cx = x1 - a1x;
+                var cy = y1 - a1y;
+                var a2x = x0 - cx;
+                var a2y = y0 - cy;
+                return pset(cx, cy, a1x, a1y, -a2x, -a2y, -PIH, 0, beta, result);
+            }
+        };
+        UtilCurve.toHybrid = function (index, length, values, result) {
+            var circle = UtilCurve.toCircle(index, length, values, result);
+            var a0 = circle.angle[0];
+            var a2 = circle.angle[2];
+            var amin = Math.min(a0, a2);
+            var amax = Math.max(a0, a2);
+            if (amin < -PIH || PIH < amax) {
+                return UtilCurve.toEllipse(index, length, values, result);
+            }
+            return circle;
+        };
+        return UtilCurve;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var eShapePointsFormatterCurve = function (source, result) {
+        var style = source.style;
+        UtilCurve.interpolate(source.length, source.values, source.segments, UtilCurve.toHybrid, !!(style & EShapePointsStyle.CLOSED), 12, true, result);
+        result.length = result.values.length >> 1;
+        result.style = style;
+        return result;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var acopy$1 = function (source, result) {
+        var sourceLength = source.length;
+        for (var i = 0; i < sourceLength; ++i) {
+            result[i] = source[i];
+        }
+        if (result.length !== sourceLength) {
+            result.length = sourceLength;
+        }
+        return result;
+    };
+    var eShapePointsFormatterStraight = function (source, result) {
+        var length = source.length;
+        var values = source.values;
+        var segments = source.segments;
+        var style = source.style;
+        var rvalues = result.values;
+        var rvaluesCount = -1;
+        if (0 < length) {
+            var x0 = values[0];
+            var y0 = values[1];
+            var x1 = x0;
+            var y1 = y0;
+            rvalues[++rvaluesCount] = x0;
+            rvalues[++rvaluesCount] = y0;
+            var r = 0.7071067811865475;
+            for (var i = 1; i < length; ++i) {
+                var index = i << 1;
+                var x2 = values[index];
+                var y2 = values[index + 1];
+                var dx = x2 - x1;
+                var dy = y2 - y1;
+                var ax = Math.abs(dx);
+                var ay = Math.abs(dy);
+                var az = Math.abs(r * ax + r * ay);
+                if (ax < ay) {
+                    if (ay < az) {
+                        x1 += az * Math.sign(dx) * r;
+                        y1 += az * Math.sign(dy) * r;
+                    }
+                    else {
+                        y1 = y2;
+                    }
+                }
+                else {
+                    if (ax < az) {
+                        x1 += az * Math.sign(dx) * r;
+                        y1 += az * Math.sign(dy) * r;
+                    }
+                    else {
+                        x1 = x2;
+                    }
+                }
+                rvalues[++rvaluesCount] = x1;
+                rvalues[++rvaluesCount] = y1;
+            }
+            if (style & EShapePointsStyle.CLOSED) {
+                var dx = x0 - x1;
+                var dy = y0 - y1;
+                var ax = Math.abs(dx);
+                var ay = Math.abs(dy);
+                var az = Math.abs(r * ax + r * ay);
+                var threshold = 0.001;
+                if (threshold < ax && threshold < ay && threshold < az && toIndexOf(segments, 0) < 0) {
+                    if (ax < ay) {
+                        if (ay < az) {
+                            x1 += az * Math.sign(dx) * r;
+                            y1 += az * Math.sign(dy) * r;
+                        }
+                        else {
+                            y1 = y0;
+                        }
+                    }
+                    else {
+                        if (ax < az) {
+                            x1 += az * Math.sign(dx) * r;
+                            y1 += az * Math.sign(dy) * r;
+                        }
+                        else {
+                            x1 = x0;
+                        }
+                    }
+                    rvalues[++rvaluesCount] = x1;
+                    rvalues[++rvaluesCount] = y1;
+                }
+            }
+        }
+        rvaluesCount += 1;
+        if (rvalues.length !== rvaluesCount) {
+            rvalues.length = rvaluesCount;
+        }
+        acopy$1(segments, result.segments);
+        result.length = rvaluesCount >> 1;
+        result.style = style;
+        return result;
     };
 
     /*
@@ -27231,6 +27788,9 @@
             this.position = new pixi_js.Point(cx, cy);
             this._id = 0;
             this._style = style;
+            this._formattedId = -1;
+            this._formatter = null;
+            this._formatted = this;
         }
         Object.defineProperty(EShapeLinePoints.prototype, "length", {
             get: function () {
@@ -27314,6 +27874,58 @@
             },
             set: function (style) {
                 this.set(undefined, undefined, style);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeLinePoints.prototype, "formatter", {
+            get: function () {
+                return this._formatter;
+            },
+            set: function (formatter) {
+                if (this._formatter !== formatter) {
+                    this._formattedId = -1;
+                    this._formatter = formatter;
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeLinePoints.prototype, "formatted", {
+            get: function () {
+                var id = this._id;
+                var result = this._formatted;
+                if (this._formattedId !== id) {
+                    this._formattedId = id;
+                    var formatter = this._formatter;
+                    if (formatter == null) {
+                        var style = this._style;
+                        if (style & EShapePointsStyle.TYPE_MASK) {
+                            if (style & EShapePointsStyle.STRAIGHT) {
+                                formatter = eShapePointsFormatterStraight;
+                            }
+                            else {
+                                formatter = eShapePointsFormatterCurve;
+                            }
+                        }
+                    }
+                    if (formatter != null) {
+                        if (result === this) {
+                            result = {
+                                length: 0,
+                                values: [],
+                                segments: [],
+                                style: EShapePointsStyle.NONE
+                            };
+                        }
+                        formatter(this, result);
+                    }
+                    else {
+                        result = this;
+                    }
+                    this._formatted = result;
+                }
+                return result;
             },
             enumerable: false,
             configurable: true
@@ -27423,38 +28035,40 @@
             return manager.addResource("[" + JSON.stringify(this._values) + "," + JSON.stringify(this._segments) + "," + this._style + "]");
         };
         EShapeLinePoints.prototype.calcHitPointAbs = function (x, y, ax, ay, threshold, range, tester, result) {
-            var pointCount = this.length;
-            if (2 <= pointCount) {
-                var pointValues = this._values;
-                var pointSegments = this._segments;
+            var formatted = this.formatted;
+            var length = formatted.length;
+            if (2 <= length) {
+                var values = formatted.values;
+                var segments = formatted.segments;
+                var style = formatted.style;
                 var istart = 0;
-                var iend = pointCount;
+                var iend = length;
                 if (range) {
                     var work = EShapeLinePoints.WORK_RANGE;
-                    range(x, y, threshold, pointValues, work);
+                    range(x, y, threshold, values, work);
                     istart = work[0];
                     iend = work[1];
                 }
-                for (var i = istart, imax = Math.min(iend, pointCount - 1); i < imax; ++i) {
-                    if (toIndexOf(pointSegments, i + 1) < 0) {
+                for (var i = istart, imax = Math.min(iend, length - 1); i < imax; ++i) {
+                    if (toIndexOf(segments, i + 1) < 0) {
                         var iv = i << 1;
-                        var p0x = pointValues[iv + 0];
-                        var p0y = pointValues[iv + 1];
-                        var p1x = pointValues[iv + 2];
-                        var p1y = pointValues[iv + 3];
+                        var p0x = values[iv + 0];
+                        var p0y = values[iv + 1];
+                        var p1x = values[iv + 2];
+                        var p1y = values[iv + 3];
                         if (tester(x, y, p0x, p0y, p1x, p1y, i, threshold, result)) {
                             return true;
                         }
                     }
                 }
-                if (2 < pointCount && pointCount <= iend && this.style & EShapePointsStyle.CLOSED) {
-                    if (toIndexOf(pointSegments, 0) < 0) {
-                        var i = pointCount - 1;
+                if (2 < length && length <= iend && style & EShapePointsStyle.CLOSED) {
+                    if (toIndexOf(segments, 0) < 0) {
+                        var i = length - 1;
                         var iv = i << 1;
-                        var p0x = pointValues[iv + 0];
-                        var p0y = pointValues[iv + 1];
-                        var p1x = pointValues[0];
-                        var p1y = pointValues[1];
+                        var p0x = values[iv + 0];
+                        var p0y = values[iv + 1];
+                        var p1x = values[0];
+                        var p1y = values[1];
                         if (tester(x, y, p0x, p0y, p1x, p1y, i, threshold, result)) {
                             return true;
                         }
@@ -27584,7 +28198,7 @@
         var tvcount = tcount * TEXT_VERTEX_COUNT;
         var ticount = tcount * TEXT_INDEX_COUNT;
         var points = shape.points;
-        var pointCount = toLineOfAnyPointCount(points ? points.length : 0);
+        var pointCount = toLineOfAnyPointCount(toPointsCount(points));
         var vcount = pointCount * vcountPerPoint + tvcount;
         var icount = pointCount * icountPerPoint + ticount;
         if (buffer.check(voffset, ioffset, vcount, icount)) {
@@ -28153,6 +28767,23 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(EShapeLineOfAnyPointsImpl.prototype, "formatter", {
+            get: function () {
+                return null;
+            },
+            set: function (formatter) {
+                // DO NOTHING
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeLineOfAnyPointsImpl.prototype, "formatted", {
+            get: function () {
+                return this;
+            },
+            enumerable: false,
+            configurable: true
+        });
         EShapeLineOfAnyPointsImpl.prototype.copy = function (source) {
             return this.set(source.values, source.segments, source.style);
         };
@@ -28234,8 +28865,9 @@
             return manager.addResource("[]");
         };
         EShapeLineOfAnyPointsImpl.prototype.calcHitPointAbs = function (x, y, threshold, range, tester, result) {
-            var pointCount = this.length;
-            var pointValues = this._values;
+            var formatted = this.formatted;
+            var pointCount = formatted.length;
+            var pointValues = formatted.values;
             var size = this._size;
             var offset = this._offset;
             var istart = 0;
@@ -28285,8 +28917,7 @@
         }
         EShapeLineOfAnyUploaded.prototype.isCompatible = function (shape) {
             if (_super.prototype.isCompatible.call(this, shape)) {
-                var points = shape.points;
-                var pointCount = toLineOfAnyPointCount(points ? points.length : 0);
+                var pointCount = toLineOfAnyPointCount(toPointsCount(shape.points));
                 return pointCount === this.pointCountReserved;
             }
             return false;
@@ -28394,7 +29025,8 @@
                 isTransformChanged ||
                 isStrokeChanged) {
                 this.pointId = pointId;
-                this.pointCount = points.length;
+                var formatted = points.formatted;
+                this.pointCount = formatted.length;
                 this.pointOffsetId = pointOffsetId;
                 this.pointSizeId = pointSizeId;
                 this.sizeX = sizeX;
@@ -28410,7 +29042,7 @@
                 buffer.updateVertices();
                 buffer.updateSteps();
                 var pointCount = this.pointCount;
-                var pointsValues = points.values;
+                var pointsValues = formatted.values;
                 var voffset = this.vertexOffset;
                 var vertices = buffer.vertices;
                 var steps = buffer.steps;
@@ -29713,7 +30345,8 @@
             var isVertexChanged = isPointChanged || isPointSizeChanged || isSizeChanged || isStrokeChanged;
             if (isVertexChanged || isTransformChanged || isCornerChanged || isTextureChanged) {
                 this.pointId = pointId;
-                this.pointCount = points.length;
+                var formatted = points.formatted;
+                this.pointCount = formatted.length;
                 this.pointOffsetId = pointOffsetId;
                 this.pointSizeId = pointSizeId;
                 this.sizeX = sizeX;
@@ -29742,7 +30375,7 @@
                     buffer.updateUvs();
                 }
                 var pointCount = this.pointCount;
-                var pointsValues = points.values;
+                var pointsValues = formatted.values;
                 var voffset = this.vertexOffset;
                 var vertices = buffer.vertices;
                 var clippings = buffer.clippings;
@@ -30133,7 +30766,8 @@
             var isVertexChanged = isPointChanged || isPointSizeChanged || isSizeChanged || isStrokeChanged;
             if (isVertexChanged || isTransformChanged || isTextureChanged) {
                 this.pointId = pointId;
-                this.pointCount = points.length;
+                var formatted = points.formatted;
+                this.pointCount = formatted.length;
                 this.pointOffsetId = pointOffsetId;
                 this.pointSizeId = pointSizeId;
                 this.transformLocalId = transformLocalId;
@@ -30158,7 +30792,7 @@
                     buffer.updateUvs();
                 }
                 var pointCount = this.pointCount;
-                var pointsValues = points.values;
+                var pointsValues = formatted.values;
                 var voffset = this.vertexOffset;
                 var vertices = buffer.vertices;
                 var clippings = buffer.clippings;
@@ -30801,7 +31435,8 @@
                 isStrokeChanged;
             if (isVertexChanged || isTransformChanged || isCornerChanged || isTextureChanged) {
                 this.pointId = pointId;
-                this.pointCount = points.length;
+                var formatted = points.formatted;
+                this.pointCount = formatted.length;
                 this.pointOffsetId = pointOffsetId;
                 this.pointSizeId = pointSizeId;
                 this.sizeX = sizeX;
@@ -30829,7 +31464,7 @@
                     buffer.updateUvs();
                 }
                 var pointCount = this.pointCount;
-                var pointsValues = points.values;
+                var pointsValues = formatted.values;
                 var voffset = this.vertexOffset;
                 var vertices = buffer.vertices;
                 var clippings = buffer.clippings;
@@ -31361,7 +31996,8 @@
             var isVertexChanged = isPointChanged || isPointSizeChanged || isSizeChanged || isStrokeChanged;
             if (isVertexChanged || isTransformChanged || isTextureChanged) {
                 this.pointId = pointId;
-                this.pointCount = points.length;
+                var formatted = points.formatted;
+                this.pointCount = formatted.length;
                 this.pointOffsetId = pointOffsetId;
                 this.pointSizeId = pointSizeId;
                 this.sizeX = sizeX;
@@ -31382,7 +32018,7 @@
                     buffer.updateUvs();
                 }
                 var pointCount = this.pointCount;
-                var pointsValues = points.values;
+                var pointsValues = formatted.values;
                 var voffset = this.vertexOffset;
                 var vertices = buffer.vertices;
                 var steps = buffer.steps;
@@ -59667,6 +60303,7 @@
         buildImageSdfUv: buildImageSdfUv,
         toLineOfAnyPointCount: toLineOfAnyPointCount,
         buildLineOfAnyColor: buildLineOfAnyColor,
+        toPointsCount: toPointsCount,
         toLineVertexCount: toLineVertexCount,
         buildLineClipping: buildLineClipping,
         buildLineIndex: buildLineIndex,

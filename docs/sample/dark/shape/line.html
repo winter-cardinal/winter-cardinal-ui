@@ -1,0 +1,96 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Line</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #2e2e2e;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.85.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.85.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		var newLine = function(x, y, points, segments, container) {
+			var style = wcardinal.ui.EShapePointsStyle.CLOSED;
+			var result = new wcardinal.ui.EShapeLine(points, segments, 3, style);
+			result.transform.position.set(x, y);
+			result.attach( container );
+			return result;
+		};
+
+		var newPoints = function( radius ) {
+			var result = [];
+			for (var i = 0; i <= 4; ++i) {
+				var angle = (2 - i) * Math.PI / 4;
+				result.push(
+					Math.cos(angle) * radius,
+					Math.sin(angle) * radius
+				);
+			}
+			return result;
+		};
+
+		var application = new wcardinal.ui.DApplication();
+		var container = new wcardinal.ui.EShapeContainer();
+
+		var radius = 60;
+		var padding = 10;
+		var x = padding;
+		var y = radius * 0.5 + padding;
+		var points = newPoints(radius);
+
+		// Zero segment
+		newLine(x, y, points, [], container);
+
+		// One segment
+		x = padding;
+		y += radius * 2 + padding;
+		for (var i = 0; i <= 4; i += 1, x += radius + padding) {
+			newLine(x, y, points, [i], container);
+		}
+
+		// Two segments
+		x = padding;
+		y += radius * 2 + padding;
+		for (var i = 0; i <= 3; ++i) {
+			for (var j = i + 1; j <= 4; j += 1, x += radius + padding) {
+				newLine(x, y, points, [i, j], container);
+			}
+		}
+
+		// Three segments
+		x = padding;
+		y += radius * 2 + padding;
+		for (var i = 0; i <= 2; i += 1) {
+			for (var j = i + 1; j <= 3; j += 1) {
+				for(var k = j + 1; k <= 4; k += 1, x += radius + padding) {
+					newLine(x, y, points, [i, j, k], container);
+				}
+			}
+		}
+
+		container.position.set( 50, 50 );
+		application.stage.addChild( container );
+		application.update();
+	}());
+	</script>
+</body>
+</html>
