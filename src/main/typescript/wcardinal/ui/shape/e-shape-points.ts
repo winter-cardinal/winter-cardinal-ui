@@ -5,34 +5,10 @@
 
 import { Matrix, Point } from "pixi.js";
 import { EShape } from "./e-shape";
+import { EShapePointsFormatted } from "./e-shape-points-formatted";
+import { EShapePointsFormatter } from "./e-shape-points-formatter";
 import { EShapePointsStyle } from "./e-shape-points-style";
 import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
-
-export interface EShapePointsFormatted {
-	readonly length: number;
-	readonly values: number[];
-	readonly segments: number[];
-	readonly style: EShapePointsStyle;
-}
-
-export interface EShapePointsFormatterSource {
-	readonly length: number;
-	readonly values: number[];
-	readonly segments: number[];
-	readonly style: EShapePointsStyle;
-}
-
-export interface EShapePointsFormatterResult {
-	length: number;
-	values: number[];
-	segments: number[];
-	style: EShapePointsStyle;
-}
-
-export type EShapePointsFormatter = (
-	source: EShapePointsFormatterSource,
-	result: EShapePointsFormatterResult
-) => EShapePointsFormatterResult;
 
 export interface EShapePoints {
 	readonly length: number;

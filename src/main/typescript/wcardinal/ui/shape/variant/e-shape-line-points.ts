@@ -6,15 +6,15 @@
 import { Matrix, Point } from "pixi.js";
 import { toIndexOf } from "../../util/to-index-of";
 import { EShape } from "../e-shape";
-import { EShapePoints, EShapePointsFormatted, EShapePointsFormatter } from "../e-shape-points";
+import { EShapePoints } from "../e-shape-points";
 import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
-import {
-	EShapeLineBasePointsHitTester,
-	EShapeLineBasePointsTestRange
-} from "./e-shape-line-base-points";
 import { eShapePointsFormatterCurve } from "../e-shape-points-formatter-curve";
 import { eShapePointsFormatterStraight } from "../e-shape-points-formatter-straight";
+import { EShapePointsFormatter } from "../e-shape-points-formatter";
+import { EShapePointsFormatted } from "../e-shape-points-formatted";
+import { EShapeLineBasePointsHitTester } from "./e-shape-line-base-points-hit-tester";
+import { EShapeLineBasePointsHitTesterToRange } from "./e-shape-line-base-points-hit-tester-to-range";
 
 export class EShapeLinePoints implements EShapePoints {
 	protected static WORK_RANGE: [number, number] = [0, 0];
@@ -321,7 +321,7 @@ export class EShapeLinePoints implements EShapePoints {
 		ax: number,
 		ay: number,
 		threshold: number,
-		range: EShapeLineBasePointsTestRange | null,
+		toRange: EShapeLineBasePointsHitTesterToRange | null,
 		tester: EShapeLineBasePointsHitTester<RESULT>,
 		result: RESULT
 	): boolean {
@@ -333,9 +333,9 @@ export class EShapeLinePoints implements EShapePoints {
 			const style = formatted.style;
 			let istart = 0;
 			let iend = length;
-			if (range) {
+			if (toRange) {
 				const work = EShapeLinePoints.WORK_RANGE;
-				range(x, y, threshold, values, work);
+				toRange(x, y, threshold, values, work);
 				istart = work[0];
 				iend = work[1];
 			}

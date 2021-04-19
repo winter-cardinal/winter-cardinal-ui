@@ -7,12 +7,10 @@ import { IPoint } from "pixi.js";
 import { EShapeType } from "../e-shape-type";
 import { EShapeBase } from "./e-shape-base";
 import { EShapeLineOfAny } from "./e-shape-line-of-any";
-import {
-	EShapeLineOfAnyPoints,
-	EShapeLineOfAnyPointsHitTester,
-	EShapeLineOfAnyPointsTestRange,
-	EShapeLineOfAnyPointsToHitThreshold
-} from "./e-shape-line-of-any-points";
+import { EShapeLineOfAnyPoints } from "./e-shape-line-of-any-points";
+import { EShapeLineOfAnyPointsHitTester } from "./e-shape-line-of-any-points-hit-tester";
+import { EShapeLineOfAnyPointsHitTesterToRange } from "./e-shape-line-of-any-points-hit-tester-to-range";
+import { EShapeLineOfAnyPointsHitTesterToThreshold } from "./e-shape-line-of-any-points-hit-tester-to-threshold";
 import { EShapeLineOfAnyPointsImpl } from "./e-shape-line-of-any-points-impl";
 import { EShapeTriangleRounded } from "./e-shape-triangle-rounded";
 import { toHitThreshold } from "./to-hit-threshold";
@@ -79,8 +77,8 @@ export class EShapeLineOfTriangleRoundeds extends EShapeTriangleRounded implemen
 
 	calcHitPoint<RESULT>(
 		point: IPoint,
-		toThreshold: EShapeLineOfAnyPointsToHitThreshold | null,
-		range: EShapeLineOfAnyPointsTestRange | null,
+		toThreshold: EShapeLineOfAnyPointsHitTesterToThreshold | null,
+		toRange: EShapeLineOfAnyPointsHitTesterToRange | null,
 		tester: EShapeLineOfAnyPointsHitTester<RESULT> | null,
 		result: RESULT
 	): boolean {
@@ -91,7 +89,7 @@ export class EShapeLineOfTriangleRoundeds extends EShapeTriangleRounded implemen
 				rect.x,
 				rect.y,
 				threshold,
-				range,
+				toRange,
 				tester || this._tester,
 				result
 			);

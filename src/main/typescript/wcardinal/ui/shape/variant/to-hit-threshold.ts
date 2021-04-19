@@ -4,14 +4,12 @@
  */
 
 import { EShapeStroke } from "../e-shape-stroke";
-import {
-	EShapeLineOfAnyPoints,
-	EShapeLineOfAnyPointsToHitThreshold
-} from "./e-shape-line-of-any-points";
+import { EShapeLineOfAnyPoints } from "./e-shape-line-of-any-points";
+import { EShapeLineOfAnyPointsHitTesterToThreshold } from "./e-shape-line-of-any-points-hit-tester-to-threshold";
 
 export const toHitThreshold = (
 	target: { readonly stroke: EShapeStroke; readonly points: EShapeLineOfAnyPoints },
-	toThreshold: EShapeLineOfAnyPointsToHitThreshold | null
+	toThreshold: EShapeLineOfAnyPointsHitTesterToThreshold | null
 ): number => {
 	const stroke = target.stroke;
 	const size = target.points.size.getLimit() + (stroke.enable ? stroke.width * stroke.align : 0);

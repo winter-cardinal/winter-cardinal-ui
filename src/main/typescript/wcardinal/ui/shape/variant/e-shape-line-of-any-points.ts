@@ -5,36 +5,10 @@
 
 import { EShapePoints } from "../e-shape-points";
 import { EShapeLineOfAnyPointsFill } from "./e-shape-line-of-any-points-fill";
+import { EShapeLineOfAnyPointsHitTester } from "./e-shape-line-of-any-points-hit-tester";
+import { EShapeLineOfAnyPointsHitTesterToRange } from "./e-shape-line-of-any-points-hit-tester-to-range";
 import { EShapeLineOfAnyPointsPoint } from "./e-shape-line-of-any-points-point";
 import { EShapeLineOfAnyPointsStroke } from "./e-shape-line-of-any-points-stroke";
-
-export type EShapeLineOfAnyPointsToHitThreshold = (size: number, scale: number) => number;
-
-export type EShapeLineOfAnyPointsTestRange = (
-	x: number,
-	y: number,
-	ax: number,
-	ay: number,
-	ox: number,
-	oy: number,
-	threshold: number,
-	values: number[],
-	result: [number, number]
-) => [number, number];
-
-export type EShapeLineOfAnyPointsHitTester<RESULT> = (
-	x: number,
-	y: number,
-	ax: number,
-	ay: number,
-	ox: number,
-	oy: number,
-	px: number,
-	py: number,
-	index: number,
-	threshold: number,
-	result: RESULT
-) => boolean;
 
 export interface EShapeLineOfAnyPoints extends EShapePoints {
 	readonly size: EShapeLineOfAnyPointsPoint;
@@ -45,7 +19,7 @@ export interface EShapeLineOfAnyPoints extends EShapePoints {
 		x: number,
 		y: number,
 		threshold: number,
-		range: EShapeLineOfAnyPointsTestRange | null,
+		toRange: EShapeLineOfAnyPointsHitTesterToRange | null,
 		tester: EShapeLineOfAnyPointsHitTester<RESULT>,
 		result: RESULT
 	): boolean;
