@@ -5,24 +5,37 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
+import { EShapePointsStyle } from "../e-shape-points-style";
 import {
-	buildRectangleClipping,
-	buildRectangleIndex,
-	buildRectangleStep,
-	buildRectangleUv,
-	buildRectangleVertex,
-	RECTANGLE_WORLD_SIZE
-} from "./build-rectangle";
+	buildPolygonClipping,
+	buildPolygonFillColorStroke,
+	buildPolygonIndex,
+	buildPolygonStrokeColorStroke,
+	buildPolygonUv,
+	buildPolygonVertexAndStep,
+	PolygonDefinition
+} from "./build-polygon";
+import { getRectangleDefinition } from "./build-rectangle";
 import { EShapeTextUploaded } from "./e-shape-text-uploaded";
+import { toPolygonTransformed } from "./to-polygon-transformed";
 
 export class EShapeRectangleUploaded extends EShapeTextUploaded {
+	protected _polygon!: PolygonDefinition;
+
 	init(shape: EShape): this {
 		super.init(shape);
+
+		const polygon = getRectangleDefinition();
+		this._polygon = polygon;
 
 		// Indices
 		const buffer = this.buffer;
 		buffer.updateIndices();
-		buildRectangleIndex(buffer.indices, this.vertexOffset, this.indexOffset);
+		buildPolygonIndex(buffer.indices, this.vertexOffset, this.indexOffset, polygon);
+
+		// Clipping
+		buffer.updateClippings();
+		buildPolygonClipping(buffer.clippings, this.vertexOffset, polygon);
 
 		// Text
 		this.initText();
@@ -33,12 +46,12 @@ export class EShapeRectangleUploaded extends EShapeTextUploaded {
 
 	update(shape: EShape): void {
 		const buffer = this.buffer;
-		this.updateVertexClippingStepAndUv(buffer, shape);
+		this.updateVertexStepAndUv(buffer, shape);
 		this.updateColor(buffer, shape);
 		this.updateText(buffer, shape);
 	}
 
-	protected updateVertexClippingStepAndUv(buffer: EShapeBuffer, shape: EShape): void {
+	protected updateVertexStepAndUv(buffer: EShapeBuffer, shape: EShape): void {
 		const size = shape.size;
 		const sizeX = size.x;
 		const sizeY = size.y;
@@ -80,49 +93,80 @@ export class EShapeRectangleUploaded extends EShapeTextUploaded {
 
 			// Vertices
 			const voffset = this.vertexOffset;
-			buffer.updateVertices();
-			buildRectangleVertex(
-				buffer.vertices,
-				voffset,
+			const definition = this._polygon;
+			const transformed = toPolygonTransformed(
+				definition,
 				0,
 				0,
 				sizeX,
 				sizeY,
-				strokeAlign,
-				strokeWidth,
-				shape.transform.internalTransform,
-				RECTANGLE_WORLD_SIZE
+				shape.transform.internalTransform
 			);
-
-			// Steps
-			if (isVertexChanged || isTransformChanged) {
-				buffer.updateSteps();
-				buildRectangleStep(
-					voffset,
-					buffer.steps,
-					strokeWidth,
-					strokeSide,
-					this.antialiasWeight,
-					RECTANGLE_WORLD_SIZE
-				);
-			}
-
-			// Clippings
-			if (isVertexChanged) {
-				buffer.updateClippings();
-				buildRectangleClipping(buffer.clippings, voffset, RECTANGLE_WORLD_SIZE);
-			}
+			buffer.updateVertices();
+			buffer.updateSteps();
+			const length = buildPolygonVertexAndStep(
+				buffer.vertices,
+				buffer.steps,
+				buffer.colorFills,
+				voffset,
+				transformed,
+				EShapePointsStyle.NONE,
+				strokeWidth
+			);
 
 			// UVs
 			if (isVertexChanged || isTextureChanged) {
 				buffer.updateUvs();
-				buildRectangleUv(
+				buffer.updateColorFills();
+				buildPolygonUv(
 					buffer.uvs,
+					buffer.colorFills,
 					voffset,
+					transformed,
 					this.toTextureUvs(texture),
-					RECTANGLE_WORLD_SIZE
+					length
 				);
 			}
+		}
+	}
+
+	protected updateColorFill(buffer: EShapeBuffer, shape: EShape, vertexCount: number): void {
+		const fill = shape.fill;
+		const isEnabled = shape.visible && fill.enable;
+		const color = fill.color;
+		const alpha = isEnabled ? fill.alpha : 0;
+		if (color !== this.colorFill || alpha !== this.alphaFill) {
+			this.colorFill = color;
+			this.alphaFill = alpha;
+			buffer.updateColorStrokes();
+
+			buildPolygonFillColorStroke(
+				color,
+				alpha,
+				this.vertexOffset,
+				buffer.colorStrokes,
+				this._polygon
+			);
+		}
+	}
+
+	protected updateColorStroke(buffer: EShapeBuffer, shape: EShape, vertexCount: number): void {
+		const stroke = shape.stroke;
+		const isEnabled = shape.visible && stroke.enable && 0 < stroke.width;
+		const color = stroke.color;
+		const alpha = isEnabled ? stroke.alpha : 0;
+		if (color !== this.colorStroke || alpha !== this.alphaStroke) {
+			this.colorStroke = color;
+			this.alphaStroke = alpha;
+			buffer.updateColorStrokes();
+
+			buildPolygonStrokeColorStroke(
+				color,
+				alpha,
+				this.vertexOffset,
+				buffer.colorStrokes,
+				this._polygon
+			);
 		}
 	}
 }

@@ -130,7 +130,7 @@ export class EShapeContainer extends DisplayObject {
 	}
 
 	getAntialiasWeight(resolution: number): number {
-		return 1.25 / resolution;
+		return 1.0;
 	}
 
 	hitTest(global: IPoint, handler?: (shape: EShape) => boolean): EShape | null {

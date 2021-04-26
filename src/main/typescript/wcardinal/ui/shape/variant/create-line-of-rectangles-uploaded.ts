@@ -5,7 +5,7 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
-import { RECTANGLE_INDEX_COUNT, RECTANGLE_VERTEX_COUNT } from "./build-rectangle";
+import { RECTANGLE_INDEX_COUNT, RECTANGLE_VERTEX_COUNT } from "./build-rectangle-old";
 import { createLineOfAnyUploaded } from "./create-line-of-any-uploaded";
 import { EShapeLineOfRectanglesUploaded } from "./e-shape-line-of-rectangles-uploaded";
 

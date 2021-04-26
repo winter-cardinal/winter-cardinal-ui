@@ -15,7 +15,7 @@ import {
 	RECTANGLE_INDEX_COUNT,
 	RECTANGLE_VERTEX_COUNT,
 	RECTANGLE_WORLD_SIZE
-} from "./build-rectangle";
+} from "./build-rectangle-old";
 import { copyClipping } from "./copy-clipping";
 import { copyIndex } from "./copy-index";
 import { copyStep } from "./copy-step";

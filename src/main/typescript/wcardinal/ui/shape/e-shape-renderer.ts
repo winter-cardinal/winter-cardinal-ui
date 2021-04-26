@@ -72,13 +72,13 @@ vec2 toPosition3456( in float type, in vec2 p, in vec2 pprev, in vec2 pnext, in 
 	vec2 n1 = 0.00001 < l1 ? nd1 : nd0;
 	vec2 n0i = toInverse( n0 );
 	vec2 n1i = toInverse( n1 );
-	float direction = sign( 4.5 - type );
 
 	// Offset
 	float cross = dot( n0i, n1 );
 	float crossInverse = ( 0.00001 < abs( cross ) ? 1.0 / cross : 0.0 );
 	float b = dot(n1 - n0, n0) * crossInverse;
-	float offsetSize = direction * strokeWidth * 0.5;
+	float offsetSize = (type == 5.0 || type == 6.0 || type == 9.0 || type == 10.0 ?
+		strokeWidth + 1.5 * antialiasWeight * pixelScale : strokeWidth) * 0.5;
 	vec2 offset = n1 + n1i * b;
 
 	// Miter
@@ -86,10 +86,10 @@ vec2 toPosition3456( in float type, in vec2 p, in vec2 pprev, in vec2 pnext, in 
 	float miterAngle0 = dot( n0i, pmiter - pprev );
 	float miterAngle1 = dot( n1i, pmiter - pnext );
 	float miterLength = dot( offset, offset );
-	float miterSide = direction * cross;
+	float miterSide = cross;
 
 	// Bevel
-	vec2 n = ( type == 4.0 || type == 6.0 ? n1 : n0 );
+	vec2 n = ( type == 4.0 || type == 6.0 || type == 8.0 || type == 10.0 ? n1 : n0 );
 	vec2 pbevel = p + offsetSize * n;
 
 	//
@@ -103,7 +103,7 @@ vec2 toPosition3456( in float type, in vec2 p, in vec2 pprev, in vec2 pnext, in 
 		miterAngle0 < 0.0 && 0.0 <= miterAngle1 && miterLength < 6.0 ?
 		pmiter : pbevel
 	);
-	vec2 ni = ( type == 4.0 || type == 6.0 ? n1i : n0i );
+	vec2 ni = ( type == 4.0 || type == 6.0 || type == 8.0 || type == 10.0 ? n1i : n0i );
 	shift = dot( ni, p - presult );
 	return toTransformedPosition( presult );
 }
@@ -171,52 +171,8 @@ void main(void) {
 	vClipping = aClipping;
 	vStep = ( 2.5 < type ? step3456 : aStep );
 	vColorFill = ( 2.5 < type ? aColorStroke : aColorFill );
-	vColorStroke = ( 2.5 < type ? colorStroke3456 : aColorStroke );
+	vColorStroke = ( 2.5 < type ? (type < 6.5 ? colorStroke3456 : vec4(0.0,0.0,0.0,-1.0)) : aColorStroke );
 	vUv = aUv;
-}`;
-
-const FRAGMENT_SHADER_NO_AA = `
-varying mediump vec3 vClipping;
-varying mediump vec2 vStep;
-varying mediump vec4 vAntialias;
-varying mediump vec4 vColorFill;
-varying mediump vec4 vColorStroke;
-varying mediump vec2 vUv;
-
-uniform sampler2D sampler;
-uniform mediump float pixelScale;
-
-void main(void) {
-	vec4 texture = texture2D(sampler, vUv);
-	float type = vClipping.z;
-	vec2 v0 = vStep;
-	vec2 v1 = vClipping.xy;
-	vec2 v2 = v0 * vAntialias.xy;
-	vec2 v3 = v1 * vAntialias.zw;
-	vec2 d01 = ( v0.x < v0.y ? vec2( v0.y, v2.y ) : vec2( v0.x, v2.x ) );
-	vec2 d02 = ( v1.x < v1.y ? vec2( v1.y, v3.y ) : vec2( v1.x, v3.x ) );
-	vec4 d0 = vec4( d01.x, d02.x, d01.y, d02.y );
-	vec4 d1 = vec4( dot( v0, v0 ), dot( v1, v1 ), dot( v2, v2 ), dot( v3, v3 ) );
-	vec4 d = ( type == 1.0 ? d1 : d0 );
-	vec2 s = step( vec2( 1.0 ), d.xy );
-	vec4 color01 = texture * (vColorStroke * (s.x - s.y) + vColorFill * (1.0 - s.x));
-
-	float l = vColorStroke.x;
-	float lp0 = vColorStroke.y;
-	float lp1 = vColorStroke.z;
-	float lt = vColorStroke.w;
-	float lm = mod( l, lp0 + lp1 );
-	float ls0 = step( 0.0, lm );
-	float ls1 = step( lp0, lm );
-	float ls2 = ( 0.0 <= lt ? 1.0 - step( lt, l ) : 1.0 );
-	vec4 color3456 = color01 * ( ls0 - ls1 ) * ls2;
-
-	vec2 a0 = vAntialias.xy;
-	vec2 a1 = vAntialias.zw;
-	vec2 a2 = vec2( texture.a );
-	vec2 a = smoothstep( a0 - a1, a0 + a1, a2 );
-	vec4 color2 = a.x * vColorFill + ( a.y - a.x ) * vColorStroke;
-	gl_FragColor = ( type == 2.0 ? color2 : (2.5 < type ? color3456 : color01) );
 }`;
 
 const FRAGMENT_SHADER = `
@@ -253,7 +209,7 @@ void main(void) {
 	float lm = mod( l, lp0 + lp1 );
 	float ls0 = ( 0.0 < lp1 ? smoothstep( 0.0, ld, lm ) - smoothstep( lp0, lp0 + ld, lm ) : 1.0 );
 	float ls1 = ( 0.0 <= lt ? smoothstep( 0.0, ld, l ) - smoothstep( lt - ld, lt, l ) : 1.0 );
-	vec4 color3456 = color01 * ls0 * ls1;
+	vec4 color3456 = vColorFill * ls0 * ls1;
 
 	vec2 a0 = vAntialias.xy;
 	vec2 a1 = vAntialias.zw;

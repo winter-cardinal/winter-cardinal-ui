@@ -6,15 +6,16 @@
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
 import { EShapePointsStyle } from "../e-shape-points-style";
+import { toLineVertexCount, toPointsCount } from "./build-line";
 import {
-	buildLineClipping,
-	buildLineIndex,
-	buildLineUv,
-	buildLineVertexStepAndColorFill,
-	toLineVertexCount,
-	toPointsCount
-} from "./build-line";
+	buildPolylineClipping,
+	buildPolylineColorStroke,
+	buildPolylineIndex,
+	buildPolylineUv,
+	buildPolylineVertexStepAndColorFill
+} from "./build-polyline";
 import { EShapeTextUploaded } from "./e-shape-text-uploaded";
+import { toPolylineTransformed } from "./to-polyline-transformed";
 
 export class EShapeLineUploaded extends EShapeTextUploaded {
 	protected pointCount: number;
@@ -45,7 +46,7 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 		// Clipping & indices
 		const buffer = this.buffer;
 		buffer.updateIndices();
-		buildLineIndex(
+		buildPolylineIndex(
 			buffer.indices,
 			this.vertexOffset,
 			this.indexOffset,
@@ -92,7 +93,7 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 				this.pointId = -1;
 
 				buffer.updateClippings();
-				buildLineClipping(
+				buildPolylineClipping(
 					buffer.clippings,
 					this.vertexOffset,
 					this.vertexCount - this.textVertexCount,
@@ -134,19 +135,24 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 				buffer.updateSteps();
 				buffer.updateColorFills();
 				const formatted = points.formatted;
-				this.length = buildLineVertexStepAndColorFill(
+				const pointCount = this.pointCount;
+				const pointValues = toPolylineTransformed(
+					formatted.values,
+					pointCount,
+					shape.transform.internalTransform
+				);
+				this.length = buildPolylineVertexStepAndColorFill(
 					buffer.vertices,
 					buffer.steps,
 					buffer.colorFills,
 					this.vertexOffset,
 					this.vertexCount - this.textVertexCount,
-					this.pointCount,
+					pointCount,
 					this.pointsClosed,
-					formatted.values,
+					pointValues,
 					formatted.segments,
 					formatted.style,
-					strokeWidth,
-					shape.transform.internalTransform
+					strokeWidth
 				);
 			}
 		}
@@ -157,7 +163,23 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 		shape: EShape,
 		vertexCount: number
 	): void {
-		this.updateColorStroke(buffer, shape, vertexCount);
+		const stroke = shape.stroke;
+		const isEnabled = shape.visible && stroke.enable && 0 < stroke.width;
+		const color = stroke.color;
+		const alpha = isEnabled ? stroke.alpha : 0;
+		if (color !== this.colorStroke || alpha !== this.alphaStroke) {
+			this.colorStroke = color;
+			this.alphaStroke = alpha;
+			buffer.updateColorStrokes();
+
+			buildPolylineColorStroke(
+				color,
+				alpha,
+				this.vertexOffset,
+				vertexCount,
+				buffer.colorStrokes
+			);
+		}
 	}
 
 	updateLineUv(buffer: EShapeBuffer, shape: EShape): void {
@@ -169,7 +191,7 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 
 			const pointCount = this.pointCount;
 			buffer.updateUvs();
-			buildLineUv(
+			buildPolylineUv(
 				buffer.uvs,
 				buffer.colorFills,
 				this.vertexOffset,
