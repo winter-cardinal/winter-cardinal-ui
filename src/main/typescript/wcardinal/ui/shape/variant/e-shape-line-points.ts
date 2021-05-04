@@ -175,12 +175,10 @@ export class EShapeLinePoints implements EShapePoints {
 			let formatter = this._formatter;
 			if (formatter == null) {
 				const style = this._style;
-				if (style & EShapePointsStyle.TYPE_MASK) {
-					if (style & EShapePointsStyle.STRAIGHT) {
-						formatter = eShapePointsFormatterStraight;
-					} else {
-						formatter = eShapePointsFormatterCurve;
-					}
+				if (style & EShapePointsStyle.STRAIGHT) {
+					formatter = eShapePointsFormatterStraight;
+				} else if (style & EShapePointsStyle.CURVE) {
+					formatter = eShapePointsFormatterCurve;
 				}
 			}
 			if (formatter != null) {
@@ -188,8 +186,7 @@ export class EShapeLinePoints implements EShapePoints {
 					result = {
 						length: 0,
 						values: [],
-						segments: [],
-						style: EShapePointsStyle.NONE
+						segments: []
 					};
 				}
 				formatter(this, result);
@@ -330,7 +327,7 @@ export class EShapeLinePoints implements EShapePoints {
 		if (2 <= length) {
 			const values = formatted.values;
 			const segments = formatted.segments;
-			const style = formatted.style;
+			const style = this._style;
 			let istart = 0;
 			let iend = length;
 			if (toRange) {

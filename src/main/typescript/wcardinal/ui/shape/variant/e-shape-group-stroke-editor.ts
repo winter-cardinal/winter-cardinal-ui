@@ -7,6 +7,7 @@ import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manage
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeStroke, EShapeStrokeLike } from "../e-shape-stroke";
 import { EShapeStrokeSide } from "../e-shape-stroke-side";
+import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { EShapeGroupPropertyParent } from "./e-shape-group-property-parent";
 
 export class EShapeGroupStrokeEditor implements EShapeStroke {
@@ -106,6 +107,21 @@ export class EShapeGroupStrokeEditor implements EShapeStroke {
 		}
 	}
 
+	get style(): EShapeStrokeStyle {
+		const children = this._parent.children;
+		if (0 < children.length) {
+			return children[children.length - 1].stroke.style;
+		}
+		return 1.0;
+	}
+
+	set style(style: EShapeStrokeStyle) {
+		const children = this._parent.children;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].stroke.style = style;
+		}
+	}
+
 	copy(target?: Partial<EShapeStrokeLike>): void {
 		const children = this._parent.children;
 		for (let i = 0, imax = children.length; i < imax; ++i) {
@@ -114,15 +130,17 @@ export class EShapeGroupStrokeEditor implements EShapeStroke {
 	}
 
 	set(
-		enable: boolean,
-		color: number,
-		alpha: number,
-		width: number,
-		side: EShapeStrokeSide
+		enable?: boolean,
+		color?: number,
+		alpha?: number,
+		width?: number,
+		align?: number,
+		side?: EShapeStrokeSide,
+		style?: EShapeStrokeStyle
 	): void {
 		const children = this._parent.children;
 		for (let i = 0, imax = children.length; i < imax; ++i) {
-			children[i].stroke.set(enable, color, alpha, width, side);
+			children[i].stroke.set(enable, color, alpha, width, align, side, style);
 		}
 	}
 
@@ -141,7 +159,8 @@ export class EShapeGroupStrokeEditor implements EShapeStroke {
 			alpha: 1.0,
 			width: 1.0,
 			align: 0.0,
-			side: EShapeStrokeSide.NONE
+			side: EShapeStrokeSide.NONE,
+			style: EShapeStrokeStyle.NONE
 		};
 	}
 

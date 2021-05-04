@@ -18,6 +18,7 @@ import {
 	DChartSeriesStrokeComputed,
 	DChartSeriesStrokeComputedOptions
 } from "./d-chart-series-stroke-computed";
+import { EShapePointsStyle } from "./shape";
 import { EShapeLine } from "./shape/variant/e-shape-line";
 
 /**
@@ -55,9 +56,10 @@ export class DChartSeriesLinear extends DChartSeriesBase {
 		if (!line) {
 			const stroke = container.newStroke(index, this._options?.stroke);
 			this._stroke = stroke;
-			line = new EShapeLine([], [], stroke.width, stroke.style);
+			line = new EShapeLine([], [], stroke.width, EShapePointsStyle.NONE);
 			line.stroke.color = stroke.color;
 			line.stroke.alpha = stroke.alpha;
+			line.stroke.style = stroke.style;
 			this._line = line;
 		}
 		line.attach(container.plotArea.container, index);

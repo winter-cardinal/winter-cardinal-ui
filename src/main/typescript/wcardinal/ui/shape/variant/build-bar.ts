@@ -1,5 +1,10 @@
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { Matrix, Point, TextureUvs } from "pixi.js";
-import { EShapePointsStyle } from "../e-shape-points-style";
+import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toDash } from "./to-dash";
 import { toScaleInvariant } from "./to-scale-invariant";
 
@@ -48,9 +53,9 @@ export const buildBarVertexStepAndColorFill = (
 	colorFills: Float32Array,
 	voffset: number,
 	pointValues: number[],
-	pointsStyle: EShapePointsStyle,
 	pointsSize: number,
 	strokeWidth: number,
+	strokeStyle: EShapeStrokeStyle,
 	internalTransform: Matrix
 ): void => {
 	// First point
@@ -92,7 +97,7 @@ export const buildBarVertexStepAndColorFill = (
 	const p3y = p2y + dy;
 
 	//
-	const scaleInvariant = toScaleInvariant(pointsStyle);
+	const scaleInvariant = toScaleInvariant(strokeStyle);
 	const iv = voffset << 1;
 	const icf = voffset << 2;
 	const is = voffset * 6;
@@ -135,7 +140,7 @@ export const buildBarVertexStepAndColorFill = (
 	colorFills[icf + 12] = l;
 
 	// Total length
-	const dash = toDash(l, strokeWidth, pointsStyle, BAR_WORK_POINT);
+	const dash = toDash(l, strokeWidth, strokeStyle, BAR_WORK_POINT);
 	const dash0 = dash.x;
 	const dash1 = dash.y;
 	colorFills[icf + 1] = dash0;

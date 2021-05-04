@@ -5,12 +5,9 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
-import {
-	TRIANGLE_ROUNDED_INDEX_COUNT,
-	TRIANGLE_ROUNDED_VERTEX_COUNT
-} from "./build-triangle-rounded";
 import { createLineOfAnyUploaded } from "./create-line-of-any-uploaded";
-import { EShapeLineOfTriangleRoundedsUploaded } from "./e-shape-line-of-triangle-roundeds-uploaded";
+import { EShapeLineOfAnyUploaded } from "./e-shape-line-of-any-uploaded";
+import { PolygonTriangleRounded } from "./polygon-triangle-rounded";
 
 export const createLineOfTriangleRoundedsUploaded = (
 	buffer: EShapeBuffer,
@@ -18,15 +15,13 @@ export const createLineOfTriangleRoundedsUploaded = (
 	voffset: number,
 	ioffset: number,
 	antialiasWeight: number
-): EShapeLineOfTriangleRoundedsUploaded | null => {
+): EShapeLineOfAnyUploaded | null => {
 	return createLineOfAnyUploaded(
 		buffer,
 		shape,
 		voffset,
-		TRIANGLE_ROUNDED_VERTEX_COUNT,
 		ioffset,
-		TRIANGLE_ROUNDED_INDEX_COUNT,
 		antialiasWeight,
-		EShapeLineOfTriangleRoundedsUploaded
+		PolygonTriangleRounded.getInstance()
 	);
 };

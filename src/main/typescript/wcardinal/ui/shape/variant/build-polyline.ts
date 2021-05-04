@@ -3,9 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Matrix, Point, TextureUvs } from "pixi.js";
-import { toIndexOf } from "../../util/to-index-of";
-import { EShapePointsStyle } from "../e-shape-points-style";
+import { Point, TextureUvs } from "pixi.js";
+import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toDash } from "./to-dash";
 import { toLength } from "./to-length";
 import { toScaleInvariant } from "./to-scale-invariant";
@@ -15,9 +14,9 @@ const POLYLINE_WORK_POINT = new Point();
 export const toPolylineVertexCount = (pointCount: number, pointsClosed: boolean): number => {
 	if (2 <= pointCount) {
 		if (pointsClosed) {
-			return pointCount * 8 + 4;
+			return (pointCount + 1) * 8;
 		} else {
-			return (pointCount - 1) * 8;
+			return pointCount * 8;
 		}
 	}
 	return 0;
@@ -28,7 +27,7 @@ export const toPolylineIndexCount = (pointCount: number, pointsClosed: boolean):
 		if (pointsClosed) {
 			return pointCount * 12;
 		} else {
-			return 6 + (pointCount - 2) * 12;
+			return (pointCount - 1) * 12;
 		}
 	}
 	return 0;
@@ -37,24 +36,26 @@ export const toPolylineIndexCount = (pointCount: number, pointsClosed: boolean):
 const fillPolylineClipping = (
 	ic: number,
 	clippings: Float32Array | number[],
-	typeInner: number,
-	typeOuter: number
+	type0: number,
+	type1: number,
+	type2: number,
+	type3: number
 ): number => {
 	clippings[++ic] = 1;
 	clippings[++ic] = 0;
-	clippings[++ic] = typeOuter;
+	clippings[++ic] = type0;
 
 	clippings[++ic] = 1;
 	clippings[++ic] = 0;
-	clippings[++ic] = typeInner;
+	clippings[++ic] = type1;
 
 	clippings[++ic] = 1;
 	clippings[++ic] = 0;
-	clippings[++ic] = typeInner;
+	clippings[++ic] = type2;
 
 	clippings[++ic] = 1;
 	clippings[++ic] = 0;
-	clippings[++ic] = typeOuter;
+	clippings[++ic] = type3;
 	return ic;
 };
 
@@ -67,21 +68,21 @@ export const buildPolylineClipping = (
 ): void => {
 	let ic = voffset * 3 - 1;
 	if (2 <= pointCount) {
-		if (!pointsClosed) {
-			ic = fillPolylineClipping(ic, clippings, 4, 6);
+		for (let i = 0, imax = pointCount; i < imax; ++i) {
+			ic = fillPolylineClipping(ic, clippings, 3, 4, 5, 6);
+			ic = fillPolylineClipping(ic, clippings, 7, 8, 9, 10);
 		}
-		for (let i = pointsClosed ? 0 : 1, imax = pointCount - i; i < imax; ++i) {
-			ic = fillPolylineClipping(ic, clippings, 3, 5);
-			ic = fillPolylineClipping(ic, clippings, 4, 6);
+		if (pointsClosed) {
+			ic = fillPolylineClipping(ic, clippings, 3, 4, 5, 6);
+			ic = fillPolylineClipping(ic, clippings, 3, 4, 5, 6);
 		}
-		ic = fillPolylineClipping(ic, clippings, 3, 5);
 	}
 
 	const icmax = (voffset + vcount) * 3 - 1;
 	for (; ic < icmax; ) {
 		clippings[++ic] = 0;
 		clippings[++ic] = 0;
-		clippings[++ic] = 0;
+		clippings[++ic] = 3;
 	}
 };
 
@@ -241,18 +242,12 @@ export const buildPolylineUv = (
 		let icf = (voffset << 2) - 16;
 		const lengthInverse = 1 / Math.max(0.00001, length);
 		let r = 0;
-		if (!pointsClosed) {
-			r = colorFills[(icf += 16)] * lengthInverse;
-			iuv = fillPolylineUv(iuv, uvs, x0, y0, x3, y3, r, dx01, dy01, dx32, dy32);
-		}
-		for (let i = pointsClosed ? 0 : 1, imax = pointCount - i; i < imax; ++i) {
+		for (let i = 0, imax = pointCount + (pointsClosed ? 1 : 0); i < imax; ++i) {
 			r = colorFills[(icf += 16)] * lengthInverse;
 			iuv = fillPolylineUv(iuv, uvs, x0, y0, x3, y3, r, dx01, dy01, dx32, dy32);
 			r = colorFills[(icf += 16)] * lengthInverse;
 			iuv = fillPolylineUv(iuv, uvs, x0, y0, x3, y3, r, dx01, dy01, dx32, dy32);
 		}
-		r = colorFills[(icf += 16)] * lengthInverse;
-		iuv = fillPolylineUv(iuv, uvs, x0, y0, x3, y3, r, dx01, dy01, dx32, dy32);
 	}
 
 	// Fill the rest
@@ -272,7 +267,8 @@ const fillPolylineVertexStepAndColorFill = (
 	colorFills: Float32Array | number[],
 	px: number,
 	py: number,
-	strokeWidth: number,
+	strokeWidth0: number,
+	strokeWidth1: number,
 	scaleInvariant: number,
 	pprevx: number,
 	pprevy: number,
@@ -282,7 +278,7 @@ const fillPolylineVertexStepAndColorFill = (
 ): void => {
 	vertices[++iv] = px;
 	vertices[++iv] = py;
-	steps[++is] = strokeWidth;
+	steps[++is] = strokeWidth0;
 	steps[++is] = scaleInvariant;
 	steps[++is] = pprevx;
 	steps[++is] = pprevy;
@@ -292,7 +288,7 @@ const fillPolylineVertexStepAndColorFill = (
 
 	vertices[++iv] = px;
 	vertices[++iv] = py;
-	steps[++is] = strokeWidth;
+	steps[++is] = strokeWidth0;
 	steps[++is] = scaleInvariant;
 	steps[++is] = pprevx;
 	steps[++is] = pprevy;
@@ -302,22 +298,22 @@ const fillPolylineVertexStepAndColorFill = (
 
 	vertices[++iv] = px;
 	vertices[++iv] = py;
-	steps[++is] = strokeWidth;
+	steps[++is] = strokeWidth1;
 	steps[++is] = scaleInvariant;
-	steps[++is] = pnextx;
-	steps[++is] = pnexty;
 	steps[++is] = pprevx;
 	steps[++is] = pprevy;
+	steps[++is] = pnextx;
+	steps[++is] = pnexty;
 	colorFills[(icf += 4)] = llo;
 
 	vertices[++iv] = px;
 	vertices[++iv] = py;
-	steps[++is] = strokeWidth;
+	steps[++is] = strokeWidth1;
 	steps[++is] = scaleInvariant;
-	steps[++is] = pnextx;
-	steps[++is] = pnexty;
 	steps[++is] = pprevx;
 	steps[++is] = pprevy;
+	steps[++is] = pnextx;
+	steps[++is] = pnexty;
 	colorFills[(icf += 4)] = llo;
 };
 
@@ -327,315 +323,583 @@ export const buildPolylineVertexStepAndColorFill = (
 	colorFills: Float32Array | number[],
 	voffset: number,
 	vcount: number,
-	pointCount: number,
-	pointsClosed: boolean,
-	pointValues: number[],
-	pointSegments: number[],
-	pointsStyle: EShapePointsStyle,
-	strokeWidth: number
+	polylineVertices: number[],
+	polylineNormals: number[],
+	polylineSegments: number[],
+	polylineIsClosed: boolean,
+	polylineVertexCount: number,
+	strokeWidth: number,
+	strokeAlign: number,
+	strokeStyle: EShapeStrokeStyle
 ): number => {
-	let iv = (voffset << 1) - 1;
-	let is = voffset * 6 - 1;
-	let icf = (voffset << 2) - 1;
 	let lmax = 0;
-	let px = 0;
-	let py = 0;
-	if (2 <= pointCount) {
-		const scaleInvariant = toScaleInvariant(pointsStyle);
+	let lprev = 0;
+	let ivertex = voffset;
+	const polylineSegmentsLength = polylineSegments.length;
+	if (0 < polylineSegmentsLength) {
+		if (polylineIsClosed) {
+			let iseg = 0;
+			let iprevseg = polylineSegments[0];
+			for (let i = 1; i < polylineSegmentsLength; ++i) {
+				const iseg = polylineSegments[i];
+				if (2 <= iseg - iprevseg) {
+					lprev = buildPolylineSegmentOpenVertexStepAndColorFill(
+						vertices,
+						steps,
+						colorFills,
+						ivertex,
+						polylineVertices,
+						polylineNormals,
+						iprevseg,
+						iseg,
+						polylineVertexCount,
+						strokeWidth,
+						strokeAlign,
+						strokeStyle
+					);
+					lmax = Math.max(lmax, lprev);
+					ivertex += (iseg - iprevseg) * 8;
+				}
+				iprevseg = iseg;
+			}
 
-		//
-		let l = 0;
-		let lprev = 0;
-		let lnext = 0;
-		let llop = 0;
-		let llo = 0;
-		let pprevx = 0;
-		let pprevy = 0;
-		let pnextx = 0;
-		let pnexty = 0;
-		let pseg = false;
-		let psegnext = false;
-		let icfprev = icf;
-		let loffset = 0;
-		const ipvoffset = 0 < pointSegments.length ? pointSegments[0] : 0;
-
-		// First point
-		let ipv = ipvoffset % pointCount;
-		let ipvs = ipv << 1;
-		const pfirstx = pointValues[ipvs];
-		const pfirsty = pointValues[ipvs + 1];
-		const psegfirst = 0 <= toIndexOf(pointSegments, ipv);
-
-		// Last point
-		ipv = (ipvoffset + pointCount - 1) % pointCount;
-		ipvs = ipv << 1;
-		const plastx = pointValues[ipvs];
-		const plasty = pointValues[ipvs + 1];
-		const pseglast = 0 <= toIndexOf(pointSegments, ipv);
-
-		// Second point
-		let psecondx = plastx;
-		let psecondy = plasty;
-		let psegsecond = pseglast;
-		if (2 < pointCount) {
-			ipv = (ipvoffset + 1) % pointCount;
-			ipvs = ipv << 1;
-			psecondx = pointValues[ipvs];
-			psecondy = pointValues[ipvs + 1];
-			psegsecond = 0 <= toIndexOf(pointSegments, ipv);
-		}
-
-		// First segment
-		if (pointsClosed) {
-			px = plastx;
-			py = plasty;
-			pnextx = pfirstx;
-			pnexty = pfirsty;
-			pseg = pseglast;
-			psegnext = psegfirst;
+			// Last
+			iseg = polylineSegments[0] + polylineVertexCount;
+			if (2 <= iseg - iprevseg) {
+				lprev = buildPolylineSegmentOpenVertexStepAndColorFill(
+					vertices,
+					steps,
+					colorFills,
+					ivertex,
+					polylineVertices,
+					polylineNormals,
+					iprevseg,
+					iseg,
+					polylineVertexCount,
+					strokeWidth,
+					strokeAlign,
+					strokeStyle
+				);
+				lmax = Math.max(lmax, lprev);
+				ivertex += (iseg - iprevseg) * 8;
+			}
 		} else {
-			pprevx = pfirstx - (psecondx - pfirstx);
-			pprevy = pfirsty - (psecondy - pfirsty);
-			px = pfirstx;
-			py = pfirsty;
-			pnextx = psecondx;
-			pnexty = psecondy;
-			pseg = psegfirst;
-			psegnext = psegsecond;
-			lnext += toLength(px, py, pnextx, pnexty);
+			// First
+			let iseg = polylineSegments[0];
+			if (2 <= iseg) {
+				lprev = buildPolylineSegmentOpenVertexStepAndColorFill(
+					vertices,
+					steps,
+					colorFills,
+					ivertex,
+					polylineVertices,
+					polylineNormals,
+					0,
+					iseg,
+					polylineVertexCount,
+					strokeWidth,
+					strokeAlign,
+					strokeStyle
+				);
+				lmax = Math.max(lmax, lprev);
+				ivertex += iseg * 8;
+			}
 
-			//
-			fillPolylineVertexStepAndColorFill(
-				iv,
-				vertices,
-				is,
-				steps,
-				icf,
-				colorFills,
-				px,
-				py,
-				strokeWidth,
-				scaleInvariant,
-				pprevx,
-				pprevy,
-				pnextx,
-				pnexty,
-				llo
-			);
-			iv += 8;
-			is += 24;
-			icf += 16;
+			// Middle
+			let iprevseg = iseg;
+			for (let i = 1; i < polylineSegmentsLength; ++i) {
+				iseg = polylineSegments[1];
+				if (2 <= iseg - iprevseg) {
+					lprev = buildPolylineSegmentOpenVertexStepAndColorFill(
+						vertices,
+						steps,
+						colorFills,
+						ivertex,
+						polylineVertices,
+						polylineNormals,
+						iprevseg,
+						iseg,
+						polylineVertexCount,
+						strokeWidth,
+						strokeAlign,
+						strokeStyle
+					);
+					lmax = Math.max(lmax, lprev);
+					ivertex += (iseg - iprevseg) * 8;
+				}
+				iprevseg = iseg;
+			}
+
+			// Last
+			iseg = polylineVertexCount;
+			if (2 <= iseg - iprevseg) {
+				lprev = buildPolylineSegmentOpenVertexStepAndColorFill(
+					vertices,
+					steps,
+					colorFills,
+					ivertex,
+					polylineVertices,
+					polylineNormals,
+					iprevseg,
+					iseg,
+					polylineVertexCount,
+					strokeWidth,
+					strokeAlign,
+					strokeStyle
+				);
+				lmax = Math.max(lmax, lprev);
+				ivertex += (iseg - iprevseg) * 8;
+			}
 		}
-
-		// Middle segments
-		for (let i = pointsClosed ? 0 : 1, imax = pointCount - i; i < imax; ++i) {
-			pprevx = px;
-			pprevy = py;
-			px = pnextx;
-			py = pnexty;
-			pseg = psegnext;
-			if (i === pointCount - 2) {
-				pnextx = plastx;
-				pnexty = plasty;
-				psegnext = pseglast;
-			} else if (i === 0) {
-				pnextx = psecondx;
-				pnexty = psecondy;
-				psegnext = psegsecond;
-			} else if (i < pointCount - 1) {
-				ipv = (ipvoffset + i + 1) % pointCount;
-				ipvs = ipv << 1;
-				pnextx = pointValues[ipvs];
-				pnexty = pointValues[ipvs + 1];
-				psegnext = 0 <= toIndexOf(pointSegments, ipv);
-			} else {
-				pnextx = pfirstx;
-				pnexty = pfirsty;
-				psegnext = psegfirst;
-			}
-			lprev = l;
-			l = lnext;
-			lnext += toLength(px, py, pnextx, pnexty);
-
-			let pnextxn = pnextx;
-			let pnextyn = pnexty;
-			let loffsetprev = loffset;
-			if (pseg) {
-				pprevx = px - (pnextx - px);
-				pprevy = py - (pnexty - py);
-
-				lmax = Math.max(lmax, llo);
-
-				llop = lprev - loffset;
-				const dash = toDash(llop, strokeWidth, pointsStyle, POLYLINE_WORK_POINT);
-				const dash0 = dash.x;
-				const dash1 = dash.y;
-				for (let j = icfprev; j < icf + 16; j += 4) {
-					colorFills[j + 2] = dash0;
-					colorFills[j + 3] = dash1;
-					colorFills[j + 4] = llop;
-				}
-				icfprev = icf + 16;
-				loffsetprev = loffset;
-				loffset = l;
-			} else if (psegnext) {
-				pnextxn = px + (px - pprevx);
-				pnextyn = py + (py - pprevy);
-			}
-
-			// Vertices
-			llop = l - loffsetprev;
-			fillPolylineVertexStepAndColorFill(
-				iv,
+	} else {
+		if (polylineIsClosed) {
+			lprev = buildPolylineSegmentClosedVertexStepAndColorFill(
 				vertices,
-				is,
 				steps,
-				icf,
 				colorFills,
-				px,
-				py,
+				ivertex,
+				polylineVertices,
+				polylineNormals,
+				0,
+				polylineVertexCount,
+				polylineVertexCount,
 				strokeWidth,
-				scaleInvariant,
-				pprevx,
-				pprevy,
-				pnextxn,
-				pnextyn,
-				llop
+				strokeAlign,
+				strokeStyle
 			);
-			iv += 8;
-			is += 24;
-			icf += 16;
-
-			llo = l - loffset;
-			fillPolylineVertexStepAndColorFill(
-				iv,
+			lmax = Math.max(lmax, lprev);
+			ivertex += (polylineVertexCount + 1) * 8;
+		} else {
+			lprev = buildPolylineSegmentOpenVertexStepAndColorFill(
 				vertices,
-				is,
 				steps,
-				icf,
 				colorFills,
-				px,
-				py,
+				ivertex,
+				polylineVertices,
+				polylineNormals,
+				0,
+				polylineVertexCount,
+				polylineVertexCount,
 				strokeWidth,
-				scaleInvariant,
-				pprevx,
-				pprevy,
-				pnextxn,
-				pnextyn,
-				llo
+				strokeAlign,
+				strokeStyle
 			);
-			iv += 8;
-			is += 24;
-			icf += 16;
-		}
-
-		// Last segment
-		{
-			pprevx = px;
-			pprevy = py;
-			px = pnextx;
-			py = pnexty;
-			pseg = psegnext;
-			if (pointsClosed) {
-				pnextx = psecondx;
-				pnexty = psecondy;
-				psegnext = psegsecond;
-			} else {
-				pnextx = px + (px - pprevx);
-				pnexty = py + (py - pprevy);
-				psegnext = false;
-			}
-			lprev = l;
-			l = lnext;
-
-			let pnextxn = pnextx;
-			let pnextyn = pnexty;
-			let loffsetprev = loffset;
-			if (pseg) {
-				pprevx = px - (pnextx - px);
-				pprevy = py - (pnexty - py);
-
-				lmax = Math.max(lmax, llo);
-
-				llop = lprev - loffset;
-				const dash = toDash(llop, strokeWidth, pointsStyle, POLYLINE_WORK_POINT);
-				const dash0 = dash.x;
-				const dash1 = dash.y;
-				for (let j = icfprev; j < icf + 16; j += 4) {
-					colorFills[j + 2] = dash0;
-					colorFills[j + 3] = dash1;
-					colorFills[j + 4] = llop;
-				}
-				icfprev = icf + 16;
-				loffsetprev = loffset;
-				loffset = l;
-			} else if (psegnext) {
-				pnextxn = px + (px - pprevx);
-				pnextyn = py + (py - pprevy);
-			}
-
-			// Vertices
-			llop = l - loffsetprev;
-			lmax = Math.max(lmax, llop);
-			fillPolylineVertexStepAndColorFill(
-				iv,
-				vertices,
-				is,
-				steps,
-				icf,
-				colorFills,
-				px,
-				py,
-				strokeWidth,
-				scaleInvariant,
-				pprevx,
-				pprevy,
-				pnextxn,
-				pnextyn,
-				llop
-			);
-			iv += 8;
-			is += 24;
-			icf += 16;
-
-			// Total length
-			if (icfprev < icf) {
-				const dash = toDash(llop, strokeWidth, pointsStyle, POLYLINE_WORK_POINT);
-				const dash0 = dash.x;
-				const dash1 = dash.y;
-				if (pointsClosed) {
-					for (let i = icfprev; i < icf; i += 4) {
-						colorFills[i + 2] = dash0;
-						colorFills[i + 3] = dash1;
-						colorFills[i + 4] = -1;
-					}
-				} else {
-					for (let i = icfprev; i < icf; i += 4) {
-						colorFills[i + 2] = dash0;
-						colorFills[i + 3] = dash1;
-						colorFills[i + 4] = llop;
-					}
-				}
-			}
+			lmax = Math.max(lmax, lprev);
+			ivertex += polylineVertexCount * 8;
 		}
 	}
 
 	// Fill the rest
-	const ivmax = ((voffset + vcount) << 1) - 1;
-	for (; iv < ivmax; ) {
+	const ivertexmax = voffset + vcount;
+	let iv = (ivertex << 1) - 1;
+	let is = ivertex * 6 - 1;
+	let icf = (ivertex << 2) - 1;
+	const ilast = (polylineVertexCount - 1) << 1;
+	const px = polylineVertices[ilast];
+	const py = polylineVertices[ilast + 1];
+	for (; ivertex < ivertexmax; ++ivertex) {
 		vertices[++iv] = px;
 		vertices[++iv] = py;
 		steps[++is] = 0;
 		steps[++is] = 0;
+		steps[++is] = 1;
 		steps[++is] = 0;
+		steps[++is] = 1;
 		steps[++is] = 0;
-		steps[++is] = 0;
-		steps[++is] = 0;
+		colorFills[++icf] = 2;
 		colorFills[++icf] = 0;
 		colorFills[++icf] = 0;
-		colorFills[++icf] = 0;
-		colorFills[++icf] = 0;
+		colorFills[++icf] = 1;
 	}
 
 	return lmax;
+};
+
+export const buildPolylineSegmentOpenVertexStepAndColorFill = (
+	vertices: Float32Array | number[],
+	steps: Float32Array | number[],
+	colorFills: Float32Array | number[],
+	voffset: number,
+	polylineVertices: number[],
+	polylineNormals: number[],
+	polylineVertexFrom: number,
+	polylineVertexTo: number,
+	polylineVertexCount: number,
+	strokeWidth: number,
+	strokeAlign: number,
+	strokeStyle: EShapeStrokeStyle
+): number => {
+	const scaleInvariant = toScaleInvariant(strokeStyle);
+	const sws = 2 * (strokeAlign - 0.5);
+	const sw0 = strokeWidth * (1 - sws);
+	const sw1 = strokeWidth * (1 + sws);
+
+	// First segment
+	const ifirst = polylineVertexFrom % polylineVertexCount << 1;
+	let px = polylineVertices[ifirst];
+	let py = polylineVertices[ifirst + 1];
+	let nx = polylineNormals[ifirst];
+	let ny = polylineNormals[ifirst + 1];
+	let pprevx = px;
+	let pprevy = py;
+	let nprevx = nx;
+	let nprevy = ny;
+	let l = 0;
+	let iv = (voffset << 1) - 1;
+	let is = voffset * 6 - 1;
+	let icf = (voffset << 2) - 1;
+	fillPolylineVertexStepAndColorFill(
+		iv,
+		vertices,
+		is,
+		steps,
+		icf,
+		colorFills,
+		px,
+		py,
+		sw0,
+		sw1,
+		scaleInvariant,
+		nx,
+		ny,
+		nx,
+		ny,
+		2
+	);
+	iv += 8;
+	is += 24;
+	icf += 16;
+
+	fillPolylineVertexStepAndColorFill(
+		iv,
+		vertices,
+		is,
+		steps,
+		icf,
+		colorFills,
+		px,
+		py,
+		sw0,
+		sw1,
+		scaleInvariant,
+		nx,
+		ny,
+		nx,
+		ny,
+		0
+	);
+	iv += 8;
+	is += 24;
+	icf += 16;
+
+	// Middle segments
+	for (let i = polylineVertexFrom + 1, imax = polylineVertexTo - 1; i < imax; ++i) {
+		pprevx = px;
+		pprevy = py;
+		nprevx = nx;
+		nprevy = ny;
+
+		const imiddle = i % polylineVertexCount << 1;
+		px = polylineVertices[imiddle];
+		py = polylineVertices[imiddle + 1];
+		nx = polylineNormals[imiddle];
+		ny = polylineNormals[imiddle + 1];
+
+		l += toLength(pprevx, pprevy, px, py);
+
+		fillPolylineVertexStepAndColorFill(
+			iv,
+			vertices,
+			is,
+			steps,
+			icf,
+			colorFills,
+			px,
+			py,
+			sw0,
+			sw1,
+			scaleInvariant,
+			nprevx,
+			nprevy,
+			nx,
+			ny,
+			l
+		);
+		iv += 8;
+		is += 24;
+		icf += 16;
+
+		fillPolylineVertexStepAndColorFill(
+			iv,
+			vertices,
+			is,
+			steps,
+			icf,
+			colorFills,
+			px,
+			py,
+			sw0,
+			sw1,
+			scaleInvariant,
+			nprevx,
+			nprevy,
+			nx,
+			ny,
+			l
+		);
+		iv += 8;
+		is += 24;
+		icf += 16;
+	}
+
+	// Last segment
+	pprevx = px;
+	pprevy = py;
+	nprevx = nx;
+	nprevy = ny;
+
+	const ilast = (polylineVertexTo - 1) % polylineVertexCount << 1;
+	px = polylineVertices[ilast];
+	py = polylineVertices[ilast + 1];
+	nx = polylineNormals[ilast];
+	ny = polylineNormals[ilast + 1];
+
+	l += toLength(pprevx, pprevy, px, py);
+
+	fillPolylineVertexStepAndColorFill(
+		iv,
+		vertices,
+		is,
+		steps,
+		icf,
+		colorFills,
+		px,
+		py,
+		sw0,
+		sw1,
+		scaleInvariant,
+		nprevx,
+		nprevy,
+		nprevx,
+		nprevy,
+		l
+	);
+	iv += 8;
+	is += 24;
+	icf += 16;
+
+	fillPolylineVertexStepAndColorFill(
+		iv,
+		vertices,
+		is,
+		steps,
+		icf,
+		colorFills,
+		px,
+		py,
+		sw0,
+		sw1,
+		scaleInvariant,
+		nprevx,
+		nprevy,
+		nprevx,
+		nprevy,
+		2
+	);
+	iv += 8;
+	is += 24;
+	icf += 16;
+
+	// Total length
+	const dash = toDash(l, strokeWidth, strokeStyle, POLYLINE_WORK_POINT);
+	const dash0 = dash.x;
+	const dash1 = dash.y;
+	const icf0 = voffset << 2;
+	const icfmax = icf + 1;
+	for (let i = icf0, imax = icf0 + 16; i < imax; i += 4) {
+		colorFills[i + 1] = dash0;
+		colorFills[i + 2] = dash1;
+		colorFills[i + 3] = 1;
+	}
+	for (let i = icf0 + 16, imax = icfmax - 16; i < imax; i += 4) {
+		colorFills[i + 1] = dash0;
+		colorFills[i + 2] = dash1;
+		colorFills[i + 3] = l;
+	}
+	for (let i = icfmax - 16; i < icfmax; i += 4) {
+		colorFills[i + 1] = dash0;
+		colorFills[i + 2] = dash1;
+		colorFills[i + 3] = 1;
+	}
+
+	return l;
+};
+
+export const buildPolylineSegmentClosedVertexStepAndColorFill = (
+	vertices: Float32Array | number[],
+	steps: Float32Array | number[],
+	colorFills: Float32Array | number[],
+	voffset: number,
+	polylineVertices: number[],
+	polylineNormals: number[],
+	polylineVertexFrom: number,
+	polylineVertexTo: number,
+	polylineVertexCount: number,
+	strokeWidth: number,
+	strokeAlign: number,
+	strokeStyle: EShapeStrokeStyle
+): number => {
+	const scaleInvariant = toScaleInvariant(strokeStyle);
+	const sws = 2 * (strokeAlign - 0.5);
+	const sw0 = strokeWidth * (1 - sws);
+	const sw1 = strokeWidth * (1 + sws);
+
+	const ilast = (polylineVertexTo - 1) % polylineVertexCount << 1;
+	let px = polylineVertices[ilast];
+	let py = polylineVertices[ilast + 1];
+	let nx = polylineNormals[ilast];
+	let ny = polylineNormals[ilast + 1];
+	let pprevx = px;
+	let pprevy = py;
+	let nprevx = nx;
+	let nprevy = ny;
+	let l = 0;
+	let iv = (voffset << 1) - 1;
+	let is = voffset * 6 - 1;
+	let icf = (voffset << 2) - 1;
+	for (let i = polylineVertexFrom; i < polylineVertexTo; ++i) {
+		pprevx = px;
+		pprevy = py;
+		nprevx = nx;
+		nprevy = ny;
+
+		const imiddle = i % polylineVertexCount << 1;
+		px = polylineVertices[imiddle];
+		py = polylineVertices[imiddle + 1];
+		nx = polylineNormals[imiddle];
+		ny = polylineNormals[imiddle + 1];
+
+		l += toLength(pprevx, pprevy, px, py);
+
+		fillPolylineVertexStepAndColorFill(
+			iv,
+			vertices,
+			is,
+			steps,
+			icf,
+			colorFills,
+			px,
+			py,
+			sw0,
+			sw1,
+			scaleInvariant,
+			nprevx,
+			nprevy,
+			nx,
+			ny,
+			l
+		);
+		iv += 8;
+		is += 24;
+		icf += 16;
+
+		fillPolylineVertexStepAndColorFill(
+			iv,
+			vertices,
+			is,
+			steps,
+			icf,
+			colorFills,
+			px,
+			py,
+			sw0,
+			sw1,
+			scaleInvariant,
+			nprevx,
+			nprevy,
+			nx,
+			ny,
+			l
+		);
+		iv += 8;
+		is += 24;
+		icf += 16;
+	}
+
+	// Last segment
+	pprevx = px;
+	pprevy = py;
+	nprevx = nx;
+	nprevy = ny;
+
+	const ifirst = polylineVertexFrom % polylineVertexCount << 1;
+	px = polylineVertices[ifirst];
+	py = polylineVertices[ifirst + 1];
+	nx = polylineNormals[ifirst];
+	ny = polylineNormals[ifirst + 1];
+
+	l += toLength(pprevx, pprevy, px, py);
+
+	fillPolylineVertexStepAndColorFill(
+		iv,
+		vertices,
+		is,
+		steps,
+		icf,
+		colorFills,
+		px,
+		py,
+		sw0,
+		sw1,
+		scaleInvariant,
+		nprevx,
+		nprevy,
+		nx,
+		ny,
+		l
+	);
+	iv += 8;
+	is += 24;
+	icf += 16;
+
+	fillPolylineVertexStepAndColorFill(
+		iv,
+		vertices,
+		is,
+		steps,
+		icf,
+		colorFills,
+		px,
+		py,
+		sw1,
+		sw0,
+		scaleInvariant,
+		nprevx,
+		nprevy,
+		nx,
+		ny,
+		2
+	);
+	iv += 8;
+	is += 24;
+	icf += 16;
+
+	// Total length
+	const dash = toDash(l, strokeWidth, strokeStyle, POLYLINE_WORK_POINT);
+	const dash0 = dash.x;
+	const dash1 = dash.y;
+	const icf0 = voffset << 2;
+	const icfmax = icf + 1;
+	for (let i = icf0, imax = icfmax - 16; i < imax; i += 4) {
+		colorFills[i + 1] = dash0;
+		colorFills[i + 2] = dash1;
+		colorFills[i + 3] = -1;
+	}
+	for (let i = icfmax - 16; i < icfmax; i += 4) {
+		colorFills[i + 1] = 0;
+		colorFills[i + 2] = 0;
+		colorFills[i + 3] = 1;
+	}
+
+	return l;
 };

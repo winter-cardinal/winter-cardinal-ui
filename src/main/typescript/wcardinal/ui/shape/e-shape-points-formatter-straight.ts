@@ -98,6 +98,5 @@ export const eShapePointsFormatterStraight = (
 	}
 	acopy(segments, result.segments);
 	result.length = rvaluesCount >> 1;
-	result.style = style;
 	return result;
 };

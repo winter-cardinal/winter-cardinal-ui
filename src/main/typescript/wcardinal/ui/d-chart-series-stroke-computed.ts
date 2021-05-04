@@ -3,9 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EShapePointsStyle } from "./shape/e-shape-points-style";
-import { EShapePointsStyleOption } from "./shape/e-shape-points-styles";
 import { EShapeStrokeSide } from "./shape/e-shape-stroke-side";
+import { EShapeStrokeStyle } from "./shape/e-shape-stroke-style";
 
 export interface DChartSeriesStrokeComputedOptions {
 	enable?: boolean;
@@ -14,7 +13,7 @@ export interface DChartSeriesStrokeComputedOptions {
 	width?: number;
 	align?: number;
 	side?: EShapeStrokeSide;
-	style?: EShapePointsStyleOption;
+	style?: EShapeStrokeStyle;
 }
 
 export interface DChartSeriesStrokeComputed {
@@ -24,5 +23,5 @@ export interface DChartSeriesStrokeComputed {
 	width: number;
 	align: number;
 	side: EShapeStrokeSide;
-	style: EShapePointsStyle;
+	style: EShapeStrokeStyle;
 }

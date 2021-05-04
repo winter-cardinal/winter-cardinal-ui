@@ -5,9 +5,9 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
-import { CIRCLE_INDEX_COUNT, CIRCLE_VERTEX_COUNT } from "./build-circle";
 import { createLineOfAnyUploaded } from "./create-line-of-any-uploaded";
-import { EShapeLineOfCirclesUploaded } from "./e-shape-line-of-circles-uploaded";
+import { EShapeLineOfAnyUploaded } from "./e-shape-line-of-any-uploaded";
+import { PolygonCircle } from "./polygon-circle";
 
 export const createLineOfCirclesUploaded = (
 	buffer: EShapeBuffer,
@@ -15,15 +15,13 @@ export const createLineOfCirclesUploaded = (
 	voffset: number,
 	ioffset: number,
 	antialiasWeight: number
-): EShapeLineOfCirclesUploaded | null => {
+): EShapeLineOfAnyUploaded | null => {
 	return createLineOfAnyUploaded(
 		buffer,
 		shape,
 		voffset,
-		CIRCLE_VERTEX_COUNT,
 		ioffset,
-		CIRCLE_INDEX_COUNT,
 		antialiasWeight,
-		EShapeLineOfCirclesUploaded
+		PolygonCircle.getInstance()
 	);
 };

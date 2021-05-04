@@ -5,29 +5,25 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
-import { toPointsCount } from "./build-line";
-import { toLineOfAnyPointCount } from "./build-line-of-any";
 import { TEXT_INDEX_COUNT, TEXT_VERTEX_COUNT, toTextBufferCount } from "./build-text";
-import { EShapeLineOfAnyUploaded } from "./e-shape-line-of-any-uploaded";
+import { EShapePolygonUploaded } from "./e-shape-polygon-uploaded";
 import { Polygon } from "./polygon";
 
-export const createLineOfAnyUploaded = (
+export const createPolygonUploaded = (
 	buffer: EShapeBuffer,
 	shape: EShape,
 	voffset: number,
 	ioffset: number,
 	antialiasWeight: number,
 	polygon: Polygon
-): EShapeLineOfAnyUploaded | null => {
+): EShapePolygonUploaded | null => {
 	const tcount = toTextBufferCount(shape);
 	const tvcount = tcount * TEXT_VERTEX_COUNT;
 	const ticount = tcount * TEXT_INDEX_COUNT;
-	const points = shape.points;
-	const pointCount = toLineOfAnyPointCount(toPointsCount(points));
-	const vcount = pointCount * polygon.vertexCount + tvcount;
-	const icount = pointCount * polygon.indexCount + ticount;
+	const vcount = polygon.vertexCount + tvcount;
+	const icount = polygon.indexCount + ticount;
 	if (buffer.check(voffset, ioffset, vcount, icount)) {
-		return new EShapeLineOfAnyUploaded(
+		return new EShapePolygonUploaded(
 			buffer,
 			voffset,
 			ioffset,
@@ -36,7 +32,6 @@ export const createLineOfAnyUploaded = (
 			vcount,
 			icount,
 			antialiasWeight,
-			pointCount,
 			polygon
 		).init(shape);
 	}

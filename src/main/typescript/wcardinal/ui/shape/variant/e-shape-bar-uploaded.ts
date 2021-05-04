@@ -71,7 +71,9 @@ export class EShapeBarUploaded extends EShapeTextUploaded {
 
 			const stroke = shape.stroke;
 			const strokeWidth = stroke.enable ? stroke.width : 0;
-			const isStrokeWidthChanged = strokeWidth !== this.strokeWidth;
+			const strokeStyle = stroke.style;
+			const isStrokeWidthChanged =
+				strokeWidth !== this.strokeWidth || strokeStyle !== this.strokeStyle;
 
 			const transformLocalId = this.toTransformLocalId(shape);
 			const isTransformChanged = this.transformLocalId !== transformLocalId;
@@ -93,6 +95,7 @@ export class EShapeBarUploaded extends EShapeTextUploaded {
 				this.sizeX = sizeX;
 				this.sizeY = sizeY;
 				this.strokeWidth = strokeWidth;
+				this.strokeStyle = strokeStyle;
 				this.transformLocalId = transformLocalId;
 				this.pointsId = pointsId;
 				this.pointsStyle = pointsStyle;
@@ -115,9 +118,9 @@ export class EShapeBarUploaded extends EShapeTextUploaded {
 					buffer.colorFills,
 					this.vertexOffset,
 					points.values,
-					pointsStyle,
 					points.size,
 					strokeWidth,
+					strokeStyle,
 					shape.transform.internalTransform
 				);
 			}

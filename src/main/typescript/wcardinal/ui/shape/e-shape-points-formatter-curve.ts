@@ -24,6 +24,5 @@ export const eShapePointsFormatterCurve = (
 		result
 	);
 	result.length = result.values.length >> 1;
-	result.style = style;
 	return result;
 };

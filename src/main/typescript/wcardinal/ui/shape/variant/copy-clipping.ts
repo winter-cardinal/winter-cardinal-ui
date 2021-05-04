@@ -11,14 +11,12 @@ export const copyClipping = (
 ): void => {
 	let iv = voffset + vcountPerPoint;
 	for (let i = 1; i < pointCount; ++i) {
-		let icd = iv * 3;
-		let ics = voffset * 3;
+		let icd = iv * 3 - 1;
+		let ics = voffset * 3 - 1;
 		for (let j = 0; j < vcountPerPoint; ++j) {
-			clippings[icd + 0] = clippings[ics + 0];
-			clippings[icd + 1] = clippings[ics + 1];
-			clippings[icd + 2] = clippings[ics + 2];
-			icd += 3;
-			ics += 3;
+			clippings[++icd] = clippings[++ics];
+			clippings[++icd] = clippings[++ics];
+			clippings[++icd] = clippings[++ics];
 		}
 		iv += vcountPerPoint;
 	}

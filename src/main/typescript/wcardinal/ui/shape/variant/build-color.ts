@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 export const buildColor = (
 	color: number,
 	alpha: number,
@@ -10,12 +15,11 @@ export const buildColor = (
 	const b = (((color >> 0) & 0xff) / 255.0) * alpha;
 	const a = alpha;
 
-	let ic = voffset << 2;
+	let ic = (voffset << 2) - 1;
 	for (let i = 0; i < vcount; ++i) {
-		colors[ic + 0] = r;
-		colors[ic + 1] = g;
-		colors[ic + 2] = b;
-		colors[ic + 3] = a;
-		ic += 4;
+		colors[++ic] = r;
+		colors[++ic] = g;
+		colors[++ic] = b;
+		colors[++ic] = a;
 	}
 };

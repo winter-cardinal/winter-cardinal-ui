@@ -7,7 +7,7 @@ import { Container } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DDiagramSerializedSnap } from "./d-diagram-serialized";
 import { EShapeContainer } from "./shape/e-shape-container";
-import { EShapePointsStyle } from "./shape/e-shape-points-style";
+import { EShapeStrokeStyle } from "./shape/e-shape-stroke-style";
 import { EShapeBar } from "./shape/variant/e-shape-bar";
 import { EShapeBarPosition } from "./shape/variant/e-shape-bar-position";
 import { ESnapper } from "./snapper/e-snapper";
@@ -18,14 +18,14 @@ export interface DDiagramCanvasEditorSnapGridMajorOptions {
 	color?: number;
 	alpha?: number;
 	width?: number;
-	style?: EShapePointsStyle;
+	style?: EShapeStrokeStyle;
 }
 
 export interface DDiagramCanvasEditorSnapGridMinorOptions {
 	color?: number;
 	alpha?: number;
 	width?: number;
-	style?: EShapePointsStyle;
+	style?: EShapeStrokeStyle;
 }
 
 export type DDiagramCanvasEditorSnapGridSize = (
@@ -44,7 +44,7 @@ export interface DDiagramCanvasEditorSnapTargetOptions {
 	color?: number;
 	alpha?: number;
 	width?: number;
-	style?: EShapePointsStyle;
+	style?: EShapeStrokeStyle;
 }
 
 export interface DDiagramCanvasEditorSnapOptions {
@@ -58,19 +58,19 @@ export interface DThemeDiagramCanvasEditorSnap {
 	getSnapGridMajorColor(): number;
 	getSnapGridMajorAlpha(): number;
 	getSnapGridMajorWidth(): number;
-	getSnapGridMajorStyle(): EShapePointsStyle;
+	getSnapGridMajorStyle(): EShapeStrokeStyle;
 
 	getSnapGridMinorColor(): number;
 	getSnapGridMinorAlpha(): number;
 	getSnapGridMinorWidth(): number;
-	getSnapGridMinorStyle(): EShapePointsStyle;
+	getSnapGridMinorStyle(): EShapeStrokeStyle;
 
 	getSnapGridSize(): DDiagramCanvasEditorSnapGridSize;
 
 	getSnapTargetColor(): number;
 	getSnapTargetAlpha(): number;
 	getSnapTargetWidth(): number;
-	getSnapTargetStyle(): EShapePointsStyle;
+	getSnapTargetStyle(): EShapeStrokeStyle;
 }
 
 export interface DDiagramCanvasEditorSnapParent extends Container {
@@ -84,14 +84,14 @@ export interface DDiagramCanvasEditorSnapGridMajor {
 	color: number;
 	alpha: number;
 	width: number;
-	style: EShapePointsStyle;
+	style: EShapeStrokeStyle;
 }
 
 export interface DDiagramCanvasEditorSnapGridMinor {
 	color: number;
 	alpha: number;
 	width: number;
-	style: EShapePointsStyle;
+	style: EShapeStrokeStyle;
 }
 
 export interface DDiagramCanvasEditorSnapGrid {
@@ -104,7 +104,7 @@ export interface DDiagramCanvasEditorSnapTarget {
 	color: number;
 	alpha: number;
 	width: number;
-	style: EShapePointsStyle;
+	style: EShapeStrokeStyle;
 }
 
 export class DDiagramCanvasEditorSnap {
@@ -289,9 +289,16 @@ export class DDiagramCanvasEditorSnap {
 			shape = new EShapeBar(position, -1, style.width);
 			shape.disallowUploadedUpdate();
 			shape.fill.enable = false;
-			shape.points.style = style.style;
 			shape.transform.position.set(x, y);
-			shape.stroke.set(true, style.color, style.alpha);
+			shape.stroke.set(
+				true,
+				style.color,
+				style.alpha,
+				undefined,
+				undefined,
+				undefined,
+				style.style
+			);
 			shape.size.set(w, h);
 			shape.visible = true;
 			shape.allowUploadedUpdate();

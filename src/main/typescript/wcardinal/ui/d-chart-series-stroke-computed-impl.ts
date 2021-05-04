@@ -8,9 +8,8 @@ import {
 	DChartSeriesStrokeComputed,
 	DChartSeriesStrokeComputedOptions
 } from "./d-chart-series-stroke-computed";
-import { EShapePointsStyle } from "./shape/e-shape-points-style";
-import { EShapePointsStyles } from "./shape/e-shape-points-styles";
 import { EShapeStrokeSide } from "./shape/e-shape-stroke-side";
+import { EShapeStrokeStyle } from "./shape/e-shape-stroke-style";
 
 export class DChartSeriesStrokeComputedImpl implements DChartSeriesStrokeComputed {
 	enable: boolean;
@@ -19,7 +18,7 @@ export class DChartSeriesStrokeComputedImpl implements DChartSeriesStrokeCompute
 	width: number;
 	align: number;
 	side: EShapeStrokeSide;
-	style: EShapePointsStyle;
+	style: EShapeStrokeStyle;
 
 	constructor(
 		enable: boolean,
@@ -28,7 +27,7 @@ export class DChartSeriesStrokeComputedImpl implements DChartSeriesStrokeCompute
 		width: number,
 		align: number,
 		side: EShapeStrokeSide,
-		style: EShapePointsStyle
+		style: EShapeStrokeStyle
 	) {
 		this.enable = enable;
 		this.color = color;
@@ -51,7 +50,7 @@ export class DChartSeriesStrokeComputedImpl implements DChartSeriesStrokeCompute
 			stroke?.width ?? base.width(index),
 			stroke?.align ?? base.align(index),
 			stroke?.side ?? base.side(index),
-			EShapePointsStyles.from(stroke?.style ?? base.style(index))
+			stroke?.style ?? base.style(index)
 		);
 	}
 }

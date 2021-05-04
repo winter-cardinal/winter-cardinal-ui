@@ -6,8 +6,6 @@
 import { DChartAxisOptions } from "./d-chart-axis";
 import { DChartAxisPosition } from "./d-chart-axis-position";
 import { DChartAxisTickPosition } from "./d-chart-axis-tick-position";
-import { EShapePointsStyle } from "./shape/e-shape-points-style";
-import { EShapePointsStyleOption } from "./shape/e-shape-points-styles";
 import { EShapeStrokeLike } from "./shape/e-shape-stroke";
 import { EShapeStrokeSide } from "./shape/e-shape-stroke-side";
 import { EShapeTextLike, EShapeTextStyle, EShapeTextWeight } from "./shape/e-shape-text";
@@ -19,6 +17,7 @@ import { EShapeTextOffsetLike } from "./shape/e-shape-text-offset";
 import { EShapeTextOutlineLike } from "./shape/e-shape-text-outline";
 import { DeepPartial } from "./util/deep-partial";
 import { NumberFormatterFunction } from "./util/number-formatter-function";
+import { EShapeStrokeStyle } from "./shape/e-shape-stroke-style";
 
 export interface DChartAxisBaseTickMajorTextOptions {
 	/** A format. Please refer to {@link ui/util.NumberFormatter} for format details. */
@@ -44,7 +43,6 @@ export interface DChartAxisBaseTickMajorTextOptions {
 
 export interface DChartAxisBaseTickMajorGridlineOptions {
 	enable?: boolean;
-	style?: EShapePointsStyleOption;
 	stroke?: Partial<EShapeStrokeLike>;
 }
 
@@ -56,7 +54,6 @@ export interface DChartAxisBaseTickMajorOptions {
 	count?: number;
 	size?: number;
 	position?: DChartAxisTickPositionOption;
-	style?: EShapePointsStyleOption;
 	stroke?: Partial<EShapeStrokeLike>;
 	text?: DChartAxisBaseTickMajorTextOptions;
 	gridline?: DChartAxisBaseTickMajorGridlineOptions;
@@ -66,14 +63,12 @@ export interface DChartAxisBaseTickMinorOptions {
 	count?: number;
 	size?: number;
 	position?: DChartAxisTickPositionOption;
-	style?: EShapePointsStyleOption;
 	stroke?: Partial<EShapeStrokeLike>;
 }
 
 export interface DChartAxisBaseTickContainerOptions {
 	enable?: boolean;
 	position?: DChartAxisTickPositionOption;
-	style?: EShapePointsStyleOption;
 	stroke?: Partial<EShapeStrokeLike>;
 	major?: DChartAxisBaseTickMajorOptions;
 	minor?: DChartAxisBaseTickMinorOptions;
@@ -82,7 +77,6 @@ export interface DChartAxisBaseTickContainerOptions {
 export interface DChartAxisBaseOptions extends DChartAxisOptions {
 	tick?: DChartAxisBaseTickContainerOptions;
 	label?: DeepPartial<EShapeTextLike>;
-	style?: EShapePointsStyle;
 	stroke?: Partial<EShapeStrokeLike>;
 	coordinate?: number;
 	padding?: number;
@@ -100,21 +94,19 @@ export interface DThemeChartAxisBase {
 	getLabelDirection(): EShapeTextDirection;
 	getLabelColor(): number | undefined;
 
-	getStyle(): EShapePointsStyle | undefined;
-
 	getStrokeEnable(): boolean | undefined;
 	getStrokeColor(): number | undefined;
 	getStrokeAlpha(): number | undefined;
 	getStrokeWidth(): number | undefined;
 	getStrokeAlign(): number | undefined;
 	getStrokeSide(): EShapeStrokeSide | undefined;
+	getStrokeStyle(): EShapeStrokeStyle | undefined;
 
 	getTickEnable(): boolean;
 
 	getMajorTickCount(): number;
 	getMajorTickSize(): number;
 	getMajorTickPosition(): DChartAxisTickPosition;
-	getMajorTickStyle(): EShapePointsStyle | undefined;
 	getMajorTickTextAlignHorizontal(position: DChartAxisPosition): EShapeTextAlignHorizontal;
 	getMajorTickTextAlignVertical(position: DChartAxisPosition): EShapeTextAlignVertical;
 	getMajorTickTextDirection(): EShapeTextDirection;
@@ -128,24 +120,25 @@ export interface DThemeChartAxisBase {
 	getMajorTickStrokeWidth(): number | undefined;
 	getMajorTickStrokeAlign(): number | undefined;
 	getMajorTickStrokeSide(): EShapeStrokeSide | undefined;
+	getMajorTickStrokeStyle(): EShapeStrokeStyle | undefined;
 
 	getMajorTickGridlineEnable(): boolean;
-	getMajorTickGridlineStyle(): EShapePointsStyle | undefined;
 	getMajorTickGridlineStrokeEnable(): boolean | undefined;
 	getMajorTickGridlineStrokeColor(): number | undefined;
 	getMajorTickGridlineStrokeAlpha(): number | undefined;
 	getMajorTickGridlineStrokeWidth(): number | undefined;
 	getMajorTickGridlineStrokeAlign(): number | undefined;
 	getMajorTickGridlineStrokeSide(): EShapeStrokeSide | undefined;
+	getMajorTickGridlineStrokeStyle(): EShapeStrokeStyle | undefined;
 
 	getMinorTickCount(): number;
 	getMinorTickSize(): number;
 	getMinorTickPosition(): DChartAxisTickPosition;
-	getMinorTickStyle(): EShapePointsStyle | undefined;
 	getMinorTickStrokeEnable(): boolean | undefined;
 	getMinorTickStrokeColor(): number | undefined;
 	getMinorTickStrokeAlpha(): number | undefined;
 	getMinorTickStrokeWidth(): number | undefined;
 	getMinorTickStrokeAlign(): number | undefined;
 	getMinorTickStrokeSide(): EShapeStrokeSide | undefined;
+	getMinorTickStrokeStyle(): EShapeStrokeStyle | undefined;
 }

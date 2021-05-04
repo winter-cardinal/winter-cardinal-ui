@@ -5,9 +5,9 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
-import { CIRCLE_INDEX_COUNT, CIRCLE_VERTEX_COUNT } from "./build-circle";
-import { TEXT_INDEX_COUNT, TEXT_VERTEX_COUNT, toTextBufferCount } from "./build-text";
-import { EShapeCircleUploaded } from "./e-shape-circle-uploaded";
+import { createPolygonUploaded } from "./create-polygon-uploaded";
+import { EShapePolygonUploaded } from "./e-shape-polygon-uploaded";
+import { PolygonCircle } from "./polygon-circle";
 
 export const createCircle = (
 	buffer: EShapeBuffer,
@@ -15,23 +15,13 @@ export const createCircle = (
 	voffset: number,
 	ioffset: number,
 	antialiasWeight: number
-): EShapeCircleUploaded | null => {
-	const tcount = toTextBufferCount(shape);
-	const tvcount = tcount * TEXT_VERTEX_COUNT;
-	const ticount = tcount * TEXT_INDEX_COUNT;
-	const vcount = CIRCLE_VERTEX_COUNT + tvcount;
-	const icount = CIRCLE_INDEX_COUNT + ticount;
-	if (buffer.check(voffset, ioffset, vcount, icount)) {
-		return new EShapeCircleUploaded(
-			buffer,
-			voffset,
-			ioffset,
-			tvcount,
-			ticount,
-			vcount,
-			icount,
-			antialiasWeight
-		).init(shape);
-	}
-	return null;
+): EShapePolygonUploaded | null => {
+	return createPolygonUploaded(
+		buffer,
+		shape,
+		voffset,
+		ioffset,
+		antialiasWeight,
+		PolygonCircle.getInstance()
+	);
 };

@@ -6,6 +6,7 @@
 import { DDiagramCanvasTileMapping } from "./d-diagram-canvas-mapping";
 import { EShapeCorner } from "./shape/e-shape-corner";
 import { EShapeStrokeSide } from "./shape/e-shape-stroke-side";
+import { EShapeStrokeStyle } from "./shape/e-shape-stroke-style";
 import { EShapeTagValueOrder } from "./shape/e-shape-tag-value";
 import { EShapeTextStyle, EShapeTextWeight } from "./shape/e-shape-text";
 import { EShapeTextAlignHorizontal } from "./shape/e-shape-text-align-horizontal";
@@ -103,6 +104,9 @@ export interface DDiagramSerializedStroke {
 
 	/** A side. */
 	[5]: EShapeStrokeSide;
+
+	/** A style */
+	[6]: EShapeStrokeStyle;
 }
 
 /**

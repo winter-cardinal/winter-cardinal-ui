@@ -4,27 +4,29 @@
  */
 
 import { IPoint } from "pixi.js";
-import { EShapePointsStyle } from "../e-shape-points-style";
+import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 
 export const toDash = (
 	length: number,
 	strokeWidth: number,
-	style: EShapePointsStyle,
+	style: EShapeStrokeStyle,
 	result: IPoint
 ): IPoint => {
 	result.set(2 * length, 0);
-	if (style & EShapePointsStyle.NON_SOLID_MASK) {
-		if (style & EShapePointsStyle.DOTTED) {
+	if (style & EShapeStrokeStyle.DOTTED_MASK) {
+		if (style & EShapeStrokeStyle.DOTTED) {
 			result.set(strokeWidth, strokeWidth);
-		} else if (style & EShapePointsStyle.DOTTED_DENSELY) {
+		} else if (style & EShapeStrokeStyle.DOTTED_DENSELY) {
 			result.set(strokeWidth, strokeWidth * 0.5);
-		} else if (style & EShapePointsStyle.DOTTED_LOOSELY) {
+		} else {
 			result.set(strokeWidth, strokeWidth * 2);
-		} else if (style & EShapePointsStyle.DASHED) {
+		}
+	} else if (style & EShapeStrokeStyle.DASHED_MASK) {
+		if (style & EShapeStrokeStyle.DASHED) {
 			result.set(strokeWidth * 2, strokeWidth);
-		} else if (style & EShapePointsStyle.DASHED_DENSELY) {
+		} else if (style & EShapeStrokeStyle.DASHED_DENSELY) {
 			result.set(strokeWidth * 2, strokeWidth * 0.5);
-		} else if (style & EShapePointsStyle.DASHED_LOOSELY) {
+		} else {
 			result.set(strokeWidth * 2, strokeWidth * 2);
 		}
 	}

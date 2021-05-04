@@ -27,10 +27,12 @@ export const buildTextClipping = (
 	voffset: number,
 	vcount: number
 ): void => {
-	for (let i = voffset * 3, imax = i + vcount * 3; i < imax; i += 3) {
-		clippings[i + 0] = 0;
-		clippings[i + 1] = 0;
-		clippings[i + 2] = 2;
+	let ic = voffset * 3 - 1;
+	const icmax = (voffset + vcount) * 3 - 1;
+	for (; ic < icmax; ) {
+		clippings[++ic] = 0;
+		clippings[++ic] = 0;
+		clippings[++ic] = 2;
 	}
 };
 
@@ -40,15 +42,17 @@ export const buildTextIndex = (
 	ioffset: number,
 	icount: number
 ): void => {
-	for (let i = 0, ii = ioffset * 3, imax = icount >> 1; i < imax; i += 1, ii += 6) {
-		const j = voffset + (i << 2);
-		indices[ii + 0] = j + 0;
-		indices[ii + 1] = j + 1;
-		indices[ii + 2] = j + 3;
+	let ii = ioffset * 3 - 1;
+	const imax = icount >> 1;
+	for (let i = 0; i < imax; ++i) {
+		const iv = voffset + (i << 2);
+		indices[++ii] = iv;
+		indices[++ii] = iv + 1;
+		indices[++ii] = iv + 3;
 
-		indices[ii + 3] = j + 1;
-		indices[ii + 4] = j + 2;
-		indices[ii + 5] = j + 3;
+		indices[++ii] = iv + 1;
+		indices[++ii] = iv + 2;
+		indices[++ii] = iv + 3;
 	}
 };
 

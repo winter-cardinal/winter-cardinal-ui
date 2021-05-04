@@ -8,6 +8,8 @@ import { EShape } from "./e-shape";
 import { EShapeBuffer } from "./e-shape-buffer";
 import { EShapeBufferUnitBuilder } from "./e-shape-buffer-unit-builder";
 import { EShapeCorner } from "./e-shape-corner";
+import { EShapeStrokeSide } from "./e-shape-stroke-side";
+import { EShapeStrokeStyle } from "./e-shape-stroke-style";
 import { buildColor } from "./variant/build-color";
 
 export interface EShapeUploaded {
@@ -40,7 +42,8 @@ export abstract class EShapeUploadedBase implements EShapeUploaded {
 	protected sizeY: number;
 	protected strokeWidth: number;
 	protected strokeAlign: number;
-	protected strokeSide: number;
+	protected strokeSide: EShapeStrokeSide;
+	protected strokeStyle: EShapeStrokeStyle;
 	protected radius: number;
 	protected corner: EShapeCorner;
 
@@ -76,6 +79,7 @@ export abstract class EShapeUploadedBase implements EShapeUploaded {
 		this.strokeWidth = NaN;
 		this.strokeAlign = NaN;
 		this.strokeSide = NaN;
+		this.strokeStyle = NaN;
 		this.radius = NaN;
 		this.corner = NaN;
 

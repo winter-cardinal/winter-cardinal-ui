@@ -8,6 +8,7 @@ import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { EShapePoints } from "../e-shape-points";
 import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
+import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { EShapeBase } from "./e-shape-base";
 import { EShapeLineBasePoints } from "./e-shape-line-base-points";
 import { EShapeLineBasePointsHitTester } from "./e-shape-line-base-points-hit-tester";
@@ -34,16 +35,15 @@ export abstract class EShapeLineBase extends EShapePrimitive {
 		return 1.0;
 	}
 
-	protected getStrokeWidthScale(points: EShapePoints): number {
-		const style = points.style;
-		if (style & EShapePointsStyle.NON_EXPANDING_WIDTH) {
-			if (style & EShapePointsStyle.NON_SHRINKING_WIDTH) {
+	protected getStrokeWidthScale(style: EShapeStrokeStyle): number {
+		if (style & EShapeStrokeStyle.NON_SCALING_WIDTH_WHEN_EXPANDING) {
+			if (style & EShapeStrokeStyle.NON_SCALING_WIDTH_WHEN_SHRINKING) {
 				return this.getPixelScale();
 			} else {
 				return Math.min(1.0, this.getPixelScale());
 			}
 		} else {
-			if (style & EShapePointsStyle.NON_SHRINKING_WIDTH) {
+			if (style & EShapeStrokeStyle.NON_SCALING_WIDTH_WHEN_SHRINKING) {
 				return Math.max(1.0, this.getPixelScale());
 			} else {
 				return 1.0;
@@ -54,7 +54,7 @@ export abstract class EShapeLineBase extends EShapePrimitive {
 	protected toHitThreshold(toThreshold: EShapeLineBasePointsHitTesterToThreshold | null): number {
 		const stroke = this.stroke;
 		const strokeWidth = stroke.enable ? stroke.width : 0;
-		const strokeScale = this.getStrokeWidthScale(this._points);
+		const strokeScale = this.getStrokeWidthScale(stroke.style);
 		return toThreshold
 			? toThreshold(strokeWidth, strokeScale)
 			: strokeWidth * strokeScale * 0.5;

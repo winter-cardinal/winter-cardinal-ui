@@ -15,7 +15,7 @@ import {
 	buildPolylineVertexStepAndColorFill
 } from "./build-polyline";
 import { EShapeTextUploaded } from "./e-shape-text-uploaded";
-import { toPolylineTransformed } from "./to-polyline-transformed";
+import { toPolylineNormal, toPolylineTransformed } from "./to-polyline-transformed";
 
 export class EShapeLineUploaded extends EShapeTextUploaded {
 	protected pointCount: number;
@@ -84,7 +84,7 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 		if (points) {
 			const formatted = points.formatted;
 			const pointCount = formatted.length;
-			const pointsClosed = !!(formatted.style & EShapePointsStyle.CLOSED);
+			const pointsClosed = !!(points.style & EShapePointsStyle.CLOSED);
 			if (this.pointCount !== pointCount || this.pointsClosed !== pointsClosed) {
 				this.pointCount = pointCount;
 				this.pointsClosed = pointsClosed;
@@ -112,7 +112,9 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 
 			const stroke = shape.stroke;
 			const strokeWidth = stroke.enable ? stroke.width : 0;
-			const isStrokeWidthChanged = strokeWidth !== this.strokeWidth;
+			const strokeStyle = stroke.style;
+			const isStrokeWidthChanged =
+				strokeWidth !== this.strokeWidth || strokeStyle !== this.strokeStyle;
 
 			const transformLocalId = this.toTransformLocalId(shape);
 			const isTransformChanged = this.transformLocalId !== transformLocalId;
@@ -120,6 +122,7 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 			if (isPointChanged || isTransformChanged || isStrokeWidthChanged) {
 				this.pointId = pointId;
 				this.strokeWidth = strokeWidth;
+				this.strokeStyle = strokeStyle;
 				this.transformLocalId = transformLocalId;
 
 				if (isPointChanged || isTransformChanged) {
@@ -136,23 +139,26 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 				buffer.updateColorFills();
 				const formatted = points.formatted;
 				const pointCount = this.pointCount;
-				const pointValues = toPolylineTransformed(
+				const vertices = toPolylineTransformed(
 					formatted.values,
 					pointCount,
 					shape.transform.internalTransform
 				);
+				const normals = toPolylineNormal(vertices, pointCount);
 				this.length = buildPolylineVertexStepAndColorFill(
 					buffer.vertices,
 					buffer.steps,
 					buffer.colorFills,
 					this.vertexOffset,
 					this.vertexCount - this.textVertexCount,
-					pointCount,
-					this.pointsClosed,
-					pointValues,
+					vertices,
+					normals,
 					formatted.segments,
-					formatted.style,
-					strokeWidth
+					this.pointsClosed,
+					pointCount,
+					strokeWidth,
+					0.5,
+					strokeStyle
 				);
 			}
 		}

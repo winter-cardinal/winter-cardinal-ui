@@ -4,7 +4,7 @@
  */
 
 export const copyIndex = (
-	indices: Uint16Array | Uint32Array,
+	indices: Uint16Array | Uint32Array | number[],
 	vcountPerPoint: number,
 	ioffset: number,
 	icountPerPoint: number,
@@ -13,14 +13,12 @@ export const copyIndex = (
 	let idiv = vcountPerPoint;
 	let ii = ioffset + icountPerPoint;
 	for (let i = 1; i < pointCount; ++i) {
-		let iid = ii * 3;
-		let iis = ioffset * 3;
+		let iid = ii * 3 - 1;
+		let iis = ioffset * 3 - 1;
 		for (let j = 0; j < icountPerPoint; ++j) {
-			indices[iid + 0] = indices[iis + 0] + idiv;
-			indices[iid + 1] = indices[iis + 1] + idiv;
-			indices[iid + 2] = indices[iis + 2] + idiv;
-			iid += 3;
-			iis += 3;
+			indices[++iid] = indices[++iis] + idiv;
+			indices[++iid] = indices[++iis] + idiv;
+			indices[++iid] = indices[++iis] + idiv;
 		}
 		idiv += vcountPerPoint;
 		ii += icountPerPoint;

@@ -4,7 +4,7 @@
  */
 
 import { TextureUvs } from "pixi.js";
-import { EShapePointsStyle } from "../e-shape-points-style";
+import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import {
 	buildPolylineClipping,
 	buildPolylineColorStroke,
@@ -14,111 +14,69 @@ import {
 	toPolylineIndexCount,
 	toPolylineVertexCount
 } from "./build-polyline";
+import { Polygon } from "./polygon";
+import { PolygonTransformed } from "./polygon-transformed";
 import { toScaleInvariant } from "./to-scale-invariant";
 
-export type PolygonBoundary = [number, number, number, number, number, number, number, number];
-
-export interface PolygonDefinition {
-	vertexFillCount: number;
-	vertexStrokeCount: number;
-	vertexCount: number;
-
-	indexFillCount: number;
-	indexStrokeCount: number;
-	indexCount: number;
-
-	pointCount: number;
-	pointValues: number[];
-	boundary: PolygonBoundary;
-	center: [number, number];
-}
-
-export interface PolygonDefinitionTransformed {
-	definition: PolygonDefinition;
-	pointCount: number;
-	pointValues: number[];
-	boundary: PolygonBoundary;
-	center: [number, number];
-}
-
-export const newPolygonDefinition = (
-	pointValues: number[],
-	center: [number, number],
-	boundary: PolygonBoundary
-): PolygonDefinition => {
-	const pointCount = pointValues.length >> 1;
-	const vertexFillCount = toPolygonFillVertexCount(pointCount);
-	const vertexStrokeCount = toPolygonStrokeVertexCount(pointCount);
-	const indexFillCount = toPolygonFillIndexCount(pointCount);
-	const indexStrokeCount = toPolygonStrokeIndexCount(pointCount);
-	return {
-		vertexFillCount,
-		vertexStrokeCount,
-		vertexCount: vertexFillCount + vertexStrokeCount,
-		indexFillCount,
-		indexStrokeCount,
-		indexCount: indexFillCount + indexStrokeCount,
-		pointCount,
-		pointValues: pointValues,
-		boundary: boundary,
-		center
-	};
+export const toPolygonFillVertexCount = (polygonVertexCount: number): number => {
+	return 2 <= polygonVertexCount ? 1 + polygonVertexCount * 4 : 0;
 };
 
-export const toPolygonFillVertexCount = (pointCount: number): number => {
-	return 2 <= pointCount ? 1 + pointCount * 4 : 0;
+export const toPolygonStrokeVertexCount = (polygonVertexCount: number): number => {
+	return toPolylineVertexCount(polygonVertexCount, true);
 };
 
-export const toPolygonStrokeVertexCount = (pointCount: number): number => {
-	return toPolylineVertexCount(pointCount, true);
+export const toPolygonVertexCount = (polygonVertexCount: number): number => {
+	return (
+		toPolygonFillVertexCount(polygonVertexCount) +
+		toPolygonStrokeVertexCount(polygonVertexCount)
+	);
 };
 
-export const toPolygonVertexCount = (pointCount: number): number => {
-	return toPolygonFillVertexCount(pointCount) + toPolygonStrokeVertexCount(pointCount);
+export const toPolygonFillIndexCount = (polygonVertexCount: number): number => {
+	return 2 <= polygonVertexCount ? polygonVertexCount * 6 : 0;
 };
 
-export const toPolygonFillIndexCount = (pointCount: number): number => {
-	return 2 <= pointCount ? pointCount * 6 : 0;
+export const toPolygonStrokeIndexCount = (polygonVertexCount: number): number => {
+	return toPolylineIndexCount(polygonVertexCount, true);
 };
 
-export const toPolygonStrokeIndexCount = (pointCount: number): number => {
-	return toPolylineIndexCount(pointCount, true);
-};
-
-export const toPolygonIndexCount = (pointCount: number): number => {
-	return toPolygonFillIndexCount(pointCount) + toPolygonStrokeIndexCount(pointCount);
+export const toPolygonIndexCount = (polygonVertexCount: number): number => {
+	return (
+		toPolygonFillIndexCount(polygonVertexCount) + toPolygonStrokeIndexCount(polygonVertexCount)
+	);
 };
 
 const fillPolygonFillClipping = (
 	ic: number,
 	clippings: Float32Array | number[],
-	typeInner: number,
-	typeOuter: number
+	type0: number,
+	type1: number
 ): number => {
 	clippings[++ic] = 1;
 	clippings[++ic] = 0;
-	clippings[++ic] = typeInner;
+	clippings[++ic] = type0;
 
 	clippings[++ic] = 1;
 	clippings[++ic] = 0;
-	clippings[++ic] = typeOuter;
+	clippings[++ic] = type1;
 	return ic;
 };
 
 export const buildPolygonFillClipping = (
 	clippings: Float32Array | number[],
 	voffset: number,
-	polygon: PolygonDefinition
+	polygon: Polygon
 ): void => {
 	const pointCount = polygon.pointCount;
 	if (2 <= pointCount) {
 		let ic = voffset * 3 - 1;
 		clippings[++ic] = 1;
 		clippings[++ic] = 0;
-		clippings[++ic] = 11;
+		clippings[++ic] = 15;
 		for (let i = 0; i < pointCount; ++i) {
-			ic = fillPolygonFillClipping(ic, clippings, 9, 7);
-			ic = fillPolygonFillClipping(ic, clippings, 10, 8);
+			ic = fillPolygonFillClipping(ic, clippings, 11, 12);
+			ic = fillPolygonFillClipping(ic, clippings, 13, 14);
 		}
 	}
 };
@@ -126,7 +84,7 @@ export const buildPolygonFillClipping = (
 export const buildPolygonStrokeClipping = (
 	clippings: Float32Array | number[],
 	voffset: number,
-	polygon: PolygonDefinition
+	polygon: Polygon
 ): void => {
 	buildPolylineClipping(
 		clippings,
@@ -140,7 +98,7 @@ export const buildPolygonStrokeClipping = (
 export const buildPolygonClipping = (
 	clippings: Float32Array | number[],
 	voffset: number,
-	polygon: PolygonDefinition
+	polygon: Polygon
 ): void => {
 	buildPolygonFillClipping(clippings, voffset, polygon);
 	buildPolygonStrokeClipping(clippings, voffset, polygon);
@@ -171,7 +129,7 @@ export const buildPolygonFillIndex = (
 	indices: Uint16Array | Uint32Array | number[],
 	voffset: number,
 	ioffset: number,
-	polygon: PolygonDefinition
+	polygon: Polygon
 ): void => {
 	const pointCount = polygon.pointCount;
 	if (2 <= pointCount) {
@@ -190,7 +148,7 @@ export const buildPolygonStrokeIndex = (
 	indices: Uint16Array | Uint32Array | number[],
 	voffset: number,
 	ioffset: number,
-	polygon: PolygonDefinition
+	polygon: Polygon
 ): void => {
 	buildPolylineIndex(
 		indices,
@@ -204,7 +162,7 @@ export const buildPolygonIndex = (
 	indices: Uint16Array | Uint32Array | number[],
 	voffset: number,
 	ioffset: number,
-	polygon: PolygonDefinition
+	polygon: Polygon
 ): void => {
 	buildPolygonFillIndex(indices, voffset, ioffset, polygon);
 	buildPolygonStrokeIndex(indices, voffset, ioffset, polygon);
@@ -245,7 +203,7 @@ export const buildPolygonFillColorStroke = (
 	alpha: number,
 	voffset: number,
 	colors: Float32Array,
-	polygon: PolygonDefinition
+	polygon: Polygon
 ): void => {
 	const r = (((color >> 16) & 0xff) / 255.0) * alpha;
 	const g = (((color >> 8) & 0xff) / 255.0) * alpha;
@@ -270,7 +228,7 @@ export const buildPolygonStrokeColorStroke = (
 	alpha: number,
 	voffset: number,
 	colors: Float32Array,
-	polygon: PolygonDefinition
+	polygon: Polygon
 ): void => {
 	buildPolylineColorStroke(
 		color,
@@ -312,11 +270,12 @@ export const buildPolygonFillUv = (
 	uvs: Float32Array | number[],
 	colorFills: Float32Array | number[],
 	voffset: number,
-	polygon: PolygonDefinitionTransformed,
+	polygon: PolygonTransformed,
 	textureUvs: TextureUvs
 ): void => {
-	const pointCount = polygon.pointCount;
-	if (2 <= pointCount) {
+	const polygonVertices = polygon.vertices;
+	const polygonVerticesLength = polygonVertices.length;
+	if (4 <= polygonVerticesLength) {
 		let iuv = (voffset << 1) - 1;
 		let icf = (voffset << 2) - 1;
 
@@ -337,8 +296,8 @@ export const buildPolygonFillUv = (
 		const b0y = boundary[1];
 		const b1x = boundary[2];
 		const b1y = boundary[3];
-		const b3x = boundary[6];
-		const b3y = boundary[7];
+		const b3x = boundary[4];
+		const b3y = boundary[5];
 		const d01x = b1x - b0x;
 		const d01y = b1y - b0y;
 		const d03x = b3x - b0x;
@@ -368,11 +327,9 @@ export const buildPolygonFillUv = (
 		}
 
 		// Others
-		const pointValues = polygon.pointValues;
-		for (let i = 0; i < pointCount; ++i) {
-			const index = i << 1;
-			const x = pointValues[index];
-			const y = pointValues[index + 1];
+		for (let i = 0; i < polygonVerticesLength; i += 2) {
+			const x = polygonVertices[i];
+			const y = polygonVertices[i + 1];
 			const dx = x - b0x;
 			const dy = y - b0y;
 			const ru = dx * ux + dy * uy;
@@ -393,16 +350,17 @@ export const buildPolygonStrokeUv = (
 	uvs: Float32Array | number[],
 	colorFills: Float32Array | number[],
 	voffset: number,
-	polygon: PolygonDefinitionTransformed,
+	polygon: PolygonTransformed,
 	textureUvs: TextureUvs,
 	length: number
 ): void => {
-	const pointCount = polygon.pointCount;
+	const parent = polygon.parent;
+	const pointCount = parent.pointCount;
 	buildPolylineUv(
 		uvs,
 		colorFills,
-		voffset + polygon.definition.vertexFillCount,
-		polygon.definition.vertexStrokeCount,
+		voffset + parent.vertexFillCount,
+		parent.vertexStrokeCount,
 		pointCount,
 		true,
 		textureUvs,
@@ -414,7 +372,7 @@ export const buildPolygonUv = (
 	uvs: Float32Array | number[],
 	colorFills: Float32Array | number[],
 	voffset: number,
-	polygon: PolygonDefinitionTransformed,
+	polygon: PolygonTransformed,
 	textureUvs: TextureUvs,
 	length: number
 ): void => {
@@ -431,53 +389,60 @@ const fillPolygonFillVertexAndStep = (
 	py: number,
 	strokeWidth: number,
 	scaleInvariant: number,
-	pprevx: number,
-	pprevy: number,
-	pnextx: number,
-	pnexty: number
+	nprevx: number,
+	nprevy: number,
+	nx: number,
+	ny: number
 ): void => {
 	vertices[++iv] = px;
 	vertices[++iv] = py;
 	steps[++is] = strokeWidth;
 	steps[++is] = scaleInvariant;
-	steps[++is] = pprevx;
-	steps[++is] = pprevy;
-	steps[++is] = pnextx;
-	steps[++is] = pnexty;
+	steps[++is] = nprevx;
+	steps[++is] = nprevy;
+	steps[++is] = nx;
+	steps[++is] = ny;
 
 	vertices[++iv] = px;
 	vertices[++iv] = py;
 	steps[++is] = strokeWidth;
 	steps[++is] = scaleInvariant;
-	steps[++is] = pprevx;
-	steps[++is] = pprevy;
-	steps[++is] = pnextx;
-	steps[++is] = pnexty;
+	steps[++is] = nprevx;
+	steps[++is] = nprevy;
+	steps[++is] = nx;
+	steps[++is] = ny;
 };
 
 export const buildPolygonFillVertexAndStep = (
 	vertices: Float32Array | number[],
 	steps: Float32Array | number[],
 	voffset: number,
-	polygon: PolygonDefinitionTransformed,
-	strokeStyle: EShapePointsStyle,
-	strokeWidth: number
+	polygon: PolygonTransformed,
+	strokeWidth: number,
+	strokeAlign: number,
+	strokeStyle: EShapeStrokeStyle
 ): void => {
-	const pointCount = polygon.pointCount;
-	if (2 <= pointCount) {
+	const polygonVertices = polygon.vertices;
+	const polygonVerticesLength = polygonVertices.length;
+	if (4 <= polygonVerticesLength) {
 		const scaleInvariant = toScaleInvariant(strokeStyle);
+		const sws = 2 * (strokeAlign - 0.5);
+		const sw = strokeWidth * (1 - sws);
 
-		//
-		let pprevx = 0;
-		let pprevy = 0;
-		let pnextx = 0;
-		let pnexty = 0;
-
-		// Center
 		let iv = (voffset << 1) - 1;
 		let is = voffset * 6 - 1;
 		let px = 0;
 		let py = 0;
+		let pnextx = 0;
+		let pnexty = 0;
+		let nprevx = 0;
+		let nprevy = 0;
+		let nx = 0;
+		let ny = 0;
+		let nnextx = 0;
+		let nnexty = 0;
+
+		// Center
 		const center = polygon.center;
 		vertices[++iv] = center[0];
 		vertices[++iv] = center[1];
@@ -488,54 +453,29 @@ export const buildPolygonFillVertexAndStep = (
 		steps[++is] = 0;
 		steps[++is] = 1;
 
-		// First point
-		let ipv = 0;
-		let ipvs = ipv << 1;
-		const pointValues = polygon.pointValues;
-		const pfirstx = pointValues[ipvs];
-		const pfirsty = pointValues[ipvs + 1];
-
-		// Last point
-		ipv = pointCount - 1;
-		ipvs = ipv << 1;
-		const plastx = pointValues[ipvs];
-		const plasty = pointValues[ipvs + 1];
-
-		// Second point
-		let psecondx = plastx;
-		let psecondy = plasty;
-		if (2 < pointCount) {
-			ipv = 1;
-			ipvs = ipv << 1;
-			psecondx = pointValues[ipvs];
-			psecondy = pointValues[ipvs + 1];
-		}
-
-		//
-		px = plastx;
-		py = plasty;
-		pnextx = pfirstx;
-		pnexty = pfirsty;
-		for (let i = 0; i < pointCount; ++i) {
-			pprevx = px;
-			pprevy = py;
+		// Others
+		const polygonNormals = polygon.normals;
+		px = polygonVertices[polygonVerticesLength - 2];
+		py = polygonVertices[polygonVerticesLength - 1];
+		nx = polygonNormals[polygonVerticesLength - 2];
+		ny = polygonNormals[polygonVerticesLength - 1];
+		pnextx = polygonVertices[0];
+		pnexty = polygonVertices[1];
+		nnextx = polygonNormals[0];
+		nnexty = polygonNormals[1];
+		for (let i = 0; i < polygonVerticesLength; i += 2) {
+			nprevx = nx;
+			nprevy = ny;
 			px = pnextx;
 			py = pnexty;
-			if (i === pointCount - 2) {
-				pnextx = plastx;
-				pnexty = plasty;
-			} else if (i === 0) {
-				pnextx = psecondx;
-				pnexty = psecondy;
-			} else if (i < pointCount - 1) {
-				ipv = i + 1;
-				ipvs = ipv << 1;
-				pnextx = pointValues[ipvs];
-				pnexty = pointValues[ipvs + 1];
-			} else {
-				pnextx = pfirstx;
-				pnexty = pfirsty;
-			}
+			nx = nnextx;
+			ny = nnexty;
+
+			const inext = (i + 2) % polygonVerticesLength;
+			pnextx = polygonVertices[inext];
+			pnexty = polygonVertices[inext + 1];
+			nnextx = polygonNormals[inext];
+			nnexty = polygonNormals[inext + 1];
 
 			fillPolygonFillVertexAndStep(
 				iv,
@@ -544,12 +484,12 @@ export const buildPolygonFillVertexAndStep = (
 				steps,
 				px,
 				py,
-				strokeWidth,
+				sw,
 				scaleInvariant,
-				pprevx,
-				pprevy,
-				pnextx,
-				pnexty
+				nprevx,
+				nprevy,
+				nx,
+				ny
 			);
 			iv += 4;
 			is += 12;
@@ -561,12 +501,12 @@ export const buildPolygonFillVertexAndStep = (
 				steps,
 				px,
 				py,
-				strokeWidth,
+				sw,
 				scaleInvariant,
-				pprevx,
-				pprevy,
-				pnextx,
-				pnexty
+				nprevx,
+				nprevy,
+				nx,
+				ny
 			);
 			iv += 4;
 			is += 12;
@@ -579,23 +519,25 @@ export const buildPolygonStrokeVertexAndStep = (
 	steps: Float32Array | number[],
 	colorFills: Float32Array | number[],
 	voffset: number,
-	polygon: PolygonDefinitionTransformed,
-	strokeStyle: EShapePointsStyle,
-	strokeWidth: number
+	polygon: PolygonTransformed,
+	strokeWidth: number,
+	strokeAlign: number,
+	strokeStyle: EShapeStrokeStyle
 ): number => {
-	const pointCount = polygon.pointCount;
 	return buildPolylineVertexStepAndColorFill(
 		vertices,
 		steps,
 		colorFills,
-		voffset + polygon.definition.vertexFillCount,
-		polygon.definition.vertexStrokeCount,
-		pointCount,
-		true,
-		polygon.pointValues,
+		voffset + polygon.parent.vertexFillCount,
+		polygon.parent.vertexStrokeCount,
+		polygon.vertices,
+		polygon.normals,
 		[],
-		strokeStyle,
-		strokeWidth
+		true,
+		polygon.parent.pointCount,
+		strokeWidth,
+		strokeAlign,
+		strokeStyle
 	);
 };
 
@@ -604,11 +546,20 @@ export const buildPolygonVertexAndStep = (
 	steps: Float32Array | number[],
 	colorFills: Float32Array | number[],
 	voffset: number,
-	polygon: PolygonDefinitionTransformed,
-	strokeStyle: EShapePointsStyle,
-	strokeWidth: number
+	polygon: PolygonTransformed,
+	strokeWidth: number,
+	strokeAlign: number,
+	strokeStyle: EShapeStrokeStyle
 ): number => {
-	buildPolygonFillVertexAndStep(vertices, steps, voffset, polygon, strokeStyle, strokeWidth);
+	buildPolygonFillVertexAndStep(
+		vertices,
+		steps,
+		voffset,
+		polygon,
+		strokeWidth,
+		strokeAlign,
+		strokeStyle
+	);
 
 	return buildPolygonStrokeVertexAndStep(
 		vertices,
@@ -616,7 +567,8 @@ export const buildPolygonVertexAndStep = (
 		colorFills,
 		voffset,
 		polygon,
-		strokeStyle,
-		strokeWidth
+		strokeWidth,
+		strokeAlign,
+		strokeStyle
 	);
 };

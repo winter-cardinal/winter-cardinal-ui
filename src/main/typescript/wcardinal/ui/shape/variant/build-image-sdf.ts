@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { Matrix, Point, TextureUvs } from "pixi.js";
 import { toLength } from "./to-length";
 

@@ -5,28 +5,39 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
-import { EShapePointsStyle } from "../e-shape-points-style";
 import {
 	buildPolygonClipping,
 	buildPolygonFillColorStroke,
 	buildPolygonIndex,
 	buildPolygonStrokeColorStroke,
 	buildPolygonUv,
-	buildPolygonVertexAndStep,
-	PolygonDefinition
+	buildPolygonVertexAndStep
 } from "./build-polygon";
-import { getRectangleDefinition } from "./build-rectangle";
 import { EShapeTextUploaded } from "./e-shape-text-uploaded";
-import { toPolygonTransformed } from "./to-polygon-transformed";
+import { Polygon } from "./polygon";
 
-export class EShapeRectangleUploaded extends EShapeTextUploaded {
-	protected _polygon!: PolygonDefinition;
+export class EShapePolygonUploaded extends EShapeTextUploaded {
+	protected _polygon: Polygon;
+
+	constructor(
+		buffer: EShapeBuffer,
+		voffset: number,
+		ioffset: number,
+		tvcount: number,
+		ticount: number,
+		vcount: number,
+		icount: number,
+		antialiasWeight: number,
+		polygon: Polygon
+	) {
+		super(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight);
+		this._polygon = polygon;
+	}
 
 	init(shape: EShape): this {
 		super.init(shape);
 
-		const polygon = getRectangleDefinition();
-		this._polygon = polygon;
+		const polygon = this._polygon;
 
 		// Indices
 		const buffer = this.buffer;
@@ -57,6 +68,9 @@ export class EShapeRectangleUploaded extends EShapeTextUploaded {
 		const sizeY = size.y;
 		const isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
 
+		const radius = shape.radius;
+		const isRadiusChanged = radius !== this.radius;
+
 		const transformLocalId = this.toTransformLocalId(shape);
 		const isTransformChanged = this.transformLocalId !== transformLocalId;
 
@@ -64,60 +78,65 @@ export class EShapeRectangleUploaded extends EShapeTextUploaded {
 		const strokeWidth = stroke.enable ? stroke.width : 0;
 		const strokeAlign = stroke.align;
 		const strokeSide = stroke.side;
+		const strokeStyle = stroke.style;
 		const isStrokeChanged =
 			this.strokeAlign !== strokeAlign ||
 			this.strokeWidth !== strokeWidth ||
-			this.strokeSide !== strokeSide;
+			this.strokeSide !== strokeSide ||
+			this.strokeStyle !== strokeStyle;
 
 		const texture = this.toTexture(shape);
 		const textureTransformId = this.toTextureTransformId(texture);
 		const isTextureChanged =
 			texture !== this.texture || textureTransformId !== this.textureTransformId;
 
-		const isVertexChanged = isSizeChanged || isStrokeChanged;
+		const isVertexChanged = isSizeChanged || isRadiusChanged || isStrokeChanged;
 
 		if (isVertexChanged || isTransformChanged || isTextureChanged) {
 			this.sizeX = sizeX;
 			this.sizeY = sizeY;
+			this.radius = radius;
 			this.transformLocalId = transformLocalId;
 			this.strokeWidth = strokeWidth;
 			this.strokeAlign = strokeAlign;
 			this.strokeSide = strokeSide;
+			this.strokeStyle = strokeStyle;
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
 
-			if (isVertexChanged || isTransformChanged) {
+			if (isSizeChanged || isTransformChanged || isStrokeChanged) {
 				// Invalidate the text layout to update the text layout.
 				this.textSpacingHorizontal = NaN;
 			}
 
 			// Vertices
 			const voffset = this.vertexOffset;
-			const definition = this._polygon;
-			const transformed = toPolygonTransformed(
-				definition,
+			const polygon = this._polygon;
+			const transformed = polygon.getTransformed(
 				0,
 				0,
 				sizeX,
 				sizeY,
+				radius,
 				shape.transform.internalTransform
 			);
 			buffer.updateVertices();
 			buffer.updateSteps();
+			buffer.updateColorFills();
 			const length = buildPolygonVertexAndStep(
 				buffer.vertices,
 				buffer.steps,
 				buffer.colorFills,
 				voffset,
 				transformed,
-				EShapePointsStyle.NONE,
-				strokeWidth
+				strokeWidth,
+				strokeAlign,
+				strokeStyle
 			);
 
 			// UVs
 			if (isVertexChanged || isTextureChanged) {
 				buffer.updateUvs();
-				buffer.updateColorFills();
 				buildPolygonUv(
 					buffer.uvs,
 					buffer.colorFills,
