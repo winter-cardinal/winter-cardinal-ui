@@ -7,6 +7,7 @@ import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manage
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeStroke, EShapeStrokeLike } from "../e-shape-stroke";
 import { EShapeStrokeSide } from "../e-shape-stroke-side";
+import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { EShapeStrokeImplParent } from "./e-shape-stroke-impl-parent";
 
 export class EShapeStrokeImpl implements EShapeStroke {
@@ -17,6 +18,7 @@ export class EShapeStrokeImpl implements EShapeStroke {
 	protected _width: number;
 	protected _align: number;
 	protected _side: EShapeStrokeSide;
+	protected _style: EShapeStrokeStyle;
 
 	constructor(
 		parent: EShapeStrokeImplParent,
@@ -25,7 +27,8 @@ export class EShapeStrokeImpl implements EShapeStroke {
 		alpha: number,
 		width: number,
 		align: number,
-		side: EShapeStrokeSide
+		side: EShapeStrokeSide,
+		style: EShapeStrokeStyle
 	) {
 		this._parent = parent;
 		this._enable = enable;
@@ -34,6 +37,7 @@ export class EShapeStrokeImpl implements EShapeStroke {
 		this._width = width;
 		this._align = align;
 		this._side = side;
+		this._style = style;
 	}
 
 	get enable(): boolean {
@@ -102,6 +106,17 @@ export class EShapeStrokeImpl implements EShapeStroke {
 		}
 	}
 
+	get style(): EShapeStrokeStyle {
+		return this._style;
+	}
+
+	set style(style: EShapeStrokeStyle) {
+		if (this._style !== style) {
+			this._style = style;
+			this._parent.updateUploaded();
+		}
+	}
+
 	copy(target?: Partial<EShapeStrokeLike>): void {
 		if (target) {
 			this.set(
@@ -110,7 +125,8 @@ export class EShapeStrokeImpl implements EShapeStroke {
 				target.alpha,
 				target.width,
 				target.align,
-				target.side
+				target.side,
+				target.style
 			);
 		}
 	}
@@ -121,7 +137,8 @@ export class EShapeStrokeImpl implements EShapeStroke {
 		alpha?: number,
 		width?: number,
 		align?: number,
-		side?: EShapeStrokeSide
+		side?: EShapeStrokeSide,
+		style?: EShapeStrokeStyle
 	): void {
 		let isChanged = false;
 
@@ -155,6 +172,11 @@ export class EShapeStrokeImpl implements EShapeStroke {
 			isChanged = true;
 		}
 
+		if (style !== undefined && this._style !== style) {
+			this._style = style;
+			isChanged = true;
+		}
+
 		if (isChanged) {
 			this._parent.updateUploaded();
 		}
@@ -168,7 +190,8 @@ export class EShapeStrokeImpl implements EShapeStroke {
 			this._alpha,
 			this._width,
 			this._align,
-			this._side
+			this._side,
+			this._style
 		);
 	}
 
@@ -179,13 +202,14 @@ export class EShapeStrokeImpl implements EShapeStroke {
 			alpha: this._alpha,
 			width: this._width,
 			align: this._align,
-			side: this._side
+			side: this._side,
+			style: this._style
 		};
 	}
 
 	serialize(manager: EShapeResourceManagerSerialization): number {
 		const enable = this._enable ? 1 : 0;
-		const serialized = `[${enable},${this._color},${this._alpha},${this._width},${this._align},${this._side}]`;
+		const serialized = `[${enable},${this._color},${this._alpha},${this._width},${this._align},${this._side},${this._style}]`;
 		return manager.addResource(serialized);
 	}
 
@@ -194,7 +218,15 @@ export class EShapeStrokeImpl implements EShapeStroke {
 		if (0 <= target && target < resources.length) {
 			const parsed = manager.getStroke(target);
 			if (parsed != null) {
-				this.set(!!parsed[0], parsed[1], parsed[2], parsed[3], parsed[4], parsed[5]);
+				this.set(
+					!!parsed[0],
+					parsed[1],
+					parsed[2],
+					parsed[3],
+					parsed[4],
+					parsed[5],
+					parsed[6]
+				);
 			} else {
 				const deserialized = JSON.parse(resources[target]);
 				manager.setStroke(target, deserialized);
@@ -204,7 +236,8 @@ export class EShapeStrokeImpl implements EShapeStroke {
 					deserialized[2],
 					deserialized[3],
 					deserialized[4],
-					deserialized[5]
+					deserialized[5],
+					deserialized[6]
 				);
 			}
 		}

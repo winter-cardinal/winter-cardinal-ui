@@ -93,10 +93,13 @@ export class EShapeLineOfCirclesUploaded extends EShapeLineOfAnyUploaded {
 		const isTransformChanged = this.transformLocalId !== transformLocalId;
 
 		const stroke = shape.stroke;
-		const strokeWidth = stroke.enable ? stroke.width : 0;
 		const strokeAlign = stroke.align;
+		const strokeWidth = stroke.enable ? stroke.width : 0;
+		const strokeStyle = stroke.style;
 		const isStrokeChanged =
-			this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth;
+			this.strokeAlign !== strokeAlign ||
+			this.strokeWidth !== strokeWidth ||
+			this.strokeStyle !== strokeStyle;
 
 		if (
 			isPointChanged ||
@@ -115,6 +118,7 @@ export class EShapeLineOfCirclesUploaded extends EShapeLineOfAnyUploaded {
 			this.transformLocalId = transformLocalId;
 			this.strokeWidth = strokeWidth;
 			this.strokeAlign = strokeAlign;
+			this.strokeStyle = strokeStyle;
 
 			if (isSizeChanged || isTransformChanged || isStrokeChanged) {
 				// Invalidate the text layout to update the text layout.
@@ -131,7 +135,6 @@ export class EShapeLineOfCirclesUploaded extends EShapeLineOfAnyUploaded {
 			const steps = buffer.steps;
 			const clippings = buffer.clippings;
 			const internalTransform = shape.transform.internalTransform;
-			const antialiasWeight = this.antialiasWeight;
 			if (0 < pointCount && pointSize.isStaticX() && pointSize.isStaticY()) {
 				const pointSizeX = pointSize.getX(0);
 				const pointSizeY = pointSize.getY(0);
@@ -162,7 +165,7 @@ export class EShapeLineOfCirclesUploaded extends EShapeLineOfAnyUploaded {
 					clippings,
 					voffset,
 					strokeWidth,
-					antialiasWeight,
+					strokeStyle,
 					CIRCLE_WORLD_SIZE
 				);
 				copyStep(steps, voffset, CIRCLE_VERTEX_COUNT, pointCount);
@@ -191,7 +194,7 @@ export class EShapeLineOfCirclesUploaded extends EShapeLineOfAnyUploaded {
 						clippings,
 						iv,
 						strokeWidth,
-						antialiasWeight,
+						strokeStyle,
 						CIRCLE_WORLD_SIZE
 					);
 				}

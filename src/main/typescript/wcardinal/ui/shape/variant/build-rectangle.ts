@@ -1,7 +1,8 @@
 import { Matrix, Point, TextureUvs } from "pixi.js";
 import { EShapeStrokeSide } from "../e-shape-stroke-side";
+import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toLength } from "./to-length";
-import { STEP_VALUES, toStep } from "./to-step";
+import { toScaleInvariant } from "./to-scale-invariant";
 
 export const RECTANGLE_VERTEX_COUNT = 24;
 export const RECTANGLE_INDEX_COUNT = 16;
@@ -334,97 +335,100 @@ export const buildRectangleStep = (
 	steps: Float32Array,
 	strokeWidth: number,
 	strokeSide: EShapeStrokeSide,
-	antialiasWeight: number,
+	strokeStyle: EShapeStrokeStyle,
 	worldSize: typeof RECTANGLE_WORLD_SIZE
 ): void => {
+	const scaleInvariant = toScaleInvariant(strokeStyle);
+
 	const brx = worldSize[0];
 	const bry = worldSize[1];
-	const brxi = 1 - brx;
-	const bryi = 1 - bry;
-	const worldSizeX = worldSize[2];
-	const worldSizeY = worldSize[3];
-	toStep(worldSizeX, strokeWidth, antialiasWeight, STEP_VALUES);
-	const swx = STEP_VALUES[0];
-	const px0 = STEP_VALUES[1];
-	const px1 = STEP_VALUES[2];
+	const brxi = Math.max(0, 1 - brx);
+	const bryi = Math.max(0, 1 - bry);
+	const sx = worldSize[2];
+	const sy = worldSize[3];
 
-	toStep(worldSizeY, strokeWidth, antialiasWeight, STEP_VALUES);
-	const swy = STEP_VALUES[0];
-	const py0 = STEP_VALUES[1];
-	const py1 = STEP_VALUES[2];
-
-	let swt = swy;
-	let pt0 = py0;
-	if (!(strokeSide & EShapeStrokeSide.TOP)) {
-		swt = 1;
-		pt0 = py1;
-	}
-	let swr = swx;
-	let pr0 = px0;
-	if (!(strokeSide & EShapeStrokeSide.RIGHT)) {
-		swr = 1;
-		pr0 = px1;
-	}
-	let swb = swy;
-	let pb0 = py0;
-	if (!(strokeSide & EShapeStrokeSide.BOTTOM)) {
-		swb = 1;
-		pb0 = py1;
-	}
-	let swl = swx;
-	let pl0 = px0;
-	if (!(strokeSide & EShapeStrokeSide.LEFT)) {
-		swl = 1;
-		pl0 = px1;
+	let wt: number;
+	let bt: number;
+	if (strokeSide & EShapeStrokeSide.TOP) {
+		wt = +2;
+		bt = +1 + bryi;
+	} else {
+		wt = -2;
+		bt = -1 - bryi;
 	}
 
-	const bwl = brxi * swl;
-	const bwr = brxi * swr;
-	const bwt = bryi * swt;
-	const bwb = bryi * swb;
+	let wr: number;
+	let br: number;
+	if (strokeSide & EShapeStrokeSide.RIGHT) {
+		wr = +2;
+		br = +1 + brxi;
+	} else {
+		wr = -2;
+		br = -1 - brxi;
+	}
+
+	let wb: number;
+	let bb: number;
+	if (strokeSide & EShapeStrokeSide.BOTTOM) {
+		wb = +2;
+		bb = +1 + bryi;
+	} else {
+		wb = -2;
+		bb = -1 - bryi;
+	}
+
+	let wl: number;
+	let bl: number;
+	if (strokeSide & EShapeStrokeSide.LEFT) {
+		wl = +2;
+		bl = +1 + brxi;
+	} else {
+		wl = -2;
+		bl = -1 - brxi;
+	}
 
 	// 0 1 2 3
-	let is = (voffset - 1) * 6;
-	fillRectangleStep(steps, (is += 6), swl, swt, pl0, pt0, px1, py1);
-	fillRectangleStep(steps, (is += 6), bwl, swt, pl0, pt0, px1, py1);
-	fillRectangleStep(steps, (is += 6), bwr, swt, pr0, pt0, px1, py1);
-	fillRectangleStep(steps, (is += 6), swr, swt, pr0, pt0, px1, py1);
+	let is = (voffset - 1) * 6 - 1;
+	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wl, wt);
+	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, bl, wt);
+	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, br, wt);
+	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wr, wt);
 
 	// 4 5
-	fillRectangleStep(steps, (is += 6), bwl, bwt, pl0, pt0, px1, py1);
-	fillRectangleStep(steps, (is += 6), bwr, bwt, pr0, pt0, px1, py1);
+	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, bl, bt);
+	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, br, bt);
 
 	// 6 7
-	fillRectangleStep(steps, (is += 6), bwl, bwb, pl0, pb0, px1, py1);
-	fillRectangleStep(steps, (is += 6), bwr, bwb, pr0, pb0, px1, py1);
+	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, bl, bb);
+	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, br, bb);
 
 	// 8 9 10 11
-	fillRectangleStep(steps, (is += 6), swl, swb, pl0, pb0, px1, py1);
-	fillRectangleStep(steps, (is += 6), bwl, swb, pl0, pb0, px1, py1);
-	fillRectangleStep(steps, (is += 6), bwr, swb, pr0, pb0, px1, py1);
-	fillRectangleStep(steps, (is += 6), swr, swb, pr0, pb0, px1, py1);
+	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wl, wb);
+	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, bl, wb);
+	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, br, wb);
+	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wr, wb);
 
 	// ------------------------------
 
 	// 12 13 14 15
-	fillRectangleStep(steps, (is += 6), swl, swt, pl0, pt0, px1, py1);
-	fillRectangleStep(steps, (is += 6), swl, bwt, pl0, pt0, px1, py1);
-	fillRectangleStep(steps, (is += 6), swl, bwb, pl0, pb0, px1, py1);
-	fillRectangleStep(steps, (is += 6), swl, swb, pl0, pb0, px1, py1);
+	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wl, wt);
+	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wl, bt);
+	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wl, bb);
+	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wl, wb);
 
 	// 16 17
-	fillRectangleStep(steps, (is += 6), bwl, bwt, pl0, pt0, px1, py1);
-	fillRectangleStep(steps, (is += 6), bwl, bwb, pl0, pb0, px1, py1);
+	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, bl, bt);
+	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, bl, bb);
 
 	// 18 19
-	fillRectangleStep(steps, (is += 6), bwr, bwt, pr0, pt0, px1, py1);
-	fillRectangleStep(steps, (is += 6), bwr, bwb, pr0, pb0, px1, py1);
+	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, br, bt);
+	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, br, bb);
 
 	// 20 21 22 23
-	fillRectangleStep(steps, (is += 6), swr, swt, pr0, pt0, px1, py1);
-	fillRectangleStep(steps, (is += 6), swr, bwt, pr0, pt0, px1, py1);
-	fillRectangleStep(steps, (is += 6), swr, bwb, pr0, pb0, px1, py1);
-	fillRectangleStep(steps, (is += 6), swr, swb, pr0, pb0, px1, py1);
+	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wr, wt);
+	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wr, bt);
+	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wr, bb);
+	fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wr, wb);
 };
 
 const fillRectangleStep = (
@@ -437,7 +441,7 @@ const fillRectangleStep = (
 	v4: number,
 	v5: number
 ): void => {
-	steps[is] = v0;
+	steps[++is] = v0;
 	steps[++is] = v1;
 	steps[++is] = v2;
 	steps[++is] = v3;

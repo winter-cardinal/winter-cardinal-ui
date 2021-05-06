@@ -50,13 +50,15 @@ export class EShapeRectangleRoundedUploaded extends EShapeTextUploaded {
 		const isTransformChanged = this.transformLocalId !== transformLocalId;
 
 		const stroke = shape.stroke;
-		const strokeWidth = stroke.enable ? stroke.width : 0;
 		const strokeAlign = stroke.align;
+		const strokeWidth = stroke.enable ? stroke.width : 0;
 		const strokeSide = stroke.side;
+		const strokeStyle = stroke.style;
 		const isStrokeChanged =
 			this.strokeAlign !== strokeAlign ||
 			this.strokeWidth !== strokeWidth ||
-			this.strokeSide !== strokeSide;
+			this.strokeSide !== strokeSide ||
+			this.strokeStyle !== strokeStyle;
 
 		const corner = shape.corner;
 		const isCornerChanged = corner !== this.corner;
@@ -76,6 +78,7 @@ export class EShapeRectangleRoundedUploaded extends EShapeTextUploaded {
 			this.strokeAlign = strokeAlign;
 			this.strokeWidth = strokeWidth;
 			this.strokeSide = strokeSide;
+			this.strokeStyle = strokeStyle;
 			this.corner = corner;
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
@@ -110,8 +113,8 @@ export class EShapeRectangleRoundedUploaded extends EShapeTextUploaded {
 					voffset,
 					strokeWidth,
 					strokeSide,
+					strokeStyle,
 					corner,
-					this.antialiasWeight,
 					RECTANGLE_ROUNDED_WORLD_SIZE
 				);
 			}

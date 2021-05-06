@@ -90,13 +90,15 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeLineOfAnyUpload
 		const isTransformChanged = this.transformLocalId !== transformLocalId;
 
 		const stroke = shape.stroke;
-		const strokeWidth = stroke.enable ? stroke.width : 0;
 		const strokeAlign = stroke.align;
+		const strokeWidth = stroke.enable ? stroke.width : 0;
 		const strokeSide = stroke.side;
+		const strokeStyle = stroke.style;
 		const isStrokeChanged =
 			this.strokeAlign !== strokeAlign ||
 			this.strokeWidth !== strokeWidth ||
-			this.strokeSide !== strokeSide;
+			this.strokeSide !== strokeSide ||
+			this.strokeStyle !== strokeStyle;
 
 		const corner = shape.corner;
 		const isCornerChanged = corner !== this.corner;
@@ -119,9 +121,10 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeLineOfAnyUpload
 			this.sizeY = sizeY;
 			this.radius = radius;
 			this.transformLocalId = transformLocalId;
-			this.strokeWidth = strokeWidth;
 			this.strokeAlign = strokeAlign;
+			this.strokeWidth = strokeWidth;
 			this.strokeSide = strokeSide;
+			this.strokeStyle = strokeStyle;
 			this.corner = corner;
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
@@ -151,7 +154,6 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeLineOfAnyUpload
 			const uvs = buffer.uvs;
 			const internalTransform = shape.transform.internalTransform;
 			const textureUvs = this.toTextureUvs(texture);
-			const antialiasWeight = this.antialiasWeight;
 			if (0 < pointCount && pointSize.isStaticX() && pointSize.isStaticY()) {
 				const pointSizeX = pointSize.getX(0);
 				const pointSizeY = pointSize.getY(0);
@@ -187,8 +189,8 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeLineOfAnyUpload
 						voffset,
 						strokeWidth,
 						strokeSide,
+						strokeStyle,
 						corner,
-						antialiasWeight,
 						RECTANGLE_ROUNDED_WORLD_SIZE
 					);
 					copyStep(steps, voffset, RECTANGLE_ROUNDED_VERTEX_COUNT, pointCount);
@@ -242,8 +244,8 @@ export class EShapeLineOfRectangleRoundedsUploaded extends EShapeLineOfAnyUpload
 							iv,
 							strokeWidth,
 							strokeSide,
+							strokeStyle,
 							corner,
-							antialiasWeight,
 							RECTANGLE_ROUNDED_WORLD_SIZE
 						);
 					}

@@ -1,7 +1,7 @@
 import { Matrix, Point, TextureUvs } from "pixi.js";
-import { buildStep } from "./build-step";
+import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toLength } from "./to-length";
-import { STEP_VALUES, toStep } from "./to-step";
+import { toScaleInvariant } from "./to-scale-invariant";
 
 export const CIRCLE_VERTEX_COUNT = 9;
 export const CIRCLE_INDEX_COUNT = 8;
@@ -9,42 +9,42 @@ export const CIRCLE_WORLD_SIZE: [number, number] = [0, 0];
 const CIRCLE_WORK_POINT: Point = new Point();
 
 export const buildCircleClipping = (clippings: Float32Array, voffset: number): void => {
-	const ic = voffset * 3;
-	clippings[ic + 0] = 1;
-	clippings[ic + 1] = 1;
-	clippings[ic + 2] = 1;
+	let ic = voffset * 3 - 1;
+	clippings[++ic] = 1;
+	clippings[++ic] = 1;
+	clippings[++ic] = 1;
 
-	clippings[ic + 3] = 0;
-	clippings[ic + 4] = 1;
-	clippings[ic + 5] = 1;
+	clippings[++ic] = 0;
+	clippings[++ic] = 1;
+	clippings[++ic] = 1;
 
-	clippings[ic + 6] = 1;
-	clippings[ic + 7] = 1;
-	clippings[ic + 8] = 1;
+	clippings[++ic] = 1;
+	clippings[++ic] = 1;
+	clippings[++ic] = 1;
 
-	clippings[ic + 9] = 1;
-	clippings[ic + 10] = 0;
-	clippings[ic + 11] = 1;
+	clippings[++ic] = 1;
+	clippings[++ic] = 0;
+	clippings[++ic] = 1;
 
-	clippings[ic + 12] = 0;
-	clippings[ic + 13] = 0;
-	clippings[ic + 14] = 1;
+	clippings[++ic] = 0;
+	clippings[++ic] = 0;
+	clippings[++ic] = 1;
 
-	clippings[ic + 15] = 1;
-	clippings[ic + 16] = 0;
-	clippings[ic + 17] = 1;
+	clippings[++ic] = 1;
+	clippings[++ic] = 0;
+	clippings[++ic] = 1;
 
-	clippings[ic + 18] = 1;
-	clippings[ic + 19] = 1;
-	clippings[ic + 20] = 1;
+	clippings[++ic] = 1;
+	clippings[++ic] = 1;
+	clippings[++ic] = 1;
 
-	clippings[ic + 21] = 0;
-	clippings[ic + 22] = 1;
-	clippings[ic + 23] = 1;
+	clippings[++ic] = 0;
+	clippings[++ic] = 1;
+	clippings[++ic] = 1;
 
-	clippings[ic + 24] = 1;
-	clippings[ic + 25] = 1;
-	clippings[ic + 26] = 1;
+	clippings[++ic] = 1;
+	clippings[++ic] = 1;
+	clippings[++ic] = 1;
 };
 
 export const buildCircleIndex = (
@@ -52,38 +52,38 @@ export const buildCircleIndex = (
 	voffset: number,
 	ioffset: number
 ): void => {
-	const ii = ioffset * 3;
-	indices[ii + 0] = voffset + 0;
-	indices[ii + 1] = voffset + 1;
-	indices[ii + 2] = voffset + 3;
+	let ii = ioffset * 3 - 1;
+	indices[++ii] = voffset;
+	indices[++ii] = voffset + 1;
+	indices[++ii] = voffset + 3;
 
-	indices[ii + 3] = voffset + 1;
-	indices[ii + 4] = voffset + 4;
-	indices[ii + 5] = voffset + 3;
+	indices[++ii] = voffset + 1;
+	indices[++ii] = voffset + 4;
+	indices[++ii] = voffset + 3;
 
-	indices[ii + 6] = voffset + 1;
-	indices[ii + 7] = voffset + 2;
-	indices[ii + 8] = voffset + 4;
+	indices[++ii] = voffset + 1;
+	indices[++ii] = voffset + 2;
+	indices[++ii] = voffset + 4;
 
-	indices[ii + 9] = voffset + 2;
-	indices[ii + 10] = voffset + 5;
-	indices[ii + 11] = voffset + 4;
+	indices[++ii] = voffset + 2;
+	indices[++ii] = voffset + 5;
+	indices[++ii] = voffset + 4;
 
-	indices[ii + 12] = voffset + 3;
-	indices[ii + 13] = voffset + 4;
-	indices[ii + 14] = voffset + 6;
+	indices[++ii] = voffset + 3;
+	indices[++ii] = voffset + 4;
+	indices[++ii] = voffset + 6;
 
-	indices[ii + 15] = voffset + 4;
-	indices[ii + 16] = voffset + 7;
-	indices[ii + 17] = voffset + 6;
+	indices[++ii] = voffset + 4;
+	indices[++ii] = voffset + 7;
+	indices[++ii] = voffset + 6;
 
-	indices[ii + 18] = voffset + 4;
-	indices[ii + 19] = voffset + 5;
-	indices[ii + 20] = voffset + 7;
+	indices[++ii] = voffset + 4;
+	indices[++ii] = voffset + 5;
+	indices[++ii] = voffset + 7;
 
-	indices[ii + 21] = voffset + 5;
-	indices[ii + 22] = voffset + 8;
-	indices[ii + 23] = voffset + 7;
+	indices[++ii] = voffset + 5;
+	indices[++ii] = voffset + 8;
+	indices[++ii] = voffset + 7;
 };
 
 export const buildCircleVertex = (
@@ -96,7 +96,7 @@ export const buildCircleVertex = (
 	strokeAlign: number,
 	strokeWidth: number,
 	internalTransform: Matrix,
-	worldSize: [number, number]
+	worldSize: typeof CIRCLE_WORLD_SIZE
 ): void => {
 	// Calculate the transformed positions
 	//
@@ -131,27 +131,27 @@ export const buildCircleVertex = (
 	const y3 = y4 - dy;
 
 	// Vertices
-	const iv = voffset * 2;
-	vertices[iv + 0] = x0;
-	vertices[iv + 1] = y0;
-	vertices[iv + 2] = x1;
-	vertices[iv + 3] = y1;
-	vertices[iv + 4] = x1 + dx;
-	vertices[iv + 5] = y1 + dy;
+	let iv = voffset * 2 - 1;
+	vertices[++iv] = x0;
+	vertices[++iv] = y0;
+	vertices[++iv] = x1;
+	vertices[++iv] = y1;
+	vertices[++iv] = x1 + dx;
+	vertices[++iv] = y1 + dy;
 
-	vertices[iv + 6] = x3;
-	vertices[iv + 7] = y3;
-	vertices[iv + 8] = x4;
-	vertices[iv + 9] = y4;
-	vertices[iv + 10] = x4 + dx;
-	vertices[iv + 11] = y4 + dy;
+	vertices[++iv] = x3;
+	vertices[++iv] = y3;
+	vertices[++iv] = x4;
+	vertices[++iv] = y4;
+	vertices[++iv] = x4 + dx;
+	vertices[++iv] = y4 + dy;
 
-	vertices[iv + 12] = x7 - dx;
-	vertices[iv + 13] = y7 - dy;
-	vertices[iv + 14] = x7;
-	vertices[iv + 15] = y7;
-	vertices[iv + 16] = x7 + dx;
-	vertices[iv + 17] = y7 + dy;
+	vertices[++iv] = x7 - dx;
+	vertices[++iv] = y7 - dy;
+	vertices[++iv] = x7;
+	vertices[++iv] = y7;
+	vertices[++iv] = x7 + dx;
+	vertices[++iv] = y7 + dy;
 
 	worldSize[0] = toLength(x0, y0, x1, y1);
 	worldSize[1] = toLength(x0, y0, x3, y3);
@@ -162,20 +162,20 @@ export const buildCircleStep = (
 	clippings: Float32Array,
 	voffset: number,
 	strokeWidth: number,
-	antialiasWeight: number,
-	worldSize: [number, number]
+	strokeStyle: EShapeStrokeStyle,
+	worldSize: typeof CIRCLE_WORLD_SIZE
 ): void => {
-	toStep(worldSize[0], strokeWidth, antialiasWeight, STEP_VALUES);
-	const swx = STEP_VALUES[0];
-	const px0 = STEP_VALUES[1];
-	const px1 = STEP_VALUES[2];
-
-	toStep(worldSize[1], strokeWidth, antialiasWeight, STEP_VALUES);
-	const swy = STEP_VALUES[0];
-	const py0 = STEP_VALUES[1];
-	const py1 = STEP_VALUES[2];
-
-	buildStep(steps, clippings, voffset, CIRCLE_VERTEX_COUNT, swx, swy, px0, py0, px1, py1);
+	const scaleInvariant = toScaleInvariant(strokeStyle);
+	let is = voffset * 6 - 1;
+	let ic = voffset * 3;
+	for (let i = 0; i < CIRCLE_VERTEX_COUNT; i += 1, ic += 3) {
+		steps[++is] = strokeWidth;
+		steps[++is] = scaleInvariant;
+		steps[++is] = worldSize[0];
+		steps[++is] = worldSize[1];
+		steps[++is] = 1 + clippings[ic];
+		steps[++is] = 1 + clippings[ic + 1];
+	}
 };
 
 export const buildCircleUv = (uvs: Float32Array, voffset: number, textureUvs: TextureUvs): void => {
@@ -189,25 +189,25 @@ export const buildCircleUv = (uvs: Float32Array, voffset: number, textureUvs: Te
 	const y3 = textureUvs.y3;
 
 	// UVs
-	const iuv = voffset * 2;
-	uvs[iuv + 0] = x0;
-	uvs[iuv + 1] = y0;
-	uvs[iuv + 2] = 0.5 * (x0 + x1);
-	uvs[iuv + 3] = 0.5 * (y0 + y1);
-	uvs[iuv + 4] = x1;
-	uvs[iuv + 5] = y1;
+	let iuv = voffset * 2 - 1;
+	uvs[++iuv] = x0;
+	uvs[++iuv] = y0;
+	uvs[++iuv] = 0.5 * (x0 + x1);
+	uvs[++iuv] = 0.5 * (y0 + y1);
+	uvs[++iuv] = x1;
+	uvs[++iuv] = y1;
 
-	uvs[iuv + 6] = 0.5 * (x0 + x3);
-	uvs[iuv + 7] = 0.5 * (y0 + y3);
-	uvs[iuv + 8] = 0.5 * (x0 + x2);
-	uvs[iuv + 9] = 0.5 * (y0 + y2);
-	uvs[iuv + 10] = 0.5 * (x1 + x2);
-	uvs[iuv + 11] = 0.5 * (y1 + y2);
+	uvs[++iuv] = 0.5 * (x0 + x3);
+	uvs[++iuv] = 0.5 * (y0 + y3);
+	uvs[++iuv] = 0.5 * (x0 + x2);
+	uvs[++iuv] = 0.5 * (y0 + y2);
+	uvs[++iuv] = 0.5 * (x1 + x2);
+	uvs[++iuv] = 0.5 * (y1 + y2);
 
-	uvs[iuv + 12] = x3;
-	uvs[iuv + 13] = y3;
-	uvs[iuv + 14] = 0.5 * (x3 + x2);
-	uvs[iuv + 15] = 0.5 * (y3 + y2);
-	uvs[iuv + 16] = x2;
-	uvs[iuv + 17] = y2;
+	uvs[++iuv] = x3;
+	uvs[++iuv] = y3;
+	uvs[++iuv] = 0.5 * (x3 + x2);
+	uvs[++iuv] = 0.5 * (y3 + y2);
+	uvs[++iuv] = x2;
+	uvs[++iuv] = y2;
 };

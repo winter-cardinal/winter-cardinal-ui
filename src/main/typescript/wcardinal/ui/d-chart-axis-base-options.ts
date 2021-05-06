@@ -10,6 +10,7 @@ import { EShapePointsStyle } from "./shape/e-shape-points-style";
 import { EShapePointsStyleOption } from "./shape/e-shape-points-styles";
 import { EShapeStrokeLike } from "./shape/e-shape-stroke";
 import { EShapeStrokeSide } from "./shape/e-shape-stroke-side";
+import { EShapeStrokeStyle } from "./shape/e-shape-stroke-style";
 import { EShapeTextLike, EShapeTextStyle, EShapeTextWeight } from "./shape/e-shape-text";
 import { EShapeTextAlignLike } from "./shape/e-shape-text-align";
 import { EShapeTextAlignHorizontal } from "./shape/e-shape-text-align-horizontal";
@@ -108,6 +109,7 @@ export interface DThemeChartAxisBase {
 	getStrokeWidth(): number | undefined;
 	getStrokeAlign(): number | undefined;
 	getStrokeSide(): EShapeStrokeSide | undefined;
+	getStrokeStyle(): EShapeStrokeStyle | undefined;
 
 	getTickEnable(): boolean;
 
@@ -128,6 +130,7 @@ export interface DThemeChartAxisBase {
 	getMajorTickStrokeWidth(): number | undefined;
 	getMajorTickStrokeAlign(): number | undefined;
 	getMajorTickStrokeSide(): EShapeStrokeSide | undefined;
+	getMajorTickStrokeStyle(): EShapeStrokeStyle | undefined;
 
 	getMajorTickGridlineEnable(): boolean;
 	getMajorTickGridlineStyle(): EShapePointsStyle | undefined;
@@ -137,6 +140,7 @@ export interface DThemeChartAxisBase {
 	getMajorTickGridlineStrokeWidth(): number | undefined;
 	getMajorTickGridlineStrokeAlign(): number | undefined;
 	getMajorTickGridlineStrokeSide(): EShapeStrokeSide | undefined;
+	getMajorTickGridlineStrokeStyle(): EShapeStrokeStyle | undefined;
 
 	getMinorTickCount(): number;
 	getMinorTickSize(): number;
@@ -148,4 +152,5 @@ export interface DThemeChartAxisBase {
 	getMinorTickStrokeWidth(): number | undefined;
 	getMinorTickStrokeAlign(): number | undefined;
 	getMinorTickStrokeSide(): EShapeStrokeSide | undefined;
+	getMinorTickStrokeStyle(): EShapeStrokeStyle | undefined;
 }

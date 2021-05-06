@@ -4,8 +4,8 @@
  */
 
 import { DChartSeriesScalar } from "./d-chart-series-scalar";
-import { EShapePointsStyleOption } from "./shape/e-shape-points-styles";
 import { EShapeStrokeSide } from "./shape/e-shape-stroke-side";
+import { EShapeStrokeStyle } from "./shape/e-shape-stroke-style";
 
 export interface DChartSeriesStrokeOptions {
 	enable?: boolean | boolean[] | DChartSeriesScalar<boolean>;
@@ -14,10 +14,7 @@ export interface DChartSeriesStrokeOptions {
 	width?: number | number[] | DChartSeriesScalar<number>;
 	align?: number | number[] | DChartSeriesScalar<number>;
 	side: EShapeStrokeSide | EShapeStrokeSide[] | DChartSeriesScalar<EShapeStrokeSide>;
-	style?:
-		| EShapePointsStyleOption
-		| EShapePointsStyleOption[]
-		| DChartSeriesScalar<EShapePointsStyleOption>;
+	style?: EShapeStrokeStyle | EShapeStrokeStyle[] | DChartSeriesScalar<EShapeStrokeStyle>;
 }
 
 export interface DChartSeriesStroke {
@@ -27,5 +24,5 @@ export interface DChartSeriesStroke {
 	width: DChartSeriesScalar<number>;
 	align: DChartSeriesScalar<number>;
 	side: DChartSeriesScalar<EShapeStrokeSide>;
-	style: DChartSeriesScalar<EShapePointsStyleOption>;
+	style: DChartSeriesScalar<EShapeStrokeStyle>;
 }

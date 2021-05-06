@@ -88,13 +88,15 @@ export class EShapeLineOfRectanglesUploaded extends EShapeLineOfAnyUploaded {
 		const isTransformChanged = this.transformLocalId !== transformLocalId;
 
 		const stroke = shape.stroke;
-		const strokeWidth = stroke.enable ? stroke.width : 0;
 		const strokeAlign = stroke.align;
+		const strokeWidth = stroke.enable ? stroke.width : 0;
 		const strokeSide = stroke.side;
+		const strokeStyle = stroke.style;
 		const isStrokeChanged =
 			this.strokeAlign !== strokeAlign ||
 			this.strokeWidth !== strokeWidth ||
-			this.strokeSide !== strokeSide;
+			this.strokeSide !== strokeSide ||
+			this.strokeStyle !== strokeStyle;
 
 		const texture = this.toTexture(shape);
 		const textureTransformId = this.toTextureTransformId(texture);
@@ -114,6 +116,7 @@ export class EShapeLineOfRectanglesUploaded extends EShapeLineOfAnyUploaded {
 			this.strokeWidth = strokeWidth;
 			this.strokeAlign = strokeAlign;
 			this.strokeSide = strokeSide;
+			this.strokeStyle = strokeStyle;
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
 
@@ -141,7 +144,6 @@ export class EShapeLineOfRectanglesUploaded extends EShapeLineOfAnyUploaded {
 			const steps = buffer.steps;
 			const uvs = buffer.uvs;
 			const internalTransform = shape.transform.internalTransform;
-			const antialiasWeight = this.antialiasWeight;
 			const textureUvs = this.toTextureUvs(texture);
 			if (0 < pointCount && pointSize.isStaticX() && pointSize.isStaticY()) {
 				const pointSizeX = pointSize.getX(0);
@@ -177,7 +179,7 @@ export class EShapeLineOfRectanglesUploaded extends EShapeLineOfAnyUploaded {
 						steps,
 						strokeWidth,
 						strokeSide,
-						antialiasWeight,
+						strokeStyle,
 						RECTANGLE_WORLD_SIZE
 					);
 					copyStep(steps, voffset, RECTANGLE_VERTEX_COUNT, pointCount);
@@ -224,7 +226,7 @@ export class EShapeLineOfRectanglesUploaded extends EShapeLineOfAnyUploaded {
 							steps,
 							strokeWidth,
 							strokeSide,
-							antialiasWeight,
+							strokeStyle,
 							RECTANGLE_WORLD_SIZE
 						);
 					}

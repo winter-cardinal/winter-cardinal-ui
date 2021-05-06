@@ -1,7 +1,7 @@
 import { Matrix, Point, TextureUvs } from "pixi.js";
-import { buildStep } from "./build-step";
+import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toLength } from "./to-length";
-import { STEP_VALUES, toStep } from "./to-step";
+import { toScaleInvariant } from "./to-scale-invariant";
 
 export const TRIANGLE_VERTEX_COUNT = 7;
 export const TRIANGLE_INDEX_COUNT = 3;
@@ -10,40 +10,34 @@ const TRIANGLE_WORK_POINT: Point = new Point();
 
 export const buildTriangleClipping = (clippings: Float32Array, voffset: number): void => {
 	// Clippings
-	let iv = voffset * 3;
-	clippings[iv + 0] = 0;
-	clippings[iv + 1] = 0;
-	clippings[iv + 2] = 0;
-	iv += 3;
+	let iv = voffset * 3 - 1;
+	clippings[++iv] = 0;
+	clippings[++iv] = 0;
+	clippings[++iv] = 0;
 
-	clippings[iv + 0] = 1;
-	clippings[iv + 1] = 0;
-	clippings[iv + 2] = 0;
-	iv += 3;
+	clippings[++iv] = 1;
+	clippings[++iv] = 0;
+	clippings[++iv] = 0;
 
-	clippings[iv + 0] = 1;
-	clippings[iv + 1] = 0;
-	clippings[iv + 2] = 0;
-	iv += 3;
+	clippings[++iv] = 1;
+	clippings[++iv] = 0;
+	clippings[++iv] = 0;
 
-	clippings[iv + 0] = 0;
-	clippings[iv + 1] = 1;
-	clippings[iv + 2] = 0;
-	iv += 3;
+	clippings[++iv] = 0;
+	clippings[++iv] = 1;
+	clippings[++iv] = 0;
 
-	clippings[iv + 0] = 0;
-	clippings[iv + 1] = 1;
-	clippings[iv + 2] = 0;
-	iv += 3;
+	clippings[++iv] = 0;
+	clippings[++iv] = 1;
+	clippings[++iv] = 0;
 
-	clippings[iv + 0] = 1;
-	clippings[iv + 1] = 0;
-	clippings[iv + 2] = 0;
-	iv += 3;
+	clippings[++iv] = 1;
+	clippings[++iv] = 0;
+	clippings[++iv] = 0;
 
-	clippings[iv + 0] = 1;
-	clippings[iv + 1] = 0;
-	clippings[iv + 2] = 0;
+	clippings[++iv] = 1;
+	clippings[++iv] = 0;
+	clippings[++iv] = 0;
 };
 
 export const buildTriangleIndex = (
@@ -52,18 +46,18 @@ export const buildTriangleIndex = (
 	ioffset: number
 ): void => {
 	// Indices
-	const ii = ioffset * 3;
-	indices[ii + 0] = voffset + 0;
-	indices[ii + 1] = voffset + 1;
-	indices[ii + 2] = voffset + 2;
+	let ii = ioffset * 3 - 1;
+	indices[++ii] = voffset + 0;
+	indices[++ii] = voffset + 1;
+	indices[++ii] = voffset + 2;
 
-	indices[ii + 3] = voffset + 0;
-	indices[ii + 4] = voffset + 3;
-	indices[ii + 5] = voffset + 4;
+	indices[++ii] = voffset + 0;
+	indices[++ii] = voffset + 3;
+	indices[++ii] = voffset + 4;
 
-	indices[ii + 6] = voffset + 0;
-	indices[ii + 7] = voffset + 5;
-	indices[ii + 8] = voffset + 6;
+	indices[++ii] = voffset + 0;
+	indices[++ii] = voffset + 5;
+	indices[++ii] = voffset + 6;
 };
 
 export const buildTriangleVertex = (
@@ -76,7 +70,7 @@ export const buildTriangleVertex = (
 	strokeAlign: number,
 	strokeWidth: number,
 	internalTransform: Matrix,
-	worldSize: [number, number, number]
+	worldSize: typeof TRIANGLE_WORLD_SIZE
 ): void => {
 	const s = strokeAlign * strokeWidth;
 	const sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
@@ -114,24 +108,24 @@ export const buildTriangleVertex = (
 	worldSize[2] = toLength(x0, y0, tx, ty);
 
 	// Vertices
-	const iv = voffset << 1;
-	vertices[iv + 0] = x3;
-	vertices[iv + 1] = y3;
+	let iv = (voffset << 1) - 1;
+	vertices[++iv] = x3;
+	vertices[++iv] = y3;
 
-	vertices[iv + 2] = x0;
-	vertices[iv + 3] = y0;
-	vertices[iv + 4] = x1;
-	vertices[iv + 5] = y1;
+	vertices[++iv] = x0;
+	vertices[++iv] = y0;
+	vertices[++iv] = x1;
+	vertices[++iv] = y1;
 
-	vertices[iv + 6] = x1;
-	vertices[iv + 7] = y1;
-	vertices[iv + 8] = x2;
-	vertices[iv + 9] = y2;
+	vertices[++iv] = x1;
+	vertices[++iv] = y1;
+	vertices[++iv] = x2;
+	vertices[++iv] = y2;
 
-	vertices[iv + 10] = x2;
-	vertices[iv + 11] = y2;
-	vertices[iv + 12] = x0;
-	vertices[iv + 13] = y0;
+	vertices[++iv] = x2;
+	vertices[++iv] = y2;
+	vertices[++iv] = x0;
+	vertices[++iv] = y0;
 };
 
 export const buildTriangleStep = (
@@ -140,22 +134,29 @@ export const buildTriangleStep = (
 	voffset: number,
 	vcount: number,
 	strokeWidth: number,
-	antialiasWeight: number,
-	worldSize: [number, number, number]
+	strokeStyle: EShapeStrokeStyle,
+	worldSize: typeof TRIANGLE_WORLD_SIZE
 ): void => {
-	toStep(worldSize[0], strokeWidth, antialiasWeight, STEP_VALUES);
-	const swc = STEP_VALUES[0];
-	const pc0 = STEP_VALUES[1];
-	const pc1 = STEP_VALUES[2];
+	const scaleInvariant = toScaleInvariant(strokeStyle);
+	const s = worldSize[0];
 
-	buildStep(steps, clippings, voffset, vcount, swc, swc, pc0, pc0, pc1, pc1);
+	let is = voffset * 6 - 1;
+	let ic = voffset * 3;
+	for (let i = 0; i < vcount; i += 1, ic += 3) {
+		steps[++is] = strokeWidth;
+		steps[++is] = scaleInvariant;
+		steps[++is] = s;
+		steps[++is] = s;
+		steps[++is] = 1 + clippings[ic];
+		steps[++is] = 1 + clippings[ic + 1];
+	}
 };
 
 export const buildTriangleUv = (
 	uvs: Float32Array,
 	textureUvs: TextureUvs,
 	voffset: number,
-	worldSize: [number, number, number]
+	worldSize: typeof TRIANGLE_WORLD_SIZE
 ): void => {
 	const x0 = textureUvs.x0;
 	const x1 = textureUvs.x1;
@@ -173,22 +174,22 @@ export const buildTriangleUv = (
 	const x5 = x4 + c * (x3 - x0);
 	const y5 = y4 + c * (y3 - y0);
 
-	const iuv = voffset << 1;
-	uvs[iuv + 0] = x5;
-	uvs[iuv + 1] = y5;
+	let iuv = (voffset << 1) - 1;
+	uvs[++iuv] = x5;
+	uvs[++iuv] = y5;
 
-	uvs[iuv + 2] = x4;
-	uvs[iuv + 3] = y4;
-	uvs[iuv + 4] = x2;
-	uvs[iuv + 5] = y2;
+	uvs[++iuv] = x4;
+	uvs[++iuv] = y4;
+	uvs[++iuv] = x2;
+	uvs[++iuv] = y2;
 
-	uvs[iuv + 6] = x2;
-	uvs[iuv + 7] = y2;
-	uvs[iuv + 8] = x3;
-	uvs[iuv + 9] = y3;
+	uvs[++iuv] = x2;
+	uvs[++iuv] = y2;
+	uvs[++iuv] = x3;
+	uvs[++iuv] = y3;
 
-	uvs[iuv + 10] = x3;
-	uvs[iuv + 11] = y3;
-	uvs[iuv + 12] = x4;
-	uvs[iuv + 13] = y4;
+	uvs[++iuv] = x3;
+	uvs[++iuv] = y3;
+	uvs[++iuv] = x4;
+	uvs[++iuv] = y4;
 };

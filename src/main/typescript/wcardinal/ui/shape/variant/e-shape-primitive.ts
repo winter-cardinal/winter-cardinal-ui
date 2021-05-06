@@ -66,7 +66,8 @@ export abstract class EShapePrimitive extends EShapeBase {
 			EShapeDefaults.STROKE_ALPHA,
 			EShapeDefaults.STROKE_WIDTH,
 			EShapeDefaults.STROKE_ALIGN,
-			EShapeDefaults.STROKE_SIDE
+			EShapeDefaults.STROKE_SIDE,
+			EShapeDefaults.STROKE_STYLE
 		);
 	}
 

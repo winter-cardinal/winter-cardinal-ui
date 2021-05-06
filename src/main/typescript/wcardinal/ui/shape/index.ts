@@ -46,6 +46,7 @@ export * from "./e-shape-state-set-impl-observable";
 export * from "./e-shape-state-set";
 export * from "./e-shape-state";
 export * from "./e-shape-stroke-side";
+export * from "./e-shape-stroke-style";
 export * from "./e-shape-stroke";
 export * from "./e-shape-tag-value-range";
 export * from "./e-shape-tag-value";

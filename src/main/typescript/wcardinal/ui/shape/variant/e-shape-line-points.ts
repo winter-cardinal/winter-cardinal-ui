@@ -175,12 +175,10 @@ export class EShapeLinePoints implements EShapePoints {
 			let formatter = this._formatter;
 			if (formatter == null) {
 				const style = this._style;
-				if (style & EShapePointsStyle.TYPE_MASK) {
-					if (style & EShapePointsStyle.STRAIGHT) {
-						formatter = eShapePointsFormatterStraight;
-					} else {
-						formatter = eShapePointsFormatterCurve;
-					}
+				if (style & EShapePointsStyle.STRAIGHT) {
+					formatter = eShapePointsFormatterStraight;
+				} else if (style & EShapePointsStyle.CURVE) {
+					formatter = eShapePointsFormatterCurve;
 				}
 			}
 			if (formatter != null) {

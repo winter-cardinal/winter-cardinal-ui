@@ -71,10 +71,13 @@ export class EShapeImageSdfUploaded extends EShapeTextUploaded {
 		const isTransformChanged = this.transformLocalId !== transformLocalId;
 
 		const stroke = shape.stroke;
-		const strokeWidth = stroke.enable ? stroke.width : 0;
 		const strokeAlign = stroke.align;
+		const strokeWidth = stroke.enable ? stroke.width : 0;
+		const strokeStyle = stroke.style;
 		const isStrokeChanged =
-			this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth;
+			this.strokeAlign !== strokeAlign ||
+			this.strokeWidth !== strokeWidth ||
+			this.strokeStyle !== strokeStyle;
 
 		const texture = this.toTexture(shape);
 		const textureWidth = texture.width * texture.resolution;
@@ -86,8 +89,9 @@ export class EShapeImageSdfUploaded extends EShapeTextUploaded {
 			this.sizeX = sizeX;
 			this.sizeY = sizeY;
 			this.transformLocalId = transformLocalId;
-			this.strokeWidth = strokeWidth;
 			this.strokeAlign = strokeAlign;
+			this.strokeWidth = strokeWidth;
+			this.strokeStyle = strokeStyle;
 			this.textureWidth = textureWidth;
 			this.textureHeight = textureHeight;
 
@@ -114,9 +118,9 @@ export class EShapeImageSdfUploaded extends EShapeTextUploaded {
 				this.vertexOffset,
 				strokeAlign,
 				strokeWidth,
+				strokeStyle,
 				textureWidth,
 				textureHeight,
-				this.antialiasWeight,
 				IMAGE_SDF_WORLD_SIZE
 			);
 		}
