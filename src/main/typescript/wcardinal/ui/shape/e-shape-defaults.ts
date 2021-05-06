@@ -65,11 +65,11 @@ export class EShapeDefaults {
 		return this.THEME.getStrokeAlign();
 	}
 
-	static get STROKE_SIDE(): number {
+	static get STROKE_SIDE(): EShapeStrokeSide {
 		return this.THEME.getStrokeSide();
 	}
 
-	static get STROKE_STYLE(): number {
+	static get STROKE_STYLE(): EShapeStrokeStyle {
 		return this.THEME.getStrokeStyle();
 	}
 
