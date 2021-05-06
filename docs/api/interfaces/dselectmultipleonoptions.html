@@ -2735,9 +2735,6 @@ img {
 					<a href="dselectmultipleonoptions.html#keyup" class="tsd-kind-icon">keyup</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-					<a href="dselectmultipleonoptions.html#menuselect" class="tsd-kind-icon">menuselect</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
 					<a href="dselectmultipleonoptions.html#move" class="tsd-kind-icon">move</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
@@ -2754,6 +2751,9 @@ img {
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
 					<a href="dselectmultipleonoptions.html#scale" class="tsd-kind-icon">scale</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<a href="dselectmultipleonoptions.html#select" class="tsd-kind-icon">select</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
 					<a href="dselectmultipleonoptions.html#skew" class="tsd-kind-icon">skew</a>
@@ -2796,6 +2796,9 @@ img {
 			<ul class="tsd-hierarchy">
 				<li>
 					<span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><a href="dselectmultipleevents.html" class="tsd-signature-type" data-tsd-kind="Interface">DSelectMultipleEvents</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>
+				</li>
+				<li>
+					<span class="tsd-signature-type">DOnOptions</span>
 					<ul class="tsd-hierarchy">
 						<li>
 							<span class="target">DSelectMultipleOnOptions</span>
@@ -2803,15 +2806,6 @@ img {
 					</ul>
 				</li>
 			</ul>
-		</section>
-		<section class="tsd-panel tsd-kind-interface tsd-has-type-parameter">
-			<h3 class="tsd-before-signature">Indexable</h3>
-			<div class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
-			<div class="tsd-comment tsd-typography">
-				<div class="lead">
-					<p><a href="../classes/dselectmultiple.html">DSelectMultiple</a> &quot;on&quot; options.</p>
-				</div>
-			</div>
 		</section>
 		<section class="tsd-panel-group tsd-index-group">
 			<h2>Index</h2>
@@ -2829,13 +2823,13 @@ img {
 							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dselectmultipleonoptions.html#init" class="tsd-kind-icon">init</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dselectmultipleonoptions.html#keydown" class="tsd-kind-icon">keydown</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dselectmultipleonoptions.html#keyup" class="tsd-kind-icon">keyup</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dselectmultipleonoptions.html#menuselect" class="tsd-kind-icon">menuselect</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dselectmultipleonoptions.html#move" class="tsd-kind-icon">move</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dselectmultipleonoptions.html#out" class="tsd-kind-icon">out</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dselectmultipleonoptions.html#over" class="tsd-kind-icon">over</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dselectmultipleonoptions.html#removed" class="tsd-kind-icon">removed</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dselectmultipleonoptions.html#resize" class="tsd-kind-icon">resize</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dselectmultipleonoptions.html#scale" class="tsd-kind-icon">scale</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dselectmultipleonoptions.html#select" class="tsd-kind-icon">select</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dselectmultipleonoptions.html#skew" class="tsd-kind-icon">skew</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dselectmultipleonoptions.html#statechange" class="tsd-kind-icon">statechange</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dselectmultipleonoptions.html#up" class="tsd-kind-icon">up</a></li>
@@ -2858,7 +2852,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from Partial.active</p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.83.1/src/main/typescript/wcardinal/ui/d-button-base.ts#L24">src/main/typescript/wcardinal/ui/d-button-base.ts:24</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.86.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L25">src/main/typescript/wcardinal/ui/d-button-base.ts:25</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2890,7 +2884,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from Partial.added</p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.83.1/src/main/typescript/wcardinal/ui/d-base.ts#L90">src/main/typescript/wcardinal/ui/d-base.ts:90</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.86.0/src/main/typescript/wcardinal/ui/d-base.ts#L100">src/main/typescript/wcardinal/ui/d-base.ts:100</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2922,7 +2916,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from Partial.change</p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.83.1/src/main/typescript/wcardinal/ui/d-select-multiple.ts#L34">src/main/typescript/wcardinal/ui/d-select-multiple.ts:34</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.86.0/src/main/typescript/wcardinal/ui/d-select-multiple.ts#L31">src/main/typescript/wcardinal/ui/d-select-multiple.ts:31</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2972,7 +2966,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from Partial.dblclick</p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.83.1/src/main/typescript/wcardinal/ui/d-base.ts#L217">src/main/typescript/wcardinal/ui/d-base.ts:217</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.86.0/src/main/typescript/wcardinal/ui/d-base.ts#L233">src/main/typescript/wcardinal/ui/d-base.ts:233</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3016,7 +3010,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from Partial.down</p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.83.1/src/main/typescript/wcardinal/ui/d-base.ts#L200">src/main/typescript/wcardinal/ui/d-base.ts:200</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.86.0/src/main/typescript/wcardinal/ui/d-base.ts#L216">src/main/typescript/wcardinal/ui/d-base.ts:216</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3054,7 +3048,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from Partial.inactive</p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.83.1/src/main/typescript/wcardinal/ui/d-button-base.ts#L31">src/main/typescript/wcardinal/ui/d-button-base.ts:31</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.86.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L32">src/main/typescript/wcardinal/ui/d-button-base.ts:32</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3086,7 +3080,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from Partial.init</p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.83.1/src/main/typescript/wcardinal/ui/d-base.ts#L83">src/main/typescript/wcardinal/ui/d-base.ts:83</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.86.0/src/main/typescript/wcardinal/ui/d-base.ts#L93">src/main/typescript/wcardinal/ui/d-base.ts:93</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3120,7 +3114,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from Partial.keydown</p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.83.1/src/main/typescript/wcardinal/ui/d-base.ts#L168">src/main/typescript/wcardinal/ui/d-base.ts:168</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.86.0/src/main/typescript/wcardinal/ui/d-base.ts#L184">src/main/typescript/wcardinal/ui/d-base.ts:184</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3158,7 +3152,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from Partial.keyup</p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.83.1/src/main/typescript/wcardinal/ui/d-base.ts#L176">src/main/typescript/wcardinal/ui/d-base.ts:176</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.86.0/src/main/typescript/wcardinal/ui/d-base.ts#L192">src/main/typescript/wcardinal/ui/d-base.ts:192</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3186,50 +3180,6 @@ img {
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-				<a name="menuselect" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagOptional">Optional</span> menuselect</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-					<li class="tsd-signature tsd-kind-icon">menuselect<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">VALUE</span>, item<span class="tsd-signature-symbol">: </span><a href="../classes/dmenuitem.html" class="tsd-signature-type" data-tsd-kind="Class">DMenuItem</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">, </span><a href="dthememenuitem.html" class="tsd-signature-type" data-tsd-kind="Interface">DThemeMenuItem</a><span class="tsd-signature-symbol">, </span><a href="dmenuitemoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DMenuItemOptions</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">, </span><a href="dthememenuitem.html" class="tsd-signature-type" data-tsd-kind="Interface">DThemeMenuItem</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, emitter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<p>Inherited from Partial.menuselect</p>
-							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.83.1/src/main/typescript/wcardinal/ui/d-select-multiple.ts#L24">src/main/typescript/wcardinal/ui/d-select-multiple.ts:24</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Triggered when a menu item is selected.</p>
-							</div>
-						</div>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>value: <span class="tsd-signature-type">VALUE</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>a value of a selected menu item</p>
-								</div>
-							</li>
-							<li>
-								<h5>item: <a href="../classes/dmenuitem.html" class="tsd-signature-type" data-tsd-kind="Class">DMenuItem</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">, </span><a href="dthememenuitem.html" class="tsd-signature-type" data-tsd-kind="Interface">DThemeMenuItem</a><span class="tsd-signature-symbol">, </span><a href="dmenuitemoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DMenuItemOptions</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">, </span><a href="dthememenuitem.html" class="tsd-signature-type" data-tsd-kind="Interface">DThemeMenuItem</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>a selected menu item</p>
-								</div>
-							</li>
-							<li>
-								<h5>emitter: <span class="tsd-signature-type">EMITTER</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>an emitter</p>
-								</div>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
 				<a name="move" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagOptional">Optional</span> move</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
@@ -3240,7 +3190,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from Partial.move</p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.83.1/src/main/typescript/wcardinal/ui/d-base.ts#L108">src/main/typescript/wcardinal/ui/d-base.ts:108</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.86.0/src/main/typescript/wcardinal/ui/d-base.ts#L118">src/main/typescript/wcardinal/ui/d-base.ts:118</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3296,7 +3246,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from Partial.out</p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.83.1/src/main/typescript/wcardinal/ui/d-base.ts#L192">src/main/typescript/wcardinal/ui/d-base.ts:192</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.86.0/src/main/typescript/wcardinal/ui/d-base.ts#L208">src/main/typescript/wcardinal/ui/d-base.ts:208</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3334,7 +3284,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from Partial.over</p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.83.1/src/main/typescript/wcardinal/ui/d-base.ts#L184">src/main/typescript/wcardinal/ui/d-base.ts:184</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.86.0/src/main/typescript/wcardinal/ui/d-base.ts#L200">src/main/typescript/wcardinal/ui/d-base.ts:200</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3372,7 +3322,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from Partial.removed</p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.83.1/src/main/typescript/wcardinal/ui/d-base.ts#L97">src/main/typescript/wcardinal/ui/d-base.ts:97</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.86.0/src/main/typescript/wcardinal/ui/d-base.ts#L107">src/main/typescript/wcardinal/ui/d-base.ts:107</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3404,7 +3354,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from Partial.resize</p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.83.1/src/main/typescript/wcardinal/ui/d-base.ts#L119">src/main/typescript/wcardinal/ui/d-base.ts:119</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.86.0/src/main/typescript/wcardinal/ui/d-base.ts#L129">src/main/typescript/wcardinal/ui/d-base.ts:129</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3460,7 +3410,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from Partial.scale</p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.83.1/src/main/typescript/wcardinal/ui/d-base.ts#L130">src/main/typescript/wcardinal/ui/d-base.ts:130</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.86.0/src/main/typescript/wcardinal/ui/d-base.ts#L146">src/main/typescript/wcardinal/ui/d-base.ts:146</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3506,6 +3456,50 @@ img {
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+				<a name="select" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> select</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">select<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">VALUE</span>, item<span class="tsd-signature-symbol">: </span><a href="../classes/dmenuitem.html" class="tsd-signature-type" data-tsd-kind="Class">DMenuItem</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">, </span><a href="dthememenuitem.html" class="tsd-signature-type" data-tsd-kind="Interface">DThemeMenuItem</a><span class="tsd-signature-symbol">, </span><a href="dmenuitemoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DMenuItemOptions</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">, </span><a href="dthememenuitem.html" class="tsd-signature-type" data-tsd-kind="Interface">DThemeMenuItem</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, emitter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from Partial.select</p>
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.86.0/src/main/typescript/wcardinal/ui/d-dropdown-base.ts#L30">src/main/typescript/wcardinal/ui/d-dropdown-base.ts:30</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Triggered when a menu item is selected.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>value: <span class="tsd-signature-type">VALUE</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>a value of a selected menu item</p>
+								</div>
+							</li>
+							<li>
+								<h5>item: <a href="../classes/dmenuitem.html" class="tsd-signature-type" data-tsd-kind="Class">DMenuItem</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">, </span><a href="dthememenuitem.html" class="tsd-signature-type" data-tsd-kind="Interface">DThemeMenuItem</a><span class="tsd-signature-symbol">, </span><a href="dmenuitemoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DMenuItemOptions</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">, </span><a href="dthememenuitem.html" class="tsd-signature-type" data-tsd-kind="Interface">DThemeMenuItem</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>a selected menu item</p>
+								</div>
+							</li>
+							<li>
+								<h5>emitter: <span class="tsd-signature-type">EMITTER</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an emitter</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
 				<a name="skew" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagOptional">Optional</span> skew</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
@@ -3516,7 +3510,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from Partial.skew</p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.83.1/src/main/typescript/wcardinal/ui/d-base.ts#L141">src/main/typescript/wcardinal/ui/d-base.ts:141</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.86.0/src/main/typescript/wcardinal/ui/d-base.ts#L157">src/main/typescript/wcardinal/ui/d-base.ts:157</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3572,7 +3566,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from Partial.statechange</p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.83.1/src/main/typescript/wcardinal/ui/d-base.ts#L150">src/main/typescript/wcardinal/ui/d-base.ts:150</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.86.0/src/main/typescript/wcardinal/ui/d-base.ts#L166">src/main/typescript/wcardinal/ui/d-base.ts:166</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3616,7 +3610,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from Partial.up</p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.83.1/src/main/typescript/wcardinal/ui/d-base.ts#L208">src/main/typescript/wcardinal/ui/d-base.ts:208</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.86.0/src/main/typescript/wcardinal/ui/d-base.ts#L224">src/main/typescript/wcardinal/ui/d-base.ts:224</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3654,7 +3648,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from Partial.wheel</p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.83.1/src/main/typescript/wcardinal/ui/d-base.ts#L160">src/main/typescript/wcardinal/ui/d-base.ts:160</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.86.0/src/main/typescript/wcardinal/ui/d-base.ts#L176">src/main/typescript/wcardinal/ui/d-base.ts:176</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
