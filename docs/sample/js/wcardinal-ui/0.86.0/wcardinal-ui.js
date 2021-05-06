@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.85.0
+ Winter Cardinal UI v0.86.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -54,52 +54,53 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapePointsStyle;
-    (function (EShapePointsStyle) {
-        EShapePointsStyle[EShapePointsStyle["NONE"] = 0] = "NONE";
-        EShapePointsStyle[EShapePointsStyle["CLOSED"] = 1] = "CLOSED";
-        EShapePointsStyle[EShapePointsStyle["NON_EXPANDING_WIDTH"] = 2] = "NON_EXPANDING_WIDTH";
-        EShapePointsStyle[EShapePointsStyle["NON_SHRINKING_WIDTH"] = 4] = "NON_SHRINKING_WIDTH";
-        EShapePointsStyle[EShapePointsStyle["NON_SCALING_DOT_AND_DASH"] = 8] = "NON_SCALING_DOT_AND_DASH";
-        EShapePointsStyle[EShapePointsStyle["DOTTED"] = 16] = "DOTTED";
-        EShapePointsStyle[EShapePointsStyle["DOTTED_DENSELY"] = 32] = "DOTTED_DENSELY";
-        EShapePointsStyle[EShapePointsStyle["DOTTED_LOOSELY"] = 64] = "DOTTED_LOOSELY";
-        EShapePointsStyle[EShapePointsStyle["DASHED"] = 128] = "DASHED";
-        EShapePointsStyle[EShapePointsStyle["DASHED_DENSELY"] = 256] = "DASHED_DENSELY";
-        EShapePointsStyle[EShapePointsStyle["DASHED_LOOSELY"] = 512] = "DASHED_LOOSELY";
-        EShapePointsStyle[EShapePointsStyle["STRAIGHT"] = 1024] = "STRAIGHT";
-        EShapePointsStyle[EShapePointsStyle["CURVE"] = 2048] = "CURVE";
-        EShapePointsStyle[EShapePointsStyle["DOTTED_MASK"] = 112] = "DOTTED_MASK";
-        EShapePointsStyle[EShapePointsStyle["DASHED_MASK"] = 896] = "DASHED_MASK";
-        EShapePointsStyle[EShapePointsStyle["TYPE_MASK"] = 3072] = "TYPE_MASK";
-        EShapePointsStyle[EShapePointsStyle["NON_SOLID_MASK"] = 1008] = "NON_SOLID_MASK";
-    })(EShapePointsStyle || (EShapePointsStyle = {}));
+    var EShapeStrokeStyle;
+    (function (EShapeStrokeStyle) {
+        EShapeStrokeStyle[EShapeStrokeStyle["NONE"] = 0] = "NONE";
+        EShapeStrokeStyle[EShapeStrokeStyle["NON_EXPANDING_WIDTH"] = 2] = "NON_EXPANDING_WIDTH";
+        EShapeStrokeStyle[EShapeStrokeStyle["NON_SHRINKING_WIDTH"] = 4] = "NON_SHRINKING_WIDTH";
+        EShapeStrokeStyle[EShapeStrokeStyle["NON_SCALING_DOT_AND_DASH"] = 8] = "NON_SCALING_DOT_AND_DASH";
+        EShapeStrokeStyle[EShapeStrokeStyle["NON_SCALING"] = 14] = "NON_SCALING";
+        EShapeStrokeStyle[EShapeStrokeStyle["NON_SCALING_MASK"] = 14] = "NON_SCALING_MASK";
+        EShapeStrokeStyle[EShapeStrokeStyle["DOTTED"] = 16] = "DOTTED";
+        EShapeStrokeStyle[EShapeStrokeStyle["DOTTED_DENSELY"] = 32] = "DOTTED_DENSELY";
+        EShapeStrokeStyle[EShapeStrokeStyle["DOTTED_LOOSELY"] = 64] = "DOTTED_LOOSELY";
+        EShapeStrokeStyle[EShapeStrokeStyle["DOTTED_MASK"] = 112] = "DOTTED_MASK";
+        EShapeStrokeStyle[EShapeStrokeStyle["DASHED"] = 128] = "DASHED";
+        EShapeStrokeStyle[EShapeStrokeStyle["DASHED_DENSELY"] = 256] = "DASHED_DENSELY";
+        EShapeStrokeStyle[EShapeStrokeStyle["DASHED_LOOSELY"] = 512] = "DASHED_LOOSELY";
+        EShapeStrokeStyle[EShapeStrokeStyle["DASHED_MASK"] = 896] = "DASHED_MASK";
+    })(EShapeStrokeStyle || (EShapeStrokeStyle = {}));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
     var toDash = function (length, strokeWidth, style, result) {
-        result.set(2 * length, 0);
-        if (style & EShapePointsStyle.NON_SOLID_MASK) {
-            if (style & EShapePointsStyle.DOTTED) {
+        if (style & EShapeStrokeStyle.DOTTED_MASK) {
+            if (style & EShapeStrokeStyle.DOTTED) {
                 result.set(strokeWidth, strokeWidth);
             }
-            else if (style & EShapePointsStyle.DOTTED_DENSELY) {
+            else if (style & EShapeStrokeStyle.DOTTED_DENSELY) {
                 result.set(strokeWidth, strokeWidth * 0.5);
             }
-            else if (style & EShapePointsStyle.DOTTED_LOOSELY) {
+            else {
                 result.set(strokeWidth, strokeWidth * 2);
             }
-            else if (style & EShapePointsStyle.DASHED) {
+        }
+        else if (style & EShapeStrokeStyle.DASHED_MASK) {
+            if (style & EShapeStrokeStyle.DASHED) {
                 result.set(strokeWidth * 2, strokeWidth);
             }
-            else if (style & EShapePointsStyle.DASHED_DENSELY) {
+            else if (style & EShapeStrokeStyle.DASHED_DENSELY) {
                 result.set(strokeWidth * 2, strokeWidth * 0.5);
             }
-            else if (style & EShapePointsStyle.DASHED_LOOSELY) {
+            else {
                 result.set(strokeWidth * 2, strokeWidth * 2);
             }
+        }
+        else {
+            result.set(2 * length, 0);
         }
         return result;
     };
@@ -109,10 +110,10 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var toScaleInvariant = function (style) {
-        var nonExpandingWidth = style & EShapePointsStyle.NON_EXPANDING_WIDTH ? 1 : 0;
-        var nonShrinkingWidth = style & EShapePointsStyle.NON_SHRINKING_WIDTH ? 2 : 0;
-        var nonScalingDotAndDash = style & EShapePointsStyle.NON_SCALING_DOT_AND_DASH ? 4 : 0;
-        if (style & EShapePointsStyle.NON_SOLID_MASK) {
+        var nonExpandingWidth = style & EShapeStrokeStyle.NON_EXPANDING_WIDTH ? 1 : 0;
+        var nonShrinkingWidth = style & EShapeStrokeStyle.NON_SHRINKING_WIDTH ? 2 : 0;
+        var nonScalingDotAndDash = style & EShapeStrokeStyle.NON_SCALING_DOT_AND_DASH ? 4 : 0;
+        if (style & (EShapeStrokeStyle.DOTTED_MASK || EShapeStrokeStyle.DASHED_MASK)) {
             return nonExpandingWidth | nonShrinkingWidth | nonScalingDotAndDash;
         }
         else {
@@ -125,30 +126,30 @@
     var BAR_FMIN = 0.00001;
     var BAR_WORK_POINT = new pixi_js.Point();
     var buildBarClipping = function (clippings, voffset) {
-        var ic = voffset * 3;
-        clippings[ic + 0] = 1;
-        clippings[ic + 1] = 0;
-        clippings[ic + 2] = 3;
-        clippings[ic + 3] = 0;
-        clippings[ic + 4] = 1;
-        clippings[ic + 5] = 5;
-        clippings[ic + 6] = 1;
-        clippings[ic + 7] = 0;
-        clippings[ic + 8] = 3;
-        clippings[ic + 9] = 0;
-        clippings[ic + 10] = 1;
-        clippings[ic + 11] = 5;
+        var ic = voffset * 3 - 1;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 3;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 5;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 3;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 5;
     };
     var buildBarIndex = function (indices, voffset, ioffset) {
-        var ii = ioffset * 3;
-        indices[ii + 0] = voffset + 0;
-        indices[ii + 1] = voffset + 2;
-        indices[ii + 2] = voffset + 1;
-        indices[ii + 3] = voffset + 1;
-        indices[ii + 4] = voffset + 2;
-        indices[ii + 5] = voffset + 3;
+        var ii = ioffset * 3 - 1;
+        indices[++ii] = voffset;
+        indices[++ii] = voffset + 2;
+        indices[++ii] = voffset + 1;
+        indices[++ii] = voffset + 1;
+        indices[++ii] = voffset + 2;
+        indices[++ii] = voffset + 3;
     };
-    var buildBarVertexStepAndColorFill = function (vertices, steps, colorFills, voffset, pointValues, pointsStyle, pointsSize, strokeWidth, internalTransform) {
+    var buildBarVertexStepAndColorFill = function (vertices, steps, colorFills, voffset, pointValues, pointsSize, strokeWidth, strokeStyle, internalTransform) {
         // First point
         var a = internalTransform.a;
         var b = internalTransform.b;
@@ -184,73 +185,72 @@
         var p3x = p2x + dx;
         var p3y = p2y + dy;
         //
-        var scaleInvariant = toScaleInvariant(pointsStyle);
-        var iv = voffset << 1;
-        var icf = voffset << 2;
-        var is = voffset * 6;
-        vertices[iv + 0] = p1x;
-        vertices[iv + 1] = p1y;
-        vertices[iv + 2] = p1x;
-        vertices[iv + 3] = p1y;
-        steps[is + 0] = strokeWidth;
-        steps[is + 1] = scaleInvariant;
-        steps[is + 2] = p0x;
-        steps[is + 3] = p0y;
-        steps[is + 4] = p2x;
-        steps[is + 5] = p2y;
-        steps[is + 6] = strokeWidth;
-        steps[is + 7] = scaleInvariant;
-        steps[is + 8] = p0x;
-        steps[is + 9] = p0y;
-        steps[is + 10] = p2x;
-        steps[is + 11] = p2y;
-        colorFills[icf + 0] = 0.0;
-        colorFills[icf + 4] = 0.0;
-        vertices[iv + 4] = p2x;
-        vertices[iv + 5] = p2y;
-        vertices[iv + 6] = p2x;
-        vertices[iv + 7] = p2y;
-        steps[is + 12] = strokeWidth;
-        steps[is + 13] = scaleInvariant;
-        steps[is + 14] = p1x;
-        steps[is + 15] = p1y;
-        steps[is + 16] = p3x;
-        steps[is + 17] = p3y;
-        steps[is + 18] = strokeWidth;
-        steps[is + 19] = scaleInvariant;
-        steps[is + 20] = p1x;
-        steps[is + 21] = p1y;
-        steps[is + 22] = p3x;
-        steps[is + 23] = p3y;
-        colorFills[icf + 8] = l;
-        colorFills[icf + 12] = l;
-        // Total length
-        var dash = toDash(l, strokeWidth, pointsStyle, BAR_WORK_POINT);
+        var scaleInvariant = toScaleInvariant(strokeStyle);
+        var dash = toDash(l, strokeWidth, strokeStyle, BAR_WORK_POINT);
         var dash0 = dash.x;
         var dash1 = dash.y;
-        colorFills[icf + 1] = dash0;
-        colorFills[icf + 2] = dash1;
-        colorFills[icf + 3] = l;
-        colorFills[icf + 5] = dash0;
-        colorFills[icf + 6] = dash1;
-        colorFills[icf + 7] = l;
-        colorFills[icf + 9] = dash0;
-        colorFills[icf + 10] = dash1;
-        colorFills[icf + 11] = l;
-        colorFills[icf + 13] = dash0;
-        colorFills[icf + 14] = dash1;
-        colorFills[icf + 15] = l;
+        var iv = (voffset << 1) - 1;
+        var icf = (voffset << 2) - 1;
+        var is = voffset * 6 - 1;
+        vertices[++iv] = p1x;
+        vertices[++iv] = p1y;
+        vertices[++iv] = p1x;
+        vertices[++iv] = p1y;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = p0x;
+        steps[++is] = p0y;
+        steps[++is] = p2x;
+        steps[++is] = p2y;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = p0x;
+        steps[++is] = p0y;
+        steps[++is] = p2x;
+        steps[++is] = p2y;
+        colorFills[++icf] = 0;
+        colorFills[++icf] = dash0;
+        colorFills[++icf] = dash1;
+        colorFills[++icf] = l;
+        colorFills[++icf] = 0;
+        colorFills[++icf] = dash0;
+        colorFills[++icf] = dash1;
+        colorFills[++icf] = l;
+        vertices[++iv] = p2x;
+        vertices[++iv] = p2y;
+        vertices[++iv] = p2x;
+        vertices[++iv] = p2y;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = p1x;
+        steps[++is] = p1y;
+        steps[++is] = p3x;
+        steps[++is] = p3y;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = p1x;
+        steps[++is] = p1y;
+        steps[++is] = p3x;
+        steps[++is] = p3y;
+        colorFills[++icf] = l;
+        colorFills[++icf] = dash0;
+        colorFills[++icf] = dash1;
+        colorFills[++icf] = l;
+        colorFills[++icf] = l;
+        colorFills[++icf] = dash0;
+        colorFills[++icf] = dash1;
+        colorFills[++icf] = l;
     };
     var buildBarUv = function (uvs, voffset, textureUvs) {
-        var iuv = voffset << 1;
-        uvs[iuv + 0] = textureUvs.x0;
-        uvs[iuv + 1] = textureUvs.y0;
-        uvs[iuv + 2] = textureUvs.x3;
-        uvs[iuv + 3] = textureUvs.y3;
-        uvs[iuv + 4] = textureUvs.x1;
-        uvs[iuv + 5] = textureUvs.y1;
-        uvs[iuv + 6] = textureUvs.x2;
-        uvs[iuv + 7] = textureUvs.y2;
+        var iuv = (voffset << 1) - 1;
+        uvs[++iuv] = textureUvs.x0;
+        uvs[++iuv] = textureUvs.y0;
+        uvs[++iuv] = textureUvs.x3;
+        uvs[++iuv] = textureUvs.y3;
+        uvs[++iuv] = textureUvs.x1;
+        uvs[++iuv] = textureUvs.y1;
+        uvs[++iuv] = textureUvs.x2;
+        uvs[++iuv] = textureUvs.y2;
     };
 
     /*
@@ -399,53 +399,58 @@
 
     var TEXT_VERTEX_COUNT = 4;
     var TEXT_INDEX_COUNT = 2;
-    var TEXT_SDF_WINDOW = 12;
     var TEXT_FMIN = 0.00001;
     var TEXT_WORK_POINT = new pixi_js.Point();
     var toTextBufferCount = function (shape) {
         return Math.ceil(shape.text.value.length / 12) * 12;
     };
     var buildTextClipping = function (clippings, voffset, vcount) {
-        for (var i = voffset * 3, imax = i + vcount * 3; i < imax; i += 3) {
-            clippings[i + 0] = 0;
-            clippings[i + 1] = 0;
-            clippings[i + 2] = 2;
+        var ic = voffset * 3 - 1;
+        var icmax = (voffset + vcount) * 3 - 1;
+        for (; ic < icmax;) {
+            clippings[++ic] = 0;
+            clippings[++ic] = 0;
+            clippings[++ic] = 2;
         }
     };
     var buildTextIndex = function (indices, voffset, ioffset, icount) {
-        for (var i = 0, ii = ioffset * 3, imax = icount >> 1; i < imax; i += 1, ii += 6) {
-            var j = voffset + (i << 2);
-            indices[ii + 0] = j + 0;
-            indices[ii + 1] = j + 1;
-            indices[ii + 2] = j + 3;
-            indices[ii + 3] = j + 1;
-            indices[ii + 4] = j + 2;
-            indices[ii + 5] = j + 3;
+        var ii = ioffset * 3 - 1;
+        var iimax = (ioffset + icount) * 3 - 1;
+        var iv = voffset;
+        for (; ii < iimax;) {
+            indices[++ii] = iv;
+            indices[++ii] = iv + 1;
+            indices[++ii] = iv + 3;
+            indices[++ii] = iv + 1;
+            indices[++ii] = iv + 2;
+            indices[++ii] = iv + 3;
+            iv += 4;
         }
     };
-    var buildTextStep = function (steps, voffset, vcount, textAtlas, textSize, textOutlineWidth, textWeight, antialiasWeight) {
+    var buildTextStep = function (steps, voffset, vcount, textAtlas, textSize, textOutlineWidth, textWeight) {
+        var is = voffset * 6 - 1;
+        var ismax = (voffset + vcount) * 6 - 1;
+        var scaleInvariant = toScaleInvariant(EShapeStrokeStyle.NONE);
         if (textAtlas != null) {
-            var scaleBase = (0.4 / TEXT_SDF_WINDOW) * antialiasWeight;
-            var scale = scaleBase * (textAtlas.font.size / textSize);
-            var outlineWidth = textOutlineWidth * 0.4;
-            var weight = textWeight === EShapeTextWeight.NORMAL ? 0.0 : 0.05;
-            for (var i = voffset * 6, imax = i + vcount * 6; i < imax; i += 6) {
-                steps[i + 0] = scale;
-                steps[i + 1] = outlineWidth;
-                steps[i + 2] = weight;
-                steps[i + 3] = TEXT_FMIN;
-                steps[i + 4] = TEXT_FMIN;
-                steps[i + 5] = TEXT_FMIN;
+            var scale = textAtlas.font.size / textSize;
+            var position = textWeight === EShapeTextWeight.NORMAL ? 0.0 : 0.05;
+            for (; is < ismax;) {
+                steps[++is] = textOutlineWidth;
+                steps[++is] = scaleInvariant;
+                steps[++is] = scale;
+                steps[++is] = 1;
+                steps[++is] = 0;
+                steps[++is] = position;
             }
         }
         else {
-            for (var i = voffset * 6, imax = i + vcount * 6; i < imax; i += 6) {
-                steps[i + 0] = 0;
-                steps[i + 1] = 0;
-                steps[i + 2] = TEXT_FMIN;
-                steps[i + 3] = TEXT_FMIN;
-                steps[i + 4] = TEXT_FMIN;
-                steps[i + 5] = TEXT_FMIN;
+            for (; is < ismax;) {
+                steps[++is] = 0;
+                steps[++is] = scaleInvariant;
+                steps[++is] = 0;
+                steps[++is] = 1;
+                steps[++is] = 0;
+                steps[++is] = 0;
             }
         }
     };
@@ -1080,15 +1085,16 @@
         uvs[iv + 7] = uvy0 + duy0 + dvy1;
     };
     var moveText = function (vertices, vertexIndex, textCount, dx, dy) {
-        for (var i = 0, iv = vertexIndex - 8 * textCount; i < textCount; i += 1, iv += 8) {
-            vertices[iv + 0] += dx;
-            vertices[iv + 1] += dy;
-            vertices[iv + 2] += dx;
-            vertices[iv + 3] += dy;
-            vertices[iv + 4] += dx;
-            vertices[iv + 5] += dy;
-            vertices[iv + 6] += dx;
-            vertices[iv + 7] += dy;
+        var iv = vertexIndex - 8 * textCount - 1;
+        for (var i = 0; i < textCount; ++i) {
+            vertices[++iv] += dx;
+            vertices[++iv] += dy;
+            vertices[++iv] += dx;
+            vertices[++iv] += dy;
+            vertices[++iv] += dx;
+            vertices[++iv] += dy;
+            vertices[++iv] += dx;
+            vertices[++iv] += dy;
         }
     };
     var moveTextHalf = function (vertices, vertexIndex, textCount, offset, nx, ny) {
@@ -1180,6 +1186,42 @@
     }
 
     /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapePointsStyle;
+    (function (EShapePointsStyle) {
+        EShapePointsStyle[EShapePointsStyle["NONE"] = 0] = "NONE";
+        EShapePointsStyle[EShapePointsStyle["CLOSED"] = 1] = "CLOSED";
+        /** @deprecated in favor of EShapeStrokeStyle. */
+        EShapePointsStyle[EShapePointsStyle["NON_EXPANDING_WIDTH"] = 2] = "NON_EXPANDING_WIDTH";
+        /** @deprecated in favor of EShapeStrokeStyle. */
+        EShapePointsStyle[EShapePointsStyle["NON_SHRINKING_WIDTH"] = 4] = "NON_SHRINKING_WIDTH";
+        /** @deprecated in favor of EShapeStrokeStyle. */
+        EShapePointsStyle[EShapePointsStyle["NON_SCALING_DOT_AND_DASH"] = 8] = "NON_SCALING_DOT_AND_DASH";
+        /** @deprecated in favor of EShapeStrokeStyle. */
+        EShapePointsStyle[EShapePointsStyle["NON_SCALING_MASK"] = 14] = "NON_SCALING_MASK";
+        /** @deprecated in favor of EShapeStrokeStyle. */
+        EShapePointsStyle[EShapePointsStyle["DOTTED"] = 16] = "DOTTED";
+        /** @deprecated in favor of EShapeStrokeStyle. */
+        EShapePointsStyle[EShapePointsStyle["DOTTED_DENSELY"] = 32] = "DOTTED_DENSELY";
+        /** @deprecated in favor of EShapeStrokeStyle. */
+        EShapePointsStyle[EShapePointsStyle["DOTTED_LOOSELY"] = 64] = "DOTTED_LOOSELY";
+        /** @deprecated in favor of EShapeStrokeStyle. */
+        EShapePointsStyle[EShapePointsStyle["DOTTED_MASK"] = 112] = "DOTTED_MASK";
+        /** @deprecated in favor of EShapeStrokeStyle. */
+        EShapePointsStyle[EShapePointsStyle["DASHED"] = 128] = "DASHED";
+        /** @deprecated in favor of EShapeStrokeStyle. */
+        EShapePointsStyle[EShapePointsStyle["DASHED_DENSELY"] = 256] = "DASHED_DENSELY";
+        /** @deprecated in favor of EShapeStrokeStyle. */
+        EShapePointsStyle[EShapePointsStyle["DASHED_LOOSELY"] = 512] = "DASHED_LOOSELY";
+        /** @deprecated in favor of EShapeStrokeStyle. */
+        EShapePointsStyle[EShapePointsStyle["DASHED_MASK"] = 896] = "DASHED_MASK";
+        EShapePointsStyle[EShapePointsStyle["STRAIGHT"] = 1024] = "STRAIGHT";
+        EShapePointsStyle[EShapePointsStyle["CURVE"] = 2048] = "CURVE";
+    })(EShapePointsStyle || (EShapePointsStyle = {}));
+
+    /*
      * Copyright (C) 2021 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
@@ -1219,8 +1261,8 @@
             this._id = 0;
             this._values = [0, 0, 0, 0];
             this._segments = [];
-            this._style = style != null ? style : EShapePointsStyle.NONE;
-            this._size = size != null ? size : -1;
+            this._style = style !== null && style !== void 0 ? style : EShapePointsStyle.NONE;
+            this._size = size !== null && size !== void 0 ? size : -1;
             this._position = position;
             this._updatedSize = NaN;
             this._updatedParentSizeX = NaN;
@@ -1439,7 +1481,7 @@
                 this.moveTo(parsed[0], parsed[1], parsed[2]);
             }
         };
-        EShapeBarPoints.prototype.calcHitPointAbs = function (x, y, ax, ay, threshold, range, tester, result) {
+        EShapeBarPoints.prototype.calcHitPointAbs = function (x, y, ax, ay, threshold, toRange, tester, result) {
             var length = this.length;
             if (2 <= length) {
                 var values = this._values;
@@ -3771,6 +3813,13 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(EShapeDefaults, "STROKE_STYLE", {
+            get: function () {
+                return this.THEME.getStrokeStyle();
+            },
+            enumerable: false,
+            configurable: true
+        });
         Object.defineProperty(EShapeDefaults, "TEXT_VALUE", {
             get: function () {
                 return this.THEME.getTextValue();
@@ -3953,7 +4002,7 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var EShapeStrokeImpl = /** @class */ (function () {
-        function EShapeStrokeImpl(parent, enable, color, alpha, width, align, side) {
+        function EShapeStrokeImpl(parent, enable, color, alpha, width, align, side, style) {
             this._parent = parent;
             this._enable = enable;
             this._color = color;
@@ -3961,6 +4010,7 @@
             this._width = width;
             this._align = align;
             this._side = side;
+            this._style = style;
         }
         Object.defineProperty(EShapeStrokeImpl.prototype, "enable", {
             get: function () {
@@ -4040,12 +4090,25 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(EShapeStrokeImpl.prototype, "style", {
+            get: function () {
+                return this._style;
+            },
+            set: function (style) {
+                if (this._style !== style) {
+                    this._style = style;
+                    this._parent.updateUploaded();
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
         EShapeStrokeImpl.prototype.copy = function (target) {
             if (target) {
-                this.set(target.enable, target.color, target.alpha, target.width, target.align, target.side);
+                this.set(target.enable, target.color, target.alpha, target.width, target.align, target.side, target.style);
             }
         };
-        EShapeStrokeImpl.prototype.set = function (enable, color, alpha, width, align, side) {
+        EShapeStrokeImpl.prototype.set = function (enable, color, alpha, width, align, side, style) {
             var isChanged = false;
             if (enable !== undefined && this._enable !== enable) {
                 this._enable = enable;
@@ -4071,12 +4134,16 @@
                 this._side = side;
                 isChanged = true;
             }
+            if (style !== undefined && this._style !== style) {
+                this._style = style;
+                isChanged = true;
+            }
             if (isChanged) {
                 this._parent.updateUploaded();
             }
         };
         EShapeStrokeImpl.prototype.clone = function () {
-            return new EShapeStrokeImpl(this._parent, this._enable, this._color, this._alpha, this._width, this._align, this._side);
+            return new EShapeStrokeImpl(this._parent, this._enable, this._color, this._alpha, this._width, this._align, this._side, this._style);
         };
         EShapeStrokeImpl.prototype.toObject = function () {
             return {
@@ -4085,12 +4152,13 @@
                 alpha: this._alpha,
                 width: this._width,
                 align: this._align,
-                side: this._side
+                side: this._side,
+                style: this._style
             };
         };
         EShapeStrokeImpl.prototype.serialize = function (manager) {
             var enable = this._enable ? 1 : 0;
-            var serialized = "[" + enable + "," + this._color + "," + this._alpha + "," + this._width + "," + this._align + "," + this._side + "]";
+            var serialized = "[" + enable + "," + this._color + "," + this._alpha + "," + this._width + "," + this._align + "," + this._side + "," + this._style + "]";
             return manager.addResource(serialized);
         };
         EShapeStrokeImpl.prototype.deserialize = function (target, manager) {
@@ -4098,12 +4166,12 @@
             if (0 <= target && target < resources.length) {
                 var parsed = manager.getStroke(target);
                 if (parsed != null) {
-                    this.set(!!parsed[0], parsed[1], parsed[2], parsed[3], parsed[4], parsed[5]);
+                    this.set(!!parsed[0], parsed[1], parsed[2], parsed[3], parsed[4], parsed[5], parsed[6]);
                 }
                 else {
                     var deserialized = JSON.parse(resources[target]);
                     manager.setStroke(target, deserialized);
-                    this.set(!!deserialized[0], deserialized[1], deserialized[2], deserialized[3], deserialized[4], deserialized[5]);
+                    this.set(!!deserialized[0], deserialized[1], deserialized[2], deserialized[3], deserialized[4], deserialized[5], deserialized[6]);
                 }
             }
         };
@@ -5809,7 +5877,7 @@
             return new EShapeFillImpl(this, true, EShapeDefaults.FILL_COLOR, EShapeDefaults.FILL_ALPHA);
         };
         EShapePrimitive.prototype.newStroke = function () {
-            return new EShapeStrokeImpl(this, true, EShapeDefaults.STROKE_COLOR, EShapeDefaults.STROKE_ALPHA, EShapeDefaults.STROKE_WIDTH, EShapeDefaults.STROKE_ALIGN, EShapeDefaults.STROKE_SIDE);
+            return new EShapeStrokeImpl(this, true, EShapeDefaults.STROKE_COLOR, EShapeDefaults.STROKE_ALPHA, EShapeDefaults.STROKE_WIDTH, EShapeDefaults.STROKE_ALIGN, EShapeDefaults.STROKE_SIDE, EShapeDefaults.STROKE_STYLE);
         };
         EShapePrimitive.prototype.newText = function () {
             return new EShapeTextImpl(this, EShapeDefaults.TEXT_VALUE, EShapeDefaults.STROKE_COLOR, EShapeDefaults.STROKE_ALPHA, EShapeDefaults.TEXT_FAMILY, EShapeDefaults.TEXT_SIZE);
@@ -5887,10 +5955,9 @@
             }
             return 1.0;
         };
-        EShapeLineBase.prototype.getStrokeWidthScale = function (points) {
-            var style = points.style;
-            if (style & EShapePointsStyle.NON_EXPANDING_WIDTH) {
-                if (style & EShapePointsStyle.NON_SHRINKING_WIDTH) {
+        EShapeLineBase.prototype.getStrokeWidthScale = function (style) {
+            if (style & EShapeStrokeStyle.NON_EXPANDING_WIDTH) {
+                if (style & EShapeStrokeStyle.NON_SHRINKING_WIDTH) {
                     return this.getPixelScale();
                 }
                 else {
@@ -5898,7 +5965,7 @@
                 }
             }
             else {
-                if (style & EShapePointsStyle.NON_SHRINKING_WIDTH) {
+                if (style & EShapeStrokeStyle.NON_SHRINKING_WIDTH) {
                     return Math.max(1.0, this.getPixelScale());
                 }
                 else {
@@ -5909,7 +5976,7 @@
         EShapeLineBase.prototype.toHitThreshold = function (toThreshold) {
             var stroke = this.stroke;
             var strokeWidth = stroke.enable ? stroke.width : 0;
-            var strokeScale = this.getStrokeWidthScale(this._points);
+            var strokeScale = this.getStrokeWidthScale(stroke.style);
             return toThreshold
                 ? toThreshold(strokeWidth, strokeScale)
                 : strokeWidth * strokeScale * 0.5;
@@ -5922,12 +5989,12 @@
             }
             return false;
         };
-        EShapeLineBase.prototype.calcHitPoint = function (point, toHitThreshold, range, tester, result) {
+        EShapeLineBase.prototype.calcHitPoint = function (point, toThreshold, toRange, tester, result) {
             var points = this._points;
-            var threshold = this.toHitThreshold(toHitThreshold);
+            var threshold = this.toHitThreshold(toThreshold);
             var rect = this.toLocalRect(point, EShapeBase.WORK_RECT);
             if (this.containsAbsBBox(rect.x, rect.y, rect.width + threshold, rect.height + threshold)) {
-                return points.calcHitPointAbs(rect.x, rect.y, rect.width, rect.height, threshold, range, tester, result);
+                return points.calcHitPointAbs(rect.x, rect.y, rect.width, rect.height, threshold, toRange, tester, result);
             }
             return false;
         };
@@ -6027,9 +6094,10 @@
             this.alphaStroke = -1;
             this.sizeX = NaN;
             this.sizeY = NaN;
-            this.strokeWidth = NaN;
             this.strokeAlign = NaN;
+            this.strokeWidth = NaN;
             this.strokeSide = NaN;
+            this.strokeStyle = NaN;
             this.radius = NaN;
             this.corner = NaN;
             this.texture = null;
@@ -6292,7 +6360,7 @@
                 this.textWeight = textWeight;
                 this.textOutlineWidth = textOutlineWidth;
                 buffer.updateSteps();
-                buildTextStep(buffer.steps, this.textVertexOffset, this.textVertexCount, text.atlas, text.size, textOutlineWidth, textWeight, this.antialiasWeight);
+                buildTextStep(buffer.steps, this.textVertexOffset, this.textVertexCount, text.atlas, text.size, textOutlineWidth, textWeight);
             }
         };
         EShapeTextUploaded.prototype.buildUnit = function (builder) {
@@ -6352,7 +6420,8 @@
                 var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
                 var stroke = shape.stroke;
                 var strokeWidth = stroke.enable ? stroke.width : 0;
-                var isStrokeWidthChanged = strokeWidth !== this.strokeWidth;
+                var strokeStyle = stroke.style;
+                var isStrokeWidthChanged = strokeWidth !== this.strokeWidth || strokeStyle !== this.strokeStyle;
                 var transformLocalId = this.toTransformLocalId(shape);
                 var isTransformChanged = this.transformLocalId !== transformLocalId;
                 var points = shape.points;
@@ -6368,6 +6437,7 @@
                     this.sizeX = sizeX;
                     this.sizeY = sizeY;
                     this.strokeWidth = strokeWidth;
+                    this.strokeStyle = strokeStyle;
                     this.transformLocalId = transformLocalId;
                     this.pointsId = pointsId;
                     this.pointsStyle = pointsStyle;
@@ -6382,7 +6452,7 @@
                     buffer.updateVertices();
                     buffer.updateSteps();
                     buffer.updateColorFills();
-                    buildBarVertexStepAndColorFill(buffer.vertices, buffer.steps, buffer.colorFills, this.vertexOffset, points.values, pointsStyle, points.size, strokeWidth, shape.transform.internalTransform);
+                    buildBarVertexStepAndColorFill(buffer.vertices, buffer.steps, buffer.colorFills, this.vertexOffset, points.values, points.size, strokeWidth, strokeStyle, shape.transform.internalTransform);
                 }
             }
         };
@@ -22131,6 +22201,15 @@
         var shape = new EShapeBar(EShapeBarPosition.RIGHT);
         var result = EShapeDeserializer.deserialize(item, manager, shape);
         shape.points.deserialize(item[15], manager);
+        var style = shape.points.style;
+        var mask = EShapePointsStyle.NON_SCALING_MASK |
+            EShapePointsStyle.DOTTED_MASK |
+            EShapePointsStyle.DASHED_MASK;
+        var deprecated = style & mask;
+        if (deprecated) {
+            shape.points.style &= ~mask;
+            shape.stroke.style |= deprecated;
+        }
         return result;
     };
 
@@ -22143,117 +22222,66 @@
         EShapeDeserializers[EShapeType.BAR] = deserializeBar;
     };
 
-    var buildStep = function (steps, clippings, voffset, vcount, swx, swy, px0, py0, px1, py1) {
-        var ic = voffset * 3;
-        var is = voffset * 6;
-        for (var i = 0; i < vcount; ++i) {
-            steps[is + 0] = swx * clippings[ic + 0];
-            steps[is + 1] = swy * clippings[ic + 1];
-            steps[is + 2] = px0;
-            steps[is + 3] = py0;
-            steps[is + 4] = px1;
-            steps[is + 5] = py1;
-            ic += 3;
-            is += 6;
-        }
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var STEP_VALUES = [0, 0, 0];
-    var toStep = function (size, strokeWidth, antialiasWeight, result) {
-        var FMIN = 0.00001;
-        if (FMIN < strokeWidth) {
-            var dpc0 = size - strokeWidth;
-            if (FMIN < dpc0) {
-                var pc0 = antialiasWeight / dpc0;
-                var pc1 = antialiasWeight / Math.max(FMIN, size);
-                var swc = 1 / Math.max(FMIN, 1 - strokeWidth / size);
-                result[0] = swc;
-                result[1] = pc0;
-                result[2] = pc1;
-            }
-            else {
-                var pc0 = antialiasWeight / FMIN;
-                var pc1 = antialiasWeight / Math.max(FMIN, size);
-                var swc = 1 / FMIN;
-                result[0] = swc;
-                result[1] = pc0;
-                result[2] = pc1;
-            }
-        }
-        else {
-            // Assumes strokeWidth === 0
-            var pc = antialiasWeight / Math.max(FMIN, size);
-            result[0] = 1;
-            result[1] = pc;
-            result[2] = pc;
-        }
-        return result;
-    };
-
     var CIRCLE_VERTEX_COUNT = 9;
     var CIRCLE_INDEX_COUNT = 8;
     var CIRCLE_WORLD_SIZE = [0, 0];
     var CIRCLE_WORK_POINT = new pixi_js.Point();
     var buildCircleClipping = function (clippings, voffset) {
-        var ic = voffset * 3;
-        clippings[ic + 0] = 1;
-        clippings[ic + 1] = 1;
-        clippings[ic + 2] = 1;
-        clippings[ic + 3] = 0;
-        clippings[ic + 4] = 1;
-        clippings[ic + 5] = 1;
-        clippings[ic + 6] = 1;
-        clippings[ic + 7] = 1;
-        clippings[ic + 8] = 1;
-        clippings[ic + 9] = 1;
-        clippings[ic + 10] = 0;
-        clippings[ic + 11] = 1;
-        clippings[ic + 12] = 0;
-        clippings[ic + 13] = 0;
-        clippings[ic + 14] = 1;
-        clippings[ic + 15] = 1;
-        clippings[ic + 16] = 0;
-        clippings[ic + 17] = 1;
-        clippings[ic + 18] = 1;
-        clippings[ic + 19] = 1;
-        clippings[ic + 20] = 1;
-        clippings[ic + 21] = 0;
-        clippings[ic + 22] = 1;
-        clippings[ic + 23] = 1;
-        clippings[ic + 24] = 1;
-        clippings[ic + 25] = 1;
-        clippings[ic + 26] = 1;
+        var ic = voffset * 3 - 1;
+        clippings[++ic] = 1;
+        clippings[++ic] = 1;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 1;
+        clippings[++ic] = 1;
+        clippings[++ic] = 1;
+        clippings[++ic] = 1;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 1;
+        clippings[++ic] = 1;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 1;
+        clippings[++ic] = 1;
+        clippings[++ic] = 1;
+        clippings[++ic] = 1;
     };
     var buildCircleIndex = function (indices, voffset, ioffset) {
-        var ii = ioffset * 3;
-        indices[ii + 0] = voffset + 0;
-        indices[ii + 1] = voffset + 1;
-        indices[ii + 2] = voffset + 3;
-        indices[ii + 3] = voffset + 1;
-        indices[ii + 4] = voffset + 4;
-        indices[ii + 5] = voffset + 3;
-        indices[ii + 6] = voffset + 1;
-        indices[ii + 7] = voffset + 2;
-        indices[ii + 8] = voffset + 4;
-        indices[ii + 9] = voffset + 2;
-        indices[ii + 10] = voffset + 5;
-        indices[ii + 11] = voffset + 4;
-        indices[ii + 12] = voffset + 3;
-        indices[ii + 13] = voffset + 4;
-        indices[ii + 14] = voffset + 6;
-        indices[ii + 15] = voffset + 4;
-        indices[ii + 16] = voffset + 7;
-        indices[ii + 17] = voffset + 6;
-        indices[ii + 18] = voffset + 4;
-        indices[ii + 19] = voffset + 5;
-        indices[ii + 20] = voffset + 7;
-        indices[ii + 21] = voffset + 5;
-        indices[ii + 22] = voffset + 8;
-        indices[ii + 23] = voffset + 7;
+        var ii = ioffset * 3 - 1;
+        indices[++ii] = voffset;
+        indices[++ii] = voffset + 1;
+        indices[++ii] = voffset + 3;
+        indices[++ii] = voffset + 1;
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 3;
+        indices[++ii] = voffset + 1;
+        indices[++ii] = voffset + 2;
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 2;
+        indices[++ii] = voffset + 5;
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 3;
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 6;
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 7;
+        indices[++ii] = voffset + 6;
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 5;
+        indices[++ii] = voffset + 7;
+        indices[++ii] = voffset + 5;
+        indices[++ii] = voffset + 8;
+        indices[++ii] = voffset + 7;
     };
     var buildCircleVertex = function (vertices, voffset, originX, originY, sizeX, sizeY, strokeAlign, strokeWidth, internalTransform, worldSize) {
         // Calculate the transformed positions
@@ -22288,38 +22316,40 @@
         var x3 = x4 - dx;
         var y3 = y4 - dy;
         // Vertices
-        var iv = voffset * 2;
-        vertices[iv + 0] = x0;
-        vertices[iv + 1] = y0;
-        vertices[iv + 2] = x1;
-        vertices[iv + 3] = y1;
-        vertices[iv + 4] = x1 + dx;
-        vertices[iv + 5] = y1 + dy;
-        vertices[iv + 6] = x3;
-        vertices[iv + 7] = y3;
-        vertices[iv + 8] = x4;
-        vertices[iv + 9] = y4;
-        vertices[iv + 10] = x4 + dx;
-        vertices[iv + 11] = y4 + dy;
-        vertices[iv + 12] = x7 - dx;
-        vertices[iv + 13] = y7 - dy;
-        vertices[iv + 14] = x7;
-        vertices[iv + 15] = y7;
-        vertices[iv + 16] = x7 + dx;
-        vertices[iv + 17] = y7 + dy;
+        var iv = voffset * 2 - 1;
+        vertices[++iv] = x0;
+        vertices[++iv] = y0;
+        vertices[++iv] = x1;
+        vertices[++iv] = y1;
+        vertices[++iv] = x1 + dx;
+        vertices[++iv] = y1 + dy;
+        vertices[++iv] = x3;
+        vertices[++iv] = y3;
+        vertices[++iv] = x4;
+        vertices[++iv] = y4;
+        vertices[++iv] = x4 + dx;
+        vertices[++iv] = y4 + dy;
+        vertices[++iv] = x7 - dx;
+        vertices[++iv] = y7 - dy;
+        vertices[++iv] = x7;
+        vertices[++iv] = y7;
+        vertices[++iv] = x7 + dx;
+        vertices[++iv] = y7 + dy;
         worldSize[0] = toLength(x0, y0, x1, y1);
         worldSize[1] = toLength(x0, y0, x3, y3);
     };
-    var buildCircleStep = function (steps, clippings, voffset, strokeWidth, antialiasWeight, worldSize) {
-        toStep(worldSize[0], strokeWidth, antialiasWeight, STEP_VALUES);
-        var swx = STEP_VALUES[0];
-        var px0 = STEP_VALUES[1];
-        var px1 = STEP_VALUES[2];
-        toStep(worldSize[1], strokeWidth, antialiasWeight, STEP_VALUES);
-        var swy = STEP_VALUES[0];
-        var py0 = STEP_VALUES[1];
-        var py1 = STEP_VALUES[2];
-        buildStep(steps, clippings, voffset, CIRCLE_VERTEX_COUNT, swx, swy, px0, py0, px1, py1);
+    var buildCircleStep = function (steps, clippings, voffset, strokeWidth, strokeStyle, worldSize) {
+        var scaleInvariant = toScaleInvariant(strokeStyle);
+        var is = voffset * 6 - 1;
+        var ic = voffset * 3;
+        for (var i = 0; i < CIRCLE_VERTEX_COUNT; i += 1, ic += 3) {
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = worldSize[0];
+            steps[++is] = worldSize[1];
+            steps[++is] = 1 + clippings[ic];
+            steps[++is] = 1 + clippings[ic + 1];
+        }
     };
     var buildCircleUv = function (uvs, voffset, textureUvs) {
         var x0 = textureUvs.x0;
@@ -22331,25 +22361,25 @@
         var y2 = textureUvs.y2;
         var y3 = textureUvs.y3;
         // UVs
-        var iuv = voffset * 2;
-        uvs[iuv + 0] = x0;
-        uvs[iuv + 1] = y0;
-        uvs[iuv + 2] = 0.5 * (x0 + x1);
-        uvs[iuv + 3] = 0.5 * (y0 + y1);
-        uvs[iuv + 4] = x1;
-        uvs[iuv + 5] = y1;
-        uvs[iuv + 6] = 0.5 * (x0 + x3);
-        uvs[iuv + 7] = 0.5 * (y0 + y3);
-        uvs[iuv + 8] = 0.5 * (x0 + x2);
-        uvs[iuv + 9] = 0.5 * (y0 + y2);
-        uvs[iuv + 10] = 0.5 * (x1 + x2);
-        uvs[iuv + 11] = 0.5 * (y1 + y2);
-        uvs[iuv + 12] = x3;
-        uvs[iuv + 13] = y3;
-        uvs[iuv + 14] = 0.5 * (x3 + x2);
-        uvs[iuv + 15] = 0.5 * (y3 + y2);
-        uvs[iuv + 16] = x2;
-        uvs[iuv + 17] = y2;
+        var iuv = voffset * 2 - 1;
+        uvs[++iuv] = x0;
+        uvs[++iuv] = y0;
+        uvs[++iuv] = 0.5 * (x0 + x1);
+        uvs[++iuv] = 0.5 * (y0 + y1);
+        uvs[++iuv] = x1;
+        uvs[++iuv] = y1;
+        uvs[++iuv] = 0.5 * (x0 + x3);
+        uvs[++iuv] = 0.5 * (y0 + y3);
+        uvs[++iuv] = 0.5 * (x0 + x2);
+        uvs[++iuv] = 0.5 * (y0 + y2);
+        uvs[++iuv] = 0.5 * (x1 + x2);
+        uvs[++iuv] = 0.5 * (y1 + y2);
+        uvs[++iuv] = x3;
+        uvs[++iuv] = y3;
+        uvs[++iuv] = 0.5 * (x3 + x2);
+        uvs[++iuv] = 0.5 * (y3 + y2);
+        uvs[++iuv] = x2;
+        uvs[++iuv] = y2;
     };
 
     /*
@@ -22390,22 +22420,26 @@
             var transformLocalId = this.toTransformLocalId(shape);
             var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
-            var strokeWidth = stroke.enable ? stroke.width : 0;
             var strokeAlign = stroke.align;
-            var isStrokeChanged = this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var strokeStyle = stroke.style;
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeStyle !== strokeStyle;
             if (isSizeChanged || isTransformChanged || isStrokeChanged) {
                 this.sizeX = sizeX;
                 this.sizeY = sizeY;
                 this.transformLocalId = transformLocalId;
-                this.strokeWidth = strokeWidth;
                 this.strokeAlign = strokeAlign;
+                this.strokeWidth = strokeWidth;
+                this.strokeStyle = strokeStyle;
                 // Invalidate the text layout to update the text layout.
                 this.textSpacingHorizontal = NaN;
                 // Buffer
                 buffer.updateVertices();
                 buffer.updateSteps();
                 buildCircleVertex(buffer.vertices, this.vertexOffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, shape.transform.internalTransform, CIRCLE_WORLD_SIZE);
-                buildCircleStep(buffer.steps, buffer.clippings, this.vertexOffset, strokeWidth, this.antialiasWeight, CIRCLE_WORLD_SIZE);
+                buildCircleStep(buffer.steps, buffer.clippings, this.vertexOffset, strokeWidth, strokeStyle, CIRCLE_WORLD_SIZE);
             }
         };
         EShapeCircleUploaded.prototype.updateCircleUv = function (buffer, shape) {
@@ -23327,10 +23361,20 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(EShapeGroupStrokeViewer.prototype, "style", {
+            get: function () {
+                return EShapeStrokeStyle.NONE;
+            },
+            set: function (style) {
+                // DO NOTHING
+            },
+            enumerable: false,
+            configurable: true
+        });
         EShapeGroupStrokeViewer.prototype.copy = function (target) {
             // DO NOTHING
         };
-        EShapeGroupStrokeViewer.prototype.set = function (enable, color, alpha, width, side) {
+        EShapeGroupStrokeViewer.prototype.set = function (enable, color, alpha, width, align, side, style) {
             // DO NOTHING
         };
         EShapeGroupStrokeViewer.prototype.clone = function () {
@@ -23343,7 +23387,8 @@
                 alpha: 1.0,
                 width: 1.0,
                 align: 0.0,
-                side: EShapeStrokeSide.NONE
+                side: EShapeStrokeSide.NONE,
+                style: EShapeStrokeStyle.NONE
             };
         };
         EShapeGroupStrokeViewer.prototype.serialize = function (manager) {
@@ -25250,6 +25295,23 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(EShapeGroupStrokeEditor.prototype, "style", {
+            get: function () {
+                var children = this._parent.children;
+                if (0 < children.length) {
+                    return children[children.length - 1].stroke.style;
+                }
+                return EShapeStrokeStyle.NONE;
+            },
+            set: function (style) {
+                var children = this._parent.children;
+                for (var i = 0, imax = children.length; i < imax; ++i) {
+                    children[i].stroke.style = style;
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
         EShapeGroupStrokeEditor.prototype.copy = function (target) {
             var children = this._parent.children;
             for (var i = 0, imax = children.length; i < imax; ++i) {
@@ -25276,7 +25338,8 @@
                 alpha: 1.0,
                 width: 1.0,
                 align: 0.0,
-                side: EShapeStrokeSide.NONE
+                side: EShapeStrokeSide.NONE,
+                style: EShapeStrokeStyle.NONE
             };
         };
         EShapeGroupStrokeEditor.prototype.serialize = function (manager) {
@@ -25887,86 +25950,91 @@
         vertices[++iv] = b2x;
         vertices[++iv] = b2y;
     };
-    var buildRectangleStep = function (voffset, steps, strokeWidth, strokeSide, antialiasWeight, worldSize) {
+    var buildRectangleStep = function (voffset, steps, strokeWidth, strokeSide, strokeStyle, worldSize) {
+        var scaleInvariant = toScaleInvariant(strokeStyle);
         var brx = worldSize[0];
         var bry = worldSize[1];
-        var brxi = 1 - brx;
-        var bryi = 1 - bry;
-        var worldSizeX = worldSize[2];
-        var worldSizeY = worldSize[3];
-        toStep(worldSizeX, strokeWidth, antialiasWeight, STEP_VALUES);
-        var swx = STEP_VALUES[0];
-        var px0 = STEP_VALUES[1];
-        var px1 = STEP_VALUES[2];
-        toStep(worldSizeY, strokeWidth, antialiasWeight, STEP_VALUES);
-        var swy = STEP_VALUES[0];
-        var py0 = STEP_VALUES[1];
-        var py1 = STEP_VALUES[2];
-        var swt = swy;
-        var pt0 = py0;
-        if (!(strokeSide & EShapeStrokeSide.TOP)) {
-            swt = 1;
-            pt0 = py1;
+        var brxi = Math.max(0, 1 - brx);
+        var bryi = Math.max(0, 1 - bry);
+        var sx = worldSize[2];
+        var sy = worldSize[3];
+        var wt;
+        var bt;
+        if (strokeSide & EShapeStrokeSide.TOP) {
+            wt = +2;
+            bt = +1 + bryi;
         }
-        var swr = swx;
-        var pr0 = px0;
-        if (!(strokeSide & EShapeStrokeSide.RIGHT)) {
-            swr = 1;
-            pr0 = px1;
+        else {
+            wt = -2;
+            bt = -1 - bryi;
         }
-        var swb = swy;
-        var pb0 = py0;
-        if (!(strokeSide & EShapeStrokeSide.BOTTOM)) {
-            swb = 1;
-            pb0 = py1;
+        var wr;
+        var br;
+        if (strokeSide & EShapeStrokeSide.RIGHT) {
+            wr = +2;
+            br = +1 + brxi;
         }
-        var swl = swx;
-        var pl0 = px0;
-        if (!(strokeSide & EShapeStrokeSide.LEFT)) {
-            swl = 1;
-            pl0 = px1;
+        else {
+            wr = -2;
+            br = -1 - brxi;
         }
-        var bwl = brxi * swl;
-        var bwr = brxi * swr;
-        var bwt = bryi * swt;
-        var bwb = bryi * swb;
+        var wb;
+        var bb;
+        if (strokeSide & EShapeStrokeSide.BOTTOM) {
+            wb = +2;
+            bb = +1 + bryi;
+        }
+        else {
+            wb = -2;
+            bb = -1 - bryi;
+        }
+        var wl;
+        var bl;
+        if (strokeSide & EShapeStrokeSide.LEFT) {
+            wl = +2;
+            bl = +1 + brxi;
+        }
+        else {
+            wl = -2;
+            bl = -1 - brxi;
+        }
         // 0 1 2 3
-        var is = (voffset - 1) * 6;
-        fillRectangleStep(steps, (is += 6), swl, swt, pl0, pt0, px1, py1);
-        fillRectangleStep(steps, (is += 6), bwl, swt, pl0, pt0, px1, py1);
-        fillRectangleStep(steps, (is += 6), bwr, swt, pr0, pt0, px1, py1);
-        fillRectangleStep(steps, (is += 6), swr, swt, pr0, pt0, px1, py1);
+        var is = (voffset - 1) * 6 - 1;
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wl, wt);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, bl, wt);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, br, wt);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wr, wt);
         // 4 5
-        fillRectangleStep(steps, (is += 6), bwl, bwt, pl0, pt0, px1, py1);
-        fillRectangleStep(steps, (is += 6), bwr, bwt, pr0, pt0, px1, py1);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, bl, bt);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, br, bt);
         // 6 7
-        fillRectangleStep(steps, (is += 6), bwl, bwb, pl0, pb0, px1, py1);
-        fillRectangleStep(steps, (is += 6), bwr, bwb, pr0, pb0, px1, py1);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, bl, bb);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, br, bb);
         // 8 9 10 11
-        fillRectangleStep(steps, (is += 6), swl, swb, pl0, pb0, px1, py1);
-        fillRectangleStep(steps, (is += 6), bwl, swb, pl0, pb0, px1, py1);
-        fillRectangleStep(steps, (is += 6), bwr, swb, pr0, pb0, px1, py1);
-        fillRectangleStep(steps, (is += 6), swr, swb, pr0, pb0, px1, py1);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wl, wb);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, bl, wb);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, br, wb);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wr, wb);
         // ------------------------------
         // 12 13 14 15
-        fillRectangleStep(steps, (is += 6), swl, swt, pl0, pt0, px1, py1);
-        fillRectangleStep(steps, (is += 6), swl, bwt, pl0, pt0, px1, py1);
-        fillRectangleStep(steps, (is += 6), swl, bwb, pl0, pb0, px1, py1);
-        fillRectangleStep(steps, (is += 6), swl, swb, pl0, pb0, px1, py1);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wl, wt);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wl, bt);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wl, bb);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wl, wb);
         // 16 17
-        fillRectangleStep(steps, (is += 6), bwl, bwt, pl0, pt0, px1, py1);
-        fillRectangleStep(steps, (is += 6), bwl, bwb, pl0, pb0, px1, py1);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, bl, bt);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, bl, bb);
         // 18 19
-        fillRectangleStep(steps, (is += 6), bwr, bwt, pr0, pt0, px1, py1);
-        fillRectangleStep(steps, (is += 6), bwr, bwb, pr0, pb0, px1, py1);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, br, bt);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, br, bb);
         // 20 21 22 23
-        fillRectangleStep(steps, (is += 6), swr, swt, pr0, pt0, px1, py1);
-        fillRectangleStep(steps, (is += 6), swr, bwt, pr0, pt0, px1, py1);
-        fillRectangleStep(steps, (is += 6), swr, bwb, pr0, pb0, px1, py1);
-        fillRectangleStep(steps, (is += 6), swr, swb, pr0, pb0, px1, py1);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wr, wt);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wr, bt);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wr, bb);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wr, wb);
     };
     var fillRectangleStep = function (steps, is, v0, v1, v2, v3, v4, v5) {
-        steps[is] = v0;
+        steps[++is] = v0;
         steps[++is] = v1;
         steps[++is] = v2;
         steps[++is] = v3;
@@ -26075,12 +26143,14 @@
             var transformLocalId = this.toTransformLocalId(shape);
             var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
-            var strokeWidth = stroke.enable ? stroke.width : 0;
             var strokeAlign = stroke.align;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
             var strokeSide = stroke.side;
+            var strokeStyle = stroke.style;
             var isStrokeChanged = this.strokeAlign !== strokeAlign ||
                 this.strokeWidth !== strokeWidth ||
-                this.strokeSide !== strokeSide;
+                this.strokeSide !== strokeSide ||
+                this.strokeStyle !== strokeStyle;
             var texture = this.toTexture(shape);
             var textureTransformId = this.toTextureTransformId(texture);
             var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
@@ -26089,9 +26159,10 @@
                 this.sizeX = sizeX;
                 this.sizeY = sizeY;
                 this.transformLocalId = transformLocalId;
-                this.strokeWidth = strokeWidth;
                 this.strokeAlign = strokeAlign;
+                this.strokeWidth = strokeWidth;
                 this.strokeSide = strokeSide;
+                this.strokeStyle = strokeStyle;
                 this.texture = texture;
                 this.textureTransformId = textureTransformId;
                 if (isVertexChanged || isTransformChanged) {
@@ -26105,7 +26176,7 @@
                 // Steps
                 if (isVertexChanged || isTransformChanged) {
                     buffer.updateSteps();
-                    buildRectangleStep(voffset, buffer.steps, strokeWidth, strokeSide, this.antialiasWeight, RECTANGLE_WORLD_SIZE);
+                    buildRectangleStep(voffset, buffer.steps, strokeWidth, strokeSide, strokeStyle, RECTANGLE_WORLD_SIZE);
                 }
                 // Clippings
                 if (isVertexChanged) {
@@ -26254,120 +26325,105 @@
     var IMAGE_SDF_VERTEX_COUNT = 9;
     var IMAGE_SDF_INDEX_COUNT = 8;
     var IMAGE_SDF_WORLD_SIZE = [0, 0];
-    var IMAGE_SDF_FMIN = 0.00001;
-    var IMAGE_SDF_SDF_WINDOW = 12;
     var IMAGE_SDF_WORK_POINT = new pixi_js.Point();
     var buildImageSdfClipping = function (clippings, voffset) {
-        for (var ic = voffset * 3, imax = (voffset + IMAGE_SDF_VERTEX_COUNT) * 3; ic < imax; ic += 3) {
-            clippings[ic + 0] = 0;
-            clippings[ic + 1] = 0;
-            clippings[ic + 2] = 2;
+        var ic = voffset * 3 - 1;
+        var icmax = (voffset + IMAGE_SDF_VERTEX_COUNT) * 3 - 1;
+        for (; ic < icmax;) {
+            clippings[++ic] = 0;
+            clippings[++ic] = 0;
+            clippings[++ic] = 2;
         }
     };
     var buildImageSdfIndex = function (indices, voffset, ioffset) {
-        var ii = ioffset * 3;
-        indices[ii + 0] = voffset + 0;
-        indices[ii + 1] = voffset + 1;
-        indices[ii + 2] = voffset + 3;
-        indices[ii + 3] = voffset + 1;
-        indices[ii + 4] = voffset + 4;
-        indices[ii + 5] = voffset + 3;
-        ii += 6;
-        indices[ii + 0] = voffset + 1;
-        indices[ii + 1] = voffset + 2;
-        indices[ii + 2] = voffset + 4;
-        indices[ii + 3] = voffset + 2;
-        indices[ii + 4] = voffset + 5;
-        indices[ii + 5] = voffset + 4;
-        ii += 6;
-        indices[ii + 0] = voffset + 3;
-        indices[ii + 1] = voffset + 4;
-        indices[ii + 2] = voffset + 6;
-        indices[ii + 3] = voffset + 4;
-        indices[ii + 4] = voffset + 7;
-        indices[ii + 5] = voffset + 6;
-        ii += 6;
-        indices[ii + 0] = voffset + 4;
-        indices[ii + 1] = voffset + 5;
-        indices[ii + 2] = voffset + 7;
-        indices[ii + 3] = voffset + 5;
-        indices[ii + 4] = voffset + 8;
-        indices[ii + 5] = voffset + 7;
+        var ii = ioffset * 3 - 1;
+        indices[++ii] = voffset;
+        indices[++ii] = voffset + 1;
+        indices[++ii] = voffset + 3;
+        indices[++ii] = voffset + 1;
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 3;
+        indices[++ii] = voffset + 1;
+        indices[++ii] = voffset + 2;
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 2;
+        indices[++ii] = voffset + 5;
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 3;
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 6;
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 7;
+        indices[++ii] = voffset + 6;
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 5;
+        indices[++ii] = voffset + 7;
+        indices[++ii] = voffset + 5;
+        indices[++ii] = voffset + 8;
+        indices[++ii] = voffset + 7;
     };
-    var buildImageSdfStep = function (steps, voffset, strokeAlign, strokeWidth, textureWidth, textureHeight, antialiasWeight, worldSize) {
-        var scaleBase = (0.333 / IMAGE_SDF_SDF_WINDOW) * antialiasWeight;
-        var scaleX = scaleBase * (textureWidth / worldSize[0]);
-        var scaleY = scaleBase * (textureHeight / worldSize[1]);
+    var buildImageSdfStep = function (steps, voffset, strokeAlign, strokeWidth, strokeStyle, textureWidth, textureHeight, worldSize) {
+        var scaleInvariant = toScaleInvariant(strokeStyle);
+        var scaleX = textureWidth / worldSize[0];
+        var scaleY = textureHeight / worldSize[1];
         var scaleZ = (scaleX + scaleY) * 0.5;
-        var outlineLimit = 0.4;
-        var strokeWidthMax = (outlineLimit / 0.5) * IMAGE_SDF_SDF_WINDOW;
-        var strokeWidthRatio = Math.max(0.0, Math.min(1.0, strokeWidth / strokeWidthMax));
-        var outlineWidth = strokeWidthRatio * outlineLimit;
-        var outlinePosition = -outlineWidth * (1 - strokeAlign);
-        var is = voffset * 6;
-        steps[is + 0] = scaleZ;
-        steps[is + 1] = outlineWidth;
-        steps[is + 2] = outlinePosition;
-        steps[is + 3] = IMAGE_SDF_FMIN;
-        steps[is + 4] = IMAGE_SDF_FMIN;
-        steps[is + 5] = IMAGE_SDF_FMIN;
-        is += 6;
-        steps[is + 0] = scaleY;
-        steps[is + 1] = outlineWidth;
-        steps[is + 2] = outlinePosition;
-        steps[is + 3] = IMAGE_SDF_FMIN;
-        steps[is + 4] = IMAGE_SDF_FMIN;
-        steps[is + 5] = IMAGE_SDF_FMIN;
-        is += 6;
-        steps[is + 0] = scaleZ;
-        steps[is + 1] = outlineWidth;
-        steps[is + 2] = outlinePosition;
-        steps[is + 3] = IMAGE_SDF_FMIN;
-        steps[is + 4] = IMAGE_SDF_FMIN;
-        steps[is + 5] = IMAGE_SDF_FMIN;
-        is += 6;
-        steps[is + 0] = scaleX;
-        steps[is + 1] = outlineWidth;
-        steps[is + 2] = outlinePosition;
-        steps[is + 3] = IMAGE_SDF_FMIN;
-        steps[is + 4] = IMAGE_SDF_FMIN;
-        steps[is + 5] = IMAGE_SDF_FMIN;
-        is += 6;
-        steps[is + 0] = scaleZ;
-        steps[is + 1] = outlineWidth;
-        steps[is + 2] = outlinePosition;
-        steps[is + 3] = IMAGE_SDF_FMIN;
-        steps[is + 4] = IMAGE_SDF_FMIN;
-        steps[is + 5] = IMAGE_SDF_FMIN;
-        is += 6;
-        steps[is + 0] = scaleX;
-        steps[is + 1] = outlineWidth;
-        steps[is + 2] = outlinePosition;
-        steps[is + 3] = IMAGE_SDF_FMIN;
-        steps[is + 4] = IMAGE_SDF_FMIN;
-        steps[is + 5] = IMAGE_SDF_FMIN;
-        is += 6;
-        steps[is + 0] = scaleZ;
-        steps[is + 1] = outlineWidth;
-        steps[is + 2] = outlinePosition;
-        steps[is + 3] = IMAGE_SDF_FMIN;
-        steps[is + 4] = IMAGE_SDF_FMIN;
-        steps[is + 5] = IMAGE_SDF_FMIN;
-        is += 6;
-        steps[is + 0] = scaleY;
-        steps[is + 1] = outlineWidth;
-        steps[is + 2] = outlinePosition;
-        steps[is + 3] = IMAGE_SDF_FMIN;
-        steps[is + 4] = IMAGE_SDF_FMIN;
-        steps[is + 5] = IMAGE_SDF_FMIN;
-        is += 6;
-        steps[is + 0] = scaleY;
-        steps[is + 1] = outlineWidth;
-        steps[is + 2] = outlinePosition;
-        steps[is + 3] = IMAGE_SDF_FMIN;
-        steps[is + 4] = IMAGE_SDF_FMIN;
-        steps[is + 5] = IMAGE_SDF_FMIN;
-        is += 6;
+        var strokeWidthMax = 12;
+        var position = -1 + strokeAlign;
+        var is = voffset * 6 - 1;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = scaleZ;
+        steps[++is] = strokeWidthMax;
+        steps[++is] = position;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = scaleY;
+        steps[++is] = strokeWidthMax;
+        steps[++is] = position;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = scaleZ;
+        steps[++is] = strokeWidthMax;
+        steps[++is] = position;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = scaleX;
+        steps[++is] = strokeWidthMax;
+        steps[++is] = position;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = scaleZ;
+        steps[++is] = strokeWidthMax;
+        steps[++is] = position;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = scaleX;
+        steps[++is] = strokeWidthMax;
+        steps[++is] = position;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = scaleZ;
+        steps[++is] = strokeWidthMax;
+        steps[++is] = position;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = scaleY;
+        steps[++is] = strokeWidthMax;
+        steps[++is] = position;
+        steps[++is] = 0;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = scaleY;
+        steps[++is] = strokeWidthMax;
+        steps[++is] = position;
+        steps[++is] = 0;
     };
     var buildImageSdfVertex = function (vertices, voffset, originX, originY, sizeX, sizeY, internalTransform, worldSize) {
         // Calculate the transformed positions
@@ -26398,27 +26454,25 @@
         var x6 = x0 + (x8 - x2);
         var y6 = y0 + (y8 - y2);
         // Vertices
-        var iv = voffset << 1;
-        vertices[iv + 0] = x0;
-        vertices[iv + 1] = y0;
-        vertices[iv + 2] = (x0 + x2) * 0.5;
-        vertices[iv + 3] = (y0 + y2) * 0.5;
-        vertices[iv + 4] = x2;
-        vertices[iv + 5] = y2;
-        iv += 6;
-        vertices[iv + 0] = (x0 + x6) * 0.5;
-        vertices[iv + 1] = (y0 + y6) * 0.5;
-        vertices[iv + 2] = (x0 + x8) * 0.5;
-        vertices[iv + 3] = (y0 + y8) * 0.5;
-        vertices[iv + 4] = (x2 + x8) * 0.5;
-        vertices[iv + 5] = (y2 + y8) * 0.5;
-        iv += 6;
-        vertices[iv + 0] = x6;
-        vertices[iv + 1] = y6;
-        vertices[iv + 2] = (x6 + x8) * 0.5;
-        vertices[iv + 3] = (y6 + y8) * 0.5;
-        vertices[iv + 4] = x8;
-        vertices[iv + 5] = y8;
+        var iv = (voffset << 1) - 1;
+        vertices[++iv] = x0;
+        vertices[++iv] = y0;
+        vertices[++iv] = (x0 + x2) * 0.5;
+        vertices[++iv] = (y0 + y2) * 0.5;
+        vertices[++iv] = x2;
+        vertices[++iv] = y2;
+        vertices[++iv] = (x0 + x6) * 0.5;
+        vertices[++iv] = (y0 + y6) * 0.5;
+        vertices[++iv] = (x0 + x8) * 0.5;
+        vertices[++iv] = (y0 + y8) * 0.5;
+        vertices[++iv] = (x2 + x8) * 0.5;
+        vertices[++iv] = (y2 + y8) * 0.5;
+        vertices[++iv] = x6;
+        vertices[++iv] = y6;
+        vertices[++iv] = (x6 + x8) * 0.5;
+        vertices[++iv] = (y6 + y8) * 0.5;
+        vertices[++iv] = x8;
+        vertices[++iv] = y8;
         worldSize[0] = toLength(x0, y0, x2, y2) * 0.5;
         worldSize[1] = toLength(x0, y0, x6, y6) * 0.5;
     };
@@ -26431,27 +26485,25 @@
         var y2 = textureUv.y2;
         var x3 = textureUv.x3;
         var y3 = textureUv.y3;
-        var iv = voffset << 1;
-        uvs[iv + 0] = x0;
-        uvs[iv + 1] = y0;
-        uvs[iv + 2] = (x1 + x0) * 0.5;
-        uvs[iv + 3] = (y1 + y0) * 0.5;
-        uvs[iv + 4] = x1;
-        uvs[iv + 5] = y1;
-        iv += 6;
-        uvs[iv + 0] = (x0 + x3) * 0.5;
-        uvs[iv + 1] = (y0 + y3) * 0.5;
-        uvs[iv + 2] = (x0 + x2) * 0.5;
-        uvs[iv + 3] = (y0 + y2) * 0.5;
-        uvs[iv + 4] = (x1 + x2) * 0.5;
-        uvs[iv + 5] = (y1 + y2) * 0.5;
-        iv += 6;
-        uvs[iv + 0] = x3;
-        uvs[iv + 1] = y3;
-        uvs[iv + 2] = (x3 + x2) * 0.5;
-        uvs[iv + 3] = (y3 + y2) * 0.5;
-        uvs[iv + 4] = x2;
-        uvs[iv + 5] = y2;
+        var iv = (voffset << 1) - 1;
+        uvs[++iv] = x0;
+        uvs[++iv] = y0;
+        uvs[++iv] = (x1 + x0) * 0.5;
+        uvs[++iv] = (y1 + y0) * 0.5;
+        uvs[++iv] = x1;
+        uvs[++iv] = y1;
+        uvs[++iv] = (x0 + x3) * 0.5;
+        uvs[++iv] = (y0 + y3) * 0.5;
+        uvs[++iv] = (x0 + x2) * 0.5;
+        uvs[++iv] = (y0 + y2) * 0.5;
+        uvs[++iv] = (x1 + x2) * 0.5;
+        uvs[++iv] = (y1 + y2) * 0.5;
+        uvs[++iv] = x3;
+        uvs[++iv] = y3;
+        uvs[++iv] = (x3 + x2) * 0.5;
+        uvs[++iv] = (y3 + y2) * 0.5;
+        uvs[++iv] = x2;
+        uvs[++iv] = y2;
     };
 
     /*
@@ -26495,9 +26547,12 @@
             var transformLocalId = this.toTransformLocalId(shape);
             var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
-            var strokeWidth = stroke.enable ? stroke.width : 0;
             var strokeAlign = stroke.align;
-            var isStrokeChanged = this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var strokeStyle = stroke.style;
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeStyle !== strokeStyle;
             var texture = this.toTexture(shape);
             var textureWidth = texture.width * texture.resolution;
             var textureHeight = texture.height * texture.resolution;
@@ -26506,8 +26561,9 @@
                 this.sizeX = sizeX;
                 this.sizeY = sizeY;
                 this.transformLocalId = transformLocalId;
-                this.strokeWidth = strokeWidth;
                 this.strokeAlign = strokeAlign;
+                this.strokeWidth = strokeWidth;
+                this.strokeStyle = strokeStyle;
                 this.textureWidth = textureWidth;
                 this.textureHeight = textureHeight;
                 // Invalidate the text layout to update the text layout.
@@ -26517,7 +26573,7 @@
                 buildImageSdfVertex(buffer.vertices, this.vertexOffset, 0, 0, sizeX, sizeY, shape.transform.internalTransform, IMAGE_SDF_WORLD_SIZE);
                 // Steps
                 buffer.updateSteps();
-                buildImageSdfStep(buffer.steps, this.vertexOffset, strokeAlign, strokeWidth, textureWidth, textureHeight, this.antialiasWeight, IMAGE_SDF_WORLD_SIZE);
+                buildImageSdfStep(buffer.steps, this.vertexOffset, strokeAlign, strokeWidth, strokeStyle, textureWidth, textureHeight, IMAGE_SDF_WORLD_SIZE);
             }
         };
         EShapeImageSdfUploaded.prototype.updateUv = function (buffer, shape) {
@@ -26822,7 +26878,7 @@
             uvs[iuv + 1] = 0;
         }
     };
-    var buildLineVertexStepAndColorFill = function (vertices, steps, colorFills, voffset, vcount, pointCount, pointsClosed, pointValues, pointSegments, pointsStyle, strokeWidth, internalTransform) {
+    var buildLineVertexStepAndColorFill = function (vertices, steps, colorFills, voffset, vcount, pointCount, pointsClosed, pointValues, pointSegments, strokeWidth, strokeStyle, internalTransform) {
         var iv = voffset << 1;
         var is = voffset * 6;
         var icf = voffset << 2;
@@ -26830,7 +26886,7 @@
         var px = 0;
         var py = 0;
         if (2 <= pointCount) {
-            var scaleInvariant = toScaleInvariant(pointsStyle);
+            var scaleInvariant = toScaleInvariant(strokeStyle);
             //
             var l = 0;
             var lprev = 0;
@@ -26845,6 +26901,7 @@
             var psegnext = false;
             var icfprev = icf;
             var loffset = 0;
+            var ipvoffset = 0 < pointSegments.length ? pointSegments[0] : 0;
             //
             var a = internalTransform.a;
             var b = internalTransform.b;
@@ -26853,28 +26910,33 @@
             var tx = internalTransform.tx;
             var ty = internalTransform.ty;
             // First point
-            var pv0 = pointValues[0];
-            var pv1 = pointValues[1];
+            var ipv = ipvoffset % pointCount;
+            var ipvs = ipv << 1;
+            var pv0 = pointValues[ipvs];
+            var pv1 = pointValues[ipvs + 1];
             var pfirstx = a * pv0 + c * pv1 + tx;
             var pfirsty = b * pv0 + d * pv1 + ty;
-            var psegfirst = 0 <= toIndexOf(pointSegments, 0);
+            var psegfirst = 0 <= toIndexOf(pointSegments, ipv);
             // Last point
-            var lastIndex = (pointCount - 1) << 1;
-            var pvl0 = pointValues[lastIndex + 0];
-            var pvl1 = pointValues[lastIndex + 1];
+            ipv = (ipvoffset + pointCount - 1) % pointCount;
+            ipvs = ipv << 1;
+            var pvl0 = pointValues[ipvs];
+            var pvl1 = pointValues[ipvs + 1];
             var plastx = a * pvl0 + c * pvl1 + tx;
             var plasty = b * pvl0 + d * pvl1 + ty;
-            var pseglast = 0 <= toIndexOf(pointSegments, pointCount - 1);
+            var pseglast = 0 <= toIndexOf(pointSegments, ipv);
             // Second point
             var psecondx = plastx;
             var psecondy = plasty;
             var psegsecond = pseglast;
             if (2 < pointCount) {
-                var pv2 = pointValues[2];
-                var pv3 = pointValues[3];
+                ipv = (ipvoffset + 1) % pointCount;
+                ipvs = ipv << 1;
+                var pv2 = pointValues[ipvs];
+                var pv3 = pointValues[ipvs + 1];
                 psecondx = a * pv2 + c * pv3 + tx;
                 psecondy = b * pv2 + d * pv3 + ty;
-                psegsecond = 0 <= toIndexOf(pointSegments, 1);
+                psegsecond = 0 <= toIndexOf(pointSegments, ipv);
             }
             // First segment
             if (pointsClosed) {
@@ -26936,12 +26998,13 @@
                     psegnext = psegsecond;
                 }
                 else if (i < pointCount - 1) {
-                    var nextIndex = (i + 1) << 1;
-                    var pvn0 = pointValues[nextIndex + 0];
-                    var pvn1 = pointValues[nextIndex + 1];
+                    ipv = (ipvoffset + i + 1) % pointCount;
+                    ipvs = ipv << 1;
+                    var pvn0 = pointValues[ipvs];
+                    var pvn1 = pointValues[ipvs + 1];
                     pnextx = a * pvn0 + c * pvn1 + tx;
                     pnexty = b * pvn0 + d * pvn1 + ty;
-                    psegnext = 0 <= toIndexOf(pointSegments, i + 1);
+                    psegnext = 0 <= toIndexOf(pointSegments, ipv);
                 }
                 else {
                     pnextx = pfirstx;
@@ -26959,7 +27022,7 @@
                     pprevy = py - (pnexty - py);
                     lmax = Math.max(lmax, llo);
                     llop = lprev - loffset;
-                    var dash = toDash(llop, strokeWidth, pointsStyle, LINE_WORK_POINT);
+                    var dash = toDash(llop, strokeWidth, strokeStyle, LINE_WORK_POINT);
                     var dash0 = dash.x;
                     var dash1 = dash.y;
                     for (var j = icfprev; j < icf + 8; j += 4) {
@@ -27048,7 +27111,7 @@
                     pprevy = py - (pnexty - py);
                     lmax = Math.max(lmax, llo);
                     llop = lprev - loffset;
-                    var dash = toDash(llop, strokeWidth, pointsStyle, LINE_WORK_POINT);
+                    var dash = toDash(llop, strokeWidth, strokeStyle, LINE_WORK_POINT);
                     var dash0 = dash.x;
                     var dash1 = dash.y;
                     for (var j = icfprev; j < icf + 8; j += 4) {
@@ -27090,7 +27153,7 @@
                 icf += 8;
                 // Total length
                 if (icfprev < icf) {
-                    var dash = toDash(llop, strokeWidth, pointsStyle, LINE_WORK_POINT);
+                    var dash = toDash(llop, strokeWidth, strokeStyle, LINE_WORK_POINT);
                     var dash0 = dash.x;
                     var dash1 = dash.y;
                     if (pointsClosed) {
@@ -27192,12 +27255,14 @@
                 var isPointChanged = pointId !== this.pointId;
                 var stroke = shape.stroke;
                 var strokeWidth = stroke.enable ? stroke.width : 0;
-                var isStrokeWidthChanged = strokeWidth !== this.strokeWidth;
+                var strokeStyle = stroke.style;
+                var isStrokeWidthChanged = this.strokeWidth !== strokeWidth || this.strokeStyle !== strokeStyle;
                 var transformLocalId = this.toTransformLocalId(shape);
                 var isTransformChanged = this.transformLocalId !== transformLocalId;
                 if (isPointChanged || isTransformChanged || isStrokeWidthChanged) {
                     this.pointId = pointId;
                     this.strokeWidth = strokeWidth;
+                    this.strokeStyle = strokeStyle;
                     this.transformLocalId = transformLocalId;
                     if (isPointChanged || isTransformChanged) {
                         // Invalidate the text layout to update the text layout.
@@ -27211,7 +27276,7 @@
                     buffer.updateSteps();
                     buffer.updateColorFills();
                     var formatted = points.formatted;
-                    this.length = buildLineVertexStepAndColorFill(buffer.vertices, buffer.steps, buffer.colorFills, this.vertexOffset, this.vertexCount - this.textVertexCount, this.pointCount, this.pointsClosed, formatted.values, formatted.segments, formatted.style, strokeWidth, shape.transform.internalTransform);
+                    this.length = buildLineVertexStepAndColorFill(buffer.vertices, buffer.steps, buffer.colorFills, this.vertexOffset, this.vertexCount - this.textVertexCount, this.pointCount, this.pointsClosed, formatted.values, formatted.segments, strokeWidth, strokeStyle, shape.transform.internalTransform);
                 }
             }
         };
@@ -27900,13 +27965,11 @@
                     var formatter = this._formatter;
                     if (formatter == null) {
                         var style = this._style;
-                        if (style & EShapePointsStyle.TYPE_MASK) {
-                            if (style & EShapePointsStyle.STRAIGHT) {
-                                formatter = eShapePointsFormatterStraight;
-                            }
-                            else {
-                                formatter = eShapePointsFormatterCurve;
-                            }
+                        if (style & EShapePointsStyle.STRAIGHT) {
+                            formatter = eShapePointsFormatterStraight;
+                        }
+                        else if (style & EShapePointsStyle.CURVE) {
+                            formatter = eShapePointsFormatterCurve;
                         }
                     }
                     if (formatter != null) {
@@ -28034,7 +28097,7 @@
         EShapeLinePoints.prototype.serialize = function (manager) {
             return manager.addResource("[" + JSON.stringify(this._values) + "," + JSON.stringify(this._segments) + "," + this._style + "]");
         };
-        EShapeLinePoints.prototype.calcHitPointAbs = function (x, y, ax, ay, threshold, range, tester, result) {
+        EShapeLinePoints.prototype.calcHitPointAbs = function (x, y, ax, ay, threshold, toRange, tester, result) {
             var formatted = this.formatted;
             var length = formatted.length;
             if (2 <= length) {
@@ -28043,9 +28106,9 @@
                 var style = formatted.style;
                 var istart = 0;
                 var iend = length;
-                if (range) {
+                if (toRange) {
                     var work = EShapeLinePoints.WORK_RANGE;
-                    range(x, y, threshold, values, work);
+                    toRange(x, y, threshold, values, work);
                     istart = work[0];
                     iend = work[1];
                 }
@@ -28117,6 +28180,7 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var deserializeLine = function (item, manager) {
+        var _a;
         var resources = manager.resources;
         var resourceId = item[15];
         if (0 <= resourceId && resourceId < resources.length) {
@@ -28125,7 +28189,15 @@
                 parsed = JSON.parse(resources[resourceId]);
                 manager.setExtension(resourceId, parsed);
             }
-            var shape = new EShapeLine(parsed[0], parsed[1], EShapeDefaults.STROKE_WIDTH, parsed[2]);
+            var style = (_a = parsed[2]) !== null && _a !== void 0 ? _a : EShapePointsStyle.NONE;
+            var mask = EShapePointsStyle.NON_SCALING_MASK |
+                EShapePointsStyle.DOTTED_MASK |
+                EShapePointsStyle.DASHED_MASK;
+            var shape = new EShapeLine(parsed[0], parsed[1], EShapeDefaults.STROKE_WIDTH, style & ~mask);
+            var deprecated = style & mask;
+            if (deprecated) {
+                shape.stroke.style |= deprecated;
+            }
             return EShapeDeserializer.deserialize(item, manager, shape);
         }
         return null;
@@ -28864,7 +28936,7 @@
         EShapeLineOfAnyPointsImpl.prototype.serialize = function (manager) {
             return manager.addResource("[]");
         };
-        EShapeLineOfAnyPointsImpl.prototype.calcHitPointAbs = function (x, y, threshold, range, tester, result) {
+        EShapeLineOfAnyPointsImpl.prototype.calcHitPointAbs = function (x, y, threshold, toRange, tester, result) {
             var formatted = this.formatted;
             var pointCount = formatted.length;
             var pointValues = formatted.values;
@@ -28872,11 +28944,11 @@
             var offset = this._offset;
             var istart = 0;
             var iend = pointCount;
-            if (range) {
+            if (toRange) {
                 var s = size.getLimit() * 0.5;
                 var o = offset.getLimit();
                 var work = EShapeLineOfAnyPointsImpl.WORK_RANGE;
-                range(x, y, s, s, o, o, threshold, pointValues, work);
+                toRange(x, y, s, s, o, o, threshold, pointValues, work);
                 istart = work[0];
                 iend = work[1];
             }
@@ -29016,9 +29088,12 @@
             var transformLocalId = this.toTransformLocalId(shape);
             var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
-            var strokeWidth = stroke.enable ? stroke.width : 0;
             var strokeAlign = stroke.align;
-            var isStrokeChanged = this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var strokeStyle = stroke.style;
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeStyle !== strokeStyle;
             if (isPointChanged ||
                 isPointSizeChanged ||
                 isSizeChanged ||
@@ -29034,6 +29109,7 @@
                 this.transformLocalId = transformLocalId;
                 this.strokeWidth = strokeWidth;
                 this.strokeAlign = strokeAlign;
+                this.strokeStyle = strokeStyle;
                 if (isSizeChanged || isTransformChanged || isStrokeChanged) {
                     // Invalidate the text layout to update the text layout.
                     this.textSpacingHorizontal = NaN;
@@ -29048,13 +29124,12 @@
                 var steps = buffer.steps;
                 var clippings = buffer.clippings;
                 var internalTransform = shape.transform.internalTransform;
-                var antialiasWeight = this.antialiasWeight;
                 if (0 < pointCount && pointSize.isStaticX() && pointSize.isStaticY()) {
                     var pointSizeX = pointSize.getX(0);
                     var pointSizeY = pointSize.getY(0);
                     buildCircleVertex(vertices, voffset, 0, 0, pointSizeX, pointSizeY, strokeAlign, strokeWidth, internalTransform, CIRCLE_WORLD_SIZE);
                     copyVertex(vertices, internalTransform, voffset, CIRCLE_VERTEX_COUNT, pointCount, pointsValues, pointOffset);
-                    buildCircleStep(steps, clippings, voffset, strokeWidth, antialiasWeight, CIRCLE_WORLD_SIZE);
+                    buildCircleStep(steps, clippings, voffset, strokeWidth, strokeStyle, CIRCLE_WORLD_SIZE);
                     copyStep(steps, voffset, CIRCLE_VERTEX_COUNT, pointCount);
                 }
                 else {
@@ -29066,7 +29141,7 @@
                         var pointSizeY = pointSize.getY(i);
                         var iv = voffset + i * CIRCLE_VERTEX_COUNT;
                         buildCircleVertex(vertices, iv, px, py, pointSizeX, pointSizeY, strokeAlign, strokeWidth, internalTransform, CIRCLE_WORLD_SIZE);
-                        buildCircleStep(steps, clippings, iv, strokeWidth, antialiasWeight, CIRCLE_WORLD_SIZE);
+                        buildCircleStep(steps, clippings, iv, strokeWidth, strokeStyle, CIRCLE_WORLD_SIZE);
                     }
                 }
                 // Fill the rest
@@ -29155,11 +29230,11 @@
         EShapeLineOfCircles.prototype.containsPointAbsBBox = function (x, y, ax, ay, ox, oy, px, py) {
             return _super.prototype.containsAbsBBox.call(this, x - px - ox, y - py - oy, ax, ay);
         };
-        EShapeLineOfCircles.prototype.calcHitPoint = function (point, toThreshold, range, tester, result) {
+        EShapeLineOfCircles.prototype.calcHitPoint = function (point, toThreshold, toRange, tester, result) {
             var rect = this.toLocalRect(point, EShapeBase.WORK_RECT);
             var threshold = toHitThreshold(this, toThreshold);
             if (this.containsAbsBBox(rect.x, rect.y, rect.width + threshold, rect.height + threshold)) {
-                return this._points.calcHitPointAbs(rect.x, rect.y, threshold, range, tester || this._tester, result);
+                return this._points.calcHitPointAbs(rect.x, rect.y, threshold, toRange, tester || this._tester, result);
             }
             return false;
         };
@@ -29189,97 +29264,86 @@
     var RECTANGLE_ROUNDED_WORK_POINT = new pixi_js.Point();
     var buildRectangleRoundedIndex = function (indices, voffset, ioffset) {
         // Top-left corner
-        var ii = ioffset * 3;
-        indices[ii + 0] = voffset + 0;
-        indices[ii + 1] = voffset + 1;
-        indices[ii + 2] = voffset + 2;
-        indices[ii + 3] = voffset + 1;
-        indices[ii + 4] = voffset + 3;
-        indices[ii + 5] = voffset + 2;
-        ii += 6;
+        var ii = ioffset * 3 - 1;
+        indices[++ii] = voffset;
+        indices[++ii] = voffset + 1;
+        indices[++ii] = voffset + 2;
+        indices[++ii] = voffset + 1;
+        indices[++ii] = voffset + 3;
+        indices[++ii] = voffset + 2;
         // Top-right corner
-        indices[ii + 0] = voffset + 4;
-        indices[ii + 1] = voffset + 5;
-        indices[ii + 2] = voffset + 6;
-        indices[ii + 3] = voffset + 5;
-        indices[ii + 4] = voffset + 7;
-        indices[ii + 5] = voffset + 6;
-        ii += 6;
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 5;
+        indices[++ii] = voffset + 6;
+        indices[++ii] = voffset + 5;
+        indices[++ii] = voffset + 7;
+        indices[++ii] = voffset + 6;
         // Bottom-left corner
-        indices[ii + 0] = voffset + 8;
-        indices[ii + 1] = voffset + 9;
-        indices[ii + 2] = voffset + 10;
-        indices[ii + 3] = voffset + 9;
-        indices[ii + 4] = voffset + 11;
-        indices[ii + 5] = voffset + 10;
-        ii += 6;
+        indices[++ii] = voffset + 8;
+        indices[++ii] = voffset + 9;
+        indices[++ii] = voffset + 10;
+        indices[++ii] = voffset + 9;
+        indices[++ii] = voffset + 11;
+        indices[++ii] = voffset + 10;
         // Bottom-right corner
-        indices[ii + 0] = voffset + 12;
-        indices[ii + 1] = voffset + 13;
-        indices[ii + 2] = voffset + 14;
-        indices[ii + 3] = voffset + 13;
-        indices[ii + 4] = voffset + 15;
-        indices[ii + 5] = voffset + 14;
-        ii += 6;
+        indices[++ii] = voffset + 12;
+        indices[++ii] = voffset + 13;
+        indices[++ii] = voffset + 14;
+        indices[++ii] = voffset + 13;
+        indices[++ii] = voffset + 15;
+        indices[++ii] = voffset + 14;
         // Top edge
-        indices[ii + 0] = voffset + 16;
-        indices[ii + 1] = voffset + 17;
-        indices[ii + 2] = voffset + 20;
-        indices[ii + 3] = voffset + 17;
-        indices[ii + 4] = voffset + 21;
-        indices[ii + 5] = voffset + 20;
-        ii += 6;
-        indices[ii + 0] = voffset + 17;
-        indices[ii + 1] = voffset + 18;
-        indices[ii + 2] = voffset + 21;
-        indices[ii + 3] = voffset + 18;
-        indices[ii + 4] = voffset + 22;
-        indices[ii + 5] = voffset + 21;
-        ii += 6;
+        indices[++ii] = voffset + 16;
+        indices[++ii] = voffset + 17;
+        indices[++ii] = voffset + 20;
+        indices[++ii] = voffset + 17;
+        indices[++ii] = voffset + 21;
+        indices[++ii] = voffset + 20;
+        indices[++ii] = voffset + 17;
+        indices[++ii] = voffset + 18;
+        indices[++ii] = voffset + 21;
+        indices[++ii] = voffset + 18;
+        indices[++ii] = voffset + 22;
+        indices[++ii] = voffset + 21;
         // Upper middle
-        indices[ii + 0] = voffset + 19;
-        indices[ii + 1] = voffset + 21;
-        indices[ii + 2] = voffset + 24;
-        indices[ii + 3] = voffset + 21;
-        indices[ii + 4] = voffset + 25;
-        indices[ii + 5] = voffset + 24;
-        ii += 6;
-        indices[ii + 0] = voffset + 21;
-        indices[ii + 1] = voffset + 23;
-        indices[ii + 2] = voffset + 26;
-        indices[ii + 3] = voffset + 23;
-        indices[ii + 4] = voffset + 27;
-        indices[ii + 5] = voffset + 26;
-        ii += 6;
+        indices[++ii] = voffset + 19;
+        indices[++ii] = voffset + 21;
+        indices[++ii] = voffset + 24;
+        indices[++ii] = voffset + 21;
+        indices[++ii] = voffset + 25;
+        indices[++ii] = voffset + 24;
+        indices[++ii] = voffset + 21;
+        indices[++ii] = voffset + 23;
+        indices[++ii] = voffset + 26;
+        indices[++ii] = voffset + 23;
+        indices[++ii] = voffset + 27;
+        indices[++ii] = voffset + 26;
         // Lower middle
-        indices[ii + 0] = voffset + 24;
-        indices[ii + 1] = voffset + 25;
-        indices[ii + 2] = voffset + 28;
-        indices[ii + 3] = voffset + 25;
-        indices[ii + 4] = voffset + 30;
-        indices[ii + 5] = voffset + 28;
-        ii += 6;
-        indices[ii + 0] = voffset + 26;
-        indices[ii + 1] = voffset + 27;
-        indices[ii + 2] = voffset + 30;
-        indices[ii + 3] = voffset + 27;
-        indices[ii + 4] = voffset + 32;
-        indices[ii + 5] = voffset + 30;
-        ii += 6;
+        indices[++ii] = voffset + 24;
+        indices[++ii] = voffset + 25;
+        indices[++ii] = voffset + 28;
+        indices[++ii] = voffset + 25;
+        indices[++ii] = voffset + 30;
+        indices[++ii] = voffset + 28;
+        indices[++ii] = voffset + 26;
+        indices[++ii] = voffset + 27;
+        indices[++ii] = voffset + 30;
+        indices[++ii] = voffset + 27;
+        indices[++ii] = voffset + 32;
+        indices[++ii] = voffset + 30;
         // Bottom edge
-        indices[ii + 0] = voffset + 29;
-        indices[ii + 1] = voffset + 30;
-        indices[ii + 2] = voffset + 33;
-        indices[ii + 3] = voffset + 30;
-        indices[ii + 4] = voffset + 34;
-        indices[ii + 5] = voffset + 33;
-        ii += 6;
-        indices[ii + 0] = voffset + 30;
-        indices[ii + 1] = voffset + 31;
-        indices[ii + 2] = voffset + 34;
-        indices[ii + 3] = voffset + 31;
-        indices[ii + 4] = voffset + 35;
-        indices[ii + 5] = voffset + 34;
+        indices[++ii] = voffset + 29;
+        indices[++ii] = voffset + 30;
+        indices[++ii] = voffset + 33;
+        indices[++ii] = voffset + 30;
+        indices[++ii] = voffset + 34;
+        indices[++ii] = voffset + 33;
+        indices[++ii] = voffset + 30;
+        indices[++ii] = voffset + 31;
+        indices[++ii] = voffset + 34;
+        indices[++ii] = voffset + 31;
+        indices[++ii] = voffset + 35;
+        indices[++ii] = voffset + 34;
     };
     var buildRectangleRoundedVertex = function (vertices, voffset, originX, originY, sizeX, sizeY, strokeAlign, strokeWidth, radius, internalTransform, worldSize) {
         // Calculate the transformed positions
@@ -29387,782 +29451,672 @@
         worldSize[1] = toLength(x0, y0, x2, y2);
         worldSize[2] = toLength(x0, y0, x10, y10);
         // Vertices
-        var iv = voffset * 2;
+        var iv = voffset * 2 - 1;
         // Top-left corner
-        vertices[iv + 0] = x0;
-        vertices[iv + 1] = y0;
-        vertices[iv + 2] = x1;
-        vertices[iv + 3] = y1;
-        vertices[iv + 4] = x5;
-        vertices[iv + 5] = y5;
-        vertices[iv + 6] = x6;
-        vertices[iv + 7] = y6;
-        iv += 8;
+        vertices[++iv] = x0;
+        vertices[++iv] = y0;
+        vertices[++iv] = x1;
+        vertices[++iv] = y1;
+        vertices[++iv] = x5;
+        vertices[++iv] = y5;
+        vertices[++iv] = x6;
+        vertices[++iv] = y6;
         // Top-right corner
-        vertices[iv + 0] = x3;
-        vertices[iv + 1] = y3;
-        vertices[iv + 2] = x4;
-        vertices[iv + 3] = y4;
-        vertices[iv + 4] = x8;
-        vertices[iv + 5] = y8;
-        vertices[iv + 6] = x9;
-        vertices[iv + 7] = y9;
-        iv += 8;
+        vertices[++iv] = x3;
+        vertices[++iv] = y3;
+        vertices[++iv] = x4;
+        vertices[++iv] = y4;
+        vertices[++iv] = x8;
+        vertices[++iv] = y8;
+        vertices[++iv] = x9;
+        vertices[++iv] = y9;
         // Bottom-left corner
-        vertices[iv + 0] = x13;
-        vertices[iv + 1] = y13;
-        vertices[iv + 2] = x14;
-        vertices[iv + 3] = y14;
-        vertices[iv + 4] = x18;
-        vertices[iv + 5] = y18;
-        vertices[iv + 6] = x19;
-        vertices[iv + 7] = y19;
-        iv += 8;
+        vertices[++iv] = x13;
+        vertices[++iv] = y13;
+        vertices[++iv] = x14;
+        vertices[++iv] = y14;
+        vertices[++iv] = x18;
+        vertices[++iv] = y18;
+        vertices[++iv] = x19;
+        vertices[++iv] = y19;
         // Bottom-right corner
-        vertices[iv + 0] = x16;
-        vertices[iv + 1] = y16;
-        vertices[iv + 2] = x17;
-        vertices[iv + 3] = y17;
-        vertices[iv + 4] = x21;
-        vertices[iv + 5] = y21;
-        vertices[iv + 6] = x22;
-        vertices[iv + 7] = y22;
-        iv += 8;
+        vertices[++iv] = x16;
+        vertices[++iv] = y16;
+        vertices[++iv] = x17;
+        vertices[++iv] = y17;
+        vertices[++iv] = x21;
+        vertices[++iv] = y21;
+        vertices[++iv] = x22;
+        vertices[++iv] = y22;
         // Top edge
-        vertices[iv + 0] = x1;
-        vertices[iv + 1] = y1;
-        vertices[iv + 2] = x2;
-        vertices[iv + 3] = y2;
-        vertices[iv + 4] = x3;
-        vertices[iv + 5] = y3;
-        iv += 6;
+        vertices[++iv] = x1;
+        vertices[++iv] = y1;
+        vertices[++iv] = x2;
+        vertices[++iv] = y2;
+        vertices[++iv] = x3;
+        vertices[++iv] = y3;
         // Top
-        vertices[iv + 0] = x5;
-        vertices[iv + 1] = y5;
-        vertices[iv + 2] = x6;
-        vertices[iv + 3] = y6;
-        vertices[iv + 4] = x7;
-        vertices[iv + 5] = y7;
-        vertices[iv + 6] = x8;
-        vertices[iv + 7] = y8;
-        vertices[iv + 8] = x9;
-        vertices[iv + 9] = y9;
-        iv += 10;
+        vertices[++iv] = x5;
+        vertices[++iv] = y5;
+        vertices[++iv] = x6;
+        vertices[++iv] = y6;
+        vertices[++iv] = x7;
+        vertices[++iv] = y7;
+        vertices[++iv] = x8;
+        vertices[++iv] = y8;
+        vertices[++iv] = x9;
+        vertices[++iv] = y9;
         // Middle
-        vertices[iv + 0] = x10;
-        vertices[iv + 1] = y10;
-        vertices[iv + 2] = x11;
-        vertices[iv + 3] = y11;
-        vertices[iv + 4] = x11;
-        vertices[iv + 5] = y11;
-        vertices[iv + 6] = x12;
-        vertices[iv + 7] = y12;
-        iv += 8;
+        vertices[++iv] = x10;
+        vertices[++iv] = y10;
+        vertices[++iv] = x11;
+        vertices[++iv] = y11;
+        vertices[++iv] = x11;
+        vertices[++iv] = y11;
+        vertices[++iv] = x12;
+        vertices[++iv] = y12;
         // Bottom
-        vertices[iv + 0] = x13;
-        vertices[iv + 1] = y13;
-        vertices[iv + 2] = x14;
-        vertices[iv + 3] = y14;
-        vertices[iv + 4] = x15;
-        vertices[iv + 5] = y15;
-        vertices[iv + 6] = x16;
-        vertices[iv + 7] = y16;
-        vertices[iv + 8] = x17;
-        vertices[iv + 9] = y17;
-        iv += 10;
+        vertices[++iv] = x13;
+        vertices[++iv] = y13;
+        vertices[++iv] = x14;
+        vertices[++iv] = y14;
+        vertices[++iv] = x15;
+        vertices[++iv] = y15;
+        vertices[++iv] = x16;
+        vertices[++iv] = y16;
+        vertices[++iv] = x17;
+        vertices[++iv] = y17;
         // Bottom edge
-        vertices[iv + 0] = x19;
-        vertices[iv + 1] = y19;
-        vertices[iv + 2] = x20;
-        vertices[iv + 3] = y20;
-        vertices[iv + 4] = x21;
-        vertices[iv + 5] = y21;
+        vertices[++iv] = x19;
+        vertices[++iv] = y19;
+        vertices[++iv] = x20;
+        vertices[++iv] = y20;
+        vertices[++iv] = x21;
+        vertices[++iv] = y21;
     };
     var buildRectangleRoundedClipping = function (clippings, voffset, corner, worldSize) {
-        var ic = voffset * 3;
+        var ic = voffset * 3 - 1;
         var rxc = 1 - worldSize[0] / worldSize[1];
         var ryc = 1 - worldSize[0] / worldSize[2];
         // Top-left corner
         if (corner & EShapeCorner.TOP_LEFT) {
-            clippings[ic + 0] = 1;
-            clippings[ic + 1] = 1;
-            clippings[ic + 2] = 1;
-            ic += 3;
-            clippings[ic + 0] = 0;
-            clippings[ic + 1] = 1;
-            clippings[ic + 2] = 1;
-            ic += 3;
-            clippings[ic + 0] = 1;
-            clippings[ic + 1] = 0;
-            clippings[ic + 2] = 1;
-            ic += 3;
-            clippings[ic + 0] = 0;
-            clippings[ic + 1] = 0;
-            clippings[ic + 2] = 1;
-            ic += 3;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
         }
         else {
-            clippings[ic + 0] = 1;
-            clippings[ic + 1] = 1;
-            clippings[ic + 2] = 0;
-            ic += 3;
-            clippings[ic + 0] = rxc;
-            clippings[ic + 1] = 1;
-            clippings[ic + 2] = 0;
-            ic += 3;
-            clippings[ic + 0] = 1;
-            clippings[ic + 1] = ryc;
-            clippings[ic + 2] = 0;
-            ic += 3;
-            clippings[ic + 0] = rxc;
-            clippings[ic + 1] = ryc;
-            clippings[ic + 2] = 0;
-            ic += 3;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = rxc;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = ryc;
+            clippings[++ic] = 0;
+            clippings[++ic] = rxc;
+            clippings[++ic] = ryc;
+            clippings[++ic] = 0;
         }
         // Top-right corner
         if (corner & EShapeCorner.TOP_RIGHT) {
-            clippings[ic + 0] = 0;
-            clippings[ic + 1] = 1;
-            clippings[ic + 2] = 1;
-            ic += 3;
-            clippings[ic + 0] = 1;
-            clippings[ic + 1] = 1;
-            clippings[ic + 2] = 1;
-            ic += 3;
-            clippings[ic + 0] = 0;
-            clippings[ic + 1] = 0;
-            clippings[ic + 2] = 1;
-            ic += 3;
-            clippings[ic + 0] = 1;
-            clippings[ic + 1] = 0;
-            clippings[ic + 2] = 1;
-            ic += 3;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
         }
         else {
-            clippings[ic + 0] = rxc;
-            clippings[ic + 1] = 1;
-            clippings[ic + 2] = 0;
-            ic += 3;
-            clippings[ic + 0] = 1;
-            clippings[ic + 1] = 1;
-            clippings[ic + 2] = 0;
-            ic += 3;
-            clippings[ic + 0] = rxc;
-            clippings[ic + 1] = ryc;
-            clippings[ic + 2] = 0;
-            ic += 3;
-            clippings[ic + 0] = 1;
-            clippings[ic + 1] = ryc;
-            clippings[ic + 2] = 0;
-            ic += 3;
+            clippings[++ic] = rxc;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = rxc;
+            clippings[++ic] = ryc;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = ryc;
+            clippings[++ic] = 0;
         }
         // Bottom-left corner
         if (corner & EShapeCorner.BOTTOM_LEFT) {
-            clippings[ic + 0] = 1;
-            clippings[ic + 1] = 0;
-            clippings[ic + 2] = 1;
-            ic += 3;
-            clippings[ic + 0] = 0;
-            clippings[ic + 1] = 0;
-            clippings[ic + 2] = 1;
-            ic += 3;
-            clippings[ic + 0] = 1;
-            clippings[ic + 1] = 1;
-            clippings[ic + 2] = 1;
-            ic += 3;
-            clippings[ic + 0] = 0;
-            clippings[ic + 1] = 1;
-            clippings[ic + 2] = 1;
-            ic += 3;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
         }
         else {
-            clippings[ic + 0] = 1;
-            clippings[ic + 1] = ryc;
-            clippings[ic + 2] = 0;
-            ic += 3;
-            clippings[ic + 0] = rxc;
-            clippings[ic + 1] = ryc;
-            clippings[ic + 2] = 0;
-            ic += 3;
-            clippings[ic + 0] = 1;
-            clippings[ic + 1] = 1;
-            clippings[ic + 2] = 0;
-            ic += 3;
-            clippings[ic + 0] = rxc;
-            clippings[ic + 1] = 1;
-            clippings[ic + 2] = 0;
-            ic += 3;
+            clippings[++ic] = 1;
+            clippings[++ic] = ryc;
+            clippings[++ic] = 0;
+            clippings[++ic] = rxc;
+            clippings[++ic] = ryc;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = rxc;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
         }
         // Bottom-right corner
         if (corner & EShapeCorner.BOTTOM_RIGHT) {
-            clippings[ic + 0] = 0;
-            clippings[ic + 1] = 0;
-            clippings[ic + 2] = 1;
-            ic += 3;
-            clippings[ic + 0] = 1;
-            clippings[ic + 1] = 0;
-            clippings[ic + 2] = 1;
-            ic += 3;
-            clippings[ic + 0] = 0;
-            clippings[ic + 1] = 1;
-            clippings[ic + 2] = 1;
-            ic += 3;
-            clippings[ic + 0] = 1;
-            clippings[ic + 1] = 1;
-            clippings[ic + 2] = 1;
-            ic += 3;
+            clippings[++ic] = 0;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
         }
         else {
-            clippings[ic + 0] = rxc;
-            clippings[ic + 1] = ryc;
-            clippings[ic + 2] = 0;
-            ic += 3;
-            clippings[ic + 0] = 1;
-            clippings[ic + 1] = ryc;
-            clippings[ic + 2] = 0;
-            ic += 3;
-            clippings[ic + 0] = rxc;
-            clippings[ic + 1] = 1;
-            clippings[ic + 2] = 0;
-            ic += 3;
-            clippings[ic + 0] = 1;
-            clippings[ic + 1] = 1;
-            clippings[ic + 2] = 0;
-            ic += 3;
+            clippings[++ic] = rxc;
+            clippings[++ic] = ryc;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = ryc;
+            clippings[++ic] = 0;
+            clippings[++ic] = rxc;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
         }
         // Top edge
-        clippings[ic + 0] = rxc;
-        clippings[ic + 1] = 1;
-        clippings[ic + 2] = 0;
-        ic += 3;
-        clippings[ic + 0] = 0;
-        clippings[ic + 1] = 1;
-        clippings[ic + 2] = 0;
-        ic += 3;
-        clippings[ic + 0] = rxc;
-        clippings[ic + 1] = 1;
-        clippings[ic + 2] = 0;
-        ic += 3;
+        clippings[++ic] = rxc;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = rxc;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
         // Top
-        clippings[ic + 0] = 1;
-        clippings[ic + 1] = ryc;
-        clippings[ic + 2] = 0;
-        ic += 3;
-        clippings[ic + 0] = rxc;
-        clippings[ic + 1] = ryc;
-        clippings[ic + 2] = 0;
-        ic += 3;
-        clippings[ic + 0] = 0;
-        clippings[ic + 1] = ryc;
-        clippings[ic + 2] = 0;
-        ic += 3;
-        clippings[ic + 0] = rxc;
-        clippings[ic + 1] = ryc;
-        clippings[ic + 2] = 0;
-        ic += 3;
-        clippings[ic + 0] = 1;
-        clippings[ic + 1] = ryc;
-        clippings[ic + 2] = 0;
-        ic += 3;
+        clippings[++ic] = 1;
+        clippings[++ic] = ryc;
+        clippings[++ic] = 0;
+        clippings[++ic] = rxc;
+        clippings[++ic] = ryc;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = ryc;
+        clippings[++ic] = 0;
+        clippings[++ic] = rxc;
+        clippings[++ic] = ryc;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = ryc;
+        clippings[++ic] = 0;
         // Middle
-        clippings[ic + 0] = 1;
-        clippings[ic + 1] = 0;
-        clippings[ic + 2] = 0;
-        ic += 3;
-        clippings[ic + 0] = 0;
-        clippings[ic + 1] = 0;
-        clippings[ic + 2] = 0;
-        ic += 3;
-        clippings[ic + 0] = 0;
-        clippings[ic + 1] = 0;
-        clippings[ic + 2] = 0;
-        ic += 3;
-        clippings[ic + 0] = 1;
-        clippings[ic + 1] = 0;
-        clippings[ic + 2] = 0;
-        ic += 3;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
         // Bottom
-        clippings[ic + 0] = 1;
-        clippings[ic + 1] = ryc;
-        clippings[ic + 2] = 0;
-        ic += 3;
-        clippings[ic + 0] = rxc;
-        clippings[ic + 1] = ryc;
-        clippings[ic + 2] = 0;
-        ic += 3;
-        clippings[ic + 0] = 0;
-        clippings[ic + 1] = ryc;
-        clippings[ic + 2] = 0;
-        ic += 3;
-        clippings[ic + 0] = rxc;
-        clippings[ic + 1] = ryc;
-        clippings[ic + 2] = 0;
-        ic += 3;
-        clippings[ic + 0] = 1;
-        clippings[ic + 1] = ryc;
-        clippings[ic + 2] = 0;
-        ic += 3;
+        clippings[++ic] = 1;
+        clippings[++ic] = ryc;
+        clippings[++ic] = 0;
+        clippings[++ic] = rxc;
+        clippings[++ic] = ryc;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = ryc;
+        clippings[++ic] = 0;
+        clippings[++ic] = rxc;
+        clippings[++ic] = ryc;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = ryc;
+        clippings[++ic] = 0;
         // Bottom edge
-        clippings[ic + 0] = rxc;
-        clippings[ic + 1] = 1;
-        clippings[ic + 2] = 0;
-        ic += 3;
-        clippings[ic + 0] = 0;
-        clippings[ic + 1] = 1;
-        clippings[ic + 2] = 0;
-        ic += 3;
-        clippings[ic + 0] = rxc;
-        clippings[ic + 1] = 1;
-        clippings[ic + 2] = 0;
-        ic += 3;
+        clippings[++ic] = rxc;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = rxc;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
     };
-    var buildRectangleRoundedStep = function (steps, voffset, strokeWidth, strokeSide, corner, antialiasWeight, worldSize) {
-        toStep(worldSize[0], strokeWidth, antialiasWeight, STEP_VALUES);
-        var swc = STEP_VALUES[0];
-        var pc0 = STEP_VALUES[1];
-        var pc1 = STEP_VALUES[2];
-        toStep(worldSize[1], strokeWidth, antialiasWeight, STEP_VALUES);
-        var swx = STEP_VALUES[0];
-        var px0 = STEP_VALUES[1];
-        var px1 = STEP_VALUES[2];
-        toStep(worldSize[2], strokeWidth, antialiasWeight, STEP_VALUES);
-        var swy = STEP_VALUES[0];
-        var py0 = STEP_VALUES[1];
-        var py1 = STEP_VALUES[2];
-        var rxc = 1 - worldSize[0] / worldSize[1];
-        var ryc = 1 - worldSize[0] / worldSize[2];
-        var swt = swy;
-        var pt0 = py0;
-        var swtc = swc;
-        var ptc0 = pc0;
-        if (!(strokeSide & EShapeStrokeSide.TOP)) {
-            swt = 1;
-            pt0 = py1;
-            swtc = 1;
-            ptc0 = pc1;
-        }
-        var swr = swx;
-        var pr0 = px0;
-        var swrc = swc;
-        var prc0 = pc0;
-        if (!(strokeSide & EShapeStrokeSide.RIGHT)) {
-            swr = 1;
-            pr0 = px1;
-            swrc = 1;
-            prc0 = pc1;
-        }
-        var swb = swy;
-        var pb0 = py0;
-        var swbc = swc;
-        var pbc0 = pc0;
-        if (!(strokeSide & EShapeStrokeSide.BOTTOM)) {
-            swb = 1;
-            pb0 = py1;
-            swbc = 1;
-            pbc0 = pc1;
-        }
-        var swl = swx;
-        var pl0 = px0;
-        var swlc = swc;
-        var plc0 = pc0;
-        if (!(strokeSide & EShapeStrokeSide.LEFT)) {
-            swl = 1;
-            pl0 = px1;
-            swlc = 1;
-            plc0 = pc1;
-        }
-        var plr0 = 0.5 * (pl0 + pr0);
-        var ptb0 = 0.5 * (pt0 + pb0);
-        // Top-left corner
-        var is = voffset * 6;
-        if (corner & EShapeCorner.TOP_LEFT) {
-            steps[is + 0] = swlc;
-            steps[is + 1] = swtc;
-            steps[is + 2] = plc0;
-            steps[is + 3] = ptc0;
-            steps[is + 4] = pc1;
-            steps[is + 5] = pc1;
-            is += 6;
-            steps[is + 0] = 0;
-            steps[is + 1] = swtc;
-            steps[is + 2] = plc0;
-            steps[is + 3] = ptc0;
-            steps[is + 4] = pc1;
-            steps[is + 5] = pc1;
-            is += 6;
-            steps[is + 0] = swlc;
-            steps[is + 1] = 0;
-            steps[is + 2] = plc0;
-            steps[is + 3] = ptc0;
-            steps[is + 4] = pc1;
-            steps[is + 5] = pc1;
-            is += 6;
-            steps[is + 0] = 0;
-            steps[is + 1] = 0;
-            steps[is + 2] = plc0;
-            steps[is + 3] = ptc0;
-            steps[is + 4] = pc1;
-            steps[is + 5] = pc1;
-            is += 6;
+    var buildRectangleRoundedStep = function (steps, voffset, strokeWidth, strokeSide, strokeStyle, corner, worldSize) {
+        var scaleInvariant = toScaleInvariant(strokeStyle);
+        var sc = worldSize[0];
+        var sx = worldSize[1];
+        var sy = worldSize[2];
+        var rxc = Math.max(0, 1 - worldSize[0] / worldSize[1]);
+        var ryc = Math.max(0, 1 - worldSize[0] / worldSize[2]);
+        var wt;
+        var zt;
+        var bt;
+        if (strokeSide & EShapeStrokeSide.TOP) {
+            wt = +2;
+            zt = +1;
+            bt = +1 + ryc;
         }
         else {
-            steps[is + 0] = swl;
-            steps[is + 1] = swt;
-            steps[is + 2] = pl0;
-            steps[is + 3] = pt0;
-            steps[is + 4] = px1;
-            steps[is + 5] = py1;
-            is += 6;
-            steps[is + 0] = swl * rxc;
-            steps[is + 1] = swt;
-            steps[is + 2] = pl0;
-            steps[is + 3] = pt0;
-            steps[is + 4] = px1;
-            steps[is + 5] = py1;
-            is += 6;
-            steps[is + 0] = swl;
-            steps[is + 1] = swt * ryc;
-            steps[is + 2] = pl0;
-            steps[is + 3] = pt0;
-            steps[is + 4] = px1;
-            steps[is + 5] = py1;
-            is += 6;
-            steps[is + 0] = swl * rxc;
-            steps[is + 1] = swt * ryc;
-            steps[is + 2] = pl0;
-            steps[is + 3] = pt0;
-            steps[is + 4] = px1;
-            steps[is + 5] = py1;
-            is += 6;
+            wt = -2;
+            zt = -1;
+            bt = -1 - ryc;
+        }
+        var wr;
+        var zr;
+        var br;
+        if (strokeSide & EShapeStrokeSide.RIGHT) {
+            wr = +2;
+            zr = +1;
+            br = +1 + rxc;
+        }
+        else {
+            wr = -2;
+            zr = -1;
+            br = -1 - rxc;
+        }
+        var wb;
+        var zb;
+        var bb;
+        if (strokeSide & EShapeStrokeSide.BOTTOM) {
+            wb = +2;
+            zb = +1;
+            bb = +1 + ryc;
+        }
+        else {
+            wb = -2;
+            zb = -1;
+            bb = -1 - ryc;
+        }
+        var wl;
+        var zl;
+        var bl;
+        if (strokeSide & EShapeStrokeSide.LEFT) {
+            wl = +2;
+            zl = +1;
+            bl = +1 + rxc;
+        }
+        else {
+            wl = -2;
+            zl = -1;
+            bl = -1 - rxc;
+        }
+        // Top-left corner
+        var is = voffset * 6 - 1;
+        if (corner & EShapeCorner.TOP_LEFT) {
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = wl;
+            steps[++is] = wt;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = zl;
+            steps[++is] = wt;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = wl;
+            steps[++is] = zt;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = zl;
+            steps[++is] = zt;
+        }
+        else {
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = wl;
+            steps[++is] = wt;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = bl;
+            steps[++is] = wt;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = wl;
+            steps[++is] = bt;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = bl;
+            steps[++is] = bt;
         }
         // Top-right corner
         if (corner & EShapeCorner.TOP_RIGHT) {
-            steps[is + 0] = 0;
-            steps[is + 1] = swtc;
-            steps[is + 2] = prc0;
-            steps[is + 3] = ptc0;
-            steps[is + 4] = pc1;
-            steps[is + 5] = pc1;
-            is += 6;
-            steps[is + 0] = swrc;
-            steps[is + 1] = swtc;
-            steps[is + 2] = prc0;
-            steps[is + 3] = ptc0;
-            steps[is + 4] = pc1;
-            steps[is + 5] = pc1;
-            is += 6;
-            steps[is + 0] = 0;
-            steps[is + 1] = 0;
-            steps[is + 2] = prc0;
-            steps[is + 3] = ptc0;
-            steps[is + 4] = pc1;
-            steps[is + 5] = pc1;
-            is += 6;
-            steps[is + 0] = swrc;
-            steps[is + 1] = 0;
-            steps[is + 2] = prc0;
-            steps[is + 3] = ptc0;
-            steps[is + 4] = pc1;
-            steps[is + 5] = pc1;
-            is += 6;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = zr;
+            steps[++is] = wt;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = wr;
+            steps[++is] = wt;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = zr;
+            steps[++is] = zt;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = wr;
+            steps[++is] = zt;
         }
         else {
-            steps[is + 0] = swr * rxc;
-            steps[is + 1] = swt;
-            steps[is + 2] = pr0;
-            steps[is + 3] = pt0;
-            steps[is + 4] = px1;
-            steps[is + 5] = py1;
-            is += 6;
-            steps[is + 0] = swr;
-            steps[is + 1] = swt;
-            steps[is + 2] = pr0;
-            steps[is + 3] = pt0;
-            steps[is + 4] = px1;
-            steps[is + 5] = py1;
-            is += 6;
-            steps[is + 0] = swr * rxc;
-            steps[is + 1] = swt * ryc;
-            steps[is + 2] = pr0;
-            steps[is + 3] = pt0;
-            steps[is + 4] = px1;
-            steps[is + 5] = py1;
-            is += 6;
-            steps[is + 0] = swr;
-            steps[is + 1] = swt * ryc;
-            steps[is + 2] = pr0;
-            steps[is + 3] = pt0;
-            steps[is + 4] = px1;
-            steps[is + 5] = py1;
-            is += 6;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = br;
+            steps[++is] = wt;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = wr;
+            steps[++is] = wt;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = br;
+            steps[++is] = bt;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = wr;
+            steps[++is] = wt;
         }
         // Bottom-left corner
         if (corner & EShapeCorner.BOTTOM_LEFT) {
-            steps[is + 0] = swlc;
-            steps[is + 1] = 0;
-            steps[is + 2] = plc0;
-            steps[is + 3] = pbc0;
-            steps[is + 4] = pc1;
-            steps[is + 5] = pc1;
-            is += 6;
-            steps[is + 0] = 0;
-            steps[is + 1] = 0;
-            steps[is + 2] = plc0;
-            steps[is + 3] = pbc0;
-            steps[is + 4] = pc1;
-            steps[is + 5] = pc1;
-            is += 6;
-            steps[is + 0] = swlc;
-            steps[is + 1] = swbc;
-            steps[is + 2] = plc0;
-            steps[is + 3] = pbc0;
-            steps[is + 4] = pc1;
-            steps[is + 5] = pc1;
-            is += 6;
-            steps[is + 0] = 0;
-            steps[is + 1] = swbc;
-            steps[is + 2] = plc0;
-            steps[is + 3] = pbc0;
-            steps[is + 4] = pc1;
-            steps[is + 5] = pc1;
-            is += 6;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = wl;
+            steps[++is] = zb;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = zl;
+            steps[++is] = zb;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = wl;
+            steps[++is] = wb;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = zl;
+            steps[++is] = wb;
         }
         else {
-            steps[is + 0] = swl;
-            steps[is + 1] = swb * ryc;
-            steps[is + 2] = pl0;
-            steps[is + 3] = pb0;
-            steps[is + 4] = px1;
-            steps[is + 5] = py1;
-            is += 6;
-            steps[is + 0] = swl * rxc;
-            steps[is + 1] = swb * ryc;
-            steps[is + 2] = pl0;
-            steps[is + 3] = pb0;
-            steps[is + 4] = px1;
-            steps[is + 5] = py1;
-            is += 6;
-            steps[is + 0] = swl;
-            steps[is + 1] = swb;
-            steps[is + 2] = pl0;
-            steps[is + 3] = pb0;
-            steps[is + 4] = px1;
-            steps[is + 5] = py1;
-            is += 6;
-            steps[is + 0] = swl * rxc;
-            steps[is + 1] = swb;
-            steps[is + 2] = pl0;
-            steps[is + 3] = pb0;
-            steps[is + 4] = px1;
-            steps[is + 5] = py1;
-            is += 6;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = wl;
+            steps[++is] = bb;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = bl;
+            steps[++is] = bb;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = wl;
+            steps[++is] = wb;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = bl;
+            steps[++is] = wb;
         }
         // Bottom-right corner
         if (corner & EShapeCorner.BOTTOM_RIGHT) {
-            steps[is + 0] = 0;
-            steps[is + 1] = 0;
-            steps[is + 2] = prc0;
-            steps[is + 3] = pbc0;
-            steps[is + 4] = pc1;
-            steps[is + 5] = pc1;
-            is += 6;
-            steps[is + 0] = swrc;
-            steps[is + 1] = 0;
-            steps[is + 2] = prc0;
-            steps[is + 3] = pbc0;
-            steps[is + 4] = pc1;
-            steps[is + 5] = pc1;
-            is += 6;
-            steps[is + 0] = 0;
-            steps[is + 1] = swbc;
-            steps[is + 2] = prc0;
-            steps[is + 3] = pbc0;
-            steps[is + 4] = pc1;
-            steps[is + 5] = pc1;
-            is += 6;
-            steps[is + 0] = swrc;
-            steps[is + 1] = swbc;
-            steps[is + 2] = prc0;
-            steps[is + 3] = pbc0;
-            steps[is + 4] = pc1;
-            steps[is + 5] = pc1;
-            is += 6;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = zr;
+            steps[++is] = zb;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = wr;
+            steps[++is] = zb;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = zr;
+            steps[++is] = wb;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = wr;
+            steps[++is] = wb;
         }
         else {
-            steps[is + 0] = swr * rxc;
-            steps[is + 1] = swb * ryc;
-            steps[is + 2] = pr0;
-            steps[is + 3] = pb0;
-            steps[is + 4] = px1;
-            steps[is + 5] = py1;
-            is += 6;
-            steps[is + 0] = swr;
-            steps[is + 1] = swb * ryc;
-            steps[is + 2] = pr0;
-            steps[is + 3] = pb0;
-            steps[is + 4] = px1;
-            steps[is + 5] = py1;
-            is += 6;
-            steps[is + 0] = swr * rxc;
-            steps[is + 1] = swb;
-            steps[is + 2] = pr0;
-            steps[is + 3] = pb0;
-            steps[is + 4] = px1;
-            steps[is + 5] = py1;
-            is += 6;
-            steps[is + 0] = swr;
-            steps[is + 1] = swb;
-            steps[is + 2] = pr0;
-            steps[is + 3] = pb0;
-            steps[is + 4] = px1;
-            steps[is + 5] = py1;
-            is += 6;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = br;
+            steps[++is] = bb;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = wr;
+            steps[++is] = bb;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = br;
+            steps[++is] = wb;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = wr;
+            steps[++is] = wb;
         }
         // Top edge
-        steps[is + 0] = swl * rxc;
-        steps[is + 1] = swt;
-        steps[is + 2] = pl0;
-        steps[is + 3] = pt0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        steps[is + 0] = 0;
-        steps[is + 1] = swt;
-        steps[is + 2] = plr0;
-        steps[is + 3] = pt0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        steps[is + 0] = swr * rxc;
-        steps[is + 1] = swt;
-        steps[is + 2] = plr0;
-        steps[is + 3] = pt0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = bl;
+        steps[++is] = wt;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = zl;
+        steps[++is] = wt;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = br;
+        steps[++is] = wt;
         // Top
-        steps[is + 0] = swl;
-        steps[is + 1] = swt * ryc;
-        steps[is + 2] = pl0;
-        steps[is + 3] = pt0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        steps[is + 0] = swl * rxc;
-        steps[is + 1] = swt * ryc;
-        steps[is + 2] = pl0;
-        steps[is + 3] = pt0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        steps[is + 0] = 0;
-        steps[is + 1] = swt * ryc;
-        steps[is + 2] = plr0;
-        steps[is + 3] = pt0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        steps[is + 0] = swr * rxc;
-        steps[is + 1] = swt * ryc;
-        steps[is + 2] = pr0;
-        steps[is + 3] = pt0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        steps[is + 0] = swr;
-        steps[is + 1] = swt * ryc;
-        steps[is + 2] = pr0;
-        steps[is + 3] = pt0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = wl;
+        steps[++is] = bt;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = bl;
+        steps[++is] = bt;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = zl;
+        steps[++is] = bt;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = br;
+        steps[++is] = bt;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = wr;
+        steps[++is] = bt;
         // Middle
-        steps[is + 0] = swl;
-        steps[is + 1] = 0;
-        steps[is + 2] = pl0;
-        steps[is + 3] = ptb0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        steps[is + 0] = 0;
-        steps[is + 1] = 0;
-        steps[is + 2] = pl0;
-        steps[is + 3] = ptb0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        steps[is + 0] = 0;
-        steps[is + 1] = 0;
-        steps[is + 2] = pr0;
-        steps[is + 3] = ptb0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        steps[is + 0] = swr;
-        steps[is + 1] = 0;
-        steps[is + 2] = pr0;
-        steps[is + 3] = ptb0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = wl;
+        steps[++is] = zt;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = zl;
+        steps[++is] = zt;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = zr;
+        steps[++is] = zb;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = wr;
+        steps[++is] = zb;
         // Bottom
-        steps[is + 0] = swl;
-        steps[is + 1] = swb * ryc;
-        steps[is + 2] = pl0;
-        steps[is + 3] = pb0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        steps[is + 0] = swl * rxc;
-        steps[is + 1] = swb * ryc;
-        steps[is + 2] = pl0;
-        steps[is + 3] = pb0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        steps[is + 0] = 0;
-        steps[is + 1] = swb * ryc;
-        steps[is + 2] = plr0;
-        steps[is + 3] = pb0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        steps[is + 0] = swr * rxc;
-        steps[is + 1] = swb * ryc;
-        steps[is + 2] = pr0;
-        steps[is + 3] = pb0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        steps[is + 0] = swr;
-        steps[is + 1] = swb * ryc;
-        steps[is + 2] = pr0;
-        steps[is + 3] = pb0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = wl;
+        steps[++is] = bb;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = bl;
+        steps[++is] = bb;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = zb;
+        steps[++is] = bb;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = br;
+        steps[++is] = bb;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = wr;
+        steps[++is] = bb;
         // Bottom edge
-        steps[is + 0] = swl * rxc;
-        steps[is + 1] = swb;
-        steps[is + 2] = pl0;
-        steps[is + 3] = pb0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        steps[is + 0] = 0;
-        steps[is + 1] = swb;
-        steps[is + 2] = plr0;
-        steps[is + 3] = pb0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
-        steps[is + 0] = swr * rxc;
-        steps[is + 1] = swb;
-        steps[is + 2] = pr0;
-        steps[is + 3] = pb0;
-        steps[is + 4] = px1;
-        steps[is + 5] = py1;
-        is += 6;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = bl;
+        steps[++is] = wb;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = zb;
+        steps[++is] = wb;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = br;
+        steps[++is] = wb;
     };
     var buildRectangleRoundedUv = function (uvs, voffset, textureUvs, worldSize) {
         var x0 = textureUvs.x0;
@@ -30184,98 +30138,90 @@
         var d1x = ruvy * (x3 - x0);
         var d1y = ruvy * (y3 - y0);
         // UVs
-        var iuv = voffset * 2;
+        var iuv = voffset * 2 - 1;
         // Top-left corner
-        uvs[iuv + 0] = x0;
-        uvs[iuv + 1] = y0;
-        uvs[iuv + 2] = x0 + d0x;
-        uvs[iuv + 3] = y0 + d0y;
-        uvs[iuv + 4] = x0 + d1x;
-        uvs[iuv + 5] = y0 + d1y;
-        uvs[iuv + 6] = x0 + d0x + d1x;
-        uvs[iuv + 7] = y0 + d0y + d1y;
-        iuv += 8;
+        uvs[++iuv] = x0;
+        uvs[++iuv] = y0;
+        uvs[++iuv] = x0 + d0x;
+        uvs[++iuv] = y0 + d0y;
+        uvs[++iuv] = x0 + d1x;
+        uvs[++iuv] = y0 + d1y;
+        uvs[++iuv] = x0 + d0x + d1x;
+        uvs[++iuv] = y0 + d0y + d1y;
         // Top-right corner
-        uvs[iuv + 0] = x1 - d0x;
-        uvs[iuv + 1] = y1 - d0y;
-        uvs[iuv + 2] = x1;
-        uvs[iuv + 3] = y1;
-        uvs[iuv + 4] = x1 - d0x + d1x;
-        uvs[iuv + 5] = y1 - d0y + d1y;
-        uvs[iuv + 6] = x1 + d1x;
-        uvs[iuv + 7] = y1 + d1y;
-        iuv += 8;
+        uvs[++iuv] = x1 - d0x;
+        uvs[++iuv] = y1 - d0y;
+        uvs[++iuv] = x1;
+        uvs[++iuv] = y1;
+        uvs[++iuv] = x1 - d0x + d1x;
+        uvs[++iuv] = y1 - d0y + d1y;
+        uvs[++iuv] = x1 + d1x;
+        uvs[++iuv] = y1 + d1y;
         // Bottom-left corner
-        uvs[iuv + 0] = x3 - d1x;
-        uvs[iuv + 1] = y3 - d1y;
-        uvs[iuv + 2] = x3 + d0x - d1x;
-        uvs[iuv + 3] = y3 + d0y - d1y;
-        uvs[iuv + 4] = x3;
-        uvs[iuv + 5] = y3;
-        uvs[iuv + 6] = x3 + d0x;
-        uvs[iuv + 7] = y3 + d0y;
-        iuv += 8;
+        uvs[++iuv] = x3 - d1x;
+        uvs[++iuv] = y3 - d1y;
+        uvs[++iuv] = x3 + d0x - d1x;
+        uvs[++iuv] = y3 + d0y - d1y;
+        uvs[++iuv] = x3;
+        uvs[++iuv] = y3;
+        uvs[++iuv] = x3 + d0x;
+        uvs[++iuv] = y3 + d0y;
         // Bottom-right corner
-        uvs[iuv + 0] = x2 - d0x - d1x;
-        uvs[iuv + 1] = y2 - d0y - d1y;
-        uvs[iuv + 2] = x2 - d1x;
-        uvs[iuv + 3] = y2 - d1y;
-        uvs[iuv + 4] = x2 - d0x;
-        uvs[iuv + 5] = y2 - d0y;
-        uvs[iuv + 6] = x2;
-        uvs[iuv + 7] = y2;
-        iuv += 8;
+        uvs[++iuv] = x2 - d0x - d1x;
+        uvs[++iuv] = y2 - d0y - d1y;
+        uvs[++iuv] = x2 - d1x;
+        uvs[++iuv] = y2 - d1y;
+        uvs[++iuv] = x2 - d0x;
+        uvs[++iuv] = y2 - d0y;
+        uvs[++iuv] = x2;
+        uvs[++iuv] = y2;
         // Top edge
-        uvs[iuv + 0] = x0 + d0x;
-        uvs[iuv + 1] = y0 + d0y;
-        uvs[iuv + 2] = x4;
-        uvs[iuv + 3] = y4;
-        uvs[iuv + 4] = x1 - d0x;
-        uvs[iuv + 5] = y1 - d0y;
-        iuv += 6;
+        uvs[++iuv] = x0 + d0x;
+        uvs[++iuv] = y0 + d0y;
+        uvs[++iuv] = x4;
+        uvs[++iuv] = y4;
+        uvs[++iuv] = x1 - d0x;
+        uvs[++iuv] = y1 - d0y;
         // Top
-        uvs[iuv + 0] = x0 + d1x;
-        uvs[iuv + 1] = y0 + d1y;
-        uvs[iuv + 2] = x0 + d1x + d0x;
-        uvs[iuv + 3] = y0 + d1y + d0y;
-        uvs[iuv + 4] = x4 + d1x;
-        uvs[iuv + 5] = y4 + d1y;
-        uvs[iuv + 6] = x1 + d1x - d0x;
-        uvs[iuv + 7] = y1 + d1y - d0y;
-        uvs[iuv + 8] = x1 + d1x;
-        uvs[iuv + 9] = y1 + d1y;
-        iuv += 10;
+        uvs[++iuv] = x0 + d1x;
+        uvs[++iuv] = y0 + d1y;
+        uvs[++iuv] = x0 + d1x + d0x;
+        uvs[++iuv] = y0 + d1y + d0y;
+        uvs[++iuv] = x4 + d1x;
+        uvs[++iuv] = y4 + d1y;
+        uvs[++iuv] = x1 + d1x - d0x;
+        uvs[++iuv] = y1 + d1y - d0y;
+        uvs[++iuv] = x1 + d1x;
+        uvs[++iuv] = y1 + d1y;
         // Middle
         var x02 = 0.5 * (x0 + x2);
         var y02 = 0.5 * (y0 + y2);
-        uvs[iuv + 0] = 0.5 * (x0 + x3);
-        uvs[iuv + 1] = 0.5 * (y0 + y3);
-        uvs[iuv + 2] = x02;
-        uvs[iuv + 3] = y02;
-        uvs[iuv + 4] = x02;
-        uvs[iuv + 5] = y02;
-        uvs[iuv + 6] = 0.5 * (x1 + x2);
-        uvs[iuv + 7] = 0.5 * (y1 + y2);
-        iuv += 8;
+        uvs[++iuv] = 0.5 * (x0 + x3);
+        uvs[++iuv] = 0.5 * (y0 + y3);
+        uvs[++iuv] = x02;
+        uvs[++iuv] = y02;
+        uvs[++iuv] = x02;
+        uvs[++iuv] = y02;
+        uvs[++iuv] = 0.5 * (x1 + x2);
+        uvs[++iuv] = 0.5 * (y1 + y2);
         // Bottom
-        uvs[iuv + 0] = x3 - d1x;
-        uvs[iuv + 1] = y3 - d1y;
-        uvs[iuv + 2] = x3 - d1x + d0x;
-        uvs[iuv + 3] = y3 - d1y + d0y;
-        uvs[iuv + 4] = x5 - d1x;
-        uvs[iuv + 5] = y5 - d1y;
-        uvs[iuv + 6] = x2 - d1x - d0x;
-        uvs[iuv + 7] = y2 - d1y - d0y;
-        uvs[iuv + 8] = x2 - d1x;
-        uvs[iuv + 9] = y2 - d1y;
-        iuv += 10;
+        uvs[++iuv] = x3 - d1x;
+        uvs[++iuv] = y3 - d1y;
+        uvs[++iuv] = x3 - d1x + d0x;
+        uvs[++iuv] = y3 - d1y + d0y;
+        uvs[++iuv] = x5 - d1x;
+        uvs[++iuv] = y5 - d1y;
+        uvs[++iuv] = x2 - d1x - d0x;
+        uvs[++iuv] = y2 - d1y - d0y;
+        uvs[++iuv] = x2 - d1x;
+        uvs[++iuv] = y2 - d1y;
         // Bottom edge
-        uvs[iuv + 0] = x3 + d0x;
-        uvs[iuv + 1] = y3 + d0y;
-        uvs[iuv + 2] = x5;
-        uvs[iuv + 3] = y5;
-        uvs[iuv + 4] = x2 - d0x;
-        uvs[iuv + 5] = y2 - d0y;
+        uvs[++iuv] = x3 + d0x;
+        uvs[++iuv] = y3 + d0y;
+        uvs[++iuv] = x5;
+        uvs[++iuv] = y5;
+        uvs[++iuv] = x2 - d0x;
+        uvs[++iuv] = y2 - d0y;
     };
 
     /*
@@ -30331,12 +30277,14 @@
             var transformLocalId = this.toTransformLocalId(shape);
             var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
-            var strokeWidth = stroke.enable ? stroke.width : 0;
             var strokeAlign = stroke.align;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
             var strokeSide = stroke.side;
+            var strokeStyle = stroke.style;
             var isStrokeChanged = this.strokeAlign !== strokeAlign ||
                 this.strokeWidth !== strokeWidth ||
-                this.strokeSide !== strokeSide;
+                this.strokeSide !== strokeSide ||
+                this.strokeStyle !== strokeStyle;
             var corner = shape.corner;
             var isCornerChanged = corner !== this.corner;
             var texture = this.toTexture(shape);
@@ -30353,9 +30301,10 @@
                 this.sizeY = sizeY;
                 this.radius = radius;
                 this.transformLocalId = transformLocalId;
-                this.strokeWidth = strokeWidth;
                 this.strokeAlign = strokeAlign;
+                this.strokeWidth = strokeWidth;
                 this.strokeSide = strokeSide;
+                this.strokeStyle = strokeStyle;
                 this.corner = corner;
                 this.texture = texture;
                 this.textureTransformId = textureTransformId;
@@ -30383,7 +30332,6 @@
                 var uvs = buffer.uvs;
                 var internalTransform = shape.transform.internalTransform;
                 var textureUvs = this.toTextureUvs(texture);
-                var antialiasWeight = this.antialiasWeight;
                 if (0 < pointCount && pointSize.isStaticX() && pointSize.isStaticY()) {
                     var pointSizeX = pointSize.getX(0);
                     var pointSizeY = pointSize.getY(0);
@@ -30392,7 +30340,7 @@
                     copyVertex(vertices, internalTransform, voffset, RECTANGLE_ROUNDED_VERTEX_COUNT, pointCount, pointsValues, pointOffset);
                     // Steps
                     if (isVertexChanged || isTransformChanged) {
-                        buildRectangleRoundedStep(steps, voffset, strokeWidth, strokeSide, corner, antialiasWeight, RECTANGLE_ROUNDED_WORLD_SIZE);
+                        buildRectangleRoundedStep(steps, voffset, strokeWidth, strokeSide, strokeStyle, corner, RECTANGLE_ROUNDED_WORLD_SIZE);
                         copyStep(steps, voffset, RECTANGLE_ROUNDED_VERTEX_COUNT, pointCount);
                     }
                     // Clippings
@@ -30418,7 +30366,7 @@
                         buildRectangleRoundedVertex(vertices, iv, px, py, pointSizeX, pointSizeY, strokeAlign, strokeWidth, radius, internalTransform, RECTANGLE_ROUNDED_WORLD_SIZE);
                         // Steps
                         if (isVertexChanged || isTransformChanged) {
-                            buildRectangleRoundedStep(steps, iv, strokeWidth, strokeSide, corner, antialiasWeight, RECTANGLE_ROUNDED_WORLD_SIZE);
+                            buildRectangleRoundedStep(steps, iv, strokeWidth, strokeSide, strokeStyle, corner, RECTANGLE_ROUNDED_WORLD_SIZE);
                         }
                         // Clippings
                         if (isVertexChanged || isCornerChanged) {
@@ -30673,11 +30621,11 @@
         EShapeLineOfRectangleRoundeds.prototype.containsPointAbsBBox = function (x, y, ax, ay, ox, oy, px, py) {
             return _super.prototype.containsAbsBBox.call(this, x - px - ox, y - py - oy, ax, ay);
         };
-        EShapeLineOfRectangleRoundeds.prototype.calcHitPoint = function (point, toThreshold, range, tester, result) {
+        EShapeLineOfRectangleRoundeds.prototype.calcHitPoint = function (point, toThreshold, toRange, tester, result) {
             var rect = this.toLocalRect(point, EShapeBase.WORK_RECT);
             var threshold = toHitThreshold(this, toThreshold);
             if (this.containsAbsBBox(rect.x, rect.y, rect.width + threshold, rect.height + threshold)) {
-                return this._points.calcHitPointAbs(rect.x, rect.y, threshold, range, tester || this._tester, result);
+                return this._points.calcHitPointAbs(rect.x, rect.y, threshold, toRange, tester || this._tester, result);
             }
             return false;
         };
@@ -30754,12 +30702,14 @@
             var transformLocalId = this.toTransformLocalId(shape);
             var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
-            var strokeWidth = stroke.enable ? stroke.width : 0;
             var strokeAlign = stroke.align;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
             var strokeSide = stroke.side;
+            var strokeStyle = stroke.style;
             var isStrokeChanged = this.strokeAlign !== strokeAlign ||
                 this.strokeWidth !== strokeWidth ||
-                this.strokeSide !== strokeSide;
+                this.strokeSide !== strokeSide ||
+                this.strokeStyle !== strokeStyle;
             var texture = this.toTexture(shape);
             var textureTransformId = this.toTextureTransformId(texture);
             var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
@@ -30774,6 +30724,7 @@
                 this.strokeWidth = strokeWidth;
                 this.strokeAlign = strokeAlign;
                 this.strokeSide = strokeSide;
+                this.strokeStyle = strokeStyle;
                 this.texture = texture;
                 this.textureTransformId = textureTransformId;
                 if (isSizeChanged || isTransformChanged || isStrokeChanged) {
@@ -30799,7 +30750,6 @@
                 var steps = buffer.steps;
                 var uvs = buffer.uvs;
                 var internalTransform = shape.transform.internalTransform;
-                var antialiasWeight = this.antialiasWeight;
                 var textureUvs = this.toTextureUvs(texture);
                 if (0 < pointCount && pointSize.isStaticX() && pointSize.isStaticY()) {
                     var pointSizeX = pointSize.getX(0);
@@ -30809,7 +30759,7 @@
                     copyVertex(vertices, internalTransform, voffset, RECTANGLE_VERTEX_COUNT, pointCount, pointsValues, pointOffset);
                     // Steps
                     if (isVertexChanged || isTransformChanged) {
-                        buildRectangleStep(voffset, steps, strokeWidth, strokeSide, antialiasWeight, RECTANGLE_WORLD_SIZE);
+                        buildRectangleStep(voffset, steps, strokeWidth, strokeSide, strokeStyle, RECTANGLE_WORLD_SIZE);
                         copyStep(steps, voffset, RECTANGLE_VERTEX_COUNT, pointCount);
                     }
                     // Clippings
@@ -30835,7 +30785,7 @@
                         buildRectangleVertex(vertices, iv, px, py, pointSizeX, pointSizeY, strokeAlign, strokeWidth, internalTransform, RECTANGLE_WORLD_SIZE);
                         // Steps
                         if (isVertexChanged || isTransformChanged) {
-                            buildRectangleStep(iv, steps, strokeWidth, strokeSide, antialiasWeight, RECTANGLE_WORLD_SIZE);
+                            buildRectangleStep(iv, steps, strokeWidth, strokeSide, strokeStyle, RECTANGLE_WORLD_SIZE);
                         }
                         // Clippings
                         if (isVertexChanged) {
@@ -30908,11 +30858,11 @@
         EShapeLineOfRectangles.prototype.containsPointAbsBBox = function (x, y, ax, ay, ox, oy, px, py) {
             return _super.prototype.containsAbsBBox.call(this, x - px - ox, y - py - oy, ax, ay);
         };
-        EShapeLineOfRectangles.prototype.calcHitPoint = function (point, toThreshold, range, tester, result) {
+        EShapeLineOfRectangles.prototype.calcHitPoint = function (point, toThreshold, toRange, tester, result) {
             var rect = this.toLocalRect(point, EShapeBase.WORK_RECT);
             var threshold = toHitThreshold(this, toThreshold);
             if (this.containsAbsBBox(rect.x, rect.y, rect.width + threshold, rect.height + threshold)) {
-                return this._points.calcHitPointAbs(rect.x, rect.y, threshold, range, tester || this._tester, result);
+                return this._points.calcHitPointAbs(rect.x, rect.y, threshold, toRange, tester || this._tester, result);
             }
             return false;
         };
@@ -30949,57 +30899,57 @@
     var TRIANGLE_ROUNDED_WORK_POINT = new pixi_js.Point();
     var buildTriangleRoundedIndex = function (indices, voffset, ioffset) {
         // Top corner
-        var ii = ioffset * 3;
-        indices[ii + 0] = voffset + 0;
-        indices[ii + 1] = voffset + 1;
-        indices[ii + 2] = voffset + 3;
-        indices[ii + 3] = voffset + 1;
-        indices[ii + 4] = voffset + 2;
-        indices[ii + 5] = voffset + 3;
+        var ii = ioffset * 3 - 1;
+        indices[++ii] = voffset + 0;
+        indices[++ii] = voffset + 1;
+        indices[++ii] = voffset + 3;
+        indices[++ii] = voffset + 1;
+        indices[++ii] = voffset + 2;
+        indices[++ii] = voffset + 3;
         // Bottom-right corner
-        indices[ii + 6] = voffset + 4;
-        indices[ii + 7] = voffset + 5;
-        indices[ii + 8] = voffset + 7;
-        indices[ii + 9] = voffset + 5;
-        indices[ii + 10] = voffset + 6;
-        indices[ii + 11] = voffset + 7;
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 5;
+        indices[++ii] = voffset + 7;
+        indices[++ii] = voffset + 5;
+        indices[++ii] = voffset + 6;
+        indices[++ii] = voffset + 7;
         // Bottom-left corner
-        indices[ii + 12] = voffset + 8;
-        indices[ii + 13] = voffset + 9;
-        indices[ii + 14] = voffset + 11;
-        indices[ii + 15] = voffset + 9;
-        indices[ii + 16] = voffset + 10;
-        indices[ii + 17] = voffset + 11;
+        indices[++ii] = voffset + 8;
+        indices[++ii] = voffset + 9;
+        indices[++ii] = voffset + 11;
+        indices[++ii] = voffset + 9;
+        indices[++ii] = voffset + 10;
+        indices[++ii] = voffset + 11;
         // Others
-        indices[ii + 18] = voffset + 12;
-        indices[ii + 19] = voffset + 13;
-        indices[ii + 20] = voffset + 16;
-        indices[ii + 21] = voffset + 13;
-        indices[ii + 22] = voffset + 14;
-        indices[ii + 23] = voffset + 16;
-        indices[ii + 24] = voffset + 14;
-        indices[ii + 25] = voffset + 15;
-        indices[ii + 26] = voffset + 16;
+        indices[++ii] = voffset + 12;
+        indices[++ii] = voffset + 13;
+        indices[++ii] = voffset + 16;
+        indices[++ii] = voffset + 13;
+        indices[++ii] = voffset + 14;
+        indices[++ii] = voffset + 16;
+        indices[++ii] = voffset + 14;
+        indices[++ii] = voffset + 15;
+        indices[++ii] = voffset + 16;
         //
-        indices[ii + 27] = voffset + 12;
-        indices[ii + 28] = voffset + 16;
-        indices[ii + 29] = voffset + 19;
-        indices[ii + 30] = voffset + 16;
-        indices[ii + 31] = voffset + 17;
-        indices[ii + 32] = voffset + 19;
-        indices[ii + 33] = voffset + 17;
-        indices[ii + 34] = voffset + 18;
-        indices[ii + 35] = voffset + 19;
+        indices[++ii] = voffset + 12;
+        indices[++ii] = voffset + 16;
+        indices[++ii] = voffset + 19;
+        indices[++ii] = voffset + 16;
+        indices[++ii] = voffset + 17;
+        indices[++ii] = voffset + 19;
+        indices[++ii] = voffset + 17;
+        indices[++ii] = voffset + 18;
+        indices[++ii] = voffset + 19;
         //
-        indices[ii + 36] = voffset + 12;
-        indices[ii + 37] = voffset + 19;
-        indices[ii + 38] = voffset + 13;
-        indices[ii + 39] = voffset + 19;
-        indices[ii + 40] = voffset + 20;
-        indices[ii + 41] = voffset + 13;
-        indices[ii + 42] = voffset + 20;
-        indices[ii + 43] = voffset + 21;
-        indices[ii + 44] = voffset + 13;
+        indices[++ii] = voffset + 12;
+        indices[++ii] = voffset + 19;
+        indices[++ii] = voffset + 13;
+        indices[++ii] = voffset + 19;
+        indices[++ii] = voffset + 20;
+        indices[++ii] = voffset + 13;
+        indices[++ii] = voffset + 20;
+        indices[++ii] = voffset + 21;
+        indices[++ii] = voffset + 13;
     };
     var buildTriangleRoundedVertex = function (vertices, voffset, originX, originY, sizeX, sizeY, strokeAlign, strokeWidth, radius, internalTransform, worldSize) {
         // Calculate the transformed positions
@@ -31066,215 +31016,198 @@
         worldSize[4] = 1 - (0.5 * sw) / sy;
         // Vertices
         // Top corner
-        var iv = voffset * 2;
-        vertices[iv + 0] = x10;
-        vertices[iv + 1] = y10;
-        vertices[iv + 2] = x9;
-        vertices[iv + 3] = y9;
-        vertices[iv + 4] = x1;
-        vertices[iv + 5] = y1;
-        vertices[iv + 6] = x2;
-        vertices[iv + 7] = y2;
+        var iv = voffset * 2 - 1;
+        vertices[++iv] = x10;
+        vertices[++iv] = y10;
+        vertices[++iv] = x9;
+        vertices[++iv] = y9;
+        vertices[++iv] = x1;
+        vertices[++iv] = y1;
+        vertices[++iv] = x2;
+        vertices[++iv] = y2;
         // Bottom-right corner
-        vertices[iv + 8] = x11;
-        vertices[iv + 9] = y11;
-        vertices[iv + 10] = x3;
-        vertices[iv + 11] = y3;
-        vertices[iv + 12] = x4;
-        vertices[iv + 13] = y4;
-        vertices[iv + 14] = x5;
-        vertices[iv + 15] = y5;
+        vertices[++iv] = x11;
+        vertices[++iv] = y11;
+        vertices[++iv] = x3;
+        vertices[++iv] = y3;
+        vertices[++iv] = x4;
+        vertices[++iv] = y4;
+        vertices[++iv] = x5;
+        vertices[++iv] = y5;
         // Bottom-left corner
-        vertices[iv + 16] = x12;
-        vertices[iv + 17] = y12;
-        vertices[iv + 18] = x6;
-        vertices[iv + 19] = y6;
-        vertices[iv + 20] = x7;
-        vertices[iv + 21] = y7;
-        vertices[iv + 22] = x8;
-        vertices[iv + 23] = y8;
+        vertices[++iv] = x12;
+        vertices[++iv] = y12;
+        vertices[++iv] = x6;
+        vertices[++iv] = y6;
+        vertices[++iv] = x7;
+        vertices[++iv] = y7;
+        vertices[++iv] = x8;
+        vertices[++iv] = y8;
         // Others
-        vertices[iv + 24] = x0;
-        vertices[iv + 25] = y0;
-        vertices[iv + 26] = x10;
-        vertices[iv + 27] = y10;
-        vertices[iv + 28] = x2;
-        vertices[iv + 29] = y2;
-        vertices[iv + 30] = x3;
-        vertices[iv + 31] = y3;
-        vertices[iv + 32] = x11;
-        vertices[iv + 33] = y11;
-        vertices[iv + 34] = x5;
-        vertices[iv + 35] = y5;
-        vertices[iv + 36] = x6;
-        vertices[iv + 37] = y6;
-        vertices[iv + 38] = x12;
-        vertices[iv + 39] = y12;
-        vertices[iv + 40] = x8;
-        vertices[iv + 41] = y8;
-        vertices[iv + 42] = x9;
-        vertices[iv + 43] = y9;
+        vertices[++iv] = x0;
+        vertices[++iv] = y0;
+        vertices[++iv] = x10;
+        vertices[++iv] = y10;
+        vertices[++iv] = x2;
+        vertices[++iv] = y2;
+        vertices[++iv] = x3;
+        vertices[++iv] = y3;
+        vertices[++iv] = x11;
+        vertices[++iv] = y11;
+        vertices[++iv] = x5;
+        vertices[++iv] = y5;
+        vertices[++iv] = x6;
+        vertices[++iv] = y6;
+        vertices[++iv] = x12;
+        vertices[++iv] = y12;
+        vertices[++iv] = x8;
+        vertices[++iv] = y8;
+        vertices[++iv] = x9;
+        vertices[++iv] = y9;
     };
     var buildTriangleRoundedClipping = function (clippings, voffset, corner, radius) {
         // Top corner
-        var iv = voffset * 3;
+        var iv = voffset * 3 - 1;
         var w = 1 - radius;
         if (corner & EShapeCorner.TOP) {
-            clippings[iv + 0] = 0;
-            clippings[iv + 1] = 0;
-            clippings[iv + 2] = 1;
-            clippings[iv + 3] = 1;
-            clippings[iv + 4] = 0;
-            clippings[iv + 5] = 1;
-            clippings[iv + 6] = 1;
-            clippings[iv + 7] = 1;
-            clippings[iv + 8] = 1;
-            clippings[iv + 9] = 0;
-            clippings[iv + 10] = 1;
-            clippings[iv + 11] = 1;
+            clippings[++iv] = 0;
+            clippings[++iv] = 0;
+            clippings[++iv] = 1;
+            clippings[++iv] = 1;
+            clippings[++iv] = 0;
+            clippings[++iv] = 1;
+            clippings[++iv] = 1;
+            clippings[++iv] = 1;
+            clippings[++iv] = 1;
+            clippings[++iv] = 0;
+            clippings[++iv] = 1;
+            clippings[++iv] = 1;
         }
         else {
-            clippings[iv + 0] = w;
-            clippings[iv + 1] = w;
-            clippings[iv + 2] = 0;
-            clippings[iv + 3] = 1;
-            clippings[iv + 4] = w;
-            clippings[iv + 5] = 0;
-            clippings[iv + 6] = 1;
-            clippings[iv + 7] = 1;
-            clippings[iv + 8] = 0;
-            clippings[iv + 9] = w;
-            clippings[iv + 10] = 1;
-            clippings[iv + 11] = 0;
+            clippings[++iv] = w;
+            clippings[++iv] = w;
+            clippings[++iv] = 0;
+            clippings[++iv] = 1;
+            clippings[++iv] = w;
+            clippings[++iv] = 0;
+            clippings[++iv] = 1;
+            clippings[++iv] = 1;
+            clippings[++iv] = 0;
+            clippings[++iv] = w;
+            clippings[++iv] = 1;
+            clippings[++iv] = 0;
         }
-        iv += 12;
         // Bottom-right corner
         if (corner & EShapeCorner.BOTTOM_RIGHT) {
-            clippings[iv + 0] = 0;
-            clippings[iv + 1] = 0;
-            clippings[iv + 2] = 1;
-            clippings[iv + 3] = 1;
-            clippings[iv + 4] = 0;
-            clippings[iv + 5] = 1;
-            clippings[iv + 6] = 1;
-            clippings[iv + 7] = 1;
-            clippings[iv + 8] = 1;
-            clippings[iv + 9] = 0;
-            clippings[iv + 10] = 1;
-            clippings[iv + 11] = 1;
+            clippings[++iv] = 0;
+            clippings[++iv] = 0;
+            clippings[++iv] = 1;
+            clippings[++iv] = 1;
+            clippings[++iv] = 0;
+            clippings[++iv] = 1;
+            clippings[++iv] = 1;
+            clippings[++iv] = 1;
+            clippings[++iv] = 1;
+            clippings[++iv] = 0;
+            clippings[++iv] = 1;
+            clippings[++iv] = 1;
         }
         else {
-            clippings[iv + 0] = w;
-            clippings[iv + 1] = w;
-            clippings[iv + 2] = 0;
-            clippings[iv + 3] = 1;
-            clippings[iv + 4] = w;
-            clippings[iv + 5] = 0;
-            clippings[iv + 6] = 1;
-            clippings[iv + 7] = 1;
-            clippings[iv + 8] = 0;
-            clippings[iv + 9] = w;
-            clippings[iv + 10] = 1;
-            clippings[iv + 11] = 0;
+            clippings[++iv] = w;
+            clippings[++iv] = w;
+            clippings[++iv] = 0;
+            clippings[++iv] = 1;
+            clippings[++iv] = w;
+            clippings[++iv] = 0;
+            clippings[++iv] = 1;
+            clippings[++iv] = 1;
+            clippings[++iv] = 0;
+            clippings[++iv] = w;
+            clippings[++iv] = 1;
+            clippings[++iv] = 0;
         }
-        iv += 12;
         // Bottom-left corner
         if (corner & EShapeCorner.BOTTOM_LEFT) {
-            clippings[iv + 0] = 0;
-            clippings[iv + 1] = 0;
-            clippings[iv + 2] = 1;
-            clippings[iv + 3] = 1;
-            clippings[iv + 4] = 0;
-            clippings[iv + 5] = 1;
-            clippings[iv + 6] = 1;
-            clippings[iv + 7] = 1;
-            clippings[iv + 8] = 1;
-            clippings[iv + 9] = 0;
-            clippings[iv + 10] = 1;
-            clippings[iv + 11] = 1;
+            clippings[++iv] = 0;
+            clippings[++iv] = 0;
+            clippings[++iv] = 1;
+            clippings[++iv] = 1;
+            clippings[++iv] = 0;
+            clippings[++iv] = 1;
+            clippings[++iv] = 1;
+            clippings[++iv] = 1;
+            clippings[++iv] = 1;
+            clippings[++iv] = 0;
+            clippings[++iv] = 1;
+            clippings[++iv] = 1;
         }
         else {
-            clippings[iv + 0] = w;
-            clippings[iv + 1] = w;
-            clippings[iv + 2] = 0;
-            clippings[iv + 3] = 1;
-            clippings[iv + 4] = w;
-            clippings[iv + 5] = 0;
-            clippings[iv + 6] = 1;
-            clippings[iv + 7] = 1;
-            clippings[iv + 8] = 0;
-            clippings[iv + 9] = w;
-            clippings[iv + 10] = 1;
-            clippings[iv + 11] = 0;
+            clippings[++iv] = w;
+            clippings[++iv] = w;
+            clippings[++iv] = 0;
+            clippings[++iv] = 1;
+            clippings[++iv] = w;
+            clippings[++iv] = 0;
+            clippings[++iv] = 1;
+            clippings[++iv] = 1;
+            clippings[++iv] = 0;
+            clippings[++iv] = w;
+            clippings[++iv] = 1;
+            clippings[++iv] = 0;
         }
-        iv += 12;
         // Others
-        clippings[iv + 0] = 0;
-        clippings[iv + 1] = 0;
-        clippings[iv + 2] = 0;
-        iv += 3;
-        clippings[iv + 0] = w;
-        clippings[iv + 1] = 0;
-        clippings[iv + 2] = 0;
-        iv += 3;
-        clippings[iv + 0] = 1;
-        clippings[iv + 1] = 0;
-        clippings[iv + 2] = 0;
-        clippings[iv + 3] = 1;
-        clippings[iv + 4] = 0;
-        clippings[iv + 5] = 0;
-        iv += 6;
-        clippings[iv + 0] = w;
-        clippings[iv + 1] = 0;
-        clippings[iv + 2] = 0;
-        iv += 3;
-        clippings[iv + 0] = 1;
-        clippings[iv + 1] = 0;
-        clippings[iv + 2] = 0;
-        clippings[iv + 3] = 1;
-        clippings[iv + 4] = 0;
-        clippings[iv + 5] = 0;
-        iv += 6;
-        clippings[iv + 0] = w;
-        clippings[iv + 1] = 0;
-        clippings[iv + 2] = 0;
-        iv += 3;
-        clippings[iv + 0] = 1;
-        clippings[iv + 1] = 0;
-        clippings[iv + 2] = 0;
-        clippings[iv + 3] = 1;
-        clippings[iv + 4] = 0;
-        clippings[iv + 5] = 0;
+        clippings[++iv] = 0;
+        clippings[++iv] = 0;
+        clippings[++iv] = 0;
+        clippings[++iv] = w;
+        clippings[++iv] = 0;
+        clippings[++iv] = 0;
+        clippings[++iv] = 1;
+        clippings[++iv] = 0;
+        clippings[++iv] = 0;
+        clippings[++iv] = 1;
+        clippings[++iv] = 0;
+        clippings[++iv] = 0;
+        clippings[++iv] = w;
+        clippings[++iv] = 0;
+        clippings[++iv] = 0;
+        clippings[++iv] = 1;
+        clippings[++iv] = 0;
+        clippings[++iv] = 0;
+        clippings[++iv] = 1;
+        clippings[++iv] = 0;
+        clippings[++iv] = 0;
+        clippings[++iv] = w;
+        clippings[++iv] = 0;
+        clippings[++iv] = 0;
+        clippings[++iv] = 1;
+        clippings[++iv] = 0;
+        clippings[++iv] = 0;
+        clippings[++iv] = 1;
+        clippings[++iv] = 0;
+        clippings[++iv] = 0;
     };
-    var buildTriangleRoundedStep = function (steps, clippings, voffset, strokeWidth, radius, antialiasWeight, worldSize) {
-        var wsr = worldSize[0];
-        toStep(wsr, strokeWidth, antialiasWeight, STEP_VALUES);
-        var swc = STEP_VALUES[0];
-        var pc0 = STEP_VALUES[1];
-        var pc1 = STEP_VALUES[2];
-        toStep(radius * wsr, strokeWidth, antialiasWeight, STEP_VALUES);
-        var swr = STEP_VALUES[0];
-        var pr0 = STEP_VALUES[1];
-        var pr1 = STEP_VALUES[2];
+    var buildTriangleRoundedStep = function (steps, clippings, voffset, strokeWidth, strokeStyle, radius, worldSize) {
+        var scaleInvariant = toScaleInvariant(strokeStyle);
+        var s = worldSize[0];
+        var sr = radius * s;
         var ic = voffset * 3;
-        var is = voffset * 6;
-        for (var i = 0; i < TRIANGLE_ROUNDED_VERTEX_COUNT; ++i) {
-            var sw = swc;
-            var p0 = pc0;
-            var p1 = pc1;
+        var is = voffset * 6 - 1;
+        for (var i = 0; i < TRIANGLE_ROUNDED_VERTEX_COUNT; i += 1, ic += 3) {
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
             if (0.5 < clippings[ic + 2]) {
-                sw = swr;
-                p0 = pr0;
-                p1 = pr1;
+                steps[++is] = sr;
+                steps[++is] = sr;
+                steps[++is] = 1 + clippings[ic];
+                steps[++is] = 1 + clippings[ic + 1];
             }
-            steps[is + 0] = sw * clippings[ic + 0];
-            steps[is + 1] = sw * clippings[ic + 1];
-            steps[is + 2] = p0;
-            steps[is + 3] = p0;
-            steps[is + 4] = p1;
-            steps[is + 5] = p1;
-            ic += 3;
-            is += 6;
+            else {
+                steps[++is] = s;
+                steps[++is] = s;
+                steps[++is] = 1 + clippings[ic];
+                steps[++is] = 1 + clippings[ic + 1];
+            }
         }
     };
     var buildTriangleRoundedUv = function (uvs, voffset, textureUvs, radius, worldSize) {
@@ -31314,57 +31247,54 @@
         var y14 = y3 + ry * (y4 - y3);
         // Uvs
         // Top corner
-        var iuv = voffset * 2;
-        uvs[iuv + 0] = x7;
-        uvs[iuv + 1] = y7;
-        uvs[iuv + 2] = x6;
-        uvs[iuv + 3] = y6;
-        uvs[iuv + 4] = x4;
-        uvs[iuv + 5] = y4;
-        uvs[iuv + 6] = x8;
-        uvs[iuv + 7] = y8;
-        iuv += 8;
+        var iuv = voffset * 2 - 1;
+        uvs[++iuv] = x7;
+        uvs[++iuv] = y7;
+        uvs[++iuv] = x6;
+        uvs[++iuv] = y6;
+        uvs[++iuv] = x4;
+        uvs[++iuv] = y4;
+        uvs[++iuv] = x8;
+        uvs[++iuv] = y8;
         // Bottom-right corner
-        uvs[iuv + 0] = x10;
-        uvs[iuv + 1] = y10;
-        uvs[iuv + 2] = x9;
-        uvs[iuv + 3] = y9;
-        uvs[iuv + 4] = x2;
-        uvs[iuv + 5] = y2;
-        uvs[iuv + 6] = x11;
-        uvs[iuv + 7] = y11;
-        iuv += 8;
+        uvs[++iuv] = x10;
+        uvs[++iuv] = y10;
+        uvs[++iuv] = x9;
+        uvs[++iuv] = y9;
+        uvs[++iuv] = x2;
+        uvs[++iuv] = y2;
+        uvs[++iuv] = x11;
+        uvs[++iuv] = y11;
         // Bottom-left corner
-        uvs[iuv + 0] = x13;
-        uvs[iuv + 1] = y13;
-        uvs[iuv + 2] = x12;
-        uvs[iuv + 3] = y12;
-        uvs[iuv + 4] = x3;
-        uvs[iuv + 5] = y3;
-        uvs[iuv + 6] = x14;
-        uvs[iuv + 7] = y14;
-        iuv += 8;
+        uvs[++iuv] = x13;
+        uvs[++iuv] = y13;
+        uvs[++iuv] = x12;
+        uvs[++iuv] = y12;
+        uvs[++iuv] = x3;
+        uvs[++iuv] = y3;
+        uvs[++iuv] = x14;
+        uvs[++iuv] = y14;
         // Others
-        uvs[iuv + 0] = x5;
-        uvs[iuv + 1] = y5;
-        uvs[iuv + 2] = x7;
-        uvs[iuv + 3] = y7;
-        uvs[iuv + 4] = x8;
-        uvs[iuv + 5] = y8;
-        uvs[iuv + 6] = x9;
-        uvs[iuv + 7] = y9;
-        uvs[iuv + 8] = x10;
-        uvs[iuv + 9] = y10;
-        uvs[iuv + 10] = x11;
-        uvs[iuv + 11] = y11;
-        uvs[iuv + 12] = x12;
-        uvs[iuv + 13] = y12;
-        uvs[iuv + 14] = x13;
-        uvs[iuv + 15] = y13;
-        uvs[iuv + 16] = x14;
-        uvs[iuv + 17] = y14;
-        uvs[iuv + 18] = x6;
-        uvs[iuv + 19] = y6;
+        uvs[++iuv] = x5;
+        uvs[++iuv] = y5;
+        uvs[++iuv] = x7;
+        uvs[++iuv] = y7;
+        uvs[++iuv] = x8;
+        uvs[++iuv] = y8;
+        uvs[++iuv] = x9;
+        uvs[++iuv] = y9;
+        uvs[++iuv] = x10;
+        uvs[++iuv] = y10;
+        uvs[++iuv] = x11;
+        uvs[++iuv] = y11;
+        uvs[++iuv] = x12;
+        uvs[++iuv] = y12;
+        uvs[++iuv] = x13;
+        uvs[++iuv] = y13;
+        uvs[++iuv] = x14;
+        uvs[++iuv] = y14;
+        uvs[++iuv] = x6;
+        uvs[++iuv] = y6;
     };
 
     /*
@@ -31420,9 +31350,12 @@
             var transformLocalId = this.toTransformLocalId(shape);
             var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
-            var strokeWidth = stroke.enable ? stroke.width : 0;
             var strokeAlign = stroke.align;
-            var isStrokeChanged = this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var strokeStyle = stroke.style;
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeStyle !== strokeStyle;
             var corner = shape.corner;
             var isCornerChanged = this.corner !== corner;
             var texture = this.toTexture(shape);
@@ -31443,8 +31376,9 @@
                 this.sizeY = sizeY;
                 this.radius = radius;
                 this.transformLocalId = transformLocalId;
-                this.strokeWidth = strokeWidth;
                 this.strokeAlign = strokeAlign;
+                this.strokeWidth = strokeWidth;
+                this.strokeStyle = strokeStyle;
                 this.corner = corner;
                 this.texture = texture;
                 this.textureTransformId = textureTransformId;
@@ -31472,7 +31406,6 @@
                 var uvs = buffer.uvs;
                 var internalTransform = shape.transform.internalTransform;
                 var textureUvs = this.toTextureUvs(texture);
-                var antialiasWeight = this.antialiasWeight;
                 if (0 < pointCount && pointSize.isStaticX() && pointSize.isStaticY()) {
                     var pointSizeX = pointSize.getX(0);
                     var pointSizeY = pointSize.getY(0);
@@ -31486,7 +31419,7 @@
                     }
                     // Steps
                     if (isVertexChanged || isTransformChanged || isCornerChanged) {
-                        buildTriangleRoundedStep(steps, clippings, voffset, strokeWidth, radius, antialiasWeight, TRIANGLE_ROUNDED_WORLD_SIZE);
+                        buildTriangleRoundedStep(steps, clippings, voffset, strokeWidth, strokeStyle, radius, TRIANGLE_ROUNDED_WORLD_SIZE);
                         copyStep(steps, voffset, TRIANGLE_ROUNDED_VERTEX_COUNT, pointCount);
                     }
                     // UVs
@@ -31511,7 +31444,7 @@
                         }
                         // Steps
                         if (isVertexChanged || isTransformChanged || isCornerChanged) {
-                            buildTriangleRoundedStep(steps, clippings, iv, strokeWidth, radius, antialiasWeight, TRIANGLE_ROUNDED_WORLD_SIZE);
+                            buildTriangleRoundedStep(steps, clippings, iv, strokeWidth, strokeStyle, radius, TRIANGLE_ROUNDED_WORLD_SIZE);
                         }
                         // UVs
                         if (isVertexChanged || isTextureChanged) {
@@ -31767,11 +31700,11 @@
         EShapeLineOfTriangleRoundeds.prototype.containsPointAbsBBox = function (x, y, ax, ay, ox, oy, px, py) {
             return _super.prototype.containsAbsBBox.call(this, x - px - ox, y - py - oy, ax, ay);
         };
-        EShapeLineOfTriangleRoundeds.prototype.calcHitPoint = function (point, toThreshold, range, tester, result) {
+        EShapeLineOfTriangleRoundeds.prototype.calcHitPoint = function (point, toThreshold, toRange, tester, result) {
             var rect = this.toLocalRect(point, EShapeBase.WORK_RECT);
             var threshold = toHitThreshold(this, toThreshold);
             if (this.containsAbsBBox(rect.x, rect.y, rect.width + threshold, rect.height + threshold)) {
-                return this._points.calcHitPointAbs(rect.x, rect.y, threshold, range, tester || this._tester, result);
+                return this._points.calcHitPointAbs(rect.x, rect.y, threshold, toRange, tester || this._tester, result);
             }
             return false;
         };
@@ -31802,47 +31735,41 @@
     var TRIANGLE_WORK_POINT = new pixi_js.Point();
     var buildTriangleClipping = function (clippings, voffset) {
         // Clippings
-        var iv = voffset * 3;
-        clippings[iv + 0] = 0;
-        clippings[iv + 1] = 0;
-        clippings[iv + 2] = 0;
-        iv += 3;
-        clippings[iv + 0] = 1;
-        clippings[iv + 1] = 0;
-        clippings[iv + 2] = 0;
-        iv += 3;
-        clippings[iv + 0] = 1;
-        clippings[iv + 1] = 0;
-        clippings[iv + 2] = 0;
-        iv += 3;
-        clippings[iv + 0] = 0;
-        clippings[iv + 1] = 1;
-        clippings[iv + 2] = 0;
-        iv += 3;
-        clippings[iv + 0] = 0;
-        clippings[iv + 1] = 1;
-        clippings[iv + 2] = 0;
-        iv += 3;
-        clippings[iv + 0] = 1;
-        clippings[iv + 1] = 0;
-        clippings[iv + 2] = 0;
-        iv += 3;
-        clippings[iv + 0] = 1;
-        clippings[iv + 1] = 0;
-        clippings[iv + 2] = 0;
+        var iv = voffset * 3 - 1;
+        clippings[++iv] = 0;
+        clippings[++iv] = 0;
+        clippings[++iv] = 0;
+        clippings[++iv] = 1;
+        clippings[++iv] = 0;
+        clippings[++iv] = 0;
+        clippings[++iv] = 1;
+        clippings[++iv] = 0;
+        clippings[++iv] = 0;
+        clippings[++iv] = 0;
+        clippings[++iv] = 1;
+        clippings[++iv] = 0;
+        clippings[++iv] = 0;
+        clippings[++iv] = 1;
+        clippings[++iv] = 0;
+        clippings[++iv] = 1;
+        clippings[++iv] = 0;
+        clippings[++iv] = 0;
+        clippings[++iv] = 1;
+        clippings[++iv] = 0;
+        clippings[++iv] = 0;
     };
     var buildTriangleIndex = function (indices, voffset, ioffset) {
         // Indices
-        var ii = ioffset * 3;
-        indices[ii + 0] = voffset + 0;
-        indices[ii + 1] = voffset + 1;
-        indices[ii + 2] = voffset + 2;
-        indices[ii + 3] = voffset + 0;
-        indices[ii + 4] = voffset + 3;
-        indices[ii + 5] = voffset + 4;
-        indices[ii + 6] = voffset + 0;
-        indices[ii + 7] = voffset + 5;
-        indices[ii + 8] = voffset + 6;
+        var ii = ioffset * 3 - 1;
+        indices[++ii] = voffset + 0;
+        indices[++ii] = voffset + 1;
+        indices[++ii] = voffset + 2;
+        indices[++ii] = voffset + 0;
+        indices[++ii] = voffset + 3;
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 0;
+        indices[++ii] = voffset + 5;
+        indices[++ii] = voffset + 6;
     };
     var buildTriangleVertex = function (vertices, voffset, originX, originY, sizeX, sizeY, strokeAlign, strokeWidth, internalTransform, worldSize) {
         var s = strokeAlign * strokeWidth;
@@ -31878,28 +31805,35 @@
         worldSize[1] = toLength(x1, y1, xb, yb);
         worldSize[2] = toLength(x0, y0, tx, ty);
         // Vertices
-        var iv = voffset << 1;
-        vertices[iv + 0] = x3;
-        vertices[iv + 1] = y3;
-        vertices[iv + 2] = x0;
-        vertices[iv + 3] = y0;
-        vertices[iv + 4] = x1;
-        vertices[iv + 5] = y1;
-        vertices[iv + 6] = x1;
-        vertices[iv + 7] = y1;
-        vertices[iv + 8] = x2;
-        vertices[iv + 9] = y2;
-        vertices[iv + 10] = x2;
-        vertices[iv + 11] = y2;
-        vertices[iv + 12] = x0;
-        vertices[iv + 13] = y0;
+        var iv = (voffset << 1) - 1;
+        vertices[++iv] = x3;
+        vertices[++iv] = y3;
+        vertices[++iv] = x0;
+        vertices[++iv] = y0;
+        vertices[++iv] = x1;
+        vertices[++iv] = y1;
+        vertices[++iv] = x1;
+        vertices[++iv] = y1;
+        vertices[++iv] = x2;
+        vertices[++iv] = y2;
+        vertices[++iv] = x2;
+        vertices[++iv] = y2;
+        vertices[++iv] = x0;
+        vertices[++iv] = y0;
     };
-    var buildTriangleStep = function (steps, clippings, voffset, vcount, strokeWidth, antialiasWeight, worldSize) {
-        toStep(worldSize[0], strokeWidth, antialiasWeight, STEP_VALUES);
-        var swc = STEP_VALUES[0];
-        var pc0 = STEP_VALUES[1];
-        var pc1 = STEP_VALUES[2];
-        buildStep(steps, clippings, voffset, vcount, swc, swc, pc0, pc0, pc1, pc1);
+    var buildTriangleStep = function (steps, clippings, voffset, vcount, strokeWidth, strokeStyle, worldSize) {
+        var scaleInvariant = toScaleInvariant(strokeStyle);
+        var s = worldSize[0];
+        var is = voffset * 6 - 1;
+        var ic = voffset * 3;
+        for (var i = 0; i < vcount; i += 1, ic += 3) {
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = s;
+            steps[++is] = s;
+            steps[++is] = 1 + clippings[ic];
+            steps[++is] = 1 + clippings[ic + 1];
+        }
     };
     var buildTriangleUv = function (uvs, textureUvs, voffset, worldSize) {
         var x0 = textureUvs.x0;
@@ -31915,21 +31849,21 @@
         var c = 1 - (0.5 * worldSize[0]) / worldSize[2];
         var x5 = x4 + c * (x3 - x0);
         var y5 = y4 + c * (y3 - y0);
-        var iuv = voffset << 1;
-        uvs[iuv + 0] = x5;
-        uvs[iuv + 1] = y5;
-        uvs[iuv + 2] = x4;
-        uvs[iuv + 3] = y4;
-        uvs[iuv + 4] = x2;
-        uvs[iuv + 5] = y2;
-        uvs[iuv + 6] = x2;
-        uvs[iuv + 7] = y2;
-        uvs[iuv + 8] = x3;
-        uvs[iuv + 9] = y3;
-        uvs[iuv + 10] = x3;
-        uvs[iuv + 11] = y3;
-        uvs[iuv + 12] = x4;
-        uvs[iuv + 13] = y4;
+        var iuv = (voffset << 1) - 1;
+        uvs[++iuv] = x5;
+        uvs[++iuv] = y5;
+        uvs[++iuv] = x4;
+        uvs[++iuv] = y4;
+        uvs[++iuv] = x2;
+        uvs[++iuv] = y2;
+        uvs[++iuv] = x2;
+        uvs[++iuv] = y2;
+        uvs[++iuv] = x3;
+        uvs[++iuv] = y3;
+        uvs[++iuv] = x3;
+        uvs[++iuv] = y3;
+        uvs[++iuv] = x4;
+        uvs[++iuv] = y4;
     };
 
     /*
@@ -31987,9 +31921,12 @@
             var transformLocalId = this.toTransformLocalId(shape);
             var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
-            var strokeWidth = stroke.enable ? stroke.width : 0;
             var strokeAlign = stroke.align;
-            var isStrokeChanged = this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var strokeStyle = stroke.style;
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeStyle !== strokeStyle;
             var texture = this.toTexture(shape);
             var textureTransformId = this.toTextureTransformId(texture);
             var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
@@ -32003,8 +31940,9 @@
                 this.sizeX = sizeX;
                 this.sizeY = sizeY;
                 this.transformLocalId = transformLocalId;
-                this.strokeWidth = strokeWidth;
                 this.strokeAlign = strokeAlign;
+                this.strokeWidth = strokeWidth;
+                this.strokeStyle = strokeStyle;
                 if (isSizeChanged || isTransformChanged || isStrokeChanged) {
                     // Invalidate the text layout to update the text layout.
                     this.textSpacingHorizontal = NaN;
@@ -32026,14 +31964,13 @@
                 var uvs = buffer.uvs;
                 var textureUvs = this.toTextureUvs(texture);
                 var internalTransform = shape.transform.internalTransform;
-                var antialiasWeight = this.antialiasWeight;
                 if (0 < pointCount && pointSize.isStaticX() && pointSize.isStaticY()) {
                     var pointSizeX = pointSize.getX(0);
                     var pointSizeY = pointSize.getY(0);
                     buildTriangleVertex(vertices, voffset, 0, 0, pointSizeX, pointSizeY, strokeAlign, strokeWidth, internalTransform, TRIANGLE_WORLD_SIZE);
                     copyVertex(vertices, internalTransform, voffset, TRIANGLE_VERTEX_COUNT, pointCount, pointsValues, pointOffset);
                     if (isVertexChanged || isTransformChanged) {
-                        buildTriangleStep(steps, clippings, voffset, TRIANGLE_VERTEX_COUNT, strokeWidth, antialiasWeight, TRIANGLE_WORLD_SIZE);
+                        buildTriangleStep(steps, clippings, voffset, TRIANGLE_VERTEX_COUNT, strokeWidth, strokeStyle, TRIANGLE_WORLD_SIZE);
                         copyStep(steps, voffset, TRIANGLE_VERTEX_COUNT, pointCount);
                     }
                     if (isVertexChanged || isTextureChanged) {
@@ -32051,7 +31988,7 @@
                         var iv = voffset + i * TRIANGLE_VERTEX_COUNT;
                         buildTriangleVertex(vertices, iv, px, py, pointSizeX, pointSizeY, strokeAlign, strokeWidth, internalTransform, TRIANGLE_WORLD_SIZE);
                         if (isVertexChanged || isTransformChanged) {
-                            buildTriangleStep(steps, clippings, iv, TRIANGLE_VERTEX_COUNT, strokeWidth, antialiasWeight, TRIANGLE_WORLD_SIZE);
+                            buildTriangleStep(steps, clippings, iv, TRIANGLE_VERTEX_COUNT, strokeWidth, strokeStyle, TRIANGLE_WORLD_SIZE);
                         }
                         if (isVertexChanged || isTextureChanged) {
                             buildTriangleUv(uvs, textureUvs, iv, TRIANGLE_WORLD_SIZE);
@@ -32118,11 +32055,11 @@
         EShapeLineOfTriangles.prototype.containsPointAbsBBox = function (x, y, ax, ay, ox, oy, px, py) {
             return _super.prototype.containsAbsBBox.call(this, x - px - ox, y - py - oy, ax, ay);
         };
-        EShapeLineOfTriangles.prototype.calcHitPoint = function (point, toThreshold, range, tester, result) {
+        EShapeLineOfTriangles.prototype.calcHitPoint = function (point, toThreshold, toRange, tester, result) {
             var rect = this.toLocalRect(point, EShapeBase.WORK_RECT);
             var threshold = toHitThreshold(this, toThreshold);
             if (this.containsAbsBBox(rect.x, rect.y, rect.width + threshold, rect.height + threshold)) {
-                return this._points.calcHitPointAbs(rect.x, rect.y, threshold, range, tester || this._tester, result);
+                return this._points.calcHitPointAbs(rect.x, rect.y, threshold, toRange, tester || this._tester, result);
             }
             return false;
         };
@@ -32260,12 +32197,14 @@
             var transformLocalId = this.toTransformLocalId(shape);
             var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
-            var strokeWidth = stroke.enable ? stroke.width : 0;
             var strokeAlign = stroke.align;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
             var strokeSide = stroke.side;
+            var strokeStyle = stroke.style;
             var isStrokeChanged = this.strokeAlign !== strokeAlign ||
                 this.strokeWidth !== strokeWidth ||
-                this.strokeSide !== strokeSide;
+                this.strokeSide !== strokeSide ||
+                this.strokeStyle !== strokeStyle;
             var corner = shape.corner;
             var isCornerChanged = corner !== this.corner;
             var texture = this.toTexture(shape);
@@ -32280,6 +32219,7 @@
                 this.strokeAlign = strokeAlign;
                 this.strokeWidth = strokeWidth;
                 this.strokeSide = strokeSide;
+                this.strokeStyle = strokeStyle;
                 this.corner = corner;
                 this.texture = texture;
                 this.textureTransformId = textureTransformId;
@@ -32294,7 +32234,7 @@
                 // Steps
                 if (isVertexChanged || isCornerChanged || isTransformChanged) {
                     buffer.updateSteps();
-                    buildRectangleRoundedStep(buffer.steps, voffset, strokeWidth, strokeSide, corner, this.antialiasWeight, RECTANGLE_ROUNDED_WORLD_SIZE);
+                    buildRectangleRoundedStep(buffer.steps, voffset, strokeWidth, strokeSide, strokeStyle, corner, RECTANGLE_ROUNDED_WORLD_SIZE);
                 }
                 // Clippings
                 if (isVertexChanged || isCornerChanged) {
@@ -32380,9 +32320,12 @@
             var transformLocalId = this.toTransformLocalId(shape);
             var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
-            var strokeWidth = stroke.enable ? stroke.width : 0;
             var strokeAlign = stroke.align;
-            var isStrokeChanged = this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var strokeStyle = stroke.style;
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeStyle !== strokeStyle;
             var texture = this.toTexture(shape);
             var textureTransformId = this.toTextureTransformId(texture);
             var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
@@ -32391,8 +32334,9 @@
                 this.sizeX = sizeX;
                 this.sizeY = sizeY;
                 this.transformLocalId = transformLocalId;
-                this.strokeWidth = strokeWidth;
                 this.strokeAlign = strokeAlign;
+                this.strokeWidth = strokeWidth;
+                this.strokeStyle = strokeStyle;
                 this.texture = texture;
                 this.textureTransformId = textureTransformId;
                 if (isVertexChanged || isTransformChanged) {
@@ -32404,7 +32348,7 @@
                 buildTriangleVertex(buffer.vertices, voffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, shape.transform.internalTransform, TRIANGLE_WORLD_SIZE);
                 if (isVertexChanged || isTransformChanged) {
                     buffer.updateSteps();
-                    buildTriangleStep(buffer.steps, buffer.clippings, voffset, TRIANGLE_VERTEX_COUNT, strokeWidth, this.antialiasWeight, TRIANGLE_WORLD_SIZE);
+                    buildTriangleStep(buffer.steps, buffer.clippings, voffset, TRIANGLE_VERTEX_COUNT, strokeWidth, strokeStyle, TRIANGLE_WORLD_SIZE);
                 }
                 if (isVertexChanged || isTextureChanged) {
                     buffer.updateUvs();
@@ -32484,9 +32428,12 @@
             var transformLocalId = this.toTransformLocalId(shape);
             var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
-            var strokeWidth = stroke.enable ? stroke.width : 0;
             var strokeAlign = stroke.align;
-            var isStrokeChanged = this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var strokeStyle = stroke.style;
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeStyle !== strokeStyle;
             var corner = shape.corner;
             var isCornerChanged = corner !== this.corner;
             var texture = this.toTexture(shape);
@@ -32498,8 +32445,9 @@
                 this.sizeY = sizeY;
                 this.radius = radius;
                 this.transformLocalId = transformLocalId;
-                this.strokeWidth = strokeWidth;
                 this.strokeAlign = strokeAlign;
+                this.strokeWidth = strokeWidth;
+                this.strokeStyle = strokeStyle;
                 this.corner = corner;
                 this.texture = texture;
                 this.textureTransformId = textureTransformId;
@@ -32516,7 +32464,7 @@
                 }
                 if (isVertexChanged || isTransformChanged || isCornerChanged) {
                     buffer.updateSteps();
-                    buildTriangleRoundedStep(buffer.steps, buffer.clippings, voffset, strokeWidth, shape.radius, this.antialiasWeight, TRIANGLE_ROUNDED_WORLD_SIZE);
+                    buildTriangleRoundedStep(buffer.steps, buffer.clippings, voffset, strokeWidth, strokeStyle, shape.radius, TRIANGLE_ROUNDED_WORLD_SIZE);
                 }
                 if (isVertexChanged || isTextureChanged) {
                     buffer.updateUvs();
@@ -35724,8 +35672,8 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var VERTEX_SHADER$1 = "\nattribute vec2 aPosition;\nattribute vec3 aClipping;\nattribute vec2 aStep;\nattribute vec4 aAntialias;\nattribute vec4 aColorFill;\nattribute vec4 aColorStroke;\nattribute vec2 aUv;\n\nuniform mat3 projectionMatrix;\nuniform mat3 translationMatrix;\nuniform mediump float pixelScale;\nuniform mediump float antialiasWeight;\n\nvarying mediump vec3 vClipping;\nvarying mediump vec2 vStep;\nvarying mediump vec4 vAntialias;\nvarying mediump vec4 vColorFill;\nvarying mediump vec4 vColorStroke;\nvarying mediump vec2 vUv;\n\nvec2 toInverse( in vec2 v ) {\n\treturn vec2( -v.y, v.x );\n}\n\nvec2 toTransformedPosition( in vec2 v ) {\n\treturn (projectionMatrix * translationMatrix * vec3(v, 1.0)).xy;\n}\n\nvec4 toAntialias01( in vec4 antialias, in float scale ) {\n\t// Taylor series of 1 / ( 1 - a ) = 1 + a + a^2 + ....\n\treturn 1.0 + min( vec4( 1.0 ), antialias * scale );\n}\n\nvec4 toAntialias2( in vec2 step, in vec4 antialias, in float scale ) {\n\tfloat x = min( 0.4, step.x * scale );\n\tfloat y = 0.5 - antialias.x;\n\tfloat z = 0.5 - antialias.x - step.y;\n\treturn vec4( y, z, y - max( 0.01, y - x ), z - max( 0.01, z - x ) );\n}\n\nvec2 toPosition3456( in float type, in vec2 p, in vec2 pprev, in vec2 pnext, in float strokeWidth, out float shift ) {\n\tvec2 d0 = p - pprev;\n\tvec2 d1 = pnext - p;\n\tfloat l0 = dot( d0, d0 );\n\tfloat l1 = dot( d1, d1 );\n\tvec2 nd0 = normalize( toInverse( d0 ) );\n\tvec2 nd1 = normalize( toInverse( d1 ) );\n\tvec2 n0 = 0.00001 < l0 ? nd0 : nd1;\n\tvec2 n1 = 0.00001 < l1 ? nd1 : nd0;\n\tvec2 n0i = toInverse( n0 );\n\tvec2 n1i = toInverse( n1 );\n\tfloat direction = sign( 4.5 - type );\n\n\t// Offset\n\tfloat cross = dot( n0i, n1 );\n\tfloat crossInverse = ( 0.00001 < abs( cross ) ? 1.0 / cross : 0.0 );\n\tfloat b = dot(n1 - n0, n0) * crossInverse;\n\tfloat offsetSize = direction * strokeWidth * 0.5;\n\tvec2 offset = n1 + n1i * b;\n\n\t// Miter\n\tvec2 pmiter = p + offsetSize * offset;\n\tfloat miterAngle0 = dot( n0i, pmiter - pprev );\n\tfloat miterAngle1 = dot( n1i, pmiter - pnext );\n\tfloat miterLength = dot( offset, offset );\n\tfloat miterSide = direction * cross;\n\n\t// Bevel\n\tvec2 n = ( type == 4.0 || type == 6.0 ? n1 : n0 );\n\tvec2 pbevel = p + offsetSize * n;\n\n\t//\n\tvec2 presult = (\n\t\t0.0 <= miterAngle0 || miterAngle1 < 0.0 || miterSide < 0.0 ?\n\t\tpbevel : pmiter\n\t);\n\t/*\n\tvec2 presult = (\n\t\tmiterAngle0 < 0.0 && 0.0 <= miterAngle1 && miterLength < 50.0 ?\n\t\tpmiter : pbevel\n\t);\n\t*/\n\tvec2 ni = ( type == 4.0 || type == 6.0 ? n1i : n0i );\n\tshift = dot( ni, p - presult );\n\treturn toTransformedPosition( presult );\n}\n\nvec2 toStep3456( in float type ) {\n\treturn ( type < 4.5 ? vec2( 1.0, 0.0 ) : vec2( 0.0, 1.0 ) );\n}\n\nvec4 toAntialias3456( in float strokeWidth, in float scale ) {\n\tfloat a = antialiasWeight / max( 0.0001, strokeWidth );\n\treturn toAntialias01( vec4( a, a, a, a ), scale );\n}\n\nfloat toDotAndDashScale( in float scale, in float strokeWidthScale ) {\n\treturn (\n\t\tscale == 4.0 || scale == 5.0 || scale == 6.0 || scale == 7.0 ?\n\t\tstrokeWidthScale : 1.0\n\t);\n}\n\nvec4 toColorStroke3456( in float shift, in float scale ) {\n\tfloat x = aColorFill.x + shift;\n\tfloat y = scale * aColorFill.y;\n\tfloat z = scale * aColorFill.z;\n\tfloat w = aColorFill.w;\n\treturn vec4( x, y, z, w );\n}\n\nfloat toStrokeWidthScale( in float scale ) {\n\treturn (\n\t\tscale == 3.0 || scale == 7.0 ?\n\t\tpixelScale : (\n\t\t\tscale == 1.0 || scale == 5.0 ?\n\t\t\tmin( 1.0, pixelScale ) : (\n\t\t\t\tscale == 2.0 || scale == 6.0 ?\n\t\t\t\tmax( 1.0, pixelScale ) : 1.0\n\t\t\t)\n\t\t)\n\t);\n}\n\nvoid main(void) {\n\tvec2 p012 = toTransformedPosition( aPosition );\n\n\tfloat type = aClipping.z;\n\n\t// type === 0 or 1\n\tvec4 a01 = toAntialias01( aAntialias, pixelScale );\n\n\t// type === 2\n\tvec4 a2 = toAntialias2( aStep, aAntialias, pixelScale );\n\n\t// type === 3, 4, 5 or 6\n\tfloat shift3456 = 0.0;\n\tfloat strokeWidthScale = toStrokeWidthScale( aStep.y );\n\tfloat strokeWidth = strokeWidthScale * aStep.x;\n\tvec2 p3456 = toPosition3456( type, aPosition, aAntialias.xy, aAntialias.zw, strokeWidth, shift3456 );\n\tvec2 step3456 = toStep3456( type );\n\tvec4 a3456 = toAntialias3456( strokeWidth, pixelScale );\n\tvec4 colorStroke3456 = toColorStroke3456( shift3456, toDotAndDashScale( aStep.y, strokeWidthScale ) );\n\n\t//\n\tgl_Position = vec4( ( 2.5 < type ? p3456 : p012 ), 0.0, 1.0 );\n\tvAntialias = ( 1.5 < type ? ( 2.5 < type ? a3456 : a2 ) : a01 );\n\tvClipping = aClipping;\n\tvStep = ( 2.5 < type ? step3456 : aStep );\n\tvColorFill = ( 2.5 < type ? aColorStroke : aColorFill );\n\tvColorStroke = ( 2.5 < type ? colorStroke3456 : aColorStroke );\n\tvUv = aUv;\n}";
-    var FRAGMENT_SHADER$1 = "\nvarying mediump vec3 vClipping;\nvarying mediump vec2 vStep;\nvarying mediump vec4 vAntialias;\nvarying mediump vec4 vColorFill;\nvarying mediump vec4 vColorStroke;\nvarying mediump vec2 vUv;\n\nuniform sampler2D sampler;\nuniform mediump float pixelScale;\n\nvoid main(void) {\n\tvec4 texture = texture2D(sampler, vUv);\n\tfloat type = vClipping.z;\n\tvec2 v0 = vStep;\n\tvec2 v1 = vClipping.xy;\n\tvec2 v2 = v0 * vAntialias.xy;\n\tvec2 v3 = v1 * vAntialias.zw;\n\tvec2 d01 = ( v0.x < v0.y ? vec2( v0.y, v2.y ) : vec2( v0.x, v2.x ) );\n\tvec2 d02 = ( v1.x < v1.y ? vec2( v1.y, v3.y ) : vec2( v1.x, v3.x ) );\n\tvec4 d0 = vec4( d01.x, d02.x, d01.y, d02.y );\n\tvec4 d1 = vec4( dot( v0, v0 ), dot( v1, v1 ), dot( v2, v2 ), dot( v3, v3 ) );\n\tvec4 d = ( type == 1.0 ? d1 : d0 );\n\tvec2 s = smoothstep( 1.0 - (d.zw - d.xy), vec2( 1.0 ), d.xy );\n\tvec4 color01 = texture * (vColorStroke * (s.x - s.y) + vColorFill * (1.0 - s.x));\n\n\tfloat l = vColorStroke.x;\n\tfloat lp0 = vColorStroke.y;\n\tfloat lp1 = vColorStroke.z;\n\tfloat lt = vColorStroke.w;\n\tfloat ld = 0.5 * pixelScale;\n\tfloat lm = mod( l, lp0 + lp1 );\n\tfloat ls0 = smoothstep( 0.0, 0.0 + ld, lm );\n\tfloat ls1 = smoothstep( lp0, lp0 + ld, lm );\n\tfloat ls2 = ( 0.0 <= lt ? 1.0 - smoothstep( lt - ld, lt, l ) : 1.0 );\n\tvec4 color3456 = color01 * ( ls0 - ls1 ) * ls2;\n\n\tvec2 a0 = vAntialias.xy;\n\tvec2 a1 = vAntialias.zw;\n\tvec2 a2 = vec2( texture.a );\n\tvec2 a = smoothstep( a0 - a1, a0 + a1, a2 );\n\tvec4 color2 = a.x * vColorFill + ( a.y - a.x ) * vColorStroke;\n\tgl_FragColor = ( type == 2.0 ? color2 : (2.5 < type ? color3456 : color01) );\n}";
+    var VERTEX_SHADER$1 = "\nattribute vec2 aPosition;\nattribute vec3 aClipping;\nattribute vec2 aStep;\nattribute vec4 aAntialias;\nattribute vec4 aColorFill;\nattribute vec4 aColorStroke;\nattribute vec2 aUv;\n\nuniform mat3 projectionMatrix;\nuniform mat3 translationMatrix;\nuniform mediump float pixelScale;\nuniform mediump float antialiasWeight;\n\nvarying mediump vec3 vClipping;\nvarying mediump vec2 vStep;\nvarying mediump vec4 vAntialias;\nvarying mediump vec4 vColorFill;\nvarying mediump vec4 vColorStroke;\nvarying mediump vec2 vUv;\n\nvec2 toInverse( in vec2 v ) {\n\treturn vec2( -v.y, v.x );\n}\n\nvec2 toTransformedPosition( in vec2 v ) {\n\treturn (projectionMatrix * translationMatrix * vec3(v, 1.0)).xy;\n}\n\nvec4 toAntialias01( in vec4 antialias ) {\n\t// Taylor series of 1 / ( 1 - a ) = 1 + a + a^2 + ....\n\treturn 1.0 + min( vec4( 1.0 ), antialias * pixelScale );\n}\n\nvec4 toAntialias2( in vec4 antialias, in float strokeWidth ) {\n\tfloat x = min( 0.4, 0.4 / 12.0 * antialias.x * pixelScale * antialiasWeight );\n\tfloat w = clamp( strokeWidth / antialias.y, 0.0, 1.0 ) * 0.4;\n\tfloat p = w * antialias.z + antialias.w;\n\tfloat y = 0.5 - p;\n\tfloat z = 0.5 - p - w;\n\treturn vec4( y, z, y - max( 0.01, y - x ), z - max( 0.01, z - x ) );\n}\n\nvec2 toPosition3456( in float type, in vec2 p, in vec2 pprev, in vec2 pnext, in float strokeWidth, out float shift ) {\n\tvec2 d0 = p - pprev;\n\tvec2 d1 = pnext - p;\n\tfloat l0 = dot( d0, d0 );\n\tfloat l1 = dot( d1, d1 );\n\tvec2 nd0 = normalize( toInverse( d0 ) );\n\tvec2 nd1 = normalize( toInverse( d1 ) );\n\tvec2 nd2 = 0.00001 < l1 ? nd1 : vec2(0.0, 0.0);\n\tvec2 n0 = 0.00001 < l0 ? nd0 : nd2;\n\tvec2 n1 = 0.00001 < l1 ? nd1 : n0;\n\tvec2 n0i = toInverse( n0 );\n\tvec2 n1i = toInverse( n1 );\n\tfloat direction = sign( 4.5 - type );\n\n\t// Offset\n\tfloat cross = dot( n0i, n1 );\n\tfloat crossInverse = ( 0.00001 < abs( cross ) ? 1.0 / cross : 0.0 );\n\tfloat b = dot(n1 - n0, n0) * crossInverse;\n\tfloat offsetSize = direction * strokeWidth * 0.5;\n\tvec2 offset = n1 + n1i * b;\n\n\t// Miter\n\tvec2 pmiter = p + offsetSize * offset;\n\tfloat miterAngle0 = dot( n0i, pmiter - pprev );\n\tfloat miterAngle1 = dot( n1i, pmiter - pnext );\n\tfloat miterLength = dot( offset, offset );\n\tfloat miterSide = direction * cross;\n\n\t// Bevel\n\tvec2 n = ( type == 4.0 || type == 6.0 ? n1 : n0 );\n\tvec2 pbevel = p + offsetSize * n;\n\n\t//\n\t/*\n\tvec2 presult = (\n\t\t0.0 <= miterAngle0 || miterAngle1 < 0.0 || miterSide < 0.0 ?\n\t\tpbevel : pmiter\n\t);\n\t*/\n\tvec2 presult = (\n\t\tmiterAngle0 < 0.0 && 0.0 <= miterAngle1 && miterLength < 6.0 ?\n\t\tpmiter : pbevel\n\t);\n\tvec2 ni = ( type == 4.0 || type == 6.0 ? n1i : n0i );\n\tshift = dot( ni, p - presult );\n\treturn toTransformedPosition( presult );\n}\n\nvec2 toStep3456( in float type ) {\n\treturn ( type < 4.5 ? vec2( 1.0, 0.0 ) : vec2( 0.0, 1.0 ) );\n}\n\nvec4 toAntialias3456( in float strokeWidth ) {\n\tfloat a = antialiasWeight / max( 0.0001, strokeWidth );\n\treturn toAntialias01( vec4( a, a, a, a ) );\n}\n\nfloat toDotAndDashScale( in float scale, in float strokeWidthScale ) {\n\treturn (\n\t\tscale == 4.0 || scale == 5.0 || scale == 6.0 || scale == 7.0 ?\n\t\tstrokeWidthScale : 1.0\n\t);\n}\n\nvec4 toColorStroke3456( in float shift, in float scale ) {\n\tfloat x = aColorFill.x + shift;\n\tfloat y = scale * aColorFill.y;\n\tfloat z = scale * aColorFill.z;\n\tfloat w = aColorFill.w;\n\treturn vec4( x, y, z, w );\n}\n\nfloat toStrokeWidthScale( in float scale ) {\n\treturn (\n\t\tscale == 3.0 || scale == 7.0 ?\n\t\tpixelScale : (\n\t\t\tscale == 1.0 || scale == 5.0 ?\n\t\t\tmin( 1.0, pixelScale ) : (\n\t\t\t\tscale == 2.0 || scale == 6.0 ?\n\t\t\t\tmax( 1.0, pixelScale ) : 1.0\n\t\t\t)\n\t\t)\n\t);\n}\n\nvec2 toStep01(in vec2 size, in vec2 weight, in vec2 strokeWidth) {\n\treturn weight / max(vec2(0.00001), vec2(1.0) - strokeWidth / size);\n}\n\nvec4 toAntialias01b(in vec2 size, in vec2 strokeWidth) {\n\treturn antialiasWeight / max(vec4(0.00001), vec4(size - strokeWidth, size));\n}\n\nvoid main(void) {\n\tvec2 p012 = toTransformedPosition( aPosition );\n\n\tfloat type = aClipping.z;\n\tfloat strokeWidthScale = toStrokeWidthScale( aStep.y );\n\tfloat strokeWidth = strokeWidthScale * aStep.x;\n\n\t// type === 0 or 1\n\tvec2 size01 = aAntialias.xy;\n\tvec2 weight01 = abs(aAntialias.zw - sign(aAntialias.zw));\n\tvec2 strokeWidth01 = step(vec2(0.0), aAntialias.zw) * strokeWidth;\n\tvec2 step01 = toStep01( size01, weight01, strokeWidth01 );\n\tvec4 a01 = toAntialias01( toAntialias01b( size01, strokeWidth01 ) );\n\n\t// type === 2\n\tvec4 a2 = toAntialias2( aAntialias, strokeWidth );\n\n\t// type === 3, 4, 5 or 6\n\tfloat shift3456 = 0.0;\n\tvec2 p3456 = toPosition3456( type, aPosition, aAntialias.xy, aAntialias.zw, strokeWidth, shift3456 );\n\tvec2 step3456 = toStep3456( type );\n\tvec4 a3456 = toAntialias3456( strokeWidth );\n\tvec4 colorStroke3456 = toColorStroke3456( shift3456, toDotAndDashScale( aStep.y, strokeWidthScale ) );\n\n\t//\n\tgl_Position = vec4( ( 2.5 < type ? p3456 : p012 ), 0.0, 1.0 );\n\tvAntialias = ( 1.5 < type ? ( 2.5 < type ? a3456 : a2 ) : a01 );\n\tvClipping = aClipping;\n\tvStep = ( 2.5 < type ? step3456 : step01 );\n\tvColorFill = ( 2.5 < type ? aColorStroke : aColorFill );\n\tvColorStroke = ( 2.5 < type ? colorStroke3456 : aColorStroke );\n\tvUv = aUv;\n}";
+    var FRAGMENT_SHADER$1 = "\nvarying mediump vec3 vClipping;\nvarying mediump vec2 vStep;\nvarying mediump vec4 vAntialias;\nvarying mediump vec4 vColorFill;\nvarying mediump vec4 vColorStroke;\nvarying mediump vec2 vUv;\n\nuniform sampler2D sampler;\nuniform mediump float pixelScale;\n\nvoid main(void) {\n\tvec4 texture = texture2D(sampler, vUv);\n\tfloat type = vClipping.z;\n\tvec2 v0 = vStep;\n\tvec2 v1 = vClipping.xy;\n\tvec2 v2 = v0 * vAntialias.xy;\n\tvec2 v3 = v1 * vAntialias.zw;\n\tvec2 d01 = ( v0.x < v0.y ? vec2( v0.y, v2.y ) : vec2( v0.x, v2.x ) );\n\tvec2 d02 = ( v1.x < v1.y ? vec2( v1.y, v3.y ) : vec2( v1.x, v3.x ) );\n\tvec4 d0 = vec4( d01.x, d02.x, d01.y, d02.y );\n\tvec4 d1 = vec4( dot( v0, v0 ), dot( v1, v1 ), dot( v2, v2 ), dot( v3, v3 ) );\n\tvec4 d = ( type == 1.0 ? d1 : d0 );\n\tvec2 s = smoothstep( 1.0 - (d.zw - d.xy), vec2( 1.0 ), d.xy );\n\tvec4 color01 = texture * (vColorStroke * (s.x - s.y) + vColorFill * (1.0 - s.x));\n\n\tfloat l = vColorStroke.x;\n\tfloat lp0 = vColorStroke.y;\n\tfloat lp1 = vColorStroke.z;\n\tfloat lt = vColorStroke.w;\n\tfloat ld = 0.5 * pixelScale;\n\tfloat lm = mod( l, lp0 + lp1 );\n\tfloat ls0 = ( 0.0 < lp1 ? smoothstep( 0.0, ld, lm ) - smoothstep( lp0, lp0 + ld, lm ) : 1.0 );\n\tfloat ls1 = ( 0.0 <= lt ? smoothstep( 0.0, ld, l ) - smoothstep( lt - ld, lt, l ) : 1.0 );\n\tvec4 color3456 = color01 * ls0 * ls1;\n\n\tvec2 a0 = vAntialias.xy;\n\tvec2 a1 = vAntialias.zw;\n\tvec2 a2 = vec2( texture.a );\n\tvec2 a = smoothstep( a0 - a1, a0 + a1, a2 );\n\tvec4 color2 = a.x * vColorFill + ( a.y - a.x ) * vColorStroke;\n\tgl_FragColor = ( type == 2.0 ? color2 : (2.5 < type ? color3456 : color01) );\n}";
     var EShapeRenderer = /** @class */ (function (_super) {
         __extends(EShapeRenderer, _super);
         function EShapeRenderer(renderer) {
@@ -36363,6 +36311,30 @@
             }
         };
         return EShapeDeleter;
+    }());
+
+    var EShapePointsStyles = /** @class */ (function () {
+        function EShapePointsStyles() {
+        }
+        EShapePointsStyles.from = function (style) {
+            if (isString(style)) {
+                return EShapePointsStyle[style];
+            }
+            else if (isNumber(style)) {
+                return style;
+            }
+            else if (style != null) {
+                var result = EShapePointsStyle.NONE;
+                for (var i = 0, imax = style.length; i < imax; ++i) {
+                    result |= EShapePointsStyle[style[i]];
+                }
+                return result;
+            }
+            else {
+                return EShapePointsStyle.NONE;
+            }
+        };
+        return EShapePointsStyles;
     }());
 
     /*
@@ -44056,30 +44028,6 @@
         DChartAxisTickPosition[DChartAxisTickPosition["OUTSIDE"] = 1] = "OUTSIDE";
     })(DChartAxisTickPosition || (DChartAxisTickPosition = {}));
 
-    var EShapePointsStyles = /** @class */ (function () {
-        function EShapePointsStyles() {
-        }
-        EShapePointsStyles.from = function (style) {
-            if (isString(style)) {
-                return EShapePointsStyle[style];
-            }
-            else if (isNumber(style)) {
-                return style;
-            }
-            else if (style != null) {
-                var result = EShapePointsStyle.NONE;
-                for (var i = 0, imax = style.length; i < imax; ++i) {
-                    result |= EShapePointsStyle[style[i]];
-                }
-                return result;
-            }
-            else {
-                return EShapePointsStyle.NONE;
-            }
-        };
-        return EShapePointsStyles;
-    }());
-
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
@@ -44239,19 +44187,19 @@
             };
         };
         DChartAxisBaseOptionParser.prototype.toBarStroke = function (theme, options) {
-            return this.toStroke(options, undefined, theme.getStrokeEnable(), theme.getStrokeColor(), theme.getStrokeAlpha(), theme.getStrokeWidth(), theme.getStrokeAlign(), theme.getStrokeSide());
+            return this.toStroke(options, undefined, theme.getStrokeEnable(), theme.getStrokeColor(), theme.getStrokeAlpha(), theme.getStrokeWidth(), theme.getStrokeAlign(), theme.getStrokeSide(), theme.getStrokeStyle());
         };
         DChartAxisBaseOptionParser.prototype.toTickMajorStroke = function (theme, optionsA, optionsB) {
-            return this.toStroke(optionsA, optionsB, theme.getMajorTickStrokeEnable(), theme.getMajorTickStrokeColor(), theme.getMajorTickStrokeAlpha(), theme.getMajorTickStrokeWidth(), theme.getMajorTickStrokeAlign(), theme.getMajorTickStrokeSide());
+            return this.toStroke(optionsA, optionsB, theme.getMajorTickStrokeEnable(), theme.getMajorTickStrokeColor(), theme.getMajorTickStrokeAlpha(), theme.getMajorTickStrokeWidth(), theme.getMajorTickStrokeAlign(), theme.getMajorTickStrokeSide(), theme.getMajorTickStrokeStyle());
         };
         DChartAxisBaseOptionParser.prototype.toTickMajorGridlineStroke = function (theme, optionsA, optionsB) {
-            return this.toStroke(optionsA, optionsB, theme.getMajorTickGridlineStrokeEnable(), theme.getMajorTickGridlineStrokeColor(), theme.getMajorTickGridlineStrokeAlpha(), theme.getMajorTickGridlineStrokeWidth(), theme.getMajorTickGridlineStrokeAlign(), theme.getMajorTickGridlineStrokeSide());
+            return this.toStroke(optionsA, optionsB, theme.getMajorTickGridlineStrokeEnable(), theme.getMajorTickGridlineStrokeColor(), theme.getMajorTickGridlineStrokeAlpha(), theme.getMajorTickGridlineStrokeWidth(), theme.getMajorTickGridlineStrokeAlign(), theme.getMajorTickGridlineStrokeSide(), theme.getMajorTickGridlineStrokeStyle());
         };
         DChartAxisBaseOptionParser.prototype.toTickMinorStroke = function (theme, optionsA, optionsB) {
-            return this.toStroke(optionsA, optionsB, theme.getMinorTickStrokeEnable(), theme.getMinorTickStrokeColor(), theme.getMinorTickStrokeAlpha(), theme.getMinorTickStrokeWidth(), theme.getMinorTickStrokeAlign(), theme.getMinorTickStrokeSide());
+            return this.toStroke(optionsA, optionsB, theme.getMinorTickStrokeEnable(), theme.getMinorTickStrokeColor(), theme.getMinorTickStrokeAlpha(), theme.getMinorTickStrokeWidth(), theme.getMinorTickStrokeAlign(), theme.getMinorTickStrokeSide(), theme.getMinorTickStrokeStyle());
         };
-        DChartAxisBaseOptionParser.prototype.toStroke = function (optionsA, optionsB, enable, color, alpha, width, align, side) {
-            var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z;
+        DChartAxisBaseOptionParser.prototype.toStroke = function (optionsA, optionsB, enable, color, alpha, width, align, side, style) {
+            var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3;
             if (optionsA) {
                 if (optionsB) {
                     return {
@@ -44260,28 +44208,31 @@
                         alpha: (_f = (_e = optionsA.alpha) !== null && _e !== void 0 ? _e : optionsB.alpha) !== null && _f !== void 0 ? _f : alpha,
                         width: (_h = (_g = optionsA.width) !== null && _g !== void 0 ? _g : optionsB.width) !== null && _h !== void 0 ? _h : width,
                         align: (_k = (_j = optionsA.align) !== null && _j !== void 0 ? _j : optionsB.align) !== null && _k !== void 0 ? _k : align,
-                        side: (_m = (_l = optionsA.side) !== null && _l !== void 0 ? _l : optionsB.side) !== null && _m !== void 0 ? _m : side
+                        side: (_m = (_l = optionsA.side) !== null && _l !== void 0 ? _l : optionsB.side) !== null && _m !== void 0 ? _m : side,
+                        style: (_p = (_o = optionsA.style) !== null && _o !== void 0 ? _o : optionsB.style) !== null && _p !== void 0 ? _p : style
                     };
                 }
                 else {
                     return {
-                        enable: (_o = optionsA.enable) !== null && _o !== void 0 ? _o : enable,
-                        color: (_p = optionsA.color) !== null && _p !== void 0 ? _p : color,
-                        alpha: (_q = optionsA.alpha) !== null && _q !== void 0 ? _q : alpha,
-                        width: (_r = optionsA.width) !== null && _r !== void 0 ? _r : width,
-                        align: (_s = optionsA.align) !== null && _s !== void 0 ? _s : align,
-                        side: (_t = optionsA.side) !== null && _t !== void 0 ? _t : side
+                        enable: (_q = optionsA.enable) !== null && _q !== void 0 ? _q : enable,
+                        color: (_r = optionsA.color) !== null && _r !== void 0 ? _r : color,
+                        alpha: (_s = optionsA.alpha) !== null && _s !== void 0 ? _s : alpha,
+                        width: (_t = optionsA.width) !== null && _t !== void 0 ? _t : width,
+                        align: (_u = optionsA.align) !== null && _u !== void 0 ? _u : align,
+                        side: (_v = optionsA.side) !== null && _v !== void 0 ? _v : side,
+                        style: (_w = optionsA.style) !== null && _w !== void 0 ? _w : style
                     };
                 }
             }
             else if (optionsB) {
                 return {
-                    enable: (_u = optionsB.enable) !== null && _u !== void 0 ? _u : enable,
-                    color: (_v = optionsB.color) !== null && _v !== void 0 ? _v : color,
-                    alpha: (_w = optionsB.alpha) !== null && _w !== void 0 ? _w : alpha,
-                    width: (_x = optionsB.width) !== null && _x !== void 0 ? _x : width,
-                    align: (_y = optionsB.align) !== null && _y !== void 0 ? _y : align,
-                    side: (_z = optionsB.side) !== null && _z !== void 0 ? _z : side
+                    enable: (_x = optionsB.enable) !== null && _x !== void 0 ? _x : enable,
+                    color: (_y = optionsB.color) !== null && _y !== void 0 ? _y : color,
+                    alpha: (_z = optionsB.alpha) !== null && _z !== void 0 ? _z : alpha,
+                    width: (_0 = optionsB.width) !== null && _0 !== void 0 ? _0 : width,
+                    align: (_1 = optionsB.align) !== null && _1 !== void 0 ? _1 : align,
+                    side: (_2 = optionsB.side) !== null && _2 !== void 0 ? _2 : side,
+                    style: (_3 = optionsB.style) !== null && _3 !== void 0 ? _3 : style
                 };
             }
             else {
@@ -44291,7 +44242,8 @@
                     alpha: alpha,
                     width: width,
                     align: align,
-                    side: side
+                    side: side,
+                    style: style
                 };
             }
         };
@@ -46132,7 +46084,7 @@
         }
         DChartSeriesStrokeComputedImpl.from = function (base, index, stroke) {
             var _a, _b, _c, _d, _e, _f, _g;
-            return new DChartSeriesStrokeComputedImpl((_a = stroke === null || stroke === void 0 ? void 0 : stroke.enable) !== null && _a !== void 0 ? _a : base.enable(index), (_b = stroke === null || stroke === void 0 ? void 0 : stroke.color) !== null && _b !== void 0 ? _b : base.color(index), (_c = stroke === null || stroke === void 0 ? void 0 : stroke.alpha) !== null && _c !== void 0 ? _c : base.alpha(index), (_d = stroke === null || stroke === void 0 ? void 0 : stroke.width) !== null && _d !== void 0 ? _d : base.width(index), (_e = stroke === null || stroke === void 0 ? void 0 : stroke.align) !== null && _e !== void 0 ? _e : base.align(index), (_f = stroke === null || stroke === void 0 ? void 0 : stroke.side) !== null && _f !== void 0 ? _f : base.side(index), EShapePointsStyles.from((_g = stroke === null || stroke === void 0 ? void 0 : stroke.style) !== null && _g !== void 0 ? _g : base.style(index)));
+            return new DChartSeriesStrokeComputedImpl((_a = stroke === null || stroke === void 0 ? void 0 : stroke.enable) !== null && _a !== void 0 ? _a : base.enable(index), (_b = stroke === null || stroke === void 0 ? void 0 : stroke.color) !== null && _b !== void 0 ? _b : base.color(index), (_c = stroke === null || stroke === void 0 ? void 0 : stroke.alpha) !== null && _c !== void 0 ? _c : base.alpha(index), (_d = stroke === null || stroke === void 0 ? void 0 : stroke.width) !== null && _d !== void 0 ? _d : base.width(index), (_e = stroke === null || stroke === void 0 ? void 0 : stroke.align) !== null && _e !== void 0 ? _e : base.align(index), (_f = stroke === null || stroke === void 0 ? void 0 : stroke.side) !== null && _f !== void 0 ? _f : base.side(index), (_g = stroke === null || stroke === void 0 ? void 0 : stroke.style) !== null && _g !== void 0 ? _g : base.style(index));
         };
         return DChartSeriesStrokeComputedImpl;
     }());
@@ -46149,9 +46101,7 @@
             this.width = DChartSeriesScalars.from(options === null || options === void 0 ? void 0 : options.width, EShapeDefaults.STROKE_WIDTH);
             this.align = DChartSeriesScalars.from(options === null || options === void 0 ? void 0 : options.width, EShapeDefaults.STROKE_ALIGN);
             this.side = DChartSeriesScalars.from(options === null || options === void 0 ? void 0 : options.side, EShapeStrokeSide.ALL);
-            this.style = DChartSeriesScalars.from(options === null || options === void 0 ? void 0 : options.style, EShapePointsStyle.NON_EXPANDING_WIDTH |
-                EShapePointsStyle.NON_SHRINKING_WIDTH |
-                EShapePointsStyle.NON_SCALING_DOT_AND_DASH);
+            this.style = DChartSeriesScalars.from(options === null || options === void 0 ? void 0 : options.style, EShapeStrokeStyle.NON_SCALING);
         }
         return DChartSeriesStrokeImpl;
     }());
@@ -47847,10 +47797,11 @@
     var DChartSeriesLine = /** @class */ (function (_super) {
         __extends(DChartSeriesLine, _super);
         function DChartSeriesLine(options) {
+            var _a;
             var _this = _super.call(this, options) || this;
             _this._line = null;
             _this._options = options;
-            _this._points = (options && options.points) || [];
+            _this._points = (_a = options === null || options === void 0 ? void 0 : options.points) !== null && _a !== void 0 ? _a : [];
             _this._pointId = 0;
             _this._pointIdUpdated = NaN;
             _this._centerX = 0;
@@ -47863,7 +47814,7 @@
             if (!line) {
                 var stroke = container.newStroke(index, (_a = this._options) === null || _a === void 0 ? void 0 : _a.stroke);
                 this._stroke = stroke;
-                line = new EShapeLine([], [], stroke.width, stroke.style);
+                line = new EShapeLine([], [], stroke.width, EShapePointsStyle.NONE);
                 line.stroke.copy(stroke);
                 this._line = line;
             }
@@ -48206,9 +48157,8 @@
             if (!line) {
                 var stroke = container.newStroke(index, (_a = this._options) === null || _a === void 0 ? void 0 : _a.stroke);
                 this._stroke = stroke;
-                line = new EShapeLine([], [], stroke.width, stroke.style);
-                line.stroke.color = stroke.color;
-                line.stroke.alpha = stroke.alpha;
+                line = new EShapeLine([], [], stroke.width, EShapePointsStyle.NONE);
+                line.stroke.copy(stroke);
                 this._line = line;
             }
             line.attach(container.plotArea.container, index);
@@ -49399,7 +49349,7 @@
                 shape.disallowUploadedUpdate();
                 shape.points.position = position;
                 shape.transform.position.set(x, y);
-                shape.stroke.set(true, style.color, style.alpha);
+                shape.stroke.set(true, style.color, style.alpha, style.width, undefined, undefined, style.style);
                 shape.size.set(w, h);
                 shape.visible = true;
                 shape.allowUploadedUpdate();
@@ -49408,9 +49358,8 @@
                 shape = new EShapeBar(position, -1, style.width);
                 shape.disallowUploadedUpdate();
                 shape.fill.enable = false;
-                shape.points.style = style.style;
                 shape.transform.position.set(x, y);
-                shape.stroke.set(true, style.color, style.alpha);
+                shape.stroke.set(true, style.color, style.alpha, undefined, undefined, undefined, style.style);
                 shape.size.set(w, h);
                 shape.visible = true;
                 shape.allowUploadedUpdate();
@@ -60284,6 +60233,12 @@
         loadShapeRectangle: loadShapeRectangle,
         loadShapeTriangleRounded: loadShapeTriangleRounded,
         loadShapeTriangle: loadShapeTriangle,
+        BAR_VERTEX_COUNT: BAR_VERTEX_COUNT,
+        BAR_INDEX_COUNT: BAR_INDEX_COUNT,
+        buildBarClipping: buildBarClipping,
+        buildBarIndex: buildBarIndex,
+        buildBarVertexStepAndColorFill: buildBarVertexStepAndColorFill,
+        buildBarUv: buildBarUv,
         CIRCLE_VERTEX_COUNT: CIRCLE_VERTEX_COUNT,
         CIRCLE_INDEX_COUNT: CIRCLE_INDEX_COUNT,
         CIRCLE_WORLD_SIZE: CIRCLE_WORLD_SIZE,
@@ -60330,7 +60285,6 @@
         buildRectangleVertex: buildRectangleVertex,
         buildRectangleStep: buildRectangleStep,
         buildRectangleUv: buildRectangleUv,
-        buildStep: buildStep,
         TEXT_VERTEX_COUNT: TEXT_VERTEX_COUNT,
         TEXT_INDEX_COUNT: TEXT_INDEX_COUNT,
         toTextBufferCount: toTextBufferCount,
@@ -60484,10 +60438,10 @@
         EShapeTriangle: EShapeTriangle,
         isStatic: isStatic,
         toComputed: toComputed,
+        toDash: toDash,
         toHitThreshold: toHitThreshold,
         toLength: toLength,
-        STEP_VALUES: STEP_VALUES,
-        toStep: toStep,
+        toScaleInvariant: toScaleInvariant,
         EShapeBufferUnitBuilder: EShapeBufferUnitBuilder,
         EShapeBufferUnit: EShapeBufferUnit,
         EShapeBuffer: EShapeBuffer,
@@ -60496,13 +60450,16 @@
         EShapeContainer: EShapeContainer,
         get EShapeCopyPart () { return EShapeCopyPart; },
         get EShapeCorner () { return EShapeCorner; },
-        EShapeDeleter: EShapeDeleter,
         EShapeDefaults: EShapeDefaults,
+        EShapeDeleter: EShapeDeleter,
         EShapeDeserializer: EShapeDeserializer,
         EShapeDeserializers: EShapeDeserializers,
         EShapeEditor: EShapeEditor,
         EShapeImageElements: EShapeImageElements,
+        eShapePointsFormatterCurve: eShapePointsFormatterCurve,
+        eShapePointsFormatterStraight: eShapePointsFormatterStraight,
         get EShapePointsStyle () { return EShapePointsStyle; },
+        EShapePointsStyles: EShapePointsStyles,
         EShapeRendererIteratorDatum: EShapeRendererIteratorDatum,
         EShapeRendererIterator: EShapeRendererIterator,
         EShapeRenderer: EShapeRenderer,
@@ -60513,7 +60470,10 @@
         EShapeRuntimes: EShapeRuntimes,
         EShapeSearch: EShapeSearch,
         EShapeSizes: EShapeSizes,
+        EShapeStateSetImplObservable: EShapeStateSetImplObservable,
+        EShapeState: EShapeState,
         get EShapeStrokeSide () { return EShapeStrokeSide; },
+        get EShapeStrokeStyle () { return EShapeStrokeStyle; },
         get EShapeTagValueRangeType () { return EShapeTagValueRangeType; },
         get EShapeTagValueOrder () { return EShapeTagValueOrder; },
         get EShapeTextAlignHorizontal () { return EShapeTextAlignHorizontal; },

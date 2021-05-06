@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.85.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.85.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.86.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.86.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -37,7 +37,7 @@
 		rectangle.transform.position.set( 200, 200 );
 		rectangle.attach( container );
 
-		const bar = new wcardinal.ui.EShapeBar(wcardinal.ui.EShapeBarPosition.TOP, -1, 10, wcardinal.ui.EShapePointsStyle);
+		const bar = new wcardinal.ui.EShapeBar(wcardinal.ui.EShapeBarPosition.TOP, -1, 10, wcardinal.ui.EShapePointsStyle.NONE);
 		bar.transform.position.set( 200, 200 );
 		bar.attach( container );
 

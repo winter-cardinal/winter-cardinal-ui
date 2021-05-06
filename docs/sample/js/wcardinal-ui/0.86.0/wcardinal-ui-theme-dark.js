@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.85.0
+ Winter Cardinal UI v0.86.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -2613,6 +2613,9 @@
         DThemeDarkChartAxisBase.prototype.getStrokeSide = function () {
             return undefined;
         };
+        DThemeDarkChartAxisBase.prototype.getStrokeStyle = function () {
+            return undefined;
+        };
         DThemeDarkChartAxisBase.prototype.getTickEnable = function () {
             return true;
         };
@@ -2685,6 +2688,9 @@
         DThemeDarkChartAxisBase.prototype.getMajorTickStrokeSide = function () {
             return this.getStrokeSide();
         };
+        DThemeDarkChartAxisBase.prototype.getMajorTickStrokeStyle = function () {
+            return this.getStrokeStyle();
+        };
         DThemeDarkChartAxisBase.prototype.getMajorTickGridlineEnable = function () {
             return true;
         };
@@ -2708,6 +2714,9 @@
         };
         DThemeDarkChartAxisBase.prototype.getMajorTickGridlineStrokeSide = function () {
             return this.getStrokeSide();
+        };
+        DThemeDarkChartAxisBase.prototype.getMajorTickGridlineStrokeStyle = function () {
+            return this.getStrokeStyle();
         };
         DThemeDarkChartAxisBase.prototype.getMinorTickCount = function () {
             return 3;
@@ -2738,6 +2747,9 @@
         };
         DThemeDarkChartAxisBase.prototype.getMinorTickStrokeSide = function () {
             return this.getStrokeSide();
+        };
+        DThemeDarkChartAxisBase.prototype.getMinorTickStrokeStyle = function () {
+            return this.getStrokeStyle();
         };
         return DThemeDarkChartAxisBase;
     }());
@@ -3079,6 +3091,8 @@
 
     const EShapeStrokeSide = wcardinal.ui.EShapeStrokeSide;
 
+    const EShapeStrokeStyle = wcardinal.ui.EShapeStrokeStyle;
+
     /*
      * Copyright (C) 2021 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
@@ -3106,6 +3120,9 @@
         };
         EThemeDarkShape.prototype.getStrokeSide = function () {
             return EShapeStrokeSide.ALL;
+        };
+        EThemeDarkShape.prototype.getStrokeStyle = function () {
+            return EShapeStrokeStyle.NONE;
         };
         EThemeDarkShape.prototype.getTextValue = function () {
             return "";
@@ -3158,8 +3175,6 @@
         loadThemeDarkShape();
     };
 
-    const EShapePointsStyle = wcardinal.ui.EShapePointsStyle;
-
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
@@ -3198,10 +3213,7 @@
             return 2;
         };
         DThemeDarkDiagramCanvasEditor.prototype.getSnapGridMajorStyle = function () {
-            return (EShapePointsStyle.DASHED |
-                EShapePointsStyle.NON_EXPANDING_WIDTH |
-                EShapePointsStyle.NON_SHRINKING_WIDTH |
-                EShapePointsStyle.NON_SCALING_DOT_AND_DASH);
+            return EShapeStrokeStyle.DASHED | EShapeStrokeStyle.NON_SCALING;
         };
         DThemeDarkDiagramCanvasEditor.prototype.getSnapGridMinorColor = function () {
             return this.getSnapGridMajorColor();
