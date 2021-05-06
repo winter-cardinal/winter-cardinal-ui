@@ -153,10 +153,7 @@ vec2 toStep01(in vec2 size, in vec2 weight, in vec2 strokeWidth) {
 }
 
 vec4 toAntialias01b(in vec2 size, in vec2 strokeWidth) {
-	return vec4(
-		antialiasWeight / max(vec2(0.00001), size - strokeWidth),
-		antialiasWeight / max(vec2(0.00001), size)
-	);
+	return antialiasWeight / max(vec4(0.00001), vec4(size - strokeWidth, size));
 }
 
 void main(void) {
