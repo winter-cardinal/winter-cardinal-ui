@@ -5,6 +5,7 @@
 
 import { DThemes } from "../theme/d-themes";
 import { EShapeStrokeSide } from "./e-shape-stroke-side";
+import { EShapeStrokeStyle } from "./e-shape-stroke-style";
 
 export interface EThemeShape {
 	getFillColor(): number;
@@ -14,6 +15,7 @@ export interface EThemeShape {
 	getStrokeWidth(): number;
 	getStrokeAlign(): number;
 	getStrokeSide(): EShapeStrokeSide;
+	getStrokeStyle(): EShapeStrokeStyle;
 	getTextValue(): string;
 	getTextColor(): number;
 	getTextAlpha(): number;
@@ -65,6 +67,10 @@ export class EShapeDefaults {
 
 	static get STROKE_SIDE(): number {
 		return this.THEME.getStrokeSide();
+	}
+
+	static get STROKE_STYLE(): number {
+		return this.THEME.getStrokeStyle();
 	}
 
 	static get TEXT_VALUE(): string {

@@ -111,7 +111,9 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 
 			const stroke = shape.stroke;
 			const strokeWidth = stroke.enable ? stroke.width : 0;
-			const isStrokeWidthChanged = strokeWidth !== this.strokeWidth;
+			const strokeStyle = stroke.style;
+			const isStrokeWidthChanged =
+				this.strokeWidth !== strokeWidth || this.strokeStyle !== strokeStyle;
 
 			const transformLocalId = this.toTransformLocalId(shape);
 			const isTransformChanged = this.transformLocalId !== transformLocalId;
@@ -119,6 +121,7 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 			if (isPointChanged || isTransformChanged || isStrokeWidthChanged) {
 				this.pointId = pointId;
 				this.strokeWidth = strokeWidth;
+				this.strokeStyle = strokeStyle;
 				this.transformLocalId = transformLocalId;
 
 				if (isPointChanged || isTransformChanged) {
@@ -144,8 +147,8 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 					this.pointsClosed,
 					formatted.values,
 					formatted.segments,
-					formatted.style,
 					strokeWidth,
+					strokeStyle,
 					shape.transform.internalTransform
 				);
 			}

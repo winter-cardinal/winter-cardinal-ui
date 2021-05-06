@@ -51,10 +51,13 @@ export class EShapeTriangleRoundedUploaded extends EShapeTextUploaded {
 		const isTransformChanged = this.transformLocalId !== transformLocalId;
 
 		const stroke = shape.stroke;
-		const strokeWidth = stroke.enable ? stroke.width : 0;
 		const strokeAlign = stroke.align;
+		const strokeWidth = stroke.enable ? stroke.width : 0;
+		const strokeStyle = stroke.style;
 		const isStrokeChanged =
-			this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth;
+			this.strokeAlign !== strokeAlign ||
+			this.strokeWidth !== strokeWidth ||
+			this.strokeStyle !== strokeStyle;
 
 		const corner = shape.corner;
 		const isCornerChanged = corner !== this.corner;
@@ -71,8 +74,9 @@ export class EShapeTriangleRoundedUploaded extends EShapeTextUploaded {
 			this.sizeY = sizeY;
 			this.radius = radius;
 			this.transformLocalId = transformLocalId;
-			this.strokeWidth = strokeWidth;
 			this.strokeAlign = strokeAlign;
+			this.strokeWidth = strokeWidth;
+			this.strokeStyle = strokeStyle;
 			this.corner = corner;
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
@@ -111,8 +115,8 @@ export class EShapeTriangleRoundedUploaded extends EShapeTextUploaded {
 					buffer.clippings,
 					voffset,
 					strokeWidth,
+					strokeStyle,
 					shape.radius,
-					this.antialiasWeight,
 					TRIANGLE_ROUNDED_WORLD_SIZE
 				);
 			}

@@ -1,6 +1,7 @@
 import { Matrix, Point, TextureUvs } from "pixi.js";
 import { UtilCharacterIterator } from "../../util/util-character-iterator";
 import { EShape } from "../e-shape";
+import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import {
 	EShapeTextAtlas,
 	EShapeTextAtlasCharacter,
@@ -11,10 +12,10 @@ import { EShapeTextAlignHorizontal } from "../e-shape-text-align-horizontal";
 import { EShapeTextAlignVertical } from "../e-shape-text-align-vertical";
 import { EShapeTextDirection } from "../e-shape-text-direction";
 import { toLength } from "./to-length";
+import { toScaleInvariant } from "./to-scale-invariant";
 
 export const TEXT_VERTEX_COUNT = 4;
 export const TEXT_INDEX_COUNT = 2;
-const TEXT_SDF_WINDOW = 12;
 const TEXT_FMIN: number = 0.00001;
 const TEXT_WORK_POINT: Point = new Point();
 
@@ -27,10 +28,12 @@ export const buildTextClipping = (
 	voffset: number,
 	vcount: number
 ): void => {
-	for (let i = voffset * 3, imax = i + vcount * 3; i < imax; i += 3) {
-		clippings[i + 0] = 0;
-		clippings[i + 1] = 0;
-		clippings[i + 2] = 2;
+	let ic = voffset * 3 - 1;
+	const icmax = (voffset + vcount) * 3 - 1;
+	for (; ic < icmax; ) {
+		clippings[++ic] = 0;
+		clippings[++ic] = 0;
+		clippings[++ic] = 2;
 	}
 };
 
@@ -40,15 +43,18 @@ export const buildTextIndex = (
 	ioffset: number,
 	icount: number
 ): void => {
-	for (let i = 0, ii = ioffset * 3, imax = icount >> 1; i < imax; i += 1, ii += 6) {
-		const j = voffset + (i << 2);
-		indices[ii + 0] = j + 0;
-		indices[ii + 1] = j + 1;
-		indices[ii + 2] = j + 3;
+	let ii = ioffset * 3 - 1;
+	const iimax = (ioffset + icount) * 3 - 1;
+	let iv = voffset;
+	for (; ii < iimax; ) {
+		indices[++ii] = iv;
+		indices[++ii] = iv + 1;
+		indices[++ii] = iv + 3;
 
-		indices[ii + 3] = j + 1;
-		indices[ii + 4] = j + 2;
-		indices[ii + 5] = j + 3;
+		indices[++ii] = iv + 1;
+		indices[++ii] = iv + 2;
+		indices[++ii] = iv + 3;
+		iv += 4;
 	}
 };
 
@@ -59,30 +65,30 @@ export const buildTextStep = (
 	textAtlas: EShapeTextAtlas | undefined,
 	textSize: number,
 	textOutlineWidth: number,
-	textWeight: EShapeTextWeight,
-	antialiasWeight: number
+	textWeight: EShapeTextWeight
 ): void => {
+	let is = voffset * 6 - 1;
+	const ismax = (voffset + vcount) * 6 - 1;
+	const scaleInvariant = toScaleInvariant(EShapeStrokeStyle.NONE);
 	if (textAtlas != null) {
-		const scaleBase = (0.4 / TEXT_SDF_WINDOW) * antialiasWeight;
-		const scale = scaleBase * (textAtlas.font.size / textSize);
-		const outlineWidth = textOutlineWidth * 0.4;
-		const weight = textWeight === EShapeTextWeight.NORMAL ? 0.0 : 0.05;
-		for (let i = voffset * 6, imax = i + vcount * 6; i < imax; i += 6) {
-			steps[i + 0] = scale;
-			steps[i + 1] = outlineWidth;
-			steps[i + 2] = weight;
-			steps[i + 3] = TEXT_FMIN;
-			steps[i + 4] = TEXT_FMIN;
-			steps[i + 5] = TEXT_FMIN;
+		const scale = textAtlas.font.size / textSize;
+		const position = textWeight === EShapeTextWeight.NORMAL ? 0.0 : 0.05;
+		for (; is < ismax; ) {
+			steps[++is] = textOutlineWidth;
+			steps[++is] = scaleInvariant;
+			steps[++is] = scale;
+			steps[++is] = 1;
+			steps[++is] = 0;
+			steps[++is] = position;
 		}
 	} else {
-		for (let i = voffset * 6, imax = i + vcount * 6; i < imax; i += 6) {
-			steps[i + 0] = 0;
-			steps[i + 1] = 0;
-			steps[i + 2] = TEXT_FMIN;
-			steps[i + 3] = TEXT_FMIN;
-			steps[i + 4] = TEXT_FMIN;
-			steps[i + 5] = TEXT_FMIN;
+		for (; is < ismax; ) {
+			steps[++is] = 0;
+			steps[++is] = scaleInvariant;
+			steps[++is] = 0;
+			steps[++is] = 1;
+			steps[++is] = 0;
+			steps[++is] = 0;
 		}
 	}
 };
@@ -988,15 +994,16 @@ const moveText = (
 	dx: number,
 	dy: number
 ): void => {
-	for (let i = 0, iv = vertexIndex - 8 * textCount; i < textCount; i += 1, iv += 8) {
-		vertices[iv + 0] += dx;
-		vertices[iv + 1] += dy;
-		vertices[iv + 2] += dx;
-		vertices[iv + 3] += dy;
-		vertices[iv + 4] += dx;
-		vertices[iv + 5] += dy;
-		vertices[iv + 6] += dx;
-		vertices[iv + 7] += dy;
+	let iv = vertexIndex - 8 * textCount - 1;
+	for (let i = 0; i < textCount; ++i) {
+		vertices[++iv] += dx;
+		vertices[++iv] += dy;
+		vertices[++iv] += dx;
+		vertices[++iv] += dy;
+		vertices[++iv] += dx;
+		vertices[++iv] += dy;
+		vertices[++iv] += dx;
+		vertices[++iv] += dy;
 	}
 };
 

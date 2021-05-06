@@ -7,6 +7,7 @@ import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manage
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeStroke, EShapeStrokeLike } from "../e-shape-stroke";
 import { EShapeStrokeSide } from "../e-shape-stroke-side";
+import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 
 export class EShapeGroupStrokeViewer implements EShapeStroke {
 	constructor() {
@@ -61,6 +62,14 @@ export class EShapeGroupStrokeViewer implements EShapeStroke {
 		// DO NOTHING
 	}
 
+	get style(): EShapeStrokeStyle {
+		return EShapeStrokeStyle.NONE;
+	}
+
+	set style(style: EShapeStrokeStyle) {
+		// DO NOTHING
+	}
+
 	copy(target?: Partial<EShapeStrokeLike>): void {
 		// DO NOTHING
 	}
@@ -70,7 +79,9 @@ export class EShapeGroupStrokeViewer implements EShapeStroke {
 		color?: number,
 		alpha?: number,
 		width?: number,
-		side?: EShapeStrokeSide
+		align?: number,
+		side?: EShapeStrokeSide,
+		style?: EShapeStrokeStyle
 	): void {
 		// DO NOTHING
 	}
@@ -86,7 +97,8 @@ export class EShapeGroupStrokeViewer implements EShapeStroke {
 			alpha: 1.0,
 			width: 1.0,
 			align: 0.0,
-			side: EShapeStrokeSide.NONE
+			side: EShapeStrokeSide.NONE,
+			style: EShapeStrokeStyle.NONE
 		};
 	}
 

@@ -90,10 +90,13 @@ export class EShapeLineOfTriangleRoundedsUploaded extends EShapeLineOfAnyUploade
 		const isTransformChanged = this.transformLocalId !== transformLocalId;
 
 		const stroke = shape.stroke;
-		const strokeWidth = stroke.enable ? stroke.width : 0;
 		const strokeAlign = stroke.align;
+		const strokeWidth = stroke.enable ? stroke.width : 0;
+		const strokeStyle = stroke.style;
 		const isStrokeChanged =
-			this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth;
+			this.strokeAlign !== strokeAlign ||
+			this.strokeWidth !== strokeWidth ||
+			this.strokeStyle !== strokeStyle;
 
 		const corner = shape.corner;
 		const isCornerChanged = this.corner !== corner;
@@ -120,8 +123,9 @@ export class EShapeLineOfTriangleRoundedsUploaded extends EShapeLineOfAnyUploade
 			this.sizeY = sizeY;
 			this.radius = radius;
 			this.transformLocalId = transformLocalId;
-			this.strokeWidth = strokeWidth;
 			this.strokeAlign = strokeAlign;
+			this.strokeWidth = strokeWidth;
+			this.strokeStyle = strokeStyle;
 			this.corner = corner;
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
@@ -151,7 +155,6 @@ export class EShapeLineOfTriangleRoundedsUploaded extends EShapeLineOfAnyUploade
 			const uvs = buffer.uvs;
 			const internalTransform = shape.transform.internalTransform;
 			const textureUvs = this.toTextureUvs(texture);
-			const antialiasWeight = this.antialiasWeight;
 			if (0 < pointCount && pointSize.isStaticX() && pointSize.isStaticY()) {
 				const pointSizeX = pointSize.getX(0);
 				const pointSizeY = pointSize.getY(0);
@@ -193,8 +196,8 @@ export class EShapeLineOfTriangleRoundedsUploaded extends EShapeLineOfAnyUploade
 						clippings,
 						voffset,
 						strokeWidth,
+						strokeStyle,
 						radius,
-						antialiasWeight,
 						TRIANGLE_ROUNDED_WORLD_SIZE
 					);
 					copyStep(steps, voffset, TRIANGLE_ROUNDED_VERTEX_COUNT, pointCount);
@@ -248,8 +251,8 @@ export class EShapeLineOfTriangleRoundedsUploaded extends EShapeLineOfAnyUploade
 							clippings,
 							iv,
 							strokeWidth,
+							strokeStyle,
 							radius,
-							antialiasWeight,
 							TRIANGLE_ROUNDED_WORLD_SIZE
 						);
 					}

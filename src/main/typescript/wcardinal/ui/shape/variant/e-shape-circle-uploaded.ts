@@ -52,17 +52,21 @@ export class EShapeCircleUploaded extends EShapeTextUploaded {
 		const isTransformChanged = this.transformLocalId !== transformLocalId;
 
 		const stroke = shape.stroke;
-		const strokeWidth = stroke.enable ? stroke.width : 0;
 		const strokeAlign = stroke.align;
+		const strokeWidth = stroke.enable ? stroke.width : 0;
+		const strokeStyle = stroke.style;
 		const isStrokeChanged =
-			this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth;
+			this.strokeAlign !== strokeAlign ||
+			this.strokeWidth !== strokeWidth ||
+			this.strokeStyle !== strokeStyle;
 
 		if (isSizeChanged || isTransformChanged || isStrokeChanged) {
 			this.sizeX = sizeX;
 			this.sizeY = sizeY;
 			this.transformLocalId = transformLocalId;
-			this.strokeWidth = strokeWidth;
 			this.strokeAlign = strokeAlign;
+			this.strokeWidth = strokeWidth;
+			this.strokeStyle = strokeStyle;
 
 			// Invalidate the text layout to update the text layout.
 			this.textSpacingHorizontal = NaN;
@@ -87,7 +91,7 @@ export class EShapeCircleUploaded extends EShapeTextUploaded {
 				buffer.clippings,
 				this.vertexOffset,
 				strokeWidth,
-				this.antialiasWeight,
+				strokeStyle,
 				CIRCLE_WORLD_SIZE
 			);
 		}

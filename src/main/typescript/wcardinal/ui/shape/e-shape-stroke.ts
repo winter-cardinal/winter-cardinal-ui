@@ -6,6 +6,7 @@
 import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
 import { EShapeStrokeSide } from "./e-shape-stroke-side";
+import { EShapeStrokeStyle } from "./e-shape-stroke-style";
 
 export interface EShapeStrokeLike {
 	enable: boolean;
@@ -14,6 +15,7 @@ export interface EShapeStrokeLike {
 	width: number;
 	align: number;
 	side: EShapeStrokeSide;
+	style: EShapeStrokeStyle;
 }
 
 export interface EShapeStroke extends EShapeStrokeLike {
@@ -24,7 +26,8 @@ export interface EShapeStroke extends EShapeStrokeLike {
 		alpha?: number,
 		width?: number,
 		align?: number,
-		side?: EShapeStrokeSide
+		side?: EShapeStrokeSide,
+		style?: EShapeStrokeStyle
 	): void;
 	clone(): EShapeStroke;
 	toObject(): EShapeStrokeLike;

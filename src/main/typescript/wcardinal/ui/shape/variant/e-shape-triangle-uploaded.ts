@@ -50,10 +50,13 @@ export class EShapeTriangleUploaded extends EShapeTextUploaded {
 		const isTransformChanged = this.transformLocalId !== transformLocalId;
 
 		const stroke = shape.stroke;
-		const strokeWidth = stroke.enable ? stroke.width : 0;
 		const strokeAlign = stroke.align;
+		const strokeWidth = stroke.enable ? stroke.width : 0;
+		const strokeStyle = stroke.style;
 		const isStrokeChanged =
-			this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth;
+			this.strokeAlign !== strokeAlign ||
+			this.strokeWidth !== strokeWidth ||
+			this.strokeStyle !== strokeStyle;
 
 		const texture = this.toTexture(shape);
 		const textureTransformId = this.toTextureTransformId(texture);
@@ -66,8 +69,9 @@ export class EShapeTriangleUploaded extends EShapeTextUploaded {
 			this.sizeX = sizeX;
 			this.sizeY = sizeY;
 			this.transformLocalId = transformLocalId;
-			this.strokeWidth = strokeWidth;
 			this.strokeAlign = strokeAlign;
+			this.strokeWidth = strokeWidth;
+			this.strokeStyle = strokeStyle;
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
 
@@ -100,7 +104,7 @@ export class EShapeTriangleUploaded extends EShapeTextUploaded {
 					voffset,
 					TRIANGLE_VERTEX_COUNT,
 					strokeWidth,
-					this.antialiasWeight,
+					strokeStyle,
 					TRIANGLE_WORLD_SIZE
 				);
 			}

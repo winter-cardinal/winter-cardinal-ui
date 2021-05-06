@@ -6,6 +6,7 @@
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { EShapeDefaults } from "../e-shape-defaults";
 import { EShapeDeserializer } from "../e-shape-deserializer";
+import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeLine } from "./e-shape-line";
 
@@ -21,7 +22,21 @@ export const deserializeLine = (
 			parsed = JSON.parse(resources[resourceId]) as [number[], number[], number];
 			manager.setExtension(resourceId, parsed);
 		}
-		const shape = new EShapeLine(parsed[0], parsed[1], EShapeDefaults.STROKE_WIDTH, parsed[2]);
+		const style = parsed[2] ?? EShapePointsStyle.NONE;
+		const mask =
+			EShapePointsStyle.NON_SCALING_MASK |
+			EShapePointsStyle.DOTTED_MASK |
+			EShapePointsStyle.DASHED_MASK;
+		const shape = new EShapeLine(
+			parsed[0],
+			parsed[1],
+			EShapeDefaults.STROKE_WIDTH,
+			style & ~mask
+		);
+		const deprecated = style & mask;
+		if (deprecated) {
+			shape.stroke.style |= deprecated;
+		}
 		return EShapeDeserializer.deserialize(item, manager, shape);
 	}
 	return null;

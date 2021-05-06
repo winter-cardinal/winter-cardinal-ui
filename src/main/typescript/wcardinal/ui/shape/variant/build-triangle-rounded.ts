@@ -1,7 +1,8 @@
 import { Matrix, Point, TextureUvs } from "pixi.js";
 import { EShapeCorner } from "../e-shape-corner";
+import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toLength } from "./to-length";
-import { STEP_VALUES, toStep } from "./to-step";
+import { toScaleInvariant } from "./to-scale-invariant";
 
 export const TRIANGLE_ROUNDED_VERTEX_COUNT = 22;
 export const TRIANGLE_ROUNDED_INDEX_COUNT = 15;
@@ -20,71 +21,71 @@ export const buildTriangleRoundedIndex = (
 	ioffset: number
 ): void => {
 	// Top corner
-	const ii = ioffset * 3;
-	indices[ii + 0] = voffset + 0;
-	indices[ii + 1] = voffset + 1;
-	indices[ii + 2] = voffset + 3;
+	let ii = ioffset * 3 - 1;
+	indices[++ii] = voffset + 0;
+	indices[++ii] = voffset + 1;
+	indices[++ii] = voffset + 3;
 
-	indices[ii + 3] = voffset + 1;
-	indices[ii + 4] = voffset + 2;
-	indices[ii + 5] = voffset + 3;
+	indices[++ii] = voffset + 1;
+	indices[++ii] = voffset + 2;
+	indices[++ii] = voffset + 3;
 
 	// Bottom-right corner
-	indices[ii + 6] = voffset + 4;
-	indices[ii + 7] = voffset + 5;
-	indices[ii + 8] = voffset + 7;
+	indices[++ii] = voffset + 4;
+	indices[++ii] = voffset + 5;
+	indices[++ii] = voffset + 7;
 
-	indices[ii + 9] = voffset + 5;
-	indices[ii + 10] = voffset + 6;
-	indices[ii + 11] = voffset + 7;
+	indices[++ii] = voffset + 5;
+	indices[++ii] = voffset + 6;
+	indices[++ii] = voffset + 7;
 
 	// Bottom-left corner
-	indices[ii + 12] = voffset + 8;
-	indices[ii + 13] = voffset + 9;
-	indices[ii + 14] = voffset + 11;
+	indices[++ii] = voffset + 8;
+	indices[++ii] = voffset + 9;
+	indices[++ii] = voffset + 11;
 
-	indices[ii + 15] = voffset + 9;
-	indices[ii + 16] = voffset + 10;
-	indices[ii + 17] = voffset + 11;
+	indices[++ii] = voffset + 9;
+	indices[++ii] = voffset + 10;
+	indices[++ii] = voffset + 11;
 
 	// Others
-	indices[ii + 18] = voffset + 12;
-	indices[ii + 19] = voffset + 13;
-	indices[ii + 20] = voffset + 16;
+	indices[++ii] = voffset + 12;
+	indices[++ii] = voffset + 13;
+	indices[++ii] = voffset + 16;
 
-	indices[ii + 21] = voffset + 13;
-	indices[ii + 22] = voffset + 14;
-	indices[ii + 23] = voffset + 16;
+	indices[++ii] = voffset + 13;
+	indices[++ii] = voffset + 14;
+	indices[++ii] = voffset + 16;
 
-	indices[ii + 24] = voffset + 14;
-	indices[ii + 25] = voffset + 15;
-	indices[ii + 26] = voffset + 16;
-
-	//
-	indices[ii + 27] = voffset + 12;
-	indices[ii + 28] = voffset + 16;
-	indices[ii + 29] = voffset + 19;
-
-	indices[ii + 30] = voffset + 16;
-	indices[ii + 31] = voffset + 17;
-	indices[ii + 32] = voffset + 19;
-
-	indices[ii + 33] = voffset + 17;
-	indices[ii + 34] = voffset + 18;
-	indices[ii + 35] = voffset + 19;
+	indices[++ii] = voffset + 14;
+	indices[++ii] = voffset + 15;
+	indices[++ii] = voffset + 16;
 
 	//
-	indices[ii + 36] = voffset + 12;
-	indices[ii + 37] = voffset + 19;
-	indices[ii + 38] = voffset + 13;
+	indices[++ii] = voffset + 12;
+	indices[++ii] = voffset + 16;
+	indices[++ii] = voffset + 19;
 
-	indices[ii + 39] = voffset + 19;
-	indices[ii + 40] = voffset + 20;
-	indices[ii + 41] = voffset + 13;
+	indices[++ii] = voffset + 16;
+	indices[++ii] = voffset + 17;
+	indices[++ii] = voffset + 19;
 
-	indices[ii + 42] = voffset + 20;
-	indices[ii + 43] = voffset + 21;
-	indices[ii + 44] = voffset + 13;
+	indices[++ii] = voffset + 17;
+	indices[++ii] = voffset + 18;
+	indices[++ii] = voffset + 19;
+
+	//
+	indices[++ii] = voffset + 12;
+	indices[++ii] = voffset + 19;
+	indices[++ii] = voffset + 13;
+
+	indices[++ii] = voffset + 19;
+	indices[++ii] = voffset + 20;
+	indices[++ii] = voffset + 13;
+
+	indices[++ii] = voffset + 20;
+	indices[++ii] = voffset + 21;
+	indices[++ii] = voffset + 13;
 };
 
 export const buildTriangleRoundedVertex = (
@@ -168,63 +169,63 @@ export const buildTriangleRoundedVertex = (
 
 	// Vertices
 	// Top corner
-	const iv = voffset * 2;
-	vertices[iv + 0] = x10;
-	vertices[iv + 1] = y10;
-	vertices[iv + 2] = x9;
-	vertices[iv + 3] = y9;
-	vertices[iv + 4] = x1;
-	vertices[iv + 5] = y1;
-	vertices[iv + 6] = x2;
-	vertices[iv + 7] = y2;
+	let iv = voffset * 2 - 1;
+	vertices[++iv] = x10;
+	vertices[++iv] = y10;
+	vertices[++iv] = x9;
+	vertices[++iv] = y9;
+	vertices[++iv] = x1;
+	vertices[++iv] = y1;
+	vertices[++iv] = x2;
+	vertices[++iv] = y2;
 
 	// Bottom-right corner
-	vertices[iv + 8] = x11;
-	vertices[iv + 9] = y11;
-	vertices[iv + 10] = x3;
-	vertices[iv + 11] = y3;
-	vertices[iv + 12] = x4;
-	vertices[iv + 13] = y4;
-	vertices[iv + 14] = x5;
-	vertices[iv + 15] = y5;
+	vertices[++iv] = x11;
+	vertices[++iv] = y11;
+	vertices[++iv] = x3;
+	vertices[++iv] = y3;
+	vertices[++iv] = x4;
+	vertices[++iv] = y4;
+	vertices[++iv] = x5;
+	vertices[++iv] = y5;
 
 	// Bottom-left corner
-	vertices[iv + 16] = x12;
-	vertices[iv + 17] = y12;
-	vertices[iv + 18] = x6;
-	vertices[iv + 19] = y6;
-	vertices[iv + 20] = x7;
-	vertices[iv + 21] = y7;
-	vertices[iv + 22] = x8;
-	vertices[iv + 23] = y8;
+	vertices[++iv] = x12;
+	vertices[++iv] = y12;
+	vertices[++iv] = x6;
+	vertices[++iv] = y6;
+	vertices[++iv] = x7;
+	vertices[++iv] = y7;
+	vertices[++iv] = x8;
+	vertices[++iv] = y8;
 
 	// Others
-	vertices[iv + 24] = x0;
-	vertices[iv + 25] = y0;
+	vertices[++iv] = x0;
+	vertices[++iv] = y0;
 
-	vertices[iv + 26] = x10;
-	vertices[iv + 27] = y10;
+	vertices[++iv] = x10;
+	vertices[++iv] = y10;
 
-	vertices[iv + 28] = x2;
-	vertices[iv + 29] = y2;
-	vertices[iv + 30] = x3;
-	vertices[iv + 31] = y3;
+	vertices[++iv] = x2;
+	vertices[++iv] = y2;
+	vertices[++iv] = x3;
+	vertices[++iv] = y3;
 
-	vertices[iv + 32] = x11;
-	vertices[iv + 33] = y11;
+	vertices[++iv] = x11;
+	vertices[++iv] = y11;
 
-	vertices[iv + 34] = x5;
-	vertices[iv + 35] = y5;
-	vertices[iv + 36] = x6;
-	vertices[iv + 37] = y6;
+	vertices[++iv] = x5;
+	vertices[++iv] = y5;
+	vertices[++iv] = x6;
+	vertices[++iv] = y6;
 
-	vertices[iv + 38] = x12;
-	vertices[iv + 39] = y12;
+	vertices[++iv] = x12;
+	vertices[++iv] = y12;
 
-	vertices[iv + 40] = x8;
-	vertices[iv + 41] = y8;
-	vertices[iv + 42] = x9;
-	vertices[iv + 43] = y9;
+	vertices[++iv] = x8;
+	vertices[++iv] = y8;
+	vertices[++iv] = x9;
+	vertices[++iv] = y9;
 };
 
 export const buildTriangleRoundedClipping = (
@@ -234,140 +235,131 @@ export const buildTriangleRoundedClipping = (
 	radius: number
 ): void => {
 	// Top corner
-	let iv = voffset * 3;
+	let iv = voffset * 3 - 1;
 	const w = 1 - radius;
 	if (corner & EShapeCorner.TOP) {
-		clippings[iv + 0] = 0;
-		clippings[iv + 1] = 0;
-		clippings[iv + 2] = 1;
-		clippings[iv + 3] = 1;
-		clippings[iv + 4] = 0;
-		clippings[iv + 5] = 1;
-		clippings[iv + 6] = 1;
-		clippings[iv + 7] = 1;
-		clippings[iv + 8] = 1;
-		clippings[iv + 9] = 0;
-		clippings[iv + 10] = 1;
-		clippings[iv + 11] = 1;
+		clippings[++iv] = 0;
+		clippings[++iv] = 0;
+		clippings[++iv] = 1;
+		clippings[++iv] = 1;
+		clippings[++iv] = 0;
+		clippings[++iv] = 1;
+		clippings[++iv] = 1;
+		clippings[++iv] = 1;
+		clippings[++iv] = 1;
+		clippings[++iv] = 0;
+		clippings[++iv] = 1;
+		clippings[++iv] = 1;
 	} else {
-		clippings[iv + 0] = w;
-		clippings[iv + 1] = w;
-		clippings[iv + 2] = 0;
-		clippings[iv + 3] = 1;
-		clippings[iv + 4] = w;
-		clippings[iv + 5] = 0;
-		clippings[iv + 6] = 1;
-		clippings[iv + 7] = 1;
-		clippings[iv + 8] = 0;
-		clippings[iv + 9] = w;
-		clippings[iv + 10] = 1;
-		clippings[iv + 11] = 0;
+		clippings[++iv] = w;
+		clippings[++iv] = w;
+		clippings[++iv] = 0;
+		clippings[++iv] = 1;
+		clippings[++iv] = w;
+		clippings[++iv] = 0;
+		clippings[++iv] = 1;
+		clippings[++iv] = 1;
+		clippings[++iv] = 0;
+		clippings[++iv] = w;
+		clippings[++iv] = 1;
+		clippings[++iv] = 0;
 	}
-	iv += 12;
 
 	// Bottom-right corner
 	if (corner & EShapeCorner.BOTTOM_RIGHT) {
-		clippings[iv + 0] = 0;
-		clippings[iv + 1] = 0;
-		clippings[iv + 2] = 1;
-		clippings[iv + 3] = 1;
-		clippings[iv + 4] = 0;
-		clippings[iv + 5] = 1;
-		clippings[iv + 6] = 1;
-		clippings[iv + 7] = 1;
-		clippings[iv + 8] = 1;
-		clippings[iv + 9] = 0;
-		clippings[iv + 10] = 1;
-		clippings[iv + 11] = 1;
+		clippings[++iv] = 0;
+		clippings[++iv] = 0;
+		clippings[++iv] = 1;
+		clippings[++iv] = 1;
+		clippings[++iv] = 0;
+		clippings[++iv] = 1;
+		clippings[++iv] = 1;
+		clippings[++iv] = 1;
+		clippings[++iv] = 1;
+		clippings[++iv] = 0;
+		clippings[++iv] = 1;
+		clippings[++iv] = 1;
 	} else {
-		clippings[iv + 0] = w;
-		clippings[iv + 1] = w;
-		clippings[iv + 2] = 0;
-		clippings[iv + 3] = 1;
-		clippings[iv + 4] = w;
-		clippings[iv + 5] = 0;
-		clippings[iv + 6] = 1;
-		clippings[iv + 7] = 1;
-		clippings[iv + 8] = 0;
-		clippings[iv + 9] = w;
-		clippings[iv + 10] = 1;
-		clippings[iv + 11] = 0;
+		clippings[++iv] = w;
+		clippings[++iv] = w;
+		clippings[++iv] = 0;
+		clippings[++iv] = 1;
+		clippings[++iv] = w;
+		clippings[++iv] = 0;
+		clippings[++iv] = 1;
+		clippings[++iv] = 1;
+		clippings[++iv] = 0;
+		clippings[++iv] = w;
+		clippings[++iv] = 1;
+		clippings[++iv] = 0;
 	}
-	iv += 12;
 
 	// Bottom-left corner
 	if (corner & EShapeCorner.BOTTOM_LEFT) {
-		clippings[iv + 0] = 0;
-		clippings[iv + 1] = 0;
-		clippings[iv + 2] = 1;
-		clippings[iv + 3] = 1;
-		clippings[iv + 4] = 0;
-		clippings[iv + 5] = 1;
-		clippings[iv + 6] = 1;
-		clippings[iv + 7] = 1;
-		clippings[iv + 8] = 1;
-		clippings[iv + 9] = 0;
-		clippings[iv + 10] = 1;
-		clippings[iv + 11] = 1;
+		clippings[++iv] = 0;
+		clippings[++iv] = 0;
+		clippings[++iv] = 1;
+		clippings[++iv] = 1;
+		clippings[++iv] = 0;
+		clippings[++iv] = 1;
+		clippings[++iv] = 1;
+		clippings[++iv] = 1;
+		clippings[++iv] = 1;
+		clippings[++iv] = 0;
+		clippings[++iv] = 1;
+		clippings[++iv] = 1;
 	} else {
-		clippings[iv + 0] = w;
-		clippings[iv + 1] = w;
-		clippings[iv + 2] = 0;
-		clippings[iv + 3] = 1;
-		clippings[iv + 4] = w;
-		clippings[iv + 5] = 0;
-		clippings[iv + 6] = 1;
-		clippings[iv + 7] = 1;
-		clippings[iv + 8] = 0;
-		clippings[iv + 9] = w;
-		clippings[iv + 10] = 1;
-		clippings[iv + 11] = 0;
+		clippings[++iv] = w;
+		clippings[++iv] = w;
+		clippings[++iv] = 0;
+		clippings[++iv] = 1;
+		clippings[++iv] = w;
+		clippings[++iv] = 0;
+		clippings[++iv] = 1;
+		clippings[++iv] = 1;
+		clippings[++iv] = 0;
+		clippings[++iv] = w;
+		clippings[++iv] = 1;
+		clippings[++iv] = 0;
 	}
-	iv += 12;
 
 	// Others
-	clippings[iv + 0] = 0;
-	clippings[iv + 1] = 0;
-	clippings[iv + 2] = 0;
-	iv += 3;
+	clippings[++iv] = 0;
+	clippings[++iv] = 0;
+	clippings[++iv] = 0;
 
-	clippings[iv + 0] = w;
-	clippings[iv + 1] = 0;
-	clippings[iv + 2] = 0;
-	iv += 3;
+	clippings[++iv] = w;
+	clippings[++iv] = 0;
+	clippings[++iv] = 0;
 
-	clippings[iv + 0] = 1;
-	clippings[iv + 1] = 0;
-	clippings[iv + 2] = 0;
-	clippings[iv + 3] = 1;
-	clippings[iv + 4] = 0;
-	clippings[iv + 5] = 0;
-	iv += 6;
+	clippings[++iv] = 1;
+	clippings[++iv] = 0;
+	clippings[++iv] = 0;
+	clippings[++iv] = 1;
+	clippings[++iv] = 0;
+	clippings[++iv] = 0;
 
-	clippings[iv + 0] = w;
-	clippings[iv + 1] = 0;
-	clippings[iv + 2] = 0;
-	iv += 3;
+	clippings[++iv] = w;
+	clippings[++iv] = 0;
+	clippings[++iv] = 0;
 
-	clippings[iv + 0] = 1;
-	clippings[iv + 1] = 0;
-	clippings[iv + 2] = 0;
-	clippings[iv + 3] = 1;
-	clippings[iv + 4] = 0;
-	clippings[iv + 5] = 0;
-	iv += 6;
+	clippings[++iv] = 1;
+	clippings[++iv] = 0;
+	clippings[++iv] = 0;
+	clippings[++iv] = 1;
+	clippings[++iv] = 0;
+	clippings[++iv] = 0;
 
-	clippings[iv + 0] = w;
-	clippings[iv + 1] = 0;
-	clippings[iv + 2] = 0;
-	iv += 3;
+	clippings[++iv] = w;
+	clippings[++iv] = 0;
+	clippings[++iv] = 0;
 
-	clippings[iv + 0] = 1;
-	clippings[iv + 1] = 0;
-	clippings[iv + 2] = 0;
-	clippings[iv + 3] = 1;
-	clippings[iv + 4] = 0;
-	clippings[iv + 5] = 0;
+	clippings[++iv] = 1;
+	clippings[++iv] = 0;
+	clippings[++iv] = 0;
+	clippings[++iv] = 1;
+	clippings[++iv] = 0;
+	clippings[++iv] = 0;
 };
 
 export const buildTriangleRoundedStep = (
@@ -375,40 +367,31 @@ export const buildTriangleRoundedStep = (
 	clippings: Float32Array,
 	voffset: number,
 	strokeWidth: number,
+	strokeStyle: EShapeStrokeStyle,
 	radius: number,
-	antialiasWeight: number,
 	worldSize: [number, number, number, number, number]
 ): void => {
-	const wsr = worldSize[0];
-	toStep(wsr, strokeWidth, antialiasWeight, STEP_VALUES);
-	const swc = STEP_VALUES[0];
-	const pc0 = STEP_VALUES[1];
-	const pc1 = STEP_VALUES[2];
+	const scaleInvariant = toScaleInvariant(strokeStyle);
 
-	toStep(radius * wsr, strokeWidth, antialiasWeight, STEP_VALUES);
-	const swr = STEP_VALUES[0];
-	const pr0 = STEP_VALUES[1];
-	const pr1 = STEP_VALUES[2];
+	const s = worldSize[0];
+	const sr = radius * s;
 
 	let ic = voffset * 3;
-	let is = voffset * 6;
-	for (let i = 0; i < TRIANGLE_ROUNDED_VERTEX_COUNT; ++i) {
-		let sw = swc;
-		let p0 = pc0;
-		let p1 = pc1;
+	let is = voffset * 6 - 1;
+	for (let i = 0; i < TRIANGLE_ROUNDED_VERTEX_COUNT; i += 1, ic += 3) {
+		steps[++is] = strokeWidth;
+		steps[++is] = scaleInvariant;
 		if (0.5 < clippings[ic + 2]) {
-			sw = swr;
-			p0 = pr0;
-			p1 = pr1;
+			steps[++is] = sr;
+			steps[++is] = sr;
+			steps[++is] = 1 + clippings[ic];
+			steps[++is] = 1 + clippings[ic + 1];
+		} else {
+			steps[++is] = s;
+			steps[++is] = s;
+			steps[++is] = 1 + clippings[ic];
+			steps[++is] = 1 + clippings[ic + 1];
 		}
-		steps[is + 0] = sw * clippings[ic + 0];
-		steps[is + 1] = sw * clippings[ic + 1];
-		steps[is + 2] = p0;
-		steps[is + 3] = p0;
-		steps[is + 4] = p1;
-		steps[is + 5] = p1;
-		ic += 3;
-		is += 6;
 	}
 };
 
@@ -461,64 +444,61 @@ export const buildTriangleRoundedUv = (
 
 	// Uvs
 	// Top corner
-	let iuv = voffset * 2;
-	uvs[iuv + 0] = x7;
-	uvs[iuv + 1] = y7;
-	uvs[iuv + 2] = x6;
-	uvs[iuv + 3] = y6;
-	uvs[iuv + 4] = x4;
-	uvs[iuv + 5] = y4;
-	uvs[iuv + 6] = x8;
-	uvs[iuv + 7] = y8;
-	iuv += 8;
+	let iuv = voffset * 2 - 1;
+	uvs[++iuv] = x7;
+	uvs[++iuv] = y7;
+	uvs[++iuv] = x6;
+	uvs[++iuv] = y6;
+	uvs[++iuv] = x4;
+	uvs[++iuv] = y4;
+	uvs[++iuv] = x8;
+	uvs[++iuv] = y8;
 
 	// Bottom-right corner
-	uvs[iuv + 0] = x10;
-	uvs[iuv + 1] = y10;
-	uvs[iuv + 2] = x9;
-	uvs[iuv + 3] = y9;
-	uvs[iuv + 4] = x2;
-	uvs[iuv + 5] = y2;
-	uvs[iuv + 6] = x11;
-	uvs[iuv + 7] = y11;
-	iuv += 8;
+	uvs[++iuv] = x10;
+	uvs[++iuv] = y10;
+	uvs[++iuv] = x9;
+	uvs[++iuv] = y9;
+	uvs[++iuv] = x2;
+	uvs[++iuv] = y2;
+	uvs[++iuv] = x11;
+	uvs[++iuv] = y11;
 
 	// Bottom-left corner
-	uvs[iuv + 0] = x13;
-	uvs[iuv + 1] = y13;
-	uvs[iuv + 2] = x12;
-	uvs[iuv + 3] = y12;
-	uvs[iuv + 4] = x3;
-	uvs[iuv + 5] = y3;
-	uvs[iuv + 6] = x14;
-	uvs[iuv + 7] = y14;
-	iuv += 8;
+	uvs[++iuv] = x13;
+	uvs[++iuv] = y13;
+	uvs[++iuv] = x12;
+	uvs[++iuv] = y12;
+	uvs[++iuv] = x3;
+	uvs[++iuv] = y3;
+	uvs[++iuv] = x14;
+	uvs[++iuv] = y14;
 
 	// Others
-	uvs[iuv + 0] = x5;
-	uvs[iuv + 1] = y5;
+	uvs[++iuv] = x5;
+	uvs[++iuv] = y5;
 
-	uvs[iuv + 2] = x7;
-	uvs[iuv + 3] = y7;
+	uvs[++iuv] = x7;
+	uvs[++iuv] = y7;
 
-	uvs[iuv + 4] = x8;
-	uvs[iuv + 5] = y8;
-	uvs[iuv + 6] = x9;
-	uvs[iuv + 7] = y9;
+	uvs[++iuv] = x8;
+	uvs[++iuv] = y8;
+	uvs[++iuv] = x9;
+	uvs[++iuv] = y9;
 
-	uvs[iuv + 8] = x10;
-	uvs[iuv + 9] = y10;
+	uvs[++iuv] = x10;
+	uvs[++iuv] = y10;
 
-	uvs[iuv + 10] = x11;
-	uvs[iuv + 11] = y11;
-	uvs[iuv + 12] = x12;
-	uvs[iuv + 13] = y12;
+	uvs[++iuv] = x11;
+	uvs[++iuv] = y11;
+	uvs[++iuv] = x12;
+	uvs[++iuv] = y12;
 
-	uvs[iuv + 14] = x13;
-	uvs[iuv + 15] = y13;
+	uvs[++iuv] = x13;
+	uvs[++iuv] = y13;
 
-	uvs[iuv + 16] = x14;
-	uvs[iuv + 17] = y14;
-	uvs[iuv + 18] = x6;
-	uvs[iuv + 19] = y6;
+	uvs[++iuv] = x14;
+	uvs[++iuv] = y14;
+	uvs[++iuv] = x6;
+	uvs[++iuv] = y6;
 };

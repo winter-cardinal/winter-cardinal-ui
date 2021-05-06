@@ -1,7 +1,7 @@
 import { Matrix, Point, TextureUvs } from "pixi.js";
 import { toIndexOf } from "../../util/to-index-of";
 import { EShapePoints } from "../e-shape-points";
-import { EShapePointsStyle } from "../e-shape-points-style";
+import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toDash } from "./to-dash";
 import { toLength } from "./to-length";
 import { toScaleInvariant } from "./to-scale-invariant";
@@ -187,8 +187,8 @@ export const buildLineVertexStepAndColorFill = (
 	pointsClosed: boolean,
 	pointValues: number[],
 	pointSegments: number[],
-	pointsStyle: EShapePointsStyle,
 	strokeWidth: number,
+	strokeStyle: EShapeStrokeStyle,
 	internalTransform: Matrix
 ): number => {
 	let iv = voffset << 1;
@@ -198,7 +198,7 @@ export const buildLineVertexStepAndColorFill = (
 	let px = 0;
 	let py = 0;
 	if (2 <= pointCount) {
-		const scaleInvariant = toScaleInvariant(pointsStyle);
+		const scaleInvariant = toScaleInvariant(strokeStyle);
 
 		//
 		let l = 0;
@@ -341,7 +341,7 @@ export const buildLineVertexStepAndColorFill = (
 				lmax = Math.max(lmax, llo);
 
 				llop = lprev - loffset;
-				const dash = toDash(llop, strokeWidth, pointsStyle, LINE_WORK_POINT);
+				const dash = toDash(llop, strokeWidth, strokeStyle, LINE_WORK_POINT);
 				const dash0 = dash.x;
 				const dash1 = dash.y;
 				for (let j = icfprev; j < icf + 8; j += 4) {
@@ -434,7 +434,7 @@ export const buildLineVertexStepAndColorFill = (
 				lmax = Math.max(lmax, llo);
 
 				llop = lprev - loffset;
-				const dash = toDash(llop, strokeWidth, pointsStyle, LINE_WORK_POINT);
+				const dash = toDash(llop, strokeWidth, strokeStyle, LINE_WORK_POINT);
 				const dash0 = dash.x;
 				const dash1 = dash.y;
 				for (let j = icfprev; j < icf + 8; j += 4) {
@@ -477,7 +477,7 @@ export const buildLineVertexStepAndColorFill = (
 
 			// Total length
 			if (icfprev < icf) {
-				const dash = toDash(llop, strokeWidth, pointsStyle, LINE_WORK_POINT);
+				const dash = toDash(llop, strokeWidth, strokeStyle, LINE_WORK_POINT);
 				const dash0 = dash.x;
 				const dash1 = dash.y;
 				if (pointsClosed) {

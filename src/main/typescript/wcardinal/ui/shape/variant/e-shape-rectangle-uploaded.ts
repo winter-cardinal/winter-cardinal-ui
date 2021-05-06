@@ -48,13 +48,15 @@ export class EShapeRectangleUploaded extends EShapeTextUploaded {
 		const isTransformChanged = this.transformLocalId !== transformLocalId;
 
 		const stroke = shape.stroke;
-		const strokeWidth = stroke.enable ? stroke.width : 0;
 		const strokeAlign = stroke.align;
+		const strokeWidth = stroke.enable ? stroke.width : 0;
 		const strokeSide = stroke.side;
+		const strokeStyle = stroke.style;
 		const isStrokeChanged =
 			this.strokeAlign !== strokeAlign ||
 			this.strokeWidth !== strokeWidth ||
-			this.strokeSide !== strokeSide;
+			this.strokeSide !== strokeSide ||
+			this.strokeStyle !== strokeStyle;
 
 		const texture = this.toTexture(shape);
 		const textureTransformId = this.toTextureTransformId(texture);
@@ -67,9 +69,10 @@ export class EShapeRectangleUploaded extends EShapeTextUploaded {
 			this.sizeX = sizeX;
 			this.sizeY = sizeY;
 			this.transformLocalId = transformLocalId;
-			this.strokeWidth = strokeWidth;
 			this.strokeAlign = strokeAlign;
+			this.strokeWidth = strokeWidth;
 			this.strokeSide = strokeSide;
+			this.strokeStyle = strokeStyle;
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
 
@@ -102,7 +105,7 @@ export class EShapeRectangleUploaded extends EShapeTextUploaded {
 					buffer.steps,
 					strokeWidth,
 					strokeSide,
-					this.antialiasWeight,
+					strokeStyle,
 					RECTANGLE_WORLD_SIZE
 				);
 			}

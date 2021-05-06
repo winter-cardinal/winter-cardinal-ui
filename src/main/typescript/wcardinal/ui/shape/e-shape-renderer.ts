@@ -49,15 +49,17 @@ vec2 toTransformedPosition( in vec2 v ) {
 	return (projectionMatrix * translationMatrix * vec3(v, 1.0)).xy;
 }
 
-vec4 toAntialias01( in vec4 antialias, in float scale ) {
+vec4 toAntialias01( in vec4 antialias ) {
 	// Taylor series of 1 / ( 1 - a ) = 1 + a + a^2 + ....
-	return 1.0 + min( vec4( 1.0 ), antialias * scale );
+	return 1.0 + min( vec4( 1.0 ), antialias * pixelScale );
 }
 
-vec4 toAntialias2( in vec2 step, in vec4 antialias, in float scale ) {
-	float x = min( 0.4, step.x * scale );
-	float y = 0.5 - antialias.x;
-	float z = 0.5 - antialias.x - step.y;
+vec4 toAntialias2( in vec4 antialias, in float strokeWidth ) {
+	float x = min( 0.4, 0.4 / 12.0 * antialias.x * pixelScale * antialiasWeight );
+	float w = clamp( strokeWidth / antialias.y, 0.0, 1.0 ) * 0.4;
+	float p = w * antialias.z + antialias.w;
+	float y = 0.5 - p;
+	float z = 0.5 - p - w;
 	return vec4( y, z, y - max( 0.01, y - x ), z - max( 0.01, z - x ) );
 }
 
@@ -68,8 +70,9 @@ vec2 toPosition3456( in float type, in vec2 p, in vec2 pprev, in vec2 pnext, in 
 	float l1 = dot( d1, d1 );
 	vec2 nd0 = normalize( toInverse( d0 ) );
 	vec2 nd1 = normalize( toInverse( d1 ) );
-	vec2 n0 = 0.00001 < l0 ? nd0 : nd1;
-	vec2 n1 = 0.00001 < l1 ? nd1 : nd0;
+	vec2 nd2 = 0.00001 < l1 ? nd1 : vec2(0.0, 0.0);
+	vec2 n0 = 0.00001 < l0 ? nd0 : nd2;
+	vec2 n1 = 0.00001 < l1 ? nd1 : n0;
 	vec2 n0i = toInverse( n0 );
 	vec2 n1i = toInverse( n1 );
 	float direction = sign( 4.5 - type );
@@ -112,9 +115,9 @@ vec2 toStep3456( in float type ) {
 	return ( type < 4.5 ? vec2( 1.0, 0.0 ) : vec2( 0.0, 1.0 ) );
 }
 
-vec4 toAntialias3456( in float strokeWidth, in float scale ) {
+vec4 toAntialias3456( in float strokeWidth ) {
 	float a = antialiasWeight / max( 0.0001, strokeWidth );
-	return toAntialias01( vec4( a, a, a, a ), scale );
+	return toAntialias01( vec4( a, a, a, a ) );
 }
 
 float toDotAndDashScale( in float scale, in float strokeWidthScale ) {
@@ -145,31 +148,46 @@ float toStrokeWidthScale( in float scale ) {
 	);
 }
 
+vec2 toStep01(in vec2 size, in vec2 weight, in vec2 strokeWidth) {
+	return weight / max(vec2(0.00001), vec2(1.0) - strokeWidth / size);
+}
+
+vec4 toAntialias01b(in vec2 size, in vec2 strokeWidth) {
+	return vec4(
+		antialiasWeight / max(vec2(0.00001), size - strokeWidth),
+		antialiasWeight / max(vec2(0.00001), size)
+	);
+}
+
 void main(void) {
 	vec2 p012 = toTransformedPosition( aPosition );
 
 	float type = aClipping.z;
+	float strokeWidthScale = toStrokeWidthScale( aStep.y );
+	float strokeWidth = strokeWidthScale * aStep.x;
 
 	// type === 0 or 1
-	vec4 a01 = toAntialias01( aAntialias, pixelScale );
+	vec2 size01 = aAntialias.xy;
+	vec2 weight01 = abs(aAntialias.zw - sign(aAntialias.zw));
+	vec2 strokeWidth01 = step(vec2(0.0), aAntialias.zw) * strokeWidth;
+	vec2 step01 = toStep01( size01, weight01, strokeWidth01 );
+	vec4 a01 = toAntialias01( toAntialias01b( size01, strokeWidth01 ) );
 
 	// type === 2
-	vec4 a2 = toAntialias2( aStep, aAntialias, pixelScale );
+	vec4 a2 = toAntialias2( aAntialias, strokeWidth );
 
 	// type === 3, 4, 5 or 6
 	float shift3456 = 0.0;
-	float strokeWidthScale = toStrokeWidthScale( aStep.y );
-	float strokeWidth = strokeWidthScale * aStep.x;
 	vec2 p3456 = toPosition3456( type, aPosition, aAntialias.xy, aAntialias.zw, strokeWidth, shift3456 );
 	vec2 step3456 = toStep3456( type );
-	vec4 a3456 = toAntialias3456( strokeWidth, pixelScale );
+	vec4 a3456 = toAntialias3456( strokeWidth );
 	vec4 colorStroke3456 = toColorStroke3456( shift3456, toDotAndDashScale( aStep.y, strokeWidthScale ) );
 
 	//
 	gl_Position = vec4( ( 2.5 < type ? p3456 : p012 ), 0.0, 1.0 );
 	vAntialias = ( 1.5 < type ? ( 2.5 < type ? a3456 : a2 ) : a01 );
 	vClipping = aClipping;
-	vStep = ( 2.5 < type ? step3456 : aStep );
+	vStep = ( 2.5 < type ? step3456 : step01 );
 	vColorFill = ( 2.5 < type ? aColorStroke : aColorFill );
 	vColorStroke = ( 2.5 < type ? colorStroke3456 : aColorStroke );
 	vUv = aUv;

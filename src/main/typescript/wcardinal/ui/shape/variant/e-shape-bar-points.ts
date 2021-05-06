@@ -39,8 +39,8 @@ export class EShapeBarPoints implements EShapeLineBasePoints {
 		this._id = 0;
 		this._values = [0, 0, 0, 0];
 		this._segments = [];
-		this._style = style != null ? style : EShapePointsStyle.NONE;
-		this._size = size != null ? size : -1;
+		this._style = style ?? EShapePointsStyle.NONE;
+		this._size = size ?? -1;
 		this._position = position;
 
 		this._updatedSize = NaN;

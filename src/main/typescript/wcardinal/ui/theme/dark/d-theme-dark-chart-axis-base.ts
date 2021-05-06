@@ -8,6 +8,7 @@ import { DChartAxisPosition } from "../../d-chart-axis-position";
 import { DChartAxisTickPosition } from "../../d-chart-axis-tick-position";
 import { EShapePointsStyle } from "../../shape/e-shape-points-style";
 import { EShapeStrokeSide } from "../../shape/e-shape-stroke-side";
+import { EShapeStrokeStyle } from "../../shape/e-shape-stroke-style";
 import { EShapeTextAlignHorizontal } from "../../shape/e-shape-text-align-horizontal";
 import { EShapeTextAlignVertical } from "../../shape/e-shape-text-align-vertical";
 import { EShapeTextDirection } from "../../shape/e-shape-text-direction";
@@ -88,6 +89,10 @@ export class DThemeDarkChartAxisBase implements DThemeChartAxisBase {
 	}
 
 	getStrokeSide(): EShapeStrokeSide | undefined {
+		return undefined;
+	}
+
+	getStrokeStyle(): EShapeStrokeStyle | undefined {
 		return undefined;
 	}
 
@@ -181,6 +186,10 @@ export class DThemeDarkChartAxisBase implements DThemeChartAxisBase {
 		return this.getStrokeSide();
 	}
 
+	getMajorTickStrokeStyle(): EShapeStrokeStyle | undefined {
+		return this.getStrokeStyle();
+	}
+
 	getMajorTickGridlineEnable(): boolean {
 		return true;
 	}
@@ -211,6 +220,10 @@ export class DThemeDarkChartAxisBase implements DThemeChartAxisBase {
 
 	getMajorTickGridlineStrokeSide(): EShapeStrokeSide | undefined {
 		return this.getStrokeSide();
+	}
+
+	getMajorTickGridlineStrokeStyle(): EShapeStrokeStyle | undefined {
+		return this.getStrokeStyle();
 	}
 
 	getMinorTickCount(): number {
@@ -251,5 +264,9 @@ export class DThemeDarkChartAxisBase implements DThemeChartAxisBase {
 
 	getMinorTickStrokeSide(): EShapeStrokeSide | undefined {
 		return this.getStrokeSide();
+	}
+
+	getMinorTickStrokeStyle(): EShapeStrokeStyle | undefined {
+		return this.getStrokeStyle();
 	}
 }

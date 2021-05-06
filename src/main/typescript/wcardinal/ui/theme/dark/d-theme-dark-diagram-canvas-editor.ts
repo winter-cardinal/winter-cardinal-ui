@@ -5,7 +5,7 @@
 
 import { DThemeDiagramCanvasEditor } from "../../d-diagram-canvas-editor";
 import { DDiagramCanvasEditorSnapGridSize } from "../../d-diagram-canvas-editor-snap";
-import { EShapePointsStyle } from "../../shape/e-shape-points-style";
+import { EShapeStrokeStyle } from "../../shape/e-shape-stroke-style";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkDiagramCanvasBase } from "./d-theme-dark-diagram-canvas-base";
 
@@ -46,13 +46,8 @@ export class DThemeDarkDiagramCanvasEditor
 		return 2;
 	}
 
-	getSnapGridMajorStyle(): EShapePointsStyle {
-		return (
-			EShapePointsStyle.DASHED |
-			EShapePointsStyle.NON_EXPANDING_WIDTH |
-			EShapePointsStyle.NON_SHRINKING_WIDTH |
-			EShapePointsStyle.NON_SCALING_DOT_AND_DASH
-		);
+	getSnapGridMajorStyle(): EShapeStrokeStyle {
+		return EShapeStrokeStyle.DASHED | EShapeStrokeStyle.NON_SCALING;
 	}
 
 	getSnapGridMinorColor(): number {
@@ -67,7 +62,7 @@ export class DThemeDarkDiagramCanvasEditor
 		return this.getSnapGridMajorWidth();
 	}
 
-	getSnapGridMinorStyle(): EShapePointsStyle {
+	getSnapGridMinorStyle(): EShapeStrokeStyle {
 		return this.getSnapGridMajorStyle();
 	}
 
@@ -87,7 +82,7 @@ export class DThemeDarkDiagramCanvasEditor
 		return this.getSnapGridMajorWidth();
 	}
 
-	getSnapTargetStyle(): EShapePointsStyle {
+	getSnapTargetStyle(): EShapeStrokeStyle {
 		return this.getSnapGridMajorStyle();
 	}
 }

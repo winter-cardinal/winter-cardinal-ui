@@ -5,6 +5,7 @@
 
 import { EThemeShape } from "../../shape/e-shape-defaults";
 import { EShapeStrokeSide } from "../../shape/e-shape-stroke-side";
+import { EShapeStrokeStyle } from "../../shape/e-shape-stroke-style";
 
 export class EThemeDarkShape implements EThemeShape {
 	getFillColor(): number {
@@ -33,6 +34,10 @@ export class EThemeDarkShape implements EThemeShape {
 
 	getStrokeSide(): EShapeStrokeSide {
 		return EShapeStrokeSide.ALL;
+	}
+
+	getStrokeStyle(): EShapeStrokeStyle {
+		return EShapeStrokeStyle.NONE;
 	}
 
 	getTextValue(): string {

@@ -91,10 +91,13 @@ export class EShapeLineOfTrianglesUploaded extends EShapeLineOfAnyUploaded {
 		const isTransformChanged = this.transformLocalId !== transformLocalId;
 
 		const stroke = shape.stroke;
-		const strokeWidth = stroke.enable ? stroke.width : 0;
 		const strokeAlign = stroke.align;
+		const strokeWidth = stroke.enable ? stroke.width : 0;
+		const strokeStyle = stroke.style;
 		const isStrokeChanged =
-			this.strokeAlign !== strokeAlign || this.strokeWidth !== strokeWidth;
+			this.strokeAlign !== strokeAlign ||
+			this.strokeWidth !== strokeWidth ||
+			this.strokeStyle !== strokeStyle;
 
 		const texture = this.toTexture(shape);
 		const textureTransformId = this.toTextureTransformId(texture);
@@ -113,8 +116,9 @@ export class EShapeLineOfTrianglesUploaded extends EShapeLineOfAnyUploaded {
 			this.sizeX = sizeX;
 			this.sizeY = sizeY;
 			this.transformLocalId = transformLocalId;
-			this.strokeWidth = strokeWidth;
 			this.strokeAlign = strokeAlign;
+			this.strokeWidth = strokeWidth;
+			this.strokeStyle = strokeStyle;
 
 			if (isSizeChanged || isTransformChanged || isStrokeChanged) {
 				// Invalidate the text layout to update the text layout.
@@ -139,7 +143,6 @@ export class EShapeLineOfTrianglesUploaded extends EShapeLineOfAnyUploaded {
 			const uvs = buffer.uvs;
 			const textureUvs = this.toTextureUvs(texture);
 			const internalTransform = shape.transform.internalTransform;
-			const antialiasWeight = this.antialiasWeight;
 			if (0 < pointCount && pointSize.isStaticX() && pointSize.isStaticY()) {
 				const pointSizeX = pointSize.getX(0);
 				const pointSizeY = pointSize.getY(0);
@@ -172,7 +175,7 @@ export class EShapeLineOfTrianglesUploaded extends EShapeLineOfAnyUploaded {
 						voffset,
 						TRIANGLE_VERTEX_COUNT,
 						strokeWidth,
-						antialiasWeight,
+						strokeStyle,
 						TRIANGLE_WORLD_SIZE
 					);
 					copyStep(steps, voffset, TRIANGLE_VERTEX_COUNT, pointCount);
@@ -209,7 +212,7 @@ export class EShapeLineOfTrianglesUploaded extends EShapeLineOfAnyUploaded {
 							iv,
 							TRIANGLE_VERTEX_COUNT,
 							strokeWidth,
-							antialiasWeight,
+							strokeStyle,
 							TRIANGLE_WORLD_SIZE
 						);
 					}

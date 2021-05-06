@@ -17,6 +17,7 @@ import { EShapePointsStyle } from "./shape/e-shape-points-style";
 import { EShapePointsStyleOption, EShapePointsStyles } from "./shape/e-shape-points-styles";
 import { EShapeStrokeLike } from "./shape/e-shape-stroke";
 import { EShapeStrokeSide } from "./shape/e-shape-stroke-side";
+import { EShapeStrokeStyle } from "./shape/e-shape-stroke-style";
 import { EShapeTextLike } from "./shape/e-shape-text";
 import { EShapeTextAlignLike } from "./shape/e-shape-text-align";
 import { EShapeTextDirection } from "./shape/e-shape-text-direction";
@@ -253,7 +254,8 @@ export class DChartAxisBaseOptionParser {
 			theme.getStrokeAlpha(),
 			theme.getStrokeWidth(),
 			theme.getStrokeAlign(),
-			theme.getStrokeSide()
+			theme.getStrokeSide(),
+			theme.getStrokeStyle()
 		);
 	}
 
@@ -270,7 +272,8 @@ export class DChartAxisBaseOptionParser {
 			theme.getMajorTickStrokeAlpha(),
 			theme.getMajorTickStrokeWidth(),
 			theme.getMajorTickStrokeAlign(),
-			theme.getMajorTickStrokeSide()
+			theme.getMajorTickStrokeSide(),
+			theme.getMajorTickStrokeStyle()
 		);
 	}
 
@@ -287,7 +290,8 @@ export class DChartAxisBaseOptionParser {
 			theme.getMajorTickGridlineStrokeAlpha(),
 			theme.getMajorTickGridlineStrokeWidth(),
 			theme.getMajorTickGridlineStrokeAlign(),
-			theme.getMajorTickGridlineStrokeSide()
+			theme.getMajorTickGridlineStrokeSide(),
+			theme.getMajorTickGridlineStrokeStyle()
 		);
 	}
 
@@ -304,7 +308,8 @@ export class DChartAxisBaseOptionParser {
 			theme.getMinorTickStrokeAlpha(),
 			theme.getMinorTickStrokeWidth(),
 			theme.getMinorTickStrokeAlign(),
-			theme.getMinorTickStrokeSide()
+			theme.getMinorTickStrokeSide(),
+			theme.getMinorTickStrokeStyle()
 		);
 	}
 
@@ -316,7 +321,8 @@ export class DChartAxisBaseOptionParser {
 		alpha: number | undefined,
 		width: number | undefined,
 		align: number | undefined,
-		side: EShapeStrokeSide | undefined
+		side: EShapeStrokeSide | undefined,
+		style: EShapeStrokeStyle | undefined
 	): Partial<EShapeStrokeLike> {
 		if (optionsA) {
 			if (optionsB) {
@@ -326,7 +332,8 @@ export class DChartAxisBaseOptionParser {
 					alpha: optionsA.alpha ?? optionsB.alpha ?? alpha,
 					width: optionsA.width ?? optionsB.width ?? width,
 					align: optionsA.align ?? optionsB.align ?? align,
-					side: optionsA.side ?? optionsB.side ?? side
+					side: optionsA.side ?? optionsB.side ?? side,
+					style: optionsA.style ?? optionsB.style ?? style
 				};
 			} else {
 				return {
@@ -335,7 +342,8 @@ export class DChartAxisBaseOptionParser {
 					alpha: optionsA.alpha ?? alpha,
 					width: optionsA.width ?? width,
 					align: optionsA.align ?? align,
-					side: optionsA.side ?? side
+					side: optionsA.side ?? side,
+					style: optionsA.style ?? style
 				};
 			}
 		} else if (optionsB) {
@@ -345,7 +353,8 @@ export class DChartAxisBaseOptionParser {
 				alpha: optionsB.alpha ?? alpha,
 				width: optionsB.width ?? width,
 				align: optionsB.align ?? align,
-				side: optionsB.side ?? side
+				side: optionsB.side ?? side,
+				style: optionsB.style ?? style
 			};
 		} else {
 			return {
@@ -354,7 +363,8 @@ export class DChartAxisBaseOptionParser {
 				alpha,
 				width,
 				align,
-				side
+				side,
+				style
 			};
 		}
 	}
