@@ -99,7 +99,7 @@ export const buildTriangleRoundedVertex = (
 	strokeWidth: number,
 	radius: number,
 	internalTransform: Matrix,
-	worldSize: [number, number, number, number, number]
+	worldSize: typeof TRIANGLE_ROUNDED_WORLD_SIZE
 ): void => {
 	// Calculate the transformed positions
 	const s = strokeAlign * strokeWidth;
@@ -369,7 +369,7 @@ export const buildTriangleRoundedStep = (
 	strokeWidth: number,
 	strokeStyle: EShapeStrokeStyle,
 	radius: number,
-	worldSize: [number, number, number, number, number]
+	worldSize: typeof TRIANGLE_ROUNDED_WORLD_SIZE
 ): void => {
 	const scaleInvariant = toScaleInvariant(strokeStyle);
 
@@ -400,7 +400,7 @@ export const buildTriangleRoundedUv = (
 	voffset: number,
 	textureUvs: TextureUvs,
 	radius: number,
-	worldSize: [number, number, number, number, number]
+	worldSize: typeof TRIANGLE_ROUNDED_WORLD_SIZE
 ): void => {
 	const x0 = textureUvs.x0;
 	const x1 = textureUvs.x1;

@@ -347,15 +347,45 @@ export const buildRectangleStep = (
 	const sx = worldSize[2];
 	const sy = worldSize[3];
 
-	const wt = strokeSide & EShapeStrokeSide.TOP ? 2 : -2;
-	const wr = strokeSide & EShapeStrokeSide.RIGHT ? 2 : -2;
-	const wb = strokeSide & EShapeStrokeSide.BOTTOM ? 2 : -2;
-	const wl = strokeSide & EShapeStrokeSide.LEFT ? 2 : -2;
+	let wt: number;
+	let bt: number;
+	if (strokeSide & EShapeStrokeSide.TOP) {
+		wt = +2;
+		bt = +1 + bryi;
+	} else {
+		wt = -2;
+		bt = -1 - bryi;
+	}
 
-	const bt = 0 < wt ? +1 + bryi : -1 - bryi;
-	const br = 0 < wr ? +1 + brxi : -1 - brxi;
-	const bb = 0 < wb ? +1 + bryi : -1 - bryi;
-	const bl = 0 < wl ? +1 + brxi : -1 - brxi;
+	let wr: number;
+	let br: number;
+	if (strokeSide & EShapeStrokeSide.RIGHT) {
+		wr = +2;
+		br = +1 + brxi;
+	} else {
+		wr = -2;
+		br = -1 - brxi;
+	}
+
+	let wb: number;
+	let bb: number;
+	if (strokeSide & EShapeStrokeSide.BOTTOM) {
+		wb = +2;
+		bb = +1 + bryi;
+	} else {
+		wb = -2;
+		bb = -1 - bryi;
+	}
+
+	let wl: number;
+	let bl: number;
+	if (strokeSide & EShapeStrokeSide.LEFT) {
+		wl = +2;
+		bl = +1 + brxi;
+	} else {
+		wl = -2;
+		bl = -1 - brxi;
+	}
 
 	// 0 1 2 3
 	let is = (voffset - 1) * 6 - 1;

@@ -61,7 +61,7 @@ export const buildImageSdfStep = (
 	strokeStyle: EShapeStrokeStyle,
 	textureWidth: number,
 	textureHeight: number,
-	worldSize: [number, number]
+	worldSize: typeof IMAGE_SDF_WORLD_SIZE
 ): void => {
 	const scaleInvariant = toScaleInvariant(strokeStyle);
 
@@ -144,7 +144,7 @@ export const buildImageSdfVertex = (
 	sizeX: number,
 	sizeY: number,
 	internalTransform: Matrix,
-	worldSize: [number, number]
+	worldSize: typeof IMAGE_SDF_WORLD_SIZE
 ): void => {
 	// Calculate the transformed positions
 	//

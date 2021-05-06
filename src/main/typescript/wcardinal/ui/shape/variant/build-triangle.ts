@@ -70,7 +70,7 @@ export const buildTriangleVertex = (
 	strokeAlign: number,
 	strokeWidth: number,
 	internalTransform: Matrix,
-	worldSize: [number, number, number]
+	worldSize: typeof TRIANGLE_WORLD_SIZE
 ): void => {
 	const s = strokeAlign * strokeWidth;
 	const sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
@@ -135,7 +135,7 @@ export const buildTriangleStep = (
 	vcount: number,
 	strokeWidth: number,
 	strokeStyle: EShapeStrokeStyle,
-	worldSize: [number, number, number]
+	worldSize: typeof TRIANGLE_WORLD_SIZE
 ): void => {
 	const scaleInvariant = toScaleInvariant(strokeStyle);
 	const s = worldSize[0];
@@ -156,7 +156,7 @@ export const buildTriangleUv = (
 	uvs: Float32Array,
 	textureUvs: TextureUvs,
 	voffset: number,
-	worldSize: [number, number, number]
+	worldSize: typeof TRIANGLE_WORLD_SIZE
 ): void => {
 	const x0 = textureUvs.x0;
 	const x1 = textureUvs.x1;

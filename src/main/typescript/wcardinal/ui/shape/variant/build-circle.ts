@@ -96,7 +96,7 @@ export const buildCircleVertex = (
 	strokeAlign: number,
 	strokeWidth: number,
 	internalTransform: Matrix,
-	worldSize: [number, number]
+	worldSize: typeof CIRCLE_WORLD_SIZE
 ): void => {
 	// Calculate the transformed positions
 	//
@@ -163,7 +163,7 @@ export const buildCircleStep = (
 	voffset: number,
 	strokeWidth: number,
 	strokeStyle: EShapeStrokeStyle,
-	worldSize: [number, number]
+	worldSize: typeof CIRCLE_WORLD_SIZE
 ): void => {
 	const scaleInvariant = toScaleInvariant(strokeStyle);
 	let is = voffset * 6 - 1;

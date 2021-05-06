@@ -120,7 +120,7 @@ export const buildRectangleRoundedVertex = (
 	strokeWidth: number,
 	radius: number,
 	internalTransform: Matrix,
-	worldSize: [number, number, number]
+	worldSize: typeof RECTANGLE_ROUNDED_WORLD_SIZE
 ): void => {
 	// Calculate the transformed positions
 	//
@@ -327,7 +327,7 @@ export const buildRectangleRoundedClipping = (
 	clippings: Float32Array,
 	voffset: number,
 	corner: EShapeCorner,
-	worldSize: [number, number, number]
+	worldSize: typeof RECTANGLE_ROUNDED_WORLD_SIZE
 ): void => {
 	let ic = voffset * 3 - 1;
 	const rxc = 1 - worldSize[0] / worldSize[1];
@@ -566,7 +566,7 @@ export const buildRectangleRoundedStep = (
 	strokeSide: EShapeStrokeSide,
 	strokeStyle: EShapeStrokeStyle,
 	corner: EShapeCorner,
-	worldSize: [number, number, number]
+	worldSize: typeof RECTANGLE_ROUNDED_WORLD_SIZE
 ): void => {
 	const scaleInvariant = toScaleInvariant(strokeStyle);
 
@@ -1016,7 +1016,7 @@ export const buildRectangleRoundedUv = (
 	uvs: Float32Array,
 	voffset: number,
 	textureUvs: TextureUvs,
-	worldSize: [number, number, number]
+	worldSize: typeof RECTANGLE_ROUNDED_WORLD_SIZE
 ): void => {
 	const x0 = textureUvs.x0;
 	const x1 = textureUvs.x1;
