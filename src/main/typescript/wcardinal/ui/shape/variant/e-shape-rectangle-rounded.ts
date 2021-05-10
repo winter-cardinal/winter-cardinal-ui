@@ -72,23 +72,22 @@ export class EShapeRectangleRounded extends EShapePrimitive {
 		}
 	}
 
-	containsAbs(x: number, y: number, ax: number, ay: number): boolean {
+	containsAbs(x: number, y: number, ax: number, ay: number, sw: number, ss: number): boolean {
 		if (super.containsAbsBBox(x, y, ax, ay)) {
 			const fill = this.fill;
-			const stroke = this.stroke;
-			const strokeWidth = stroke.enable ? stroke.width : 0;
-			if (fill.enable || 0 < strokeWidth) {
+			if (fill.enable || 0 < sw) {
 				const r = this.radius * Math.min(ax, ay);
 				const corner = this.corner;
-				const strokeSide = stroke.side;
 				if (this.containsAbs_(x, y, ax, ay, r, corner)) {
 					if (fill.enable) {
 						return true;
 					} else {
-						const wx = Math.max(0.0, ax - strokeWidth);
-						const wy = Math.max(0.0, ay - strokeWidth);
-						const wr = Math.max(0.0, r - strokeWidth);
+						const s = sw * ss;
+						const wx = Math.max(0.0, ax - s);
+						const wy = Math.max(0.0, ay - s);
+						const wr = Math.max(0.0, r - s);
 						if (!this.containsAbs_(x, y, wx, wy, wr, corner)) {
+							const strokeSide = this.stroke.side;
 							if (strokeSide === EShapeStrokeSide.ALL) {
 								return true;
 							} else {

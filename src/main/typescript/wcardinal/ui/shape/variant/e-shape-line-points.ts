@@ -12,7 +12,10 @@ import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-
 import { eShapePointsFormatterCurve } from "../e-shape-points-formatter-curve";
 import { eShapePointsFormatterStraight } from "../e-shape-points-formatter-straight";
 import { EShapePointsFormatter } from "../e-shape-points-formatter";
-import { EShapePointsFormatted } from "../e-shape-points-formatted";
+import {
+	EShapePointsFormatted,
+	EShapePointsFormattedWithBoundary
+} from "../e-shape-points-formatted";
 import { EShapeLineBasePointsHitTester } from "./e-shape-line-base-points-hit-tester";
 import { EShapeLineBasePointsHitTesterToRange } from "./e-shape-line-base-points-hit-tester-to-range";
 
@@ -31,7 +34,7 @@ export class EShapeLinePoints implements EShapePoints {
 	protected _style: EShapePointsStyle;
 	protected _formattedId: number;
 	protected _formatter: EShapePointsFormatter | null;
-	protected _formatted: EShapePointsFormatted;
+	protected _formatted: EShapePointsFormattedWithBoundary | null;
 
 	constructor(parent: EShape, points: number[], segments: number[], style: EShapePointsStyle) {
 		// Calculate the center
@@ -76,7 +79,7 @@ export class EShapeLinePoints implements EShapePoints {
 		this._style = style;
 		this._formattedId = -1;
 		this._formatter = null;
-		this._formatted = this;
+		this._formatted = null;
 	}
 
 	get length(): number {
@@ -164,6 +167,7 @@ export class EShapeLinePoints implements EShapePoints {
 		if (this._formatter !== formatter) {
 			this._formattedId = -1;
 			this._formatter = formatter;
+			this.toDirty(true);
 		}
 	}
 
@@ -182,21 +186,45 @@ export class EShapeLinePoints implements EShapePoints {
 				}
 			}
 			if (formatter != null) {
-				if (result === this) {
+				if (result == null) {
 					result = {
 						length: 0,
 						values: [],
 						segments: [],
+						boundary: [0, 0, 0, 0],
 						style: EShapePointsStyle.NONE
 					};
 				}
 				formatter(this, result);
+
+				// Boundary
+				const values = result.values;
+				const valuesLength = values.length;
+				if (2 <= valuesLength) {
+					let xmin = values[0];
+					let ymin = values[1];
+					let xmax = xmin;
+					let ymax = ymin;
+					for (let i = 2, imax = values.length; i < imax; i += 2) {
+						const x = values[i];
+						const y = values[i + 1];
+						xmin = Math.min(xmin, x);
+						ymin = Math.min(ymin, y);
+						xmax = Math.max(xmax, x);
+						ymax = Math.max(ymax, y);
+					}
+					const boundary = result.boundary;
+					boundary[0] = xmin;
+					boundary[1] = ymin;
+					boundary[2] = xmax;
+					boundary[3] = ymax;
+				}
 			} else {
-				result = this;
+				result = null;
 			}
 			this._formatted = result;
 		}
-		return result;
+		return result || this;
 	}
 
 	copy(source: EShapePoints): this {
@@ -265,13 +293,35 @@ export class EShapeLinePoints implements EShapePoints {
 		if (newStyle != null) {
 			const oldStyle = this._style;
 			if (oldStyle !== newStyle) {
+				const mask = EShapePointsStyle.STRAIGHT | EShapePointsStyle.CURVE;
+				const oldStyleMasked = oldStyle & mask;
+				const newStyleMasked = newStyle & mask;
+				if (oldStyleMasked !== newStyleMasked) {
+					isDirty = true;
+				} else if (oldStyleMasked) {
+					const oldStyleClosed = oldStyle & EShapePointsStyle.CLOSED;
+					const newStyleClosed = newStyle & EShapePointsStyle.CLOSED;
+					if (oldStyleClosed !== newStyleClosed) {
+						isDirty = true;
+					} else {
+						isUpdated = true;
+					}
+				} else {
+					isUpdated = true;
+				}
 				this._style = newStyle;
-				isUpdated = true;
 			}
 		}
 
 		//
-		if (isDirty) {
+		if (isUpdated || isDirty) {
+			this.toDirty(isDirty);
+		}
+		return this;
+	}
+
+	protected toDirty(revalidate: boolean): void {
+		if (revalidate) {
 			this._id += 1;
 			const parent = this._parent;
 			const uploaded = parent.uploaded;
@@ -285,12 +335,10 @@ export class EShapeLinePoints implements EShapePoints {
 			} else {
 				parent.updateUploaded();
 			}
-		} else if (isUpdated) {
+		} else {
 			this._id += 1;
 			this._parent.updateUploaded();
 		}
-
-		return this;
 	}
 
 	clone(parent: EShape): EShapeLinePoints {

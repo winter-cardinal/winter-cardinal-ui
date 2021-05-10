@@ -12,6 +12,8 @@ export type EShapeLineOfAnyPointsHitTester<RESULT> = (
 	oy: number,
 	px: number,
 	py: number,
+	sw: number,
+	ss: number,
 	index: number,
 	threshold: number,
 	result: RESULT

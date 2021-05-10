@@ -6,13 +6,13 @@
 import { IPoint } from "pixi.js";
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
-import { EShapeStrokeStyle } from "../e-shape-stroke-style";
-import { EShapeBase } from "./e-shape-base";
+import { EShapeBaseHitTestData } from "./e-shape-base-hit-test-data";
 import { EShapeLineBasePoints } from "./e-shape-line-base-points";
 import { EShapeLineBasePointsHitTester } from "./e-shape-line-base-points-hit-tester";
 import { EShapeLineBasePointsHitTesterToRange } from "./e-shape-line-base-points-hit-tester-to-range";
 import { EShapeLineBasePointsHitTesterToThreshold } from "./e-shape-line-base-points-hit-tester-to-threshold";
 import { EShapePrimitive } from "./e-shape-primitive";
+import { toThresholdDefault } from "./to-threshold-default";
 
 export abstract class EShapeLineBase extends EShapePrimitive {
 	protected static WORK_RANGE: [number, number] = [0, 0];
@@ -25,42 +25,21 @@ export abstract class EShapeLineBase extends EShapePrimitive {
 		return result;
 	}
 
-	protected getPixelScale(): number {
-		const container = this.root.parent as any;
-		if (container != null && container.getPixelScale != null) {
-			return container.getPixelScale();
-		}
-		return 1.0;
-	}
-
-	protected getStrokeWidthScale(style: EShapeStrokeStyle): number {
-		if (style & EShapeStrokeStyle.NON_EXPANDING_WIDTH) {
-			if (style & EShapeStrokeStyle.NON_SHRINKING_WIDTH) {
-				return this.getPixelScale();
-			} else {
-				return Math.min(1.0, this.getPixelScale());
-			}
+	protected getHitTestSize(result: EShapeBaseHitTestData): EShapeBaseHitTestData {
+		const formatted = this._points.formatted;
+		if ("boundary" in formatted) {
+			const boundary = formatted.boundary;
+			result.width = Math.max(Math.abs(boundary[0]), Math.abs(boundary[2]));
+			result.height = Math.max(Math.abs(boundary[1]), Math.abs(boundary[3]));
 		} else {
-			if (style & EShapeStrokeStyle.NON_SHRINKING_WIDTH) {
-				return Math.max(1.0, this.getPixelScale());
-			} else {
-				return 1.0;
-			}
+			super.getHitTestSize(result);
 		}
+		return result;
 	}
 
-	protected toHitThreshold(toThreshold: EShapeLineBasePointsHitTesterToThreshold | null): number {
-		const stroke = this.stroke;
-		const strokeWidth = stroke.enable ? stroke.width : 0;
-		const strokeScale = this.getStrokeWidthScale(stroke.style);
-		return toThreshold
-			? toThreshold(strokeWidth, strokeScale)
-			: strokeWidth * strokeScale * 0.5;
-	}
-
-	containsAbs(x: number, y: number, ax: number, ay: number): boolean {
+	containsAbs(x: number, y: number, ax: number, ay: number, sw: number, ss: number): boolean {
 		const points = this._points;
-		const threshold = this.toHitThreshold(null);
+		const threshold = toThresholdDefault(sw, ss, 0);
 		if (this.containsAbsBBox(x, y, ax + threshold, ay + threshold)) {
 			return points.calcHitPointAbs(
 				x,
@@ -84,14 +63,18 @@ export abstract class EShapeLineBase extends EShapePrimitive {
 		result: RESULT
 	): boolean {
 		const points = this._points;
-		const threshold = this.toHitThreshold(toThreshold);
-		const rect = this.toLocalRect(point, EShapeBase.WORK_RECT);
-		if (this.containsAbsBBox(rect.x, rect.y, rect.width + threshold, rect.height + threshold)) {
+		const data = this.toHitTestData(point);
+		const threshold = (toThreshold || toThresholdDefault)(
+			data.strokeWidth,
+			data.strokeScale,
+			0
+		);
+		if (this.containsAbsBBox(data.x, data.y, data.width + threshold, data.height + threshold)) {
 			return points.calcHitPointAbs(
-				rect.x,
-				rect.y,
-				rect.width,
-				rect.height,
+				data.x,
+				data.y,
+				data.width,
+				data.height,
 				threshold,
 				toRange,
 				tester,

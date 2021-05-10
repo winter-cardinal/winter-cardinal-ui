@@ -26,6 +26,7 @@ export interface EThemeShape {
 	getSizeX(): number;
 	getSizeY(): number;
 	getHighlightColor(): number;
+	getCurveSegmentCount(): number;
 }
 
 export class EShapeDefaults {
@@ -111,5 +112,9 @@ export class EShapeDefaults {
 
 	static get HIGHLIGHT_COLOR(): number {
 		return this.THEME.getHighlightColor();
+	}
+
+	static get CURVE_SEGMENT_COUNT(): number {
+		return this.THEME.getCurveSegmentCount();
 	}
 }

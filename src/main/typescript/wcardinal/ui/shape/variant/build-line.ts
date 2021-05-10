@@ -1,5 +1,4 @@
 import { Matrix, Point, TextureUvs } from "pixi.js";
-import { toIndexOf } from "../../util/to-index-of";
 import { EShapePoints } from "../e-shape-points";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { toDash } from "./to-dash";
@@ -16,67 +15,63 @@ export const toPointsCount = (points?: EShapePoints): number => {
 	return 0;
 };
 
-export const toLineVertexCount = (pointCount: number): number => {
-	return Math.ceil(pointCount / 12) * 12 * 4 + 2;
+export const toLinePointCount = (points?: EShapePoints): number => {
+	return Math.ceil(toPointsCount(points) / 12) * 12;
+};
+
+export const toLineVertexCount = (pointCount: number, isClosed: boolean): number => {
+	if (isClosed) {
+		return pointCount * 4 + 2;
+	} else {
+		return pointCount * 4;
+	}
+};
+
+export const toLineIndexCount = (pointCount: number, isClosed: boolean): number => {
+	return toLineVertexCount(pointCount, isClosed) - 2;
 };
 
 export const buildLineClipping = (
 	clippings: Float32Array,
 	voffset: number,
 	vcount: number,
-	pointCount: number,
-	pointsClosed: boolean
+	pointCount: number
 ): void => {
-	let ic = voffset * 3;
-	if (2 <= pointCount) {
-		// First
-		if (!pointsClosed) {
-			clippings[ic + 0] = 1;
-			clippings[ic + 1] = 0;
-			clippings[ic + 2] = 3;
+	let ic = voffset * 3 - 1;
+	const icmax = (voffset + vcount) * 3 - 1;
+	for (let i = 0; i < pointCount; ++i) {
+		clippings[++ic] = 1;
+		clippings[++ic] = 0;
+		clippings[++ic] = 3;
 
-			clippings[ic + 3] = 0;
-			clippings[ic + 4] = 1;
-			clippings[ic + 5] = 5;
-			ic += 6;
-		}
+		clippings[++ic] = 0;
+		clippings[++ic] = 1;
+		clippings[++ic] = 5;
 
-		// Middle
-		for (let i = pointsClosed ? 0 : 1, imax = pointCount - i; i < imax; ++i) {
-			clippings[ic + 0] = 1;
-			clippings[ic + 1] = 0;
-			clippings[ic + 2] = 3;
+		clippings[++ic] = 1;
+		clippings[++ic] = 0;
+		clippings[++ic] = 4;
 
-			clippings[ic + 3] = 0;
-			clippings[ic + 4] = 1;
-			clippings[ic + 5] = 5;
-
-			clippings[ic + 6] = 1;
-			clippings[ic + 7] = 0;
-			clippings[ic + 8] = 4;
-
-			clippings[ic + 9] = 0;
-			clippings[ic + 10] = 1;
-			clippings[ic + 11] = 6;
-			ic += 12;
-		}
-
-		// Last
-		clippings[ic + 0] = 1;
-		clippings[ic + 1] = 0;
-		clippings[ic + 2] = 3;
-
-		clippings[ic + 3] = 0;
-		clippings[ic + 4] = 1;
-		clippings[ic + 5] = 5;
-		ic += 6;
+		clippings[++ic] = 0;
+		clippings[++ic] = 1;
+		clippings[++ic] = 6;
 	}
+	for (; ic < icmax; ) {
+		clippings[++ic] = 1;
+		clippings[++ic] = 0;
+		clippings[++ic] = 3;
 
-	// Fill the rest
-	for (const icmax = (voffset + vcount) * 3; ic < icmax; ic += 3) {
-		clippings[ic + 0] = 0;
-		clippings[ic + 1] = 0;
-		clippings[ic + 2] = 0;
+		clippings[++ic] = 0;
+		clippings[++ic] = 1;
+		clippings[++ic] = 5;
+
+		clippings[++ic] = 1;
+		clippings[++ic] = 0;
+		clippings[++ic] = 3;
+
+		clippings[++ic] = 0;
+		clippings[++ic] = 1;
+		clippings[++ic] = 5;
 	}
 };
 
@@ -86,17 +81,18 @@ export const buildLineIndex = (
 	ioffset: number,
 	icount: number
 ): void => {
-	for (
-		let ii = ioffset * 3, iimax = (ioffset + icount) * 3, io = voffset;
-		ii < iimax;
-		ii += 6, io += 2
-	) {
-		indices[ii + 0] = io + 0;
-		indices[ii + 1] = io + 2;
-		indices[ii + 2] = io + 1;
-		indices[ii + 3] = io + 1;
-		indices[ii + 4] = io + 2;
-		indices[ii + 5] = io + 3;
+	let ii = ioffset * 3 - 1;
+	const iimax = (ioffset + icount) * 3 - 1;
+	let io = voffset;
+	for (; ii < iimax; ) {
+		indices[++ii] = io + 0;
+		indices[++ii] = io + 2;
+		indices[++ii] = io + 1;
+
+		indices[++ii] = io + 1;
+		indices[++ii] = io + 2;
+		indices[++ii] = io + 3;
+		io += 2;
 	}
 };
 
@@ -105,77 +101,46 @@ export const buildLineUv = (
 	colorFills: Float32Array,
 	voffset: number,
 	vcount: number,
-	pointCount: number,
-	pointsClosed: boolean,
 	textureUvs: TextureUvs,
 	length: number
 ): void => {
-	let iuv = voffset << 1;
-	if (2 <= pointCount) {
-		const x0 = textureUvs.x0;
-		const x1 = textureUvs.x1;
-		const x2 = textureUvs.x2;
-		const x3 = textureUvs.x3;
-		const y0 = textureUvs.y0;
-		const y1 = textureUvs.y1;
-		const y2 = textureUvs.y2;
-		const y3 = textureUvs.y3;
+	const lengthInverse = 1 / Math.max(LINE_FMIN, length);
 
-		const dx01 = x1 - x0;
-		const dy01 = y1 - y0;
-		const dx32 = x2 - x3;
-		const dy32 = y2 - y3;
+	const x0 = textureUvs.x0;
+	const x1 = textureUvs.x1;
+	const x2 = textureUvs.x2;
+	const x3 = textureUvs.x3;
+	const y0 = textureUvs.y0;
+	const y1 = textureUvs.y1;
+	const y2 = textureUvs.y2;
+	const y3 = textureUvs.y3;
 
-		// Uvs
-		let icf = voffset << 2;
-		const lengthInverse = 1 / Math.max(LINE_FMIN, length);
-		let r = 0;
+	const dx01 = x1 - x0;
+	const dy01 = y1 - y0;
+	const dx32 = x2 - x3;
+	const dy32 = y2 - y3;
 
-		// UV: First
-		if (!pointsClosed) {
-			r = colorFills[icf] * lengthInverse;
-			uvs[iuv + 0] = x0 + r * dx01;
-			uvs[iuv + 1] = y0 + r * dy01;
-			uvs[iuv + 2] = x3 + r * dx32;
-			uvs[iuv + 3] = y3 + r * dy32;
-			iuv += 4;
-			icf += 8;
-		}
+	let iuv = (voffset << 1) - 1;
+	const iuvmax = ((voffset + vcount) << 1) - 1;
+	let icf = voffset << 2;
+	for (; iuv < iuvmax; ) {
+		const r0 = colorFills[icf] * lengthInverse;
+		uvs[++iuv] = x0 + r0 * dx01;
+		uvs[++iuv] = y0 + r0 * dy01;
+		uvs[++iuv] = x3 + r0 * dx32;
+		uvs[++iuv] = y3 + r0 * dy32;
+		icf += 8;
 
-		// UV: Middle
-		for (let i = pointsClosed ? 0 : 1, imax = pointCount - i; i < imax; ++i) {
-			r = colorFills[icf] * lengthInverse;
-			uvs[iuv + 0] = x0 + r * dx01;
-			uvs[iuv + 1] = y0 + r * dy01;
-			uvs[iuv + 2] = x3 + r * dx32;
-			uvs[iuv + 3] = y3 + r * dy32;
-			iuv += 4;
-			icf += 8;
-
-			r = colorFills[icf] * lengthInverse;
-			uvs[iuv + 0] = x0 + r * dx01;
-			uvs[iuv + 1] = y0 + r * dy01;
-			uvs[iuv + 2] = x3 + r * dx32;
-			uvs[iuv + 3] = y3 + r * dy32;
-			iuv += 4;
-			icf += 8;
-		}
-
-		// UV: Last
-		r = colorFills[icf] * lengthInverse;
-		uvs[iuv + 0] = x0 + r * dx01;
-		uvs[iuv + 1] = y0 + r * dy01;
-		uvs[iuv + 2] = x3 + r * dx32;
-		uvs[iuv + 3] = y3 + r * dy32;
-		iuv += 4;
-	}
-
-	// Fill the rest
-	for (const iuvmax = (voffset + vcount) << 1; iuv < iuvmax; iuv += 2) {
-		uvs[iuv + 0] = 0;
-		uvs[iuv + 1] = 0;
+		const r1 = colorFills[icf] * lengthInverse;
+		uvs[++iuv] = x0 + r1 * dx01;
+		uvs[++iuv] = y0 + r1 * dy01;
+		uvs[++iuv] = x3 + r1 * dx32;
+		uvs[++iuv] = y3 + r1 * dy32;
+		icf += 8;
 	}
 };
+
+let TRANSFORMED_POINT_VALUES: number[] | undefined;
 
 export const buildLineVertexStepAndColorFill = (
 	vertices: Float32Array,
@@ -191,327 +156,683 @@ export const buildLineVertexStepAndColorFill = (
 	strokeStyle: EShapeStrokeStyle,
 	internalTransform: Matrix
 ): number => {
-	let iv = voffset << 1;
-	let is = voffset * 6;
-	let icf = voffset << 2;
-	let lmax = 0;
-	let px = 0;
-	let py = 0;
-	if (2 <= pointCount) {
-		const scaleInvariant = toScaleInvariant(strokeStyle);
+	let transformedPointValues = TRANSFORMED_POINT_VALUES;
+	if (transformedPointValues == null) {
+		transformedPointValues = [];
+		TRANSFORMED_POINT_VALUES = transformedPointValues;
+	}
+	const a = internalTransform.a;
+	const b = internalTransform.b;
+	const c = internalTransform.c;
+	const d = internalTransform.d;
+	const tx = internalTransform.tx;
+	const ty = internalTransform.ty;
+	for (let i = 0; i < pointCount; ++i) {
+		const iv = i << 1;
+		const x = pointValues[iv];
+		const y = pointValues[iv + 1];
+		transformedPointValues[iv] = a * x + c * y + tx;
+		transformedPointValues[iv + 1] = b * x + d * y + ty;
+	}
+	return buildTransformedLineVertexStepAndColorFill(
+		vertices,
+		steps,
+		colorFills,
+		voffset,
+		vcount,
+		pointCount,
+		pointsClosed,
+		transformedPointValues,
+		pointSegments,
+		strokeWidth,
+		strokeStyle
+	);
+};
 
-		//
-		let l = 0;
-		let lprev = 0;
-		let lnext = 0;
-		let llop = 0;
-		let llo = 0;
-		let pprevx = 0;
-		let pprevy = 0;
-		let pnextx = 0;
-		let pnexty = 0;
-		let pseg = false;
-		let psegnext = false;
-		let icfprev = icf;
-		let loffset = 0;
-		const ipvoffset = 0 < pointSegments.length ? pointSegments[0] : 0;
+const fillTransformedLineVertexStepAndColorFill = (
+	iv: number,
+	vertices: Float32Array,
+	is: number,
+	steps: Float32Array,
+	icf: number,
+	colorFills: Float32Array,
+	px: number,
+	py: number,
+	strokeWidth: number,
+	scaleInvariant: number,
+	pprevx: number,
+	pprevy: number,
+	pnextx: number,
+	pnexty: number,
+	llo: number
+): void => {
+	vertices[++iv] = px;
+	vertices[++iv] = py;
+	steps[++is] = strokeWidth;
+	steps[++is] = scaleInvariant;
+	steps[++is] = pprevx;
+	steps[++is] = pprevy;
+	steps[++is] = pnextx;
+	steps[++is] = pnexty;
+	colorFills[(icf += 1)] = llo;
 
-		//
-		const a = internalTransform.a;
-		const b = internalTransform.b;
-		const c = internalTransform.c;
-		const d = internalTransform.d;
-		const tx = internalTransform.tx;
-		const ty = internalTransform.ty;
+	vertices[++iv] = px;
+	vertices[++iv] = py;
+	steps[++is] = strokeWidth;
+	steps[++is] = scaleInvariant;
+	steps[++is] = pprevx;
+	steps[++is] = pprevy;
+	steps[++is] = pnextx;
+	steps[++is] = pnexty;
+	colorFills[(icf += 4)] = llo;
+};
 
-		// First point
-		let ipv = ipvoffset % pointCount;
-		let ipvs = ipv << 1;
-		const pv0 = pointValues[ipvs];
-		const pv1 = pointValues[ipvs + 1];
-		const pfirstx = a * pv0 + c * pv1 + tx;
-		const pfirsty = b * pv0 + d * pv1 + ty;
-		const psegfirst = 0 <= toIndexOf(pointSegments, ipv);
+const buildTransformedLineVertexStepAndColorFill = (
+	vertices: Float32Array,
+	steps: Float32Array,
+	colorFills: Float32Array,
+	voffset: number,
+	vcount: number,
+	lineVertexCount: number,
+	lineIsClosed: boolean,
+	lineVertices: number[],
+	lineSegments: number[],
+	strokeWidth: number,
+	strokeStyle: EShapeStrokeStyle
+): number => {
+	const lineSegmentsLength = lineSegments.length;
+	if (0 < lineSegmentsLength) {
+		if (lineIsClosed) {
+			let lmax = 0;
+			let lprev = 0;
+			let ivoffset = voffset;
 
-		// Last point
-		ipv = (ipvoffset + pointCount - 1) % pointCount;
-		ipvs = ipv << 1;
-		const pvl0 = pointValues[ipvs];
-		const pvl1 = pointValues[ipvs + 1];
-		const plastx = a * pvl0 + c * pvl1 + tx;
-		const plasty = b * pvl0 + d * pvl1 + ty;
-		const pseglast = 0 <= toIndexOf(pointSegments, ipv);
+			let iseg = 0;
+			let iprevseg = lineSegments[0];
+			for (let i = 1; i < lineSegmentsLength; ++i) {
+				const iseg = lineSegments[i];
+				if (2 <= iseg - iprevseg) {
+					lprev = buildTransformedLineOpenSegmentVertexStepAndColorFill(
+						vertices,
+						steps,
+						colorFills,
+						ivoffset,
+						-1,
+						lineVertices,
+						iprevseg,
+						iseg,
+						lineVertexCount,
+						strokeWidth,
+						strokeStyle,
+						lprev
+					);
+					lmax = Math.max(lmax, lprev);
+					ivoffset += toLineVertexCount(iseg - iprevseg, false);
+				}
+				iprevseg = iseg;
+			}
 
-		// Second point
-		let psecondx = plastx;
-		let psecondy = plasty;
-		let psegsecond = pseglast;
-		if (2 < pointCount) {
-			ipv = (ipvoffset + 1) % pointCount;
-			ipvs = ipv << 1;
-			const pv2 = pointValues[ipvs];
-			const pv3 = pointValues[ipvs + 1];
-			psecondx = a * pv2 + c * pv3 + tx;
-			psecondy = b * pv2 + d * pv3 + ty;
-			psegsecond = 0 <= toIndexOf(pointSegments, ipv);
-		}
+			// Last
+			iseg = lineSegments[0] + lineVertexCount;
+			if (2 <= iseg - iprevseg) {
+				lprev = buildTransformedLineOpenSegmentVertexStepAndColorFill(
+					vertices,
+					steps,
+					colorFills,
+					ivoffset,
+					voffset + vcount - ivoffset,
+					lineVertices,
+					iprevseg,
+					iseg,
+					lineVertexCount,
+					strokeWidth,
+					strokeStyle,
+					lprev
+				);
+				lmax = Math.max(lmax, lprev);
+				ivoffset += toLineVertexCount(iseg - iprevseg, false);
+			} else {
+				buildTransformedLineEmptyVertexStepAndColorFill(
+					vertices,
+					steps,
+					colorFills,
+					ivoffset,
+					voffset + vcount - ivoffset,
+					lineVertices,
+					iprevseg,
+					iseg,
+					lineVertexCount,
+					strokeWidth,
+					strokeStyle,
+					lprev
+				);
+			}
 
-		// First segment
-		if (pointsClosed) {
-			px = plastx;
-			py = plasty;
-			pnextx = pfirstx;
-			pnexty = pfirsty;
-			pseg = pseglast;
-			psegnext = psegfirst;
+			return lmax;
 		} else {
-			pprevx = pfirstx - (psecondx - pfirstx);
-			pprevy = pfirsty - (psecondy - pfirsty);
-			px = pfirstx;
-			py = pfirsty;
-			pnextx = psecondx;
-			pnexty = psecondy;
-			pseg = psegfirst;
-			psegnext = psegsecond;
-			lnext += toLength(px, py, pnextx, pnexty);
+			let lmax = 0;
+			let lprev = 0;
+			let ivoffset = voffset;
 
-			//
-			vertices[iv + 0] = px;
-			vertices[iv + 1] = py;
-			vertices[iv + 2] = px;
-			vertices[iv + 3] = py;
-			steps[is + 0] = strokeWidth;
-			steps[is + 1] = scaleInvariant;
-			steps[is + 2] = pprevx;
-			steps[is + 3] = pprevy;
-			steps[is + 4] = pnextx;
-			steps[is + 5] = pnexty;
-			steps[is + 6] = strokeWidth;
-			steps[is + 7] = scaleInvariant;
-			steps[is + 8] = pprevx;
-			steps[is + 9] = pprevy;
-			steps[is + 10] = pnextx;
-			steps[is + 11] = pnexty;
-			colorFills[icf + 0] = llo;
-			colorFills[icf + 4] = llo;
-			iv += 4;
-			is += 12;
-			icf += 8;
-		}
+			// First
+			let iseg = lineSegments[0];
+			if (2 <= iseg) {
+				lprev = buildTransformedLineOpenSegmentVertexStepAndColorFill(
+					vertices,
+					steps,
+					colorFills,
+					ivoffset,
+					-1,
+					lineVertices,
+					0,
+					iseg,
+					lineVertexCount,
+					strokeWidth,
+					strokeStyle,
+					lprev
+				);
+				lmax = Math.max(lmax, lprev);
+				ivoffset += toLineVertexCount(iseg, false);
+			}
 
-		// Middle segments
-		for (let i = pointsClosed ? 0 : 1, imax = pointCount - i; i < imax; ++i) {
-			pprevx = px;
-			pprevy = py;
-			px = pnextx;
-			py = pnexty;
-			pseg = psegnext;
-			if (i === pointCount - 2) {
-				pnextx = plastx;
-				pnexty = plasty;
-				psegnext = pseglast;
-			} else if (i === 0) {
-				pnextx = psecondx;
-				pnexty = psecondy;
-				psegnext = psegsecond;
-			} else if (i < pointCount - 1) {
-				ipv = (ipvoffset + i + 1) % pointCount;
-				ipvs = ipv << 1;
-				const pvn0 = pointValues[ipvs];
-				const pvn1 = pointValues[ipvs + 1];
-				pnextx = a * pvn0 + c * pvn1 + tx;
-				pnexty = b * pvn0 + d * pvn1 + ty;
-				psegnext = 0 <= toIndexOf(pointSegments, ipv);
+			// Middle
+			let iprevseg = iseg;
+			for (let i = 1; i < lineSegmentsLength; ++i) {
+				iseg = lineSegments[i];
+				if (2 <= iseg - iprevseg) {
+					lprev = buildTransformedLineOpenSegmentVertexStepAndColorFill(
+						vertices,
+						steps,
+						colorFills,
+						ivoffset,
+						-1,
+						lineVertices,
+						iprevseg,
+						iseg,
+						lineVertexCount,
+						strokeWidth,
+						strokeStyle,
+						lprev
+					);
+					lmax = Math.max(lmax, lprev);
+					ivoffset += toLineVertexCount(iseg - iprevseg, false);
+				}
+				iprevseg = iseg;
+			}
+
+			// Last
+			iseg = lineVertexCount;
+			if (2 <= iseg - iprevseg) {
+				lprev = buildTransformedLineOpenSegmentVertexStepAndColorFill(
+					vertices,
+					steps,
+					colorFills,
+					ivoffset,
+					voffset + vcount - ivoffset,
+					lineVertices,
+					iprevseg,
+					iseg,
+					lineVertexCount,
+					strokeWidth,
+					strokeStyle,
+					lprev
+				);
+				lmax = Math.max(lmax, lprev);
+				ivoffset += toLineVertexCount(iseg - iprevseg, false);
 			} else {
-				pnextx = pfirstx;
-				pnexty = pfirsty;
-				psegnext = psegfirst;
+				buildTransformedLineEmptyVertexStepAndColorFill(
+					vertices,
+					steps,
+					colorFills,
+					ivoffset,
+					voffset + vcount - ivoffset,
+					lineVertices,
+					iprevseg,
+					iseg,
+					lineVertexCount,
+					strokeWidth,
+					strokeStyle,
+					lprev
+				);
 			}
-			lprev = l;
-			l = lnext;
-			lnext += toLength(px, py, pnextx, pnexty);
-
-			let pnextxn = pnextx;
-			let pnextyn = pnexty;
-			let loffsetprev = loffset;
-			if (pseg) {
-				pprevx = px - (pnextx - px);
-				pprevy = py - (pnexty - py);
-
-				lmax = Math.max(lmax, llo);
-
-				llop = lprev - loffset;
-				const dash = toDash(llop, strokeWidth, strokeStyle, LINE_WORK_POINT);
-				const dash0 = dash.x;
-				const dash1 = dash.y;
-				for (let j = icfprev; j < icf + 8; j += 4) {
-					colorFills[j + 1] = dash0;
-					colorFills[j + 2] = dash1;
-					colorFills[j + 3] = llop;
-				}
-				icfprev = icf + 8;
-				loffsetprev = loffset;
-				loffset = l;
-			} else if (psegnext) {
-				pnextxn = px + (px - pprevx);
-				pnextyn = py + (py - pprevy);
-			}
-
-			// Vertices
-			vertices[iv + 0] = px;
-			vertices[iv + 1] = py;
-			vertices[iv + 2] = px;
-			vertices[iv + 3] = py;
-			steps[is + 0] = strokeWidth;
-			steps[is + 1] = scaleInvariant;
-			steps[is + 2] = pprevx;
-			steps[is + 3] = pprevy;
-			steps[is + 4] = pnextxn;
-			steps[is + 5] = pnextyn;
-			steps[is + 6] = strokeWidth;
-			steps[is + 7] = scaleInvariant;
-			steps[is + 8] = pprevx;
-			steps[is + 9] = pprevy;
-			steps[is + 10] = pnextxn;
-			steps[is + 11] = pnextyn;
-			llop = l - loffsetprev;
-			colorFills[icf + 0] = llop;
-			colorFills[icf + 4] = llop;
-			iv += 4;
-			is += 12;
-			icf += 8;
-
-			vertices[iv + 0] = px;
-			vertices[iv + 1] = py;
-			vertices[iv + 2] = px;
-			vertices[iv + 3] = py;
-			steps[is + 0] = strokeWidth;
-			steps[is + 1] = scaleInvariant;
-			steps[is + 2] = pprevx;
-			steps[is + 3] = pprevy;
-			steps[is + 4] = pnextxn;
-			steps[is + 5] = pnextyn;
-			steps[is + 6] = strokeWidth;
-			steps[is + 7] = scaleInvariant;
-			steps[is + 8] = pprevx;
-			steps[is + 9] = pprevy;
-			steps[is + 10] = pnextxn;
-			steps[is + 11] = pnextyn;
-			llo = l - loffset;
-			colorFills[icf + 0] = llo;
-			colorFills[icf + 4] = llo;
-			iv += 4;
-			is += 12;
-			icf += 8;
+			return lmax;
 		}
-
-		// Last segment
-		{
-			pprevx = px;
-			pprevy = py;
-			px = pnextx;
-			py = pnexty;
-			pseg = psegnext;
-			if (pointsClosed) {
-				pnextx = psecondx;
-				pnexty = psecondy;
-				psegnext = psegsecond;
-			} else {
-				pnextx = px + (px - pprevx);
-				pnexty = py + (py - pprevy);
-				psegnext = false;
-			}
-			lprev = l;
-			l = lnext;
-
-			let pnextxn = pnextx;
-			let pnextyn = pnexty;
-			let loffsetprev = loffset;
-			if (pseg) {
-				pprevx = px - (pnextx - px);
-				pprevy = py - (pnexty - py);
-
-				lmax = Math.max(lmax, llo);
-
-				llop = lprev - loffset;
-				const dash = toDash(llop, strokeWidth, strokeStyle, LINE_WORK_POINT);
-				const dash0 = dash.x;
-				const dash1 = dash.y;
-				for (let j = icfprev; j < icf + 8; j += 4) {
-					colorFills[j + 1] = dash0;
-					colorFills[j + 2] = dash1;
-					colorFills[j + 3] = llop;
-				}
-				icfprev = icf + 8;
-				loffsetprev = loffset;
-				loffset = l;
-			} else if (psegnext) {
-				pnextxn = px + (px - pprevx);
-				pnextyn = py + (py - pprevy);
-			}
-
-			// Vertices
-			vertices[iv + 0] = px;
-			vertices[iv + 1] = py;
-			vertices[iv + 2] = px;
-			vertices[iv + 3] = py;
-			steps[is + 0] = strokeWidth;
-			steps[is + 1] = scaleInvariant;
-			steps[is + 2] = pprevx;
-			steps[is + 3] = pprevy;
-			steps[is + 4] = pnextxn;
-			steps[is + 5] = pnextyn;
-			steps[is + 6] = strokeWidth;
-			steps[is + 7] = scaleInvariant;
-			steps[is + 8] = pprevx;
-			steps[is + 9] = pprevy;
-			steps[is + 10] = pnextxn;
-			steps[is + 11] = pnextyn;
-			llop = l - loffsetprev;
-			lmax = Math.max(lmax, llop);
-			colorFills[icf + 0] = llop;
-			colorFills[icf + 4] = llop;
-			iv += 4;
-			is += 12;
-			icf += 8;
-
-			// Total length
-			if (icfprev < icf) {
-				const dash = toDash(llop, strokeWidth, strokeStyle, LINE_WORK_POINT);
-				const dash0 = dash.x;
-				const dash1 = dash.y;
-				if (pointsClosed) {
-					for (let i = icfprev; i < icf; i += 4) {
-						colorFills[i + 1] = dash0;
-						colorFills[i + 2] = dash1;
-						colorFills[i + 3] = -1;
-					}
-				} else {
-					for (let i = icfprev; i < icf; i += 4) {
-						colorFills[i + 1] = dash0;
-						colorFills[i + 2] = dash1;
-						colorFills[i + 3] = llop;
-					}
-				}
-			}
+	} else {
+		if (lineIsClosed) {
+			return buildTransformedLineClosedSegmentVertexStepAndColorFill(
+				vertices,
+				steps,
+				colorFills,
+				voffset,
+				vcount,
+				lineVertices,
+				0,
+				lineVertexCount,
+				lineVertexCount,
+				strokeWidth,
+				strokeStyle
+			);
+		} else {
+			return buildTransformedLineOpenSegmentVertexStepAndColorFill(
+				vertices,
+				steps,
+				colorFills,
+				voffset,
+				vcount,
+				lineVertices,
+				0,
+				lineVertexCount,
+				lineVertexCount,
+				strokeWidth,
+				strokeStyle,
+				0
+			);
 		}
+	}
+};
+
+const buildTransformedLineEmptyVertexStepAndColorFill = (
+	vertices: Float32Array,
+	steps: Float32Array,
+	colorFills: Float32Array,
+	voffset: number,
+	vcount: number,
+	lineVertices: number[],
+	lineVertexFrom: number,
+	lineVertexTo: number,
+	lineVertexCount: number,
+	strokeWidth: number,
+	strokeStyle: EShapeStrokeStyle,
+	length: number
+): number => {
+	if (0 <= vcount) {
+		const scaleInvariant = toScaleInvariant(strokeStyle);
+		let iv = (voffset << 1) - 1;
+		let is = voffset * 6 - 1;
+		let icf = (voffset << 2) - 1;
+		const ivmax = ((voffset + vcount) << 1) - 1;
+		const ifirst = lineVertexFrom % lineVertexCount << 1;
+		const px = lineVertices[ifirst];
+		const py = lineVertices[ifirst + 1];
+		for (; iv < ivmax; ) {
+			vertices[++iv] = px;
+			vertices[++iv] = py;
+			steps[++is] = 0;
+			steps[++is] = scaleInvariant;
+			steps[++is] = -1;
+			steps[++is] = 0;
+			steps[++is] = +1;
+			steps[++is] = 0;
+			colorFills[++icf] = length;
+			colorFills[++icf] = 0;
+			colorFills[++icf] = 0;
+			colorFills[++icf] = length;
+		}
+	}
+
+	return 0;
+};
+
+const buildTransformedLineOpenSegmentVertexStepAndColorFill = (
+	vertices: Float32Array,
+	steps: Float32Array,
+	colorFills: Float32Array,
+	voffset: number,
+	vcount: number,
+	lineVertices: number[],
+	lineVertexFrom: number,
+	lineVertexTo: number,
+	lineVertexCount: number,
+	strokeWidth: number,
+	strokeStyle: EShapeStrokeStyle,
+	length: number
+): number => {
+	const scaleInvariant = toScaleInvariant(strokeStyle);
+
+	// First segment
+	const ifirst = lineVertexFrom % lineVertexCount << 1;
+	let px = lineVertices[ifirst];
+	let py = lineVertices[ifirst + 1];
+	const isecond = (lineVertexFrom + 1) % lineVertexCount << 1;
+	let pnextx = lineVertices[isecond];
+	let pnexty = lineVertices[isecond + 1];
+	let pprevx = px - (pnextx - px);
+	let pprevy = py - (pnexty - py);
+	let iv = (voffset << 1) - 1;
+	let is = voffset * 6 - 1;
+	let icf = (voffset << 2) - 1;
+	let l = 0;
+	fillTransformedLineVertexStepAndColorFill(
+		iv,
+		vertices,
+		is,
+		steps,
+		icf,
+		colorFills,
+		px,
+		py,
+		strokeWidth,
+		scaleInvariant,
+		pprevx,
+		pprevy,
+		pnextx,
+		pnexty,
+		length
+	);
+	iv += 4;
+	is += 12;
+	icf += 8;
+
+	fillTransformedLineVertexStepAndColorFill(
+		iv,
+		vertices,
+		is,
+		steps,
+		icf,
+		colorFills,
+		px,
+		py,
+		strokeWidth,
+		scaleInvariant,
+		pprevx,
+		pprevy,
+		pnextx,
+		pnexty,
+		l
+	);
+	iv += 4;
+	is += 12;
+	icf += 8;
+
+	// Middle segments
+	for (let i = lineVertexFrom + 1, imax = lineVertexTo - 1; i < imax; ++i) {
+		pprevx = px;
+		pprevy = py;
+		px = pnextx;
+		py = pnexty;
+
+		const imiddle = (i + 1) % lineVertexCount << 1;
+		pnextx = lineVertices[imiddle];
+		pnexty = lineVertices[imiddle + 1];
+
+		l += toLength(pprevx, pprevy, px, py);
+
+		fillTransformedLineVertexStepAndColorFill(
+			iv,
+			vertices,
+			is,
+			steps,
+			icf,
+			colorFills,
+			px,
+			py,
+			strokeWidth,
+			scaleInvariant,
+			pprevx,
+			pprevy,
+			pnextx,
+			pnexty,
+			l
+		);
+		iv += 4;
+		is += 12;
+		icf += 8;
+
+		fillTransformedLineVertexStepAndColorFill(
+			iv,
+			vertices,
+			is,
+			steps,
+			icf,
+			colorFills,
+			px,
+			py,
+			strokeWidth,
+			scaleInvariant,
+			pprevx,
+			pprevy,
+			pnextx,
+			pnexty,
+			l
+		);
+		iv += 4;
+		is += 12;
+		icf += 8;
+	}
+
+	// Last segment
+	pprevx = px;
+	pprevy = py;
+	px = pnextx;
+	py = pnexty;
+
+	pnextx = px + (px - pprevx);
+	pnexty = py + (py - pprevy);
+
+	l += toLength(pprevx, pprevy, px, py);
+
+	fillTransformedLineVertexStepAndColorFill(
+		iv,
+		vertices,
+		is,
+		steps,
+		icf,
+		colorFills,
+		px,
+		py,
+		strokeWidth,
+		scaleInvariant,
+		pprevx,
+		pprevy,
+		pnextx,
+		pnexty,
+		l
+	);
+	iv += 4;
+	is += 12;
+	icf += 8;
+
+	fillTransformedLineVertexStepAndColorFill(
+		iv,
+		vertices,
+		is,
+		steps,
+		icf,
+		colorFills,
+		px,
+		py,
+		strokeWidth,
+		scaleInvariant,
+		pprevx,
+		pprevy,
+		pnextx,
+		pnexty,
+		l
+	);
+	iv += 4;
+	is += 12;
+	icf += 8;
+
+	// Total length
+	const dash = toDash(l, strokeWidth, strokeStyle, LINE_WORK_POINT);
+	const dash0 = dash.x;
+	const dash1 = dash.y;
+	const icf0 = (voffset << 2) - 1;
+	for (let i = icf0, imax = icf0 + 8; i < imax; i += 4) {
+		colorFills[i + 2] = dash0;
+		colorFills[i + 3] = dash1;
+		colorFills[i + 4] = length;
+	}
+	for (let i = icf0 + 8; i < icf; i += 4) {
+		colorFills[i + 2] = dash0;
+		colorFills[i + 3] = dash1;
+		colorFills[i + 4] = l;
 	}
 
 	// Fill the rest
-	for (const ivmax = (voffset + vcount) << 1; iv < ivmax; iv += 2, is += 6, icf += 4) {
-		vertices[iv + 0] = px;
-		vertices[iv + 1] = py;
-		steps[is + 0] = 0;
-		steps[is + 1] = 0;
-		steps[is + 2] = 0;
-		steps[is + 3] = 0;
-		steps[is + 4] = 0;
-		steps[is + 5] = 0;
-		colorFills[icf + 0] = 0;
-		colorFills[icf + 1] = 0;
-		colorFills[icf + 2] = 0;
-		colorFills[icf + 4] = 0;
+	if (0 <= vcount) {
+		const ivmax = ((voffset + vcount) << 1) - 1;
+		for (; iv < ivmax; ) {
+			vertices[++iv] = px;
+			vertices[++iv] = py;
+			steps[++is] = 0;
+			steps[++is] = scaleInvariant;
+			steps[++is] = pprevx;
+			steps[++is] = pprevy;
+			steps[++is] = pnextx;
+			steps[++is] = pnexty;
+			colorFills[++icf] = l;
+			colorFills[++icf] = dash0;
+			colorFills[++icf] = dash1;
+			colorFills[++icf] = l;
+		}
 	}
 
-	return lmax;
+	return l;
+};
+
+const buildTransformedLineClosedSegmentVertexStepAndColorFill = (
+	vertices: Float32Array,
+	steps: Float32Array,
+	colorFills: Float32Array,
+	voffset: number,
+	vcount: number,
+	lineVertices: number[],
+	lineVertexFrom: number,
+	lineVertexTo: number,
+	lineVertexCount: number,
+	strokeWidth: number,
+	strokeStyle: EShapeStrokeStyle
+): number => {
+	const scaleInvariant = toScaleInvariant(strokeStyle);
+
+	const ilast = (lineVertexTo - 1) % lineVertexCount << 1;
+	let pprevx = 0;
+	let pprevy = 0;
+	let px = lineVertices[ilast];
+	let py = lineVertices[ilast + 1];
+	const ifirst = lineVertexFrom % lineVertexCount << 1;
+	let pnextx = lineVertices[ifirst];
+	let pnexty = lineVertices[ifirst + 1];
+	let l = 0;
+	let iv = (voffset << 1) - 1;
+	let is = voffset * 6 - 1;
+	let icf = (voffset << 2) - 1;
+	for (let i = lineVertexFrom; i < lineVertexTo; ++i) {
+		pprevx = px;
+		pprevy = py;
+		px = pnextx;
+		py = pnexty;
+
+		const imiddle = (i + 1) % lineVertexCount << 1;
+		pnextx = lineVertices[imiddle];
+		pnexty = lineVertices[imiddle + 1];
+
+		l += toLength(pprevx, pprevy, px, py);
+
+		fillTransformedLineVertexStepAndColorFill(
+			iv,
+			vertices,
+			is,
+			steps,
+			icf,
+			colorFills,
+			px,
+			py,
+			strokeWidth,
+			scaleInvariant,
+			pprevx,
+			pprevy,
+			pnextx,
+			pnexty,
+			l
+		);
+		iv += 4;
+		is += 12;
+		icf += 8;
+
+		fillTransformedLineVertexStepAndColorFill(
+			iv,
+			vertices,
+			is,
+			steps,
+			icf,
+			colorFills,
+			px,
+			py,
+			strokeWidth,
+			scaleInvariant,
+			pprevx,
+			pprevy,
+			pnextx,
+			pnexty,
+			l
+		);
+		iv += 4;
+		is += 12;
+		icf += 8;
+	}
+
+	// Last segment
+	pprevx = px;
+	pprevy = py;
+	px = pnextx;
+	py = pnexty;
+
+	const isecond = (lineVertexFrom + 1) % lineVertexCount << 1;
+	pnextx = lineVertices[isecond];
+	pnexty = lineVertices[isecond + 1];
+
+	l += toLength(pprevx, pprevy, px, py);
+
+	fillTransformedLineVertexStepAndColorFill(
+		iv,
+		vertices,
+		is,
+		steps,
+		icf,
+		colorFills,
+		px,
+		py,
+		strokeWidth,
+		scaleInvariant,
+		pprevx,
+		pprevy,
+		pnextx,
+		pnexty,
+		l
+	);
+	iv += 4;
+	is += 12;
+	icf += 8;
+
+	// Total length
+	const dash = toDash(l, strokeWidth, strokeStyle, LINE_WORK_POINT);
+	const dash0 = dash.x;
+	const dash1 = dash.y;
+	for (let i = (voffset << 2) - 1; i < icf; i += 4) {
+		colorFills[i + 2] = dash0;
+		colorFills[i + 3] = dash1;
+		colorFills[i + 4] = -1;
+	}
+
+	// Fill the rest
+	if (0 <= vcount) {
+		const ivmax = ((voffset + vcount) << 1) - 1;
+		for (; iv < ivmax; ) {
+			vertices[++iv] = px;
+			vertices[++iv] = py;
+			steps[++is] = 0;
+			steps[++is] = scaleInvariant;
+			steps[++is] = pprevx;
+			steps[++is] = pprevy;
+			steps[++is] = pnextx;
+			steps[++is] = pnexty;
+			colorFills[++icf] = l;
+			colorFills[++icf] = dash0;
+			colorFills[++icf] = dash1;
+			colorFills[++icf] = -1;
+		}
+	}
+	return l;
 };

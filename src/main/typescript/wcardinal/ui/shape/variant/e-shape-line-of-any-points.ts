@@ -18,6 +18,8 @@ export interface EShapeLineOfAnyPoints extends EShapePoints {
 	calcHitPointAbs<RESULT>(
 		x: number,
 		y: number,
+		sw: number,
+		ss: number,
 		threshold: number,
 		toRange: EShapeLineOfAnyPointsHitTesterToRange | null,
 		tester: EShapeLineOfAnyPointsHitTester<RESULT>,

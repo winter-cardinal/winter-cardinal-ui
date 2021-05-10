@@ -11,8 +11,8 @@ import {
 	buildLineIndex,
 	buildLineUv,
 	buildLineVertexStepAndColorFill,
-	toLineVertexCount,
-	toPointsCount
+	toLinePointCount,
+	toLineVertexCount
 } from "./build-line";
 import { EShapeTextUploaded } from "./e-shape-text-uploaded";
 
@@ -63,7 +63,7 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 
 	isCompatible(shape: EShape): boolean {
 		if (super.isCompatible(shape)) {
-			const vcount = toLineVertexCount(toPointsCount(shape.points));
+			const vcount = toLineVertexCount(toLinePointCount(shape.points), true);
 			return vcount === this.vertexCount - this.textVertexCount;
 		}
 		return false;
@@ -83,10 +83,8 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 		if (points) {
 			const formatted = points.formatted;
 			const pointCount = formatted.length;
-			const pointsClosed = !!(formatted.style & EShapePointsStyle.CLOSED);
-			if (this.pointCount !== pointCount || this.pointsClosed !== pointsClosed) {
+			if (this.pointCount !== pointCount) {
 				this.pointCount = pointCount;
-				this.pointsClosed = pointsClosed;
 
 				// Invalidate the pointId to update the vertices
 				this.pointId = -1;
@@ -96,8 +94,7 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 					buffer.clippings,
 					this.vertexOffset,
 					this.vertexCount - this.textVertexCount,
-					pointCount,
-					pointsClosed
+					pointCount
 				);
 			}
 		}
@@ -107,7 +104,9 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 		const points = shape.points;
 		if (points) {
 			const pointId = points.id;
-			const isPointChanged = pointId !== this.pointId;
+			const formatted = points.formatted;
+			const pointsClosed = !!(formatted.style & EShapePointsStyle.CLOSED);
+			const isPointChanged = pointId !== this.pointId || pointsClosed !== this.pointsClosed;
 
 			const stroke = shape.stroke;
 			const strokeWidth = stroke.enable ? stroke.width : 0;
@@ -120,6 +119,7 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 
 			if (isPointChanged || isTransformChanged || isStrokeWidthChanged) {
 				this.pointId = pointId;
+				this.pointsClosed = pointsClosed;
 				this.strokeWidth = strokeWidth;
 				this.strokeStyle = strokeStyle;
 				this.transformLocalId = transformLocalId;
@@ -136,7 +136,6 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 				buffer.updateVertices();
 				buffer.updateSteps();
 				buffer.updateColorFills();
-				const formatted = points.formatted;
 				this.length = buildLineVertexStepAndColorFill(
 					buffer.vertices,
 					buffer.steps,
@@ -170,15 +169,12 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
 
-			const pointCount = this.pointCount;
 			buffer.updateUvs();
 			buildLineUv(
 				buffer.uvs,
 				buffer.colorFills,
 				this.vertexOffset,
 				this.vertexCount - this.textVertexCount,
-				pointCount,
-				this.pointsClosed,
 				this.toTextureUvs(texture),
 				this.length
 			);
