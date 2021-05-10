@@ -4,6 +4,7 @@
  */
 
 import { UtilCurve } from "../util/util-curve";
+import { EShapeDefaults } from "./e-shape-defaults";
 import { EShapePointsFormatterResult } from "./e-shape-points-formatter-result";
 import { EShapePointsFormatterSource } from "./e-shape-points-formatter-source";
 import { EShapePointsStyle } from "./e-shape-points-style";
@@ -19,7 +20,7 @@ export const eShapePointsFormatterCurve = (
 		source.segments,
 		UtilCurve.toHybrid,
 		!!(style & EShapePointsStyle.CLOSED),
-		12,
+		EShapeDefaults.CURVE_SEGMENT_COUNT,
 		true,
 		result
 	);

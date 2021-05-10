@@ -32,15 +32,17 @@ import { EShapeRuntime } from "../e-shape-runtime";
 import { EShapeStateSet } from "../e-shape-state-set";
 import { EShapeStateSetImplObservable } from "../e-shape-state-set-impl-observable";
 import { EShapeStroke } from "../e-shape-stroke";
+import { EShapeStrokeStyle } from "../e-shape-stroke-style";
 import { EShapeTag } from "../e-shape-tag";
 import { EShapeText } from "../e-shape-text";
 import { EShapeTransform, EShapeTransformImpl } from "../e-shape-transform";
 import { EShapeType } from "../e-shape-type";
 import { EShapeUploaded } from "../e-shape-uploaded";
+import { EShapeBaseHitTestData } from "./e-shape-base-hit-test-data";
 import { EShapeGradients } from "./e-shape-gradients";
 
 export abstract class EShapeBase extends utils.EventEmitter implements EShape {
-	protected static WORK_RECT = new Rectangle();
+	protected static WORK_LOCAL_RECT = new EShapeBaseHitTestData();
 	id: string;
 	uuid: number;
 	readonly type: EShapeType;
@@ -405,48 +407,72 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	}
 
 	// Hit test
-	toLocalRect(point: IPoint, result: Rectangle): Rectangle {
+	protected getPixelScale(): number {
+		const container = this.root.parent as any;
+		if (container != null && container.getPixelScale != null) {
+			return container.getPixelScale();
+		}
+		return 1.0;
+	}
+
+	protected getStrokeWidthScale(style: EShapeStrokeStyle): number {
+		if (style & EShapeStrokeStyle.NON_EXPANDING_WIDTH) {
+			if (style & EShapeStrokeStyle.NON_SHRINKING_WIDTH) {
+				return this.getPixelScale();
+			} else {
+				return Math.min(1.0, this.getPixelScale());
+			}
+		} else {
+			if (style & EShapeStrokeStyle.NON_SHRINKING_WIDTH) {
+				return Math.max(1.0, this.getPixelScale());
+			} else {
+				return 1.0;
+			}
+		}
+	}
+
+	protected getHitTestSize(result: EShapeBaseHitTestData): EShapeBaseHitTestData {
+		const size = this.size;
+		result.width = 0.5 * size.x;
+		result.height = 0.5 * size.y;
+		return result;
+	}
+
+	toHitTestData(point: IPoint): EShapeBaseHitTestData {
 		const x = point.x;
 		const y = point.y;
-		const size = this.size;
-		const sx = 0.5 * size.x;
-		const sy = 0.5 * size.y;
+		const result = this.getHitTestSize(EShapeBase.WORK_LOCAL_RECT);
+		const sx = result.width;
+		const sy = result.height;
 		const pivot = this.transform.pivot;
 		const dx = x - pivot.x;
 		const dy = y - pivot.y;
 		const stroke = this.stroke;
-		const s = stroke.width * stroke.align;
-		if (0 <= sx) {
-			if (0 <= sy) {
-				result.x = +dx;
-				result.y = +dy;
-				result.width = +sx + s;
-				result.height = +sy + s;
-			} else {
-				result.x = +dx;
-				result.y = -dy;
-				result.width = +sx + s;
-				result.height = -sy + s;
-			}
-		} else {
-			if (0 <= sy) {
-				result.x = -dx;
-				result.y = +dy;
-				result.width = -sx + s;
-				result.height = +sy + s;
-			} else {
-				result.x = -dx;
-				result.y = -dy;
-				result.width = -sx + s;
-				result.height = -sy + s;
-			}
-		}
-		return result;
+		const strokeWidth = stroke.enable ? stroke.width : 0;
+		const strokeScale = this.getStrokeWidthScale(stroke.style);
+		const s = strokeWidth * strokeScale * stroke.align;
+		return result.set(
+			0 <= sx ? +dx : -dx,
+			0 <= sy ? +dy : -dy,
+			Math.abs(sx) + s,
+			Math.abs(sy) + s,
+			strokeWidth,
+			strokeScale
+		);
 	}
 
 	contains(point: Point): EShape | null {
-		const rect = this.toLocalRect(point, EShapeBase.WORK_RECT);
-		if (this.containsAbs(rect.x, rect.y, rect.width, rect.height)) {
+		const data = this.toHitTestData(point);
+		if (
+			this.containsAbs(
+				data.x,
+				data.y,
+				data.width,
+				data.height,
+				data.strokeWidth,
+				data.strokeScale
+			)
+		) {
 			return this;
 		}
 		const x = point.x;
@@ -490,11 +516,11 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	}
 
 	containsBBox(point: IPoint): boolean {
-		const rect = this.toLocalRect(point, EShapeBase.WORK_RECT);
-		return this.containsAbsBBox(rect.x, rect.y, rect.width, rect.height);
+		const data = this.toHitTestData(point);
+		return this.containsAbsBBox(data.x, data.y, data.width, data.height);
 	}
 
-	containsAbs(x: number, y: number, ax: number, ay: number): boolean {
+	containsAbs(x: number, y: number, ax: number, ay: number, sw: number, ss: number): boolean {
 		return this.containsAbsBBox(x, y, ax, ay);
 	}
 

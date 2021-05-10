@@ -113,7 +113,7 @@ export interface EShape extends utils.EventEmitter {
 	// Hit test
 	contains(point: Point): EShape | null;
 	containsBBox(point: Point): boolean;
-	containsAbs(x: number, y: number, ax: number, ay: number): boolean;
+	containsAbs(x: number, y: number, ax: number, ay: number, sw: number, ss: number): boolean;
 	containsAbsBBox(x: number, y: number, ax: number, ay: number): boolean;
 
 	// Coordinate

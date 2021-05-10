@@ -4,6 +4,7 @@
  */
 
 export type EShapeLineBasePointsHitTesterToThreshold = (
-	strokeWidth: number,
-	strokeScale: number
+	size: number,
+	scale: number,
+	offset: number
 ) => number;

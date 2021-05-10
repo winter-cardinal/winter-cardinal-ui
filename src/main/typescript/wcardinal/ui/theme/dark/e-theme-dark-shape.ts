@@ -79,4 +79,8 @@ export class EThemeDarkShape implements EThemeShape {
 	getHighlightColor(): number {
 		return 0x1e87f0;
 	}
+
+	getCurveSegmentCount(): number {
+		return 24;
+	}
 }

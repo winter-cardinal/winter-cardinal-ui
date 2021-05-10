@@ -84,7 +84,7 @@ const pcopy = (source: UtilCurveParameter, result: UtilCurveParameter): UtilCurv
 	return pset(c[0], c[1], a1[0], a1[1], a2[0], a2[1], a[0], a[1], a[2], result);
 };
 
-const acopy = (source: number[], result: number[]): number[] => {
+const acopy = <T extends Array<number>>(source: T, result: T): T => {
 	const sourceLength = source.length;
 	for (let i = 0; i < sourceLength; ++i) {
 		result[i] = source[i];
@@ -393,10 +393,9 @@ export class UtilCurve {
 		const rsegments: number[] = result.segments;
 
 		if (length <= 2) {
-			return {
-				values: acopy(values, rvalues),
-				segments: acopy(segments, rsegments)
-			};
+			acopy(values, rvalues);
+			acopy(segments, rsegments);
+			return result;
 		}
 
 		const c0 = this.WORK_P0 || pnew();

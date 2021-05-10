@@ -20,7 +20,9 @@ export interface EShapeLineOfAny extends EShape {
 		ox: number,
 		oy: number,
 		px: number,
-		py: number
+		py: number,
+		sw: number,
+		ss: number
 	): boolean;
 	containsPointAbsBBox(
 		x: number,

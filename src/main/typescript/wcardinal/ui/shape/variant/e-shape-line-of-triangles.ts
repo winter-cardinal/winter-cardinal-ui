@@ -5,7 +5,6 @@
 
 import { IPoint } from "pixi.js";
 import { EShapeType } from "../e-shape-type";
-import { EShapeBase } from "./e-shape-base";
 import { EShapeLineOfAny } from "./e-shape-line-of-any";
 import { EShapeLineOfAnyPoints } from "./e-shape-line-of-any-points";
 import { EShapeLineOfAnyPointsHitTester } from "./e-shape-line-of-any-points-hit-tester";
@@ -13,7 +12,7 @@ import { EShapeLineOfAnyPointsHitTesterToRange } from "./e-shape-line-of-any-poi
 import { EShapeLineOfAnyPointsHitTesterToThreshold } from "./e-shape-line-of-any-points-hit-tester-to-threshold";
 import { EShapeLineOfAnyPointsImpl } from "./e-shape-line-of-any-points-impl";
 import { EShapeTriangle } from "./e-shape-triangle";
-import { toHitThreshold } from "./to-hit-threshold";
+import { toThresholdDefault } from "./to-threshold-default";
 
 export class EShapeLineOfTriangles extends EShapeTriangle implements EShapeLineOfAny {
 	protected declare _points: EShapeLineOfAnyPoints;
@@ -24,8 +23,8 @@ export class EShapeLineOfTriangles extends EShapeTriangle implements EShapeLineO
 		super(EShapeType.LINE_OF_TRIANGLES);
 		this._points = new EShapeLineOfAnyPointsImpl(this);
 
-		this._tester = (x, y, ax, ay, ox, oy, px, py): boolean => {
-			return this.containsPointAbs(x, y, ax, ay, ox, oy, px, py);
+		this._tester = (x, y, ax, ay, ox, oy, px, py, sw, ss): boolean => {
+			return this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss);
 		};
 
 		this._testerBBox = (x, y, ax, ay, ox, oy, px, py): boolean => {
@@ -41,10 +40,10 @@ export class EShapeLineOfTriangles extends EShapeTriangle implements EShapeLineO
 		return new EShapeLineOfTriangles().copy(this);
 	}
 
-	containsAbs(x: number, y: number, ax: number, ay: number): boolean {
-		const threshold = toHitThreshold(this, null);
+	containsAbs(x: number, y: number, ax: number, ay: number, sw: number, ss: number): boolean {
+		const threshold = toThresholdDefault(sw, ss, this._points.size.getLimit());
 		if (this.containsAbsBBox(x, y, ax + threshold, ay + threshold)) {
-			return this._points.calcHitPointAbs(x, y, threshold, null, this._tester, null);
+			return this._points.calcHitPointAbs(x, y, sw, ss, threshold, null, this._tester, null);
 		}
 		return false;
 	}
@@ -57,9 +56,11 @@ export class EShapeLineOfTriangles extends EShapeTriangle implements EShapeLineO
 		ox: number,
 		oy: number,
 		px: number,
-		py: number
+		py: number,
+		sw: number,
+		ss: number
 	): boolean {
-		return super.containsAbs(x - px - ox, y - py - oy, ax, ay);
+		return super.containsAbs(x - px - ox, y - py - oy, ax, ay, sw, ss);
 	}
 
 	containsPointAbsBBox(
@@ -82,12 +83,18 @@ export class EShapeLineOfTriangles extends EShapeTriangle implements EShapeLineO
 		tester: EShapeLineOfAnyPointsHitTester<RESULT> | null,
 		result: RESULT
 	): boolean {
-		const rect = this.toLocalRect(point, EShapeBase.WORK_RECT);
-		const threshold = toHitThreshold(this, toThreshold);
-		if (this.containsAbsBBox(rect.x, rect.y, rect.width + threshold, rect.height + threshold)) {
+		const data = this.toHitTestData(point);
+		const threshold = (toThreshold || toThresholdDefault)(
+			data.strokeWidth,
+			data.strokeScale,
+			this._points.size.getLimit()
+		);
+		if (this.containsAbsBBox(data.x, data.y, data.width + threshold, data.height + threshold)) {
 			return this._points.calcHitPointAbs(
-				rect.x,
-				rect.y,
+				data.x,
+				data.y,
+				data.strokeWidth,
+				data.strokeScale,
 				threshold,
 				toRange,
 				tester || this._tester,

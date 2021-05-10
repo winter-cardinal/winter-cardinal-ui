@@ -16,18 +16,17 @@ export class EShapeRectangle extends EShapePrimitive {
 		return new EShapeRectangle().copy(this);
 	}
 
-	containsAbs(x: number, y: number, ax: number, ay: number): boolean {
+	containsAbs(x: number, y: number, ax: number, ay: number, sw: number, ss: number): boolean {
 		if (super.containsAbsBBox(x, y, ax, ay)) {
 			const fill = this.fill;
-			const stroke = this.stroke;
 			if (fill.enable) {
 				return true;
 			} else {
-				const strokeWidth = stroke.width;
-				const strokeSide = stroke.side;
-				if (stroke.enable && 0 < strokeWidth && strokeSide !== EShapeStrokeSide.NONE) {
-					const wx = Math.max(0.0, ax - strokeWidth);
-					const wy = Math.max(0.0, ay - strokeWidth);
+				const strokeSide = this.stroke.side;
+				if (0 < sw && strokeSide !== EShapeStrokeSide.NONE) {
+					const s = sw * ss;
+					const wx = Math.max(0.0, ax - s);
+					const wy = Math.max(0.0, ay - s);
 					if (!this.containsAbsBBox(x, y, wx, wy)) {
 						if (strokeSide === EShapeStrokeSide.ALL) {
 							return true;

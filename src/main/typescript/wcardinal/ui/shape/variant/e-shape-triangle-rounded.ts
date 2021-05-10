@@ -18,19 +18,24 @@ export class EShapeTriangleRounded extends EShapeTriangle {
 		return new EShapeTriangleRounded().copy(this);
 	}
 
-	protected containsCorner_(x: number, y: number, r: number, aw: number): boolean {
+	protected containsCorner_(
+		x: number,
+		y: number,
+		r: number,
+		aw: number,
+		sw: number,
+		ss: number
+	): boolean {
 		const fill = this.fill;
 		if (fill.enable) {
 			if (x * x + y * y <= r * r) {
 				return true;
 			}
 		} else {
-			const stroke = this.stroke;
-			const strokeWidth = stroke.width;
-			if (stroke.enable && 0 < strokeWidth) {
+			if (0 < sw) {
 				const d = x * x + y * y;
 				if (d <= r * r) {
-					const w = Math.max(0.0, r * (1 - strokeWidth / aw));
+					const w = Math.max(0.0, r * (1 - (sw * ss) / aw));
 					if (w * w <= d) {
 						return true;
 					}
@@ -54,7 +59,9 @@ export class EShapeTriangleRounded extends EShapeTriangle {
 		r12: number,
 		r13: number,
 		aw: number,
-		radius: number
+		radius: number,
+		sw: number,
+		ss: number
 	): boolean {
 		const xl = x1 + r12 * (x2 - x1) - x0;
 		const yl = y1 + r12 * (y2 - y1) - y0;
@@ -76,7 +83,7 @@ export class EShapeTriangleRounded extends EShapeTriangle {
 				const yc = y - y0;
 				const dx = (+nry * xc - nrx * yc) * deti;
 				const dy = (-nly * xc + nlx * yc) * deti;
-				if (this.containsCorner_(dx, dy, n, aw * radius)) {
+				if (this.containsCorner_(dx, dy, n, aw * radius, sw, ss)) {
 					return true;
 				}
 			}
@@ -84,7 +91,7 @@ export class EShapeTriangleRounded extends EShapeTriangle {
 		return false;
 	}
 
-	containsAbs(x: number, y: number, ax: number, ay: number): boolean {
+	containsAbs(x: number, y: number, ax: number, ay: number, sw: number, ss: number): boolean {
 		if (super.containsAbsBBox(x, y, ax, ay)) {
 			const a = (2 * ay) / ax;
 			if (this.containsAbs_(x, y, a, -ay, +ay)) {
@@ -129,7 +136,9 @@ export class EShapeTriangleRounded extends EShapeTriangle {
 							rz,
 							rz,
 							aw,
-							radius
+							radius,
+							sw,
+							ss
 						)
 					) {
 						return true;
@@ -153,7 +162,9 @@ export class EShapeTriangleRounded extends EShapeTriangle {
 							rx,
 							ry,
 							aw,
-							radius
+							radius,
+							sw,
+							ss
 						)
 					) {
 						return true;
@@ -177,7 +188,9 @@ export class EShapeTriangleRounded extends EShapeTriangle {
 							ry,
 							rx,
 							aw,
-							radius
+							radius,
+							sw,
+							ss
 						)
 					) {
 						return true;
@@ -188,12 +201,11 @@ export class EShapeTriangleRounded extends EShapeTriangle {
 					if (fill.enable) {
 						return true;
 					} else {
-						const stroke = this.stroke;
-						const strokeWidth = stroke.width;
-						if (stroke.enable && 0 < strokeWidth) {
+						if (0 < sw) {
+							const s = sw * ss;
 							const cy = ay - aw;
-							const ay1 = cy + ((-ay - cy) * Math.max(0.0, aw - strokeWidth)) / aw;
-							const ay2 = ay - strokeWidth;
+							const ay1 = cy + ((-ay - cy) * Math.max(0.0, aw - s)) / aw;
+							const ay2 = ay - s;
 							if (!this.containsAbs_(x, y, a, ay1, ay2)) {
 								return true;
 							}

@@ -198,6 +198,8 @@ export class EShapeLineOfAnyPointsImpl implements EShapeLineOfAnyPoints {
 	calcHitPointAbs<RESULT>(
 		x: number,
 		y: number,
+		sw: number,
+		ss: number,
 		threshold: number,
 		toRange: EShapeLineOfAnyPointsHitTesterToRange | null,
 		tester: EShapeLineOfAnyPointsHitTester<RESULT>,
@@ -226,7 +228,7 @@ export class EShapeLineOfAnyPointsImpl implements EShapeLineOfAnyPoints {
 			const sy = size.getY(i) * 0.5;
 			const ox = offset.getX(i);
 			const oy = offset.getY(i);
-			if (tester(x, y, sx, sy, ox, oy, px, py, i, threshold, result)) {
+			if (tester(x, y, sx, sy, ox, oy, px, py, sw, ss, i, threshold, result)) {
 				return true;
 			}
 		}
