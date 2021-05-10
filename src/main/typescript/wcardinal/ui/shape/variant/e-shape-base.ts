@@ -42,7 +42,7 @@ import { EShapeBaseHitTestData } from "./e-shape-base-hit-test-data";
 import { EShapeGradients } from "./e-shape-gradients";
 
 export abstract class EShapeBase extends utils.EventEmitter implements EShape {
-	protected static WORK_LOCAL_RECT = new EShapeBaseHitTestData();
+	protected static WORK_HIT_TEST_DATA?: EShapeBaseHitTestData;
 	id: string;
 	uuid: number;
 	readonly type: EShapeType;
@@ -441,7 +441,9 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	toHitTestData(point: IPoint): EShapeBaseHitTestData {
 		const x = point.x;
 		const y = point.y;
-		const result = this.getHitTestSize(EShapeBase.WORK_LOCAL_RECT);
+		const result = this.getHitTestSize(
+			(EShapeBase.WORK_HIT_TEST_DATA ??= new EShapeBaseHitTestData())
+		);
 		const sx = result.width;
 		const sy = result.height;
 		const pivot = this.transform.pivot;

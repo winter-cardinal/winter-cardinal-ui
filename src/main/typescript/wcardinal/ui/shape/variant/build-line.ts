@@ -233,24 +233,24 @@ const buildTransformedLineVertexStepAndColorFill = (
 	colorFills: Float32Array,
 	voffset: number,
 	vcount: number,
-	polylineVertexCount: number,
-	polylineIsClosed: boolean,
-	polylineVertices: number[],
-	polylineSegments: number[],
+	lineVertexCount: number,
+	lineIsClosed: boolean,
+	lineVertices: number[],
+	lineSegments: number[],
 	strokeWidth: number,
 	strokeStyle: EShapeStrokeStyle
 ): number => {
-	const polylineSegmentsLength = polylineSegments.length;
-	if (0 < polylineSegmentsLength) {
-		if (polylineIsClosed) {
+	const lineSegmentsLength = lineSegments.length;
+	if (0 < lineSegmentsLength) {
+		if (lineIsClosed) {
 			let lmax = 0;
 			let lprev = 0;
 			let ivoffset = voffset;
 
 			let iseg = 0;
-			let iprevseg = polylineSegments[0];
-			for (let i = 1; i < polylineSegmentsLength; ++i) {
-				const iseg = polylineSegments[i];
+			let iprevseg = lineSegments[0];
+			for (let i = 1; i < lineSegmentsLength; ++i) {
+				const iseg = lineSegments[i];
 				if (2 <= iseg - iprevseg) {
 					lprev = buildTransformedLineOpenSegmentVertexStepAndColorFill(
 						vertices,
@@ -258,10 +258,10 @@ const buildTransformedLineVertexStepAndColorFill = (
 						colorFills,
 						ivoffset,
 						-1,
-						polylineVertices,
+						lineVertices,
 						iprevseg,
 						iseg,
-						polylineVertexCount,
+						lineVertexCount,
 						strokeWidth,
 						strokeStyle,
 						lprev
@@ -273,7 +273,7 @@ const buildTransformedLineVertexStepAndColorFill = (
 			}
 
 			// Last
-			iseg = polylineSegments[0] + polylineVertexCount;
+			iseg = lineSegments[0] + lineVertexCount;
 			if (2 <= iseg - iprevseg) {
 				lprev = buildTransformedLineOpenSegmentVertexStepAndColorFill(
 					vertices,
@@ -281,10 +281,10 @@ const buildTransformedLineVertexStepAndColorFill = (
 					colorFills,
 					ivoffset,
 					voffset + vcount - ivoffset,
-					polylineVertices,
+					lineVertices,
 					iprevseg,
 					iseg,
-					polylineVertexCount,
+					lineVertexCount,
 					strokeWidth,
 					strokeStyle,
 					lprev
@@ -298,10 +298,10 @@ const buildTransformedLineVertexStepAndColorFill = (
 					colorFills,
 					ivoffset,
 					voffset + vcount - ivoffset,
-					polylineVertices,
+					lineVertices,
 					iprevseg,
 					iseg,
-					polylineVertexCount,
+					lineVertexCount,
 					strokeWidth,
 					strokeStyle,
 					lprev
@@ -315,7 +315,7 @@ const buildTransformedLineVertexStepAndColorFill = (
 			let ivoffset = voffset;
 
 			// First
-			let iseg = polylineSegments[0];
+			let iseg = lineSegments[0];
 			if (2 <= iseg) {
 				lprev = buildTransformedLineOpenSegmentVertexStepAndColorFill(
 					vertices,
@@ -323,10 +323,10 @@ const buildTransformedLineVertexStepAndColorFill = (
 					colorFills,
 					ivoffset,
 					-1,
-					polylineVertices,
+					lineVertices,
 					0,
 					iseg,
-					polylineVertexCount,
+					lineVertexCount,
 					strokeWidth,
 					strokeStyle,
 					lprev
@@ -337,8 +337,8 @@ const buildTransformedLineVertexStepAndColorFill = (
 
 			// Middle
 			let iprevseg = iseg;
-			for (let i = 1; i < polylineSegmentsLength; ++i) {
-				iseg = polylineSegments[i];
+			for (let i = 1; i < lineSegmentsLength; ++i) {
+				iseg = lineSegments[i];
 				if (2 <= iseg - iprevseg) {
 					lprev = buildTransformedLineOpenSegmentVertexStepAndColorFill(
 						vertices,
@@ -346,10 +346,10 @@ const buildTransformedLineVertexStepAndColorFill = (
 						colorFills,
 						ivoffset,
 						-1,
-						polylineVertices,
+						lineVertices,
 						iprevseg,
 						iseg,
-						polylineVertexCount,
+						lineVertexCount,
 						strokeWidth,
 						strokeStyle,
 						lprev
@@ -361,7 +361,7 @@ const buildTransformedLineVertexStepAndColorFill = (
 			}
 
 			// Last
-			iseg = polylineVertexCount;
+			iseg = lineVertexCount;
 			if (2 <= iseg - iprevseg) {
 				lprev = buildTransformedLineOpenSegmentVertexStepAndColorFill(
 					vertices,
@@ -369,10 +369,10 @@ const buildTransformedLineVertexStepAndColorFill = (
 					colorFills,
 					ivoffset,
 					voffset + vcount - ivoffset,
-					polylineVertices,
+					lineVertices,
 					iprevseg,
 					iseg,
-					polylineVertexCount,
+					lineVertexCount,
 					strokeWidth,
 					strokeStyle,
 					lprev
@@ -386,10 +386,10 @@ const buildTransformedLineVertexStepAndColorFill = (
 					colorFills,
 					ivoffset,
 					voffset + vcount - ivoffset,
-					polylineVertices,
+					lineVertices,
 					iprevseg,
 					iseg,
-					polylineVertexCount,
+					lineVertexCount,
 					strokeWidth,
 					strokeStyle,
 					lprev
@@ -398,17 +398,17 @@ const buildTransformedLineVertexStepAndColorFill = (
 			return lmax;
 		}
 	} else {
-		if (polylineIsClosed) {
+		if (lineIsClosed) {
 			return buildTransformedLineClosedSegmentVertexStepAndColorFill(
 				vertices,
 				steps,
 				colorFills,
 				voffset,
 				vcount,
-				polylineVertices,
+				lineVertices,
 				0,
-				polylineVertexCount,
-				polylineVertexCount,
+				lineVertexCount,
+				lineVertexCount,
 				strokeWidth,
 				strokeStyle
 			);
@@ -419,10 +419,10 @@ const buildTransformedLineVertexStepAndColorFill = (
 				colorFills,
 				voffset,
 				vcount,
-				polylineVertices,
+				lineVertices,
 				0,
-				polylineVertexCount,
-				polylineVertexCount,
+				lineVertexCount,
+				lineVertexCount,
 				strokeWidth,
 				strokeStyle,
 				0
@@ -432,15 +432,15 @@ const buildTransformedLineVertexStepAndColorFill = (
 };
 
 const buildTransformedLineEmptyVertexStepAndColorFill = (
-	vertices: Float32Array | number[],
-	steps: Float32Array | number[],
-	colorFills: Float32Array | number[],
+	vertices: Float32Array,
+	steps: Float32Array,
+	colorFills: Float32Array,
 	voffset: number,
 	vcount: number,
-	polylineVertices: number[],
-	polylineVertexFrom: number,
-	polylineVertexTo: number,
-	polylineVertexCount: number,
+	lineVertices: number[],
+	lineVertexFrom: number,
+	lineVertexTo: number,
+	lineVertexCount: number,
 	strokeWidth: number,
 	strokeStyle: EShapeStrokeStyle,
 	length: number
@@ -451,9 +451,9 @@ const buildTransformedLineEmptyVertexStepAndColorFill = (
 		let is = voffset * 6 - 1;
 		let icf = (voffset << 2) - 1;
 		const ivmax = ((voffset + vcount) << 1) - 1;
-		const ifirst = polylineVertexFrom % polylineVertexCount << 1;
-		const px = polylineVertices[ifirst];
-		const py = polylineVertices[ifirst + 1];
+		const ifirst = lineVertexFrom % lineVertexCount << 1;
+		const px = lineVertices[ifirst];
+		const py = lineVertices[ifirst + 1];
 		for (; iv < ivmax; ) {
 			vertices[++iv] = px;
 			vertices[++iv] = py;
@@ -479,10 +479,10 @@ const buildTransformedLineOpenSegmentVertexStepAndColorFill = (
 	colorFills: Float32Array,
 	voffset: number,
 	vcount: number,
-	polylineVertices: number[],
-	polylineVertexFrom: number,
-	polylineVertexTo: number,
-	polylineVertexCount: number,
+	lineVertices: number[],
+	lineVertexFrom: number,
+	lineVertexTo: number,
+	lineVertexCount: number,
 	strokeWidth: number,
 	strokeStyle: EShapeStrokeStyle,
 	length: number
@@ -490,12 +490,12 @@ const buildTransformedLineOpenSegmentVertexStepAndColorFill = (
 	const scaleInvariant = toScaleInvariant(strokeStyle);
 
 	// First segment
-	const ifirst = polylineVertexFrom % polylineVertexCount << 1;
-	let px = polylineVertices[ifirst];
-	let py = polylineVertices[ifirst + 1];
-	const isecond = (polylineVertexFrom + 1) % polylineVertexCount << 1;
-	let pnextx = polylineVertices[isecond];
-	let pnexty = polylineVertices[isecond + 1];
+	const ifirst = lineVertexFrom % lineVertexCount << 1;
+	let px = lineVertices[ifirst];
+	let py = lineVertices[ifirst + 1];
+	const isecond = (lineVertexFrom + 1) % lineVertexCount << 1;
+	let pnextx = lineVertices[isecond];
+	let pnexty = lineVertices[isecond + 1];
 	let pprevx = px - (pnextx - px);
 	let pprevy = py - (pnexty - py);
 	let iv = (voffset << 1) - 1;
@@ -545,15 +545,15 @@ const buildTransformedLineOpenSegmentVertexStepAndColorFill = (
 	icf += 8;
 
 	// Middle segments
-	for (let i = polylineVertexFrom + 1, imax = polylineVertexTo - 1; i < imax; ++i) {
+	for (let i = lineVertexFrom + 1, imax = lineVertexTo - 1; i < imax; ++i) {
 		pprevx = px;
 		pprevy = py;
 		px = pnextx;
 		py = pnexty;
 
-		const imiddle = (i + 1) % polylineVertexCount << 1;
-		pnextx = polylineVertices[imiddle];
-		pnexty = polylineVertices[imiddle + 1];
+		const imiddle = (i + 1) % lineVertexCount << 1;
+		pnextx = lineVertices[imiddle];
+		pnexty = lineVertices[imiddle + 1];
 
 		l += toLength(pprevx, pprevy, px, py);
 
@@ -697,36 +697,36 @@ const buildTransformedLineClosedSegmentVertexStepAndColorFill = (
 	colorFills: Float32Array,
 	voffset: number,
 	vcount: number,
-	polylineVertices: number[],
-	polylineVertexFrom: number,
-	polylineVertexTo: number,
-	polylineVertexCount: number,
+	lineVertices: number[],
+	lineVertexFrom: number,
+	lineVertexTo: number,
+	lineVertexCount: number,
 	strokeWidth: number,
 	strokeStyle: EShapeStrokeStyle
 ): number => {
 	const scaleInvariant = toScaleInvariant(strokeStyle);
 
-	const ilast = (polylineVertexTo - 1) % polylineVertexCount << 1;
+	const ilast = (lineVertexTo - 1) % lineVertexCount << 1;
 	let pprevx = 0;
 	let pprevy = 0;
-	let px = polylineVertices[ilast];
-	let py = polylineVertices[ilast + 1];
-	const ifirst = polylineVertexFrom % polylineVertexCount << 1;
-	let pnextx = polylineVertices[ifirst];
-	let pnexty = polylineVertices[ifirst + 1];
+	let px = lineVertices[ilast];
+	let py = lineVertices[ilast + 1];
+	const ifirst = lineVertexFrom % lineVertexCount << 1;
+	let pnextx = lineVertices[ifirst];
+	let pnexty = lineVertices[ifirst + 1];
 	let l = 0;
 	let iv = (voffset << 1) - 1;
 	let is = voffset * 6 - 1;
 	let icf = (voffset << 2) - 1;
-	for (let i = polylineVertexFrom; i < polylineVertexTo; ++i) {
+	for (let i = lineVertexFrom; i < lineVertexTo; ++i) {
 		pprevx = px;
 		pprevy = py;
 		px = pnextx;
 		py = pnexty;
 
-		const imiddle = (i + 1) % polylineVertexCount << 1;
-		pnextx = polylineVertices[imiddle];
-		pnexty = polylineVertices[imiddle + 1];
+		const imiddle = (i + 1) % lineVertexCount << 1;
+		pnextx = lineVertices[imiddle];
+		pnexty = lineVertices[imiddle + 1];
 
 		l += toLength(pprevx, pprevy, px, py);
 
@@ -779,9 +779,9 @@ const buildTransformedLineClosedSegmentVertexStepAndColorFill = (
 	px = pnextx;
 	py = pnexty;
 
-	const isecond = (polylineVertexFrom + 1) % polylineVertexCount << 1;
-	pnextx = polylineVertices[isecond];
-	pnexty = polylineVertices[isecond + 1];
+	const isecond = (lineVertexFrom + 1) % lineVertexCount << 1;
+	pnextx = lineVertices[isecond];
+	pnexty = lineVertices[isecond + 1];
 
 	l += toLength(pprevx, pprevy, px, py);
 
