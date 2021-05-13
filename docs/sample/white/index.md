@@ -186,7 +186,12 @@
     * [New line](./text/new-line.html)
     * [Surrogate pair](./text/surrogate-pair.html)
 * Tree
+    * [Adding nodes programatically](./tree/add.html)
     * [Basics](./tree/basics.html)
+    * [Bulk node update](./tree/bulk-update.html)
+    * [Fully custom data](./tree/custom.html)
+    * [Image](./tree/image.html)
+    * [Title](./tree/title.html)
 * Utility
     * [Downloading a file](./utility/download.html)
     * [Scalar expression](./utility/scalar-expression.html)

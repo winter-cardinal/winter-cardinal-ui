@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.86.0
+ Winter Cardinal UI v0.88.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -1502,6 +1502,213 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var EShapeCorner;
+    (function (EShapeCorner) {
+        EShapeCorner[EShapeCorner["NONE"] = 0] = "NONE";
+        EShapeCorner[EShapeCorner["TOP_LEFT"] = 1] = "TOP_LEFT";
+        EShapeCorner[EShapeCorner["TOP_RIGHT"] = 2] = "TOP_RIGHT";
+        EShapeCorner[EShapeCorner["BOTTOM_LEFT"] = 4] = "BOTTOM_LEFT";
+        EShapeCorner[EShapeCorner["BOTTOM_RIGHT"] = 8] = "BOTTOM_RIGHT";
+        EShapeCorner[EShapeCorner["TOP"] = 3] = "TOP";
+        EShapeCorner[EShapeCorner["BOTTOM"] = 12] = "BOTTOM";
+        EShapeCorner[EShapeCorner["LEFT"] = 5] = "LEFT";
+        EShapeCorner[EShapeCorner["RIGHT"] = 10] = "RIGHT";
+        EShapeCorner[EShapeCorner["ALL"] = 15] = "ALL";
+    })(EShapeCorner || (EShapeCorner = {}));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DThemes = /** @class */ (function () {
+        function DThemes() {
+        }
+        DThemes.setDefaultThemeClass = function (theme) {
+            this.DEFAULT_THEME_CLASS = theme;
+        };
+        DThemes.getDefaultThemeClass = function () {
+            return this.DEFAULT_THEME_CLASS;
+        };
+        DThemes.getInstance = function () {
+            if (this.INSTANCE == null) {
+                var defaultThemeClass = this.getDefaultThemeClass();
+                if (defaultThemeClass == null) {
+                    throw new Error("No default theme class found");
+                }
+                this.INSTANCE = new defaultThemeClass();
+            }
+            return this.INSTANCE;
+        };
+        DThemes.setInstance = function (instance) {
+            var result = this.INSTANCE;
+            this.INSTANCE = instance;
+            return result;
+        };
+        DThemes.DEFAULT_THEME_CLASS = null;
+        DThemes.INSTANCE = null;
+        return DThemes;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeDefaults = /** @class */ (function () {
+        function EShapeDefaults() {
+        }
+        Object.defineProperty(EShapeDefaults, "THEME", {
+            get: function () {
+                var theme = this._THEME;
+                if (theme != null) {
+                    return theme;
+                }
+                var newTheme = DThemes.getInstance().get("EShape");
+                this._THEME = newTheme;
+                return newTheme;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "FILL_COLOR", {
+            get: function () {
+                return this.THEME.getFillColor();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "FILL_ALPHA", {
+            get: function () {
+                return this.THEME.getFillAlpha();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "STROKE_COLOR", {
+            get: function () {
+                return this.THEME.getStrokeColor();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "STROKE_ALPHA", {
+            get: function () {
+                return this.THEME.getStrokeAlpha();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "STROKE_WIDTH", {
+            get: function () {
+                return this.THEME.getStrokeWidth();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "STROKE_ALIGN", {
+            get: function () {
+                return this.THEME.getStrokeAlign();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "STROKE_SIDE", {
+            get: function () {
+                return this.THEME.getStrokeSide();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "STROKE_STYLE", {
+            get: function () {
+                return this.THEME.getStrokeStyle();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "TEXT_VALUE", {
+            get: function () {
+                return this.THEME.getTextValue();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "TEXT_COLOR", {
+            get: function () {
+                return this.THEME.getTextColor();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "TEXT_ALPHA", {
+            get: function () {
+                return this.THEME.getTextAlpha();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "TEXT_FAMILY", {
+            get: function () {
+                return this.THEME.getTextFamily();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "TEXT_SIZE", {
+            get: function () {
+                return this.THEME.getTextSize();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "CURSOR", {
+            get: function () {
+                return this.THEME.getCursor();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "RADIUS", {
+            get: function () {
+                return this.THEME.getRadius();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "SIZE_X", {
+            get: function () {
+                return this.THEME.getSizeX();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "SIZE_Y", {
+            get: function () {
+                return this.THEME.getSizeY();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "HIGHLIGHT_COLOR", {
+            get: function () {
+                return this.THEME.getHighlightColor();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "CURVE_SEGMENT_COUNT", {
+            get: function () {
+                return this.THEME.getCurveSegmentCount();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        return EShapeDefaults;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var DApplications = /** @class */ (function () {
         function DApplications() {
         }
@@ -2893,6 +3100,31 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var EShapeBaseHitTestData = /** @class */ (function () {
+        function EShapeBaseHitTestData() {
+            this.x = 0;
+            this.y = 0;
+            this.width = 0;
+            this.height = 0;
+            this.strokeWidth = 0;
+            this.strokeScale = 1;
+        }
+        EShapeBaseHitTestData.prototype.set = function (x, y, width, height, strokeWidth, strokeScale) {
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+            this.strokeWidth = strokeWidth;
+            this.strokeScale = strokeScale;
+            return this;
+        };
+        return EShapeBaseHitTestData;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var toSvgUrl = function (svg) {
         return "data:image/svg+xml;base64," + btoa(svg);
     };
@@ -3350,50 +3582,56 @@
             }
         };
         // Hit test
-        EShapeBase.prototype.toLocalRect = function (point, result) {
+        EShapeBase.prototype.getPixelScale = function () {
+            var container = this.root.parent;
+            if (container != null && container.getPixelScale != null) {
+                return container.getPixelScale();
+            }
+            return 1.0;
+        };
+        EShapeBase.prototype.getStrokeWidthScale = function (style) {
+            if (style & EShapeStrokeStyle.NON_EXPANDING_WIDTH) {
+                if (style & EShapeStrokeStyle.NON_SHRINKING_WIDTH) {
+                    return this.getPixelScale();
+                }
+                else {
+                    return Math.min(1.0, this.getPixelScale());
+                }
+            }
+            else {
+                if (style & EShapeStrokeStyle.NON_SHRINKING_WIDTH) {
+                    return Math.max(1.0, this.getPixelScale());
+                }
+                else {
+                    return 1.0;
+                }
+            }
+        };
+        EShapeBase.prototype.getHitTestSize = function (result) {
+            var size = this.size;
+            result.width = 0.5 * size.x;
+            result.height = 0.5 * size.y;
+            return result;
+        };
+        EShapeBase.prototype.toHitTestData = function (point) {
+            var _a;
             var x = point.x;
             var y = point.y;
-            var size = this.size;
-            var sx = 0.5 * size.x;
-            var sy = 0.5 * size.y;
+            var result = this.getHitTestSize(((_a = EShapeBase.WORK_HIT_TEST_DATA) !== null && _a !== void 0 ? _a : (EShapeBase.WORK_HIT_TEST_DATA = new EShapeBaseHitTestData())));
+            var sx = result.width;
+            var sy = result.height;
             var pivot = this.transform.pivot;
             var dx = x - pivot.x;
             var dy = y - pivot.y;
             var stroke = this.stroke;
-            var s = stroke.width * stroke.align;
-            if (0 <= sx) {
-                if (0 <= sy) {
-                    result.x = +dx;
-                    result.y = +dy;
-                    result.width = +sx + s;
-                    result.height = +sy + s;
-                }
-                else {
-                    result.x = +dx;
-                    result.y = -dy;
-                    result.width = +sx + s;
-                    result.height = -sy + s;
-                }
-            }
-            else {
-                if (0 <= sy) {
-                    result.x = -dx;
-                    result.y = +dy;
-                    result.width = -sx + s;
-                    result.height = +sy + s;
-                }
-                else {
-                    result.x = -dx;
-                    result.y = -dy;
-                    result.width = -sx + s;
-                    result.height = -sy + s;
-                }
-            }
-            return result;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var strokeScale = this.getStrokeWidthScale(stroke.style);
+            var s = strokeWidth * strokeScale * stroke.align;
+            return result.set(0 <= sx ? +dx : -dx, 0 <= sy ? +dy : -dy, Math.abs(sx) + s, Math.abs(sy) + s, strokeWidth, strokeScale);
         };
         EShapeBase.prototype.contains = function (point) {
-            var rect = this.toLocalRect(point, EShapeBase.WORK_RECT);
-            if (this.containsAbs(rect.x, rect.y, rect.width, rect.height)) {
+            var data = this.toHitTestData(point);
+            if (this.containsAbs(data.x, data.y, data.width, data.height, data.strokeWidth, data.strokeScale)) {
                 return this;
             }
             var x = point.x;
@@ -3434,10 +3672,10 @@
             return null;
         };
         EShapeBase.prototype.containsBBox = function (point) {
-            var rect = this.toLocalRect(point, EShapeBase.WORK_RECT);
-            return this.containsAbsBBox(rect.x, rect.y, rect.width, rect.height);
+            var data = this.toHitTestData(point);
+            return this.containsAbsBBox(data.x, data.y, data.width, data.height);
         };
-        EShapeBase.prototype.containsAbs = function (x, y, ax, ay) {
+        EShapeBase.prototype.containsAbs = function (x, y, ax, ay, sw, ss) {
             return this.containsAbsBBox(x, y, ax, ay);
         };
         EShapeBase.prototype.containsAbsBBox = function (x, y, ax, ay) {
@@ -3689,209 +3927,8 @@
             }
             return this;
         };
-        EShapeBase.WORK_RECT = new pixi_js.Rectangle();
         return EShapeBase;
     }(pixi_js.utils.EventEmitter));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeCorner;
-    (function (EShapeCorner) {
-        EShapeCorner[EShapeCorner["NONE"] = 0] = "NONE";
-        EShapeCorner[EShapeCorner["TOP_LEFT"] = 1] = "TOP_LEFT";
-        EShapeCorner[EShapeCorner["TOP_RIGHT"] = 2] = "TOP_RIGHT";
-        EShapeCorner[EShapeCorner["BOTTOM_LEFT"] = 4] = "BOTTOM_LEFT";
-        EShapeCorner[EShapeCorner["BOTTOM_RIGHT"] = 8] = "BOTTOM_RIGHT";
-        EShapeCorner[EShapeCorner["TOP"] = 3] = "TOP";
-        EShapeCorner[EShapeCorner["BOTTOM"] = 12] = "BOTTOM";
-        EShapeCorner[EShapeCorner["LEFT"] = 5] = "LEFT";
-        EShapeCorner[EShapeCorner["RIGHT"] = 10] = "RIGHT";
-        EShapeCorner[EShapeCorner["ALL"] = 15] = "ALL";
-    })(EShapeCorner || (EShapeCorner = {}));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DThemes = /** @class */ (function () {
-        function DThemes() {
-        }
-        DThemes.setDefaultThemeClass = function (theme) {
-            this.DEFAULT_THEME_CLASS = theme;
-        };
-        DThemes.getDefaultThemeClass = function () {
-            return this.DEFAULT_THEME_CLASS;
-        };
-        DThemes.getInstance = function () {
-            if (this.INSTANCE == null) {
-                var defaultThemeClass = this.getDefaultThemeClass();
-                if (defaultThemeClass == null) {
-                    throw new Error("No default theme class found");
-                }
-                this.INSTANCE = new defaultThemeClass();
-            }
-            return this.INSTANCE;
-        };
-        DThemes.setInstance = function (instance) {
-            var result = this.INSTANCE;
-            this.INSTANCE = instance;
-            return result;
-        };
-        DThemes.DEFAULT_THEME_CLASS = null;
-        DThemes.INSTANCE = null;
-        return DThemes;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeDefaults = /** @class */ (function () {
-        function EShapeDefaults() {
-        }
-        Object.defineProperty(EShapeDefaults, "THEME", {
-            get: function () {
-                var theme = this._THEME;
-                if (theme != null) {
-                    return theme;
-                }
-                var newTheme = DThemes.getInstance().get("EShape");
-                this._THEME = newTheme;
-                return newTheme;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "FILL_COLOR", {
-            get: function () {
-                return this.THEME.getFillColor();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "FILL_ALPHA", {
-            get: function () {
-                return this.THEME.getFillAlpha();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "STROKE_COLOR", {
-            get: function () {
-                return this.THEME.getStrokeColor();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "STROKE_ALPHA", {
-            get: function () {
-                return this.THEME.getStrokeAlpha();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "STROKE_WIDTH", {
-            get: function () {
-                return this.THEME.getStrokeWidth();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "STROKE_ALIGN", {
-            get: function () {
-                return this.THEME.getStrokeAlign();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "STROKE_SIDE", {
-            get: function () {
-                return this.THEME.getStrokeSide();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "STROKE_STYLE", {
-            get: function () {
-                return this.THEME.getStrokeStyle();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "TEXT_VALUE", {
-            get: function () {
-                return this.THEME.getTextValue();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "TEXT_COLOR", {
-            get: function () {
-                return this.THEME.getTextColor();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "TEXT_ALPHA", {
-            get: function () {
-                return this.THEME.getTextAlpha();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "TEXT_FAMILY", {
-            get: function () {
-                return this.THEME.getTextFamily();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "TEXT_SIZE", {
-            get: function () {
-                return this.THEME.getTextSize();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "CURSOR", {
-            get: function () {
-                return this.THEME.getCursor();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "RADIUS", {
-            get: function () {
-                return this.THEME.getRadius();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "SIZE_X", {
-            get: function () {
-                return this.THEME.getSizeX();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "SIZE_Y", {
-            get: function () {
-                return this.THEME.getSizeY();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "HIGHLIGHT_COLOR", {
-            get: function () {
-                return this.THEME.getHighlightColor();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        return EShapeDefaults;
-    }());
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -5938,6 +5975,14 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var toThresholdDefault = function (size, scale, offset) {
+        return 0.5 * (offset + size * scale);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var EShapeLineBase = /** @class */ (function (_super) {
         __extends(EShapeLineBase, _super);
         function EShapeLineBase() {
@@ -5948,42 +5993,21 @@
             result[15] = this._points.serialize(manager);
             return result;
         };
-        EShapeLineBase.prototype.getPixelScale = function () {
-            var container = this.root.parent;
-            if (container != null && container.getPixelScale != null) {
-                return container.getPixelScale();
-            }
-            return 1.0;
-        };
-        EShapeLineBase.prototype.getStrokeWidthScale = function (style) {
-            if (style & EShapeStrokeStyle.NON_EXPANDING_WIDTH) {
-                if (style & EShapeStrokeStyle.NON_SHRINKING_WIDTH) {
-                    return this.getPixelScale();
-                }
-                else {
-                    return Math.min(1.0, this.getPixelScale());
-                }
+        EShapeLineBase.prototype.getHitTestSize = function (result) {
+            var formatted = this._points.formatted;
+            if ("boundary" in formatted) {
+                var boundary = formatted.boundary;
+                result.width = Math.max(Math.abs(boundary[0]), Math.abs(boundary[2]));
+                result.height = Math.max(Math.abs(boundary[1]), Math.abs(boundary[3]));
             }
             else {
-                if (style & EShapeStrokeStyle.NON_SHRINKING_WIDTH) {
-                    return Math.max(1.0, this.getPixelScale());
-                }
-                else {
-                    return 1.0;
-                }
+                _super.prototype.getHitTestSize.call(this, result);
             }
+            return result;
         };
-        EShapeLineBase.prototype.toHitThreshold = function (toThreshold) {
-            var stroke = this.stroke;
-            var strokeWidth = stroke.enable ? stroke.width : 0;
-            var strokeScale = this.getStrokeWidthScale(stroke.style);
-            return toThreshold
-                ? toThreshold(strokeWidth, strokeScale)
-                : strokeWidth * strokeScale * 0.5;
-        };
-        EShapeLineBase.prototype.containsAbs = function (x, y, ax, ay) {
+        EShapeLineBase.prototype.containsAbs = function (x, y, ax, ay, sw, ss) {
             var points = this._points;
-            var threshold = this.toHitThreshold(null);
+            var threshold = toThresholdDefault(sw, ss, 0);
             if (this.containsAbsBBox(x, y, ax + threshold, ay + threshold)) {
                 return points.calcHitPointAbs(x, y, ax, ay, threshold, null, this.calcHitPointAbsHitTester, null);
             }
@@ -5991,10 +6015,10 @@
         };
         EShapeLineBase.prototype.calcHitPoint = function (point, toThreshold, toRange, tester, result) {
             var points = this._points;
-            var threshold = this.toHitThreshold(toThreshold);
-            var rect = this.toLocalRect(point, EShapeBase.WORK_RECT);
-            if (this.containsAbsBBox(rect.x, rect.y, rect.width + threshold, rect.height + threshold)) {
-                return points.calcHitPointAbs(rect.x, rect.y, rect.width, rect.height, threshold, toRange, tester, result);
+            var data = this.toHitTestData(point);
+            var threshold = (toThreshold || toThresholdDefault)(data.strokeWidth, data.strokeScale, 0);
+            if (this.containsAbsBBox(data.x, data.y, data.width + threshold, data.height + threshold)) {
+                return points.calcHitPointAbs(data.x, data.y, data.width, data.height, threshold, toRange, tester, result);
             }
             return false;
         };
@@ -9479,6 +9503,9 @@
         };
         DBasePadding.prototype.setTheme = function (theme) {
             this._theme = theme;
+        };
+        DBasePadding.prototype.getCallback = function () {
+            return this._callback;
         };
         DBasePadding.prototype.getLeft = function () {
             var _a;
@@ -22485,10 +22512,9 @@
         EShapeCircle.prototype.clone = function () {
             return new EShapeCircle().copy(this);
         };
-        EShapeCircle.prototype.containsAbs = function (x, y, ax, ay) {
+        EShapeCircle.prototype.containsAbs = function (x, y, ax, ay, sw, ss) {
             if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
                 var fill = this.fill;
-                var stroke = this.stroke;
                 if (fill.enable) {
                     var x2 = x * x;
                     var y2 = y * y;
@@ -22499,12 +22525,12 @@
                     }
                 }
                 else {
-                    var strokeWidth = stroke.width;
-                    if (stroke.enable && 0 < strokeWidth) {
+                    if (0 < sw) {
+                        var s = sw * ss;
                         var x2 = x * x;
                         var y2 = y * y;
-                        var wx = Math.max(0.0, ax - strokeWidth);
-                        var wy = Math.max(0.0, ay - strokeWidth);
+                        var wx = Math.max(0.0, ax - s);
+                        var wy = Math.max(0.0, ay - s);
                         var wx2 = wx * wx;
                         var wy2 = wy * wy;
                         if (wx2 * wy2 <= x2 * wy2 + y2 * wx2) {
@@ -26222,19 +26248,18 @@
         EShapeRectangle.prototype.clone = function () {
             return new EShapeRectangle().copy(this);
         };
-        EShapeRectangle.prototype.containsAbs = function (x, y, ax, ay) {
+        EShapeRectangle.prototype.containsAbs = function (x, y, ax, ay, sw, ss) {
             if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
                 var fill = this.fill;
-                var stroke = this.stroke;
                 if (fill.enable) {
                     return true;
                 }
                 else {
-                    var strokeWidth = stroke.width;
-                    var strokeSide = stroke.side;
-                    if (stroke.enable && 0 < strokeWidth && strokeSide !== EShapeStrokeSide.NONE) {
-                        var wx = Math.max(0.0, ax - strokeWidth);
-                        var wy = Math.max(0.0, ay - strokeWidth);
+                    var strokeSide = this.stroke.side;
+                    if (0 < sw && strokeSide !== EShapeStrokeSide.NONE) {
+                        var s = sw * ss;
+                        var wx = Math.max(0.0, ax - s);
+                        var wy = Math.max(0.0, ay - s);
                         if (!this.containsAbsBBox(x, y, wx, wy)) {
                             if (strokeSide === EShapeStrokeSide.ALL) {
                                 return true;
@@ -26729,29 +26754,6 @@
         EShapeDeserializers[EShapeType.LABEL] = deserializeLabel;
     };
 
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var toIndexOf = function (array, value) {
-        var i0 = 0;
-        var i1 = array.length - 1;
-        while (i0 <= i1) {
-            var i2 = i0 + ((i1 - i0) >> 1);
-            var v2 = array[i2];
-            if (value < v2) {
-                i1 = i2 - 1;
-            }
-            else if (v2 < value) {
-                i0 = i2 + 1;
-            }
-            else {
-                return i2;
-            }
-        }
-        return -1;
-    };
-
     var LINE_FMIN = 0.00001;
     var LINE_WORK_POINT = new pixi_js.Point();
     var toPointsCount = function (points) {
@@ -26760,435 +26762,407 @@
         }
         return 0;
     };
-    var toLineVertexCount = function (pointCount) {
-        return Math.ceil(pointCount / 12) * 12 * 4 + 2;
+    var toLinePointCount = function (points) {
+        return Math.ceil(toPointsCount(points) / 12) * 12;
     };
-    var buildLineClipping = function (clippings, voffset, vcount, pointCount, pointsClosed) {
-        var ic = voffset * 3;
-        if (2 <= pointCount) {
-            // First
-            if (!pointsClosed) {
-                clippings[ic + 0] = 1;
-                clippings[ic + 1] = 0;
-                clippings[ic + 2] = 3;
-                clippings[ic + 3] = 0;
-                clippings[ic + 4] = 1;
-                clippings[ic + 5] = 5;
-                ic += 6;
-            }
-            // Middle
-            for (var i = pointsClosed ? 0 : 1, imax = pointCount - i; i < imax; ++i) {
-                clippings[ic + 0] = 1;
-                clippings[ic + 1] = 0;
-                clippings[ic + 2] = 3;
-                clippings[ic + 3] = 0;
-                clippings[ic + 4] = 1;
-                clippings[ic + 5] = 5;
-                clippings[ic + 6] = 1;
-                clippings[ic + 7] = 0;
-                clippings[ic + 8] = 4;
-                clippings[ic + 9] = 0;
-                clippings[ic + 10] = 1;
-                clippings[ic + 11] = 6;
-                ic += 12;
-            }
-            // Last
-            clippings[ic + 0] = 1;
-            clippings[ic + 1] = 0;
-            clippings[ic + 2] = 3;
-            clippings[ic + 3] = 0;
-            clippings[ic + 4] = 1;
-            clippings[ic + 5] = 5;
-            ic += 6;
+    var toLineVertexCount = function (pointCount, isClosed) {
+        if (isClosed) {
+            return pointCount * 4 + 2;
         }
-        // Fill the rest
-        for (var icmax = (voffset + vcount) * 3; ic < icmax; ic += 3) {
-            clippings[ic + 0] = 0;
-            clippings[ic + 1] = 0;
-            clippings[ic + 2] = 0;
+        else {
+            return pointCount * 4;
+        }
+    };
+    var toLineIndexCount = function (pointCount, isClosed) {
+        return toLineVertexCount(pointCount, isClosed) - 2;
+    };
+    var buildLineClipping = function (clippings, voffset, vcount, pointCount) {
+        var ic = voffset * 3 - 1;
+        var icmax = (voffset + vcount) * 3 - 1;
+        for (var i = 0; i < pointCount; ++i) {
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 3;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 5;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 4;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 6;
+        }
+        for (; ic < icmax;) {
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 3;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 5;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 3;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 5;
         }
     };
     var buildLineIndex = function (indices, voffset, ioffset, icount) {
-        for (var ii = ioffset * 3, iimax = (ioffset + icount) * 3, io = voffset; ii < iimax; ii += 6, io += 2) {
-            indices[ii + 0] = io + 0;
-            indices[ii + 1] = io + 2;
-            indices[ii + 2] = io + 1;
-            indices[ii + 3] = io + 1;
-            indices[ii + 4] = io + 2;
-            indices[ii + 5] = io + 3;
+        var ii = ioffset * 3 - 1;
+        var iimax = (ioffset + icount) * 3 - 1;
+        var io = voffset;
+        for (; ii < iimax;) {
+            indices[++ii] = io + 0;
+            indices[++ii] = io + 2;
+            indices[++ii] = io + 1;
+            indices[++ii] = io + 1;
+            indices[++ii] = io + 2;
+            indices[++ii] = io + 3;
+            io += 2;
         }
     };
-    var buildLineUv = function (uvs, colorFills, voffset, vcount, pointCount, pointsClosed, textureUvs, length) {
-        var iuv = voffset << 1;
-        if (2 <= pointCount) {
-            var x0 = textureUvs.x0;
-            var x1 = textureUvs.x1;
-            var x2 = textureUvs.x2;
-            var x3 = textureUvs.x3;
-            var y0 = textureUvs.y0;
-            var y1 = textureUvs.y1;
-            var y2 = textureUvs.y2;
-            var y3 = textureUvs.y3;
-            var dx01 = x1 - x0;
-            var dy01 = y1 - y0;
-            var dx32 = x2 - x3;
-            var dy32 = y2 - y3;
-            // Uvs
-            var icf = voffset << 2;
-            var lengthInverse = 1 / Math.max(LINE_FMIN, length);
-            var r = 0;
-            // UV: First
-            if (!pointsClosed) {
-                r = colorFills[icf] * lengthInverse;
-                uvs[iuv + 0] = x0 + r * dx01;
-                uvs[iuv + 1] = y0 + r * dy01;
-                uvs[iuv + 2] = x3 + r * dx32;
-                uvs[iuv + 3] = y3 + r * dy32;
-                iuv += 4;
-                icf += 8;
-            }
-            // UV: Middle
-            for (var i = pointsClosed ? 0 : 1, imax = pointCount - i; i < imax; ++i) {
-                r = colorFills[icf] * lengthInverse;
-                uvs[iuv + 0] = x0 + r * dx01;
-                uvs[iuv + 1] = y0 + r * dy01;
-                uvs[iuv + 2] = x3 + r * dx32;
-                uvs[iuv + 3] = y3 + r * dy32;
-                iuv += 4;
-                icf += 8;
-                r = colorFills[icf] * lengthInverse;
-                uvs[iuv + 0] = x0 + r * dx01;
-                uvs[iuv + 1] = y0 + r * dy01;
-                uvs[iuv + 2] = x3 + r * dx32;
-                uvs[iuv + 3] = y3 + r * dy32;
-                iuv += 4;
-                icf += 8;
-            }
-            // UV: Last
-            r = colorFills[icf] * lengthInverse;
-            uvs[iuv + 0] = x0 + r * dx01;
-            uvs[iuv + 1] = y0 + r * dy01;
-            uvs[iuv + 2] = x3 + r * dx32;
-            uvs[iuv + 3] = y3 + r * dy32;
-            iuv += 4;
-        }
-        // Fill the rest
-        for (var iuvmax = (voffset + vcount) << 1; iuv < iuvmax; iuv += 2) {
-            uvs[iuv + 0] = 0;
-            uvs[iuv + 1] = 0;
-        }
-    };
-    var buildLineVertexStepAndColorFill = function (vertices, steps, colorFills, voffset, vcount, pointCount, pointsClosed, pointValues, pointSegments, strokeWidth, strokeStyle, internalTransform) {
-        var iv = voffset << 1;
-        var is = voffset * 6;
+    var buildLineUv = function (uvs, colorFills, voffset, vcount, textureUvs, length) {
+        var lengthInverse = 1 / Math.max(LINE_FMIN, length);
+        var x0 = textureUvs.x0;
+        var x1 = textureUvs.x1;
+        var x2 = textureUvs.x2;
+        var x3 = textureUvs.x3;
+        var y0 = textureUvs.y0;
+        var y1 = textureUvs.y1;
+        var y2 = textureUvs.y2;
+        var y3 = textureUvs.y3;
+        var dx01 = x1 - x0;
+        var dy01 = y1 - y0;
+        var dx32 = x2 - x3;
+        var dy32 = y2 - y3;
+        var iuv = (voffset << 1) - 1;
+        var iuvmax = ((voffset + vcount) << 1) - 1;
         var icf = voffset << 2;
-        var lmax = 0;
-        var px = 0;
-        var py = 0;
-        if (2 <= pointCount) {
-            var scaleInvariant = toScaleInvariant(strokeStyle);
-            //
-            var l = 0;
-            var lprev = 0;
-            var lnext = 0;
-            var llop = 0;
-            var llo = 0;
-            var pprevx = 0;
-            var pprevy = 0;
-            var pnextx = 0;
-            var pnexty = 0;
-            var pseg = false;
-            var psegnext = false;
-            var icfprev = icf;
-            var loffset = 0;
-            var ipvoffset = 0 < pointSegments.length ? pointSegments[0] : 0;
-            //
-            var a = internalTransform.a;
-            var b = internalTransform.b;
-            var c = internalTransform.c;
-            var d = internalTransform.d;
-            var tx = internalTransform.tx;
-            var ty = internalTransform.ty;
-            // First point
-            var ipv = ipvoffset % pointCount;
-            var ipvs = ipv << 1;
-            var pv0 = pointValues[ipvs];
-            var pv1 = pointValues[ipvs + 1];
-            var pfirstx = a * pv0 + c * pv1 + tx;
-            var pfirsty = b * pv0 + d * pv1 + ty;
-            var psegfirst = 0 <= toIndexOf(pointSegments, ipv);
-            // Last point
-            ipv = (ipvoffset + pointCount - 1) % pointCount;
-            ipvs = ipv << 1;
-            var pvl0 = pointValues[ipvs];
-            var pvl1 = pointValues[ipvs + 1];
-            var plastx = a * pvl0 + c * pvl1 + tx;
-            var plasty = b * pvl0 + d * pvl1 + ty;
-            var pseglast = 0 <= toIndexOf(pointSegments, ipv);
-            // Second point
-            var psecondx = plastx;
-            var psecondy = plasty;
-            var psegsecond = pseglast;
-            if (2 < pointCount) {
-                ipv = (ipvoffset + 1) % pointCount;
-                ipvs = ipv << 1;
-                var pv2 = pointValues[ipvs];
-                var pv3 = pointValues[ipvs + 1];
-                psecondx = a * pv2 + c * pv3 + tx;
-                psecondy = b * pv2 + d * pv3 + ty;
-                psegsecond = 0 <= toIndexOf(pointSegments, ipv);
-            }
-            // First segment
-            if (pointsClosed) {
-                px = plastx;
-                py = plasty;
-                pnextx = pfirstx;
-                pnexty = pfirsty;
-                pseg = pseglast;
-                psegnext = psegfirst;
+        for (; iuv < iuvmax;) {
+            var r0 = colorFills[icf] * lengthInverse;
+            uvs[++iuv] = x0 + r0 * dx01;
+            uvs[++iuv] = y0 + r0 * dy01;
+            uvs[++iuv] = x3 + r0 * dx32;
+            uvs[++iuv] = y3 + r0 * dy32;
+            icf += 8;
+            var r1 = colorFills[icf] * lengthInverse;
+            uvs[++iuv] = x0 + r1 * dx01;
+            uvs[++iuv] = y0 + r1 * dy01;
+            uvs[++iuv] = x3 + r1 * dx32;
+            uvs[++iuv] = y3 + r1 * dy32;
+            icf += 8;
+        }
+    };
+    var TRANSFORMED_POINT_VALUES;
+    var buildLineVertexStepAndColorFill = function (vertices, steps, colorFills, voffset, vcount, pointCount, pointsClosed, pointValues, pointSegments, strokeWidth, strokeStyle, internalTransform) {
+        var transformedPointValues = TRANSFORMED_POINT_VALUES;
+        if (transformedPointValues == null) {
+            transformedPointValues = [];
+            TRANSFORMED_POINT_VALUES = transformedPointValues;
+        }
+        var a = internalTransform.a;
+        var b = internalTransform.b;
+        var c = internalTransform.c;
+        var d = internalTransform.d;
+        var tx = internalTransform.tx;
+        var ty = internalTransform.ty;
+        for (var i = 0; i < pointCount; ++i) {
+            var iv = i << 1;
+            var x = pointValues[iv];
+            var y = pointValues[iv + 1];
+            transformedPointValues[iv] = a * x + c * y + tx;
+            transformedPointValues[iv + 1] = b * x + d * y + ty;
+        }
+        return buildTransformedLineVertexStepAndColorFill(vertices, steps, colorFills, voffset, vcount, pointCount, pointsClosed, transformedPointValues, pointSegments, strokeWidth, strokeStyle);
+    };
+    var fillTransformedLineVertexStepAndColorFill = function (iv, vertices, is, steps, icf, colorFills, px, py, strokeWidth, scaleInvariant, pprevx, pprevy, pnextx, pnexty, llo) {
+        vertices[++iv] = px;
+        vertices[++iv] = py;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = pprevx;
+        steps[++is] = pprevy;
+        steps[++is] = pnextx;
+        steps[++is] = pnexty;
+        colorFills[(icf += 1)] = llo;
+        vertices[++iv] = px;
+        vertices[++iv] = py;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = pprevx;
+        steps[++is] = pprevy;
+        steps[++is] = pnextx;
+        steps[++is] = pnexty;
+        colorFills[(icf += 4)] = llo;
+    };
+    var buildTransformedLineVertexStepAndColorFill = function (vertices, steps, colorFills, voffset, vcount, lineVertexCount, lineIsClosed, lineVertices, lineSegments, strokeWidth, strokeStyle) {
+        var lineSegmentsLength = lineSegments.length;
+        if (0 < lineSegmentsLength) {
+            if (lineIsClosed) {
+                var lmax = 0;
+                var lprev = 0;
+                var ivoffset = voffset;
+                var iseg = 0;
+                var iprevseg = lineSegments[0];
+                for (var i = 1; i < lineSegmentsLength; ++i) {
+                    var iseg_1 = lineSegments[i];
+                    if (2 <= iseg_1 - iprevseg) {
+                        lprev = buildTransformedLineOpenSegmentVertexStepAndColorFill(vertices, steps, colorFills, ivoffset, -1, lineVertices, iprevseg, iseg_1, lineVertexCount, strokeWidth, strokeStyle, lprev);
+                        lmax = Math.max(lmax, lprev);
+                        ivoffset += toLineVertexCount(iseg_1 - iprevseg, false);
+                    }
+                    iprevseg = iseg_1;
+                }
+                // Last
+                iseg = lineSegments[0] + lineVertexCount;
+                if (2 <= iseg - iprevseg) {
+                    lprev = buildTransformedLineOpenSegmentVertexStepAndColorFill(vertices, steps, colorFills, ivoffset, voffset + vcount - ivoffset, lineVertices, iprevseg, iseg, lineVertexCount, strokeWidth, strokeStyle, lprev);
+                    lmax = Math.max(lmax, lprev);
+                    ivoffset += toLineVertexCount(iseg - iprevseg, false);
+                }
+                else {
+                    buildTransformedLineEmptyVertexStepAndColorFill(vertices, steps, colorFills, ivoffset, voffset + vcount - ivoffset, lineVertices, iprevseg, iseg, lineVertexCount, strokeWidth, strokeStyle, lprev);
+                }
+                return lmax;
             }
             else {
-                pprevx = pfirstx - (psecondx - pfirstx);
-                pprevy = pfirsty - (psecondy - pfirsty);
-                px = pfirstx;
-                py = pfirsty;
-                pnextx = psecondx;
-                pnexty = psecondy;
-                pseg = psegfirst;
-                psegnext = psegsecond;
-                lnext += toLength(px, py, pnextx, pnexty);
-                //
-                vertices[iv + 0] = px;
-                vertices[iv + 1] = py;
-                vertices[iv + 2] = px;
-                vertices[iv + 3] = py;
-                steps[is + 0] = strokeWidth;
-                steps[is + 1] = scaleInvariant;
-                steps[is + 2] = pprevx;
-                steps[is + 3] = pprevy;
-                steps[is + 4] = pnextx;
-                steps[is + 5] = pnexty;
-                steps[is + 6] = strokeWidth;
-                steps[is + 7] = scaleInvariant;
-                steps[is + 8] = pprevx;
-                steps[is + 9] = pprevy;
-                steps[is + 10] = pnextx;
-                steps[is + 11] = pnexty;
-                colorFills[icf + 0] = llo;
-                colorFills[icf + 4] = llo;
-                iv += 4;
-                is += 12;
-                icf += 8;
-            }
-            // Middle segments
-            for (var i = pointsClosed ? 0 : 1, imax = pointCount - i; i < imax; ++i) {
-                pprevx = px;
-                pprevy = py;
-                px = pnextx;
-                py = pnexty;
-                pseg = psegnext;
-                if (i === pointCount - 2) {
-                    pnextx = plastx;
-                    pnexty = plasty;
-                    psegnext = pseglast;
+                var lmax = 0;
+                var lprev = 0;
+                var ivoffset = voffset;
+                // First
+                var iseg = lineSegments[0];
+                if (2 <= iseg) {
+                    lprev = buildTransformedLineOpenSegmentVertexStepAndColorFill(vertices, steps, colorFills, ivoffset, -1, lineVertices, 0, iseg, lineVertexCount, strokeWidth, strokeStyle, lprev);
+                    lmax = Math.max(lmax, lprev);
+                    ivoffset += toLineVertexCount(iseg, false);
                 }
-                else if (i === 0) {
-                    pnextx = psecondx;
-                    pnexty = psecondy;
-                    psegnext = psegsecond;
+                // Middle
+                var iprevseg = iseg;
+                for (var i = 1; i < lineSegmentsLength; ++i) {
+                    iseg = lineSegments[i];
+                    if (2 <= iseg - iprevseg) {
+                        lprev = buildTransformedLineOpenSegmentVertexStepAndColorFill(vertices, steps, colorFills, ivoffset, -1, lineVertices, iprevseg, iseg, lineVertexCount, strokeWidth, strokeStyle, lprev);
+                        lmax = Math.max(lmax, lprev);
+                        ivoffset += toLineVertexCount(iseg - iprevseg, false);
+                    }
+                    iprevseg = iseg;
                 }
-                else if (i < pointCount - 1) {
-                    ipv = (ipvoffset + i + 1) % pointCount;
-                    ipvs = ipv << 1;
-                    var pvn0 = pointValues[ipvs];
-                    var pvn1 = pointValues[ipvs + 1];
-                    pnextx = a * pvn0 + c * pvn1 + tx;
-                    pnexty = b * pvn0 + d * pvn1 + ty;
-                    psegnext = 0 <= toIndexOf(pointSegments, ipv);
+                // Last
+                iseg = lineVertexCount;
+                if (2 <= iseg - iprevseg) {
+                    lprev = buildTransformedLineOpenSegmentVertexStepAndColorFill(vertices, steps, colorFills, ivoffset, voffset + vcount - ivoffset, lineVertices, iprevseg, iseg, lineVertexCount, strokeWidth, strokeStyle, lprev);
+                    lmax = Math.max(lmax, lprev);
+                    ivoffset += toLineVertexCount(iseg - iprevseg, false);
                 }
                 else {
-                    pnextx = pfirstx;
-                    pnexty = pfirsty;
-                    psegnext = psegfirst;
+                    buildTransformedLineEmptyVertexStepAndColorFill(vertices, steps, colorFills, ivoffset, voffset + vcount - ivoffset, lineVertices, iprevseg, iseg, lineVertexCount, strokeWidth, strokeStyle, lprev);
                 }
-                lprev = l;
-                l = lnext;
-                lnext += toLength(px, py, pnextx, pnexty);
-                var pnextxn = pnextx;
-                var pnextyn = pnexty;
-                var loffsetprev = loffset;
-                if (pseg) {
-                    pprevx = px - (pnextx - px);
-                    pprevy = py - (pnexty - py);
-                    lmax = Math.max(lmax, llo);
-                    llop = lprev - loffset;
-                    var dash = toDash(llop, strokeWidth, strokeStyle, LINE_WORK_POINT);
-                    var dash0 = dash.x;
-                    var dash1 = dash.y;
-                    for (var j = icfprev; j < icf + 8; j += 4) {
-                        colorFills[j + 1] = dash0;
-                        colorFills[j + 2] = dash1;
-                        colorFills[j + 3] = llop;
-                    }
-                    icfprev = icf + 8;
-                    loffsetprev = loffset;
-                    loffset = l;
-                }
-                else if (psegnext) {
-                    pnextxn = px + (px - pprevx);
-                    pnextyn = py + (py - pprevy);
-                }
-                // Vertices
-                vertices[iv + 0] = px;
-                vertices[iv + 1] = py;
-                vertices[iv + 2] = px;
-                vertices[iv + 3] = py;
-                steps[is + 0] = strokeWidth;
-                steps[is + 1] = scaleInvariant;
-                steps[is + 2] = pprevx;
-                steps[is + 3] = pprevy;
-                steps[is + 4] = pnextxn;
-                steps[is + 5] = pnextyn;
-                steps[is + 6] = strokeWidth;
-                steps[is + 7] = scaleInvariant;
-                steps[is + 8] = pprevx;
-                steps[is + 9] = pprevy;
-                steps[is + 10] = pnextxn;
-                steps[is + 11] = pnextyn;
-                llop = l - loffsetprev;
-                colorFills[icf + 0] = llop;
-                colorFills[icf + 4] = llop;
-                iv += 4;
-                is += 12;
-                icf += 8;
-                vertices[iv + 0] = px;
-                vertices[iv + 1] = py;
-                vertices[iv + 2] = px;
-                vertices[iv + 3] = py;
-                steps[is + 0] = strokeWidth;
-                steps[is + 1] = scaleInvariant;
-                steps[is + 2] = pprevx;
-                steps[is + 3] = pprevy;
-                steps[is + 4] = pnextxn;
-                steps[is + 5] = pnextyn;
-                steps[is + 6] = strokeWidth;
-                steps[is + 7] = scaleInvariant;
-                steps[is + 8] = pprevx;
-                steps[is + 9] = pprevy;
-                steps[is + 10] = pnextxn;
-                steps[is + 11] = pnextyn;
-                llo = l - loffset;
-                colorFills[icf + 0] = llo;
-                colorFills[icf + 4] = llo;
-                iv += 4;
-                is += 12;
-                icf += 8;
+                return lmax;
             }
-            // Last segment
-            {
-                pprevx = px;
-                pprevy = py;
-                px = pnextx;
-                py = pnexty;
-                pseg = psegnext;
-                if (pointsClosed) {
-                    pnextx = psecondx;
-                    pnexty = psecondy;
-                    psegnext = psegsecond;
-                }
-                else {
-                    pnextx = px + (px - pprevx);
-                    pnexty = py + (py - pprevy);
-                    psegnext = false;
-                }
-                lprev = l;
-                l = lnext;
-                var pnextxn = pnextx;
-                var pnextyn = pnexty;
-                var loffsetprev = loffset;
-                if (pseg) {
-                    pprevx = px - (pnextx - px);
-                    pprevy = py - (pnexty - py);
-                    lmax = Math.max(lmax, llo);
-                    llop = lprev - loffset;
-                    var dash = toDash(llop, strokeWidth, strokeStyle, LINE_WORK_POINT);
-                    var dash0 = dash.x;
-                    var dash1 = dash.y;
-                    for (var j = icfprev; j < icf + 8; j += 4) {
-                        colorFills[j + 1] = dash0;
-                        colorFills[j + 2] = dash1;
-                        colorFills[j + 3] = llop;
-                    }
-                    icfprev = icf + 8;
-                    loffsetprev = loffset;
-                    loffset = l;
-                }
-                else if (psegnext) {
-                    pnextxn = px + (px - pprevx);
-                    pnextyn = py + (py - pprevy);
-                }
-                // Vertices
-                vertices[iv + 0] = px;
-                vertices[iv + 1] = py;
-                vertices[iv + 2] = px;
-                vertices[iv + 3] = py;
-                steps[is + 0] = strokeWidth;
-                steps[is + 1] = scaleInvariant;
-                steps[is + 2] = pprevx;
-                steps[is + 3] = pprevy;
-                steps[is + 4] = pnextxn;
-                steps[is + 5] = pnextyn;
-                steps[is + 6] = strokeWidth;
-                steps[is + 7] = scaleInvariant;
-                steps[is + 8] = pprevx;
-                steps[is + 9] = pprevy;
-                steps[is + 10] = pnextxn;
-                steps[is + 11] = pnextyn;
-                llop = l - loffsetprev;
-                lmax = Math.max(lmax, llop);
-                colorFills[icf + 0] = llop;
-                colorFills[icf + 4] = llop;
-                iv += 4;
-                is += 12;
-                icf += 8;
-                // Total length
-                if (icfprev < icf) {
-                    var dash = toDash(llop, strokeWidth, strokeStyle, LINE_WORK_POINT);
-                    var dash0 = dash.x;
-                    var dash1 = dash.y;
-                    if (pointsClosed) {
-                        for (var i = icfprev; i < icf; i += 4) {
-                            colorFills[i + 1] = dash0;
-                            colorFills[i + 2] = dash1;
-                            colorFills[i + 3] = -1;
-                        }
-                    }
-                    else {
-                        for (var i = icfprev; i < icf; i += 4) {
-                            colorFills[i + 1] = dash0;
-                            colorFills[i + 2] = dash1;
-                            colorFills[i + 3] = llop;
-                        }
-                    }
-                }
+        }
+        else {
+            if (lineIsClosed) {
+                return buildTransformedLineClosedSegmentVertexStepAndColorFill(vertices, steps, colorFills, voffset, vcount, lineVertices, 0, lineVertexCount, lineVertexCount, strokeWidth, strokeStyle);
             }
+            else {
+                return buildTransformedLineOpenSegmentVertexStepAndColorFill(vertices, steps, colorFills, voffset, vcount, lineVertices, 0, lineVertexCount, lineVertexCount, strokeWidth, strokeStyle, 0);
+            }
+        }
+    };
+    var buildTransformedLineEmptyVertexStepAndColorFill = function (vertices, steps, colorFills, voffset, vcount, lineVertices, lineVertexFrom, lineVertexTo, lineVertexCount, strokeWidth, strokeStyle, length) {
+        if (0 <= vcount) {
+            var scaleInvariant = toScaleInvariant(strokeStyle);
+            var iv = (voffset << 1) - 1;
+            var is = voffset * 6 - 1;
+            var icf = (voffset << 2) - 1;
+            var ivmax = ((voffset + vcount) << 1) - 1;
+            var ifirst = lineVertexFrom % lineVertexCount << 1;
+            var px = lineVertices[ifirst];
+            var py = lineVertices[ifirst + 1];
+            for (; iv < ivmax;) {
+                vertices[++iv] = px;
+                vertices[++iv] = py;
+                steps[++is] = 0;
+                steps[++is] = scaleInvariant;
+                steps[++is] = -1;
+                steps[++is] = 0;
+                steps[++is] = +1;
+                steps[++is] = 0;
+                colorFills[++icf] = length;
+                colorFills[++icf] = 0;
+                colorFills[++icf] = 0;
+                colorFills[++icf] = length;
+            }
+        }
+        return 0;
+    };
+    var buildTransformedLineOpenSegmentVertexStepAndColorFill = function (vertices, steps, colorFills, voffset, vcount, lineVertices, lineVertexFrom, lineVertexTo, lineVertexCount, strokeWidth, strokeStyle, length) {
+        var scaleInvariant = toScaleInvariant(strokeStyle);
+        // First segment
+        var ifirst = lineVertexFrom % lineVertexCount << 1;
+        var px = lineVertices[ifirst];
+        var py = lineVertices[ifirst + 1];
+        var isecond = (lineVertexFrom + 1) % lineVertexCount << 1;
+        var pnextx = lineVertices[isecond];
+        var pnexty = lineVertices[isecond + 1];
+        var pprevx = px - (pnextx - px);
+        var pprevy = py - (pnexty - py);
+        var iv = (voffset << 1) - 1;
+        var is = voffset * 6 - 1;
+        var icf = (voffset << 2) - 1;
+        var l = 0;
+        fillTransformedLineVertexStepAndColorFill(iv, vertices, is, steps, icf, colorFills, px, py, strokeWidth, scaleInvariant, pprevx, pprevy, pnextx, pnexty, length);
+        iv += 4;
+        is += 12;
+        icf += 8;
+        fillTransformedLineVertexStepAndColorFill(iv, vertices, is, steps, icf, colorFills, px, py, strokeWidth, scaleInvariant, pprevx, pprevy, pnextx, pnexty, l);
+        iv += 4;
+        is += 12;
+        icf += 8;
+        // Middle segments
+        for (var i = lineVertexFrom + 1, imax = lineVertexTo - 1; i < imax; ++i) {
+            pprevx = px;
+            pprevy = py;
+            px = pnextx;
+            py = pnexty;
+            var imiddle = (i + 1) % lineVertexCount << 1;
+            pnextx = lineVertices[imiddle];
+            pnexty = lineVertices[imiddle + 1];
+            l += toLength(pprevx, pprevy, px, py);
+            fillTransformedLineVertexStepAndColorFill(iv, vertices, is, steps, icf, colorFills, px, py, strokeWidth, scaleInvariant, pprevx, pprevy, pnextx, pnexty, l);
+            iv += 4;
+            is += 12;
+            icf += 8;
+            fillTransformedLineVertexStepAndColorFill(iv, vertices, is, steps, icf, colorFills, px, py, strokeWidth, scaleInvariant, pprevx, pprevy, pnextx, pnexty, l);
+            iv += 4;
+            is += 12;
+            icf += 8;
+        }
+        // Last segment
+        pprevx = px;
+        pprevy = py;
+        px = pnextx;
+        py = pnexty;
+        pnextx = px + (px - pprevx);
+        pnexty = py + (py - pprevy);
+        l += toLength(pprevx, pprevy, px, py);
+        fillTransformedLineVertexStepAndColorFill(iv, vertices, is, steps, icf, colorFills, px, py, strokeWidth, scaleInvariant, pprevx, pprevy, pnextx, pnexty, l);
+        iv += 4;
+        is += 12;
+        icf += 8;
+        fillTransformedLineVertexStepAndColorFill(iv, vertices, is, steps, icf, colorFills, px, py, strokeWidth, scaleInvariant, pprevx, pprevy, pnextx, pnexty, l);
+        iv += 4;
+        is += 12;
+        icf += 8;
+        // Total length
+        var dash = toDash(l, strokeWidth, strokeStyle, LINE_WORK_POINT);
+        var dash0 = dash.x;
+        var dash1 = dash.y;
+        var icf0 = (voffset << 2) - 1;
+        for (var i = icf0, imax = icf0 + 8; i < imax; i += 4) {
+            colorFills[i + 2] = dash0;
+            colorFills[i + 3] = dash1;
+            colorFills[i + 4] = length;
+        }
+        for (var i = icf0 + 8; i < icf; i += 4) {
+            colorFills[i + 2] = dash0;
+            colorFills[i + 3] = dash1;
+            colorFills[i + 4] = l;
         }
         // Fill the rest
-        for (var ivmax = (voffset + vcount) << 1; iv < ivmax; iv += 2, is += 6, icf += 4) {
-            vertices[iv + 0] = px;
-            vertices[iv + 1] = py;
-            steps[is + 0] = 0;
-            steps[is + 1] = 0;
-            steps[is + 2] = 0;
-            steps[is + 3] = 0;
-            steps[is + 4] = 0;
-            steps[is + 5] = 0;
-            colorFills[icf + 0] = 0;
-            colorFills[icf + 1] = 0;
-            colorFills[icf + 2] = 0;
-            colorFills[icf + 4] = 0;
+        if (0 <= vcount) {
+            var ivmax = ((voffset + vcount) << 1) - 1;
+            for (; iv < ivmax;) {
+                vertices[++iv] = px;
+                vertices[++iv] = py;
+                steps[++is] = 0;
+                steps[++is] = scaleInvariant;
+                steps[++is] = pprevx;
+                steps[++is] = pprevy;
+                steps[++is] = pnextx;
+                steps[++is] = pnexty;
+                colorFills[++icf] = l;
+                colorFills[++icf] = dash0;
+                colorFills[++icf] = dash1;
+                colorFills[++icf] = l;
+            }
         }
-        return lmax;
+        return l;
+    };
+    var buildTransformedLineClosedSegmentVertexStepAndColorFill = function (vertices, steps, colorFills, voffset, vcount, lineVertices, lineVertexFrom, lineVertexTo, lineVertexCount, strokeWidth, strokeStyle) {
+        var scaleInvariant = toScaleInvariant(strokeStyle);
+        var ilast = (lineVertexTo - 1) % lineVertexCount << 1;
+        var pprevx = 0;
+        var pprevy = 0;
+        var px = lineVertices[ilast];
+        var py = lineVertices[ilast + 1];
+        var ifirst = lineVertexFrom % lineVertexCount << 1;
+        var pnextx = lineVertices[ifirst];
+        var pnexty = lineVertices[ifirst + 1];
+        var l = 0;
+        var iv = (voffset << 1) - 1;
+        var is = voffset * 6 - 1;
+        var icf = (voffset << 2) - 1;
+        for (var i = lineVertexFrom; i < lineVertexTo; ++i) {
+            pprevx = px;
+            pprevy = py;
+            px = pnextx;
+            py = pnexty;
+            var imiddle = (i + 1) % lineVertexCount << 1;
+            pnextx = lineVertices[imiddle];
+            pnexty = lineVertices[imiddle + 1];
+            l += toLength(pprevx, pprevy, px, py);
+            fillTransformedLineVertexStepAndColorFill(iv, vertices, is, steps, icf, colorFills, px, py, strokeWidth, scaleInvariant, pprevx, pprevy, pnextx, pnexty, l);
+            iv += 4;
+            is += 12;
+            icf += 8;
+            fillTransformedLineVertexStepAndColorFill(iv, vertices, is, steps, icf, colorFills, px, py, strokeWidth, scaleInvariant, pprevx, pprevy, pnextx, pnexty, l);
+            iv += 4;
+            is += 12;
+            icf += 8;
+        }
+        // Last segment
+        pprevx = px;
+        pprevy = py;
+        px = pnextx;
+        py = pnexty;
+        var isecond = (lineVertexFrom + 1) % lineVertexCount << 1;
+        pnextx = lineVertices[isecond];
+        pnexty = lineVertices[isecond + 1];
+        l += toLength(pprevx, pprevy, px, py);
+        fillTransformedLineVertexStepAndColorFill(iv, vertices, is, steps, icf, colorFills, px, py, strokeWidth, scaleInvariant, pprevx, pprevy, pnextx, pnexty, l);
+        iv += 4;
+        is += 12;
+        icf += 8;
+        // Total length
+        var dash = toDash(l, strokeWidth, strokeStyle, LINE_WORK_POINT);
+        var dash0 = dash.x;
+        var dash1 = dash.y;
+        for (var i = (voffset << 2) - 1; i < icf; i += 4) {
+            colorFills[i + 2] = dash0;
+            colorFills[i + 3] = dash1;
+            colorFills[i + 4] = -1;
+        }
+        // Fill the rest
+        if (0 <= vcount) {
+            var ivmax = ((voffset + vcount) << 1) - 1;
+            for (; iv < ivmax;) {
+                vertices[++iv] = px;
+                vertices[++iv] = py;
+                steps[++is] = 0;
+                steps[++is] = scaleInvariant;
+                steps[++is] = pprevx;
+                steps[++is] = pprevy;
+                steps[++is] = pnextx;
+                steps[++is] = pnexty;
+                colorFills[++icf] = l;
+                colorFills[++icf] = dash0;
+                colorFills[++icf] = dash1;
+                colorFills[++icf] = -1;
+            }
+        }
+        return l;
     };
 
     /*
@@ -27219,7 +27193,7 @@
         };
         EShapeLineUploaded.prototype.isCompatible = function (shape) {
             if (_super.prototype.isCompatible.call(this, shape)) {
-                var vcount = toLineVertexCount(toPointsCount(shape.points));
+                var vcount = toLineVertexCount(toLinePointCount(shape.points), true);
                 return vcount === this.vertexCount - this.textVertexCount;
             }
             return false;
@@ -27237,14 +27211,12 @@
             if (points) {
                 var formatted = points.formatted;
                 var pointCount = formatted.length;
-                var pointsClosed = !!(formatted.style & EShapePointsStyle.CLOSED);
-                if (this.pointCount !== pointCount || this.pointsClosed !== pointsClosed) {
+                if (this.pointCount !== pointCount) {
                     this.pointCount = pointCount;
-                    this.pointsClosed = pointsClosed;
                     // Invalidate the pointId to update the vertices
                     this.pointId = -1;
                     buffer.updateClippings();
-                    buildLineClipping(buffer.clippings, this.vertexOffset, this.vertexCount - this.textVertexCount, pointCount, pointsClosed);
+                    buildLineClipping(buffer.clippings, this.vertexOffset, this.vertexCount - this.textVertexCount, pointCount);
                 }
             }
         };
@@ -27252,7 +27224,9 @@
             var points = shape.points;
             if (points) {
                 var pointId = points.id;
-                var isPointChanged = pointId !== this.pointId;
+                var formatted = points.formatted;
+                var pointsClosed = !!(formatted.style & EShapePointsStyle.CLOSED);
+                var isPointChanged = pointId !== this.pointId || pointsClosed !== this.pointsClosed;
                 var stroke = shape.stroke;
                 var strokeWidth = stroke.enable ? stroke.width : 0;
                 var strokeStyle = stroke.style;
@@ -27261,6 +27235,7 @@
                 var isTransformChanged = this.transformLocalId !== transformLocalId;
                 if (isPointChanged || isTransformChanged || isStrokeWidthChanged) {
                     this.pointId = pointId;
+                    this.pointsClosed = pointsClosed;
                     this.strokeWidth = strokeWidth;
                     this.strokeStyle = strokeStyle;
                     this.transformLocalId = transformLocalId;
@@ -27275,7 +27250,6 @@
                     buffer.updateVertices();
                     buffer.updateSteps();
                     buffer.updateColorFills();
-                    var formatted = points.formatted;
                     this.length = buildLineVertexStepAndColorFill(buffer.vertices, buffer.steps, buffer.colorFills, this.vertexOffset, this.vertexCount - this.textVertexCount, this.pointCount, this.pointsClosed, formatted.values, formatted.segments, strokeWidth, strokeStyle, shape.transform.internalTransform);
                 }
             }
@@ -27289,9 +27263,8 @@
             if (texture !== this.texture || textureTransformId !== this.textureTransformId) {
                 this.texture = texture;
                 this.textureTransformId = textureTransformId;
-                var pointCount = this.pointCount;
                 buffer.updateUvs();
-                buildLineUv(buffer.uvs, buffer.colorFills, this.vertexOffset, this.vertexCount - this.textVertexCount, pointCount, this.pointsClosed, this.toTextureUvs(texture), this.length);
+                buildLineUv(buffer.uvs, buffer.colorFills, this.vertexOffset, this.vertexCount - this.textVertexCount, this.toTextureUvs(texture), this.length);
             }
         };
         return EShapeLineUploaded;
@@ -27303,16 +27276,39 @@
      */
     var createLineUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
         var points = shape.points;
-        var pointCount = toPointsCount(points);
+        var pointCount = toLinePointCount(points);
         var tcount = toTextBufferCount(shape);
         var tvcount = tcount * TEXT_VERTEX_COUNT;
         var ticount = tcount * TEXT_INDEX_COUNT;
-        var vcount = toLineVertexCount(pointCount) + tvcount;
-        var icount = vcount - tvcount - 2 + ticount;
+        var vcount = toLineVertexCount(pointCount, true) + tvcount;
+        var icount = toLineIndexCount(pointCount, true) + ticount;
         if (buffer.check(voffset, ioffset, vcount, icount)) {
             return new EShapeLineUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight).init(shape);
         }
         return null;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toIndexOf = function (array, value) {
+        var i0 = 0;
+        var i1 = array.length - 1;
+        while (i0 <= i1) {
+            var i2 = i0 + ((i1 - i0) >> 1);
+            var v2 = array[i2];
+            if (value < v2) {
+                i1 = i2 - 1;
+            }
+            else if (v2 < value) {
+                i0 = i2 + 1;
+            }
+            else {
+                return i2;
+            }
+        }
+        return -1;
     };
 
     /*
@@ -27426,10 +27422,9 @@
             var rvalues = result.values;
             var rsegments = result.segments;
             if (length <= 2) {
-                return {
-                    values: acopy(values, rvalues),
-                    segments: acopy(segments, rsegments)
-                };
+                acopy(values, rvalues);
+                acopy(segments, rsegments);
+                return result;
             }
             var c0 = this.WORK_P0 || pnew();
             var c1 = this.WORK_P1 || pnew();
@@ -27702,7 +27697,7 @@
      */
     var eShapePointsFormatterCurve = function (source, result) {
         var style = source.style;
-        UtilCurve.interpolate(source.length, source.values, source.segments, UtilCurve.toHybrid, !!(style & EShapePointsStyle.CLOSED), 12, true, result);
+        UtilCurve.interpolate(source.length, source.values, source.segments, UtilCurve.toHybrid, !!(style & EShapePointsStyle.CLOSED), EShapeDefaults.CURVE_SEGMENT_COUNT, true, result);
         result.length = result.values.length >> 1;
         result.style = style;
         return result;
@@ -27748,8 +27743,9 @@
                 var az = Math.abs(r * ax + r * ay);
                 if (ax < ay) {
                     if (ay < az) {
-                        x1 += az * Math.sign(dx) * r;
-                        y1 += az * Math.sign(dy) * r;
+                        var aw = Math.min(ax, ay);
+                        x1 += aw * Math.sign(dx);
+                        y1 += aw * Math.sign(dy);
                     }
                     else {
                         y1 = y2;
@@ -27757,8 +27753,9 @@
                 }
                 else {
                     if (ax < az) {
-                        x1 += az * Math.sign(dx) * r;
-                        y1 += az * Math.sign(dy) * r;
+                        var aw = Math.min(ax, ay);
+                        x1 += aw * Math.sign(dx);
+                        y1 += aw * Math.sign(dy);
                     }
                     else {
                         x1 = x2;
@@ -27777,8 +27774,9 @@
                 if (threshold < ax && threshold < ay && threshold < az && toIndexOf(segments, 0) < 0) {
                     if (ax < ay) {
                         if (ay < az) {
-                            x1 += az * Math.sign(dx) * r;
-                            y1 += az * Math.sign(dy) * r;
+                            var aw = Math.min(ax, ay);
+                            x1 += aw * Math.sign(dx);
+                            y1 += aw * Math.sign(dy);
                         }
                         else {
                             y1 = y0;
@@ -27786,8 +27784,9 @@
                     }
                     else {
                         if (ax < az) {
-                            x1 += az * Math.sign(dx) * r;
-                            y1 += az * Math.sign(dy) * r;
+                            var aw = Math.min(ax, ay);
+                            x1 += aw * Math.sign(dx);
+                            y1 += aw * Math.sign(dy);
                         }
                         else {
                             x1 = x0;
@@ -27855,7 +27854,7 @@
             this._style = style;
             this._formattedId = -1;
             this._formatter = null;
-            this._formatted = this;
+            this._formatted = null;
         }
         Object.defineProperty(EShapeLinePoints.prototype, "length", {
             get: function () {
@@ -27951,6 +27950,7 @@
                 if (this._formatter !== formatter) {
                     this._formattedId = -1;
                     this._formatter = formatter;
+                    this.toDirty(true);
                 }
             },
             enumerable: false,
@@ -27973,22 +27973,45 @@
                         }
                     }
                     if (formatter != null) {
-                        if (result === this) {
+                        if (result == null) {
                             result = {
                                 length: 0,
                                 values: [],
                                 segments: [],
+                                boundary: [0, 0, 0, 0],
                                 style: EShapePointsStyle.NONE
                             };
                         }
                         formatter(this, result);
+                        // Boundary
+                        var values = result.values;
+                        var valuesLength = values.length;
+                        if (2 <= valuesLength) {
+                            var xmin = values[0];
+                            var ymin = values[1];
+                            var xmax = xmin;
+                            var ymax = ymin;
+                            for (var i = 2, imax = values.length; i < imax; i += 2) {
+                                var x = values[i];
+                                var y = values[i + 1];
+                                xmin = Math.min(xmin, x);
+                                ymin = Math.min(ymin, y);
+                                xmax = Math.max(xmax, x);
+                                ymax = Math.max(ymax, y);
+                            }
+                            var boundary = result.boundary;
+                            boundary[0] = xmin;
+                            boundary[1] = ymin;
+                            boundary[2] = xmax;
+                            boundary[3] = ymax;
+                        }
                     }
                     else {
-                        result = this;
+                        result = null;
                     }
                     this._formatted = result;
                 }
-                return result;
+                return result || this;
             },
             enumerable: false,
             configurable: true
@@ -28054,12 +28077,36 @@
             if (newStyle != null) {
                 var oldStyle = this._style;
                 if (oldStyle !== newStyle) {
+                    var mask = EShapePointsStyle.STRAIGHT | EShapePointsStyle.CURVE;
+                    var oldStyleMasked = oldStyle & mask;
+                    var newStyleMasked = newStyle & mask;
+                    if (oldStyleMasked !== newStyleMasked) {
+                        isDirty = true;
+                    }
+                    else if (oldStyleMasked) {
+                        var oldStyleClosed = oldStyle & EShapePointsStyle.CLOSED;
+                        var newStyleClosed = newStyle & EShapePointsStyle.CLOSED;
+                        if (oldStyleClosed !== newStyleClosed) {
+                            isDirty = true;
+                        }
+                        else {
+                            isUpdated = true;
+                        }
+                    }
+                    else {
+                        isUpdated = true;
+                    }
                     this._style = newStyle;
-                    isUpdated = true;
                 }
             }
             //
-            if (isDirty) {
+            if (isUpdated || isDirty) {
+                this.toDirty(isDirty);
+            }
+            return this;
+        };
+        EShapeLinePoints.prototype.toDirty = function (revalidate) {
+            if (revalidate) {
                 this._id += 1;
                 var parent_1 = this._parent;
                 var uploaded = parent_1.uploaded;
@@ -28076,11 +28123,10 @@
                     parent_1.updateUploaded();
                 }
             }
-            else if (isUpdated) {
+            else {
                 this._id += 1;
                 this._parent.updateUploaded();
             }
-            return this;
         };
         EShapeLinePoints.prototype.clone = function (parent) {
             return new EShapeLinePoints(parent, this._values, this._segments, this._style);
@@ -28936,7 +28982,7 @@
         EShapeLineOfAnyPointsImpl.prototype.serialize = function (manager) {
             return manager.addResource("[]");
         };
-        EShapeLineOfAnyPointsImpl.prototype.calcHitPointAbs = function (x, y, threshold, toRange, tester, result) {
+        EShapeLineOfAnyPointsImpl.prototype.calcHitPointAbs = function (x, y, sw, ss, threshold, toRange, tester, result) {
             var formatted = this.formatted;
             var pointCount = formatted.length;
             var pointValues = formatted.values;
@@ -28960,7 +29006,7 @@
                 var sy = size.getY(i) * 0.5;
                 var ox = offset.getX(i);
                 var oy = offset.getY(i);
-                if (tester(x, y, sx, sy, ox, oy, px, py, i, threshold, result)) {
+                if (tester(x, y, sx, sy, ox, oy, px, py, sw, ss, i, threshold, result)) {
                     return true;
                 }
             }
@@ -29184,23 +29230,13 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var toHitThreshold = function (target, toThreshold) {
-        var stroke = target.stroke;
-        var size = target.points.size.getLimit() + (stroke.enable ? stroke.width * stroke.align : 0);
-        return toThreshold ? toThreshold(size, 1) : size * 0.5;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var EShapeLineOfCircles = /** @class */ (function (_super) {
         __extends(EShapeLineOfCircles, _super);
         function EShapeLineOfCircles() {
             var _this = _super.call(this, EShapeType.LINE_OF_CIRCLES) || this;
             _this._points = new EShapeLineOfAnyPointsImpl(_this);
-            _this._tester = function (x, y, ax, ay, ox, oy, px, py) {
-                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py);
+            _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss) {
+                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss);
             };
             _this._testerBBox = function (x, y, ax, ay, ox, oy, px, py) {
                 return _this.containsPointAbsBBox(x, y, ax, ay, ox, oy, px, py);
@@ -29217,24 +29253,24 @@
         EShapeLineOfCircles.prototype.clone = function () {
             return new EShapeLineOfCircles().copy(this);
         };
-        EShapeLineOfCircles.prototype.containsAbs = function (x, y, ax, ay) {
-            var threshold = toHitThreshold(this, null);
+        EShapeLineOfCircles.prototype.containsAbs = function (x, y, ax, ay, sw, ss) {
+            var threshold = toThresholdDefault(sw, ss, this._points.size.getLimit());
             if (this.containsAbsBBox(x, y, ax + threshold, ay + threshold)) {
-                return this._points.calcHitPointAbs(x, y, threshold, null, this._tester, null);
+                return this._points.calcHitPointAbs(x, y, sw, ss, threshold, null, this._tester, null);
             }
             return false;
         };
-        EShapeLineOfCircles.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py) {
-            return _super.prototype.containsAbs.call(this, x - px - ox, y - py - oy, ax, ay);
+        EShapeLineOfCircles.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py, sw, ss) {
+            return _super.prototype.containsAbs.call(this, x - px - ox, y - py - oy, ax, ay, sw, ss);
         };
         EShapeLineOfCircles.prototype.containsPointAbsBBox = function (x, y, ax, ay, ox, oy, px, py) {
             return _super.prototype.containsAbsBBox.call(this, x - px - ox, y - py - oy, ax, ay);
         };
         EShapeLineOfCircles.prototype.calcHitPoint = function (point, toThreshold, toRange, tester, result) {
-            var rect = this.toLocalRect(point, EShapeBase.WORK_RECT);
-            var threshold = toHitThreshold(this, toThreshold);
-            if (this.containsAbsBBox(rect.x, rect.y, rect.width + threshold, rect.height + threshold)) {
-                return this._points.calcHitPointAbs(rect.x, rect.y, threshold, toRange, tester || this._tester, result);
+            var data = this.toHitTestData(point);
+            var threshold = (toThreshold || toThresholdDefault)(data.strokeWidth, data.strokeScale, this._points.size.getLimit());
+            if (this.containsAbsBBox(data.x, data.y, data.width + threshold, data.height + threshold)) {
+                return this._points.calcHitPointAbs(data.x, data.y, data.strokeWidth, data.strokeScale, threshold, toRange, tester || this._tester, result);
             }
             return false;
         };
@@ -30465,24 +30501,23 @@
                 }
             }
         };
-        EShapeRectangleRounded.prototype.containsAbs = function (x, y, ax, ay) {
+        EShapeRectangleRounded.prototype.containsAbs = function (x, y, ax, ay, sw, ss) {
             if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
                 var fill = this.fill;
-                var stroke = this.stroke;
-                var strokeWidth = stroke.enable ? stroke.width : 0;
-                if (fill.enable || 0 < strokeWidth) {
+                if (fill.enable || 0 < sw) {
                     var r = this.radius * Math.min(ax, ay);
                     var corner = this.corner;
-                    var strokeSide = stroke.side;
                     if (this.containsAbs_(x, y, ax, ay, r, corner)) {
                         if (fill.enable) {
                             return true;
                         }
                         else {
-                            var wx = Math.max(0.0, ax - strokeWidth);
-                            var wy = Math.max(0.0, ay - strokeWidth);
-                            var wr = Math.max(0.0, r - strokeWidth);
+                            var s = sw * ss;
+                            var wx = Math.max(0.0, ax - s);
+                            var wy = Math.max(0.0, ay - s);
+                            var wr = Math.max(0.0, r - s);
                             if (!this.containsAbs_(x, y, wx, wy, wr, corner)) {
+                                var strokeSide = this.stroke.side;
                                 if (strokeSide === EShapeStrokeSide.ALL) {
                                     return true;
                                 }
@@ -30590,8 +30625,8 @@
         function EShapeLineOfRectangleRoundeds() {
             var _this = _super.call(this, EShapeType.LINE_OF_RECTANGLE_ROUNDEDS) || this;
             _this._points = new EShapeLineOfAnyPointsImpl(_this);
-            _this._tester = function (x, y, ax, ay, ox, oy, px, py) {
-                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py);
+            _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss) {
+                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss);
             };
             _this._testerBBox = function (x, y, ax, ay, ox, oy, px, py) {
                 return _this.containsPointAbsBBox(x, y, ax, ay, ox, oy, px, py);
@@ -30608,24 +30643,24 @@
         EShapeLineOfRectangleRoundeds.prototype.clone = function () {
             return new EShapeLineOfRectangleRoundeds().copy(this);
         };
-        EShapeLineOfRectangleRoundeds.prototype.containsAbs = function (x, y, ax, ay) {
-            var threshold = toHitThreshold(this, null);
+        EShapeLineOfRectangleRoundeds.prototype.containsAbs = function (x, y, ax, ay, sw, ss) {
+            var threshold = toThresholdDefault(sw, ss, this._points.size.getLimit());
             if (this.containsAbsBBox(x, y, ax + threshold, ay + threshold)) {
-                return this._points.calcHitPointAbs(x, y, threshold, null, this._tester, null);
+                return this._points.calcHitPointAbs(x, y, threshold, sw, ss, null, this._tester, null);
             }
             return false;
         };
-        EShapeLineOfRectangleRoundeds.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py) {
-            return _super.prototype.containsAbs.call(this, x - px - ox, y - py - oy, ax, ay);
+        EShapeLineOfRectangleRoundeds.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py, sw, ss) {
+            return _super.prototype.containsAbs.call(this, x - px - ox, y - py - oy, ax, ay, sw, ss);
         };
         EShapeLineOfRectangleRoundeds.prototype.containsPointAbsBBox = function (x, y, ax, ay, ox, oy, px, py) {
             return _super.prototype.containsAbsBBox.call(this, x - px - ox, y - py - oy, ax, ay);
         };
         EShapeLineOfRectangleRoundeds.prototype.calcHitPoint = function (point, toThreshold, toRange, tester, result) {
-            var rect = this.toLocalRect(point, EShapeBase.WORK_RECT);
-            var threshold = toHitThreshold(this, toThreshold);
-            if (this.containsAbsBBox(rect.x, rect.y, rect.width + threshold, rect.height + threshold)) {
-                return this._points.calcHitPointAbs(rect.x, rect.y, threshold, toRange, tester || this._tester, result);
+            var data = this.toHitTestData(point);
+            var threshold = (toThreshold || toThresholdDefault)(data.strokeWidth, data.strokeScale, this._points.size.getLimit());
+            if (this.containsAbsBBox(data.x, data.y, data.width + threshold, data.height + threshold)) {
+                return this._points.calcHitPointAbs(data.x, data.y, data.strokeWidth, data.strokeScale, threshold, toRange, tester || this._tester, result);
             }
             return false;
         };
@@ -30827,8 +30862,8 @@
         function EShapeLineOfRectangles() {
             var _this = _super.call(this, EShapeType.LINE_OF_RECTANGLES) || this;
             _this._points = new EShapeLineOfAnyPointsImpl(_this);
-            _this._tester = function (x, y, ax, ay, ox, oy, px, py) {
-                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py);
+            _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss) {
+                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss);
             };
             _this._testerBBox = function (x, y, ax, ay, ox, oy, px, py) {
                 return _this.containsPointAbsBBox(x, y, ax, ay, ox, oy, px, py);
@@ -30845,24 +30880,24 @@
         EShapeLineOfRectangles.prototype.clone = function () {
             return new EShapeLineOfRectangles().copy(this);
         };
-        EShapeLineOfRectangles.prototype.containsAbs = function (x, y, ax, ay) {
-            var threshold = toHitThreshold(this, null);
+        EShapeLineOfRectangles.prototype.containsAbs = function (x, y, ax, ay, sw, ss) {
+            var threshold = toThresholdDefault(sw, ss, this._points.size.getLimit());
             if (this.containsAbsBBox(x, y, ax + threshold, ay + threshold)) {
-                return this._points.calcHitPointAbs(x, y, threshold, null, this._tester, null);
+                return this._points.calcHitPointAbs(x, y, sw, ss, threshold, null, this._tester, null);
             }
             return false;
         };
-        EShapeLineOfRectangles.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py) {
-            return _super.prototype.containsAbs.call(this, x - px - ox, y - py - oy, ax, ay);
+        EShapeLineOfRectangles.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py, sw, ss) {
+            return _super.prototype.containsAbs.call(this, x - px - ox, y - py - oy, ax, ay, sw, ss);
         };
         EShapeLineOfRectangles.prototype.containsPointAbsBBox = function (x, y, ax, ay, ox, oy, px, py) {
             return _super.prototype.containsAbsBBox.call(this, x - px - ox, y - py - oy, ax, ay);
         };
         EShapeLineOfRectangles.prototype.calcHitPoint = function (point, toThreshold, toRange, tester, result) {
-            var rect = this.toLocalRect(point, EShapeBase.WORK_RECT);
-            var threshold = toHitThreshold(this, toThreshold);
-            if (this.containsAbsBBox(rect.x, rect.y, rect.width + threshold, rect.height + threshold)) {
-                return this._points.calcHitPointAbs(rect.x, rect.y, threshold, toRange, tester || this._tester, result);
+            var data = this.toHitTestData(point);
+            var threshold = (toThreshold || toThresholdDefault)(data.strokeWidth, data.strokeScale, this._points.size.getLimit());
+            if (this.containsAbsBBox(data.x, data.y, data.width + threshold, data.height + threshold)) {
+                return this._points.calcHitPointAbs(data.x, data.y, data.strokeWidth, data.strokeScale, threshold, toRange, tester || this._tester, result);
             }
             return false;
         };
@@ -31493,7 +31528,7 @@
             // y = ay2;
             return +a * x + ay1 - y <= 0 && -a * x + ay1 - y <= 0 && y <= ay2;
         };
-        EShapeTriangle.prototype.containsAbs = function (x, y, ax, ay) {
+        EShapeTriangle.prototype.containsAbs = function (x, y, ax, ay, sw, ss) {
             if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
                 var a = (2 * ay) / ax;
                 var fill = this.fill;
@@ -31503,15 +31538,14 @@
                     }
                 }
                 else {
-                    var stroke = this.stroke;
-                    var strokeWidth = stroke.width;
-                    if (stroke.enable && 0 < strokeWidth) {
+                    if (0 < sw) {
+                        var s = sw * ss;
                         if (this.containsAbs_(x, y, a, -ay, +ay)) {
                             var az = Math.sqrt(ax * ax + 4 * ay * ay);
                             var aw = (2 * ax * ay) / (ax + az);
                             var cy = ay - aw;
-                            var ay1 = cy + ((-ay - cy) * Math.max(0.0, aw - strokeWidth)) / aw;
-                            var ay2 = ay - strokeWidth;
+                            var ay1 = cy + ((-ay - cy) * Math.max(0.0, aw - s)) / aw;
+                            var ay2 = ay - s;
                             if (!this.containsAbs_(x, y, a, ay1, ay2)) {
                                 return true;
                             }
@@ -31538,7 +31572,7 @@
         EShapeTriangleRounded.prototype.clone = function () {
             return new EShapeTriangleRounded().copy(this);
         };
-        EShapeTriangleRounded.prototype.containsCorner_ = function (x, y, r, aw) {
+        EShapeTriangleRounded.prototype.containsCorner_ = function (x, y, r, aw, sw, ss) {
             var fill = this.fill;
             if (fill.enable) {
                 if (x * x + y * y <= r * r) {
@@ -31546,12 +31580,10 @@
                 }
             }
             else {
-                var stroke = this.stroke;
-                var strokeWidth = stroke.width;
-                if (stroke.enable && 0 < strokeWidth) {
+                if (0 < sw) {
                     var d = x * x + y * y;
                     if (d <= r * r) {
-                        var w = Math.max(0.0, r * (1 - strokeWidth / aw));
+                        var w = Math.max(0.0, r * (1 - (sw * ss) / aw));
                         if (w * w <= d) {
                             return true;
                         }
@@ -31560,7 +31592,7 @@
             }
             return false;
         };
-        EShapeTriangleRounded.prototype.containsCorner = function (x, y, x0, y0, x1, y1, x2, y2, x3, y3, r12, r13, aw, radius) {
+        EShapeTriangleRounded.prototype.containsCorner = function (x, y, x0, y0, x1, y1, x2, y2, x3, y3, r12, r13, aw, radius, sw, ss) {
             var xl = x1 + r12 * (x2 - x1) - x0;
             var yl = y1 + r12 * (y2 - y1) - y0;
             var n = Math.sqrt(xl * xl + yl * yl);
@@ -31579,14 +31611,14 @@
                     var yc = y - y0;
                     var dx = (+nry * xc - nrx * yc) * deti;
                     var dy = (-nly * xc + nlx * yc) * deti;
-                    if (this.containsCorner_(dx, dy, n, aw * radius)) {
+                    if (this.containsCorner_(dx, dy, n, aw * radius, sw, ss)) {
                         return true;
                     }
                 }
             }
             return false;
         };
-        EShapeTriangleRounded.prototype.containsAbs = function (x, y, ax, ay) {
+        EShapeTriangleRounded.prototype.containsAbs = function (x, y, ax, ay, sw, ss) {
             if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
                 var a = (2 * ay) / ax;
                 if (this.containsAbs_(x, y, a, -ay, +ay)) {
@@ -31614,7 +31646,7 @@
                     if (!c0 && !c1 && corner & EShapeCorner.TOP) {
                         // Top corner
                         var rz = (0.5 * (az - aw) * radius) / az;
-                        if (this.containsCorner(x, y, x10, y10, x1, y1, x7, y7, x4, y4, rz, rz, aw, radius)) {
+                        if (this.containsCorner(x, y, x10, y10, x1, y1, x7, y7, x4, y4, rz, rz, aw, radius, sw, ss)) {
                             return true;
                         }
                     }
@@ -31622,7 +31654,7 @@
                         // Bottom-left corner
                         var ry = (aw * radius) / (2 * ay);
                         var rx = (ry * az) / (2 * ax);
-                        if (this.containsCorner(x, y, x12, y12, x7, y7, x4, y4, x1, y1, rx, ry, aw, radius)) {
+                        if (this.containsCorner(x, y, x12, y12, x7, y7, x4, y4, x1, y1, rx, ry, aw, radius, sw, ss)) {
                             return true;
                         }
                     }
@@ -31630,7 +31662,7 @@
                         // Bottom-right corner
                         var ry = (aw * radius) / (2 * ay);
                         var rx = (ry * az) / (2 * ax);
-                        if (this.containsCorner(x, y, x11, y11, x4, y4, x1, y1, x7, y7, ry, rx, aw, radius)) {
+                        if (this.containsCorner(x, y, x11, y11, x4, y4, x1, y1, x7, y7, ry, rx, aw, radius, sw, ss)) {
                             return true;
                         }
                     }
@@ -31641,12 +31673,11 @@
                             return true;
                         }
                         else {
-                            var stroke = this.stroke;
-                            var strokeWidth = stroke.width;
-                            if (stroke.enable && 0 < strokeWidth) {
+                            if (0 < sw) {
+                                var s = sw * ss;
                                 var cy = ay - aw;
-                                var ay1 = cy + ((-ay - cy) * Math.max(0.0, aw - strokeWidth)) / aw;
-                                var ay2 = ay - strokeWidth;
+                                var ay1 = cy + ((-ay - cy) * Math.max(0.0, aw - s)) / aw;
+                                var ay2 = ay - s;
                                 if (!this.containsAbs_(x, y, a, ay1, ay2)) {
                                     return true;
                                 }
@@ -31669,8 +31700,8 @@
         function EShapeLineOfTriangleRoundeds() {
             var _this = _super.call(this, EShapeType.LINE_OF_TRIANGLE_ROUNDEDS) || this;
             _this._points = new EShapeLineOfAnyPointsImpl(_this);
-            _this._tester = function (x, y, ax, ay, ox, oy, px, py) {
-                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py);
+            _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss) {
+                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss);
             };
             _this._testerBBox = function (x, y, ax, ay, ox, oy, px, py) {
                 return _this.containsPointAbsBBox(x, y, ax, ay, ox, oy, px, py);
@@ -31687,24 +31718,24 @@
         EShapeLineOfTriangleRoundeds.prototype.clone = function () {
             return new EShapeLineOfTriangleRoundeds().copy(this);
         };
-        EShapeLineOfTriangleRoundeds.prototype.containsAbs = function (x, y, ax, ay) {
-            var threshold = toHitThreshold(this, null);
+        EShapeLineOfTriangleRoundeds.prototype.containsAbs = function (x, y, ax, ay, sw, ss) {
+            var threshold = toThresholdDefault(sw, ss, this._points.size.getLimit());
             if (this.containsAbsBBox(x, y, ax + threshold, ay + threshold)) {
-                return this._points.calcHitPointAbs(x, y, threshold, null, this._tester, null);
+                return this._points.calcHitPointAbs(x, y, sw, ss, threshold, null, this._tester, null);
             }
             return false;
         };
-        EShapeLineOfTriangleRoundeds.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py) {
-            return _super.prototype.containsAbs.call(this, x - px - ox, y - py - oy, ax, ay);
+        EShapeLineOfTriangleRoundeds.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py, sw, ss) {
+            return _super.prototype.containsAbs.call(this, x - px - ox, y - py - oy, ax, ay, sw, ss);
         };
         EShapeLineOfTriangleRoundeds.prototype.containsPointAbsBBox = function (x, y, ax, ay, ox, oy, px, py) {
             return _super.prototype.containsAbsBBox.call(this, x - px - ox, y - py - oy, ax, ay);
         };
         EShapeLineOfTriangleRoundeds.prototype.calcHitPoint = function (point, toThreshold, toRange, tester, result) {
-            var rect = this.toLocalRect(point, EShapeBase.WORK_RECT);
-            var threshold = toHitThreshold(this, toThreshold);
-            if (this.containsAbsBBox(rect.x, rect.y, rect.width + threshold, rect.height + threshold)) {
-                return this._points.calcHitPointAbs(rect.x, rect.y, threshold, toRange, tester || this._tester, result);
+            var data = this.toHitTestData(point);
+            var threshold = (toThreshold || toThresholdDefault)(data.strokeWidth, data.strokeScale, this._points.size.getLimit());
+            if (this.containsAbsBBox(data.x, data.y, data.width + threshold, data.height + threshold)) {
+                return this._points.calcHitPointAbs(data.x, data.y, data.strokeWidth, data.strokeScale, threshold, toRange, tester || this._tester, result);
             }
             return false;
         };
@@ -32024,8 +32055,8 @@
         function EShapeLineOfTriangles() {
             var _this = _super.call(this, EShapeType.LINE_OF_TRIANGLES) || this;
             _this._points = new EShapeLineOfAnyPointsImpl(_this);
-            _this._tester = function (x, y, ax, ay, ox, oy, px, py) {
-                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py);
+            _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss) {
+                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss);
             };
             _this._testerBBox = function (x, y, ax, ay, ox, oy, px, py) {
                 return _this.containsPointAbsBBox(x, y, ax, ay, ox, oy, px, py);
@@ -32042,24 +32073,24 @@
         EShapeLineOfTriangles.prototype.clone = function () {
             return new EShapeLineOfTriangles().copy(this);
         };
-        EShapeLineOfTriangles.prototype.containsAbs = function (x, y, ax, ay) {
-            var threshold = toHitThreshold(this, null);
+        EShapeLineOfTriangles.prototype.containsAbs = function (x, y, ax, ay, sw, ss) {
+            var threshold = toThresholdDefault(sw, ss, this._points.size.getLimit());
             if (this.containsAbsBBox(x, y, ax + threshold, ay + threshold)) {
-                return this._points.calcHitPointAbs(x, y, threshold, null, this._tester, null);
+                return this._points.calcHitPointAbs(x, y, sw, ss, threshold, null, this._tester, null);
             }
             return false;
         };
-        EShapeLineOfTriangles.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py) {
-            return _super.prototype.containsAbs.call(this, x - px - ox, y - py - oy, ax, ay);
+        EShapeLineOfTriangles.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py, sw, ss) {
+            return _super.prototype.containsAbs.call(this, x - px - ox, y - py - oy, ax, ay, sw, ss);
         };
         EShapeLineOfTriangles.prototype.containsPointAbsBBox = function (x, y, ax, ay, ox, oy, px, py) {
             return _super.prototype.containsAbsBBox.call(this, x - px - ox, y - py - oy, ax, ay);
         };
         EShapeLineOfTriangles.prototype.calcHitPoint = function (point, toThreshold, toRange, tester, result) {
-            var rect = this.toLocalRect(point, EShapeBase.WORK_RECT);
-            var threshold = toHitThreshold(this, toThreshold);
-            if (this.containsAbsBBox(rect.x, rect.y, rect.width + threshold, rect.height + threshold)) {
-                return this._points.calcHitPointAbs(rect.x, rect.y, threshold, toRange, tester || this._tester, result);
+            var data = this.toHitTestData(point);
+            var threshold = (toThreshold || toThresholdDefault)(data.strokeWidth, data.strokeScale, this._points.size.getLimit());
+            if (this.containsAbsBBox(data.x, data.y, data.width + threshold, data.height + threshold)) {
+                return this._points.calcHitPointAbs(data.x, data.y, data.strokeWidth, data.strokeScale, threshold, toRange, tester || this._tester, result);
             }
             return false;
         };
@@ -39992,20 +40023,14 @@
     var DBasePaddingAdjustable = /** @class */ (function () {
         function DBasePaddingAdjustable(target) {
             this._target = target;
-            this._adjuster = {
-                left: 0,
-                top: 0,
-                right: 0,
-                bottom: 0
-            };
+            this._top = 0;
+            this._right = 0;
+            this._bottom = 0;
+            this._left = 0;
+            if (target instanceof DBasePadding) {
+                this._callback = target.getCallback();
+            }
         }
-        Object.defineProperty(DBasePaddingAdjustable.prototype, "adjuster", {
-            get: function () {
-                return this._adjuster;
-            },
-            enumerable: false,
-            configurable: true
-        });
         DBasePaddingAdjustable.prototype.getTheme = function () {
             return this._target.getTheme();
         };
@@ -40013,7 +40038,16 @@
             this._target.setTheme(theme);
         };
         DBasePaddingAdjustable.prototype.getLeft = function () {
-            return this._target.getLeft() + this._adjuster.left;
+            return this._target.getLeft() + this._left;
+        };
+        DBasePaddingAdjustable.prototype.adjLeft = function (left) {
+            if (this._left !== left) {
+                this._left = left;
+                var callback = this._callback;
+                if (callback) {
+                    callback();
+                }
+            }
         };
         Object.defineProperty(DBasePaddingAdjustable.prototype, "left", {
             get: function () {
@@ -40026,7 +40060,16 @@
             configurable: true
         });
         DBasePaddingAdjustable.prototype.getTop = function () {
-            return this._target.getTop() + this._adjuster.top;
+            return this._target.getTop() + this._top;
+        };
+        DBasePaddingAdjustable.prototype.adjTop = function (top) {
+            if (this._top !== top) {
+                this._top = top;
+                var callback = this._callback;
+                if (callback) {
+                    callback();
+                }
+            }
         };
         Object.defineProperty(DBasePaddingAdjustable.prototype, "top", {
             get: function () {
@@ -40039,7 +40082,16 @@
             configurable: true
         });
         DBasePaddingAdjustable.prototype.getRight = function () {
-            return this._target.getRight() + this._adjuster.right;
+            return this._target.getRight() + this._right;
+        };
+        DBasePaddingAdjustable.prototype.adjRight = function (right) {
+            if (this._right !== right) {
+                this._right = right;
+                var callback = this._callback;
+                if (callback) {
+                    callback();
+                }
+            }
         };
         Object.defineProperty(DBasePaddingAdjustable.prototype, "right", {
             get: function () {
@@ -40052,7 +40104,16 @@
             configurable: true
         });
         DBasePaddingAdjustable.prototype.getBottom = function () {
-            return this._target.getBottom() + this._adjuster.bottom;
+            return this._target.getBottom() + this._bottom;
+        };
+        DBasePaddingAdjustable.prototype.adjBottom = function (bottom) {
+            if (this._bottom !== bottom) {
+                this._bottom = bottom;
+                var callback = this._callback;
+                if (callback) {
+                    callback();
+                }
+            }
         };
         Object.defineProperty(DBasePaddingAdjustable.prototype, "bottom", {
             get: function () {
@@ -47484,9 +47545,9 @@
             result[1] = from !== to ? to : Math.min(values.length << 1, to + 1);
             return result;
         };
-        DChartSeriesLineOfAny.prototype.calcHitPointHitTester = function (x, y, ax, ay, ox, oy, px, py, index, threshold, result) {
+        DChartSeriesLineOfAny.prototype.calcHitPointHitTester = function (x, y, ax, ay, ox, oy, px, py, sw, ss, index, threshold, result) {
             var shape = result.shape;
-            if (shape.containsPointAbs(x, y, ax, ay, ox, oy, px, py)) {
+            if (shape.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss)) {
                 var transform = shape.transform;
                 var position = transform.position;
                 var scale = transform.scale;
@@ -55115,11 +55176,12 @@
                 else {
                     marker.hide();
                 }
-                input.padding.adjuster.left = padding;
+                input.padding.adjLeft(padding);
             }
             else {
                 marker.state.removeAll(DTableState.OPENED, DTableState.HAS_CHILDREN);
                 marker.hide();
+                input.padding.adjLeft(0);
             }
             var column = this._column;
             DTableBodyCells.setReadOnly(this._input, row, columnIndex, column);
@@ -55583,7 +55645,7 @@
             var column = this._column;
             DTableBodyCells.setRenderable(this, row, columnIndex, column);
             var link = this.link;
-            var adjuster = this._padding.adjuster;
+            var padding = this._padding;
             if (isNumber(supplimental)) {
                 var isOpened = !!(supplimental & 0x1);
                 var hasChildren = !!(supplimental & 0x2);
@@ -55593,14 +55655,14 @@
                 state.set(DTableState.HAS_CHILDREN, hasChildren);
                 state.set(DTableState.OPENED, isOpened);
                 state.unlock();
+                padding.adjLeft(this.theme.getLevelPadding(level));
                 if (link) {
                     link.menu.enable = !hasChildren;
                 }
-                adjuster.left = this.theme.getLevelPadding(level);
             }
             else {
                 this.state.removeAll(DTableState.OPENED, DTableState.HAS_CHILDREN);
-                adjuster.left = 0;
+                padding.adjLeft(0);
                 if (link) {
                     link.menu.enable = false;
                 }
@@ -59431,6 +59493,599 @@
     }(DPane));
 
     /*
+     * Copyright (C) 2021 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toLabel$1 = function (item) {
+        var text = item.text;
+        if (isString(text)) {
+            return text;
+        }
+        var label = item.label;
+        if (isString(label)) {
+            return label;
+        }
+        var name = item.name;
+        if (isString(name)) {
+            return name;
+        }
+        return undefined;
+    };
+    var toTitle = function (item) {
+        var title = item.title;
+        if (isString(title)) {
+            return title;
+        }
+        return undefined;
+    };
+    var toImage = function (item) {
+        return item.image;
+    };
+    var toChildren$1 = function (item) {
+        return item.children;
+    };
+    var newChildren = function (item) {
+        return (item.children = []);
+    };
+    var DTreeNodeAccessorImpl = /** @class */ (function () {
+        function DTreeNodeAccessorImpl(options) {
+            var _a, _b, _c, _d, _e;
+            this.toLabel = (_a = options === null || options === void 0 ? void 0 : options.toLabel) !== null && _a !== void 0 ? _a : toLabel$1;
+            this.toTitle = (_b = options === null || options === void 0 ? void 0 : options.toTitle) !== null && _b !== void 0 ? _b : toTitle;
+            this.toImage = (_c = options === null || options === void 0 ? void 0 : options.toImage) !== null && _c !== void 0 ? _c : toImage;
+            this.toChildren = (_d = options === null || options === void 0 ? void 0 : options.toChildren) !== null && _d !== void 0 ? _d : toChildren$1;
+            this.newChildren = (_e = options === null || options === void 0 ? void 0 : options.newChildren) !== null && _e !== void 0 ? _e : newChildren;
+        }
+        return DTreeNodeAccessorImpl;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DTreeDataSelection = /** @class */ (function (_super) {
+        __extends(DTreeDataSelection, _super);
+        function DTreeDataSelection(parent) {
+            var _this = _super.call(this) || this;
+            _this._parent = parent;
+            _this._nodes = new Set();
+            return _this;
+        }
+        Object.defineProperty(DTreeDataSelection.prototype, "first", {
+            /**
+             * A first selected node or null.
+             */
+            get: function () {
+                var nodes = this._nodes;
+                if (0 < nodes.size) {
+                    var result_1 = null;
+                    nodes.forEach(function (item) {
+                        if (result_1 == null) {
+                            result_1 = item;
+                        }
+                    });
+                    return result_1;
+                }
+                return null;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DTreeDataSelection.prototype, "last", {
+            /**
+             * A last selected node or null.
+             */
+            get: function () {
+                var nodes = this._nodes;
+                if (0 < nodes.size) {
+                    var result_2 = null;
+                    nodes.forEach(function (row) {
+                        result_2 = row;
+                    });
+                    return result_2;
+                }
+                return null;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        /**
+         * Returns a node at the given index or null.
+         *
+         * @param index an index
+         * @returns a node at the given index or null
+         */
+        DTreeDataSelection.prototype.get = function (index) {
+            var nodes = this._nodes;
+            if (0 <= index && index < nodes.size) {
+                var counter_1 = 0;
+                var result_3 = null;
+                nodes.forEach(function (node) {
+                    if (counter_1 === index) {
+                        result_3 = node;
+                    }
+                    counter_1 += 1;
+                });
+                return result_3;
+            }
+            return null;
+        };
+        /**
+         * Adds the given node
+         *
+         * @param target a node
+         * @return true if succeeded.
+         */
+        DTreeDataSelection.prototype.add = function (target) {
+            var nodes = this._nodes;
+            if (!nodes.has(target)) {
+                nodes.add(target);
+                this.onChange();
+                return true;
+            }
+            return false;
+        };
+        /**
+         * Removes the given node.
+         *
+         * @param target a node
+         * @return true if succeeded
+         */
+        DTreeDataSelection.prototype.remove = function (target) {
+            var nodes = this._nodes;
+            if (nodes.has(target)) {
+                nodes.delete(target);
+                this.onChange();
+                return true;
+            }
+            return false;
+        };
+        /**
+         * Toggles the given node.
+         *
+         * @param target a node
+         * @return true if succeeded.
+         */
+        DTreeDataSelection.prototype.toggle = function (target) {
+            var nodes = this._nodes;
+            if (nodes.has(target)) {
+                nodes.delete(target);
+            }
+            else {
+                nodes.add(target);
+            }
+            this.onChange();
+            return true;
+        };
+        /**
+         * Clears all the nodes.
+         */
+        DTreeDataSelection.prototype.clear = function () {
+            var nodes = this._nodes;
+            if (0 < nodes.size) {
+                nodes.clear();
+                this.onChange();
+            }
+        };
+        /**
+         * Clears all the exisint nodes and adds the given node.
+         *
+         * @param target a node to be added
+         * @returns true if the selection is changed
+         */
+        DTreeDataSelection.prototype.clearAndAdd = function (target) {
+            var nodes = this._nodes;
+            var size = nodes.size;
+            if (size === 1) {
+                if (nodes.has(target)) {
+                    return false;
+                }
+                else {
+                    nodes.clear();
+                    nodes.add(target);
+                    this.onChange();
+                    return true;
+                }
+            }
+            else {
+                nodes.clear();
+                nodes.add(target);
+                this.onChange();
+                return true;
+            }
+        };
+        /**
+         * Clears the exising nodes and add all the given nodes.
+         *
+         * @param targets nodes to be added
+         * @returns true if the selection is changed
+         */
+        DTreeDataSelection.prototype.clearAndAddAll = function (targets) {
+            var isDirty = false;
+            var newNodes = new Set();
+            var oldNodes = this._nodes;
+            for (var i = 0, imax = targets.length; i < imax; ++i) {
+                var target = targets[i];
+                if (!oldNodes.has(target)) {
+                    isDirty = true;
+                }
+                newNodes.add(target);
+            }
+            if (!isDirty) {
+                oldNodes.forEach(function (oldItem) {
+                    if (!newNodes.has(oldItem)) {
+                        isDirty = true;
+                    }
+                });
+            }
+            if (isDirty) {
+                this._nodes = newNodes;
+                this.onChange();
+            }
+            return isDirty;
+        };
+        /**
+         * Returns true if the given node is selected.
+         *
+         * @param target a node to be checked
+         * @returns true if the given node is selected
+         */
+        DTreeDataSelection.prototype.contains = function (target) {
+            return this._nodes.has(target);
+        };
+        /**
+         * Returns the number of selected nodes.
+         *
+         * @returns the number of selected nodes
+         */
+        DTreeDataSelection.prototype.size = function () {
+            return this._nodes.size;
+        };
+        /**
+         * Returns true if the selection is empty.
+         *
+         * @returns true if the selection is empty
+         */
+        DTreeDataSelection.prototype.isEmpty = function () {
+            return this._nodes.size <= 0;
+        };
+        /**
+         * Iterates over selected nodes.
+         *
+         * @param iteratee an iteratee
+         */
+        DTreeDataSelection.prototype.each = function (iteratee) {
+            var isCanceled = false;
+            this._nodes.forEach(function (item) {
+                if (!isCanceled) {
+                    if (iteratee(item) === false) {
+                        isCanceled = true;
+                    }
+                }
+            });
+        };
+        DTreeDataSelection.prototype.onChange = function () {
+            this._parent.update();
+            this.emit("change", this);
+        };
+        DTreeDataSelection.prototype.onNodeChange = function (nodes) {
+            if (nodes != null) {
+                var oldNodes = this._nodes;
+                var newNodes = this.newNodes(nodes, oldNodes, new Set());
+                if (oldNodes.size !== newNodes.size) {
+                    this._nodes = newNodes;
+                    this.onChange();
+                }
+            }
+            else {
+                var nodes_1 = this._nodes;
+                if (0 < nodes_1.size) {
+                    nodes_1.clear();
+                    this.onChange();
+                }
+            }
+        };
+        DTreeDataSelection.prototype.newNodes = function (items, existing, result) {
+            var toChildren = this._parent.accessor.toChildren;
+            for (var i = 0, imax = items.length; i < imax; ++i) {
+                var item = items[i];
+                if (existing.has(item)) {
+                    result.add(item);
+                }
+                var children = toChildren(item);
+                if (children) {
+                    this.newNodes(children, existing, result);
+                }
+            }
+            return result;
+        };
+        return DTreeDataSelection;
+    }(pixi_js.utils.EventEmitter));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DTreeDataImpl = /** @class */ (function () {
+        function DTreeDataImpl(parent, options) {
+            this._parent = parent;
+            this._nodeToFlag = new WeakMap();
+            this._selection = new DTreeDataSelection(this);
+            this._rows = [];
+            this._levels = [];
+            this._accessor = new DTreeNodeAccessorImpl(options);
+            var nodes = options === null || options === void 0 ? void 0 : options.nodes;
+            if (nodes != null) {
+                this._nodes = nodes;
+                this._isRowsDirty = true;
+            }
+            else {
+                this._nodes = [];
+                this._isRowsDirty = false;
+            }
+        }
+        Object.defineProperty(DTreeDataImpl.prototype, "nodes", {
+            get: function () {
+                return this._nodes;
+            },
+            set: function (nodes) {
+                this._nodes = nodes;
+                this._isRowsDirty = true;
+                this._selection.onNodeChange(nodes);
+                this.update();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DTreeDataImpl.prototype, "rows", {
+            get: function () {
+                if (this._isRowsDirty) {
+                    this._isRowsDirty = false;
+                    this.updateRows(this._nodes);
+                }
+                return this._rows;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DTreeDataImpl.prototype, "levels", {
+            get: function () {
+                if (this._isRowsDirty) {
+                    this._isRowsDirty = false;
+                    this.updateRows(this._nodes);
+                }
+                return this._levels;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DTreeDataImpl.prototype, "accessor", {
+            get: function () {
+                return this._accessor;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DTreeDataImpl.prototype, "selection", {
+            get: function () {
+                return this._selection;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DTreeDataImpl.prototype.update = function () {
+            this._parent.update();
+        };
+        DTreeDataImpl.prototype.toggle = function (target) {
+            var nodeToFlag = this._nodeToFlag;
+            if (nodeToFlag.has(target)) {
+                nodeToFlag.delete(target);
+            }
+            else {
+                nodeToFlag.set(target, 1);
+            }
+            this._isRowsDirty = true;
+            this.update();
+            return true;
+        };
+        DTreeDataImpl.prototype.expand = function (target) {
+            var nodeToFlag = this._nodeToFlag;
+            if (!nodeToFlag.has(target)) {
+                nodeToFlag.set(target, 1);
+                this._isRowsDirty = true;
+                this.update();
+                return true;
+            }
+            return false;
+        };
+        DTreeDataImpl.prototype.collapse = function (target) {
+            var nodeToFlag = this._nodeToFlag;
+            if (nodeToFlag.has(target)) {
+                nodeToFlag.delete(target);
+                this._isRowsDirty = true;
+                this.update();
+                return true;
+            }
+            return false;
+        };
+        DTreeDataImpl.prototype.expandAll = function () {
+            var isRowsDirty = false;
+            var nodeToFlag = this._nodeToFlag;
+            this.each(function (node) {
+                if (!nodeToFlag.has(node)) {
+                    nodeToFlag.set(node, 1);
+                    isRowsDirty = true;
+                }
+            });
+            if (isRowsDirty) {
+                this._isRowsDirty = true;
+                this.update();
+            }
+        };
+        DTreeDataImpl.prototype.collapseAll = function () {
+            var isRowsDirty = false;
+            var nodeToFlag = this._nodeToFlag;
+            this.each(function (node) {
+                if (nodeToFlag.has(node)) {
+                    nodeToFlag.delete(node);
+                    isRowsDirty = true;
+                }
+            });
+            if (isRowsDirty) {
+                this._isRowsDirty = true;
+                this.update();
+            }
+        };
+        DTreeDataImpl.prototype.isCollapsed = function (target) {
+            return !this.isExpanded(target);
+        };
+        DTreeDataImpl.prototype.isExpanded = function (target) {
+            return this._nodeToFlag.has(target);
+        };
+        DTreeDataImpl.prototype.clear = function () {
+            var nodes = this._nodes;
+            if (0 < nodes.length) {
+                nodes.length = 0;
+                this._isRowsDirty = true;
+                this._selection.clear();
+                this.update();
+            }
+        };
+        DTreeDataImpl.prototype.remove = function (target) {
+            var isRowDirty = false;
+            this.each(function (node, index, nodes) {
+                if (node === target) {
+                    nodes.splice(index, 1);
+                    isRowDirty = true;
+                    return false;
+                }
+                return true;
+            });
+            if (isRowDirty) {
+                this._isRowsDirty = true;
+                this._selection.remove(target);
+                this.update();
+            }
+            return isRowDirty;
+        };
+        DTreeDataImpl.prototype.add = function (target, parent) {
+            var isRowDirty = false;
+            if (parent) {
+                var accessor = this._accessor;
+                var children = accessor.toChildren(parent);
+                if (children) {
+                    children.push(target);
+                    isRowDirty = true;
+                }
+                else {
+                    var newChildren = accessor.newChildren(parent);
+                    if (newChildren) {
+                        newChildren.push(target);
+                        isRowDirty = true;
+                    }
+                }
+            }
+            else {
+                var nodes = this._nodes;
+                if (nodes) {
+                    nodes.push(target);
+                }
+                else {
+                    this._nodes = [target];
+                }
+                isRowDirty = true;
+            }
+            if (isRowDirty) {
+                this._isRowsDirty = true;
+                this.update();
+            }
+            return true;
+        };
+        DTreeDataImpl.prototype.addBefore = function (target, sibling) {
+            var isRowDirty = false;
+            this.each(function (node, index, nodes) {
+                if (node === sibling) {
+                    nodes.splice(index, 0, target);
+                    isRowDirty = true;
+                    return false;
+                }
+                return true;
+            });
+            if (isRowDirty) {
+                this._isRowsDirty = true;
+                this.update();
+            }
+            return isRowDirty;
+        };
+        DTreeDataImpl.prototype.addAfter = function (target, sibling) {
+            var isRowDirty = false;
+            this.each(function (node, index, nodes) {
+                if (node === sibling) {
+                    nodes.splice(index + 1, 0, target);
+                    isRowDirty = true;
+                    return false;
+                }
+                return true;
+            });
+            if (isRowDirty) {
+                this._isRowsDirty = true;
+                this.update();
+            }
+            return isRowDirty;
+        };
+        DTreeDataImpl.prototype.each = function (iteratee) {
+            var value = this._nodes;
+            if (value) {
+                this.each_(value, null, iteratee);
+            }
+        };
+        DTreeDataImpl.prototype.each_ = function (nodes, parent, iteratee) {
+            var toChildren = this._accessor.toChildren;
+            for (var i = 0, imax = nodes.length; i < imax; ++i) {
+                var node = nodes[i];
+                if (iteratee(node, i, nodes, parent) === false) {
+                    return;
+                }
+                var children = toChildren(node);
+                if (children) {
+                    this.each_(children, node, iteratee);
+                }
+            }
+        };
+        DTreeDataImpl.prototype.updateRows = function (nodes) {
+            var rows = this._rows;
+            var levels = this._levels;
+            var irows = this.newRows(nodes, 0, 0, rows, levels);
+            if (rows.length !== irows) {
+                rows.length = irows;
+                levels.length = irows;
+            }
+        };
+        DTreeDataImpl.prototype.newRows = function (nodes, irows, ilevel, rows, levels) {
+            var nodeToFlag = this._nodeToFlag;
+            var toChildren = this._accessor.toChildren;
+            for (var i = 0, imax = nodes.length; i < imax; ++i) {
+                var node = nodes[i];
+                if (irows < rows.length) {
+                    rows[irows] = node;
+                    levels[irows] = ilevel;
+                }
+                else {
+                    rows.push(node);
+                    levels.push(ilevel);
+                }
+                irows += 1;
+                var children = toChildren(node);
+                if (children && nodeToFlag.has(node)) {
+                    irows = this.newRows(children, irows, ilevel + 1, rows, levels);
+                }
+            }
+            return irows;
+        };
+        return DTreeDataImpl;
+    }());
+
+    /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
@@ -59439,667 +60094,463 @@
      */
     var DTreeItemState = {
         /**
-         * the parent item is expanded
+         * A node has children.
          */
-        EXPANDED: "EXPANDED",
+        HAS_CHILDREN: "HAS_CHILDREN",
         /**
-         * the parent item is collapsed
+         * A node is opened.
          */
-        COLLAPSED: "COLLAPSED"
+        OPENED: "OPENED"
     };
-
-    var DTreeItemTextAndImage = /** @class */ (function (_super) {
-        __extends(DTreeItemTextAndImage, _super);
-        function DTreeItemTextAndImage() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        DTreeItemTextAndImage.prototype.getType = function () {
-            return "DTreeItemTextAndImage";
-        };
-        return DTreeItemTextAndImage;
-    }(DImage));
-
-    var DTreeItemToggleIcon = /** @class */ (function (_super) {
-        __extends(DTreeItemToggleIcon, _super);
-        function DTreeItemToggleIcon() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        DTreeItemToggleIcon.prototype.getType = function () {
-            return "DTreeItemToggleIcon";
-        };
-        return DTreeItemToggleIcon;
-    }(DImage));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var toText = function (options) {
-        var _a;
-        return (_a = options === null || options === void 0 ? void 0 : options.text) !== null && _a !== void 0 ? _a : "";
-    };
-    var toImage = function (options) {
-        var _a;
-        return (_a = options === null || options === void 0 ? void 0 : options.image) !== null && _a !== void 0 ? _a : null;
-    };
-    var toYCoordinate = function (options) {
-        var _a;
-        return (_a = options === null || options === void 0 ? void 0 : options.y) !== null && _a !== void 0 ? _a : 0;
-    };
-    var toRawData = function (options) {
-        var result = options === null || options === void 0 ? void 0 : options.rawData;
-        if (result != null) {
-            return result;
+    var DTreeItemText = /** @class */ (function (_super) {
+        __extends(DTreeItemText, _super);
+        function DTreeItemText(data, options) {
+            var _this = _super.call(this, options) || this;
+            _this._padding = new DBasePaddingAdjustable(_this._padding);
+            _this._data = data;
+            return _this;
         }
-        return {
-            text: "",
-            children: []
-        };
-    };
-    var toPaddingLeft = function (theme, options) {
-        var _a;
-        return theme.getPaddingByLevel((_a = options === null || options === void 0 ? void 0 : options.level) !== null && _a !== void 0 ? _a : 0);
-    };
-    var toTreeItemTextAndImage = function (options) {
-        return new DTreeItemTextAndImage({
-            text: {
-                value: toText(options)
+        Object.defineProperty(DTreeItemText.prototype, "node", {
+            get: function () {
+                return this._node;
             },
-            image: {
-                source: toImage(options)
-            }
+            enumerable: false,
+            configurable: true
         });
-    };
-    var DTreeItem = /** @class */ (function (_super) {
-        __extends(DTreeItem, _super);
-        function DTreeItem() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        DTreeItem.prototype.init = function (options) {
-            var _this = this;
-            _super.prototype.init.call(this, options);
-            this._isParent = !!(options === null || options === void 0 ? void 0 : options.isParent);
-            this._isExpanded = !!(options === null || options === void 0 ? void 0 : options.expanded);
-            this._rawData = toRawData(options);
-            this._icon = new DTreeItemToggleIcon();
-            this._textAndImage = toTreeItemTextAndImage(options);
-            this.addChild(this._icon);
-            this.addChild(this._textAndImage);
-            this._icon.on(UtilPointerEvent.down, function () {
-                _this.onToggle();
-            });
-            this._textAndImage.on(UtilPointerEvent.down, function (e) {
-                _this.onSelect(e);
-            });
-            // update states
-            this.updateStates(false);
+        Object.defineProperty(DTreeItemText.prototype, "data", {
+            get: function () {
+                return this._data;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DTreeItemText.prototype.toggle = function () {
+            var node = this._node;
+            if (node !== undefined) {
+                this._data.toggle(node);
+            }
         };
-        DTreeItem.prototype.onSelect = function (e) {
-            this.emit("select", e);
-        };
-        DTreeItem.prototype.onToggle = function () {
-            this.emit("toggle");
-        };
-        DTreeItem.prototype.isExpanded = function () {
-            return this._isExpanded;
-        };
-        DTreeItem.prototype.isParent = function () {
-            return this._isParent;
-        };
-        DTreeItem.prototype.getRawData = function () {
-            return this._rawData;
-        };
-        DTreeItem.prototype.update = function (options, isActive) {
-            this._textAndImage.text = toText(options);
-            this._textAndImage.image = toImage(options);
-            this._rawData = toRawData(options);
-            this._padding.left = toPaddingLeft(this.theme, options);
-            this.position.y = toYCoordinate(options);
-            this._isParent = !!options.isParent;
-            this._isExpanded = !!options.expanded;
-            this.updateStates(isActive);
-            return this;
-        };
-        DTreeItem.prototype.updateStates = function (isActive) {
+        DTreeItemText.prototype.set = function (node, level, isActive, isExpanded, forcibly) {
+            var _a;
+            this._node = node;
+            var accessor = this._data.accessor;
+            this.text = accessor.toLabel(node);
+            this.title = (_a = accessor.toTitle(node)) !== null && _a !== void 0 ? _a : "";
+            this.image = accessor.toImage(node);
+            this._padding.adjLeft(this.theme.getLevelPadding(level));
             this.state.isActive = isActive;
-            var iconState = this._icon.state;
-            var isParent = this._isParent;
-            var isExpanded = this._isExpanded;
-            iconState.lock();
-            iconState.set(DTreeItemState.EXPANDED, isParent && isExpanded);
-            iconState.set(DTreeItemState.COLLAPSED, isParent && !isExpanded);
-            iconState.unlock();
+            var children = accessor.toChildren(node);
+            var hasChildren = !!(children && 0 < children.length);
+            var state = this.state;
+            state.lock();
+            state.set(DTreeItemState.HAS_CHILDREN, hasChildren);
+            state.set(DTreeItemState.OPENED, isExpanded);
+            state.unlock();
+            this.show();
         };
-        DTreeItem.prototype.getType = function () {
-            return "DTreeItem";
+        DTreeItemText.prototype.unset = function () {
+            this._node = undefined;
+            this.hide();
         };
-        return DTreeItem;
-    }(DLayoutHorizontal));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DTreeSelection = /** @class */ (function () {
-        function DTreeSelection() {
-            this._selection = [];
-        }
-        /**
-         * Select an item.
-         * Add item data to this._selection if it not exist in this._selection.
-         *
-         * @param item Reference data of item want to remove in “value” array.
-         */
-        DTreeSelection.prototype.add = function (item) {
-            if (this._selection.indexOf(item) === -1) {
-                this._selection.push(item);
+        DTreeItemText.prototype.onSelect = function (e, row) {
+            var selection = this._data.selection;
+            var originalEvent = e && "data" in e ? e.data.originalEvent : e;
+            if (originalEvent === null || originalEvent === void 0 ? void 0 : originalEvent.ctrlKey) {
+                selection.toggle(row);
             }
-        };
-        /**
-         * Un-select an item.
-         * remove item data to this._selection if it exist in this._selection.
-         *
-         * @param item Reference data of item want to remove in “value” array.
-         */
-        DTreeSelection.prototype.remove = function (item) {
-            var itemIndex = this._selection.indexOf(item);
-            if (itemIndex !== -1) {
-                this._selection.splice(itemIndex, 1);
-            }
-        };
-        /**
-         * Select/un-select an item.
-         * If item data not exist in this._selection, add it to this._selection.
-         * If item data exist in this._selection, remove it to this._selection.
-         *
-         * @param item Reference data of item want to remove in “value” array.
-         */
-        DTreeSelection.prototype.toggle = function (item) {
-            var itemIndex = this._selection.indexOf(item);
-            if (itemIndex !== -1) {
-                this._selection.splice(itemIndex, 1);
+            else if (originalEvent === null || originalEvent === void 0 ? void 0 : originalEvent.shiftKey) {
+                var rows = this._data.rows;
+                var index = rows.indexOf(row);
+                if (0 <= index) {
+                    var last = selection.last;
+                    var lastIndex = last ? rows.indexOf(last) : 0;
+                    if (0 <= lastIndex) {
+                        var nodes = [];
+                        if (index <= lastIndex) {
+                            for (var i = index; i <= lastIndex; ++i) {
+                                nodes.push(rows[i]);
+                            }
+                        }
+                        else {
+                            for (var i = index; lastIndex <= i; --i) {
+                                nodes.push(rows[i]);
+                            }
+                        }
+                        selection.clearAndAddAll(nodes);
+                    }
+                }
             }
             else {
-                this._selection.push(item);
+                selection.clearAndAdd(row);
             }
         };
-        /**
-         * Un-select all item.
-         *
-         */
-        DTreeSelection.prototype.clear = function () {
-            this._selection.length = 0;
-        };
-        /**
-         * Get selected item by index.
-         *
-         * @param index index of item in this._selection
-         *
-         * @returns  Reference data of selected item in “value” array.
-         */
-        DTreeSelection.prototype.get = function (index) {
-            var selection = this._selection;
-            if (0 <= index && index < selection.length) {
-                return selection[index];
+        DTreeItemText.prototype.onKeyDown = function (e) {
+            var isArrowUpKey = UtilKeyboardEvent.isArrowUpKey(e);
+            var isArrowDownKey = UtilKeyboardEvent.isArrowDownKey(e);
+            if (isArrowUpKey || isArrowDownKey) {
+                var layer = DApplications.getLayer(this);
+                if (layer != null) {
+                    var focusController = layer.getFocusController();
+                    var next = focusController.find(this, false, false, isArrowDownKey, this.parent);
+                    if (next != null) {
+                        focusController.focus(next);
+                    }
+                }
             }
-            return null;
+            if (UtilKeyboardEvent.isArrowRightKey(e)) {
+                var node = this._node;
+                if (node !== undefined) {
+                    if (this.state.is(DTreeItemState.HAS_CHILDREN)) {
+                        this._data.expand(node);
+                    }
+                }
+            }
+            if (UtilKeyboardEvent.isArrowLeftKey(e)) {
+                var node = this._node;
+                if (node !== undefined) {
+                    if (this.state.is(DTreeItemState.HAS_CHILDREN)) {
+                        this._data.collapse(node);
+                    }
+                }
+            }
+            return _super.prototype.onKeyDown.call(this, e);
         };
-        /**
-         * Check item is selected or not.
-         *
-         * @param item Reference data of item want to remove in “value” array.
-         *
-         * @returns selected state of checked item.
-         */
-        DTreeSelection.prototype.contains = function (item) {
-            return this._selection.indexOf(item) !== -1;
+        DTreeItemText.prototype.getType = function () {
+            return "DTreeItemText";
         };
-        /**
-         * Get number of selected .
-         *
-         * @returns number of selected.
-         */
-        DTreeSelection.prototype.size = function () {
-            return this._selection.length;
+        return DTreeItemText;
+    }(DImageBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DTreeItemButton = /** @class */ (function (_super) {
+        __extends(DTreeItemButton, _super);
+        function DTreeItemButton(data, options) {
+            var _a;
+            var _this = _super.call(this, data, options) || this;
+            var when = toEnum((_a = options === null || options === void 0 ? void 0 : options.when) !== null && _a !== void 0 ? _a : DButtonBaseWhen.CLICKED, DButtonBaseWhen);
+            _this._when = when;
+            _this.initOnClick(when, _this.theme, options);
+            return _this;
+        }
+        DTreeItemButton.prototype.initOnClick = function (when, theme, options) {
+            var _this = this;
+            UtilPointerEvent.onClick(this, function (e) {
+                if (when === DButtonBaseWhen.CLICKED) {
+                    _this.onClick(e);
+                }
+            });
         };
-        /**
-         * Iterate over selected items.
-         *
-         * @param iteratee  boolean function. If the iteratee explicitly returns false, an iteration stops.
-         * @param item data of browsed item.
-         */
-        DTreeSelection.prototype.each = function (iteratee) {
-            for (var _i = 0, _a = this._selection; _i < _a.length; _i++) {
-                var item = _a[_i];
-                if (!iteratee(item)) {
-                    return;
+        DTreeItemButton.prototype.onClick = function (e) {
+            if (this.state.isActionable) {
+                this.onActivate(e);
+            }
+        };
+        DTreeItemButton.prototype.onDblClick = function (e, interactionManager) {
+            if (this._when === DButtonBaseWhen.DOUBLE_CLICKED) {
+                this.onClick(e);
+            }
+            return _super.prototype.onDblClick.call(this, e, interactionManager);
+        };
+        DTreeItemButton.prototype.onActivate = function (e) {
+            this.emit("active", this);
+        };
+        DTreeItemButton.prototype.onActivateKeyDown = function (e) {
+            if (this.state.isActionable) {
+                this.state.isPressed = true;
+            }
+        };
+        DTreeItemButton.prototype.onActivateKeyUp = function (e) {
+            if (this.state.isActionable) {
+                if (this.state.isPressed) {
+                    this.onActivate(e);
+                }
+                this.state.isPressed = false;
+            }
+        };
+        DTreeItemButton.prototype.onKeyDown = function (e) {
+            if (UtilKeyboardEvent.isActivateKey(e)) {
+                this.onActivateKeyDown(e);
+            }
+            return _super.prototype.onKeyDown.call(this, e);
+        };
+        DTreeItemButton.prototype.onKeyUp = function (e) {
+            if (UtilKeyboardEvent.isActivateKey(e)) {
+                this.onActivateKeyUp(e);
+            }
+            return _super.prototype.onKeyUp.call(this, e);
+        };
+        DTreeItemButton.prototype.getType = function () {
+            return "DTreeItemButton";
+        };
+        return DTreeItemButton;
+    }(DTreeItemText));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DTreeItemNonEditable = /** @class */ (function (_super) {
+        __extends(DTreeItemNonEditable, _super);
+        function DTreeItemNonEditable() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DTreeItemNonEditable.prototype.onActivate = function (e) {
+            _super.prototype.onActivate.call(this, e);
+            var node = this._node;
+            if (node !== undefined) {
+                if (this.state.is(DTreeItemState.HAS_CHILDREN)) {
+                    if (e && "data" in e) {
+                        var local = this.toLocal(e.data.global, undefined, DTreeItemNonEditable.WORK_CONTAINS_POINT);
+                        if (local.x <= this.padding.getLeft()) {
+                            this.toggle();
+                        }
+                        else {
+                            this.onSelect(e, node);
+                        }
+                    }
+                }
+                else {
+                    this.onSelect(e, node);
                 }
             }
         };
-        return DTreeSelection;
-    }());
+        DTreeItemNonEditable.prototype.getType = function () {
+            return "DTreeItemNonEditable";
+        };
+        return DTreeItemNonEditable;
+    }(DTreeItemButton));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DTreeAddedItemPosition;
-    (function (DTreeAddedItemPosition) {
-        DTreeAddedItemPosition[DTreeAddedItemPosition["BEFORE"] = 0] = "BEFORE";
-        DTreeAddedItemPosition[DTreeAddedItemPosition["AFTER"] = 1] = "AFTER";
-    })(DTreeAddedItemPosition || (DTreeAddedItemPosition = {}));
     var DTree = /** @class */ (function (_super) {
         __extends(DTree, _super);
-        function DTree() {
-            return _super !== null && _super.apply(this, arguments) || this;
+        function DTree(options) {
+            var _this = _super.call(this, options) || this;
+            _this._rowIndexStart = 0;
+            _this._rowIndexEnd = 0;
+            _this._workItems = [];
+            _this._updateCount = 0;
+            _this._isUpdateCalled = false;
+            var content = _this._content;
+            content.on("move", function () {
+                _this.update();
+            });
+            content.on("resize", function () {
+                _this.update();
+            });
+            _this._itemHeight = _this.theme.getItemHeight();
+            _this._data = _this.toData(options);
+            _this.update();
+            return _this;
         }
-        DTree.prototype.init = function (options) {
-            var _this = this;
-            _super.prototype.init.call(this, options);
-            this._itemOptions = new WeakMap();
-            this._selection = new DTreeSelection();
-            this._itemOptionsShowable = [];
-            this._itemIndexMappedStart = 0;
-            this._itemIndexMappedEnd = 0;
-            this._itemY = 0;
-            var itemTheme = DThemes.getInstance().get("DTreeItem");
-            this._itemHeight = Number(itemTheme.getHeight());
-            this._value = options && options.value ? options.value : [];
-            this.updateData(null, this._value, 0);
-            this._content.on("move", function () {
-                _this.update();
-            });
-            this._content.on("resize", function () {
-                _this._content.removeChildren();
-                _this.update();
-            });
-            this.update();
+        DTree.prototype.toData = function (options) {
+            var data = (options && (options.data || options.nodes || options.value)) || [];
+            if (isArray(data)) {
+                return new DTreeDataImpl(this, {
+                    nodes: data
+                });
+            }
+            else if ("add" in data) {
+                return data;
+            }
+            else {
+                return new DTreeDataImpl(this, data);
+            }
         };
-        DTree.prototype.update = function () {
-            var _this = this;
+        DTree.prototype.update = function (forcibly) {
+            if (0 < this._updateCount) {
+                this._isUpdateCalled = true;
+                return;
+            }
             var content = this._content;
             var items = content.children;
-            // calculate content height
-            content.height = this._itemOptionsShowable.length * this._itemHeight;
-            var contentY = content.position.y;
+            var data = this._data;
+            var rows = data.rows;
+            var levels = data.levels;
+            var rowsLength = rows.length;
+            var itemHeight = this._itemHeight;
             var height = this.height;
-            var itemIndexMappedStart = (0 - contentY) / this._itemHeight - 2 < 0
-                ? 0
-                : Math.floor((0 - contentY) / this._itemHeight) - 2;
-            var itemIndexMappedEnd = (height - contentY) / this._itemHeight + 2 < this._itemOptionsShowable.length - 1
-                ? Math.floor((height - contentY) / this._itemHeight) + 2
-                : this._itemOptionsShowable.length;
-            // get items options are shown in Dpane content frame
-            var itemOptionsShown = this._itemOptionsShowable.slice(itemIndexMappedStart, itemIndexMappedEnd);
-            if (items.length < itemOptionsShown.length) {
-                var _loop_1 = function (i) {
-                    var itemOptions = itemOptionsShown[i];
-                    var treeItem = new DTreeItem(itemOptions);
-                    content.addChild(treeItem);
-                    // listen select item event
-                    treeItem.on("select", function (e) {
-                        if (_this.state.inEnabled) {
-                            _this.onSelect(treeItem.getRawData(), e);
-                        }
-                    });
-                    // listen toggle item event
-                    treeItem.on("toggle", function () {
-                        if (treeItem.isParent()) {
-                            if (_this.state.inEnabled) {
-                                _this.toggle(treeItem.getRawData());
-                            }
-                        }
-                    });
-                };
-                for (var i = items.length; i < itemOptionsShown.length; i++) {
-                    _loop_1(i);
+            var newContentHeight = rowsLength * itemHeight;
+            var newContentY = Math.min(0, Math.max(height - newContentHeight, content.position.y));
+            var newRowIndexLowerBound = Math.floor((0 - newContentY) / itemHeight);
+            var newRowIndexUpperBound = Math.ceil((height - newContentY) / itemHeight);
+            var newRowIndexStart = Math.max(0, newRowIndexLowerBound - 2);
+            var newRowIndexEnd = Math.min(rowsLength, newRowIndexUpperBound + 2);
+            var newRowCount = newRowIndexEnd - newRowIndexStart;
+            var oldRowIndexStart = this._rowIndexStart;
+            var oldRowIndexEnd = this._rowIndexEnd;
+            var oldRowCount = oldRowIndexEnd - oldRowIndexStart;
+            if (oldRowCount < newRowCount) {
+                for (var i = items.length; i < newRowCount; ++i) {
+                    content.addChild(this.newItem(data));
                 }
             }
-            else if (items.length > itemOptionsShown.length) {
-                for (var i = itemOptionsShown.length; i < items.length; i++) {
-                    items[i].hide();
+            this._rowIndexStart = newRowIndexStart;
+            this._rowIndexEnd = newRowIndexEnd;
+            var rowIndexStartDelta = newRowIndexStart - oldRowIndexStart;
+            var rowIndexStartDeltaAbs = Math.abs(rowIndexStartDelta);
+            var itemsLength = items.length;
+            if (0 < rowIndexStartDeltaAbs && rowIndexStartDeltaAbs < itemsLength) {
+                var work = this._workItems;
+                if (0 < rowIndexStartDelta) {
+                    for (var i = 0; i < rowIndexStartDeltaAbs; ++i) {
+                        work.push(this.resetItem(items[i]));
+                    }
+                    for (var i = rowIndexStartDeltaAbs; i < itemsLength; ++i) {
+                        items[i - rowIndexStartDeltaAbs] = items[i];
+                    }
+                    for (var i = 0; i < rowIndexStartDeltaAbs; ++i) {
+                        items[itemsLength - rowIndexStartDeltaAbs + i] = work[i];
+                    }
                 }
+                else {
+                    for (var i = 0; i < rowIndexStartDeltaAbs; ++i) {
+                        work.push(this.resetItem(items[itemsLength - rowIndexStartDeltaAbs + i]));
+                    }
+                    for (var i = itemsLength - rowIndexStartDeltaAbs - 1; 0 <= i; --i) {
+                        items[i + rowIndexStartDeltaAbs] = items[i];
+                    }
+                    for (var i = 0; i < rowIndexStartDeltaAbs; ++i) {
+                        items[i] = work[i];
+                    }
+                }
+                work.length = 0;
             }
-            var selection = this._selection;
-            for (var i = 0; i < itemOptionsShown.length; i++) {
-                var item = items[i];
-                var itemOptions = itemOptionsShown[i];
-                item.update(itemOptions, selection.contains(itemOptions.rawData));
-                if (item.isHidden()) {
-                    item.show();
-                }
+            var selection = data.selection;
+            for (var i = newRowIndexStart; i < newRowIndexEnd; ++i) {
+                var item = items[i - newRowIndexStart];
+                var row = rows[i];
+                var level = levels[i];
+                var isSelected = selection.contains(row);
+                var isExpanded = data.isExpanded(row);
+                item.position.y = i * itemHeight;
+                item.set(row, level, isSelected, isExpanded, forcibly);
+            }
+            for (var i = newRowCount; i < itemsLength; ++i) {
+                items[i].unset();
+            }
+            this.lock();
+            content.position.y = newContentY;
+            content.height = newContentHeight;
+            this.unlock(false);
+        };
+        DTree.prototype.lock = function () {
+            this._updateCount += 1;
+            if (this._updateCount === 1) {
+                this._isUpdateCalled = false;
             }
         };
-        DTree.prototype.reload = function (expandAll) {
-            // reset data of tree widget
-            this._itemOptionsShowable.length = 0;
-            this._itemY = 0;
-            // re-render tree
-            this.updateData(null, this._value, 0, expandAll);
-            this.update();
+        DTree.prototype.unlock = function (callIfNeeded) {
+            this._updateCount -= 1;
+            if (this._updateCount === 0) {
+                if (callIfNeeded && this._isUpdateCalled) {
+                    this.update();
+                }
+                this._isUpdateCalled = false;
+            }
         };
-        Object.defineProperty(DTree.prototype, "value", {
-            /**
-             * Getter method to access raw data.
-             *
-             * @returns raw data.
-             */
+        DTree.prototype.newItem = function (data) {
+            return new DTreeItemNonEditable(data);
+        };
+        DTree.prototype.resetItem = function (item) {
+            item.blur(true);
+            var cells = item.children;
+            for (var i = 0, imax = cells.length; i < imax; ++i) {
+                var cell = cells[i];
+                if (cell instanceof DBase) {
+                    cell.state.isPressed = false;
+                }
+            }
+            return item;
+        };
+        DTree.prototype.deleteItem = function (item) {
+            item.off("select");
+            item.off("toggle");
+            return item;
+        };
+        Object.defineProperty(DTree.prototype, "data", {
             get: function () {
-                return this._value;
+                return this._data;
             },
             enumerable: false,
             configurable: true
         });
-        /**
-         * Toggle an tree parent item,
-         * Expand an collapsed tree item or collapse an expanded item.
-         *
-         * @param item Reference data of item want to toggle in “value” array.
-         */
-        DTree.prototype.toggle = function (item) {
-            var itemOptions = this._itemOptions.get(item);
-            if (itemOptions) {
-                itemOptions.expanded = !itemOptions.expanded;
-                this.reload();
-            }
+        Object.defineProperty(DTree.prototype, "value", {
+            get: function () {
+                return this._data.nodes;
+            },
+            set: function (value) {
+                this._data.nodes = value;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DTree.prototype, "nodes", {
+            get: function () {
+                return this._data.nodes;
+            },
+            set: function (nodes) {
+                this._data.nodes = nodes;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DTree.prototype.toggle = function (target) {
+            return this._data.toggle(target);
         };
-        /**
-         * Expand a collapsed tree item.
-         *
-         * @param item Reference data of item want to expand in “value” array.
-         */
-        DTree.prototype.expand = function (item) {
-            var itemOptions = this._itemOptions.get(item);
-            if (itemOptions) {
-                itemOptions.expanded = true;
-                this.reload();
-            }
+        DTree.prototype.expand = function (target) {
+            return this._data.expand(target);
         };
-        /**
-         * Collapse an expanded tree item.
-         *
-         * @param item Reference data of item want to collapse in “value” array.
-         */
-        DTree.prototype.collapse = function (item) {
-            var itemOptions = this._itemOptions.get(item);
-            if (itemOptions) {
-                itemOptions.expanded = false;
-                this.reload();
-            }
+        DTree.prototype.collapse = function (target) {
+            return this._data.collapse(target);
         };
-        /**
-         * Expand all tree item.
-         */
         DTree.prototype.expandAll = function () {
-            this.reload(true);
+            return this._data.expandAll();
         };
-        /**
-         * Collapse all tree item.
-         */
         DTree.prototype.collapseAll = function () {
-            this.reload(false);
+            return this._data.collapseAll();
         };
-        /**
-         * Check if an item is collapsed.
-         *
-         * @param item Reference data of item want to check in “value” array.
-         *
-         * @returns collapse status of the item.
-         */
-        DTree.prototype.isCollapsed = function (item) {
-            var itemOptions = this._itemOptions.get(item);
-            if (itemOptions) {
-                return !itemOptions.expanded;
-            }
-            return true;
+        DTree.prototype.isCollapsed = function (target) {
+            return this._data.isCollapsed(target);
         };
-        /**
-         * Check if an item is expanded.
-         *
-         * @param item Reference data of item want to check in “value” array.
-         *
-         * @returns expand status of the item.
-         */
-        DTree.prototype.isExpanded = function (item) {
-            var itemOptions = this._itemOptions.get(item);
-            if (itemOptions) {
-                return itemOptions.expanded;
-            }
-            return false;
+        DTree.prototype.isExpanded = function (target) {
+            return this._data.isExpanded(target);
         };
-        /**
-         * Clear all tree item.
-         */
         DTree.prototype.clear = function () {
-            this._value = [];
-            this.reload();
+            this._data.clear();
         };
-        /**
-         * Remove a tree item
-         *
-         * @param item Reference data of item want to remove in “value” array.
-         */
-        DTree.prototype.remove = function (item) {
-            this._removeItem = item;
-            this.reload();
+        DTree.prototype.remove = function (target) {
+            return this._data.remove(target);
         };
-        /**
-         * Add a tree item
-         *
-         * @param item data of new item want to add to tree.
-         * @param parent Reference data of parent item will contain the adding item.
-         * If the parent is undefined, the item will be added at the top level.
-         * If the parent is not undefined, the item will be inserted as a child of the given parent item.
-         */
-        DTree.prototype.add = function (item, parent) {
-            if (parent) {
-                if (parent.children) {
-                    parent.children.push(item);
-                }
-                else {
-                    parent.children = [item];
-                }
-            }
-            else {
-                this._value.push(item);
-            }
-            this.reload();
+        DTree.prototype.add = function (target, parent) {
+            return this._data.add(target, parent);
         };
-        /**
-         * Add the given item will be inserted before the given sibling item.
-         *
-         * @param item data of new item want to add to tree.
-         * @param sibling Reference data of parent item will be using like anchor to add new item.
-         */
-        DTree.prototype.addBefore = function (item, sibling) {
-            this._addItemOptions = {
-                item: item,
-                sibling: sibling,
-                positon: DTreeAddedItemPosition.BEFORE
-            };
-            this.reload();
+        DTree.prototype.addBefore = function (target, sibling) {
+            return this._data.addBefore(target, sibling);
         };
-        /**
-         * Add the given item will be inserted after the given sibling item.
-         *
-         * @param item data of new item want to add to tree.
-         * @param sibling Reference data of parent item will be using like anchor to add new item.
-         */
-        DTree.prototype.addAfter = function (item, sibling) {
-            this._addItemOptions = {
-                item: item,
-                sibling: sibling,
-                positon: DTreeAddedItemPosition.AFTER
-            };
-            this.reload();
+        DTree.prototype.addAfter = function (target, sibling) {
+            return this._data.addAfter(target, sibling);
         };
-        /**
-         * Iterate over all the items.
-         *
-         * @param iteratee  boolean function. If the iteratee explicitly returns false, an iteration stops.
-         * @param item data of browsed item.
-         */
         DTree.prototype.each = function (iteratee) {
-            this.inOrder(this._value, iteratee);
-        };
-        /**
-         * The recursive function performs item browsing in the tree.
-         */
-        DTree.prototype.inOrder = function (items, iteratee) {
-            for (var _i = 0, items_1 = items; _i < items_1.length; _i++) {
-                var item = items_1[_i];
-                if (!iteratee(item)) {
-                    return;
-                }
-                else if (item.children) {
-                    this.inOrder(item.children, iteratee);
-                }
-            }
+            return this._data.each(iteratee);
         };
         Object.defineProperty(DTree.prototype, "selection", {
-            /**
-             * Get selection object.
-             * @returns selection.
-             */
             get: function () {
-                return this._selection;
+                return this._data.selection;
             },
             enumerable: false,
             configurable: true
         });
-        DTree.prototype.updateData = function (parentItemOptions, items, level, expandAll) {
-            for (var i = 0; i < items.length; i++) {
-                var item = items[i];
-                // handle remove item
-                if (item === this._removeItem) {
-                    // remove item from this._value.
-                    items.splice(i, 1);
-                    this._removeItem = null;
-                    i--;
-                    if (parentItemOptions && items.length === 0) {
-                        parentItemOptions.isParent = false;
-                    }
-                    continue;
-                }
-                // handle add item
-                if (this._addItemOptions && item === this._addItemOptions.sibling) {
-                    if (this._addItemOptions.positon === DTreeAddedItemPosition.AFTER) {
-                        items.splice(i + 1, 0, this._addItemOptions.item);
-                        this._addItemOptions = null;
-                    }
-                    else if (this._addItemOptions.positon === DTreeAddedItemPosition.BEFORE) {
-                        items.splice(i, 0, this._addItemOptions.item);
-                        i--;
-                        this._addItemOptions = null;
-                        continue;
-                    }
-                }
-                var isParent = item.children && item.children.length > 0;
-                var text = item.text ? item.text : "";
-                var itemImage = item.image ? item.image : null;
-                var isItemExisted = false;
-                var itemOptions = this._itemOptions.get(item);
-                var expanded = false; // set default expand status of item is false
-                if (expandAll != null) {
-                    expanded = expandAll;
-                }
-                else if (itemOptions) {
-                    expanded = itemOptions.expanded;
-                }
-                if (itemOptions != null) {
-                    itemOptions.rawData = item;
-                    itemOptions.text = text;
-                    itemOptions.y = this._itemY;
-                    itemOptions.isParent = isParent;
-                    itemOptions.expanded = expanded;
-                    itemOptions.image = itemImage;
-                    isItemExisted = true;
-                }
-                else {
-                    itemOptions = {
-                        rawData: item,
-                        text: text,
-                        level: level,
-                        y: this._itemY,
-                        isParent: isParent,
-                        expanded: expanded,
-                        image: itemImage
-                    };
-                }
-                /* displayed items need to satisfy 1 of the 2 conditions:
-                1. is root item
-                2. the parent item is show and expand
-                */
-                if (parentItemOptions == null ||
-                    (parentItemOptions && parentItemOptions.expanded && parentItemOptions.showable)) {
-                    itemOptions.showable = true;
-                    this._itemOptionsShowable.push(itemOptions);
-                    this._itemY += this._itemHeight;
-                }
-                else {
-                    itemOptions.showable = false;
-                }
-                if (!isItemExisted) {
-                    this._itemOptions.set(item, itemOptions);
-                }
-                if (item && item.children) {
-                    this.updateData(itemOptions, item.children, level + 1, expandAll);
-                }
-            }
-        };
-        DTree.prototype.onSelect = function (selectedData, e) {
-            var selection = this._selection;
-            var originalEvent = e.data.originalEvent;
-            if (originalEvent.ctrlKey) {
-                // multi select by "ctr" key + click
-                selection.toggle(selectedData);
-            }
-            else if (originalEvent.shiftKey) {
-                // multi select by "shift" key + click
-                var lastSelectedData = selection.get(selection.size() - 1);
-                if (lastSelectedData) {
-                    var itemOptions = this._itemOptions;
-                    var selectedItemOptions = itemOptions.get(selectedData);
-                    var lastSelectedItemOptions = itemOptions.get(lastSelectedData);
-                    if (selectedItemOptions && lastSelectedItemOptions) {
-                        var selectedItemY = selectedItemOptions.y;
-                        var lastSelectedItemY = lastSelectedItemOptions.y;
-                        var itemHeight = this._itemHeight;
-                        var maxY_1 = selectedItemY < lastSelectedItemY
-                            ? lastSelectedItemY - itemHeight
-                            : selectedItemY;
-                        var minY_1 = selectedItemY < lastSelectedItemY
-                            ? selectedItemY
-                            : lastSelectedItemY + itemHeight;
-                        selection.clear();
-                        this._itemOptionsShowable.forEach(function (itemOptionsShowable) {
-                            var itemY = itemOptionsShowable.y;
-                            if (minY_1 <= itemY && itemY <= maxY_1 && itemOptionsShowable.showable) {
-                                selection.add(itemOptionsShowable.rawData);
-                            }
-                        });
-                        selection.add(lastSelectedData);
-                    }
-                }
-            }
-            else {
-                // single select
-                selection.clear();
-                selection.add(selectedData);
-            }
-            this.updateActiveState();
-        };
-        /**
-         * update active state of all shown item.
-         */
-        DTree.prototype.updateActiveState = function () {
-            var selection = this._selection;
-            var items = this._content.children;
-            for (var i = 0, imax = items.length; i < imax; ++i) {
-                var item = items[i];
-                item.state.isActive = selection.contains(item.getRawData());
-            }
-        };
         DTree.prototype.getType = function () {
             return "DTree";
         };
@@ -60259,7 +60710,9 @@
         toLineOfAnyPointCount: toLineOfAnyPointCount,
         buildLineOfAnyColor: buildLineOfAnyColor,
         toPointsCount: toPointsCount,
+        toLinePointCount: toLinePointCount,
         toLineVertexCount: toLineVertexCount,
+        toLineIndexCount: toLineIndexCount,
         buildLineClipping: buildLineClipping,
         buildLineIndex: buildLineIndex,
         buildLineUv: buildLineUv,
@@ -60357,6 +60810,7 @@
         get EShapeBarPosition () { return EShapeBarPosition; },
         EShapeBarUploaded: EShapeBarUploaded,
         EShapeBar: EShapeBar,
+        EShapeBaseHitTestData: EShapeBaseHitTestData,
         EShapeBase: EShapeBase,
         EShapeCircleUploaded: EShapeCircleUploaded,
         EShapeCircle: EShapeCircle,
@@ -60439,7 +60893,7 @@
         isStatic: isStatic,
         toComputed: toComputed,
         toDash: toDash,
-        toHitThreshold: toHitThreshold,
+        toThresholdDefault: toThresholdDefault,
         toLength: toLength,
         toScaleInvariant: toScaleInvariant,
         EShapeBufferUnitBuilder: EShapeBufferUnitBuilder,
@@ -60954,12 +61408,13 @@
         DTable: DTable,
         DTextBase: DTextBase,
         DText: DText,
+        DTreeDataImpl: DTreeDataImpl,
+        DTreeDataSelection: DTreeDataSelection,
+        DTreeItemButton: DTreeItemButton,
+        DTreeItemNonEditable: DTreeItemNonEditable,
         DTreeItemState: DTreeItemState,
-        DTreeItemTextAndImage: DTreeItemTextAndImage,
-        DTreeItemToggleIcon: DTreeItemToggleIcon,
-        DTreeItem: DTreeItem,
-        DTreeSelection: DTreeSelection,
-        get DTreeAddedItemPosition () { return DTreeAddedItemPosition; },
+        DTreeItemText: DTreeItemText,
+        DTreeNodeAccessorImpl: DTreeNodeAccessorImpl,
         DTree: DTree,
         DViewDragImpl: DViewDragImpl,
         DViewImpl: DViewImpl,
