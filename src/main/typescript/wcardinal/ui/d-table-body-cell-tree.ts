@@ -142,7 +142,7 @@ export class DTableBodyCellTree<
 		DTableBodyCells.setRenderable(this, row, columnIndex, column);
 
 		const link = this.link;
-		const adjuster = this._padding.adjuster;
+		const padding = this._padding;
 		if (isNumber(supplimental)) {
 			const isOpened = !!(supplimental & 0x1);
 			const hasChildren = !!(supplimental & 0x2);
@@ -152,13 +152,13 @@ export class DTableBodyCellTree<
 			state.set(DTableState.HAS_CHILDREN, hasChildren);
 			state.set(DTableState.OPENED, isOpened);
 			state.unlock();
+			padding.adjLeft(this.theme.getLevelPadding(level));
 			if (link) {
 				link.menu.enable = !hasChildren;
 			}
-			adjuster.left = this.theme.getLevelPadding(level);
 		} else {
 			this.state.removeAll(DTableState.OPENED, DTableState.HAS_CHILDREN);
-			adjuster.left = 0;
+			padding.adjLeft(0);
 			if (link) {
 				link.menu.enable = false;
 			}

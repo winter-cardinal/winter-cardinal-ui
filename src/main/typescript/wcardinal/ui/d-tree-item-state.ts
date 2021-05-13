@@ -8,12 +8,12 @@
  */
 export const DTreeItemState = {
 	/**
-	 * the parent item is expanded
+	 * A node has children.
 	 */
-	EXPANDED: "EXPANDED",
+	HAS_CHILDREN: "HAS_CHILDREN",
 
 	/**
-	 * the parent item is collapsed
+	 * A node is opened.
 	 */
-	COLLAPSED: "COLLAPSED"
+	OPENED: "OPENED"
 };

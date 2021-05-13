@@ -5,13 +5,13 @@
 
 import { DThemeWhite } from "../d-theme-white";
 import { DThemeWhiteTree } from "../d-theme-white-tree";
-import { DThemeWhiteTreeItem } from "../d-theme-white-tree-item";
-import { DThemeWhiteTreeItemTextAndImage } from "../d-theme-white-tree-item-text-and-image";
-import { DThemeWhiteTreeItemToggleIcon } from "../d-theme-white-tree-item-toggle-icon";
+import { DThemeWhiteTreeItemButton } from "../d-theme-white-tree-item-button";
+import { DThemeWhiteTreeItemNonEditable } from "../d-theme-white-tree-item-non-editable";
+import { DThemeWhiteTreeItemText } from "../d-theme-white-tree-item-text";
 
 export const loadThemeWhiteTree = (): void => {
-	DThemeWhite.set("DTreeItem", DThemeWhiteTreeItem);
 	DThemeWhite.set("DTree", DThemeWhiteTree);
-	DThemeWhite.set("DTreeItemTextAndImage", DThemeWhiteTreeItemTextAndImage);
-	DThemeWhite.set("DTreeItemToggleIcon", DThemeWhiteTreeItemToggleIcon);
+	DThemeWhite.set("DTreeItemText", DThemeWhiteTreeItemText);
+	DThemeWhite.set("DTreeItemButton", DThemeWhiteTreeItemButton);
+	DThemeWhite.set("DTreeItemNonEditable", DThemeWhiteTreeItemNonEditable);
 };

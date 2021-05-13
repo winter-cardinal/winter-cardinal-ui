@@ -5,13 +5,13 @@
 
 import { DThemeDark } from "../d-theme-dark";
 import { DThemeDarkTree } from "../d-theme-dark-tree";
-import { DThemeDarkTreeItem } from "../d-theme-dark-tree-item";
-import { DThemeDarkTreeItemTextAndImage } from "../d-theme-dark-tree-item-text-and-image";
-import { DThemeDarkTreeItemToggleIcon } from "../d-theme-dark-tree-item-toggle-icon";
+import { DThemeDarkTreeItemButton } from "../d-theme-dark-tree-item-button";
+import { DThemeDarkTreeItemNonEditable } from "../d-theme-dark-tree-item-non-editable";
+import { DThemeDarkTreeItemText } from "../d-theme-dark-tree-item-text";
 
 export const loadThemeDarkTree = (): void => {
 	DThemeDark.set("DTree", DThemeDarkTree);
-	DThemeDark.set("DTreeItem", DThemeDarkTreeItem);
-	DThemeDark.set("DTreeItemToggleIcon", DThemeDarkTreeItemToggleIcon);
-	DThemeDark.set("DTreeItemTextAndImage", DThemeDarkTreeItemTextAndImage);
+	DThemeDark.set("DTreeItemText", DThemeDarkTreeItemText);
+	DThemeDark.set("DTreeItemButton", DThemeDarkTreeItemButton);
+	DThemeDark.set("DTreeItemNonEditable", DThemeDarkTreeItemNonEditable);
 };

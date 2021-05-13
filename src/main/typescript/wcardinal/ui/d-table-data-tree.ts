@@ -11,7 +11,7 @@ import { DTableDataListMapped } from "./d-table-data-list-mapped";
 import { DTableDataSelection } from "./d-table-data-selection";
 import { DTableDataComparator, DTableDataSorter } from "./d-table-data-sorter";
 import { DTableDataTreeSorter } from "./d-table-data-tree-sorter";
-import { DTableDataTreeItem } from "./d-table-data-tree-item";
+import { DTableDataTreeNode } from "./d-table-data-tree-item";
 import {
 	DTableDataTreeItemAccessor,
 	DTableDataTreeItemAccessorOptions
@@ -56,7 +56,7 @@ export interface DTableDataTreeOptions<NODE, EMITTER = any>
 /**
  * Please note that this data class does not support the sorter.
  */
-export class DTableDataTree<NODE extends DTableDataTreeItem<NODE, NODE>>
+export class DTableDataTree<NODE extends DTableDataTreeNode<NODE, NODE>>
 	extends utils.EventEmitter
 	implements DTableData<NODE> {
 	protected _parent: DTableDataParent | null;
