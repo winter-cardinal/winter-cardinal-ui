@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>EShapePointsFormatted | Winter Cardinal UI</title>
+	<title>DTreeDataSelectionParent | Winter Cardinal UI</title>
 	<meta name="description" content="Documentation for Winter Cardinal UI">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">:root {
@@ -2704,20 +2704,14 @@ img {
 </header>
 <nav class="tsd-navigation secondary">
 	<ul>
-		<li class="current tsd-kind-interface">
-			<a href="eshapepointsformatted.html" class="tsd-kind-icon">EShape<wbr>Points<wbr>Formatted</a>
+		<li class="current tsd-kind-interface tsd-has-type-parameter">
+			<a href="dtreedataselectionparent.html" class="tsd-kind-icon">DTree<wbr>Data<wbr>Selection<wbr>Parent</a>
 			<ul>
 				<li class=" tsd-kind-property tsd-parent-kind-interface">
-					<a href="eshapepointsformatted.html#length" class="tsd-kind-icon">length</a>
+					<a href="dtreedataselectionparent.html#accessor" class="tsd-kind-icon">accessor</a>
 				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-interface">
-					<a href="eshapepointsformatted.html#segments" class="tsd-kind-icon">segments</a>
-				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-interface">
-					<a href="eshapepointsformatted.html#style" class="tsd-kind-icon">style</a>
-				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-interface">
-					<a href="eshapepointsformatted.html#values" class="tsd-kind-icon">values</a>
+				<li class=" tsd-kind-method tsd-parent-kind-interface">
+					<a href="dtreedataselectionparent.html#update" class="tsd-kind-icon">update</a>
 				</li>
 			</ul>
 		</li>
@@ -2725,11 +2719,19 @@ img {
 </nav>
 <div class="container container-main">
 	<div class="content-wrap">
+		<section class="tsd-panel tsd-type-parameters">
+			<h3>Type parameters</h3>
+			<ul class="tsd-type-parameters">
+				<li>
+					<h4>NODE<span class="tsd-signature-symbol">: </span><a href="dtreenode.html" class="tsd-signature-type" data-tsd-kind="Interface">DTreeNode</a></h4>
+				</li>
+			</ul>
+		</section>
 		<section class="tsd-panel tsd-hierarchy">
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
 				<li>
-					<span class="target">EShapePointsFormatted</span>
+					<span class="target">DTreeDataSelectionParent</span>
 				</li>
 			</ul>
 		</section>
@@ -2740,10 +2742,13 @@ img {
 					<section class="tsd-index-section ">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="eshapepointsformatted.html#length" class="tsd-kind-icon">length</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="eshapepointsformatted.html#segments" class="tsd-kind-icon">segments</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="eshapepointsformatted.html#style" class="tsd-kind-icon">style</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="eshapepointsformatted.html#values" class="tsd-kind-icon">values</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="dtreedataselectionparent.html#accessor" class="tsd-kind-icon">accessor</a></li>
+						</ul>
+					</section>
+					<section class="tsd-index-section ">
+						<h3>Methods</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="dtreedataselectionparent.html#update" class="tsd-kind-icon">update</a></li>
 						</ul>
 					</section>
 				</div>
@@ -2752,44 +2757,34 @@ img {
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Properties</h2>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-				<a name="length" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> length</h3>
-				<div class="tsd-signature tsd-kind-icon">length<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+				<a name="accessor" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> accessor</h3>
+				<div class="tsd-signature tsd-kind-icon">accessor<span class="tsd-signature-symbol">:</span> <a href="dtreenodeaccessor.html" class="tsd-signature-type" data-tsd-kind="Interface">DTreeNodeAccessor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">NODE</span><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.86.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-formatted.ts#L9">src/main/typescript/wcardinal/ui/shape/e-shape-points-formatted.ts:9</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.88.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-parent.ts#L10">src/main/typescript/wcardinal/ui/d-tree-data-selection-parent.ts:10</a></li>
 					</ul>
 				</aside>
 			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-				<a name="segments" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> segments</h3>
-				<div class="tsd-signature tsd-kind-icon">segments<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.86.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-formatted.ts#L11">src/main/typescript/wcardinal/ui/shape/e-shape-points-formatted.ts:11</a></li>
-					</ul>
-				</aside>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-				<a name="style" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> style</h3>
-				<div class="tsd-signature tsd-kind-icon">style<span class="tsd-signature-symbol">:</span> <a href="../enums/eshapepointsstyle.html" class="tsd-signature-type" data-tsd-kind="Enumeration">EShapePointsStyle</a></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.86.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-formatted.ts#L12">src/main/typescript/wcardinal/ui/shape/e-shape-points-formatted.ts:12</a></li>
-					</ul>
-				</aside>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-				<a name="values" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> values</h3>
-				<div class="tsd-signature tsd-kind-icon">values<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.86.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-formatted.ts#L10">src/main/typescript/wcardinal/ui/shape/e-shape-points-formatted.ts:10</a></li>
-					</ul>
-				</aside>
+		</section>
+		<section class="tsd-panel-group tsd-member-group ">
+			<h2>Methods</h2>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+				<a name="update" class="tsd-anchor"></a>
+				<h3>update</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+					<li class="tsd-signature tsd-kind-icon">update<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.88.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-parent.ts#L11">src/main/typescript/wcardinal/ui/d-tree-data-selection-parent.ts:11</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
 			</section>
 		</section>
 		<footer class="with-border-bottom">
