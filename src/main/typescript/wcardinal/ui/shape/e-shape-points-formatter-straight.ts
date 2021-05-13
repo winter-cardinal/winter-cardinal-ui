@@ -48,15 +48,17 @@ export const eShapePointsFormatterStraight = (
 			const az = Math.abs(r * ax + r * ay);
 			if (ax < ay) {
 				if (ay < az) {
-					x1 += az * Math.sign(dx) * r;
-					y1 += az * Math.sign(dy) * r;
+					const aw = Math.min(ax, ay);
+					x1 += aw * Math.sign(dx);
+					y1 += aw * Math.sign(dy);
 				} else {
 					y1 = y2;
 				}
 			} else {
 				if (ax < az) {
-					x1 += az * Math.sign(dx) * r;
-					y1 += az * Math.sign(dy) * r;
+					const aw = Math.min(ax, ay);
+					x1 += aw * Math.sign(dx);
+					y1 += aw * Math.sign(dy);
 				} else {
 					x1 = x2;
 				}
@@ -74,15 +76,17 @@ export const eShapePointsFormatterStraight = (
 			if (threshold < ax && threshold < ay && threshold < az && toIndexOf(segments, 0) < 0) {
 				if (ax < ay) {
 					if (ay < az) {
-						x1 += az * Math.sign(dx) * r;
-						y1 += az * Math.sign(dy) * r;
+						const aw = Math.min(ax, ay);
+						x1 += aw * Math.sign(dx);
+						y1 += aw * Math.sign(dy);
 					} else {
 						y1 = y0;
 					}
 				} else {
 					if (ax < az) {
-						x1 += az * Math.sign(dx) * r;
-						y1 += az * Math.sign(dy) * r;
+						const aw = Math.min(ax, ay);
+						x1 += aw * Math.sign(dx);
+						y1 += aw * Math.sign(dy);
 					} else {
 						x1 = x0;
 					}
