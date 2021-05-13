@@ -194,10 +194,11 @@ export class DTableBodyCellInputTree<
 			} else {
 				marker.hide();
 			}
-			input.padding.adjuster.left = padding;
+			input.padding.adjLeft(padding);
 		} else {
 			marker.state.removeAll(DTableState.OPENED, DTableState.HAS_CHILDREN);
 			marker.hide();
+			input.padding.adjLeft(0);
 		}
 
 		const column = this._column;

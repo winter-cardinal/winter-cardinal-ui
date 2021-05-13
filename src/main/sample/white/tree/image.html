@@ -9,14 +9,14 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Basics</title>
+	<title>Image</title>
 	<style>
 	html, body {
 		width: 100%;
 		height: 100%;
 		margin: 0;
 		padding: 0;
-		background-color: #f2f2f2;
+		background-color: #eeeeee;
 	}
 	</style>
 </head>
@@ -30,6 +30,9 @@
 
 		var application = new wcardinal.ui.DApplication();
 
+		var folder = PIXI.Texture.from( "../../resource/tree/folder.png" );
+		var file = PIXI.Texture.from( "../../resource/tree/file.png" );
+
 		new wcardinal.ui.DTree( {
 			parent: application.stage,
 			x: "center", y: "center",
@@ -37,25 +40,31 @@
 			nodes: [
 				{
 					name: "Apple",
+					image: folder,
 					children: [
 						{
-							name: "Apple leaf"
+							name: "Apple leaf",
+							image: file
 						}
 					]
 				},
 				{
 					name: "Orange",
+					image: folder,
 					children: [
 						{
-							name: "Orange leaf"
+							name: "Orange leaf",
+							image: file
 						}
 					]
 				},
 				{
 					name: "Pineapple",
+					image: folder,
 					children: [
 						{
-							name: "Pineapple leaf"
+							name: "Pineapple leaf",
+							image: file
 						}
 					]
 				}
@@ -64,4 +73,5 @@
 	}());
 	</script>
 </body>
+
 </html>

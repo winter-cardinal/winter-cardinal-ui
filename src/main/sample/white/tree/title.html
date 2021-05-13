@@ -9,14 +9,14 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Basics</title>
+	<title>Title</title>
 	<style>
 	html, body {
 		width: 100%;
 		height: 100%;
 		margin: 0;
 		padding: 0;
-		background-color: #f2f2f2;
+		background-color: #eeeeee;
 	}
 	</style>
 </head>
@@ -27,41 +27,47 @@
 	<script>
 	(function(){
 		"use strict";
-
 		var application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DTree( {
 			parent: application.stage,
 			x: "center", y: "center",
 			width: 500, height: 500,
-			nodes: [
+			value: [
 				{
 					name: "Apple",
+					title: "Apple's title",
 					children: [
 						{
-							name: "Apple leaf"
+							name: "Apple leaf",
+							title: "Apple leaf's title"
 						}
 					]
 				},
 				{
 					name: "Orange",
+					title: "Orange's title",
 					children: [
 						{
-							name: "Orange leaf"
+							name: "Orange leaf",
+							title: "Orange leaf's title"
 						}
 					]
 				},
 				{
 					name: "Pineapple",
+					title: "Pineapple's title",
 					children: [
 						{
-							name: "Pineapple leaf"
+							name: "Pineapple leaf",
+							title: "Pineapple leaf's title"
 						}
 					]
 				}
 			]
 		});
-	}());
+	}() );
 	</script>
 </body>
+
 </html>

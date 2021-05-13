@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Basics</title>
+	<title>Bulk node update</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -30,7 +30,7 @@
 
 		var application = new wcardinal.ui.DApplication();
 
-		new wcardinal.ui.DTree( {
+		var tree = new wcardinal.ui.DTree( {
 			parent: application.stage,
 			x: "center", y: "center",
 			width: 500, height: 500,
@@ -61,6 +61,22 @@
 				}
 			]
 		});
+
+		var counter = 0;
+		var update = function() {
+			tree.data.each( function ( node ) {
+				counter += 1;
+				node.name = "Node " + counter;
+			});
+
+			// Update DTree forcibly.
+			// Because the data are changed outside of DTree,
+			// DTree has no idea the data are changed.
+			tree.data.update( true );
+
+			setTimeout( update, 1000 );
+		};
+		update();
 	}());
 	</script>
 </body>

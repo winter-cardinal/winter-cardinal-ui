@@ -4,6 +4,7 @@
  */
 
 import { DThemeBase } from "./d-base";
+import { DBasePadding } from "./d-base-padding";
 import { DPadding } from "./d-padding";
 
 export interface DBasePaddingAdjuster {
@@ -15,20 +16,21 @@ export interface DBasePaddingAdjuster {
 
 export class DBasePaddingAdjustable implements DPadding {
 	protected _target: DPadding;
-	protected _adjuster: DBasePaddingAdjuster;
+	protected _top: number;
+	protected _right: number;
+	protected _bottom: number;
+	protected _left: number;
+	protected _callback?: () => void;
 
 	constructor(target: DPadding) {
 		this._target = target;
-		this._adjuster = {
-			left: 0,
-			top: 0,
-			right: 0,
-			bottom: 0
-		};
-	}
-
-	get adjuster(): DBasePaddingAdjuster {
-		return this._adjuster;
+		this._top = 0;
+		this._right = 0;
+		this._bottom = 0;
+		this._left = 0;
+		if (target instanceof DBasePadding) {
+			this._callback = target.getCallback();
+		}
 	}
 
 	getTheme(): DThemeBase {
@@ -40,7 +42,17 @@ export class DBasePaddingAdjustable implements DPadding {
 	}
 
 	getLeft(): number {
-		return this._target.getLeft() + this._adjuster.left;
+		return this._target.getLeft() + this._left;
+	}
+
+	adjLeft(left: number): void {
+		if (this._left !== left) {
+			this._left = left;
+			const callback = this._callback;
+			if (callback) {
+				callback();
+			}
+		}
 	}
 
 	get left(): number | undefined {
@@ -52,7 +64,17 @@ export class DBasePaddingAdjustable implements DPadding {
 	}
 
 	getTop(): number {
-		return this._target.getTop() + this._adjuster.top;
+		return this._target.getTop() + this._top;
+	}
+
+	adjTop(top: number): void {
+		if (this._top !== top) {
+			this._top = top;
+			const callback = this._callback;
+			if (callback) {
+				callback();
+			}
+		}
 	}
 
 	get top(): number | undefined {
@@ -64,7 +86,17 @@ export class DBasePaddingAdjustable implements DPadding {
 	}
 
 	getRight(): number {
-		return this._target.getRight() + this._adjuster.right;
+		return this._target.getRight() + this._right;
+	}
+
+	adjRight(right: number): void {
+		if (this._right !== right) {
+			this._right = right;
+			const callback = this._callback;
+			if (callback) {
+				callback();
+			}
+		}
 	}
 
 	get right(): number | undefined {
@@ -76,7 +108,17 @@ export class DBasePaddingAdjustable implements DPadding {
 	}
 
 	getBottom(): number {
-		return this._target.getBottom() + this._adjuster.bottom;
+		return this._target.getBottom() + this._bottom;
+	}
+
+	adjBottom(bottom: number): void {
+		if (this._bottom !== bottom) {
+			this._bottom = bottom;
+			const callback = this._callback;
+			if (callback) {
+				callback();
+			}
+		}
 	}
 
 	get bottom(): number | undefined {

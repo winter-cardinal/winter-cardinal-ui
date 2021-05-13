@@ -44,6 +44,10 @@ export class DBasePadding implements DPadding {
 		this._theme = theme;
 	}
 
+	getCallback(): Callback | undefined {
+		return this._callback;
+	}
+
 	getLeft(): number {
 		return this._left ?? this._theme.getPaddingLeft();
 	}

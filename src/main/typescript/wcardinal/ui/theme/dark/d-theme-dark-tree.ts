@@ -7,6 +7,7 @@ import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeTree } from "../../d-tree";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkPane } from "./d-theme-dark-pane";
+import { DThemeDarkTreeItems } from "./d-theme-dark-tree-items";
 
 export class DThemeDarkTree extends DThemeDarkPane implements DThemeTree {
 	getBackgroundColor(state: DBaseStateSet): number | null {
@@ -15,5 +16,9 @@ export class DThemeDarkTree extends DThemeDarkPane implements DThemeTree {
 
 	getBorderAlign(state: DBaseStateSet): number {
 		return 1;
+	}
+
+	getItemHeight(): number {
+		return DThemeDarkTreeItems.getHeight();
 	}
 }

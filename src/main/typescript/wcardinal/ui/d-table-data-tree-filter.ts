@@ -5,7 +5,7 @@
 
 import { utils } from "pixi.js";
 import { DTableDataFilter, DTableDataFilterer } from "./d-table-data-filter";
-import { DTableDataTreeItem } from "./d-table-data-tree-item";
+import { DTableDataTreeNode } from "./d-table-data-tree-item";
 import { DTableDataTreeItemAccessor } from "./d-table-data-tree-item-accessor";
 import { isFunction } from "./util/is-function";
 
@@ -16,7 +16,7 @@ interface DTableDataTreeFilterParent<NODE> {
 	update(): void;
 }
 
-export class DTableDataTreeFilter<NODE extends DTableDataTreeItem<NODE, NODE>>
+export class DTableDataTreeFilter<NODE extends DTableDataTreeNode<NODE, NODE>>
 	extends utils.EventEmitter
 	implements DTableDataFilter<NODE> {
 	protected _id: number;
