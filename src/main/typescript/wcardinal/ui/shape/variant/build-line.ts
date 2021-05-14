@@ -64,14 +64,6 @@ export const buildLineClipping = (
 		clippings[++ic] = 0;
 		clippings[++ic] = 1;
 		clippings[++ic] = 5;
-
-		clippings[++ic] = 1;
-		clippings[++ic] = 0;
-		clippings[++ic] = 3;
-
-		clippings[++ic] = 0;
-		clippings[++ic] = 1;
-		clippings[++ic] = 5;
 	}
 };
 
