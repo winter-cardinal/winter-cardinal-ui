@@ -114,21 +114,13 @@ export const buildLineUv = (
 
 	let iuv = (voffset << 1) - 1;
 	const iuvmax = ((voffset + vcount) << 1) - 1;
-	let icf = voffset << 2;
+	let icf = (voffset << 2) - 8;
 	for (; iuv < iuvmax; ) {
-		const r0 = colorFills[icf] * lengthInverse;
-		uvs[++iuv] = x0 + r0 * dx01;
-		uvs[++iuv] = y0 + r0 * dy01;
-		uvs[++iuv] = x3 + r0 * dx32;
-		uvs[++iuv] = y3 + r0 * dy32;
-		icf += 8;
-
-		const r1 = colorFills[icf] * lengthInverse;
-		uvs[++iuv] = x0 + r1 * dx01;
-		uvs[++iuv] = y0 + r1 * dy01;
-		uvs[++iuv] = x3 + r1 * dx32;
-		uvs[++iuv] = y3 + r1 * dy32;
-		icf += 8;
+		const r = colorFills[(icf += 8)] * lengthInverse;
+		uvs[++iuv] = x0 + r * dx01;
+		uvs[++iuv] = y0 + r * dy01;
+		uvs[++iuv] = x3 + r * dx32;
+		uvs[++iuv] = y3 + r * dy32;
 	}
 };
 
