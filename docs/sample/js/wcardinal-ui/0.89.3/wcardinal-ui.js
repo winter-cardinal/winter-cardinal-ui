@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.89.2
+ Winter Cardinal UI v0.89.3
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -6090,13 +6090,13 @@
         var g = (((color >> 8) & 0xff) / 255.0) * alpha;
         var b = (((color >> 0) & 0xff) / 255.0) * alpha;
         var a = alpha;
-        var ic = voffset << 2;
-        for (var i = 0; i < vcount; ++i) {
-            colors[ic + 0] = r;
-            colors[ic + 1] = g;
-            colors[ic + 2] = b;
-            colors[ic + 3] = a;
-            ic += 4;
+        var ic = (voffset << 2) - 1;
+        var icmax = ((voffset + vcount) << 2) - 1;
+        for (; ic < icmax;) {
+            colors[++ic] = r;
+            colors[++ic] = g;
+            colors[++ic] = b;
+            colors[++ic] = a;
         }
     };
 
@@ -26832,20 +26832,13 @@
         var dy32 = y2 - y3;
         var iuv = (voffset << 1) - 1;
         var iuvmax = ((voffset + vcount) << 1) - 1;
-        var icf = voffset << 2;
+        var icf = (voffset << 2) - 8;
         for (; iuv < iuvmax;) {
-            var r0 = colorFills[icf] * lengthInverse;
-            uvs[++iuv] = x0 + r0 * dx01;
-            uvs[++iuv] = y0 + r0 * dy01;
-            uvs[++iuv] = x3 + r0 * dx32;
-            uvs[++iuv] = y3 + r0 * dy32;
-            icf += 8;
-            var r1 = colorFills[icf] * lengthInverse;
-            uvs[++iuv] = x0 + r1 * dx01;
-            uvs[++iuv] = y0 + r1 * dy01;
-            uvs[++iuv] = x3 + r1 * dx32;
-            uvs[++iuv] = y3 + r1 * dy32;
-            icf += 8;
+            var r = colorFills[(icf += 8)] * lengthInverse;
+            uvs[++iuv] = x0 + r * dx01;
+            uvs[++iuv] = y0 + r * dy01;
+            uvs[++iuv] = x3 + r * dx32;
+            uvs[++iuv] = y3 + r * dy32;
         }
     };
     var TRANSFORMED_POINT_VALUES;
