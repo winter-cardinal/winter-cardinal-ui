@@ -2,7 +2,7 @@
 	"name": "Winter Cardinal UI",
 	"theme": "minimal",
 	"readme": "none",
-	"gitRevision": "v0.88.0",
+	"gitRevision": "v0.89.0",
 	"disableOutputCheck": true,
 	"excludePrivate": true,
 	"entryPoints": [ "src/main/typescript/wcardinal-ui.esm.ts" ]
