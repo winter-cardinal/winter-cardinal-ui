@@ -3,10 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EShapePointsFormatterResult } from "./e-shape-points-formatter-result";
-import { EShapePointsFormatterSource } from "./e-shape-points-formatter-source";
+import { EShapePointsFormattedWithoutBoundary } from "./e-shape-points-formatted";
+import { EShapePointsStyle } from "./e-shape-points-style";
 
 export type EShapePointsFormatter = (
-	source: EShapePointsFormatterSource,
-	result: EShapePointsFormatterResult
-) => EShapePointsFormatterResult;
+	length: number,
+	values: number[],
+	segments: number[],
+	style: EShapePointsStyle,
+	result: EShapePointsFormattedWithoutBoundary
+) => EShapePointsFormattedWithoutBoundary;

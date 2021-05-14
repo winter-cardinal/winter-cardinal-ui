@@ -18,7 +18,7 @@ export interface EShapePoints {
 	style: EShapePointsStyle;
 
 	formatter: EShapePointsFormatter | null;
-	readonly formatted: EShapePointsFormatted;
+	readonly formatted: Readonly<EShapePointsFormatted>;
 
 	set(values?: number[], segments?: number[], style?: EShapePointsStyle): this;
 	copy(source: EShapePoints): this;
