@@ -142,7 +142,8 @@ export class EShapeLinePoints implements EShapePoints {
 								const y = formattedBoundary[i + 1];
 								formattedBoundary[i] = x * scaleX;
 								formattedBoundary[i + 1] = y * scaleY;
-								formattedBoundaryBase.push(x, y);
+								formattedBoundaryBase[i] = x;
+								formattedBoundaryBase[i + 1] = y;
 							}
 						} else {
 							for (let i = 0, imax = formattedBoundary.length; i < imax; i += 2) {
