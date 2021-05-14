@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.88.0
+ Winter Cardinal UI v0.89.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -1217,8 +1217,8 @@
         EShapePointsStyle[EShapePointsStyle["DASHED_LOOSELY"] = 512] = "DASHED_LOOSELY";
         /** @deprecated in favor of EShapeStrokeStyle. */
         EShapePointsStyle[EShapePointsStyle["DASHED_MASK"] = 896] = "DASHED_MASK";
-        EShapePointsStyle[EShapePointsStyle["STRAIGHT"] = 1024] = "STRAIGHT";
-        EShapePointsStyle[EShapePointsStyle["CURVE"] = 2048] = "CURVE";
+        EShapePointsStyle[EShapePointsStyle["CURVE"] = 1024] = "CURVE";
+        EShapePointsStyle[EShapePointsStyle["FORMATTER_MASK"] = 1024] = "FORMATTER_MASK";
     })(EShapePointsStyle || (EShapePointsStyle = {}));
 
     /*
@@ -27695,114 +27695,9 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var eShapePointsFormatterCurve = function (source, result) {
-        var style = source.style;
-        UtilCurve.interpolate(source.length, source.values, source.segments, UtilCurve.toHybrid, !!(style & EShapePointsStyle.CLOSED), EShapeDefaults.CURVE_SEGMENT_COUNT, true, result);
+    var eShapePointsFormatterCurve = function (length, values, segments, style, result) {
+        UtilCurve.interpolate(length, values, segments, UtilCurve.toHybrid, !!(style & EShapePointsStyle.CLOSED), EShapeDefaults.CURVE_SEGMENT_COUNT, true, result);
         result.length = result.values.length >> 1;
-        result.style = style;
-        return result;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var acopy$1 = function (source, result) {
-        var sourceLength = source.length;
-        for (var i = 0; i < sourceLength; ++i) {
-            result[i] = source[i];
-        }
-        if (result.length !== sourceLength) {
-            result.length = sourceLength;
-        }
-        return result;
-    };
-    var eShapePointsFormatterStraight = function (source, result) {
-        var length = source.length;
-        var values = source.values;
-        var segments = source.segments;
-        var style = source.style;
-        var rvalues = result.values;
-        var rvaluesCount = -1;
-        if (0 < length) {
-            var x0 = values[0];
-            var y0 = values[1];
-            var x1 = x0;
-            var y1 = y0;
-            rvalues[++rvaluesCount] = x0;
-            rvalues[++rvaluesCount] = y0;
-            var r = 0.7071067811865475;
-            for (var i = 1; i < length; ++i) {
-                var index = i << 1;
-                var x2 = values[index];
-                var y2 = values[index + 1];
-                var dx = x2 - x1;
-                var dy = y2 - y1;
-                var ax = Math.abs(dx);
-                var ay = Math.abs(dy);
-                var az = Math.abs(r * ax + r * ay);
-                if (ax < ay) {
-                    if (ay < az) {
-                        var aw = Math.min(ax, ay);
-                        x1 += aw * Math.sign(dx);
-                        y1 += aw * Math.sign(dy);
-                    }
-                    else {
-                        y1 = y2;
-                    }
-                }
-                else {
-                    if (ax < az) {
-                        var aw = Math.min(ax, ay);
-                        x1 += aw * Math.sign(dx);
-                        y1 += aw * Math.sign(dy);
-                    }
-                    else {
-                        x1 = x2;
-                    }
-                }
-                rvalues[++rvaluesCount] = x1;
-                rvalues[++rvaluesCount] = y1;
-            }
-            if (style & EShapePointsStyle.CLOSED) {
-                var dx = x0 - x1;
-                var dy = y0 - y1;
-                var ax = Math.abs(dx);
-                var ay = Math.abs(dy);
-                var az = Math.abs(r * ax + r * ay);
-                var threshold = 0.001;
-                if (threshold < ax && threshold < ay && threshold < az && toIndexOf(segments, 0) < 0) {
-                    if (ax < ay) {
-                        if (ay < az) {
-                            var aw = Math.min(ax, ay);
-                            x1 += aw * Math.sign(dx);
-                            y1 += aw * Math.sign(dy);
-                        }
-                        else {
-                            y1 = y0;
-                        }
-                    }
-                    else {
-                        if (ax < az) {
-                            var aw = Math.min(ax, ay);
-                            x1 += aw * Math.sign(dx);
-                            y1 += aw * Math.sign(dy);
-                        }
-                        else {
-                            x1 = x0;
-                        }
-                    }
-                    rvalues[++rvaluesCount] = x1;
-                    rvalues[++rvaluesCount] = y1;
-                }
-            }
-        }
-        rvaluesCount += 1;
-        if (rvalues.length !== rvaluesCount) {
-            rvalues.length = rvaluesCount;
-        }
-        acopy$1(segments, result.segments);
-        result.length = rvaluesCount >> 1;
         result.style = style;
         return result;
     };
@@ -27813,37 +27708,18 @@
      */
     var EShapeLinePoints = /** @class */ (function () {
         function EShapeLinePoints(parent, points, segments, style) {
-            // Calculate the center
+            // Calculate the boundary
+            var boundary = this.toBoundary(points, [0, 0, 0, 0]);
+            var cx = (boundary[2] + boundary[0]) * 0.5;
+            var cy = (boundary[3] + boundary[1]) * 0.5;
+            var sx = boundary[2] - boundary[0];
+            var sy = boundary[3] - boundary[1];
+            // Calculate values
             var values = [];
-            var minX = 0;
-            var maxX = 0;
-            var minY = 0;
-            var maxY = 0;
-            var pointsLength = points.length;
-            if (2 <= pointsLength) {
-                minX = maxX = points[0];
-                minY = maxY = points[1];
-                for (var i = 2; i < pointsLength; i += 2) {
-                    var x = points[i];
-                    var y = points[i + 1];
-                    minX = Math.min(minX, x);
-                    maxX = Math.max(maxX, x);
-                    minY = Math.min(minY, y);
-                    maxY = Math.max(maxY, y);
-                }
+            for (var i = 0, imax = points.length; i < imax; i += 2) {
+                values.push(points[i] - cx, points[i + 1] - cy);
             }
-            var cx = (maxX + minX) * 0.5;
-            var cy = (maxY + minY) * 0.5;
-            for (var i = 0; i < pointsLength; i += 2) {
-                var x = points[i + 0] - cx;
-                var y = points[i + 1] - cy;
-                values.push(x, y);
-            }
-            var sx = maxX - minX;
-            var sy = maxY - minY;
-            //
             this._parent = parent;
-            this._valuesBase = undefined;
             this._valuesBaseLength = values.length;
             this._values = values;
             this._segments = segments.slice(0);
@@ -27853,8 +27729,6 @@
             this._id = 0;
             this._style = style;
             this._formattedId = -1;
-            this._formatter = null;
-            this._formatted = null;
         }
         Object.defineProperty(EShapeLinePoints.prototype, "length", {
             get: function () {
@@ -27863,7 +27737,7 @@
             enumerable: false,
             configurable: true
         });
-        EShapeLinePoints.prototype.fitToParentSize = function () {
+        EShapeLinePoints.prototype.fit = function () {
             var size = this.size;
             var parentSize = this._parent.size;
             var ssx = parentSize.x;
@@ -27877,12 +27751,13 @@
                 if (hasSizeBaseX || hasSizeBaseY) {
                     var scaleX = hasSizeBaseX ? ssx / sizeBase.x : 1;
                     var scaleY = hasSizeBaseY ? ssy / sizeBase.y : 1;
+                    // Values
                     var values = this._values;
                     var valuesBase = this._valuesBase;
                     if (valuesBase == null) {
                         valuesBase = [];
                         this._valuesBase = valuesBase;
-                        for (var i = 0, imax = this.length << 1; i < imax; i += 2) {
+                        for (var i = 0, imax = values.length; i < imax; i += 2) {
                             var x = values[i];
                             var y = values[i + 1];
                             values[i] = x * scaleX;
@@ -27891,9 +27766,57 @@
                         }
                     }
                     else {
-                        for (var i = 0, imax = this.length << 1; i < imax; i += 2) {
+                        for (var i = 0, imax = values.length; i < imax; i += 2) {
                             values[i] = valuesBase[i] * scaleX;
                             values[i + 1] = valuesBase[i + 1] * scaleY;
+                        }
+                    }
+                    // Formatted ID, values and boundary
+                    if (this._id === this._formattedId) {
+                        var formatted = this._formatted;
+                        if (formatted != null) {
+                            // Formatted values
+                            var formattedValues = formatted.values;
+                            var formattedValuesBase = this._formattedValuesBase;
+                            if (formattedValuesBase == null) {
+                                formattedValuesBase = [];
+                                this._formattedValuesBase = formattedValuesBase;
+                                for (var i = 0, imax = formattedValues.length; i < imax; i += 2) {
+                                    var x = formattedValues[i];
+                                    var y = formattedValues[i + 1];
+                                    formattedValues[i] = x * scaleX;
+                                    formattedValues[i + 1] = y * scaleY;
+                                    formattedValuesBase.push(x, y);
+                                }
+                            }
+                            else {
+                                for (var i = 0, imax = formattedValues.length; i < imax; i += 2) {
+                                    formattedValues[i] = formattedValuesBase[i] * scaleX;
+                                    formattedValues[i + 1] = formattedValuesBase[i + 1] * scaleY;
+                                }
+                            }
+                            // Formatted boundary
+                            var formattedBoundary = formatted.boundary;
+                            var formattedBoundaryBase = this._formattedBoundaryBase;
+                            if (formattedBoundaryBase == null) {
+                                formattedBoundaryBase = [0, 0, 0, 0];
+                                this._formattedBoundaryBase = formattedBoundaryBase;
+                                for (var i = 0, imax = formattedBoundary.length; i < imax; i += 2) {
+                                    var x = formattedBoundary[i];
+                                    var y = formattedBoundary[i + 1];
+                                    formattedBoundary[i] = x * scaleX;
+                                    formattedBoundary[i + 1] = y * scaleY;
+                                    formattedBoundaryBase.push(x, y);
+                                }
+                            }
+                            else {
+                                for (var i = 0, imax = formattedBoundary.length; i < imax; i += 2) {
+                                    formattedBoundary[i] = formattedBoundaryBase[i] * scaleX;
+                                    formattedBoundary[i + 1] = formattedBoundaryBase[i + 1] * scaleY;
+                                }
+                            }
+                            // Formatted ID
+                            this._formattedId += 1;
                         }
                     }
                     this._id += 1;
@@ -27902,7 +27825,7 @@
         };
         Object.defineProperty(EShapeLinePoints.prototype, "id", {
             get: function () {
-                this.fitToParentSize();
+                this.fit();
                 return this._id;
             },
             enumerable: false,
@@ -27910,7 +27833,7 @@
         });
         Object.defineProperty(EShapeLinePoints.prototype, "values", {
             get: function () {
-                this.fitToParentSize();
+                this.fit();
                 return this._values;
             },
             set: function (values) {
@@ -27944,7 +27867,7 @@
         });
         Object.defineProperty(EShapeLinePoints.prototype, "formatter", {
             get: function () {
-                return this._formatter;
+                return this._formatter || null;
             },
             set: function (formatter) {
                 if (this._formatter !== formatter) {
@@ -27958,17 +27881,15 @@
         });
         Object.defineProperty(EShapeLinePoints.prototype, "formatted", {
             get: function () {
+                this.fit();
                 var id = this._id;
                 var result = this._formatted;
                 if (this._formattedId !== id) {
                     this._formattedId = id;
+                    var style = this._style;
                     var formatter = this._formatter;
                     if (formatter == null) {
-                        var style = this._style;
-                        if (style & EShapePointsStyle.STRAIGHT) {
-                            formatter = eShapePointsFormatterStraight;
-                        }
-                        else if (style & EShapePointsStyle.CURVE) {
+                        if (style & EShapePointsStyle.CURVE) {
                             formatter = eShapePointsFormatterCurve;
                         }
                     }
@@ -27982,32 +27903,38 @@
                                 style: EShapePointsStyle.NONE
                             };
                         }
-                        formatter(this, result);
-                        // Boundary
-                        var values = result.values;
-                        var valuesLength = values.length;
-                        if (2 <= valuesLength) {
-                            var xmin = values[0];
-                            var ymin = values[1];
-                            var xmax = xmin;
-                            var ymax = ymin;
-                            for (var i = 2, imax = values.length; i < imax; i += 2) {
-                                var x = values[i];
-                                var y = values[i + 1];
-                                xmin = Math.min(xmin, x);
-                                ymin = Math.min(ymin, y);
-                                xmax = Math.max(xmax, x);
-                                ymax = Math.max(ymax, y);
-                            }
-                            var boundary = result.boundary;
-                            boundary[0] = xmin;
-                            boundary[1] = ymin;
-                            boundary[2] = xmax;
-                            boundary[3] = ymax;
+                        var valuesBase = this._valuesBase;
+                        var segments = this._segments;
+                        if (valuesBase != null) {
+                            var length_1 = valuesBase.length >> 1;
+                            formatter(length_1, valuesBase, segments, style, result);
+                            this.toBoundary(result.values, result.boundary);
+                            var formattedValues = result.values;
+                            var formattedValuesBase = formattedValues.splice(0);
+                            this._formattedValuesBase = formattedValuesBase;
+                            var formattedBoundary = result.boundary;
+                            var formattedBoundaryBase = [
+                                formattedBoundary[0],
+                                formattedBoundary[1],
+                                formattedBoundary[2],
+                                formattedBoundary[3]
+                            ];
+                            this._formattedBoundaryBase = formattedBoundaryBase;
+                            this.toScaled(formattedValues, formattedValuesBase, formattedBoundary, formattedBoundaryBase);
+                        }
+                        else {
+                            var values = this._values;
+                            var length_2 = values.length >> 1;
+                            formatter(length_2, values, segments, style, result);
+                            this.toBoundary(result.values, result.boundary);
+                            this._formattedValuesBase = undefined;
+                            this._formattedBoundaryBase = undefined;
                         }
                     }
                     else {
-                        result = null;
+                        result = undefined;
+                        this._formattedValuesBase = undefined;
+                        this._formattedBoundaryBase = undefined;
                     }
                     this._formatted = result;
                 }
@@ -28016,12 +27943,63 @@
             enumerable: false,
             configurable: true
         });
+        EShapeLinePoints.prototype.toScaled = function (values, valuesBase, boundary, boundaryBase) {
+            var size = this.size;
+            var sizeBase = this._sizeBase;
+            var threshold = 0.00001;
+            var hasSizeBaseX = threshold < Math.abs(sizeBase.x);
+            var hasSizeBaseY = threshold < Math.abs(sizeBase.y);
+            if (hasSizeBaseX || hasSizeBaseY) {
+                var scaleX = hasSizeBaseX ? size.x / sizeBase.x : 1;
+                var scaleY = hasSizeBaseY ? size.y / sizeBase.y : 1;
+                for (var i = 0, imax = valuesBase.length; i < imax; i += 2) {
+                    values[i] = valuesBase[i] * scaleX;
+                    values[i + 1] = valuesBase[i + 1] * scaleY;
+                }
+                for (var i = 0, imax = boundaryBase.length; i < imax; i += 2) {
+                    boundary[i] = boundaryBase[i] * scaleX;
+                    boundary[i + 1] = boundaryBase[i + 1] * scaleY;
+                }
+            }
+        };
+        EShapeLinePoints.prototype.toBoundary = function (values, result) {
+            var valuesLength = values.length;
+            if (2 <= valuesLength) {
+                var xmin = values[0];
+                var ymin = values[1];
+                var xmax = xmin;
+                var ymax = ymin;
+                for (var i = 2, imax = values.length; i < imax; i += 2) {
+                    var x = values[i];
+                    var y = values[i + 1];
+                    xmin = Math.min(xmin, x);
+                    ymin = Math.min(ymin, y);
+                    xmax = Math.max(xmax, x);
+                    ymax = Math.max(ymax, y);
+                }
+                result[0] = xmin;
+                result[1] = ymin;
+                result[2] = xmax;
+                result[3] = ymax;
+            }
+            else {
+                result[0] = 0;
+                result[1] = 0;
+                result[2] = 0;
+                result[3] = 0;
+            }
+            return result;
+        };
         EShapeLinePoints.prototype.copy = function (source) {
             return this.set(source.values, source.segments, source.style);
         };
         EShapeLinePoints.prototype.set = function (newValues, newSegments, newStyle) {
             var isDirty = false;
             var isUpdated = false;
+            // Formatter
+            var style = this._style;
+            var styleFormatter = style & EShapePointsStyle.FORMATTER_MASK;
+            var formatter = this._formatter;
             // Values
             if (newValues != null) {
                 var values = this._values;
@@ -28042,7 +28020,12 @@
                         isDirty = true;
                     }
                     else {
-                        isUpdated = true;
+                        if (formatter != null || styleFormatter) {
+                            isDirty = true;
+                        }
+                        else {
+                            isUpdated = true;
+                        }
                     }
                 }
                 else {
@@ -28051,7 +28034,12 @@
                         isDirty = true;
                     }
                     else {
-                        isUpdated = true;
+                        if (formatter != null || styleFormatter) {
+                            isDirty = true;
+                        }
+                        else {
+                            isUpdated = true;
+                        }
                     }
                 }
             }
@@ -28071,30 +28059,34 @@
                         segments.length = newSegmentsLength;
                     }
                 }
-                isUpdated = true;
+                if (formatter != null || styleFormatter) {
+                    isDirty = true;
+                }
+                else {
+                    isUpdated = true;
+                }
             }
             // Style
             if (newStyle != null) {
-                var oldStyle = this._style;
-                if (oldStyle !== newStyle) {
-                    var mask = EShapePointsStyle.STRAIGHT | EShapePointsStyle.CURVE;
-                    var oldStyleMasked = oldStyle & mask;
-                    var newStyleMasked = newStyle & mask;
-                    if (oldStyleMasked !== newStyleMasked) {
+                if (style !== newStyle) {
+                    var newStyleFormatter = newStyle & EShapePointsStyle.FORMATTER_MASK;
+                    if (styleFormatter !== newStyleFormatter) {
                         isDirty = true;
                     }
-                    else if (oldStyleMasked) {
-                        var oldStyleClosed = oldStyle & EShapePointsStyle.CLOSED;
-                        var newStyleClosed = newStyle & EShapePointsStyle.CLOSED;
-                        if (oldStyleClosed !== newStyleClosed) {
-                            isDirty = true;
+                    else {
+                        if (formatter != null || styleFormatter) {
+                            var styleClosed = style & EShapePointsStyle.CLOSED;
+                            var newStyleClosed = newStyle & EShapePointsStyle.CLOSED;
+                            if (styleClosed !== newStyleClosed) {
+                                isDirty = true;
+                            }
+                            else {
+                                isUpdated = true;
+                            }
                         }
                         else {
                             isUpdated = true;
                         }
-                    }
-                    else {
-                        isUpdated = true;
                     }
                     this._style = newStyle;
                 }
@@ -60911,7 +60903,6 @@
         EShapeEditor: EShapeEditor,
         EShapeImageElements: EShapeImageElements,
         eShapePointsFormatterCurve: eShapePointsFormatterCurve,
-        eShapePointsFormatterStraight: eShapePointsFormatterStraight,
         get EShapePointsStyle () { return EShapePointsStyle; },
         EShapePointsStyles: EShapePointsStyles,
         EShapeRendererIteratorDatum: EShapeRendererIteratorDatum,

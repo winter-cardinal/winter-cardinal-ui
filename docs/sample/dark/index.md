@@ -130,7 +130,6 @@
     * [SDF image shape](./shape/image-sdf.html)
     * [Line](./shape/line.html)
     * [Line (Curve)](./shape/line-curve.html)
-    * [Line (Straight)](./shape/line-straight.html)
     * [Basics](./shape/shape.html)
     * [Text clipping](./shape/text-clipping.html)
     * [Text spacing](./shape/text-spacing.html)
