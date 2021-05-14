@@ -9,17 +9,15 @@ export type EShapePointsFormatted =
 	| EShapePointsFormattedWithBoundary
 	| EShapePointsFormattedWithoutBoundary;
 
-export interface EShapePointsFormattedWithBoundary {
-	readonly length: number;
-	readonly values: number[];
-	readonly segments: number[];
-	readonly boundary: [number, number, number, number];
-	readonly style: EShapePointsStyle;
-}
+export type EShapePointsFormattedBoundary = [number, number, number, number];
 
 export interface EShapePointsFormattedWithoutBoundary {
-	readonly length: number;
-	readonly values: number[];
-	readonly segments: number[];
-	readonly style: EShapePointsStyle;
+	length: number;
+	values: number[];
+	segments: number[];
+	style: EShapePointsStyle;
+}
+
+export interface EShapePointsFormattedWithBoundary extends EShapePointsFormattedWithoutBoundary {
+	boundary: EShapePointsFormattedBoundary;
 }

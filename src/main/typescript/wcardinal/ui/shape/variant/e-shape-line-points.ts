@@ -10,10 +10,10 @@ import { EShapePoints } from "../e-shape-points";
 import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { eShapePointsFormatterCurve } from "../e-shape-points-formatter-curve";
-import { eShapePointsFormatterStraight } from "../e-shape-points-formatter-straight";
 import { EShapePointsFormatter } from "../e-shape-points-formatter";
 import {
 	EShapePointsFormatted,
+	EShapePointsFormattedBoundary,
 	EShapePointsFormattedWithBoundary
 } from "../e-shape-points-formatted";
 import { EShapeLineBasePointsHitTester } from "./e-shape-line-base-points-hit-tester";
@@ -33,42 +33,26 @@ export class EShapeLinePoints implements EShapePoints {
 	protected _id: number;
 	protected _style: EShapePointsStyle;
 	protected _formattedId: number;
-	protected _formatter: EShapePointsFormatter | null;
-	protected _formatted: EShapePointsFormattedWithBoundary | null;
+	protected _formatter?: EShapePointsFormatter | null;
+	protected _formatted?: EShapePointsFormattedWithBoundary;
+	protected _formattedValuesBase?: number[];
+	protected _formattedBoundaryBase?: EShapePointsFormattedBoundary;
 
 	constructor(parent: EShape, points: number[], segments: number[], style: EShapePointsStyle) {
-		// Calculate the center
-		const values: number[] = [];
-		let minX = 0;
-		let maxX = 0;
-		let minY = 0;
-		let maxY = 0;
-		const pointsLength = points.length;
-		if (2 <= pointsLength) {
-			minX = maxX = points[0];
-			minY = maxY = points[1];
-			for (let i = 2; i < pointsLength; i += 2) {
-				const x = points[i];
-				const y = points[i + 1];
-				minX = Math.min(minX, x);
-				maxX = Math.max(maxX, x);
-				minY = Math.min(minY, y);
-				maxY = Math.max(maxY, y);
-			}
-		}
-		const cx = (maxX + minX) * 0.5;
-		const cy = (maxY + minY) * 0.5;
-		for (let i = 0; i < pointsLength; i += 2) {
-			const x = points[i + 0] - cx;
-			const y = points[i + 1] - cy;
-			values.push(x, y);
-		}
-		const sx = maxX - minX;
-		const sy = maxY - minY;
+		// Calculate the boundary
+		const boundary = this.toBoundary(points, [0, 0, 0, 0]);
+		const cx = (boundary[2] + boundary[0]) * 0.5;
+		const cy = (boundary[3] + boundary[1]) * 0.5;
+		const sx = boundary[2] - boundary[0];
+		const sy = boundary[3] - boundary[1];
 
-		//
+		// Calculate values
+		const values: number[] = [];
+		for (let i = 0, imax = points.length; i < imax; i += 2) {
+			values.push(points[i] - cx, points[i + 1] - cy);
+		}
+
 		this._parent = parent;
-		this._valuesBase = undefined;
 		this._valuesBaseLength = values.length;
 		this._values = values;
 		this._segments = segments.slice(0);
@@ -78,15 +62,13 @@ export class EShapeLinePoints implements EShapePoints {
 		this._id = 0;
 		this._style = style;
 		this._formattedId = -1;
-		this._formatter = null;
-		this._formatted = null;
 	}
 
 	get length(): number {
 		return this._values.length >> 1;
 	}
 
-	private fitToParentSize() {
+	protected fit(): void {
 		const size = this.size;
 		const parentSize = this._parent.size;
 		const ssx = parentSize.x;
@@ -102,13 +84,14 @@ export class EShapeLinePoints implements EShapePoints {
 				const scaleX = hasSizeBaseX ? ssx / sizeBase.x : 1;
 				const scaleY = hasSizeBaseY ? ssy / sizeBase.y : 1;
 
+				// Values
 				const values = this._values;
 				let valuesBase = this._valuesBase;
 				if (valuesBase == null) {
 					valuesBase = [];
 					this._valuesBase = valuesBase;
 
-					for (let i = 0, imax = this.length << 1; i < imax; i += 2) {
+					for (let i = 0, imax = values.length; i < imax; i += 2) {
 						const x = values[i];
 						const y = values[i + 1];
 						values[i] = x * scaleX;
@@ -116,23 +99,75 @@ export class EShapeLinePoints implements EShapePoints {
 						valuesBase.push(x, y);
 					}
 				} else {
-					for (let i = 0, imax = this.length << 1; i < imax; i += 2) {
+					for (let i = 0, imax = values.length; i < imax; i += 2) {
 						values[i] = valuesBase[i] * scaleX;
 						values[i + 1] = valuesBase[i + 1] * scaleY;
 					}
 				}
+
+				// Formatted ID, values and boundary
+				if (this._id === this._formattedId) {
+					const formatted = this._formatted;
+					if (formatted != null) {
+						// Formatted values
+						const formattedValues = formatted.values;
+						let formattedValuesBase = this._formattedValuesBase;
+						if (formattedValuesBase == null) {
+							formattedValuesBase = [];
+							this._formattedValuesBase = formattedValuesBase;
+
+							for (let i = 0, imax = formattedValues.length; i < imax; i += 2) {
+								const x = formattedValues[i];
+								const y = formattedValues[i + 1];
+								formattedValues[i] = x * scaleX;
+								formattedValues[i + 1] = y * scaleY;
+								formattedValuesBase.push(x, y);
+							}
+						} else {
+							for (let i = 0, imax = formattedValues.length; i < imax; i += 2) {
+								formattedValues[i] = formattedValuesBase[i] * scaleX;
+								formattedValues[i + 1] = formattedValuesBase[i + 1] * scaleY;
+							}
+						}
+
+						// Formatted boundary
+						const formattedBoundary = formatted.boundary;
+						let formattedBoundaryBase = this._formattedBoundaryBase;
+						if (formattedBoundaryBase == null) {
+							formattedBoundaryBase = [0, 0, 0, 0];
+							this._formattedBoundaryBase = formattedBoundaryBase;
+
+							for (let i = 0, imax = formattedBoundary.length; i < imax; i += 2) {
+								const x = formattedBoundary[i];
+								const y = formattedBoundary[i + 1];
+								formattedBoundary[i] = x * scaleX;
+								formattedBoundary[i + 1] = y * scaleY;
+								formattedBoundaryBase.push(x, y);
+							}
+						} else {
+							for (let i = 0, imax = formattedBoundary.length; i < imax; i += 2) {
+								formattedBoundary[i] = formattedBoundaryBase[i] * scaleX;
+								formattedBoundary[i + 1] = formattedBoundaryBase[i + 1] * scaleY;
+							}
+						}
+
+						// Formatted ID
+						this._formattedId += 1;
+					}
+				}
+
 				this._id += 1;
 			}
 		}
 	}
 
 	get id(): number {
-		this.fitToParentSize();
+		this.fit();
 		return this._id;
 	}
 
 	get values(): number[] {
-		this.fitToParentSize();
+		this.fit();
 		return this._values;
 	}
 
@@ -160,7 +195,7 @@ export class EShapeLinePoints implements EShapePoints {
 	}
 
 	get formatter(): EShapePointsFormatter | null {
-		return this._formatter;
+		return this._formatter || null;
 	}
 
 	set formatter(formatter: EShapePointsFormatter | null) {
@@ -172,19 +207,20 @@ export class EShapeLinePoints implements EShapePoints {
 	}
 
 	get formatted(): EShapePointsFormatted {
+		this.fit();
 		const id = this._id;
 		let result = this._formatted;
 		if (this._formattedId !== id) {
 			this._formattedId = id;
+
+			const style = this._style;
 			let formatter = this._formatter;
 			if (formatter == null) {
-				const style = this._style;
-				if (style & EShapePointsStyle.STRAIGHT) {
-					formatter = eShapePointsFormatterStraight;
-				} else if (style & EShapePointsStyle.CURVE) {
+				if (style & EShapePointsStyle.CURVE) {
 					formatter = eShapePointsFormatterCurve;
 				}
 			}
+
 			if (formatter != null) {
 				if (result == null) {
 					result = {
@@ -195,36 +231,106 @@ export class EShapeLinePoints implements EShapePoints {
 						style: EShapePointsStyle.NONE
 					};
 				}
-				formatter(this, result);
+				const valuesBase = this._valuesBase;
+				const segments = this._segments;
+				if (valuesBase != null) {
+					const length = valuesBase.length >> 1;
+					formatter(length, valuesBase, segments, style, result);
+					this.toBoundary(result.values, result.boundary);
 
-				// Boundary
-				const values = result.values;
-				const valuesLength = values.length;
-				if (2 <= valuesLength) {
-					let xmin = values[0];
-					let ymin = values[1];
-					let xmax = xmin;
-					let ymax = ymin;
-					for (let i = 2, imax = values.length; i < imax; i += 2) {
-						const x = values[i];
-						const y = values[i + 1];
-						xmin = Math.min(xmin, x);
-						ymin = Math.min(ymin, y);
-						xmax = Math.max(xmax, x);
-						ymax = Math.max(ymax, y);
-					}
-					const boundary = result.boundary;
-					boundary[0] = xmin;
-					boundary[1] = ymin;
-					boundary[2] = xmax;
-					boundary[3] = ymax;
+					const formattedValues = result.values;
+					const formattedValuesBase = formattedValues.splice(0);
+					this._formattedValuesBase = formattedValuesBase;
+
+					const formattedBoundary = result.boundary;
+					const formattedBoundaryBase: EShapePointsFormattedBoundary = [
+						formattedBoundary[0],
+						formattedBoundary[1],
+						formattedBoundary[2],
+						formattedBoundary[3]
+					];
+					this._formattedBoundaryBase = formattedBoundaryBase;
+
+					this.toScaled(
+						formattedValues,
+						formattedValuesBase,
+						formattedBoundary,
+						formattedBoundaryBase
+					);
+				} else {
+					const values = this._values;
+					const length = values.length >> 1;
+					formatter(length, values, segments, style, result);
+					this.toBoundary(result.values, result.boundary);
+					this._formattedValuesBase = undefined;
+					this._formattedBoundaryBase = undefined;
 				}
 			} else {
-				result = null;
+				result = undefined;
+				this._formattedValuesBase = undefined;
+				this._formattedBoundaryBase = undefined;
 			}
 			this._formatted = result;
 		}
 		return result || this;
+	}
+
+	protected toScaled(
+		values: number[],
+		valuesBase: number[],
+		boundary: EShapePointsFormattedBoundary,
+		boundaryBase: EShapePointsFormattedBoundary
+	): void {
+		const size = this.size;
+		const sizeBase = this._sizeBase;
+		const threshold = 0.00001;
+		const hasSizeBaseX = threshold < Math.abs(sizeBase.x);
+		const hasSizeBaseY = threshold < Math.abs(sizeBase.y);
+		if (hasSizeBaseX || hasSizeBaseY) {
+			const scaleX = hasSizeBaseX ? size.x / sizeBase.x : 1;
+			const scaleY = hasSizeBaseY ? size.y / sizeBase.y : 1;
+
+			for (let i = 0, imax = valuesBase.length; i < imax; i += 2) {
+				values[i] = valuesBase[i] * scaleX;
+				values[i + 1] = valuesBase[i + 1] * scaleY;
+			}
+
+			for (let i = 0, imax = boundaryBase.length; i < imax; i += 2) {
+				boundary[i] = boundaryBase[i] * scaleX;
+				boundary[i + 1] = boundaryBase[i + 1] * scaleY;
+			}
+		}
+	}
+
+	protected toBoundary(
+		values: number[],
+		result: EShapePointsFormattedBoundary
+	): EShapePointsFormattedBoundary {
+		const valuesLength = values.length;
+		if (2 <= valuesLength) {
+			let xmin = values[0];
+			let ymin = values[1];
+			let xmax = xmin;
+			let ymax = ymin;
+			for (let i = 2, imax = values.length; i < imax; i += 2) {
+				const x = values[i];
+				const y = values[i + 1];
+				xmin = Math.min(xmin, x);
+				ymin = Math.min(ymin, y);
+				xmax = Math.max(xmax, x);
+				ymax = Math.max(ymax, y);
+			}
+			result[0] = xmin;
+			result[1] = ymin;
+			result[2] = xmax;
+			result[3] = ymax;
+		} else {
+			result[0] = 0;
+			result[1] = 0;
+			result[2] = 0;
+			result[3] = 0;
+		}
+		return result;
 	}
 
 	copy(source: EShapePoints): this {
@@ -234,6 +340,11 @@ export class EShapeLinePoints implements EShapePoints {
 	set(newValues?: number[], newSegments?: number[], newStyle?: EShapePointsStyle): this {
 		let isDirty = false;
 		let isUpdated = false;
+
+		// Formatter
+		const style = this._style;
+		const styleFormatter = style & EShapePointsStyle.FORMATTER_MASK;
+		const formatter = this._formatter;
 
 		// Values
 		if (newValues != null) {
@@ -256,14 +367,22 @@ export class EShapeLinePoints implements EShapePoints {
 					this._valuesBaseLength = newValuesLength;
 					isDirty = true;
 				} else {
-					isUpdated = true;
+					if (formatter != null || styleFormatter) {
+						isDirty = true;
+					} else {
+						isUpdated = true;
+					}
 				}
 			} else {
 				if (valuesBaseLength !== newValuesLength) {
 					this._valuesBaseLength = newValuesLength;
 					isDirty = true;
 				} else {
-					isUpdated = true;
+					if (formatter != null || styleFormatter) {
+						isDirty = true;
+					} else {
+						isUpdated = true;
+					}
 				}
 			}
 		}
@@ -286,28 +405,31 @@ export class EShapeLinePoints implements EShapePoints {
 					segments.length = newSegmentsLength;
 				}
 			}
-			isUpdated = true;
+			if (formatter != null || styleFormatter) {
+				isDirty = true;
+			} else {
+				isUpdated = true;
+			}
 		}
 
 		// Style
 		if (newStyle != null) {
-			const oldStyle = this._style;
-			if (oldStyle !== newStyle) {
-				const mask = EShapePointsStyle.STRAIGHT | EShapePointsStyle.CURVE;
-				const oldStyleMasked = oldStyle & mask;
-				const newStyleMasked = newStyle & mask;
-				if (oldStyleMasked !== newStyleMasked) {
+			if (style !== newStyle) {
+				const newStyleFormatter = newStyle & EShapePointsStyle.FORMATTER_MASK;
+				if (styleFormatter !== newStyleFormatter) {
 					isDirty = true;
-				} else if (oldStyleMasked) {
-					const oldStyleClosed = oldStyle & EShapePointsStyle.CLOSED;
-					const newStyleClosed = newStyle & EShapePointsStyle.CLOSED;
-					if (oldStyleClosed !== newStyleClosed) {
-						isDirty = true;
+				} else {
+					if (formatter != null || styleFormatter) {
+						const styleClosed = style & EShapePointsStyle.CLOSED;
+						const newStyleClosed = newStyle & EShapePointsStyle.CLOSED;
+						if (styleClosed !== newStyleClosed) {
+							isDirty = true;
+						} else {
+							isUpdated = true;
+						}
 					} else {
 						isUpdated = true;
 					}
-				} else {
-					isUpdated = true;
 				}
 				this._style = newStyle;
 			}

@@ -5,19 +5,21 @@
 
 import { UtilCurve } from "../util/util-curve";
 import { EShapeDefaults } from "./e-shape-defaults";
-import { EShapePointsFormatterResult } from "./e-shape-points-formatter-result";
-import { EShapePointsFormatterSource } from "./e-shape-points-formatter-source";
+import { EShapePointsFormattedWithoutBoundary } from "./e-shape-points-formatted";
+import { EShapePointsFormatter } from "./e-shape-points-formatter";
 import { EShapePointsStyle } from "./e-shape-points-style";
 
-export const eShapePointsFormatterCurve = (
-	source: EShapePointsFormatterSource,
-	result: EShapePointsFormatterResult
-): EShapePointsFormatterResult => {
-	const style = source.style;
+export const eShapePointsFormatterCurve: EShapePointsFormatter = (
+	length: number,
+	values: number[],
+	segments: number[],
+	style: EShapePointsStyle,
+	result: EShapePointsFormattedWithoutBoundary
+): EShapePointsFormattedWithoutBoundary => {
 	UtilCurve.interpolate(
-		source.length,
-		source.values,
-		source.segments,
+		length,
+		values,
+		segments,
 		UtilCurve.toHybrid,
 		!!(style & EShapePointsStyle.CLOSED),
 		EShapeDefaults.CURVE_SEGMENT_COUNT,

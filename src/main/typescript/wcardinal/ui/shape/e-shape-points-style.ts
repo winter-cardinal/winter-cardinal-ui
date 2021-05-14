@@ -44,6 +44,6 @@ export enum EShapePointsStyle {
 	/** @deprecated in favor of EShapeStrokeStyle. */
 	DASHED_MASK = DASHED | DASHED_DENSELY | DASHED_LOOSELY,
 
-	STRAIGHT = 1024,
-	CURVE = 2048
+	CURVE = 1024,
+	FORMATTER_MASK = CURVE
 }
