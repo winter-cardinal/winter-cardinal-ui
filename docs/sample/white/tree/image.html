@@ -30,8 +30,21 @@
 
 		var application = new wcardinal.ui.DApplication();
 
-		var folder = PIXI.Texture.from( "../../resource/tree/folder.png" );
-		var file = PIXI.Texture.from( "../../resource/tree/file.png" );
+		var resolution = window.devicePixelRatio || 1;
+		var size = 24 * resolution;
+		var folder = wcardinal.ui.toSvgTexture(
+			'<svg xmlns="http://www.w3.org/2000/svg" height="' + size + 'px" width="' + size + 'px" viewBox="0 0 24 24" fill="#ffffff">' +
+				'<path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>' +
+			'</svg>',
+			resolution
+		);
+
+		var file = wcardinal.ui.toSvgTexture(
+			'<svg xmlns="http://www.w3.org/2000/svg" height="' + size + 'px" width="' + size + 'px" viewBox="0 0 24 24" fill="#ffffff">' +
+				'<path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>' +
+			'</svg>',
+			resolution
+		);
 
 		new wcardinal.ui.DTree( {
 			parent: application.stage,
