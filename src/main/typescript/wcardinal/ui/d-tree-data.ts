@@ -3,13 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DTreeDataSelection } from "./d-tree-data-selection";
+import { DTreeDataMapped } from "./d-tree-data-mapped";
+import { DTreeDataSelection, DTreeDataSelectionOptions } from "./d-tree-data-selection";
 import { DTreeNode } from "./d-tree-node";
 import { DTreeNodeAccessor, DTreeNodeAccessorOptions } from "./d-tree-node-accessor";
 import { DTreeNodeIteratee } from "./d-tree-node-iteratee";
 
 export interface DTreeDataOptions<NODE extends DTreeNode> extends DTreeNodeAccessorOptions<NODE> {
 	nodes: NODE[];
+	selection?: DTreeDataSelectionOptions<NODE>;
 }
 
 export interface DTreeDataLike<NODE extends DTreeNode> {
@@ -123,7 +125,6 @@ export interface DTreeDataLike<NODE extends DTreeNode> {
 
 export interface DTreeData<NODE extends DTreeNode> extends DTreeDataLike<NODE> {
 	nodes: NODE[];
-	readonly rows: NODE[];
-	readonly levels: number[];
+	mapped: DTreeDataMapped<NODE>;
 	readonly accessor: DTreeNodeAccessor<NODE>;
 }

@@ -8,6 +8,7 @@ import { DApplications } from "./d-applications";
 import { DBasePaddingAdjustable } from "./d-base-padding-adjustable";
 import { DImageBase, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
 import { DTreeData } from "./d-tree-data";
+import { DTreeDataSelectionType } from "./d-tree-data-selection";
 import { DTreeItem } from "./d-tree-item";
 import { DTreeItemState } from "./d-tree-item-state";
 import { DTreeNode } from "./d-tree-node";
@@ -52,13 +53,7 @@ export class DTreeItemText<
 		}
 	}
 
-	set(
-		node: NODE,
-		level: number,
-		isActive: boolean,
-		isExpanded: boolean,
-		forcibly?: boolean
-	): void {
+	set(node: NODE, level: number, forcibly?: boolean): void {
 		this._node = node;
 
 		const accessor = this._data.accessor;
@@ -67,55 +62,66 @@ export class DTreeItemText<
 		this.image = accessor.toImage(node);
 
 		this._padding.adjLeft(this.theme.getLevelPadding(level));
-
-		this.state.isActive = isActive;
-
-		const children = accessor.toChildren(node);
-		const hasChildren = !!(children && 0 < children.length);
-		const state = this.state;
-		state.lock();
-		state.set(DTreeItemState.HAS_CHILDREN, hasChildren);
-		state.set(DTreeItemState.OPENED, isExpanded);
-		state.unlock();
-
-		this.show();
 	}
 
 	unset(): void {
+		this.text = undefined;
+		this.title = "";
+		this.image = undefined;
 		this._node = undefined;
-		this.hide();
 	}
 
 	protected onSelect(
 		e: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent | undefined,
-		row: NODE
+		value: NODE
 	): void {
-		const selection = this._data.selection;
-		const originalEvent = e && "data" in e ? e.data.originalEvent : e;
-		if (originalEvent?.ctrlKey) {
-			selection.toggle(row);
-		} else if (originalEvent?.shiftKey) {
-			const rows = this._data.rows;
-			const index = rows.indexOf(row);
-			if (0 <= index) {
-				const last = selection.last;
-				const lastIndex = last ? rows.indexOf(last) : 0;
-				if (0 <= lastIndex) {
-					const nodes: NODE[] = [];
-					if (index <= lastIndex) {
-						for (let i = index; i <= lastIndex; ++i) {
-							nodes.push(rows[i]);
-						}
-					} else {
-						for (let i = index; lastIndex <= i; --i) {
-							nodes.push(rows[i]);
-						}
-					}
-					selection.clearAndAddAll(nodes);
-				}
-			}
+		const data = this._data;
+		const selection = data.selection;
+		if (selection.type !== DTreeDataSelectionType.MULTIPLE) {
+			selection.clearAndAdd(value);
 		} else {
-			selection.clearAndAdd(row);
+			const originalEvent = e && "data" in e ? e.data.originalEvent : e;
+			if (originalEvent?.ctrlKey) {
+				selection.toggle(value);
+			} else if (originalEvent?.shiftKey) {
+				const mapped = data.mapped;
+				const last = selection.last;
+				if (value === last) {
+					selection.clearAndAdd(value);
+				} else {
+					let isFound = false;
+					let isReverse = false;
+					const newSelection: NODE[] = [];
+					mapped.each((node): boolean | void => {
+						if (isFound) {
+							if (isReverse) {
+								newSelection.unshift(node);
+								if (node === value) {
+									return false;
+								}
+							} else {
+								newSelection.push(node);
+								if (node === last) {
+									return false;
+								}
+							}
+						} else {
+							if (node === value) {
+								isFound = true;
+								isReverse = false;
+								newSelection.push(node);
+							} else if (node === last) {
+								isFound = true;
+								isReverse = true;
+								newSelection.push(node);
+							}
+						}
+					});
+					selection.clearAndAddAll(newSelection);
+				}
+			} else {
+				selection.clearAndAdd(value);
+			}
 		}
 	}
 

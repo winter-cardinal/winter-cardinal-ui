@@ -3,73 +3,65 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DBaseStateSet } from "../../d-base-state-set";
+import { DBorderMask } from "../../d-border-mask";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
 import { DThemeListItem } from "../../d-list-item";
-import { DThemeDarkConstants } from "./d-theme-dark-constants";
+import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeDarkImage } from "./d-theme-dark-image";
+import { DThemeDarkListItems } from "./d-theme-dark-list-items";
 
 export class DThemeDarkListItem extends DThemeDarkImage<string> implements DThemeListItem {
-	getBackgroundColor(state: DBaseStateSet): number | null {
-		if (state.inDisabled) {
-			return null;
-		} else if (state.isActive) {
-			return this.getBackgroundColorActive(state);
-		} else if (state.isFocused || state.isHovered) {
-			return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
-		} else {
-			return null;
-		}
+	protected _style: DThemeDarkListItems;
+
+	constructor() {
+		super();
+		this._style = this.newStyle();
 	}
 
-	protected getBackgroundColorActive(state: DBaseStateSet): number | null {
-		return DThemeDarkConstants.HIGHLIGHT_COLOR;
+	protected newStyle(): DThemeDarkListItems {
+		return new DThemeDarkListItems(null, true, false);
+	}
+
+	getBackgroundColor(state: DBaseStateSet): number | null {
+		return this._style.getBackgroundColor(state);
 	}
 
 	getBackgroundAlpha(state: DBaseStateSet): number {
-		if (state.inDisabled) {
-			return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
-		} else if (state.isActive) {
-			return this.getBackgroundAlphaActive(state);
-		} else {
-			return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
-		}
-	}
-
-	protected getBackgroundAlphaActive(state: DBaseStateSet): number {
-		return DThemeDarkConstants.HIGHLIGHT_ALPHA;
-	}
-
-	getColor(state: DBaseStateSet): number {
-		if (state.inDisabled) {
-			return super.getColor(state);
-		} else if (state.isActive) {
-			return this.getColorActive(state);
-		} else {
-			return super.getColor(state);
-		}
-	}
-
-	protected getColorActive(state: DBaseStateSet): number {
-		return DThemeDarkConstants.COLOR;
+		return this._style.getBackgroundAlpha(state);
 	}
 
 	getBorderColor(state: DBaseStateSet): number | null {
-		return null;
+		return this._style.getBorderColor(state);
+	}
+
+	getBorderAlign(state: DBaseStateSet): number {
+		return this._style.getBorderAlign(state);
+	}
+
+	getBorderMask(state: DBaseStateSet): DBorderMask {
+		return this._style.getBorderMask(state);
+	}
+
+	getColor(state: DBaseStateSet): number {
+		return this._style.getColor(state);
+	}
+
+	getAlpha(state: DBaseStateSet): number {
+		return this._style.getAlpha(state);
 	}
 
 	getHeight(): DCoordinateSize {
-		return 30;
+		return this._style.getHeight();
 	}
 
-	getWidth(): DCoordinateSize {
-		return "padding";
+	getCornerMask(): DCornerMask {
+		return this._style.getCornerMask();
 	}
 
-	getTextAlignHorizontal(): DAlignHorizontal {
-		return DAlignHorizontal.LEFT;
+	getImageTintColor(state: DBaseStateSet): number | null {
+		return this._style.getImageTintColor(state);
 	}
 
 	getPaddingLeft(): number {
@@ -80,14 +72,11 @@ export class DThemeDarkListItem extends DThemeDarkImage<string> implements DThem
 		return 10;
 	}
 
-	getCornerMask(): number {
-		return DCornerMask.ALL;
+	newTextValue(): DStateAwareOrValueMightBe<string> {
+		return undefined;
 	}
 
-	getCursor(state: DBaseStateSet): string {
-		if (!state.isActionable) {
-			return "";
-		}
-		return "pointer";
+	getWidth(): DCoordinateSize {
+		return "padding";
 	}
 }

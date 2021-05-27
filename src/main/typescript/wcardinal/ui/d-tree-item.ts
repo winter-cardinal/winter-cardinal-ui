@@ -9,12 +9,6 @@ import { DTreeNode } from "./d-tree-node";
 export interface DTreeItem<NODE extends DTreeNode = DTreeNode> extends DBase {
 	readonly node: NODE | undefined;
 
-	set(
-		node: NODE,
-		level: number,
-		isActive: boolean,
-		isExpanded: boolean,
-		forcibly?: boolean
-	): void;
+	set(node: NODE, level: number, forcibly?: boolean): void;
 	unset(): void;
 }

@@ -6,9 +6,9 @@
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeMenuItem } from "../../d-menu-item";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
-import { DThemeWhiteListItem } from "./d-theme-white-list-item";
+import { DThemeWhiteMenuItemBase } from "./d-theme-white-menu-item-base";
 
-export class DThemeWhiteMenuItem extends DThemeWhiteListItem implements DThemeMenuItem {
+export class DThemeWhiteMenuItem extends DThemeWhiteMenuItemBase implements DThemeMenuItem {
 	protected getBackgroundColorActive(state: DBaseStateSet): number | null {
 		return DThemeWhiteConstants.HIGHLIGHT_COLOR;
 	}

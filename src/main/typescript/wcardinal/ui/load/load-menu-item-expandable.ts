@@ -4,23 +4,24 @@
  */
 
 import { DisplayObject } from "pixi.js";
-import { DMenuItemCheck } from "../d-menu-item-check";
+import { DMenuItemCheckIsCompatible } from "../d-menu-item-check-is-compatible";
 import { DMenuItemExpandable } from "../d-menu-item-expandable";
+import { DMenuItemExpandableIsCompatible } from "../d-menu-item-expandable-is-compatible";
 import { DMenuItemExpandableItemCheck } from "../d-menu-item-expandable-item-check";
 import { DMenuItemExpandableItemLink } from "../d-menu-item-expandable-item-link";
 import { DMenuItemExpandableItemSeparator } from "../d-menu-item-expandable-item-separator";
 import { DMenuItemExpandableItemSpace } from "../d-menu-item-expandable-item-space";
 import { DMenuItemExpandableItemText } from "../d-menu-item-expandable-item-text";
 import { DMenuItemExpandables } from "../d-menu-item-expandables";
-import { DMenuItemLink } from "../d-menu-item-link";
+import { DMenuItemLinkIsCompatible } from "../d-menu-item-link-is-compatible";
 import { DMenuItemOptionsUnion } from "../d-menu-item-options-union";
-import { DMenuItemSeparator } from "../d-menu-item-separator";
-import { DMenuItemSpace } from "../d-menu-item-space";
+import { DMenuItemSeparatorIsCompatible } from "../d-menu-item-separator";
+import { DMenuItemSpaceIsCompatible } from "../d-menu-item-space-is-compatible";
 import { DMenus } from "../d-menus";
 
 export const loadMenuItemExpandable = (): void => {
 	DMenus.addItemCreator((options: DMenuItemOptionsUnion<any>): DisplayObject | null => {
-		if (DMenuItemExpandable.isCompatible(options)) {
+		if (DMenuItemExpandableIsCompatible(options)) {
 			return new DMenuItemExpandable(options);
 		}
 		return null;
@@ -28,7 +29,7 @@ export const loadMenuItemExpandable = (): void => {
 
 	DMenuItemExpandables.addItemCreator(
 		(options: DMenuItemOptionsUnion<any>): DisplayObject | null => {
-			if (DMenuItemCheck.isCompatible(options)) {
+			if (DMenuItemCheckIsCompatible(options)) {
 				return new DMenuItemExpandableItemCheck(options);
 			}
 			return null;
@@ -37,7 +38,7 @@ export const loadMenuItemExpandable = (): void => {
 
 	DMenuItemExpandables.addItemCreator(
 		(options: DMenuItemOptionsUnion<any>): DisplayObject | null => {
-			if (DMenuItemLink.isCompatible(options)) {
+			if (DMenuItemLinkIsCompatible(options)) {
 				return new DMenuItemExpandableItemLink(options);
 			}
 			return null;
@@ -46,7 +47,7 @@ export const loadMenuItemExpandable = (): void => {
 
 	DMenuItemExpandables.addItemCreator(
 		(options: DMenuItemOptionsUnion<any>): DisplayObject | null => {
-			if (DMenuItemSeparator.isCompatible(options)) {
+			if (DMenuItemSeparatorIsCompatible(options)) {
 				return new DMenuItemExpandableItemSeparator(options);
 			}
 			return null;
@@ -55,7 +56,7 @@ export const loadMenuItemExpandable = (): void => {
 
 	DMenuItemExpandables.addItemCreator(
 		(options: DMenuItemOptionsUnion<any>): DisplayObject | null => {
-			if (DMenuItemSpace.isCompatible(options)) {
+			if (DMenuItemSpaceIsCompatible(options)) {
 				return new DMenuItemExpandableItemSpace(options);
 			}
 			return null;

@@ -8,12 +8,12 @@ import { DAlignWith } from "../../d-align-with";
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeMenuItemExpandableHeader } from "../../d-menu-item-expandable-header";
 import { DThemeWhiteExpandables } from "./d-theme-white-expandables";
-import { DThemeWhiteListItem } from "./d-theme-white-list-item";
+import { DThemeWhiteMenuItemBase } from "./d-theme-white-menu-item-base";
 
 DThemeWhiteExpandables.init();
 
 export class DThemeWhiteMenuItemExpandableHeader
-	extends DThemeWhiteListItem
+	extends DThemeWhiteMenuItemBase
 	implements DThemeMenuItemExpandableHeader {
 	getPaddingLeft(): number {
 		return this.getPaddingRight();

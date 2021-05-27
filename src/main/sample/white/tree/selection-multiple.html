@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Select dialog with a selection preservation</title>
+	<title>Selection (Multiple)</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -30,32 +30,47 @@
 
 		var application = new wcardinal.ui.DApplication();
 
-		new wcardinal.ui.DDialogSelect({
+		new wcardinal.ui.DTree( {
 			parent: application.stage,
-			mode: "MODELESS",
-			item: {
-				isEqual: function ( a, b ) {
-					return a.name === b.name;
-				}
-			},
-			controller: {
-				search: function ( word ) {
-					return Promise.resolve([
-						{ name: "Apple" },
-						{ name: "Orange" },
-						{ name: "Pineapple" }
-					].filter(function( item ) {
-						return word.length <= 0 || 0 <= item.name.indexOf( word );
-					}));
-				}
-			},
-			on: {
-				ok: function ( selected, dialog ) {
-					console.log( selected, dialog );
-				}
+			x: "center", y: "center",
+			width: 500, height: 500,
+			data: {
+				selection: {
+					type: "MULTIPLE",
+					on: {
+						change: function(selection) {
+							console.log(selection.toArray());
+						}
+					}
+				},
+				nodes: [
+					{
+						name: "Apple",
+						children: [
+							{
+								name: "Apple leaf"
+							}
+						]
+					},
+					{
+						name: "Orange",
+						children: [
+							{
+								name: "Orange leaf"
+							}
+						]
+					},
+					{
+						name: "Pineapple",
+						children: [
+							{
+								name: "Pineapple leaf"
+							}
+						]
+					}
+				]
 			}
-		})
-		.open();
+		});
 	}());
 	</script>
 </body>

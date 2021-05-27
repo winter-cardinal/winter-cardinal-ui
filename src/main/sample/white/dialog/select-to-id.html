@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Select dialog with predefined items</title>
+	<title>Select dialog with a selection preservation</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -30,11 +30,15 @@
 
 		var application = new wcardinal.ui.DApplication();
 
-		var dialog = new wcardinal.ui.DDialogSelect({
-			item: {
-				predefineds: [{
-					name: "Melon"
-				}]
+		new wcardinal.ui.DDialogSelect({
+			parent: application.stage,
+			mode: "MODELESS",
+			list: {
+				data: {
+					toId: function(item) {
+						return item.name;
+					}
+				}
 			},
 			controller: {
 				search: function ( word ) {
@@ -46,27 +50,14 @@
 						return word.length <= 0 || 0 <= item.name.indexOf( word );
 					}));
 				}
-			}
-		});
-
-		new wcardinal.ui.DButton({
-			parent: application.stage,
-			x: "center", y: "center",
-			width: 300,
-			text: {
-				value: "Open"
 			},
 			on: {
-				active: function () {
-					dialog.open().then(function( value ){
-						console.log( value );
-					})
-					.catch(function() {
-						console.log( "Canceled" );
-					});
+				ok: function ( selected, dialog ) {
+					console.log( selected, dialog );
 				}
 			}
-		});
+		})
+		.open();
 	}());
 	</script>
 </body>

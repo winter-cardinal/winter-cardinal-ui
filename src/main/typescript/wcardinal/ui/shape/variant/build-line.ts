@@ -234,7 +234,7 @@ const buildTransformedLineVertexStepAndColorFill = (
 			let iseg = 0;
 			let iprevseg = lineSegments[0];
 			for (let i = 1; i < lineSegmentsLength; ++i) {
-				const iseg = lineSegments[i];
+				iseg = lineSegments[i];
 				if (2 <= iseg - iprevseg) {
 					lprev = buildTransformedLineOpenSegmentVertexStepAndColorFill(
 						vertices,

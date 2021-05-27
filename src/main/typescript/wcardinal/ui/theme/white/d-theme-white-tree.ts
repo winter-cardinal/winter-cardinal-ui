@@ -10,6 +10,17 @@ import { DThemeWhitePane } from "./d-theme-white-pane";
 import { DThemeWhiteTreeItems } from "./d-theme-white-tree-items";
 
 export class DThemeWhiteTree extends DThemeWhitePane implements DThemeTree {
+	protected _style: DThemeWhiteTreeItems;
+
+	constructor() {
+		super();
+		this._style = this.newStyle();
+	}
+
+	protected newStyle(): DThemeWhiteTreeItems {
+		return new DThemeWhiteTreeItems(null, true, false);
+	}
+
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		return DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD;
 	}
@@ -19,6 +30,6 @@ export class DThemeWhiteTree extends DThemeWhitePane implements DThemeTree {
 	}
 
 	getItemHeight(): number {
-		return DThemeWhiteTreeItems.getHeight();
+		return this._style.getHeight();
 	}
 }

@@ -9,7 +9,6 @@ import { DLinkMenuItemId } from "./d-link-menu-item-id";
 import { DLinkTarget } from "./d-link-target";
 import { DLinks } from "./d-links";
 import { DMenu, DMenuOptions } from "./d-menu";
-import { DMenuItemOptionsUnion } from "./d-menu-item-options-union";
 import { DMenuItemText, DMenuItemTextOptions, DThemeMenuItemText } from "./d-menu-item-text";
 import { isString } from "./util/is-string";
 
@@ -95,11 +94,5 @@ export class DMenuItemLink<
 	protected onShortcut(e: KeyboardEvent): void {
 		super.onShortcut(e);
 		this.onSelect(e);
-	}
-
-	static isCompatible<VALUE>(
-		options: DMenuItemOptionsUnion<VALUE>
-	): options is DMenuItemLinkOptions<VALUE> {
-		return "url" in options;
 	}
 }

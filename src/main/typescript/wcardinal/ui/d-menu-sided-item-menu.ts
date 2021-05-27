@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DListItemSelection } from "./d-list-item";
 import { DMenu } from "./d-menu";
 import { DMenuItem } from "./d-menu-item";
+import { DMenuItemBaseSelection } from "./d-menu-item-base-selection";
 import { DMenuItemMenu, DMenuItemMenuOptions, DThemeMenuItemMenu } from "./d-menu-item-menu";
 
 export class DMenuSidedItemMenu<
@@ -29,7 +29,7 @@ export class DMenuSidedItemMenu<
 		menu.open(this, this);
 	}
 
-	protected getSelection(): DListItemSelection | null {
+	protected getSelection(): DMenuItemBaseSelection | null {
 		return null;
 	}
 

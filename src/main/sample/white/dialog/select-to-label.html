@@ -31,9 +31,11 @@
 		var application = new wcardinal.ui.DApplication();
 
 		var dialog = new wcardinal.ui.DDialogSelect({
-			item: {
-				toLabel: function ( value ) {
-					return value.name.toUpperCase();
+			list: {
+				data: {
+					toLabel: function ( value ) {
+						return value.name.toUpperCase();
+					}
 				}
 			},
 			controller: {

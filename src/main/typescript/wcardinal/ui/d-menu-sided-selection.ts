@@ -6,13 +6,12 @@
 import { Container, utils } from "pixi.js";
 import { DBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
-import { DListItem, DListItemSelection } from "./d-list-item";
 import { DMenu } from "./d-menu";
+import { DMenuItemBase } from "./d-menu-item-base";
 import { DOnOptions } from "./d-on-options";
-import { isString } from "./util/is-string";
 import { toEnum } from "./util/to-enum";
 
-export enum DMenuSidedSelectionMode {
+export enum DMenuSidedSelectionType {
 	NONE,
 	SINGLE,
 	SINGLE_ONCE,
@@ -42,19 +41,29 @@ export interface DMenuSidedSelectionOnOptions<EMITTER>
  * {@link DMenuSidedSelection} options.
  */
 export interface DMenuSidedSelectionOptions<EMITTER = any> {
-	mode?: keyof typeof DMenuSidedSelectionMode | DMenuSidedSelectionMode;
+	/**
+	 * @deprecated in favor of {@link type}
+	 */
+	mode?: DMenuSidedSelectionType | keyof typeof DMenuSidedSelectionType;
+
+	/**
+	 * A selection type.
+	 */
+	type?: DMenuSidedSelectionType | keyof typeof DMenuSidedSelectionType;
+
 	on?: DMenuSidedSelectionOnOptions<EMITTER>;
+
 	filter?: (item: DBase | null) => boolean;
 }
 
 const defaultFilter = () => true;
 
-export class DMenuSidedSelection extends utils.EventEmitter implements DListItemSelection {
+export class DMenuSidedSelection<VALUE> extends utils.EventEmitter {
 	protected _content: Container;
-	protected _item: DBase | null;
+	protected _item: DMenuItemBase<VALUE> | null;
 	protected _isDirty: boolean;
-	protected _mode: DMenuSidedSelectionMode;
-	protected _filter: (item: DBase | null) => boolean;
+	protected _type: DMenuSidedSelectionType;
+	protected _filter: (item: DMenuItemBase<VALUE> | null) => boolean;
 
 	constructor(content: Container, options?: DMenuSidedSelectionOptions) {
 		super();
@@ -62,9 +71,9 @@ export class DMenuSidedSelection extends utils.EventEmitter implements DListItem
 		this._content = content;
 		this._item = null;
 		this._isDirty = true;
-		this._mode = toEnum(
-			options?.mode ?? DMenuSidedSelectionMode.DEFAULT,
-			DMenuSidedSelectionMode
+		this._type = toEnum(
+			options?.mode ?? options?.type ?? DMenuSidedSelectionType.DEFAULT,
+			DMenuSidedSelectionType
 		);
 		this._filter = options?.filter ?? this.getFilterDefault();
 
@@ -78,6 +87,10 @@ export class DMenuSidedSelection extends utils.EventEmitter implements DListItem
 				}
 			}
 		}
+	}
+
+	first(): DMenuItemBase<VALUE> | null {
+		return this._item;
 	}
 
 	toDirty(): void {
@@ -99,7 +112,7 @@ export class DMenuSidedSelection extends utils.EventEmitter implements DListItem
 		const children = root.children;
 		for (let i = 0, imax = children.length; i < imax; ++i) {
 			const child = children[i];
-			if (child instanceof DListItem) {
+			if (child instanceof DMenuItemBase) {
 				if (child.state.isActive) {
 					this.set_(child, false);
 				}
@@ -115,19 +128,23 @@ export class DMenuSidedSelection extends utils.EventEmitter implements DListItem
 		}
 	}
 
-	add(item: DBase): void {
+	add(item: DMenuItemBase<VALUE>): void {
 		this.update();
 		this.set_(item, true);
 	}
 
-	set(item: DBase): void {
+	set(item: DMenuItemBase<VALUE>): void {
 		this.update();
 		this.set_(item, true);
 	}
 
-	get(): DBase | null {
+	get(index: number): DMenuItemBase<VALUE> | null {
 		this.update();
 		return this._item;
+	}
+
+	getIndex(index: number): number | null {
+		return null;
 	}
 
 	size(): number {
@@ -150,14 +167,14 @@ export class DMenuSidedSelection extends utils.EventEmitter implements DListItem
 		this.set_(null, true);
 	}
 
-	protected getFilterDefault(): (item: DBase | null) => boolean {
+	protected getFilterDefault(): (item: DMenuItemBase<VALUE> | null) => boolean {
 		return defaultFilter;
 	}
 
-	protected set_(item: DBase | null, emit: boolean): void {
+	protected set_(item: DMenuItemBase<VALUE> | null, emit: boolean): void {
 		const oldItem = this._item;
-		const mode = this._mode;
-		if (mode !== DMenuSidedSelectionMode.NONE && this._filter(item) && oldItem !== item) {
+		const mode = this._type;
+		if (mode !== DMenuSidedSelectionType.NONE && this._filter(item) && oldItem !== item) {
 			this.setState(oldItem, mode, false);
 			this._item = item;
 			this.setState(item, mode, true);
@@ -167,9 +184,9 @@ export class DMenuSidedSelection extends utils.EventEmitter implements DListItem
 		}
 	}
 
-	protected setState(item: DBase | null, mode: DMenuSidedSelectionMode, isOn: boolean): void {
+	protected setState(item: DBase | null, mode: DMenuSidedSelectionType, isOn: boolean): void {
 		if (item) {
-			if (mode === DMenuSidedSelectionMode.SINGLE) {
+			if (mode === DMenuSidedSelectionType.SINGLE) {
 				item.state.isActive = isOn;
 			} else {
 				if (isOn) {

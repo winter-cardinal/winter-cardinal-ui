@@ -4,7 +4,6 @@
  */
 
 import { DLayoutSpace, DLayoutSpaceOptions, DThemeLayoutSpace } from "./d-layout-space";
-import { DMenuItemOptionsUnion } from "./d-menu-item-options-union";
 
 export interface DMenuItemSpaceOptions<THEME extends DThemeMenuItemSpace = DThemeMenuItemSpace>
 	extends DLayoutSpaceOptions<THEME> {
@@ -19,11 +18,5 @@ export class DMenuItemSpace<
 > extends DLayoutSpace<THEME, OPTIONS> {
 	protected getType(): string {
 		return "DMenuItemSpace";
-	}
-
-	static isCompatible<VALUE>(
-		options: DMenuItemOptionsUnion<VALUE>
-	): options is DMenuItemSpaceOptions {
-		return "space" in options;
 	}
 }
