@@ -6,7 +6,9 @@
 import { interaction } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBasePaddingAdjustable } from "./d-base-padding-adjustable";
-import { DImageBase, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
+import { DBaseState } from "./d-base-state";
+import { DImageBase, DImageBaseEvents, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
+import { DOnOptions } from "./d-on-options";
 import { DTreeData } from "./d-tree-data";
 import { DTreeDataSelectionType } from "./d-tree-data-selection";
 import { DTreeItem } from "./d-tree-item";
@@ -14,8 +16,46 @@ import { DTreeItemState } from "./d-tree-item-state";
 import { DTreeNode } from "./d-tree-node";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 
-export interface DTreeItemTextOptions<THEME extends DThemeTreeItemText = DThemeTreeItemText>
-	extends DImageBaseOptions<string, THEME> {}
+/**
+ * {@link DTreeItemText} events.
+ */
+export interface DTreeItemTextEvents<NODE, EMITTER> extends DImageBaseEvents<NODE, EMITTER> {
+	/**
+	 * Triggered when a node is set.
+	 *
+	 *     on( "set", ( node, index, emitter ) => {} )
+	 *
+	 * @param emitter an emitter
+	 */
+	set(node: NODE, index: number, emitter: EMITTER): void;
+
+	/**
+	 * Triggered when set to undefined.
+	 *
+	 *     on( "unset", ( emitter ) => {} )
+	 *
+	 * @param emitter an emitter
+	 */
+	unset(emitter: EMITTER): void;
+}
+
+/**
+ * {@link DTreeItemText} "on" options.
+ */
+export interface DTreeItemTextOnOptions<NODE, EMITTER>
+	extends Partial<DTreeItemTextEvents<NODE, EMITTER>>,
+		DOnOptions {}
+
+/**
+ * {@link DTreeItemText} options.
+ */
+export interface DTreeItemTextOptions<
+	NODE extends DTreeNode = DTreeNode,
+	THEME extends DThemeTreeItemText = DThemeTreeItemText,
+	EMITTER = any
+> extends DImageBaseOptions<string, THEME> {
+	on?: DTreeItemTextOnOptions<NODE, EMITTER>;
+}
 
 export interface DThemeTreeItemText extends DThemeImageBase<string> {
 	getLevelPadding(level: number): number;
@@ -24,7 +64,7 @@ export interface DThemeTreeItemText extends DThemeImageBase<string> {
 export class DTreeItemText<
 		NODE extends DTreeNode = DTreeNode,
 		THEME extends DThemeTreeItemText = DThemeTreeItemText,
-		OPTIONS extends DTreeItemTextOptions<THEME> = DTreeItemTextOptions<THEME>
+		OPTIONS extends DTreeItemTextOptions<NODE, THEME> = DTreeItemTextOptions<NODE, THEME>
 	>
 	extends DImageBase<string, THEME, OPTIONS>
 	implements DTreeItem<NODE> {
@@ -42,6 +82,10 @@ export class DTreeItemText<
 		return this._node;
 	}
 
+	get value(): NODE | undefined {
+		return this._node;
+	}
+
 	get data(): DTreeData<NODE> {
 		return this._data;
 	}
@@ -53,22 +97,52 @@ export class DTreeItemText<
 		}
 	}
 
-	set(node: NODE, level: number, forcibly?: boolean): void {
-		this._node = node;
+	set(node: NODE, index: number, forcibly?: boolean): void {
+		const data = this._data;
+		const isNodeChanged = forcibly || this._node !== node;
+		if (isNodeChanged) {
+			this._node = node;
 
-		const accessor = this._data.accessor;
-		this.text = accessor.toLabel(node);
-		this.title = accessor.toTitle(node) ?? "";
-		this.image = accessor.toImage(node);
+			const accessor = data.accessor;
+			this.text = accessor.toLabel(node);
+			this.title = accessor.toTitle(node) ?? "";
+			this.image = accessor.toImage(node);
+		}
 
+		const level = data.mapped.levels[index];
 		this._padding.adjLeft(this.theme.getLevelPadding(level));
+
+		const children = data.accessor.toChildren(node);
+		const hasChildren = !!(children && 0 < children.length);
+		const state = this.state;
+		state.lock();
+		state.set(DBaseState.ACTIVE, data.selection.contains(node));
+		state.remove(DBaseState.DISABLED);
+		state.set(DTreeItemState.HAS_CHILDREN, hasChildren);
+		state.set(DTreeItemState.OPENED, data.isExpanded(node));
+		state.unlock();
+
+		if (isNodeChanged) {
+			this.emit("set", node, index, this);
+		}
 	}
 
 	unset(): void {
-		this.text = undefined;
-		this.title = "";
-		this.image = undefined;
-		this._node = undefined;
+		if (this._node !== undefined) {
+			this._node = undefined;
+
+			this.text = undefined;
+			this.title = "";
+			this.image = undefined;
+
+			const state = this.state;
+			state.lock();
+			state.add(DBaseState.DISABLED);
+			state.remove(DBaseState.ACTIVE);
+			state.unlock();
+
+			this.emit("unset", this);
+		}
 	}
 
 	protected onSelect(

@@ -9,10 +9,10 @@ import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
 import { DThemeListItem } from "../../d-list-item";
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
-import { DThemeWhiteImage } from "./d-theme-white-image";
+import { DThemeWhiteImageBase } from "./d-theme-white-image-base";
 import { DThemeWhiteListItems } from "./d-theme-white-list-items";
 
-export class DThemeWhiteListItem extends DThemeWhiteImage<string> implements DThemeListItem {
+export class DThemeWhiteListItem extends DThemeWhiteImageBase<string> implements DThemeListItem {
 	protected _style: DThemeWhiteListItems;
 
 	constructor() {

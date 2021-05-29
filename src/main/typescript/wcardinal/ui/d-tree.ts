@@ -13,7 +13,7 @@ import { DTreeDataSelection } from "./d-tree-data-selection";
 import { DTreeData, DTreeDataLike, DTreeDataOptions } from "./d-tree-data";
 import { isArray } from "./util/is-array";
 import { DTreeDataImpl } from "./d-tree-data-impl";
-import { DTreeItemUpdater } from "./d-tree-item-updater";
+import { DTreeItemUpdater, DTreeItemUpdaterOptions } from "./d-tree-item-updater";
 
 export interface DTreeOptions<
 	NODE extends DTreeNode = DTreeNode,
@@ -35,11 +35,14 @@ export interface DTreeOptions<
 	 * A data options.
 	 */
 	data?: NODE[] | DTreeDataOptions<NODE> | DATA;
+
+	/**
+	 * An updater options.
+	 */
+	updater?: DTreeItemUpdaterOptions<NODE>;
 }
 
-export interface DThemeTree extends DThemePane {
-	getItemHeight(): number;
-}
+export interface DThemeTree extends DThemePane {}
 
 export class DTree<
 		NODE extends DTreeNode = DTreeNode,
@@ -73,13 +76,12 @@ export class DTree<
 
 		const data = this.toData(options);
 		this._data = data;
-		this._updater = this.newUpdater(data, content);
+		this._updater = this.newUpdater(data, content, options);
 		this.update();
 	}
 
-	protected newUpdater(data: DATA, content: DBase): DTreeItemUpdater<NODE> {
-		const itemHeight = this.theme.getItemHeight();
-		return new DTreeItemUpdater<NODE>(itemHeight, data, content, content);
+	protected newUpdater(data: DATA, content: DBase, options?: OPTIONS): DTreeItemUpdater<NODE> {
+		return new DTreeItemUpdater<NODE>(data, content, content, options?.updater);
 	}
 
 	protected toData(options?: OPTIONS): DATA {

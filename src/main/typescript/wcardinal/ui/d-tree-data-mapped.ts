@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DListItemUpdaterBaseDataMapped } from "./d-list-item-updater-base";
+import { DItemUpdaterDataMapped } from "./d-item-updater";
 
-export interface DTreeDataMapped<NODE> extends DListItemUpdaterBaseDataMapped<NODE> {
+export interface DTreeDataMapped<NODE> extends DItemUpdaterDataMapped<NODE> {
 	readonly nodes: NODE[];
 	readonly levels: number[];
 

@@ -12,8 +12,11 @@ import { toEnum } from "./util/to-enum";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
-export interface DTreeItemButtonOptions<THEME extends DThemeTreeItemButton = DThemeTreeItemButton>
-	extends DTreeItemTextOptions<THEME> {
+export interface DTreeItemButtonOptions<
+	NODE extends DTreeNode,
+	THEME extends DThemeTreeItemButton = DThemeTreeItemButton,
+	EMITTER = any
+> extends DTreeItemTextOptions<NODE, THEME, EMITTER> {
 	when?: DButtonBaseWhen | keyof typeof DButtonBaseWhen;
 }
 
@@ -22,7 +25,7 @@ export interface DThemeTreeItemButton extends DThemeTreeItemText {}
 export class DTreeItemButton<
 	NODE extends DTreeNode = DTreeNode,
 	THEME extends DThemeTreeItemButton = DThemeTreeItemButton,
-	OPTIONS extends DTreeItemButtonOptions<THEME> = DTreeItemButtonOptions<THEME>
+	OPTIONS extends DTreeItemButtonOptions<NODE, THEME> = DTreeItemButtonOptions<NODE, THEME>
 > extends DTreeItemText<NODE, THEME, OPTIONS> {
 	protected _when: DButtonBaseWhen;
 

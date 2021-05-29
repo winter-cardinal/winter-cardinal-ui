@@ -28,8 +28,4 @@ export class DThemeDarkTree extends DThemeDarkPane implements DThemeTree {
 	getBorderAlign(state: DBaseStateSet): number {
 		return 1;
 	}
-
-	getItemHeight(): number {
-		return this._style.getHeight();
-	}
 }

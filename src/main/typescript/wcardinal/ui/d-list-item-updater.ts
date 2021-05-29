@@ -6,44 +6,23 @@
 import { DListData } from "./d-list-data";
 import { DListDataMapped } from "./d-list-data-mapped";
 import { DListItem } from "./d-list-item";
-import { DListItemUpdaterBase } from "./d-list-item-updater-base";
+import { DItemUpdater, DItemUpdaterOptions } from "./d-item-updater";
 
-export class DListItemUpdater<VALUE = unknown> extends DListItemUpdaterBase<
+export interface DListItemUpdaterOptions<VALUE>
+	extends DItemUpdaterOptions<VALUE, DListData<VALUE>, DListItem<VALUE>> {}
+
+export class DListItemUpdater<VALUE = unknown> extends DItemUpdater<
 	VALUE,
 	DListData<VALUE>,
 	DListDataMapped<VALUE>,
-	DListItem<VALUE>
+	DListItem<VALUE>,
+	DListItemUpdaterOptions<VALUE>
 > {
 	protected toMapped(data: DListData<VALUE>): DListDataMapped<VALUE> {
 		return data.mapped;
 	}
 
-	protected set(
-		value: VALUE,
-		data: DListData<VALUE>,
-		mapped: DListDataMapped<VALUE>,
-		itemHeight: number,
-		isSelected: boolean,
-		item: DListItem<VALUE>,
-		index: number,
-		forcibly?: boolean
-	): void {
-		super.set(value, data, mapped, itemHeight, isSelected, item, index, forcibly);
-		item.set(value, index, forcibly);
-	}
-
-	protected unset(itemHeight: number, item: DListItem<VALUE>, index: number): void {
-		super.unset(itemHeight, item, index);
-		item.unset();
-	}
-
-	protected create(
-		data: DListData<VALUE>,
-		mapped: DListDataMapped<VALUE>,
-		isEven: boolean
-	): DListItem<VALUE> {
-		const result = new DListItem<VALUE>(data);
-		result.state.isAlternated = isEven;
-		return result;
+	protected newItem(this: undefined, data: DListData<VALUE>): DListItem<VALUE> {
+		return new DListItem<VALUE>(data);
 	}
 }

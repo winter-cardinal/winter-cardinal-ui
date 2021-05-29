@@ -4,22 +4,62 @@
  */
 
 import { interaction } from "pixi.js";
-import { DImage, DImageOptions, DThemeImage } from "./d-image";
+import { DBaseState } from "./d-base-state";
+import { DImageBase, DImageBaseEvents, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
 import { DListData } from "./d-list-data";
 import { DListDataSelectionType } from "./d-list-data-selection";
+import { DOnOptions } from "./d-on-options";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
-export interface DListItemOptions<VALUE = unknown, THEME extends DThemeListItem = DThemeListItem>
-	extends DImageOptions<string, THEME> {}
+/**
+ * {@link DListItem} events.
+ */
+export interface DListItemEvents<VALUE, EMITTER> extends DImageBaseEvents<VALUE, EMITTER> {
+	/**
+	 * Triggered when a value is set.
+	 *
+	 *     on( "set", ( node, index, emitter ) => {} )
+	 *
+	 * @param emitter an emitter
+	 */
+	set(node: VALUE, index: number, emitter: EMITTER): void;
 
-export interface DThemeListItem extends DThemeImage<string> {}
+	/**
+	 * Triggered when set to undefined.
+	 *
+	 *     on( "unset", ( emitter ) => {} )
+	 *
+	 * @param emitter an emitter
+	 */
+	unset(emitter: EMITTER): void;
+}
+
+/**
+ * {@link DListItem} "on" options.
+ */
+export interface DListItemOnOptions<NODE, EMITTER>
+	extends Partial<DListItemEvents<NODE, EMITTER>>,
+		DOnOptions {}
+
+/**
+ * {@link DListItem} options.
+ */
+export interface DListItemOptions<
+	VALUE = unknown,
+	THEME extends DThemeListItem = DThemeListItem,
+	EMITTER = any
+> extends DImageBaseOptions<string, THEME> {
+	on?: DListItemOnOptions<VALUE, EMITTER>;
+}
+
+export interface DThemeListItem extends DThemeImageBase<string> {}
 
 export class DListItem<
 	VALUE = unknown,
 	THEME extends DThemeListItem = DThemeListItem,
 	OPTIONS extends DListItemOptions<VALUE, THEME> = DListItemOptions<VALUE, THEME>
-> extends DImage<string, THEME, OPTIONS> {
+> extends DImageBase<string, THEME, OPTIONS> {
 	protected _data: DListData<VALUE>;
 	protected _value?: VALUE;
 
@@ -46,10 +86,6 @@ export class DListItem<
 
 	get value(): VALUE | undefined {
 		return this._value;
-	}
-
-	set value(value: VALUE | undefined) {
-		this._value = value;
 	}
 
 	protected onSelect(
@@ -107,18 +143,44 @@ export class DListItem<
 	}
 
 	set(value: VALUE, index: number, forcibly?: boolean): void {
-		const accessor = this._data.accessor;
-		this.text = accessor.toLabel(value);
-		this.title = accessor.toTitle(value) || "";
-		this.image = accessor.toImage(value);
-		this._value = value;
+		const data = this._data;
+		const isValueChanged = forcibly || this._value !== value;
+		if (isValueChanged) {
+			this._value = value;
+
+			const accessor = data.accessor;
+			this.text = accessor.toLabel(value);
+			this.title = accessor.toTitle(value) || "";
+			this.image = accessor.toImage(value);
+		}
+
+		const state = this.state;
+		state.lock();
+		state.set(DBaseState.ACTIVE, data.selection.contains(value));
+		state.remove(DBaseState.DISABLED);
+		state.unlock();
+
+		if (isValueChanged) {
+			this.emit("set", value, index, this);
+		}
 	}
 
 	unset(): void {
-		this.text = undefined;
-		this.title = "";
-		this.image = undefined;
-		this._value = undefined;
+		if (this._value !== undefined) {
+			this._value = undefined;
+
+			this.text = undefined;
+			this.title = "";
+			this.image = undefined;
+
+			const state = this.state;
+			state.lock();
+			state.add(DBaseState.DISABLED);
+			state.remove(DBaseState.ACTIVE);
+			state.unlock();
+
+			this.emit("unset", this);
+		}
 	}
 
 	onKeyDown(e: KeyboardEvent): boolean {

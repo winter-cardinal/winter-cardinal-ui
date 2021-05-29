@@ -4,26 +4,43 @@
  */
 
 import { DBase } from "./d-base";
-import { DBaseState } from "./d-base-state";
 
-export interface DListItemUpdaterBaseDataSelection<VALUE> {
+export interface DItemUpdaterItem<VALUE> extends DBase {
+	readonly value?: VALUE;
+	set(value: VALUE, index: number, forcibly?: boolean): void;
+	unset(): void;
+}
+
+export type DItemUpdaterNewItem<DATA, ITEM> = (data: DATA) => ITEM;
+
+export interface DItemUpdaterOptions<VALUE, DATA, ITEM> {
+	newItem?: DItemUpdaterNewItem<DATA, ITEM>;
+}
+
+export interface DItemUpdaterDataSelection<VALUE> {
 	contains(value: VALUE): boolean;
 }
 
-export interface DListItemUpdaterBaseDataMapped<VALUE> {
+export interface DItemUpdaterDataMapped<VALUE> {
 	size(): number;
 	each(iteratee: (value: VALUE, index: number) => void | boolean, from: number, to: number): void;
 }
 
-export interface DListItemUpdaterBaseData<VALUE> {
-	readonly selection: DListItemUpdaterBaseDataSelection<VALUE>;
+export interface DItemUpdaterData<VALUE> {
+	readonly selection: DItemUpdaterDataSelection<VALUE>;
 }
 
-export abstract class DListItemUpdaterBase<
+/**
+ * The primary purpose of this class is to minimize the number of rendered items (e.g., {@link DListItem})
+ * as low as possible and to update their positions and states. For this sake, the updater calculates the
+ * required number of items whenever their container size changes and creates items if needed.
+ */
+export abstract class DItemUpdater<
 	VALUE = unknown,
-	DATA extends DListItemUpdaterBaseData<VALUE> = DListItemUpdaterBaseData<VALUE>,
-	DATA_MAPPED extends DListItemUpdaterBaseDataMapped<VALUE> = DListItemUpdaterBaseDataMapped<VALUE>,
-	ITEM extends DBase = DBase
+	DATA extends DItemUpdaterData<VALUE> = DItemUpdaterData<VALUE>,
+	DATA_MAPPED extends DItemUpdaterDataMapped<VALUE> = DItemUpdaterDataMapped<VALUE>,
+	ITEM extends DItemUpdaterItem<VALUE> = DItemUpdaterItem<VALUE>,
+	OPTIONS extends DItemUpdaterOptions<VALUE, DATA, ITEM> = DItemUpdaterOptions<VALUE, DATA, ITEM>
 > {
 	protected _updateItemsCount: number;
 	protected _isUpdateItemsCalled: boolean;
@@ -35,19 +52,29 @@ export abstract class DListItemUpdaterBase<
 	protected _data: DATA;
 	protected _content: DBase;
 	protected _container: DBase;
+	protected _newItem: DItemUpdaterNewItem<DATA, ITEM>;
 
-	constructor(itemHeight: number, data: DATA, content: DBase, container: DBase) {
+	constructor(data: DATA, content: DBase, container: DBase, options?: OPTIONS) {
 		this._updateItemsCount = 0;
 		this._isUpdateItemsCalled = false;
 		this._isUpdateItemsCalledForcibly = false;
-		this._itemHeight = itemHeight;
+		this._itemHeight = -1;
 		this._itemIndexStart = 0;
 		this._itemIndexEnd = 0;
 		this._workItems = [];
 		this._data = data;
 		this._content = content;
 		this._container = container;
+		this._newItem = this.toNewItem(options);
 	}
+
+	protected toNewItem(
+		options?: DItemUpdaterOptions<VALUE, DATA, ITEM>
+	): DItemUpdaterNewItem<DATA, ITEM> {
+		return options?.newItem || this.newItem;
+	}
+
+	protected abstract newItem(this: undefined, data: DATA): ITEM;
 
 	lock(): void {
 		this._updateItemsCount += 1;
@@ -81,7 +108,6 @@ export abstract class DListItemUpdaterBase<
 		const container = this._container;
 		const items = container.children as ITEM[];
 		const height = content.parent.height;
-		const itemHeight = this._itemHeight;
 
 		const data = this._data;
 		const mapped = this.toMapped(data);
@@ -90,6 +116,22 @@ export abstract class DListItemUpdaterBase<
 		const oldItemIndexStart = this._itemIndexStart;
 		let oldItemIndexEnd = this._itemIndexEnd;
 		let oldItemCount = oldItemIndexEnd - oldItemIndexStart;
+
+		const newItem = this._newItem;
+		let itemHeight = this._itemHeight;
+		if (this._itemHeight < 0) {
+			if (0 < items.length) {
+				itemHeight = Math.max(1, items[0].height);
+			} else {
+				const item = newItem(data);
+				item.state.isAlternated = oldItemIndexStart % 2 === 0;
+				container.addChild(item);
+				itemHeight = Math.max(1, item.height);
+				oldItemIndexEnd += 1;
+				oldItemCount += 1;
+			}
+			this._itemHeight = itemHeight;
+		}
 
 		const y = content !== container ? container.transform.position.y : 0;
 		const newHeight = dataSize * itemHeight;
@@ -112,8 +154,9 @@ export abstract class DListItemUpdaterBase<
 		if (oldItemCount < newItemCount) {
 			for (let i = oldItemCount; i < newItemCount; ++i) {
 				const oldItemIndex = oldItemIndexStart + i;
-				const newItem = this.create(data, mapped, oldItemIndex % 2 === 0);
-				container.addChild(newItem);
+				const item = newItem(data);
+				item.state.isAlternated = oldItemIndex % 2 === 0;
+				container.addChild(item);
 			}
 			oldItemCount = newItemCount;
 			oldItemIndexEnd = oldItemIndexStart + oldItemCount;
@@ -135,7 +178,9 @@ export abstract class DListItemUpdaterBase<
 			const work = this._workItems;
 			if (0 < itemIndexStartDelta) {
 				for (let i = 0; i < itemIndexStartDeltaAbs; ++i) {
-					work.push(this.reset(items[i]));
+					const item = items[i];
+					this.reset(item);
+					work.push(item);
 				}
 				for (let i = itemIndexStartDeltaAbs; i < itemsLength; ++i) {
 					items[i - itemIndexStartDeltaAbs] = items[i];
@@ -146,7 +191,8 @@ export abstract class DListItemUpdaterBase<
 			} else {
 				for (let i = 0; i < itemIndexStartDeltaAbs; ++i) {
 					const item = items[itemsLength - itemIndexStartDeltaAbs + i];
-					work.push(this.reset(item));
+					this.reset(item);
+					work.push(item);
 				}
 				for (let i = itemsLength - itemIndexStartDeltaAbs - 1; 0 <= i; --i) {
 					items[i + itemIndexStartDeltaAbs] = items[i];
@@ -158,30 +204,28 @@ export abstract class DListItemUpdaterBase<
 			work.length = 0;
 		}
 
-		const selection = data.selection;
 		mapped.each(
 			(datum: VALUE, index: number): void | boolean => {
-				this.set(
-					datum,
-					data,
-					mapped,
-					itemHeight,
-					selection.contains(datum),
-					items[index - newItemIndexStart],
-					index,
-					forcibly
-				);
+				const item = items[index - newItemIndexStart];
+				item.position.y = index * itemHeight;
+				this.set(item, datum, index, forcibly);
 			},
 			newItemIndexStart,
 			newItemIndexStart + itemsLength
 		);
 
 		for (let i = 0; newItemIndexStart + i < 0 && i < itemsLength; ++i) {
-			this.unset(itemHeight, items[i], newItemIndexStart + i);
+			const item = items[i];
+			const index = newItemIndexStart + i;
+			item.position.y = index * itemHeight;
+			this.unset(item);
 		}
 
 		for (let i = itemsLength - 1; dataSize <= newItemIndexStart + i && 0 <= i; --i) {
-			this.unset(itemHeight, items[i], newItemIndexStart + i);
+			const item = items[i];
+			const index = newItemIndexStart + i;
+			item.position.y = index * itemHeight;
+			this.unset(item);
 		}
 
 		this.lock();
@@ -195,37 +239,12 @@ export abstract class DListItemUpdaterBase<
 
 	protected abstract toMapped(data: DATA): DATA_MAPPED;
 
-	protected set(
-		value: VALUE,
-		data: DATA,
-		mapped: DATA_MAPPED,
-		itemHeight: number,
-		isSelected: boolean,
-		item: ITEM,
-		index: number,
-		forcibly?: boolean
-	): void {
-		// Position
-		item.position.y = index * itemHeight;
-
-		// State
-		const state = item.state;
-		state.lock();
-		state.set(DBaseState.ACTIVE, isSelected);
-		state.remove(DBaseState.DISABLED);
-		state.unlock();
+	protected set(item: ITEM, value: VALUE, index: number, forcibly?: boolean): void {
+		item.set(value, index, forcibly);
 	}
 
-	protected unset(itemHeight: number, item: ITEM, index: number): void {
-		// Position
-		item.position.y = index * itemHeight;
-
-		// State
-		const state = item.state;
-		state.lock();
-		state.add(DBaseState.DISABLED);
-		state.remove(DBaseState.ACTIVE);
-		state.unlock();
+	protected unset(item: ITEM): void {
+		item.unset();
 	}
 
 	protected reset(item: ITEM): ITEM {
@@ -239,6 +258,4 @@ export abstract class DListItemUpdaterBase<
 		}
 		return item;
 	}
-
-	protected abstract create(data: DATA, mapped: DATA_MAPPED, isEven: boolean): ITEM;
 }

@@ -1,0 +1,87 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Custom updater</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #f2f2f2;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../js/pixi/latest/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		var application = new wcardinal.ui.DApplication();
+
+		new wcardinal.ui.DTree( {
+			parent: application.stage,
+			x: "center", y: "center",
+			width: 500, height: 500,
+			nodes: [
+				{
+					name: "Apple",
+					children: [
+						{
+							name: "Apple leaf"
+						}
+					]
+				},
+				{
+					name: "Orange",
+					children: [
+						{
+							name: "Orange leaf"
+						}
+					]
+				},
+				{
+					name: "Pineapple",
+					children: [
+						{
+							name: "Pineapple leaf"
+						}
+					]
+				}
+			],
+			// The primary purpose of an updater is to minimize the number of rendered
+			// items (e.g., DTreeItemText instances) as low as possible and to update their
+			// positions and states. For this sake, the updater calculates the required
+			// number of items every time their container size changes and creates items
+			// if needed. The function `newItem` is called to create items.
+			updater: {
+				newItem: function(data) {
+					return new wcardinal.ui.DTreeItemNonEditable(data, {
+						on: {
+							set: function(value, index) {
+								console.log("set", value, index);
+							},
+
+							unset: function() {
+								console.log("unset");
+							}
+						}
+					});
+				}
+			}
+		});
+	}());
+	</script>
+</body>
+</html>

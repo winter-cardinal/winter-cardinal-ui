@@ -13,15 +13,20 @@ import {
 import { DTreeItemState } from "./d-tree-item-state";
 
 export interface DTreeItemNonEditableOptions<
-	THEME extends DThemeTreeItemNonEditable = DThemeTreeItemNonEditable
-> extends DTreeItemButtonOptions<THEME> {}
+	NODE extends DTreeNode = DTreeNode,
+	THEME extends DThemeTreeItemNonEditable = DThemeTreeItemNonEditable,
+	EMITTER = any
+> extends DTreeItemButtonOptions<NODE, THEME, EMITTER> {}
 
 export interface DThemeTreeItemNonEditable extends DThemeTreeItemButton {}
 
 export class DTreeItemNonEditable<
 	NODE extends DTreeNode = DTreeNode,
 	THEME extends DThemeTreeItemNonEditable = DThemeTreeItemNonEditable,
-	OPTIONS extends DTreeItemNonEditableOptions<THEME> = DTreeItemNonEditableOptions<THEME>
+	OPTIONS extends DTreeItemNonEditableOptions<NODE, THEME> = DTreeItemNonEditableOptions<
+		NODE,
+		THEME
+	>
 > extends DTreeItemButton<NODE, THEME, OPTIONS> {
 	protected onActivate(
 		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent

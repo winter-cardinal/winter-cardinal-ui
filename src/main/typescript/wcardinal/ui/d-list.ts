@@ -11,7 +11,7 @@ import { DListDataSelection, DListDataSelectionOptions } from "./d-list-data-sel
 import { DPane, DPaneOptions, DThemePane } from "./d-pane";
 import { isArray } from "./util";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
-import { DListItemUpdater } from "./d-list-item-updater";
+import { DListItemUpdater, DListItemUpdaterOptions } from "./d-list-item-updater";
 
 export interface DListOptions<
 	VALUE = unknown,
@@ -22,11 +22,10 @@ export interface DListOptions<
 	items?: VALUE[];
 	data?: VALUE[] | DListDataOptions<VALUE> | DATA;
 	selection?: DListDataSelectionOptions<VALUE>;
+	updater?: DListItemUpdaterOptions<VALUE>;
 }
 
-export interface DThemeList extends DThemePane {
-	getItemHeight(): number;
-}
+export interface DThemeList extends DThemePane {}
 
 export class DList<
 	VALUE = unknown,
@@ -56,13 +55,13 @@ export class DList<
 			this.update();
 		});
 
-		const updater = this.newUpdater(data, content);
+		const updater = this.newUpdater(data, content, options);
 		this._updater = updater;
 		updater.update();
 	}
 
-	protected newUpdater(data: DATA, content: DBase): DListItemUpdater<VALUE> {
-		return new DListItemUpdater<VALUE>(this.theme.getItemHeight(), data, content, content);
+	protected newUpdater(data: DATA, content: DBase, options?: OPTIONS): DListItemUpdater<VALUE> {
+		return new DListItemUpdater<VALUE>(data, content, content, options?.updater);
 	}
 
 	protected toData(options?: OPTIONS): DATA {

@@ -35,13 +35,12 @@ export class DDialogSelectList<
 		this.state.isFocusable = false;
 	}
 
-	protected newUpdater(data: DATA, content: DBase): DDialogSelectListItemUpdater<VALUE> {
-		return new DDialogSelectListItemUpdater<VALUE>(
-			this.theme.getItemHeight(),
-			data,
-			content,
-			content
-		);
+	protected newUpdater(
+		data: DATA,
+		content: DBase,
+		options?: OPTIONS
+	): DDialogSelectListItemUpdater<VALUE> {
+		return new DDialogSelectListItemUpdater<VALUE>(data, content, content, options?.updater);
 	}
 
 	protected getType(): string {

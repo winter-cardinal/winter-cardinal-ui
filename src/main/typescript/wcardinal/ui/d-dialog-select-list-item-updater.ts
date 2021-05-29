@@ -8,13 +8,7 @@ import { DListData } from "./d-list-data";
 import { DListItemUpdater } from "./d-list-item-updater";
 
 export class DDialogSelectListItemUpdater<VALUE = unknown> extends DListItemUpdater<VALUE> {
-	protected create(
-		data: DListData<VALUE>,
-		mapped: DListData<VALUE>,
-		isEven: boolean
-	): DDialogSelectListItem<VALUE> {
-		const result = new DDialogSelectListItem<VALUE>(data);
-		result.state.isAlternated = isEven;
-		return result;
+	protected newItem(this: undefined, data: DListData<VALUE>): DDialogSelectListItem<VALUE> {
+		return new DDialogSelectListItem<VALUE>(data);
 	}
 }
