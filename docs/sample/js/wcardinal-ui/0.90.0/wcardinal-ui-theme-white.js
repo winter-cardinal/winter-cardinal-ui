@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.89.3
+ Winter Cardinal UI v0.90.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -2098,9 +2098,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var isEqual = function () {
-        return false;
-    };
     var DThemeWhiteDialogSelect = /** @class */ (function (_super) {
         __extends(DThemeWhiteDialogSelect, _super);
         function DThemeWhiteDialogSelect() {
@@ -2111,12 +2108,6 @@
         };
         DThemeWhiteDialogSelect.prototype.getCancel = function () {
             return null;
-        };
-        DThemeWhiteDialogSelect.prototype.getItemToLabel = function () {
-            return toLabel;
-        };
-        DThemeWhiteDialogSelect.prototype.getItemIsEqual = function () {
-            return isEqual;
         };
         DThemeWhiteDialogSelect.prototype.getNoteNoItemsText = function () {
             return "No Items";
@@ -2198,19 +2189,193 @@
         return DThemeWhiteDialogSelectList;
     }(DThemeWhiteList));
 
-    const DDialogState = wcardinal.ui.DDialogState;
-
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DThemeWhiteImage = /** @class */ (function (_super) {
-        __extends(DThemeWhiteImage, _super);
-        function DThemeWhiteImage() {
-            return _super !== null && _super.apply(this, arguments) || this;
+    var DThemeWhiteListItems = /** @class */ (function () {
+        function DThemeWhiteListItems(baseColor, isStripeEnabled, isVivid) {
+            this._isStripeEnabled = isStripeEnabled;
+            if (baseColor != null) {
+                this._backgroundColorEven = baseColor;
+                this._backgroundAlphaEven = 1;
+                this._backgroundColorOdd = UtilRgb.blend(baseColor, 0x000000, 0.0175);
+                this._backgroundAlphaOdd = 1;
+                this._invalidColor = UtilRgb.blend(baseColor, DThemeWhiteConstants.INVALID_COLOR, DThemeWhiteConstants.INVALID_ALPHA);
+                this._invalidAlpha = 1;
+                if (isVivid) {
+                    this._highlightColor = DThemeWhiteConstants.HIGHLIGHT_COLOR;
+                }
+                else {
+                    this._highlightColor = UtilRgb.blend(baseColor, DThemeWhiteConstants.HIGHLIGHT_COLOR, DThemeWhiteConstants.HIGHLIGHT_ALPHA);
+                }
+                this._highlightAlpha = 1;
+                this._weakHighlightColor = UtilRgb.blend(baseColor, DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR, DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA);
+                this._weakHighlightAlpha = 1;
+                this._mediumHighlightColor = UtilRgb.darken(this._weakHighlightColor, 0.025);
+                this._mediumHighlightAlpha = 1;
+            }
+            else {
+                this._backgroundColorEven = 0x000000;
+                this._backgroundAlphaEven = 0;
+                this._backgroundColorOdd = 0x000000;
+                this._backgroundAlphaOdd = 0.0175;
+                this._invalidColor = DThemeWhiteConstants.INVALID_COLOR;
+                this._invalidAlpha = DThemeWhiteConstants.INVALID_ALPHA;
+                this._highlightColor = DThemeWhiteConstants.HIGHLIGHT_COLOR;
+                if (isVivid) {
+                    this._highlightAlpha = 1;
+                }
+                else {
+                    this._highlightAlpha = DThemeWhiteConstants.HIGHLIGHT_ALPHA;
+                }
+                this._weakHighlightColor = DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
+                this._weakHighlightAlpha = DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
+                this._mediumHighlightColor = UtilRgb.darken(this._weakHighlightColor, 0.025);
+                this._mediumHighlightAlpha = this._weakHighlightAlpha;
+            }
+            this._imageTintColorWeak = DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
+            this._imageTintColorFocused = UtilRgb.darken(this._imageTintColorWeak, 0.1);
+            if (isVivid) {
+                this._imageTintColorHighlight = UtilRgb.blend(DThemeWhiteConstants.HIGHLIGHT_COLOR, DThemeWhiteConstants.ACTIVE_COLOR, 0.5);
+            }
+            else {
+                this._imageTintColorHighlight = DThemeWhiteConstants.HIGHLIGHT_COLOR;
+            }
+            if (isVivid) {
+                this._color = DThemeWhiteConstants.COLOR;
+                this._colorActive = DThemeWhiteConstants.ACTIVE_COLOR;
+            }
+            else {
+                this._color = DThemeWhiteConstants.COLOR;
+                this._colorActive = DThemeWhiteConstants.COLOR;
+            }
         }
-        return DThemeWhiteImage;
-    }(DThemeWhiteImageBase));
+        DThemeWhiteListItems.prototype.getBackgroundColor = function (state) {
+            if (state.inDisabled) {
+                if (this._isStripeEnabled) {
+                    if (state.isAlternated) {
+                        return this._backgroundColorEven;
+                    }
+                    else {
+                        return this._backgroundColorOdd;
+                    }
+                }
+                else {
+                    return null;
+                }
+            }
+            else if (state.isInvalid) {
+                return this._invalidColor;
+            }
+            else if (state.isActive) {
+                return this._highlightColor;
+            }
+            else if (state.isFocused && state.isHovered) {
+                return this._mediumHighlightColor;
+            }
+            else if (state.isFocused || state.isHovered) {
+                return this._weakHighlightColor;
+            }
+            else {
+                if (this._isStripeEnabled) {
+                    if (state.isAlternated) {
+                        return this._backgroundColorEven;
+                    }
+                    else {
+                        return this._backgroundColorOdd;
+                    }
+                }
+                else {
+                    return null;
+                }
+            }
+        };
+        DThemeWhiteListItems.prototype.getBackgroundAlpha = function (state) {
+            if (state.inDisabled) {
+                if (this._isStripeEnabled) {
+                    if (state.isAlternated) {
+                        return this._backgroundAlphaEven;
+                    }
+                    else {
+                        return this._backgroundAlphaOdd;
+                    }
+                }
+                else {
+                    return 0;
+                }
+            }
+            else if (state.isInvalid) {
+                return this._invalidAlpha;
+            }
+            else if (state.isActive) {
+                return this._highlightAlpha;
+            }
+            else if (state.isFocused && state.isHovered) {
+                return this._mediumHighlightAlpha;
+            }
+            else if (state.isFocused || state.isHovered) {
+                return this._weakHighlightAlpha;
+            }
+            else {
+                if (this._isStripeEnabled) {
+                    if (state.isAlternated) {
+                        return this._backgroundAlphaEven;
+                    }
+                    else {
+                        return this._backgroundAlphaOdd;
+                    }
+                }
+                else {
+                    return 0;
+                }
+            }
+        };
+        DThemeWhiteListItems.prototype.getBorderColor = function (state) {
+            return null;
+        };
+        DThemeWhiteListItems.prototype.getBorderAlign = function (state) {
+            return 0;
+        };
+        DThemeWhiteListItems.prototype.getBorderMask = function (state) {
+            return DBorderMask.NONE;
+        };
+        DThemeWhiteListItems.prototype.getColor = function (state) {
+            if (state.isActive) {
+                return this._colorActive;
+            }
+            return this._color;
+        };
+        DThemeWhiteListItems.prototype.getAlpha = function (state) {
+            if (state.inEnabled) {
+                return 1.0;
+            }
+            return 0;
+        };
+        DThemeWhiteListItems.prototype.getImageTintColor = function (state, isActive) {
+            if (state.inDisabled || state.inReadOnly || !(state.isActive || isActive)) {
+                if (state.isFocused) {
+                    return this._imageTintColorFocused;
+                }
+                else {
+                    return this._imageTintColorWeak;
+                }
+            }
+            else {
+                return this._imageTintColorHighlight;
+            }
+        };
+        DThemeWhiteListItems.prototype.getOutlineAlign = function (state) {
+            return -2;
+        };
+        DThemeWhiteListItems.prototype.getHeight = function () {
+            return 30;
+        };
+        DThemeWhiteListItems.prototype.getCornerMask = function () {
+            return DCornerMask.ALL;
+        };
+        return DThemeWhiteListItems;
+    }());
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -2219,64 +2384,42 @@
     var DThemeWhiteListItem = /** @class */ (function (_super) {
         __extends(DThemeWhiteListItem, _super);
         function DThemeWhiteListItem() {
-            return _super !== null && _super.apply(this, arguments) || this;
+            var _this = _super.call(this) || this;
+            _this._style = _this.newStyle();
+            return _this;
         }
-        DThemeWhiteListItem.prototype.getBackgroundColor = function (state) {
-            if (state.inDisabled) {
-                return null;
-            }
-            else if (state.isActive) {
-                return this.getBackgroundColorActive(state);
-            }
-            else if (state.isFocused || state.isHovered) {
-                return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
-            }
-            else {
-                return null;
-            }
+        DThemeWhiteListItem.prototype.newStyle = function () {
+            return new DThemeWhiteListItems(null, true, false);
         };
-        DThemeWhiteListItem.prototype.getBackgroundColorActive = function (state) {
-            return DThemeWhiteConstants.HIGHLIGHT_COLOR;
+        DThemeWhiteListItem.prototype.getBackgroundColor = function (state) {
+            return this._style.getBackgroundColor(state);
         };
         DThemeWhiteListItem.prototype.getBackgroundAlpha = function (state) {
-            if (state.inDisabled) {
-                return DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
-            }
-            else if (state.isActive) {
-                return this.getBackgroundAlphaActive(state);
-            }
-            else {
-                return DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
-            }
-        };
-        DThemeWhiteListItem.prototype.getBackgroundAlphaActive = function (state) {
-            return DThemeWhiteConstants.HIGHLIGHT_ALPHA;
-        };
-        DThemeWhiteListItem.prototype.getColor = function (state) {
-            if (state.inDisabled) {
-                return DThemeWhiteConstants.COLOR;
-            }
-            else if (state.isActive) {
-                return this.getColorActive(state);
-            }
-            else {
-                return DThemeWhiteConstants.COLOR;
-            }
-        };
-        DThemeWhiteListItem.prototype.getColorActive = function (state) {
-            return DThemeWhiteConstants.COLOR;
+            return this._style.getBackgroundAlpha(state);
         };
         DThemeWhiteListItem.prototype.getBorderColor = function (state) {
-            return null;
+            return this._style.getBorderColor(state);
+        };
+        DThemeWhiteListItem.prototype.getBorderAlign = function (state) {
+            return this._style.getBorderAlign(state);
+        };
+        DThemeWhiteListItem.prototype.getBorderMask = function (state) {
+            return this._style.getBorderMask(state);
+        };
+        DThemeWhiteListItem.prototype.getColor = function (state) {
+            return this._style.getColor(state);
+        };
+        DThemeWhiteListItem.prototype.getAlpha = function (state) {
+            return this._style.getAlpha(state);
         };
         DThemeWhiteListItem.prototype.getHeight = function () {
-            return 30;
+            return this._style.getHeight();
         };
-        DThemeWhiteListItem.prototype.getWidth = function () {
-            return "padding";
+        DThemeWhiteListItem.prototype.getCornerMask = function () {
+            return this._style.getCornerMask();
         };
-        DThemeWhiteListItem.prototype.getTextAlignHorizontal = function () {
-            return DAlignHorizontal.LEFT;
+        DThemeWhiteListItem.prototype.getImageTintColor = function (state) {
+            return this._style.getImageTintColor(state);
         };
         DThemeWhiteListItem.prototype.getPaddingLeft = function () {
             return 10;
@@ -2284,17 +2427,14 @@
         DThemeWhiteListItem.prototype.getPaddingRight = function () {
             return 10;
         };
-        DThemeWhiteListItem.prototype.getCornerMask = function () {
-            return DCornerMask.ALL;
+        DThemeWhiteListItem.prototype.newTextValue = function () {
+            return undefined;
         };
-        DThemeWhiteListItem.prototype.getCursor = function (state) {
-            if (!state.isActionable) {
-                return "";
-            }
-            return "pointer";
+        DThemeWhiteListItem.prototype.getWidth = function () {
+            return "padding";
         };
         return DThemeWhiteListItem;
-    }(DThemeWhiteImage));
+    }(DThemeWhiteImageBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -2305,23 +2445,8 @@
         function DThemeWhiteDialogSelectListItem() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeWhiteDialogSelectListItem.prototype.getBackgroundColorActive = function (state) {
-            if (state.in(DDialogState.MODELESS)) {
-                return DThemeWhiteConstants.HIGHLIGHT_COLOR;
-            }
-            return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
-        };
-        DThemeWhiteDialogSelectListItem.prototype.getBackgroundAlphaActive = function (state) {
-            if (state.in(DDialogState.MODELESS)) {
-                return 1.0;
-            }
-            return DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
-        };
-        DThemeWhiteDialogSelectListItem.prototype.getColorActive = function (state) {
-            if (state.in(DDialogState.MODELESS)) {
-                return DThemeWhiteConstants.ACTIVE_COLOR;
-            }
-            return DThemeWhiteConstants.COLOR;
+        DThemeWhiteDialogSelectListItem.prototype.newStyle = function () {
+            return new DThemeWhiteListItems(null, false, true);
         };
         DThemeWhiteDialogSelectListItem.prototype.getCornerMask = function () {
             return DCornerMask.NONE;
@@ -3658,6 +3783,18 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var DThemeWhiteImage = /** @class */ (function (_super) {
+        __extends(DThemeWhiteImage, _super);
+        function DThemeWhiteImage() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        return DThemeWhiteImage;
+    }(DThemeWhiteImageBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var DThemeWhiteDialogConfirmMessage = /** @class */ (function (_super) {
         __extends(DThemeWhiteDialogConfirmMessage, _super);
         function DThemeWhiteDialogConfirmMessage() {
@@ -4755,41 +4892,7 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DThemeWhiteListItemSeparator = /** @class */ (function (_super) {
-        __extends(DThemeWhiteListItemSeparator, _super);
-        function DThemeWhiteListItemSeparator() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        DThemeWhiteListItemSeparator.prototype.getBorderColor = function (state) {
-            return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
-        };
-        DThemeWhiteListItemSeparator.prototype.getBorderAlpha = function (state) {
-            return DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
-        };
-        DThemeWhiteListItemSeparator.prototype.getHeight = function () {
-            return 15;
-        };
-        DThemeWhiteListItemSeparator.prototype.getWidth = function () {
-            return "padding";
-        };
-        DThemeWhiteListItemSeparator.prototype.getPaddingLeft = function () {
-            return 10;
-        };
-        DThemeWhiteListItemSeparator.prototype.getPaddingRight = function () {
-            return 10;
-        };
-        DThemeWhiteListItemSeparator.prototype.getInteractive = function () {
-            return DBaseInteractive.NONE;
-        };
-        return DThemeWhiteListItemSeparator;
-    }(DThemeWhiteImage));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var loadThemeWhiteList = function () {
-        DThemeWhite.set("DListItemSeparator", DThemeWhiteListItemSeparator);
         DThemeWhite.set("DListItem", DThemeWhiteListItem);
         DThemeWhite.set("DList", DThemeWhiteList);
     };
@@ -4840,6 +4943,90 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var DThemeWhiteMenuItemBase = /** @class */ (function (_super) {
+        __extends(DThemeWhiteMenuItemBase, _super);
+        function DThemeWhiteMenuItemBase() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeWhiteMenuItemBase.prototype.getBackgroundColor = function (state) {
+            if (state.inDisabled) {
+                return null;
+            }
+            else if (state.isActive) {
+                return this.getBackgroundColorActive(state);
+            }
+            else if (state.isFocused || state.isHovered) {
+                return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
+            }
+            else {
+                return null;
+            }
+        };
+        DThemeWhiteMenuItemBase.prototype.getBackgroundColorActive = function (state) {
+            return DThemeWhiteConstants.HIGHLIGHT_COLOR;
+        };
+        DThemeWhiteMenuItemBase.prototype.getBackgroundAlpha = function (state) {
+            if (state.inDisabled) {
+                return DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
+            }
+            else if (state.isActive) {
+                return this.getBackgroundAlphaActive(state);
+            }
+            else {
+                return DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
+            }
+        };
+        DThemeWhiteMenuItemBase.prototype.getBackgroundAlphaActive = function (state) {
+            return DThemeWhiteConstants.HIGHLIGHT_ALPHA;
+        };
+        DThemeWhiteMenuItemBase.prototype.getColor = function (state) {
+            if (state.inDisabled) {
+                return DThemeWhiteConstants.COLOR;
+            }
+            else if (state.isActive) {
+                return this.getColorActive(state);
+            }
+            else {
+                return DThemeWhiteConstants.COLOR;
+            }
+        };
+        DThemeWhiteMenuItemBase.prototype.getColorActive = function (state) {
+            return DThemeWhiteConstants.COLOR;
+        };
+        DThemeWhiteMenuItemBase.prototype.getBorderColor = function (state) {
+            return null;
+        };
+        DThemeWhiteMenuItemBase.prototype.getHeight = function () {
+            return 30;
+        };
+        DThemeWhiteMenuItemBase.prototype.getWidth = function () {
+            return "padding";
+        };
+        DThemeWhiteMenuItemBase.prototype.getTextAlignHorizontal = function () {
+            return DAlignHorizontal.LEFT;
+        };
+        DThemeWhiteMenuItemBase.prototype.getPaddingLeft = function () {
+            return 10;
+        };
+        DThemeWhiteMenuItemBase.prototype.getPaddingRight = function () {
+            return 10;
+        };
+        DThemeWhiteMenuItemBase.prototype.getCornerMask = function () {
+            return DCornerMask.ALL;
+        };
+        DThemeWhiteMenuItemBase.prototype.getCursor = function (state) {
+            if (!state.isActionable) {
+                return "";
+            }
+            return "pointer";
+        };
+        return DThemeWhiteMenuItemBase;
+    }(DThemeWhiteImage));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var DThemeWhiteMenuItem = /** @class */ (function (_super) {
         __extends(DThemeWhiteMenuItem, _super);
         function DThemeWhiteMenuItem() {
@@ -4861,7 +5048,7 @@
             return 26;
         };
         return DThemeWhiteMenuItem;
-    }(DThemeWhiteListItem));
+    }(DThemeWhiteMenuItemBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -5038,7 +5225,7 @@
             return 7;
         };
         return DThemeWhiteMenuItemExpandableHeader;
-    }(DThemeWhiteListItem));
+    }(DThemeWhiteMenuItemBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -5162,8 +5349,29 @@
         function DThemeWhiteMenuItemSeparator() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
+        DThemeWhiteMenuItemSeparator.prototype.getBorderColor = function (state) {
+            return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
+        };
+        DThemeWhiteMenuItemSeparator.prototype.getBorderAlpha = function (state) {
+            return DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
+        };
+        DThemeWhiteMenuItemSeparator.prototype.getHeight = function () {
+            return 15;
+        };
+        DThemeWhiteMenuItemSeparator.prototype.getWidth = function () {
+            return "padding";
+        };
+        DThemeWhiteMenuItemSeparator.prototype.getPaddingLeft = function () {
+            return 10;
+        };
+        DThemeWhiteMenuItemSeparator.prototype.getPaddingRight = function () {
+            return 10;
+        };
+        DThemeWhiteMenuItemSeparator.prototype.getInteractive = function () {
+            return DBaseInteractive.NONE;
+        };
         return DThemeWhiteMenuItemSeparator;
-    }(DThemeWhiteListItemSeparator));
+    }(DThemeWhiteMenuItemBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -7075,12 +7283,6 @@
             }
             return null;
         };
-        DThemeWhiteTableBodyCellTrees.getImageTintColor = function (state) {
-            return DThemeWhiteConstants.COLOR;
-        };
-        DThemeWhiteTableBodyCellTrees.getImageTintAlpha = function (state) {
-            return DThemeWhiteTableBodyCells.getAlpha(state) * 0.5;
-        };
         return DThemeWhiteTableBodyCellTrees;
     }());
 
@@ -7227,10 +7429,10 @@
             return DThemeWhiteTableBodyCellTrees.getImageSource(state);
         };
         DThemeWhiteTableBodyCellInputTreeMarker.prototype.getImageTintColor = function (state) {
-            return DThemeWhiteTableBodyCellTrees.getImageTintColor(state);
+            return this.getColor(state);
         };
         DThemeWhiteTableBodyCellInputTreeMarker.prototype.getImageTintAlpha = function (state) {
-            return DThemeWhiteTableBodyCellTrees.getImageTintAlpha(state);
+            return this.getAlpha(state) * 0.5;
         };
         return DThemeWhiteTableBodyCellInputTreeMarker;
     }(DThemeWhiteButtonBase));
@@ -7425,10 +7627,10 @@
             return DThemeWhiteTableBodyCellTrees.getImageSource(state);
         };
         DThemeWhiteTableBodyCellTree.prototype.getImageTintColor = function (state) {
-            return DThemeWhiteTableBodyCellTrees.getImageTintColor(state);
+            return this.getColor(state);
         };
         DThemeWhiteTableBodyCellTree.prototype.getImageTintAlpha = function (state) {
-            return DThemeWhiteTableBodyCellTrees.getImageTintAlpha(state);
+            return this.getAlpha(state) * 0.5;
         };
         DThemeWhiteTableBodyCellTree.prototype.getLinkMenuOptions = function () {
             return DThemeWhiteLinks.getLinkMenuOptions();
@@ -7736,81 +7938,29 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DThemeWhiteTreeItems = /** @class */ (function () {
+    DThemeWhiteTableBodyCellTrees.init();
+    var DThemeWhiteTreeItems = /** @class */ (function (_super) {
+        __extends(DThemeWhiteTreeItems, _super);
         function DThemeWhiteTreeItems() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeWhiteTreeItems.getBackgroundColor = function (state) {
-            if (state.inDisabled) {
-                return null;
-            }
-            else if (state.isInvalid) {
-                return DThemeWhiteConstants.INVALID_BLENDED_ON_BOARD;
-            }
-            else if (state.isActive) {
-                return DThemeWhiteConstants.HIGHLIGHT_BLENDED_ON_BOARD;
-            }
-            else if (state.isFocused && state.isHovered) {
-                return this.WEAK_STRONG_HIGHLIGHT_COLOR;
-            }
-            else if (state.isFocused || state.isHovered) {
-                return DThemeWhiteConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD;
-            }
-            else {
-                return null;
-            }
+        DThemeWhiteTreeItems.prototype.getSecondaryImageSource = function (state) {
+            return DThemeWhiteTableBodyCellTrees.getImageSource(state);
         };
-        DThemeWhiteTreeItems.getBackgroundAlpha = function (state) {
-            return 1;
+        DThemeWhiteTreeItems.prototype.getSecondaryImageTintColor = function (state) {
+            return this.getColor(state);
         };
-        DThemeWhiteTreeItems.getBorderColor = function (state) {
-            return null;
+        DThemeWhiteTreeItems.prototype.getSecondaryImageTintAlpha = function (state) {
+            return this.getAlpha(state) * 0.5;
         };
-        DThemeWhiteTreeItems.getBorderAlign = function (state) {
-            return 0;
+        DThemeWhiteTreeItems.prototype.getSecondaryImageAlignWith = function () {
+            return DAlignWith.PADDING;
         };
-        DThemeWhiteTreeItems.getBorderMask = function (state) {
-            return DBorderMask.NONE;
+        DThemeWhiteTreeItems.prototype.getSecondaryImageMarginHorizontal = function () {
+            return -19;
         };
-        DThemeWhiteTreeItems.getColor = function (state) {
-            return DThemeWhiteConstants.COLOR;
-        };
-        DThemeWhiteTreeItems.getAlpha = function (state) {
-            if (state.inEnabled) {
-                return 1.0;
-            }
-            return 0;
-        };
-        DThemeWhiteTreeItems.getImageTintColor = function (state, isActive) {
-            if (state.inDisabled || state.inReadOnly || !(state.isActive || isActive)) {
-                if (state.isFocused) {
-                    return this.IMAGE_TINT_COLOR_FOCUSED;
-                }
-                else {
-                    return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
-                }
-            }
-            else {
-                return DThemeWhiteConstants.HIGHLIGHT_COLOR;
-            }
-        };
-        DThemeWhiteTreeItems.getOutlineAlign = function (state) {
-            return -2;
-        };
-        DThemeWhiteTreeItems.getWidth = function () {
-            return "padding";
-        };
-        DThemeWhiteTreeItems.getHeight = function () {
-            return 30;
-        };
-        DThemeWhiteTreeItems.getCornerMask = function () {
-            return DCornerMask.ALL;
-        };
-        DThemeWhiteTreeItems.IMAGE_TINT_COLOR_FOCUSED = UtilRgb.darken(DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR, 0.1);
-        DThemeWhiteTreeItems.BACKGROUND_COLOR_EVEN = DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD;
-        DThemeWhiteTreeItems.BACKGROUND_COLOR_ODD = UtilRgb.darken(DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD, 0.01);
-        DThemeWhiteTreeItems.WEAK_STRONG_HIGHLIGHT_COLOR = UtilRgb.darken(DThemeWhiteConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD, 0.025);
         return DThemeWhiteTreeItems;
-    }());
+    }(DThemeWhiteListItems));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -7819,16 +7969,18 @@
     var DThemeWhiteTree = /** @class */ (function (_super) {
         __extends(DThemeWhiteTree, _super);
         function DThemeWhiteTree() {
-            return _super !== null && _super.apply(this, arguments) || this;
+            var _this = _super.call(this) || this;
+            _this._style = _this.newStyle();
+            return _this;
         }
+        DThemeWhiteTree.prototype.newStyle = function () {
+            return new DThemeWhiteTreeItems(null, true, false);
+        };
         DThemeWhiteTree.prototype.getBackgroundColor = function (state) {
             return DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD;
         };
         DThemeWhiteTree.prototype.getBorderAlign = function (state) {
             return 1;
-        };
-        DThemeWhiteTree.prototype.getItemHeight = function () {
-            return DThemeWhiteTreeItems.getHeight();
         };
         return DThemeWhiteTree;
     }(DThemeWhitePane));
@@ -7840,43 +7992,42 @@
     var DThemeWhiteTreeItemText = /** @class */ (function (_super) {
         __extends(DThemeWhiteTreeItemText, _super);
         function DThemeWhiteTreeItemText() {
-            return _super !== null && _super.apply(this, arguments) || this;
+            var _this = _super.call(this) || this;
+            _this._style = _this.newStyle();
+            return _this;
         }
-        DThemeWhiteTreeItemText.prototype.getLevelPadding = function (level) {
-            return 24 + level * 20 - this.getPaddingLeft();
+        DThemeWhiteTreeItemText.prototype.newStyle = function () {
+            return new DThemeWhiteTreeItems(null, true, false);
         };
         DThemeWhiteTreeItemText.prototype.getBackgroundColor = function (state) {
-            return DThemeWhiteTreeItems.getBackgroundColor(state);
+            return this._style.getBackgroundColor(state);
         };
         DThemeWhiteTreeItemText.prototype.getBackgroundAlpha = function (state) {
-            return DThemeWhiteTreeItems.getBackgroundAlpha(state);
+            return this._style.getBackgroundAlpha(state);
         };
         DThemeWhiteTreeItemText.prototype.getBorderColor = function (state) {
-            return DThemeWhiteTreeItems.getBorderColor(state);
+            return this._style.getBorderColor(state);
         };
         DThemeWhiteTreeItemText.prototype.getBorderAlign = function (state) {
-            return DThemeWhiteTreeItems.getBorderAlign(state);
+            return this._style.getBorderAlign(state);
         };
         DThemeWhiteTreeItemText.prototype.getBorderMask = function (state) {
-            return DThemeWhiteTreeItems.getBorderMask(state);
+            return this._style.getBorderMask(state);
         };
         DThemeWhiteTreeItemText.prototype.getColor = function (state) {
-            return DThemeWhiteTreeItems.getColor(state);
+            return this._style.getColor(state);
         };
         DThemeWhiteTreeItemText.prototype.getAlpha = function (state) {
-            return DThemeWhiteTreeItems.getAlpha(state);
-        };
-        DThemeWhiteTreeItemText.prototype.getWidth = function () {
-            return DThemeWhiteTreeItems.getWidth();
+            return this._style.getAlpha(state);
         };
         DThemeWhiteTreeItemText.prototype.getHeight = function () {
-            return DThemeWhiteTreeItems.getHeight();
+            return this._style.getHeight();
         };
         DThemeWhiteTreeItemText.prototype.getCornerMask = function () {
-            return DThemeWhiteTreeItems.getCornerMask();
+            return this._style.getCornerMask();
         };
         DThemeWhiteTreeItemText.prototype.getImageTintColor = function (state) {
-            return DThemeWhiteTreeItems.getImageTintColor(state);
+            return this._style.getImageTintColor(state);
         };
         DThemeWhiteTreeItemText.prototype.getPaddingLeft = function () {
             return 10;
@@ -7886,6 +8037,12 @@
         };
         DThemeWhiteTreeItemText.prototype.newTextValue = function () {
             return undefined;
+        };
+        DThemeWhiteTreeItemText.prototype.getWidth = function () {
+            return "padding";
+        };
+        DThemeWhiteTreeItemText.prototype.getLevelPadding = function (level) {
+            return 24 + level * 20 - this.getPaddingLeft();
         };
         return DThemeWhiteTreeItemText;
     }(DThemeWhiteImageBase));
@@ -7918,20 +8075,20 @@
         function DThemeWhiteTreeItemNonEditable() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeWhiteTreeItemNonEditable.prototype.getSecondaryImageAlignWith = function () {
-            return DAlignWith.PADDING;
-        };
-        DThemeWhiteTreeItemNonEditable.prototype.getSecondaryImageMarginHorizontal = function () {
-            return -19;
-        };
         DThemeWhiteTreeItemNonEditable.prototype.getSecondaryImageSource = function (state) {
-            return DThemeWhiteTableBodyCellTrees.getImageSource(state);
+            return this._style.getSecondaryImageSource(state);
         };
         DThemeWhiteTreeItemNonEditable.prototype.getSecondaryImageTintColor = function (state) {
-            return DThemeWhiteTableBodyCellTrees.getImageTintColor(state);
+            return this._style.getSecondaryImageTintColor(state);
         };
         DThemeWhiteTreeItemNonEditable.prototype.getSecondaryImageTintAlpha = function (state) {
-            return DThemeWhiteTableBodyCellTrees.getImageTintAlpha(state);
+            return this._style.getSecondaryImageTintAlpha(state);
+        };
+        DThemeWhiteTreeItemNonEditable.prototype.getSecondaryImageAlignWith = function () {
+            return this._style.getSecondaryImageAlignWith();
+        };
+        DThemeWhiteTreeItemNonEditable.prototype.getSecondaryImageMarginHorizontal = function () {
+            return this._style.getSecondaryImageMarginHorizontal();
         };
         return DThemeWhiteTreeItemNonEditable;
     }(DThemeWhiteTreeItemButton));
@@ -8223,11 +8380,12 @@
         DThemeWhiteLayoutSpace: DThemeWhiteLayoutSpace,
         DThemeWhiteLayoutVertical: DThemeWhiteLayoutVertical,
         DThemeWhiteLayout: DThemeWhiteLayout,
-        DThemeWhiteListItemSeparator: DThemeWhiteListItemSeparator,
         DThemeWhiteListItem: DThemeWhiteListItem,
+        DThemeWhiteListItems: DThemeWhiteListItems,
         DThemeWhiteList: DThemeWhiteList,
         DThemeWhiteMenuBarItem: DThemeWhiteMenuBarItem,
         DThemeWhiteMenuBar: DThemeWhiteMenuBar,
+        DThemeWhiteMenuItemBase: DThemeWhiteMenuItemBase,
         DThemeWhiteMenuItemCheck: DThemeWhiteMenuItemCheck,
         DThemeWhiteMenuItemExpandableBody: DThemeWhiteMenuItemExpandableBody,
         DThemeWhiteMenuItemExpandableHeader: DThemeWhiteMenuItemExpandableHeader,

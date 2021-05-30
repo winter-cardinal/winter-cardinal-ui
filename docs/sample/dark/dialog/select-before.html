@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Select dialog with a selection preservation</title>
+	<title>Select dialog with predefined items</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -22,20 +22,20 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.89.3/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.89.3/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.90.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.90.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
 
 		var application = new wcardinal.ui.DApplication();
 
-		new wcardinal.ui.DDialogSelect({
-			parent: application.stage,
-			mode: "MODELESS",
-			item: {
-				isEqual: function ( a, b ) {
-					return a.name === b.name;
+		var dialog = new wcardinal.ui.DDialogSelect({
+			list: {
+				data: {
+					before: [{
+						name: "Melon"
+					}]
 				}
 			},
 			controller: {
@@ -48,14 +48,27 @@
 						return word.length <= 0 || 0 <= item.name.indexOf( word );
 					}));
 				}
+			}
+		});
+
+		new wcardinal.ui.DButton({
+			parent: application.stage,
+			x: "center", y: "center",
+			width: 300,
+			text: {
+				value: "Open"
 			},
 			on: {
-				ok: function ( selected, dialog ) {
-					console.log( selected, dialog );
+				active: function () {
+					dialog.open().then(function( value ){
+						console.log( value );
+					})
+					.catch(function() {
+						console.log( "Canceled" );
+					});
 				}
 			}
-		})
-		.open();
+		});
 	}());
 	</script>
 </body>

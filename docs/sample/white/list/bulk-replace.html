@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Bulk item replacement</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #eeeeee;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.90.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.90.0/wcardinal-ui-theme-white.min.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		var application = new wcardinal.ui.DApplication();
+
+		var counter = 0;
+		var newItems = function() {
+			var result = [];
+			for (var i = 0; i < 10; ++i) {
+				result.push({
+					id: i,
+					name: "Item " + (++counter),
+				});
+			}
+			return result;
+		};
+
+		var list = new wcardinal.ui.DList({
+			parent: application.stage,
+			x: "center", y: "center",
+			width: 500, height: 500,
+			data: {
+				items: newItems(),
+				toLabel: function(item) {
+					return item.name;
+				},
+				// This is to maintain the item selection state.
+				// Without this, every time the data is updated,
+				// the item selection state gets lost.
+				toId: function(item) {
+					return item.id;
+				}
+			}
+		});
+
+		var update = function() {
+			// Replaces all items.
+			list.data.items = newItems();
+			setTimeout( update, 1000 );
+		};
+		update();
+	}());
+	</script>
+</body>
+</html>

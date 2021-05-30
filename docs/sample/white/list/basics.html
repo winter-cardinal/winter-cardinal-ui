@@ -17,8 +17,8 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.89.3/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.89.3/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.90.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.90.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -29,25 +29,17 @@
 			parent: application.stage,
 			x: "center", y: "center",
 			width: 500, height: 500,
-			content: {
-				children: [
-					new wcardinal.ui.DListItem({
-						text: {
-							value: "Apple"
-						}
-					}),
-					new wcardinal.ui.DListItem({
-						text: {
-							value: "Orange"
-						}
-					}),
-					new wcardinal.ui.DListItem({
-						text: {
-							value: "Pineapple"
-						}
-					})
-				]
-			}
+			data: [
+				{
+					name: "Apple"
+				},
+				{
+					name: "Orange"
+				},
+				{
+					name: "Pineapple"
+				}
+			]
 		});
 	}());
 	</script>

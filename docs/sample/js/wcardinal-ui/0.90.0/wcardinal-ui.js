@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.89.3
+ Winter Cardinal UI v0.90.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -26893,13 +26893,13 @@
                 var iseg = 0;
                 var iprevseg = lineSegments[0];
                 for (var i = 1; i < lineSegmentsLength; ++i) {
-                    var iseg_1 = lineSegments[i];
-                    if (2 <= iseg_1 - iprevseg) {
-                        lprev = buildTransformedLineOpenSegmentVertexStepAndColorFill(vertices, steps, colorFills, ivoffset, -1, lineVertices, iprevseg, iseg_1, lineVertexCount, strokeWidth, strokeStyle, lprev);
+                    iseg = lineSegments[i];
+                    if (2 <= iseg - iprevseg) {
+                        lprev = buildTransformedLineOpenSegmentVertexStepAndColorFill(vertices, steps, colorFills, ivoffset, -1, lineVertices, iprevseg, iseg, lineVertexCount, strokeWidth, strokeStyle, lprev);
                         lmax = Math.max(lmax, lprev);
-                        ivoffset += toLineVertexCount(iseg_1 - iprevseg, false);
+                        ivoffset += toLineVertexCount(iseg - iprevseg, false);
                     }
-                    iprevseg = iseg_1;
+                    iprevseg = iseg;
                 }
                 // Last
                 iseg = lineSegments[0] + lineVertexCount;
@@ -32565,19 +32565,19 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DListItem = /** @class */ (function (_super) {
-        __extends(DListItem, _super);
-        function DListItem(options) {
+    var DMenuItemBase = /** @class */ (function (_super) {
+        __extends(DMenuItemBase, _super);
+        function DMenuItemBase(options) {
             var _a;
             var _this = _super.call(this, options) || this;
             _this._value = (_a = options === null || options === void 0 ? void 0 : options.value) !== null && _a !== void 0 ? _a : null;
             return _this;
         }
-        DListItem.prototype.init = function (options) {
+        DMenuItemBase.prototype.init = function (options) {
             _super.prototype.init.call(this, options);
             this.initOnClick(options);
         };
-        DListItem.prototype.initOnClick = function (options) {
+        DMenuItemBase.prototype.initOnClick = function (options) {
             var _this = this;
             UtilPointerEvent.onClick(this, function (e) {
                 if (_this.state.isActionable) {
@@ -32585,7 +32585,7 @@
                 }
             });
         };
-        Object.defineProperty(DListItem.prototype, "value", {
+        Object.defineProperty(DMenuItemBase.prototype, "value", {
             get: function () {
                 return this._value;
             },
@@ -32595,10 +32595,10 @@
             enumerable: false,
             configurable: true
         });
-        DListItem.prototype.hasSelection = function (target) {
+        DMenuItemBase.prototype.hasSelection = function (target) {
             return target && target.selection && target.selection.add;
         };
-        DListItem.prototype.getSelection = function () {
+        DMenuItemBase.prototype.getSelection = function () {
             var parent = this.parent;
             while (parent) {
                 if (this.hasSelection(parent)) {
@@ -32608,30 +32608,30 @@
             }
             return null;
         };
-        DListItem.prototype.onSelect = function (e) {
+        DMenuItemBase.prototype.onSelect = function (e) {
             this.emit("select", this);
             var selection = this.getSelection();
             if (selection) {
                 selection.add(this);
             }
         };
-        DListItem.prototype.onKeyDown = function (e) {
+        DMenuItemBase.prototype.onKeyDown = function (e) {
             if (UtilKeyboardEvent.isActivateKey(e)) {
                 this.onKeyDownActivate(e);
             }
             return _super.prototype.onKeyDown.call(this, e);
         };
-        DListItem.prototype.onKeyDownActivate = function (e) {
+        DMenuItemBase.prototype.onKeyDownActivate = function (e) {
             if (this.state.isActionable && this.state.isFocused) {
                 this.onSelect(e);
                 return true;
             }
             return false;
         };
-        DListItem.prototype.getType = function () {
-            return "DListItem";
+        DMenuItemBase.prototype.getType = function () {
+            return "DMenuItemBase";
         };
-        return DListItem;
+        return DMenuItemBase;
     }(DImage));
 
     /*
@@ -32667,7 +32667,7 @@
             return "DMenuItem";
         };
         return DMenuItem;
-    }(DListItem));
+    }(DMenuItemBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -32769,11 +32769,16 @@
             this.state.isActive = !this.state.isActive;
             _super.prototype.onSelect.call(this, e);
         };
-        DMenuItemCheck.isCompatible = function (options) {
-            return "check" in options;
-        };
         return DMenuItemCheck;
     }(DMenuItemText));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DMenuItemCheckIsCompatible = function (options) {
+        return "check" in options;
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -33316,11 +33321,16 @@
             _super.prototype.onShortcut.call(this, e);
             this.onSelect(e);
         };
-        DMenuItemLink.isCompatible = function (options) {
-            return "url" in options;
-        };
         return DMenuItemLink;
     }(DMenuItemText));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DMenuItemLinkIsCompatible = function (options) {
+        return "url" in options;
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -33419,21 +33429,6 @@
             }
             return false;
         };
-        DMenuItemMenu.isCompatible = function (options) {
-            return "menu" in options;
-        };
-        DMenuItemMenu.toSubMenuOptions = function (options, sticky) {
-            var menu = options.menu;
-            if (!(menu instanceof pixi_js.DisplayObject)) {
-                if (menu.sticky == null) {
-                    menu.sticky = sticky;
-                }
-                if (menu.align == null) {
-                    menu.align = UtilAttachAlign.RIGHT;
-                }
-            }
-            return options;
-        };
         return DMenuItemMenu;
     }(DMenuItem));
 
@@ -33441,15 +33436,40 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DListItemSeparatorReflowable = /** @class */ (function (_super) {
-        __extends(DListItemSeparatorReflowable, _super);
-        function DListItemSeparatorReflowable(base) {
+    var DMenuItemMenuIsCompatible = function (options) {
+        return "menu" in options;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DMenuItemMenuToSubMenuOptions = function (options, sticky) {
+        var menu = options.menu;
+        if (!(menu instanceof pixi_js.DisplayObject)) {
+            if (menu.sticky == null) {
+                menu.sticky = sticky;
+            }
+            if (menu.align == null) {
+                menu.align = UtilAttachAlign.RIGHT;
+            }
+        }
+        return options;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DMenuItemSeparatorReflowable = /** @class */ (function (_super) {
+        __extends(DMenuItemSeparatorReflowable, _super);
+        function DMenuItemSeparatorReflowable(base) {
             var _this = _super.call(this) || this;
             base.addRenderable(_this, true);
             base.addReflowable(_this);
             return _this;
         }
-        DListItemSeparatorReflowable.prototype.onReflow = function (base, width, height) {
+        DMenuItemSeparatorReflowable.prototype.onReflow = function (base, width, height) {
             var state = base.state;
             var border = base.border;
             var borderWidth = border.getWidth(state);
@@ -33470,48 +33490,33 @@
                 this.visible = false;
             }
         };
-        return DListItemSeparatorReflowable;
+        return DMenuItemSeparatorReflowable;
     }(pixi_js.Graphics));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DListItemSeparator = /** @class */ (function (_super) {
-        __extends(DListItemSeparator, _super);
-        function DListItemSeparator() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        DListItemSeparator.prototype.init = function (options) {
-            _super.prototype.init.call(this, options);
-            this.state.isFocusable = false;
-        };
-        DListItemSeparator.prototype.initReflowable = function () {
-            new DListItemSeparatorReflowable(this);
-        };
-        DListItemSeparator.prototype.getType = function () {
-            return "DListItemSeparator";
-        };
-        return DListItemSeparator;
-    }(DListItem));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
+    var DMenuItemSeparatorIsCompatible = function (options) {
+        return "separator" in options;
+    };
     var DMenuItemSeparator = /** @class */ (function (_super) {
         __extends(DMenuItemSeparator, _super);
         function DMenuItemSeparator() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
+        DMenuItemSeparator.prototype.init = function (options) {
+            _super.prototype.init.call(this, options);
+            this.state.isFocusable = false;
+        };
+        DMenuItemSeparator.prototype.initReflowable = function () {
+            new DMenuItemSeparatorReflowable(this);
+        };
         DMenuItemSeparator.prototype.getType = function () {
             return "DMenuItemSeparator";
         };
-        DMenuItemSeparator.isCompatible = function (options) {
-            return "separator" in options;
-        };
         return DMenuItemSeparator;
-    }(DListItemSeparator));
+    }(DMenuItemBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -33525,9 +33530,6 @@
         DMenuItemSpace.prototype.getType = function () {
             return "DMenuItemSpace";
         };
-        DMenuItemSpace.isCompatible = function (options) {
-            return "space" in options;
-        };
         return DMenuItemSpace;
     }(DLayoutSpace));
 
@@ -33535,33 +33537,41 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var DMenuItemSpaceIsCompatible = function (options) {
+        return "space" in options;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var loadMenuItem = function () {
         DMenus.addItemCreator(function (options) {
-            if (DMenuItemCheck.isCompatible(options)) {
+            if (DMenuItemCheckIsCompatible(options)) {
                 return new DMenuItemCheck(options);
             }
             return null;
         });
         DMenus.addItemCreator(function (options) {
-            if (DMenuItemLink.isCompatible(options)) {
+            if (DMenuItemLinkIsCompatible(options)) {
                 return new DMenuItemLink(options);
             }
             return null;
         });
         DMenus.addItemCreator(function (options, sticky) {
-            if (DMenuItemMenu.isCompatible(options)) {
-                return new DMenuItemMenu(DMenuItemMenu.toSubMenuOptions(options, sticky));
+            if (DMenuItemMenuIsCompatible(options)) {
+                return new DMenuItemMenu(DMenuItemMenuToSubMenuOptions(options, sticky));
             }
             return null;
         });
         DMenus.addItemCreator(function (options) {
-            if (DMenuItemSeparator.isCompatible(options)) {
+            if (DMenuItemSeparatorIsCompatible(options)) {
                 return new DMenuItemSeparator(options);
             }
             return null;
         });
         DMenus.addItemCreator(function (options) {
-            if (DMenuItemSpace.isCompatible(options)) {
+            if (DMenuItemSpaceIsCompatible(options)) {
                 return new DMenuItemSpace(options);
             }
             return null;
@@ -33602,7 +33612,7 @@
             return "DMenuItemExpandableHeader";
         };
         return DMenuItemExpandableHeader;
-    }(DListItem));
+    }(DMenuItemBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -33770,11 +33780,16 @@
         DMenuItemExpandable.prototype.getType = function () {
             return "DMenuItemExpandable";
         };
-        DMenuItemExpandable.isCompatible = function (options) {
-            return "header" in options;
-        };
         return DMenuItemExpandable;
     }(DLayoutVertical));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DMenuItemExpandableIsCompatible = function (options) {
+        return "header" in options;
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -33857,31 +33872,31 @@
      */
     var loadMenuItemExpandable = function () {
         DMenus.addItemCreator(function (options) {
-            if (DMenuItemExpandable.isCompatible(options)) {
+            if (DMenuItemExpandableIsCompatible(options)) {
                 return new DMenuItemExpandable(options);
             }
             return null;
         });
         DMenuItemExpandables.addItemCreator(function (options) {
-            if (DMenuItemCheck.isCompatible(options)) {
+            if (DMenuItemCheckIsCompatible(options)) {
                 return new DMenuItemExpandableItemCheck(options);
             }
             return null;
         });
         DMenuItemExpandables.addItemCreator(function (options) {
-            if (DMenuItemLink.isCompatible(options)) {
+            if (DMenuItemLinkIsCompatible(options)) {
                 return new DMenuItemExpandableItemLink(options);
             }
             return null;
         });
         DMenuItemExpandables.addItemCreator(function (options) {
-            if (DMenuItemSeparator.isCompatible(options)) {
+            if (DMenuItemSeparatorIsCompatible(options)) {
                 return new DMenuItemExpandableItemSeparator(options);
             }
             return null;
         });
         DMenuItemExpandables.addItemCreator(function (options) {
-            if (DMenuItemSpace.isCompatible(options)) {
+            if (DMenuItemSpaceIsCompatible(options)) {
                 return new DMenuItemExpandableItemSpace(options);
             }
             return null;
@@ -34034,31 +34049,31 @@
             return new DMenuSidedItemText(options);
         });
         DMenuSideds.addItemCreator(function (options) {
-            if (DMenuItemSpace.isCompatible(options)) {
+            if (DMenuItemSpaceIsCompatible(options)) {
                 return new DMenuSidedItemSpace(options);
             }
             return null;
         });
         DMenuSideds.addItemCreator(function (options) {
-            if (DMenuItemSeparator.isCompatible(options)) {
+            if (DMenuItemSeparatorIsCompatible(options)) {
                 return new DMenuSidedItemSeparator(options);
             }
             return null;
         });
         DMenuSideds.addItemCreator(function (options, sticky) {
-            if (DMenuItemMenu.isCompatible(options)) {
-                return new DMenuSidedItemMenu(DMenuItemMenu.toSubMenuOptions(options, sticky));
+            if (DMenuItemMenuIsCompatible(options)) {
+                return new DMenuSidedItemMenu(DMenuItemMenuToSubMenuOptions(options, sticky));
             }
             return null;
         });
         DMenuSideds.addItemCreator(function (options) {
-            if (DMenuItemLink.isCompatible(options)) {
+            if (DMenuItemLinkIsCompatible(options)) {
                 return new DMenuSidedItemLink(options);
             }
             return null;
         });
         DMenuSideds.addItemCreator(function (options) {
-            if (DMenuItemCheck.isCompatible(options)) {
+            if (DMenuItemCheckIsCompatible(options)) {
                 return new DMenuSidedItemCheck(options);
             }
             return null;
@@ -34224,37 +34239,37 @@
      */
     var loadMenuSidedItemExpandable = function () {
         DMenuSideds.addItemCreator(function (options) {
-            if (DMenuItemExpandable.isCompatible(options)) {
+            if (DMenuItemExpandableIsCompatible(options)) {
                 return new DMenuSidedItemExpandable(options);
             }
             return null;
         });
         DMenuSidedItemExpandables.addItemCreator(function (options) {
-            if (DMenuItemCheck.isCompatible(options)) {
+            if (DMenuItemCheckIsCompatible(options)) {
                 return new DMenuSidedItemExpandableItemCheck(options);
             }
             return null;
         });
         DMenuSidedItemExpandables.addItemCreator(function (options) {
-            if (DMenuItemLink.isCompatible(options)) {
+            if (DMenuItemLinkIsCompatible(options)) {
                 return new DMenuSidedItemExpandableItemLink(options);
             }
             return null;
         });
         DMenuSidedItemExpandables.addItemCreator(function (options, sticky) {
-            if (DMenuItemMenu.isCompatible(options)) {
-                return new DMenuSidedItemExpandableItemMenu(DMenuItemMenu.toSubMenuOptions(options, sticky));
+            if (DMenuItemMenuIsCompatible(options)) {
+                return new DMenuSidedItemExpandableItemMenu(DMenuItemMenuToSubMenuOptions(options, sticky));
             }
             return null;
         });
         DMenuSidedItemExpandables.addItemCreator(function (options) {
-            if (DMenuItemSeparator.isCompatible(options)) {
+            if (DMenuItemSeparatorIsCompatible(options)) {
                 return new DMenuSidedItemExpandableItemSeparator(options);
             }
             return null;
         });
         DMenuSidedItemExpandables.addItemCreator(function (options) {
-            if (DMenuItemSpace.isCompatible(options)) {
+            if (DMenuItemSpaceIsCompatible(options)) {
                 return new DMenuSidedItemExpandableItemSpace(options);
             }
             return null;
@@ -42624,21 +42639,444 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DListSelectionMode;
-    (function (DListSelectionMode) {
-        DListSelectionMode[DListSelectionMode["NONE"] = 0] = "NONE";
-        DListSelectionMode[DListSelectionMode["SINGLE"] = 1] = "SINGLE";
-        DListSelectionMode[DListSelectionMode["MULTIPLE"] = 2] = "MULTIPLE";
-    })(DListSelectionMode || (DListSelectionMode = {}));
-    var DListSelection = /** @class */ (function (_super) {
-        __extends(DListSelection, _super);
-        function DListSelection(content, options) {
-            var _a;
+    var DListDataSelectionType;
+    (function (DListDataSelectionType) {
+        DListDataSelectionType[DListDataSelectionType["NONE"] = 0] = "NONE";
+        DListDataSelectionType[DListDataSelectionType["SINGLE"] = 1] = "SINGLE";
+        DListDataSelectionType[DListDataSelectionType["MULTIPLE"] = 2] = "MULTIPLE";
+    })(DListDataSelectionType || (DListDataSelectionType = {}));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DListItem = /** @class */ (function (_super) {
+        __extends(DListItem, _super);
+        function DListItem(data, options) {
+            var _this = _super.call(this, options) || this;
+            _this._data = data;
+            return _this;
+        }
+        DListItem.prototype.init = function (options) {
+            _super.prototype.init.call(this, options);
+            this.initOnClick(options);
+        };
+        DListItem.prototype.initOnClick = function (options) {
+            var _this = this;
+            UtilPointerEvent.onClick(this, function (e) {
+                if (_this.state.isActionable) {
+                    var value = _this._value;
+                    if (value !== undefined) {
+                        _this.onSelect(e, value);
+                    }
+                }
+            });
+        };
+        Object.defineProperty(DListItem.prototype, "value", {
+            get: function () {
+                return this._value;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DListItem.prototype.onSelect = function (e, value) {
+            var data = this._data;
+            var selection = data.selection;
+            if (selection.type !== DListDataSelectionType.MULTIPLE) {
+                selection.clearAndAdd(value);
+            }
+            else {
+                var originalEvent = e && "data" in e ? e.data.originalEvent : e;
+                if (originalEvent === null || originalEvent === void 0 ? void 0 : originalEvent.ctrlKey) {
+                    selection.toggle(value);
+                }
+                else if (originalEvent === null || originalEvent === void 0 ? void 0 : originalEvent.shiftKey) {
+                    var mapped = data.mapped;
+                    var last_1 = selection.last;
+                    if (value === last_1) {
+                        selection.clearAndAdd(value);
+                    }
+                    else {
+                        var isFound_1 = false;
+                        var isReverse_1 = false;
+                        var newSelection_1 = [];
+                        mapped.each(function (item) {
+                            if (isFound_1) {
+                                if (isReverse_1) {
+                                    newSelection_1.unshift(item);
+                                    if (item === value) {
+                                        return false;
+                                    }
+                                }
+                                else {
+                                    newSelection_1.push(item);
+                                    if (item === last_1) {
+                                        return false;
+                                    }
+                                }
+                            }
+                            else {
+                                if (item === value) {
+                                    isFound_1 = true;
+                                    isReverse_1 = false;
+                                    newSelection_1.push(item);
+                                }
+                                else if (item === last_1) {
+                                    isFound_1 = true;
+                                    isReverse_1 = true;
+                                    newSelection_1.push(item);
+                                }
+                            }
+                        });
+                        selection.clearAndAddAll(newSelection_1);
+                    }
+                }
+                else {
+                    selection.clearAndAdd(value);
+                }
+            }
+        };
+        DListItem.prototype.set = function (value, index, forcibly) {
+            var data = this._data;
+            var isValueChanged = forcibly || this._value !== value;
+            if (isValueChanged) {
+                this._value = value;
+                var accessor = data.accessor;
+                this.text = accessor.toLabel(value);
+                this.title = accessor.toTitle(value) || "";
+                this.image = accessor.toImage(value);
+            }
+            var state = this.state;
+            state.lock();
+            state.set(DBaseState.ACTIVE, data.selection.contains(value));
+            state.remove(DBaseState.DISABLED);
+            state.unlock();
+            if (isValueChanged) {
+                this.emit("set", value, index, this);
+            }
+        };
+        DListItem.prototype.unset = function () {
+            if (this._value !== undefined) {
+                this._value = undefined;
+                this.text = undefined;
+                this.title = "";
+                this.image = undefined;
+                var state = this.state;
+                state.lock();
+                state.add(DBaseState.DISABLED);
+                state.remove(DBaseState.ACTIVE);
+                state.unlock();
+                this.emit("unset", this);
+            }
+        };
+        DListItem.prototype.onKeyDown = function (e) {
+            if (UtilKeyboardEvent.isActivateKey(e)) {
+                this.onKeyDownActivate(e);
+            }
+            return _super.prototype.onKeyDown.call(this, e);
+        };
+        DListItem.prototype.onKeyDownActivate = function (e) {
+            if (this.state.isActionable && this.state.isFocused) {
+                var value = this._value;
+                if (value !== undefined) {
+                    this.onSelect(e, value);
+                }
+                return true;
+            }
+            return false;
+        };
+        DListItem.prototype.getType = function () {
+            return "DListItem";
+        };
+        return DListItem;
+    }(DImageBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DDialogSelectListItem = /** @class */ (function (_super) {
+        __extends(DDialogSelectListItem, _super);
+        function DDialogSelectListItem() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DDialogSelectListItem.prototype.getType = function () {
+            return "DDialogSelectListItem";
+        };
+        return DDialogSelectListItem;
+    }(DListItem));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /**
+     * The primary purpose of this class is to minimize the number of rendered items (e.g., {@link DListItem})
+     * as low as possible and to update their positions and states. For this sake, the updater calculates the
+     * required number of items whenever their container size changes and creates items if needed.
+     */
+    var DItemUpdater = /** @class */ (function () {
+        function DItemUpdater(data, content, container, options) {
+            this._updateItemsCount = 0;
+            this._isUpdateItemsCalled = false;
+            this._isUpdateItemsCalledForcibly = false;
+            this._itemHeight = -1;
+            this._itemIndexStart = 0;
+            this._itemIndexEnd = 0;
+            this._workItems = [];
+            this._data = data;
+            this._content = content;
+            this._container = container;
+            this._newItem = this.toNewItem(options);
+        }
+        DItemUpdater.prototype.toNewItem = function (options) {
+            return (options === null || options === void 0 ? void 0 : options.newItem) || this.newItem;
+        };
+        DItemUpdater.prototype.lock = function () {
+            this._updateItemsCount += 1;
+            if (this._updateItemsCount === 1) {
+                this._isUpdateItemsCalled = false;
+                this._isUpdateItemsCalledForcibly = false;
+            }
+        };
+        DItemUpdater.prototype.unlock = function (callIfNeeded) {
+            this._updateItemsCount -= 1;
+            if (this._updateItemsCount === 0) {
+                if (callIfNeeded && this._isUpdateItemsCalled) {
+                    this.update(this._isUpdateItemsCalledForcibly);
+                }
+                this._isUpdateItemsCalled = false;
+                this._isUpdateItemsCalledForcibly = false;
+            }
+        };
+        DItemUpdater.prototype.update = function (forcibly) {
+            var _this = this;
+            if (0 < this._updateItemsCount) {
+                this._isUpdateItemsCalled = true;
+                if (forcibly) {
+                    this._isUpdateItemsCalledForcibly = true;
+                }
+                return;
+            }
+            var content = this._content;
+            var container = this._container;
+            var items = container.children;
+            var height = content.parent.height;
+            var data = this._data;
+            var mapped = this.toMapped(data);
+            var dataSize = mapped.size();
+            var oldItemIndexStart = this._itemIndexStart;
+            var oldItemIndexEnd = this._itemIndexEnd;
+            var oldItemCount = oldItemIndexEnd - oldItemIndexStart;
+            var newItem = this._newItem;
+            var itemHeight = this._itemHeight;
+            if (this._itemHeight < 0) {
+                if (0 < items.length) {
+                    itemHeight = Math.max(1, items[0].height);
+                }
+                else {
+                    var item = newItem(data);
+                    item.state.isAlternated = oldItemIndexStart % 2 === 0;
+                    container.addChild(item);
+                    itemHeight = Math.max(1, item.height);
+                    oldItemIndexEnd += 1;
+                    oldItemCount += 1;
+                }
+                this._itemHeight = itemHeight;
+            }
+            var y = content !== container ? container.transform.position.y : 0;
+            var newHeight = dataSize * itemHeight;
+            var newContentHeight = Math.max(height, newHeight);
+            var newContentY = Math.max(height - newContentHeight, content.position.y);
+            var newItemIndexLowerBound = Math.floor((0 - (newContentY + y)) / itemHeight);
+            var newItemIndexUpperBound = Math.floor((height - (newContentY + y)) / itemHeight);
+            var newItemIndexStart = newItemIndexLowerBound - (newItemIndexLowerBound % 2 === 0 ? 2 : 1);
+            var newItemIndexEnd = newItemIndexUpperBound +
+                ((newItemIndexUpperBound - newItemIndexStart + 1) % 2 === 0 ? 3 : 2);
+            var newItemCount = newItemIndexEnd - newItemIndexStart;
+            if (newItemCount < oldItemCount && oldItemCount - 2 <= newItemCount) {
+                newItemCount = oldItemCount;
+                newItemIndexEnd = newItemIndexStart + newItemCount;
+            }
+            if (oldItemCount < newItemCount) {
+                for (var i = oldItemCount; i < newItemCount; ++i) {
+                    var oldItemIndex = oldItemIndexStart + i;
+                    var item = newItem(data);
+                    item.state.isAlternated = oldItemIndex % 2 === 0;
+                    container.addChild(item);
+                }
+                oldItemCount = newItemCount;
+                oldItemIndexEnd = oldItemIndexStart + oldItemCount;
+            }
+            else if (newItemCount < oldItemCount) {
+                for (var i = oldItemCount - 1; newItemCount <= i; --i) {
+                    container.removeChild(items[i]);
+                }
+                oldItemCount = newItemCount;
+                oldItemIndexEnd = oldItemIndexStart + oldItemCount;
+            }
+            this._itemIndexStart = newItemIndexStart;
+            this._itemIndexEnd = newItemIndexEnd;
+            var itemIndexStartDelta = newItemIndexStart - oldItemIndexStart;
+            var itemIndexStartDeltaAbs = Math.abs(itemIndexStartDelta);
+            var itemsLength = items.length;
+            if (0 < itemIndexStartDeltaAbs && itemIndexStartDeltaAbs < itemsLength) {
+                var work = this._workItems;
+                if (0 < itemIndexStartDelta) {
+                    for (var i = 0; i < itemIndexStartDeltaAbs; ++i) {
+                        var item = items[i];
+                        this.reset(item);
+                        work.push(item);
+                    }
+                    for (var i = itemIndexStartDeltaAbs; i < itemsLength; ++i) {
+                        items[i - itemIndexStartDeltaAbs] = items[i];
+                    }
+                    for (var i = 0; i < itemIndexStartDeltaAbs; ++i) {
+                        items[itemsLength - itemIndexStartDeltaAbs + i] = work[i];
+                    }
+                }
+                else {
+                    for (var i = 0; i < itemIndexStartDeltaAbs; ++i) {
+                        var item = items[itemsLength - itemIndexStartDeltaAbs + i];
+                        this.reset(item);
+                        work.push(item);
+                    }
+                    for (var i = itemsLength - itemIndexStartDeltaAbs - 1; 0 <= i; --i) {
+                        items[i + itemIndexStartDeltaAbs] = items[i];
+                    }
+                    for (var i = 0; i < itemIndexStartDeltaAbs; ++i) {
+                        items[i] = work[i];
+                    }
+                }
+                work.length = 0;
+            }
+            mapped.each(function (datum, index) {
+                var item = items[index - newItemIndexStart];
+                item.position.y = index * itemHeight;
+                _this.set(item, datum, index, forcibly);
+            }, newItemIndexStart, newItemIndexStart + itemsLength);
+            for (var i = 0; newItemIndexStart + i < 0 && i < itemsLength; ++i) {
+                var item = items[i];
+                var index = newItemIndexStart + i;
+                item.position.y = index * itemHeight;
+                this.unset(item);
+            }
+            for (var i = itemsLength - 1; dataSize <= newItemIndexStart + i && 0 <= i; --i) {
+                var item = items[i];
+                var index = newItemIndexStart + i;
+                item.position.y = index * itemHeight;
+                this.unset(item);
+            }
+            this.lock();
+            content.position.y = newContentY;
+            content.height = newContentHeight;
+            if (content !== container) {
+                container.height = newHeight;
+            }
+            this.unlock(false);
+        };
+        DItemUpdater.prototype.set = function (item, value, index, forcibly) {
+            item.set(value, index, forcibly);
+        };
+        DItemUpdater.prototype.unset = function (item) {
+            item.unset();
+        };
+        DItemUpdater.prototype.reset = function (item) {
+            item.blur(true);
+            var cells = item.children;
+            for (var i = 0, imax = cells.length; i < imax; ++i) {
+                var cell = cells[i];
+                if (cell instanceof DBase) {
+                    cell.state.isPressed = false;
+                }
+            }
+            return item;
+        };
+        return DItemUpdater;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DListItemUpdater = /** @class */ (function (_super) {
+        __extends(DListItemUpdater, _super);
+        function DListItemUpdater() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DListItemUpdater.prototype.toMapped = function (data) {
+            return data.mapped;
+        };
+        DListItemUpdater.prototype.newItem = function (data) {
+            return new DListItem(data);
+        };
+        return DListItemUpdater;
+    }(DItemUpdater));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DDialogSelectListItemUpdater = /** @class */ (function (_super) {
+        __extends(DDialogSelectListItemUpdater, _super);
+        function DDialogSelectListItemUpdater() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DDialogSelectListItemUpdater.prototype.newItem = function (data) {
+            return new DDialogSelectListItem(data);
+        };
+        return DDialogSelectListItemUpdater;
+    }(DListItemUpdater));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DListDataMappedImpl = /** @class */ (function () {
+        function DListDataMappedImpl(parent) {
+            this._parent = parent;
+        }
+        DListDataMappedImpl.prototype.size = function () {
+            var parent = this._parent;
+            return parent.before.length + parent.items.length + parent.after.length;
+        };
+        DListDataMappedImpl.prototype.each = function (iteratee, from, to) {
+            var parent = this._parent;
+            var index0 = this.each_(iteratee, parent.before, 0, from, to);
+            if (index0 < 0) {
+                return;
+            }
+            var index1 = this.each_(iteratee, parent.items, index0, from, to);
+            if (index1 < 0) {
+                return;
+            }
+            this.each_(iteratee, parent.after, index1, from, to);
+        };
+        DListDataMappedImpl.prototype.each_ = function (iteratee, items, start, from, to) {
+            var end = start + items.length;
+            var ifrom = from != null ? Math.max(start, from) : start;
+            var ito = to != null ? Math.min(end, to) : end;
+            for (var i = ifrom; i < ito; ++i) {
+                if (iteratee(items[i - start], i) === false) {
+                    return -1;
+                }
+            }
+            return ito;
+        };
+        return DListDataMappedImpl;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DListDataSelectionMultiple = /** @class */ (function (_super) {
+        __extends(DListDataSelectionMultiple, _super);
+        function DListDataSelectionMultiple(parent, accessor, options) {
             var _this = _super.call(this) || this;
-            _this._content = content;
-            _this._isDirty = false;
-            _this._indices = [];
-            _this._mode = toEnum((_a = options === null || options === void 0 ? void 0 : options.mode) !== null && _a !== void 0 ? _a : DListSelectionMode.SINGLE, DListSelectionMode);
+            _this._parent = parent;
+            _this._accessor = accessor;
+            _this._items = new Set();
             // Events
             var on = options === null || options === void 0 ? void 0 : options.on;
             if (on) {
@@ -42651,145 +43089,700 @@
             }
             return _this;
         }
-        DListSelection.prototype.toDirty = function () {
-            this._isDirty = true;
-        };
-        DListSelection.prototype.update = function () {
-            if (this._isDirty) {
-                this._isDirty = false;
-                var indices = this._indices;
-                indices.length = 0;
-                var children = this._content.children;
-                for (var i = 0, imax = children.length; i < imax; ++i) {
-                    var child = children[i];
-                    if (child instanceof DBase) {
-                        if (child.state.isActive) {
-                            indices.push(i);
-                        }
+        Object.defineProperty(DListDataSelectionMultiple.prototype, "type", {
+            get: function () {
+                return DListDataSelectionType.MULTIPLE;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DListDataSelectionMultiple.prototype, "first", {
+            get: function () {
+                return this.get(0);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DListDataSelectionMultiple.prototype, "last", {
+            get: function () {
+                return this.get(this.size() - 1);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DListDataSelectionMultiple.prototype.get = function (index) {
+            var items = this._items;
+            if (0 <= index && index < items.size) {
+                var counter_1 = 0;
+                var result_1 = null;
+                items.forEach(function (item) {
+                    if (counter_1 === index) {
+                        result_1 = item;
                     }
-                }
-            }
-        };
-        DListSelection.prototype.size = function () {
-            this.update();
-            return this._indices.length;
-        };
-        DListSelection.prototype.isEmpty = function () {
-            return this.size() <= 0;
-        };
-        DListSelection.prototype.first = function () {
-            return this.get(0);
-        };
-        DListSelection.prototype.get = function (index) {
-            this.update();
-            var indices = this._indices;
-            if (0 <= index && index < indices.length) {
-                var child = this._content.children[indices[index]];
-                if (child != null) {
-                    return child;
-                }
+                    counter_1 += 1;
+                });
+                return result_1;
             }
             return null;
         };
-        DListSelection.prototype.getIndex = function (index) {
-            this.update();
-            var indices = this._indices;
-            if (0 <= index && index < indices.length) {
-                return indices[index];
+        DListDataSelectionMultiple.prototype.add = function (target) {
+            var items = this._items;
+            if (!items.has(target)) {
+                items.add(target);
+                this.onChange();
+                return true;
             }
-            return null;
+            return false;
         };
-        DListSelection.prototype.clear = function () {
-            this.update();
-            var indices = this._indices;
-            if (0 < indices.length) {
-                var children = this._content.children;
-                for (var i = 0, imax = indices.length; i < imax; ++i) {
-                    var child = children[indices[i]];
-                    if (child instanceof DBase) {
-                        child.state.isActive = false;
-                    }
-                }
-                indices.length = 0;
-                this.emit("change", this);
+        DListDataSelectionMultiple.prototype.remove = function (target) {
+            var items = this._items;
+            if (items.has(target)) {
+                items.delete(target);
+                this.onChange();
+                return true;
             }
+            return false;
         };
-        DListSelection.prototype.add = function (target) {
-            var mode = this._mode;
-            var content = this._content;
-            if (mode === DListSelectionMode.SINGLE) {
-                if (!target.state.isActive) {
-                    this.update();
-                    // Remove the existing
-                    var indices = this._indices;
-                    var children = content.children;
-                    for (var i = 0, imax = indices.length; i < imax; ++i) {
-                        var child = children[indices[i]];
-                        child.state.isActive = false;
-                    }
-                    indices.length = 0;
-                    // Add a new child
-                    indices.push(content.getChildIndex(target));
-                    target.state.isActive = true;
-                    // Event
-                    this.emit("change", this);
-                }
+        DListDataSelectionMultiple.prototype.toggle = function (target) {
+            var items = this._items;
+            if (items.has(target)) {
+                items.delete(target);
             }
-            else if (mode === DListSelectionMode.MULTIPLE) {
-                if (!target.state.isActive) {
-                    if (this._isDirty) {
-                        target.state.isActive = true;
-                        this.emit("change", this);
-                    }
-                    else {
-                        // Find an insertion position
-                        var indices = this._indices;
-                        var targetIndex = content.getChildIndex(target);
-                        for (var i = 0, imax = indices.length; i < imax; ++i) {
-                            var index = indices[i];
-                            if (targetIndex === index) {
-                                target.state.isActive = true;
-                                return;
-                            }
-                            else if (targetIndex < index) {
-                                indices.splice(i, 0, targetIndex);
-                                target.state.isActive = true;
-                                this.emit("change", this);
-                                return;
-                            }
-                        }
-                        // Push
-                        indices.push(targetIndex);
-                        target.state.isActive = true;
-                        this.emit("change", this);
-                    }
-                }
+            else {
+                items.add(target);
+            }
+            this.onChange();
+            return true;
+        };
+        DListDataSelectionMultiple.prototype.clear = function () {
+            var items = this._items;
+            if (0 < items.size) {
+                items.clear();
+                this.onChange();
             }
         };
-        DListSelection.prototype.remove = function (target) {
-            if (!target.state.isActive) {
-                if (this._isDirty) {
-                    target.state.isActive = false;
-                    this.emit("change", this);
+        DListDataSelectionMultiple.prototype.clearAndAdd = function (target) {
+            var items = this._items;
+            var size = items.size;
+            if (size === 1) {
+                if (items.has(target)) {
+                    return false;
                 }
                 else {
-                    var indices = this._indices;
-                    var content = this._content;
-                    var targetIndex = content.getChildIndex(target);
-                    for (var i = 0, imax = indices.length; i < imax; ++i) {
-                        var index = indices[i];
-                        if (targetIndex === index) {
-                            indices.splice(i, 1);
-                            target.state.isActive = false;
-                            this.emit("change", this);
-                            return;
-                        }
+                    items.clear();
+                    items.add(target);
+                    this.onChange();
+                    return true;
+                }
+            }
+            else {
+                items.clear();
+                items.add(target);
+                this.onChange();
+                return true;
+            }
+        };
+        DListDataSelectionMultiple.prototype.clearAndAddAll = function (targets) {
+            var isDirty = false;
+            var newNodes = new Set();
+            var oldNodes = this._items;
+            for (var i = 0, imax = targets.length; i < imax; ++i) {
+                var target = targets[i];
+                if (!oldNodes.has(target)) {
+                    isDirty = true;
+                }
+                newNodes.add(target);
+            }
+            if (!isDirty) {
+                oldNodes.forEach(function (oldItem) {
+                    if (!newNodes.has(oldItem)) {
+                        isDirty = true;
                     }
+                });
+            }
+            if (isDirty) {
+                this._items = newNodes;
+                this.onChange();
+            }
+            return isDirty;
+        };
+        DListDataSelectionMultiple.prototype.contains = function (target) {
+            return this._items.has(target);
+        };
+        DListDataSelectionMultiple.prototype.size = function () {
+            return this._items.size;
+        };
+        DListDataSelectionMultiple.prototype.isEmpty = function () {
+            return this.size() <= 0;
+        };
+        DListDataSelectionMultiple.prototype.each = function (iteratee) {
+            var isCanceled = false;
+            this._items.forEach(function (item) {
+                if (!isCanceled) {
+                    if (iteratee(item) === false) {
+                        isCanceled = true;
+                    }
+                }
+            });
+        };
+        DListDataSelectionMultiple.prototype.toArray = function () {
+            var result = [];
+            this._items.forEach(function (item) {
+                result.push(item);
+            });
+            return result;
+        };
+        DListDataSelectionMultiple.prototype.onChange = function () {
+            this._parent.update();
+            this.emit("change", this);
+        };
+        DListDataSelectionMultiple.prototype.toItemIdMap = function (items, toId, result) {
+            for (var i = 0, imax = items.length; i < imax; ++i) {
+                var item = items[i];
+                result.set(toId(item), item);
+            }
+        };
+        DListDataSelectionMultiple.prototype.toItemSet = function (items, result) {
+            for (var i = 0, imax = items.length; i < imax; ++i) {
+                result.add(items[i]);
+            }
+        };
+        DListDataSelectionMultiple.prototype.onItemChange = function (before, items, after) {
+            var oldItems = this._items;
+            var newItems = new Set();
+            var toId = this._accessor.toId;
+            if (toId) {
+                var newItemIdMap_1 = new Map();
+                this.toItemIdMap(before, toId, newItemIdMap_1);
+                this.toItemIdMap(items, toId, newItemIdMap_1);
+                this.toItemIdMap(after, toId, newItemIdMap_1);
+                oldItems.forEach(function (oldItem) {
+                    var oldItemId = toId(oldItem);
+                    var newItem = newItemIdMap_1.get(oldItemId);
+                    if (newItem != null) {
+                        newItems.add(newItem);
+                    }
+                });
+                this._items = newItems;
+                this.onChange();
+            }
+            else {
+                var newItemSet_1 = new Set();
+                this.toItemSet(before, newItemSet_1);
+                this.toItemSet(items, newItemSet_1);
+                this.toItemSet(after, newItemSet_1);
+                oldItems.forEach(function (oldItem) {
+                    if (newItemSet_1.has(oldItem)) {
+                        newItems.add(oldItem);
+                    }
+                });
+                if (oldItems.size !== newItems.size) {
+                    this._items = newItems;
+                    this.onChange();
                 }
             }
         };
-        return DListSelection;
+        DListDataSelectionMultiple.prototype.newItems = function (items, existing, result) {
+            for (var i = 0, imax = items.length; i < imax; ++i) {
+                var item = items[i];
+                if (existing.has(item)) {
+                    result.add(item);
+                }
+            }
+            return result;
+        };
+        return DListDataSelectionMultiple;
     }(pixi_js.utils.EventEmitter));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DListDataSelectionNone = /** @class */ (function (_super) {
+        __extends(DListDataSelectionNone, _super);
+        function DListDataSelectionNone(parent, accessor, options) {
+            var _this = _super.call(this) || this;
+            _this._parent = parent;
+            // Events
+            var on = options === null || options === void 0 ? void 0 : options.on;
+            if (on) {
+                for (var name_1 in on) {
+                    var handler = on[name_1];
+                    if (handler) {
+                        _this.on(name_1, handler);
+                    }
+                }
+            }
+            return _this;
+        }
+        Object.defineProperty(DListDataSelectionNone.prototype, "type", {
+            get: function () {
+                return DListDataSelectionType.NONE;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DListDataSelectionNone.prototype, "first", {
+            get: function () {
+                return null;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DListDataSelectionNone.prototype, "last", {
+            get: function () {
+                return null;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DListDataSelectionNone.prototype.get = function (index) {
+            return null;
+        };
+        DListDataSelectionNone.prototype.add = function (target) {
+            return false;
+        };
+        DListDataSelectionNone.prototype.remove = function (target) {
+            return false;
+        };
+        DListDataSelectionNone.prototype.toggle = function (target) {
+            return false;
+        };
+        DListDataSelectionNone.prototype.clear = function () {
+            // DO NOTHING
+        };
+        DListDataSelectionNone.prototype.clearAndAdd = function (target) {
+            return false;
+        };
+        DListDataSelectionNone.prototype.clearAndAddAll = function (targets) {
+            return false;
+        };
+        DListDataSelectionNone.prototype.contains = function (target) {
+            return false;
+        };
+        DListDataSelectionNone.prototype.size = function () {
+            return 0;
+        };
+        DListDataSelectionNone.prototype.isEmpty = function () {
+            return true;
+        };
+        DListDataSelectionNone.prototype.each = function (iteratee) {
+            // DO NOTHING
+        };
+        DListDataSelectionNone.prototype.toArray = function () {
+            return [];
+        };
+        DListDataSelectionNone.prototype.onChange = function () {
+            this._parent.update();
+            this.emit("change", this);
+        };
+        DListDataSelectionNone.prototype.onItemChange = function (before, items, after) {
+            // DO NOTHING
+        };
+        return DListDataSelectionNone;
+    }(pixi_js.utils.EventEmitter));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DListDataSelectionSingle = /** @class */ (function (_super) {
+        __extends(DListDataSelectionSingle, _super);
+        function DListDataSelectionSingle(parent, accessor, options) {
+            var _this = _super.call(this) || this;
+            _this._parent = parent;
+            _this._accessor = accessor;
+            _this._item = null;
+            // Events
+            var on = options === null || options === void 0 ? void 0 : options.on;
+            if (on) {
+                for (var name_1 in on) {
+                    var handler = on[name_1];
+                    if (handler) {
+                        _this.on(name_1, handler);
+                    }
+                }
+            }
+            return _this;
+        }
+        Object.defineProperty(DListDataSelectionSingle.prototype, "type", {
+            get: function () {
+                return DListDataSelectionType.SINGLE;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DListDataSelectionSingle.prototype, "first", {
+            get: function () {
+                return this._item;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DListDataSelectionSingle.prototype, "last", {
+            get: function () {
+                return this.get(this.size() - 1);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DListDataSelectionSingle.prototype.get = function (index) {
+            if (0 === index) {
+                return this._item;
+            }
+            return null;
+        };
+        DListDataSelectionSingle.prototype.add = function (target) {
+            if (this._item !== target) {
+                this._item = target;
+                this.onChange();
+                return true;
+            }
+            return false;
+        };
+        DListDataSelectionSingle.prototype.remove = function (target) {
+            if (this._item === target) {
+                this._item = null;
+                this.onChange();
+                return true;
+            }
+            return false;
+        };
+        DListDataSelectionSingle.prototype.toggle = function (target) {
+            if (this._item === target) {
+                this._item = null;
+            }
+            else {
+                this._item = target;
+            }
+            this.onChange();
+            return true;
+        };
+        DListDataSelectionSingle.prototype.clear = function () {
+            if (this._item != null) {
+                this._item = null;
+                this.onChange();
+            }
+        };
+        DListDataSelectionSingle.prototype.clearAndAdd = function (target) {
+            if (this._item !== target) {
+                this._item = target;
+                this.onChange();
+                return true;
+            }
+            return false;
+        };
+        DListDataSelectionSingle.prototype.clearAndAddAll = function (targets) {
+            var targetsLength = targets.length;
+            if (0 < targetsLength) {
+                var last = targets[targetsLength - 1];
+                if (this._item !== last) {
+                    this._item = last;
+                    this.onChange();
+                    return true;
+                }
+            }
+            else {
+                if (this._item != null) {
+                    this._item = null;
+                    this.onChange();
+                    return true;
+                }
+            }
+            return false;
+        };
+        DListDataSelectionSingle.prototype.contains = function (target) {
+            return this._item === target;
+        };
+        DListDataSelectionSingle.prototype.size = function () {
+            return this._item != null ? 1 : 0;
+        };
+        DListDataSelectionSingle.prototype.isEmpty = function () {
+            return this.size() <= 0;
+        };
+        DListDataSelectionSingle.prototype.each = function (iteratee) {
+            var item = this._item;
+            if (item != null) {
+                iteratee(item);
+            }
+        };
+        DListDataSelectionSingle.prototype.toArray = function () {
+            var item = this._item;
+            if (item != null) {
+                return [item];
+            }
+            return [];
+        };
+        DListDataSelectionSingle.prototype.onChange = function () {
+            this._parent.update();
+            this.emit("change", this);
+        };
+        DListDataSelectionSingle.prototype.findById = function (id, toId, items) {
+            for (var i = 0, imax = items.length; i < imax; ++i) {
+                var item = items[i];
+                var itemId = toId(item);
+                if (id === itemId) {
+                    return item;
+                }
+            }
+            return null;
+        };
+        DListDataSelectionSingle.prototype.find = function (target, items) {
+            for (var i = 0, imax = items.length; i < imax; ++i) {
+                var item = items[i];
+                if (target === item) {
+                    return item;
+                }
+            }
+            return null;
+        };
+        DListDataSelectionSingle.prototype.onItemChange = function (before, items, after) {
+            var oldItem = this._item;
+            if (oldItem == null) {
+                return;
+            }
+            var newItem = null;
+            var toId = this._accessor.toId;
+            if (toId) {
+                var oldItemId = toId(oldItem);
+                newItem =
+                    this.findById(oldItemId, toId, before) ||
+                        this.findById(oldItemId, toId, items) ||
+                        this.findById(oldItemId, toId, after);
+            }
+            else {
+                newItem =
+                    this.find(oldItem, before) ||
+                        this.find(oldItem, items) ||
+                        this.find(oldItem, after);
+            }
+            if (oldItem !== newItem) {
+                this._item = newItem;
+                this.onChange();
+            }
+        };
+        return DListDataSelectionSingle;
+    }(pixi_js.utils.EventEmitter));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toImage = function (value) {
+        return value.image;
+    };
+    var toTitle = function (value) {
+        return value.title;
+    };
+    var DListItemAccessorImpl = /** @class */ (function () {
+        function DListItemAccessorImpl(options) {
+            this.toLabel = (options === null || options === void 0 ? void 0 : options.toLabel) || toLabel;
+            this.toTitle = (options === null || options === void 0 ? void 0 : options.toTitle) || toTitle;
+            this.toImage = (options === null || options === void 0 ? void 0 : options.toImage) || toImage;
+            this.toId = options === null || options === void 0 ? void 0 : options.toId;
+        }
+        return DListItemAccessorImpl;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DListDataImpl = /** @class */ (function () {
+        function DListDataImpl(parent, options) {
+            this._parent = parent;
+            if (options) {
+                this._before = options.before || [];
+                this._items = options.items || [];
+                this._after = options.after || [];
+            }
+            else {
+                this._before = [];
+                this._items = [];
+                this._after = [];
+            }
+            var accessor = new DListItemAccessorImpl(options);
+            this._accessor = accessor;
+            this._selection = this.toSelection(accessor, options);
+            this._mapped = new DListDataMappedImpl(this);
+        }
+        DListDataImpl.prototype.toSelection = function (accessor, options) {
+            var selection = options === null || options === void 0 ? void 0 : options.selection;
+            switch (selection === null || selection === void 0 ? void 0 : selection.type) {
+                case DListDataSelectionType.NONE:
+                case "NONE":
+                    return new DListDataSelectionNone(this, accessor, selection);
+                case DListDataSelectionType.MULTIPLE:
+                case "MULTIPLE":
+                    return new DListDataSelectionMultiple(this, accessor, selection);
+                default:
+                    return new DListDataSelectionSingle(this, accessor, selection);
+            }
+        };
+        Object.defineProperty(DListDataImpl.prototype, "before", {
+            get: function () {
+                return this._before;
+            },
+            set: function (before) {
+                this._before = before;
+                this._selection.onItemChange(before, this._items, this._after);
+                this.update();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DListDataImpl.prototype, "items", {
+            get: function () {
+                return this._items;
+            },
+            set: function (items) {
+                this._items = items;
+                this._selection.onItemChange(this._before, items, this._after);
+                this.update();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DListDataImpl.prototype, "after", {
+            get: function () {
+                return this._after;
+            },
+            set: function (after) {
+                this._after = after;
+                this._selection.onItemChange(this._before, this._items, after);
+                this.update();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DListDataImpl.prototype, "mapped", {
+            get: function () {
+                return this._mapped;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DListDataImpl.prototype, "accessor", {
+            get: function () {
+                return this._accessor;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DListDataImpl.prototype, "selection", {
+            get: function () {
+                return this._selection;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DListDataImpl.prototype.update = function (forcibly) {
+            this._parent.update(forcibly);
+        };
+        DListDataImpl.prototype.size = function () {
+            return this._items.length;
+        };
+        DListDataImpl.prototype.clear = function () {
+            var items = this._items;
+            if (0 < items.length) {
+                items.length = 0;
+                this.onChange();
+            }
+        };
+        DListDataImpl.prototype.clearAndAdd = function (item) {
+            var items = this._items;
+            items.length = 0;
+            items.push(item);
+            this.onChange();
+        };
+        DListDataImpl.prototype.clearAndAddAll = function (newItems) {
+            var isChanged = false;
+            var items = this._items;
+            if (0 < items.length) {
+                items.length = 0;
+                isChanged = true;
+            }
+            if (0 < newItems.length) {
+                for (var i = 0, imax = newItems.length; i < imax; ++i) {
+                    items.push(newItems[i]);
+                }
+                isChanged = true;
+            }
+            if (isChanged) {
+                this.onChange();
+            }
+        };
+        DListDataImpl.prototype.add = function (item, index) {
+            var items = this._items;
+            if (index == null) {
+                items.push(item);
+                this.onChange();
+            }
+            else if (0 <= index && index < items.length) {
+                items.splice(index, 0, item);
+                this.onChange();
+            }
+        };
+        DListDataImpl.prototype.addAll = function (newItems, index) {
+            if (0 < newItems.length) {
+                var items = this._items;
+                var itemsLength = items.length;
+                if (index == null) {
+                    for (var i = 0, imax = newItems.length; i < imax; ++i) {
+                        items.push(newItems[i]);
+                    }
+                    this.onChange();
+                }
+                else if (0 <= index && index < itemsLength) {
+                    for (var i = 0, imax = newItems.length; i < imax; ++i) {
+                        items.splice(index + i, 0, newItems[i]);
+                    }
+                    this.onChange();
+                }
+            }
+        };
+        DListDataImpl.prototype.get = function (index) {
+            var items = this._items;
+            if (0 <= index && index < items.length) {
+                return items[index];
+            }
+            return null;
+        };
+        DListDataImpl.prototype.set = function (index, item) {
+            var items = this._items;
+            if (0 <= index && index < items.length) {
+                var result = items[index];
+                items[index] = item;
+                this.onChange();
+                return result;
+            }
+            return null;
+        };
+        DListDataImpl.prototype.remove = function (index) {
+            var items = this._items;
+            if (0 <= index && index < items.length) {
+                var result = items.splice(index, 1)[0];
+                this.onChange();
+                return result;
+            }
+            return null;
+        };
+        DListDataImpl.prototype.each = function (iteratee, from, to) {
+            var items = this._items;
+            var size = items.length;
+            var ifrom = from != null ? Math.max(0, from) : 0;
+            var ito = to != null ? Math.min(size, to) : size;
+            for (var i = ifrom; i < ito; ++i) {
+                if (iteratee(items[i], i) === false) {
+                    break;
+                }
+            }
+        };
+        DListDataImpl.prototype.onChange = function () {
+            this.update();
+        };
+        return DListDataImpl;
+    }());
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -43459,71 +44452,76 @@
      */
     var DList = /** @class */ (function (_super) {
         __extends(DList, _super);
-        function DList() {
-            return _super !== null && _super.apply(this, arguments) || this;
+        function DList(options) {
+            var _this = _super.call(this, options) || this;
+            var data = _this.toData(options);
+            _this._data = data;
+            var content = _this.content;
+            content.on("move", function () {
+                _this.update();
+            });
+            content.on("resize", function () {
+                _this.update();
+            });
+            var updater = _this.newUpdater(data, content, options);
+            _this._updater = updater;
+            updater.update();
+            return _this;
         }
-        DList.prototype.onChildrenDirty = function () {
-            var selection = this._selection;
-            if (selection != null) {
-                selection.toDirty();
+        DList.prototype.newUpdater = function (data, content, options) {
+            return new DListItemUpdater(data, content, content, options === null || options === void 0 ? void 0 : options.updater);
+        };
+        DList.prototype.toData = function (options) {
+            var data = (options && (options.data || options.items)) || [];
+            if (isArray(data)) {
+                return new DListDataImpl(this, {
+                    items: data
+                });
             }
-            _super.prototype.onChildrenDirty.call(this);
+            else if ("each" in data) {
+                return data;
+            }
+            else {
+                var selection = options === null || options === void 0 ? void 0 : options.selection;
+                if (selection) {
+                    if (data.selection === undefined) {
+                        data.selection = selection;
+                    }
+                    return new DListDataImpl(this, data);
+                }
+                else {
+                    return new DListDataImpl(this, data);
+                }
+            }
         };
         Object.defineProperty(DList.prototype, "selection", {
             get: function () {
-                var _a;
-                var result = this._selection;
-                if (result == null) {
-                    var options = (_a = this._options) === null || _a === void 0 ? void 0 : _a.selection;
-                    result = options instanceof DListSelection ? options : this.newSelection(options);
-                    this._selection = result;
-                }
-                return result;
+                return this._data.selection;
             },
             enumerable: false,
             configurable: true
         });
-        DList.prototype.newSelection = function (options) {
-            return new DListSelection(this._content, options);
+        Object.defineProperty(DList.prototype, "data", {
+            get: function () {
+                return this._data;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DList.prototype.lock = function () {
+            this._updater.lock();
         };
-        DList.prototype.onRefit = function () {
-            _super.prototype.onRefit.call(this);
-            this.updateChildPosition();
-            this.updateChildVisibility();
+        DList.prototype.unlock = function (callIfNeeded) {
+            this._updater.unlock(callIfNeeded);
         };
-        DList.prototype.updateChildPosition = function () {
-            var content = this._content;
-            var items = content.children;
-            var y = 0;
-            for (var i = 0, imax = items.length; i < imax; ++i) {
-                var item = items[i];
-                if (item instanceof DBase) {
-                    item.y = y;
-                    y += item.height;
-                }
-            }
-            var scrollLimit = Math.min(0, -y + this.height);
-            if (content.y < scrollLimit) {
-                content.y = scrollLimit;
-            }
-            content.height = y;
-        };
-        DList.prototype.updateChildVisibility = function () {
-            var content = this._content;
-            var items = content.children;
-            var from = -content.y;
-            var to = from + this.height;
-            for (var i = 0, imax = items.length; i < imax; ++i) {
-                var item = items[i];
-                if (item instanceof DBase) {
-                    var itemY = item.y;
-                    item.visible = from <= itemY + item.height && itemY <= to;
-                }
-            }
-        };
-        DList.prototype.onContentChange = function () {
-            _super.prototype.onContentChange.call(this);
-            this.updateChildVisibility();
+        /**
+         * Updates items. If the `forcibly` is true, some dirty checkings for
+         * avoiding unnecessary state changes are skipped.
+         *
+         * @param forcibly true to update forcibly
+         */
+        DList.prototype.update = function (forcibly) {
+            this._updater.update(forcibly);
         };
         DList.prototype.onKeyDown = function (e) {
             UtilKeyboardEvent.moveFocusVertically(e, this);
@@ -43546,26 +44544,14 @@
             _this.state.isFocusable = false;
             return _this;
         }
+        DDialogSelectList.prototype.newUpdater = function (data, content, options) {
+            return new DDialogSelectListItemUpdater(data, content, content, options === null || options === void 0 ? void 0 : options.updater);
+        };
         DDialogSelectList.prototype.getType = function () {
             return "DDialogSelectList";
         };
         return DDialogSelectList;
     }(DList));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DDialogSelectListItem = /** @class */ (function (_super) {
-        __extends(DDialogSelectListItem, _super);
-        function DDialogSelectListItem() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        DDialogSelectListItem.prototype.getType = function () {
-            return "DDialogSelectListItem";
-        };
-        return DDialogSelectListItem;
-    }(DListItem));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -43677,41 +44663,37 @@
         }
         DDialogSelect.prototype.onInit = function (layout, options) {
             var _this = this;
-            var _a, _b, _c, _d;
+            var _a, _b;
             this._value = null;
             var theme = this.theme;
-            var item = options === null || options === void 0 ? void 0 : options.item;
-            this._itemToLabel = (_a = item === null || item === void 0 ? void 0 : item.toLabel) !== null && _a !== void 0 ? _a : theme.getItemToLabel();
-            this._itemIsEqual = (_b = item === null || item === void 0 ? void 0 : item.isEqual) !== null && _b !== void 0 ? _b : theme.getItemIsEqual();
-            this._itemPredefineds = item === null || item === void 0 ? void 0 : item.predefineds;
             // Search box
-            this._input = new DInputText({
-                parent: layout,
-                width: "padding"
-            });
+            var inputOptions = (options === null || options === void 0 ? void 0 : options.input) || {};
+            if (inputOptions.width === undefined) {
+                inputOptions.width = "padding";
+            }
+            var input = new DInputText(inputOptions);
+            this._input = input;
+            layout.addChild(input);
             // List
-            var list = new DDialogSelectList({
-                parent: layout,
-                width: "padding",
-                selection: {
-                    on: {
-                        change: function (selection) {
-                            var first = selection.first();
-                            if (first) {
-                                var value = first.value;
-                                _this._value = value;
-                                _this.onOk(value);
-                            }
-                        }
-                    }
+            var listOptions = (options === null || options === void 0 ? void 0 : options.list) || {};
+            if (listOptions.width === undefined) {
+                listOptions.width = "padding";
+            }
+            var list = new DDialogSelectList(listOptions);
+            list.selection.on("change", function (selection) {
+                var first = selection.first;
+                if (first != null) {
+                    _this._value = first;
+                    _this.onOk(first);
                 }
             });
             this._list = list;
+            layout.addChild(list);
             // Text No Items
-            var noteNoItems = new DNote(toNoteOptions(list, theme.getNoteNoItemsText(), (_c = options === null || options === void 0 ? void 0 : options.note) === null || _c === void 0 ? void 0 : _c.noItems));
+            var noteNoItems = new DNote(toNoteOptions(list, theme.getNoteNoItemsText(), (_a = options === null || options === void 0 ? void 0 : options.note) === null || _a === void 0 ? void 0 : _a.noItems));
             this._noteNoItems = noteNoItems;
             // Text Searching
-            var noteSearching = new DNote(toNoteOptions(list, theme.getNoteSearchingText(), (_d = options === null || options === void 0 ? void 0 : options.note) === null || _d === void 0 ? void 0 : _d.searching));
+            var noteSearching = new DNote(toNoteOptions(list, theme.getNoteSearchingText(), (_b = options === null || options === void 0 ? void 0 : options.note) === null || _b === void 0 ? void 0 : _b.searching));
             this._noteSearching = noteSearching;
             // Controller binding
             var search = toSearch(options === null || options === void 0 ? void 0 : options.controller);
@@ -43740,47 +44722,7 @@
             });
         };
         DDialogSelect.prototype.onSearched = function (results) {
-            var list = this._list;
-            var content = list.content;
-            var children = content.children;
-            var value = this._value;
-            var toLabel = this._itemToLabel;
-            var isEqual = this._itemIsEqual;
-            var predefineds = this._itemPredefineds;
-            // Update the existing children
-            var childrenLength = children.length;
-            var resultsLength = results.length;
-            var predefinedsLength = predefineds ? predefineds.length : 0;
-            var totalLength = predefinedsLength + resultsLength;
-            var minLength = Math.min(childrenLength, totalLength);
-            for (var i = 0; i < minLength; ++i) {
-                var child = children[i];
-                var result = i < predefinedsLength ? predefineds[i] : results[i - predefinedsLength];
-                child.text = toLabel(result, this);
-                child.value = result;
-                child.state.isActive = value != null ? isEqual(result, value, this) : false;
-            }
-            // Insert new children
-            for (var i = minLength; i < totalLength; ++i) {
-                var result = i < predefinedsLength ? predefineds[i] : results[i - predefinedsLength];
-                var newChild = this.newItem(result, toLabel(result, this));
-                newChild.state.isActive = value != null ? isEqual(result, value, this) : false;
-                content.addChild(newChild);
-            }
-            // Remove unused children
-            for (var i = childrenLength - 1; minLength <= i; --i) {
-                children[i].destroy();
-            }
-            // Clear selection
-            list.selection.toDirty();
-        };
-        DDialogSelect.prototype.newItem = function (result, label) {
-            return new DDialogSelectListItem({
-                value: result,
-                text: {
-                    value: label
-                }
-            });
+            this._list.data.items = results;
         };
         Object.defineProperty(DDialogSelect.prototype, "value", {
             get: function () {
@@ -52276,24 +53218,24 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DMenuSidedSelectionMode;
-    (function (DMenuSidedSelectionMode) {
-        DMenuSidedSelectionMode[DMenuSidedSelectionMode["NONE"] = 0] = "NONE";
-        DMenuSidedSelectionMode[DMenuSidedSelectionMode["SINGLE"] = 1] = "SINGLE";
-        DMenuSidedSelectionMode[DMenuSidedSelectionMode["SINGLE_ONCE"] = 2] = "SINGLE_ONCE";
-        DMenuSidedSelectionMode[DMenuSidedSelectionMode["DEFAULT"] = 2] = "DEFAULT";
-    })(DMenuSidedSelectionMode || (DMenuSidedSelectionMode = {}));
+    var DMenuSidedSelectionType;
+    (function (DMenuSidedSelectionType) {
+        DMenuSidedSelectionType[DMenuSidedSelectionType["NONE"] = 0] = "NONE";
+        DMenuSidedSelectionType[DMenuSidedSelectionType["SINGLE"] = 1] = "SINGLE";
+        DMenuSidedSelectionType[DMenuSidedSelectionType["SINGLE_ONCE"] = 2] = "SINGLE_ONCE";
+        DMenuSidedSelectionType[DMenuSidedSelectionType["DEFAULT"] = 2] = "DEFAULT";
+    })(DMenuSidedSelectionType || (DMenuSidedSelectionType = {}));
     var defaultFilter = function () { return true; };
     var DMenuSidedSelection = /** @class */ (function (_super) {
         __extends(DMenuSidedSelection, _super);
         function DMenuSidedSelection(content, options) {
-            var _a, _b;
+            var _a, _b, _c;
             var _this = _super.call(this) || this;
             _this._content = content;
             _this._item = null;
             _this._isDirty = true;
-            _this._mode = toEnum((_a = options === null || options === void 0 ? void 0 : options.mode) !== null && _a !== void 0 ? _a : DMenuSidedSelectionMode.DEFAULT, DMenuSidedSelectionMode);
-            _this._filter = (_b = options === null || options === void 0 ? void 0 : options.filter) !== null && _b !== void 0 ? _b : _this.getFilterDefault();
+            _this._type = toEnum((_b = (_a = options === null || options === void 0 ? void 0 : options.mode) !== null && _a !== void 0 ? _a : options === null || options === void 0 ? void 0 : options.type) !== null && _b !== void 0 ? _b : DMenuSidedSelectionType.DEFAULT, DMenuSidedSelectionType);
+            _this._filter = (_c = options === null || options === void 0 ? void 0 : options.filter) !== null && _c !== void 0 ? _c : _this.getFilterDefault();
             // Events
             var on = options === null || options === void 0 ? void 0 : options.on;
             if (on) {
@@ -52306,6 +53248,9 @@
             }
             return _this;
         }
+        DMenuSidedSelection.prototype.first = function () {
+            return this._item;
+        };
         DMenuSidedSelection.prototype.toDirty = function () {
             this._isDirty = true;
         };
@@ -52322,7 +53267,7 @@
             var children = root.children;
             for (var i = 0, imax = children.length; i < imax; ++i) {
                 var child = children[i];
-                if (child instanceof DListItem) {
+                if (child instanceof DMenuItemBase) {
                     if (child.state.isActive) {
                         this.set_(child, false);
                     }
@@ -52343,9 +53288,12 @@
             this.update();
             this.set_(item, true);
         };
-        DMenuSidedSelection.prototype.get = function () {
+        DMenuSidedSelection.prototype.get = function (index) {
             this.update();
             return this._item;
+        };
+        DMenuSidedSelection.prototype.getIndex = function (index) {
+            return null;
         };
         DMenuSidedSelection.prototype.size = function () {
             return this._item ? 1 : 0;
@@ -52368,8 +53316,8 @@
         };
         DMenuSidedSelection.prototype.set_ = function (item, emit) {
             var oldItem = this._item;
-            var mode = this._mode;
-            if (mode !== DMenuSidedSelectionMode.NONE && this._filter(item) && oldItem !== item) {
+            var mode = this._type;
+            if (mode !== DMenuSidedSelectionType.NONE && this._filter(item) && oldItem !== item) {
                 this.setState(oldItem, mode, false);
                 this._item = item;
                 this.setState(item, mode, true);
@@ -52380,7 +53328,7 @@
         };
         DMenuSidedSelection.prototype.setState = function (item, mode, isOn) {
             if (item) {
-                if (mode === DMenuSidedSelectionMode.SINGLE) {
+                if (mode === DMenuSidedSelectionType.SINGLE) {
                     item.state.isActive = isOn;
                 }
                 else {
@@ -59491,14 +60439,14 @@
         }
         return undefined;
     };
-    var toTitle = function (item) {
+    var toTitle$1 = function (item) {
         var title = item.title;
         if (isString(title)) {
             return title;
         }
         return undefined;
     };
-    var toImage = function (item) {
+    var toImage$1 = function (item) {
         return item.image;
     };
     var toChildren$1 = function (item) {
@@ -59511,8 +60459,8 @@
         function DTreeNodeAccessorImpl(options) {
             var _a, _b, _c, _d, _e;
             this.toLabel = (_a = options === null || options === void 0 ? void 0 : options.toLabel) !== null && _a !== void 0 ? _a : toLabel$1;
-            this.toTitle = (_b = options === null || options === void 0 ? void 0 : options.toTitle) !== null && _b !== void 0 ? _b : toTitle;
-            this.toImage = (_c = options === null || options === void 0 ? void 0 : options.toImage) !== null && _c !== void 0 ? _c : toImage;
+            this.toTitle = (_b = options === null || options === void 0 ? void 0 : options.toTitle) !== null && _b !== void 0 ? _b : toTitle$1;
+            this.toImage = (_c = options === null || options === void 0 ? void 0 : options.toImage) !== null && _c !== void 0 ? _c : toImage$1;
             this.toChildren = (_d = options === null || options === void 0 ? void 0 : options.toChildren) !== null && _d !== void 0 ? _d : toChildren$1;
             this.newChildren = (_e = options === null || options === void 0 ? void 0 : options.newChildren) !== null && _e !== void 0 ? _e : newChildren;
         }
@@ -59523,18 +60471,125 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DTreeDataSelection = /** @class */ (function (_super) {
-        __extends(DTreeDataSelection, _super);
-        function DTreeDataSelection(parent) {
+    var DTreeDataSelectionType;
+    (function (DTreeDataSelectionType) {
+        DTreeDataSelectionType[DTreeDataSelectionType["NONE"] = 0] = "NONE";
+        DTreeDataSelectionType[DTreeDataSelectionType["SINGLE"] = 1] = "SINGLE";
+        DTreeDataSelectionType[DTreeDataSelectionType["MULTIPLE"] = 2] = "MULTIPLE";
+    })(DTreeDataSelectionType || (DTreeDataSelectionType = {}));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DTreeDataMappedImpl = /** @class */ (function () {
+        function DTreeDataMappedImpl(parent) {
+            this._parent = parent;
+            this._nodes = [];
+            this._levels = [];
+            this._isDirty = false;
+        }
+        Object.defineProperty(DTreeDataMappedImpl.prototype, "nodes", {
+            get: function () {
+                this.update();
+                return this._nodes;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DTreeDataMappedImpl.prototype, "levels", {
+            get: function () {
+                this.update();
+                return this._levels;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DTreeDataMappedImpl.prototype.toDirty = function () {
+            this._isDirty = true;
+        };
+        DTreeDataMappedImpl.prototype.size = function () {
+            this.update();
+            return this._nodes.length;
+        };
+        DTreeDataMappedImpl.prototype.each = function (iteratee, from, to) {
+            this.update();
+            var nodes = this._nodes;
+            var ifrom = from != null ? Math.max(0, from) : 0;
+            var ito = to != null ? Math.min(nodes.length, to) : nodes.length;
+            for (var i = ifrom; i < ito; ++i) {
+                if (iteratee(nodes[i], i) === false) {
+                    break;
+                }
+            }
+        };
+        DTreeDataMappedImpl.prototype.update = function () {
+            if (this._isDirty) {
+                this._isDirty = false;
+                var parent_1 = this._parent;
+                var parentNodes = parent_1.nodes;
+                var toChildren = parent_1.accessor.toChildren;
+                var nodes = this._nodes;
+                var levels = this._levels;
+                var size = this.newNodes(parent_1, parentNodes, 0, 0, nodes, levels, toChildren);
+                if (nodes.length !== size) {
+                    nodes.length = size;
+                    levels.length = size;
+                }
+            }
+        };
+        DTreeDataMappedImpl.prototype.newNodes = function (parent, parentNodes, index, level, nodes, levels, toChildren) {
+            for (var i = 0, imax = parentNodes.length; i < imax; ++i) {
+                var parentNode = parentNodes[i];
+                if (index < nodes.length) {
+                    nodes[index] = parentNode;
+                    levels[index] = level;
+                }
+                else {
+                    nodes.push(parentNode);
+                    levels.push(level);
+                }
+                index += 1;
+                var children = toChildren(parentNode);
+                if (children && parent.isExpanded(parentNode)) {
+                    index = this.newNodes(parent, children, index, level + 1, nodes, levels, toChildren);
+                }
+            }
+            return index;
+        };
+        return DTreeDataMappedImpl;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DTreeDataSelectionMultiple = /** @class */ (function (_super) {
+        __extends(DTreeDataSelectionMultiple, _super);
+        function DTreeDataSelectionMultiple(parent, options) {
             var _this = _super.call(this) || this;
             _this._parent = parent;
             _this._nodes = new Set();
+            // Events
+            var on = options === null || options === void 0 ? void 0 : options.on;
+            if (on) {
+                for (var name_1 in on) {
+                    var handler = on[name_1];
+                    if (handler) {
+                        _this.on(name_1, handler);
+                    }
+                }
+            }
             return _this;
         }
-        Object.defineProperty(DTreeDataSelection.prototype, "first", {
-            /**
-             * A first selected node or null.
-             */
+        Object.defineProperty(DTreeDataSelectionMultiple.prototype, "type", {
+            get: function () {
+                return DTreeDataSelectionType.MULTIPLE;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DTreeDataSelectionMultiple.prototype, "first", {
             get: function () {
                 var nodes = this._nodes;
                 if (0 < nodes.size) {
@@ -59551,10 +60606,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(DTreeDataSelection.prototype, "last", {
-            /**
-             * A last selected node or null.
-             */
+        Object.defineProperty(DTreeDataSelectionMultiple.prototype, "last", {
             get: function () {
                 var nodes = this._nodes;
                 if (0 < nodes.size) {
@@ -59569,13 +60621,7 @@
             enumerable: false,
             configurable: true
         });
-        /**
-         * Returns a node at the given index or null.
-         *
-         * @param index an index
-         * @returns a node at the given index or null
-         */
-        DTreeDataSelection.prototype.get = function (index) {
+        DTreeDataSelectionMultiple.prototype.get = function (index) {
             var nodes = this._nodes;
             if (0 <= index && index < nodes.size) {
                 var counter_1 = 0;
@@ -59590,13 +60636,7 @@
             }
             return null;
         };
-        /**
-         * Adds the given node
-         *
-         * @param target a node
-         * @return true if succeeded.
-         */
-        DTreeDataSelection.prototype.add = function (target) {
+        DTreeDataSelectionMultiple.prototype.add = function (target) {
             var nodes = this._nodes;
             if (!nodes.has(target)) {
                 nodes.add(target);
@@ -59605,13 +60645,7 @@
             }
             return false;
         };
-        /**
-         * Removes the given node.
-         *
-         * @param target a node
-         * @return true if succeeded
-         */
-        DTreeDataSelection.prototype.remove = function (target) {
+        DTreeDataSelectionMultiple.prototype.remove = function (target) {
             var nodes = this._nodes;
             if (nodes.has(target)) {
                 nodes.delete(target);
@@ -59620,13 +60654,7 @@
             }
             return false;
         };
-        /**
-         * Toggles the given node.
-         *
-         * @param target a node
-         * @return true if succeeded.
-         */
-        DTreeDataSelection.prototype.toggle = function (target) {
+        DTreeDataSelectionMultiple.prototype.toggle = function (target) {
             var nodes = this._nodes;
             if (nodes.has(target)) {
                 nodes.delete(target);
@@ -59637,23 +60665,16 @@
             this.onChange();
             return true;
         };
-        /**
-         * Clears all the nodes.
-         */
-        DTreeDataSelection.prototype.clear = function () {
+        DTreeDataSelectionMultiple.prototype.clear = function () {
             var nodes = this._nodes;
             if (0 < nodes.size) {
                 nodes.clear();
                 this.onChange();
+                return true;
             }
+            return false;
         };
-        /**
-         * Clears all the exisint nodes and adds the given node.
-         *
-         * @param target a node to be added
-         * @returns true if the selection is changed
-         */
-        DTreeDataSelection.prototype.clearAndAdd = function (target) {
+        DTreeDataSelectionMultiple.prototype.clearAndAdd = function (target) {
             var nodes = this._nodes;
             var size = nodes.size;
             if (size === 1) {
@@ -59674,13 +60695,7 @@
                 return true;
             }
         };
-        /**
-         * Clears the exising nodes and add all the given nodes.
-         *
-         * @param targets nodes to be added
-         * @returns true if the selection is changed
-         */
-        DTreeDataSelection.prototype.clearAndAddAll = function (targets) {
+        DTreeDataSelectionMultiple.prototype.clearAndAddAll = function (targets) {
             var isDirty = false;
             var newNodes = new Set();
             var oldNodes = this._nodes;
@@ -59704,37 +60719,16 @@
             }
             return isDirty;
         };
-        /**
-         * Returns true if the given node is selected.
-         *
-         * @param target a node to be checked
-         * @returns true if the given node is selected
-         */
-        DTreeDataSelection.prototype.contains = function (target) {
+        DTreeDataSelectionMultiple.prototype.contains = function (target) {
             return this._nodes.has(target);
         };
-        /**
-         * Returns the number of selected nodes.
-         *
-         * @returns the number of selected nodes
-         */
-        DTreeDataSelection.prototype.size = function () {
+        DTreeDataSelectionMultiple.prototype.size = function () {
             return this._nodes.size;
         };
-        /**
-         * Returns true if the selection is empty.
-         *
-         * @returns true if the selection is empty
-         */
-        DTreeDataSelection.prototype.isEmpty = function () {
+        DTreeDataSelectionMultiple.prototype.isEmpty = function () {
             return this._nodes.size <= 0;
         };
-        /**
-         * Iterates over selected nodes.
-         *
-         * @param iteratee an iteratee
-         */
-        DTreeDataSelection.prototype.each = function (iteratee) {
+        DTreeDataSelectionMultiple.prototype.each = function (iteratee) {
             var isCanceled = false;
             this._nodes.forEach(function (item) {
                 if (!isCanceled) {
@@ -59744,28 +60738,26 @@
                 }
             });
         };
-        DTreeDataSelection.prototype.onChange = function () {
+        DTreeDataSelectionMultiple.prototype.toArray = function () {
+            var result = [];
+            this._nodes.forEach(function (item) {
+                result.push(item);
+            });
+            return result;
+        };
+        DTreeDataSelectionMultiple.prototype.onChange = function () {
             this._parent.update();
             this.emit("change", this);
         };
-        DTreeDataSelection.prototype.onNodeChange = function (nodes) {
-            if (nodes != null) {
-                var oldNodes = this._nodes;
-                var newNodes = this.newNodes(nodes, oldNodes, new Set());
-                if (oldNodes.size !== newNodes.size) {
-                    this._nodes = newNodes;
-                    this.onChange();
-                }
-            }
-            else {
-                var nodes_1 = this._nodes;
-                if (0 < nodes_1.size) {
-                    nodes_1.clear();
-                    this.onChange();
-                }
+        DTreeDataSelectionMultiple.prototype.onNodeChange = function (nodes) {
+            var oldNodes = this._nodes;
+            var newNodes = this.newNodes(nodes, oldNodes, new Set());
+            if (oldNodes.size !== newNodes.size) {
+                this._nodes = newNodes;
+                this.onChange();
             }
         };
-        DTreeDataSelection.prototype.newNodes = function (items, existing, result) {
+        DTreeDataSelectionMultiple.prototype.newNodes = function (items, existing, result) {
             var toChildren = this._parent.accessor.toChildren;
             for (var i = 0, imax = items.length; i < imax; ++i) {
                 var item = items[i];
@@ -59779,7 +60771,247 @@
             }
             return result;
         };
-        return DTreeDataSelection;
+        return DTreeDataSelectionMultiple;
+    }(pixi_js.utils.EventEmitter));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DTreeDataSelectionSingle = /** @class */ (function (_super) {
+        __extends(DTreeDataSelectionSingle, _super);
+        function DTreeDataSelectionSingle(parent, options) {
+            var _this = _super.call(this) || this;
+            _this._parent = parent;
+            _this._node = null;
+            // Events
+            var on = options === null || options === void 0 ? void 0 : options.on;
+            if (on) {
+                for (var name_1 in on) {
+                    var handler = on[name_1];
+                    if (handler) {
+                        _this.on(name_1, handler);
+                    }
+                }
+            }
+            return _this;
+        }
+        Object.defineProperty(DTreeDataSelectionSingle.prototype, "type", {
+            get: function () {
+                return DTreeDataSelectionType.SINGLE;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DTreeDataSelectionSingle.prototype, "first", {
+            get: function () {
+                return this._node;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DTreeDataSelectionSingle.prototype, "last", {
+            get: function () {
+                return this._node;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DTreeDataSelectionSingle.prototype.get = function (index) {
+            if (index === 0) {
+                return this._node;
+            }
+            return null;
+        };
+        DTreeDataSelectionSingle.prototype.add = function (target) {
+            if (this._node !== target) {
+                this._node = target;
+                this.onChange();
+                return true;
+            }
+            return false;
+        };
+        DTreeDataSelectionSingle.prototype.remove = function (target) {
+            if (this._node === target) {
+                this._node = null;
+                this.onChange();
+                return true;
+            }
+            return false;
+        };
+        DTreeDataSelectionSingle.prototype.toggle = function (target) {
+            if (this._node === target) {
+                this._node = null;
+            }
+            else {
+                this._node = target;
+            }
+            this.onChange();
+            return true;
+        };
+        DTreeDataSelectionSingle.prototype.clear = function () {
+            if (this._node != null) {
+                this._node = null;
+                this.onChange();
+                return true;
+            }
+            return false;
+        };
+        DTreeDataSelectionSingle.prototype.clearAndAdd = function (target) {
+            if (this._node === target) {
+                return false;
+            }
+            else {
+                this._node = target;
+                this.onChange();
+                return true;
+            }
+        };
+        DTreeDataSelectionSingle.prototype.clearAndAddAll = function (targets) {
+            if (0 < targets.length) {
+                var last = targets[targets.length - 1];
+                return this.clearAndAdd(last);
+            }
+            else {
+                return this.clear();
+            }
+        };
+        DTreeDataSelectionSingle.prototype.contains = function (target) {
+            return this._node === target;
+        };
+        DTreeDataSelectionSingle.prototype.size = function () {
+            return this._node != null ? 1 : 0;
+        };
+        DTreeDataSelectionSingle.prototype.isEmpty = function () {
+            return this._node == null;
+        };
+        DTreeDataSelectionSingle.prototype.each = function (iteratee) {
+            var node = this._node;
+            if (node != null) {
+                iteratee(node);
+            }
+        };
+        DTreeDataSelectionSingle.prototype.toArray = function () {
+            var node = this._node;
+            if (node != null) {
+                return [node];
+            }
+            return [];
+        };
+        DTreeDataSelectionSingle.prototype.onChange = function () {
+            this._parent.update();
+            this.emit("change", this);
+        };
+        DTreeDataSelectionSingle.prototype.onNodeChange = function (nodes) {
+            var oldNode = this._node;
+            var newNode = this.newNode(nodes, oldNode);
+            if (oldNode !== newNode) {
+                this._node = newNode;
+                this.onChange();
+            }
+        };
+        DTreeDataSelectionSingle.prototype.newNode = function (items, existing) {
+            var toChildren = this._parent.accessor.toChildren;
+            for (var i = 0, imax = items.length; i < imax; ++i) {
+                var item = items[i];
+                if (existing === item) {
+                    return item;
+                }
+                var children = toChildren(item);
+                if (children) {
+                    var result = this.newNode(children, existing);
+                    if (result != null) {
+                        return result;
+                    }
+                }
+            }
+            return null;
+        };
+        return DTreeDataSelectionSingle;
+    }(pixi_js.utils.EventEmitter));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DTreeDataSelectionNone = /** @class */ (function (_super) {
+        __extends(DTreeDataSelectionNone, _super);
+        function DTreeDataSelectionNone(parent, options) {
+            var _this = _super.call(this) || this;
+            _this._parent = parent;
+            // Events
+            var on = options === null || options === void 0 ? void 0 : options.on;
+            if (on) {
+                for (var name_1 in on) {
+                    var handler = on[name_1];
+                    if (handler) {
+                        _this.on(name_1, handler);
+                    }
+                }
+            }
+            return _this;
+        }
+        Object.defineProperty(DTreeDataSelectionNone.prototype, "type", {
+            get: function () {
+                return DTreeDataSelectionType.NONE;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DTreeDataSelectionNone.prototype, "first", {
+            get: function () {
+                return null;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DTreeDataSelectionNone.prototype, "last", {
+            get: function () {
+                return null;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DTreeDataSelectionNone.prototype.get = function (index) {
+            return null;
+        };
+        DTreeDataSelectionNone.prototype.add = function (target) {
+            return false;
+        };
+        DTreeDataSelectionNone.prototype.remove = function (target) {
+            return false;
+        };
+        DTreeDataSelectionNone.prototype.toggle = function (target) {
+            return false;
+        };
+        DTreeDataSelectionNone.prototype.clear = function () {
+            return false;
+        };
+        DTreeDataSelectionNone.prototype.clearAndAdd = function (target) {
+            return false;
+        };
+        DTreeDataSelectionNone.prototype.clearAndAddAll = function (targets) {
+            return false;
+        };
+        DTreeDataSelectionNone.prototype.contains = function (target) {
+            return false;
+        };
+        DTreeDataSelectionNone.prototype.size = function () {
+            return 0;
+        };
+        DTreeDataSelectionNone.prototype.isEmpty = function () {
+            return true;
+        };
+        DTreeDataSelectionNone.prototype.each = function (iteratee) {
+            // DO NOTHING
+        };
+        DTreeDataSelectionNone.prototype.toArray = function () {
+            return [];
+        };
+        DTreeDataSelectionNone.prototype.onNodeChange = function (nodes) {
+            // DO NOTHING
+        };
+        return DTreeDataSelectionNone;
     }(pixi_js.utils.EventEmitter));
 
     /*
@@ -59790,51 +61022,48 @@
         function DTreeDataImpl(parent, options) {
             this._parent = parent;
             this._nodeToFlag = new WeakMap();
-            this._selection = new DTreeDataSelection(this);
-            this._rows = [];
-            this._levels = [];
+            this._selection = this.toSelection(options);
             this._accessor = new DTreeNodeAccessorImpl(options);
+            var mapped = new DTreeDataMappedImpl(this);
+            this._mapped = mapped;
             var nodes = options === null || options === void 0 ? void 0 : options.nodes;
             if (nodes != null) {
                 this._nodes = nodes;
-                this._isRowsDirty = true;
+                mapped.toDirty();
             }
             else {
                 this._nodes = [];
-                this._isRowsDirty = false;
             }
         }
+        DTreeDataImpl.prototype.toSelection = function (options) {
+            var selection = options === null || options === void 0 ? void 0 : options.selection;
+            switch (selection === null || selection === void 0 ? void 0 : selection.type) {
+                case DTreeDataSelectionType.NONE:
+                case "NONE":
+                    return new DTreeDataSelectionNone(this, selection);
+                case DTreeDataSelectionType.MULTIPLE:
+                case "MULTIPLE":
+                    return new DTreeDataSelectionMultiple(this, selection);
+                default:
+                    return new DTreeDataSelectionSingle(this, selection);
+            }
+        };
         Object.defineProperty(DTreeDataImpl.prototype, "nodes", {
             get: function () {
                 return this._nodes;
             },
             set: function (nodes) {
                 this._nodes = nodes;
-                this._isRowsDirty = true;
+                this._mapped.toDirty();
                 this._selection.onNodeChange(nodes);
                 this.update();
             },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(DTreeDataImpl.prototype, "rows", {
+        Object.defineProperty(DTreeDataImpl.prototype, "mapped", {
             get: function () {
-                if (this._isRowsDirty) {
-                    this._isRowsDirty = false;
-                    this.updateRows(this._nodes);
-                }
-                return this._rows;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DTreeDataImpl.prototype, "levels", {
-            get: function () {
-                if (this._isRowsDirty) {
-                    this._isRowsDirty = false;
-                    this.updateRows(this._nodes);
-                }
-                return this._levels;
+                return this._mapped;
             },
             enumerable: false,
             configurable: true
@@ -59864,7 +61093,7 @@
             else {
                 nodeToFlag.set(target, 1);
             }
-            this._isRowsDirty = true;
+            this._mapped.toDirty();
             this.update();
             return true;
         };
@@ -59872,7 +61101,7 @@
             var nodeToFlag = this._nodeToFlag;
             if (!nodeToFlag.has(target)) {
                 nodeToFlag.set(target, 1);
-                this._isRowsDirty = true;
+                this._mapped.toDirty();
                 this.update();
                 return true;
             }
@@ -59882,37 +61111,37 @@
             var nodeToFlag = this._nodeToFlag;
             if (nodeToFlag.has(target)) {
                 nodeToFlag.delete(target);
-                this._isRowsDirty = true;
+                this._mapped.toDirty();
                 this.update();
                 return true;
             }
             return false;
         };
         DTreeDataImpl.prototype.expandAll = function () {
-            var isRowsDirty = false;
+            var isDirty = false;
             var nodeToFlag = this._nodeToFlag;
             this.each(function (node) {
                 if (!nodeToFlag.has(node)) {
                     nodeToFlag.set(node, 1);
-                    isRowsDirty = true;
+                    isDirty = true;
                 }
             });
-            if (isRowsDirty) {
-                this._isRowsDirty = true;
+            if (isDirty) {
+                this._mapped.toDirty();
                 this.update();
             }
         };
         DTreeDataImpl.prototype.collapseAll = function () {
-            var isRowsDirty = false;
+            var isDirty = false;
             var nodeToFlag = this._nodeToFlag;
             this.each(function (node) {
                 if (nodeToFlag.has(node)) {
                     nodeToFlag.delete(node);
-                    isRowsDirty = true;
+                    isDirty = true;
                 }
             });
-            if (isRowsDirty) {
-                this._isRowsDirty = true;
+            if (isDirty) {
+                this._mapped.toDirty();
                 this.update();
             }
         };
@@ -59926,42 +61155,42 @@
             var nodes = this._nodes;
             if (0 < nodes.length) {
                 nodes.length = 0;
-                this._isRowsDirty = true;
+                this._mapped.toDirty();
                 this._selection.clear();
                 this.update();
             }
         };
         DTreeDataImpl.prototype.remove = function (target) {
-            var isRowDirty = false;
+            var isDirty = false;
             this.each(function (node, index, nodes) {
                 if (node === target) {
                     nodes.splice(index, 1);
-                    isRowDirty = true;
+                    isDirty = true;
                     return false;
                 }
                 return true;
             });
-            if (isRowDirty) {
-                this._isRowsDirty = true;
+            if (isDirty) {
+                this._mapped.toDirty();
                 this._selection.remove(target);
                 this.update();
             }
-            return isRowDirty;
+            return isDirty;
         };
         DTreeDataImpl.prototype.add = function (target, parent) {
-            var isRowDirty = false;
+            var isDirty = false;
             if (parent) {
                 var accessor = this._accessor;
                 var children = accessor.toChildren(parent);
                 if (children) {
                     children.push(target);
-                    isRowDirty = true;
+                    isDirty = true;
                 }
                 else {
                     var newChildren = accessor.newChildren(parent);
                     if (newChildren) {
                         newChildren.push(target);
-                        isRowDirty = true;
+                        isDirty = true;
                     }
                 }
             }
@@ -59973,45 +61202,45 @@
                 else {
                     this._nodes = [target];
                 }
-                isRowDirty = true;
+                isDirty = true;
             }
-            if (isRowDirty) {
-                this._isRowsDirty = true;
+            if (isDirty) {
+                this._mapped.toDirty();
                 this.update();
             }
             return true;
         };
         DTreeDataImpl.prototype.addBefore = function (target, sibling) {
-            var isRowDirty = false;
+            var isDirty = false;
             this.each(function (node, index, nodes) {
                 if (node === sibling) {
                     nodes.splice(index, 0, target);
-                    isRowDirty = true;
+                    isDirty = true;
                     return false;
                 }
                 return true;
             });
-            if (isRowDirty) {
-                this._isRowsDirty = true;
+            if (isDirty) {
+                this._mapped.toDirty();
                 this.update();
             }
-            return isRowDirty;
+            return isDirty;
         };
         DTreeDataImpl.prototype.addAfter = function (target, sibling) {
-            var isRowDirty = false;
+            var isDirty = false;
             this.each(function (node, index, nodes) {
                 if (node === sibling) {
                     nodes.splice(index + 1, 0, target);
-                    isRowDirty = true;
+                    isDirty = true;
                     return false;
                 }
                 return true;
             });
-            if (isRowDirty) {
-                this._isRowsDirty = true;
+            if (isDirty) {
+                this._mapped.toDirty();
                 this.update();
             }
-            return isRowDirty;
+            return isDirty;
         };
         DTreeDataImpl.prototype.each = function (iteratee) {
             var value = this._nodes;
@@ -60031,36 +61260,6 @@
                     this.each_(children, node, iteratee);
                 }
             }
-        };
-        DTreeDataImpl.prototype.updateRows = function (nodes) {
-            var rows = this._rows;
-            var levels = this._levels;
-            var irows = this.newRows(nodes, 0, 0, rows, levels);
-            if (rows.length !== irows) {
-                rows.length = irows;
-                levels.length = irows;
-            }
-        };
-        DTreeDataImpl.prototype.newRows = function (nodes, irows, ilevel, rows, levels) {
-            var nodeToFlag = this._nodeToFlag;
-            var toChildren = this._accessor.toChildren;
-            for (var i = 0, imax = nodes.length; i < imax; ++i) {
-                var node = nodes[i];
-                if (irows < rows.length) {
-                    rows[irows] = node;
-                    levels[irows] = ilevel;
-                }
-                else {
-                    rows.push(node);
-                    levels.push(ilevel);
-                }
-                irows += 1;
-                var children = toChildren(node);
-                if (children && nodeToFlag.has(node)) {
-                    irows = this.newRows(children, irows, ilevel + 1, rows, levels);
-                }
-            }
-            return irows;
         };
         return DTreeDataImpl;
     }());
@@ -60102,6 +61301,13 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(DTreeItemText.prototype, "value", {
+            get: function () {
+                return this._node;
+            },
+            enumerable: false,
+            configurable: true
+        });
         Object.defineProperty(DTreeItemText.prototype, "data", {
             get: function () {
                 return this._data;
@@ -60115,58 +61321,101 @@
                 this._data.toggle(node);
             }
         };
-        DTreeItemText.prototype.set = function (node, level, isActive, isExpanded, forcibly) {
+        DTreeItemText.prototype.set = function (node, index, forcibly) {
             var _a;
-            this._node = node;
-            var accessor = this._data.accessor;
-            this.text = accessor.toLabel(node);
-            this.title = (_a = accessor.toTitle(node)) !== null && _a !== void 0 ? _a : "";
-            this.image = accessor.toImage(node);
+            var data = this._data;
+            var isNodeChanged = forcibly || this._node !== node;
+            if (isNodeChanged) {
+                this._node = node;
+                var accessor = data.accessor;
+                this.text = accessor.toLabel(node);
+                this.title = (_a = accessor.toTitle(node)) !== null && _a !== void 0 ? _a : "";
+                this.image = accessor.toImage(node);
+            }
+            var level = data.mapped.levels[index];
             this._padding.adjLeft(this.theme.getLevelPadding(level));
-            this.state.isActive = isActive;
-            var children = accessor.toChildren(node);
+            var children = data.accessor.toChildren(node);
             var hasChildren = !!(children && 0 < children.length);
             var state = this.state;
             state.lock();
+            state.set(DBaseState.ACTIVE, data.selection.contains(node));
+            state.remove(DBaseState.DISABLED);
             state.set(DTreeItemState.HAS_CHILDREN, hasChildren);
-            state.set(DTreeItemState.OPENED, isExpanded);
+            state.set(DTreeItemState.OPENED, data.isExpanded(node));
             state.unlock();
-            this.show();
+            if (isNodeChanged) {
+                this.emit("set", node, index, this);
+            }
         };
         DTreeItemText.prototype.unset = function () {
-            this._node = undefined;
-            this.hide();
-        };
-        DTreeItemText.prototype.onSelect = function (e, row) {
-            var selection = this._data.selection;
-            var originalEvent = e && "data" in e ? e.data.originalEvent : e;
-            if (originalEvent === null || originalEvent === void 0 ? void 0 : originalEvent.ctrlKey) {
-                selection.toggle(row);
+            if (this._node !== undefined) {
+                this._node = undefined;
+                this.text = undefined;
+                this.title = "";
+                this.image = undefined;
+                var state = this.state;
+                state.lock();
+                state.add(DBaseState.DISABLED);
+                state.remove(DBaseState.ACTIVE);
+                state.unlock();
+                this.emit("unset", this);
             }
-            else if (originalEvent === null || originalEvent === void 0 ? void 0 : originalEvent.shiftKey) {
-                var rows = this._data.rows;
-                var index = rows.indexOf(row);
-                if (0 <= index) {
-                    var last = selection.last;
-                    var lastIndex = last ? rows.indexOf(last) : 0;
-                    if (0 <= lastIndex) {
-                        var nodes = [];
-                        if (index <= lastIndex) {
-                            for (var i = index; i <= lastIndex; ++i) {
-                                nodes.push(rows[i]);
-                            }
-                        }
-                        else {
-                            for (var i = index; lastIndex <= i; --i) {
-                                nodes.push(rows[i]);
-                            }
-                        }
-                        selection.clearAndAddAll(nodes);
-                    }
-                }
+        };
+        DTreeItemText.prototype.onSelect = function (e, value) {
+            var data = this._data;
+            var selection = data.selection;
+            if (selection.type !== DTreeDataSelectionType.MULTIPLE) {
+                selection.clearAndAdd(value);
             }
             else {
-                selection.clearAndAdd(row);
+                var originalEvent = e && "data" in e ? e.data.originalEvent : e;
+                if (originalEvent === null || originalEvent === void 0 ? void 0 : originalEvent.ctrlKey) {
+                    selection.toggle(value);
+                }
+                else if (originalEvent === null || originalEvent === void 0 ? void 0 : originalEvent.shiftKey) {
+                    var mapped = data.mapped;
+                    var last_1 = selection.last;
+                    if (value === last_1) {
+                        selection.clearAndAdd(value);
+                    }
+                    else {
+                        var isFound_1 = false;
+                        var isReverse_1 = false;
+                        var newSelection_1 = [];
+                        mapped.each(function (node) {
+                            if (isFound_1) {
+                                if (isReverse_1) {
+                                    newSelection_1.unshift(node);
+                                    if (node === value) {
+                                        return false;
+                                    }
+                                }
+                                else {
+                                    newSelection_1.push(node);
+                                    if (node === last_1) {
+                                        return false;
+                                    }
+                                }
+                            }
+                            else {
+                                if (node === value) {
+                                    isFound_1 = true;
+                                    isReverse_1 = false;
+                                    newSelection_1.push(node);
+                                }
+                                else if (node === last_1) {
+                                    isFound_1 = true;
+                                    isReverse_1 = true;
+                                    newSelection_1.push(node);
+                                }
+                            }
+                        });
+                        selection.clearAndAddAll(newSelection_1);
+                    }
+                }
+                else {
+                    selection.clearAndAdd(value);
+                }
             }
         };
         DTreeItemText.prototype.onKeyDown = function (e) {
@@ -60312,15 +61561,28 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var DTreeItemUpdater = /** @class */ (function (_super) {
+        __extends(DTreeItemUpdater, _super);
+        function DTreeItemUpdater() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DTreeItemUpdater.prototype.toMapped = function (data) {
+            return data.mapped;
+        };
+        DTreeItemUpdater.prototype.newItem = function (data) {
+            return new DTreeItemNonEditable(data);
+        };
+        return DTreeItemUpdater;
+    }(DItemUpdater));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var DTree = /** @class */ (function (_super) {
         __extends(DTree, _super);
         function DTree(options) {
             var _this = _super.call(this, options) || this;
-            _this._rowIndexStart = 0;
-            _this._rowIndexEnd = 0;
-            _this._workItems = [];
-            _this._updateCount = 0;
-            _this._isUpdateCalled = false;
             var content = _this._content;
             content.on("move", function () {
                 _this.update();
@@ -60328,11 +61590,15 @@
             content.on("resize", function () {
                 _this.update();
             });
-            _this._itemHeight = _this.theme.getItemHeight();
-            _this._data = _this.toData(options);
+            var data = _this.toData(options);
+            _this._data = data;
+            _this._updater = _this.newUpdater(data, content, options);
             _this.update();
             return _this;
         }
+        DTree.prototype.newUpdater = function (data, content, options) {
+            return new DTreeItemUpdater(data, content, content, options === null || options === void 0 ? void 0 : options.updater);
+        };
         DTree.prototype.toData = function (options) {
             var data = (options && (options.data || options.nodes || options.value)) || [];
             if (isArray(data)) {
@@ -60348,115 +61614,13 @@
             }
         };
         DTree.prototype.update = function (forcibly) {
-            if (0 < this._updateCount) {
-                this._isUpdateCalled = true;
-                return;
-            }
-            var content = this._content;
-            var items = content.children;
-            var data = this._data;
-            var rows = data.rows;
-            var levels = data.levels;
-            var rowsLength = rows.length;
-            var itemHeight = this._itemHeight;
-            var height = this.height;
-            var newContentHeight = rowsLength * itemHeight;
-            var newContentY = Math.min(0, Math.max(height - newContentHeight, content.position.y));
-            var newRowIndexLowerBound = Math.floor((0 - newContentY) / itemHeight);
-            var newRowIndexUpperBound = Math.ceil((height - newContentY) / itemHeight);
-            var newRowIndexStart = Math.max(0, newRowIndexLowerBound - 2);
-            var newRowIndexEnd = Math.min(rowsLength, newRowIndexUpperBound + 2);
-            var newRowCount = newRowIndexEnd - newRowIndexStart;
-            var oldRowIndexStart = this._rowIndexStart;
-            var oldRowIndexEnd = this._rowIndexEnd;
-            var oldRowCount = oldRowIndexEnd - oldRowIndexStart;
-            if (oldRowCount < newRowCount) {
-                for (var i = items.length; i < newRowCount; ++i) {
-                    content.addChild(this.newItem(data));
-                }
-            }
-            this._rowIndexStart = newRowIndexStart;
-            this._rowIndexEnd = newRowIndexEnd;
-            var rowIndexStartDelta = newRowIndexStart - oldRowIndexStart;
-            var rowIndexStartDeltaAbs = Math.abs(rowIndexStartDelta);
-            var itemsLength = items.length;
-            if (0 < rowIndexStartDeltaAbs && rowIndexStartDeltaAbs < itemsLength) {
-                var work = this._workItems;
-                if (0 < rowIndexStartDelta) {
-                    for (var i = 0; i < rowIndexStartDeltaAbs; ++i) {
-                        work.push(this.resetItem(items[i]));
-                    }
-                    for (var i = rowIndexStartDeltaAbs; i < itemsLength; ++i) {
-                        items[i - rowIndexStartDeltaAbs] = items[i];
-                    }
-                    for (var i = 0; i < rowIndexStartDeltaAbs; ++i) {
-                        items[itemsLength - rowIndexStartDeltaAbs + i] = work[i];
-                    }
-                }
-                else {
-                    for (var i = 0; i < rowIndexStartDeltaAbs; ++i) {
-                        work.push(this.resetItem(items[itemsLength - rowIndexStartDeltaAbs + i]));
-                    }
-                    for (var i = itemsLength - rowIndexStartDeltaAbs - 1; 0 <= i; --i) {
-                        items[i + rowIndexStartDeltaAbs] = items[i];
-                    }
-                    for (var i = 0; i < rowIndexStartDeltaAbs; ++i) {
-                        items[i] = work[i];
-                    }
-                }
-                work.length = 0;
-            }
-            var selection = data.selection;
-            for (var i = newRowIndexStart; i < newRowIndexEnd; ++i) {
-                var item = items[i - newRowIndexStart];
-                var row = rows[i];
-                var level = levels[i];
-                var isSelected = selection.contains(row);
-                var isExpanded = data.isExpanded(row);
-                item.position.y = i * itemHeight;
-                item.set(row, level, isSelected, isExpanded, forcibly);
-            }
-            for (var i = newRowCount; i < itemsLength; ++i) {
-                items[i].unset();
-            }
-            this.lock();
-            content.position.y = newContentY;
-            content.height = newContentHeight;
-            this.unlock(false);
+            this._updater.update(forcibly);
         };
         DTree.prototype.lock = function () {
-            this._updateCount += 1;
-            if (this._updateCount === 1) {
-                this._isUpdateCalled = false;
-            }
+            this._updater.lock();
         };
         DTree.prototype.unlock = function (callIfNeeded) {
-            this._updateCount -= 1;
-            if (this._updateCount === 0) {
-                if (callIfNeeded && this._isUpdateCalled) {
-                    this.update();
-                }
-                this._isUpdateCalled = false;
-            }
-        };
-        DTree.prototype.newItem = function (data) {
-            return new DTreeItemNonEditable(data);
-        };
-        DTree.prototype.resetItem = function (item) {
-            item.blur(true);
-            var cells = item.children;
-            for (var i = 0, imax = cells.length; i < imax; ++i) {
-                var cell = cells[i];
-                if (cell instanceof DBase) {
-                    cell.state.isPressed = false;
-                }
-            }
-            return item;
-        };
-        DTree.prototype.deleteItem = function (item) {
-            item.off("select");
-            item.off("toggle");
-            return item;
+            this._updater.unlock(callIfNeeded);
         };
         Object.defineProperty(DTree.prototype, "data", {
             get: function () {
@@ -61209,6 +62373,7 @@
         DInputTextAndLabel: DInputTextAndLabel,
         DInputText: DInputText,
         DInput: DInput,
+        DItemUpdater: DItemUpdater,
         get DLayoutClearType () { return DLayoutClearType; },
         get DLayoutDirection () { return DLayoutDirection; },
         DLayoutHorizontal: DLayoutHorizontal,
@@ -61220,11 +62385,15 @@
         get DLinkTarget () { return DLinkTarget; },
         DLink: DLink,
         DLinks: DLinks,
-        DListItemSeparatorReflowable: DListItemSeparatorReflowable,
-        DListItemSeparator: DListItemSeparator,
+        DListDataImpl: DListDataImpl,
+        DListDataMappedImpl: DListDataMappedImpl,
+        DListDataSelectionMultiple: DListDataSelectionMultiple,
+        DListDataSelectionNone: DListDataSelectionNone,
+        DListDataSelectionSingle: DListDataSelectionSingle,
+        get DListDataSelectionType () { return DListDataSelectionType; },
+        DListItemAccessorImpl: DListItemAccessorImpl,
+        DListItemUpdater: DListItemUpdater,
         DListItem: DListItem,
-        get DListSelectionMode () { return DListSelectionMode; },
-        DListSelection: DListSelection,
         DList: DList,
         DMapCoordinateEPSG3857: DMapCoordinateEPSG3857,
         DMapCoordinates: DMapCoordinates,
@@ -61239,9 +62408,12 @@
         DMenuBarItem: DMenuBarItem,
         DMenuBar: DMenuBar,
         DMenuContext: DMenuContext,
+        DMenuItemBase: DMenuItemBase,
+        DMenuItemCheckIsCompatible: DMenuItemCheckIsCompatible,
         DMenuItemCheck: DMenuItemCheck,
         DMenuItemExpandableBody: DMenuItemExpandableBody,
         DMenuItemExpandableHeader: DMenuItemExpandableHeader,
+        DMenuItemExpandableIsCompatible: DMenuItemExpandableIsCompatible,
         DMenuItemExpandableItemCheck: DMenuItemExpandableItemCheck,
         DMenuItemExpandableItemLink: DMenuItemExpandableItemLink,
         DMenuItemExpandableItemMenu: DMenuItemExpandableItemMenu,
@@ -61250,9 +62422,15 @@
         DMenuItemExpandableItemText: DMenuItemExpandableItemText,
         DMenuItemExpandable: DMenuItemExpandable,
         DMenuItemExpandables: DMenuItemExpandables,
+        DMenuItemLinkIsCompatible: DMenuItemLinkIsCompatible,
         DMenuItemLink: DMenuItemLink,
+        DMenuItemMenuIsCompatible: DMenuItemMenuIsCompatible,
+        DMenuItemMenuToSubMenuOptions: DMenuItemMenuToSubMenuOptions,
         DMenuItemMenu: DMenuItemMenu,
+        DMenuItemSeparatorReflowable: DMenuItemSeparatorReflowable,
+        DMenuItemSeparatorIsCompatible: DMenuItemSeparatorIsCompatible,
         DMenuItemSeparator: DMenuItemSeparator,
+        DMenuItemSpaceIsCompatible: DMenuItemSpaceIsCompatible,
         DMenuItemSpace: DMenuItemSpace,
         DMenuItemText: DMenuItemText,
         DMenuItem: DMenuItem,
@@ -61271,7 +62449,7 @@
         DMenuSidedItemSeparator: DMenuSidedItemSeparator,
         DMenuSidedItemSpace: DMenuSidedItemSpace,
         DMenuSidedItemText: DMenuSidedItemText,
-        get DMenuSidedSelectionMode () { return DMenuSidedSelectionMode; },
+        get DMenuSidedSelectionType () { return DMenuSidedSelectionType; },
         DMenuSidedSelection: DMenuSidedSelection,
         DMenuSided: DMenuSided,
         DMenuSideds: DMenuSideds,
@@ -61388,11 +62566,16 @@
         DTextBase: DTextBase,
         DText: DText,
         DTreeDataImpl: DTreeDataImpl,
-        DTreeDataSelection: DTreeDataSelection,
+        DTreeDataMappedImpl: DTreeDataMappedImpl,
+        DTreeDataSelectionMultiple: DTreeDataSelectionMultiple,
+        DTreeDataSelectionNone: DTreeDataSelectionNone,
+        DTreeDataSelectionSingle: DTreeDataSelectionSingle,
+        get DTreeDataSelectionType () { return DTreeDataSelectionType; },
         DTreeItemButton: DTreeItemButton,
         DTreeItemNonEditable: DTreeItemNonEditable,
         DTreeItemState: DTreeItemState,
         DTreeItemText: DTreeItemText,
+        DTreeItemUpdater: DTreeItemUpdater,
         DTreeNodeAccessorImpl: DTreeNodeAccessorImpl,
         DTree: DTree,
         DViewDragImpl: DViewDragImpl,

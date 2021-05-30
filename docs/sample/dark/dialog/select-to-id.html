@@ -16,14 +16,14 @@
 		height: 100%;
 		margin: 0;
 		padding: 0;
-		background-color: #f2f2f2;
+		background-color: #2e2e2e;
 	}
 	</style>
 </head>
 <body>
 	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.89.3/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.89.3/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.90.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.90.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -33,9 +33,11 @@
 		new wcardinal.ui.DDialogSelect({
 			parent: application.stage,
 			mode: "MODELESS",
-			item: {
-				isEqual: function ( a, b ) {
-					return a.name === b.name;
+			list: {
+				data: {
+					toId: function(item) {
+						return item.name;
+					}
 				}
 			},
 			controller: {
