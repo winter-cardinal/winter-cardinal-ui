@@ -6,7 +6,7 @@
 import { Graphics } from "pixi.js";
 import { DBase, DReflowable } from "./d-base";
 
-export class DListItemSeparatorReflowable extends Graphics implements DReflowable {
+export class DMenuItemSeparatorReflowable extends Graphics implements DReflowable {
 	constructor(base: DBase) {
 		super();
 		base.addRenderable(this, true);

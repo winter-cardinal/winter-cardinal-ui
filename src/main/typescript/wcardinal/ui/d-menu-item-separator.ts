@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DListItemSeparatorReflowable } from "./d-menu-item-separator-reflowable";
+import { DMenuItemSeparatorReflowable } from "./d-menu-item-separator-reflowable";
 import { DMenuItemBase, DMenuItemBaseOptions, DThemeMenuItemBase } from "./d-menu-item-base";
 import { DMenuItemOptionsUnion } from "./d-menu-item-options-union";
 
@@ -36,7 +36,7 @@ export class DMenuItemSeparator<
 	}
 
 	protected initReflowable(): void {
-		new DListItemSeparatorReflowable(this);
+		new DMenuItemSeparatorReflowable(this);
 	}
 
 	protected getType(): string {
