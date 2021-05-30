@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>DListItemSelection | Winter Cardinal UI</title>
+	<title>DItemUpdater | Winter Cardinal UI</title>
 	<meta name="description" content="Documentation for Winter Cardinal UI">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">:root {
@@ -2704,11 +2704,71 @@ img {
 </header>
 <nav class="tsd-navigation secondary">
 	<ul>
-		<li class="current tsd-kind-interface">
-			<a href="dlistitemselection.html" class="tsd-kind-icon">DList<wbr>Item<wbr>Selection</a>
+		<li class="current tsd-kind-class tsd-has-type-parameter">
+			<a href="ditemupdater.html" class="tsd-kind-icon">DItem<wbr>Updater</a>
 			<ul>
-				<li class=" tsd-kind-method tsd-parent-kind-interface">
-					<a href="dlistitemselection.html#add" class="tsd-kind-icon">add</a>
+				<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter">
+					<a href="ditemupdater.html#constructor" class="tsd-kind-icon">constructor</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a href="ditemupdater.html#_container" class="tsd-kind-icon">_container</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a href="ditemupdater.html#_content" class="tsd-kind-icon">_content</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a href="ditemupdater.html#_data" class="tsd-kind-icon">_data</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a href="ditemupdater.html#_isupdateitemscalled" class="tsd-kind-icon">_is<wbr>Update<wbr>Items<wbr>Called</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a href="ditemupdater.html#_isupdateitemscalledforcibly" class="tsd-kind-icon">_is<wbr>Update<wbr>Items<wbr>Called<wbr>Forcibly</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a href="ditemupdater.html#_itemheight" class="tsd-kind-icon">_item<wbr>Height</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a href="ditemupdater.html#_itemindexend" class="tsd-kind-icon">_item<wbr>Index<wbr>End</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a href="ditemupdater.html#_itemindexstart" class="tsd-kind-icon">_item<wbr>Index<wbr>Start</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a href="ditemupdater.html#_newitem" class="tsd-kind-icon">_new<wbr>Item</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a href="ditemupdater.html#_updateitemscount" class="tsd-kind-icon">_update<wbr>Items<wbr>Count</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a href="ditemupdater.html#_workitems" class="tsd-kind-icon">_work<wbr>Items</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="ditemupdater.html#lock" class="tsd-kind-icon">lock</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a href="ditemupdater.html#newitem" class="tsd-kind-icon">new<wbr>Item</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a href="ditemupdater.html#reset" class="tsd-kind-icon">reset</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a href="ditemupdater.html#set" class="tsd-kind-icon">set</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a href="ditemupdater.html#tomapped" class="tsd-kind-icon">to<wbr>Mapped</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a href="ditemupdater.html#tonewitem" class="tsd-kind-icon">to<wbr>New<wbr>Item</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="ditemupdater.html#unlock" class="tsd-kind-icon">unlock</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a href="ditemupdater.html#unset" class="tsd-kind-icon">unset</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="ditemupdater.html#update" class="tsd-kind-icon">update</a>
 				</li>
 			</ul>
 		</li>
@@ -2716,18 +2776,49 @@ img {
 </nav>
 <div class="container container-main">
 	<div class="content-wrap">
+		<section class="tsd-panel tsd-comment">
+			<div class="tsd-comment tsd-typography">
+				<div class="lead">
+					<p>The primary purpose of this class is to minimize the number of rendered items (e.g., <a href="dlistitem.html">DListItem</a>)
+						as low as possible and to update their positions and states. For this sake, the updater calculates the
+					required number of items whenever their container size changes and creates items if needed.</p>
+				</div>
+			</div>
+		</section>
+		<section class="tsd-panel tsd-type-parameters">
+			<h3>Type parameters</h3>
+			<ul class="tsd-type-parameters">
+				<li>
+					<h4>VALUE = <span class="tsd-signature-type">unknown</span></h4>
+				</li>
+				<li>
+					<h4>DATA<span class="tsd-signature-symbol">: </span><a href="../interfaces/ditemupdaterdata.html" class="tsd-signature-type" data-tsd-kind="Interface">DItemUpdaterData</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">&gt;</span> = <a href="../interfaces/ditemupdaterdata.html" class="tsd-signature-type" data-tsd-kind="Interface">DItemUpdaterData</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">&gt;</span></h4>
+				</li>
+				<li>
+					<h4>DATA_MAPPED<span class="tsd-signature-symbol">: </span><a href="../interfaces/ditemupdaterdatamapped.html" class="tsd-signature-type" data-tsd-kind="Interface">DItemUpdaterDataMapped</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">&gt;</span> = <a href="../interfaces/ditemupdaterdatamapped.html" class="tsd-signature-type" data-tsd-kind="Interface">DItemUpdaterDataMapped</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">&gt;</span></h4>
+				</li>
+				<li>
+					<h4>ITEM<span class="tsd-signature-symbol">: </span><a href="../interfaces/ditemupdateritem.html" class="tsd-signature-type" data-tsd-kind="Interface">DItemUpdaterItem</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">&gt;</span> = <a href="../interfaces/ditemupdateritem.html" class="tsd-signature-type" data-tsd-kind="Interface">DItemUpdaterItem</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">&gt;</span></h4>
+				</li>
+				<li>
+					<h4>OPTIONS<span class="tsd-signature-symbol">: </span><a href="../interfaces/ditemupdateroptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DItemUpdaterOptions</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">DATA</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ITEM</span><span class="tsd-signature-symbol">&gt;</span> = <a href="../interfaces/ditemupdateroptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DItemUpdaterOptions</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">DATA</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ITEM</span><span class="tsd-signature-symbol">&gt;</span></h4>
+				</li>
+			</ul>
+		</section>
 		<section class="tsd-panel tsd-hierarchy">
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
 				<li>
-					<span class="target">DListItemSelection</span>
+					<span class="target">DItemUpdater</span>
+					<ul class="tsd-hierarchy">
+						<li>
+							<a href="dlistitemupdater.html" class="tsd-signature-type" data-tsd-kind="Class">DListItemUpdater</a>
+						</li>
+						<li>
+							<a href="dtreeitemupdater.html" class="tsd-signature-type" data-tsd-kind="Class">DTreeItemUpdater</a>
+						</li>
+					</ul>
 				</li>
-			</ul>
-		</section>
-		<section class="tsd-panel">
-			<h3>Implemented by</h3>
-			<ul class="tsd-hierarchy">
-				<li><a href="../classes/dmenusidedselection.html" class="tsd-signature-type" data-tsd-kind="Class">DMenuSidedSelection</a></li>
 			</ul>
 		</section>
 		<section class="tsd-panel-group tsd-index-group">
@@ -2735,33 +2826,416 @@ img {
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
 					<section class="tsd-index-section ">
+						<h3>Constructors</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter"><a href="ditemupdater.html#constructor" class="tsd-kind-icon">constructor</a></li>
+						</ul>
+					</section>
+					<section class="tsd-index-section tsd-is-private-protected">
+						<h3>Properties</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ditemupdater.html#_container" class="tsd-kind-icon">_container</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ditemupdater.html#_content" class="tsd-kind-icon">_content</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ditemupdater.html#_data" class="tsd-kind-icon">_data</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ditemupdater.html#_isupdateitemscalled" class="tsd-kind-icon">_is<wbr>Update<wbr>Items<wbr>Called</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ditemupdater.html#_isupdateitemscalledforcibly" class="tsd-kind-icon">_is<wbr>Update<wbr>Items<wbr>Called<wbr>Forcibly</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ditemupdater.html#_itemheight" class="tsd-kind-icon">_item<wbr>Height</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ditemupdater.html#_itemindexend" class="tsd-kind-icon">_item<wbr>Index<wbr>End</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ditemupdater.html#_itemindexstart" class="tsd-kind-icon">_item<wbr>Index<wbr>Start</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ditemupdater.html#_newitem" class="tsd-kind-icon">_new<wbr>Item</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ditemupdater.html#_updateitemscount" class="tsd-kind-icon">_update<wbr>Items<wbr>Count</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="ditemupdater.html#_workitems" class="tsd-kind-icon">_work<wbr>Items</a></li>
+						</ul>
+					</section>
+					<section class="tsd-index-section ">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="dlistitemselection.html#add" class="tsd-kind-icon">add</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="ditemupdater.html#lock" class="tsd-kind-icon">lock</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="ditemupdater.html#newitem" class="tsd-kind-icon">new<wbr>Item</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="ditemupdater.html#reset" class="tsd-kind-icon">reset</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="ditemupdater.html#set" class="tsd-kind-icon">set</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="ditemupdater.html#tomapped" class="tsd-kind-icon">to<wbr>Mapped</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="ditemupdater.html#tonewitem" class="tsd-kind-icon">to<wbr>New<wbr>Item</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="ditemupdater.html#unlock" class="tsd-kind-icon">unlock</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="ditemupdater.html#unset" class="tsd-kind-icon">unset</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="ditemupdater.html#update" class="tsd-kind-icon">update</a></li>
 						</ul>
 					</section>
 				</div>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
-			<h2>Methods</h2>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-				<a name="add" class="tsd-anchor"></a>
-				<h3>add</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-					<li class="tsd-signature tsd-kind-icon">add<span class="tsd-signature-symbol">(</span>item<span class="tsd-signature-symbol">: </span><a href="../classes/dbase.html" class="tsd-signature-type" data-tsd-kind="Class">DBase</a><span class="tsd-signature-symbol">&lt;</span><a href="dthemebase.html" class="tsd-signature-type" data-tsd-kind="Interface">DThemeBase</a><span class="tsd-signature-symbol">, </span><a href="dbaseoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DBaseOptions</a><span class="tsd-signature-symbol">&lt;</span><a href="dthemebase.html" class="tsd-signature-type" data-tsd-kind="Interface">DThemeBase</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+			<h2>Constructors</h2>
+			<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter">
+				<a name="constructor" class="tsd-anchor"></a>
+				<h3>constructor</h3>
+				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter">
+					<li class="tsd-signature tsd-kind-icon">new DItem<wbr>Updater&lt;VALUE, DATA, DATA_MAPPED, ITEM, OPTIONS&gt;<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DATA</span>, content<span class="tsd-signature-symbol">: </span><a href="dbase.html" class="tsd-signature-type" data-tsd-kind="Class">DBase</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/dthemebase.html" class="tsd-signature-type" data-tsd-kind="Interface">DThemeBase</a><span class="tsd-signature-symbol">, </span><a href="../interfaces/dbaseoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DBaseOptions</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/dthemebase.html" class="tsd-signature-type" data-tsd-kind="Interface">DThemeBase</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, container<span class="tsd-signature-symbol">: </span><a href="dbase.html" class="tsd-signature-type" data-tsd-kind="Class">DBase</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/dthemebase.html" class="tsd-signature-type" data-tsd-kind="Interface">DThemeBase</a><span class="tsd-signature-symbol">, </span><a href="../interfaces/dbaseoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DBaseOptions</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/dthemebase.html" class="tsd-signature-type" data-tsd-kind="Interface">DThemeBase</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">OPTIONS</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ditemupdater.html" class="tsd-signature-type" data-tsd-kind="Class">DItemUpdater</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">DATA</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">DATA_MAPPED</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ITEM</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">OPTIONS</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.89.3/src/main/typescript/wcardinal/ui/d-list-item.ts#L20">src/main/typescript/wcardinal/ui/d-list-item.ts:20</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-item-updater.ts#L55">src/main/typescript/wcardinal/ui/d-item-updater.ts:55</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-type-parameters-title">Type parameters</h4>
+						<ul class="tsd-type-parameters">
+							<li>
+								<h4>VALUE = <span class="tsd-signature-type">unknown</span></h4>
+							</li>
+							<li>
+								<h4>DATA<span class="tsd-signature-symbol">: </span><a href="../interfaces/ditemupdaterdata.html" class="tsd-signature-type" data-tsd-kind="Interface">DItemUpdaterData</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">DATA</span><span class="tsd-signature-symbol">&gt;</span> = <a href="../interfaces/ditemupdaterdata.html" class="tsd-signature-type" data-tsd-kind="Interface">DItemUpdaterData</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							</li>
+							<li>
+								<h4>DATA_MAPPED<span class="tsd-signature-symbol">: </span><a href="../interfaces/ditemupdaterdatamapped.html" class="tsd-signature-type" data-tsd-kind="Interface">DItemUpdaterDataMapped</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">DATA_MAPPED</span><span class="tsd-signature-symbol">&gt;</span> = <a href="../interfaces/ditemupdaterdatamapped.html" class="tsd-signature-type" data-tsd-kind="Interface">DItemUpdaterDataMapped</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							</li>
+							<li>
+								<h4>ITEM<span class="tsd-signature-symbol">: </span><a href="../interfaces/ditemupdateritem.html" class="tsd-signature-type" data-tsd-kind="Interface">DItemUpdaterItem</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ITEM</span><span class="tsd-signature-symbol">&gt;</span> = <a href="../interfaces/ditemupdateritem.html" class="tsd-signature-type" data-tsd-kind="Interface">DItemUpdaterItem</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							</li>
+							<li>
+								<h4>OPTIONS<span class="tsd-signature-symbol">: </span><a href="../interfaces/ditemupdateroptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DItemUpdaterOptions</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">DATA</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ITEM</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">OPTIONS</span><span class="tsd-signature-symbol">&gt;</span> = <a href="../interfaces/ditemupdateroptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DItemUpdaterOptions</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">DATA</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ITEM</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							</li>
+						</ul>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>data: <span class="tsd-signature-type">DATA</span></h5>
+							</li>
+							<li>
+								<h5>content: <a href="dbase.html" class="tsd-signature-type" data-tsd-kind="Class">DBase</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/dthemebase.html" class="tsd-signature-type" data-tsd-kind="Interface">DThemeBase</a><span class="tsd-signature-symbol">, </span><a href="../interfaces/dbaseoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DBaseOptions</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/dthemebase.html" class="tsd-signature-type" data-tsd-kind="Interface">DThemeBase</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+							</li>
+							<li>
+								<h5>container: <a href="dbase.html" class="tsd-signature-type" data-tsd-kind="Class">DBase</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/dthemebase.html" class="tsd-signature-type" data-tsd-kind="Interface">DThemeBase</a><span class="tsd-signature-symbol">, </span><a href="../interfaces/dbaseoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DBaseOptions</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/dthemebase.html" class="tsd-signature-type" data-tsd-kind="Interface">DThemeBase</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">OPTIONS</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="ditemupdater.html" class="tsd-signature-type" data-tsd-kind="Class">DItemUpdater</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">DATA</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">DATA_MAPPED</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ITEM</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">OPTIONS</span><span class="tsd-signature-symbol">&gt;</span></h4>
+					</li>
+				</ul>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group tsd-is-private-protected">
+			<h2>Properties</h2>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+				<a name="_container" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> _container</h3>
+				<div class="tsd-signature tsd-kind-icon">_container<span class="tsd-signature-symbol">:</span> <a href="dbase.html" class="tsd-signature-type" data-tsd-kind="Class">DBase</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/dthemebase.html" class="tsd-signature-type" data-tsd-kind="Interface">DThemeBase</a><span class="tsd-signature-symbol">, </span><a href="../interfaces/dbaseoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DBaseOptions</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/dthemebase.html" class="tsd-signature-type" data-tsd-kind="Interface">DThemeBase</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-item-updater.ts#L54">src/main/typescript/wcardinal/ui/d-item-updater.ts:54</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+				<a name="_content" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> _content</h3>
+				<div class="tsd-signature tsd-kind-icon">_content<span class="tsd-signature-symbol">:</span> <a href="dbase.html" class="tsd-signature-type" data-tsd-kind="Class">DBase</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/dthemebase.html" class="tsd-signature-type" data-tsd-kind="Interface">DThemeBase</a><span class="tsd-signature-symbol">, </span><a href="../interfaces/dbaseoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DBaseOptions</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/dthemebase.html" class="tsd-signature-type" data-tsd-kind="Interface">DThemeBase</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-item-updater.ts#L53">src/main/typescript/wcardinal/ui/d-item-updater.ts:53</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+				<a name="_data" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> _data</h3>
+				<div class="tsd-signature tsd-kind-icon">_data<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">DATA</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-item-updater.ts#L52">src/main/typescript/wcardinal/ui/d-item-updater.ts:52</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+				<a name="_isupdateitemscalled" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> _is<wbr>Update<wbr>Items<wbr>Called</h3>
+				<div class="tsd-signature tsd-kind-icon">_is<wbr>Update<wbr>Items<wbr>Called<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-item-updater.ts#L46">src/main/typescript/wcardinal/ui/d-item-updater.ts:46</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+				<a name="_isupdateitemscalledforcibly" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> _is<wbr>Update<wbr>Items<wbr>Called<wbr>Forcibly</h3>
+				<div class="tsd-signature tsd-kind-icon">_is<wbr>Update<wbr>Items<wbr>Called<wbr>Forcibly<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-item-updater.ts#L47">src/main/typescript/wcardinal/ui/d-item-updater.ts:47</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+				<a name="_itemheight" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> _item<wbr>Height</h3>
+				<div class="tsd-signature tsd-kind-icon">_item<wbr>Height<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-item-updater.ts#L48">src/main/typescript/wcardinal/ui/d-item-updater.ts:48</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+				<a name="_itemindexend" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> _item<wbr>Index<wbr>End</h3>
+				<div class="tsd-signature tsd-kind-icon">_item<wbr>Index<wbr>End<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-item-updater.ts#L50">src/main/typescript/wcardinal/ui/d-item-updater.ts:50</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+				<a name="_itemindexstart" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> _item<wbr>Index<wbr>Start</h3>
+				<div class="tsd-signature tsd-kind-icon">_item<wbr>Index<wbr>Start<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-item-updater.ts#L49">src/main/typescript/wcardinal/ui/d-item-updater.ts:49</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+				<a name="_newitem" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> _new<wbr>Item</h3>
+				<div class="tsd-signature tsd-kind-icon">_new<wbr>Item<span class="tsd-signature-symbol">:</span> <a href="../index.html#ditemupdaternewitem" class="tsd-signature-type" data-tsd-kind="Type alias">DItemUpdaterNewItem</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">DATA</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ITEM</span><span class="tsd-signature-symbol">&gt;</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-item-updater.ts#L55">src/main/typescript/wcardinal/ui/d-item-updater.ts:55</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+				<a name="_updateitemscount" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> _update<wbr>Items<wbr>Count</h3>
+				<div class="tsd-signature tsd-kind-icon">_update<wbr>Items<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-item-updater.ts#L45">src/main/typescript/wcardinal/ui/d-item-updater.ts:45</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+				<a name="_workitems" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> _work<wbr>Items</h3>
+				<div class="tsd-signature tsd-kind-icon">_work<wbr>Items<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ITEM</span><span class="tsd-signature-symbol">[]</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-item-updater.ts#L51">src/main/typescript/wcardinal/ui/d-item-updater.ts:51</a></li>
+					</ul>
+				</aside>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group ">
+			<h2>Methods</h2>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="lock" class="tsd-anchor"></a>
+				<h3>lock</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">lock<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-item-updater.ts#L79">src/main/typescript/wcardinal/ui/d-item-updater.ts:79</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+				<a name="newitem" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> <span class="tsd-flag ts-flagAbstract">Abstract</span> new<wbr>Item</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<li class="tsd-signature tsd-kind-icon">new<wbr>Item<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DATA</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ITEM</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-item-updater.ts#L77">src/main/typescript/wcardinal/ui/d-item-updater.ts:77</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5>item: <a href="../classes/dbase.html" class="tsd-signature-type" data-tsd-kind="Class">DBase</a><span class="tsd-signature-symbol">&lt;</span><a href="dthemebase.html" class="tsd-signature-type" data-tsd-kind="Interface">DThemeBase</a><span class="tsd-signature-symbol">, </span><a href="dbaseoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DBaseOptions</a><span class="tsd-signature-symbol">&lt;</span><a href="dthemebase.html" class="tsd-signature-type" data-tsd-kind="Interface">DThemeBase</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<h5>data: <span class="tsd-signature-type">DATA</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ITEM</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+				<a name="reset" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> reset</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<li class="tsd-signature tsd-kind-icon">reset<span class="tsd-signature-symbol">(</span>item<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ITEM</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ITEM</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-item-updater.ts#L250">src/main/typescript/wcardinal/ui/d-item-updater.ts:250</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>item: <span class="tsd-signature-type">ITEM</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ITEM</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+				<a name="set" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> set</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<li class="tsd-signature tsd-kind-icon">set<span class="tsd-signature-symbol">(</span>item<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ITEM</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">VALUE</span>, index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, forcibly<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-item-updater.ts#L242">src/main/typescript/wcardinal/ui/d-item-updater.ts:242</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>item: <span class="tsd-signature-type">ITEM</span></h5>
+							</li>
+							<li>
+								<h5>value: <span class="tsd-signature-type">VALUE</span></h5>
+							</li>
+							<li>
+								<h5>index: <span class="tsd-signature-type">number</span></h5>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> forcibly: <span class="tsd-signature-type">boolean</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+				<a name="tomapped" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> <span class="tsd-flag ts-flagAbstract">Abstract</span> to<wbr>Mapped</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<li class="tsd-signature tsd-kind-icon">to<wbr>Mapped<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DATA</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DATA_MAPPED</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-item-updater.ts#L240">src/main/typescript/wcardinal/ui/d-item-updater.ts:240</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>data: <span class="tsd-signature-type">DATA</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">DATA_MAPPED</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+				<a name="tonewitem" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> to<wbr>New<wbr>Item</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<li class="tsd-signature tsd-kind-icon">to<wbr>New<wbr>Item<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/ditemupdateroptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DItemUpdaterOptions</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">DATA</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ITEM</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../index.html#ditemupdaternewitem" class="tsd-signature-type" data-tsd-kind="Type alias">DItemUpdaterNewItem</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">DATA</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ITEM</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-item-updater.ts#L71">src/main/typescript/wcardinal/ui/d-item-updater.ts:71</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/ditemupdateroptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DItemUpdaterOptions</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">VALUE</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">DATA</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ITEM</span><span class="tsd-signature-symbol">&gt;</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="../index.html#ditemupdaternewitem" class="tsd-signature-type" data-tsd-kind="Type alias">DItemUpdaterNewItem</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">DATA</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ITEM</span><span class="tsd-signature-symbol">&gt;</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="unlock" class="tsd-anchor"></a>
+				<h3>unlock</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">unlock<span class="tsd-signature-symbol">(</span>callIfNeeded<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-item-updater.ts#L87">src/main/typescript/wcardinal/ui/d-item-updater.ts:87</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>callIfNeeded: <span class="tsd-signature-type">boolean</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+				<a name="unset" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> unset</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<li class="tsd-signature tsd-kind-icon">unset<span class="tsd-signature-symbol">(</span>item<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ITEM</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-item-updater.ts#L246">src/main/typescript/wcardinal/ui/d-item-updater.ts:246</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>item: <span class="tsd-signature-type">ITEM</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="update" class="tsd-anchor"></a>
+				<h3>update</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">update<span class="tsd-signature-symbol">(</span>forcibly<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-item-updater.ts#L98">src/main/typescript/wcardinal/ui/d-item-updater.ts:98</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> forcibly: <span class="tsd-signature-type">boolean</span></h5>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>

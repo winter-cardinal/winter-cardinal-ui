@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>DListSelectionEvents | Winter Cardinal UI</title>
+	<title>DTreeItemTextOnOptions | Winter Cardinal UI</title>
 	<meta name="description" content="Documentation for Winter Cardinal UI">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">:root {
@@ -2705,10 +2705,61 @@ img {
 <nav class="tsd-navigation secondary">
 	<ul>
 		<li class="current tsd-kind-interface tsd-has-type-parameter">
-			<a href="dlistselectionevents.html" class="tsd-kind-icon">DList<wbr>Selection<wbr>Events</a>
+			<a href="dtreeitemtextonoptions.html" class="tsd-kind-icon">DTree<wbr>Item<wbr>Text<wbr>OnOptions</a>
 			<ul>
-				<li class=" tsd-kind-method tsd-parent-kind-interface">
-					<a href="dlistselectionevents.html#change" class="tsd-kind-icon">change</a>
+				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<a href="dtreeitemtextonoptions.html#added" class="tsd-kind-icon">added</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<a href="dtreeitemtextonoptions.html#dblclick" class="tsd-kind-icon">dblclick</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<a href="dtreeitemtextonoptions.html#down" class="tsd-kind-icon">down</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<a href="dtreeitemtextonoptions.html#init" class="tsd-kind-icon">init</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<a href="dtreeitemtextonoptions.html#keydown" class="tsd-kind-icon">keydown</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<a href="dtreeitemtextonoptions.html#keyup" class="tsd-kind-icon">keyup</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<a href="dtreeitemtextonoptions.html#move" class="tsd-kind-icon">move</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<a href="dtreeitemtextonoptions.html#out" class="tsd-kind-icon">out</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<a href="dtreeitemtextonoptions.html#over" class="tsd-kind-icon">over</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<a href="dtreeitemtextonoptions.html#removed" class="tsd-kind-icon">removed</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<a href="dtreeitemtextonoptions.html#resize" class="tsd-kind-icon">resize</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<a href="dtreeitemtextonoptions.html#scale" class="tsd-kind-icon">scale</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<a href="dtreeitemtextonoptions.html#set" class="tsd-kind-icon">set</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<a href="dtreeitemtextonoptions.html#skew" class="tsd-kind-icon">skew</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<a href="dtreeitemtextonoptions.html#statechange" class="tsd-kind-icon">statechange</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<a href="dtreeitemtextonoptions.html#unset" class="tsd-kind-icon">unset</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<a href="dtreeitemtextonoptions.html#up" class="tsd-kind-icon">up</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<a href="dtreeitemtextonoptions.html#wheel" class="tsd-kind-icon">wheel</a>
 				</li>
 			</ul>
 		</li>
@@ -2719,13 +2770,16 @@ img {
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
 				<div class="lead">
-					<p><a href="../classes/dlistselection.html">DListSelection</a> events.</p>
+					<p><a href="../classes/dtreeitemtext.html">DTreeItemText</a> &quot;on&quot; options.</p>
 				</div>
 			</div>
 		</section>
 		<section class="tsd-panel tsd-type-parameters">
 			<h3>Type parameters</h3>
 			<ul class="tsd-type-parameters">
+				<li>
+					<h4>NODE</h4>
+				</li>
 				<li>
 					<h4>EMITTER</h4>
 				</li>
@@ -2735,7 +2789,15 @@ img {
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
 				<li>
-					<span class="target">DListSelectionEvents</span>
+					<span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><a href="dtreeitemtextevents.html" class="tsd-signature-type" data-tsd-kind="Interface">DTreeItemTextEvents</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">NODE</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>
+				</li>
+				<li>
+					<span class="tsd-signature-type">DOnOptions</span>
+					<ul class="tsd-hierarchy">
+						<li>
+							<span class="target">DTreeItemTextOnOptions</span>
+						</li>
+					</ul>
 				</li>
 			</ul>
 		</section>
@@ -2743,37 +2805,785 @@ img {
 			<h2>Index</h2>
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
-					<section class="tsd-index-section ">
+					<section class="tsd-index-section tsd-is-inherited">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="dlistselectionevents.html#change" class="tsd-kind-icon">change</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dtreeitemtextonoptions.html#added" class="tsd-kind-icon">added</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dtreeitemtextonoptions.html#dblclick" class="tsd-kind-icon">dblclick</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dtreeitemtextonoptions.html#down" class="tsd-kind-icon">down</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dtreeitemtextonoptions.html#init" class="tsd-kind-icon">init</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dtreeitemtextonoptions.html#keydown" class="tsd-kind-icon">keydown</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dtreeitemtextonoptions.html#keyup" class="tsd-kind-icon">keyup</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dtreeitemtextonoptions.html#move" class="tsd-kind-icon">move</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dtreeitemtextonoptions.html#out" class="tsd-kind-icon">out</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dtreeitemtextonoptions.html#over" class="tsd-kind-icon">over</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dtreeitemtextonoptions.html#removed" class="tsd-kind-icon">removed</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dtreeitemtextonoptions.html#resize" class="tsd-kind-icon">resize</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dtreeitemtextonoptions.html#scale" class="tsd-kind-icon">scale</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dtreeitemtextonoptions.html#set" class="tsd-kind-icon">set</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dtreeitemtextonoptions.html#skew" class="tsd-kind-icon">skew</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dtreeitemtextonoptions.html#statechange" class="tsd-kind-icon">statechange</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dtreeitemtextonoptions.html#unset" class="tsd-kind-icon">unset</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dtreeitemtextonoptions.html#up" class="tsd-kind-icon">up</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="dtreeitemtextonoptions.html#wheel" class="tsd-kind-icon">wheel</a></li>
 						</ul>
 					</section>
 				</div>
 			</section>
 		</section>
-		<section class="tsd-panel-group tsd-member-group ">
+		<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
 			<h2>Methods</h2>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-				<a name="change" class="tsd-anchor"></a>
-				<h3>change</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-					<li class="tsd-signature tsd-kind-icon">change<span class="tsd-signature-symbol">(</span>emitter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+				<a name="added" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> added</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">added<span class="tsd-signature-symbol">(</span>container<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Container</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
+							<p>Inherited from Partial.added</p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.89.3/src/main/typescript/wcardinal/ui/d-list-selection.ts#L27">src/main/typescript/wcardinal/ui/d-list-selection.ts:27</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-base.ts#L100">src/main/typescript/wcardinal/ui/d-base.ts:100</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Triggered when a selection is changed.</p>
+								<p>Triggered when added to a container.</p>
 							</div>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
+							<li>
+								<h5>container: <span class="tsd-signature-type">Container</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>a container added to</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+				<a name="dblclick" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> dblclick</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">dblclick<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">MouseEvent</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">TouchEvent</span>, interactionManager<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">InteractionManager</span>, emitter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from Partial.dblclick</p>
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-base.ts#L233">src/main/typescript/wcardinal/ui/d-base.ts:233</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Triggered when an emitter is double clicked.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>e: <span class="tsd-signature-type">MouseEvent</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">TouchEvent</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an event</p>
+								</div>
+							</li>
+							<li>
+								<h5>interactionManager: <span class="tsd-signature-type">InteractionManager</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an interaction manager</p>
+								</div>
+							</li>
+							<li>
+								<h5>emitter: <span class="tsd-signature-type">EMITTER</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an emitter</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+				<a name="down" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> down</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">down<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">InteractionEvent</span>, emitter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from Partial.down</p>
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-base.ts#L216">src/main/typescript/wcardinal/ui/d-base.ts:216</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Triggered when a pointer gets down on an emitter.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>e: <span class="tsd-signature-type">InteractionEvent</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an interaction event.</p>
+								</div>
+							</li>
+							<li>
+								<h5>emitter: <span class="tsd-signature-type">EMITTER</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an emitter</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+				<a name="init" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> init</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">init<span class="tsd-signature-symbol">(</span>emitter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from Partial.init</p>
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-base.ts#L93">src/main/typescript/wcardinal/ui/d-base.ts:93</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Triggered when an initialization is finished.</p>
+							</div>
+							<pre><code><span style="color: #795E26">on</span><span style="color: #000000">( </span><span style="color: #A31515">&quot;init&quot;</span><span style="color: #000000">, ( </span><span style="color: #001080">emitter</span><span style="color: #000000"> ) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {} )</span>
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>emitter: <span class="tsd-signature-type">EMITTER</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an emitter</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+				<a name="keydown" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> keydown</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">keydown<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">KeyboardEvent</span>, emitter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from Partial.keydown</p>
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-base.ts#L184">src/main/typescript/wcardinal/ui/d-base.ts:184</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Triggered when a key gets down.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>e: <span class="tsd-signature-type">KeyboardEvent</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>a keyboard event</p>
+								</div>
+							</li>
+							<li>
+								<h5>emitter: <span class="tsd-signature-type">EMITTER</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an emitter</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+				<a name="keyup" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> keyup</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">keyup<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">KeyboardEvent</span>, emitter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from Partial.keyup</p>
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-base.ts#L192">src/main/typescript/wcardinal/ui/d-base.ts:192</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Triggered when a key gets up.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>e: <span class="tsd-signature-type">KeyboardEvent</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>a keyboard event</p>
+								</div>
+							</li>
+							<li>
+								<h5>emitter: <span class="tsd-signature-type">EMITTER</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an emitter</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+				<a name="move" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> move</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">move<span class="tsd-signature-symbol">(</span>newX<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, newY<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, oldX<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, oldY<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, emitter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from Partial.move</p>
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-base.ts#L118">src/main/typescript/wcardinal/ui/d-base.ts:118</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Triggered when moved.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>newX: <span class="tsd-signature-type">number</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>a new x</p>
+								</div>
+							</li>
+							<li>
+								<h5>newY: <span class="tsd-signature-type">number</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>a new y</p>
+								</div>
+							</li>
+							<li>
+								<h5>oldX: <span class="tsd-signature-type">number</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an old x</p>
+								</div>
+							</li>
+							<li>
+								<h5>oldY: <span class="tsd-signature-type">number</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an old y</p>
+								</div>
+							</li>
+							<li>
+								<h5>emitter: <span class="tsd-signature-type">EMITTER</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an emitter</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+				<a name="out" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> out</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">out<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">InteractionEvent</span>, emitter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from Partial.out</p>
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-base.ts#L208">src/main/typescript/wcardinal/ui/d-base.ts:208</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Triggered when a pointer gets out of an emitter.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>e: <span class="tsd-signature-type">InteractionEvent</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an interaction event</p>
+								</div>
+							</li>
+							<li>
+								<h5>emitter: <span class="tsd-signature-type">EMITTER</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an emitter</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+				<a name="over" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> over</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">over<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">InteractionEvent</span>, emitter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from Partial.over</p>
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-base.ts#L200">src/main/typescript/wcardinal/ui/d-base.ts:200</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Triggered when a pointer gets on an emitter.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>e: <span class="tsd-signature-type">InteractionEvent</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an interaction event.</p>
+								</div>
+							</li>
+							<li>
+								<h5>emitter: <span class="tsd-signature-type">EMITTER</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an emitter</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+				<a name="removed" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> removed</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">removed<span class="tsd-signature-symbol">(</span>container<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Container</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from Partial.removed</p>
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-base.ts#L107">src/main/typescript/wcardinal/ui/d-base.ts:107</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Triggered when removed from a container.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>container: <span class="tsd-signature-type">Container</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>a container removed from</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+				<a name="resize" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> resize</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">resize<span class="tsd-signature-symbol">(</span>newWidth<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, newHeight<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, oldWidth<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, oldHeight<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, emitter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from Partial.resize</p>
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-base.ts#L129">src/main/typescript/wcardinal/ui/d-base.ts:129</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Triggered when resized.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>newWidth: <span class="tsd-signature-type">number</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>a new width</p>
+								</div>
+							</li>
+							<li>
+								<h5>newHeight: <span class="tsd-signature-type">number</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>a new height</p>
+								</div>
+							</li>
+							<li>
+								<h5>oldWidth: <span class="tsd-signature-type">number</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an old width</p>
+								</div>
+							</li>
+							<li>
+								<h5>oldHeight: <span class="tsd-signature-type">number</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an old height</p>
+								</div>
+							</li>
+							<li>
+								<h5>emitter: <span class="tsd-signature-type">EMITTER</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an emitter</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+				<a name="scale" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> scale</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">scale<span class="tsd-signature-symbol">(</span>newX<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, newY<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, oldX<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, oldY<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, emitter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from Partial.scale</p>
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-base.ts#L146">src/main/typescript/wcardinal/ui/d-base.ts:146</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Triggered when scaled.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>newX: <span class="tsd-signature-type">number</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>a new x</p>
+								</div>
+							</li>
+							<li>
+								<h5>newY: <span class="tsd-signature-type">number</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>a new y</p>
+								</div>
+							</li>
+							<li>
+								<h5>oldX: <span class="tsd-signature-type">number</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an old x</p>
+								</div>
+							</li>
+							<li>
+								<h5>oldY: <span class="tsd-signature-type">number</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an old y</p>
+								</div>
+							</li>
+							<li>
+								<h5>emitter: <span class="tsd-signature-type">EMITTER</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an emitter</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+				<a name="set" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> set</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">set<span class="tsd-signature-symbol">(</span>node<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NODE</span>, index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, emitter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from Partial.set</p>
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-tree-item-text.ts#L30">src/main/typescript/wcardinal/ui/d-tree-item-text.ts:30</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Triggered when a node is set.</p>
+							</div>
+							<pre><code><span style="color: #795E26">on</span><span style="color: #000000">( </span><span style="color: #A31515">&quot;set&quot;</span><span style="color: #000000">, ( </span><span style="color: #001080">node</span><span style="color: #000000">, </span><span style="color: #001080">index</span><span style="color: #000000">, </span><span style="color: #001080">emitter</span><span style="color: #000000"> ) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {} )</span>
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>node: <span class="tsd-signature-type">NODE</span></h5>
+							</li>
+							<li>
+								<h5>index: <span class="tsd-signature-type">number</span></h5>
+							</li>
+							<li>
+								<h5>emitter: <span class="tsd-signature-type">EMITTER</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an emitter</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+				<a name="skew" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> skew</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">skew<span class="tsd-signature-symbol">(</span>newX<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, newY<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, oldX<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, oldY<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, emitter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from Partial.skew</p>
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-base.ts#L157">src/main/typescript/wcardinal/ui/d-base.ts:157</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Triggered when skewed.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>newX: <span class="tsd-signature-type">number</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>a new x</p>
+								</div>
+							</li>
+							<li>
+								<h5>newY: <span class="tsd-signature-type">number</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>a new y</p>
+								</div>
+							</li>
+							<li>
+								<h5>oldX: <span class="tsd-signature-type">number</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an old x</p>
+								</div>
+							</li>
+							<li>
+								<h5>oldY: <span class="tsd-signature-type">number</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an old y</p>
+								</div>
+							</li>
+							<li>
+								<h5>emitter: <span class="tsd-signature-type">EMITTER</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an emitter</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+				<a name="statechange" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> statechange</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">statechange<span class="tsd-signature-symbol">(</span>newState<span class="tsd-signature-symbol">: </span><a href="dbasestateset.html" class="tsd-signature-type" data-tsd-kind="Interface">DBaseStateSet</a>, oldState<span class="tsd-signature-symbol">: </span><a href="dbasestateset.html" class="tsd-signature-type" data-tsd-kind="Interface">DBaseStateSet</a>, emitter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from Partial.statechange</p>
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-base.ts#L166">src/main/typescript/wcardinal/ui/d-base.ts:166</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Triggered when a state is changed.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>newState: <a href="dbasestateset.html" class="tsd-signature-type" data-tsd-kind="Interface">DBaseStateSet</a></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>a new state</p>
+								</div>
+							</li>
+							<li>
+								<h5>oldState: <a href="dbasestateset.html" class="tsd-signature-type" data-tsd-kind="Interface">DBaseStateSet</a></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an old state</p>
+								</div>
+							</li>
+							<li>
+								<h5>emitter: <span class="tsd-signature-type">EMITTER</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an emitter</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+				<a name="unset" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> unset</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">unset<span class="tsd-signature-symbol">(</span>emitter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from Partial.unset</p>
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-tree-item-text.ts#L39">src/main/typescript/wcardinal/ui/d-tree-item-text.ts:39</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Triggered when set to undefined.</p>
+							</div>
+							<pre><code><span style="color: #795E26">on</span><span style="color: #000000">( </span><span style="color: #A31515">&quot;unset&quot;</span><span style="color: #000000">, ( </span><span style="color: #001080">emitter</span><span style="color: #000000"> ) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {} )</span>
+</code></pre>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>emitter: <span class="tsd-signature-type">EMITTER</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an emitter</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+				<a name="up" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> up</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">up<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">InteractionEvent</span>, emitter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from Partial.up</p>
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-base.ts#L224">src/main/typescript/wcardinal/ui/d-base.ts:224</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Triggered when a pointer gets up on an emitter.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>e: <span class="tsd-signature-type">InteractionEvent</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an interaction event</p>
+								</div>
+							</li>
+							<li>
+								<h5>emitter: <span class="tsd-signature-type">EMITTER</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>an emitter</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+				<a name="wheel" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> wheel</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">wheel<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">WheelEvent</span>, deltas<span class="tsd-signature-symbol">: </span><a href="utilwheeleventdeltas.html" class="tsd-signature-type" data-tsd-kind="Interface">UtilWheelEventDeltas</a>, global<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Point</span>, emitter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EMITTER</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from Partial.wheel</p>
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.90.0/src/main/typescript/wcardinal/ui/d-base.ts#L176">src/main/typescript/wcardinal/ui/d-base.ts:176</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Triggered when a wheel moves.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>e: <span class="tsd-signature-type">WheelEvent</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>a wheel event</p>
+								</div>
+							</li>
+							<li>
+								<h5>deltas: <a href="utilwheeleventdeltas.html" class="tsd-signature-type" data-tsd-kind="Interface">UtilWheelEventDeltas</a></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>wheel move amounts</p>
+								</div>
+							</li>
+							<li>
+								<h5>global: <span class="tsd-signature-type">Point</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>a point wheel moved</p>
+								</div>
+							</li>
 							<li>
 								<h5>emitter: <span class="tsd-signature-type">EMITTER</span></h5>
 								<div class="tsd-comment tsd-typography">
