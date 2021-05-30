@@ -7,14 +7,8 @@ import { DBase } from "./d-base";
 import { DTreeNode } from "./d-tree-node";
 
 export interface DTreeItem<NODE extends DTreeNode = DTreeNode> extends DBase {
-	readonly node: NODE | undefined;
+	readonly node?: NODE;
 
-	set(
-		node: NODE,
-		level: number,
-		isActive: boolean,
-		isExpanded: boolean,
-		forcibly?: boolean
-	): void;
+	set(node: NODE, index: number, forcibly?: boolean): void;
 	unset(): void;
 }

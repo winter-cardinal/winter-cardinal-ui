@@ -20,7 +20,7 @@ export interface DMenuSidedOptions<
 > extends DPaneOptions<THEME, CONTENT_OPTIONS> {
 	items?: Array<DMenuItemOptionsUnion<VALUE> | DisplayObject>;
 	sticky?: boolean;
-	selection?: DMenuSidedSelectionOptions | DMenuSidedSelection;
+	selection?: DMenuSidedSelectionOptions | DMenuSidedSelection<VALUE>;
 }
 
 export interface DThemeMenuSided extends DThemePane {}
@@ -36,7 +36,7 @@ export class DMenuSided<
 	>
 > extends DPane<THEME, CONTENT_OPTIONS, OPTIONS> {
 	protected _context!: DMenuContext | null;
-	protected _selection!: DMenuSidedSelection;
+	protected _selection!: DMenuSidedSelection<VALUE>;
 
 	protected init(options?: OPTIONS): void {
 		super.init(options);
@@ -59,8 +59,8 @@ export class DMenuSided<
 		}
 	}
 
-	protected newSelection(options?: DMenuSidedSelectionOptions): DMenuSidedSelection {
-		return new DMenuSidedSelection(this._content, options);
+	protected newSelection(options?: DMenuSidedSelectionOptions): DMenuSidedSelection<VALUE> {
+		return new DMenuSidedSelection<VALUE>(this._content, options);
 	}
 
 	protected onChildrenDirty(): void {
@@ -82,7 +82,7 @@ export class DMenuSided<
 		return new DMenuSidedContent(options);
 	}
 
-	get selection(): DMenuSidedSelection {
+	get selection(): DMenuSidedSelection<VALUE> {
 		return this._selection;
 	}
 

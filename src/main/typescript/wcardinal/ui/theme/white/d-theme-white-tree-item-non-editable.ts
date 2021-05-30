@@ -15,23 +15,23 @@ DThemeWhiteTableBodyCellTrees.init();
 export class DThemeWhiteTreeItemNonEditable
 	extends DThemeWhiteTreeItemButton
 	implements DThemeTreeItemNonEditable {
-	getSecondaryImageAlignWith(): DAlignWith {
-		return DAlignWith.PADDING;
-	}
-
-	getSecondaryImageMarginHorizontal(): number {
-		return -19;
-	}
-
 	getSecondaryImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
-		return DThemeWhiteTableBodyCellTrees.getImageSource(state);
+		return this._style.getSecondaryImageSource(state);
 	}
 
 	getSecondaryImageTintColor(state: DBaseStateSet): number | null {
-		return DThemeWhiteTableBodyCellTrees.getImageTintColor(state);
+		return this._style.getSecondaryImageTintColor(state);
 	}
 
 	getSecondaryImageTintAlpha(state: DBaseStateSet): number {
-		return DThemeWhiteTableBodyCellTrees.getImageTintAlpha(state);
+		return this._style.getSecondaryImageTintAlpha(state);
+	}
+
+	getSecondaryImageAlignWith(): DAlignWith {
+		return this._style.getSecondaryImageAlignWith();
+	}
+
+	getSecondaryImageMarginHorizontal(): number {
+		return this._style.getSecondaryImageMarginHorizontal();
 	}
 }

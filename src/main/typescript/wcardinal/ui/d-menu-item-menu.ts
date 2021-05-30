@@ -5,9 +5,7 @@
 
 import { DisplayObject, interaction } from "pixi.js";
 import { DMenu, DMenuOptions } from "./d-menu";
-import { DMenuAlign } from "./d-menu-align";
 import { DMenuItem, DMenuItemOptions, DThemeMenuItem } from "./d-menu-item";
-import { DMenuItemOptionsUnion } from "./d-menu-item-options-union";
 import { DMenus } from "./d-menus";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
@@ -124,27 +122,5 @@ export class DMenuItemMenu<
 			return true;
 		}
 		return false;
-	}
-
-	static isCompatible<VALUE>(
-		options: DMenuItemOptionsUnion<VALUE>
-	): options is DMenuItemMenuOptions<VALUE> {
-		return "menu" in options;
-	}
-
-	static toSubMenuOptions<VALUE>(
-		options: DMenuItemMenuOptions<VALUE>,
-		sticky: boolean
-	): DMenuItemMenuOptions<VALUE> {
-		const menu = options.menu;
-		if (!(menu instanceof DisplayObject)) {
-			if (menu.sticky == null) {
-				menu.sticky = sticky;
-			}
-			if (menu.align == null) {
-				menu.align = DMenuAlign.RIGHT;
-			}
-		}
-		return options;
 	}
 }

@@ -192,10 +192,4 @@ export class DMenuItemExpandable<
 	protected getType(): string {
 		return "DMenuItemExpandable";
 	}
-
-	static isCompatible<VALUE>(
-		options: DMenuItemOptionsUnion<VALUE>
-	): options is DMenuItemExpandableOptions<VALUE> {
-		return "header" in options;
-	}
 }

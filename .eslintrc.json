@@ -9,7 +9,8 @@
 		"project": "./tsconfig.json"
 	},
 	"plugins": [
-		"@typescript-eslint"
+		"@typescript-eslint",
+		"unused-imports"
 	],
 	"extends": [
 		"eslint:recommended",
@@ -28,9 +29,17 @@
 			"allowArgumentsExplicitlyTypedAsAny": true
 		}],
 		"@typescript-eslint/no-non-null-assertion": "off",
+		"@typescript-eslint/no-shadow": ["error"],
 		"no-constant-condition": [ "error", {
 			"checkLoops": false
 		}],
-		"no-case-declarations": "off"
+		"no-case-declarations": "off",
+		"no-shadow": "off",
+		"no-unused-vars": "off",
+		"unused-imports/no-unused-imports": "error",
+		"unused-imports/no-unused-vars": [
+			"warn",
+			{ "vars": "all", "varsIgnorePattern": "^[A-Z_]+$", "args": "none" }
+		]
 	}
 }

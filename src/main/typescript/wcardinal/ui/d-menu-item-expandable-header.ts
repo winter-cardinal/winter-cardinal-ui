@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
-import { DListItem, DListItemOptions, DListItemSelection, DThemeListItem } from "./d-list-item";
-import { UtilPointerEvent } from "./util/util-pointer-event";
+import { DListItemOptions, DThemeListItem } from "./d-list-item";
+import { DMenuItemBase } from "./d-menu-item-base";
+import { DMenuItemBaseSelection } from "./d-menu-item-base-selection";
 
 export interface DMenuItemExpandableHeaderOptions<
 	VALUE = unknown,
@@ -21,8 +21,8 @@ export class DMenuItemExpandableHeader<
 		VALUE,
 		THEME
 	> = DMenuItemExpandableHeaderOptions<VALUE, THEME>
-> extends DListItem<VALUE, THEME, OPTIONS> {
-	protected getSelection(): DListItemSelection | null {
+> extends DMenuItemBase<VALUE, THEME, OPTIONS> {
+	protected getSelection(): DMenuItemBaseSelection | null {
 		return null;
 	}
 

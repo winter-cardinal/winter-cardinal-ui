@@ -5,95 +5,110 @@
 
 import { DBase, DBaseOptions } from "./d-base";
 import { DContentOptions } from "./d-content";
-import { DListSelection, DListSelectionOptions } from "./d-list-selection";
+import { DListData, DListDataOptions } from "./d-list-data";
+import { DListDataImpl } from "./d-list-data-impl";
+import { DListDataSelection, DListDataSelectionOptions } from "./d-list-data-selection";
 import { DPane, DPaneOptions, DThemePane } from "./d-pane";
+import { isArray } from "./util";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
+import { DListItemUpdater, DListItemUpdaterOptions } from "./d-list-item-updater";
 
 export interface DListOptions<
 	VALUE = unknown,
+	DATA extends DListData<VALUE> = DListData<VALUE>,
 	THEME extends DThemeList = DThemeList,
 	CONTENT_OPTIONS extends DBaseOptions = DContentOptions
 > extends DPaneOptions<THEME, CONTENT_OPTIONS> {
-	selection?: DListSelectionOptions<VALUE> | DListSelection<VALUE>;
+	items?: VALUE[];
+	data?: VALUE[] | DListDataOptions<VALUE> | DATA;
+	selection?: DListDataSelectionOptions<VALUE>;
+	updater?: DListItemUpdaterOptions<VALUE>;
 }
 
 export interface DThemeList extends DThemePane {}
 
 export class DList<
 	VALUE = unknown,
+	DATA extends DListData<VALUE> = DListData<VALUE>,
 	THEME extends DThemeList = DThemeList,
 	CONTENT_OPTIONS extends DBaseOptions = DContentOptions,
-	OPTIONS extends DListOptions<VALUE, THEME, CONTENT_OPTIONS> = DListOptions<
+	OPTIONS extends DListOptions<VALUE, DATA, THEME, CONTENT_OPTIONS> = DListOptions<
 		VALUE,
+		DATA,
 		THEME,
 		CONTENT_OPTIONS
 	>
 > extends DPane<THEME, CONTENT_OPTIONS, OPTIONS> {
-	protected _selection?: DListSelection<VALUE>;
+	protected _data: DATA;
+	protected _updater: DListItemUpdater<VALUE>;
 
-	protected onChildrenDirty(): void {
-		const selection = this._selection;
-		if (selection != null) {
-			selection.toDirty();
-		}
-		super.onChildrenDirty();
+	constructor(options?: OPTIONS) {
+		super(options);
+		const data = this.toData(options);
+		this._data = data;
+
+		const content = this.content;
+		content.on("move", (): void => {
+			this.update();
+		});
+		content.on("resize", (): void => {
+			this.update();
+		});
+
+		const updater = this.newUpdater(data, content, options);
+		this._updater = updater;
+		updater.update();
 	}
 
-	get selection(): DListSelection<VALUE> {
-		let result = this._selection;
-		if (result == null) {
-			const options = this._options?.selection;
-			result = options instanceof DListSelection ? options : this.newSelection(options);
-			this._selection = result;
-		}
-		return result;
+	protected newUpdater(data: DATA, content: DBase, options?: OPTIONS): DListItemUpdater<VALUE> {
+		return new DListItemUpdater<VALUE>(data, content, content, options?.updater);
 	}
 
-	protected newSelection(options?: DListSelectionOptions<VALUE>): DListSelection<VALUE> {
-		return new DListSelection<VALUE>(this._content, options);
-	}
-
-	protected onRefit(): void {
-		super.onRefit();
-		this.updateChildPosition();
-		this.updateChildVisibility();
-	}
-
-	protected updateChildPosition(): void {
-		const content = this._content;
-		const items = content.children;
-		let y = 0;
-		for (let i = 0, imax = items.length; i < imax; ++i) {
-			const item = items[i];
-			if (item instanceof DBase) {
-				item.y = y;
-				y += item.height;
-			}
-		}
-		const scrollLimit = Math.min(0, -y + this.height);
-		if (content.y < scrollLimit) {
-			content.y = scrollLimit;
-		}
-		content.height = y;
-	}
-
-	protected updateChildVisibility(): void {
-		const content = this._content;
-		const items = content.children;
-		const from = -content.y;
-		const to = from + this.height;
-		for (let i = 0, imax = items.length; i < imax; ++i) {
-			const item = items[i];
-			if (item instanceof DBase) {
-				const itemY = item.y;
-				item.visible = from <= itemY + item.height && itemY <= to;
+	protected toData(options?: OPTIONS): DATA {
+		const data = (options && (options.data || options.items)) || [];
+		if (isArray(data)) {
+			return new DListDataImpl<VALUE>(this, {
+				items: data
+			}) as any;
+		} else if ("each" in data) {
+			return data;
+		} else {
+			const selection = options?.selection;
+			if (selection) {
+				if (data.selection === undefined) {
+					data.selection = selection;
+				}
+				return new DListDataImpl<VALUE>(this, data) as any;
+			} else {
+				return new DListDataImpl<VALUE>(this, data) as any;
 			}
 		}
 	}
 
-	protected onContentChange(): void {
-		super.onContentChange();
-		this.updateChildVisibility();
+	get selection(): DListDataSelection<VALUE> {
+		return this._data.selection;
+	}
+
+	get data(): DListData<VALUE> {
+		return this._data;
+	}
+
+	lock(): void {
+		this._updater.lock();
+	}
+
+	unlock(callIfNeeded: boolean): void {
+		this._updater.unlock(callIfNeeded);
+	}
+
+	/**
+	 * Updates items. If the `forcibly` is true, some dirty checkings for
+	 * avoiding unnecessary state changes are skipped.
+	 *
+	 * @param forcibly true to update forcibly
+	 */
+	update(forcibly?: boolean): void {
+		this._updater.update(forcibly);
 	}
 
 	onKeyDown(e: KeyboardEvent): boolean {

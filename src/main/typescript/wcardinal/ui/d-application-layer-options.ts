@@ -5,7 +5,6 @@
 
 import { DApplicationPadding } from "./d-application-padding";
 import { DPadding, DPaddingLike } from "./d-padding";
-import { isNumber } from "./util/is-number";
 
 /**
  * PixiJS options

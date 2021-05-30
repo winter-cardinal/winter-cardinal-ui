@@ -8,37 +8,57 @@ import { DTreeNode } from "./d-tree-node";
 import { DTreeNodeAccessor } from "./d-tree-node-accessor";
 import { DTreeNodeAccessorImpl } from "./d-tree-node-accessor-impl";
 import { DTreeNodeIteratee } from "./d-tree-node-iteratee";
-import { DTreeDataSelection } from "./d-tree-data-selection";
+import { DTreeDataSelection, DTreeDataSelectionType } from "./d-tree-data-selection";
+import { DTreeDataMapped } from "./d-tree-data-mapped";
+import { DTreeDataMappedImpl } from "./d-tree-data-mapped-impl";
+import { DTreeDataSelectionMultiple } from "./d-tree-data-selection-multiple";
+import { DTreeDataSelectionSingle } from "./d-tree-data-selection-single";
+import { DTreeDataSelectionNone } from "./d-tree-data-selection-none";
 
 export interface DTreeDataImplParent {
 	update(): void;
 }
 
+export interface DTreeDataImplSelection<NODE extends DTreeNode> extends DTreeDataSelection<NODE> {
+	onNodeChange(nodes: NODE[]): void;
+}
+
 export class DTreeDataImpl<NODE extends DTreeNode> implements DTreeData<NODE> {
 	protected _parent: DTreeDataImplParent;
 	protected _nodeToFlag: WeakMap<NODE, number>;
-	protected _rows: NODE[];
-	protected _levels: number[];
-	protected _isRowsDirty: boolean;
-	protected _selection: DTreeDataSelection<NODE>;
+	protected _selection: DTreeDataImplSelection<NODE>;
 	protected _nodes: NODE[];
 	protected _accessor: DTreeNodeAccessor<NODE>;
+	protected _mapped: DTreeDataMapped<NODE>;
 
 	constructor(parent: DTreeDataImplParent, options?: DTreeDataOptions<NODE>) {
 		this._parent = parent;
 		this._nodeToFlag = new WeakMap<NODE, number>();
-		this._selection = new DTreeDataSelection(this);
-		this._rows = [];
-		this._levels = [];
+		this._selection = this.toSelection(options);
 		this._accessor = new DTreeNodeAccessorImpl(options);
+		const mapped = new DTreeDataMappedImpl<NODE>(this);
+		this._mapped = mapped;
 
 		const nodes = options?.nodes;
 		if (nodes != null) {
 			this._nodes = nodes;
-			this._isRowsDirty = true;
+			mapped.toDirty();
 		} else {
 			this._nodes = [];
-			this._isRowsDirty = false;
+		}
+	}
+
+	protected toSelection(options?: DTreeDataOptions<NODE>): DTreeDataImplSelection<NODE> {
+		const selection = options?.selection;
+		switch (selection?.type) {
+			case DTreeDataSelectionType.NONE:
+			case "NONE":
+				return new DTreeDataSelectionNone<NODE>(this, selection);
+			case DTreeDataSelectionType.MULTIPLE:
+			case "MULTIPLE":
+				return new DTreeDataSelectionMultiple<NODE>(this, selection);
+			default:
+				return new DTreeDataSelectionSingle<NODE>(this, selection);
 		}
 	}
 
@@ -48,25 +68,13 @@ export class DTreeDataImpl<NODE extends DTreeNode> implements DTreeData<NODE> {
 
 	set nodes(nodes: NODE[]) {
 		this._nodes = nodes;
-		this._isRowsDirty = true;
+		this._mapped.toDirty();
 		this._selection.onNodeChange(nodes);
 		this.update();
 	}
 
-	get rows(): NODE[] {
-		if (this._isRowsDirty) {
-			this._isRowsDirty = false;
-			this.updateRows(this._nodes);
-		}
-		return this._rows;
-	}
-
-	get levels(): number[] {
-		if (this._isRowsDirty) {
-			this._isRowsDirty = false;
-			this.updateRows(this._nodes);
-		}
-		return this._levels;
+	get mapped(): DTreeDataMapped<NODE> {
+		return this._mapped;
 	}
 
 	get accessor(): DTreeNodeAccessor<NODE> {
@@ -88,7 +96,7 @@ export class DTreeDataImpl<NODE extends DTreeNode> implements DTreeData<NODE> {
 		} else {
 			nodeToFlag.set(target, 1);
 		}
-		this._isRowsDirty = true;
+		this._mapped.toDirty();
 		this.update();
 		return true;
 	}
@@ -97,7 +105,7 @@ export class DTreeDataImpl<NODE extends DTreeNode> implements DTreeData<NODE> {
 		const nodeToFlag = this._nodeToFlag;
 		if (!nodeToFlag.has(target)) {
 			nodeToFlag.set(target, 1);
-			this._isRowsDirty = true;
+			this._mapped.toDirty();
 			this.update();
 			return true;
 		}
@@ -108,7 +116,7 @@ export class DTreeDataImpl<NODE extends DTreeNode> implements DTreeData<NODE> {
 		const nodeToFlag = this._nodeToFlag;
 		if (nodeToFlag.has(target)) {
 			nodeToFlag.delete(target);
-			this._isRowsDirty = true;
+			this._mapped.toDirty();
 			this.update();
 			return true;
 		}
@@ -116,31 +124,31 @@ export class DTreeDataImpl<NODE extends DTreeNode> implements DTreeData<NODE> {
 	}
 
 	expandAll(): void {
-		let isRowsDirty = false;
+		let isDirty = false;
 		const nodeToFlag = this._nodeToFlag;
 		this.each((node): void => {
 			if (!nodeToFlag.has(node)) {
 				nodeToFlag.set(node, 1);
-				isRowsDirty = true;
+				isDirty = true;
 			}
 		});
-		if (isRowsDirty) {
-			this._isRowsDirty = true;
+		if (isDirty) {
+			this._mapped.toDirty();
 			this.update();
 		}
 	}
 
 	collapseAll(): void {
-		let isRowsDirty = false;
+		let isDirty = false;
 		const nodeToFlag = this._nodeToFlag;
 		this.each((node): void => {
 			if (nodeToFlag.has(node)) {
 				nodeToFlag.delete(node);
-				isRowsDirty = true;
+				isDirty = true;
 			}
 		});
-		if (isRowsDirty) {
-			this._isRowsDirty = true;
+		if (isDirty) {
+			this._mapped.toDirty();
 			this.update();
 		}
 	}
@@ -157,43 +165,43 @@ export class DTreeDataImpl<NODE extends DTreeNode> implements DTreeData<NODE> {
 		const nodes = this._nodes;
 		if (0 < nodes.length) {
 			nodes.length = 0;
-			this._isRowsDirty = true;
+			this._mapped.toDirty();
 			this._selection.clear();
 			this.update();
 		}
 	}
 
 	remove(target: NODE): boolean {
-		let isRowDirty = false;
+		let isDirty = false;
 		this.each((node, index, nodes): boolean => {
 			if (node === target) {
 				nodes.splice(index, 1);
-				isRowDirty = true;
+				isDirty = true;
 				return false;
 			}
 			return true;
 		});
-		if (isRowDirty) {
-			this._isRowsDirty = true;
+		if (isDirty) {
+			this._mapped.toDirty();
 			this._selection.remove(target);
 			this.update();
 		}
-		return isRowDirty;
+		return isDirty;
 	}
 
 	add(target: NODE, parent?: NODE): boolean {
-		let isRowDirty = false;
+		let isDirty = false;
 		if (parent) {
 			const accessor = this._accessor;
 			const children = accessor.toChildren(parent);
 			if (children) {
 				children.push(target);
-				isRowDirty = true;
+				isDirty = true;
 			} else {
 				const newChildren = accessor.newChildren(parent);
 				if (newChildren) {
 					newChildren.push(target);
-					isRowDirty = true;
+					isDirty = true;
 				}
 			}
 		} else {
@@ -203,47 +211,47 @@ export class DTreeDataImpl<NODE extends DTreeNode> implements DTreeData<NODE> {
 			} else {
 				this._nodes = [target];
 			}
-			isRowDirty = true;
+			isDirty = true;
 		}
-		if (isRowDirty) {
-			this._isRowsDirty = true;
+		if (isDirty) {
+			this._mapped.toDirty();
 			this.update();
 		}
 		return true;
 	}
 
 	addBefore(target: NODE, sibling: NODE): boolean {
-		let isRowDirty = false;
+		let isDirty = false;
 		this.each((node, index, nodes): boolean => {
 			if (node === sibling) {
 				nodes.splice(index, 0, target);
-				isRowDirty = true;
+				isDirty = true;
 				return false;
 			}
 			return true;
 		});
-		if (isRowDirty) {
-			this._isRowsDirty = true;
+		if (isDirty) {
+			this._mapped.toDirty();
 			this.update();
 		}
-		return isRowDirty;
+		return isDirty;
 	}
 
 	addAfter(target: NODE, sibling: NODE): boolean {
-		let isRowDirty = false;
+		let isDirty = false;
 		this.each((node, index, nodes): boolean => {
 			if (node === sibling) {
 				nodes.splice(index + 1, 0, target);
-				isRowDirty = true;
+				isDirty = true;
 				return false;
 			}
 			return true;
 		});
-		if (isRowDirty) {
-			this._isRowsDirty = true;
+		if (isDirty) {
+			this._mapped.toDirty();
 			this.update();
 		}
-		return isRowDirty;
+		return isDirty;
 	}
 
 	each(iteratee: DTreeNodeIteratee<NODE>): void {
@@ -265,42 +273,5 @@ export class DTreeDataImpl<NODE extends DTreeNode> implements DTreeData<NODE> {
 				this.each_(children, node, iteratee);
 			}
 		}
-	}
-
-	protected updateRows(nodes: NODE[]): void {
-		const rows = this._rows;
-		const levels = this._levels;
-		const irows = this.newRows(nodes, 0, 0, rows, levels);
-		if (rows.length !== irows) {
-			rows.length = irows;
-			levels.length = irows;
-		}
-	}
-
-	protected newRows(
-		nodes: NODE[],
-		irows: number,
-		ilevel: number,
-		rows: NODE[],
-		levels: number[]
-	): number {
-		const nodeToFlag = this._nodeToFlag;
-		const toChildren = this._accessor.toChildren;
-		for (let i = 0, imax = nodes.length; i < imax; ++i) {
-			const node = nodes[i];
-			if (irows < rows.length) {
-				rows[irows] = node;
-				levels[irows] = ilevel;
-			} else {
-				rows.push(node);
-				levels.push(ilevel);
-			}
-			irows += 1;
-			const children = toChildren(node);
-			if (children && nodeToFlag.has(node)) {
-				irows = this.newRows(children, irows, ilevel + 1, rows, levels);
-			}
-		}
-		return irows;
 	}
 }

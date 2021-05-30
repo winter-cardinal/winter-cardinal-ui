@@ -10,7 +10,6 @@ import { DMouseModifier } from "./d-mouse-modifier";
 import { DThemeViewDrag, DViewDrag, DViewDragOptions } from "./d-view-drag";
 import { DViewStopper } from "./d-view-stopper";
 import { DViewToTarget } from "./d-view-to-target";
-import { isString } from "./util/is-string";
 import { toEnum } from "./util/to-enum";
 import { UtilDrag } from "./util/util-drag";
 

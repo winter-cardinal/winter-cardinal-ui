@@ -29,25 +29,17 @@
 			parent: application.stage,
 			x: "center", y: "center",
 			width: 500, height: 500,
-			content: {
-				children: [
-					new wcardinal.ui.DListItem({
-						text: {
-							value: "Apple"
-						}
-					}),
-					new wcardinal.ui.DListItem({
-						text: {
-							value: "Orange"
-						}
-					}),
-					new wcardinal.ui.DListItem({
-						text: {
-							value: "Pineapple"
-						}
-					})
-				]
-			}
+			data: [
+				{
+					name: "Apple"
+				},
+				{
+					name: "Orange"
+				},
+				{
+					name: "Pineapple"
+				}
+			]
 		});
 	}());
 	</script>

@@ -10,15 +10,22 @@ import { DThemeDarkPane } from "./d-theme-dark-pane";
 import { DThemeDarkTreeItems } from "./d-theme-dark-tree-items";
 
 export class DThemeDarkTree extends DThemeDarkPane implements DThemeTree {
+	protected _style: DThemeDarkTreeItems;
+
+	constructor() {
+		super();
+		this._style = this.newStyle();
+	}
+
+	protected newStyle(): DThemeDarkTreeItems {
+		return new DThemeDarkTreeItems(null, true, false);
+	}
+
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		return DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
 	}
 
 	getBorderAlign(state: DBaseStateSet): number {
 		return 1;
-	}
-
-	getItemHeight(): number {
-		return DThemeDarkTreeItems.getHeight();
 	}
 }

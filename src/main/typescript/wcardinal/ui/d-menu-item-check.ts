@@ -4,7 +4,6 @@
  */
 
 import { interaction } from "pixi.js";
-import { DMenuItemOptionsUnion } from "./d-menu-item-options-union";
 import { DMenuItemText, DMenuItemTextOptions, DThemeMenuItemText } from "./d-menu-item-text";
 
 export interface DMenuItemCheckOptions<
@@ -35,11 +34,5 @@ export class DMenuItemCheck<
 	protected onSelect(e: KeyboardEvent | interaction.InteractionEvent): void {
 		this.state.isActive = !this.state.isActive;
 		super.onSelect(e);
-	}
-
-	static isCompatible<VALUE>(
-		options: DMenuItemOptionsUnion<VALUE>
-	): options is DMenuItemCheckOptions<VALUE> {
-		return "check" in options;
 	}
 }

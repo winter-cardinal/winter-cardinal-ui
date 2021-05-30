@@ -190,50 +190,6 @@ void main(void) {
 	vUv = aUv;
 }`;
 
-const FRAGMENT_SHADER_NO_AA = `
-varying mediump vec3 vClipping;
-varying mediump vec2 vStep;
-varying mediump vec4 vAntialias;
-varying mediump vec4 vColorFill;
-varying mediump vec4 vColorStroke;
-varying mediump vec2 vUv;
-
-uniform sampler2D sampler;
-uniform mediump float pixelScale;
-
-void main(void) {
-	vec4 texture = texture2D(sampler, vUv);
-	float type = vClipping.z;
-	vec2 v0 = vStep;
-	vec2 v1 = vClipping.xy;
-	vec2 v2 = v0 * vAntialias.xy;
-	vec2 v3 = v1 * vAntialias.zw;
-	vec2 d01 = ( v0.x < v0.y ? vec2( v0.y, v2.y ) : vec2( v0.x, v2.x ) );
-	vec2 d02 = ( v1.x < v1.y ? vec2( v1.y, v3.y ) : vec2( v1.x, v3.x ) );
-	vec4 d0 = vec4( d01.x, d02.x, d01.y, d02.y );
-	vec4 d1 = vec4( dot( v0, v0 ), dot( v1, v1 ), dot( v2, v2 ), dot( v3, v3 ) );
-	vec4 d = ( type == 1.0 ? d1 : d0 );
-	vec2 s = step( vec2( 1.0 ), d.xy );
-	vec4 color01 = texture * (vColorStroke * (s.x - s.y) + vColorFill * (1.0 - s.x));
-
-	float l = vColorStroke.x;
-	float lp0 = vColorStroke.y;
-	float lp1 = vColorStroke.z;
-	float lt = vColorStroke.w;
-	float lm = mod( l, lp0 + lp1 );
-	float ls0 = step( 0.0, lm );
-	float ls1 = step( lp0, lm );
-	float ls2 = ( 0.0 <= lt ? 1.0 - step( lt, l ) : 1.0 );
-	vec4 color3456 = color01 * ( ls0 - ls1 ) * ls2;
-
-	vec2 a0 = vAntialias.xy;
-	vec2 a1 = vAntialias.zw;
-	vec2 a2 = vec2( texture.a );
-	vec2 a = smoothstep( a0 - a1, a0 + a1, a2 );
-	vec4 color2 = a.x * vColorFill + ( a.y - a.x ) * vColorStroke;
-	gl_FragColor = ( type == 2.0 ? color2 : (2.5 < type ? color3456 : color01) );
-}`;
-
 const FRAGMENT_SHADER = `
 varying mediump vec3 vClipping;
 varying mediump vec2 vStep;

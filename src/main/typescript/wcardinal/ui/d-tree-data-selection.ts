@@ -4,50 +4,64 @@
  */
 
 import { utils } from "pixi.js";
+import { DOnOptions } from "./d-on-options";
 import { DTreeNode } from "./d-tree-node";
-import { DTreeDataSelectionParent } from "./d-tree-data-selection-parent";
 
-export class DTreeDataSelection<NODE extends DTreeNode> extends utils.EventEmitter {
-	protected _parent: DTreeDataSelectionParent<NODE>;
-	protected _nodes: Set<NODE>;
+export enum DTreeDataSelectionType {
+	NONE,
+	SINGLE,
+	MULTIPLE
+}
 
-	constructor(parent: DTreeDataSelectionParent<NODE>) {
-		super();
-		this._parent = parent;
-		this._nodes = new Set<NODE>();
-	}
+/**
+ * {@link DListSelection} events.
+ */
+export interface DTreeDataSelectionEvents<EMITTER> {
+	/**
+	 * Triggered when a selection is changed.
+	 *
+	 * @param emitter an emitter
+	 */
+	change(emitter: EMITTER): void;
+}
+
+/**
+ * {@link DListSelection} "on" options.
+ */
+export interface DTreeDataSelectionOnOptions<EMITTER>
+	extends Partial<DTreeDataSelectionEvents<EMITTER>>,
+		DOnOptions {}
+
+/**
+ * {@link DListSelection} options.
+ */
+export interface DTreeDataSelectionOptions<ITEM, EMITTER = any> {
+	/**
+	 * A type.
+	 */
+	type?: DTreeDataSelectionType | keyof typeof DTreeDataSelectionType;
+
+	/**
+	 * Mappings of event names and handlers.
+	 */
+	on?: DTreeDataSelectionOnOptions<EMITTER>;
+}
+
+export interface DTreeDataSelection<NODE extends DTreeNode> extends utils.EventEmitter {
+	/**
+	 * A type.
+	 */
+	readonly type: DTreeDataSelectionType;
 
 	/**
 	 * A first selected node or null.
 	 */
-	get first(): NODE | null {
-		const nodes = this._nodes;
-		if (0 < nodes.size) {
-			let result: NODE | null = null;
-			nodes.forEach((item: NODE): void => {
-				if (result == null) {
-					result = item;
-				}
-			});
-			return result;
-		}
-		return null;
-	}
+	readonly first: NODE | null;
 
 	/**
 	 * A last selected node or null.
 	 */
-	get last(): NODE | null {
-		const nodes = this._nodes;
-		if (0 < nodes.size) {
-			let result: NODE | null = null;
-			nodes.forEach((row: NODE): void => {
-				result = row;
-			});
-			return result;
-		}
-		return null;
-	}
+	readonly last: NODE | null;
 
 	/**
 	 * Returns a node at the given index or null.
@@ -55,21 +69,7 @@ export class DTreeDataSelection<NODE extends DTreeNode> extends utils.EventEmitt
 	 * @param index an index
 	 * @returns a node at the given index or null
 	 */
-	get(index: number): NODE | null {
-		const nodes = this._nodes;
-		if (0 <= index && index < nodes.size) {
-			let counter = 0;
-			let result: NODE | null = null;
-			nodes.forEach((node): void => {
-				if (counter === index) {
-					result = node;
-				}
-				counter += 1;
-			});
-			return result;
-		}
-		return null;
-	}
+	get(index: number): NODE | null;
 
 	/**
 	 * Adds the given node
@@ -77,15 +77,7 @@ export class DTreeDataSelection<NODE extends DTreeNode> extends utils.EventEmitt
 	 * @param target a node
 	 * @return true if succeeded.
 	 */
-	add(target: NODE): boolean {
-		const nodes = this._nodes;
-		if (!nodes.has(target)) {
-			nodes.add(target);
-			this.onChange();
-			return true;
-		}
-		return false;
-	}
+	add(target: NODE): boolean;
 
 	/**
 	 * Removes the given node.
@@ -93,15 +85,7 @@ export class DTreeDataSelection<NODE extends DTreeNode> extends utils.EventEmitt
 	 * @param target a node
 	 * @return true if succeeded
 	 */
-	remove(target: NODE): boolean {
-		const nodes = this._nodes;
-		if (nodes.has(target)) {
-			nodes.delete(target);
-			this.onChange();
-			return true;
-		}
-		return false;
-	}
+	remove(target: NODE): boolean;
 
 	/**
 	 * Toggles the given node.
@@ -109,27 +93,12 @@ export class DTreeDataSelection<NODE extends DTreeNode> extends utils.EventEmitt
 	 * @param target a node
 	 * @return true if succeeded.
 	 */
-	toggle(target: NODE): boolean {
-		const nodes = this._nodes;
-		if (nodes.has(target)) {
-			nodes.delete(target);
-		} else {
-			nodes.add(target);
-		}
-		this.onChange();
-		return true;
-	}
+	toggle(target: NODE): boolean;
 
 	/**
 	 * Clears all the nodes.
 	 */
-	clear(): void {
-		const nodes = this._nodes;
-		if (0 < nodes.size) {
-			nodes.clear();
-			this.onChange();
-		}
-	}
+	clear(): boolean;
 
 	/**
 	 * Clears all the exisint nodes and adds the given node.
@@ -137,25 +106,7 @@ export class DTreeDataSelection<NODE extends DTreeNode> extends utils.EventEmitt
 	 * @param target a node to be added
 	 * @returns true if the selection is changed
 	 */
-	clearAndAdd(target: NODE): boolean {
-		const nodes = this._nodes;
-		const size = nodes.size;
-		if (size === 1) {
-			if (nodes.has(target)) {
-				return false;
-			} else {
-				nodes.clear();
-				nodes.add(target);
-				this.onChange();
-				return true;
-			}
-		} else {
-			nodes.clear();
-			nodes.add(target);
-			this.onChange();
-			return true;
-		}
-	}
+	clearAndAdd(target: NODE): boolean;
 
 	/**
 	 * Clears the exising nodes and add all the given nodes.
@@ -163,30 +114,7 @@ export class DTreeDataSelection<NODE extends DTreeNode> extends utils.EventEmitt
 	 * @param targets nodes to be added
 	 * @returns true if the selection is changed
 	 */
-	clearAndAddAll(targets: NODE[]): boolean {
-		let isDirty = false;
-		const newNodes = new Set<NODE>();
-		const oldNodes = this._nodes;
-		for (let i = 0, imax = targets.length; i < imax; ++i) {
-			const target = targets[i];
-			if (!oldNodes.has(target)) {
-				isDirty = true;
-			}
-			newNodes.add(target);
-		}
-		if (!isDirty) {
-			oldNodes.forEach((oldItem): void => {
-				if (!newNodes.has(oldItem)) {
-					isDirty = true;
-				}
-			});
-		}
-		if (isDirty) {
-			this._nodes = newNodes;
-			this.onChange();
-		}
-		return isDirty;
-	}
+	clearAndAddAll(targets: NODE[]): boolean;
 
 	/**
 	 * Returns true if the given node is selected.
@@ -194,78 +122,33 @@ export class DTreeDataSelection<NODE extends DTreeNode> extends utils.EventEmitt
 	 * @param target a node to be checked
 	 * @returns true if the given node is selected
 	 */
-	contains(target: NODE): boolean {
-		return this._nodes.has(target);
-	}
+	contains(target: NODE): boolean;
 
 	/**
 	 * Returns the number of selected nodes.
 	 *
 	 * @returns the number of selected nodes
 	 */
-	size(): number {
-		return this._nodes.size;
-	}
+	size(): number;
 
 	/**
 	 * Returns true if the selection is empty.
 	 *
 	 * @returns true if the selection is empty
 	 */
-	isEmpty(): boolean {
-		return this._nodes.size <= 0;
-	}
+	isEmpty(): boolean;
 
 	/**
 	 * Iterates over selected nodes.
 	 *
 	 * @param iteratee an iteratee
 	 */
-	each(iteratee: (node: NODE) => boolean | void): void {
-		let isCanceled = false;
-		this._nodes.forEach((item): void => {
-			if (!isCanceled) {
-				if (iteratee(item) === false) {
-					isCanceled = true;
-				}
-			}
-		});
-	}
+	each(iteratee: (node: NODE) => boolean | void): void;
 
-	protected onChange(): void {
-		this._parent.update();
-		this.emit("change", this);
-	}
-
-	onNodeChange(nodes: NODE[] | undefined): void {
-		if (nodes != null) {
-			const oldNodes = this._nodes;
-			const newNodes = this.newNodes(nodes, oldNodes, new Set<NODE>());
-			if (oldNodes.size !== newNodes.size) {
-				this._nodes = newNodes;
-				this.onChange();
-			}
-		} else {
-			const nodes = this._nodes;
-			if (0 < nodes.size) {
-				nodes.clear();
-				this.onChange();
-			}
-		}
-	}
-
-	protected newNodes(items: NODE[], existing: Set<NODE>, result: Set<NODE>): Set<NODE> {
-		const toChildren = this._parent.accessor.toChildren;
-		for (let i = 0, imax = items.length; i < imax; ++i) {
-			const item = items[i];
-			if (existing.has(item)) {
-				result.add(item);
-			}
-			const children = toChildren(item);
-			if (children) {
-				this.newNodes(children, existing, result);
-			}
-		}
-		return result;
-	}
+	/**
+	 * Returns an array of selected nodes.
+	 *
+	 * @return an array of selected nodes.
+	 */
+	toArray(): NODE[];
 }

@@ -36,11 +36,11 @@ export class DThemeWhiteTableBodyCellTree
 	}
 
 	getImageTintColor(state: DBaseStateSet): number | null {
-		return DThemeWhiteTableBodyCellTrees.getImageTintColor(state);
+		return this.getColor(state);
 	}
 
 	getImageTintAlpha(state: DBaseStateSet): number {
-		return DThemeWhiteTableBodyCellTrees.getImageTintAlpha(state);
+		return this.getAlpha(state) * 0.5;
 	}
 
 	getLinkMenuOptions(): DMenuOptions<DLinkMenuItemId> {

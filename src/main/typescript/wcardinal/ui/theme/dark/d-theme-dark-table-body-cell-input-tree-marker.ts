@@ -83,10 +83,10 @@ export class DThemeDarkTableBodyCellInputTreeMarker<VALUE = unknown>
 	}
 
 	getImageTintColor(state: DBaseStateSet): number | null {
-		return DThemeDarkTableBodyCellTrees.getImageTintColor(state);
+		return this.getColor(state);
 	}
 
 	getImageTintAlpha(state: DBaseStateSet): number {
-		return DThemeDarkTableBodyCellTrees.getImageTintAlpha(state);
+		return this.getAlpha(state) * 0.5;
 	}
 }

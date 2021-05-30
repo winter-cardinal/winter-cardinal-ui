@@ -7,14 +7,13 @@ import { Point } from "pixi.js";
 import { DBase, DBaseOptions } from "./d-base";
 import { DContentOptions } from "./d-content";
 import { DPane, DPaneOptions, DThemePane } from "./d-pane";
-import { DTreeItem } from "./d-tree-item";
 import { DTreeNode } from "./d-tree-node";
 import { DTreeNodeIteratee } from "./d-tree-node-iteratee";
 import { DTreeDataSelection } from "./d-tree-data-selection";
 import { DTreeData, DTreeDataLike, DTreeDataOptions } from "./d-tree-data";
 import { isArray } from "./util/is-array";
 import { DTreeDataImpl } from "./d-tree-data-impl";
-import { DTreeItemNonEditable } from "./d-tree-item-non-editable";
+import { DTreeItemUpdater, DTreeItemUpdaterOptions } from "./d-tree-item-updater";
 
 export interface DTreeOptions<
 	NODE extends DTreeNode = DTreeNode,
@@ -36,11 +35,14 @@ export interface DTreeOptions<
 	 * A data options.
 	 */
 	data?: NODE[] | DTreeDataOptions<NODE> | DATA;
+
+	/**
+	 * An updater options.
+	 */
+	updater?: DTreeItemUpdaterOptions<NODE>;
 }
 
-export interface DThemeTree extends DThemePane {
-	getItemHeight(): number;
-}
+export interface DThemeTree extends DThemePane {}
 
 export class DTree<
 		NODE extends DTreeNode = DTreeNode,
@@ -58,25 +60,11 @@ export class DTree<
 	implements DTreeDataLike<NODE> {
 	protected static WORK_ON_CLICK?: Point;
 
-	protected _rowIndexStart: number;
-	protected _rowIndexEnd: number;
-	protected _workItems: DTreeItem<NODE>[];
-
-	protected _updateCount: number;
-	protected _isUpdateCalled: boolean;
-
-	protected _itemHeight: number;
 	protected _data: DATA;
+	protected _updater: DTreeItemUpdater<NODE>;
 
 	constructor(options?: OPTIONS) {
 		super(options);
-
-		this._rowIndexStart = 0;
-		this._rowIndexEnd = 0;
-		this._workItems = [];
-
-		this._updateCount = 0;
-		this._isUpdateCalled = false;
 
 		const content = this._content;
 		content.on("move", (): void => {
@@ -86,9 +74,14 @@ export class DTree<
 			this.update();
 		});
 
-		this._itemHeight = this.theme.getItemHeight();
-		this._data = this.toData(options);
+		const data = this.toData(options);
+		this._data = data;
+		this._updater = this.newUpdater(data, content, options);
 		this.update();
+	}
+
+	protected newUpdater(data: DATA, content: DBase, options?: OPTIONS): DTreeItemUpdater<NODE> {
+		return new DTreeItemUpdater<NODE>(data, content, content, options?.updater);
 	}
 
 	protected toData(options?: OPTIONS): DATA {
@@ -105,128 +98,15 @@ export class DTree<
 	}
 
 	update(forcibly?: boolean): void {
-		if (0 < this._updateCount) {
-			this._isUpdateCalled = true;
-			return;
-		}
-
-		const content = this._content;
-		const items = content.children as DTreeItem<NODE>[];
-
-		const data = this._data;
-		const rows = data.rows;
-		const levels = data.levels;
-		const rowsLength = rows.length;
-		const itemHeight = this._itemHeight;
-		const height = this.height;
-
-		const newContentHeight = rowsLength * itemHeight;
-		const newContentY = Math.min(0, Math.max(height - newContentHeight, content.position.y));
-		const newRowIndexLowerBound = Math.floor((0 - newContentY) / itemHeight);
-		const newRowIndexUpperBound = Math.ceil((height - newContentY) / itemHeight);
-		const newRowIndexStart = Math.max(0, newRowIndexLowerBound - 2);
-		const newRowIndexEnd = Math.min(rowsLength, newRowIndexUpperBound + 2);
-		const newRowCount = newRowIndexEnd - newRowIndexStart;
-
-		const oldRowIndexStart = this._rowIndexStart;
-		const oldRowIndexEnd = this._rowIndexEnd;
-		const oldRowCount = oldRowIndexEnd - oldRowIndexStart;
-
-		if (oldRowCount < newRowCount) {
-			for (let i = items.length; i < newRowCount; ++i) {
-				content.addChild(this.newItem(data));
-			}
-		}
-
-		this._rowIndexStart = newRowIndexStart;
-		this._rowIndexEnd = newRowIndexEnd;
-
-		const rowIndexStartDelta = newRowIndexStart - oldRowIndexStart;
-		const rowIndexStartDeltaAbs = Math.abs(rowIndexStartDelta);
-		const itemsLength = items.length;
-		if (0 < rowIndexStartDeltaAbs && rowIndexStartDeltaAbs < itemsLength) {
-			const work = this._workItems;
-			if (0 < rowIndexStartDelta) {
-				for (let i = 0; i < rowIndexStartDeltaAbs; ++i) {
-					work.push(this.resetItem(items[i]));
-				}
-				for (let i = rowIndexStartDeltaAbs; i < itemsLength; ++i) {
-					items[i - rowIndexStartDeltaAbs] = items[i];
-				}
-				for (let i = 0; i < rowIndexStartDeltaAbs; ++i) {
-					items[itemsLength - rowIndexStartDeltaAbs + i] = work[i];
-				}
-			} else {
-				for (let i = 0; i < rowIndexStartDeltaAbs; ++i) {
-					work.push(this.resetItem(items[itemsLength - rowIndexStartDeltaAbs + i]));
-				}
-				for (let i = itemsLength - rowIndexStartDeltaAbs - 1; 0 <= i; --i) {
-					items[i + rowIndexStartDeltaAbs] = items[i];
-				}
-				for (let i = 0; i < rowIndexStartDeltaAbs; ++i) {
-					items[i] = work[i];
-				}
-			}
-			work.length = 0;
-		}
-
-		const selection = data.selection;
-		for (let i = newRowIndexStart; i < newRowIndexEnd; ++i) {
-			const item = items[i - newRowIndexStart];
-			const row = rows[i];
-			const level = levels[i];
-			const isSelected = selection.contains(row);
-			const isExpanded = data.isExpanded(row);
-			item.position.y = i * itemHeight;
-			item.set(row, level, isSelected, isExpanded, forcibly);
-		}
-		for (let i = newRowCount; i < itemsLength; ++i) {
-			items[i].unset();
-		}
-
-		this.lock();
-		content.position.y = newContentY;
-		content.height = newContentHeight;
-		this.unlock(false);
+		this._updater.update(forcibly);
 	}
 
 	lock(): void {
-		this._updateCount += 1;
-		if (this._updateCount === 1) {
-			this._isUpdateCalled = false;
-		}
+		this._updater.lock();
 	}
 
 	unlock(callIfNeeded: boolean): void {
-		this._updateCount -= 1;
-		if (this._updateCount === 0) {
-			if (callIfNeeded && this._isUpdateCalled) {
-				this.update();
-			}
-			this._isUpdateCalled = false;
-		}
-	}
-
-	protected newItem(data: DATA): DTreeItem<NODE> {
-		return new DTreeItemNonEditable<NODE>(data);
-	}
-
-	protected resetItem(item: DTreeItem<NODE>): DTreeItem<NODE> {
-		item.blur(true);
-		const cells = item.children;
-		for (let i = 0, imax = cells.length; i < imax; ++i) {
-			const cell = cells[i];
-			if (cell instanceof DBase) {
-				cell.state.isPressed = false;
-			}
-		}
-		return item;
-	}
-
-	protected deleteItem(item: DTreeItem<NODE>): DTreeItem<NODE> {
-		item.off("select");
-		item.off("toggle");
-		return item;
+		this._updater.unlock(callIfNeeded);
 	}
 
 	get data(): DATA {

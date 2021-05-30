@@ -4,32 +4,68 @@
  */
 
 import { interaction } from "pixi.js";
-import { DBase } from "./d-base";
-import { DImage, DImageOptions, DThemeImage } from "./d-image";
+import { DBaseState } from "./d-base-state";
+import { DImageBase, DImageBaseEvents, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
+import { DListData } from "./d-list-data";
+import { DListDataSelectionType } from "./d-list-data-selection";
+import { DOnOptions } from "./d-on-options";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
-export interface DListItemOptions<VALUE = unknown, THEME extends DThemeListItem = DThemeListItem>
-	extends DImageOptions<string, THEME> {
-	value?: VALUE;
+/**
+ * {@link DListItem} events.
+ */
+export interface DListItemEvents<VALUE, EMITTER> extends DImageBaseEvents<VALUE, EMITTER> {
+	/**
+	 * Triggered when a value is set.
+	 *
+	 *     on( "set", ( node, index, emitter ) => {} )
+	 *
+	 * @param emitter an emitter
+	 */
+	set(node: VALUE, index: number, emitter: EMITTER): void;
+
+	/**
+	 * Triggered when set to undefined.
+	 *
+	 *     on( "unset", ( emitter ) => {} )
+	 *
+	 * @param emitter an emitter
+	 */
+	unset(emitter: EMITTER): void;
 }
 
-export interface DThemeListItem extends DThemeImage<string> {}
+/**
+ * {@link DListItem} "on" options.
+ */
+export interface DListItemOnOptions<NODE, EMITTER>
+	extends Partial<DListItemEvents<NODE, EMITTER>>,
+		DOnOptions {}
 
-export interface DListItemSelection {
-	add(item: DBase): void;
+/**
+ * {@link DListItem} options.
+ */
+export interface DListItemOptions<
+	VALUE = unknown,
+	THEME extends DThemeListItem = DThemeListItem,
+	EMITTER = any
+> extends DImageBaseOptions<string, THEME> {
+	on?: DListItemOnOptions<VALUE, EMITTER>;
 }
+
+export interface DThemeListItem extends DThemeImageBase<string> {}
 
 export class DListItem<
 	VALUE = unknown,
 	THEME extends DThemeListItem = DThemeListItem,
 	OPTIONS extends DListItemOptions<VALUE, THEME> = DListItemOptions<VALUE, THEME>
-> extends DImage<string, THEME, OPTIONS> {
-	protected _value: VALUE | null;
+> extends DImageBase<string, THEME, OPTIONS> {
+	protected _data: DListData<VALUE>;
+	protected _value?: VALUE;
 
-	constructor(options?: OPTIONS) {
+	constructor(data: DListData<VALUE>, options?: OPTIONS) {
 		super(options);
-		this._value = options?.value ?? null;
+		this._data = data;
 	}
 
 	protected init(options?: OPTIONS): void {
@@ -40,39 +76,110 @@ export class DListItem<
 	protected initOnClick(options?: OPTIONS): void {
 		UtilPointerEvent.onClick(this, (e: interaction.InteractionEvent): void => {
 			if (this.state.isActionable) {
-				this.onSelect(e);
+				const value = this._value;
+				if (value !== undefined) {
+					this.onSelect(e, value);
+				}
 			}
 		});
 	}
 
-	get value(): VALUE | null {
+	get value(): VALUE | undefined {
 		return this._value;
 	}
 
-	set value(value: VALUE | null) {
-		this._value = value;
-	}
-
-	protected hasSelection(target: any): target is { selection: DListItemSelection } {
-		return target && target.selection && target.selection.add;
-	}
-
-	protected getSelection(): DListItemSelection | null {
-		let parent = this.parent as any;
-		while (parent) {
-			if (this.hasSelection(parent)) {
-				return parent.selection;
+	protected onSelect(
+		e: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent | undefined,
+		value: VALUE
+	): void {
+		const data = this._data;
+		const selection = data.selection;
+		if (selection.type !== DListDataSelectionType.MULTIPLE) {
+			selection.clearAndAdd(value);
+		} else {
+			const originalEvent = e && "data" in e ? e.data.originalEvent : e;
+			if (originalEvent?.ctrlKey) {
+				selection.toggle(value);
+			} else if (originalEvent?.shiftKey) {
+				const mapped = data.mapped;
+				const last = selection.last;
+				if (value === last) {
+					selection.clearAndAdd(value);
+				} else {
+					let isFound = false;
+					let isReverse = false;
+					const newSelection: VALUE[] = [];
+					mapped.each((item): boolean | void => {
+						if (isFound) {
+							if (isReverse) {
+								newSelection.unshift(item);
+								if (item === value) {
+									return false;
+								}
+							} else {
+								newSelection.push(item);
+								if (item === last) {
+									return false;
+								}
+							}
+						} else {
+							if (item === value) {
+								isFound = true;
+								isReverse = false;
+								newSelection.push(item);
+							} else if (item === last) {
+								isFound = true;
+								isReverse = true;
+								newSelection.push(item);
+							}
+						}
+					});
+					selection.clearAndAddAll(newSelection);
+				}
+			} else {
+				selection.clearAndAdd(value);
 			}
-			parent = parent.parent;
 		}
-		return null;
 	}
 
-	protected onSelect(e: KeyboardEvent | interaction.InteractionEvent): void {
-		this.emit("select", this);
-		const selection = this.getSelection();
-		if (selection) {
-			selection.add(this);
+	set(value: VALUE, index: number, forcibly?: boolean): void {
+		const data = this._data;
+		const isValueChanged = forcibly || this._value !== value;
+		if (isValueChanged) {
+			this._value = value;
+
+			const accessor = data.accessor;
+			this.text = accessor.toLabel(value);
+			this.title = accessor.toTitle(value) || "";
+			this.image = accessor.toImage(value);
+		}
+
+		const state = this.state;
+		state.lock();
+		state.set(DBaseState.ACTIVE, data.selection.contains(value));
+		state.remove(DBaseState.DISABLED);
+		state.unlock();
+
+		if (isValueChanged) {
+			this.emit("set", value, index, this);
+		}
+	}
+
+	unset(): void {
+		if (this._value !== undefined) {
+			this._value = undefined;
+
+			this.text = undefined;
+			this.title = "";
+			this.image = undefined;
+
+			const state = this.state;
+			state.lock();
+			state.add(DBaseState.DISABLED);
+			state.remove(DBaseState.ACTIVE);
+			state.unlock();
+
+			this.emit("unset", this);
 		}
 	}
 
@@ -85,7 +192,10 @@ export class DListItem<
 
 	protected onKeyDownActivate(e: KeyboardEvent): boolean {
 		if (this.state.isActionable && this.state.isFocused) {
-			this.onSelect(e);
+			const value = this._value;
+			if (value !== undefined) {
+				this.onSelect(e, value);
+			}
 			return true;
 		}
 		return false;

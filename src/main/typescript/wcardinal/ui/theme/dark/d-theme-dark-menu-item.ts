@@ -6,9 +6,9 @@
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeMenuItem } from "../../d-menu-item";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
-import { DThemeDarkListItem } from "./d-theme-dark-list-item";
+import { DThemeDarkMenuItemBase } from "./d-theme-dark-menu-item-base";
 
-export class DThemeDarkMenuItem extends DThemeDarkListItem implements DThemeMenuItem {
+export class DThemeDarkMenuItem extends DThemeDarkMenuItemBase implements DThemeMenuItem {
 	protected getBackgroundColorActive(state: DBaseStateSet): number | null {
 		return DThemeDarkConstants.HIGHLIGHT_COLOR;
 	}

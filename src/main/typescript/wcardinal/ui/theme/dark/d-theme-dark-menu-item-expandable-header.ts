@@ -8,12 +8,12 @@ import { DAlignWith } from "../../d-align-with";
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeMenuItemExpandableHeader } from "../../d-menu-item-expandable-header";
 import { DThemeDarkExpandables } from "./d-theme-dark-expandables";
-import { DThemeDarkListItem } from "./d-theme-dark-list-item";
+import { DThemeDarkMenuItemBase } from "./d-theme-dark-menu-item-base";
 
 DThemeDarkExpandables.init();
 
 export class DThemeDarkMenuItemExpandableHeader
-	extends DThemeDarkListItem
+	extends DThemeDarkMenuItemBase
 	implements DThemeMenuItemExpandableHeader {
 	getPaddingLeft(): number {
 		return this.getPaddingRight();
