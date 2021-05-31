@@ -141,11 +141,11 @@ export class DTree<
 		return this._data.collapse(target);
 	}
 
-	expandAll(): void {
+	expandAll(): boolean {
 		return this._data.expandAll();
 	}
 
-	collapseAll(): void {
+	collapseAll(): boolean {
 		return this._data.collapseAll();
 	}
 
@@ -157,8 +157,8 @@ export class DTree<
 		return this._data.isExpanded(target);
 	}
 
-	clear(): void {
-		this._data.clear();
+	clear(): boolean {
+		return this._data.clear();
 	}
 
 	remove(target: NODE): boolean {
