@@ -9,20 +9,17 @@ import { EShapeTagValue } from "./e-shape-tag-value";
 import { EShapeTagValueRange } from "./e-shape-tag-value-range";
 
 export interface EShapeTag {
+	readonly values: EShapeTagValue[];
 	isChanged: boolean;
 
+	// Shortcuts
 	readonly id: string;
 	readonly initial: string;
 	readonly format: string;
 	readonly range: EShapeTagValueRange;
-	inherited?: EShapeTagValue;
-
-	// Shortcut for elements which have just one tag.
 	value: unknown;
 	readonly nvalue: number;
 	time: number;
-	values: unknown[];
-	times: number[];
 	capacity: number;
 
 	add(value: EShapeTagValue, index?: number): void;

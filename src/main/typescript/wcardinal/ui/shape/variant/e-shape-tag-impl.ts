@@ -11,28 +11,33 @@ import { EShapeTagValueRange } from "../e-shape-tag-value-range";
 import { EShapeTagValueImpl } from "./e-shape-tag-value-impl";
 import { EShapeTagValueRangeImpl } from "./e-shape-tag-value-range-impl";
 
-export class EShapeTagImpl implements EShapeTag {
-	static RANGE_DUMMY = new EShapeTagValueRangeImpl();
-	static EMPTY_ARRAY = [];
+let RANGE_DUMMY: EShapeTagValueRange | undefined;
 
+export class EShapeTagImpl implements EShapeTag {
 	protected _values: EShapeTagValue[];
-	isChanged: boolean;
-	inherited?: EShapeTagValue;
+	protected _isChanged: boolean;
 
 	constructor() {
 		this._values = [];
-		this.isChanged = true;
+		this._isChanged = true;
+	}
+
+	get values(): EShapeTagValue[] {
+		return this._values;
+	}
+
+	get isChanged(): boolean {
+		return this._isChanged;
+	}
+
+	set isChanged(isChanged: boolean) {
+		this._isChanged = isChanged;
 	}
 
 	get id(): string {
 		const values = this._values;
 		if (0 < values.length) {
 			return values[0].id;
-		} else {
-			const inherited = this.inherited;
-			if (inherited != null) {
-				return inherited.id;
-			}
 		}
 		return "";
 	}
@@ -41,11 +46,6 @@ export class EShapeTagImpl implements EShapeTag {
 		const values = this._values;
 		if (0 < values.length) {
 			return values[0].initial;
-		} else {
-			const inherited = this.inherited;
-			if (inherited != null) {
-				return inherited.initial;
-			}
 		}
 		return "";
 	}
@@ -54,11 +54,6 @@ export class EShapeTagImpl implements EShapeTag {
 		const values = this._values;
 		if (0 < values.length) {
 			return values[0].format;
-		} else {
-			const inherited = this.inherited;
-			if (inherited != null) {
-				return inherited.format;
-			}
 		}
 		return "";
 	}
@@ -67,24 +62,14 @@ export class EShapeTagImpl implements EShapeTag {
 		const values = this._values;
 		if (0 < values.length) {
 			return values[0].range;
-		} else {
-			const inherited = this.inherited;
-			if (inherited != null) {
-				return inherited.range;
-			}
 		}
-		return EShapeTagImpl.RANGE_DUMMY;
+		return (RANGE_DUMMY ??= new EShapeTagValueRangeImpl());
 	}
 
 	get value(): unknown {
 		const values = this._values;
 		if (0 < values.length) {
 			return values[0].value;
-		} else {
-			const inherited = this.inherited;
-			if (inherited != null) {
-				return inherited.value;
-			}
 		}
 		return 0;
 	}
@@ -93,11 +78,6 @@ export class EShapeTagImpl implements EShapeTag {
 		const values = this._values;
 		if (0 < values.length) {
 			values[0].value = value;
-		} else {
-			const inherited = this.inherited;
-			if (inherited != null) {
-				inherited.value = value;
-			}
 		}
 	}
 
@@ -105,11 +85,6 @@ export class EShapeTagImpl implements EShapeTag {
 		const values = this._values;
 		if (0 < values.length) {
 			return values[0].nvalue;
-		} else {
-			const inherited = this.inherited;
-			if (inherited != null) {
-				return inherited.nvalue;
-			}
 		}
 		return 0;
 	}
@@ -118,11 +93,6 @@ export class EShapeTagImpl implements EShapeTag {
 		const values = this._values;
 		if (0 < values.length) {
 			return values[0].time;
-		} else {
-			const inherited = this.inherited;
-			if (inherited != null) {
-				return inherited.time;
-			}
 		}
 		return 0;
 	}
@@ -131,61 +101,6 @@ export class EShapeTagImpl implements EShapeTag {
 		const values = this._values;
 		if (0 < values.length) {
 			values[0].time = time;
-		} else {
-			const inherited = this.inherited;
-			if (inherited != null) {
-				inherited.time = time;
-			}
-		}
-	}
-
-	get values(): unknown[] {
-		const values = this._values;
-		if (0 < values.length) {
-			return values[0].values;
-		} else {
-			const inherited = this.inherited;
-			if (inherited != null) {
-				return inherited.values;
-			}
-		}
-		return EShapeTagImpl.EMPTY_ARRAY;
-	}
-
-	set values(newValues: unknown[]) {
-		const values = this._values;
-		if (0 < values.length) {
-			values[0].values = newValues;
-		} else {
-			const inherited = this.inherited;
-			if (inherited != null) {
-				inherited.values = newValues;
-			}
-		}
-	}
-
-	get times(): number[] {
-		const values = this._values;
-		if (0 < values.length) {
-			return values[0].times;
-		} else {
-			const inherited = this.inherited;
-			if (inherited != null) {
-				return inherited.times;
-			}
-		}
-		return EShapeTagImpl.EMPTY_ARRAY;
-	}
-
-	set times(newTimes: number[]) {
-		const values = this._values;
-		if (0 < values.length) {
-			values[0].times = newTimes;
-		} else {
-			const inherited = this.inherited;
-			if (inherited != null) {
-				inherited.times = newTimes;
-			}
 		}
 	}
 
@@ -193,11 +108,6 @@ export class EShapeTagImpl implements EShapeTag {
 		const values = this._values;
 		if (0 < values.length) {
 			return values[0].capacity;
-		} else {
-			const inherited = this.inherited;
-			if (inherited != null) {
-				return inherited.capacity;
-			}
 		}
 		return 0;
 	}
@@ -206,11 +116,6 @@ export class EShapeTagImpl implements EShapeTag {
 		const values = this._values;
 		if (0 < values.length) {
 			values[0].capacity = capacity;
-		} else {
-			const inherited = this.inherited;
-			if (inherited != null) {
-				inherited.capacity = capacity;
-			}
 		}
 	}
 
