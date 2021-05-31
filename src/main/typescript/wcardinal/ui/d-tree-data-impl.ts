@@ -123,7 +123,7 @@ export class DTreeDataImpl<NODE extends DTreeNode> implements DTreeData<NODE> {
 		return false;
 	}
 
-	expandAll(): void {
+	expandAll(): boolean {
 		let isDirty = false;
 		const nodeToFlag = this._nodeToFlag;
 		this.each((node): void => {
@@ -135,10 +135,12 @@ export class DTreeDataImpl<NODE extends DTreeNode> implements DTreeData<NODE> {
 		if (isDirty) {
 			this._mapped.toDirty();
 			this.update();
+			return true;
 		}
+		return false;
 	}
 
-	collapseAll(): void {
+	collapseAll(): boolean {
 		let isDirty = false;
 		const nodeToFlag = this._nodeToFlag;
 		this.each((node): void => {
@@ -150,7 +152,9 @@ export class DTreeDataImpl<NODE extends DTreeNode> implements DTreeData<NODE> {
 		if (isDirty) {
 			this._mapped.toDirty();
 			this.update();
+			return true;
 		}
+		return false;
 	}
 
 	isCollapsed(target: NODE): boolean {
@@ -161,14 +165,16 @@ export class DTreeDataImpl<NODE extends DTreeNode> implements DTreeData<NODE> {
 		return this._nodeToFlag.has(target);
 	}
 
-	clear(): void {
+	clear(): boolean {
 		const nodes = this._nodes;
 		if (0 < nodes.length) {
 			nodes.length = 0;
 			this._mapped.toDirty();
 			this._selection.clear();
 			this.update();
+			return true;
 		}
+		return false;
 	}
 
 	remove(target: NODE): boolean {
@@ -185,8 +191,9 @@ export class DTreeDataImpl<NODE extends DTreeNode> implements DTreeData<NODE> {
 			this._mapped.toDirty();
 			this._selection.remove(target);
 			this.update();
+			return true;
 		}
-		return isDirty;
+		return false;
 	}
 
 	add(target: NODE, parent?: NODE): boolean {

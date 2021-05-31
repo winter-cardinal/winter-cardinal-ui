@@ -50,13 +50,17 @@ export interface DTreeDataLike<NODE extends DTreeNode> {
 
 	/**
 	 * Expands all the nodes.
+	 *
+	 * @return true if the data is changed
 	 */
-	expandAll(): void;
+	expandAll(): boolean;
 
 	/**
 	 * Collapses all the nodes.
+	 *
+	 * @return true if the data is changed
 	 */
-	collapseAll(): void;
+	collapseAll(): boolean;
 
 	/**
 	 * Returns true if the given node is collapsed.
@@ -76,8 +80,10 @@ export interface DTreeDataLike<NODE extends DTreeNode> {
 
 	/**
 	 * Clears all the nodes.
+	 *
+	 * @return true if the data is changed
 	 */
-	clear(): void;
+	clear(): boolean;
 
 	/**
 	 * Removes the given node.
@@ -92,7 +98,7 @@ export interface DTreeDataLike<NODE extends DTreeNode> {
 	 *
 	 * @param target a new node
 	 * @param parent a parent node
-	 * @return true if succeeded
+	 * @return true if the data is changed
 	 */
 	add(target: NODE, parent?: NODE): boolean;
 
@@ -101,7 +107,7 @@ export interface DTreeDataLike<NODE extends DTreeNode> {
 	 *
 	 * @param target a new node
 	 * @param sibling a sibling node
-	 * @return true if succeeded
+	 * @return true if the data is changed
 	 */
 	addBefore(target: NODE, sibling: NODE): boolean;
 
@@ -110,7 +116,7 @@ export interface DTreeDataLike<NODE extends DTreeNode> {
 	 *
 	 * @param target a new node
 	 * @param sibling a sibling node
-	 * @return true if succeeded
+	 * @return true if the data is changed
 	 */
 	addAfter(target: NODE, sibling: NODE): boolean;
 
