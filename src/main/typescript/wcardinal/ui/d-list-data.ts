@@ -59,6 +59,66 @@ export interface DListData<ITEM> {
 	get(index: number): ITEM | null;
 
 	/**
+	 * Replaces an item at the specified index with the given item.
+	 *
+	 * @param index an index of the item to be replaced.
+	 * @param item an item
+	 * @return a replaced item or null
+	 */
+	set(index: number, item: ITEM): ITEM | null;
+
+	/**
+	 * Adds the given item.
+	 * If the index is given, inserts the given item at that index.
+	 *
+	 * @param item an item
+	 * @param index an index
+	 * @return true if the data is changed
+	 */
+	add(item: ITEM, index?: number): boolean;
+
+	/**
+	 * Adds all the given items.
+	 * If the index is given, inserts all the given items at that index.
+	 *
+	 * @param newItems items
+	 * @param index an index
+	 * @return true if the data is changed
+	 */
+	addAll(newItems: ITEM[], index?: number): boolean;
+
+	/**
+	 * Removes an item at the given index.
+	 *
+	 * @param index an index of the item to be removed.
+	 * @return a removed item or null
+	 */
+	remove(index: number): ITEM | null;
+
+	/**
+	 * Removes all the items.
+	 *
+	 * @return true if the data is changed
+	 */
+	clear(): boolean;
+
+	/**
+	 * Removes all the existing items and adds the given item.
+	 *
+	 * @param item an item
+	 * @return true if the data is changed
+	 */
+	clearAndAdd(item: ITEM): boolean;
+
+	/**
+	 * Removes all the existing items and adds all the given items.
+	 *
+	 * @param newItems items to be inserted
+	 * @return true if the data is changed.
+	 */
+	clearAndAddAll(newItems: ITEM[]): boolean;
+
+	/**
 	 * Calls the specified iteratee on each datum of the specified index range.
 	 * If called iteratee explicitly returns false, stops an iteration.
 	 *

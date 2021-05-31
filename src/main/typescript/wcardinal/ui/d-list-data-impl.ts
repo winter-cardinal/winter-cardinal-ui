@@ -114,22 +114,36 @@ export class DListDataImpl<ITEM> implements DListData<ITEM> {
 		return this._items.length;
 	}
 
-	clear(): void {
+	clear(): boolean {
 		const items = this._items;
 		if (0 < items.length) {
 			items.length = 0;
 			this.onChange();
+			return true;
+		}
+		return false;
+	}
+
+	clearAndAdd(item: ITEM): boolean {
+		const items = this._items;
+		if (items.length === 1) {
+			const first = items[0];
+			if (first === item) {
+				return false;
+			} else {
+				items[0] = item;
+				this.onChange();
+				return true;
+			}
+		} else {
+			items.length = 0;
+			items.push(item);
+			this.onChange();
+			return true;
 		}
 	}
 
-	clearAndAdd(item: ITEM): void {
-		const items = this._items;
-		items.length = 0;
-		items.push(item);
-		this.onChange();
-	}
-
-	clearAndAddAll(newItems: ITEM[]): void {
+	clearAndAddAll(newItems: ITEM[]): boolean {
 		let isChanged = false;
 		const items = this._items;
 		if (0 < items.length) {
@@ -144,21 +158,26 @@ export class DListDataImpl<ITEM> implements DListData<ITEM> {
 		}
 		if (isChanged) {
 			this.onChange();
+			return true;
 		}
+		return false;
 	}
 
-	add(item: ITEM, index?: number): void {
+	add(item: ITEM, index?: number): boolean {
 		const items = this._items;
 		if (index == null) {
 			items.push(item);
 			this.onChange();
+			return true;
 		} else if (0 <= index && index < items.length) {
 			items.splice(index, 0, item);
 			this.onChange();
+			return true;
 		}
+		return false;
 	}
 
-	addAll(newItems: ITEM[], index?: number): void {
+	addAll(newItems: ITEM[], index?: number): boolean {
 		if (0 < newItems.length) {
 			const items = this._items;
 			const itemsLength = items.length;
@@ -167,13 +186,16 @@ export class DListDataImpl<ITEM> implements DListData<ITEM> {
 					items.push(newItems[i]);
 				}
 				this.onChange();
+				return true;
 			} else if (0 <= index && index < itemsLength) {
 				for (let i = 0, imax = newItems.length; i < imax; ++i) {
 					items.splice(index + i, 0, newItems[i]);
 				}
 				this.onChange();
+				return true;
 			}
 		}
+		return false;
 	}
 
 	get(index: number): ITEM | null {
