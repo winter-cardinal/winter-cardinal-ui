@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.92.1
+ Winter Cardinal UI v0.92.2
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -2368,6 +2368,12 @@
         DThemeDarkListItems.prototype.getCornerMask = function () {
             return DCornerMask.ALL;
         };
+        DThemeDarkListItems.prototype.getCursor = function (state) {
+            if (!state.isActionable) {
+                return "";
+            }
+            return "pointer";
+        };
         return DThemeDarkListItems;
     }());
 
@@ -2414,6 +2420,9 @@
         };
         DThemeDarkListItem.prototype.getImageTintColor = function (state) {
             return this._style.getImageTintColor(state);
+        };
+        DThemeDarkListItem.prototype.getCursor = function (state) {
+            return this._style.getCursor(state);
         };
         DThemeDarkListItem.prototype.getPaddingLeft = function () {
             return 10;
@@ -8024,6 +8033,9 @@
         };
         DThemeDarkTreeItemText.prototype.getImageTintColor = function (state) {
             return this._style.getImageTintColor(state);
+        };
+        DThemeDarkTreeItemText.prototype.getCursor = function (state) {
+            return this._style.getCursor(state);
         };
         DThemeDarkTreeItemText.prototype.getPaddingLeft = function () {
             return 10;

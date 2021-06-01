@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.92.1
+ Winter Cardinal UI v0.92.2
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -42547,6 +42547,7 @@
         function DListItem(data, options) {
             var _this = _super.call(this, options) || this;
             _this._data = data;
+            _this.state.isDisabled = true;
             return _this;
         }
         DListItem.prototype.init = function (options) {
@@ -61227,6 +61228,7 @@
             var _this = _super.call(this, options) || this;
             _this._padding = new DBasePaddingAdjustable(_this._padding);
             _this._data = data;
+            _this.state.isDisabled = true;
             return _this;
         }
         Object.defineProperty(DTreeItemText.prototype, "node", {
