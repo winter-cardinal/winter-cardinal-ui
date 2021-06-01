@@ -231,4 +231,11 @@ export class DThemeWhiteListItems {
 	getCornerMask(): DCornerMask {
 		return DCornerMask.ALL;
 	}
+
+	getCursor(state: DBaseStateSet): string {
+		if (!state.isActionable) {
+			return "";
+		}
+		return "pointer";
+	}
 }

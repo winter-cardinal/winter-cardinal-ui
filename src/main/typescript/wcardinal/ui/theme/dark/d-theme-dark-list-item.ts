@@ -64,6 +64,10 @@ export class DThemeDarkListItem extends DThemeDarkImageBase<string> implements D
 		return this._style.getImageTintColor(state);
 	}
 
+	getCursor(state: DBaseStateSet): string {
+		return this._style.getCursor(state);
+	}
+
 	getPaddingLeft(): number {
 		return 10;
 	}
