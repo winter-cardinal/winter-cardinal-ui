@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.90.0
+ Winter Cardinal UI v0.92.1
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -4961,22 +4961,34 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var RANGE_DUMMY;
     var EShapeTagImpl = /** @class */ (function () {
         function EShapeTagImpl() {
             this._values = [];
-            this.isChanged = true;
+            this._isChanged = true;
         }
+        Object.defineProperty(EShapeTagImpl.prototype, "values", {
+            get: function () {
+                return this._values;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeTagImpl.prototype, "isChanged", {
+            get: function () {
+                return this._isChanged;
+            },
+            set: function (isChanged) {
+                this._isChanged = isChanged;
+            },
+            enumerable: false,
+            configurable: true
+        });
         Object.defineProperty(EShapeTagImpl.prototype, "id", {
             get: function () {
                 var values = this._values;
                 if (0 < values.length) {
                     return values[0].id;
-                }
-                else {
-                    var inherited = this.inherited;
-                    if (inherited != null) {
-                        return inherited.id;
-                    }
                 }
                 return "";
             },
@@ -4989,12 +5001,6 @@
                 if (0 < values.length) {
                     return values[0].initial;
                 }
-                else {
-                    var inherited = this.inherited;
-                    if (inherited != null) {
-                        return inherited.initial;
-                    }
-                }
                 return "";
             },
             enumerable: false,
@@ -5005,12 +5011,6 @@
                 var values = this._values;
                 if (0 < values.length) {
                     return values[0].format;
-                }
-                else {
-                    var inherited = this.inherited;
-                    if (inherited != null) {
-                        return inherited.format;
-                    }
                 }
                 return "";
             },
@@ -5023,13 +5023,7 @@
                 if (0 < values.length) {
                     return values[0].range;
                 }
-                else {
-                    var inherited = this.inherited;
-                    if (inherited != null) {
-                        return inherited.range;
-                    }
-                }
-                return EShapeTagImpl.RANGE_DUMMY;
+                return (RANGE_DUMMY !== null && RANGE_DUMMY !== void 0 ? RANGE_DUMMY : (RANGE_DUMMY = new EShapeTagValueRangeImpl()));
             },
             enumerable: false,
             configurable: true
@@ -5040,24 +5034,12 @@
                 if (0 < values.length) {
                     return values[0].value;
                 }
-                else {
-                    var inherited = this.inherited;
-                    if (inherited != null) {
-                        return inherited.value;
-                    }
-                }
                 return 0;
             },
             set: function (value) {
                 var values = this._values;
                 if (0 < values.length) {
                     values[0].value = value;
-                }
-                else {
-                    var inherited = this.inherited;
-                    if (inherited != null) {
-                        inherited.value = value;
-                    }
                 }
             },
             enumerable: false,
@@ -5068,12 +5050,6 @@
                 var values = this._values;
                 if (0 < values.length) {
                     return values[0].nvalue;
-                }
-                else {
-                    var inherited = this.inherited;
-                    if (inherited != null) {
-                        return inherited.nvalue;
-                    }
                 }
                 return 0;
             },
@@ -5086,82 +5062,12 @@
                 if (0 < values.length) {
                     return values[0].time;
                 }
-                else {
-                    var inherited = this.inherited;
-                    if (inherited != null) {
-                        return inherited.time;
-                    }
-                }
                 return 0;
             },
             set: function (time) {
                 var values = this._values;
                 if (0 < values.length) {
                     values[0].time = time;
-                }
-                else {
-                    var inherited = this.inherited;
-                    if (inherited != null) {
-                        inherited.time = time;
-                    }
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeTagImpl.prototype, "values", {
-            get: function () {
-                var values = this._values;
-                if (0 < values.length) {
-                    return values[0].values;
-                }
-                else {
-                    var inherited = this.inherited;
-                    if (inherited != null) {
-                        return inherited.values;
-                    }
-                }
-                return EShapeTagImpl.EMPTY_ARRAY;
-            },
-            set: function (newValues) {
-                var values = this._values;
-                if (0 < values.length) {
-                    values[0].values = newValues;
-                }
-                else {
-                    var inherited = this.inherited;
-                    if (inherited != null) {
-                        inherited.values = newValues;
-                    }
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeTagImpl.prototype, "times", {
-            get: function () {
-                var values = this._values;
-                if (0 < values.length) {
-                    return values[0].times;
-                }
-                else {
-                    var inherited = this.inherited;
-                    if (inherited != null) {
-                        return inherited.times;
-                    }
-                }
-                return EShapeTagImpl.EMPTY_ARRAY;
-            },
-            set: function (newTimes) {
-                var values = this._values;
-                if (0 < values.length) {
-                    values[0].times = newTimes;
-                }
-                else {
-                    var inherited = this.inherited;
-                    if (inherited != null) {
-                        inherited.times = newTimes;
-                    }
                 }
             },
             enumerable: false,
@@ -5173,24 +5079,12 @@
                 if (0 < values.length) {
                     return values[0].capacity;
                 }
-                else {
-                    var inherited = this.inherited;
-                    if (inherited != null) {
-                        return inherited.capacity;
-                    }
-                }
                 return 0;
             },
             set: function (capacity) {
                 var values = this._values;
                 if (0 < values.length) {
                     values[0].capacity = capacity;
-                }
-                else {
-                    var inherited = this.inherited;
-                    if (inherited != null) {
-                        inherited.capacity = capacity;
-                    }
                 }
             },
             enumerable: false,
@@ -5308,8 +5202,6 @@
                 }
             }
         };
-        EShapeTagImpl.RANGE_DUMMY = new EShapeTagValueRangeImpl();
-        EShapeTagImpl.EMPTY_ARRAY = [];
         return EShapeTagImpl;
     }());
 
@@ -43687,13 +43579,29 @@
             if (0 < items.length) {
                 items.length = 0;
                 this.onChange();
+                return true;
             }
+            return false;
         };
         DListDataImpl.prototype.clearAndAdd = function (item) {
             var items = this._items;
-            items.length = 0;
-            items.push(item);
-            this.onChange();
+            if (items.length === 1) {
+                var first = items[0];
+                if (first === item) {
+                    return false;
+                }
+                else {
+                    items[0] = item;
+                    this.onChange();
+                    return true;
+                }
+            }
+            else {
+                items.length = 0;
+                items.push(item);
+                this.onChange();
+                return true;
+            }
         };
         DListDataImpl.prototype.clearAndAddAll = function (newItems) {
             var isChanged = false;
@@ -43710,18 +43618,23 @@
             }
             if (isChanged) {
                 this.onChange();
+                return true;
             }
+            return false;
         };
         DListDataImpl.prototype.add = function (item, index) {
             var items = this._items;
             if (index == null) {
                 items.push(item);
                 this.onChange();
+                return true;
             }
             else if (0 <= index && index < items.length) {
                 items.splice(index, 0, item);
                 this.onChange();
+                return true;
             }
+            return false;
         };
         DListDataImpl.prototype.addAll = function (newItems, index) {
             if (0 < newItems.length) {
@@ -43732,14 +43645,17 @@
                         items.push(newItems[i]);
                     }
                     this.onChange();
+                    return true;
                 }
                 else if (0 <= index && index < itemsLength) {
                     for (var i = 0, imax = newItems.length; i < imax; ++i) {
                         items.splice(index + i, 0, newItems[i]);
                     }
                     this.onChange();
+                    return true;
                 }
             }
+            return false;
         };
         DListDataImpl.prototype.get = function (index) {
             var items = this._items;
@@ -44468,6 +44384,18 @@
             updater.update();
             return _this;
         }
+        DList.prototype.onResize = function (newWidth, newHeight, oldWidth, oldHeight) {
+            var updater = this._updater;
+            if (updater) {
+                updater.lock();
+                _super.prototype.onResize.call(this, newWidth, newHeight, oldWidth, oldHeight);
+                updater.update();
+                updater.unlock(true);
+            }
+            else {
+                _super.prototype.onResize.call(this, newWidth, newHeight, oldWidth, oldHeight);
+            }
+        };
         DList.prototype.newUpdater = function (data, content, options) {
             return new DListItemUpdater(data, content, content, options === null || options === void 0 ? void 0 : options.updater);
         };
@@ -61129,7 +61057,9 @@
             if (isDirty) {
                 this._mapped.toDirty();
                 this.update();
+                return true;
             }
+            return false;
         };
         DTreeDataImpl.prototype.collapseAll = function () {
             var isDirty = false;
@@ -61143,7 +61073,9 @@
             if (isDirty) {
                 this._mapped.toDirty();
                 this.update();
+                return true;
             }
+            return false;
         };
         DTreeDataImpl.prototype.isCollapsed = function (target) {
             return !this.isExpanded(target);
@@ -61158,7 +61090,9 @@
                 this._mapped.toDirty();
                 this._selection.clear();
                 this.update();
+                return true;
             }
+            return false;
         };
         DTreeDataImpl.prototype.remove = function (target) {
             var isDirty = false;
@@ -61174,8 +61108,9 @@
                 this._mapped.toDirty();
                 this._selection.remove(target);
                 this.update();
+                return true;
             }
-            return isDirty;
+            return false;
         };
         DTreeDataImpl.prototype.add = function (target, parent) {
             var isDirty = false;
@@ -61596,6 +61531,18 @@
             _this.update();
             return _this;
         }
+        DTree.prototype.onResize = function (newWidth, newHeight, oldWidth, oldHeight) {
+            var updater = this._updater;
+            if (updater) {
+                updater.lock();
+                _super.prototype.onResize.call(this, newWidth, newHeight, oldWidth, oldHeight);
+                updater.update();
+                updater.unlock(true);
+            }
+            else {
+                _super.prototype.onResize.call(this, newWidth, newHeight, oldWidth, oldHeight);
+            }
+        };
         DTree.prototype.newUpdater = function (data, content, options) {
             return new DTreeItemUpdater(data, content, content, options === null || options === void 0 ? void 0 : options.updater);
         };
@@ -61671,7 +61618,7 @@
             return this._data.isExpanded(target);
         };
         DTree.prototype.clear = function () {
-            this._data.clear();
+            return this._data.clear();
         };
         DTree.prototype.remove = function (target) {
             return this._data.remove(target);
