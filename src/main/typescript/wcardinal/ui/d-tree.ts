@@ -80,6 +80,18 @@ export class DTree<
 		this.update();
 	}
 
+	onResize(newWidth: number, newHeight: number, oldWidth: number, oldHeight: number): void {
+		const updater = this._updater;
+		if (updater) {
+			updater.lock();
+			super.onResize(newWidth, newHeight, oldWidth, oldHeight);
+			updater.update();
+			updater.unlock(true);
+		} else {
+			super.onResize(newWidth, newHeight, oldWidth, oldHeight);
+		}
+	}
+
 	protected newUpdater(data: DATA, content: DBase, options?: OPTIONS): DTreeItemUpdater<NODE> {
 		return new DTreeItemUpdater<NODE>(data, content, content, options?.updater);
 	}
