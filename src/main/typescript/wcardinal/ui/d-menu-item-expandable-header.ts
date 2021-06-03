@@ -3,16 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DListItemOptions, DThemeListItem } from "./d-list-item";
-import { DMenuItemBase } from "./d-menu-item-base";
+import { DMenuItemBase, DMenuItemBaseOptions, DThemeMenuItemBase } from "./d-menu-item-base";
 import { DMenuItemBaseSelection } from "./d-menu-item-base-selection";
 
 export interface DMenuItemExpandableHeaderOptions<
 	VALUE = unknown,
 	THEME extends DThemeMenuItemExpandableHeader = DThemeMenuItemExpandableHeader
-> extends DListItemOptions<VALUE, THEME> {}
+> extends DMenuItemBaseOptions<VALUE, THEME> {}
 
-export interface DThemeMenuItemExpandableHeader extends DThemeListItem {}
+export interface DThemeMenuItemExpandableHeader extends DThemeMenuItemBase {}
 
 export class DMenuItemExpandableHeader<
 	VALUE = unknown,

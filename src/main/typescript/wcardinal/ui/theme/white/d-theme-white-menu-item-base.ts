@@ -7,11 +7,13 @@ import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
-import { DThemeListItem } from "../../d-list-item";
+import { DThemeMenuItemBase } from "../../d-menu-item-base";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteImage } from "./d-theme-white-image";
 
-export class DThemeWhiteMenuItemBase extends DThemeWhiteImage<string> implements DThemeListItem {
+export class DThemeWhiteMenuItemBase
+	extends DThemeWhiteImage<string>
+	implements DThemeMenuItemBase {
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		if (state.inDisabled) {
 			return null;
