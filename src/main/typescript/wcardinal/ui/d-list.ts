@@ -77,15 +77,30 @@ export class DList<
 	}
 
 	protected toData(options?: OPTIONS): DATA {
-		const data = (options && (options.data || options.items)) || [];
-		if (isArray(data)) {
-			return new DListDataImpl<VALUE>(this, {
-				items: data
-			}) as any;
+		const data = options && (options.data || options.items);
+		const selection = options?.selection;
+		if (data == null) {
+			if (selection) {
+				return new DListDataImpl<VALUE>(this, {
+					selection
+				}) as any;
+			} else {
+				return new DListDataImpl<VALUE>(this) as any;
+			}
+		} else if (isArray(data)) {
+			if (selection) {
+				return new DListDataImpl<VALUE>(this, {
+					items: data,
+					selection
+				}) as any;
+			} else {
+				return new DListDataImpl<VALUE>(this, {
+					items: data
+				}) as any;
+			}
 		} else if ("each" in data) {
 			return data;
 		} else {
-			const selection = options?.selection;
 			if (selection) {
 				if (data.selection === undefined) {
 					data.selection = selection;
