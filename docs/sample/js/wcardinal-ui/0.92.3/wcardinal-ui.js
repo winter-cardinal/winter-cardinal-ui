@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.92.2
+ Winter Cardinal UI v0.92.3
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -44401,17 +44401,35 @@
             return new DListItemUpdater(data, content, content, options === null || options === void 0 ? void 0 : options.updater);
         };
         DList.prototype.toData = function (options) {
-            var data = (options && (options.data || options.items)) || [];
-            if (isArray(data)) {
-                return new DListDataImpl(this, {
-                    items: data
-                });
+            var data = options && (options.data || options.items);
+            var selection = options === null || options === void 0 ? void 0 : options.selection;
+            if (data == null) {
+                if (selection) {
+                    return new DListDataImpl(this, {
+                        selection: selection
+                    });
+                }
+                else {
+                    return new DListDataImpl(this);
+                }
+            }
+            else if (isArray(data)) {
+                if (selection) {
+                    return new DListDataImpl(this, {
+                        items: data,
+                        selection: selection
+                    });
+                }
+                else {
+                    return new DListDataImpl(this, {
+                        items: data
+                    });
+                }
             }
             else if ("each" in data) {
                 return data;
             }
             else {
-                var selection = options === null || options === void 0 ? void 0 : options.selection;
                 if (selection) {
                     if (data.selection === undefined) {
                         data.selection = selection;
