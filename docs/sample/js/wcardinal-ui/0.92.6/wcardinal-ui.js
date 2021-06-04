@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.92.5
+ Winter Cardinal UI v0.92.6
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -3582,25 +3582,25 @@
             }
         };
         // Hit test
-        EShapeBase.prototype.getPixelScale = function () {
+        EShapeBase.prototype.getShapeScale = function () {
             var container = this.root.parent;
-            if (container != null && container.getPixelScale != null) {
-                return container.getPixelScale();
+            if (container != null && container.getShapeScale != null) {
+                return container.getShapeScale();
             }
             return 1.0;
         };
         EShapeBase.prototype.getStrokeWidthScale = function (style) {
             if (style & EShapeStrokeStyle.NON_EXPANDING_WIDTH) {
                 if (style & EShapeStrokeStyle.NON_SHRINKING_WIDTH) {
-                    return this.getPixelScale();
+                    return this.getShapeScale();
                 }
                 else {
-                    return Math.min(1.0, this.getPixelScale());
+                    return Math.min(1.0, this.getShapeScale());
                 }
             }
             else {
                 if (style & EShapeStrokeStyle.NON_SHRINKING_WIDTH) {
-                    return Math.max(1.0, this.getPixelScale());
+                    return Math.max(1.0, this.getShapeScale());
                 }
                 else {
                     return 1.0;
@@ -35712,7 +35712,7 @@
                     this.updateBuffers(shapes, buffers, renderer, antialiasWeight);
                 }
                 // Render buffers
-                shader.uniforms.shapeScale = container.getShapeScale();
+                shader.uniforms.shapeScale = container.toShapeScale();
                 shader.uniforms.pixelScale = container.toPixelScale(resolution);
                 shader.uniforms.antialiasWeight = antialiasWeight;
                 shader.uniforms.translationMatrix = container.worldTransform.toArray(true);
@@ -35855,7 +35855,7 @@
         EShapeContainer.prototype.getBuffers = function () {
             return this._buffers;
         };
-        EShapeContainer.prototype.getShapeScale = function () {
+        EShapeContainer.prototype.toShapeScale = function () {
             this.updateTransform();
             var transform = this.transform;
             var worldID = transform._worldID;
@@ -35868,8 +35868,11 @@
             }
             return this._shapeScale;
         };
+        EShapeContainer.prototype.getShapeScale = function () {
+            return this._shapeScale;
+        };
         EShapeContainer.prototype.toPixelScale = function (resolution) {
-            var shapeScale = this.getShapeScale();
+            var shapeScale = this.toShapeScale();
             var shapeScaleId = this._shapeScaleId;
             if (this._pixelScaleId !== shapeScaleId) {
                 this._pixelScaleId = shapeScaleId;
