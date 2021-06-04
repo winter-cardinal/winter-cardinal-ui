@@ -22,6 +22,8 @@ export class EShapeContainer extends DisplayObject {
 
 	protected _pixelScale: number;
 	protected _pixelScaleId: number;
+	protected _shapeScale: number;
+	protected _shapeScaleId: number;
 
 	protected _work: Point;
 
@@ -40,6 +42,8 @@ export class EShapeContainer extends DisplayObject {
 
 		this._pixelScale = 1;
 		this._pixelScaleId = NaN;
+		this._shapeScale = 1;
+		this._shapeScaleId = NaN;
 
 		this._work = new Point();
 
@@ -110,17 +114,26 @@ export class EShapeContainer extends DisplayObject {
 		return this._buffers;
 	}
 
-	toPixelScale(resolution: number): number {
+	getShapeScale(): number {
 		this.updateTransform();
 		const transform = this.transform;
 		const worldID = (transform as any)._worldID;
-		if (worldID !== this._pixelScaleId) {
-			this._pixelScaleId = worldID;
+		if (worldID !== this._shapeScaleId) {
+			this._shapeScaleId = worldID;
 			const worldTransform = transform.worldTransform;
 			const a = worldTransform.a;
 			const b = worldTransform.b;
-			const scale = Math.sqrt(a * a + b * b);
-			this._pixelScale = 1 / (resolution * scale);
+			this._shapeScale = 1 / Math.sqrt(a * a + b * b);
+		}
+		return this._shapeScale;
+	}
+
+	toPixelScale(resolution: number): number {
+		const shapeScale = this.getShapeScale();
+		const shapeScaleId = this._shapeScaleId;
+		if (this._pixelScaleId !== shapeScaleId) {
+			this._pixelScaleId = shapeScaleId;
+			this._pixelScale = (1 / resolution) * shapeScale;
 		}
 		return this._pixelScale;
 	}

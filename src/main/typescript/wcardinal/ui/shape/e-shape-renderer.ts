@@ -31,6 +31,7 @@ attribute vec2 aUv;
 
 uniform mat3 projectionMatrix;
 uniform mat3 translationMatrix;
+uniform mediump float shapeScale;
 uniform mediump float pixelScale;
 uniform mediump float antialiasWeight;
 
@@ -133,11 +134,11 @@ vec4 toColorStroke3456( in float shift, in float scale ) {
 float toStrokeWidthScale( in float scale ) {
 	return (
 		scale == 3.0 || scale == 7.0 ?
-		pixelScale : (
+		shapeScale : (
 			scale == 1.0 || scale == 5.0 ?
-			min( 1.0, pixelScale ) : (
+			min( 1.0, shapeScale ) : (
 				scale == 2.0 || scale == 6.0 ?
-				max( 1.0, pixelScale ) : 1.0
+				max( 1.0, shapeScale ) : 1.0
 			)
 		)
 	);
@@ -381,6 +382,7 @@ export class EShapeRenderer extends ObjectRenderer {
 			}
 
 			// Render buffers
+			shader.uniforms.shapeScale = container.getShapeScale();
 			shader.uniforms.pixelScale = container.toPixelScale(resolution);
 			shader.uniforms.antialiasWeight = antialiasWeight;
 			shader.uniforms.translationMatrix = container.worldTransform.toArray(true);
