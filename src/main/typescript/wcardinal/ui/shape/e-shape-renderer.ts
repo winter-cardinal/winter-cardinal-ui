@@ -382,7 +382,7 @@ export class EShapeRenderer extends ObjectRenderer {
 			}
 
 			// Render buffers
-			shader.uniforms.shapeScale = container.getShapeScale();
+			shader.uniforms.shapeScale = container.toShapeScale();
 			shader.uniforms.pixelScale = container.toPixelScale(resolution);
 			shader.uniforms.antialiasWeight = antialiasWeight;
 			shader.uniforms.translationMatrix = container.worldTransform.toArray(true);

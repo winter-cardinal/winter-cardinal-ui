@@ -114,7 +114,7 @@ export class EShapeContainer extends DisplayObject {
 		return this._buffers;
 	}
 
-	getShapeScale(): number {
+	toShapeScale(): number {
 		this.updateTransform();
 		const transform = this.transform;
 		const worldID = (transform as any)._worldID;
@@ -128,8 +128,12 @@ export class EShapeContainer extends DisplayObject {
 		return this._shapeScale;
 	}
 
+	getShapeScale(): number {
+		return this._shapeScale;
+	}
+
 	toPixelScale(resolution: number): number {
-		const shapeScale = this.getShapeScale();
+		const shapeScale = this.toShapeScale();
 		const shapeScaleId = this._shapeScaleId;
 		if (this._pixelScaleId !== shapeScaleId) {
 			this._pixelScaleId = shapeScaleId;

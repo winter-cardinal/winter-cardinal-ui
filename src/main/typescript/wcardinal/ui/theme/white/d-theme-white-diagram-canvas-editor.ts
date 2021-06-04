@@ -43,7 +43,7 @@ export class DThemeWhiteDiagramCanvasEditor
 	}
 
 	getSnapGridMajorWidth(): number {
-		return 2;
+		return 1.25;
 	}
 
 	getSnapGridMajorStyle(): EShapeStrokeStyle {

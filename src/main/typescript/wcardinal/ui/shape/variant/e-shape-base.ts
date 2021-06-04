@@ -407,10 +407,10 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	}
 
 	// Hit test
-	protected getPixelScale(): number {
+	protected getShapeScale(): number {
 		const container = this.root.parent as any;
-		if (container != null && container.getPixelScale != null) {
-			return container.getPixelScale();
+		if (container != null && container.getShapeScale != null) {
+			return container.getShapeScale();
 		}
 		return 1.0;
 	}
@@ -418,13 +418,13 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	protected getStrokeWidthScale(style: EShapeStrokeStyle): number {
 		if (style & EShapeStrokeStyle.NON_EXPANDING_WIDTH) {
 			if (style & EShapeStrokeStyle.NON_SHRINKING_WIDTH) {
-				return this.getPixelScale();
+				return this.getShapeScale();
 			} else {
-				return Math.min(1.0, this.getPixelScale());
+				return Math.min(1.0, this.getShapeScale());
 			}
 		} else {
 			if (style & EShapeStrokeStyle.NON_SHRINKING_WIDTH) {
-				return Math.max(1.0, this.getPixelScale());
+				return Math.max(1.0, this.getShapeScale());
 			} else {
 				return 1.0;
 			}
