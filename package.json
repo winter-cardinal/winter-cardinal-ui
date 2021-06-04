@@ -1,6 +1,6 @@
 {
 	"name": "@wcardinal/wcardinal-ui",
-	"version": "0.92.5",
+	"version": "0.92.6",
 	"license": "Apache-2.0",
 	"description": "A WebGL-based UI library",
 	"homepage": "https://github.com/winter-cardinal/winter-cardinal-ui",
