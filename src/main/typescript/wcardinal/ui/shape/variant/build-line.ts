@@ -806,7 +806,7 @@ const buildTransformedLineClosedSegmentVertexStepAndColorFill = (
 		for (; iv < ivmax; ) {
 			vertices[++iv] = px;
 			vertices[++iv] = py;
-			steps[++is] = 0;
+			steps[++is] = strokeWidth;
 			steps[++is] = scaleInvariant;
 			steps[++is] = pprevx;
 			steps[++is] = pprevy;

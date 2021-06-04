@@ -96,15 +96,10 @@ vec2 toPosition3456( in float type, in vec2 p, in vec2 pprev, in vec2 pnext, in 
 	vec2 pbevel = p + offsetSize * n;
 
 	//
-	/*
 	vec2 presult = (
-		0.0 <= miterAngle0 || miterAngle1 < 0.0 || miterSide < 0.0 ?
-		pbevel : pmiter
-	);
-	*/
-	vec2 presult = (
-		miterAngle0 < 0.0 && 0.0 <= miterAngle1 && miterLength < 6.0 ?
-		pmiter : pbevel
+		0.0 <= miterSide ?
+		( miterAngle0 < 0.0 && 0.0 <= miterAngle1 ? pmiter : pbevel ) :
+		( miterLength < 6.0 ? pmiter : pbevel )
 	);
 	vec2 ni = ( type == 4.0 || type == 6.0 ? n1i : n0i );
 	shift = dot( ni, p - presult );
