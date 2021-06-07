@@ -3,10 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DApplications } from "./d-applications";
 import { DBase } from "./d-base";
+import { isNumber } from "./util/is-number";
+import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 
 export interface DItemUpdaterItem<VALUE> extends DBase {
 	readonly value?: VALUE;
+	readonly index?: number;
 	set(value: VALUE, index: number, forcibly?: boolean): void;
 	unset(): void;
 }
@@ -46,6 +50,8 @@ export abstract class DItemUpdater<
 	protected _isUpdateItemsCalled: boolean;
 	protected _isUpdateItemsCalledForcibly: boolean;
 	protected _itemHeight: number;
+	protected _itemWidth: number;
+	protected _multiplicity: number;
 	protected _itemIndexStart: number;
 	protected _itemIndexEnd: number;
 	protected _workItems: ITEM[];
@@ -59,6 +65,8 @@ export abstract class DItemUpdater<
 		this._isUpdateItemsCalled = false;
 		this._isUpdateItemsCalledForcibly = false;
 		this._itemHeight = -1;
+		this._itemWidth = -1;
+		this._multiplicity = 1;
 		this._itemIndexStart = 0;
 		this._itemIndexEnd = 0;
 		this._workItems = [];
@@ -75,6 +83,10 @@ export abstract class DItemUpdater<
 	}
 
 	protected abstract newItem(this: undefined, data: DATA): ITEM;
+
+	get multiplicity(): number {
+		return this._multiplicity;
+	}
 
 	lock(): void {
 		this._updateItemsCount += 1;
@@ -119,27 +131,39 @@ export abstract class DItemUpdater<
 
 		const newItem = this._newItem;
 		let itemHeight = this._itemHeight;
+		let itemWidth = this._itemWidth;
 		if (this._itemHeight < 0) {
+			let item: ITEM;
 			if (0 < items.length) {
-				itemHeight = Math.max(1, items[0].height);
+				item = items[0];
 			} else {
-				const item = newItem(data);
+				item = newItem(data);
 				item.state.isAlternated = oldItemIndexStart % 2 === 0;
 				container.addChild(item);
-				itemHeight = Math.max(1, item.height);
 				oldItemIndexEnd += 1;
 				oldItemCount += 1;
 			}
+			itemHeight = Math.max(1, item.height);
+			if (isNumber(item.getWidth())) {
+				itemWidth = Math.max(1, item.width);
+			}
 			this._itemHeight = itemHeight;
+			this._itemWidth = itemWidth;
 		}
+		const multiplicity = 0 < itemWidth ? Math.floor(content.width / itemWidth) : 1;
+		this._multiplicity = multiplicity;
 
 		const y = content !== container ? container.transform.position.y : 0;
-		const newHeight = dataSize * itemHeight;
+		const newHeight = Math.ceil(dataSize / multiplicity) * itemHeight;
 		const newContentHeight = Math.max(height, newHeight);
 		const newContentY = Math.max(height - newContentHeight, content.position.y);
 
-		const newItemIndexLowerBound = Math.floor((0 - (newContentY + y)) / itemHeight);
-		const newItemIndexUpperBound = Math.floor((height - (newContentY + y)) / itemHeight);
+		const newItemIndexLowerBound = Math.floor(
+			((0 - (newContentY + y)) * multiplicity) / itemHeight
+		);
+		const newItemIndexUpperBound = Math.floor(
+			((height - (newContentY + y)) * multiplicity) / itemHeight
+		);
 		const newItemIndexStart =
 			newItemIndexLowerBound - (newItemIndexLowerBound % 2 === 0 ? 2 : 1);
 		let newItemIndexEnd =
@@ -207,7 +231,9 @@ export abstract class DItemUpdater<
 		mapped.each(
 			(datum: VALUE, index: number): void | boolean => {
 				const item = items[index - newItemIndexStart];
-				item.position.y = index * itemHeight;
+				const ix = index % multiplicity;
+				const iy = Math.floor(index / multiplicity);
+				item.position.set(ix * itemWidth, iy * itemHeight);
 				this.set(item, datum, index, forcibly);
 			},
 			newItemIndexStart,
@@ -217,14 +243,18 @@ export abstract class DItemUpdater<
 		for (let i = 0; newItemIndexStart + i < 0 && i < itemsLength; ++i) {
 			const item = items[i];
 			const index = newItemIndexStart + i;
-			item.position.y = index * itemHeight;
+			const ix = index % multiplicity;
+			const iy = Math.floor(index / multiplicity);
+			item.position.set(ix * itemWidth, iy * itemHeight);
 			this.unset(item);
 		}
 
 		for (let i = itemsLength - 1; dataSize <= newItemIndexStart + i && 0 <= i; --i) {
 			const item = items[i];
 			const index = newItemIndexStart + i;
-			item.position.y = index * itemHeight;
+			const ix = index % multiplicity;
+			const iy = Math.floor(index / multiplicity);
+			item.position.set(ix * itemWidth, iy * itemHeight);
 			this.unset(item);
 		}
 
@@ -257,5 +287,87 @@ export abstract class DItemUpdater<
 			}
 		}
 		return item;
+	}
+
+	moveFocus(
+		e: KeyboardEvent,
+		target: DBase,
+		moveVertically: boolean,
+		moveHorizontally: boolean
+	): boolean {
+		if (!(moveVertically || moveHorizontally)) {
+			return false;
+		}
+		const isUp = moveVertically && UtilKeyboardEvent.isArrowUpKey(e);
+		const isDown = moveVertically && UtilKeyboardEvent.isArrowDownKey(e);
+		const isLeft = moveHorizontally && UtilKeyboardEvent.isArrowLeftKey(e);
+		const isRight = moveHorizontally && UtilKeyboardEvent.isArrowRightKey(e);
+		if (!(isUp || isDown || isLeft || isRight)) {
+			return false;
+		}
+		if (!target.state.isActionable) {
+			return false;
+		}
+		const layer = DApplications.getLayer(target);
+		if (layer == null) {
+			return false;
+		}
+		const focusController = layer.getFocusController();
+		const focused = focusController.get();
+		if (focused == null) {
+			return false;
+		}
+		const container = this._container;
+		if (focused.parent !== container) {
+			return false;
+		}
+		const item = focused as ITEM;
+		const index = item.index;
+		if (index == null) {
+			return false;
+		}
+		const multiplicity = this._multiplicity;
+		const data = this._data;
+		const mapped = this.toMapped(data);
+		const dataSize = mapped.size();
+		let newIndex = index;
+		if (isLeft || isRight) {
+			const newIndexFrom = Math.floor(index / multiplicity) * multiplicity;
+			if (isLeft) {
+				if (newIndexFrom <= newIndex - 1) {
+					newIndex -= 1;
+				}
+			} else {
+				if (newIndex + 1 < Math.min(dataSize, newIndexFrom + multiplicity)) {
+					newIndex += 1;
+				}
+			}
+		}
+		if (isUp || isDown) {
+			if (isUp) {
+				if (0 <= newIndex - multiplicity) {
+					newIndex -= multiplicity;
+				}
+			} else {
+				if (newIndex + multiplicity < dataSize) {
+					newIndex += multiplicity;
+				}
+			}
+		}
+		if (newIndex === index) {
+			return false;
+		}
+		const items = container.children as ITEM[];
+		const itemIndex = items.indexOf(item);
+		if (itemIndex < 0) {
+			return false;
+		}
+		const newItemIndex = itemIndex + (newIndex - index);
+		if (newItemIndex < 0 || items.length <= newItemIndex) {
+			return false;
+		}
+		const newItem = items[newItemIndex];
+		focusController.focus(newItem);
+		return true;
 	}
 }

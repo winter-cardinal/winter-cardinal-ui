@@ -9,8 +9,7 @@ import { DListData, DListDataOptions } from "./d-list-data";
 import { DListDataImpl } from "./d-list-data-impl";
 import { DListDataSelection, DListDataSelectionOptions } from "./d-list-data-selection";
 import { DPane, DPaneOptions, DThemePane } from "./d-pane";
-import { isArray } from "./util";
-import { UtilKeyboardEvent } from "./util/util-keyboard-event";
+import { isArray } from "./util/is-array";
 import { DListItemUpdater, DListItemUpdaterOptions } from "./d-list-item-updater";
 
 export interface DListOptions<
@@ -139,7 +138,7 @@ export class DList<
 	}
 
 	onKeyDown(e: KeyboardEvent): boolean {
-		UtilKeyboardEvent.moveFocusVertically(e, this);
+		this._updater.moveFocus(e, this, true, true);
 		return super.onKeyDown(e);
 	}
 

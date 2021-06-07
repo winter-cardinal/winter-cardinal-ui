@@ -8,6 +8,8 @@ import { DTreeNode } from "./d-tree-node";
 
 export interface DTreeItem<NODE extends DTreeNode = DTreeNode> extends DBase {
 	readonly node?: NODE;
+	readonly value?: NODE;
+	readonly index?: number;
 
 	set(node: NODE, index: number, forcibly?: boolean): void;
 	unset(): void;

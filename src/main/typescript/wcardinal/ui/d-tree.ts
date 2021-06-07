@@ -125,6 +125,10 @@ export class DTree<
 		return this._data;
 	}
 
+	get selection(): DTreeDataSelection<NODE> {
+		return this._data.selection;
+	}
+
 	get value(): NODE[] {
 		return this._data.nodes;
 	}
@@ -193,8 +197,9 @@ export class DTree<
 		return this._data.each(iteratee);
 	}
 
-	get selection(): DTreeDataSelection<NODE> {
-		return this._data.selection;
+	onKeyDown(e: KeyboardEvent): boolean {
+		this._updater.moveFocus(e, this, true, false);
+		return super.onKeyDown(e);
 	}
 
 	protected getType(): string {

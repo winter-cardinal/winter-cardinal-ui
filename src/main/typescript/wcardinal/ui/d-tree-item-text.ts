@@ -4,7 +4,6 @@
  */
 
 import { interaction } from "pixi.js";
-import { DApplications } from "./d-applications";
 import { DBasePaddingAdjustable } from "./d-base-padding-adjustable";
 import { DBaseState } from "./d-base-state";
 import { DImageBase, DImageBaseEvents, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
@@ -71,6 +70,7 @@ export class DTreeItemText<
 	protected _padding!: DBasePaddingAdjustable;
 	protected _data: DTreeData<NODE>;
 	protected _node?: NODE;
+	protected _index?: number;
 
 	constructor(data: DTreeData<NODE>, options?: OPTIONS) {
 		super(options);
@@ -85,6 +85,10 @@ export class DTreeItemText<
 
 	get value(): NODE | undefined {
 		return this._node;
+	}
+
+	get index(): number | undefined {
+		return this._index;
 	}
 
 	get data(): DTreeData<NODE> {
@@ -103,6 +107,7 @@ export class DTreeItemText<
 		const isNodeChanged = forcibly || this._node !== node;
 		if (isNodeChanged) {
 			this._node = node;
+			this._index = index;
 
 			const accessor = data.accessor;
 			this.text = accessor.toLabel(node);
@@ -131,6 +136,7 @@ export class DTreeItemText<
 	unset(): void {
 		if (this._node !== undefined) {
 			this._node = undefined;
+			this._index = undefined;
 
 			this.text = undefined;
 			this.title = "";
@@ -201,17 +207,8 @@ export class DTreeItemText<
 	}
 
 	onKeyDown(e: KeyboardEvent): boolean {
-		const isArrowUpKey = UtilKeyboardEvent.isArrowUpKey(e);
-		const isArrowDownKey = UtilKeyboardEvent.isArrowDownKey(e);
-		if (isArrowUpKey || isArrowDownKey) {
-			const layer = DApplications.getLayer(this);
-			if (layer != null) {
-				const focusController = layer.getFocusController();
-				const next = focusController.find(this, false, false, isArrowDownKey, this.parent);
-				if (next != null) {
-					focusController.focus(next);
-				}
-			}
+		if (UtilKeyboardEvent.isActivateKey(e)) {
+			this.onKeyDownActivate(e);
 		}
 		if (UtilKeyboardEvent.isArrowRightKey(e)) {
 			const node = this._node;
@@ -230,6 +227,17 @@ export class DTreeItemText<
 			}
 		}
 		return super.onKeyDown(e);
+	}
+
+	protected onKeyDownActivate(e: KeyboardEvent): boolean {
+		if (this.state.isActionable && this.state.isFocused) {
+			const node = this._node;
+			if (node !== undefined) {
+				this.onSelect(e, node);
+			}
+			return true;
+		}
+		return false;
 	}
 
 	protected getType(): string {

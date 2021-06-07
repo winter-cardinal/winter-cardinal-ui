@@ -62,6 +62,7 @@ export class DListItem<
 > extends DImageBase<string, THEME, OPTIONS> {
 	protected _data: DListData<VALUE>;
 	protected _value?: VALUE;
+	protected _index?: number;
 
 	constructor(data: DListData<VALUE>, options?: OPTIONS) {
 		super(options);
@@ -87,6 +88,10 @@ export class DListItem<
 
 	get value(): VALUE | undefined {
 		return this._value;
+	}
+
+	get index(): number | undefined {
+		return this._index;
 	}
 
 	protected onSelect(
@@ -148,6 +153,7 @@ export class DListItem<
 		const isValueChanged = forcibly || this._value !== value;
 		if (isValueChanged) {
 			this._value = value;
+			this._index = index;
 
 			const accessor = data.accessor;
 			this.text = accessor.toLabel(value);
@@ -169,6 +175,7 @@ export class DListItem<
 	unset(): void {
 		if (this._value !== undefined) {
 			this._value = undefined;
+			this._index = undefined;
 
 			this.text = undefined;
 			this.title = "";
