@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.92.6
+ Winter Cardinal UI v0.93.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -42586,6 +42586,13 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(DListItem.prototype, "index", {
+            get: function () {
+                return this._index;
+            },
+            enumerable: false,
+            configurable: true
+        });
         DListItem.prototype.onSelect = function (e, value) {
             var data = this._data;
             var selection = data.selection;
@@ -42648,6 +42655,7 @@
             var isValueChanged = forcibly || this._value !== value;
             if (isValueChanged) {
                 this._value = value;
+                this._index = index;
                 var accessor = data.accessor;
                 this.text = accessor.toLabel(value);
                 this.title = accessor.toTitle(value) || "";
@@ -42665,6 +42673,7 @@
         DListItem.prototype.unset = function () {
             if (this._value !== undefined) {
                 this._value = undefined;
+                this._index = undefined;
                 this.text = undefined;
                 this.title = "";
                 this.image = undefined;
@@ -42728,6 +42737,8 @@
             this._isUpdateItemsCalled = false;
             this._isUpdateItemsCalledForcibly = false;
             this._itemHeight = -1;
+            this._itemWidth = -1;
+            this._multiplicity = 1;
             this._itemIndexStart = 0;
             this._itemIndexEnd = 0;
             this._workItems = [];
@@ -42739,6 +42750,13 @@
         DItemUpdater.prototype.toNewItem = function (options) {
             return (options === null || options === void 0 ? void 0 : options.newItem) || this.newItem;
         };
+        Object.defineProperty(DItemUpdater.prototype, "multiplicity", {
+            get: function () {
+                return this._multiplicity;
+            },
+            enumerable: false,
+            configurable: true
+        });
         DItemUpdater.prototype.lock = function () {
             this._updateItemsCount += 1;
             if (this._updateItemsCount === 1) {
@@ -42777,26 +42795,34 @@
             var oldItemCount = oldItemIndexEnd - oldItemIndexStart;
             var newItem = this._newItem;
             var itemHeight = this._itemHeight;
+            var itemWidth = this._itemWidth;
             if (this._itemHeight < 0) {
+                var item = void 0;
                 if (0 < items.length) {
-                    itemHeight = Math.max(1, items[0].height);
+                    item = items[0];
                 }
                 else {
-                    var item = newItem(data);
+                    item = newItem(data);
                     item.state.isAlternated = oldItemIndexStart % 2 === 0;
                     container.addChild(item);
-                    itemHeight = Math.max(1, item.height);
                     oldItemIndexEnd += 1;
                     oldItemCount += 1;
                 }
+                itemHeight = Math.max(1, item.height);
+                if (isNumber(item.getWidth())) {
+                    itemWidth = Math.max(1, item.width);
+                }
                 this._itemHeight = itemHeight;
+                this._itemWidth = itemWidth;
             }
+            var multiplicity = 0 < itemWidth ? Math.floor(content.width / itemWidth) : 1;
+            this._multiplicity = multiplicity;
             var y = content !== container ? container.transform.position.y : 0;
-            var newHeight = dataSize * itemHeight;
+            var newHeight = Math.ceil(dataSize / multiplicity) * itemHeight;
             var newContentHeight = Math.max(height, newHeight);
             var newContentY = Math.max(height - newContentHeight, content.position.y);
-            var newItemIndexLowerBound = Math.floor((0 - (newContentY + y)) / itemHeight);
-            var newItemIndexUpperBound = Math.floor((height - (newContentY + y)) / itemHeight);
+            var newItemIndexLowerBound = Math.floor(((0 - (newContentY + y)) * multiplicity) / itemHeight);
+            var newItemIndexUpperBound = Math.floor(((height - (newContentY + y)) * multiplicity) / itemHeight);
             var newItemIndexStart = newItemIndexLowerBound - (newItemIndexLowerBound % 2 === 0 ? 2 : 1);
             var newItemIndexEnd = newItemIndexUpperBound +
                 ((newItemIndexUpperBound - newItemIndexStart + 1) % 2 === 0 ? 3 : 2);
@@ -42859,19 +42885,25 @@
             }
             mapped.each(function (datum, index) {
                 var item = items[index - newItemIndexStart];
-                item.position.y = index * itemHeight;
+                var ix = index % multiplicity;
+                var iy = Math.floor(index / multiplicity);
+                item.position.set(ix * itemWidth, iy * itemHeight);
                 _this.set(item, datum, index, forcibly);
             }, newItemIndexStart, newItemIndexStart + itemsLength);
             for (var i = 0; newItemIndexStart + i < 0 && i < itemsLength; ++i) {
                 var item = items[i];
                 var index = newItemIndexStart + i;
-                item.position.y = index * itemHeight;
+                var ix = index % multiplicity;
+                var iy = Math.floor(index / multiplicity);
+                item.position.set(ix * itemWidth, iy * itemHeight);
                 this.unset(item);
             }
             for (var i = itemsLength - 1; dataSize <= newItemIndexStart + i && 0 <= i; --i) {
                 var item = items[i];
                 var index = newItemIndexStart + i;
-                item.position.y = index * itemHeight;
+                var ix = index % multiplicity;
+                var iy = Math.floor(index / multiplicity);
+                item.position.set(ix * itemWidth, iy * itemHeight);
                 this.unset(item);
             }
             this.lock();
@@ -42898,6 +42930,84 @@
                 }
             }
             return item;
+        };
+        DItemUpdater.prototype.moveFocus = function (e, target, moveVertically, moveHorizontally) {
+            if (!(moveVertically || moveHorizontally)) {
+                return false;
+            }
+            var isUp = moveVertically && UtilKeyboardEvent.isArrowUpKey(e);
+            var isDown = moveVertically && UtilKeyboardEvent.isArrowDownKey(e);
+            var isLeft = moveHorizontally && UtilKeyboardEvent.isArrowLeftKey(e);
+            var isRight = moveHorizontally && UtilKeyboardEvent.isArrowRightKey(e);
+            if (!(isUp || isDown || isLeft || isRight)) {
+                return false;
+            }
+            if (!target.state.isActionable) {
+                return false;
+            }
+            var layer = DApplications.getLayer(target);
+            if (layer == null) {
+                return false;
+            }
+            var focusController = layer.getFocusController();
+            var focused = focusController.get();
+            if (focused == null) {
+                return false;
+            }
+            var container = this._container;
+            if (focused.parent !== container) {
+                return false;
+            }
+            var item = focused;
+            var index = item.index;
+            if (index == null) {
+                return false;
+            }
+            var multiplicity = this._multiplicity;
+            var data = this._data;
+            var mapped = this.toMapped(data);
+            var dataSize = mapped.size();
+            var newIndex = index;
+            if (isLeft || isRight) {
+                var newIndexFrom = Math.floor(index / multiplicity) * multiplicity;
+                if (isLeft) {
+                    if (newIndexFrom <= newIndex - 1) {
+                        newIndex -= 1;
+                    }
+                }
+                else {
+                    if (newIndex + 1 < Math.min(dataSize, newIndexFrom + multiplicity)) {
+                        newIndex += 1;
+                    }
+                }
+            }
+            if (isUp || isDown) {
+                if (isUp) {
+                    if (0 <= newIndex - multiplicity) {
+                        newIndex -= multiplicity;
+                    }
+                }
+                else {
+                    if (newIndex + multiplicity < dataSize) {
+                        newIndex += multiplicity;
+                    }
+                }
+            }
+            if (newIndex === index) {
+                return false;
+            }
+            var items = container.children;
+            var itemIndex = items.indexOf(item);
+            if (itemIndex < 0) {
+                return false;
+            }
+            var newItemIndex = itemIndex + (newIndex - index);
+            if (newItemIndex < 0 || items.length <= newItemIndex) {
+                return false;
+            }
+            var newItem = items[newItemIndex];
+            focusController.focus(newItem);
+            return true;
         };
         return DItemUpdater;
     }());
@@ -44485,7 +44595,7 @@
             this._updater.update(forcibly);
         };
         DList.prototype.onKeyDown = function (e) {
-            UtilKeyboardEvent.moveFocusVertically(e, this);
+            this._updater.moveFocus(e, this, true, true);
             return _super.prototype.onKeyDown.call(this, e);
         };
         DList.prototype.getType = function () {
@@ -61277,6 +61387,13 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(DTreeItemText.prototype, "index", {
+            get: function () {
+                return this._index;
+            },
+            enumerable: false,
+            configurable: true
+        });
         Object.defineProperty(DTreeItemText.prototype, "data", {
             get: function () {
                 return this._data;
@@ -61296,6 +61413,7 @@
             var isNodeChanged = forcibly || this._node !== node;
             if (isNodeChanged) {
                 this._node = node;
+                this._index = index;
                 var accessor = data.accessor;
                 this.text = accessor.toLabel(node);
                 this.title = (_a = accessor.toTitle(node)) !== null && _a !== void 0 ? _a : "";
@@ -61319,6 +61437,7 @@
         DTreeItemText.prototype.unset = function () {
             if (this._node !== undefined) {
                 this._node = undefined;
+                this._index = undefined;
                 this.text = undefined;
                 this.title = "";
                 this.image = undefined;
@@ -61388,17 +61507,8 @@
             }
         };
         DTreeItemText.prototype.onKeyDown = function (e) {
-            var isArrowUpKey = UtilKeyboardEvent.isArrowUpKey(e);
-            var isArrowDownKey = UtilKeyboardEvent.isArrowDownKey(e);
-            if (isArrowUpKey || isArrowDownKey) {
-                var layer = DApplications.getLayer(this);
-                if (layer != null) {
-                    var focusController = layer.getFocusController();
-                    var next = focusController.find(this, false, false, isArrowDownKey, this.parent);
-                    if (next != null) {
-                        focusController.focus(next);
-                    }
-                }
+            if (UtilKeyboardEvent.isActivateKey(e)) {
+                this.onKeyDownActivate(e);
             }
             if (UtilKeyboardEvent.isArrowRightKey(e)) {
                 var node = this._node;
@@ -61417,6 +61527,16 @@
                 }
             }
             return _super.prototype.onKeyDown.call(this, e);
+        };
+        DTreeItemText.prototype.onKeyDownActivate = function (e) {
+            if (this.state.isActionable && this.state.isFocused) {
+                var node = this._node;
+                if (node !== undefined) {
+                    this.onSelect(e, node);
+                }
+                return true;
+            }
+            return false;
         };
         DTreeItemText.prototype.getType = function () {
             return "DTreeItemText";
@@ -61610,6 +61730,13 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(DTree.prototype, "selection", {
+            get: function () {
+                return this._data.selection;
+            },
+            enumerable: false,
+            configurable: true
+        });
         Object.defineProperty(DTree.prototype, "value", {
             get: function () {
                 return this._data.nodes;
@@ -61669,13 +61796,10 @@
         DTree.prototype.each = function (iteratee) {
             return this._data.each(iteratee);
         };
-        Object.defineProperty(DTree.prototype, "selection", {
-            get: function () {
-                return this._data.selection;
-            },
-            enumerable: false,
-            configurable: true
-        });
+        DTree.prototype.onKeyDown = function (e) {
+            this._updater.moveFocus(e, this, true, false);
+            return _super.prototype.onKeyDown.call(this, e);
+        };
         DTree.prototype.getType = function () {
             return "DTree";
         };
