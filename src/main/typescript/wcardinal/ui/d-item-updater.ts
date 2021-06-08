@@ -150,7 +150,7 @@ export abstract class DItemUpdater<
 			this._itemHeight = itemHeight;
 			this._itemWidth = itemWidth;
 		}
-		const multiplicity = 0 < itemWidth ? Math.floor(content.width / itemWidth) : 1;
+		const multiplicity = 0 < itemWidth ? Math.max(1, Math.floor(content.width / itemWidth)) : 1;
 		this._multiplicity = multiplicity;
 
 		const y = content !== container ? container.transform.position.y : 0;

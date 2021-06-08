@@ -26,7 +26,8 @@ export interface DLayoutCornerOptions extends DBaseCornerOptions {
 	adjust?: boolean;
 }
 
-export interface DLayoutOptions<THEME extends DThemeLayout> extends DBaseOptions<THEME> {
+export interface DLayoutOptions<THEME extends DThemeLayout = DThemeLayout>
+	extends DBaseOptions<THEME> {
 	margin?: number | DLayoutMarginOptions;
 	corner?: number | DLayoutCornerOptions;
 	row?: number;

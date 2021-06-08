@@ -10,7 +10,7 @@ import { DDialog, DDialogEvents, DDialogOptions, DThemeDialog } from "./d-dialog
 import { DDialogMode } from "./d-dialog-mode";
 import { DLayoutHorizontal } from "./d-layout-horizontal";
 import { DLayoutSpace } from "./d-layout-space";
-import { DLayoutVertical } from "./d-layout-vertical";
+import { DLayoutVertical, DLayoutVerticalOptions } from "./d-layout-vertical";
 import { DOnOptions } from "./d-on-options";
 
 /**
@@ -63,6 +63,11 @@ export interface DDialogCommandOptions<
 	 * Mappings of event names and handlers.
 	 */
 	on?: DDialogCommandOnOptions<VALUE, EMITTER>;
+
+	/**
+	 * Layout options.
+	 */
+	layout?: DLayoutVerticalOptions;
 }
 
 /**
@@ -94,15 +99,7 @@ export abstract class DDialogCommand<
 		super.init(options);
 
 		const theme = this.theme;
-		const layout = new DLayoutVertical({
-			parent: this,
-			x: theme.getLayoutX(),
-			y: theme.getLayoutY(),
-			width: theme.getLayoutWidth(),
-			height: theme.getLayoutHeight(),
-			margin: theme.getLayoutMargin()
-		});
-
+		const layout = this.newLayout(theme, options);
 		this.onInit(layout, options);
 
 		// Buttons
@@ -175,6 +172,24 @@ export abstract class DDialogCommand<
 				weight: 1
 			});
 		}
+	}
+
+	protected newLayout(theme: THEME, options?: OPTIONS): DLayoutVertical {
+		return new DLayoutVertical(this.toLayoutOptions(theme, options?.layout));
+	}
+
+	protected toLayoutOptions(
+		theme: THEME,
+		options?: DLayoutVerticalOptions
+	): DLayoutVerticalOptions {
+		options ??= {};
+		options.parent = this;
+		options.x ??= theme.getLayoutX();
+		options.y ??= theme.getLayoutY();
+		options.width ??= theme.getLayoutWidth();
+		options.height ??= theme.getLayoutHeight();
+		options.margin ??= theme.getLayoutMargin();
+		return options;
 	}
 
 	protected onInit(layout: DLayoutVertical, options?: OPTIONS): void {

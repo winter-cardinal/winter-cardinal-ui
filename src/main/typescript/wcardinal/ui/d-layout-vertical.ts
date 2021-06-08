@@ -5,7 +5,7 @@
 
 import { DLayout, DLayoutOptions, DThemeLayout } from "./d-layout";
 
-export interface DLayoutVerticalOptions<THEME extends DThemeLayoutVertical>
+export interface DLayoutVerticalOptions<THEME extends DThemeLayoutVertical = DThemeLayoutVertical>
 	extends DLayoutOptions<THEME> {}
 
 export interface DThemeLayoutVertical extends DThemeLayout {}
