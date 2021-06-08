@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.93.0
+ Winter Cardinal UI v0.93.1
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -2234,13 +2234,13 @@
                 this._mediumHighlightColor = UtilRgb.darken(this._weakHighlightColor, 0.025);
                 this._mediumHighlightAlpha = this._weakHighlightAlpha;
             }
-            this._imageTintColorWeak = DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
-            this._imageTintColorFocused = UtilRgb.darken(this._imageTintColorWeak, 0.1);
+            this._imageTintColorWeak = DThemeWhiteConstants.COLOR;
+            this._imageTintColorFocused = UtilRgb.brighten(this._imageTintColorWeak, 0.1);
             if (isVivid) {
-                this._imageTintColorHighlight = UtilRgb.blend(DThemeWhiteConstants.HIGHLIGHT_COLOR, DThemeWhiteConstants.ACTIVE_COLOR, 0.5);
+                this._imageTintColorHighlight = DThemeWhiteConstants.ACTIVE_COLOR;
             }
             else {
-                this._imageTintColorHighlight = DThemeWhiteConstants.HIGHLIGHT_COLOR;
+                this._imageTintColorHighlight = DThemeWhiteConstants.COLOR;
             }
             if (isVivid) {
                 this._color = DThemeWhiteConstants.COLOR;

@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.93.0
+ Winter Cardinal UI v0.93.1
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -42969,14 +42969,13 @@
             var dataSize = mapped.size();
             var newIndex = index;
             if (isLeft || isRight) {
-                var newIndexFrom = Math.floor(index / multiplicity) * multiplicity;
                 if (isLeft) {
-                    if (newIndexFrom <= newIndex - 1) {
+                    if (0 <= newIndex - 1) {
                         newIndex -= 1;
                     }
                 }
                 else {
-                    if (newIndex + 1 < Math.min(dataSize, newIndexFrom + multiplicity)) {
+                    if (newIndex + 1 < dataSize) {
                         newIndex += 1;
                     }
                 }
