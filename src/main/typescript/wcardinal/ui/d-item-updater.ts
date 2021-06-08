@@ -332,13 +332,12 @@ export abstract class DItemUpdater<
 		const dataSize = mapped.size();
 		let newIndex = index;
 		if (isLeft || isRight) {
-			const newIndexFrom = Math.floor(index / multiplicity) * multiplicity;
 			if (isLeft) {
-				if (newIndexFrom <= newIndex - 1) {
+				if (0 <= newIndex - 1) {
 					newIndex -= 1;
 				}
 			} else {
-				if (newIndex + 1 < Math.min(dataSize, newIndexFrom + multiplicity)) {
+				if (newIndex + 1 < dataSize) {
 					newIndex += 1;
 				}
 			}
