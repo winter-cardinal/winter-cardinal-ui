@@ -97,16 +97,12 @@ export class DThemeDarkListItems {
 			this._mediumHighlightAlpha = this._weakHighlightAlpha;
 		}
 
-		this._imageTintColorWeak = DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
-		this._imageTintColorFocused = UtilRgb.brighten(this._imageTintColorWeak, 0.1);
+		this._imageTintColorWeak = DThemeDarkConstants.COLOR;
+		this._imageTintColorFocused = UtilRgb.darken(this._imageTintColorWeak, 0.1);
 		if (isVivid) {
-			this._imageTintColorHighlight = UtilRgb.blend(
-				DThemeDarkConstants.HIGHLIGHT_COLOR,
-				DThemeDarkConstants.ACTIVE_COLOR,
-				0.5
-			);
+			this._imageTintColorHighlight = DThemeDarkConstants.ACTIVE_COLOR;
 		} else {
-			this._imageTintColorHighlight = DThemeDarkConstants.HIGHLIGHT_COLOR;
+			this._imageTintColorHighlight = DThemeDarkConstants.COLOR;
 		}
 
 		if (isVivid) {
