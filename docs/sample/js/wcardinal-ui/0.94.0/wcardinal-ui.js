@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.93.1
+ Winter Cardinal UI v0.94.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -18331,14 +18331,7 @@
             var _a, _b;
             _super.prototype.init.call(this, options);
             var theme = this.theme;
-            var layout = new DLayoutVertical({
-                parent: this,
-                x: theme.getLayoutX(),
-                y: theme.getLayoutY(),
-                width: theme.getLayoutWidth(),
-                height: theme.getLayoutHeight(),
-                margin: theme.getLayoutMargin()
-            });
+            var layout = this.newLayout(theme, options);
             this.onInit(layout, options);
             // Buttons
             var ok = (_a = options === null || options === void 0 ? void 0 : options.ok) !== null && _a !== void 0 ? _a : theme.getOk();
@@ -18412,6 +18405,20 @@
                     weight: 1
                 });
             }
+        };
+        DDialogCommand.prototype.newLayout = function (theme, options) {
+            return new DLayoutVertical(this.toLayoutOptions(theme, options === null || options === void 0 ? void 0 : options.layout));
+        };
+        DDialogCommand.prototype.toLayoutOptions = function (theme, options) {
+            var _a, _b, _c, _d, _e;
+            options !== null && options !== void 0 ? options : (options = {});
+            options.parent = this;
+            (_a = options.x) !== null && _a !== void 0 ? _a : (options.x = theme.getLayoutX());
+            (_b = options.y) !== null && _b !== void 0 ? _b : (options.y = theme.getLayoutY());
+            (_c = options.width) !== null && _c !== void 0 ? _c : (options.width = theme.getLayoutWidth());
+            (_d = options.height) !== null && _d !== void 0 ? _d : (options.height = theme.getLayoutHeight());
+            (_e = options.margin) !== null && _e !== void 0 ? _e : (options.margin = theme.getLayoutMargin());
+            return options;
         };
         DDialogCommand.prototype.onInit = function (layout, options) {
             // OVERRIDE THIS
@@ -42815,7 +42822,7 @@
                 this._itemHeight = itemHeight;
                 this._itemWidth = itemWidth;
             }
-            var multiplicity = 0 < itemWidth ? Math.floor(content.width / itemWidth) : 1;
+            var multiplicity = 0 < itemWidth ? Math.max(1, Math.floor(content.width / itemWidth)) : 1;
             this._multiplicity = multiplicity;
             var y = content !== container ? container.transform.position.y : 0;
             var newHeight = Math.ceil(dataSize / multiplicity) * itemHeight;

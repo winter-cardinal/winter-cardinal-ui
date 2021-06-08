@@ -61,6 +61,7 @@
     * [Processing dialog](./dialog/processing.html)
     * [Select dialog](./dialog/select.html)
     * [Select dialog with predefined items](./dialog/select-before.html)
+    * [Select dialog with images](./dialog/select-image.html)
     * [Select dialog with a selection preservation](./dialog/select-to-id.html)
     * [Select dialog with custom item labels](./dialog/select-to-label.html)
     * [Time dialog](./dialog/time.html)
