@@ -164,11 +164,14 @@ export abstract class DItemUpdater<
 		const newItemIndexUpperBound = Math.floor(
 			((height - (newContentY + y)) * multiplicity) / itemHeight
 		);
-		const newItemIndexStart =
-			newItemIndexLowerBound - (newItemIndexLowerBound % 2 === 0 ? 2 : 1);
-		let newItemIndexEnd =
-			newItemIndexUpperBound +
-			((newItemIndexUpperBound - newItemIndexStart + 1) % 2 === 0 ? 3 : 2);
+		let newItemIndexStart = newItemIndexLowerBound - multiplicity;
+		if (newItemIndexStart % 2 !== 0) {
+			newItemIndexStart -= 1;
+		}
+		let newItemIndexEnd = newItemIndexUpperBound + multiplicity + multiplicity;
+		if (newItemIndexEnd % 2 !== 0) {
+			newItemIndexEnd += 1;
+		}
 		let newItemCount = newItemIndexEnd - newItemIndexStart;
 		if (newItemCount < oldItemCount && oldItemCount - 2 <= newItemCount) {
 			newItemCount = oldItemCount;
