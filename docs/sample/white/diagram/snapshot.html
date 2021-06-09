@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.94.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.94.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.95.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.95.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -35,6 +35,19 @@
 			width: "padding", weight: 1,
 			background: {
 				ambient: false
+			},
+			snapshot: {
+				on: {
+					// Triggered before taking a snapshot.
+					taking: function(canvas, emitter) {
+						console.log("Taking", canvas, emitter);
+					},
+
+					// Triggered when a snapshot is taken successfully or when failed to take.
+					took: function(canvas, reason, emitter) {
+						console.log("Took", canvas, reason, emitter);
+					}
+				}
 			}
 		});
 
@@ -45,24 +58,7 @@
 			},
 			on: {
 				active: function() {
-					var canvas = diagram.canvas;
-					if( canvas != null ) {
-						var view = diagram.view;
-						var viewPosition = view.position;
-						var viewScale = view.scale;
-
-						var oldPositionX = viewPosition.x;
-						var oldPositionY = viewPosition.y;
-						var oldScaleX = viewScale.x;
-						var oldScaleY = viewScale.y;
-
-						var imageSize = 256;
-						var newScale = imageSize / application.getResolution() / Math.max( canvas.width, canvas.height );
-
-						view.transform( 0, 0, newScale, newScale, 0 );
-						wcardinal.ui.UtilExtract.file({ target: canvas, filename: "snapshot.png" });
-						view.transform( oldPositionX, oldPositionY, oldScaleX, oldScaleY, 0 );
-					}
+					diagram.snapshot.createAsFile("snapshot.png");
 				}
 			}
 		})

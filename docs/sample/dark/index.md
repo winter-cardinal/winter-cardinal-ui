@@ -43,7 +43,7 @@
     * [Opening a time dialog](./diagram/open-time.html)
     * [Embedding graphic pieces](./diagram/pieces.html)
     * [Embedding nested graphic pieces](./diagram/pieces-nested.html)
-    * [Doing something when a diagram is loaded](./diagram/ready.html)
+    * [Event triggered when a diagram is loaded](./diagram/ready.html)
     * [Snapshot](./diagram/snapshot.html)
     * [Text](./diagram/text.html)
 * Dialog

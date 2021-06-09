@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.94.0
+ Winter Cardinal UI v0.95.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -3403,7 +3403,7 @@
             return false;
         };
         DThemeWhiteDiagramEditor.prototype.getThumbnailSize = function () {
-            return 128;
+            return null;
         };
         return DThemeWhiteDiagramEditor;
     }(DThemeWhiteDiagramBase));

@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.94.0
+ Winter Cardinal UI v0.95.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -49582,19 +49582,48 @@
         return DCommandSave;
     }());
 
-    var DDiagramSnapshot = /** @class */ (function () {
-        function DDiagramSnapshot(parent) {
-            this._parent = parent;
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DDiagramSnapshot = /** @class */ (function (_super) {
+        __extends(DDiagramSnapshot, _super);
+        function DDiagramSnapshot(parent, options) {
+            var _this = _super.call(this) || this;
+            _this._parent = parent;
+            var on = options === null || options === void 0 ? void 0 : options.on;
+            if (on) {
+                for (var name_1 in on) {
+                    var handler = on[name_1];
+                    if (handler) {
+                        _this.on(name_1, handler);
+                    }
+                }
+            }
+            return _this;
         }
+        /**
+         * Creates a snapshot.
+         *
+         * @param size a maximum image size
+         * @returns an URL of a created image or undefined
+         */
         DDiagramSnapshot.prototype.createAsUrl = function (size) {
             return this.create(size, function (canvas) {
                 return UtilExtract.base64({ target: canvas });
             });
         };
-        DDiagramSnapshot.prototype.createAsFile = function (size, filename) {
-            this.create(size, function (canvas) {
-                return UtilExtract.file({ target: canvas, filename: filename });
-            });
+        DDiagramSnapshot.prototype.createAsFile = function (sizeOrFilename, filename) {
+            if (isString(sizeOrFilename)) {
+                this.create(undefined, function (canvas) {
+                    return UtilExtract.file({ target: canvas, filename: sizeOrFilename });
+                });
+            }
+            else {
+                this.create(sizeOrFilename, function (canvas) {
+                    return UtilExtract.file({ target: canvas, filename: filename });
+                });
+            }
         };
         DDiagramSnapshot.prototype.create = function (size, extractor) {
             var parent = this._parent;
@@ -49607,15 +49636,21 @@
                 var oldPositionY = viewPosition.y;
                 var oldScaleX = viewScale.x;
                 var oldScaleY = viewScale.y;
-                var newScale = size / DApplications.getResolution(canvas) / Math.max(canvas.width, canvas.height);
+                var newScale = size == null
+                    ? 1
+                    : size /
+                        DApplications.getResolution(canvas) /
+                        Math.max(canvas.width, canvas.height);
                 view.transform(0, 0, newScale, newScale, 0);
+                this.emit("taking", canvas, this);
                 var result = extractor(canvas);
+                this.emit("took", canvas, null, this);
                 view.transform(oldPositionX, oldPositionY, oldScaleX, oldScaleY, 0);
                 return result;
             }
         };
         return DDiagramSnapshot;
-    }());
+    }(pixi_js.utils.EventEmitter));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -49630,7 +49665,7 @@
             _this._tileFactory = options === null || options === void 0 ? void 0 : options.tile;
             _this._controller = options === null || options === void 0 ? void 0 : options.controller;
             _this._isAmbient = (_a = options === null || options === void 0 ? void 0 : options.ambient) !== null && _a !== void 0 ? _a : _this.theme.isAmbient();
-            _this._snapshot = new DDiagramSnapshot(_this);
+            _this._snapshot = new DDiagramSnapshot(_this, options === null || options === void 0 ? void 0 : options.snapshot);
             return _this;
         }
         Object.defineProperty(DDiagramBase.prototype, "snapshot", {
@@ -50806,10 +50841,11 @@
      */
     var DDiagramEditorThumbnail = /** @class */ (function () {
         function DDiagramEditorThumbnail(snapshot, theme, options) {
-            var _a, _b;
+            var _a;
             this._snapshot = snapshot;
             this._isEnabled = (_a = options === null || options === void 0 ? void 0 : options.enable) !== null && _a !== void 0 ? _a : theme.isThumbnailEnabled();
-            this._size = (_b = options === null || options === void 0 ? void 0 : options.size) !== null && _b !== void 0 ? _b : theme.getThumbnailSize();
+            var size = options === null || options === void 0 ? void 0 : options.size;
+            this._size = size !== undefined ? size : theme.getThumbnailSize();
         }
         Object.defineProperty(DDiagramEditorThumbnail.prototype, "enable", {
             get: function () {
@@ -50899,7 +50935,16 @@
             var canvas = this.canvas;
             var serialized = this._serialized;
             if (canvas != null && serialized != null) {
-                return canvas.serialize(serialized.id, this._thumbnail);
+                this.emit("serializing", canvas, this);
+                try {
+                    var result = canvas.serialize(serialized.id, this._thumbnail);
+                    this.emit("serialized", canvas, null, this);
+                    return result;
+                }
+                catch (e) {
+                    this.emit("serialized", canvas, "exception", this);
+                    return null;
+                }
             }
             return null;
         };
