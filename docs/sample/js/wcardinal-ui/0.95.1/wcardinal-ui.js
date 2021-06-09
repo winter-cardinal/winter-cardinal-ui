@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.95.0
+ Winter Cardinal UI v0.95.1
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -12303,7 +12303,7 @@
             if (target === this) {
                 return true;
             }
-            else if (!(target instanceof DBase)) {
+            else if (target != null && !(target instanceof DBase)) {
                 var parent_5 = target.parent;
                 while (parent_5 != null && !(parent_5 instanceof DBase)) {
                     parent_5 = parent_5.parent;
@@ -42830,9 +42830,14 @@
             var newContentY = Math.max(height - newContentHeight, content.position.y);
             var newItemIndexLowerBound = Math.floor(((0 - (newContentY + y)) * multiplicity) / itemHeight);
             var newItemIndexUpperBound = Math.floor(((height - (newContentY + y)) * multiplicity) / itemHeight);
-            var newItemIndexStart = newItemIndexLowerBound - (newItemIndexLowerBound % 2 === 0 ? 2 : 1);
-            var newItemIndexEnd = newItemIndexUpperBound +
-                ((newItemIndexUpperBound - newItemIndexStart + 1) % 2 === 0 ? 3 : 2);
+            var newItemIndexStart = newItemIndexLowerBound - multiplicity;
+            if (newItemIndexStart % 2 !== 0) {
+                newItemIndexStart -= 1;
+            }
+            var newItemIndexEnd = newItemIndexUpperBound + multiplicity + multiplicity;
+            if (newItemIndexEnd % 2 !== 0) {
+                newItemIndexEnd += 1;
+            }
             var newItemCount = newItemIndexEnd - newItemIndexStart;
             if (newItemCount < oldItemCount && oldItemCount - 2 <= newItemCount) {
                 newItemCount = oldItemCount;
