@@ -1814,7 +1814,7 @@ export class DBase<
 		const target = e.target;
 		if (target === this) {
 			return true;
-		} else if (!(target instanceof DBase)) {
+		} else if (target != null && !(target instanceof DBase)) {
 			let parent = target.parent;
 			while (parent != null && !(parent instanceof DBase)) {
 				parent = parent.parent;
