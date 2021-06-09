@@ -15,7 +15,7 @@ export class DThemeDarkDiagramEditor extends DThemeDarkDiagramBase implements DT
 		return false;
 	}
 
-	getThumbnailSize(): number {
-		return 128;
+	getThumbnailSize(): number | null {
+		return null;
 	}
 }

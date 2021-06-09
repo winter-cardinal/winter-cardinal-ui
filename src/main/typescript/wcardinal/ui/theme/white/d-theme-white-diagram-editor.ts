@@ -17,7 +17,7 @@ export class DThemeWhiteDiagramEditor
 		return false;
 	}
 
-	getThumbnailSize(): number {
-		return 128;
+	getThumbnailSize(): number | null {
+		return null;
 	}
 }

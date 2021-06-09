@@ -8,7 +8,7 @@
  */
 export interface DDiagramEditorThumbnailOptions {
 	enable?: boolean;
-	size?: number;
+	size?: number | null;
 }
 
 /**
@@ -16,17 +16,22 @@ export interface DDiagramEditorThumbnailOptions {
  */
 export interface DThemeDiagramEditorThumbnail {
 	isThumbnailEnabled(): boolean;
-	getThumbnailSize(): number;
+
+	/**
+	 * Returns a thumbnail maximum size.
+	 * If the size is null, a thumbnail size will be of a canvas size.
+	 */
+	getThumbnailSize(): number | null;
 }
 
 export interface DDiagramEditorThumbnailSnapshot {
-	createAsUrl(size: number): string | undefined;
+	createAsUrl(size: number | null): string | undefined;
 }
 
 export class DDiagramEditorThumbnail {
 	protected _snapshot: DDiagramEditorThumbnailSnapshot;
 	protected _isEnabled: boolean;
-	protected _size: number;
+	protected _size: number | null;
 
 	constructor(
 		snapshot: DDiagramEditorThumbnailSnapshot,
@@ -35,7 +40,8 @@ export class DDiagramEditorThumbnail {
 	) {
 		this._snapshot = snapshot;
 		this._isEnabled = options?.enable ?? theme.isThumbnailEnabled();
-		this._size = options?.size ?? theme.getThumbnailSize();
+		const size = options?.size;
+		this._size = size !== undefined ? size : theme.getThumbnailSize();
 	}
 
 	get enable(): boolean {
@@ -46,11 +52,11 @@ export class DDiagramEditorThumbnail {
 		this._isEnabled = enable;
 	}
 
-	get size(): number {
+	get size(): number | null {
 		return this._size;
 	}
 
-	set size(size: number) {
+	set size(size: number | null) {
 		this._size = size;
 	}
 

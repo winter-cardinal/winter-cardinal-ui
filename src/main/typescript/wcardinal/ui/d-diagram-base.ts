@@ -19,7 +19,7 @@ import {
 import { DDiagramCanvasTilePyramidFactory } from "./d-diagram-canvas-tile";
 import { DDiagramLayer } from "./d-diagram-layer";
 import { DDiagramSerialized, DDiagramSerializedSimple } from "./d-diagram-serialized";
-import { DDiagramSnapshot } from "./d-diagram-snapshot";
+import { DDiagramSnapshot, DDiagramSnapshotOptions } from "./d-diagram-snapshot";
 import { DDiagrams } from "./d-diagrams";
 import { DOnOptions } from "./d-on-options";
 import { EShape } from "./shape/e-shape";
@@ -80,6 +80,11 @@ export interface DDiagramBaseOptions<
 
 	ambient?: boolean;
 
+	/**
+	 * Snapshot options.
+	 */
+	snapshot?: DDiagramSnapshotOptions<CANVAS>;
+
 	on?: DDiagramBaseOnOptions<CANVAS, EMITTER>;
 }
 
@@ -117,7 +122,7 @@ export abstract class DDiagramBase<
 		this._tileFactory = options?.tile;
 		this._controller = options?.controller;
 		this._isAmbient = options?.ambient ?? this.theme.isAmbient();
-		this._snapshot = new DDiagramSnapshot(this);
+		this._snapshot = new DDiagramSnapshot(this, options?.snapshot);
 	}
 
 	get snapshot(): DDiagramSnapshot {

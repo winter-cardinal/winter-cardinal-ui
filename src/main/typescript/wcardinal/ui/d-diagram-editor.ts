@@ -56,6 +56,22 @@ export interface DDiagramEditorEvents<EMITTER>
 	change(emitter: EMITTER): void;
 
 	/**
+	 * Triggered before serializing a canvas.
+	 *
+	 * @param canvas a canvas
+	 * @param emitter an emitter
+	 */
+	serializing(canvas: DDiagramCanvasEditor, emitter: EMITTER): void;
+
+	/**
+	 * Triggered when serialized successfully or when failed to serialize.
+	 *
+	 * @param reason Null if succeeded. Otherwise, a string representing a reason why failed.
+	 * @param emitter an emitter
+	 */
+	serialized(canvas: DDiagramCanvasEditor, reason: string | null, emitter: EMITTER): void;
+
+	/**
 	 * Triggered before saving.
 	 *
 	 * @param simple a serialized data
@@ -66,7 +82,7 @@ export interface DDiagramEditorEvents<EMITTER>
 	/**
 	 * Triggered when saved successfully or when failed to save.
 	 *
-	 * @param reason Null if succeeded. Otherwise, a string representing a reason.
+	 * @param reason Null if succeeded. Otherwise, a string representing a reason why failed.
 	 * @param emitter an emitter
 	 */
 	saved(reason: string | null, emitter: EMITTER): void;
@@ -81,7 +97,7 @@ export interface DDiagramEditorEvents<EMITTER>
 	/**
 	 * Triggered when opened successfully or when failed to open.
 	 *
-	 * @param reason Null if succeeded. Otherwise, a string representing a reason.
+	 * @param reason Null if succeeded. Otherwise, a string representing a reason why failed.
 	 * @param emitter an emitter
 	 */
 	opened(reason: string | null, emitter: EMITTER): void;
@@ -96,7 +112,7 @@ export interface DDiagramEditorEvents<EMITTER>
 	/**
 	 * Triggered when deleted successfully or when failed to delete.
 	 *
-	 * @param reason Null if succeeded. Otherwise, a string representing a reason.
+	 * @param reason Null if succeeded. Otherwise, a string representing a reason why failed.
 	 * @param emitter an emitter.
 	 */
 	deleted(reason: string | null, emitter: EMITTER): void;
@@ -204,7 +220,15 @@ export class DDiagramEditor<
 		const canvas = this.canvas;
 		const serialized = this._serialized;
 		if (canvas != null && serialized != null) {
-			return canvas.serialize(serialized.id, this._thumbnail);
+			this.emit("serializing", canvas, this);
+			try {
+				const result = canvas.serialize(serialized.id, this._thumbnail);
+				this.emit("serialized", canvas, null, this);
+				return result;
+			} catch (e) {
+				this.emit("serialized", canvas, "exception", this);
+				return null;
+			}
 		}
 		return null;
 	}
