@@ -24,7 +24,7 @@ import { DBaseInteractive } from "./d-base-interactive";
 import { DBaseOutline } from "./d-base-outline";
 import { DBasePadding } from "./d-base-padding";
 import { DBasePoint } from "./d-base-point";
-import { DBaseReflowable } from "./d-base-reflowable";
+import { DBaseReflowableImpl } from "./d-base-reflowable-impl";
 import { DBaseStateSet } from "./d-base-state-set";
 import { DBaseStateSetImplObservable } from "./d-base-state-set-impl-observable";
 import { DBorderStateAware } from "./d-border";
@@ -50,6 +50,8 @@ import { UtilWheelEventDeltas } from "./util/util-wheel-event";
 import { DBaseAutoSet } from "./d-base-auto-set";
 import { toEnum } from "./util/to-enum";
 import { DOnOptions } from "./d-on-options";
+import { DBaseSnippetContainer } from "./d-base-snippet-container";
+import { DBaseReflowableContainer } from "./d-base-reflowable-container";
 
 /**
  * {@link DBase} padding options.
@@ -706,16 +708,6 @@ const toShortcuts = <THEME extends DThemeBase>(
 	return undefined;
 };
 
-export interface DRenderable {
-	parent?: Container | null;
-	render(renderer: Renderer): void;
-	updateTransform(): void;
-}
-
-export interface DReflowable {
-	onReflow(base: DBase, width: number, height: number): void;
-}
-
 /**
  * A base class for UI classes.
  * See {@link DBaseEvents} for event details.
@@ -750,9 +742,8 @@ export class DBase<
 	protected _outline: DOutline;
 	protected _clearType: DLayoutClearType;
 	protected _shortcuts?: UtilKeyboardEventShortcut[];
-	protected _befores: DRenderable[];
-	protected _afters: DRenderable[];
-	protected _reflowables: DReflowable[];
+	protected _snippet: DBaseSnippetContainer;
+	protected _reflowable: DBaseReflowableContainer;
 	protected _lastDownPoint?: Point;
 	protected _cursor?: DStateAwareOrValueMightBe<string>;
 
@@ -782,9 +773,8 @@ export class DBase<
 		this.name = options?.name ?? "";
 		const theme = toTheme(options) || this.getThemeDefault();
 		this._theme = theme;
-		this._befores = [];
-		this._afters = [];
-		this._reflowables = [];
+		this._snippet = new DBaseSnippetContainer(this);
+		this._reflowable = new DBaseReflowableContainer();
 		this._clearType = toEnum(options?.clear ?? theme.getClearType(), DLayoutClearType);
 		this._padding = new DBasePadding(theme, options, (): void => {
 			this.layout();
@@ -1014,53 +1004,16 @@ export class DBase<
 		return this.theme.getCursor(state);
 	}
 
-	addRenderable(renderable: DRenderable, phase: boolean): void {
-		const list = phase ? this._befores : this._afters;
-		list.push(renderable);
-		if ("parent" in renderable) {
-			renderable.parent = this;
-		}
+	get snippet(): DBaseSnippetContainer {
+		return this._snippet;
 	}
 
-	addRenderableAt(renderable: DRenderable, phase: boolean, index: number): void {
-		const list = phase ? this._befores : this._afters;
-		if (index === 0) {
-			list.unshift(renderable);
-		} else if (0 < index && index < list.length) {
-			list.splice(index, 0, renderable);
-		} else {
-			list.push(renderable);
-		}
-		if ("parent" in renderable) {
-			renderable.parent = this;
-		}
-	}
-
-	removeRenderable(renderable: DRenderable, phase: boolean): void {
-		const list = phase ? this._befores : this._afters;
-		const index = list.indexOf(renderable);
-		if (0 <= index) {
-			list.splice(index, 1);
-			if ("parent" in renderable) {
-				renderable.parent = null;
-			}
-		}
-	}
-
-	addReflowable(reflowable: DReflowable): void {
-		this._reflowables.push(reflowable);
-	}
-
-	removeReflowable(reflowable: DReflowable): void {
-		const reflowables = this._reflowables;
-		const index = reflowables.indexOf(reflowable);
-		if (0 <= index) {
-			reflowables.splice(index, 1);
-		}
+	get reflowable(): DBaseReflowableContainer {
+		return this._reflowable;
 	}
 
 	protected initReflowable(): void {
-		new DBaseReflowable(this);
+		new DBaseReflowableImpl(this);
 	}
 
 	protected onChildrenChange(): void {
@@ -1693,12 +1646,7 @@ export class DBase<
 	}
 
 	protected onReflow(): void {
-		const width = this._width;
-		const height = this._height;
-		const reflowables = this._reflowables;
-		for (let i = 0, imax = reflowables.length; i < imax; ++i) {
-			reflowables[i].onReflow(this, width, height);
-		}
+		this._reflowable.onReflow(this, this._width, this._height);
 	}
 
 	get shadow(): DShadow | null {
@@ -1708,17 +1656,20 @@ export class DBase<
 	set shadow(shadow: DShadow | null) {
 		const previous = this._shadow;
 		if (previous !== shadow) {
+			const reflowable = this._reflowable;
+			const snippet = this._snippet;
+			const onShadowUpdateBound = this._onShadowUpdateBound;
 			if (previous != null) {
-				previous.off("update", this._onShadowUpdateBound);
-				this.removeReflowable(previous);
-				this.removeRenderable(previous, true);
+				previous.off("update", onShadowUpdateBound);
+				reflowable.remove(previous);
+				snippet.remove(previous, true);
 			}
 
 			this._shadow = shadow;
 			if (shadow != null) {
-				shadow.on("update", this._onShadowUpdateBound);
-				this.addReflowable(shadow);
-				this.addRenderableAt(shadow, true, 0);
+				shadow.on("update", onShadowUpdateBound);
+				reflowable.add(shadow);
+				snippet.addAt(shadow, true, 0);
 			}
 
 			DApplications.update(this);
@@ -1905,27 +1856,10 @@ export class DBase<
 	//
 	render(renderer: Renderer): void {
 		if (this.visible && 0 < this.worldAlpha && this.renderable) {
-			this.renderBefore(renderer);
+			const snippet = this._snippet;
+			snippet.render(renderer, true);
 			super.render(renderer);
-			this.renderAfter(renderer);
-		}
-	}
-
-	protected renderBefore(renderer: Renderer): void {
-		const befores = this._befores;
-		for (let i = 0, imax = befores.length; i < imax; ++i) {
-			const before = befores[i];
-			before.updateTransform();
-			before.render(renderer);
-		}
-	}
-
-	protected renderAfter(renderer: Renderer): void {
-		const afters = this._afters;
-		for (let i = 0, imax = afters.length; i < imax; ++i) {
-			const after = afters[i];
-			after.updateTransform();
-			after.render(renderer);
+			snippet.render(renderer, false);
 		}
 	}
 

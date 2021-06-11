@@ -197,7 +197,7 @@ export class DPane<
 		if (result == null) {
 			result = new DBaseOverflowMask(this);
 			this._overflowMask = result;
-			this.addReflowable(result);
+			this.reflowable.add(result);
 			this.toDirty();
 		}
 		return result;

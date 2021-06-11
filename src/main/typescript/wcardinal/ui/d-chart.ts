@@ -40,7 +40,7 @@ export class DChart<
 	protected getOverflowMask(): DBaseOverflowMask {
 		if (this._overflowMask == null) {
 			this._overflowMask = new DBaseOverflowMask(this);
-			this.addReflowable(this._overflowMask);
+			this.reflowable.add(this._overflowMask);
 			this.toDirty();
 		}
 		return this._overflowMask;

@@ -4,14 +4,15 @@
  */
 
 import { Graphics } from "pixi.js";
-import { DBase, DReflowable } from "./d-base";
+import { DBase } from "./d-base";
+import { DBaseReflowable } from "./d-base-reflowable";
 import { DScrollBarThumb } from "./d-scroll-bar-thumb";
 
-export class DScrollBarThumbReflowableHorizontal extends Graphics implements DReflowable {
+export class DScrollBarThumbReflowableHorizontal extends Graphics implements DBaseReflowable {
 	constructor(base: DScrollBarThumb) {
 		super();
-		base.addRenderable(this, true);
-		base.addReflowable(this);
+		base.snippet.add(this, true);
+		base.reflowable.add(this);
 	}
 
 	onReflow(base: DBase, width: number, height: number): void {

@@ -4,9 +4,10 @@
  */
 
 import { Graphics, Renderer } from "pixi.js";
-import { DBase, DReflowable } from "./d-base";
+import { DBase } from "./d-base";
+import { DBaseReflowable } from "./d-base-reflowable";
 
-export class DBaseOverflowMaskSimple extends Graphics implements DReflowable {
+export class DBaseOverflowMaskSimple extends Graphics implements DBaseReflowable {
 	constructor(parent: DBase) {
 		super();
 		(this as any).parent = parent;

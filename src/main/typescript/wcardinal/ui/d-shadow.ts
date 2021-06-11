@@ -4,6 +4,6 @@
  */
 
 import { DisplayObject } from "pixi.js";
-import { DReflowable } from "./d-base";
+import { DBaseReflowable } from "./d-base-reflowable";
 
-export interface DShadow extends DisplayObject, DReflowable {}
+export interface DShadow extends DisplayObject, DBaseReflowable {}

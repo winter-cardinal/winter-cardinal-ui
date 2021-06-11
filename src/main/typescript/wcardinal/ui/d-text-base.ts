@@ -257,7 +257,7 @@ export class DTextBase<
 		if (this._isOverflowMaskEnabled) {
 			if (this._overflowMask == null) {
 				this._overflowMask = new DBaseOverflowMaskSimple(this);
-				this.addReflowable(this._overflowMask);
+				this._reflowable.add(this._overflowMask);
 				this.toDirty();
 			}
 			return this._overflowMask;

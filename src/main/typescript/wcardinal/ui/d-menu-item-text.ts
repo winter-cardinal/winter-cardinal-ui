@@ -54,7 +54,7 @@ export class DMenuItemText<
 			const shortcut = shortcuts[0];
 			const shortcutTextValue = UtilKeyboardEvent.toString(shortcut);
 			this._shortcutText = this.createText(shortcutTextValue);
-			this.addRenderable(this._shortcutText, true);
+			this.snippet.add(this._shortcutText, true);
 		} else {
 			this._shortcutText = null;
 		}

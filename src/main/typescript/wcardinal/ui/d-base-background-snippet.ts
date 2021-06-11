@@ -3,12 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBase, DRenderable, DThemeBase } from "./d-base";
+import { DBase, DThemeBase } from "./d-base";
 import { DBaseBackgroundMesh } from "./d-base-background-mesh";
+import { DBaseSnippet } from "./d-base-snippet";
 import { DBaseStateSet } from "./d-base-state-set";
 import { DCornerMask } from "./d-corner-mask";
 
-export class DBaseBackgroundRenderable implements DRenderable {
+export class DBaseBackgroundSnippet implements DBaseSnippet {
 	protected _mesh?: DBaseBackgroundMesh;
 	protected _cornerRadius: number;
 

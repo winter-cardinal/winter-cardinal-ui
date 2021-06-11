@@ -6,6 +6,7 @@
 import { utils } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBase } from "./d-base";
+import { DBaseSnippetContainer } from "./d-base-snippet-container";
 import { DOnOptions } from "./d-on-options";
 import { DView } from "./d-view";
 import { EShapeContainer } from "./shape";
@@ -48,7 +49,20 @@ export interface DDiagramSnapshotOnOptions<CANVAS, EMITTER>
 	extends Partial<DDiagramSnapshotEvents<CANVAS, EMITTER>>,
 		DOnOptions {}
 
+export interface DDiagramSnapshotCleanupOptions {
+	snap?: boolean;
+	background?: boolean;
+}
+
+export interface DDiagramSnapshotCleanup {
+	snap: boolean;
+	background: boolean;
+}
+
 export interface DDiagramSnapshotOptions<CANVAS, EMITTER = any> {
+	/** Options to eliminate the snap grid, the snap targets and the canvas background from a snapshot */
+	cleanup?: boolean | DDiagramSnapshotCleanupOptions;
+
 	on?: DDiagramSnapshotOnOptions<CANVAS, EMITTER>;
 }
 
@@ -56,11 +70,12 @@ export class DDiagramSnapshot<
 	CANVAS extends DDiagramSnapshotCanvas = DDiagramSnapshotCanvas
 > extends utils.EventEmitter {
 	protected _parent: DDiagramSnapshotParent<CANVAS>;
+	protected _cleanup: DDiagramSnapshotCleanup;
 
 	constructor(parent: DDiagramSnapshotParent<CANVAS>, options?: DDiagramSnapshotOptions<CANVAS>) {
 		super();
 		this._parent = parent;
-
+		this._cleanup = this.toCleanup(options?.cleanup);
 		const on = options?.on;
 		if (on) {
 			for (const name in on) {
@@ -70,6 +85,21 @@ export class DDiagramSnapshot<
 				}
 			}
 		}
+	}
+
+	protected toCleanup(
+		options?: boolean | DDiagramSnapshotCleanupOptions
+	): DDiagramSnapshotCleanup {
+		if (options == null || options === true || options === false) {
+			return {
+				snap: options !== false,
+				background: options !== false
+			};
+		}
+		return {
+			snap: options.snap !== false,
+			background: options.background !== false
+		};
 	}
 
 	/**
@@ -110,6 +140,13 @@ export class DDiagramSnapshot<
 		}
 	}
 
+	protected toScale(size: number | null | undefined, canvas: CANVAS): number {
+		if (size == null) {
+			return 1;
+		}
+		return size / DApplications.getResolution(canvas) / Math.max(canvas.width, canvas.height);
+	}
+
 	create<DATA>(
 		size: number | null | undefined,
 		extractor: (canvas: CANVAS) => DATA
@@ -126,32 +163,50 @@ export class DDiagramSnapshot<
 			const oldScaleX = viewScale.x;
 			const oldScaleY = viewScale.y;
 
-			const newScale: number =
-				size == null
-					? 1
-					: size /
-					  DApplications.getResolution(canvas) /
-					  Math.max(canvas.width, canvas.height);
-
+			const newScale: number = this.toScale(size, canvas);
 			view.transform(0, 0, newScale, newScale, 0);
-			let snapContainer: EShapeContainer | undefined;
-			if ("snap" in canvas) {
+
+			// Turns off the snap grid and targets
+			let container: EShapeContainer | undefined;
+			const cleanup = this._cleanup;
+			if (cleanup.snap && "snap" in canvas) {
 				const snap = canvas.snap;
 				if (snap != null) {
-					snapContainer = snap.container;
-					if (snapContainer.renderable) {
-						snapContainer.renderable = false;
+					container = snap.container;
+					if (container.renderable) {
+						container.renderable = false;
 					} else {
-						snapContainer = undefined;
+						container = undefined;
 					}
 				}
 			}
+
+			// Turns off the canvas snippets
+			let snippet: DBaseSnippetContainer | undefined;
+			if (cleanup.background) {
+				snippet = canvas.snippet;
+				if (snippet.renderable) {
+					snippet.renderable = false;
+				} else {
+					snippet = undefined;
+				}
+			}
+
+			// Extracts
 			this.emit("taking", canvas, this);
 			const result = extractor(canvas);
 			this.emit("took", canvas, null, this);
-			if (snapContainer != null) {
-				snapContainer.renderable = true;
+
+			// Turn on the canvas snippets
+			if (snippet) {
+				snippet.renderable = true;
 			}
+
+			// Turn on the snap grid and targets
+			if (container != null) {
+				container.renderable = true;
+			}
+
 			view.transform(oldPositionX, oldPositionY, oldScaleX, oldScaleY, 0);
 			return result;
 		}

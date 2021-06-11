@@ -61,7 +61,7 @@ export class DMapTilePyramidImpl extends utils.EventEmitter implements DMapTileP
 		this._fitThrottledBound = fitThrottledBound;
 		canvas.on("scale", fitThrottledBound);
 		canvas.on("move", fitThrottledBound);
-		canvas.addRenderable(this, true);
+		canvas.snippet.add(this, true);
 	}
 
 	get coordinate(): DMapCoordinate {
@@ -317,7 +317,7 @@ export class DMapTilePyramidImpl extends utils.EventEmitter implements DMapTileP
 		const fitThrottledBound = this._fitThrottledBound;
 		canvas.off("scale", fitThrottledBound);
 		canvas.off("move", fitThrottledBound);
-		canvas.removeRenderable(this, true);
+		canvas.snippet.remove(this, true);
 
 		return this;
 	}
