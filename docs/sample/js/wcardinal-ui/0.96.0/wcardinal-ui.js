@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.95.1
+ Winter Cardinal UI v0.96.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -9887,11 +9887,11 @@
      * Copyright (C) 2020 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DBaseBackgroundRenderable = /** @class */ (function () {
-        function DBaseBackgroundRenderable() {
+    var DBaseBackgroundSnippet = /** @class */ (function () {
+        function DBaseBackgroundSnippet() {
             this._cornerRadius = 0;
         }
-        DBaseBackgroundRenderable.prototype.get = function (base, theme, cornerRadius, cornerHeight, cornerMask) {
+        DBaseBackgroundSnippet.prototype.get = function (base, theme, cornerRadius, cornerHeight, cornerMask) {
             var result = this._mesh;
             if (result == null) {
                 result = new DBaseBackgroundMesh(theme.getBackgroundTexture(cornerRadius), cornerHeight, cornerMask);
@@ -9906,13 +9906,13 @@
             }
             return result;
         };
-        DBaseBackgroundRenderable.prototype.hide = function () {
+        DBaseBackgroundSnippet.prototype.hide = function () {
             var mesh = this._mesh;
             if (mesh != null) {
                 mesh.visible = false;
             }
         };
-        DBaseBackgroundRenderable.prototype.onReflow = function (base, width, height, theme, state, cornerRadius, cornerHeight, cornerMask) {
+        DBaseBackgroundSnippet.prototype.onReflow = function (base, width, height, theme, state, cornerRadius, cornerHeight, cornerMask) {
             var background = base.background;
             var backgroundColor = background.getColor(state);
             if (backgroundColor != null) {
@@ -9934,15 +9934,15 @@
                 this.hide();
             }
         };
-        DBaseBackgroundRenderable.prototype.render = function (renderer) {
+        DBaseBackgroundSnippet.prototype.render = function (renderer) {
             var _a;
             (_a = this._mesh) === null || _a === void 0 ? void 0 : _a.render(renderer);
         };
-        DBaseBackgroundRenderable.prototype.updateTransform = function () {
+        DBaseBackgroundSnippet.prototype.updateTransform = function () {
             var _a;
             (_a = this._mesh) === null || _a === void 0 ? void 0 : _a.updateTransform();
         };
-        return DBaseBackgroundRenderable;
+        return DBaseBackgroundSnippet;
     }());
 
     /*
@@ -10295,12 +10295,12 @@
      * Copyright (C) 2020 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DBaseBorderRenderable = /** @class */ (function () {
-        function DBaseBorderRenderable() {
+    var DBaseBorderSnippet = /** @class */ (function () {
+        function DBaseBorderSnippet() {
             this._cornerRadius = 0;
             this._borderWidth = 0;
         }
-        DBaseBorderRenderable.prototype.get = function (base, theme, cornerRadius, cornerHeight, cornerMask, borderWidth, borderMask) {
+        DBaseBorderSnippet.prototype.get = function (base, theme, cornerRadius, cornerHeight, cornerMask, borderWidth, borderMask) {
             var result = this._mesh;
             if (result == null) {
                 result = new DBaseBorderMesh(theme.getBorderTexture(cornerRadius, borderWidth), cornerHeight, borderMask, cornerMask);
@@ -10316,13 +10316,13 @@
             }
             return result;
         };
-        DBaseBorderRenderable.prototype.hide = function () {
+        DBaseBorderSnippet.prototype.hide = function () {
             var mesh = this._mesh;
             if (mesh != null) {
                 mesh.visible = false;
             }
         };
-        DBaseBorderRenderable.prototype.onReflow = function (base, width, height, theme, state, cornerRadius, cornerHeight, cornerMask) {
+        DBaseBorderSnippet.prototype.onReflow = function (base, width, height, theme, state, cornerRadius, cornerHeight, cornerMask) {
             var border = base.border;
             var borderColor = border.getColor(state);
             if (borderColor != null) {
@@ -10351,27 +10351,27 @@
                 this.hide();
             }
         };
-        DBaseBorderRenderable.prototype.render = function (renderer) {
+        DBaseBorderSnippet.prototype.render = function (renderer) {
             var _a;
             (_a = this._mesh) === null || _a === void 0 ? void 0 : _a.render(renderer);
         };
-        DBaseBorderRenderable.prototype.updateTransform = function () {
+        DBaseBorderSnippet.prototype.updateTransform = function () {
             var _a;
             (_a = this._mesh) === null || _a === void 0 ? void 0 : _a.updateTransform();
         };
-        return DBaseBorderRenderable;
+        return DBaseBorderSnippet;
     }());
 
     /*
      * Copyright (C) 2020 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DBaseOutlineRenderable = /** @class */ (function () {
-        function DBaseOutlineRenderable() {
+    var DBaseOutlineSnippet = /** @class */ (function () {
+        function DBaseOutlineSnippet() {
             this._cornerRadius = 0;
             this._outlineWidth = 0;
         }
-        DBaseOutlineRenderable.prototype.get = function (base, theme, cornerRadius, cornerHeight, cornerMask, outlineWidth, outlineMask) {
+        DBaseOutlineSnippet.prototype.get = function (base, theme, cornerRadius, cornerHeight, cornerMask, outlineWidth, outlineMask) {
             var result = this._mesh;
             if (result == null) {
                 result = new DBaseBorderMesh(theme.getBorderTexture(cornerRadius, outlineWidth), cornerHeight, outlineMask, cornerMask);
@@ -10388,13 +10388,13 @@
             }
             return result;
         };
-        DBaseOutlineRenderable.prototype.hide = function () {
+        DBaseOutlineSnippet.prototype.hide = function () {
             var mesh = this._mesh;
             if (mesh != null) {
                 mesh.visible = false;
             }
         };
-        DBaseOutlineRenderable.prototype.onReflow = function (base, width, height, theme, state, cornerRadius, cornerHeight, cornerMask) {
+        DBaseOutlineSnippet.prototype.onReflow = function (base, width, height, theme, state, cornerRadius, cornerHeight, cornerMask) {
             var outline = base.outline;
             var outlineColor = outline.getColor(state);
             if (outlineColor != null) {
@@ -10424,35 +10424,35 @@
                 this.hide();
             }
         };
-        DBaseOutlineRenderable.prototype.render = function (renderer) {
+        DBaseOutlineSnippet.prototype.render = function (renderer) {
             var _a;
             (_a = this._mesh) === null || _a === void 0 ? void 0 : _a.render(renderer);
         };
-        DBaseOutlineRenderable.prototype.updateTransform = function () {
+        DBaseOutlineSnippet.prototype.updateTransform = function () {
             var _a;
             (_a = this._mesh) === null || _a === void 0 ? void 0 : _a.updateTransform();
         };
-        return DBaseOutlineRenderable;
+        return DBaseOutlineSnippet;
     }());
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DBaseReflowable = /** @class */ (function () {
-        function DBaseReflowable(base) {
-            var background = new DBaseBackgroundRenderable();
+    var DBaseReflowableImpl = /** @class */ (function () {
+        function DBaseReflowableImpl(base) {
+            var background = new DBaseBackgroundSnippet();
             this._background = background;
-            base.addRenderable(background, true);
-            var border = new DBaseBorderRenderable();
+            base.snippet.add(background, true);
+            var border = new DBaseBorderSnippet();
             this._border = border;
-            base.addRenderable(border, false);
-            var outline = new DBaseOutlineRenderable();
+            base.snippet.add(border, false);
+            var outline = new DBaseOutlineSnippet();
             this._outline = outline;
-            base.addRenderable(outline, false);
-            base.addReflowable(this);
+            base.snippet.add(outline, false);
+            base.reflowable.add(this);
         }
-        DBaseReflowable.prototype.onReflow = function (base, width, height) {
+        DBaseReflowableImpl.prototype.onReflow = function (base, width, height) {
             var theme = base.theme;
             var state = base.state;
             var corner = base.corner;
@@ -10463,7 +10463,7 @@
             this._border.onReflow(base, width, height, theme, state, cornerRadius, cornerHeight, cornerMask);
             this._outline.onReflow(base, width, height, theme, state, cornerRadius, cornerHeight, cornerMask);
         };
-        return DBaseReflowable;
+        return DBaseReflowableImpl;
     }());
 
     /*
@@ -11268,6 +11268,99 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var DBaseSnippetContainer = /** @class */ (function () {
+        function DBaseSnippetContainer(parent) {
+            this._parent = parent;
+            this._befores = [];
+            this._afters = [];
+            this._renderable = true;
+        }
+        Object.defineProperty(DBaseSnippetContainer.prototype, "renderable", {
+            get: function () {
+                return this._renderable;
+            },
+            set: function (renderable) {
+                this._renderable = renderable;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DBaseSnippetContainer.prototype.add = function (snippet, phase) {
+            var list = phase ? this._befores : this._afters;
+            list.push(snippet);
+            if ("parent" in snippet) {
+                snippet.parent = this._parent;
+            }
+        };
+        DBaseSnippetContainer.prototype.addAt = function (snippet, phase, index) {
+            var list = phase ? this._befores : this._afters;
+            if (index === 0) {
+                list.unshift(snippet);
+            }
+            else if (0 < index && index < list.length) {
+                list.splice(index, 0, snippet);
+            }
+            else {
+                list.push(snippet);
+            }
+            if ("parent" in snippet) {
+                snippet.parent = this._parent;
+            }
+        };
+        DBaseSnippetContainer.prototype.remove = function (snippet, phase) {
+            var list = phase ? this._befores : this._afters;
+            var index = list.indexOf(snippet);
+            if (0 <= index) {
+                list.splice(index, 1);
+                if ("parent" in snippet) {
+                    snippet.parent = null;
+                }
+            }
+        };
+        DBaseSnippetContainer.prototype.render = function (renderer, phase) {
+            if (this._renderable) {
+                var list = phase ? this._befores : this._afters;
+                for (var i = 0, imax = list.length; i < imax; ++i) {
+                    var snippet = list[i];
+                    snippet.updateTransform();
+                    snippet.render(renderer);
+                }
+            }
+        };
+        return DBaseSnippetContainer;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DBaseReflowableContainer = /** @class */ (function () {
+        function DBaseReflowableContainer() {
+            this._list = [];
+        }
+        DBaseReflowableContainer.prototype.add = function (reflowable) {
+            this._list.push(reflowable);
+        };
+        DBaseReflowableContainer.prototype.remove = function (reflowable) {
+            var list = this._list;
+            var index = list.indexOf(reflowable);
+            if (0 <= index) {
+                list.splice(index, 1);
+            }
+        };
+        DBaseReflowableContainer.prototype.onReflow = function (base, width, height) {
+            var list = this._list;
+            for (var i = 0, imax = list.length; i < imax; ++i) {
+                list[i].onReflow(base, width, height);
+            }
+        };
+        return DBaseReflowableContainer;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var toTheme = function (options) {
         var theme = options === null || options === void 0 ? void 0 : options.theme;
         if (theme) {
@@ -11327,9 +11420,8 @@
             _this.name = (_a = options === null || options === void 0 ? void 0 : options.name) !== null && _a !== void 0 ? _a : "";
             var theme = toTheme(options) || _this.getThemeDefault();
             _this._theme = theme;
-            _this._befores = [];
-            _this._afters = [];
-            _this._reflowables = [];
+            _this._snippet = new DBaseSnippetContainer(_this);
+            _this._reflowable = new DBaseReflowableContainer();
             _this._clearType = toEnum((_b = options === null || options === void 0 ? void 0 : options.clear) !== null && _b !== void 0 ? _b : theme.getClearType(), DLayoutClearType);
             _this._padding = new DBasePadding(theme, options, function () {
                 _this.layout();
@@ -11536,50 +11628,22 @@
             }
             return this.theme.getCursor(state);
         };
-        DBase.prototype.addRenderable = function (renderable, phase) {
-            var list = phase ? this._befores : this._afters;
-            list.push(renderable);
-            if ("parent" in renderable) {
-                renderable.parent = this;
-            }
-        };
-        DBase.prototype.addRenderableAt = function (renderable, phase, index) {
-            var list = phase ? this._befores : this._afters;
-            if (index === 0) {
-                list.unshift(renderable);
-            }
-            else if (0 < index && index < list.length) {
-                list.splice(index, 0, renderable);
-            }
-            else {
-                list.push(renderable);
-            }
-            if ("parent" in renderable) {
-                renderable.parent = this;
-            }
-        };
-        DBase.prototype.removeRenderable = function (renderable, phase) {
-            var list = phase ? this._befores : this._afters;
-            var index = list.indexOf(renderable);
-            if (0 <= index) {
-                list.splice(index, 1);
-                if ("parent" in renderable) {
-                    renderable.parent = null;
-                }
-            }
-        };
-        DBase.prototype.addReflowable = function (reflowable) {
-            this._reflowables.push(reflowable);
-        };
-        DBase.prototype.removeReflowable = function (reflowable) {
-            var reflowables = this._reflowables;
-            var index = reflowables.indexOf(reflowable);
-            if (0 <= index) {
-                reflowables.splice(index, 1);
-            }
-        };
+        Object.defineProperty(DBase.prototype, "snippet", {
+            get: function () {
+                return this._snippet;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DBase.prototype, "reflowable", {
+            get: function () {
+                return this._reflowable;
+            },
+            enumerable: false,
+            configurable: true
+        });
         DBase.prototype.initReflowable = function () {
-            new DBaseReflowable(this);
+            new DBaseReflowableImpl(this);
         };
         DBase.prototype.onChildrenChange = function () {
             this.toChildrenDirty();
@@ -12194,12 +12258,7 @@
             }
         };
         DBase.prototype.onReflow = function () {
-            var width = this._width;
-            var height = this._height;
-            var reflowables = this._reflowables;
-            for (var i = 0, imax = reflowables.length; i < imax; ++i) {
-                reflowables[i].onReflow(this, width, height);
-            }
+            this._reflowable.onReflow(this, this._width, this._height);
         };
         Object.defineProperty(DBase.prototype, "shadow", {
             get: function () {
@@ -12208,16 +12267,19 @@
             set: function (shadow) {
                 var previous = this._shadow;
                 if (previous !== shadow) {
+                    var reflowable = this._reflowable;
+                    var snippet = this._snippet;
+                    var onShadowUpdateBound = this._onShadowUpdateBound;
                     if (previous != null) {
-                        previous.off("update", this._onShadowUpdateBound);
-                        this.removeReflowable(previous);
-                        this.removeRenderable(previous, true);
+                        previous.off("update", onShadowUpdateBound);
+                        reflowable.remove(previous);
+                        snippet.remove(previous, true);
                     }
                     this._shadow = shadow;
                     if (shadow != null) {
-                        shadow.on("update", this._onShadowUpdateBound);
-                        this.addReflowable(shadow);
-                        this.addRenderableAt(shadow, true, 0);
+                        shadow.on("update", onShadowUpdateBound);
+                        reflowable.add(shadow);
+                        snippet.addAt(shadow, true, 0);
                     }
                     DApplications.update(this);
                 }
@@ -12383,25 +12445,10 @@
         //
         DBase.prototype.render = function (renderer) {
             if (this.visible && 0 < this.worldAlpha && this.renderable) {
-                this.renderBefore(renderer);
+                var snippet = this._snippet;
+                snippet.render(renderer, true);
                 _super.prototype.render.call(this, renderer);
-                this.renderAfter(renderer);
-            }
-        };
-        DBase.prototype.renderBefore = function (renderer) {
-            var befores = this._befores;
-            for (var i = 0, imax = befores.length; i < imax; ++i) {
-                var before = befores[i];
-                before.updateTransform();
-                before.render(renderer);
-            }
-        };
-        DBase.prototype.renderAfter = function (renderer) {
-            var afters = this._afters;
-            for (var i = 0, imax = afters.length; i < imax; ++i) {
-                var after = afters[i];
-                after.updateTransform();
-                after.render(renderer);
+                snippet.render(renderer, false);
             }
         };
         //
@@ -13627,7 +13674,7 @@
         DCanvasContainer.prototype.getOverflowMask = function () {
             if (this._overflowMask == null) {
                 this._overflowMask = new DBaseOverflowMask(this);
-                this.addReflowable(this._overflowMask);
+                this._reflowable.add(this._overflowMask);
                 this.toDirty();
             }
             return this._overflowMask;
@@ -16253,7 +16300,7 @@
             if (this._isOverflowMaskEnabled) {
                 if (this._overflowMask == null) {
                     this._overflowMask = new DBaseOverflowMaskSimple(this);
-                    this.addReflowable(this._overflowMask);
+                    this._reflowable.add(this._overflowMask);
                     this.toDirty();
                 }
                 return this._overflowMask;
@@ -32600,7 +32647,7 @@
                 var shortcut = shortcuts[0];
                 var shortcutTextValue = UtilKeyboardEvent.toString(shortcut);
                 this._shortcutText = this.createText(shortcutTextValue);
-                this.addRenderable(this._shortcutText, true);
+                this.snippet.add(this._shortcutText, true);
             }
             else {
                 this._shortcutText = null;
@@ -33364,8 +33411,8 @@
         __extends(DMenuItemSeparatorReflowable, _super);
         function DMenuItemSeparatorReflowable(base) {
             var _this = _super.call(this) || this;
-            base.addRenderable(_this, true);
-            base.addReflowable(_this);
+            base.snippet.add(_this, true);
+            base.reflowable.add(_this);
             return _this;
         }
         DMenuItemSeparatorReflowable.prototype.onReflow = function (base, width, height) {
@@ -43964,8 +44011,8 @@
         __extends(DScrollBarThumbReflowableHorizontal, _super);
         function DScrollBarThumbReflowableHorizontal(base) {
             var _this = _super.call(this) || this;
-            base.addRenderable(_this, true);
-            base.addReflowable(_this);
+            base.snippet.add(_this, true);
+            base.reflowable.add(_this);
             return _this;
         }
         DScrollBarThumbReflowableHorizontal.prototype.onReflow = function (base, width, height) {
@@ -44070,8 +44117,8 @@
         __extends(DScrollBarThumbReflowableVertical, _super);
         function DScrollBarThumbReflowableVertical(base) {
             var _this = _super.call(this) || this;
-            base.addRenderable(_this, true);
-            base.addReflowable(_this);
+            base.snippet.add(_this, true);
+            base.reflowable.add(_this);
             return _this;
         }
         DScrollBarThumbReflowableVertical.prototype.onReflow = function (base, width, height) {
@@ -44286,7 +44333,7 @@
             if (result == null) {
                 result = new DBaseOverflowMask(this);
                 this._overflowMask = result;
-                this.addReflowable(result);
+                this.reflowable.add(result);
                 this.toDirty();
             }
             return result;
@@ -44803,9 +44850,20 @@
                 }
             });
         };
-        DDialogSelect.prototype.onSearched = function (results) {
-            this._list.data.items = results;
-        };
+        Object.defineProperty(DDialogSelect.prototype, "input", {
+            get: function () {
+                return this._input;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDialogSelect.prototype, "list", {
+            get: function () {
+                return this._list;
+            },
+            enumerable: false,
+            configurable: true
+        });
         Object.defineProperty(DDialogSelect.prototype, "value", {
             get: function () {
                 return this._value;
@@ -44813,6 +44871,9 @@
             enumerable: false,
             configurable: true
         });
+        DDialogSelect.prototype.onSearched = function (results) {
+            this._list.data.items = results;
+        };
         DDialogSelect.prototype.getResolvedValue = function () {
             return this._value;
         };
@@ -47416,7 +47477,7 @@
         DChartPlotArea.prototype.getOverflowMask = function () {
             if (this._overflowMask == null) {
                 this._overflowMask = new DBaseOverflowMask(this);
-                this.addReflowable(this._overflowMask);
+                this.reflowable.add(this._overflowMask);
                 this.toDirty();
             }
             return this._overflowMask;
@@ -49465,7 +49526,7 @@
         DChart.prototype.getOverflowMask = function () {
             if (this._overflowMask == null) {
                 this._overflowMask = new DBaseOverflowMask(this);
-                this.addReflowable(this._overflowMask);
+                this.reflowable.add(this._overflowMask);
                 this.toDirty();
             }
             return this._overflowMask;
@@ -49596,6 +49657,7 @@
         function DDiagramSnapshot(parent, options) {
             var _this = _super.call(this) || this;
             _this._parent = parent;
+            _this._cleanup = _this.toCleanup(options === null || options === void 0 ? void 0 : options.cleanup);
             var on = options === null || options === void 0 ? void 0 : options.on;
             if (on) {
                 for (var name_1 in on) {
@@ -49607,6 +49669,18 @@
             }
             return _this;
         }
+        DDiagramSnapshot.prototype.toCleanup = function (options) {
+            if (options == null || options === true || options === false) {
+                return {
+                    snap: options !== false,
+                    background: options !== false
+                };
+            }
+            return {
+                snap: options.snap !== false,
+                background: options.background !== false
+            };
+        };
         /**
          * Creates a snapshot.
          *
@@ -49630,6 +49704,12 @@
                 });
             }
         };
+        DDiagramSnapshot.prototype.toScale = function (size, canvas) {
+            if (size == null) {
+                return 1;
+            }
+            return size / DApplications.getResolution(canvas) / Math.max(canvas.width, canvas.height);
+        };
         DDiagramSnapshot.prototype.create = function (size, extractor) {
             var parent = this._parent;
             var canvas = parent.canvas;
@@ -49641,15 +49721,46 @@
                 var oldPositionY = viewPosition.y;
                 var oldScaleX = viewScale.x;
                 var oldScaleY = viewScale.y;
-                var newScale = size == null
-                    ? 1
-                    : size /
-                        DApplications.getResolution(canvas) /
-                        Math.max(canvas.width, canvas.height);
+                var newScale = this.toScale(size, canvas);
                 view.transform(0, 0, newScale, newScale, 0);
+                // Turns off the snap grid and targets
+                var container = void 0;
+                var cleanup = this._cleanup;
+                if (cleanup.snap && "snap" in canvas) {
+                    var snap = canvas.snap;
+                    if (snap != null) {
+                        container = snap.container;
+                        if (container.renderable) {
+                            container.renderable = false;
+                        }
+                        else {
+                            container = undefined;
+                        }
+                    }
+                }
+                // Turns off the canvas snippets
+                var snippet = void 0;
+                if (cleanup.background) {
+                    snippet = canvas.snippet;
+                    if (snippet.renderable) {
+                        snippet.renderable = false;
+                    }
+                    else {
+                        snippet = undefined;
+                    }
+                }
+                // Extracts
                 this.emit("taking", canvas, this);
                 var result = extractor(canvas);
                 this.emit("took", canvas, null, this);
+                // Turn on the canvas snippets
+                if (snippet) {
+                    snippet.renderable = true;
+                }
+                // Turn on the snap grid and targets
+                if (container != null) {
+                    container.renderable = true;
+                }
                 view.transform(oldPositionX, oldPositionY, oldScaleX, oldScaleY, 0);
                 return result;
             }
@@ -50384,6 +50495,13 @@
             parent.toDirty();
             DApplications.update(parent);
         };
+        Object.defineProperty(DDiagramCanvasEditorSnap.prototype, "container", {
+            get: function () {
+                return this._container;
+            },
+            enumerable: false,
+            configurable: true
+        });
         DDiagramCanvasEditorSnap.prototype.serialize = function () {
             return this._controller.serialize();
         };
@@ -50492,6 +50610,13 @@
             }
             return null;
         };
+        Object.defineProperty(DDiagramCanvasEditor.prototype, "snap", {
+            get: function () {
+                return this._snap;
+            },
+            enumerable: false,
+            configurable: true
+        });
         DDiagramCanvasEditor.prototype.serialize = function (id, thumbnail) {
             var _a;
             var manager = new EShapeResourceManagerSerialization();
@@ -52917,7 +53042,7 @@
             _this._fitThrottledBound = fitThrottledBound;
             canvas.on("scale", fitThrottledBound);
             canvas.on("move", fitThrottledBound);
-            canvas.addRenderable(_this, true);
+            canvas.snippet.add(_this, true);
             return _this;
         }
         Object.defineProperty(DMapTilePyramidImpl.prototype, "coordinate", {
@@ -53136,7 +53261,7 @@
             var fitThrottledBound = this._fitThrottledBound;
             canvas.off("scale", fitThrottledBound);
             canvas.off("move", fitThrottledBound);
-            canvas.removeRenderable(this, true);
+            canvas.snippet.remove(this, true);
             return this;
         };
         DMapTilePyramidImpl.WORK_LONLAT = new pixi_js.Point();
@@ -62330,22 +62455,24 @@
         DBaseAuto: DBaseAuto,
         DBaseBackgroundMeshGeometry: DBaseBackgroundMeshGeometry,
         DBaseBackgroundMesh: DBaseBackgroundMesh,
-        DBaseBackgroundRenderable: DBaseBackgroundRenderable,
+        DBaseBackgroundSnippet: DBaseBackgroundSnippet,
         DBaseBackground: DBaseBackground,
         DBaseBorderMeshGeometry: DBaseBorderMeshGeometry,
         DBaseBorderMesh: DBaseBorderMesh,
-        DBaseBorderRenderable: DBaseBorderRenderable,
+        DBaseBorderSnippet: DBaseBorderSnippet,
         DBaseBorder: DBaseBorder,
         DBaseCorner: DBaseCorner,
         get DBaseInteractive () { return DBaseInteractive; },
-        DBaseOutlineRenderable: DBaseOutlineRenderable,
+        DBaseOutlineSnippet: DBaseOutlineSnippet,
         DBaseOutline: DBaseOutline,
         DBaseOverflowMaskSimple: DBaseOverflowMaskSimple,
         DBaseOverflowMask: DBaseOverflowMask,
         DBasePaddingAdjustable: DBasePaddingAdjustable,
         DBasePadding: DBasePadding,
         DBasePoint: DBasePoint,
-        DBaseReflowable: DBaseReflowable,
+        DBaseReflowableContainer: DBaseReflowableContainer,
+        DBaseReflowableImpl: DBaseReflowableImpl,
+        DBaseSnippetContainer: DBaseSnippetContainer,
         DBaseStateSetDataImpl: DBaseStateSetDataImpl,
         DBaseStateSetImplObservable: DBaseStateSetImplObservable,
         DBaseStateSetImpl: DBaseStateSetImpl,
