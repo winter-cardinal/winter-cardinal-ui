@@ -210,12 +210,20 @@ export class DDialogSelect<
 		});
 	}
 
-	protected onSearched(results: VALUE[]): void {
-		this._list.data.items = results;
+	get input(): DInputText {
+		return this._input;
+	}
+
+	get list(): DDialogSelectList<VALUE> {
+		return this._list;
 	}
 
 	get value(): VALUE | null {
 		return this._value;
+	}
+
+	protected onSearched(results: VALUE[]): void {
+		this._list.data.items = results;
 	}
 
 	protected getResolvedValue(): VALUE | null | PromiseLike<VALUE | null> {
