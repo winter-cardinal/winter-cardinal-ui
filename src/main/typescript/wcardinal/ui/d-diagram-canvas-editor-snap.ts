@@ -197,6 +197,10 @@ export class DDiagramCanvasEditorSnap {
 		DApplications.update(parent);
 	}
 
+	get container(): EShapeContainer {
+		return this._container;
+	}
+
 	serialize(): DDiagramSerializedSnap {
 		return this._controller.serialize();
 	}

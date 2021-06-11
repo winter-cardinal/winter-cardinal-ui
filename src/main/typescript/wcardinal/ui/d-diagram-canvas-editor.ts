@@ -39,7 +39,7 @@ export class DDiagramCanvasEditor<
 	THEME extends DThemeDiagramCanvasEditor = DThemeDiagramCanvasEditor,
 	OPTIONS extends DDiagramCanvasEditorOptions<THEME> = DDiagramCanvasEditorOptions<THEME>
 > extends DDiagramCanvasBase<THEME, OPTIONS> {
-	protected _snap?: DDiagramCanvasEditorSnap | null;
+	protected _snap: DDiagramCanvasEditorSnap | null;
 
 	constructor(options: OPTIONS) {
 		super(options);
@@ -54,6 +54,10 @@ export class DDiagramCanvasEditor<
 			return new DDiagramCanvasEditorSnap(this, theme, options);
 		}
 		return null;
+	}
+
+	get snap(): DDiagramCanvasEditorSnap | null {
+		return this._snap;
 	}
 
 	serialize(id?: number, thumbnail?: DDiagramCanvasEditorThumbnail): DDiagramSerialized {

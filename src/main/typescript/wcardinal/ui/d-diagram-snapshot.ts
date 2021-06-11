@@ -8,6 +8,7 @@ import { DApplications } from "./d-applications";
 import { DBase } from "./d-base";
 import { DOnOptions } from "./d-on-options";
 import { DView } from "./d-view";
+import { EShapeContainer } from "./shape";
 import { isString } from "./util/is-string";
 import { UtilExtract } from "./util/util-extract";
 
@@ -35,6 +36,14 @@ export interface DDiagramSnapshotEvents<CANVAS, EMITTER> {
 	took(canvas: CANVAS, reason: string | null, emitter: EMITTER): void;
 }
 
+export interface DDiagramSnapshotCanvasSnap {
+	container: EShapeContainer;
+}
+
+export interface DDiagramSnapshotCanvas extends DBase {
+	snap?: DDiagramSnapshotCanvasSnap | null;
+}
+
 export interface DDiagramSnapshotOnOptions<CANVAS, EMITTER>
 	extends Partial<DDiagramSnapshotEvents<CANVAS, EMITTER>>,
 		DOnOptions {}
@@ -43,7 +52,9 @@ export interface DDiagramSnapshotOptions<CANVAS, EMITTER = any> {
 	on?: DDiagramSnapshotOnOptions<CANVAS, EMITTER>;
 }
 
-export class DDiagramSnapshot<CANVAS extends DBase = DBase> extends utils.EventEmitter {
+export class DDiagramSnapshot<
+	CANVAS extends DDiagramSnapshotCanvas = DDiagramSnapshotCanvas
+> extends utils.EventEmitter {
 	protected _parent: DDiagramSnapshotParent<CANVAS>;
 
 	constructor(parent: DDiagramSnapshotParent<CANVAS>, options?: DDiagramSnapshotOptions<CANVAS>) {
@@ -123,9 +134,24 @@ export class DDiagramSnapshot<CANVAS extends DBase = DBase> extends utils.EventE
 					  Math.max(canvas.width, canvas.height);
 
 			view.transform(0, 0, newScale, newScale, 0);
+			let snapContainer: EShapeContainer | undefined;
+			if ("snap" in canvas) {
+				const snap = canvas.snap;
+				if (snap != null) {
+					snapContainer = snap.container;
+					if (snapContainer.renderable) {
+						snapContainer.renderable = false;
+					} else {
+						snapContainer = undefined;
+					}
+				}
+			}
 			this.emit("taking", canvas, this);
 			const result = extractor(canvas);
 			this.emit("took", canvas, null, this);
+			if (snapContainer != null) {
+				snapContainer.renderable = true;
+			}
 			view.transform(oldPositionX, oldPositionY, oldScaleX, oldScaleY, 0);
 			return result;
 		}
