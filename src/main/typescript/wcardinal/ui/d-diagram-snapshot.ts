@@ -10,6 +10,7 @@ import { DBaseSnippetContainer } from "./d-base-snippet-container";
 import { DOnOptions } from "./d-on-options";
 import { DView } from "./d-view";
 import { EShapeContainer } from "./shape";
+import { isNumber } from "./util";
 import { isString } from "./util/is-string";
 import { UtilExtract } from "./util/util-extract";
 
@@ -49,20 +50,32 @@ export interface DDiagramSnapshotOnOptions<CANVAS, EMITTER>
 	extends Partial<DDiagramSnapshotEvents<CANVAS, EMITTER>>,
 		DOnOptions {}
 
+/**
+ * Options to eliminate the snap grid, the snap targets and the canvas background from a snapshot.
+ */
 export interface DDiagramSnapshotCleanupOptions {
 	snap?: boolean;
 	background?: boolean;
 }
 
-export interface DDiagramSnapshotCleanup {
-	snap: boolean;
-	background: boolean;
+export interface DDiagramSnapshotCreateAsUrlOptions {
+	size?: number | null;
+	cleanup?: boolean | DDiagramSnapshotCleanupOptions;
+}
+
+export interface DDiagramSnapshotCreateAsFileOptions {
+	size?: number | null;
+	filename: string;
+	cleanup?: boolean | DDiagramSnapshotCleanupOptions;
+}
+
+export interface DDiagramSnapshotCreateOptions<CANVAS, DATA> {
+	size?: number | null;
+	cleanup?: boolean | DDiagramSnapshotCleanupOptions;
+	extractor: (canvas: CANVAS) => DATA;
 }
 
 export interface DDiagramSnapshotOptions<CANVAS, EMITTER = any> {
-	/** Options to eliminate the snap grid, the snap targets and the canvas background from a snapshot */
-	cleanup?: boolean | DDiagramSnapshotCleanupOptions;
-
 	on?: DDiagramSnapshotOnOptions<CANVAS, EMITTER>;
 }
 
@@ -70,12 +83,10 @@ export class DDiagramSnapshot<
 	CANVAS extends DDiagramSnapshotCanvas = DDiagramSnapshotCanvas
 > extends utils.EventEmitter {
 	protected _parent: DDiagramSnapshotParent<CANVAS>;
-	protected _cleanup: DDiagramSnapshotCleanup;
 
 	constructor(parent: DDiagramSnapshotParent<CANVAS>, options?: DDiagramSnapshotOptions<CANVAS>) {
 		super();
 		this._parent = parent;
-		this._cleanup = this.toCleanup(options?.cleanup);
 		const on = options?.on;
 		if (on) {
 			for (const name in on) {
@@ -87,31 +98,41 @@ export class DDiagramSnapshot<
 		}
 	}
 
-	protected toCleanup(
-		options?: boolean | DDiagramSnapshotCleanupOptions
-	): DDiagramSnapshotCleanup {
-		if (options == null || options === true || options === false) {
-			return {
-				snap: options !== false,
-				background: options !== false
-			};
-		}
-		return {
-			snap: options.snap !== false,
-			background: options.background !== false
-		};
-	}
-
 	/**
 	 * Creates a snapshot.
 	 *
 	 * @param size a maximum image size
 	 * @returns an URL of a created image or undefined
 	 */
-	createAsUrl(size?: number | null): string | undefined {
-		return this.create(size, (canvas) => {
-			return UtilExtract.base64({ target: canvas });
-		});
+	createAsUrl(size?: number | null): string | undefined;
+
+	/**
+	 * Creates a snapshot.
+	 *
+	 * @param options options
+	 * @returns an URL of a created image or undefined
+	 */
+	createAsUrl(options: DDiagramSnapshotCreateAsUrlOptions): string | undefined;
+
+	createAsUrl(
+		sizeOrOptions?: number | null | DDiagramSnapshotCreateAsUrlOptions
+	): string | undefined {
+		if (sizeOrOptions == null || isNumber(sizeOrOptions)) {
+			return this.create({
+				size: sizeOrOptions,
+				extractor: (canvas: CANVAS): string => {
+					return UtilExtract.base64({ target: canvas });
+				}
+			});
+		} else {
+			return this.create({
+				size: sizeOrOptions.size,
+				cleanup: sizeOrOptions.cleanup,
+				extractor: (canvas: CANVAS): string => {
+					return UtilExtract.base64({ target: canvas });
+				}
+			});
+		}
 	}
 
 	/**
@@ -127,15 +148,42 @@ export class DDiagramSnapshot<
 	 * @param size a maximum image size
 	 * @param filename a filename
 	 */
-	createAsFile(size: number, filename: string): void;
-	createAsFile(sizeOrFilename: number | string | null, filename?: string): void {
-		if (isString(sizeOrFilename)) {
-			this.create(undefined, (canvas) => {
-				return UtilExtract.file({ target: canvas, filename: sizeOrFilename });
+	createAsFile(size: number | null, filename: string): void;
+
+	/**
+	 * Creates and downloads a snapshot.
+	 *
+	 * @param options options
+	 */
+	createAsFile(options: DDiagramSnapshotCreateAsFileOptions): void;
+
+	createAsFile(
+		sizeOrFilenameOrOptions: number | string | null | DDiagramSnapshotCreateAsFileOptions,
+		filename?: string
+	): void {
+		if (isString(sizeOrFilenameOrOptions)) {
+			this.create({
+				extractor: (canvas): void => {
+					UtilExtract.file({ target: canvas, filename: sizeOrFilenameOrOptions });
+				}
+			});
+		} else if (sizeOrFilenameOrOptions === null || isNumber(sizeOrFilenameOrOptions)) {
+			this.create({
+				size: sizeOrFilenameOrOptions,
+				extractor: (canvas): void => {
+					UtilExtract.file({ target: canvas, filename: filename! });
+				}
 			});
 		} else {
-			this.create(sizeOrFilename, (canvas) => {
-				return UtilExtract.file({ target: canvas, filename: filename! });
+			this.create({
+				size: sizeOrFilenameOrOptions.size,
+				cleanup: sizeOrFilenameOrOptions.cleanup,
+				extractor: (canvas): void => {
+					UtilExtract.file({
+						target: canvas,
+						filename: sizeOrFilenameOrOptions.filename
+					});
+				}
 			});
 		}
 	}
@@ -147,10 +195,31 @@ export class DDiagramSnapshot<
 		return size / DApplications.getResolution(canvas) / Math.max(canvas.width, canvas.height);
 	}
 
-	create<DATA>(
-		size: number | null | undefined,
-		extractor: (canvas: CANVAS) => DATA
-	): DATA | undefined {
+	protected toCleanupSnap(options?: DDiagramSnapshotCreateOptions<CANVAS, unknown>): boolean {
+		if (options == null) {
+			return true;
+		}
+		const cleanup = options.cleanup;
+		if (cleanup == null || cleanup === true) {
+			return true;
+		}
+		return cleanup !== false && cleanup.snap !== false;
+	}
+
+	protected toCleanupBackground(
+		options?: DDiagramSnapshotCreateOptions<CANVAS, unknown>
+	): boolean {
+		if (options == null) {
+			return false;
+		}
+		const cleanup = options.cleanup;
+		if (cleanup == null || cleanup === false) {
+			return false;
+		}
+		return cleanup === true || cleanup.background === true;
+	}
+
+	create<DATA>(options: DDiagramSnapshotCreateOptions<CANVAS, DATA>): DATA | undefined {
 		const parent = this._parent;
 		const canvas = parent.canvas;
 		if (canvas) {
@@ -163,13 +232,12 @@ export class DDiagramSnapshot<
 			const oldScaleX = viewScale.x;
 			const oldScaleY = viewScale.y;
 
-			const newScale: number = this.toScale(size, canvas);
+			const newScale: number = this.toScale(options.size, canvas);
 			view.transform(0, 0, newScale, newScale, 0);
 
 			// Turns off the snap grid and targets
 			let container: EShapeContainer | undefined;
-			const cleanup = this._cleanup;
-			if (cleanup.snap && "snap" in canvas) {
+			if (this.toCleanupSnap(options) && "snap" in canvas) {
 				const snap = canvas.snap;
 				if (snap != null) {
 					container = snap.container;
@@ -183,7 +251,7 @@ export class DDiagramSnapshot<
 
 			// Turns off the canvas snippets
 			let snippet: DBaseSnippetContainer | undefined;
-			if (cleanup.background) {
+			if (this.toCleanupBackground(options)) {
 				snippet = canvas.snippet;
 				if (snippet.renderable) {
 					snippet.renderable = false;
@@ -194,7 +262,7 @@ export class DDiagramSnapshot<
 
 			// Extracts
 			this.emit("taking", canvas, this);
-			const result = extractor(canvas);
+			const result = options.extractor(canvas);
 			this.emit("took", canvas, null, this);
 
 			// Turn on the canvas snippets
