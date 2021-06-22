@@ -6,5 +6,7 @@
 export const EShapeState = {
 	CLICKED: "CLICKED",
 	DOWN: "DOWN",
-	UP: "UP"
+	UP: "UP",
+	ACTIVATED: "ACTIVATED",
+	DEACTIVATED: "DEACTIVATED"
 };

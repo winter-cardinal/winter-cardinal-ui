@@ -61,19 +61,6 @@ export class DDiagramCanvas<
 		for (let i = 0, imax = layers.length; i < imax; ++i) {
 			this.updateShapes(layers[i].children, time);
 		}
-
-		this.initializeFocus();
-	}
-
-	protected initializeFocus(): void {
-		const layer = DApplications.getLayer(this);
-		if (layer) {
-			const focusController = layer.getFocusController();
-			const focusable = focusController.find(this, false, true, true);
-			if (focusable) {
-				focusController.focus(focusable);
-			}
-		}
 	}
 
 	protected initializeShapes(

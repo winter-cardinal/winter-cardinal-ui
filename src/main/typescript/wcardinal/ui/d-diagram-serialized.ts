@@ -73,7 +73,7 @@ export interface DDiagramSerializedTagValue {
  * A serialized fill.
  */
 export interface DDiagramSerializedFill {
-	/** 0: Enabled, 1: Disabled */
+	/** 0: Disabled, 1: Enabled */
 	[0]: number;
 
 	/** A color. */
@@ -87,7 +87,7 @@ export interface DDiagramSerializedFill {
  * A serialized stroke.
  */
 export interface DDiagramSerializedStroke {
-	/** 0: Enabled, 1: Disabled */
+	/** 0: Disabled, 1: Enabled */
 	[0]: number;
 
 	/** A color. */
@@ -113,7 +113,7 @@ export interface DDiagramSerializedStroke {
  * A serialized text outline.
  */
 export interface DDiagramSerializedTextOutline {
-	/** 0: Enabled, 1: Diabled */
+	/** 0: Disabled, 1: Enabled */
 	[0]: number;
 
 	/** A color. */

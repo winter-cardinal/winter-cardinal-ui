@@ -7,7 +7,6 @@ import { interaction, Point, Renderer } from "pixi.js";
 import InteractionEvent = interaction.InteractionEvent;
 import InteractionManager = interaction.InteractionManager;
 import { DApplications } from "../d-applications";
-import { DBaseState } from "../d-base-state";
 import { DBaseStateSet } from "../d-base-state-set";
 import { UtilKeyboardEvent } from "../util/util-keyboard-event";
 import { EShapeActionRuntime } from "./action/e-shape-action-runtime";
@@ -16,6 +15,7 @@ import { EShapeFillLike } from "./e-shape-fill";
 import { EShapeState } from "./e-shape-state";
 import { EShapeStrokeLike } from "./e-shape-stroke";
 import { EShapeTextLike } from "./e-shape-text";
+import { UtilPointerEvent } from "../util/util-pointer-event";
 
 export enum EShapeRuntimeReset {
 	NONE = 0,
@@ -77,7 +77,7 @@ export class EShapeRuntime {
 	}
 
 	onClick(shape: EShape, e: InteractionEvent | KeyboardEvent): void {
-		if (!shape.state.inDisabled) {
+		if (shape.state.isActionable) {
 			shape.state.isClicked = true;
 		}
 	}
@@ -106,14 +106,23 @@ export class EShapeRuntime {
 		if (!shape.state.isDown) {
 			this.onDownThisBefore(shape, e);
 
-			// State
-			shape.state.addAll(EShapeState.DOWN, DBaseState.PRESSED);
+			// isDown state
+			shape.state.isDown = true;
 
-			// Focus
 			const layer = DApplications.getLayer(shape);
 			if (layer) {
+				// Focus
 				const focusController = layer.getFocusController();
 				focusController.focus(focusController.findParent(shape));
+
+				// isPressed state
+				const interactionManager = layer.renderer.plugins.interaction;
+				shape.state.isPressed = true;
+				const onUp = (): void => {
+					shape.state.isPressed = false;
+					interactionManager.off(UtilPointerEvent.up, onUp);
+				};
+				interactionManager.on(UtilPointerEvent.up, onUp);
 			}
 
 			this.onDownThisAfter(shape, e);
@@ -135,8 +144,8 @@ export class EShapeRuntime {
 	}
 
 	onUp(shape: EShape, e: InteractionEvent | KeyboardEvent): void {
-		if (!shape.state.isUp && shape.state.isPressed) {
-			shape.state.set(EShapeState.UP, DBaseState.PRESSED);
+		if (!shape.state.isUp) {
+			shape.state.isUp = true;
 
 			// Click
 			this.onClick(shape, e);
@@ -198,7 +207,13 @@ export class EShapeRuntime {
 			shape.disallowUploadedUpdate();
 			this.onUpdate(shape, time);
 			shape.allowUploadedUpdate();
-			shape.state.removeAll(EShapeState.CLICKED, EShapeState.DOWN, EShapeState.UP);
+			shape.state.removeAll(
+				EShapeState.CLICKED,
+				EShapeState.DOWN,
+				EShapeState.UP,
+				EShapeState.ACTIVATED,
+				EShapeState.DEACTIVATED
+			);
 			this.isStateChanged = false;
 			tag.isChanged = false;
 		}

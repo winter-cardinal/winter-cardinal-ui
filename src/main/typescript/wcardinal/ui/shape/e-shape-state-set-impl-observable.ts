@@ -5,8 +5,11 @@
 
 import { DBaseStateSetImplObservable } from "../d-base-state-set-impl-observable";
 import { EShapeState } from "./e-shape-state";
+import { EShapeStateSet } from "./e-shape-state-set";
 
-export class EShapeStateSetImplObservable extends DBaseStateSetImplObservable {
+export class EShapeStateSetImplObservable
+	extends DBaseStateSetImplObservable
+	implements EShapeStateSet {
 	get isClicked(): boolean {
 		return this.is(EShapeState.CLICKED);
 	}
@@ -65,5 +68,45 @@ export class EShapeStateSetImplObservable extends DBaseStateSetImplObservable {
 
 	get underUp(): boolean {
 		return this.under(EShapeState.UP);
+	}
+
+	get isActivated(): boolean {
+		return this.is(EShapeState.ACTIVATED);
+	}
+
+	set isActivated(isActivated: boolean) {
+		this.set(EShapeState.ACTIVATED, isActivated);
+	}
+
+	get inActivated(): boolean {
+		return this.in(EShapeState.ACTIVATED);
+	}
+
+	get onActivated(): boolean {
+		return this.on(EShapeState.ACTIVATED);
+	}
+
+	get underActivated(): boolean {
+		return this.under(EShapeState.ACTIVATED);
+	}
+
+	get isDeactivated(): boolean {
+		return this.is(EShapeState.DEACTIVATED);
+	}
+
+	set isDeactivated(isDeactivated: boolean) {
+		this.set(EShapeState.DEACTIVATED, isDeactivated);
+	}
+
+	get inDeactivated(): boolean {
+		return this.in(EShapeState.DEACTIVATED);
+	}
+
+	get onDeactivated(): boolean {
+		return this.on(EShapeState.DEACTIVATED);
+	}
+
+	get underDeactivated(): boolean {
+		return this.under(EShapeState.DEACTIVATED);
 	}
 }

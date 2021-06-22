@@ -75,8 +75,8 @@ export abstract class EShapePrimitive extends EShapeBase {
 		return new EShapeTextImpl(
 			this,
 			EShapeDefaults.TEXT_VALUE,
-			EShapeDefaults.STROKE_COLOR,
-			EShapeDefaults.STROKE_ALPHA,
+			EShapeDefaults.TEXT_COLOR,
+			EShapeDefaults.TEXT_ALPHA,
 			EShapeDefaults.TEXT_FAMILY,
 			EShapeDefaults.TEXT_SIZE
 		);

@@ -13,4 +13,12 @@ export interface EShapeStateSet extends DBaseStateSet {
 	readonly inUp: boolean;
 	readonly onUp: boolean;
 	readonly underUp: boolean;
+	isActivated: boolean;
+	readonly inActivated: boolean;
+	readonly onActivated: boolean;
+	readonly underActivated: boolean;
+	isDeactivated: boolean;
+	readonly inDeactivated: boolean;
+	readonly onDeactivated: boolean;
+	readonly underDeactivated: boolean;
 }
