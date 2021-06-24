@@ -21,7 +21,7 @@ export class DBasePadding implements DPadding {
 		this._theme = theme;
 		this._callback = callback;
 		const padding = options?.padding;
-		if (padding) {
+		if (padding != null) {
 			if (isNumber(padding)) {
 				this._left = padding;
 				this._top = padding;
