@@ -36,7 +36,7 @@ export class DTreeDataImpl<NODE extends DTreeNode> implements DTreeData<NODE> {
 		this._nodeToFlag = new WeakMap<NODE, number>();
 		this._selection = this.toSelection(options);
 		this._accessor = new DTreeNodeAccessorImpl(options);
-		const mapped = new DTreeDataMappedImpl<NODE>(this);
+		const mapped = new DTreeDataMappedImpl<NODE>(this, !!options?.reverse);
 		this._mapped = mapped;
 
 		const nodes = options?.nodes;

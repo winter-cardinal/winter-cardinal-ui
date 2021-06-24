@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Selection (Single)</title>
+	<title>Reversing nodes</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -35,20 +35,16 @@
 			x: "center", y: "center",
 			width: 500, height: 500,
 			data: {
-				selection: {
-					type: "SINGLE",
-					on: {
-						change: function(selection) {
-							console.log(selection.toArray());
-						}
-					}
-				},
+				reverse: true,
 				nodes: [
 					{
 						name: "Apple",
 						children: [
 							{
-								name: "Apple leaf"
+								name: "Apple leaf 1"
+							},
+							{
+								name: "Apple leaf 2"
 							}
 						]
 					},
@@ -56,7 +52,10 @@
 						name: "Orange",
 						children: [
 							{
-								name: "Orange leaf"
+								name: "Orange leaf 1"
+							},
+							{
+								name: "Orange leaf 2"
 							}
 						]
 					},
@@ -64,7 +63,10 @@
 						name: "Pineapple",
 						children: [
 							{
-								name: "Pineapple leaf"
+								name: "Pineapple leaf 1"
+							},
+							{
+								name: "Pineapple leaf 2"
 							}
 						]
 					}

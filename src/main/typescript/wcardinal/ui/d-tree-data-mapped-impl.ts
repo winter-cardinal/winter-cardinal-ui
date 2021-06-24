@@ -16,12 +16,14 @@ export class DTreeDataMappedImpl<NODE> implements DTreeDataMapped<NODE> {
 	protected readonly _parent: DTreeDataMppedImplParent<NODE>;
 	protected readonly _nodes: NODE[];
 	protected readonly _levels: number[];
+	protected readonly _reverse: boolean;
 	protected _isDirty: boolean;
 
-	constructor(parent: DTreeDataMppedImplParent<NODE>) {
+	constructor(parent: DTreeDataMppedImplParent<NODE>, reverse: boolean) {
 		this._parent = parent;
 		this._nodes = [];
 		this._levels = [];
+		this._reverse = reverse;
 		this._isDirty = false;
 	}
 
@@ -69,7 +71,16 @@ export class DTreeDataMappedImpl<NODE> implements DTreeDataMapped<NODE> {
 			const toChildren = parent.accessor.toChildren;
 			const nodes = this._nodes;
 			const levels = this._levels;
-			const size = this.newNodes(parent, parentNodes, 0, 0, nodes, levels, toChildren);
+			const size = this.newNodes(
+				parent,
+				parentNodes,
+				0,
+				0,
+				nodes,
+				levels,
+				this._reverse,
+				toChildren
+			);
 			if (nodes.length !== size) {
 				nodes.length = size;
 				levels.length = size;
@@ -84,9 +95,13 @@ export class DTreeDataMappedImpl<NODE> implements DTreeDataMapped<NODE> {
 		level: number,
 		nodes: NODE[],
 		levels: number[],
+		reverse: boolean,
 		toChildren: (node: NODE) => NODE[] | null | undefined
 	): number {
-		for (let i = 0, imax = parentNodes.length; i < imax; ++i) {
+		const parentNodesLength = parentNodes.length;
+		const istart = reverse ? parentNodesLength - 1 : 0;
+		const idelta = reverse ? -1 : +1;
+		for (let i = istart; 0 <= i && i < parentNodesLength; i += idelta) {
 			const parentNode = parentNodes[i];
 			if (index < nodes.length) {
 				nodes[index] = parentNode;
@@ -105,6 +120,7 @@ export class DTreeDataMappedImpl<NODE> implements DTreeDataMapped<NODE> {
 					level + 1,
 					nodes,
 					levels,
+					reverse,
 					toChildren
 				);
 			}

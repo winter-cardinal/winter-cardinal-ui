@@ -48,6 +48,11 @@ export interface DTableDataTreeOptions<NODE, EMITTER = any>
 	comparator?: DTableDataComparator<NODE>;
 
 	/**
+	 * True to list up nodes in the given node array in the reverse order.
+	 */
+	reverse?: boolean;
+
+	/**
 	 * Mappings of event names and event handlers.
 	 */
 	on?: DBaseOnOptions<EMITTER>;
@@ -70,6 +75,7 @@ export class DTableDataTree<NODE extends DTableDataTreeNode<NODE, NODE>>
 	protected _selection: DTableDataTreeSelection<NODE>;
 	protected _mapped: DTableDataMapped<NODE>;
 	protected _accessor: DTableDataTreeItemAccessor<NODE>;
+	protected _reverse: boolean;
 
 	constructor(options?: DTableDataTreeOptions<NODE>) {
 		super();
@@ -81,6 +87,7 @@ export class DTableDataTree<NODE extends DTableDataTreeNode<NODE, NODE>>
 		this._isRowsDirty = false;
 		this._supplimentals = [];
 		this._flags = new WeakMap<NODE, number>();
+		this._reverse = !!options?.reverse;
 		this._selection = this.toSelection(options?.selection);
 		this._filter = new DTableDataTreeFilter<NODE>(this);
 		this._sorter = new DTableDataTreeSorter<NODE>();
@@ -169,7 +176,16 @@ export class DTableDataTree<NODE extends DTableDataTreeNode<NODE, NODE>>
 		const supplimentals = this._supplimentals;
 		const flags = this._flags;
 		if (nodes != null) {
-			const irows = this.newRows(nodes, 0, 0, rows, supplimentals, flags);
+			const irows = this.newRows(
+				nodes,
+				0,
+				0,
+				rows,
+				supplimentals,
+				flags,
+				this._reverse,
+				this._accessor.toChildren
+			);
 			if (irows !== rows.length) {
 				rows.length = irows;
 				supplimentals.length = irows;
@@ -190,10 +206,14 @@ export class DTableDataTree<NODE extends DTableDataTreeNode<NODE, NODE>>
 		ilevel: number,
 		rows: NODE[],
 		supplimentals: number[],
-		flags: WeakMap<NODE, number>
+		flags: WeakMap<NODE, number>,
+		reverse: boolean,
+		toChildren: (node: NODE) => NODE[] | null | undefined
 	): number {
-		const toChildren = this._accessor.toChildren;
-		for (let i = 0, imax = nodes.length; i < imax; ++i) {
+		const nodesLength = nodes.length;
+		const istart = reverse ? nodesLength - 1 : 0;
+		const idelta = reverse ? -1 : +1;
+		for (let i = istart; 0 <= i && i < nodesLength; i += idelta) {
 			const node = nodes[i];
 			const children = toChildren(node);
 			const isOpened = flags.has(node);
@@ -212,7 +232,16 @@ export class DTableDataTree<NODE extends DTableDataTreeNode<NODE, NODE>>
 			irows += 1;
 
 			if (isOpened && children) {
-				irows = this.newRows(children, irows, ilevel + 1, rows, supplimentals, flags);
+				irows = this.newRows(
+					children,
+					irows,
+					ilevel + 1,
+					rows,
+					supplimentals,
+					flags,
+					reverse,
+					toChildren
+				);
 			}
 		}
 		return irows;

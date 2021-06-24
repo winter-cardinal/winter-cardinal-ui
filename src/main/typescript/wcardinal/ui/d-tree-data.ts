@@ -10,8 +10,17 @@ import { DTreeNodeAccessor, DTreeNodeAccessorOptions } from "./d-tree-node-acces
 import { DTreeNodeIteratee } from "./d-tree-node-iteratee";
 
 export interface DTreeDataOptions<NODE extends DTreeNode> extends DTreeNodeAccessorOptions<NODE> {
-	nodes: NODE[];
+	nodes?: NODE[];
+
+	/**
+	 * Selection options.
+	 */
 	selection?: DTreeDataSelectionOptions<NODE>;
+
+	/**
+	 * True to list up nodes in the given node array in the reverse order.
+	 */
+	reverse?: boolean;
 }
 
 export interface DTreeDataLike<NODE extends DTreeNode> {
