@@ -28,6 +28,8 @@
     * [Scatter chart with rounded triangle markers](./chart/scatter-triangle-rounded.html)
     * [Selection](./chart/selection.html)
 * Diagram
+    * [Button](./diagram/button.html)
+    * [Button (Toggle)](./diagram/button-toggle.html)
     * [Drag checker](./diagram/drag-checker.html)
     * [Editor mode](./diagram/editor.html)
     * [Editor mode with snap](./diagram/editor-with-snap.html)
@@ -179,6 +181,7 @@
         * [Fully custom data](./table\data/custom.html)
         * [Data formatter](./table\data/formatter.html)
         * [Hierarchical data](./table\data/hierarchical.html)
+        * [Hierarchical data (Reverse order)](./table\data/hierarchical-reverse.html)
         * [Object data](./table\data/object.html)
     * Row
         * [Adding rows programatically](./table\row/add.html)
@@ -204,6 +207,7 @@
     * [Bulk node update](./tree/bulk-update.html)
     * [Fully custom data](./tree/custom.html)
     * [Image](./tree/image.html)
+    * [Reversing nodes](./tree/reverse.html)
     * [Selection (Multiple)](./tree/selection-multiple.html)
     * [Selection (None)](./tree/selection-none.html)
     * [Selection (Single)](./tree/selection-single.html)

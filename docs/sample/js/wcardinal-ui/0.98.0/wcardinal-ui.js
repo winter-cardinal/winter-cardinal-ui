@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.96.0
+ Winter Cardinal UI v0.98.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -41,6 +41,7 @@
         EShapeType[EShapeType["LINE_OF_TRIANGLE_ROUNDEDS"] = 17] = "LINE_OF_TRIANGLE_ROUNDEDS";
         EShapeType[EShapeType["EMBEDDED"] = 18] = "EMBEDDED";
         EShapeType[EShapeType["LAYER"] = 19] = "LAYER";
+        EShapeType[EShapeType["BUTTON"] = 20] = "BUTTON";
         EShapeType[EShapeType["EXTENSION"] = 1000] = "EXTENSION";
     })(EShapeType || (EShapeType = {}));
 
@@ -2929,7 +2930,9 @@
     var EShapeState = {
         CLICKED: "CLICKED",
         DOWN: "DOWN",
-        UP: "UP"
+        UP: "UP",
+        ACTIVATED: "ACTIVATED",
+        DEACTIVATED: "DEACTIVATED"
     };
 
     /*
@@ -3030,6 +3033,68 @@
         Object.defineProperty(EShapeStateSetImplObservable.prototype, "underUp", {
             get: function () {
                 return this.under(EShapeState.UP);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeStateSetImplObservable.prototype, "isActivated", {
+            get: function () {
+                return this.is(EShapeState.ACTIVATED);
+            },
+            set: function (isActivated) {
+                this.set(EShapeState.ACTIVATED, isActivated);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeStateSetImplObservable.prototype, "inActivated", {
+            get: function () {
+                return this.in(EShapeState.ACTIVATED);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeStateSetImplObservable.prototype, "onActivated", {
+            get: function () {
+                return this.on(EShapeState.ACTIVATED);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeStateSetImplObservable.prototype, "underActivated", {
+            get: function () {
+                return this.under(EShapeState.ACTIVATED);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeStateSetImplObservable.prototype, "isDeactivated", {
+            get: function () {
+                return this.is(EShapeState.DEACTIVATED);
+            },
+            set: function (isDeactivated) {
+                this.set(EShapeState.DEACTIVATED, isDeactivated);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeStateSetImplObservable.prototype, "inDeactivated", {
+            get: function () {
+                return this.in(EShapeState.DEACTIVATED);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeStateSetImplObservable.prototype, "onDeactivated", {
+            get: function () {
+                return this.on(EShapeState.DEACTIVATED);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeStateSetImplObservable.prototype, "underDeactivated", {
+            get: function () {
+                return this.under(EShapeState.DEACTIVATED);
             },
             enumerable: false,
             configurable: true
@@ -3166,7 +3231,7 @@
             return null;
         };
         UtilRgb.fromRgb = function (r, g, b) {
-            return ((r * 0xff) << 16) + ((g * 0xff) << 8) + ((b * 0xff) | 0);
+            return ((r * 0xff) << 16) | ((g * 0xff) << 8) | ((b * 0xff) | 0);
         };
         UtilRgb.blend = function (colorA, colorB, t) {
             var ar = (colorA >> 16) & 0xff;
@@ -3180,13 +3245,47 @@
             var cr = Math.max(0, Math.min(0xff, ar * w0 + br * w1));
             var cg = Math.max(0, Math.min(0xff, ag * w0 + bg * w1));
             var cb = Math.max(0, Math.min(0xff, ab * w0 + bb * w1));
-            return (cr << 16) + (cg << 8) + (cb | 0);
+            return (cr << 16) | (cg << 8) | (cb | 0);
         };
         UtilRgb.brighten = function (color, amount) {
-            return this.blend(color, 0xffffff, amount);
+            if (0 <= amount) {
+                return this.blend(color, 0xffffff, amount);
+            }
+            else {
+                return this.blend(color, 0x000000, -amount);
+            }
         };
         UtilRgb.darken = function (color, amount) {
-            return this.blend(color, 0x000000, amount);
+            if (0 <= amount) {
+                return this.blend(color, 0x000000, amount);
+            }
+            else {
+                return this.blend(color, 0xffffff, -amount);
+            }
+        };
+        /**
+         * Convertes the given color to a grayscale color.
+         *
+         * @param color a color to be converted
+         * @returns a grayscale color
+         * @see https://en.wikipedia.org/wiki/Grayscale
+         */
+        UtilRgb.toGrayscale = function (color) {
+            var l = this.toLuma(color);
+            return (l << 16) | (l << 8) | l;
+        };
+        /**
+         * Convertes the given color to a luma in the range [0, 255].
+         *
+         * @param color a color to be converted
+         * @returns a luma in the range [0, 255]
+         * @see https://en.wikipedia.org/wiki/Grayscale
+         */
+        UtilRgb.toLuma = function (color) {
+            var r = (color >> 16) & 0xff;
+            var g = (color >> 8) & 0xff;
+            var b = (color | 0) & 0xff;
+            return (0.2126 * r + 0.7152 * g + 0.0722 * b) & 0xff;
         };
         return UtilRgb;
     }());
@@ -5809,7 +5908,7 @@
             return new EShapeStrokeImpl(this, true, EShapeDefaults.STROKE_COLOR, EShapeDefaults.STROKE_ALPHA, EShapeDefaults.STROKE_WIDTH, EShapeDefaults.STROKE_ALIGN, EShapeDefaults.STROKE_SIDE, EShapeDefaults.STROKE_STYLE);
         };
         EShapePrimitive.prototype.newText = function () {
-            return new EShapeTextImpl(this, EShapeDefaults.TEXT_VALUE, EShapeDefaults.STROKE_COLOR, EShapeDefaults.STROKE_ALPHA, EShapeDefaults.TEXT_FAMILY, EShapeDefaults.TEXT_SIZE);
+            return new EShapeTextImpl(this, EShapeDefaults.TEXT_VALUE, EShapeDefaults.TEXT_COLOR, EShapeDefaults.TEXT_ALPHA, EShapeDefaults.TEXT_FAMILY, EShapeDefaults.TEXT_SIZE);
         };
         Object.defineProperty(EShapePrimitive.prototype, "corner", {
             get: function () {
@@ -6690,6 +6789,324 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var UtilPointerEvent = /** @class */ (function () {
+        function UtilPointerEvent() {
+        }
+        Object.defineProperty(UtilPointerEvent, "touchable", {
+            get: function () {
+                return "ontouchstart" in document;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(UtilPointerEvent, "tap", {
+            get: function () {
+                return "pointertap";
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(UtilPointerEvent, "down", {
+            get: function () {
+                return "pointerdown";
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(UtilPointerEvent, "enter", {
+            get: function () {
+                return "pointerenter";
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(UtilPointerEvent, "leave", {
+            get: function () {
+                return "pointerleave";
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(UtilPointerEvent, "move", {
+            get: function () {
+                return "pointermove";
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(UtilPointerEvent, "out", {
+            get: function () {
+                return "pointerout";
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(UtilPointerEvent, "over", {
+            get: function () {
+                return "pointerover";
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(UtilPointerEvent, "up", {
+            get: function () {
+                return "pointerup";
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(UtilPointerEvent, "cancel", {
+            get: function () {
+                return "pointercancel";
+            },
+            enumerable: false,
+            configurable: true
+        });
+        UtilPointerEvent.toGlobal = function (e, interactionManager, result) {
+            if ("touches" in e) {
+                var touches = e.changedTouches;
+                var touch = touches[touches.length - 1];
+                if (touch != null) {
+                    interactionManager.mapPositionToPoint(result, touch.clientX, touch.clientY);
+                }
+                else {
+                    interactionManager.mapPositionToPoint(result, 0, 0);
+                }
+            }
+            else {
+                interactionManager.mapPositionToPoint(result, e.clientX, e.clientY);
+            }
+            return result;
+        };
+        UtilPointerEvent.isValidDistance = function (e, x, y) {
+            var global = e.data.global;
+            var dx = Math.abs(x - global.x);
+            var dy = Math.abs(y - global.y);
+            var threshold = this.CLICK_DISTANCE_THRESHOLD;
+            return dx < threshold && dy < threshold;
+        };
+        UtilPointerEvent.onClick = function (target, onClick) {
+            var _this = this;
+            if (!this.touchable) {
+                target.on("click", onClick);
+            }
+            else {
+                var isDowned_1 = false;
+                var downX_1 = 0;
+                var downY_1 = 0;
+                var interactionManagerBound_1 = null;
+                var cleanup_1 = function () {
+                    isDowned_1 = false;
+                    if (interactionManagerBound_1) {
+                        interactionManagerBound_1.off(up_1, onUp_1);
+                        interactionManagerBound_1 = null;
+                    }
+                };
+                target.on("click", function (e) {
+                    if (isDowned_1) {
+                        cleanup_1();
+                    }
+                    onClick(e);
+                });
+                var up_1 = this.up;
+                var onUp_1 = function (e) {
+                    if (isDowned_1) {
+                        cleanup_1();
+                        if (_this.contains(target, e.target)) {
+                            if (_this.isValidDistance(e, downX_1, downY_1)) {
+                                onClick(e);
+                            }
+                        }
+                    }
+                };
+                target.on(this.down, function (e) {
+                    if (isDowned_1) {
+                        var global_1 = e.data.global;
+                        downX_1 = global_1.x;
+                        downY_1 = global_1.y;
+                    }
+                    else {
+                        isDowned_1 = true;
+                        var global_2 = e.data.global;
+                        downX_1 = global_2.x;
+                        downY_1 = global_2.y;
+                        if (interactionManagerBound_1) {
+                            interactionManagerBound_1.off(up_1, onUp_1);
+                            interactionManagerBound_1 = null;
+                        }
+                        var layer = DApplications.getLayer(target);
+                        if (layer) {
+                            interactionManagerBound_1 = layer.renderer.plugins.interaction;
+                            interactionManagerBound_1.once(up_1, onUp_1);
+                        }
+                    }
+                });
+            }
+        };
+        UtilPointerEvent.onLongClick = function (target, onClick, onLongClick, isLongClickable) {
+            var _this = this;
+            if (!this.touchable) {
+                target.on("click", onClick);
+            }
+            else {
+                var isDowned_2 = false;
+                var downX_2 = 0;
+                var downY_2 = 0;
+                var timeoutId_1 = null;
+                var interactionManagerBound_2 = null;
+                var cleanupTimeout_1 = function () {
+                    if (timeoutId_1 != null) {
+                        clearTimeout(timeoutId_1);
+                        timeoutId_1 = null;
+                    }
+                };
+                var cleanup_2 = function () {
+                    isDowned_2 = false;
+                    if (interactionManagerBound_2) {
+                        interactionManagerBound_2.off(up_2, onUp_2);
+                        interactionManagerBound_2.off(move_1, onMove_1);
+                        interactionManagerBound_2 = null;
+                    }
+                    cleanupTimeout_1();
+                };
+                target.on("click", function (e) {
+                    if (isDowned_2) {
+                        cleanup_2();
+                    }
+                    onClick(e);
+                });
+                var up_2 = this.up;
+                var move_1 = this.move;
+                var onUp_2 = function (e) {
+                    if (isDowned_2) {
+                        cleanup_2();
+                        if (_this.contains(target, e.target)) {
+                            if (_this.isValidDistance(e, downX_2, downY_2)) {
+                                onClick(e);
+                            }
+                        }
+                    }
+                };
+                var onMove_1 = function (e) {
+                    if (isDowned_2) {
+                        if (_this.contains(target, e.target)) {
+                            if (!_this.isValidDistance(e, downX_2, downY_2)) {
+                                cleanup_2();
+                            }
+                        }
+                    }
+                };
+                target.on(this.down, function (e) {
+                    if (!isDowned_2) {
+                        isDowned_2 = true;
+                        var global_3 = e.data.global;
+                        downX_2 = global_3.x;
+                        downY_2 = global_3.y;
+                        cleanupTimeout_1();
+                        var oe = e.data.originalEvent;
+                        if ("touches" in oe && (isLongClickable == null || isLongClickable(e))) {
+                            timeoutId_1 = window.setTimeout(function () {
+                                if (isDowned_2) {
+                                    cleanup_2();
+                                    onLongClick(e);
+                                }
+                            }, _this.LONG_CLICK_THRESHOLD);
+                        }
+                        if (interactionManagerBound_2) {
+                            interactionManagerBound_2.off(up_2, onUp_2);
+                            interactionManagerBound_2.off(move_1, onMove_1);
+                            interactionManagerBound_2 = null;
+                        }
+                        var layer = DApplications.getLayer(target);
+                        if (layer) {
+                            interactionManagerBound_2 = layer.renderer.plugins.interaction;
+                            interactionManagerBound_2.once(up_2, onUp_2);
+                            interactionManagerBound_2.on(move_1, onMove_1);
+                        }
+                    }
+                });
+            }
+        };
+        UtilPointerEvent.onDblClick = function (target, handler) {
+            var _this = this;
+            if (!this.touchable) {
+                target.addEventListener("dblclick", handler);
+            }
+            else {
+                var isDowned_3 = 0;
+                var downX_3 = 0;
+                var downY_3 = 0;
+                var clickTime_1 = 0;
+                target.addEventListener("dblclick", handler);
+                target.addEventListener("touchend", function (e) {
+                    if (isDowned_3 === 1 || isDowned_3 === 3) {
+                        var touches = e.changedTouches;
+                        var touch = touches[touches.length - 1];
+                        if (touch != null) {
+                            var dx = downX_3 - touch.clientX;
+                            var dy = downY_3 - touch.clientY;
+                            if (Math.abs(dx) + Math.abs(dy) < _this.CLICK_DISTANCE_THRESHOLD) {
+                                isDowned_3 += 1;
+                                if (isDowned_3 === 4) {
+                                    isDowned_3 = 0;
+                                    var elapsedTime = e.timeStamp - clickTime_1;
+                                    if (elapsedTime < _this.DBLCLICK_INTERVAL_THRESHOLD) {
+                                        handler(e);
+                                    }
+                                    else {
+                                        clickTime_1 = e.timeStamp;
+                                        isDowned_3 = 2;
+                                    }
+                                }
+                                else {
+                                    clickTime_1 = e.timeStamp;
+                                }
+                                return;
+                            }
+                        }
+                    }
+                    isDowned_3 = 0;
+                });
+                target.addEventListener("touchstart", function (e) {
+                    if (isDowned_3 === 0) {
+                        var touch = e.touches.item(e.touches.length - 1);
+                        if (touch != null) {
+                            isDowned_3 = 1;
+                            downX_3 = touch.clientX;
+                            downY_3 = touch.clientY;
+                            return;
+                        }
+                    }
+                    else if (isDowned_3 === 2) {
+                        var touch = e.touches.item(e.touches.length - 1);
+                        if (touch != null) {
+                            isDowned_3 = 3;
+                            downX_3 = touch.clientX;
+                            downY_3 = touch.clientY;
+                            return;
+                        }
+                    }
+                    isDowned_3 = 0;
+                });
+            }
+        };
+        UtilPointerEvent.contains = function (target, targetOrChild) {
+            var current = targetOrChild;
+            while (current != null && current !== target) {
+                current = current.parent;
+            }
+            return current === target;
+        };
+        UtilPointerEvent.CLICK_DISTANCE_THRESHOLD = 10;
+        UtilPointerEvent.DBLCLICK_INTERVAL_THRESHOLD = 333;
+        UtilPointerEvent.LONG_CLICK_THRESHOLD = 750;
+        return UtilPointerEvent;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var EShapeRuntimeReset;
     (function (EShapeRuntimeReset) {
         EShapeRuntimeReset[EShapeRuntimeReset["NONE"] = 0] = "NONE";
@@ -6731,7 +7148,7 @@
             this.interactive = false;
         }
         EShapeRuntime.prototype.onClick = function (shape, e) {
-            if (!shape.state.inDisabled) {
+            if (shape.state.isActionable) {
                 shape.state.isClicked = true;
             }
         };
@@ -6751,13 +7168,21 @@
         EShapeRuntime.prototype.onDown = function (shape, e) {
             if (!shape.state.isDown) {
                 this.onDownThisBefore(shape, e);
-                // State
-                shape.state.addAll(EShapeState.DOWN, DBaseState.PRESSED);
-                // Focus
+                // isDown state
+                shape.state.isDown = true;
                 var layer = DApplications.getLayer(shape);
                 if (layer) {
+                    // Focus
                     var focusController = layer.getFocusController();
                     focusController.focus(focusController.findParent(shape));
+                    // isPressed state
+                    var interactionManager_1 = layer.renderer.plugins.interaction;
+                    shape.state.isPressed = true;
+                    var onUp_1 = function () {
+                        shape.state.isPressed = false;
+                        interactionManager_1.off(UtilPointerEvent.up, onUp_1);
+                    };
+                    interactionManager_1.on(UtilPointerEvent.up, onUp_1);
                 }
                 this.onDownThisAfter(shape, e);
             }
@@ -6775,8 +7200,8 @@
             }
         };
         EShapeRuntime.prototype.onUp = function (shape, e) {
-            if (!shape.state.isUp && shape.state.isPressed) {
-                shape.state.set(EShapeState.UP, DBaseState.PRESSED);
+            if (!shape.state.isUp) {
+                shape.state.isUp = true;
                 // Click
                 this.onClick(shape, e);
             }
@@ -6830,7 +7255,7 @@
                 shape.disallowUploadedUpdate();
                 this.onUpdate(shape, time);
                 shape.allowUploadedUpdate();
-                shape.state.removeAll(EShapeState.CLICKED, EShapeState.DOWN, EShapeState.UP);
+                shape.state.removeAll(EShapeState.CLICKED, EShapeState.DOWN, EShapeState.UP, EShapeState.ACTIVATED, EShapeState.DEACTIVATED);
                 this.isStateChanged = false;
                 tag.isChanged = false;
             }
@@ -10890,324 +11315,6 @@
             }
         };
         return DScalarFunctions;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var UtilPointerEvent = /** @class */ (function () {
-        function UtilPointerEvent() {
-        }
-        Object.defineProperty(UtilPointerEvent, "touchable", {
-            get: function () {
-                return "ontouchstart" in document;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(UtilPointerEvent, "tap", {
-            get: function () {
-                return "pointertap";
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(UtilPointerEvent, "down", {
-            get: function () {
-                return "pointerdown";
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(UtilPointerEvent, "enter", {
-            get: function () {
-                return "pointerenter";
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(UtilPointerEvent, "leave", {
-            get: function () {
-                return "pointerleave";
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(UtilPointerEvent, "move", {
-            get: function () {
-                return "pointermove";
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(UtilPointerEvent, "out", {
-            get: function () {
-                return "pointerout";
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(UtilPointerEvent, "over", {
-            get: function () {
-                return "pointerover";
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(UtilPointerEvent, "up", {
-            get: function () {
-                return "pointerup";
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(UtilPointerEvent, "cancel", {
-            get: function () {
-                return "pointercancel";
-            },
-            enumerable: false,
-            configurable: true
-        });
-        UtilPointerEvent.toGlobal = function (e, interactionManager, result) {
-            if ("touches" in e) {
-                var touches = e.changedTouches;
-                var touch = touches[touches.length - 1];
-                if (touch != null) {
-                    interactionManager.mapPositionToPoint(result, touch.clientX, touch.clientY);
-                }
-                else {
-                    interactionManager.mapPositionToPoint(result, 0, 0);
-                }
-            }
-            else {
-                interactionManager.mapPositionToPoint(result, e.clientX, e.clientY);
-            }
-            return result;
-        };
-        UtilPointerEvent.isValidDistance = function (e, x, y) {
-            var global = e.data.global;
-            var dx = Math.abs(x - global.x);
-            var dy = Math.abs(y - global.y);
-            var threshold = this.CLICK_DISTANCE_THRESHOLD;
-            return dx < threshold && dy < threshold;
-        };
-        UtilPointerEvent.onClick = function (target, onClick) {
-            var _this = this;
-            if (!this.touchable) {
-                target.on("click", onClick);
-            }
-            else {
-                var isDowned_1 = false;
-                var downX_1 = 0;
-                var downY_1 = 0;
-                var interactionManagerBound_1 = null;
-                var cleanup_1 = function () {
-                    isDowned_1 = false;
-                    if (interactionManagerBound_1) {
-                        interactionManagerBound_1.off(up_1, onUp_1);
-                        interactionManagerBound_1 = null;
-                    }
-                };
-                target.on("click", function (e) {
-                    if (isDowned_1) {
-                        cleanup_1();
-                    }
-                    onClick(e);
-                });
-                var up_1 = this.up;
-                var onUp_1 = function (e) {
-                    if (isDowned_1) {
-                        cleanup_1();
-                        if (_this.contains(target, e.target)) {
-                            if (_this.isValidDistance(e, downX_1, downY_1)) {
-                                onClick(e);
-                            }
-                        }
-                    }
-                };
-                target.on(this.down, function (e) {
-                    if (isDowned_1) {
-                        var global_1 = e.data.global;
-                        downX_1 = global_1.x;
-                        downY_1 = global_1.y;
-                    }
-                    else {
-                        isDowned_1 = true;
-                        var global_2 = e.data.global;
-                        downX_1 = global_2.x;
-                        downY_1 = global_2.y;
-                        if (interactionManagerBound_1) {
-                            interactionManagerBound_1.off(up_1, onUp_1);
-                            interactionManagerBound_1 = null;
-                        }
-                        var layer = DApplications.getLayer(target);
-                        if (layer) {
-                            interactionManagerBound_1 = layer.renderer.plugins.interaction;
-                            interactionManagerBound_1.once(up_1, onUp_1);
-                        }
-                    }
-                });
-            }
-        };
-        UtilPointerEvent.onLongClick = function (target, onClick, onLongClick, isLongClickable) {
-            var _this = this;
-            if (!this.touchable) {
-                target.on("click", onClick);
-            }
-            else {
-                var isDowned_2 = false;
-                var downX_2 = 0;
-                var downY_2 = 0;
-                var timeoutId_1 = null;
-                var interactionManagerBound_2 = null;
-                var cleanupTimeout_1 = function () {
-                    if (timeoutId_1 != null) {
-                        clearTimeout(timeoutId_1);
-                        timeoutId_1 = null;
-                    }
-                };
-                var cleanup_2 = function () {
-                    isDowned_2 = false;
-                    if (interactionManagerBound_2) {
-                        interactionManagerBound_2.off(up_2, onUp_2);
-                        interactionManagerBound_2.off(move_1, onMove_1);
-                        interactionManagerBound_2 = null;
-                    }
-                    cleanupTimeout_1();
-                };
-                target.on("click", function (e) {
-                    if (isDowned_2) {
-                        cleanup_2();
-                    }
-                    onClick(e);
-                });
-                var up_2 = this.up;
-                var move_1 = this.move;
-                var onUp_2 = function (e) {
-                    if (isDowned_2) {
-                        cleanup_2();
-                        if (_this.contains(target, e.target)) {
-                            if (_this.isValidDistance(e, downX_2, downY_2)) {
-                                onClick(e);
-                            }
-                        }
-                    }
-                };
-                var onMove_1 = function (e) {
-                    if (isDowned_2) {
-                        if (_this.contains(target, e.target)) {
-                            if (!_this.isValidDistance(e, downX_2, downY_2)) {
-                                cleanup_2();
-                            }
-                        }
-                    }
-                };
-                target.on(this.down, function (e) {
-                    if (!isDowned_2) {
-                        isDowned_2 = true;
-                        var global_3 = e.data.global;
-                        downX_2 = global_3.x;
-                        downY_2 = global_3.y;
-                        cleanupTimeout_1();
-                        var oe = e.data.originalEvent;
-                        if ("touches" in oe && (isLongClickable == null || isLongClickable(e))) {
-                            timeoutId_1 = window.setTimeout(function () {
-                                if (isDowned_2) {
-                                    cleanup_2();
-                                    onLongClick(e);
-                                }
-                            }, _this.LONG_CLICK_THRESHOLD);
-                        }
-                        if (interactionManagerBound_2) {
-                            interactionManagerBound_2.off(up_2, onUp_2);
-                            interactionManagerBound_2.off(move_1, onMove_1);
-                            interactionManagerBound_2 = null;
-                        }
-                        var layer = DApplications.getLayer(target);
-                        if (layer) {
-                            interactionManagerBound_2 = layer.renderer.plugins.interaction;
-                            interactionManagerBound_2.once(up_2, onUp_2);
-                            interactionManagerBound_2.on(move_1, onMove_1);
-                        }
-                    }
-                });
-            }
-        };
-        UtilPointerEvent.onDblClick = function (target, handler) {
-            var _this = this;
-            if (!this.touchable) {
-                target.addEventListener("dblclick", handler);
-            }
-            else {
-                var isDowned_3 = 0;
-                var downX_3 = 0;
-                var downY_3 = 0;
-                var clickTime_1 = 0;
-                target.addEventListener("dblclick", handler);
-                target.addEventListener("touchend", function (e) {
-                    if (isDowned_3 === 1 || isDowned_3 === 3) {
-                        var touches = e.changedTouches;
-                        var touch = touches[touches.length - 1];
-                        if (touch != null) {
-                            var dx = downX_3 - touch.clientX;
-                            var dy = downY_3 - touch.clientY;
-                            if (Math.abs(dx) + Math.abs(dy) < _this.CLICK_DISTANCE_THRESHOLD) {
-                                isDowned_3 += 1;
-                                if (isDowned_3 === 4) {
-                                    isDowned_3 = 0;
-                                    var elapsedTime = e.timeStamp - clickTime_1;
-                                    if (elapsedTime < _this.DBLCLICK_INTERVAL_THRESHOLD) {
-                                        handler(e);
-                                    }
-                                    else {
-                                        clickTime_1 = e.timeStamp;
-                                        isDowned_3 = 2;
-                                    }
-                                }
-                                else {
-                                    clickTime_1 = e.timeStamp;
-                                }
-                                return;
-                            }
-                        }
-                    }
-                    isDowned_3 = 0;
-                });
-                target.addEventListener("touchstart", function (e) {
-                    if (isDowned_3 === 0) {
-                        var touch = e.touches.item(e.touches.length - 1);
-                        if (touch != null) {
-                            isDowned_3 = 1;
-                            downX_3 = touch.clientX;
-                            downY_3 = touch.clientY;
-                            return;
-                        }
-                    }
-                    else if (isDowned_3 === 2) {
-                        var touch = e.touches.item(e.touches.length - 1);
-                        if (touch != null) {
-                            isDowned_3 = 3;
-                            downX_3 = touch.clientX;
-                            downY_3 = touch.clientY;
-                            return;
-                        }
-                    }
-                    isDowned_3 = 0;
-                });
-            }
-        };
-        UtilPointerEvent.contains = function (target, targetOrChild) {
-            var current = targetOrChild;
-            while (current != null && current !== target) {
-                current = current.parent;
-            }
-            return current === target;
-        };
-        UtilPointerEvent.CLICK_DISTANCE_THRESHOLD = 10;
-        UtilPointerEvent.DBLCLICK_INTERVAL_THRESHOLD = 333;
-        UtilPointerEvent.LONG_CLICK_THRESHOLD = 750;
-        return UtilPointerEvent;
     }());
 
     /*
@@ -22195,6 +22302,1900 @@
         EShapeDeserializers[EShapeType.BAR] = deserializeBar;
     };
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /* eslint-disable prettier/prettier */
+    var EShapeCapability;
+    (function (EShapeCapability) {
+        EShapeCapability[EShapeCapability["NONE"] = 0] = "NONE";
+        EShapeCapability[EShapeCapability["ID"] = 1] = "ID";
+        EShapeCapability[EShapeCapability["POSITION"] = 2] = "POSITION";
+        EShapeCapability[EShapeCapability["WIDTH"] = 4] = "WIDTH";
+        EShapeCapability[EShapeCapability["HEIGHT"] = 8] = "HEIGHT";
+        EShapeCapability[EShapeCapability["ROTATION"] = 16] = "ROTATION";
+        EShapeCapability[EShapeCapability["SKEW"] = 32] = "SKEW";
+        EShapeCapability[EShapeCapability["ALIGN"] = 64] = "ALIGN";
+        EShapeCapability[EShapeCapability["REPLACING"] = 128] = "REPLACING";
+        EShapeCapability[EShapeCapability["GROUPING"] = 256] = "GROUPING";
+        EShapeCapability[EShapeCapability["FILL"] = 512] = "FILL";
+        EShapeCapability[EShapeCapability["STROKE"] = 1024] = "STROKE";
+        EShapeCapability[EShapeCapability["STROKE_SIDE"] = 2048] = "STROKE_SIDE";
+        EShapeCapability[EShapeCapability["BORDER_RADIUS"] = 4096] = "BORDER_RADIUS";
+        EShapeCapability[EShapeCapability["TEXT"] = 8192] = "TEXT";
+        EShapeCapability[EShapeCapability["TEXTURE"] = 16384] = "TEXTURE";
+        EShapeCapability[EShapeCapability["TAG"] = 32768] = "TAG";
+        EShapeCapability[EShapeCapability["ACTION"] = 65536] = "ACTION";
+        EShapeCapability[EShapeCapability["CURSOR"] = 131072] = "CURSOR";
+        EShapeCapability[EShapeCapability["ORDER_IN_LAYER"] = 262144] = "ORDER_IN_LAYER";
+        EShapeCapability[EShapeCapability["CHILDREN"] = 524288] = "CHILDREN";
+        EShapeCapability[EShapeCapability["COORDINATE"] = 127] = "COORDINATE";
+        EShapeCapability[EShapeCapability["SHAPE"] = 1920] = "SHAPE";
+        EShapeCapability[EShapeCapability["LAYER"] = 262144] = "LAYER";
+        EShapeCapability[EShapeCapability["PRIMITIVE"] = 1042431] = "PRIMITIVE";
+        EShapeCapability[EShapeCapability["EMBEDDED"] = 369151] = "EMBEDDED";
+        EShapeCapability[EShapeCapability["ALL"] = 1048575] = "ALL";
+    })(EShapeCapability || (EShapeCapability = {}));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeCapabilities = /** @class */ (function () {
+        function EShapeCapabilities() {
+        }
+        EShapeCapabilities.get = function (type) {
+            var capability = this.mappings[type];
+            if (capability != null) {
+                return capability;
+            }
+            return EShapeCapability.PRIMITIVE;
+        };
+        EShapeCapabilities.contains = function (shape, target) {
+            if (shape != null) {
+                var capability = this.get(shape.type);
+                if (capability & target) {
+                    return true;
+                }
+                if (capability & EShapeCapability.CHILDREN) {
+                    var children = shape.children;
+                    for (var i = 0, imax = children.length; i < imax; ++i) {
+                        if (this.contains(children[i], target)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        };
+        EShapeCapabilities.set = function (type, capability) {
+            this.mappings[type] = capability;
+        };
+        EShapeCapabilities.mappings = {};
+        return EShapeCapabilities;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeRuntimes = {};
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeStrokeSide;
+    (function (EShapeStrokeSide) {
+        EShapeStrokeSide[EShapeStrokeSide["NONE"] = 0] = "NONE";
+        EShapeStrokeSide[EShapeStrokeSide["TOP"] = 1] = "TOP";
+        EShapeStrokeSide[EShapeStrokeSide["RIGHT"] = 2] = "RIGHT";
+        EShapeStrokeSide[EShapeStrokeSide["BOTTOM"] = 4] = "BOTTOM";
+        EShapeStrokeSide[EShapeStrokeSide["LEFT"] = 8] = "LEFT";
+        EShapeStrokeSide[EShapeStrokeSide["TOP_OR_LEFT"] = 9] = "TOP_OR_LEFT";
+        EShapeStrokeSide[EShapeStrokeSide["TOP_OR_RIGHT"] = 3] = "TOP_OR_RIGHT";
+        EShapeStrokeSide[EShapeStrokeSide["BOTTOM_OR_LEFT"] = 12] = "BOTTOM_OR_LEFT";
+        EShapeStrokeSide[EShapeStrokeSide["BOTTOM_OR_RIGHT"] = 6] = "BOTTOM_OR_RIGHT";
+        EShapeStrokeSide[EShapeStrokeSide["ALL"] = 15] = "ALL";
+    })(EShapeStrokeSide || (EShapeStrokeSide = {}));
+
+    var RECTANGLE_ROUNDED_VERTEX_COUNT = 36;
+    var RECTANGLE_ROUNDED_INDEX_COUNT = 24;
+    var RECTANGLE_ROUNDED_WORLD_SIZE = [0, 0, 0];
+    var RECTANGLE_ROUNDED_WORK_POINT = new pixi_js.Point();
+    var buildRectangleRoundedIndex = function (indices, voffset, ioffset) {
+        // Top-left corner
+        var ii = ioffset * 3 - 1;
+        indices[++ii] = voffset;
+        indices[++ii] = voffset + 1;
+        indices[++ii] = voffset + 2;
+        indices[++ii] = voffset + 1;
+        indices[++ii] = voffset + 3;
+        indices[++ii] = voffset + 2;
+        // Top-right corner
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 5;
+        indices[++ii] = voffset + 6;
+        indices[++ii] = voffset + 5;
+        indices[++ii] = voffset + 7;
+        indices[++ii] = voffset + 6;
+        // Bottom-left corner
+        indices[++ii] = voffset + 8;
+        indices[++ii] = voffset + 9;
+        indices[++ii] = voffset + 10;
+        indices[++ii] = voffset + 9;
+        indices[++ii] = voffset + 11;
+        indices[++ii] = voffset + 10;
+        // Bottom-right corner
+        indices[++ii] = voffset + 12;
+        indices[++ii] = voffset + 13;
+        indices[++ii] = voffset + 14;
+        indices[++ii] = voffset + 13;
+        indices[++ii] = voffset + 15;
+        indices[++ii] = voffset + 14;
+        // Top edge
+        indices[++ii] = voffset + 16;
+        indices[++ii] = voffset + 17;
+        indices[++ii] = voffset + 20;
+        indices[++ii] = voffset + 17;
+        indices[++ii] = voffset + 21;
+        indices[++ii] = voffset + 20;
+        indices[++ii] = voffset + 17;
+        indices[++ii] = voffset + 18;
+        indices[++ii] = voffset + 21;
+        indices[++ii] = voffset + 18;
+        indices[++ii] = voffset + 22;
+        indices[++ii] = voffset + 21;
+        // Upper middle
+        indices[++ii] = voffset + 19;
+        indices[++ii] = voffset + 21;
+        indices[++ii] = voffset + 24;
+        indices[++ii] = voffset + 21;
+        indices[++ii] = voffset + 25;
+        indices[++ii] = voffset + 24;
+        indices[++ii] = voffset + 21;
+        indices[++ii] = voffset + 23;
+        indices[++ii] = voffset + 26;
+        indices[++ii] = voffset + 23;
+        indices[++ii] = voffset + 27;
+        indices[++ii] = voffset + 26;
+        // Lower middle
+        indices[++ii] = voffset + 24;
+        indices[++ii] = voffset + 25;
+        indices[++ii] = voffset + 28;
+        indices[++ii] = voffset + 25;
+        indices[++ii] = voffset + 30;
+        indices[++ii] = voffset + 28;
+        indices[++ii] = voffset + 26;
+        indices[++ii] = voffset + 27;
+        indices[++ii] = voffset + 30;
+        indices[++ii] = voffset + 27;
+        indices[++ii] = voffset + 32;
+        indices[++ii] = voffset + 30;
+        // Bottom edge
+        indices[++ii] = voffset + 29;
+        indices[++ii] = voffset + 30;
+        indices[++ii] = voffset + 33;
+        indices[++ii] = voffset + 30;
+        indices[++ii] = voffset + 34;
+        indices[++ii] = voffset + 33;
+        indices[++ii] = voffset + 30;
+        indices[++ii] = voffset + 31;
+        indices[++ii] = voffset + 34;
+        indices[++ii] = voffset + 31;
+        indices[++ii] = voffset + 35;
+        indices[++ii] = voffset + 34;
+    };
+    var buildRectangleRoundedVertex = function (vertices, voffset, originX, originY, sizeX, sizeY, strokeAlign, strokeWidth, radius, internalTransform, worldSize) {
+        // Calculate the transformed positions
+        //
+        //  0   1       4   5
+        // |---|       |---|
+        // |2  |3      |6  |7
+        // |---|       |---|
+        //
+        //
+        //
+        //
+        //
+        // |---|       |---|
+        // |8  |9      |12 |13
+        // |---|       |---|
+        //  10  11      14  15
+        //
+        //
+        //      16  17  18       <-- Top edge
+        //     |---|---|
+        //  19 |20 |21 |22  23   <-- Top
+        // |---|---|---|---|
+        // |       |       |
+        // |24   25|26     |27   <-- Middle
+        // |-------|-------|
+        // |       |       |
+        // |       |       |
+        // |---|---|---|---|
+        //  28 |29 |30 |31  32   <-- Bottom
+        //     |---|---|
+        //      33  34  35       <-- Bottom edge
+        //
+        var s = strokeAlign * strokeWidth;
+        var sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
+        var sy = sizeY * 0.5 + (0 <= sizeY ? +s : -s);
+        var ax = Math.abs(sx);
+        var ay = Math.abs(sy);
+        var a = radius * Math.min(ax, ay);
+        var rx = a / ax;
+        var ry = a / ay;
+        var work = RECTANGLE_ROUNDED_WORK_POINT;
+        work.set(originX - sx, originY - sy);
+        internalTransform.apply(work, work);
+        var x0 = work.x;
+        var y0 = work.y;
+        work.set(originX, originY - sy);
+        internalTransform.apply(work, work);
+        var x2 = work.x;
+        var y2 = work.y;
+        var dxh = x2 - x0;
+        var dyh = y2 - y0;
+        var dxhr = rx * dxh;
+        var dyhr = rx * dyh;
+        var x1 = x0 + dxhr;
+        var y1 = y0 + dyhr;
+        var x4 = x2 + dxh;
+        var y4 = y2 + dyh;
+        var x3 = x4 - dxhr;
+        var y3 = y4 - dyhr;
+        work.set(originX, originY);
+        internalTransform.apply(work, work);
+        var x11 = work.x;
+        var y11 = work.y;
+        var dxv = x11 - x2;
+        var dyv = y11 - y2;
+        var dxvr = ry * dxv;
+        var dyvr = ry * dyv;
+        var x7 = x2 + dxvr;
+        var y7 = y2 + dyvr;
+        var x5 = x7 - dxh;
+        var y5 = y7 - dyh;
+        var x6 = x5 + dxhr;
+        var y6 = y5 + dyhr;
+        var x9 = x7 + dxh;
+        var y9 = y7 + dyh;
+        var x8 = x9 - dxhr;
+        var y8 = y9 - dyhr;
+        var x10 = x11 - dxh;
+        var y10 = y11 - dyh;
+        var x12 = x11 + dxh;
+        var y12 = y11 + dyh;
+        var x20 = x11 + dxv;
+        var y20 = y11 + dyv;
+        var x15 = x20 - dxvr;
+        var y15 = y20 - dyvr;
+        var x13 = x15 - dxh;
+        var y13 = y15 - dyh;
+        var x14 = x13 + dxhr;
+        var y14 = y13 + dyhr;
+        var x17 = x15 + dxh;
+        var y17 = y15 + dyh;
+        var x16 = x17 - dxhr;
+        var y16 = y17 - dyhr;
+        var x18 = x20 - dxh;
+        var y18 = y20 - dyh;
+        var x19 = x18 + dxhr;
+        var y19 = y18 + dyhr;
+        var x22 = x20 + dxh;
+        var y22 = y20 + dyh;
+        var x21 = x22 - dxhr;
+        var y21 = y22 - dyhr;
+        // World size
+        worldSize[0] = toLength(x0, y0, x1, y1);
+        worldSize[1] = toLength(x0, y0, x2, y2);
+        worldSize[2] = toLength(x0, y0, x10, y10);
+        // Vertices
+        var iv = voffset * 2 - 1;
+        // Top-left corner
+        vertices[++iv] = x0;
+        vertices[++iv] = y0;
+        vertices[++iv] = x1;
+        vertices[++iv] = y1;
+        vertices[++iv] = x5;
+        vertices[++iv] = y5;
+        vertices[++iv] = x6;
+        vertices[++iv] = y6;
+        // Top-right corner
+        vertices[++iv] = x3;
+        vertices[++iv] = y3;
+        vertices[++iv] = x4;
+        vertices[++iv] = y4;
+        vertices[++iv] = x8;
+        vertices[++iv] = y8;
+        vertices[++iv] = x9;
+        vertices[++iv] = y9;
+        // Bottom-left corner
+        vertices[++iv] = x13;
+        vertices[++iv] = y13;
+        vertices[++iv] = x14;
+        vertices[++iv] = y14;
+        vertices[++iv] = x18;
+        vertices[++iv] = y18;
+        vertices[++iv] = x19;
+        vertices[++iv] = y19;
+        // Bottom-right corner
+        vertices[++iv] = x16;
+        vertices[++iv] = y16;
+        vertices[++iv] = x17;
+        vertices[++iv] = y17;
+        vertices[++iv] = x21;
+        vertices[++iv] = y21;
+        vertices[++iv] = x22;
+        vertices[++iv] = y22;
+        // Top edge
+        vertices[++iv] = x1;
+        vertices[++iv] = y1;
+        vertices[++iv] = x2;
+        vertices[++iv] = y2;
+        vertices[++iv] = x3;
+        vertices[++iv] = y3;
+        // Top
+        vertices[++iv] = x5;
+        vertices[++iv] = y5;
+        vertices[++iv] = x6;
+        vertices[++iv] = y6;
+        vertices[++iv] = x7;
+        vertices[++iv] = y7;
+        vertices[++iv] = x8;
+        vertices[++iv] = y8;
+        vertices[++iv] = x9;
+        vertices[++iv] = y9;
+        // Middle
+        vertices[++iv] = x10;
+        vertices[++iv] = y10;
+        vertices[++iv] = x11;
+        vertices[++iv] = y11;
+        vertices[++iv] = x11;
+        vertices[++iv] = y11;
+        vertices[++iv] = x12;
+        vertices[++iv] = y12;
+        // Bottom
+        vertices[++iv] = x13;
+        vertices[++iv] = y13;
+        vertices[++iv] = x14;
+        vertices[++iv] = y14;
+        vertices[++iv] = x15;
+        vertices[++iv] = y15;
+        vertices[++iv] = x16;
+        vertices[++iv] = y16;
+        vertices[++iv] = x17;
+        vertices[++iv] = y17;
+        // Bottom edge
+        vertices[++iv] = x19;
+        vertices[++iv] = y19;
+        vertices[++iv] = x20;
+        vertices[++iv] = y20;
+        vertices[++iv] = x21;
+        vertices[++iv] = y21;
+    };
+    var buildRectangleRoundedClipping = function (clippings, voffset, corner, worldSize) {
+        var ic = voffset * 3 - 1;
+        var rxc = 1 - worldSize[0] / worldSize[1];
+        var ryc = 1 - worldSize[0] / worldSize[2];
+        // Top-left corner
+        if (corner & EShapeCorner.TOP_LEFT) {
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+        }
+        else {
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = rxc;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = ryc;
+            clippings[++ic] = 0;
+            clippings[++ic] = rxc;
+            clippings[++ic] = ryc;
+            clippings[++ic] = 0;
+        }
+        // Top-right corner
+        if (corner & EShapeCorner.TOP_RIGHT) {
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+        }
+        else {
+            clippings[++ic] = rxc;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = rxc;
+            clippings[++ic] = ryc;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = ryc;
+            clippings[++ic] = 0;
+        }
+        // Bottom-left corner
+        if (corner & EShapeCorner.BOTTOM_LEFT) {
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+        }
+        else {
+            clippings[++ic] = 1;
+            clippings[++ic] = ryc;
+            clippings[++ic] = 0;
+            clippings[++ic] = rxc;
+            clippings[++ic] = ryc;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = rxc;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+        }
+        // Bottom-right corner
+        if (corner & EShapeCorner.BOTTOM_RIGHT) {
+            clippings[++ic] = 0;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+        }
+        else {
+            clippings[++ic] = rxc;
+            clippings[++ic] = ryc;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = ryc;
+            clippings[++ic] = 0;
+            clippings[++ic] = rxc;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+            clippings[++ic] = 1;
+            clippings[++ic] = 1;
+            clippings[++ic] = 0;
+        }
+        // Top edge
+        clippings[++ic] = rxc;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = rxc;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        // Top
+        clippings[++ic] = 1;
+        clippings[++ic] = ryc;
+        clippings[++ic] = 0;
+        clippings[++ic] = rxc;
+        clippings[++ic] = ryc;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = ryc;
+        clippings[++ic] = 0;
+        clippings[++ic] = rxc;
+        clippings[++ic] = ryc;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = ryc;
+        clippings[++ic] = 0;
+        // Middle
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        // Bottom
+        clippings[++ic] = 1;
+        clippings[++ic] = ryc;
+        clippings[++ic] = 0;
+        clippings[++ic] = rxc;
+        clippings[++ic] = ryc;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = ryc;
+        clippings[++ic] = 0;
+        clippings[++ic] = rxc;
+        clippings[++ic] = ryc;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = ryc;
+        clippings[++ic] = 0;
+        // Bottom edge
+        clippings[++ic] = rxc;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = rxc;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+    };
+    var buildRectangleRoundedStep = function (steps, voffset, strokeWidth, strokeSide, strokeStyle, corner, worldSize) {
+        var scaleInvariant = toScaleInvariant(strokeStyle);
+        var sc = worldSize[0];
+        var sx = worldSize[1];
+        var sy = worldSize[2];
+        var rxc = Math.max(0, 1 - worldSize[0] / worldSize[1]);
+        var ryc = Math.max(0, 1 - worldSize[0] / worldSize[2]);
+        var wt;
+        var zt;
+        var bt;
+        if (strokeSide & EShapeStrokeSide.TOP) {
+            wt = +2;
+            zt = +1;
+            bt = +1 + ryc;
+        }
+        else {
+            wt = -2;
+            zt = -1;
+            bt = -1 - ryc;
+        }
+        var wr;
+        var zr;
+        var br;
+        if (strokeSide & EShapeStrokeSide.RIGHT) {
+            wr = +2;
+            zr = +1;
+            br = +1 + rxc;
+        }
+        else {
+            wr = -2;
+            zr = -1;
+            br = -1 - rxc;
+        }
+        var wb;
+        var zb;
+        var bb;
+        if (strokeSide & EShapeStrokeSide.BOTTOM) {
+            wb = +2;
+            zb = +1;
+            bb = +1 + ryc;
+        }
+        else {
+            wb = -2;
+            zb = -1;
+            bb = -1 - ryc;
+        }
+        var wl;
+        var zl;
+        var bl;
+        if (strokeSide & EShapeStrokeSide.LEFT) {
+            wl = +2;
+            zl = +1;
+            bl = +1 + rxc;
+        }
+        else {
+            wl = -2;
+            zl = -1;
+            bl = -1 - rxc;
+        }
+        // Top-left corner
+        var is = voffset * 6 - 1;
+        if (corner & EShapeCorner.TOP_LEFT) {
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = wl;
+            steps[++is] = wt;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = zl;
+            steps[++is] = wt;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = wl;
+            steps[++is] = zt;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = zl;
+            steps[++is] = zt;
+        }
+        else {
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = wl;
+            steps[++is] = wt;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = bl;
+            steps[++is] = wt;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = wl;
+            steps[++is] = bt;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = bl;
+            steps[++is] = bt;
+        }
+        // Top-right corner
+        if (corner & EShapeCorner.TOP_RIGHT) {
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = zr;
+            steps[++is] = wt;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = wr;
+            steps[++is] = wt;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = zr;
+            steps[++is] = zt;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = wr;
+            steps[++is] = zt;
+        }
+        else {
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = br;
+            steps[++is] = wt;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = wr;
+            steps[++is] = wt;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = br;
+            steps[++is] = bt;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = wr;
+            steps[++is] = wt;
+        }
+        // Bottom-left corner
+        if (corner & EShapeCorner.BOTTOM_LEFT) {
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = wl;
+            steps[++is] = zb;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = zl;
+            steps[++is] = zb;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = wl;
+            steps[++is] = wb;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = zl;
+            steps[++is] = wb;
+        }
+        else {
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = wl;
+            steps[++is] = bb;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = bl;
+            steps[++is] = bb;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = wl;
+            steps[++is] = wb;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = bl;
+            steps[++is] = wb;
+        }
+        // Bottom-right corner
+        if (corner & EShapeCorner.BOTTOM_RIGHT) {
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = zr;
+            steps[++is] = zb;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = wr;
+            steps[++is] = zb;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = zr;
+            steps[++is] = wb;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sc;
+            steps[++is] = sc;
+            steps[++is] = wr;
+            steps[++is] = wb;
+        }
+        else {
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = br;
+            steps[++is] = bb;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = wr;
+            steps[++is] = bb;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = br;
+            steps[++is] = wb;
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = sx;
+            steps[++is] = sy;
+            steps[++is] = wr;
+            steps[++is] = wb;
+        }
+        // Top edge
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = bl;
+        steps[++is] = wt;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = zl;
+        steps[++is] = wt;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = br;
+        steps[++is] = wt;
+        // Top
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = wl;
+        steps[++is] = bt;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = bl;
+        steps[++is] = bt;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = zl;
+        steps[++is] = bt;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = br;
+        steps[++is] = bt;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = wr;
+        steps[++is] = bt;
+        // Middle
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = wl;
+        steps[++is] = zt;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = zl;
+        steps[++is] = zt;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = zr;
+        steps[++is] = zb;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = wr;
+        steps[++is] = zb;
+        // Bottom
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = wl;
+        steps[++is] = bb;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = bl;
+        steps[++is] = bb;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = zb;
+        steps[++is] = bb;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = br;
+        steps[++is] = bb;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = wr;
+        steps[++is] = bb;
+        // Bottom edge
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = bl;
+        steps[++is] = wb;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = zb;
+        steps[++is] = wb;
+        steps[++is] = strokeWidth;
+        steps[++is] = scaleInvariant;
+        steps[++is] = sx;
+        steps[++is] = sy;
+        steps[++is] = br;
+        steps[++is] = wb;
+    };
+    var buildRectangleRoundedUv = function (uvs, voffset, textureUvs, worldSize) {
+        var x0 = textureUvs.x0;
+        var x1 = textureUvs.x1;
+        var x2 = textureUvs.x2;
+        var x3 = textureUvs.x3;
+        var y0 = textureUvs.y0;
+        var y1 = textureUvs.y1;
+        var y2 = textureUvs.y2;
+        var y3 = textureUvs.y3;
+        var x4 = 0.5 * (x0 + x1);
+        var y4 = 0.5 * (y0 + y1);
+        var x5 = 0.5 * (x3 + x2);
+        var y5 = 0.5 * (y3 + y2);
+        var ruvx = (0.5 * worldSize[0]) / worldSize[1];
+        var ruvy = (0.5 * worldSize[0]) / worldSize[2];
+        var d0x = ruvx * (x1 - x0);
+        var d0y = ruvx * (y1 - y0);
+        var d1x = ruvy * (x3 - x0);
+        var d1y = ruvy * (y3 - y0);
+        // UVs
+        var iuv = voffset * 2 - 1;
+        // Top-left corner
+        uvs[++iuv] = x0;
+        uvs[++iuv] = y0;
+        uvs[++iuv] = x0 + d0x;
+        uvs[++iuv] = y0 + d0y;
+        uvs[++iuv] = x0 + d1x;
+        uvs[++iuv] = y0 + d1y;
+        uvs[++iuv] = x0 + d0x + d1x;
+        uvs[++iuv] = y0 + d0y + d1y;
+        // Top-right corner
+        uvs[++iuv] = x1 - d0x;
+        uvs[++iuv] = y1 - d0y;
+        uvs[++iuv] = x1;
+        uvs[++iuv] = y1;
+        uvs[++iuv] = x1 - d0x + d1x;
+        uvs[++iuv] = y1 - d0y + d1y;
+        uvs[++iuv] = x1 + d1x;
+        uvs[++iuv] = y1 + d1y;
+        // Bottom-left corner
+        uvs[++iuv] = x3 - d1x;
+        uvs[++iuv] = y3 - d1y;
+        uvs[++iuv] = x3 + d0x - d1x;
+        uvs[++iuv] = y3 + d0y - d1y;
+        uvs[++iuv] = x3;
+        uvs[++iuv] = y3;
+        uvs[++iuv] = x3 + d0x;
+        uvs[++iuv] = y3 + d0y;
+        // Bottom-right corner
+        uvs[++iuv] = x2 - d0x - d1x;
+        uvs[++iuv] = y2 - d0y - d1y;
+        uvs[++iuv] = x2 - d1x;
+        uvs[++iuv] = y2 - d1y;
+        uvs[++iuv] = x2 - d0x;
+        uvs[++iuv] = y2 - d0y;
+        uvs[++iuv] = x2;
+        uvs[++iuv] = y2;
+        // Top edge
+        uvs[++iuv] = x0 + d0x;
+        uvs[++iuv] = y0 + d0y;
+        uvs[++iuv] = x4;
+        uvs[++iuv] = y4;
+        uvs[++iuv] = x1 - d0x;
+        uvs[++iuv] = y1 - d0y;
+        // Top
+        uvs[++iuv] = x0 + d1x;
+        uvs[++iuv] = y0 + d1y;
+        uvs[++iuv] = x0 + d1x + d0x;
+        uvs[++iuv] = y0 + d1y + d0y;
+        uvs[++iuv] = x4 + d1x;
+        uvs[++iuv] = y4 + d1y;
+        uvs[++iuv] = x1 + d1x - d0x;
+        uvs[++iuv] = y1 + d1y - d0y;
+        uvs[++iuv] = x1 + d1x;
+        uvs[++iuv] = y1 + d1y;
+        // Middle
+        var x02 = 0.5 * (x0 + x2);
+        var y02 = 0.5 * (y0 + y2);
+        uvs[++iuv] = 0.5 * (x0 + x3);
+        uvs[++iuv] = 0.5 * (y0 + y3);
+        uvs[++iuv] = x02;
+        uvs[++iuv] = y02;
+        uvs[++iuv] = x02;
+        uvs[++iuv] = y02;
+        uvs[++iuv] = 0.5 * (x1 + x2);
+        uvs[++iuv] = 0.5 * (y1 + y2);
+        // Bottom
+        uvs[++iuv] = x3 - d1x;
+        uvs[++iuv] = y3 - d1y;
+        uvs[++iuv] = x3 - d1x + d0x;
+        uvs[++iuv] = y3 - d1y + d0y;
+        uvs[++iuv] = x5 - d1x;
+        uvs[++iuv] = y5 - d1y;
+        uvs[++iuv] = x2 - d1x - d0x;
+        uvs[++iuv] = y2 - d1y - d0y;
+        uvs[++iuv] = x2 - d1x;
+        uvs[++iuv] = y2 - d1y;
+        // Bottom edge
+        uvs[++iuv] = x3 + d0x;
+        uvs[++iuv] = y3 + d0y;
+        uvs[++iuv] = x5;
+        uvs[++iuv] = y5;
+        uvs[++iuv] = x2 - d0x;
+        uvs[++iuv] = y2 - d0y;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeRectangleRoundedUploaded = /** @class */ (function (_super) {
+        __extends(EShapeRectangleRoundedUploaded, _super);
+        function EShapeRectangleRoundedUploaded() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        EShapeRectangleRoundedUploaded.prototype.init = function (shape) {
+            _super.prototype.init.call(this, shape);
+            // Indices
+            var buffer = this.buffer;
+            buffer.updateIndices();
+            buildRectangleRoundedIndex(buffer.indices, this.vertexOffset, this.indexOffset);
+            // Text
+            this.initText();
+            this.update(shape);
+            return this;
+        };
+        EShapeRectangleRoundedUploaded.prototype.update = function (shape) {
+            var buffer = this.buffer;
+            this.updateVertexClippingStepAndUv(buffer, shape);
+            this.updateColor(buffer, shape);
+            this.updateText(buffer, shape);
+        };
+        EShapeRectangleRoundedUploaded.prototype.updateVertexClippingStepAndUv = function (buffer, shape) {
+            var size = shape.size;
+            var sizeX = size.x;
+            var sizeY = size.y;
+            var radius = shape.radius;
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY || radius !== this.radius;
+            var transformLocalId = this.toTransformLocalId(shape);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
+            var stroke = shape.stroke;
+            var strokeAlign = stroke.align;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var strokeSide = stroke.side;
+            var strokeStyle = stroke.style;
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeSide !== strokeSide ||
+                this.strokeStyle !== strokeStyle;
+            var corner = shape.corner;
+            var isCornerChanged = corner !== this.corner;
+            var texture = this.toTexture(shape);
+            var textureTransformId = this.toTextureTransformId(texture);
+            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
+            var isVertexChanged = isSizeChanged || isStrokeChanged;
+            if (isVertexChanged || isTransformChanged || isCornerChanged || isTextureChanged) {
+                this.sizeX = sizeX;
+                this.sizeY = sizeY;
+                this.radius = radius;
+                this.transformLocalId = transformLocalId;
+                this.strokeAlign = strokeAlign;
+                this.strokeWidth = strokeWidth;
+                this.strokeSide = strokeSide;
+                this.strokeStyle = strokeStyle;
+                this.corner = corner;
+                this.texture = texture;
+                this.textureTransformId = textureTransformId;
+                if (isVertexChanged || isTransformChanged) {
+                    // Invalidate the text layout to update the text layout.
+                    this.textSpacingHorizontal = NaN;
+                }
+                // Vertices
+                var voffset = this.vertexOffset;
+                buffer.updateVertices();
+                buildRectangleRoundedVertex(buffer.vertices, voffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, radius, shape.transform.internalTransform, RECTANGLE_ROUNDED_WORLD_SIZE);
+                // Steps
+                if (isVertexChanged || isCornerChanged || isTransformChanged) {
+                    buffer.updateSteps();
+                    buildRectangleRoundedStep(buffer.steps, voffset, strokeWidth, strokeSide, strokeStyle, corner, RECTANGLE_ROUNDED_WORLD_SIZE);
+                }
+                // Clippings
+                if (isVertexChanged || isCornerChanged) {
+                    buffer.updateClippings();
+                    buildRectangleRoundedClipping(buffer.clippings, voffset, corner, RECTANGLE_ROUNDED_WORLD_SIZE);
+                }
+                // UVs
+                if (isVertexChanged || isTextureChanged) {
+                    buffer.updateUvs();
+                    buildRectangleRoundedUv(buffer.uvs, voffset, this.toTextureUvs(texture), RECTANGLE_ROUNDED_WORLD_SIZE);
+                }
+            }
+        };
+        return EShapeRectangleRoundedUploaded;
+    }(EShapeTextUploaded));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var createRectangleRoundedUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
+        var tcount = toTextBufferCount(shape);
+        var tvcount = tcount * TEXT_VERTEX_COUNT;
+        var ticount = tcount * TEXT_INDEX_COUNT;
+        var vcount = RECTANGLE_ROUNDED_VERTEX_COUNT + tvcount;
+        var icount = RECTANGLE_ROUNDED_INDEX_COUNT + ticount;
+        if (buffer.check(voffset, ioffset, vcount, icount)) {
+            return new EShapeRectangleRoundedUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight).init(shape);
+        }
+        return null;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var createButtonUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
+        return createRectangleRoundedUploaded(buffer, shape, voffset, ioffset, antialiasWeight);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeRectangleRounded = /** @class */ (function (_super) {
+        __extends(EShapeRectangleRounded, _super);
+        function EShapeRectangleRounded(type) {
+            if (type === void 0) { type = EShapeType.RECTANGLE_ROUNDED; }
+            return _super.call(this, type) || this;
+        }
+        EShapeRectangleRounded.prototype.clone = function () {
+            return new EShapeRectangleRounded().copy(this);
+        };
+        EShapeRectangleRounded.prototype.containsAbs_ = function (x, y, ax, ay, r, corner) {
+            var bx0 = -ax + r;
+            if (x <= bx0) {
+                var by0 = -ay + r;
+                if (y <= by0 && corner & EShapeCorner.TOP_LEFT) {
+                    // Top-left corner
+                    var dx = x - bx0;
+                    var dy = y - by0;
+                    return dx * dx + dy * dy <= r * r;
+                }
+                else {
+                    var by1 = +ay - r;
+                    if (by1 <= y && corner & EShapeCorner.BOTTOM_LEFT) {
+                        // Bottom-left corner
+                        var dx = x - bx0;
+                        var dy = y - by1;
+                        return dx * dx + dy * dy <= r * r;
+                    }
+                    else {
+                        // Middle-left box
+                        return -ax <= x;
+                    }
+                }
+            }
+            else {
+                var bx1 = +ax - r;
+                if (bx1 <= x) {
+                    var by0 = -ay + r;
+                    if (y <= by0 && corner & EShapeCorner.TOP_RIGHT) {
+                        // Top-right corner
+                        var dx = x - bx1;
+                        var dy = y - by0;
+                        return dx * dx + dy * dy <= r * r;
+                    }
+                    else {
+                        var by1 = +ay - r;
+                        if (by1 <= y && corner & EShapeCorner.BOTTOM_RIGHT) {
+                            // Bottom-right corner
+                            var dx = x - bx1;
+                            var dy = y - by1;
+                            return dx * dx + dy * dy <= r * r;
+                        }
+                        else {
+                            // Middle-right box
+                            return x <= +ax;
+                        }
+                    }
+                }
+                else {
+                    return -ay <= y && y <= +ay;
+                }
+            }
+        };
+        EShapeRectangleRounded.prototype.containsAbs = function (x, y, ax, ay, sw, ss) {
+            if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
+                var fill = this.fill;
+                if (fill.enable || 0 < sw) {
+                    var r = this.radius * Math.min(ax, ay);
+                    var corner = this.corner;
+                    if (this.containsAbs_(x, y, ax, ay, r, corner)) {
+                        if (fill.enable) {
+                            return true;
+                        }
+                        else {
+                            var s = sw * ss;
+                            var wx = Math.max(0.0, ax - s);
+                            var wy = Math.max(0.0, ay - s);
+                            var wr = Math.max(0.0, r - s);
+                            if (!this.containsAbs_(x, y, wx, wy, wr, corner)) {
+                                var strokeSide = this.stroke.side;
+                                if (strokeSide === EShapeStrokeSide.ALL) {
+                                    return true;
+                                }
+                                else {
+                                    if (x <= -wx + wr) {
+                                        var hasLeftSide = !!(strokeSide & EShapeStrokeSide.LEFT);
+                                        if (y <= -wy + wr) {
+                                            var hasTopSide = !!(strokeSide & EShapeStrokeSide.TOP);
+                                            if (hasTopSide && hasLeftSide) {
+                                                return true;
+                                            }
+                                            else if (hasTopSide) {
+                                                return -wx <= y;
+                                            }
+                                            else if (hasLeftSide) {
+                                                return x <= -wx;
+                                            }
+                                            else {
+                                                return false;
+                                            }
+                                        }
+                                        else if (+wy - wr <= y) {
+                                            var hasBottomSide = !!(strokeSide & EShapeStrokeSide.BOTTOM);
+                                            if (hasBottomSide && hasLeftSide) {
+                                                return true;
+                                            }
+                                            else if (hasBottomSide) {
+                                                return +wx <= y;
+                                            }
+                                            else if (hasLeftSide) {
+                                                return x <= -wx;
+                                            }
+                                            else {
+                                                return false;
+                                            }
+                                        }
+                                        else {
+                                            return hasLeftSide;
+                                        }
+                                    }
+                                    else if (+wx - wr <= x) {
+                                        var hasRightSide = !!(strokeSide & EShapeStrokeSide.RIGHT);
+                                        if (y <= -wy + wr) {
+                                            var hasTopSide = !!(strokeSide & EShapeStrokeSide.TOP);
+                                            if (hasTopSide && hasRightSide) {
+                                                return true;
+                                            }
+                                            else if (hasTopSide) {
+                                                return -wx <= y;
+                                            }
+                                            else if (hasRightSide) {
+                                                return +wx <= x;
+                                            }
+                                            else {
+                                                return false;
+                                            }
+                                        }
+                                        else if (+wy - wr <= y) {
+                                            var hasBottomSide = !!(strokeSide & EShapeStrokeSide.BOTTOM);
+                                            if (hasBottomSide && hasRightSide) {
+                                                return true;
+                                            }
+                                            else if (hasBottomSide) {
+                                                return +wx <= y;
+                                            }
+                                            else if (hasRightSide) {
+                                                return +wx <= x;
+                                            }
+                                            else {
+                                                return false;
+                                            }
+                                        }
+                                        else {
+                                            return hasRightSide;
+                                        }
+                                    }
+                                    else {
+                                        if (y <= -wy + wr) {
+                                            return !!(strokeSide & EShapeStrokeSide.TOP);
+                                        }
+                                        else if (+wy - wr <= y) {
+                                            return !!(strokeSide & EShapeStrokeSide.BOTTOM);
+                                        }
+                                        else {
+                                            return false;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
+        };
+        return EShapeRectangleRounded;
+    }(EShapePrimitive));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeButton = /** @class */ (function (_super) {
+        __extends(EShapeButton, _super);
+        function EShapeButton(type) {
+            if (type === void 0) { type = EShapeType.BUTTON; }
+            var _this = _super.call(this, type) || this;
+            _this._isToggle = false;
+            return _this;
+        }
+        Object.defineProperty(EShapeButton.prototype, "isToggle", {
+            get: function () {
+                return this._isToggle;
+            },
+            set: function (isToggle) {
+                this._isToggle = isToggle;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeButton.prototype.serialize = function (manager) {
+            var result = _super.prototype.serialize.call(this, manager);
+            result[15] = manager.addResource("[" + (this._isToggle ? 1 : 0) + "]");
+            return result;
+        };
+        return EShapeButton;
+    }(EShapeRectangleRounded));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeButton = function (item, manager) {
+        var resources = manager.resources;
+        var resourceId = item[15];
+        if (0 <= resourceId && resourceId < resources.length) {
+            var parsed = manager.getExtension(resourceId);
+            if (parsed == null) {
+                parsed = JSON.parse(resources[resourceId]);
+                manager.setExtension(resourceId, parsed);
+            }
+            var shape = new EShapeButton();
+            shape.isToggle = !!parsed[0];
+            return EShapeDeserializer.deserialize(item, manager, shape);
+        }
+        return EShapeDeserializer.deserialize(item, manager, new EShapeButton());
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeActionValueMiscEmitEvent = /** @class */ (function (_super) {
+        __extends(EShapeActionValueMiscEmitEvent, _super);
+        function EShapeActionValueMiscEmitEvent(condition, target) {
+            return _super.call(this, EShapeActionValueMiscType.EMIT_EVENT, condition, target, EShapeActionValueOnInputAction.EMIT_EVENT, "") || this;
+        }
+        return EShapeActionValueMiscEmitEvent;
+    }(EShapeActionValueMisc));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeActionValueMiscHtmlElement = /** @class */ (function (_super) {
+        __extends(EShapeActionValueMiscHtmlElement, _super);
+        function EShapeActionValueMiscHtmlElement(subtype, when, initializer) {
+            return _super.call(this, subtype, when, "", EShapeActionValueOnInputAction.EMIT_EVENT, initializer) || this;
+        }
+        return EShapeActionValueMiscHtmlElement;
+    }(EShapeActionValueMisc));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeActionValueMiscInput = /** @class */ (function (_super) {
+        __extends(EShapeActionValueMiscInput, _super);
+        function EShapeActionValueMiscInput(subtype, when, target, onInputAction) {
+            return _super.call(this, subtype, when, target, onInputAction, "") || this;
+        }
+        return EShapeActionValueMiscInput;
+    }(EShapeActionValueMisc));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeActionValueMiscWrite = /** @class */ (function (_super) {
+        __extends(EShapeActionValueMiscWrite, _super);
+        function EShapeActionValueMiscWrite(subtype, condition, target, value) {
+            return _super.call(this, subtype, condition, target, EShapeActionValueOnInputAction.EMIT_EVENT, value) || this;
+        }
+        return EShapeActionValueMiscWrite;
+    }(EShapeActionValueMisc));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeButtonRuntimeActionAfter = /** @class */ (function (_super) {
+        __extends(EShapeButtonRuntimeActionAfter, _super);
+        function EShapeButtonRuntimeActionAfter(runtime) {
+            var _this = _super.call(this, EShapeRuntimeReset.COLOR_FILL_AND_STROKE |
+                EShapeRuntimeReset.COLOR_TEXT |
+                EShapeRuntimeReset.COLOR_TEXT_OUTLINE) || this;
+            var fill = runtime.fill;
+            var fillColor = fill.color;
+            var fillColorOnHovered = _this.toOnHovered(fillColor);
+            var fillColorOnPressed = fillColorOnHovered * 2;
+            _this._fillColor = fillColor;
+            _this._fillColorDisabled = UtilRgb.toGrayscale(fillColor);
+            _this._fillColorPressed = UtilRgb.darken(fillColor, fillColorOnPressed);
+            _this._fillColorHovered = UtilRgb.darken(fillColor, fillColorOnHovered);
+            var fillAlpha = fill.alpha;
+            _this._fillAlpha = fillAlpha;
+            _this._fillAlphaDisabled = fillAlpha * 0.5;
+            var stroke = runtime.stroke;
+            var strokeColor = stroke.color;
+            var strokeColorOnHovered = _this.toOnHovered(strokeColor);
+            var strokeColorOnPressed = strokeColorOnHovered * 2;
+            _this._strokeColor = strokeColor;
+            _this._strokeColorDisabled = UtilRgb.toGrayscale(strokeColor);
+            _this._strokeColorPressed = UtilRgb.darken(strokeColor, strokeColorOnPressed);
+            _this._strokeColorHovered = UtilRgb.darken(strokeColor, strokeColorOnHovered);
+            var strokeAlpha = stroke.alpha;
+            _this._strokeAlpha = strokeAlpha;
+            _this._strokeAlphaDisabled = strokeAlpha * 0.5;
+            var text = runtime.text;
+            var textColor = text.color;
+            _this._textColor = textColor;
+            _this._textColorDisabled = UtilRgb.toGrayscale(textColor);
+            var textAlpha = text.alpha;
+            _this._textAlpha = textAlpha;
+            _this._textAlphaDisabled = textAlpha * 0.5;
+            var textOutline = text.outline;
+            var textOutlineColor = textOutline.color;
+            _this._textOutlineColor = textOutlineColor;
+            _this._textOutlineColorDisabled = UtilRgb.toGrayscale(textOutlineColor);
+            var textOutlineAlpha = textOutline.alpha;
+            _this._textOutlineAlpha = textOutlineAlpha;
+            _this._textOutlineAlphaDisabled = textOutlineAlpha * 0.5;
+            return _this;
+        }
+        EShapeButtonRuntimeActionAfter.prototype.toOnHovered = function (color) {
+            var luma = UtilRgb.toLuma(color);
+            if (128 <= luma) {
+                var t = (luma - 128) / 127;
+                return +0.15 * (1 - t) + t * 0.03;
+            }
+            else {
+                var t = (127 - luma) / 127;
+                return -0.15 * (1 - t) - t * 0.175;
+            }
+        };
+        EShapeButtonRuntimeActionAfter.prototype.execute = function (shape, runtime, time) {
+            var state = shape.state;
+            shape.fill.set(undefined, this.getFillColor(state), this.getFillAlpha(state));
+            shape.stroke.set(undefined, this.getStrokeColor(state), this.getStrokeAlpha(state));
+            shape.text.set(undefined, this.getTextColor(state), this.getTextAlpha(state));
+            shape.text.outline.set(undefined, this.getTextOutlineColor(state), this.getTextOutlineAlpha(state));
+            shape.cursor = this.getCursor(state);
+            runtime.written |= EShapeRuntimeReset.COLOR_FILL_AND_STROKE;
+        };
+        EShapeButtonRuntimeActionAfter.prototype.getFillColor = function (state) {
+            if (state.inDisabled) {
+                return this._fillColorDisabled;
+            }
+            else if (state.isPressed || state.isActive) {
+                return this._fillColorPressed;
+            }
+            else if (state.isFocused || state.isHovered) {
+                return this._fillColorHovered;
+            }
+            else {
+                return this._fillColor;
+            }
+        };
+        EShapeButtonRuntimeActionAfter.prototype.getFillAlpha = function (state) {
+            if (state.inDisabled) {
+                return this._fillAlphaDisabled;
+            }
+            else {
+                return this._fillAlpha;
+            }
+        };
+        EShapeButtonRuntimeActionAfter.prototype.getStrokeColor = function (state) {
+            if (state.inDisabled) {
+                return this._strokeColorDisabled;
+            }
+            else if (state.isPressed || state.isActive) {
+                return this._strokeColorPressed;
+            }
+            else if (state.isFocused || state.isHovered) {
+                return this._strokeColorHovered;
+            }
+            else {
+                return this._strokeColor;
+            }
+        };
+        EShapeButtonRuntimeActionAfter.prototype.getStrokeAlpha = function (state) {
+            if (state.inDisabled) {
+                return this._strokeAlphaDisabled;
+            }
+            else {
+                return this._strokeAlpha;
+            }
+        };
+        EShapeButtonRuntimeActionAfter.prototype.getTextColor = function (state) {
+            if (state.inDisabled) {
+                return this._textColorDisabled;
+            }
+            else {
+                return this._textColor;
+            }
+        };
+        EShapeButtonRuntimeActionAfter.prototype.getTextAlpha = function (state) {
+            if (state.inDisabled) {
+                return this._textAlphaDisabled;
+            }
+            else {
+                return this._textAlpha;
+            }
+        };
+        EShapeButtonRuntimeActionAfter.prototype.getTextOutlineColor = function (state) {
+            if (state.inDisabled) {
+                return this._textOutlineColorDisabled;
+            }
+            else {
+                return this._textOutlineColor;
+            }
+        };
+        EShapeButtonRuntimeActionAfter.prototype.getTextOutlineAlpha = function (state) {
+            if (state.inDisabled) {
+                return this._textOutlineAlphaDisabled;
+            }
+            else {
+                return this._textOutlineAlpha;
+            }
+        };
+        EShapeButtonRuntimeActionAfter.prototype.getCursor = function (state) {
+            if (state.isActionable) {
+                return "pointer";
+            }
+            return "";
+        };
+        return EShapeButtonRuntimeActionAfter;
+    }(EShapeActionRuntime));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeButtonRuntimeActionAfterToggle = /** @class */ (function (_super) {
+        __extends(EShapeButtonRuntimeActionAfterToggle, _super);
+        function EShapeButtonRuntimeActionAfterToggle(runtime) {
+            var _this = _super.call(this, EShapeRuntimeReset.COLOR_FILL_AND_STROKE |
+                EShapeRuntimeReset.COLOR_TEXT |
+                EShapeRuntimeReset.COLOR_TEXT_OUTLINE) || this;
+            var fill = runtime.fill;
+            var fillColorActive = fill.color;
+            _this._fillColorActive = fillColorActive;
+            var fillColorActiveOnHovered = _this.toOnHovered(fillColorActive);
+            var fillColorActiveOnPressed = fillColorActiveOnHovered * 2;
+            _this._fillColorActivePressed = UtilRgb.darken(fillColorActive, fillColorActiveOnPressed);
+            _this._fillColorActiveHovered = UtilRgb.darken(fillColorActive, fillColorActiveOnHovered);
+            var fillColor = 0xe7e5e7;
+            _this._fillColor = fillColor;
+            var fillColorOnHovered = _this.toOnHovered(fillColor);
+            var fillColorOnPressed = fillColorOnHovered * 2;
+            _this._fillColorPressed = UtilRgb.darken(fillColor, fillColorOnPressed);
+            _this._fillColorHovered = UtilRgb.darken(fillColor, fillColorOnHovered);
+            var fillAlpha = fill.alpha;
+            _this._fillAlpha = fillAlpha;
+            _this._fillAlphaDisabled = fillAlpha * 0.5;
+            var stroke = runtime.stroke;
+            var strokeColorActive = stroke.color;
+            _this._strokeColorActive = strokeColorActive;
+            var strokeColorActiveOnHovered = _this.toOnHovered(strokeColorActive);
+            var strokeColorActiveOnPressed = strokeColorActiveOnHovered * 2;
+            _this._strokeColorActivePressed = UtilRgb.darken(strokeColorActive, strokeColorActiveOnPressed);
+            _this._strokeColorActiveHovered = UtilRgb.darken(strokeColorActive, strokeColorActiveOnHovered);
+            var strokeColor = 0xe7e5e7;
+            _this._strokeColor = strokeColor;
+            var strokeColorOnHovered = _this.toOnHovered(strokeColor);
+            var strokeColorOnPressed = strokeColorOnHovered * 2;
+            _this._strokeColorPressed = UtilRgb.darken(strokeColor, strokeColorOnPressed);
+            _this._strokeColorGrayscaleHovered = UtilRgb.darken(strokeColor, strokeColorOnHovered);
+            var strokeAlpha = stroke.alpha;
+            _this._strokeAlpha = strokeAlpha;
+            _this._strokeAlphaDisabled = strokeAlpha * 0.5;
+            var text = runtime.text;
+            var textColor = text.color;
+            _this._textColorActive = textColor;
+            _this._textColorDisabled = UtilRgb.toGrayscale(textColor);
+            _this._textColor = 0x4f4f4f;
+            var textAlpha = text.alpha;
+            _this._textAlpha = textAlpha;
+            _this._textAlphaDisabled = textAlpha * 0.5;
+            var textOutline = text.outline;
+            var textOutlineColor = textOutline.color;
+            _this._textOutlineColor = textOutlineColor;
+            _this._textOutlineColorDisabled = UtilRgb.toGrayscale(textOutlineColor);
+            var textOutlineAlpha = textOutline.alpha;
+            _this._textOutlineAlpha = textOutlineAlpha;
+            _this._textOutlineAlphaDisabled = textOutlineAlpha * 0.5;
+            return _this;
+        }
+        EShapeButtonRuntimeActionAfterToggle.prototype.toOnHovered = function (color) {
+            var luma = UtilRgb.toLuma(color);
+            if (128 <= luma) {
+                var t = (luma - 128) / 127;
+                return +0.15 * (1 - t) + t * 0.03;
+            }
+            else {
+                var t = (127 - luma) / 127;
+                return -0.15 * (1 - t) - t * 0.175;
+            }
+        };
+        EShapeButtonRuntimeActionAfterToggle.prototype.execute = function (shape, runtime, time) {
+            var state = shape.state;
+            shape.fill.set(undefined, this.getFillColor(state), this.getFillAlpha(state));
+            shape.stroke.set(undefined, this.getStrokeColor(state), this.getStrokeAlpha(state));
+            shape.text.set(undefined, this.getTextColor(state), this.getTextAlpha(state));
+            shape.text.outline.set(undefined, this.getTextOutlineColor(state), this.getTextOutlineAlpha(state));
+            shape.cursor = this.getCursor(state);
+            runtime.written |= EShapeRuntimeReset.COLOR_FILL_AND_STROKE;
+        };
+        EShapeButtonRuntimeActionAfterToggle.prototype.getFillColor = function (state) {
+            if (state.inDisabled) {
+                return this._fillColor;
+            }
+            else if (state.isActive) {
+                if (state.isPressed) {
+                    return this._fillColorActivePressed;
+                }
+                else if (state.isFocused || state.isHovered) {
+                    return this._fillColorActiveHovered;
+                }
+                else {
+                    return this._fillColorActive;
+                }
+            }
+            else {
+                if (state.isPressed) {
+                    return this._fillColorPressed;
+                }
+                else if (state.isFocused || state.isHovered) {
+                    return this._fillColorHovered;
+                }
+                else {
+                    return this._fillColor;
+                }
+            }
+        };
+        EShapeButtonRuntimeActionAfterToggle.prototype.getFillAlpha = function (state) {
+            if (state.inDisabled) {
+                return this._fillAlphaDisabled;
+            }
+            else {
+                return this._fillAlpha;
+            }
+        };
+        EShapeButtonRuntimeActionAfterToggle.prototype.getStrokeColor = function (state) {
+            if (state.inDisabled) {
+                return this._strokeColor;
+            }
+            else if (state.isActive) {
+                if (state.isPressed) {
+                    return this._strokeColorActivePressed;
+                }
+                else if (state.isFocused || state.isHovered) {
+                    return this._strokeColorActiveHovered;
+                }
+                else {
+                    return this._strokeColorActive;
+                }
+            }
+            else {
+                if (state.isPressed) {
+                    return this._strokeColorPressed;
+                }
+                else if (state.isFocused || state.isHovered) {
+                    return this._strokeColorGrayscaleHovered;
+                }
+                else {
+                    return this._strokeColor;
+                }
+            }
+        };
+        EShapeButtonRuntimeActionAfterToggle.prototype.getStrokeAlpha = function (state) {
+            if (state.inDisabled) {
+                return this._strokeAlphaDisabled;
+            }
+            else {
+                return this._strokeAlpha;
+            }
+        };
+        EShapeButtonRuntimeActionAfterToggle.prototype.getTextColor = function (state) {
+            if (state.inDisabled) {
+                return this._textColorDisabled;
+            }
+            else if (state.isActive) {
+                return this._textColorActive;
+            }
+            else {
+                return this._textColor;
+            }
+        };
+        EShapeButtonRuntimeActionAfterToggle.prototype.getTextAlpha = function (state) {
+            if (state.inDisabled) {
+                return this._textAlphaDisabled;
+            }
+            else {
+                return this._textAlpha;
+            }
+        };
+        EShapeButtonRuntimeActionAfterToggle.prototype.getTextOutlineColor = function (state) {
+            if (state.inDisabled) {
+                return this._textOutlineColorDisabled;
+            }
+            else {
+                return this._textOutlineColor;
+            }
+        };
+        EShapeButtonRuntimeActionAfterToggle.prototype.getTextOutlineAlpha = function (state) {
+            if (state.inDisabled) {
+                return this._textOutlineAlphaDisabled;
+            }
+            else {
+                return this._textOutlineAlpha;
+            }
+        };
+        EShapeButtonRuntimeActionAfterToggle.prototype.getCursor = function (state) {
+            if (state.isActionable) {
+                return "pointer";
+            }
+            return "";
+        };
+        return EShapeButtonRuntimeActionAfterToggle;
+    }(EShapeActionRuntime));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeButtonRuntimeActionBefore = /** @class */ (function (_super) {
+        __extends(EShapeButtonRuntimeActionBefore, _super);
+        function EShapeButtonRuntimeActionBefore() {
+            return _super.call(this, EShapeRuntimeReset.NONE) || this;
+        }
+        EShapeButtonRuntimeActionBefore.prototype.execute = function (shape, runtime, time) {
+            var state = shape.state;
+            if (state.isClicked) {
+                if (!state.isActive) {
+                    state.isActivated = true;
+                }
+            }
+        };
+        return EShapeButtonRuntimeActionBefore;
+    }(EShapeActionRuntime));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeButtonRuntimeActionBeforeToggle = /** @class */ (function (_super) {
+        __extends(EShapeButtonRuntimeActionBeforeToggle, _super);
+        function EShapeButtonRuntimeActionBeforeToggle() {
+            return _super.call(this, EShapeRuntimeReset.NONE) || this;
+        }
+        EShapeButtonRuntimeActionBeforeToggle.prototype.execute = function (shape, runtime, time) {
+            var state = shape.state;
+            if (state.isClicked) {
+                if (state.isActive) {
+                    state.isActive = false;
+                    state.isDeactivated = true;
+                }
+                else {
+                    state.isActive = true;
+                    state.isActivated = true;
+                }
+            }
+        };
+        return EShapeButtonRuntimeActionBeforeToggle;
+    }(EShapeActionRuntime));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeButtonRuntime = /** @class */ (function (_super) {
+        __extends(EShapeButtonRuntime, _super);
+        function EShapeButtonRuntime(shape) {
+            var _this = _super.call(this, shape) || this;
+            if (shape instanceof EShapeButton) {
+                var isToggle = shape.isToggle;
+                var actions = _this.actions;
+                actions.unshift(_this.newActionBefore(isToggle));
+                actions.push(_this.newActionAfter(isToggle));
+            }
+            return _this;
+        }
+        EShapeButtonRuntime.prototype.newActionBefore = function (isToggle) {
+            var _a, _b;
+            if (isToggle) {
+                return ((_a = EShapeButtonRuntime.BEFORE_TOGGLE) !== null && _a !== void 0 ? _a : (EShapeButtonRuntime.BEFORE_TOGGLE = new EShapeButtonRuntimeActionBeforeToggle()));
+            }
+            else {
+                return ((_b = EShapeButtonRuntime.BEFORE) !== null && _b !== void 0 ? _b : (EShapeButtonRuntime.BEFORE = new EShapeButtonRuntimeActionBefore()));
+            }
+        };
+        EShapeButtonRuntime.prototype.newActionAfter = function (isToggle) {
+            if (isToggle) {
+                return new EShapeButtonRuntimeActionAfterToggle(this);
+            }
+            else {
+                return new EShapeButtonRuntimeActionAfter(this);
+            }
+        };
+        return EShapeButtonRuntime;
+    }(EShapeRuntime));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeButton = function () {
+        EShapeUploadeds[EShapeType.BUTTON] = createButtonUploaded;
+        EShapeDeserializers[EShapeType.BUTTON] = deserializeButton;
+        EShapeRuntimes[EShapeType.BUTTON] = EShapeButtonRuntime;
+        EShapeCapabilities.set(EShapeType.BUTTON, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE | EShapeCapability.BORDER_RADIUS);
+    };
+
     var CIRCLE_VERTEX_COUNT = 9;
     var CIRCLE_INDEX_COUNT = 8;
     var CIRCLE_WORLD_SIZE = [0, 0];
@@ -22510,80 +24511,6 @@
         EShapeUploadeds[EShapeType.CIRCLE] = createCircle;
         EShapeDeserializers[EShapeType.CIRCLE] = deserializeCircle;
     };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    /* eslint-disable prettier/prettier */
-    var EShapeCapability;
-    (function (EShapeCapability) {
-        EShapeCapability[EShapeCapability["NONE"] = 0] = "NONE";
-        EShapeCapability[EShapeCapability["ID"] = 1] = "ID";
-        EShapeCapability[EShapeCapability["POSITION"] = 2] = "POSITION";
-        EShapeCapability[EShapeCapability["WIDTH"] = 4] = "WIDTH";
-        EShapeCapability[EShapeCapability["HEIGHT"] = 8] = "HEIGHT";
-        EShapeCapability[EShapeCapability["ROTATION"] = 16] = "ROTATION";
-        EShapeCapability[EShapeCapability["SKEW"] = 32] = "SKEW";
-        EShapeCapability[EShapeCapability["ALIGN"] = 64] = "ALIGN";
-        EShapeCapability[EShapeCapability["REPLACING"] = 128] = "REPLACING";
-        EShapeCapability[EShapeCapability["GROUPING"] = 256] = "GROUPING";
-        EShapeCapability[EShapeCapability["FILL"] = 512] = "FILL";
-        EShapeCapability[EShapeCapability["STROKE"] = 1024] = "STROKE";
-        EShapeCapability[EShapeCapability["STROKE_SIDE"] = 2048] = "STROKE_SIDE";
-        EShapeCapability[EShapeCapability["BORDER_RADIUS"] = 4096] = "BORDER_RADIUS";
-        EShapeCapability[EShapeCapability["TEXT"] = 8192] = "TEXT";
-        EShapeCapability[EShapeCapability["TEXTURE"] = 16384] = "TEXTURE";
-        EShapeCapability[EShapeCapability["TAG"] = 32768] = "TAG";
-        EShapeCapability[EShapeCapability["ACTION"] = 65536] = "ACTION";
-        EShapeCapability[EShapeCapability["CURSOR"] = 131072] = "CURSOR";
-        EShapeCapability[EShapeCapability["ORDER_IN_LAYER"] = 262144] = "ORDER_IN_LAYER";
-        EShapeCapability[EShapeCapability["CHILDREN"] = 524288] = "CHILDREN";
-        EShapeCapability[EShapeCapability["COORDINATE"] = 127] = "COORDINATE";
-        EShapeCapability[EShapeCapability["SHAPE"] = 1920] = "SHAPE";
-        EShapeCapability[EShapeCapability["LAYER"] = 262144] = "LAYER";
-        EShapeCapability[EShapeCapability["PRIMITIVE"] = 1042431] = "PRIMITIVE";
-        EShapeCapability[EShapeCapability["EMBEDDED"] = 369151] = "EMBEDDED";
-        EShapeCapability[EShapeCapability["ALL"] = 1048575] = "ALL";
-    })(EShapeCapability || (EShapeCapability = {}));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeCapabilities = /** @class */ (function () {
-        function EShapeCapabilities() {
-        }
-        EShapeCapabilities.get = function (type) {
-            var capability = this.mappings[type];
-            if (capability != null) {
-                return capability;
-            }
-            return EShapeCapability.PRIMITIVE;
-        };
-        EShapeCapabilities.contains = function (shape, target) {
-            if (shape != null) {
-                var capability = this.get(shape.type);
-                if (capability & target) {
-                    return true;
-                }
-                if (capability & EShapeCapability.CHILDREN) {
-                    var children = shape.children;
-                    for (var i = 0, imax = children.length; i < imax; ++i) {
-                        if (this.contains(children[i], target)) {
-                            return true;
-                        }
-                    }
-                }
-            }
-            return false;
-        };
-        EShapeCapabilities.set = function (type, capability) {
-            this.mappings[type] = capability;
-        };
-        EShapeCapabilities.mappings = {};
-        return EShapeCapabilities;
-    }());
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -23246,24 +25173,6 @@
         };
         return EShapeGroupSizeViewer;
     }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeStrokeSide;
-    (function (EShapeStrokeSide) {
-        EShapeStrokeSide[EShapeStrokeSide["NONE"] = 0] = "NONE";
-        EShapeStrokeSide[EShapeStrokeSide["TOP"] = 1] = "TOP";
-        EShapeStrokeSide[EShapeStrokeSide["RIGHT"] = 2] = "RIGHT";
-        EShapeStrokeSide[EShapeStrokeSide["BOTTOM"] = 4] = "BOTTOM";
-        EShapeStrokeSide[EShapeStrokeSide["LEFT"] = 8] = "LEFT";
-        EShapeStrokeSide[EShapeStrokeSide["TOP_OR_LEFT"] = 9] = "TOP_OR_LEFT";
-        EShapeStrokeSide[EShapeStrokeSide["TOP_OR_RIGHT"] = 3] = "TOP_OR_RIGHT";
-        EShapeStrokeSide[EShapeStrokeSide["BOTTOM_OR_LEFT"] = 12] = "BOTTOM_OR_LEFT";
-        EShapeStrokeSide[EShapeStrokeSide["BOTTOM_OR_RIGHT"] = 6] = "BOTTOM_OR_RIGHT";
-        EShapeStrokeSide[EShapeStrokeSide["ALL"] = 15] = "ALL";
-    })(EShapeStrokeSide || (EShapeStrokeSide = {}));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -29220,972 +31129,6 @@
         EShapeDeserializers[EShapeType.LINE_OF_CIRCLES] = deserializeLineOfCircles;
     };
 
-    var RECTANGLE_ROUNDED_VERTEX_COUNT = 36;
-    var RECTANGLE_ROUNDED_INDEX_COUNT = 24;
-    var RECTANGLE_ROUNDED_WORLD_SIZE = [0, 0, 0];
-    var RECTANGLE_ROUNDED_WORK_POINT = new pixi_js.Point();
-    var buildRectangleRoundedIndex = function (indices, voffset, ioffset) {
-        // Top-left corner
-        var ii = ioffset * 3 - 1;
-        indices[++ii] = voffset;
-        indices[++ii] = voffset + 1;
-        indices[++ii] = voffset + 2;
-        indices[++ii] = voffset + 1;
-        indices[++ii] = voffset + 3;
-        indices[++ii] = voffset + 2;
-        // Top-right corner
-        indices[++ii] = voffset + 4;
-        indices[++ii] = voffset + 5;
-        indices[++ii] = voffset + 6;
-        indices[++ii] = voffset + 5;
-        indices[++ii] = voffset + 7;
-        indices[++ii] = voffset + 6;
-        // Bottom-left corner
-        indices[++ii] = voffset + 8;
-        indices[++ii] = voffset + 9;
-        indices[++ii] = voffset + 10;
-        indices[++ii] = voffset + 9;
-        indices[++ii] = voffset + 11;
-        indices[++ii] = voffset + 10;
-        // Bottom-right corner
-        indices[++ii] = voffset + 12;
-        indices[++ii] = voffset + 13;
-        indices[++ii] = voffset + 14;
-        indices[++ii] = voffset + 13;
-        indices[++ii] = voffset + 15;
-        indices[++ii] = voffset + 14;
-        // Top edge
-        indices[++ii] = voffset + 16;
-        indices[++ii] = voffset + 17;
-        indices[++ii] = voffset + 20;
-        indices[++ii] = voffset + 17;
-        indices[++ii] = voffset + 21;
-        indices[++ii] = voffset + 20;
-        indices[++ii] = voffset + 17;
-        indices[++ii] = voffset + 18;
-        indices[++ii] = voffset + 21;
-        indices[++ii] = voffset + 18;
-        indices[++ii] = voffset + 22;
-        indices[++ii] = voffset + 21;
-        // Upper middle
-        indices[++ii] = voffset + 19;
-        indices[++ii] = voffset + 21;
-        indices[++ii] = voffset + 24;
-        indices[++ii] = voffset + 21;
-        indices[++ii] = voffset + 25;
-        indices[++ii] = voffset + 24;
-        indices[++ii] = voffset + 21;
-        indices[++ii] = voffset + 23;
-        indices[++ii] = voffset + 26;
-        indices[++ii] = voffset + 23;
-        indices[++ii] = voffset + 27;
-        indices[++ii] = voffset + 26;
-        // Lower middle
-        indices[++ii] = voffset + 24;
-        indices[++ii] = voffset + 25;
-        indices[++ii] = voffset + 28;
-        indices[++ii] = voffset + 25;
-        indices[++ii] = voffset + 30;
-        indices[++ii] = voffset + 28;
-        indices[++ii] = voffset + 26;
-        indices[++ii] = voffset + 27;
-        indices[++ii] = voffset + 30;
-        indices[++ii] = voffset + 27;
-        indices[++ii] = voffset + 32;
-        indices[++ii] = voffset + 30;
-        // Bottom edge
-        indices[++ii] = voffset + 29;
-        indices[++ii] = voffset + 30;
-        indices[++ii] = voffset + 33;
-        indices[++ii] = voffset + 30;
-        indices[++ii] = voffset + 34;
-        indices[++ii] = voffset + 33;
-        indices[++ii] = voffset + 30;
-        indices[++ii] = voffset + 31;
-        indices[++ii] = voffset + 34;
-        indices[++ii] = voffset + 31;
-        indices[++ii] = voffset + 35;
-        indices[++ii] = voffset + 34;
-    };
-    var buildRectangleRoundedVertex = function (vertices, voffset, originX, originY, sizeX, sizeY, strokeAlign, strokeWidth, radius, internalTransform, worldSize) {
-        // Calculate the transformed positions
-        //
-        //  0   1       4   5
-        // |---|       |---|
-        // |2  |3      |6  |7
-        // |---|       |---|
-        //
-        //
-        //
-        //
-        //
-        // |---|       |---|
-        // |8  |9      |12 |13
-        // |---|       |---|
-        //  10  11      14  15
-        //
-        //
-        //      16  17  18       <-- Top edge
-        //     |---|---|
-        //  19 |20 |21 |22  23   <-- Top
-        // |---|---|---|---|
-        // |       |       |
-        // |24   25|26     |27   <-- Middle
-        // |-------|-------|
-        // |       |       |
-        // |       |       |
-        // |---|---|---|---|
-        //  28 |29 |30 |31  32   <-- Bottom
-        //     |---|---|
-        //      33  34  35       <-- Bottom edge
-        //
-        var s = strokeAlign * strokeWidth;
-        var sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
-        var sy = sizeY * 0.5 + (0 <= sizeY ? +s : -s);
-        var ax = Math.abs(sx);
-        var ay = Math.abs(sy);
-        var a = radius * Math.min(ax, ay);
-        var rx = a / ax;
-        var ry = a / ay;
-        var work = RECTANGLE_ROUNDED_WORK_POINT;
-        work.set(originX - sx, originY - sy);
-        internalTransform.apply(work, work);
-        var x0 = work.x;
-        var y0 = work.y;
-        work.set(originX, originY - sy);
-        internalTransform.apply(work, work);
-        var x2 = work.x;
-        var y2 = work.y;
-        var dxh = x2 - x0;
-        var dyh = y2 - y0;
-        var dxhr = rx * dxh;
-        var dyhr = rx * dyh;
-        var x1 = x0 + dxhr;
-        var y1 = y0 + dyhr;
-        var x4 = x2 + dxh;
-        var y4 = y2 + dyh;
-        var x3 = x4 - dxhr;
-        var y3 = y4 - dyhr;
-        work.set(originX, originY);
-        internalTransform.apply(work, work);
-        var x11 = work.x;
-        var y11 = work.y;
-        var dxv = x11 - x2;
-        var dyv = y11 - y2;
-        var dxvr = ry * dxv;
-        var dyvr = ry * dyv;
-        var x7 = x2 + dxvr;
-        var y7 = y2 + dyvr;
-        var x5 = x7 - dxh;
-        var y5 = y7 - dyh;
-        var x6 = x5 + dxhr;
-        var y6 = y5 + dyhr;
-        var x9 = x7 + dxh;
-        var y9 = y7 + dyh;
-        var x8 = x9 - dxhr;
-        var y8 = y9 - dyhr;
-        var x10 = x11 - dxh;
-        var y10 = y11 - dyh;
-        var x12 = x11 + dxh;
-        var y12 = y11 + dyh;
-        var x20 = x11 + dxv;
-        var y20 = y11 + dyv;
-        var x15 = x20 - dxvr;
-        var y15 = y20 - dyvr;
-        var x13 = x15 - dxh;
-        var y13 = y15 - dyh;
-        var x14 = x13 + dxhr;
-        var y14 = y13 + dyhr;
-        var x17 = x15 + dxh;
-        var y17 = y15 + dyh;
-        var x16 = x17 - dxhr;
-        var y16 = y17 - dyhr;
-        var x18 = x20 - dxh;
-        var y18 = y20 - dyh;
-        var x19 = x18 + dxhr;
-        var y19 = y18 + dyhr;
-        var x22 = x20 + dxh;
-        var y22 = y20 + dyh;
-        var x21 = x22 - dxhr;
-        var y21 = y22 - dyhr;
-        // World size
-        worldSize[0] = toLength(x0, y0, x1, y1);
-        worldSize[1] = toLength(x0, y0, x2, y2);
-        worldSize[2] = toLength(x0, y0, x10, y10);
-        // Vertices
-        var iv = voffset * 2 - 1;
-        // Top-left corner
-        vertices[++iv] = x0;
-        vertices[++iv] = y0;
-        vertices[++iv] = x1;
-        vertices[++iv] = y1;
-        vertices[++iv] = x5;
-        vertices[++iv] = y5;
-        vertices[++iv] = x6;
-        vertices[++iv] = y6;
-        // Top-right corner
-        vertices[++iv] = x3;
-        vertices[++iv] = y3;
-        vertices[++iv] = x4;
-        vertices[++iv] = y4;
-        vertices[++iv] = x8;
-        vertices[++iv] = y8;
-        vertices[++iv] = x9;
-        vertices[++iv] = y9;
-        // Bottom-left corner
-        vertices[++iv] = x13;
-        vertices[++iv] = y13;
-        vertices[++iv] = x14;
-        vertices[++iv] = y14;
-        vertices[++iv] = x18;
-        vertices[++iv] = y18;
-        vertices[++iv] = x19;
-        vertices[++iv] = y19;
-        // Bottom-right corner
-        vertices[++iv] = x16;
-        vertices[++iv] = y16;
-        vertices[++iv] = x17;
-        vertices[++iv] = y17;
-        vertices[++iv] = x21;
-        vertices[++iv] = y21;
-        vertices[++iv] = x22;
-        vertices[++iv] = y22;
-        // Top edge
-        vertices[++iv] = x1;
-        vertices[++iv] = y1;
-        vertices[++iv] = x2;
-        vertices[++iv] = y2;
-        vertices[++iv] = x3;
-        vertices[++iv] = y3;
-        // Top
-        vertices[++iv] = x5;
-        vertices[++iv] = y5;
-        vertices[++iv] = x6;
-        vertices[++iv] = y6;
-        vertices[++iv] = x7;
-        vertices[++iv] = y7;
-        vertices[++iv] = x8;
-        vertices[++iv] = y8;
-        vertices[++iv] = x9;
-        vertices[++iv] = y9;
-        // Middle
-        vertices[++iv] = x10;
-        vertices[++iv] = y10;
-        vertices[++iv] = x11;
-        vertices[++iv] = y11;
-        vertices[++iv] = x11;
-        vertices[++iv] = y11;
-        vertices[++iv] = x12;
-        vertices[++iv] = y12;
-        // Bottom
-        vertices[++iv] = x13;
-        vertices[++iv] = y13;
-        vertices[++iv] = x14;
-        vertices[++iv] = y14;
-        vertices[++iv] = x15;
-        vertices[++iv] = y15;
-        vertices[++iv] = x16;
-        vertices[++iv] = y16;
-        vertices[++iv] = x17;
-        vertices[++iv] = y17;
-        // Bottom edge
-        vertices[++iv] = x19;
-        vertices[++iv] = y19;
-        vertices[++iv] = x20;
-        vertices[++iv] = y20;
-        vertices[++iv] = x21;
-        vertices[++iv] = y21;
-    };
-    var buildRectangleRoundedClipping = function (clippings, voffset, corner, worldSize) {
-        var ic = voffset * 3 - 1;
-        var rxc = 1 - worldSize[0] / worldSize[1];
-        var ryc = 1 - worldSize[0] / worldSize[2];
-        // Top-left corner
-        if (corner & EShapeCorner.TOP_LEFT) {
-            clippings[++ic] = 1;
-            clippings[++ic] = 1;
-            clippings[++ic] = 1;
-            clippings[++ic] = 0;
-            clippings[++ic] = 1;
-            clippings[++ic] = 1;
-            clippings[++ic] = 1;
-            clippings[++ic] = 0;
-            clippings[++ic] = 1;
-            clippings[++ic] = 0;
-            clippings[++ic] = 0;
-            clippings[++ic] = 1;
-        }
-        else {
-            clippings[++ic] = 1;
-            clippings[++ic] = 1;
-            clippings[++ic] = 0;
-            clippings[++ic] = rxc;
-            clippings[++ic] = 1;
-            clippings[++ic] = 0;
-            clippings[++ic] = 1;
-            clippings[++ic] = ryc;
-            clippings[++ic] = 0;
-            clippings[++ic] = rxc;
-            clippings[++ic] = ryc;
-            clippings[++ic] = 0;
-        }
-        // Top-right corner
-        if (corner & EShapeCorner.TOP_RIGHT) {
-            clippings[++ic] = 0;
-            clippings[++ic] = 1;
-            clippings[++ic] = 1;
-            clippings[++ic] = 1;
-            clippings[++ic] = 1;
-            clippings[++ic] = 1;
-            clippings[++ic] = 0;
-            clippings[++ic] = 0;
-            clippings[++ic] = 1;
-            clippings[++ic] = 1;
-            clippings[++ic] = 0;
-            clippings[++ic] = 1;
-        }
-        else {
-            clippings[++ic] = rxc;
-            clippings[++ic] = 1;
-            clippings[++ic] = 0;
-            clippings[++ic] = 1;
-            clippings[++ic] = 1;
-            clippings[++ic] = 0;
-            clippings[++ic] = rxc;
-            clippings[++ic] = ryc;
-            clippings[++ic] = 0;
-            clippings[++ic] = 1;
-            clippings[++ic] = ryc;
-            clippings[++ic] = 0;
-        }
-        // Bottom-left corner
-        if (corner & EShapeCorner.BOTTOM_LEFT) {
-            clippings[++ic] = 1;
-            clippings[++ic] = 0;
-            clippings[++ic] = 1;
-            clippings[++ic] = 0;
-            clippings[++ic] = 0;
-            clippings[++ic] = 1;
-            clippings[++ic] = 1;
-            clippings[++ic] = 1;
-            clippings[++ic] = 1;
-            clippings[++ic] = 0;
-            clippings[++ic] = 1;
-            clippings[++ic] = 1;
-        }
-        else {
-            clippings[++ic] = 1;
-            clippings[++ic] = ryc;
-            clippings[++ic] = 0;
-            clippings[++ic] = rxc;
-            clippings[++ic] = ryc;
-            clippings[++ic] = 0;
-            clippings[++ic] = 1;
-            clippings[++ic] = 1;
-            clippings[++ic] = 0;
-            clippings[++ic] = rxc;
-            clippings[++ic] = 1;
-            clippings[++ic] = 0;
-        }
-        // Bottom-right corner
-        if (corner & EShapeCorner.BOTTOM_RIGHT) {
-            clippings[++ic] = 0;
-            clippings[++ic] = 0;
-            clippings[++ic] = 1;
-            clippings[++ic] = 1;
-            clippings[++ic] = 0;
-            clippings[++ic] = 1;
-            clippings[++ic] = 0;
-            clippings[++ic] = 1;
-            clippings[++ic] = 1;
-            clippings[++ic] = 1;
-            clippings[++ic] = 1;
-            clippings[++ic] = 1;
-        }
-        else {
-            clippings[++ic] = rxc;
-            clippings[++ic] = ryc;
-            clippings[++ic] = 0;
-            clippings[++ic] = 1;
-            clippings[++ic] = ryc;
-            clippings[++ic] = 0;
-            clippings[++ic] = rxc;
-            clippings[++ic] = 1;
-            clippings[++ic] = 0;
-            clippings[++ic] = 1;
-            clippings[++ic] = 1;
-            clippings[++ic] = 0;
-        }
-        // Top edge
-        clippings[++ic] = rxc;
-        clippings[++ic] = 1;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = 1;
-        clippings[++ic] = 0;
-        clippings[++ic] = rxc;
-        clippings[++ic] = 1;
-        clippings[++ic] = 0;
-        // Top
-        clippings[++ic] = 1;
-        clippings[++ic] = ryc;
-        clippings[++ic] = 0;
-        clippings[++ic] = rxc;
-        clippings[++ic] = ryc;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = ryc;
-        clippings[++ic] = 0;
-        clippings[++ic] = rxc;
-        clippings[++ic] = ryc;
-        clippings[++ic] = 0;
-        clippings[++ic] = 1;
-        clippings[++ic] = ryc;
-        clippings[++ic] = 0;
-        // Middle
-        clippings[++ic] = 1;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = 1;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        // Bottom
-        clippings[++ic] = 1;
-        clippings[++ic] = ryc;
-        clippings[++ic] = 0;
-        clippings[++ic] = rxc;
-        clippings[++ic] = ryc;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = ryc;
-        clippings[++ic] = 0;
-        clippings[++ic] = rxc;
-        clippings[++ic] = ryc;
-        clippings[++ic] = 0;
-        clippings[++ic] = 1;
-        clippings[++ic] = ryc;
-        clippings[++ic] = 0;
-        // Bottom edge
-        clippings[++ic] = rxc;
-        clippings[++ic] = 1;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = 1;
-        clippings[++ic] = 0;
-        clippings[++ic] = rxc;
-        clippings[++ic] = 1;
-        clippings[++ic] = 0;
-    };
-    var buildRectangleRoundedStep = function (steps, voffset, strokeWidth, strokeSide, strokeStyle, corner, worldSize) {
-        var scaleInvariant = toScaleInvariant(strokeStyle);
-        var sc = worldSize[0];
-        var sx = worldSize[1];
-        var sy = worldSize[2];
-        var rxc = Math.max(0, 1 - worldSize[0] / worldSize[1]);
-        var ryc = Math.max(0, 1 - worldSize[0] / worldSize[2]);
-        var wt;
-        var zt;
-        var bt;
-        if (strokeSide & EShapeStrokeSide.TOP) {
-            wt = +2;
-            zt = +1;
-            bt = +1 + ryc;
-        }
-        else {
-            wt = -2;
-            zt = -1;
-            bt = -1 - ryc;
-        }
-        var wr;
-        var zr;
-        var br;
-        if (strokeSide & EShapeStrokeSide.RIGHT) {
-            wr = +2;
-            zr = +1;
-            br = +1 + rxc;
-        }
-        else {
-            wr = -2;
-            zr = -1;
-            br = -1 - rxc;
-        }
-        var wb;
-        var zb;
-        var bb;
-        if (strokeSide & EShapeStrokeSide.BOTTOM) {
-            wb = +2;
-            zb = +1;
-            bb = +1 + ryc;
-        }
-        else {
-            wb = -2;
-            zb = -1;
-            bb = -1 - ryc;
-        }
-        var wl;
-        var zl;
-        var bl;
-        if (strokeSide & EShapeStrokeSide.LEFT) {
-            wl = +2;
-            zl = +1;
-            bl = +1 + rxc;
-        }
-        else {
-            wl = -2;
-            zl = -1;
-            bl = -1 - rxc;
-        }
-        // Top-left corner
-        var is = voffset * 6 - 1;
-        if (corner & EShapeCorner.TOP_LEFT) {
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sc;
-            steps[++is] = sc;
-            steps[++is] = wl;
-            steps[++is] = wt;
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sc;
-            steps[++is] = sc;
-            steps[++is] = zl;
-            steps[++is] = wt;
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sc;
-            steps[++is] = sc;
-            steps[++is] = wl;
-            steps[++is] = zt;
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sc;
-            steps[++is] = sc;
-            steps[++is] = zl;
-            steps[++is] = zt;
-        }
-        else {
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sx;
-            steps[++is] = sy;
-            steps[++is] = wl;
-            steps[++is] = wt;
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sx;
-            steps[++is] = sy;
-            steps[++is] = bl;
-            steps[++is] = wt;
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sx;
-            steps[++is] = sy;
-            steps[++is] = wl;
-            steps[++is] = bt;
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sx;
-            steps[++is] = sy;
-            steps[++is] = bl;
-            steps[++is] = bt;
-        }
-        // Top-right corner
-        if (corner & EShapeCorner.TOP_RIGHT) {
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sc;
-            steps[++is] = sc;
-            steps[++is] = zr;
-            steps[++is] = wt;
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sc;
-            steps[++is] = sc;
-            steps[++is] = wr;
-            steps[++is] = wt;
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sc;
-            steps[++is] = sc;
-            steps[++is] = zr;
-            steps[++is] = zt;
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sc;
-            steps[++is] = sc;
-            steps[++is] = wr;
-            steps[++is] = zt;
-        }
-        else {
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sx;
-            steps[++is] = sy;
-            steps[++is] = br;
-            steps[++is] = wt;
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sx;
-            steps[++is] = sy;
-            steps[++is] = wr;
-            steps[++is] = wt;
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sx;
-            steps[++is] = sy;
-            steps[++is] = br;
-            steps[++is] = bt;
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sx;
-            steps[++is] = sy;
-            steps[++is] = wr;
-            steps[++is] = wt;
-        }
-        // Bottom-left corner
-        if (corner & EShapeCorner.BOTTOM_LEFT) {
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sc;
-            steps[++is] = sc;
-            steps[++is] = wl;
-            steps[++is] = zb;
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sc;
-            steps[++is] = sc;
-            steps[++is] = zl;
-            steps[++is] = zb;
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sc;
-            steps[++is] = sc;
-            steps[++is] = wl;
-            steps[++is] = wb;
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sc;
-            steps[++is] = sc;
-            steps[++is] = zl;
-            steps[++is] = wb;
-        }
-        else {
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sx;
-            steps[++is] = sy;
-            steps[++is] = wl;
-            steps[++is] = bb;
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sx;
-            steps[++is] = sy;
-            steps[++is] = bl;
-            steps[++is] = bb;
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sx;
-            steps[++is] = sy;
-            steps[++is] = wl;
-            steps[++is] = wb;
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sx;
-            steps[++is] = sy;
-            steps[++is] = bl;
-            steps[++is] = wb;
-        }
-        // Bottom-right corner
-        if (corner & EShapeCorner.BOTTOM_RIGHT) {
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sc;
-            steps[++is] = sc;
-            steps[++is] = zr;
-            steps[++is] = zb;
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sc;
-            steps[++is] = sc;
-            steps[++is] = wr;
-            steps[++is] = zb;
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sc;
-            steps[++is] = sc;
-            steps[++is] = zr;
-            steps[++is] = wb;
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sc;
-            steps[++is] = sc;
-            steps[++is] = wr;
-            steps[++is] = wb;
-        }
-        else {
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sx;
-            steps[++is] = sy;
-            steps[++is] = br;
-            steps[++is] = bb;
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sx;
-            steps[++is] = sy;
-            steps[++is] = wr;
-            steps[++is] = bb;
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sx;
-            steps[++is] = sy;
-            steps[++is] = br;
-            steps[++is] = wb;
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = sx;
-            steps[++is] = sy;
-            steps[++is] = wr;
-            steps[++is] = wb;
-        }
-        // Top edge
-        steps[++is] = strokeWidth;
-        steps[++is] = scaleInvariant;
-        steps[++is] = sx;
-        steps[++is] = sy;
-        steps[++is] = bl;
-        steps[++is] = wt;
-        steps[++is] = strokeWidth;
-        steps[++is] = scaleInvariant;
-        steps[++is] = sx;
-        steps[++is] = sy;
-        steps[++is] = zl;
-        steps[++is] = wt;
-        steps[++is] = strokeWidth;
-        steps[++is] = scaleInvariant;
-        steps[++is] = sx;
-        steps[++is] = sy;
-        steps[++is] = br;
-        steps[++is] = wt;
-        // Top
-        steps[++is] = strokeWidth;
-        steps[++is] = scaleInvariant;
-        steps[++is] = sx;
-        steps[++is] = sy;
-        steps[++is] = wl;
-        steps[++is] = bt;
-        steps[++is] = strokeWidth;
-        steps[++is] = scaleInvariant;
-        steps[++is] = sx;
-        steps[++is] = sy;
-        steps[++is] = bl;
-        steps[++is] = bt;
-        steps[++is] = strokeWidth;
-        steps[++is] = scaleInvariant;
-        steps[++is] = sx;
-        steps[++is] = sy;
-        steps[++is] = zl;
-        steps[++is] = bt;
-        steps[++is] = strokeWidth;
-        steps[++is] = scaleInvariant;
-        steps[++is] = sx;
-        steps[++is] = sy;
-        steps[++is] = br;
-        steps[++is] = bt;
-        steps[++is] = strokeWidth;
-        steps[++is] = scaleInvariant;
-        steps[++is] = sx;
-        steps[++is] = sy;
-        steps[++is] = wr;
-        steps[++is] = bt;
-        // Middle
-        steps[++is] = strokeWidth;
-        steps[++is] = scaleInvariant;
-        steps[++is] = sx;
-        steps[++is] = sy;
-        steps[++is] = wl;
-        steps[++is] = zt;
-        steps[++is] = strokeWidth;
-        steps[++is] = scaleInvariant;
-        steps[++is] = sx;
-        steps[++is] = sy;
-        steps[++is] = zl;
-        steps[++is] = zt;
-        steps[++is] = strokeWidth;
-        steps[++is] = scaleInvariant;
-        steps[++is] = sx;
-        steps[++is] = sy;
-        steps[++is] = zr;
-        steps[++is] = zb;
-        steps[++is] = strokeWidth;
-        steps[++is] = scaleInvariant;
-        steps[++is] = sx;
-        steps[++is] = sy;
-        steps[++is] = wr;
-        steps[++is] = zb;
-        // Bottom
-        steps[++is] = strokeWidth;
-        steps[++is] = scaleInvariant;
-        steps[++is] = sx;
-        steps[++is] = sy;
-        steps[++is] = wl;
-        steps[++is] = bb;
-        steps[++is] = strokeWidth;
-        steps[++is] = scaleInvariant;
-        steps[++is] = sx;
-        steps[++is] = sy;
-        steps[++is] = bl;
-        steps[++is] = bb;
-        steps[++is] = strokeWidth;
-        steps[++is] = scaleInvariant;
-        steps[++is] = sx;
-        steps[++is] = sy;
-        steps[++is] = zb;
-        steps[++is] = bb;
-        steps[++is] = strokeWidth;
-        steps[++is] = scaleInvariant;
-        steps[++is] = sx;
-        steps[++is] = sy;
-        steps[++is] = br;
-        steps[++is] = bb;
-        steps[++is] = strokeWidth;
-        steps[++is] = scaleInvariant;
-        steps[++is] = sx;
-        steps[++is] = sy;
-        steps[++is] = wr;
-        steps[++is] = bb;
-        // Bottom edge
-        steps[++is] = strokeWidth;
-        steps[++is] = scaleInvariant;
-        steps[++is] = sx;
-        steps[++is] = sy;
-        steps[++is] = bl;
-        steps[++is] = wb;
-        steps[++is] = strokeWidth;
-        steps[++is] = scaleInvariant;
-        steps[++is] = sx;
-        steps[++is] = sy;
-        steps[++is] = zb;
-        steps[++is] = wb;
-        steps[++is] = strokeWidth;
-        steps[++is] = scaleInvariant;
-        steps[++is] = sx;
-        steps[++is] = sy;
-        steps[++is] = br;
-        steps[++is] = wb;
-    };
-    var buildRectangleRoundedUv = function (uvs, voffset, textureUvs, worldSize) {
-        var x0 = textureUvs.x0;
-        var x1 = textureUvs.x1;
-        var x2 = textureUvs.x2;
-        var x3 = textureUvs.x3;
-        var y0 = textureUvs.y0;
-        var y1 = textureUvs.y1;
-        var y2 = textureUvs.y2;
-        var y3 = textureUvs.y3;
-        var x4 = 0.5 * (x0 + x1);
-        var y4 = 0.5 * (y0 + y1);
-        var x5 = 0.5 * (x3 + x2);
-        var y5 = 0.5 * (y3 + y2);
-        var ruvx = (0.5 * worldSize[0]) / worldSize[1];
-        var ruvy = (0.5 * worldSize[0]) / worldSize[2];
-        var d0x = ruvx * (x1 - x0);
-        var d0y = ruvx * (y1 - y0);
-        var d1x = ruvy * (x3 - x0);
-        var d1y = ruvy * (y3 - y0);
-        // UVs
-        var iuv = voffset * 2 - 1;
-        // Top-left corner
-        uvs[++iuv] = x0;
-        uvs[++iuv] = y0;
-        uvs[++iuv] = x0 + d0x;
-        uvs[++iuv] = y0 + d0y;
-        uvs[++iuv] = x0 + d1x;
-        uvs[++iuv] = y0 + d1y;
-        uvs[++iuv] = x0 + d0x + d1x;
-        uvs[++iuv] = y0 + d0y + d1y;
-        // Top-right corner
-        uvs[++iuv] = x1 - d0x;
-        uvs[++iuv] = y1 - d0y;
-        uvs[++iuv] = x1;
-        uvs[++iuv] = y1;
-        uvs[++iuv] = x1 - d0x + d1x;
-        uvs[++iuv] = y1 - d0y + d1y;
-        uvs[++iuv] = x1 + d1x;
-        uvs[++iuv] = y1 + d1y;
-        // Bottom-left corner
-        uvs[++iuv] = x3 - d1x;
-        uvs[++iuv] = y3 - d1y;
-        uvs[++iuv] = x3 + d0x - d1x;
-        uvs[++iuv] = y3 + d0y - d1y;
-        uvs[++iuv] = x3;
-        uvs[++iuv] = y3;
-        uvs[++iuv] = x3 + d0x;
-        uvs[++iuv] = y3 + d0y;
-        // Bottom-right corner
-        uvs[++iuv] = x2 - d0x - d1x;
-        uvs[++iuv] = y2 - d0y - d1y;
-        uvs[++iuv] = x2 - d1x;
-        uvs[++iuv] = y2 - d1y;
-        uvs[++iuv] = x2 - d0x;
-        uvs[++iuv] = y2 - d0y;
-        uvs[++iuv] = x2;
-        uvs[++iuv] = y2;
-        // Top edge
-        uvs[++iuv] = x0 + d0x;
-        uvs[++iuv] = y0 + d0y;
-        uvs[++iuv] = x4;
-        uvs[++iuv] = y4;
-        uvs[++iuv] = x1 - d0x;
-        uvs[++iuv] = y1 - d0y;
-        // Top
-        uvs[++iuv] = x0 + d1x;
-        uvs[++iuv] = y0 + d1y;
-        uvs[++iuv] = x0 + d1x + d0x;
-        uvs[++iuv] = y0 + d1y + d0y;
-        uvs[++iuv] = x4 + d1x;
-        uvs[++iuv] = y4 + d1y;
-        uvs[++iuv] = x1 + d1x - d0x;
-        uvs[++iuv] = y1 + d1y - d0y;
-        uvs[++iuv] = x1 + d1x;
-        uvs[++iuv] = y1 + d1y;
-        // Middle
-        var x02 = 0.5 * (x0 + x2);
-        var y02 = 0.5 * (y0 + y2);
-        uvs[++iuv] = 0.5 * (x0 + x3);
-        uvs[++iuv] = 0.5 * (y0 + y3);
-        uvs[++iuv] = x02;
-        uvs[++iuv] = y02;
-        uvs[++iuv] = x02;
-        uvs[++iuv] = y02;
-        uvs[++iuv] = 0.5 * (x1 + x2);
-        uvs[++iuv] = 0.5 * (y1 + y2);
-        // Bottom
-        uvs[++iuv] = x3 - d1x;
-        uvs[++iuv] = y3 - d1y;
-        uvs[++iuv] = x3 - d1x + d0x;
-        uvs[++iuv] = y3 - d1y + d0y;
-        uvs[++iuv] = x5 - d1x;
-        uvs[++iuv] = y5 - d1y;
-        uvs[++iuv] = x2 - d1x - d0x;
-        uvs[++iuv] = y2 - d1y - d0y;
-        uvs[++iuv] = x2 - d1x;
-        uvs[++iuv] = y2 - d1y;
-        // Bottom edge
-        uvs[++iuv] = x3 + d0x;
-        uvs[++iuv] = y3 + d0y;
-        uvs[++iuv] = x5;
-        uvs[++iuv] = y5;
-        uvs[++iuv] = x2 - d0x;
-        uvs[++iuv] = y2 - d0y;
-    };
-
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
@@ -30360,187 +31303,6 @@
     var createLineOfRectangleRoundedsUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
         return createLineOfAnyUploaded(buffer, shape, voffset, RECTANGLE_ROUNDED_VERTEX_COUNT, ioffset, RECTANGLE_ROUNDED_INDEX_COUNT, antialiasWeight, EShapeLineOfRectangleRoundedsUploaded);
     };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeRectangleRounded = /** @class */ (function (_super) {
-        __extends(EShapeRectangleRounded, _super);
-        function EShapeRectangleRounded(type) {
-            if (type === void 0) { type = EShapeType.RECTANGLE_ROUNDED; }
-            return _super.call(this, type) || this;
-        }
-        EShapeRectangleRounded.prototype.clone = function () {
-            return new EShapeRectangleRounded().copy(this);
-        };
-        EShapeRectangleRounded.prototype.containsAbs_ = function (x, y, ax, ay, r, corner) {
-            var bx0 = -ax + r;
-            if (x <= bx0) {
-                var by0 = -ay + r;
-                if (y <= by0 && corner & EShapeCorner.TOP_LEFT) {
-                    // Top-left corner
-                    var dx = x - bx0;
-                    var dy = y - by0;
-                    return dx * dx + dy * dy <= r * r;
-                }
-                else {
-                    var by1 = +ay - r;
-                    if (by1 <= y && corner & EShapeCorner.BOTTOM_LEFT) {
-                        // Bottom-left corner
-                        var dx = x - bx0;
-                        var dy = y - by1;
-                        return dx * dx + dy * dy <= r * r;
-                    }
-                    else {
-                        // Middle-left box
-                        return -ax <= x;
-                    }
-                }
-            }
-            else {
-                var bx1 = +ax - r;
-                if (bx1 <= x) {
-                    var by0 = -ay + r;
-                    if (y <= by0 && corner & EShapeCorner.TOP_RIGHT) {
-                        // Top-right corner
-                        var dx = x - bx1;
-                        var dy = y - by0;
-                        return dx * dx + dy * dy <= r * r;
-                    }
-                    else {
-                        var by1 = +ay - r;
-                        if (by1 <= y && corner & EShapeCorner.BOTTOM_RIGHT) {
-                            // Bottom-right corner
-                            var dx = x - bx1;
-                            var dy = y - by1;
-                            return dx * dx + dy * dy <= r * r;
-                        }
-                        else {
-                            // Middle-right box
-                            return x <= +ax;
-                        }
-                    }
-                }
-                else {
-                    return -ay <= y && y <= +ay;
-                }
-            }
-        };
-        EShapeRectangleRounded.prototype.containsAbs = function (x, y, ax, ay, sw, ss) {
-            if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
-                var fill = this.fill;
-                if (fill.enable || 0 < sw) {
-                    var r = this.radius * Math.min(ax, ay);
-                    var corner = this.corner;
-                    if (this.containsAbs_(x, y, ax, ay, r, corner)) {
-                        if (fill.enable) {
-                            return true;
-                        }
-                        else {
-                            var s = sw * ss;
-                            var wx = Math.max(0.0, ax - s);
-                            var wy = Math.max(0.0, ay - s);
-                            var wr = Math.max(0.0, r - s);
-                            if (!this.containsAbs_(x, y, wx, wy, wr, corner)) {
-                                var strokeSide = this.stroke.side;
-                                if (strokeSide === EShapeStrokeSide.ALL) {
-                                    return true;
-                                }
-                                else {
-                                    if (x <= -wx + wr) {
-                                        var hasLeftSide = !!(strokeSide & EShapeStrokeSide.LEFT);
-                                        if (y <= -wy + wr) {
-                                            var hasTopSide = !!(strokeSide & EShapeStrokeSide.TOP);
-                                            if (hasTopSide && hasLeftSide) {
-                                                return true;
-                                            }
-                                            else if (hasTopSide) {
-                                                return -wx <= y;
-                                            }
-                                            else if (hasLeftSide) {
-                                                return x <= -wx;
-                                            }
-                                            else {
-                                                return false;
-                                            }
-                                        }
-                                        else if (+wy - wr <= y) {
-                                            var hasBottomSide = !!(strokeSide & EShapeStrokeSide.BOTTOM);
-                                            if (hasBottomSide && hasLeftSide) {
-                                                return true;
-                                            }
-                                            else if (hasBottomSide) {
-                                                return +wx <= y;
-                                            }
-                                            else if (hasLeftSide) {
-                                                return x <= -wx;
-                                            }
-                                            else {
-                                                return false;
-                                            }
-                                        }
-                                        else {
-                                            return hasLeftSide;
-                                        }
-                                    }
-                                    else if (+wx - wr <= x) {
-                                        var hasRightSide = !!(strokeSide & EShapeStrokeSide.RIGHT);
-                                        if (y <= -wy + wr) {
-                                            var hasTopSide = !!(strokeSide & EShapeStrokeSide.TOP);
-                                            if (hasTopSide && hasRightSide) {
-                                                return true;
-                                            }
-                                            else if (hasTopSide) {
-                                                return -wx <= y;
-                                            }
-                                            else if (hasRightSide) {
-                                                return +wx <= x;
-                                            }
-                                            else {
-                                                return false;
-                                            }
-                                        }
-                                        else if (+wy - wr <= y) {
-                                            var hasBottomSide = !!(strokeSide & EShapeStrokeSide.BOTTOM);
-                                            if (hasBottomSide && hasRightSide) {
-                                                return true;
-                                            }
-                                            else if (hasBottomSide) {
-                                                return +wx <= y;
-                                            }
-                                            else if (hasRightSide) {
-                                                return +wx <= x;
-                                            }
-                                            else {
-                                                return false;
-                                            }
-                                        }
-                                        else {
-                                            return hasRightSide;
-                                        }
-                                    }
-                                    else {
-                                        if (y <= -wy + wr) {
-                                            return !!(strokeSide & EShapeStrokeSide.TOP);
-                                        }
-                                        else if (+wy - wr <= y) {
-                                            return !!(strokeSide & EShapeStrokeSide.BOTTOM);
-                                        }
-                                        else {
-                                            return false;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            return false;
-        };
-        return EShapeRectangleRounded;
-    }(EShapePrimitive));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -32123,111 +32885,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeRectangleRoundedUploaded = /** @class */ (function (_super) {
-        __extends(EShapeRectangleRoundedUploaded, _super);
-        function EShapeRectangleRoundedUploaded() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        EShapeRectangleRoundedUploaded.prototype.init = function (shape) {
-            _super.prototype.init.call(this, shape);
-            // Indices
-            var buffer = this.buffer;
-            buffer.updateIndices();
-            buildRectangleRoundedIndex(buffer.indices, this.vertexOffset, this.indexOffset);
-            // Text
-            this.initText();
-            this.update(shape);
-            return this;
-        };
-        EShapeRectangleRoundedUploaded.prototype.update = function (shape) {
-            var buffer = this.buffer;
-            this.updateVertexClippingStepAndUv(buffer, shape);
-            this.updateColor(buffer, shape);
-            this.updateText(buffer, shape);
-        };
-        EShapeRectangleRoundedUploaded.prototype.updateVertexClippingStepAndUv = function (buffer, shape) {
-            var size = shape.size;
-            var sizeX = size.x;
-            var sizeY = size.y;
-            var radius = shape.radius;
-            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY || radius !== this.radius;
-            var transformLocalId = this.toTransformLocalId(shape);
-            var isTransformChanged = this.transformLocalId !== transformLocalId;
-            var stroke = shape.stroke;
-            var strokeAlign = stroke.align;
-            var strokeWidth = stroke.enable ? stroke.width : 0;
-            var strokeSide = stroke.side;
-            var strokeStyle = stroke.style;
-            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
-                this.strokeWidth !== strokeWidth ||
-                this.strokeSide !== strokeSide ||
-                this.strokeStyle !== strokeStyle;
-            var corner = shape.corner;
-            var isCornerChanged = corner !== this.corner;
-            var texture = this.toTexture(shape);
-            var textureTransformId = this.toTextureTransformId(texture);
-            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
-            var isVertexChanged = isSizeChanged || isStrokeChanged;
-            if (isVertexChanged || isTransformChanged || isCornerChanged || isTextureChanged) {
-                this.sizeX = sizeX;
-                this.sizeY = sizeY;
-                this.radius = radius;
-                this.transformLocalId = transformLocalId;
-                this.strokeAlign = strokeAlign;
-                this.strokeWidth = strokeWidth;
-                this.strokeSide = strokeSide;
-                this.strokeStyle = strokeStyle;
-                this.corner = corner;
-                this.texture = texture;
-                this.textureTransformId = textureTransformId;
-                if (isVertexChanged || isTransformChanged) {
-                    // Invalidate the text layout to update the text layout.
-                    this.textSpacingHorizontal = NaN;
-                }
-                // Vertices
-                var voffset = this.vertexOffset;
-                buffer.updateVertices();
-                buildRectangleRoundedVertex(buffer.vertices, voffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, radius, shape.transform.internalTransform, RECTANGLE_ROUNDED_WORLD_SIZE);
-                // Steps
-                if (isVertexChanged || isCornerChanged || isTransformChanged) {
-                    buffer.updateSteps();
-                    buildRectangleRoundedStep(buffer.steps, voffset, strokeWidth, strokeSide, strokeStyle, corner, RECTANGLE_ROUNDED_WORLD_SIZE);
-                }
-                // Clippings
-                if (isVertexChanged || isCornerChanged) {
-                    buffer.updateClippings();
-                    buildRectangleRoundedClipping(buffer.clippings, voffset, corner, RECTANGLE_ROUNDED_WORLD_SIZE);
-                }
-                // UVs
-                if (isVertexChanged || isTextureChanged) {
-                    buffer.updateUvs();
-                    buildRectangleRoundedUv(buffer.uvs, voffset, this.toTextureUvs(texture), RECTANGLE_ROUNDED_WORLD_SIZE);
-                }
-            }
-        };
-        return EShapeRectangleRoundedUploaded;
-    }(EShapeTextUploaded));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var createRectangleRoundedUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
-        var tcount = toTextBufferCount(shape);
-        var tvcount = tcount * TEXT_VERTEX_COUNT;
-        var ticount = tcount * TEXT_INDEX_COUNT;
-        var vcount = RECTANGLE_ROUNDED_VERTEX_COUNT + tvcount;
-        var icount = RECTANGLE_ROUNDED_INDEX_COUNT + ticount;
-        if (buffer.check(voffset, ioffset, vcount, icount)) {
-            return new EShapeRectangleRoundedUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight).init(shape);
-        }
-        return null;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var deserializeRectangleRounded = function (item, manager) {
         return EShapeDeserializer.deserialize(item, manager, new EShapeRectangleRounded());
     };
@@ -32472,6 +33129,7 @@
      */
     var loadShapeAll = function () {
         loadShapeBar();
+        loadShapeButton();
         loadShapeCircle();
         loadShapeEmbedded();
         loadShapeGroupShadowed();
@@ -34249,54 +34907,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeActionValueMiscEmitEvent = /** @class */ (function (_super) {
-        __extends(EShapeActionValueMiscEmitEvent, _super);
-        function EShapeActionValueMiscEmitEvent(condition, target) {
-            return _super.call(this, EShapeActionValueMiscType.EMIT_EVENT, condition, target, EShapeActionValueOnInputAction.EMIT_EVENT, "") || this;
-        }
-        return EShapeActionValueMiscEmitEvent;
-    }(EShapeActionValueMisc));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeActionValueMiscHtmlElement = /** @class */ (function (_super) {
-        __extends(EShapeActionValueMiscHtmlElement, _super);
-        function EShapeActionValueMiscHtmlElement(subtype, when, initializer) {
-            return _super.call(this, subtype, when, "", EShapeActionValueOnInputAction.EMIT_EVENT, initializer) || this;
-        }
-        return EShapeActionValueMiscHtmlElement;
-    }(EShapeActionValueMisc));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeActionValueMiscInput = /** @class */ (function (_super) {
-        __extends(EShapeActionValueMiscInput, _super);
-        function EShapeActionValueMiscInput(subtype, when, target, onInputAction) {
-            return _super.call(this, subtype, when, target, onInputAction, "") || this;
-        }
-        return EShapeActionValueMiscInput;
-    }(EShapeActionValueMisc));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeActionValueMiscWrite = /** @class */ (function (_super) {
-        __extends(EShapeActionValueMiscWrite, _super);
-        function EShapeActionValueMiscWrite(subtype, condition, target, value) {
-            return _super.call(this, subtype, condition, target, EShapeActionValueOnInputAction.EMIT_EVENT, value) || this;
-        }
-        return EShapeActionValueMiscWrite;
-    }(EShapeActionValueMisc));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var VERTEX_SHADER = "\nattribute vec2 aVertexPosition;\nattribute vec2 aTextureCoord;\nvarying mediump vec2 vTextureCoord;\nvoid main(void) {\n\tgl_Position = vec4(aVertexPosition, 0.0, 1.0);\n\tvTextureCoord = aTextureCoord;\n}\n";
     var FRAGMENT_SHADER = "\nprecision mediump float;\n\nvarying mediump vec2 vTextureCoord;\nuniform sampler2D uSampler;\nuniform vec2 uSize;\n\nfloat calcDistance( float x, float y, float dx, float dy ) {\n\tfloat xd = x + dx;\n\tfloat yd = y + dy;\n\tfloat u = xd / uSize.x;\n\tfloat v = yd / uSize.y;\n\tfloat ul = (xd - 1.0) / uSize.x;\n\tfloat vt = (yd - 1.0) / uSize.y;\n\n\tfloat m = texture2D(uSampler, vec2(u , v )).a;\n\tfloat l = texture2D(uSampler, vec2(ul, v )).a;\n\tfloat t = texture2D(uSampler, vec2(u , vt)).a;\n\n\tfloat xl = mix( xd - 1.0, xd, (0.5 - l) / (m - l) );\n\tfloat yt = mix( yd - 1.0, yd, (0.5 - t) / (m - t) );\n\n\tbool bl = ( min(l, m) < 0.5 && 0.5 <= max(l, m) );\n\tbool bt = ( min(t, m) < 0.5 && 0.5 <= max(t, m) );\n\n\tfloat ll = (bl ? length( vec2( xl - x, yd - y ) ) : 100.0);\n\tfloat lt = (bt ? length( vec2( xd - x, yt - y ) ) : 100.0);\n\n\treturn min( ll, lt );\n}\n\nfloat calcDistancesY( float x, float y, float dx ) {\n\tfloat d = 100.0;\n\tfor( float dy=-6.0; dy<6.5; dy++ ) {\n\t\td = min( d, calcDistance( x, y, dx, dy ) );\n\t}\n\treturn d;\n}\n\nfloat calcDistances( float x, float y ) {\n\tfloat d = 100.0;\n\tfor( float dx=-6.0; dx<6.5; dx++ ) {\n\t\td = min( d, calcDistancesY( x, y, dx ) );\n\t}\n\treturn d;\n}\n\nvoid main(void) {\n\tfloat t = texture2D(uSampler, vTextureCoord).a;\n\tfloat x = vTextureCoord.x * uSize.x;\n\tfloat y = vTextureCoord.y * uSize.y;\n\tfloat d = min( 6.0, calcDistances( x, y ) ) / 12.0;\n\td = clamp( mix( 0.5 - d, 0.5 + d, step( 0.5, t ) ), 0.0, 1.0 );\n\tgl_FragColor = vec4(1.0, 1.0, 1.0, d);\n}\n";
     var DynamicSDFFontGenerator = /** @class */ (function () {
@@ -34613,25 +35223,6 @@
         return EShapeImageElements.toImageElement(dataUrl).then(function (imageElement) {
             return new EShapeImage(imageElement);
         });
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var createLine = function (points, segments, strokeWidth, style) {
-        return new EShapeLine(points, segments, strokeWidth, style);
-    };
-    var toLineStrokeWidth = function (index, resources) {
-        if (0 <= index && index < resources.length) {
-            try {
-                return JSON.parse(resources[index])[3];
-            }
-            catch (e) {
-                //
-            }
-        }
-        return 8;
     };
 
     /*
@@ -36394,12 +36985,6 @@
         };
         return EShapeResourceManagerSerialization;
     }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeRuntimes = {};
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -49657,7 +50242,6 @@
         function DDiagramSnapshot(parent, options) {
             var _this = _super.call(this) || this;
             _this._parent = parent;
-            _this._cleanup = _this.toCleanup(options === null || options === void 0 ? void 0 : options.cleanup);
             var on = options === null || options === void 0 ? void 0 : options.on;
             if (on) {
                 for (var name_1 in on) {
@@ -49669,38 +50253,51 @@
             }
             return _this;
         }
-        DDiagramSnapshot.prototype.toCleanup = function (options) {
-            if (options == null || options === true || options === false) {
-                return {
-                    snap: options !== false,
-                    background: options !== false
-                };
-            }
-            return {
-                snap: options.snap !== false,
-                background: options.background !== false
-            };
-        };
-        /**
-         * Creates a snapshot.
-         *
-         * @param size a maximum image size
-         * @returns an URL of a created image or undefined
-         */
-        DDiagramSnapshot.prototype.createAsUrl = function (size) {
-            return this.create(size, function (canvas) {
-                return UtilExtract.base64({ target: canvas });
-            });
-        };
-        DDiagramSnapshot.prototype.createAsFile = function (sizeOrFilename, filename) {
-            if (isString(sizeOrFilename)) {
-                this.create(undefined, function (canvas) {
-                    return UtilExtract.file({ target: canvas, filename: sizeOrFilename });
+        DDiagramSnapshot.prototype.createAsUrl = function (sizeOrOptions) {
+            if (sizeOrOptions == null || isNumber(sizeOrOptions)) {
+                return this.create({
+                    size: sizeOrOptions,
+                    extractor: function (canvas) {
+                        return UtilExtract.base64({ target: canvas });
+                    }
                 });
             }
             else {
-                this.create(sizeOrFilename, function (canvas) {
-                    return UtilExtract.file({ target: canvas, filename: filename });
+                return this.create({
+                    size: sizeOrOptions.size,
+                    cleanup: sizeOrOptions.cleanup,
+                    extractor: function (canvas) {
+                        return UtilExtract.base64({ target: canvas });
+                    }
+                });
+            }
+        };
+        DDiagramSnapshot.prototype.createAsFile = function (sizeOrFilenameOrOptions, filename) {
+            if (isString(sizeOrFilenameOrOptions)) {
+                this.create({
+                    extractor: function (canvas) {
+                        UtilExtract.file({ target: canvas, filename: sizeOrFilenameOrOptions });
+                    }
+                });
+            }
+            else if (sizeOrFilenameOrOptions === null || isNumber(sizeOrFilenameOrOptions)) {
+                this.create({
+                    size: sizeOrFilenameOrOptions,
+                    extractor: function (canvas) {
+                        UtilExtract.file({ target: canvas, filename: filename });
+                    }
+                });
+            }
+            else {
+                this.create({
+                    size: sizeOrFilenameOrOptions.size,
+                    cleanup: sizeOrFilenameOrOptions.cleanup,
+                    extractor: function (canvas) {
+                        UtilExtract.file({
+                            target: canvas,
+                            filename: sizeOrFilenameOrOptions.filename
+                        });
+                    }
                 });
             }
         };
@@ -49710,7 +50307,27 @@
             }
             return size / DApplications.getResolution(canvas) / Math.max(canvas.width, canvas.height);
         };
-        DDiagramSnapshot.prototype.create = function (size, extractor) {
+        DDiagramSnapshot.prototype.toCleanupSnap = function (options) {
+            if (options == null) {
+                return true;
+            }
+            var cleanup = options.cleanup;
+            if (cleanup == null || cleanup === true) {
+                return true;
+            }
+            return cleanup !== false && cleanup.snap !== false;
+        };
+        DDiagramSnapshot.prototype.toCleanupBackground = function (options) {
+            if (options == null) {
+                return false;
+            }
+            var cleanup = options.cleanup;
+            if (cleanup == null || cleanup === false) {
+                return false;
+            }
+            return cleanup === true || cleanup.background === true;
+        };
+        DDiagramSnapshot.prototype.create = function (options) {
             var parent = this._parent;
             var canvas = parent.canvas;
             if (canvas) {
@@ -49721,12 +50338,11 @@
                 var oldPositionY = viewPosition.y;
                 var oldScaleX = viewScale.x;
                 var oldScaleY = viewScale.y;
-                var newScale = this.toScale(size, canvas);
+                var newScale = this.toScale(options.size, canvas);
                 view.transform(0, 0, newScale, newScale, 0);
                 // Turns off the snap grid and targets
                 var container = void 0;
-                var cleanup = this._cleanup;
-                if (cleanup.snap && "snap" in canvas) {
+                if (this.toCleanupSnap(options) && "snap" in canvas) {
                     var snap = canvas.snap;
                     if (snap != null) {
                         container = snap.container;
@@ -49740,7 +50356,7 @@
                 }
                 // Turns off the canvas snippets
                 var snippet = void 0;
-                if (cleanup.background) {
+                if (this.toCleanupBackground(options)) {
                     snippet = canvas.snippet;
                     if (snippet.renderable) {
                         snippet.renderable = false;
@@ -49751,7 +50367,7 @@
                 }
                 // Extracts
                 this.emit("taking", canvas, this);
-                var result = extractor(canvas);
+                var result = options.extractor(canvas);
                 this.emit("took", canvas, null, this);
                 // Turn on the canvas snippets
                 if (snippet) {
@@ -50685,17 +51301,6 @@
             for (var i = 0, imax = layers.length; i < imax; ++i) {
                 this.updateShapes(layers[i].children, time);
             }
-            this.initializeFocus();
-        };
-        DDiagramCanvas.prototype.initializeFocus = function () {
-            var layer = DApplications.getLayer(this);
-            if (layer) {
-                var focusController = layer.getFocusController();
-                var focusable = focusController.find(this, false, true, true);
-                if (focusable) {
-                    focusController.focus(focusable);
-                }
-            }
         };
         DDiagramCanvas.prototype.initializeShapes = function (shapes, tags, interactives, actionables, ids) {
             var _loop_1 = function (i, imax) {
@@ -50971,12 +51576,42 @@
      */
     var DDiagramEditorThumbnail = /** @class */ (function () {
         function DDiagramEditorThumbnail(snapshot, theme, options) {
-            var _a;
             this._snapshot = snapshot;
-            this._isEnabled = (_a = options === null || options === void 0 ? void 0 : options.enable) !== null && _a !== void 0 ? _a : theme.isThumbnailEnabled();
-            var size = options === null || options === void 0 ? void 0 : options.size;
-            this._size = size !== undefined ? size : theme.getThumbnailSize();
+            this._isEnabled = this.toIsEnabled(theme, options);
+            this._options = this.toCreateAsUrlOptions(theme, options);
         }
+        DDiagramEditorThumbnail.prototype.toIsEnabled = function (theme, options) {
+            var _a;
+            return (_a = options === null || options === void 0 ? void 0 : options.enable) !== null && _a !== void 0 ? _a : theme.isThumbnailEnabled();
+        };
+        DDiagramEditorThumbnail.prototype.toSize = function (theme, options) {
+            return options !== undefined ? options : theme.getThumbnailSize();
+        };
+        DDiagramEditorThumbnail.prototype.toCleanup = function (theme, cleanup) {
+            var _a, _b;
+            if (cleanup == null || cleanup === true) {
+                return {
+                    snap: true,
+                    background: true
+                };
+            }
+            else if (cleanup === false) {
+                return {
+                    snap: false,
+                    background: false
+                };
+            }
+            return {
+                snap: (_a = cleanup.snap) !== null && _a !== void 0 ? _a : true,
+                background: (_b = cleanup.background) !== null && _b !== void 0 ? _b : true
+            };
+        };
+        DDiagramEditorThumbnail.prototype.toCreateAsUrlOptions = function (theme, options) {
+            return {
+                size: this.toSize(theme, options === null || options === void 0 ? void 0 : options.size),
+                cleanup: this.toCleanup(theme, options === null || options === void 0 ? void 0 : options.cleanup)
+            };
+        };
         Object.defineProperty(DDiagramEditorThumbnail.prototype, "enable", {
             get: function () {
                 return this._isEnabled;
@@ -50989,17 +51624,24 @@
         });
         Object.defineProperty(DDiagramEditorThumbnail.prototype, "size", {
             get: function () {
-                return this._size;
+                return this._options.size;
             },
             set: function (size) {
-                this._size = size;
+                this._options.size = size;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDiagramEditorThumbnail.prototype, "cleanup", {
+            get: function () {
+                return this._options.cleanup;
             },
             enumerable: false,
             configurable: true
         });
         DDiagramEditorThumbnail.prototype.serialize = function () {
             if (this._isEnabled) {
-                return this._snapshot.createAsUrl(this._size);
+                return this._snapshot.createAsUrl(this._options);
             }
         };
         return DDiagramEditorThumbnail;
@@ -59177,6 +59819,7 @@
             _this._isRowsDirty = false;
             _this._supplimentals = [];
             _this._flags = new WeakMap();
+            _this._reverse = !!(options === null || options === void 0 ? void 0 : options.reverse);
             _this._selection = _this.toSelection(options === null || options === void 0 ? void 0 : options.selection);
             _this._filter = new DTableDataTreeFilter(_this);
             _this._sorter = new DTableDataTreeSorter();
@@ -59263,7 +59906,7 @@
             var supplimentals = this._supplimentals;
             var flags = this._flags;
             if (nodes != null) {
-                var irows = this.newRows(nodes, 0, 0, rows, supplimentals, flags);
+                var irows = this.newRows(nodes, 0, 0, rows, supplimentals, flags, this._reverse, this._accessor.toChildren);
                 if (irows !== rows.length) {
                     rows.length = irows;
                     supplimentals.length = irows;
@@ -59277,9 +59920,11 @@
         DTableDataTree.prototype.toSupplimental = function (ilevel, hasChildren, isOpened) {
             return (ilevel << 2) | (hasChildren ? 2 : 0) | (isOpened ? 1 : 0);
         };
-        DTableDataTree.prototype.newRows = function (nodes, irows, ilevel, rows, supplimentals, flags) {
-            var toChildren = this._accessor.toChildren;
-            for (var i = 0, imax = nodes.length; i < imax; ++i) {
+        DTableDataTree.prototype.newRows = function (nodes, irows, ilevel, rows, supplimentals, flags, reverse, toChildren) {
+            var nodesLength = nodes.length;
+            var istart = reverse ? nodesLength - 1 : 0;
+            var idelta = reverse ? -1 : +1;
+            for (var i = istart; 0 <= i && i < nodesLength; i += idelta) {
                 var node = nodes[i];
                 var children = toChildren(node);
                 var isOpened = flags.has(node);
@@ -59294,7 +59939,7 @@
                 }
                 irows += 1;
                 if (isOpened && children) {
-                    irows = this.newRows(children, irows, ilevel + 1, rows, supplimentals, flags);
+                    irows = this.newRows(children, irows, ilevel + 1, rows, supplimentals, flags, reverse, toChildren);
                 }
             }
             return irows;
@@ -60735,10 +61380,11 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var DTreeDataMappedImpl = /** @class */ (function () {
-        function DTreeDataMappedImpl(parent) {
+        function DTreeDataMappedImpl(parent, reverse) {
             this._parent = parent;
             this._nodes = [];
             this._levels = [];
+            this._reverse = reverse;
             this._isDirty = false;
         }
         Object.defineProperty(DTreeDataMappedImpl.prototype, "nodes", {
@@ -60783,15 +61429,18 @@
                 var toChildren = parent_1.accessor.toChildren;
                 var nodes = this._nodes;
                 var levels = this._levels;
-                var size = this.newNodes(parent_1, parentNodes, 0, 0, nodes, levels, toChildren);
+                var size = this.newNodes(parent_1, parentNodes, 0, 0, nodes, levels, this._reverse, toChildren);
                 if (nodes.length !== size) {
                     nodes.length = size;
                     levels.length = size;
                 }
             }
         };
-        DTreeDataMappedImpl.prototype.newNodes = function (parent, parentNodes, index, level, nodes, levels, toChildren) {
-            for (var i = 0, imax = parentNodes.length; i < imax; ++i) {
+        DTreeDataMappedImpl.prototype.newNodes = function (parent, parentNodes, index, level, nodes, levels, reverse, toChildren) {
+            var parentNodesLength = parentNodes.length;
+            var istart = reverse ? parentNodesLength - 1 : 0;
+            var idelta = reverse ? -1 : +1;
+            for (var i = istart; 0 <= i && i < parentNodesLength; i += idelta) {
                 var parentNode = parentNodes[i];
                 if (index < nodes.length) {
                     nodes[index] = parentNode;
@@ -60804,7 +61453,7 @@
                 index += 1;
                 var children = toChildren(parentNode);
                 if (children && parent.isExpanded(parentNode)) {
-                    index = this.newNodes(parent, children, index, level + 1, nodes, levels, toChildren);
+                    index = this.newNodes(parent, children, index, level + 1, nodes, levels, reverse, toChildren);
                 }
             }
             return index;
@@ -61276,7 +61925,7 @@
             this._nodeToFlag = new WeakMap();
             this._selection = this.toSelection(options);
             this._accessor = new DTreeNodeAccessorImpl(options);
-            var mapped = new DTreeDataMappedImpl(this);
+            var mapped = new DTreeDataMappedImpl(this, !!(options === null || options === void 0 ? void 0 : options.reverse));
             this._mapped = mapped;
             var nodes = options === null || options === void 0 ? void 0 : options.nodes;
             if (nodes != null) {
@@ -62097,6 +62746,7 @@
         EShapeAction: EShapeAction,
         loadShapeAll: loadShapeAll,
         loadShapeBar: loadShapeBar,
+        loadShapeButton: loadShapeButton,
         loadShapeCircle: loadShapeCircle,
         loadShapeEmbedded: loadShapeEmbedded,
         loadShapeGroupShadowed: loadShapeGroupShadowed,
@@ -62197,6 +62847,7 @@
         copyUvs: copyUvs,
         copyVertex: copyVertex,
         createBarUploaded: createBarUploaded,
+        createButtonUploaded: createButtonUploaded,
         createCircle: createCircle,
         createGroupUploaded: createGroupUploaded,
         createImageSdfUploaded: createImageSdfUploaded,
@@ -62210,14 +62861,13 @@
         createLineOfTriangleRoundedsUploaded: createLineOfTriangleRoundedsUploaded,
         createLineOfTrianglesUploaded: createLineOfTrianglesUploaded,
         createLineUploaded: createLineUploaded,
-        createLine: createLine,
-        toLineStrokeWidth: toLineStrokeWidth,
         createNullUploaded: createNullUploaded,
         createRectangleRoundedUploaded: createRectangleRoundedUploaded,
         createRectangleUploaded: createRectangleUploaded,
         createTriangleRoundedUploaded: createTriangleRoundedUploaded,
         createTriangleUploaded: createTriangleUploaded,
         deserializeBar: deserializeBar,
+        deserializeButton: deserializeButton,
         deserializeCircle: deserializeCircle,
         deserializeEmbedded: deserializeEmbedded,
         deserializeGroupShadowed: deserializeGroupShadowed,
@@ -62242,6 +62892,10 @@
         EShapeBar: EShapeBar,
         EShapeBaseHitTestData: EShapeBaseHitTestData,
         EShapeBase: EShapeBase,
+        EShapeButtonRuntimeActionAfter: EShapeButtonRuntimeActionAfter,
+        EShapeButtonRuntimeActionBefore: EShapeButtonRuntimeActionBefore,
+        EShapeButtonRuntime: EShapeButtonRuntime,
+        EShapeButton: EShapeButton,
         EShapeCircleUploaded: EShapeCircleUploaded,
         EShapeCircle: EShapeCircle,
         EShapeEmbeddedDatum: EShapeEmbeddedDatum,
