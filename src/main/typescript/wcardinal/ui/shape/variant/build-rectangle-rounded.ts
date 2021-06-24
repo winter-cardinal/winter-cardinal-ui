@@ -745,7 +745,7 @@ export const buildRectangleRoundedStep = (
 		steps[++is] = sx;
 		steps[++is] = sy;
 		steps[++is] = wr;
-		steps[++is] = wt;
+		steps[++is] = bt;
 	}
 
 	// Bottom-left corner
