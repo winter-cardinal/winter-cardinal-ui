@@ -2722,6 +2722,9 @@ img {
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 					<a href="dtreedatamappedimpl.html#_parent" class="tsd-kind-icon">_parent</a>
 				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a href="dtreedatamappedimpl.html#_reverse" class="tsd-kind-icon">_reverse</a>
+				</li>
 				<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 					<a href="dtreedatamappedimpl.html#levels" class="tsd-kind-icon">levels</a>
 				</li>
@@ -2788,6 +2791,7 @@ img {
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="dtreedatamappedimpl.html#_levels" class="tsd-kind-icon">_levels</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="dtreedatamappedimpl.html#_nodes" class="tsd-kind-icon">_nodes</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="dtreedatamappedimpl.html#_parent" class="tsd-kind-icon">_parent</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="dtreedatamappedimpl.html#_reverse" class="tsd-kind-icon">_reverse</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
@@ -2816,13 +2820,13 @@ img {
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
 				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">new DTree<wbr>Data<wbr>Mapped<wbr>Impl&lt;NODE&gt;<span class="tsd-signature-symbol">(</span>parent<span class="tsd-signature-symbol">: </span><a href="../interfaces/dtreedatamppedimplparent.html" class="tsd-signature-type" data-tsd-kind="Interface">DTreeDataMppedImplParent</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">NODE</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="dtreedatamappedimpl.html" class="tsd-signature-type" data-tsd-kind="Class">DTreeDataMappedImpl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">NODE</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">new DTree<wbr>Data<wbr>Mapped<wbr>Impl&lt;NODE&gt;<span class="tsd-signature-symbol">(</span>parent<span class="tsd-signature-symbol">: </span><a href="../interfaces/dtreedatamppedimplparent.html" class="tsd-signature-type" data-tsd-kind="Interface">DTreeDataMppedImplParent</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">NODE</span><span class="tsd-signature-symbol">&gt;</span>, reverse<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="dtreedatamappedimpl.html" class="tsd-signature-type" data-tsd-kind="Class">DTreeDataMappedImpl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">NODE</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.95.0/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L19">src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:19</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.98.0/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L20">src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:20</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -2835,6 +2839,9 @@ img {
 						<ul class="tsd-parameters">
 							<li>
 								<h5>parent: <a href="../interfaces/dtreedatamppedimplparent.html" class="tsd-signature-type" data-tsd-kind="Interface">DTreeDataMppedImplParent</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">NODE</span><span class="tsd-signature-symbol">&gt;</span></h5>
+							</li>
+							<li>
+								<h5>reverse: <span class="tsd-signature-type">boolean</span></h5>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <a href="dtreedatamappedimpl.html" class="tsd-signature-type" data-tsd-kind="Class">DTreeDataMappedImpl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">NODE</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -2850,7 +2857,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">_is<wbr>Dirty<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.95.0/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L19">src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:19</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.98.0/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L20">src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:20</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2860,7 +2867,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">_levels<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.95.0/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L18">src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:18</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.98.0/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L18">src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:18</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2870,7 +2877,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">_nodes<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">NODE</span><span class="tsd-signature-symbol">[]</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.95.0/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L17">src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:17</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.98.0/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L17">src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:17</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2880,7 +2887,17 @@ img {
 				<div class="tsd-signature tsd-kind-icon">_parent<span class="tsd-signature-symbol">:</span> <a href="../interfaces/dtreedatamppedimplparent.html" class="tsd-signature-type" data-tsd-kind="Interface">DTreeDataMppedImplParent</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">NODE</span><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.95.0/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L16">src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:16</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.98.0/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L16">src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:16</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+				<a name="_reverse" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> _reverse</h3>
+				<div class="tsd-signature tsd-kind-icon">_reverse<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.98.0/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L19">src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:19</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2898,7 +2915,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/dtreedatamapped.html">DTreeDataMapped</a>.<a href="../interfaces/dtreedatamapped.html#levels">levels</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.95.0/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L33">src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:33</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.98.0/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L35">src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:35</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h4>
@@ -2916,7 +2933,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/dtreedatamapped.html">DTreeDataMapped</a>.<a href="../interfaces/dtreedatamapped.html#nodes">nodes</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.95.0/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L28">src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:28</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.98.0/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L30">src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:30</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">NODE</span><span class="tsd-signature-symbol">[]</span></h4>
@@ -2937,7 +2954,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/dtreedatamapped.html">DTreeDataMapped</a>.<a href="../interfaces/dtreedatamapped.html#each">each</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.95.0/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L47">src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:47</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.98.0/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L49">src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:49</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2981,13 +2998,13 @@ img {
 				<a name="newnodes" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagProtected">Protected</span> new<wbr>Nodes</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-					<li class="tsd-signature tsd-kind-icon">new<wbr>Nodes<span class="tsd-signature-symbol">(</span>parent<span class="tsd-signature-symbol">: </span><a href="../interfaces/dtreedatamppedimplparent.html" class="tsd-signature-type" data-tsd-kind="Interface">DTreeDataMppedImplParent</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">NODE</span><span class="tsd-signature-symbol">&gt;</span>, parentNodes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NODE</span><span class="tsd-signature-symbol">[]</span>, index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, level<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, nodes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NODE</span><span class="tsd-signature-symbol">[]</span>, levels<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span>, toChildren<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>node<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NODE</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">NODE</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					<li class="tsd-signature tsd-kind-icon">new<wbr>Nodes<span class="tsd-signature-symbol">(</span>parent<span class="tsd-signature-symbol">: </span><a href="../interfaces/dtreedatamppedimplparent.html" class="tsd-signature-type" data-tsd-kind="Interface">DTreeDataMppedImplParent</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">NODE</span><span class="tsd-signature-symbol">&gt;</span>, parentNodes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NODE</span><span class="tsd-signature-symbol">[]</span>, index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, level<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, nodes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NODE</span><span class="tsd-signature-symbol">[]</span>, levels<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span>, reverse<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span>, toChildren<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>node<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NODE</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">NODE</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.95.0/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L80">src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:80</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.98.0/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L91">src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:91</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3009,6 +3026,9 @@ img {
 							</li>
 							<li>
 								<h5>levels: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h5>
+							</li>
+							<li>
+								<h5>reverse: <span class="tsd-signature-type">boolean</span></h5>
 							</li>
 							<li>
 								<h5>toChildren: <span class="tsd-signature-symbol">(</span>node<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NODE</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">NODE</span><span class="tsd-signature-symbol">[]</span></h5>
@@ -3047,7 +3067,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/dtreedatamapped.html">DTreeDataMapped</a>.<a href="../interfaces/dtreedatamapped.html#size">size</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.95.0/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L42">src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:42</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.98.0/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L44">src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:44</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -3065,7 +3085,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/dtreedatamapped.html">DTreeDataMapped</a>.<a href="../interfaces/dtreedatamapped.html#todirty">toDirty</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.95.0/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L38">src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:38</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.98.0/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L40">src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:40</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -3082,7 +3102,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.95.0/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L63">src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:63</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.98.0/src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts#L65">src/main/typescript/wcardinal/ui/d-tree-data-mapped-impl.ts:65</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>

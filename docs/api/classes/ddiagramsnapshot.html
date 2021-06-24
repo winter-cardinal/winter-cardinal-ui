@@ -2752,6 +2752,15 @@ img {
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 					<a href="ddiagramsnapshot.html#removelistener" class="tsd-kind-icon">remove<wbr>Listener</a>
 				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a href="ddiagramsnapshot.html#tocleanupbackground" class="tsd-kind-icon">to<wbr>Cleanup<wbr>Background</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a href="ddiagramsnapshot.html#tocleanupsnap" class="tsd-kind-icon">to<wbr>Cleanup<wbr>Snap</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a href="ddiagramsnapshot.html#toscale" class="tsd-kind-icon">to<wbr>Scale</a>
+				</li>
 			</ul>
 		</li>
 	</ul>
@@ -2762,7 +2771,7 @@ img {
 			<h3>Type parameters</h3>
 			<ul class="tsd-type-parameters">
 				<li>
-					<h4>CANVAS<span class="tsd-signature-symbol">: </span><a href="dbase.html" class="tsd-signature-type" data-tsd-kind="Class">DBase</a> = <a href="dbase.html" class="tsd-signature-type" data-tsd-kind="Class">DBase</a></h4>
+					<h4>CANVAS<span class="tsd-signature-symbol">: </span><a href="../interfaces/ddiagramsnapshotcanvas.html" class="tsd-signature-type" data-tsd-kind="Interface">DDiagramSnapshotCanvas</a> = <a href="../interfaces/ddiagramsnapshotcanvas.html" class="tsd-signature-type" data-tsd-kind="Interface">DDiagramSnapshotCanvas</a></h4>
 				</li>
 			</ul>
 		</section>
@@ -2811,6 +2820,9 @@ img {
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="ddiagramsnapshot.html#once" class="tsd-kind-icon">once</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="ddiagramsnapshot.html#removealllisteners" class="tsd-kind-icon">remove<wbr>All<wbr>Listeners</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="ddiagramsnapshot.html#removelistener" class="tsd-kind-icon">remove<wbr>Listener</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="ddiagramsnapshot.html#tocleanupbackground" class="tsd-kind-icon">to<wbr>Cleanup<wbr>Background</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="ddiagramsnapshot.html#tocleanupsnap" class="tsd-kind-icon">to<wbr>Cleanup<wbr>Snap</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="ddiagramsnapshot.html#toscale" class="tsd-kind-icon">to<wbr>Scale</a></li>
 						</ul>
 					</section>
 				</div>
@@ -2829,13 +2841,13 @@ img {
 						<aside class="tsd-sources">
 							<p>Overrides utils.EventEmitter.constructor</p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.95.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L47">src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:47</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.98.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L85">src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:85</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
 						<ul class="tsd-type-parameters">
 							<li>
-								<h4>CANVAS<span class="tsd-signature-symbol">: </span><a href="dbase.html" class="tsd-signature-type" data-tsd-kind="Class">DBase</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/dthemebase.html" class="tsd-signature-type" data-tsd-kind="Interface">DThemeBase</a><span class="tsd-signature-symbol">, </span><a href="../interfaces/dbaseoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DBaseOptions</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/dthemebase.html" class="tsd-signature-type" data-tsd-kind="Interface">DThemeBase</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">CANVAS</span><span class="tsd-signature-symbol">&gt;</span> = <a href="dbase.html" class="tsd-signature-type" data-tsd-kind="Class">DBase</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/dthemebase.html" class="tsd-signature-type" data-tsd-kind="Interface">DThemeBase</a><span class="tsd-signature-symbol">, </span><a href="../interfaces/dbaseoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DBaseOptions</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/dthemebase.html" class="tsd-signature-type" data-tsd-kind="Interface">DThemeBase</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+								<h4>CANVAS<span class="tsd-signature-symbol">: </span><a href="../interfaces/ddiagramsnapshotcanvas.html" class="tsd-signature-type" data-tsd-kind="Interface">DDiagramSnapshotCanvas</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">CANVAS</span><span class="tsd-signature-symbol">&gt;</span> = <a href="../interfaces/ddiagramsnapshotcanvas.html" class="tsd-signature-type" data-tsd-kind="Interface">DDiagramSnapshotCanvas</a></h4>
 							</li>
 						</ul>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2860,7 +2872,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">_parent<span class="tsd-signature-symbol">:</span> <a href="../interfaces/ddiagramsnapshotparent.html" class="tsd-signature-type" data-tsd-kind="Interface">DDiagramSnapshotParent</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">CANVAS</span><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.95.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L47">src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:47</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.98.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L85">src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:85</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2906,13 +2918,13 @@ img {
 				<a name="create" class="tsd-anchor"></a>
 				<h3>create</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">create&lt;DATA&gt;<span class="tsd-signature-symbol">(</span>size<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span>, extractor<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>canvas<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CANVAS</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">DATA</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DATA</span></li>
+					<li class="tsd-signature tsd-kind-icon">create&lt;DATA&gt;<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/ddiagramsnapshotcreateoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DDiagramSnapshotCreateOptions</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">CANVAS</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">DATA</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DATA</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.95.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L102">src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:102</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.98.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L222">src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:222</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -2924,28 +2936,7 @@ img {
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5>size: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
-							</li>
-							<li>
-								<h5>extractor: <span class="tsd-signature-symbol">(</span>canvas<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CANVAS</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">DATA</span></h5>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-signature">
-										<ul class="tsd-signatures tsd-kind-type-literal">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>canvas<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CANVAS</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DATA</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-parameters-title">Parameters</h4>
-												<ul class="tsd-parameters">
-													<li>
-														<h5>canvas: <span class="tsd-signature-type">CANVAS</span></h5>
-													</li>
-												</ul>
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">DATA</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
+								<h5>options: <a href="../interfaces/ddiagramsnapshotcreateoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DDiagramSnapshotCreateOptions</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">CANVAS</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">DATA</span><span class="tsd-signature-symbol">&gt;</span></h5>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DATA</span></h4>
@@ -2957,13 +2948,14 @@ img {
 				<h3>create<wbr>AsFile</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
 					<li class="tsd-signature tsd-kind-icon">create<wbr>AsFile<span class="tsd-signature-symbol">(</span>filename<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					<li class="tsd-signature tsd-kind-icon">create<wbr>AsFile<span class="tsd-signature-symbol">(</span>size<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, filename<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">create<wbr>AsFile<span class="tsd-signature-symbol">(</span>size<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span>, filename<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					<li class="tsd-signature tsd-kind-icon">create<wbr>AsFile<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/ddiagramsnapshotcreateasfileoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DDiagramSnapshotCreateAsFileOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.95.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L81">src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:81</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.98.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L143">src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:143</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2985,7 +2977,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.95.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L89">src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:89</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.98.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L151">src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:151</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2996,7 +2988,7 @@ img {
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5>size: <span class="tsd-signature-type">number</span></h5>
+								<h5>size: <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>a maximum image size</p>
 								</div>
@@ -3010,6 +3002,28 @@ img {
 						</ul>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 					</li>
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.98.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L158">src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:158</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Creates and downloads a snapshot.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>options: <a href="../interfaces/ddiagramsnapshotcreateasfileoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DDiagramSnapshotCreateAsFileOptions</a></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>options</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
@@ -3017,12 +3031,13 @@ img {
 				<h3>create<wbr>AsUrl</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
 					<li class="tsd-signature tsd-kind-icon">create<wbr>AsUrl<span class="tsd-signature-symbol">(</span>size<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></li>
+					<li class="tsd-signature tsd-kind-icon">create<wbr>AsUrl<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/ddiagramsnapshotcreateasurloptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DDiagramSnapshotCreateAsUrlOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.95.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L70">src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:70</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.98.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L107">src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:107</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3036,6 +3051,29 @@ img {
 								<h5><span class="tsd-flag ts-flagOptional">Optional</span> size: <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>a maximum image size</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h4>
+						<p>an URL of a created image or undefined</p>
+					</li>
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.98.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L115">src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:115</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Creates a snapshot.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>options: <a href="../interfaces/ddiagramsnapshotcreateasurloptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DDiagramSnapshotCreateAsUrlOptions</a></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>options</p>
 								</div>
 							</li>
 						</ul>
@@ -3373,6 +3411,78 @@ img {
 						</ul>
 						<h4 class="tsd-returns-title">Returns <a href="ddiagramsnapshot.html" class="tsd-signature-type" data-tsd-kind="Class">DDiagramSnapshot</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">CANVAS</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						<p><code>this</code>.</p>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+				<a name="tocleanupbackground" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> to<wbr>Cleanup<wbr>Background</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<li class="tsd-signature tsd-kind-icon">to<wbr>Cleanup<wbr>Background<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/ddiagramsnapshotcreateoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DDiagramSnapshotCreateOptions</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">CANVAS</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.98.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L209">src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:209</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/ddiagramsnapshotcreateoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DDiagramSnapshotCreateOptions</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">CANVAS</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+				<a name="tocleanupsnap" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> to<wbr>Cleanup<wbr>Snap</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<li class="tsd-signature tsd-kind-icon">to<wbr>Cleanup<wbr>Snap<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/ddiagramsnapshotcreateoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DDiagramSnapshotCreateOptions</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">CANVAS</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.98.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L198">src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:198</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/ddiagramsnapshotcreateoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DDiagramSnapshotCreateOptions</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">CANVAS</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+				<a name="toscale" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> to<wbr>Scale</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<li class="tsd-signature tsd-kind-icon">to<wbr>Scale<span class="tsd-signature-symbol">(</span>size<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span>, canvas<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CANVAS</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.98.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L191">src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:191</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>size: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
+							</li>
+							<li>
+								<h5>canvas: <span class="tsd-signature-type">CANVAS</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 					</li>
 				</ul>
 			</section>
