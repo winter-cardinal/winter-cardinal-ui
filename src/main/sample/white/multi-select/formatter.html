@@ -58,8 +58,8 @@
 				}]
 			},
 			on: {
-				change: function ( newValues, oldValues ) {
-					console.log( "change", newValues, oldValues );
+				change: function ( newValues, oldValues, items, select ) {
+					console.log( "change", newValues, oldValues, items, select );
 				}
 			}
 		});

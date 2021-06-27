@@ -88,15 +88,16 @@ export class DDropdownBase<
 		this.emit("select", value, item, this);
 	}
 
-	protected onMenuClose(): void {
-		const menu = this.menu;
-		const onMenuSelectBound = this._onMenuSelectBound;
-		if (onMenuSelectBound) {
-			menu.off("select", onMenuSelectBound);
-		}
-		const onMenuCloseBound = this._onMenuCloseBound;
-		if (onMenuCloseBound) {
-			menu.off("close", onMenuCloseBound);
+	protected onMenuClose(menu?: DMenu<VALUE>): void {
+		if (menu) {
+			const onMenuSelectBound = this._onMenuSelectBound;
+			if (onMenuSelectBound) {
+				menu.off("select", onMenuSelectBound);
+			}
+			const onMenuCloseBound = this._onMenuCloseBound;
+			if (onMenuCloseBound) {
+				menu.off("close", onMenuCloseBound);
+			}
 		}
 	}
 
@@ -130,6 +131,20 @@ export class DDropdownBase<
 			this._menu = result;
 		}
 		return result;
+	}
+
+	set menu(newMenu: DMenu<VALUE>) {
+		const oldMenu = this._menu;
+		if (oldMenu != newMenu) {
+			this._menu = newMenu;
+			this.onMenuReplaced(newMenu, oldMenu);
+		}
+	}
+
+	protected onMenuReplaced(newMenu: DMenu<VALUE>, oldMenu?: DMenu<VALUE>): void {
+		if (oldMenu != null) {
+			this.onMenuClose(oldMenu);
+		}
 	}
 
 	protected getType(): string {
@@ -182,7 +197,7 @@ export class DDropdownBase<
 			let onMenuCloseBound = this._onMenuCloseBound;
 			if (onMenuCloseBound == null) {
 				onMenuCloseBound = (): void => {
-					this.onMenuClose();
+					this.onMenuClose(this._menu);
 				};
 			}
 			menu.on("select", onMenuSelectBound);

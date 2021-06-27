@@ -1,22 +1,17 @@
-<!--
- Copyright (C) 2019 Toshiba Corporation
- SPDX-License-Identifier: Apache-2.0
--->
-
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Basics</title>
+	<title>Replacing a menu</title>
 	<style>
 	html, body {
 		width: 100%;
 		height: 100%;
 		margin: 0;
 		padding: 0;
-		background-color: #eeeeee;
+		background-color: #f2f2f2;
 	}
 	</style>
 </head>
@@ -30,34 +25,46 @@
 
 		var application = new wcardinal.ui.DApplication();
 
-		new wcardinal.ui.DDropdown({
+		new wcardinal.ui.DSelect({
 			parent: application.stage,
 			x: "center", y: "center",
 			width: 300,
-			text: {
-				value: "Pick a fruit"
-			},
 			menu: {
 				items: [{
-					value: "APPLE",
+					value: 0,
 					text: {
 						value: "Apple"
 					}
 				},{
-					value: "ORANGE",
+					value: 1,
 					text: {
 						value: "Orange"
 					}
 				},{
-					value: "PINEAPPLE",
+					value: 2,
 					text: {
 						value: "Pineapple"
 					}
 				}]
 			},
 			on: {
-				select: function( value, item, dropdown ) {
-					console.log( value, item, dropdown );
+				change: function ( newValue, oldValue, item, select ) {
+					console.log( "change", newValue, oldValue, item, select );
+
+					// Replace a menu
+					setTimeout(function() {
+						var menu = select.menu;
+						select.menu = new wcardinal.ui.DMenu({
+							fit: true,
+							items: [{
+								value: "MELON",
+								text: {
+									value: "Melon"
+								}
+							}]
+						});
+						menu.destroy();
+					},1000);
 				}
 			}
 		});

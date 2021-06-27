@@ -19,7 +19,7 @@ import { DOnOptions } from "./d-on-options";
  * {@link DSelectMultiple} events.
  */
 export interface DSelectMultipleEvents<VALUE, EMITTER>
-	extends DDropdownBaseEvents<VALUE, DMenuItem<VALUE> | null, EMITTER> {
+	extends DDropdownBaseEvents<VALUE, Array<DMenuItem<VALUE>>, EMITTER> {
 	/**
 	 * Triggered when the selection is changed.
 	 *
@@ -101,6 +101,18 @@ export class DSelectMultiple<
 			this.text = newItems;
 			this.onValueChange(newValues, oldValues, newItems);
 		}
+	}
+
+	protected onMenuReplaced(newMenu: DMenu<VALUE>, oldMenu?: DMenu<VALUE>): void {
+		super.onMenuReplaced(newMenu, oldMenu);
+
+		// Update the values
+		const values = this._values;
+		const newValues: VALUE[] = [];
+		const newItems: Array<DMenuItem<VALUE>> = [];
+		this.updateMenuItems(newMenu, values, undefined, undefined, newValues, newItems);
+		this._values = newValues;
+		this.text = newItems;
 	}
 
 	protected onValueChange(

@@ -95,6 +95,26 @@ export class DSelect<
 		}
 	}
 
+	protected onMenuReplaced(newMenu: DMenu<VALUE>, oldMenu?: DMenu<VALUE>): void {
+		super.onMenuReplaced(newMenu, oldMenu);
+
+		// Update the value
+		const value = this._value;
+		if (value != null) {
+			const item = this.findMenuItem(newMenu, value);
+			if (item != null) {
+				this._value = value;
+				this.text = item;
+			} else {
+				this._value = null;
+				this.text = null;
+			}
+		} else {
+			this._value = null;
+			this.text = null;
+		}
+	}
+
 	protected onValueChange(
 		newValue: VALUE | null,
 		oldValue: VALUE | null,
@@ -134,8 +154,13 @@ export class DSelect<
 	set value(value: VALUE | null) {
 		if (this._value !== value) {
 			const item = this.findMenuItem(this.menu, value);
-			this._value = value;
-			this.text = item;
+			if (item != null) {
+				this._value = value;
+				this.text = item;
+			} else {
+				this._value = null;
+				this.text = null;
+			}
 		}
 	}
 

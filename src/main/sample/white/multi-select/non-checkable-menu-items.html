@@ -1,22 +1,17 @@
-<!--
- Copyright (C) 2019 Toshiba Corporation
- SPDX-License-Identifier: Apache-2.0
--->
-
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Basics</title>
+	<title>Non-checkable menu items</title>
 	<style>
 	html, body {
 		width: 100%;
 		height: 100%;
 		margin: 0;
 		padding: 0;
-		background-color: #eeeeee;
+		background-color: #f2f2f2;
 	}
 	</style>
 </head>
@@ -30,34 +25,50 @@
 
 		var application = new wcardinal.ui.DApplication();
 
-		new wcardinal.ui.DDropdown({
+		new wcardinal.ui.DSelectMultiple({
 			parent: application.stage,
 			x: "center", y: "center",
 			width: 300,
-			text: {
-				value: "Pick a fruit"
-			},
 			menu: {
 				items: [{
-					value: "APPLE",
+					value: 0,
 					text: {
 						value: "Apple"
-					}
+					},
+					check: true
 				},{
-					value: "ORANGE",
+					value: 1,
 					text: {
 						value: "Orange"
-					}
+					},
+					check: true
 				},{
-					value: "PINEAPPLE",
+					value: 2,
 					text: {
 						value: "Pineapple"
+					},
+					check: true
+				},{
+					separator: true
+				},{
+					value: 10,
+					text: {
+						value: "Menu 1"
+					}
+				},{
+					value: 11,
+					text: {
+						value: "Menu 2"
 					}
 				}]
 			},
 			on: {
-				select: function( value, item, dropdown ) {
-					console.log( value, item, dropdown );
+				select: function ( value, item, select ) {
+					console.log( "select", value, item, select );
+				},
+
+				change: function ( newValues, oldValues, items, select ) {
+					console.log( "change", newValues, oldValues, items, select );
 				}
 			}
 		});

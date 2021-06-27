@@ -48,8 +48,8 @@
 				}]
 			},
 			on: {
-				change: function ( newValue, oldValue ) {
-					console.log( "change", newValue, oldValue );
+				change: function ( newValue, oldValue, item, select ) {
+					console.log( "change", newValue, oldValue, item, select );
 				}
 			}
 		});

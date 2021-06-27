@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Menu</title>
+	<title>Replacing a menu</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -45,30 +45,42 @@
 				},{
 					value: 2,
 					text: {
-						value: "Pineapple"
+						value: "Strawberry"
 					},
 					check: true
 				},{
-					separator: true
-				},{
-					value: 10,
+					value: 3,
 					text: {
-						value: "Menu 1"
-					}
-				},{
-					value: 11,
-					text: {
-						value: "Menu 2"
-					}
+						value: "Pineapple"
+					},
+					check: true
 				}]
 			},
 			on: {
-				select: function ( value, item ) {
-					console.log( "select", value, item );
-				},
+				change: function ( newValues, oldValues, items, select ) {
+					console.log( "change", newValues, oldValues, items, select );
 
-				change: function ( newValues, oldValues ) {
-					console.log( "change", newValues, oldValues );
+					// Replace a menu
+					setTimeout(function() {
+						var menu = select.menu;
+						select.menu = new wcardinal.ui.DMenu({
+							fit: true,
+							items: [{
+								value: "MELON",
+								text: {
+									value: "Melon"
+								},
+								check: true,
+							}, {
+								value: "BERRY",
+								text: {
+									value: "Berry"
+								},
+								check: true
+							}]
+						});
+						menu.destroy();
+					},1000);
 				}
 			}
 		});

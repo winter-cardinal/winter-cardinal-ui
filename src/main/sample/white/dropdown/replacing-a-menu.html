@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Basics</title>
+	<title>Replacing a menu</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -58,6 +58,21 @@
 			on: {
 				select: function( value, item, dropdown ) {
 					console.log( value, item, dropdown );
+
+					// Replace a menu
+					setTimeout(function() {
+						var menu = dropdown.menu;
+						dropdown.menu = new wcardinal.ui.DMenu({
+							fit: true,
+							items: [{
+								value: "MELON",
+								text: {
+									value: "Melon"
+								}
+							}]
+						});
+						menu.destroy();
+					},1000);
 				}
 			}
 		});
