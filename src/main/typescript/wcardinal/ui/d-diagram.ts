@@ -234,22 +234,18 @@ export class DDiagram<
 	}
 
 	protected onDown(e: interaction.InteractionEvent): void {
-		const canvas = this.canvas;
-		if (canvas && canvas.onShapeDown(e)) {
-			return;
-		}
-		super.onDown(e);
+		super.onDown(e, this.canvas?.onShapeDown(e));
 	}
 
 	onDblClick(
 		e: MouseEvent | TouchEvent,
 		interactionManager: interaction.InteractionManager
 	): boolean {
-		const canvas = this.canvas;
-		if (canvas && canvas.onShapeDblClick(e, interactionManager)) {
-			return true;
-		}
-		return super.onDblClick(e, interactionManager);
+		return super.onDblClick(
+			e,
+			interactionManager,
+			this.canvas?.onShapeDblClick(e, interactionManager)
+		);
 	}
 
 	render(renderer: Renderer): void {

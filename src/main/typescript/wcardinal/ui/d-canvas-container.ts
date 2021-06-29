@@ -167,15 +167,22 @@ export class DCanvasContainer<
 
 	onDblClick(
 		e: MouseEvent | TouchEvent,
-		interactionManager: interaction.InteractionManager
+		interactionManager: interaction.InteractionManager,
+		skipView?: boolean
 	): boolean {
-		const vresult = this._view.onDblClick(e, interactionManager);
-		const sresult = super.onDblClick(e, interactionManager);
-		return vresult || sresult;
+		if (skipView !== true) {
+			const vresult = this._view.onDblClick(e, interactionManager);
+			const sresult = super.onDblClick(e, interactionManager);
+			return vresult || sresult;
+		} else {
+			return super.onDblClick(e, interactionManager);
+		}
 	}
 
-	protected onDown(e: interaction.InteractionEvent): void {
-		this._view.onDown(e);
+	protected onDown(e: interaction.InteractionEvent, skipView?: boolean): void {
+		if (skipView !== true) {
+			this._view.onDown(e);
+		}
 		super.onDown(e);
 	}
 
