@@ -234,7 +234,7 @@ export class DDiagramCanvasEditorSnap {
 					const style = ix % interval === 0 ? major : minor;
 					this.update(container, shapes, index, x, hh, TOP, w, h, style);
 				}
-				for (let y = size, iy = 1; y < w; y += size, iy += 1, index += 1) {
+				for (let y = size, iy = 1; y < h; y += size, iy += 1, index += 1) {
 					const style = iy % interval === 0 ? major : minor;
 					this.update(container, shapes, index, wh, y, LEFT, w, h, style);
 				}
