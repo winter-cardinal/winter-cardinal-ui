@@ -20,22 +20,33 @@ import { EShapeActionValueSubtyped } from "./e-shape-action-value-subtyped";
 import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
+export type EShapeActionValueMiscSubtype =
+	| EShapeActionValueMiscType.INPUT_TEXT
+	| EShapeActionValueMiscType.INPUT_INTEGER
+	| EShapeActionValueMiscType.INPUT_REAL
+	| EShapeActionValueMiscType.EMIT_EVENT
+	| EShapeActionValueMiscType.WRITE_BOTH
+	| EShapeActionValueMiscType.WRITE_LOCAL
+	| EShapeActionValueMiscType.WRITE_REMOTE
+	| EShapeActionValueMiscType.HTML_ELEMENT
+	| EShapeActionValueMiscType.HTML_ELEMENT_WITHOUT_POINTER_EVENTS;
+
 export type EShapeActionValueMiscSerialized = [
 	EShapeActionValueType.MISC,
 	number,
-	EShapeActionValueMiscType,
+	EShapeActionValueMiscSubtype,
 	number,
 	EShapeActionValueOnInputAction,
 	number
 ];
 
-export class EShapeActionValueMisc extends EShapeActionValueSubtyped<EShapeActionValueMiscType> {
+export class EShapeActionValueMisc extends EShapeActionValueSubtyped<EShapeActionValueMiscSubtype> {
 	readonly target: string;
 	readonly onInputAction: EShapeActionValueOnInputAction;
 	readonly value: string;
 
 	constructor(
-		subtype: EShapeActionValueMiscType,
+		subtype: EShapeActionValueMiscSubtype,
 		condition: string,
 		target: string,
 		onInputAction: EShapeActionValueOnInputAction,

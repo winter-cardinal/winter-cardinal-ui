@@ -9,28 +9,23 @@ import { EShape } from "../e-shape";
 import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
 import { EShapeStateSet } from "../e-shape-state-set";
 
-export class EShapeButtonRuntimeActionAfterToggle extends EShapeActionRuntime {
-	protected readonly _fillColorActive: number;
-	protected readonly _fillColorActivePressed: number;
-	protected readonly _fillColorActiveHovered: number;
+export class EShapeButtonRuntimeAction extends EShapeActionRuntime {
 	protected readonly _fillColor: number;
+	protected readonly _fillColorDisabled: number;
 	protected readonly _fillColorPressed: number;
 	protected readonly _fillColorHovered: number;
 
 	protected readonly _fillAlpha: number;
 	protected readonly _fillAlphaDisabled: number;
 
-	protected readonly _strokeColorActive: number;
-	protected readonly _strokeColorActivePressed: number;
-	protected readonly _strokeColorActiveHovered: number;
 	protected readonly _strokeColor: number;
+	protected readonly _strokeColorDisabled: number;
 	protected readonly _strokeColorPressed: number;
-	protected readonly _strokeColorGrayscaleHovered: number;
+	protected readonly _strokeColorHovered: number;
 
 	protected readonly _strokeAlpha: number;
 	protected readonly _strokeAlphaDisabled: number;
 
-	protected readonly _textColorActive: number;
 	protected readonly _textColor: number;
 	protected readonly _textColorDisabled: number;
 
@@ -51,16 +46,11 @@ export class EShapeButtonRuntimeActionAfterToggle extends EShapeActionRuntime {
 		);
 
 		const fill = runtime.fill;
-		const fillColorActive = fill.color;
-		this._fillColorActive = fillColorActive;
-		const fillColorActiveOnHovered = this.toOnHovered(fillColorActive);
-		const fillColorActiveOnPressed = fillColorActiveOnHovered * 2;
-		this._fillColorActivePressed = UtilRgb.darken(fillColorActive, fillColorActiveOnPressed);
-		this._fillColorActiveHovered = UtilRgb.darken(fillColorActive, fillColorActiveOnHovered);
-		const fillColor = 0xe7e5e7;
-		this._fillColor = fillColor;
+		const fillColor = fill.color;
 		const fillColorOnHovered = this.toOnHovered(fillColor);
 		const fillColorOnPressed = fillColorOnHovered * 2;
+		this._fillColor = fillColor;
+		this._fillColorDisabled = UtilRgb.toGrayscale(fillColor);
 		this._fillColorPressed = UtilRgb.darken(fillColor, fillColorOnPressed);
 		this._fillColorHovered = UtilRgb.darken(fillColor, fillColorOnHovered);
 
@@ -69,24 +59,13 @@ export class EShapeButtonRuntimeActionAfterToggle extends EShapeActionRuntime {
 		this._fillAlphaDisabled = fillAlpha * 0.5;
 
 		const stroke = runtime.stroke;
-		const strokeColorActive = stroke.color;
-		this._strokeColorActive = strokeColorActive;
-		const strokeColorActiveOnHovered = this.toOnHovered(strokeColorActive);
-		const strokeColorActiveOnPressed = strokeColorActiveOnHovered * 2;
-		this._strokeColorActivePressed = UtilRgb.darken(
-			strokeColorActive,
-			strokeColorActiveOnPressed
-		);
-		this._strokeColorActiveHovered = UtilRgb.darken(
-			strokeColorActive,
-			strokeColorActiveOnHovered
-		);
-		const strokeColor = 0xe7e5e7;
-		this._strokeColor = strokeColor;
+		const strokeColor = stroke.color;
 		const strokeColorOnHovered = this.toOnHovered(strokeColor);
 		const strokeColorOnPressed = strokeColorOnHovered * 2;
+		this._strokeColor = strokeColor;
+		this._strokeColorDisabled = UtilRgb.toGrayscale(strokeColor);
 		this._strokeColorPressed = UtilRgb.darken(strokeColor, strokeColorOnPressed);
-		this._strokeColorGrayscaleHovered = UtilRgb.darken(strokeColor, strokeColorOnHovered);
+		this._strokeColorHovered = UtilRgb.darken(strokeColor, strokeColorOnHovered);
 
 		const strokeAlpha = stroke.alpha;
 		this._strokeAlpha = strokeAlpha;
@@ -94,9 +73,8 @@ export class EShapeButtonRuntimeActionAfterToggle extends EShapeActionRuntime {
 
 		const text = runtime.text;
 		const textColor = text.color;
-		this._textColorActive = textColor;
+		this._textColor = textColor;
 		this._textColorDisabled = UtilRgb.toGrayscale(textColor);
-		this._textColor = 0x4f4f4f;
 
 		const textAlpha = text.alpha;
 		this._textAlpha = textAlpha;
@@ -139,23 +117,13 @@ export class EShapeButtonRuntimeActionAfterToggle extends EShapeActionRuntime {
 
 	protected getFillColor(state: EShapeStateSet): number {
 		if (state.inDisabled) {
-			return this._fillColor;
-		} else if (state.isActive) {
-			if (state.isPressed) {
-				return this._fillColorActivePressed;
-			} else if (state.isFocused || state.isHovered) {
-				return this._fillColorActiveHovered;
-			} else {
-				return this._fillColorActive;
-			}
+			return this._fillColorDisabled;
+		} else if (state.isPressed || state.isActive) {
+			return this._fillColorPressed;
+		} else if (state.isFocused || state.isHovered) {
+			return this._fillColorHovered;
 		} else {
-			if (state.isPressed) {
-				return this._fillColorPressed;
-			} else if (state.isFocused || state.isHovered) {
-				return this._fillColorHovered;
-			} else {
-				return this._fillColor;
-			}
+			return this._fillColor;
 		}
 	}
 
@@ -169,23 +137,13 @@ export class EShapeButtonRuntimeActionAfterToggle extends EShapeActionRuntime {
 
 	protected getStrokeColor(state: EShapeStateSet): number {
 		if (state.inDisabled) {
-			return this._strokeColor;
-		} else if (state.isActive) {
-			if (state.isPressed) {
-				return this._strokeColorActivePressed;
-			} else if (state.isFocused || state.isHovered) {
-				return this._strokeColorActiveHovered;
-			} else {
-				return this._strokeColorActive;
-			}
+			return this._strokeColorDisabled;
+		} else if (state.isPressed || state.isActive) {
+			return this._strokeColorPressed;
+		} else if (state.isFocused || state.isHovered) {
+			return this._strokeColorHovered;
 		} else {
-			if (state.isPressed) {
-				return this._strokeColorPressed;
-			} else if (state.isFocused || state.isHovered) {
-				return this._strokeColorGrayscaleHovered;
-			} else {
-				return this._strokeColor;
-			}
+			return this._strokeColor;
 		}
 	}
 
@@ -200,8 +158,6 @@ export class EShapeButtonRuntimeActionAfterToggle extends EShapeActionRuntime {
 	protected getTextColor(state: EShapeStateSet): number {
 		if (state.inDisabled) {
 			return this._textColorDisabled;
-		} else if (state.isActive) {
-			return this._textColorActive;
 		} else {
 			return this._textColor;
 		}

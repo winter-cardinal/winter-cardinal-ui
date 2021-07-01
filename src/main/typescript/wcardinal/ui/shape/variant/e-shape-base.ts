@@ -350,6 +350,11 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		return EShapeGradients.toGradientId(this.gradient, manager);
 	}
 
+	serializeState(manager: EShapeResourceManagerSerialization): number {
+		const state = this.state;
+		return (this.interactive ? 1 : 0) | (state.isFocusable ? 0 : 2) | (state.isActive ? 4 : 0);
+	}
+
 	serialize(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem {
 		const transform = this.transform;
 		const position = transform.position;
@@ -383,7 +388,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 			this.serializeChildren(manager),
 			pivot.x,
 			pivot.y,
-			(this.interactive ? 1 : 0) | (this.state.isFocusable ? 0 : 2),
+			this.serializeState(manager),
 			shortcutId,
 			titleId,
 			this.uuid

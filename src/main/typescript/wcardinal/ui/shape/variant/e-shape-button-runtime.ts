@@ -3,42 +3,80 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EShapeActionRuntime } from "../action/e-shape-action-runtime";
+import { interaction } from "pixi.js";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { EShape } from "../e-shape";
 import { EShapeRuntime } from "../e-shape-runtime";
+import { EShapeState } from "../e-shape-state";
 import { EShapeButton } from "./e-shape-button";
-import { EShapeButtonRuntimeActionAfter } from "./e-shape-button-runtime-action-after";
-import { EShapeButtonRuntimeActionAfterToggle } from "./e-shape-button-runtime-action-after-toggle";
-import { EShapeButtonRuntimeActionBefore } from "./e-shape-button-runtime-action-before";
-import { EShapeButtonRuntimeActionBeforeToggle } from "./e-shape-button-runtime-action-before-toggle";
+import { EShapeButtonRuntimeAction } from "./e-shape-button-runtime-action";
+import { EShapeButtonRuntimeActionToggle } from "./e-shape-button-runtime-action-toggle";
 
 export class EShapeButtonRuntime extends EShapeRuntime {
-	protected static BEFORE_TOGGLE?: EShapeButtonRuntimeActionBeforeToggle;
-	protected static BEFORE?: EShapeButtonRuntimeActionBefore;
+	protected _isToggle?: boolean;
+	protected _isGrouped?: boolean;
 
 	constructor(shape: EShape) {
 		super(shape);
 		if (shape instanceof EShapeButton) {
-			const isToggle = shape.isToggle;
-			const actions = this.actions;
-			actions.unshift(this.newActionBefore(isToggle));
-			actions.push(this.newActionAfter(isToggle));
+			this._isToggle = shape.isToggle;
+			this._isGrouped = shape.isGrouped;
 		}
 	}
 
-	protected newActionBefore(isToggle: boolean): EShapeActionRuntime {
-		if (isToggle) {
-			return (EShapeButtonRuntime.BEFORE_TOGGLE ??= new EShapeButtonRuntimeActionBeforeToggle());
-		} else {
-			return (EShapeButtonRuntime.BEFORE ??= new EShapeButtonRuntimeActionBefore());
+	isActionable(): boolean {
+		return true;
+	}
+
+	initialize(shape: EShape): void {
+		this.actions.push(
+			this._isToggle
+				? new EShapeButtonRuntimeActionToggle(this)
+				: new EShapeButtonRuntimeAction(this)
+		);
+		super.initialize(shape);
+	}
+
+	onClick(shape: EShape, e: interaction.InteractionEvent | KeyboardEvent): void {
+		const state = shape.state;
+		const wasClicked = state.isClicked;
+		state.lock();
+		super.onClick(shape, e);
+		if (!wasClicked && state.isClicked) {
+			if (this._isToggle) {
+				state.isActive = !state.isActive;
+			} else {
+				if (!state.isActive) {
+					state.isActivated = true;
+				}
+			}
+		}
+		state.unlock();
+	}
+
+	onStateChange(shape: EShape, newState: DBaseStateSet, oldState: DBaseStateSet): void {
+		super.onStateChange(shape, newState, oldState);
+		if (this._isToggle && this._isGrouped && newState.is(EShapeState.ACTIVATED)) {
+			this.onActivated(shape);
 		}
 	}
 
-	protected newActionAfter(isToggle: boolean): EShapeActionRuntime {
-		if (isToggle) {
-			return new EShapeButtonRuntimeActionAfterToggle(this);
-		} else {
-			return new EShapeButtonRuntimeActionAfter(this);
+	protected onActivated(shape: EShape): void {
+		// Deactivate other group buttons
+		const parent = shape.parent;
+		if (parent != null) {
+			const children = parent.children;
+			for (let i = 0, imax = children.length; i < imax; ++i) {
+				const child = children[i];
+				if (
+					child !== shape &&
+					child instanceof EShapeButton &&
+					child.isToggle &&
+					child.isGrouped
+				) {
+					child.state.isActive = false;
+				}
+			}
 		}
 	}
 }

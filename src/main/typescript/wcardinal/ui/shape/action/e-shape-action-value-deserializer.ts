@@ -44,6 +44,11 @@ import {
 	EShapeActionValueMiscSerialized
 } from "./e-shape-action-value-misc";
 import {
+	EShapeActionValueMiscLayerBinding,
+	EShapeActionValueMiscLayerBindingSerialized
+} from "./e-shape-action-value-misc-layer-binding";
+import { EShapeActionValueMiscType } from "./e-shape-action-value-misc-type";
+import {
 	EShapeActionValueOpen,
 	EShapeActionValueOpenSerialized
 } from "./e-shape-action-value-open";
@@ -84,7 +89,8 @@ export type EShapeActionValueSerialized =
 	| EShapeActionValueTransformMoveSerialized
 	| EShapeActionValueTransformResizeSerialized
 	| EShapeActionValueTransformRotateSerialized
-	| EShapeActionValueMiscSerialized;
+	| EShapeActionValueMiscSerialized
+	| EShapeActionValueMiscLayerBindingSerialized;
 
 export class EShapeActionValueDeserializer {
 	static toSerialized(resource: string): EShapeActionValueSerialized | null {
@@ -175,7 +181,15 @@ export class EShapeActionValueDeserializer {
 						}
 						break;
 					case EShapeActionValueType.MISC:
-						return EShapeActionValueMisc.deserialize(serialized, manager);
+						switch (serialized[2]) {
+							case EShapeActionValueMiscType.LAYER_BINDING:
+								return EShapeActionValueMiscLayerBinding.deserialize(
+									serialized,
+									manager
+								);
+							default:
+								return EShapeActionValueMisc.deserialize(serialized, manager);
+						}
 				}
 			}
 		}

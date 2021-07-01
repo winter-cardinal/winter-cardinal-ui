@@ -203,6 +203,7 @@ export * from "./d-diagram-editor-thumbnail";
 export * from "./d-diagram-editor";
 export * from "./d-diagram-layer-container";
 export * from "./d-diagram-layer";
+export * from "./d-diagram-layers";
 export * from "./d-diagram-serialized";
 export * from "./d-diagram-shape";
 export * from "./d-diagram-snapshot";

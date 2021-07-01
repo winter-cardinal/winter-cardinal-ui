@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DBaseStateSet } from "../d-base-state-set";
 import { DBaseStateSetImplObservable } from "../d-base-state-set-impl-observable";
 import { EShapeState } from "./e-shape-state";
 import { EShapeStateSet } from "./e-shape-state-set";
@@ -10,6 +11,19 @@ import { EShapeStateSet } from "./e-shape-state-set";
 export class EShapeStateSetImplObservable
 	extends DBaseStateSetImplObservable
 	implements EShapeStateSet {
+	protected onChange(newState: DBaseStateSet, oldState: DBaseStateSet): void {
+		if (newState.isActive) {
+			if (!oldState.isActive) {
+				this._local.add(EShapeState.ACTIVATED).delete(EShapeState.DEACTIVATED);
+			}
+		} else {
+			if (oldState.isActive) {
+				this._local.add(EShapeState.DEACTIVATED).delete(EShapeState.ACTIVATED);
+			}
+		}
+		super.onChange(newState, oldState);
+	}
+
 	get isClicked(): boolean {
 		return this.is(EShapeState.CLICKED);
 	}

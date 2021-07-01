@@ -10,7 +10,7 @@ import { DDiagramSerializedItem, DDiagramSerializedLayer } from "./d-diagram-ser
 import { EShapeResourceManagerSerialization } from "./shape/e-shape-resource-manager-serialization";
 
 export class DDiagramLayerContainer extends Container {
-	public children!: DDiagramLayer[];
+	declare children: DDiagramLayer[];
 	protected _active: DDiagramLayer | null;
 
 	constructor() {
@@ -23,8 +23,9 @@ export class DDiagramLayerContainer extends Container {
 	init(): void {
 		if (this._active == null) {
 			const children = this.children;
-			if (0 < children.length) {
-				this._active = children[0];
+			const childrenLength = children.length;
+			if (0 < childrenLength) {
+				this._active = children[childrenLength - 1];
 			}
 		}
 	}
@@ -36,7 +37,7 @@ export class DDiagramLayerContainer extends Container {
 	set active(layer: DDiagramLayer | null) {
 		if (this._active !== layer && (layer == null || 0 <= this.children.indexOf(layer))) {
 			this._active = layer;
-			this.emit("change", this);
+			this.onLayerChange();
 		}
 	}
 
@@ -57,7 +58,7 @@ export class DDiagramLayerContainer extends Container {
 		if (activate === true) {
 			this._active = layer;
 		}
-		this.emit("change", this);
+		this.onLayerChange();
 		DApplications.update(this);
 	}
 
@@ -66,7 +67,7 @@ export class DDiagramLayerContainer extends Container {
 		if (activate === true) {
 			this._active = layer;
 		}
-		this.emit("change", this);
+		this.onLayerChange();
 		DApplications.update(this);
 	}
 
@@ -85,7 +86,7 @@ export class DDiagramLayerContainer extends Container {
 			children.splice(index, 1);
 			(layer as any).parent = undefined;
 
-			this.emit("change", this);
+			this.onLayerChange();
 			DApplications.update(this);
 		}
 	}
@@ -118,7 +119,7 @@ export class DDiagramLayerContainer extends Container {
 				}
 			}
 
-			this.emit("change", this);
+			this.onLayerChange();
 			DApplications.update(this);
 		}
 		return index;
@@ -141,8 +142,7 @@ export class DDiagramLayerContainer extends Container {
 				child.destroy();
 			}
 			children.length = 0;
-
-			this.emit("change", this);
+			this.onLayerChange();
 			DApplications.update(this);
 		}
 	}
@@ -156,6 +156,10 @@ export class DDiagramLayerContainer extends Container {
 
 	size(): number {
 		return this.children.length;
+	}
+
+	protected onLayerChange(): void {
+		this.emit("change", this);
 	}
 
 	serialize(

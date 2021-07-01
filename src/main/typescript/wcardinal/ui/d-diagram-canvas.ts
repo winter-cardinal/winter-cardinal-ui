@@ -101,23 +101,28 @@ export class DDiagramCanvas<
 				}
 			}
 
-			// Interactives
 			const runtime = shape.runtime;
-			if (shape.interactive || 0 < shape.cursor.length || (runtime && runtime.interactive)) {
-				interactives.push(shape);
-			}
+			if (runtime) {
+				// Interactives
+				if (shape.interactive || 0 < shape.cursor.length || runtime.interactive) {
+					interactives.push(shape);
+				}
 
-			// Actionables
-			if (runtime && 0 < runtime.actions.length) {
-				actionables.push(shape);
-			}
+				// Actionables
+				if (runtime.isActionable()) {
+					actionables.push(shape);
+				}
 
-			// Shortcuts
-			const shortcut = shape.shortcut;
-			if (runtime && shortcut != null) {
-				UtilKeyboardEvent.on(this, shortcut, (e: KeyboardEvent): void => {
-					runtime.onClick(shape, e);
-				});
+				// Shortcuts
+				const shortcut = shape.shortcut;
+				if (shortcut != null) {
+					UtilKeyboardEvent.on(this, shortcut, (e: KeyboardEvent): void => {
+						runtime.onClick(shape, e);
+					});
+				}
+
+				// Runtime
+				runtime.initialize(shape);
 			}
 
 			// Children

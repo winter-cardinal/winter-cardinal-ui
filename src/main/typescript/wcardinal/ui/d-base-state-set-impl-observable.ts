@@ -61,9 +61,13 @@ export class DBaseStateSetImplObservable extends DBaseStateSetImpl {
 			this._doSave = true;
 			if (this._isSaved) {
 				this._isSaved = false;
-				this._onChange(this, this.saved);
+				this.onChange(this, this.saved);
 			}
 		}
 		return this;
+	}
+
+	protected onChange(newState: DBaseStateSet, oldState: DBaseStateSet): void {
+		this._onChange(newState, oldState);
 	}
 }

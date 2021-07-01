@@ -1,6 +1,13 @@
-import { EShape } from "./e-shape";
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-export interface EShapeLayerContainer {
-	children: EShape[];
+import { DApplicationTarget } from "../d-application-like";
+import { EShape } from "./e-shape";
+import { EShapeLayer } from "./e-shape-layer";
+
+export interface EShapeLayerContainer extends DApplicationTarget {
+	children: EShapeLayer[];
 	create(name: string): EShape;
 }

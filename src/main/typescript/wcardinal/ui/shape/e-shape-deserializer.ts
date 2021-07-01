@@ -44,11 +44,17 @@ export class EShapeDeserializer {
 		result.tag.deserialize(item[12], manager);
 		result.radius = item[13];
 		result.corner = item[14];
-		result.interactive = !!(item[23] & 1);
-		result.state.isFocusable = !(item[23] & 2);
-		result.shortcut = 0 <= item[24] ? manager.resources[item[24]] : undefined;
-		result.title = 0 <= item[25] ? manager.resources[item[25]] : undefined;
-		result.uuid = item[26] != null ? item[26] : 0;
+		const item23 = item[23];
+		result.interactive = !!(item23 & 1);
+		const state = result.state;
+		state.isFocusable = !(item23 & 2);
+		state.isActive = !!(item23 & 4);
+		const item24 = item[24];
+		result.shortcut = 0 <= item24 ? manager.resources[item24] : undefined;
+		const item25 = item[25];
+		result.title = 0 <= item25 ? manager.resources[item25] : undefined;
+		const item26 = item[26];
+		result.uuid = item26 != null ? item26 : 0;
 
 		// Children
 		let childrenPromise: Promise<SHAPE> | null = null;

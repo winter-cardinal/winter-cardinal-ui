@@ -21,7 +21,8 @@ export const deserializeButton = (
 			manager.setExtension(resourceId, parsed);
 		}
 		const shape = new EShapeButton();
-		shape.isToggle = !!parsed[0];
+		shape.isToggle = !!(parsed[0] & 1);
+		shape.isGrouped = !!(parsed[0] & 2);
 		return EShapeDeserializer.deserialize(item, manager, shape);
 	}
 	return EShapeDeserializer.deserialize(item, manager, new EShapeButton());

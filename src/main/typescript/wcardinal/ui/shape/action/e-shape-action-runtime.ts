@@ -18,6 +18,10 @@ export class EShapeActionRuntime {
 		this.reset = reset || EShapeRuntimeReset.NONE;
 	}
 
+	initialize(shape: EShape, runtime: EShapeRuntime): void {
+		// OVERRIDE THIS
+	}
+
 	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {
 		// OVERRIDE THIS
 	}
