@@ -14,7 +14,7 @@ export class ESnapperGrid extends utils.EventEmitter {
 
 	constructor() {
 		super();
-		this._isVisible = false;
+		this._isVisible = true;
 		this._isEnabled = true;
 		this._size = 10;
 	}
