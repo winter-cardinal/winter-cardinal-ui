@@ -70,6 +70,7 @@ export class UtilDrag {
 	protected _down: string;
 	protected _move: string;
 	protected _up: string;
+	protected _cancel: string;
 	protected _easing?: UtilDragEasing;
 	protected _modifier: DMouseModifier;
 	protected _checker: { start: UtilDragChecker; move: UtilDragChecker };
@@ -78,6 +79,7 @@ export class UtilDrag {
 	protected _scale: number;
 	protected _scalingCenter: Point;
 	protected _time: number;
+	protected _pointers: Map<number, PointerEvent>;
 
 	constructor(options: UtilDragOptions) {
 		const target = options.target;
@@ -95,6 +97,7 @@ export class UtilDrag {
 		this._scale = 1;
 		this._scalingCenter = new Point();
 		this._time = 0;
+		this._pointers = new Map<number, PointerEvent>();
 
 		const easing = options.easing;
 		if (easing == null || easing !== false) {
@@ -120,10 +123,12 @@ export class UtilDrag {
 			this._down = "touchstart";
 			this._move = "touchmove";
 			this._up = "touchend";
+			this._cancel = "touchcancel";
 		} else {
 			this._down = UtilPointerEvent.down;
 			this._move = UtilPointerEvent.move;
 			this._up = UtilPointerEvent.up;
+			this._cancel = UtilPointerEvent.cancel;
 		}
 
 		if (options.bind !== false) {
@@ -137,16 +142,14 @@ export class UtilDrag {
 		interactionManager: InteractionManager
 	): number {
 		const oe = e.data.originalEvent;
-		const global = e.data.global;
 		if ("touches" in oe) {
 			const touches = oe.touches;
 			const touchesLength = touches.length;
 			if (0 < touchesLength) {
 				// Update the center
-				const first = touches[0];
-				let centerX = first.clientX;
-				let centerY = first.clientY;
-				for (let i = 1, imax = touches.length; i < imax; ++i) {
+				let centerX = 0;
+				let centerY = 0;
+				for (let i = 0, imax = touches.length; i < imax; ++i) {
 					const touch = touches[i];
 					centerX += touch.clientX;
 					centerY += touch.clientY;
@@ -165,12 +168,46 @@ export class UtilDrag {
 						squareDistance = Math.max(squareDistance, dx * dx + dy * dy);
 					}
 					return Math.sqrt(squareDistance);
-				} else {
-					return 0;
 				}
 			}
+			return 0;
+		} else if ("pointerId" in oe) {
+			const pointerId = oe.pointerId;
+			const pointers = this._pointers;
+			if (oe.type === "pointerdown" || oe.type === "pointermove") {
+				pointers.set(pointerId, oe);
+			} else {
+				pointers.delete(pointerId);
+			}
+
+			const pointersSize = pointers.size;
+			if (0 < pointersSize) {
+				// Update the center
+				let centerX = 0;
+				let centerY = 0;
+				pointers.forEach((pointer): void => {
+					centerX += pointer.clientX;
+					centerY += pointer.clientY;
+				});
+				centerX /= pointersSize;
+				centerY /= pointersSize;
+				interactionManager.mapPositionToPoint(center, centerX, centerY);
+
+				if (1 < pointersSize) {
+					// Calculate the maximum distance from the center
+					let squareDistance = 0;
+					pointers.forEach((pointer): void => {
+						const dx = pointer.clientX - centerX;
+						const dy = pointer.clientY - centerY;
+						squareDistance = Math.max(squareDistance, dx * dx + dy * dy);
+					});
+					return Math.sqrt(squareDistance);
+				}
+			}
+			return 0;
+		} else {
+			center.copyFrom(e.data.global);
 		}
-		center.copyFrom(global);
 		return 0;
 	}
 
@@ -216,6 +253,7 @@ export class UtilDrag {
 					// Event handler
 					interactionManager.on(this._move, this._onMoveBound);
 					interactionManager.on(this._up, this._onEndBound);
+					interactionManager.on(this._cancel, this._onEndBound);
 				}
 			}
 		}
@@ -241,7 +279,8 @@ export class UtilDrag {
 				const dx = center.x - centerX;
 				const dy = center.y - centerY;
 				const dt = newTime - oldTime;
-				const ds = UtilDrag.EPSILON < oldScale ? newScale / oldScale : 1;
+				const epsilon = UtilDrag.EPSILON;
+				const ds = epsilon < oldScale && epsilon < newScale ? newScale / oldScale : 1;
 
 				// Easing util
 				const easing = this._easing;
@@ -272,13 +311,22 @@ export class UtilDrag {
 
 				// Finalize
 				const oe = e.data.originalEvent;
-				if ("touches" in oe ? oe.touches.length <= 0 : true) {
+				let isEnd = false;
+				if ("touches" in oe) {
+					isEnd = oe.touches.length <= 0;
+				} else if ("pointerId" in oe) {
+					isEnd = this._pointers.size <= 0;
+				} else {
+					isEnd = true;
+				}
+				if (isEnd) {
 					target.state.isDragging = false;
 
 					// Event handler
 					this._interactionManager = null;
 					interactionManager.off(this._move, this._onMoveBound);
 					interactionManager.off(this._up, this._onEndBound);
+					interactionManager.off(this._cancel, this._onEndBound);
 
 					// User-defined handler
 					const onEnd = this._onEnd;
