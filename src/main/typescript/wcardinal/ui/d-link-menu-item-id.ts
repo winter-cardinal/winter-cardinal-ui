@@ -4,6 +4,7 @@
  */
 
 export enum DLinkMenuItemId {
+	OPEN_LINK,
 	OPEN_LINK_IN_NEW_WINDOW,
 	COPY_LINK_ADDRESS
 }

@@ -23,8 +23,14 @@ export class DThemeWhiteLinks {
 	static getLinkMenuOptions(): DMenuOptions<DLinkMenuItemId> {
 		return {
 			sticky: true,
-			align: "OVER",
+			align: "RIGHT",
 			items: [
+				{
+					value: DLinkMenuItemId.OPEN_LINK,
+					text: {
+						value: this.getOpenLink()
+					}
+				},
 				{
 					value: DLinkMenuItemId.OPEN_LINK_IN_NEW_WINDOW,
 					text: {
@@ -39,6 +45,10 @@ export class DThemeWhiteLinks {
 				}
 			]
 		};
+	}
+
+	protected static getOpenLink(): string {
+		return "Open";
 	}
 
 	protected static getOpenLinkInNewWindow(): string {

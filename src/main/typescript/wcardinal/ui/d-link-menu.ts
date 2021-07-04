@@ -80,6 +80,9 @@ export class DLinkMenu {
 	): void {
 		const parent = this._parent;
 		switch (value) {
+			case DLinkMenuItemId.OPEN_LINK:
+				parent.open(false);
+				break;
 			case DLinkMenuItemId.OPEN_LINK_IN_NEW_WINDOW:
 				parent.open(true);
 				break;

@@ -206,19 +206,21 @@ export class DLink {
 				onSelect(e);
 			}
 		};
-		if (this._target === DLinkTarget.NEW_WINDOW) {
+		if (this._target !== DLinkTarget.AUTO) {
 			UtilPointerEvent.onClick(base, onClick);
 		} else {
-			const menu = this._menu;
-			const onLongClick = (e: InteractionEvent): void => {
-				if (this._isEnabled && base.state.isActionable) {
-					menu.open(base);
+			UtilPointerEvent.onClick(base, (e: InteractionEvent, isSimulated: boolean): void => {
+				if (isSimulated) {
+					const menu = this._menu;
+					if (menu.enable) {
+						if (this._isEnabled && base.state.isActionable) {
+							menu.open(base);
+						}
+						return;
+					}
 				}
-			};
-			const isLongClickable = (e: InteractionEvent): boolean => {
-				return menu.enable;
-			};
-			UtilPointerEvent.onLongClick(base, onClick, onLongClick, isLongClickable);
+				onClick(e);
+			});
 		}
 	}
 }
