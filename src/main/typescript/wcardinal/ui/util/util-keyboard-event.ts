@@ -6,6 +6,7 @@
 import { DApplicationLayerLike } from "../d-application-layer-like";
 import { DApplications } from "../d-applications";
 import { DBase } from "../d-base";
+import { DBaseStateSet } from "../d-base-state-set";
 import { isString } from "./is-string";
 
 export interface UtilKeyboardEventLayerPicker {
@@ -19,6 +20,11 @@ export interface UtilKeyboardEventShortcut {
 	key: string;
 	which: number;
 	event?: string;
+}
+
+export interface UtilKeyboardEventShortcutTarget {
+	state: DBaseStateSet;
+	emit(eventName: string): void;
 }
 
 const setShortcutKeyAndWhich = (shortcut: UtilKeyboardEventShortcut): UtilKeyboardEventShortcut => {
@@ -242,7 +248,7 @@ export class UtilKeyboardEvent {
 	}
 
 	static on(
-		target: DBase<any, any>,
+		target: UtilKeyboardEventShortcutTarget,
 		expressionOrShortcut: string | UtilKeyboardEventShortcut,
 		handler?: (e: KeyboardEvent) => void
 	): void {

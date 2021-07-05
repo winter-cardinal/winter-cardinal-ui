@@ -48,7 +48,7 @@ export class DDiagramCanvasBase<
 		}
 
 		// Layer
-		const layer = new DDiagramLayerContainer();
+		const layer = new DDiagramLayerContainer(this.width, this.height);
 		this._layer = layer;
 		this.addChild(layer);
 
@@ -86,13 +86,15 @@ export class DDiagramCanvasBase<
 		}
 	}
 
-	hitTest(global: IPoint, handler?: (shape: EShape) => boolean): EShape | null {
+	hitTest(global: IPoint, onHit?: (shape: EShape) => boolean): EShape | null {
 		const layers = this._layer.children;
 		for (let i = layers.length - 1; 0 <= i; --i) {
 			const layer = layers[i];
-			const shape = layer.hitTest(global, handler);
-			if (shape != null) {
-				return shape;
+			if (layer.visible) {
+				const shape = layer.hitTest(global, onHit);
+				if (shape != null) {
+					return shape;
+				}
 			}
 		}
 		return null;

@@ -63,10 +63,7 @@ export class DDiagrams {
 		manager: EShapeResourceManagerDeserialization
 	): Promise<EShape[]> {
 		// Layers
-		const serializedLayers = serialized.layers;
-		for (let i = 0, imax = serializedLayers.length; i < imax; ++i) {
-			container.create(serializedLayers[i][0] || "");
-		}
+		container.deserialize(serialized.layers, manager);
 
 		// Items
 		const serializedItems = serialized.items;

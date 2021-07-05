@@ -84,7 +84,7 @@ export class DDiagram<
 		});
 
 		// Click handling
-		this.on("click", (e: interaction.InteractionEvent): void => {
+		UtilPointerEvent.onClick(this, (e: interaction.InteractionEvent): void => {
 			if (UtilPointerEvent.contains(this, e.target)) {
 				const canvas = this.canvas;
 				if (canvas) {

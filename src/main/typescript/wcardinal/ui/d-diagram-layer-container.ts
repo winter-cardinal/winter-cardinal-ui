@@ -7,15 +7,20 @@ import { Container } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DDiagramLayer } from "./d-diagram-layer";
 import { DDiagramSerializedItem, DDiagramSerializedLayer } from "./d-diagram-serialized";
+import { EShapeResourceManagerDeserialization } from "./shape";
 import { EShapeResourceManagerSerialization } from "./shape/e-shape-resource-manager-serialization";
 
 export class DDiagramLayerContainer extends Container {
 	declare children: DDiagramLayer[];
 	protected _active: DDiagramLayer | null;
+	protected _width: number;
+	protected _height: number;
 
-	constructor() {
+	constructor(width: number, height: number) {
 		super();
 		this._active = null;
+		this._width = width;
+		this._height = height;
 		this.interactive = false;
 		this.interactiveChildren = false;
 	}
@@ -178,5 +183,23 @@ export class DDiagramLayerContainer extends Container {
 			result.push(children[i].serialize(i, manager, items));
 		}
 		return result;
+	}
+
+	deserialize(
+		serializedLayers: DDiagramSerializedLayer[],
+		manager: EShapeResourceManagerDeserialization
+	): void {
+		const serializedLayersLength = serializedLayers.length;
+		if (0 < serializedLayersLength) {
+			const width = this._width;
+			const height = this._height;
+			for (let i = 0; i < serializedLayersLength; ++i) {
+				this.addChild(
+					DDiagramLayer.deserialize(serializedLayers[i], manager, width, height)
+				);
+			}
+			this.onLayerChange();
+			DApplications.update(this);
+		}
 	}
 }

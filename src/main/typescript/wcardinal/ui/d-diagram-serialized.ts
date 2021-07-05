@@ -343,8 +343,39 @@ export interface DDiagramSerializedItem {
  * A serialized layer.
  */
 export interface DDiagramSerializedLayer {
-	/** A name. */
-	[0]: string;
+	/** A name or a resource index number of a name*/
+	[0]: string | number;
+
+	/**
+	 * A visibility.
+	 *
+	 * * 1st bit: Visibility when edit mode (0: Invisible, 1: Visible)
+	 * * 2nd bit: Visibility when non-edit mode (0: Invisible, 1: Visible)
+	 */
+	[1]?: number;
+
+	/** A X-coordinate position. */
+	[2]?: number;
+
+	/** A Y-coordinate position. */
+	[3]?: number;
+
+	/** A width. */
+	[4]?: number;
+
+	/** A height. */
+	[5]?: number;
+
+	/**
+	 * A resource index number of a stringified serialized fill,
+	 * JSON.stringify(DDiagramSerializedFill).
+	 */
+	[6]?: number;
+
+	/**
+	 * 0: Not draggable, 1 : Draggable
+	 */
+	[7]?: number;
 }
 
 /**

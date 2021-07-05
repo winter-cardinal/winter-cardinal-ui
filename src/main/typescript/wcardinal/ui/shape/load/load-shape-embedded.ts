@@ -8,6 +8,7 @@ import { EShapeCapability } from "../e-shape-capability";
 import { EShapeDeserializers } from "../e-shape-deserializers";
 import { EShapeType } from "../e-shape-type";
 import { EShapeUploadeds } from "../e-shape-uploadeds";
+import { createEmbeddedLayerUploaded } from "../variant/create-embedded-layer-uploaded";
 import { createGroupUploaded } from "../variant/create-group-uploaded";
 import { deserializeEmbedded } from "../variant/deserialize-embedded";
 
@@ -15,4 +16,6 @@ export const loadShapeEmbedded = (): void => {
 	EShapeUploadeds[EShapeType.EMBEDDED] = createGroupUploaded;
 	EShapeDeserializers[EShapeType.EMBEDDED] = deserializeEmbedded;
 	EShapeCapabilities.set(EShapeType.EMBEDDED, EShapeCapability.EMBEDDED);
+
+	EShapeUploadeds[EShapeType.LAYER] = createEmbeddedLayerUploaded;
 };

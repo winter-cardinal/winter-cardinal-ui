@@ -14,6 +14,7 @@ export class EShapeContainer extends DisplayObject {
 	protected _shapeRenderer: EShapeRenderer | null = null;
 
 	readonly children: EShape[];
+	protected _shapes: EShape[];
 	protected _childrenId: number;
 	protected _childrenIdRendered: number;
 
@@ -32,8 +33,7 @@ export class EShapeContainer extends DisplayObject {
 	constructor() {
 		super();
 
-		this.children = [];
-
+		this._shapes = this.children = [];
 		this._childrenId = 0;
 		this._childrenIdRendered = -1;
 
@@ -75,7 +75,6 @@ export class EShapeContainer extends DisplayObject {
 		const childrenIdRendered = this._childrenIdRendered;
 		this._childrenIdRendered = childrenId;
 		const isChildrenDirty = childrenIdRendered < childrenId;
-		const children = this.children;
 
 		let shapeRenderer: EShapeRenderer | null = this._shapeRenderer;
 		if (shapeRenderer == null) {
@@ -84,12 +83,13 @@ export class EShapeContainer extends DisplayObject {
 		renderer.batch.setObjectRenderer(shapeRenderer);
 
 		const mask = this.mask;
+		const shapes = this._shapes;
 		if (mask) {
 			renderer.mask.push(this, mask);
-			shapeRenderer.render_(this, children, isChildrenDirty);
+			shapeRenderer.render_(this, shapes, isChildrenDirty);
 			renderer.mask.pop(this);
 		} else {
-			shapeRenderer.render_(this, children, isChildrenDirty);
+			shapeRenderer.render_(this, shapes, isChildrenDirty);
 		}
 	}
 
@@ -150,17 +150,17 @@ export class EShapeContainer extends DisplayObject {
 		return 1.25 / resolution;
 	}
 
-	hitTest(global: IPoint, handler?: (shape: EShape) => boolean): EShape | null {
-		const work = this._work;
+	hitTest(global: IPoint, onHit?: (shape: EShape) => boolean): EShape | null {
+		const local = this._work;
 		const children = this.children;
 		for (let i = children.length - 1; 0 <= i; --i) {
 			const child = children[i];
 			if (child.visible) {
-				const childLocal = child.toLocal(global, undefined, work);
-				const childResult = child.contains(childLocal);
-				if (childResult != null) {
-					if (handler == null || handler(childResult)) {
-						return childResult;
+				child.toLocal(global, undefined, local);
+				const result = child.contains(local);
+				if (result != null) {
+					if (onHit == null || onHit(result)) {
+						return result;
 					}
 				}
 			}
@@ -169,15 +169,15 @@ export class EShapeContainer extends DisplayObject {
 		return null;
 	}
 
-	hitTestBBox(global: IPoint, handler?: (shape: EShape) => boolean): EShape | null {
-		const work = this._work;
+	hitTestBBox(global: IPoint, onHit?: (shape: EShape) => boolean): EShape | null {
+		const local = this._work;
 		const children = this.children;
 		for (let i = children.length - 1; 0 <= i; --i) {
 			const child = children[i];
 			if (child.visible) {
-				const childLocal = child.toLocal(global, undefined, work);
-				if (child.containsBBox(childLocal)) {
-					if (handler == null || handler(child)) {
+				child.toLocal(global, undefined, local);
+				if (child.containsBBox(local)) {
+					if (onHit == null || onHit(child)) {
 						return child;
 					}
 				}

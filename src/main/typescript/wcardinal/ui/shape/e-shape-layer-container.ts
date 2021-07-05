@@ -4,10 +4,14 @@
  */
 
 import { DApplicationTarget } from "../d-application-like";
-import { EShape } from "./e-shape";
+import { DDiagramSerializedLayer } from "../d-diagram-serialized";
 import { EShapeLayer } from "./e-shape-layer";
+import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
 
 export interface EShapeLayerContainer extends DApplicationTarget {
 	children: EShapeLayer[];
-	create(name: string): EShape;
+	deserialize(
+		serializedLayers: DDiagramSerializedLayer[],
+		manager: EShapeResourceManagerDeserialization
+	): void;
 }
